@@ -1,0 +1,12 @@
+name: Feature Request
+description: Got an idea?
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What do you want and why?
+      placeholder: "It would be great if Arroxy could..."
+    validations:
+      required: true

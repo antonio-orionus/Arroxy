@@ -1,0 +1,30 @@
+node_modules/
+package-lock.json
+out/
+dist/
+dist-electron/
+playwright-report/
+test-results/
+.vscode/
+.DS_Store
+*.log
+*.tmp
+coverage/
+refs
+# Runtime binary cache (BinaryManager)
+runtime-cache/
+
+# Electron app-data style local testing cache
+.electron-user-data/
+
+# Existing packaged artifacts
+*.exe
+*.zip
+*.tar.gz
+
+# Claude Code / agent metadata
+.agents/
+.claude/
+.playwright-mcp/
+skills-lock.json
+docs/my

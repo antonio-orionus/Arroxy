@@ -1,0 +1,132 @@
+import type { JSX } from 'react';
+import { useAppStore, groupVideoFormats } from '../store/useAppStore';
+import { Button } from './ui/button';
+import { VideoSummaryCard } from './VideoSummaryCard';
+import loveImg from '../assets/Love.png';
+
+function humanSize(bytes: number): string {
+  const units = ['B', 'KB', 'MB', 'GB'];
+  let value = bytes;
+  let idx = 0;
+  while (value >= 1024 && idx < units.length - 1) { value /= 1024; idx += 1; }
+  return `${value.toFixed(idx === 0 ? 0 : 1)} ${units[idx]}`;
+}
+
+export function StepConfirm(): JSX.Element {
+  const {
+    wizardTitle,
+    wizardThumbnail,
+    wizardDuration,
+    wizardOutputDir,
+    selectedVideoFormatId,
+    selectedAudioQuality,
+    activePreset,
+    wizardFormats,
+    commonPaths,
+    addAndDownloadImmediately
+  } = useAppStore();
+
+  function goBack(): void {
+    useAppStore.setState({ wizardStep: 'folder' });
+  }
+
+  const videoGroups = groupVideoFormats(wizardFormats).filter((g) => !g.isAudioOnly);
+  const videoResolution =
+    selectedVideoFormatId === ''
+      ? 'Audio only'
+      : videoGroups.find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? selectedVideoFormatId;
+
+  const audioLabels: Record<string, string> = {
+    best: 'Best — Highest bitrate',
+    good: 'Good — Up to 128 kbps',
+    low: 'Low — Smallest file',
+    none: 'No audio'
+  };
+
+  const presetLabels: Record<string, string> = {
+    'best-quality': 'Best quality',
+    balanced: 'Balanced',
+    'audio-only': 'Audio only',
+    'small-file': 'Small file'
+  };
+
+  const videoSummary = activePreset
+    ? presetLabels[activePreset]
+    : selectedVideoFormatId === ''
+      ? 'Audio only'
+      : videoResolution;
+
+  const selectedFormat = wizardFormats.find((f) => f.formatId === selectedVideoFormatId);
+  const estimatedSize = selectedFormat?.filesize ? `~${humanSize(selectedFormat.filesize)}` : 'Unknown';
+
+  // Shorten path for display
+  const homeBase = commonPaths?.downloads?.replace(/[/\\][^/\\]+$/, '') ?? '';
+  const shortPath = homeBase && wizardOutputDir.startsWith(homeBase)
+    ? wizardOutputDir.replace(homeBase, '~')
+    : wizardOutputDir;
+
+  const summaryRows: [string, string][] = [
+    ['Video', videoSummary],
+    ['Audio', audioLabels[selectedAudioQuality] ?? selectedAudioQuality],
+    ['Save to', shortPath],
+    ['Size', estimatedSize],
+  ];
+
+  return (
+    <div className="wizard-step flex flex-col gap-4" data-testid="step-confirm">
+      <VideoSummaryCard
+        thumbnail={wizardThumbnail}
+        title={wizardTitle}
+        duration={wizardDuration}
+        resolution={selectedVideoFormatId !== '' ? videoResolution : undefined}
+      />
+
+      {/* Mascot banner */}
+      <div className="flex items-center gap-4 p-4 rounded-xl border border-blue-500/20 bg-blue-500/5 shrink-0">
+        <img src={loveImg} alt="" aria-hidden className="w-16 h-16 object-contain shrink-0" />
+        <div>
+          <p className="text-sm font-semibold text-zinc-100">Ready to pull it in!</p>
+          <p className="text-xs text-zinc-400 mt-1">
+            Your file will land in{' '}
+            <code className="font-mono text-zinc-200">{shortPath}</code>
+          </p>
+        </div>
+      </div>
+
+      {/* Summary table */}
+      <div className="rounded-lg border border-zinc-800 bg-zinc-900/40 overflow-hidden" data-testid="confirm-preview">
+        <table className="w-full">
+          <tbody>
+            {summaryRows.map(([label, value]) => (
+              <tr key={label} className="border-b border-zinc-800 last:border-b-0">
+                <td className="px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500 w-16 whitespace-nowrap">
+                  {label}
+                </td>
+                <td
+                  className="px-4 py-2 text-xs text-zinc-300 font-mono truncate max-w-[200px]"
+                  data-testid={`confirm-${label.toLowerCase().replace(' ', '-')}`}
+                >
+                  {value}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="flex justify-end gap-2 sticky bottom-0 bg-zinc-950 py-3 -mx-6 px-6 border-t border-zinc-800/50">
+        <Button variant="ghost" type="button" onClick={goBack} data-testid="btn-back">
+          Back
+        </Button>
+        <Button
+          type="button"
+          size="lg"
+          onClick={() => void addAndDownloadImmediately()}
+          data-testid="btn-download-now"
+        >
+          Pull it! ↓
+        </Button>
+      </div>
+    </div>
+  );
+}
