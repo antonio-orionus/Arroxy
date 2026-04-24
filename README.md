@@ -1,6 +1,6 @@
-# YT Download UI
+# Arroxy
 
-Production-oriented Electron desktop app for YouTube downloads with a layered TypeScript architecture.
+Electron desktop app for YouTube downloads with native PO token support.
 
 ## Stack
 

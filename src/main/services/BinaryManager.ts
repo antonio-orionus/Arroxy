@@ -35,7 +35,7 @@ async function downloadText(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const request = (targetUrl: string): void => {
       https
-        .get(targetUrl, { headers: { 'User-Agent': 'yt-download-ui/1.0' } }, (res) => {
+        .get(targetUrl, { headers: { 'User-Agent': 'arroxy/1.0' } }, (res) => {
           if (res.statusCode && [301, 302, 307, 308].includes(res.statusCode) && res.headers.location) {
             request(resolveRedirect(targetUrl, res.headers.location));
             return;
@@ -67,7 +67,7 @@ async function downloadFile(url: string, destination: string): Promise<void> {
   await new Promise<void>((resolve, reject) => {
     const request = (targetUrl: string): void => {
       https
-        .get(targetUrl, { headers: { 'User-Agent': 'yt-download-ui/1.0' } }, async (res) => {
+        .get(targetUrl, { headers: { 'User-Agent': 'arroxy/1.0' } }, async (res) => {
           try {
             if (
               res.statusCode &&
