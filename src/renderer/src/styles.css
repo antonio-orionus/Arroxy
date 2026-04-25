@@ -207,3 +207,25 @@
   transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ── Feedback nudge bubble ─────────────────────────────── */
+@keyframes nudge-in {
+  from { opacity: 0; transform: scale(0.7) translateY(6px); }
+  60%  { transform: scale(1.05) translateY(-2px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes nudge-out {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to   { opacity: 0; transform: scale(0.8) translateY(6px); }
+}
+.nudge-in  { animation: nudge-in  0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.nudge-out { animation: nudge-out 0.22s ease forwards; }
+
+/* ── Feedback button pulse while nudge is visible ─────── */
+@keyframes feedback-btn-pulse {
+  0%, 100% { color: rgb(161 161 170); }
+  50%       { color: var(--color-accent); }
+}
+.feedback-btn-nudging {
+  animation: feedback-btn-pulse 1.4s ease-in-out infinite;
+}
+

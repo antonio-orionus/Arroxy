@@ -4,6 +4,8 @@ import { TitleBar } from './components/TitleBar';
 import { WizardPanel } from './components/WizardPanel';
 import { SmartDrawer } from './components/SmartDrawer';
 import { SplashScreen } from './components/SplashScreen';
+import { FeedbackNudge } from './components/FeedbackNudge';
+import { cn } from './lib/utils';
 
 const FEEDBACK_URL = 'https://github.com/antonio-orionus/Arroxy/issues/new/choose';
 
@@ -17,6 +19,7 @@ function buildDebugInfo(): string {
 export function App(): JSX.Element {
   const { initialized, initialize, openLogs, uiZoom, setUiZoom, warmupFailures } = useAppStore();
   const [debugCopied, setDebugCopied] = useState(false);
+  const [showNudge, setShowNudge] = useState(false);
 
   function copyDebugInfo(): void {
     void navigator.clipboard.writeText(buildDebugInfo()).then(() => {
@@ -28,6 +31,18 @@ export function App(): JSX.Element {
   useEffect(() => {
     void initialize();
   }, [initialize]);
+
+  useEffect(() => {
+    const delay = (window as unknown as Record<string, unknown>).__NUDGE_DELAY_MS as number ?? 45_000;
+    const t = setTimeout(() => setShowNudge(true), delay);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    if (!showNudge) return;
+    const t = setTimeout(() => setShowNudge(false), 8_000);
+    return () => clearTimeout(t);
+  }, [showNudge]);
 
   return (
     <div className="relative flex flex-col h-screen w-screen bg-zinc-950 overflow-hidden" data-testid="app-root">
@@ -71,13 +86,26 @@ export function App(): JSX.Element {
           >
             {debugCopied ? 'Copied!' : 'Copy debug info'}
           </button>
-          <button
-            type="button"
-            className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors"
-            onClick={() => void window.appApi.shell.openExternal(FEEDBACK_URL)}
-          >
-            Feedback
-          </button>
+          <div className="relative">
+            <FeedbackNudge
+              visible={showNudge}
+              message="Enjoying Arroxy? I'd love to hear from you! 💬"
+            />
+            <button
+              type="button"
+              className={cn(
+                'text-[11px] transition-colors',
+                showNudge ? 'feedback-btn-nudging' : 'text-zinc-600 hover:text-zinc-400'
+              )}
+              onClick={() => {
+                setShowNudge(false);
+                void window.appApi.shell.openExternal(FEEDBACK_URL);
+              }}
+              data-testid="btn-feedback"
+            >
+              Feedback
+            </button>
+          </div>
           <button
             type="button"
             className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors"
