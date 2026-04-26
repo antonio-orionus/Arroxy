@@ -14,17 +14,21 @@
 
 ## Why Arroxy?
 
-| | Arroxy | Browser extensions | Online converters |
-|---|---|---|---|
-| Free forever | ✅ | ⚠️ | ⚠️ |
-| No ads | ✅ | ⚠️ | ❌ |
-| No account needed | ✅ | ✅ | ⚠️ |
-| Works offline *(kind of)* | ✅ | ❌ | ❌ |
-| Your files stay local | ✅ | ✅ | ❌ |
-| No usage caps | ✅ | ⚠️ | 🚫 |
-| Open source | ✅ | ⚠️ | ❌ |
+| | Arroxy | Browser extensions | Online converters | Other downloaders |
+|---|---|---|---|---|
+| Free forever | ✅ | ⚠️ | ⚠️ | ✅ |
+| No ads | ✅ | ⚠️ | ❌ | ✅ |
+| No account needed | ✅ | ✅ | ⚠️ | ⚠️ |
+| Works offline *(kind of)* | ✅ | ❌ | ❌ | ✅ |
+| Your files stay local | ✅ | ✅ | ❌ | ✅ |
+| No usage caps | ✅ | ⚠️ | 🚫 | ✅ |
+| Open source | ✅ | ⚠️ | ❌ | ⚠️ |
+| No login or cookies ever | ✅ | ✅ | ⚠️ | ⚠️ |
+| No Google account ban risk | ✅ | ✅ | ⚠️ | ⚠️ |
 
 > *"Works offline" means no conversion happens on someone else's server — the whole pipeline runs on your machine. You still need internet to reach YouTube. Yes, we know.*
+
+> **Why this matters:** Most desktop YouTube downloaders eventually ask you to export your browser cookies when YouTube updates its bot detection. Those sessions expire every ~30 minutes — and yt-dlp itself warns that cookie-based automation can trigger a Google account ban. Arroxy never asks for cookies, login, or any credentials. It requests the same tokens YouTube issues to any real browser — zero account risk, no expiry.
 
 Arroxy is a **free, open-source, privacy-first** desktop app — built for people who want simplicity without the bloat. Your downloads never touch a third-party server. Zero telemetry, zero data collection. Just paste a URL and go.
 
@@ -81,10 +85,13 @@ Yes. MIT licensed. No premium tier, no feature gating.
 No. yt-dlp and ffmpeg are downloaded automatically on first launch from their official GitHub releases and cached on your machine. After that, no extra setup is needed.
 
 **Will it keep working if YouTube changes something?**
-yt-dlp is one of the most actively maintained open-source tools around — it updates within hours of YouTube changes. Arroxy ships updates to pull in the latest yt-dlp automatically.
+Yes — and Arroxy has two layers of resilience. First, yt-dlp is one of the most actively maintained open-source tools around — it updates within hours of YouTube changes. Second, Arroxy doesn't rely on cookies or your Google account at all, so there's no session to expire and no credentials to rotate. That combination makes it significantly more stable than tools that depend on exported browser cookies.
 
 **Can I download playlists?**
 Single videos are supported today. Playlist support is planned.
+
+**Does it need my YouTube account or cookies?**
+No — and that's a bigger deal than it sounds. Most tools that stop working after a YouTube update tell you to export your browser's YouTube cookies. That workaround breaks every ~30 minutes as YouTube rotates sessions, and yt-dlp's own docs warn it can get your Google account flagged. Arroxy never uses cookies or credentials. No login. No account linked. Nothing to expire, nothing to ban.
 
 **Is this legal?**
 Downloading videos for personal use is generally accepted in most jurisdictions. You are responsible for complying with YouTube's Terms of Service and your local laws.
