@@ -32,7 +32,6 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
-      - run: bun run build
       - run: bun run dist:release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

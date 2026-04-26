@@ -1,6 +1,6 @@
 {
   "name": "arroxy",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Arroxy - YouTube downloader app",
   "main": "out/main/index.js",
   "author": {
@@ -118,6 +118,7 @@
       "artifactName": "${productName}-Portable-${version}.${ext}"
     },
     "mac": {
+      "identity": null,
       "target": [
         {
           "target": "dmg",

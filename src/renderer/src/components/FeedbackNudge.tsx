@@ -1,4 +1,4 @@
-import { useState, type JSX } from 'react';
+import { useState, useEffect, type JSX } from 'react';
 import { cn } from '@renderer/lib/utils';
 import loveImg from '../assets/Love.png';
 
@@ -12,6 +12,14 @@ export function FeedbackNudge({ visible, message }: Props): JSX.Element | null {
   const cls = visible ? 'nudge-in' : 'nudge-out';
 
   if (visible && !rendered) setRendered(true);
+
+  useEffect(() => {
+    if (!visible && rendered) {
+      const t = setTimeout(() => setRendered(false), 220);
+      return () => clearTimeout(t);
+    }
+  }, [visible, rendered]);
+
   if (!rendered) return null;
 
   return (
@@ -21,7 +29,6 @@ export function FeedbackNudge({ visible, message }: Props): JSX.Element | null {
     >
       <div
         className={cn(cls, 'flex items-end gap-2 pointer-events-auto')}
-        onAnimationEnd={() => { if (!visible) setRendered(false); }}
       >
         {/* Mascot */}
         <img
