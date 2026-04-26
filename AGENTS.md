@@ -4,6 +4,35 @@
 
 ---
 
+## Think Before Coding
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+## Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
 ## Visual Debugging with Playwright
 
 Electron can't run headless in CI/sandbox. For visual inspection, run the renderer standalone and use the Playwright MCP browser tools.
@@ -29,7 +58,7 @@ The renderer has a full `browserMock.ts` (imported in `main.tsx`) that stubs `wi
      el.style.transform = 'scale(3)';
      el.style.transformOrigin = 'left center';
      el.style.zIndex = '999';
-   }
+   };
    // then browser_take_screenshot
    // then reset: el.style.transform = ''
    ```
