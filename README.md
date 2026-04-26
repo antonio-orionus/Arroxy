@@ -106,6 +106,14 @@ Things on the roadmap — not yet shipped, roughly in priority order.
 
 Just download, run, done.
 
+### Install via package manager
+
+| Channel  | Command                                                                                              |
+| -------- | ---------------------------------------------------------------------------------------------------- |
+| Winget   | `winget install AntonioOrionus.Arroxy` (or `winget install arroxy`)                                  |
+| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`    |
+| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                      |
+
 ### Windows: Installer vs Portable
 
 Two builds are available — pick whichever fits:

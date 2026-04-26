@@ -130,8 +130,10 @@ export interface PauseDownloadOutput {
   paused: boolean;
 }
 
+export type InstallChannel = 'direct' | 'winget' | 'scoop' | 'homebrew';
+
 export interface UpdateAvailablePayload {
   version: string;
   currentVersion: string;
-  canAutoInstall: boolean;
+  installChannel: InstallChannel;
 }

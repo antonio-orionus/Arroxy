@@ -1,6 +1,7 @@
 import { app, ipcMain, type BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import { IPC_CHANNELS } from '@shared/ipc';
+import { installChannel } from '@main/installChannel';
 
 export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
   autoUpdater.autoDownload = false;
@@ -11,7 +12,7 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
     mainWindow.webContents.send(IPC_CHANNELS.updaterAvailable, {
       version: info.version,
       currentVersion: app.getVersion(),
-      canAutoInstall: process.platform !== 'darwin' && !process.env.PORTABLE_EXECUTABLE_DIR,
+      installChannel,
     });
   });
 

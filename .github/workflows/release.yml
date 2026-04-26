@@ -57,3 +57,75 @@ jobs:
         run: gh release edit ${{ github.ref_name }} --draft=false
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-scoop:
+    needs: finalize
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout bucket
+        uses: actions/checkout@v4
+        with:
+          repository: antonio-orionus/scoop-bucket
+          token: ${{ secrets.WINGET_TOKEN }}
+      - name: Download SHA256SUMS
+        run: gh release download ${{ github.ref_name }} --repo ${{ github.repository }} --pattern SHA256SUMS
+        env:
+          GH_TOKEN: ${{ secrets.WINGET_TOKEN }}
+      - name: Update manifest
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          PORTABLE="Arroxy-Portable-${VERSION}.exe"
+          HASH=$(grep "$PORTABLE" SHA256SUMS | awk '{print $1}')
+          if [ -z "$HASH" ]; then
+            echo "::error::Could not find $PORTABLE in SHA256SUMS"
+            cat SHA256SUMS
+            exit 1
+          fi
+          jq --arg v "$VERSION" --arg h "$HASH" --arg p "$PORTABLE" \
+            '.version = $v
+             | .url = "https://github.com/antonio-orionus/Arroxy/releases/download/v\($v)/\($p)"
+             | .hash = "sha256:\($h)"
+             | .bin = $p
+             | .shortcuts = [[$p, "Arroxy"]]' \
+            bucket/arroxy.json > bucket/arroxy.json.tmp
+          mv bucket/arroxy.json.tmp bucket/arroxy.json
+      - name: Commit & push
+        run: |
+          git config user.name "arroxy-release-bot"
+          git config user.email "release@arroxy.local"
+          git add bucket/arroxy.json
+          git commit -m "arroxy: bump to ${GITHUB_REF_NAME#v}"
+          git push
+
+  publish-homebrew:
+    needs: finalize
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v4
+        with:
+          repository: antonio-orionus/homebrew-arroxy
+          token: ${{ secrets.WINGET_TOKEN }}
+      - name: Download SHA256SUMS
+        run: gh release download ${{ github.ref_name }} --repo ${{ github.repository }} --pattern SHA256SUMS
+        env:
+          GH_TOKEN: ${{ secrets.WINGET_TOKEN }}
+      - name: Update cask
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          DMG="Arroxy-${VERSION}.dmg"
+          HASH=$(grep "$DMG" SHA256SUMS | awk '{print $1}')
+          if [ -z "$HASH" ]; then
+            echo "::error::Could not find $DMG in SHA256SUMS"
+            cat SHA256SUMS
+            exit 1
+          fi
+          sed -i -E "s/version \".*\"/version \"$VERSION\"/" Casks/arroxy.rb
+          sed -i -E "s/sha256 \".*\"/sha256 \"$HASH\"/" Casks/arroxy.rb
+      - name: Commit & push
+        run: |
+          git config user.name "arroxy-release-bot"
+          git config user.email "release@arroxy.local"
+          git add Casks/arroxy.rb
+          git commit -m "arroxy: bump to ${GITHUB_REF_NAME#v}"
+          git push

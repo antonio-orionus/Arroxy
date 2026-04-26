@@ -101,7 +101,7 @@ describe('UpdateBanner integration in App', () => {
     expect(screen.queryByTestId('update-banner')).not.toBeInTheDocument();
 
     act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', canAutoInstall: true });
+      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
     });
 
     expect(screen.getByTestId('update-banner')).toBeInTheDocument();
@@ -119,7 +119,7 @@ describe('UpdateBanner integration in App', () => {
     await act(async () => {});
 
     act(() => {
-      capturedListener!({ version: '3.1.0', currentVersion: '2.5.1', canAutoInstall: true });
+      capturedListener!({ version: '3.1.0', currentVersion: '2.5.1', installChannel: 'direct' });
     });
 
     expect(screen.getByText('Arroxy 3.1.0')).toBeInTheDocument();
@@ -138,7 +138,7 @@ describe('UpdateBanner integration in App', () => {
     await act(async () => {});
 
     act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', canAutoInstall: true });
+      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
     });
     expect(screen.getByTestId('update-banner')).toBeInTheDocument();
 
@@ -161,7 +161,7 @@ describe('UpdateBanner integration in App', () => {
     await act(async () => {});
 
     act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', canAutoInstall: true });
+      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
     });
 
     await act(async () => {
@@ -179,12 +179,13 @@ describe('UpdateBanner integration in App', () => {
     };
     const openExternal = vi.fn().mockResolvedValue(ok({ opened: true }));
     window.appApi = makeApi({ onUpdateAvailable, openExternal });
+    window.platform = 'darwin';
 
     render(<App />);
     await act(async () => {});
 
     act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', canAutoInstall: false });
+      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
     });
 
     await act(async () => {
@@ -203,12 +204,13 @@ describe('UpdateBanner integration in App', () => {
       return () => undefined;
     };
     window.appApi = makeApi({ onUpdateAvailable });
+    window.platform = 'darwin';
 
     render(<App />);
     await act(async () => {});
 
     act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', canAutoInstall: false });
+      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
     });
     expect(screen.getByTestId('update-banner')).toBeInTheDocument();
 
@@ -231,7 +233,7 @@ describe('UpdateBanner integration in App', () => {
     await act(async () => {});
 
     act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', canAutoInstall: false });
+      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
     });
 
     expect(screen.getByText('Download ↗')).toBeInTheDocument();

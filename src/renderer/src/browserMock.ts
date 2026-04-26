@@ -7,8 +7,9 @@ if (!('appApi' in window)) {
   const updateListeners = new Set<(info: UpdateAvailablePayload) => void>();
 
   setTimeout(() => {
+    // Flip installChannel to 'scoop' / 'homebrew' / 'winget' to preview those banner states
     updateListeners.forEach((l) =>
-      l({ version: '1.2.0', currentVersion: '0.0.1', canAutoInstall: true })
+      l({ version: '1.2.0', currentVersion: '0.0.1', installChannel: 'direct' })
     );
   }, 3_000);
 

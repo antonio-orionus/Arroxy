@@ -17,6 +17,8 @@ vi.mock('electron-updater', () => ({
   }
 }));
 
+vi.mock('@main/installChannel', () => ({ installChannel: 'direct' }));
+
 import { app, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import { registerUpdaterHandlers } from '@main/ipc/registerUpdaterHandlers';
@@ -78,72 +80,26 @@ describe('registerUpdaterHandlers', () => {
       expect.objectContaining({
         version: '2.0.0',
         currentVersion: '1.0.0',
-        canAutoInstall: expect.any(Boolean)
+        installChannel: expect.any(String)
       })
     );
   });
 
-  it('sets canAutoInstall=false on darwin', () => {
-    const originalPlatform = Object.getOwnPropertyDescriptor(process, 'platform')!;
-    Object.defineProperty(process, 'platform', { value: 'darwin' });
+  it('forwards installChannel from build-time constant', async () => {
+    vi.resetModules();
+    vi.doMock('@main/installChannel', () => ({ installChannel: 'scoop' }));
+    const { registerUpdaterHandlers: registerWithScoop } = await import('@main/ipc/registerUpdaterHandlers');
 
     const handlers = captureUpdaterHandlers();
     const win = makeWindow();
-    registerUpdaterHandlers(win);
+    registerWithScoop(win);
     handlers['update-available']!({ version: '2.0.0' });
 
-    const payload = vi.mocked(win.webContents.send).mock.calls[0][1] as { canAutoInstall: boolean };
-    expect(payload.canAutoInstall).toBe(false);
+    const payload = vi.mocked(win.webContents.send).mock.calls[0][1] as { installChannel: string };
+    expect(payload.installChannel).toBe('scoop');
 
-    Object.defineProperty(process, 'platform', originalPlatform);
-  });
-
-  it('sets canAutoInstall=true on linux', () => {
-    const originalPlatform = Object.getOwnPropertyDescriptor(process, 'platform')!;
-    Object.defineProperty(process, 'platform', { value: 'linux' });
-
-    const handlers = captureUpdaterHandlers();
-    const win = makeWindow();
-    registerUpdaterHandlers(win);
-    handlers['update-available']!({ version: '2.0.0' });
-
-    const payload = vi.mocked(win.webContents.send).mock.calls[0][1] as { canAutoInstall: boolean };
-    expect(payload.canAutoInstall).toBe(true);
-
-    Object.defineProperty(process, 'platform', originalPlatform);
-  });
-
-  it('sets canAutoInstall=false for Windows portable (PORTABLE_EXECUTABLE_DIR is set)', () => {
-    const originalPlatform = Object.getOwnPropertyDescriptor(process, 'platform')!;
-    Object.defineProperty(process, 'platform', { value: 'win32' });
-    process.env.PORTABLE_EXECUTABLE_DIR = 'C:\\Users\\test\\Downloads';
-
-    const handlers = captureUpdaterHandlers();
-    const win = makeWindow();
-    registerUpdaterHandlers(win);
-    handlers['update-available']!({ version: '2.0.0' });
-
-    const payload = vi.mocked(win.webContents.send).mock.calls[0][1] as { canAutoInstall: boolean };
-    expect(payload.canAutoInstall).toBe(false);
-
-    Object.defineProperty(process, 'platform', originalPlatform);
-    delete process.env.PORTABLE_EXECUTABLE_DIR;
-  });
-
-  it('sets canAutoInstall=true for Windows NSIS installer (no PORTABLE_EXECUTABLE_DIR)', () => {
-    const originalPlatform = Object.getOwnPropertyDescriptor(process, 'platform')!;
-    Object.defineProperty(process, 'platform', { value: 'win32' });
-    delete process.env.PORTABLE_EXECUTABLE_DIR;
-
-    const handlers = captureUpdaterHandlers();
-    const win = makeWindow();
-    registerUpdaterHandlers(win);
-    handlers['update-available']!({ version: '2.0.0' });
-
-    const payload = vi.mocked(win.webContents.send).mock.calls[0][1] as { canAutoInstall: boolean };
-    expect(payload.canAutoInstall).toBe(true);
-
-    Object.defineProperty(process, 'platform', originalPlatform);
+    vi.doUnmock('@main/installChannel');
+    vi.resetModules();
   });
 
   it('does not send IPC if window is destroyed', () => {
