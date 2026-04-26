@@ -1,6 +1,6 @@
 {
   "name": "arroxy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Arroxy - YouTube downloader app",
   "main": "out/main/index.js",
   "author": {
@@ -123,12 +123,11 @@
         {
           "target": "dmg",
           "arch": [
-            "x64",
-            "arm64"
+            "universal"
           ]
         }
       ],
-      "artifactName": "${productName}-${version}-${arch}.${ext}"
+      "artifactName": "${productName}-${version}.${ext}"
     },
     "linux": {
       "target": [

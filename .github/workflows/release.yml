@@ -41,15 +41,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Generate SHA256SUMS
+      - name: Reorder assets and generate SHA256SUMS
         run: |
           mkdir artifacts
-          gh release download ${{ github.ref_name }} \
-            --dir artifacts \
-            --pattern "*.exe" \
-            --pattern "*.dmg" \
-            --pattern "*.AppImage"
-          sha256sum artifacts/* > SHA256SUMS
+          gh release download ${{ github.ref_name }} --dir artifacts
+          sha256sum artifacts/*.exe artifacts/*.dmg artifacts/*.AppImage > SHA256SUMS 2>/dev/null || true
+          gh release view ${{ github.ref_name }} --json assets --jq '.assets[].name' \
+            | while read name; do gh release delete-asset ${{ github.ref_name }} "$name" --yes; done
+          for f in \
+            artifacts/*Setup*.exe \
+            artifacts/*Portable*.exe \
+            artifacts/*.dmg \
+            artifacts/*.AppImage; do
+            [ -f "$f" ] && gh release upload ${{ github.ref_name }} "$f"
+          done
+          for f in artifacts/*.blockmap artifacts/*.yml; do
+            [ -f "$f" ] && gh release upload ${{ github.ref_name }} "$f"
+          done
           gh release upload ${{ github.ref_name }} SHA256SUMS
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
