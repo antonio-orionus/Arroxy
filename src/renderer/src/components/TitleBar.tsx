@@ -18,7 +18,7 @@ function MacControls({ isMaximized }: { isMaximized: boolean }): JSX.Element {
         onClick={() => void window.appApi.window.close()}
         className="group w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#e0443e] transition-colors flex items-center justify-center"
       >
-        <span className="opacity-0 group-hover:opacity-100 text-[7px] font-bold text-[#820005] leading-none">✕</span>
+        <span className="opacity-0 group-hover:opacity-100 text-[8px] font-bold text-[#820005] leading-none">✕</span>
       </button>
       <button
         type="button"
@@ -27,7 +27,7 @@ function MacControls({ isMaximized }: { isMaximized: boolean }): JSX.Element {
         onClick={() => void window.appApi.window.minimize()}
         className="group w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#d4a000] transition-colors flex items-center justify-center"
       >
-        <span className="opacity-0 group-hover:opacity-100 text-[7px] font-bold text-[#985700] leading-none">−</span>
+        <span className="opacity-0 group-hover:opacity-100 text-[8px] font-bold text-[#985700] leading-none">−</span>
       </button>
       <button
         type="button"
@@ -36,7 +36,7 @@ function MacControls({ isMaximized }: { isMaximized: boolean }): JSX.Element {
         onClick={() => void window.appApi.window.maximize()}
         className="group w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#1aaa2f] transition-colors flex items-center justify-center"
       >
-        <span className="opacity-0 group-hover:opacity-100 text-[7px] font-bold text-[#006500] leading-none">
+        <span className="opacity-0 group-hover:opacity-100 text-[8px] font-bold text-[#006500] leading-none">
           {isMaximized ? '⊟' : '+'}
         </span>
       </button>

@@ -113,7 +113,7 @@ export function App(): JSX.Element {
             className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
             aria-label="Zoom out"
           >−</button>
-          <span className="text-[11px] text-muted-foreground w-8 text-center tabular-nums">
+          <span className="text-[13px] text-muted-foreground w-8 text-center tabular-nums">
             {Math.round(uiZoom * 100)}%
           </span>
           <button
@@ -144,7 +144,7 @@ export function App(): JSX.Element {
             <button
               type="button"
               className={cn(
-                'text-[11px] transition-colors',
+                'text-[13px] transition-colors',
                 showNudge ? 'feedback-btn-nudging' : 'text-muted-foreground hover:text-foreground/80'
               )}
               onClick={() => {
@@ -158,7 +158,7 @@ export function App(): JSX.Element {
           </div>
           <button
             type="button"
-            className="text-[11px] text-muted-foreground hover:text-foreground/80 transition-colors"
+            className="text-[13px] text-muted-foreground hover:text-foreground/80 transition-colors"
             onClick={() => void openLogs()}
             data-testid="btn-logs"
           >

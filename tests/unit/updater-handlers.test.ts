@@ -34,7 +34,6 @@ function makeWindow(isDestroyed = false) {
 
 function captureUpdaterHandlers(): HandlerMap {
   const handlers: HandlerMap = {};
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   vi.mocked(autoUpdater.on).mockImplementation((event: string, fn: any) => {
     handlers[event as EventName] = fn;
     return autoUpdater;
@@ -180,7 +179,6 @@ describe('registerUpdaterHandlers', () => {
 
   it('registers updater:install IPC handler', () => {
     const ipcHandlerNames: string[] = [];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(ipcMain.handle).mockImplementation((name: string, _fn: any) => {
       ipcHandlerNames.push(name);
     });
@@ -190,7 +188,6 @@ describe('registerUpdaterHandlers', () => {
 
   it('updater:install handler calls downloadUpdate()', async () => {
     let installHandler: (() => Promise<void>) | null = null;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(ipcMain.handle).mockImplementation((name: string, fn: any) => {
       if (name === IPC_CHANNELS.updaterInstall) installHandler = fn;
     });

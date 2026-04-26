@@ -33,13 +33,16 @@
   *::after {
     box-sizing: border-box;
   }
+  button {
+    cursor: pointer;
+  }
   html {
     @apply font-sans;
   }
   body {
     @apply antialiased bg-background text-foreground;
     font-family: var(--font-sans);
-    font-size: 15px;
+    font-size: 18px;
     line-height: 1.5;
   }
 
@@ -345,7 +348,7 @@
   --border-strong: hsla(0, 0%, 100%, 0.13);
   --input: hsla(0, 0%, 100%, 0.07);
   --ring: hsl(220, 100%, 56%);
-  --text-subtle: hsl(240, 15%, 30%);
+  --text-subtle: hsl(240, 15%, 55%);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

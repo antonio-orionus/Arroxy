@@ -33,7 +33,7 @@ export function StepUrlInput(): JSX.Element {
         }
       />
       <div className="flex flex-col gap-1.5">
-        <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">YouTube URL</p>
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">YouTube URL</p>
         <div className="flex gap-2">
           <Input
             ref={inputRef}
@@ -57,7 +57,7 @@ export function StepUrlInput(): JSX.Element {
             Fetch formats <ArrowRight size={16} />
           </Button>
         </div>
-        <p className="text-[10px] text-[var(--text-subtle)]">Supports youtube.com and youtu.be links</p>
+        <p className="text-[12px] text-[var(--text-subtle)]">Supports youtube.com and youtu.be links</p>
       </div>
     </div>
   );

@@ -69,11 +69,11 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
 
         {/* Body */}
         <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-          <p className="text-[11px] font-medium text-foreground truncate leading-snug" data-testid="queue-title">
+          <p className="text-[13px] font-medium text-foreground truncate leading-snug" data-testid="queue-title">
             {item.title}
           </p>
-          <p className="text-[10px] text-muted-foreground truncate flex items-center gap-1" data-testid="queue-meta">
-            <Badge variant="secondary" className="text-[10px] font-normal">{item.formatLabel}</Badge>
+          <p className="text-[12px] text-muted-foreground truncate flex items-center gap-1" data-testid="queue-meta">
+            <Badge variant="secondary" className="text-[12px] font-normal">{item.formatLabel}</Badge>
             {isDone && item.finishedAt && (
               <span className="text-muted-foreground">· Done {new Date(item.finishedAt).toLocaleTimeString()}</span>
             )}
@@ -86,7 +86,7 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
               </div>
               <span
                 className={cn(
-                  'font-mono text-[10px]',
+                  'font-mono text-[12px]',
                   isPaused ? 'text-[var(--color-status-paused)]' : 'text-[var(--brand)]'
                 )}
                 data-testid="queue-progress-label"
@@ -98,7 +98,7 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
           )}
 
           {isError && (
-            <p className="text-[10px] text-[var(--color-status-error)] mt-0.5 truncate" data-testid="queue-error-msg">
+            <p className="text-[12px] text-[var(--color-status-error)] mt-0.5 truncate" data-testid="queue-error-msg">
               {item.errorMessage ?? 'Download failed'}
             </p>
           )}
@@ -225,8 +225,8 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
         >
           {item.title}
         </p>
-        <p className="text-[11px] text-muted-foreground flex items-center gap-1" data-testid="queue-meta">
-          <Badge variant="secondary" className="text-[10px] font-normal">{item.formatLabel}</Badge>
+        <p className="text-[13px] text-muted-foreground flex items-center gap-1" data-testid="queue-meta">
+          <Badge variant="secondary" className="text-[12px] font-normal">{item.formatLabel}</Badge>
           {isDone && item.finishedAt && (
             <span className="text-muted-foreground">· Done {new Date(item.finishedAt).toLocaleTimeString()}</span>
           )}
@@ -239,7 +239,7 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
             </div>
             <span
               className={cn(
-                'font-mono text-[11px]',
+                'font-mono text-[13px]',
                 isPaused ? 'text-[var(--color-status-paused)]' : 'text-[var(--brand)]'
               )}
               data-testid="queue-progress-label"
@@ -251,7 +251,7 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
         )}
 
         {isError && (
-          <p className="text-[11px] text-[var(--color-status-error)] mt-1" data-testid="queue-error-msg">
+          <p className="text-[13px] text-[var(--color-status-error)] mt-1" data-testid="queue-error-msg">
             {item.errorMessage ?? 'Download failed'}
           </p>
         )}

@@ -86,7 +86,7 @@ export function StepFolderConfirm(): JSX.Element {
       />
 
       <div className="flex flex-col gap-1.5">
-        <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Save to</p>
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Save to</p>
         <div className="flex flex-col gap-1">
           {locations.map((loc) => {
             const isSelected = selectedId === loc.id;
@@ -94,7 +94,11 @@ export function StepFolderConfirm(): JSX.Element {
             return (
               <div
                 key={loc.id}
+                role="radio"
+                aria-checked={isSelected}
+                tabIndex={0}
                 onClick={() => void handleSelect(loc)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') void handleSelect(loc); }}
                 className={cn(
                   'flex items-center gap-3 py-[5px] px-[8px] rounded-[6px] cursor-pointer transition-colors',
                   isSelected
@@ -106,14 +110,14 @@ export function StepFolderConfirm(): JSX.Element {
                 <span className="text-base leading-none" aria-hidden>{loc.icon}</span>
                 <span
                   className={cn(
-                    'text-[11px] font-medium flex-1',
+                    'text-[13px] font-medium flex-1',
                     isSelected ? 'font-semibold text-[var(--brand)]' : 'text-muted-foreground'
                   )}
                 >
                   {loc.label}
                 </span>
                 {path && (
-                  <code className="font-mono text-[10px] text-[var(--text-subtle)] truncate max-w-xs">
+                  <code className="font-mono text-[12px] text-[var(--text-subtle)] truncate max-w-xs">
                     {path}
                   </code>
                 )}

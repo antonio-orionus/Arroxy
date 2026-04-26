@@ -18,7 +18,7 @@ export function UpdateBanner({ info, installing, onInstall, onDownload, onDismis
       style={{ background: 'var(--brand-dim)' }}
       data-testid="update-banner"
     >
-      <span className="text-[11px] text-foreground/80 truncate">
+      <span className="text-[13px] text-foreground/80 truncate">
         <span className="font-semibold" style={{ color: 'var(--brand)' }}>Arroxy {info.version}</span>
         {' '}is available{' '}
         <span className="text-muted-foreground">— you have {info.currentVersion}</span>
@@ -30,7 +30,7 @@ export function UpdateBanner({ info, installing, onInstall, onDownload, onDismis
             type="button"
             onClick={onInstall}
             disabled={installing}
-            className="flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-md transition-colors disabled:opacity-60"
+            className="flex items-center gap-1.5 text-[13px] font-medium px-2.5 py-1 rounded-md transition-colors disabled:opacity-60"
             style={{ background: 'var(--brand)', color: '#fff' }}
           >
             {installing && (
@@ -45,7 +45,7 @@ export function UpdateBanner({ info, installing, onInstall, onDownload, onDismis
           <a
             href={RELEASES_URL}
             onClick={(e) => { e.preventDefault(); onDownload(); }}
-            className="text-[11px] font-medium px-2.5 py-1 rounded-md transition-colors"
+            className="text-[13px] font-medium px-2.5 py-1 rounded-md transition-colors"
             style={{ background: 'var(--brand)', color: '#fff' }}
           >
             Download ↗

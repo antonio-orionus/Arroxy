@@ -7,7 +7,7 @@ import { nowIso } from '@main/utils/clock';
 import { createAppError } from '@main/utils/errorFactory';
 import { spawnYtDlp } from '@main/utils/process';
 import { parsePercentFromLine } from '@main/utils/progress';
-import { classifyStderr, extractLastError } from '@main/utils/ytdlpErrors';
+import { classifyStderr, extractLastError, friendlyMessage } from '@main/utils/ytdlpErrors';
 import { fail, ok, type Result } from '@shared/result';
 import type {
   CancelDownloadOutput,
@@ -177,7 +177,9 @@ export class DownloadService extends EventEmitter {
             return;
           }
 
-          const message = extractLastError(stderrBuf) ?? `yt-dlp exited with code ${code ?? -1}`;
+          const message = signal
+            ? friendlyMessage(signal)
+            : (extractLastError(stderrBuf) ?? `yt-dlp exited with code ${code ?? -1}`);
           this.logger.log('ERROR', 'yt-dlp download failed', { jobId: job.id, code, signal });
           this.emitStatus(job.id, 'error', message);
           await this.finalize(job, 'failed', message);

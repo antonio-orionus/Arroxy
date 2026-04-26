@@ -269,11 +269,15 @@ export const useAppStore = create<AppState>((set, get) => {
         ? 'audio-only'
         : grouped.find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? selectedVideoFormatId;
 
-    await window.appApi.settings.update({
+    const patch = {
       lastVideoResolution: videoResolution,
       lastAudioQuality: selectedAudioQuality,
       lastPreset: activePreset
-    });
+    };
+    const result = await window.appApi.settings.update(patch);
+    if (result.ok) {
+      set({ settings: result.data });
+    }
   }
 
   return {

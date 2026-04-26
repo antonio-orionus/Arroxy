@@ -35,14 +35,14 @@ export function SmartDrawer(): JSX.Element {
         title="Toggle download queue"
       >
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+          <span className="text-[12px] font-bold uppercase tracking-widest text-muted-foreground">
             Download Queue
             {totalCount > 0 && (
               <Badge variant="secondary" className="ml-1 text-[9px] font-mono h-4 px-1">{totalCount}</Badge>
             )}
           </span>
           {headerSummary && (
-            <span className={`text-[10px] font-mono ${activeItem ? 'text-[var(--brand)]' : 'text-muted-foreground'}`}>
+            <span className={`text-[12px] font-mono ${activeItem ? 'text-[var(--brand)]' : 'text-muted-foreground'}`}>
               {headerSummary}
             </span>
           )}
@@ -53,7 +53,7 @@ export function SmartDrawer(): JSX.Element {
               type="button"
               data-testid="btn-clear-completed"
               onClick={(e) => { e.stopPropagation(); clearCompleted(); }}
-              className="flex items-center gap-1 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded hover:bg-accent"
+              className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded hover:bg-accent"
               title="Clear completed downloads"
             >
               <Trash2 size={10} />

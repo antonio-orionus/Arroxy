@@ -8,6 +8,7 @@ import { cn } from '@renderer/lib/utils';
 import { VideoSummaryCard } from './VideoSummaryCard';
 import { MascotBubble } from './MascotBubble';
 import choosingImg from '../assets/Choosing.png';
+import downloadingImg from '../assets/Downloading.png';
 
 const AUDIO_OPTIONS: { value: AudioQuality; label: string; sublabel: string }[] = [
   { value: 'best', label: 'Best', sublabel: 'Highest available bitrate' },
@@ -94,9 +95,27 @@ export function StepFormatSelect(): JSX.Element {
 
   if (formatsLoading) {
     return (
-      <div className="wizard-step flex items-center gap-3 py-6 text-muted-foreground text-sm">
-        <div className="spinner" aria-label="Loading formats" />
-        <span>Fetching available formats…</span>
+      <div className="wizard-step flex flex-col items-center gap-4 py-8">
+        <div className="rounded-2xl bg-[var(--brand-dim)] p-4 shadow-[0_0_28px_var(--brand-glow)]">
+          <img src={downloadingImg} alt="" aria-hidden className="w-28 h-28 object-contain" />
+        </div>
+        <div className="relative rounded-xl border border-border bg-secondary px-4 py-2.5 text-sm text-muted-foreground leading-relaxed shadow-sm text-center max-w-[260px]">
+          <span
+            aria-hidden
+            className="absolute -top-[7px] left-1/2 -translate-x-1/2 w-0 h-0"
+            style={{ borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderBottom: '7px solid var(--border)' }}
+          />
+          <span
+            aria-hidden
+            className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-0 h-0"
+            style={{ borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderBottom: '7px solid var(--secondary)' }}
+          />
+          Sniffing out the best formats for you…
+        </div>
+        <div className="flex items-center gap-2 text-xs text-[var(--text-subtle)]">
+          <div className="spinner" aria-label="Loading formats" />
+          <span>Usually takes a second</span>
+        </div>
       </div>
     );
   }
@@ -112,7 +131,7 @@ export function StepFormatSelect(): JSX.Element {
 
       {/* Quick presets */}
       <div className="flex flex-col gap-1.5">
-        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Quick presets</p>
+        <p className="text-[12px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Quick presets</p>
         <ToggleGroup
           value={activePreset ? [activePreset] : []}
           onValueChange={(vals) => { if (vals[0]) setPreset(vals[0] as Preset); }}
@@ -124,10 +143,10 @@ export function StepFormatSelect(): JSX.Element {
               value={p.value}
               className="flex flex-col items-start gap-0.5 py-1.5 px-2.5 rounded-[8px] border h-auto text-left w-full aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] border-[var(--border-strong)] bg-secondary/60 hover:border-muted-foreground hover:-translate-y-0.5 transition-all"
             >
-              <span className="text-[11px] font-semibold shrink-0 text-foreground">
+              <span className="text-[13px] font-semibold shrink-0 text-foreground">
                 {p.label}
               </span>
-              <span className="text-[9px] text-[var(--text-subtle)] leading-snug truncate">{p.desc}</span>
+              <span className="text-[11px] text-[var(--text-subtle)] leading-snug line-clamp-2">{p.desc}</span>
             </ToggleGroupItem>
           ))}
         </ToggleGroup>
@@ -137,7 +156,7 @@ export function StepFormatSelect(): JSX.Element {
         {/* Video column */}
         <div className="flex flex-col gap-0">
           <div className="flex items-center justify-between mb-[6px]">
-            <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Video</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Video</p>
             {uniqueExts.length > 1 && (
               <ToggleGroup
                 value={extFilter ? [extFilter] : []}
@@ -148,7 +167,7 @@ export function StepFormatSelect(): JSX.Element {
                   <ToggleGroupItem
                     key={ext}
                     value={ext}
-                    className="h-5 px-[7px] rounded-full text-[9px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground"
+                    className="h-5 px-[7px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground"
                   >
                     {ext}
                   </ToggleGroupItem>
@@ -171,7 +190,11 @@ export function StepFormatSelect(): JSX.Element {
             return (
               <div
                 key={g.formatId || 'audio-only'}
+                role="radio"
+                aria-checked={isChecked}
+                tabIndex={0}
                 onClick={() => setSelectedVideoFormatId(g.formatId)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedVideoFormatId(g.formatId); }}
                 className={cn(
                   'flex items-center gap-[7px] py-[5px] px-[8px] rounded-[6px] cursor-pointer transition-colors',
                   isChecked
@@ -182,7 +205,7 @@ export function StepFormatSelect(): JSX.Element {
                 <RadioDot checked={isChecked} />
                 <span
                   className={cn(
-                    'text-[11px] min-w-[68px]',
+                    'text-[13px] min-w-[68px]',
                     isChecked ? 'font-semibold text-[var(--brand)]' : 'font-medium text-muted-foreground'
                   )}
                 >
@@ -198,7 +221,7 @@ export function StepFormatSelect(): JSX.Element {
                 )}
                 {meta && (
                   <span
-                    className="text-[11px] ml-auto whitespace-nowrap"
+                    className="text-[13px] ml-auto whitespace-nowrap"
                     style={{ color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)' }}
                   >
                     {meta}
@@ -211,14 +234,19 @@ export function StepFormatSelect(): JSX.Element {
 
         {/* Audio column */}
         <div className="flex flex-col gap-0">
-          <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-[6px]">Audio</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-[6px]">Audio</p>
           {AUDIO_OPTIONS.map((opt) => {
             const disabled = opt.value === 'none' && isAudioOnly;
             const isChecked = selectedAudioQuality === opt.value;
             return (
               <div
                 key={opt.value}
+                role="radio"
+                aria-checked={isChecked && !disabled}
+                aria-disabled={disabled}
+                tabIndex={disabled ? -1 : 0}
                 onClick={() => { if (!disabled) setAudioQuality(opt.value); }}
+                onKeyDown={(e) => { if (!disabled && (e.key === 'Enter' || e.key === ' ')) setAudioQuality(opt.value); }}
                 className={cn(
                   'flex items-center gap-[7px] py-[5px] px-[8px] rounded-[6px] transition-colors',
                   disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
@@ -228,13 +256,13 @@ export function StepFormatSelect(): JSX.Element {
                 <RadioDot checked={isChecked && !disabled} />
                 <span
                   className={cn(
-                    'text-[11px] min-w-[68px]',
+                    'text-[13px] min-w-[68px]',
                     isChecked && !disabled ? 'font-semibold text-[var(--brand)]' : 'font-medium text-muted-foreground'
                   )}
                 >
                   {opt.label}
                 </span>
-                <span className="text-[9px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{opt.sublabel}</span>
+                <span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{opt.sublabel}</span>
               </div>
             );
           })}
@@ -250,9 +278,9 @@ export function StepFormatSelect(): JSX.Element {
 
       <Separator className="bg-border/50 -mx-6 w-auto" />
       <div className="flex items-center justify-between sticky bottom-0 bg-background py-3 -mx-6 px-6">
-        <span className="text-[11px] text-muted-foreground">
+        <span className="text-[13px] text-muted-foreground">
           {selectedFilesize ? (
-            <>Total <span className="text-[14px] font-bold text-[var(--brand)]">~{humanSize(selectedFilesize)}</span></>
+            <>Total <span className="text-[17px] font-bold text-[var(--brand)]">~{humanSize(selectedFilesize)}</span></>
           ) : isAudioOnly ? (
             'Audio only'
           ) : (

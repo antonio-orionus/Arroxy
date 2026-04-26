@@ -87,7 +87,7 @@ describe('FormatProbeService — extractor args', () => {
 });
 
 describe('FormatProbeService — error surfacing', () => {
-  it('surfaces actual ERROR: line on non-zero exit', async () => {
+  it('surfaces friendly message for private video', async () => {
     const stderrMsg = 'ERROR: [youtube] abc: Private video';
     vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(1, stderrMsg) as never);
 
@@ -96,7 +96,20 @@ describe('FormatProbeService — error surfacing', () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.error.message).toBe('ERROR: [youtube] abc: Private video');
+      expect(result.error.message).toBe('This video is unavailable — it may be private, deleted, or region-locked.');
+    }
+  });
+
+  it('surfaces raw ERROR: line for unrecognized errors', async () => {
+    const stderrMsg = 'ERROR: [youtube] abc: Unsupported URL';
+    vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(1, stderrMsg) as never);
+
+    const { service } = makeService();
+    const result = await service.getFormats(YOUTUBE_URL);
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toBe('ERROR: [youtube] abc: Unsupported URL');
     }
   });
 });

@@ -1,4 +1,5 @@
-import { useEffect, useState, type JSX } from 'react';
+import { useState, type JSX } from 'react';
+import { cn } from '@renderer/lib/utils';
 import loveImg from '../assets/Love.png';
 
 interface Props {
@@ -7,30 +8,21 @@ interface Props {
 }
 
 export function FeedbackNudge({ visible, message }: Props): JSX.Element | null {
-  const [shown, setShown] = useState(false);
-  const [cls, setCls] = useState('nudge-in');
+  const [rendered, setRendered] = useState(visible);
+  const cls = visible ? 'nudge-in' : 'nudge-out';
 
-  useEffect(() => {
-    if (visible) {
-      setCls('nudge-in');
-      setShown(true);
-    } else if (shown) {
-      setCls('nudge-out');
-      const t = setTimeout(() => setShown(false), 220);
-      return () => clearTimeout(t);
-    }
-  // shown intentionally omitted — only re-run when visible flips
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible]);
-
-  if (!shown) return null;
+  if (visible && !rendered) setRendered(true);
+  if (!rendered) return null;
 
   return (
     <div
       className="absolute bottom-full right-0 mb-1.5 pointer-events-none"
       data-testid="feedback-nudge"
     >
-      <div className={`${cls} flex items-end gap-2 pointer-events-auto`}>
+      <div
+        className={cn(cls, 'flex items-end gap-2 pointer-events-auto')}
+        onAnimationEnd={() => { if (!visible) setRendered(false); }}
+      >
         {/* Mascot */}
         <img
           src={loveImg}

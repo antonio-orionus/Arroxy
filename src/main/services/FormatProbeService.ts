@@ -1,7 +1,7 @@
 import type { LogService } from '@main/services/LogService';
 import { createAppError } from '@main/utils/errorFactory';
 import { spawnYtDlp } from '@main/utils/process';
-import { classifyStderr, extractLastError } from '@main/utils/ytdlpErrors';
+import { classifyStderr, extractLastError, friendlyMessage } from '@main/utils/ytdlpErrors';
 import { ok, fail, type Result } from '@shared/result';
 import { sortFormatsByQuality } from '@shared/qualitySorter';
 import type { FormatOption, GetFormatsOutput } from '@shared/types';
@@ -158,7 +158,9 @@ export class FormatProbeService {
             return;
           }
 
-          const message = extractLastError(stderrBuf) ?? `yt-dlp format probing failed with exit code ${code ?? -1}`;
+          const message = signal
+            ? friendlyMessage(signal)
+            : (extractLastError(stderrBuf) ?? `yt-dlp format probing failed with exit code ${code ?? -1}`);
           this.logger.log('ERROR', 'yt-dlp format probe failed', { code, url, signal });
           resolve(fail(createAppError('download', message)));
           return;

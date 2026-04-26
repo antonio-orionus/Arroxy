@@ -38,10 +38,10 @@ export function VideoSummaryCard({ thumbnail, title, duration, resolution }: Pro
         )}
       </div>
       <div className="flex flex-col gap-[2px] flex-1 min-w-0">
-        <p className="text-[12px] font-bold text-foreground leading-snug truncate">
+        <p className="text-[14px] font-bold text-foreground leading-snug truncate">
           {title || 'Loading…'}
         </p>
-        <p className="text-[10px] text-[var(--text-subtle)]">{meta}</p>
+        <p className="text-[12px] text-[var(--text-subtle)]">{meta}</p>
       </div>
     </div>
   );

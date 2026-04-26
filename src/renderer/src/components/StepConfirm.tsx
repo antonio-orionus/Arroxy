@@ -101,7 +101,7 @@ export function StepConfirm(): JSX.Element {
           <tbody>
             {summaryRows.map(([label, value]) => (
               <tr key={label} className="border-b border-border last:border-b-0">
-                <td className="px-4 py-2 text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] w-16 whitespace-nowrap">
+                <td className="px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] w-16 whitespace-nowrap">
                   {label}
                 </td>
                 <td

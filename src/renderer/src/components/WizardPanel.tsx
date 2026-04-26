@@ -21,6 +21,7 @@ export function WizardPanel(): JSX.Element {
   const activeIndex = STEP_ORDER.indexOf(wizardStep as (typeof STEP_ORDER)[number]);
 
   const prevIndexRef = useRef(activeIndex);
+  // eslint-disable-next-line react-hooks/refs -- previous-value ref pattern; only safe because it's never written during render
   const isBackward = activeIndex >= 0 && prevIndexRef.current >= 0 && activeIndex < prevIndexRef.current;
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export function WizardPanel(): JSX.Element {
                 <div className="flex flex-col items-center gap-1">
                   <div
                     className={cn(
-                      'rounded-full flex items-center justify-center text-[10px] font-bold border transition-all duration-300',
+                      'rounded-full flex items-center justify-center text-[12px] font-bold border transition-all duration-300',
                       isActive && 'w-7 h-7 border-[var(--brand)] bg-[var(--brand-dim)] text-[var(--brand)]',
                       isDone && 'w-6 h-6 border-transparent bg-[var(--brand)] text-white',
                       !isActive && !isDone && 'w-6 h-6 border-[var(--border-strong)] bg-transparent text-[var(--text-subtle)]'
@@ -59,7 +60,7 @@ export function WizardPanel(): JSX.Element {
                   </div>
                   <span
                     className={cn(
-                      'text-[9px] font-semibold uppercase tracking-[0.07em]',
+                      'text-[11px] font-semibold uppercase tracking-[0.07em]',
                       isActive && 'text-[var(--brand)]',
                       (isDone || (!isActive && !isDone)) && 'text-[var(--text-subtle)]'
                     )}
