@@ -69,18 +69,22 @@
     },
     "files": ["out/**/*"],
     "win": {
-      "target": [{
-        "target": "portable",
-        "arch": ["x64"]
-      }],
-      "artifactName": "${productName}-${version}.${ext}"
+      "target": [
+        { "target": "nsis",     "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable-${version}.${ext}"
     },
     "mac": {
-      "target": [{
-        "target": "dmg",
-        "arch": ["universal"]
-      }],
-      "artifactName": "${productName}-${version}.${ext}"
+      "target": [{ "target": "dmg", "arch": ["x64", "arm64"] }],
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
     },
     "linux": {
       "target": [{
