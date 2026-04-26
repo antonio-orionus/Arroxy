@@ -1,11 +1,14 @@
 <div align="center">
   <img src="src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy mascot" width="180" />
 
-# Arroxy
+# Arroxy — Free Open-Source YouTube Downloader
 
-**Download YouTube videos and Shorts in full quality — 4K, 1080p60, and beyond. Fast, free, and yours.**
+**4K &nbsp;•&nbsp; 1080p60 &nbsp;•&nbsp; HDR &nbsp;•&nbsp; Shorts &nbsp;·&nbsp; Windows &nbsp;•&nbsp; macOS &nbsp;•&nbsp; Linux**
 
-No ads. No tracking. No nonsense.
+**Tired of YouTube ads ruining your videos?**
+Download any video or Short in full quality — 4K, 1080p60, HDR, and beyond. Fast, free, and 100% yours.
+
+No ads. No tracking. No cookies. No login. No nonsense.
 
 [**Latest Release →**](../../releases/latest) &nbsp;·&nbsp; [Windows](#download) · [macOS](#download) · [Linux](#download)
 
@@ -60,6 +63,14 @@ Arroxy is a **free, open-source, privacy-first** desktop app — built for peopl
 - **Choose where to save** — last folder is remembered, or pick a new one each time
 - **One click to download** — real-time progress bar, cancel any time
 - **Queue multiple videos** — download panel tracks everything at once
+
+<div align="center">
+  <img src="build/Main-screenshot.png" width="48%" alt="Paste a URL" />
+  <img src="build/Choosing-format-screenshot.png" width="48%" alt="Pick your quality" />
+  <br/>
+  <img src="build/Choosing-destination-screenshot.png" width="48%" alt="Choose where to save" />
+  <img src="build/Downloading-in-parallel-screenshot.png" width="48%" alt="Download queue in action" />
+</div>
 
 ---
 
