@@ -6,9 +6,11 @@ import { WizardPanel } from './components/WizardPanel';
 import { SmartDrawer } from './components/SmartDrawer';
 import { SplashScreen } from './components/SplashScreen';
 import { FeedbackNudge } from './components/FeedbackNudge';
+import { UpdateBanner } from './components/UpdateBanner';
 import { ThemeToggle } from './components/ThemeToggle';
 import { TooltipProvider } from './components/ui/tooltip';
 import { cn } from './lib/utils';
+import type { UpdateAvailablePayload } from '@shared/types';
 
 const FEEDBACK_URL = 'https://github.com/antonio-orionus/Arroxy/issues/new/choose';
 
@@ -23,6 +25,8 @@ export function App(): JSX.Element {
   const { initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, warmupFailures } = useAppStore();
   const [debugCopied, setDebugCopied] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
+  const [updateInfo, setUpdateInfo] = useState<UpdateAvailablePayload | null>(null);
+  const [installing, setInstalling] = useState(false);
 
   function copyDebugInfo(): void {
     void navigator.clipboard.writeText(buildDebugInfo()).then(() => {
@@ -34,6 +38,20 @@ export function App(): JSX.Element {
   useEffect(() => {
     void initialize();
   }, [initialize]);
+
+  useEffect(() => {
+    return window.appApi.updater.onUpdateAvailable(setUpdateInfo);
+  }, []);
+
+  function handleInstall(): void {
+    setInstalling(true);
+    void window.appApi.updater.install();
+  }
+
+  function handleDownload(): void {
+    void window.appApi.shell.openExternal('https://github.com/antonio-orionus/Arroxy/releases/latest');
+    setUpdateInfo(null);
+  }
 
   useEffect(() => {
     const html = document.documentElement;
@@ -66,6 +84,16 @@ export function App(): JSX.Element {
     <TooltipProvider>
     <div className="relative flex flex-col h-screen w-screen bg-background overflow-hidden" data-testid="app-root">
       <TitleBar />
+
+      {updateInfo && (
+        <UpdateBanner
+          info={updateInfo}
+          installing={installing}
+          onInstall={handleInstall}
+          onDownload={handleDownload}
+          onDismiss={() => setUpdateInfo(null)}
+        />
+      )}
 
       <div className="flex-1 flex flex-col overflow-hidden" data-testid="app-content">
         <div className="flex-1 flex flex-col overflow-hidden" style={{ zoom: uiZoom }}>

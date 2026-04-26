@@ -1,9 +1,16 @@
 import type { AppApi } from '@shared/api';
-import type { ProgressEvent, StatusEvent } from '@shared/types';
+import type { ProgressEvent, StatusEvent, UpdateAvailablePayload } from '@shared/types';
 
 if (!('appApi' in window)) {
   const statusListeners = new Set<(e: StatusEvent) => void>();
   const progressListeners = new Set<(e: ProgressEvent) => void>();
+  const updateListeners = new Set<(info: UpdateAvailablePayload) => void>();
+
+  setTimeout(() => {
+    updateListeners.forEach((l) =>
+      l({ version: '1.2.0', currentVersion: '0.0.1', canAutoInstall: true })
+    );
+  }, 3_000);
 
   let settings = {
     defaultOutputDir: '/home/user/Downloads',
@@ -208,7 +215,18 @@ if (!('appApi' in window)) {
     queue: {
       save: async () => { /* no-op in browser */ },
       load: async () => []
-    }
+    },
+
+    updater: {
+      onUpdateAvailable: (listener) => {
+        updateListeners.add(listener);
+        return () => updateListeners.delete(listener);
+      },
+      install: async () => {
+        await delay(2_000);
+        console.log('[mock] updater: install complete (would quit in real app)');
+      },
+    },
   };
 
   (window as unknown as { appApi: AppApi }).appApi = mock;

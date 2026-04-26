@@ -74,6 +74,11 @@ The renderer has a full `browserMock.ts` (imported in `main.tsx`) that stubs `wi
 - Step 3 (Save): radio picker, "Custom…" returns a random mock path
 - Step 4 (Confirm): click "Pull it! ↓" → triggers simulated download in drawer
 - Drawer: click "Download Queue" header to expand, watch progress update every 500ms
+- Update banner: fires automatically after 3s — shows "Arroxy 1.2.0 is available" with Install & Restart button
+
+### Testing the update banner
+
+The mock fires `onUpdateAvailable` with `{ version: '1.2.0', currentVersion: '0.0.1', canAutoInstall: true }` after 3 seconds. To test the macOS path (`canAutoInstall: false`), temporarily edit the `setTimeout` payload in `browserMock.ts`.
 
 ---
 
@@ -110,3 +115,34 @@ This project does **not** use `@radix-ui/*` packages. The `base-nova` style regi
 - `clsx`
 - `tailwind-merge`
 - `lucide-react`
+
+---
+
+## In-App Update Notifications
+
+Uses `electron-updater` (v6, GitHub provider). Auto-download is **disabled** — the user initiates everything.
+
+### Flow
+
+1. Main process calls `autoUpdater.checkForUpdates()` 5 s after launch
+2. On `update-available` → sends `updater:available` IPC to renderer with `{ version, currentVersion, canAutoInstall }`
+3. `canAutoInstall = process.platform !== 'darwin'` — macOS DMG builds are unsigned and cannot self-update
+4. Renderer shows `<UpdateBanner>` between the title bar and content area
+5. Windows/Linux: "Install & Restart" → invokes `updater:install` → main calls `downloadUpdate()` → on `update-downloaded` calls `quitAndInstall(false, true)`
+6. macOS: "Download ↗" → calls `shell.openExternal` with the GitHub releases URL and dismisses the banner
+
+### IPC channels
+
+| Channel | Direction | Payload |
+|---------|-----------|---------|
+| `updater:available` | main → renderer | `UpdateAvailablePayload` |
+| `updater:install` | renderer → main (invoke) | — |
+
+### Key files
+
+| File | Role |
+|------|------|
+| `src/main/ipc/registerUpdaterHandlers.ts` | autoUpdater setup, event listeners, IPC handler |
+| `src/renderer/src/components/UpdateBanner.tsx` | Banner UI, shows both versions, platform-aware button |
+| `src/shared/types.ts` — `UpdateAvailablePayload` | Shared type for the IPC payload |
+| `src/renderer/src/browserMock.ts` | Simulates update after 3 s for renderer dev mode |

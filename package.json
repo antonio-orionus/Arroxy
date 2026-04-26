@@ -11,10 +11,18 @@
   "license": "MIT",
   "scripts": {
     "dev": "electron-vite dev",
+    "clean": "rm -rf dist out",
     "build": "bun run typecheck && electron-vite build",
-    "dist": "electron-builder",
-    "dist:win": "bun run build && electron-builder --win",
-    "dist:release": "electron-builder --publish always",
+    "dist": "bun run clean && bun run build && electron-builder",
+    "dist:win": "bun run clean && bun run build && electron-builder --win",
+    "dist:win:nsis": "bun run clean && bun run build && electron-builder --win nsis",
+    "dist:win:portable": "bun run clean && bun run build && electron-builder --win portable",
+    "dist:mac": "bun run clean && bun run build && electron-builder --mac",
+    "dist:linux": "bun run clean && bun run build && electron-builder --linux",
+    "dist:release": "bun run clean && bun run build && electron-builder --publish always",
+    "dist:release:win": "bun run clean && bun run build && electron-builder --win --publish always",
+    "dist:release:mac": "bun run clean && bun run build && electron-builder --mac --publish always",
+    "dist:release:linux": "bun run clean && bun run build && electron-builder --linux --publish always",
     "preview": "electron-vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
@@ -32,6 +40,7 @@
     "@testing-library/dom": "^10.4.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "electron-updater": "^6.8.3",
     "lucide-react": "^1.11.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
@@ -69,6 +78,7 @@
   "build": {
     "appId": "com.arroxy.app",
     "productName": "Arroxy",
+    "afterPack": "./build/afterPack.cjs",
     "directories": {
       "output": "dist",
       "buildResources": "build"

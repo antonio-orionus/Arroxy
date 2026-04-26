@@ -2,6 +2,7 @@ import path from 'node:path';
 import { app, BrowserWindow, dialog } from 'electron';
 import { IPC_CHANNELS } from '@shared/ipc';
 import { registerIpcHandlers } from '@main/ipc/registerIpcHandlers';
+import { registerUpdaterHandlers } from '@main/ipc/registerUpdaterHandlers';
 import { BinaryManager } from '@main/services/BinaryManager';
 import { DownloadService } from '@main/services/DownloadService';
 import { FormatProbeService } from '@main/services/FormatProbeService';
@@ -19,6 +20,7 @@ const isMockBackend = process.env.MOCK_BACKEND === '1';
 if (process.env.ELECTRON_USER_DATA) {
   app.setPath('userData', process.env.ELECTRON_USER_DATA);
 }
+
 
 const hasSingleInstanceLock = app.requestSingleInstanceLock();
 
@@ -126,6 +128,8 @@ if (hasSingleInstanceLock) {
       logService,
       tokenService
     });
+
+    registerUpdaterHandlers(mainWindow);
 
     app.on('before-quit', (event) => {
       if (downloadService.activeCount === 0) {

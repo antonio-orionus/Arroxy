@@ -12,6 +12,7 @@ import type {
   StartDownloadInput,
   StartDownloadOutput,
   StatusEvent,
+  UpdateAvailablePayload,
   WarmUpOutput
 } from './types';
 
@@ -55,5 +56,9 @@ export interface AppApi {
   queue: {
     save(items: QueueItem[]): Promise<void>;
     load(): Promise<QueueItem[]>;
+  };
+  updater: {
+    onUpdateAvailable(listener: (info: UpdateAvailablePayload) => void): () => void;
+    install(): Promise<void>;
   };
 }

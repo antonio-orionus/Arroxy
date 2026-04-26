@@ -1,9 +1,13 @@
+import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import fs, { constants as fsConstants } from 'node:fs';
 import fsPromises from 'node:fs/promises';
 import https from 'node:https';
 import path from 'node:path';
 import { pipeline } from 'node:stream/promises';
+import { promisify } from 'node:util';
+
+const execFileAsync = promisify(execFile);
 import { createAppError } from '@main/utils/errorFactory';
 import type { AppError } from '@shared/types';
 import type { LogService } from './LogService';
@@ -129,6 +133,7 @@ interface EnsureBinaryConfig {
   expectedSha256?: () => Promise<string | null>;
   onStatus?: (message: string) => void;
   requiredChecksum?: boolean;
+  isUpToDate?: () => Promise<boolean>;
 }
 
 export class BinaryManager {
@@ -169,7 +174,8 @@ export class BinaryManager {
       downloadUrl: `https://github.com/yt-dlp/yt-dlp/releases/latest/download/${assetName}`,
       expectedSha256,
       onStatus,
-      requiredChecksum: true
+      requiredChecksum: true,
+      isUpToDate: () => this.isYtDlpUpToDate(targetPath)
     });
 
     return targetPath;
@@ -209,8 +215,12 @@ export class BinaryManager {
     const { destinationPath, name } = config;
 
     if (await this.isUsableBinary(destinationPath)) {
-      this.logger.log('INFO', `${name} binary already exists`, { destinationPath });
-      return;
+      const upToDate = !config.isUpToDate || (await config.isUpToDate());
+      if (upToDate) {
+        this.logger.log('INFO', `${name} binary already exists`, { destinationPath });
+        return;
+      }
+      this.logger.log('INFO', `${name} binary is outdated, re-downloading`);
     }
 
     const existing = this.inProgress.get(destinationPath);
@@ -278,6 +288,43 @@ export class BinaryManager {
 
     if (process.platform !== 'win32') {
       await fsPromises.chmod(destinationPath, 0o755);
+    }
+  }
+
+  private async isYtDlpUpToDate(binaryPath: string): Promise<boolean> {
+    const [local, remote] = await Promise.all([
+      this.getLocalYtDlpVersion(binaryPath),
+      this.getRemoteYtDlpVersion()
+    ]);
+    if (!local) return false;
+    if (!remote) {
+      this.logger.log('WARN', 'Could not fetch yt-dlp remote version, skipping update check');
+      return true;
+    }
+    if (local !== remote) {
+      this.logger.log('INFO', 'yt-dlp update available', { local, remote });
+      return false;
+    }
+    this.logger.log('INFO', 'yt-dlp is up to date', { version: local });
+    return true;
+  }
+
+  private async getLocalYtDlpVersion(binaryPath: string): Promise<string | null> {
+    try {
+      const { stdout } = await execFileAsync(binaryPath, ['--version']);
+      return stdout.trim();
+    } catch {
+      return null;
+    }
+  }
+
+  private async getRemoteYtDlpVersion(): Promise<string | null> {
+    try {
+      const json = await downloadText('https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest');
+      const parsed = JSON.parse(json) as { tag_name?: string };
+      return parsed.tag_name ?? null;
+    } catch {
+      return null;
     }
   }
 

@@ -19,4 +19,6 @@ export const IPC_CHANNELS = {
   windowMaximizedChange: 'window:maximizedChange',
   queueSave: 'queue:save',
   queueLoad: 'queue:load',
+  updaterAvailable: 'updater:available',
+  updaterInstall: 'updater:install',
 } as const;

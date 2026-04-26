@@ -56,11 +56,21 @@ Arroxy is a **free, open-source, privacy-first** desktop app — built for peopl
 
 | Platform | Format |
 |---|---|
-| Windows | Portable `.exe` (no install needed) |
+| Windows | Installer (NSIS) or Portable `.exe` |
 | macOS | `.dmg` (Intel + Apple Silicon) |
 | Linux | `.AppImage` |
 
-Just download, run, done. No installer wizard, no admin rights needed on Windows.
+Just download, run, done.
+
+**macOS note:** Arroxy is not yet code-signed. On first launch macOS may say the app "cannot be opened because the developer cannot be verified." To open it:
+
+- **Right-click** the app → **Open** → click **Open** in the dialog, or
+- Run this once in Terminal after dragging to Applications:
+  ```bash
+  xattr -dr com.apple.quarantine /Applications/Arroxy.app
+  ```
+
+After that it opens normally — no repeat needed.
 
 ---
 
@@ -92,6 +102,9 @@ Single videos are supported today. Playlist support is planned.
 
 **Does it need my YouTube account or cookies?**
 No — and that's a bigger deal than it sounds. Most tools that stop working after a YouTube update tell you to export your browser's YouTube cookies. That workaround breaks every ~30 minutes as YouTube rotates sessions, and yt-dlp's own docs warn it can get your Google account flagged. Arroxy never uses cookies or credentials. No login. No account linked. Nothing to expire, nothing to ban.
+
+**macOS says "the app is damaged" or "cannot be opened" — what do I do?**
+This is macOS Gatekeeper rejecting an unsigned app, not actual damage. Right-click → Open → Open, or run `xattr -dr com.apple.quarantine /Applications/Arroxy.app` in Terminal once.
 
 **Is this legal?**
 Downloading videos for personal use is generally accepted in most jurisdictions. You are responsible for complying with YouTube's Terms of Service and your local laws.

@@ -212,6 +212,13 @@
   transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ── Update banner ─────────────────────────────────────── */
+@keyframes banner-slide-in {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.banner-slide-in { animation: banner-slide-in 0.3s ease forwards; }
+
 /* ── Feedback nudge bubble ─────────────────────────────── */
 @keyframes nudge-in {
   from { opacity: 0; transform: scale(0.7) translateY(6px); }

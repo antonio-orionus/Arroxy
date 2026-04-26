@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { binaryInternals } from '@main/services/BinaryManager';
 
 const originalPlatformDescriptor = Object.getOwnPropertyDescriptor(process, 'platform')!;

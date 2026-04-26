@@ -39,6 +39,10 @@ const mockAppApi = {
   queue: {
     save: vi.fn().mockResolvedValue(undefined),
     load: vi.fn().mockResolvedValue([])
+  },
+  updater: {
+    onUpdateAvailable: vi.fn().mockReturnValue(() => undefined),
+    install: vi.fn().mockResolvedValue(undefined)
   }
 };
 

@@ -59,15 +59,79 @@ describe('BinaryManager download retry', () => {
     expect(calls).toBe(1);
   });
 
-  it('skips download entirely if binary already exists', async () => {
+  it('skips download when binary exists and version is current', async () => {
     const mgr = await makeMgr();
     const binaryPath = mgr.getYtDlpPath();
     await fs.mkdir(path.dirname(binaryPath), { recursive: true });
     await fs.writeFile(binaryPath, 'fake-binary');
     if (process.platform !== 'win32') await fs.chmod(binaryPath, 0o755);
 
+    vi.spyOn(mgr as any, 'getLocalYtDlpVersion').mockResolvedValue('2025.01.15');
+    vi.spyOn(mgr as any, 'getRemoteYtDlpVersion').mockResolvedValue('2025.01.15');
+
     const spy = vi.spyOn(mgr as any, 'attemptDownload');
     await mgr.ensureYtDlp();
+
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('re-downloads yt-dlp when local version is outdated', async () => {
+    const mgr = await makeMgr();
+    const binaryPath = mgr.getYtDlpPath();
+    await fs.mkdir(path.dirname(binaryPath), { recursive: true });
+    await fs.writeFile(binaryPath, 'fake-binary');
+    if (process.platform !== 'win32') await fs.chmod(binaryPath, 0o755);
+
+    vi.spyOn(mgr as any, 'getLocalYtDlpVersion').mockResolvedValue('2024.11.01');
+    vi.spyOn(mgr as any, 'getRemoteYtDlpVersion').mockResolvedValue('2025.01.15');
+
+    const spy = vi.spyOn(mgr as any, 'attemptDownload').mockResolvedValue(undefined);
+    await mgr.ensureYtDlp();
+
+    expect(spy).toHaveBeenCalledOnce();
+  });
+
+  it('re-downloads yt-dlp when local version cannot be determined', async () => {
+    const mgr = await makeMgr();
+    const binaryPath = mgr.getYtDlpPath();
+    await fs.mkdir(path.dirname(binaryPath), { recursive: true });
+    await fs.writeFile(binaryPath, 'fake-binary');
+    if (process.platform !== 'win32') await fs.chmod(binaryPath, 0o755);
+
+    vi.spyOn(mgr as any, 'getLocalYtDlpVersion').mockResolvedValue(null);
+    vi.spyOn(mgr as any, 'getRemoteYtDlpVersion').mockResolvedValue('2025.01.15');
+
+    const spy = vi.spyOn(mgr as any, 'attemptDownload').mockResolvedValue(undefined);
+    await mgr.ensureYtDlp();
+
+    expect(spy).toHaveBeenCalledOnce();
+  });
+
+  it('skips download when remote version is unreachable', async () => {
+    const mgr = await makeMgr();
+    const binaryPath = mgr.getYtDlpPath();
+    await fs.mkdir(path.dirname(binaryPath), { recursive: true });
+    await fs.writeFile(binaryPath, 'fake-binary');
+    if (process.platform !== 'win32') await fs.chmod(binaryPath, 0o755);
+
+    vi.spyOn(mgr as any, 'getLocalYtDlpVersion').mockResolvedValue('2025.01.15');
+    vi.spyOn(mgr as any, 'getRemoteYtDlpVersion').mockResolvedValue(null);
+
+    const spy = vi.spyOn(mgr as any, 'attemptDownload');
+    await mgr.ensureYtDlp();
+
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('does not version-check ffmpeg (no isUpToDate configured)', async () => {
+    const mgr = await makeMgr();
+    const binaryPath = mgr.getFfmpegPath();
+    await fs.mkdir(path.dirname(binaryPath), { recursive: true });
+    await fs.writeFile(binaryPath, 'fake-ffmpeg');
+    if (process.platform !== 'win32') await fs.chmod(binaryPath, 0o755);
+
+    const spy = vi.spyOn(mgr as any, 'attemptDownload');
+    await mgr.ensureFFmpeg();
 
     expect(spy).not.toHaveBeenCalled();
   });

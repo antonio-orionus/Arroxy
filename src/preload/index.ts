@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { IPC_CHANNELS } from '@shared/ipc';
 import type { AppApi } from '@shared/api';
-import type { ProgressEvent, QueueItem, StatusEvent } from '@shared/types';
+import type { ProgressEvent, QueueItem, StatusEvent, UpdateAvailablePayload } from '@shared/types';
 
 const api: AppApi = {
   app: {
@@ -59,7 +59,15 @@ onMaximizedChange: (listener) => {
   queue: {
     save: (items: QueueItem[]) => ipcRenderer.invoke(IPC_CHANNELS.queueSave, items),
     load: () => ipcRenderer.invoke(IPC_CHANNELS.queueLoad)
-  }
+  },
+  updater: {
+    onUpdateAvailable: (listener) => {
+      const wrapped = (_: Electron.IpcRendererEvent, payload: UpdateAvailablePayload): void => listener(payload);
+      ipcRenderer.on(IPC_CHANNELS.updaterAvailable, wrapped);
+      return () => ipcRenderer.removeListener(IPC_CHANNELS.updaterAvailable, wrapped);
+    },
+    install: () => ipcRenderer.invoke(IPC_CHANNELS.updaterInstall),
+  },
 };
 
 contextBridge.exposeInMainWorld('appApi', api);

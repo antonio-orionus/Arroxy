@@ -128,3 +128,9 @@ export interface PauseDownloadInput {
 export interface PauseDownloadOutput {
   paused: boolean;
 }
+
+export interface UpdateAvailablePayload {
+  version: string;
+  currentVersion: string;
+  canAutoInstall: boolean;
+}
