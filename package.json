@@ -75,8 +75,11 @@
       ]
     },
     "nsis": {
-      "oneClick": true,
+      "oneClick": false,
       "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
       "artifactName": "${productName}-Setup-${version}.${ext}"
     },
     "portable": {
