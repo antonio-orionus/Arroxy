@@ -16,12 +16,15 @@ import type { LogService } from '@main/services/LogService';
 import type { BinaryManager } from '@main/services/BinaryManager';
 import type { TokenService } from '@main/services/TokenService';
 import type { SettingsStore } from '@main/stores/SettingsStore';
+import type { QueueStore } from '@main/stores/QueueStore';
+import type { QueueItem } from '@shared/types';
 
 interface IpcDependencies {
   mainWindow: BrowserWindow;
   downloadService: DownloadService;
   formatProbeService: FormatProbeService;
   settingsStore: SettingsStore;
+  queueStore: QueueStore;
   logService: LogService;
   binaryManager: BinaryManager;
   tokenService: TokenService;
@@ -45,6 +48,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     downloadService,
     formatProbeService,
     settingsStore,
+    queueStore,
     mainWindow,
     logService,
     tokenService
@@ -195,6 +199,15 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     } catch (error) {
       return toUnknownFailure(error);
     }
+  });
+
+  ipcMain.handle(IPC_CHANNELS.queueLoad, async () => {
+    return queueStore.load();
+  });
+
+  ipcMain.handle(IPC_CHANNELS.queueSave, async (_, payload: unknown) => {
+    if (!Array.isArray(payload)) return;
+    await queueStore.save(payload as QueueItem[]);
   });
 
   downloadService.on('status', (event) => {

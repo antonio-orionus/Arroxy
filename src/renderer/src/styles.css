@@ -75,8 +75,22 @@
     transform: translateY(0);
   }
 }
+@keyframes fade-slide-in-forward {
+  from { opacity: 0; transform: translateX(8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fade-slide-in-backward {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
 .wizard-step {
   animation: fade-slide-in 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.wizard-forward .wizard-step {
+  animation: fade-slide-in-forward 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.wizard-backward .wizard-step {
+  animation: fade-slide-in-backward 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 /* ── Queue card entrance ───────────────────────────────── */
@@ -307,7 +321,7 @@
   color-scheme: dark;
   --background: hsl(240, 20%, 6%);
   --foreground: hsl(240, 40%, 96%);
-  --card: hsl(240, 18%, 8%);
+  --card: hsl(240, 18%, 10%);
   --card-foreground: hsl(240, 40%, 96%);
   --popover: hsl(240, 18%, 8%);
   --popover-foreground: hsl(240, 40%, 96%);

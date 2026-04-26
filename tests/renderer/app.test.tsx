@@ -49,6 +49,10 @@ const mockAppApi = {
   events: {
     onStatus: vi.fn().mockReturnValue(() => undefined),
     onProgress: vi.fn().mockReturnValue(() => undefined)
+  },
+  queue: {
+    save: vi.fn().mockResolvedValue(undefined),
+    load: vi.fn().mockResolvedValue([])
   }
 };
 
@@ -90,7 +94,7 @@ describe('App renderer', () => {
     const input = await screen.findByPlaceholderText(/youtube\.com/i);
     fireEvent.change(input, { target: { value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' } });
 
-    fireEvent.click(screen.getByRole('button', { name: 'Fetch formats →' }));
+    fireEvent.click(screen.getByTestId('btn-find-formats'));
 
     await waitFor(() => {
       expect(mockAppApi.downloads.getFormats).toHaveBeenCalledWith(

@@ -198,7 +198,7 @@ export function StepFormatSelect(): JSX.Element {
                 )}
                 {meta && (
                   <span
-                    className="text-[9px] ml-auto whitespace-nowrap"
+                    className="text-[11px] ml-auto whitespace-nowrap"
                     style={{ color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)' }}
                   >
                     {meta}

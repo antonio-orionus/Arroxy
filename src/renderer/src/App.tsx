@@ -1,4 +1,5 @@
 import { useEffect, useState, type JSX } from 'react';
+import { Bug } from 'lucide-react';
 import { useAppStore } from './store/useAppStore';
 import { TitleBar } from './components/TitleBar';
 import { WizardPanel } from './components/WizardPanel';
@@ -100,11 +101,12 @@ export function App(): JSX.Element {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            className="text-[11px] text-muted-foreground hover:text-foreground/80 transition-colors"
+            className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-foreground/80 transition-colors"
             onClick={copyDebugInfo}
-            title="Copy Electron version, OS, and Chrome version to clipboard"
+            title={debugCopied ? 'Copied!' : 'Copy debug info (Electron, OS, Chrome versions)'}
+            data-testid="btn-debug"
           >
-            {debugCopied ? 'Copied!' : 'Copy debug info'}
+            <Bug size={14} />
           </button>
           <div className="relative">
             <FeedbackNudge

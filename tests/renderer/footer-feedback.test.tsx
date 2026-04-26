@@ -44,6 +44,10 @@ const mockAppApi = {
   events: {
     onStatus: vi.fn().mockReturnValue(() => undefined),
     onProgress: vi.fn().mockReturnValue(() => undefined)
+  },
+  queue: {
+    save: vi.fn().mockResolvedValue(undefined),
+    load: vi.fn().mockResolvedValue([])
   }
 };
 
@@ -86,14 +90,14 @@ describe('Footer feedback controls', () => {
 
   it('renders all three footer utility buttons', async () => {
     render(<App />);
-    expect(await screen.findByText('Copy debug info')).toBeInTheDocument();
-    expect(screen.getByText('Feedback')).toBeInTheDocument();
+    expect(await screen.findByTestId('btn-debug')).toBeInTheDocument();
+    expect(screen.getByTestId('btn-feedback')).toBeInTheDocument();
     expect(screen.getByTestId('btn-logs')).toBeInTheDocument();
   });
 
   it('Feedback button calls openExternal with the GitHub issues URL', async () => {
     render(<App />);
-    fireEvent.click(await screen.findByText('Feedback'));
+    fireEvent.click(await screen.findByTestId('btn-feedback'));
     expect(mockOpenExternal).toHaveBeenCalledWith(
       'https://github.com/antonio-orionus/Arroxy/issues/new/choose'
     );
@@ -106,7 +110,7 @@ describe('Footer feedback controls', () => {
     });
 
     render(<App />);
-    fireEvent.click(await screen.findByText('Copy debug info'));
+    fireEvent.click(await screen.findByTestId('btn-debug'));
 
     await waitFor(() => {
       expect(navigator.clipboard.writeText).toHaveBeenCalledOnce();
@@ -125,7 +129,7 @@ describe('Footer feedback controls', () => {
     });
 
     render(<App />);
-    fireEvent.click(await screen.findByText('Copy debug info'));
+    fireEvent.click(await screen.findByTestId('btn-debug'));
 
     await waitFor(() => {
       expect(navigator.clipboard.writeText).toHaveBeenCalledOnce();
@@ -136,7 +140,7 @@ describe('Footer feedback controls', () => {
     expect(written).toContain('Chrome: unknown');
   });
 
-  it('shows "Copied!" immediately after click then reverts after 1.5 s', async () => {
+  it('title shows "Copied!" immediately after click then reverts after 1.5 s', async () => {
     render(<App />);
 
     // Wait for initialization, then switch to fake timers
@@ -144,14 +148,14 @@ describe('Footer feedback controls', () => {
     vi.useFakeTimers();
 
     await act(async () => {
-      fireEvent.click(screen.getByText('Copy debug info'));
+      fireEvent.click(screen.getByTestId('btn-debug'));
     });
 
-    expect(screen.getByText('Copied!')).toBeInTheDocument();
+    expect(screen.getByTestId('btn-debug')).toHaveAttribute('title', 'Copied!');
 
     act(() => { vi.advanceTimersByTime(1600); });
 
-    expect(screen.getByText('Copy debug info')).toBeInTheDocument();
+    expect(screen.getByTestId('btn-debug')).toHaveAttribute('title', 'Copy debug info (Electron, OS, Chrome versions)');
   });
 
   it('Logs button opens the log directory', async () => {

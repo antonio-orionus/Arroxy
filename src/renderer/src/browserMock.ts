@@ -203,6 +203,11 @@ if (!('appApi' in window)) {
         progressListeners.add(listener);
         return () => progressListeners.delete(listener);
       },
+    },
+
+    queue: {
+      save: async () => { /* no-op in browser */ },
+      load: async () => []
     }
   };
 

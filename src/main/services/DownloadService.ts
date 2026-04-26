@@ -120,13 +120,15 @@ export class DownloadService extends EventEmitter {
         active.process = proc;
 
         proc.stdout.on('data', (chunk) => {
-          this.consumeProgress(job.id, chunk.toString());
+          try { this.consumeProgress(job.id, chunk.toString()); } catch { /* swallow */ }
         });
 
         proc.stderr.on('data', (chunk) => {
-          const text = chunk.toString() as string;
-          stderrBuf += text;
-          this.consumeProgress(job.id, text);
+          try {
+            const text = chunk.toString() as string;
+            stderrBuf += text;
+            this.consumeProgress(job.id, text);
+          } catch { /* swallow */ }
         });
 
         proc.on('error', async (error) => {

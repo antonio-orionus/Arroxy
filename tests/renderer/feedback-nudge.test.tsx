@@ -35,6 +35,10 @@ const mockAppApi = {
   events: {
     onStatus: vi.fn().mockReturnValue(() => undefined),
     onProgress: vi.fn().mockReturnValue(() => undefined)
+  },
+  queue: {
+    save: vi.fn().mockResolvedValue(undefined),
+    load: vi.fn().mockResolvedValue([])
   }
 };
 

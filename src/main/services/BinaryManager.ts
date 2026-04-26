@@ -136,11 +136,14 @@ export class BinaryManager {
 
   private readonly logger: LogService;
 
+  private readonly retryDelays: [number, number];
+
   private readonly inProgress = new Map<string, Promise<void>>();
 
-  constructor(userDataPath: string, logger: LogService) {
+  constructor(userDataPath: string, logger: LogService, retryDelays: [number, number] = [2000, 8000]) {
     this.cacheDir = path.join(userDataPath, 'runtime-cache', 'binaries');
     this.logger = logger;
+    this.retryDelays = retryDelays;
   }
 
   getYtDlpPath(): string {
@@ -221,6 +224,25 @@ export class BinaryManager {
   }
 
   private async downloadBinary(config: EnsureBinaryConfig): Promise<void> {
+    const maxAttempts = 3;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        await this.attemptDownload(config);
+        return;
+      } catch (err) {
+        const isChecksumError = err instanceof Error && err.message.toLowerCase().includes('checksum');
+        if (isChecksumError || attempt === maxAttempts) throw err;
+        const delay = attempt === 1 ? this.retryDelays[0] : this.retryDelays[1];
+        this.logger.log('WARN', `${config.name} download failed, retrying in ${delay}ms`, {
+          attempt,
+          error: err instanceof Error ? err.message : String(err)
+        });
+        await new Promise((r) => setTimeout(r, delay));
+      }
+    }
+  }
+
+  private async attemptDownload(config: EnsureBinaryConfig): Promise<void> {
     const { destinationPath, name, downloadUrl, expectedSha256, onStatus, requiredChecksum = false } = config;
 
     const tempPath = `${destinationPath}.tmp`;

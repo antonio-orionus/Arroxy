@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import { useEffect, useRef, type JSX } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { StepUrlInput } from './StepUrlInput';
 import { StepFormatSelect } from './StepFormatSelect';
@@ -20,8 +20,18 @@ export function WizardPanel(): JSX.Element {
   const wizardStep = useAppStore((s) => s.wizardStep);
   const activeIndex = STEP_ORDER.indexOf(wizardStep as (typeof STEP_ORDER)[number]);
 
+  const prevIndexRef = useRef(activeIndex);
+  const isBackward = activeIndex >= 0 && prevIndexRef.current >= 0 && activeIndex < prevIndexRef.current;
+
+  useEffect(() => {
+    prevIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
   return (
-    <section className="px-6 py-3" data-testid="wizard-panel">
+    <section
+      className={cn('px-6 py-3', isBackward ? 'wizard-backward' : 'wizard-forward')}
+      data-testid="wizard-panel"
+    >
       {wizardStep !== 'error' && (
         <div className="flex items-center mb-4" aria-hidden data-testid="step-indicator">
           {STEPS.map((step, i) => {
@@ -32,11 +42,18 @@ export function WizardPanel(): JSX.Element {
                 <div className="flex flex-col items-center gap-1">
                   <div
                     className={cn(
-                      'w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border transition-all',
-                      isActive && 'border-[var(--brand)] bg-transparent text-[var(--brand)] shadow-[0_0_0_3px_var(--brand-dim)]',
-                      isDone && 'border-transparent bg-[var(--brand)] text-white',
-                      !isActive && !isDone && 'border-[var(--border-strong)] bg-transparent text-[var(--text-subtle)]'
+                      'rounded-full flex items-center justify-center text-[10px] font-bold border transition-all duration-300',
+                      isActive && 'w-7 h-7 border-[var(--brand)] bg-[var(--brand-dim)] text-[var(--brand)]',
+                      isDone && 'w-6 h-6 border-transparent bg-[var(--brand)] text-white',
+                      !isActive && !isDone && 'w-6 h-6 border-[var(--border-strong)] bg-transparent text-[var(--text-subtle)]'
                     )}
+                    style={
+                      isActive
+                        ? { boxShadow: '0 0 0 3px var(--brand-dim), 0 0 12px var(--brand-glow)' }
+                        : isDone
+                          ? { boxShadow: '0 0 6px var(--brand-glow)' }
+                          : undefined
+                    }
                   >
                     {isDone ? '✓' : i + 1}
                   </div>
@@ -53,9 +70,10 @@ export function WizardPanel(): JSX.Element {
                 {i < STEPS.length - 1 && (
                   <div
                     className={cn(
-                      'h-[2px] flex-1 mb-4 mx-1 transition-colors rounded-full',
+                      'h-[2px] flex-1 mb-4 mx-1 transition-all duration-500 rounded-full',
                       isDone ? 'bg-[var(--brand)]' : 'bg-accent'
                     )}
+                    style={isDone ? { boxShadow: '0 0 4px var(--brand-glow)' } : undefined}
                   />
                 )}
               </div>

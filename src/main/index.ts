@@ -9,6 +9,7 @@ import { LogService } from '@main/services/LogService';
 import { TokenService } from '@main/services/TokenService';
 import { RecentJobsStore } from '@main/stores/RecentJobsStore';
 import { SettingsStore } from '@main/stores/SettingsStore';
+import { QueueStore } from '@main/stores/QueueStore';
 import { HiddenWindowTokenProvider } from '@main/token/providers/HiddenWindowTokenProvider';
 import { MockTokenProvider } from '@main/token/providers/MockTokenProvider';
 import type { AppSettings } from '@shared/types';
@@ -72,6 +73,7 @@ if (hasSingleInstanceLock) {
 
     const settingsStore = new SettingsStore(userDataPath, defaultSettings);
     const recentJobsStore = new RecentJobsStore(userDataPath);
+    const queueStore = new QueueStore(userDataPath);
     const binaryManager = new BinaryManager(userDataPath, logService);
     const tokenProvider = isMockBackend ? new MockTokenProvider() : new HiddenWindowTokenProvider();
     const tokenService = new TokenService(tokenProvider, logService);
@@ -120,6 +122,7 @@ if (hasSingleInstanceLock) {
       downloadService,
       formatProbeService,
       settingsStore,
+      queueStore,
       logService,
       tokenService
     });

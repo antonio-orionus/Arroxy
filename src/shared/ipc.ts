@@ -17,4 +17,6 @@ export const IPC_CHANNELS = {
   windowClose: 'window:close',
   windowIsMaximized: 'window:isMaximized',
   windowMaximizedChange: 'window:maximizedChange',
+  queueSave: 'queue:save',
+  queueLoad: 'queue:load',
 } as const;

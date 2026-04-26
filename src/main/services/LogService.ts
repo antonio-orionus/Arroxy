@@ -4,6 +4,8 @@ import { nowIso } from '@main/utils/clock';
 
 export type LogLevel = 'INFO' | 'WARN' | 'ERROR';
 
+const MAX_LOG_FILES = 5;
+
 export class LogService {
   private readonly logsDir: string;
 
@@ -11,12 +13,17 @@ export class LogService {
 
   private readonly logFilePath: string;
 
+  private readonly stream: fs.WriteStream;
+
   constructor(userDataPath: string) {
     this.logsDir = path.join(userDataPath, 'logs');
     fs.mkdirSync(this.logsDir, { recursive: true });
 
     this.sessionId = nowIso().replace(/[:.]/g, '-');
     this.logFilePath = path.join(this.logsDir, `app-${this.sessionId}.log`);
+    this.stream = fs.createWriteStream(this.logFilePath, { flags: 'a' });
+
+    this.rotateLogs();
     this.log('INFO', 'Session started');
   }
 
@@ -28,7 +35,7 @@ export class LogService {
       ...(meta ? { meta } : {})
     };
     const line = `${JSON.stringify(payload)}\n`;
-    fs.appendFileSync(this.logFilePath, line);
+    this.stream.write(line);
 
     if (level === 'ERROR') {
       console.error(line.trim());
@@ -41,6 +48,17 @@ export class LogService {
     }
 
     console.log(line.trim());
+  }
+
+  private rotateLogs(): void {
+    fs.readdir(this.logsDir, (_err, files) => {
+      if (!files) return;
+      const logs = files
+        .filter((f) => f.startsWith('app-') && f.endsWith('.log'))
+        .sort();
+      const toDelete = logs.slice(0, Math.max(0, logs.length - MAX_LOG_FILES));
+      toDelete.forEach((f) => fs.unlink(path.join(this.logsDir, f), () => {}));
+    });
   }
 
   getLogsDir(): string {

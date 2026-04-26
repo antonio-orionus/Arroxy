@@ -1,6 +1,7 @@
 import type { JSX } from 'react';
 import { useAppStore, groupVideoFormats } from '../store/useAppStore';
 import { Button } from './ui/button';
+import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
 import { VideoSummaryCard } from './VideoSummaryCard';
 import loveImg from '../assets/Love.png';
 
@@ -23,6 +24,7 @@ export function StepConfirm(): JSX.Element {
     activePreset,
     wizardFormats,
     commonPaths,
+    addToQueue,
     addAndDownloadImmediately
   } = useAppStore();
 
@@ -114,25 +116,45 @@ export function StepConfirm(): JSX.Element {
         </table>
       </div>
 
-      <div className="flex justify-end gap-2 sticky bottom-0 bg-background py-3 -mx-6 px-6 border-t border-border/50">
+      <div className="flex items-center gap-2 sticky bottom-0 bg-background py-3 -mx-6 px-6 border-t border-border/50">
         <Button
           variant="ghost"
           type="button"
           onClick={goBack}
           data-testid="btn-back"
-          className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
+          className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground mr-auto"
         >
           Back
         </Button>
-        <Button
-          type="button"
-          size="lg"
-          onClick={() => void addAndDownloadImmediately()}
-          data-testid="btn-download-now"
-          className="shadow-[0_4px_14px_var(--brand-glow)]"
-        >
-          Pull it! ↓
-        </Button>
+        <Tooltip>
+          <TooltipTrigger render={(props) => (
+            <Button
+              {...props}
+              variant="outline"
+              type="button"
+              onClick={() => void addToQueue()}
+              data-testid="btn-add-to-queue"
+            >
+              + Queue
+            </Button>
+          )} />
+          <TooltipContent>Starts when other downloads finish — gets full bandwidth</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger render={(props) => (
+            <Button
+              {...props}
+              type="button"
+              size="lg"
+              onClick={() => void addAndDownloadImmediately()}
+              data-testid="btn-download-now"
+              className="shadow-[0_4px_14px_var(--brand-glow)]"
+            >
+              Pull it! ↓
+            </Button>
+          )} />
+          <TooltipContent>Starts immediately — runs alongside other active downloads</TooltipContent>
+        </Tooltip>
       </div>
     </div>
   );

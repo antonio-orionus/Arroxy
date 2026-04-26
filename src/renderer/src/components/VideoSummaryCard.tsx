@@ -24,7 +24,7 @@ export function VideoSummaryCard({ thumbnail, title, duration, resolution }: Pro
 
   return (
     <div className="flex items-center gap-[10px] px-[12px] py-[9px] rounded-lg border border-border bg-secondary shrink-0">
-      <div className="w-[66px] h-[42px] rounded-[5px] overflow-hidden border border-border flex-shrink-0 bg-accent">
+      <div className="w-[68px] aspect-video rounded-[5px] overflow-hidden border border-border flex-shrink-0 bg-accent">
         {thumbnail ? (
           <img
             src={thumbnail}

@@ -38,6 +38,9 @@ describe('Queue parallel/sequential download behavior', () => {
 
     useAppStore.setState({
       initialized: false,
+      initializing: false,
+      _unbindStatus: null,
+      _unbindProgress: null,
       settings: { defaultOutputDir: '/tmp', rememberLastOutputDir: false },
       wizardStep: 'url',
       formatsLoading: false,
@@ -76,6 +79,10 @@ describe('Queue parallel/sequential download behavior', () => {
           return () => undefined;
         }),
         onProgress: vi.fn().mockReturnValue(() => undefined)
+      },
+      queue: {
+        save: vi.fn().mockResolvedValue(undefined),
+        load: vi.fn().mockResolvedValue([])
       }
     } as never;
   });

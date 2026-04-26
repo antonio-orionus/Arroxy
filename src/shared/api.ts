@@ -8,6 +8,7 @@ import type {
   PauseDownloadInput,
   PauseDownloadOutput,
   ProgressEvent,
+  QueueItem,
   StartDownloadInput,
   StartDownloadOutput,
   StatusEvent,
@@ -50,5 +51,9 @@ export interface AppApi {
   events: {
     onStatus(listener: (event: StatusEvent) => void): () => void;
     onProgress(listener: (event: ProgressEvent) => void): () => void;
+  };
+  queue: {
+    save(items: QueueItem[]): Promise<void>;
+    load(): Promise<QueueItem[]>;
   };
 }

@@ -162,9 +162,13 @@ interface AppState {
   // Drawer
   drawerOpen: boolean;
   setDrawerOpen: (open: boolean) => void;
+  showQueueTip: boolean;
+  dismissQueueTip: () => void;
 
   // System
   commonPaths: AppSettings['commonPaths'];
+  _unbindStatus: (() => void) | null;
+  _unbindProgress: (() => void) | null;
 
   // Actions
   initialize: () => Promise<void>;
@@ -191,12 +195,11 @@ interface AppState {
   resumeItemDownload: (itemId: string) => Promise<void>;
   removeQueueItem: (itemId: string) => void;
   retryQueueItem: (itemId: string) => Promise<void>;
+  clearCompleted: () => void;
   openItemFolder: (itemId: string) => Promise<void>;
   openItemUrl: (itemId: string) => void;
 }
 
-let unbindStatus: (() => void) | null = null;
-let unbindProgress: (() => void) | null = null;
 const progressSmoothers = new Map<string, ProgressSmoother>();
 
 export const useAppStore = create<AppState>((set, get) => {
@@ -206,12 +209,23 @@ export const useAppStore = create<AppState>((set, get) => {
     }));
   }
 
+  function maybeShowQueueTip(): void {
+    if (!localStorage.getItem('arroxy_seen_queue_tip')) {
+      localStorage.setItem('arroxy_seen_queue_tip', '1');
+      set({ drawerOpen: true, showQueueTip: true });
+    }
+  }
+
   async function maybeStartNext(): Promise<void> {
     if (get().queue.some((i) => i.status === 'downloading')) return;
     const next = get().queue.find((i) => i.status === 'pending');
     if (next) {
       await get().startItemDownload(next.id);
     }
+  }
+
+  function saveQueue(): void {
+    void window.appApi.queue.save(get().queue);
   }
 
   function buildQueueItem(): QueueItem | null {
@@ -285,60 +299,76 @@ export const useAppStore = create<AppState>((set, get) => {
     uiTheme: 'system',
     drawerOpen: false,
     setDrawerOpen: (open) => set({ drawerOpen: open }),
+    showQueueTip: false,
+    dismissQueueTip: () => set({ showQueueTip: false }),
     commonPaths: undefined,
+    _unbindStatus: null,
+    _unbindProgress: null,
 
     initialize: async () => {
       if (get().initialized || get().initializing) return;
       set({ initializing: true });
 
-      if (!unbindStatus) {
-        unbindStatus = window.appApi.events.onStatus((event) => {
-          const item = get().queue.find((i) => i.downloadJobId === event.jobId);
-          if (!item) return;
+      if (!get()._unbindStatus) {
+        set({
+          _unbindStatus: window.appApi.events.onStatus((event) => {
+            const item = get().queue.find((i) => i.downloadJobId === event.jobId);
+            if (!item) return;
 
-          if (event.stage === 'done') {
-            progressSmoothers.delete(event.jobId);
-            updateQueueItem(item.id, {
-              status: 'done',
-              progressPercent: 100,
-              finishedAt: new Date().toISOString(),
-              downloadJobId: null
-            });
-            void maybeStartNext();
-          } else if (event.stage === 'error') {
-            progressSmoothers.delete(event.jobId);
-            updateQueueItem(item.id, {
-              status: 'error',
-              errorMessage: event.message,
-              downloadJobId: null
-            });
-            void maybeStartNext();
-          }
+            if (event.stage === 'done') {
+              progressSmoothers.delete(event.jobId);
+              updateQueueItem(item.id, {
+                status: 'done',
+                progressPercent: 100,
+                finishedAt: new Date().toISOString(),
+                downloadJobId: null
+              });
+              saveQueue();
+              void maybeStartNext();
+            } else if (event.stage === 'error') {
+              progressSmoothers.delete(event.jobId);
+              updateQueueItem(item.id, {
+                status: 'error',
+                errorMessage: event.message,
+                downloadJobId: null
+              });
+              saveQueue();
+              void maybeStartNext();
+            }
+          })
         });
       }
 
-      if (!unbindProgress) {
-        unbindProgress = window.appApi.events.onProgress((event) => {
-          const item = get().queue.find((i) => i.downloadJobId === event.jobId);
-          if (!item) return;
+      if (!get()._unbindProgress) {
+        set({
+          _unbindProgress: window.appApi.events.onProgress((event) => {
+            const item = get().queue.find((i) => i.downloadJobId === event.jobId);
+            if (!item) return;
 
-          let smoother = progressSmoothers.get(event.jobId);
-          if (!smoother) {
-            smoother = new ProgressSmoother();
-            progressSmoothers.set(event.jobId, smoother);
-          }
-          const detail = smoother.update(event.line);
-          updateQueueItem(item.id, {
-            progressPercent: nextMonotonicPercent(item.progressPercent, event.percent),
-            ...(detail !== null ? { progressDetail: detail } : {})
-          });
+            let smoother = progressSmoothers.get(event.jobId);
+            if (!smoother) {
+              smoother = new ProgressSmoother();
+              progressSmoothers.set(event.jobId, smoother);
+            }
+            const detail = smoother.update(event.line);
+            updateQueueItem(item.id, {
+              progressPercent: nextMonotonicPercent(item.progressPercent, event.percent),
+              ...(detail !== null ? { progressDetail: detail } : {})
+            });
+          })
         });
       }
 
       const settingsPromise = window.appApi.settings.get();
       const warmUpPromise = window.appApi.app.warmUp();
+      const queuePromise = window.appApi.queue.load();
 
-      const settingsResult = await settingsPromise;
+      const [settingsResult, warmUpResult, savedQueue] = await Promise.all([
+        settingsPromise,
+        warmUpPromise,
+        queuePromise
+      ]);
+
       if (settingsResult.ok) {
         const zoom = settingsResult.data.uiZoom ?? 1;
         const theme = settingsResult.data.uiTheme ?? 'system';
@@ -353,8 +383,12 @@ export const useAppStore = create<AppState>((set, get) => {
         });
       }
 
-      const warmUpResult = await warmUpPromise;
       const warmupFailures = warmUpResult.ok ? warmUpResult.data.failures : [];
+
+      if (savedQueue.length > 0) {
+        set({ queue: savedQueue, drawerOpen: true });
+        await maybeStartNext();
+      }
 
       set({ initialized: true, initializing: false, warmupFailures });
     },
@@ -427,6 +461,8 @@ export const useAppStore = create<AppState>((set, get) => {
       const item = buildQueueItem();
       if (!item) return;
       set((state) => ({ queue: [...state.queue, item] }));
+      maybeShowQueueTip();
+      saveQueue();
       await persistFormatPrefs();
       get().resetWizard();
       await maybeStartNext();
@@ -436,6 +472,8 @@ export const useAppStore = create<AppState>((set, get) => {
       const item = buildQueueItem();
       if (!item) return;
       set((state) => ({ queue: [...state.queue, item] }));
+      maybeShowQueueTip();
+      saveQueue();
       await persistFormatPrefs();
       get().resetWizard();
       await get().startItemDownload(item.id);
@@ -489,6 +527,7 @@ export const useAppStore = create<AppState>((set, get) => {
 
       await window.appApi.downloads.cancel({ jobId: item.downloadJobId ?? undefined });
       updateQueueItem(itemId, { status: 'cancelled', downloadJobId: null });
+      saveQueue();
       void maybeStartNext();
     },
 
@@ -499,6 +538,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const result = await window.appApi.downloads.pause({ jobId: item.downloadJobId ?? undefined });
       if (result.ok && result.data.paused) {
         updateQueueItem(itemId, { status: 'paused', progressDetail: null });
+        saveQueue();
       }
     },
 
@@ -526,6 +566,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const item = get().queue.find((i) => i.id === itemId);
       if (item?.status === 'downloading' || item?.status === 'paused') return;
       set((state) => ({ queue: state.queue.filter((i) => i.id !== itemId) }));
+      saveQueue();
     },
 
     retryQueueItem: async (itemId) => {
@@ -537,7 +578,15 @@ export const useAppStore = create<AppState>((set, get) => {
         finishedAt: null,
         downloadJobId: null
       });
+      saveQueue();
       await maybeStartNext();
+    },
+
+    clearCompleted: () => {
+      set((state) => ({
+        queue: state.queue.filter((i) => i.status !== 'done' && i.status !== 'cancelled')
+      }));
+      saveQueue();
     },
 
     openItemFolder: async (itemId) => {
