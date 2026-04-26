@@ -55,13 +55,13 @@ export class DownloadService extends EventEmitter {
   }
 
   get activeCount(): number {
-    return this.activeJobs.size + this.pausedJobs.size;
+    return this.activeJobs.size;
   }
 
   get pendingCancelCount(): number {
-    let count = this.pausedJobs.size;
+    let count = 0;
     for (const active of this.activeJobs.values()) {
-      if (!active.cancelRequested) count++;
+      if (!active.cancelRequested && !active.pauseRequested) count++;
     }
     return count;
   }
