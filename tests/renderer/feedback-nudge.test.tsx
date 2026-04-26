@@ -3,10 +3,7 @@ import { fireEvent } from '@testing-library/react';
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 import { App } from '@renderer/App';
 import { useAppStore } from '@renderer/store/useAppStore';
-
-function ok<T>(data: T) {
-  return Promise.resolve({ ok: true as const, data });
-}
+import { ok } from '../shared/fixtures';
 
 const mockOpenExternal = vi.fn().mockResolvedValue(ok({ opened: true }));
 

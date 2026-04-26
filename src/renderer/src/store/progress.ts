@@ -23,13 +23,6 @@ export function parseEtaSeconds(eta: string): number | null {
   return null;
 }
 
-export function formatSpeed(bps: number): string {
-  if (bps >= UNITS.GiB) return `${(bps / UNITS.GiB).toFixed(2)}GiB/s`;
-  if (bps >= UNITS.MiB) return `${(bps / UNITS.MiB).toFixed(2)}MiB/s`;
-  if (bps >= UNITS.KiB) return `${(bps / UNITS.KiB).toFixed(2)}KiB/s`;
-  return `${bps.toFixed(0)}B/s`;
-}
-
 export function formatEta(seconds: number): string {
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);
@@ -38,12 +31,17 @@ export function formatEta(seconds: number): string {
   return `${m}:${String(s).padStart(2, '0')}`;
 }
 
-const EWMA_ALPHA = 0.15;
 const THROTTLE_MS = 1000;
+// yt-dlp resets its averaging window at every fragment boundary, producing
+// ~6 lines where speed plummets 50–200× and ETA spikes to hours. Suppress
+// those, but cap the suppression so a genuine network slowdown still gets
+// through within ~1.5s.
+const SUPPRESSION_WINDOW_MS = 1500;
+const SPIKE_DROP_RATIO = 0.2;
 
-export class ProgressSmoother {
-  private smoothedSpeedBps: number | null = null;
-  private smoothedEtaSec: number | null = null;
+export class ProgressFormatter {
+  private lastEmittedSpeedBps: number | null = null;
+  private suppressedSinceMs: number | null = null;
   private lastEmitTime = 0;
   private lastDetail: string | null = null;
 
@@ -64,39 +62,36 @@ export class ProgressSmoother {
     const match = line.match(/\bat\s+(.+?)\s+ETA\s+(.+)$/);
     if (!match) return null;
 
-    const speedBps = parseSpeedBps(match[1].trim());
-    const etaSec = parseEtaSeconds(match[2].trim());
-
-    if (speedBps !== null) {
-      this.smoothedSpeedBps =
-        this.smoothedSpeedBps === null
-          ? speedBps
-          : EWMA_ALPHA * speedBps + (1 - EWMA_ALPHA) * this.smoothedSpeedBps;
-    }
-    if (etaSec !== null) {
-      this.smoothedEtaSec =
-        this.smoothedEtaSec === null
-          ? etaSec
-          : EWMA_ALPHA * etaSec + (1 - EWMA_ALPHA) * this.smoothedEtaSec;
-    }
-
-    if (this.smoothedSpeedBps === null || this.smoothedEtaSec === null) {
-      return this.lastDetail;
-    }
+    const speedStr = match[1].trim();
+    const etaStr = match[2].trim();
+    const speedBps = parseSpeedBps(speedStr);
+    const etaSec = parseEtaSeconds(etaStr);
+    if (speedBps === null || etaSec === null) return this.lastDetail;
 
     const now = Date.now();
-    if (now - this.lastEmitTime < THROTTLE_MS) {
-      return this.lastDetail;
-    }
-    this.lastEmitTime = now;
 
-    this.lastDetail = `${formatSpeed(this.smoothedSpeedBps)} • ETA ${formatEta(this.smoothedEtaSec)}`;
+    if (
+      this.lastEmittedSpeedBps !== null &&
+      speedBps < this.lastEmittedSpeedBps * SPIKE_DROP_RATIO
+    ) {
+      if (this.suppressedSinceMs === null) this.suppressedSinceMs = now;
+      if (now - this.suppressedSinceMs < SUPPRESSION_WINDOW_MS) {
+        return this.lastDetail;
+      }
+    } else {
+      this.suppressedSinceMs = null;
+    }
+
+    if (now - this.lastEmitTime < THROTTLE_MS) return this.lastDetail;
+    this.lastEmitTime = now;
+    this.lastEmittedSpeedBps = speedBps;
+    this.lastDetail = `${speedStr} • ETA ${formatEta(etaSec)}`;
     return this.lastDetail;
   }
 
   reset(): void {
-    this.smoothedSpeedBps = null;
-    this.smoothedEtaSec = null;
+    this.lastEmittedSpeedBps = null;
+    this.suppressedSinceMs = null;
     this.lastEmitTime = 0;
     this.lastDetail = null;
   }

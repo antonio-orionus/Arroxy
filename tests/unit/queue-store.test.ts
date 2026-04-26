@@ -3,24 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import { QueueStore } from '@main/stores/QueueStore';
-import type { QueueItem } from '@shared/types';
-
-function makeItem(overrides: Partial<QueueItem> & Pick<QueueItem, 'id' | 'status'>): QueueItem {
-  return {
-    url: `https://youtube.com/watch?v=${overrides.id}`,
-    title: overrides.id,
-    thumbnail: '',
-    outputDir: '/tmp',
-    formatId: undefined,
-    formatLabel: 'Best',
-    progressPercent: 0,
-    progressDetail: null,
-    errorMessage: null,
-    finishedAt: null,
-    downloadJobId: null,
-    ...overrides,
-  };
-}
+import { makeItem } from '../shared/fixtures';
 
 async function tempStore(): Promise<[QueueStore, string]> {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'queue-store-'));

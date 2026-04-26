@@ -1,43 +1,30 @@
 import { useState, type JSX } from 'react';
 import type { Preset } from '@shared/types';
-import { useAppStore, groupVideoFormats } from '../store/useAppStore';
+import { humanSize } from '@shared/format';
+import { useAppStore, groupVideoFormats, PRESET_LABELS } from '../store/useAppStore';
 import { Button } from './ui/button';
 import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group';
 import { Separator } from './ui/separator';
+import { RadioOption } from './ui/radio-option';
 import { cn } from '@renderer/lib/utils';
 import { VideoSummaryCard } from './VideoSummaryCard';
 import { MascotBubble } from './MascotBubble';
 import choosingImg from '../assets/Choosing.png';
 import downloadingImg from '../assets/Downloading.png';
 
-const PRESET_OPTIONS: { value: Preset; label: string; desc: string }[] = [
-  { value: 'best-quality', label: 'Best quality', desc: 'Highest resolution + best audio' },
-  { value: 'balanced', label: 'Balanced', desc: '720p max + good audio' },
-  { value: 'audio-only', label: 'Audio only', desc: 'No video, best audio' },
-  { value: 'small-file', label: 'Small file', desc: 'Lowest resolution + low audio' }
-];
+const PRESET_DESCRIPTIONS: Record<Preset, string> = {
+  'best-quality': 'Highest resolution + best audio',
+  balanced: '720p max + good audio',
+  'audio-only': 'No video, best audio',
+  'small-file': 'Lowest resolution + low audio'
+};
 
-function humanSize(bytes: number): string {
-  const units = ['B', 'KB', 'MB', 'GB'];
-  let value = bytes;
-  let idx = 0;
-  while (value >= 1024 && idx < units.length - 1) { value /= 1024; idx += 1; }
-  return `${value.toFixed(idx === 0 ? 0 : 1)} ${units[idx]}`;
-}
-
-
-function RadioDot({ checked }: { checked: boolean }): JSX.Element {
-  return (
-    <div
-      className={cn(
-        'w-[13px] h-[13px] rounded-full border-2 flex-shrink-0 transition-colors',
-        checked
-          ? 'border-[var(--brand)] bg-[var(--brand)] shadow-[0_0_0_2px_var(--brand-dim)]'
-          : 'border-[var(--border-strong)]'
-      )}
-    />
-  );
-}
+const PRESET_OPTIONS: { value: Preset; label: string; desc: string }[] =
+  (Object.keys(PRESET_LABELS) as Preset[]).map((value) => ({
+    value,
+    label: PRESET_LABELS[value],
+    desc: PRESET_DESCRIPTIONS[value]
+  }));
 
 export function StepFormatSelect(): JSX.Element {
   const {
@@ -199,46 +186,33 @@ export function StepFormatSelect(): JSX.Element {
                   .join(' · ');
 
             return (
-              <div
+              <RadioOption
                 key={g.formatId || 'audio-only'}
-                role="radio"
-                aria-checked={isChecked}
-                tabIndex={0}
+                checked={isChecked}
                 onClick={() => setSelectedVideoFormatId(g.formatId)}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedVideoFormatId(g.formatId); }}
-                className={cn(
-                  'flex items-center gap-[7px] py-[5px] px-[8px] rounded-[6px] cursor-pointer transition-colors',
-                  isChecked
-                    ? 'bg-[var(--brand-dim)]'
-                    : 'hover:bg-accent'
-                )}
-              >
-                <RadioDot checked={isChecked} />
-                <span
-                  className={cn(
-                    'text-[13px] min-w-[68px]',
-                    isChecked ? 'font-semibold text-[var(--brand)]' : 'font-medium text-muted-foreground'
-                  )}
-                >
-                  {g.resolution}
-                </span>
-                {!g.isAudioOnly && (
-                  <div className="w-[32px] h-[2px] bg-accent rounded-full flex-shrink-0">
-                    <div
-                      className={cn('h-full rounded-full bg-[var(--brand)]', isChecked ? 'opacity-100' : 'opacity-25')}
-                      style={{ width: barWidth > 0 ? `${barWidth}%` : '0%' }}
-                    />
-                  </div>
-                )}
-                {meta && (
-                  <span
-                    className="text-[13px] ml-auto whitespace-nowrap"
-                    style={{ color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)' }}
-                  >
-                    {meta}
-                  </span>
-                )}
-              </div>
+                label={g.resolution}
+                labelClassName="min-w-[68px]"
+                meta={
+                  <>
+                    {!g.isAudioOnly && (
+                      <div className="w-[32px] h-[2px] bg-accent rounded-full flex-shrink-0">
+                        <div
+                          className={cn('h-full rounded-full bg-[var(--brand)]', isChecked ? 'opacity-100' : 'opacity-25')}
+                          style={{ width: barWidth > 0 ? `${barWidth}%` : '0%' }}
+                        />
+                      </div>
+                    )}
+                    {meta && (
+                      <span
+                        className="text-[13px] ml-auto whitespace-nowrap"
+                        style={{ color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)' }}
+                      >
+                        {meta}
+                      </span>
+                    )}
+                  </>
+                }
+              />
             );
           })}
         </div>
@@ -249,67 +223,29 @@ export function StepFormatSelect(): JSX.Element {
           {wizardFormats.filter((f) => f.isAudioOnly).map((fmt) => {
             const isChecked = selectedAudioFormatId === fmt.formatId;
             return (
-              <div
+              <RadioOption
                 key={fmt.formatId}
-                role="radio"
-                aria-checked={isChecked}
-                tabIndex={0}
+                checked={isChecked}
                 onClick={() => setAudioFormatId(fmt.formatId)}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setAudioFormatId(fmt.formatId); }}
-                className={cn(
-                  'flex items-center gap-[7px] py-[5px] px-[8px] rounded-[6px] cursor-pointer transition-colors',
-                  isChecked ? 'bg-[var(--brand-dim)]' : 'hover:bg-accent'
-                )}
-              >
-                <RadioDot checked={isChecked} />
-                <span
-                  className={cn(
-                    'text-[13px]',
-                    isChecked ? 'font-semibold text-[var(--brand)]' : 'font-medium text-muted-foreground'
-                  )}
-                >
-                  {fmt.ext}
-                </span>
-                <span
-                  className="text-[11px] ml-auto whitespace-nowrap"
-                  style={{ color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)' }}
-                >
-                  {fmt.label}
-                </span>
-              </div>
+                label={fmt.ext}
+                meta={
+                  <span
+                    className="text-[11px] ml-auto whitespace-nowrap"
+                    style={{ color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)' }}
+                  >
+                    {fmt.label}
+                  </span>
+                }
+              />
             );
           })}
-          {/* No audio */}
-          {(() => {
-            const disabled = isAudioOnly;
-            const isChecked = selectedAudioFormatId === null;
-            return (
-              <div
-                role="radio"
-                aria-checked={isChecked && !disabled}
-                aria-disabled={disabled}
-                tabIndex={disabled ? -1 : 0}
-                onClick={() => { if (!disabled) setAudioFormatId(null); }}
-                onKeyDown={(e) => { if (!disabled && (e.key === 'Enter' || e.key === ' ')) setAudioFormatId(null); }}
-                className={cn(
-                  'flex items-center gap-[7px] py-[5px] px-[8px] rounded-[6px] transition-colors',
-                  disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
-                  isChecked && !disabled ? 'bg-[var(--brand-dim)]' : 'hover:bg-accent'
-                )}
-              >
-                <RadioDot checked={isChecked && !disabled} />
-                <span
-                  className={cn(
-                    'text-[13px]',
-                    isChecked && !disabled ? 'font-semibold text-[var(--brand)]' : 'font-medium text-muted-foreground'
-                  )}
-                >
-                  No audio
-                </span>
-                <span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">Video only</span>
-              </div>
-            );
-          })()}
+          <RadioOption
+            checked={selectedAudioFormatId === null}
+            disabled={isAudioOnly}
+            onClick={() => setAudioFormatId(null)}
+            label="No audio"
+            meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">Video only</span>}
+          />
 
           <MascotBubble
             image={choosingImg}

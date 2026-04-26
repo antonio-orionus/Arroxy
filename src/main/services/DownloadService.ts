@@ -2,12 +2,11 @@ import { EventEmitter } from 'node:events';
 import { randomUUID } from 'node:crypto';
 import { readdir, unlink } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { ChildProcessWithoutNullStreams } from 'node:child_process';
+import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
 import { nowIso } from '@main/utils/clock';
 import { createAppError } from '@main/utils/errorFactory';
-import { spawnYtDlp } from '@main/utils/process';
+import { splitStderrLines } from '@main/utils/process';
 import { parsePercentFromLine } from '@main/utils/progress';
-import { classifyStderr, extractLastError, friendlyMessage } from '@main/utils/ytdlpErrors';
 import { fail, ok, type Result } from '@shared/result';
 import type {
   CancelDownloadOutput,
@@ -23,6 +22,7 @@ import type { BinaryManager } from './BinaryManager';
 import type { LogService } from './LogService';
 import type { RecentJobsStore } from '@main/stores/RecentJobsStore';
 import type { TokenService } from './TokenService';
+import { runYtDlp } from './ytDlpRunner';
 
 interface ActiveDownload {
   job: DownloadJob;
@@ -33,11 +33,15 @@ interface ActiveDownload {
 }
 
 function killProcessTree(proc: ChildProcessWithoutNullStreams, signal: NodeJS.Signals): void {
-  if (process.platform !== 'win32' && proc.pid != null) {
-    try { process.kill(-proc.pid, signal); } catch { proc.kill(signal); }
-  } else {
+  if (proc.pid == null) {
     proc.kill(signal);
+    return;
   }
+  if (process.platform === 'win32') {
+    spawn('taskkill', ['/pid', String(proc.pid), '/T', '/F'], { windowsHide: true });
+    return;
+  }
+  try { process.kill(-proc.pid, signal); } catch { proc.kill(signal); }
 }
 
 export class DownloadService extends EventEmitter {
@@ -97,117 +101,79 @@ export class DownloadService extends EventEmitter {
         return fail(createAppError('download', 'Download cancelled before start'));
       }
 
-      this.emitStatus(job.id, 'token', 'Minting YouTube token...');
-      const { token, visitorData } = await this.tokenService.mintTokenForUrl(input.url);
-
-      if (this.activeJobs.get(job.id)?.cancelRequested) {
-        this.logger.log('INFO', 'Download cancelled before process spawn', { jobId: job.id });
-        this.emitStatus(job.id, 'error', 'Download cancelled');
-        await this.finalize(job, 'cancelled');
-        return fail(createAppError('download', 'Download cancelled before spawn'));
-      }
-
-      this.emitStatus(job.id, 'download', 'Starting yt-dlp process...');
-
       if (this.mockMode) {
+        this.emitStatus(job.id, 'token', 'Minting YouTube token...');
+        this.emitStatus(job.id, 'download', 'Starting yt-dlp process...');
         this.startMockDownload(job.id);
         return ok({ job });
       }
 
-      let stderrBuf = '';
-      let isRetrying = false;
+      const args = ['--progress', '--no-playlist'];
+      if (input.formatId) args.push('-f', input.formatId);
+      args.push('-o', `${input.outputDir}/%(title)s.%(ext)s`, input.url);
 
-      const spawnProcess = (spawnToken: string, spawnVisitorData: string): void => {
-        stderrBuf = '';
-        const extractorArgs = `youtube:po_token=web.gvs+${spawnToken}${spawnVisitorData ? `;visitor_data=${spawnVisitorData}` : ''}`;
-        const args = [
-          '--extractor-args',
-          extractorArgs,
-          '--progress',
-          '--no-playlist'
-        ];
-
-        if (input.formatId) {
-          args.push('-f', input.formatId);
-        }
-
-        args.push('-o', `${input.outputDir}/%(title)s.%(ext)s`, input.url);
-
-        const proc = spawnYtDlp(ytDlpPath, args, ffmpegPath);
-        const active = this.activeJobs.get(job.id)!;
-        active.process = proc;
-        if (active.cancelRequested) {
-          proc.kill('SIGKILL');
-        }
-
-        proc.stdout.on('data', (chunk) => {
-          try { this.consumeProgress(job.id, chunk.toString()); } catch { /* swallow */ }
-        });
-
-        proc.stderr.on('data', (chunk) => {
-          try {
-            const text = chunk.toString() as string;
-            stderrBuf += text;
-            this.consumeProgress(job.id, text);
-          } catch { /* swallow */ }
-        });
-
-        proc.on('error', async (error) => {
-          this.logger.log('ERROR', 'yt-dlp spawn error', { message: error.message, jobId: job.id });
-          this.emitStatus(job.id, 'error', `yt-dlp process error: ${error.message}`);
-          await this.finalize(job, 'failed', error.message);
-        });
-
-        proc.on('close', async (code) => {
-          const activeEntry = this.activeJobs.get(job.id);
-
-          if (activeEntry?.pauseRequested) {
-            this.activeJobs.delete(job.id);
-            this.pausedJobs.set(job.id, job);
-            this.logger.log('INFO', 'Download paused — .part file preserved', { jobId: job.id, outputDir: job.outputDir });
-            return;
-          }
-
-          if (activeEntry?.cancelRequested) {
-            await this.cleanupPartFiles(job.outputDir);
-            this.emitStatus(job.id, 'error', 'Download cancelled');
-            await this.finalize(job, 'cancelled');
-            return;
-          }
-
-          if (code === 0) {
-            this.emitStatus(job.id, 'done', 'Download complete');
-            await this.finalize(job, 'completed');
-            return;
-          }
-
-          const signal = classifyStderr(stderrBuf);
-
-          if (signal === 'bot_block' && !isRetrying) {
-            isRetrying = true;
-            this.emitStatus(job.id, 'token', 'Re-minting token...');
-            this.tokenService.invalidateCache();
-            try {
-              const { token: newToken, visitorData: newVisitorData } = await this.tokenService.mintTokenForUrl(job.url);
-              spawnProcess(newToken, newVisitorData);
-            } catch (err) {
-              const msg = err instanceof Error ? err.message : 'Token re-mint failed';
-              this.emitStatus(job.id, 'error', msg);
-              await this.finalize(job, 'failed', msg);
-            }
-            return;
-          }
-
-          const message = signal
-            ? friendlyMessage(signal)
-            : (extractLastError(stderrBuf) ?? `yt-dlp exited with code ${code ?? -1}`);
-          this.logger.log('ERROR', 'yt-dlp download failed', { jobId: job.id, code, signal });
-          this.emitStatus(job.id, 'error', message);
-          await this.finalize(job, 'failed', message);
-        });
+      const safeConsume = (chunk: string): void => {
+        try { this.consumeProgress(job.id, chunk); } catch { /* swallow */ }
       };
 
-      spawnProcess(token, visitorData);
+      void runYtDlp({
+        url: input.url,
+        ytDlpPath,
+        ffmpegPath,
+        args,
+        tokenService: this.tokenService,
+        onAttempt: (attempt) => {
+          this.emitStatus(
+            job.id,
+            'token',
+            attempt === 0 ? 'Minting YouTube token...' : 'Re-minting token...'
+          );
+        },
+        onSpawn: (proc) => {
+          this.emitStatus(job.id, 'download', 'Starting yt-dlp process...');
+          const active = this.activeJobs.get(job.id);
+          if (!active) return;
+          active.process = proc;
+          if (active.cancelRequested) proc.kill('SIGKILL');
+        },
+        onStdout: safeConsume,
+        onStderr: safeConsume
+      }).then(async (result) => {
+        const activeEntry = this.activeJobs.get(job.id);
+
+        if (activeEntry?.pauseRequested) {
+          this.activeJobs.delete(job.id);
+          this.pausedJobs.set(job.id, job);
+          this.logger.log('INFO', 'Download paused — .part file preserved', { jobId: job.id, outputDir: job.outputDir });
+          return;
+        }
+
+        if (activeEntry?.cancelRequested) {
+          await this.cleanupPartFiles(job.outputDir);
+          this.emitStatus(job.id, 'error', 'Download cancelled');
+          await this.finalize(job, 'cancelled');
+          return;
+        }
+
+        if (result.spawnError) {
+          this.logger.log('ERROR', 'yt-dlp spawn error', { message: result.spawnError.message, jobId: job.id });
+          this.emitStatus(job.id, 'error', `yt-dlp process error: ${result.spawnError.message}`);
+          await this.finalize(job, 'failed', result.spawnError.message);
+          return;
+        }
+
+        if (result.exitCode === 0) {
+          this.emitStatus(job.id, 'done', 'Download complete');
+          await this.finalize(job, 'completed');
+          return;
+        }
+
+        const message = result.message ?? `yt-dlp exited with code ${result.exitCode ?? -1}`;
+        this.logger.log('ERROR', 'yt-dlp download failed', { jobId: job.id, code: result.exitCode, signal: result.errorClass });
+        this.emitStatus(job.id, 'error', message);
+        await this.finalize(job, 'failed', message);
+      });
+
       return ok({ job });
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown download startup failure';
@@ -317,12 +283,7 @@ export class DownloadService extends EventEmitter {
   }
 
   private consumeProgress(jobId: string, text: string): void {
-    const lines = text
-      .split(/\r?\n/)
-      .map((line) => line.trim())
-      .filter(Boolean);
-
-    for (const line of lines) {
+    for (const line of splitStderrLines(text)) {
       this.logger.log('INFO', line, { jobId, source: 'yt-dlp-progress' });
       const event: ProgressEvent = {
         jobId,

@@ -4,10 +4,7 @@ import { App } from '@renderer/App';
 import { useAppStore } from '@renderer/store/useAppStore';
 import type { AppApi } from '@shared/api';
 import type { UpdateAvailablePayload } from '@shared/types';
-
-function ok<T>(data: T) {
-  return Promise.resolve({ ok: true as const, data });
-}
+import { ok } from '../shared/fixtures';
 
 type UpdateListener = (info: UpdateAvailablePayload) => void;
 

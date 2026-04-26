@@ -1,17 +1,11 @@
 import type { JSX } from 'react';
-import { useAppStore, groupVideoFormats } from '../store/useAppStore';
+import { humanSize } from '@shared/format';
+import { useAppStore, groupVideoFormats, PRESET_LABELS } from '../store/useAppStore';
+import { formatHomeRelativePath } from '@renderer/lib/utils';
 import { Button } from './ui/button';
 import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
 import { VideoSummaryCard } from './VideoSummaryCard';
 import loveImg from '../assets/Love.png';
-
-function humanSize(bytes: number): string {
-  const units = ['B', 'KB', 'MB', 'GB'];
-  let value = bytes;
-  let idx = 0;
-  while (value >= 1024 && idx < units.length - 1) { value /= 1024; idx += 1; }
-  return `${value.toFixed(idx === 0 ? 0 : 1)} ${units[idx]}`;
-}
 
 export function StepConfirm(): JSX.Element {
   const {
@@ -25,12 +19,9 @@ export function StepConfirm(): JSX.Element {
     wizardFormats,
     commonPaths,
     addToQueue,
-    addAndDownloadImmediately
+    addAndDownloadImmediately,
+    goToStep
   } = useAppStore();
-
-  function goBack(): void {
-    useAppStore.setState({ wizardStep: 'folder' });
-  }
 
   const videoGroups = groupVideoFormats(wizardFormats).filter((g) => !g.isAudioOnly);
   const videoResolution =
@@ -41,15 +32,8 @@ export function StepConfirm(): JSX.Element {
   const audioFormat = wizardFormats.find((f) => f.formatId === selectedAudioFormatId);
   const audioLabel = selectedAudioFormatId === null ? 'No audio' : (audioFormat?.label ?? 'Audio');
 
-  const presetLabels: Record<string, string> = {
-    'best-quality': 'Best quality',
-    balanced: 'Balanced',
-    'audio-only': 'Audio only',
-    'small-file': 'Small file'
-  };
-
   const videoSummary = activePreset
-    ? presetLabels[activePreset]
+    ? PRESET_LABELS[activePreset]
     : selectedVideoFormatId === ''
       ? 'Audio only'
       : videoResolution;
@@ -57,11 +41,7 @@ export function StepConfirm(): JSX.Element {
   const selectedFormat = wizardFormats.find((f) => f.formatId === selectedVideoFormatId);
   const estimatedSize = selectedFormat?.filesize ? `~${humanSize(selectedFormat.filesize)}` : 'Unknown';
 
-  // Shorten path for display
-  const homeBase = commonPaths?.downloads?.replace(/[/\\][^/\\]+$/, '') ?? '';
-  const shortPath = homeBase && wizardOutputDir.startsWith(homeBase)
-    ? wizardOutputDir.replace(homeBase, '~')
-    : wizardOutputDir;
+  const shortPath = formatHomeRelativePath(wizardOutputDir, commonPaths);
 
   const summaryRows: [string, string][] = [
     ['Video', videoSummary],
@@ -116,7 +96,7 @@ export function StepConfirm(): JSX.Element {
         <Button
           variant="ghost"
           type="button"
-          onClick={goBack}
+          onClick={() => goToStep('folder')}
           data-testid="btn-back"
           className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground mr-auto"
         >

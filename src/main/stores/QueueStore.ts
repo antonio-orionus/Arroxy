@@ -1,12 +1,10 @@
-import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { QueueItem } from '@shared/types';
+import { JsonFileStore } from './JsonFileStore';
 
-export class QueueStore {
-  private readonly filePath: string;
-
+export class QueueStore extends JsonFileStore {
   constructor(userDataPath: string) {
-    this.filePath = path.join(userDataPath, 'queue.json');
+    super(path.join(userDataPath, 'queue.json'));
   }
 
   async save(items: QueueItem[]): Promise<void> {
@@ -24,19 +22,14 @@ export class QueueStore {
         };
       });
 
-    await fs.mkdir(path.dirname(this.filePath), { recursive: true });
-    await fs.writeFile(this.filePath, JSON.stringify(toStore, null, 2), 'utf-8');
+    await this.writeJson(toStore);
   }
 
   async load(): Promise<QueueItem[]> {
-    try {
-      const raw = await fs.readFile(this.filePath, 'utf-8');
-      const parsed = JSON.parse(raw) as QueueItem[];
-      if (!Array.isArray(parsed)) return [];
-      return parsed.map((item) => ({ ...item, downloadJobId: null }));
-    } catch (err) {
-      console.error('[QueueStore] Failed to load queue — returning empty', err);
-      return [];
-    }
+    const parsed = await this.readJson<QueueItem[]>([], (err) =>
+      console.error('[QueueStore] Failed to load queue — returning empty', err)
+    );
+    if (!Array.isArray(parsed)) return [];
+    return parsed.map((item) => ({ ...item, downloadJobId: null }));
   }
 }

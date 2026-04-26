@@ -1,35 +1,31 @@
-import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { RecentJob } from '@shared/types';
+import { JsonFileStore } from './JsonFileStore';
 
 const MAX_JOBS = 30;
 
-export class RecentJobsStore {
-  private readonly filePath: string;
+export class RecentJobsStore extends JsonFileStore {
+  private pushQueue: Promise<void> = Promise.resolve();
 
   constructor(userDataPath: string) {
-    this.filePath = path.join(userDataPath, 'recent-jobs.json');
+    super(path.join(userDataPath, 'recent-jobs.json'));
   }
 
   async list(): Promise<RecentJob[]> {
-    const jobs = await this.read();
+    const jobs = await this.readJson<RecentJob[]>([], (err) =>
+      console.error('[RecentJobsStore] Failed to load recent jobs — returning empty', err)
+    );
+    if (!Array.isArray(jobs)) return [];
     return jobs.sort((a, b) => (a.finishedAt < b.finishedAt ? 1 : -1));
   }
 
   async push(job: RecentJob): Promise<void> {
-    const current = await this.list();
-    const merged = [job, ...current.filter((entry) => entry.id !== job.id)].slice(0, MAX_JOBS);
-    await fs.mkdir(path.dirname(this.filePath), { recursive: true });
-    await fs.writeFile(this.filePath, JSON.stringify(merged, null, 2), 'utf-8');
-  }
-
-  private async read(): Promise<RecentJob[]> {
-    try {
-      const raw = await fs.readFile(this.filePath, 'utf-8');
-      const parsed = JSON.parse(raw) as RecentJob[];
-      return Array.isArray(parsed) ? parsed : [];
-    } catch {
-      return [];
-    }
+    const next = this.pushQueue.then(async () => {
+      const current = await this.list();
+      const merged = [job, ...current.filter((entry) => entry.id !== job.id)].slice(0, MAX_JOBS);
+      await this.writeJson(merged);
+    });
+    this.pushQueue = next.catch(() => {});
+    return next;
   }
 }

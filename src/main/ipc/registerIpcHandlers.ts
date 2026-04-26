@@ -1,4 +1,5 @@
 import { app, dialog, ipcMain, shell, type BrowserWindow } from 'electron';
+import type { ZodType } from 'zod';
 import { createAppError, unknownToMessage } from '@main/utils/errorFactory';
 import { fail, ok, type Result } from '@shared/result';
 import { IPC_CHANNELS } from '@shared/ipc';
@@ -40,6 +41,24 @@ function toIpcFailure(message: string): Result<never> {
 
 function toUnknownFailure(error: unknown): Result<never> {
   return fail(createAppError('unknown', unknownToMessage(error)));
+}
+
+function handle<T, R>(
+  channel: string,
+  schema: ZodType<T>,
+  fn: (data: T) => Promise<Result<R>>
+): void {
+  ipcMain.handle(channel, async (_, payload: unknown) => {
+    const parsed = schema.safeParse(payload ?? {});
+    if (!parsed.success) {
+      return fail(zodToError(parsed.error.issues[0]?.message ?? `Invalid ${channel} payload`));
+    }
+    try {
+      return await fn(parsed.data);
+    } catch (error) {
+      return toUnknownFailure(error);
+    }
+  });
 }
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
@@ -98,45 +117,22 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     }
   });
 
-  ipcMain.handle(IPC_CHANNELS.downloadsGetFormats, async (_, payload: unknown) => {
-    const parsed = getFormatsSchema.safeParse(payload);
-    if (!parsed.success) {
-      return fail(zodToError(parsed.error.issues[0]?.message ?? 'Invalid getFormats payload'));
-    }
-    return formatProbeService.getFormats(parsed.data.url);
+  handle(IPC_CHANNELS.downloadsGetFormats, getFormatsSchema, ({ url }) =>
+    formatProbeService.getFormats(url)
+  );
+
+  handle(IPC_CHANNELS.downloadsStart, startDownloadSchema, async (data) => {
+    const settings = await settingsStore.get();
+    const outputDir = data.outputDir ?? settings.defaultOutputDir;
+    return downloadService.start({ ...data, outputDir });
   });
 
-  ipcMain.handle(IPC_CHANNELS.downloadsStart, async (_, payload: unknown) => {
-    const parsed = startDownloadSchema.safeParse(payload);
-    if (!parsed.success) {
-      return fail(zodToError(parsed.error.issues[0]?.message ?? 'Invalid start payload'));
-    }
-
-    try {
-      const settings = await settingsStore.get();
-      const outputDir = parsed.data.outputDir ?? settings.defaultOutputDir;
-      return downloadService.start({ ...parsed.data, outputDir });
-    } catch (error) {
-      return toUnknownFailure(error);
-    }
+  handle(IPC_CHANNELS.downloadsCancel, cancelDownloadSchema, ({ jobId }) => {
+    logService.log('INFO', '[cancel IPC] received', { jobId: jobId ?? '(undefined)' });
+    return downloadService.cancel(jobId);
   });
 
-  ipcMain.handle(IPC_CHANNELS.downloadsCancel, async (_, payload: unknown) => {
-    const parsed = cancelDownloadSchema.safeParse(payload ?? {});
-    if (!parsed.success) {
-      return fail(zodToError(parsed.error.issues[0]?.message ?? 'Invalid cancel payload'));
-    }
-    logService.log('INFO', '[cancel IPC] received', { jobId: parsed.data.jobId ?? '(undefined)' });
-    return downloadService.cancel(parsed.data.jobId);
-  });
-
-  ipcMain.handle(IPC_CHANNELS.downloadsPause, async (_, payload: unknown) => {
-    const parsed = pauseResumeSchema.safeParse(payload ?? {});
-    if (!parsed.success) {
-      return fail(zodToError(parsed.error.issues[0]?.message ?? 'Invalid pause payload'));
-    }
-    return downloadService.pause(parsed.data.jobId);
-  });
+  handle(IPC_CHANNELS.downloadsPause, pauseResumeSchema, ({ jobId }) => downloadService.pause(jobId));
 
   ipcMain.handle(IPC_CHANNELS.settingsGet, async () => {
     try {
@@ -154,18 +150,9 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     }
   });
 
-  ipcMain.handle(IPC_CHANNELS.settingsUpdate, async (_, payload: unknown) => {
-    const parsed = updateSettingsSchema.safeParse(payload);
-    if (!parsed.success) {
-      return fail(zodToError(parsed.error.issues[0]?.message ?? 'Invalid settings payload'));
-    }
-
-    try {
-      const updated = await settingsStore.update(parsed.data);
-      return ok(updated);
-    } catch (error) {
-      return toUnknownFailure(error);
-    }
+  handle(IPC_CHANNELS.settingsUpdate, updateSettingsSchema, async (data) => {
+    const updated = await settingsStore.update(data);
+    return ok(updated);
   });
 
   ipcMain.handle(IPC_CHANNELS.shellOpenFolder, async (_, payload: unknown) => {

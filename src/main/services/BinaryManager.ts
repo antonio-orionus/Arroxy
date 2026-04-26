@@ -111,19 +111,38 @@ async function sha256ForFile(filePath: string): Promise<string> {
   });
 }
 
+type AssetPlatform = 'win32' | 'darwin' | 'linux';
+type AssetArch = 'arm64' | 'x64';
+
+const YT_DLP_ASSETS: Record<AssetPlatform, Record<AssetArch, string>> = {
+  win32:  { x64: 'yt-dlp.exe',         arm64: 'yt-dlp.exe' },
+  darwin: { x64: 'yt-dlp_macos_legacy', arm64: 'yt-dlp_macos' },
+  linux:  { x64: 'yt-dlp_linux',       arm64: 'yt-dlp_linux_aarch64' }
+};
+
+const FFMPEG_ASSETS: Record<AssetPlatform, Record<AssetArch, string>> = {
+  win32:  { x64: 'ffmpeg-win32-x64',  arm64: 'ffmpeg-win32-arm64' },
+  darwin: { x64: 'ffmpeg-darwin-x64', arm64: 'ffmpeg-darwin-arm64' },
+  linux:  { x64: 'ffmpeg-linux-x64',  arm64: 'ffmpeg-linux-arm64' }
+};
+
+function currentAssetTarget(): { platform: AssetPlatform; arch: AssetArch } | null {
+  const platform = process.platform;
+  if (platform !== 'win32' && platform !== 'darwin' && platform !== 'linux') return null;
+  const arch: AssetArch = process.arch === 'arm64' ? 'arm64' : 'x64';
+  return { platform, arch };
+}
+
 function ytDlpAssetName(): string {
-  if (process.platform === 'win32') return 'yt-dlp.exe';
-  if (process.platform === 'darwin') {
-    return process.arch === 'arm64' ? 'yt-dlp_macos' : 'yt-dlp_macos_legacy';
-  }
-  return process.arch === 'arm64' ? 'yt-dlp_linux_aarch64' : 'yt-dlp_linux';
+  const target = currentAssetTarget();
+  if (!target) return 'yt-dlp_linux';
+  return YT_DLP_ASSETS[target.platform][target.arch];
 }
 
 function ffmpegAssetName(): string | null {
-  if (process.platform === 'win32') return process.arch === 'arm64' ? 'ffmpeg-win32-arm64' : 'ffmpeg-win32-x64';
-  if (process.platform === 'darwin') return process.arch === 'arm64' ? 'ffmpeg-darwin-arm64' : 'ffmpeg-darwin-x64';
-  if (process.platform === 'linux') return process.arch === 'arm64' ? 'ffmpeg-linux-arm64' : 'ffmpeg-linux-x64';
-  return null;
+  const target = currentAssetTarget();
+  if (!target) return null;
+  return FFMPEG_ASSETS[target.platform][target.arch];
 }
 
 interface EnsureBinaryConfig {

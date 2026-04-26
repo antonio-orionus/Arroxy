@@ -2,10 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { App } from '@renderer/App';
 import { useAppStore } from '@renderer/store/useAppStore';
-
-function ok<T>(data: T) {
-  return Promise.resolve({ ok: true as const, data });
-}
+import { ok } from '../shared/fixtures';
 
 const mockAppApi = {
   app: {

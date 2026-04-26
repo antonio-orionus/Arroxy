@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+import { useMemo } from 'react';
 import { ChevronDown, Inbox, Trash2 } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
 import { QueueItemCard } from './QueueItemCard';
@@ -14,6 +15,7 @@ export function SmartDrawer(): JSX.Element {
   const dismissQueueTip = useAppStore((s) => s.dismissQueueTip);
   const clearCompleted = useAppStore((s) => s.clearCompleted);
 
+  const reversedQueue = useMemo(() => [...queue].reverse(), [queue]);
   const activeItem = queue.find((i) => i.status === 'downloading');
   const totalCount = queue.length;
   const hasCompleted = queue.some((i) => i.status === 'done' || i.status === 'cancelled');
@@ -97,8 +99,8 @@ export function SmartDrawer(): JSX.Element {
                 <span>Downloads you queue will appear here</span>
               </li>
             ) : (
-              [...queue].reverse().map((item) => (
-                <QueueItemCard key={item.id} item={item} compact />
+              reversedQueue.map((item) => (
+                <QueueItemCard key={item.id} item={item} />
               ))
             )}
           </ul>

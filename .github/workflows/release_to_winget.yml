@@ -10,6 +10,7 @@ env:
 
 jobs:
   publish:
+    if: false  # disabled until initial winget PR is approved
     runs-on: windows-latest
     steps:
       - name: Get latest release tag

@@ -6,9 +6,16 @@ import type {
   Preset,
   QueueItem
 } from '@shared/types';
-import { nextMonotonicPercent, ProgressSmoother } from './progress';
+import { nextMonotonicPercent, ProgressFormatter } from './progress';
 
 export type WizardStep = 'url' | 'formats' | 'folder' | 'confirm' | 'error';
+
+export const PRESET_LABELS: Record<Preset, string> = {
+  'best-quality': 'Best quality',
+  balanced: 'Balanced',
+  'audio-only': 'Audio only',
+  'small-file': 'Small file'
+};
 
 export interface GroupedVideoFormat {
   resolution: string;
@@ -33,13 +40,7 @@ function buildFormatLabel(
   preset: Preset | null
 ): string {
   if (preset) {
-    const labels: Record<Preset, string> = {
-      'best-quality': 'Best quality',
-      balanced: 'Balanced',
-      'audio-only': 'Audio only',
-      'small-file': 'Small file'
-    };
-    return labels[preset];
+    return PRESET_LABELS[preset];
   }
   const audioFmt = audioFormats.find((f) => f.formatId === audioFormatId);
   const audioLabel = audioFormatId === null ? 'No audio' : (audioFmt?.label ?? 'Audio');
@@ -152,8 +153,6 @@ interface AppState {
 
   // System
   commonPaths: AppSettings['commonPaths'];
-  _unbindStatus: (() => void) | null;
-  _unbindProgress: (() => void) | null;
 
   // Actions
   initialize: () => Promise<void>;
@@ -163,6 +162,7 @@ interface AppState {
 
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
+  goToStep: (step: WizardStep) => void;
   setSelectedVideoFormatId: (id: string) => void;
   setAudioFormatId: (id: string | null) => void;
   setPreset: (p: Preset) => void;
@@ -185,7 +185,7 @@ interface AppState {
   openItemUrl: (itemId: string) => void;
 }
 
-const progressSmoothers = new Map<string, ProgressSmoother>();
+const progressFormatters = new Map<string, ProgressFormatter>();
 
 export const useAppStore = create<AppState>((set, get) => {
   function updateQueueItem(id: string, patch: Partial<QueueItem>): void {
@@ -291,62 +291,52 @@ export const useAppStore = create<AppState>((set, get) => {
     showQueueTip: false,
     dismissQueueTip: () => set({ showQueueTip: false }),
     commonPaths: undefined,
-    _unbindStatus: null,
-    _unbindProgress: null,
 
     initialize: async () => {
       if (get().initialized || get().initializing) return;
       set({ initializing: true });
 
-      if (!get()._unbindStatus) {
-        set({
-          _unbindStatus: window.appApi.events.onStatus((event) => {
-            const item = get().queue.find((i) => i.downloadJobId === event.jobId);
-            if (!item) return;
+      window.appApi.events.onStatus((event) => {
+        const item = get().queue.find((i) => i.downloadJobId === event.jobId);
+        if (!item) return;
 
-            if (event.stage === 'done') {
-              progressSmoothers.delete(event.jobId);
-              updateQueueItem(item.id, {
-                status: 'done',
-                progressPercent: 100,
-                finishedAt: new Date().toISOString(),
-                downloadJobId: null
-              });
-              saveQueue();
-              void maybeStartNext();
-            } else if (event.stage === 'error') {
-              progressSmoothers.delete(event.jobId);
-              updateQueueItem(item.id, {
-                status: 'error',
-                errorMessage: event.message,
-                downloadJobId: null
-              });
-              saveQueue();
-              void maybeStartNext();
-            }
-          })
+        if (event.stage === 'done') {
+          progressFormatters.delete(event.jobId);
+          updateQueueItem(item.id, {
+            status: 'done',
+            progressPercent: 100,
+            finishedAt: new Date().toISOString(),
+            downloadJobId: null
+          });
+          saveQueue();
+          void maybeStartNext();
+        } else if (event.stage === 'error') {
+          progressFormatters.delete(event.jobId);
+          updateQueueItem(item.id, {
+            status: 'error',
+            errorMessage: event.message,
+            downloadJobId: null
+          });
+          saveQueue();
+          void maybeStartNext();
+        }
+      });
+
+      window.appApi.events.onProgress((event) => {
+        const item = get().queue.find((i) => i.downloadJobId === event.jobId);
+        if (!item) return;
+
+        let formatter = progressFormatters.get(event.jobId);
+        if (!formatter) {
+          formatter = new ProgressFormatter();
+          progressFormatters.set(event.jobId, formatter);
+        }
+        const detail = formatter.update(event.line);
+        updateQueueItem(item.id, {
+          progressPercent: nextMonotonicPercent(item.progressPercent, event.percent),
+          ...(detail !== null ? { progressDetail: detail } : {})
         });
-      }
-
-      if (!get()._unbindProgress) {
-        set({
-          _unbindProgress: window.appApi.events.onProgress((event) => {
-            const item = get().queue.find((i) => i.downloadJobId === event.jobId);
-            if (!item) return;
-
-            let smoother = progressSmoothers.get(event.jobId);
-            if (!smoother) {
-              smoother = new ProgressSmoother();
-              progressSmoothers.set(event.jobId, smoother);
-            }
-            const detail = smoother.update(event.line);
-            updateQueueItem(item.id, {
-              progressPercent: nextMonotonicPercent(item.progressPercent, event.percent),
-              ...(detail !== null ? { progressDetail: detail } : {})
-            });
-          })
-        });
-      }
+      });
 
       const settingsPromise = window.appApi.settings.get();
       const warmUpPromise = window.appApi.app.warmUp();
@@ -424,6 +414,8 @@ export const useAppStore = create<AppState>((set, get) => {
         formatsLoading: false
       });
     },
+
+    goToStep: (step) => set({ wizardStep: step }),
 
     setSelectedVideoFormatId: (id) => set({ selectedVideoFormatId: id, activePreset: null }),
 
@@ -537,6 +529,7 @@ export const useAppStore = create<AppState>((set, get) => {
       if (!item || item.status !== 'paused') return;
 
       updateQueueItem(itemId, { status: 'downloading', errorMessage: null });
+      saveQueue();
 
       const result = await window.appApi.downloads.start({
         url: item.url,
@@ -546,10 +539,12 @@ export const useAppStore = create<AppState>((set, get) => {
 
       if (!result.ok) {
         updateQueueItem(itemId, { status: 'error', errorMessage: result.error.message });
+        saveQueue();
         return;
       }
 
       updateQueueItem(itemId, { downloadJobId: result.data.job.id });
+      saveQueue();
     },
 
     removeQueueItem: (itemId) => {

@@ -1,32 +1,8 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useAppStore } from '@renderer/store/useAppStore';
-import type { QueueItem, StatusEvent } from '@shared/types';
-
-function ok<T>(data: T) {
-  return { ok: true as const, data };
-}
-
-function makeItem(overrides: Partial<QueueItem> & Pick<QueueItem, 'id' | 'status'>): QueueItem {
-  return {
-    url: `https://youtube.com/watch?v=${overrides.id}`,
-    title: overrides.id,
-    thumbnail: '',
-    outputDir: '/tmp',
-    formatId: undefined,
-    formatLabel: 'Best',
-    progressPercent: 0,
-    progressDetail: null,
-    errorMessage: null,
-    finishedAt: null,
-    downloadJobId: null,
-    ...overrides
-  };
-}
-
-function makeJob(id: string) {
-  return { id, url: '', outputDir: '/tmp', status: 'running' as const, createdAt: '', updatedAt: '' };
-}
+import type { StatusEvent } from '@shared/types';
+import { makeItem, makeJob, ok } from '../shared/fixtures';
 
 describe('Queue parallel/sequential download behavior', () => {
   let startMock: ReturnType<typeof vi.fn>;
@@ -39,8 +15,6 @@ describe('Queue parallel/sequential download behavior', () => {
     useAppStore.setState({
       initialized: false,
       initializing: false,
-      _unbindStatus: null,
-      _unbindProgress: null,
       settings: { defaultOutputDir: '/tmp', rememberLastOutputDir: false },
       wizardStep: 'url',
       formatsLoading: false,

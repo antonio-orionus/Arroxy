@@ -2,7 +2,8 @@ import { useState, useMemo, type JSX } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
-import { cn } from '@renderer/lib/utils';
+import { RadioOption } from './ui/radio-option';
+import { formatHomeRelativePath } from '@renderer/lib/utils';
 import { VideoSummaryCard } from './VideoSummaryCard';
 
 interface Location {
@@ -17,19 +18,6 @@ function matchLocation(dir: string, locations: Location[]): string {
   return preset?.id ?? 'custom';
 }
 
-function RadioDot({ checked }: { checked: boolean }): JSX.Element {
-  return (
-    <div
-      className={cn(
-        'w-[13px] h-[13px] rounded-full border-2 flex-shrink-0 transition-colors',
-        checked
-          ? 'border-[var(--brand)] bg-[var(--brand)] shadow-[0_0_0_2px_var(--brand-dim)]'
-          : 'border-[var(--border-strong)]'
-      )}
-    />
-  );
-}
-
 export function StepFolderConfirm(): JSX.Element {
   const {
     wizardOutputDir,
@@ -37,7 +25,8 @@ export function StepFolderConfirm(): JSX.Element {
     wizardTitle,
     wizardDuration,
     commonPaths,
-    confirmFolder
+    confirmFolder,
+    goToStep
   } = useAppStore();
 
   const locations = useMemo<Location[]>(() => [
@@ -48,10 +37,6 @@ export function StepFolderConfirm(): JSX.Element {
   ], [commonPaths]);
 
   const [selectedId, setSelectedId] = useState<string>(() => matchLocation(wizardOutputDir, locations));
-
-  function goBack(): void {
-    useAppStore.setState({ wizardStep: 'formats' });
-  }
 
   async function handleSelect(loc: Location): Promise<void> {
     if (loc.path !== null) {
@@ -70,11 +55,7 @@ export function StepFolderConfirm(): JSX.Element {
   const displayPath = (loc: Location): string | null => {
     if (loc.path === null && selectedId === 'custom') return wizardOutputDir || null;
     if (loc.path === null) return null;
-    const home = commonPaths?.downloads?.replace(/[/\\][^/\\]+$/, '');
-    if (home && loc.path.startsWith(home)) {
-      return loc.path.replace(home, '~');
-    }
-    return loc.path;
+    return formatHomeRelativePath(loc.path, commonPaths);
   };
 
   return (
@@ -92,36 +73,20 @@ export function StepFolderConfirm(): JSX.Element {
             const isSelected = selectedId === loc.id;
             const path = displayPath(loc);
             return (
-              <div
+              <RadioOption
                 key={loc.id}
-                role="radio"
-                aria-checked={isSelected}
-                tabIndex={0}
+                checked={isSelected}
                 onClick={() => void handleSelect(loc)}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') void handleSelect(loc); }}
-                className={cn(
-                  'flex items-center gap-3 py-[5px] px-[8px] rounded-[6px] cursor-pointer transition-colors',
-                  isSelected
-                    ? 'bg-[var(--brand-dim)]'
-                    : 'hover:bg-accent'
-                )}
-              >
-                <RadioDot checked={isSelected} />
-                <span className="text-base leading-none" aria-hidden>{loc.icon}</span>
-                <span
-                  className={cn(
-                    'text-[13px] font-medium flex-1',
-                    isSelected ? 'font-semibold text-[var(--brand)]' : 'text-muted-foreground'
-                  )}
-                >
-                  {loc.label}
-                </span>
-                {path && (
+                className="gap-3"
+                labelClassName="flex-1"
+                adornment={<span className="text-base leading-none" aria-hidden>{loc.icon}</span>}
+                label={loc.label}
+                meta={path && (
                   <code className="font-mono text-[12px] text-[var(--text-subtle)] truncate max-w-xs">
                     {path}
                   </code>
                 )}
-              </div>
+              />
             );
           })}
         </div>
@@ -132,7 +97,7 @@ export function StepFolderConfirm(): JSX.Element {
         <Button
           variant="ghost"
           type="button"
-          onClick={goBack}
+          onClick={() => goToStep('formats')}
           className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
         >
           Back
