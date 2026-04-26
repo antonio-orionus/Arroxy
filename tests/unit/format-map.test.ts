@@ -21,7 +21,7 @@ describe('mapFormats', () => {
     expect(mapped[2].isVideoOnly).toBe(false);
   });
 
-  it('filters out audio-only formats (vcodec === none)', () => {
+  it('includes audio-only formats (vcodec === none) with isAudioOnly flag', () => {
     const mapped = mapFormats({
       formats: [
         { format_id: '22', resolution: '720p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac' },
@@ -29,8 +29,10 @@ describe('mapFormats', () => {
       ]
     });
 
-    expect(mapped).toHaveLength(1);
-    expect(mapped[0].formatId).toBe('22');
+    expect(mapped).toHaveLength(2);
+    const audioOnly = mapped.find((f) => f.formatId === '140');
+    expect(audioOnly?.isAudioOnly).toBe(true);
+    expect(audioOnly?.isVideoOnly).toBe(false);
   });
 
   it('sorts by resolution descending then filesize descending', () => {
