@@ -12,6 +12,21 @@
 
 ---
 
+## Contents
+
+- [Why Arroxy?](#why-arroxy)
+- [What it does](#what-it-does)
+- [Screenshots](#screenshots)
+- [Download](#download)
+  - [Windows: Installer vs Portable](#windows-installer-vs-portable)
+  - [First-Time Launch on macOS](#first-time-launch-on-macos)
+  - [First-Time Launch on Linux](#first-time-launch-on-linux)
+- [Privacy](#privacy)
+- [Frequently asked questions](#frequently-asked-questions)
+- [Tech details](#tech-details)
+
+---
+
 ## Why Arroxy?
 
 | | Arroxy | Browser extensions | Online converters | Other downloaders |
@@ -46,7 +61,10 @@ Arroxy is a **free, open-source, privacy-first** desktop app — built for peopl
 
 ## Screenshots
 
-> *(coming soon — screenshots will go here once a release build is packaged)*
+<img src="build/screenshot-1.png" alt="Screenshot 1" />
+<img src="build/screenshot-2.png" alt="Screenshot 2" />
+<img src="build/screenshot-3.png" alt="Screenshot 3" />
+<img src="build/screenshot-4.png" alt="Screenshot 4" />
 
 ---
 
@@ -62,15 +80,71 @@ Arroxy is a **free, open-source, privacy-first** desktop app — built for peopl
 
 Just download, run, done.
 
-**macOS note:** Arroxy is not yet code-signed. On first launch macOS may say the app "cannot be opened because the developer cannot be verified." To open it:
+### Windows: Installer vs Portable
 
-- **Right-click** the app → **Open** → click **Open** in the dialog, or
-- Run this once in Terminal after dragging to Applications:
-  ```bash
-  xattr -dr com.apple.quarantine /Applications/Arroxy.app
-  ```
+Two builds are available — pick whichever fits:
 
-After that it opens normally — no repeat needed.
+| | NSIS Installer | Portable `.exe` |
+|---|---|---|
+| Installation required | Yes | No — run from anywhere |
+| Auto-updates | ✅ in-app | ❌ manual download |
+| Startup speed | ✅ faster | ⚠️ slower cold start |
+| Adds to Start Menu | ✅ | ❌ |
+| Easy uninstall | ✅ | ❌ just delete the file |
+
+**Recommendation:** use the NSIS installer if you want Arroxy to update itself automatically and launch faster. Use the portable `.exe` if you prefer a no-install, no-registry option.
+
+### First-Time Launch on macOS
+
+Arroxy is not yet code-signed. macOS will show a security warning the first time you open it — this is expected, not a sign of damage.
+
+**Method 1: System Settings (Recommended)**
+
+| Step | Action |
+| :--: | ------ |
+| 1 | Right-click the Arroxy app icon and select **Open**. |
+| 2 | A warning dialog appears. Click **Cancel** (don't click "Move to Trash"). |
+| 3 | Open **System Settings → Privacy & Security**. |
+| 4 | Scroll down to the **Security** section — you'll see *"Arroxy was blocked from use because it is not from an identified developer."* |
+| 5 | Click **Open Anyway**, then confirm with your password or Touch ID. |
+
+After step 5, Arroxy opens normally and will never show the warning again.
+
+**Method 2: Terminal (Advanced)**
+
+If the above doesn't work, run this once after dragging Arroxy to Applications:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Arroxy.app
+```
+
+### First-Time Launch on Linux
+
+AppImages are not installed — they run directly. You just need to mark the file as executable first.
+
+**Method 1: File Manager**
+
+Right-click the `.AppImage` file → **Properties** → **Permissions** → enable **Allow executing file as program**, then double-click to run.
+
+**Method 2: Terminal**
+
+```bash
+chmod +x Arroxy-*.AppImage
+./Arroxy-*.AppImage
+```
+
+If it still won't launch, you may be missing FUSE (required by AppImage):
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y libfuse2
+
+# Fedora
+sudo dnf install -y fuse-libs
+
+# Arch
+sudo pacman -S fuse2
+```
 
 ---
 
@@ -104,7 +178,7 @@ Single videos are supported today. Playlist support is planned.
 No — and that's a bigger deal than it sounds. Most tools that stop working after a YouTube update tell you to export your browser's YouTube cookies. That workaround breaks every ~30 minutes as YouTube rotates sessions, and yt-dlp's own docs warn it can get your Google account flagged. Arroxy never uses cookies or credentials. No login. No account linked. Nothing to expire, nothing to ban.
 
 **macOS says "the app is damaged" or "cannot be opened" — what do I do?**
-This is macOS Gatekeeper rejecting an unsigned app, not actual damage. Right-click → Open → Open, or run `xattr -dr com.apple.quarantine /Applications/Arroxy.app` in Terminal once.
+This is macOS Gatekeeper blocking an unsigned app — not actual damage. See [First-Time Launch on macOS](#first-time-launch-on-macos) for step-by-step instructions.
 
 **Is this legal?**
 Downloading videos for personal use is generally accepted in most jurisdictions. You are responsible for complying with YouTube's Terms of Service and your local laws.
@@ -205,6 +279,10 @@ bun run dist:win     # cross-compile Windows portable exe
 </details>
 
 ---
+
+---
+
+> **Terms of Use:** Arroxy is a tool for personal, private use only. You are solely responsible for ensuring your downloads comply with YouTube's [Terms of Service](https://www.youtube.com/t/terms) and the copyright laws of your jurisdiction. Do not use Arroxy to download, reproduce, or distribute content you do not have the right to use. The developers of Arroxy are not liable for any misuse.
 
 <div align="center">
   <sub>MIT License · Made with care by <a href="https://x.com/OrionusAI">@OrionusAI</a></sub>
