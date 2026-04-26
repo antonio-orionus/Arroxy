@@ -24,7 +24,7 @@ export function StepUrlInput(): JSX.Element {
   return (
     <div className="wizard-step flex flex-col gap-4" data-testid="step-url">
       <div>
-        <h2 className="text-lg font-semibold text-zinc-100 mb-1">Paste a YouTube URL</h2>
+        <h2 className="text-lg font-semibold text-foreground mb-1">Paste a YouTube URL</h2>
         <MascotBubble
           image={hasActiveDownloads ? downloadingImg : hiImg}
       message={

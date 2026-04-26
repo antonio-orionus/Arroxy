@@ -5,14 +5,27 @@
 @import "@fontsource/outfit/700.css";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
   --font-sans: "Outfit", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
-  --color-accent: #00e8c8;
-  --color-accent-dim: rgba(0, 232, 200, 0.12);
-  --color-accent-hover: #00ffd8;
-  --color-accent-glow: rgba(0, 232, 200, 0.3);
+  /* Primary accent: Arroxi Blue */
+  --color-accent: hsl(220, 100%, 56%);
+  --color-accent-dim: hsl(220 100% 56% / 0.12);
+  --color-accent-hover: hsl(220, 100%, 65%);
+  --color-accent-glow: hsl(220 100% 56% / 0.3);
+  /* Status colors from Arroxi brand palette */
+  --color-status-done: hsl(153, 74%, 45%);
+  --color-status-done-glow: hsl(153 74% 45% / 0.05);
+  --color-status-paused: hsl(40, 100%, 63%);
+  --color-status-paused-glow: hsl(40 100% 63% / 0.05);
+  --color-status-error: hsl(349, 100%, 61%);
+  --color-status-error-glow: hsl(349 100% 61% / 0.05);
 }
 
 @layer base {
@@ -23,9 +36,10 @@
   }
   html {
     color-scheme: dark;
+    @apply font-sans;
   }
   body {
-    @apply bg-zinc-950 text-zinc-100 antialiased;
+    @apply antialiased bg-background text-foreground;
     font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.5;
@@ -38,38 +52,17 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: theme(colors.zinc.700);
+    background: var(--border);
     border-radius: 2px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: theme(colors.zinc.500);
+    background: var(--muted-foreground);
   }
   input::placeholder {
-    @apply text-zinc-500;
+    @apply text-muted-foreground;
   }
-
-  /* shadcn CSS variable layer */
-  :root {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 95%;
-    --card: 240 4% 9%;
-    --card-foreground: 0 0% 95%;
-    --popover: 240 4% 9%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 174 100% 46%;
-    --primary-foreground: 240 10% 4%;
-    --secondary: 240 4% 13%;
-    --secondary-foreground: 0 0% 95%;
-    --muted: 240 4% 13%;
-    --muted-foreground: 240 4% 54%;
-    --accent: 240 4% 13%;
-    --accent-foreground: 0 0% 95%;
-    --destructive: 0 72% 60%;
-    --destructive-foreground: 0 0% 95%;
-    --border: 240 4% 16%;
-    --input: 240 4% 16%;
-    --ring: 174 100% 46%;
-    --radius: 0.375rem;
+  * {
+    @apply border-border outline-ring/50;
   }
 }
 
@@ -113,7 +106,7 @@
   }
 }
 .thumb-shimmer {
-  background: linear-gradient(90deg, #1c1c22 25%, #2a2a32 50%, #1c1c22 75%);
+  background: linear-gradient(90deg, hsl(240, 18%, 8%) 25%, hsl(240, 15%, 12%) 50%, hsl(240, 18%, 8%) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s ease infinite;
 }
@@ -122,10 +115,10 @@
 @keyframes pulse-danger {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.2);
+    box-shadow: 0 0 0 0 var(--color-status-error-glow);
   }
   50% {
-    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+    box-shadow: 0 0 0 6px hsl(349 100% 61% / 0);
   }
 }
 .error-icon-pulse {
@@ -167,7 +160,7 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  background: theme(colors.zinc.950);
+  background: var(--background);
   transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
@@ -186,18 +179,18 @@
 .splash-greeting {
   font-size: 18px;
   font-weight: 700;
-  color: theme(colors.zinc.100);
+  color: var(--foreground);
   letter-spacing: -0.3px;
 }
 .splash-name {
   font-size: 12px;
   font-weight: 500;
-  color: theme(colors.zinc.500);
+  color: var(--muted-foreground);
 }
 .splash-warning {
   font-size: 11px;
   font-weight: 500;
-  color: theme(colors.amber.500);
+  color: var(--color-status-paused);
   margin-top: 4px;
 }
 
@@ -222,10 +215,129 @@
 
 /* ── Feedback button pulse while nudge is visible ─────── */
 @keyframes feedback-btn-pulse {
-  0%, 100% { color: rgb(161 161 170); }
+  0%, 100% { color: var(--muted-foreground); }
   50%       { color: var(--color-accent); }
 }
 .feedback-btn-nudging {
   animation: feedback-btn-pulse 1.4s ease-in-out infinite;
 }
 
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: 'Geist Variable', sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* App is dark-only; .dark block overrides these at runtime */
+  --background: hsl(240, 20%, 6%);
+  --foreground: hsl(240, 40%, 96%);
+  --card: hsl(240, 18%, 8%);
+  --card-foreground: hsl(240, 40%, 96%);
+  --popover: hsl(240, 18%, 8%);
+  --popover-foreground: hsl(240, 40%, 96%);
+  --primary: hsl(220, 100%, 56%);
+  --primary-foreground: hsl(240, 40%, 96%);
+  --secondary: hsl(240, 15%, 12%);
+  --secondary-foreground: hsl(240, 40%, 96%);
+  --muted: hsl(240, 15%, 12%);
+  --muted-foreground: hsl(240, 17%, 60%);
+  --accent: hsl(240, 14%, 15%);
+  --accent-foreground: hsl(240, 40%, 96%);
+  --destructive: hsl(349, 100%, 61%);
+  --border: hsl(240, 14%, 15%);
+  --input: hsl(240, 14%, 15%);
+  --ring: hsl(220, 100%, 56%);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: hsl(240, 18%, 8%);
+  --sidebar-foreground: hsl(240, 40%, 96%);
+  --sidebar-primary: hsl(220, 100%, 56%);
+  --sidebar-primary-foreground: hsl(240, 40%, 96%);
+  --sidebar-accent: hsl(240, 14%, 15%);
+  --sidebar-accent-foreground: hsl(240, 40%, 96%);
+  --sidebar-border: hsl(240, 14%, 15%);
+  --sidebar-ring: hsl(220, 100%, 56%);
+}
+
+.dark {
+  /* Arroxi dark surfaces */
+  --background: hsl(240, 20%, 6%);
+  --foreground: hsl(240, 40%, 96%);
+  --card: hsl(240, 18%, 8%);
+  --card-foreground: hsl(240, 40%, 96%);
+  --popover: hsl(240, 18%, 8%);
+  --popover-foreground: hsl(240, 40%, 96%);
+  /* Arroxi Blue as primary action color */
+  --primary: hsl(220, 100%, 56%);
+  --primary-foreground: hsl(240, 40%, 96%);
+  /* Surface 2 for secondary/muted surfaces */
+  --secondary: hsl(240, 15%, 12%);
+  --secondary-foreground: hsl(240, 40%, 96%);
+  --muted: hsl(240, 15%, 12%);
+  --muted-foreground: hsl(240, 17%, 60%);
+  /* Surface 3 for accent/hover states */
+  --accent: hsl(240, 14%, 15%);
+  --accent-foreground: hsl(240, 40%, 96%);
+  /* Arroxi Red for destructive actions */
+  --destructive: hsl(349, 100%, 61%);
+  /* Surface 3 for borders and inputs */
+  --border: hsl(240, 14%, 15%);
+  --input: hsl(240, 14%, 15%);
+  /* Arroxi Blue for focus rings */
+  --ring: hsl(220, 100%, 56%);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: hsl(240, 18%, 8%);
+  --sidebar-foreground: hsl(240, 40%, 96%);
+  --sidebar-primary: hsl(220, 100%, 56%);
+  --sidebar-primary-foreground: hsl(240, 40%, 96%);
+  --sidebar-accent: hsl(240, 14%, 15%);
+  --sidebar-accent-foreground: hsl(240, 40%, 96%);
+  --sidebar-border: hsl(240, 14%, 15%);
+  --sidebar-ring: hsl(220, 100%, 56%);
+}

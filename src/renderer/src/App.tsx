@@ -5,6 +5,7 @@ import { WizardPanel } from './components/WizardPanel';
 import { SmartDrawer } from './components/SmartDrawer';
 import { SplashScreen } from './components/SplashScreen';
 import { FeedbackNudge } from './components/FeedbackNudge';
+import { TooltipProvider } from './components/ui/tooltip';
 import { cn } from './lib/utils';
 
 const FEEDBACK_URL = 'https://github.com/antonio-orionus/Arroxy/issues/new/choose';
@@ -45,7 +46,8 @@ export function App(): JSX.Element {
   }, [showNudge]);
 
   return (
-    <div className="relative flex flex-col h-screen w-screen bg-zinc-950 overflow-hidden" data-testid="app-root">
+    <TooltipProvider>
+    <div className="relative flex flex-col h-screen w-screen bg-background overflow-hidden" data-testid="app-root">
       <TitleBar />
 
       <div className="flex-1 flex flex-col overflow-hidden" data-testid="app-content">
@@ -57,30 +59,30 @@ export function App(): JSX.Element {
         <SmartDrawer />
       </div>
 
-      <footer className="shrink-0 flex items-center justify-between border-t border-zinc-800 px-4 h-7">
+      <footer className="shrink-0 flex items-center justify-between border-t border-border px-4 h-7">
         <div className="flex items-center gap-1">
           <button
             type="button"
             onClick={() => setUiZoom(uiZoom - 0.05)}
             disabled={uiZoom <= 0.7}
-            className="w-4 h-4 flex items-center justify-center text-zinc-600 hover:text-zinc-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
+            className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
             aria-label="Zoom out"
           >−</button>
-          <span className="text-[11px] text-zinc-600 w-8 text-center tabular-nums">
+          <span className="text-[11px] text-muted-foreground w-8 text-center tabular-nums">
             {Math.round(uiZoom * 100)}%
           </span>
           <button
             type="button"
             onClick={() => setUiZoom(uiZoom + 0.05)}
             disabled={uiZoom >= 1.5}
-            className="w-4 h-4 flex items-center justify-center text-zinc-600 hover:text-zinc-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
+            className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
             aria-label="Zoom in"
           >+</button>
         </div>
         <div className="flex items-center gap-3">
           <button
             type="button"
-            className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors"
+            className="text-[11px] text-muted-foreground hover:text-foreground/80 transition-colors"
             onClick={copyDebugInfo}
             title="Copy Electron version, OS, and Chrome version to clipboard"
           >
@@ -95,7 +97,7 @@ export function App(): JSX.Element {
               type="button"
               className={cn(
                 'text-[11px] transition-colors',
-                showNudge ? 'feedback-btn-nudging' : 'text-zinc-600 hover:text-zinc-400'
+                showNudge ? 'feedback-btn-nudging' : 'text-muted-foreground hover:text-foreground/80'
               )}
               onClick={() => {
                 setShowNudge(false);
@@ -108,7 +110,7 @@ export function App(): JSX.Element {
           </div>
           <button
             type="button"
-            className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors"
+            className="text-[11px] text-muted-foreground hover:text-foreground/80 transition-colors"
             onClick={() => void openLogs()}
             data-testid="btn-logs"
           >
@@ -119,5 +121,6 @@ export function App(): JSX.Element {
 
       <SplashScreen initialized={initialized} warmupFailures={warmupFailures} />
     </div>
+    </TooltipProvider>
   );
 }

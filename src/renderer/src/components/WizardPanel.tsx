@@ -34,8 +34,8 @@ export function WizardPanel(): JSX.Element {
                     className={cn(
                       'w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-semibold border transition-all',
                       isActive && 'border-[var(--color-accent)] bg-[var(--color-accent-dim)] text-[var(--color-accent)]',
-                      isDone && 'border-transparent bg-[var(--color-accent)] text-zinc-950',
-                      !isActive && !isDone && 'border-zinc-700 bg-zinc-800 text-zinc-500'
+                      isDone && 'border-transparent bg-[var(--color-accent)] text-background',
+                      !isActive && !isDone && 'border-border bg-secondary text-muted-foreground'
                     )}
                   >
                     {isDone ? '✓' : i + 1}
@@ -44,8 +44,8 @@ export function WizardPanel(): JSX.Element {
                     className={cn(
                       'text-[10px] font-medium',
                       isActive && 'text-[var(--color-accent)]',
-                      isDone && 'text-zinc-400',
-                      !isActive && !isDone && 'text-zinc-600'
+                      isDone && 'text-muted-foreground',
+                      !isActive && !isDone && 'text-muted-foreground'
                     )}
                   >
                     {step.label}
@@ -55,7 +55,7 @@ export function WizardPanel(): JSX.Element {
                   <div
                     className={cn(
                       'h-px flex-1 mb-4 mx-2 transition-colors',
-                      isDone ? 'bg-[var(--color-accent)]/40' : 'bg-zinc-800'
+                      isDone ? 'bg-[var(--color-accent)]/40' : 'bg-border'
                     )}
                   />
                 )}

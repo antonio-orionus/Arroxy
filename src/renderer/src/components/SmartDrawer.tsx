@@ -1,7 +1,9 @@
 import type { JSX } from 'react';
-import { CaretDown } from '@phosphor-icons/react';
+import { ChevronDown } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
 import { QueueItemCard } from './QueueItemCard';
+import { Badge } from './ui/badge';
+import { ScrollArea } from './ui/scroll-area';
 
 export function SmartDrawer(): JSX.Element {
   const queue = useAppStore((s) => s.queue);
@@ -18,30 +20,30 @@ export function SmartDrawer(): JSX.Element {
       : null;
 
   return (
-    <section className="shrink-0 border-t border-zinc-800 bg-zinc-950" data-testid="smart-drawer">
+    <section className="shrink-0 border-t border-border bg-background" data-testid="smart-drawer">
       <button
         type="button"
         onClick={() => setDrawerOpen(!drawerOpen)}
-        className="w-full flex items-center justify-between px-4 h-9 hover:bg-zinc-900/50 transition-colors"
+        className="w-full flex items-center justify-between px-4 h-9 hover:bg-accent transition-colors"
         data-testid="drawer-toggle"
       >
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
             Download Queue
             {totalCount > 0 && (
-              <span className="ml-1 text-zinc-600">({totalCount})</span>
+              <Badge variant="secondary" className="ml-1 text-[9px] font-mono h-4 px-1">{totalCount}</Badge>
             )}
           </span>
           {headerSummary && (
-            <span className={`text-[10px] font-mono ${activeItem ? 'text-[var(--color-accent)]' : 'text-zinc-600'}`}>
+            <span className={`text-[10px] font-mono ${activeItem ? 'text-[var(--color-accent)]' : 'text-muted-foreground'}`}>
               {headerSummary}
             </span>
           )}
         </div>
-        <span className={activeItem ? 'text-[var(--color-accent)]' : 'text-zinc-600'}>
-          <CaretDown
+        <span className={activeItem ? 'text-[var(--color-accent)]' : 'text-muted-foreground'}>
+          <ChevronDown
             size={activeItem ? 14 : 12}
-            weight={activeItem ? 'bold' : 'regular'}
+            strokeWidth={activeItem ? 2.5 : 2}
             className={`transition-all duration-300 ${drawerOpen ? '' : 'rotate-180'}`}
           />
         </span>
@@ -52,15 +54,17 @@ export function SmartDrawer(): JSX.Element {
         style={{ maxHeight: drawerOpen ? '16rem' : '0px' }}
         data-testid="drawer-body"
       >
-        <ul className="px-3 pb-3 flex flex-col gap-1.5 max-h-64 overflow-y-auto">
-          {queue.length === 0 ? (
-            <li className="text-xs text-zinc-600 py-2">No downloads yet.</li>
-          ) : (
-            queue.map((item) => (
-              <QueueItemCard key={item.id} item={item} compact />
-            ))
-          )}
-        </ul>
+        <ScrollArea className="max-h-64">
+          <ul className="px-3 pb-3 flex flex-col gap-1.5">
+            {queue.length === 0 ? (
+              <li className="text-xs text-muted-foreground py-2">No downloads yet.</li>
+            ) : (
+              queue.map((item) => (
+                <QueueItemCard key={item.id} item={item} compact />
+              ))
+            )}
+          </ul>
+        </ScrollArea>
       </div>
     </section>
   );

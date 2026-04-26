@@ -2,7 +2,9 @@ import type { JSX } from 'react';
 import type { QueueItem } from '@shared/types';
 import { useAppStore } from '../store/useAppStore';
 import { Button } from './ui/button';
+import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
+import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
 import { cn } from '@renderer/lib/utils';
 
 interface Props {
@@ -11,12 +13,12 @@ interface Props {
 }
 
 const STATUS_BORDER: Record<QueueItem['status'], string> = {
-  pending: 'border-zinc-800',
-  downloading: 'border-l-2 border-l-[var(--color-accent)] shadow-[inset_3px_0_12px_rgba(0,232,200,0.05)]',
-  paused: 'border-l-2 border-l-yellow-500 shadow-[inset_3px_0_12px_rgba(234,179,8,0.05)]',
-  done: 'border-l-2 border-l-green-500 shadow-[inset_3px_0_12px_rgba(34,197,94,0.05)]',
-  error: 'border-l-2 border-l-red-500 shadow-[inset_3px_0_12px_rgba(239,68,68,0.05)]',
-  cancelled: 'border-zinc-800',
+  pending: 'border-border',
+  downloading: 'border-l-2 border-l-[var(--color-accent)] shadow-[inset_3px_0_12px_var(--color-accent-glow)]',
+  paused: 'border-l-2 border-l-[var(--color-status-paused)] shadow-[inset_3px_0_12px_var(--color-status-paused-glow)]',
+  done: 'border-l-2 border-l-[var(--color-status-done)] shadow-[inset_3px_0_12px_var(--color-status-done-glow)]',
+  error: 'border-l-2 border-l-[var(--color-status-error)] shadow-[inset_3px_0_12px_var(--color-status-error-glow)]',
+  cancelled: 'border-border',
 };
 
 export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
@@ -42,14 +44,14 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
     return (
       <li
         className={cn(
-          'flex items-start gap-2.5 py-2 px-2 rounded-md border bg-zinc-900/60 transition-[border-color,box-shadow]',
+          'flex items-start gap-2.5 py-2 px-2 rounded-md border bg-card/60 transition-[border-color,box-shadow]',
           STATUS_BORDER[item.status]
         )}
         data-testid={`queue-card-${item.id}`}
         data-status={item.status}
       >
         {/* Thumbnail */}
-        <div className="shrink-0 w-12 h-[27px] rounded overflow-hidden bg-zinc-800 mt-0.5">
+        <div className="shrink-0 w-12 h-[27px] rounded overflow-hidden bg-secondary mt-0.5">
           {item.thumbnail ? (
             <img
               src={item.thumbnail}
@@ -65,25 +67,25 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
 
         {/* Body */}
         <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-          <p className="text-[11px] font-medium text-zinc-100 truncate leading-snug" data-testid="queue-title">
+          <p className="text-[11px] font-medium text-foreground truncate leading-snug" data-testid="queue-title">
             {item.title}
           </p>
-          <p className="text-[10px] text-zinc-500 truncate" data-testid="queue-meta">
-            {item.formatLabel}
+          <p className="text-[10px] text-muted-foreground truncate flex items-center gap-1" data-testid="queue-meta">
+            <Badge variant="secondary" className="text-[10px] font-normal">{item.formatLabel}</Badge>
             {isDone && item.finishedAt && (
-              <span className="text-zinc-600"> · Done {new Date(item.finishedAt).toLocaleTimeString()}</span>
+              <span className="text-muted-foreground">· Done {new Date(item.finishedAt).toLocaleTimeString()}</span>
             )}
           </p>
 
           {(isDownloading || isPaused) && (
             <div className="flex flex-col gap-0.5 mt-0.5" data-testid="queue-progress">
               <div className={isPaused ? 'opacity-50' : 'progress-glow'}>
-                <Progress value={item.progressPercent} className="h-[2px]" />
+                <Progress value={item.progressPercent} className="[&_[data-slot=progress-track]]:h-[2px]" />
               </div>
               <span
                 className={cn(
                   'font-mono text-[10px]',
-                  isPaused ? 'text-yellow-500' : 'text-[var(--color-accent)]'
+                  isPaused ? 'text-[var(--color-status-paused)]' : 'text-[var(--color-accent)]'
                 )}
                 data-testid="queue-progress-label"
               >
@@ -94,7 +96,7 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
           )}
 
           {isError && (
-            <p className="text-[10px] text-red-400 mt-0.5 truncate" data-testid="queue-error-msg">
+            <p className="text-[10px] text-[var(--color-status-error)] mt-0.5 truncate" data-testid="queue-error-msg">
               {item.errorMessage ?? 'Download failed'}
             </p>
           )}
@@ -102,16 +104,12 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
 
         {/* Actions */}
         <div className="flex items-center gap-1 shrink-0">
-          <Button
-            variant="ghost"
-            size="icon"
-            type="button"
-            title="Open URL"
-            onClick={() => openItemUrl(item.id)}
-            aria-label="Open in browser"
-            data-testid="btn-open-url"
-            className="w-7 h-7 text-sm text-zinc-600 hover:text-zinc-300"
-          >↗</Button>
+          <Tooltip>
+            <TooltipTrigger render={(props) => (
+              <Button {...props} variant="ghost" size="icon" type="button" aria-label="Open in browser" data-testid="btn-open-url" className="w-7 h-7 text-sm text-muted-foreground hover:text-foreground/80" onClick={() => openItemUrl(item.id)}>↗</Button>
+            )} />
+            <TooltipContent>Open URL</TooltipContent>
+          </Tooltip>
 
           {isPending && (
             <Button variant="ghost" size="icon" type="button"
@@ -122,30 +120,28 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
           )}
 
           {isDownloading && (
-            <Button variant="ghost" size="icon" type="button"
-              title="Pause"
-              onClick={() => void pauseItemDownload(item.id)}
-              aria-label="Pause download"
-              data-testid="btn-pause"
-              className="w-7 h-7 text-sm"
-            >⏸</Button>
+            <Tooltip>
+              <TooltipTrigger render={(props) => (
+                <Button {...props} variant="ghost" size="icon" type="button" aria-label="Pause download" data-testid="btn-pause" className="w-7 h-7 text-sm" onClick={() => void pauseItemDownload(item.id)}>⏸</Button>
+              )} />
+              <TooltipContent>Pause</TooltipContent>
+            </Tooltip>
           )}
 
           {isPaused && (
-            <Button variant="ghost" size="icon" type="button"
-              title="Resume"
-              onClick={() => void resumeItemDownload(item.id)}
-              aria-label="Resume download"
-              data-testid="btn-resume"
-              className="w-7 h-7 text-sm"
-            >▶</Button>
+            <Tooltip>
+              <TooltipTrigger render={(props) => (
+                <Button {...props} variant="ghost" size="icon" type="button" aria-label="Resume download" data-testid="btn-resume" className="w-7 h-7 text-sm" onClick={() => void resumeItemDownload(item.id)}>▶</Button>
+              )} />
+              <TooltipContent>Resume</TooltipContent>
+            </Tooltip>
           )}
 
           {isDone && (
             <Button variant="ghost" size="icon" type="button"
               onClick={() => void openItemFolder(item.id)}
               data-testid="btn-open-folder"
-              className="w-7 h-7 text-sm text-green-500"
+              className="w-7 h-7 text-sm text-[var(--color-status-done)]"
             >✓</Button>
           )}
 
@@ -158,23 +154,21 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
           )}
 
           {(isDownloading || isPaused) && (
-            <Button variant="ghost" size="icon" type="button"
-              title="Cancel"
-              onClick={() => void cancelItemDownload(item.id)}
-              aria-label="Cancel download"
-              data-testid="btn-cancel"
-              className="w-7 h-7 text-sm text-zinc-600 hover:text-red-400"
-            >✕</Button>
+            <Tooltip>
+              <TooltipTrigger render={(props) => (
+                <Button {...props} variant="ghost" size="icon" type="button" aria-label="Cancel download" data-testid="btn-cancel" className="w-7 h-7 text-sm text-muted-foreground hover:text-[var(--color-status-error)]" onClick={() => void cancelItemDownload(item.id)}>✕</Button>
+              )} />
+              <TooltipContent>Cancel</TooltipContent>
+            </Tooltip>
           )}
 
           {!(isDownloading || isPaused) && (
-            <Button variant="ghost" size="icon" type="button"
-              title="Remove"
-              onClick={() => removeQueueItem(item.id)}
-              aria-label="Remove from queue"
-              data-testid="btn-remove"
-              className="w-7 h-7 text-sm text-zinc-600 hover:text-red-400"
-            >✕</Button>
+            <Tooltip>
+              <TooltipTrigger render={(props) => (
+                <Button {...props} variant="ghost" size="icon" type="button" aria-label="Remove from queue" data-testid="btn-remove" className="w-7 h-7 text-sm text-muted-foreground hover:text-[var(--color-status-error)]" onClick={() => removeQueueItem(item.id)}>✕</Button>
+              )} />
+              <TooltipContent>Remove</TooltipContent>
+            </Tooltip>
           )}
         </div>
       </li>
@@ -184,13 +178,13 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
   return (
     <div
       className={cn(
-        'queue-card flex items-start gap-3 p-3 rounded-lg border border-zinc-800 bg-zinc-900 transition-[border-color,box-shadow]',
+        'queue-card flex items-start gap-3 p-3 rounded-lg border border-border bg-card transition-[border-color,box-shadow]',
         STATUS_BORDER[item.status]
       )}
       data-testid={`queue-card-${item.id}`}
       data-status={item.status}
     >
-      <div className="shrink-0 w-20 h-[45px] rounded overflow-hidden bg-zinc-800">
+      <div className="shrink-0 w-20 h-[45px] rounded overflow-hidden bg-secondary">
         {item.thumbnail ? (
           <img
             src={item.thumbnail}
@@ -207,16 +201,16 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
 
       <div className="flex-1 min-w-0 flex flex-col gap-1" data-testid="queue-card-body">
         <p
-          className="text-xs font-medium text-zinc-100 truncate"
+          className="text-xs font-medium text-foreground truncate"
           title={item.title}
           data-testid="queue-title"
         >
           {item.title}
         </p>
-        <p className="text-[11px] text-zinc-500" data-testid="queue-meta">
-          {item.formatLabel}
+        <p className="text-[11px] text-muted-foreground flex items-center gap-1" data-testid="queue-meta">
+          <Badge variant="secondary" className="text-[10px] font-normal">{item.formatLabel}</Badge>
           {isDone && item.finishedAt && (
-            <span className="text-zinc-600"> · Done {new Date(item.finishedAt).toLocaleTimeString()}</span>
+            <span className="text-muted-foreground">· Done {new Date(item.finishedAt).toLocaleTimeString()}</span>
           )}
         </p>
 
@@ -228,7 +222,7 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
             <span
               className={cn(
                 'font-mono text-[11px]',
-                isPaused ? 'text-yellow-500' : 'text-[var(--color-accent)]'
+                isPaused ? 'text-[var(--color-status-paused)]' : 'text-[var(--color-accent)]'
               )}
               data-testid="queue-progress-label"
             >
@@ -239,120 +233,72 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
         )}
 
         {isError && (
-          <p className="text-[11px] text-red-400 mt-1" data-testid="queue-error-msg">
+          <p className="text-[11px] text-[var(--color-status-error)] mt-1" data-testid="queue-error-msg">
             {item.errorMessage ?? 'Download failed'}
           </p>
         )}
       </div>
 
       <div className="flex items-center gap-1.5 shrink-0" data-testid="queue-card-actions">
-        <Button
-          variant="ghost"
-          size="icon"
-          type="button"
-          title="Open URL"
-          onClick={() => openItemUrl(item.id)}
-          aria-label="Open in browser"
-          data-testid="btn-open-url"
-          className="text-base"
-        >
-          ↗
-        </Button>
+        <Tooltip>
+          <TooltipTrigger render={(props) => (
+            <Button {...props} variant="ghost" size="icon" type="button" aria-label="Open in browser" data-testid="btn-open-url" className="text-base" onClick={() => openItemUrl(item.id)}>↗</Button>
+          )} />
+          <TooltipContent>Open URL</TooltipContent>
+        </Tooltip>
 
         {isPending && (
-          <Button
-            variant="secondary"
-            size="sm"
-            type="button"
-            onClick={() => void startItemDownload(item.id)}
-            data-testid="btn-start-download"
-          >
+          <Button variant="secondary" size="sm" type="button" onClick={() => void startItemDownload(item.id)} data-testid="btn-start-download">
             Download
           </Button>
         )}
 
         {isDownloading && (
-          <Button
-            variant="secondary"
-            size="icon"
-            type="button"
-            title="Pause"
-            onClick={() => void pauseItemDownload(item.id)}
-            aria-label="Pause download"
-            data-testid="btn-pause"
-            className="text-base"
-          >
-            ⏸
-          </Button>
+          <Tooltip>
+            <TooltipTrigger render={(props) => (
+              <Button {...props} variant="secondary" size="icon" type="button" aria-label="Pause download" data-testid="btn-pause" className="text-base" onClick={() => void pauseItemDownload(item.id)}>⏸</Button>
+            )} />
+            <TooltipContent>Pause</TooltipContent>
+          </Tooltip>
         )}
 
         {isPaused && (
-          <Button
-            variant="secondary"
-            size="icon"
-            type="button"
-            title="Resume"
-            onClick={() => void resumeItemDownload(item.id)}
-            aria-label="Resume download"
-            data-testid="btn-resume"
-            className="text-base"
-          >
-            ▶
-          </Button>
+          <Tooltip>
+            <TooltipTrigger render={(props) => (
+              <Button {...props} variant="secondary" size="icon" type="button" aria-label="Resume download" data-testid="btn-resume" className="text-base" onClick={() => void resumeItemDownload(item.id)}>▶</Button>
+            )} />
+            <TooltipContent>Resume</TooltipContent>
+          </Tooltip>
         )}
 
         {isDone && (
-          <Button
-            variant="secondary"
-            size="sm"
-            type="button"
-            onClick={() => void openItemFolder(item.id)}
-            data-testid="btn-open-folder"
-          >
+          <Button variant="secondary" size="sm" type="button" onClick={() => void openItemFolder(item.id)} data-testid="btn-open-folder">
             Open folder
           </Button>
         )}
 
         {(isError || isCancelled) && (
-          <Button
-            variant="secondary"
-            size="sm"
-            type="button"
-            onClick={() => void retryQueueItem(item.id)}
-            data-testid="btn-retry"
-          >
+          <Button variant="secondary" size="sm" type="button" onClick={() => void retryQueueItem(item.id)} data-testid="btn-retry">
             Retry
           </Button>
         )}
 
         {(isDownloading || isPaused) && (
-          <Button
-            variant="ghost"
-            size="icon"
-            type="button"
-            title="Cancel download"
-            onClick={() => void cancelItemDownload(item.id)}
-            aria-label="Cancel download"
-            data-testid="btn-cancel"
-            className="text-base text-zinc-500 hover:text-red-400 hover:bg-red-500/10"
-          >
-            ✕
-          </Button>
+          <Tooltip>
+            <TooltipTrigger render={(props) => (
+              <Button {...props} variant="ghost" size="icon" type="button" aria-label="Cancel download" data-testid="btn-cancel" className="text-base text-muted-foreground hover:text-[var(--color-status-error)] hover:bg-[var(--color-status-error)]/10" onClick={() => void cancelItemDownload(item.id)}>✕</Button>
+            )} />
+            <TooltipContent>Cancel</TooltipContent>
+          </Tooltip>
         )}
 
         {!(isDownloading || isPaused) && (
-          <Button
-            variant="ghost"
-            size="icon"
-            type="button"
-            title="Remove from queue"
-            onClick={() => removeQueueItem(item.id)}
-            aria-label="Remove from queue"
-            data-testid="btn-remove"
-            className="text-base text-zinc-500 hover:text-red-400 hover:bg-red-500/10"
-          >
-            ✕
-          </Button>
+          <Tooltip>
+            <TooltipTrigger render={(props) => (
+              <Button {...props} variant="ghost" size="icon" type="button" aria-label="Remove from queue" data-testid="btn-remove" className="text-base text-muted-foreground hover:text-[var(--color-status-error)] hover:bg-[var(--color-status-error)]/10" onClick={() => removeQueueItem(item.id)}>✕</Button>
+            )} />
+            <TooltipContent>Remove</TooltipContent>
+          </Tooltip>
         )}
       </div>
     </div>

@@ -23,8 +23,8 @@ export function VideoSummaryCard({ thumbnail, title, duration, resolution }: Pro
   ].filter(Boolean).join(' · ');
 
   return (
-    <div className="flex items-start gap-3 p-2 rounded-xl border border-zinc-800 bg-zinc-900/60 shrink-0">
-      <div className="w-[88px] h-[50px] rounded-md overflow-hidden border border-zinc-800 shrink-0 bg-zinc-800">
+    <div className="flex items-start gap-3 p-2 rounded-xl border border-border bg-card/60 shrink-0">
+      <div className="w-[88px] h-[50px] rounded-md overflow-hidden border border-border shrink-0 bg-secondary">
         {thumbnail ? (
           <img
             src={thumbnail}
@@ -38,10 +38,10 @@ export function VideoSummaryCard({ thumbnail, title, duration, resolution }: Pro
         )}
       </div>
       <div className="flex flex-col gap-1 flex-1 min-w-0 py-0.5">
-        <p className="text-sm font-semibold text-zinc-100 leading-snug truncate">
+        <p className="text-sm font-semibold text-foreground leading-snug truncate">
           {title || 'Loading…'}
         </p>
-        <p className="text-[11px] text-zinc-500">{meta}</p>
+        <p className="text-[11px] text-muted-foreground">{meta}</p>
       </div>
     </div>
   );

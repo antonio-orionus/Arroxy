@@ -2,6 +2,9 @@ import { useState, type JSX } from 'react';
 import type { AudioQuality, FormatOption, Preset } from '@shared/types';
 import { useAppStore, groupVideoFormats } from '../store/useAppStore';
 import { Button } from './ui/button';
+import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group';
+import { RadioGroup, RadioGroupItem } from './ui/radio-group';
+import { Separator } from './ui/separator';
 import { cn } from '@renderer/lib/utils';
 import { VideoSummaryCard } from './VideoSummaryCard';
 import { MascotBubble } from './MascotBubble';
@@ -92,7 +95,7 @@ export function StepFormatSelect(): JSX.Element {
 
   if (formatsLoading) {
     return (
-      <div className="wizard-step flex items-center gap-3 py-6 text-zinc-500 text-sm">
+      <div className="wizard-step flex items-center gap-3 py-6 text-muted-foreground text-sm">
         <div className="spinner" aria-label="Loading formats" />
         <span>Fetching available formats…</span>
       </div>
@@ -110,56 +113,48 @@ export function StepFormatSelect(): JSX.Element {
 
       {/* Quick presets */}
       <div className="flex flex-col gap-1.5">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Quick presets</p>
-        <div className="grid grid-cols-4 gap-1.5">
-          {PRESET_OPTIONS.map((p) => {
-            const isActive = activePreset === p.value;
-            return (
-              <button
-                key={p.value}
-                type="button"
-                onClick={() => setPreset(p.value)}
-                className={cn(
-                  'flex items-baseline gap-1.5 py-1.5 px-2.5 rounded-md border text-left transition-all duration-150',
-                  'hover:-translate-y-0.5',
-                  isActive
-                    ? 'border-[var(--color-accent)] bg-[var(--color-accent-dim)] shadow-[0_0_0_1px_var(--color-accent)]'
-                    : 'border-zinc-700 bg-zinc-800/60 hover:border-zinc-500'
-                )}
-              >
-                <span className={cn('text-[11px] font-semibold shrink-0', isActive ? 'text-[var(--color-accent)]' : 'text-zinc-100')}>
-                  {p.label}
-                </span>
-                <span className="text-[10px] text-zinc-500 leading-snug truncate">{p.desc}</span>
-              </button>
-            );
-          })}
-        </div>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Quick presets</p>
+        <ToggleGroup
+          value={activePreset ? [activePreset] : []}
+          onValueChange={(vals) => { if (vals[0]) setPreset(vals[0] as Preset); }}
+          className="grid grid-cols-4 gap-1.5 w-full"
+        >
+          {PRESET_OPTIONS.map((p) => (
+            <ToggleGroupItem
+              key={p.value}
+              value={p.value}
+              className="flex flex-col items-start gap-0.5 py-1.5 px-2.5 rounded-md border h-auto text-left w-full aria-pressed:border-[var(--color-accent)] aria-pressed:bg-[var(--color-accent-dim)] aria-pressed:shadow-[0_0_0_1px_var(--color-accent)] border-border bg-secondary/60 hover:border-muted-foreground hover:-translate-y-0.5 transition-all"
+            >
+              <span className="text-[11px] font-semibold shrink-0 group-aria-pressed/toggle:text-[var(--color-accent)] text-foreground">
+                {p.label}
+              </span>
+              <span className="text-[10px] text-muted-foreground leading-snug truncate">{p.desc}</span>
+            </ToggleGroupItem>
+          ))}
+        </ToggleGroup>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         {/* Video column */}
         <div className="flex flex-col gap-0.5">
           <div className="flex items-center justify-between mb-1">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Video</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Video</p>
             {uniqueExts.length > 1 && (
-              <div className="flex gap-1">
+              <ToggleGroup
+                value={extFilter ? [extFilter] : []}
+                onValueChange={(vals) => setExtFilter(vals[0] ?? null)}
+                className="gap-1"
+              >
                 {uniqueExts.map((ext) => (
-                  <button
+                  <ToggleGroupItem
                     key={ext}
-                    type="button"
-                    onClick={() => setExtFilter(extFilter === ext ? null : ext)}
-                    className={cn(
-                      'px-1.5 py-0.5 rounded-full text-[9px] font-medium border transition-colors',
-                      extFilter === ext
-                        ? 'border-[var(--color-accent)] bg-[var(--color-accent-dim)] text-[var(--color-accent)]'
-                        : 'border-zinc-700 bg-zinc-800 text-zinc-500 hover:border-zinc-500'
-                    )}
+                    value={ext}
+                    className="h-5 px-1.5 rounded-full text-[9px] font-medium border aria-pressed:border-[var(--color-accent)] aria-pressed:bg-[var(--color-accent-dim)] aria-pressed:text-[var(--color-accent)] border-border bg-secondary text-muted-foreground hover:border-muted-foreground"
                   >
                     {ext}
-                  </button>
+                  </ToggleGroupItem>
                 ))}
-              </div>
+              </ToggleGroup>
             )}
           </div>
 
@@ -178,7 +173,7 @@ export function StepFormatSelect(): JSX.Element {
                   'flex flex-col gap-0.5 py-0.5 px-2 rounded-md border cursor-pointer transition-colors',
                   isChecked
                     ? 'border-[var(--color-accent)] bg-[var(--color-accent-dim)]'
-                    : 'border-transparent hover:bg-zinc-800'
+                    : 'border-transparent hover:bg-accent'
                 )}
               >
                 <span className="flex items-center justify-between gap-1.5">
@@ -191,19 +186,19 @@ export function StepFormatSelect(): JSX.Element {
                       onChange={() => setSelectedVideoFormatId(g.formatId)}
                       className="accent-[var(--color-accent)] shrink-0"
                     />
-                    <span className="text-xs font-medium text-zinc-100">{g.resolution}</span>
+                    <span className="text-xs font-medium text-foreground">{g.resolution}</span>
                   </span>
                   <span className="flex items-center gap-1.5 shrink-0">
-                    {meta && <span className="text-[10px] text-zinc-500">{meta}</span>}
+                    {meta && <span className="text-[10px] text-muted-foreground">{meta}</span>}
                     {etaSec !== null && (
-                      <span className="text-[9px] text-zinc-400 bg-zinc-800 rounded px-1 py-0.5">
+                      <span className="text-[9px] text-muted-foreground bg-secondary rounded px-1 py-0.5">
                         {fmtEta(etaSec)}
                       </span>
                     )}
                   </span>
                 </span>
                 {!g.isAudioOnly && barWidth > 0 && (
-                  <div className="h-[2px] rounded-full bg-zinc-800 mx-5">
+                  <div className="h-[2px] rounded-full bg-secondary mx-5">
                     <div
                       className="h-full rounded-full bg-[var(--color-accent)]/30"
                       style={{ width: `${barWidth}%` }}
@@ -217,37 +212,35 @@ export function StepFormatSelect(): JSX.Element {
 
         {/* Audio column */}
         <div className="flex flex-col gap-0.5">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">Audio</p>
-          {AUDIO_OPTIONS.map((opt) => {
-            const disabled = opt.value === 'none' && isAudioOnly;
-            const isChecked = selectedAudioQuality === opt.value;
-            return (
-              <label
-                key={opt.value}
-                className={cn(
-                  'flex items-center justify-between gap-2 py-0.5 px-2 rounded-md border cursor-pointer transition-colors',
-                  disabled && 'opacity-40 cursor-not-allowed',
-                  isChecked && !disabled
-                    ? 'border-[var(--color-accent)] bg-[var(--color-accent-dim)]'
-                    : 'border-transparent hover:bg-zinc-800'
-                )}
-              >
-                <span className="flex items-center gap-1.5">
-                  <input
-                    type="radio"
-                    name="audio-quality"
-                    value={opt.value}
-                    checked={isChecked}
-                    onChange={() => setAudioQuality(opt.value)}
-                    disabled={disabled}
-                    className="accent-[var(--color-accent)] shrink-0"
-                  />
-                  <span className="text-xs font-medium text-zinc-100">{opt.label}</span>
-                </span>
-                <span className="text-[10px] text-zinc-500 shrink-0">{opt.sublabel}</span>
-              </label>
-            );
-          })}
+          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">Audio</p>
+          <RadioGroup
+            value={selectedAudioQuality}
+            onValueChange={(val) => setAudioQuality(val as AudioQuality)}
+            className="flex flex-col gap-0.5"
+          >
+            {AUDIO_OPTIONS.map((opt) => {
+              const disabled = opt.value === 'none' && isAudioOnly;
+              const isChecked = selectedAudioQuality === opt.value;
+              return (
+                <label
+                  key={opt.value}
+                  className={cn(
+                    'flex items-center justify-between gap-2 py-0.5 px-2 rounded-md border cursor-pointer transition-colors',
+                    disabled && 'opacity-40 cursor-not-allowed',
+                    isChecked && !disabled
+                      ? 'border-[var(--color-accent)] bg-[var(--color-accent-dim)]'
+                      : 'border-transparent hover:bg-accent'
+                  )}
+                >
+                  <span className="flex items-center gap-1.5">
+                    <RadioGroupItem value={opt.value} disabled={disabled} className="shrink-0" />
+                    <span className="text-xs font-medium text-foreground">{opt.label}</span>
+                  </span>
+                  <span className="text-[10px] text-muted-foreground shrink-0">{opt.sublabel}</span>
+                </label>
+              );
+            })}
+          </RadioGroup>
 
           <MascotBubble
             image={choosingImg}
@@ -258,8 +251,9 @@ export function StepFormatSelect(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex items-center justify-between sticky bottom-0 bg-zinc-950 py-3 -mx-6 px-6 border-t border-zinc-800/50">
-        <span className="text-[11px] text-zinc-500">
+      <Separator className="bg-border/50 -mx-6 w-auto" />
+      <div className="flex items-center justify-between sticky bottom-0 bg-background py-3 -mx-6 px-6">
+        <span className="text-[11px] text-muted-foreground">
           {selectedFilesize
             ? `~${humanSize(selectedFilesize)} (video)`
             : isAudioOnly

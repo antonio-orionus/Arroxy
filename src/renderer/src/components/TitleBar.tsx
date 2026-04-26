@@ -1,5 +1,5 @@
 import { useEffect, useState, type JSX } from 'react';
-import { Minus, Square, CornersIn, X } from '@phosphor-icons/react';
+import { Minus, Square, Minimize2, X } from 'lucide-react';
 import { cn } from '@renderer/lib/utils';
 import appIcon from '@renderer/assets/App-icon-HQ.png';
 
@@ -52,29 +52,29 @@ function WinLinuxControls({ isMaximized }: { isMaximized: boolean }): JSX.Elemen
         aria-label="Minimize"
         data-testid="wc-minimize"
         onClick={() => void window.appApi.window.minimize()}
-        className="h-8 w-10 flex items-center justify-center text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
+        className="h-8 w-10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
       >
-        <Minus size={10} weight="bold" />
+        <Minus size={10} strokeWidth={2.5} />
       </button>
       <button
         type="button"
         aria-label={isMaximized ? 'Restore' : 'Maximize'}
         data-testid="wc-maximize"
         onClick={() => void window.appApi.window.maximize()}
-        className="h-8 w-10 flex items-center justify-center text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
+        className="h-8 w-10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
       >
         {isMaximized
-          ? <CornersIn size={11} weight="bold" />
-          : <Square size={10} weight="bold" />}
+          ? <Minimize2 size={11} strokeWidth={2.5} />
+          : <Square size={10} strokeWidth={2.5} />}
       </button>
       <button
         type="button"
         aria-label="Close"
         data-testid="wc-close"
         onClick={() => void window.appApi.window.close()}
-        className="h-8 w-10 flex items-center justify-center text-zinc-400 hover:text-zinc-100 hover:bg-red-600 transition-colors"
+        className="h-8 w-10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-[var(--color-status-error)] transition-colors"
       >
-        <X size={11} weight="bold" />
+        <X size={11} strokeWidth={2.5} />
       </button>
     </div>
   );
@@ -91,7 +91,7 @@ export function TitleBar(): JSX.Element {
   return (
     <div
       className={cn(
-        'flex items-center h-9 border-b border-zinc-800 select-none shrink-0',
+        'flex items-center h-9 border-b border-border select-none shrink-0',
         isMac ? 'pl-3 pr-2' : 'pl-4 pr-0'
       )}
       style={drag}
@@ -101,7 +101,7 @@ export function TitleBar(): JSX.Element {
 
       <span
         className={cn(
-          'flex-1 flex items-center gap-1.5 text-xs font-medium text-zinc-500 tracking-wide',
+          'flex-1 flex items-center gap-1.5 text-xs font-medium text-muted-foreground tracking-wide',
           isMac ? 'justify-center' : 'pl-1'
         )}
       >
