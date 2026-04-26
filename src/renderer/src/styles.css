@@ -53,7 +53,7 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--border);
+    background: color-mix(in srgb, var(--muted-foreground) 50%, transparent);
     border-radius: 2px;
   }
   ::-webkit-scrollbar-thumb:hover {

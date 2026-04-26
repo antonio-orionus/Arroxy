@@ -13,5 +13,5 @@ export function spawnYtDlp(
     env.PATH = ffmpegDir + path.delimiter + (env.PATH ?? '');
   }
 
-  return spawn(binaryPath, args, { env, windowsHide: true });
+  return spawn(binaryPath, args, { env, windowsHide: true, detached: process.platform !== 'win32' });
 }

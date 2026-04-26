@@ -102,13 +102,14 @@ if (hasSingleInstanceLock) {
     });
 
     mainWindow.on('close', (event) => {
-      if (downloadService.activeCount === 0) return;
+      if (downloadService.pendingCancelCount === 0) return;
+      const count = downloadService.pendingCancelCount;
       const choice = dialog.showMessageBoxSync(mainWindow, {
         type: 'warning',
         buttons: ['Cancel Downloads & Quit', 'Keep Downloading'],
         defaultId: 1,
         cancelId: 1,
-        message: `${downloadService.activeCount} download${downloadService.activeCount > 1 ? 's' : ''} in progress`,
+        message: `${count} download${count > 1 ? 's' : ''} in progress`,
         detail: 'Closing will cancel all active downloads.'
       });
       if (choice === 1) event.preventDefault();

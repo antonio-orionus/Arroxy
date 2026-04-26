@@ -1,5 +1,5 @@
 import { useState, type JSX } from 'react';
-import type { AudioQuality, FormatOption, Preset } from '@shared/types';
+import type { Preset } from '@shared/types';
 import { useAppStore, groupVideoFormats } from '../store/useAppStore';
 import { Button } from './ui/button';
 import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group';
@@ -9,13 +9,6 @@ import { VideoSummaryCard } from './VideoSummaryCard';
 import { MascotBubble } from './MascotBubble';
 import choosingImg from '../assets/Choosing.png';
 import downloadingImg from '../assets/Downloading.png';
-
-const AUDIO_OPTIONS: { value: AudioQuality; label: string; sublabel: string }[] = [
-  { value: 'best', label: 'Best', sublabel: 'Highest available bitrate' },
-  { value: 'good', label: 'Good', sublabel: 'Up to 128 kbps' },
-  { value: 'low', label: 'Low', sublabel: 'Smallest audio file' },
-  { value: 'none', label: 'No audio', sublabel: 'Video stream only' }
-];
 
 const PRESET_OPTIONS: { value: Preset; label: string; desc: string }[] = [
   { value: 'best-quality', label: 'Best quality', desc: 'Highest resolution + best audio' },
@@ -32,9 +25,6 @@ function humanSize(bytes: number): string {
   return `${value.toFixed(idx === 0 ? 0 : 1)} ${units[idx]}`;
 }
 
-function getFormatByResolution(resolution: string, formats: FormatOption[]): FormatOption | undefined {
-  return formats.find((f) => f.resolution === resolution);
-}
 
 function RadioDot({ checked }: { checked: boolean }): JSX.Element {
   return (
@@ -57,26 +47,28 @@ export function StepFormatSelect(): JSX.Element {
     wizardThumbnail,
     wizardDuration,
     selectedVideoFormatId,
-    selectedAudioQuality,
+    selectedAudioFormatId,
     activePreset,
     setSelectedVideoFormatId,
-    setAudioQuality,
+    setAudioFormatId,
     setPreset,
     confirmFormats,
     resetWizard
   } = useAppStore();
 
   const [extFilter, setExtFilter] = useState<string | null>(null);
+  const [drFilter, setDrFilter] = useState<string | null>(null);
 
-  const filteredFormats = extFilter
-    ? wizardFormats.filter((f) => f.ext === extFilter)
-    : wizardFormats;
+  const filteredFormats = wizardFormats
+    .filter((f) => !extFilter || f.ext === extFilter)
+    .filter((f) => !drFilter || (drFilter === 'SDR' ? !f.dynamicRange : f.dynamicRange === drFilter));
 
   const videoGroups = groupVideoFormats(filteredFormats);
   const isAudioOnly = selectedVideoFormatId === '';
-  const canContinue = !(isAudioOnly && selectedAudioQuality === 'none');
+  const canContinue = !(isAudioOnly && selectedAudioFormatId === null);
 
   const uniqueExts = [...new Set(wizardFormats.filter((f) => f.isVideoOnly).map((f) => f.ext))];
+  const uniqueDynamicRanges = [...new Set(wizardFormats.filter((f) => f.isVideoOnly).map((f) => f.dynamicRange ?? 'SDR'))];
 
   const selectedFormat = wizardFormats.find((f) => f.formatId === selectedVideoFormatId);
   const selectedFilesize = selectedFormat?.filesize;
@@ -89,7 +81,7 @@ export function StepFormatSelect(): JSX.Element {
   const maxFilesize = Math.max(
     ...videoGroups
       .filter((g) => !g.isAudioOnly)
-      .map((g) => getFormatByResolution(g.resolution, filteredFormats)?.filesize ?? 0),
+      .map((g) => filteredFormats.find((f) => f.formatId === g.formatId)?.filesize ?? 0),
     1
   );
 
@@ -157,33 +149,52 @@ export function StepFormatSelect(): JSX.Element {
         <div className="flex flex-col gap-0">
           <div className="flex items-center justify-between mb-[6px]">
             <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Video</p>
-            {uniqueExts.length > 1 && (
-              <ToggleGroup
-                value={extFilter ? [extFilter] : []}
-                onValueChange={(vals) => setExtFilter(vals[0] ?? null)}
-                className="gap-[3px]"
-              >
-                {uniqueExts.map((ext) => (
-                  <ToggleGroupItem
-                    key={ext}
-                    value={ext}
-                    className="h-5 px-[7px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground"
-                  >
-                    {ext}
-                  </ToggleGroupItem>
-                ))}
-              </ToggleGroup>
-            )}
+            <div className="flex items-center gap-[6px]">
+              {uniqueDynamicRanges.length > 1 && (
+                <ToggleGroup
+                  value={drFilter ? [drFilter] : []}
+                  onValueChange={(vals) => setDrFilter(vals[0] ?? null)}
+                  className="gap-[3px]"
+                >
+                  {uniqueDynamicRanges.map((dr) => (
+                    <ToggleGroupItem
+                      key={dr}
+                      value={dr}
+                      className="h-5 px-[7px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground"
+                    >
+                      {dr}
+                    </ToggleGroupItem>
+                  ))}
+                </ToggleGroup>
+              )}
+              {uniqueExts.length > 1 && (
+                <ToggleGroup
+                  value={extFilter ? [extFilter] : []}
+                  onValueChange={(vals) => setExtFilter(vals[0] ?? null)}
+                  className="gap-[3px]"
+                >
+                  {uniqueExts.map((ext) => (
+                    <ToggleGroupItem
+                      key={ext}
+                      value={ext}
+                      className="h-5 px-[7px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground"
+                    >
+                      {ext}
+                    </ToggleGroupItem>
+                  ))}
+                </ToggleGroup>
+              )}
+            </div>
           </div>
 
           {videoGroups.map((g) => {
             const isChecked = selectedVideoFormatId === g.formatId;
-            const rawFmt = getFormatByResolution(g.resolution, filteredFormats);
+            const rawFmt = filteredFormats.find((f) => f.formatId === g.formatId);
             const filesize = rawFmt?.filesize;
             const barWidth = filesize ? Math.max(2, (filesize / maxFilesize) * 100) : 0;
             const meta = g.isAudioOnly
               ? ''
-              : [rawFmt?.ext, rawFmt?.fps ? `${rawFmt.fps}fps` : null, filesize ? humanSize(filesize) : null]
+              : [rawFmt?.ext, rawFmt?.fps ? `${rawFmt.fps}fps` : null, rawFmt?.dynamicRange ?? null, filesize ? humanSize(filesize) : null]
                   .filter(Boolean)
                   .join(' · ');
 
@@ -235,18 +246,51 @@ export function StepFormatSelect(): JSX.Element {
         {/* Audio column */}
         <div className="flex flex-col gap-0">
           <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-[6px]">Audio</p>
-          {AUDIO_OPTIONS.map((opt) => {
-            const disabled = opt.value === 'none' && isAudioOnly;
-            const isChecked = selectedAudioQuality === opt.value;
+          {wizardFormats.filter((f) => f.isAudioOnly).map((fmt) => {
+            const isChecked = selectedAudioFormatId === fmt.formatId;
             return (
               <div
-                key={opt.value}
+                key={fmt.formatId}
+                role="radio"
+                aria-checked={isChecked}
+                tabIndex={0}
+                onClick={() => setAudioFormatId(fmt.formatId)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setAudioFormatId(fmt.formatId); }}
+                className={cn(
+                  'flex items-center gap-[7px] py-[5px] px-[8px] rounded-[6px] cursor-pointer transition-colors',
+                  isChecked ? 'bg-[var(--brand-dim)]' : 'hover:bg-accent'
+                )}
+              >
+                <RadioDot checked={isChecked} />
+                <span
+                  className={cn(
+                    'text-[13px]',
+                    isChecked ? 'font-semibold text-[var(--brand)]' : 'font-medium text-muted-foreground'
+                  )}
+                >
+                  {fmt.ext}
+                </span>
+                <span
+                  className="text-[11px] ml-auto whitespace-nowrap"
+                  style={{ color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)' }}
+                >
+                  {fmt.label}
+                </span>
+              </div>
+            );
+          })}
+          {/* No audio */}
+          {(() => {
+            const disabled = isAudioOnly;
+            const isChecked = selectedAudioFormatId === null;
+            return (
+              <div
                 role="radio"
                 aria-checked={isChecked && !disabled}
                 aria-disabled={disabled}
                 tabIndex={disabled ? -1 : 0}
-                onClick={() => { if (!disabled) setAudioQuality(opt.value); }}
-                onKeyDown={(e) => { if (!disabled && (e.key === 'Enter' || e.key === ' ')) setAudioQuality(opt.value); }}
+                onClick={() => { if (!disabled) setAudioFormatId(null); }}
+                onKeyDown={(e) => { if (!disabled && (e.key === 'Enter' || e.key === ' ')) setAudioFormatId(null); }}
                 className={cn(
                   'flex items-center gap-[7px] py-[5px] px-[8px] rounded-[6px] transition-colors',
                   disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
@@ -256,16 +300,16 @@ export function StepFormatSelect(): JSX.Element {
                 <RadioDot checked={isChecked && !disabled} />
                 <span
                   className={cn(
-                    'text-[13px] min-w-[68px]',
+                    'text-[13px]',
                     isChecked && !disabled ? 'font-semibold text-[var(--brand)]' : 'font-medium text-muted-foreground'
                   )}
                 >
-                  {opt.label}
+                  No audio
                 </span>
-                <span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{opt.sublabel}</span>
+                <span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">Video only</span>
               </div>
             );
-          })}
+          })()}
 
           <MascotBubble
             image={choosingImg}

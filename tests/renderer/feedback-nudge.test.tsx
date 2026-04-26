@@ -51,7 +51,7 @@ function resetStore() {
     initialized: false, settings: null, wizardStep: 'url',
     formatsLoading: false, wizardUrl: '', wizardTitle: '',
     wizardThumbnail: '', wizardFormats: [], selectedVideoFormatId: '',
-    selectedAudioQuality: 'best', activePreset: null,
+    selectedAudioFormatId: null, activePreset: null,
     wizardOutputDir: '', wizardError: null, wizardErrorOrigin: null, queue: []
   });
 }

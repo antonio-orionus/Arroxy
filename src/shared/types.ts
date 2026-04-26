@@ -7,14 +7,12 @@ export interface AppError {
   recoverable?: boolean;
 }
 
-export type AudioQuality = 'best' | 'good' | 'low' | 'none';
 export type Preset = 'best-quality' | 'balanced' | 'audio-only' | 'small-file';
 
 export interface AppSettings {
   defaultOutputDir: string;
   rememberLastOutputDir: boolean;
   lastVideoResolution?: string;
-  lastAudioQuality?: AudioQuality;
   lastPreset?: Preset | null;
   uiZoom?: number;
   uiTheme?: 'light' | 'dark' | 'system';
@@ -27,8 +25,11 @@ export interface FormatOption {
   ext: string;
   resolution: string;
   fps?: number;
+  abr?: number;
   filesize?: number;
   isVideoOnly: boolean;
+  isAudioOnly: boolean;
+  dynamicRange?: string;
 }
 
 export type DownloadJobStatus = 'running' | 'completed' | 'failed' | 'cancelled';

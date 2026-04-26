@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import type {
   AppError,
   AppSettings,
-  AudioQuality,
   FormatOption,
   Preset,
   QueueItem
@@ -16,28 +15,21 @@ export interface GroupedVideoFormat {
   formatId: string;
   label: string;
   isAudioOnly: boolean;
+  dynamicRange?: string;
 }
 
-function buildFormatId(videoFormatId: string, audioQuality: AudioQuality): string | undefined {
-  if (videoFormatId === '' && audioQuality === 'none') return undefined;
-  if (videoFormatId === '') {
-    return audioQualitySelector(audioQuality);
-  }
-  if (audioQuality === 'none') return videoFormatId;
-  return `${videoFormatId}+${audioQualitySelector(audioQuality)}`;
-}
-
-function audioQualitySelector(q: AudioQuality): string {
-  if (q === 'best') return 'bestaudio';
-  if (q === 'good') return 'bestaudio[abr<=128]';
-  if (q === 'low') return 'worstaudio';
-  return 'bestaudio';
+function buildFormatId(videoFormatId: string, audioFormatId: string | null): string | undefined {
+  if (videoFormatId === '' && audioFormatId === null) return undefined;
+  if (videoFormatId === '') return audioFormatId ?? undefined;
+  if (audioFormatId === null) return videoFormatId;
+  return `${videoFormatId}+${audioFormatId}`;
 }
 
 function buildFormatLabel(
   videoFormatId: string,
   videoResolution: string,
-  audioQuality: AudioQuality,
+  audioFormatId: string | null,
+  audioFormats: FormatOption[],
   preset: Preset | null
 ): string {
   if (preset) {
@@ -49,22 +41,10 @@ function buildFormatLabel(
     };
     return labels[preset];
   }
-  if (videoFormatId === '') {
-    const audioLabels: Record<AudioQuality, string> = {
-      best: 'Best',
-      good: 'Good',
-      low: 'Low',
-      none: 'None'
-    };
-    return `Audio only · ${audioLabels[audioQuality]}`;
-  }
-  const audioLabels: Record<AudioQuality, string> = {
-    best: 'Best audio',
-    good: 'Good audio',
-    low: 'Low audio',
-    none: 'No audio'
-  };
-  return `${videoResolution} · ${audioLabels[audioQuality]}`;
+  const audioFmt = audioFormats.find((f) => f.formatId === audioFormatId);
+  const audioLabel = audioFormatId === null ? 'No audio' : (audioFmt?.label ?? 'Audio');
+  if (videoFormatId === '') return `Audio only · ${audioLabel}`;
+  return `${videoResolution} · ${audioLabel}`;
 }
 
 export function groupVideoFormats(formats: FormatOption[]): GroupedVideoFormat[] {
@@ -72,9 +52,11 @@ export function groupVideoFormats(formats: FormatOption[]): GroupedVideoFormat[]
   const grouped: GroupedVideoFormat[] = [];
 
   for (const f of formats) {
-    if (!seen.has(f.resolution)) {
-      seen.add(f.resolution);
-      grouped.push({ resolution: f.resolution, formatId: f.formatId, label: f.label, isAudioOnly: false });
+    if (f.isAudioOnly) continue;
+    const key = `${f.resolution}|${f.dynamicRange ?? ''}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      grouped.push({ resolution: f.resolution, formatId: f.formatId, label: f.label, isAudioOnly: false, dynamicRange: f.dynamicRange });
     }
   }
 
@@ -83,46 +65,49 @@ export function groupVideoFormats(formats: FormatOption[]): GroupedVideoFormat[]
   return grouped;
 }
 
-function applyPreset(preset: Preset, formats: FormatOption[]): { videoFormatId: string; audioQuality: AudioQuality } {
+function applyPreset(preset: Preset, formats: FormatOption[]): { videoFormatId: string; audioFormatId: string | null } {
   const grouped = groupVideoFormats(formats).filter((g) => !g.isAudioOnly);
+  const audioFormats = formats.filter((f) => f.isAudioOnly);
+  const bestAudio = audioFormats[0]?.formatId ?? null;
+  const worstAudio = audioFormats[audioFormats.length - 1]?.formatId ?? bestAudio;
 
   if (preset === 'best-quality') {
-    return { videoFormatId: grouped[0]?.formatId ?? '', audioQuality: 'best' };
+    return { videoFormatId: grouped[0]?.formatId ?? '', audioFormatId: bestAudio };
   }
   if (preset === 'balanced') {
     const target = grouped.find((g) => {
       const match = g.resolution.match(/(\d+)/);
       return match ? Number(match[1]) <= 720 : false;
     });
-    return { videoFormatId: target?.formatId ?? grouped[grouped.length - 1]?.formatId ?? '', audioQuality: 'good' };
+    return { videoFormatId: target?.formatId ?? grouped[grouped.length - 1]?.formatId ?? '', audioFormatId: bestAudio };
   }
   if (preset === 'audio-only') {
-    return { videoFormatId: '', audioQuality: 'best' };
+    return { videoFormatId: '', audioFormatId: bestAudio };
   }
   // small-file
-  return { videoFormatId: grouped[grouped.length - 1]?.formatId ?? '', audioQuality: 'low' };
+  return { videoFormatId: grouped[grouped.length - 1]?.formatId ?? '', audioFormatId: worstAudio };
 }
 
 function restoreFormatSelection(
   formats: FormatOption[],
   settings: AppSettings | null
-): { videoFormatId: string; audioQuality: AudioQuality; preset: Preset | null } {
+): { videoFormatId: string; audioFormatId: string | null; preset: Preset | null } {
   const grouped = groupVideoFormats(formats).filter((g) => !g.isAudioOnly);
+  const audioFormats = formats.filter((f) => f.isAudioOnly);
+  const bestAudio = audioFormats[0]?.formatId ?? null;
 
   if (settings?.lastPreset) {
     const result = applyPreset(settings.lastPreset, formats);
     return { ...result, preset: settings.lastPreset };
   }
 
-  const audioQuality: AudioQuality = settings?.lastAudioQuality ?? 'best';
-
   if (settings?.lastVideoResolution === 'audio-only') {
-    return { videoFormatId: '', audioQuality, preset: null };
+    return { videoFormatId: '', audioFormatId: bestAudio, preset: null };
   }
 
   if (settings?.lastVideoResolution) {
     const match = grouped.find((g) => g.resolution === settings.lastVideoResolution);
-    if (match) return { videoFormatId: match.formatId, audioQuality, preset: null };
+    if (match) return { videoFormatId: match.formatId, audioFormatId: bestAudio, preset: null };
   }
 
   return { ...applyPreset('best-quality', formats), preset: 'best-quality' };
@@ -147,7 +132,7 @@ interface AppState {
   wizardDuration?: number;
   wizardFormats: FormatOption[];
   selectedVideoFormatId: string;
-  selectedAudioQuality: AudioQuality;
+  selectedAudioFormatId: string | null;
   activePreset: Preset | null;
   wizardOutputDir: string;
   wizardError: AppError | null;
@@ -179,7 +164,7 @@ interface AppState {
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
   setSelectedVideoFormatId: (id: string) => void;
-  setAudioQuality: (q: AudioQuality) => void;
+  setAudioFormatId: (id: string | null) => void;
   setPreset: (p: Preset) => void;
   confirmFormats: () => void;
   chooseWizardFolder: () => Promise<void>;
@@ -231,16 +216,17 @@ export const useAppStore = create<AppState>((set, get) => {
   function buildQueueItem(): QueueItem | null {
     const state = get();
     const { wizardUrl, wizardTitle, wizardThumbnail, wizardOutputDir } = state;
-    const { selectedVideoFormatId, selectedAudioQuality, activePreset, wizardFormats } = state;
+    const { selectedVideoFormatId, selectedAudioFormatId, activePreset, wizardFormats } = state;
 
+    const audioFormats = wizardFormats.filter((f) => f.isAudioOnly);
     const grouped = groupVideoFormats(wizardFormats).filter((g) => !g.isAudioOnly);
     const videoResolution =
       selectedVideoFormatId === ''
         ? 'audio-only'
         : grouped.find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? selectedVideoFormatId;
 
-    const formatId = buildFormatId(selectedVideoFormatId, selectedAudioQuality);
-    const formatLabel = buildFormatLabel(selectedVideoFormatId, videoResolution, selectedAudioQuality, activePreset);
+    const formatId = buildFormatId(selectedVideoFormatId, selectedAudioFormatId);
+    const formatLabel = buildFormatLabel(selectedVideoFormatId, videoResolution, selectedAudioFormatId, audioFormats, activePreset);
 
     return {
       id: generateId(),
@@ -260,7 +246,7 @@ export const useAppStore = create<AppState>((set, get) => {
   }
 
   async function persistFormatPrefs(): Promise<void> {
-    const { selectedVideoFormatId, selectedAudioQuality, activePreset, wizardFormats, settings } = get();
+    const { selectedVideoFormatId, activePreset, wizardFormats, settings } = get();
     if (!settings) return;
 
     const grouped = groupVideoFormats(wizardFormats).filter((g) => !g.isAudioOnly);
@@ -271,7 +257,6 @@ export const useAppStore = create<AppState>((set, get) => {
 
     const patch = {
       lastVideoResolution: videoResolution,
-      lastAudioQuality: selectedAudioQuality,
       lastPreset: activePreset
     };
     const result = await window.appApi.settings.update(patch);
@@ -293,7 +278,7 @@ export const useAppStore = create<AppState>((set, get) => {
     wizardDuration: undefined,
     wizardFormats: [],
     selectedVideoFormatId: '',
-    selectedAudioQuality: 'best',
+    selectedAudioFormatId: null,
     activePreset: null,
     wizardOutputDir: '',
     wizardError: null,
@@ -426,7 +411,7 @@ export const useAppStore = create<AppState>((set, get) => {
       }
 
       const { formats, title, thumbnail, duration } = result.data;
-      const { videoFormatId, audioQuality, preset } = restoreFormatSelection(formats, get().settings);
+      const { videoFormatId, audioFormatId, preset } = restoreFormatSelection(formats, get().settings);
 
       set({
         wizardFormats: formats,
@@ -434,7 +419,7 @@ export const useAppStore = create<AppState>((set, get) => {
         wizardThumbnail: thumbnail,
         wizardDuration: duration,
         selectedVideoFormatId: videoFormatId,
-        selectedAudioQuality: audioQuality,
+        selectedAudioFormatId: audioFormatId,
         activePreset: preset,
         formatsLoading: false
       });
@@ -442,12 +427,12 @@ export const useAppStore = create<AppState>((set, get) => {
 
     setSelectedVideoFormatId: (id) => set({ selectedVideoFormatId: id, activePreset: null }),
 
-    setAudioQuality: (q) => set({ selectedAudioQuality: q, activePreset: null }),
+    setAudioFormatId: (id) => set({ selectedAudioFormatId: id, activePreset: null }),
 
     setPreset: (p) => {
       const { wizardFormats } = get();
-      const { videoFormatId, audioQuality } = applyPreset(p, wizardFormats);
-      set({ activePreset: p, selectedVideoFormatId: videoFormatId, selectedAudioQuality: audioQuality });
+      const { videoFormatId, audioFormatId } = applyPreset(p, wizardFormats);
+      set({ activePreset: p, selectedVideoFormatId: videoFormatId, selectedAudioFormatId: audioFormatId });
     },
 
     confirmFormats: () => set({ wizardStep: 'folder' }),
@@ -529,6 +514,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const item = get().queue.find((i) => i.id === itemId);
       if (!item || (item.status !== 'downloading' && item.status !== 'paused')) return;
 
+      console.log('[cancel] status:', item.status, '| downloadJobId:', item.downloadJobId);
       await window.appApi.downloads.cancel({ jobId: item.downloadJobId ?? undefined });
       updateQueueItem(itemId, { status: 'cancelled', downloadJobId: null });
       saveQueue();

@@ -21,7 +21,7 @@ const mockAppApi = {
   downloads: {
     getFormats: vi.fn().mockResolvedValue(ok({
       formats: [
-        { formatId: '22', label: '720p | mp4', ext: 'mp4', resolution: '720p', fps: 30, isVideoOnly: false }
+        { formatId: '22', label: '720p | mp4', ext: 'mp4', resolution: '720p', fps: 30, isVideoOnly: false, isAudioOnly: false }
       ],
       title: 'Test Video',
       thumbnail: ''
@@ -72,7 +72,7 @@ describe('App renderer', () => {
       wizardThumbnail: '',
       wizardFormats: [],
       selectedVideoFormatId: '',
-      selectedAudioQuality: 'best',
+      selectedAudioFormatId: null,
       activePreset: null,
       wizardOutputDir: '',
       wizardError: null,

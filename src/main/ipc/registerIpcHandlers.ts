@@ -126,6 +126,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     if (!parsed.success) {
       return fail(zodToError(parsed.error.issues[0]?.message ?? 'Invalid cancel payload'));
     }
+    logService.log('INFO', '[cancel IPC] received', { jobId: parsed.data.jobId ?? '(undefined)' });
     return downloadService.cancel(parsed.data.jobId);
   });
 

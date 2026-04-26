@@ -32,6 +32,14 @@ interface ActiveDownload {
   mockTimer?: NodeJS.Timeout;
 }
 
+function killProcessTree(proc: ChildProcessWithoutNullStreams, signal: NodeJS.Signals): void {
+  if (process.platform !== 'win32' && proc.pid != null) {
+    try { process.kill(-proc.pid, signal); } catch { proc.kill(signal); }
+  } else {
+    proc.kill(signal);
+  }
+}
+
 export class DownloadService extends EventEmitter {
   private activeJobs = new Map<string, ActiveDownload>();
   private pausedJobs = new Map<string, DownloadJob>();
@@ -48,6 +56,14 @@ export class DownloadService extends EventEmitter {
 
   get activeCount(): number {
     return this.activeJobs.size;
+  }
+
+  get pendingCancelCount(): number {
+    let count = 0;
+    for (const active of this.activeJobs.values()) {
+      if (!active.cancelRequested) count++;
+    }
+    return count;
   }
 
   async start(input: StartDownloadInput): Promise<Result<StartDownloadOutput>> {
@@ -76,6 +92,7 @@ export class DownloadService extends EventEmitter {
 
       if (this.activeJobs.get(job.id)?.cancelRequested) {
         this.logger.log('INFO', 'Download cancelled before binary setup completed', { jobId: job.id });
+        this.emitStatus(job.id, 'error', 'Download cancelled');
         await this.finalize(job, 'cancelled');
         return fail(createAppError('download', 'Download cancelled before start'));
       }
@@ -85,6 +102,7 @@ export class DownloadService extends EventEmitter {
 
       if (this.activeJobs.get(job.id)?.cancelRequested) {
         this.logger.log('INFO', 'Download cancelled before process spawn', { jobId: job.id });
+        this.emitStatus(job.id, 'error', 'Download cancelled');
         await this.finalize(job, 'cancelled');
         return fail(createAppError('download', 'Download cancelled before spawn'));
       }
@@ -118,6 +136,9 @@ export class DownloadService extends EventEmitter {
         const proc = spawnYtDlp(ytDlpPath, args, ffmpegPath);
         const active = this.activeJobs.get(job.id)!;
         active.process = proc;
+        if (active.cancelRequested) {
+          proc.kill('SIGKILL');
+        }
 
         proc.stdout.on('data', (chunk) => {
           try { this.consumeProgress(job.id, chunk.toString()); } catch { /* swallow */ }
@@ -250,7 +271,7 @@ export class DownloadService extends EventEmitter {
     }
 
     active.pauseRequested = true;
-    active.process.kill('SIGTERM');
+    killProcessTree(active.process, 'SIGTERM');
     this.logger.log('INFO', 'SIGTERM sent to yt-dlp process', { jobId: active.job.id });
     return ok({ paused: true });
   }
@@ -260,7 +281,7 @@ export class DownloadService extends EventEmitter {
 
     if (active.process) {
       this.logger.log('INFO', 'Sending SIGKILL to yt-dlp process', { jobId: active.job.id });
-      active.process.kill('SIGKILL');
+      killProcessTree(active.process, 'SIGKILL');
       return ok({ cancelled: true });
     }
 

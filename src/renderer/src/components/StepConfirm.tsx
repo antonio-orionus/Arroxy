@@ -20,7 +20,7 @@ export function StepConfirm(): JSX.Element {
     wizardDuration,
     wizardOutputDir,
     selectedVideoFormatId,
-    selectedAudioQuality,
+    selectedAudioFormatId,
     activePreset,
     wizardFormats,
     commonPaths,
@@ -38,12 +38,8 @@ export function StepConfirm(): JSX.Element {
       ? 'Audio only'
       : videoGroups.find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? selectedVideoFormatId;
 
-  const audioLabels: Record<string, string> = {
-    best: 'Best — Highest bitrate',
-    good: 'Good — Up to 128 kbps',
-    low: 'Low — Smallest file',
-    none: 'No audio'
-  };
+  const audioFormat = wizardFormats.find((f) => f.formatId === selectedAudioFormatId);
+  const audioLabel = selectedAudioFormatId === null ? 'No audio' : (audioFormat?.label ?? 'Audio');
 
   const presetLabels: Record<string, string> = {
     'best-quality': 'Best quality',
@@ -69,7 +65,7 @@ export function StepConfirm(): JSX.Element {
 
   const summaryRows: [string, string][] = [
     ['Video', videoSummary],
-    ['Audio', audioLabels[selectedAudioQuality] ?? selectedAudioQuality],
+    ['Audio', audioLabel],
     ['Save to', shortPath],
     ['Size', estimatedSize],
   ];

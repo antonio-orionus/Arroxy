@@ -14,9 +14,11 @@ interface YtDlpFormat {
   resolution?: string;
   format_note?: string;
   fps?: number;
+  abr?: number;
   filesize?: number;
   vcodec?: string;
   acodec?: string;
+  dynamic_range?: string;
 }
 
 interface YtDlpInfo {
@@ -27,19 +29,48 @@ interface YtDlpInfo {
 }
 
 
+function friendlyCodec(acodec: string): string {
+  if (acodec === 'opus') return 'Opus';
+  if (acodec.startsWith('mp4a')) return 'AAC';
+  return acodec;
+}
+
 export function mapFormats(info: YtDlpInfo): FormatOption[] {
   const formats = info.formats ?? [];
 
   const mapped = formats
-    .filter((item) => item.vcodec !== 'none' && item.format_id)
+    .filter((item) => item.format_id && item.ext !== 'mhtml')
+    .filter((item) => item.vcodec !== 'none' || (item.acodec && item.acodec !== 'none'))
     .map((item) => {
-      const resolution = item.resolution ?? item.format_note ?? 'unknown';
+      const isAudioOnly = item.vcodec === 'none';
       const ext = item.ext ?? 'unknown';
-      const fps = item.fps;
       const filesize = item.filesize;
-      const isVideoOnly = item.acodec === 'none';
       const formatId = item.format_id ?? '';
-      const details = [resolution, ext, fps ? `${fps}fps` : null, filesize ? humanSize(filesize) : null]
+
+      if (isAudioOnly) {
+        const abr = item.abr;
+        const codec = friendlyCodec(item.acodec ?? '');
+        const details = [ext, codec, abr ? `${Math.round(abr)} kbps` : null, filesize ? humanSize(filesize) : null]
+          .filter(Boolean)
+          .join(' · ');
+        return {
+          formatId,
+          label: details,
+          ext,
+          resolution: 'audio only',
+          abr,
+          filesize,
+          isVideoOnly: false,
+          isAudioOnly: true,
+          dynamicRange: undefined
+        } satisfies FormatOption;
+      }
+
+      const resolution = item.resolution ?? item.format_note ?? 'unknown';
+      const fps = item.fps;
+      const isVideoOnly = item.acodec === 'none';
+      const dynamicRange = item.dynamic_range && item.dynamic_range !== 'SDR' ? item.dynamic_range : undefined;
+      const details = [resolution, ext, fps ? `${fps}fps` : null, dynamicRange ?? null, filesize ? humanSize(filesize) : null]
         .filter(Boolean)
         .join(' | ');
 
@@ -50,7 +81,9 @@ export function mapFormats(info: YtDlpInfo): FormatOption[] {
         resolution,
         fps,
         filesize,
-        isVideoOnly
+        isVideoOnly,
+        isAudioOnly: false,
+        dynamicRange
       } satisfies FormatOption;
     });
 
@@ -83,9 +116,9 @@ export class FormatProbeService {
       if (this.mockMode) {
         return ok({
           formats: [
-            { formatId: '137', label: '1080p | mp4 | 30fps', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 800_000_000, isVideoOnly: true },
-            { formatId: '22', label: '720p | mp4 | 30fps', ext: 'mp4', resolution: '720p', fps: 30, filesize: 400_000_000, isVideoOnly: false },
-            { formatId: '18', label: '360p | mp4 | 30fps', ext: 'mp4', resolution: '360p', fps: 30, filesize: 150_000_000, isVideoOnly: false }
+            { formatId: '137', label: '1080p | mp4 | 30fps', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 800_000_000, isVideoOnly: true, isAudioOnly: false },
+            { formatId: '22', label: '720p | mp4 | 30fps', ext: 'mp4', resolution: '720p', fps: 30, filesize: 400_000_000, isVideoOnly: false, isAudioOnly: false },
+            { formatId: '18', label: '360p | mp4 | 30fps', ext: 'mp4', resolution: '360p', fps: 30, filesize: 150_000_000, isVideoOnly: false, isAudioOnly: false }
           ],
           title: 'Mock Video Title',
           thumbnail: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',

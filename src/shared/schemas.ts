@@ -38,6 +38,5 @@ export const updateSettingsSchema = z.object({
   defaultOutputDir: z.string().min(1).optional(),
   rememberLastOutputDir: z.boolean().optional(),
   lastVideoResolution: z.string().optional(),
-  lastAudioQuality: z.enum(['best', 'good', 'low', 'none']).optional(),
   lastPreset: z.enum(['best-quality', 'balanced', 'audio-only', 'small-file']).nullable().optional()
 });
