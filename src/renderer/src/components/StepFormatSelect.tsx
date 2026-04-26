@@ -3,7 +3,6 @@ import type { AudioQuality, FormatOption, Preset } from '@shared/types';
 import { useAppStore, groupVideoFormats } from '../store/useAppStore';
 import { Button } from './ui/button';
 import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group';
-import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Separator } from './ui/separator';
 import { cn } from '@renderer/lib/utils';
 import { VideoSummaryCard } from './VideoSummaryCard';
@@ -32,17 +31,21 @@ function humanSize(bytes: number): string {
   return `${value.toFixed(idx === 0 ? 0 : 1)} ${units[idx]}`;
 }
 
-function fmtEta(seconds: number): string {
-  if (seconds < 60) return '<1m';
-  const m = Math.round(seconds / 60);
-  if (m < 60) return `${m}m`;
-  const h = Math.floor(m / 60);
-  const rm = m % 60;
-  return rm > 0 ? `${h}h${rm}m` : `${h}h`;
-}
-
 function getFormatByResolution(resolution: string, formats: FormatOption[]): FormatOption | undefined {
   return formats.find((f) => f.resolution === resolution);
+}
+
+function RadioDot({ checked }: { checked: boolean }): JSX.Element {
+  return (
+    <div
+      className={cn(
+        'w-[13px] h-[13px] rounded-full border-2 flex-shrink-0 transition-colors',
+        checked
+          ? 'border-[var(--brand)] bg-[var(--brand)] shadow-[0_0_0_2px_var(--brand-dim)]'
+          : 'border-[var(--border-strong)]'
+      )}
+    />
+  );
 }
 
 export function StepFormatSelect(): JSX.Element {
@@ -72,20 +75,16 @@ export function StepFormatSelect(): JSX.Element {
   const isAudioOnly = selectedVideoFormatId === '';
   const canContinue = !(isAudioOnly && selectedAudioQuality === 'none');
 
-  // Unique codec/ext values from video-track-only formats for filter pills
   const uniqueExts = [...new Set(wizardFormats.filter((f) => f.isVideoOnly).map((f) => f.ext))];
 
-  // Selected format's filesize for the summary
   const selectedFormat = wizardFormats.find((f) => f.formatId === selectedVideoFormatId);
   const selectedFilesize = selectedFormat?.filesize;
 
-  // Resolution label for VideoSummaryCard
   const currentResolutionLabel =
     selectedVideoFormatId === ''
       ? 'Audio only'
       : groupVideoFormats(wizardFormats).find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? '';
 
-  // Max filesize for proportional size bars
   const maxFilesize = Math.max(
     ...videoGroups
       .filter((g) => !g.isAudioOnly)
@@ -113,7 +112,7 @@ export function StepFormatSelect(): JSX.Element {
 
       {/* Quick presets */}
       <div className="flex flex-col gap-1.5">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Quick presets</p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Quick presets</p>
         <ToggleGroup
           value={activePreset ? [activePreset] : []}
           onValueChange={(vals) => { if (vals[0]) setPreset(vals[0] as Preset); }}
@@ -123,33 +122,33 @@ export function StepFormatSelect(): JSX.Element {
             <ToggleGroupItem
               key={p.value}
               value={p.value}
-              className="flex flex-col items-start gap-0.5 py-1.5 px-2.5 rounded-md border h-auto text-left w-full aria-pressed:border-[var(--color-accent)] aria-pressed:bg-[var(--color-accent-dim)] aria-pressed:shadow-[0_0_0_1px_var(--color-accent)] border-border bg-secondary/60 hover:border-muted-foreground hover:-translate-y-0.5 transition-all"
+              className="flex flex-col items-start gap-0.5 py-1.5 px-2.5 rounded-[8px] border h-auto text-left w-full aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] border-[var(--border-strong)] bg-secondary/60 hover:border-muted-foreground hover:-translate-y-0.5 transition-all"
             >
-              <span className="text-[11px] font-semibold shrink-0 group-aria-pressed/toggle:text-[var(--color-accent)] text-foreground">
+              <span className="text-[11px] font-semibold shrink-0 text-foreground">
                 {p.label}
               </span>
-              <span className="text-[10px] text-muted-foreground leading-snug truncate">{p.desc}</span>
+              <span className="text-[9px] text-[var(--text-subtle)] leading-snug truncate">{p.desc}</span>
             </ToggleGroupItem>
           ))}
         </ToggleGroup>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-[20px]">
         {/* Video column */}
-        <div className="flex flex-col gap-0.5">
-          <div className="flex items-center justify-between mb-1">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Video</p>
+        <div className="flex flex-col gap-0">
+          <div className="flex items-center justify-between mb-[6px]">
+            <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Video</p>
             {uniqueExts.length > 1 && (
               <ToggleGroup
                 value={extFilter ? [extFilter] : []}
                 onValueChange={(vals) => setExtFilter(vals[0] ?? null)}
-                className="gap-1"
+                className="gap-[3px]"
               >
                 {uniqueExts.map((ext) => (
                   <ToggleGroupItem
                     key={ext}
                     value={ext}
-                    className="h-5 px-1.5 rounded-full text-[9px] font-medium border aria-pressed:border-[var(--color-accent)] aria-pressed:bg-[var(--color-accent-dim)] aria-pressed:text-[var(--color-accent)] border-border bg-secondary text-muted-foreground hover:border-muted-foreground"
+                    className="h-5 px-[7px] rounded-full text-[9px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground"
                   >
                     {ext}
                   </ToggleGroupItem>
@@ -163,84 +162,82 @@ export function StepFormatSelect(): JSX.Element {
             const rawFmt = getFormatByResolution(g.resolution, filteredFormats);
             const filesize = rawFmt?.filesize;
             const barWidth = filesize ? Math.max(2, (filesize / maxFilesize) * 100) : 0;
-            const etaSec = filesize ? filesize / 10_485_760 : null;
-            const meta = g.isAudioOnly ? '' : [rawFmt?.ext, rawFmt?.fps ? `${rawFmt.fps}fps` : null].filter(Boolean).join(' · ');
+            const meta = g.isAudioOnly
+              ? ''
+              : [rawFmt?.ext, rawFmt?.fps ? `${rawFmt.fps}fps` : null, filesize ? humanSize(filesize) : null]
+                  .filter(Boolean)
+                  .join(' · ');
 
             return (
-              <label
+              <div
                 key={g.formatId || 'audio-only'}
+                onClick={() => setSelectedVideoFormatId(g.formatId)}
                 className={cn(
-                  'flex flex-col gap-0.5 py-0.5 px-2 rounded-md border cursor-pointer transition-colors',
+                  'flex items-center gap-[7px] py-[5px] px-[8px] rounded-[6px] cursor-pointer transition-colors',
                   isChecked
-                    ? 'border-[var(--color-accent)] bg-[var(--color-accent-dim)]'
-                    : 'border-transparent hover:bg-accent'
+                    ? 'bg-[var(--brand-dim)]'
+                    : 'hover:bg-accent'
                 )}
               >
-                <span className="flex items-center justify-between gap-1.5">
-                  <span className="flex items-center gap-1.5">
-                    <input
-                      type="radio"
-                      name="video-format"
-                      value={g.formatId}
-                      checked={isChecked}
-                      onChange={() => setSelectedVideoFormatId(g.formatId)}
-                      className="accent-[var(--color-accent)] shrink-0"
-                    />
-                    <span className="text-xs font-medium text-foreground">{g.resolution}</span>
-                  </span>
-                  <span className="flex items-center gap-1.5 shrink-0">
-                    {meta && <span className="text-[10px] text-muted-foreground">{meta}</span>}
-                    {etaSec !== null && (
-                      <span className="text-[9px] text-muted-foreground bg-secondary rounded px-1 py-0.5">
-                        {fmtEta(etaSec)}
-                      </span>
-                    )}
-                  </span>
+                <RadioDot checked={isChecked} />
+                <span
+                  className={cn(
+                    'text-[11px] min-w-[68px]',
+                    isChecked ? 'font-semibold text-[var(--brand)]' : 'font-medium text-muted-foreground'
+                  )}
+                >
+                  {g.resolution}
                 </span>
-                {!g.isAudioOnly && barWidth > 0 && (
-                  <div className="h-[2px] rounded-full bg-secondary mx-5">
+                {!g.isAudioOnly && (
+                  <div className="w-[32px] h-[2px] bg-accent rounded-full flex-shrink-0">
                     <div
-                      className="h-full rounded-full bg-[var(--color-accent)]/30"
-                      style={{ width: `${barWidth}%` }}
+                      className={cn('h-full rounded-full bg-[var(--brand)]', isChecked ? 'opacity-100' : 'opacity-25')}
+                      style={{ width: barWidth > 0 ? `${barWidth}%` : '0%' }}
                     />
                   </div>
                 )}
-              </label>
+                {meta && (
+                  <span
+                    className="text-[9px] ml-auto whitespace-nowrap"
+                    style={{ color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)' }}
+                  >
+                    {meta}
+                  </span>
+                )}
+              </div>
             );
           })}
         </div>
 
         {/* Audio column */}
-        <div className="flex flex-col gap-0.5">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">Audio</p>
-          <RadioGroup
-            value={selectedAudioQuality}
-            onValueChange={(val) => setAudioQuality(val as AudioQuality)}
-            className="flex flex-col gap-0.5"
-          >
-            {AUDIO_OPTIONS.map((opt) => {
-              const disabled = opt.value === 'none' && isAudioOnly;
-              const isChecked = selectedAudioQuality === opt.value;
-              return (
-                <label
-                  key={opt.value}
+        <div className="flex flex-col gap-0">
+          <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-[6px]">Audio</p>
+          {AUDIO_OPTIONS.map((opt) => {
+            const disabled = opt.value === 'none' && isAudioOnly;
+            const isChecked = selectedAudioQuality === opt.value;
+            return (
+              <div
+                key={opt.value}
+                onClick={() => { if (!disabled) setAudioQuality(opt.value); }}
+                className={cn(
+                  'flex items-center gap-[7px] py-[5px] px-[8px] rounded-[6px] transition-colors',
+                  disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
+                  isChecked && !disabled ? 'bg-[var(--brand-dim)]' : 'hover:bg-accent'
+                )}
+              >
+                <RadioDot checked={isChecked && !disabled} />
+                <span
                   className={cn(
-                    'flex items-center justify-between gap-2 py-0.5 px-2 rounded-md border cursor-pointer transition-colors',
-                    disabled && 'opacity-40 cursor-not-allowed',
-                    isChecked && !disabled
-                      ? 'border-[var(--color-accent)] bg-[var(--color-accent-dim)]'
-                      : 'border-transparent hover:bg-accent'
+                    'text-[11px] min-w-[68px]',
+                    isChecked && !disabled ? 'font-semibold text-[var(--brand)]' : 'font-medium text-muted-foreground'
                   )}
                 >
-                  <span className="flex items-center gap-1.5">
-                    <RadioGroupItem value={opt.value} disabled={disabled} className="shrink-0" />
-                    <span className="text-xs font-medium text-foreground">{opt.label}</span>
-                  </span>
-                  <span className="text-[10px] text-muted-foreground shrink-0">{opt.sublabel}</span>
-                </label>
-              );
-            })}
-          </RadioGroup>
+                  {opt.label}
+                </span>
+                <span className="text-[9px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{opt.sublabel}</span>
+              </div>
+            );
+          })}
 
           <MascotBubble
             image={choosingImg}
@@ -254,15 +251,31 @@ export function StepFormatSelect(): JSX.Element {
       <Separator className="bg-border/50 -mx-6 w-auto" />
       <div className="flex items-center justify-between sticky bottom-0 bg-background py-3 -mx-6 px-6">
         <span className="text-[11px] text-muted-foreground">
-          {selectedFilesize
-            ? `~${humanSize(selectedFilesize)} (video)`
-            : isAudioOnly
-              ? 'Audio only'
-              : 'Size unknown'}
+          {selectedFilesize ? (
+            <>Total <span className="text-[14px] font-bold text-[var(--brand)]">~{humanSize(selectedFilesize)}</span></>
+          ) : isAudioOnly ? (
+            'Audio only'
+          ) : (
+            'Size unknown'
+          )}
         </span>
         <div className="flex gap-2">
-          <Button variant="ghost" type="button" onClick={resetWizard}>Back</Button>
-          <Button type="button" onClick={confirmFormats} disabled={!canContinue}>Continue</Button>
+          <Button
+            variant="ghost"
+            type="button"
+            onClick={resetWizard}
+            className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
+          >
+            Back
+          </Button>
+          <Button
+            type="button"
+            onClick={confirmFormats}
+            disabled={!canContinue}
+            className="shadow-[0_4px_14px_var(--brand-glow)]"
+          >
+            Continue
+          </Button>
         </div>
       </div>
     </div>

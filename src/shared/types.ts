@@ -17,6 +17,7 @@ export interface AppSettings {
   lastAudioQuality?: AudioQuality;
   lastPreset?: Preset | null;
   uiZoom?: number;
+  uiTheme?: 'light' | 'dark' | 'system';
   commonPaths?: { downloads: string; videos: string; desktop: string };
 }
 

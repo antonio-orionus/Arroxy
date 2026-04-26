@@ -35,12 +35,12 @@ export function SmartDrawer(): JSX.Element {
             )}
           </span>
           {headerSummary && (
-            <span className={`text-[10px] font-mono ${activeItem ? 'text-[var(--color-accent)]' : 'text-muted-foreground'}`}>
+            <span className={`text-[10px] font-mono ${activeItem ? 'text-[var(--brand)]' : 'text-muted-foreground'}`}>
               {headerSummary}
             </span>
           )}
         </div>
-        <span className={activeItem ? 'text-[var(--color-accent)]' : 'text-muted-foreground'}>
+        <span className={activeItem ? 'text-[var(--brand)]' : 'text-muted-foreground'}>
           <ChevronDown
             size={activeItem ? 14 : 12}
             strokeWidth={activeItem ? 2.5 : 2}

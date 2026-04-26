@@ -32,20 +32,19 @@ export function WizardPanel(): JSX.Element {
                 <div className="flex flex-col items-center gap-1">
                   <div
                     className={cn(
-                      'w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-semibold border transition-all',
-                      isActive && 'border-[var(--color-accent)] bg-[var(--color-accent-dim)] text-[var(--color-accent)]',
-                      isDone && 'border-transparent bg-[var(--color-accent)] text-background',
-                      !isActive && !isDone && 'border-border bg-secondary text-muted-foreground'
+                      'w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border transition-all',
+                      isActive && 'border-[var(--brand)] bg-transparent text-[var(--brand)] shadow-[0_0_0_3px_var(--brand-dim)]',
+                      isDone && 'border-transparent bg-[var(--brand)] text-white',
+                      !isActive && !isDone && 'border-[var(--border-strong)] bg-transparent text-[var(--text-subtle)]'
                     )}
                   >
                     {isDone ? '✓' : i + 1}
                   </div>
                   <span
                     className={cn(
-                      'text-[10px] font-medium',
-                      isActive && 'text-[var(--color-accent)]',
-                      isDone && 'text-muted-foreground',
-                      !isActive && !isDone && 'text-muted-foreground'
+                      'text-[9px] font-semibold uppercase tracking-[0.07em]',
+                      isActive && 'text-[var(--brand)]',
+                      (isDone || (!isActive && !isDone)) && 'text-[var(--text-subtle)]'
                     )}
                   >
                     {step.label}
@@ -54,8 +53,8 @@ export function WizardPanel(): JSX.Element {
                 {i < STEPS.length - 1 && (
                   <div
                     className={cn(
-                      'h-px flex-1 mb-4 mx-2 transition-colors',
-                      isDone ? 'bg-[var(--color-accent)]/40' : 'bg-border'
+                      'h-[2px] flex-1 mb-4 mx-1 transition-colors rounded-full',
+                      isDone ? 'bg-[var(--brand)]' : 'bg-accent'
                     )}
                   />
                 )}

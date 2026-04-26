@@ -18,7 +18,7 @@ export function MascotBubble({ image, message, side = 'left', className }: Props
         src={image}
         alt=""
         aria-hidden
-        className="w-16 h-16 object-contain shrink-0"
+        className="w-24 h-24 object-contain shrink-0"
       />
       {isRight
         ? <ChevronRight className="shrink-0 text-muted-foreground" size={18} />

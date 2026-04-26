@@ -5,6 +5,7 @@ import { WizardPanel } from './components/WizardPanel';
 import { SmartDrawer } from './components/SmartDrawer';
 import { SplashScreen } from './components/SplashScreen';
 import { FeedbackNudge } from './components/FeedbackNudge';
+import { ThemeToggle } from './components/ThemeToggle';
 import { TooltipProvider } from './components/ui/tooltip';
 import { cn } from './lib/utils';
 
@@ -18,7 +19,7 @@ function buildDebugInfo(): string {
 }
 
 export function App(): JSX.Element {
-  const { initialized, initialize, openLogs, uiZoom, setUiZoom, warmupFailures } = useAppStore();
+  const { initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, warmupFailures } = useAppStore();
   const [debugCopied, setDebugCopied] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
 
@@ -32,6 +33,21 @@ export function App(): JSX.Element {
   useEffect(() => {
     void initialize();
   }, [initialize]);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function apply(): void {
+      html.classList.toggle('dark', uiTheme === 'dark' || (uiTheme === 'system' && mq.matches));
+    }
+
+    apply();
+    if (uiTheme === 'system') {
+      mq.addEventListener('change', apply);
+      return () => mq.removeEventListener('change', apply);
+    }
+  }, [uiTheme]);
 
   useEffect(() => {
     const delay = (window as unknown as Record<string, unknown>).__NUDGE_DELAY_MS as number ?? 45_000;
@@ -51,12 +67,12 @@ export function App(): JSX.Element {
       <TitleBar />
 
       <div className="flex-1 flex flex-col overflow-hidden" data-testid="app-content">
-        <div className="flex-1 overflow-y-auto overflow-x-hidden">
-          <div className="max-w-[700px] mx-auto" style={{ zoom: uiZoom }}>
+        <div className="flex-1 flex flex-col overflow-hidden" style={{ zoom: uiZoom }}>
+          <div className="flex-1 overflow-y-auto overflow-x-hidden">
             <WizardPanel />
           </div>
+          <SmartDrawer />
         </div>
-        <SmartDrawer />
       </div>
 
       <footer className="shrink-0 flex items-center justify-between border-t border-border px-4 h-7">
@@ -78,6 +94,8 @@ export function App(): JSX.Element {
             className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
             aria-label="Zoom in"
           >+</button>
+          <div className="w-px h-3 bg-border mx-1" aria-hidden />
+          <ThemeToggle />
         </div>
         <div className="flex items-center gap-3">
           <button

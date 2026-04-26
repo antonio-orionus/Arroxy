@@ -125,7 +125,7 @@ function restoreFormatSelection(
     if (match) return { videoFormatId: match.formatId, audioQuality, preset: null };
   }
 
-  return { videoFormatId: grouped[0]?.formatId ?? '', audioQuality, preset: null };
+  return { ...applyPreset('best-quality', formats), preset: 'best-quality' };
 }
 
 function generateId(): string {
@@ -157,6 +157,7 @@ interface AppState {
   queue: QueueItem[];
 
   uiZoom: number;
+  uiTheme: 'light' | 'dark' | 'system';
 
   // Drawer
   drawerOpen: boolean;
@@ -169,6 +170,7 @@ interface AppState {
   initialize: () => Promise<void>;
   openLogs: () => Promise<void>;
   setUiZoom: (zoom: number) => void;
+  setUiTheme: (theme: 'light' | 'dark' | 'system') => void;
 
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
@@ -280,6 +282,7 @@ export const useAppStore = create<AppState>((set, get) => {
     wizardErrorOrigin: null,
     queue: [],
     uiZoom: 1,
+    uiTheme: 'system',
     drawerOpen: false,
     setDrawerOpen: (open) => set({ drawerOpen: open }),
     commonPaths: undefined,
@@ -338,11 +341,15 @@ export const useAppStore = create<AppState>((set, get) => {
       const settingsResult = await settingsPromise;
       if (settingsResult.ok) {
         const zoom = settingsResult.data.uiZoom ?? 1;
+        const theme = settingsResult.data.uiTheme ?? 'system';
+        const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', isDark);
         set({
           settings: settingsResult.data,
           wizardOutputDir: settingsResult.data.defaultOutputDir,
           commonPaths: settingsResult.data.commonPaths,
-          uiZoom: zoom
+          uiZoom: zoom,
+          uiTheme: theme
         });
       }
 
@@ -360,6 +367,11 @@ export const useAppStore = create<AppState>((set, get) => {
       const clamped = Math.round(Math.min(1.5, Math.max(0.7, zoom)) * 20) / 20;
       set({ uiZoom: clamped });
       void window.appApi.settings.update({ uiZoom: clamped });
+    },
+
+    setUiTheme: (theme) => {
+      set({ uiTheme: theme });
+      void window.appApi.settings.update({ uiTheme: theme });
     },
 
     setWizardUrl: (url) => set({ wizardUrl: url }),

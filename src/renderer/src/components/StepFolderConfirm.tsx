@@ -1,7 +1,6 @@
 import { useState, useMemo, type JSX } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { Button } from './ui/button';
-import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Separator } from './ui/separator';
 import { cn } from '@renderer/lib/utils';
 import { VideoSummaryCard } from './VideoSummaryCard';
@@ -16,6 +15,19 @@ interface Location {
 function matchLocation(dir: string, locations: Location[]): string {
   const preset = locations.find((l) => l.path !== null && l.path === dir);
   return preset?.id ?? 'custom';
+}
+
+function RadioDot({ checked }: { checked: boolean }): JSX.Element {
+  return (
+    <div
+      className={cn(
+        'w-[13px] h-[13px] rounded-full border-2 flex-shrink-0 transition-colors',
+        checked
+          ? 'border-[var(--brand)] bg-[var(--brand)] shadow-[0_0_0_2px_var(--brand-dim)]'
+          : 'border-[var(--border-strong)]'
+      )}
+    />
+  );
 }
 
 export function StepFolderConfirm(): JSX.Element {
@@ -58,7 +70,6 @@ export function StepFolderConfirm(): JSX.Element {
   const displayPath = (loc: Location): string | null => {
     if (loc.path === null && selectedId === 'custom') return wizardOutputDir || null;
     if (loc.path === null) return null;
-    // Shorten common path prefix to ~
     const home = commonPaths?.downloads?.replace(/[/\\][^/\\]+$/, '');
     if (home && loc.path.startsWith(home)) {
       return loc.path.replace(home, '~');
@@ -75,46 +86,61 @@ export function StepFolderConfirm(): JSX.Element {
       />
 
       <div className="flex flex-col gap-1.5">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Save to</p>
-        <RadioGroup
-          value={selectedId}
-          onValueChange={(val) => {
-            const loc = locations.find((l) => l.id === val);
-            if (loc) void handleSelect(loc);
-          }}
-          className="flex flex-col gap-1"
-        >
+        <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Save to</p>
+        <div className="flex flex-col gap-1">
           {locations.map((loc) => {
             const isSelected = selectedId === loc.id;
             const path = displayPath(loc);
             return (
-              <label
+              <div
                 key={loc.id}
+                onClick={() => void handleSelect(loc)}
                 className={cn(
-                  'flex items-center gap-3 py-2 px-3 rounded-lg border cursor-pointer transition-colors',
+                  'flex items-center gap-3 py-[5px] px-[8px] rounded-[6px] cursor-pointer transition-colors',
                   isSelected
-                    ? 'border-[var(--color-accent)] bg-[var(--color-accent-dim)]'
-                    : 'border-transparent hover:bg-accent'
+                    ? 'bg-[var(--brand-dim)]'
+                    : 'hover:bg-accent'
                 )}
               >
-                <RadioGroupItem value={loc.id} className="shrink-0" />
-                <span className="text-base" aria-hidden>{loc.icon}</span>
-                <span className="text-sm font-medium text-foreground flex-1">{loc.label}</span>
+                <RadioDot checked={isSelected} />
+                <span className="text-base leading-none" aria-hidden>{loc.icon}</span>
+                <span
+                  className={cn(
+                    'text-[11px] font-medium flex-1',
+                    isSelected ? 'font-semibold text-[var(--brand)]' : 'text-muted-foreground'
+                  )}
+                >
+                  {loc.label}
+                </span>
                 {path && (
-                  <code className="font-mono text-[10px] text-muted-foreground truncate max-w-[160px]">
+                  <code className="font-mono text-[10px] text-[var(--text-subtle)] truncate max-w-xs">
                     {path}
                   </code>
                 )}
-              </label>
+              </div>
             );
           })}
-        </RadioGroup>
+        </div>
       </div>
 
       <Separator className="bg-border/50 -mx-6 w-auto" />
       <div className="flex justify-end gap-2 sticky bottom-0 bg-background py-3 -mx-6 px-6">
-        <Button variant="ghost" type="button" onClick={goBack}>Back</Button>
-        <Button type="button" onClick={confirmFolder} disabled={!wizardOutputDir}>Continue</Button>
+        <Button
+          variant="ghost"
+          type="button"
+          onClick={goBack}
+          className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
+        >
+          Back
+        </Button>
+        <Button
+          type="button"
+          onClick={confirmFolder}
+          disabled={!wizardOutputDir}
+          className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none"
+        >
+          Continue
+        </Button>
       </div>
     </div>
   );

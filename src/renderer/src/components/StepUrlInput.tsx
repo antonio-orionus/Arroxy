@@ -52,6 +52,7 @@ export function StepUrlInput(): JSX.Element {
           onClick={() => void submitUrl()}
           disabled={!wizardUrl.trim()}
           data-testid="btn-find-formats"
+          className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none"
         >
           Fetch formats →
         </Button>

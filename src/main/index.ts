@@ -28,9 +28,9 @@ if (!hasSingleInstanceLock) {
 function createMainWindow(): BrowserWindow {
   const window = new BrowserWindow({
     width: 900,
-    height: 560,
+    height: 760,
     minWidth: 720,
-    minHeight: 560,
+    minHeight: 460,
     title: 'Arroxy',
     frame: false,
     titleBarStyle: 'hidden',

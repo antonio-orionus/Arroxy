@@ -74,3 +74,39 @@ The renderer has a full `browserMock.ts` (imported in `main.tsx`) that stubs `wi
 - Step 3 (Save): radio picker, "Custom…" returns a random mock path
 - Step 4 (Confirm): click "Pull it! ↓" → triggers simulated download in drawer
 - Drawer: click "Download Queue" header to expand, watch progress update every 500ms
+
+---
+
+## shadcn/ui Configuration
+
+Config file: `components.json`
+
+| Setting       | Value                                    |
+| ------------- | ---------------------------------------- |
+| Style         | `base-nova`                              |
+| CSS variables | `true`                                   |
+| Icon library  | `lucide-react`                           |
+| RSC           | `false` (Electron renderer, not Next.js) |
+
+### Path aliases
+
+```
+components  →  @renderer/components
+ui          →  @renderer/components/ui
+utils       →  @renderer/lib/utils
+lib         →  @renderer/lib
+hooks       →  @renderer/hooks
+```
+
+CSS entry point: `src/renderer/src/styles.css`
+
+### No Radix UI
+
+This project does **not** use `@radix-ui/*` packages. The `base-nova` style registry does not depend on Radix primitives. Do not add Radix deps or assume Radix is available.
+
+### Runtime deps used by shadcn
+
+- `class-variance-authority`
+- `clsx`
+- `tailwind-merge`
+- `lucide-react`

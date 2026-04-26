@@ -14,7 +14,7 @@ interface Props {
 
 const STATUS_BORDER: Record<QueueItem['status'], string> = {
   pending: 'border-border',
-  downloading: 'border-l-2 border-l-[var(--color-accent)] shadow-[inset_3px_0_12px_var(--color-accent-glow)]',
+  downloading: 'border-l-2 border-l-[var(--brand)] shadow-[inset_3px_0_12px_var(--brand-glow)]',
   paused: 'border-l-2 border-l-[var(--color-status-paused)] shadow-[inset_3px_0_12px_var(--color-status-paused-glow)]',
   done: 'border-l-2 border-l-[var(--color-status-done)] shadow-[inset_3px_0_12px_var(--color-status-done-glow)]',
   error: 'border-l-2 border-l-[var(--color-status-error)] shadow-[inset_3px_0_12px_var(--color-status-error-glow)]',
@@ -85,7 +85,7 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
               <span
                 className={cn(
                   'font-mono text-[10px]',
-                  isPaused ? 'text-[var(--color-status-paused)]' : 'text-[var(--color-accent)]'
+                  isPaused ? 'text-[var(--color-status-paused)]' : 'text-[var(--brand)]'
                 )}
                 data-testid="queue-progress-label"
               >
@@ -222,7 +222,7 @@ export function QueueItemCard({ item, compact = false }: Props): JSX.Element {
             <span
               className={cn(
                 'font-mono text-[11px]',
-                isPaused ? 'text-[var(--color-status-paused)]' : 'text-[var(--color-accent)]'
+                isPaused ? 'text-[var(--color-status-paused)]' : 'text-[var(--brand)]'
               )}
               data-testid="queue-progress-label"
             >

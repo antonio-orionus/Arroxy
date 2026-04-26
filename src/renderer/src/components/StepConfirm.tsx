@@ -82,7 +82,7 @@ export function StepConfirm(): JSX.Element {
       />
 
       {/* Mascot banner */}
-      <div className="flex items-center gap-4 p-4 rounded-xl border border-[var(--color-accent)]/20 bg-[var(--color-accent-dim)] shrink-0">
+      <div className="flex items-center gap-4 p-4 rounded-lg border border-[hsla(220,100%,56%,0.15)] bg-[var(--brand-dim)] shrink-0">
         <img src={loveImg} alt="" aria-hidden className="w-16 h-16 object-contain shrink-0" />
         <div>
           <p className="text-sm font-semibold text-foreground">Ready to pull it in!</p>
@@ -94,16 +94,16 @@ export function StepConfirm(): JSX.Element {
       </div>
 
       {/* Summary table */}
-      <div className="rounded-lg border border-border bg-card/40 overflow-hidden" data-testid="confirm-preview">
+      <div className="rounded-lg border border-border bg-secondary overflow-hidden" data-testid="confirm-preview">
         <table className="w-full">
           <tbody>
             {summaryRows.map(([label, value]) => (
               <tr key={label} className="border-b border-border last:border-b-0">
-                <td className="px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground w-16 whitespace-nowrap">
+                <td className="px-4 py-2 text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] w-16 whitespace-nowrap">
                   {label}
                 </td>
                 <td
-                  className="px-4 py-2 text-xs text-foreground/80 font-mono truncate max-w-[200px]"
+                  className="px-4 py-2 text-xs text-foreground/80 font-mono truncate max-w-xs"
                   data-testid={`confirm-${label.toLowerCase().replace(' ', '-')}`}
                 >
                   {value}
@@ -115,7 +115,13 @@ export function StepConfirm(): JSX.Element {
       </div>
 
       <div className="flex justify-end gap-2 sticky bottom-0 bg-background py-3 -mx-6 px-6 border-t border-border/50">
-        <Button variant="ghost" type="button" onClick={goBack} data-testid="btn-back">
+        <Button
+          variant="ghost"
+          type="button"
+          onClick={goBack}
+          data-testid="btn-back"
+          className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
+        >
           Back
         </Button>
         <Button
@@ -123,6 +129,7 @@ export function StepConfirm(): JSX.Element {
           size="lg"
           onClick={() => void addAndDownloadImmediately()}
           data-testid="btn-download-now"
+          className="shadow-[0_4px_14px_var(--brand-glow)]"
         >
           Pull it! ↓
         </Button>
