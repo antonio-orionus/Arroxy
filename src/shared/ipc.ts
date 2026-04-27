@@ -7,6 +7,7 @@ export const IPC_CHANNELS = {
   chooseFolder: 'dialog:chooseFolder',
   settingsGet: 'settings:get',
   settingsUpdate: 'settings:update',
+  appSetLanguage: 'app:setLanguage',
   shellOpenFolder: 'shell:openFolder',
   shellOpenExternal: 'shell:openExternal',
   logsOpenDir: 'logs:openDir',

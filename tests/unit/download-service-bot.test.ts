@@ -89,21 +89,21 @@ describe('DownloadService — extractor args', () => {
 });
 
 describe('DownloadService — error surfacing', () => {
-  it('surfaces actual ERROR: line instead of generic exit-code message', async () => {
+  it('surfaces raw ERROR: line on the LocalizedError payload', async () => {
     const stderrMsg = 'ERROR: [youtube] abc: Video unavailable. The uploader has not made this video available in your country.';
     vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(1, stderrMsg) as never);
 
     const { service, recentJobsStore } = makeService();
-    const statuses: string[] = [];
-    service.on('status', (ev) => statuses.push(ev.message));
+    const statusEvents: { statusKey: string; error?: { key: string | null; rawMessage?: string } }[] = [];
+    service.on('status', (ev) => statusEvents.push({ statusKey: ev.statusKey, error: ev.error }));
 
     await service.start({ url: YOUTUBE_URL, outputDir: '/tmp' });
     await new Promise((r) => setTimeout(r, 100));
 
-    const errorStatus = statuses.find((m) => m.startsWith('ERROR:'));
-    expect(errorStatus).toBe(stderrMsg.trim());
+    const errorStatus = statusEvents.find((e) => e.error);
+    expect(errorStatus?.error?.rawMessage).toBe(stderrMsg.trim());
     const finalized = recentJobsStore.push.mock.calls[0]?.[0];
-    expect(finalized?.errorMessage).toBe(stderrMsg.trim());
+    expect(finalized?.error?.rawMessage).toBe(stderrMsg.trim());
   });
 });
 
@@ -155,7 +155,7 @@ describe('DownloadService — bot-block retry', () => {
     expect(finalized?.status).toBe('failed');
   });
 
-  it('does not retry on ip_block', async () => {
+  it('does not retry on ipBlock', async () => {
     const ipBlockStderr = 'ERROR: [youtube] All player responses are invalid. Your IP is likely being blocked by Youtube';
     vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(1, ipBlockStderr) as never);
 

@@ -123,8 +123,8 @@ describe('pre-spawn cancel emits status event', () => {
       stubs.logService as never
     );
 
-    const statuses: { stage: string; message: string }[] = [];
-    svc.on('status', (ev) => statuses.push({ stage: ev.stage, message: ev.message }));
+    const statuses: { stage: string; statusKey: string }[] = [];
+    svc.on('status', (ev) => statuses.push({ stage: ev.stage, statusKey: ev.statusKey }));
 
     const startPromise = svc.start({ url: URL, outputDir: '/tmp' });
 
@@ -135,7 +135,7 @@ describe('pre-spawn cancel emits status event', () => {
     resolveBinary('/fake/yt-dlp');
     await startPromise;
 
-    const cancelEvent = statuses.find((s) => s.stage === 'error' && s.message === 'Download cancelled');
+    const cancelEvent = statuses.find((s) => s.stage === 'error' && s.statusKey === 'cancelled');
     expect(cancelEvent).toBeDefined();
   });
 
@@ -155,8 +155,8 @@ describe('pre-spawn cancel emits status event', () => {
       stubs.logService as never
     );
 
-    const statuses: { stage: string; message: string }[] = [];
-    svc.on('status', (ev) => statuses.push({ stage: ev.stage, message: ev.message }));
+    const statuses: { stage: string; statusKey: string }[] = [];
+    svc.on('status', (ev) => statuses.push({ stage: ev.stage, statusKey: ev.statusKey }));
 
     const startPromise = svc.start({ url: URL, outputDir: '/tmp' });
 
@@ -167,7 +167,7 @@ describe('pre-spawn cancel emits status event', () => {
     resolveToken({ token: 'tok', visitorData: 'vd' });
     await startPromise;
 
-    const cancelEvent = statuses.find((s) => s.stage === 'error' && s.message === 'Download cancelled');
+    const cancelEvent = statuses.find((s) => s.stage === 'error' && s.statusKey === 'cancelled');
     expect(cancelEvent).toBeDefined();
   });
 });

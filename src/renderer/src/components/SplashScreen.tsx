@@ -1,4 +1,5 @@
 import { useState, useEffect, type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import mainImg from '../assets/Main.png';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 const MIN_MS = 3000;
 
 export function SplashScreen({ initialized, warmupFailures }: Props): JSX.Element | null {
+  const { t } = useTranslation();
   const [minPassed, setMinPassed] = useState(false);
   const [gone, setGone] = useState(false);
 
@@ -30,10 +32,10 @@ export function SplashScreen({ initialized, warmupFailures }: Props): JSX.Elemen
     >
       <img src={mainImg} alt="" className="splash-mascot" />
       <div className="splash-text">
-        <p className="splash-greeting">Hey, welcome back!</p>
-        <p className="splash-name">Arroxy is warming up…</p>
+        <p className="splash-greeting">{t('splash.greeting')}</p>
+        <p className="splash-name">{t('splash.warmup')}</p>
         {initialized && warmupFailures.length > 0 && (
-          <p className="splash-warning">Setup incomplete — some features may not work</p>
+          <p className="splash-warning">{t('splash.warning')}</p>
         )}
       </div>
     </div>

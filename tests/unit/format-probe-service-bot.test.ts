@@ -88,7 +88,7 @@ describe('FormatProbeService — extractor args', () => {
 });
 
 describe('FormatProbeService — error surfacing', () => {
-  it('surfaces friendly message for private video', async () => {
+  it('surfaces raw ERROR: line for private video (renderer translates)', async () => {
     const stderrMsg = 'ERROR: [youtube] abc: Private video';
     vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(1, stderrMsg) as never);
 
@@ -97,7 +97,7 @@ describe('FormatProbeService — error surfacing', () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.error.message).toBe('This video is unavailable — it may be private, deleted, or region-locked.');
+      expect(result.error.message).toBe('ERROR: [youtube] abc: Private video');
     }
   });
 

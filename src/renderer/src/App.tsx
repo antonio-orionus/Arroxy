@@ -1,5 +1,6 @@
 import { useEffect, useState, type JSX } from 'react';
 import { Bug } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from './store/useAppStore';
 import { TitleBar } from './components/TitleBar';
 import { WizardPanel } from './components/WizardPanel';
@@ -8,6 +9,7 @@ import { SplashScreen } from './components/SplashScreen';
 import { FeedbackNudge } from './components/FeedbackNudge';
 import { UpdateBanner } from './components/UpdateBanner';
 import { ThemeToggle } from './components/ThemeToggle';
+import { LanguagePicker } from './components/LanguagePicker';
 import { TooltipProvider } from './components/ui/tooltip';
 import { cn } from './lib/utils';
 import type { UpdateAvailablePayload } from '@shared/types';
@@ -22,6 +24,7 @@ function buildDebugInfo(): string {
 }
 
 export function App(): JSX.Element {
+  const { t } = useTranslation();
   const { initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, warmupFailures } = useAppStore();
   const [debugCopied, setDebugCopied] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
@@ -111,7 +114,7 @@ export function App(): JSX.Element {
             onClick={() => setUiZoom(uiZoom - 0.05)}
             disabled={uiZoom <= 0.7}
             className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
-            aria-label="Zoom out"
+            aria-label={t('app.zoomOut')}
           >−</button>
           <span className="text-[13px] text-muted-foreground w-8 text-center tabular-nums">
             {Math.round(uiZoom * 100)}%
@@ -121,17 +124,19 @@ export function App(): JSX.Element {
             onClick={() => setUiZoom(uiZoom + 0.05)}
             disabled={uiZoom >= 1.5}
             className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
-            aria-label="Zoom in"
+            aria-label={t('app.zoomIn')}
           >+</button>
           <div className="w-px h-3 bg-border mx-1" aria-hidden />
           <ThemeToggle />
+          <div className="w-px h-3 bg-border mx-1" aria-hidden />
+          <LanguagePicker />
         </div>
         <div className="flex items-center gap-3">
           <button
             type="button"
             className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-foreground/80 transition-colors"
             onClick={copyDebugInfo}
-            title={debugCopied ? 'Copied!' : 'Copy debug info (Electron, OS, Chrome versions)'}
+            title={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')}
             data-testid="btn-debug"
           >
             <Bug size={14} />
@@ -139,7 +144,7 @@ export function App(): JSX.Element {
           <div className="relative">
             <FeedbackNudge
               visible={showNudge}
-              message="Enjoying Arroxy? I'd love to hear from you! 💬"
+              message={t('app.feedbackNudge')}
             />
             <button
               type="button"
@@ -153,7 +158,7 @@ export function App(): JSX.Element {
               }}
               data-testid="btn-feedback"
             >
-              Feedback
+              {t('app.feedback')}
             </button>
           </div>
           <button
@@ -162,7 +167,7 @@ export function App(): JSX.Element {
             onClick={() => void openLogs()}
             data-testid="btn-logs"
           >
-            Logs
+            {t('app.logs')}
           </button>
         </div>
       </footer>

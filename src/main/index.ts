@@ -1,6 +1,8 @@
 import path from 'node:path';
 import { app, BrowserWindow, dialog } from 'electron';
 import { IPC_CHANNELS } from '@shared/ipc';
+import { mainT, pluralKey } from '@main/i18n';
+import { pickLanguage } from '@shared/i18n';
 import { registerIpcHandlers } from '@main/ipc/registerIpcHandlers';
 import { registerUpdaterHandlers } from '@main/ipc/registerUpdaterHandlers';
 import { BinaryManager } from '@main/services/BinaryManager';
@@ -64,7 +66,7 @@ function createMainWindow(): BrowserWindow {
 }
 
 if (hasSingleInstanceLock) {
-  void app.whenReady().then(() => {
+  void app.whenReady().then(async () => {
     const userDataPath = app.getPath('userData');
     const logService = new LogService(userDataPath);
 
@@ -74,6 +76,10 @@ if (hasSingleInstanceLock) {
     };
 
     const settingsStore = new SettingsStore(userDataPath, defaultSettings);
+    const initialSettings = await settingsStore.get();
+    const languageRef: { current: ReturnType<typeof pickLanguage> } = {
+      current: pickLanguage(initialSettings.language ?? app.getLocale())
+    };
     const recentJobsStore = new RecentJobsStore(userDataPath);
     const queueStore = new QueueStore(userDataPath);
     const binaryManager = new BinaryManager(userDataPath, logService);
@@ -104,13 +110,17 @@ if (hasSingleInstanceLock) {
     mainWindow.on('close', (event) => {
       if (downloadService.pendingCancelCount === 0) return;
       const count = downloadService.pendingCancelCount;
+      const lang = languageRef.current;
       const choice = dialog.showMessageBoxSync(mainWindow, {
         type: 'warning',
-        buttons: ['Cancel Downloads & Quit', 'Keep Downloading'],
+        buttons: [
+          mainT(lang, 'dialogs.quitWithActiveDownloads.confirm'),
+          mainT(lang, 'dialogs.quitWithActiveDownloads.keep')
+        ],
         defaultId: 1,
         cancelId: 1,
-        message: `${count} download${count > 1 ? 's' : ''} in progress`,
-        detail: 'Closing will cancel all active downloads.'
+        message: mainT(lang, `dialogs.quitWithActiveDownloads.${pluralKey('message', count)}`, { count }),
+        detail: mainT(lang, 'dialogs.quitWithActiveDownloads.detail')
       });
       if (choice === 1) event.preventDefault();
     });
@@ -127,7 +137,8 @@ if (hasSingleInstanceLock) {
       settingsStore,
       queueStore,
       logService,
-      tokenService
+      tokenService,
+      languageRef
     });
 
     registerUpdaterHandlers(mainWindow);

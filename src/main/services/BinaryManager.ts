@@ -9,8 +9,10 @@ import { promisify } from 'node:util';
 
 const execFileAsync = promisify(execFile);
 import { createAppError } from '@main/utils/errorFactory';
-import type { AppError } from '@shared/types';
+import type { AppError, StatusKey } from '@shared/types';
 import type { LogService } from './LogService';
+
+type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void;
 
 function parseShaLine(content: string, fileName: string): string | null {
   const lines = content.split(/\r?\n/);
@@ -150,7 +152,7 @@ interface EnsureBinaryConfig {
   destinationPath: string;
   downloadUrl: string;
   expectedSha256?: () => Promise<string | null>;
-  onStatus?: (message: string) => void;
+  onStatus?: StatusReporter;
   requiredChecksum?: boolean;
   isUpToDate?: () => Promise<boolean>;
 }
@@ -178,7 +180,7 @@ export class BinaryManager {
     return path.join(this.cacheDir, process.platform === 'win32' ? 'ffmpeg.exe' : 'ffmpeg');
   }
 
-  async ensureYtDlp(onStatus?: (message: string) => void): Promise<string> {
+  async ensureYtDlp(onStatus?: StatusReporter): Promise<string> {
     const assetName = ytDlpAssetName();
     const expectedSha256 = async (): Promise<string | null> => {
       const sumsUrl = 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/SHA2-256SUMS';
@@ -200,7 +202,7 @@ export class BinaryManager {
     return targetPath;
   }
 
-  async ensureFFmpeg(onStatus?: (message: string) => void): Promise<string | null> {
+  async ensureFFmpeg(onStatus?: StatusReporter): Promise<string | null> {
     const assetName = ffmpegAssetName();
     if (!assetName) return null;
 
@@ -275,7 +277,7 @@ export class BinaryManager {
     const { destinationPath, name, downloadUrl, expectedSha256, onStatus, requiredChecksum = false } = config;
 
     const tempPath = `${destinationPath}.tmp`;
-    onStatus?.(`Downloading ${name} binary...`);
+    onStatus?.('downloadingBinary', { name });
     this.logger.log('INFO', `Downloading ${name}`, { downloadUrl, destinationPath });
 
     await downloadFile(downloadUrl, tempPath);

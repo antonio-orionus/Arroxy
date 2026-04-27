@@ -16,7 +16,8 @@ function makeItem(overrides: Partial<QueueItem> = {}): QueueItem {
     status: 'pending',
     progressPercent: 0,
     progressDetail: null,
-    errorMessage: null,
+    lastStatus: null,
+    error: null,
     finishedAt: null,
     downloadJobId: null,
     ...overrides
@@ -80,13 +81,13 @@ describe('QueueItemCard — progress display', () => {
 });
 
 describe('QueueItemCard — error state', () => {
-  it('shows error message when status is error', () => {
-    render(<QueueItemCard item={makeItem({ status: 'error', errorMessage: 'oops' })} />);
+  it('shows raw error message when status is error', () => {
+    render(<QueueItemCard item={makeItem({ status: 'error', error: { key: null, rawMessage: 'oops' } })} />);
     expect(screen.getByTestId('queue-error-msg')).toHaveTextContent('oops');
   });
 
-  it('falls back to "Download failed" when no errorMessage', () => {
-    render(<QueueItemCard item={makeItem({ status: 'error', errorMessage: null })} />);
+  it('falls back to "Download failed" when no error', () => {
+    render(<QueueItemCard item={makeItem({ status: 'error', error: null })} />);
     expect(screen.getByTestId('queue-error-msg')).toHaveTextContent('Download failed');
   });
 });

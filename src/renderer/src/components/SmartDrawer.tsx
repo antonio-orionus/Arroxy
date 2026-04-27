@@ -1,13 +1,15 @@
 import type { JSX } from 'react';
 import { useMemo } from 'react';
 import { ChevronDown, Inbox, Trash2 } from 'lucide-react';
-import { useAppStore } from '../store/useAppStore';
+import { useTranslation } from 'react-i18next';
+import { useAppStore, formatStatus } from '../store/useAppStore';
 import { QueueItemCard } from './QueueItemCard';
 import { QueueTipNudge } from './QueueTipNudge';
 import { Badge } from './ui/badge';
 import { ScrollArea } from './ui/scroll-area';
 
 export function SmartDrawer(): JSX.Element {
+  const { t } = useTranslation();
   const queue = useAppStore((s) => s.queue);
   const drawerOpen = useAppStore((s) => s.drawerOpen);
   const setDrawerOpen = useAppStore((s) => s.setDrawerOpen);
@@ -20,10 +22,14 @@ export function SmartDrawer(): JSX.Element {
   const totalCount = queue.length;
   const hasCompleted = queue.some((i) => i.status === 'done' || i.status === 'cancelled');
 
+  const activeStatusText = activeItem
+    ? activeItem.progressDetail ?? formatStatus(activeItem.lastStatus)
+    : '';
+
   const headerSummary = activeItem
-    ? `${activeItem.progressPercent.toFixed(0)}%${activeItem.progressDetail ? ` · ${activeItem.progressDetail}` : ''}`
+    ? `${activeItem.progressPercent.toFixed(0)}%${activeStatusText ? ` · ${activeStatusText}` : ''}`
     : totalCount === 0
-      ? 'No downloads yet.'
+      ? t('queue.noDownloads')
       : null;
 
   return (
@@ -34,11 +40,11 @@ export function SmartDrawer(): JSX.Element {
         onClick={() => setDrawerOpen(!drawerOpen)}
         className="relative overflow-hidden w-full flex items-center justify-between px-4 h-9 hover:bg-accent transition-colors"
         data-testid="drawer-toggle"
-        title="Toggle download queue"
+        title={t('queue.toggleTitle')}
       >
         <div className="flex items-center gap-2">
           <span className="text-[12px] font-bold uppercase tracking-widest text-muted-foreground">
-            Download Queue
+            {t('queue.header')}
             {totalCount > 0 && (
               <Badge variant="secondary" className="ml-1 text-[9px] font-mono h-4 px-1">{totalCount}</Badge>
             )}
@@ -56,10 +62,10 @@ export function SmartDrawer(): JSX.Element {
               data-testid="btn-clear-completed"
               onClick={(e) => { e.stopPropagation(); clearCompleted(); }}
               className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded hover:bg-accent"
-              title="Clear completed downloads"
+              title={t('queue.clearTitle')}
             >
               <Trash2 size={10} />
-              Clear
+              {t('queue.clear')}
             </button>
           )}
           {totalCount > 0 && !drawerOpen && (
@@ -96,7 +102,7 @@ export function SmartDrawer(): JSX.Element {
             {queue.length === 0 ? (
               <li className="flex items-center gap-2 text-xs text-muted-foreground py-3">
                 <Inbox size={16} className="shrink-0" />
-                <span>Downloads you queue will appear here</span>
+                <span>{t('queue.empty')}</span>
               </li>
             ) : (
               reversedQueue.map((item) => (

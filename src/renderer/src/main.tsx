@@ -1,16 +1,32 @@
 import './browserMock';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
+import { initI18n, pickLanguage } from '@shared/i18n';
+import { useAppStore } from './store/useAppStore';
 import './styles.css';
 
-const rootElement = document.getElementById('root');
-if (!rootElement) {
-  throw new Error('Renderer root element was not found');
+async function bootstrap(): Promise<void> {
+  let lang = pickLanguage(navigator.language);
+  const result = await window.appApi.settings.get();
+  if (result.ok && result.data.language) {
+    lang = pickLanguage(result.data.language);
+  }
+  initI18n(lang);
+  useAppStore.setState({ language: lang });
+
+  const rootElement = document.getElementById('root');
+  if (!rootElement) {
+    throw new Error('Renderer root element was not found');
+  }
+
+  createRoot(rootElement).render(
+    <React.StrictMode>
+      <Suspense fallback={null}>
+        <App />
+      </Suspense>
+    </React.StrictMode>
+  );
 }
 
-createRoot(rootElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+void bootstrap();

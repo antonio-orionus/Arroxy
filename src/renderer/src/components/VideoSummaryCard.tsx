@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   thumbnail: string;
@@ -16,8 +17,9 @@ function formatDuration(seconds: number): string {
 }
 
 export function VideoSummaryCard({ thumbnail, title, duration, resolution }: Props): JSX.Element {
+  const { t } = useTranslation();
   const meta = [
-    'youtube.com',
+    t('videoCard.domain'),
     duration !== undefined ? formatDuration(duration) : null,
     resolution ?? null,
   ].filter(Boolean).join(' · ');
@@ -39,7 +41,7 @@ export function VideoSummaryCard({ thumbnail, title, duration, resolution }: Pro
       </div>
       <div className="flex flex-col gap-[2px] flex-1 min-w-0">
         <p className="text-[14px] font-bold text-foreground leading-snug truncate">
-          {title || 'Loading…'}
+          {title || t('videoCard.titlePlaceholder')}
         </p>
         <p className="text-[12px] text-[var(--text-subtle)]">{meta}</p>
       </div>

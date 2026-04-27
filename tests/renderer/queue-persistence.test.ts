@@ -16,7 +16,10 @@ describe('Queue persistence — store behavior', () => {
     startMock = vi.fn().mockResolvedValue(ok({ job: makeJob('job-restored') }));
 
     return {
-      app: { warmUp: vi.fn().mockResolvedValue(ok({ completed: true, failures: [] })) },
+      app: {
+        warmUp: vi.fn().mockResolvedValue(ok({ completed: true, failures: [] })),
+        setLanguage: vi.fn().mockResolvedValue(undefined)
+      },
       downloads: {
         start: startMock,
         cancel: vi.fn().mockResolvedValue(ok({ cancelled: true })),
@@ -189,14 +192,14 @@ describe('Queue persistence — store behavior', () => {
 
     it('calls save when retryQueueItem() resets a failed item', async () => {
       useAppStore.setState({
-        queue: [makeItem({ id: 'err', status: 'error', errorMessage: 'oops' })],
+        queue: [makeItem({ id: 'err', status: 'error', error: { key: null, rawMessage: 'oops' } })],
       });
 
       await useAppStore.getState().retryQueueItem('err');
 
       expect(saveMock).toHaveBeenCalled();
       // Item was reset to pending and then auto-started (status will be downloading at this point)
-      expect(useAppStore.getState().queue[0].errorMessage).toBeNull();
+      expect(useAppStore.getState().queue[0].error).toBeNull();
     });
   });
 
@@ -209,7 +212,7 @@ describe('Queue persistence — store behavior', () => {
         queue: [makeItem({ id: 'fin', status: 'downloading', downloadJobId: 'j-fin' })],
       });
 
-      capturedOnStatus!({ jobId: 'j-fin', stage: 'done', message: 'done', at: new Date().toISOString() });
+      capturedOnStatus!({ jobId: 'j-fin', stage: 'done', statusKey: 'complete', at: new Date().toISOString() });
       await new Promise((r) => setTimeout(r, 20));
 
       expect(saveMock).toHaveBeenCalled();
@@ -224,12 +227,19 @@ describe('Queue persistence — store behavior', () => {
         queue: [makeItem({ id: 'bad', status: 'downloading', downloadJobId: 'j-bad' })],
       });
 
-      capturedOnStatus!({ jobId: 'j-bad', stage: 'error', message: 'Sign in required', at: new Date().toISOString() });
+      capturedOnStatus!({
+        jobId: 'j-bad',
+        stage: 'error',
+        statusKey: 'ytdlpExitCode',
+        params: { code: 1 },
+        error: { key: 'botBlock', rawMessage: 'Sign in required' },
+        at: new Date().toISOString()
+      });
       await new Promise((r) => setTimeout(r, 20));
 
       expect(saveMock).toHaveBeenCalled();
       expect(useAppStore.getState().queue[0].status).toBe('error');
-      expect(useAppStore.getState().queue[0].errorMessage).toBe('Sign in required');
+      expect(useAppStore.getState().queue[0].error?.key).toBe('botBlock');
     });
   });
 
@@ -244,7 +254,7 @@ describe('Queue persistence — store behavior', () => {
         queue: [
           makeItem({ id: 'p', status: 'pending' }),
           makeItem({ id: 'd', status: 'done', progressPercent: 100 }),
-          makeItem({ id: 'e', status: 'error', errorMessage: 'oops' }),
+          makeItem({ id: 'e', status: 'error', error: { key: null, rawMessage: 'oops' } }),
           makeItem({ id: 'c', status: 'cancelled' }),
         ],
       });

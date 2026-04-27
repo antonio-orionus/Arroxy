@@ -3,6 +3,10 @@
 
 # Arroxy — Free Open-Source YouTube Downloader
 
+**Read in:** [English](README.md) · [Español](README.es.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md)
+
+![Languages](https://img.shields.io/badge/i18n-9_languages-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![Platforms](https://img.shields.io/badge/platforms-Windows_%7C_macOS_%7C_Linux-lightgrey)
+
 **4K &nbsp;•&nbsp; 1080p60 &nbsp;•&nbsp; HDR &nbsp;•&nbsp; Shorts &nbsp;·&nbsp; Windows &nbsp;•&nbsp; macOS &nbsp;•&nbsp; Linux**
 
 **Tired of YouTube ads ruining your videos?**
@@ -63,6 +67,7 @@ Arroxy is a **free, open-source, privacy-first** desktop app — built for peopl
 - **Choose where to save** — last folder is remembered, or pick a new one each time
 - **One click to download** — real-time progress bar, cancel any time
 - **Queue multiple videos** — download panel tracks everything at once
+- **Available in 9 languages** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — auto-detects your system language, switchable any time
 
 <div align="center">
   <img src="build/Main-screenshot.png" width="48%" alt="Paste a URL" />
@@ -85,7 +90,6 @@ Things on the roadmap — not yet shipped, roughly in priority order.
 | **Format conversion**            | Convert downloads to MP3, WAV, FLAC, or other formats without a separate tool                      |
 | **Custom filename templates**    | Name files by title, uploader, date, resolution, or any combination — with a live preview          |
 | **Subtitle download**            | Fetch auto-generated or manual subtitles alongside the video, in any available language            |
-| **i18n / localization**          | Full UI translation support — contribute your language via a simple JSON file                      |
 | **Scheduled downloads**          | Set a time for Arroxy to start downloading — useful for large queues overnight                     |
 | **Download speed limits**        | Cap bandwidth so downloads don't saturate your connection while you work                           |
 | **Clip trimming**                | Specify a start and end time to download only a segment of a video                                 |
@@ -203,6 +207,9 @@ Anything YouTube offers — 4K UHD (2160p), 1440p QHD, 1080p Full HD, 720p, 480p
 
 **Is it really free?**
 Yes. MIT licensed. No premium tier, no feature gating.
+
+**What languages is Arroxy available in?**
+Nine, out of the box: English, Español (Spanish), Deutsch (German), Français (French), 日本語 (Japanese), 中文 (Chinese), Русский (Russian), Українська (Ukrainian), and हिन्दी (Hindi). Arroxy auto-detects your operating system's language on first launch and you can switch at any time from the language picker in the toolbar. Want to add or improve a translation? The locale files are plain TypeScript objects in `src/shared/i18n/locales/` — [open a PR](../../pulls).
 
 **Do I need to install anything?**
 No. yt-dlp and ffmpeg are downloaded automatically on first launch from their official GitHub releases and cached on your machine. After that, no extra setup is needed.

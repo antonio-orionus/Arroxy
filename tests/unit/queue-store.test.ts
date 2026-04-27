@@ -44,14 +44,14 @@ describe('QueueStore', () => {
     expect(loaded[0].finishedAt).toBe('2024-01-01T12:00:00.000Z');
   });
 
-  it('round-trips error items with errorMessage preserved', async () => {
+  it('round-trips error items with error preserved', async () => {
     const [store] = await tempStore();
-    const item = makeItem({ id: 'c', status: 'error', errorMessage: 'Network error' });
+    const item = makeItem({ id: 'c', status: 'error', error: { key: null, rawMessage: 'Network error' } });
     await store.save([item]);
 
     const loaded = await store.load();
     expect(loaded[0].status).toBe('error');
-    expect(loaded[0].errorMessage).toBe('Network error');
+    expect(loaded[0].error?.rawMessage).toBe('Network error');
   });
 
   it('normalizes downloading → pending and resets progress', async () => {

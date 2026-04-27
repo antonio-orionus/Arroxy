@@ -1,4 +1,5 @@
 import type { Result } from './result';
+import type { SupportedLang } from './i18n/types';
 import type {
   AppSettings,
   CancelDownloadInput,
@@ -27,6 +28,7 @@ export interface WindowApi {
 export interface AppApi {
   app: {
     warmUp(): Promise<Result<WarmUpOutput>>;
+    setLanguage(language: SupportedLang): Promise<void>;
   };
   window: WindowApi;
   downloads: {

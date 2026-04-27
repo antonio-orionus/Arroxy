@@ -1,7 +1,8 @@
 import { useState, type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Preset } from '@shared/types';
 import { humanSize } from '@shared/format';
-import { useAppStore, groupVideoFormats, PRESET_LABELS } from '../store/useAppStore';
+import { useAppStore, groupVideoFormats, presetOptions } from '../store/useAppStore';
 import { Button } from './ui/button';
 import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group';
 import { Separator } from './ui/separator';
@@ -12,21 +13,8 @@ import { MascotBubble } from './MascotBubble';
 import choosingImg from '../assets/Choosing.png';
 import downloadingImg from '../assets/Downloading.png';
 
-const PRESET_DESCRIPTIONS: Record<Preset, string> = {
-  'best-quality': 'Highest resolution + best audio',
-  balanced: '720p max + good audio',
-  'audio-only': 'No video, best audio',
-  'small-file': 'Lowest resolution + low audio'
-};
-
-const PRESET_OPTIONS: { value: Preset; label: string; desc: string }[] =
-  (Object.keys(PRESET_LABELS) as Preset[]).map((value) => ({
-    value,
-    label: PRESET_LABELS[value],
-    desc: PRESET_DESCRIPTIONS[value]
-  }));
-
 export function StepFormatSelect(): JSX.Element {
+  const { t } = useTranslation();
   const {
     wizardFormats,
     formatsLoading,
@@ -62,7 +50,7 @@ export function StepFormatSelect(): JSX.Element {
 
   const currentResolutionLabel =
     selectedVideoFormatId === ''
-      ? 'Audio only'
+      ? t('wizard.formats.audioOnly')
       : groupVideoFormats(wizardFormats).find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? '';
 
   const maxFilesize = Math.max(
@@ -71,6 +59,8 @@ export function StepFormatSelect(): JSX.Element {
       .map((g) => filteredFormats.find((f) => f.formatId === g.formatId)?.filesize ?? 0),
     1
   );
+
+  const PRESET_OPTIONS = presetOptions();
 
   if (formatsLoading) {
     return (
@@ -89,11 +79,11 @@ export function StepFormatSelect(): JSX.Element {
             className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-0 h-0"
             style={{ borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderBottom: '7px solid var(--secondary)' }}
           />
-          Sniffing out the best formats for you…
+          {t('wizard.formats.sniffing')}
         </div>
         <div className="flex items-center gap-2 text-xs text-[var(--text-subtle)]">
-          <div className="spinner" aria-label="Loading formats" />
-          <span>Usually takes a second</span>
+          <div className="spinner" aria-label={t('wizard.formats.loadingAria')} />
+          <span>{t('wizard.formats.loadingHint')}</span>
         </div>
       </div>
     );
@@ -110,7 +100,9 @@ export function StepFormatSelect(): JSX.Element {
 
       {/* Quick presets */}
       <div className="flex flex-col gap-1.5">
-        <p className="text-[12px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Quick presets</p>
+        <p className="text-[12px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
+          {t('wizard.formats.quickPresets')}
+        </p>
         <ToggleGroup
           value={activePreset ? [activePreset] : []}
           onValueChange={(vals) => { if (vals[0]) setPreset(vals[0] as Preset); }}
@@ -135,7 +127,9 @@ export function StepFormatSelect(): JSX.Element {
         {/* Video column */}
         <div className="flex flex-col gap-0">
           <div className="flex items-center justify-between mb-[6px]">
-            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Video</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
+              {t('wizard.formats.video')}
+            </p>
             <div className="flex items-center gap-[6px]">
               {uniqueDynamicRanges.length > 1 && (
                 <ToggleGroup
@@ -219,7 +213,9 @@ export function StepFormatSelect(): JSX.Element {
 
         {/* Audio column */}
         <div className="flex flex-col gap-0">
-          <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-[6px]">Audio</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-[6px]">
+            {t('wizard.formats.audio')}
+          </p>
           {wizardFormats.filter((f) => f.isAudioOnly).map((fmt) => {
             const isChecked = selectedAudioFormatId === fmt.formatId;
             return (
@@ -243,13 +239,13 @@ export function StepFormatSelect(): JSX.Element {
             checked={selectedAudioFormatId === null}
             disabled={isAudioOnly}
             onClick={() => setAudioFormatId(null)}
-            label="No audio"
-            meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">Video only</span>}
+            label={t('wizard.formats.noAudio')}
+            meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.videoOnly')}</span>}
           />
 
           <MascotBubble
             image={choosingImg}
-            message="Best + Best = max quality. I'd pick that!"
+            message={t('wizard.formats.mascot')}
             side="right"
             className="mt-3"
           />
@@ -260,11 +256,11 @@ export function StepFormatSelect(): JSX.Element {
       <div className="flex items-center justify-between sticky bottom-0 bg-background py-3 -mx-6 px-6">
         <span className="text-[13px] text-muted-foreground">
           {selectedFilesize ? (
-            <>Total <span className="text-[17px] font-bold text-[var(--brand)]">~{humanSize(selectedFilesize)}</span></>
+            <>{t('wizard.formats.total')} <span className="text-[17px] font-bold text-[var(--brand)]">~{humanSize(selectedFilesize)}</span></>
           ) : isAudioOnly ? (
-            'Audio only'
+            t('wizard.formats.audioOnly')
           ) : (
-            'Size unknown'
+            t('wizard.formats.sizeUnknown')
           )}
         </span>
         <div className="flex gap-2">
@@ -274,7 +270,7 @@ export function StepFormatSelect(): JSX.Element {
             onClick={resetWizard}
             className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
           >
-            Back
+            {t('common.back')}
           </Button>
           <Button
             type="button"
@@ -282,7 +278,7 @@ export function StepFormatSelect(): JSX.Element {
             disabled={!canContinue}
             className="shadow-[0_4px_14px_var(--brand-glow)]"
           >
-            Continue
+            {t('common.continue')}
           </Button>
         </div>
       </div>

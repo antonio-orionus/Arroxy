@@ -18,6 +18,7 @@ if (!('appApi' in window)) {
     rememberLastOutputDir: true,
     lastVideoResolution: undefined as string | undefined,
     lastPreset: undefined as 'best-quality' | 'balanced' | 'audio-only' | 'small-file' | null | undefined,
+    language: 'en' as 'en' | 'es' | 'fr' | 'de' | 'ru' | 'uk' | 'ja' | 'zh' | 'hi',
     commonPaths: {
       downloads: '/home/user/Downloads',
       videos: '/home/user/Videos',
@@ -36,10 +37,14 @@ if (!('appApi' in window)) {
   async function simulateDownload(id: string, shouldError: boolean): Promise<void> {
     await delay(400);
 
-    const stages: StatusEvent['stage'][] = ['setup', 'token', 'download'];
-    for (const stage of stages) {
+    const stages: { stage: StatusEvent['stage']; key: StatusEvent['statusKey'] }[] = [
+      { stage: 'setup', key: 'preparingBinaries' },
+      { stage: 'token', key: 'mintingToken' },
+      { stage: 'download', key: 'startingYtdlp' }
+    ];
+    for (const { stage, key } of stages) {
       statusListeners.forEach((l) =>
-        l({ jobId: id, stage, message: `Stage: ${stage}`, at: new Date().toISOString() })
+        l({ jobId: id, stage, statusKey: key, at: new Date().toISOString() })
       );
       await delay(300);
     }
@@ -50,7 +55,9 @@ if (!('appApi' in window)) {
         l({
           jobId: id,
           stage: 'error',
-          message: 'Sign in to confirm you\'re not a bot',
+          statusKey: 'ytdlpExitCode',
+          params: { code: 1 },
+          error: { key: 'botBlock', rawMessage: "Sign in to confirm you're not a bot" },
           at: new Date().toISOString()
         })
       );
@@ -77,7 +84,7 @@ if (!('appApi' in window)) {
     }
 
     statusListeners.forEach((l) =>
-      l({ jobId: id, stage: 'done', message: 'Download complete', at: new Date().toISOString() })
+      l({ jobId: id, stage: 'done', statusKey: 'complete', at: new Date().toISOString() })
     );
   }
 
@@ -86,7 +93,8 @@ if (!('appApi' in window)) {
       warmUp: async () => {
         await delay(900);
         return { ok: true, data: { completed: true, failures: [] } };
-      }
+      },
+      setLanguage: async () => { /* no-op in browser */ }
     },
 
     window: {
@@ -167,7 +175,7 @@ if (!('appApi' in window)) {
         return { ok: true, data: { ...settings } };
       },
       update: async (patch) => {
-        settings = { ...settings, ...patch };
+        settings = { ...settings, ...patch } as typeof settings;
         return { ok: true, data: { ...settings } };
       }
     },
@@ -192,7 +200,6 @@ if (!('appApi' in window)) {
 
     dialog: {
       chooseFolder: async () => {
-        // Browsers can't open a native folder picker, cycle through a few fake paths
         const paths = [
           '/home/user/Downloads',
           '/home/user/Videos',

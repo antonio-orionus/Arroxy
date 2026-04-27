@@ -1,0 +1,183 @@
+const en = {
+  common: {
+    back: 'Back',
+    continue: 'Continue',
+    retry: 'Retry',
+    startOver: 'Start over',
+    loading: 'Loading…'
+  },
+  app: {
+    feedback: 'Feedback',
+    logs: 'Logs',
+    feedbackNudge: "Enjoying Arroxy? I'd love to hear from you! 💬",
+    debugCopied: 'Copied!',
+    debugCopyTitle: 'Copy debug info (Electron, OS, Chrome versions)',
+    zoomIn: 'Zoom in',
+    zoomOut: 'Zoom out'
+  },
+  titleBar: {
+    close: 'Close',
+    minimize: 'Minimize',
+    maximize: 'Maximize',
+    restore: 'Restore'
+  },
+  splash: {
+    greeting: 'Hey, welcome back!',
+    warmup: 'Arroxy is warming up…',
+    warning: 'Setup incomplete — some features may not work'
+  },
+  theme: {
+    light: 'Light mode',
+    dark: 'Dark mode',
+    system: 'System default'
+  },
+  language: {
+    label: 'Language'
+  },
+  wizard: {
+    steps: {
+      url: 'URL',
+      formats: 'Format',
+      folder: 'Save',
+      confirm: 'Confirm'
+    },
+    url: {
+      heading: 'YouTube URL',
+      placeholder: 'https://www.youtube.com/watch?v=...',
+      hint: 'Supports youtube.com and youtu.be links',
+      fetchFormats: 'Fetch formats',
+      mascotIdle: 'Drop me a YouTube link (video or Short) — then hit "Fetch formats" and I\'ll get to work ✨',
+      mascotBusy: 'Downloading in the background… I can multitask 😎'
+    },
+    formats: {
+      quickPresets: 'Quick presets',
+      video: 'Video',
+      audio: 'Audio',
+      noAudio: 'No audio',
+      videoOnly: 'Video only',
+      audioOnly: 'Audio only',
+      audioOnlyOption: 'Audio only (no video)',
+      mascot: "Best + Best = max quality. I'd pick that!",
+      sniffing: 'Sniffing out the best formats for you…',
+      loadingHint: 'Usually takes a second',
+      loadingAria: 'Loading formats',
+      sizeUnknown: 'Size unknown',
+      total: 'Total'
+    },
+    folder: {
+      heading: 'Save to',
+      downloads: 'Downloads',
+      videos: 'Movies',
+      desktop: 'Desktop',
+      custom: 'Custom…'
+    },
+    confirm: {
+      readyHeadline: 'Ready to pull it in!',
+      landIn: 'Your file will land in',
+      labelVideo: 'Video',
+      labelAudio: 'Audio',
+      labelSaveTo: 'Save to',
+      labelSize: 'Size',
+      sizeUnknown: 'Unknown',
+      audioOnly: 'Audio only',
+      addToQueue: '+ Queue',
+      addToQueueTooltip: 'Starts when other downloads finish — gets full bandwidth',
+      pullIt: 'Pull it! ↓',
+      pullItTooltip: 'Starts immediately — runs alongside other active downloads'
+    },
+    error: {
+      icon: 'Error'
+    }
+  },
+  videoCard: {
+    titlePlaceholder: 'Loading…',
+    domain: 'youtube.com'
+  },
+  queue: {
+    header: 'Download Queue',
+    toggleTitle: 'Toggle download queue',
+    empty: 'Downloads you queue will appear here',
+    noDownloads: 'No downloads yet.',
+    clear: 'Clear',
+    clearTitle: 'Clear completed downloads',
+    tip: 'Your download is queued below — open anytime to track progress.',
+    item: {
+      doneAt: 'Done {{time}}',
+      paused: 'Paused',
+      defaultError: 'Download failed',
+      openUrl: 'Open URL',
+      pause: 'Pause',
+      resume: 'Resume',
+      cancel: 'Cancel',
+      remove: 'Remove'
+    }
+  },
+  update: {
+    appVersion: 'Arroxy {{version}}',
+    isAvailable: 'is available',
+    youHave: '— you have {{currentVersion}}',
+    install: 'Install & Restart',
+    downloading: 'Downloading…',
+    download: 'Download ↗',
+    dismiss: 'Dismiss update banner',
+    copy: 'Copy command to clipboard',
+    copied: 'Copied command to clipboard'
+  },
+  status: {
+    preparingBinaries: 'Preparing binaries…',
+    mintingToken: 'Minting YouTube token…',
+    remintingToken: 'Re-minting token…',
+    startingYtdlp: 'Starting yt-dlp process…',
+    cancelled: 'Download cancelled',
+    complete: 'Download complete',
+    ytdlpProcessError: 'yt-dlp process error: {{error}}',
+    ytdlpExitCode: 'yt-dlp exited with code {{code}}',
+    downloadingBinary: 'Downloading {{name}} binary…',
+    unknownStartupFailure: 'Unknown download startup failure'
+  },
+  errors: {
+    ytdlp: {
+      botBlock: 'YouTube flagged this request as a bot. Try again in a moment.',
+      ipBlock: 'Your IP address appears to be blocked by YouTube. Try again later or use a VPN.',
+      rateLimit: 'YouTube is rate-limiting requests. Wait a minute then retry.',
+      ageRestricted: 'This video is age-restricted and cannot be downloaded without a signed-in account.',
+      unavailable: 'This video is unavailable — it may be private, deleted, or region-locked.',
+      geoBlocked: 'This video is not available in your region.'
+    }
+  },
+  presets: {
+    'best-quality': {
+      label: 'Best quality',
+      desc: 'Highest resolution + best audio'
+    },
+    balanced: {
+      label: 'Balanced',
+      desc: '720p max + good audio'
+    },
+    'audio-only': {
+      label: 'Audio only',
+      desc: 'No video, best audio'
+    },
+    'small-file': {
+      label: 'Small file',
+      desc: 'Lowest resolution + low audio'
+    }
+  },
+  formatLabel: {
+    audioOnly: 'Audio only',
+    audioFallback: 'Audio',
+    audioOnlyDot: 'Audio only · {{audio}}',
+    videoDot: '{{resolution}} · {{audio}}'
+  },
+  dialogs: {
+    quitWithActiveDownloads: {
+      message_one: '{{count}} download in progress',
+      message_other: '{{count}} downloads in progress',
+      detail: 'Closing will cancel all active downloads.',
+      confirm: 'Cancel Downloads & Quit',
+      keep: 'Keep Downloading'
+    }
+  }
+} as const;
+
+export default en;

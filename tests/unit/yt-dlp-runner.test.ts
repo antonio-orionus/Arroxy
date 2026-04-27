@@ -80,7 +80,7 @@ describe('runYtDlp — clean exit', () => {
     expect(result.exitCode).toBe(0);
     expect(result.stdout).toBe('{"title":"Hi"}');
     expect(result.errorClass).toBeNull();
-    expect(result.message).toBeNull();
+    expect(result.rawError).toBeNull();
     expect(result.spawnError).toBeUndefined();
   });
 
@@ -118,7 +118,7 @@ describe('runYtDlp — clean exit', () => {
 });
 
 describe('runYtDlp — error classification', () => {
-  it('returns errorClass + friendly message on classified failure', async () => {
+  it('returns errorClass and raw stderr error on classified failure', async () => {
     const stderr = 'ERROR: [youtube] abc: Private video';
     vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(1, stderr) as never);
     const tokenService = makeTokenService();
@@ -127,7 +127,7 @@ describe('runYtDlp — error classification', () => {
 
     expect(result.exitCode).toBe(1);
     expect(result.errorClass).toBe('unavailable');
-    expect(result.message).toBe('This video is unavailable — it may be private, deleted, or region-locked.');
+    expect(result.rawError).toBe('ERROR: [youtube] abc: Private video');
   });
 
   it('returns last ERROR: line when stderr is unrecognized', async () => {
@@ -138,17 +138,17 @@ describe('runYtDlp — error classification', () => {
     const result = await runYtDlp({ ...RUN_OPTS, tokenService });
 
     expect(result.errorClass).toBeNull();
-    expect(result.message).toBe('ERROR: [youtube] abc: Unsupported URL');
+    expect(result.rawError).toBe('ERROR: [youtube] abc: Unsupported URL');
   });
 
-  it('returns generic exit-code message when stderr is empty', async () => {
+  it('returns null rawError when stderr is empty', async () => {
     vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(2) as never);
     const tokenService = makeTokenService();
 
     const result = await runYtDlp({ ...RUN_OPTS, tokenService });
 
-    expect(result.message).toContain('exit');
-    expect(result.message).toContain('2');
+    expect(result.exitCode).toBe(2);
+    expect(result.rawError).toBeNull();
   });
 });
 
@@ -190,7 +190,7 @@ describe('runYtDlp — bot-block retry', () => {
 
     expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(2);
     expect(tokenService.invalidateCache).toHaveBeenCalledOnce();
-    expect(result.errorClass).toBe('bot_block');
+    expect(result.errorClass).toBe('botBlock');
     expect(result.exitCode).toBe(1);
   });
 
@@ -204,7 +204,7 @@ describe('runYtDlp — bot-block retry', () => {
 
     expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(1);
     expect(tokenService.invalidateCache).not.toHaveBeenCalled();
-    expect(result.errorClass).toBe('ip_block');
+    expect(result.errorClass).toBe('ipBlock');
   });
 
   it('calls onSpawn for both attempts so caller can track the new process', async () => {

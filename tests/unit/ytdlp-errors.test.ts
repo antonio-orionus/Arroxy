@@ -27,26 +27,26 @@ describe('extractLastError', () => {
 });
 
 describe('classifyStderr', () => {
-  it('detects bot_block from standard YouTube message', () => {
+  it('detects botBlock from standard YouTube message', () => {
     const stderr = "ERROR: [youtube] dQw4w9WgXcQ: Sign in to confirm you're not a bot. Use --cookies-from-browser...";
-    expect(classifyStderr(stderr)).toBe('bot_block');
+    expect(classifyStderr(stderr)).toBe('botBlock');
   });
 
-  it('detects bot_block case-insensitively', () => {
-    expect(classifyStderr("SIGN IN TO CONFIRM YOU'RE NOT A BOT")).toBe('bot_block');
+  it('detects botBlock case-insensitively', () => {
+    expect(classifyStderr("SIGN IN TO CONFIRM YOU'RE NOT A BOT")).toBe('botBlock');
   });
 
-  it('detects ip_block', () => {
+  it('detects ipBlock', () => {
     const stderr = 'ERROR: [youtube] All player responses are invalid. Your IP is likely being blocked by Youtube';
-    expect(classifyStderr(stderr)).toBe('ip_block');
+    expect(classifyStderr(stderr)).toBe('ipBlock');
   });
 
-  it('detects rate_limit from HTTP 429', () => {
-    expect(classifyStderr('WARNING: Unable to download webpage: HTTP Error 429: Too Many Requests')).toBe('rate_limit');
+  it('detects rateLimit from HTTP 429', () => {
+    expect(classifyStderr('WARNING: Unable to download webpage: HTTP Error 429: Too Many Requests')).toBe('rateLimit');
   });
 
-  it('detects rate_limit from content-unavailable message', () => {
-    expect(classifyStderr("This content isn't available, try again later")).toBe('rate_limit');
+  it('detects rateLimit from content-unavailable message', () => {
+    expect(classifyStderr("This content isn't available, try again later")).toBe('rateLimit');
   });
 
   it('returns null for unrelated errors', () => {
@@ -57,15 +57,15 @@ describe('classifyStderr', () => {
     expect(classifyStderr('')).toBeNull();
   });
 
-  it('prioritises bot_block over ip_block when both appear', () => {
+  it('prioritises botBlock over ipBlock when both appear', () => {
     const stderr = [
       "Sign in to confirm you're not a bot",
       'IP is likely being blocked by Youtube'
     ].join('\n');
-    expect(classifyStderr(stderr)).toBe('bot_block');
+    expect(classifyStderr(stderr)).toBe('botBlock');
   });
 
-  it('detects rate_limit from too many requests (case-insensitive)', () => {
-    expect(classifyStderr('too many requests')).toBe('rate_limit');
+  it('detects rateLimit from too many requests (case-insensitive)', () => {
+    expect(classifyStderr('too many requests')).toBe('rateLimit');
   });
 });

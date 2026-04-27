@@ -1,7 +1,8 @@
 import type { JSX } from 'react';
 import { ExternalLink, FolderOpen, Pause, Play, RotateCcw, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { QueueItem, QueueItemStatus } from '@shared/types';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore, formatStatus, formatLocalizedError } from '../store/useAppStore';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
@@ -22,6 +23,7 @@ const STATUS_BORDER: Record<QueueItemStatus, string> = {
 };
 
 export function QueueItemCard({ item }: Props): JSX.Element {
+  const { t, i18n } = useTranslation();
   const {
     startItemDownload, cancelItemDownload, pauseItemDownload, resumeItemDownload,
     removeQueueItem, retryQueueItem, openItemFolder, openItemUrl
@@ -29,6 +31,9 @@ export function QueueItemCard({ item }: Props): JSX.Element {
 
   const { status } = item;
   const isActive = status === 'downloading' || status === 'paused';
+
+  const detailText = item.progressDetail ?? formatStatus(item.lastStatus);
+  const errorText = formatLocalizedError(item.error) || t('queue.item.defaultError');
 
   return (
     <li
@@ -60,7 +65,9 @@ export function QueueItemCard({ item }: Props): JSX.Element {
         <p className="text-[12px] text-muted-foreground truncate flex items-center gap-1" data-testid="queue-meta">
           <Badge variant="secondary" className="text-[12px] font-normal">{item.formatLabel}</Badge>
           {status === 'done' && item.finishedAt && (
-            <span className="text-muted-foreground">· Done {new Date(item.finishedAt).toLocaleTimeString()}</span>
+            <span className="text-muted-foreground">
+              · {t('queue.item.doneAt', { time: new Date(item.finishedAt).toLocaleTimeString(i18n.language) })}
+            </span>
           )}
         </p>
 
@@ -77,14 +84,14 @@ export function QueueItemCard({ item }: Props): JSX.Element {
               data-testid="queue-progress-label"
             >
               {item.progressPercent.toFixed(1)}%
-              {status === 'paused' ? ' · Paused' : item.progressDetail ? ` · ${item.progressDetail}` : ''}
+              {status === 'paused' ? ` · ${t('queue.item.paused')}` : detailText ? ` · ${detailText}` : ''}
             </span>
           </div>
         )}
 
         {status === 'error' && (
           <p className="text-[12px] text-[var(--color-status-error)] mt-0.5 truncate" data-testid="queue-error-msg">
-            {item.errorMessage ?? 'Download failed'}
+            {errorText}
           </p>
         )}
       </div>
@@ -92,7 +99,7 @@ export function QueueItemCard({ item }: Props): JSX.Element {
       <div className="flex items-center gap-1 shrink-0">
         <TooltipIconButton
           icon={<ExternalLink size={12} />}
-          label="Open URL"
+          label={t('queue.item.openUrl')}
           data-testid="btn-open-url"
           className="w-7 h-7 text-muted-foreground hover:text-foreground/80"
           onClick={() => openItemUrl(item.id)}
@@ -111,7 +118,7 @@ export function QueueItemCard({ item }: Props): JSX.Element {
         {status === 'downloading' && (
           <TooltipIconButton
             icon={<Pause size={12} />}
-            label="Pause"
+            label={t('queue.item.pause')}
             data-testid="btn-pause"
             className="w-7 h-7"
             onClick={() => void pauseItemDownload(item.id)}
@@ -121,7 +128,7 @@ export function QueueItemCard({ item }: Props): JSX.Element {
         {status === 'paused' && (
           <TooltipIconButton
             icon={<Play size={12} />}
-            label="Resume"
+            label={t('queue.item.resume')}
             data-testid="btn-resume"
             className="w-7 h-7"
             onClick={() => void resumeItemDownload(item.id)}
@@ -151,7 +158,7 @@ export function QueueItemCard({ item }: Props): JSX.Element {
         {isActive ? (
           <TooltipIconButton
             icon={<X size={12} />}
-            label="Cancel"
+            label={t('queue.item.cancel')}
             data-testid="btn-cancel"
             className="w-7 h-7 text-muted-foreground hover:text-[var(--color-status-error)]"
             onClick={() => void cancelItemDownload(item.id)}
@@ -159,7 +166,7 @@ export function QueueItemCard({ item }: Props): JSX.Element {
         ) : (
           <TooltipIconButton
             icon={<X size={12} />}
-            label="Remove"
+            label={t('queue.item.remove')}
             data-testid="btn-remove"
             className="w-7 h-7 text-muted-foreground hover:text-[var(--color-status-error)]"
             onClick={() => removeQueueItem(item.id)}

@@ -1,3 +1,7 @@
+import type { StatusKey, SupportedLang, LocalizedError } from './i18n/types';
+
+export type { StatusKey, SupportedLang, LocalizedError, YtdlpErrorKey } from './i18n/types';
+
 export type AppErrorCode = 'validation' | 'token' | 'binary' | 'download' | 'ipc' | 'unknown';
 
 export interface AppError {
@@ -16,6 +20,7 @@ export interface AppSettings {
   lastPreset?: Preset | null;
   uiZoom?: number;
   uiTheme?: 'light' | 'dark' | 'system';
+  language?: SupportedLang;
   commonPaths?: { downloads: string; videos: string; desktop: string };
 }
 
@@ -51,10 +56,15 @@ export interface RecentJob {
   formatId?: string;
   status: Extract<DownloadJobStatus, 'completed' | 'failed' | 'cancelled'>;
   finishedAt: string;
-  errorMessage?: string;
+  error?: LocalizedError;
 }
 
 export type QueueItemStatus = 'pending' | 'downloading' | 'paused' | 'done' | 'error' | 'cancelled';
+
+export interface StatusSnapshot {
+  key: StatusKey;
+  params?: Record<string, string | number>;
+}
 
 export interface QueueItem {
   id: string;
@@ -67,7 +77,8 @@ export interface QueueItem {
   status: QueueItemStatus;
   progressPercent: number;
   progressDetail: string | null;
-  errorMessage: string | null;
+  lastStatus: StatusSnapshot | null;
+  error: LocalizedError | null;
   finishedAt: string | null;
   downloadJobId: string | null;
 }
@@ -77,7 +88,9 @@ export type DownloadStage = 'setup' | 'token' | 'download' | 'done' | 'error';
 export interface StatusEvent {
   jobId: string;
   stage: DownloadStage;
-  message: string;
+  statusKey: StatusKey;
+  params?: Record<string, string | number>;
+  error?: LocalizedError;
   at: string;
 }
 

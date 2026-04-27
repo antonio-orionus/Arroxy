@@ -1,0 +1,233 @@
+<!-- translated from README.md as of 2026-04-27 -->
+
+<div align="center">
+  <img src="src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy Maskottchen" width="180" />
+
+# Arroxy — Kostenloser Open-Source YouTube Downloader
+
+**Sprache:** [English](README.md) · [Español](README.es.md) · **Deutsch** · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md)
+
+![Sprachen](https://img.shields.io/badge/i18n-9_Sprachen-blue) ![Lizenz](https://img.shields.io/badge/lizenz-MIT-green) ![Plattformen](https://img.shields.io/badge/plattformen-Windows_%7C_macOS_%7C_Linux-lightgrey)
+
+**4K &nbsp;•&nbsp; 1080p60 &nbsp;•&nbsp; HDR &nbsp;•&nbsp; Shorts &nbsp;·&nbsp; Windows &nbsp;•&nbsp; macOS &nbsp;•&nbsp; Linux**
+
+**Genervt von YouTube-Werbung, die deine Videos ruiniert?**
+Lade jedes Video oder Short in voller Qualität herunter — 4K, 1080p60, HDR und mehr. Schnell, kostenlos, zu 100 % deins.
+
+Keine Werbung. Kein Tracking. Keine Cookies. Kein Login. Kein Quatsch.
+
+[**Neueste Version →**](../../releases/latest) &nbsp;·&nbsp; [Windows](#download) · [macOS](#download) · [Linux](#download)
+
+<img src="build/demo.gif" alt="Arroxy Demo" width="720" />
+
+</div>
+
+> 🌐 Dies ist eine KI-gestützte Übersetzung. Die [englische README](README.md) ist die maßgebliche Quelle. Fehler entdeckt? [PRs sind willkommen](../../pulls).
+
+---
+
+## Warum Arroxy?
+
+|                                          | Arroxy | Browser-Erweiterungen | Online-Konverter | Andere Downloader |
+| ---------------------------------------- | ------ | --------------------- | ---------------- | ----------------- |
+| Für immer kostenlos                      | ✅     | ⚠️                    | ⚠️               | ✅                |
+| Keine Werbung                            | ✅     | ⚠️                    | ❌               | ✅                |
+| Kein Konto erforderlich                  | ✅     | ✅                    | ⚠️               | ⚠️                |
+| Funktioniert offline _(quasi)_           | ✅     | ❌                    | ❌               | ✅                |
+| Deine Dateien bleiben lokal              | ✅     | ✅                    | ❌               | ✅                |
+| Keine Nutzungsbeschränkungen             | ✅     | ⚠️                    | 🚫               | ✅                |
+| Open Source                              | ✅     | ⚠️                    | ❌               | ⚠️                |
+| Nie Login oder Cookies nötig             | ✅     | ✅                    | ⚠️               | ⚠️                |
+| Kein Risiko für Google-Konto-Sperre      | ✅     | ✅                    | ⚠️               | ⚠️                |
+
+> _„Funktioniert offline" heißt: Es passiert keine Konvertierung auf dem Server eines Fremden — die gesamte Pipeline läuft auf deinem Rechner. Internet brauchst du natürlich trotzdem, um YouTube zu erreichen. Schon klar._
+
+> **Warum das wichtig ist:** Die meisten Desktop-YouTube-Downloader verlangen früher oder später, dass du deine Browser-Cookies exportierst, sobald YouTube seine Bot-Erkennung aktualisiert. Diese Sessions verfallen alle ~30 Minuten — und yt-dlp warnt selbst in der Doku, dass cookie-basierte Automatisierung dein Google-Konto sperren kann. Arroxy verlangt nie Cookies, Login oder Anmeldedaten. Es fordert dieselben Tokens an, die YouTube an jeden echten Browser ausgibt — null Konto-Risiko, keine Ablauffrist.
+
+Arroxy ist eine **kostenlose, quelloffene und datenschutzorientierte** Desktop-App — gemacht für Leute, die Einfachheit ohne Ballast wollen. Deine Downloads laufen nie über einen Drittanbieter-Server. Null Telemetrie, null Datensammlung. URL einfügen, fertig.
+
+---
+
+## Was es kann
+
+- **Beliebige YouTube-URL einfügen** — Videos, Shorts, alles — Arroxy holt in Sekunden alle verfügbaren Formate
+- **Qualität wählen** — bis 4K UHD (2160p), 1440p, 1080p, 720p, 60 fps und höher, nur Audio (MP3/AAC/Opus), oder Schnell-Preset (Beste Qualität / Ausgewogen / Kleine Datei)
+- **Volle High-Frame-Rate-Unterstützung** — 60 fps, 120 fps und HDR-Streams werden exakt so erhalten, wie YouTube sie kodiert
+- **Speicherort wählen** — letzter Ordner wird gemerkt, oder jedes Mal neu wählen
+- **Ein Klick zum Download** — Echtzeit-Fortschrittsanzeige, jederzeit abbrechbar
+- **Mehrere Videos in der Warteschlange** — das Download-Panel verfolgt alles parallel
+- **In 9 Sprachen verfügbar** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — erkennt deine Systemsprache automatisch, jederzeit umschaltbar
+
+<div align="center">
+  <img src="build/Main-screenshot.png" width="48%" alt="URL einfügen" />
+  <img src="build/Choosing-format-screenshot.png" width="48%" alt="Qualität wählen" />
+  <br/>
+  <img src="build/Choosing-destination-screenshot.png" width="48%" alt="Speicherort wählen" />
+  <img src="build/Downloading-in-parallel-screenshot.png" width="48%" alt="Download-Warteschlange in Aktion" />
+</div>
+
+---
+
+## Geplante Funktionen
+
+Was auf der Roadmap steht — noch nicht ausgeliefert, grob nach Priorität sortiert.
+
+| Funktion                                | Beschreibung                                                                                              |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Playlist- & Kanal-Downloads**         | Playlist- oder Kanal-URL einfügen und alle Videos auf einmal in die Warteschlange, mit Datums-/Anzahl-Filtern |
+| **Mehrere URLs gleichzeitig eingeben**  | Mehrere URLs einfügen und alle in einem Rutsch starten                                                    |
+| **Format-Konvertierung**                | Downloads in MP3, WAV, FLAC oder andere Formate umwandeln — ohne extra Tool                              |
+| **Eigene Dateinamen-Vorlagen**          | Dateien nach Titel, Hochlader, Datum, Auflösung oder Kombination benennen — mit Live-Vorschau            |
+| **Untertitel-Download**                 | Auto-generierte oder manuelle Untertitel zusammen mit dem Video laden, in jeder verfügbaren Sprache      |
+| **Geplante Downloads**                  | Startzeit für Arroxy festlegen — praktisch für große Warteschlangen über Nacht                           |
+| **Download-Geschwindigkeitsbegrenzung** | Bandbreite limitieren, damit Downloads deine Verbindung beim Arbeiten nicht auslasten                    |
+| **Clip-Trimming**                       | Start- und Endzeit angeben, um nur einen Ausschnitt eines Videos herunterzuladen                         |
+
+> Eine Funktion, die hier fehlt? [Anfrage öffnen](../../issues) — Community-Feedback bestimmt, was als Nächstes gebaut wird.
+
+---
+
+## Download
+
+> Arroxy ist in aktiver Entwicklung. Hol dir den neuesten Build von der [Releases](../../releases) Seite.
+
+| Plattform | Format                                  |
+| --------- | --------------------------------------- |
+| Windows   | Installer (NSIS) oder portable `.exe`   |
+| macOS     | `.dmg` (Intel + Apple Silicon)          |
+| Linux     | `.AppImage`                             |
+
+Einfach herunterladen, ausführen, fertig.
+
+### Installation per Paketmanager
+
+| Kanal    | Befehl                                                                                              |
+| -------- | --------------------------------------------------------------------------------------------------- |
+| Winget   | `winget install AntonioOrionus.Arroxy` (oder `winget install arroxy`)                               |
+| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`   |
+| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                     |
+
+### Windows: Installer vs. Portable
+
+Es gibt zwei Builds — nimm, was besser passt:
+
+|                              | NSIS Installer | Portable `.exe`                |
+| ---------------------------- | -------------- | ------------------------------ |
+| Installation nötig           | Ja             | Nein — von überall startbar    |
+| Auto-Updates                 | ✅ in der App   | ❌ manueller Download           |
+| Startgeschwindigkeit         | ✅ schneller    | ⚠️ langsamer Kaltstart         |
+| Eintrag im Startmenü         | ✅             | ❌                              |
+| Einfache Deinstallation      | ✅             | ❌ einfach Datei löschen        |
+
+**Empfehlung:** Nimm den NSIS Installer, wenn Arroxy sich automatisch updaten und schneller starten soll. Nimm die portable `.exe`, wenn du keine Installation und keine Registry-Einträge möchtest.
+
+### Erststart unter macOS
+
+> **Hinweis:** Ich besitze keinen Mac, der macOS-Build wurde von mir also nicht persönlich getestet. Wenn etwas nicht funktioniert — App startet nicht, `.dmg` defekt, Quarantäne-Workaround scheitert — bitte [ein Issue öffnen](../../issues) und Bescheid geben. Jedes Feedback von macOS-Nutzern ist sehr willkommen.
+
+Arroxy ist noch nicht code-signiert. macOS zeigt beim ersten Öffnen eine Sicherheitswarnung — das ist erwartet, kein Hinweis auf Beschädigung.
+
+**Methode 1: Systemeinstellungen (empfohlen)**
+
+| Schritt | Aktion                                                                                                                            |
+| :-----: | --------------------------------------------------------------------------------------------------------------------------------- |
+|    1    | Rechtsklick auf das Arroxy-Symbol und **Öffnen** wählen.                                                                          |
+|    2    | Es erscheint ein Warndialog. Klick auf **Abbrechen** (nicht „In den Papierkorb verschieben").                                     |
+|    3    | Öffne **Systemeinstellungen → Datenschutz & Sicherheit**.                                                                         |
+|    4    | Scroll runter zum Abschnitt **Sicherheit** — dort steht _„Arroxy wurde blockiert, weil es nicht von einem identifizierten Entwickler stammt."_ |
+|    5    | Klick auf **Trotzdem öffnen**, dann mit Passwort oder Touch ID bestätigen.                                                        |
+
+Nach Schritt 5 öffnet sich Arroxy normal und die Warnung erscheint nie wieder.
+
+**Methode 2: Terminal (fortgeschritten)**
+
+Wenn das Obige nicht klappt, einmal nach dem Verschieben in den Programme-Ordner:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Arroxy.app
+```
+
+### Erststart unter Linux
+
+AppImages werden nicht installiert — sie laufen direkt. Du musst die Datei nur als ausführbar markieren.
+
+**Methode 1: Dateimanager**
+
+Rechtsklick auf die `.AppImage` → **Eigenschaften** → **Berechtigungen** → **Datei als Programm ausführen erlauben** aktivieren, dann doppelklicken.
+
+**Methode 2: Terminal**
+
+```bash
+chmod +x Arroxy-*.AppImage
+./Arroxy-*.AppImage
+```
+
+Wenn es immer noch nicht startet, fehlt vielleicht FUSE (für AppImage erforderlich):
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y libfuse2
+
+# Fedora
+sudo dnf install -y fuse-libs
+
+# Arch
+sudo pacman -S fuse2
+```
+
+---
+
+## Datenschutz
+
+Arroxy läuft komplett auf deinem Rechner. Wenn du ein Video herunterlädst:
+
+1. Arroxy ruft die YouTube-URL direkt auf, mit [yt-dlp](https://github.com/yt-dlp/yt-dlp) — einem auditierbaren, stets aktuellen Open-Source-Tool
+2. Die Datei wird direkt in deinen gewählten Ordner gespeichert
+3. Null Telemetrie. Nichts wird protokolliert, getrackt oder irgendwohin geschickt — nie.
+
+Dein Verlauf, deine Download-Historie und die Dateiinhalte bleiben auf deinem Gerät. 100 % privat.
+
+---
+
+## Häufig gestellte Fragen
+
+**Welche Videoqualitäten kann ich herunterladen?**
+Alles, was YouTube anbietet — 4K UHD (2160p), 1440p QHD, 1080p Full HD, 720p, 480p, 360p und nur Audio. Hochbildraten-Streams (60 fps, 120 fps) und HDR-Inhalte werden unverändert übernommen. Arroxy zeigt dir jedes verfügbare Format und lässt dich exakt auswählen.
+
+**Ist es wirklich kostenlos?**
+Ja. MIT-Lizenz. Keine Premium-Stufe, keine versteckten Funktionsbarrieren.
+
+**In welchen Sprachen ist Arroxy verfügbar?**
+Neun, direkt out of the box: English, Español (Spanisch), Deutsch, Français (Französisch), 日本語 (Japanisch), 中文 (Chinesisch), Русский (Russisch), Українська (Ukrainisch) und हिन्दी (Hindi). Arroxy erkennt deine Betriebssystem-Sprache beim ersten Start und du kannst jederzeit über die Sprachauswahl in der Symbolleiste wechseln. Übersetzung hinzufügen oder verbessern? Die Sprachdateien sind einfache TypeScript-Objekte in `src/shared/i18n/locales/` — [PR öffnen](../../pulls).
+
+**Muss ich etwas installieren?**
+Nein. yt-dlp und ffmpeg werden beim ersten Start automatisch von ihren offiziellen GitHub-Releases heruntergeladen und auf deinem Rechner gecacht. Danach ist keine weitere Einrichtung nötig.
+
+**Funktioniert es weiter, wenn YouTube etwas ändert?**
+Ja — und Arroxy hat zwei Resilienzschichten. Erstens: yt-dlp ist eines der am aktivsten gepflegten Open-Source-Tools überhaupt — es wird innerhalb von Stunden nach YouTube-Änderungen aktualisiert. Zweitens: Arroxy verlässt sich überhaupt nicht auf Cookies oder dein Google-Konto, also gibt's keine Session, die abläuft, und keine Anmeldedaten, die rotiert werden müssen. Diese Kombination macht es deutlich stabiler als Tools, die auf exportierte Browser-Cookies angewiesen sind.
+
+**Kann ich Playlists herunterladen?**
+Aktuell werden nur einzelne Videos unterstützt. Playlist- und Kanal-Support ist auf der Roadmap — siehe [Geplante Funktionen](#geplante-funktionen).
+
+**Braucht es mein YouTube-Konto oder Cookies?**
+Nein — und das ist wichtiger, als es klingt. Die meisten Tools, die nach einem YouTube-Update aufhören zu funktionieren, weisen dich an, deine Browser-Cookies zu exportieren. Dieser Workaround bricht alle ~30 Minuten zusammen, wenn YouTube Sessions rotiert, und yt-dlps eigene Doku warnt, dass das dein Google-Konto markieren kann. Arroxy nutzt nie Cookies oder Anmeldedaten. Kein Login. Kein verknüpftes Konto. Nichts läuft ab, nichts wird gesperrt.
+
+**macOS sagt „die App ist beschädigt" oder „kann nicht geöffnet werden" — was tun?**
+Das ist macOS Gatekeeper, der eine unsignierte App blockiert — nicht echte Beschädigung. Schritt-für-Schritt-Anleitung unter [Erststart unter macOS](#erststart-unter-macos).
+
+**Ist das legal?**
+Das Herunterladen von Videos zur persönlichen Nutzung ist in den meisten Rechtsordnungen allgemein akzeptiert. Du bist verantwortlich, die YouTube-AGB und deine lokalen Gesetze einzuhalten.
+
+---
+
+## Tech-Details
+
+Für technische Details, Build-Anleitung aus dem Quellcode, plattformspezifische Voraussetzungen und Beiträge: siehe [englische README](README.md#tech-details).
+
+---
+
+> **Nutzungsbedingungen:** Arroxy ist ein Werkzeug ausschließlich für persönlichen, privaten Gebrauch. Du bist allein dafür verantwortlich, dass deine Downloads den [YouTube-AGB](https://www.youtube.com/t/terms) und dem Urheberrecht deines Landes entsprechen. Verwende Arroxy nicht, um Inhalte herunterzuladen, zu vervielfältigen oder zu verbreiten, an denen du keine Rechte hast. Die Entwickler von Arroxy haften nicht für Missbrauch.
+
+<div align="center">
+  <sub>MIT-Lizenz · Mit Sorgfalt gemacht von <a href="https://x.com/OrionusAI">@OrionusAI</a></sub>
+</div>

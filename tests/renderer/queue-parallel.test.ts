@@ -33,7 +33,8 @@ describe('Queue parallel/sequential download behavior', () => {
 
     window.appApi = {
       app: {
-        warmUp: vi.fn().mockResolvedValue(ok({ completed: true, failures: [] }))
+        warmUp: vi.fn().mockResolvedValue(ok({ completed: true, failures: [] })),
+        setLanguage: vi.fn().mockResolvedValue(undefined)
       },
       downloads: {
         start: startMock,
@@ -122,7 +123,7 @@ describe('Queue parallel/sequential download behavior', () => {
     capturedOnStatus!({
       jobId: 'job-1',
       stage: 'done',
-      message: 'Download complete',
+      statusKey: 'complete',
       at: new Date().toISOString()
     });
 

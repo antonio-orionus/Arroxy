@@ -11,6 +11,8 @@ import {
   updateSettingsSchema
 } from '@shared/schemas';
 import type { AppError, WarmUpOutput } from '@shared/types';
+import type { SupportedLang } from '@shared/i18n/types';
+import { SUPPORTED_LANGS } from '@shared/i18n';
 import type { DownloadService } from '@main/services/DownloadService';
 import type { FormatProbeService } from '@main/services/FormatProbeService';
 import type { LogService } from '@main/services/LogService';
@@ -29,6 +31,7 @@ interface IpcDependencies {
   logService: LogService;
   binaryManager: BinaryManager;
   tokenService: TokenService;
+  languageRef: { current: SupportedLang };
 }
 
 function zodToError(errorMessage: string): AppError {
@@ -70,7 +73,8 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     queueStore,
     mainWindow,
     logService,
-    tokenService
+    tokenService,
+    languageRef
   } = deps;
   let warmUpPromise: Promise<Result<WarmUpOutput>> | null = null;
 
@@ -95,6 +99,12 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     });
 
     return warmUpPromise;
+  });
+
+  ipcMain.handle(IPC_CHANNELS.appSetLanguage, (_, payload: unknown) => {
+    if (typeof payload === 'string' && (SUPPORTED_LANGS as readonly string[]).includes(payload)) {
+      languageRef.current = payload as SupportedLang;
+    }
   });
 
   ipcMain.handle(IPC_CHANNELS.windowMinimize, () => { mainWindow.minimize(); });

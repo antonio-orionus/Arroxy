@@ -1,4 +1,5 @@
 import { useEffect, useRef, type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../store/useAppStore';
 import { StepUrlInput } from './StepUrlInput';
 import { StepFormatSelect } from './StepFormatSelect';
@@ -7,18 +8,13 @@ import { StepConfirm } from './StepConfirm';
 import { StepError } from './StepError';
 import { cn } from '@renderer/lib/utils';
 
-const STEPS = [
-  { key: 'url', label: 'URL' },
-  { key: 'formats', label: 'Format' },
-  { key: 'folder', label: 'Save' },
-  { key: 'confirm', label: 'Confirm' },
-] as const;
-
-const STEP_ORDER = STEPS.map((s) => s.key);
+const STEP_KEYS = ['url', 'formats', 'folder', 'confirm'] as const;
+type StepKey = (typeof STEP_KEYS)[number];
 
 export function WizardPanel(): JSX.Element {
+  const { t } = useTranslation();
   const wizardStep = useAppStore((s) => s.wizardStep);
-  const activeIndex = STEP_ORDER.indexOf(wizardStep as (typeof STEP_ORDER)[number]);
+  const activeIndex = STEP_KEYS.indexOf(wizardStep as StepKey);
 
   const prevIndexRef = useRef(activeIndex);
   // eslint-disable-next-line react-hooks/refs -- previous-value ref pattern; only safe because it's never written during render
@@ -35,11 +31,11 @@ export function WizardPanel(): JSX.Element {
     >
       {wizardStep !== 'error' && (
         <div className="flex items-center mb-4" aria-hidden data-testid="step-indicator">
-          {STEPS.map((step, i) => {
+          {STEP_KEYS.map((stepKey, i) => {
             const isDone = i < activeIndex;
             const isActive = i === activeIndex;
             return (
-              <div key={step.key} className="flex items-center flex-1 last:flex-none">
+              <div key={stepKey} className="flex items-center flex-1 last:flex-none">
                 <div className="flex flex-col items-center gap-1">
                   <div
                     className={cn(
@@ -65,10 +61,10 @@ export function WizardPanel(): JSX.Element {
                       (isDone || (!isActive && !isDone)) && 'text-[var(--text-subtle)]'
                     )}
                   >
-                    {step.label}
+                    {t(`wizard.steps.${stepKey}` as const)}
                   </span>
                 </div>
-                {i < STEPS.length - 1 && (
+                {i < STEP_KEYS.length - 1 && (
                   <div
                     className={cn(
                       'h-[2px] flex-1 mb-4 mx-1 transition-all duration-500 rounded-full',

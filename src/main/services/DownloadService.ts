@@ -11,12 +11,14 @@ import { fail, ok, type Result } from '@shared/result';
 import type {
   CancelDownloadOutput,
   DownloadJob,
+  LocalizedError,
   PauseDownloadOutput,
   ProgressEvent,
   RecentJob,
   StartDownloadInput,
   StartDownloadOutput,
-  StatusEvent
+  StatusEvent,
+  StatusKey
 } from '@shared/types';
 import type { BinaryManager } from './BinaryManager';
 import type { LogService } from './LogService';
@@ -86,24 +88,24 @@ export class DownloadService extends EventEmitter {
     this.logger.log('INFO', 'Download job created', { jobId: job.id, url: job.url, formatId: job.formatId, outputDir: job.outputDir });
 
     try {
-      this.emitStatus(job.id, 'setup', 'Preparing binaries...');
-      const ytDlpPath = await this.binaryManager.ensureYtDlp((message) => {
-        this.emitStatus(job.id, 'setup', message);
+      this.emitStatus(job.id, 'setup', 'preparingBinaries');
+      const ytDlpPath = await this.binaryManager.ensureYtDlp((statusKey, params) => {
+        this.emitStatus(job.id, 'setup', statusKey, params);
       });
-      const ffmpegPath = await this.binaryManager.ensureFFmpeg((message) => {
-        this.emitStatus(job.id, 'setup', message);
+      const ffmpegPath = await this.binaryManager.ensureFFmpeg((statusKey, params) => {
+        this.emitStatus(job.id, 'setup', statusKey, params);
       });
 
       if (this.activeJobs.get(job.id)?.cancelRequested) {
         this.logger.log('INFO', 'Download cancelled before binary setup completed', { jobId: job.id });
-        this.emitStatus(job.id, 'error', 'Download cancelled');
+        this.emitStatus(job.id, 'error', 'cancelled');
         await this.finalize(job, 'cancelled');
         return fail(createAppError('download', 'Download cancelled before start'));
       }
 
       if (this.mockMode) {
-        this.emitStatus(job.id, 'token', 'Minting YouTube token...');
-        this.emitStatus(job.id, 'download', 'Starting yt-dlp process...');
+        this.emitStatus(job.id, 'token', 'mintingToken');
+        this.emitStatus(job.id, 'download', 'startingYtdlp');
         this.startMockDownload(job.id);
         return ok({ job });
       }
@@ -126,11 +128,11 @@ export class DownloadService extends EventEmitter {
           this.emitStatus(
             job.id,
             'token',
-            attempt === 0 ? 'Minting YouTube token...' : 'Re-minting token...'
+            attempt === 0 ? 'mintingToken' : 'remintingToken'
           );
         },
         onSpawn: (proc) => {
-          this.emitStatus(job.id, 'download', 'Starting yt-dlp process...');
+          this.emitStatus(job.id, 'download', 'startingYtdlp');
           const active = this.activeJobs.get(job.id);
           if (!active) return;
           active.process = proc;
@@ -150,35 +152,50 @@ export class DownloadService extends EventEmitter {
 
         if (activeEntry?.cancelRequested) {
           await this.cleanupPartFiles(job.outputDir);
-          this.emitStatus(job.id, 'error', 'Download cancelled');
+          this.emitStatus(job.id, 'error', 'cancelled');
           await this.finalize(job, 'cancelled');
           return;
         }
 
         if (result.spawnError) {
           this.logger.log('ERROR', 'yt-dlp spawn error', { message: result.spawnError.message, jobId: job.id });
-          this.emitStatus(job.id, 'error', `yt-dlp process error: ${result.spawnError.message}`);
-          await this.finalize(job, 'failed', result.spawnError.message);
+          this.emitStatus(job.id, 'error', 'ytdlpProcessError', { error: result.spawnError.message }, {
+            key: null,
+            rawMessage: result.spawnError.message
+          });
+          await this.finalize(job, 'failed', { key: null, rawMessage: result.spawnError.message });
           return;
         }
 
         if (result.exitCode === 0) {
-          this.emitStatus(job.id, 'done', 'Download complete');
+          this.emitStatus(job.id, 'done', 'complete');
           await this.finalize(job, 'completed');
           return;
         }
 
-        const message = result.message ?? `yt-dlp exited with code ${result.exitCode ?? -1}`;
         this.logger.log('ERROR', 'yt-dlp download failed', { jobId: job.id, code: result.exitCode, signal: result.errorClass });
-        this.emitStatus(job.id, 'error', message);
-        await this.finalize(job, 'failed', message);
+
+        const errorPayload: LocalizedError = {
+          key: result.errorClass,
+          rawMessage: result.rawError ?? undefined
+        };
+
+        if (result.errorClass) {
+          this.emitStatus(job.id, 'error', 'ytdlpExitCode', { code: result.exitCode ?? -1 }, errorPayload);
+        } else if (result.rawError) {
+          this.emitStatus(job.id, 'error', 'ytdlpProcessError', { error: result.rawError }, errorPayload);
+        } else {
+          this.emitStatus(job.id, 'error', 'ytdlpExitCode', { code: result.exitCode ?? -1 }, errorPayload);
+        }
+        await this.finalize(job, 'failed', errorPayload);
       });
 
       return ok({ job });
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown download startup failure';
-      this.emitStatus(job.id, 'error', message);
-      await this.finalize(job, 'failed', message);
+      const payload: LocalizedError = { key: null, rawMessage: message };
+      this.emitStatus(job.id, 'error', 'unknownStartupFailure', undefined, payload);
+      await this.finalize(job, 'failed', payload);
       return fail(createAppError('download', message));
     }
   }
@@ -258,7 +275,7 @@ export class DownloadService extends EventEmitter {
       active.mockTimer = undefined;
       await this.cleanupPartFiles(job.outputDir);
       await this.finalize(job, 'cancelled');
-      this.emitStatus(job.id, 'error', 'Download cancelled');
+      this.emitStatus(job.id, 'error', 'cancelled');
       return ok({ cancelled: true });
     }
 
@@ -295,23 +312,31 @@ export class DownloadService extends EventEmitter {
     }
   }
 
-  private emitStatus(jobId: string, stage: StatusEvent['stage'], message: string): void {
+  private emitStatus(
+    jobId: string,
+    stage: StatusEvent['stage'],
+    statusKey: StatusKey,
+    params?: Record<string, string | number>,
+    error?: LocalizedError
+  ): void {
     const event: StatusEvent = {
       jobId,
       stage,
-      message,
+      statusKey,
+      params,
+      error,
       at: nowIso()
     };
     this.emit('status', event);
-    this.logger.log(stage === 'error' ? 'ERROR' : 'INFO', message, { jobId, stage });
+    this.logger.log(stage === 'error' ? 'ERROR' : 'INFO', statusKey, { jobId, stage, params });
   }
 
   private async finalize(
     job: DownloadJob,
     status: RecentJob['status'],
-    errorMessage?: string
+    error?: LocalizedError
   ): Promise<void> {
-    this.logger.log('INFO', 'Job finalized', { jobId: job.id, status, ...(errorMessage && { errorMessage }) });
+    this.logger.log('INFO', 'Job finalized', { jobId: job.id, status, ...(error && { error }) });
     this.activeJobs.delete(job.id);
 
     job.status = status;
@@ -324,7 +349,7 @@ export class DownloadService extends EventEmitter {
       formatId: job.formatId,
       status,
       finishedAt: job.updatedAt,
-      errorMessage
+      error
     };
 
     await this.recentJobsStore.push(recent);
@@ -343,7 +368,7 @@ export class DownloadService extends EventEmitter {
 
       if (percent >= 100) {
         clearInterval(timer);
-        this.emitStatus(jobId, 'done', 'Download complete');
+        this.emitStatus(jobId, 'done', 'complete');
         const active = this.activeJobs.get(jobId);
         if (active) {
           await this.finalize(active.job, 'completed');

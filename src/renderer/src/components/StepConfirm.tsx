@@ -1,6 +1,7 @@
 import type { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import { humanSize } from '@shared/format';
-import { useAppStore, groupVideoFormats, PRESET_LABELS } from '../store/useAppStore';
+import { useAppStore, groupVideoFormats, presetLabel } from '../store/useAppStore';
 import { formatHomeRelativePath } from '@renderer/lib/utils';
 import { Button } from './ui/button';
 import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
@@ -8,6 +9,7 @@ import { VideoSummaryCard } from './VideoSummaryCard';
 import loveImg from '../assets/Love.png';
 
 export function StepConfirm(): JSX.Element {
+  const { t } = useTranslation();
   const {
     wizardTitle,
     wizardThumbnail,
@@ -26,28 +28,30 @@ export function StepConfirm(): JSX.Element {
   const videoGroups = groupVideoFormats(wizardFormats).filter((g) => !g.isAudioOnly);
   const videoResolution =
     selectedVideoFormatId === ''
-      ? 'Audio only'
+      ? t('wizard.confirm.audioOnly')
       : videoGroups.find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? selectedVideoFormatId;
 
   const audioFormat = wizardFormats.find((f) => f.formatId === selectedAudioFormatId);
-  const audioLabel = selectedAudioFormatId === null ? 'No audio' : (audioFormat?.label ?? 'Audio');
+  const audioLabel = selectedAudioFormatId === null
+    ? t('wizard.formats.noAudio')
+    : (audioFormat?.label ?? t('formatLabel.audioFallback'));
 
   const videoSummary = activePreset
-    ? PRESET_LABELS[activePreset]
+    ? presetLabel(activePreset)
     : selectedVideoFormatId === ''
-      ? 'Audio only'
+      ? t('wizard.confirm.audioOnly')
       : videoResolution;
 
   const selectedFormat = wizardFormats.find((f) => f.formatId === selectedVideoFormatId);
-  const estimatedSize = selectedFormat?.filesize ? `~${humanSize(selectedFormat.filesize)}` : 'Unknown';
+  const estimatedSize = selectedFormat?.filesize ? `~${humanSize(selectedFormat.filesize)}` : t('wizard.confirm.sizeUnknown');
 
   const shortPath = formatHomeRelativePath(wizardOutputDir, commonPaths);
 
-  const summaryRows: [string, string][] = [
-    ['Video', videoSummary],
-    ['Audio', audioLabel],
-    ['Save to', shortPath],
-    ['Size', estimatedSize],
+  const summaryRows: { key: string; label: string; value: string }[] = [
+    { key: 'video',  label: t('wizard.confirm.labelVideo'),  value: videoSummary },
+    { key: 'audio',  label: t('wizard.confirm.labelAudio'),  value: audioLabel },
+    { key: 'saveTo', label: t('wizard.confirm.labelSaveTo'), value: shortPath },
+    { key: 'size',   label: t('wizard.confirm.labelSize'),   value: estimatedSize },
   ];
 
   return (
@@ -63,9 +67,9 @@ export function StepConfirm(): JSX.Element {
       <div className="flex items-center gap-4 p-4 rounded-lg border border-[hsla(220,100%,56%,0.15)] bg-[var(--brand-dim)] shrink-0">
         <img src={loveImg} alt="" aria-hidden className="w-16 h-16 object-contain shrink-0" />
         <div>
-          <p className="text-sm font-semibold text-foreground">Ready to pull it in!</p>
+          <p className="text-sm font-semibold text-foreground">{t('wizard.confirm.readyHeadline')}</p>
           <p className="text-xs text-muted-foreground mt-1">
-            Your file will land in{' '}
+            {t('wizard.confirm.landIn')}{' '}
             <code className="font-mono text-foreground/80">{shortPath}</code>
           </p>
         </div>
@@ -75,16 +79,16 @@ export function StepConfirm(): JSX.Element {
       <div className="rounded-lg border border-border bg-secondary overflow-hidden" data-testid="confirm-preview">
         <table className="w-full">
           <tbody>
-            {summaryRows.map(([label, value]) => (
-              <tr key={label} className="border-b border-border last:border-b-0">
+            {summaryRows.map((row) => (
+              <tr key={row.key} className="border-b border-border last:border-b-0">
                 <td className="px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] w-16 whitespace-nowrap">
-                  {label}
+                  {row.label}
                 </td>
                 <td
                   className="px-4 py-2 text-xs text-foreground/80 font-mono truncate max-w-xs"
-                  data-testid={`confirm-${label.toLowerCase().replace(' ', '-')}`}
+                  data-testid={`confirm-${row.key}`}
                 >
-                  {value}
+                  {row.value}
                 </td>
               </tr>
             ))}
@@ -100,7 +104,7 @@ export function StepConfirm(): JSX.Element {
           data-testid="btn-back"
           className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground mr-auto"
         >
-          Back
+          {t('common.back')}
         </Button>
         <Tooltip>
           <TooltipTrigger render={(props) => (
@@ -111,10 +115,10 @@ export function StepConfirm(): JSX.Element {
               onClick={() => void addToQueue()}
               data-testid="btn-add-to-queue"
             >
-              + Queue
+              {t('wizard.confirm.addToQueue')}
             </Button>
           )} />
-          <TooltipContent>Starts when other downloads finish — gets full bandwidth</TooltipContent>
+          <TooltipContent>{t('wizard.confirm.addToQueueTooltip')}</TooltipContent>
         </Tooltip>
         <Tooltip>
           <TooltipTrigger render={(props) => (
@@ -126,10 +130,10 @@ export function StepConfirm(): JSX.Element {
               data-testid="btn-download-now"
               className="shadow-[0_4px_14px_var(--brand-glow)]"
             >
-              Pull it! ↓
+              {t('wizard.confirm.pullIt')}
             </Button>
           )} />
-          <TooltipContent>Starts immediately — runs alongside other active downloads</TooltipContent>
+          <TooltipContent>{t('wizard.confirm.pullItTooltip')}</TooltipContent>
         </Tooltip>
       </div>
     </div>

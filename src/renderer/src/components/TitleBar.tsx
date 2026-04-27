@@ -1,5 +1,6 @@
 import { useEffect, useState, type JSX } from 'react';
 import { Minus, Square, Minimize2, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@renderer/lib/utils';
 import appIcon from '@renderer/assets/App-icon-HQ.png';
 
@@ -9,11 +10,12 @@ const noDrag: React.CSSProperties = { WebkitAppRegion: 'no-drag' } as React.CSSP
 const isMac = window.platform === 'darwin';
 
 function MacControls({ isMaximized }: { isMaximized: boolean }): JSX.Element {
+  const { t } = useTranslation();
   return (
     <div className="flex items-center gap-1.5" style={noDrag} data-testid="window-controls-mac">
       <button
         type="button"
-        aria-label="Close"
+        aria-label={t('titleBar.close')}
         data-testid="wc-close"
         onClick={() => void window.appApi.window.close()}
         className="group w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#e0443e] transition-colors flex items-center justify-center"
@@ -22,7 +24,7 @@ function MacControls({ isMaximized }: { isMaximized: boolean }): JSX.Element {
       </button>
       <button
         type="button"
-        aria-label="Minimize"
+        aria-label={t('titleBar.minimize')}
         data-testid="wc-minimize"
         onClick={() => void window.appApi.window.minimize()}
         className="group w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#d4a000] transition-colors flex items-center justify-center"
@@ -31,7 +33,7 @@ function MacControls({ isMaximized }: { isMaximized: boolean }): JSX.Element {
       </button>
       <button
         type="button"
-        aria-label={isMaximized ? 'Restore' : 'Maximize'}
+        aria-label={isMaximized ? t('titleBar.restore') : t('titleBar.maximize')}
         data-testid="wc-maximize"
         onClick={() => void window.appApi.window.maximize()}
         className="group w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#1aaa2f] transition-colors flex items-center justify-center"
@@ -45,11 +47,12 @@ function MacControls({ isMaximized }: { isMaximized: boolean }): JSX.Element {
 }
 
 function WinLinuxControls({ isMaximized }: { isMaximized: boolean }): JSX.Element {
+  const { t } = useTranslation();
   return (
     <div className="flex items-center" style={noDrag} data-testid="window-controls-win">
       <button
         type="button"
-        aria-label="Minimize"
+        aria-label={t('titleBar.minimize')}
         data-testid="wc-minimize"
         onClick={() => void window.appApi.window.minimize()}
         className="h-8 w-10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
@@ -58,7 +61,7 @@ function WinLinuxControls({ isMaximized }: { isMaximized: boolean }): JSX.Elemen
       </button>
       <button
         type="button"
-        aria-label={isMaximized ? 'Restore' : 'Maximize'}
+        aria-label={isMaximized ? t('titleBar.restore') : t('titleBar.maximize')}
         data-testid="wc-maximize"
         onClick={() => void window.appApi.window.maximize()}
         className="h-8 w-10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
@@ -69,7 +72,7 @@ function WinLinuxControls({ isMaximized }: { isMaximized: boolean }): JSX.Elemen
       </button>
       <button
         type="button"
-        aria-label="Close"
+        aria-label={t('titleBar.close')}
         data-testid="wc-close"
         onClick={() => void window.appApi.window.close()}
         className="h-8 w-10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-[var(--color-status-error)] transition-colors"

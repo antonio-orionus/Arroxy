@@ -1,4 +1,5 @@
 import { useEffect, useState, type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@renderer/lib/utils';
 import downloadingImg from '../assets/Downloading.png';
 
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export function QueueTipNudge({ visible, onDismiss }: Props): JSX.Element | null {
+  const { t } = useTranslation();
   const [rendered, setRendered] = useState(visible);
   const cls = visible ? 'nudge-in' : 'nudge-out';
 
@@ -34,7 +36,7 @@ export function QueueTipNudge({ visible, onDismiss }: Props): JSX.Element | null
           className="w-9 h-9 object-contain shrink-0"
         />
         <div className="relative bg-secondary border border-border rounded-xl px-3 py-2 text-xs text-foreground/80 leading-relaxed whitespace-nowrap shadow-lg">
-          Your download is queued below — open anytime to track progress.
+          {t('queue.tip')}
           <span
             aria-hidden
             className="absolute -bottom-[6px] left-6 w-0 h-0"

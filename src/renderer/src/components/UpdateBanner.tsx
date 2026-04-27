@@ -1,6 +1,8 @@
 import { useState, type JSX } from 'react';
 import { Copy, CopyCheck } from 'lucide-react';
-import type { InstallChannel, UpdateAvailablePayload } from '@shared/types';
+import { useTranslation } from 'react-i18next';
+import type { UpdateAvailablePayload } from '@shared/types';
+import { resolveAction } from './updateBannerAction';
 
 interface Props {
   info: UpdateAvailablePayload;
@@ -12,19 +14,8 @@ interface Props {
 
 const RELEASES_URL = 'https://github.com/antonio-orionus/Arroxy/releases/latest';
 
-export type Action =
-  | { kind: 'install' }
-  | { kind: 'download' }
-  | { kind: 'command'; cmd: string };
-
-export function resolveAction(channel: InstallChannel, platform: NodeJS.Platform): Action {
-  if (channel === 'scoop') return { kind: 'command', cmd: 'scoop update arroxy' };
-  if (channel === 'homebrew') return { kind: 'command', cmd: 'brew upgrade --cask arroxy' };
-  if (channel === 'winget') return { kind: 'install' };
-  return platform === 'darwin' ? { kind: 'download' } : { kind: 'install' };
-}
-
 export function UpdateBanner({ info, installing, onInstall, onDownload, onDismiss }: Props): JSX.Element {
+  const { t } = useTranslation();
   const action = resolveAction(info.installChannel, window.platform);
   const [copied, setCopied] = useState(false);
 
@@ -41,9 +32,11 @@ export function UpdateBanner({ info, installing, onInstall, onDownload, onDismis
       data-testid="update-banner"
     >
       <span className="text-[13px] text-foreground/80 truncate">
-        <span className="font-semibold" style={{ color: 'var(--brand)' }}>Arroxy {info.version}</span>
-        {' '}is available{' '}
-        <span className="text-muted-foreground">— you have {info.currentVersion}</span>
+        <span className="font-semibold" style={{ color: 'var(--brand)' }}>
+          {t('update.appVersion', { version: info.version })}
+        </span>
+        {' '}{t('update.isAvailable')}{' '}
+        <span className="text-muted-foreground">{t('update.youHave', { currentVersion: info.currentVersion })}</span>
       </span>
 
       <div className="flex items-center gap-2 shrink-0">
@@ -61,7 +54,7 @@ export function UpdateBanner({ info, installing, onInstall, onDownload, onDismis
                 aria-hidden
               />
             )}
-            {installing ? 'Downloading…' : 'Install & Restart'}
+            {installing ? t('update.downloading') : t('update.install')}
           </button>
         )}
 
@@ -72,7 +65,7 @@ export function UpdateBanner({ info, installing, onInstall, onDownload, onDismis
             className="text-[13px] font-medium px-2.5 py-1 rounded-md transition-colors"
             style={{ background: 'var(--brand)', color: '#fff' }}
           >
-            Download ↗
+            {t('update.download')}
           </a>
         )}
 
@@ -88,7 +81,7 @@ export function UpdateBanner({ info, installing, onInstall, onDownload, onDismis
               type="button"
               onClick={() => void handleCopy(action.cmd)}
               className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-foreground/80 transition-colors"
-              aria-label={copied ? 'Copied command to clipboard' : 'Copy command to clipboard'}
+              aria-label={copied ? t('update.copied') : t('update.copy')}
             >
               {copied ? <CopyCheck size={14} /> : <Copy size={14} />}
             </button>
@@ -99,7 +92,7 @@ export function UpdateBanner({ info, installing, onInstall, onDownload, onDismis
           type="button"
           onClick={onDismiss}
           className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-foreground/80 transition-colors text-base leading-none"
-          aria-label="Dismiss update banner"
+          aria-label={t('update.dismiss')}
         >
           ×
         </button>

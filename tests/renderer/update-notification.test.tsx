@@ -14,7 +14,10 @@ function makeApi(overrides: {
   openExternal?: (url: string) => Promise<unknown>;
 } = {}) {
   return {
-    app: { warmUp: vi.fn().mockResolvedValue(ok({ completed: true, failures: [] })) },
+    app: {
+      warmUp: vi.fn().mockResolvedValue(ok({ completed: true, failures: [] })),
+      setLanguage: vi.fn().mockResolvedValue(undefined)
+    },
     window: {
       minimize: vi.fn().mockResolvedValue(undefined),
       maximize: vi.fn().mockResolvedValue(undefined),

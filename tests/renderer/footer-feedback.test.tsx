@@ -12,7 +12,8 @@ const mockOpenLogsDir = vi.fn().mockResolvedValue(ok({ opened: true }));
 
 const mockAppApi = {
   app: {
-    warmUp: vi.fn().mockResolvedValue(ok({ completed: true, failures: [] }))
+    warmUp: vi.fn().mockResolvedValue(ok({ completed: true, failures: [] })),
+    setLanguage: vi.fn().mockResolvedValue(undefined)
   },
   window: {
     minimize: vi.fn().mockResolvedValue(undefined),

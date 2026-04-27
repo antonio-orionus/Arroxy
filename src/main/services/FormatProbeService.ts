@@ -132,7 +132,7 @@ export class FormatProbeService {
 
       if (result.exitCode !== 0) {
         this.logger.log('ERROR', 'yt-dlp format probe failed', { code: result.exitCode, url, signal: result.errorClass });
-        return fail(createAppError('download', result.message ?? 'Format probing failed'));
+        return fail(createAppError('download', result.rawError ?? 'Format probing failed'));
       }
 
       try {

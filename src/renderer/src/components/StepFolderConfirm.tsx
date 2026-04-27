@@ -1,4 +1,5 @@
 import { useState, useMemo, type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../store/useAppStore';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
@@ -19,6 +20,7 @@ function matchLocation(dir: string, locations: Location[]): string {
 }
 
 export function StepFolderConfirm(): JSX.Element {
+  const { t } = useTranslation();
   const {
     wizardOutputDir,
     wizardThumbnail,
@@ -30,11 +32,11 @@ export function StepFolderConfirm(): JSX.Element {
   } = useAppStore();
 
   const locations = useMemo<Location[]>(() => [
-    { id: 'downloads', label: 'Downloads', icon: '📁', path: commonPaths?.downloads ?? null },
-    { id: 'videos',    label: 'Movies',    icon: '🎬', path: commonPaths?.videos ?? null },
-    { id: 'desktop',   label: 'Desktop',   icon: '🖥', path: commonPaths?.desktop ?? null },
-    { id: 'custom',    label: 'Custom…',   icon: '📂', path: null },
-  ], [commonPaths]);
+    { id: 'downloads', label: t('wizard.folder.downloads'), icon: '📁', path: commonPaths?.downloads ?? null },
+    { id: 'videos',    label: t('wizard.folder.videos'),    icon: '🎬', path: commonPaths?.videos ?? null },
+    { id: 'desktop',   label: t('wizard.folder.desktop'),   icon: '🖥', path: commonPaths?.desktop ?? null },
+    { id: 'custom',    label: t('wizard.folder.custom'),    icon: '📂', path: null },
+  ], [commonPaths, t]);
 
   const [selectedId, setSelectedId] = useState<string>(() => matchLocation(wizardOutputDir, locations));
 
@@ -67,7 +69,9 @@ export function StepFolderConfirm(): JSX.Element {
       />
 
       <div className="flex flex-col gap-1.5">
-        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Save to</p>
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
+          {t('wizard.folder.heading')}
+        </p>
         <div className="flex flex-col gap-1">
           {locations.map((loc) => {
             const isSelected = selectedId === loc.id;
@@ -100,7 +104,7 @@ export function StepFolderConfirm(): JSX.Element {
           onClick={() => goToStep('formats')}
           className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
         >
-          Back
+          {t('common.back')}
         </Button>
         <Button
           type="button"
@@ -108,7 +112,7 @@ export function StepFolderConfirm(): JSX.Element {
           disabled={!wizardOutputDir}
           className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none"
         >
-          Continue
+          {t('common.continue')}
         </Button>
       </div>
     </div>

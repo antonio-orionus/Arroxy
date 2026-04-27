@@ -3,19 +3,30 @@ import type {
   AppError,
   AppSettings,
   FormatOption,
+  LocalizedError,
   Preset,
-  QueueItem
+  QueueItem,
+  StatusSnapshot,
+  SupportedLang
 } from '@shared/types';
+import { i18next, pickLanguage } from '@shared/i18n';
 import { nextMonotonicPercent, ProgressFormatter } from './progress';
 
 export type WizardStep = 'url' | 'formats' | 'folder' | 'confirm' | 'error';
 
-export const PRESET_LABELS: Record<Preset, string> = {
-  'best-quality': 'Best quality',
-  balanced: 'Balanced',
-  'audio-only': 'Audio only',
-  'small-file': 'Small file'
-};
+const PRESETS: readonly Preset[] = ['best-quality', 'balanced', 'audio-only', 'small-file'];
+
+export function presetLabel(preset: Preset): string {
+  return i18next.t(`presets.${preset}.label` as const);
+}
+
+export function presetOptions(): { value: Preset; label: string; desc: string }[] {
+  return PRESETS.map((value) => ({
+    value,
+    label: i18next.t(`presets.${value}.label` as const),
+    desc: i18next.t(`presets.${value}.desc` as const)
+  }));
+}
 
 export interface GroupedVideoFormat {
   resolution: string;
@@ -40,12 +51,14 @@ function buildFormatLabel(
   preset: Preset | null
 ): string {
   if (preset) {
-    return PRESET_LABELS[preset];
+    return i18next.t(`presets.${preset}.label` as const);
   }
   const audioFmt = audioFormats.find((f) => f.formatId === audioFormatId);
-  const audioLabel = audioFormatId === null ? 'No audio' : (audioFmt?.label ?? 'Audio');
-  if (videoFormatId === '') return `Audio only · ${audioLabel}`;
-  return `${videoResolution} · ${audioLabel}`;
+  const audioLabel = audioFormatId === null
+    ? i18next.t('wizard.formats.noAudio')
+    : (audioFmt?.label ?? i18next.t('formatLabel.audioFallback'));
+  if (videoFormatId === '') return i18next.t('formatLabel.audioOnlyDot', { audio: audioLabel });
+  return i18next.t('formatLabel.videoDot', { resolution: videoResolution, audio: audioLabel });
 }
 
 export function groupVideoFormats(formats: FormatOption[]): GroupedVideoFormat[] {
@@ -61,7 +74,12 @@ export function groupVideoFormats(formats: FormatOption[]): GroupedVideoFormat[]
     }
   }
 
-  grouped.push({ resolution: 'Audio only', formatId: '', label: 'Audio only (no video)', isAudioOnly: true });
+  grouped.push({
+    resolution: i18next.t('wizard.formats.audioOnly'),
+    formatId: '',
+    label: i18next.t('wizard.formats.audioOnlyOption'),
+    isAudioOnly: true
+  });
 
   return grouped;
 }
@@ -144,6 +162,7 @@ interface AppState {
 
   uiZoom: number;
   uiTheme: 'light' | 'dark' | 'system';
+  language: SupportedLang;
 
   // Drawer
   drawerOpen: boolean;
@@ -159,6 +178,7 @@ interface AppState {
   openLogs: () => Promise<void>;
   setUiZoom: (zoom: number) => void;
   setUiTheme: (theme: 'light' | 'dark' | 'system') => void;
+  setLanguage: (lang: SupportedLang) => void;
 
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
@@ -239,7 +259,8 @@ export const useAppStore = create<AppState>((set, get) => {
       status: 'pending',
       progressPercent: 0,
       progressDetail: null,
-      errorMessage: null,
+      lastStatus: null,
+      error: null,
       finishedAt: null,
       downloadJobId: null
     };
@@ -286,6 +307,7 @@ export const useAppStore = create<AppState>((set, get) => {
     queue: [],
     uiZoom: 1,
     uiTheme: 'system',
+    language: pickLanguage(navigator.language),
     drawerOpen: false,
     setDrawerOpen: (open) => set({ drawerOpen: open }),
     showQueueTip: false,
@@ -306,7 +328,8 @@ export const useAppStore = create<AppState>((set, get) => {
             status: 'done',
             progressPercent: 100,
             finishedAt: new Date().toISOString(),
-            downloadJobId: null
+            downloadJobId: null,
+            lastStatus: { key: event.statusKey, params: event.params }
           });
           saveQueue();
           void maybeStartNext();
@@ -314,11 +337,16 @@ export const useAppStore = create<AppState>((set, get) => {
           progressFormatters.delete(event.jobId);
           updateQueueItem(item.id, {
             status: 'error',
-            errorMessage: event.message,
+            error: event.error ?? { key: null },
+            lastStatus: { key: event.statusKey, params: event.params },
             downloadJobId: null
           });
           saveQueue();
           void maybeStartNext();
+        } else {
+          updateQueueItem(item.id, {
+            lastStatus: { key: event.statusKey, params: event.params }
+          });
         }
       });
 
@@ -351,14 +379,21 @@ export const useAppStore = create<AppState>((set, get) => {
       if (settingsResult.ok) {
         const zoom = settingsResult.data.uiZoom ?? 1;
         const theme = settingsResult.data.uiTheme ?? 'system';
+        const persistedLang = settingsResult.data.language;
         const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.classList.toggle('dark', isDark);
+        const nextLanguage = persistedLang ?? get().language;
+        if (nextLanguage !== i18next.language) {
+          void i18next.changeLanguage(nextLanguage);
+        }
+        void window.appApi.app.setLanguage(nextLanguage);
         set({
           settings: settingsResult.data,
           wizardOutputDir: settingsResult.data.defaultOutputDir,
           commonPaths: settingsResult.data.commonPaths,
           uiZoom: zoom,
-          uiTheme: theme
+          uiTheme: theme,
+          language: nextLanguage
         });
       }
 
@@ -385,6 +420,13 @@ export const useAppStore = create<AppState>((set, get) => {
     setUiTheme: (theme) => {
       set({ uiTheme: theme });
       void window.appApi.settings.update({ uiTheme: theme });
+    },
+
+    setLanguage: (lang) => {
+      set({ language: lang });
+      void i18next.changeLanguage(lang);
+      void window.appApi.settings.update({ language: lang });
+      void window.appApi.app.setLanguage(lang);
     },
 
     setWizardUrl: (url) => set({ wizardUrl: url }),
@@ -486,7 +528,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const item = get().queue.find((i) => i.id === itemId);
       if (!item) return;
 
-      updateQueueItem(itemId, { status: 'downloading', progressPercent: 0, progressDetail: null, errorMessage: null });
+      updateQueueItem(itemId, { status: 'downloading', progressPercent: 0, progressDetail: null, lastStatus: null, error: null });
 
       const result = await window.appApi.downloads.start({
         url: item.url,
@@ -495,7 +537,8 @@ export const useAppStore = create<AppState>((set, get) => {
       });
 
       if (!result.ok) {
-        updateQueueItem(itemId, { status: 'error', errorMessage: result.error.message });
+        const errorPayload: LocalizedError = { key: null, rawMessage: result.error.message };
+        updateQueueItem(itemId, { status: 'error', error: errorPayload });
         return;
       }
 
@@ -528,7 +571,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const item = get().queue.find((i) => i.id === itemId);
       if (!item || item.status !== 'paused') return;
 
-      updateQueueItem(itemId, { status: 'downloading', errorMessage: null });
+      updateQueueItem(itemId, { status: 'downloading', error: null });
       saveQueue();
 
       const result = await window.appApi.downloads.start({
@@ -538,7 +581,8 @@ export const useAppStore = create<AppState>((set, get) => {
       });
 
       if (!result.ok) {
-        updateQueueItem(itemId, { status: 'error', errorMessage: result.error.message });
+        const errorPayload: LocalizedError = { key: null, rawMessage: result.error.message };
+        updateQueueItem(itemId, { status: 'error', error: errorPayload });
         saveQueue();
         return;
       }
@@ -559,7 +603,8 @@ export const useAppStore = create<AppState>((set, get) => {
         status: 'pending',
         progressPercent: 0,
         progressDetail: null,
-        errorMessage: null,
+        lastStatus: null,
+        error: null,
         finishedAt: null,
         downloadJobId: null
       });
@@ -587,6 +632,19 @@ export const useAppStore = create<AppState>((set, get) => {
     }
   };
 });
+
+export function formatStatus(snapshot: StatusSnapshot | null): string {
+  if (!snapshot) return '';
+  const key = `status.${snapshot.key}`;
+  // i18next typed resources don't compose with computed keys + interpolation params; cast through unknown.
+  return (i18next.t as (k: string, opts?: Record<string, unknown>) => string)(key, snapshot.params);
+}
+
+export function formatLocalizedError(error: LocalizedError | null): string {
+  if (!error) return '';
+  if (error.key) return i18next.t(`errors.ytdlp.${error.key}` as const);
+  return error.rawMessage ?? '';
+}
 
 export function formatError(error: AppError | null): string {
   if (!error) return '';

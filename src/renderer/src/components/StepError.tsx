@@ -1,8 +1,10 @@
 import type { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import { formatError, useAppStore } from '../store/useAppStore';
 import { Button } from './ui/button';
 
 export function StepError(): JSX.Element {
+  const { t } = useTranslation();
   const { wizardError, retryWizard, resetWizard } = useAppStore();
 
   return (
@@ -19,10 +21,10 @@ export function StepError(): JSX.Element {
       </p>
       <div className="flex gap-2">
         <Button variant="ghost" type="button" onClick={resetWizard} data-testid="btn-start-over">
-          Start over
+          {t('common.startOver')}
         </Button>
         <Button type="button" onClick={() => void retryWizard()} data-testid="btn-retry">
-          Retry
+          {t('common.retry')}
         </Button>
       </div>
     </div>

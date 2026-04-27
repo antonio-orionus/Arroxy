@@ -5,7 +5,8 @@ import type { ProgressEvent, QueueItem, StatusEvent, UpdateAvailablePayload } fr
 
 const api: AppApi = {
   app: {
-    warmUp: () => ipcRenderer.invoke(IPC_CHANNELS.appWarmUp)
+    warmUp: () => ipcRenderer.invoke(IPC_CHANNELS.appWarmUp),
+    setLanguage: (language) => ipcRenderer.invoke(IPC_CHANNELS.appSetLanguage, language)
   },
   window: {
     minimize: () => ipcRenderer.invoke(IPC_CHANNELS.windowMinimize),

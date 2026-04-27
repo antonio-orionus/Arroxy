@@ -1,6 +1,6 @@
 import type { ChildProcessWithoutNullStreams } from 'node:child_process';
 import { spawnYtDlp } from '@main/utils/process';
-import { classifyStderr, extractLastError, friendlyMessage, type StderrSignal } from '@main/utils/ytdlpErrors';
+import { classifyStderr, extractLastError, type StderrSignal } from '@main/utils/ytdlpErrors';
 
 interface TokenLike {
   mintTokenForUrl: (url: string) => Promise<{ token: string; visitorData: string }>;
@@ -24,7 +24,7 @@ export interface RunYtDlpResult {
   stdout: string;
   stderr: string;
   errorClass: StderrSignal | null;
-  message: string | null;
+  rawError: string | null;
   spawnError?: Error;
 }
 
@@ -59,27 +59,30 @@ export async function runYtDlp(opts: RunYtDlpOptions): Promise<RunYtDlpResult> {
       });
 
       proc.on('error', (error) => {
-        resolve({ exitCode: null, stdout, stderr, errorClass: null, message: error.message, spawnError: error });
+        resolve({ exitCode: null, stdout, stderr, errorClass: null, rawError: error.message, spawnError: error });
       });
 
       proc.on('close', async (code) => {
         if (code === 0) {
-          resolve({ exitCode: 0, stdout, stderr, errorClass: null, message: null });
+          resolve({ exitCode: 0, stdout, stderr, errorClass: null, rawError: null });
           return;
         }
 
         const signal = classifyStderr(stderr);
 
-        if (signal === 'bot_block' && attemptIndex === 0) {
+        if (signal === 'botBlock' && attemptIndex === 0) {
           opts.tokenService.invalidateCache();
           resolve(await attempt(1));
           return;
         }
 
-        const message = signal
-          ? friendlyMessage(signal)
-          : (extractLastError(stderr) ?? `yt-dlp exited with code ${code ?? -1}`);
-        resolve({ exitCode: code ?? -1, stdout, stderr, errorClass: signal, message });
+        resolve({
+          exitCode: code ?? -1,
+          stdout,
+          stderr,
+          errorClass: signal,
+          rawError: extractLastError(stderr)
+        });
       });
     });
   };
