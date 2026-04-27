@@ -60,16 +60,11 @@ describe('LogService', () => {
     // Construct LogService — this creates session log + triggers rotation
     const svc = new LogService(dir);
 
-    // Give the async readdir + unlink a tick to run
-    await new Promise((r) => setImmediate(r));
-    await new Promise((r) => setImmediate(r));
-
     const remaining = await fsPromises.readdir(logsDir);
     const sessionFiles = remaining.filter((f) => f.startsWith('app-') && f.endsWith('.log'));
 
-    // 7 old + 1 new session = 8 total; rotation keeps 5 → should be ≤ 5 after rotation
-    // (timing-sensitive: some deletes may not have completed yet, so check ≤ 6)
-    expect(sessionFiles.length).toBeLessThanOrEqual(6);
+    // 7 old + 1 new session = 8 total; rotation keeps 5 → exactly 5 remain
+    expect(sessionFiles.length).toBe(5);
     // The newly created session log must still exist
     expect(sessionFiles).toContain(path.basename(svc.getCurrentLogFilePath()));
   });
@@ -81,10 +76,8 @@ describe('LogService', () => {
 
     await fsPromises.writeFile(path.join(logsDir, 'app-2024-01-01T00-00-00-000Z.log'), 'old');
 
-    const unlinkSpy = vi.spyOn(fs, 'unlink');
+    const unlinkSpy = vi.spyOn(fs, 'unlinkSync');
     new LogService(dir);
-    await new Promise((r) => setImmediate(r));
-    await new Promise((r) => setImmediate(r));
 
     // 1 old + 1 new = 2 files — no rotation needed
     expect(unlinkSpy).not.toHaveBeenCalled();

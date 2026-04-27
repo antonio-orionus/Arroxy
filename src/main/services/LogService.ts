@@ -21,9 +21,9 @@ export class LogService {
 
     this.sessionId = nowIso().replace(/[:.]/g, '-');
     this.logFilePath = path.join(this.logsDir, `app-${this.sessionId}.log`);
-    this.stream = fs.createWriteStream(this.logFilePath, { flags: 'a' });
-
+    fs.writeFileSync(this.logFilePath, '');
     this.rotateLogs();
+    this.stream = fs.createWriteStream(this.logFilePath, { flags: 'a' });
     this.log('INFO', 'Session started');
   }
 
@@ -51,14 +51,18 @@ export class LogService {
   }
 
   private rotateLogs(): void {
-    fs.readdir(this.logsDir, (_err, files) => {
-      if (!files) return;
+    try {
+      const files = fs.readdirSync(this.logsDir);
       const logs = files
         .filter((f) => f.startsWith('app-') && f.endsWith('.log'))
         .sort();
       const toDelete = logs.slice(0, Math.max(0, logs.length - MAX_LOG_FILES));
-      toDelete.forEach((f) => fs.unlink(path.join(this.logsDir, f), () => {}));
-    });
+      for (const f of toDelete) {
+        try {
+          fs.unlinkSync(path.join(this.logsDir, f));
+        } catch {}
+      }
+    } catch {}
   }
 
   getLogsDir(): string {
