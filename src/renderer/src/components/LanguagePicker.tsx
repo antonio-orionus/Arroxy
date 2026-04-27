@@ -19,7 +19,7 @@ export function LanguagePicker(): JSX.Element {
         className="bg-transparent border-none text-[12px] text-muted-foreground hover:text-foreground/80 focus:outline-none cursor-pointer pr-1"
       >
         {SUPPORTED_LANGS.map((code) => (
-          <option key={code} value={code}>
+          <option key={code} value={code} className="bg-background text-foreground">
             {LANGUAGE_NATIVE_NAMES[code]}
           </option>
         ))}
