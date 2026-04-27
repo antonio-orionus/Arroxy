@@ -122,8 +122,7 @@
         "ru_RU",
         "uk_UA",
         "ja_JP",
-        "zh_CN",
-        "hi_IN"
+        "zh_CN"
       ],
       "include": "build/installer.nsh",
       "artifactName": "${productName}-Setup-${version}.${ext}"
