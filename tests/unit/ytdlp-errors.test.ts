@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { extractLastError, classifyStderr } from '@main/utils/ytdlpErrors';
+import { YTDLP_ERROR_KEYS } from '@shared/schemas';
 
 describe('extractLastError', () => {
   it('returns the ERROR: line from single-line stderr', () => {
@@ -67,5 +68,48 @@ describe('classifyStderr', () => {
 
   it('detects rateLimit from too many requests (case-insensitive)', () => {
     expect(classifyStderr('too many requests')).toBe('rateLimit');
+  });
+
+  it('detects ageRestricted from explicit age-restriction text', () => {
+    expect(classifyStderr('ERROR: This video is age-restricted')).toBe('ageRestricted');
+  });
+
+  it('detects ageRestricted from sign-in age prompt', () => {
+    expect(classifyStderr('Sign in to confirm your age')).toBe('ageRestricted');
+  });
+
+  it('detects unavailable from "this video is unavailable"', () => {
+    expect(classifyStderr('ERROR: This video is unavailable')).toBe('unavailable');
+  });
+
+  it('detects unavailable from "private video"', () => {
+    expect(classifyStderr('ERROR: Private video — sign in if you have access')).toBe('unavailable');
+  });
+
+  it('detects geoBlocked from country availability message', () => {
+    expect(classifyStderr('ERROR: This video is not available in your country')).toBe('geoBlocked');
+  });
+
+  it('detects geoBlocked from geo-restricted phrase', () => {
+    expect(classifyStderr('Video is geo-restricted')).toBe('geoBlocked');
+  });
+});
+
+describe('YtdlpErrorKey ↔ classifyStderr contract', () => {
+  // All enum values must be reachable by classifyStderr — guards against
+  // adding a key without wiring its regex pattern.
+  it('classifyStderr returns every YtdlpErrorKey for at least one input', () => {
+    const fixtures: Record<string, string> = {
+      botBlock: "Sign in to confirm you're not a bot",
+      ipBlock: 'Your IP is likely being blocked by Youtube',
+      rateLimit: 'HTTP Error 429: Too Many Requests',
+      ageRestricted: 'This video is age-restricted',
+      unavailable: 'This video is unavailable',
+      geoBlocked: 'This video is not available in your country'
+    };
+    for (const key of YTDLP_ERROR_KEYS) {
+      expect(fixtures[key], `no fixture for ${key}`).toBeDefined();
+      expect(classifyStderr(fixtures[key])).toBe(key);
+    }
   });
 });

@@ -5,36 +5,11 @@ import { ok, fail, type Result } from '@shared/result';
 import { sortFormatsByQuality } from '@shared/qualitySorter';
 import { humanSize } from '@shared/format';
 import type { FormatOption, GetFormatsOutput, SubtitleMap } from '@shared/types';
+import { ytDlpInfoSchema, type YtDlpInfo, type YtDlpSubtitleTrack } from '@shared/schemas';
+import { LIVE_CHAT_LANG } from '@shared/constants';
 import type { BinaryManager } from './BinaryManager';
 import type { TokenService } from './TokenService';
 import { runYtDlp } from './ytDlpRunner';
-
-interface YtDlpFormat {
-  format_id?: string;
-  ext?: string;
-  resolution?: string;
-  format_note?: string;
-  fps?: number;
-  abr?: number;
-  filesize?: number;
-  vcodec?: string;
-  acodec?: string;
-  dynamic_range?: string;
-}
-
-interface YtDlpSubtitleTrack {
-  ext?: string;
-  name?: string;
-}
-
-interface YtDlpInfo {
-  formats?: YtDlpFormat[];
-  title?: string;
-  thumbnail?: string;
-  duration?: number;
-  subtitles?: Record<string, YtDlpSubtitleTrack[]>;
-  automatic_captions?: Record<string, YtDlpSubtitleTrack[]>;
-}
 
 function sanitizeSubtitleMap(
   raw: Record<string, YtDlpSubtitleTrack[]> | undefined,
@@ -43,7 +18,7 @@ function sanitizeSubtitleMap(
   if (!raw) return {};
   const result: SubtitleMap = {};
   for (const [lang, tracks] of Object.entries(raw)) {
-    if (lang === 'live_chat') continue;
+    if (lang === LIVE_CHAT_LANG) continue;
     // YouTube bundles real auto-captions and on-demand translation options into the same map.
     // Only keys ending in `-orig` are real generated tracks — everything else is a translation
     // request that YouTube generates live and rate-limits aggressively.
@@ -160,13 +135,23 @@ export class FormatProbeService {
         }
       });
 
-      if (result.exitCode !== 0) {
-        this.logger.log('ERROR', 'yt-dlp format probe failed', { code: result.exitCode, url, signal: result.errorClass });
-        return fail(createAppError('download', result.rawError ?? 'Format probing failed'));
+      if (result.kind !== 'success') {
+        const code = result.kind === 'exit-error' ? result.exitCode : null;
+        const signal = result.kind === 'exit-error' ? result.signal : null;
+        const rawError = result.kind === 'exit-error' ? result.rawError : result.error.message;
+        this.logger.log('ERROR', 'yt-dlp format probe failed', { code, url, signal });
+        return fail(createAppError('download', rawError ?? 'Format probing failed'));
       }
 
       try {
-        const parsed = JSON.parse(result.stdout) as YtDlpInfo;
+        const raw = JSON.parse(result.stdout);
+        const parseResult = ytDlpInfoSchema.safeParse(raw);
+        if (!parseResult.success) {
+          const message = parseResult.error.issues[0]?.message ?? 'yt-dlp output failed schema validation';
+          this.logger.log('ERROR', 'Format probe schema validation failed', { message, url });
+          return fail(createAppError('download', 'Unexpected yt-dlp output shape', message));
+        }
+        const parsed = parseResult.data;
         const formats = mapFormats(parsed);
         this.logger.log('INFO', 'Format probe complete', { url, title: parsed.title, formatCount: formats.length });
         return ok({

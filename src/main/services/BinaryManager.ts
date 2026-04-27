@@ -37,10 +37,12 @@ function resolveRedirect(baseUrl: string, next: string): string {
   return new URL(next, baseUrl).toString();
 }
 
+const HTTP_TIMEOUT_MS = 30_000;
+
 async function downloadText(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const request = (targetUrl: string): void => {
-      https
+      const req = https
         .get(targetUrl, { headers: { 'User-Agent': 'arroxy/1.0' } }, (res) => {
           if (res.statusCode && [301, 302, 307, 308].includes(res.statusCode) && res.headers.location) {
             request(resolveRedirect(targetUrl, res.headers.location));
@@ -61,6 +63,9 @@ async function downloadText(url: string): Promise<string> {
           res.on('error', reject);
         })
         .on('error', reject);
+      req.setTimeout(HTTP_TIMEOUT_MS, () => {
+        req.destroy(new Error(`HTTP request timed out after ${HTTP_TIMEOUT_MS}ms`));
+      });
     };
 
     request(url);
@@ -72,7 +77,7 @@ async function downloadFile(url: string, destination: string): Promise<void> {
 
   await new Promise<void>((resolve, reject) => {
     const request = (targetUrl: string): void => {
-      https
+      const req = https
         .get(targetUrl, { headers: { 'User-Agent': 'arroxy/1.0' } }, async (res) => {
           try {
             if (
@@ -97,6 +102,9 @@ async function downloadFile(url: string, destination: string): Promise<void> {
           }
         })
         .on('error', reject);
+      req.setTimeout(HTTP_TIMEOUT_MS, () => {
+        req.destroy(new Error(`HTTP request timed out after ${HTTP_TIMEOUT_MS}ms`));
+      });
     };
 
     request(url);

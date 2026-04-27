@@ -1,9 +1,9 @@
 import type { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { humanSize } from '@shared/format';
-import { useAppStore, groupVideoFormats, presetLabel } from '../store/useAppStore';
+import { useAppStore, presetLabel, resolveAudioLabel, resolveVideoResolution } from '../store/useAppStore';
 import { formatHomeRelativePath } from '@renderer/lib/utils';
-import { resolveSubtitleLabel } from '../lib/subtitleLabel';
+import { resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS } from '../lib/subtitleLabel';
 import { Button } from './ui/button';
 import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
 import { VideoSummaryCard } from './VideoSummaryCard';
@@ -31,16 +31,9 @@ export function StepConfirm(): JSX.Element {
     goToStep
   } = useAppStore();
 
-  const videoGroups = groupVideoFormats(wizardFormats).filter((g) => !g.isAudioOnly);
-  const videoResolution =
-    selectedVideoFormatId === ''
-      ? t('wizard.confirm.audioOnly')
-      : videoGroups.find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? selectedVideoFormatId;
-
-  const audioFormat = wizardFormats.find((f) => f.formatId === selectedAudioFormatId);
-  const audioLabel = selectedAudioFormatId === null
-    ? t('wizard.formats.noAudio')
-    : (audioFormat?.label ?? t('formatLabel.audioFallback'));
+  const audioFormats = wizardFormats.filter((f) => f.isAudioOnly);
+  const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, t('wizard.confirm.audioOnly'));
+  const audioLabel = resolveAudioLabel(selectedAudioFormatId, audioFormats);
 
   const videoSummary = activePreset
     ? presetLabel(activePreset)
@@ -58,11 +51,7 @@ export function StepConfirm(): JSX.Element {
     const langList = wizardSubtitleLanguages
       .map((code) => resolveSubtitleLabel(code, wizardSubtitles, wizardAutomaticCaptions, i18n.language))
       .join(', ');
-    const modeLabel = wizardSubtitleMode === 'embed'
-      ? t('wizard.subtitles.saveMode.embed')
-      : wizardSubtitleMode === 'subfolder'
-        ? t('wizard.subtitles.saveMode.subfolder')
-        : t('wizard.subtitles.saveMode.sidecar');
+    const modeLabel = t(SUBTITLE_MODE_I18N_KEYS[wizardSubtitleMode]);
     const formatPart = wizardSubtitleMode !== 'embed' ? `${wizardSubtitleFormat.toUpperCase()} · ` : '';
     return `${langList} · ${formatPart}${modeLabel}`;
   })();

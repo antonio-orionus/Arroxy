@@ -50,12 +50,15 @@ describe('runYtDlp — token injection', () => {
 
     await runYtDlp({ ...RUN_OPTS, tokenService });
 
-    const args: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1];
-    const idx = args.indexOf('--extractor-args');
-    expect(idx).toBeGreaterThanOrEqual(0);
-    expect(args[idx + 1]).toContain('web.gvs+TOK');
-    expect(args[idx + 1]).toContain('visitor_data=VD');
-    expect(args).toContain('--dump-json');
+    expect(spawnYtDlp).toHaveBeenCalledWith(
+      RUN_OPTS.ytDlpPath,
+      expect.arrayContaining([
+        '--extractor-args',
+        expect.stringMatching(/web\.gvs\+TOK.*visitor_data=VD/),
+        '--dump-json'
+      ]),
+      RUN_OPTS.ffmpegPath
+    );
   });
 
   it('omits visitor_data when empty', async () => {
@@ -64,24 +67,26 @@ describe('runYtDlp — token injection', () => {
 
     await runYtDlp({ ...RUN_OPTS, tokenService });
 
-    const args: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1];
-    const idx = args.indexOf('--extractor-args');
-    expect(args[idx + 1]).not.toContain('visitor_data');
+    expect(spawnYtDlp).toHaveBeenCalledWith(
+      RUN_OPTS.ytDlpPath,
+      expect.arrayContaining([expect.stringMatching(/^youtube:po_token=web\.gvs\+TOK$/)]),
+      RUN_OPTS.ffmpegPath
+    );
+    const [, args] = vi.mocked(spawnYtDlp).mock.calls[0];
+    expect((args as string[]).some((a) => a.includes('visitor_data'))).toBe(false);
   });
 });
 
 describe('runYtDlp — clean exit', () => {
-  it('resolves with exitCode 0, accumulated stdout, no error signal', async () => {
+  it('resolves as success with accumulated stdout', async () => {
     vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(0, '', '{"title":"Hi"}') as never);
     const tokenService = makeTokenService();
 
     const result = await runYtDlp({ ...RUN_OPTS, tokenService });
 
-    expect(result.exitCode).toBe(0);
+    expect(result.kind).toBe('success');
+    if (result.kind !== 'success') throw new Error('expected success');
     expect(result.stdout).toBe('{"title":"Hi"}');
-    expect(result.errorClass).toBeNull();
-    expect(result.rawError).toBeNull();
-    expect(result.spawnError).toBeUndefined();
   });
 
   it('streams stdout chunks to onStdout', async () => {
@@ -118,15 +123,17 @@ describe('runYtDlp — clean exit', () => {
 });
 
 describe('runYtDlp — error classification', () => {
-  it('returns errorClass and raw stderr error on classified failure', async () => {
+  it('resolves as exit-error with classified signal and raw stderr error', async () => {
     const stderr = 'ERROR: [youtube] abc: Private video';
     vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(1, stderr) as never);
     const tokenService = makeTokenService();
 
     const result = await runYtDlp({ ...RUN_OPTS, tokenService });
 
+    expect(result.kind).toBe('exit-error');
+    if (result.kind !== 'exit-error') throw new Error('expected exit-error');
     expect(result.exitCode).toBe(1);
-    expect(result.errorClass).toBe('unavailable');
+    expect(result.signal).toBe('unavailable');
     expect(result.rawError).toBe('ERROR: [youtube] abc: Private video');
   });
 
@@ -137,7 +144,9 @@ describe('runYtDlp — error classification', () => {
 
     const result = await runYtDlp({ ...RUN_OPTS, tokenService });
 
-    expect(result.errorClass).toBeNull();
+    expect(result.kind).toBe('exit-error');
+    if (result.kind !== 'exit-error') throw new Error('expected exit-error');
+    expect(result.signal).toBeNull();
     expect(result.rawError).toBe('ERROR: [youtube] abc: Unsupported URL');
   });
 
@@ -147,6 +156,8 @@ describe('runYtDlp — error classification', () => {
 
     const result = await runYtDlp({ ...RUN_OPTS, tokenService });
 
+    expect(result.kind).toBe('exit-error');
+    if (result.kind !== 'exit-error') throw new Error('expected exit-error');
     expect(result.exitCode).toBe(2);
     expect(result.rawError).toBeNull();
   });
@@ -171,11 +182,17 @@ describe('runYtDlp — bot-block retry', () => {
     expect(tokenService.mintTokenForUrl).toHaveBeenCalledTimes(2);
     expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(2);
 
-    const retryArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[1][1];
-    const idx = retryArgs.indexOf('--extractor-args');
-    expect(retryArgs[idx + 1]).toContain('new');
+    expect(spawnYtDlp).toHaveBeenLastCalledWith(
+      RUN_OPTS.ytDlpPath,
+      expect.arrayContaining([
+        '--extractor-args',
+        expect.stringContaining('new')
+      ]),
+      RUN_OPTS.ffmpegPath
+    );
 
-    expect(result.exitCode).toBe(0);
+    expect(result.kind).toBe('success');
+    if (result.kind !== 'success') throw new Error('expected success');
     expect(result.stdout).toBe('{"ok":true}');
   });
 
@@ -190,7 +207,9 @@ describe('runYtDlp — bot-block retry', () => {
 
     expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(2);
     expect(tokenService.invalidateCache).toHaveBeenCalledOnce();
-    expect(result.errorClass).toBe('botBlock');
+    expect(result.kind).toBe('exit-error');
+    if (result.kind !== 'exit-error') throw new Error('expected exit-error');
+    expect(result.signal).toBe('botBlock');
     expect(result.exitCode).toBe(1);
   });
 
@@ -204,7 +223,9 @@ describe('runYtDlp — bot-block retry', () => {
 
     expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(1);
     expect(tokenService.invalidateCache).not.toHaveBeenCalled();
-    expect(result.errorClass).toBe('ipBlock');
+    expect(result.kind).toBe('exit-error');
+    if (result.kind !== 'exit-error') throw new Error('expected exit-error');
+    expect(result.signal).toBe('ipBlock');
   });
 
   it('calls onSpawn for both attempts so caller can track the new process', async () => {
@@ -257,13 +278,15 @@ describe('runYtDlp — bot-block retry', () => {
 
     const result = await runYtDlp({ ...RUN_OPTS, tokenService });
 
+    expect(result.kind).toBe('success');
+    if (result.kind !== 'success') throw new Error('expected success');
     expect(result.stdout).toBe('fresh-stdout');
     expect(result.stderr).toBe('[download] retry-progress');
   });
 });
 
 describe('runYtDlp — spawn error', () => {
-  it('resolves with spawnError when proc emits error before close', async () => {
+  it('resolves as spawn-error when proc emits error before close', async () => {
     const proc = Object.assign(new EventEmitter(), {
       stdout: new EventEmitter(),
       stderr: new EventEmitter(),
@@ -277,7 +300,8 @@ describe('runYtDlp — spawn error', () => {
     setTimeout(() => proc.emit('error', new Error('ENOENT')), 5);
     const result = await promise;
 
-    expect(result.spawnError?.message).toBe('ENOENT');
-    expect(result.exitCode).toBeNull();
+    expect(result.kind).toBe('spawn-error');
+    if (result.kind !== 'spawn-error') throw new Error('expected spawn-error');
+    expect(result.error.message).toBe('ENOENT');
   });
 });

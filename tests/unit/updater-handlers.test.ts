@@ -2,8 +2,11 @@ import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 
 // Must mock electron and electron-updater before importing the module under test
 vi.mock('electron', () => ({
-  app: { getVersion: vi.fn().mockReturnValue('1.0.0') },
-  ipcMain: { handle: vi.fn() }
+  app: {
+    getVersion: vi.fn().mockReturnValue('1.0.0'),
+    getName: vi.fn().mockReturnValue('arroxy')
+  },
+  ipcMain: { handle: vi.fn(), removeHandler: vi.fn() }
 }));
 
 vi.mock('electron-updater', () => ({
@@ -11,13 +14,14 @@ vi.mock('electron-updater', () => ({
     autoDownload: true,
     autoInstallOnAppQuit: true,
     on: vi.fn(),
+    removeAllListeners: vi.fn(),
     checkForUpdates: vi.fn().mockResolvedValue(undefined),
     downloadUpdate: vi.fn().mockResolvedValue(undefined),
     quitAndInstall: vi.fn()
   }
 }));
 
-vi.mock('@main/installChannel', () => ({ installChannel: 'direct' }));
+vi.mock('@main/installChannel', () => ({ detectInstallChannel: vi.fn().mockReturnValue('direct') }));
 
 import { app, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
@@ -85,20 +89,44 @@ describe('registerUpdaterHandlers', () => {
     );
   });
 
-  it('forwards installChannel from build-time constant', async () => {
+  it('forwards installChannel from runtime detection', async () => {
     vi.resetModules();
-    vi.doMock('@main/installChannel', () => ({ installChannel: 'scoop' }));
+    vi.doMock('@main/installChannel', () => ({ detectInstallChannel: vi.fn().mockReturnValue('scoop') }));
+    vi.doMock('electron', () => ({
+      app: { getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy') },
+      ipcMain: { handle: vi.fn(), removeHandler: vi.fn() }
+    }));
+    vi.doMock('electron-updater', () => ({
+      autoUpdater: {
+        autoDownload: true,
+        autoInstallOnAppQuit: true,
+        on: vi.fn(),
+        removeAllListeners: vi.fn(),
+        checkForUpdates: vi.fn().mockResolvedValue(undefined),
+        downloadUpdate: vi.fn().mockResolvedValue(undefined),
+        quitAndInstall: vi.fn()
+      }
+    }));
     const { registerUpdaterHandlers: registerWithScoop } = await import('@main/ipc/registerUpdaterHandlers');
+    const { autoUpdater: scopedAutoUpdater } = await import('electron-updater');
 
-    const handlers = captureUpdaterHandlers();
+    const handlers: HandlerMap = {};
+    vi.mocked(scopedAutoUpdater.on).mockImplementation((event: string, fn: any) => {
+      handlers[event as EventName] = fn;
+      return scopedAutoUpdater;
+    });
     const win = makeWindow();
     registerWithScoop(win);
     handlers['update-available']!({ version: '2.0.0' });
 
-    const payload = vi.mocked(win.webContents.send).mock.calls[0][1] as { installChannel: string };
-    expect(payload.installChannel).toBe('scoop');
+    expect(win.webContents.send).toHaveBeenCalledWith(
+      IPC_CHANNELS.updaterAvailable,
+      expect.objectContaining({ installChannel: 'scoop' })
+    );
 
     vi.doUnmock('@main/installChannel');
+    vi.doUnmock('electron');
+    vi.doUnmock('electron-updater');
     vi.resetModules();
   });
 
@@ -179,7 +207,9 @@ describe('registerUpdaterHandlers', () => {
 
     handlers['update-available']!({ version: '1.0.0' });
 
-    const payload = vi.mocked(win.webContents.send).mock.calls[0][1] as { currentVersion: string };
-    expect(payload.currentVersion).toBe('0.5.3');
+    expect(win.webContents.send).toHaveBeenCalledWith(
+      IPC_CHANNELS.updaterAvailable,
+      expect.objectContaining({ currentVersion: '0.5.3' })
+    );
   });
 });

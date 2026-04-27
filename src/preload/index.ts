@@ -25,7 +25,8 @@ onMaximizedChange: (listener) => {
     getFormats: (input) => ipcRenderer.invoke(IPC_CHANNELS.downloadsGetFormats, input),
     start: (input) => ipcRenderer.invoke(IPC_CHANNELS.downloadsStart, input),
     cancel: (input = {}) => ipcRenderer.invoke(IPC_CHANNELS.downloadsCancel, input),
-    pause: (input = {}) => ipcRenderer.invoke(IPC_CHANNELS.downloadsPause, input)
+    pause: (input = {}) => ipcRenderer.invoke(IPC_CHANNELS.downloadsPause, input),
+    resume: (input) => ipcRenderer.invoke(IPC_CHANNELS.downloadsResume, input)
   },
   settings: {
     get: () => ipcRenderer.invoke(IPC_CHANNELS.settingsGet),

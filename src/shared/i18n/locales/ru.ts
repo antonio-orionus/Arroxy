@@ -66,10 +66,10 @@ const ru = {
       sectionManual: 'Ручные',
       sectionAuto: 'Автоматические',
       saveMode: {
-        heading: 'Save as',
-        sidecar: 'Next to video',
-        embed: 'Embed into video',
-        subfolder: 'Subtitles/ subfolder'
+        heading: 'Сохранить как',
+        sidecar: 'Рядом с видео',
+        embed: 'Встроить в видео',
+        subfolder: 'Подпапка Subtitles/'
       },
       format: {
         heading: 'Format'

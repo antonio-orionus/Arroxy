@@ -66,10 +66,10 @@ const zh = {
       sectionManual: '手动',
       sectionAuto: '自动生成',
       saveMode: {
-        heading: 'Save as',
-        sidecar: 'Next to video',
-        embed: 'Embed into video',
-        subfolder: 'Subtitles/ subfolder'
+        heading: '保存方式',
+        sidecar: '与视频同位置',
+        embed: '嵌入到视频',
+        subfolder: 'Subtitles/ 子文件夹'
       },
       format: {
         heading: 'Format'

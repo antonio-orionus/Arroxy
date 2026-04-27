@@ -46,8 +46,8 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, getFormat
       onProgress: vi.fn().mockReturnValue(() => undefined),
     },
     queue: {
-      save: vi.fn().mockResolvedValue(undefined),
-      load: vi.fn().mockResolvedValue([]),
+      save: vi.fn().mockResolvedValue({ ok: true, data: { saved: true } }),
+      load: vi.fn().mockResolvedValue({ ok: true, data: [] }),
     },
     updater: {
       onUpdateAvailable: vi.fn().mockReturnValue(() => undefined),

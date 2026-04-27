@@ -66,10 +66,10 @@ const hi = {
       sectionManual: 'मैनुअल',
       sectionAuto: 'स्वतः-जनित',
       saveMode: {
-        heading: 'Save as',
-        sidecar: 'Next to video',
-        embed: 'Embed into video',
-        subfolder: 'Subtitles/ subfolder'
+        heading: 'इस रूप में सहेजें',
+        sidecar: 'वीडियो के साथ',
+        embed: 'वीडियो में एम्बेड करें',
+        subfolder: 'Subtitles/ सबफ़ोल्डर'
       },
       format: {
         heading: 'Format'

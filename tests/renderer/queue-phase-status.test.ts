@@ -34,8 +34,8 @@ describe('Queue store — phase status transitions', () => {
         onProgress: vi.fn().mockReturnValue(() => undefined),
       },
       queue: {
-        save: vi.fn().mockResolvedValue(undefined),
-        load: vi.fn().mockResolvedValue(savedQueue)
+        save: vi.fn().mockResolvedValue({ ok: true, data: { saved: true } }),
+        load: vi.fn().mockResolvedValue({ ok: true, data: savedQueue })
       },
       updater: {
         onUpdateAvailable: vi.fn().mockReturnValue(() => undefined),

@@ -1,6 +1,21 @@
-import type { StatusKey, SupportedLang, LocalizedError } from './i18n/types';
+import type { LocalizedError } from './i18n/types';
 
-export type { StatusKey, SupportedLang, LocalizedError, YtdlpErrorKey } from './i18n/types';
+// Re-export the enum types whose canonical definition lives in `schemas.ts`
+// (where they're z.enum schemas). Importing from `@shared/types` continues to
+// work for callers that don't care about the schema vs type distinction.
+export type {
+  Preset,
+  SubtitleMode,
+  SubtitleFormat,
+  SupportedLang,
+  UiTheme,
+  QueueItemStatus
+} from './schemas';
+
+export type { StatusKey } from './schemas';
+export type { LocalizedError, YtdlpErrorKey } from './i18n/types';
+
+import type { Preset, SubtitleMode, SubtitleFormat, SupportedLang, UiTheme, StatusKey } from './schemas';
 
 export type AppErrorCode = 'validation' | 'token' | 'binary' | 'download' | 'ipc' | 'unknown';
 
@@ -11,18 +26,13 @@ export interface AppError {
   recoverable?: boolean;
 }
 
-export type Preset = 'best-quality' | 'balanced' | 'audio-only' | 'small-file' | 'subtitle-only';
-
-export type SubtitleMode = 'sidecar' | 'embed' | 'subfolder';
-export type SubtitleFormat = 'srt' | 'vtt' | 'ass';
-
 export interface AppSettings {
   defaultOutputDir: string;
   rememberLastOutputDir: boolean;
   lastVideoResolution?: string;
   lastPreset?: Preset | null;
   uiZoom?: number;
-  uiTheme?: 'light' | 'dark' | 'system';
+  uiTheme?: UiTheme;
   language?: SupportedLang;
   commonPaths?: { downloads: string; videos: string; desktop: string };
   lastSubtitleLanguages?: string[];
@@ -72,8 +82,6 @@ export interface RecentJob {
   error?: LocalizedError;
 }
 
-export type QueueItemStatus = 'pending' | 'downloading' | 'paused' | 'done' | 'error' | 'cancelled';
-
 export interface StatusSnapshot {
   key: StatusKey;
   params?: Record<string, string | number>;
@@ -85,9 +93,9 @@ export interface QueueItem {
   title: string;
   thumbnail: string;
   outputDir: string;
-  formatId: string | undefined;
+  formatId?: string;
   formatLabel: string;
-  status: QueueItemStatus;
+  status: import('./schemas').QueueItemStatus;
   progressPercent: number;
   progressDetail: string | null;
   lastStatus: StatusSnapshot | null;

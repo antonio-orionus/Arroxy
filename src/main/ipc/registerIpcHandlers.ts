@@ -7,12 +7,14 @@ import {
   cancelDownloadSchema,
   getFormatsSchema,
   pauseResumeSchema,
+  queueArraySchema,
+  resumeSchema,
   startDownloadSchema,
+  supportedLangSchema,
   updateSettingsSchema
 } from '@shared/schemas';
 import type { AppError, WarmUpOutput } from '@shared/types';
 import type { SupportedLang } from '@shared/i18n/types';
-import { SUPPORTED_LANGS } from '@shared/i18n';
 import type { DownloadService } from '@main/services/DownloadService';
 import type { FormatProbeService } from '@main/services/FormatProbeService';
 import type { LogService } from '@main/services/LogService';
@@ -20,7 +22,6 @@ import type { BinaryManager } from '@main/services/BinaryManager';
 import type { TokenService } from '@main/services/TokenService';
 import type { SettingsStore } from '@main/stores/SettingsStore';
 import type { QueueStore } from '@main/stores/QueueStore';
-import type { QueueItem } from '@shared/types';
 
 interface IpcDependencies {
   mainWindow: BrowserWindow;
@@ -51,6 +52,7 @@ function handle<T, R>(
   schema: ZodType<T>,
   fn: (data: T) => Promise<Result<R>>
 ): void {
+  ipcMain.removeHandler(channel);
   ipcMain.handle(channel, async (_, payload: unknown) => {
     const parsed = schema.safeParse(payload ?? {});
     if (!parsed.success) {
@@ -62,6 +64,11 @@ function handle<T, R>(
       return toUnknownFailure(error);
     }
   });
+}
+
+function handleRaw(channel: string, listener: Parameters<typeof ipcMain.handle>[1]): void {
+  ipcMain.removeHandler(channel);
+  ipcMain.handle(channel, listener);
 }
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
@@ -78,7 +85,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
   } = deps;
   let warmUpPromise: Promise<Result<WarmUpOutput>> | null = null;
 
-  ipcMain.handle(IPC_CHANNELS.appWarmUp, () => {
+  handleRaw(IPC_CHANNELS.appWarmUp, () => {
     warmUpPromise ??= Promise.allSettled([
       binaryManager.ensureYtDlp(),
       binaryManager.ensureFFmpeg(),
@@ -101,21 +108,24 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     return warmUpPromise;
   });
 
-  ipcMain.handle(IPC_CHANNELS.appSetLanguage, (_, payload: unknown) => {
-    if (typeof payload === 'string' && (SUPPORTED_LANGS as readonly string[]).includes(payload)) {
-      languageRef.current = payload as SupportedLang;
+  handleRaw(IPC_CHANNELS.appSetLanguage, (_, payload: unknown) => {
+    const parsed = supportedLangSchema.safeParse(payload);
+    if (parsed.success) {
+      languageRef.current = parsed.data;
+    } else {
+      logService.log('WARN', 'app:setLanguage rejected — invalid language', { payload });
     }
   });
 
-  ipcMain.handle(IPC_CHANNELS.windowMinimize, () => { mainWindow.minimize(); });
-  ipcMain.handle(IPC_CHANNELS.windowMaximize, () => {
+  handleRaw(IPC_CHANNELS.windowMinimize, () => { mainWindow.minimize(); });
+  handleRaw(IPC_CHANNELS.windowMaximize, () => {
     if (mainWindow.isMaximized()) mainWindow.unmaximize();
     else mainWindow.maximize();
   });
-  ipcMain.handle(IPC_CHANNELS.windowClose, () => { mainWindow.close(); });
-  ipcMain.handle(IPC_CHANNELS.windowIsMaximized, () => mainWindow.isMaximized());
+  handleRaw(IPC_CHANNELS.windowClose, () => { mainWindow.close(); });
+  handleRaw(IPC_CHANNELS.windowIsMaximized, () => mainWindow.isMaximized());
 
-  ipcMain.handle(IPC_CHANNELS.chooseFolder, async () => {
+  handleRaw(IPC_CHANNELS.chooseFolder, async () => {
     try {
       const result = await dialog.showOpenDialog(mainWindow, {
         properties: ['openDirectory'],
@@ -144,7 +154,9 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 
   handle(IPC_CHANNELS.downloadsPause, pauseResumeSchema, ({ jobId }) => downloadService.pause(jobId));
 
-  ipcMain.handle(IPC_CHANNELS.settingsGet, async () => {
+  handle(IPC_CHANNELS.downloadsResume, resumeSchema, ({ jobId }) => downloadService.resume(jobId));
+
+  handleRaw(IPC_CHANNELS.settingsGet, async () => {
     try {
       const settings = await settingsStore.get();
       return ok({
@@ -165,7 +177,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     return ok(updated);
   });
 
-  ipcMain.handle(IPC_CHANNELS.shellOpenFolder, async (_, payload: unknown) => {
+  handleRaw(IPC_CHANNELS.shellOpenFolder, async (_, payload: unknown) => {
     try {
       const requestedPath = typeof payload === 'string' && payload.length > 0 ? payload : null;
       const target = requestedPath ?? app.getPath('downloads');
@@ -177,7 +189,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     }
   });
 
-  ipcMain.handle(IPC_CHANNELS.shellOpenExternal, async (_, payload: unknown) => {
+  handleRaw(IPC_CHANNELS.shellOpenExternal, async (_, payload: unknown) => {
     try {
       if (typeof payload !== 'string' || !payload.startsWith('http')) {
         return toIpcFailure('Invalid URL for openExternal');
@@ -189,7 +201,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     }
   });
 
-  ipcMain.handle(IPC_CHANNELS.logsOpenDir, async () => {
+  handleRaw(IPC_CHANNELS.logsOpenDir, async () => {
     try {
       const response = await shell.openPath(logService.getLogsDir());
       if (response) return toIpcFailure(response);
@@ -199,22 +211,54 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     }
   });
 
-  ipcMain.handle(IPC_CHANNELS.queueLoad, async () => {
-    return queueStore.load();
+  handleRaw(IPC_CHANNELS.queueLoad, async () => {
+    try {
+      const result = await queueStore.load();
+      if (!result.ok) {
+        logService.log('ERROR', 'queue:load failed', { error: result.error.message });
+      }
+      return result;
+    } catch (error) {
+      return toUnknownFailure(error);
+    }
   });
 
-  ipcMain.handle(IPC_CHANNELS.queueSave, async (_, payload: unknown) => {
-    if (!Array.isArray(payload)) return;
-    await queueStore.save(payload as QueueItem[]);
+  handle(IPC_CHANNELS.queueSave, queueArraySchema, async (items) => {
+    try {
+      await queueStore.save(items);
+      return ok({ saved: true });
+    } catch (error) {
+      logService.log('ERROR', 'queue:save failed', { error: unknownToMessage(error) });
+      return toUnknownFailure(error);
+    }
   });
+
+  // Remove any prior bridges before re-binding so re-running `registerIpcHandlers`
+  // (e.g. on window recreate) does not stack duplicate webContents.send calls.
+  downloadService.removeAllListeners('status');
+  downloadService.removeAllListeners('progress');
+
+  // Coalesce progress events to ≤10 Hz per job. yt-dlp emits multiple lines
+  // per second and the renderer rebuilds the whole queue array per event.
+  // 'done' status arrives via the status channel and sets percent=100 there,
+  // so dropping a sub-100ms tail here is harmless.
+  const lastProgressAt = new Map<string, number>();
+  const PROGRESS_THROTTLE_MS = 100;
 
   downloadService.on('status', (event) => {
+    if (event.stage === 'done' || event.stage === 'error') {
+      lastProgressAt.delete(event.jobId);
+    }
     if (mainWindow.isDestroyed()) return;
     mainWindow.webContents.send(IPC_CHANNELS.eventsStatus, event);
   });
 
   downloadService.on('progress', (event) => {
     if (mainWindow.isDestroyed()) return;
+    const now = Date.now();
+    const last = lastProgressAt.get(event.jobId) ?? 0;
+    if (now - last < PROGRESS_THROTTLE_MS) return;
+    lastProgressAt.set(event.jobId, now);
     mainWindow.webContents.send(IPC_CHANNELS.eventsProgress, event);
   });
 }

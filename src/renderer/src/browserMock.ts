@@ -1,5 +1,7 @@
 import type { AppApi } from '@shared/api';
-import type { ProgressEvent, StatusEvent, UpdateAvailablePayload } from '@shared/types';
+import type { AppSettings, ProgressEvent, StatusEvent, UpdateAvailablePayload } from '@shared/types';
+import { isYouTubeUrl } from '@shared/schemas';
+import { defaultAppSettings } from '@shared/constants';
 
 if (!('appApi' in window)) {
   const statusListeners = new Set<(e: StatusEvent) => void>();
@@ -13,12 +15,9 @@ if (!('appApi' in window)) {
     );
   }, 3_000);
 
-  let settings = {
-    defaultOutputDir: '/home/user/Downloads',
-    rememberLastOutputDir: true,
-    lastVideoResolution: undefined as string | undefined,
-    lastPreset: undefined as 'best-quality' | 'balanced' | 'audio-only' | 'small-file' | 'subtitle-only' | null | undefined,
-    language: 'en' as 'en' | 'es' | 'fr' | 'de' | 'ru' | 'uk' | 'ja' | 'zh' | 'hi',
+  let settings: AppSettings = {
+    ...defaultAppSettings('/home/user/Downloads'),
+    language: 'en',
     commonPaths: {
       downloads: '/home/user/Downloads',
       videos: '/home/user/Videos',
@@ -109,8 +108,8 @@ if (!('appApi' in window)) {
       getFormats: async (input) => {
         await delay(1400);
 
-        // Simulate error for obviously bad URLs
-        if (!input.url.includes('youtube.com') && !input.url.includes('youtu.be')) {
+        // Reject anything the real shared validator would reject.
+        if (!isYouTubeUrl(input.url)) {
           return {
             ok: false,
             error: { code: 'validation', message: 'Not a valid YouTube URL', recoverable: true }
@@ -177,6 +176,11 @@ if (!('appApi' in window)) {
 
       pause: async () => {
         return { ok: true, data: { paused: true } };
+      },
+
+      resume: async () => {
+        // Browser mock has no real job persistence; renderer falls back to start().
+        return { ok: true, data: { resumed: false } };
       }
     },
 
@@ -186,7 +190,7 @@ if (!('appApi' in window)) {
         return { ok: true, data: { ...settings } };
       },
       update: async (patch) => {
-        settings = { ...settings, ...patch } as typeof settings;
+        settings = { ...settings, ...patch };
         return { ok: true, data: { ...settings } };
       }
     },
@@ -235,8 +239,8 @@ if (!('appApi' in window)) {
     },
 
     queue: {
-      save: async () => { /* no-op in browser */ },
-      load: async () => []
+      save: async () => ({ ok: true, data: { saved: true } }),
+      load: async () => ({ ok: true, data: [] })
     },
 
     updater: {

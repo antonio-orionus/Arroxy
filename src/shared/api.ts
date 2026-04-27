@@ -4,6 +4,7 @@ import type {
   AppSettings,
   CancelDownloadInput,
   CancelDownloadOutput,
+  DownloadJob,
   GetFormatsInput,
   GetFormatsOutput,
   PauseDownloadInput,
@@ -36,6 +37,7 @@ export interface AppApi {
     start(input: StartDownloadInput): Promise<Result<StartDownloadOutput>>;
     cancel(input?: CancelDownloadInput): Promise<Result<CancelDownloadOutput>>;
     pause(input?: PauseDownloadInput): Promise<Result<PauseDownloadOutput>>;
+    resume(input: { jobId: string }): Promise<Result<{ resumed: boolean; job?: DownloadJob }>>;
   };
   settings: {
     get(): Promise<Result<AppSettings>>;
@@ -56,8 +58,8 @@ export interface AppApi {
     onProgress(listener: (event: ProgressEvent) => void): () => void;
   };
   queue: {
-    save(items: QueueItem[]): Promise<void>;
-    load(): Promise<QueueItem[]>;
+    save(items: QueueItem[]): Promise<Result<{ saved: true }>>;
+    load(): Promise<Result<QueueItem[]>>;
   };
   updater: {
     onUpdateAvailable(listener: (info: UpdateAvailablePayload) => void): () => void;

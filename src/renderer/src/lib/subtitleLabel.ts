@@ -1,4 +1,11 @@
-import type { SubtitleMap } from '@shared/types';
+import type { SubtitleMap, SubtitleMode } from '@shared/types';
+import { LIVE_CHAT_LANG } from '@shared/constants';
+
+export const SUBTITLE_MODE_I18N_KEYS = {
+  sidecar: 'wizard.subtitles.saveMode.sidecar',
+  embed: 'wizard.subtitles.saveMode.embed',
+  subfolder: 'wizard.subtitles.saveMode.subfolder'
+} as const satisfies Record<SubtitleMode, string>;
 
 export function resolveSubtitleLabel(
   code: string,
@@ -23,14 +30,14 @@ export function buildSubtitleList(
   uiLanguage: string
 ): { code: string; displayName: string; isAuto: boolean }[] {
   const manual = Object.keys(subtitles)
-    .filter((code) => code !== 'live_chat')
+    .filter((code) => code !== LIVE_CHAT_LANG)
     .map((code) => ({
       code,
       displayName: resolveSubtitleLabel(code, subtitles, automaticCaptions, uiLanguage),
       isAuto: false
     }));
   const auto = Object.keys(automaticCaptions)
-    .filter((code) => code !== 'live_chat' && !subtitles[code])
+    .filter((code) => code !== LIVE_CHAT_LANG && !subtitles[code])
     .map((code) => ({
       code,
       displayName: resolveSubtitleLabel(code, subtitles, automaticCaptions, uiLanguage),

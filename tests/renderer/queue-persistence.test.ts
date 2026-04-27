@@ -11,8 +11,8 @@ describe('Queue persistence — store behavior', () => {
   let capturedOnStatus: ((event: StatusEvent) => void) | null = null;
 
   function buildMockApi(savedQueue: QueueItem[] = []) {
-    saveMock = vi.fn().mockResolvedValue(undefined);
-    loadMock = vi.fn().mockResolvedValue(savedQueue);
+    saveMock = vi.fn().mockResolvedValue(ok({ saved: true }));
+    loadMock = vi.fn().mockResolvedValue(ok(savedQueue));
     startMock = vi.fn().mockResolvedValue(ok({ job: makeJob('job-restored') }));
 
     return {
@@ -25,6 +25,7 @@ describe('Queue persistence — store behavior', () => {
         cancel: vi.fn().mockResolvedValue(ok({ cancelled: true })),
         getFormats: vi.fn(),
         pause: vi.fn().mockResolvedValue(ok({ paused: true })),
+        resume: vi.fn().mockResolvedValue(ok({ resumed: false })),
       },
       settings: {
         get: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false })),
@@ -200,6 +201,73 @@ describe('Queue persistence — store behavior', () => {
       expect(saveMock).toHaveBeenCalled();
       // Item was reset to pending and then auto-started (status will be downloading at this point)
       expect(useAppStore.getState().queue[0].error).toBeNull();
+    });
+
+    it('persists error status when downloads.start() fails', async () => {
+      // Override the auto-resolved start mock with a failure for this case so a
+      // restart would otherwise see the item as pending again.
+      startMock.mockResolvedValueOnce({
+        ok: false,
+        error: { code: 'download', message: 'kaboom' }
+      });
+
+      useAppStore.setState({
+        queue: [makeItem({ id: 'fail-start', status: 'pending' })],
+      });
+
+      await useAppStore.getState().startItemDownload('fail-start');
+
+      expect(useAppStore.getState().queue[0].status).toBe('error');
+      expect(useAppStore.getState().queue[0].error?.rawMessage).toBe('kaboom');
+      expect(saveMock).toHaveBeenCalled();
+      const lastSavedItems = saveMock.mock.calls.at(-1)?.[0] as Array<{ id: string; status: string }>;
+      expect(lastSavedItems.find((i) => i.id === 'fail-start')?.status).toBe('error');
+    });
+  });
+
+  describe('resumeItemDownload() — late-cancel guard', () => {
+    beforeEach(() => {
+      window.appApi = buildMockApi() as never;
+      useAppStore.setState({ initialized: true });
+    });
+
+    it('does NOT call start() when item flips to cancelled while resume() is awaiting', async () => {
+      // resume() resolves with `resumed: false`, simulating a main-process
+      // cancel-before-binaries. While the await is in flight the renderer flips
+      // the item to cancelled (e.g. user clicked cancel after resume).
+      const resumeMock = vi.fn().mockImplementation(async () => {
+        // While main is "thinking", flip the item to cancelled.
+        useAppStore.setState((state) => ({
+          queue: state.queue.map((i) =>
+            i.id === 'racing' ? { ...i, status: 'cancelled' as const } : i
+          )
+        }));
+        return ok({ resumed: false });
+      });
+      (window.appApi as unknown as { downloads: { resume: typeof resumeMock } }).downloads.resume = resumeMock;
+
+      useAppStore.setState({
+        queue: [makeItem({ id: 'racing', status: 'paused', downloadJobId: 'j-race' })],
+      });
+
+      await useAppStore.getState().resumeItemDownload('racing');
+
+      expect(resumeMock).toHaveBeenCalledOnce();
+      expect(startMock).not.toHaveBeenCalled();
+      expect(useAppStore.getState().queue[0].status).toBe('cancelled');
+    });
+
+    it('falls back to start() when resume returns resumed:false and item is still downloading', async () => {
+      // Standard cross-restart scenario: main has no record of the paused job,
+      // renderer should re-start. (This test guards against an over-broad
+      // late-cancel guard that would also skip the legitimate fallback path.)
+      useAppStore.setState({
+        queue: [makeItem({ id: 'cross-restart', status: 'paused', downloadJobId: 'j-old' })],
+      });
+
+      await useAppStore.getState().resumeItemDownload('cross-restart');
+
+      expect(startMock).toHaveBeenCalledOnce();
     });
   });
 

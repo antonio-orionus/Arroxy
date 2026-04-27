@@ -66,10 +66,10 @@ const ja = {
       sectionManual: '手動',
       sectionAuto: '自動生成',
       saveMode: {
-        heading: 'Save as',
-        sidecar: 'Next to video',
-        embed: 'Embed into video',
-        subfolder: 'Subtitles/ subfolder'
+        heading: '保存方法',
+        sidecar: '動画と同じ場所',
+        embed: '動画に埋め込む',
+        subfolder: 'Subtitles/ サブフォルダー'
       },
       format: {
         heading: 'Format'

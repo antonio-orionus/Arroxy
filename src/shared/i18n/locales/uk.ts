@@ -66,10 +66,10 @@ const uk = {
       sectionManual: 'Ручні',
       sectionAuto: 'Автоматичні',
       saveMode: {
-        heading: 'Save as',
-        sidecar: 'Next to video',
-        embed: 'Embed into video',
-        subfolder: 'Subtitles/ subfolder'
+        heading: 'Зберегти як',
+        sidecar: 'Поруч із відео',
+        embed: 'Вбудувати у відео',
+        subfolder: 'Підпапка Subtitles/'
       },
       format: {
         heading: 'Format'

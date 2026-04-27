@@ -1,8 +1,23 @@
 import type en from './locales/en';
+import {
+  SUPPORTED_LANGS as LANGS,
+  type SupportedLang as Lang,
+  STATUS_KEY,
+  type StatusKey as StatusKeyAlias,
+  type YtdlpErrorKey as YtdlpErrorKeyAlias,
+  YTDLP_ERROR_KEYS as ERROR_KEYS
+} from '../schemas';
 
-export type SupportedLang = 'en' | 'es' | 'fr' | 'de' | 'ru' | 'uk' | 'ja' | 'zh' | 'hi';
+// Re-export so existing imports of `@shared/i18n/types` and `@shared/i18n`
+// continue to work; canonical definitions live in shared/schemas.ts.
+export type SupportedLang = Lang;
+export const SUPPORTED_LANGS = LANGS;
 
-export const SUPPORTED_LANGS: readonly SupportedLang[] = ['en', 'es', 'fr', 'de', 'ru', 'uk', 'ja', 'zh', 'hi'] as const;
+export type StatusKey = StatusKeyAlias;
+export { STATUS_KEY };
+
+export type YtdlpErrorKey = YtdlpErrorKeyAlias;
+export const YTDLP_ERROR_KEYS = ERROR_KEYS;
 
 export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
   en: 'English',
@@ -15,31 +30,6 @@ export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
   zh: '中文',
   hi: 'हिन्दी'
 };
-
-export type StatusKey =
-  | 'preparingBinaries'
-  | 'mintingToken'
-  | 'remintingToken'
-  | 'startingYtdlp'
-  | 'downloadingMedia'
-  | 'mergingFormats'
-  | 'fetchingSubtitles'
-  | 'sleepingBetweenRequests'
-  | 'subtitlesFailed'
-  | 'cancelled'
-  | 'complete'
-  | 'ytdlpProcessError'
-  | 'ytdlpExitCode'
-  | 'downloadingBinary'
-  | 'unknownStartupFailure';
-
-export type YtdlpErrorKey =
-  | 'botBlock'
-  | 'ipBlock'
-  | 'rateLimit'
-  | 'ageRestricted'
-  | 'unavailable'
-  | 'geoBlocked';
 
 export interface LocalizedError {
   key: YtdlpErrorKey | null;

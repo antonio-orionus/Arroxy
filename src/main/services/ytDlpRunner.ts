@@ -19,13 +19,13 @@ export interface RunYtDlpOptions {
   onStderr?: (chunk: string) => void;
 }
 
-export interface RunYtDlpResult {
-  exitCode: number | null;
-  stdout: string;
-  stderr: string;
-  errorClass: StderrSignal | null;
-  rawError: string | null;
-  spawnError?: Error;
+export type RunYtDlpResult =
+  | { kind: 'success'; stdout: string; stderr: string }
+  | { kind: 'spawn-error'; error: Error; stdout: string; stderr: string }
+  | { kind: 'exit-error'; exitCode: number; signal: StderrSignal | null; rawError: string | null; stdout: string; stderr: string };
+
+export function isSuccess(r: RunYtDlpResult): r is Extract<RunYtDlpResult, { kind: 'success' }> {
+  return r.kind === 'success';
 }
 
 function buildExtractorArgs(token: string, visitorData: string): string {
@@ -59,12 +59,12 @@ export async function runYtDlp(opts: RunYtDlpOptions): Promise<RunYtDlpResult> {
       });
 
       proc.on('error', (error) => {
-        resolve({ exitCode: null, stdout, stderr, errorClass: null, rawError: error.message, spawnError: error });
+        resolve({ kind: 'spawn-error', error, stdout, stderr });
       });
 
       proc.on('close', async (code) => {
         if (code === 0) {
-          resolve({ exitCode: 0, stdout, stderr, errorClass: null, rawError: null });
+          resolve({ kind: 'success', stdout, stderr });
           return;
         }
 
@@ -77,11 +77,12 @@ export async function runYtDlp(opts: RunYtDlpOptions): Promise<RunYtDlpResult> {
         }
 
         resolve({
+          kind: 'exit-error',
           exitCode: code ?? -1,
+          signal,
+          rawError: extractLastError(stderr),
           stdout,
-          stderr,
-          errorClass: signal,
-          rawError: extractLastError(stderr)
+          stderr
         });
       });
     });

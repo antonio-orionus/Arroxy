@@ -28,7 +28,8 @@ const mockAppApi = {
       job: { id: 'job-1', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', outputDir: '/tmp', status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
     })),
     cancel: vi.fn().mockResolvedValue(ok({ cancelled: true })),
-    pause: vi.fn().mockResolvedValue(ok({ paused: true }))
+    pause: vi.fn().mockResolvedValue(ok({ paused: true })),
+    resume: vi.fn().mockResolvedValue(ok({ resumed: false }))
   },
   settings: {
     get: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: true })),
@@ -49,8 +50,8 @@ const mockAppApi = {
     onProgress: vi.fn().mockReturnValue(() => undefined)
   },
   queue: {
-    save: vi.fn().mockResolvedValue(undefined),
-    load: vi.fn().mockResolvedValue([])
+    save: vi.fn().mockResolvedValue({ ok: true, data: { saved: true } }),
+    load: vi.fn().mockResolvedValue({ ok: true, data: [] })
   },
   updater: {
     onUpdateAvailable: vi.fn().mockReturnValue(() => undefined),

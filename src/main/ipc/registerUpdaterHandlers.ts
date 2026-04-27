@@ -1,11 +1,18 @@
 import { app, ipcMain, type BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import { IPC_CHANNELS } from '@shared/ipc';
-import { installChannel } from '@main/installChannel';
+import { detectInstallChannel } from '@main/installChannel';
 
 export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
+  const installChannel = detectInstallChannel(app.getName());
+
+  // Remove prior bindings so re-registering (HMR, window recreate) doesn't
+  // stack listeners that would each call quitAndInstall on a single update.
+  autoUpdater.removeAllListeners('update-available');
+  autoUpdater.removeAllListeners('update-downloaded');
+  autoUpdater.removeAllListeners('error');
 
   autoUpdater.on('update-available', (info) => {
     if (mainWindow.isDestroyed()) return;
@@ -24,6 +31,7 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
     console.error('[updater]', err.message);
   });
 
+  ipcMain.removeHandler(IPC_CHANNELS.updaterInstall);
   ipcMain.handle(IPC_CHANNELS.updaterInstall, async () => {
     await autoUpdater.downloadUpdate();
   });

@@ -3,6 +3,7 @@ export const IPC_CHANNELS = {
   downloadsStart: 'downloads:start',
   downloadsCancel: 'downloads:cancel',
   downloadsPause: 'downloads:pause',
+  downloadsResume: 'downloads:resume',
   downloadsGetFormats: 'downloads:getFormats',
   chooseFolder: 'dialog:chooseFolder',
   settingsGet: 'settings:get',

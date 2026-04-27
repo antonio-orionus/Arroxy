@@ -18,14 +18,23 @@ export function SmartDrawer(): JSX.Element {
   const clearCompleted = useAppStore((s) => s.clearCompleted);
 
   const reversedQueue = useMemo(() => [...queue].reverse(), [queue]);
-  const activeItems = queue.filter((i) => i.status === 'downloading');
+  const activeItems = useMemo(
+    () => queue.filter((i) => i.status === 'downloading'),
+    [queue]
+  );
   const activeCount = activeItems.length;
   const totalCount = queue.length;
-  const hasCompleted = queue.some((i) => i.status === 'done' || i.status === 'cancelled');
+  const hasCompleted = useMemo(
+    () => queue.some((i) => i.status === 'done' || i.status === 'cancelled'),
+    [queue]
+  );
 
-  const aggregatePercent = activeCount > 0
-    ? activeItems.reduce((sum, i) => sum + i.progressPercent, 0) / activeCount
-    : 0;
+  const aggregatePercent = useMemo(
+    () => activeItems.length === 0
+      ? 0
+      : activeItems.reduce((sum, i) => sum + i.progressPercent, 0) / activeItems.length,
+    [activeItems]
+  );
   const headerProgress = activeCount === 1 ? activeItems[0].progressPercent : aggregatePercent;
 
   let headerSummary: string | null = null;

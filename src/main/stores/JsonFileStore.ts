@@ -25,7 +25,12 @@ export class JsonFileStore {
       fs.mkdir(path.dirname(this.filePath), { recursive: true })
         .then(() => fs.writeFile(this.filePath, JSON.stringify(value, null, 2), 'utf-8'))
     );
-    this.writeQueue = write.catch(() => {});
+    // Keep the queue alive on failure so subsequent writes don't deadlock,
+    // but log the failure so it's visible. Callers awaiting `write` still see
+    // the rejection.
+    this.writeQueue = write.catch((err) => {
+      console.error(`[JsonFileStore] write failed for ${this.filePath}:`, err);
+    });
     return write;
   }
 }

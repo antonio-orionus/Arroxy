@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { QueueStore } from '@main/stores/QueueStore';
 import { makeItem } from '../shared/fixtures';
 
@@ -10,10 +10,16 @@ async function tempStore(): Promise<[QueueStore, string]> {
   return [new QueueStore(dir), dir];
 }
 
+async function loadOk(store: QueueStore) {
+  const result = await store.load();
+  if (!result.ok) throw new Error(`expected ok, got fail: ${result.error.message}`);
+  return result.data;
+}
+
 describe('QueueStore', () => {
   it('returns empty array when no file exists', async () => {
     const [store] = await tempStore();
-    expect(await store.load()).toEqual([]);
+    expect(await loadOk(store)).toEqual([]);
   });
 
   it('round-trips pending items unchanged', async () => {
@@ -21,7 +27,7 @@ describe('QueueStore', () => {
     const item = makeItem({ id: 'a', status: 'pending' });
     await store.save([item]);
 
-    const loaded = await store.load();
+    const loaded = await loadOk(store);
     expect(loaded).toHaveLength(1);
     expect(loaded[0].id).toBe('a');
     expect(loaded[0].status).toBe('pending');
@@ -38,7 +44,7 @@ describe('QueueStore', () => {
     });
     await store.save([item]);
 
-    const loaded = await store.load();
+    const loaded = await loadOk(store);
     expect(loaded[0].status).toBe('done');
     expect(loaded[0].progressPercent).toBe(100);
     expect(loaded[0].finishedAt).toBe('2024-01-01T12:00:00.000Z');
@@ -49,7 +55,7 @@ describe('QueueStore', () => {
     const item = makeItem({ id: 'c', status: 'error', error: { key: null, rawMessage: 'Network error' } });
     await store.save([item]);
 
-    const loaded = await store.load();
+    const loaded = await loadOk(store);
     expect(loaded[0].status).toBe('error');
     expect(loaded[0].error?.rawMessage).toBe('Network error');
   });
@@ -65,7 +71,7 @@ describe('QueueStore', () => {
     });
     await store.save([item]);
 
-    const loaded = await store.load();
+    const loaded = await loadOk(store);
     expect(loaded[0].status).toBe('pending');
     expect(loaded[0].progressPercent).toBe(0);
     expect(loaded[0].progressDetail).toBeNull();
@@ -83,7 +89,7 @@ describe('QueueStore', () => {
     });
     await store.save([item]);
 
-    const loaded = await store.load();
+    const loaded = await loadOk(store);
     expect(loaded[0].status).toBe('paused');
     expect(loaded[0].progressPercent).toBe(0);
     expect(loaded[0].progressDetail).toBeNull();
@@ -97,18 +103,17 @@ describe('QueueStore', () => {
       makeItem({ id: 'drop', status: 'cancelled' }),
     ]);
 
-    const loaded = await store.load();
+    const loaded = await loadOk(store);
     expect(loaded).toHaveLength(1);
     expect(loaded[0].id).toBe('keep');
   });
 
   it('always sets downloadJobId to null on load', async () => {
     const [store, dir] = await tempStore();
-    // Write raw JSON with a non-null downloadJobId to simulate corrupted/legacy data
     const raw = [makeItem({ id: 'f', status: 'pending', downloadJobId: 'stale-job' })];
     await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify(raw), 'utf-8');
 
-    const loaded = await store.load();
+    const loaded = await loadOk(store);
     expect(loaded[0].downloadJobId).toBeNull();
   });
 
@@ -117,32 +122,32 @@ describe('QueueStore', () => {
     await store.save([makeItem({ id: 'first', status: 'pending' })]);
     await store.save([makeItem({ id: 'second', status: 'done', progressPercent: 100 })]);
 
-    const loaded = await store.load();
+    const loaded = await loadOk(store);
     expect(loaded).toHaveLength(1);
     expect(loaded[0].id).toBe('second');
   });
 
-  it('handles corrupted JSON gracefully', async () => {
+  it('returns validation failure for non-JSON file (no silent recovery)', async () => {
     const [store, dir] = await tempStore();
     await fs.writeFile(path.join(dir, 'queue.json'), 'not valid json', 'utf-8');
-    expect(await store.load()).toEqual([]);
+
+    const result = await store.load();
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.code).toBe('validation');
+      expect(result.error.message).toMatch(/not valid JSON/i);
+    }
   });
 
-  it('handles non-array JSON gracefully', async () => {
+  it('returns validation failure for non-array JSON (no silent recovery)', async () => {
     const [store, dir] = await tempStore();
     await fs.writeFile(path.join(dir, 'queue.json'), '{"not": "an array"}', 'utf-8');
-    expect(await store.load()).toEqual([]);
-  });
 
-  it('logs an error to console when queue.json is corrupted', async () => {
-    const [store, dir] = await tempStore();
-    await fs.writeFile(path.join(dir, 'queue.json'), 'not valid json', 'utf-8');
-
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    await store.load();
-
-    expect(spy).toHaveBeenCalledOnce();
-    expect(spy.mock.calls[0][0]).toMatch(/Failed to load queue/);
-    spy.mockRestore();
+    const result = await store.load();
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.code).toBe('validation');
+      expect(result.error.message).toMatch(/corrupted/i);
+    }
   });
 });

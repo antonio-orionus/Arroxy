@@ -28,7 +28,8 @@ export function StepFolderConfirm(): JSX.Element {
     wizardDuration,
     commonPaths,
     confirmFolder,
-    goToStep
+    goToStep,
+    setWizardOutputDir
   } = useAppStore();
 
   const locations = useMemo<Location[]>(() => [
@@ -43,14 +44,12 @@ export function StepFolderConfirm(): JSX.Element {
   async function handleSelect(loc: Location): Promise<void> {
     if (loc.path !== null) {
       setSelectedId(loc.id);
-      useAppStore.setState({ wizardOutputDir: loc.path });
-      await window.appApi.settings.update({ defaultOutputDir: loc.path });
+      await setWizardOutputDir(loc.path);
     } else {
       const result = await window.appApi.dialog.chooseFolder();
       if (!result.ok || !result.data.path) return;
       setSelectedId('custom');
-      useAppStore.setState({ wizardOutputDir: result.data.path });
-      await window.appApi.settings.update({ defaultOutputDir: result.data.path });
+      await setWizardOutputDir(result.data.path);
     }
   }
 

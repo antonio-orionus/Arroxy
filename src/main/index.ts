@@ -15,7 +15,7 @@ import { SettingsStore } from '@main/stores/SettingsStore';
 import { QueueStore } from '@main/stores/QueueStore';
 import { HiddenWindowTokenProvider } from '@main/token/providers/HiddenWindowTokenProvider';
 import { MockTokenProvider } from '@main/token/providers/MockTokenProvider';
-import type { AppSettings } from '@shared/types';
+import { defaultAppSettings } from '@shared/constants';
 
 const isMockBackend = process.env.MOCK_BACKEND === '1';
 
@@ -70,12 +70,7 @@ if (hasSingleInstanceLock) {
     const userDataPath = app.getPath('userData');
     const logService = new LogService(userDataPath);
 
-    const defaultSettings: AppSettings = {
-      defaultOutputDir: app.getPath('downloads'),
-      rememberLastOutputDir: true
-    };
-
-    const settingsStore = new SettingsStore(userDataPath, defaultSettings);
+    const settingsStore = new SettingsStore(userDataPath, defaultAppSettings(app.getPath('downloads')));
     const initialSettings = await settingsStore.get();
     const languageRef: { current: ReturnType<typeof pickLanguage> } = {
       current: pickLanguage(initialSettings.language ?? app.getLocale())

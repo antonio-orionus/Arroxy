@@ -66,10 +66,10 @@ const fr = {
       sectionManual: 'Manuel',
       sectionAuto: 'Généré automatiquement',
       saveMode: {
-        heading: 'Save as',
-        sidecar: 'Next to video',
-        embed: 'Embed into video',
-        subfolder: 'Subtitles/ subfolder'
+        heading: 'Enregistrer en tant que',
+        sidecar: 'À côté de la vidéo',
+        embed: 'Intégrer dans la vidéo',
+        subfolder: 'Sous-dossier Subtitles/'
       },
       format: {
         heading: 'Format'

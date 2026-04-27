@@ -1,6 +1,7 @@
 import { useEffect, useState, type JSX } from 'react';
 import { Bug } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { ZOOM_MIN, ZOOM_MAX, ZOOM_STEP } from '@shared/schemas';
 import { useAppStore } from './store/useAppStore';
 import { TitleBar } from './components/TitleBar';
 import { WizardPanel } from './components/WizardPanel';
@@ -111,8 +112,8 @@ export function App(): JSX.Element {
         <div className="flex items-center gap-1">
           <button
             type="button"
-            onClick={() => setUiZoom(uiZoom - 0.05)}
-            disabled={uiZoom <= 0.7}
+            onClick={() => setUiZoom(uiZoom - ZOOM_STEP)}
+            disabled={uiZoom <= ZOOM_MIN}
             className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
             aria-label={t('app.zoomOut')}
           >−</button>
@@ -121,8 +122,8 @@ export function App(): JSX.Element {
           </span>
           <button
             type="button"
-            onClick={() => setUiZoom(uiZoom + 0.05)}
-            disabled={uiZoom >= 1.5}
+            onClick={() => setUiZoom(uiZoom + ZOOM_STEP)}
+            disabled={uiZoom >= ZOOM_MAX}
             className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
             aria-label={t('app.zoomIn')}
           >+</button>

@@ -6,11 +6,9 @@ import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 import { RadioOption } from './ui/radio-option';
 import { MascotBubble } from './MascotBubble';
-import { buildSubtitleList } from '../lib/subtitleLabel';
+import { buildSubtitleList, SUBTITLE_MODE_I18N_KEYS } from '../lib/subtitleLabel';
 import loveImg from '../assets/Love.png';
-import type { SubtitleFormat, SubtitleMode } from '@shared/types';
-
-const SUBTITLE_FORMATS: SubtitleFormat[] = ['srt', 'vtt', 'ass'];
+import { SUBTITLE_FORMATS, SUBTITLE_MODES } from '@shared/schemas';
 
 export function StepSubtitles(): JSX.Element {
   const { t, i18n } = useTranslation();
@@ -23,7 +21,8 @@ export function StepSubtitles(): JSX.Element {
     toggleSubtitleLanguage,
     setSubtitleMode,
     setSubtitleFormat,
-    confirmSubtitles
+    confirmSubtitles,
+    goToStep
   } = useAppStore();
 
   const [query, setQuery] = useState('');
@@ -47,11 +46,10 @@ export function StepSubtitles(): JSX.Element {
     for (const { code } of selectedItems) toggleSubtitleLanguage(code);
   }
 
-  const saveModes: { mode: SubtitleMode; label: string }[] = [
-    { mode: 'sidecar', label: t('wizard.subtitles.saveMode.sidecar') },
-    { mode: 'embed',   label: t('wizard.subtitles.saveMode.embed') },
-    { mode: 'subfolder', label: t('wizard.subtitles.saveMode.subfolder') },
-  ];
+  const saveModes = SUBTITLE_MODES.map((mode) => ({
+    mode,
+    label: t(SUBTITLE_MODE_I18N_KEYS[mode])
+  }));
 
   return (
     <div className="wizard-step flex flex-col gap-3" data-testid="step-subtitles">
@@ -208,9 +206,7 @@ export function StepSubtitles(): JSX.Element {
           <Button
             variant="ghost"
             type="button"
-            onClick={() => {
-              useAppStore.getState().goToStep('formats');
-            }}
+            onClick={() => goToStep('formats')}
             className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
           >
             {t('common.back')}
