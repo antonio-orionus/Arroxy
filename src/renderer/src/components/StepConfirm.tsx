@@ -3,13 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { humanSize } from '@shared/format';
 import { useAppStore, groupVideoFormats, presetLabel } from '../store/useAppStore';
 import { formatHomeRelativePath } from '@renderer/lib/utils';
+import { resolveSubtitleLabel } from '../lib/subtitleLabel';
 import { Button } from './ui/button';
 import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
 import { VideoSummaryCard } from './VideoSummaryCard';
 import loveImg from '../assets/Love.png';
 
 export function StepConfirm(): JSX.Element {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const {
     wizardTitle,
     wizardThumbnail,
@@ -19,6 +20,9 @@ export function StepConfirm(): JSX.Element {
     selectedAudioFormatId,
     activePreset,
     wizardFormats,
+    wizardSubtitleLanguages,
+    wizardSubtitles,
+    wizardAutomaticCaptions,
     commonPaths,
     addToQueue,
     addAndDownloadImmediately,
@@ -47,11 +51,18 @@ export function StepConfirm(): JSX.Element {
 
   const shortPath = formatHomeRelativePath(wizardOutputDir, commonPaths);
 
+  const subtitlesValue = wizardSubtitleLanguages.length > 0
+    ? wizardSubtitleLanguages
+        .map((code) => resolveSubtitleLabel(code, wizardSubtitles, wizardAutomaticCaptions, i18n.language))
+        .join(', ')
+    : t('wizard.confirm.subtitlesNone');
+
   const summaryRows: { key: string; label: string; value: string }[] = [
-    { key: 'video',  label: t('wizard.confirm.labelVideo'),  value: videoSummary },
-    { key: 'audio',  label: t('wizard.confirm.labelAudio'),  value: audioLabel },
-    { key: 'saveTo', label: t('wizard.confirm.labelSaveTo'), value: shortPath },
-    { key: 'size',   label: t('wizard.confirm.labelSize'),   value: estimatedSize },
+    { key: 'video',     label: t('wizard.confirm.labelVideo'),     value: videoSummary },
+    { key: 'audio',     label: t('wizard.confirm.labelAudio'),     value: audioLabel },
+    { key: 'subtitles', label: t('wizard.confirm.labelSubtitles'), value: subtitlesValue },
+    { key: 'saveTo',    label: t('wizard.confirm.labelSaveTo'),    value: shortPath },
+    { key: 'size',      label: t('wizard.confirm.labelSize'),      value: estimatedSize },
   ];
 
   return (

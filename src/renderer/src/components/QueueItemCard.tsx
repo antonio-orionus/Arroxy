@@ -1,13 +1,24 @@
-import type { JSX } from 'react';
-import { ExternalLink, FolderOpen, Pause, Play, RotateCcw, X } from 'lucide-react';
+import type { JSX, ReactNode } from 'react';
+import {
+  AlertTriangle, Captions, Download, ExternalLink, FolderOpen, Hourglass,
+  Layers, Pause, Play, RotateCcw, X
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import type { QueueItem, QueueItemStatus } from '@shared/types';
+import type { QueueItem, QueueItemStatus, StatusKey } from '@shared/types';
 import { useAppStore, formatStatus, formatLocalizedError } from '../store/useAppStore';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
 import { TooltipIconButton } from './ui/tooltip-icon-button';
 import { cn } from '@renderer/lib/utils';
+
+const PHASE_ICON: Partial<Record<StatusKey, ReactNode>> = {
+  downloadingMedia: <Download size={11} />,
+  mergingFormats: <Layers size={11} />,
+  fetchingSubtitles: <Captions size={11} />,
+  sleepingBetweenRequests: <Hourglass size={11} className="animate-pulse" />,
+  subtitlesFailed: <AlertTriangle size={11} />
+};
 
 interface Props {
   item: QueueItem;
@@ -22,6 +33,10 @@ const STATUS_BORDER: Record<QueueItemStatus, string> = {
   cancelled: 'border-border'
 };
 
+// Yellow/orange tint for completed-with-subtitle-warning. Reuses existing paused tokens
+// since both convey "completed but not perfect".
+const SUBS_FAILED_BORDER = 'border-l-2 border-l-[var(--color-status-paused)] shadow-[inset_3px_0_12px_var(--color-status-paused-glow)]';
+
 export function QueueItemCard({ item }: Props): JSX.Element {
   const { t, i18n } = useTranslation();
   const {
@@ -31,6 +46,11 @@ export function QueueItemCard({ item }: Props): JSX.Element {
 
   const { status } = item;
   const isActive = status === 'downloading' || status === 'paused';
+  const subsFailed = status === 'done' && item.lastStatus?.key === 'subtitlesFailed';
+
+  const phaseStatusKey = item.lastStatus?.key;
+  const phaseIcon = phaseStatusKey ? PHASE_ICON[phaseStatusKey] : null;
+  const isSleeping = phaseStatusKey === 'sleepingBetweenRequests';
 
   const detailText = item.progressDetail ?? formatStatus(item.lastStatus);
   const errorText = formatLocalizedError(item.error) || t('queue.item.defaultError');
@@ -39,7 +59,7 @@ export function QueueItemCard({ item }: Props): JSX.Element {
     <li
       className={cn(
         'flex items-start gap-2.5 py-2 px-2 rounded-md border bg-card/60 transition-[border-color,box-shadow]',
-        STATUS_BORDER[status]
+        subsFailed ? SUBS_FAILED_BORDER : STATUS_BORDER[status]
       )}
       data-testid={`queue-card-${item.id}`}
       data-status={status}
@@ -73,20 +93,35 @@ export function QueueItemCard({ item }: Props): JSX.Element {
 
         {isActive && (
           <div className="flex flex-col gap-0.5 mt-0.5" data-testid="queue-progress">
-            <div className={status === 'paused' ? 'opacity-50' : 'progress-glow'}>
+            <div className={status === 'paused' ? 'opacity-50' : isSleeping ? '' : 'progress-glow'}>
               <Progress value={item.progressPercent} className="[&_[data-slot=progress-track]]:h-[2px]" />
             </div>
             <span
               className={cn(
-                'font-mono text-[12px]',
-                status === 'paused' ? 'text-[var(--color-status-paused)]' : 'text-[var(--brand)]'
+                'inline-flex items-center gap-1 font-mono text-[12px]',
+                status === 'paused' || isSleeping
+                  ? 'text-[var(--color-status-paused)]'
+                  : 'text-[var(--brand)]'
               )}
               data-testid="queue-progress-label"
             >
-              {item.progressPercent.toFixed(1)}%
-              {status === 'paused' ? ` · ${t('queue.item.paused')}` : detailText ? ` · ${detailText}` : ''}
+              {phaseIcon && <span className="inline-flex shrink-0">{phaseIcon}</span>}
+              <span>
+                {item.progressPercent.toFixed(1)}%
+                {status === 'paused' ? ` · ${t('queue.item.paused')}` : detailText ? ` · ${detailText}` : ''}
+              </span>
             </span>
           </div>
+        )}
+
+        {subsFailed && (
+          <p
+            className="text-[12px] text-[var(--color-status-paused)] mt-0.5 truncate inline-flex items-center gap-1"
+            data-testid="queue-subs-warning"
+          >
+            <AlertTriangle size={11} className="shrink-0" />
+            {formatStatus(item.lastStatus)}
+          </p>
         )}
 
         {status === 'error' && (

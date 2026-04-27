@@ -5,10 +5,11 @@ import { StepUrlInput } from './StepUrlInput';
 import { StepFormatSelect } from './StepFormatSelect';
 import { StepFolderConfirm } from './StepFolderConfirm';
 import { StepConfirm } from './StepConfirm';
+import { StepSubtitles } from './StepSubtitles';
 import { StepError } from './StepError';
 import { cn } from '@renderer/lib/utils';
 
-const STEP_KEYS = ['url', 'formats', 'folder', 'confirm'] as const;
+const STEP_KEYS = ['url', 'formats', 'subtitles', 'folder', 'confirm'] as const;
 type StepKey = (typeof STEP_KEYS)[number];
 
 export function WizardPanel(): JSX.Element {
@@ -81,6 +82,7 @@ export function WizardPanel(): JSX.Element {
 
       {wizardStep === 'url' && <StepUrlInput />}
       {wizardStep === 'formats' && <StepFormatSelect />}
+      {wizardStep === 'subtitles' && <StepSubtitles />}
       {wizardStep === 'folder' && <StepFolderConfirm />}
       {wizardStep === 'confirm' && <StepConfirm />}
       {wizardStep === 'error' && <StepError />}

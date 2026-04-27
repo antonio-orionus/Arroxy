@@ -23,7 +23,9 @@ export const getFormatsSchema = z.object({
 export const startDownloadSchema = z.object({
   url: youtubeUrlSchema,
   outputDir: z.string().min(1).optional(),
-  formatId: z.string().min(1).optional()
+  formatId: z.string().min(1).optional(),
+  subtitleLanguages: z.array(z.string().min(2).max(15)).optional(),
+  writeAutoSubs: z.boolean().optional()
 });
 
 export const cancelDownloadSchema = z.object({
@@ -41,5 +43,6 @@ export const updateSettingsSchema = z.object({
   lastPreset: z.enum(['best-quality', 'balanced', 'audio-only', 'small-file']).nullable().optional(),
   uiZoom: z.number().min(0.7).max(1.5).optional(),
   uiTheme: z.enum(['light', 'dark', 'system']).optional(),
-  language: z.enum(['en', 'es', 'fr', 'de', 'ru', 'uk', 'ja', 'zh', 'hi']).optional()
+  language: z.enum(['en', 'es', 'fr', 'de', 'ru', 'uk', 'ja', 'zh', 'hi']).optional(),
+  lastSubtitleLanguages: z.array(z.string()).optional()
 });

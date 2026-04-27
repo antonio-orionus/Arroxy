@@ -38,6 +38,7 @@ const de = {
     steps: {
       url: 'URL',
       formats: 'Format',
+      subtitles: 'Untertitel',
       folder: 'Speichern',
       confirm: 'Bestätigen'
     },
@@ -48,6 +49,22 @@ const de = {
       fetchFormats: 'Formate abrufen',
       mascotIdle: 'Wirf mir einen YouTube-Link rüber (Video oder Short) — klick dann auf „Formate abrufen" und ich leg los ✨',
       mascotBusy: 'Lade im Hintergrund… ich kann mehrere Dinge gleichzeitig 😎'
+    },
+    subtitles: {
+      heading: 'Untertitel',
+      autoBadge: 'Auto',
+      hint: 'Dateien werden neben dem Video gespeichert',
+      noLanguages: 'Keine Untertitel für dieses Video verfügbar',
+      skip: 'Überspringen',
+      selectAll: 'Alle auswählen',
+      deselectAll: 'Alle abwählen',
+      mascot: 'Wähle null, einen oder mehrere — ganz wie du möchtest ✨',
+      searchPlaceholder: 'Sprachen suchen…',
+      noMatches: 'Keine Sprachen gefunden',
+      clearAll: 'Alle entfernen',
+      noSelected: 'Keine Untertitel ausgewählt',
+      sectionManual: 'Manuell',
+      sectionAuto: 'Automatisch generiert'
     },
     formats: {
       quickPresets: 'Schnelleinstellungen',
@@ -76,6 +93,8 @@ const de = {
       landIn: 'Deine Datei landet in',
       labelVideo: 'Video',
       labelAudio: 'Audio',
+      labelSubtitles: 'Untertitel',
+      subtitlesNone: '—',
       labelSaveTo: 'Speicherort',
       labelSize: 'Größe',
       sizeUnknown: 'Unbekannt',
@@ -128,6 +147,11 @@ const de = {
     mintingToken: 'YouTube-Token wird erzeugt…',
     remintingToken: 'Token wird neu erzeugt…',
     startingYtdlp: 'yt-dlp-Prozess wird gestartet…',
+    downloadingMedia: 'Video & Audio werden heruntergeladen…',
+    mergingFormats: 'Audio und Video werden zusammengeführt…',
+    fetchingSubtitles: 'Untertitel werden geholt…',
+    sleepingBetweenRequests: 'Warte {{seconds}}s, um Limits zu vermeiden…',
+    subtitlesFailed: 'Video gespeichert — einige Untertitel konnten nicht geladen werden',
     cancelled: 'Download abgebrochen',
     complete: 'Download abgeschlossen',
     ytdlpProcessError: 'yt-dlp-Prozessfehler: {{error}}',

@@ -20,6 +20,20 @@ describe('settings and recent stores', () => {
     expect(readBack.defaultOutputDir).toBe('/home/test/downloads');
   });
 
+  it('persists subtitle language preferences', async () => {
+    const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-subs-'));
+    const store = new SettingsStore(userData, {
+      defaultOutputDir: '/tmp',
+      rememberLastOutputDir: true
+    });
+
+    const updated = await store.update({ lastSubtitleLanguages: ['en', 'es'] });
+    expect(updated.lastSubtitleLanguages).toEqual(['en', 'es']);
+
+    const readBack = await store.get();
+    expect(readBack.lastSubtitleLanguages).toEqual(['en', 'es']);
+  });
+
   it('keeps recent jobs bounded and sorted', async () => {
     const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'recent-jobs-'));
     const store = new RecentJobsStore(userData);

@@ -38,6 +38,7 @@ const es = {
     steps: {
       url: 'URL',
       formats: 'Formato',
+      subtitles: 'Subtítulos',
       folder: 'Guardar',
       confirm: 'Confirmar'
     },
@@ -48,6 +49,22 @@ const es = {
       fetchFormats: 'Obtener formatos',
       mascotIdle: 'Pásame un enlace de YouTube (vídeo o Short) — luego pulsa "Obtener formatos" y me pongo manos a la obra ✨',
       mascotBusy: 'Descargando en segundo plano… puedo hacer varias cosas a la vez 😎'
+    },
+    subtitles: {
+      heading: 'Subtítulos',
+      autoBadge: 'Auto',
+      hint: 'Los archivos se guardarán junto al vídeo',
+      noLanguages: 'No hay subtítulos disponibles para este vídeo',
+      skip: 'Omitir',
+      selectAll: 'Seleccionar todo',
+      deselectAll: 'Deseleccionar todo',
+      mascot: 'Elige cero, uno o varios — ¡tú decides! ✨',
+      searchPlaceholder: 'Buscar idiomas…',
+      noMatches: 'No hay idiomas que coincidan',
+      clearAll: 'Eliminar todo',
+      noSelected: 'Sin subtítulos seleccionados',
+      sectionManual: 'Manual',
+      sectionAuto: 'Generado automáticamente'
     },
     formats: {
       quickPresets: 'Ajustes rápidos',
@@ -76,6 +93,8 @@ const es = {
       landIn: 'Tu archivo se guardará en',
       labelVideo: 'Vídeo',
       labelAudio: 'Audio',
+      labelSubtitles: 'Subtítulos',
+      subtitlesNone: '—',
       labelSaveTo: 'Guardar en',
       labelSize: 'Tamaño',
       sizeUnknown: 'Desconocido',
@@ -128,6 +147,11 @@ const es = {
     mintingToken: 'Generando token de YouTube…',
     remintingToken: 'Regenerando token…',
     startingYtdlp: 'Iniciando proceso yt-dlp…',
+    downloadingMedia: 'Descargando video y audio…',
+    mergingFormats: 'Combinando audio y video…',
+    fetchingSubtitles: 'Obteniendo subtítulos…',
+    sleepingBetweenRequests: 'Esperando {{seconds}}s para evitar límites…',
+    subtitlesFailed: 'Video guardado — algunos subtítulos no se pudieron descargar',
     cancelled: 'Descarga cancelada',
     complete: 'Descarga completada',
     ytdlpProcessError: 'Error en el proceso yt-dlp: {{error}}',

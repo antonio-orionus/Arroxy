@@ -135,7 +135,18 @@ if (!('appApi' in window)) {
               { formatId: '140', label: 'm4a · AAC · 129 kbps · 4.8 MB', ext: 'm4a', resolution: 'audio only', abr: 129, filesize: 5_000_000, isVideoOnly: false, isAudioOnly: true },
               { formatId: '249', label: 'webm · Opus · 50 kbps · 2.0 MB', ext: 'webm', resolution: 'audio only', abr: 50, filesize: 2_000_000, isVideoOnly: false, isAudioOnly: true },
               { formatId: '139', label: 'm4a · AAC · 48 kbps · 1.8 MB', ext: 'm4a', resolution: 'audio only', abr: 48, filesize: 1_900_000, isVideoOnly: false, isAudioOnly: true }
-            ]
+            ],
+            subtitles: {
+              en: [{ ext: 'vtt', name: 'English' }],
+              es: [{ ext: 'vtt', name: 'Español' }]
+            },
+            // Note: in real yt-dlp output, `automatic_captions` includes BOTH the actual
+            // generated track (key ends with `-orig`) AND many on-demand translation
+            // options (e.g. `hy`, `eu`). FormatProbeService filters the latter — the mock
+            // simulates post-filter state, so only `-orig` entries are present here.
+            automaticCaptions: {
+              'en-orig': [{ ext: 'vtt', name: 'English (auto)' }]
+            }
           }
         };
       },

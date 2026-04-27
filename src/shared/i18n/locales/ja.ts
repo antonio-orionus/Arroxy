@@ -38,6 +38,7 @@ const ja = {
     steps: {
       url: 'URL',
       formats: '形式',
+      subtitles: '字幕',
       folder: '保存先',
       confirm: '確認'
     },
@@ -48,6 +49,22 @@ const ja = {
       fetchFormats: '形式を取得',
       mascotIdle: 'YouTubeのリンクを貼ってね (動画でもShortsでもOK) — 「形式を取得」を押せばすぐ取りかかるよ ✨',
       mascotBusy: 'バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎'
+    },
+    subtitles: {
+      heading: '字幕',
+      autoBadge: '自動',
+      hint: '字幕ファイルは動画と同じフォルダに保存されます',
+      noLanguages: 'この動画には字幕がありません',
+      skip: 'スキップ',
+      selectAll: 'すべて選択',
+      deselectAll: 'すべて解除',
+      mascot: 'ゼロでも、一つでも、複数でも — お好みで ✨',
+      searchPlaceholder: '言語を検索…',
+      noMatches: '言語が見つかりません',
+      clearAll: 'すべて削除',
+      noSelected: '字幕が選択されていません',
+      sectionManual: '手動',
+      sectionAuto: '自動生成'
     },
     formats: {
       quickPresets: 'クイックプリセット',
@@ -76,6 +93,8 @@ const ja = {
       landIn: 'ファイルの保存先:',
       labelVideo: '動画',
       labelAudio: '音声',
+      labelSubtitles: '字幕',
+      subtitlesNone: '—',
       labelSaveTo: '保存先',
       labelSize: 'サイズ',
       sizeUnknown: '不明',
@@ -128,6 +147,11 @@ const ja = {
     mintingToken: 'YouTubeトークンを生成中…',
     remintingToken: 'トークンを再生成中…',
     startingYtdlp: 'yt-dlpプロセスを開始中…',
+    downloadingMedia: 'ビデオと音声をダウンロード中…',
+    mergingFormats: '音声とビデオを結合中…',
+    fetchingSubtitles: '字幕を取得中…',
+    sleepingBetweenRequests: 'レート制限回避のため{{seconds}}秒待機中…',
+    subtitlesFailed: 'ビデオは保存されました — 一部の字幕をダウンロードできませんでした',
     cancelled: 'ダウンロードがキャンセルされました',
     complete: 'ダウンロード完了',
     ytdlpProcessError: 'yt-dlpプロセスエラー: {{error}}',

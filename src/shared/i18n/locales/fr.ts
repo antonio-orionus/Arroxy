@@ -38,6 +38,7 @@ const fr = {
     steps: {
       url: 'URL',
       formats: 'Format',
+      subtitles: 'Sous-titres',
       folder: 'Enregistrer',
       confirm: 'Confirmer'
     },
@@ -48,6 +49,22 @@ const fr = {
       fetchFormats: 'Récupérer les formats',
       mascotIdle: 'Lance-moi un lien YouTube (vidéo ou Short) — clique sur « Récupérer les formats » et je m\'occupe du reste ✨',
       mascotBusy: 'Téléchargement en arrière-plan… je peux faire plusieurs choses à la fois 😎'
+    },
+    subtitles: {
+      heading: 'Sous-titres',
+      autoBadge: 'Auto',
+      hint: 'Les fichiers seront enregistrés à côté de la vidéo',
+      noLanguages: 'Aucun sous-titre disponible pour cette vidéo',
+      skip: 'Ignorer',
+      selectAll: 'Tout sélectionner',
+      deselectAll: 'Tout désélectionner',
+      mascot: 'Zéro, un ou plusieurs — c\'est vous qui choisissez ✨',
+      searchPlaceholder: 'Rechercher des langues…',
+      noMatches: 'Aucune langue ne correspond',
+      clearAll: 'Tout effacer',
+      noSelected: 'Aucun sous-titre sélectionné',
+      sectionManual: 'Manuel',
+      sectionAuto: 'Généré automatiquement'
     },
     formats: {
       quickPresets: 'Préréglages rapides',
@@ -76,6 +93,8 @@ const fr = {
       landIn: 'Ton fichier atterrira dans',
       labelVideo: 'Vidéo',
       labelAudio: 'Audio',
+      labelSubtitles: 'Sous-titres',
+      subtitlesNone: '—',
       labelSaveTo: 'Dossier',
       labelSize: 'Taille',
       sizeUnknown: 'Inconnue',
@@ -128,6 +147,11 @@ const fr = {
     mintingToken: 'Génération du jeton YouTube…',
     remintingToken: 'Regénération du jeton…',
     startingYtdlp: 'Démarrage du processus yt-dlp…',
+    downloadingMedia: 'Téléchargement vidéo & audio…',
+    mergingFormats: 'Fusion audio et vidéo…',
+    fetchingSubtitles: 'Récupération des sous-titres…',
+    sleepingBetweenRequests: 'Attente {{seconds}}s pour éviter les limites…',
+    subtitlesFailed: 'Vidéo enregistrée — certains sous-titres n\'ont pu être téléchargés',
     cancelled: 'Téléchargement annulé',
     complete: 'Téléchargement terminé',
     ytdlpProcessError: 'Erreur du processus yt-dlp : {{error}}',

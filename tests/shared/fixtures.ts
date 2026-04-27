@@ -18,6 +18,8 @@ export function makeItem(
     error: null,
     finishedAt: null,
     downloadJobId: null,
+    subtitleLanguages: [],
+    writeAutoSubs: false,
     ...overrides,
   };
 }

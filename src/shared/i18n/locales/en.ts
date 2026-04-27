@@ -38,6 +38,7 @@ const en = {
     steps: {
       url: 'URL',
       formats: 'Format',
+      subtitles: 'Subtitles',
       folder: 'Save',
       confirm: 'Confirm'
     },
@@ -48,6 +49,22 @@ const en = {
       fetchFormats: 'Fetch formats',
       mascotIdle: 'Drop me a YouTube link (video or Short) — then hit "Fetch formats" and I\'ll get to work ✨',
       mascotBusy: 'Downloading in the background… I can multitask 😎'
+    },
+    subtitles: {
+      heading: 'Subtitles',
+      autoBadge: 'Auto',
+      hint: 'Sidecar files will be saved next to the video',
+      noLanguages: 'No subtitles available for this video',
+      skip: 'Skip',
+      selectAll: 'Select all',
+      deselectAll: 'Deselect all',
+      mascot: 'Pick zero, one, or many — totally up to you ✨',
+      searchPlaceholder: 'Search languages…',
+      noMatches: 'No languages match',
+      clearAll: 'Clear all',
+      noSelected: 'No subtitles selected',
+      sectionManual: 'Manual',
+      sectionAuto: 'Auto-generated'
     },
     formats: {
       quickPresets: 'Quick presets',
@@ -76,6 +93,8 @@ const en = {
       landIn: 'Your file will land in',
       labelVideo: 'Video',
       labelAudio: 'Audio',
+      labelSubtitles: 'Subtitles',
+      subtitlesNone: '—',
       labelSaveTo: 'Save to',
       labelSize: 'Size',
       sizeUnknown: 'Unknown',
@@ -128,6 +147,11 @@ const en = {
     mintingToken: 'Minting YouTube token…',
     remintingToken: 'Re-minting token…',
     startingYtdlp: 'Starting yt-dlp process…',
+    downloadingMedia: 'Downloading video & audio…',
+    mergingFormats: 'Merging audio and video…',
+    fetchingSubtitles: 'Fetching subtitles…',
+    sleepingBetweenRequests: 'Waiting {{seconds}}s to avoid rate limits…',
+    subtitlesFailed: 'Video saved — some subtitles could not be downloaded',
     cancelled: 'Download cancelled',
     complete: 'Download complete',
     ytdlpProcessError: 'yt-dlp process error: {{error}}',

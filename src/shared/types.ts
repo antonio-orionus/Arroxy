@@ -22,7 +22,15 @@ export interface AppSettings {
   uiTheme?: 'light' | 'dark' | 'system';
   language?: SupportedLang;
   commonPaths?: { downloads: string; videos: string; desktop: string };
+  lastSubtitleLanguages?: string[];
 }
+
+export interface SubtitleTrack {
+  ext: string;
+  name?: string;
+}
+
+export type SubtitleMap = Record<string, SubtitleTrack[]>;
 
 export interface FormatOption {
   formatId: string;
@@ -81,6 +89,8 @@ export interface QueueItem {
   error: LocalizedError | null;
   finishedAt: string | null;
   downloadJobId: string | null;
+  subtitleLanguages: string[];
+  writeAutoSubs: boolean;
 }
 
 export type DownloadStage = 'setup' | 'token' | 'download' | 'done' | 'error';
@@ -110,6 +120,8 @@ export interface StartDownloadInput {
   url: string;
   outputDir?: string;
   formatId?: string;
+  subtitleLanguages?: string[];
+  writeAutoSubs?: boolean;
 }
 
 export interface StartDownloadOutput {
@@ -125,6 +137,8 @@ export interface GetFormatsOutput {
   title: string;
   thumbnail: string;
   duration?: number;
+  subtitles: SubtitleMap;
+  automaticCaptions: SubtitleMap;
 }
 
 export interface CancelDownloadInput {

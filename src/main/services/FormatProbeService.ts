@@ -4,7 +4,7 @@ import { splitStderrLines } from '@main/utils/process';
 import { ok, fail, type Result } from '@shared/result';
 import { sortFormatsByQuality } from '@shared/qualitySorter';
 import { humanSize } from '@shared/format';
-import type { FormatOption, GetFormatsOutput } from '@shared/types';
+import type { FormatOption, GetFormatsOutput, SubtitleMap } from '@shared/types';
 import type { BinaryManager } from './BinaryManager';
 import type { TokenService } from './TokenService';
 import { runYtDlp } from './ytDlpRunner';
@@ -22,11 +22,39 @@ interface YtDlpFormat {
   dynamic_range?: string;
 }
 
+interface YtDlpSubtitleTrack {
+  ext?: string;
+  name?: string;
+}
+
 interface YtDlpInfo {
   formats?: YtDlpFormat[];
   title?: string;
   thumbnail?: string;
   duration?: number;
+  subtitles?: Record<string, YtDlpSubtitleTrack[]>;
+  automatic_captions?: Record<string, YtDlpSubtitleTrack[]>;
+}
+
+function sanitizeSubtitleMap(
+  raw: Record<string, YtDlpSubtitleTrack[]> | undefined,
+  isAutomaticCaptions = false
+): SubtitleMap {
+  if (!raw) return {};
+  const result: SubtitleMap = {};
+  for (const [lang, tracks] of Object.entries(raw)) {
+    if (lang === 'live_chat') continue;
+    // YouTube bundles real auto-captions and on-demand translation options into the same map.
+    // Only keys ending in `-orig` are real generated tracks — everything else is a translation
+    // request that YouTube generates live and rate-limits aggressively.
+    if (isAutomaticCaptions && !lang.endsWith('-orig')) continue;
+    const valid = tracks.filter((t) => typeof t.ext === 'string' && t.ext.length > 0).map((t) => ({
+      ext: t.ext as string,
+      ...(t.name ? { name: t.name } : {})
+    }));
+    if (valid.length > 0) result[lang] = valid;
+  }
+  return result;
 }
 
 function friendlyCodec(acodec: string): string {
@@ -109,7 +137,9 @@ export class FormatProbeService {
           ],
           title: 'Mock Video Title',
           thumbnail: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-          duration: 212
+          duration: 212,
+          subtitles: { en: [{ ext: 'vtt', name: 'English' }], es: [{ ext: 'vtt' }] },
+          automaticCaptions: { de: [{ ext: 'vtt' }], ja: [{ ext: 'vtt', name: '日本語' }] }
         });
       }
 
@@ -143,7 +173,9 @@ export class FormatProbeService {
           formats,
           title: parsed.title ?? '',
           thumbnail: parsed.thumbnail ?? '',
-          duration: typeof parsed.duration === 'number' ? Math.round(parsed.duration) : undefined
+          duration: typeof parsed.duration === 'number' ? Math.round(parsed.duration) : undefined,
+          subtitles: sanitizeSubtitleMap(parsed.subtitles),
+          automaticCaptions: sanitizeSubtitleMap(parsed.automatic_captions, true)
         });
       } catch (error) {
         const message = error instanceof Error ? error.message : 'Unknown JSON parse error';

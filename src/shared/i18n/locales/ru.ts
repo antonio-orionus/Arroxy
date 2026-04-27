@@ -38,6 +38,7 @@ const ru = {
     steps: {
       url: 'Ссылка',
       formats: 'Формат',
+      subtitles: 'Субтитры',
       folder: 'Сохранить',
       confirm: 'Подтвердить'
     },
@@ -48,6 +49,22 @@ const ru = {
       fetchFormats: 'Получить форматы',
       mascotIdle: 'Кинь мне ссылку YouTube (видео или Shorts) — нажми «Получить форматы», и я возьмусь за дело ✨',
       mascotBusy: 'Качаю в фоне… могу делать несколько дел сразу 😎'
+    },
+    subtitles: {
+      heading: 'Субтитры',
+      autoBadge: 'Авто',
+      hint: 'Файлы будут сохранены рядом с видео',
+      noLanguages: 'Для этого видео субтитры недоступны',
+      skip: 'Пропустить',
+      selectAll: 'Выбрать все',
+      deselectAll: 'Снять все',
+      mascot: 'Ноль, один или несколько — решать тебе ✨',
+      searchPlaceholder: 'Поиск языков…',
+      noMatches: 'Языки не найдены',
+      clearAll: 'Очистить всё',
+      noSelected: 'Субтитры не выбраны',
+      sectionManual: 'Ручные',
+      sectionAuto: 'Автоматические'
     },
     formats: {
       quickPresets: 'Пресеты',
@@ -76,6 +93,8 @@ const ru = {
       landIn: 'Файл будет сохранён в',
       labelVideo: 'Видео',
       labelAudio: 'Аудио',
+      labelSubtitles: 'Субтитры',
+      subtitlesNone: '—',
       labelSaveTo: 'Папка',
       labelSize: 'Размер',
       sizeUnknown: 'Неизвестно',
@@ -128,6 +147,11 @@ const ru = {
     mintingToken: 'Генерируется токен YouTube…',
     remintingToken: 'Токен обновляется…',
     startingYtdlp: 'Запуск процесса yt-dlp…',
+    downloadingMedia: 'Загрузка видео и аудио…',
+    mergingFormats: 'Объединение аудио и видео…',
+    fetchingSubtitles: 'Получение субтитров…',
+    sleepingBetweenRequests: 'Ожидание {{seconds}}с во избежание лимитов…',
+    subtitlesFailed: 'Видео сохранено — некоторые субтитры не загрузились',
     cancelled: 'Загрузка отменена',
     complete: 'Загрузка завершена',
     ytdlpProcessError: 'Ошибка процесса yt-dlp: {{error}}',

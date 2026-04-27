@@ -38,6 +38,7 @@ const uk = {
     steps: {
       url: 'Посилання',
       formats: 'Формат',
+      subtitles: 'Субтитри',
       folder: 'Зберегти',
       confirm: 'Підтвердити'
     },
@@ -48,6 +49,22 @@ const uk = {
       fetchFormats: 'Отримати формати',
       mascotIdle: 'Кинь мені посилання YouTube (відео або Shorts) — натисни «Отримати формати» і я візьмусь за справу ✨',
       mascotBusy: 'Завантажую у фоні… можу робити кілька справ одночасно 😎'
+    },
+    subtitles: {
+      heading: 'Субтитри',
+      autoBadge: 'Авто',
+      hint: 'Файли буде збережено поряд із відео',
+      noLanguages: 'Для цього відео субтитри недоступні',
+      skip: 'Пропустити',
+      selectAll: 'Вибрати всі',
+      deselectAll: 'Зняти вибір',
+      mascot: 'Нуль, одну або кілька мов — вирішуй сам ✨',
+      searchPlaceholder: 'Пошук мов…',
+      noMatches: 'Мови не знайдено',
+      clearAll: 'Очистити все',
+      noSelected: 'Субтитри не вибрані',
+      sectionManual: 'Ручні',
+      sectionAuto: 'Автоматичні'
     },
     formats: {
       quickPresets: 'Швидкі пресети',
@@ -76,6 +93,8 @@ const uk = {
       landIn: 'Файл потрапить у',
       labelVideo: 'Відео',
       labelAudio: 'Аудіо',
+      labelSubtitles: 'Субтитри',
+      subtitlesNone: '—',
       labelSaveTo: 'Папка',
       labelSize: 'Розмір',
       sizeUnknown: 'Невідомо',
@@ -128,6 +147,11 @@ const uk = {
     mintingToken: 'Створення токена YouTube…',
     remintingToken: 'Оновлення токена…',
     startingYtdlp: 'Запуск процесу yt-dlp…',
+    downloadingMedia: 'Завантаження відео та аудіо…',
+    mergingFormats: 'Об\'єднання аудіо та відео…',
+    fetchingSubtitles: 'Отримання субтитрів…',
+    sleepingBetweenRequests: 'Очікування {{seconds}}с для уникнення лімітів…',
+    subtitlesFailed: 'Відео збережено — деякі субтитри не завантажилися',
     cancelled: 'Завантаження скасовано',
     complete: 'Завантаження завершено',
     ytdlpProcessError: 'Помилка процесу yt-dlp: {{error}}',

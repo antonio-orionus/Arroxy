@@ -110,9 +110,11 @@ export class DownloadService extends EventEmitter {
         return ok({ job });
       }
 
-      const args = ['--progress', '--no-playlist'];
-      if (input.formatId) args.push('-f', input.formatId);
-      args.push('-o', `${input.outputDir}/%(title)s.%(ext)s`, input.url);
+      // Phase 1: video + audio (no subs). Splitting subs out into a second invocation
+      // means a subtitle 429 leaves the merged video on disk instead of failing the job.
+      const videoArgs = ['--progress', '--no-playlist', '--no-write-subs', '--no-write-auto-subs'];
+      if (input.formatId) videoArgs.push('-f', input.formatId);
+      videoArgs.push('-o', `${input.outputDir}/%(title)s.%(ext)s`, input.url);
 
       const safeConsume = (chunk: string): void => {
         try { this.consumeProgress(job.id, chunk); } catch { /* swallow */ }
@@ -122,7 +124,7 @@ export class DownloadService extends EventEmitter {
         url: input.url,
         ytDlpPath,
         ffmpegPath,
-        args,
+        args: videoArgs,
         tokenService: this.tokenService,
         onAttempt: (attempt) => {
           this.emitStatus(
@@ -132,7 +134,7 @@ export class DownloadService extends EventEmitter {
           );
         },
         onSpawn: (proc) => {
-          this.emitStatus(job.id, 'download', 'startingYtdlp');
+          this.emitStatus(job.id, 'download', 'downloadingMedia');
           const active = this.activeJobs.get(job.id);
           if (!active) return;
           active.process = proc;
@@ -167,27 +169,68 @@ export class DownloadService extends EventEmitter {
           return;
         }
 
-        if (result.exitCode === 0) {
-          this.emitStatus(job.id, 'done', 'complete');
-          await this.finalize(job, 'completed');
+        if (result.exitCode !== 0) {
+          this.logger.log('ERROR', 'yt-dlp download failed', { jobId: job.id, code: result.exitCode, signal: result.errorClass });
+
+          const errorPayload: LocalizedError = {
+            key: result.errorClass,
+            rawMessage: result.rawError ?? undefined
+          };
+
+          if (result.errorClass) {
+            this.emitStatus(job.id, 'error', 'ytdlpExitCode', { code: result.exitCode ?? -1 }, errorPayload);
+          } else if (result.rawError) {
+            this.emitStatus(job.id, 'error', 'ytdlpProcessError', { error: result.rawError }, errorPayload);
+          } else {
+            this.emitStatus(job.id, 'error', 'ytdlpExitCode', { code: result.exitCode ?? -1 }, errorPayload);
+          }
+          await this.finalize(job, 'failed', errorPayload);
           return;
         }
 
-        this.logger.log('ERROR', 'yt-dlp download failed', { jobId: job.id, code: result.exitCode, signal: result.errorClass });
+        // Video succeeded. Phase 2: subtitles, if requested. Failures here are soft —
+        // the video is already on disk, so we still finalize as 'completed'.
+        if (input.subtitleLanguages?.length) {
+          this.emitStatus(job.id, 'download', 'fetchingSubtitles');
+          const subArgs = [
+            '--skip-download', '--no-playlist',
+            '--write-subs', '--sub-langs', input.subtitleLanguages.join(','),
+            ...(input.writeAutoSubs ? ['--write-auto-subs'] : []),
+            '--sleep-subtitles', '3',
+            '-o', `${input.outputDir}/%(title)s.%(ext)s`, input.url
+          ];
 
-        const errorPayload: LocalizedError = {
-          key: result.errorClass,
-          rawMessage: result.rawError ?? undefined
-        };
+          const subResult = await runYtDlp({
+            url: input.url,
+            ytDlpPath,
+            ffmpegPath,
+            args: subArgs,
+            tokenService: this.tokenService,
+            onSpawn: (proc) => {
+              const active = this.activeJobs.get(job.id);
+              if (!active) return;
+              active.process = proc;
+              if (active.cancelRequested) proc.kill('SIGKILL');
+            },
+            onStdout: safeConsume,
+            onStderr: safeConsume
+          });
 
-        if (result.errorClass) {
-          this.emitStatus(job.id, 'error', 'ytdlpExitCode', { code: result.exitCode ?? -1 }, errorPayload);
-        } else if (result.rawError) {
-          this.emitStatus(job.id, 'error', 'ytdlpProcessError', { error: result.rawError }, errorPayload);
-        } else {
-          this.emitStatus(job.id, 'error', 'ytdlpExitCode', { code: result.exitCode ?? -1 }, errorPayload);
+          if (subResult.exitCode !== 0) {
+            this.logger.log('WARN', 'Subtitle fetch failed — video already saved', {
+              jobId: job.id,
+              code: subResult.exitCode,
+              signal: subResult.errorClass
+            });
+            // Final status — don't follow with `complete` or it overwrites the warning.
+            this.emitStatus(job.id, 'done', 'subtitlesFailed');
+            await this.finalize(job, 'completed');
+            return;
+          }
         }
-        await this.finalize(job, 'failed', errorPayload);
+
+        this.emitStatus(job.id, 'done', 'complete');
+        await this.finalize(job, 'completed');
       });
 
       return ok({ job });
@@ -302,6 +345,19 @@ export class DownloadService extends EventEmitter {
   private consumeProgress(jobId: string, text: string): void {
     for (const line of splitStderrLines(text)) {
       this.logger.log('INFO', line, { jobId, source: 'yt-dlp-progress' });
+
+      const sleepMatch = line.match(/Sleeping (\d+(?:\.\d+)?) seconds/);
+      if (sleepMatch) {
+        const seconds = Math.round(parseFloat(sleepMatch[1]));
+        this.emitStatus(jobId, 'download', 'sleepingBetweenRequests', { seconds });
+        continue;
+      }
+
+      if (line.startsWith('[Merger]')) {
+        this.emitStatus(jobId, 'download', 'mergingFormats');
+        continue;
+      }
+
       const event: ProgressEvent = {
         jobId,
         line,

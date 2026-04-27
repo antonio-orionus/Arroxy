@@ -38,6 +38,7 @@ const hi = {
     steps: {
       url: 'URL',
       formats: 'फ़ॉर्मेट',
+      subtitles: 'उपशीर्षक',
       folder: 'सेव करें',
       confirm: 'पुष्टि करें'
     },
@@ -48,6 +49,22 @@ const hi = {
       fetchFormats: 'फ़ॉर्मेट लाएँ',
       mascotIdle: 'मुझे YouTube का लिंक भेजो (वीडियो या Short) — फिर "फ़ॉर्मेट लाएँ" दबाओ और मैं काम पर लग जाऊँगा ✨',
       mascotBusy: 'पीछे चुपचाप डाउनलोड कर रहा हूँ… मैं एक साथ कई काम कर सकता हूँ 😎'
+    },
+    subtitles: {
+      heading: 'उपशीर्षक',
+      autoBadge: 'स्वतः',
+      hint: 'फ़ाइलें वीडियो के पास ही सहेजी जाएंगी',
+      noLanguages: 'इस वीडियो के लिए कोई उपशीर्षक उपलब्ध नहीं है',
+      skip: 'छोड़ें',
+      selectAll: 'सभी चुनें',
+      deselectAll: 'सभी हटाएं',
+      mascot: 'शून्य, एक या कई — पूरी तरह आप पर निर्भर है ✨',
+      searchPlaceholder: 'भाषाएँ खोजें…',
+      noMatches: 'कोई भाषा नहीं मिली',
+      clearAll: 'सभी हटाएँ',
+      noSelected: 'कोई उपशीर्षक नहीं चुना',
+      sectionManual: 'मैनुअल',
+      sectionAuto: 'स्वतः-जनित'
     },
     formats: {
       quickPresets: 'त्वरित प्रीसेट',
@@ -76,6 +93,8 @@ const hi = {
       landIn: 'फ़ाइल यहाँ सेव होगी',
       labelVideo: 'वीडियो',
       labelAudio: 'ऑडियो',
+      labelSubtitles: 'उपशीर्षक',
+      subtitlesNone: '—',
       labelSaveTo: 'स्थान',
       labelSize: 'साइज़',
       sizeUnknown: 'अज्ञात',
@@ -128,6 +147,11 @@ const hi = {
     mintingToken: 'YouTube टोकन बन रहा है…',
     remintingToken: 'टोकन फिर से बन रहा है…',
     startingYtdlp: 'yt-dlp प्रक्रिया शुरू हो रही है…',
+    downloadingMedia: 'वीडियो और ऑडियो डाउनलोड हो रहा है…',
+    mergingFormats: 'ऑडियो और वीडियो मर्ज हो रहा है…',
+    fetchingSubtitles: 'सबटाइटल लाए जा रहे हैं…',
+    sleepingBetweenRequests: 'सीमाओं से बचने के लिए {{seconds}}s प्रतीक्षा कर रहे हैं…',
+    subtitlesFailed: 'वीडियो सहेजा गया — कुछ सबटाइटल डाउनलोड नहीं हो सके',
     cancelled: 'डाउनलोड रद्द कर दिया',
     complete: 'डाउनलोड पूरा',
     ytdlpProcessError: 'yt-dlp प्रक्रिया त्रुटि: {{error}}',

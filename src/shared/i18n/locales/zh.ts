@@ -38,6 +38,7 @@ const zh = {
     steps: {
       url: '链接',
       formats: '格式',
+      subtitles: '字幕',
       folder: '保存',
       confirm: '确认'
     },
@@ -48,6 +49,22 @@ const zh = {
       fetchFormats: '获取格式',
       mascotIdle: '丢一个 YouTube 链接给我(视频或 Shorts 都行)— 点「获取格式」我就开始干活 ✨',
       mascotBusy: '正在后台下载… 我可以同时处理多个任务 😎'
+    },
+    subtitles: {
+      heading: '字幕',
+      autoBadge: '自动',
+      hint: '字幕文件将保存在视频旁边',
+      noLanguages: '该视频没有字幕',
+      skip: '跳过',
+      selectAll: '全选',
+      deselectAll: '取消全选',
+      mascot: '选零个、一个或多个 — 完全由你决定 ✨',
+      searchPlaceholder: '搜索语言…',
+      noMatches: '没有匹配的语言',
+      clearAll: '清除全部',
+      noSelected: '未选择字幕',
+      sectionManual: '手动',
+      sectionAuto: '自动生成'
     },
     formats: {
       quickPresets: '快速预设',
@@ -76,6 +93,8 @@ const zh = {
       landIn: '文件将保存至',
       labelVideo: '视频',
       labelAudio: '音频',
+      labelSubtitles: '字幕',
+      subtitlesNone: '—',
       labelSaveTo: '保存位置',
       labelSize: '大小',
       sizeUnknown: '未知',
@@ -128,6 +147,11 @@ const zh = {
     mintingToken: '正在生成 YouTube 令牌…',
     remintingToken: '正在重新生成令牌…',
     startingYtdlp: '正在启动 yt-dlp 进程…',
+    downloadingMedia: '正在下载视频和音频…',
+    mergingFormats: '正在合并音视频…',
+    fetchingSubtitles: '正在获取字幕…',
+    sleepingBetweenRequests: '等待 {{seconds}} 秒以避免限流…',
+    subtitlesFailed: '视频已保存 — 部分字幕未能下载',
     cancelled: '下载已取消',
     complete: '下载完成',
     ytdlpProcessError: 'yt-dlp 进程错误: {{error}}',
