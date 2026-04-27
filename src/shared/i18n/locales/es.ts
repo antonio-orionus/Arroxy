@@ -64,7 +64,17 @@ const es = {
       clearAll: 'Eliminar todo',
       noSelected: 'Sin subtítulos seleccionados',
       sectionManual: 'Manual',
-      sectionAuto: 'Generado automáticamente'
+      sectionAuto: 'Generado automáticamente',
+      saveMode: {
+        heading: 'Save as',
+        sidecar: 'Next to video',
+        embed: 'Embed into video',
+        subfolder: 'Subtitles/ subfolder'
+      },
+      format: {
+        heading: 'Format'
+      },
+      embedNote: 'El modo «incrustar» guarda la salida como .mkv para que las pistas de subtítulos se incrusten de forma fiable.'
     },
     formats: {
       quickPresets: 'Ajustes rápidos',
@@ -117,6 +127,7 @@ const es = {
     toggleTitle: 'Mostrar/ocultar cola de descargas',
     empty: 'Las descargas que añadas aparecerán aquí',
     noDownloads: 'Aún no hay descargas.',
+    activeCount: '{{count}} descargando · {{percent}}%',
     clear: 'Limpiar',
     clearTitle: 'Limpiar descargas completadas',
     tip: 'Tu descarga está en la cola — ábrela cuando quieras para ver el progreso.',
@@ -185,6 +196,10 @@ const es = {
     'small-file': {
       label: 'Archivo pequeño',
       desc: 'Resolución mínima + audio bajo'
+    },
+    'subtitle-only': {
+      label: 'Solo subtítulos',
+      desc: 'Sin vídeo ni audio, solo subtítulos'
     }
   },
   formatLabel: {

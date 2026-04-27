@@ -21,6 +21,8 @@ export function StepConfirm(): JSX.Element {
     activePreset,
     wizardFormats,
     wizardSubtitleLanguages,
+    wizardSubtitleMode,
+    wizardSubtitleFormat,
     wizardSubtitles,
     wizardAutomaticCaptions,
     commonPaths,
@@ -51,11 +53,19 @@ export function StepConfirm(): JSX.Element {
 
   const shortPath = formatHomeRelativePath(wizardOutputDir, commonPaths);
 
-  const subtitlesValue = wizardSubtitleLanguages.length > 0
-    ? wizardSubtitleLanguages
-        .map((code) => resolveSubtitleLabel(code, wizardSubtitles, wizardAutomaticCaptions, i18n.language))
-        .join(', ')
-    : t('wizard.confirm.subtitlesNone');
+  const subtitlesValue = (() => {
+    if (wizardSubtitleLanguages.length === 0) return t('wizard.confirm.subtitlesNone');
+    const langList = wizardSubtitleLanguages
+      .map((code) => resolveSubtitleLabel(code, wizardSubtitles, wizardAutomaticCaptions, i18n.language))
+      .join(', ');
+    const modeLabel = wizardSubtitleMode === 'embed'
+      ? t('wizard.subtitles.saveMode.embed')
+      : wizardSubtitleMode === 'subfolder'
+        ? t('wizard.subtitles.saveMode.subfolder')
+        : t('wizard.subtitles.saveMode.sidecar');
+    const formatPart = wizardSubtitleMode !== 'embed' ? `${wizardSubtitleFormat.toUpperCase()} · ` : '';
+    return `${langList} · ${formatPart}${modeLabel}`;
+  })();
 
   const summaryRows: { key: string; label: string; value: string }[] = [
     { key: 'video',     label: t('wizard.confirm.labelVideo'),     value: videoSummary },
@@ -64,6 +74,11 @@ export function StepConfirm(): JSX.Element {
     { key: 'saveTo',    label: t('wizard.confirm.labelSaveTo'),    value: shortPath },
     { key: 'size',      label: t('wizard.confirm.labelSize'),      value: estimatedSize },
   ];
+
+  // Nothing-selected guard: subtitle-only preset with zero languages produces an
+  // empty download (no formatId, no subs). Block the action buttons in that case.
+  const hasNothingSelected =
+    selectedVideoFormatId === '' && selectedAudioFormatId === null && wizardSubtitleLanguages.length === 0;
 
   return (
     <div className="wizard-step flex flex-col gap-4" data-testid="step-confirm">
@@ -125,6 +140,7 @@ export function StepConfirm(): JSX.Element {
               type="button"
               onClick={() => void addToQueue()}
               data-testid="btn-add-to-queue"
+              disabled={hasNothingSelected}
             >
               {t('wizard.confirm.addToQueue')}
             </Button>
@@ -139,6 +155,7 @@ export function StepConfirm(): JSX.Element {
               size="lg"
               onClick={() => void addAndDownloadImmediately()}
               data-testid="btn-download-now"
+              disabled={hasNothingSelected}
               className="shadow-[0_4px_14px_var(--brand-glow)]"
             >
               {t('wizard.confirm.pullIt')}

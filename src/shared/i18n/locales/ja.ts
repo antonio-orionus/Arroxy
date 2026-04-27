@@ -64,7 +64,17 @@ const ja = {
       clearAll: 'すべて削除',
       noSelected: '字幕が選択されていません',
       sectionManual: '手動',
-      sectionAuto: '自動生成'
+      sectionAuto: '自動生成',
+      saveMode: {
+        heading: 'Save as',
+        sidecar: 'Next to video',
+        embed: 'Embed into video',
+        subfolder: 'Subtitles/ subfolder'
+      },
+      format: {
+        heading: 'Format'
+      },
+      embedNote: '埋め込みモードでは、字幕トラックを確実に埋め込むため出力は .mkv で保存されます。'
     },
     formats: {
       quickPresets: 'クイックプリセット',
@@ -117,6 +127,7 @@ const ja = {
     toggleTitle: 'ダウンロードキューの表示/非表示',
     empty: 'キューに追加したダウンロードはここに表示されます',
     noDownloads: 'まだダウンロードはありません。',
+    activeCount: '{{count}} 件ダウンロード中 · {{percent}}%',
     clear: 'クリア',
     clearTitle: '完了したダウンロードをクリア',
     tip: 'ダウンロードは下のキューに入りました — いつでも開いて進捗を確認できます。',
@@ -185,6 +196,10 @@ const ja = {
     'small-file': {
       label: '小サイズ',
       desc: '最低解像度 + 低音質'
+    },
+    'subtitle-only': {
+      label: '字幕のみ',
+      desc: '動画・音声なし、字幕のみ'
     }
   },
   formatLabel: {

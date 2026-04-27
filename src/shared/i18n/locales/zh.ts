@@ -64,7 +64,17 @@ const zh = {
       clearAll: '清除全部',
       noSelected: '未选择字幕',
       sectionManual: '手动',
-      sectionAuto: '自动生成'
+      sectionAuto: '自动生成',
+      saveMode: {
+        heading: 'Save as',
+        sidecar: 'Next to video',
+        embed: 'Embed into video',
+        subfolder: 'Subtitles/ subfolder'
+      },
+      format: {
+        heading: 'Format'
+      },
+      embedNote: '嵌入模式将输出保存为 .mkv，以便可靠地嵌入字幕轨道。'
     },
     formats: {
       quickPresets: '快速预设',
@@ -117,6 +127,7 @@ const zh = {
     toggleTitle: '展开/收起下载队列',
     empty: '加入队列的下载会显示在这里',
     noDownloads: '还没有下载任务。',
+    activeCount: '正在下载 {{count}} 项 · {{percent}}%',
     clear: '清空',
     clearTitle: '清除已完成的下载',
     tip: '你的下载已在下方队列 — 随时打开查看进度。',
@@ -185,6 +196,10 @@ const zh = {
     'small-file': {
       label: '小文件',
       desc: '最低分辨率 + 低音质'
+    },
+    'subtitle-only': {
+      label: '仅字幕',
+      desc: '无视频无音频，仅字幕'
     }
   },
   formatLabel: {

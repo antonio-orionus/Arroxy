@@ -24,7 +24,7 @@ import type { BinaryManager } from './BinaryManager';
 import type { LogService } from './LogService';
 import type { RecentJobsStore } from '@main/stores/RecentJobsStore';
 import type { TokenService } from './TokenService';
-import { runYtDlp } from './ytDlpRunner';
+import { runYtDlp, type RunYtDlpResult } from './ytDlpRunner';
 
 interface ActiveDownload {
   job: DownloadJob;
@@ -49,6 +49,11 @@ function killProcessTree(proc: ChildProcessWithoutNullStreams, signal: NodeJS.Si
 export class DownloadService extends EventEmitter {
   private activeJobs = new Map<string, ActiveDownload>();
   private pausedJobs = new Map<string, DownloadJob>();
+  // Tracks which file yt-dlp is currently downloading per job. Updated from
+  // [download] Destination: lines so progress can suppress per-sub percents
+  // (which would otherwise peg the bar at 100% for tiny .vtt files) and emit
+  // accurate fetchingSubtitles vs downloadingMedia status transitions.
+  private currentFileKind = new Map<string, 'subtitle' | 'media'>();
 
   constructor(
     private readonly binaryManager: BinaryManager,
@@ -110,15 +115,110 @@ export class DownloadService extends EventEmitter {
         return ok({ job });
       }
 
-      // Phase 1: video + audio (no subs). Splitting subs out into a second invocation
-      // means a subtitle 429 leaves the merged video on disk instead of failing the job.
-      const videoArgs = ['--progress', '--no-playlist', '--no-write-subs', '--no-write-auto-subs'];
-      if (input.formatId) videoArgs.push('-f', input.formatId);
-      videoArgs.push('-o', `${input.outputDir}/%(title)s.%(ext)s`, input.url);
+      const embedMode = input.subtitleMode === 'embed' && !!input.subtitleLanguages?.length;
+      const subtitleOnly = !input.formatId && !!input.subtitleLanguages?.length;
 
       const safeConsume = (chunk: string): void => {
         try { this.consumeProgress(job.id, chunk); } catch { /* swallow */ }
       };
+
+      const buildSubArgs = (): string[] => {
+        const subFormat = input.subtitleFormat ?? 'srt';
+        const subOutputDir = input.subtitleMode === 'subfolder'
+          ? `${input.outputDir}/Subtitles`
+          : input.outputDir;
+        return [
+          '--skip-download', '--no-playlist',
+          '--write-subs', '--sub-langs', input.subtitleLanguages!.join(','),
+          ...(input.writeAutoSubs ? ['--write-auto-subs'] : []),
+          '--sleep-subtitles', '3',
+          '--sub-format', `${subFormat}/best`,
+          '--convert-subs', subFormat,
+          '-o', `${subOutputDir}/%(title)s.%(ext)s`, input.url
+        ];
+      };
+
+      const emitYtdlpFailure = (result: RunYtDlpResult): LocalizedError => {
+        if (result.spawnError) {
+          const payload: LocalizedError = { key: null, rawMessage: result.spawnError.message };
+          this.emitStatus(job.id, 'error', 'ytdlpProcessError', { error: result.spawnError.message }, payload);
+          return payload;
+        }
+        const payload: LocalizedError = { key: result.errorClass, rawMessage: result.rawError ?? undefined };
+        if (result.errorClass) {
+          this.emitStatus(job.id, 'error', 'ytdlpExitCode', { code: result.exitCode ?? -1 }, payload);
+        } else if (result.rawError) {
+          this.emitStatus(job.id, 'error', 'ytdlpProcessError', { error: result.rawError }, payload);
+        } else {
+          this.emitStatus(job.id, 'error', 'ytdlpExitCode', { code: result.exitCode ?? -1 }, payload);
+        }
+        return payload;
+      };
+
+      if (subtitleOnly) {
+        // No media to download — only fetch subs. Failure here is HARD: nothing
+        // ends up on disk, unlike phase 2 of a normal download where the video
+        // is already saved before subs are attempted.
+        void runYtDlp({
+          url: input.url,
+          ytDlpPath,
+          ffmpegPath,
+          args: buildSubArgs(),
+          tokenService: this.tokenService,
+          onAttempt: (attempt) => {
+            this.emitStatus(job.id, 'token', attempt === 0 ? 'mintingToken' : 'remintingToken');
+          },
+          onSpawn: (proc) => {
+            this.emitStatus(job.id, 'download', 'fetchingSubtitles');
+            const active = this.activeJobs.get(job.id);
+            if (!active) return;
+            active.process = proc;
+            if (active.cancelRequested) proc.kill('SIGKILL');
+          },
+          onStdout: safeConsume,
+          onStderr: safeConsume
+        }).then(async (result) => {
+          const activeEntry = this.activeJobs.get(job.id);
+          if (activeEntry?.cancelRequested) {
+            await this.cleanupPartFiles(job.outputDir);
+            this.emitStatus(job.id, 'error', 'cancelled');
+            await this.finalize(job, 'cancelled');
+            return;
+          }
+          if (result.spawnError || result.exitCode !== 0) {
+            this.logger.log('ERROR', 'subtitle-only download failed', { jobId: job.id, code: result.exitCode, signal: result.errorClass });
+            const payload = emitYtdlpFailure(result);
+            await this.finalize(job, 'failed', payload);
+            return;
+          }
+          this.emitStatus(job.id, 'done', 'complete');
+          await this.finalize(job, 'completed');
+        });
+        return ok({ job });
+      }
+
+      // Phase 1: video + audio. When embed mode is active, subtitle flags are included
+      // here so yt-dlp can embed during the mux. Otherwise subs are suppressed and
+      // fetched in a separate phase so a 429 can't fail the video download.
+      const videoArgs = ['--progress', '--no-playlist'];
+      if (embedMode) {
+        // mkv embeds vtt natively as a webvtt stream — no --convert-subs needed.
+        // mp4+mov_text muxing is unreliable across YouTube's auto-caption variants
+        // (see refs/GDownloader source comment, refs/omniget error-recovery path).
+        // --compat-options no-keep-subs deletes the sidecar .vtt files after embed.
+        videoArgs.push(
+          '--write-subs', '--embed-subs',
+          '--sub-langs', input.subtitleLanguages!.join(','),
+          '--merge-output-format', 'mkv',
+          '--compat-options', 'no-keep-subs',
+          '--sleep-subtitles', '3'
+        );
+        if (input.writeAutoSubs) videoArgs.push('--write-auto-subs');
+      } else {
+        videoArgs.push('--no-write-subs', '--no-write-auto-subs');
+      }
+      if (input.formatId) videoArgs.push('-f', input.formatId);
+      videoArgs.push('-o', `${input.outputDir}/%(title)s.%(ext)s`, input.url);
 
       void runYtDlp({
         url: input.url,
@@ -188,23 +288,16 @@ export class DownloadService extends EventEmitter {
           return;
         }
 
-        // Video succeeded. Phase 2: subtitles, if requested. Failures here are soft —
-        // the video is already on disk, so we still finalize as 'completed'.
-        if (input.subtitleLanguages?.length) {
+        // Video succeeded. Phase 2: subtitles, if requested. Skipped in embed mode
+        // (subs were included in phase 1). Failures here are soft — the video is
+        // already on disk, so we still finalize as 'completed'.
+        if (!embedMode && input.subtitleLanguages?.length) {
           this.emitStatus(job.id, 'download', 'fetchingSubtitles');
-          const subArgs = [
-            '--skip-download', '--no-playlist',
-            '--write-subs', '--sub-langs', input.subtitleLanguages.join(','),
-            ...(input.writeAutoSubs ? ['--write-auto-subs'] : []),
-            '--sleep-subtitles', '3',
-            '-o', `${input.outputDir}/%(title)s.%(ext)s`, input.url
-          ];
-
           const subResult = await runYtDlp({
             url: input.url,
             ytDlpPath,
             ffmpegPath,
-            args: subArgs,
+            args: buildSubArgs(),
             tokenService: this.tokenService,
             onSpawn: (proc) => {
               const active = this.activeJobs.get(job.id);
@@ -346,6 +439,18 @@ export class DownloadService extends EventEmitter {
     for (const line of splitStderrLines(text)) {
       this.logger.log('INFO', line, { jobId, source: 'yt-dlp-progress' });
 
+      const destMatch = line.match(/^\[download\] Destination:\s+(.+)$/);
+      if (destMatch) {
+        const kind = /\.(vtt|srt|ass)$/i.test(destMatch[1]) ? 'subtitle' : 'media';
+        this.currentFileKind.set(jobId, kind);
+        this.emitStatus(
+          jobId,
+          'download',
+          kind === 'subtitle' ? 'fetchingSubtitles' : 'downloadingMedia'
+        );
+        continue;
+      }
+
       const sleepMatch = line.match(/Sleeping (\d+(?:\.\d+)?) seconds/);
       if (sleepMatch) {
         const seconds = Math.round(parseFloat(sleepMatch[1]));
@@ -358,11 +463,14 @@ export class DownloadService extends EventEmitter {
         continue;
       }
 
+      // Subtitle files are tiny (~80KB) and finish in <1s; per-file 100% would
+      // otherwise peg the bar before the real video download even starts.
+      const kind = this.currentFileKind.get(jobId);
       const event: ProgressEvent = {
         jobId,
         line,
         at: nowIso(),
-        percent: parsePercentFromLine(line)
+        percent: kind === 'subtitle' ? undefined : parsePercentFromLine(line)
       };
       this.emit('progress', event);
     }
@@ -394,6 +502,7 @@ export class DownloadService extends EventEmitter {
   ): Promise<void> {
     this.logger.log('INFO', 'Job finalized', { jobId: job.id, status, ...(error && { error }) });
     this.activeJobs.delete(job.id);
+    this.currentFileKind.delete(job.id);
 
     job.status = status;
     job.updatedAt = nowIso();

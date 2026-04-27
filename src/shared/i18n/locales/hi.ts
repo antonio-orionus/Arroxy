@@ -64,7 +64,17 @@ const hi = {
       clearAll: 'सभी हटाएँ',
       noSelected: 'कोई उपशीर्षक नहीं चुना',
       sectionManual: 'मैनुअल',
-      sectionAuto: 'स्वतः-जनित'
+      sectionAuto: 'स्वतः-जनित',
+      saveMode: {
+        heading: 'Save as',
+        sidecar: 'Next to video',
+        embed: 'Embed into video',
+        subfolder: 'Subtitles/ subfolder'
+      },
+      format: {
+        heading: 'Format'
+      },
+      embedNote: 'एम्बेड मोड आउटपुट को .mkv के रूप में सहेजता है ताकि उपशीर्षक ट्रैक विश्वसनीय रूप से एम्बेड हों।'
     },
     formats: {
       quickPresets: 'त्वरित प्रीसेट',
@@ -117,6 +127,7 @@ const hi = {
     toggleTitle: 'डाउनलोड क़तार दिखाएँ/छिपाएँ',
     empty: 'क़तार में डाली गई डाउनलोड यहाँ दिखेंगी',
     noDownloads: 'अभी कोई डाउनलोड नहीं।',
+    activeCount: '{{count}} डाउनलोड हो रहे · {{percent}}%',
     clear: 'साफ़ करें',
     clearTitle: 'पूरी हुई डाउनलोड हटाएँ',
     tip: 'आपकी डाउनलोड नीचे क़तार में है — कभी भी खोलकर प्रगति देख सकते हैं।',
@@ -185,6 +196,10 @@ const hi = {
     'small-file': {
       label: 'छोटी फ़ाइल',
       desc: 'न्यूनतम रिज़ॉल्यूशन + कम ऑडियो'
+    },
+    'subtitle-only': {
+      label: 'केवल उपशीर्षक',
+      desc: 'न वीडियो न ऑडियो, केवल उपशीर्षक'
     }
   },
   formatLabel: {

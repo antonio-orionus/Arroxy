@@ -64,7 +64,17 @@ const fr = {
       clearAll: 'Tout effacer',
       noSelected: 'Aucun sous-titre sélectionné',
       sectionManual: 'Manuel',
-      sectionAuto: 'Généré automatiquement'
+      sectionAuto: 'Généré automatiquement',
+      saveMode: {
+        heading: 'Save as',
+        sidecar: 'Next to video',
+        embed: 'Embed into video',
+        subfolder: 'Subtitles/ subfolder'
+      },
+      format: {
+        heading: 'Format'
+      },
+      embedNote: 'Le mode « incorporé » enregistre la sortie en .mkv pour que les pistes de sous-titres soient intégrées de façon fiable.'
     },
     formats: {
       quickPresets: 'Préréglages rapides',
@@ -117,6 +127,7 @@ const fr = {
     toggleTitle: 'Afficher/masquer la file de téléchargement',
     empty: 'Les téléchargements en file s\'afficheront ici',
     noDownloads: 'Aucun téléchargement pour l\'instant.',
+    activeCount: '{{count}} en cours · {{percent}}%',
     clear: 'Effacer',
     clearTitle: 'Effacer les téléchargements terminés',
     tip: 'Ton téléchargement est en file ci-dessous — ouvre-la quand tu veux pour suivre la progression.',
@@ -185,6 +196,10 @@ const fr = {
     'small-file': {
       label: 'Petit fichier',
       desc: 'Résolution la plus basse + audio bas'
+    },
+    'subtitle-only': {
+      label: 'Sous-titres uniquement',
+      desc: 'Pas de vidéo ni d\'audio, juste les sous-titres'
     }
   },
   formatLabel: {

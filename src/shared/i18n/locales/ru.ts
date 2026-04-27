@@ -64,7 +64,17 @@ const ru = {
       clearAll: 'Очистить всё',
       noSelected: 'Субтитры не выбраны',
       sectionManual: 'Ручные',
-      sectionAuto: 'Автоматические'
+      sectionAuto: 'Автоматические',
+      saveMode: {
+        heading: 'Save as',
+        sidecar: 'Next to video',
+        embed: 'Embed into video',
+        subfolder: 'Subtitles/ subfolder'
+      },
+      format: {
+        heading: 'Format'
+      },
+      embedNote: 'Режим встраивания сохраняет файл как .mkv, чтобы дорожки субтитров встраивались надёжно.'
     },
     formats: {
       quickPresets: 'Пресеты',
@@ -117,6 +127,7 @@ const ru = {
     toggleTitle: 'Показать/скрыть очередь загрузок',
     empty: 'Здесь будут отображаться поставленные в очередь загрузки',
     noDownloads: 'Загрузок пока нет.',
+    activeCount: '{{count}} загружается · {{percent}}%',
     clear: 'Очистить',
     clearTitle: 'Очистить завершённые загрузки',
     tip: 'Твоя загрузка в очереди ниже — открой её в любой момент, чтобы следить за прогрессом.',
@@ -185,6 +196,10 @@ const ru = {
     'small-file': {
       label: 'Маленький файл',
       desc: 'Низкое разрешение + слабое аудио'
+    },
+    'subtitle-only': {
+      label: 'Только субтитры',
+      desc: 'Без видео и аудио, только субтитры'
     }
   },
   formatLabel: {

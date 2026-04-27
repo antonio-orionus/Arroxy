@@ -4,9 +4,13 @@ import { Search, Check, X } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
+import { RadioOption } from './ui/radio-option';
 import { MascotBubble } from './MascotBubble';
 import { buildSubtitleList } from '../lib/subtitleLabel';
 import loveImg from '../assets/Love.png';
+import type { SubtitleFormat, SubtitleMode } from '@shared/types';
+
+const SUBTITLE_FORMATS: SubtitleFormat[] = ['srt', 'vtt', 'ass'];
 
 export function StepSubtitles(): JSX.Element {
   const { t, i18n } = useTranslation();
@@ -14,7 +18,11 @@ export function StepSubtitles(): JSX.Element {
     wizardSubtitles,
     wizardAutomaticCaptions,
     wizardSubtitleLanguages,
+    wizardSubtitleMode,
+    wizardSubtitleFormat,
     toggleSubtitleLanguage,
+    setSubtitleMode,
+    setSubtitleFormat,
     confirmSubtitles
   } = useAppStore();
 
@@ -39,8 +47,60 @@ export function StepSubtitles(): JSX.Element {
     for (const { code } of selectedItems) toggleSubtitleLanguage(code);
   }
 
+  const saveModes: { mode: SubtitleMode; label: string }[] = [
+    { mode: 'sidecar', label: t('wizard.subtitles.saveMode.sidecar') },
+    { mode: 'embed',   label: t('wizard.subtitles.saveMode.embed') },
+    { mode: 'subfolder', label: t('wizard.subtitles.saveMode.subfolder') },
+  ];
+
   return (
     <div className="wizard-step flex flex-col gap-3" data-testid="step-subtitles">
+      {/* ── Save as ─────────────────────────────────────── */}
+      <div>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 pb-1">
+          {t('wizard.subtitles.saveMode.heading')}
+        </p>
+        <div role="radiogroup" aria-label={t('wizard.subtitles.saveMode.heading')} className="flex flex-col -mx-1">
+          {saveModes.map(({ mode, label }) => (
+            <RadioOption
+              key={mode}
+              label={label}
+              checked={wizardSubtitleMode === mode}
+              onClick={() => setSubtitleMode(mode)}
+            />
+          ))}
+        </div>
+
+        {wizardSubtitleMode === 'embed' ? (
+          <p
+            data-testid="subtitle-embed-note"
+            className="text-[11px] text-[var(--text-subtle)] mt-2 px-2 leading-snug"
+          >
+            {t('wizard.subtitles.embedNote')}
+          </p>
+        ) : (
+          <div className="flex items-center gap-1.5 mt-2 px-2">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] mr-1">
+              {t('wizard.subtitles.format.heading')}
+            </span>
+            {SUBTITLE_FORMATS.map((fmt) => (
+              <button
+                key={fmt}
+                type="button"
+                aria-pressed={wizardSubtitleFormat === fmt}
+                onClick={() => setSubtitleFormat(fmt)}
+                className="h-6 px-2 rounded text-[11px] font-semibold uppercase border border-[var(--border-strong)] transition-colors aria-pressed:bg-[var(--brand-dim)] aria-pressed:border-[var(--brand)] aria-pressed:text-[var(--brand)] hover:bg-accent/60"
+              >
+                {fmt.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <Separator className="bg-border/50 -mx-6 w-auto" />
+
+      {/* ── Languages ───────────────────────────────────── */}
       {!hasLangs ? (
         <div className="flex flex-col items-center gap-3 py-6 text-center">
           <p className="text-sm text-muted-foreground">{t('wizard.subtitles.noLanguages')}</p>

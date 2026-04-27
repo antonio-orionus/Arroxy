@@ -20,6 +20,8 @@ export function makeItem(
     downloadJobId: null,
     subtitleLanguages: [],
     writeAutoSubs: false,
+    subtitleMode: 'sidecar',
+    subtitleFormat: 'srt',
     ...overrides,
   };
 }

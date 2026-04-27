@@ -22,6 +22,8 @@ function makeItem(overrides: Partial<QueueItem> = {}): QueueItem {
     downloadJobId: null,
     subtitleLanguages: [],
     writeAutoSubs: false,
+    subtitleMode: 'sidecar',
+    subtitleFormat: 'srt',
     ...overrides
   };
 }

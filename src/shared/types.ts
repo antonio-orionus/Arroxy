@@ -11,7 +11,10 @@ export interface AppError {
   recoverable?: boolean;
 }
 
-export type Preset = 'best-quality' | 'balanced' | 'audio-only' | 'small-file';
+export type Preset = 'best-quality' | 'balanced' | 'audio-only' | 'small-file' | 'subtitle-only';
+
+export type SubtitleMode = 'sidecar' | 'embed' | 'subfolder';
+export type SubtitleFormat = 'srt' | 'vtt' | 'ass';
 
 export interface AppSettings {
   defaultOutputDir: string;
@@ -23,6 +26,8 @@ export interface AppSettings {
   language?: SupportedLang;
   commonPaths?: { downloads: string; videos: string; desktop: string };
   lastSubtitleLanguages?: string[];
+  lastSubtitleMode?: SubtitleMode;
+  lastSubtitleFormat?: SubtitleFormat;
 }
 
 export interface SubtitleTrack {
@@ -91,6 +96,8 @@ export interface QueueItem {
   downloadJobId: string | null;
   subtitleLanguages: string[];
   writeAutoSubs: boolean;
+  subtitleMode: SubtitleMode;
+  subtitleFormat: SubtitleFormat;
 }
 
 export type DownloadStage = 'setup' | 'token' | 'download' | 'done' | 'error';
@@ -122,6 +129,8 @@ export interface StartDownloadInput {
   formatId?: string;
   subtitleLanguages?: string[];
   writeAutoSubs?: boolean;
+  subtitleMode?: SubtitleMode;
+  subtitleFormat?: SubtitleFormat;
 }
 
 export interface StartDownloadOutput {

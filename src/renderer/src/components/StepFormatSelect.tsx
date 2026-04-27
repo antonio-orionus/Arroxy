@@ -5,6 +5,7 @@ import { humanSize } from '@shared/format';
 import { useAppStore, groupVideoFormats, presetOptions } from '../store/useAppStore';
 import { Button } from './ui/button';
 import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group';
+import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
 import { Separator } from './ui/separator';
 import { RadioOption } from './ui/radio-option';
 import { cn } from '@renderer/lib/utils';
@@ -40,7 +41,10 @@ export function StepFormatSelect(): JSX.Element {
 
   const videoGroups = groupVideoFormats(filteredFormats);
   const isAudioOnly = selectedVideoFormatId === '';
-  const canContinue = !(isAudioOnly && selectedAudioFormatId === null);
+  const subtitleOnlyPreset = activePreset === 'subtitle-only';
+  // 'subtitle-only' preset deliberately picks no video + no audio. The subtitle
+  // step + confirm step then guarantee at least one language is chosen.
+  const canContinue = subtitleOnlyPreset || !(isAudioOnly && selectedAudioFormatId === null);
 
   const uniqueExts = [...new Set(wizardFormats.filter((f) => f.isVideoOnly).map((f) => f.ext))];
   const uniqueDynamicRanges = [...new Set(wizardFormats.filter((f) => f.isVideoOnly).map((f) => f.dynamicRange ?? 'SDR'))];
@@ -49,9 +53,11 @@ export function StepFormatSelect(): JSX.Element {
   const selectedFilesize = selectedFormat?.filesize;
 
   const currentResolutionLabel =
-    selectedVideoFormatId === ''
-      ? t('wizard.formats.audioOnly')
-      : groupVideoFormats(wizardFormats).find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? '';
+    activePreset === 'subtitle-only'
+      ? t('presets.subtitle-only.label')
+      : selectedVideoFormatId === ''
+        ? t('wizard.formats.audioOnly')
+        : groupVideoFormats(wizardFormats).find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? '';
 
   const maxFilesize = Math.max(
     ...videoGroups
@@ -106,19 +112,25 @@ export function StepFormatSelect(): JSX.Element {
         <ToggleGroup
           value={activePreset ? [activePreset] : []}
           onValueChange={(vals) => { if (vals[0]) setPreset(vals[0] as Preset); }}
-          className="grid grid-cols-4 gap-1.5 w-full"
+          className="grid grid-cols-5 gap-1.5 w-full"
         >
           {PRESET_OPTIONS.map((p) => (
-            <ToggleGroupItem
-              key={p.value}
-              value={p.value}
-              className="flex flex-col items-start gap-0.5 py-1.5 px-2.5 rounded-[8px] border h-auto text-left w-full aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] border-[var(--border-strong)] bg-secondary/60 hover:border-muted-foreground hover:-translate-y-0.5 transition-all"
-            >
-              <span className="text-[13px] font-semibold shrink-0 text-foreground">
-                {p.label}
-              </span>
-              <span className="text-[11px] text-[var(--text-subtle)] leading-snug line-clamp-2">{p.desc}</span>
-            </ToggleGroupItem>
+            <Tooltip key={p.value}>
+              <TooltipTrigger
+                render={(props) => (
+                  <ToggleGroupItem
+                    {...props}
+                    value={p.value}
+                    className="flex items-center justify-center py-1.5 px-2.5 rounded-[8px] border h-auto w-full aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] border-[var(--border-strong)] bg-secondary/60 hover:border-muted-foreground hover:-translate-y-0.5 transition-all"
+                  >
+                    <span className="text-[13px] font-semibold text-foreground truncate">
+                      {p.label}
+                    </span>
+                  </ToggleGroupItem>
+                )}
+              />
+              <TooltipContent>{p.desc}</TooltipContent>
+            </Tooltip>
           ))}
         </ToggleGroup>
       </div>
@@ -183,6 +195,7 @@ export function StepFormatSelect(): JSX.Element {
               <RadioOption
                 key={g.formatId || 'audio-only'}
                 checked={isChecked}
+                disabled={subtitleOnlyPreset}
                 onClick={() => setSelectedVideoFormatId(g.formatId)}
                 label={g.resolution}
                 labelClassName="min-w-[68px]"
@@ -222,6 +235,7 @@ export function StepFormatSelect(): JSX.Element {
               <RadioOption
                 key={fmt.formatId}
                 checked={isChecked}
+                disabled={subtitleOnlyPreset}
                 onClick={() => setAudioFormatId(fmt.formatId)}
                 label={fmt.ext}
                 meta={
@@ -237,7 +251,7 @@ export function StepFormatSelect(): JSX.Element {
           })}
           <RadioOption
             checked={selectedAudioFormatId === null}
-            disabled={isAudioOnly}
+            disabled={isAudioOnly || subtitleOnlyPreset}
             onClick={() => setAudioFormatId(null)}
             label={t('wizard.formats.noAudio')}
             meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.videoOnly')}</span>}
@@ -255,7 +269,9 @@ export function StepFormatSelect(): JSX.Element {
       <Separator className="bg-border/50 -mx-6 w-auto" />
       <div className="flex items-center justify-between sticky bottom-0 bg-background py-3 -mx-6 px-6">
         <span className="text-[13px] text-muted-foreground">
-          {selectedFilesize ? (
+          {subtitleOnlyPreset ? (
+            t('presets.subtitle-only.label')
+          ) : selectedFilesize ? (
             <>{t('wizard.formats.total')} <span className="text-[17px] font-bold text-[var(--brand)]">~{humanSize(selectedFilesize)}</span></>
           ) : isAudioOnly ? (
             t('wizard.formats.audioOnly')

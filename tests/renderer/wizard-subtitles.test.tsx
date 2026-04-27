@@ -1,8 +1,12 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { useAppStore } from '@renderer/store/useAppStore';
 import type { GetFormatsOutput, StatusEvent } from '@shared/types';
 import { ok } from '../shared/fixtures';
+import { StepSubtitles } from '@renderer/components/StepSubtitles';
+import { StepConfirm } from '@renderer/components/StepConfirm';
+import { StepFormatSelect } from '@renderer/components/StepFormatSelect';
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 
@@ -72,6 +76,8 @@ function resetStore() {
     wizardSubtitles: {},
     wizardAutomaticCaptions: {},
     wizardSubtitleLanguages: [],
+    wizardSubtitleMode: 'sidecar',
+    wizardSubtitleFormat: 'srt',
     queue: [],
     drawerOpen: false,
   });
@@ -80,6 +86,54 @@ function resetStore() {
 beforeEach(() => {
   resetStore();
   vi.clearAllMocks();
+});
+
+describe('Subtitle-only preset', () => {
+  it('setPreset("subtitle-only") clears video and audio selections', async () => {
+    window.appApi = buildMockApi() as never;
+    await useAppStore.getState().initialize();
+    useAppStore.getState().setWizardUrl(YOUTUBE_URL);
+    await useAppStore.getState().submitUrl();
+
+    useAppStore.getState().setPreset('subtitle-only');
+
+    const state = useAppStore.getState();
+    expect(state.activePreset).toBe('subtitle-only');
+    expect(state.selectedVideoFormatId).toBe('');
+    expect(state.selectedAudioFormatId).toBeNull();
+  });
+
+  it('subtitle-only preset produces undefined formatId in queue item', async () => {
+    window.appApi = buildMockApi() as never;
+    await useAppStore.getState().initialize();
+    useAppStore.getState().setWizardUrl(YOUTUBE_URL);
+    await useAppStore.getState().submitUrl();
+    useAppStore.getState().setPreset('subtitle-only');
+    useAppStore.getState().toggleSubtitleLanguage('en');
+
+    await useAppStore.getState().addToQueue();
+
+    const item = useAppStore.getState().queue[0];
+    expect(item.formatId).toBeUndefined();
+    expect(item.subtitleLanguages).toEqual(['en']);
+  });
+
+  it('downloads.start receives undefined formatId and the chosen subtitleLanguages', async () => {
+    const api = buildMockApi() as never as ReturnType<typeof buildMockApi>;
+    window.appApi = api as never;
+    await useAppStore.getState().initialize();
+    useAppStore.getState().setWizardUrl(YOUTUBE_URL);
+    await useAppStore.getState().submitUrl();
+    useAppStore.getState().setPreset('subtitle-only');
+    useAppStore.getState().toggleSubtitleLanguage('en');
+
+    await useAppStore.getState().addAndDownloadImmediately();
+
+    expect(api.downloads.start).toHaveBeenCalledOnce();
+    const call = api.downloads.start.mock.calls[0][0];
+    expect(call.formatId).toBeUndefined();
+    expect(call.subtitleLanguages).toEqual(['en']);
+  });
 });
 
 describe('Wizard subtitle step — store behavior', () => {
@@ -283,11 +337,137 @@ describe('Wizard subtitle step — store behavior', () => {
     expect(subtitleUpdateCall![0]).not.toHaveProperty('lastWriteAutoSubs');
   });
 
-  it('resetWizard clears subtitle state', () => {
+  it('wizardSubtitleMode defaults to sidecar and wizardSubtitleFormat to srt', () => {
+    expect(useAppStore.getState().wizardSubtitleMode).toBe('sidecar');
+    expect(useAppStore.getState().wizardSubtitleFormat).toBe('srt');
+  });
+
+  it('setSubtitleMode updates wizardSubtitleMode', () => {
+    useAppStore.getState().setSubtitleMode('embed');
+    expect(useAppStore.getState().wizardSubtitleMode).toBe('embed');
+  });
+
+  it('setSubtitleFormat updates wizardSubtitleFormat', () => {
+    useAppStore.getState().setSubtitleFormat('vtt');
+    expect(useAppStore.getState().wizardSubtitleFormat).toBe('vtt');
+  });
+
+  it('buildQueueItem includes subtitleMode and subtitleFormat', async () => {
+    window.appApi = buildMockApi() as never;
+    await useAppStore.getState().initialize();
+
+    useAppStore.setState({
+      wizardUrl: YOUTUBE_URL,
+      wizardTitle: 'Test',
+      wizardThumbnail: '',
+      wizardOutputDir: '/tmp',
+      selectedVideoFormatId: '22',
+      selectedAudioFormatId: '140',
+      activePreset: null,
+      wizardFormats: PROBE_RESULT.formats,
+      wizardSubtitles: PROBE_RESULT.subtitles,
+      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+      wizardSubtitleLanguages: ['en'],
+      wizardSubtitleMode: 'subfolder',
+      wizardSubtitleFormat: 'vtt',
+      wizardStep: 'confirm'
+    });
+
+    await useAppStore.getState().addToQueue();
+
+    const item = useAppStore.getState().queue[0];
+    expect(item.subtitleMode).toBe('subfolder');
+    expect(item.subtitleFormat).toBe('vtt');
+  });
+
+  it('startItemDownload forwards subtitleMode and subtitleFormat to downloads.start', async () => {
+    window.appApi = buildMockApi() as never;
+    await useAppStore.getState().initialize();
+
+    useAppStore.setState({
+      wizardUrl: YOUTUBE_URL,
+      wizardTitle: 'Test',
+      wizardThumbnail: '',
+      wizardOutputDir: '/tmp',
+      selectedVideoFormatId: '22',
+      selectedAudioFormatId: '140',
+      activePreset: null,
+      wizardFormats: PROBE_RESULT.formats,
+      wizardSubtitles: PROBE_RESULT.subtitles,
+      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+      wizardSubtitleLanguages: ['en'],
+      wizardSubtitleMode: 'embed',
+      wizardSubtitleFormat: 'ass',
+      wizardStep: 'confirm'
+    });
+
+    await useAppStore.getState().addAndDownloadImmediately();
+
+    const startCall = vi.mocked(window.appApi.downloads.start).mock.calls[0][0];
+    expect(startCall.subtitleMode).toBe('embed');
+    expect(startCall.subtitleFormat).toBe('ass');
+  });
+
+  it('persistFormatPrefs saves lastSubtitleMode and lastSubtitleFormat', async () => {
+    const updateMock = vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false }));
+    window.appApi = {
+      ...buildMockApi(),
+      settings: {
+        get: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false })),
+        update: updateMock
+      }
+    } as never;
+    await useAppStore.getState().initialize();
+
+    useAppStore.setState({
+      wizardUrl: YOUTUBE_URL,
+      wizardTitle: 'Test',
+      wizardThumbnail: '',
+      wizardOutputDir: '/tmp',
+      selectedVideoFormatId: '22',
+      selectedAudioFormatId: '140',
+      activePreset: null,
+      wizardFormats: PROBE_RESULT.formats,
+      wizardSubtitles: PROBE_RESULT.subtitles,
+      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+      wizardSubtitleLanguages: ['en'],
+      wizardSubtitleMode: 'subfolder',
+      wizardSubtitleFormat: 'vtt',
+      wizardStep: 'confirm'
+    });
+
+    await useAppStore.getState().addToQueue();
+
+    const updateCalls = updateMock.mock.calls;
+    const subtitleCall = updateCalls.find((args: unknown[]) => {
+      const patch = args[0] as Record<string, unknown>;
+      return 'lastSubtitleLanguages' in patch;
+    });
+    expect(subtitleCall).toBeDefined();
+    expect(subtitleCall![0]).toMatchObject({
+      lastSubtitleMode: 'subfolder',
+      lastSubtitleFormat: 'vtt'
+    });
+  });
+
+  it('submitUrl restores lastSubtitleMode and lastSubtitleFormat from settings', async () => {
+    window.appApi = buildMockApi({ lastSubtitleMode: 'embed', lastSubtitleFormat: 'ass' }) as never;
+    await useAppStore.getState().initialize();
+
+    useAppStore.getState().setWizardUrl(YOUTUBE_URL);
+    await useAppStore.getState().submitUrl();
+
+    expect(useAppStore.getState().wizardSubtitleMode).toBe('embed');
+    expect(useAppStore.getState().wizardSubtitleFormat).toBe('ass');
+  });
+
+  it('resetWizard clears subtitle state and resets mode/format to defaults', () => {
     useAppStore.setState({
       wizardSubtitleLanguages: ['en'],
       wizardSubtitles: { en: [{ ext: 'vtt' }] },
-      wizardAutomaticCaptions: { de: [{ ext: 'vtt' }] }
+      wizardAutomaticCaptions: { de: [{ ext: 'vtt' }] },
+      wizardSubtitleMode: 'embed',
+      wizardSubtitleFormat: 'vtt'
     });
 
     useAppStore.getState().resetWizard();
@@ -296,5 +476,180 @@ describe('Wizard subtitle step — store behavior', () => {
     expect(state.wizardSubtitleLanguages).toEqual([]);
     expect(state.wizardSubtitles).toEqual({});
     expect(state.wizardAutomaticCaptions).toEqual({});
+    expect(state.wizardSubtitleMode).toBe('sidecar');
+    expect(state.wizardSubtitleFormat).toBe('srt');
+  });
+});
+
+describe('StepSubtitles — save mode UI', () => {
+  function renderStep(subtitleMode = 'sidecar') {
+    useAppStore.setState({
+      wizardStep: 'subtitles',
+      wizardSubtitles: { en: [{ ext: 'vtt', name: 'English' }] },
+      wizardAutomaticCaptions: {},
+      wizardSubtitleLanguages: [],
+      wizardSubtitleMode: subtitleMode as never,
+      wizardSubtitleFormat: 'srt',
+    });
+    return render(<StepSubtitles />);
+  }
+
+  it('renders save-mode radio options', () => {
+    renderStep();
+    expect(screen.getByText('Next to video')).toBeInTheDocument();
+    expect(screen.getByText('Embed into video')).toBeInTheDocument();
+    expect(screen.getByText('Subtitles/ subfolder')).toBeInTheDocument();
+  });
+
+  it('shows format toggle buttons when mode is sidecar', () => {
+    renderStep('sidecar');
+    expect(screen.getByRole('button', { name: 'SRT' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'VTT' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'ASS' })).toBeInTheDocument();
+  });
+
+  it('hides format toggle buttons when mode is embed', () => {
+    renderStep('embed');
+    expect(screen.queryByRole('button', { name: 'SRT' })).not.toBeInTheDocument();
+  });
+
+  it('shows the embed-note hint only when mode is embed', () => {
+    const { rerender } = renderStep('sidecar');
+    expect(screen.queryByTestId('subtitle-embed-note')).not.toBeInTheDocument();
+
+    useAppStore.setState({ wizardSubtitleMode: 'embed' });
+    rerender(<StepSubtitles />);
+    const note = screen.getByTestId('subtitle-embed-note');
+    expect(note).toBeInTheDocument();
+    expect(note.textContent).toMatch(/\.mkv/);
+  });
+
+  it('clicking embed mode calls setSubtitleMode', () => {
+    const setSubtitleMode = vi.spyOn(useAppStore.getState(), 'setSubtitleMode');
+    renderStep('sidecar');
+    fireEvent.click(screen.getByText('Embed into video'));
+    expect(setSubtitleMode).toHaveBeenCalledWith('embed');
+  });
+});
+
+describe('StepConfirm — subtitle summary', () => {
+  function renderConfirm(opts: { mode: string; format: string; languages: string[] }) {
+    window.appApi = buildMockApi() as never;
+    useAppStore.setState({
+      wizardStep: 'confirm',
+      wizardUrl: YOUTUBE_URL,
+      wizardTitle: 'Test',
+      wizardThumbnail: '',
+      wizardOutputDir: '/tmp',
+      selectedVideoFormatId: '22',
+      selectedAudioFormatId: '140',
+      activePreset: null,
+      wizardFormats: PROBE_RESULT.formats,
+      wizardSubtitles: PROBE_RESULT.subtitles,
+      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+      wizardSubtitleLanguages: opts.languages,
+      wizardSubtitleMode: opts.mode as never,
+      wizardSubtitleFormat: opts.format as never,
+    });
+    return render(<StepConfirm />);
+  }
+
+  it('shows language + format + mode for sidecar', () => {
+    renderConfirm({ mode: 'sidecar', format: 'srt', languages: ['en'] });
+    const cell = screen.getByTestId('confirm-subtitles');
+    expect(cell.textContent).toContain('SRT');
+    expect(cell.textContent).toContain('Next to video');
+  });
+
+  it('shows language + mode for embed (no format)', () => {
+    renderConfirm({ mode: 'embed', format: 'srt', languages: ['en'] });
+    const cell = screen.getByTestId('confirm-subtitles');
+    expect(cell.textContent).toContain('Embed into video');
+    expect(cell.textContent).not.toContain('SRT');
+  });
+
+  it('shows — when no languages selected', () => {
+    renderConfirm({ mode: 'sidecar', format: 'srt', languages: [] });
+    expect(screen.getByTestId('confirm-subtitles').textContent).toBe('—');
+  });
+});
+
+describe('StepFormatSelect — subtitle-only preset disables format columns', () => {
+  function renderFormats(preset: 'best-quality' | 'subtitle-only') {
+    window.appApi = buildMockApi() as never;
+    useAppStore.setState({
+      wizardStep: 'formats',
+      wizardUrl: YOUTUBE_URL,
+      wizardTitle: 'Test',
+      wizardThumbnail: '',
+      wizardOutputDir: '/tmp',
+      selectedVideoFormatId: preset === 'subtitle-only' ? '' : '22',
+      selectedAudioFormatId: preset === 'subtitle-only' ? null : '140',
+      activePreset: preset,
+      wizardFormats: PROBE_RESULT.formats,
+      wizardSubtitles: PROBE_RESULT.subtitles,
+      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+      wizardSubtitleLanguages: [],
+      wizardSubtitleMode: 'sidecar',
+      wizardSubtitleFormat: 'srt',
+    });
+    return render(<StepFormatSelect />);
+  }
+
+  it('marks every video and audio radio as aria-disabled when subtitle-only preset is active', () => {
+    renderFormats('subtitle-only');
+    const radios = screen.getAllByRole('radio');
+    expect(radios.length).toBeGreaterThan(0);
+    for (const r of radios) {
+      expect(r.getAttribute('aria-disabled')).toBe('true');
+    }
+  });
+
+  it('does not disable radios for non-subtitle-only presets', () => {
+    renderFormats('best-quality');
+    const radios = screen.getAllByRole('radio');
+    const disabledCount = radios.filter((r) => r.getAttribute('aria-disabled') === 'true').length;
+    // Only the "No audio" radio is disabled when audio-only video is the choice;
+    // for best-quality (with a video selected) nothing should be disabled.
+    expect(disabledCount).toBe(0);
+  });
+});
+
+describe('StepConfirm — subtitle-only safeguards', () => {
+  function renderConfirmSubtitleOnly(languages: string[]) {
+    window.appApi = buildMockApi() as never;
+    useAppStore.setState({
+      wizardStep: 'confirm',
+      wizardUrl: YOUTUBE_URL,
+      wizardTitle: 'Test',
+      wizardThumbnail: '',
+      wizardOutputDir: '/tmp',
+      selectedVideoFormatId: '',
+      selectedAudioFormatId: null,
+      activePreset: 'subtitle-only',
+      wizardFormats: PROBE_RESULT.formats,
+      wizardSubtitles: PROBE_RESULT.subtitles,
+      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+      wizardSubtitleLanguages: languages,
+      wizardSubtitleMode: 'sidecar',
+      wizardSubtitleFormat: 'srt',
+    });
+    return render(<StepConfirm />);
+  }
+
+  it('disables download buttons when nothing is selected (no media + no subs)', () => {
+    renderConfirmSubtitleOnly([]);
+    const download = screen.getByTestId('btn-download-now') as HTMLButtonElement;
+    const queue = screen.getByTestId('btn-add-to-queue') as HTMLButtonElement;
+    expect(download.disabled).toBe(true);
+    expect(queue.disabled).toBe(true);
+  });
+
+  it('enables download buttons when subtitle-only with at least one language', () => {
+    renderConfirmSubtitleOnly(['en']);
+    const download = screen.getByTestId('btn-download-now') as HTMLButtonElement;
+    const queue = screen.getByTestId('btn-add-to-queue') as HTMLButtonElement;
+    expect(download.disabled).toBe(false);
+    expect(queue.disabled).toBe(false);
   });
 });

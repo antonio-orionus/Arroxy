@@ -7,7 +7,9 @@ import type {
   Preset,
   QueueItem,
   StatusSnapshot,
+  SubtitleFormat,
   SubtitleMap,
+  SubtitleMode,
   SupportedLang
 } from '@shared/types';
 import { i18next, pickLanguage } from '@shared/i18n';
@@ -15,7 +17,7 @@ import { nextMonotonicPercent, ProgressFormatter } from './progress';
 
 export type WizardStep = 'url' | 'formats' | 'subtitles' | 'folder' | 'confirm' | 'error';
 
-const PRESETS: readonly Preset[] = ['best-quality', 'balanced', 'audio-only', 'small-file'];
+const PRESETS: readonly Preset[] = ['best-quality', 'balanced', 'audio-only', 'small-file', 'subtitle-only'];
 
 export function presetLabel(preset: Preset): string {
   return i18next.t(`presets.${preset}.label` as const);
@@ -104,6 +106,9 @@ function applyPreset(preset: Preset, formats: FormatOption[]): { videoFormatId: 
   if (preset === 'audio-only') {
     return { videoFormatId: '', audioFormatId: bestAudio };
   }
+  if (preset === 'subtitle-only') {
+    return { videoFormatId: '', audioFormatId: null };
+  }
   // small-file
   return { videoFormatId: grouped[grouped.length - 1]?.formatId ?? '', audioFormatId: worstAudio };
 }
@@ -173,6 +178,8 @@ interface AppState {
   wizardSubtitles: SubtitleMap;
   wizardAutomaticCaptions: SubtitleMap;
   wizardSubtitleLanguages: string[];
+  wizardSubtitleMode: SubtitleMode;
+  wizardSubtitleFormat: SubtitleFormat;
 
   // Queue
   queue: QueueItem[];
@@ -205,6 +212,8 @@ interface AppState {
   setPreset: (p: Preset) => void;
   confirmFormats: () => void;
   toggleSubtitleLanguage: (lang: string) => void;
+  setSubtitleMode: (mode: SubtitleMode) => void;
+  setSubtitleFormat: (format: SubtitleFormat) => void;
   confirmSubtitles: () => void;
   chooseWizardFolder: () => Promise<void>;
   confirmFolder: () => void;
@@ -285,7 +294,9 @@ export const useAppStore = create<AppState>((set, get) => {
       subtitleLanguages: state.wizardSubtitleLanguages,
       writeAutoSubs: state.wizardSubtitleLanguages.some(
         (l) => !!state.wizardAutomaticCaptions[l] && !state.wizardSubtitles[l]
-      )
+      ),
+      subtitleMode: state.wizardSubtitleMode,
+      subtitleFormat: state.wizardSubtitleFormat
     };
   }
 
@@ -302,7 +313,9 @@ export const useAppStore = create<AppState>((set, get) => {
     const patch = {
       lastVideoResolution: videoResolution,
       lastPreset: activePreset,
-      lastSubtitleLanguages: wizardSubtitleLanguages
+      lastSubtitleLanguages: wizardSubtitleLanguages,
+      lastSubtitleMode: get().wizardSubtitleMode,
+      lastSubtitleFormat: get().wizardSubtitleFormat
     };
     const result = await window.appApi.settings.update(patch);
     if (result.ok) {
@@ -331,6 +344,8 @@ export const useAppStore = create<AppState>((set, get) => {
     wizardSubtitles: {},
     wizardAutomaticCaptions: {},
     wizardSubtitleLanguages: [],
+    wizardSubtitleMode: 'sidecar',
+    wizardSubtitleFormat: 'srt',
     queue: [],
     uiZoom: 1,
     uiTheme: 'system',
@@ -377,9 +392,16 @@ export const useAppStore = create<AppState>((set, get) => {
             event.statusKey === 'mergingFormats' ||
             event.statusKey === 'fetchingSubtitles' ||
             event.statusKey === 'sleepingBetweenRequests';
+          // yt-dlp emits per-file percent (0→100% for each sub, then video, then audio).
+          // Reset the bar when a new file becomes the active download target so the
+          // first sub's instant 100% doesn't peg it for the rest of the job.
+          const isFileBoundary =
+            event.statusKey === 'downloadingMedia' ||
+            event.statusKey === 'fetchingSubtitles';
           updateQueueItem(item.id, {
             lastStatus: { key: event.statusKey, params: event.params },
-            ...(isPhaseTransition ? { progressDetail: null } : {})
+            ...(isPhaseTransition ? { progressDetail: null } : {}),
+            ...(isFileBoundary ? { progressPercent: 0 } : {})
           });
         }
       });
@@ -434,11 +456,13 @@ export const useAppStore = create<AppState>((set, get) => {
       const warmupFailures = warmUpResult.ok ? warmUpResult.data.failures : [];
 
       if (savedQueue.length > 0) {
-        type StoredItem = typeof savedQueue[number] & { subtitleLanguages?: string[]; writeAutoSubs?: boolean };
+        type StoredItem = typeof savedQueue[number] & { subtitleLanguages?: string[]; writeAutoSubs?: boolean; subtitleMode?: SubtitleMode; subtitleFormat?: SubtitleFormat };
         const migratedQueue: QueueItem[] = (savedQueue as StoredItem[]).map((item) => ({
           ...item,
           subtitleLanguages: item.subtitleLanguages ?? [],
-          writeAutoSubs: item.writeAutoSubs ?? false
+          writeAutoSubs: item.writeAutoSubs ?? false,
+          subtitleMode: item.subtitleMode ?? 'sidecar',
+          subtitleFormat: item.subtitleFormat ?? 'srt'
         }));
         set({ queue: migratedQueue, drawerOpen: true });
         await maybeStartNext();
@@ -483,8 +507,9 @@ export const useAppStore = create<AppState>((set, get) => {
       }
 
       const { formats, title, thumbnail, duration, subtitles = {}, automaticCaptions = {} } = result.data;
-      const { videoFormatId, audioFormatId, preset } = restoreFormatSelection(formats, get().settings);
-      const { languages: subtitleLanguages } = restoreSubtitleSelection(subtitles, automaticCaptions, get().settings);
+      const settings = get().settings;
+      const { videoFormatId, audioFormatId, preset } = restoreFormatSelection(formats, settings);
+      const { languages: subtitleLanguages } = restoreSubtitleSelection(subtitles, automaticCaptions, settings);
 
       set({
         wizardFormats: formats,
@@ -497,6 +522,8 @@ export const useAppStore = create<AppState>((set, get) => {
         wizardSubtitles: subtitles,
         wizardAutomaticCaptions: automaticCaptions,
         wizardSubtitleLanguages: subtitleLanguages,
+        wizardSubtitleMode: settings?.lastSubtitleMode ?? 'sidecar',
+        wizardSubtitleFormat: settings?.lastSubtitleFormat ?? 'srt',
         formatsLoading: false
       });
     },
@@ -520,6 +547,9 @@ export const useAppStore = create<AppState>((set, get) => {
         ? state.wizardSubtitleLanguages.filter((l) => l !== lang)
         : [...state.wizardSubtitleLanguages, lang]
     })),
+
+    setSubtitleMode: (mode) => set({ wizardSubtitleMode: mode }),
+    setSubtitleFormat: (format) => set({ wizardSubtitleFormat: format }),
 
     confirmSubtitles: () => set({ wizardStep: 'folder' }),
 
@@ -575,7 +605,9 @@ export const useAppStore = create<AppState>((set, get) => {
         wizardErrorOrigin: null,
         wizardSubtitles: {},
         wizardAutomaticCaptions: {},
-        wizardSubtitleLanguages: []
+        wizardSubtitleLanguages: [],
+        wizardSubtitleMode: 'sidecar',
+        wizardSubtitleFormat: 'srt'
       });
     },
 
@@ -590,7 +622,9 @@ export const useAppStore = create<AppState>((set, get) => {
         outputDir: item.outputDir,
         formatId: item.formatId,
         subtitleLanguages: item.subtitleLanguages.length ? item.subtitleLanguages : undefined,
-        writeAutoSubs: item.subtitleLanguages.length ? item.writeAutoSubs : undefined
+        writeAutoSubs: item.subtitleLanguages.length ? item.writeAutoSubs : undefined,
+        subtitleMode: item.subtitleMode,
+        subtitleFormat: item.subtitleFormat
       });
 
       if (!result.ok) {
@@ -636,7 +670,9 @@ export const useAppStore = create<AppState>((set, get) => {
         outputDir: item.outputDir,
         formatId: item.formatId,
         subtitleLanguages: item.subtitleLanguages.length ? item.subtitleLanguages : undefined,
-        writeAutoSubs: item.subtitleLanguages.length ? item.writeAutoSubs : undefined
+        writeAutoSubs: item.subtitleLanguages.length ? item.writeAutoSubs : undefined,
+        subtitleMode: item.subtitleMode,
+        subtitleFormat: item.subtitleFormat
       });
 
       if (!result.ok) {

@@ -64,7 +64,17 @@ const uk = {
       clearAll: 'Очистити все',
       noSelected: 'Субтитри не вибрані',
       sectionManual: 'Ручні',
-      sectionAuto: 'Автоматичні'
+      sectionAuto: 'Автоматичні',
+      saveMode: {
+        heading: 'Save as',
+        sidecar: 'Next to video',
+        embed: 'Embed into video',
+        subfolder: 'Subtitles/ subfolder'
+      },
+      format: {
+        heading: 'Format'
+      },
+      embedNote: 'Режим вбудовування зберігає файл як .mkv, щоб доріжки субтитрів вбудовувалися надійно.'
     },
     formats: {
       quickPresets: 'Швидкі пресети',
@@ -117,6 +127,7 @@ const uk = {
     toggleTitle: 'Показати/сховати чергу завантажень',
     empty: 'Тут з\'являться завантаження, додані в чергу',
     noDownloads: 'Завантажень поки немає.',
+    activeCount: '{{count}} завантажуються · {{percent}}%',
     clear: 'Очистити',
     clearTitle: 'Очистити завершені завантаження',
     tip: 'Твоє завантаження в черзі нижче — відкрий її будь-коли, щоб стежити за прогресом.',
@@ -185,6 +196,10 @@ const uk = {
     'small-file': {
       label: 'Малий файл',
       desc: 'Найнижча роздільна здатність + слабке аудіо'
+    },
+    'subtitle-only': {
+      label: 'Тільки субтитри',
+      desc: 'Без відео та аудіо, лише субтитри'
     }
   },
   formatLabel: {

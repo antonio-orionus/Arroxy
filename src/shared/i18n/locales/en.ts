@@ -64,7 +64,17 @@ const en = {
       clearAll: 'Clear all',
       noSelected: 'No subtitles selected',
       sectionManual: 'Manual',
-      sectionAuto: 'Auto-generated'
+      sectionAuto: 'Auto-generated',
+      saveMode: {
+        heading: 'Save as',
+        sidecar: 'Next to video',
+        embed: 'Embed into video',
+        subfolder: 'Subtitles/ subfolder'
+      },
+      format: {
+        heading: 'Format'
+      },
+      embedNote: 'Embed mode saves output as .mkv so subtitle tracks embed reliably.'
     },
     formats: {
       quickPresets: 'Quick presets',
@@ -117,6 +127,7 @@ const en = {
     toggleTitle: 'Toggle download queue',
     empty: 'Downloads you queue will appear here',
     noDownloads: 'No downloads yet.',
+    activeCount: '{{count}} downloading · {{percent}}%',
     clear: 'Clear',
     clearTitle: 'Clear completed downloads',
     tip: 'Your download is queued below — open anytime to track progress.',
@@ -185,6 +196,10 @@ const en = {
     'small-file': {
       label: 'Small file',
       desc: 'Lowest resolution + low audio'
+    },
+    'subtitle-only': {
+      label: 'Subtitles only',
+      desc: 'No video, no audio, only subtitles'
     }
   },
   formatLabel: {

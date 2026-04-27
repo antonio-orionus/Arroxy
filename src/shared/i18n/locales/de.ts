@@ -64,7 +64,17 @@ const de = {
       clearAll: 'Alle entfernen',
       noSelected: 'Keine Untertitel ausgewählt',
       sectionManual: 'Manuell',
-      sectionAuto: 'Automatisch generiert'
+      sectionAuto: 'Automatisch generiert',
+      saveMode: {
+        heading: 'Save as',
+        sidecar: 'Next to video',
+        embed: 'Embed into video',
+        subfolder: 'Subtitles/ subfolder'
+      },
+      format: {
+        heading: 'Format'
+      },
+      embedNote: 'Im Einbettungsmodus wird die Ausgabe als .mkv gespeichert, damit Untertitel-Spuren zuverlässig eingebettet werden.'
     },
     formats: {
       quickPresets: 'Schnelleinstellungen',
@@ -117,6 +127,7 @@ const de = {
     toggleTitle: 'Download-Warteschlange ein-/ausblenden',
     empty: 'Hier erscheinen Downloads, die du in die Warteschlange legst',
     noDownloads: 'Noch keine Downloads.',
+    activeCount: '{{count}} werden geladen · {{percent}}%',
     clear: 'Leeren',
     clearTitle: 'Abgeschlossene Downloads entfernen',
     tip: 'Dein Download ist unten in der Warteschlange — öffne sie jederzeit, um den Fortschritt zu verfolgen.',
@@ -185,6 +196,10 @@ const de = {
     'small-file': {
       label: 'Kleine Datei',
       desc: 'Niedrigste Auflösung + niedriges Audio'
+    },
+    'subtitle-only': {
+      label: 'Nur Untertitel',
+      desc: 'Kein Video, kein Audio, nur Untertitel'
     }
   },
   formatLabel: {

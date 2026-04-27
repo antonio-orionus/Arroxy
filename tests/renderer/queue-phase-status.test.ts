@@ -64,6 +64,7 @@ describe('Queue store — phase status transitions', () => {
     const item = makeItem({
       id: 'item-1',
       status: 'downloading',
+      progressPercent: 100,
       progressDetail: '5.2 MB/s ETA 00:34',
       downloadJobId: 'job-1'
     });
@@ -102,6 +103,27 @@ describe('Queue store — phase status transitions', () => {
     const item = useAppStore.getState().queue.find((i) => i.id === 'item-1')!;
     expect(item.progressDetail).toBe('5.2 MB/s ETA 00:34');
     expect(item.lastStatus?.key).toBe('downloadingMedia');
+  });
+
+  it('downloadingMedia event resets progressPercent to 0 (per-file phase)', () => {
+    capturedOnStatus!(statusEvent('downloadingMedia', 'download', 'job-1'));
+
+    const item = useAppStore.getState().queue.find((i) => i.id === 'item-1')!;
+    expect(item.progressPercent).toBe(0);
+  });
+
+  it('fetchingSubtitles event resets progressPercent to 0', () => {
+    capturedOnStatus!(statusEvent('fetchingSubtitles', 'download', 'job-1'));
+
+    const item = useAppStore.getState().queue.find((i) => i.id === 'item-1')!;
+    expect(item.progressPercent).toBe(0);
+  });
+
+  it('mergingFormats event preserves progressPercent (download is done, just muxing)', () => {
+    capturedOnStatus!(statusEvent('mergingFormats', 'download', 'job-1'));
+
+    const item = useAppStore.getState().queue.find((i) => i.id === 'item-1')!;
+    expect(item.progressPercent).toBe(100);
   });
 
   it('subtitlesFailed event with stage=done marks item as done and preserves the warning key', () => {

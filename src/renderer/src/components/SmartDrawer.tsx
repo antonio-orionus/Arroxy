@@ -18,19 +18,29 @@ export function SmartDrawer(): JSX.Element {
   const clearCompleted = useAppStore((s) => s.clearCompleted);
 
   const reversedQueue = useMemo(() => [...queue].reverse(), [queue]);
-  const activeItem = queue.find((i) => i.status === 'downloading');
+  const activeItems = queue.filter((i) => i.status === 'downloading');
+  const activeCount = activeItems.length;
   const totalCount = queue.length;
   const hasCompleted = queue.some((i) => i.status === 'done' || i.status === 'cancelled');
 
-  const activeStatusText = activeItem
-    ? activeItem.progressDetail ?? formatStatus(activeItem.lastStatus)
-    : '';
+  const aggregatePercent = activeCount > 0
+    ? activeItems.reduce((sum, i) => sum + i.progressPercent, 0) / activeCount
+    : 0;
+  const headerProgress = activeCount === 1 ? activeItems[0].progressPercent : aggregatePercent;
 
-  const headerSummary = activeItem
-    ? `${activeItem.progressPercent.toFixed(0)}%${activeStatusText ? ` · ${activeStatusText}` : ''}`
-    : totalCount === 0
-      ? t('queue.noDownloads')
-      : null;
+  let headerSummary: string | null = null;
+  if (activeCount === 1) {
+    const item = activeItems[0];
+    const detail = item.progressDetail ?? formatStatus(item.lastStatus);
+    headerSummary = `${item.progressPercent.toFixed(0)}%${detail ? ` · ${detail}` : ''}`;
+  } else if (activeCount >= 2) {
+    headerSummary = t('queue.activeCount', {
+      count: activeCount,
+      percent: aggregatePercent.toFixed(0)
+    });
+  } else if (totalCount === 0) {
+    headerSummary = t('queue.noDownloads');
+  }
 
   return (
     <section className="relative shrink-0 border-t border-border bg-background" data-testid="smart-drawer">
@@ -50,7 +60,7 @@ export function SmartDrawer(): JSX.Element {
             )}
           </span>
           {headerSummary && (
-            <span className={`text-[12px] font-mono ${activeItem ? 'text-[var(--brand)]' : 'text-muted-foreground'}`}>
+            <span className={`text-[12px] font-mono ${activeCount > 0 ? 'text-[var(--brand)]' : 'text-muted-foreground'}`} data-testid="drawer-header-summary">
               {headerSummary}
             </span>
           )}
@@ -71,20 +81,21 @@ export function SmartDrawer(): JSX.Element {
           {totalCount > 0 && !drawerOpen && (
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand)] animate-pulse" aria-hidden />
           )}
-          <span className={activeItem ? 'text-[var(--brand)]' : 'text-muted-foreground'}>
+          <span className={activeCount > 0 ? 'text-[var(--brand)]' : 'text-muted-foreground'}>
             <ChevronDown
-              size={activeItem ? 14 : 12}
-              strokeWidth={activeItem ? 2.5 : 2}
+              size={activeCount > 0 ? 14 : 12}
+              strokeWidth={activeCount > 0 ? 2.5 : 2}
               className={`transition-all duration-300 ${drawerOpen ? '' : 'rotate-180'}`}
             />
           </span>
         </div>
-        {activeItem && (
+        {activeCount > 0 && (
           <div
             aria-hidden
+            data-testid="drawer-header-progress"
             className="absolute bottom-0 left-0 h-[2px] transition-[width] duration-500"
             style={{
-              width: `${activeItem.progressPercent}%`,
+              width: `${headerProgress}%`,
               background: 'linear-gradient(90deg, var(--brand), var(--brand-hover))',
               boxShadow: '0 0 8px var(--brand-glow)',
             }}

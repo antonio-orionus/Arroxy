@@ -25,7 +25,9 @@ export const startDownloadSchema = z.object({
   outputDir: z.string().min(1).optional(),
   formatId: z.string().min(1).optional(),
   subtitleLanguages: z.array(z.string().min(2).max(15)).optional(),
-  writeAutoSubs: z.boolean().optional()
+  writeAutoSubs: z.boolean().optional(),
+  subtitleMode: z.enum(['sidecar', 'embed', 'subfolder']).optional(),
+  subtitleFormat: z.enum(['srt', 'vtt', 'ass']).optional()
 });
 
 export const cancelDownloadSchema = z.object({
@@ -40,9 +42,11 @@ export const updateSettingsSchema = z.object({
   defaultOutputDir: z.string().min(1).optional(),
   rememberLastOutputDir: z.boolean().optional(),
   lastVideoResolution: z.string().optional(),
-  lastPreset: z.enum(['best-quality', 'balanced', 'audio-only', 'small-file']).nullable().optional(),
+  lastPreset: z.enum(['best-quality', 'balanced', 'audio-only', 'small-file', 'subtitle-only']).nullable().optional(),
   uiZoom: z.number().min(0.7).max(1.5).optional(),
   uiTheme: z.enum(['light', 'dark', 'system']).optional(),
   language: z.enum(['en', 'es', 'fr', 'de', 'ru', 'uk', 'ja', 'zh', 'hi']).optional(),
-  lastSubtitleLanguages: z.array(z.string()).optional()
+  lastSubtitleLanguages: z.array(z.string()).optional(),
+  lastSubtitleMode: z.enum(['sidecar', 'embed', 'subfolder']).optional(),
+  lastSubtitleFormat: z.enum(['srt', 'vtt', 'ass']).optional()
 });

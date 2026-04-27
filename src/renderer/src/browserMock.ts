@@ -17,7 +17,7 @@ if (!('appApi' in window)) {
     defaultOutputDir: '/home/user/Downloads',
     rememberLastOutputDir: true,
     lastVideoResolution: undefined as string | undefined,
-    lastPreset: undefined as 'best-quality' | 'balanced' | 'audio-only' | 'small-file' | null | undefined,
+    lastPreset: undefined as 'best-quality' | 'balanced' | 'audio-only' | 'small-file' | 'subtitle-only' | null | undefined,
     language: 'en' as 'en' | 'es' | 'fr' | 'de' | 'ru' | 'uk' | 'ja' | 'zh' | 'hi',
     commonPaths: {
       downloads: '/home/user/Downloads',
