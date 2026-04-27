@@ -28,3 +28,24 @@ jobs:
 
       - name: Test
         run: bun run test
+
+  landing:
+    name: Landing page is up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Regenerate landing pages
+        run: node landing-src/build.mjs
+
+      - name: Verify docs/ matches landing-src/
+        run: |
+          if ! git diff --quiet -- docs/; then
+            echo "::error::docs/ is out of sync with landing-src/. Run 'npm run build:landing' and commit the result."
+            git diff --stat -- docs/
+            exit 1
+          fi

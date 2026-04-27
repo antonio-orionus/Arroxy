@@ -1,0 +1,228 @@
+// Build the localized landing pages from template.html + strings.mjs.
+//
+//   docs/index.html              <- en (canonical, x-default)
+//   docs/<dir>/index.html        <- one per non-en locale
+//
+// Usage: `node landing-src/build.mjs` (or `npm run build:landing`).
+
+import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+import { LOCALES } from "./strings.mjs";
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(HERE, "..");
+const DOCS = resolve(ROOT, "docs");
+const TEMPLATE_PATH = resolve(HERE, "template.html");
+
+const SITE_URL = "https://antonio-orionus.github.io/Arroxy/";
+const OG_IMAGE = `${SITE_URL}assets/Main-screenshot.png`;
+const OG_IMAGE_WIDTH = "1707";
+const OG_IMAGE_HEIGHT = "1439";
+const REPO_URL = "https://github.com/antonio-orionus/Arroxy";
+const RELEASES_URL = `${REPO_URL}/releases/latest`;
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function localeUrl(loc) {
+  return loc.dir ? `${SITE_URL}${loc.dir}/` : SITE_URL;
+}
+
+// Validate string-key parity across all locales (catches drift early).
+function assertParity(locales) {
+  const en = locales.find((l) => l.code === "en");
+  if (!en) throw new Error("English locale missing from registry");
+  const enKeys = Object.keys(en.strings).sort();
+  for (const loc of locales) {
+    const keys = Object.keys(loc.strings).sort();
+    const missing = enKeys.filter((k) => !keys.includes(k));
+    const extra = keys.filter((k) => !enKeys.includes(k));
+    if (missing.length || extra.length) {
+      const parts = [];
+      if (missing.length) parts.push(`missing: ${missing.join(", ")}`);
+      if (extra.length) parts.push(`extra: ${extra.join(", ")}`);
+      throw new Error(`Locale "${loc.code}" key drift — ${parts.join("; ")}`);
+    }
+  }
+}
+
+function buildHreflangLinks(locales) {
+  const lines = locales.map(
+    (l) => `    <link rel="alternate" hreflang="${l.code}" href="${localeUrl(l)}" />`,
+  );
+  // x-default points at the canonical (English) page.
+  const en = locales.find((l) => l.code === "en");
+  lines.push(
+    `    <link rel="alternate" hreflang="x-default" href="${localeUrl(en)}" />`,
+  );
+  return lines.join("\n");
+}
+
+function buildOgLocaleAlt(currentLoc, locales) {
+  return locales
+    .filter((l) => l.code !== currentLoc.code)
+    .map((l) => `    <meta property="og:locale:alternate" content="${l.ogLocale}" />`)
+    .join("\n");
+}
+
+function buildJsonLd(loc) {
+  // SoftwareApplication schema — gives Google rich snippets (price, OS, license)
+  // for software-download pages. Kept minimal: no aggregateRating until we have
+  // verifiable reviews. JSON.stringify produces safe output for inline <script>.
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Arroxy",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Windows, macOS, Linux",
+    description: loc.strings.description,
+    inLanguage: loc.code,
+    url: localeUrl(loc),
+    image: OG_IMAGE,
+    license: "https://opensource.org/licenses/MIT",
+    downloadUrl: RELEASES_URL,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    author: {
+      "@type": "Person",
+      name: "Antonio Orionus",
+      url: "https://x.com/OrionusAI",
+    },
+  };
+  // Escape `</script` to prevent any payload from breaking out of the script tag.
+  return JSON.stringify(data).replace(/<\/script/gi, "<\\/script");
+}
+
+function buildSitemap(locales) {
+  const xhtmlLinks = locales
+    .map(
+      (l) =>
+        `    <xhtml:link rel="alternate" hreflang="${l.code}" href="${localeUrl(l)}" />`,
+    )
+    .join("\n");
+  const xDefault = `    <xhtml:link rel="alternate" hreflang="x-default" href="${localeUrl(locales.find((l) => l.code === "en"))}" />`;
+  const today = new Date().toISOString().slice(0, 10);
+
+  const urls = locales
+    .map(
+      (l) => `  <url>
+    <loc>${localeUrl(l)}</loc>
+    <lastmod>${today}</lastmod>
+${xhtmlLinks}
+${xDefault}
+  </url>`,
+    )
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${urls}
+</urlset>
+`;
+}
+
+function buildRobots() {
+  return `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}sitemap.xml
+`;
+}
+
+function buildLangPicker(currentLoc, locales) {
+  // Relative paths so the picker keeps working under any host / base path.
+  const fromRoot = currentLoc.dir === "";
+  return locales
+    .map((l) => {
+      const isCurrent = l.code === currentLoc.code;
+      let href;
+      if (isCurrent) {
+        href = "#";
+      } else if (fromRoot) {
+        href = l.dir ? `${l.dir}/` : "./";
+      } else {
+        href = l.dir ? `../${l.dir}/` : "../";
+      }
+      const aria = isCurrent ? ` aria-current="page"` : "";
+      return `          <a href="${href}" hreflang="${l.code}" lang="${l.code}"${aria}>${escapeHtml(l.name)}</a>`;
+    })
+    .join("\n");
+}
+
+function applyStrings(template, strings) {
+  return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
+    if (!(key in strings)) return match; // leave non-string placeholders for later
+    const val = strings[key];
+    return key.endsWith("_html") ? val : escapeHtml(val);
+  });
+}
+
+function applyMacros(html, macros) {
+  for (const [key, val] of Object.entries(macros)) {
+    html = html.replaceAll(`{{${key}}}`, val);
+  }
+  return html;
+}
+
+async function main() {
+  assertParity(LOCALES);
+
+  const template = await readFile(TEMPLATE_PATH, "utf8");
+  const hreflangLinks = buildHreflangLinks(LOCALES);
+
+  // Wipe previous generated locale dirs (keep docs/index.html, assets, my/).
+  for (const loc of LOCALES) {
+    if (!loc.dir) continue;
+    const dir = resolve(DOCS, loc.dir);
+    if (existsSync(dir)) await rm(dir, { recursive: true, force: true });
+  }
+
+  for (const loc of LOCALES) {
+    const outDir = loc.dir ? resolve(DOCS, loc.dir) : DOCS;
+    const outPath = resolve(outDir, "index.html");
+    const base = loc.dir ? "../" : "";
+
+    let html = applyStrings(template, loc.strings);
+    html = applyMacros(html, {
+      LANG: loc.code,
+      BASE: base,
+      CANONICAL: localeUrl(loc),
+      OG_IMAGE,
+      OG_IMAGE_WIDTH,
+      OG_IMAGE_HEIGHT,
+      OG_LOCALE: loc.ogLocale,
+      OG_LOCALE_ALT: buildOgLocaleAlt(loc, LOCALES),
+      HREFLANG_LINKS: hreflangLinks,
+      LANG_PICKER: buildLangPicker(loc, LOCALES),
+      JSON_LD: buildJsonLd(loc),
+    });
+
+    await mkdir(outDir, { recursive: true });
+    await writeFile(outPath, html, "utf8");
+    console.log(`  ✓ ${loc.code.padEnd(2)} → ${outPath.replace(ROOT + "/", "")}`);
+  }
+
+  await writeFile(resolve(DOCS, "sitemap.xml"), buildSitemap(LOCALES), "utf8");
+  console.log(`  ✓ sitemap → docs/sitemap.xml`);
+  await writeFile(resolve(DOCS, "robots.txt"), buildRobots(), "utf8");
+  console.log(`  ✓ robots  → docs/robots.txt`);
+
+  console.log(`\nBuilt ${LOCALES.length} pages + sitemap + robots.`);
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

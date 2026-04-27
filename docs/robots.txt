@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://antonio-orionus.github.io/Arroxy/sitemap.xml

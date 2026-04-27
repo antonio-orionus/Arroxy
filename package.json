@@ -29,7 +29,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "bun run build && xvfb-run -a playwright test",
-    "test:browser": "playwright test --config playwright.browser.config.ts"
+    "test:browser": "playwright test --config playwright.browser.config.ts",
+    "build:landing": "node landing-src/build.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
