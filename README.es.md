@@ -7,7 +7,7 @@
 
 **Leer en:** [English](README.md) · **Español** · [Deutsch](README.de.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md)
 
-![Idiomas](https://img.shields.io/badge/i18n-9_idiomas-blue) ![Licencia](https://img.shields.io/badge/licencia-MIT-green) ![Plataformas](https://img.shields.io/badge/plataformas-Windows_%7C_macOS_%7C_Linux-lightgrey)
+![Idiomas](https://img.shields.io/badge/i18n-9_idiomas-blue) ![Licencia](https://img.shields.io/badge/licencia-MIT-green) ![Plataformas](https://img.shields.io/badge/plataformas-Windows_%7C_macOS_%7C_Linux-lightgrey) [![Scoop](https://img.shields.io/scoop/v/arroxy?bucket=https%3A%2F%2Fgithub.com%2Fantonio-orionus%2Fscoop-bucket&label=Scoop&color=blue)](https://github.com/antonio-orionus/scoop-bucket) [![Homebrew](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Homebrew&color=orange)](https://github.com/antonio-orionus/homebrew-arroxy)
 
 **4K &nbsp;•&nbsp; 1080p60 &nbsp;•&nbsp; HDR &nbsp;•&nbsp; Shorts &nbsp;·&nbsp; Windows &nbsp;•&nbsp; macOS &nbsp;•&nbsp; Linux**
 
