@@ -67,6 +67,7 @@ Arroxy is a **free, open-source, privacy-first** desktop app — built for peopl
 - **Choose where to save** — last folder is remembered, or pick a new one each time
 - **One click to download** — real-time progress bar, cancel any time
 - **Queue multiple videos** — download panel tracks everything at once
+- **Download subtitles** — fetch manual or auto-generated captions in SRT, VTT, or ASS, in any available language. Save them next to the video, embed them into a portable `.mkv`, or organize them into a dedicated `Subtitles/` subfolder
 - **Available in 9 languages** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — auto-detects your system language, switchable any time
 
 <div align="center">
@@ -75,6 +76,8 @@ Arroxy is a **free, open-source, privacy-first** desktop app — built for peopl
   <br/>
   <img src="build/Choosing-destination-screenshot.png" width="48%" alt="Choose where to save" />
   <img src="build/Downloading-in-parallel-screenshot.png" width="48%" alt="Download queue in action" />
+  <br/>
+  <img src="build/Subtitles-screenshot.png" width="48%" alt="Pick subtitle languages, format, and save mode" />
 </div>
 
 ---
@@ -89,7 +92,6 @@ Things on the roadmap — not yet shipped, roughly in priority order.
 | **Batch URL input**              | Paste multiple URLs at once and kick them all off in one go                                        |
 | **Format conversion**            | Convert downloads to MP3, WAV, FLAC, or other formats without a separate tool                      |
 | **Custom filename templates**    | Name files by title, uploader, date, resolution, or any combination — with a live preview          |
-| **Subtitle download**            | Fetch auto-generated or manual subtitles alongside the video, in any available language            |
 | **Scheduled downloads**          | Set a time for Arroxy to start downloading — useful for large queues overnight                     |
 | **Download speed limits**        | Cap bandwidth so downloads don't saturate your connection while you work                           |
 | **Clip trimming**                | Specify a start and end time to download only a segment of a video                                 |

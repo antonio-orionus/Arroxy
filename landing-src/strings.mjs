@@ -47,6 +47,8 @@ export const en = {
   f5_p: "English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — auto-detects yours.",
   f6_h: "Cross-platform",
   f6_p: "Native builds for Windows, macOS, and Linux — installer, portable, DMG, or AppImage.",
+  f7_h: "Subtitles, your way",
+  f7_p: "Manual or auto-generated captions in SRT, VTT, or ASS — saved beside the video, embedded into a portable .mkv, or tucked into a Subtitles/ folder.",
 
   shots_eyebrow: "See it in action",
   shots_h2: "Built for clarity, not clutter.",
@@ -54,6 +56,7 @@ export const en = {
   shot2_alt: "Pick your quality",
   shot3_alt: "Choose where to save",
   shot4_alt: "Parallel downloads",
+  shot5_alt: "Subtitles step — pick languages, format, and save mode",
   og_image_alt: "Arroxy app screenshot — modern dark UI for downloading YouTube videos in 4K.",
 
   privacy_eyebrow: "Privacy",
@@ -135,6 +138,8 @@ export const es = {
   f5_p: "English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — detecta el tuyo automáticamente.",
   f6_h: "Multiplataforma",
   f6_p: "Compilaciones nativas para Windows, macOS y Linux — instalador, portátil, DMG o AppImage.",
+  f7_h: "Subtítulos a tu manera",
+  f7_p: "Subtítulos manuales o automáticos en SRT, VTT o ASS — junto al video, integrados en un .mkv portátil, o en una subcarpeta Subtitles/.",
 
   shots_eyebrow: "Velo en acción",
   shots_h2: "Diseñado para la claridad, no para el desorden.",
@@ -142,6 +147,7 @@ export const es = {
   shot2_alt: "Elige tu calidad",
   shot3_alt: "Elige dónde guardar",
   shot4_alt: "Descargas en paralelo",
+  shot5_alt: "Paso de subtítulos — elige idiomas, formato y modo de guardado",
   og_image_alt: "Captura de Arroxy — interfaz oscura moderna para descargar videos de YouTube en 4K.",
 
   privacy_eyebrow: "Privacidad",
@@ -223,6 +229,8 @@ export const de = {
   f5_p: "English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — erkennt deine automatisch.",
   f6_h: "Plattformübergreifend",
   f6_p: "Native Builds für Windows, macOS und Linux — Installer, Portable, DMG oder AppImage.",
+  f7_h: "Untertitel, wie du willst",
+  f7_p: "Manuelle oder automatisch generierte Untertitel in SRT, VTT oder ASS — neben dem Video gespeichert, in eine portable .mkv eingebettet oder in einen Subtitles/-Ordner sortiert.",
 
   shots_eyebrow: "In Aktion sehen",
   shots_h2: "Gebaut für Klarheit, nicht für Chaos.",
@@ -230,6 +238,7 @@ export const de = {
   shot2_alt: "Qualität wählen",
   shot3_alt: "Speicherort wählen",
   shot4_alt: "Parallele Downloads",
+  shot5_alt: "Untertitel-Schritt — Sprachen, Format und Speichermodus wählen",
   og_image_alt: "Arroxy-Screenshot — moderne Dark-UI zum Herunterladen von YouTube-Videos in 4K.",
 
   privacy_eyebrow: "Privatsphäre",
@@ -311,6 +320,8 @@ export const fr = {
   f5_p: "English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — détecte la vôtre automatiquement.",
   f6_h: "Multiplateforme",
   f6_p: "Builds natifs pour Windows, macOS et Linux — installeur, portable, DMG ou AppImage.",
+  f7_h: "Sous-titres comme tu veux",
+  f7_p: "Sous-titres manuels ou auto-générés en SRT, VTT ou ASS — à côté de la vidéo, intégrés dans un .mkv portable, ou rangés dans un dossier Subtitles/.",
 
   shots_eyebrow: "Voyez-le en action",
   shots_h2: "Conçu pour la clarté, pas l'encombrement.",
@@ -318,6 +329,7 @@ export const fr = {
   shot2_alt: "Choisir la qualité",
   shot3_alt: "Choisir où enregistrer",
   shot4_alt: "Téléchargements parallèles",
+  shot5_alt: "Étape sous-titres — choisir langues, format et mode d'enregistrement",
   og_image_alt: "Capture d'Arroxy — interface sombre moderne pour télécharger des vidéos YouTube en 4K.",
 
   privacy_eyebrow: "Confidentialité",
@@ -399,6 +411,8 @@ export const ja = {
   f5_p: "English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — あなたの言語を自動検出。",
   f6_h: "マルチプラットフォーム",
   f6_p: "Windows、macOS、Linux のネイティブビルド — インストーラー、ポータブル、DMG、AppImage。",
+  f7_h: "字幕は思いのままに",
+  f7_p: "手動または自動生成の字幕を SRT、VTT、ASS で取得 — 動画と並べて保存、ポータブルな .mkv に埋め込み、または Subtitles/ フォルダに整理。",
 
   shots_eyebrow: "実際の動作",
   shots_h2: "明快さのために設計、雑然さは排除。",
@@ -406,6 +420,7 @@ export const ja = {
   shot2_alt: "画質を選択",
   shot3_alt: "保存先を選択",
   shot4_alt: "並行ダウンロード",
+  shot5_alt: "字幕ステップ — 言語・フォーマット・保存モードを選ぶ",
   og_image_alt: "Arroxy のスクリーンショット — YouTube 動画を 4K でダウンロードするモダンなダーク UI。",
 
   privacy_eyebrow: "プライバシー",
@@ -487,6 +502,8 @@ export const zh = {
   f5_p: "English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — 自动检测你的语言。",
   f6_h: "跨平台",
   f6_p: "Windows、macOS、Linux 原生构建 — 安装包、便携版、DMG 或 AppImage。",
+  f7_h: "字幕，随你所愿",
+  f7_p: "以 SRT、VTT 或 ASS 获取手动或自动生成的字幕 — 保存到视频旁边、嵌入便携的 .mkv，或整理到 Subtitles/ 子文件夹。",
 
   shots_eyebrow: "实际效果",
   shots_h2: "为清晰而生，拒绝杂乱。",
@@ -494,6 +511,7 @@ export const zh = {
   shot2_alt: "选择画质",
   shot3_alt: "选择保存位置",
   shot4_alt: "并行下载",
+  shot5_alt: "字幕步骤 — 选择语言、格式与保存方式",
   og_image_alt: "Arroxy 应用截图 — 用于以 4K 下载 YouTube 视频的现代深色界面。",
 
   privacy_eyebrow: "隐私",
@@ -575,6 +593,8 @@ export const ru = {
   f5_p: "English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — определяет ваш автоматически.",
   f6_h: "Кросс-платформенный",
   f6_p: "Нативные сборки для Windows, macOS и Linux — установщик, портативная версия, DMG или AppImage.",
+  f7_h: "Субтитры — как вам удобно",
+  f7_p: "Ручные или авто-сгенерированные субтитры в SRT, VTT или ASS — рядом с видео, встроенные в портативный .mkv или сложенные в подпапку Subtitles/.",
 
   shots_eyebrow: "В деле",
   shots_h2: "Сделано для ясности, не для мусора.",
@@ -582,6 +602,7 @@ export const ru = {
   shot2_alt: "Выберите качество",
   shot3_alt: "Выберите место сохранения",
   shot4_alt: "Параллельные загрузки",
+  shot5_alt: "Шаг субтитров — выбор языков, формата и режима сохранения",
   og_image_alt: "Скриншот Arroxy — современный тёмный интерфейс для загрузки YouTube-видео в 4K.",
 
   privacy_eyebrow: "Приватность",
@@ -663,6 +684,8 @@ export const uk = {
   f5_p: "English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — визначає вашу автоматично.",
   f6_h: "Крос-платформний",
   f6_p: "Нативні збірки для Windows, macOS та Linux — інсталятор, портативна версія, DMG або AppImage.",
+  f7_h: "Субтитри — як вам зручно",
+  f7_p: "Ручні або авто-згенеровані субтитри у SRT, VTT чи ASS — поруч із відео, вбудовані в портативний .mkv або складені в підпапку Subtitles/.",
 
   shots_eyebrow: "У дії",
   shots_h2: "Зроблено заради ясності, а не для безладу.",
@@ -670,6 +693,7 @@ export const uk = {
   shot2_alt: "Оберіть якість",
   shot3_alt: "Оберіть місце збереження",
   shot4_alt: "Паралельні завантаження",
+  shot5_alt: "Крок субтитрів — вибір мов, формату та режиму збереження",
   og_image_alt: "Скриншот Arroxy — сучасний темний інтерфейс для завантаження YouTube-відео у 4K.",
 
   privacy_eyebrow: "Приватність",
@@ -751,6 +775,8 @@ export const hi = {
   f5_p: "English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — आपकी भाषा अपने आप पहचानता है।",
   f6_h: "क्रॉस-प्लेटफ़ॉर्म",
   f6_p: "Windows, macOS और Linux के लिए नेटिव बिल्ड — इंस्टॉलर, पोर्टेबल, DMG या AppImage।",
+  f7_h: "सबटाइटल, आपके अंदाज़ में",
+  f7_p: "SRT, VTT या ASS में मैनुअल या ऑटो-जेनरेटेड सबटाइटल — वीडियो के बग़ल में सेव करें, पोर्टेबल .mkv में एम्बेड करें, या Subtitles/ फ़ोल्डर में रखें।",
 
   shots_eyebrow: "क्रिया में देखें",
   shots_h2: "स्पष्टता के लिए बना है, अव्यवस्था के लिए नहीं।",
@@ -758,6 +784,7 @@ export const hi = {
   shot2_alt: "अपनी गुणवत्ता चुनें",
   shot3_alt: "सहेजने का स्थान चुनें",
   shot4_alt: "समानांतर डाउनलोड",
+  shot5_alt: "सबटाइटल स्टेप — भाषाएँ, फ़ॉर्मैट और सेव मोड चुनें",
   og_image_alt: "Arroxy ऐप स्क्रीनशॉट — YouTube वीडियो को 4K में डाउनलोड करने के लिए आधुनिक डार्क UI।",
 
   privacy_eyebrow: "गोपनीयता",

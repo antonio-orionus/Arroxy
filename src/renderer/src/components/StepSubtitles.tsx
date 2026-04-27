@@ -52,51 +52,57 @@ export function StepSubtitles(): JSX.Element {
   }));
 
   return (
-    <div className="wizard-step flex flex-col gap-3" data-testid="step-subtitles">
-      {/* ── Save as ─────────────────────────────────────── */}
-      <div>
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 pb-1">
+    <div className="wizard-step flex flex-col gap-1.5" data-testid="step-subtitles">
+      {/* ── Save as / Format ────────────────────────────── */}
+      <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2.5 items-center -mx-1">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">
           {t('wizard.subtitles.saveMode.heading')}
-        </p>
-        <div role="radiogroup" aria-label={t('wizard.subtitles.saveMode.heading')} className="flex flex-col -mx-1">
+        </span>
+        <div role="radiogroup" aria-label={t('wizard.subtitles.saveMode.heading')} className="flex flex-row flex-wrap gap-1">
           {saveModes.map(({ mode, label }) => (
             <RadioOption
               key={mode}
               label={label}
               checked={wizardSubtitleMode === mode}
               onClick={() => setSubtitleMode(mode)}
+              className="py-0.5"
             />
           ))}
         </div>
 
         {wizardSubtitleMode === 'embed' ? (
-          <p
-            data-testid="subtitle-embed-note"
-            className="text-[11px] text-[var(--text-subtle)] mt-2 px-2 leading-snug"
-          >
-            {t('wizard.subtitles.embedNote')}
-          </p>
+          <>
+            <span />
+            <p
+              data-testid="subtitle-embed-note"
+              className="text-[11px] text-[var(--text-subtle)] leading-snug"
+            >
+              {t('wizard.subtitles.embedNote')}
+            </p>
+          </>
         ) : (
-          <div className="flex items-center gap-1.5 mt-2 px-2">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] mr-1">
+          <>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">
               {t('wizard.subtitles.format.heading')}
             </span>
-            {SUBTITLE_FORMATS.map((fmt) => (
-              <button
-                key={fmt}
-                type="button"
-                aria-pressed={wizardSubtitleFormat === fmt}
-                onClick={() => setSubtitleFormat(fmt)}
-                className="h-6 px-2 rounded text-[11px] font-semibold uppercase border border-[var(--border-strong)] transition-colors aria-pressed:bg-[var(--brand-dim)] aria-pressed:border-[var(--brand)] aria-pressed:text-[var(--brand)] hover:bg-accent/60"
-              >
-                {fmt.toUpperCase()}
-              </button>
-            ))}
-          </div>
+            <div className="flex items-center gap-1.5">
+              {SUBTITLE_FORMATS.map((fmt) => (
+                <button
+                  key={fmt}
+                  type="button"
+                  aria-pressed={wizardSubtitleFormat === fmt}
+                  onClick={() => setSubtitleFormat(fmt)}
+                  className="h-6 px-2 rounded text-[11px] font-semibold uppercase border border-[var(--border-strong)] transition-colors aria-pressed:bg-[var(--brand-dim)] aria-pressed:border-[var(--brand)] aria-pressed:text-[var(--brand)] hover:bg-accent/60"
+                >
+                  {fmt.toUpperCase()}
+                </button>
+              ))}
+            </div>
+          </>
         )}
       </div>
 
-      <Separator className="bg-border/50 -mx-6 w-auto" />
+      <Separator className="bg-border/50 -mx-6 w-auto my-1.5" />
 
       {/* ── Languages ───────────────────────────────────── */}
       {!hasLangs ? (
@@ -195,7 +201,7 @@ export function StepSubtitles(): JSX.Element {
         </>
       )}
 
-      <Separator className="bg-border/50 -mx-6 w-auto" />
+      <Separator className="bg-border/50 -mx-6 w-auto my-1.5" />
       <div className="flex items-center justify-between py-3 -mx-6 px-6">
         {hasLangs ? (
           <MascotBubble image={loveImg} message={t('wizard.subtitles.mascot')} side="left" />
@@ -238,7 +244,7 @@ function LangSection({
   if (items.length === 0) return null;
   return (
     <div>
-      <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-2 pt-3 pb-1">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-2 pt-1.5 pb-0.5">
         {label} ({items.length})
       </p>
       <div className="grid grid-cols-3 gap-x-1">
@@ -253,7 +259,7 @@ function LangSection({
               onClick={() => {
                 onToggle(code);
               }}
-              className="flex w-full items-center gap-2 h-9 px-2 rounded-md text-sm font-medium transition-colors cursor-pointer aria-checked:bg-[var(--brand-dim)] aria-checked:border-l-2 aria-checked:border-[var(--brand)] aria-checked:text-[var(--brand)] hover:bg-accent/60"
+              className="flex w-full items-center gap-2 h-7 px-2 rounded-md text-sm font-medium transition-colors cursor-pointer aria-checked:bg-[var(--brand-dim)] aria-checked:border-l-2 aria-checked:border-[var(--brand)] aria-checked:text-[var(--brand)] hover:bg-accent/60"
             >
               <span
                 aria-hidden="true"

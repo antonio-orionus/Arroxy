@@ -56,6 +56,7 @@ Arroxy ist eine **kostenlose, quelloffene und datenschutzorientierte** Desktop-A
 - **Speicherort wählen** — letzter Ordner wird gemerkt, oder jedes Mal neu wählen
 - **Ein Klick zum Download** — Echtzeit-Fortschrittsanzeige, jederzeit abbrechbar
 - **Mehrere Videos in der Warteschlange** — das Download-Panel verfolgt alles parallel
+- **Untertitel herunterladen** — manuelle oder automatisch generierte Untertitel in SRT, VTT oder ASS, in jeder verfügbaren Sprache. Speichere sie neben dem Video, bette sie in eine portable `.mkv` ein, oder ordne sie in einem dedizierten `Subtitles/`-Unterordner
 - **In 9 Sprachen verfügbar** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — erkennt deine Systemsprache automatisch, jederzeit umschaltbar
 
 <div align="center">
@@ -64,6 +65,8 @@ Arroxy ist eine **kostenlose, quelloffene und datenschutzorientierte** Desktop-A
   <br/>
   <img src="build/Choosing-destination-screenshot.png" width="48%" alt="Speicherort wählen" />
   <img src="build/Downloading-in-parallel-screenshot.png" width="48%" alt="Download-Warteschlange in Aktion" />
+  <br/>
+  <img src="build/Subtitles-screenshot.png" width="48%" alt="Untertitel-Sprachen, Format und Speichermodus wählen" />
 </div>
 
 ---
@@ -78,7 +81,6 @@ Was auf der Roadmap steht — noch nicht ausgeliefert, grob nach Priorität sort
 | **Mehrere URLs gleichzeitig eingeben**  | Mehrere URLs einfügen und alle in einem Rutsch starten                                                    |
 | **Format-Konvertierung**                | Downloads in MP3, WAV, FLAC oder andere Formate umwandeln — ohne extra Tool                              |
 | **Eigene Dateinamen-Vorlagen**          | Dateien nach Titel, Hochlader, Datum, Auflösung oder Kombination benennen — mit Live-Vorschau            |
-| **Untertitel-Download**                 | Auto-generierte oder manuelle Untertitel zusammen mit dem Video laden, in jeder verfügbaren Sprache      |
 | **Geplante Downloads**                  | Startzeit für Arroxy festlegen — praktisch für große Warteschlangen über Nacht                           |
 | **Download-Geschwindigkeitsbegrenzung** | Bandbreite limitieren, damit Downloads deine Verbindung beim Arbeiten nicht auslasten                    |
 | **Clip-Trimming**                       | Start- und Endzeit angeben, um nur einen Ausschnitt eines Videos herunterzuladen                         |

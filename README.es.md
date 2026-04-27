@@ -56,6 +56,7 @@ Arroxy es una aplicación de escritorio **gratuita, de código abierto y centrad
 - **Elige dónde guardar** — recuerda la última carpeta, o elige una nueva cada vez
 - **Un clic para descargar** — barra de progreso en tiempo real, cancela cuando quieras
 - **Cola de varios videos** — el panel de descargas lo lleva todo a la vez
+- **Descargar subtítulos** — obtén subtítulos manuales o automáticos en SRT, VTT o ASS, en cualquier idioma disponible. Guárdalos junto al video, intégralos en un `.mkv` portátil, u organízalos en una subcarpeta `Subtitles/` dedicada
 - **Disponible en 9 idiomas** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — detecta el idioma de tu sistema y se puede cambiar en cualquier momento
 
 <div align="center">
@@ -64,6 +65,8 @@ Arroxy es una aplicación de escritorio **gratuita, de código abierto y centrad
   <br/>
   <img src="build/Choosing-destination-screenshot.png" width="48%" alt="Elige dónde guardar" />
   <img src="build/Downloading-in-parallel-screenshot.png" width="48%" alt="Cola de descargas en acción" />
+  <br/>
+  <img src="build/Subtitles-screenshot.png" width="48%" alt="Elige idiomas, formato y modo de guardado de subtítulos" />
 </div>
 
 ---
@@ -78,7 +81,6 @@ Cosas en la hoja de ruta — aún no lanzadas, aproximadamente por orden de prio
 | **Entrada de URLs por lotes**        | Pega varias URLs a la vez y lánzalas todas juntas                                                          |
 | **Conversión de formato**            | Convierte descargas a MP3, WAV, FLAC u otros formatos sin necesitar otra herramienta                       |
 | **Plantillas de nombre de archivo**  | Nombra archivos por título, autor, fecha, resolución o cualquier combinación — con vista previa en vivo    |
-| **Descarga de subtítulos**           | Obtén subtítulos automáticos o manuales junto con el video, en cualquier idioma disponible                 |
 | **Descargas programadas**            | Define una hora para que Arroxy comience a descargar — útil para colas grandes durante la noche            |
 | **Límites de velocidad de descarga** | Limita el ancho de banda para que las descargas no saturen tu conexión mientras trabajas                   |
 | **Recorte de clips**                 | Especifica un tiempo de inicio y fin para descargar solo un segmento de un video                           |

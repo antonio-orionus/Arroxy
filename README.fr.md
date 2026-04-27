@@ -56,6 +56,7 @@ Arroxy est une application desktop **gratuite, open source et soucieuse de la vi
 - **Choisis où enregistrer** — le dernier dossier est mémorisé, ou choisis-en un nouveau à chaque fois
 - **Un clic pour télécharger** — barre de progression en temps réel, annulable à tout moment
 - **File d'attente multi-vidéos** — le panneau de téléchargement suit tout en parallèle
+- **Télécharger les sous-titres** — récupère les sous-titres manuels ou auto-générés en SRT, VTT ou ASS, dans toute langue disponible. Enregistre-les à côté de la vidéo, intègre-les dans un `.mkv` portable, ou range-les dans un sous-dossier `Subtitles/` dédié
 - **Disponible en 9 langues** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — détecte la langue de ton système, modifiable à tout moment
 
 <div align="center">
@@ -64,6 +65,8 @@ Arroxy est une application desktop **gratuite, open source et soucieuse de la vi
   <br/>
   <img src="build/Choosing-destination-screenshot.png" width="48%" alt="Choisir où enregistrer" />
   <img src="build/Downloading-in-parallel-screenshot.png" width="48%" alt="File de téléchargement en action" />
+  <br/>
+  <img src="build/Subtitles-screenshot.png" width="48%" alt="Choisir les langues, le format et le mode d'enregistrement des sous-titres" />
 </div>
 
 ---
@@ -78,7 +81,6 @@ Sur la feuille de route — pas encore livré, par ordre de priorité approximat
 | **Saisie d'URLs en lot**                  | Colle plusieurs URLs d'un coup et lance tout ensemble                                                    |
 | **Conversion de format**                  | Convertis les téléchargements en MP3, WAV, FLAC ou autres sans outil supplémentaire                       |
 | **Modèles de noms de fichier**            | Nomme par titre, auteur, date, résolution ou combinaison — avec aperçu en direct                         |
-| **Téléchargement des sous-titres**        | Récupère les sous-titres auto ou manuels avec la vidéo, dans toute langue disponible                     |
 | **Téléchargements programmés**            | Définis une heure pour qu'Arroxy démarre — pratique pour les grosses files la nuit                       |
 | **Limites de vitesse de téléchargement**  | Plafonne la bande passante pour ne pas saturer ta connexion pendant que tu travailles                    |
 | **Découpe de clips**                      | Spécifie un début et une fin pour ne télécharger qu'un segment d'une vidéo                               |
