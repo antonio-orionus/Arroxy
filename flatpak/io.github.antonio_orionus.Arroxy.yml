@@ -20,11 +20,11 @@ modules:
   - name: arroxy
     buildsystem: simple
     build-commands:
-      - mkdir -p bin share/applications share/icons/hicolor/512x512/apps share/metainfo
-      - mv ${FLATPAK_ID}.png share/icons/hicolor/512x512/apps/${FLATPAK_ID}.png
-      - mv ${FLATPAK_ID}.desktop share/applications/${FLATPAK_ID}.desktop
-      - mv ${FLATPAK_ID}.metainfo.xml share/metainfo/${FLATPAK_ID}.metainfo.xml
-      - mv arroxy.sh bin/arroxy.sh
+      - install -Dm644 ${FLATPAK_ID}.png share/icons/hicolor/512x512/apps/${FLATPAK_ID}.png
+      - install -Dm644 ${FLATPAK_ID}.desktop share/applications/${FLATPAK_ID}.desktop
+      - install -Dm644 ${FLATPAK_ID}.metainfo.xml share/metainfo/${FLATPAK_ID}.metainfo.xml
+      - install -Dm755 arroxy.sh bin/arroxy.sh
+      - rm ${FLATPAK_ID}.png ${FLATPAK_ID}.desktop ${FLATPAK_ID}.metainfo.xml arroxy.sh
       - cp -r * ${FLATPAK_DEST}
     sources:
       - type: archive

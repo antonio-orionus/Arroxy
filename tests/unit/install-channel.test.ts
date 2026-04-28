@@ -72,9 +72,21 @@ describe('detectInstallChannel', () => {
     vi.doUnmock('node:fs');
   });
 
-  it('returns direct on linux', async () => {
+  it('returns direct on linux when not running under Flatpak', async () => {
     setPlatform('linux');
+    vi.doMock('node:fs', () => ({ default: { existsSync: () => false } }));
     const { detectInstallChannel } = await import('@main/installChannel');
     expect(detectInstallChannel('arroxy')).toBe('direct');
+    vi.doUnmock('node:fs');
+  });
+
+  it('detects flatpak on linux when /.flatpak-info exists', async () => {
+    setPlatform('linux');
+    vi.doMock('node:fs', () => ({
+      default: { existsSync: (p: string) => p === '/.flatpak-info' },
+    }));
+    const { detectInstallChannel } = await import('@main/installChannel');
+    expect(detectInstallChannel('arroxy')).toBe('flatpak');
+    vi.doUnmock('node:fs');
   });
 });

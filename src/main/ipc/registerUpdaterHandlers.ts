@@ -4,9 +4,15 @@ import { IPC_CHANNELS } from '@shared/ipc';
 import { detectInstallChannel } from '@main/installChannel';
 
 export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
+  const installChannel = detectInstallChannel(app.getName());
+
+  // Flatpak updates are managed by the Flatpak ecosystem (flatpak update / GNOME Software).
+  // Running the in-app autoUpdater here would be wrong (it can't install) and may surface
+  // misleading update banners.
+  if (installChannel === 'flatpak') return;
+
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
-  const installChannel = detectInstallChannel(app.getName());
 
   // Remove prior bindings so re-registering (HMR, window recreate) doesn't
   // stack listeners that would each call quitAndInstall on a single update.

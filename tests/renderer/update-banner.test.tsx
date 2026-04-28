@@ -29,6 +29,13 @@ describe('resolveAction', () => {
     expect(resolveAction('direct', 'win32')).toEqual({ kind: 'install' });
     expect(resolveAction('direct', 'darwin')).toEqual({ kind: 'download' });
   });
+
+  it('flatpak → command pointing at the Flathub app id', () => {
+    expect(resolveAction('flatpak', 'linux')).toEqual({
+      kind: 'command',
+      cmd: 'flatpak update io.github.antonio_orionus.Arroxy',
+    });
+  });
 });
 
 describe('UpdateBanner', () => {

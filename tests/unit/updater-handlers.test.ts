@@ -130,6 +130,40 @@ describe('registerUpdaterHandlers', () => {
     vi.resetModules();
   });
 
+  it('skips autoUpdater entirely when running under Flatpak', async () => {
+    vi.resetModules();
+    vi.doMock('@main/installChannel', () => ({ detectInstallChannel: vi.fn().mockReturnValue('flatpak') }));
+    vi.doMock('electron', () => ({
+      app: { getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy') },
+      ipcMain: { handle: vi.fn(), removeHandler: vi.fn() }
+    }));
+    vi.doMock('electron-updater', () => ({
+      autoUpdater: {
+        autoDownload: true,
+        autoInstallOnAppQuit: true,
+        on: vi.fn(),
+        removeAllListeners: vi.fn(),
+        checkForUpdates: vi.fn().mockResolvedValue(undefined),
+        downloadUpdate: vi.fn().mockResolvedValue(undefined),
+        quitAndInstall: vi.fn()
+      }
+    }));
+    const { registerUpdaterHandlers: registerWithFlatpak } = await import('@main/ipc/registerUpdaterHandlers');
+    const { autoUpdater: scopedAutoUpdater } = await import('electron-updater');
+
+    registerWithFlatpak(makeWindow());
+    vi.runAllTimers();
+
+    expect(scopedAutoUpdater.on).not.toHaveBeenCalled();
+    expect(scopedAutoUpdater.checkForUpdates).not.toHaveBeenCalled();
+    expect(scopedAutoUpdater.removeAllListeners).not.toHaveBeenCalled();
+
+    vi.doUnmock('@main/installChannel');
+    vi.doUnmock('electron');
+    vi.doUnmock('electron-updater');
+    vi.resetModules();
+  });
+
   it('does not send IPC if window is destroyed', () => {
     const handlers = captureUpdaterHandlers();
     const win = makeWindow(true);

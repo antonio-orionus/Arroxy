@@ -186,7 +186,7 @@ export interface PauseDownloadOutput {
   paused: boolean;
 }
 
-export type InstallChannel = 'direct' | 'winget' | 'scoop' | 'homebrew';
+export type InstallChannel = 'direct' | 'winget' | 'scoop' | 'homebrew' | 'flatpak';
 
 export interface UpdateAvailablePayload {
   version: string;

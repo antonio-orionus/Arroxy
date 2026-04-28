@@ -6,6 +6,10 @@ import type { InstallChannel } from '@shared/types';
 export function detectInstallChannel(appName: string): InstallChannel {
   const exec = process.execPath;
 
+  if (process.platform === 'linux' && fs.existsSync('/.flatpak-info')) {
+    return 'flatpak';
+  }
+
   if (process.platform === 'win32') {
     if (exec.includes('\\scoop\\apps\\') || exec.includes('\\ProgramData\\scoop\\apps\\')) {
       return 'scoop';
