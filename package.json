@@ -66,7 +66,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "electron": "^41.3.0",
-    "electron-builder": "^26.8.1",
+    "electron-builder": "26.9.0",
     "electron-vite": "^5.0.0",
     "eslint": "^10.2.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -114,8 +114,6 @@
       "perMachine": false,
       "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": false,
-      "createStartMenuShortcut": false,
       "multiLanguageInstaller": true,
       "installerLanguages": [
         "en_US",
@@ -127,7 +125,6 @@
         "ja_JP",
         "zh_CN"
       ],
-      "include": "build/installer.nsh",
       "artifactName": "${productName}-Setup-${version}.${ext}"
     },
     "portable": {
