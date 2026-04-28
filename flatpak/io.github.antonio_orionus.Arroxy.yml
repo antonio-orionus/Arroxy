@@ -1,0 +1,50 @@
+app-id: io.github.antonio_orionus.Arroxy
+base: org.electronjs.Electron2.BaseApp
+base-version: '24.08'
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+command: arroxy.sh
+separate-locales: false
+finish-args:
+  - --share=network
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --socket=pulseaudio
+  - --device=dri
+  - --filesystem=home
+  - --talk-name=org.freedesktop.Notifications
+
+modules:
+  - name: arroxy
+    buildsystem: simple
+    build-commands:
+      - mkdir -p bin share/applications share/icons/hicolor/512x512/apps share/metainfo
+      - mv ${FLATPAK_ID}.png share/icons/hicolor/512x512/apps/${FLATPAK_ID}.png
+      - mv ${FLATPAK_ID}.desktop share/applications/${FLATPAK_ID}.desktop
+      - mv ${FLATPAK_ID}.metainfo.xml share/metainfo/${FLATPAK_ID}.metainfo.xml
+      - mv arroxy.sh bin/arroxy.sh
+      - cp -r * ${FLATPAK_DEST}
+    sources:
+      - type: archive
+        # sha256 filled in by publish-flatpak CI job on each release.
+        # For initial Flathub submission, build a release locally and patch this manually.
+        url: https://github.com/antonio-orionus/Arroxy/releases/download/v0.2.2/Arroxy-0.2.2.tar.gz
+        sha256: 0000000000000000000000000000000000000000000000000000000000000000
+        only-arches:
+          - x86_64
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/antonio-orionus/Arroxy/releases/latest
+          version-query: .tag_name | ltrimstr("v")
+          url-query: .assets[] | select(.name == "Arroxy-" + $version + ".tar.gz") | .browser_download_url
+          is-main-source: true
+      - type: file
+        path: io.github.antonio_orionus.Arroxy.desktop
+      - type: file
+        path: io.github.antonio_orionus.Arroxy.metainfo.xml
+      - type: file
+        path: io.github.antonio_orionus.Arroxy.png
+      - type: file
+        path: arroxy.sh

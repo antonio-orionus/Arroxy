@@ -181,14 +181,20 @@ export class BinaryManager {
   }
 
   getYtDlpPath(): string {
-    return path.join(this.cacheDir, process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp');
+    return process.env.ARROXY_YT_DLP_PATH ?? path.join(this.cacheDir, process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp');
   }
 
   getFfmpegPath(): string {
-    return path.join(this.cacheDir, process.platform === 'win32' ? 'ffmpeg.exe' : 'ffmpeg');
+    return process.env.ARROXY_FFMPEG_PATH ?? path.join(this.cacheDir, process.platform === 'win32' ? 'ffmpeg.exe' : 'ffmpeg');
   }
 
   async ensureYtDlp(onStatus?: StatusReporter): Promise<string> {
+    const override = process.env.ARROXY_YT_DLP_PATH;
+    if (override && await this.isUsableBinary(override)) {
+      this.logger.log('INFO', 'Using pre-installed yt-dlp', { path: override });
+      return override;
+    }
+
     const assetName = ytDlpAssetName();
     const expectedSha256 = async (): Promise<string | null> => {
       const sumsUrl = 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/SHA2-256SUMS';
@@ -211,6 +217,12 @@ export class BinaryManager {
   }
 
   async ensureFFmpeg(onStatus?: StatusReporter): Promise<string | null> {
+    const override = process.env.ARROXY_FFMPEG_PATH;
+    if (override && await this.isUsableBinary(override)) {
+      this.logger.log('INFO', 'Using pre-installed ffmpeg', { path: override });
+      return override;
+    }
+
     const assetName = ffmpegAssetName();
     if (!assetName) return null;
 

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Arroxy
+Comment=Download YouTube videos with a clean wizard UI
+Exec=arroxy.sh %U
+Icon=io.github.antonio_orionus.Arroxy
+Type=Application
+Categories=Network;AudioVideo;

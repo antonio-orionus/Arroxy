@@ -1,0 +1,42 @@
+name: Flatpak
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'flatpak/**'
+      - '.github/workflows/flatpak.yml'
+  pull_request:
+    paths:
+      - 'flatpak/**'
+      - '.github/workflows/flatpak.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check manifest readiness
+        id: check
+        shell: bash
+        run: |
+          if grep -q "sha256: 0000000000000000000000000000000000000000000000000000000000000000" flatpak/io.github.antonio_orionus.Arroxy.yml; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::Manifest still has placeholder sha256 — skipping build. The release pipeline will auto-patch this after the first tag push."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        if: steps.check.outputs.skip != 'true'
+        with:
+          bundle: arroxy.flatpak
+          manifest-path: flatpak/io.github.antonio_orionus.Arroxy.yml
+          cache-key: flatpak-builder-${{ github.sha }}
+          verbose: true
