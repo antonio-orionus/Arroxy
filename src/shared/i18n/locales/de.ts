@@ -69,12 +69,13 @@ const de = {
         heading: 'Speichern als',
         sidecar: 'Neben dem Video',
         embed: 'In Video einbetten',
-        subfolder: 'Unterordner Subtitles/'
+        subfolder: 'Unterordner subtitles/'
       },
       format: {
         heading: 'Format'
       },
-      embedNote: 'Im Einbettungsmodus wird die Ausgabe als .mkv gespeichert, damit Untertitel-Spuren zuverlässig eingebettet werden.'
+      embedNote: 'Im Einbettungsmodus wird die Ausgabe als .mkv gespeichert, damit Untertitel-Spuren zuverlässig eingebettet werden.',
+      autoAssNote: 'Auto-Untertitel werden als SRT statt ASS gespeichert — sie werden immer von YouTubes rollenden Cue-Duplikaten bereinigt, was unser ASS-Konverter noch nicht abbilden kann.'
     },
     formats: {
       quickPresets: 'Schnelleinstellungen',
@@ -96,7 +97,16 @@ const de = {
       downloads: 'Downloads',
       videos: 'Filme',
       desktop: 'Schreibtisch',
-      custom: 'Benutzerdefiniert…'
+      music: 'Musik',
+      documents: 'Dokumente',
+      pictures: 'Bilder',
+      home: 'Persönlicher Ordner',
+      custom: 'Benutzerdefiniert…',
+      subfolder: {
+        toggle: 'In Unterordner speichern',
+        placeholder: 'z. B. lo-fi rips',
+        invalid: 'Ordnername enthält ungültige Zeichen'
+      }
     },
     confirm: {
       readyHeadline: 'Bereit zum Herunterladen!',

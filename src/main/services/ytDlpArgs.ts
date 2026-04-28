@@ -1,4 +1,5 @@
 import type { SubtitleFormat, SubtitleMode } from '@shared/types';
+import { EMBED_CONTAINER_EXT } from '@shared/subtitlePath';
 
 interface SubtitleArgsInput {
   url: string;
@@ -18,19 +19,33 @@ interface VideoArgsInput {
   writeAutoSubs?: boolean;
 }
 
-// Subtitle-only / phase-2 sidecar args. Output goes to a `Subtitles` subfolder
+// Auto-captions are post-processed to dedupe YouTube's rolling cues (each cue
+// duplicates the previous + 1 word). Dedupe is implemented for SRT and VTT
+// (see srtDedupe.ts / vttDedupe.ts). ASS isn't covered, so when a user picks
+// ASS *and* auto-captions, we force SRT — otherwise their output would be
+// styled-but-still-rolling garbage. The UI surfaces this so users aren't
+// surprised.
+function effectiveFormat(input: { writeAutoSubs?: boolean; subtitleFormat: SubtitleFormat }): SubtitleFormat {
+  if (input.writeAutoSubs && input.subtitleFormat === 'ass') return 'srt';
+  return input.subtitleFormat;
+}
+
+// Subtitle-only / phase-2 sidecar args. Output goes to a `subtitles` subfolder
 // when `subfolder` mode is selected; everything else writes alongside the media.
+// Lowercase folder name matches mpv's default `sub-file-paths` (`sub:subtitles`)
+// on case-sensitive filesystems; VLC matches case-insensitively.
 export function buildSubtitleArgs(input: SubtitleArgsInput): string[] {
   const subOutputDir = input.subtitleMode === 'subfolder'
-    ? `${input.outputDir}/Subtitles`
+    ? `${input.outputDir}/subtitles`
     : input.outputDir;
+  const fmt = effectiveFormat(input);
   return [
     '--skip-download', '--no-playlist',
     '--write-subs', '--sub-langs', input.subtitleLanguages.join(','),
     ...(input.writeAutoSubs ? ['--write-auto-subs'] : []),
     '--sleep-subtitles', '3',
-    '--sub-format', `${input.subtitleFormat}/best`,
-    '--convert-subs', input.subtitleFormat,
+    '--sub-format', `${fmt}/best`,
+    '--convert-subs', fmt,
     '-o', `${subOutputDir}/%(title)s.%(ext)s`, input.url
   ];
 }
@@ -49,7 +64,7 @@ export function buildVideoArgs(input: VideoArgsInput): string[] {
     args.push(
       '--write-subs', '--embed-subs',
       '--sub-langs', input.subtitleLanguages.join(','),
-      '--merge-output-format', 'mkv',
+      '--merge-output-format', EMBED_CONTAINER_EXT,
       '--compat-options', 'no-keep-subs',
       '--sleep-subtitles', '3'
     );

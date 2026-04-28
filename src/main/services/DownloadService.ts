@@ -3,12 +3,15 @@ import { randomUUID } from 'node:crypto';
 import { readdir, unlink } from 'node:fs/promises';
 import { join } from 'node:path';
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
+import { dedupeSubtitleFiles, muxSubtitlesIntoVideo } from './subtitlePostProcess';
+import { phaseStrategyFor, type PhaseStrategy } from './phaseStrategy';
 import { nowIso } from '@main/utils/clock';
 import { createAppError } from '@main/utils/errorFactory';
 import { splitStderrLines } from '@main/utils/process';
 import { parsePercentFromLine } from '@main/utils/progress';
 import { fail, ok, type Result } from '@shared/result';
-import { DEFAULTS, SUBTITLE_EXT_REGEX } from '@shared/constants';
+import { isSubtitleFile } from '@shared/subtitlePath';
+import { DEFAULTS } from '@shared/constants';
 import { STATUS_KEY } from '@shared/schemas';
 import type {
   CancelDownloadOutput,
@@ -34,8 +37,15 @@ interface ActiveDownload {
   input: StartDownloadInput;
   cancelRequested: boolean;
   pauseRequested: boolean;
-  process?: ChildProcessWithoutNullStreams;
+  ytDlpProcess?: ChildProcessWithoutNullStreams;
+  ffmpegProcess?: ChildProcessWithoutNullStreams;
   mockTimer?: NodeJS.Timeout;
+  // Per-job state captured from yt-dlp stderr. Was previously in three
+  // service-level Maps; lifecycle is now obvious because it's tied to the
+  // ActiveDownload that finalize() removes from `activeJobs`.
+  currentFileKind?: 'subtitle' | 'media';
+  subtitlePaths: string[];
+  mediaPath?: string;
 }
 
 interface PausedDownload {
@@ -55,14 +65,17 @@ function killProcessTree(proc: ChildProcessWithoutNullStreams, signal: NodeJS.Si
   try { process.kill(-proc.pid, signal); } catch { proc.kill(signal); }
 }
 
+// Cancel any process attached to an active download. yt-dlp is spawned
+// detached (Unix) so we kill its process group; ffmpeg is not detached, so
+// we send the signal directly to it.
+function killActiveProcesses(active: ActiveDownload, signal: NodeJS.Signals): void {
+  if (active.ytDlpProcess) killProcessTree(active.ytDlpProcess, signal);
+  if (active.ffmpegProcess) active.ffmpegProcess.kill(signal);
+}
+
 export class DownloadService extends EventEmitter {
   private activeJobs = new Map<string, ActiveDownload>();
   private pausedJobs = new Map<string, PausedDownload>();
-  // Tracks which file yt-dlp is currently downloading per job. Updated from
-  // [download] Destination: lines so progress can suppress per-sub percents
-  // (which would otherwise peg the bar at 100% for tiny .vtt files) and emit
-  // accurate fetchingSubtitles vs downloadingMedia status transitions.
-  private currentFileKind = new Map<string, 'subtitle' | 'media'>();
 
   constructor(
     private readonly binaryManager: BinaryManager,
@@ -97,10 +110,55 @@ export class DownloadService extends EventEmitter {
       createdAt: now,
       updatedAt: now
     };
-
-    this.activeJobs.set(job.id, { job, input, cancelRequested: false, pauseRequested: false });
+    const active: ActiveDownload = {
+      job, input,
+      cancelRequested: false, pauseRequested: false,
+      subtitlePaths: []
+    };
+    this.activeJobs.set(job.id, active);
     this.logger.log('INFO', 'Download job created', { jobId: job.id, url: job.url, formatId: job.formatId, outputDir: job.outputDir });
+    return this.runJob(active);
+  }
 
+  // Resume a previously paused job. Reuses the same job id with the input
+  // captured at pause time. yt-dlp's default --continue picks up the .part
+  // file on disk. Returns { resumed: false } if the jobId is unknown — the
+  // renderer falls back to a fresh start().
+  async resume(jobId: string): Promise<Result<{ resumed: boolean; job?: DownloadJob }>> {
+    const paused = this.pausedJobs.get(jobId);
+    if (!paused) {
+      this.logger.log('INFO', 'resume() called but no paused job found', { jobId });
+      return ok({ resumed: false });
+    }
+
+    this.pausedJobs.delete(jobId);
+    const { job, input } = paused;
+    job.status = 'running';
+    job.updatedAt = nowIso();
+    const active: ActiveDownload = {
+      job, input,
+      cancelRequested: false, pauseRequested: false,
+      subtitlePaths: []
+    };
+    this.activeJobs.set(job.id, active);
+    this.logger.log('INFO', 'Resuming download', { jobId: job.id });
+
+    const result = await this.runJob(active);
+    if (!result.ok) {
+      // Cancellation arriving during binary setup is a "did not resume"
+      // outcome, not a resume failure — the renderer treats false as
+      // "no-op, keep current UI state."
+      if (active.cancelRequested) return ok({ resumed: false });
+      return fail(result.error);
+    }
+    return ok({ resumed: true, job: result.data.job });
+  }
+
+  // Shared start/resume body. Sets up binaries, dispatches to a phase
+  // strategy, and returns once the job is registered (phases run in the
+  // background; UI consumes status events).
+  private async runJob(active: ActiveDownload): Promise<Result<StartDownloadOutput>> {
+    const { job, input } = active;
     try {
       this.emitStatus(job.id, 'setup', STATUS_KEY.preparingBinaries);
       const ytDlpPath = await this.binaryManager.ensureYtDlp((statusKey, params) => {
@@ -110,7 +168,7 @@ export class DownloadService extends EventEmitter {
         this.emitStatus(job.id, 'setup', statusKey, params);
       });
 
-      if (this.activeJobs.get(job.id)?.cancelRequested) {
+      if (active.cancelRequested) {
         this.logger.log('INFO', 'Download cancelled before binary setup completed', { jobId: job.id });
         this.emitStatus(job.id, 'error', STATUS_KEY.cancelled);
         await this.finalize(job, 'cancelled');
@@ -124,14 +182,8 @@ export class DownloadService extends EventEmitter {
         return ok({ job });
       }
 
-      const wantsSubs = !!input.subtitleLanguages?.length;
-      const embedMode = input.subtitleMode === 'embed' && wantsSubs;
-      const subtitleOnly = !input.formatId && wantsSubs;
-
-      // Phases run after start() returns ok(). UI consumes status events for
-      // progress/done/error. Result is awaited only for clarity inside this
-      // async block — caller doesn't wait on it.
-      void this.runDownloadPhases(job, input, ytDlpPath, ffmpegPath, { embedMode, subtitleOnly })
+      const strategy = phaseStrategyFor(input);
+      void this.runStrategy(active, strategy, ytDlpPath, ffmpegPath)
         .catch(async (error) => {
           const message = error instanceof Error ? error.message : 'Unknown phase failure';
           this.logger.log('ERROR', 'Download phase threw unexpectedly', { jobId: job.id, message });
@@ -150,44 +202,57 @@ export class DownloadService extends EventEmitter {
     }
   }
 
-  private async runDownloadPhases(
-    job: DownloadJob,
-    input: StartDownloadInput,
+  private async runStrategy(
+    active: ActiveDownload,
+    strategy: PhaseStrategy,
     ytDlpPath: string,
-    ffmpegPath: string | null,
-    flags: { embedMode: boolean; subtitleOnly: boolean }
+    ffmpegPath: string | null
   ): Promise<void> {
-    if (flags.subtitleOnly) {
-      await this.runSubtitleOnlyPhase(job, input, ytDlpPath, ffmpegPath);
-      return;
+    switch (strategy.kind) {
+      case 'subtitle-only':
+        await this.runSubtitleOnlyPhase(active, ytDlpPath, ffmpegPath);
+        return;
+      case 'video': {
+        const ok = await this.runVideoPhase(active, ytDlpPath, ffmpegPath, false);
+        if (ok) await this.completeJob(active);
+        return;
+      }
+      case 'video+embed': {
+        // yt-dlp embeds manual subs natively into mkv during phase 1.
+        const ok = await this.runVideoPhase(active, ytDlpPath, ffmpegPath, true);
+        if (ok) await this.completeJob(active);
+        return;
+      }
+      case 'video+sidecar': {
+        const ok = await this.runVideoPhase(active, ytDlpPath, ffmpegPath, false);
+        if (ok) await this.runSidecarSubtitlePhase(active, ytDlpPath, ffmpegPath, false);
+        return;
+      }
+      case 'video+embed+auto': {
+        // Embed + auto-captions can't go through yt-dlp's --embed-subs path —
+        // it would mux raw rolling cues before any post-process hook can
+        // clean them. Instead: download as sidecar, dedupe, mux ourselves.
+        const ok = await this.runVideoPhase(active, ytDlpPath, ffmpegPath, false);
+        if (ok) await this.runSidecarSubtitlePhase(active, ytDlpPath, ffmpegPath, true);
+        return;
+      }
     }
-    const videoOk = await this.runVideoPhase(job, input, ytDlpPath, ffmpegPath, flags.embedMode);
-    if (!videoOk) return;
-
-    if (!flags.embedMode && input.subtitleLanguages?.length) {
-      await this.runSidecarSubtitlePhase(job, input, ytDlpPath, ffmpegPath);
-      return;
-    }
-
-    this.emitStatus(job.id, 'done', STATUS_KEY.complete);
-    await this.finalize(job, 'completed');
   }
 
   // No media will be saved — failure here is hard; nothing ends up on disk.
   private async runSubtitleOnlyPhase(
-    job: DownloadJob,
-    input: StartDownloadInput,
+    active: ActiveDownload,
     ytDlpPath: string,
     ffmpegPath: string | null
   ): Promise<void> {
-    const subtitleFormat = input.subtitleFormat ?? DEFAULTS.subtitleFormat;
+    const { job, input } = active;
     const args = buildSubtitleArgs({
       url: input.url,
       outputDir: input.outputDir ?? '',
       subtitleLanguages: input.subtitleLanguages ?? [],
       subtitleMode: input.subtitleMode,
-      subtitleFormat,
-      writeAutoSubs: input.writeAutoSubs
+      subtitleFormat: input.subtitleFormat ?? DEFAULTS.subtitleFormat,
+      writeAutoSubs: input.writeAutoSubs,
     });
 
     const result = await runYtDlp({
@@ -199,12 +264,12 @@ export class DownloadService extends EventEmitter {
       onAttempt: (attempt) => {
         this.emitStatus(job.id, 'token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken);
       },
-      onSpawn: (proc) => this.attachProcess(job.id, proc, STATUS_KEY.fetchingSubtitles),
-      onStdout: (text) => this.safeConsume(job.id, text),
-      onStderr: (text) => this.safeConsume(job.id, text)
+      onSpawn: (proc) => this.attachYtDlpProcess(active, proc, STATUS_KEY.fetchingSubtitles),
+      onStdout: (text) => this.safeConsume(active, text),
+      onStderr: (text) => this.safeConsume(active, text)
     });
 
-    if (this.activeJobs.get(job.id)?.cancelRequested) {
+    if (active.cancelRequested) {
       await this.cleanupPartFiles(job.outputDir);
       this.emitStatus(job.id, 'error', STATUS_KEY.cancelled);
       await this.finalize(job, 'cancelled');
@@ -218,28 +283,32 @@ export class DownloadService extends EventEmitter {
       return;
     }
 
+    if (input.writeAutoSubs) {
+      await dedupeSubtitleFiles(active.subtitlePaths, this.logger, job.id, () => active.cancelRequested);
+    }
+
     this.emitStatus(job.id, 'done', STATUS_KEY.complete);
     await this.finalize(job, 'completed');
   }
 
-  // Phase 1: video + audio. When embedMode is active, subs are muxed into mkv
-  // here. Otherwise subs are fetched in a separate phase so a 429 can't fail
-  // the video download. Returns true if video succeeded; false if we already
+  // Phase 1: video + audio. When embedMode is active, subs are muxed into
+  // mkv here. Otherwise subs are fetched in a separate phase so a 429 can't
+  // fail the video. Returns true if video succeeded; false if we already
   // finalized (cancel/pause/fail).
   private async runVideoPhase(
-    job: DownloadJob,
-    input: StartDownloadInput,
+    active: ActiveDownload,
     ytDlpPath: string,
     ffmpegPath: string | null,
     embedMode: boolean
   ): Promise<boolean> {
+    const { job, input } = active;
     const args = buildVideoArgs({
       url: input.url,
       outputDir: input.outputDir ?? '',
       formatId: input.formatId,
       embedSubs: embedMode,
       subtitleLanguages: input.subtitleLanguages,
-      writeAutoSubs: input.writeAutoSubs
+      writeAutoSubs: input.writeAutoSubs,
     });
 
     const result = await runYtDlp({
@@ -251,22 +320,19 @@ export class DownloadService extends EventEmitter {
       onAttempt: (attempt) => {
         this.emitStatus(job.id, 'token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken);
       },
-      onSpawn: (proc) => this.attachProcess(job.id, proc, STATUS_KEY.downloadingMedia),
-      onStdout: (text) => this.safeConsume(job.id, text),
-      onStderr: (text) => this.safeConsume(job.id, text)
+      onSpawn: (proc) => this.attachYtDlpProcess(active, proc, STATUS_KEY.downloadingMedia),
+      onStdout: (text) => this.safeConsume(active, text),
+      onStderr: (text) => this.safeConsume(active, text)
     });
 
-    const active = this.activeJobs.get(job.id);
-
-    if (active?.pauseRequested) {
+    if (active.pauseRequested) {
       this.activeJobs.delete(job.id);
       this.pausedJobs.set(job.id, { job, input });
-      this.currentFileKind.delete(job.id);
       this.logger.log('INFO', 'Download paused — .part file preserved', { jobId: job.id, outputDir: job.outputDir });
       return false;
     }
 
-    if (active?.cancelRequested) {
+    if (active.cancelRequested) {
       await this.cleanupPartFiles(job.outputDir);
       this.emitStatus(job.id, 'error', STATUS_KEY.cancelled);
       await this.finalize(job, 'cancelled');
@@ -290,23 +356,25 @@ export class DownloadService extends EventEmitter {
   }
 
   // Phase 2: sidecar subs. Failures here are soft — the video is already on
-  // disk, so we still finalize as 'completed' but with a subtitlesFailed warning.
+  // disk, so we still finalize as 'completed' but with a subtitlesFailed
+  // warning. When embedAfter is true, deduped subs are then muxed into the
+  // video via ffmpeg (the embed+auto path).
   private async runSidecarSubtitlePhase(
-    job: DownloadJob,
-    input: StartDownloadInput,
+    active: ActiveDownload,
     ytDlpPath: string,
-    ffmpegPath: string | null
+    ffmpegPath: string | null,
+    embedAfter: boolean
   ): Promise<void> {
+    const { job, input } = active;
     this.emitStatus(job.id, 'download', STATUS_KEY.fetchingSubtitles);
 
-    const subtitleFormat = input.subtitleFormat ?? DEFAULTS.subtitleFormat;
     const args = buildSubtitleArgs({
       url: input.url,
       outputDir: input.outputDir ?? '',
       subtitleLanguages: input.subtitleLanguages ?? [],
       subtitleMode: input.subtitleMode,
-      subtitleFormat,
-      writeAutoSubs: input.writeAutoSubs
+      subtitleFormat: input.subtitleFormat ?? DEFAULTS.subtitleFormat,
+      writeAutoSubs: input.writeAutoSubs,
     });
 
     const subResult = await runYtDlp({
@@ -315,9 +383,9 @@ export class DownloadService extends EventEmitter {
       ffmpegPath,
       args,
       tokenService: this.tokenService,
-      onSpawn: (proc) => this.attachProcessSilent(job.id, proc),
-      onStdout: (text) => this.safeConsume(job.id, text),
-      onStderr: (text) => this.safeConsume(job.id, text)
+      onSpawn: (proc) => this.attachYtDlpProcess(active, proc),
+      onStdout: (text) => this.safeConsume(active, text),
+      onStderr: (text) => this.safeConsume(active, text)
     });
 
     if (subResult.kind !== 'success') {
@@ -332,31 +400,64 @@ export class DownloadService extends EventEmitter {
       return;
     }
 
+    if (input.writeAutoSubs) {
+      await dedupeSubtitleFiles(active.subtitlePaths, this.logger, job.id, () => active.cancelRequested);
+    }
+
+    if (embedAfter) await this.runEmbedMuxPhase(active, ffmpegPath);
+
     this.emitStatus(job.id, 'done', STATUS_KEY.complete);
     await this.finalize(job, 'completed');
   }
 
-  private attachProcess(jobId: string, proc: ChildProcessWithoutNullStreams, statusOnSpawn: StatusKey): void {
-    this.emitStatus(jobId, 'download', statusOnSpawn);
-    const active = this.activeJobs.get(jobId);
-    if (!active) return;
-    active.process = proc;
+  // After phase 2 (sidecar fetch) + dedupe, in embed+auto mode mux the
+  // cleaned subs into the video ourselves. Soft failure: we keep the
+  // sidecar subs on disk and emit a status the UI can surface.
+  private async runEmbedMuxPhase(active: ActiveDownload, ffmpegPath: string | null): Promise<void> {
+    const { job, input } = active;
+    if (!ffmpegPath) {
+      this.logger.log('WARN', 'embed-mux skipped — ffmpeg not available', { jobId: job.id });
+      this.emitStatus(job.id, 'download', STATUS_KEY.subtitlesFailed);
+      return;
+    }
+    if (!active.mediaPath || active.subtitlePaths.length === 0) {
+      this.logger.log('WARN', 'embed-mux: missing video or sub paths', {
+        jobId: job.id, videoPath: active.mediaPath, subCount: active.subtitlePaths.length
+      });
+      return;
+    }
+
+    this.emitStatus(job.id, 'download', STATUS_KEY.mergingFormats);
+
+    const result = await muxSubtitlesIntoVideo({
+      ffmpegPath,
+      videoPath: active.mediaPath,
+      subtitlePaths: active.subtitlePaths,
+      requestedLangs: input.subtitleLanguages ?? [],
+      onSpawn: (proc) => {
+        active.ffmpegProcess = proc;
+        if (active.cancelRequested) proc.kill('SIGKILL');
+      },
+      logger: this.logger,
+      jobId: job.id
+    });
+    active.ffmpegProcess = undefined;
+
+    if (result.ok && result.outputPath) active.mediaPath = result.outputPath;
+  }
+
+  private attachYtDlpProcess(active: ActiveDownload, proc: ChildProcessWithoutNullStreams, statusOnSpawn?: StatusKey): void {
+    if (statusOnSpawn) this.emitStatus(active.job.id, 'download', statusOnSpawn);
+    active.ytDlpProcess = proc;
     if (active.cancelRequested) proc.kill('SIGKILL');
   }
 
-  private attachProcessSilent(jobId: string, proc: ChildProcessWithoutNullStreams): void {
-    const active = this.activeJobs.get(jobId);
-    if (!active) return;
-    active.process = proc;
-    if (active.cancelRequested) proc.kill('SIGKILL');
-  }
-
-  private safeConsume(jobId: string, text: string): void {
+  private safeConsume(active: ActiveDownload, text: string): void {
     try {
-      this.consumeProgress(jobId, text);
+      this.consumeProgress(active, text);
     } catch (err) {
       this.logger.log('WARN', 'consumeProgress threw', {
-        jobId,
+        jobId: active.job.id,
         message: err instanceof Error ? err.message : String(err)
       });
     }
@@ -427,88 +528,23 @@ export class DownloadService extends EventEmitter {
       return ok({ paused: true });
     }
 
-    if (!active.process) {
+    if (!active.ytDlpProcess) {
       this.logger.log('INFO', 'pause() called but job has no process yet', { jobId: active.job.id });
       return ok({ paused: false });
     }
 
     active.pauseRequested = true;
-    killProcessTree(active.process, 'SIGTERM');
+    killProcessTree(active.ytDlpProcess, 'SIGTERM');
     this.logger.log('INFO', 'SIGTERM sent to yt-dlp process', { jobId: active.job.id });
     return ok({ paused: true });
-  }
-
-  // Resume a previously paused job. Re-runs the same job (same id) with the
-  // input captured at pause time. yt-dlp's default --continue behavior picks
-  // up the .part file on disk. Returns { resumed: false } if the jobId is
-  // unknown (e.g. process restarted between pause and resume) so the renderer
-  // can fall back to a fresh start().
-  async resume(jobId: string): Promise<Result<{ resumed: boolean; job?: DownloadJob }>> {
-    const paused = this.pausedJobs.get(jobId);
-    if (!paused) {
-      this.logger.log('INFO', 'resume() called but no paused job found', { jobId });
-      return ok({ resumed: false });
-    }
-
-    this.pausedJobs.delete(jobId);
-    const { job, input } = paused;
-    job.status = 'running';
-    job.updatedAt = nowIso();
-
-    this.activeJobs.set(job.id, { job, input, cancelRequested: false, pauseRequested: false });
-    this.logger.log('INFO', 'Resuming download', { jobId: job.id });
-
-    try {
-      this.emitStatus(job.id, 'setup', STATUS_KEY.preparingBinaries);
-      const ytDlpPath = await this.binaryManager.ensureYtDlp((statusKey, params) => {
-        this.emitStatus(job.id, 'setup', statusKey, params);
-      });
-      const ffmpegPath = await this.binaryManager.ensureFFmpeg((statusKey, params) => {
-        this.emitStatus(job.id, 'setup', statusKey, params);
-      });
-
-      if (this.activeJobs.get(job.id)?.cancelRequested) {
-        this.emitStatus(job.id, 'error', STATUS_KEY.cancelled);
-        await this.finalize(job, 'cancelled');
-        return ok({ resumed: false });
-      }
-
-      if (this.mockMode) {
-        this.emitStatus(job.id, 'token', STATUS_KEY.mintingToken);
-        this.emitStatus(job.id, 'download', STATUS_KEY.startingYtdlp);
-        this.startMockDownload(job.id);
-        return ok({ resumed: true, job });
-      }
-
-      const wantsSubs = !!input.subtitleLanguages?.length;
-      const embedMode = input.subtitleMode === 'embed' && wantsSubs;
-      const subtitleOnly = !input.formatId && wantsSubs;
-
-      void this.runDownloadPhases(job, input, ytDlpPath, ffmpegPath, { embedMode, subtitleOnly })
-        .catch(async (error) => {
-          const message = error instanceof Error ? error.message : 'Unknown phase failure';
-          this.logger.log('ERROR', 'Resumed download phase threw unexpectedly', { jobId: job.id, message });
-          const payload: LocalizedError = { key: null, rawMessage: message };
-          this.emitStatus(job.id, 'error', STATUS_KEY.unknownStartupFailure, undefined, payload);
-          await this.finalize(job, 'failed', payload);
-        });
-
-      return ok({ resumed: true, job });
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown resume failure';
-      const payload: LocalizedError = { key: null, rawMessage: message };
-      this.emitStatus(job.id, 'error', STATUS_KEY.unknownStartupFailure, undefined, payload);
-      await this.finalize(job, 'failed', payload);
-      return fail(createAppError('download', message));
-    }
   }
 
   private async cancelOne(active: ActiveDownload): Promise<Result<CancelDownloadOutput>> {
     active.cancelRequested = true;
 
-    if (active.process) {
-      this.logger.log('INFO', 'Sending SIGKILL to yt-dlp process', { jobId: active.job.id });
-      killProcessTree(active.process, 'SIGKILL');
+    if (active.ytDlpProcess || active.ffmpegProcess) {
+      this.logger.log('INFO', 'Sending SIGKILL to active processes', { jobId: active.job.id });
+      killActiveProcesses(active, 'SIGKILL');
       return ok({ cancelled: true });
     }
 
@@ -527,6 +563,11 @@ export class DownloadService extends EventEmitter {
     return ok({ cancelled: true });
   }
 
+  private async completeJob(active: ActiveDownload): Promise<void> {
+    this.emitStatus(active.job.id, 'done', STATUS_KEY.complete);
+    await this.finalize(active.job, 'completed');
+  }
+
   async cleanupPartFiles(outputDir: string): Promise<void> {
     try {
       const files = await readdir(outputDir);
@@ -543,20 +584,37 @@ export class DownloadService extends EventEmitter {
     }
   }
 
-  private consumeProgress(jobId: string, text: string): void {
+  private consumeProgress(active: ActiveDownload, text: string): void {
+    const jobId = active.job.id;
     for (const line of splitStderrLines(text)) {
       this.logger.log('INFO', line, { jobId, source: 'yt-dlp-progress' });
 
       const destMatch = line.match(/^\[download\] Destination:\s+(.+)$/);
       if (destMatch) {
-        const kind = SUBTITLE_EXT_REGEX.test(destMatch[1]) ? 'subtitle' : 'media';
-        this.currentFileKind.set(jobId, kind);
+        const path = destMatch[1];
+        const kind = isSubtitleFile(path) ? 'subtitle' : 'media';
+        active.currentFileKind = kind;
+        if (kind === 'subtitle') {
+          active.subtitlePaths.push(path);
+        } else {
+          active.mediaPath = path;
+        }
         this.emitStatus(
           jobId,
           'download',
           kind === 'subtitle' ? STATUS_KEY.fetchingSubtitles : STATUS_KEY.downloadingMedia
         );
         continue;
+      }
+
+      // yt-dlp's Merger replaces the per-stream files with a merged container
+      // (mkv when --merge-output-format mkv is set, or matched by codec
+      // compatibility otherwise). The merged path is the final video.
+      // Path may be quoted (with spaces) or unquoted (without) depending on
+      // yt-dlp version — accept both forms.
+      const mergerMatch = line.match(/^\[Merger\] Merging formats into "([^"]+)"|^\[Merger\] Merging formats into (.+)$/);
+      if (mergerMatch) {
+        active.mediaPath = mergerMatch[1] ?? mergerMatch[2];
       }
 
       const sleepMatch = line.match(/Sleeping (\d+(?:\.\d+)?) seconds/);
@@ -573,12 +631,11 @@ export class DownloadService extends EventEmitter {
 
       // Subtitle files are tiny (~80KB) and finish in <1s; per-file 100% would
       // otherwise peg the bar before the real video download even starts.
-      const kind = this.currentFileKind.get(jobId);
       const event: ProgressEvent = {
         jobId,
         line,
         at: nowIso(),
-        percent: kind === 'subtitle' ? undefined : parsePercentFromLine(line)
+        percent: active.currentFileKind === 'subtitle' ? undefined : parsePercentFromLine(line)
       };
       this.emit('progress', event);
     }
@@ -610,7 +667,6 @@ export class DownloadService extends EventEmitter {
   ): Promise<void> {
     this.logger.log('INFO', 'Job finalized', { jobId: job.id, status, ...(error && { error }) });
     this.activeJobs.delete(job.id);
-    this.currentFileKind.delete(job.id);
 
     job.status = status;
     job.updatedAt = nowIso();
@@ -629,6 +685,8 @@ export class DownloadService extends EventEmitter {
   }
 
   private startMockDownload(jobId: string): void {
+    const active = this.activeJobs.get(jobId);
+    if (!active) return;
     let percent = 0;
 
     const timer = setInterval(async () => {
@@ -637,21 +695,15 @@ export class DownloadService extends EventEmitter {
       const line = `[download] ${percent.toFixed(1)}% of ~10MiB at 1.2MiB/s ETA 00:0${
         Math.max(0, 10 - percent / 10)
       }`;
-      this.consumeProgress(jobId, line);
+      this.consumeProgress(active, line);
 
       if (percent >= 100) {
         clearInterval(timer);
         this.emitStatus(jobId, 'done', STATUS_KEY.complete);
-        const active = this.activeJobs.get(jobId);
-        if (active) {
-          await this.finalize(active.job, 'completed');
-        }
+        await this.finalize(active.job, 'completed');
       }
     }, 250);
 
-    const active = this.activeJobs.get(jobId);
-    if (active) {
-      active.mockTimer = timer;
-    }
+    active.mockTimer = timer;
   }
 }

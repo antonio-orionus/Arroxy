@@ -498,7 +498,7 @@ describe('StepSubtitles — save mode UI', () => {
     renderStep();
     expect(screen.getByText('Next to video')).toBeInTheDocument();
     expect(screen.getByText('Embed into video')).toBeInTheDocument();
-    expect(screen.getByText('Subtitles/ subfolder')).toBeInTheDocument();
+    expect(screen.getByText('subtitles/ subfolder')).toBeInTheDocument();
   });
 
   it('shows format toggle buttons when mode is sidecar', () => {
@@ -529,6 +529,34 @@ describe('StepSubtitles — save mode UI', () => {
     renderStep('sidecar');
     fireEvent.click(screen.getByText('Embed into video'));
     expect(setSubtitleMode).toHaveBeenCalledWith('embed');
+  });
+
+  it('shows the auto-caption ASS-fallback note only when an auto language is selected and format is ASS', () => {
+    useAppStore.setState({
+      wizardStep: 'subtitles',
+      wizardSubtitles: {},
+      wizardAutomaticCaptions: { en: [{ ext: 'vtt' }] },
+      wizardSubtitleLanguages: ['en'],
+      wizardSubtitleMode: 'sidecar',
+      wizardSubtitleFormat: 'ass'
+    });
+    const { rerender } = render(<StepSubtitles />);
+    expect(screen.getByTestId('subtitle-auto-ass-note')).toBeInTheDocument();
+
+    // Switch format away from ASS — note should disappear
+    useAppStore.setState({ wizardSubtitleFormat: 'srt' });
+    rerender(<StepSubtitles />);
+    expect(screen.queryByTestId('subtitle-auto-ass-note')).not.toBeInTheDocument();
+
+    // ASS again, but only manual sub selected — also no note
+    useAppStore.setState({
+      wizardSubtitleFormat: 'ass',
+      wizardSubtitles: { en: [{ ext: 'vtt' }] },
+      wizardAutomaticCaptions: {},
+      wizardSubtitleLanguages: ['en']
+    });
+    rerender(<StepSubtitles />);
+    expect(screen.queryByTestId('subtitle-auto-ass-note')).not.toBeInTheDocument();
   });
 });
 

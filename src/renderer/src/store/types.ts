@@ -35,6 +35,8 @@ export interface WizardSlice {
   wizardSubtitleLanguages: string[];
   wizardSubtitleMode: SubtitleMode;
   wizardSubtitleFormat: SubtitleFormat;
+  wizardSubfolderEnabled: boolean;
+  wizardSubfolderName: string;
 
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
@@ -49,6 +51,8 @@ export interface WizardSlice {
   setSubtitleFormat: (format: SubtitleFormat) => void;
   confirmSubtitles: () => void;
   chooseWizardFolder: () => Promise<void>;
+  setWizardSubfolderEnabled: (enabled: boolean) => void;
+  setWizardSubfolderName: (name: string) => void;
   confirmFolder: () => void;
   retryWizard: () => Promise<void>;
   resetWizard: () => void;

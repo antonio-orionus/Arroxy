@@ -22,6 +22,10 @@ if (!('appApi' in window)) {
       downloads: '/home/user/Downloads',
       videos: '/home/user/Videos',
       desktop: '/home/user/Desktop',
+      music: '/home/user/Music',
+      documents: '/home/user/Documents',
+      pictures: '/home/user/Pictures',
+      home: '/home/user',
     }
   };
 

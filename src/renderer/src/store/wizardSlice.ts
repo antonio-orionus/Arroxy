@@ -22,6 +22,8 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
     wizardSubtitleLanguages: [],
     wizardSubtitleMode: DEFAULTS.subtitleMode,
     wizardSubtitleFormat: DEFAULTS.subtitleFormat,
+    wizardSubfolderEnabled: false,
+    wizardSubfolderName: '',
 
     setWizardUrl: (url) => set({ wizardUrl: url }),
 
@@ -54,6 +56,8 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
         wizardSubtitleLanguages: subtitleLanguages,
         wizardSubtitleMode: settings?.lastSubtitleMode ?? DEFAULTS.subtitleMode,
         wizardSubtitleFormat: settings?.lastSubtitleFormat ?? DEFAULTS.subtitleFormat,
+        wizardSubfolderEnabled: settings?.lastSubfolderEnabled ?? false,
+        wizardSubfolderName: settings?.lastSubfolder ?? '',
         formatsLoading: false
       });
     },
@@ -97,6 +101,9 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
       await window.appApi.settings.update({ defaultOutputDir: result.data.path });
     },
 
+    setWizardSubfolderEnabled: (enabled) => set({ wizardSubfolderEnabled: enabled }),
+    setWizardSubfolderName: (name) => set({ wizardSubfolderName: name }),
+
     confirmFolder: () => set({ wizardStep: 'confirm' }),
 
     retryWizard: async () => {
@@ -122,7 +129,9 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
         wizardAutomaticCaptions: {},
         wizardSubtitleLanguages: [],
         wizardSubtitleMode: DEFAULTS.subtitleMode,
-        wizardSubtitleFormat: DEFAULTS.subtitleFormat
+        wizardSubtitleFormat: DEFAULTS.subtitleFormat,
+        wizardSubfolderEnabled: false,
+        wizardSubfolderName: ''
       });
     }
   };

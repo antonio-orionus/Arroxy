@@ -34,10 +34,20 @@ export interface AppSettings {
   uiZoom?: number;
   uiTheme?: UiTheme;
   language?: SupportedLang;
-  commonPaths?: { downloads: string; videos: string; desktop: string };
+  commonPaths?: {
+    downloads: string | null;
+    videos: string | null;
+    desktop: string | null;
+    music: string | null;
+    documents: string | null;
+    pictures: string | null;
+    home: string | null;
+  };
   lastSubtitleLanguages?: string[];
   lastSubtitleMode?: SubtitleMode;
   lastSubtitleFormat?: SubtitleFormat;
+  lastSubfolderEnabled?: boolean;
+  lastSubfolder?: string;
 }
 
 export interface SubtitleTrack {

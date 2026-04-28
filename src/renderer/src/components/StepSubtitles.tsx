@@ -34,6 +34,12 @@ export function StepSubtitles(): JSX.Element {
 
   const hasLangs = allLangs.length > 0;
   const selectedCount = wizardSubtitleLanguages.length;
+  // Show a heads-up when ASS is paired with auto-captions: we force SRT in
+  // that combo because our auto-cap dedupe doesn't have an ASS code path.
+  const hasAutoSelected = wizardSubtitleLanguages.some(
+    (code) => allLangs.find((l) => l.code === code)?.isAuto
+  );
+  const showAutoAssNote = hasAutoSelected && wizardSubtitleFormat === 'ass';
 
   const q = query.trim().toLowerCase();
   const manualLangs = allLangs.filter((l) => !l.isAuto && (!q || l.displayName.toLowerCase().includes(q)));
@@ -98,6 +104,18 @@ export function StepSubtitles(): JSX.Element {
                 </button>
               ))}
             </div>
+          </>
+        )}
+
+        {showAutoAssNote && (
+          <>
+            <span />
+            <p
+              data-testid="subtitle-auto-ass-note"
+              className="text-[11px] text-[var(--text-subtle)] leading-snug"
+            >
+              {t('wizard.subtitles.autoAssNote')}
+            </p>
           </>
         )}
       </div>

@@ -47,6 +47,10 @@ function toUnknownFailure(error: unknown): Result<never> {
   return fail(createAppError('unknown', unknownToMessage(error)));
 }
 
+function safeAppPath(name: Parameters<typeof app.getPath>[0]): string | null {
+  try { return app.getPath(name); } catch { return null; }
+}
+
 function handle<T, R>(
   channel: string,
   schema: ZodType<T>,
@@ -162,9 +166,13 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
       return ok({
         ...settings,
         commonPaths: {
-          downloads: app.getPath('downloads'),
-          videos: app.getPath('videos'),
-          desktop: app.getPath('desktop'),
+          downloads: safeAppPath('downloads'),
+          videos: safeAppPath('videos'),
+          desktop: safeAppPath('desktop'),
+          music: safeAppPath('music'),
+          documents: safeAppPath('documents'),
+          pictures: safeAppPath('pictures'),
+          home: safeAppPath('home'),
         }
       });
     } catch (error) {

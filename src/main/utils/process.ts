@@ -16,6 +16,13 @@ export function spawnYtDlp(
   return spawn(binaryPath, args, { env, windowsHide: true, detached: process.platform !== 'win32' });
 }
 
+export function spawnFFmpeg(
+  binaryPath: string,
+  args: string[]
+): ChildProcessWithoutNullStreams {
+  return spawn(binaryPath, args, { windowsHide: true });
+}
+
 export function splitStderrLines(text: string): string[] {
   return text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
 }

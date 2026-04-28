@@ -10,7 +10,7 @@ export function formatHomeRelativePath(
   absPath: string,
   commonPaths: AppSettings['commonPaths']
 ): string {
-  const home = commonPaths?.downloads?.replace(/[/\\][^/\\]+$/, '');
+  const home = commonPaths?.home;
   if (!home) return absPath;
   const sep = home.includes('/') ? '/' : '\\';
   if (absPath === home) return '~';

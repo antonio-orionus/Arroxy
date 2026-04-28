@@ -46,7 +46,7 @@ describe('i18n contract', () => {
       }).wizard.subtitles.saveMode;
       // Heading and sidecar must differ from English. Embed/subfolder may
       // legitimately keep an English keyword in non-Latin scripts (e.g. zh
-      // keeps "Subtitles/" as the literal folder path), so we don't enforce
+      // keeps "subtitles/" as the literal folder path), so we don't enforce
       // those — but heading and sidecar are pure UI strings.
       expect(sm.heading, `${name}.wizard.subtitles.saveMode.heading not translated`).not.toBe(enSaveMode.heading);
       expect(sm.sidecar, `${name}.wizard.subtitles.saveMode.sidecar not translated`).not.toBe(enSaveMode.sidecar);

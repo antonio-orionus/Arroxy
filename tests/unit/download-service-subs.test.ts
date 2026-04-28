@@ -1,13 +1,16 @@
 import { EventEmitter } from 'node:events';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { DownloadService } from '@main/services/DownloadService';
 
 vi.mock('@main/utils/process', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@main/utils/process')>();
-  return { ...actual, spawnYtDlp: vi.fn() };
+  return { ...actual, spawnYtDlp: vi.fn(), spawnFFmpeg: vi.fn() };
 });
 
-import { spawnYtDlp } from '@main/utils/process';
+import { spawnYtDlp, spawnFFmpeg } from '@main/utils/process';
 
 beforeEach(() => { vi.clearAllMocks(); });
 
@@ -216,7 +219,7 @@ describe('DownloadService — subtitle-only (no formatId)', () => {
 
     const args = callArgs(0);
     const oIdx = args.indexOf('-o');
-    expect(args[oIdx + 1]).toContain('/downloads/Subtitles/');
+    expect(args[oIdx + 1]).toContain('/downloads/subtitles/');
     expect(args[args.indexOf('--convert-subs') + 1]).toBe('ass');
     expect(args[args.indexOf('--sub-format') + 1]).toBe('ass/best');
   });
@@ -284,13 +287,31 @@ describe('DownloadService — embed mode', () => {
     expect(vi.mocked(spawnYtDlp).mock.calls).toHaveLength(1);
   });
 
-  it('phase 1 includes --write-auto-subs when embed mode and writeAutoSubs is true', async () => {
+  it('phase 1 carries no subtitle flags when embed + writeAutoSubs (we mux ourselves after dedupe)', async () => {
     const { service } = makeService();
     await service.start({ url: YOUTUBE_URL, outputDir: '/tmp', formatId: '137+251', subtitleLanguages: ['en-orig'], subtitleMode: 'embed', writeAutoSubs: true });
     await new Promise((r) => setTimeout(r, 80));
 
     const args = callArgs(0);
-    expect(args).toContain('--write-auto-subs');
+    expect(args).not.toContain('--embed-subs');
+    expect(args).not.toContain('--write-subs');
+    expect(args).not.toContain('--write-auto-subs');
+    expect(args).not.toContain('--merge-output-format');
+    expect(args).toContain('--no-write-subs');
+    expect(args).toContain('--no-write-auto-subs');
+  });
+
+  it('runs phase 2 (sidecar sub fetch) when embed + writeAutoSubs', async () => {
+    const { service } = makeService();
+    await service.start({ url: YOUTUBE_URL, outputDir: '/tmp', formatId: '137+251', subtitleLanguages: ['en-orig'], subtitleMode: 'embed', writeAutoSubs: true });
+    await new Promise((r) => setTimeout(r, 80));
+
+    expect(vi.mocked(spawnYtDlp).mock.calls).toHaveLength(2);
+    const phase2Args = callArgs(1);
+    expect(phase2Args).toContain('--skip-download');
+    expect(phase2Args).toContain('--write-subs');
+    expect(phase2Args).toContain('--write-auto-subs');
+    expect(phase2Args[phase2Args.indexOf('--sub-langs') + 1]).toBe('en-orig');
   });
 
   it('phase 1 includes --embed-subs and --write-subs when subtitleMode is embed', async () => {
@@ -381,19 +402,62 @@ describe('DownloadService — sidecar format', () => {
   });
 });
 
+describe('DownloadService — auto-caption format forcing', () => {
+  beforeEach(() => {
+    vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never);
+  });
+
+  it('forces srt when user picked ass and auto-captions are requested', async () => {
+    const { service } = makeService();
+    await service.start({
+      url: YOUTUBE_URL, outputDir: '/tmp', formatId: '137+251',
+      subtitleLanguages: ['en-orig'], writeAutoSubs: true, subtitleFormat: 'ass'
+    });
+    await new Promise((r) => setTimeout(r, 80));
+
+    const args = callArgs(1);
+    expect(args[args.indexOf('--convert-subs') + 1]).toBe('srt');
+    expect(args[args.indexOf('--sub-format') + 1]).toBe('srt/best');
+  });
+
+  it('keeps user-picked vtt when auto-captions are requested', async () => {
+    const { service } = makeService();
+    await service.start({
+      url: YOUTUBE_URL, outputDir: '/tmp', formatId: '137+251',
+      subtitleLanguages: ['en-orig'], writeAutoSubs: true, subtitleFormat: 'vtt'
+    });
+    await new Promise((r) => setTimeout(r, 80));
+
+    const args = callArgs(1);
+    expect(args[args.indexOf('--convert-subs') + 1]).toBe('vtt');
+  });
+
+  it('keeps user-picked ass when only manual subs are selected (no writeAutoSubs)', async () => {
+    const { service } = makeService();
+    await service.start({
+      url: YOUTUBE_URL, outputDir: '/tmp', formatId: '137+251',
+      subtitleLanguages: ['en'], writeAutoSubs: false, subtitleFormat: 'ass'
+    });
+    await new Promise((r) => setTimeout(r, 80));
+
+    const args = callArgs(1);
+    expect(args[args.indexOf('--convert-subs') + 1]).toBe('ass');
+  });
+});
+
 describe('DownloadService — subfolder mode', () => {
   beforeEach(() => {
     vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never);
   });
 
-  it('phase 2 -o path contains Subtitles/ when subtitleMode is subfolder', async () => {
+  it('phase 2 -o path contains subtitles/ when subtitleMode is subfolder', async () => {
     const { service } = makeService();
     await service.start({ url: YOUTUBE_URL, outputDir: '/downloads', formatId: '137+251', subtitleLanguages: ['en'], subtitleMode: 'subfolder' });
     await new Promise((r) => setTimeout(r, 80));
 
     const args = callArgs(1);
     const oIdx = args.indexOf('-o');
-    expect(args[oIdx + 1]).toContain('/downloads/Subtitles/');
+    expect(args[oIdx + 1]).toContain('/downloads/subtitles/');
   });
 
   it('phase 2 includes --convert-subs for subfolder mode', async () => {
@@ -624,5 +688,224 @@ describe('DownloadService — per-file phase tracking via Destination lines', ()
     const mediaPercent = progressEvents.find((e) => e.line.includes('10.0%'));
     expect(subPercent!.percent).toBeUndefined();
     expect(mediaPercent!.percent).toBe(10);
+  });
+});
+
+describe('DownloadService — auto-caption dedupe (post-process)', () => {
+  let workDir: string;
+  beforeEach(() => {
+    workDir = mkdtempSync(join(tmpdir(), 'arroxy-dedupe-'));
+  });
+
+  function makeProcessThatWritesSub(filename: string, content: string) {
+    return () => {
+      const proc = Object.assign(new EventEmitter(), {
+        stdout: new EventEmitter(),
+        stderr: new EventEmitter(),
+        kill: vi.fn()
+      });
+      // The fake yt-dlp behaves like the real thing: writes the file, then
+      // emits the "[download] Destination:" line, then exits 0.
+      const filePath = join(workDir, filename);
+      writeFileSync(filePath, content);
+      setTimeout(() => {
+        proc.stderr.emit('data', Buffer.from(`[download] Destination: ${filePath}\n`));
+        proc.emit('close', 0);
+      }, 10);
+      return proc;
+    };
+  }
+
+  it('dedupes a rolling auto-caption .srt file in place after a successful subtitle-only phase', async () => {
+    const rolling = readFileSync(join(__dirname, '../fixtures/subtitles/copilot-died.en-rolling.srt'), 'utf8');
+    const expected = readFileSync(join(__dirname, '../fixtures/subtitles/copilot-died.en-deduped.srt'), 'utf8').trim();
+    vi.mocked(spawnYtDlp).mockImplementation(makeProcessThatWritesSub('Title.en.srt', rolling) as never);
+
+    const { service } = makeService();
+    await service.start({
+      url: YOUTUBE_URL,
+      outputDir: workDir,
+      subtitleLanguages: ['en'],
+      subtitleFormat: 'srt',
+      writeAutoSubs: true
+    });
+    await new Promise((r) => setTimeout(r, 80));
+
+    const onDisk = readFileSync(join(workDir, 'Title.en.srt'), 'utf8').trim();
+    expect(onDisk).toBe(expected);
+
+    rmSync(workDir, { recursive: true, force: true });
+  });
+
+  it('does NOT dedupe when writeAutoSubs is false (manual subs do not have rolling cues)', async () => {
+    const rolling = readFileSync(join(__dirname, '../fixtures/subtitles/copilot-died.en-rolling.srt'), 'utf8');
+    vi.mocked(spawnYtDlp).mockImplementation(makeProcessThatWritesSub('Title.en.srt', rolling) as never);
+
+    const { service } = makeService();
+    await service.start({
+      url: YOUTUBE_URL,
+      outputDir: workDir,
+      subtitleLanguages: ['en'],
+      subtitleFormat: 'srt',
+      writeAutoSubs: false
+    });
+    await new Promise((r) => setTimeout(r, 80));
+
+    const onDisk = readFileSync(join(workDir, 'Title.en.srt'), 'utf8');
+    expect(onDisk).toBe(rolling);
+
+    rmSync(workDir, { recursive: true, force: true });
+  });
+});
+
+describe('DownloadService — embed+auto muxing (post-dedupe)', () => {
+  let workDir: string;
+  beforeEach(() => {
+    workDir = mkdtempSync(join(tmpdir(), 'arroxy-mux-'));
+  });
+
+  // Phase 1: video. Phase 2: sidecar sub. The fake yt-dlp writes both files
+  // (so dedupe and mux have something on disk to work with) and emits the
+  // expected `[download] Destination:` lines so DownloadService tracks them.
+  function makeTwoPhaseSpawn(videoPath: string, subPath: string, subContent: string) {
+    let call = 0;
+    return () => {
+      const proc = Object.assign(new EventEmitter(), {
+        stdout: new EventEmitter(), stderr: new EventEmitter(), kill: vi.fn()
+      });
+      const isPhase1 = call === 0;
+      call++;
+      if (isPhase1) {
+        // pretend yt-dlp wrote a video file
+        writeFileSync(videoPath, 'fake-video-bytes');
+      } else {
+        writeFileSync(subPath, subContent);
+      }
+      setTimeout(() => {
+        proc.stderr.emit('data', Buffer.from(
+          isPhase1 ? `[download] Destination: ${videoPath}\n` : `[download] Destination: ${subPath}\n`
+        ));
+        proc.emit('close', 0);
+      }, 10);
+      return proc;
+    };
+  }
+
+  it('after dedupe, runs ffmpeg with embed args using the deduped sub and renames the muxed output to the original video path', async () => {
+    const rolling = readFileSync(join(__dirname, '../fixtures/subtitles/copilot-died.en-rolling.srt'), 'utf8');
+    const videoPath = join(workDir, 'Title.mp4');
+    const subPath = join(workDir, 'Title.en.srt');
+    vi.mocked(spawnYtDlp).mockImplementation(makeTwoPhaseSpawn(videoPath, subPath, rolling) as never);
+
+    const ffmpegCalls: string[][] = [];
+    vi.mocked(spawnFFmpeg).mockImplementation(((_bin: string, args: string[]) => {
+      ffmpegCalls.push(args);
+      const proc = Object.assign(new EventEmitter(), {
+        stdout: new EventEmitter(), stderr: new EventEmitter(), kill: vi.fn()
+      });
+      writeFileSync(args[args.length - 1], 'muxed-bytes');
+      setTimeout(() => proc.emit('close', 0), 10);
+      return proc;
+    }) as never);
+
+    const { service } = makeService();
+    await service.start({
+      url: YOUTUBE_URL,
+      outputDir: workDir,
+      formatId: '137+251',
+      subtitleLanguages: ['en'],
+      subtitleMode: 'embed',
+      subtitleFormat: 'srt',
+      writeAutoSubs: true
+    });
+    await new Promise((r) => setTimeout(r, 150));
+
+    expect(ffmpegCalls.length).toBe(1);
+    const args = ffmpegCalls[0];
+    const inputIdxs = args.reduce<number[]>((acc, v, i) => v === '-i' ? [...acc, i] : acc, []);
+    expect(args[inputIdxs[0] + 1]).toBe(videoPath);
+    expect(args[inputIdxs[1] + 1]).toBe(subPath);
+
+    // Final state on disk: the original video and the sidecar sub are gone,
+    // replaced by a single Title.mkv with the muxed bytes.
+    const finalMkv = join(workDir, 'Title.mkv');
+    expect(readFileSync(finalMkv, 'utf8')).toBe('muxed-bytes');
+    expect(() => readFileSync(videoPath)).toThrow();
+    expect(() => readFileSync(subPath)).toThrow();
+
+    rmSync(workDir, { recursive: true, force: true });
+  });
+
+  it('emits mergingFormats status when the mux phase starts (so UI does not stall on fetchingSubtitles)', async () => {
+    const rolling = readFileSync(join(__dirname, '../fixtures/subtitles/copilot-died.en-rolling.srt'), 'utf8');
+    const videoPath = join(workDir, 'Title.mp4');
+    const subPath = join(workDir, 'Title.en.srt');
+    vi.mocked(spawnYtDlp).mockImplementation(makeTwoPhaseSpawn(videoPath, subPath, rolling) as never);
+    vi.mocked(spawnFFmpeg).mockImplementation(((_bin: string, args: string[]) => {
+      const proc = Object.assign(new EventEmitter(), {
+        stdout: new EventEmitter(), stderr: new EventEmitter(), kill: vi.fn()
+      });
+      writeFileSync(args[args.length - 1], 'muxed-bytes');
+      setTimeout(() => proc.emit('close', 0), 10);
+      return proc;
+    }) as never);
+
+    const { service } = makeService();
+    const events = captureStatuses(service);
+    await service.start({
+      url: YOUTUBE_URL, outputDir: workDir, formatId: '137+251',
+      subtitleLanguages: ['en'], subtitleMode: 'embed',
+      subtitleFormat: 'srt', writeAutoSubs: true
+    });
+    await new Promise((r) => setTimeout(r, 150));
+
+    const keys = statusKeys(events);
+    const fetchIdx = keys.lastIndexOf('fetchingSubtitles');
+    const mergeIdx = keys.lastIndexOf('mergingFormats');
+    expect(mergeIdx).toBeGreaterThan(fetchIdx);
+
+    rmSync(workDir, { recursive: true, force: true });
+  });
+
+  it('cancel during ffmpeg mux kills the ffmpeg process and removes the .muxing.mkv temp file', async () => {
+    const rolling = readFileSync(join(__dirname, '../fixtures/subtitles/copilot-died.en-rolling.srt'), 'utf8');
+    const videoPath = join(workDir, 'Title.mp4');
+    const subPath = join(workDir, 'Title.en.srt');
+    vi.mocked(spawnYtDlp).mockImplementation(makeTwoPhaseSpawn(videoPath, subPath, rolling) as never);
+
+    let ffmpegProc: any = null;
+    vi.mocked(spawnFFmpeg).mockImplementation(((_bin: string, args: string[]) => {
+      const proc = Object.assign(new EventEmitter(), {
+        stdout: new EventEmitter(), stderr: new EventEmitter(), kill: vi.fn()
+      });
+      ffmpegProc = proc;
+      // Simulate ffmpeg starting to write the temp file but never finishing
+      writeFileSync(args[args.length - 1], 'partial-bytes');
+      // Honor kill() by emitting close as failure
+      proc.kill = vi.fn(() => {
+        setTimeout(() => proc.emit('close', null), 5);
+        return true;
+      });
+      return proc;
+    }) as never);
+
+    const { service } = makeService();
+    const startResult = await service.start({
+      url: YOUTUBE_URL, outputDir: workDir, formatId: '137+251',
+      subtitleLanguages: ['en'], subtitleMode: 'embed',
+      subtitleFormat: 'srt', writeAutoSubs: true
+    });
+    const jobId = (startResult as { ok: true; data: { job: { id: string } } }).data.job.id;
+
+    // Wait for phases 1+2 to complete and ffmpeg to be spawned, then cancel.
+    await new Promise((r) => setTimeout(r, 50));
+    await service.cancel(jobId);
+    await new Promise((r) => setTimeout(r, 80));
+
+    expect(ffmpegProc?.kill).toHaveBeenCalled();
+    const tempPath = join(workDir, 'Title.muxing.mkv');
+    expect(() => readFileSync(tempPath)).toThrow();
+
+    rmSync(workDir, { recursive: true, force: true });
   });
 });

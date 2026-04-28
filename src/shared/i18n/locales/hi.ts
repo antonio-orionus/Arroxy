@@ -69,12 +69,13 @@ const hi = {
         heading: 'इस रूप में सहेजें',
         sidecar: 'वीडियो के साथ',
         embed: 'वीडियो में एम्बेड करें',
-        subfolder: 'Subtitles/ सबफ़ोल्डर'
+        subfolder: 'subtitles/ सबफ़ोल्डर'
       },
       format: {
         heading: 'Format'
       },
-      embedNote: 'एम्बेड मोड आउटपुट को .mkv के रूप में सहेजता है ताकि उपशीर्षक ट्रैक विश्वसनीय रूप से एम्बेड हों।'
+      embedNote: 'एम्बेड मोड आउटपुट को .mkv के रूप में सहेजता है ताकि उपशीर्षक ट्रैक विश्वसनीय रूप से एम्बेड हों।',
+      autoAssNote: 'स्वतः-जनित उपशीर्षक ASS के बजाय SRT के रूप में सहेजे जाएंगे — उन्हें हमेशा YouTube के रोलिंग-क्यू डुप्लिकेशन से साफ़ किया जाता है, जिसे हमारा ASS कन्वर्टर अभी तक दोहरा नहीं सकता।'
     },
     formats: {
       quickPresets: 'त्वरित प्रीसेट',
@@ -96,7 +97,16 @@ const hi = {
       downloads: 'डाउनलोड',
       videos: 'मूवीज़',
       desktop: 'डेस्कटॉप',
-      custom: 'कस्टम…'
+      music: 'संगीत',
+      documents: 'दस्तावेज़',
+      pictures: 'चित्र',
+      home: 'होम फ़ोल्डर',
+      custom: 'कस्टम…',
+      subfolder: {
+        toggle: 'सबफ़ोल्डर में सहेजें',
+        placeholder: 'जैसे lo-fi rips',
+        invalid: 'फ़ोल्डर नाम में अमान्य अक्षर हैं'
+      }
     },
     confirm: {
       readyHeadline: 'डाउनलोड के लिए तैयार!',

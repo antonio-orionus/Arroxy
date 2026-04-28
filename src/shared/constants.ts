@@ -1,8 +1,9 @@
-import { SUBTITLE_FORMATS, type SubtitleMode, type SubtitleFormat, type UiTheme } from './schemas';
+import type { SubtitleMode, SubtitleFormat, UiTheme } from './schemas';
 import type { AppSettings } from './types';
 
 // Re-export so older imports of `@shared/constants` for status/queue still resolve.
 export { STATUS_KEY, QUEUE_STATUS, type StatusKey } from './schemas';
+export { SUBTITLE_EXT_REGEX } from './subtitlePath';
 
 // Defaults — single source. Anywhere that needs a fallback for a missing field
 // (initial state, persistence migration, test fixtures, IPC fallback) must
@@ -32,7 +33,3 @@ export function defaultAppSettings(downloadsDir: string): AppSettings {
 // YouTube buckets `live_chat` into `subtitles` even though it isn't a caption
 // track. Both probe-side filtering and renderer-side display filter it out.
 export const LIVE_CHAT_LANG = 'live_chat';
-
-// Match any subtitle file extension we know about. Built from SUBTITLE_FORMATS
-// so adding a format updates this regex automatically.
-export const SUBTITLE_EXT_REGEX = new RegExp(`\\.(${SUBTITLE_FORMATS.join('|')})$`, 'i');

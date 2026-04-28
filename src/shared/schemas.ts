@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { isValidSubfolder, SUBFOLDER_NAME_MAX } from './subfolder';
 
 // Enum schemas — single source of truth. Types below are inferred so adding
 // or removing a value never requires hand-editing a parallel union.
@@ -150,7 +151,15 @@ export const updateSettingsSchema = z.object({
   language: supportedLangSchema.optional(),
   lastSubtitleLanguages: z.array(z.string()).optional(),
   lastSubtitleMode: subtitleModeSchema.optional(),
-  lastSubtitleFormat: subtitleFormatSchema.optional()
+  lastSubtitleFormat: subtitleFormatSchema.optional(),
+  lastSubfolderEnabled: z.boolean().optional(),
+  lastSubfolder: z
+    .string()
+    .max(SUBFOLDER_NAME_MAX)
+    .refine((s) => s === '' || isValidSubfolder(s), {
+      message: 'Invalid subfolder name'
+    })
+    .optional()
 });
 
 // Queue item schema — used by both queueSave IPC handler and queueStore.load

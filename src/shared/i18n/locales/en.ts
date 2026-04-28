@@ -69,12 +69,13 @@ const en = {
         heading: 'Save as',
         sidecar: 'Next to video',
         embed: 'Embed into video',
-        subfolder: 'Subtitles/ subfolder'
+        subfolder: 'subtitles/ subfolder'
       },
       format: {
         heading: 'Format'
       },
-      embedNote: 'Embed mode saves output as .mkv so subtitle tracks embed reliably.'
+      embedNote: 'Embed mode saves output as .mkv so subtitle tracks embed reliably.',
+      autoAssNote: 'Auto-captions will be saved as SRT instead of ASS — they\'re always cleaned of YouTube\'s rolling-cue duplication, which our ASS converter can\'t replicate yet.'
     },
     formats: {
       quickPresets: 'Quick presets',
@@ -96,7 +97,16 @@ const en = {
       downloads: 'Downloads',
       videos: 'Movies',
       desktop: 'Desktop',
-      custom: 'Custom…'
+      music: 'Music',
+      documents: 'Documents',
+      pictures: 'Pictures',
+      home: 'Home',
+      custom: 'Custom…',
+      subfolder: {
+        toggle: 'Save inside subfolder',
+        placeholder: 'e.g. lo-fi rips',
+        invalid: 'Folder name has invalid characters'
+      }
     },
     confirm: {
       readyHeadline: 'Ready to pull it in!',

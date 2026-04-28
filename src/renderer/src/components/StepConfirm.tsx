@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { humanSize } from '@shared/format';
 import { useAppStore, presetLabel, resolveAudioLabel, resolveVideoResolution } from '../store/useAppStore';
 import { formatHomeRelativePath } from '@renderer/lib/utils';
+import { effectiveOutputDir } from '@renderer/lib/path';
 import { resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS } from '../lib/subtitleLabel';
 import { Button } from './ui/button';
 import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
@@ -26,6 +27,8 @@ export function StepConfirm(): JSX.Element {
     wizardSubtitles,
     wizardAutomaticCaptions,
     commonPaths,
+    wizardSubfolderEnabled,
+    wizardSubfolderName,
     addToQueue,
     addAndDownloadImmediately,
     goToStep
@@ -44,7 +47,8 @@ export function StepConfirm(): JSX.Element {
   const selectedFormat = wizardFormats.find((f) => f.formatId === selectedVideoFormatId);
   const estimatedSize = selectedFormat?.filesize ? `~${humanSize(selectedFormat.filesize)}` : t('wizard.confirm.sizeUnknown');
 
-  const shortPath = formatHomeRelativePath(wizardOutputDir, commonPaths);
+  const finalDir = effectiveOutputDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName);
+  const shortPath = formatHomeRelativePath(finalDir, commonPaths);
 
   const subtitlesValue = (() => {
     if (wizardSubtitleLanguages.length === 0) return t('wizard.confirm.subtitlesNone');

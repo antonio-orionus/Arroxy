@@ -1,0 +1,1735 @@
+1
+00:00:00,000 --> 00:00:02,110
+
+I just released a video on how AI is
+
+2
+00:00:02,110 --> 00:00:02,120
+I just released a video on how AI is
+ 
+
+3
+00:00:02,120 --> 00:00:04,070
+I just released a video on how AI is
+going down the path of enshittification.
+
+4
+00:00:04,070 --> 00:00:04,080
+going down the path of enshittification.
+ 
+
+5
+00:00:04,080 --> 00:00:05,270
+going down the path of enshittification.
+It'll be linked right up here in the
+
+6
+00:00:05,270 --> 00:00:05,280
+It'll be linked right up here in the
+ 
+
+7
+00:00:05,280 --> 00:00:07,110
+It'll be linked right up here in the
+description if you want to check it out,
+
+8
+00:00:07,110 --> 00:00:07,120
+description if you want to check it out,
+ 
+
+9
+00:00:07,120 --> 00:00:08,190
+description if you want to check it out,
+but I thought this was going to be a
+
+10
+00:00:08,190 --> 00:00:08,200
+but I thought this was going to be a
+ 
+
+11
+00:00:08,200 --> 00:00:09,670
+but I thought this was going to be a
+rather slow process that would take
+
+12
+00:00:09,670 --> 00:00:09,680
+rather slow process that would take
+ 
+
+13
+00:00:09,680 --> 00:00:11,910
+rather slow process that would take
+months or even a year or two to fully go
+
+14
+00:00:11,910 --> 00:00:11,920
+months or even a year or two to fully go
+ 
+
+15
+00:00:11,920 --> 00:00:13,710
+months or even a year or two to fully go
+down the path of raising the prices and
+
+16
+00:00:13,710 --> 00:00:13,720
+down the path of raising the prices and
+ 
+
+17
+00:00:13,720 --> 00:00:15,670
+down the path of raising the prices and
+reducing the quantity of what we get,
+
+18
+00:00:15,670 --> 00:00:15,680
+reducing the quantity of what we get,
+ 
+
+19
+00:00:15,680 --> 00:00:17,270
+reducing the quantity of what we get,
+but it is actually accelerating much
+
+20
+00:00:17,270 --> 00:00:17,280
+but it is actually accelerating much
+ 
+
+21
+00:00:17,280 --> 00:00:18,990
+but it is actually accelerating much
+quicker than I thought. GitHub with
+
+22
+00:00:18,990 --> 00:00:19,000
+quicker than I thought. GitHub with
+ 
+
+23
+00:00:19,000 --> 00:00:20,910
+quicker than I thought. GitHub with
+Copilot just sent me an email today
+
+24
+00:00:20,910 --> 00:00:20,920
+Copilot just sent me an email today
+ 
+
+25
+00:00:20,920 --> 00:00:22,230
+Copilot just sent me an email today
+essentially saying they're entirely
+
+26
+00:00:22,230 --> 00:00:22,240
+essentially saying they're entirely
+ 
+
+27
+00:00:22,240 --> 00:00:24,230
+essentially saying they're entirely
+removing all of the good things related
+
+28
+00:00:24,230 --> 00:00:24,240
+removing all of the good things related
+ 
+
+29
+00:00:24,240 --> 00:00:26,310
+removing all of the good things related
+to that their Copilot plan and making it
+
+30
+00:00:26,310 --> 00:00:26,320
+to that their Copilot plan and making it
+ 
+
+31
+00:00:26,320 --> 00:00:28,110
+to that their Copilot plan and making it
+essentially on par with just paying for
+
+32
+00:00:28,110 --> 00:00:28,120
+essentially on par with just paying for
+ 
+
+33
+00:00:28,120 --> 00:00:30,390
+essentially on par with just paying for
+AI directly. It's honestly embarrassing
+
+34
+00:00:30,390 --> 00:00:30,400
+AI directly. It's honestly embarrassing
+ 
+
+35
+00:00:30,400 --> 00:00:31,830
+AI directly. It's honestly embarrassing
+seeing the changes that they've made.
+
+36
+00:00:31,830 --> 00:00:31,840
+seeing the changes that they've made.
+ 
+
+37
+00:00:31,840 --> 00:00:33,270
+seeing the changes that they've made.
+Let's take a look at what these changes
+
+38
+00:00:33,270 --> 00:00:33,280
+Let's take a look at what these changes
+ 
+
+39
+00:00:33,280 --> 00:00:35,470
+Let's take a look at what these changes
+entail. Starting on June 1st, they're
+
+40
+00:00:35,470 --> 00:00:35,480
+entail. Starting on June 1st, they're
+ 
+
+41
+00:00:35,480 --> 00:00:37,630
+entail. Starting on June 1st, they're
+essentially removing the entire idea of
+
+42
+00:00:37,630 --> 00:00:37,640
+essentially removing the entire idea of
+ 
+
+43
+00:00:37,640 --> 00:00:39,430
+essentially removing the entire idea of
+premium request units. Essentially what
+
+44
+00:00:39,430 --> 00:00:39,440
+premium request units. Essentially what
+ 
+
+45
+00:00:39,440 --> 00:00:41,150
+premium request units. Essentially what
+that meant is that you had a set number
+
+46
+00:00:41,150 --> 00:00:41,160
+that meant is that you had a set number
+ 
+
+47
+00:00:41,160 --> 00:00:42,790
+that meant is that you had a set number
+of requests you could make to an AI. It
+
+48
+00:00:42,790 --> 00:00:42,800
+of requests you could make to an AI. It
+ 
+
+49
+00:00:42,800 --> 00:00:44,630
+of requests you could make to an AI. It
+was 300 with the $10 a month plan, which
+
+50
+00:00:44,630 --> 00:00:44,640
+was 300 with the $10 a month plan, which
+ 
+
+51
+00:00:44,640 --> 00:00:46,110
+was 300 with the $10 a month plan, which
+is what I was on, and essentially you
+
+52
+00:00:46,110 --> 00:00:46,120
+is what I was on, and essentially you
+ 
+
+53
+00:00:46,120 --> 00:00:48,310
+is what I was on, and essentially you
+could send 300 requests to the AI and
+
+54
+00:00:48,310 --> 00:00:48,320
+could send 300 requests to the AI and
+ 
+
+55
+00:00:48,320 --> 00:00:49,670
+could send 300 requests to the AI and
+then it'd respond to you and it wouldn't
+
+56
+00:00:49,670 --> 00:00:49,680
+then it'd respond to you and it wouldn't
+ 
+
+57
+00:00:49,680 --> 00:00:51,030
+then it'd respond to you and it wouldn't
+matter how many tokens were taken. It
+
+58
+00:00:51,030 --> 00:00:51,040
+matter how many tokens were taken. It
+ 
+
+59
+00:00:51,040 --> 00:00:52,830
+matter how many tokens were taken. It
+would just be based on the request. And
+
+60
+00:00:52,830 --> 00:00:52,840
+would just be based on the request. And
+ 
+
+61
+00:00:52,840 --> 00:00:54,870
+would just be based on the request. And
+certain models such as like Opus would
+
+62
+00:00:54,870 --> 00:00:54,880
+certain models such as like Opus would
+ 
+
+63
+00:00:54,880 --> 00:00:56,910
+certain models such as like Opus would
+consume more than one request while
+
+64
+00:00:56,910 --> 00:00:56,920
+consume more than one request while
+ 
+
+65
+00:00:56,920 --> 00:00:58,990
+consume more than one request while
+cheaper models may consume less actual
+
+66
+00:00:58,990 --> 00:00:59,000
+cheaper models may consume less actual
+ 
+
+67
+00:00:59,000 --> 00:01:00,590
+cheaper models may consume less actual
+request. But in generally you got a
+
+68
+00:01:00,590 --> 00:01:00,600
+request. But in generally you got a
+ 
+
+69
+00:01:00,600 --> 00:01:01,750
+request. But in generally you got a
+certain number of requests you could
+
+70
+00:01:01,750 --> 00:01:01,760
+certain number of requests you could
+ 
+
+71
+00:01:01,760 --> 00:01:02,830
+certain number of requests you could
+make and it didn't matter how many
+
+72
+00:01:02,830 --> 00:01:02,840
+make and it didn't matter how many
+ 
+
+73
+00:01:02,840 --> 00:01:04,630
+make and it didn't matter how many
+tokens there were. Obviously this was
+
+74
+00:01:04,630 --> 00:01:04,640
+tokens there were. Obviously this was
+ 
+
+75
+00:01:04,640 --> 00:01:06,350
+tokens there were. Obviously this was
+consuming tons of money for GitHub and
+
+76
+00:01:06,350 --> 00:01:06,360
+consuming tons of money for GitHub and
+ 
+
+77
+00:01:06,360 --> 00:01:08,590
+consuming tons of money for GitHub and
+Copilot, so they decided to completely
+
+78
+00:01:08,590 --> 00:01:08,600
+Copilot, so they decided to completely
+ 
+
+79
+00:01:08,600 --> 00:01:10,830
+Copilot, so they decided to completely
+scratch that entire idea. They removed
+
+80
+00:01:10,830 --> 00:01:10,840
+scratch that entire idea. They removed
+ 
+
+81
+00:01:10,840 --> 00:01:12,750
+scratch that entire idea. They removed
+this entirely, and instead now you still
+
+82
+00:01:12,750 --> 00:01:12,760
+this entirely, and instead now you still
+ 
+
+83
+00:01:12,760 --> 00:01:15,270
+this entirely, and instead now you still
+have your $10 and your $39 a month plan,
+
+84
+00:01:15,270 --> 00:01:15,280
+have your $10 and your $39 a month plan,
+ 
+
+85
+00:01:15,280 --> 00:01:16,790
+have your $10 and your $39 a month plan,
+but instead of getting these requests,
+
+86
+00:01:16,790 --> 00:01:16,800
+but instead of getting these requests,
+ 
+
+87
+00:01:16,800 --> 00:01:18,470
+but instead of getting these requests,
+all you do is just get credits that go
+
+88
+00:01:18,470 --> 00:01:18,480
+all you do is just get credits that go
+ 
+
+89
+00:01:18,480 --> 00:01:20,510
+all you do is just get credits that go
+towards actually paying for the AI based
+
+90
+00:01:20,510 --> 00:01:20,520
+towards actually paying for the AI based
+ 
+
+91
+00:01:20,520 --> 00:01:22,350
+towards actually paying for the AI based
+on a token based number. And if we look
+
+92
+00:01:22,350 --> 00:01:22,360
+on a token based number. And if we look
+ 
+
+93
+00:01:22,360 --> 00:01:23,710
+on a token based number. And if we look
+here, they've also changed it so that
+
+94
+00:01:23,710 --> 00:01:23,720
+here, they've also changed it so that
+ 
+
+95
+00:01:23,720 --> 00:01:25,750
+here, they've also changed it so that
+you no longer can use any free models.
+
+96
+00:01:25,750 --> 00:01:25,760
+you no longer can use any free models.
+ 
+
+97
+00:01:25,760 --> 00:01:27,390
+you no longer can use any free models.
+There used to be free models included in
+
+98
+00:01:27,390 --> 00:01:27,400
+There used to be free models included in
+ 
+
+99
+00:01:27,400 --> 00:01:28,790
+There used to be free models included in
+the monthly plan that didn't count
+
+100
+00:01:28,790 --> 00:01:28,800
+the monthly plan that didn't count
+ 
+
+101
+00:01:28,800 --> 00:01:30,030
+the monthly plan that didn't count
+against you. Those have all been
+
+102
+00:01:30,030 --> 00:01:30,040
+against you. Those have all been
+ 
+
+103
+00:01:30,040 --> 00:01:31,750
+against you. Those have all been
+removed. And if you're using things like
+
+104
+00:01:31,750 --> 00:01:31,760
+removed. And if you're using things like
+ 
+
+105
+00:01:31,760 --> 00:01:33,350
+removed. And if you're using things like
+code review with Copilot that uses
+
+106
+00:01:33,350 --> 00:01:33,360
+code review with Copilot that uses
+ 
+
+107
+00:01:33,360 --> 00:01:34,990
+code review with Copilot that uses
+GitHub actions behind the scenes,
+
+108
+00:01:34,990 --> 00:01:35,000
+GitHub actions behind the scenes,
+ 
+
+109
+00:01:35,000 --> 00:01:36,190
+GitHub actions behind the scenes,
+they're now going to be charging you for
+
+110
+00:01:36,190 --> 00:01:36,200
+they're now going to be charging you for
+ 
+
+111
+00:01:36,200 --> 00:01:37,550
+they're now going to be charging you for
+that as well. So essentially they're
+
+112
+00:01:37,550 --> 00:01:37,560
+that as well. So essentially they're
+ 
+
+113
+00:01:37,560 --> 00:01:38,870
+that as well. So essentially they're
+just charging you for absolutely
+
+114
+00:01:38,870 --> 00:01:38,880
+just charging you for absolutely
+ 
+
+115
+00:01:38,880 --> 00:01:40,270
+just charging you for absolutely
+everything that you used to be getting
+
+116
+00:01:40,270 --> 00:01:40,280
+everything that you used to be getting
+ 
+
+117
+00:01:40,280 --> 00:01:42,030
+everything that you used to be getting
+for free, which because they don't have
+
+118
+00:01:42,030 --> 00:01:42,040
+for free, which because they don't have
+ 
+
+119
+00:01:42,040 --> 00:01:43,230
+for free, which because they don't have
+enough money to do this is why they're
+
+120
+00:01:43,230 --> 00:01:43,240
+enough money to do this is why they're
+ 
+
+121
+00:01:43,240 --> 00:01:44,750
+enough money to do this is why they're
+doing that, but it essentially removes
+
+122
+00:01:44,750 --> 00:01:44,760
+doing that, but it essentially removes
+ 
+
+123
+00:01:44,760 --> 00:01:46,390
+doing that, but it essentially removes
+all the value you're getting for paying
+
+124
+00:01:46,390 --> 00:01:46,400
+all the value you're getting for paying
+ 
+
+125
+00:01:46,400 --> 00:01:48,030
+all the value you're getting for paying
+for this particular service. The only
+
+126
+00:01:48,030 --> 00:01:48,040
+for this particular service. The only
+ 
+
+127
+00:01:48,040 --> 00:01:49,070
+for this particular service. The only
+thing that you're still getting that's
+
+128
+00:01:49,070 --> 00:01:49,080
+thing that you're still getting that's
+ 
+
+129
+00:01:49,080 --> 00:01:51,350
+thing that you're still getting that's
+free is the in-editor code complete and
+
+130
+00:01:51,350 --> 00:01:51,360
+free is the in-editor code complete and
+ 
+
+131
+00:01:51,360 --> 00:01:53,190
+free is the in-editor code complete and
+edit suggestions. Otherwise, everything
+
+132
+00:01:53,190 --> 00:01:53,200
+edit suggestions. Otherwise, everything
+ 
+
+133
+00:01:53,200 --> 00:01:54,950
+edit suggestions. Otherwise, everything
+else is being changed completely. And
+
+134
+00:01:54,950 --> 00:01:54,960
+else is being changed completely. And
+ 
+
+135
+00:01:54,960 --> 00:01:56,350
+else is being changed completely. And
+the biggest thing that's changing for
+
+136
+00:01:56,350 --> 00:01:56,360
+the biggest thing that's changing for
+ 
+
+137
+00:01:56,360 --> 00:01:57,710
+the biggest thing that's changing for
+someone that's gone the yearly plan,
+
+138
+00:01:57,710 --> 00:01:57,720
+someone that's gone the yearly plan,
+ 
+
+139
+00:01:57,720 --> 00:01:59,550
+someone that's gone the yearly plan,
+which is actually what I was on, which
+
+140
+00:01:59,550 --> 00:01:59,560
+which is actually what I was on, which
+ 
+
+141
+00:01:59,560 --> 00:02:00,990
+which is actually what I was on, which
+we scroll to that section you can see
+
+142
+00:02:00,990 --> 00:02:01,000
+we scroll to that section you can see
+ 
+
+143
+00:02:01,000 --> 00:02:02,390
+we scroll to that section you can see
+anyone that's on the annual plan,
+
+144
+00:02:02,390 --> 00:02:02,400
+anyone that's on the annual plan,
+ 
+
+145
+00:02:02,400 --> 00:02:03,670
+anyone that's on the annual plan,
+they're not even offering that anymore,
+
+146
+00:02:03,670 --> 00:02:03,680
+they're not even offering that anymore,
+ 
+
+147
+00:02:03,680 --> 00:02:05,190
+they're not even offering that anymore,
+so they're actually completely removing
+
+148
+00:02:05,190 --> 00:02:05,200
+so they're actually completely removing
+ 
+
+149
+00:02:05,200 --> 00:02:06,590
+so they're actually completely removing
+the annual plan, and they're going to be
+
+150
+00:02:06,590 --> 00:02:06,600
+the annual plan, and they're going to be
+ 
+
+151
+00:02:06,600 --> 00:02:08,510
+the annual plan, and they're going to be
+changing how the model multipliers work
+
+152
+00:02:08,510 --> 00:02:08,520
+changing how the model multipliers work
+ 
+
+153
+00:02:08,520 --> 00:02:09,910
+changing how the model multipliers work
+for your premium requests because they
+
+154
+00:02:09,910 --> 00:02:09,920
+for your premium requests because they
+ 
+
+155
+00:02:09,920 --> 00:02:11,710
+for your premium requests because they
+want to honor that same premium request
+
+156
+00:02:11,710 --> 00:02:11,720
+want to honor that same premium request
+ 
+
+157
+00:02:11,720 --> 00:02:13,470
+want to honor that same premium request
+situation. I figured they would increase
+
+158
+00:02:13,470 --> 00:02:13,480
+situation. I figured they would increase
+ 
+
+159
+00:02:13,480 --> 00:02:15,190
+situation. I figured they would increase
+it slightly, maybe twice as much, three
+
+160
+00:02:15,190 --> 00:02:15,200
+it slightly, maybe twice as much, three
+ 
+
+161
+00:02:15,200 --> 00:02:16,710
+it slightly, maybe twice as much, three
+times as much, but it's honestly
+
+162
+00:02:16,710 --> 00:02:16,720
+times as much, but it's honestly
+ 
+
+163
+00:02:16,720 --> 00:02:18,150
+times as much, but it's honestly
+embarrassing looking at what they've
+
+164
+00:02:18,150 --> 00:02:18,160
+embarrassing looking at what they've
+ 
+
+165
+00:02:18,160 --> 00:02:19,950
+embarrassing looking at what they've
+done. If we scroll down to the brand new
+
+166
+00:02:19,950 --> 00:02:19,960
+done. If we scroll down to the brand new
+ 
+
+167
+00:02:19,960 --> 00:02:21,630
+done. If we scroll down to the brand new
+chart for these multipliers, you can see
+
+168
+00:02:21,630 --> 00:02:21,640
+chart for these multipliers, you can see
+ 
+
+169
+00:02:21,640 --> 00:02:23,150
+chart for these multipliers, you can see
+the old multipliers on the left. For
+
+170
+00:02:23,150 --> 00:02:23,160
+the old multipliers on the left. For
+ 
+
+171
+00:02:23,160 --> 00:02:24,990
+the old multipliers on the left. For
+example, you can see here Claude Opus
+
+172
+00:02:24,990 --> 00:02:25,000
+example, you can see here Claude Opus
+ 
+
+173
+00:02:25,000 --> 00:02:26,870
+example, you can see here Claude Opus
+was at three, while now it's going to be
+
+174
+00:02:26,870 --> 00:02:26,880
+was at three, while now it's going to be
+ 
+
+175
+00:02:26,880 --> 00:02:28,710
+was at three, while now it's going to be
+15 credits. Or if you look at the newer
+
+176
+00:02:28,710 --> 00:02:28,720
+15 credits. Or if you look at the newer
+ 
+
+177
+00:02:28,720 --> 00:02:30,430
+15 credits. Or if you look at the newer
+models of Opus, you can see originally
+
+178
+00:02:30,430 --> 00:02:30,440
+models of Opus, you can see originally
+ 
+
+179
+00:02:30,440 --> 00:02:32,470
+models of Opus, you can see originally
+it was three premium requests, now it's
+
+180
+00:02:32,470 --> 00:02:32,480
+it was three premium requests, now it's
+ 
+
+181
+00:02:32,480 --> 00:02:34,750
+it was three premium requests, now it's
+27. That's a nine times increase, and
+
+182
+00:02:34,750 --> 00:02:34,760
+27. That's a nine times increase, and
+ 
+
+183
+00:02:34,760 --> 00:02:35,950
+27. That's a nine times increase, and
+this is very consistent. You can see
+
+184
+00:02:35,950 --> 00:02:35,960
+this is very consistent. You can see
+ 
+
+185
+00:02:35,960 --> 00:02:37,910
+this is very consistent. You can see
+Sonnet went from one to nine. You can
+
+186
+00:02:37,910 --> 00:02:37,920
+Sonnet went from one to nine. You can
+ 
+
+187
+00:02:37,920 --> 00:02:39,150
+Sonnet went from one to nine. You can
+see down here we're going from one to
+
+188
+00:02:39,150 --> 00:02:39,160
+see down here we're going from one to
+ 
+
+189
+00:02:39,160 --> 00:02:40,870
+see down here we're going from one to
+six, one to three. There's essentially a
+
+190
+00:02:40,870 --> 00:02:40,880
+six, one to three. There's essentially a
+ 
+
+191
+00:02:40,880 --> 00:02:42,870
+six, one to three. There's essentially a
+three to nine times increase on almost
+
+192
+00:02:42,870 --> 00:02:42,880
+three to nine times increase on almost
+ 
+
+193
+00:02:42,880 --> 00:02:44,150
+three to nine times increase on almost
+every single model that you're being
+
+194
+00:02:44,150 --> 00:02:44,160
+every single model that you're being
+ 
+
+195
+00:02:44,160 --> 00:02:45,910
+every single model that you're being
+charged for. And if you're only getting
+
+196
+00:02:45,910 --> 00:02:45,920
+charged for. And if you're only getting
+ 
+
+197
+00:02:45,920 --> 00:02:47,870
+charged for. And if you're only getting
+300 requests per month, that means that
+
+198
+00:02:47,870 --> 00:02:47,880
+300 requests per month, that means that
+ 
+
+199
+00:02:47,880 --> 00:02:49,830
+300 requests per month, that means that
+you can essentially make 10 Opus
+
+200
+00:02:49,830 --> 00:02:49,840
+you can essentially make 10 Opus
+ 
+
+201
+00:02:49,840 --> 00:02:51,590
+you can essentially make 10 Opus
+requests per month on this plan, or you
+
+202
+00:02:51,590 --> 00:02:51,600
+requests per month on this plan, or you
+ 
+
+203
+00:02:51,600 --> 00:02:53,390
+requests per month on this plan, or you
+can make 30 different requests on the
+
+204
+00:02:53,390 --> 00:02:53,400
+can make 30 different requests on the
+ 
+
+205
+00:02:53,400 --> 00:02:55,470
+can make 30 different requests on the
+Sonnet. So that's 30 AI requests per
+
+206
+00:02:55,470 --> 00:02:55,480
+Sonnet. So that's 30 AI requests per
+ 
+
+207
+00:02:55,480 --> 00:02:57,230
+Sonnet. So that's 30 AI requests per
+month. That's essentially one per day.
+
+208
+00:02:57,230 --> 00:02:57,240
+month. That's essentially one per day.
+ 
+
+209
+00:02:57,240 --> 00:02:58,630
+month. That's essentially one per day.
+Obviously that's not going to be enough
+
+210
+00:02:58,630 --> 00:02:58,640
+Obviously that's not going to be enough
+ 
+
+211
+00:02:58,640 --> 00:03:00,590
+Obviously that's not going to be enough
+for doing any type of real world actual
+
+212
+00:03:00,590 --> 00:03:00,600
+for doing any type of real world actual
+ 
+
+213
+00:03:00,600 --> 00:03:02,030
+for doing any type of real world actual
+work. And if we look at the actual
+
+214
+00:03:02,030 --> 00:03:02,040
+work. And if we look at the actual
+ 
+
+215
+00:03:02,040 --> 00:03:03,270
+work. And if we look at the actual
+pricing that they've changed it to,
+
+216
+00:03:03,270 --> 00:03:03,280
+pricing that they've changed it to,
+ 
+
+217
+00:03:03,280 --> 00:03:04,790
+pricing that they've changed it to,
+essentially you're just paying a per
+
+218
+00:03:04,790 --> 00:03:04,800
+essentially you're just paying a per
+ 
+
+219
+00:03:04,800 --> 00:03:06,630
+essentially you're just paying a per
+unit price for the tokens you're using,
+
+220
+00:03:06,630 --> 00:03:06,640
+unit price for the tokens you're using,
+ 
+
+221
+00:03:06,640 --> 00:03:08,190
+unit price for the tokens you're using,
+and they're just using the exact pricing
+
+222
+00:03:08,190 --> 00:03:08,200
+and they're just using the exact pricing
+ 
+
+223
+00:03:08,200 --> 00:03:09,790
+and they're just using the exact pricing
+model of Claude. So you can see here for
+
+224
+00:03:09,790 --> 00:03:09,800
+model of Claude. So you can see here for
+ 
+
+225
+00:03:09,800 --> 00:03:12,510
+model of Claude. So you can see here for
+Haiku, it's $1 input, $5 for output. And
+
+226
+00:03:12,510 --> 00:03:12,520
+Haiku, it's $1 input, $5 for output. And
+ 
+
+227
+00:03:12,520 --> 00:03:15,230
+Haiku, it's $1 input, $5 for output. And
+if we look here, $1 input, $5 output. So
+
+228
+00:03:15,230 --> 00:03:15,240
+if we look here, $1 input, $5 output. So
+ 
+
+229
+00:03:15,240 --> 00:03:16,950
+if we look here, $1 input, $5 output. So
+you're getting no discount, no benefit.
+
+230
+00:03:16,950 --> 00:03:16,960
+you're getting no discount, no benefit.
+ 
+
+231
+00:03:16,960 --> 00:03:18,750
+you're getting no discount, no benefit.
+You're just prepaying for these credits
+
+232
+00:03:18,750 --> 00:03:18,760
+You're just prepaying for these credits
+ 
+
+233
+00:03:18,760 --> 00:03:20,270
+You're just prepaying for these credits
+ahead of time, and if you exceed your
+
+234
+00:03:20,270 --> 00:03:20,280
+ahead of time, and if you exceed your
+ 
+
+235
+00:03:20,280 --> 00:03:22,230
+ahead of time, and if you exceed your
+prepaid limit, you just pay at the exact
+
+236
+00:03:22,230 --> 00:03:22,240
+prepaid limit, you just pay at the exact
+ 
+
+237
+00:03:22,240 --> 00:03:23,710
+prepaid limit, you just pay at the exact
+same rate you would pay if you used
+
+238
+00:03:23,710 --> 00:03:23,720
+same rate you would pay if you used
+ 
+
+239
+00:03:23,720 --> 00:03:25,790
+same rate you would pay if you used
+Claude directly. So I don't see
+
+240
+00:03:25,790 --> 00:03:25,800
+Claude directly. So I don't see
+ 
+
+241
+00:03:25,800 --> 00:03:27,470
+Claude directly. So I don't see
+absolutely any benefit in using
+
+242
+00:03:27,470 --> 00:03:27,480
+absolutely any benefit in using
+ 
+
+243
+00:03:27,480 --> 00:03:29,190
+absolutely any benefit in using
+something like GitHub Copilot anymore
+
+244
+00:03:29,190 --> 00:03:29,200
+something like GitHub Copilot anymore
+ 
+
+245
+00:03:29,200 --> 00:03:31,230
+something like GitHub Copilot anymore
+other than that you get the in-editor
+
+246
+00:03:31,230 --> 00:03:31,240
+other than that you get the in-editor
+ 
+
+247
+00:03:31,240 --> 00:03:32,950
+other than that you get the in-editor
+code completion. That's the only thing
+
+248
+00:03:32,950 --> 00:03:32,960
+code completion. That's the only thing
+ 
+
+249
+00:03:32,960 --> 00:03:34,350
+code completion. That's the only thing
+you're getting by paying this additional
+
+250
+00:03:34,350 --> 00:03:34,360
+you're getting by paying this additional
+ 
+
+251
+00:03:34,360 --> 00:03:36,710
+you're getting by paying this additional
+money. And if you're not on their $39 a
+
+252
+00:03:36,710 --> 00:03:36,720
+money. And if you're not on their $39 a
+ 
+
+253
+00:03:36,720 --> 00:03:38,470
+money. And if you're not on their $39 a
+month plan, you don't even get access to
+
+254
+00:03:38,470 --> 00:03:38,480
+month plan, you don't even get access to
+ 
+
+255
+00:03:38,480 --> 00:03:39,630
+month plan, you don't even get access to
+these Opus models. They're only
+
+256
+00:03:39,630 --> 00:03:39,640
+these Opus models. They're only
+ 
+
+257
+00:03:39,640 --> 00:03:41,350
+these Opus models. They're only
+available on the more expensive plan. So
+
+258
+00:03:41,350 --> 00:03:41,360
+available on the more expensive plan. So
+ 
+
+259
+00:03:41,360 --> 00:03:42,750
+available on the more expensive plan. So
+if you want to use these better models,
+
+260
+00:03:42,750 --> 00:03:42,760
+if you want to use these better models,
+ 
+
+261
+00:03:42,760 --> 00:03:44,390
+if you want to use these better models,
+you have to just pay more upfront and
+
+262
+00:03:44,390 --> 00:03:44,400
+you have to just pay more upfront and
+ 
+
+263
+00:03:44,400 --> 00:03:46,750
+you have to just pay more upfront and
+hope you use that usage limit. Now, most
+
+264
+00:03:46,750 --> 00:03:46,760
+hope you use that usage limit. Now, most
+ 
+
+265
+00:03:46,760 --> 00:03:48,150
+hope you use that usage limit. Now, most
+likely you are going to use that usage
+
+266
+00:03:48,150 --> 00:03:48,160
+likely you are going to use that usage
+ 
+
+267
+00:03:48,160 --> 00:03:50,550
+likely you are going to use that usage
+limit because $10 a month or $39 a month
+
+268
+00:03:50,550 --> 00:03:50,560
+limit because $10 a month or $39 a month
+ 
+
+269
+00:03:50,560 --> 00:03:52,310
+limit because $10 a month or $39 a month
+is not a lot when your output tokens are
+
+270
+00:03:52,310 --> 00:03:52,320
+is not a lot when your output tokens are
+ 
+
+271
+00:03:52,320 --> 00:03:54,190
+is not a lot when your output tokens are
+costing, you know, $15 per million and
+
+272
+00:03:54,190 --> 00:03:54,200
+costing, you know, $15 per million and
+ 
+
+273
+00:03:54,200 --> 00:03:56,270
+costing, you know, $15 per million and
+so on, but still it's you're pay
+
+274
+00:03:56,270 --> 00:03:56,280
+so on, but still it's you're pay
+ 
+
+275
+00:03:56,280 --> 00:03:57,790
+so on, but still it's you're pay
+prepaying essentially for something that
+
+276
+00:03:57,790 --> 00:03:57,800
+prepaying essentially for something that
+ 
+
+277
+00:03:57,800 --> 00:03:59,470
+prepaying essentially for something that
+you're getting at the exact same rate.
+
+278
+00:03:59,470 --> 00:03:59,480
+you're getting at the exact same rate.
+ 
+
+279
+00:03:59,480 --> 00:04:01,190
+you're getting at the exact same rate.
+It doesn't really make any sense to me,
+
+280
+00:04:01,190 --> 00:04:01,200
+It doesn't really make any sense to me,
+ 
+
+281
+00:04:01,200 --> 00:04:02,990
+It doesn't really make any sense to me,
+and I don't really see the benefit of
+
+282
+00:04:02,990 --> 00:04:03,000
+and I don't really see the benefit of
+ 
+
+283
+00:04:03,000 --> 00:04:04,630
+and I don't really see the benefit of
+using something like GitHub Copilot
+
+284
+00:04:04,630 --> 00:04:04,640
+using something like GitHub Copilot
+ 
+
+285
+00:04:04,640 --> 00:04:06,670
+using something like GitHub Copilot
+anymore when you could just pay directly
+
+286
+00:04:06,670 --> 00:04:06,680
+anymore when you could just pay directly
+ 
+
+287
+00:04:06,680 --> 00:04:08,790
+anymore when you could just pay directly
+with Claude, for example, or use one of
+
+288
+00:04:08,790 --> 00:04:08,800
+with Claude, for example, or use one of
+ 
+
+289
+00:04:08,800 --> 00:04:10,430
+with Claude, for example, or use one of
+Claude's plans that still technically
+
+290
+00:04:10,430 --> 00:04:10,440
+Claude's plans that still technically
+ 
+
+291
+00:04:10,440 --> 00:04:12,270
+Claude's plans that still technically
+exist at that time where you can pay
+
+292
+00:04:12,270 --> 00:04:12,280
+exist at that time where you can pay
+ 
+
+293
+00:04:12,280 --> 00:04:13,590
+exist at that time where you can pay
+essentially a monthly rate to get a
+
+294
+00:04:13,590 --> 00:04:13,600
+essentially a monthly rate to get a
+ 
+
+295
+00:04:13,600 --> 00:04:15,390
+essentially a monthly rate to get a
+certain amount of usage out of it.
+
+296
+00:04:15,390 --> 00:04:15,400
+certain amount of usage out of it.
+ 
+
+297
+00:04:15,400 --> 00:04:17,030
+certain amount of usage out of it.
+Eventually, I am guaranteeing you that
+
+298
+00:04:17,030 --> 00:04:17,040
+Eventually, I am guaranteeing you that
+ 
+
+299
+00:04:17,040 --> 00:04:18,590
+Eventually, I am guaranteeing you that
+this will go away as well, the same way
+
+300
+00:04:18,590 --> 00:04:18,600
+this will go away as well, the same way
+ 
+
+301
+00:04:18,600 --> 00:04:20,229
+this will go away as well, the same way
+that Copilot has removed the ability to
+
+302
+00:04:20,229 --> 00:04:20,239
+that Copilot has removed the ability to
+ 
+
+303
+00:04:20,239 --> 00:04:22,069
+that Copilot has removed the ability to
+do just a one flat fee monthly thing. I
+
+304
+00:04:22,069 --> 00:04:22,079
+do just a one flat fee monthly thing. I
+ 
+
+305
+00:04:22,079 --> 00:04:23,470
+do just a one flat fee monthly thing. I
+think every single one of these plans is
+
+306
+00:04:23,470 --> 00:04:23,480
+think every single one of these plans is
+ 
+
+307
+00:04:23,480 --> 00:04:24,710
+think every single one of these plans is
+essentially going to go to the point
+
+308
+00:04:24,710 --> 00:04:24,720
+essentially going to go to the point
+ 
+
+309
+00:04:24,720 --> 00:04:26,550
+essentially going to go to the point
+where they price you exactly the same as
+
+310
+00:04:26,550 --> 00:04:26,560
+where they price you exactly the same as
+ 
+
+311
+00:04:26,560 --> 00:04:28,510
+where they price you exactly the same as
+what the API pricing is, and maybe
+
+312
+00:04:28,510 --> 00:04:28,520
+what the API pricing is, and maybe
+ 
+
+313
+00:04:28,520 --> 00:04:30,710
+what the API pricing is, and maybe
+people like Claude or OpenAI that have
+
+314
+00:04:30,710 --> 00:04:30,720
+people like Claude or OpenAI that have
+ 
+
+315
+00:04:30,720 --> 00:04:31,950
+people like Claude or OpenAI that have
+their own models are going to be able to
+
+316
+00:04:31,950 --> 00:04:31,960
+their own models are going to be able to
+ 
+
+317
+00:04:31,960 --> 00:04:33,390
+their own models are going to be able to
+offer you a slight discount if you're
+
+318
+00:04:33,390 --> 00:04:33,400
+offer you a slight discount if you're
+ 
+
+319
+00:04:33,400 --> 00:04:34,750
+offer you a slight discount if you're
+using like Claude code or something,
+
+320
+00:04:34,750 --> 00:04:34,760
+using like Claude code or something,
+ 
+
+321
+00:04:34,760 --> 00:04:36,550
+using like Claude code or something,
+it'll be a small discount, but
+
+322
+00:04:36,550 --> 00:04:36,560
+it'll be a small discount, but
+ 
+
+323
+00:04:36,560 --> 00:04:38,310
+it'll be a small discount, but
+realistically, this is the rate that
+
+324
+00:04:38,310 --> 00:04:38,320
+realistically, this is the rate that
+ 
+
+325
+00:04:38,320 --> 00:04:39,630
+realistically, this is the rate that
+we're going to be paying going forward,
+
+326
+00:04:39,630 --> 00:04:39,640
+we're going to be paying going forward,
+ 
+
+327
+00:04:39,640 --> 00:04:41,030
+we're going to be paying going forward,
+and it's changing much quicker than I
+
+328
+00:04:41,030 --> 00:04:41,040
+and it's changing much quicker than I
+ 
+
+329
+00:04:41,040 --> 00:04:42,310
+and it's changing much quicker than I
+actually thought it would. And if you
+
+330
+00:04:42,310 --> 00:04:42,320
+actually thought it would. And if you
+ 
+
+331
+00:04:42,320 --> 00:04:43,390
+actually thought it would. And if you
+want to learn more about what this
+
+332
+00:04:43,390 --> 00:04:43,400
+want to learn more about what this
+ 
+
+333
+00:04:43,400 --> 00:04:44,390
+want to learn more about what this
+actually means and how this
+
+334
+00:04:44,390 --> 00:04:44,400
+actually means and how this
+ 
+
+335
+00:04:44,400 --> 00:04:45,830
+actually means and how this
+enshittification is going to actually
+
+336
+00:04:45,830 --> 00:04:45,840
+enshittification is going to actually
+ 
+
+337
+00:04:45,840 --> 00:04:47,630
+enshittification is going to actually
+affect all of us, I highly recommend
+
+338
+00:04:47,630 --> 00:04:47,640
+affect all of us, I highly recommend
+ 
+
+339
+00:04:47,640 --> 00:04:49,070
+affect all of us, I highly recommend
+checking out that video that I released
+
+340
+00:04:49,070 --> 00:04:49,080
+checking out that video that I released
+ 
+
+341
+00:04:49,080 --> 00:04:50,670
+checking out that video that I released
+just a few days ago. I will link that
+
+342
+00:04:50,670 --> 00:04:50,680
+just a few days ago. I will link that
+ 
+
+343
+00:04:50,680 --> 00:04:52,550
+just a few days ago. I will link that
+video right over here on your screen,
+
+344
+00:04:52,550 --> 00:04:52,560
+video right over here on your screen,
+ 
+
+345
+00:04:52,560 --> 00:04:53,750
+video right over here on your screen,
+and it'll be down in the description
+
+346
+00:04:53,750 --> 00:04:53,760
+and it'll be down in the description
+ 
+
+347
+00:04:53,760 --> 00:04:56,200
+and it'll be down in the description
+below.
+

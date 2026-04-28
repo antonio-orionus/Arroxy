@@ -69,12 +69,13 @@ const es = {
         heading: 'Guardar como',
         sidecar: 'Junto al vídeo',
         embed: 'Incrustar en el vídeo',
-        subfolder: 'Subcarpeta Subtitles/'
+        subfolder: 'Subcarpeta subtitles/'
       },
       format: {
         heading: 'Format'
       },
-      embedNote: 'El modo «incrustar» guarda la salida como .mkv para que las pistas de subtítulos se incrusten de forma fiable.'
+      embedNote: 'El modo «incrustar» guarda la salida como .mkv para que las pistas de subtítulos se incrusten de forma fiable.',
+      autoAssNote: 'Los subtítulos automáticos se guardarán como SRT en lugar de ASS — siempre se limpian de la duplicación de cues en cascada de YouTube, algo que nuestro convertidor ASS aún no puede replicar.'
     },
     formats: {
       quickPresets: 'Ajustes rápidos',
@@ -96,7 +97,16 @@ const es = {
       downloads: 'Descargas',
       videos: 'Películas',
       desktop: 'Escritorio',
-      custom: 'Personalizado…'
+      music: 'Música',
+      documents: 'Documentos',
+      pictures: 'Imágenes',
+      home: 'Carpeta personal',
+      custom: 'Personalizado…',
+      subfolder: {
+        toggle: 'Guardar en subcarpeta',
+        placeholder: 'p. ej. lo-fi rips',
+        invalid: 'El nombre tiene caracteres no válidos'
+      }
     },
     confirm: {
       readyHeadline: '¡Listo para descargar!',

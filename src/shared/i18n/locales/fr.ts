@@ -69,12 +69,13 @@ const fr = {
         heading: 'Enregistrer en tant que',
         sidecar: 'À côté de la vidéo',
         embed: 'Intégrer dans la vidéo',
-        subfolder: 'Sous-dossier Subtitles/'
+        subfolder: 'Sous-dossier subtitles/'
       },
       format: {
         heading: 'Format'
       },
-      embedNote: 'Le mode « incorporé » enregistre la sortie en .mkv pour que les pistes de sous-titres soient intégrées de façon fiable.'
+      embedNote: 'Le mode « incorporé » enregistre la sortie en .mkv pour que les pistes de sous-titres soient intégrées de façon fiable.',
+      autoAssNote: 'Les sous-titres automatiques seront enregistrés en SRT au lieu d\'ASS — ils sont toujours nettoyés des duplications de cues en cascade de YouTube, ce que notre convertisseur ASS ne peut pas encore reproduire.'
     },
     formats: {
       quickPresets: 'Préréglages rapides',
@@ -96,7 +97,16 @@ const fr = {
       downloads: 'Téléchargements',
       videos: 'Films',
       desktop: 'Bureau',
-      custom: 'Personnalisé…'
+      music: 'Musique',
+      documents: 'Documents',
+      pictures: 'Images',
+      home: 'Dossier personnel',
+      custom: 'Personnalisé…',
+      subfolder: {
+        toggle: 'Enregistrer dans un sous-dossier',
+        placeholder: 'ex. lo-fi rips',
+        invalid: 'Le nom contient des caractères invalides'
+      }
     },
     confirm: {
       readyHeadline: 'Prêt à le récupérer !',

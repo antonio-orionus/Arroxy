@@ -69,12 +69,13 @@ const uk = {
         heading: 'Зберегти як',
         sidecar: 'Поруч із відео',
         embed: 'Вбудувати у відео',
-        subfolder: 'Підпапка Subtitles/'
+        subfolder: 'Підпапка subtitles/'
       },
       format: {
         heading: 'Format'
       },
-      embedNote: 'Режим вбудовування зберігає файл як .mkv, щоб доріжки субтитрів вбудовувалися надійно.'
+      embedNote: 'Режим вбудовування зберігає файл як .mkv, щоб доріжки субтитрів вбудовувалися надійно.',
+      autoAssNote: 'Авто-субтитри будуть збережені як SRT замість ASS — вони завжди очищаються від роллінгових дублів YouTube, а наш ASS-конвертер поки такого не повторює.'
     },
     formats: {
       quickPresets: 'Швидкі пресети',
@@ -96,7 +97,16 @@ const uk = {
       downloads: 'Завантаження',
       videos: 'Відео',
       desktop: 'Робочий стіл',
-      custom: 'Обрати…'
+      music: 'Музика',
+      documents: 'Документи',
+      pictures: 'Зображення',
+      home: 'Домашня папка',
+      custom: 'Обрати…',
+      subfolder: {
+        toggle: 'Зберегти у вкладеній папці',
+        placeholder: 'напр. lo-fi rips',
+        invalid: 'Назва папки містить недопустимі символи'
+      }
     },
     confirm: {
       readyHeadline: 'Готово до завантаження!',

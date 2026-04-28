@@ -11,6 +11,7 @@ import {
   generateId,
   resolveVideoResolution
 } from './helpers';
+import { effectiveOutputDir } from '@renderer/lib/path';
 import type { GetState, SetState, QueueSlice } from './types';
 
 export const progressFormatters = new Map<string, ProgressFormatter>();
@@ -48,7 +49,9 @@ export function saveQueue(get: GetState): void {
 function buildQueueItem(get: GetState): QueueItem | null {
   const state = get();
   const { wizardUrl, wizardTitle, wizardThumbnail, wizardOutputDir } = state;
+  const { wizardSubfolderEnabled, wizardSubfolderName } = state;
   const { selectedVideoFormatId, selectedAudioFormatId, activePreset, wizardFormats } = state;
+  const outputDir = effectiveOutputDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName);
 
   const audioFormats = wizardFormats.filter((f) => f.isAudioOnly);
   const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, 'audio-only');
@@ -61,7 +64,7 @@ function buildQueueItem(get: GetState): QueueItem | null {
     url: wizardUrl,
     title: wizardTitle || wizardUrl,
     thumbnail: wizardThumbnail,
-    outputDir: wizardOutputDir,
+    outputDir,
     formatId,
     formatLabel,
     status: QUEUE_STATUS.pending,
@@ -104,7 +107,9 @@ async function persistFormatPrefs(set: SetState, get: GetState): Promise<void> {
     lastPreset: activePreset,
     lastSubtitleLanguages: wizardSubtitleLanguages,
     lastSubtitleMode: get().wizardSubtitleMode,
-    lastSubtitleFormat: get().wizardSubtitleFormat
+    lastSubtitleFormat: get().wizardSubtitleFormat,
+    lastSubfolderEnabled: get().wizardSubfolderEnabled,
+    lastSubfolder: get().wizardSubfolderName.trim()
   };
   const result = await window.appApi.settings.update(patch);
   if (result.ok) {

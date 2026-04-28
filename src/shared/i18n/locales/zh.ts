@@ -69,12 +69,13 @@ const zh = {
         heading: '保存方式',
         sidecar: '与视频同位置',
         embed: '嵌入到视频',
-        subfolder: 'Subtitles/ 子文件夹'
+        subfolder: 'subtitles/ 子文件夹'
       },
       format: {
         heading: 'Format'
       },
-      embedNote: '嵌入模式将输出保存为 .mkv，以便可靠地嵌入字幕轨道。'
+      embedNote: '嵌入模式将输出保存为 .mkv，以便可靠地嵌入字幕轨道。',
+      autoAssNote: '自动字幕将保存为 SRT 而非 ASS —— 它们会被清除 YouTube 的滚动重复字幕，但我们的 ASS 转换器目前还无法做到这一点。'
     },
     formats: {
       quickPresets: '快速预设',
@@ -96,7 +97,16 @@ const zh = {
       downloads: '下载',
       videos: '影片',
       desktop: '桌面',
-      custom: '自定义…'
+      music: '音乐',
+      documents: '文档',
+      pictures: '图片',
+      home: '主目录',
+      custom: '自定义…',
+      subfolder: {
+        toggle: '保存到子文件夹',
+        placeholder: '例如 lo-fi rips',
+        invalid: '文件夹名包含无效字符'
+      }
     },
     confirm: {
       readyHeadline: '已经准备好下载!',

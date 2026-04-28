@@ -1,0 +1,695 @@
+1
+00:00:00,000 --> 00:00:02,119
+I just released a video on how AI is
+
+2
+00:00:02,120 --> 00:00:04,079
+going down the path of enshittification.
+
+3
+00:00:04,080 --> 00:00:05,279
+It'll be linked right up here in the
+
+4
+00:00:05,280 --> 00:00:07,119
+description if you want to check it out,
+
+5
+00:00:07,120 --> 00:00:08,199
+but I thought this was going to be a
+
+6
+00:00:08,200 --> 00:00:09,679
+rather slow process that would take
+
+7
+00:00:09,680 --> 00:00:11,919
+months or even a year or two to fully go
+
+8
+00:00:11,920 --> 00:00:13,719
+down the path of raising the prices and
+
+9
+00:00:13,720 --> 00:00:15,679
+reducing the quantity of what we get,
+
+10
+00:00:15,680 --> 00:00:17,279
+but it is actually accelerating much
+
+11
+00:00:17,280 --> 00:00:18,999
+quicker than I thought. GitHub with
+
+12
+00:00:19,000 --> 00:00:20,919
+Copilot just sent me an email today
+
+13
+00:00:20,920 --> 00:00:22,239
+essentially saying they're entirely
+
+14
+00:00:22,240 --> 00:00:24,239
+removing all of the good things related
+
+15
+00:00:24,240 --> 00:00:26,319
+to that their Copilot plan and making it
+
+16
+00:00:26,320 --> 00:00:28,119
+essentially on par with just paying for
+
+17
+00:00:28,120 --> 00:00:30,399
+AI directly. It's honestly embarrassing
+
+18
+00:00:30,400 --> 00:00:31,839
+seeing the changes that they've made.
+
+19
+00:00:31,840 --> 00:00:33,279
+Let's take a look at what these changes
+
+20
+00:00:33,280 --> 00:00:35,479
+entail. Starting on June 1st, they're
+
+21
+00:00:35,480 --> 00:00:37,639
+essentially removing the entire idea of
+
+22
+00:00:37,640 --> 00:00:39,439
+premium request units. Essentially what
+
+23
+00:00:39,440 --> 00:00:41,159
+that meant is that you had a set number
+
+24
+00:00:41,160 --> 00:00:42,799
+of requests you could make to an AI. It
+
+25
+00:00:42,800 --> 00:00:44,639
+was 300 with the $10 a month plan, which
+
+26
+00:00:44,640 --> 00:00:46,119
+is what I was on, and essentially you
+
+27
+00:00:46,120 --> 00:00:48,319
+could send 300 requests to the AI and
+
+28
+00:00:48,320 --> 00:00:49,679
+then it'd respond to you and it wouldn't
+
+29
+00:00:49,680 --> 00:00:51,039
+matter how many tokens were taken. It
+
+30
+00:00:51,040 --> 00:00:52,839
+would just be based on the request. And
+
+31
+00:00:52,840 --> 00:00:54,879
+certain models such as like Opus would
+
+32
+00:00:54,880 --> 00:00:56,919
+consume more than one request while
+
+33
+00:00:56,920 --> 00:00:58,999
+cheaper models may consume less actual
+
+34
+00:00:59,000 --> 00:01:00,599
+request. But in generally you got a
+
+35
+00:01:00,600 --> 00:01:01,759
+certain number of requests you could
+
+36
+00:01:01,760 --> 00:01:02,839
+make and it didn't matter how many
+
+37
+00:01:02,840 --> 00:01:04,639
+tokens there were. Obviously this was
+
+38
+00:01:04,640 --> 00:01:06,359
+consuming tons of money for GitHub and
+
+39
+00:01:06,360 --> 00:01:08,599
+Copilot, so they decided to completely
+
+40
+00:01:08,600 --> 00:01:10,839
+scratch that entire idea. They removed
+
+41
+00:01:10,840 --> 00:01:12,759
+this entirely, and instead now you still
+
+42
+00:01:12,760 --> 00:01:15,279
+have your $10 and your $39 a month plan,
+
+43
+00:01:15,280 --> 00:01:16,799
+but instead of getting these requests,
+
+44
+00:01:16,800 --> 00:01:18,479
+all you do is just get credits that go
+
+45
+00:01:18,480 --> 00:01:20,519
+towards actually paying for the AI based
+
+46
+00:01:20,520 --> 00:01:22,359
+on a token based number. And if we look
+
+47
+00:01:22,360 --> 00:01:23,719
+here, they've also changed it so that
+
+48
+00:01:23,720 --> 00:01:25,759
+you no longer can use any free models.
+
+49
+00:01:25,760 --> 00:01:27,399
+There used to be free models included in
+
+50
+00:01:27,400 --> 00:01:28,799
+the monthly plan that didn't count
+
+51
+00:01:28,800 --> 00:01:30,039
+against you. Those have all been
+
+52
+00:01:30,040 --> 00:01:31,759
+removed. And if you're using things like
+
+53
+00:01:31,760 --> 00:01:33,359
+code review with Copilot that uses
+
+54
+00:01:33,360 --> 00:01:34,999
+GitHub actions behind the scenes,
+
+55
+00:01:35,000 --> 00:01:36,199
+they're now going to be charging you for
+
+56
+00:01:36,200 --> 00:01:37,559
+that as well. So essentially they're
+
+57
+00:01:37,560 --> 00:01:38,879
+just charging you for absolutely
+
+58
+00:01:38,880 --> 00:01:40,279
+everything that you used to be getting
+
+59
+00:01:40,280 --> 00:01:42,039
+for free, which because they don't have
+
+60
+00:01:42,040 --> 00:01:43,239
+enough money to do this is why they're
+
+61
+00:01:43,240 --> 00:01:44,759
+doing that, but it essentially removes
+
+62
+00:01:44,760 --> 00:01:46,399
+all the value you're getting for paying
+
+63
+00:01:46,400 --> 00:01:48,039
+for this particular service. The only
+
+64
+00:01:48,040 --> 00:01:49,079
+thing that you're still getting that's
+
+65
+00:01:49,080 --> 00:01:51,359
+free is the in-editor code complete and
+
+66
+00:01:51,360 --> 00:01:53,199
+edit suggestions. Otherwise, everything
+
+67
+00:01:53,200 --> 00:01:54,959
+else is being changed completely. And
+
+68
+00:01:54,960 --> 00:01:56,359
+the biggest thing that's changing for
+
+69
+00:01:56,360 --> 00:01:57,719
+someone that's gone the yearly plan,
+
+70
+00:01:57,720 --> 00:01:59,559
+which is actually what I was on, which
+
+71
+00:01:59,560 --> 00:02:00,999
+we scroll to that section you can see
+
+72
+00:02:01,000 --> 00:02:02,399
+anyone that's on the annual plan,
+
+73
+00:02:02,400 --> 00:02:03,679
+they're not even offering that anymore,
+
+74
+00:02:03,680 --> 00:02:05,199
+so they're actually completely removing
+
+75
+00:02:05,200 --> 00:02:06,599
+the annual plan, and they're going to be
+
+76
+00:02:06,600 --> 00:02:08,519
+changing how the model multipliers work
+
+77
+00:02:08,520 --> 00:02:09,919
+for your premium requests because they
+
+78
+00:02:09,920 --> 00:02:11,719
+want to honor that same premium request
+
+79
+00:02:11,720 --> 00:02:13,479
+situation. I figured they would increase
+
+80
+00:02:13,480 --> 00:02:15,199
+it slightly, maybe twice as much, three
+
+81
+00:02:15,200 --> 00:02:16,719
+times as much, but it's honestly
+
+82
+00:02:16,720 --> 00:02:18,159
+embarrassing looking at what they've
+
+83
+00:02:18,160 --> 00:02:19,959
+done. If we scroll down to the brand new
+
+84
+00:02:19,960 --> 00:02:21,639
+chart for these multipliers, you can see
+
+85
+00:02:21,640 --> 00:02:23,159
+the old multipliers on the left. For
+
+86
+00:02:23,160 --> 00:02:24,999
+example, you can see here Claude Opus
+
+87
+00:02:25,000 --> 00:02:26,879
+was at three, while now it's going to be
+
+88
+00:02:26,880 --> 00:02:28,719
+15 credits. Or if you look at the newer
+
+89
+00:02:28,720 --> 00:02:30,439
+models of Opus, you can see originally
+
+90
+00:02:30,440 --> 00:02:32,479
+it was three premium requests, now it's
+
+91
+00:02:32,480 --> 00:02:34,759
+27. That's a nine times increase, and
+
+92
+00:02:34,760 --> 00:02:35,959
+this is very consistent. You can see
+
+93
+00:02:35,960 --> 00:02:37,919
+Sonnet went from one to nine. You can
+
+94
+00:02:37,920 --> 00:02:39,159
+see down here we're going from one to
+
+95
+00:02:39,160 --> 00:02:40,879
+six, one to three. There's essentially a
+
+96
+00:02:40,880 --> 00:02:42,879
+three to nine times increase on almost
+
+97
+00:02:42,880 --> 00:02:44,159
+every single model that you're being
+
+98
+00:02:44,160 --> 00:02:45,919
+charged for. And if you're only getting
+
+99
+00:02:45,920 --> 00:02:47,879
+300 requests per month, that means that
+
+100
+00:02:47,880 --> 00:02:49,839
+you can essentially make 10 Opus
+
+101
+00:02:49,840 --> 00:02:51,599
+requests per month on this plan, or you
+
+102
+00:02:51,600 --> 00:02:53,399
+can make 30 different requests on the
+
+103
+00:02:53,400 --> 00:02:55,479
+Sonnet. So that's 30 AI requests per
+
+104
+00:02:55,480 --> 00:02:57,239
+month. That's essentially one per day.
+
+105
+00:02:57,240 --> 00:02:58,639
+Obviously that's not going to be enough
+
+106
+00:02:58,640 --> 00:03:00,599
+for doing any type of real world actual
+
+107
+00:03:00,600 --> 00:03:02,039
+work. And if we look at the actual
+
+108
+00:03:02,040 --> 00:03:03,279
+pricing that they've changed it to,
+
+109
+00:03:03,280 --> 00:03:04,799
+essentially you're just paying a per
+
+110
+00:03:04,800 --> 00:03:06,639
+unit price for the tokens you're using,
+
+111
+00:03:06,640 --> 00:03:08,199
+and they're just using the exact pricing
+
+112
+00:03:08,200 --> 00:03:09,799
+model of Claude. So you can see here for
+
+113
+00:03:09,800 --> 00:03:12,519
+Haiku, it's $1 input, $5 for output. And
+
+114
+00:03:12,520 --> 00:03:15,239
+if we look here, $1 input, $5 output. So
+
+115
+00:03:15,240 --> 00:03:16,959
+you're getting no discount, no benefit.
+
+116
+00:03:16,960 --> 00:03:18,759
+You're just prepaying for these credits
+
+117
+00:03:18,760 --> 00:03:20,279
+ahead of time, and if you exceed your
+
+118
+00:03:20,280 --> 00:03:22,239
+prepaid limit, you just pay at the exact
+
+119
+00:03:22,240 --> 00:03:23,719
+same rate you would pay if you used
+
+120
+00:03:23,720 --> 00:03:25,799
+Claude directly. So I don't see
+
+121
+00:03:25,800 --> 00:03:27,479
+absolutely any benefit in using
+
+122
+00:03:27,480 --> 00:03:29,199
+something like GitHub Copilot anymore
+
+123
+00:03:29,200 --> 00:03:31,239
+other than that you get the in-editor
+
+124
+00:03:31,240 --> 00:03:32,959
+code completion. That's the only thing
+
+125
+00:03:32,960 --> 00:03:34,359
+you're getting by paying this additional
+
+126
+00:03:34,360 --> 00:03:36,719
+money. And if you're not on their $39 a
+
+127
+00:03:36,720 --> 00:03:38,479
+month plan, you don't even get access to
+
+128
+00:03:38,480 --> 00:03:39,639
+these Opus models. They're only
+
+129
+00:03:39,640 --> 00:03:41,359
+available on the more expensive plan. So
+
+130
+00:03:41,360 --> 00:03:42,759
+if you want to use these better models,
+
+131
+00:03:42,760 --> 00:03:44,399
+you have to just pay more upfront and
+
+132
+00:03:44,400 --> 00:03:46,759
+hope you use that usage limit. Now, most
+
+133
+00:03:46,760 --> 00:03:48,159
+likely you are going to use that usage
+
+134
+00:03:48,160 --> 00:03:50,559
+limit because $10 a month or $39 a month
+
+135
+00:03:50,560 --> 00:03:52,319
+is not a lot when your output tokens are
+
+136
+00:03:52,320 --> 00:03:54,199
+costing, you know, $15 per million and
+
+137
+00:03:54,200 --> 00:03:56,279
+so on, but still it's you're pay
+
+138
+00:03:56,280 --> 00:03:57,799
+prepaying essentially for something that
+
+139
+00:03:57,800 --> 00:03:59,479
+you're getting at the exact same rate.
+
+140
+00:03:59,480 --> 00:04:01,199
+It doesn't really make any sense to me,
+
+141
+00:04:01,200 --> 00:04:02,999
+and I don't really see the benefit of
+
+142
+00:04:03,000 --> 00:04:04,639
+using something like GitHub Copilot
+
+143
+00:04:04,640 --> 00:04:06,679
+anymore when you could just pay directly
+
+144
+00:04:06,680 --> 00:04:08,799
+with Claude, for example, or use one of
+
+145
+00:04:08,800 --> 00:04:10,439
+Claude's plans that still technically
+
+146
+00:04:10,440 --> 00:04:12,279
+exist at that time where you can pay
+
+147
+00:04:12,280 --> 00:04:13,599
+essentially a monthly rate to get a
+
+148
+00:04:13,600 --> 00:04:15,399
+certain amount of usage out of it.
+
+149
+00:04:15,400 --> 00:04:17,039
+Eventually, I am guaranteeing you that
+
+150
+00:04:17,040 --> 00:04:18,599
+this will go away as well, the same way
+
+151
+00:04:18,600 --> 00:04:20,238
+that Copilot has removed the ability to
+
+152
+00:04:20,239 --> 00:04:22,078
+do just a one flat fee monthly thing. I
+
+153
+00:04:22,079 --> 00:04:23,479
+think every single one of these plans is
+
+154
+00:04:23,480 --> 00:04:24,719
+essentially going to go to the point
+
+155
+00:04:24,720 --> 00:04:26,559
+where they price you exactly the same as
+
+156
+00:04:26,560 --> 00:04:28,519
+what the API pricing is, and maybe
+
+157
+00:04:28,520 --> 00:04:30,719
+people like Claude or OpenAI that have
+
+158
+00:04:30,720 --> 00:04:31,959
+their own models are going to be able to
+
+159
+00:04:31,960 --> 00:04:33,399
+offer you a slight discount if you're
+
+160
+00:04:33,400 --> 00:04:34,759
+using like Claude code or something,
+
+161
+00:04:34,760 --> 00:04:36,559
+it'll be a small discount, but
+
+162
+00:04:36,560 --> 00:04:38,319
+realistically, this is the rate that
+
+163
+00:04:38,320 --> 00:04:39,639
+we're going to be paying going forward,
+
+164
+00:04:39,640 --> 00:04:41,039
+and it's changing much quicker than I
+
+165
+00:04:41,040 --> 00:04:42,319
+actually thought it would. And if you
+
+166
+00:04:42,320 --> 00:04:43,399
+want to learn more about what this
+
+167
+00:04:43,400 --> 00:04:44,399
+actually means and how this
+
+168
+00:04:44,400 --> 00:04:45,839
+enshittification is going to actually
+
+169
+00:04:45,840 --> 00:04:47,639
+affect all of us, I highly recommend
+
+170
+00:04:47,640 --> 00:04:49,079
+checking out that video that I released
+
+171
+00:04:49,080 --> 00:04:50,679
+just a few days ago. I will link that
+
+172
+00:04:50,680 --> 00:04:52,559
+video right over here on your screen,
+
+173
+00:04:52,560 --> 00:04:53,759
+and it'll be down in the description
+
+174
+00:04:53,760 --> 00:04:56,200
+below.

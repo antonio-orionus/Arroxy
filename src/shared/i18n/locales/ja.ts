@@ -69,12 +69,13 @@ const ja = {
         heading: '保存方法',
         sidecar: '動画と同じ場所',
         embed: '動画に埋め込む',
-        subfolder: 'Subtitles/ サブフォルダー'
+        subfolder: 'subtitles/ サブフォルダー'
       },
       format: {
         heading: 'Format'
       },
-      embedNote: '埋め込みモードでは、字幕トラックを確実に埋め込むため出力は .mkv で保存されます。'
+      embedNote: '埋め込みモードでは、字幕トラックを確実に埋め込むため出力は .mkv で保存されます。',
+      autoAssNote: '自動字幕は ASS ではなく SRT として保存されます — YouTube のローリング・キュー重複を常にクリーンアップしますが、現状 ASS コンバーターではこれを再現できません。'
     },
     formats: {
       quickPresets: 'クイックプリセット',
@@ -96,7 +97,16 @@ const ja = {
       downloads: 'ダウンロード',
       videos: 'ムービー',
       desktop: 'デスクトップ',
-      custom: 'カスタム…'
+      music: 'ミュージック',
+      documents: 'ドキュメント',
+      pictures: 'ピクチャ',
+      home: 'ホーム',
+      custom: 'カスタム…',
+      subfolder: {
+        toggle: 'サブフォルダに保存',
+        placeholder: '例: lo-fi rips',
+        invalid: 'フォルダ名に無効な文字が含まれています'
+      }
     },
     confirm: {
       readyHeadline: 'ダウンロード準備完了!',
