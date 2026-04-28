@@ -57,7 +57,7 @@ export const en = {
   shot3_alt: "Choose where to save",
   shot4_alt: "Parallel downloads",
   shot5_alt: "Subtitles step — pick languages, format, and save mode",
-  og_image_alt: "Arroxy app screenshot — modern dark UI for downloading YouTube videos in 4K.",
+  og_image_alt: "Arroxy app icon — desktop app for downloading YouTube videos in 4K.",
 
   privacy_eyebrow: "Privacy",
   privacy_h2_html: "What Arroxy <em>doesn't</em> do.",
@@ -148,7 +148,7 @@ export const es = {
   shot3_alt: "Elige dónde guardar",
   shot4_alt: "Descargas en paralelo",
   shot5_alt: "Paso de subtítulos — elige idiomas, formato y modo de guardado",
-  og_image_alt: "Captura de Arroxy — interfaz oscura moderna para descargar videos de YouTube en 4K.",
+  og_image_alt: "Icono de la app Arroxy — app de escritorio para descargar videos de YouTube en 4K.",
 
   privacy_eyebrow: "Privacidad",
   privacy_h2_html: "Lo que Arroxy <em>no</em> hace.",
@@ -239,7 +239,7 @@ export const de = {
   shot3_alt: "Speicherort wählen",
   shot4_alt: "Parallele Downloads",
   shot5_alt: "Untertitel-Schritt — Sprachen, Format und Speichermodus wählen",
-  og_image_alt: "Arroxy-Screenshot — moderne Dark-UI zum Herunterladen von YouTube-Videos in 4K.",
+  og_image_alt: "Arroxy App-Icon — Desktop-App zum Herunterladen von YouTube-Videos in 4K.",
 
   privacy_eyebrow: "Privatsphäre",
   privacy_h2_html: "Was Arroxy <em>nicht</em> tut.",
@@ -330,7 +330,7 @@ export const fr = {
   shot3_alt: "Choisir où enregistrer",
   shot4_alt: "Téléchargements parallèles",
   shot5_alt: "Étape sous-titres — choisir langues, format et mode d'enregistrement",
-  og_image_alt: "Capture d'Arroxy — interface sombre moderne pour télécharger des vidéos YouTube en 4K.",
+  og_image_alt: "Icône de l'app Arroxy — application bureau pour télécharger des vidéos YouTube en 4K.",
 
   privacy_eyebrow: "Confidentialité",
   privacy_h2_html: "Ce qu'Arroxy <em>ne fait pas</em>.",
@@ -421,7 +421,7 @@ export const ja = {
   shot3_alt: "保存先を選択",
   shot4_alt: "並行ダウンロード",
   shot5_alt: "字幕ステップ — 言語・フォーマット・保存モードを選ぶ",
-  og_image_alt: "Arroxy のスクリーンショット — YouTube 動画を 4K でダウンロードするモダンなダーク UI。",
+  og_image_alt: "Arroxy アプリアイコン — YouTube 動画を 4K でダウンロードするデスクトップアプリ。",
 
   privacy_eyebrow: "プライバシー",
   privacy_h2_html: "Arroxy が<em>しない</em>こと。",
@@ -512,7 +512,7 @@ export const zh = {
   shot3_alt: "选择保存位置",
   shot4_alt: "并行下载",
   shot5_alt: "字幕步骤 — 选择语言、格式与保存方式",
-  og_image_alt: "Arroxy 应用截图 — 用于以 4K 下载 YouTube 视频的现代深色界面。",
+  og_image_alt: "Arroxy 应用图标 — 用于以 4K 下载 YouTube 视频的桌面应用。",
 
   privacy_eyebrow: "隐私",
   privacy_h2_html: "Arroxy <em>不会</em>做什么。",
@@ -603,7 +603,7 @@ export const ru = {
   shot3_alt: "Выберите место сохранения",
   shot4_alt: "Параллельные загрузки",
   shot5_alt: "Шаг субтитров — выбор языков, формата и режима сохранения",
-  og_image_alt: "Скриншот Arroxy — современный тёмный интерфейс для загрузки YouTube-видео в 4K.",
+  og_image_alt: "Иконка приложения Arroxy — десктопное приложение для загрузки YouTube-видео в 4K.",
 
   privacy_eyebrow: "Приватность",
   privacy_h2_html: "Чего Arroxy <em>не делает</em>.",
@@ -694,7 +694,7 @@ export const uk = {
   shot3_alt: "Оберіть місце збереження",
   shot4_alt: "Паралельні завантаження",
   shot5_alt: "Крок субтитрів — вибір мов, формату та режиму збереження",
-  og_image_alt: "Скриншот Arroxy — сучасний темний інтерфейс для завантаження YouTube-відео у 4K.",
+  og_image_alt: "Іконка застосунку Arroxy — десктопний застосунок для завантаження YouTube-відео у 4K.",
 
   privacy_eyebrow: "Приватність",
   privacy_h2_html: "Що Arroxy <em>не робить</em>.",
@@ -785,7 +785,7 @@ export const hi = {
   shot3_alt: "सहेजने का स्थान चुनें",
   shot4_alt: "समानांतर डाउनलोड",
   shot5_alt: "सबटाइटल स्टेप — भाषाएँ, फ़ॉर्मैट और सेव मोड चुनें",
-  og_image_alt: "Arroxy ऐप स्क्रीनशॉट — YouTube वीडियो को 4K में डाउनलोड करने के लिए आधुनिक डार्क UI।",
+  og_image_alt: "Arroxy ऐप आइकन — YouTube वीडियो को 4K में डाउनलोड करने के लिए डेस्कटॉप ऐप।",
 
   privacy_eyebrow: "गोपनीयता",
   privacy_h2_html: "Arroxy जो <em>नहीं</em> करता है।",

@@ -18,9 +18,9 @@ const DOCS = resolve(ROOT, "docs");
 const TEMPLATE_PATH = resolve(HERE, "template.html");
 
 const SITE_URL = "https://antonio-orionus.github.io/Arroxy/";
-const OG_IMAGE = `${SITE_URL}assets/Main-screenshot.png`;
-const OG_IMAGE_WIDTH = "1707";
-const OG_IMAGE_HEIGHT = "1439";
+const OG_IMAGE = `${SITE_URL}assets/icon.png`;
+const OG_IMAGE_WIDTH = "1003";
+const OG_IMAGE_HEIGHT = "1123";
 const REPO_URL = "https://github.com/antonio-orionus/Arroxy";
 const RELEASES_URL = `${REPO_URL}/releases/latest`;
 
