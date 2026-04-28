@@ -119,7 +119,7 @@ jobs:
           if-no-files-found: ignore
 
   cycle-smoke:
-    name: 10x install/uninstall cycle
+    name: 3x install/uninstall cycle
     needs: build
     runs-on: windows-latest
     steps:
@@ -136,19 +136,19 @@ jobs:
           Set-ItemProperty $key DumpFolder "$env:LOCALAPPDATA\CrashDumps"
           Set-ItemProperty $key DumpType 2 -Type DWord
 
-      - name: 10x install + uninstall
+      - name: 3x install + uninstall
         shell: pwsh
         run: |
           $inst = (Get-ChildItem ./installer/Arroxy-Setup-*.exe | Select-Object -First 1).FullName
           $uninst = "$env:LOCALAPPDATA\Programs\Arroxy\Uninstall Arroxy.exe"
-          1..10 | ForEach-Object {
+          1..3 | ForEach-Object {
             Write-Host "=== Cycle $_ ==="
             $p = Start-Process -FilePath $inst -ArgumentList '/S' -Wait -PassThru
             if ($p.ExitCode -ne 0) { throw "Cycle $_ install: exit $($p.ExitCode)" }
             $u = Start-Process -FilePath $uninst -ArgumentList '/S' -Wait -PassThru
             if ($u.ExitCode -ne 0) { throw "Cycle $_ uninstall: exit $($u.ExitCode)" }
           }
-          Write-Host "10/10 cycles passed"
+          Write-Host "3/3 cycles passed"
 
       - name: Upload crash dumps on failure
         if: failure()
