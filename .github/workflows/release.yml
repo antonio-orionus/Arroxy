@@ -87,11 +87,10 @@ jobs:
           GH_TOKEN: ${{ secrets.WINGET_TOKEN }}
 
   update-flatpak-manifest:
-    # Patches the local flatpak/ manifest with the new release URL + sha256 and pushes to main.
-    # After every release, the local manifest stays current — no manual edits needed before
-    # opening the initial Flathub PR or for any subsequent submission.
-    # TEMPORARILY DISABLED until Flathub submission is ready. Flip `if: false` to remove.
-    if: false
+    # Patches the local flatpak/ manifest with the new release URL + sha256 and pushes
+    # to main. Runs against our own repo only — no dependency on Flathub being ready.
+    # Keeps the local manifest current so the initial Flathub PR (and every subsequent
+    # release) doesn't need a manual SHA edit.
     needs: finalize
     runs-on: ubuntu-latest
     steps:
