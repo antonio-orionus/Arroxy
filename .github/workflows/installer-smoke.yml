@@ -1,0 +1,176 @@
+name: Installer Smoke
+
+# Catches NSIS installer regressions on cold-state Windows VMs before they
+# ship to winget. Runs on PRs/pushes touching anything that affects the
+# Windows installer pipeline. Each windows-latest runner is a fresh VM,
+# which is exactly the cold-heap condition that exposes bugs like the
+# multiUser.nsh `SHGetKnownFolderPath` over-read fixed in eb 26.9.0.
+
+on:
+  pull_request:
+    paths:
+      - 'build/*.nsh'
+      - 'package.json'
+      - 'bun.lock'
+      - '.github/workflows/installer-smoke.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'build/*.nsh'
+      - 'package.json'
+      - 'bun.lock'
+      - '.github/workflows/installer-smoke.yml'
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+jobs:
+  build:
+    name: Build NSIS installer
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun run dist:win:nsis
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installer
+          path: dist/Arroxy-Setup-*.exe
+          if-no-files-found: error
+          retention-days: 7
+
+  cold-smoke:
+    name: Cold-state install (shard ${{ matrix.shard }}/2)
+    needs: build
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: installer
+          path: ./installer
+
+      - name: Enable WER local crash dumps
+        shell: pwsh
+        run: |
+          $key = "HKLM:\Software\Microsoft\Windows\Windows Error Reporting\LocalDumps"
+          New-Item -Path $key -Force | Out-Null
+          Set-ItemProperty $key DumpFolder "$env:LOCALAPPDATA\CrashDumps"
+          Set-ItemProperty $key DumpType 2 -Type DWord
+          Set-ItemProperty $key DumpCount 10 -Type DWord
+          New-Item -Path "$env:LOCALAPPDATA\CrashDumps" -ItemType Directory -Force | Out-Null
+
+      - name: Silent install + uninstall (single cold cycle)
+        shell: pwsh
+        run: |
+          $inst = (Get-ChildItem ./installer/Arroxy-Setup-*.exe | Select-Object -First 1).FullName
+          if (-not $inst) { throw "No installer artifact found in ./installer" }
+          Write-Host "Testing: $inst"
+
+          $sw = [Diagnostics.Stopwatch]::StartNew()
+          $p = Start-Process -FilePath $inst -ArgumentList '/S' -Wait -PassThru
+          $sw.Stop()
+          $sec = [int]$sw.Elapsed.TotalSeconds
+          Write-Host "Install exit: $($p.ExitCode) (${sec}s)"
+          if ($p.ExitCode -ne 0) { throw "Silent install failed: exit $($p.ExitCode)" }
+
+          $appExe = "$env:LOCALAPPDATA\Programs\Arroxy\Arroxy.exe"
+          if (-not (Test-Path $appExe)) { throw "Install reported success but $appExe missing" }
+
+          $uninst = "$env:LOCALAPPDATA\Programs\Arroxy\Uninstall Arroxy.exe"
+          if (-not (Test-Path $uninst)) { throw "Uninstaller missing at $uninst" }
+          $u = Start-Process -FilePath $uninst -ArgumentList '/S' -Wait -PassThru
+          Write-Host "Uninstall exit: $($u.ExitCode)"
+          if ($u.ExitCode -ne 0) { throw "Silent uninstall failed: exit $($u.ExitCode)" }
+
+          if (Test-Path "$env:LOCALAPPDATA\Programs\Arroxy") {
+            throw "Uninstall left files at $env:LOCALAPPDATA\Programs\Arroxy"
+          }
+          Write-Host "Shard ${{ matrix.shard }}: cold install + uninstall passed"
+
+      - name: Auto-analyze crash dumps on failure
+        if: failure()
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          $dumps = Get-ChildItem "$env:LOCALAPPDATA\CrashDumps\*.dmp" -ErrorAction SilentlyContinue
+          if (-not $dumps) { Write-Host "No crash dumps captured."; exit 0 }
+          $cdb = Get-ChildItem "C:\Program Files (x86)\Windows Kits\*\Debuggers\*\cdb.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $cdb) { Write-Host "cdb.exe not found on runner."; exit 0 }
+          foreach ($d in $dumps) {
+            $out = "$env:LOCALAPPDATA\CrashDumps\$($d.BaseName).analyze.txt"
+            Write-Host "=== !analyze -v on $($d.Name) ==="
+            & $cdb.FullName -z $d.FullName -c "!analyze -v; q" -lines 2>&1 | Tee-Object -FilePath $out
+          }
+
+      - name: Upload crash dumps + analysis
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crash-dump-shard-${{ matrix.shard }}
+          path: ${{ runner.temp }}/../../AppData/Local/CrashDumps/
+          if-no-files-found: ignore
+
+  cycle-smoke:
+    name: 10x install/uninstall cycle
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: installer
+          path: ./installer
+
+      - name: Enable WER local crash dumps
+        shell: pwsh
+        run: |
+          $key = "HKLM:\Software\Microsoft\Windows\Windows Error Reporting\LocalDumps"
+          New-Item -Path $key -Force | Out-Null
+          Set-ItemProperty $key DumpFolder "$env:LOCALAPPDATA\CrashDumps"
+          Set-ItemProperty $key DumpType 2 -Type DWord
+
+      - name: 10x install + uninstall
+        shell: pwsh
+        run: |
+          $inst = (Get-ChildItem ./installer/Arroxy-Setup-*.exe | Select-Object -First 1).FullName
+          $uninst = "$env:LOCALAPPDATA\Programs\Arroxy\Uninstall Arroxy.exe"
+          1..10 | ForEach-Object {
+            Write-Host "=== Cycle $_ ==="
+            $p = Start-Process -FilePath $inst -ArgumentList '/S' -Wait -PassThru
+            if ($p.ExitCode -ne 0) { throw "Cycle $_ install: exit $($p.ExitCode)" }
+            $u = Start-Process -FilePath $uninst -ArgumentList '/S' -Wait -PassThru
+            if ($u.ExitCode -ne 0) { throw "Cycle $_ uninstall: exit $($u.ExitCode)" }
+          }
+          Write-Host "10/10 cycles passed"
+
+      - name: Upload crash dumps on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crash-dump-cycle
+          path: ${{ runner.temp }}/../../AppData/Local/CrashDumps/
+          if-no-files-found: ignore
+
+  npm-latest-gate:
+    name: electron-builder dist-tag advisory
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare installed electron-builder vs npm latest
+        run: |
+          installed=$(jq -r '.devDependencies."electron-builder"' package.json | sed 's/^[~^]//')
+          latest=$(npm view electron-builder@latest version)
+          echo "Installed: $installed"
+          echo "npm latest: $latest"
+          if [ "$installed" = "$latest" ]; then
+            echo "::notice::electron-builder $installed matches npm latest"
+          else
+            echo "::warning::electron-builder pinned to $installed but npm latest is $latest. If pinned intentionally (e.g. to next/beta for an unreleased fix like 26.9.0 between 2026-04-14 and dist-tag promotion), ignore. Otherwise consider syncing."
+          fi
