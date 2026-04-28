@@ -48,6 +48,8 @@ export interface AppSettings {
   lastSubtitleFormat?: SubtitleFormat;
   lastSubfolderEnabled?: boolean;
   lastSubfolder?: string;
+  cookiesPath?: string;
+  cookiesEnabled?: boolean;
 }
 
 export interface SubtitleTrack {

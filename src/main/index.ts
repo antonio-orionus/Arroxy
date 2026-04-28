@@ -16,6 +16,7 @@ import { QueueStore } from '@main/stores/QueueStore';
 import { HiddenWindowTokenProvider } from '@main/token/providers/HiddenWindowTokenProvider';
 import { MockTokenProvider } from '@main/token/providers/MockTokenProvider';
 import { defaultAppSettings } from '@shared/constants';
+import { runSmokeMode, readSmokeUrl, exitWithCode } from '@main/smoke';
 
 const isMockBackend = process.env.MOCK_BACKEND === '1';
 
@@ -78,21 +79,38 @@ if (hasSingleInstanceLock) {
     const recentJobsStore = new RecentJobsStore(userDataPath);
     const queueStore = new QueueStore(userDataPath);
     const binaryManager = new BinaryManager(userDataPath, logService);
-    const tokenProvider = isMockBackend ? new MockTokenProvider() : new HiddenWindowTokenProvider();
+    const tokenProvider = isMockBackend ? new MockTokenProvider() : new HiddenWindowTokenProvider(logService);
     const tokenService = new TokenService(tokenProvider, logService);
     const downloadService = new DownloadService(
       binaryManager,
       tokenService,
       recentJobsStore,
       logService,
+      settingsStore,
       isMockBackend
     );
     const formatProbeService = new FormatProbeService(
       binaryManager,
       tokenService,
       logService,
+      settingsStore,
       isMockBackend
     );
+
+    // Headless smoke mode — exercises PoT scrape + 3-attempt ladder against
+    // real YouTube using production services, then exits. No window created.
+    const smokeUrl = readSmokeUrl();
+    if (smokeUrl) {
+      const code = await runSmokeMode({
+        url: smokeUrl,
+        binaryManager,
+        tokenService,
+        formatProbeService
+      });
+      tokenService.dispose();
+      exitWithCode(code);
+      return;
+    }
 
     const mainWindow = createMainWindow();
 
@@ -155,5 +173,9 @@ if (hasSingleInstanceLock) {
 }
 
 app.on('window-all-closed', () => {
+  // In smoke mode, the hidden token window is created/destroyed transiently
+  // and we don't want that to trigger a quit mid-probe. The smoke runner
+  // calls app.exit() itself when its async work finishes.
+  if (process.env.ARROXY_SMOKE_URL) return;
   app.quit();
 });

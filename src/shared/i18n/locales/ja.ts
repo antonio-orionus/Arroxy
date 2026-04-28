@@ -48,7 +48,22 @@ const ja = {
       hint: 'youtube.com と youtu.be のリンクに対応',
       fetchFormats: '形式を取得',
       mascotIdle: 'YouTubeのリンクを貼ってね (動画でもShortsでもOK) — 「形式を取得」を押せばすぐ取りかかるよ ✨',
-      mascotBusy: 'バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎'
+      mascotBusy: 'バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎',
+      advanced: '詳細設定',
+      cookies: {
+        toggle: 'Cookieファイルを使用',
+        toggleDescription: '年齢制限・メンバー限定・アカウント非公開の動画で役立ちます。',
+        risk: '注意: cookies.txt にはそのブラウザのすべてのログイン情報が含まれます — 取り扱いに注意してください。',
+        fileLabel: 'Cookieファイル',
+        choose: '選択…',
+        clear: 'クリア',
+        placeholder: 'ファイルが選択されていません',
+        helpLink: 'Cookieを書き出す方法は?',
+        enabledButNoFile: 'Cookieを使うにはファイルを選択してください',
+        banWarning: '注意: yt-dlpがCookieで使うアカウントは、YouTube側でフラグが立てられたり、稀にBANされることがあります。可能なら使い捨てアカウントを使ってください。',
+        extensionFirefox: 'cookies.txt (Firefox)',
+        extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
+      }
     },
     subtitles: {
       heading: '字幕',
@@ -175,6 +190,7 @@ const ja = {
     subtitlesFailed: 'ビデオは保存されました — 一部の字幕をダウンロードできませんでした',
     cancelled: 'ダウンロードがキャンセルされました',
     complete: 'ダウンロード完了',
+    usedExtractorFallback: '簡易抽出モードでダウンロードしました — より確実にするには cookies.txt の設定をおすすめします',
     ytdlpProcessError: 'yt-dlpプロセスエラー: {{error}}',
     ytdlpExitCode: 'yt-dlpがコード{{code}}で終了しました',
     downloadingBinary: 'バイナリ {{name}} をダウンロード中…',

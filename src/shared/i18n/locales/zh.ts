@@ -48,7 +48,22 @@ const zh = {
       hint: '支持 youtube.com 和 youtu.be 链接',
       fetchFormats: '获取格式',
       mascotIdle: '丢一个 YouTube 链接给我(视频或 Shorts 都行)— 点「获取格式」我就开始干活 ✨',
-      mascotBusy: '正在后台下载… 我可以同时处理多个任务 😎'
+      mascotBusy: '正在后台下载… 我可以同时处理多个任务 😎',
+      advanced: '高级',
+      cookies: {
+        toggle: '使用 Cookie 文件',
+        toggleDescription: '可帮助下载年龄限制、会员专属和账户私享的视频。',
+        risk: '风险: cookies.txt 包含该浏览器所有已登录的会话 — 请妥善保管。',
+        fileLabel: 'Cookie 文件',
+        choose: '选择…',
+        clear: '清除',
+        placeholder: '未选择文件',
+        helpLink: '如何导出 Cookie?',
+        enabledButNoFile: '请选择一个文件以使用 Cookie',
+        banWarning: '提醒: yt-dlp 使用的 Cookie 对应账号可能被 YouTube 标记,有时甚至被封禁。建议尽量使用临时小号。',
+        extensionFirefox: 'cookies.txt (Firefox)',
+        extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
+      }
     },
     subtitles: {
       heading: '字幕',
@@ -175,6 +190,7 @@ const zh = {
     subtitlesFailed: '视频已保存 — 部分字幕未能下载',
     cancelled: '下载已取消',
     complete: '下载完成',
+    usedExtractorFallback: '已使用简化提取模式完成下载 — 配置 cookies.txt 可让下载更稳定',
     ytdlpProcessError: 'yt-dlp 进程错误: {{error}}',
     ytdlpExitCode: 'yt-dlp 以代码 {{code}} 退出',
     downloadingBinary: '正在下载二进制 {{name}}…',

@@ -35,7 +35,8 @@ function makeService() {
     ensureFFmpeg: vi.fn().mockResolvedValue('/usr/bin/ffmpeg')
   };
   const logService = { log: vi.fn() };
-  const service = new FormatProbeService(binaryManager as never, tokenService as never, logService as never, false);
+  const settingsStore = { get: vi.fn().mockResolvedValue({}) };
+  const service = new FormatProbeService(binaryManager as never, tokenService as never, logService as never, settingsStore as never, false);
   return { service };
 }
 

@@ -30,7 +30,9 @@
     "test:watch": "vitest",
     "test:e2e": "bun run build && xvfb-run -a playwright test",
     "test:browser": "playwright test --config playwright.browser.config.ts",
-    "build:landing": "node landing-src/build.mjs"
+    "build:landing": "node landing-src/build.mjs",
+    "smoke": "bun scripts/smoke-youtube.ts",
+    "smoke:pot": "bun scripts/smoke-pot-runner.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

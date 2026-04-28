@@ -159,6 +159,28 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
         if (!result.ok) console.error('[settings] language save failed', result.error);
       });
       void window.appApi.app.setLanguage(lang);
+    },
+
+    setCookiesPath: async (path) => {
+      const current = get().settings;
+      if (current) set({ settings: { ...current, cookiesPath: path } });
+      const result = await window.appApi.settings.update({ cookiesPath: path });
+      if (!result.ok) {
+        console.error('[settings] cookiesPath save failed', result.error);
+        return;
+      }
+      set({ settings: result.data });
+    },
+
+    setCookiesEnabled: async (enabled) => {
+      const current = get().settings;
+      if (current) set({ settings: { ...current, cookiesEnabled: enabled } });
+      const result = await window.appApi.settings.update({ cookiesEnabled: enabled });
+      if (!result.ok) {
+        console.error('[settings] cookiesEnabled save failed', result.error);
+        return;
+      }
+      set({ settings: result.data });
     }
   };
 }

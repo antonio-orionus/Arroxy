@@ -17,6 +17,9 @@ runtime-cache/
 # Electron app-data style local testing cache
 .electron-user-data/
 
+# Local-only URL inventory + smoke targets — see youtube-urls.local.txt
+*.local.txt
+
 # Existing packaged artifacts
 *.exe
 *.zip

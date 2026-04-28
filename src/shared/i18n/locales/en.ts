@@ -48,7 +48,22 @@ const en = {
       hint: 'Supports youtube.com and youtu.be links',
       fetchFormats: 'Fetch formats',
       mascotIdle: 'Drop me a YouTube link (video or Short) — then hit "Fetch formats" and I\'ll get to work ✨',
-      mascotBusy: 'Downloading in the background… I can multitask 😎'
+      mascotBusy: 'Downloading in the background… I can multitask 😎',
+      advanced: 'Advanced',
+      cookies: {
+        toggle: 'Use cookies file',
+        toggleDescription: 'Helps with age-restricted, members-only, and account-private videos.',
+        risk: 'Risk: a cookies.txt contains every logged-in session for that browser — keep it private.',
+        fileLabel: 'Cookies file',
+        choose: 'Choose…',
+        clear: 'Clear',
+        placeholder: 'No file selected',
+        helpLink: 'How do I export cookies?',
+        enabledButNoFile: 'Pick a file to use cookies',
+        banWarning: 'YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible.',
+        extensionFirefox: 'cookies.txt (Firefox)',
+        extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
+      }
     },
     subtitles: {
       heading: 'Subtitles',
@@ -175,6 +190,7 @@ const en = {
     subtitlesFailed: 'Video saved — some subtitles could not be downloaded',
     cancelled: 'Download cancelled',
     complete: 'Download complete',
+    usedExtractorFallback: 'Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads',
     ytdlpProcessError: 'yt-dlp process error: {{error}}',
     ytdlpExitCode: 'yt-dlp exited with code {{code}}',
     downloadingBinary: 'Downloading {{name}} binary…',

@@ -48,7 +48,22 @@ const uk = {
       hint: 'Підтримуються посилання youtube.com і youtu.be',
       fetchFormats: 'Отримати формати',
       mascotIdle: 'Кинь мені посилання YouTube (відео або Shorts) — натисни «Отримати формати» і я візьмусь за справу ✨',
-      mascotBusy: 'Завантажую у фоні… можу робити кілька справ одночасно 😎'
+      mascotBusy: 'Завантажую у фоні… можу робити кілька справ одночасно 😎',
+      advanced: 'Додатково',
+      cookies: {
+        toggle: 'Використовувати файл cookies',
+        toggleDescription: 'Допомагає з відео з віковим обмеженням, лише для учасників і приватними у твоєму акаунті.',
+        risk: 'Ризик: cookies.txt містить усі активні сесії браузера — тримай його в таємниці.',
+        fileLabel: 'Файл cookies',
+        choose: 'Обрати…',
+        clear: 'Скинути',
+        placeholder: 'Файл не обрано',
+        helpLink: 'Як експортувати cookies?',
+        enabledButNoFile: 'Обери файл, щоб використовувати cookies',
+        banWarning: 'YouTube може позначити — і іноді забанити — акаунти, чиї cookies використовує yt-dlp. По можливості використовуй одноразовий акаунт.',
+        extensionFirefox: 'cookies.txt (Firefox)',
+        extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
+      }
     },
     subtitles: {
       heading: 'Субтитри',
@@ -175,6 +190,7 @@ const uk = {
     subtitlesFailed: 'Відео збережено — деякі субтитри не завантажилися',
     cancelled: 'Завантаження скасовано',
     complete: 'Завантаження завершено',
+    usedExtractorFallback: 'Завантажено зі спрощеним екстрактором — налаштуй cookies.txt для надійніших завантажень',
     ytdlpProcessError: 'Помилка процесу yt-dlp: {{error}}',
     ytdlpExitCode: 'yt-dlp завершився з кодом {{code}}',
     downloadingBinary: 'Завантаження бінарника {{name}}…',

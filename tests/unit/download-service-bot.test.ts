@@ -39,12 +39,14 @@ function makeService(tokenOverrides: { token?: string; visitorData?: string } = 
   };
   const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
   const logService = { log: vi.fn() };
+  const settingsStore = { get: vi.fn().mockResolvedValue({}) };
 
   const service = new DownloadService(
     binaryManager as never,
     tokenService as never,
     recentJobsStore as never,
     logService as never,
+    settingsStore as never,
     false // non-mock mode — uses real spawnYtDlp
   );
 
@@ -136,23 +138,29 @@ describe('DownloadService — bot-block retry', () => {
     expect(finalized?.status).toBe('completed');
   });
 
-  it('does not retry a second time when retry also bot-blocks', async () => {
+  it('falls back to player_client extractor when both PoT attempts bot-block', async () => {
     const botStderr = "ERROR: [youtube] abc: Sign in to confirm you're not a bot.";
 
     vi.mocked(spawnYtDlp)
       .mockReturnValueOnce(makeFakeProcess(1, botStderr) as never)
-      .mockReturnValueOnce(makeFakeProcess(1, botStderr) as never);
+      .mockReturnValueOnce(makeFakeProcess(1, botStderr) as never)
+      .mockReturnValueOnce(makeFakeProcess(0) as never);
 
     const { service, tokenService, recentJobsStore } = makeService();
 
     await service.start({ url: YOUTUBE_URL, outputDir: '/tmp' });
-    await new Promise((r) => setTimeout(r, 150));
+    await new Promise((r) => setTimeout(r, 200));
 
-    expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(2);
-    expect(tokenService.invalidateCache).toHaveBeenCalledOnce(); // only once
+    expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(3);
+    expect(tokenService.invalidateCache).toHaveBeenCalledOnce();
+
+    // Third attempt uses the no-PoT player_client filter, not a token.
+    const fallbackArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[2][1];
+    const idx = fallbackArgs.indexOf('--extractor-args');
+    expect(fallbackArgs[idx + 1]).toBe('youtube:player_client=default,-web,-web_safari');
 
     const finalized = recentJobsStore.push.mock.calls[0]?.[0];
-    expect(finalized?.status).toBe('failed');
+    expect(finalized?.status).toBe('completed');
   });
 
   it('does not retry on ipBlock', async () => {

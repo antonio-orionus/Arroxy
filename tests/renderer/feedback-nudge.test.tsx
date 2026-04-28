@@ -32,7 +32,7 @@ const mockAppApi = {
   },
   shell: { openFolder: vi.fn().mockResolvedValue(ok({ opened: true })), openExternal: mockOpenExternal },
   logs: { openDir: vi.fn().mockResolvedValue(ok({ opened: true })) },
-  dialog: { chooseFolder: vi.fn().mockResolvedValue(ok({ path: '/tmp' })) },
+  dialog: { chooseFolder: vi.fn().mockResolvedValue(ok({ path: '/tmp' })), chooseFile: vi.fn().mockResolvedValue(ok({ path: null })) },
   events: {
     onStatus: vi.fn().mockReturnValue(() => undefined),
     onProgress: vi.fn().mockReturnValue(() => undefined)

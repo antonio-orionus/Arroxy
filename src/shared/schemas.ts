@@ -62,6 +62,7 @@ export const STATUS_KEY = {
   subtitlesFailed: 'subtitlesFailed',
   cancelled: 'cancelled',
   complete: 'complete',
+  usedExtractorFallback: 'usedExtractorFallback',
   ytdlpProcessError: 'ytdlpProcessError',
   ytdlpExitCode: 'ytdlpExitCode',
   downloadingBinary: 'downloadingBinary',
@@ -159,7 +160,9 @@ export const updateSettingsSchema = z.object({
     .refine((s) => s === '' || isValidSubfolder(s), {
       message: 'Invalid subfolder name'
     })
-    .optional()
+    .optional(),
+  cookiesPath: z.string().optional(),
+  cookiesEnabled: z.boolean().optional()
 });
 
 // Queue item schema — used by both queueSave IPC handler and queueStore.load

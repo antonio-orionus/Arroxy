@@ -52,6 +52,7 @@ export interface AppApi {
   };
   dialog: {
     chooseFolder(): Promise<Result<{ path: string | null }>>;
+    chooseFile(): Promise<Result<{ path: string | null }>>;
   };
   events: {
     onStatus(listener: (event: StatusEvent) => void): () => void;

@@ -50,10 +50,11 @@ function makeService() {
   };
   const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
   const logService = { log: vi.fn() };
+  const settingsStore = { get: vi.fn().mockResolvedValue({}) };
   const service = new DownloadService(
-    binaryManager as never, tokenService as never, recentJobsStore as never, logService as never, false
+    binaryManager as never, tokenService as never, recentJobsStore as never, logService as never, settingsStore as never, false
   );
-  return { service, recentJobsStore };
+  return { service, recentJobsStore, settingsStore };
 }
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';

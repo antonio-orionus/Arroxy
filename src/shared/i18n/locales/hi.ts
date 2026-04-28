@@ -48,7 +48,22 @@ const hi = {
       hint: 'youtube.com और youtu.be लिंक समर्थित',
       fetchFormats: 'फ़ॉर्मेट लाएँ',
       mascotIdle: 'मुझे YouTube का लिंक भेजो (वीडियो या Short) — फिर "फ़ॉर्मेट लाएँ" दबाओ और मैं काम पर लग जाऊँगा ✨',
-      mascotBusy: 'पीछे चुपचाप डाउनलोड कर रहा हूँ… मैं एक साथ कई काम कर सकता हूँ 😎'
+      mascotBusy: 'पीछे चुपचाप डाउनलोड कर रहा हूँ… मैं एक साथ कई काम कर सकता हूँ 😎',
+      advanced: 'उन्नत',
+      cookies: {
+        toggle: 'कुकी फ़ाइल का उपयोग करें',
+        toggleDescription: 'आयु-प्रतिबंधित, सदस्य-केवल और खाता-निजी वीडियो में मदद करता है।',
+        risk: 'जोखिम: cookies.txt में उस ब्राउज़र के सभी लॉग-इन सत्र होते हैं — इसे निजी रखें।',
+        fileLabel: 'कुकी फ़ाइल',
+        choose: 'चुनें…',
+        clear: 'साफ़',
+        placeholder: 'कोई फ़ाइल चयनित नहीं',
+        helpLink: 'कुकी कैसे एक्सपोर्ट करें?',
+        enabledButNoFile: 'कुकी का उपयोग करने के लिए फ़ाइल चुनें',
+        banWarning: 'चेतावनी: yt-dlp जिन कुकी का उपयोग करता है, उनसे जुड़े अकाउंट को YouTube फ़्लैग — और कभी-कभी बैन — कर सकता है। हो सके तो डिस्पोज़ेबल अकाउंट का उपयोग करें।',
+        extensionFirefox: 'cookies.txt (Firefox)',
+        extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
+      }
     },
     subtitles: {
       heading: 'उपशीर्षक',
@@ -175,6 +190,7 @@ const hi = {
     subtitlesFailed: 'वीडियो सहेजा गया — कुछ सबटाइटल डाउनलोड नहीं हो सके',
     cancelled: 'डाउनलोड रद्द कर दिया',
     complete: 'डाउनलोड पूरा',
+    usedExtractorFallback: 'सरलीकृत एक्सट्रैक्टर के साथ डाउनलोड हुआ — अधिक भरोसेमंद डाउनलोड के लिए cookies.txt सेट करें',
     ytdlpProcessError: 'yt-dlp प्रक्रिया त्रुटि: {{error}}',
     ytdlpExitCode: 'yt-dlp कोड {{code}} के साथ बंद हो गया',
     downloadingBinary: '{{name}} बाइनरी डाउनलोड हो रही है…',

@@ -18,6 +18,8 @@ if (!('appApi' in window)) {
   let settings: AppSettings = {
     ...defaultAppSettings('/home/user/Downloads'),
     language: 'en',
+    cookiesPath: undefined,
+    cookiesEnabled: false,
     commonPaths: {
       downloads: '/home/user/Downloads',
       videos: '/home/user/Videos',
@@ -228,6 +230,10 @@ if (!('appApi' in window)) {
         const path = paths[Math.floor(Math.random() * paths.length)];
         await delay(200);
         return { ok: true, data: { path } };
+      },
+      chooseFile: async () => {
+        await delay(200);
+        return { ok: true, data: { path: '/home/user/youtube-cookies.txt' } };
       }
     },
 

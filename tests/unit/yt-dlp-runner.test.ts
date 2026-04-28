@@ -196,8 +196,9 @@ describe('runYtDlp — bot-block retry', () => {
     expect(result.stdout).toBe('{"ok":true}');
   });
 
-  it('does not retry a second time when retry also bot-blocks', async () => {
+  it('escalates to player_client fallback when both PoT attempts bot-block', async () => {
     vi.mocked(spawnYtDlp)
+      .mockReturnValueOnce(makeFakeProcess(1, BOT_STDERR) as never)
       .mockReturnValueOnce(makeFakeProcess(1, BOT_STDERR) as never)
       .mockReturnValueOnce(makeFakeProcess(1, BOT_STDERR) as never);
 
@@ -205,7 +206,7 @@ describe('runYtDlp — bot-block retry', () => {
 
     const result = await runYtDlp({ ...RUN_OPTS, tokenService });
 
-    expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(2);
+    expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(3);
     expect(tokenService.invalidateCache).toHaveBeenCalledOnce();
     expect(result.kind).toBe('exit-error');
     if (result.kind !== 'exit-error') throw new Error('expected exit-error');

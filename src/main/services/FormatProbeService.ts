@@ -9,7 +9,9 @@ import { ytDlpInfoSchema, type YtDlpInfo, type YtDlpSubtitleTrack } from '@share
 import { LIVE_CHAT_LANG } from '@shared/constants';
 import type { BinaryManager } from './BinaryManager';
 import type { TokenService } from './TokenService';
+import type { SettingsStore } from '@main/stores/SettingsStore';
 import { runYtDlp } from './ytDlpRunner';
+import { resolveCookiesPath } from './cookiesResolver';
 
 function sanitizeSubtitleMap(
   raw: Record<string, YtDlpSubtitleTrack[]> | undefined,
@@ -98,6 +100,7 @@ export class FormatProbeService {
     private readonly binaryManager: BinaryManager,
     private readonly tokenService: TokenService,
     private readonly logger: LogService,
+    private readonly settingsStore: SettingsStore,
     private readonly mockMode = false
   ) {}
 
@@ -122,12 +125,15 @@ export class FormatProbeService {
       const ytDlpPath = await this.binaryManager.ensureYtDlp();
       const ffmpegPath = await this.binaryManager.ensureFFmpeg();
 
+      const cookiesPath = resolveCookiesPath(await this.settingsStore.get());
+
       const result = await runYtDlp({
         url,
         ytDlpPath,
         ffmpegPath,
         args: ['--dump-json', '--no-playlist', url],
         tokenService: this.tokenService,
+        cookiesPath,
         onStderr: (chunk) => {
           for (const line of splitStderrLines(chunk)) {
             this.logger.log('INFO', line, { source: 'yt-dlp-format-probe' });

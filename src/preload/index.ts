@@ -40,7 +40,8 @@ onMaximizedChange: (listener) => {
     openDir: () => ipcRenderer.invoke(IPC_CHANNELS.logsOpenDir)
   },
   dialog: {
-    chooseFolder: () => ipcRenderer.invoke(IPC_CHANNELS.chooseFolder)
+    chooseFolder: () => ipcRenderer.invoke(IPC_CHANNELS.chooseFolder),
+    chooseFile: () => ipcRenderer.invoke(IPC_CHANNELS.chooseFile)
   },
   events: {
     onStatus: (listener) => {

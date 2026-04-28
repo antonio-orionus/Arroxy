@@ -11,6 +11,7 @@ function makeService() {
     {} as never,
     { push: async () => {} } as never,
     { log: () => {} } as never,
+    { get: async () => ({}) } as never,
     true
   );
 }

@@ -28,9 +28,11 @@ import type {
 import type { BinaryManager } from './BinaryManager';
 import type { LogService } from './LogService';
 import type { RecentJobsStore } from '@main/stores/RecentJobsStore';
+import type { SettingsStore } from '@main/stores/SettingsStore';
 import type { TokenService } from './TokenService';
 import { runYtDlp, type RunYtDlpResult } from './ytDlpRunner';
 import { buildSubtitleArgs, buildVideoArgs } from './ytDlpArgs';
+import { resolveCookiesPath } from './cookiesResolver';
 
 interface ActiveDownload {
   job: DownloadJob;
@@ -46,6 +48,10 @@ interface ActiveDownload {
   currentFileKind?: 'subtitle' | 'media';
   subtitlePaths: string[];
   mediaPath?: string;
+  // Set true when any yt-dlp invocation in this job ran via the no-PoT
+  // player_client fallback. Surfaced as STATUS_KEY.usedExtractorFallback
+  // before `complete` so the renderer can nudge the user toward cookies.
+  usedExtractorFallback?: boolean;
 }
 
 interface PausedDownload {
@@ -82,6 +88,7 @@ export class DownloadService extends EventEmitter {
     private readonly tokenService: TokenService,
     private readonly recentJobsStore: RecentJobsStore,
     private readonly logger: LogService,
+    private readonly settingsStore: SettingsStore,
     private readonly mockMode = false
   ) {
     super();
@@ -255,13 +262,19 @@ export class DownloadService extends EventEmitter {
       writeAutoSubs: input.writeAutoSubs,
     });
 
+    const cookiesPath = resolveCookiesPath(await this.settingsStore.get());
+
     const result = await runYtDlp({
       url: input.url,
       ytDlpPath,
       ffmpegPath,
       args,
       tokenService: this.tokenService,
+      cookiesPath,
       onAttempt: (attempt) => {
+        // attempt === 2 is the no-PoT fallback path; we don't surface a token
+        // status there — emit the final usedExtractorFallback after success.
+        if (attempt === 2) return;
         this.emitStatus(job.id, 'token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken);
       },
       onSpawn: (proc) => this.attachYtDlpProcess(active, proc, STATUS_KEY.fetchingSubtitles),
@@ -283,10 +296,15 @@ export class DownloadService extends EventEmitter {
       return;
     }
 
+    if (result.usedExtractorFallback) active.usedExtractorFallback = true;
+
     if (input.writeAutoSubs) {
       await dedupeSubtitleFiles(active.subtitlePaths, this.logger, job.id, () => active.cancelRequested);
     }
 
+    if (active.usedExtractorFallback) {
+      this.emitStatus(job.id, 'download', STATUS_KEY.usedExtractorFallback);
+    }
     this.emitStatus(job.id, 'done', STATUS_KEY.complete);
     await this.finalize(job, 'completed');
   }
@@ -311,13 +329,19 @@ export class DownloadService extends EventEmitter {
       writeAutoSubs: input.writeAutoSubs,
     });
 
+    const cookiesPath = resolveCookiesPath(await this.settingsStore.get());
+
     const result = await runYtDlp({
       url: input.url,
       ytDlpPath,
       ffmpegPath,
       args,
       tokenService: this.tokenService,
+      cookiesPath,
       onAttempt: (attempt) => {
+        // attempt === 2 is the no-PoT fallback path; we don't surface a token
+        // status there — emit the final usedExtractorFallback after success.
+        if (attempt === 2) return;
         this.emitStatus(job.id, 'token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken);
       },
       onSpawn: (proc) => this.attachYtDlpProcess(active, proc, STATUS_KEY.downloadingMedia),
@@ -352,6 +376,7 @@ export class DownloadService extends EventEmitter {
       return false;
     }
 
+    if (result.usedExtractorFallback) active.usedExtractorFallback = true;
     return true;
   }
 
@@ -377,12 +402,15 @@ export class DownloadService extends EventEmitter {
       writeAutoSubs: input.writeAutoSubs,
     });
 
+    const cookiesPath = resolveCookiesPath(await this.settingsStore.get());
+
     const subResult = await runYtDlp({
       url: input.url,
       ytDlpPath,
       ffmpegPath,
       args,
       tokenService: this.tokenService,
+      cookiesPath,
       onSpawn: (proc) => this.attachYtDlpProcess(active, proc),
       onStdout: (text) => this.safeConsume(active, text),
       onStderr: (text) => this.safeConsume(active, text)
@@ -400,12 +428,17 @@ export class DownloadService extends EventEmitter {
       return;
     }
 
+    if (subResult.usedExtractorFallback) active.usedExtractorFallback = true;
+
     if (input.writeAutoSubs) {
       await dedupeSubtitleFiles(active.subtitlePaths, this.logger, job.id, () => active.cancelRequested);
     }
 
     if (embedAfter) await this.runEmbedMuxPhase(active, ffmpegPath);
 
+    if (active.usedExtractorFallback) {
+      this.emitStatus(job.id, 'download', STATUS_KEY.usedExtractorFallback);
+    }
     this.emitStatus(job.id, 'done', STATUS_KEY.complete);
     await this.finalize(job, 'completed');
   }
@@ -564,6 +597,9 @@ export class DownloadService extends EventEmitter {
   }
 
   private async completeJob(active: ActiveDownload): Promise<void> {
+    if (active.usedExtractorFallback) {
+      this.emitStatus(active.job.id, 'download', STATUS_KEY.usedExtractorFallback);
+    }
     this.emitStatus(active.job.id, 'done', STATUS_KEY.complete);
     await this.finalize(active.job, 'completed');
   }

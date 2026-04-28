@@ -141,6 +141,21 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     }
   });
 
+  handleRaw(IPC_CHANNELS.chooseFile, async () => {
+    try {
+      const result = await dialog.showOpenDialog(mainWindow, {
+        properties: ['openFile'],
+        filters: [
+          { name: 'Cookies file', extensions: ['txt'] },
+          { name: 'All files', extensions: ['*'] }
+        ]
+      });
+      return ok({ path: result.canceled ? null : result.filePaths[0] ?? null });
+    } catch (error) {
+      return toUnknownFailure(error);
+    }
+  });
+
   handle(IPC_CHANNELS.downloadsGetFormats, getFormatsSchema, ({ url }) =>
     formatProbeService.getFormats(url)
   );

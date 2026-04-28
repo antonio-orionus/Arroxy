@@ -46,11 +46,13 @@ function makeService(tokenOverrides: { token?: string; visitorData?: string } = 
     ensureFFmpeg: vi.fn().mockResolvedValue('/usr/bin/ffmpeg')
   };
   const logService = { log: vi.fn() };
+  const settingsStore = { get: vi.fn().mockResolvedValue({}) };
 
   const service = new FormatProbeService(
     binaryManager as never,
     tokenService as never,
     logService as never,
+    settingsStore as never,
     false
   );
 
@@ -139,10 +141,11 @@ describe('FormatProbeService — bot-block retry', () => {
     }
   });
 
-  it('fails cleanly when retry also bot-blocks', async () => {
+  it('escalates to player_client fallback when both PoT attempts bot-block', async () => {
     const botStderr = "ERROR: [youtube] abc: Sign in to confirm you're not a bot.";
 
     vi.mocked(spawnYtDlp)
+      .mockReturnValueOnce(makeFakeProcess(1, botStderr) as never)
       .mockReturnValueOnce(makeFakeProcess(1, botStderr) as never)
       .mockReturnValueOnce(makeFakeProcess(1, botStderr) as never);
 
@@ -150,8 +153,13 @@ describe('FormatProbeService — bot-block retry', () => {
 
     const result = await service.getFormats(YOUTUBE_URL);
 
-    expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(2);
+    expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(3);
     expect(tokenService.invalidateCache).toHaveBeenCalledOnce();
     expect(result.ok).toBe(false);
+
+    // Third attempt was the no-PoT fallback path.
+    const fallbackArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[2][1];
+    const idx = fallbackArgs.indexOf('--extractor-args');
+    expect(fallbackArgs[idx + 1]).toBe('youtube:player_client=default,-web,-web_safari');
   });
 });

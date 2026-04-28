@@ -30,7 +30,10 @@ function makeStubs() {
   const recentJobsStore = {
     push: vi.fn().mockResolvedValue(undefined),
   } as unknown as RecentJobsStore;
-  return { logger, binaryManager, tokenService, recentJobsStore };
+  const settingsStore = {
+    get: vi.fn().mockResolvedValue({}),
+  } as never;
+  return { logger, binaryManager, tokenService, recentJobsStore, settingsStore };
 }
 
 afterEach(() => {
@@ -41,7 +44,7 @@ describe('DownloadService stdout/stderr crash safety', () => {
   it('stdout data handler swallows exceptions from consumeProgress', async () => {
     const stubs = makeStubs();
     const svc = new DownloadService(
-      stubs.binaryManager, stubs.tokenService, stubs.recentJobsStore, stubs.logger
+      stubs.binaryManager, stubs.tokenService, stubs.recentJobsStore, stubs.logger, stubs.settingsStore
     );
 
     const fakeProc = new FakeProcess();
@@ -61,7 +64,7 @@ describe('DownloadService stdout/stderr crash safety', () => {
   it('stderr data handler swallows exceptions from consumeProgress', async () => {
     const stubs = makeStubs();
     const svc = new DownloadService(
-      stubs.binaryManager, stubs.tokenService, stubs.recentJobsStore, stubs.logger
+      stubs.binaryManager, stubs.tokenService, stubs.recentJobsStore, stubs.logger, stubs.settingsStore
     );
 
     const fakeProc = new FakeProcess();
@@ -80,7 +83,7 @@ describe('DownloadService stdout/stderr crash safety', () => {
   it('active job count is still correct after a crash in the stdout handler', async () => {
     const stubs = makeStubs();
     const svc = new DownloadService(
-      stubs.binaryManager, stubs.tokenService, stubs.recentJobsStore, stubs.logger
+      stubs.binaryManager, stubs.tokenService, stubs.recentJobsStore, stubs.logger, stubs.settingsStore
     );
 
     const fakeProc = new FakeProcess();

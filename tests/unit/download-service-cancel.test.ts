@@ -24,7 +24,8 @@ function makeStubs(binaryOverrides: Partial<{ ensureYtDlp: () => Promise<string>
   };
   const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
   const logService = { log: vi.fn() };
-  return { binaryManager, tokenService, recentJobsStore, logService };
+  const settingsStore = { get: vi.fn().mockResolvedValue({}) };
+  return { binaryManager, tokenService, recentJobsStore, logService, settingsStore };
 }
 
 const URL = 'https://www.youtube.com/watch?v=test';
@@ -41,7 +42,8 @@ describe('pendingCancelCount', () => {
       stubs.binaryManager as never,
       stubs.tokenService as never,
       stubs.recentJobsStore as never,
-      stubs.logService as never
+      stubs.logService as never,
+      stubs.settingsStore as never
     );
 
     await svc.start({ url: URL, outputDir: '/tmp' });
@@ -67,7 +69,8 @@ describe('pendingCancelCount', () => {
       stubs.binaryManager as never,
       stubs.tokenService as never,
       stubs.recentJobsStore as never,
-      stubs.logService as never
+      stubs.logService as never,
+      stubs.settingsStore as never
     );
 
     const [r1] = await Promise.all([
@@ -100,7 +103,8 @@ describe('process group kill on POSIX', () => {
       stubs.binaryManager as never,
       stubs.tokenService as never,
       stubs.recentJobsStore as never,
-      stubs.logService as never
+      stubs.logService as never,
+      stubs.settingsStore as never
     );
 
     await svc.start({ url: URL, outputDir: '/tmp' });
@@ -120,7 +124,8 @@ describe('pre-spawn cancel emits status event', () => {
       stubs.binaryManager as never,
       stubs.tokenService as never,
       stubs.recentJobsStore as never,
-      stubs.logService as never
+      stubs.logService as never,
+      stubs.settingsStore as never
     );
 
     const statuses: { stage: string; statusKey: string }[] = [];
@@ -152,7 +157,8 @@ describe('pre-spawn cancel emits status event', () => {
       stubs.binaryManager as never,
       stubs.tokenService as never,
       stubs.recentJobsStore as never,
-      stubs.logService as never
+      stubs.logService as never,
+      stubs.settingsStore as never
     );
 
     const statuses: { stage: string; statusKey: string }[] = [];
