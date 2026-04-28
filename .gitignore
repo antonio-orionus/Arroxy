@@ -33,7 +33,9 @@ skills-lock.json
 docs/my
 AGENTS.md
 CLAUDE.md
-# Flatpak build artifacts
+# Flatpak build artifacts (relative to flatpak/ subdir, or repo root if built from there)
 flatpak/.flatpak-builder/
 flatpak/builddir/
 flatpak/repo/
+.flatpak-builder/
+build-dir/
