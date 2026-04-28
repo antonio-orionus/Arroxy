@@ -33,3 +33,7 @@ skills-lock.json
 docs/my
 AGENTS.md
 CLAUDE.md
+# Flatpak build artifacts
+flatpak/.flatpak-builder/
+flatpak/builddir/
+flatpak/repo/
