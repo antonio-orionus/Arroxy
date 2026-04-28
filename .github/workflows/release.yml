@@ -13,9 +13,12 @@ permissions:
 jobs:
 
   build:
+    # Windows is built separately by the Windows Installer workflow
+    # (.github/workflows/installer-smoke.yml) so it can be smoke-tested
+    # before publish. mac/linux still build + publish here via dist:release.
     strategy:
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        os: [macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -41,6 +44,30 @@ jobs:
             --notes "$NOTES"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Wait for Windows artifacts
+        # Windows artifacts come from the Windows Installer workflow, which
+        # runs in parallel with this one. mac/linux usually finish first;
+        # poll until Setup + Portable both land before generating SHA256SUMS,
+        # so publish-scoop / publish-homebrew get the Windows hashes they
+        # need.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for i in $(seq 1 90); do
+            assets=$(gh release view "${{ github.ref_name }}" \
+              --repo "${{ github.repository }}" \
+              --json assets --jq '.assets[].name' 2>/dev/null || echo "")
+            if echo "$assets" | grep -q "Arroxy-Setup-.*\.exe$" \
+              && echo "$assets" | grep -q "Arroxy-Portable-.*\.exe$"; then
+              echo "Windows artifacts present after ${i}0s"
+              exit 0
+            fi
+            echo "Waiting for Windows artifacts (${i}/90)..."
+            sleep 10
+          done
+          echo "::error::Timed out waiting for Windows artifacts after 15 min."
+          echo "::error::Check the Windows Installer workflow run for this tag."
+          exit 1
       - name: Generate SHA256SUMS
         run: |
           mkdir artifacts

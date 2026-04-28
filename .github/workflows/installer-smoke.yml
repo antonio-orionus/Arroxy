@@ -1,10 +1,15 @@
-name: Installer Smoke
+name: Windows Installer
 
-# Catches NSIS installer regressions on cold-state Windows VMs before they
-# ship to winget. Runs on PRs/pushes touching anything that affects the
-# Windows installer pipeline. Each windows-latest runner is a fresh VM,
-# which is exactly the cold-heap condition that exposes bugs like the
-# multiUser.nsh `SHGetKnownFolderPath` over-read fixed in eb 26.9.0.
+# Single workflow for the Windows installer lifecycle: build, smoke test,
+# and (on tag push) publish to the GitHub Release. Each windows-latest
+# runner is a fresh VM, which is exactly the cold-heap condition that
+# exposes bugs like the multiUser.nsh `SHGetKnownFolderPath` over-read
+# fixed in eb 26.9.0.
+#
+# Replaces release.yml's Windows leg — the Windows artifacts (Setup +
+# Portable) are produced and published here, so release.yml's matrix
+# only handles macOS + Linux. Smoke gates publish: a failed cold-state
+# install blocks the release.
 
 on:
   pull_request:
@@ -20,6 +25,7 @@ on:
       - 'package.json'
       - 'bun.lock'
       - '.github/workflows/installer-smoke.yml'
+    tags: ['v*']
   workflow_dispatch:
 
 env:
@@ -27,7 +33,7 @@ env:
 
 jobs:
   build:
-    name: Build NSIS installer
+    name: Build Windows installer
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,12 +41,26 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
-      - run: bun run dist:win:nsis
+      # On tag push, build both NSIS Setup and Portable (both shipped on the
+      # GitHub Release; portable feeds the scoop bucket). Otherwise, only
+      # build NSIS — that's what smoke tests, and saves ~30s per non-tag run.
+      - name: Build Windows artifacts
+        shell: bash
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            bun run dist:win
+          else
+            bun run dist:win:nsis
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: installer
-          path: dist/Arroxy-Setup-*.exe
-          if-no-files-found: error
+          path: |
+            dist/Arroxy-Setup-*.exe
+            dist/Arroxy-Setup-*.exe.blockmap
+            dist/Arroxy-Portable-*.exe
+            dist/latest.yml
+          if-no-files-found: warn
           retention-days: 7
 
   cold-smoke:
@@ -174,3 +194,42 @@ jobs:
           else
             echo "::warning::electron-builder pinned to $installed but npm latest is $latest. If pinned intentionally (e.g. to next/beta for an unreleased fix like 26.9.0 between 2026-04-14 and dist-tag promotion), ignore. Otherwise consider syncing."
           fi
+
+  publish-windows:
+    # Uploads Windows artifacts (Setup + Portable + blockmap + latest.yml) to
+    # the GitHub Release. Only runs on tag pushes, only after smoke is green.
+    # Creates a draft release if one doesn't exist yet (idempotent — a parallel
+    # mac/linux dist:release call may also create the draft, whichever wins is
+    # fine).
+    name: Publish Windows artifacts to release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [cold-smoke, cycle-smoke]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: installer
+          path: ./dist
+      - name: Ensure draft release exists, then upload
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create draft if missing (idempotent: ignore "already exists" error)
+          if ! gh release view "${{ github.ref_name }}" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            gh release create "${{ github.ref_name }}" \
+              --repo "${{ github.repository }}" \
+              --draft \
+              --title "${{ github.ref_name }}" \
+              --notes ""
+          fi
+          # Upload all Windows artifacts; --clobber overwrites if a stale build
+          # already uploaded them.
+          gh release upload "${{ github.ref_name }}" \
+            --repo "${{ github.repository }}" \
+            --clobber \
+            ./dist/Arroxy-Setup-*.exe \
+            ./dist/Arroxy-Setup-*.exe.blockmap \
+            ./dist/Arroxy-Portable-*.exe \
+            ./dist/latest.yml
