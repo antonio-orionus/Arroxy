@@ -20,11 +20,11 @@ modules:
   - name: arroxy
     buildsystem: simple
     build-commands:
-      - install -Dm644 ${FLATPAK_ID}.png share/icons/hicolor/512x512/apps/${FLATPAK_ID}.png
+      - for size in 64 128 256 512; do install -Dm644 icons/${size}x${size}.png share/icons/hicolor/${size}x${size}/apps/${FLATPAK_ID}.png; done
       - install -Dm644 ${FLATPAK_ID}.desktop share/applications/${FLATPAK_ID}.desktop
       - install -Dm644 ${FLATPAK_ID}.metainfo.xml share/metainfo/${FLATPAK_ID}.metainfo.xml
       - install -Dm755 arroxy.sh bin/arroxy.sh
-      - rm ${FLATPAK_ID}.png ${FLATPAK_ID}.desktop ${FLATPAK_ID}.metainfo.xml arroxy.sh
+      - rm -rf icons ${FLATPAK_ID}.desktop ${FLATPAK_ID}.metainfo.xml arroxy.sh
       - cp -r * ${FLATPAK_DEST}
     sources:
       - type: archive
@@ -45,6 +45,7 @@ modules:
       - type: file
         path: io.github.antonio_orionus.Arroxy.metainfo.xml
       - type: file
-        path: io.github.antonio_orionus.Arroxy.png
-      - type: file
         path: arroxy.sh
+      - type: dir
+        path: icons
+        dest: icons

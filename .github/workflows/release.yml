@@ -63,6 +63,8 @@ jobs:
     # Patches the local flatpak/ manifest with the new release URL + sha256 and pushes to main.
     # After every release, the local manifest stays current — no manual edits needed before
     # opening the initial Flathub PR or for any subsequent submission.
+    # TEMPORARILY DISABLED until Flathub submission is ready. Flip `if: false` to remove.
+    if: false
     needs: finalize
     runs-on: ubuntu-latest
     steps:
@@ -159,6 +161,8 @@ jobs:
     # Requires initial Flathub submission to be approved first (one-time manual step).
     # After approval, flathub/io.github.antonio_orionus.Arroxy is created and this job
     # becomes active. continue-on-error keeps the workflow green until then.
+    # TEMPORARILY DISABLED until Flathub submission is ready. Flip `if: false` to remove.
+    if: false
     needs: finalize
     runs-on: ubuntu-latest
     continue-on-error: true

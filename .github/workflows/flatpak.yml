@@ -17,6 +17,8 @@ permissions:
 
 jobs:
   build:
+    # TEMPORARILY DISABLED until Flathub submission is ready. Remove `if: false` to re-enable.
+    if: false
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
