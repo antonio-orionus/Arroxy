@@ -13,6 +13,8 @@ finish-args:
   - --socket=fallback-x11
   - --device=dri
   - --filesystem=xdg-download
+  - --filesystem=xdg-videos
+  - --filesystem=xdg-music
   - --talk-name=org.freedesktop.Notifications
 
 modules:

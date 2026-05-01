@@ -178,16 +178,19 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
   handleRaw(IPC_CHANNELS.settingsGet, async () => {
     try {
       const settings = await settingsStore.get();
+      const isFlatpak = !!process.env.FLATPAK_ID;
       return ok({
         ...settings,
         commonPaths: {
           downloads: safeAppPath('downloads'),
           videos: safeAppPath('videos'),
-          desktop: safeAppPath('desktop'),
           music: safeAppPath('music'),
-          documents: safeAppPath('documents'),
-          pictures: safeAppPath('pictures'),
-          home: safeAppPath('home'),
+          ...(isFlatpak ? {} : {
+            desktop: safeAppPath('desktop'),
+            documents: safeAppPath('documents'),
+            pictures: safeAppPath('pictures'),
+            home: safeAppPath('home'),
+          }),
         }
       });
     } catch (error) {
