@@ -167,10 +167,11 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: arroxy-x86_64.flatpak
+          path: flatpak-artifact
       - name: Upload to release
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          mv arroxy-x86_64.flatpak "Arroxy-${VERSION}.flatpak"
+          find flatpak-artifact -name "*.flatpak" -exec mv {} "Arroxy-${VERSION}.flatpak" \;
           gh release upload "$GITHUB_REF_NAME" "Arroxy-${VERSION}.flatpak"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
