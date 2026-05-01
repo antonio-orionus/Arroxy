@@ -54,6 +54,7 @@ setWizardOutputDir: (dir: string, persist?: boolean) => Promise<void>;
   chooseWizardFolder: () => Promise<void>;
   setWizardSubfolderEnabled: (enabled: boolean) => void;
   setWizardSubfolderName: (name: string) => void;
+  skipSubtitles: () => void;
 }
 
 export interface QueueSlice {

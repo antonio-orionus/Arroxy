@@ -26,6 +26,7 @@ export function StepConfirm(): JSX.Element {
     wizardSubtitleFormat,
     wizardSubtitles,
     wizardAutomaticCaptions,
+    wizardSubtitleSkipped,
     commonPaths,
     wizardSubfolderEnabled,
     wizardSubfolderName,
@@ -33,6 +34,8 @@ export function StepConfirm(): JSX.Element {
     addAndDownloadImmediately,
     back
   } = useAppStore();
+
+  const effectiveSubtitleLanguages = wizardSubtitleSkipped ? [] : wizardSubtitleLanguages;
 
   const audioFormats = wizardFormats.filter((f) => f.isAudioOnly);
   const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, t('wizard.confirm.audioOnly'));
@@ -51,8 +54,8 @@ export function StepConfirm(): JSX.Element {
   const shortPath = formatHomeRelativePath(finalDir, commonPaths);
 
   const subtitlesValue = (() => {
-    if (wizardSubtitleLanguages.length === 0) return t('wizard.confirm.subtitlesNone');
-    const langList = wizardSubtitleLanguages
+    if (effectiveSubtitleLanguages.length === 0) return t('wizard.confirm.subtitlesNone');
+    const langList = effectiveSubtitleLanguages
       .map((code) => resolveSubtitleLabel(code, wizardSubtitles, wizardAutomaticCaptions, i18n.language))
       .join(', ');
     const modeLabel = t(SUBTITLE_MODE_I18N_KEYS[wizardSubtitleMode]);
@@ -68,10 +71,8 @@ export function StepConfirm(): JSX.Element {
     { key: 'size',      label: t('wizard.confirm.labelSize'),      value: estimatedSize },
   ];
 
-  // Nothing-selected guard: subtitle-only preset with zero languages produces an
-  // empty download (no formatId, no subs). Block the action buttons in that case.
   const hasNothingSelected =
-    selectedVideoFormatId === '' && selectedAudioFormatId === null && wizardSubtitleLanguages.length === 0;
+    selectedVideoFormatId === '' && selectedAudioFormatId === null && effectiveSubtitleLanguages.length === 0;
 
   return (
     <div className="wizard-step flex flex-col gap-4" data-testid="step-confirm">
@@ -114,6 +115,12 @@ export function StepConfirm(): JSX.Element {
           </tbody>
         </table>
       </div>
+
+      {hasNothingSelected && (
+        <p className="text-xs text-muted-foreground text-center px-2" data-testid="nothing-to-download-note">
+          {t('wizard.confirm.nothingToDownload')}
+        </p>
+      )}
 
       <div className="flex items-center gap-2 sticky bottom-0 bg-background py-3 -mx-6 px-6 border-t border-border/50">
         <Button

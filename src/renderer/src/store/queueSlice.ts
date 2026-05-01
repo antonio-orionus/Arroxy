@@ -102,12 +102,16 @@ async function persistFormatPrefs(set: SetState, get: GetState): Promise<void> {
 
   const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, 'audio-only');
 
+  // Only persist subtitle prefs when the user actually picked languages this run —
+  // otherwise an empty selection (or a Skip Subs click) would wipe the saved list.
   const patch = {
     lastVideoResolution: videoResolution,
     lastPreset: activePreset,
-    lastSubtitleLanguages: wizardSubtitleLanguages,
-    lastSubtitleMode: get().wizardSubtitleMode,
-    lastSubtitleFormat: get().wizardSubtitleFormat,
+    ...(wizardSubtitleLanguages.length > 0 ? {
+      lastSubtitleLanguages: wizardSubtitleLanguages,
+      lastSubtitleMode: get().wizardSubtitleMode,
+      lastSubtitleFormat: get().wizardSubtitleFormat,
+    } : {}),
     lastSubfolderEnabled: get().wizardSubfolderEnabled,
     lastSubfolder: get().wizardSubfolderName.trim()
   };

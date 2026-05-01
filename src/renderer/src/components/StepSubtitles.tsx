@@ -5,6 +5,7 @@ import { useAppStore } from '../store/useAppStore';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 import { RadioOption } from './ui/radio-option';
+import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
 import { MascotBubble } from './MascotBubble';
 import { buildSubtitleList, SUBTITLE_MODE_I18N_KEYS } from '../lib/subtitleLabel';
 import loveImg from '../assets/Love.png';
@@ -22,7 +23,8 @@ export function StepSubtitles(): JSX.Element {
     setSubtitleMode,
     setSubtitleFormat,
     advance,
-    back
+    back,
+    skipSubtitles
   } = useAppStore();
 
   const [query, setQuery] = useState('');
@@ -39,7 +41,7 @@ export function StepSubtitles(): JSX.Element {
   const hasAutoSelected = wizardSubtitleLanguages.some(
     (code) => allLangs.find((l) => l.code === code)?.isAuto
   );
-  const showAutoAssNote = hasAutoSelected && wizardSubtitleFormat === 'ass';
+  const showAutoAssNote = hasAutoSelected && wizardSubtitleFormat === 'ass' && wizardSubtitleMode !== 'embed';
 
   const q = query.trim().toLowerCase();
   const manualLangs = allLangs.filter((l) => !l.isAuto && (!q || l.displayName.toLowerCase().includes(q)));
@@ -59,7 +61,8 @@ export function StepSubtitles(): JSX.Element {
 
   return (
     <div className="wizard-step flex flex-col gap-1.5" data-testid="step-subtitles">
-      {/* ── Save as / Format ────────────────────────────── */}
+      {/* ── Save as / Format — only relevant when subs exist ─ */}
+      {hasLangs && (
       <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2.5 items-center -mx-1">
         <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">
           {t('wizard.subtitles.saveMode.heading')}
@@ -119,8 +122,9 @@ export function StepSubtitles(): JSX.Element {
           </>
         )}
       </div>
+      )}
 
-      <Separator className="bg-border/50 -mx-6 w-auto my-1.5" />
+      {hasLangs && <Separator className="bg-border/50 -mx-6 w-auto my-1.5" />}
 
       {/* ── Languages ───────────────────────────────────── */}
       {!hasLangs ? (
@@ -226,7 +230,7 @@ export function StepSubtitles(): JSX.Element {
         ) : (
           <span />
         )}
-        <div className="flex gap-2 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           <Button
             variant="ghost"
             type="button"
@@ -235,9 +239,37 @@ export function StepSubtitles(): JSX.Element {
           >
             {t('common.back')}
           </Button>
-          <Button type="button" onClick={advance} className="shadow-[0_4px_14px_var(--brand-glow)]">
-            {hasLangs ? t('common.continue') : t('wizard.subtitles.skip')}
-          </Button>
+          {selectedCount > 0 ? (
+            <>
+              <Button
+                variant="ghost"
+                type="button"
+                onClick={skipSubtitles}
+                className="border-[1.5px] border-[var(--border-strong)] text-foreground hover:bg-accent/60"
+              >
+                {t('wizard.subtitles.skipSubs')}
+              </Button>
+              <Tooltip>
+                <TooltipTrigger render={(props) => (
+                  <Button
+                    {...props}
+                    type="button"
+                    onClick={advance}
+                    className="shadow-[0_4px_14px_var(--brand-glow)]"
+                  >
+                    {t('common.continue')}
+                  </Button>
+                )} />
+                <TooltipContent data-testid="subtitle-selected-tooltip">
+                  {t('wizard.subtitles.selectedNote', { count: selectedCount })}
+                </TooltipContent>
+              </Tooltip>
+            </>
+          ) : (
+            <Button type="button" onClick={skipSubtitles} className="shadow-[0_4px_14px_var(--brand-glow)]">
+              {hasLangs ? t('wizard.subtitles.skipSubs') : t('wizard.subtitles.skip')}
+            </Button>
+          )}
         </div>
       </div>
     </div>

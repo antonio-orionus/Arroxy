@@ -644,7 +644,7 @@ describe('StepFormatSelect — subtitle-only preset disables format columns', ()
 });
 
 describe('StepConfirm — subtitle-only safeguards', () => {
-  function renderConfirmSubtitleOnly(languages: string[]) {
+  function renderConfirmSubtitleOnly(languages: string[], skipped = false) {
     window.appApi = buildMockApi() as never;
     useAppStore.setState({
       wizardStep: 'confirm',
@@ -659,6 +659,7 @@ describe('StepConfirm — subtitle-only safeguards', () => {
       wizardSubtitles: PROBE_RESULT.subtitles,
       wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
       wizardSubtitleLanguages: languages,
+      wizardSubtitleSkipped: skipped,
       wizardSubtitleMode: 'sidecar',
       wizardSubtitleFormat: 'srt',
     });
@@ -679,5 +680,20 @@ describe('StepConfirm — subtitle-only safeguards', () => {
     const queue = screen.getByTestId('btn-add-to-queue') as HTMLButtonElement;
     expect(download.disabled).toBe(false);
     expect(queue.disabled).toBe(false);
+  });
+
+  it('disables download buttons when subtitle-only with languages but subtitles were skipped', () => {
+    // skipSubtitles() sets wizardSubtitleSkipped=true without clearing wizardSubtitleLanguages.
+    // The effective languages are [] so there is nothing to download.
+    renderConfirmSubtitleOnly(['en'], true);
+    const download = screen.getByTestId('btn-download-now') as HTMLButtonElement;
+    const queue = screen.getByTestId('btn-add-to-queue') as HTMLButtonElement;
+    expect(download.disabled).toBe(true);
+    expect(queue.disabled).toBe(true);
+  });
+
+  it('shows — for subtitles row when languages were skipped', () => {
+    renderConfirmSubtitleOnly(['en'], true);
+    expect(screen.getByTestId('confirm-subtitles').textContent).toBe('—');
   });
 });

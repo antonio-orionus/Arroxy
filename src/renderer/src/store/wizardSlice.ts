@@ -59,18 +59,7 @@ function restoreSubtitleSelection(
   return { languages };
 }
 
-const NEXT_STEP: Partial<Record<WizardStep, WizardStep>> = {
-  formats: 'subtitles',
-  subtitles: 'folder',
-  folder: 'confirm',
-};
-
-const PREV_STEP: Partial<Record<WizardStep, WizardStep>> = {
-  formats: 'url',
-  subtitles: 'formats',
-  folder: 'formats',
-  confirm: 'folder',
-};
+const STEPS: WizardStep[] = ['url', 'formats', 'subtitles', 'folder', 'confirm'];
 
 const RESET_STATE = {
   wizardStep: 'url' as WizardStep,
@@ -137,13 +126,13 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
     },
 
     advance: () => {
-      const next = NEXT_STEP[get().wizardStep];
-      if (next) set({ wizardStep: next });
+      const i = STEPS.indexOf(get().wizardStep);
+      if (i < STEPS.length - 1) set({ wizardStep: STEPS[i + 1] });
     },
 
     back: () => {
-      const prev = PREV_STEP[get().wizardStep];
-      if (prev) set({ wizardStep: prev });
+      const i = STEPS.indexOf(get().wizardStep);
+      if (i > 0) set({ wizardStep: STEPS[i - 1] });
     },
 
     reset: () => set(RESET_STATE),
@@ -188,5 +177,10 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
 
     setWizardSubfolderEnabled: (enabled) => set({ wizardSubfolderEnabled: enabled }),
     setWizardSubfolderName: (name) => set({ wizardSubfolderName: name }),
+
+    skipSubtitles: () => {
+      const i = STEPS.indexOf(get().wizardStep);
+      if (i < STEPS.length - 1) set({ wizardSubtitleLanguages: [], wizardStep: STEPS[i + 1] });
+    },
   };
 }
