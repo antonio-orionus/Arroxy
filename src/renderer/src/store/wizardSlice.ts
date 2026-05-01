@@ -59,7 +59,8 @@ function restoreSubtitleSelection(
   return { languages };
 }
 
-export const STEPS: WizardStep[] = ['url', 'formats', 'subtitles', 'sponsorblock', 'folder', 'confirm'];
+export type VisibleStep = Exclude<WizardStep, 'error'>;
+export const STEPS: VisibleStep[] = ['url', 'formats', 'subtitles', 'sponsorblock', 'folder', 'confirm'];
 
 // Presets that don't download video — SponsorBlock is not applicable.
 export const NO_VIDEO_PRESETS = new Set<string>(['audio-only', 'subtitle-only']);
@@ -136,7 +137,7 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
 
     advance: () => {
       const { wizardStep, activePreset } = get();
-      const i = STEPS.indexOf(wizardStep);
+      const i = STEPS.indexOf(wizardStep as VisibleStep);
       if (i < 0 || i >= STEPS.length - 1) return;
       const next = STEPS[i + 1];
       // Skip the sponsorblock step for presets that don't produce a video
@@ -149,7 +150,7 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
 
     back: () => {
       const { wizardStep, activePreset } = get();
-      const i = STEPS.indexOf(wizardStep);
+      const i = STEPS.indexOf(wizardStep as VisibleStep);
       if (i <= 0) return;
       const prev = STEPS[i - 1];
       // Skip the sponsorblock step for presets that don't produce a video
@@ -204,7 +205,7 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
 
     skipSubtitles: () => {
       const { wizardStep, activePreset } = get();
-      const i = STEPS.indexOf(wizardStep);
+      const i = STEPS.indexOf(wizardStep as VisibleStep);
       if (i < STEPS.length - 1) {
         const next = STEPS[i + 1];
         // Skip sponsorblock too when on a no-video preset
