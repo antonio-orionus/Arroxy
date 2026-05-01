@@ -166,11 +166,11 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: arroxy.flatpak
+          name: arroxy-x86_64.flatpak
       - name: Upload to release
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          mv arroxy.flatpak "Arroxy-${VERSION}.flatpak"
+          mv arroxy-x86_64.flatpak "Arroxy-${VERSION}.flatpak"
           gh release upload "$GITHUB_REF_NAME" "Arroxy-${VERSION}.flatpak"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
