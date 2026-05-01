@@ -93,11 +93,6 @@ export interface SystemSlice {
   settings: AppSettings | null;
   language: SupportedLang;
   commonPaths: AppSettings['commonPaths'];
-  // Unbind handles for IPC event listeners — populated during initialize() so
-  // a future teardown (or re-init) can detach old listeners cleanly.
-  _unbindStatus: (() => void) | null;
-  _unbindProgress: (() => void) | null;
-
   initialize: () => Promise<void>;
   openLogs: () => Promise<void>;
   setLanguage: (lang: SupportedLang) => void;

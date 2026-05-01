@@ -6,6 +6,9 @@ import { nextMonotonicPercent, ProgressFormatter } from './progress';
 import { progressFormatters, maybeStartNext, saveQueue, updateQueueItem } from './queueSlice';
 import type { GetState, SetState, SystemSlice } from './types';
 
+let unbindStatus: (() => void) | null = null;
+let unbindProgress: (() => void) | null = null;
+
 export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
   return {
     initialized: false,
@@ -14,18 +17,16 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
     settings: null,
     language: pickLanguage(navigator.language),
     commonPaths: undefined,
-    _unbindStatus: null,
-    _unbindProgress: null,
 
     initialize: async () => {
       if (get().initialized || get().initializing) return;
       set({ initializing: true });
 
       // Detach any prior bindings (defense for a future re-init flow).
-      get()._unbindStatus?.();
-      get()._unbindProgress?.();
+      unbindStatus?.();
+      unbindProgress?.();
 
-      const unbindStatus = window.appApi.events.onStatus((event) => {
+      unbindStatus = window.appApi.events.onStatus((event) => {
         const item = get().queue.find((i) => i.downloadJobId === event.jobId);
         if (!item) return;
 
@@ -71,7 +72,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
         }
       });
 
-      const unbindProgress = window.appApi.events.onProgress((event) => {
+      unbindProgress = window.appApi.events.onProgress((event) => {
         const item = get().queue.find((i) => i.downloadJobId === event.jobId);
         if (!item) return;
 
@@ -86,8 +87,6 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
           ...(detail !== null ? { progressDetail: detail } : {})
         });
       });
-
-      set({ _unbindStatus: unbindStatus, _unbindProgress: unbindProgress });
 
       const settingsPromise = window.appApi.settings.get();
       const warmUpPromise = window.appApi.app.warmUp();
