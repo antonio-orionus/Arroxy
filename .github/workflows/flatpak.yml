@@ -1,4 +1,4 @@
-name: Flatpak
+name: Flatpak Bundle
 
 on:
   push:
@@ -17,24 +17,77 @@ permissions:
 
 jobs:
   build:
+    # This workflow is for validation and ad-hoc Flatpak builds.
+    # It renders the manifest from the latest published GitHub release tarball.
+    # Tagged GitHub releases upload the Flatpak asset from release.yml.
+    # Nothing here publishes to Flathub.
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
       options: --privileged
     steps:
       - uses: actions/checkout@v4
-      - name: Check manifest readiness
-        id: check
-        shell: bash
+      - name: Resolve latest release tarball
+        id: resolve
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          if grep -q "sha256: 0000000000000000000000000000000000000000000000000000000000000000" flatpak/io.github.antonio_orionus.Arroxy.yml; then
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "::notice::Manifest still has placeholder sha256 — skipping build. The release pipeline will auto-patch this after the first tag push."
-          else
-            echo "skip=false" >> "$GITHUB_OUTPUT"
-          fi
+          python3 - <<'EOF'
+          import json
+          import os
+          import urllib.request
+
+          repo = "antonio-orionus/Arroxy"
+          token = os.environ.get("GITHUB_TOKEN")
+          headers = {"Accept": "application/vnd.github+json"}
+          if token:
+              headers["Authorization"] = f"Bearer {token}"
+
+          latest_req = urllib.request.Request(
+              f"https://api.github.com/repos/{repo}/releases/latest",
+              headers=headers,
+          )
+          with urllib.request.urlopen(latest_req) as response:
+              release = json.load(response)
+
+          tag = release["tag_name"]
+          version = tag[1:] if tag.startswith("v") else tag
+          checksums_asset = next(
+              (asset for asset in release["assets"] if asset["name"] == "SHA256SUMS"),
+              None,
+          )
+          if checksums_asset is None:
+              raise SystemExit("::error::Latest release does not include SHA256SUMS")
+
+          checksum_req = urllib.request.Request(
+              checksums_asset["browser_download_url"],
+              headers=headers,
+          )
+          with urllib.request.urlopen(checksum_req) as response:
+              checksums = response.read().decode("utf-8")
+
+          target = f"Arroxy-{version}.tar.gz"
+          hash_value = None
+          for line in checksums.splitlines():
+              if target in line:
+                  hash_value = line.split()[0]
+                  break
+          if hash_value is None:
+              raise SystemExit(f"::error::Could not find {target} in SHA256SUMS")
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"version={version}\n")
+              output.write(f"sha256={hash_value}\n")
+          EOF
+      - name: Render temporary manifest
+        run: |
+          python3 scripts/render-flatpak-manifest.py \
+            --version "${{ steps.resolve.outputs.version }}" \
+            --sha256 "${{ steps.resolve.outputs.sha256 }}" \
+            --template flatpak/io.github.antonio_orionus.Arroxy.yml.in \
+            --output flatpak/io.github.antonio_orionus.Arroxy.yml
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
-        if: steps.check.outputs.skip != 'true'
+        id: build
         with:
           bundle: arroxy.flatpak
           manifest-path: flatpak/io.github.antonio_orionus.Arroxy.yml

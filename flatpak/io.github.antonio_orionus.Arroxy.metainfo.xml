@@ -82,7 +82,7 @@
   <releases>
     <release version="0.2.5" date="2026-04-28">
       <description>
-        <p>Initial Flathub release. Download YouTube videos, audio, and subtitles with a wizard UI.</p>
+        <p>Initial Flatpak bundle release. Download YouTube videos, audio, and subtitles with a wizard UI.</p>
       </description>
     </release>
   </releases>

@@ -11,11 +11,25 @@ permissions:
   contents: write
 
 jobs:
+  verify-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure tag matches package version
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if [ "$TAG_VERSION" != "$PACKAGE_VERSION" ]; then
+            echo "::error::Tag version ($TAG_VERSION) does not match package.json version ($PACKAGE_VERSION)."
+            exit 1
+          fi
+          echo "Releasing version $PACKAGE_VERSION"
 
   build:
     # Windows is built separately by the Windows Installer workflow
     # (.github/workflows/installer-smoke.yml) so it can be smoke-tested
     # before publish. mac/linux still build + publish here via dist:release.
+    needs: verify-version
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
@@ -78,7 +92,7 @@ jobs:
             --pattern "*.AppImage" \
             --pattern "*.tar.gz"
           sha256sum artifacts/* > SHA256SUMS
-          gh release upload ${{ github.ref_name }} SHA256SUMS
+          gh release upload ${{ github.ref_name }} SHA256SUMS --clobber
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish release
@@ -86,25 +100,22 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.WINGET_TOKEN }}
 
-  update-flatpak-manifest:
-    # Patches the local flatpak/ manifest with the new release URL + sha256 and pushes
-    # to main. Runs against our own repo only — no dependency on Flathub being ready.
-    # Keeps the local manifest current so the initial Flathub PR (and every subsequent
-    # release) doesn't need a manual SHA edit.
+  build-flatpak:
+    # Build a Flatpak bundle for the GitHub Release only.
+    # This does not publish to Flathub or commit manifest changes back to main.
     needs: finalize
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
+      options: --privileged
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
-          token: ${{ secrets.WINGET_TOKEN }}
-      - name: Download SHA256SUMS
-        run: gh release download ${{ github.ref_name }} --repo ${{ github.repository }} --pattern SHA256SUMS
-        env:
-          GH_TOKEN: ${{ secrets.WINGET_TOKEN }}
-      - name: Patch manifest
+      - name: Render manifest for this release
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
+          curl -L --fail \
+            "https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/SHA256SUMS" \
+            -o SHA256SUMS
           TARBALL="Arroxy-${VERSION}.tar.gz"
           HASH=$(grep "$TARBALL" SHA256SUMS | awk '{print $1}')
           if [ -z "$HASH" ]; then
@@ -112,48 +123,12 @@ jobs:
             cat SHA256SUMS
             exit 1
           fi
-          python3 - "$VERSION" "$HASH" <<'EOF'
-          import re, sys
-          VERSION, HASH = sys.argv[1], sys.argv[2]
-          URL = f"https://github.com/antonio-orionus/Arroxy/releases/download/v{VERSION}/Arroxy-{VERSION}.tar.gz"
-          with open("flatpak/io.github.antonio_orionus.Arroxy.yml") as f:
-              content = f.read()
-          content = re.sub(
-              r"url: https://github\.com/antonio-orionus/Arroxy/releases/download/v[\d.]+/Arroxy-[\d.]+\.tar\.gz",
-              f"url: {URL}",
-              content,
-          )
-          content = re.sub(
-              r"(url: https://github\.com/antonio-orionus/Arroxy/releases/download/v[\d.]+/Arroxy-[\d.]+\.tar\.gz\n        sha256: )[a-f0-9]{64}",
-              rf"\g<1>{HASH}",
-              content,
-          )
-          with open("flatpak/io.github.antonio_orionus.Arroxy.yml", "w") as f:
-              f.write(content)
-          EOF
+          python3 scripts/render-flatpak-manifest.py \
+            --version "$VERSION" \
+            --sha256 "$HASH" \
+            --template flatpak/io.github.antonio_orionus.Arroxy.yml.in \
+            --output flatpak/io.github.antonio_orionus.Arroxy.yml
           rm SHA256SUMS
-      - name: Commit & push
-        run: |
-          git config user.name "arroxy-release-bot"
-          git config user.email "release@arroxy.local"
-          if git diff --quiet flatpak/io.github.antonio_orionus.Arroxy.yml; then
-            echo "Manifest already up to date"
-            exit 0
-          fi
-          git add flatpak/io.github.antonio_orionus.Arroxy.yml
-          git commit -m "chore: bump flatpak manifest to ${GITHUB_REF_NAME#v}"
-          git push origin main
-
-  build-flatpak:
-    needs: update-flatpak-manifest
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
-      options: --privileged
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: arroxy.flatpak
@@ -171,8 +146,14 @@ jobs:
       - name: Upload to release
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          find flatpak-artifact -name "*.flatpak" -exec mv {} "Arroxy-${VERSION}.flatpak" \;
-          gh release upload "$GITHUB_REF_NAME" "Arroxy-${VERSION}.flatpak"
+          FILE=$(find flatpak-artifact -name "*.flatpak" -print -quit)
+          if [ -z "$FILE" ]; then
+            echo "::error::Could not find built .flatpak artifact"
+            find flatpak-artifact -maxdepth 3 -type f
+            exit 1
+          fi
+          mv "$FILE" "Arroxy-${VERSION}.flatpak"
+          gh release upload "$GITHUB_REF_NAME" "Arroxy-${VERSION}.flatpak" --clobber
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -212,63 +193,6 @@ jobs:
           git config user.name "arroxy-release-bot"
           git config user.email "release@arroxy.local"
           git add bucket/arroxy.json
-          git commit -m "arroxy: bump to ${GITHUB_REF_NAME#v}"
-          git push
-
-  publish-flatpak:
-    # Requires initial Flathub submission to be approved first (one-time manual step).
-    # After approval, flathub/io.github.antonio_orionus.Arroxy is created and this job
-    # becomes active. continue-on-error keeps the workflow green until then.
-    # TEMPORARILY DISABLED until Flathub submission is ready. Flip `if: false` to remove.
-    if: false
-    needs: finalize
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - name: Checkout Flathub manifest
-        uses: actions/checkout@v4
-        with:
-          repository: flathub/io.github.antonio_orionus.Arroxy
-          token: ${{ secrets.WINGET_TOKEN }}
-      - name: Download SHA256SUMS
-        run: gh release download ${{ github.ref_name }} --repo ${{ github.repository }} --pattern SHA256SUMS
-        env:
-          GH_TOKEN: ${{ secrets.WINGET_TOKEN }}
-      - name: Update manifest
-        run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          TARBALL="Arroxy-${VERSION}.tar.gz"
-          HASH=$(grep "$TARBALL" SHA256SUMS | awk '{print $1}')
-          if [ -z "$HASH" ]; then
-            echo "::error::Could not find $TARBALL in SHA256SUMS"
-            cat SHA256SUMS
-            exit 1
-          fi
-          python3 - "$VERSION" "$HASH" <<'EOF'
-          import re, sys
-          VERSION, HASH = sys.argv[1], sys.argv[2]
-          TARBALL = f"Arroxy-{VERSION}.tar.gz"
-          URL = f"https://github.com/antonio-orionus/Arroxy/releases/download/v{VERSION}/{TARBALL}"
-          with open("io.github.antonio_orionus.Arroxy.yml") as f:
-              content = f.read()
-          content = re.sub(
-              r"url: https://github\.com/antonio-orionus/Arroxy/releases/download/v[\d.]+/Arroxy-[\d.]+\.tar\.gz",
-              f"url: {URL}",
-              content,
-          )
-          content = re.sub(
-              r"(url: https://github\.com/antonio-orionus/Arroxy/releases/download/v[\d.]+/Arroxy-[\d.]+\.tar\.gz\n        sha256: )[a-f0-9]{64}",
-              rf"\g<1>{HASH}",
-              content,
-          )
-          with open("io.github.antonio_orionus.Arroxy.yml", "w") as f:
-              f.write(content)
-          EOF
-      - name: Commit & push
-        run: |
-          git config user.name "arroxy-release-bot"
-          git config user.email "release@arroxy.local"
-          git add io.github.antonio_orionus.Arroxy.yml
           git commit -m "arroxy: bump to ${GITHUB_REF_NAME#v}"
           git push
 

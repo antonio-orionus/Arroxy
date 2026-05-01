@@ -30,10 +30,8 @@ modules:
       - cp -r * ${FLATPAK_DEST}
     sources:
       - type: archive
-        # sha256 filled in by publish-flatpak CI job on each release.
-        # For initial Flathub submission, build a release locally and patch this manually.
-        url: https://github.com/antonio-orionus/Arroxy/releases/download/v0.2.7/Arroxy-0.2.7.tar.gz
-        sha256: e0cd8a2851b15d67d8436d41ab6dfb7d00c01635b85334973bfdbade4e904370
+        url: __ARCHIVE_URL__
+        sha256: __ARCHIVE_SHA256__
         only-arches:
           - x86_64
         x-checker-data:
@@ -52,5 +50,4 @@ modules:
         path: icons
         dest: icons
       - type: file
-        url: https://raw.githubusercontent.com/antonio-orionus/Arroxy/v0.2.5/LICENSE
-        sha256: 1698c847ca016fb30acb7c66340322aafe4772514ed7069a2e42e92724e3e061
+        path: ../LICENSE

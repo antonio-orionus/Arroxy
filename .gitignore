@@ -37,5 +37,7 @@ CLAUDE.md
 flatpak/.flatpak-builder/
 flatpak/builddir/
 flatpak/repo/
+flatpak/flathub.json
+flatpak/io.github.antonio_orionus.Arroxy.yml
 .flatpak-builder/
 build-dir/
