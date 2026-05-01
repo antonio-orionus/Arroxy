@@ -1,21 +1,26 @@
 import { useEffect, useRef, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../store/useAppStore';
+import { STEPS, NO_VIDEO_PRESETS } from '../store/wizardSlice';
 import { StepUrlInput } from './StepUrlInput';
 import { StepFormatSelect } from './StepFormatSelect';
 import { StepFolderConfirm } from './StepFolderConfirm';
 import { StepConfirm } from './StepConfirm';
 import { StepSubtitles } from './StepSubtitles';
+import { StepSponsorBlock } from './StepSponsorBlock';
 import { StepError } from './StepError';
 import { cn } from '@renderer/lib/utils';
-
-const STEP_KEYS = ['url', 'formats', 'subtitles', 'folder', 'confirm'] as const;
-type StepKey = (typeof STEP_KEYS)[number];
 
 export function WizardPanel(): JSX.Element {
   const { t } = useTranslation();
   const wizardStep = useAppStore((s) => s.wizardStep);
-  const activeIndex = STEP_KEYS.indexOf(wizardStep as StepKey);
+  const activePreset = useAppStore((s) => s.activePreset);
+
+  const visibleSteps = STEPS.filter(
+    (step) => step !== 'sponsorblock' || !activePreset || !NO_VIDEO_PRESETS.has(activePreset)
+  );
+
+  const activeIndex = visibleSteps.indexOf(wizardStep as (typeof STEPS)[number]);
 
   const prevIndexRef = useRef(activeIndex);
   // eslint-disable-next-line react-hooks/refs -- previous-value ref pattern; only safe because it's never written during render
@@ -32,7 +37,7 @@ export function WizardPanel(): JSX.Element {
     >
       {wizardStep !== 'error' && (
         <div className="flex items-center mb-4" aria-hidden data-testid="step-indicator">
-          {STEP_KEYS.map((stepKey, i) => {
+          {visibleSteps.map((stepKey, i) => {
             const isDone = i < activeIndex;
             const isActive = i === activeIndex;
             return (
@@ -65,7 +70,7 @@ export function WizardPanel(): JSX.Element {
                     {t(`wizard.steps.${stepKey}` as const)}
                   </span>
                 </div>
-                {i < STEP_KEYS.length - 1 && (
+                {i < visibleSteps.length - 1 && (
                   <div
                     className={cn(
                       'h-[2px] flex-1 mb-4 mx-1 transition-all duration-500 rounded-full',
@@ -83,6 +88,7 @@ export function WizardPanel(): JSX.Element {
       {wizardStep === 'url' && <StepUrlInput />}
       {wizardStep === 'formats' && <StepFormatSelect />}
       {wizardStep === 'subtitles' && <StepSubtitles />}
+      {wizardStep === 'sponsorblock' && <StepSponsorBlock />}
       {wizardStep === 'folder' && <StepFolderConfirm />}
       {wizardStep === 'confirm' && <StepConfirm />}
       {wizardStep === 'error' && <StepError />}

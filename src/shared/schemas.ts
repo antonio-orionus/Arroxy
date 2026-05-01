@@ -16,6 +16,16 @@ export const subtitleFormatSchema = z.enum(['srt', 'vtt', 'ass']);
 export type SubtitleFormat = z.infer<typeof subtitleFormatSchema>;
 export const SUBTITLE_FORMATS = subtitleFormatSchema.options;
 
+export const sponsorBlockModeSchema = z.enum(['off', 'mark', 'remove']);
+export type SponsorBlockMode = z.infer<typeof sponsorBlockModeSchema>;
+export const SPONSORBLOCK_MODES = sponsorBlockModeSchema.options;
+
+export const sponsorBlockCategorySchema = z.enum([
+  'sponsor', 'intro', 'outro', 'selfpromo', 'music_offtopic', 'preview', 'filler'
+]);
+export type SponsorBlockCategory = z.infer<typeof sponsorBlockCategorySchema>;
+export const SPONSORBLOCK_CATEGORIES = sponsorBlockCategorySchema.options;
+
 export const supportedLangSchema = z.enum(['en', 'es', 'fr', 'de', 'ru', 'uk', 'ja', 'zh', 'hi']);
 export type SupportedLang = z.infer<typeof supportedLangSchema>;
 export const SUPPORTED_LANGS = supportedLangSchema.options;
@@ -127,7 +137,9 @@ export const startDownloadSchema = z.object({
     .optional(),
   writeAutoSubs: z.boolean().optional(),
   subtitleMode: subtitleModeSchema.optional(),
-  subtitleFormat: subtitleFormatSchema.optional()
+  subtitleFormat: subtitleFormatSchema.optional(),
+  sponsorBlockMode: sponsorBlockModeSchema.optional(),
+  sponsorBlockCategories: z.array(sponsorBlockCategorySchema).max(7).optional()
 });
 
 export const cancelDownloadSchema = z.object({
@@ -153,6 +165,8 @@ export const updateSettingsSchema = z.object({
   lastSubtitleLanguages: z.array(z.string()).optional(),
   lastSubtitleMode: subtitleModeSchema.optional(),
   lastSubtitleFormat: subtitleFormatSchema.optional(),
+  lastSponsorBlockMode: sponsorBlockModeSchema.optional(),
+  lastSponsorBlockCategories: z.array(sponsorBlockCategorySchema).optional(),
   lastSubfolderEnabled: z.boolean().optional(),
   lastSubfolder: z
     .string()
@@ -195,7 +209,9 @@ export const queueItemSchema = z.object({
   subtitleLanguages: z.array(z.string()),
   writeAutoSubs: z.boolean(),
   subtitleMode: subtitleModeSchema,
-  subtitleFormat: subtitleFormatSchema
+  subtitleFormat: subtitleFormatSchema,
+  sponsorBlockMode: sponsorBlockModeSchema,
+  sponsorBlockCategories: z.array(sponsorBlockCategorySchema)
 });
 
 export const queueArraySchema = z.array(queueItemSchema);

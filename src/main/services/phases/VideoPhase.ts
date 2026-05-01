@@ -9,6 +9,10 @@ export function VideoPhase(embed: boolean): Phase {
       const { active, ytDlp } = ctx;
       const { input } = active;
 
+      const sbConfig = input.sponsorBlockMode && input.sponsorBlockMode !== 'off' && input.sponsorBlockCategories?.length
+        ? { mode: input.sponsorBlockMode as Exclude<typeof input.sponsorBlockMode, 'off'>, categories: input.sponsorBlockCategories }
+        : undefined;
+
       const req: YtDlpRequest = embed && (input.subtitleLanguages?.length ?? 0) > 0
         ? {
             kind: 'video+embed',
@@ -17,12 +21,14 @@ export function VideoPhase(embed: boolean): Phase {
             formatId: input.formatId,
             subtitleLanguages: input.subtitleLanguages!,
             writeAutoSubs: input.writeAutoSubs,
+            sponsorBlock: sbConfig,
           }
         : {
             kind: 'video',
             url: input.url,
             outputDir: input.outputDir!,
             formatId: input.formatId,
+            sponsorBlock: sbConfig,
           };
 
       const result = await ytDlp.run(req, {

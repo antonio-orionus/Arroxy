@@ -39,6 +39,7 @@ const ja = {
       url: 'URL',
       formats: '形式',
       subtitles: '字幕',
+      sponsorblock: 'SponsorBlock',
       folder: '保存先',
       confirm: '確認'
     },
@@ -94,6 +95,29 @@ const ja = {
       },
       embedNote: '埋め込みモードでは、字幕トラックを確実に埋め込むため出力は .mkv で保存されます。',
       autoAssNote: '自動字幕は ASS ではなく SRT として保存されます — YouTube のローリング・キュー重複を常にクリーンアップしますが、現状 ASS コンバーターではこれを再現できません。'
+    },
+    sponsorblock: {
+      modeHeading: 'スポンサーフィルター',
+      mode: {
+        off: 'オフ',
+        mark: 'チャプターとしてマーク',
+        remove: 'セグメントを削除'
+      },
+      modeHint: {
+        off: 'SponsorBlockなし — 動画はアップロードされた通りに再生されます。',
+        mark: 'スポンサーセグメントをチャプターとしてマークします（非破壊的）。',
+        remove: 'FFmpegを使用してスポンサーセグメントを削除します。'
+      },
+      categoriesHeading: 'カテゴリ',
+      cat: {
+        sponsor: 'スポンサー',
+        intro: 'イントロ',
+        outro: 'アウトロ',
+        selfpromo: '自己宣伝',
+        music_offtopic: '音楽（無関係）',
+        preview: 'プレビュー',
+        filler: 'フィラー'
+      }
     },
     formats: {
       quickPresets: 'クイックプリセット',

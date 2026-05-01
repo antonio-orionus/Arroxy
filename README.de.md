@@ -57,6 +57,7 @@ Arroxy ist eine **kostenlose, quelloffene und datenschutzorientierte** Desktop-A
 - **Ein Klick zum Download** — Echtzeit-Fortschrittsanzeige, jederzeit abbrechbar
 - **Mehrere Videos in der Warteschlange** — das Download-Panel verfolgt alles parallel
 - **Untertitel herunterladen** — manuelle oder automatisch generierte Untertitel in SRT, VTT oder ASS, in jeder verfügbaren Sprache. Speichere sie neben dem Video, bette sie in eine portable `.mkv` ein, oder ordne sie in einem dedizierten `Subtitles/`-Unterordner
+- **SponsorBlock-Integration** — überspringe oder markiere Sponsor-Segmente, Intros, Outros, Eigenwerbung und mehr. Markiere Segmente als Kapitel (nicht-destruktiv) oder schneide sie mit FFmpeg komplett heraus — deine Wahl, pro Kategorie
 - **In 9 Sprachen verfügbar** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — erkennt deine Systemsprache automatisch, jederzeit umschaltbar
 
 <div align="center">

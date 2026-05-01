@@ -39,6 +39,7 @@ const en = {
       url: 'URL',
       formats: 'Format',
       subtitles: 'Subtitles',
+      sponsorblock: 'SponsorBlock',
       folder: 'Save',
       confirm: 'Confirm'
     },
@@ -94,6 +95,29 @@ const en = {
       },
       embedNote: 'Embed mode saves output as .mkv so subtitle tracks embed reliably.',
       autoAssNote: 'Auto-captions will be saved as SRT instead of ASS — they\'re always cleaned of YouTube\'s rolling-cue duplication, which our ASS converter can\'t replicate yet.'
+    },
+    sponsorblock: {
+      modeHeading: 'Sponsor filtering',
+      mode: {
+        off: 'Off',
+        mark: 'Mark as chapters',
+        remove: 'Remove segments'
+      },
+      modeHint: {
+        off: 'No SponsorBlock — video plays as uploaded.',
+        mark: 'Marks sponsor segments as chapters (non-destructive).',
+        remove: 'Cuts sponsor segments from the video using FFmpeg.'
+      },
+      categoriesHeading: 'Categories',
+      cat: {
+        sponsor: 'Sponsor',
+        intro: 'Intro',
+        outro: 'Outro',
+        selfpromo: 'Self-promo',
+        music_offtopic: 'Music off-topic',
+        preview: 'Preview',
+        filler: 'Filler'
+      }
     },
     formats: {
       quickPresets: 'Quick presets',

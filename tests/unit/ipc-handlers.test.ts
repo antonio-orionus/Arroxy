@@ -228,7 +228,8 @@ describe('registerIpcHandlers', () => {
         progressPercent: 100, progressDetail: null, lastStatus: null,
         error: null, finishedAt: null, downloadJobId: null,
         subtitleLanguages: [], writeAutoSubs: false,
-        subtitleMode: 'sidecar', subtitleFormat: 'srt'
+        subtitleMode: 'sidecar', subtitleFormat: 'srt',
+        sponsorBlockMode: 'off', sponsorBlockCategories: []
       };
       const result = await handler(null, [validItem]) as { ok: boolean };
       expect(result.ok).toBe(true);

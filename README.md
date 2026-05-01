@@ -68,6 +68,7 @@ Arroxy is a **free, open-source, privacy-first** desktop app — built for peopl
 - **One click to download** — real-time progress bar, cancel any time
 - **Queue multiple videos** — download panel tracks everything at once
 - **Download subtitles** — fetch manual or auto-generated captions in SRT, VTT, or ASS, in any available language. Save them next to the video, embed them into a portable `.mkv`, or organize them into a dedicated `Subtitles/` subfolder
+- **SponsorBlock integration** — skip or mark sponsor segments, intros, outros, self-promos, and more. Mark segments as chapters (non-destructive) or cut them out entirely with FFmpeg — your choice, per category
 - **Available in 9 languages** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — auto-detects your system language, switchable any time
 
 <div align="center">

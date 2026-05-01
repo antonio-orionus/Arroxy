@@ -49,6 +49,8 @@ export const en = {
   f6_p: "Native builds for Windows, macOS, and Linux — installer, portable, DMG, or AppImage.",
   f7_h: "Subtitles, your way",
   f7_p: "Manual or auto-generated captions in SRT, VTT, or ASS — saved beside the video, embedded into a portable .mkv, or tucked into a Subtitles/ folder.",
+  f8_h: "SponsorBlock built in",
+  f8_p: "Skip or mark sponsor segments, intros, outros, self-promos, and more — cut them with FFmpeg or just add chapters. Your call, per category.",
 
   shots_eyebrow: "See it in action",
   shots_h2: "Built for clarity, not clutter.",
@@ -140,6 +142,8 @@ export const es = {
   f6_p: "Compilaciones nativas para Windows, macOS y Linux — instalador, portátil, DMG o AppImage.",
   f7_h: "Subtítulos a tu manera",
   f7_p: "Subtítulos manuales o automáticos en SRT, VTT o ASS — junto al video, integrados en un .mkv portátil, o en una subcarpeta Subtitles/.",
+  f8_h: "SponsorBlock integrado",
+  f8_p: "Omite o marca segmentos de patrocinadores, intros, outros, autopromociones y más — recórtalos con FFmpeg o simplemente añade capítulos. Tú decides, por categoría.",
 
   shots_eyebrow: "Velo en acción",
   shots_h2: "Diseñado para la claridad, no para el desorden.",
@@ -231,6 +235,8 @@ export const de = {
   f6_p: "Native Builds für Windows, macOS und Linux — Installer, Portable, DMG oder AppImage.",
   f7_h: "Untertitel, wie du willst",
   f7_p: "Manuelle oder automatisch generierte Untertitel in SRT, VTT oder ASS — neben dem Video gespeichert, in eine portable .mkv eingebettet oder in einen Subtitles/-Ordner sortiert.",
+  f8_h: "SponsorBlock integriert",
+  f8_p: "Überspringe oder markiere Sponsor-Segmente, Intros, Outros, Eigenwerbung und mehr — schneide sie mit FFmpeg heraus oder füge einfach Kapitel hinzu. Deine Wahl, pro Kategorie.",
 
   shots_eyebrow: "In Aktion sehen",
   shots_h2: "Gebaut für Klarheit, nicht für Chaos.",
@@ -322,6 +328,8 @@ export const fr = {
   f6_p: "Builds natifs pour Windows, macOS et Linux — installeur, portable, DMG ou AppImage.",
   f7_h: "Sous-titres comme tu veux",
   f7_p: "Sous-titres manuels ou auto-générés en SRT, VTT ou ASS — à côté de la vidéo, intégrés dans un .mkv portable, ou rangés dans un dossier Subtitles/.",
+  f8_h: "SponsorBlock intégré",
+  f8_p: "Passe ou marque les segments sponsors, intros, outros, autopromos et plus — coupe-les avec FFmpeg ou ajoute simplement des chapitres. Ton choix, par catégorie.",
 
   shots_eyebrow: "Voyez-le en action",
   shots_h2: "Conçu pour la clarté, pas l'encombrement.",
@@ -413,6 +421,8 @@ export const ja = {
   f6_p: "Windows、macOS、Linux のネイティブビルド — インストーラー、ポータブル、DMG、AppImage。",
   f7_h: "字幕は思いのままに",
   f7_p: "手動または自動生成の字幕を SRT、VTT、ASS で取得 — 動画と並べて保存、ポータブルな .mkv に埋め込み、または Subtitles/ フォルダに整理。",
+  f8_h: "SponsorBlock 内蔵",
+  f8_p: "スポンサー、イントロ、アウトロ、自己宣伝などをスキップまたはマーク — FFmpeg でカットするか章として追加するか。カテゴリごとにあなたが決める。",
 
   shots_eyebrow: "実際の動作",
   shots_h2: "明快さのために設計、雑然さは排除。",
@@ -504,6 +514,8 @@ export const zh = {
   f6_p: "Windows、macOS、Linux 原生构建 — 安装包、便携版、DMG 或 AppImage。",
   f7_h: "字幕，随你所愿",
   f7_p: "以 SRT、VTT 或 ASS 获取手动或自动生成的字幕 — 保存到视频旁边、嵌入便携的 .mkv，或整理到 Subtitles/ 子文件夹。",
+  f8_h: "内置 SponsorBlock",
+  f8_p: "跳过或标记赞助商、片头、片尾、自我推广等片段 — 用 FFmpeg 剪除或直接添加章节。按类别自由选择。",
 
   shots_eyebrow: "实际效果",
   shots_h2: "为清晰而生，拒绝杂乱。",
@@ -595,6 +607,8 @@ export const ru = {
   f6_p: "Нативные сборки для Windows, macOS и Linux — установщик, портативная версия, DMG или AppImage.",
   f7_h: "Субтитры — как вам удобно",
   f7_p: "Ручные или авто-сгенерированные субтитры в SRT, VTT или ASS — рядом с видео, встроенные в портативный .mkv или сложенные в подпапку Subtitles/.",
+  f8_h: "SponsorBlock встроен",
+  f8_p: "Пропускайте или отмечайте сегменты спонсоров, вступления, концовки, самопиар и прочее — вырезайте через FFmpeg или добавляйте главы. Ваш выбор, по каждой категории.",
 
   shots_eyebrow: "В деле",
   shots_h2: "Сделано для ясности, не для мусора.",
@@ -686,6 +700,8 @@ export const uk = {
   f6_p: "Нативні збірки для Windows, macOS та Linux — інсталятор, портативна версія, DMG або AppImage.",
   f7_h: "Субтитри — як вам зручно",
   f7_p: "Ручні або авто-згенеровані субтитри у SRT, VTT чи ASS — поруч із відео, вбудовані в портативний .mkv або складені в підпапку Subtitles/.",
+  f8_h: "SponsorBlock вбудовано",
+  f8_p: "Пропускайте або позначайте сегменти спонсорів, вступи, кінцівки, самопіар тощо — вирізайте через FFmpeg або додавайте розділи. Ваш вибір, для кожної категорії.",
 
   shots_eyebrow: "У дії",
   shots_h2: "Зроблено заради ясності, а не для безладу.",
@@ -777,6 +793,8 @@ export const hi = {
   f6_p: "Windows, macOS और Linux के लिए नेटिव बिल्ड — इंस्टॉलर, पोर्टेबल, DMG या AppImage।",
   f7_h: "सबटाइटल, आपके अंदाज़ में",
   f7_p: "SRT, VTT या ASS में मैनुअल या ऑटो-जेनरेटेड सबटाइटल — वीडियो के बग़ल में सेव करें, पोर्टेबल .mkv में एम्बेड करें, या Subtitles/ फ़ोल्डर में रखें।",
+  f8_h: "SponsorBlock बिल्ट-इन",
+  f8_p: "स्पॉन्सर सेगमेंट, इंट्रो, आउट्रो, सेल्फ-प्रोमो और अन्य को स्किप या मार्क करें — FFmpeg से काटें या बस चैप्टर जोड़ें। हर कैटेगरी के लिए आपकी पसंद।",
 
   shots_eyebrow: "क्रिया में देखें",
   shots_h2: "स्पष्टता के लिए बना है, अव्यवस्था के लिए नहीं।",

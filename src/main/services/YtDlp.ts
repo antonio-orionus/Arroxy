@@ -3,7 +3,7 @@ import { spawnYtDlp } from '@main/utils/process';
 import { classifyStderr, extractLastError, type StderrSignal } from '@main/utils/ytdlpErrors';
 import { resolveCookiesPath } from './cookiesResolver';
 import { EMBED_CONTAINER_EXT } from '@shared/subtitlePath';
-import type { SubtitleFormat, SubtitleMode, StatusKey } from '@shared/types';
+import type { SubtitleFormat, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, StatusKey } from '@shared/types';
 import type { BinaryManager } from './BinaryManager';
 import type { TokenService } from './TokenService';
 import type { SettingsStore } from '@main/stores/SettingsStore';
@@ -21,7 +21,7 @@ export type YtDlpRequest =
       subtitleFormat: SubtitleFormat;
       writeAutoSubs?: boolean;
     }
-  | { kind: 'video'; url: string; outputDir: string; formatId?: string }
+  | { kind: 'video'; url: string; outputDir: string; formatId?: string; sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] } }
   | {
       kind: 'video+embed';
       url: string;
@@ -29,6 +29,7 @@ export type YtDlpRequest =
       formatId?: string;
       subtitleLanguages: string[];
       writeAutoSubs?: boolean;
+      sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] };
     };
 
 export type YtDlpSignal = {
@@ -206,6 +207,15 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
     if (req.writeAutoSubs) args.push('--write-auto-subs');
   } else {
     args.push('--no-write-subs', '--no-write-auto-subs');
+  }
+
+  if (req.sponsorBlock && req.sponsorBlock.categories.length > 0) {
+    const cats = req.sponsorBlock.categories.join(',');
+    if (req.sponsorBlock.mode === 'mark') {
+      args.push('--sponsorblock-mark', cats, '--embed-chapters');
+    } else {
+      args.push('--sponsorblock-remove', cats);
+    }
   }
 
   if (req.formatId) args.push('-f', req.formatId);

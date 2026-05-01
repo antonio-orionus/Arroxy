@@ -76,8 +76,11 @@ function resetStore() {
     wizardSubtitles: {},
     wizardAutomaticCaptions: {},
     wizardSubtitleLanguages: [],
+    wizardSubtitleSkipped: false,
     wizardSubtitleMode: 'sidecar',
     wizardSubtitleFormat: 'srt',
+    wizardSponsorBlockMode: 'off' as const,
+    wizardSponsorBlockCategories: ['sponsor', 'selfpromo'] as never[],
     queue: [],
     drawerOpen: false,
   });
@@ -204,10 +207,10 @@ describe('Wizard subtitle step — store behavior', () => {
     expect(useAppStore.getState().wizardStep).toBe('subtitles');
   });
 
-  it('advance() from subtitles step goes to folder', () => {
-    useAppStore.setState({ wizardStep: 'subtitles' });
+  it('advance() from subtitles step goes to sponsorblock', () => {
+    useAppStore.setState({ wizardStep: 'subtitles', activePreset: 'best-quality' });
     useAppStore.getState().advance();
-    expect(useAppStore.getState().wizardStep).toBe('folder');
+    expect(useAppStore.getState().wizardStep).toBe('sponsorblock');
   });
 
   it('toggleSubtitleLanguage adds and removes a language', () => {

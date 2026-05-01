@@ -1,5 +1,5 @@
 import { DEFAULTS } from '@shared/constants';
-import type { AppSettings, FormatOption, Preset, SubtitleMap } from '@shared/types';
+import type { AppSettings, FormatOption, Preset, SubtitleMap, SponsorBlockMode, SponsorBlockCategory } from '@shared/types';
 import type { GetState, SetState, WizardSlice, WizardStep } from './types';
 
 // Private helpers — only used inside this slice.
@@ -59,7 +59,10 @@ function restoreSubtitleSelection(
   return { languages };
 }
 
-const STEPS: WizardStep[] = ['url', 'formats', 'subtitles', 'folder', 'confirm'];
+export const STEPS: WizardStep[] = ['url', 'formats', 'subtitles', 'sponsorblock', 'folder', 'confirm'];
+
+// Presets that don't download video — SponsorBlock is not applicable.
+export const NO_VIDEO_PRESETS = new Set<string>(['audio-only', 'subtitle-only']);
 
 const RESET_STATE = {
   wizardStep: 'url' as WizardStep,
@@ -74,8 +77,11 @@ const RESET_STATE = {
   wizardSubtitles: {} as SubtitleMap,
   wizardAutomaticCaptions: {} as SubtitleMap,
   wizardSubtitleLanguages: [] as string[],
+  wizardSubtitleSkipped: false,
   wizardSubtitleMode: DEFAULTS.subtitleMode,
   wizardSubtitleFormat: DEFAULTS.subtitleFormat,
+  wizardSponsorBlockMode: DEFAULTS.sponsorBlockMode as SponsorBlockMode,
+  wizardSponsorBlockCategories: DEFAULTS.sponsorBlockCategories as SponsorBlockCategory[],
   wizardSubfolderEnabled: false,
   wizardSubfolderName: '',
 } as const;
@@ -117,8 +123,11 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
         wizardSubtitles: subtitles,
         wizardAutomaticCaptions: automaticCaptions,
         wizardSubtitleLanguages: subtitleLanguages,
+        wizardSubtitleSkipped: false,
         wizardSubtitleMode: settings?.lastSubtitleMode ?? DEFAULTS.subtitleMode,
         wizardSubtitleFormat: settings?.lastSubtitleFormat ?? DEFAULTS.subtitleFormat,
+        wizardSponsorBlockMode: settings?.lastSponsorBlockMode ?? DEFAULTS.sponsorBlockMode,
+        wizardSponsorBlockCategories: settings?.lastSponsorBlockCategories ?? [...DEFAULTS.sponsorBlockCategories],
         wizardSubfolderEnabled: settings?.lastSubfolderEnabled ?? false,
         wizardSubfolderName: settings?.lastSubfolder ?? '',
         formatsLoading: false
@@ -126,13 +135,28 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
     },
 
     advance: () => {
-      const i = STEPS.indexOf(get().wizardStep);
-      if (i < STEPS.length - 1) set({ wizardStep: STEPS[i + 1] });
+      const { wizardStep, activePreset } = get();
+      const i = STEPS.indexOf(wizardStep);
+      if (i < 0 || i >= STEPS.length - 1) return;
+      const next = STEPS[i + 1];
+      // Skip the sponsorblock step for presets that don't produce a video
+      if (next === 'sponsorblock' && activePreset && NO_VIDEO_PRESETS.has(activePreset)) {
+        set({ wizardStep: STEPS[i + 2] ?? next });
+      } else {
+        set({ wizardStep: next });
+      }
     },
 
     back: () => {
-      const i = STEPS.indexOf(get().wizardStep);
-      if (i > 0) set({ wizardStep: STEPS[i - 1] });
+      const { wizardStep, activePreset } = get();
+      const i = STEPS.indexOf(wizardStep);
+      if (i <= 0) return;
+      const prev = STEPS[i - 1];
+      // Skip the sponsorblock step for presets that don't produce a video
+      const target = prev === 'sponsorblock' && activePreset && NO_VIDEO_PRESETS.has(activePreset)
+        ? (STEPS[i - 2] ?? prev)
+        : prev;
+      set({ wizardStep: target, ...(target === 'subtitles' && { wizardSubtitleSkipped: false }) });
     },
 
     reset: () => set(RESET_STATE),
@@ -179,8 +203,24 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
     setWizardSubfolderName: (name) => set({ wizardSubfolderName: name }),
 
     skipSubtitles: () => {
-      const i = STEPS.indexOf(get().wizardStep);
-      if (i < STEPS.length - 1) set({ wizardSubtitleLanguages: [], wizardStep: STEPS[i + 1] });
+      const { wizardStep, activePreset } = get();
+      const i = STEPS.indexOf(wizardStep);
+      if (i < STEPS.length - 1) {
+        const next = STEPS[i + 1];
+        // Skip sponsorblock too when on a no-video preset
+        const target = next === 'sponsorblock' && activePreset && NO_VIDEO_PRESETS.has(activePreset)
+          ? (STEPS[i + 2] ?? next)
+          : next;
+        set({ wizardSubtitleSkipped: true, wizardStep: target });
+      }
     },
+
+    setSponsorBlockMode: (mode) => set({ wizardSponsorBlockMode: mode }),
+
+    toggleSponsorBlockCategory: (cat) => set((state) => ({
+      wizardSponsorBlockCategories: state.wizardSponsorBlockCategories.includes(cat)
+        ? state.wizardSponsorBlockCategories.filter((c) => c !== cat)
+        : [...state.wizardSponsorBlockCategories, cat]
+    })),
   };
 }

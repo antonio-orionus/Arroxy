@@ -39,6 +39,7 @@ const zh = {
       url: '链接',
       formats: '格式',
       subtitles: '字幕',
+      sponsorblock: 'SponsorBlock',
       folder: '保存',
       confirm: '确认'
     },
@@ -94,6 +95,29 @@ const zh = {
       },
       embedNote: '嵌入模式将输出保存为 .mkv，以便可靠地嵌入字幕轨道。',
       autoAssNote: '自动字幕将保存为 SRT 而非 ASS —— 它们会被清除 YouTube 的滚动重复字幕，但我们的 ASS 转换器目前还无法做到这一点。'
+    },
+    sponsorblock: {
+      modeHeading: '赞助商过滤',
+      mode: {
+        off: '关闭',
+        mark: '标记为章节',
+        remove: '删除片段'
+      },
+      modeHint: {
+        off: '不使用 SponsorBlock — 视频按上传状态播放。',
+        mark: '将赞助商片段标记为章节（非破坏性）。',
+        remove: '使用 FFmpeg 从视频中删除赞助商片段。'
+      },
+      categoriesHeading: '类别',
+      cat: {
+        sponsor: '赞助商',
+        intro: '片头',
+        outro: '片尾',
+        selfpromo: '自我宣传',
+        music_offtopic: '与音乐无关',
+        preview: '预览',
+        filler: '填充内容'
+      }
     },
     formats: {
       quickPresets: '快速预设',

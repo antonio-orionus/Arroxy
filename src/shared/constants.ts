@@ -1,4 +1,4 @@
-import type { SubtitleMode, SubtitleFormat, UiTheme } from './schemas';
+import type { SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme } from './schemas';
 import type { AppSettings } from './types';
 
 // Re-export so older imports of `@shared/constants` for status/queue still resolve.
@@ -11,11 +11,15 @@ export { SUBTITLE_EXT_REGEX } from './subtitlePath';
 export const DEFAULTS: {
   subtitleMode: SubtitleMode;
   subtitleFormat: SubtitleFormat;
+  sponsorBlockMode: SponsorBlockMode;
+  sponsorBlockCategories: SponsorBlockCategory[];
   uiZoom: number;
   uiTheme: UiTheme;
 } = {
   subtitleMode: 'sidecar',
   subtitleFormat: 'srt',
+  sponsorBlockMode: 'off',
+  sponsorBlockCategories: ['sponsor', 'selfpromo'],
   uiZoom: 1,
   uiTheme: 'system'
 };

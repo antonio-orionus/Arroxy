@@ -57,6 +57,7 @@ Arroxy es una aplicación de escritorio **gratuita, de código abierto y centrad
 - **Un clic para descargar** — barra de progreso en tiempo real, cancela cuando quieras
 - **Cola de varios videos** — el panel de descargas lo lleva todo a la vez
 - **Descargar subtítulos** — obtén subtítulos manuales o automáticos en SRT, VTT o ASS, en cualquier idioma disponible. Guárdalos junto al video, intégralos en un `.mkv` portátil, u organízalos en una subcarpeta `Subtitles/` dedicada
+- **Integración con SponsorBlock** — omite o marca segmentos de patrocinadores, intros, outros, autopromociones y más. Márcalos como capítulos (no destructivo) o elimínalos por completo con FFmpeg — tú decides, por categoría
 - **Disponible en 9 idiomas** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — detecta el idioma de tu sistema y se puede cambiar en cualquier momento
 
 <div align="center">

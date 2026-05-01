@@ -39,6 +39,7 @@ const fr = {
       url: 'URL',
       formats: 'Format',
       subtitles: 'Sous-titres',
+      sponsorblock: 'SponsorBlock',
       folder: 'Enregistrer',
       confirm: 'Confirmer'
     },
@@ -94,6 +95,29 @@ const fr = {
       },
       embedNote: 'Le mode « incorporé » enregistre la sortie en .mkv pour que les pistes de sous-titres soient intégrées de façon fiable.',
       autoAssNote: 'Les sous-titres automatiques seront enregistrés en SRT au lieu d\'ASS — ils sont toujours nettoyés des duplications de cues en cascade de YouTube, ce que notre convertisseur ASS ne peut pas encore reproduire.'
+    },
+    sponsorblock: {
+      modeHeading: 'Filtrer les sponsors',
+      mode: {
+        off: 'Désactivé',
+        mark: 'Marquer comme chapitres',
+        remove: 'Supprimer les segments'
+      },
+      modeHint: {
+        off: "Pas de SponsorBlock — la vidéo est lue telle qu'elle a été mise en ligne.",
+        mark: 'Marque les segments sponsors comme chapitres (non destructif).',
+        remove: 'Supprime les segments sponsors avec FFmpeg.'
+      },
+      categoriesHeading: 'Catégories',
+      cat: {
+        sponsor: 'Sponsor',
+        intro: 'Intro',
+        outro: 'Outro',
+        selfpromo: 'Autopromotion',
+        music_offtopic: 'Musique hors sujet',
+        preview: 'Aperçu',
+        filler: 'Remplissage'
+      }
     },
     formats: {
       quickPresets: 'Préréglages rapides',

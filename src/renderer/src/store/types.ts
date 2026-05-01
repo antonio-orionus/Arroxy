@@ -8,10 +8,12 @@ import type {
   SubtitleFormat,
   SubtitleMap,
   SubtitleMode,
+  SponsorBlockMode,
+  SponsorBlockCategory,
   SupportedLang,
   UiTheme
 } from '@shared/types';
-export type WizardStep = 'url' | 'formats' | 'subtitles' | 'folder' | 'confirm' | 'error';
+export type WizardStep = 'url' | 'formats' | 'subtitles' | 'sponsorblock' | 'folder' | 'confirm' | 'error';
 
 export type SetState = StoreApi<AppState>['setState'];
 export type GetState = StoreApi<AppState>['getState'];
@@ -33,10 +35,13 @@ export interface WizardSlice {
   wizardSubtitles: SubtitleMap;
   wizardAutomaticCaptions: SubtitleMap;
   wizardSubtitleLanguages: string[];
+  wizardSubtitleSkipped: boolean;
   wizardSubtitleMode: SubtitleMode;
   wizardSubtitleFormat: SubtitleFormat;
   wizardSubfolderEnabled: boolean;
   wizardSubfolderName: string;
+  wizardSponsorBlockMode: SponsorBlockMode;
+  wizardSponsorBlockCategories: SponsorBlockCategory[];
 
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
@@ -55,6 +60,8 @@ setWizardOutputDir: (dir: string, persist?: boolean) => Promise<void>;
   setWizardSubfolderEnabled: (enabled: boolean) => void;
   setWizardSubfolderName: (name: string) => void;
   skipSubtitles: () => void;
+  setSponsorBlockMode: (mode: SponsorBlockMode) => void;
+  toggleSponsorBlockCategory: (cat: SponsorBlockCategory) => void;
 }
 
 export interface QueueSlice {

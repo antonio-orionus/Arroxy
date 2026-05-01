@@ -7,6 +7,8 @@ export type {
   Preset,
   SubtitleMode,
   SubtitleFormat,
+  SponsorBlockMode,
+  SponsorBlockCategory,
   SupportedLang,
   UiTheme,
   QueueItemStatus
@@ -15,7 +17,7 @@ export type {
 export type { StatusKey } from './schemas';
 export type { LocalizedError, YtdlpErrorKey } from './i18n/types';
 
-import type { Preset, SubtitleMode, SubtitleFormat, SupportedLang, UiTheme, StatusKey } from './schemas';
+import type { Preset, SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, StatusKey } from './schemas';
 
 export type AppErrorCode = 'validation' | 'token' | 'binary' | 'download' | 'ipc' | 'unknown';
 
@@ -46,6 +48,8 @@ export interface AppSettings {
   lastSubtitleLanguages?: string[];
   lastSubtitleMode?: SubtitleMode;
   lastSubtitleFormat?: SubtitleFormat;
+  lastSponsorBlockMode?: SponsorBlockMode;
+  lastSponsorBlockCategories?: SponsorBlockCategory[];
   lastSubfolderEnabled?: boolean;
   lastSubfolder?: string;
   cookiesPath?: string;
@@ -118,6 +122,8 @@ export interface QueueItem {
   writeAutoSubs: boolean;
   subtitleMode: SubtitleMode;
   subtitleFormat: SubtitleFormat;
+  sponsorBlockMode: SponsorBlockMode;
+  sponsorBlockCategories: SponsorBlockCategory[];
 }
 
 export type DownloadStage = 'setup' | 'token' | 'download' | 'done' | 'error';
@@ -151,6 +157,8 @@ export interface StartDownloadInput {
   writeAutoSubs?: boolean;
   subtitleMode?: SubtitleMode;
   subtitleFormat?: SubtitleFormat;
+  sponsorBlockMode?: SponsorBlockMode;
+  sponsorBlockCategories?: SponsorBlockCategory[];
 }
 
 export interface StartDownloadOutput {

@@ -24,6 +24,8 @@ function makeItem(overrides: Partial<QueueItem> = {}): QueueItem {
     writeAutoSubs: false,
     subtitleMode: 'sidecar',
     subtitleFormat: 'srt',
+    sponsorBlockMode: 'off',
+    sponsorBlockCategories: [],
     ...overrides
   };
 }

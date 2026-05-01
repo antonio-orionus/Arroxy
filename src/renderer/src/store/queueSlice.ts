@@ -59,6 +59,8 @@ function buildQueueItem(get: GetState): QueueItem | null {
   const formatId = buildFormatId(selectedVideoFormatId, selectedAudioFormatId);
   const formatLabel = buildFormatLabel(selectedVideoFormatId, videoResolution, selectedAudioFormatId, audioFormats, activePreset);
 
+  const subtitleLanguages = state.wizardSubtitleSkipped ? [] : state.wizardSubtitleLanguages;
+
   return {
     id: generateId(),
     url: wizardUrl,
@@ -74,12 +76,14 @@ function buildQueueItem(get: GetState): QueueItem | null {
     error: null,
     finishedAt: null,
     downloadJobId: null,
-    subtitleLanguages: state.wizardSubtitleLanguages,
-    writeAutoSubs: state.wizardSubtitleLanguages.some(
+    subtitleLanguages,
+    writeAutoSubs: subtitleLanguages.some(
       (l) => !!state.wizardAutomaticCaptions[l] && !state.wizardSubtitles[l]
     ),
     subtitleMode: state.wizardSubtitleMode,
-    subtitleFormat: state.wizardSubtitleFormat
+    subtitleFormat: state.wizardSubtitleFormat,
+    sponsorBlockMode: state.wizardSponsorBlockMode,
+    sponsorBlockCategories: [...state.wizardSponsorBlockCategories]
   };
 }
 
@@ -92,7 +96,11 @@ function buildStartInput(item: QueueItem): StartDownloadInput {
     subtitleLanguages: hasSubs ? item.subtitleLanguages : undefined,
     writeAutoSubs: hasSubs ? item.writeAutoSubs : undefined,
     subtitleMode: item.subtitleMode,
-    subtitleFormat: item.subtitleFormat
+    subtitleFormat: item.subtitleFormat,
+    ...(item.sponsorBlockMode !== 'off' && item.sponsorBlockCategories.length > 0 ? {
+      sponsorBlockMode: item.sponsorBlockMode,
+      sponsorBlockCategories: item.sponsorBlockCategories
+    } : {})
   };
 }
 
@@ -112,6 +120,8 @@ async function persistFormatPrefs(set: SetState, get: GetState): Promise<void> {
       lastSubtitleMode: get().wizardSubtitleMode,
       lastSubtitleFormat: get().wizardSubtitleFormat,
     } : {}),
+    lastSponsorBlockMode: get().wizardSponsorBlockMode,
+    lastSponsorBlockCategories: get().wizardSponsorBlockCategories,
     lastSubfolderEnabled: get().wizardSubfolderEnabled,
     lastSubfolder: get().wizardSubfolderName.trim()
   };
@@ -175,7 +185,6 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
       const item = get().queue.find((i) => i.id === itemId);
       if (!item || (item.status !== QUEUE_STATUS.downloading && item.status !== QUEUE_STATUS.paused)) return;
 
-      console.log('[cancel] status:', item.status, '| downloadJobId:', item.downloadJobId);
       await window.appApi.downloads.cancel({ jobId: item.downloadJobId ?? undefined });
       updateQueueItem(set, itemId, { status: QUEUE_STATUS.cancelled, downloadJobId: null });
       saveQueue(get);
