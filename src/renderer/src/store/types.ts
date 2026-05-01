@@ -40,22 +40,20 @@ export interface WizardSlice {
 
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
-  goToStep: (step: WizardStep) => void;
-  setWizardOutputDir: (dir: string, persist?: boolean) => Promise<void>;
+  advance: () => void;
+  back: () => void;
+  reset: () => void;
+  retry: () => Promise<void>;
+setWizardOutputDir: (dir: string, persist?: boolean) => Promise<void>;
   setSelectedVideoFormatId: (id: string) => void;
   setAudioFormatId: (id: string | null) => void;
   setPreset: (p: Preset) => void;
-  confirmFormats: () => void;
   toggleSubtitleLanguage: (lang: string) => void;
   setSubtitleMode: (mode: SubtitleMode) => void;
   setSubtitleFormat: (format: SubtitleFormat) => void;
-  confirmSubtitles: () => void;
   chooseWizardFolder: () => Promise<void>;
   setWizardSubfolderEnabled: (enabled: boolean) => void;
   setWizardSubfolderName: (name: string) => void;
-  confirmFolder: () => void;
-  retryWizard: () => Promise<void>;
-  resetWizard: () => void;
 }
 
 export interface QueueSlice {

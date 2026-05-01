@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { DownloadService } from '@main/services/DownloadService';
+import { YtDlp } from '@main/services/YtDlp';
 import type { DownloadJob } from '@shared/types';
 
 function makeService() {
@@ -13,14 +14,8 @@ function makeService() {
   const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
   const logService = { log: vi.fn() };
   const settingsStore = { get: vi.fn().mockResolvedValue({}) };
-  const service = new DownloadService(
-    binaryManager as never,
-    tokenService as never,
-    recentJobsStore as never,
-    logService as never,
-    settingsStore as never,
-    true
-  );
+  const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
+  const service = new DownloadService(ytDlp, recentJobsStore as never, logService as never, true);
   return { service, recentJobsStore };
 }
 
@@ -189,14 +184,8 @@ describe('DownloadService (mock mode)', () => {
     const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
     const logService = { log: vi.fn() };
     const settingsStore = { get: vi.fn().mockResolvedValue({}) };
-    const service = new DownloadService(
-      binaryManager as never,
-      tokenService as never,
-      recentJobsStore as never,
-      logService as never,
-      settingsStore as never,
-      true
-    );
+    const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
+    const service = new DownloadService(ytDlp, recentJobsStore as never, logService as never, true);
     vi.spyOn(service, 'cleanupPartFiles').mockResolvedValue();
 
     // Seed a paused job directly so resume() takes the within-session branch.

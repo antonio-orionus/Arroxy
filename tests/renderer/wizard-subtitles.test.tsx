@@ -194,19 +194,19 @@ describe('Wizard subtitle step — store behavior', () => {
     expect(useAppStore.getState().wizardSubtitleLanguages).toEqual([]);
   });
 
-  it('confirmFormats advances to subtitles step', async () => {
+  it('advance() from formats step goes to subtitles', async () => {
     window.appApi = buildMockApi() as never;
     await useAppStore.getState().initialize();
 
     useAppStore.setState({ wizardStep: 'formats' });
-    useAppStore.getState().confirmFormats();
+    useAppStore.getState().advance();
 
     expect(useAppStore.getState().wizardStep).toBe('subtitles');
   });
 
-  it('confirmSubtitles advances to folder step', () => {
+  it('advance() from subtitles step goes to folder', () => {
     useAppStore.setState({ wizardStep: 'subtitles' });
-    useAppStore.getState().confirmSubtitles();
+    useAppStore.getState().advance();
     expect(useAppStore.getState().wizardStep).toBe('folder');
   });
 
@@ -461,7 +461,7 @@ describe('Wizard subtitle step — store behavior', () => {
     expect(useAppStore.getState().wizardSubtitleFormat).toBe('ass');
   });
 
-  it('resetWizard clears subtitle state and resets mode/format to defaults', () => {
+  it('reset() clears subtitle state and resets mode/format to defaults', () => {
     useAppStore.setState({
       wizardSubtitleLanguages: ['en'],
       wizardSubtitles: { en: [{ ext: 'vtt' }] },
@@ -470,7 +470,7 @@ describe('Wizard subtitle step — store behavior', () => {
       wizardSubtitleFormat: 'vtt'
     });
 
-    useAppStore.getState().resetWizard();
+    useAppStore.getState().reset();
 
     const state = useAppStore.getState();
     expect(state.wizardSubtitleLanguages).toEqual([]);

@@ -10,6 +10,7 @@ import { DownloadService } from '@main/services/DownloadService';
 import { FormatProbeService } from '@main/services/FormatProbeService';
 import { LogService } from '@main/services/LogService';
 import { TokenService } from '@main/services/TokenService';
+import { YtDlp } from '@main/services/YtDlp';
 import { RecentJobsStore } from '@main/stores/RecentJobsStore';
 import { SettingsStore } from '@main/stores/SettingsStore';
 import { QueueStore } from '@main/stores/QueueStore';
@@ -81,21 +82,9 @@ if (hasSingleInstanceLock) {
     const binaryManager = new BinaryManager(userDataPath, logService);
     const tokenProvider = isMockBackend ? new MockTokenProvider() : new HiddenWindowTokenProvider(logService);
     const tokenService = new TokenService(tokenProvider, logService);
-    const downloadService = new DownloadService(
-      binaryManager,
-      tokenService,
-      recentJobsStore,
-      logService,
-      settingsStore,
-      isMockBackend
-    );
-    const formatProbeService = new FormatProbeService(
-      binaryManager,
-      tokenService,
-      logService,
-      settingsStore,
-      isMockBackend
-    );
+    const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore);
+    const downloadService = new DownloadService(ytDlp, recentJobsStore, logService, isMockBackend);
+    const formatProbeService = new FormatProbeService(ytDlp, logService, isMockBackend);
 
     // Headless smoke mode — exercises PoT scrape + 3-attempt ladder against
     // real YouTube using production services, then exits. No window created.

@@ -21,8 +21,8 @@ export function StepSubtitles(): JSX.Element {
     toggleSubtitleLanguage,
     setSubtitleMode,
     setSubtitleFormat,
-    confirmSubtitles,
-    goToStep
+    advance,
+    back
   } = useAppStore();
 
   const [query, setQuery] = useState('');
@@ -230,12 +230,12 @@ export function StepSubtitles(): JSX.Element {
           <Button
             variant="ghost"
             type="button"
-            onClick={() => goToStep('formats')}
+            onClick={back}
             className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
           >
             {t('common.back')}
           </Button>
-          <Button type="button" onClick={confirmSubtitles} className="shadow-[0_4px_14px_var(--brand-glow)]">
+          <Button type="button" onClick={advance} className="shadow-[0_4px_14px_var(--brand-glow)]">
             {hasLangs ? t('common.continue') : t('wizard.subtitles.skip')}
           </Button>
         </div>

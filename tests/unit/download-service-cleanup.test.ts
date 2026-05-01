@@ -4,16 +4,11 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { rmSync } from 'node:fs';
 import { DownloadService } from '@main/services/DownloadService';
+import { YtDlp } from '@main/services/YtDlp';
 
 function makeService() {
-  return new DownloadService(
-    {} as never,
-    {} as never,
-    { push: async () => {} } as never,
-    { log: () => {} } as never,
-    { get: async () => ({}) } as never,
-    true
-  );
+  const ytDlp = new YtDlp({} as never, {} as never, { get: async () => ({}) } as never);
+  return new DownloadService(ytDlp, { push: async () => {} } as never, { log: () => {} } as never, true);
 }
 
 describe('cleanupPartFiles', () => {

@@ -30,8 +30,8 @@ export function StepFolderConfirm(): JSX.Element {
     wizardTitle,
     wizardDuration,
     commonPaths,
-    confirmFolder,
-    goToStep,
+    advance,
+    back,
     setWizardOutputDir,
     wizardSubfolderEnabled,
     wizardSubfolderName,
@@ -149,14 +149,14 @@ export function StepFolderConfirm(): JSX.Element {
         <Button
           variant="ghost"
           type="button"
-          onClick={() => goToStep('formats')}
+          onClick={back}
           className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
         >
           {t('common.back')}
         </Button>
         <Button
           type="button"
-          onClick={confirmFolder}
+          onClick={advance}
           disabled={
             !wizardOutputDir
             || (wizardSubfolderEnabled && wizardSubfolderName.trim() !== '' && !isValidSubfolder(wizardSubfolderName))

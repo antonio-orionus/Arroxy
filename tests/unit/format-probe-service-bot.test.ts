@@ -1,6 +1,7 @@
 import { EventEmitter } from 'node:events';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { FormatProbeService } from '@main/services/FormatProbeService';
+import { YtDlp } from '@main/services/YtDlp';
 
 vi.mock('@main/utils/process', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@main/utils/process')>();
@@ -48,13 +49,8 @@ function makeService(tokenOverrides: { token?: string; visitorData?: string } = 
   const logService = { log: vi.fn() };
   const settingsStore = { get: vi.fn().mockResolvedValue({}) };
 
-  const service = new FormatProbeService(
-    binaryManager as never,
-    tokenService as never,
-    logService as never,
-    settingsStore as never,
-    false
-  );
+  const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
+  const service = new FormatProbeService(ytDlp, logService as never);
 
   return { service, tokenService };
 }

@@ -5,7 +5,7 @@ import { Button } from './ui/button';
 
 export function StepError(): JSX.Element {
   const { t } = useTranslation();
-  const { wizardError, retryWizard, resetWizard } = useAppStore();
+  const { wizardError, retry, reset } = useAppStore();
 
   return (
     <div className="wizard-step flex flex-col items-center gap-4 py-4 text-center" data-testid="step-error">
@@ -20,10 +20,10 @@ export function StepError(): JSX.Element {
         {formatError(wizardError)}
       </p>
       <div className="flex gap-2">
-        <Button variant="ghost" type="button" onClick={resetWizard} data-testid="btn-start-over">
+        <Button variant="ghost" type="button" onClick={reset} data-testid="btn-start-over">
           {t('common.startOver')}
         </Button>
-        <Button type="button" onClick={() => void retryWizard()} data-testid="btn-retry">
+        <Button type="button" onClick={() => void retry()} data-testid="btn-retry">
           {t('common.retry')}
         </Button>
       </div>

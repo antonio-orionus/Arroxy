@@ -31,7 +31,7 @@ export function StepConfirm(): JSX.Element {
     wizardSubfolderName,
     addToQueue,
     addAndDownloadImmediately,
-    goToStep
+    back
   } = useAppStore();
 
   const audioFormats = wizardFormats.filter((f) => f.isAudioOnly);
@@ -119,7 +119,7 @@ export function StepConfirm(): JSX.Element {
         <Button
           variant="ghost"
           type="button"
-          onClick={() => goToStep('folder')}
+          onClick={back}
           data-testid="btn-back"
           className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground mr-auto"
         >

@@ -3,10 +3,9 @@
 // VTT auto-cap files have inline timing tags like `<00:00:00.280><c>word</c>`
 // inside cue text. We strip those, then run the same dedupe algorithm as SRT,
 // then emit valid WebVTT (timecode separator `.` instead of `,`, plus the
-// `WEBVTT` header).
+// `WEBVTT` header). Cue parsing is inlined here.
 
 import { dedupeCues, msToTimecodeParts, timecodeToMs, type Cue } from './cueDedupe';
-import { parseCueStream } from './cueParser';
 
 const VTT_TIMECODE_RE = /^(\d+):(\d+):(\d+)\.(\d+) --> (\d+):(\d+):(\d+)\.(\d+)/;
 // YouTube's auto-caption inline tags: word timing markers and <c>...</c>
@@ -37,13 +36,46 @@ function formatVtt(header: string, cues: Iterable<Cue>): string {
   return out.trimEnd();
 }
 
+function parseVttCues(content: string): { header: string; cues: Cue[] } {
+  const rawLines = content.split('\n').map((l) => l.replace(/\r$/, ''));
+
+  // VTT carries a header (everything before the first blank line) that must
+  // be preserved. YouTube's auto-caption VTT always starts with "WEBVTT".
+  let header = '';
+  let bodyStart = 0;
+  for (let i = 0; i < rawLines.length; i++) {
+    if (rawLines[i].trim() === '' && i > 0) {
+      header = rawLines.slice(0, i).join('\n');
+      bodyStart = i;
+      break;
+    }
+  }
+
+  const nonEmpty = rawLines.slice(bodyStart).filter((l) => l.trim().length > 0);
+  const cues: Cue[] = [];
+  let i = 0;
+  while (i < nonEmpty.length) {
+    const tc = parseVttTimecode(nonEmpty[i]);
+    if (!tc) { i++; continue; }
+    let textLines = '';
+    let j = i + 1;
+    while (j < nonEmpty.length) {
+      if (parseVttTimecode(nonEmpty[j])) break;
+      textLines += nonEmpty[j] + '\n';
+      j++;
+    }
+    // YouTube's rolling-caption VTT alternates empty "spacer" cues with the
+    // real text cues. Drop the spacers so the dedupe algorithm sees a clean
+    // stream of textful cues.
+    const text = stripInlineTags(textLines).trim();
+    if (text.length > 0) cues.push({ start: tc[0], end: tc[1], text });
+    i = j;
+  }
+  return { header, cues };
+}
+
 export function dedupeVtt(content: string): string {
-  const { header, cues } = parseCueStream({
-    content,
-    parseTimecode: parseVttTimecode,
-    transformText: stripInlineTags,
-    detectHeader: true
-  });
+  const { header, cues } = parseVttCues(content);
   const safeHeader = header.startsWith('WEBVTT') ? header : 'WEBVTT';
   return formatVtt(safeHeader, dedupeCues(cues));
 }

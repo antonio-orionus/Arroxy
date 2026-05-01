@@ -1,11 +1,9 @@
 import type {
   AppError,
-  AppSettings,
   FormatOption,
   LocalizedError,
   Preset,
-  StatusSnapshot,
-  SubtitleMap
+  StatusSnapshot
 } from '@shared/types';
 import { PRESETS } from '@shared/schemas';
 import { i18next } from '@shared/i18n';
@@ -99,70 +97,6 @@ export function groupVideoFormats(formats: FormatOption[]): GroupedVideoFormat[]
   });
 
   return grouped;
-}
-
-export function applyPreset(preset: Preset, formats: FormatOption[]): { videoFormatId: string; audioFormatId: string | null } {
-  const grouped = groupVideoFormats(formats).filter((g) => !g.isAudioOnly);
-  const audioFormats = formats.filter((f) => f.isAudioOnly);
-  const bestAudio = audioFormats[0]?.formatId ?? null;
-  const worstAudio = audioFormats[audioFormats.length - 1]?.formatId ?? bestAudio;
-
-  if (preset === 'best-quality') {
-    return { videoFormatId: grouped[0]?.formatId ?? '', audioFormatId: bestAudio };
-  }
-  if (preset === 'balanced') {
-    const target = grouped.find((g) => {
-      const match = g.resolution.match(/(\d+)/);
-      return match ? Number(match[1]) <= 720 : false;
-    });
-    return { videoFormatId: target?.formatId ?? grouped[grouped.length - 1]?.formatId ?? '', audioFormatId: bestAudio };
-  }
-  if (preset === 'audio-only') {
-    return { videoFormatId: '', audioFormatId: bestAudio };
-  }
-  if (preset === 'subtitle-only') {
-    return { videoFormatId: '', audioFormatId: null };
-  }
-  // small-file
-  return { videoFormatId: grouped[grouped.length - 1]?.formatId ?? '', audioFormatId: worstAudio };
-}
-
-export function restoreFormatSelection(
-  formats: FormatOption[],
-  settings: AppSettings | null
-): { videoFormatId: string; audioFormatId: string | null; preset: Preset | null } {
-  const grouped = groupVideoFormats(formats).filter((g) => !g.isAudioOnly);
-  const audioFormats = formats.filter((f) => f.isAudioOnly);
-  const bestAudio = audioFormats[0]?.formatId ?? null;
-
-  if (settings?.lastPreset) {
-    const result = applyPreset(settings.lastPreset, formats);
-    return { ...result, preset: settings.lastPreset };
-  }
-
-  if (settings?.lastVideoResolution === 'audio-only') {
-    return { videoFormatId: '', audioFormatId: bestAudio, preset: null };
-  }
-
-  if (settings?.lastVideoResolution) {
-    const match = grouped.find((g) => g.resolution === settings.lastVideoResolution);
-    if (match) return { videoFormatId: match.formatId, audioFormatId: bestAudio, preset: null };
-  }
-
-  return { ...applyPreset('best-quality', formats), preset: 'best-quality' };
-}
-
-export function restoreSubtitleSelection(
-  subtitles: SubtitleMap | undefined,
-  automaticCaptions: SubtitleMap | undefined,
-  settings: AppSettings | null
-): { languages: string[] } {
-  const available = new Set([
-    ...Object.keys(subtitles ?? {}),
-    ...Object.keys(automaticCaptions ?? {})
-  ]);
-  const languages = (settings?.lastSubtitleLanguages ?? []).filter((l) => available.has(l));
-  return { languages };
 }
 
 export function generateId(): string {

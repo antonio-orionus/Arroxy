@@ -1,6 +1,7 @@
 import { EventEmitter } from 'node:events';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { DownloadService } from '@main/services/DownloadService';
+import { YtDlp } from '@main/services/YtDlp';
 
 vi.mock('@main/utils/process', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@main/utils/process')>();
@@ -41,14 +42,8 @@ function makeService(tokenOverrides: { token?: string; visitorData?: string } = 
   const logService = { log: vi.fn() };
   const settingsStore = { get: vi.fn().mockResolvedValue({}) };
 
-  const service = new DownloadService(
-    binaryManager as never,
-    tokenService as never,
-    recentJobsStore as never,
-    logService as never,
-    settingsStore as never,
-    false // non-mock mode — uses real spawnYtDlp
-  );
+  const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
+  const service = new DownloadService(ytDlp, recentJobsStore as never, logService as never);
 
   return { service, tokenService, recentJobsStore, binaryManager };
 }

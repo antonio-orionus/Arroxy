@@ -128,7 +128,7 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
       maybeShowQueueTip(set);
       saveQueue(get);
       await persistFormatPrefs(set, get);
-      get().resetWizard();
+      get().reset();
       await maybeStartNext(get);
     },
 
@@ -139,7 +139,7 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
       maybeShowQueueTip(set);
       saveQueue(get);
       await persistFormatPrefs(set, get);
-      get().resetWizard();
+      get().reset();
       await get().startItemDownload(item.id);
     },
 

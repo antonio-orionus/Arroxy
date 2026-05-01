@@ -4,6 +4,7 @@ import { mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DownloadService } from '@main/services/DownloadService';
+import { YtDlp } from '@main/services/YtDlp';
 
 vi.mock('@main/utils/process', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@main/utils/process')>();
@@ -51,9 +52,8 @@ function makeService() {
   const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
   const logService = { log: vi.fn() };
   const settingsStore = { get: vi.fn().mockResolvedValue({}) };
-  const service = new DownloadService(
-    binaryManager as never, tokenService as never, recentJobsStore as never, logService as never, settingsStore as never, false
-  );
+  const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
+  const service = new DownloadService(ytDlp, recentJobsStore as never, logService as never, false);
   return { service, recentJobsStore, settingsStore };
 }
 

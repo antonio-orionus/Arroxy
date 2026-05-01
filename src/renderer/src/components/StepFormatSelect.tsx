@@ -28,8 +28,8 @@ export function StepFormatSelect(): JSX.Element {
     setSelectedVideoFormatId,
     setAudioFormatId,
     setPreset,
-    confirmFormats,
-    resetWizard
+    advance,
+    back,
   } = useAppStore();
 
   const [extFilter, setExtFilter] = useState<string | null>(null);
@@ -283,14 +283,14 @@ export function StepFormatSelect(): JSX.Element {
           <Button
             variant="ghost"
             type="button"
-            onClick={resetWizard}
+            onClick={back}
             className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
           >
             {t('common.back')}
           </Button>
           <Button
             type="button"
-            onClick={confirmFormats}
+            onClick={advance}
             disabled={!canContinue}
             className="shadow-[0_4px_14px_var(--brand-glow)]"
           >
