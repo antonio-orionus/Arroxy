@@ -144,6 +144,37 @@ jobs:
           git commit -m "chore: bump flatpak manifest to ${GITHUB_REF_NAME#v}"
           git push origin main
 
+  build-flatpak:
+    needs: update-flatpak-manifest
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: arroxy.flatpak
+          manifest-path: flatpak/io.github.antonio_orionus.Arroxy.yml
+          cache-key: flatpak-builder-${{ github.sha }}
+
+  upload-flatpak:
+    needs: build-flatpak
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: arroxy.flatpak
+      - name: Upload to release
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          mv arroxy.flatpak "Arroxy-${VERSION}.flatpak"
+          gh release upload "$GITHUB_REF_NAME" "Arroxy-${VERSION}.flatpak"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   publish-scoop:
     needs: finalize
     runs-on: ubuntu-latest
