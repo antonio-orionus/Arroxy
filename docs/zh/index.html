@@ -47,7 +47,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Arroxy","applicationCategory":"MultimediaApplication","operatingSystem":"Windows, macOS, Linux","description":"以 4K、1080p60 和 HDR 下载 YouTube 视频。免费、无广告、无需登录、无需 Cookie、100% 私密。支持 Windows、macOS、Linux。","inLanguage":"zh","url":"https://antonio-orionus.github.io/Arroxy/zh/","image":"https://antonio-orionus.github.io/Arroxy/assets/icon.png","license":"https://opensource.org/licenses/MIT","downloadUrl":"https://github.com/antonio-orionus/Arroxy/releases/latest","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Antonio Orionus","url":"https://x.com/OrionusAI"}}</script>
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Arroxy","applicationCategory":"MultimediaApplication","operatingSystem":"Windows, macOS, Linux","description":"以 4K、1080p60 和 HDR 下载 YouTube 视频。免费、无广告、无需登录、无需 Cookie、100% 私密。支持 Windows、macOS、Linux。","inLanguage":"zh","url":"https://antonio-orionus.github.io/Arroxy/zh/","image":"https://antonio-orionus.github.io/Arroxy/assets/icon.png","license":"https://opensource.org/licenses/MIT","downloadUrl":"https://github.com/antonio-orionus/Arroxy/releases/latest","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","@id":"https://x.com/OrionusAI","name":"Antonio Orionus","url":"https://x.com/OrionusAI"}},{"@context":"https://schema.org","@type":"Person","@id":"https://x.com/OrionusAI","name":"Antonio Orionus","url":"https://x.com/OrionusAI","sameAs":["https://x.com/OrionusAI","https://github.com/antonio-orionus"]}]</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"zh","mainEntity":[{"@type":"Question","name":"能下载哪些画质？","acceptedAnswer":{"@type":"Answer","text":"YouTube 提供的都行 — 4K UHD（2160p）、1440p QHD、1080p Full HD、720p、480p、360p 以及纯音频。高帧率（60 fps、120 fps）和 HDR 内容原样保留。Arroxy 列出所有可用格式，让你精准挑选。"}},{"@type":"Question","name":"真的免费吗？","acceptedAnswer":{"@type":"Answer","text":"真的。MIT 许可证。没有付费版、没有功能门槛。"}},{"@type":"Question","name":"Arroxy 支持哪些语言？","acceptedAnswer":{"@type":"Answer","text":"开箱即用支持九种：English、Español（西班牙语）、Deutsch（德语）、Français（法语）、日本語（日语）、中文、Русский（俄语）、Українська（乌克兰语）、हिन्दी（印地语）。Arroxy 在首次启动时自动检测系统语言，随时可在工具栏的语言选择器中切换。翻译以纯 TypeScript 对象的形式存放在 src/shared/i18n/locales/ — 在 GitHub 上发个 PR 即可贡献。"}},{"@type":"Question","name":"需要装别的东西吗？","acceptedAnswer":{"@type":"Answer","text":"不需要。yt-dlp 和 ffmpeg 在首次启动时从它们的官方 GitHub releases 自动下载并缓存到本地。之后无需任何额外配置。"}},{"@type":"Question","name":"如果 YouTube 改了什么，还能用吗？","acceptedAnswer":{"@type":"Answer","text":"能 — Arroxy 有两层保障。第一，yt-dlp 是社区里最活跃维护的开源工具之一 — YouTube 一变，几小时内就更新。第二，Arroxy 完全不依赖 Cookie 或你的 Google 账号，所以没有会话过期，没有凭据要轮换。这两点结合让它比依赖浏览器导出 Cookie 的工具稳定得多。"}},{"@type":"Question","name":"能下播放列表吗？","acceptedAnswer":{"@type":"Answer","text":"目前支持单个视频。播放列表和频道支持在路线图里。"}},{"@type":"Question","name":"需要我的 YouTube 账号或 Cookie 吗？","acceptedAnswer":{"@type":"Answer","text":"不需要 — 这事比听起来更重要。大多数在 YouTube 更新后就罢工的工具会让你导出浏览器的 YouTube Cookie。这种方案每 30 分钟左右就坏一次（YouTube 会轮换会话），而 yt-dlp 自己的文档警告这可能让你的 Google 账号被标记。Arroxy 从不使用 Cookie 或凭据。无登录、无账号绑定，没东西过期，没东西被封。"}},{"@type":"Question","name":"macOS 提示 \"应用已损坏\" 或 \"无法打开\" — 怎么办？","acceptedAnswer":{"@type":"Answer","text":"这是 macOS Gatekeeper 在拦截未签名应用 — 并不是真的损坏。README 里有 macOS 首次启动的分步指引。"}},{"@type":"Question","name":"这合法吗？","acceptedAnswer":{"@type":"Answer","text":"为个人使用下载视频，在大多数地区一般是被接受的。你需要自己负责遵守 YouTube 的服务条款和当地法律。"}}]}</script>
 
     <style>
       :root {
@@ -419,6 +420,52 @@
       .copy-btn:hover { color: var(--brand-hover); border-color: var(--brand); }
       .copy-btn.copied { color: hsl(153 74% 60%); border-color: hsl(153 74% 45%); }
 
+      .faq-list {
+        max-width: 760px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .faq-item {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        transition: border-color .2s;
+      }
+      .faq-item[open] { border-color: var(--border-strong); }
+      .faq-item summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 18px 22px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .faq-item summary::-webkit-details-marker { display: none; }
+      .faq-item summary::after {
+        content: '+';
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--text-subtle);
+        transition: transform .2s, color .2s;
+        flex-shrink: 0;
+      }
+      .faq-item[open] summary::after { transform: rotate(45deg); color: var(--brand-hover); }
+      .faq-item summary:hover { color: var(--brand-hover); }
+      .faq-item .faq-answer {
+        padding: 0 22px 18px;
+        color: var(--text-dim);
+        font-size: 14.5px;
+        line-height: 1.65;
+      }
+
       footer { border-top: 1px solid var(--border); padding: 32px 0 40px; margin-top: 40px; }
       .footer-langs {
         display: flex;
@@ -459,7 +506,7 @@
     <nav>
       <div class="container nav-inner">
         <a href="../" class="brand">
-          <img src="../assets/icon.png" alt="" />
+          <img src="../assets/icon.png" alt="Arroxy logo" />
           Arroxy
         </a>
         <div class="nav-links">
@@ -602,6 +649,53 @@
             <h3>无第三方服务器</h3>
             <p>整个流程通过 yt-dlp + ffmpeg 在本地运行。文件永远不会经过远程服务器。</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow">FAQ</div>
+          <h2>常见问题</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>能下载哪些画质？</summary>
+            <div class="faq-answer">YouTube 提供的都行 — 4K UHD（2160p）、1440p QHD、1080p Full HD、720p、480p、360p 以及纯音频。高帧率（60 fps、120 fps）和 HDR 内容原样保留。Arroxy 列出所有可用格式，让你精准挑选。</div>
+          </details>
+          <details class="faq-item">
+            <summary>真的免费吗？</summary>
+            <div class="faq-answer">真的。MIT 许可证。没有付费版、没有功能门槛。</div>
+          </details>
+          <details class="faq-item">
+            <summary>Arroxy 支持哪些语言？</summary>
+            <div class="faq-answer">开箱即用支持九种：English、Español（西班牙语）、Deutsch（德语）、Français（法语）、日本語（日语）、中文、Русский（俄语）、Українська（乌克兰语）、हिन्दी（印地语）。Arroxy 在首次启动时自动检测系统语言，随时可在工具栏的语言选择器中切换。翻译以纯 TypeScript 对象的形式存放在 src/shared/i18n/locales/ — 在 GitHub 上发个 PR 即可贡献。</div>
+          </details>
+          <details class="faq-item">
+            <summary>需要装别的东西吗？</summary>
+            <div class="faq-answer">不需要。yt-dlp 和 ffmpeg 在首次启动时从它们的官方 GitHub releases 自动下载并缓存到本地。之后无需任何额外配置。</div>
+          </details>
+          <details class="faq-item">
+            <summary>如果 YouTube 改了什么，还能用吗？</summary>
+            <div class="faq-answer">能 — Arroxy 有两层保障。第一，yt-dlp 是社区里最活跃维护的开源工具之一 — YouTube 一变，几小时内就更新。第二，Arroxy 完全不依赖 Cookie 或你的 Google 账号，所以没有会话过期，没有凭据要轮换。这两点结合让它比依赖浏览器导出 Cookie 的工具稳定得多。</div>
+          </details>
+          <details class="faq-item">
+            <summary>能下播放列表吗？</summary>
+            <div class="faq-answer">目前支持单个视频。播放列表和频道支持在路线图里。</div>
+          </details>
+          <details class="faq-item">
+            <summary>需要我的 YouTube 账号或 Cookie 吗？</summary>
+            <div class="faq-answer">不需要 — 这事比听起来更重要。大多数在 YouTube 更新后就罢工的工具会让你导出浏览器的 YouTube Cookie。这种方案每 30 分钟左右就坏一次（YouTube 会轮换会话），而 yt-dlp 自己的文档警告这可能让你的 Google 账号被标记。Arroxy 从不使用 Cookie 或凭据。无登录、无账号绑定，没东西过期，没东西被封。</div>
+          </details>
+          <details class="faq-item">
+            <summary>macOS 提示 &quot;应用已损坏&quot; 或 &quot;无法打开&quot; — 怎么办？</summary>
+            <div class="faq-answer">这是 macOS Gatekeeper 在拦截未签名应用 — 并不是真的损坏。README 里有 macOS 首次启动的分步指引。</div>
+          </details>
+          <details class="faq-item">
+            <summary>这合法吗？</summary>
+            <div class="faq-answer">为个人使用下载视频，在大多数地区一般是被接受的。你需要自己负责遵守 YouTube 的服务条款和当地法律。</div>
+          </details>
         </div>
       </div>
     </section>

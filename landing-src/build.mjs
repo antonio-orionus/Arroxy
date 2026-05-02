@@ -73,11 +73,16 @@ function buildOgLocaleAlt(currentLoc, locales) {
     .join("\n");
 }
 
+// Escape `</script` to prevent any payload from breaking out of the script tag.
+function safeJson(data) {
+  return JSON.stringify(data).replace(/<\/script/gi, "<\\/script");
+}
+
 function buildJsonLd(loc) {
-  // SoftwareApplication schema — gives Google rich snippets (price, OS, license)
-  // for software-download pages. Kept minimal: no aggregateRating until we have
-  // verifiable reviews. JSON.stringify produces safe output for inline <script>.
-  const data = {
+  // SoftwareApplication + Person — SoftwareApplication gives Google rich
+  // snippets (price, OS, license); Person disambiguates the author entity for
+  // AI search. No aggregateRating until we have verifiable reviews.
+  const softwareApp = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Arroxy",
@@ -96,12 +101,50 @@ function buildJsonLd(loc) {
     },
     author: {
       "@type": "Person",
+      "@id": "https://x.com/OrionusAI",
       name: "Antonio Orionus",
       url: "https://x.com/OrionusAI",
     },
   };
-  // Escape `</script` to prevent any payload from breaking out of the script tag.
-  return JSON.stringify(data).replace(/<\/script/gi, "<\\/script");
+  const person = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://x.com/OrionusAI",
+    name: "Antonio Orionus",
+    url: "https://x.com/OrionusAI",
+    sameAs: [
+      "https://x.com/OrionusAI",
+      "https://github.com/antonio-orionus",
+    ],
+  };
+  return safeJson([softwareApp, person]);
+}
+
+function buildFaqJsonLd(loc) {
+  // FAQPage schema. Per Google policy, the Q/A must also be visibly rendered
+  // on the page — the landing template renders the same `faq_q*` / `faq_a*`
+  // strings inside <section id="faq">.
+  const mainEntity = [];
+  for (let i = 1; i <= 9; i++) {
+    const q = loc.strings[`faq_q${i}`];
+    const a = loc.strings[`faq_a${i}`];
+    if (!q || !a) continue;
+    mainEntity.push({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: a,
+      },
+    });
+  }
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: loc.code,
+    mainEntity,
+  };
+  return safeJson(data);
 }
 
 function buildSitemap(locales) {
@@ -134,9 +177,30 @@ ${urls}
 }
 
 function buildRobots() {
+  // Explicit allowlist for AI search crawlers. The wildcard `User-agent: *`
+  // already permits everything, but naming each bot is a positive signal that
+  // discourages cautious crawlers from skipping the site.
+  const aiBots = [
+    "GPTBot",
+    "ChatGPT-User",
+    "OAI-SearchBot",
+    "ClaudeBot",
+    "anthropic-ai",
+    "Claude-Web",
+    "PerplexityBot",
+    "Perplexity-User",
+    "Google-Extended",
+    "Applebot-Extended",
+    "Bingbot",
+    "CCBot",
+  ];
+  const aiBlocks = aiBots
+    .map((bot) => `User-agent: ${bot}\nAllow: /\n`)
+    .join("\n");
   return `User-agent: *
 Allow: /
 
+${aiBlocks}
 Sitemap: ${SITE_URL}sitemap.xml
 `;
 }
@@ -207,6 +271,7 @@ async function main() {
       HREFLANG_LINKS: hreflangLinks,
       LANG_PICKER: buildLangPicker(loc, LOCALES),
       JSON_LD: buildJsonLd(loc),
+      FAQ_JSON_LD: buildFaqJsonLd(loc),
     });
 
     await mkdir(outDir, { recursive: true });

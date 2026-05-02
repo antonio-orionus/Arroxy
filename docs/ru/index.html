@@ -47,7 +47,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Arroxy","applicationCategory":"MultimediaApplication","operatingSystem":"Windows, macOS, Linux","description":"Скачивайте видео с YouTube в 4K, 1080p60 и HDR. Бесплатно, без рекламы, без входа, без cookies, 100% приватно. Windows, macOS, Linux.","inLanguage":"ru","url":"https://antonio-orionus.github.io/Arroxy/ru/","image":"https://antonio-orionus.github.io/Arroxy/assets/icon.png","license":"https://opensource.org/licenses/MIT","downloadUrl":"https://github.com/antonio-orionus/Arroxy/releases/latest","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Antonio Orionus","url":"https://x.com/OrionusAI"}}</script>
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Arroxy","applicationCategory":"MultimediaApplication","operatingSystem":"Windows, macOS, Linux","description":"Скачивайте видео с YouTube в 4K, 1080p60 и HDR. Бесплатно, без рекламы, без входа, без cookies, 100% приватно. Windows, macOS, Linux.","inLanguage":"ru","url":"https://antonio-orionus.github.io/Arroxy/ru/","image":"https://antonio-orionus.github.io/Arroxy/assets/icon.png","license":"https://opensource.org/licenses/MIT","downloadUrl":"https://github.com/antonio-orionus/Arroxy/releases/latest","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","@id":"https://x.com/OrionusAI","name":"Antonio Orionus","url":"https://x.com/OrionusAI"}},{"@context":"https://schema.org","@type":"Person","@id":"https://x.com/OrionusAI","name":"Antonio Orionus","url":"https://x.com/OrionusAI","sameAs":["https://x.com/OrionusAI","https://github.com/antonio-orionus"]}]</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"ru","mainEntity":[{"@type":"Question","name":"Какие качества видео можно скачивать?","acceptedAnswer":{"@type":"Answer","text":"Всё, что предлагает YouTube — 4K UHD (2160p), 1440p QHD, 1080p Full HD, 720p, 480p, 360p и только аудио. Потоки с высокой частотой кадров (60 fps, 120 fps) и HDR сохраняются как есть. Arroxy показывает все доступные форматы и даёт точно выбрать нужный."}},{"@type":"Question","name":"Это правда бесплатно?","acceptedAnswer":{"@type":"Answer","text":"Да. Лицензия MIT. Никаких премиум-уровней, никаких заблокированных функций."}},{"@type":"Question","name":"На каких языках доступен Arroxy?","acceptedAnswer":{"@type":"Answer","text":"На девяти, прямо из коробки: English, Español (испанский), Deutsch (немецкий), Français (французский), 日本語 (японский), 中文 (китайский), Русский, Українська (украинский) и हिन्दी (хинди). Arroxy автоматически определяет язык системы при первом запуске, и вы можете переключиться в любой момент через выбор языка в панели инструментов. Файлы локализации — это простые TypeScript-объекты в src/shared/i18n/locales/ — откройте PR на GitHub, чтобы внести вклад."}},{"@type":"Question","name":"Нужно что-то устанавливать?","acceptedAnswer":{"@type":"Answer","text":"Нет. yt-dlp и ffmpeg автоматически скачиваются при первом запуске с официальных GitHub releases и кешируются на вашей машине. После этого никакой настройки не требуется."}},{"@type":"Question","name":"Будет ли работать, если YouTube что-то изменит?","acceptedAnswer":{"@type":"Answer","text":"Да — у Arroxy два уровня устойчивости. Во-первых, yt-dlp — один из самых активно поддерживаемых open-source инструментов, обновления выходят в течение часов после изменений YouTube. Во-вторых, Arroxy вообще не зависит от кук или вашего аккаунта Google, так что нет сессий, которые истекают, и нет учётных данных, которые надо менять. Эта комбинация делает его значительно стабильнее инструментов, использующих экспорт кук из браузера."}},{"@type":"Question","name":"Можно ли скачивать плейлисты?","acceptedAnswer":{"@type":"Answer","text":"Сейчас поддерживаются только отдельные видео. Поддержка плейлистов и каналов — в дорожной карте."}},{"@type":"Question","name":"Нужен ли мой YouTube-аккаунт или куки?","acceptedAnswer":{"@type":"Answer","text":"Нет — и это важнее, чем кажется. Большинство инструментов, которые перестают работать после обновления YouTube, советуют экспортировать куки YouTube из браузера. Этот обходной путь ломается каждые ~30 минут, когда YouTube меняет сессии, а в документации yt-dlp прямо предупреждают, что это может привести к флагу аккаунта Google. Arroxy никогда не использует ни куки, ни учётные данные. Никакого логина. Никакого привязанного аккаунта. Нечему истекать, нечему банить."}},{"@type":"Question","name":"macOS говорит «приложение повреждено» или «не может быть открыто» — что делать?","acceptedAnswer":{"@type":"Answer","text":"Это macOS Gatekeeper блокирует неподписанное приложение — реального повреждения нет. В README есть пошаговая инструкция для первого запуска на macOS."}},{"@type":"Question","name":"Это законно?","acceptedAnswer":{"@type":"Answer","text":"Скачивание видео для личного использования в большинстве юрисдикций обычно допустимо. Вы сами отвечаете за соблюдение Условий использования YouTube и местных законов."}}]}</script>
 
     <style>
       :root {
@@ -419,6 +420,52 @@
       .copy-btn:hover { color: var(--brand-hover); border-color: var(--brand); }
       .copy-btn.copied { color: hsl(153 74% 60%); border-color: hsl(153 74% 45%); }
 
+      .faq-list {
+        max-width: 760px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .faq-item {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        transition: border-color .2s;
+      }
+      .faq-item[open] { border-color: var(--border-strong); }
+      .faq-item summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 18px 22px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .faq-item summary::-webkit-details-marker { display: none; }
+      .faq-item summary::after {
+        content: '+';
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--text-subtle);
+        transition: transform .2s, color .2s;
+        flex-shrink: 0;
+      }
+      .faq-item[open] summary::after { transform: rotate(45deg); color: var(--brand-hover); }
+      .faq-item summary:hover { color: var(--brand-hover); }
+      .faq-item .faq-answer {
+        padding: 0 22px 18px;
+        color: var(--text-dim);
+        font-size: 14.5px;
+        line-height: 1.65;
+      }
+
       footer { border-top: 1px solid var(--border); padding: 32px 0 40px; margin-top: 40px; }
       .footer-langs {
         display: flex;
@@ -459,7 +506,7 @@
     <nav>
       <div class="container nav-inner">
         <a href="../" class="brand">
-          <img src="../assets/icon.png" alt="" />
+          <img src="../assets/icon.png" alt="Arroxy logo" />
           Arroxy
         </a>
         <div class="nav-links">
@@ -602,6 +649,53 @@
             <h3>Без сторонних серверов</h3>
             <p>Весь конвейер работает локально через yt-dlp + ffmpeg. Файлы никогда не попадают на удалённый сервер.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow">FAQ</div>
+          <h2>Часто задаваемые вопросы</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>Какие качества видео можно скачивать?</summary>
+            <div class="faq-answer">Всё, что предлагает YouTube — 4K UHD (2160p), 1440p QHD, 1080p Full HD, 720p, 480p, 360p и только аудио. Потоки с высокой частотой кадров (60 fps, 120 fps) и HDR сохраняются как есть. Arroxy показывает все доступные форматы и даёт точно выбрать нужный.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Это правда бесплатно?</summary>
+            <div class="faq-answer">Да. Лицензия MIT. Никаких премиум-уровней, никаких заблокированных функций.</div>
+          </details>
+          <details class="faq-item">
+            <summary>На каких языках доступен Arroxy?</summary>
+            <div class="faq-answer">На девяти, прямо из коробки: English, Español (испанский), Deutsch (немецкий), Français (французский), 日本語 (японский), 中文 (китайский), Русский, Українська (украинский) и हिन्दी (хинди). Arroxy автоматически определяет язык системы при первом запуске, и вы можете переключиться в любой момент через выбор языка в панели инструментов. Файлы локализации — это простые TypeScript-объекты в src/shared/i18n/locales/ — откройте PR на GitHub, чтобы внести вклад.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Нужно что-то устанавливать?</summary>
+            <div class="faq-answer">Нет. yt-dlp и ffmpeg автоматически скачиваются при первом запуске с официальных GitHub releases и кешируются на вашей машине. После этого никакой настройки не требуется.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Будет ли работать, если YouTube что-то изменит?</summary>
+            <div class="faq-answer">Да — у Arroxy два уровня устойчивости. Во-первых, yt-dlp — один из самых активно поддерживаемых open-source инструментов, обновления выходят в течение часов после изменений YouTube. Во-вторых, Arroxy вообще не зависит от кук или вашего аккаунта Google, так что нет сессий, которые истекают, и нет учётных данных, которые надо менять. Эта комбинация делает его значительно стабильнее инструментов, использующих экспорт кук из браузера.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Можно ли скачивать плейлисты?</summary>
+            <div class="faq-answer">Сейчас поддерживаются только отдельные видео. Поддержка плейлистов и каналов — в дорожной карте.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Нужен ли мой YouTube-аккаунт или куки?</summary>
+            <div class="faq-answer">Нет — и это важнее, чем кажется. Большинство инструментов, которые перестают работать после обновления YouTube, советуют экспортировать куки YouTube из браузера. Этот обходной путь ломается каждые ~30 минут, когда YouTube меняет сессии, а в документации yt-dlp прямо предупреждают, что это может привести к флагу аккаунта Google. Arroxy никогда не использует ни куки, ни учётные данные. Никакого логина. Никакого привязанного аккаунта. Нечему истекать, нечему банить.</div>
+          </details>
+          <details class="faq-item">
+            <summary>macOS говорит «приложение повреждено» или «не может быть открыто» — что делать?</summary>
+            <div class="faq-answer">Это macOS Gatekeeper блокирует неподписанное приложение — реального повреждения нет. В README есть пошаговая инструкция для первого запуска на macOS.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Это законно?</summary>
+            <div class="faq-answer">Скачивание видео для личного использования в большинстве юрисдикций обычно допустимо. Вы сами отвечаете за соблюдение Условий использования YouTube и местных законов.</div>
+          </details>
         </div>
       </div>
     </section>

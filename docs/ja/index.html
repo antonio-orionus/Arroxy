@@ -47,7 +47,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Arroxy","applicationCategory":"MultimediaApplication","operatingSystem":"Windows, macOS, Linux","description":"YouTube 動画を 4K、1080p60、HDR でダウンロード。無料、広告なし、ログイン不要、Cookie 不要、100% プライベート。Windows、macOS、Linux 対応。","inLanguage":"ja","url":"https://antonio-orionus.github.io/Arroxy/ja/","image":"https://antonio-orionus.github.io/Arroxy/assets/icon.png","license":"https://opensource.org/licenses/MIT","downloadUrl":"https://github.com/antonio-orionus/Arroxy/releases/latest","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Antonio Orionus","url":"https://x.com/OrionusAI"}}</script>
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Arroxy","applicationCategory":"MultimediaApplication","operatingSystem":"Windows, macOS, Linux","description":"YouTube 動画を 4K、1080p60、HDR でダウンロード。無料、広告なし、ログイン不要、Cookie 不要、100% プライベート。Windows、macOS、Linux 対応。","inLanguage":"ja","url":"https://antonio-orionus.github.io/Arroxy/ja/","image":"https://antonio-orionus.github.io/Arroxy/assets/icon.png","license":"https://opensource.org/licenses/MIT","downloadUrl":"https://github.com/antonio-orionus/Arroxy/releases/latest","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","@id":"https://x.com/OrionusAI","name":"Antonio Orionus","url":"https://x.com/OrionusAI"}},{"@context":"https://schema.org","@type":"Person","@id":"https://x.com/OrionusAI","name":"Antonio Orionus","url":"https://x.com/OrionusAI","sameAs":["https://x.com/OrionusAI","https://github.com/antonio-orionus"]}]</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"ja","mainEntity":[{"@type":"Question","name":"どの画質でダウンロードできますか？","acceptedAnswer":{"@type":"Answer","text":"YouTube が提供するすべて — 4K UHD（2160p）、1440p QHD、1080p Full HD、720p、480p、360p、音声のみ。ハイフレームレート（60 fps、120 fps）と HDR コンテンツはそのまま保存されます。Arroxy は利用可能な全フォーマットを表示し、ピンポイントで選ばせてくれます。"}},{"@type":"Question","name":"本当に無料ですか？","acceptedAnswer":{"@type":"Answer","text":"はい。MIT ライセンス。プレミアム版や機能ロックはありません。"}},{"@type":"Question","name":"Arroxy は何カ国語に対応していますか？","acceptedAnswer":{"@type":"Answer","text":"9 言語に標準対応：English、Español（スペイン語）、Deutsch（ドイツ語）、Français（フランス語）、日本語、中文（中国語）、Русский（ロシア語）、Українська（ウクライナ語）、हिन्दी（ヒンディー語）。Arroxy は初回起動時に OS の言語を自動検出し、ツールバーの言語選択でいつでも切り替え可能です。翻訳は src/shared/i18n/locales/ 内の素の TypeScript オブジェクトとして管理されているので、GitHub で PR を開いて貢献できます。"}},{"@type":"Question","name":"何かインストールが必要ですか？","acceptedAnswer":{"@type":"Answer","text":"いいえ。yt-dlp と ffmpeg は初回起動時に公式 GitHub releases から自動ダウンロードされ、マシンにキャッシュされます。それ以降は追加のセットアップ不要。"}},{"@type":"Question","name":"YouTube が変更したら使えなくなりますか？","acceptedAnswer":{"@type":"Answer","text":"いいえ — Arroxy には 2 段階の耐性があります。第一に、yt-dlp はオープンソースで最も活発に保守されているツールの 1 つで、YouTube の変更から数時間以内に更新されます。第二に、Arroxy は Cookie や Google アカウントに一切依存しないため、失効するセッションも、ローテートする資格情報もありません。この組み合わせにより、ブラウザの Cookie に依存するツールよりも遥かに安定しています。"}},{"@type":"Question","name":"プレイリストはダウンロードできますか？","acceptedAnswer":{"@type":"Answer","text":"現在は単一動画のみサポート。プレイリストとチャンネルのサポートはロードマップ上にあります。"}},{"@type":"Question","name":"YouTube アカウントや Cookie が必要ですか？","acceptedAnswer":{"@type":"Answer","text":"いいえ — そしてこれは思っているより重要なポイントです。YouTube の更新後に動かなくなるツールの大半は、ブラウザの YouTube Cookie のエクスポートを指示してきます。その回避策は YouTube がセッションをローテーションする約 30 分ごとに壊れますし、yt-dlp の公式ドキュメントもそれが Google アカウントのフラグ立てにつながると警告しています。Arroxy は Cookie も資格情報も一切使いません。ログインなし、アカウント連携なし、失効するものも、BAN されるものもありません。"}},{"@type":"Question","name":"macOS で「アプリが壊れている」「開けません」と表示される — どうすれば？","acceptedAnswer":{"@type":"Answer","text":"これは macOS Gatekeeper が未署名アプリをブロックしているもので、実際に壊れているわけではありません。README に macOS 初回起動のステップごとの手順があります。"}},{"@type":"Question","name":"これは合法ですか？","acceptedAnswer":{"@type":"Answer","text":"個人使用のための動画ダウンロードは、ほとんどの法域で一般的に容認されています。YouTube の利用規約および所在地の法律の遵守はあなたの責任です。"}}]}</script>
 
     <style>
       :root {
@@ -419,6 +420,52 @@
       .copy-btn:hover { color: var(--brand-hover); border-color: var(--brand); }
       .copy-btn.copied { color: hsl(153 74% 60%); border-color: hsl(153 74% 45%); }
 
+      .faq-list {
+        max-width: 760px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .faq-item {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        transition: border-color .2s;
+      }
+      .faq-item[open] { border-color: var(--border-strong); }
+      .faq-item summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 18px 22px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .faq-item summary::-webkit-details-marker { display: none; }
+      .faq-item summary::after {
+        content: '+';
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--text-subtle);
+        transition: transform .2s, color .2s;
+        flex-shrink: 0;
+      }
+      .faq-item[open] summary::after { transform: rotate(45deg); color: var(--brand-hover); }
+      .faq-item summary:hover { color: var(--brand-hover); }
+      .faq-item .faq-answer {
+        padding: 0 22px 18px;
+        color: var(--text-dim);
+        font-size: 14.5px;
+        line-height: 1.65;
+      }
+
       footer { border-top: 1px solid var(--border); padding: 32px 0 40px; margin-top: 40px; }
       .footer-langs {
         display: flex;
@@ -459,7 +506,7 @@
     <nav>
       <div class="container nav-inner">
         <a href="../" class="brand">
-          <img src="../assets/icon.png" alt="" />
+          <img src="../assets/icon.png" alt="Arroxy logo" />
           Arroxy
         </a>
         <div class="nav-links">
@@ -602,6 +649,53 @@
             <h3>サードパーティサーバーなし</h3>
             <p>全パイプラインが yt-dlp + ffmpeg でローカル実行。ファイルがリモートサーバーに触れることはありません。</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow">FAQ</div>
+          <h2>よくある質問</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>どの画質でダウンロードできますか？</summary>
+            <div class="faq-answer">YouTube が提供するすべて — 4K UHD（2160p）、1440p QHD、1080p Full HD、720p、480p、360p、音声のみ。ハイフレームレート（60 fps、120 fps）と HDR コンテンツはそのまま保存されます。Arroxy は利用可能な全フォーマットを表示し、ピンポイントで選ばせてくれます。</div>
+          </details>
+          <details class="faq-item">
+            <summary>本当に無料ですか？</summary>
+            <div class="faq-answer">はい。MIT ライセンス。プレミアム版や機能ロックはありません。</div>
+          </details>
+          <details class="faq-item">
+            <summary>Arroxy は何カ国語に対応していますか？</summary>
+            <div class="faq-answer">9 言語に標準対応：English、Español（スペイン語）、Deutsch（ドイツ語）、Français（フランス語）、日本語、中文（中国語）、Русский（ロシア語）、Українська（ウクライナ語）、हिन्दी（ヒンディー語）。Arroxy は初回起動時に OS の言語を自動検出し、ツールバーの言語選択でいつでも切り替え可能です。翻訳は src/shared/i18n/locales/ 内の素の TypeScript オブジェクトとして管理されているので、GitHub で PR を開いて貢献できます。</div>
+          </details>
+          <details class="faq-item">
+            <summary>何かインストールが必要ですか？</summary>
+            <div class="faq-answer">いいえ。yt-dlp と ffmpeg は初回起動時に公式 GitHub releases から自動ダウンロードされ、マシンにキャッシュされます。それ以降は追加のセットアップ不要。</div>
+          </details>
+          <details class="faq-item">
+            <summary>YouTube が変更したら使えなくなりますか？</summary>
+            <div class="faq-answer">いいえ — Arroxy には 2 段階の耐性があります。第一に、yt-dlp はオープンソースで最も活発に保守されているツールの 1 つで、YouTube の変更から数時間以内に更新されます。第二に、Arroxy は Cookie や Google アカウントに一切依存しないため、失効するセッションも、ローテートする資格情報もありません。この組み合わせにより、ブラウザの Cookie に依存するツールよりも遥かに安定しています。</div>
+          </details>
+          <details class="faq-item">
+            <summary>プレイリストはダウンロードできますか？</summary>
+            <div class="faq-answer">現在は単一動画のみサポート。プレイリストとチャンネルのサポートはロードマップ上にあります。</div>
+          </details>
+          <details class="faq-item">
+            <summary>YouTube アカウントや Cookie が必要ですか？</summary>
+            <div class="faq-answer">いいえ — そしてこれは思っているより重要なポイントです。YouTube の更新後に動かなくなるツールの大半は、ブラウザの YouTube Cookie のエクスポートを指示してきます。その回避策は YouTube がセッションをローテーションする約 30 分ごとに壊れますし、yt-dlp の公式ドキュメントもそれが Google アカウントのフラグ立てにつながると警告しています。Arroxy は Cookie も資格情報も一切使いません。ログインなし、アカウント連携なし、失効するものも、BAN されるものもありません。</div>
+          </details>
+          <details class="faq-item">
+            <summary>macOS で「アプリが壊れている」「開けません」と表示される — どうすれば？</summary>
+            <div class="faq-answer">これは macOS Gatekeeper が未署名アプリをブロックしているもので、実際に壊れているわけではありません。README に macOS 初回起動のステップごとの手順があります。</div>
+          </details>
+          <details class="faq-item">
+            <summary>これは合法ですか？</summary>
+            <div class="faq-answer">個人使用のための動画ダウンロードは、ほとんどの法域で一般的に容認されています。YouTube の利用規約および所在地の法律の遵守はあなたの責任です。</div>
+          </details>
         </div>
       </div>
     </section>

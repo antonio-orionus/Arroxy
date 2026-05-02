@@ -47,7 +47,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Arroxy","applicationCategory":"MultimediaApplication","operatingSystem":"Windows, macOS, Linux","description":"Download YouTube videos in 4K, 1080p60 and HDR. Free, ad-free, no login, no cookies, 100% private. Windows, macOS, Linux.","inLanguage":"en","url":"https://antonio-orionus.github.io/Arroxy/","image":"https://antonio-orionus.github.io/Arroxy/assets/icon.png","license":"https://opensource.org/licenses/MIT","downloadUrl":"https://github.com/antonio-orionus/Arroxy/releases/latest","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Antonio Orionus","url":"https://x.com/OrionusAI"}}</script>
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Arroxy","applicationCategory":"MultimediaApplication","operatingSystem":"Windows, macOS, Linux","description":"Download YouTube videos in 4K, 1080p60 and HDR. Free, ad-free, no login, no cookies, 100% private. Windows, macOS, Linux.","inLanguage":"en","url":"https://antonio-orionus.github.io/Arroxy/","image":"https://antonio-orionus.github.io/Arroxy/assets/icon.png","license":"https://opensource.org/licenses/MIT","downloadUrl":"https://github.com/antonio-orionus/Arroxy/releases/latest","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","@id":"https://x.com/OrionusAI","name":"Antonio Orionus","url":"https://x.com/OrionusAI"}},{"@context":"https://schema.org","@type":"Person","@id":"https://x.com/OrionusAI","name":"Antonio Orionus","url":"https://x.com/OrionusAI","sameAs":["https://x.com/OrionusAI","https://github.com/antonio-orionus"]}]</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"en","mainEntity":[{"@type":"Question","name":"What video qualities can I download?","acceptedAnswer":{"@type":"Answer","text":"Anything YouTube offers — 4K UHD (2160p), 1440p QHD, 1080p Full HD, 720p, 480p, 360p, and audio-only. High frame-rate streams (60 fps, 120 fps) and HDR content are preserved as-is. Arroxy shows you every available format and lets you choose exactly what to grab."}},{"@type":"Question","name":"Is it really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. MIT licensed. No premium tier, no feature gating."}},{"@type":"Question","name":"What languages is Arroxy available in?","acceptedAnswer":{"@type":"Answer","text":"Nine, out of the box: English, Español (Spanish), Deutsch (German), Français (French), 日本語 (Japanese), 中文 (Chinese), Русский (Russian), Українська (Ukrainian), and हिन्दी (Hindi). Arroxy auto-detects your operating system's language on first launch and you can switch at any time from the language picker in the toolbar. Translations live as plain TypeScript objects in src/shared/i18n/locales/ — open a PR on GitHub to contribute."}},{"@type":"Question","name":"Do I need to install anything?","acceptedAnswer":{"@type":"Answer","text":"No. yt-dlp and ffmpeg are downloaded automatically on first launch from their official GitHub releases and cached on your machine. After that, no extra setup is needed."}},{"@type":"Question","name":"Will it keep working if YouTube changes something?","acceptedAnswer":{"@type":"Answer","text":"Yes — and Arroxy has two layers of resilience. First, yt-dlp is one of the most actively maintained open-source tools around — it updates within hours of YouTube changes. Second, Arroxy doesn't rely on cookies or your Google account at all, so there's no session to expire and no credentials to rotate. That combination makes it significantly more stable than tools that depend on exported browser cookies."}},{"@type":"Question","name":"Can I download playlists?","acceptedAnswer":{"@type":"Answer","text":"Single videos are supported today. Playlist and channel support is on the roadmap."}},{"@type":"Question","name":"Does it need my YouTube account or cookies?","acceptedAnswer":{"@type":"Answer","text":"No — and that's a bigger deal than it sounds. Most tools that stop working after a YouTube update tell you to export your browser's YouTube cookies. That workaround breaks every ~30 minutes as YouTube rotates sessions, and yt-dlp's own docs warn it can get your Google account flagged. Arroxy never uses cookies or credentials. No login. No account linked. Nothing to expire, nothing to ban."}},{"@type":"Question","name":"macOS says \"the app is damaged\" or \"cannot be opened\" — what do I do?","acceptedAnswer":{"@type":"Answer","text":"This is macOS Gatekeeper blocking an unsigned app — not actual damage. The README has step-by-step instructions for the first-time launch on macOS."}},{"@type":"Question","name":"Is this legal?","acceptedAnswer":{"@type":"Answer","text":"Downloading videos for personal use is generally accepted in most jurisdictions. You are responsible for complying with YouTube's Terms of Service and your local laws."}}]}</script>
 
     <style>
       :root {
@@ -419,6 +420,52 @@
       .copy-btn:hover { color: var(--brand-hover); border-color: var(--brand); }
       .copy-btn.copied { color: hsl(153 74% 60%); border-color: hsl(153 74% 45%); }
 
+      .faq-list {
+        max-width: 760px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .faq-item {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        transition: border-color .2s;
+      }
+      .faq-item[open] { border-color: var(--border-strong); }
+      .faq-item summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 18px 22px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .faq-item summary::-webkit-details-marker { display: none; }
+      .faq-item summary::after {
+        content: '+';
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--text-subtle);
+        transition: transform .2s, color .2s;
+        flex-shrink: 0;
+      }
+      .faq-item[open] summary::after { transform: rotate(45deg); color: var(--brand-hover); }
+      .faq-item summary:hover { color: var(--brand-hover); }
+      .faq-item .faq-answer {
+        padding: 0 22px 18px;
+        color: var(--text-dim);
+        font-size: 14.5px;
+        line-height: 1.65;
+      }
+
       footer { border-top: 1px solid var(--border); padding: 32px 0 40px; margin-top: 40px; }
       .footer-langs {
         display: flex;
@@ -459,7 +506,7 @@
     <nav>
       <div class="container nav-inner">
         <a href="" class="brand">
-          <img src="assets/icon.png" alt="" />
+          <img src="assets/icon.png" alt="Arroxy logo" />
           Arroxy
         </a>
         <div class="nav-links">
@@ -602,6 +649,53 @@
             <h3>No third-party servers</h3>
             <p>The whole pipeline runs locally via yt-dlp + ffmpeg. Files never touch a remote server.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow">FAQ</div>
+          <h2>Frequently asked questions</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>What video qualities can I download?</summary>
+            <div class="faq-answer">Anything YouTube offers — 4K UHD (2160p), 1440p QHD, 1080p Full HD, 720p, 480p, 360p, and audio-only. High frame-rate streams (60 fps, 120 fps) and HDR content are preserved as-is. Arroxy shows you every available format and lets you choose exactly what to grab.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Is it really free?</summary>
+            <div class="faq-answer">Yes. MIT licensed. No premium tier, no feature gating.</div>
+          </details>
+          <details class="faq-item">
+            <summary>What languages is Arroxy available in?</summary>
+            <div class="faq-answer">Nine, out of the box: English, Español (Spanish), Deutsch (German), Français (French), 日本語 (Japanese), 中文 (Chinese), Русский (Russian), Українська (Ukrainian), and हिन्दी (Hindi). Arroxy auto-detects your operating system's language on first launch and you can switch at any time from the language picker in the toolbar. Translations live as plain TypeScript objects in src/shared/i18n/locales/ — open a PR on GitHub to contribute.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Do I need to install anything?</summary>
+            <div class="faq-answer">No. yt-dlp and ffmpeg are downloaded automatically on first launch from their official GitHub releases and cached on your machine. After that, no extra setup is needed.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Will it keep working if YouTube changes something?</summary>
+            <div class="faq-answer">Yes — and Arroxy has two layers of resilience. First, yt-dlp is one of the most actively maintained open-source tools around — it updates within hours of YouTube changes. Second, Arroxy doesn't rely on cookies or your Google account at all, so there's no session to expire and no credentials to rotate. That combination makes it significantly more stable than tools that depend on exported browser cookies.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I download playlists?</summary>
+            <div class="faq-answer">Single videos are supported today. Playlist and channel support is on the roadmap.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Does it need my YouTube account or cookies?</summary>
+            <div class="faq-answer">No — and that's a bigger deal than it sounds. Most tools that stop working after a YouTube update tell you to export your browser's YouTube cookies. That workaround breaks every ~30 minutes as YouTube rotates sessions, and yt-dlp's own docs warn it can get your Google account flagged. Arroxy never uses cookies or credentials. No login. No account linked. Nothing to expire, nothing to ban.</div>
+          </details>
+          <details class="faq-item">
+            <summary>macOS says &quot;the app is damaged&quot; or &quot;cannot be opened&quot; — what do I do?</summary>
+            <div class="faq-answer">This is macOS Gatekeeper blocking an unsigned app — not actual damage. The README has step-by-step instructions for the first-time launch on macOS.</div>
+          </details>
+          <details class="faq-item">
+            <summary>Is this legal?</summary>
+            <div class="faq-answer">Downloading videos for personal use is generally accepted in most jurisdictions. You are responsible for complying with YouTube's Terms of Service and your local laws.</div>
+          </details>
         </div>
       </div>
     </section>

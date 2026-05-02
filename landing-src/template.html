@@ -32,6 +32,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <script type="application/ld+json">{{JSON_LD}}</script>
+    <script type="application/ld+json">{{FAQ_JSON_LD}}</script>
 
     <style>
       :root {
@@ -403,6 +404,52 @@
       .copy-btn:hover { color: var(--brand-hover); border-color: var(--brand); }
       .copy-btn.copied { color: hsl(153 74% 60%); border-color: hsl(153 74% 45%); }
 
+      .faq-list {
+        max-width: 760px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .faq-item {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        transition: border-color .2s;
+      }
+      .faq-item[open] { border-color: var(--border-strong); }
+      .faq-item summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 18px 22px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .faq-item summary::-webkit-details-marker { display: none; }
+      .faq-item summary::after {
+        content: '+';
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--text-subtle);
+        transition: transform .2s, color .2s;
+        flex-shrink: 0;
+      }
+      .faq-item[open] summary::after { transform: rotate(45deg); color: var(--brand-hover); }
+      .faq-item summary:hover { color: var(--brand-hover); }
+      .faq-item .faq-answer {
+        padding: 0 22px 18px;
+        color: var(--text-dim);
+        font-size: 14.5px;
+        line-height: 1.65;
+      }
+
       footer { border-top: 1px solid var(--border); padding: 32px 0 40px; margin-top: 40px; }
       .footer-langs {
         display: flex;
@@ -443,7 +490,7 @@
     <nav>
       <div class="container nav-inner">
         <a href="{{BASE}}" class="brand">
-          <img src="{{BASE}}assets/icon.png" alt="" />
+          <img src="{{BASE}}assets/icon.png" alt="Arroxy logo" />
           Arroxy
         </a>
         <div class="nav-links">
@@ -586,6 +633,53 @@
             <h3>{{p4_h}}</h3>
             <p>{{p4_p}}</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow">{{faq_eyebrow}}</div>
+          <h2>{{faq_h2}}</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>{{faq_q1}}</summary>
+            <div class="faq-answer">{{faq_a1}}</div>
+          </details>
+          <details class="faq-item">
+            <summary>{{faq_q2}}</summary>
+            <div class="faq-answer">{{faq_a2}}</div>
+          </details>
+          <details class="faq-item">
+            <summary>{{faq_q3}}</summary>
+            <div class="faq-answer">{{faq_a3}}</div>
+          </details>
+          <details class="faq-item">
+            <summary>{{faq_q4}}</summary>
+            <div class="faq-answer">{{faq_a4}}</div>
+          </details>
+          <details class="faq-item">
+            <summary>{{faq_q5}}</summary>
+            <div class="faq-answer">{{faq_a5}}</div>
+          </details>
+          <details class="faq-item">
+            <summary>{{faq_q6}}</summary>
+            <div class="faq-answer">{{faq_a6}}</div>
+          </details>
+          <details class="faq-item">
+            <summary>{{faq_q7}}</summary>
+            <div class="faq-answer">{{faq_a7}}</div>
+          </details>
+          <details class="faq-item">
+            <summary>{{faq_q8}}</summary>
+            <div class="faq-answer">{{faq_a8}}</div>
+          </details>
+          <details class="faq-item">
+            <summary>{{faq_q9}}</summary>
+            <div class="faq-answer">{{faq_a9}}</div>
+          </details>
         </div>
       </div>
     </section>
