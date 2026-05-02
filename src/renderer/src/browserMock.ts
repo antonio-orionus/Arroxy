@@ -20,6 +20,9 @@ if (!('appApi' in window)) {
     language: 'en',
     cookiesPath: undefined,
     cookiesEnabled: false,
+    embedChapters: true,
+    embedMetadata: true,
+    embedThumbnail: true,
     commonPaths: {
       downloads: '/home/user/Downloads',
       videos: '/home/user/Videos',

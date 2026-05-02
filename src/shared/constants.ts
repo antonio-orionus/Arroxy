@@ -15,13 +15,19 @@ export const DEFAULTS: {
   sponsorBlockCategories: SponsorBlockCategory[];
   uiZoom: number;
   uiTheme: UiTheme;
+  embedChapters: boolean;
+  embedMetadata: boolean;
+  embedThumbnail: boolean;
 } = {
   subtitleMode: 'sidecar',
   subtitleFormat: 'srt',
   sponsorBlockMode: 'off',
   sponsorBlockCategories: ['sponsor', 'selfpromo'],
   uiZoom: 1,
-  uiTheme: 'system'
+  uiTheme: 'system',
+  embedChapters: true,
+  embedMetadata: true,
+  embedThumbnail: true,
 };
 
 // Single factory for the AppSettings shape — main process, tests, and

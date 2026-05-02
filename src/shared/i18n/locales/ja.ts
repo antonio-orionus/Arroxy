@@ -40,6 +40,7 @@ const ja = {
       formats: '形式',
       subtitles: '字幕',
       sponsorblock: 'SponsorBlock',
+      output: '出力',
       folder: '保存先',
       confirm: '確認'
     },
@@ -165,6 +166,20 @@ const ja = {
         toggle: 'サブフォルダに保存',
         placeholder: '例: lo-fi rips',
         invalid: 'フォルダ名に無効な文字が含まれています'
+      }
+    },
+    output: {
+      embedChapters: {
+        label: 'チャプターを埋め込む',
+        description: '現代のプレーヤーでナビゲートできるチャプターマーカー。'
+      },
+      embedMetadata: {
+        label: 'メタデータを埋め込む',
+        description: 'タイトル、アーティスト、説明、アップロード日をファイルに書き込みます。'
+      },
+      embedThumbnail: {
+        label: 'サムネイルを埋め込む',
+        description: 'ファイル内のカバーアート。MP4 / M4Aのみ — 字幕を埋め込む場合はスキップ。'
       }
     },
     confirm: {

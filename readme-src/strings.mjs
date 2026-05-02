@@ -174,6 +174,8 @@ const en = {
     "**Auto-clean URLs** — pasted or clipboard-grabbed YouTube links are stripped of tracking junk (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid`, and more) and `youtube.com/redirect` wrappers are unwrapped — the URL field always shows the canonical link",
   what_12:
     "**Hides to tray** — closing the window tucks Arroxy into your system tray. Downloads keep running; click the tray icon to bring the window back, or quit from the tray menu",
+  what_13:
+    "**Embedded chapters, metadata & thumbnail** — title, upload date, artist, description, and cover art written right into the file; chapter markers let any modern player navigate by section",
   shot1_alt: "Paste a URL",
   shot2_alt: "Pick your quality",
   shot3_alt: "Choose where to save",
@@ -376,6 +378,8 @@ const de = {
     "**URLs automatisch bereinigen** — eingefügte oder aus der Zwischenablage übernommene YouTube-Links werden von Tracking-Parametern (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` und mehr) befreit, und `youtube.com/redirect`-Wrapper werden aufgelöst — das URL-Feld zeigt immer den kanonischen Link",
   what_12:
     "**In den Tray minimieren** — das Schließen des Fensters versteckt Arroxy im System-Tray. Downloads laufen weiter; klicke auf das Tray-Symbol, um das Fenster zurückzubringen, oder beende die App über das Tray-Menü",
+  what_13:
+    "**Eingebettete Kapitel, Metadaten & Thumbnail** — Titel, Upload-Datum, Künstler, Beschreibung und Cover-Art direkt in die Datei geschrieben; Kapitelmarkierungen ermöglichen Navigation in jedem modernen Player",
   shot1_alt: "URL einfügen",
   shot2_alt: "Qualität wählen",
   shot3_alt: "Speicherort wählen",
@@ -580,6 +584,8 @@ const es = {
     "**Limpieza automática de URLs** — los enlaces de YouTube pegados o tomados del portapapeles se limpian de parámetros de seguimiento (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` y más), y los envoltorios `youtube.com/redirect` se desempaquetan — el campo de URL siempre muestra el enlace canónico",
   what_12:
     "**Se oculta en la bandeja** — cerrar la ventana lleva Arroxy a la bandeja del sistema. Las descargas siguen en curso; haz clic en el icono para recuperar la ventana, o sal desde el menú de la bandeja",
+  what_13:
+    "**Capítulos, metadatos y miniatura integrados** — título, fecha de subida, artista, descripción y portada escritos directamente en el archivo; los marcadores de capítulo permiten navegar por sección en cualquier reproductor moderno",
   shot1_alt: "Pega una URL",
   shot2_alt: "Elige la calidad",
   shot3_alt: "Elige dónde guardar",
@@ -785,6 +791,8 @@ const fr = {
     "**Nettoyage auto des URLs** — les liens YouTube collés ou récupérés du presse-papiers sont débarrassés des paramètres de tracking (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` et plus), et les enveloppes `youtube.com/redirect` sont déballées — le champ URL affiche toujours le lien canonique",
   what_12:
     "**Se réduit dans le tray** — fermer la fenêtre loge Arroxy dans la barre système. Les téléchargements continuent ; cliquez sur l'icône pour rouvrir la fenêtre, ou quittez depuis le menu de la barre",
+  what_13:
+    "**Chapitres, métadonnées et miniature intégrés** — titre, date de mise en ligne, artiste, description et pochette écrits directement dans le fichier ; les marqueurs de chapitres permettent la navigation par section dans tout lecteur moderne",
   shot1_alt: "Coller une URL",
   shot2_alt: "Choisir la qualité",
   shot3_alt: "Choisir où enregistrer",
@@ -989,6 +997,8 @@ const ja = {
     "**URL 自動クリーンアップ** — 貼り付けたりクリップボードから取得した YouTube リンクからトラッキングパラメータ（`si`、`pp`、`feature`、`utm_*`、`fbclid`、`gclid` など）を除去し、`youtube.com/redirect` ラッパーを展開 — URL フィールドには常にクリーンな正規リンクが表示されます",
   what_12:
     "**トレイに格納** — ウィンドウを閉じると Arroxy はシステムトレイに格納されます。ダウンロードは継続し、トレイアイコンをクリックするとウィンドウが戻ります。トレイメニューから終了も可能です",
+  what_13:
+    "**チャプター・メタデータ・サムネイルを埋め込み** — タイトル、アップロード日、アーティスト、説明、カバーアートをファイルに直接書き込み。チャプターマーカーで現代のプレーヤーからセクション移動が可能",
   shot1_alt: "URL を貼る",
   shot2_alt: "画質を選ぶ",
   shot3_alt: "保存先を選ぶ",
@@ -1185,6 +1195,8 @@ const zh = {
     "**自动清理 URL** — 粘贴或从剪贴板获取的 YouTube 链接会自动剥除跟踪参数（`si`、`pp`、`feature`、`utm_*`、`fbclid`、`gclid` 等），并解包 `youtube.com/redirect` 跳转链接 — URL 字段始终显示规范链接",
   what_12:
     "**最小化到托盘** — 关闭窗口后 Arroxy 将缩入系统托盘，下载持续运行。单击托盘图标可恢复窗口，或通过托盘菜单退出应用",
+  what_13:
+    "**嵌入章节、元数据与封面** — 标题、上传日期、艺术家、描述和封面图直接写入文件；章节标记让任何现代播放器都能按节导航",
   shot1_alt: "粘贴 URL",
   shot2_alt: "选择画质",
   shot3_alt: "选择保存位置",
@@ -1376,6 +1388,8 @@ const ru = {
     "**Автоочистка URL** — вставленные или взятые из буфера обмена YouTube-ссылки очищаются от трекинговых параметров (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` и других), а обёртки `youtube.com/redirect` разворачиваются — в поле URL всегда отображается канонический адрес",
   what_12:
     "**Сворачивание в трей** — закрытие окна прячет Arroxy в системный трей. Загрузки продолжаются; кликните на значок трея, чтобы открыть окно снова, или выйдите через меню трея",
+  what_13:
+    "**Встроенные главы, метаданные и обложка** — название, дата загрузки, исполнитель, описание и обложка записываются прямо в файл; маркеры глав позволяют навигировать по разделам в любом современном плеере",
   shot1_alt: "Вставьте URL",
   shot2_alt: "Выберите качество",
   shot3_alt: "Выберите, куда сохранять",
@@ -1581,6 +1595,8 @@ const uk = {
     "**Автоочищення URL** — вставлені або взяті з буфера обміну YouTube-посилання очищаються від трекінгових параметрів (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` тощо), а обгортки `youtube.com/redirect` розгортаються — у полі URL завжди відображається канонічна адреса",
   what_12:
     "**Згортання в трей** — закриття вікна ховає Arroxy в системний трей. Завантаження тривають; натисніть значок трею, щоб повернути вікно, або виходьте через меню трею",
+  what_13:
+    "**Вбудовані розділи, метадані й обкладинка** — назва, дата завантаження, виконавець, опис і обкладинка записуються безпосередньо у файл; маркери розділів дозволяють навігацію по секціях у будь-якому сучасному плеєрі",
   shot1_alt: "Вставте URL",
   shot2_alt: "Оберіть якість",
   shot3_alt: "Оберіть, куди зберігати",
@@ -1787,6 +1803,8 @@ const hi = {
     "**URL को अपने आप साफ़ करें** — पेस्ट किए गए या क्लिपबोर्ड से लिए गए YouTube लिंक से ट्रैकिंग पैरामीटर (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` और अन्य) हटा दिए जाते हैं, और `youtube.com/redirect` रैपर खोल दिए जाते हैं — URL फ़ील्ड में हमेशा कैनोनिकल लिंक दिखता है",
   what_12:
     "**ट्रे में छुपाएं** — विंडो बंद करने पर Arroxy सिस्टम ट्रे में चला जाता है। डाउनलोड जारी रहते हैं; ट्रे आइकन पर क्लिक करके विंडो वापस लाएं, या ट्रे मेनू से बाहर निकलें",
+  what_13:
+    "**एम्बेडेड चैप्टर, मेटाडेटा और थंबनेल** — शीर्षक, अपलोड तिथि, कलाकार, विवरण और कवर आर्ट सीधे फ़ाइल में लिखे जाते हैं; चैप्टर मार्कर किसी भी आधुनिक प्लेयर में सेक्शन-नेविगेशन देते हैं",
   shot1_alt: "URL पेस्ट करें",
   shot2_alt: "क्वालिटी चुनें",
   shot3_alt: "सेव लोकेशन चुनें",

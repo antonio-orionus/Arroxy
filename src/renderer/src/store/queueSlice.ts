@@ -83,7 +83,10 @@ function buildQueueItem(get: GetState): QueueItem | null {
     subtitleMode: state.wizardSubtitleMode,
     subtitleFormat: state.wizardSubtitleFormat,
     sponsorBlockMode: state.wizardSponsorBlockMode,
-    sponsorBlockCategories: [...state.wizardSponsorBlockCategories]
+    sponsorBlockCategories: [...state.wizardSponsorBlockCategories],
+    embedChapters: state.wizardEmbedChapters,
+    embedMetadata: state.wizardEmbedMetadata,
+    embedThumbnail: state.wizardEmbedThumbnail,
   };
 }
 
@@ -100,7 +103,10 @@ function buildStartInput(item: QueueItem): StartDownloadInput {
     ...(item.sponsorBlockMode !== 'off' && item.sponsorBlockCategories.length > 0 ? {
       sponsorBlockMode: item.sponsorBlockMode,
       sponsorBlockCategories: item.sponsorBlockCategories
-    } : {})
+    } : {}),
+    embedChapters: item.embedChapters,
+    embedMetadata: item.embedMetadata,
+    embedThumbnail: item.embedThumbnail,
   };
 }
 
@@ -123,7 +129,10 @@ async function persistFormatPrefs(set: SetState, get: GetState): Promise<void> {
     lastSponsorBlockMode: get().wizardSponsorBlockMode,
     lastSponsorBlockCategories: get().wizardSponsorBlockCategories,
     lastSubfolderEnabled: get().wizardSubfolderEnabled,
-    lastSubfolder: get().wizardSubfolderName.trim()
+    lastSubfolder: get().wizardSubfolderName.trim(),
+    embedChapters: get().wizardEmbedChapters,
+    embedMetadata: get().wizardEmbedMetadata,
+    embedThumbnail: get().wizardEmbedThumbnail,
   };
   const result = await window.appApi.settings.update(patch);
   if (result.ok) {

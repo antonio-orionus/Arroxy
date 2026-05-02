@@ -63,7 +63,7 @@ describe('SponsorBlock — yt-dlp arg injection', () => {
     vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never);
   });
 
-  it('adds --sponsorblock-mark and --embed-chapters for mark mode', async () => {
+  it('adds --sponsorblock-mark for mark mode (--embed-chapters is a separate setting)', async () => {
     const service = makeService();
     const done = waitForDone(service);
     await service.start({
@@ -78,7 +78,7 @@ describe('SponsorBlock — yt-dlp arg injection', () => {
     const args = callArgs(0);
     expect(args).toContain('--sponsorblock-mark');
     expect(args[args.indexOf('--sponsorblock-mark') + 1]).toBe('sponsor,selfpromo');
-    expect(args).toContain('--embed-chapters');
+    expect(args).not.toContain('--embed-chapters');
     expect(args).not.toContain('--sponsorblock-remove');
   });
 

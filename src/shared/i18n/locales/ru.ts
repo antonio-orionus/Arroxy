@@ -40,6 +40,7 @@ const ru = {
       formats: 'Формат',
       subtitles: 'Субтитры',
       sponsorblock: 'SponsorBlock',
+      output: 'Вывод',
       folder: 'Сохранить',
       confirm: 'Подтвердить'
     },
@@ -165,6 +166,20 @@ const ru = {
         toggle: 'Сохранить во вложенной папке',
         placeholder: 'напр. lo-fi rips',
         invalid: 'Имя папки содержит недопустимые символы'
+      }
+    },
+    output: {
+      embedChapters: {
+        label: 'Встроить главы',
+        description: 'Маркеры глав, доступные для навигации в любом современном плеере.'
+      },
+      embedMetadata: {
+        label: 'Встроить метаданные',
+        description: 'Название, исполнитель, описание и дата загрузки записываются в файл.'
+      },
+      embedThumbnail: {
+        label: 'Встроить обложку',
+        description: 'Обложка внутри файла. Только MP4 / M4A — пропускается при встраивании субтитров.'
       }
     },
     confirm: {

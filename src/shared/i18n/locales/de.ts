@@ -40,6 +40,7 @@ const de = {
       formats: 'Format',
       subtitles: 'Untertitel',
       sponsorblock: 'SponsorBlock',
+      output: 'Ausgabe',
       folder: 'Speichern',
       confirm: 'Bestätigen'
     },
@@ -165,6 +166,20 @@ const de = {
         toggle: 'In Unterordner speichern',
         placeholder: 'z. B. lo-fi rips',
         invalid: 'Ordnername enthält ungültige Zeichen'
+      }
+    },
+    output: {
+      embedChapters: {
+        label: 'Kapitel einbetten',
+        description: 'Kapitelmarkierungen, navigierbar in jedem modernen Player.'
+      },
+      embedMetadata: {
+        label: 'Metadaten einbetten',
+        description: 'Titel, Künstler, Beschreibung und Upload-Datum in die Datei schreiben.'
+      },
+      embedThumbnail: {
+        label: 'Thumbnail einbetten',
+        description: 'Cover-Art in der Datei. Nur MP4 / M4A — wird übersprungen, wenn Untertitel eingebettet werden.'
       }
     },
     confirm: {

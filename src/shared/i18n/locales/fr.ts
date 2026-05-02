@@ -40,6 +40,7 @@ const fr = {
       formats: 'Format',
       subtitles: 'Sous-titres',
       sponsorblock: 'SponsorBlock',
+      output: 'Sortie',
       folder: 'Enregistrer',
       confirm: 'Confirmer'
     },
@@ -165,6 +166,20 @@ const fr = {
         toggle: 'Enregistrer dans un sous-dossier',
         placeholder: 'ex. lo-fi rips',
         invalid: 'Le nom contient des caractères invalides'
+      }
+    },
+    output: {
+      embedChapters: {
+        label: 'Intégrer les chapitres',
+        description: 'Marqueurs de chapitres navigables dans tout lecteur moderne.'
+      },
+      embedMetadata: {
+        label: 'Intégrer les métadonnées',
+        description: 'Titre, artiste, description et date de mise en ligne écrits dans le fichier.'
+      },
+      embedThumbnail: {
+        label: 'Intégrer la miniature',
+        description: 'Pochette dans le fichier. MP4 / M4A uniquement — ignoré quand les sous-titres sont intégrés.'
       }
     },
     confirm: {

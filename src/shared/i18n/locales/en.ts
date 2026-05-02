@@ -40,6 +40,7 @@ const en = {
       formats: 'Format',
       subtitles: 'Subtitles',
       sponsorblock: 'SponsorBlock',
+      output: 'Output',
       folder: 'Save',
       confirm: 'Confirm'
     },
@@ -165,6 +166,20 @@ const en = {
         toggle: 'Save inside subfolder',
         placeholder: 'e.g. lo-fi rips',
         invalid: 'Folder name has invalid characters'
+      }
+    },
+    output: {
+      embedChapters: {
+        label: 'Embed chapters',
+        description: 'Chapter markers navigable in any modern player.'
+      },
+      embedMetadata: {
+        label: 'Embed metadata',
+        description: 'Title, artist, description, and upload date written into the file.'
+      },
+      embedThumbnail: {
+        label: 'Embed thumbnail',
+        description: 'Cover art inside the file. MP4 / M4A only — skipped when subtitles are embedded.'
       }
     },
     confirm: {

@@ -22,6 +22,9 @@ export function VideoPhase(embed: boolean): Phase {
             subtitleLanguages: input.subtitleLanguages!,
             writeAutoSubs: input.writeAutoSubs,
             sponsorBlock: sbConfig,
+            embedChapters: input.embedChapters,
+            embedMetadata: input.embedMetadata,
+            embedThumbnail: input.embedThumbnail,
           }
         : {
             kind: 'video',
@@ -29,6 +32,9 @@ export function VideoPhase(embed: boolean): Phase {
             outputDir: input.outputDir!,
             formatId: input.formatId,
             sponsorBlock: sbConfig,
+            embedChapters: input.embedChapters,
+            embedMetadata: input.embedMetadata,
+            embedThumbnail: input.embedThumbnail,
           };
 
       const result = await ytDlp.run(req, {

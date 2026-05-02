@@ -249,10 +249,11 @@ describe('SponsorBlock wizard slice — step navigation', () => {
     useAppStore.getState().setPreset('audio-only');
     useAppStore.setState({ wizardStep: 'subtitles' });
     useAppStore.getState().advance();
-    expect(useAppStore.getState().wizardStep).toBe('folder');
+    // audio-only skips sponsorblock but shows output (m4a supports embeds)
+    expect(useAppStore.getState().wizardStep).toBe('output');
   });
 
-  it('advance from subtitles skips sponsorblock step when preset is subtitle-only', async () => {
+  it('advance from subtitles skips sponsorblock AND output steps when preset is subtitle-only', async () => {
     window.appApi = buildMockApi() as never;
     await useAppStore.getState().initialize();
     useAppStore.getState().setWizardUrl(YOUTUBE_URL);
@@ -260,20 +261,22 @@ describe('SponsorBlock wizard slice — step navigation', () => {
     useAppStore.getState().setPreset('subtitle-only');
     useAppStore.setState({ wizardStep: 'subtitles' });
     useAppStore.getState().advance();
+    // subtitle-only skips both sponsorblock and output
     expect(useAppStore.getState().wizardStep).toBe('folder');
   });
 
-  it('back from folder goes to sponsorblock step for video presets', async () => {
+  it('back from folder goes to output step for video presets', async () => {
     window.appApi = buildMockApi() as never;
     await useAppStore.getState().initialize();
     useAppStore.getState().setWizardUrl(YOUTUBE_URL);
     await useAppStore.getState().submitUrl();
     useAppStore.setState({ wizardStep: 'folder' });
     useAppStore.getState().back();
-    expect(useAppStore.getState().wizardStep).toBe('sponsorblock');
+    // output is now the step before folder
+    expect(useAppStore.getState().wizardStep).toBe('output');
   });
 
-  it('back from folder skips sponsorblock step when preset is audio-only', async () => {
+  it('back from folder goes to output step when preset is audio-only (output is shown for audio)', async () => {
     window.appApi = buildMockApi() as never;
     await useAppStore.getState().initialize();
     useAppStore.getState().setWizardUrl(YOUTUBE_URL);
@@ -281,7 +284,8 @@ describe('SponsorBlock wizard slice — step navigation', () => {
     useAppStore.getState().setPreset('audio-only');
     useAppStore.setState({ wizardStep: 'folder' });
     useAppStore.getState().back();
-    expect(useAppStore.getState().wizardStep).toBe('subtitles');
+    // audio-only skips sponsorblock but shows output
+    expect(useAppStore.getState().wizardStep).toBe('output');
   });
 });
 

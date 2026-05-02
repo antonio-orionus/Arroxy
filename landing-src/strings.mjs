@@ -57,6 +57,8 @@ export const en = {
   f10_p: "Tracking parameters (si, pp, feature, utm_*, fbclid, gclid, and more) get stripped from pasted YouTube links automatically, and youtube.com/redirect wrappers are unwrapped — the URL field always shows the canonical link.",
   f11_h: "Hides to tray",
   f11_p: "Closing the window tucks Arroxy into your system tray. Downloads keep running in the background — click the tray icon to bring the window back, or quit from the tray menu.",
+  f12_h: "Embedded metadata & art",
+  f12_p: "Title, upload date, artist, description, cover art, and chapter markers written right into the file — no sidecar files, no manual tagging.",
 
   shots_eyebrow: "See it in action",
   shots_h2: "Built for clarity, not clutter.",
@@ -189,6 +191,8 @@ export const es = {
   f10_p: "Los parámetros de seguimiento (si, pp, feature, utm_*, fbclid, gclid y más) se eliminan automáticamente de los enlaces de YouTube pegados, y los envoltorios youtube.com/redirect se desempaquetan — el campo de URL siempre muestra el enlace canónico.",
   f11_h: "Se oculta en la bandeja",
   f11_p: "Cerrar la ventana lleva Arroxy a la bandeja del sistema. Las descargas siguen ejecutándose en segundo plano — haz clic en el icono para volver a la ventana, o sal desde el menú de la bandeja.",
+  f12_h: "Metadatos y portada integrados",
+  f12_p: "Título, fecha de subida, artista, descripción, portada y marcadores de capítulo escritos directamente en el archivo — sin archivos auxiliares ni etiquetado manual.",
 
   shots_eyebrow: "Velo en acción",
   shots_h2: "Diseñado para la claridad, no para el desorden.",
@@ -321,6 +325,8 @@ export const de = {
   f10_p: "Tracking-Parameter (si, pp, feature, utm_*, fbclid, gclid und mehr) werden automatisch aus eingefügten YouTube-Links entfernt, und youtube.com/redirect-Wrapper werden aufgelöst — das URL-Feld zeigt immer den kanonischen Link.",
   f11_h: "In den Tray minimieren",
   f11_p: "Das Schließen des Fensters versteckt Arroxy im System-Tray. Downloads laufen im Hintergrund weiter — klicke auf das Tray-Symbol, um das Fenster zurückzubringen, oder beende die App über das Tray-Menü.",
+  f12_h: "Eingebettete Metadaten & Cover",
+  f12_p: "Titel, Upload-Datum, Künstler, Beschreibung, Cover-Art und Kapitelmarkierungen direkt in die Datei geschrieben — keine Sidecar-Dateien, kein manuelles Taggen.",
 
   shots_eyebrow: "In Aktion sehen",
   shots_h2: "Gebaut für Klarheit, nicht für Chaos.",
@@ -454,6 +460,8 @@ export const fr = {
   f10_p: "Les paramètres de tracking (si, pp, feature, utm_*, fbclid, gclid et plus) sont automatiquement retirés des liens YouTube collés, et les enveloppes youtube.com/redirect sont déballées — le champ URL affiche toujours le lien canonique.",
   f11_h: "Se réduit dans le tray",
   f11_p: "Fermer la fenêtre loge Arroxy dans la barre système. Les téléchargements continuent en arrière-plan — cliquez sur l'icône pour rouvrir la fenêtre, ou quittez depuis le menu de la barre.",
+  f12_h: "Métadonnées & pochette intégrées",
+  f12_p: "Titre, date de mise en ligne, artiste, description, pochette et marqueurs de chapitres écrits directement dans le fichier — sans fichiers annexes ni balisage manuel.",
 
   shots_eyebrow: "Voyez-le en action",
   shots_h2: "Conçu pour la clarté, pas l'encombrement.",
@@ -588,6 +596,8 @@ export const ja = {
   f10_p: "貼り付けた YouTube リンクからトラッキングパラメータ（si、pp、feature、utm_*、fbclid、gclid など）が自動で除去され、youtube.com/redirect ラッパーも展開 — URL フィールドには常に正規リンクが表示されます。",
   f11_h: "トレイに格納",
   f11_p: "ウィンドウを閉じると Arroxy はシステムトレイに格納されます。ダウンロードはバックグラウンドで継続 — トレイアイコンをクリックするとウィンドウが戻り、トレイメニューから終了もできます。",
+  f12_h: "メタデータ・カバーアート埋め込み",
+  f12_p: "タイトル、アップロード日、アーティスト、説明、カバーアート、チャプターマーカーをファイルに直接書き込み — サイドカーファイルも手動タグ付けも不要。",
 
   shots_eyebrow: "実際の動作",
   shots_h2: "明快さのために設計、雑然さは排除。",
@@ -720,6 +730,8 @@ export const zh = {
   f10_p: "粘贴的 YouTube 链接会自动剥除跟踪参数（si、pp、feature、utm_*、fbclid、gclid 等），并解包 youtube.com/redirect 跳转链接 — URL 字段始终显示规范链接。",
   f11_h: "最小化到托盘",
   f11_p: "关闭窗口后 Arroxy 将缩入系统托盘，下载在后台持续运行 — 单击托盘图标可恢复窗口，或通过托盘菜单退出应用。",
+  f12_h: "嵌入元数据与封面",
+  f12_p: "标题、上传日期、艺术家、描述、封面和章节标记直接写入文件——无需附属文件，无需手动标注。",
 
   shots_eyebrow: "实际效果",
   shots_h2: "为清晰而生，拒绝杂乱。",
@@ -850,6 +862,8 @@ export const ru = {
   f10_p: "Трекинговые параметры (si, pp, feature, utm_*, fbclid, gclid и другие) автоматически удаляются из вставленных YouTube-ссылок, а обёртки youtube.com/redirect разворачиваются — в поле URL всегда отображается канонический адрес.",
   f11_h: "Сворачивание в трей",
   f11_p: "Закрытие окна прячет Arroxy в системный трей. Загрузки продолжаются в фоне — кликните на значок трея, чтобы открыть окно снова, или выйдите через меню трея.",
+  f12_h: "Встроенные метаданные и обложка",
+  f12_p: "Название, дата загрузки, исполнитель, описание, обложка и маркеры глав записываются прямо в файл — без вспомогательных файлов и ручной разметки.",
 
   shots_eyebrow: "В деле",
   shots_h2: "Сделано для ясности, не для мусора.",
@@ -983,6 +997,8 @@ export const uk = {
   f10_p: "Трекінгові параметри (si, pp, feature, utm_*, fbclid, gclid тощо) автоматично видаляються зі вставлених YouTube-посилань, а обгортки youtube.com/redirect розгортаються — у полі URL завжди відображається канонічна адреса.",
   f11_h: "Згортання в трей",
   f11_p: "Закриття вікна ховає Arroxy в системний трей. Завантаження тривають у фоні — натисніть значок трею, щоб повернути вікно, або виходьте через меню трею.",
+  f12_h: "Вбудовані метадані й обкладинка",
+  f12_p: "Назва, дата завантаження, виконавець, опис, обкладинка та маркери розділів записуються безпосередньо у файл — без додаткових файлів і ручного тегування.",
 
   shots_eyebrow: "У дії",
   shots_h2: "Зроблено заради ясності, а не для безладу.",
@@ -1115,6 +1131,8 @@ export const hi = {
   f10_p: "पेस्ट किए गए YouTube लिंक से ट्रैकिंग पैरामीटर (si, pp, feature, utm_*, fbclid, gclid और अन्य) अपने आप हट जाते हैं, और youtube.com/redirect रैपर खुल जाते हैं — URL फ़ील्ड में हमेशा कैनोनिकल लिंक दिखता है।",
   f11_h: "ट्रे में छुपाएं",
   f11_p: "विंडो बंद करने पर Arroxy सिस्टम ट्रे में चला जाता है। डाउनलोड बैकग्राउंड में जारी रहते हैं — ट्रे आइकन पर क्लिक करके विंडो वापस लाएं, या ट्रे मेनू से बाहर निकलें।",
+  f12_h: "एम्बेडेड मेटाडेटा और कवर आर्ट",
+  f12_p: "शीर्षक, अपलोड तिथि, कलाकार, विवरण, कवर आर्ट और चैप्टर मार्कर सीधे फ़ाइल में लिखे जाते हैं — कोई साइडकार फ़ाइल नहीं, कोई मैन्युअल टैगिंग नहीं।",
 
   shots_eyebrow: "क्रिया में देखें",
   shots_h2: "स्पष्टता के लिए बना है, अव्यवस्था के लिए नहीं।",

@@ -26,6 +26,9 @@ export function makeItem(
     subtitleFormat: DEFAULTS.subtitleFormat,
     sponsorBlockMode: DEFAULTS.sponsorBlockMode,
     sponsorBlockCategories: DEFAULTS.sponsorBlockCategories,
+    embedChapters: DEFAULTS.embedChapters,
+    embedMetadata: DEFAULTS.embedMetadata,
+    embedThumbnail: DEFAULTS.embedThumbnail,
     ...overrides,
   };
   // Schema-validate so a future field added to QueueItem cannot silently slip

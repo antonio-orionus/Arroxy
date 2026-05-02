@@ -13,7 +13,7 @@ import type {
   SupportedLang,
   UiTheme
 } from '@shared/types';
-export type WizardStep = 'url' | 'formats' | 'subtitles' | 'sponsorblock' | 'folder' | 'confirm' | 'error';
+export type WizardStep = 'url' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error';
 
 export type SetState = StoreApi<AppState>['setState'];
 export type GetState = StoreApi<AppState>['getState'];
@@ -42,6 +42,9 @@ export interface WizardSlice {
   wizardSubfolderName: string;
   wizardSponsorBlockMode: SponsorBlockMode;
   wizardSponsorBlockCategories: SponsorBlockCategory[];
+  wizardEmbedChapters: boolean;
+  wizardEmbedMetadata: boolean;
+  wizardEmbedThumbnail: boolean;
 
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
@@ -62,6 +65,9 @@ setWizardOutputDir: (dir: string, persist?: boolean) => Promise<void>;
   skipSubtitles: () => void;
   setSponsorBlockMode: (mode: SponsorBlockMode) => void;
   toggleSponsorBlockCategory: (cat: SponsorBlockCategory) => void;
+  setEmbedChapters: (v: boolean) => void;
+  setEmbedMetadata: (v: boolean) => void;
+  setEmbedThumbnail: (v: boolean) => void;
 }
 
 export interface QueueSlice {

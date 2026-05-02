@@ -21,7 +21,7 @@ export type YtDlpRequest =
       subtitleFormat: SubtitleFormat;
       writeAutoSubs?: boolean;
     }
-  | { kind: 'video'; url: string; outputDir: string; formatId?: string; sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] } }
+  | { kind: 'video'; url: string; outputDir: string; formatId?: string; sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] }; embedChapters?: boolean; embedMetadata?: boolean; embedThumbnail?: boolean }
   | {
       kind: 'video+embed';
       url: string;
@@ -30,6 +30,9 @@ export type YtDlpRequest =
       subtitleLanguages: string[];
       writeAutoSubs?: boolean;
       sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] };
+      embedChapters?: boolean;
+      embedMetadata?: boolean;
+      embedThumbnail?: boolean;
     };
 
 export type YtDlpSignal = {
@@ -193,7 +196,9 @@ function buildSubtitleArgs(req: Extract<YtDlpRequest, { kind: 'subtitle' }>): st
 function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embed' }>): string[] {
   const args: string[] = ['--progress', '--no-playlist'];
 
-  if (req.kind === 'video+embed' && req.subtitleLanguages.length > 0) {
+  const forcesMkv = req.kind === 'video+embed' && req.subtitleLanguages.length > 0;
+
+  if (forcesMkv) {
     // mkv embeds vtt natively as a webvtt stream — no --convert-subs needed.
     // mp4+mov_text muxing is unreliable across YouTube's auto-caption variants.
     // --compat-options no-keep-subs deletes the sidecar .vtt files after embed.
@@ -212,11 +217,15 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
   if (req.sponsorBlock && req.sponsorBlock.categories.length > 0) {
     const cats = req.sponsorBlock.categories.join(',');
     if (req.sponsorBlock.mode === 'mark') {
-      args.push('--sponsorblock-mark', cats, '--embed-chapters');
+      args.push('--sponsorblock-mark', cats);
     } else {
       args.push('--sponsorblock-remove', cats);
     }
   }
+
+  if (req.embedChapters) args.push('--embed-chapters');
+  if (req.embedMetadata) args.push('--add-metadata');
+  if (req.embedThumbnail && !forcesMkv) args.push('--embed-thumbnail', '--convert-thumbnails', 'jpg');
 
   if (req.formatId) args.push('-f', req.formatId);
   args.push('-o', `${req.outputDir}/%(title)s.%(ext)s`, req.url);

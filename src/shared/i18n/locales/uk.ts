@@ -40,6 +40,7 @@ const uk = {
       formats: 'Формат',
       subtitles: 'Субтитри',
       sponsorblock: 'SponsorBlock',
+      output: 'Вивід',
       folder: 'Зберегти',
       confirm: 'Підтвердити'
     },
@@ -165,6 +166,20 @@ const uk = {
         toggle: 'Зберегти у вкладеній папці',
         placeholder: 'напр. lo-fi rips',
         invalid: 'Назва папки містить недопустимі символи'
+      }
+    },
+    output: {
+      embedChapters: {
+        label: 'Вбудувати розділи',
+        description: 'Маркери розділів, доступні для навігації в будь-якому сучасному плеєрі.'
+      },
+      embedMetadata: {
+        label: 'Вбудувати метадані',
+        description: 'Назва, виконавець, опис і дата завантаження записуються у файл.'
+      },
+      embedThumbnail: {
+        label: 'Вбудувати мініатюру',
+        description: 'Обкладинка всередині файлу. Лише MP4 / M4A — пропускається при вбудованих субтитрах.'
       }
     },
     confirm: {

@@ -8,6 +8,7 @@ import { StepFolderConfirm } from './StepFolderConfirm';
 import { StepConfirm } from './StepConfirm';
 import { StepSubtitles } from './StepSubtitles';
 import { StepSponsorBlock } from './StepSponsorBlock';
+import { StepOutput } from './StepOutput';
 import { StepError } from './StepError';
 import { cn } from '@renderer/lib/utils';
 
@@ -16,9 +17,11 @@ export function WizardPanel(): JSX.Element {
   const wizardStep = useAppStore((s) => s.wizardStep);
   const activePreset = useAppStore((s) => s.activePreset);
 
-  const visibleSteps = STEPS.filter(
-    (step) => step !== 'sponsorblock' || !activePreset || !NO_VIDEO_PRESETS.has(activePreset)
-  );
+  const visibleSteps = STEPS.filter((step) => {
+    if (step === 'sponsorblock' && activePreset && NO_VIDEO_PRESETS.has(activePreset)) return false;
+    if (step === 'output' && activePreset === 'subtitle-only') return false;
+    return true;
+  });
 
   const activeIndex = visibleSteps.indexOf(wizardStep as (typeof STEPS)[number]);
 
@@ -89,6 +92,7 @@ export function WizardPanel(): JSX.Element {
       {wizardStep === 'formats' && <StepFormatSelect />}
       {wizardStep === 'subtitles' && <StepSubtitles />}
       {wizardStep === 'sponsorblock' && <StepSponsorBlock />}
+      {wizardStep === 'output' && <StepOutput />}
       {wizardStep === 'folder' && <StepFolderConfirm />}
       {wizardStep === 'confirm' && <StepConfirm />}
       {wizardStep === 'error' && <StepError />}

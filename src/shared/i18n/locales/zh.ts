@@ -40,6 +40,7 @@ const zh = {
       formats: '格式',
       subtitles: '字幕',
       sponsorblock: 'SponsorBlock',
+      output: '输出',
       folder: '保存',
       confirm: '确认'
     },
@@ -165,6 +166,20 @@ const zh = {
         toggle: '保存到子文件夹',
         placeholder: '例如 lo-fi rips',
         invalid: '文件夹名包含无效字符'
+      }
+    },
+    output: {
+      embedChapters: {
+        label: '嵌入章节',
+        description: '可在任何现代播放器中导航的章节标记。'
+      },
+      embedMetadata: {
+        label: '嵌入元数据',
+        description: '将标题、艺术家、描述和上传日期写入文件。'
+      },
+      embedThumbnail: {
+        label: '嵌入缩略图',
+        description: '文件内封面图。仅限 MP4 / M4A — 嵌入字幕时跳过。'
       }
     },
     confirm: {

@@ -76,6 +76,7 @@ Arroxy est une application desktop **gratuite, open source et soucieuse de la vi
 - **Surveillance du presse-papiers** — copiez n'importe quel lien YouTube et Arroxy remplit le champ URL dès que vous revenez à l'app. Un dialogue de confirmation garde le contrôle ; désactivez-le depuis les Paramètres avancés à tout moment
 - **Nettoyage auto des URLs** — les liens YouTube collés ou récupérés du presse-papiers sont débarrassés des paramètres de tracking (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` et plus), et les enveloppes `youtube.com/redirect` sont déballées — le champ URL affiche toujours le lien canonique
 - **Se réduit dans le tray** — fermer la fenêtre loge Arroxy dans la barre système. Les téléchargements continuent ; cliquez sur l'icône pour rouvrir la fenêtre, ou quittez depuis le menu de la barre
+- **Chapitres, métadonnées et miniature intégrés** — titre, date de mise en ligne, artiste, description et pochette écrits directement dans le fichier ; les marqueurs de chapitres permettent la navigation par section dans tout lecteur moderne
 
 <div align="center">
   <img src="build/Main-screenshot.png" width="48%" alt="Coller une URL" />

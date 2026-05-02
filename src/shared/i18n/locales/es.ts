@@ -40,6 +40,7 @@ const es = {
       formats: 'Formato',
       subtitles: 'Subtítulos',
       sponsorblock: 'SponsorBlock',
+      output: 'Salida',
       folder: 'Guardar',
       confirm: 'Confirmar'
     },
@@ -165,6 +166,20 @@ const es = {
         toggle: 'Guardar en subcarpeta',
         placeholder: 'p. ej. lo-fi rips',
         invalid: 'El nombre tiene caracteres no válidos'
+      }
+    },
+    output: {
+      embedChapters: {
+        label: 'Incrustar capítulos',
+        description: 'Marcadores de capítulo navegables en cualquier reproductor moderno.'
+      },
+      embedMetadata: {
+        label: 'Incrustar metadatos',
+        description: 'Título, artista, descripción y fecha de subida escritos en el archivo.'
+      },
+      embedThumbnail: {
+        label: 'Incrustar miniatura',
+        description: 'Portada dentro del archivo. Solo MP4 / M4A — se omite al incrustar subtítulos.'
       }
     },
     confirm: {

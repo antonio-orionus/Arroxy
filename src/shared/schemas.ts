@@ -139,7 +139,10 @@ export const startDownloadSchema = z.object({
   subtitleMode: subtitleModeSchema.optional(),
   subtitleFormat: subtitleFormatSchema.optional(),
   sponsorBlockMode: sponsorBlockModeSchema.optional(),
-  sponsorBlockCategories: z.array(sponsorBlockCategorySchema).max(7).optional()
+  sponsorBlockCategories: z.array(sponsorBlockCategorySchema).max(7).optional(),
+  embedChapters: z.boolean().optional(),
+  embedMetadata: z.boolean().optional(),
+  embedThumbnail: z.boolean().optional()
 });
 
 export const cancelDownloadSchema = z.object({
@@ -178,7 +181,10 @@ export const updateSettingsSchema = z.object({
   cookiesPath: z.string().optional(),
   cookiesEnabled: z.boolean().optional(),
   clipboardWatchEnabled: z.boolean().optional(),
-  closeBehavior: z.enum(['ask', 'tray', 'quit']).optional()
+  closeBehavior: z.enum(['ask', 'tray', 'quit']).optional(),
+  embedChapters: z.boolean().optional(),
+  embedMetadata: z.boolean().optional(),
+  embedThumbnail: z.boolean().optional()
 });
 
 // Queue item schema — used by both queueSave IPC handler and queueStore.load
@@ -213,7 +219,10 @@ export const queueItemSchema = z.object({
   subtitleMode: subtitleModeSchema,
   subtitleFormat: subtitleFormatSchema,
   sponsorBlockMode: sponsorBlockModeSchema,
-  sponsorBlockCategories: z.array(sponsorBlockCategorySchema)
+  sponsorBlockCategories: z.array(sponsorBlockCategorySchema),
+  embedChapters: z.boolean(),
+  embedMetadata: z.boolean(),
+  embedThumbnail: z.boolean()
 });
 
 export const queueArraySchema = z.array(queueItemSchema);

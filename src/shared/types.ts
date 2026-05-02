@@ -56,6 +56,9 @@ export interface AppSettings {
   cookiesEnabled?: boolean;
   clipboardWatchEnabled: boolean;
   closeBehavior?: 'ask' | 'tray' | 'quit';
+  embedChapters?: boolean;
+  embedMetadata?: boolean;
+  embedThumbnail?: boolean;
 }
 
 export interface SubtitleTrack {
@@ -126,6 +129,9 @@ export interface QueueItem {
   subtitleFormat: SubtitleFormat;
   sponsorBlockMode: SponsorBlockMode;
   sponsorBlockCategories: SponsorBlockCategory[];
+  embedChapters: boolean;
+  embedMetadata: boolean;
+  embedThumbnail: boolean;
 }
 
 export type DownloadStage = 'setup' | 'token' | 'download' | 'done' | 'error';
@@ -161,6 +167,9 @@ export interface StartDownloadInput {
   subtitleFormat?: SubtitleFormat;
   sponsorBlockMode?: SponsorBlockMode;
   sponsorBlockCategories?: SponsorBlockCategory[];
+  embedChapters?: boolean;
+  embedMetadata?: boolean;
+  embedThumbnail?: boolean;
 }
 
 export interface StartDownloadOutput {

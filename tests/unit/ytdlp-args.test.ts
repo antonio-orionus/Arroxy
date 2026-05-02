@@ -225,6 +225,96 @@ describe('YtDlp — cookies injection', () => {
   });
 });
 
+describe('YtDlp — output embed flags', () => {
+  it('embedChapters=true → --embed-chapters present', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, embedChapters: true });
+    expect(getArgs()).toContain('--embed-chapters');
+  });
+
+  it('embedChapters=false → no --embed-chapters', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, embedChapters: false });
+    expect(getArgs()).not.toContain('--embed-chapters');
+  });
+
+  it('embedChapters undefined → no --embed-chapters', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
+    expect(getArgs()).not.toContain('--embed-chapters');
+  });
+
+  it('sponsorBlock.mode=mark + embedChapters=false → no --embed-chapters (setting fully owns the flag)', async () => {
+    await makeYtDlp().run({
+      kind: 'video', url: URL, outputDir: OUTPUT_DIR,
+      embedChapters: false,
+      sponsorBlock: { mode: 'mark', categories: ['sponsor'] },
+    });
+    expect(getArgs()).not.toContain('--embed-chapters');
+  });
+
+  it('sponsorBlock.mode=mark + embedChapters undefined → no --embed-chapters', async () => {
+    await makeYtDlp().run({
+      kind: 'video', url: URL, outputDir: OUTPUT_DIR,
+      sponsorBlock: { mode: 'mark', categories: ['sponsor'] },
+    });
+    expect(getArgs()).not.toContain('--embed-chapters');
+  });
+
+  it('sponsorBlock.mode=mark + embedChapters=true → --embed-chapters present', async () => {
+    await makeYtDlp().run({
+      kind: 'video', url: URL, outputDir: OUTPUT_DIR,
+      embedChapters: true,
+      sponsorBlock: { mode: 'mark', categories: ['sponsor'] },
+    });
+    expect(getArgs()).toContain('--embed-chapters');
+  });
+
+  it('embedMetadata=true → --add-metadata present', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, embedMetadata: true });
+    expect(getArgs()).toContain('--add-metadata');
+  });
+
+  it('embedMetadata=false → no --add-metadata', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, embedMetadata: false });
+    expect(getArgs()).not.toContain('--add-metadata');
+  });
+
+  it('embedMetadata undefined → no --add-metadata', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
+    expect(getArgs()).not.toContain('--add-metadata');
+  });
+
+  it('embedThumbnail=true on kind=video → --embed-thumbnail and --convert-thumbnails jpg', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, embedThumbnail: true });
+    const args = getArgs();
+    expect(args).toContain('--embed-thumbnail');
+    expect(args[args.indexOf('--convert-thumbnails') + 1]).toBe('jpg');
+  });
+
+  it('embedThumbnail=false on kind=video → no thumbnail flags', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, embedThumbnail: false });
+    expect(getArgs()).not.toContain('--embed-thumbnail');
+    expect(getArgs()).not.toContain('--convert-thumbnails');
+  });
+
+  it('embedThumbnail=true on kind=video+embed with subs → flags absent (MKV-forced)', async () => {
+    await makeYtDlp().run({
+      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'], embedThumbnail: true,
+    });
+    expect(getArgs()).not.toContain('--embed-thumbnail');
+    expect(getArgs()).not.toContain('--convert-thumbnails');
+  });
+
+  it('embedThumbnail=true on kind=video+embed with empty subs → flags PRESENT (no MKV-force)', async () => {
+    await makeYtDlp().run({
+      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR,
+      subtitleLanguages: [], embedThumbnail: true,
+    });
+    const args = getArgs();
+    expect(args).toContain('--embed-thumbnail');
+    expect(args[args.indexOf('--convert-thumbnails') + 1]).toBe('jpg');
+  });
+});
+
 describe('YtDlp — extractor-args shape', () => {
   it('PoT: youtube:po_token=web.gvs+<token>;visitor_data=<vd>', async () => {
     const ytDlp = makeYtDlp({ token: 'MYTOKEN', visitorData: 'MYVISITOR' });

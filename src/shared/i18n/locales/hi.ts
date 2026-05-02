@@ -40,6 +40,7 @@ const hi = {
       formats: 'फ़ॉर्मेट',
       subtitles: 'उपशीर्षक',
       sponsorblock: 'SponsorBlock',
+      output: 'आउटपुट',
       folder: 'सेव करें',
       confirm: 'पुष्टि करें'
     },
@@ -165,6 +166,20 @@ const hi = {
         toggle: 'सबफ़ोल्डर में सहेजें',
         placeholder: 'जैसे lo-fi rips',
         invalid: 'फ़ोल्डर नाम में अमान्य अक्षर हैं'
+      }
+    },
+    output: {
+      embedChapters: {
+        label: 'चैप्टर एम्बेड करें',
+        description: 'किसी भी आधुनिक प्लेयर में नेविगेट करने योग्य चैप्टर मार्कर।'
+      },
+      embedMetadata: {
+        label: 'मेटाडेटा एम्बेड करें',
+        description: 'शीर्षक, कलाकार, विवरण और अपलोड तिथि फ़ाइल में लिखे जाते हैं।'
+      },
+      embedThumbnail: {
+        label: 'थंबनेल एम्बेड करें',
+        description: 'फ़ाइल के अंदर कवर आर्ट। केवल MP4 / M4A — सबटाइटल एम्बेड होने पर छोड़ा जाता है।'
       }
     },
     confirm: {
