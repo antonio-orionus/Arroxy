@@ -75,6 +75,7 @@ Arroxy ist eine **kostenlose, quelloffene und datenschutzorientierte** Desktop-A
 - **In 9 Sprachen verfügbar** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — erkennt deine Systemsprache automatisch, jederzeit umschaltbar
 - **Zwischenablage überwachen** — kopiere einen YouTube-Link und Arroxy füllt das URL-Feld automatisch aus, sobald du wieder zur App wechselst. Ein Bestätigungsdialog hält dich in Kontrolle; jederzeit in den erweiterten Einstellungen deaktivierbar
 - **URLs automatisch bereinigen** — eingefügte oder aus der Zwischenablage übernommene YouTube-Links werden von Tracking-Parametern (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` und mehr) befreit, und `youtube.com/redirect`-Wrapper werden aufgelöst — das URL-Feld zeigt immer den kanonischen Link
+- **In den Tray minimieren** — das Schließen des Fensters versteckt Arroxy im System-Tray. Downloads laufen weiter; klicke auf das Tray-Symbol, um das Fenster zurückzubringen, oder beende die App über das Tray-Menü
 
 <div align="center">
   <img src="build/Main-screenshot.png" width="48%" alt="URL einfügen" />

@@ -75,6 +75,7 @@ Arroxy is a **free, open-source, privacy-first** desktop app — built for peopl
 - **Available in 9 languages** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — auto-detects your system language, switchable any time
 - **Clipboard watch** — copy any YouTube link and Arroxy auto-fills the URL field the moment you refocus the app. A confirm dialog keeps you in control; disable it from Advanced settings any time
 - **Auto-clean URLs** — pasted or clipboard-grabbed YouTube links are stripped of tracking junk (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid`, and more) and `youtube.com/redirect` wrappers are unwrapped — the URL field always shows the canonical link
+- **Hides to tray** — closing the window tucks Arroxy into your system tray. Downloads keep running; click the tray icon to bring the window back, or quit from the tray menu
 
 <div align="center">
   <img src="build/Main-screenshot.png" width="48%" alt="Paste a URL" />

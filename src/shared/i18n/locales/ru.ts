@@ -77,6 +77,10 @@ const ru = {
         banWarning: 'YouTube может пометить — и иногда забанить — аккаунты, чьи cookies использует yt-dlp. По возможности используй одноразовый аккаунт.',
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
+      },
+      closeToTray: {
+        toggle: 'Скрывать в трей при закрытии',
+        toggleDescription: 'Продолжать загрузки в фоне после закрытия окна.'
       }
     },
     subtitles: {
@@ -275,6 +279,16 @@ const ru = {
     audioOnlyDot: 'Только аудио · {{audio}}',
     videoDot: '{{resolution}} · {{audio}}'
   },
+  tray: {
+    tooltip: 'Arroxy',
+    menu: {
+      statusIdle: 'Ожидание',
+      statusActive_one: '1 загружается · {{percent}}%',
+      statusActive_other: '{{count}} загружаются · {{percent}}%',
+      open: 'Открыть Arroxy',
+      quit: 'Выйти из Arroxy'
+    }
+  },
   dialogs: {
     quitWithActiveDownloads: {
       message_one: '{{count}} загрузка идёт',
@@ -282,6 +296,13 @@ const ru = {
       detail: 'При закрытии все активные загрузки будут отменены.',
       confirm: 'Отменить загрузки и выйти',
       keep: 'Продолжить загрузку'
+    },
+    closeToTray: {
+      message: 'Скрывать Arroxy в системный трей при закрытии?',
+      detail: 'Arroxy продолжит работу и завершит активные загрузки. Изменить в расширенных настройках.',
+      hide: 'Скрыть в трей',
+      quit: 'Выйти',
+      remember: 'Больше не спрашивать'
     }
   }
 } as const;

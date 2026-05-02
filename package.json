@@ -94,6 +94,12 @@
     "files": [
       "out/**/*"
     ],
+    "extraResources": [
+      {
+        "from": "build/icon-tray.png",
+        "to": "icon-tray.png"
+      }
+    ],
     "win": {
       "target": [
         {

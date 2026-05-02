@@ -77,6 +77,10 @@ const hi = {
         banWarning: 'चेतावनी: yt-dlp जिन कुकी का उपयोग करता है, उनसे जुड़े अकाउंट को YouTube फ़्लैग — और कभी-कभी बैन — कर सकता है। हो सके तो डिस्पोज़ेबल अकाउंट का उपयोग करें।',
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
+      },
+      closeToTray: {
+        toggle: 'बंद करने पर ट्रे में छिपाएं',
+        toggleDescription: 'विंडो बंद करने के बाद पृष्ठभूमि में डाउनलोड जारी रखें।'
       }
     },
     subtitles: {
@@ -275,6 +279,16 @@ const hi = {
     audioOnlyDot: 'सिर्फ़ ऑडियो · {{audio}}',
     videoDot: '{{resolution}} · {{audio}}'
   },
+  tray: {
+    tooltip: 'Arroxy',
+    menu: {
+      statusIdle: 'निष्क्रिय',
+      statusActive_one: '1 डाउनलोड हो रहा है · {{percent}}%',
+      statusActive_other: '{{count}} डाउनलोड हो रहे हैं · {{percent}}%',
+      open: 'Arroxy खोलें',
+      quit: 'Arroxy बंद करें'
+    }
+  },
   dialogs: {
     quitWithActiveDownloads: {
       message_one: '{{count}} डाउनलोड चल रही है',
@@ -282,6 +296,13 @@ const hi = {
       detail: 'बंद करने पर सभी सक्रिय डाउनलोड रद्द हो जाएँगी।',
       confirm: 'डाउनलोड रद्द करके बंद करें',
       keep: 'डाउनलोड जारी रखें'
+    },
+    closeToTray: {
+      message: 'बंद करने पर Arroxy को सिस्टम ट्रे में छिपाएं?',
+      detail: 'Arroxy चलता रहेगा और सक्रिय डाउनलोड पूरे करेगा। उन्नत सेटिंग में बदलें।',
+      hide: 'ट्रे में छिपाएं',
+      quit: 'बाहर निकलें',
+      remember: 'दोबारा न पूछें'
     }
   }
 } as const;

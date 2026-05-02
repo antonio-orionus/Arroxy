@@ -177,7 +177,8 @@ export const updateSettingsSchema = z.object({
     .optional(),
   cookiesPath: z.string().optional(),
   cookiesEnabled: z.boolean().optional(),
-  clipboardWatchEnabled: z.boolean().optional()
+  clipboardWatchEnabled: z.boolean().optional(),
+  closeBehavior: z.enum(['ask', 'tray', 'quit']).optional()
 });
 
 // Queue item schema — used by both queueSave IPC handler and queueStore.load

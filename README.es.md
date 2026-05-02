@@ -75,6 +75,7 @@ Arroxy es una aplicación de escritorio **gratuita, de código abierto y centrad
 - **Disponible en 9 idiomas** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — detecta el idioma de tu sistema y se puede cambiar en cualquier momento
 - **Monitoreo del portapapeles** — copia cualquier enlace de YouTube y Arroxy rellena el campo de URL automáticamente al volver a la app. Un diálogo de confirmación mantiene el control; desactívalo desde la Configuración avanzada cuando quieras
 - **Limpieza automática de URLs** — los enlaces de YouTube pegados o tomados del portapapeles se limpian de parámetros de seguimiento (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` y más), y los envoltorios `youtube.com/redirect` se desempaquetan — el campo de URL siempre muestra el enlace canónico
+- **Se oculta en la bandeja** — cerrar la ventana lleva Arroxy a la bandeja del sistema. Las descargas siguen en curso; haz clic en el icono para recuperar la ventana, o sal desde el menú de la bandeja
 
 <div align="center">
   <img src="build/Main-screenshot.png" width="48%" alt="Pega una URL" />

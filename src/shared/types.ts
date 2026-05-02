@@ -55,6 +55,7 @@ export interface AppSettings {
   cookiesPath?: string;
   cookiesEnabled?: boolean;
   clipboardWatchEnabled: boolean;
+  closeBehavior?: 'ask' | 'tray' | 'quit';
 }
 
 export interface SubtitleTrack {

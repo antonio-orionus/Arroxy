@@ -75,6 +75,7 @@
 - {{what_9}}
 - {{what_10}}
 - {{what_11}}
+- {{what_12}}
 
 <div align="center">
   <img src="build/Main-screenshot.png" width="48%" alt="{{shot1_alt}}" />

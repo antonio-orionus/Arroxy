@@ -24,9 +24,11 @@ export function StepUrlInput(): JSX.Element {
     submitUrl,
     queue,
     settings,
+    initialized,
     setCookiesPath,
     setCookiesEnabled,
-    setClipboardWatchEnabled
+    setClipboardWatchEnabled,
+    setCloseBehavior
   } = useAppStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const hasActiveDownloads = queue.some((i) => i.status === 'downloading');
@@ -231,6 +233,25 @@ export function StepUrlInput(): JSX.Element {
             <p className="text-amber-600 dark:text-amber-400">{t('wizard.url.cookies.banWarning')}</p>
           </div>
 
+          {(window as Window & { platform?: string }).platform !== 'darwin' && (
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[13px] font-medium text-foreground">
+                  {t('wizard.url.closeToTray.toggle')}
+                </span>
+                <span className="text-[11px] text-[var(--text-subtle)]">
+                  {t('wizard.url.closeToTray.toggleDescription')}
+                </span>
+              </div>
+              <Switch
+                checked={settings?.closeBehavior === 'tray'}
+                onCheckedChange={(checked) => void setCloseBehavior(checked ? 'tray' : 'quit')}
+                aria-label={t('wizard.url.closeToTray.toggle')}
+                data-testid="close-to-tray-toggle"
+              />
+            </div>
+          )}
+
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
             <button
               type="button"
@@ -261,7 +282,7 @@ export function StepUrlInput(): JSX.Element {
       </details>
 
       <ClipboardConfirmDialog
-        open={pendingClipboardUrl !== null}
+        open={pendingClipboardUrl !== null && initialized}
         url={pendingClipboardUrl}
         onUse={handleConfirmClipboard}
         onDisable={handleDisableClipboard}

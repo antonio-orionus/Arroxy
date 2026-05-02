@@ -77,6 +77,10 @@ const de = {
         banWarning: 'YouTube kann Konten markieren — und teils sperren — deren Cookies von yt-dlp verwendet werden. Nutze nach Möglichkeit ein Wegwerfkonto.',
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
+      },
+      closeToTray: {
+        toggle: 'Beim Schließen in die Taskleiste minimieren',
+        toggleDescription: 'Downloads im Hintergrund fortsetzen, wenn das Fenster geschlossen wird.'
       }
     },
     subtitles: {
@@ -275,6 +279,16 @@ const de = {
     audioOnlyDot: 'Nur Audio · {{audio}}',
     videoDot: '{{resolution}} · {{audio}}'
   },
+  tray: {
+    tooltip: 'Arroxy',
+    menu: {
+      statusIdle: 'Inaktiv',
+      statusActive_one: '1 lädt herunter · {{percent}}%',
+      statusActive_other: '{{count}} laden herunter · {{percent}}%',
+      open: 'Arroxy öffnen',
+      quit: 'Arroxy beenden'
+    }
+  },
   dialogs: {
     quitWithActiveDownloads: {
       message_one: '{{count}} Download läuft',
@@ -282,6 +296,13 @@ const de = {
       detail: 'Beim Schließen werden alle aktiven Downloads abgebrochen.',
       confirm: 'Downloads abbrechen & beenden',
       keep: 'Weiter herunterladen'
+    },
+    closeToTray: {
+      message: 'Arroxy beim Schließen in den Infobereich minimieren?',
+      detail: 'Arroxy läuft weiter und schließt aktive Downloads ab. Ändern Sie dies in den erweiterten Einstellungen.',
+      hide: 'In Infobereich minimieren',
+      quit: 'Beenden',
+      remember: 'Nicht mehr fragen'
     }
   }
 } as const;

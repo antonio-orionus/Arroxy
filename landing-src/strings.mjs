@@ -55,6 +55,8 @@ export const en = {
   f9_p: "Copy a YouTube link anywhere and Arroxy detects it the moment you switch back — a confirm prompt keeps you in control. Enable or disable in Advanced settings.",
   f10_h: "Auto-clean URLs",
   f10_p: "Tracking parameters (si, pp, feature, utm_*, fbclid, gclid, and more) get stripped from pasted YouTube links automatically, and youtube.com/redirect wrappers are unwrapped — the URL field always shows the canonical link.",
+  f11_h: "Hides to tray",
+  f11_p: "Closing the window tucks Arroxy into your system tray. Downloads keep running in the background — click the tray icon to bring the window back, or quit from the tray menu.",
 
   shots_eyebrow: "See it in action",
   shots_h2: "Built for clarity, not clutter.",
@@ -185,6 +187,8 @@ export const es = {
   f9_p: "Copia un enlace de YouTube en cualquier lugar y Arroxy lo detecta al volver a la app — un diálogo de confirmación mantiene el control. Actívalo o desactívalo en Configuración avanzada.",
   f10_h: "Limpieza automática de URLs",
   f10_p: "Los parámetros de seguimiento (si, pp, feature, utm_*, fbclid, gclid y más) se eliminan automáticamente de los enlaces de YouTube pegados, y los envoltorios youtube.com/redirect se desempaquetan — el campo de URL siempre muestra el enlace canónico.",
+  f11_h: "Se oculta en la bandeja",
+  f11_p: "Cerrar la ventana lleva Arroxy a la bandeja del sistema. Las descargas siguen ejecutándose en segundo plano — haz clic en el icono para volver a la ventana, o sal desde el menú de la bandeja.",
 
   shots_eyebrow: "Velo en acción",
   shots_h2: "Diseñado para la claridad, no para el desorden.",
@@ -315,6 +319,8 @@ export const de = {
   f9_p: "Kopiere einen YouTube-Link irgendwo und Arroxy erkennt ihn beim nächsten Wechsel zur App — ein Bestätigungsdialog hält dich in Kontrolle. In den Erweiterten Einstellungen ein- oder ausschalten.",
   f10_h: "URLs automatisch bereinigen",
   f10_p: "Tracking-Parameter (si, pp, feature, utm_*, fbclid, gclid und mehr) werden automatisch aus eingefügten YouTube-Links entfernt, und youtube.com/redirect-Wrapper werden aufgelöst — das URL-Feld zeigt immer den kanonischen Link.",
+  f11_h: "In den Tray minimieren",
+  f11_p: "Das Schließen des Fensters versteckt Arroxy im System-Tray. Downloads laufen im Hintergrund weiter — klicke auf das Tray-Symbol, um das Fenster zurückzubringen, oder beende die App über das Tray-Menü.",
 
   shots_eyebrow: "In Aktion sehen",
   shots_h2: "Gebaut für Klarheit, nicht für Chaos.",
@@ -446,6 +452,8 @@ export const fr = {
   f9_p: "Copiez un lien YouTube n'importe où et Arroxy le détecte dès que vous revenez à l'app — une invite de confirmation garde le contrôle. Activez ou désactivez dans Paramètres avancés.",
   f10_h: "Nettoyage auto des URLs",
   f10_p: "Les paramètres de tracking (si, pp, feature, utm_*, fbclid, gclid et plus) sont automatiquement retirés des liens YouTube collés, et les enveloppes youtube.com/redirect sont déballées — le champ URL affiche toujours le lien canonique.",
+  f11_h: "Se réduit dans le tray",
+  f11_p: "Fermer la fenêtre loge Arroxy dans la barre système. Les téléchargements continuent en arrière-plan — cliquez sur l'icône pour rouvrir la fenêtre, ou quittez depuis le menu de la barre.",
 
   shots_eyebrow: "Voyez-le en action",
   shots_h2: "Conçu pour la clarté, pas l'encombrement.",
@@ -578,6 +586,8 @@ export const ja = {
   f9_p: "YouTube リンクをどこかでコピーするだけで、アプリに戻った瞬間 Arroxy が検出します — 確認プロンプトで常に制御を維持。詳細設定で有効・無効を切り替え。",
   f10_h: "URL 自動クリーンアップ",
   f10_p: "貼り付けた YouTube リンクからトラッキングパラメータ（si、pp、feature、utm_*、fbclid、gclid など）が自動で除去され、youtube.com/redirect ラッパーも展開 — URL フィールドには常に正規リンクが表示されます。",
+  f11_h: "トレイに格納",
+  f11_p: "ウィンドウを閉じると Arroxy はシステムトレイに格納されます。ダウンロードはバックグラウンドで継続 — トレイアイコンをクリックするとウィンドウが戻り、トレイメニューから終了もできます。",
 
   shots_eyebrow: "実際の動作",
   shots_h2: "明快さのために設計、雑然さは排除。",
@@ -708,6 +718,8 @@ export const zh = {
   f9_p: "在任何地方复制 YouTube 链接，切换回应用时 Arroxy 立即检测 — 确认提示让你保持控制。在高级设置中开启或关闭。",
   f10_h: "自动清理 URL",
   f10_p: "粘贴的 YouTube 链接会自动剥除跟踪参数（si、pp、feature、utm_*、fbclid、gclid 等），并解包 youtube.com/redirect 跳转链接 — URL 字段始终显示规范链接。",
+  f11_h: "最小化到托盘",
+  f11_p: "关闭窗口后 Arroxy 将缩入系统托盘，下载在后台持续运行 — 单击托盘图标可恢复窗口，或通过托盘菜单退出应用。",
 
   shots_eyebrow: "实际效果",
   shots_h2: "为清晰而生，拒绝杂乱。",
@@ -836,6 +848,8 @@ export const ru = {
   f9_p: "Скопируйте YouTube-ссылку где угодно, и Arroxy обнаружит её при возврате в приложение — запрос подтверждения сохраняет контроль. Включайте и выключайте в расширенных настройках.",
   f10_h: "Автоочистка URL",
   f10_p: "Трекинговые параметры (si, pp, feature, utm_*, fbclid, gclid и другие) автоматически удаляются из вставленных YouTube-ссылок, а обёртки youtube.com/redirect разворачиваются — в поле URL всегда отображается канонический адрес.",
+  f11_h: "Сворачивание в трей",
+  f11_p: "Закрытие окна прячет Arroxy в системный трей. Загрузки продолжаются в фоне — кликните на значок трея, чтобы открыть окно снова, или выйдите через меню трея.",
 
   shots_eyebrow: "В деле",
   shots_h2: "Сделано для ясности, не для мусора.",
@@ -967,6 +981,8 @@ export const uk = {
   f9_p: "Скопіюйте посилання YouTube будь-де, і Arroxy виявить його при поверненні до застосунку — запит підтвердження зберігає контроль. Вмикайте та вимикайте в розширених налаштуваннях.",
   f10_h: "Автоочищення URL",
   f10_p: "Трекінгові параметри (si, pp, feature, utm_*, fbclid, gclid тощо) автоматично видаляються зі вставлених YouTube-посилань, а обгортки youtube.com/redirect розгортаються — у полі URL завжди відображається канонічна адреса.",
+  f11_h: "Згортання в трей",
+  f11_p: "Закриття вікна ховає Arroxy в системний трей. Завантаження тривають у фоні — натисніть значок трею, щоб повернути вікно, або виходьте через меню трею.",
 
   shots_eyebrow: "У дії",
   shots_h2: "Зроблено заради ясності, а не для безладу.",
@@ -1097,6 +1113,8 @@ export const hi = {
   f9_p: "कहीं भी YouTube लिंक कॉपी करें और वापस स्विच करने पर Arroxy तुरंत पहचान लेता है — एक पुष्टि प्रॉम्प्ट नियंत्रण बनाए रखता है। उन्नत सेटिंग में सक्षम या अक्षम करें।",
   f10_h: "URL को अपने आप साफ़ करें",
   f10_p: "पेस्ट किए गए YouTube लिंक से ट्रैकिंग पैरामीटर (si, pp, feature, utm_*, fbclid, gclid और अन्य) अपने आप हट जाते हैं, और youtube.com/redirect रैपर खुल जाते हैं — URL फ़ील्ड में हमेशा कैनोनिकल लिंक दिखता है।",
+  f11_h: "ट्रे में छुपाएं",
+  f11_p: "विंडो बंद करने पर Arroxy सिस्टम ट्रे में चला जाता है। डाउनलोड बैकग्राउंड में जारी रहते हैं — ट्रे आइकन पर क्लिक करके विंडो वापस लाएं, या ट्रे मेनू से बाहर निकलें।",
 
   shots_eyebrow: "क्रिया में देखें",
   shots_h2: "स्पष्टता के लिए बना है, अव्यवस्था के लिए नहीं।",

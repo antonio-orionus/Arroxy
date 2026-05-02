@@ -191,6 +191,17 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
         return;
       }
       set({ settings: result.data });
+    },
+
+    setCloseBehavior: async (value) => {
+      const current = get().settings;
+      if (current) set({ settings: { ...current, closeBehavior: value } });
+      const result = await window.appApi.settings.update({ closeBehavior: value });
+      if (!result.ok) {
+        console.error('[settings] closeBehavior save failed', result.error);
+        return;
+      }
+      set({ settings: result.data });
     }
   };
 }

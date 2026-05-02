@@ -77,6 +77,10 @@ const zh = {
         banWarning: '提醒: yt-dlp 使用的 Cookie 对应账号可能被 YouTube 标记,有时甚至被封禁。建议尽量使用临时小号。',
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
+      },
+      closeToTray: {
+        toggle: '关闭时最小化到托盘',
+        toggleDescription: '关闭窗口后继续在后台下载。'
       }
     },
     subtitles: {
@@ -275,6 +279,16 @@ const zh = {
     audioOnlyDot: '仅音频 · {{audio}}',
     videoDot: '{{resolution}} · {{audio}}'
   },
+  tray: {
+    tooltip: 'Arroxy',
+    menu: {
+      statusIdle: '空闲',
+      statusActive_one: '1个下载中 · {{percent}}%',
+      statusActive_other: '{{count}}个下载中 · {{percent}}%',
+      open: '打开 Arroxy',
+      quit: '退出 Arroxy'
+    }
+  },
   dialogs: {
     quitWithActiveDownloads: {
       message_one: '正在进行 {{count}} 个下载',
@@ -282,6 +296,13 @@ const zh = {
       detail: '关闭将取消所有正在进行的下载。',
       confirm: '取消下载并退出',
       keep: '继续下载'
+    },
+    closeToTray: {
+      message: '关闭时将 Arroxy 最小化到系统托盘？',
+      detail: 'Arroxy 将继续运行并完成活动下载。可在高级设置中更改。',
+      hide: '最小化到托盘',
+      quit: '退出',
+      remember: '不再询问'
     }
   }
 } as const;

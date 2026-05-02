@@ -1,4 +1,4 @@
-import { type JSX } from 'react';
+import { type JSX, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Dialog,
@@ -21,6 +21,7 @@ interface Props {
 
 export function ClipboardConfirmDialog({ open, url, onUse, onDisable, onCancel }: Props): JSX.Element {
   const { t } = useTranslation();
+  const yesButtonRef = useRef<HTMLButtonElement>(null);
 
   function handleOpenChange(next: boolean): void {
     // Esc / outside click → treat as cancel.
@@ -29,7 +30,11 @@ export function ClipboardConfirmDialog({ open, url, onUse, onDisable, onCancel }
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent showCloseButton={false} data-testid="clipboard-confirm-dialog">
+      <DialogContent
+        showCloseButton={false}
+        data-testid="clipboard-confirm-dialog"
+        initialFocus={() => yesButtonRef.current}
+      >
         <DialogHeader>
           <DialogTitle>{t('wizard.url.clipboard.dialog.title')}</DialogTitle>
           <DialogDescription>{t('wizard.url.clipboard.dialog.body')}</DialogDescription>
@@ -73,6 +78,7 @@ export function ClipboardConfirmDialog({ open, url, onUse, onDisable, onCancel }
             {t('wizard.url.clipboard.dialog.cancelButton')}
           </Button>
           <Button
+            ref={yesButtonRef}
             type="button"
             onClick={onUse}
             data-testid="clipboard-confirm-use"

@@ -77,6 +77,10 @@ const ja = {
         banWarning: '注意: yt-dlpがCookieで使うアカウントは、YouTube側でフラグが立てられたり、稀にBANされることがあります。可能なら使い捨てアカウントを使ってください。',
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
+      },
+      closeToTray: {
+        toggle: '閉じるときにトレイに格納',
+        toggleDescription: 'ウィンドウを閉じた後もバックグラウンドでダウンロードを続けます。'
       }
     },
     subtitles: {
@@ -275,6 +279,16 @@ const ja = {
     audioOnlyDot: '音声のみ · {{audio}}',
     videoDot: '{{resolution}} · {{audio}}'
   },
+  tray: {
+    tooltip: 'Arroxy',
+    menu: {
+      statusIdle: 'アイドル',
+      statusActive_one: '1件ダウンロード中 · {{percent}}%',
+      statusActive_other: '{{count}}件ダウンロード中 · {{percent}}%',
+      open: 'Arroxyを開く',
+      quit: 'Arroxyを終了'
+    }
+  },
   dialogs: {
     quitWithActiveDownloads: {
       message_one: 'ダウンロード{{count}}件を実行中',
@@ -282,6 +296,13 @@ const ja = {
       detail: '閉じるとアクティブなダウンロードはすべてキャンセルされます。',
       confirm: 'ダウンロードをキャンセルして終了',
       keep: 'ダウンロードを続ける'
+    },
+    closeToTray: {
+      message: '閉じるときにArroxyをシステムトレイに格納しますか？',
+      detail: 'Arroxyは実行を続け、アクティブなダウンロードを完了します。詳細設定で変更できます。',
+      hide: 'トレイに格納',
+      quit: '終了',
+      remember: '次回から表示しない'
     }
   }
 } as const;
