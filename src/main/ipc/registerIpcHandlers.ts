@@ -22,6 +22,7 @@ import type { BinaryManager } from '@main/services/BinaryManager';
 import type { TokenService } from '@main/services/TokenService';
 import type { SettingsStore } from '@main/stores/SettingsStore';
 import type { QueueStore } from '@main/stores/QueueStore';
+import type { ClipboardWatcher } from '@main/services/ClipboardWatcher';
 
 interface IpcDependencies {
   mainWindow: BrowserWindow;
@@ -33,6 +34,7 @@ interface IpcDependencies {
   binaryManager: BinaryManager;
   tokenService: TokenService;
   languageRef: { current: SupportedLang };
+  clipboardWatcher: ClipboardWatcher;
 }
 
 function zodToError(errorMessage: string): AppError {
@@ -85,7 +87,8 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     mainWindow,
     logService,
     tokenService,
-    languageRef
+    languageRef,
+    clipboardWatcher
   } = deps;
   let warmUpPromise: Promise<Result<WarmUpOutput>> | null = null;
 
@@ -200,6 +203,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 
   handle(IPC_CHANNELS.settingsUpdate, updateSettingsSchema, async (data) => {
     const updated = await settingsStore.update(data);
+    clipboardWatcher.setEnabled(updated.clipboardWatchEnabled);
     return ok(updated);
   });
 

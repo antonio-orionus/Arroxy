@@ -51,6 +51,19 @@ const en = {
       mascotIdle: 'Drop me a YouTube link (video or Short) — then hit "Fetch formats" and I\'ll get to work ✨',
       mascotBusy: 'Downloading in the background… I can multitask 😎',
       advanced: 'Advanced',
+      clearAria: 'Clear URL',
+      clipboard: {
+        toggle: 'Watch clipboard',
+        toggleDescription: 'Auto-fill the URL field when you copy a YouTube link.',
+        dialog: {
+          title: 'YouTube URL detected',
+          body: 'Use this link from your clipboard?',
+          useButton: 'Use URL',
+          disableButton: 'Disable',
+          cancelButton: 'Cancel',
+          disableNote: 'You can re-enable clipboard watching later in Advanced settings.'
+        }
+      },
       cookies: {
         toggle: 'Use cookies file',
         toggleDescription: 'Helps with age-restricted, members-only, and account-private videos.',

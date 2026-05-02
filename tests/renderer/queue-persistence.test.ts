@@ -40,6 +40,7 @@ describe('Queue persistence — store behavior', () => {
           return () => undefined;
         }),
         onProgress: vi.fn().mockReturnValue(() => undefined),
+        onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
       },
       queue: { save: saveMock, load: loadMock },
     };
@@ -150,7 +151,7 @@ describe('Queue persistence — store behavior', () => {
         activePreset: null,
         wizardOutputDir: '/tmp',
         wizardStep: 'confirm',
-        settings: { defaultOutputDir: '/tmp', rememberLastOutputDir: false },
+        settings: { defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false },
       });
 
       await useAppStore.getState().addToQueue();

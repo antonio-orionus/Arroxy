@@ -51,6 +51,19 @@ const fr = {
       mascotIdle: 'Lance-moi un lien YouTube (vidéo ou Short) — clique sur « Récupérer les formats » et je m\'occupe du reste ✨',
       mascotBusy: 'Téléchargement en arrière-plan… je peux faire plusieurs choses à la fois 😎',
       advanced: 'Avancé',
+      clearAria: 'Effacer l\'URL',
+      clipboard: {
+        toggle: 'Surveiller le presse-papiers',
+        toggleDescription: 'Remplit automatiquement le champ URL lorsque vous copiez un lien YouTube.',
+        dialog: {
+          title: 'URL YouTube détectée',
+          body: 'Utiliser ce lien depuis votre presse-papiers ?',
+          useButton: 'Utiliser l\'URL',
+          disableButton: 'Désactiver',
+          cancelButton: 'Annuler',
+          disableNote: 'Vous pouvez réactiver la surveillance du presse-papiers plus tard dans les Réglages avancés.'
+        }
+      },
       cookies: {
         toggle: 'Utiliser un fichier de cookies',
         toggleDescription: 'Aide pour les vidéos avec restriction d\'âge, réservées aux membres ou privées du compte.',

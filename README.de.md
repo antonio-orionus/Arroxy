@@ -6,7 +6,7 @@
 
 **Sprache:** [English](README.md) · [Español](README.es.md) · **Deutsch** · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md)
 
-[![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Last commit](https://img.shields.io/github/last-commit/antonio-orionus/Arroxy?color=informational) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Languages](https://img.shields.io/badge/i18n-9_languages-blue) ![License](https://img.shields.io/badge/license-MIT-green) [![Scoop](https://img.shields.io/scoop/v/arroxy?bucket=https%3A%2F%2Fgithub.com%2Fantonio-orionus%2Fscoop-bucket&label=Scoop&color=blue)](https://github.com/antonio-orionus/scoop-bucket) [![Homebrew](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Homebrew&color=orange)](https://github.com/antonio-orionus/homebrew-arroxy)
+[![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Last commit](https://img.shields.io/github/last-commit/antonio-orionus/Arroxy?color=informational) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Languages](https://img.shields.io/badge/i18n-9_languages-blue) ![License](https://img.shields.io/badge/license-MIT-green) [![Scoop](https://img.shields.io/scoop/v/arroxy?bucket=https%3A%2F%2Fgithub.com%2Fantonio-orionus%2Fscoop-bucket&label=Scoop&color=blue)](https://github.com/antonio-orionus/scoop-bucket) [![Homebrew](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Homebrew&color=orange)](https://github.com/antonio-orionus/homebrew-arroxy) [![Flatpak](https://img.shields.io/badge/Flatpak-bundle-4A90D9?logo=flatpak&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
 **4K &nbsp;•&nbsp; 1080p60 &nbsp;•&nbsp; HDR &nbsp;•&nbsp; Shorts &nbsp;·&nbsp; Windows &nbsp;•&nbsp; macOS &nbsp;•&nbsp; Linux**
 
@@ -73,6 +73,7 @@ Arroxy ist eine **kostenlose, quelloffene und datenschutzorientierte** Desktop-A
 - **Untertitel herunterladen** — manuelle oder automatisch generierte Untertitel in SRT, VTT oder ASS, in jeder verfügbaren Sprache. Speichere sie neben dem Video, bette sie in eine portable `.mkv` ein, oder ordne sie in einem dedizierten `Subtitles/`-Unterordner
 - **SponsorBlock-Integration** — überspringe oder markiere Sponsor-Segmente, Intros, Outros, Eigenwerbung und mehr. Markiere Segmente als Kapitel (nicht-destruktiv) oder schneide sie mit FFmpeg komplett heraus — deine Wahl, pro Kategorie
 - **In 9 Sprachen verfügbar** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — erkennt deine Systemsprache automatisch, jederzeit umschaltbar
+- **Zwischenablage überwachen** — kopiere einen YouTube-Link und Arroxy füllt das URL-Feld automatisch aus, sobald du wieder zur App wechselst. Ein Bestätigungsdialog hält dich in Kontrolle; jederzeit in den erweiterten Einstellungen deaktivierbar
 
 <div align="center">
   <img src="build/Main-screenshot.png" width="48%" alt="URL einfügen" />
@@ -112,7 +113,7 @@ Was auf der Roadmap steht — noch nicht ausgeliefert, grob nach Priorität sort
 | ------------------- | ----------------- |
 | Windows             | Installer (NSIS) oder portable `.exe` |
 | macOS               | `.dmg` (Intel + Apple Silicon) |
-| Linux               | `.AppImage` |
+| Linux               | `.AppImage` oder `.flatpak` (sandboxed) |
 
 Einfach herunterladen, ausführen, fertig.
 
@@ -190,6 +191,15 @@ sudo dnf install -y fuse-libs
 
 # Arch
 sudo pacman -S fuse2
+```
+
+**Flatpak (sandboxed Alternative)**
+
+Lieber eine richtig sandboxed Installation? Hol dir das `Arroxy-*.flatpak` Bundle von derselben Release-Seite und installiere es lokal — kein Flathub-Setup, keine Admin-Rechte, kein `libfuse2`-Shim nötig (Flatpak nutzt bubblewrap für die Sandbox).
+
+```bash
+flatpak install --user Arroxy-*.flatpak
+flatpak run io.github.antonio_orionus.Arroxy
 ```
 
 ---

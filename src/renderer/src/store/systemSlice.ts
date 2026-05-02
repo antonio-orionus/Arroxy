@@ -180,6 +180,17 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
         return;
       }
       set({ settings: result.data });
+    },
+
+    setClipboardWatchEnabled: async (enabled) => {
+      const current = get().settings;
+      if (current) set({ settings: { ...current, clipboardWatchEnabled: enabled } });
+      const result = await window.appApi.settings.update({ clipboardWatchEnabled: enabled });
+      if (!result.ok) {
+        console.error('[settings] clipboardWatchEnabled save failed', result.error);
+        return;
+      }
+      set({ settings: result.data });
     }
   };
 }

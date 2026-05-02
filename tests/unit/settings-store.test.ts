@@ -10,7 +10,8 @@ describe('settings and recent stores', () => {
     const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-'));
     const store = new SettingsStore(userData, {
       defaultOutputDir: '/tmp',
-      rememberLastOutputDir: true
+      rememberLastOutputDir: true,
+      clipboardWatchEnabled: false
     });
 
     const updated = await store.update({ defaultOutputDir: '/home/test/downloads' });
@@ -24,7 +25,8 @@ describe('settings and recent stores', () => {
     const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-subs-'));
     const store = new SettingsStore(userData, {
       defaultOutputDir: '/tmp',
-      rememberLastOutputDir: true
+      rememberLastOutputDir: true,
+      clipboardWatchEnabled: false
     });
 
     const updated = await store.update({ lastSubtitleLanguages: ['en', 'es'] });
@@ -77,7 +79,7 @@ describe('settings and recent stores', () => {
 
   it('logs an error when settings.json is corrupted', async () => {
     const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-corrupt-'));
-    const store = new SettingsStore(userData, { defaultOutputDir: '/tmp', rememberLastOutputDir: true });
+    const store = new SettingsStore(userData, { defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false });
     await fs.writeFile(path.join(userData, 'settings.json'), 'not valid json', 'utf-8');
 
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {});

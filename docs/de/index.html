@@ -553,6 +553,11 @@
             <h3>SponsorBlock integriert</h3>
             <p>Überspringe oder markiere Sponsor-Segmente, Intros, Outros, Eigenwerbung und mehr — schneide sie mit FFmpeg heraus oder füge einfach Kapitel hinzu. Deine Wahl, pro Kategorie.</p>
           </div>
+          <div class="feature">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M8 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-2"/><path d="M9 12h6"/><path d="M9 16h4"/></svg></div>
+            <h3>Automatisches Ausfüllen aus Zwischenablage</h3>
+            <p>Kopiere einen YouTube-Link irgendwo und Arroxy erkennt ihn beim nächsten Wechsel zur App — ein Bestätigungsdialog hält dich in Kontrolle. In den Erweiterten Einstellungen ein- oder ausschalten.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -634,8 +639,16 @@
             </div>
           </div>
           <div class="install-card">
+            <h3>Flatpak <span class="platform-badge">Linux</span></h3>
+            <p class="desc">Sandboxed Installation. Lade das .flatpak-Bundle aus den Releases und installier es mit einem Befehl. Kein Flathub-Setup nötig.</p>
+            <div class="code-block">
+              <span>flatpak install --user Arroxy-*.flatpak</span>
+              <button class="copy-btn" data-copy="flatpak install --user Arroxy-*.flatpak">Kopieren</button>
+            </div>
+          </div>
+          <div class="install-card">
             <h3>Direkter Download <span class="platform-badge">Alle</span></h3>
-            <p class="desc">NSIS-Installer, portable .exe, .dmg oder .AppImage — direkt von GitHub Releases.</p>
+            <p class="desc">NSIS-Installer, portable .exe, .dmg, .AppImage oder .flatpak — direkt von GitHub Releases.</p>
             <a class="btn btn-secondary" style="margin-top: 4px;" href="https://github.com/antonio-orionus/Arroxy/releases/latest" target="_blank" rel="noopener">
               Releases öffnen →
             </a>

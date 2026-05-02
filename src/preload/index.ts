@@ -57,6 +57,13 @@ onMaximizedChange: (listener) => {
       return () => {
         ipcRenderer.removeListener(IPC_CHANNELS.eventsProgress, wrapped);
       };
+    },
+    onClipboardUrl: (listener) => {
+      const wrapped = (_: Electron.IpcRendererEvent, url: string): void => listener(url);
+      ipcRenderer.on(IPC_CHANNELS.eventsClipboardUrl, wrapped);
+      return () => {
+        ipcRenderer.removeListener(IPC_CHANNELS.eventsClipboardUrl, wrapped);
+      };
     }
   },
   queue: {

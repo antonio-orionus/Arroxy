@@ -51,6 +51,19 @@ const de = {
       mascotIdle: 'Wirf mir einen YouTube-Link rüber (Video oder Short) — klick dann auf „Formate abrufen" und ich leg los ✨',
       mascotBusy: 'Lade im Hintergrund… ich kann mehrere Dinge gleichzeitig 😎',
       advanced: 'Erweitert',
+      clearAria: 'URL löschen',
+      clipboard: {
+        toggle: 'Zwischenablage beobachten',
+        toggleDescription: 'Füllt das URL-Feld automatisch aus, wenn ein YouTube-Link kopiert wird.',
+        dialog: {
+          title: 'YouTube-URL erkannt',
+          body: 'Diesen Link aus deiner Zwischenablage verwenden?',
+          useButton: 'URL verwenden',
+          disableButton: 'Deaktivieren',
+          cancelButton: 'Abbrechen',
+          disableNote: 'Du kannst die Zwischenablage-Beobachtung später in den erweiterten Einstellungen wieder aktivieren.'
+        }
+      },
       cookies: {
         toggle: 'Cookies-Datei verwenden',
         toggleDescription: 'Hilft bei altersbeschränkten, nur-für-Mitglieder- und kontoprivaten Videos.',

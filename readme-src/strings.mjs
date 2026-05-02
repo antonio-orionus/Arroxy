@@ -168,6 +168,8 @@ const en = {
     "**SponsorBlock integration** — skip or mark sponsor segments, intros, outros, self-promos, and more. Mark segments as chapters (non-destructive) or cut them out entirely with FFmpeg — your choice, per category",
   what_9:
     "**Available in 9 languages** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — auto-detects your system language, switchable any time",
+  what_10:
+    "**Clipboard watch** — copy any YouTube link and Arroxy auto-fills the URL field the moment you refocus the app. A confirm dialog keeps you in control; disable it from Advanced settings any time",
   shot1_alt: "Paste a URL",
   shot2_alt: "Pick your quality",
   shot3_alt: "Choose where to save",
@@ -205,7 +207,7 @@ const en = {
   dl_format_col: "Format",
   dl_win_format: "Installer (NSIS) or Portable `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
-  dl_linux_format: "`.AppImage`",
+  dl_linux_format: "`.AppImage` or `.flatpak` (sandboxed)",
   dl_run: "Just download, run, done.",
   dl_pkg_h3: "Install via package manager",
   dl_channel_col: "Channel",
@@ -256,6 +258,9 @@ const en = {
   dl_linux_m2_h4: "Method 2: Terminal",
   dl_linux_fuse_text:
     "If it still won't launch, you may be missing FUSE (required by AppImage):",
+  dl_linux_flatpak_h4: "Flatpak (sandboxed alternative)",
+  dl_linux_flatpak_intro:
+    "Prefer a properly sandboxed install? Grab the `Arroxy-*.flatpak` bundle from the same release page and install it locally — no Flathub setup, no admin rights, no `libfuse2` shim required (Flatpak uses bubblewrap for sandboxing).",
   privacy_intro:
     "Arroxy runs entirely on your machine. When you download a video:",
   privacy_step1:
@@ -361,6 +366,8 @@ const de = {
     "**SponsorBlock-Integration** — überspringe oder markiere Sponsor-Segmente, Intros, Outros, Eigenwerbung und mehr. Markiere Segmente als Kapitel (nicht-destruktiv) oder schneide sie mit FFmpeg komplett heraus — deine Wahl, pro Kategorie",
   what_9:
     "**In 9 Sprachen verfügbar** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — erkennt deine Systemsprache automatisch, jederzeit umschaltbar",
+  what_10:
+    "**Zwischenablage überwachen** — kopiere einen YouTube-Link und Arroxy füllt das URL-Feld automatisch aus, sobald du wieder zur App wechselst. Ein Bestätigungsdialog hält dich in Kontrolle; jederzeit in den erweiterten Einstellungen deaktivierbar",
   shot1_alt: "URL einfügen",
   shot2_alt: "Qualität wählen",
   shot3_alt: "Speicherort wählen",
@@ -398,7 +405,7 @@ const de = {
   dl_format_col: "Format",
   dl_win_format: "Installer (NSIS) oder portable `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
-  dl_linux_format: "`.AppImage`",
+  dl_linux_format: "`.AppImage` oder `.flatpak` (sandboxed)",
   dl_run: "Einfach herunterladen, ausführen, fertig.",
   dl_pkg_h3: "Installation per Paketmanager",
   dl_channel_col: "Kanal",
@@ -449,6 +456,9 @@ const de = {
   dl_linux_m2_h4: "Methode 2: Terminal",
   dl_linux_fuse_text:
     "Wenn es immer noch nicht startet, fehlt vielleicht FUSE (für AppImage erforderlich):",
+  dl_linux_flatpak_h4: "Flatpak (sandboxed Alternative)",
+  dl_linux_flatpak_intro:
+    "Lieber eine richtig sandboxed Installation? Hol dir das `Arroxy-*.flatpak` Bundle von derselben Release-Seite und installiere es lokal — kein Flathub-Setup, keine Admin-Rechte, kein `libfuse2`-Shim nötig (Flatpak nutzt bubblewrap für die Sandbox).",
   privacy_intro:
     "Arroxy läuft komplett auf deinem Rechner. Wenn du ein Video herunterlädst:",
   privacy_step1:
@@ -556,6 +566,8 @@ const es = {
     "**Integración con SponsorBlock** — omite o marca segmentos de patrocinadores, intros, outros, autopromociones y más. Márcalos como capítulos (no destructivo) o elimínalos por completo con FFmpeg — tú decides, por categoría",
   what_9:
     "**Disponible en 9 idiomas** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — detecta el idioma de tu sistema y se puede cambiar en cualquier momento",
+  what_10:
+    "**Monitoreo del portapapeles** — copia cualquier enlace de YouTube y Arroxy rellena el campo de URL automáticamente al volver a la app. Un diálogo de confirmación mantiene el control; desactívalo desde la Configuración avanzada cuando quieras",
   shot1_alt: "Pega una URL",
   shot2_alt: "Elige la calidad",
   shot3_alt: "Elige dónde guardar",
@@ -593,7 +605,7 @@ const es = {
   dl_format_col: "Formato",
   dl_win_format: "Instalador (NSIS) o `.exe` portátil",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
-  dl_linux_format: "`.AppImage`",
+  dl_linux_format: "`.AppImage` o `.flatpak` (sandboxed)",
   dl_run: "Solo descarga, ejecuta, listo.",
   dl_pkg_h3: "Instalar mediante gestor de paquetes",
   dl_channel_col: "Canal",
@@ -644,6 +656,9 @@ const es = {
   dl_linux_m2_h4: "Método 2: Terminal",
   dl_linux_fuse_text:
     "Si aún no arranca, puede que te falte FUSE (lo necesita AppImage):",
+  dl_linux_flatpak_h4: "Flatpak (alternativa con sandbox)",
+  dl_linux_flatpak_intro:
+    "¿Prefieres una instalación con sandbox real? Coge el bundle `Arroxy-*.flatpak` de la misma página de release e instálalo localmente — sin configurar Flathub, sin permisos de admin, sin shim `libfuse2` (Flatpak usa bubblewrap para el sandbox).",
   privacy_intro:
     "Arroxy se ejecuta enteramente en tu máquina. Cuando descargas un video:",
   privacy_step1:
@@ -752,6 +767,8 @@ const fr = {
     "**Intégration SponsorBlock** — passe ou marque les segments sponsors, intros, outros, autopromos et plus encore. Marque-les comme chapitres (non destructif) ou coupe-les avec FFmpeg — ton choix, par catégorie",
   what_9:
     "**Disponible en 9 langues** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — détecte la langue de ton système, modifiable à tout moment",
+  what_10:
+    "**Surveillance du presse-papiers** — copiez n'importe quel lien YouTube et Arroxy remplit le champ URL dès que vous revenez à l'app. Un dialogue de confirmation garde le contrôle ; désactivez-le depuis les Paramètres avancés à tout moment",
   shot1_alt: "Coller une URL",
   shot2_alt: "Choisir la qualité",
   shot3_alt: "Choisir où enregistrer",
@@ -789,7 +806,7 @@ const fr = {
   dl_format_col: "Format",
   dl_win_format: "Installeur (NSIS) ou `.exe` portable",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
-  dl_linux_format: "`.AppImage`",
+  dl_linux_format: "`.AppImage` ou `.flatpak` (sandboxed)",
   dl_run: "Télécharge, lance, terminé.",
   dl_pkg_h3: "Installation via gestionnaire de paquets",
   dl_channel_col: "Canal",
@@ -841,6 +858,9 @@ const fr = {
   dl_linux_m2_h4: "Méthode 2 : Terminal",
   dl_linux_fuse_text:
     "S'il refuse encore de se lancer, il te manque peut-être FUSE (requis par AppImage) :",
+  dl_linux_flatpak_h4: "Flatpak (alternative en sandbox)",
+  dl_linux_flatpak_intro:
+    "Tu préfères une installation correctement isolée ? Récupère le bundle `Arroxy-*.flatpak` depuis la même page de release et installe-le localement — pas de configuration Flathub, pas de droits admin, pas besoin du shim `libfuse2` (Flatpak utilise bubblewrap pour la sandbox).",
   privacy_intro:
     "Arroxy tourne entièrement sur ta machine. Quand tu télécharges une vidéo :",
   privacy_step1:
@@ -947,6 +967,8 @@ const ja = {
     "**SponsorBlock 連携** — スポンサー、イントロ、アウトロ、自己宣伝などのセグメントをスキップまたはマーク。非破壊的にチャプターとしてマークするか、FFmpeg で完全にカットするか — カテゴリごとに選択可能",
   what_9:
     "**9 言語対応** — English、Español、Deutsch、Français、日本語、中文、Русский、Українська、हिन्दी — システム言語を自動検出、いつでも切替可能",
+  what_10:
+    "**クリップボード監視** — YouTube リンクをコピーすると、アプリに戻った瞬間 Arroxy が URL フィールドを自動入力。確認ダイアログで常に制御を維持；詳細設定でいつでも無効化できます",
   shot1_alt: "URL を貼る",
   shot2_alt: "画質を選ぶ",
   shot3_alt: "保存先を選ぶ",
@@ -980,7 +1002,7 @@ const ja = {
   dl_format_col: "フォーマット",
   dl_win_format: "インストーラ（NSIS）またはポータブル `.exe`",
   dl_mac_format: "`.dmg`（Intel + Apple Silicon）",
-  dl_linux_format: "`.AppImage`",
+  dl_linux_format: "`.AppImage` または `.flatpak`（サンドボックス）",
   dl_run: "ダウンロード、起動、完了。",
   dl_pkg_h3: "パッケージマネージャー経由",
   dl_channel_col: "チャンネル",
@@ -1030,6 +1052,9 @@ const ja = {
   dl_linux_m2_h4: "方法 2：ターミナル",
   dl_linux_fuse_text:
     "それでも起動しないなら、FUSE が無いかもしれません（AppImage に必要）：",
+  dl_linux_flatpak_h4: "Flatpak（サンドボックス版）",
+  dl_linux_flatpak_intro:
+    "ちゃんとサンドボックス化された方がいい？ 同じリリースページから `Arroxy-*.flatpak` バンドルを取得し、ローカルにインストールできます — Flathub のセットアップ不要、管理者権限不要、`libfuse2` シムも不要（Flatpak はサンドボックスに bubblewrap を使用）。",
   privacy_intro:
     "Arroxy はあなたのマシン上で完結します。動画をダウンロードする際：",
   privacy_step1:
@@ -1134,6 +1159,8 @@ const zh = {
     "**SponsorBlock 集成** — 跳过或标记赞助商、片头、片尾、自我推广等片段。非破坏性地标记为章节，或使用 FFmpeg 直接剪除 — 按类别自由选择",
   what_9:
     "**9 种语言可用** — English、Español、Deutsch、Français、日本語、中文、Русский、Українська、हिन्दी — 自动检测系统语言，随时切换",
+  what_10:
+    "**剪贴板监控** — 复制任意 YouTube 链接，切换回应用时 Arroxy 自动填写 URL 字段。确认对话框让你保持控制；随时可从高级设置中停用",
   shot1_alt: "粘贴 URL",
   shot2_alt: "选择画质",
   shot3_alt: "选择保存位置",
@@ -1165,7 +1192,7 @@ const zh = {
   dl_format_col: "格式",
   dl_win_format: "安装版（NSIS）或便携版 `.exe`",
   dl_mac_format: "`.dmg`（Intel + Apple Silicon）",
-  dl_linux_format: "`.AppImage`",
+  dl_linux_format: "`.AppImage` 或 `.flatpak`（沙箱）",
   dl_run: "下载、运行，搞定。",
   dl_pkg_h3: "通过包管理器安装",
   dl_channel_col: "渠道",
@@ -1211,6 +1238,9 @@ const zh = {
     "右键 `.AppImage` 文件 → **属性** → **权限** → 启用 **允许作为程序执行**，然后双击运行。",
   dl_linux_m2_h4: "方法 2：终端",
   dl_linux_fuse_text: "如果还是启动不了，可能缺 FUSE（AppImage 需要）：",
+  dl_linux_flatpak_h4: "Flatpak（沙箱版）",
+  dl_linux_flatpak_intro:
+    "想要真正沙箱化的安装？从同一发布页获取 `Arroxy-*.flatpak` 包并本地安装 — 无需配置 Flathub、无需管理员权限、无需 `libfuse2` 垫片（Flatpak 用 bubblewrap 做沙箱）。",
   privacy_intro: "Arroxy 完全在你的机器上运行。下载视频时：",
   privacy_step1:
     "Arroxy 用 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 直接调用 YouTube 链接 — 一个可审计、始终保持最新的开源工具",
@@ -1316,6 +1346,8 @@ const ru = {
     "**Интеграция SponsorBlock** — пропускайте или отмечайте сегменты с рекламой спонсоров, вступлениями, концовками, самопиаром и прочим. Помечайте как главы (неразрушающий режим) или вырезайте целиком через FFmpeg — ваш выбор, отдельно по каждой категории",
   what_9:
     "**Доступно на 9 языках** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — автоматически определяет язык системы, переключается в любой момент",
+  what_10:
+    "**Мониторинг буфера обмена** — скопируйте любую YouTube-ссылку, и Arroxy автоматически заполнит URL-поле при следующем переключении на приложение. Диалог подтверждения сохраняет контроль; отключается в расширенных настройках в любой момент",
   shot1_alt: "Вставьте URL",
   shot2_alt: "Выберите качество",
   shot3_alt: "Выберите, куда сохранять",
@@ -1352,7 +1384,7 @@ const ru = {
   dl_format_col: "Формат",
   dl_win_format: "Установщик (NSIS) или портативный `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
-  dl_linux_format: "`.AppImage`",
+  dl_linux_format: "`.AppImage` или `.flatpak` (sandbox)",
   dl_run: "Скачали — запустили — готово.",
   dl_pkg_h3: "Установка через пакетный менеджер",
   dl_channel_col: "Канал",
@@ -1405,6 +1437,9 @@ const ru = {
   dl_linux_m2_h4: "Способ 2: Терминал",
   dl_linux_fuse_text:
     "Если всё равно не запускается — возможно, отсутствует FUSE (нужен AppImage):",
+  dl_linux_flatpak_h4: "Flatpak (изолированная альтернатива)",
+  dl_linux_flatpak_intro:
+    "Хотите по-настоящему изолированную установку? Скачайте бандл `Arroxy-*.flatpak` с той же страницы релиза и установите его локально — без настройки Flathub, без прав администратора, без шима `libfuse2` (Flatpak использует bubblewrap для песочницы).",
   privacy_intro:
     "Arroxy полностью работает на вашей машине. Когда вы скачиваете видео:",
   privacy_step1:
@@ -1512,6 +1547,8 @@ const uk = {
     "**Інтеграція SponsorBlock** — пропускайте або позначайте сегменти зі спонсорами, вступами, кінцівками, самопіаром тощо. Позначайте як розділи (без руйнування) або вирізайте повністю через FFmpeg — ваш вибір, окремо для кожної категорії",
   what_9:
     "**Доступно 9 мовами** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — автоматично визначає мову системи, перемикання будь-якої миті",
+  what_10:
+    "**Моніторинг буфера обміну** — скопіюйте будь-яке посилання YouTube, і Arroxy автоматично заповнить поле URL при наступному переключенні на застосунок. Діалог підтвердження зберігає контроль; вимикається в розширених налаштуваннях будь-якої миті",
   shot1_alt: "Вставте URL",
   shot2_alt: "Оберіть якість",
   shot3_alt: "Оберіть, куди зберігати",
@@ -1549,7 +1586,7 @@ const uk = {
   dl_format_col: "Формат",
   dl_win_format: "Інсталятор (NSIS) або портативний `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
-  dl_linux_format: "`.AppImage`",
+  dl_linux_format: "`.AppImage` або `.flatpak` (sandbox)",
   dl_run: "Завантажили — запустили — готово.",
   dl_pkg_h3: "Установлення через менеджер пакетів",
   dl_channel_col: "Канал",
@@ -1602,6 +1639,9 @@ const uk = {
   dl_linux_m2_h4: "Спосіб 2: Термінал",
   dl_linux_fuse_text:
     "Якщо все одно не запускається — можливо, відсутній FUSE (потрібен AppImage):",
+  dl_linux_flatpak_h4: "Flatpak (ізольована альтернатива)",
+  dl_linux_flatpak_intro:
+    "Хочете справжню ізольовану установку? Скачайте бандл `Arroxy-*.flatpak` з тієї ж сторінки релізу та встановіть його локально — без налаштування Flathub, без прав адміністратора, без шиму `libfuse2` (Flatpak використовує bubblewrap для пісочниці).",
   privacy_intro:
     "Arroxy працює повністю на вашій машині. Коли ви завантажуєте відео:",
   privacy_step1:
@@ -1709,6 +1749,8 @@ const hi = {
     "**SponsorBlock इंटीग्रेशन** — स्पॉन्सर सेगमेंट, इंट्रो, आउट्रो, सेल्फ-प्रोमो और अन्य को स्किप या मार्क करें। उन्हें नॉन-डिस्ट्रक्टिव तरीके से चैप्टर के रूप में मार्क करें या FFmpeg से पूरी तरह काटें — हर कैटेगरी के लिए आपकी पसंद",
   what_9:
     "**9 भाषाओं में उपलब्ध** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — आपके सिस्टम की भाषा अपने आप पहचानता है, कभी भी बदला जा सकता है",
+  what_10:
+    "**क्लिपबोर्ड वॉच** — कोई भी YouTube लिंक कॉपी करें और ऐप पर वापस आते ही Arroxy URL फ़ील्ड स्वचालित रूप से भर देता है। एक पुष्टि संवाद नियंत्रण बनाए रखता है; उन्नत सेटिंग से कभी भी अक्षम करें",
   shot1_alt: "URL पेस्ट करें",
   shot2_alt: "क्वालिटी चुनें",
   shot3_alt: "सेव लोकेशन चुनें",
@@ -1745,7 +1787,7 @@ const hi = {
   dl_format_col: "फ़ॉर्मैट",
   dl_win_format: "इंस्टॉलर (NSIS) या पोर्टेबल `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
-  dl_linux_format: "`.AppImage`",
+  dl_linux_format: "`.AppImage` या `.flatpak` (sandboxed)",
   dl_run: "बस डाउनलोड, रन, हो गया।",
   dl_pkg_h3: "पैकेज मैनेजर से इंस्टॉल",
   dl_channel_col: "चैनल",
@@ -1796,6 +1838,9 @@ const hi = {
   dl_linux_m2_h4: "तरीक़ा 2: टर्मिनल",
   dl_linux_fuse_text:
     "अगर फिर भी नहीं चलता, तो शायद FUSE नहीं है (AppImage के लिए ज़रूरी):",
+  dl_linux_flatpak_h4: "Flatpak (सैंडबॉक्स विकल्प)",
+  dl_linux_flatpak_intro:
+    "सही मायनों में सैंडबॉक्स्ड इंस्टॉल चाहिए? उसी रिलीज़ पेज से `Arroxy-*.flatpak` बंडल लें और लोकल इंस्टॉल करें — Flathub सेटअप नहीं, एडमिन अधिकार नहीं, `libfuse2` शिम भी नहीं चाहिए (Flatpak सैंडबॉक्स के लिए bubblewrap इस्तेमाल करता है)।",
   privacy_intro:
     "Arroxy पूरी तरह आपकी मशीन पर चलता है। जब आप वीडियो डाउनलोड करते हैं:",
   privacy_step1:

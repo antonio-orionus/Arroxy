@@ -537,6 +537,11 @@
             <h3>{{f8_h}}</h3>
             <p>{{f8_p}}</p>
           </div>
+          <div class="feature">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M8 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-2"/><path d="M9 12h6"/><path d="M9 16h4"/></svg></div>
+            <h3>{{f9_h}}</h3>
+            <p>{{f9_p}}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -615,6 +620,14 @@
             <div class="code-block">
               <span>brew tap antonio-orionus/arroxy && brew install --cask arroxy</span>
               <button class="copy-btn" data-copy="brew tap antonio-orionus/arroxy && brew install --cask arroxy">{{copy_label}}</button>
+            </div>
+          </div>
+          <div class="install-card">
+            <h3>{{flatpak_h}} <span class="platform-badge">{{badge_linux}}</span></h3>
+            <p class="desc">{{flatpak_desc}}</p>
+            <div class="code-block">
+              <span>flatpak install --user Arroxy-*.flatpak</span>
+              <button class="copy-btn" data-copy="flatpak install --user Arroxy-*.flatpak">{{copy_label}}</button>
             </div>
           </div>
           <div class="install-card">

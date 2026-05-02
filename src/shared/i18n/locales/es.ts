@@ -51,6 +51,19 @@ const es = {
       mascotIdle: 'Pásame un enlace de YouTube (vídeo o Short) — luego pulsa "Obtener formatos" y me pongo manos a la obra ✨',
       mascotBusy: 'Descargando en segundo plano… puedo hacer varias cosas a la vez 😎',
       advanced: 'Avanzado',
+      clearAria: 'Borrar URL',
+      clipboard: {
+        toggle: 'Vigilar portapapeles',
+        toggleDescription: 'Rellena automáticamente el campo URL al copiar un enlace de YouTube.',
+        dialog: {
+          title: 'URL de YouTube detectada',
+          body: '¿Usar este enlace de tu portapapeles?',
+          useButton: 'Usar URL',
+          disableButton: 'Desactivar',
+          cancelButton: 'Cancelar',
+          disableNote: 'Puedes volver a activar la vigilancia del portapapeles más tarde en Avanzado.'
+        }
+      },
       cookies: {
         toggle: 'Usar archivo de cookies',
         toggleDescription: 'Ayuda con vídeos restringidos por edad, solo para miembros y privados de tu cuenta.',

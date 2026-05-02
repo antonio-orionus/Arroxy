@@ -51,6 +51,19 @@ const ja = {
       mascotIdle: 'YouTubeのリンクを貼ってね (動画でもShortsでもOK) — 「形式を取得」を押せばすぐ取りかかるよ ✨',
       mascotBusy: 'バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎',
       advanced: '詳細設定',
+      clearAria: 'URLをクリア',
+      clipboard: {
+        toggle: 'クリップボードを監視',
+        toggleDescription: 'YouTubeのリンクをコピーすると自動的にURLフィールドに入力します。',
+        dialog: {
+          title: 'YouTubeのURLを検出',
+          body: 'クリップボードのこのリンクを使いますか?',
+          useButton: 'URLを使う',
+          disableButton: '無効化',
+          cancelButton: 'キャンセル',
+          disableNote: '詳細設定からクリップボード監視をいつでも再有効化できます。'
+        }
+      },
       cookies: {
         toggle: 'Cookieファイルを使用',
         toggleDescription: '年齢制限・メンバー限定・アカウント非公開の動画で役立ちます。',

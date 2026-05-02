@@ -1,11 +1,12 @@
-import { useEffect, useRef, type JSX } from 'react';
-import { ArrowRight, AlertTriangle } from 'lucide-react';
+import { useEffect, useRef, useState, type JSX } from 'react';
+import { ArrowRight, AlertTriangle, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../store/useAppStore';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Switch } from './ui/switch';
 import { MascotBubble } from './MascotBubble';
+import { ClipboardConfirmDialog } from './ClipboardConfirmDialog';
 import { formatHomeRelativePath } from '@renderer/lib/utils';
 import hiImg from '../assets/Hi.png';
 import downloadingImg from '../assets/Downloading.png';
@@ -23,10 +24,12 @@ export function StepUrlInput(): JSX.Element {
     queue,
     settings,
     setCookiesPath,
-    setCookiesEnabled
+    setCookiesEnabled,
+    setClipboardWatchEnabled
   } = useAppStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const hasActiveDownloads = queue.some((i) => i.status === 'downloading');
+  const [pendingClipboardUrl, setPendingClipboardUrl] = useState<string | null>(null);
 
   const cookiesPath = settings?.cookiesPath ?? '';
   const cookiesEnabled = settings?.cookiesEnabled ?? false;
@@ -36,6 +39,37 @@ export function StepUrlInput(): JSX.Element {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    return window.appApi.events.onClipboardUrl((url) => {
+      // Read fresh state — listener is registered once per mount but the store
+      // changes underneath; stale closures would read stale wizardUrl.
+      const { wizardUrl: currentUrl, formatsLoading } = useAppStore.getState();
+      if (currentUrl) return;
+      if (formatsLoading) return;
+      setPendingClipboardUrl(url);
+    });
+  }, []);
+
+  function handleConfirmClipboard(): void {
+    if (pendingClipboardUrl) setWizardUrl(pendingClipboardUrl);
+    setPendingClipboardUrl(null);
+    inputRef.current?.focus();
+  }
+
+  function handleDisableClipboard(): void {
+    void setClipboardWatchEnabled(false);
+    setPendingClipboardUrl(null);
+  }
+
+  function handleCancelClipboard(): void {
+    setPendingClipboardUrl(null);
+  }
+
+  function handleClearUrl(): void {
+    setWizardUrl('');
+    inputRef.current?.focus();
+  }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
     if (e.key === 'Enter' && wizardUrl.trim()) {
@@ -61,17 +95,30 @@ export function StepUrlInput(): JSX.Element {
           {t('wizard.url.heading')}
         </p>
         <div className="flex gap-2">
-          <Input
-            ref={inputRef}
-            type="url"
-            className="flex-1 h-10"
-            value={wizardUrl}
-            onChange={(e) => setWizardUrl(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder={t('wizard.url.placeholder')}
-            spellCheck={false}
-            data-testid="url-input"
-          />
+          <div className="relative flex-1">
+            <Input
+              ref={inputRef}
+              type="url"
+              className={`h-10 ${wizardUrl.trim() ? 'pr-9' : ''}`}
+              value={wizardUrl}
+              onChange={(e) => setWizardUrl(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder={t('wizard.url.placeholder')}
+              spellCheck={false}
+              data-testid="url-input"
+            />
+            {wizardUrl.trim() ? (
+              <button
+                type="button"
+                onClick={handleClearUrl}
+                aria-label={t('wizard.url.clearAria')}
+                data-testid="url-clear"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-subtle)] hover:bg-muted hover:text-foreground transition-colors"
+              >
+                <X size={14} />
+              </button>
+            ) : null}
+          </div>
           <Button
             type="button"
             size="lg"
@@ -91,6 +138,23 @@ export function StepUrlInput(): JSX.Element {
           {t('wizard.url.advanced')}
         </summary>
         <div className="flex flex-col gap-3 px-3 pb-3 pt-1">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[13px] font-medium text-foreground">
+                {t('wizard.url.clipboard.toggle')}
+              </span>
+              <span className="text-[11px] text-[var(--text-subtle)]">
+                {t('wizard.url.clipboard.toggleDescription')}
+              </span>
+            </div>
+            <Switch
+              checked={settings?.clipboardWatchEnabled ?? false}
+              onCheckedChange={(checked) => void setClipboardWatchEnabled(checked)}
+              aria-label={t('wizard.url.clipboard.toggle')}
+              data-testid="clipboard-watch-toggle"
+            />
+          </div>
+
           <div className="flex items-center justify-between gap-3">
             <div className="flex flex-col gap-0.5">
               <span className="text-[13px] font-medium text-foreground">
@@ -181,6 +245,14 @@ export function StepUrlInput(): JSX.Element {
           </div>
         </div>
       </details>
+
+      <ClipboardConfirmDialog
+        open={pendingClipboardUrl !== null}
+        url={pendingClipboardUrl}
+        onUse={handleConfirmClipboard}
+        onDisable={handleDisableClipboard}
+        onCancel={handleCancelClipboard}
+      />
     </div>
   );
 }

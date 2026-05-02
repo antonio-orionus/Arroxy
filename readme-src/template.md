@@ -6,7 +6,7 @@
 
 **{{read_in_label}}** {{LANG_NAV}}
 
-[![{{badge_release_alt}}](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![{{badge_lastcommit_alt}}](https://img.shields.io/github/last-commit/antonio-orionus/Arroxy?color=informational) ![{{badge_platforms_alt}}](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![{{badge_i18n_alt}}](https://img.shields.io/badge/i18n-9_languages-blue) ![{{badge_license_alt}}](https://img.shields.io/badge/license-MIT-green) [![Scoop](https://img.shields.io/scoop/v/arroxy?bucket=https%3A%2F%2Fgithub.com%2Fantonio-orionus%2Fscoop-bucket&label=Scoop&color=blue)](https://github.com/antonio-orionus/scoop-bucket) [![Homebrew](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Homebrew&color=orange)](https://github.com/antonio-orionus/homebrew-arroxy)
+[![{{badge_release_alt}}](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![{{badge_lastcommit_alt}}](https://img.shields.io/github/last-commit/antonio-orionus/Arroxy?color=informational) ![{{badge_platforms_alt}}](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![{{badge_i18n_alt}}](https://img.shields.io/badge/i18n-9_languages-blue) ![{{badge_license_alt}}](https://img.shields.io/badge/license-MIT-green) [![Scoop](https://img.shields.io/scoop/v/arroxy?bucket=https%3A%2F%2Fgithub.com%2Fantonio-orionus%2Fscoop-bucket&label=Scoop&color=blue)](https://github.com/antonio-orionus/scoop-bucket) [![Homebrew](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Homebrew&color=orange)](https://github.com/antonio-orionus/homebrew-arroxy) [![Flatpak](https://img.shields.io/badge/Flatpak-bundle-4A90D9?logo=flatpak&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
 **4K &nbsp;•&nbsp; 1080p60 &nbsp;•&nbsp; HDR &nbsp;•&nbsp; Shorts &nbsp;·&nbsp; Windows &nbsp;•&nbsp; macOS &nbsp;•&nbsp; Linux**
 
@@ -73,6 +73,7 @@
 - {{what_7}}
 - {{what_8}}
 - {{what_9}}
+- {{what_10}}
 
 <div align="center">
   <img src="build/Main-screenshot.png" width="48%" alt="{{shot1_alt}}" />
@@ -190,6 +191,15 @@ sudo dnf install -y fuse-libs
 
 # Arch
 sudo pacman -S fuse2
+```
+
+**{{dl_linux_flatpak_h4}}**
+
+{{dl_linux_flatpak_intro}}
+
+```bash
+flatpak install --user Arroxy-*.flatpak
+flatpak run io.github.antonio_orionus.Arroxy
 ```
 
 ---

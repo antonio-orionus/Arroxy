@@ -553,6 +553,11 @@
             <h3>SponsorBlock встроен</h3>
             <p>Пропускайте или отмечайте сегменты спонсоров, вступления, концовки, самопиар и прочее — вырезайте через FFmpeg или добавляйте главы. Ваш выбор, по каждой категории.</p>
           </div>
+          <div class="feature">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M8 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-2"/><path d="M9 12h6"/><path d="M9 16h4"/></svg></div>
+            <h3>Автозаполнение из буфера обмена</h3>
+            <p>Скопируйте YouTube-ссылку где угодно, и Arroxy обнаружит её при возврате в приложение — запрос подтверждения сохраняет контроль. Включайте и выключайте в расширенных настройках.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -634,8 +639,16 @@
             </div>
           </div>
           <div class="install-card">
+            <h3>Flatpak <span class="platform-badge">Linux</span></h3>
+            <p class="desc">Установка в песочнице. Скачайте бандл .flatpak из Releases и установите одной командой. Настройка Flathub не нужна.</p>
+            <div class="code-block">
+              <span>flatpak install --user Arroxy-*.flatpak</span>
+              <button class="copy-btn" data-copy="flatpak install --user Arroxy-*.flatpak">Копировать</button>
+            </div>
+          </div>
+          <div class="install-card">
             <h3>Прямая загрузка <span class="platform-badge">Все</span></h3>
-            <p class="desc">NSIS-установщик, портативный .exe, .dmg или .AppImage — прямо из GitHub Releases.</p>
+            <p class="desc">NSIS-установщик, портативный .exe, .dmg, .AppImage или .flatpak — прямо из GitHub Releases.</p>
             <a class="btn btn-secondary" style="margin-top: 4px;" href="https://github.com/antonio-orionus/Arroxy/releases/latest" target="_blank" rel="noopener">
               Открыть Releases →
             </a>

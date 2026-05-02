@@ -35,7 +35,8 @@ const mockAppApi = {
   dialog: { chooseFolder: vi.fn().mockResolvedValue(ok({ path: '/tmp' })), chooseFile: vi.fn().mockResolvedValue(ok({ path: null })) },
   events: {
     onStatus: vi.fn().mockReturnValue(() => undefined),
-    onProgress: vi.fn().mockReturnValue(() => undefined)
+    onProgress: vi.fn().mockReturnValue(() => undefined),
+    onClipboardUrl: vi.fn().mockReturnValue(() => undefined)
   },
   queue: {
     save: vi.fn().mockResolvedValue({ ok: true, data: { saved: true } }),

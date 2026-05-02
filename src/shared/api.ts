@@ -57,6 +57,7 @@ export interface AppApi {
   events: {
     onStatus(listener: (event: StatusEvent) => void): () => void;
     onProgress(listener: (event: ProgressEvent) => void): () => void;
+    onClipboardUrl(listener: (url: string) => void): () => void;
   };
   queue: {
     save(items: QueueItem[]): Promise<Result<{ saved: true }>>;

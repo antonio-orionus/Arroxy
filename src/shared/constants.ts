@@ -30,7 +30,8 @@ export const DEFAULTS: {
 export function defaultAppSettings(downloadsDir: string): AppSettings {
   return {
     defaultOutputDir: downloadsDir,
-    rememberLastOutputDir: true
+    rememberLastOutputDir: true,
+    clipboardWatchEnabled: true
   };
 }
 

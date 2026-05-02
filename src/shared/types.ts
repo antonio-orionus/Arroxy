@@ -54,6 +54,7 @@ export interface AppSettings {
   lastSubfolder?: string;
   cookiesPath?: string;
   cookiesEnabled?: boolean;
+  clipboardWatchEnabled: boolean;
 }
 
 export interface SubtitleTrack {

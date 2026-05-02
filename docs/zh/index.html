@@ -553,6 +553,11 @@
             <h3>内置 SponsorBlock</h3>
             <p>跳过或标记赞助商、片头、片尾、自我推广等片段 — 用 FFmpeg 剪除或直接添加章节。按类别自由选择。</p>
           </div>
+          <div class="feature">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M8 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-2"/><path d="M9 12h6"/><path d="M9 16h4"/></svg></div>
+            <h3>剪贴板自动填写</h3>
+            <p>在任何地方复制 YouTube 链接，切换回应用时 Arroxy 立即检测 — 确认提示让你保持控制。在高级设置中开启或关闭。</p>
+          </div>
         </div>
       </div>
     </section>
@@ -634,8 +639,16 @@
             </div>
           </div>
           <div class="install-card">
+            <h3>Flatpak <span class="platform-badge">Linux</span></h3>
+            <p class="desc">沙箱安装。从 Releases 下载 .flatpak 包，一行命令安装。无需配置 Flathub。</p>
+            <div class="code-block">
+              <span>flatpak install --user Arroxy-*.flatpak</span>
+              <button class="copy-btn" data-copy="flatpak install --user Arroxy-*.flatpak">复制</button>
+            </div>
+          </div>
+          <div class="install-card">
             <h3>直接下载 <span class="platform-badge">全部</span></h3>
-            <p class="desc">NSIS 安装包、便携 .exe、.dmg 或 .AppImage — 直接从 GitHub Releases 获取。</p>
+            <p class="desc">NSIS 安装包、便携 .exe、.dmg、.AppImage 或 .flatpak — 直接从 GitHub Releases 获取。</p>
             <a class="btn btn-secondary" style="margin-top: 4px;" href="https://github.com/antonio-orionus/Arroxy/releases/latest" target="_blank" rel="noopener">
               打开 Releases →
             </a>

@@ -46,8 +46,9 @@ function makeDeps() {
   };
   const queueStore = { save: vi.fn().mockResolvedValue(undefined), load: vi.fn().mockResolvedValue({ ok: true, data: [] }) };
   const logService = { log: vi.fn(), getLogsDir: vi.fn().mockReturnValue('/tmp/logs') };
-  const settingsStore = { get: vi.fn().mockResolvedValue({ defaultOutputDir: '/tmp', rememberLastOutputDir: true }), update: vi.fn() };
+  const settingsStore = { get: vi.fn().mockResolvedValue({ defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false }), update: vi.fn() };
   const languageRef: { current: string } = { current: 'en' };
+  const clipboardWatcher = { setEnabled: vi.fn(), dispose: vi.fn() };
   return {
     mainWindow: mainWindow as never,
     downloadService: downloadService as never,
@@ -58,7 +59,8 @@ function makeDeps() {
     binaryManager: { ensureYtDlp: vi.fn(), ensureFFmpeg: vi.fn() } as never,
     tokenService: { warmUp: vi.fn() } as never,
     languageRef: languageRef as never,
-    _raw: { downloadService, mainWindow, queueStore, logService, languageRef }
+    clipboardWatcher: clipboardWatcher as never,
+    _raw: { downloadService, mainWindow, queueStore, logService, languageRef, clipboardWatcher }
   };
 }
 

@@ -44,6 +44,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, getFormat
     events: {
       onStatus: vi.fn().mockImplementation((_cb: (event: StatusEvent) => void) => () => undefined),
       onProgress: vi.fn().mockReturnValue(() => undefined),
+      onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
     },
     queue: {
       save: vi.fn().mockResolvedValue({ ok: true, data: { saved: true } }),

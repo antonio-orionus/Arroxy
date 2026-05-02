@@ -14,6 +14,7 @@ import { YtDlp } from '@main/services/YtDlp';
 import { RecentJobsStore } from '@main/stores/RecentJobsStore';
 import { SettingsStore } from '@main/stores/SettingsStore';
 import { QueueStore } from '@main/stores/QueueStore';
+import { ClipboardWatcher, watcherWindowFromBrowserWindow } from '@main/services/ClipboardWatcher';
 import { HiddenWindowTokenProvider } from '@main/token/providers/HiddenWindowTokenProvider';
 import { MockTokenProvider } from '@main/token/providers/MockTokenProvider';
 import { defaultAppSettings } from '@shared/constants';
@@ -131,6 +132,9 @@ if (hasSingleInstanceLock) {
       app.quit();
     });
 
+    const clipboardWatcher = new ClipboardWatcher(watcherWindowFromBrowserWindow(mainWindow));
+    clipboardWatcher.setEnabled(initialSettings.clipboardWatchEnabled);
+
     registerIpcHandlers({
       mainWindow,
       binaryManager,
@@ -140,12 +144,14 @@ if (hasSingleInstanceLock) {
       queueStore,
       logService,
       tokenService,
-      languageRef
+      languageRef,
+      clipboardWatcher
     });
 
     registerUpdaterHandlers(mainWindow);
 
     app.on('before-quit', (event) => {
+      clipboardWatcher.dispose();
       if (downloadService.activeCount === 0) {
         tokenService.dispose();
         logService.log('INFO', 'App shutting down');

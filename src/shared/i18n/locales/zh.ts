@@ -51,6 +51,19 @@ const zh = {
       mascotIdle: '丢一个 YouTube 链接给我(视频或 Shorts 都行)— 点「获取格式」我就开始干活 ✨',
       mascotBusy: '正在后台下载… 我可以同时处理多个任务 😎',
       advanced: '高级',
+      clearAria: '清除 URL',
+      clipboard: {
+        toggle: '监听剪贴板',
+        toggleDescription: '复制 YouTube 链接时自动填充 URL 字段。',
+        dialog: {
+          title: '检测到 YouTube 链接',
+          body: '使用剪贴板中的此链接吗?',
+          useButton: '使用 URL',
+          disableButton: '禁用',
+          cancelButton: '取消',
+          disableNote: '你可以稍后在高级设置中重新启用剪贴板监听。'
+        }
+      },
       cookies: {
         toggle: '使用 Cookie 文件',
         toggleDescription: '可帮助下载年龄限制、会员专属和账户私享的视频。',

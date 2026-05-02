@@ -104,6 +104,7 @@ export interface SystemSlice {
   setLanguage: (lang: SupportedLang) => void;
   setCookiesPath: (path: string) => Promise<void>;
   setCookiesEnabled: (enabled: boolean) => Promise<void>;
+  setClipboardWatchEnabled: (enabled: boolean) => Promise<void>;
 }
 
 export type AppState = WizardSlice & QueueSlice & UiSlice & SystemSlice;

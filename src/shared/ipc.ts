@@ -24,4 +24,5 @@ export const IPC_CHANNELS = {
   queueLoad: 'queue:load',
   updaterAvailable: 'updater:available',
   updaterInstall: 'updater:install',
+  eventsClipboardUrl: 'events:clipboardUrl',
 } as const;

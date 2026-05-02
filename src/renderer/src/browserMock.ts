@@ -246,6 +246,7 @@ if (!('appApi' in window)) {
         progressListeners.add(listener);
         return () => progressListeners.delete(listener);
       },
+      onClipboardUrl: () => () => undefined,
     },
 
     queue: {

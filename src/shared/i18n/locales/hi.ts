@@ -51,6 +51,19 @@ const hi = {
       mascotIdle: 'मुझे YouTube का लिंक भेजो (वीडियो या Short) — फिर "फ़ॉर्मेट लाएँ" दबाओ और मैं काम पर लग जाऊँगा ✨',
       mascotBusy: 'पीछे चुपचाप डाउनलोड कर रहा हूँ… मैं एक साथ कई काम कर सकता हूँ 😎',
       advanced: 'उन्नत',
+      clearAria: 'URL हटाएँ',
+      clipboard: {
+        toggle: 'क्लिपबोर्ड देखें',
+        toggleDescription: 'YouTube लिंक कॉपी करने पर URL फ़ील्ड स्वतः भर जाता है।',
+        dialog: {
+          title: 'YouTube URL मिला',
+          body: 'क्या आप अपने क्लिपबोर्ड का यह लिंक उपयोग करना चाहते हैं?',
+          useButton: 'URL उपयोग करें',
+          disableButton: 'बंद करें',
+          cancelButton: 'रद्द करें',
+          disableNote: 'आप बाद में उन्नत सेटिंग्स में क्लिपबोर्ड देखना फिर से चालू कर सकते हैं।'
+        }
+      },
       cookies: {
         toggle: 'कुकी फ़ाइल का उपयोग करें',
         toggleDescription: 'आयु-प्रतिबंधित, सदस्य-केवल और खाता-निजी वीडियो में मदद करता है।',
