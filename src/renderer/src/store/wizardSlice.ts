@@ -1,5 +1,6 @@
 import { DEFAULTS } from '@shared/constants';
 import type { AppSettings, FormatOption, Preset, SubtitleMap, SponsorBlockMode, SponsorBlockCategory } from '@shared/types';
+import { cleanYoutubeUrl } from '@shared/url';
 import type { GetState, SetState, WizardSlice, WizardStep } from './types';
 
 // Private helpers — only used inside this slice.
@@ -98,9 +99,9 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
     setWizardUrl: (url) => set({ wizardUrl: url }),
 
     submitUrl: async () => {
-      const url = get().wizardUrl.trim();
+      const url = cleanYoutubeUrl(get().wizardUrl.trim());
       if (!url) return;
-      set({ wizardStep: 'formats', formatsLoading: true, wizardError: null });
+      set({ wizardUrl: url, wizardStep: 'formats', formatsLoading: true, wizardError: null });
 
       const result = await window.appApi.downloads.getFormats({ url });
       if (!result.ok) {

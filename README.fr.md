@@ -74,6 +74,7 @@ Arroxy est une application desktop **gratuite, open source et soucieuse de la vi
 - **Intégration SponsorBlock** — passe ou marque les segments sponsors, intros, outros, autopromos et plus encore. Marque-les comme chapitres (non destructif) ou coupe-les avec FFmpeg — ton choix, par catégorie
 - **Disponible en 9 langues** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — détecte la langue de ton système, modifiable à tout moment
 - **Surveillance du presse-papiers** — copiez n'importe quel lien YouTube et Arroxy remplit le champ URL dès que vous revenez à l'app. Un dialogue de confirmation garde le contrôle ; désactivez-le depuis les Paramètres avancés à tout moment
+- **Nettoyage auto des URLs** — les liens YouTube collés ou récupérés du presse-papiers sont débarrassés des paramètres de tracking (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` et plus), et les enveloppes `youtube.com/redirect` sont déballées — le champ URL affiche toujours le lien canonique
 
 <div align="center">
   <img src="build/Main-screenshot.png" width="48%" alt="Coller une URL" />

@@ -53,6 +53,8 @@ export const en = {
   f8_p: "Skip or mark sponsor segments, intros, outros, self-promos, and more — cut them with FFmpeg or just add chapters. Your call, per category.",
   f9_h: "Clipboard auto-fill",
   f9_p: "Copy a YouTube link anywhere and Arroxy detects it the moment you switch back — a confirm prompt keeps you in control. Enable or disable in Advanced settings.",
+  f10_h: "Auto-clean URLs",
+  f10_p: "Tracking parameters (si, pp, feature, utm_*, fbclid, gclid, and more) get stripped from pasted YouTube links automatically, and youtube.com/redirect wrappers are unwrapped — the URL field always shows the canonical link.",
 
   shots_eyebrow: "See it in action",
   shots_h2: "Built for clarity, not clutter.",
@@ -181,6 +183,8 @@ export const es = {
   f8_p: "Omite o marca segmentos de patrocinadores, intros, outros, autopromociones y más — recórtalos con FFmpeg o simplemente añade capítulos. Tú decides, por categoría.",
   f9_h: "Autocompletar desde portapapeles",
   f9_p: "Copia un enlace de YouTube en cualquier lugar y Arroxy lo detecta al volver a la app — un diálogo de confirmación mantiene el control. Actívalo o desactívalo en Configuración avanzada.",
+  f10_h: "Limpieza automática de URLs",
+  f10_p: "Los parámetros de seguimiento (si, pp, feature, utm_*, fbclid, gclid y más) se eliminan automáticamente de los enlaces de YouTube pegados, y los envoltorios youtube.com/redirect se desempaquetan — el campo de URL siempre muestra el enlace canónico.",
 
   shots_eyebrow: "Velo en acción",
   shots_h2: "Diseñado para la claridad, no para el desorden.",
@@ -309,6 +313,8 @@ export const de = {
   f8_p: "Überspringe oder markiere Sponsor-Segmente, Intros, Outros, Eigenwerbung und mehr — schneide sie mit FFmpeg heraus oder füge einfach Kapitel hinzu. Deine Wahl, pro Kategorie.",
   f9_h: "Automatisches Ausfüllen aus Zwischenablage",
   f9_p: "Kopiere einen YouTube-Link irgendwo und Arroxy erkennt ihn beim nächsten Wechsel zur App — ein Bestätigungsdialog hält dich in Kontrolle. In den Erweiterten Einstellungen ein- oder ausschalten.",
+  f10_h: "URLs automatisch bereinigen",
+  f10_p: "Tracking-Parameter (si, pp, feature, utm_*, fbclid, gclid und mehr) werden automatisch aus eingefügten YouTube-Links entfernt, und youtube.com/redirect-Wrapper werden aufgelöst — das URL-Feld zeigt immer den kanonischen Link.",
 
   shots_eyebrow: "In Aktion sehen",
   shots_h2: "Gebaut für Klarheit, nicht für Chaos.",
@@ -438,6 +444,8 @@ export const fr = {
   f8_p: "Passe ou marque les segments sponsors, intros, outros, autopromos et plus — coupe-les avec FFmpeg ou ajoute simplement des chapitres. Ton choix, par catégorie.",
   f9_h: "Auto-remplissage presse-papiers",
   f9_p: "Copiez un lien YouTube n'importe où et Arroxy le détecte dès que vous revenez à l'app — une invite de confirmation garde le contrôle. Activez ou désactivez dans Paramètres avancés.",
+  f10_h: "Nettoyage auto des URLs",
+  f10_p: "Les paramètres de tracking (si, pp, feature, utm_*, fbclid, gclid et plus) sont automatiquement retirés des liens YouTube collés, et les enveloppes youtube.com/redirect sont déballées — le champ URL affiche toujours le lien canonique.",
 
   shots_eyebrow: "Voyez-le en action",
   shots_h2: "Conçu pour la clarté, pas l'encombrement.",
@@ -568,6 +576,8 @@ export const ja = {
   f8_p: "スポンサー、イントロ、アウトロ、自己宣伝などをスキップまたはマーク — FFmpeg でカットするか章として追加するか。カテゴリごとにあなたが決める。",
   f9_h: "クリップボード自動入力",
   f9_p: "YouTube リンクをどこかでコピーするだけで、アプリに戻った瞬間 Arroxy が検出します — 確認プロンプトで常に制御を維持。詳細設定で有効・無効を切り替え。",
+  f10_h: "URL 自動クリーンアップ",
+  f10_p: "貼り付けた YouTube リンクからトラッキングパラメータ（si、pp、feature、utm_*、fbclid、gclid など）が自動で除去され、youtube.com/redirect ラッパーも展開 — URL フィールドには常に正規リンクが表示されます。",
 
   shots_eyebrow: "実際の動作",
   shots_h2: "明快さのために設計、雑然さは排除。",
@@ -696,6 +706,8 @@ export const zh = {
   f8_p: "跳过或标记赞助商、片头、片尾、自我推广等片段 — 用 FFmpeg 剪除或直接添加章节。按类别自由选择。",
   f9_h: "剪贴板自动填写",
   f9_p: "在任何地方复制 YouTube 链接，切换回应用时 Arroxy 立即检测 — 确认提示让你保持控制。在高级设置中开启或关闭。",
+  f10_h: "自动清理 URL",
+  f10_p: "粘贴的 YouTube 链接会自动剥除跟踪参数（si、pp、feature、utm_*、fbclid、gclid 等），并解包 youtube.com/redirect 跳转链接 — URL 字段始终显示规范链接。",
 
   shots_eyebrow: "实际效果",
   shots_h2: "为清晰而生，拒绝杂乱。",
@@ -822,6 +834,8 @@ export const ru = {
   f8_p: "Пропускайте или отмечайте сегменты спонсоров, вступления, концовки, самопиар и прочее — вырезайте через FFmpeg или добавляйте главы. Ваш выбор, по каждой категории.",
   f9_h: "Автозаполнение из буфера обмена",
   f9_p: "Скопируйте YouTube-ссылку где угодно, и Arroxy обнаружит её при возврате в приложение — запрос подтверждения сохраняет контроль. Включайте и выключайте в расширенных настройках.",
+  f10_h: "Автоочистка URL",
+  f10_p: "Трекинговые параметры (si, pp, feature, utm_*, fbclid, gclid и другие) автоматически удаляются из вставленных YouTube-ссылок, а обёртки youtube.com/redirect разворачиваются — в поле URL всегда отображается канонический адрес.",
 
   shots_eyebrow: "В деле",
   shots_h2: "Сделано для ясности, не для мусора.",
@@ -951,6 +965,8 @@ export const uk = {
   f8_p: "Пропускайте або позначайте сегменти спонсорів, вступи, кінцівки, самопіар тощо — вирізайте через FFmpeg або додавайте розділи. Ваш вибір, для кожної категорії.",
   f9_h: "Автозаповнення з буфера обміну",
   f9_p: "Скопіюйте посилання YouTube будь-де, і Arroxy виявить його при поверненні до застосунку — запит підтвердження зберігає контроль. Вмикайте та вимикайте в розширених налаштуваннях.",
+  f10_h: "Автоочищення URL",
+  f10_p: "Трекінгові параметри (si, pp, feature, utm_*, fbclid, gclid тощо) автоматично видаляються зі вставлених YouTube-посилань, а обгортки youtube.com/redirect розгортаються — у полі URL завжди відображається канонічна адреса.",
 
   shots_eyebrow: "У дії",
   shots_h2: "Зроблено заради ясності, а не для безладу.",
@@ -1079,6 +1095,8 @@ export const hi = {
   f8_p: "स्पॉन्सर सेगमेंट, इंट्रो, आउट्रो, सेल्फ-प्रोमो और अन्य को स्किप या मार्क करें — FFmpeg से काटें या बस चैप्टर जोड़ें। हर कैटेगरी के लिए आपकी पसंद।",
   f9_h: "क्लिपबोर्ड ऑटो-फ़िल",
   f9_p: "कहीं भी YouTube लिंक कॉपी करें और वापस स्विच करने पर Arroxy तुरंत पहचान लेता है — एक पुष्टि प्रॉम्प्ट नियंत्रण बनाए रखता है। उन्नत सेटिंग में सक्षम या अक्षम करें।",
+  f10_h: "URL को अपने आप साफ़ करें",
+  f10_p: "पेस्ट किए गए YouTube लिंक से ट्रैकिंग पैरामीटर (si, pp, feature, utm_*, fbclid, gclid और अन्य) अपने आप हट जाते हैं, और youtube.com/redirect रैपर खुल जाते हैं — URL फ़ील्ड में हमेशा कैनोनिकल लिंक दिखता है।",
 
   shots_eyebrow: "क्रिया में देखें",
   shots_h2: "स्पष्टता के लिए बना है, अव्यवस्था के लिए नहीं।",

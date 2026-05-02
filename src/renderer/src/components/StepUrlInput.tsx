@@ -8,6 +8,7 @@ import { Switch } from './ui/switch';
 import { MascotBubble } from './MascotBubble';
 import { ClipboardConfirmDialog } from './ClipboardConfirmDialog';
 import { formatHomeRelativePath } from '@renderer/lib/utils';
+import { cleanYoutubeUrl } from '@shared/url';
 import hiImg from '../assets/Hi.png';
 import downloadingImg from '../assets/Downloading.png';
 
@@ -47,7 +48,7 @@ export function StepUrlInput(): JSX.Element {
       const { wizardUrl: currentUrl, formatsLoading } = useAppStore.getState();
       if (currentUrl) return;
       if (formatsLoading) return;
-      setPendingClipboardUrl(url);
+      setPendingClipboardUrl(cleanYoutubeUrl(url));
     });
   }, []);
 
@@ -77,6 +78,18 @@ export function StepUrlInput(): JSX.Element {
     }
   }
 
+  function handlePaste(e: React.ClipboardEvent<HTMLInputElement>): void {
+    const pasted = e.clipboardData.getData('text');
+    const cleaned = cleanYoutubeUrl(pasted);
+    if (cleaned === pasted) return;
+    e.preventDefault();
+    const input = e.currentTarget;
+    const start = input.selectionStart ?? wizardUrl.length;
+    const end = input.selectionEnd ?? wizardUrl.length;
+    const next = wizardUrl.slice(0, start) + cleaned + wizardUrl.slice(end);
+    setWizardUrl(next);
+  }
+
   async function handleChooseCookies(): Promise<void> {
     const result = await window.appApi.dialog.chooseFile();
     if (result.ok && result.data.path) {
@@ -103,6 +116,7 @@ export function StepUrlInput(): JSX.Element {
               value={wizardUrl}
               onChange={(e) => setWizardUrl(e.target.value)}
               onKeyDown={handleKeyDown}
+              onPaste={handlePaste}
               placeholder={t('wizard.url.placeholder')}
               spellCheck={false}
               data-testid="url-input"

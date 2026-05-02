@@ -170,6 +170,8 @@ const en = {
     "**Available in 9 languages** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — auto-detects your system language, switchable any time",
   what_10:
     "**Clipboard watch** — copy any YouTube link and Arroxy auto-fills the URL field the moment you refocus the app. A confirm dialog keeps you in control; disable it from Advanced settings any time",
+  what_11:
+    "**Auto-clean URLs** — pasted or clipboard-grabbed YouTube links are stripped of tracking junk (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid`, and more) and `youtube.com/redirect` wrappers are unwrapped — the URL field always shows the canonical link",
   shot1_alt: "Paste a URL",
   shot2_alt: "Pick your quality",
   shot3_alt: "Choose where to save",
@@ -368,6 +370,8 @@ const de = {
     "**In 9 Sprachen verfügbar** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — erkennt deine Systemsprache automatisch, jederzeit umschaltbar",
   what_10:
     "**Zwischenablage überwachen** — kopiere einen YouTube-Link und Arroxy füllt das URL-Feld automatisch aus, sobald du wieder zur App wechselst. Ein Bestätigungsdialog hält dich in Kontrolle; jederzeit in den erweiterten Einstellungen deaktivierbar",
+  what_11:
+    "**URLs automatisch bereinigen** — eingefügte oder aus der Zwischenablage übernommene YouTube-Links werden von Tracking-Parametern (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` und mehr) befreit, und `youtube.com/redirect`-Wrapper werden aufgelöst — das URL-Feld zeigt immer den kanonischen Link",
   shot1_alt: "URL einfügen",
   shot2_alt: "Qualität wählen",
   shot3_alt: "Speicherort wählen",
@@ -568,6 +572,8 @@ const es = {
     "**Disponible en 9 idiomas** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — detecta el idioma de tu sistema y se puede cambiar en cualquier momento",
   what_10:
     "**Monitoreo del portapapeles** — copia cualquier enlace de YouTube y Arroxy rellena el campo de URL automáticamente al volver a la app. Un diálogo de confirmación mantiene el control; desactívalo desde la Configuración avanzada cuando quieras",
+  what_11:
+    "**Limpieza automática de URLs** — los enlaces de YouTube pegados o tomados del portapapeles se limpian de parámetros de seguimiento (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` y más), y los envoltorios `youtube.com/redirect` se desempaquetan — el campo de URL siempre muestra el enlace canónico",
   shot1_alt: "Pega una URL",
   shot2_alt: "Elige la calidad",
   shot3_alt: "Elige dónde guardar",
@@ -769,6 +775,8 @@ const fr = {
     "**Disponible en 9 langues** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — détecte la langue de ton système, modifiable à tout moment",
   what_10:
     "**Surveillance du presse-papiers** — copiez n'importe quel lien YouTube et Arroxy remplit le champ URL dès que vous revenez à l'app. Un dialogue de confirmation garde le contrôle ; désactivez-le depuis les Paramètres avancés à tout moment",
+  what_11:
+    "**Nettoyage auto des URLs** — les liens YouTube collés ou récupérés du presse-papiers sont débarrassés des paramètres de tracking (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` et plus), et les enveloppes `youtube.com/redirect` sont déballées — le champ URL affiche toujours le lien canonique",
   shot1_alt: "Coller une URL",
   shot2_alt: "Choisir la qualité",
   shot3_alt: "Choisir où enregistrer",
@@ -969,6 +977,8 @@ const ja = {
     "**9 言語対応** — English、Español、Deutsch、Français、日本語、中文、Русский、Українська、हिन्दी — システム言語を自動検出、いつでも切替可能",
   what_10:
     "**クリップボード監視** — YouTube リンクをコピーすると、アプリに戻った瞬間 Arroxy が URL フィールドを自動入力。確認ダイアログで常に制御を維持；詳細設定でいつでも無効化できます",
+  what_11:
+    "**URL 自動クリーンアップ** — 貼り付けたりクリップボードから取得した YouTube リンクからトラッキングパラメータ（`si`、`pp`、`feature`、`utm_*`、`fbclid`、`gclid` など）を除去し、`youtube.com/redirect` ラッパーを展開 — URL フィールドには常にクリーンな正規リンクが表示されます",
   shot1_alt: "URL を貼る",
   shot2_alt: "画質を選ぶ",
   shot3_alt: "保存先を選ぶ",
@@ -1161,6 +1171,8 @@ const zh = {
     "**9 种语言可用** — English、Español、Deutsch、Français、日本語、中文、Русский、Українська、हिन्दी — 自动检测系统语言，随时切换",
   what_10:
     "**剪贴板监控** — 复制任意 YouTube 链接，切换回应用时 Arroxy 自动填写 URL 字段。确认对话框让你保持控制；随时可从高级设置中停用",
+  what_11:
+    "**自动清理 URL** — 粘贴或从剪贴板获取的 YouTube 链接会自动剥除跟踪参数（`si`、`pp`、`feature`、`utm_*`、`fbclid`、`gclid` 等），并解包 `youtube.com/redirect` 跳转链接 — URL 字段始终显示规范链接",
   shot1_alt: "粘贴 URL",
   shot2_alt: "选择画质",
   shot3_alt: "选择保存位置",
@@ -1348,6 +1360,8 @@ const ru = {
     "**Доступно на 9 языках** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — автоматически определяет язык системы, переключается в любой момент",
   what_10:
     "**Мониторинг буфера обмена** — скопируйте любую YouTube-ссылку, и Arroxy автоматически заполнит URL-поле при следующем переключении на приложение. Диалог подтверждения сохраняет контроль; отключается в расширенных настройках в любой момент",
+  what_11:
+    "**Автоочистка URL** — вставленные или взятые из буфера обмена YouTube-ссылки очищаются от трекинговых параметров (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` и других), а обёртки `youtube.com/redirect` разворачиваются — в поле URL всегда отображается канонический адрес",
   shot1_alt: "Вставьте URL",
   shot2_alt: "Выберите качество",
   shot3_alt: "Выберите, куда сохранять",
@@ -1549,6 +1563,8 @@ const uk = {
     "**Доступно 9 мовами** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — автоматично визначає мову системи, перемикання будь-якої миті",
   what_10:
     "**Моніторинг буфера обміну** — скопіюйте будь-яке посилання YouTube, і Arroxy автоматично заповнить поле URL при наступному переключенні на застосунок. Діалог підтвердження зберігає контроль; вимикається в розширених налаштуваннях будь-якої миті",
+  what_11:
+    "**Автоочищення URL** — вставлені або взяті з буфера обміну YouTube-посилання очищаються від трекінгових параметрів (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` тощо), а обгортки `youtube.com/redirect` розгортаються — у полі URL завжди відображається канонічна адреса",
   shot1_alt: "Вставте URL",
   shot2_alt: "Оберіть якість",
   shot3_alt: "Оберіть, куди зберігати",
@@ -1751,6 +1767,8 @@ const hi = {
     "**9 भाषाओं में उपलब्ध** — English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — आपके सिस्टम की भाषा अपने आप पहचानता है, कभी भी बदला जा सकता है",
   what_10:
     "**क्लिपबोर्ड वॉच** — कोई भी YouTube लिंक कॉपी करें और ऐप पर वापस आते ही Arroxy URL फ़ील्ड स्वचालित रूप से भर देता है। एक पुष्टि संवाद नियंत्रण बनाए रखता है; उन्नत सेटिंग से कभी भी अक्षम करें",
+  what_11:
+    "**URL को अपने आप साफ़ करें** — पेस्ट किए गए या क्लिपबोर्ड से लिए गए YouTube लिंक से ट्रैकिंग पैरामीटर (`si`, `pp`, `feature`, `utm_*`, `fbclid`, `gclid` और अन्य) हटा दिए जाते हैं, और `youtube.com/redirect` रैपर खोल दिए जाते हैं — URL फ़ील्ड में हमेशा कैनोनिकल लिंक दिखता है",
   shot1_alt: "URL पेस्ट करें",
   shot2_alt: "क्वालिटी चुनें",
   shot3_alt: "सेव लोकेशन चुनें",
