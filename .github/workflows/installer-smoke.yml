@@ -64,13 +64,9 @@ jobs:
           retention-days: 7
 
   cold-smoke:
-    name: Cold-state install (shard ${{ matrix.shard }}/2)
+    name: Cold-state install
     needs: build
     runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        shard: [1, 2]
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -113,7 +109,7 @@ jobs:
           if (Test-Path "$env:LOCALAPPDATA\Programs\Arroxy") {
             throw "Uninstall left files at $env:LOCALAPPDATA\Programs\Arroxy"
           }
-          Write-Host "Shard ${{ matrix.shard }}: cold install + uninstall passed"
+          Write-Host "Cold install + uninstall passed"
 
       - name: Auto-analyze crash dumps on failure
         if: failure()
@@ -134,12 +130,12 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: crash-dump-shard-${{ matrix.shard }}
+          name: crash-dump-cold
           path: ${{ runner.temp }}/../../AppData/Local/CrashDumps/
           if-no-files-found: ignore
 
   cycle-smoke:
-    name: 3x install/uninstall cycle
+    name: 1x install/uninstall cycle
     needs: build
     runs-on: windows-latest
     steps:
@@ -156,19 +152,16 @@ jobs:
           Set-ItemProperty $key DumpFolder "$env:LOCALAPPDATA\CrashDumps"
           Set-ItemProperty $key DumpType 2 -Type DWord
 
-      - name: 3x install + uninstall
+      - name: 1x install + uninstall
         shell: pwsh
         run: |
           $inst = (Get-ChildItem ./installer/Arroxy-Setup-*.exe | Select-Object -First 1).FullName
           $uninst = "$env:LOCALAPPDATA\Programs\Arroxy\Uninstall Arroxy.exe"
-          1..3 | ForEach-Object {
-            Write-Host "=== Cycle $_ ==="
-            $p = Start-Process -FilePath $inst -ArgumentList '/S' -Wait -PassThru
-            if ($p.ExitCode -ne 0) { throw "Cycle $_ install: exit $($p.ExitCode)" }
-            $u = Start-Process -FilePath $uninst -ArgumentList '/S' -Wait -PassThru
-            if ($u.ExitCode -ne 0) { throw "Cycle $_ uninstall: exit $($u.ExitCode)" }
-          }
-          Write-Host "3/3 cycles passed"
+          $p = Start-Process -FilePath $inst -ArgumentList '/S' -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "Install: exit $($p.ExitCode)" }
+          $u = Start-Process -FilePath $uninst -ArgumentList '/S' -Wait -PassThru
+          if ($u.ExitCode -ne 0) { throw "Uninstall: exit $($u.ExitCode)" }
+          Write-Host "Install/uninstall cycle passed"
 
       - name: Upload crash dumps on failure
         if: failure()

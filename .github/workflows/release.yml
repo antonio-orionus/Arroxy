@@ -119,7 +119,12 @@ jobs:
   build-flatpak:
     # Build a Flatpak bundle for the GitHub Release only.
     # This does not publish to Flathub or commit manifest changes back to main.
-    needs: finalize
+    #
+    # Depends on `build` (not `finalize`) so it runs in parallel with the
+    # Windows build + finalize chain instead of waiting on it. The tar.gz
+    # hash is computed directly from the artifact rather than read out of
+    # SHA256SUMS — saves ~5 min on the release pipeline tail.
+    needs: build
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
@@ -129,22 +134,17 @@ jobs:
       - name: Render manifest for this release
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          curl -L --fail \
-            "https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/SHA256SUMS" \
-            -o SHA256SUMS
           TARBALL="Arroxy-${VERSION}.tar.gz"
-          HASH=$(grep "$TARBALL" SHA256SUMS | awk '{print $1}')
-          if [ -z "$HASH" ]; then
-            echo "::error::Could not find $TARBALL in SHA256SUMS"
-            cat SHA256SUMS
-            exit 1
-          fi
+          curl -L --fail \
+            "https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/$TARBALL" \
+            -o "$TARBALL"
+          HASH=$(sha256sum "$TARBALL" | awk '{print $1}')
+          rm "$TARBALL"
           python3 scripts/render-flatpak-manifest.py \
             --version "$VERSION" \
             --sha256 "$HASH" \
             --template flatpak/io.github.antonio_orionus.Arroxy.yml.in \
             --output flatpak/io.github.antonio_orionus.Arroxy.yml
-          rm SHA256SUMS
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: arroxy.flatpak
