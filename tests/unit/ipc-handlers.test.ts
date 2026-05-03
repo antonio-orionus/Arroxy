@@ -56,7 +56,7 @@ function makeDeps() {
     settingsStore: settingsStore as never,
     queueStore: queueStore as never,
     logService: logService as never,
-    binaryManager: { ensureYtDlp: vi.fn(), ensureFFmpeg: vi.fn(), ensureDeno: vi.fn() } as never,
+    binaryManager: { ensureYtDlp: vi.fn(), ensureFFmpeg: vi.fn(), ensureDeno: vi.fn(), ensureFFprobe: vi.fn() } as never,
     tokenService: { warmUp: vi.fn() } as never,
     languageRef: languageRef as never,
     clipboardWatcher: clipboardWatcher as never,

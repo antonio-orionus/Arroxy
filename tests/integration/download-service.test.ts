@@ -7,7 +7,8 @@ function makeService() {
   const binaryManager = {
     ensureYtDlp: vi.fn().mockResolvedValue('/tmp/yt-dlp'),
     ensureFFmpeg: vi.fn().mockResolvedValue('/tmp/ffmpeg'),
-    ensureDeno: vi.fn().mockResolvedValue(null)
+    ensureDeno: vi.fn().mockResolvedValue(null),
+    ensureFFprobe: vi.fn().mockResolvedValue(null)
   };
   const tokenService = {
     mintTokenForUrl: vi.fn().mockResolvedValue({ token: 'mock-token', visitorData: 'mock-visitor' })
@@ -180,7 +181,8 @@ describe('DownloadService (mock mode)', () => {
     const binaryManager = {
       ensureYtDlp: vi.fn().mockReturnValue(binaryGate),
       ensureFFmpeg: vi.fn().mockResolvedValue('/tmp/ffmpeg'),
-      ensureDeno: vi.fn().mockResolvedValue(null)
+      ensureDeno: vi.fn().mockResolvedValue(null),
+      ensureFFprobe: vi.fn().mockResolvedValue(null)
     };
     const tokenService = { mintTokenForUrl: vi.fn() };
     const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };

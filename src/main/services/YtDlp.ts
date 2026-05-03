@@ -271,6 +271,10 @@ export class YtDlp {
   async prepare(onStatus?: StatusReporter): Promise<void> {
     this._ytDlpPath = await this.binaryManager.ensureYtDlp(onStatus);
     this._ffmpegPath = await this.binaryManager.ensureFFmpeg(onStatus);
+    // ffprobe must live in the same dir as ffmpeg so spawnYtDlp's PATH
+    // injection picks up both. We don't need to track the path separately —
+    // yt-dlp's post-processors discover it via PATH.
+    await this.binaryManager.ensureFFprobe(onStatus);
     this._denoPath = await this.binaryManager.ensureDeno(onStatus);
   }
 

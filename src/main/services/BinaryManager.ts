@@ -218,6 +218,10 @@ export class BinaryManager {
     return process.env.ARROXY_DENO_PATH ?? path.join(this.cacheDir, denoExecutableName());
   }
 
+  getFfprobePath(): string {
+    return process.env.ARROXY_FFPROBE_PATH ?? path.join(this.cacheDir, process.platform === 'win32' ? 'ffprobe.exe' : 'ffprobe');
+  }
+
   async ensureYtDlp(onStatus?: StatusReporter): Promise<string> {
     const override = process.env.ARROXY_YT_DLP_PATH;
     if (override && await this.isUsableBinary(override)) {
@@ -243,6 +247,59 @@ export class BinaryManager {
       isUpToDate: () => this.isYtDlpUpToDate(targetPath)
     });
 
+    return targetPath;
+  }
+
+  // ffprobe is required by yt-dlp's post-processing (chapter modification,
+  // SponsorBlock-remove, embed-thumbnail, --add-metadata) to read media
+  // duration. eugeneware/ffmpeg-static doesn't ship ffprobe, so we bundle it
+  // via @ffprobe-installer/ffprobe (per-platform optional npm deps).
+  // The binary is copied to runtime-cache so it lives next to ffmpeg — this
+  // way spawnYtDlp's existing PATH injection finds both with one PATH entry.
+  // In production builds, the source lives under app.asar.unpacked/ thanks to
+  // the asarUnpack glob in package.json's build config.
+  async ensureFFprobe(onStatus?: StatusReporter): Promise<string | null> {
+    const override = process.env.ARROXY_FFPROBE_PATH;
+    if (override && await this.isUsableBinary(override)) {
+      this.logger.log('INFO', 'Using pre-installed ffprobe', { path: override });
+      return override;
+    }
+
+    let bundledPath: string;
+    let bundledSize: number;
+    try {
+      const ffprobeMod = await import('@ffprobe-installer/ffprobe');
+      const exported = (ffprobeMod as { default?: { path: string }; path?: string });
+      bundledPath = exported.default?.path ?? exported.path!;
+      bundledSize = (await fsPromises.stat(bundledPath)).size;
+    } catch (err) {
+      this.logger.log('WARN', 'ffprobe-installer not available, postprocessing may fail', {
+        error: err instanceof Error ? err.message : String(err)
+      });
+      return null;
+    }
+
+    const targetPath = this.getFfprobePath();
+    if (await this.isUsableBinary(targetPath)) {
+      try {
+        const cachedSize = (await fsPromises.stat(targetPath)).size;
+        if (cachedSize === bundledSize) {
+          this.logger.log('INFO', 'ffprobe binary already exists', { destinationPath: targetPath });
+          return targetPath;
+        }
+        this.logger.log('INFO', 'ffprobe binary outdated, refreshing', { destinationPath: targetPath });
+      } catch {
+        // stat failed — fall through to copy.
+      }
+    }
+
+    onStatus?.('downloadingBinary', { name: 'ffprobe' });
+    await fsPromises.mkdir(path.dirname(targetPath), { recursive: true });
+    await fsPromises.copyFile(bundledPath, targetPath);
+    if (process.platform !== 'win32') {
+      await fsPromises.chmod(targetPath, 0o755);
+    }
+    this.logger.log('INFO', 'ffprobe copied to cache', { destinationPath: targetPath });
     return targetPath;
   }
 

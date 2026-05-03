@@ -1,6 +1,6 @@
 {
   "name": "arroxy",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "Arroxy - YouTube downloader app",
   "main": "out/main/index.js",
   "author": {
@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
+    "@ffprobe-installer/ffprobe": "^2.1.2",
     "@fontsource-variable/geist": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@fontsource/outfit": "^5.2.8",
@@ -95,6 +96,9 @@
     },
     "files": [
       "out/**/*"
+    ],
+    "asarUnpack": [
+      "**/node_modules/@ffprobe-installer/**"
     ],
     "extraResources": [
       {

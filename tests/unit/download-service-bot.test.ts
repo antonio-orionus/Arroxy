@@ -37,7 +37,8 @@ function makeService(tokenOverrides: { token?: string; visitorData?: string } = 
   const binaryManager = {
     ensureYtDlp: vi.fn().mockResolvedValue('/usr/bin/yt-dlp'),
     ensureFFmpeg: vi.fn().mockResolvedValue('/usr/bin/ffmpeg'),
-    ensureDeno: vi.fn().mockResolvedValue(null)
+    ensureDeno: vi.fn().mockResolvedValue(null),
+    ensureFFprobe: vi.fn().mockResolvedValue(null)
   };
   const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
   const logService = { log: vi.fn() };
