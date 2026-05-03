@@ -37,4 +37,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://antonio-orionus.github.io/Arroxy/sitemap.xml
+Sitemap: https://arroxy.orionus.dev/sitemap.xml

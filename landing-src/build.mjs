@@ -17,7 +17,7 @@ const ROOT = resolve(HERE, "..");
 const DOCS = resolve(ROOT, "docs");
 const TEMPLATE_PATH = resolve(HERE, "template.html");
 
-const SITE_URL = "https://antonio-orionus.github.io/Arroxy/";
+const SITE_URL = "https://arroxy.orionus.dev/";
 const OG_IMAGE = `${SITE_URL}assets/icon.png`;
 const OG_IMAGE_WIDTH = "1003";
 const OG_IMAGE_HEIGHT = "1123";
