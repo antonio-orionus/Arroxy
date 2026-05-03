@@ -29,10 +29,22 @@ jobs:
     # Windows is built separately by the Windows Installer workflow
     # (.github/workflows/installer-smoke.yml) so it can be smoke-tested
     # before publish. mac/linux still build + publish here via dist:release.
+    #
+    # macOS ships as two separate DMGs (arm64 + x64) instead of a universal
+    # build. Each runner installs its own native @ffprobe-installer binary
+    # via the optional dep — bun refuses to install platform-mismatched
+    # packages on the same host, so we just build each arch on the runner
+    # whose architecture matches it.
     needs: verify-version
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        include:
+          - os: ubuntu-latest
+            dist-cmd: dist:release:linux
+          - os: macos-latest
+            dist-cmd: dist:release:mac:arm64
+          - os: macos-13
+            dist-cmd: dist:release:mac:x64
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -40,7 +52,7 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
-      - run: bun run dist:release
+      - run: bun run ${{ matrix.dist-cmd }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -213,17 +225,47 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.WINGET_TOKEN }}
       - name: Update cask
+        # We ship two arch-specific DMGs (arm64 + x64) instead of a universal
+        # build, so the cask uses on_arm / on_intel stanzas. The whole file is
+        # rewritten on each release because the structure has more moving
+        # parts than a sed-replace can safely handle.
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          DMG="Arroxy-${VERSION}.dmg"
-          HASH=$(grep "$DMG" SHA256SUMS | awk '{print $1}')
-          if [ -z "$HASH" ]; then
-            echo "::error::Could not find $DMG in SHA256SUMS"
+          DMG_ARM="Arroxy-${VERSION}-arm64.dmg"
+          DMG_X64="Arroxy-${VERSION}-x64.dmg"
+          HASH_ARM=$(grep "$DMG_ARM" SHA256SUMS | awk '{print $1}')
+          HASH_X64=$(grep "$DMG_X64" SHA256SUMS | awk '{print $1}')
+          if [ -z "$HASH_ARM" ] || [ -z "$HASH_X64" ]; then
+            echo "::error::Could not find both arch DMGs in SHA256SUMS"
             cat SHA256SUMS
             exit 1
           fi
-          sed -i -E "s/version \".*\"/version \"$VERSION\"/" Casks/arroxy.rb
-          sed -i -E "s/sha256 \".*\"/sha256 \"$HASH\"/" Casks/arroxy.rb
+          cat > Casks/arroxy.rb <<EOF
+          cask "arroxy" do
+            version "${VERSION}"
+
+            on_arm do
+              sha256 "${HASH_ARM}"
+              url "https://github.com/antonio-orionus/Arroxy/releases/download/v#{version}/Arroxy-#{version}-arm64.dmg"
+            end
+            on_intel do
+              sha256 "${HASH_X64}"
+              url "https://github.com/antonio-orionus/Arroxy/releases/download/v#{version}/Arroxy-#{version}-x64.dmg"
+            end
+
+            name "Arroxy"
+            desc "YouTube downloader"
+            homepage "https://github.com/antonio-orionus/Arroxy"
+
+            app "Arroxy.app"
+
+            zap trash: [
+              "~/Library/Application Support/Arroxy",
+              "~/Library/Preferences/com.arroxy.app.plist",
+              "~/Library/Logs/Arroxy",
+            ]
+          end
+          EOF
       - name: Commit & push
         run: |
           git config user.name "arroxy-release-bot"
