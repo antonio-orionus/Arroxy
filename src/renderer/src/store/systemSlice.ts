@@ -1,7 +1,7 @@
 import type { QueueItem, SubtitleFormat, SubtitleMode } from '@shared/types';
 import { QUEUE_STATUS, STATUS_KEY } from '@shared/schemas';
 import { DEFAULTS } from '@shared/constants';
-import { i18next, pickLanguage } from '@shared/i18n';
+import { i18next, pickLanguage, isRtl } from '@shared/i18n';
 import { nextMonotonicPercent, ProgressFormatter } from './progress';
 import { progressFormatters, maybeStartNext, saveQueue, updateQueueItem } from './queueSlice';
 import type { GetState, SetState, SystemSlice } from './types';
@@ -153,6 +153,8 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
     setLanguage: (lang) => {
       set({ language: lang });
+      document.documentElement.lang = lang;
+      document.documentElement.dir = isRtl(lang) ? 'rtl' : 'ltr';
       void i18next.changeLanguage(lang);
       void window.appApi.settings.update({ language: lang }).then((result) => {
         if (!result.ok) console.error('[settings] language save failed', result.error);
@@ -199,6 +201,17 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
       const result = await window.appApi.settings.update({ closeBehavior: value });
       if (!result.ok) {
         console.error('[settings] closeBehavior save failed', result.error);
+        return;
+      }
+      set({ settings: result.data });
+    },
+
+    setAnalyticsEnabled: async (enabled) => {
+      const current = get().settings;
+      if (current) set({ settings: { ...current, analyticsEnabled: enabled } });
+      const result = await window.appApi.settings.update({ analyticsEnabled: enabled });
+      if (!result.ok) {
+        console.error('[settings] analyticsEnabled save failed', result.error);
         return;
       }
       set({ settings: result.data });

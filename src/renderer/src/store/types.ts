@@ -116,6 +116,7 @@ export interface SystemSlice {
   setCookiesEnabled: (enabled: boolean) => Promise<void>;
   setClipboardWatchEnabled: (enabled: boolean) => Promise<void>;
   setCloseBehavior: (value: 'tray' | 'quit') => Promise<void>;
+  setAnalyticsEnabled: (enabled: boolean) => Promise<void>;
 }
 
 export type AppState = WizardSlice & QueueSlice & UiSlice & SystemSlice;

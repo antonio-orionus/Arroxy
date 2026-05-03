@@ -82,6 +82,10 @@ const ja = {
       closeToTray: {
         toggle: '閉じるときにトレイに格納',
         toggleDescription: 'ウィンドウを閉じた後もバックグラウンドでダウンロードを続けます。'
+      },
+      analytics: {
+        toggle: '匿名の使用統計を送信',
+        toggleDescription: 'アプリの起動回数のみを記録します。URL、ファイル名、個人情報は含まれません。'
       }
     },
     subtitles: {

@@ -28,7 +28,17 @@ export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
   uk: 'Українська',
   ja: '日本語',
   zh: '中文',
-  hi: 'हिन्दी'
+  hi: 'हिन्दी',
+  bn: 'বাংলা',
+  ar: 'العربية',
+  uz: "O'zbekcha",
+  my: 'မြန်မာဘာသာ',
+  ps: 'پښتو',
+  sw: 'Kiswahili',
+  am: 'አማርኛ',
+  om: 'Afaan Oromoo',
+  el: 'Ελληνικά',
+  sr: 'Српски'
 };
 
 export interface LocalizedError {

@@ -2,7 +2,7 @@ import './browserMock';
 import React, { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
-import { initI18n, pickLanguage } from '@shared/i18n';
+import { initI18n, pickLanguage, isRtl } from '@shared/i18n';
 import { useAppStore } from './store/useAppStore';
 import './styles.css';
 
@@ -13,6 +13,8 @@ async function bootstrap(): Promise<void> {
     lang = pickLanguage(result.data.language);
   }
   initI18n(lang);
+  document.documentElement.lang = lang;
+  document.documentElement.dir = isRtl(lang) ? 'rtl' : 'ltr';
   useAppStore.setState({ language: lang });
 
   const rootElement = document.getElementById('root');

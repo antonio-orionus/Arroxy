@@ -41,7 +41,8 @@ export function defaultAppSettings(downloadsDir: string): AppSettings {
   return {
     defaultOutputDir: downloadsDir,
     rememberLastOutputDir: true,
-    clipboardWatchEnabled: true
+    clipboardWatchEnabled: true,
+    analyticsEnabled: true
   };
 }
 

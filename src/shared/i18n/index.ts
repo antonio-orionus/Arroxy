@@ -9,12 +9,23 @@ import uk from './locales/uk';
 import ja from './locales/ja';
 import zh from './locales/zh';
 import hi from './locales/hi';
+import bn from './locales/bn';
+import ar from './locales/ar';
+import uz from './locales/uz';
+import my from './locales/my';
+import ps from './locales/ps';
+import sw from './locales/sw';
+import am from './locales/am';
+import om from './locales/om';
+import el from './locales/el';
+import sr from './locales/sr';
 import { SUPPORTED_LANGS, type SupportedLang, type EnTranslation, type LocaleResource } from './types';
 
 export { SUPPORTED_LANGS, LANGUAGE_NATIVE_NAMES } from './types';
 export type { SupportedLang, StatusKey, YtdlpErrorKey, LocalizedError } from './types';
+export { isRtl, RTL_LANGS } from './rtl';
 
-const RESOURCES: Record<SupportedLang, LocaleResource> = { en, es, fr, de, ru, uk, ja, zh, hi };
+const RESOURCES: Record<SupportedLang, LocaleResource> = { en, es, fr, de, ru, uk, ja, zh, hi, bn, ar, uz, my, ps, sw, am, om, el, sr };
 
 export function pickLanguage(raw: string | undefined | null): SupportedLang {
   if (!raw) return 'en';

@@ -28,7 +28,8 @@ export function StepUrlInput(): JSX.Element {
     setCookiesPath,
     setCookiesEnabled,
     setClipboardWatchEnabled,
-    setCloseBehavior
+    setCloseBehavior,
+    setAnalyticsEnabled
   } = useAppStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const hasActiveDownloads = queue.some((i) => i.status === 'downloading');
@@ -143,7 +144,7 @@ export function StepUrlInput(): JSX.Element {
             data-testid="btn-find-formats"
             className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none gap-2"
           >
-            {t('wizard.url.fetchFormats')} <ArrowRight size={16} />
+            {t('wizard.url.fetchFormats')} <ArrowRight size={16} className="rtl:rotate-180" />
           </Button>
         </div>
         <p className="text-[12px] text-[var(--text-subtle)]">{t('wizard.url.hint')}</p>
@@ -251,6 +252,23 @@ export function StepUrlInput(): JSX.Element {
               />
             </div>
           )}
+
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[13px] font-medium text-foreground">
+                {t('wizard.url.analytics.toggle')}
+              </span>
+              <span className="text-[11px] text-[var(--text-subtle)]">
+                {t('wizard.url.analytics.toggleDescription')}
+              </span>
+            </div>
+            <Switch
+              checked={settings?.analyticsEnabled ?? true}
+              onCheckedChange={(checked) => void setAnalyticsEnabled(checked)}
+              aria-label={t('wizard.url.analytics.toggle')}
+              data-testid="analytics-toggle"
+            />
+          </div>
 
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
             <button

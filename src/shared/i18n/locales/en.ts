@@ -82,6 +82,10 @@ const en = {
       closeToTray: {
         toggle: 'Hide to tray on close',
         toggleDescription: 'Continue downloads in the background after closing the window.'
+      },
+      analytics: {
+        toggle: 'Send anonymous usage stats',
+        toggleDescription: 'Counts app launches only. No URLs, filenames, or personal data.'
       }
     },
     subtitles: {

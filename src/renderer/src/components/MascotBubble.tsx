@@ -12,8 +12,8 @@ export function MascotBubble({ image, message, side = 'left', className }: Props
   const isRight = side === 'right';
 
   return (
-    <div className={cn('flex items-center', isRight && 'flex-row-reverse', className)}>
-      <div className="rounded-2xl bg-[var(--brand-dim)] p-2 shrink-0">
+    <div className={cn('flex items-center rtl:[transform:scaleX(-1)]', isRight && 'flex-row-reverse', className)}>
+      <div className="rounded-2xl bg-[var(--brand-dim)] p-2 shrink-0 rtl:[transform:scaleX(-1)]">
         <img
           src={image}
           alt=""
@@ -23,7 +23,7 @@ export function MascotBubble({ image, message, side = 'left', className }: Props
       </div>
       <div
         className={cn(
-          'relative rounded-xl border border-border bg-secondary px-3 py-2 text-xs text-muted-foreground leading-relaxed shadow-sm',
+          'relative rounded-xl border border-border bg-secondary px-3 py-2 text-xs text-muted-foreground leading-relaxed shadow-sm rtl:[transform:scaleX(-1)]',
           !isRight ? 'ml-2' : 'mr-2'
         )}
       >

@@ -82,6 +82,10 @@ const de = {
       closeToTray: {
         toggle: 'Beim Schließen in die Taskleiste minimieren',
         toggleDescription: 'Downloads im Hintergrund fortsetzen, wenn das Fenster geschlossen wird.'
+      },
+      analytics: {
+        toggle: 'Anonyme Nutzungsstatistiken senden',
+        toggleDescription: 'Zählt nur App-Starts. Keine URLs, Dateinamen oder persönliche Daten.'
       }
     },
     subtitles: {

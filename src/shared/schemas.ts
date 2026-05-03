@@ -26,7 +26,7 @@ export const sponsorBlockCategorySchema = z.enum([
 export type SponsorBlockCategory = z.infer<typeof sponsorBlockCategorySchema>;
 export const SPONSORBLOCK_CATEGORIES = sponsorBlockCategorySchema.options;
 
-export const supportedLangSchema = z.enum(['en', 'es', 'fr', 'de', 'ru', 'uk', 'ja', 'zh', 'hi']);
+export const supportedLangSchema = z.enum(['en', 'zh', 'hi', 'es', 'ar', 'fr', 'bn', 'ru', 'sw', 'de', 'ja', 'ps', 'om', 'uk', 'uz', 'my', 'am', 'el', 'sr']);
 export type SupportedLang = z.infer<typeof supportedLangSchema>;
 export const SUPPORTED_LANGS = supportedLangSchema.options;
 
@@ -190,7 +190,8 @@ export const updateSettingsSchema = z.object({
   embedMetadata: z.boolean().optional(),
   embedThumbnail: z.boolean().optional(),
   writeDescription: z.boolean().optional(),
-  writeThumbnail: z.boolean().optional()
+  writeThumbnail: z.boolean().optional(),
+  analyticsEnabled: z.boolean().optional()
 });
 
 // Queue item schema — used by both queueSave IPC handler and queueStore.load

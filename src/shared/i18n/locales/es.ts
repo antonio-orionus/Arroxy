@@ -82,6 +82,10 @@ const es = {
       closeToTray: {
         toggle: 'Minimizar a la bandeja al cerrar',
         toggleDescription: 'Continuar descargas en segundo plano al cerrar la ventana.'
+      },
+      analytics: {
+        toggle: 'Enviar estadísticas de uso anónimas',
+        toggleDescription: 'Solo cuenta los inicios de la app. Sin URLs, nombres de archivo ni datos personales.'
       }
     },
     subtitles: {

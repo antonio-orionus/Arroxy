@@ -82,6 +82,10 @@ const fr = {
       closeToTray: {
         toggle: 'Masquer dans la barre des tâches à la fermeture',
         toggleDescription: 'Continuer les téléchargements en arrière-plan après la fermeture de la fenêtre.'
+      },
+      analytics: {
+        toggle: 'Envoyer des statistiques d\'utilisation anonymes',
+        toggleDescription: 'Compte uniquement les lancements de l\'application. Aucune URL, nom de fichier ou donnée personnelle.'
       }
     },
     subtitles: {

@@ -7,9 +7,19 @@ import uk from '@shared/i18n/locales/uk';
 import ja from '@shared/i18n/locales/ja';
 import zh from '@shared/i18n/locales/zh';
 import hi from '@shared/i18n/locales/hi';
+import bn from '@shared/i18n/locales/bn';
+import ar from '@shared/i18n/locales/ar';
+import uz from '@shared/i18n/locales/uz';
+import my from '@shared/i18n/locales/my';
+import ps from '@shared/i18n/locales/ps';
+import sw from '@shared/i18n/locales/sw';
+import am from '@shared/i18n/locales/am';
+import om from '@shared/i18n/locales/om';
+import el from '@shared/i18n/locales/el';
+import sr from '@shared/i18n/locales/sr';
 import type { SupportedLang } from '@shared/i18n/types';
 
-const RESOURCES: Record<SupportedLang, unknown> = { en, es, fr, de, ru, uk, ja, zh, hi };
+const RESOURCES: Record<SupportedLang, unknown> = { en, es, fr, de, ru, uk, ja, zh, hi, bn, ar, uz, my, ps, sw, am, om, el, sr };
 
 function lookup(tree: unknown, dottedKey: string): string | undefined {
   const parts = dottedKey.split('.');

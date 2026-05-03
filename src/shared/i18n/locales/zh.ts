@@ -82,6 +82,10 @@ const zh = {
       closeToTray: {
         toggle: '关闭时最小化到托盘',
         toggleDescription: '关闭窗口后继续在后台下载。'
+      },
+      analytics: {
+        toggle: '发送匿名使用统计',
+        toggleDescription: '仅统计应用启动次数，不包含任何URL、文件名或个人数据。'
       }
     },
     subtitles: {

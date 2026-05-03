@@ -11,6 +11,10 @@ test-results/
 *.tmp
 coverage/
 refs
+# Local environment variables (API keys — never commit)
+.env
+.env.local
+
 # Runtime binary cache (BinaryManager)
 runtime-cache/
 

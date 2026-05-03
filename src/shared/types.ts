@@ -61,6 +61,7 @@ export interface AppSettings {
   embedThumbnail?: boolean;
   writeDescription?: boolean;
   writeThumbnail?: boolean;
+  analyticsEnabled?: boolean;
 }
 
 export interface SubtitleTrack {

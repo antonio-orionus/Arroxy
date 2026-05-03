@@ -36,6 +36,7 @@
     "smoke:pot": "bun scripts/smoke-pot-runner.ts"
   },
   "dependencies": {
+    "@aptabase/electron": "^0.3.1",
     "@base-ui/react": "^1.4.1",
     "@ffprobe-installer/ffprobe": "^2.1.2",
     "@fontsource-variable/geist": "^5.2.8",

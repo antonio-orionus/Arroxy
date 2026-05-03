@@ -82,6 +82,10 @@ const hi = {
       closeToTray: {
         toggle: 'बंद करने पर ट्रे में छिपाएं',
         toggleDescription: 'विंडो बंद करने के बाद पृष्ठभूमि में डाउनलोड जारी रखें।'
+      },
+      analytics: {
+        toggle: 'अनाम उपयोग आँकड़े भेजें',
+        toggleDescription: 'केवल ऐप लॉन्च गिनता है। कोई URL, फ़ाइलनाम या व्यक्तिगत डेटा नहीं।'
       }
     },
     subtitles: {
