@@ -22,8 +22,6 @@
     "dist:release": "bun run clean && bun run build && electron-builder --publish always",
     "dist:release:win": "bun run clean && bun run build && electron-builder --win --publish always",
     "dist:release:mac": "bun run clean && bun run build && electron-builder --mac --publish always",
-    "dist:release:mac:arm64": "bun run clean && bun run build && electron-builder --mac --arm64 --publish always",
-    "dist:release:mac:x64": "bun run clean && bun run build && electron-builder --mac --x64 --publish always",
     "dist:release:linux": "bun run clean && bun run build && ELECTRON_BUILDER_COMPRESSION_LEVEL=5 electron-builder --linux --publish always",
     "preview": "electron-vite preview",
     "typecheck": "tsc --noEmit",

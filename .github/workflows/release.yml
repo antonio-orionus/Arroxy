@@ -30,11 +30,14 @@ jobs:
     # (.github/workflows/installer-smoke.yml) so it can be smoke-tested
     # before publish. mac/linux still build + publish here via dist:release.
     #
-    # macOS ships as two separate DMGs (arm64 + x64) instead of a universal
-    # build. Each runner installs its own native @ffprobe-installer binary
-    # via the optional dep — bun refuses to install platform-mismatched
-    # packages on the same host, so we just build each arch on the runner
-    # whose architecture matches it.
+    # macOS ships as two separate DMGs (arm64 + x64) — both built on the
+    # macos-latest (arm64) runner. To bundle the correct ffprobe binary
+    # inside each DMG, we patch in @ffprobe-installer/darwin-x64 via npm
+    # after `bun install`: bun honors os/cpu constraints and won't install
+    # platform-mismatched packages, but npm with --force does. The arm64
+    # binary is already installed by bun as the host's native optional dep.
+    # macos-13 (Intel) runners have unpredictable queue times — using
+    # macos-latest for both archs keeps the release predictable.
     needs: verify-version
     strategy:
       matrix:
@@ -42,9 +45,7 @@ jobs:
           - os: ubuntu-latest
             dist-cmd: dist:release:linux
           - os: macos-latest
-            dist-cmd: dist:release:mac:arm64
-          - os: macos-13
-            dist-cmd: dist:release:mac:x64
+            dist-cmd: dist:release:mac
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -52,6 +53,9 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
+      - name: Patch in cross-arch ffprobe (macOS only)
+        if: matrix.os == 'macos-latest'
+        run: npm install --no-save --force @ffprobe-installer/darwin-x64@5.1.0
       - run: bun run ${{ matrix.dist-cmd }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
