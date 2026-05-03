@@ -28,8 +28,13 @@ describe('extractLastError', () => {
 });
 
 describe('classifyStderr', () => {
-  it('detects botBlock from standard YouTube message', () => {
+  it('detects botBlock from standard YouTube message (ASCII apostrophe)', () => {
     const stderr = "ERROR: [youtube] dQw4w9WgXcQ: Sign in to confirm you're not a bot. Use --cookies-from-browser...";
+    expect(classifyStderr(stderr)).toBe('botBlock');
+  });
+
+  it('detects botBlock from real yt-dlp message (typographic U+2019 apostrophe)', () => {
+    const stderr = "ERROR: [youtube] dQw4w9WgXcQ: Sign in to confirm you’re not a bot. Use --cookies-from-browser...";
     expect(classifyStderr(stderr)).toBe('botBlock');
   });
 
@@ -60,7 +65,7 @@ describe('classifyStderr', () => {
 
   it('prioritises botBlock over ipBlock when both appear', () => {
     const stderr = [
-      "Sign in to confirm you're not a bot",
+      "Sign in to confirm you’re not a bot",
       'IP is likely being blocked by Youtube'
     ].join('\n');
     expect(classifyStderr(stderr)).toBe('botBlock');

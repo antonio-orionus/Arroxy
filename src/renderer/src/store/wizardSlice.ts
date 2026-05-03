@@ -87,6 +87,8 @@ const RESET_STATE = {
   wizardEmbedChapters: DEFAULTS.embedChapters,
   wizardEmbedMetadata: DEFAULTS.embedMetadata,
   wizardEmbedThumbnail: DEFAULTS.embedThumbnail,
+  wizardWriteDescription: DEFAULTS.writeDescription,
+  wizardWriteThumbnail: DEFAULTS.writeThumbnail,
   wizardSubfolderEnabled: false,
   wizardSubfolderName: '',
 } as const;
@@ -136,6 +138,8 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
         wizardEmbedChapters: settings?.embedChapters ?? DEFAULTS.embedChapters,
         wizardEmbedMetadata: settings?.embedMetadata ?? DEFAULTS.embedMetadata,
         wizardEmbedThumbnail: settings?.embedThumbnail ?? DEFAULTS.embedThumbnail,
+        wizardWriteDescription: settings?.writeDescription ?? DEFAULTS.writeDescription,
+        wizardWriteThumbnail: settings?.writeThumbnail ?? DEFAULTS.writeThumbnail,
         wizardSubfolderEnabled: settings?.lastSubfolderEnabled ?? false,
         wizardSubfolderName: settings?.lastSubfolder ?? '',
         formatsLoading: false
@@ -234,5 +238,7 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
     setEmbedChapters: (v) => set({ wizardEmbedChapters: v }),
     setEmbedMetadata: (v) => set({ wizardEmbedMetadata: v }),
     setEmbedThumbnail: (v) => set({ wizardEmbedThumbnail: v }),
+    setWriteDescription: (v) => set({ wizardWriteDescription: v }),
+    setWriteThumbnail: (v) => set({ wizardWriteThumbnail: v }),
   };
 }

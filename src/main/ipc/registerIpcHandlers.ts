@@ -96,6 +96,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     warmUpPromise ??= Promise.allSettled([
       binaryManager.ensureYtDlp(),
       binaryManager.ensureFFmpeg(),
+      binaryManager.ensureDeno(),
       tokenService.warmUp()
     ]).then((results) => {
       const failures = results.flatMap((result) => {

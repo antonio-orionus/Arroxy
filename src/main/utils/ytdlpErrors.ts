@@ -6,7 +6,9 @@ export type { YtdlpErrorKey };
 // Adding a YtdlpErrorKey makes this Record fail to compile until the new key
 // has a regex pattern — the link to the enum is enforced by the type system.
 const ERROR_PATTERNS: Record<YtdlpErrorKey, RegExp> = {
-  botBlock: /sign in to confirm you're not a bot/i,
+  // yt-dlp's actual stderr uses U+2019 (right single quotation mark), not ASCII '.
+  // Tolerate both so the regex matches real-world output.
+  botBlock: /sign in to confirm you[’']re not a bot/i,
   ipBlock: /IP is likely being blocked/i,
   rateLimit: /HTTP Error 429|too many requests|this content isn't available.*try again later/i,
   ageRestricted: /this video is age.?restricted|sign in to confirm your age/i,

@@ -77,3 +77,57 @@ describe('ffmpegAssetName', () => {
     expect(binaryInternals.ffmpegAssetName()).toBeNull();
   });
 });
+
+describe('denoAssetName', () => {
+  it('win32 x64 → MSVC zip', () => {
+    setPlatform('win32', 'x64');
+    expect(binaryInternals.denoAssetName()).toBe('deno-x86_64-pc-windows-msvc.zip');
+  });
+
+  it('win32 arm64 → null (no upstream build)', () => {
+    setPlatform('win32', 'arm64');
+    expect(binaryInternals.denoAssetName()).toBeNull();
+  });
+
+  it('darwin arm64 → aarch64-apple-darwin zip', () => {
+    setPlatform('darwin', 'arm64');
+    expect(binaryInternals.denoAssetName()).toBe('deno-aarch64-apple-darwin.zip');
+  });
+
+  it('darwin x64 → x86_64-apple-darwin zip', () => {
+    setPlatform('darwin', 'x64');
+    expect(binaryInternals.denoAssetName()).toBe('deno-x86_64-apple-darwin.zip');
+  });
+
+  it('linux x64 → x86_64-unknown-linux-gnu zip', () => {
+    setPlatform('linux', 'x64');
+    expect(binaryInternals.denoAssetName()).toBe('deno-x86_64-unknown-linux-gnu.zip');
+  });
+
+  it('linux arm64 → aarch64-unknown-linux-gnu zip', () => {
+    setPlatform('linux', 'arm64');
+    expect(binaryInternals.denoAssetName()).toBe('deno-aarch64-unknown-linux-gnu.zip');
+  });
+
+  it('unknown platform → null', () => {
+    setPlatform('freebsd', 'x64');
+    expect(binaryInternals.denoAssetName()).toBeNull();
+  });
+});
+
+describe('denoExecutableName', () => {
+  it('win32 → deno.exe', () => {
+    setPlatform('win32', 'x64');
+    expect(binaryInternals.denoExecutableName()).toBe('deno.exe');
+  });
+
+  it('darwin → deno', () => {
+    setPlatform('darwin', 'arm64');
+    expect(binaryInternals.denoExecutableName()).toBe('deno');
+  });
+
+  it('linux → deno', () => {
+    setPlatform('linux', 'x64');
+    expect(binaryInternals.denoExecutableName()).toBe('deno');
+  });
+});

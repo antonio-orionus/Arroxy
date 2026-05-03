@@ -17,6 +17,7 @@ function makeStubs(binaryOverrides: Partial<{ ensureYtDlp: () => Promise<string>
   const binaryManager = {
     ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'),
     ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'),
+    ensureDeno: vi.fn().mockResolvedValue(null),
     ...binaryOverrides,
   };
   const tokenService = {

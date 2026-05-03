@@ -180,6 +180,14 @@ const fr = {
       embedThumbnail: {
         label: 'Intégrer la miniature',
         description: 'Pochette dans le fichier. MP4 / M4A uniquement — ignoré quand les sous-titres sont intégrés.'
+      },
+      writeDescription: {
+        label: 'Enregistrer la description',
+        description: 'Enregistre la description de la vidéo en fichier .description à côté du téléchargement.'
+      },
+      writeThumbnail: {
+        label: 'Enregistrer la miniature',
+        description: 'Enregistre la miniature en fichier .jpg à côté du téléchargement.'
       }
     },
     confirm: {

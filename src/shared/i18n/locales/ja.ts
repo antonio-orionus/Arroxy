@@ -180,6 +180,14 @@ const ja = {
       embedThumbnail: {
         label: 'サムネイルを埋め込む',
         description: 'ファイル内のカバーアート。MP4 / M4Aのみ — 字幕を埋め込む場合はスキップ。'
+      },
+      writeDescription: {
+        label: '説明を保存',
+        description: '動画の説明を .description テキストファイルとしてダウンロードの隣に保存します。'
+      },
+      writeThumbnail: {
+        label: 'サムネイルを保存',
+        description: 'サムネイルを .jpg 画像ファイルとしてダウンロードの隣に保存します。'
       }
     },
     confirm: {

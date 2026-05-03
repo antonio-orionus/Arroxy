@@ -29,6 +29,8 @@ export function makeItem(
     embedChapters: DEFAULTS.embedChapters,
     embedMetadata: DEFAULTS.embedMetadata,
     embedThumbnail: DEFAULTS.embedThumbnail,
+    writeDescription: DEFAULTS.writeDescription,
+    writeThumbnail: DEFAULTS.writeThumbnail,
     ...overrides,
   };
   // Schema-validate so a future field added to QueueItem cannot silently slip

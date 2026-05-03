@@ -180,6 +180,14 @@ const ru = {
       embedThumbnail: {
         label: 'Встроить обложку',
         description: 'Обложка внутри файла. Только MP4 / M4A — пропускается при встраивании субтитров.'
+      },
+      writeDescription: {
+        label: 'Сохранить описание',
+        description: 'Сохраняет описание видео как файл .description рядом с загрузкой.'
+      },
+      writeThumbnail: {
+        label: 'Сохранить превью',
+        description: 'Сохраняет превью как файл .jpg рядом с загрузкой.'
       }
     },
     confirm: {

@@ -59,6 +59,8 @@ export interface AppSettings {
   embedChapters?: boolean;
   embedMetadata?: boolean;
   embedThumbnail?: boolean;
+  writeDescription?: boolean;
+  writeThumbnail?: boolean;
 }
 
 export interface SubtitleTrack {
@@ -132,6 +134,8 @@ export interface QueueItem {
   embedChapters: boolean;
   embedMetadata: boolean;
   embedThumbnail: boolean;
+  writeDescription: boolean;
+  writeThumbnail: boolean;
 }
 
 export type DownloadStage = 'setup' | 'token' | 'download' | 'done' | 'error';
@@ -170,6 +174,8 @@ export interface StartDownloadInput {
   embedChapters?: boolean;
   embedMetadata?: boolean;
   embedThumbnail?: boolean;
+  writeDescription?: boolean;
+  writeThumbnail?: boolean;
 }
 
 export interface StartDownloadOutput {

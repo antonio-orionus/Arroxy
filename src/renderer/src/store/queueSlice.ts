@@ -87,6 +87,8 @@ function buildQueueItem(get: GetState): QueueItem | null {
     embedChapters: state.wizardEmbedChapters,
     embedMetadata: state.wizardEmbedMetadata,
     embedThumbnail: state.wizardEmbedThumbnail,
+    writeDescription: state.wizardWriteDescription,
+    writeThumbnail: state.wizardWriteThumbnail,
   };
 }
 
@@ -107,6 +109,8 @@ function buildStartInput(item: QueueItem): StartDownloadInput {
     embedChapters: item.embedChapters,
     embedMetadata: item.embedMetadata,
     embedThumbnail: item.embedThumbnail,
+    writeDescription: item.writeDescription,
+    writeThumbnail: item.writeThumbnail,
   };
 }
 
@@ -133,6 +137,8 @@ async function persistFormatPrefs(set: SetState, get: GetState): Promise<void> {
     embedChapters: get().wizardEmbedChapters,
     embedMetadata: get().wizardEmbedMetadata,
     embedThumbnail: get().wizardEmbedThumbnail,
+    writeDescription: get().wizardWriteDescription,
+    writeThumbnail: get().wizardWriteThumbnail,
   };
   const result = await window.appApi.settings.update(patch);
   if (result.ok) {

@@ -180,6 +180,14 @@ const es = {
       embedThumbnail: {
         label: 'Incrustar miniatura',
         description: 'Portada dentro del archivo. Solo MP4 / M4A — se omite al incrustar subtítulos.'
+      },
+      writeDescription: {
+        label: 'Guardar descripción',
+        description: 'Guarda la descripción del vídeo como archivo .description junto a la descarga.'
+      },
+      writeThumbnail: {
+        label: 'Guardar miniatura',
+        description: 'Guarda la miniatura como archivo .jpg junto a la descarga.'
       }
     },
     confirm: {

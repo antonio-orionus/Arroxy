@@ -45,6 +45,8 @@ export interface WizardSlice {
   wizardEmbedChapters: boolean;
   wizardEmbedMetadata: boolean;
   wizardEmbedThumbnail: boolean;
+  wizardWriteDescription: boolean;
+  wizardWriteThumbnail: boolean;
 
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
@@ -68,6 +70,8 @@ setWizardOutputDir: (dir: string, persist?: boolean) => Promise<void>;
   setEmbedChapters: (v: boolean) => void;
   setEmbedMetadata: (v: boolean) => void;
   setEmbedThumbnail: (v: boolean) => void;
+  setWriteDescription: (v: boolean) => void;
+  setWriteThumbnail: (v: boolean) => void;
 }
 
 export interface QueueSlice {

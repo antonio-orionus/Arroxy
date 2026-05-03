@@ -18,6 +18,8 @@ export const DEFAULTS: {
   embedChapters: boolean;
   embedMetadata: boolean;
   embedThumbnail: boolean;
+  writeDescription: boolean;
+  writeThumbnail: boolean;
 } = {
   subtitleMode: 'sidecar',
   subtitleFormat: 'srt',
@@ -28,6 +30,8 @@ export const DEFAULTS: {
   embedChapters: true,
   embedMetadata: true,
   embedThumbnail: true,
+  writeDescription: false,
+  writeThumbnail: false,
 };
 
 // Single factory for the AppSettings shape — main process, tests, and

@@ -124,6 +124,44 @@ describe('VideoPhase(embed=true)', () => {
   });
 });
 
+describe('VideoPhase — sidecar field propagation', () => {
+  it('writeDescription propagates to YtDlpRequest (video kind)', async () => {
+    const ctx = makeCtx(SUCCESS, {
+      input: { ...BASE_INPUT, subtitleLanguages: [], writeDescription: true },
+    });
+    await VideoPhase(false).run(ctx);
+    const [req] = ctx.runMock.mock.calls[0];
+    expect(req.writeDescription).toBe(true);
+  });
+
+  it('writeThumbnail propagates to YtDlpRequest (video kind)', async () => {
+    const ctx = makeCtx(SUCCESS, {
+      input: { ...BASE_INPUT, subtitleLanguages: [], writeThumbnail: true },
+    });
+    await VideoPhase(false).run(ctx);
+    const [req] = ctx.runMock.mock.calls[0];
+    expect(req.writeThumbnail).toBe(true);
+  });
+
+  it('writeDescription propagates to YtDlpRequest (video+embed kind)', async () => {
+    const ctx = makeCtx(SUCCESS, {
+      input: { ...BASE_INPUT, writeDescription: true },
+    });
+    await VideoPhase(true).run(ctx);
+    const [req] = ctx.runMock.mock.calls[0];
+    expect(req.writeDescription).toBe(true);
+  });
+
+  it('writeThumbnail propagates to YtDlpRequest (video+embed kind)', async () => {
+    const ctx = makeCtx(SUCCESS, {
+      input: { ...BASE_INPUT, writeThumbnail: true },
+    });
+    await VideoPhase(true).run(ctx);
+    const [req] = ctx.runMock.mock.calls[0];
+    expect(req.writeThumbnail).toBe(true);
+  });
+});
+
 describe('VideoPhase — cancel / pause', () => {
   it('cancelRequested after run → returns cancelled', async () => {
     const runMock = vi.fn().mockImplementation((_req, _signal) => {

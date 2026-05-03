@@ -21,7 +21,7 @@ export type YtDlpRequest =
       subtitleFormat: SubtitleFormat;
       writeAutoSubs?: boolean;
     }
-  | { kind: 'video'; url: string; outputDir: string; formatId?: string; sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] }; embedChapters?: boolean; embedMetadata?: boolean; embedThumbnail?: boolean }
+  | { kind: 'video'; url: string; outputDir: string; formatId?: string; sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] }; embedChapters?: boolean; embedMetadata?: boolean; embedThumbnail?: boolean; writeDescription?: boolean; writeThumbnail?: boolean }
   | {
       kind: 'video+embed';
       url: string;
@@ -33,6 +33,8 @@ export type YtDlpRequest =
       embedChapters?: boolean;
       embedMetadata?: boolean;
       embedThumbnail?: boolean;
+      writeDescription?: boolean;
+      writeThumbnail?: boolean;
     };
 
 export type YtDlpSignal = {
@@ -79,6 +81,7 @@ interface InvokeOptions {
   url: string;
   ytDlpPath: string;
   ffmpegPath: string | null;
+  denoPath: string | null;
   args: string[];
   tokenService: TokenService;
   cookiesPath?: string;
@@ -96,7 +99,11 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
   }
 
   const cookiesArgs = opts.cookiesPath ? ['--cookies', opts.cookiesPath] : [];
-  const args = ['--extractor-args', extractorArgs, ...cookiesArgs, ...opts.args];
+  // yt-dlp 2026+ requires a JS runtime for nsig/signature decoding on the web
+  // client. With deno bundled, we point yt-dlp at it explicitly so it doesn't
+  // silently fall back to JS-free clients (where our web.gvs PoT is unused).
+  const jsRuntimeArgs = opts.denoPath ? ['--js-runtimes', `deno:${opts.denoPath}`] : [];
+  const args = ['--extractor-args', extractorArgs, ...cookiesArgs, ...jsRuntimeArgs, ...opts.args];
 
   return new Promise<YtDlpResult>((resolve) => {
     const proc = spawnYtDlp(opts.ytDlpPath, args, opts.ffmpegPath);
@@ -227,6 +234,9 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
   if (req.embedMetadata) args.push('--add-metadata');
   if (req.embedThumbnail && !forcesMkv) args.push('--embed-thumbnail', '--convert-thumbnails', 'jpg');
 
+  if (req.writeDescription) args.push('--write-description');
+  if (req.writeThumbnail) args.push('--write-thumbnail');
+
   if (req.formatId) args.push('-f', req.formatId);
   args.push('-o', `${req.outputDir}/%(title)s.%(ext)s`, req.url);
   return args;
@@ -247,6 +257,7 @@ function buildArgs(req: YtDlpRequest): { args: string[]; subtitleFormat?: Subtit
 export class YtDlp {
   private _ytDlpPath: string | null = null;
   private _ffmpegPath: string | null = null;
+  private _denoPath: string | null = null;
 
   constructor(
     private readonly binaryManager: BinaryManager,
@@ -260,6 +271,7 @@ export class YtDlp {
   async prepare(onStatus?: StatusReporter): Promise<void> {
     this._ytDlpPath = await this.binaryManager.ensureYtDlp(onStatus);
     this._ffmpegPath = await this.binaryManager.ensureFFmpeg(onStatus);
+    this._denoPath = await this.binaryManager.ensureDeno(onStatus);
   }
 
   get ffmpegPath(): string | null {
@@ -274,6 +286,7 @@ export class YtDlp {
       url: req.url,
       ytDlpPath: this._ytDlpPath!,
       ffmpegPath: this._ffmpegPath,
+      denoPath: this._denoPath,
       args,
       tokenService: this.tokenService,
       cookiesPath,

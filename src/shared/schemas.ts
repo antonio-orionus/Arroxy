@@ -142,7 +142,9 @@ export const startDownloadSchema = z.object({
   sponsorBlockCategories: z.array(sponsorBlockCategorySchema).max(7).optional(),
   embedChapters: z.boolean().optional(),
   embedMetadata: z.boolean().optional(),
-  embedThumbnail: z.boolean().optional()
+  embedThumbnail: z.boolean().optional(),
+  writeDescription: z.boolean().optional(),
+  writeThumbnail: z.boolean().optional()
 });
 
 export const cancelDownloadSchema = z.object({
@@ -184,7 +186,9 @@ export const updateSettingsSchema = z.object({
   closeBehavior: z.enum(['ask', 'tray', 'quit']).optional(),
   embedChapters: z.boolean().optional(),
   embedMetadata: z.boolean().optional(),
-  embedThumbnail: z.boolean().optional()
+  embedThumbnail: z.boolean().optional(),
+  writeDescription: z.boolean().optional(),
+  writeThumbnail: z.boolean().optional()
 });
 
 // Queue item schema — used by both queueSave IPC handler and queueStore.load
@@ -222,7 +226,9 @@ export const queueItemSchema = z.object({
   sponsorBlockCategories: z.array(sponsorBlockCategorySchema),
   embedChapters: z.boolean(),
   embedMetadata: z.boolean(),
-  embedThumbnail: z.boolean()
+  embedThumbnail: z.boolean(),
+  writeDescription: z.boolean(),
+  writeThumbnail: z.boolean()
 });
 
 export const queueArraySchema = z.array(queueItemSchema);

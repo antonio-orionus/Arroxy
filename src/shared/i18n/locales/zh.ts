@@ -180,6 +180,14 @@ const zh = {
       embedThumbnail: {
         label: '嵌入缩略图',
         description: '文件内封面图。仅限 MP4 / M4A — 嵌入字幕时跳过。'
+      },
+      writeDescription: {
+        label: '保存描述',
+        description: '将视频描述保存为 .description 文本文件，放在下载文件旁边。'
+      },
+      writeThumbnail: {
+        label: '保存缩略图',
+        description: '将缩略图保存为 .jpg 图片文件，放在下载文件旁边。'
       }
     },
     confirm: {

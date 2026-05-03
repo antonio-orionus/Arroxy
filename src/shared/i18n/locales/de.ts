@@ -180,6 +180,14 @@ const de = {
       embedThumbnail: {
         label: 'Thumbnail einbetten',
         description: 'Cover-Art in der Datei. Nur MP4 / M4A — wird übersprungen, wenn Untertitel eingebettet werden.'
+      },
+      writeDescription: {
+        label: 'Beschreibung speichern',
+        description: 'Speichert die Videobeschreibung als .description-Datei neben dem Download.'
+      },
+      writeThumbnail: {
+        label: 'Thumbnail speichern',
+        description: 'Speichert das Thumbnail als .jpg-Bilddatei neben dem Download.'
       }
     },
     confirm: {

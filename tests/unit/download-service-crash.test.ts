@@ -23,6 +23,7 @@ function makeStubs() {
   const binaryManager = {
     ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'),
     ensureFFmpeg: vi.fn().mockResolvedValue(null),
+    ensureDeno: vi.fn().mockResolvedValue(null),
   } as unknown as BinaryManager;
   const tokenService = {
     mintTokenForUrl: vi.fn().mockResolvedValue({ token: 'tok', visitorData: 'vd' }),

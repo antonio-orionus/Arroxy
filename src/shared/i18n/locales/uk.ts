@@ -180,6 +180,14 @@ const uk = {
       embedThumbnail: {
         label: 'Вбудувати мініатюру',
         description: 'Обкладинка всередині файлу. Лише MP4 / M4A — пропускається при вбудованих субтитрах.'
+      },
+      writeDescription: {
+        label: 'Зберегти опис',
+        description: 'Зберігає опис відео як файл .description поруч із завантаженням.'
+      },
+      writeThumbnail: {
+        label: 'Зберегти мініатюру',
+        description: 'Зберігає мініатюру як файл .jpg поруч із завантаженням.'
       }
     },
     confirm: {

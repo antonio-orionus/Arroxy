@@ -180,6 +180,14 @@ const hi = {
       embedThumbnail: {
         label: 'थंबनेल एम्बेड करें',
         description: 'फ़ाइल के अंदर कवर आर्ट। केवल MP4 / M4A — सबटाइटल एम्बेड होने पर छोड़ा जाता है।'
+      },
+      writeDescription: {
+        label: 'विवरण सहेजें',
+        description: 'वीडियो का विवरण डाउनलोड के पास .description टेक्स्ट फ़ाइल के रूप में सहेजता है।'
+      },
+      writeThumbnail: {
+        label: 'थंबनेल सहेजें',
+        description: 'थंबनेल को डाउनलोड के पास .jpg छवि फ़ाइल के रूप में सहेजता है।'
       }
     },
     confirm: {

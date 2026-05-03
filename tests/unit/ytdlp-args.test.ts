@@ -27,6 +27,7 @@ function makeYtDlp(opts: {
   settings?: Record<string, unknown>;
   token?: string;
   visitorData?: string;
+  denoPath?: string | null;
 } = {}) {
   const tokenService = {
     mintTokenForUrl: vi.fn().mockResolvedValue({
@@ -35,9 +36,11 @@ function makeYtDlp(opts: {
     }),
     invalidateCache: vi.fn(),
   };
+  const denoPath = opts.denoPath === undefined ? '/fake/deno' : opts.denoPath;
   const binaryManager = {
     ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'),
     ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'),
+    ensureDeno: vi.fn().mockResolvedValue(denoPath),
   };
   const settingsStore = { get: vi.fn().mockResolvedValue(opts.settings ?? {}) };
   return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
@@ -315,6 +318,61 @@ describe('YtDlp — output embed flags', () => {
   });
 });
 
+describe('YtDlp — sidecar flags', () => {
+  it('writeDescription=true on kind=video → --write-description present', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, writeDescription: true });
+    expect(getArgs()).toContain('--write-description');
+  });
+
+  it('writeDescription=false on kind=video → no --write-description', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, writeDescription: false });
+    expect(getArgs()).not.toContain('--write-description');
+  });
+
+  it('writeDescription undefined on kind=video → no --write-description', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
+    expect(getArgs()).not.toContain('--write-description');
+  });
+
+  it('writeThumbnail=true on kind=video → --write-thumbnail present', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, writeThumbnail: true });
+    expect(getArgs()).toContain('--write-thumbnail');
+  });
+
+  it('writeThumbnail=false on kind=video → no --write-thumbnail', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, writeThumbnail: false });
+    expect(getArgs()).not.toContain('--write-thumbnail');
+  });
+
+  it('writeThumbnail undefined on kind=video → no --write-thumbnail', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
+    expect(getArgs()).not.toContain('--write-thumbnail');
+  });
+
+  it('writeDescription=true on kind=video+embed → --write-description present', async () => {
+    await makeYtDlp().run({
+      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'], writeDescription: true,
+    });
+    expect(getArgs()).toContain('--write-description');
+  });
+
+  it('writeThumbnail=true on kind=video+embed → --write-thumbnail present', async () => {
+    await makeYtDlp().run({
+      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'], writeThumbnail: true,
+    });
+    expect(getArgs()).toContain('--write-thumbnail');
+  });
+
+  it('both sidecar flags true on kind=video → both flags present', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, writeDescription: true, writeThumbnail: true });
+    const args = getArgs();
+    expect(args).toContain('--write-description');
+    expect(args).toContain('--write-thumbnail');
+  });
+});
+
 describe('YtDlp — extractor-args shape', () => {
   it('PoT: youtube:po_token=web.gvs+<token>;visitor_data=<vd>', async () => {
     const ytDlp = makeYtDlp({ token: 'MYTOKEN', visitorData: 'MYVISITOR' });
@@ -330,5 +388,23 @@ describe('YtDlp — extractor-args shape', () => {
     const args = getArgs();
     expect(args[1]).toBe('youtube:po_token=web.gvs+MYTOKEN');
     expect(args[1]).not.toContain('visitor_data');
+  });
+});
+
+describe('YtDlp — js-runtimes (deno)', () => {
+  it('passes --js-runtimes deno:<path> when deno is bundled', async () => {
+    const ytDlp = makeYtDlp({ denoPath: '/fake/deno' });
+    await ytDlp.run({ kind: 'probe', url: URL });
+    const args = getArgs();
+    const idx = args.indexOf('--js-runtimes');
+    expect(idx).toBeGreaterThan(-1);
+    expect(args[idx + 1]).toBe('deno:/fake/deno');
+  });
+
+  it('omits --js-runtimes entirely when deno is unavailable', async () => {
+    const ytDlp = makeYtDlp({ denoPath: null });
+    await ytDlp.run({ kind: 'probe', url: URL });
+    const args = getArgs();
+    expect(args).not.toContain('--js-runtimes');
   });
 });

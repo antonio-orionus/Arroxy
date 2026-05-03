@@ -180,6 +180,14 @@ const en = {
       embedThumbnail: {
         label: 'Embed thumbnail',
         description: 'Cover art inside the file. MP4 / M4A only — skipped when subtitles are embedded.'
+      },
+      writeDescription: {
+        label: 'Save description',
+        description: 'Saves the video description as a .description text file next to the download.'
+      },
+      writeThumbnail: {
+        label: 'Save thumbnail',
+        description: 'Saves the thumbnail as a .jpg image file next to the download.'
       }
     },
     confirm: {

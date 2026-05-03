@@ -25,6 +25,8 @@ export function VideoPhase(embed: boolean): Phase {
             embedChapters: input.embedChapters,
             embedMetadata: input.embedMetadata,
             embedThumbnail: input.embedThumbnail,
+            writeDescription: input.writeDescription,
+            writeThumbnail: input.writeThumbnail,
           }
         : {
             kind: 'video',
@@ -35,6 +37,8 @@ export function VideoPhase(embed: boolean): Phase {
             embedChapters: input.embedChapters,
             embedMetadata: input.embedMetadata,
             embedThumbnail: input.embedThumbnail,
+            writeDescription: input.writeDescription,
+            writeThumbnail: input.writeThumbnail,
           };
 
       const result = await ytDlp.run(req, {
