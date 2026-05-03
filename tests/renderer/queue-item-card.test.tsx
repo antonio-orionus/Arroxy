@@ -26,6 +26,11 @@ function makeItem(overrides: Partial<QueueItem> = {}): QueueItem {
     subtitleFormat: 'srt',
     sponsorBlockMode: 'off',
     sponsorBlockCategories: [],
+    embedChapters: false,
+    embedMetadata: false,
+    embedThumbnail: false,
+    writeDescription: false,
+    writeThumbnail: false,
     ...overrides
   };
 }
