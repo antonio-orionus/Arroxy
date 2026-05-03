@@ -106,6 +106,7 @@ describe('process group kill on POSIX', () => {
     );
 
     await svc.start({ url: URL, outputDir: '/tmp' });
+    await new Promise((r) => setTimeout(r, 30)); // let setupTempDir + spawnYtDlp complete
     await svc.cancel();
 
     expect(killSpy).toHaveBeenCalledWith(-999, 'SIGKILL');

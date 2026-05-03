@@ -16,9 +16,11 @@ export class PhaseExecutor {
           await ctx.finalize('completed');
           return;
         case 'hard-failed':
+          await ctx.cleanupTempDir();
           await ctx.finalize('failed', out.error);
           return;
         case 'cancelled':
+          await ctx.cleanupTempDir();
           await ctx.cleanupPartFiles(ctx.active.job.outputDir);
           ctx.emitStatus('error', STATUS_KEY.cancelled);
           await ctx.finalize('cancelled');
@@ -32,6 +34,7 @@ export class PhaseExecutor {
   }
 
   private async complete(ctx: PhaseContext): Promise<void> {
+    await ctx.cleanupTempDir();
     if (ctx.active.usedExtractorFallback) {
       ctx.emitStatus('download', STATUS_KEY.usedExtractorFallback);
     }

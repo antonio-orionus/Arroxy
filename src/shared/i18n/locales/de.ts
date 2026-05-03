@@ -271,7 +271,8 @@ const de = {
       rateLimit: 'YouTube drosselt die Anfragen. Warte eine Minute und versuch es dann erneut.',
       ageRestricted: 'Dieses Video ist altersbeschränkt und kann ohne angemeldetes Konto nicht heruntergeladen werden.',
       unavailable: 'Dieses Video ist nicht verfügbar — möglicherweise privat, gelöscht oder regional gesperrt.',
-      geoBlocked: 'Dieses Video ist in deiner Region nicht verfügbar.'
+      geoBlocked: 'Dieses Video ist in deiner Region nicht verfügbar.',
+      outOfDiskSpace: 'Nicht genug Speicherplatz. Gib Speicher frei und versuche es erneut.'
     }
   },
   presets: {

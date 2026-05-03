@@ -21,11 +21,12 @@ export type YtDlpRequest =
       subtitleFormat: SubtitleFormat;
       writeAutoSubs?: boolean;
     }
-  | { kind: 'video'; url: string; outputDir: string; formatId?: string; sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] }; embedChapters?: boolean; embedMetadata?: boolean; embedThumbnail?: boolean; writeDescription?: boolean; writeThumbnail?: boolean }
+  | { kind: 'video'; url: string; outputDir: string; tempDir?: string; formatId?: string; sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] }; embedChapters?: boolean; embedMetadata?: boolean; embedThumbnail?: boolean; writeDescription?: boolean; writeThumbnail?: boolean }
   | {
       kind: 'video+embed';
       url: string;
       outputDir: string;
+      tempDir?: string;
       formatId?: string;
       subtitleLanguages: string[];
       writeAutoSubs?: boolean;
@@ -238,7 +239,12 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
   if (req.writeThumbnail) args.push('--write-thumbnail');
 
   if (req.formatId) args.push('-f', req.formatId);
-  args.push('-o', `${req.outputDir}/%(title)s.%(ext)s`, req.url);
+  if (req.tempDir) {
+    args.push('--paths', `home:${req.outputDir}`, '--paths', `temp:${req.tempDir}`, '-o', '%(title)s.%(ext)s');
+  } else {
+    args.push('-o', `${req.outputDir}/%(title)s.%(ext)s`);
+  }
+  args.push(req.url);
   return args;
 }
 

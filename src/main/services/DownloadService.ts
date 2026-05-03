@@ -1,6 +1,6 @@
 import { EventEmitter } from 'node:events';
 import { randomUUID } from 'node:crypto';
-import { readdir, unlink } from 'node:fs/promises';
+import { readdir, unlink, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
 import { phasesFor, PhaseExecutor } from './phases';
@@ -174,11 +174,12 @@ export class DownloadService extends EventEmitter {
       attachYtDlpProcess: (proc, statusKey?) => this.attachYtDlpProcess(active, proc, statusKey),
       safeConsume: (text) => this.safeConsume(active, text),
       cleanupPartFiles: (dir) => this.cleanupPartFiles(dir),
+      cleanupTempDir: () => this.cleanupTempDir(active),
       finalize: (status, err?) => this.finalize(job, status, err),
       moveToPaused: () => {
         this.activeJobs.delete(job.id);
-        this.pausedJobs.set(job.id, { job, input });
-        this.logger.log('INFO', 'Download paused — .part file preserved', { jobId: job.id, outputDir: job.outputDir });
+        this.pausedJobs.set(job.id, { job, input, tempDir: active.tempDir });
+        this.logger.log('INFO', 'Download paused — temp dir preserved', { jobId: job.id, tempDir: active.tempDir });
       }
     };
     await new PhaseExecutor().run(ctx, phasesFor(input));
@@ -228,8 +229,9 @@ export class DownloadService extends EventEmitter {
 
       const paused = this.pausedJobs.get(jobId);
       if (paused) {
-        this.logger.log('INFO', 'Cancelling paused job — cleaning up .part files', { jobId, outputDir: paused.job.outputDir });
+        this.logger.log('INFO', 'Cancelling paused job — cleaning up temp dir and .part files', { jobId, outputDir: paused.job.outputDir });
         this.pausedJobs.delete(jobId);
+        if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir);
         await this.cleanupPartFiles(paused.job.outputDir);
         return ok({ cancelled: true });
       }
@@ -242,6 +244,7 @@ export class DownloadService extends EventEmitter {
     this.logger.log('INFO', 'Cancelling all jobs', { activeCount: this.activeJobs.size, pausedCount: this.pausedJobs.size });
     await Promise.all([...this.activeJobs.values()].map((a) => this.cancelOne(a)));
     for (const paused of this.pausedJobs.values()) {
+      if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir);
       await this.cleanupPartFiles(paused.job.outputDir);
     }
     this.pausedJobs.clear();
@@ -314,6 +317,19 @@ export class DownloadService extends EventEmitter {
       this.logger.log('INFO', 'cleanupPartFiles — done', { outputDir, deleted: toDelete.length });
     } catch {
       this.logger.log('INFO', 'cleanupPartFiles — directory inaccessible, skipping', { outputDir });
+    }
+  }
+
+  private async cleanupTempDir(active: ActiveDownload): Promise<void> {
+    if (active.tempDir) await this.cleanupTempDirByPath(active.tempDir);
+  }
+
+  private async cleanupTempDirByPath(tempDir: string): Promise<void> {
+    try {
+      await rm(tempDir, { recursive: true, force: true });
+      this.logger.log('INFO', 'cleanupTempDir — removed', { tempDir });
+    } catch {
+      this.logger.log('WARN', 'cleanupTempDir — failed to remove', { tempDir });
     }
   }
 

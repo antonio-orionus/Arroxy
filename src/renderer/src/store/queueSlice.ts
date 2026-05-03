@@ -59,6 +59,12 @@ function buildQueueItem(get: GetState): QueueItem | null {
   const formatId = buildFormatId(selectedVideoFormatId, selectedAudioFormatId);
   const formatLabel = buildFormatLabel(selectedVideoFormatId, videoResolution, selectedAudioFormatId, audioFormats, activePreset);
 
+  const selectedIds = [selectedVideoFormatId, selectedAudioFormatId].filter(Boolean) as string[];
+  const selectedSizes = selectedIds.map((id) => wizardFormats.find((f) => f.formatId === id)?.filesize);
+  const expectedBytes = selectedIds.length > 0 && selectedSizes.every((s) => s !== undefined)
+    ? selectedSizes.reduce<number>((a, b) => a + b!, 0)
+    : undefined;
+
   const subtitleLanguages = state.wizardSubtitleSkipped ? [] : state.wizardSubtitleLanguages;
 
   return {
@@ -89,6 +95,7 @@ function buildQueueItem(get: GetState): QueueItem | null {
     embedThumbnail: state.wizardEmbedThumbnail,
     writeDescription: state.wizardWriteDescription,
     writeThumbnail: state.wizardWriteThumbnail,
+    expectedBytes,
   };
 }
 
@@ -111,6 +118,7 @@ function buildStartInput(item: QueueItem): StartDownloadInput {
     embedThumbnail: item.embedThumbnail,
     writeDescription: item.writeDescription,
     writeThumbnail: item.writeThumbnail,
+    expectedBytes: item.expectedBytes,
   };
 }
 

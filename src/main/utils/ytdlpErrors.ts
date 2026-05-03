@@ -13,7 +13,8 @@ const ERROR_PATTERNS: Record<YtdlpErrorKey, RegExp> = {
   rateLimit: /HTTP Error 429|too many requests|this content isn't available.*try again later/i,
   ageRestricted: /this video is age.?restricted|sign in to confirm your age/i,
   unavailable: /private video|this video is unavailable|video has been removed/i,
-  geoBlocked: /not available in your country|geo.?restricted/i
+  geoBlocked: /not available in your country|geo.?restricted/i,
+  outOfDiskSpace: /no space left on device|there is not enough space on the disk|disk quota exceeded|not enough storage/i
 };
 
 // Iteration order is the declaration order of the keys above; in practice

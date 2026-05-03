@@ -61,6 +61,7 @@ function makeCtx(
     attachYtDlpProcess: vi.fn(),
     safeConsume: vi.fn(),
     cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
+    cleanupTempDir: vi.fn().mockResolvedValue(undefined),
     finalize: vi.fn().mockResolvedValue(undefined),
     moveToPaused: vi.fn(),
   };

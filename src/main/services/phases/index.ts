@@ -2,6 +2,7 @@ import type { StartDownloadInput } from '@shared/types';
 import { VideoPhase } from './VideoPhase';
 import { SubtitleOnlyPhase } from './SubtitleOnlyPhase';
 import { SidecarSubsPhase } from './SidecarSubsPhase';
+import { PreflightPhase } from './PreflightPhase';
 import type { Phase } from './types';
 
 type StrategyKind = 'subtitle-only' | 'video' | 'video+sidecar' | 'video+embed' | 'video+embed+auto';
@@ -26,7 +27,7 @@ function strategyFor(input: StartDownloadInput): StrategyKind {
 }
 
 export function phasesFor(input: StartDownloadInput): Phase[] {
-  return PHASES[strategyFor(input)];
+  return [PreflightPhase(input.expectedBytes), ...PHASES[strategyFor(input)]];
 }
 
 export { PhaseExecutor } from './PhaseExecutor';

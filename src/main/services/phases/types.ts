@@ -15,11 +15,13 @@ export interface ActiveDownload {
   subtitlePaths: string[];
   mediaPath?: string;
   usedExtractorFallback?: boolean;
+  tempDir?: string;
 }
 
 export interface PausedDownload {
   job: DownloadJob;
   input: StartDownloadInput;
+  tempDir?: string;
 }
 
 export type PhaseOutcome =
@@ -44,6 +46,7 @@ export interface PhaseContext {
   attachYtDlpProcess(proc: ChildProcessWithoutNullStreams, statusKey?: StatusKey): void;
   safeConsume(text: string): void;
   cleanupPartFiles(dir: string): Promise<void>;
+  cleanupTempDir(): Promise<void>;
   finalize(status: RecentJob['status'], error?: LocalizedError): Promise<void>;
   moveToPaused(): void;
 }

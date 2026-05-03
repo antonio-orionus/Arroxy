@@ -42,7 +42,8 @@ export const ytdlpErrorKeySchema = z.enum([
   'rateLimit',
   'ageRestricted',
   'unavailable',
-  'geoBlocked'
+  'geoBlocked',
+  'outOfDiskSpace'
 ]);
 export type YtdlpErrorKey = z.infer<typeof ytdlpErrorKeySchema>;
 export const YTDLP_ERROR_KEYS = ytdlpErrorKeySchema.options;
@@ -144,7 +145,8 @@ export const startDownloadSchema = z.object({
   embedMetadata: z.boolean().optional(),
   embedThumbnail: z.boolean().optional(),
   writeDescription: z.boolean().optional(),
-  writeThumbnail: z.boolean().optional()
+  writeThumbnail: z.boolean().optional(),
+  expectedBytes: z.number().positive().optional()
 });
 
 export const cancelDownloadSchema = z.object({
@@ -228,7 +230,8 @@ export const queueItemSchema = z.object({
   embedMetadata: z.boolean(),
   embedThumbnail: z.boolean(),
   writeDescription: z.boolean(),
-  writeThumbnail: z.boolean()
+  writeThumbnail: z.boolean(),
+  expectedBytes: z.number().positive().optional()
 });
 
 export const queueArraySchema = z.array(queueItemSchema);

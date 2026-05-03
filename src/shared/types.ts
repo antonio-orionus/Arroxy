@@ -136,6 +136,7 @@ export interface QueueItem {
   embedThumbnail: boolean;
   writeDescription: boolean;
   writeThumbnail: boolean;
+  expectedBytes?: number;
 }
 
 export type DownloadStage = 'setup' | 'token' | 'download' | 'done' | 'error';
@@ -176,6 +177,7 @@ export interface StartDownloadInput {
   embedThumbnail?: boolean;
   writeDescription?: boolean;
   writeThumbnail?: boolean;
+  expectedBytes?: number;
 }
 
 export interface StartDownloadOutput {

@@ -271,7 +271,8 @@ const en = {
       rateLimit: 'YouTube is rate-limiting requests. Wait a minute then retry.',
       ageRestricted: 'This video is age-restricted and cannot be downloaded without a signed-in account.',
       unavailable: 'This video is unavailable — it may be private, deleted, or region-locked.',
-      geoBlocked: 'This video is not available in your region.'
+      geoBlocked: 'This video is not available in your region.',
+      outOfDiskSpace: 'Not enough disk space. Free up space and retry.'
     }
   },
   presets: {

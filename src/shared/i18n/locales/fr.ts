@@ -271,7 +271,8 @@ const fr = {
       rateLimit: 'YouTube limite le débit des requêtes. Attends une minute puis réessaie.',
       ageRestricted: 'Cette vidéo est limitée par âge et ne peut pas être téléchargée sans compte connecté.',
       unavailable: 'Cette vidéo n\'est pas disponible — elle est peut-être privée, supprimée ou restreinte par région.',
-      geoBlocked: 'Cette vidéo n\'est pas disponible dans ta région.'
+      geoBlocked: 'Cette vidéo n\'est pas disponible dans ta région.',
+      outOfDiskSpace: 'Espace disque insuffisant. Libère de l\'espace et réessaie.'
     }
   },
   presets: {

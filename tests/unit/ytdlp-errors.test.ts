@@ -98,6 +98,18 @@ describe('classifyStderr', () => {
   it('detects geoBlocked from geo-restricted phrase', () => {
     expect(classifyStderr('Video is geo-restricted')).toBe('geoBlocked');
   });
+
+  it('detects outOfDiskSpace from Linux errno message', () => {
+    expect(classifyStderr('ERROR: No space left on device')).toBe('outOfDiskSpace');
+  });
+
+  it('detects outOfDiskSpace from Windows message', () => {
+    expect(classifyStderr('ERROR: There is not enough space on the disk')).toBe('outOfDiskSpace');
+  });
+
+  it('detects outOfDiskSpace from disk quota message', () => {
+    expect(classifyStderr('disk quota exceeded')).toBe('outOfDiskSpace');
+  });
 });
 
 describe('YtdlpErrorKey ↔ classifyStderr contract', () => {
@@ -110,7 +122,8 @@ describe('YtdlpErrorKey ↔ classifyStderr contract', () => {
       rateLimit: 'HTTP Error 429: Too Many Requests',
       ageRestricted: 'This video is age-restricted',
       unavailable: 'This video is unavailable',
-      geoBlocked: 'This video is not available in your country'
+      geoBlocked: 'This video is not available in your country',
+      outOfDiskSpace: 'No space left on device'
     };
     for (const key of YTDLP_ERROR_KEYS) {
       expect(fixtures[key], `no fixture for ${key}`).toBeDefined();

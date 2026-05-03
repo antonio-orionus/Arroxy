@@ -1,13 +1,29 @@
+import { mkdir, rm } from 'node:fs/promises';
+import { join } from 'node:path';
 import { STATUS_KEY } from '@shared/schemas';
 import type { YtDlpRequest } from '../YtDlp';
 import type { Phase, PhaseContext, PhaseOutcome } from './types';
+
+async function setupTempDir(outputDir: string, jobId: string): Promise<string | undefined> {
+  const tempDir = join(outputDir, '.arroxy-temp', jobId.slice(0, 8));
+  try {
+    await rm(tempDir, { recursive: true, force: true });
+    await mkdir(tempDir, { recursive: true });
+    return tempDir;
+  } catch {
+    return undefined;
+  }
+}
 
 export function VideoPhase(embed: boolean): Phase {
   return {
     kind: embed ? 'video+embed' : 'video',
     async run(ctx: PhaseContext): Promise<PhaseOutcome> {
       const { active, ytDlp } = ctx;
-      const { input } = active;
+      const { input, job } = active;
+
+      const tempDir = await setupTempDir(job.outputDir, job.id);
+      if (tempDir) active.tempDir = tempDir;
 
       const sbConfig = input.sponsorBlockMode && input.sponsorBlockMode !== 'off' && input.sponsorBlockCategories?.length
         ? { mode: input.sponsorBlockMode as Exclude<typeof input.sponsorBlockMode, 'off'>, categories: input.sponsorBlockCategories }
@@ -18,6 +34,7 @@ export function VideoPhase(embed: boolean): Phase {
             kind: 'video+embed',
             url: input.url,
             outputDir: input.outputDir!,
+            tempDir,
             formatId: input.formatId,
             subtitleLanguages: input.subtitleLanguages!,
             writeAutoSubs: input.writeAutoSubs,
@@ -32,6 +49,7 @@ export function VideoPhase(embed: boolean): Phase {
             kind: 'video',
             url: input.url,
             outputDir: input.outputDir!,
+            tempDir,
             formatId: input.formatId,
             sponsorBlock: sbConfig,
             embedChapters: input.embedChapters,
