@@ -31,6 +31,7 @@ export function App(): JSX.Element {
   const [showNudge, setShowNudge] = useState(false);
   const [updateInfo, setUpdateInfo] = useState<UpdateAvailablePayload | null>(null);
   const [installing, setInstalling] = useState(false);
+  const [installError, setInstallError] = useState<string | null>(null);
 
   function copyDebugInfo(): void {
     void navigator.clipboard.writeText(buildDebugInfo()).then(() => {
@@ -49,7 +50,12 @@ export function App(): JSX.Element {
 
   function handleInstall(): void {
     setInstalling(true);
-    void window.appApi.updater.install();
+    setInstallError(null);
+    void window.appApi.updater.install().then((result) => {
+      setInstalling(false);
+      if (!result.ok) setInstallError(result.error);
+      // On success the main process calls quitAndInstall — no further UI work.
+    });
   }
 
   function handleDownload(): void {
@@ -93,9 +99,10 @@ export function App(): JSX.Element {
         <UpdateBanner
           info={updateInfo}
           installing={installing}
+          installError={installError}
           onInstall={handleInstall}
           onDownload={handleDownload}
-          onDismiss={() => setUpdateInfo(null)}
+          onDismiss={() => { setUpdateInfo(null); setInstallError(null); }}
         />
       )}
 

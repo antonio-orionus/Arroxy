@@ -24,7 +24,7 @@ describe('pickLanguage', () => {
 
   it('falls back to en when language is unsupported', () => {
     expect(pickLanguage('pt-BR')).toBe('en');
-    expect(pickLanguage('ar')).toBe('en');
+    expect(pickLanguage('tlh')).toBe('en');
   });
 
   it('handles uppercase input', () => {

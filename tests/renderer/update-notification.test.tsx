@@ -10,7 +10,7 @@ type UpdateListener = (info: UpdateAvailablePayload) => void;
 
 function makeApi(overrides: {
   onUpdateAvailable?: (listener: UpdateListener) => () => void;
-  install?: () => Promise<void>;
+  install?: () => Promise<{ ok: true } | { ok: false; error: string }>;
   openExternal?: (url: string) => Promise<unknown>;
 } = {}) {
   return {
@@ -52,7 +52,10 @@ function makeApi(overrides: {
     },
     updater: {
       onUpdateAvailable: overrides.onUpdateAvailable ?? (() => () => undefined),
-      install: overrides.install ?? (vi.fn().mockResolvedValue(undefined) as () => Promise<void>)
+      install: overrides.install ?? (vi.fn().mockResolvedValue({ ok: true }) as () => Promise<{ ok: true }>)
+    },
+    analytics: {
+      track: vi.fn()
     }
   } as unknown as AppApi;
 }
@@ -155,7 +158,7 @@ describe('UpdateBanner integration in App', () => {
       capturedListener = listener;
       return () => undefined;
     };
-    const installMock = vi.fn().mockResolvedValue(undefined) as () => Promise<void>;
+    const installMock = vi.fn().mockResolvedValue({ ok: true }) as () => Promise<{ ok: true }>;
     window.appApi = makeApi({ onUpdateAvailable, install: installMock });
 
     render(<App />);
@@ -239,6 +242,57 @@ describe('UpdateBanner integration in App', () => {
 
     expect(screen.getByText('Download ↗')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Install/i })).not.toBeInTheDocument();
+  });
+
+  it('shows the failure message and Retry button when install rejects', async () => {
+    let capturedListener: UpdateListener | null = null;
+    const onUpdateAvailable = (listener: UpdateListener) => {
+      capturedListener = listener;
+      return () => undefined;
+    };
+    const installMock = vi.fn().mockResolvedValue({ ok: false, error: 'no network' }) as () => Promise<{ ok: false; error: string }>;
+    window.appApi = makeApi({ onUpdateAvailable, install: installMock });
+
+    render(<App />);
+    await act(async () => {});
+
+    act(() => {
+      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
+    });
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Install & Restart' }));
+    });
+
+    // Spinner clears, error surfaces, button switches to Retry.
+    expect(screen.getByTestId('update-banner-message')).toHaveTextContent(/Update failed.*no network/);
+    expect(screen.getByRole('button', { name: 'Retry' })).toBeInTheDocument();
+  });
+
+  it('Retry after failure calls install() again', async () => {
+    let capturedListener: UpdateListener | null = null;
+    const onUpdateAvailable = (listener: UpdateListener) => {
+      capturedListener = listener;
+      return () => undefined;
+    };
+    const installMock = vi.fn().mockResolvedValue({ ok: false, error: 'transient' }) as () => Promise<{ ok: false; error: string }>;
+    window.appApi = makeApi({ onUpdateAvailable, install: installMock });
+
+    render(<App />);
+    await act(async () => {});
+
+    act(() => {
+      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
+    });
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Install & Restart' }));
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
+    });
+
+    expect(installMock).toHaveBeenCalledTimes(2);
   });
 
   it('registers and unregisters the listener on mount/unmount', async () => {

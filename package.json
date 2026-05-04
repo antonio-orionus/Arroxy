@@ -32,6 +32,7 @@
     "test:browser": "playwright test --config playwright.browser.config.ts",
     "build:landing": "node landing-src/build.mjs",
     "build:readme": "node readme-src/build.mjs",
+    "build:docs": "bun run build:readme && bun run build:landing",
     "smoke": "bun scripts/smoke-youtube.ts",
     "smoke:pot": "bun scripts/smoke-pot-runner.ts"
   },

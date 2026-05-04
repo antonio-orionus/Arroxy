@@ -56,6 +56,9 @@ const mockAppApi = {
   updater: {
     onUpdateAvailable: vi.fn().mockReturnValue(() => undefined),
     install: vi.fn().mockResolvedValue(undefined)
+  },
+  analytics: {
+    track: vi.fn()
   }
 };
 

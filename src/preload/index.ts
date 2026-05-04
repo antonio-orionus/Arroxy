@@ -78,6 +78,9 @@ onMaximizedChange: (listener) => {
     },
     install: () => ipcRenderer.invoke(IPC_CHANNELS.updaterInstall),
   },
+  analytics: {
+    track: (name, props) => ipcRenderer.send(IPC_CHANNELS.analyticsTrack, { name, props }),
+  },
 };
 
 contextBridge.exposeInMainWorld('appApi', api);

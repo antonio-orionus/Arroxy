@@ -11,10 +11,18 @@ import extractZip from 'extract-zip';
 
 const execFileAsync = promisify(execFile);
 import { createAppError } from '@main/utils/errorFactory';
+import { trackMain } from '@main/services/analytics';
 import type { AppError, StatusKey } from '@shared/types';
 import type { LogService } from './LogService';
 
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void;
+
+function binaryPhase(err: unknown): string {
+  const msg = err instanceof Error ? err.message.toLowerCase() : '';
+  if (msg.includes('checksum')) return 'verify';
+  if (msg.includes('archive') || msg.includes('did not contain') || msg.includes('extract')) return 'extract';
+  return 'download';
+}
 
 function parseShaLine(content: string, fileName: string): string | null {
   const lines = content.split(/\r?\n/);
@@ -237,15 +245,20 @@ export class BinaryManager {
     };
 
     const targetPath = this.getYtDlpPath();
-    await this.ensureBinary({
-      name: 'yt-dlp',
-      destinationPath: targetPath,
-      downloadUrl: `https://github.com/yt-dlp/yt-dlp/releases/latest/download/${assetName}`,
-      expectedSha256,
-      onStatus,
-      requiredChecksum: true,
-      isUpToDate: () => this.isYtDlpUpToDate(targetPath)
-    });
+    try {
+      await this.ensureBinary({
+        name: 'yt-dlp',
+        destinationPath: targetPath,
+        downloadUrl: `https://github.com/yt-dlp/yt-dlp/releases/latest/download/${assetName}`,
+        expectedSha256,
+        onStatus,
+        requiredChecksum: true,
+        isUpToDate: () => this.isYtDlpUpToDate(targetPath)
+      });
+    } catch (err) {
+      trackMain('binary_setup_failed', { binary: 'ytdlp', phase: binaryPhase(err) });
+      throw err;
+    }
 
     return targetPath;
   }
@@ -356,6 +369,7 @@ export class BinaryManager {
       });
       return targetPath;
     } catch (err) {
+      trackMain('binary_setup_failed', { binary: 'deno', phase: binaryPhase(err) });
       this.logger.log('WARN', 'Failed to bundle deno, continuing without JS runtime', {
         error: err instanceof Error ? err.message : String(err)
       });
@@ -387,14 +401,19 @@ export class BinaryManager {
       }
     };
 
-    await this.ensureBinary({
-      name: 'ffmpeg',
-      destinationPath: targetPath,
-      downloadUrl: `https://github.com/eugeneware/ffmpeg-static/releases/download/b6.0/${assetName}`,
-      expectedSha256,
-      onStatus,
-      requiredChecksum: false
-    });
+    try {
+      await this.ensureBinary({
+        name: 'ffmpeg',
+        destinationPath: targetPath,
+        downloadUrl: `https://github.com/eugeneware/ffmpeg-static/releases/download/b6.0/${assetName}`,
+        expectedSha256,
+        onStatus,
+        requiredChecksum: false
+      });
+    } catch (err) {
+      trackMain('binary_setup_failed', { binary: 'ffmpeg', phase: binaryPhase(err) });
+      throw err;
+    }
 
     return targetPath;
   }

@@ -6,6 +6,8 @@ import { mainT, pluralKey } from '@main/i18n';
 import { pickLanguage } from '@shared/i18n';
 import { registerIpcHandlers } from '@main/ipc/registerIpcHandlers';
 import { registerUpdaterHandlers } from '@main/ipc/registerUpdaterHandlers';
+import { setupAnalytics, setAnalyticsEnabled, trackMain } from '@main/services/analytics';
+import { detectInstallChannel } from '@main/installChannel';
 import { BinaryManager } from '@main/services/BinaryManager';
 import { DownloadService } from '@main/services/DownloadService';
 import { FormatProbeService } from '@main/services/FormatProbeService';
@@ -70,6 +72,12 @@ function createMainWindow(): BrowserWindow {
 }
 
 if (hasSingleInstanceLock) {
+  // Must be called before app.isReady() so aptabase registers its custom protocol scheme.
+  setupAnalytics(
+    process.env.APTABASE_KEY,
+    !!(process.env.ELECTRON_RENDERER_URL) || isMockBackend || !!process.env.ARROXY_SMOKE_URL
+  );
+
   void app.whenReady().then(async () => {
     const userDataPath = app.getPath('userData');
     const logService = new LogService(userDataPath);
@@ -102,6 +110,19 @@ if (hasSingleInstanceLock) {
       exitWithCode(code);
       return;
     }
+
+    // Enable analytics now that we know it's a real (non-smoke) session.
+    setAnalyticsEnabled(initialSettings.analyticsEnabled ?? true);
+    const isFirstRun = !initialSettings.firstRunCompleted;
+    if (isFirstRun) {
+      await settingsStore.update({ firstRunCompleted: true });
+    }
+    const arch: string = process.arch === 'arm64' ? 'arm64' : 'x64';
+    trackMain('app_started', {
+      install_channel: detectInstallChannel(app.getName()),
+      platform_arch: `${process.platform}-${arch}`,
+      is_first_run: isFirstRun,
+    });
 
     const mainWindow = createMainWindow();
 
@@ -196,6 +217,7 @@ if (hasSingleInstanceLock) {
         if (checkboxChecked) {
           await settingsStore.update({ closeBehavior: choice });
         }
+        trackMain('tray_close_chosen', { choice, remember: checkboxChecked });
         if (choice === 'tray') {
           mainWindow.hide();
         } else {

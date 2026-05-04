@@ -29,7 +29,8 @@ describe('checkDiskSpace', () => {
     mockStatfs(500_000_000); // 500 MB free
     const result = await checkDiskSpace('/some/dir', 400_000_000); // 400 MB → needs 600 MB with 1.5×
     expect(result.ok).toBe(false);
-    expect(result.requiredBytes).toBeGreaterThan(result.freeBytes);
+    expect(result.freeBytes).toBeDefined();
+    expect(result.requiredBytes).toBeGreaterThan(result.freeBytes!);
   });
 
   it('returns ok=true when expectedBytes is undefined (live stream skip)', async () => {

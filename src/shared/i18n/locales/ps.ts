@@ -248,7 +248,9 @@ const ps = {
     download: 'Download ↗',
     dismiss: 'د تازه کولو بنر وتړئ',
     copy: 'امر کلیپبورډ ته کاپي کړئ',
-    copied: 'امر کلیپبورډ ته کاپي شو'
+    copied: 'امر کلیپبورډ ته کاپي شو',
+    installFailed: 'تازه کول ناکام شو',
+    retry: 'بیا هڅه وکړئ'
   },
   status: {
     preparingBinaries: 'بائنري فایلونه چمتو کیږي…',

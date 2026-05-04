@@ -248,7 +248,9 @@ const sw = {
     download: 'Download ↗',
     dismiss: 'Funga bango la sasisho',
     copy: 'Nakili amri kwenye ubao wa kunakili',
-    copied: 'Amri imenakiliwa kwenye ubao wa kunakili'
+    copied: 'Amri imenakiliwa kwenye ubao wa kunakili',
+    installFailed: 'Sasisho limeshindwa',
+    retry: 'Jaribu tena'
   },
   status: {
     preparingBinaries: 'Inaandaa faili za binary…',

@@ -248,7 +248,9 @@ const de = {
     download: 'Herunterladen ↗',
     dismiss: 'Update-Banner schließen',
     copy: 'Befehl in die Zwischenablage kopieren',
-    copied: 'Befehl in die Zwischenablage kopiert'
+    copied: 'Befehl in die Zwischenablage kopiert',
+    installFailed: 'Update fehlgeschlagen',
+    retry: 'Erneut versuchen'
   },
   status: {
     preparingBinaries: 'Binärdateien werden vorbereitet…',

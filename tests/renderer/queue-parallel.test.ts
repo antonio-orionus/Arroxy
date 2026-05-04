@@ -59,6 +59,9 @@ describe('Queue parallel/sequential download behavior', () => {
       queue: {
         save: vi.fn().mockResolvedValue({ ok: true, data: { saved: true } }),
         load: vi.fn().mockResolvedValue({ ok: true, data: [] })
+      },
+      analytics: {
+        track: vi.fn()
       }
     } as never;
   });

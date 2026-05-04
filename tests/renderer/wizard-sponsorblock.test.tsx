@@ -52,6 +52,9 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
       onUpdateAvailable: vi.fn().mockReturnValue(() => undefined),
       install: vi.fn()
     },
+    analytics: {
+      track: vi.fn()
+    },
   };
 }
 

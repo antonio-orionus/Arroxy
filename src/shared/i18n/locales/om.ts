@@ -248,7 +248,9 @@ const om = {
     download: 'Download ↗',
     dismiss: 'Baanara haaraa cufii',
     copy: 'Ajaja kliipboorditti koopii godhi',
-    copied: 'Ajajni kliipboorditti koopii ta\'e'
+    copied: 'Ajajni kliipboorditti koopii ta\'e',
+    installFailed: 'Haaromsuun hin milkoofne',
+    retry: 'Irra deebi\'i yaali'
   },
   status: {
     preparingBinaries: 'Faayiloota binaryii qopheessaa jira…',

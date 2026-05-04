@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const ORIGINAL_PLATFORM = Object.getOwnPropertyDescriptor(process, 'platform')!;
 const ORIGINAL_EXEC_PATH = Object.getOwnPropertyDescriptor(process, 'execPath')!;
+const ORIGINAL_PORTABLE_ENV = process.env.PORTABLE_EXECUTABLE_FILE;
 
 function setPlatform(value: NodeJS.Platform): void {
   Object.defineProperty(process, 'platform', { value, configurable: true });
@@ -14,11 +15,17 @@ function setExecPath(value: string): void {
 describe('detectInstallChannel', () => {
   beforeEach(() => {
     vi.resetModules();
+    delete process.env.PORTABLE_EXECUTABLE_FILE;
   });
 
   afterEach(() => {
     Object.defineProperty(process, 'platform', ORIGINAL_PLATFORM);
     Object.defineProperty(process, 'execPath', ORIGINAL_EXEC_PATH);
+    if (ORIGINAL_PORTABLE_ENV === undefined) {
+      delete process.env.PORTABLE_EXECUTABLE_FILE;
+    } else {
+      process.env.PORTABLE_EXECUTABLE_FILE = ORIGINAL_PORTABLE_ENV;
+    }
     vi.restoreAllMocks();
   });
 
@@ -41,6 +48,22 @@ describe('detectInstallChannel', () => {
     setExecPath('C:\\Users\\me\\AppData\\Local\\Programs\\Arroxy\\Arroxy.exe');
     const { detectInstallChannel } = await import('@main/installChannel');
     expect(detectInstallChannel('arroxy')).toBe('direct');
+  });
+
+  it('detects portable on win32 when PORTABLE_EXECUTABLE_FILE is set', async () => {
+    setPlatform('win32');
+    setExecPath('C:\\Users\\me\\Downloads\\Arroxy-portable.exe');
+    process.env.PORTABLE_EXECUTABLE_FILE = 'C:\\Users\\me\\Downloads\\Arroxy-portable.exe';
+    const { detectInstallChannel } = await import('@main/installChannel');
+    expect(detectInstallChannel('arroxy')).toBe('portable');
+  });
+
+  it('scoop wins over portable detection (scoop installs do not set PORTABLE_EXECUTABLE_FILE in practice)', async () => {
+    setPlatform('win32');
+    setExecPath('C:\\Users\\me\\scoop\\apps\\arroxy\\current\\Arroxy.exe');
+    process.env.PORTABLE_EXECUTABLE_FILE = 'whatever';
+    const { detectInstallChannel } = await import('@main/installChannel');
+    expect(detectInstallChannel('arroxy')).toBe('scoop');
   });
 
   it('detects homebrew on darwin when Caskroom directory exists for the given app name', async () => {

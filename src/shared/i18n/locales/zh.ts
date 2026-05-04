@@ -248,7 +248,9 @@ const zh = {
     download: '下载 ↗',
     dismiss: '关闭更新提示',
     copy: '复制命令到剪贴板',
-    copied: '命令已复制到剪贴板'
+    copied: '命令已复制到剪贴板',
+    installFailed: '更新失败',
+    retry: '重试'
   },
   status: {
     preparingBinaries: '正在准备二进制文件…',

@@ -7,6 +7,7 @@ import { resolveAction } from './updateBannerAction';
 interface Props {
   info: UpdateAvailablePayload;
   installing: boolean;
+  installError: string | null;
   onInstall(): void;
   onDownload(): void;
   onDismiss(): void;
@@ -14,7 +15,7 @@ interface Props {
 
 const RELEASES_URL = 'https://github.com/antonio-orionus/Arroxy/releases/latest';
 
-export function UpdateBanner({ info, installing, onInstall, onDownload, onDismiss }: Props): JSX.Element {
+export function UpdateBanner({ info, installing, installError, onInstall, onDownload, onDismiss }: Props): JSX.Element {
   const { t } = useTranslation();
   const action = resolveAction(info.installChannel, window.platform);
   const [copied, setCopied] = useState(false);
@@ -31,12 +32,20 @@ export function UpdateBanner({ info, installing, onInstall, onDownload, onDismis
       style={{ background: 'var(--brand-dim)' }}
       data-testid="update-banner"
     >
-      <span className="text-[13px] text-foreground/80 truncate">
-        <span className="font-semibold" style={{ color: 'var(--brand)' }}>
-          {t('update.appVersion', { version: info.version })}
-        </span>
-        {' '}{t('update.isAvailable')}{' '}
-        <span className="text-muted-foreground">{t('update.youHave', { currentVersion: info.currentVersion })}</span>
+      <span className="text-[13px] text-foreground/80 truncate" data-testid="update-banner-message">
+        {installError ? (
+          <span className="text-destructive font-medium">
+            {t('update.installFailed')}: {installError}
+          </span>
+        ) : (
+          <>
+            <span className="font-semibold" style={{ color: 'var(--brand)' }}>
+              {t('update.appVersion', { version: info.version })}
+            </span>
+            {' '}{t('update.isAvailable')}{' '}
+            <span className="text-muted-foreground">{t('update.youHave', { currentVersion: info.currentVersion })}</span>
+          </>
+        )}
       </span>
 
       <div className="flex items-center gap-2 shrink-0">
@@ -54,7 +63,11 @@ export function UpdateBanner({ info, installing, onInstall, onDownload, onDismis
                 aria-hidden
               />
             )}
-            {installing ? t('update.downloading') : t('update.install')}
+            {installing
+              ? t('update.downloading')
+              : installError
+                ? t('update.retry')
+                : t('update.install')}
           </button>
         )}
 

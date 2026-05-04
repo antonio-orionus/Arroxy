@@ -265,7 +265,12 @@ if (!('appApi' in window)) {
       install: async () => {
         await delay(2_000);
         console.log('[mock] updater: install complete (would quit in real app)');
+        return { ok: true } as const;
       },
+    },
+
+    analytics: {
+      track: (name, props) => console.log('[mock] analytics', name, props),
     },
   };
 

@@ -248,7 +248,9 @@ const en = {
     download: 'Download ↗',
     dismiss: 'Dismiss update banner',
     copy: 'Copy command to clipboard',
-    copied: 'Copied command to clipboard'
+    copied: 'Copied command to clipboard',
+    installFailed: 'Update failed',
+    retry: 'Retry'
   },
   status: {
     preparingBinaries: 'Preparing binaries…',

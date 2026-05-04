@@ -248,7 +248,9 @@ const uz = {
     download: 'Download ↗',
     dismiss: 'Yangilanish bannerini yopish',
     copy: 'Buyruqni buferga nusxalash',
-    copied: 'Buyruq buferga nusxalandi'
+    copied: 'Buyruq buferga nusxalandi',
+    installFailed: 'Yangilanish muvaffaqiyatsiz',
+    retry: 'Qayta urinish'
   },
   status: {
     preparingBinaries: 'Ikkilik fayllar tayyorlanmoqda…',

@@ -248,7 +248,9 @@ const my = {
     download: 'Download ↗',
     dismiss: 'အပ်ဒိတ်ကြော်ငြာပိတ်မည်',
     copy: 'command ကို clipboard သို့ကူးမည်',
-    copied: 'command ကို clipboard သို့ကူးပြီးပြီ'
+    copied: 'command ကို clipboard သို့ကူးပြီးပြီ',
+    installFailed: 'အပ်ဒိတ် မအောင်မြင်ပါ',
+    retry: 'ထပ်စမ်းမည်'
   },
   status: {
     preparingBinaries: 'Binary ဖိုင်များပြင်ဆင်နေသည်…',

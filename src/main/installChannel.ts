@@ -14,6 +14,11 @@ export function detectInstallChannel(appName: string): InstallChannel {
     if (exec.includes('\\scoop\\apps\\') || exec.includes('\\ProgramData\\scoop\\apps\\')) {
       return 'scoop';
     }
+    // electron-builder's portable target sets PORTABLE_EXECUTABLE_FILE in the
+    // child process env; portable installs cannot self-update via NSIS.
+    if (process.env.PORTABLE_EXECUTABLE_FILE) {
+      return 'portable';
+    }
     return 'direct';
   }
 

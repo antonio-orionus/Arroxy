@@ -89,7 +89,10 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
     },
     updater: {
       onUpdateAvailable: vi.fn().mockReturnValue(() => undefined),
-      install: vi.fn().mockResolvedValue(undefined)
+      install: vi.fn().mockResolvedValue({ ok: true })
+    },
+    analytics: {
+      track: vi.fn()
     }
   };
 }

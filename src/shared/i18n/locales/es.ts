@@ -248,7 +248,9 @@ const es = {
     download: 'Descargar ↗',
     dismiss: 'Cerrar aviso de actualización',
     copy: 'Copiar comando al portapapeles',
-    copied: 'Comando copiado al portapapeles'
+    copied: 'Comando copiado al portapapeles',
+    installFailed: 'Actualización fallida',
+    retry: 'Reintentar'
   },
   status: {
     preparingBinaries: 'Preparando binarios…',

@@ -205,15 +205,97 @@ describe('registerUpdaterHandlers', () => {
   });
 
   it('updater:install handler calls downloadUpdate()', async () => {
-    let installHandler: (() => Promise<void>) | null = null;
+    let installHandler: (() => Promise<unknown>) | null = null;
     vi.mocked(ipcMain.handle).mockImplementation((name: string, fn: any) => {
       if (name === IPC_CHANNELS.updaterInstall) installHandler = fn;
     });
+    captureUpdaterHandlers();
     registerUpdaterHandlers(makeWindow());
 
     expect(installHandler).not.toBeNull();
-    await installHandler!();
+    // The handler returns a Promise that resolves only when update-downloaded
+    // (or error) fires, so kick it off without awaiting and assert the
+    // download was started.
+    void installHandler!();
+    await Promise.resolve();
     expect(autoUpdater.downloadUpdate).toHaveBeenCalledOnce();
+  });
+
+  it('updater:install resolves with ok:true when update-downloaded fires', async () => {
+    let installHandler: (() => Promise<unknown>) | null = null;
+    vi.mocked(ipcMain.handle).mockImplementation((name: string, fn: any) => {
+      if (name === IPC_CHANNELS.updaterInstall) installHandler = fn;
+    });
+    const handlers = captureUpdaterHandlers();
+    registerUpdaterHandlers(makeWindow());
+
+    const promise = installHandler!();
+    handlers['update-downloaded']!();
+    await expect(promise).resolves.toEqual({ ok: true });
+  });
+
+  it('updater:install resolves with ok:false when error fires mid-download', async () => {
+    let installHandler: (() => Promise<unknown>) | null = null;
+    vi.mocked(ipcMain.handle).mockImplementation((name: string, fn: any) => {
+      if (name === IPC_CHANNELS.updaterInstall) installHandler = fn;
+    });
+    const handlers = captureUpdaterHandlers();
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    registerUpdaterHandlers(makeWindow());
+
+    const promise = installHandler!();
+    handlers['error']!(new Error('checksum mismatch'));
+    await expect(promise).resolves.toEqual({ ok: false, error: 'checksum mismatch' });
+  });
+
+  it('updater:install resolves with ok:false when downloadUpdate rejects', async () => {
+    let installHandler: (() => Promise<unknown>) | null = null;
+    vi.mocked(ipcMain.handle).mockImplementation((name: string, fn: any) => {
+      if (name === IPC_CHANNELS.updaterInstall) installHandler = fn;
+    });
+    captureUpdaterHandlers();
+    vi.mocked(autoUpdater.downloadUpdate).mockRejectedValueOnce(new Error('no network'));
+    registerUpdaterHandlers(makeWindow());
+
+    await expect(installHandler!()).resolves.toEqual({ ok: false, error: 'no network' });
+  });
+
+  it('updater:install rejects with ok:false on non-installable channels', async () => {
+    for (const channel of ['scoop', 'homebrew', 'portable'] as const) {
+      vi.resetModules();
+      vi.doMock('@main/installChannel', () => ({ detectInstallChannel: vi.fn().mockReturnValue(channel) }));
+      vi.doMock('electron', () => ({
+        app: { getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy') },
+        ipcMain: { handle: vi.fn(), removeHandler: vi.fn() }
+      }));
+      vi.doMock('electron-updater', () => ({
+        autoUpdater: {
+          autoDownload: true, autoInstallOnAppQuit: true,
+          on: vi.fn(), removeAllListeners: vi.fn(),
+          checkForUpdates: vi.fn().mockResolvedValue(undefined),
+          downloadUpdate: vi.fn().mockResolvedValue(undefined),
+          quitAndInstall: vi.fn()
+        }
+      }));
+      const { registerUpdaterHandlers: register } = await import('@main/ipc/registerUpdaterHandlers');
+      const { autoUpdater: scopedAutoUpdater } = await import('electron-updater');
+      const { ipcMain: scopedIpcMain } = await import('electron');
+
+      let installHandler: (() => Promise<unknown>) | null = null;
+      vi.mocked(scopedIpcMain.handle).mockImplementation((name: string, fn: any) => {
+        if (name === IPC_CHANNELS.updaterInstall) installHandler = fn;
+      });
+      register(makeWindow());
+
+      const result = await installHandler!();
+      expect(result).toMatchObject({ ok: false });
+      expect(scopedAutoUpdater.downloadUpdate).not.toHaveBeenCalled();
+
+      vi.doUnmock('@main/installChannel');
+      vi.doUnmock('electron');
+      vi.doUnmock('electron-updater');
+    }
+    vi.resetModules();
   });
 
   it('calls checkForUpdates after 5 second delay', () => {

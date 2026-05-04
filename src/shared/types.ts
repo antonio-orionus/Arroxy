@@ -62,6 +62,7 @@ export interface AppSettings {
   writeDescription?: boolean;
   writeThumbnail?: boolean;
   analyticsEnabled?: boolean;
+  firstRunCompleted?: boolean;
 }
 
 export interface SubtitleTrack {
@@ -91,6 +92,7 @@ export interface DownloadJob {
   url: string;
   outputDir: string;
   formatId?: string;
+  expectedBytes?: number;
   status: DownloadJobStatus;
   createdAt: string;
   updatedAt: string;
@@ -119,6 +121,7 @@ export interface QueueItem {
   outputDir: string;
   formatId?: string;
   formatLabel: string;
+  preset?: string;
   status: import('./schemas').QueueItemStatus;
   progressPercent: number;
   progressDetail: string | null;
@@ -167,6 +170,8 @@ export interface StartDownloadInput {
   url: string;
   outputDir?: string;
   formatId?: string;
+  preset?: string;
+  cookiesEnabled?: boolean;
   subtitleLanguages?: string[];
   writeAutoSubs?: boolean;
   subtitleMode?: SubtitleMode;
@@ -214,10 +219,18 @@ export interface PauseDownloadOutput {
   paused: boolean;
 }
 
-export type InstallChannel = 'direct' | 'winget' | 'scoop' | 'homebrew' | 'flatpak';
+export type InstallChannel = 'direct' | 'winget' | 'scoop' | 'homebrew' | 'flatpak' | 'portable';
+
+export const INSTALL_CHANNELS: readonly InstallChannel[] = [
+  'direct', 'winget', 'scoop', 'homebrew', 'flatpak', 'portable'
+] as const;
 
 export interface UpdateAvailablePayload {
   version: string;
   currentVersion: string;
   installChannel: InstallChannel;
 }
+
+export type UpdateInstallResult =
+  | { ok: true }
+  | { ok: false; error: string };

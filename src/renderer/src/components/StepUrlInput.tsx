@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type JSX } from 'react';
 import { ArrowRight, AlertTriangle, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../store/useAppStore';
+import { track } from '@renderer/lib/analytics';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Switch } from './ui/switch';
@@ -42,6 +43,10 @@ export function StepUrlInput(): JSX.Element {
 
   useEffect(() => {
     inputRef.current?.focus();
+    const { queue } = useAppStore.getState();
+    if (!queue.some((i) => i.status === 'downloading')) {
+      track('wizard_started');
+    }
   }, []);
 
   useEffect(() => {

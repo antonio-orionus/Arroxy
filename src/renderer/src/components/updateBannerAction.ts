@@ -6,9 +6,20 @@ export type Action =
   | { kind: 'command'; cmd: string };
 
 export function resolveAction(channel: InstallChannel, platform: NodeJS.Platform): Action {
-  if (channel === 'scoop') return { kind: 'command', cmd: 'scoop update arroxy' };
-  if (channel === 'homebrew') return { kind: 'command', cmd: 'brew upgrade --cask arroxy' };
-  if (channel === 'winget') return { kind: 'install' };
-  if (channel === 'flatpak') return { kind: 'command', cmd: 'flatpak update io.github.antonio_orionus.Arroxy' };
-  return platform === 'darwin' ? { kind: 'download' } : { kind: 'install' };
+  switch (channel) {
+    case 'scoop':    return { kind: 'command', cmd: 'scoop update arroxy' };
+    case 'homebrew': return { kind: 'command', cmd: 'brew upgrade --cask arroxy' };
+    case 'winget':   return { kind: 'install' };
+    case 'portable': return { kind: 'download' };
+    case 'direct':   return platform === 'darwin' ? { kind: 'download' } : { kind: 'install' };
+    // Flatpak is filtered upstream in the main process — the renderer should
+    // never receive this channel. Handled here only for type exhaustiveness.
+    case 'flatpak':  return { kind: 'download' };
+    default: {
+      // Exhaustiveness check — adding a channel without handling here is a type error.
+      const _exhaustive: never = channel;
+      void _exhaustive;
+      return { kind: 'download' };
+    }
+  }
 }

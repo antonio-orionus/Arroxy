@@ -155,7 +155,8 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
       if (STEPS[nextIdx] === 'sponsorblock' && activePreset && NO_VIDEO_PRESETS.has(activePreset)) nextIdx++;
       // Skip output for subtitle-only preset (no media file to embed into)
       if (STEPS[nextIdx] === 'output' && activePreset === 'subtitle-only') nextIdx++;
-      set({ wizardStep: STEPS[nextIdx] ?? STEPS[STEPS.length - 1] });
+      const target = STEPS[nextIdx] ?? STEPS[STEPS.length - 1];
+      set({ wizardStep: target });
     },
 
     back: () => {
@@ -223,7 +224,8 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
         if (STEPS[nextIdx] === 'sponsorblock' && activePreset && NO_VIDEO_PRESETS.has(activePreset)) nextIdx++;
         // Skip output for subtitle-only preset
         if (STEPS[nextIdx] === 'output' && activePreset === 'subtitle-only') nextIdx++;
-        set({ wizardSubtitleSkipped: true, wizardStep: STEPS[nextIdx] ?? STEPS[STEPS.length - 1] });
+        const target = STEPS[nextIdx] ?? STEPS[STEPS.length - 1];
+        set({ wizardSubtitleSkipped: true, wizardStep: target });
       }
     },
 

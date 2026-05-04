@@ -248,7 +248,9 @@ const am = {
     download: 'Download ↗',
     dismiss: 'የዝማኔ ሰሌዳ ዝጋ',
     copy: 'ትዕዛዝ ወደ ቅጂ ሰሌዳ ቅዳ',
-    copied: 'ትዕዛዝ ወደ ቅጂ ሰሌዳ ተቀድቷል'
+    copied: 'ትዕዛዝ ወደ ቅጂ ሰሌዳ ተቀድቷል',
+    installFailed: 'ዝማኔ አልተሳካም',
+    retry: 'እንደገና ሞክር'
   },
   status: {
     preparingBinaries: 'ሁለዮሽ ፋይሎችን እያዘጋጁ…',

@@ -248,7 +248,9 @@ const ja = {
     download: 'ダウンロード ↗',
     dismiss: '更新通知を閉じる',
     copy: 'コマンドをクリップボードにコピー',
-    copied: 'コマンドをクリップボードにコピーしました'
+    copied: 'コマンドをクリップボードにコピーしました',
+    installFailed: '更新に失敗しました',
+    retry: '再試行'
   },
   status: {
     preparingBinaries: 'バイナリを準備中…',

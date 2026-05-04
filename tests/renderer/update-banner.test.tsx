@@ -30,11 +30,15 @@ describe('resolveAction', () => {
     expect(resolveAction('direct', 'darwin')).toEqual({ kind: 'download' });
   });
 
-  it('flatpak → command pointing at the Flathub app id', () => {
-    expect(resolveAction('flatpak', 'linux')).toEqual({
-      kind: 'command',
-      cmd: 'flatpak update io.github.antonio_orionus.Arroxy',
-    });
+  it('portable → download (NSIS install would clobber the portable layout)', () => {
+    expect(resolveAction('portable', 'win32')).toEqual({ kind: 'download' });
+  });
+
+  // Flatpak is filtered upstream in the main process — the renderer never
+  // receives this channel in production. The case is kept in resolveAction for
+  // type exhaustiveness only; the safe fallback is download.
+  it('flatpak → download (unreachable in production but defined for exhaustiveness)', () => {
+    expect(resolveAction('flatpak', 'linux')).toEqual({ kind: 'download' });
   });
 });
 
@@ -57,6 +61,7 @@ describe('UpdateBanner', () => {
       <UpdateBanner
         info={makeInfo()}
         installing={false}
+        installError={null}
         onInstall={vi.fn()}
         onDownload={vi.fn()}
         onDismiss={vi.fn()}
@@ -72,6 +77,7 @@ describe('UpdateBanner', () => {
       <UpdateBanner
         info={makeInfo({ installChannel: 'direct' })}
         installing={false}
+        installError={null}
         onInstall={vi.fn()}
         onDownload={vi.fn()}
         onDismiss={vi.fn()}
@@ -87,6 +93,7 @@ describe('UpdateBanner', () => {
       <UpdateBanner
         info={makeInfo({ installChannel: 'direct' })}
         installing={false}
+        installError={null}
         onInstall={vi.fn()}
         onDownload={vi.fn()}
         onDismiss={vi.fn()}
@@ -102,6 +109,7 @@ describe('UpdateBanner', () => {
       <UpdateBanner
         info={makeInfo({ installChannel: 'winget' })}
         installing={false}
+        installError={null}
         onInstall={vi.fn()}
         onDownload={vi.fn()}
         onDismiss={vi.fn()}
@@ -117,6 +125,7 @@ describe('UpdateBanner', () => {
       <UpdateBanner
         info={makeInfo({ installChannel: 'scoop' })}
         installing={false}
+        installError={null}
         onInstall={vi.fn()}
         onDownload={vi.fn()}
         onDismiss={onDismiss}
@@ -139,6 +148,7 @@ describe('UpdateBanner', () => {
       <UpdateBanner
         info={makeInfo({ installChannel: 'homebrew' })}
         installing={false}
+        installError={null}
         onInstall={vi.fn()}
         onDownload={vi.fn()}
         onDismiss={vi.fn()}
@@ -160,6 +170,7 @@ describe('UpdateBanner', () => {
       <UpdateBanner
         info={makeInfo({ installChannel: 'homebrew' })}
         installing={false}
+        installError={null}
         onInstall={vi.fn()}
         onDownload={vi.fn()}
         onDismiss={vi.fn()}
@@ -187,6 +198,7 @@ describe('UpdateBanner', () => {
       <UpdateBanner
         info={makeInfo()}
         installing={true}
+        installError={null}
         onInstall={vi.fn()}
         onDownload={vi.fn()}
         onDismiss={vi.fn()}
@@ -203,6 +215,7 @@ describe('UpdateBanner', () => {
       <UpdateBanner
         info={makeInfo()}
         installing={false}
+        installError={null}
         onInstall={onInstall}
         onDownload={vi.fn()}
         onDismiss={vi.fn()}
@@ -219,6 +232,7 @@ describe('UpdateBanner', () => {
       <UpdateBanner
         info={makeInfo({ installChannel: 'direct' })}
         installing={false}
+        installError={null}
         onInstall={vi.fn()}
         onDownload={onDownload}
         onDismiss={vi.fn()}
@@ -228,12 +242,45 @@ describe('UpdateBanner', () => {
     expect(onDownload).toHaveBeenCalledOnce();
   });
 
+  it('shows installFailed error message + retry button when installError is set', () => {
+    render(
+      <UpdateBanner
+        info={makeInfo()}
+        installing={false}
+        installError={'network down'}
+        onInstall={vi.fn()}
+        onDownload={vi.fn()}
+        onDismiss={vi.fn()}
+      />
+    );
+    expect(screen.getByTestId('update-banner-message')).toHaveTextContent(/Update failed.*network down/);
+    // Button label switches from "Install & Restart" to "Retry" while in error state.
+    expect(screen.getByRole('button', { name: 'Retry' })).toBeInTheDocument();
+  });
+
+  it('calls onInstall when Retry is clicked after a failure', () => {
+    const onInstall = vi.fn();
+    render(
+      <UpdateBanner
+        info={makeInfo()}
+        installing={false}
+        installError={'checksum mismatch'}
+        onInstall={onInstall}
+        onDownload={vi.fn()}
+        onDismiss={vi.fn()}
+      />
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
+    expect(onInstall).toHaveBeenCalledOnce();
+  });
+
   it('calls onDismiss when × is clicked', () => {
     const onDismiss = vi.fn();
     render(
       <UpdateBanner
         info={makeInfo()}
         installing={false}
+        installError={null}
         onInstall={vi.fn()}
         onDownload={vi.fn()}
         onDismiss={onDismiss}
@@ -248,6 +295,7 @@ describe('UpdateBanner', () => {
       <UpdateBanner
         info={makeInfo()}
         installing={false}
+        installError={null}
         onInstall={vi.fn()}
         onDownload={vi.fn()}
         onDismiss={vi.fn()}

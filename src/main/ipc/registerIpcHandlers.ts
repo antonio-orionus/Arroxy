@@ -4,6 +4,7 @@ import { createAppError, unknownToMessage } from '@main/utils/errorFactory';
 import { fail, ok, type Result } from '@shared/result';
 import { IPC_CHANNELS } from '@shared/ipc';
 import {
+  analyticsTrackSchema,
   cancelDownloadSchema,
   getFormatsSchema,
   pauseResumeSchema,
@@ -15,6 +16,7 @@ import {
 } from '@shared/schemas';
 import type { AppError, WarmUpOutput } from '@shared/types';
 import type { SupportedLang } from '@shared/i18n/types';
+import { setAnalyticsEnabled, trackMain } from '@main/services/analytics';
 import type { DownloadService } from '@main/services/DownloadService';
 import type { FormatProbeService } from '@main/services/FormatProbeService';
 import type { LogService } from '@main/services/LogService';
@@ -168,7 +170,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
   handle(IPC_CHANNELS.downloadsStart, startDownloadSchema, async (data) => {
     const settings = await settingsStore.get();
     const outputDir = data.outputDir ?? settings.defaultOutputDir;
-    return downloadService.start({ ...data, outputDir });
+    return downloadService.start({ ...data, outputDir, cookiesEnabled: settings.cookiesEnabled ?? false });
   });
 
   handle(IPC_CHANNELS.downloadsCancel, cancelDownloadSchema, ({ jobId }) => {
@@ -206,7 +208,19 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
   handle(IPC_CHANNELS.settingsUpdate, updateSettingsSchema, async (data) => {
     const updated = await settingsStore.update(data);
     clipboardWatcher.setEnabled(updated.clipboardWatchEnabled);
+    if (data.analyticsEnabled !== undefined) {
+      setAnalyticsEnabled(updated.analyticsEnabled ?? true);
+    }
     return ok(updated);
+  });
+
+  // Renderer analytics: fire-and-forget. Allowlist enforcement happens inside trackMain,
+  // and the enabled flag is owned by the main process (no renderer-side bypass).
+  ipcMain.removeAllListeners(IPC_CHANNELS.analyticsTrack);
+  ipcMain.on(IPC_CHANNELS.analyticsTrack, (_, payload: unknown) => {
+    const parsed = analyticsTrackSchema.safeParse(payload);
+    if (!parsed.success) return;
+    trackMain(parsed.data.name, parsed.data.props);
   });
 
   handleRaw(IPC_CHANNELS.shellOpenFolder, async (_, payload: unknown) => {

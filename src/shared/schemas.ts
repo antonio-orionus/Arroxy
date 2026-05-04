@@ -132,6 +132,8 @@ export const startDownloadSchema = z.object({
   url: youtubeUrlSchema,
   outputDir: z.string().min(1).optional(),
   formatId: z.string().min(1).optional(),
+  preset: z.string().optional(),
+  cookiesEnabled: z.boolean().optional(),
   subtitleLanguages: z
     .array(z.string().regex(subtitleLangRegex, 'Invalid subtitle language code'))
     .max(MAX_SUBTITLE_LANGUAGES)
@@ -159,6 +161,11 @@ export const pauseResumeSchema = z.object({
 
 export const resumeSchema = z.object({
   jobId: z.string().min(1)
+});
+
+export const analyticsTrackSchema = z.object({
+  name: z.string().min(1).max(64),
+  props: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional(),
 });
 
 export const updateSettingsSchema = z.object({
@@ -191,7 +198,8 @@ export const updateSettingsSchema = z.object({
   embedThumbnail: z.boolean().optional(),
   writeDescription: z.boolean().optional(),
   writeThumbnail: z.boolean().optional(),
-  analyticsEnabled: z.boolean().optional()
+  analyticsEnabled: z.boolean().optional(),
+  firstRunCompleted: z.boolean().optional()
 });
 
 // Queue item schema — used by both queueSave IPC handler and queueStore.load
@@ -214,6 +222,7 @@ export const queueItemSchema = z.object({
   outputDir: z.string(),
   formatId: z.string().optional(),
   formatLabel: z.string(),
+  preset: z.string().optional(),
   status: queueItemStatusSchema,
   progressPercent: z.number(),
   progressDetail: z.string().nullable(),

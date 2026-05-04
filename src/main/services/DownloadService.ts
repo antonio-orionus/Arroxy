@@ -2,6 +2,7 @@ import { EventEmitter } from 'node:events';
 import { randomUUID } from 'node:crypto';
 import { readdir, unlink, rm } from 'node:fs/promises';
 import { join } from 'node:path';
+import { trackMain, downloadDurationBucket, sizeBucket } from '@main/services/analytics';
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
 import { phasesFor, PhaseExecutor } from './phases';
 import type { PhaseContext } from './phases';
@@ -28,6 +29,16 @@ import type { LogService } from './LogService';
 import type { RecentJobsStore } from '@main/stores/RecentJobsStore';
 import { YtDlp, type YtDlpResult } from './YtDlp';
 import type { ActiveDownload, PausedDownload } from './phases';
+
+function categorizeDownloadError(msg: string): string {
+  const m = msg.toLowerCase();
+  if (/sign in to confirm|confirm you'?re not a bot|\bbot\b|http error 403|\b403\b/.test(m)) return 'bot_detected';
+  if (/\benospc\b|no space left|disk (?:full|space)/.test(m)) return 'disk_full';
+  if (/requested format (?:is )?(?:not available|unavailable)|no video formats|format not available/.test(m)) return 'format_unavailable';
+  if (/ffmpeg (?:error|failed)|error (?:while )?(?:merging|muxing)|postprocessing/.test(m)) return 'merge_failed';
+  if (/\b(?:timed? out|timeout|econn(?:reset|refused|aborted)|enotfound|getaddrinfo|network is unreachable)\b/.test(m)) return 'network';
+  return 'unknown';
+}
 
 function killProcessTree(proc: ChildProcessWithoutNullStreams, signal: NodeJS.Signals): void {
   if (proc.pid == null) {
@@ -81,6 +92,7 @@ export class DownloadService extends EventEmitter {
       url: input.url,
       outputDir: input.outputDir,
       formatId: input.formatId,
+      expectedBytes: input.expectedBytes,
       status: 'running',
       createdAt: now,
       updatedAt: now
@@ -92,6 +104,14 @@ export class DownloadService extends EventEmitter {
     };
     this.activeJobs.set(job.id, active);
     this.logger.log('INFO', 'Download job created', { jobId: job.id, url: job.url, formatId: job.formatId, outputDir: job.outputDir });
+    trackMain('download_started', {
+      preset: input.preset ?? 'custom',
+      has_subtitles: Boolean(input.subtitleLanguages?.length),
+      has_sponsorblock: Boolean(input.sponsorBlockMode && input.sponsorBlockMode !== 'off'),
+      cookies_enabled: Boolean(input.cookiesEnabled),
+      embed_metadata: Boolean(input.embedMetadata),
+      embed_thumbnail: Boolean(input.embedThumbnail),
+    });
     return this.runJob(active);
   }
 
@@ -412,6 +432,15 @@ export class DownloadService extends EventEmitter {
 
     job.status = status;
     job.updatedAt = nowIso();
+
+    const durationMs = new Date(job.updatedAt).getTime() - new Date(job.createdAt).getTime();
+    const outcome = status === 'completed' ? 'success' : status === 'cancelled' ? 'cancelled' : 'error';
+    trackMain('download_finished', {
+      outcome,
+      duration_bucket: downloadDurationBucket(durationMs),
+      ...(status !== 'cancelled' && job.expectedBytes != null ? { size_bucket: sizeBucket(job.expectedBytes) } : {}),
+      ...(outcome === 'error' ? { error_category: categorizeDownloadError(error?.rawMessage ?? '') } : {}),
+    });
 
     const recent: RecentJob = {
       id: job.id,

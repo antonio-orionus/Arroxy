@@ -248,7 +248,9 @@ const ar = {
     download: 'Download ↗',
     dismiss: 'إخفاء شريط التحديث',
     copy: 'نسخ الأمر إلى الحافظة',
-    copied: 'تم نسخ الأمر إلى الحافظة'
+    copied: 'تم نسخ الأمر إلى الحافظة',
+    installFailed: 'فشل التحديث',
+    retry: 'إعادة المحاولة'
   },
   status: {
     preparingBinaries: 'جارٍ تحضير الثنائيات…',

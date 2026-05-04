@@ -15,6 +15,7 @@ import type {
   StartDownloadOutput,
   StatusEvent,
   UpdateAvailablePayload,
+  UpdateInstallResult,
   WarmUpOutput
 } from './types';
 
@@ -65,6 +66,9 @@ export interface AppApi {
   };
   updater: {
     onUpdateAvailable(listener: (info: UpdateAvailablePayload) => void): () => void;
-    install(): Promise<void>;
+    install(): Promise<UpdateInstallResult>;
+  };
+  analytics: {
+    track(name: string, props?: Record<string, string | number | boolean>): void;
   };
 }

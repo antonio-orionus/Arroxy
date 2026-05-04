@@ -5,7 +5,8 @@ const alias = {
   '@main': path.resolve('src/main'),
   '@preload': path.resolve('src/preload'),
   '@renderer': path.resolve('src/renderer/src'),
-  '@shared': path.resolve('src/shared')
+  '@shared': path.resolve('src/shared'),
+  '@aptabase/electron/main': path.resolve('tests/__mocks__/aptabase-main.ts'),
 };
 
 export default defineConfig({

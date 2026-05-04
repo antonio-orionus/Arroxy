@@ -248,7 +248,9 @@ const fr = {
     download: 'Télécharger ↗',
     dismiss: 'Masquer la bannière de mise à jour',
     copy: 'Copier la commande dans le presse-papiers',
-    copied: 'Commande copiée dans le presse-papiers'
+    copied: 'Commande copiée dans le presse-papiers',
+    installFailed: 'Échec de la mise à jour',
+    retry: 'Réessayer'
   },
   status: {
     preparingBinaries: 'Préparation des binaires…',
