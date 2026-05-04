@@ -132,12 +132,12 @@ jobs:
           TARBALL="Arroxy-${VERSION}.tar.gz"
           gh release download "${GITHUB_REF_NAME}" \
             --repo "${GITHUB_REPOSITORY}" \
-            --pattern "$TARBALL"
-          HASH=$(sha256sum "$TARBALL" | awk '{print $1}')
-          rm "$TARBALL"
+            --pattern "$TARBALL" \
+            --dir flatpak
+          HASH=$(sha256sum "flatpak/$TARBALL" | awk '{print $1}')
           python3 scripts/render-flatpak-manifest.py \
-            --version "$VERSION" \
             --sha256 "$HASH" \
+            --archive-path "$TARBALL" \
             --template flatpak/io.github.antonio_orionus.Arroxy.yml.in \
             --output flatpak/io.github.antonio_orionus.Arroxy.yml
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6

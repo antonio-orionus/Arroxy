@@ -79,11 +79,21 @@ jobs:
               output.write(f"version={version}\n")
               output.write(f"sha256={hash_value}\n")
           EOF
+      - name: Download release tarball
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ steps.resolve.outputs.version }}"
+          gh release download "v${VERSION}" \
+            --repo antonio-orionus/Arroxy \
+            --pattern "Arroxy-${VERSION}.tar.gz" \
+            --dir flatpak
       - name: Render temporary manifest
         run: |
+          VERSION="${{ steps.resolve.outputs.version }}"
           python3 scripts/render-flatpak-manifest.py \
-            --version "${{ steps.resolve.outputs.version }}" \
             --sha256 "${{ steps.resolve.outputs.sha256 }}" \
+            --archive-path "Arroxy-${VERSION}.tar.gz" \
             --template flatpak/io.github.antonio_orionus.Arroxy.yml.in \
             --output flatpak/io.github.antonio_orionus.Arroxy.yml
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6

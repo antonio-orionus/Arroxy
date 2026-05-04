@@ -22,7 +22,7 @@
   "nsis": {
     "oneClick": false,
     "perMachine": false,
-    "allowElevation": true,
+    "allowElevation": false,
     "allowToChangeInstallationDirectory": true,
     "multiLanguageInstaller": true,
     "installerLanguages": ["en_US", "es_ES", "fr_FR", "de_DE", "ru_RU", "uk_UA", "ja_JP", "zh_CN"],
