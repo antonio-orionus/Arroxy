@@ -1,20 +1,20 @@
 import { STATUS_KEY } from '@shared/schemas';
 import { DEFAULTS } from '@shared/constants';
-import { dedupeSubtitleFiles, muxSubtitlesIntoVideo } from '../subtitlePostProcess';
+import { dedupeSubtitleFiles, muxSubtitlesIntoVideo, logger } from '../subtitlePostProcess';
 import type { Phase, PhaseContext, PhaseOutcome } from './types';
 
 async function runEmbedMux(ctx: PhaseContext): Promise<void> {
-  const { active, ytDlp, logger } = ctx;
+  const { active, ytDlp } = ctx;
   const { job, input } = active;
 
   const ffmpegPath = ytDlp.ffmpegPath;
   if (!ffmpegPath) {
-    logger.log('WARN', 'embed-mux skipped — ffmpeg not available', { jobId: job.id });
+    logger.warn('embed-mux skipped — ffmpeg not available', { jobId: job.id });
     ctx.emitStatus('download', STATUS_KEY.subtitlesFailed);
     return;
   }
   if (!active.mediaPath || active.subtitlePaths.length === 0) {
-    logger.log('WARN', 'embed-mux: missing video or sub paths', {
+    logger.warn('embed-mux: missing video or sub paths', {
       jobId: job.id,
       videoPath: active.mediaPath,
       subCount: active.subtitlePaths.length
@@ -34,7 +34,6 @@ async function runEmbedMux(ctx: PhaseContext): Promise<void> {
       active.ffmpegProcess = proc;
       if (active.cancelRequested) proc.kill('SIGKILL');
     },
-    logger,
     jobId: job.id
   });
   active.ffmpegProcess = undefined;
@@ -69,7 +68,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
       );
 
       if (subResult.kind !== 'success') {
-        ctx.logger.log('WARN', 'Subtitle fetch failed — video already saved', {
+        logger.warn('Subtitle fetch failed — video already saved', {
           jobId: job.id,
           kind: subResult.kind,
           ...(subResult.kind === 'exit-error' ? { code: subResult.exitCode, signal: subResult.signal } : {})
@@ -80,7 +79,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
       if (subResult.usedExtractorFallback) active.usedExtractorFallback = true;
 
       if (input.writeAutoSubs) {
-        await dedupeSubtitleFiles(active.subtitlePaths, ctx.logger, job.id, () => active.cancelRequested);
+        await dedupeSubtitleFiles(active.subtitlePaths, job.id, () => active.cancelRequested);
       }
 
       if (embedAfter) await runEmbedMux(ctx);

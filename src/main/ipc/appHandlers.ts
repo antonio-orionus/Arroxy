@@ -1,18 +1,17 @@
+import log from 'electron-log/main';
 import { IPC_CHANNELS } from '@shared/ipc';
 import { supportedLangSchema } from '@shared/schemas';
 import type { SupportedLang } from '@shared/i18n/types';
 import type { WarmupService } from '@main/services/WarmupService';
-import type { LogService } from '@main/services/LogService';
 import { handleRaw } from './utils';
 
 interface AppHandlerDeps {
   warmupService: WarmupService;
-  logService: LogService;
   languageRef: { current: SupportedLang };
 }
 
 export function registerAppHandlers(deps: AppHandlerDeps): void {
-  const { warmupService, logService, languageRef } = deps;
+  const { warmupService, languageRef } = deps;
 
   handleRaw(IPC_CHANNELS.appWarmUp, () => warmupService.run());
 
@@ -21,7 +20,7 @@ export function registerAppHandlers(deps: AppHandlerDeps): void {
     if (parsed.success) {
       languageRef.current = parsed.data;
     } else {
-      logService.log('WARN', 'app:setLanguage rejected — invalid language', { payload });
+      log.warn('app:setLanguage rejected — invalid language', { payload });
     }
   });
 }

@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { RecentJobsStore } from '@main/stores/RecentJobsStore';
 import { SettingsStore } from '@main/stores/SettingsStore';
 
@@ -62,7 +62,7 @@ describe('settings and recent stores', () => {
     expect(list[1].id).toBe('1');
   });
 
-  it('serializes concurrent push() calls — both jobs are persisted', async () => {
+  it('handles concurrent push() calls — push is synchronous so both jobs land without interleaving', async () => {
     const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'recent-jobs-concurrent-'));
     const store = new RecentJobsStore(userData);
 
@@ -89,31 +89,24 @@ describe('settings and recent stores', () => {
     expect(list.map((j) => j.id)).toContain('job-b');
   });
 
-  it('logs an error when settings.json is corrupted', async () => {
+  it('returns defaults when settings.json is corrupted', async () => {
     const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-corrupt-'));
+    await fs.writeFile(path.join(userData, 'settings.json'), 'not valid json', 'utf-8');
     const store = new SettingsStore(userData, {
       defaultOutputDir: '/tmp',
       rememberLastOutputDir: true,
       clipboardWatchEnabled: false
     });
-    await fs.writeFile(path.join(userData, 'settings.json'), 'not valid json', 'utf-8');
 
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    await store.get();
-
-    expect(spy).toHaveBeenCalledOnce();
-    spy.mockRestore();
+    const settings = await store.get();
+    expect(settings.defaultOutputDir).toBe('/tmp');
   });
 
-  it('logs an error when recent-jobs.json is corrupted', async () => {
+  it('returns empty list when recent-jobs.json is corrupted', async () => {
     const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'recent-jobs-corrupt-'));
-    const store = new RecentJobsStore(userData);
     await fs.writeFile(path.join(userData, 'recent-jobs.json'), 'not valid json', 'utf-8');
+    const store = new RecentJobsStore(userData);
 
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    await store.list();
-
-    expect(spy).toHaveBeenCalledOnce();
-    spy.mockRestore();
+    expect(await store.list()).toEqual([]);
   });
 });

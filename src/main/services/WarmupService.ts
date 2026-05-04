@@ -1,13 +1,14 @@
+import log from 'electron-log/main';
+
+const logger = log.scope('warmup');
 import { ok, type Result } from '@shared/result';
 import type { WarmUpOutput } from '@shared/types';
 import type { BinaryManager } from './BinaryManager';
 import type { TokenService } from './TokenService';
-import type { LogService } from './LogService';
 
 interface WarmupServiceDeps {
   binaryManager: BinaryManager;
   tokenService: TokenService;
-  logService: LogService;
 }
 
 export class WarmupService {
@@ -16,7 +17,7 @@ export class WarmupService {
   constructor(private readonly deps: WarmupServiceDeps) {}
 
   run(): Promise<Result<WarmUpOutput>> {
-    const { binaryManager, tokenService, logService } = this.deps;
+    const { binaryManager, tokenService } = this.deps;
     this.warmUpPromise ??= Promise.allSettled([binaryManager.ensureYtDlp(), binaryManager.ensureFFmpeg(), binaryManager.ensureFFprobe(), binaryManager.ensureDeno(), tokenService.warmUp()]).then((results) => {
       const failures = results.flatMap((result) => {
         if (result.status === 'fulfilled') return [];
@@ -24,9 +25,9 @@ export class WarmupService {
       });
 
       if (failures.length > 0) {
-        logService.log('WARN', 'Warmup completed with failures', { failures });
+        logger.warn('Warmup completed with failures', { failures });
       } else {
-        logService.log('INFO', 'Warmup completed');
+        logger.info('Warmup completed');
       }
 
       return ok({ completed: true, failures });

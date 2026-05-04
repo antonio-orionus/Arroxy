@@ -26,10 +26,9 @@ function makeStubs(binaryOverrides: Partial<{ ensureYtDlp: () => Promise<string>
     invalidateCache: vi.fn()
   };
   const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
-  const logService = { log: vi.fn() };
   const settingsStore = { get: vi.fn().mockResolvedValue({}) };
   const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
-  return { ytDlp, binaryManager, tokenService, recentJobsStore, logService, settingsStore };
+  return { ytDlp, binaryManager, tokenService, recentJobsStore, settingsStore };
 }
 
 const URL = 'https://www.youtube.com/watch?v=test';
@@ -44,7 +43,7 @@ describe('pendingCancelCount', () => {
     const fakeProc = new FakeProcess(); // never fires close
     vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as never);
 
-    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never, stubs.logService as never);
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never);
 
     await svc.start({ url: URL, outputDir: '/tmp' });
     expect(svc.activeCount).toBe(1);
@@ -65,7 +64,7 @@ describe('pendingCancelCount', () => {
       .mockReturnValueOnce(proc1 as never)
       .mockReturnValueOnce(proc2 as never);
 
-    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never, stubs.logService as never);
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never);
 
     const [r1] = await Promise.all([svc.start({ url: URL, outputDir: '/tmp' }), svc.start({ url: URL, outputDir: '/tmp' })]);
 
@@ -90,7 +89,7 @@ describe('process group kill on POSIX', () => {
 
     const killSpy = vi.spyOn(process, 'kill').mockImplementation(() => true);
 
-    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never, stubs.logService as never);
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never);
 
     await svc.start({ url: URL, outputDir: '/tmp' });
     // Wait until the process is spawned. attachYtDlpProcess emits 'download' status
@@ -115,7 +114,7 @@ describe('pre-spawn cancel emits status event', () => {
     });
 
     const stubs = makeStubs({ ensureYtDlp: vi.fn().mockReturnValue(binaryHeld) });
-    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never, stubs.logService as never);
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never);
 
     const statuses: { stage: string; statusKey: string }[] = [];
     svc.on('status', (ev) => statuses.push({ stage: ev.stage, statusKey: ev.statusKey }));
@@ -142,7 +141,7 @@ describe('pre-spawn cancel emits status event', () => {
     const stubs = makeStubs();
     stubs.tokenService.mintTokenForUrl = vi.fn().mockReturnValue(tokenHeld);
 
-    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never, stubs.logService as never);
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never);
 
     const statuses: { stage: string; statusKey: string }[] = [];
     svc.on('status', (ev) => statuses.push({ stage: ev.stage, statusKey: ev.statusKey }));

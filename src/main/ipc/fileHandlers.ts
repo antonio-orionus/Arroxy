@@ -1,17 +1,11 @@
+import path from 'node:path';
 import { app, dialog, shell, type BrowserWindow } from 'electron';
+import log from 'electron-log/main';
 import { IPC_CHANNELS } from '@shared/ipc';
 import { ok } from '@shared/result';
-import type { LogService } from '@main/services/LogService';
 import { handleRaw, toIpcFailure, toUnknownFailure } from './utils';
 
-interface FileHandlerDeps {
-  mainWindow: BrowserWindow;
-  logService: LogService;
-}
-
-export function registerFileHandlers(deps: FileHandlerDeps): void {
-  const { mainWindow, logService } = deps;
-
+export function registerFileHandlers(mainWindow: BrowserWindow): void {
   handleRaw(IPC_CHANNELS.chooseFolder, async () => {
     try {
       const result = await dialog.showOpenDialog(mainWindow, {
@@ -65,7 +59,8 @@ export function registerFileHandlers(deps: FileHandlerDeps): void {
 
   handleRaw(IPC_CHANNELS.logsOpenDir, async () => {
     try {
-      const response = await shell.openPath(logService.getLogsDir());
+      const logsDir = path.dirname(log.transports.file.getFile().path);
+      const response = await shell.openPath(logsDir);
       if (response) return toIpcFailure(response);
       return ok({ opened: true });
     } catch (error) {

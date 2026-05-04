@@ -7,11 +7,13 @@
 import { extname } from 'node:path';
 import { readFile, rename, unlink, writeFile } from 'node:fs/promises';
 import type { ChildProcessWithoutNullStreams } from 'node:child_process';
+import log from 'electron-log/main';
 import { dedupeSrt } from './srtDedupe';
 import { dedupeVtt } from './vttDedupe';
 import { spawnFFmpeg } from '@main/utils/process';
 import { detectSubtitleLang, EMBED_CONTAINER_EXT } from '@shared/subtitlePath';
-import type { LogService } from './LogService';
+
+export const logger = log.scope('subs');
 
 // Minimal ISO 639-1 → 639-2/B mapping for the languages YouTube most commonly
 // exposes. mkv prefers 3-letter codes per the Matroska spec; players still
@@ -70,7 +72,7 @@ function buildSubtitleEmbedArgs(opts: { videoPath: string; subtitleTracks: Array
 // YouTube auto-captions arrive as rolling cues — each cue duplicates the
 // previous + 1 word. Run pure-TS dedupe on each .srt / .vtt we wrote.
 // Failures are logged and swallowed: dedupe glitches must never lose a video.
-export async function dedupeSubtitleFiles(paths: readonly string[], logger: LogService, jobId: string, shouldAbort: () => boolean): Promise<void> {
+export async function dedupeSubtitleFiles(paths: readonly string[], jobId: string, shouldAbort: () => boolean): Promise<void> {
   await Promise.all(
     paths.map(async (path) => {
       if (shouldAbort()) return;
@@ -84,7 +86,7 @@ export async function dedupeSubtitleFiles(paths: readonly string[], logger: LogS
           await writeFile(path, cleaned, 'utf8');
         }
       } catch (err) {
-        logger.log('WARN', 'auto-caption dedupe skipped', {
+        logger.warn('auto-caption dedupe skipped', {
           jobId,
           path,
           message: err instanceof Error ? err.message : String(err)
@@ -105,7 +107,7 @@ export interface MuxResult {
 // Lang attribution is strict: each sub path must end in `.<lang>.<ext>` for
 // one of the requested langs. Unknown → 'und' (no positional fallback —
 // yt-dlp doesn't guarantee output order matches input order).
-export async function muxSubtitlesIntoVideo(opts: { ffmpegPath: string; videoPath: string; subtitlePaths: readonly string[]; requestedLangs: readonly string[]; onSpawn: (proc: ChildProcessWithoutNullStreams) => void; logger: LogService; jobId: string }): Promise<MuxResult> {
+export async function muxSubtitlesIntoVideo(opts: { ffmpegPath: string; videoPath: string; subtitlePaths: readonly string[]; requestedLangs: readonly string[]; onSpawn: (proc: ChildProcessWithoutNullStreams) => void; jobId: string }): Promise<MuxResult> {
   if (opts.subtitlePaths.length === 0) return { ok: false };
 
   const tracks = opts.subtitlePaths.map((path) => ({
@@ -130,7 +132,7 @@ export async function muxSubtitlesIntoVideo(opts: { ffmpegPath: string; videoPat
   });
 
   if (!ok) {
-    opts.logger.log('ERROR', 'subtitle mux: ffmpeg failed or cancelled', { jobId: opts.jobId });
+    logger.error('subtitle mux: ffmpeg failed or cancelled', { jobId: opts.jobId });
     await unlink(tempPath).catch(() => {});
     return { ok: false };
   }
@@ -141,7 +143,7 @@ export async function muxSubtitlesIntoVideo(opts: { ffmpegPath: string; videoPat
     await Promise.all(opts.subtitlePaths.map((p) => unlink(p).catch(() => {})));
     return { ok: true, outputPath };
   } catch (err) {
-    opts.logger.log('WARN', 'subtitle mux: post-mux cleanup partial', {
+    logger.warn('subtitle mux: post-mux cleanup partial', {
       jobId: opts.jobId,
       message: err instanceof Error ? err.message : String(err)
     });

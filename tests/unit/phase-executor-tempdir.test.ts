@@ -34,7 +34,6 @@ function makeCtx(activeOverrides: Partial<ActiveDownload> = {}): PhaseContext {
   return {
     active: makeActive(activeOverrides),
     ytDlp: {} as never,
-    logger: { log: vi.fn() } as never,
     emitStatus: vi.fn(),
     emitYtdlpFailure: vi.fn().mockReturnValue({ key: null }),
     attachYtDlpProcess: vi.fn(),

@@ -1,6 +1,5 @@
 import { EventEmitter } from 'node:events';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { LogService } from '@main/services/LogService';
 import type { BinaryManager } from '@main/services/BinaryManager';
 import type { TokenService } from '@main/services/TokenService';
 import type { RecentJobsStore } from '@main/stores/RecentJobsStore';
@@ -19,7 +18,6 @@ class FakeProcess extends EventEmitter {
 }
 
 function makeStubs() {
-  const logger = { log: vi.fn() } as unknown as LogService;
   const binaryManager = {
     ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'),
     ensureFFmpeg: vi.fn().mockResolvedValue(null),
@@ -37,7 +35,7 @@ function makeStubs() {
     get: vi.fn().mockResolvedValue({})
   } as never;
   const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore);
-  return { logger, binaryManager, tokenService, recentJobsStore, settingsStore, ytDlp };
+  return { binaryManager, tokenService, recentJobsStore, settingsStore, ytDlp };
 }
 
 afterEach(() => {
@@ -47,7 +45,7 @@ afterEach(() => {
 describe('DownloadService stdout/stderr crash safety', () => {
   it('stdout data handler swallows exceptions from consumeProgress', async () => {
     const stubs = makeStubs();
-    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore, stubs.logger);
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore);
 
     const fakeProc = new FakeProcess();
     vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as any);
@@ -65,7 +63,7 @@ describe('DownloadService stdout/stderr crash safety', () => {
 
   it('stderr data handler swallows exceptions from consumeProgress', async () => {
     const stubs = makeStubs();
-    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore, stubs.logger);
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore);
 
     const fakeProc = new FakeProcess();
     vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as any);
@@ -82,7 +80,7 @@ describe('DownloadService stdout/stderr crash safety', () => {
 
   it('active job count is still correct after a crash in the stdout handler', async () => {
     const stubs = makeStubs();
-    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore, stubs.logger);
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore);
 
     const fakeProc = new FakeProcess();
     vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as any);

@@ -1,23 +1,19 @@
-import path from 'node:path';
+import Store from 'electron-store';
 import type { AppSettings } from '@shared/types';
-import { JsonFileStore } from './JsonFileStore';
 
-export class SettingsStore extends JsonFileStore {
-  private readonly defaults: AppSettings;
+export class SettingsStore {
+  private readonly store: Store<AppSettings>;
 
   constructor(userDataPath: string, defaults: AppSettings) {
-    super(path.join(userDataPath, 'settings.json'));
-    this.defaults = defaults;
+    this.store = new Store<AppSettings>({ name: 'settings', cwd: userDataPath, defaults, clearInvalidConfig: true });
   }
 
   async get(): Promise<AppSettings> {
-    const data = await this.readJson<Partial<AppSettings>>({}, (err) => console.error('[SettingsStore] Failed to load settings — using defaults', err));
-    return { ...this.defaults, ...data };
+    return this.store.store;
   }
 
   async update(next: Partial<AppSettings>): Promise<AppSettings> {
-    const merged = { ...(await this.get()), ...next };
-    await this.writeJson(merged);
-    return merged;
+    this.store.set(next as AppSettings);
+    return this.store.store;
   }
 }

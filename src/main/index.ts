@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { app, BrowserWindow, dialog } from 'electron';
+import log from 'electron-log/main';
 import { IPC_CHANNELS } from '@shared/ipc';
 import { TrayManager } from '@main/services/TrayManager';
 import { mainT, pluralKey } from '@main/i18n';
@@ -11,7 +12,6 @@ import { detectInstallChannel } from '@main/installChannel';
 import { BinaryManager } from '@main/services/BinaryManager';
 import { DownloadService } from '@main/services/DownloadService';
 import { FormatProbeService } from '@main/services/FormatProbeService';
-import { LogService } from '@main/services/LogService';
 import { TokenService } from '@main/services/TokenService';
 import { YtDlp } from '@main/services/YtDlp';
 import { RecentJobsStore } from '@main/stores/RecentJobsStore';
@@ -22,6 +22,8 @@ import { HiddenWindowTokenProvider } from '@main/token/providers/HiddenWindowTok
 import { MockTokenProvider } from '@main/token/providers/MockTokenProvider';
 import { defaultAppSettings } from '@shared/constants';
 import { runSmokeMode, readSmokeUrl, exitWithCode } from '@main/smoke';
+
+log.initialize();
 
 const isMockBackend = process.env.MOCK_BACKEND === '1';
 
@@ -76,7 +78,8 @@ if (hasSingleInstanceLock) {
 
   void app.whenReady().then(async () => {
     const userDataPath = app.getPath('userData');
-    const logService = new LogService(userDataPath);
+    log.transports.file.resolvePathFn = () => path.join(userDataPath, 'logs', 'main.log');
+    log.info('Session started');
 
     const settingsStore = new SettingsStore(userDataPath, defaultAppSettings(app.getPath('downloads')));
     const initialSettings = await settingsStore.get();
@@ -85,12 +88,12 @@ if (hasSingleInstanceLock) {
     };
     const recentJobsStore = new RecentJobsStore(userDataPath);
     const queueStore = new QueueStore(userDataPath);
-    const binaryManager = new BinaryManager(userDataPath, logService);
-    const tokenProvider = isMockBackend ? new MockTokenProvider() : new HiddenWindowTokenProvider(logService);
-    const tokenService = new TokenService(tokenProvider, logService);
+    const binaryManager = new BinaryManager(userDataPath);
+    const tokenProvider = isMockBackend ? new MockTokenProvider() : new HiddenWindowTokenProvider();
+    const tokenService = new TokenService(tokenProvider);
     const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore);
-    const downloadService = new DownloadService(ytDlp, recentJobsStore, logService, isMockBackend);
-    const formatProbeService = new FormatProbeService(ytDlp, logService, isMockBackend);
+    const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend);
+    const formatProbeService = new FormatProbeService(ytDlp, isMockBackend);
 
     // Headless smoke mode — exercises PoT scrape + 3-attempt ladder against
     // real YouTube using production services, then exits. No window created.
@@ -227,7 +230,6 @@ if (hasSingleInstanceLock) {
       formatProbeService,
       settingsStore,
       queueStore,
-      logService,
       tokenService,
       languageRef,
       clipboardWatcher
@@ -242,7 +244,7 @@ if (hasSingleInstanceLock) {
         });
         tray.start();
       } catch (e) {
-        logService.log('WARN', `Tray init failed — running without tray: ${String(e)}`);
+        log.warn(`Tray init failed — running without tray: ${String(e)}`);
         tray = null;
       }
     }
@@ -253,13 +255,13 @@ if (hasSingleInstanceLock) {
       clipboardWatcher.dispose();
       if (downloadService.activeCount === 0) {
         tokenService.dispose();
-        logService.log('INFO', 'App shutting down');
+        log.info('App shutting down');
         return;
       }
       event.preventDefault();
       void downloadService.cancel().finally(() => {
         tokenService.dispose();
-        logService.log('INFO', 'App shutting down');
+        log.info('App shutting down');
         app.exit(0); // must use exit(), not quit() — quit() re-emits before-quit causing infinite loop
       });
     });

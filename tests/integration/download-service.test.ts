@@ -14,10 +14,9 @@ function makeService() {
     mintTokenForUrl: vi.fn().mockResolvedValue({ token: 'mock-token', visitorData: 'mock-visitor' })
   };
   const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
-  const logService = { log: vi.fn() };
   const settingsStore = { get: vi.fn().mockResolvedValue({}) };
   const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
-  const service = new DownloadService(ytDlp, recentJobsStore as never, logService as never, true);
+  const service = new DownloadService(ytDlp, recentJobsStore as never, true);
   return { service, recentJobsStore };
 }
 
@@ -177,10 +176,9 @@ describe('DownloadService (mock mode)', () => {
     };
     const tokenService = { mintTokenForUrl: vi.fn() };
     const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
-    const logService = { log: vi.fn() };
     const settingsStore = { get: vi.fn().mockResolvedValue({}) };
     const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
-    const service = new DownloadService(ytDlp, recentJobsStore as never, logService as never, true);
+    const service = new DownloadService(ytDlp, recentJobsStore as never, true);
     vi.spyOn(service, 'cleanupPartFiles').mockResolvedValue();
 
     // Seed a paused job directly so resume() takes the within-session branch.

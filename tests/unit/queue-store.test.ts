@@ -112,7 +112,7 @@ describe('QueueStore', () => {
   it('always sets downloadJobId to null on load', async () => {
     const [store, dir] = await tempStore();
     const raw = [makeItem({ id: 'f', status: 'pending', downloadJobId: 'stale-job' })];
-    await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify(raw), 'utf-8');
+    await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({ items: raw }), 'utf-8');
 
     const loaded = await loadOk(store);
     expect(loaded[0].downloadJobId).toBeNull();
@@ -128,16 +128,12 @@ describe('QueueStore', () => {
     expect(loaded[0].id).toBe('second');
   });
 
-  it('returns validation failure for non-JSON file (no silent recovery)', async () => {
-    const [store, dir] = await tempStore();
+  it('resets to empty queue when startup file is corrupt JSON (clearInvalidConfig repairs on construction)', async () => {
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'queue-store-'));
     await fs.writeFile(path.join(dir, 'queue.json'), 'not valid json', 'utf-8');
+    const store = new QueueStore(dir);
 
-    const result = await store.load();
-    expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.error.code).toBe('validation');
-      expect(result.error.message).toMatch(/not valid JSON/i);
-    }
+    expect(await loadOk(store)).toEqual([]);
   });
 
   it('returns validation failure for non-array JSON (no silent recovery)', async () => {

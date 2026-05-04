@@ -3,16 +3,11 @@ import os from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { BinaryManager } from '@main/services/BinaryManager';
-import type { LogService } from '@main/services/LogService';
-
-function makeLogger(): LogService {
-  return { log: vi.fn() } as unknown as LogService;
-}
 
 async function makeMgr(): Promise<BinaryManager> {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'bm-retry-'));
   // Zero delays so tests run instantly
-  return new BinaryManager(dir, makeLogger(), [0, 0]);
+  return new BinaryManager(dir, [0, 0]);
 }
 
 afterEach(() => {

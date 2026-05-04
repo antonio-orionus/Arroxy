@@ -1,5 +1,6 @@
 import { app, ipcMain, type BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
+import log from 'electron-log/main';
 import { IPC_CHANNELS } from '@shared/ipc';
 import { detectInstallChannel } from '@main/installChannel';
 import { trackMain } from '@main/services/analytics';
@@ -19,6 +20,12 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
   // can't install) and showing a banner without a real update check would be
   // misleading — the host package manager already notifies the user.
   if (installChannel === 'flatpak') return;
+
+  // Portable and scoop targets ship a portable .exe that extracts to %TEMP% —
+  // app-update.yml is absent from that extracted bundle, causing ENOENT when
+  // electron-updater tries to read the feed. setFeedURL is authoritative and
+  // overrides the missing file on all targets (no-op cost on NSIS/DMG/AppImage).
+  autoUpdater.setFeedURL({ provider: 'github', owner: 'antonio-orionus', repo: 'Arroxy' });
 
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
@@ -51,7 +58,7 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
   });
 
   autoUpdater.on('error', (err) => {
-    console.error('[updater]', err.message);
+    log.error('[updater]', err.message);
     if (pendingInstall) {
       pendingInstall({ ok: false, error: err.message });
       pendingInstall = null;

@@ -1,8 +1,8 @@
+import log from 'electron-log/main';
 import { IPC_CHANNELS } from '@shared/ipc';
 import { cancelDownloadSchema, getFormatsSchema, pauseResumeSchema, resumeSchema, startDownloadSchema } from '@shared/schemas';
 import type { DownloadService } from '@main/services/DownloadService';
 import type { FormatProbeService } from '@main/services/FormatProbeService';
-import type { LogService } from '@main/services/LogService';
 import type { SettingsStore } from '@main/stores/SettingsStore';
 import { handle } from './utils';
 
@@ -10,11 +10,10 @@ interface DownloadHandlerDeps {
   downloadService: DownloadService;
   formatProbeService: FormatProbeService;
   settingsStore: SettingsStore;
-  logService: LogService;
 }
 
 export function registerDownloadHandlers(deps: DownloadHandlerDeps): void {
-  const { downloadService, formatProbeService, settingsStore, logService } = deps;
+  const { downloadService, formatProbeService, settingsStore } = deps;
 
   handle(IPC_CHANNELS.downloadsGetFormats, getFormatsSchema, ({ url }) => formatProbeService.getFormats(url));
 
@@ -29,7 +28,7 @@ export function registerDownloadHandlers(deps: DownloadHandlerDeps): void {
   });
 
   handle(IPC_CHANNELS.downloadsCancel, cancelDownloadSchema, ({ jobId }) => {
-    logService.log('INFO', '[cancel IPC] received', { jobId: jobId ?? '(undefined)' });
+    log.info('[cancel IPC] received', { jobId: jobId ?? '(undefined)' });
     return downloadService.cancel(jobId);
   });
 

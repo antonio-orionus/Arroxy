@@ -7,7 +7,8 @@ import type { YtDlpResult } from '@main/services/YtDlp';
 
 vi.mock('@main/services/subtitlePostProcess', () => ({
   dedupeSubtitleFiles: vi.fn().mockResolvedValue(undefined),
-  muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ ok: false })
+  muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ ok: false }),
+  logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() }
 }));
 
 import { dedupeSubtitleFiles } from '@main/services/subtitlePostProcess';
@@ -50,7 +51,6 @@ function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload
   return {
     active: makeActive(activeOverrides),
     ytDlp: { run: runMock, ffmpegPath: null } as never,
-    logger: { log: vi.fn() } as never,
     emitStatus: vi.fn(),
     emitYtdlpFailure: vi.fn().mockReturnValue({ key: null }),
     attachYtDlpProcess: vi.fn(),
@@ -132,7 +132,7 @@ describe('SubtitleOnlyPhase', () => {
     });
     await SubtitleOnlyPhase.run(ctx);
 
-    const shouldAbort = vi.mocked(dedupeSubtitleFiles).mock.calls[0][3];
+    const shouldAbort = vi.mocked(dedupeSubtitleFiles).mock.calls[0][2];
     expect(shouldAbort()).toBe(false);
     ctx.active.cancelRequested = true;
     expect(shouldAbort()).toBe(true);
@@ -142,7 +142,6 @@ describe('SubtitleOnlyPhase', () => {
     const ctx: PhaseContext = {
       active: makeActive({ cancelRequested: false }),
       ytDlp: {} as never,
-      logger: { log: vi.fn() } as never,
       emitStatus: vi.fn(),
       emitYtdlpFailure: vi.fn(),
       attachYtDlpProcess: vi.fn(),
@@ -171,7 +170,6 @@ describe('SubtitleOnlyPhase', () => {
     const ctx: PhaseContext = {
       active: makeActive(),
       ytDlp: { run: runMock } as never,
-      logger: { log: vi.fn() } as never,
       emitStatus: vi.fn(),
       emitYtdlpFailure: vi.fn(),
       attachYtDlpProcess: vi.fn(),
@@ -196,7 +194,6 @@ describe('SubtitleOnlyPhase', () => {
     const ctx: PhaseContext = {
       active: makeActive(),
       ytDlp: { run: runMock } as never,
-      logger: { log: vi.fn() } as never,
       emitStatus: vi.fn(),
       emitYtdlpFailure: vi.fn(),
       attachYtDlpProcess: vi.fn(),
@@ -221,7 +218,6 @@ describe('SubtitleOnlyPhase', () => {
     const ctx: PhaseContext = {
       active: makeActive(),
       ytDlp: { run: runMock } as never,
-      logger: { log: vi.fn() } as never,
       emitStatus: vi.fn(),
       emitYtdlpFailure: vi.fn(),
       attachYtDlpProcess: vi.fn(),

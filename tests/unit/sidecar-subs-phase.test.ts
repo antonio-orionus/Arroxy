@@ -7,7 +7,8 @@ import type { YtDlpResult } from '@main/services/YtDlp';
 
 vi.mock('@main/services/subtitlePostProcess', () => ({
   dedupeSubtitleFiles: vi.fn().mockResolvedValue(undefined),
-  muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ ok: true, outputPath: '/tmp/video.mkv' })
+  muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ ok: true, outputPath: '/tmp/video.mkv' }),
+  logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() }
 }));
 
 import { dedupeSubtitleFiles, muxSubtitlesIntoVideo } from '@main/services/subtitlePostProcess';
@@ -52,7 +53,6 @@ function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload
   return {
     active: makeActive(activeOverrides),
     ytDlp: { run: runMock, ffmpegPath: '/fake/ffmpeg' } as never,
-    logger: { log: vi.fn() } as never,
     emitStatus: vi.fn(),
     emitYtdlpFailure: vi.fn().mockReturnValue({ key: null }),
     attachYtDlpProcess: vi.fn(),
@@ -139,7 +139,7 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
     });
     await SidecarSubsPhase(false).run(ctx);
 
-    const shouldAbort = vi.mocked(dedupeSubtitleFiles).mock.calls[0][3];
+    const shouldAbort = vi.mocked(dedupeSubtitleFiles).mock.calls[0][2];
     expect(shouldAbort()).toBe(false);
     ctx.active.cancelRequested = true;
     expect(shouldAbort()).toBe(true);

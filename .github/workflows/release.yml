@@ -30,14 +30,9 @@ jobs:
     # (.github/workflows/installer-smoke.yml) so it can be smoke-tested
     # before publish. mac/linux still build + publish here via dist:release.
     #
-    # macOS ships as two separate DMGs (arm64 + x64) — both built on the
-    # macos-latest (arm64) runner. To bundle the correct ffprobe binary
-    # inside each DMG, we patch in @ffprobe-installer/darwin-x64 via npm
-    # after `bun install`: bun honors os/cpu constraints and won't install
-    # platform-mismatched packages, but npm with --force does. The arm64
-    # binary is already installed by bun as the host's native optional dep.
-    # macos-13 (Intel) runners have unpredictable queue times — using
-    # macos-latest for both archs keeps the release predictable.
+    # ffmpeg/ffprobe are downloaded at runtime by BinaryManager (BtbN for
+    # Win/Linux, evermeet.cx for macOS) — no per-platform npm optional deps
+    # to patch in here.
     needs: verify-version
     strategy:
       matrix:
@@ -53,9 +48,6 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
-      - name: Patch in cross-arch ffprobe (macOS only)
-        if: matrix.os == 'macos-latest'
-        run: npm install --no-save --force @ffprobe-installer/darwin-x64@5.1.0
       - run: bun run ${{ matrix.dist-cmd }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

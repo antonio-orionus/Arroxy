@@ -50,7 +50,6 @@ function makeDeps() {
     save: vi.fn().mockResolvedValue(undefined),
     load: vi.fn().mockResolvedValue({ ok: true, data: [] })
   };
-  const logService = { log: vi.fn(), getLogsDir: vi.fn().mockReturnValue('/tmp/logs') };
   const settingsStore = {
     get: vi.fn().mockResolvedValue({
       defaultOutputDir: '/tmp',
@@ -67,7 +66,6 @@ function makeDeps() {
     formatProbeService: { probe: vi.fn() } as never,
     settingsStore: settingsStore as never,
     queueStore: queueStore as never,
-    logService: logService as never,
     binaryManager: {
       ensureYtDlp: vi.fn(),
       ensureFFmpeg: vi.fn(),
@@ -77,7 +75,7 @@ function makeDeps() {
     tokenService: { warmUp: vi.fn() } as never,
     languageRef: languageRef as never,
     clipboardWatcher: clipboardWatcher as never,
-    _raw: { downloadService, mainWindow, queueStore, logService, languageRef, clipboardWatcher }
+    _raw: { downloadService, mainWindow, queueStore, languageRef, clipboardWatcher }
   };
 }
 
@@ -209,7 +207,6 @@ describe('registerIpcHandlers', () => {
       await handler(null, 'klingon');
 
       expect(deps._raw.languageRef.current).toBe('en');
-      expect(deps._raw.logService.log).toHaveBeenCalledWith('WARN', 'app:setLanguage rejected — invalid language', expect.any(Object));
     });
 
     it('app:setLanguage accepts a valid SupportedLang', async () => {

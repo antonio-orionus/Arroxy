@@ -39,10 +39,9 @@ function makeService() {
     ensureDeno: vi.fn().mockResolvedValue(null),
     ensureFFprobe: vi.fn().mockResolvedValue(null)
   };
-  const logService = { log: vi.fn() };
   const settingsStore = { get: vi.fn().mockResolvedValue({}) };
   const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
-  const service = new FormatProbeService(ytDlp, logService as never);
+  const service = new FormatProbeService(ytDlp);
   return { service };
 }
 

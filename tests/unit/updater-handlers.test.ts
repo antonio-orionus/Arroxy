@@ -29,6 +29,7 @@ import { app, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import { registerUpdaterHandlers } from '@main/ipc/registerUpdaterHandlers';
 import { IPC_CHANNELS } from '@shared/ipc';
+import log from 'electron-log/main';
 
 type EventName = 'update-available' | 'update-downloaded' | 'error';
 type HandlerMap = Partial<Record<EventName, (...args: unknown[]) => void>>;
@@ -193,15 +194,13 @@ describe('registerUpdaterHandlers', () => {
   });
 
   it('logs errors silently when error fires', () => {
-    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
     const handlers = captureUpdaterHandlers();
     registerUpdaterHandlers(makeWindow());
 
     const err = new Error('network failure');
     handlers['error']!(err);
 
-    expect(consoleSpy).toHaveBeenCalledWith('[updater]', 'network failure');
-    consoleSpy.mockRestore();
+    expect(log.error).toHaveBeenCalledWith('[updater]', 'network failure');
   });
 
   it('registers updater:install IPC handler', () => {

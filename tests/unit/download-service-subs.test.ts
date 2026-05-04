@@ -54,10 +54,9 @@ function makeService() {
     ensureFFprobe: vi.fn().mockResolvedValue(null)
   };
   const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
-  const logService = { log: vi.fn() };
   const settingsStore = { get: vi.fn().mockResolvedValue({}) };
   const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
-  const service = new DownloadService(ytDlp, recentJobsStore as never, logService as never, false);
+  const service = new DownloadService(ytDlp, recentJobsStore as never, false);
   return { service, recentJobsStore, settingsStore };
 }
 
@@ -901,6 +900,150 @@ describe('DownloadService — auto-caption dedupe (post-process)', () => {
 
     const onDisk = readFileSync(join(workDir, 'Title.en.srt'), 'utf8');
     expect(onDisk).toBe(rolling);
+
+    rmSync(workDir, { recursive: true, force: true });
+  });
+});
+
+describe('DownloadService — sidecar mux after Merger + MoveFiles (regression)', () => {
+  // Reproduces the production failure where yt-dlp emits:
+  //   [Merger] Merging formats into "<tempDir>/Title.mkv"   ← active.mediaPath set to tempPath
+  //   [Metadata] / [EmbedThumbnail] postprocessors
+  //   [MoveFiles] Moving file "<tempDir>/Title.mkv" to "<finalDir>/Title.mkv"
+  // The MoveFiles step is what relocates the file to its final dest. If we
+  // don't update active.mediaPath when this fires, the sidecar-subs phase
+  // hands ffmpeg a stale temp path and the mux fails with ENOENT.
+  let workDir: string;
+  beforeEach(() => {
+    workDir = mkdtempSync(join(tmpdir(), 'arroxy-merger-move-'));
+  });
+
+  function makeMergerMoveSpawn(tempVideoPath: string, finalVideoPath: string, subPath: string, subContent: string) {
+    let call = 0;
+    return () => {
+      const proc = Object.assign(new EventEmitter(), {
+        stdout: new EventEmitter(),
+        stderr: new EventEmitter(),
+        kill: vi.fn()
+      });
+      const isPhase1 = call === 0;
+      call++;
+      if (isPhase1) {
+        // Phase 1 leaves the merged file at the FINAL path on disk (yt-dlp's
+        // [MoveFiles] already happened by the time it exits). Tracker state
+        // must follow.
+        writeFileSync(finalVideoPath, 'fake-merged-bytes');
+      } else {
+        writeFileSync(subPath, subContent);
+      }
+      setTimeout(() => {
+        if (isPhase1) {
+          proc.stderr.emit('data', Buffer.from(`[Merger] Merging formats into "${tempVideoPath}"\n` + `[Metadata] Adding metadata to "${tempVideoPath}"\n` + `[MoveFiles] Moving file "${tempVideoPath}" to "${finalVideoPath}"\n`));
+        } else {
+          proc.stderr.emit('data', Buffer.from(`[download] Destination: ${subPath}\n`));
+        }
+        proc.emit('close', 0);
+      }, 10);
+      return proc;
+    };
+  }
+
+  it('passes the post-MoveFiles final path to ffmpeg, not the .arroxy-temp Merger path', async () => {
+    const tempVideoPath = join(workDir, '.arroxy-temp', 'abc1234', 'Title.mkv');
+    const finalVideoPath = join(workDir, 'Title.mkv');
+    const subPath = join(workDir, 'Title.en.srt');
+    vi.mocked(spawnYtDlp).mockImplementation(makeMergerMoveSpawn(tempVideoPath, finalVideoPath, subPath, 'sub-bytes') as never);
+
+    const ffmpegCalls: string[][] = [];
+    vi.mocked(spawnFFmpeg).mockImplementation(((_bin: string, args: string[]) => {
+      ffmpegCalls.push(args);
+      const proc = Object.assign(new EventEmitter(), {
+        stdout: new EventEmitter(),
+        stderr: new EventEmitter(),
+        kill: vi.fn()
+      });
+      writeFileSync(args[args.length - 1], 'muxed-bytes');
+      setTimeout(() => proc.emit('close', 0), 10);
+      return proc;
+    }) as never);
+
+    const { service } = makeService();
+    await service.start({
+      url: YOUTUBE_URL,
+      outputDir: workDir,
+      formatId: '330+251',
+      subtitleLanguages: ['en-orig'],
+      subtitleMode: 'embed',
+      subtitleFormat: 'srt',
+      writeAutoSubs: true
+    });
+    await new Promise((r) => setTimeout(r, 150));
+
+    expect(ffmpegCalls.length).toBe(1);
+    const args = ffmpegCalls[0];
+    const firstInputIdx = args.indexOf('-i');
+    expect(args[firstInputIdx + 1]).toBe(finalVideoPath);
+    expect(args[firstInputIdx + 1]).not.toBe(tempVideoPath);
+
+    rmSync(workDir, { recursive: true, force: true });
+  });
+
+  it('passes the post-"already been downloaded" path to ffmpeg when the merged file pre-exists', async () => {
+    const finalVideoPath = join(workDir, 'Title.mkv');
+    const subPath = join(workDir, 'Title.en.srt');
+
+    // No [Merger] this time — yt-dlp short-circuits with "has already been
+    // downloaded" because the file pre-exists from a prior run.
+    let call = 0;
+    vi.mocked(spawnYtDlp).mockImplementation((() => {
+      const proc = Object.assign(new EventEmitter(), {
+        stdout: new EventEmitter(),
+        stderr: new EventEmitter(),
+        kill: vi.fn()
+      });
+      const isPhase1 = call === 0;
+      call++;
+      if (isPhase1) writeFileSync(finalVideoPath, 'fake-existing-bytes');
+      else writeFileSync(subPath, 'sub-bytes');
+      setTimeout(() => {
+        if (isPhase1) {
+          proc.stderr.emit('data', Buffer.from(`[download] ${finalVideoPath} has already been downloaded\n`));
+        } else {
+          proc.stderr.emit('data', Buffer.from(`[download] Destination: ${subPath}\n`));
+        }
+        proc.emit('close', 0);
+      }, 10);
+      return proc;
+    }) as never);
+
+    const ffmpegCalls: string[][] = [];
+    vi.mocked(spawnFFmpeg).mockImplementation(((_bin: string, args: string[]) => {
+      ffmpegCalls.push(args);
+      const proc = Object.assign(new EventEmitter(), {
+        stdout: new EventEmitter(),
+        stderr: new EventEmitter(),
+        kill: vi.fn()
+      });
+      writeFileSync(args[args.length - 1], 'muxed-bytes');
+      setTimeout(() => proc.emit('close', 0), 10);
+      return proc;
+    }) as never);
+
+    const { service } = makeService();
+    await service.start({
+      url: YOUTUBE_URL,
+      outputDir: workDir,
+      formatId: '330+251',
+      subtitleLanguages: ['en-orig'],
+      subtitleMode: 'embed',
+      subtitleFormat: 'srt',
+      writeAutoSubs: true
+    });
+    await new Promise((r) => setTimeout(r, 150));
+
+    expect(ffmpegCalls.length).toBe(1);
+    const args = ffmpegCalls[0];
+    expect(args[args.indexOf('-i') + 1]).toBe(finalVideoPath);
 
     rmSync(workDir, { recursive: true, force: true });
   });

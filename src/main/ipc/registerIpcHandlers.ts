@@ -2,7 +2,6 @@ import type { BrowserWindow } from 'electron';
 import type { SupportedLang } from '@shared/i18n/types';
 import type { DownloadService } from '@main/services/DownloadService';
 import type { FormatProbeService } from '@main/services/FormatProbeService';
-import type { LogService } from '@main/services/LogService';
 import type { BinaryManager } from '@main/services/BinaryManager';
 import type { TokenService } from '@main/services/TokenService';
 import type { SettingsStore } from '@main/stores/SettingsStore';
@@ -24,7 +23,6 @@ export interface IpcDependencies {
   formatProbeService: FormatProbeService;
   settingsStore: SettingsStore;
   queueStore: QueueStore;
-  logService: LogService;
   binaryManager: BinaryManager;
   tokenService: TokenService;
   languageRef: { current: SupportedLang };
@@ -32,15 +30,15 @@ export interface IpcDependencies {
 }
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-  const { mainWindow, downloadService, formatProbeService, settingsStore, queueStore, logService, binaryManager, tokenService, languageRef, clipboardWatcher } = deps;
+  const { mainWindow, downloadService, formatProbeService, settingsStore, queueStore, binaryManager, tokenService, languageRef, clipboardWatcher } = deps;
 
-  const warmupService = new WarmupService({ binaryManager, tokenService, logService });
-  registerAppHandlers({ warmupService, logService, languageRef });
+  const warmupService = new WarmupService({ binaryManager, tokenService });
+  registerAppHandlers({ warmupService, languageRef });
   registerWindowHandlers(mainWindow);
-  registerDownloadHandlers({ downloadService, formatProbeService, settingsStore, logService });
+  registerDownloadHandlers({ downloadService, formatProbeService, settingsStore });
   registerSettingsHandlers({ settingsStore, clipboardWatcher });
-  registerFileHandlers({ mainWindow, logService });
-  registerQueueHandlers({ queueStore, logService });
+  registerFileHandlers(mainWindow);
+  registerQueueHandlers(queueStore);
   registerAnalyticsHandlers();
 
   new DownloadEventBridge(downloadService, mainWindow).attach();

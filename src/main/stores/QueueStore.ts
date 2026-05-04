@@ -1,14 +1,15 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import Store from 'electron-store';
 import type { QueueItem } from '@shared/types';
 import { queueArraySchema, QUEUE_STATUS } from '@shared/schemas';
 import { fail, ok, type Result } from '@shared/result';
-import { createAppError } from '@main/utils/errorFactory';
-import { JsonFileStore } from './JsonFileStore';
 
-export class QueueStore extends JsonFileStore {
+type QueueData = { items: QueueItem[] };
+
+export class QueueStore {
+  private readonly store: Store<QueueData>;
+
   constructor(userDataPath: string) {
-    super(path.join(userDataPath, 'queue.json'));
+    this.store = new Store<QueueData>({ name: 'queue', cwd: userDataPath, defaults: { items: [] }, clearInvalidConfig: true });
   }
 
   async save(items: QueueItem[]): Promise<void> {
@@ -31,37 +32,17 @@ export class QueueStore extends JsonFileStore {
       throw new Error(`QueueStore.save: invalid queue payload — ${result.error.issues[0]?.message ?? 'schema mismatch'}`);
     }
 
-    await this.writeJson(result.data);
+    this.store.set('items', result.data);
   }
 
   async load(): Promise<Result<QueueItem[]>> {
-    let raw: string;
-    try {
-      raw = await fs.readFile(this.filePath, 'utf-8');
-    } catch (err) {
-      if (isNodeNotFound(err)) return ok([]);
-      const message = err instanceof Error ? err.message : String(err);
-      return fail(createAppError('ipc', `Queue load failed: ${message}`));
-    }
-
-    let parsed: unknown;
-    try {
-      parsed = JSON.parse(raw);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
-      return fail(createAppError('validation', `Queue file is not valid JSON: ${message}`));
-    }
-
-    const validated = queueArraySchema.safeParse(parsed);
+    const raw = this.store.get('items');
+    const validated = queueArraySchema.safeParse(raw);
     if (!validated.success) {
       const issue = validated.error.issues[0]?.message ?? 'schema mismatch';
-      return fail(createAppError('validation', `Queue file is corrupted: ${issue}`));
+      return fail({ code: 'validation', message: `Queue file is corrupted: ${issue}` });
     }
 
     return ok(validated.data.map((item) => ({ ...item, downloadJobId: null })));
   }
-}
-
-function isNodeNotFound(err: unknown): boolean {
-  return typeof err === 'object' && err !== null && (err as { code?: string }).code === 'ENOENT';
 }

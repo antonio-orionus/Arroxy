@@ -4,6 +4,7 @@ import { readdir, unlink, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { trackMain, downloadDurationBucket, sizeBucket } from '@main/services/analytics';
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
+import log from 'electron-log/main';
 import { phasesFor, PhaseExecutor } from './phases';
 import type { PhaseContext } from './phases';
 import { nowIso } from '@main/utils/clock';
@@ -14,10 +15,11 @@ import { fail, ok, type Result } from '@shared/result';
 import { isSubtitleFile } from '@shared/subtitlePath';
 import { STATUS_KEY } from '@shared/schemas';
 import type { CancelDownloadOutput, DownloadJob, LocalizedError, PauseDownloadOutput, ProgressEvent, RecentJob, StartDownloadInput, StartDownloadOutput, StatusEvent, StatusKey } from '@shared/types';
-import type { LogService } from './LogService';
 import type { RecentJobsStore } from '@main/stores/RecentJobsStore';
 import { YtDlp, type YtDlpResult } from './YtDlp';
 import type { ActiveDownload, PausedDownload } from './phases';
+
+const logger = log.scope('downloads');
 
 function categorizeDownloadError(msg: string): string {
   const m = msg.toLowerCase();
@@ -57,7 +59,6 @@ export class DownloadService extends EventEmitter {
   constructor(
     private readonly ytDlp: YtDlp,
     private readonly recentJobsStore: RecentJobsStore,
-    private readonly logger: LogService,
     private readonly mockMode = false
   ) {
     super();
@@ -98,7 +99,7 @@ export class DownloadService extends EventEmitter {
       subtitlePaths: []
     };
     this.activeJobs.set(job.id, active);
-    this.logger.log('INFO', 'Download job created', {
+    logger.info('Download job created', {
       jobId: job.id,
       url: job.url,
       formatId: job.formatId,
@@ -118,7 +119,7 @@ export class DownloadService extends EventEmitter {
   async resume(jobId: string): Promise<Result<{ resumed: boolean; job?: DownloadJob }>> {
     const paused = this.pausedJobs.get(jobId);
     if (!paused) {
-      this.logger.log('INFO', 'resume() called but no paused job found', { jobId });
+      logger.info('resume() called but no paused job found', { jobId });
       return ok({ resumed: false });
     }
 
@@ -134,7 +135,7 @@ export class DownloadService extends EventEmitter {
       subtitlePaths: []
     };
     this.activeJobs.set(job.id, active);
-    this.logger.log('INFO', 'Resuming download', { jobId: job.id });
+    logger.info('Resuming download', { jobId: job.id });
 
     const result = await this.runJob(active);
     if (!result.ok) {
@@ -153,7 +154,7 @@ export class DownloadService extends EventEmitter {
       });
 
       if (active.cancelRequested) {
-        this.logger.log('INFO', 'Download cancelled before binary setup completed', {
+        logger.info('Download cancelled before binary setup completed', {
           jobId: job.id
         });
         this.emitStatus(job.id, 'error', STATUS_KEY.cancelled);
@@ -170,7 +171,7 @@ export class DownloadService extends EventEmitter {
 
       void this.runPhases(active).catch(async (error) => {
         const message = error instanceof Error ? error.message : 'Unknown phase failure';
-        this.logger.log('ERROR', 'Download phase threw unexpectedly', { jobId: job.id, message });
+        logger.error('Download phase threw unexpectedly', { jobId: job.id, message });
         const payload: LocalizedError = { key: null, rawMessage: message };
         this.emitStatus(job.id, 'error', STATUS_KEY.unknownStartupFailure, undefined, payload);
         await this.finalize(job, 'failed', payload);
@@ -191,7 +192,6 @@ export class DownloadService extends EventEmitter {
     const ctx: PhaseContext = {
       active,
       ytDlp: this.ytDlp,
-      logger: this.logger,
       emitStatus: (stage, statusKey, params?, error?) => this.emitStatus(job.id, stage, statusKey, params, error),
       emitYtdlpFailure: (result) => this.emitYtdlpFailure(job.id, result),
       attachYtDlpProcess: (proc, statusKey?) => this.attachYtDlpProcess(active, proc, statusKey),
@@ -202,7 +202,7 @@ export class DownloadService extends EventEmitter {
       moveToPaused: () => {
         this.activeJobs.delete(job.id);
         this.pausedJobs.set(job.id, { job, input, tempDir: active.tempDir });
-        this.logger.log('INFO', 'Download paused — temp dir preserved', {
+        logger.info('Download paused — temp dir preserved', {
           jobId: job.id,
           tempDir: active.tempDir
         });
@@ -221,7 +221,7 @@ export class DownloadService extends EventEmitter {
     try {
       this.consumeProgress(active, text);
     } catch (err) {
-      this.logger.log('WARN', 'consumeProgress threw', {
+      logger.warn('consumeProgress threw', {
         jobId: active.job.id,
         message: err instanceof Error ? err.message : String(err)
       });
@@ -252,13 +252,13 @@ export class DownloadService extends EventEmitter {
     if (jobId) {
       const active = this.activeJobs.get(jobId);
       if (active) {
-        this.logger.log('INFO', 'Cancelling active job', { jobId });
+        logger.info('Cancelling active job', { jobId });
         return this.cancelOne(active);
       }
 
       const paused = this.pausedJobs.get(jobId);
       if (paused) {
-        this.logger.log('INFO', 'Cancelling paused job — cleaning up temp dir and .part files', {
+        logger.info('Cancelling paused job — cleaning up temp dir and .part files', {
           jobId,
           outputDir: paused.job.outputDir
         });
@@ -268,12 +268,12 @@ export class DownloadService extends EventEmitter {
         return ok({ cancelled: true });
       }
 
-      this.logger.log('INFO', 'cancel() called but no job found', { jobId });
+      logger.info('cancel() called but no job found', { jobId });
       return ok({ cancelled: false });
     }
 
     const hadJobs = this.activeJobs.size > 0 || this.pausedJobs.size > 0;
-    this.logger.log('INFO', 'Cancelling all jobs', {
+    logger.info('Cancelling all jobs', {
       activeCount: this.activeJobs.size,
       pausedCount: this.pausedJobs.size
     });
@@ -289,23 +289,23 @@ export class DownloadService extends EventEmitter {
   async pause(jobId?: string): Promise<Result<PauseDownloadOutput>> {
     const active = jobId ? this.activeJobs.get(jobId) : [...this.activeJobs.values()][0];
     if (!active) {
-      this.logger.log('INFO', 'pause() called but no active job found', { jobId });
+      logger.info('pause() called but no active job found', { jobId });
       return ok({ paused: false });
     }
 
-    this.logger.log('INFO', 'Pausing download', { jobId: active.job.id });
+    logger.info('Pausing download', { jobId: active.job.id });
 
     if (active.mockTimer) {
       clearInterval(active.mockTimer);
       active.mockTimer = undefined;
       this.activeJobs.delete(active.job.id);
       this.pausedJobs.set(active.job.id, { job: active.job, input: active.input });
-      this.logger.log('INFO', 'Mock download paused', { jobId: active.job.id });
+      logger.info('Mock download paused', { jobId: active.job.id });
       return ok({ paused: true });
     }
 
     if (!active.ytDlpProcess) {
-      this.logger.log('INFO', 'pause() called but job has no process yet', {
+      logger.info('pause() called but job has no process yet', {
         jobId: active.job.id
       });
       return ok({ paused: false });
@@ -313,7 +313,7 @@ export class DownloadService extends EventEmitter {
 
     active.pauseRequested = true;
     killProcessTree(active.ytDlpProcess, 'SIGTERM');
-    this.logger.log('INFO', 'SIGTERM sent to yt-dlp process', { jobId: active.job.id });
+    logger.info('SIGTERM sent to yt-dlp process', { jobId: active.job.id });
     return ok({ paused: true });
   }
 
@@ -321,14 +321,14 @@ export class DownloadService extends EventEmitter {
     active.cancelRequested = true;
 
     if (active.ytDlpProcess || active.ffmpegProcess) {
-      this.logger.log('INFO', 'Sending SIGKILL to active processes', { jobId: active.job.id });
+      logger.info('Sending SIGKILL to active processes', { jobId: active.job.id });
       killActiveProcesses(active, 'SIGKILL');
       return ok({ cancelled: true });
     }
 
     if (active.mockTimer) {
       const { job } = active;
-      this.logger.log('INFO', 'Clearing mock download timer', { jobId: job.id });
+      logger.info('Clearing mock download timer', { jobId: job.id });
       clearInterval(active.mockTimer);
       active.mockTimer = undefined;
       await this.cleanupPartFiles(job.outputDir);
@@ -337,7 +337,7 @@ export class DownloadService extends EventEmitter {
       return ok({ cancelled: true });
     }
 
-    this.logger.log('INFO', 'cancelOne() — job had no process or timer (pre-spawn cancel)', {
+    logger.info('cancelOne() — job had no process or timer (pre-spawn cancel)', {
       jobId: active.job.id
     });
     return ok({ cancelled: true });
@@ -348,17 +348,17 @@ export class DownloadService extends EventEmitter {
       const files = await readdir(outputDir);
       const toDelete = files.filter((f) => f.endsWith('.part') || f.endsWith('.ytdl'));
       if (toDelete.length === 0) {
-        this.logger.log('INFO', 'cleanupPartFiles — no .part/.ytdl files found', { outputDir });
+        logger.info('cleanupPartFiles — no .part/.ytdl files found', { outputDir });
         return;
       }
-      this.logger.log('INFO', 'cleanupPartFiles — deleting leftover files', {
+      logger.info('cleanupPartFiles — deleting leftover files', {
         outputDir,
         files: toDelete
       });
       await Promise.all(toDelete.map((f) => unlink(join(outputDir, f)).catch(() => {})));
-      this.logger.log('INFO', 'cleanupPartFiles — done', { outputDir, deleted: toDelete.length });
+      logger.info('cleanupPartFiles — done', { outputDir, deleted: toDelete.length });
     } catch {
-      this.logger.log('INFO', 'cleanupPartFiles — directory inaccessible, skipping', { outputDir });
+      logger.info('cleanupPartFiles — directory inaccessible, skipping', { outputDir });
     }
   }
 
@@ -369,16 +369,16 @@ export class DownloadService extends EventEmitter {
   private async cleanupTempDirByPath(tempDir: string): Promise<void> {
     try {
       await rm(tempDir, { recursive: true, force: true });
-      this.logger.log('INFO', 'cleanupTempDir — removed', { tempDir });
+      logger.info('cleanupTempDir — removed', { tempDir });
     } catch {
-      this.logger.log('WARN', 'cleanupTempDir — failed to remove', { tempDir });
+      logger.warn('cleanupTempDir — failed to remove', { tempDir });
     }
   }
 
   private consumeProgress(active: ActiveDownload, text: string): void {
     const jobId = active.job.id;
     for (const line of splitStderrLines(text)) {
-      this.logger.log('INFO', line, { jobId, source: 'yt-dlp-progress' });
+      logger.info(line, { jobId, source: 'yt-dlp-progress' });
 
       const destMatch = line.match(/^\[download\] Destination:\s+(.+)$/);
       if (destMatch) {
@@ -397,6 +397,25 @@ export class DownloadService extends EventEmitter {
       const mergerMatch = line.match(/^\[Merger\] Merging formats into "([^"]+)"|^\[Merger\] Merging formats into (.+)$/);
       if (mergerMatch) {
         active.mediaPath = mergerMatch[1] ?? mergerMatch[2];
+      }
+
+      // yt-dlp emits this when the merged file pre-exists from an earlier run
+      // and skips the download entirely. No [download] Destination: or [Merger]
+      // line will follow, so this is our only chance to record mediaPath.
+      const alreadyMatch = line.match(/^\[download\]\s+(.+?)\s+has already been downloaded$/);
+      if (alreadyMatch && !isSubtitleFile(alreadyMatch[1])) {
+        active.mediaPath = alreadyMatch[1];
+        continue;
+      }
+
+      // [MoveFiles] relocates files from .arroxy-temp/ to the final outputDir
+      // after postprocessing. Update mediaPath only when src is the file we're
+      // tracking — sidecar moves (.jpg, .description) don't touch mediaPath
+      // because their src never matched.
+      const moveMatch = line.match(/^\[MoveFiles\] Moving file "([^"]+)" to "([^"]+)"$/);
+      if (moveMatch && active.mediaPath === moveMatch[1]) {
+        active.mediaPath = moveMatch[2];
+        continue;
       }
 
       // eslint-disable-next-line security/detect-unsafe-regex -- bounded: \d+ is constrained by yt-dlp output line length
@@ -432,11 +451,12 @@ export class DownloadService extends EventEmitter {
       at: nowIso()
     };
     this.emit('status', event);
-    this.logger.log(stage === 'error' ? 'ERROR' : 'INFO', statusKey, { jobId, stage, params });
+    if (stage === 'error') logger.error(statusKey, { jobId, stage, params });
+    else logger.info(statusKey, { jobId, stage, params });
   }
 
   private async finalize(job: DownloadJob, status: RecentJob['status'], error?: LocalizedError): Promise<void> {
-    this.logger.log('INFO', 'Job finalized', { jobId: job.id, status, ...(error && { error }) });
+    logger.info('Job finalized', { jobId: job.id, status, ...(error && { error }) });
     this.activeJobs.delete(job.id);
 
     job.status = status;

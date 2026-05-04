@@ -8,12 +8,14 @@ import path from 'node:path';
 import { pipeline } from 'node:stream/promises';
 import { promisify } from 'node:util';
 import extractZip from 'extract-zip';
+import log from 'electron-log/main';
 
 const execFileAsync = promisify(execFile);
 import { createAppError } from '@main/utils/errorFactory';
 import { trackMain } from '@main/services/analytics';
 import type { AppError, StatusKey } from '@shared/types';
-import type { LogService } from './LogService';
+
+const logger = log.scope('binary');
 
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void;
 
@@ -151,6 +153,50 @@ const DENO_ASSETS: Record<AssetPlatform, Record<AssetArch, string | null>> = {
   linux: { x64: 'x86_64-unknown-linux-gnu', arm64: 'aarch64-unknown-linux-gnu' }
 };
 
+// ffprobe is shipped alongside ffmpeg in the canonical FFmpeg distributions.
+// We pull it at runtime instead of bundling via @ffprobe-installer/* npm
+// optional deps, which were unreliable on cross-platform CI: bun's frozen
+// lockfile sometimes skips the host-platform optional, and electron-builder
+// can't unpack what was never installed.
+//
+// - Win/Linux: BtbN/FFmpeg-Builds — single `latest` rolling tag, archives
+//   contain bin/ffprobe(.exe). Linux is .tar.xz (extracted via system tar).
+// - macOS: evermeet.cx — ships ffprobe as a standalone .zip; the
+//   /getrelease/ffprobe/zip endpoint redirects to the latest version.
+type FfprobeArchive = { source: 'btbn'; archive: string; format: 'zip' | 'tar.xz' } | { source: 'evermeet'; format: 'zip' };
+
+const FFPROBE_ASSETS: Record<AssetPlatform, Record<AssetArch, FfprobeArchive | null>> = {
+  win32: {
+    x64: { source: 'btbn', archive: 'ffmpeg-master-latest-win64-gpl.zip', format: 'zip' },
+    arm64: null
+  },
+  linux: {
+    x64: { source: 'btbn', archive: 'ffmpeg-master-latest-linux64-gpl.tar.xz', format: 'tar.xz' },
+    arm64: { source: 'btbn', archive: 'ffmpeg-master-latest-linuxarm64-gpl.tar.xz', format: 'tar.xz' }
+  },
+  darwin: {
+    x64: { source: 'evermeet', format: 'zip' },
+    arm64: { source: 'evermeet', format: 'zip' }
+  }
+};
+
+function ffprobeAsset(): FfprobeArchive | null {
+  const target = currentAssetTarget();
+  if (!target) return null;
+  return FFPROBE_ASSETS[target.platform][target.arch];
+}
+
+function ffprobeDownloadUrl(asset: FfprobeArchive): string {
+  if (asset.source === 'btbn') {
+    return `https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/${asset.archive}`;
+  }
+  return 'https://evermeet.cx/ffmpeg/getrelease/ffprobe/zip';
+}
+
+function ffprobeExecutableName(): string {
+  return process.platform === 'win32' ? 'ffprobe.exe' : 'ffprobe';
+}
+
 function currentAssetTarget(): { platform: AssetPlatform; arch: AssetArch } | null {
   const platform = process.platform;
   if (platform !== 'win32' && platform !== 'darwin' && platform !== 'linux') return null;
@@ -198,15 +244,12 @@ interface EnsureBinaryConfig {
 export class BinaryManager {
   private readonly cacheDir: string;
 
-  private readonly logger: LogService;
-
   private readonly retryDelays: [number, number];
 
   private readonly inProgress = new Map<string, Promise<void>>();
 
-  constructor(userDataPath: string, logger: LogService, retryDelays: [number, number] = [2000, 8000]) {
+  constructor(userDataPath: string, retryDelays: [number, number] = [2000, 8000]) {
     this.cacheDir = path.join(userDataPath, 'runtime-cache', 'binaries');
-    this.logger = logger;
     this.retryDelays = retryDelays;
   }
 
@@ -229,7 +272,7 @@ export class BinaryManager {
   async ensureYtDlp(onStatus?: StatusReporter): Promise<string> {
     const override = process.env.ARROXY_YT_DLP_PATH;
     if (override && (await this.isUsableBinary(override))) {
-      this.logger.log('INFO', 'Using pre-installed yt-dlp', { path: override });
+      logger.info('Using pre-installed yt-dlp', { path: override });
       return override;
     }
 
@@ -261,57 +304,114 @@ export class BinaryManager {
 
   // ffprobe is required by yt-dlp's post-processing (chapter modification,
   // SponsorBlock-remove, embed-thumbnail, --add-metadata) to read media
-  // duration. eugeneware/ffmpeg-static doesn't ship ffprobe, so we bundle it
-  // via @ffprobe-installer/ffprobe (per-platform optional npm deps).
-  // The binary is copied to runtime-cache so it lives next to ffmpeg — this
-  // way spawnYtDlp's existing PATH injection finds both with one PATH entry.
-  // In production builds, the source lives under app.asar.unpacked/ thanks to
-  // the asarUnpack glob in package.json's build config.
+  // duration. Downloaded at runtime from the canonical FFmpeg distributions
+  // (BtbN for Win/Linux, evermeet.cx for macOS) and cached under
+  // runtime-cache/binaries/ so it lives next to ffmpeg — this way
+  // spawnYtDlp's existing PATH injection finds both with one PATH entry.
+  // Returns null if the platform/arch has no upstream build; the caller
+  // tolerates this (ffprobe is only needed by certain post-processors).
   async ensureFFprobe(onStatus?: StatusReporter): Promise<string | null> {
     const override = process.env.ARROXY_FFPROBE_PATH;
     if (override && (await this.isUsableBinary(override))) {
-      this.logger.log('INFO', 'Using pre-installed ffprobe', { path: override });
+      logger.info('Using pre-installed ffprobe', { path: override });
       return override;
     }
 
-    let bundledPath: string;
-    let bundledSize: number;
-    try {
-      const ffprobeMod = await import('@ffprobe-installer/ffprobe');
-      const exported = ffprobeMod as { default?: { path: string }; path?: string };
-      bundledPath = exported.default?.path ?? exported.path!;
-      bundledSize = (await fsPromises.stat(bundledPath)).size;
-    } catch (err) {
-      this.logger.log('WARN', 'ffprobe-installer not available, postprocessing may fail', {
-        error: err instanceof Error ? err.message : String(err)
-      });
+    const asset = ffprobeAsset();
+    if (!asset) {
+      logger.warn('No ffprobe build for this platform/arch, postprocessing may fail');
       return null;
     }
 
     const targetPath = this.getFfprobePath();
     if (await this.isUsableBinary(targetPath)) {
-      try {
-        const cachedSize = (await fsPromises.stat(targetPath)).size;
-        if (cachedSize === bundledSize) {
-          this.logger.log('INFO', 'ffprobe binary already exists', { destinationPath: targetPath });
-          return targetPath;
-        }
-        this.logger.log('INFO', 'ffprobe binary outdated, refreshing', {
-          destinationPath: targetPath
-        });
-      } catch {
-        // stat failed — fall through to copy.
-      }
+      logger.info('ffprobe binary already exists', { destinationPath: targetPath });
+      return targetPath;
     }
 
-    onStatus?.('downloadingBinary', { name: 'ffprobe' });
-    await fsPromises.mkdir(path.dirname(targetPath), { recursive: true });
-    await fsPromises.copyFile(bundledPath, targetPath);
-    if (process.platform !== 'win32') {
-      await fsPromises.chmod(targetPath, 0o755);
+    const downloadUrl = ffprobeDownloadUrl(asset);
+    const innerName = ffprobeExecutableName();
+
+    try {
+      if (asset.format === 'zip') {
+        await this.ensureZippedBinary({
+          name: 'ffprobe',
+          downloadUrl,
+          zipFileName: asset.source === 'btbn' ? asset.archive : 'ffprobe.zip',
+          innerExecutableName: innerName,
+          destinationPath: targetPath,
+          // BtbN and evermeet.cx don't publish per-asset SHA256s on a stable
+          // URL alongside the artifact (BtbN signs with PGP; evermeet uses
+          // signed JSON metadata). Skipping checksum is consistent with how
+          // ffmpeg's checksum is treated as best-effort.
+          expectedSha256: async () => null,
+          onStatus
+        });
+      } else {
+        await this.ensureTarXzBinary({
+          name: 'ffprobe',
+          downloadUrl,
+          archiveFileName: (asset as { archive: string }).archive,
+          innerExecutableName: innerName,
+          destinationPath: targetPath,
+          onStatus
+        });
+      }
+    } catch (err) {
+      trackMain('binary_setup_failed', { binary: 'ffprobe', phase: binaryPhase(err) });
+      logger.warn('Failed to bundle ffprobe, postprocessing may fail', {
+        error: err instanceof Error ? err.message : String(err)
+      });
+      return null;
     }
-    this.logger.log('INFO', 'ffprobe copied to cache', { destinationPath: targetPath });
+
     return targetPath;
+  }
+
+  // Linux BtbN ffmpeg builds ship as .tar.xz, which Node has no built-in
+  // extractor for. We shell out to system `tar` (always present on Linux/
+  // macOS, ships with Win10 1803+ but we use zip on Windows). xz support
+  // in `tar` is provided by xz-utils, also ubiquitous on modern distros.
+  private async ensureTarXzBinary(config: { name: string; downloadUrl: string; archiveFileName: string; innerExecutableName: string; destinationPath: string; onStatus?: StatusReporter }): Promise<void> {
+    const { destinationPath, name, onStatus } = config;
+
+    const existing = this.inProgress.get(destinationPath);
+    if (existing) return existing;
+
+    const promise = (async (): Promise<void> => {
+      const tempDir = await fsPromises.mkdtemp(path.join(os.tmpdir(), `arroxy-${name}-`));
+      const archivePath = path.join(tempDir, config.archiveFileName);
+
+      try {
+        onStatus?.('downloadingBinary', { name });
+        logger.info(`Downloading ${name}`, {
+          downloadUrl: config.downloadUrl,
+          destinationPath
+        });
+
+        await downloadFile(config.downloadUrl, archivePath);
+
+        const extractDir = path.join(tempDir, 'unpacked');
+        await fsPromises.mkdir(extractDir, { recursive: true });
+        await execFileAsync('tar', ['-xJf', archivePath, '-C', extractDir]);
+
+        const innerPath = await this.findExecutableInTree(extractDir, config.innerExecutableName);
+        if (!innerPath) {
+          throw this.toBinaryError(`${name} archive did not contain ${config.innerExecutableName}`);
+        }
+
+        await fsPromises.mkdir(path.dirname(destinationPath), { recursive: true });
+        await fsPromises.copyFile(innerPath, destinationPath);
+        await fsPromises.chmod(destinationPath, 0o755);
+      } finally {
+        await fsPromises.rm(tempDir, { recursive: true, force: true });
+      }
+    })().finally(() => {
+      this.inProgress.delete(destinationPath);
+    });
+
+    this.inProgress.set(destinationPath, promise);
+    return promise;
   }
 
   // Deno is the JS runtime yt-dlp uses for nsig/signature decoding on the web
@@ -325,19 +425,19 @@ export class BinaryManager {
   async ensureDeno(onStatus?: StatusReporter): Promise<string | null> {
     const override = process.env.ARROXY_DENO_PATH;
     if (override && (await this.isUsableBinary(override))) {
-      this.logger.log('INFO', 'Using pre-installed deno', { path: override });
+      logger.info('Using pre-installed deno', { path: override });
       return override;
     }
 
     const assetName = denoAssetName();
     if (!assetName) {
-      this.logger.log('INFO', 'No deno build for this platform/arch, skipping');
+      logger.info('No deno build for this platform/arch, skipping');
       return null;
     }
 
     const targetPath = this.getDenoPath();
     if (await this.isUsableBinary(targetPath)) {
-      this.logger.log('INFO', 'deno binary already exists', { destinationPath: targetPath });
+      logger.info('deno binary already exists', { destinationPath: targetPath });
       return targetPath;
     }
 
@@ -370,7 +470,7 @@ export class BinaryManager {
       return targetPath;
     } catch (err) {
       trackMain('binary_setup_failed', { binary: 'deno', phase: binaryPhase(err) });
-      this.logger.log('WARN', 'Failed to bundle deno, continuing without JS runtime', {
+      logger.warn('Failed to bundle deno, continuing without JS runtime', {
         error: err instanceof Error ? err.message : String(err)
       });
       return null;
@@ -380,7 +480,7 @@ export class BinaryManager {
   async ensureFFmpeg(onStatus?: StatusReporter): Promise<string | null> {
     const override = process.env.ARROXY_FFMPEG_PATH;
     if (override && (await this.isUsableBinary(override))) {
-      this.logger.log('INFO', 'Using pre-installed ffmpeg', { path: override });
+      logger.info('Using pre-installed ffmpeg', { path: override });
       return override;
     }
 
@@ -430,7 +530,7 @@ export class BinaryManager {
 
       try {
         onStatus?.('downloadingBinary', { name });
-        this.logger.log('INFO', `Downloading ${name}`, {
+        logger.info(`Downloading ${name}`, {
           downloadUrl: config.downloadUrl,
           destinationPath
         });
@@ -444,7 +544,7 @@ export class BinaryManager {
             throw this.toBinaryError(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`);
           }
         } else {
-          this.logger.log('WARN', `Checksum unavailable for ${name}, proceeding without verification`);
+          logger.warn(`Checksum unavailable for ${name}, proceeding without verification`);
         }
 
         const extractDir = path.join(tempDir, 'unpacked');
@@ -493,10 +593,10 @@ export class BinaryManager {
     if (await this.isUsableBinary(destinationPath)) {
       const upToDate = !config.isUpToDate || (await config.isUpToDate());
       if (upToDate) {
-        this.logger.log('INFO', `${name} binary already exists`, { destinationPath });
+        logger.info(`${name} binary already exists`, { destinationPath });
         return;
       }
-      this.logger.log('INFO', `${name} binary is outdated, re-downloading`);
+      logger.info(`${name} binary is outdated, re-downloading`);
     }
 
     const existing = this.inProgress.get(destinationPath);
@@ -519,7 +619,7 @@ export class BinaryManager {
         const isChecksumError = err instanceof Error && err.message.toLowerCase().includes('checksum');
         if (isChecksumError || attempt === maxAttempts) throw err;
         const delay = attempt === 1 ? this.retryDelays[0] : this.retryDelays[1];
-        this.logger.log('WARN', `${config.name} download failed, retrying in ${delay}ms`, {
+        logger.warn(`${config.name} download failed, retrying in ${delay}ms`, {
           attempt,
           error: err instanceof Error ? err.message : String(err)
         });
@@ -533,7 +633,7 @@ export class BinaryManager {
 
     const tempPath = `${destinationPath}.tmp`;
     onStatus?.('downloadingBinary', { name });
-    this.logger.log('INFO', `Downloading ${name}`, { downloadUrl, destinationPath });
+    logger.info(`Downloading ${name}`, { downloadUrl, destinationPath });
 
     await downloadFile(downloadUrl, tempPath);
 
@@ -551,7 +651,7 @@ export class BinaryManager {
           throw this.toBinaryError(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`);
         }
       } else {
-        this.logger.log('WARN', `Checksum unavailable for ${name}, proceeding without verification`);
+        logger.warn(`Checksum unavailable for ${name}, proceeding without verification`);
       }
     }
 
@@ -567,14 +667,14 @@ export class BinaryManager {
     const [local, remote] = await Promise.all([this.getLocalYtDlpVersion(binaryPath), this.getRemoteYtDlpVersion()]);
     if (!local) return false;
     if (!remote) {
-      this.logger.log('WARN', 'Could not fetch yt-dlp remote version, skipping update check');
+      logger.warn('Could not fetch yt-dlp remote version, skipping update check');
       return true;
     }
     if (local !== remote) {
-      this.logger.log('INFO', 'yt-dlp update available', { local, remote });
+      logger.info('yt-dlp update available', { local, remote });
       return false;
     }
-    this.logger.log('INFO', 'yt-dlp is up to date', { version: local });
+    logger.info('yt-dlp is up to date', { version: local });
     return true;
   }
 

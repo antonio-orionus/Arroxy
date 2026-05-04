@@ -7,7 +7,6 @@
     "buildResources": "build"
   },
   "files": ["out/**/*"],
-  "asarUnpack": ["**/node_modules/@ffprobe-installer/**"],
   "extraResources": [
     {
       "from": "build/icon-tray.png",

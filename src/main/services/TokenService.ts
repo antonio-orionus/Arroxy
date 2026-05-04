@@ -1,7 +1,9 @@
+import log from 'electron-log/main';
 import { parseVideoId } from '@shared/url';
 import { unknownToMessage } from '@main/utils/errorFactory';
-import type { LogService } from '@main/services/LogService';
 import type { TokenProvider } from '@main/token/TokenProvider';
+
+const logger = log.scope('token');
 
 const TTL_MS = 5 * 60 * 60 * 1_000; // 5 hours — within ~6 h token lifetime
 
@@ -14,10 +16,7 @@ type TokenCache = {
 export class TokenService {
   private cache: TokenCache | null = null;
 
-  constructor(
-    private readonly provider: TokenProvider,
-    private readonly logger: LogService
-  ) {}
+  constructor(private readonly provider: TokenProvider) {}
 
   async warmUp(): Promise<void> {
     try {
@@ -26,9 +25,9 @@ export class TokenService {
       if (!visitorData) return;
       const token = await this.provider.mintToken(visitorData);
       this.cache = { token, visitorData, mintedAt: Date.now() };
-      this.logger.log('INFO', 'PO token pre-warmed');
+      logger.info('PO token pre-warmed');
     } catch (err) {
-      this.logger.log('WARN', 'Token warm-up failed (non-fatal)', { error: unknownToMessage(err) });
+      logger.warn('Token warm-up failed (non-fatal)', { error: unknownToMessage(err) });
     } finally {
       this.provider.releaseWindow();
     }
@@ -48,7 +47,7 @@ export class TokenService {
       const visitorData = await this.provider.getVisitorData();
       const binding = visitorData || parseVideoId(url) || url;
 
-      this.logger.log('INFO', 'Minting PO token', { bindingLength: binding.length });
+      logger.info('Minting PO token', { bindingLength: binding.length });
       const token = await this.provider.mintToken(binding);
       this.cache = { token, visitorData, mintedAt: Date.now() };
       return { token, visitorData };

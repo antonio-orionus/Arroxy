@@ -49,7 +49,6 @@ function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload
   const ctx: PhaseContext = {
     active: makeActive(activeOverrides),
     ytDlp: { run: runMock, ffmpegPath: '/fake/ffmpeg' } as never,
-    logger: { log: vi.fn() } as never,
     emitStatus: vi.fn(),
     emitYtdlpFailure: vi.fn().mockReturnValue({ key: 'botBlock' }),
     attachYtDlpProcess: vi.fn(),
@@ -185,7 +184,6 @@ describe('VideoPhase — cancel / pause', () => {
     const ctx: PhaseContext = {
       active: makeActive({ cancelRequested: false }),
       ytDlp: { run: runMock } as never,
-      logger: { log: vi.fn() } as never,
       emitStatus: vi.fn(),
       emitYtdlpFailure: vi.fn(),
       attachYtDlpProcess: vi.fn(),
@@ -210,7 +208,6 @@ describe('VideoPhase — cancel / pause', () => {
     const ctx: PhaseContext = {
       active: makeActive({ pauseRequested: false }),
       ytDlp: { run: runMock } as never,
-      logger: { log: vi.fn() } as never,
       emitStatus: vi.fn(),
       emitYtdlpFailure: vi.fn(),
       attachYtDlpProcess: vi.fn(),
@@ -240,7 +237,6 @@ describe('VideoPhase — signal callbacks', () => {
     const ctx: PhaseContext = {
       active: makeActive(),
       ytDlp: { run: runMock } as never,
-      logger: { log: vi.fn() } as never,
       emitStatus: vi.fn(),
       emitYtdlpFailure: vi.fn(),
       attachYtDlpProcess: vi.fn(),
@@ -265,7 +261,6 @@ describe('VideoPhase — signal callbacks', () => {
     const ctx: PhaseContext = {
       active: makeActive(),
       ytDlp: { run: runMock } as never,
-      logger: { log: vi.fn() } as never,
       emitStatus: vi.fn(),
       emitYtdlpFailure: vi.fn(),
       attachYtDlpProcess: vi.fn(),
@@ -290,7 +285,6 @@ describe('VideoPhase — signal callbacks', () => {
     const ctx: PhaseContext = {
       active: makeActive(),
       ytDlp: { run: runMock } as never,
-      logger: { log: vi.fn() } as never,
       emitStatus: vi.fn(),
       emitYtdlpFailure: vi.fn(),
       attachYtDlpProcess: vi.fn(),
@@ -315,7 +309,6 @@ describe('VideoPhase — signal callbacks', () => {
     const ctx: PhaseContext = {
       active: makeActive(),
       ytDlp: { run: runMock } as never,
-      logger: { log: vi.fn() } as never,
       emitStatus: vi.fn(),
       emitYtdlpFailure: vi.fn(),
       attachYtDlpProcess: vi.fn(),

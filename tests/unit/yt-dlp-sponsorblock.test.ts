@@ -37,10 +37,9 @@ function makeService() {
     ensureFFprobe: vi.fn().mockResolvedValue(null)
   };
   const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
-  const logService = { log: vi.fn() };
   const settingsStore = { get: vi.fn().mockResolvedValue({}) };
   const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
-  const service = new DownloadService(ytDlp, recentJobsStore as never, logService as never, false);
+  const service = new DownloadService(ytDlp, recentJobsStore as never, false);
   return service;
 }
 

@@ -8,7 +8,7 @@ import { YtDlp } from '@main/services/YtDlp';
 
 function makeService() {
   const ytDlp = new YtDlp({} as never, {} as never, { get: async () => ({}) } as never);
-  return new DownloadService(ytDlp, { push: async () => {} } as never, { log: () => {} } as never, true);
+  return new DownloadService(ytDlp, { push: async () => {} } as never, true);
 }
 
 describe('cleanupPartFiles', () => {

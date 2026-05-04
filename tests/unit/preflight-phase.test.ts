@@ -33,7 +33,6 @@ function makeCtx(outputDir = '/output'): PhaseContext {
   return {
     active,
     ytDlp: {} as never,
-    logger: { log: vi.fn() } as never,
     emitStatus: vi.fn(),
     emitYtdlpFailure: vi.fn(),
     attachYtDlpProcess: vi.fn(),

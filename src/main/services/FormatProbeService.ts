@@ -1,5 +1,7 @@
-import type { LogService } from '@main/services/LogService';
+import log from 'electron-log/main';
 import { trackMain, probeDurationBucket } from '@main/services/analytics';
+
+const logger = log.scope('probe');
 import { createAppError } from '@main/utils/errorFactory';
 import { splitStderrLines } from '@main/utils/process';
 import { ok, fail, type Result } from '@shared/result';
@@ -99,7 +101,6 @@ function categorizeProbeError(msg: string): string {
 export class FormatProbeService {
   constructor(
     private readonly ytDlp: YtDlp,
-    private readonly logger: LogService,
     private readonly mockMode = false
   ) {}
 
@@ -148,14 +149,14 @@ export class FormatProbeService {
         });
       }
 
-      this.logger.log('INFO', 'Format probe started', { url });
+      logger.info('Format probe started', { url });
 
       const result = await this.ytDlp.run(
         { kind: 'probe', url },
         {
           onStderr: (chunk) => {
             for (const line of splitStderrLines(chunk)) {
-              this.logger.log('INFO', line, { source: 'yt-dlp-format-probe' });
+              logger.info(line, { source: 'yt-dlp-format-probe' });
             }
           }
         }
@@ -165,7 +166,7 @@ export class FormatProbeService {
         const code = result.kind === 'exit-error' ? result.exitCode : null;
         const signal = result.kind === 'exit-error' ? result.signal : null;
         const rawError = result.kind === 'exit-error' ? result.rawError : result.error.message;
-        this.logger.log('ERROR', 'yt-dlp format probe failed', { code, url, signal });
+        logger.error('yt-dlp format probe failed', { code, url, signal });
         trackMain('format_probed', {
           duration_bucket: probeDurationBucket(Date.now() - startMs),
           error_category: categorizeProbeError(rawError ?? '')
@@ -178,7 +179,7 @@ export class FormatProbeService {
         const parseResult = ytDlpInfoSchema.safeParse(raw);
         if (!parseResult.success) {
           const message = parseResult.error.issues[0]?.message ?? 'yt-dlp output failed schema validation';
-          this.logger.log('ERROR', 'Format probe schema validation failed', { message, url });
+          logger.error('Format probe schema validation failed', { message, url });
           trackMain('format_probed', {
             outcome: 'error',
             duration_bucket: probeDurationBucket(Date.now() - startMs),
@@ -188,7 +189,7 @@ export class FormatProbeService {
         }
         const parsed = parseResult.data;
         const formats = mapFormats(parsed);
-        this.logger.log('INFO', 'Format probe complete', {
+        logger.info('Format probe complete', {
           url,
           title: parsed.title,
           formatCount: formats.length
@@ -203,7 +204,7 @@ export class FormatProbeService {
         });
       } catch (error) {
         const message = error instanceof Error ? error.message : 'Unknown JSON parse error';
-        this.logger.log('ERROR', 'Format probe JSON parse failed', { message, url });
+        logger.error('Format probe JSON parse failed', { message, url });
         trackMain('format_probed', {
           duration_bucket: probeDurationBucket(Date.now() - startMs),
           error_category: 'parse'
@@ -212,7 +213,7 @@ export class FormatProbeService {
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown format probing error';
-      this.logger.log('ERROR', 'Format probe failure', { message, url });
+      logger.error('Format probe failure', { message, url });
       trackMain('format_probed', {
         duration_bucket: probeDurationBucket(Date.now() - startMs),
         error_category: categorizeProbeError(message)

@@ -1,6 +1,6 @@
 import { STATUS_KEY } from '@shared/schemas';
 import { DEFAULTS } from '@shared/constants';
-import { dedupeSubtitleFiles } from '../subtitlePostProcess';
+import { dedupeSubtitleFiles, logger } from '../subtitlePostProcess';
 import type { Phase, PhaseContext, PhaseOutcome } from './types';
 
 export const SubtitleOnlyPhase: Phase = {
@@ -33,13 +33,14 @@ export const SubtitleOnlyPhase: Phase = {
     if (active.cancelRequested) return { kind: 'cancelled' };
 
     if (result.kind !== 'success') {
+      logger.warn('subtitle-only fetch failed', { jobId: job.id, kind: result.kind });
       return { kind: 'hard-failed', error: ctx.emitYtdlpFailure(result) };
     }
 
     if (result.usedExtractorFallback) active.usedExtractorFallback = true;
 
     if (input.writeAutoSubs) {
-      await dedupeSubtitleFiles(active.subtitlePaths, ctx.logger, job.id, () => active.cancelRequested);
+      await dedupeSubtitleFiles(active.subtitlePaths, job.id, () => active.cancelRequested);
     }
 
     return { kind: 'completed' };

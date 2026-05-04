@@ -1,6 +1,8 @@
 import { BrowserWindow, session } from 'electron';
+import log from 'electron-log/main';
 import type { TokenProvider } from '@main/token/TokenProvider';
-import type { LogService } from '@main/services/LogService';
+
+const logger = log.scope('token');
 
 const CHROME_UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ' + '(KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 const YOUTUBE_URL = 'https://www.youtube.com?themeRefresh=1';
@@ -15,10 +17,6 @@ export class HiddenWindowTokenProvider implements TokenProvider {
   private hiddenWindow: BrowserWindow | null = null;
 
   private ready = false;
-
-  // logger is optional so existing test fixtures and the mock provider don't
-  // need to thread one in. main process wires the real LogService.
-  constructor(private readonly logger?: LogService) {}
 
   private getWindow(): BrowserWindow {
     if (this.hiddenWindow && !this.hiddenWindow.isDestroyed()) {
@@ -64,7 +62,7 @@ export class HiddenWindowTokenProvider implements TokenProvider {
       // YouTube renamed `bevasrs.wpc` (the obfuscated WebPoClient factory) —
       // this is the canary for "the scrape just broke." Logging it here means
       // we see it in the logs before users start filing bugs.
-      this.logger?.log('WARN', 'PoT scrape: WebPoClient global not found after 20s', {
+      logger.warn('PoT scrape: WebPoClient global not found after 20s', {
         pageUrl: YOUTUBE_URL
       });
       throw new Error('WebPoClient was not found on the loaded page');
@@ -123,14 +121,14 @@ export class HiddenWindowTokenProvider implements TokenProvider {
       }
 
       const errorMessage = result?.error ?? 'unknown error';
-      this.logger?.log('WARN', 'PoT scrape: mintToken returned error', {
+      logger.warn('PoT scrape: mintToken returned error', {
         error: errorMessage,
         attempt
       });
       throw new Error(`Token minting failed: ${errorMessage}`);
     }
 
-    this.logger?.log('WARN', 'PoT scrape: mintToken timed out (SDF:notready loop)', {
+    logger.warn('PoT scrape: mintToken timed out (SDF:notready loop)', {
       maxTries
     });
     throw new Error('Timed out waiting for WebPoClient readiness');
