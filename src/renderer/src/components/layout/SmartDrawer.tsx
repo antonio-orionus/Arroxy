@@ -2,11 +2,11 @@ import type { JSX } from 'react';
 import { useMemo } from 'react';
 import { ChevronDown, Inbox, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useAppStore, formatStatus } from '../store/useAppStore';
-import { QueueItemCard } from './QueueItemCard';
-import { QueueTipNudge } from './QueueTipNudge';
-import { Badge } from './ui/badge';
-import { ScrollArea } from './ui/scroll-area';
+import { useAppStore, formatStatus } from '../../store/useAppStore';
+import { QueueItemCard } from '../queue/QueueItemCard';
+import { QueueTipNudge } from '../queue/QueueTipNudge';
+import { Badge } from '../ui/badge';
+import { ScrollArea } from '../ui/scroll-area';
 
 export function SmartDrawer(): JSX.Element {
   const { t } = useTranslation();

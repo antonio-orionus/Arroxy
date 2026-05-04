@@ -1,14 +1,14 @@
 import { useState, useMemo, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppStore } from '../store/useAppStore';
-import { Button } from './ui/button';
-import { Separator } from './ui/separator';
-import { RadioOption } from './ui/radio-option';
-import { Switch } from './ui/switch';
-import { Input } from './ui/input';
+import { useAppStore } from '../../store/useAppStore';
+import { Button } from '../ui/button';
+import { Separator } from '../ui/separator';
+import { RadioOption } from '../ui/radio-option';
+import { Switch } from '../ui/switch';
+import { Input } from '../ui/input';
 import { formatHomeRelativePath } from '@renderer/lib/utils';
 import { isValidSubfolder } from '@renderer/lib/path';
-import { VideoSummaryCard } from './VideoSummaryCard';
+import { VideoSummaryCard } from '../shared/VideoSummaryCard';
 
 interface Location {
   id: string;

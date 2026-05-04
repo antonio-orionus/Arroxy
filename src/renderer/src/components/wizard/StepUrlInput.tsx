@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState, type JSX } from 'react';
 import { ArrowRight, AlertTriangle, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../../store/useAppStore';
 import { track } from '@renderer/lib/analytics';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { Switch } from './ui/switch';
-import { MascotBubble } from './MascotBubble';
-import { ClipboardConfirmDialog } from './ClipboardConfirmDialog';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { Switch } from '../ui/switch';
+import { MascotBubble } from '../shared/MascotBubble';
+import { ClipboardConfirmDialog } from '../shared/ClipboardConfirmDialog';
 import { formatHomeRelativePath } from '@renderer/lib/utils';
 import { cleanYoutubeUrl } from '@shared/url';
-import hiImg from '../assets/Hi.png';
-import downloadingImg from '../assets/Downloading.png';
+import hiImg from '../../assets/Hi.png';
+import downloadingImg from '../../assets/Downloading.png';
 
 const COOKIES_HELP_URL = 'https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp';
 const COOKIES_FIREFOX_URL = 'https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/';

@@ -3,6 +3,7 @@
   "entry": [
     "src/main/index.ts",
     "src/preload/index.ts",
+    "src/renderer/src/main.tsx",
     "electron.vite.config.ts",
     "scripts/**/*.ts"
   ],

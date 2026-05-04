@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppStore } from '../store/useAppStore';
-import { STEPS, NO_VIDEO_PRESETS } from '../store/wizardSlice';
-import { StepUrlInput } from './StepUrlInput';
-import { StepFormatSelect } from './StepFormatSelect';
-import { StepFolderConfirm } from './StepFolderConfirm';
-import { StepConfirm } from './StepConfirm';
-import { StepSubtitles } from './StepSubtitles';
-import { StepSponsorBlock } from './StepSponsorBlock';
-import { StepOutput } from './StepOutput';
-import { StepError } from './StepError';
+import { useAppStore } from '../../store/useAppStore';
+import { STEPS, NO_VIDEO_PRESETS } from '../../store/wizardSlice';
+import { StepUrlInput } from '../wizard/StepUrlInput';
+import { StepFormatSelect } from '../wizard/StepFormatSelect';
+import { StepFolderConfirm } from '../wizard/StepFolderConfirm';
+import { StepConfirm } from '../wizard/StepConfirm';
+import { StepSubtitles } from '../wizard/StepSubtitles';
+import { StepSponsorBlock } from '../wizard/StepSponsorBlock';
+import { StepOutput } from '../wizard/StepOutput';
+import { StepError } from '../wizard/StepError';
 import { cn } from '@renderer/lib/utils';
 
 export function WizardPanel(): JSX.Element {

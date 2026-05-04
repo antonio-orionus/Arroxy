@@ -1,6 +1,6 @@
 {
   "name": "arroxy",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "description": "Arroxy - YouTube downloader app",
   "main": "out/main/index.js",
   "author": {
@@ -89,6 +89,7 @@
     "husky": "^9.1.7",
     "jsdom": "^29.0.2",
     "knip": "^6.11.0",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.8.3",
     "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3",
@@ -96,97 +97,8 @@
     "vite": "^8.0.10",
     "vitest": "^4.1.5"
   },
-  "build": {
-    "appId": "com.arroxy.app",
-    "productName": "Arroxy",
-    "afterPack": "./build/afterPack.cjs",
-    "directories": {
-      "output": "dist",
-      "buildResources": "build"
-    },
-    "files": [
-      "out/**/*"
-    ],
-    "asarUnpack": [
-      "**/node_modules/@ffprobe-installer/**"
-    ],
-    "extraResources": [
-      {
-        "from": "build/icon-tray.png",
-        "to": "icon-tray.png"
-      }
-    ],
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        },
-        {
-          "target": "portable",
-          "arch": [
-            "x64"
-          ]
-        }
-      ]
-    },
-    "nsis": {
-      "oneClick": false,
-      "perMachine": false,
-      "allowElevation": true,
-      "allowToChangeInstallationDirectory": true,
-      "multiLanguageInstaller": true,
-      "installerLanguages": [
-        "en_US",
-        "es_ES",
-        "fr_FR",
-        "de_DE",
-        "ru_RU",
-        "uk_UA",
-        "ja_JP",
-        "zh_CN"
-      ],
-      "artifactName": "${productName}-Setup-${version}.${ext}"
-    },
-    "portable": {
-      "artifactName": "${productName}-Portable-${version}.${ext}"
-    },
-    "mac": {
-      "identity": null,
-      "target": [
-        {
-          "target": "dmg",
-          "arch": [
-            "arm64",
-            "x64"
-          ]
-        }
-      ],
-      "artifactName": "${productName}-${version}-${arch}.${ext}"
-    },
-    "linux": {
-      "target": [
-        {
-          "target": "AppImage",
-          "arch": [
-            "x64"
-          ]
-        },
-        {
-          "target": "tar.gz",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "artifactName": "${productName}-${version}.${ext}"
-    },
-    "publish": {
-      "provider": "github",
-      "owner": "antonio-orionus",
-      "repo": "Arroxy"
-    }
+  "lint-staged": {
+    "src/**/*.{ts,tsx,css}": "prettier --write",
+    "tests/**/*.{ts,tsx}": "prettier --write"
   }
 }

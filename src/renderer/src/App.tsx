@@ -3,17 +3,17 @@ import { Bug } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ZOOM_MIN, ZOOM_MAX, ZOOM_STEP } from '@shared/schemas';
 import { useAppStore } from './store/useAppStore';
-import { TitleBar } from './components/TitleBar';
-import { WizardPanel } from './components/WizardPanel';
-import { SmartDrawer } from './components/SmartDrawer';
-import { SplashScreen } from './components/SplashScreen';
-import { FeedbackNudge } from './components/FeedbackNudge';
-import { UpdateBanner } from './components/UpdateBanner';
-import { ThemeToggle } from './components/ThemeToggle';
-import { LanguagePicker } from './components/LanguagePicker';
+import { TitleBar } from './components/layout/TitleBar';
+import { WizardPanel } from './components/layout/WizardPanel';
+import { SmartDrawer } from './components/layout/SmartDrawer';
+import { SplashScreen } from './components/system/SplashScreen';
+import { FeedbackNudge } from './components/system/FeedbackNudge';
+import { UpdateBanner } from './components/system/UpdateBanner';
+import { ThemeToggle } from './components/system/ThemeToggle';
+import { LanguagePicker } from './components/system/LanguagePicker';
+import { useUpdateChannel } from './components/system/useUpdateChannel';
 import { TooltipProvider } from './components/ui/tooltip';
 import { cn } from './lib/utils';
-import type { UpdateAvailablePayload } from '@shared/types';
 
 const FEEDBACK_URL = 'https://github.com/antonio-orionus/Arroxy/issues/new/choose';
 
@@ -27,11 +27,9 @@ function buildDebugInfo(): string {
 export function App(): JSX.Element {
   const { t } = useTranslation();
   const { initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, warmupFailures } = useAppStore();
+  const update = useUpdateChannel();
   const [debugCopied, setDebugCopied] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
-  const [updateInfo, setUpdateInfo] = useState<UpdateAvailablePayload | null>(null);
-  const [installing, setInstalling] = useState(false);
-  const [installError, setInstallError] = useState<string | null>(null);
 
   function copyDebugInfo(): void {
     void navigator.clipboard.writeText(buildDebugInfo()).then(() => {
@@ -43,25 +41,6 @@ export function App(): JSX.Element {
   useEffect(() => {
     void initialize();
   }, [initialize]);
-
-  useEffect(() => {
-    return window.appApi.updater.onUpdateAvailable(setUpdateInfo);
-  }, []);
-
-  function handleInstall(): void {
-    setInstalling(true);
-    setInstallError(null);
-    void window.appApi.updater.install().then((result) => {
-      setInstalling(false);
-      if (!result.ok) setInstallError(result.error);
-      // On success the main process calls quitAndInstall — no further UI work.
-    });
-  }
-
-  function handleDownload(): void {
-    void window.appApi.shell.openExternal('https://github.com/antonio-orionus/Arroxy/releases/latest');
-    setUpdateInfo(null);
-  }
 
   useEffect(() => {
     const html = document.documentElement;
@@ -95,19 +74,7 @@ export function App(): JSX.Element {
       <div className="relative flex flex-col h-screen w-screen bg-background overflow-hidden" data-testid="app-root">
         <TitleBar />
 
-        {updateInfo && (
-          <UpdateBanner
-            info={updateInfo}
-            installing={installing}
-            installError={installError}
-            onInstall={handleInstall}
-            onDownload={handleDownload}
-            onDismiss={() => {
-              setUpdateInfo(null);
-              setInstallError(null);
-            }}
-          />
-        )}
+        {update.info && <UpdateBanner info={update.info} installing={update.installing} installError={update.error} onInstall={update.install} onDownload={update.download} onDismiss={update.dismiss} />}
 
         <div className="flex-1 flex flex-col overflow-hidden" data-testid="app-content">
           <div className="flex-1 flex flex-col overflow-hidden" style={{ zoom: uiZoom }}>

@@ -340,7 +340,7 @@ describe('SponsorBlock — StepSponsorBlock UI', () => {
   let StepSponsorBlock: React.FC;
 
   beforeEach(async () => {
-    const mod = await import('@renderer/components/StepSponsorBlock');
+    const mod = await import('@renderer/components/wizard/StepSponsorBlock');
     StepSponsorBlock = mod.StepSponsorBlock;
   });
 

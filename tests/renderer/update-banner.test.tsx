@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { UpdateBanner } from '@renderer/components/UpdateBanner';
-import { resolveAction } from '@renderer/components/updateBannerAction';
+import { UpdateBanner } from '@renderer/components/system/UpdateBanner';
+import { resolveAction } from '@renderer/components/system/updateBannerAction';
 import type { UpdateAvailablePayload } from '@shared/types';
 
 function makeInfo(overrides: Partial<UpdateAvailablePayload> = {}): UpdateAvailablePayload {

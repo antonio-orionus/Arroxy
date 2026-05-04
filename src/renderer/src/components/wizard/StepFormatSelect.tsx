@@ -2,17 +2,17 @@ import { useState, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Preset } from '@shared/types';
 import { humanSize } from '@shared/format';
-import { useAppStore, groupVideoFormats, presetOptions } from '../store/useAppStore';
-import { Button } from './ui/button';
-import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group';
-import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
-import { Separator } from './ui/separator';
-import { RadioOption } from './ui/radio-option';
+import { useAppStore, groupVideoFormats, presetOptions } from '../../store/useAppStore';
+import { Button } from '../ui/button';
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
+import { Tooltip, TooltipTrigger, TooltipContent } from '../ui/tooltip';
+import { Separator } from '../ui/separator';
+import { RadioOption } from '../ui/radio-option';
 import { cn } from '@renderer/lib/utils';
-import { VideoSummaryCard } from './VideoSummaryCard';
-import { MascotBubble } from './MascotBubble';
-import choosingImg from '../assets/Choosing.png';
-import downloadingImg from '../assets/Downloading.png';
+import { VideoSummaryCard } from '../shared/VideoSummaryCard';
+import { MascotBubble } from '../shared/MascotBubble';
+import choosingImg from '../../assets/Choosing.png';
+import downloadingImg from '../../assets/Downloading.png';
 
 export function StepFormatSelect(): JSX.Element {
   const { t } = useTranslation();

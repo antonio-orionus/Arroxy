@@ -1,8 +1,8 @@
 import type React from 'react';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group';
-import { useAppStore } from '../store/useAppStore';
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
+import { useAppStore } from '../../store/useAppStore';
 
 type Theme = 'light' | 'dark' | 'system';
 

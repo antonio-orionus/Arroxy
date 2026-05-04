@@ -1,7 +1,7 @@
 import type { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatError, useAppStore } from '../store/useAppStore';
-import { Button } from './ui/button';
+import { formatError, useAppStore } from '../../store/useAppStore';
+import { Button } from '../ui/button';
 
 export function StepError(): JSX.Element {
   const { t } = useTranslation();

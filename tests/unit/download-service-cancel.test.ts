@@ -93,7 +93,14 @@ describe('process group kill on POSIX', () => {
     const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never, stubs.logService as never);
 
     await svc.start({ url: URL, outputDir: '/tmp' });
-    await new Promise((r) => setTimeout(r, 30)); // let setupTempDir + spawnYtDlp complete
+    // Wait until the process is spawned. attachYtDlpProcess emits 'download' status
+    // synchronously, then sets active.ytDlpProcess in the very next line, so by the
+    // time this Promise resolves (next microtask), the process reference is guaranteed set.
+    await new Promise<void>((resolve) => {
+      svc.on('status', (ev) => {
+        if (ev.stage === 'download') resolve();
+      });
+    });
     await svc.cancel();
 
     expect(killSpy).toHaveBeenCalledWith(-999, 'SIGKILL');

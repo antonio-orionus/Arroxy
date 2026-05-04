@@ -1,9 +1,9 @@
 import { type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppStore } from '../store/useAppStore';
-import { Button } from './ui/button';
-import { Separator } from './ui/separator';
-import { Switch } from './ui/switch';
+import { useAppStore } from '../../store/useAppStore';
+import { Button } from '../ui/button';
+import { Separator } from '../ui/separator';
+import { Switch } from '../ui/switch';
 
 export function StepOutput(): JSX.Element {
   const { t } = useTranslation();

@@ -4,9 +4,9 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { useAppStore } from '@renderer/store/useAppStore';
 import type { GetFormatsOutput, StatusEvent } from '@shared/types';
 import { ok } from '../shared/fixtures';
-import { StepSubtitles } from '@renderer/components/StepSubtitles';
-import { StepConfirm } from '@renderer/components/StepConfirm';
-import { StepFormatSelect } from '@renderer/components/StepFormatSelect';
+import { StepSubtitles } from '@renderer/components/wizard/StepSubtitles';
+import { StepConfirm } from '@renderer/components/wizard/StepConfirm';
+import { StepFormatSelect } from '@renderer/components/wizard/StepFormatSelect';
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 

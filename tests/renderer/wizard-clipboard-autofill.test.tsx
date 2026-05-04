@@ -2,7 +2,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, act, fireEvent, screen } from '@testing-library/react';
 import { useAppStore } from '@renderer/store/useAppStore';
-import { StepUrlInput } from '@renderer/components/StepUrlInput';
+import { StepUrlInput } from '@renderer/components/wizard/StepUrlInput';
 import { buildMockAppApi } from '../shared/mockAppApi';
 import type { AppApi } from '@shared/api';
 

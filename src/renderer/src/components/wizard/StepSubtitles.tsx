@@ -1,14 +1,14 @@
 import { type JSX, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Search, Check, X } from 'lucide-react';
-import { useAppStore } from '../store/useAppStore';
-import { Button } from './ui/button';
-import { Separator } from './ui/separator';
-import { RadioOption } from './ui/radio-option';
-import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
-import { MascotBubble } from './MascotBubble';
-import { buildSubtitleList, SUBTITLE_MODE_I18N_KEYS } from '../lib/subtitleLabel';
-import loveImg from '../assets/Love.png';
+import { useAppStore } from '../../store/useAppStore';
+import { Button } from '../ui/button';
+import { Separator } from '../ui/separator';
+import { RadioOption } from '../ui/radio-option';
+import { Tooltip, TooltipTrigger, TooltipContent } from '../ui/tooltip';
+import { MascotBubble } from '../shared/MascotBubble';
+import { buildSubtitleList, SUBTITLE_MODE_I18N_KEYS } from '../../lib/subtitleLabel';
+import loveImg from '../../assets/Love.png';
 import { SUBTITLE_FORMATS, SUBTITLE_MODES } from '@shared/schemas';
 
 export function StepSubtitles(): JSX.Element {

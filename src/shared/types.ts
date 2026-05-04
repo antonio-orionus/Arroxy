@@ -157,6 +157,16 @@ export interface WarmUpOutput {
   failures: string[];
 }
 
+export interface CommonPaths {
+  downloads: string | null;
+  videos: string | null;
+  music: string | null;
+  desktop?: string | null;
+  documents?: string | null;
+  pictures?: string | null;
+  home?: string | null;
+}
+
 export interface StartDownloadInput {
   url: string;
   outputDir?: string;

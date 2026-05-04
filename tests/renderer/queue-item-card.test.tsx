@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
-import { QueueItemCard } from '@renderer/components/QueueItemCard';
+import { QueueItemCard } from '@renderer/components/queue/QueueItemCard';
 import { useAppStore } from '@renderer/store/useAppStore';
 import type { QueueItem, QueueItemStatus } from '@shared/types';
 

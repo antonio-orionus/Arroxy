@@ -1,6 +1,6 @@
 import { useState, useEffect, type JSX } from 'react';
 import { cn } from '@renderer/lib/utils';
-import loveImg from '../assets/Love.png';
+import loveImg from '../../assets/Love.png';
 
 interface Props {
   visible: boolean;

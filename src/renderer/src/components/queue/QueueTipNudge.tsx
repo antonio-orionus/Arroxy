@@ -1,7 +1,7 @@
 import { useEffect, useState, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@renderer/lib/utils';
-import downloadingImg from '../assets/Downloading.png';
+import downloadingImg from '../../assets/Downloading.png';
 
 interface Props {
   visible: boolean;

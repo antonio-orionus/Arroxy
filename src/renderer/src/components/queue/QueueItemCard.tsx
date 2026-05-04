@@ -2,11 +2,11 @@ import type { JSX, ReactNode } from 'react';
 import { AlertTriangle, Captions, Download, ExternalLink, FolderOpen, Hourglass, Layers, Pause, Play, RotateCcw, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { QueueItem, QueueItemStatus, StatusKey } from '@shared/types';
-import { useAppStore, formatStatus, formatLocalizedError } from '../store/useAppStore';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
-import { Progress } from './ui/progress';
-import { TooltipIconButton } from './ui/tooltip-icon-button';
+import { useAppStore, formatStatus, formatLocalizedError } from '../../store/useAppStore';
+import { Button } from '../ui/button';
+import { Badge } from '../ui/badge';
+import { Progress } from '../ui/progress';
+import { TooltipIconButton } from '../ui/tooltip-icon-button';
 import { cn } from '@renderer/lib/utils';
 
 const PHASE_ICON: Partial<Record<StatusKey, ReactNode>> = {

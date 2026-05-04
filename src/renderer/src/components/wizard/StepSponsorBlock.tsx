@@ -1,10 +1,10 @@
 import { type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppStore } from '../store/useAppStore';
-import { Button } from './ui/button';
-import { Checkbox } from './ui/checkbox';
-import { Separator } from './ui/separator';
-import { RadioOption } from './ui/radio-option';
+import { useAppStore } from '../../store/useAppStore';
+import { Button } from '../ui/button';
+import { Checkbox } from '../ui/checkbox';
+import { Separator } from '../ui/separator';
+import { RadioOption } from '../ui/radio-option';
 import { SPONSORBLOCK_CATEGORIES, SPONSORBLOCK_MODES } from '@shared/schemas';
 import type { SponsorBlockMode } from '@shared/types';
 

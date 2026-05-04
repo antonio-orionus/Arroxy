@@ -1,8 +1,8 @@
 import { type JSX, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
-import { Button } from './ui/button';
-import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog';
+import { Button } from '../ui/button';
+import { Tooltip, TooltipTrigger, TooltipContent } from '../ui/tooltip';
 
 interface Props {
   open: boolean;

@@ -1,6 +1,6 @@
 import { useState, useEffect, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import mainImg from '../assets/Main.png';
+import mainImg from '../../assets/Main.png';
 
 interface Props {
   initialized: boolean;
