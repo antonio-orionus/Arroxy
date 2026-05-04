@@ -46,6 +46,8 @@ jobs:
       # build NSIS — that's what smoke tests, and saves ~30s per non-tag run.
       - name: Build Windows artifacts
         shell: bash
+        env:
+          APTABASE_KEY: ${{ secrets.APTABASE_KEY }}
         run: |
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
             bun run dist:win
