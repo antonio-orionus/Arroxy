@@ -79,6 +79,12 @@ const ru = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'Направлять трафик через прокси — полезно для контента с географическими ограничениями.',
+        placeholder: 'http://host:port',
+        clear: 'Очистить'
+      },
       closeToTray: {
         toggle: 'Скрывать в трей при закрытии',
         toggleDescription: 'Продолжать загрузки в фоне после закрытия окна.'
@@ -333,6 +339,12 @@ const ru = {
       hide: 'Скрыть в трей',
       quit: 'Выйти',
       remember: 'Больше не спрашивать'
+    },
+    rendererCrashed: {
+      message: 'Arroxy столкнулся с проблемой',
+      detail: 'Процесс отрисовки завершился аварийно ({{reason}}). Перезагрузи, чтобы попробовать снова.',
+      reload: 'Перезагрузить',
+      quit: 'Выйти'
     }
   }
 } as const;

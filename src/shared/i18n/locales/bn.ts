@@ -79,6 +79,12 @@ const bn = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'প্রক্সির মাধ্যমে ট্র্যাফিক রাউট করুন — ভৌগোলিকভাবে সীমাবদ্ধ কন্টেন্টের জন্য উপযোগী।',
+        placeholder: 'http://host:port',
+        clear: 'মুছুন'
+      },
       closeToTray: {
         toggle: 'বন্ধে ট্রেতে লুকান',
         toggleDescription: 'উইন্ডো বন্ধ করার পরেও ব্যাকগ্রাউন্ডে ডাউনলোড চলতে থাকবে।'
@@ -333,6 +339,12 @@ const bn = {
       hide: 'ট্রেতে লুকান',
       quit: 'বন্ধ করুন',
       remember: 'আর জিজ্ঞেস করবেন না'
+    },
+    rendererCrashed: {
+      message: 'Arroxy একটি সমস্যার সম্মুখীন হয়েছে',
+      detail: 'রেন্ডারার প্রক্রিয়া ক্র্যাশ হয়েছে ({{reason}})। আবার চেষ্টা করতে পুনরায় লোড করুন।',
+      reload: 'পুনরায় লোড করুন',
+      quit: 'বন্ধ করুন'
     }
   }
 } as const;

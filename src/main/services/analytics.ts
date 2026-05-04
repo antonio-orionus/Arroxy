@@ -14,6 +14,7 @@ const ALLOWED: Record<string, readonly string[]> = {
   download_finished: ['outcome', 'duration_bucket', 'size_bucket', 'error_category'],
   tray_close_chosen: ['choice', 'remember'],
   binary_setup_failed: ['binary', 'phase'],
+  crash_detected: ['type', 'reason'],
   wizard_started: []
 };
 

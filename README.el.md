@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · MP3 · Shorts · Subtitles · SponsorBlock**
 
-**Διαβάστε στα:** [English](README.md) · [Español](README.es.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md) · [বাংলা](README.bn.md) · [العربية](README.ar.md) · [O'zbekcha](README.uz.md) · [မြန်မာဘာသာ](README.my.md) · [پښتو](README.ps.md) · [Kiswahili](README.sw.md) · [አማርኛ](README.am.md) · [Afaan Oromoo](README.om.md) · **Ελληνικά** · [Српски](README.sr.md)
+**Διαβάστε στα:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · **Ελληνικά** · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![Έκδοση](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Άδεια](https://img.shields.io/badge/license-MIT-green) ![Πλατφόρμες](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Γλώσσες](https://img.shields.io/badge/i18n-18_languages-blue)
+[![Έκδοση](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Άδεια](https://img.shields.io/badge/license-MIT-green) ![Πλατφόρμες](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Γλώσσες](https://img.shields.io/badge/i18n-19_languages-blue)
 
 Κατεβάστε οποιοδήποτε βίντεο YouTube, Short ή ηχητικό κομμάτι σε αρχική ποιότητα — έως 4K HDR στα 60 fps, ή ως MP3 / AAC / Opus. Εκτελείται τοπικά σε Windows, macOS και Linux. **Χωρίς διαφημίσεις, χωρίς σύνδεση, χωρίς cookies προγράμματος περιήγησης, χωρίς συνδεδεμένο λογαριασμό Google.**
 
@@ -38,15 +38,15 @@
 
 Σύγκριση δίπλα-δίπλα με τις πιο κοινές εναλλακτικές λύσεις:
 
-|                              | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------------------------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Δωρεάν, χωρίς premium επίπεδο        |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| Ανοιχτού κώδικα                  |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| Μόνο τοπική επεξεργασία        |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Χωρίς σύνδεση ή εξαγωγή cookies    |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
-| Χωρίς όρια χρήσης                |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| Εφαρμογή επιφάνειας εργασίας για πολλαπλές πλατφόρμες   |   ✅   |         ✅          |     ✅      |             N/A            |         ❌         |
-| Υπότιτλοι + SponsorBlock     |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| Δωρεάν, χωρίς premium επίπεδο |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| Ανοιχτού κώδικα |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| Μόνο τοπική επεξεργασία |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
+| Χωρίς σύνδεση ή εξαγωγή cookies |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
+| Χωρίς όρια χρήσης |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| Εφαρμογή επιφάνειας εργασίας για πολλαπλές πλατφόρμες |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
+| Υπότιτλοι + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
 Το Arroxy κατασκευάστηκε για ένα πράγμα: επικολλήστε ένα URL, αποκτήστε ένα καθαρό τοπικό αρχείο. Χωρίς λογαριασμούς, χωρίς upsells, χωρίς συλλογή δεδομένων.
 
@@ -110,32 +110,32 @@
 
 ## <a id="download"></a>Λήψη
 
-| Πλατφόρμα | Μορφή |
-| -------- | ------ |
-| Windows  | Πρόγραμμα εγκατάστασης (NSIS) ή Φορητό `.exe` |
-| macOS    | `.dmg` (Intel + Apple Silicon) |
-| Linux    | `.AppImage` ή `.flatpak` (σε sandbox) |
+| Πλατφόρμα | Μορφή   |
+| ------------------- | ------------------- |
+| Windows             | Πρόγραμμα εγκατάστασης (NSIS) ή Φορητό `.exe`   |
+| macOS               | `.dmg` (Intel + Apple Silicon)   |
+| Linux               | `.AppImage` ή `.flatpak` (σε sandbox) |
 
 [**Αποκτήστε την τελευταία έκδοση →**](../../releases/latest)
 
 ### Εγκατάσταση μέσω διαχειριστή πακέτων
 
-| Κανάλι  | Εντολή |
-| -------- | ------- |
-| Winget   | `winget install AntonioOrionus.Arroxy` |
-| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy` |
+| Κανάλι | Εντολή                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
 
 <details>
 <summary><strong>Windows: Πρόγραμμα εγκατάστασης vs Φορητό</strong></summary>
 
-|                       | NSIS Installer | Φορητό `.exe` |
-| --------------------- | :------------: | :-------------: |
-| Απαιτείται εγκατάσταση |      Ναι       | Όχι — εκτέλεση από οπουδήποτε |
-| Αυτόματες ενημερώσεις          |   ✅ εντός εφαρμογής    |   ❌ χειροκίνητη λήψη |
-| Ταχύτητα εκκίνησης         |   ✅ ταχύτερη    |   ⚠️ πιο αργή κρύα εκκίνηση |
-| Προσθήκη στο μενού Έναρξης    |      ✅        |       ❌        |
-| Εύκολη απεγκατάσταση        |      ✅        |   ❌ διαγράψτε το αρχείο |
+|               | NSIS Installer | Φορητό `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| Απαιτείται εγκατάσταση | Ναι  | Όχι — εκτέλεση από οπουδήποτε  |
+| Αυτόματες ενημερώσεις | ✅ εντός εφαρμογής  | ❌ χειροκίνητη λήψη  |
+| Ταχύτητα εκκίνησης | ✅ ταχύτερη  | ⚠️ πιο αργή κρύα εκκίνηση  |
+| Προσθήκη στο μενού Έναρξης |            ✅            |           ❌            |
+| Εύκολη απεγκατάσταση |            ✅            | ❌ διαγράψτε το αρχείο  |
 
 **Σύσταση:** χρησιμοποιήστε το πρόγραμμα εγκατάστασης NSIS για αυτόματες ενημερώσεις και ταχύτερη εκκίνηση. Χρησιμοποιήστε το φορητό `.exe` για επιλογή χωρίς εγκατάσταση και χωρίς μητρώο.
 
@@ -250,8 +250,8 @@ flatpak run io.github.antonio_orionus.Arroxy
 
 Επερχόμενα — περίπου με σειρά προτεραιότητας:
 
-| Λειτουργία | Περιγραφή |
-| ------- | ----------- |
+| Λειτουργία    | Περιγραφή    |
+| ---------------- | ---------------- |
 | **Λήψεις λιστών αναπαραγωγής & καναλιών** | Επικολλήστε URL λίστας αναπαραγωγής ή καναλιού· προσθέστε στην ουρά όλα τα βίντεο με φίλτρα ημερομηνίας ή πλήθους |
 | **Εισαγωγή URL σε παρτίδα** | Επικολλήστε πολλαπλά URL ταυτόχρονα και εκτελέστε τα μαζί |
 | **Μετατροπή μορφής** | Μετατροπή λήψεων σε MP3, WAV, FLAC χωρίς ξεχωριστό εργαλείο |

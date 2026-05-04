@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · MP3 · Shorts · Subtitles · SponsorBlock**
 
-**Read in:** **English** · [Español](README.es.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md) · [বাংলা](README.bn.md) · [العربية](README.ar.md) · [O'zbekcha](README.uz.md) · [မြန်မာဘာသာ](README.my.md) · [پښتو](README.ps.md) · [Kiswahili](README.sw.md) · [አማርኛ](README.am.md) · [Afaan Oromoo](README.om.md) · [Ελληνικά](README.el.md) · [Српски](README.sr.md)
+**Read in:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · **English** · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![License](https://img.shields.io/badge/license-MIT-green) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Languages](https://img.shields.io/badge/i18n-18_languages-blue)
+[![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![License](https://img.shields.io/badge/license-MIT-green) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Languages](https://img.shields.io/badge/i18n-19_languages-blue)
 
 Download any YouTube video, Short, or audio track in original quality — up to 4K HDR at 60 fps, or as MP3 / AAC / Opus. Runs locally on Windows, macOS, and Linux. **No ads, no login, no browser cookies, no Google account linked.**
 
@@ -38,15 +38,15 @@ If Arroxy saves you time, a ⭐ helps others find it.
 
 A side-by-side comparison with the most common alternatives:
 
-|                              | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------------------------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Free, no premium tier        |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| Open source                  |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| Local processing only        |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| No login or cookie export    |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
-| No usage caps                |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| Cross-platform desktop app   |   ✅   |         ✅          |     ✅      |             N/A            |         ❌         |
-| Subtitles + SponsorBlock     |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| Free, no premium tier |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| Open source |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| Local processing only |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
+| No login or cookie export |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
+| No usage caps |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| Cross-platform desktop app |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
+| Subtitles + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
 Arroxy is built for one thing: paste a URL, get a clean local file. No accounts, no upsells, no data collection.
 
@@ -110,32 +110,32 @@ When YouTube updates its bot detection, most tools tell you to export your brows
 
 ## <a id="download"></a>Download
 
-| Platform | Format |
-| -------- | ------ |
-| Windows  | Installer (NSIS) or Portable `.exe` |
-| macOS    | `.dmg` (Intel + Apple Silicon) |
-| Linux    | `.AppImage` or `.flatpak` (sandboxed) |
+| Platform | Format   |
+| ------------------- | ------------------- |
+| Windows             | Installer (NSIS) or Portable `.exe`   |
+| macOS               | `.dmg` (Intel + Apple Silicon)   |
+| Linux               | `.AppImage` or `.flatpak` (sandboxed) |
 
 [**Grab the latest release →**](../../releases/latest)
 
 ### Install via package manager
 
-| Channel  | Command |
-| -------- | ------- |
-| Winget   | `winget install AntonioOrionus.Arroxy` |
-| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy` |
+| Channel | Command                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
 
 <details>
 <summary><strong>Windows: Installer vs Portable</strong></summary>
 
-|                       | NSIS Installer | Portable `.exe` |
-| --------------------- | :------------: | :-------------: |
-| Installation required |      Yes       | No — run from anywhere |
-| Auto-updates          |   ✅ in-app    |   ❌ manual download |
-| Startup speed         |   ✅ faster    |   ⚠️ slower cold start |
-| Adds to Start Menu    |      ✅        |       ❌        |
-| Easy uninstall        |      ✅        |   ❌ delete the file |
+|               | NSIS Installer | Portable `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| Installation required | Yes  | No — run from anywhere  |
+| Auto-updates | ✅ in-app  | ❌ manual download  |
+| Startup speed | ✅ faster  | ⚠️ slower cold start  |
+| Adds to Start Menu |            ✅            |           ❌            |
+| Easy uninstall |            ✅            | ❌ delete the file  |
 
 **Recommendation:** use the NSIS installer for auto-updates and faster startup. Use the portable `.exe` for a no-install, no-registry option.
 
@@ -250,8 +250,8 @@ For personal, private use it is generally accepted in most jurisdictions. You ar
 
 Coming up — roughly in priority order:
 
-| Feature | Description |
-| ------- | ----------- |
+| Feature    | Description    |
+| ---------------- | ---------------- |
 | **Playlist & channel downloads** | Paste a playlist or channel URL; queue all videos with date or count filters |
 | **Batch URL input** | Paste multiple URLs at once and run them in one go |
 | **Format conversion** | Convert downloads to MP3, WAV, FLAC without a separate tool |

@@ -8,26 +8,29 @@ export const SUPPORTED_LANGS = LANGS;
 
 export type YtdlpErrorKey = YtdlpErrorKeyAlias;
 
+// Order = alphabetical by native endonym (Latin block first via Unicode collation,
+// then non-Latin scripts in Unicode order). Drives the language picker UI.
 export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
+  om: 'Afaan Oromoo',
+  de: 'Deutsch',
   en: 'English',
   es: 'Español',
   fr: 'Français',
-  de: 'Deutsch',
-  ru: 'Русский',
-  uk: 'Українська',
-  ja: '日本語',
-  zh: '中文',
-  hi: 'हिन्दी',
-  bn: 'বাংলা',
-  ar: 'العربية',
-  uz: "O'zbekcha",
-  my: 'မြန်မာဘာသာ',
-  ps: 'پښتو',
   sw: 'Kiswahili',
+  uz: "O'zbekcha",
   am: 'አማርኛ',
-  om: 'Afaan Oromoo',
+  ar: 'العربية',
+  ur: 'اردو',
+  ps: 'پښتو',
+  bn: 'বাংলা',
+  hi: 'हिन्दी',
+  my: 'မြန်မာဘာသာ',
   el: 'Ελληνικά',
-  sr: 'Српски'
+  ru: 'Русский',
+  sr: 'Српски',
+  uk: 'Українська',
+  zh: '中文',
+  ja: '日本語'
 };
 
 export interface LocalizedError {

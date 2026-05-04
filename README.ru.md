@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · MP3 · Shorts · Subtitles · SponsorBlock**
 
-**Язык:** [English](README.md) · [Español](README.es.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · **Русский** · [Українська](README.uk.md) · [हिन्दी](README.hi.md) · [বাংলা](README.bn.md) · [العربية](README.ar.md) · [O'zbekcha](README.uz.md) · [မြန်မာဘာသာ](README.my.md) · [پښتو](README.ps.md) · [Kiswahili](README.sw.md) · [አማርኛ](README.am.md) · [Afaan Oromoo](README.om.md) · [Ελληνικά](README.el.md) · [Српски](README.sr.md)
+**Язык:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · **Русский** · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![Релиз](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Сборка](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Лицензия](https://img.shields.io/badge/license-MIT-green) ![Платформы](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Языки](https://img.shields.io/badge/i18n-18_languages-blue)
+[![Релиз](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Сборка](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Лицензия](https://img.shields.io/badge/license-MIT-green) ![Платформы](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Языки](https://img.shields.io/badge/i18n-19_languages-blue)
 
 Скачивайте любое видео YouTube, Shorts или аудиодорожку в оригинальном качестве — до 4K HDR при 60 fps или в виде MP3 / AAC / Opus. Работает локально на Windows, macOS и Linux. **Без рекламы, без логина, без кук браузера, без привязки к аккаунту Google.**
 
@@ -40,15 +40,15 @@
 
 Сравнение с наиболее распространёнными альтернативами:
 
-|                              | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------------------------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Бесплатно, без платных уровней        |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| Открытый исходный код                  |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| Только локальная обработка        |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Без логина и экспорта кук    |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
-| Без лимитов использования                |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| Кросс-платформенное десктопное приложение   |   ✅   |         ✅          |     ✅      |             N/A            |         ❌         |
-| Субтитры + SponsorBlock     |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| Бесплатно, без платных уровней |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| Открытый исходный код |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| Только локальная обработка |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
+| Без логина и экспорта кук |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
+| Без лимитов использования |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| Кросс-платформенное десктопное приложение |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
+| Субтитры + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
 Arroxy создан для одного: вставьте URL — получите чистый локальный файл. Никаких аккаунтов, никаких допродаж, никакого сбора данных.
 
@@ -112,32 +112,32 @@ Arroxy создан для одного: вставьте URL — получит
 
 ## <a id="download"></a>Скачать
 
-| Платформа | Формат |
-| -------- | ------ |
-| Windows  | Установщик (NSIS) или портативный `.exe` |
-| macOS    | `.dmg` (Intel + Apple Silicon) |
-| Linux    | `.AppImage` или `.flatpak` (с sandbox) |
+| Платформа | Формат   |
+| ------------------- | ------------------- |
+| Windows             | Установщик (NSIS) или портативный `.exe`   |
+| macOS               | `.dmg` (Intel + Apple Silicon)   |
+| Linux               | `.AppImage` или `.flatpak` (с sandbox) |
 
 [**Скачать последний релиз →**](../../releases/latest)
 
 ### Установка через пакетный менеджер
 
-| Канал  | Команда |
-| -------- | ------- |
-| Winget   | `winget install AntonioOrionus.Arroxy` |
-| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy` |
+| Канал | Команда                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
 
 <details>
 <summary><strong>Windows: Установщик vs Портативная версия</strong></summary>
 
-|                       | Установщик NSIS | Портативный `.exe` |
-| --------------------- | :------------: | :-------------: |
-| Требует установки |      Да       | Нет — запускается откуда угодно |
-| Авто-обновления          |   ✅ в приложении    |   ❌ ручное скачивание |
-| Скорость запуска         |   ✅ быстрее    |   ⚠️ долгий холодный старт |
-| Добавляется в меню «Пуск»    |      ✅        |       ❌        |
-| Удобное удаление        |      ✅        |   ❌ просто удалите файл |
+|               | Установщик NSIS | Портативный `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| Требует установки | Да  | Нет — запускается откуда угодно  |
+| Авто-обновления | ✅ в приложении  | ❌ ручное скачивание  |
+| Скорость запуска | ✅ быстрее  | ⚠️ долгий холодный старт  |
+| Добавляется в меню «Пуск» |            ✅            |           ❌            |
+| Удобное удаление |            ✅            | ❌ просто удалите файл  |
 
 **Рекомендация:** используйте установщик NSIS для авто-обновлений и быстрого запуска. Портативный `.exe` подходит тем, кто предпочитает вариант без установки и без изменений реестра.
 
@@ -252,8 +252,8 @@ Arroxy отправляет анонимную агрегированную те
 
 Что запланировано — примерно в порядке приоритета:
 
-| Функция | Описание |
-| ------- | ----------- |
+| Функция    | Описание    |
+| ---------------- | ---------------- |
 | **Загрузка плейлистов и каналов** | Вставьте URL плейлиста или канала — все видео встанут в очередь с фильтрами по дате и количеству |
 | **Пакетный ввод URL** | Вставьте сразу несколько ссылок и запустите всё одним махом |
 | **Конвертация форматов** | Конвертация загрузок в MP3, WAV, FLAC без сторонних инструментов |

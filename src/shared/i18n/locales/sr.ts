@@ -79,6 +79,12 @@ const sr = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'Прусмери саобраћај кроз прокси — корисно за географски ограничен садржај.',
+        placeholder: 'http://host:port',
+        clear: 'Обриши'
+      },
       closeToTray: {
         toggle: 'Сакриј у системски трај при затварању',
         toggleDescription: 'Настави преузимања у позадини после затварања прозора.'
@@ -333,6 +339,12 @@ const sr = {
       hide: 'Сакриј у трај',
       quit: 'Затвори',
       remember: 'Не питај поново'
+    },
+    rendererCrashed: {
+      message: 'Arroxy је наишао на проблем',
+      detail: 'Процес приказивача је пао ({{reason}}). Поново учитај да би покушао/ла поново.',
+      reload: 'Поново учитај',
+      quit: 'Затвори'
     }
   }
 } as const;

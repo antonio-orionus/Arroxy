@@ -79,6 +79,12 @@ const uk = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'Направляти трафік через проксі — корисно для контенту з географічними обмеженнями.',
+        placeholder: 'http://host:port',
+        clear: 'Очистити'
+      },
       closeToTray: {
         toggle: 'Приховувати в трей при закритті',
         toggleDescription: 'Продовжувати завантаження у фоні після закриття вікна.'
@@ -333,6 +339,12 @@ const uk = {
       hide: 'Приховати в трей',
       quit: 'Вийти',
       remember: 'Більше не питати'
+    },
+    rendererCrashed: {
+      message: 'Arroxy зіткнувся з проблемою',
+      detail: 'Процес рендерера завершився аварійно ({{reason}}). Перезавантажте, щоб спробувати ще раз.',
+      reload: 'Перезавантажити',
+      quit: 'Вийти'
     }
   }
 } as const;

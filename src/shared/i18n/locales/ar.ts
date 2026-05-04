@@ -79,6 +79,12 @@ const ar = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'توجيه حركة البيانات عبر وكيل — مفيد للمحتوى المقيّد جغرافياً.',
+        placeholder: 'http://host:port',
+        clear: 'مسح'
+      },
       closeToTray: {
         toggle: 'الإخفاء في علبة النظام عند الإغلاق',
         toggleDescription: 'تستمر التنزيلات في الخلفية بعد إغلاق النافذة.'
@@ -333,6 +339,12 @@ const ar = {
       hide: 'الإخفاء في علبة النظام',
       quit: 'الخروج',
       remember: 'لا تسألني مجدداً'
+    },
+    rendererCrashed: {
+      message: 'واجه Arroxy مشكلة',
+      detail: 'تعطّلت عملية العرض ({{reason}}). أعد التحميل للمحاولة مجدداً.',
+      reload: 'إعادة التحميل',
+      quit: 'الخروج'
     }
   }
 } as const;

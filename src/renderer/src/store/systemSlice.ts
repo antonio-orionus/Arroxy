@@ -175,6 +175,17 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
       set({ settings: result.data });
     },
 
+    setProxyUrl: async (url) => {
+      const current = get().settings;
+      if (current) set({ settings: { ...current, proxyUrl: url } });
+      const result = await window.appApi.settings.update({ proxyUrl: url });
+      if (!result.ok) {
+        console.error('[settings] proxyUrl save failed', result.error);
+        return;
+      }
+      set({ settings: result.data });
+    },
+
     setClipboardWatchEnabled: async (enabled) => {
       const current = get().settings;
       if (current) set({ settings: { ...current, clipboardWatchEnabled: enabled } });

@@ -79,6 +79,12 @@ const fr = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'Acheminer le trafic via un proxy — utile pour les contenus géo-restreints.',
+        placeholder: 'http://host:port',
+        clear: 'Effacer'
+      },
       closeToTray: {
         toggle: 'Masquer dans la barre des tâches à la fermeture',
         toggleDescription: 'Continuer les téléchargements en arrière-plan après la fermeture de la fenêtre.'
@@ -333,6 +339,12 @@ const fr = {
       hide: 'Masquer dans la barre',
       quit: 'Quitter',
       remember: 'Ne plus demander'
+    },
+    rendererCrashed: {
+      message: 'Arroxy a rencontré un problème',
+      detail: 'Le processus de rendu a planté ({{reason}}). Rechargez pour réessayer.',
+      reload: 'Recharger',
+      quit: 'Quitter'
     }
   }
 } as const;

@@ -79,6 +79,12 @@ const ja = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'プロキシ経由でトラフィックを転送 — 地域制限コンテンツに有効。',
+        placeholder: 'http://host:port',
+        clear: 'クリア'
+      },
       closeToTray: {
         toggle: '閉じるときにトレイに格納',
         toggleDescription: 'ウィンドウを閉じた後もバックグラウンドでダウンロードを続けます。'
@@ -333,6 +339,12 @@ const ja = {
       hide: 'トレイに格納',
       quit: '終了',
       remember: '次回から表示しない'
+    },
+    rendererCrashed: {
+      message: 'Arroxyで問題が発生しました',
+      detail: 'レンダラープロセスがクラッシュしました ({{reason}})。再読み込みしてもう一度お試しください。',
+      reload: '再読み込み',
+      quit: '終了'
     }
   }
 } as const;

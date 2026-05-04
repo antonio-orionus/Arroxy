@@ -7,7 +7,7 @@
 
 **{{read_in_label}}** {{LANG_NAV}}
 
-[![{{badge_release_alt}}](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![{{badge_build_alt}}](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![{{badge_license_alt}}](https://img.shields.io/badge/license-MIT-green) ![{{badge_platforms_alt}}](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![{{badge_i18n_alt}}](https://img.shields.io/badge/i18n-18_languages-blue)
+[![{{badge_release_alt}}](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![{{badge_build_alt}}](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![{{badge_license_alt}}](https://img.shields.io/badge/license-MIT-green) ![{{badge_platforms_alt}}](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![{{badge_i18n_alt}}](https://img.shields.io/badge/i18n-19_languages-blue)
 
 {{hero_desc}}
 
@@ -40,15 +40,15 @@
 
 {{why_intro}}
 
-|                              | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------------------------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| {{why_r1}}        |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| {{why_r2}}                  |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| {{why_r3}}        |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| {{why_r4}}    |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
-| {{why_r5}}                |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| {{why_r6}}   |   ✅   |         ✅          |     ✅      |             N/A            |         ❌         |
-| {{why_r7}}     |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| {{why_r1}} |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| {{why_r2}} |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| {{why_r3}} |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
+| {{why_r4}} |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
+| {{why_r5}} |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| {{why_r6}} |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
+| {{why_r7}} |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
 {{why_summary}}
 
@@ -112,32 +112,32 @@
 
 ## <a id="download"></a>{{dl_h2}}
 
-| {{dl_platform_col}} | {{dl_format_col}} |
-| -------- | ------ |
-| Windows  | {{dl_win_format}} |
-| macOS    | {{dl_mac_format}} |
-| Linux    | {{dl_linux_format}} |
+| {{dl_platform_col}} | {{dl_format_col}}   |
+| ------------------- | ------------------- |
+| Windows             | {{dl_win_format}}   |
+| macOS               | {{dl_mac_format}}   |
+| Linux               | {{dl_linux_format}} |
 
 [**{{dl_grab}}**](../../releases/latest)
 
 ### {{dl_pkg_h3}}
 
-| {{dl_channel_col}}  | {{dl_command_col}} |
-| -------- | ------- |
-| Winget   | `winget install AntonioOrionus.Arroxy` |
-| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy` |
+| {{dl_channel_col}} | {{dl_command_col}}                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
 
 <details>
 <summary><strong>{{dl_win_h3}}</strong></summary>
 
-|                       | {{dl_win_col_installer}} | {{dl_win_col_portable}} |
-| --------------------- | :------------: | :-------------: |
-| {{dl_win_r1}} |      {{dl_win_r1_installer}}       | {{dl_win_r1_portable}} |
-| {{dl_win_r2}}          |   {{dl_win_r2_installer}}    |   {{dl_win_r2_portable}} |
-| {{dl_win_r3}}         |   {{dl_win_r3_installer}}    |   {{dl_win_r3_portable}} |
-| {{dl_win_r4}}    |      ✅        |       ❌        |
-| {{dl_win_r5}}        |      ✅        |   {{dl_win_r5_portable}} |
+|               | {{dl_win_col_installer}} | {{dl_win_col_portable}} |
+| ------------- | :----------------------: | :---------------------: |
+| {{dl_win_r1}} | {{dl_win_r1_installer}}  | {{dl_win_r1_portable}}  |
+| {{dl_win_r2}} | {{dl_win_r2_installer}}  | {{dl_win_r2_portable}}  |
+| {{dl_win_r3}} | {{dl_win_r3_installer}}  | {{dl_win_r3_portable}}  |
+| {{dl_win_r4}} |            ✅            |           ❌            |
+| {{dl_win_r5}} |            ✅            | {{dl_win_r5_portable}}  |
 
 {{dl_win_rec}}
 
@@ -252,8 +252,8 @@ flatpak run io.github.antonio_orionus.Arroxy
 
 {{plan_intro}}
 
-| {{plan_col1}} | {{plan_col2}} |
-| ------- | ----------- |
+| {{plan_col1}}    | {{plan_col2}}    |
+| ---------------- | ---------------- |
 | {{plan_r1_name}} | {{plan_r1_desc}} |
 | {{plan_r2_name}} | {{plan_r2_desc}} |
 | {{plan_r3_name}} | {{plan_r3_desc}} |

@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · MP3 · Shorts · Subtitles · SponsorBlock**
 
-**O'qing:** [English](README.md) · [Español](README.es.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md) · [বাংলা](README.bn.md) · [العربية](README.ar.md) · **O'zbekcha** · [မြန်မာဘာသာ](README.my.md) · [پښتو](README.ps.md) · [Kiswahili](README.sw.md) · [አማርኛ](README.am.md) · [Afaan Oromoo](README.om.md) · [Ελληνικά](README.el.md) · [Српски](README.sr.md)
+**O'qing:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · **O'zbekcha** · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![Reliz](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Qurish](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Litsenziya](https://img.shields.io/badge/license-MIT-green) ![Platformalar](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Tillar](https://img.shields.io/badge/i18n-18_languages-blue)
+[![Reliz](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Qurish](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Litsenziya](https://img.shields.io/badge/license-MIT-green) ![Platformalar](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Tillar](https://img.shields.io/badge/i18n-19_languages-blue)
 
 Istalgan YouTube videosini, Shortni yoki audio treklarni original sifatda yuklab oling — 60 fps da 4K HDR gacha yoki MP3 / AAC / Opus sifatida. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, kirish yo'q, brauzer kukilari yo'q, Google hisob bog'liq emas.**
 
@@ -38,15 +38,15 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 
 Eng keng tarqalgan muqobillar bilan yon-yon taqqoslash:
 
-|                              | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------------------------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Bepul, premium daraja yo'q        |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| Ochiq manba                  |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| Faqat mahalliy qayta ishlash        |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Kirish yoki kuki eksporti yo'q    |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
-| Foydalanish chegaralari yo'q                |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| Platformalararo desktop ilovasi   |   ✅   |         ✅          |     ✅      |             N/A            |         ❌         |
-| Subtitrlar + SponsorBlock     |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| Bepul, premium daraja yo'q |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| Ochiq manba |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| Faqat mahalliy qayta ishlash |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
+| Kirish yoki kuki eksporti yo'q |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
+| Foydalanish chegaralari yo'q |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| Platformalararo desktop ilovasi |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
+| Subtitrlar + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
 Arroxy bir narsa uchun yaratilgan: URL'ni joylashtiring, toza mahalliy fayl oling. Hisoblar yo'q, qo'shimcha takliflar yo'q, ma'lumot to'plash yo'q.
 
@@ -110,32 +110,32 @@ YouTube bot aniqlashini yangilaganda, ko'pchilik vositalar sizdan muammo yechimi
 
 ## <a id="download"></a>Yuklab olish
 
-| Platforma | Format |
-| -------- | ------ |
-| Windows  | O'rnatuvchi (NSIS) yoki Portable `.exe` |
-| macOS    | `.dmg` (Intel + Apple Silicon) |
-| Linux    | `.AppImage` yoki `.flatpak` (qumloq muhitda) |
+| Platforma | Format   |
+| ------------------- | ------------------- |
+| Windows             | O'rnatuvchi (NSIS) yoki Portable `.exe`   |
+| macOS               | `.dmg` (Intel + Apple Silicon)   |
+| Linux               | `.AppImage` yoki `.flatpak` (qumloq muhitda) |
 
 [**Oxirgi relizni oling →**](../../releases/latest)
 
 ### Paket menejeri orqali o'rnatish
 
-| Kanal  | Buyruq |
-| -------- | ------- |
-| Winget   | `winget install AntonioOrionus.Arroxy` |
-| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy` |
+| Kanal | Buyruq                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
 
 <details>
 <summary><strong>Windows: O'rnatuvchi va Portable taqqoslash</strong></summary>
 
-|                       | NSIS O'rnatuvchi | Portable `.exe` |
-| --------------------- | :------------: | :-------------: |
-| O'rnatish talab qilinadi |      Ha       | Yo'q — istalgan joydan ishga tushiring |
-| Avtomatik yangilanishlar          |   ✅ ilova ichida    |   ❌ qo'lda yuklab olish |
-| Ishga tushish tezligi         |   ✅ tezroq    |   ⚠️ sekinroq sovuq ishga tushish |
-| Boshlash menyusiga qo'shadi    |      ✅        |       ❌        |
-| Oson o'chirish        |      ✅        |   ❌ faylni o'chirish |
+|               | NSIS O'rnatuvchi | Portable `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| O'rnatish talab qilinadi | Ha  | Yo'q — istalgan joydan ishga tushiring  |
+| Avtomatik yangilanishlar | ✅ ilova ichida  | ❌ qo'lda yuklab olish  |
+| Ishga tushish tezligi | ✅ tezroq  | ⚠️ sekinroq sovuq ishga tushish  |
+| Boshlash menyusiga qo'shadi |            ✅            |           ❌            |
+| Oson o'chirish |            ✅            | ❌ faylni o'chirish  |
 
 **Tavsiya:** avtomatik yangilanishlar va tezroq ishga tushish uchun NSIS o'rnatuvchisidan foydalaning. O'rnatishsiz, reyestrg'a ta'sir qilmaydigan variant uchun portable `.exe` dan foydalaning.
 
@@ -250,8 +250,8 @@ Shaxsiy, xususiy foydalanish uchun bu ko'pchilik yurisdiktsiyalarda umumiy qabul
 
 Kelayotgan — taxminan ustuvorlik tartibida:
 
-| Xususiyat | Tavsif |
-| ------- | ----------- |
+| Xususiyat    | Tavsif    |
+| ---------------- | ---------------- |
 | **Playlist va kanal yuklab olish** | Playlist yoki kanal URL'ini joylashtiring; sana yoki miqdor filtrlari bilan barcha videolarni navbatga qo'shing |
 | **Toplu URL kiritish** | Bir vaqtning o'zida bir nechta URL'larni joylashtiring va ularni bitta yugurishda bajaring |
 | **Format konvertatsiyasi** | Alohida vositasiz yuklamalarni MP3, WAV, FLAC ga aylantirish |

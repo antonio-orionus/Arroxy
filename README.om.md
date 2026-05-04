@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · MP3 · Shorts · Subtitles · SponsorBlock**
 
-**Afaan:** [English](README.md) · [Español](README.es.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md) · [বাংলা](README.bn.md) · [العربية](README.ar.md) · [O'zbekcha](README.uz.md) · [မြန်မာဘာသာ](README.my.md) · [پښتو](README.ps.md) · [Kiswahili](README.sw.md) · [አማርኛ](README.am.md) · **Afaan Oromoo** · [Ελληνικά](README.el.md) · [Српски](README.sr.md)
+**Afaan:** **Afaan Oromoo** · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![Baasii](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ijaarsaa](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Hayyama](https://img.shields.io/badge/license-MIT-green) ![Platformoota](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Afaanonni](https://img.shields.io/badge/i18n-18_languages-blue)
+[![Baasii](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ijaarsaa](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Hayyama](https://img.shields.io/badge/license-MIT-green) ![Platformoota](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Afaanonni](https://img.shields.io/badge/i18n-19_languages-blue)
 
 Viidiyoo YouTube, Short, ykn sagalee kamiyyuu qulqullina jalqabaatiin buusi — hanga 4K HDR 60 fps, ykn MP3 / AAC / Opus. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, seensuu hin barbaachisu, kuukkii biraawzaraa hin fayyadamu, akkaawuntii Google waliin hin hidhu.**
 
@@ -38,15 +38,15 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 
 Waltajjii maayyii walitti bira qabuu filannoolee beekamoo wajjin:
 
-|                              | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------------------------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Bilisaa, sadarkaa kafaltii hin qabu        |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| Madda banaa                  |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| Naannoo keessatti qofa hojeta        |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Seensuu ykn kuukkii erga hin barbaachisu    |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
-| Daangaa fayyadama hin qabu                |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| App desktop platformoota hundaaf   |   ✅   |         ✅          |     ✅      |             N/A            |         ❌         |
-| Subtitle + SponsorBlock     |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| Bilisaa, sadarkaa kafaltii hin qabu |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| Madda banaa |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| Naannoo keessatti qofa hojeta |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
+| Seensuu ykn kuukkii erga hin barbaachisu |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
+| Daangaa fayyadama hin qabu |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| App desktop platformoota hundaaf |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
+| Subtitle + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
 Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argadhu. Akkaawuntiin hin jiru, gurgurtaa dabalaataa hin jiru, odeeffannoo walitti qabuu hin jiru.
 
@@ -110,32 +110,32 @@ YouTube ittisa bot isaa yoo haaromse, meeshaalee hedduun kuukkii biraawzaraa You
 
 ## <a id="download"></a>Buusi
 
-| Platform | Format |
-| -------- | ------ |
-| Windows  | Fayyadu (NSIS) ykn Portable `.exe` |
-| macOS    | `.dmg` (Intel + Apple Silicon) |
-| Linux    | `.AppImage` ykn `.flatpak` (sandboxed) |
+| Platform | Format   |
+| ------------------- | ------------------- |
+| Windows             | Fayyadu (NSIS) ykn Portable `.exe`   |
+| macOS               | `.dmg` (Intel + Apple Silicon)   |
+| Linux               | `.AppImage` ykn `.flatpak` (sandboxed) |
 
 [**Baasii haaraa fudhachuu →**](../../releases/latest)
 
 ### Package manager fayyadamuun fayyadu
 
-| Chaanaalii  | Ajajaa |
-| -------- | ------- |
-| Winget   | `winget install AntonioOrionus.Arroxy` |
-| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy` |
+| Chaanaalii | Ajajaa                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
 
 <details>
 <summary><strong>Windows: Fayyadu vs Portable</strong></summary>
 
-|                       | NSIS Fayyadu | Portable `.exe` |
-| --------------------- | :------------: | :-------------: |
-| Fayyadu barbaachisa |      Eeyyee       | Lakki — bakka kamiyyuu irraa oofii |
-| Of-haaromeessa          |   ✅ app keessatti    |   ❌ of-harkaan buusi |
-| Saffisa eegaluu         |   ✅ saffisaa    |   ⚠️ yeroo eegaluu jabinaafi gara jabina qabu |
-| Start Menu tti dabalama    |      ✅        |       ❌        |
-| Salphatti maqaa itti haquu        |      ✅        |   ❌ faayila haquu |
+|               | NSIS Fayyadu | Portable `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| Fayyadu barbaachisa | Eeyyee  | Lakki — bakka kamiyyuu irraa oofii  |
+| Of-haaromeessa | ✅ app keessatti  | ❌ of-harkaan buusi  |
+| Saffisa eegaluu | ✅ saffisaa  | ⚠️ yeroo eegaluu jabinaafi gara jabina qabu  |
+| Start Menu tti dabalama |            ✅            |           ❌            |
+| Salphatti maqaa itti haquu |            ✅            | ❌ faayila haquu  |
 
 **Gorsa:** Of-haaromeessaa fi saffisa eegaluu gaaariif NSIS fayyadu fayyadami. Fayyadu hin barbaachifne, reejistrii hin barbaachifne filannoof portable `.exe` fayyadami.
 
@@ -250,8 +250,8 @@ Fayyadama dhuunfaa, dhoksaa qofaaf yeroo hedduun mootummoota heddu keessatti fud
 
 Dhufuuf jiru — bakka dursa hordofee:
 
-| Amalli | Ibsa |
-| ------- | ----------- |
+| Amalli    | Ibsa    |
+| ---------------- | ---------------- |
 | **Playlist & chaanaalii buusuu** | Playlist ykn URL chaanaalii maxxansi; viidiyoo hunda hordoffii guyyaa ykn lakkoofsa wajjin kaa'i |
 | **Galchii URL fakkaataa** | URLs heddu yeroo tokkotti maxxansi fi isaan tokkoon oofii |
 | **Jijjiiruu format** | Buufannoota meeshaa adda tokko malee MP3, WAV, FLAC tti jijjiiri |

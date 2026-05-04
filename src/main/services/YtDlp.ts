@@ -94,6 +94,7 @@ interface InvokeOptions {
   args: string[];
   tokenService: TokenService;
   cookiesPath?: string;
+  proxyUrl?: string;
   signal?: YtDlpSignal;
 }
 
@@ -108,11 +109,12 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
   }
 
   const cookiesArgs = opts.cookiesPath ? ['--cookies', opts.cookiesPath] : [];
+  const proxyArgs = opts.proxyUrl ? ['--proxy', opts.proxyUrl] : [];
   // yt-dlp 2026+ requires a JS runtime for nsig/signature decoding on the web
   // client. With deno bundled, we point yt-dlp at it explicitly so it doesn't
   // silently fall back to JS-free clients (where our web.gvs PoT is unused).
   const jsRuntimeArgs = opts.denoPath ? ['--js-runtimes', `deno:${opts.denoPath}`] : [];
-  const args = ['--extractor-args', extractorArgs, ...cookiesArgs, ...jsRuntimeArgs, ...opts.args];
+  const args = ['--extractor-args', extractorArgs, ...cookiesArgs, ...proxyArgs, ...jsRuntimeArgs, ...opts.args];
 
   return new Promise<YtDlpResult>((resolve) => {
     const proc = spawnYtDlp(opts.ytDlpPath, args, opts.ffmpegPath);
@@ -287,7 +289,9 @@ export class YtDlp {
 
   async run(req: YtDlpRequest, signal?: YtDlpSignal): Promise<YtDlpResult> {
     if (!this._ytDlpPath) await this.prepare();
-    const cookiesPath = resolveCookiesPath(await this.settingsStore.get());
+    const settings = await this.settingsStore.get();
+    const cookiesPath = resolveCookiesPath(settings);
+    const proxyUrl = settings.proxyUrl?.trim() || undefined;
     const { args, subtitleFormat } = buildArgs(req);
     const result = await invokeWithRetry({
       url: req.url,
@@ -297,6 +301,7 @@ export class YtDlp {
       args,
       tokenService: this.tokenService,
       cookiesPath,
+      proxyUrl,
       signal
     });
     if (result.kind === 'success' && subtitleFormat) {

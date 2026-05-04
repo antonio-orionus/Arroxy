@@ -79,6 +79,12 @@ const om = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'Geejjiba proxy darbii ergi — qabiyyee mootummaan dhorge argachuuf gargaara.',
+        placeholder: 'http://host:port',
+        clear: 'Haquu'
+      },
       closeToTray: {
         toggle: 'Cufuun dura tiiree dhoksi',
         toggleDescription: 'Daawniloodii booda gubbaan cufamuu itti fufi.'
@@ -333,6 +339,12 @@ const om = {
       hide: 'Tiiree irratti dhoksi',
       quit: 'Cufii',
       remember: 'Gara fuula duraatti hin gaafatin'
+    },
+    rendererCrashed: {
+      message: 'Arroxy rakkoo mudateera',
+      detail: "Prosessiin renderer kufee ({{reason}}). Irra deebi'uuf fe'adhu.",
+      reload: "Fe'adhu",
+      quit: 'Cufii'
     }
   }
 } as const;

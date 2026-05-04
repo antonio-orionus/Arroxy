@@ -45,6 +45,7 @@ export interface AppSettings {
   lastSubfolder?: string;
   cookiesPath?: string;
   cookiesEnabled?: boolean;
+  proxyUrl?: string;
   clipboardWatchEnabled: boolean;
   closeBehavior?: 'ask' | 'tray' | 'quit';
   embedChapters?: boolean;

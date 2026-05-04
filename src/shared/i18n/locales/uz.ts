@@ -79,6 +79,12 @@ const uz = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: "Trafikni proksi orqali yo'naltirish — geo-cheklangan kontent uchun foydali.",
+        placeholder: 'http://host:port',
+        clear: 'Tozalash'
+      },
       closeToTray: {
         toggle: 'Yopilganda tizim soatiga yashirish',
         toggleDescription: 'Oyna yopilgandan keyin yuklamalar fonda davom etadi.'
@@ -333,6 +339,12 @@ const uz = {
       hide: 'Tizim soatiga yashirish',
       quit: 'Chiqish',
       remember: "Boshqa so'ramaslik"
+    },
+    rendererCrashed: {
+      message: 'Arroxy muammo bilan duch keldi',
+      detail: 'Renderlovchi jarayon ishdan chiqdi ({{reason}}). Qayta urinish uchun yangilang.',
+      reload: 'Yangilash',
+      quit: 'Chiqish'
     }
   }
 } as const;

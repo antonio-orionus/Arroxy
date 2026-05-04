@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · MP3 · Shorts · Subtitles · SponsorBlock**
 
-**Lire en :** [English](README.md) · [Español](README.es.md) · [Deutsch](README.de.md) · **Français** · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md) · [বাংলা](README.bn.md) · [العربية](README.ar.md) · [O'zbekcha](README.uz.md) · [မြန်မာဘာသာ](README.my.md) · [پښتو](README.ps.md) · [Kiswahili](README.sw.md) · [አማርኛ](README.am.md) · [Afaan Oromoo](README.om.md) · [Ελληνικά](README.el.md) · [Српски](README.sr.md)
+**Lire en :** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · **Français** · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![Version](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Licence](https://img.shields.io/badge/license-MIT-green) ![Plateformes](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Langues](https://img.shields.io/badge/i18n-18_languages-blue)
+[![Version](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Licence](https://img.shields.io/badge/license-MIT-green) ![Plateformes](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Langues](https://img.shields.io/badge/i18n-19_languages-blue)
 
 Télécharge n'importe quelle vidéo YouTube, Short ou piste audio en qualité originale — jusqu'à 4K HDR à 60 fps, ou en MP3 / AAC / Opus. Fonctionne en local sur Windows, macOS et Linux. **Pas de pub, pas de connexion, pas de cookies de navigateur, pas de compte Google lié.**
 
@@ -40,15 +40,15 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 
 Une comparaison côte à côte avec les alternatives les plus courantes :
 
-|                              | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------------------------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Gratuit, pas de niveau premium        |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| Open source                  |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| Traitement 100 % local        |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Pas de connexion ni d'export de cookies    |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
-| Pas de limites d'utilisation                |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| Application de bureau multiplateforme   |   ✅   |         ✅          |     ✅      |             N/A            |         ❌         |
-| Sous-titres + SponsorBlock     |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| Gratuit, pas de niveau premium |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| Open source |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| Traitement 100 % local |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
+| Pas de connexion ni d'export de cookies |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
+| Pas de limites d'utilisation |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| Application de bureau multiplateforme |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
+| Sous-titres + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
 Arroxy est conçu pour une seule chose : coller une URL et obtenir un fichier local propre. Pas de comptes, pas d'upsell, pas de collecte de données.
 
@@ -112,32 +112,32 @@ Lorsque YouTube met à jour sa détection de bots, la plupart des outils te dema
 
 ## <a id="download"></a>Téléchargement
 
-| Plateforme | Format |
-| -------- | ------ |
-| Windows  | Installeur (NSIS) ou `.exe` portable |
-| macOS    | `.dmg` (Intel + Apple Silicon) |
-| Linux    | `.AppImage` ou `.flatpak` (sandboxed) |
+| Plateforme | Format   |
+| ------------------- | ------------------- |
+| Windows             | Installeur (NSIS) ou `.exe` portable   |
+| macOS               | `.dmg` (Intel + Apple Silicon)   |
+| Linux               | `.AppImage` ou `.flatpak` (sandboxed) |
 
 [**Récupère la dernière version →**](../../releases/latest)
 
 ### Installation via gestionnaire de paquets
 
-| Canal  | Commande |
-| -------- | ------- |
-| Winget   | `winget install AntonioOrionus.Arroxy` |
-| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy` |
+| Canal | Commande                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
 
 <details>
 <summary><strong>Windows : Installeur vs Portable</strong></summary>
 
-|                       | Installeur NSIS | `.exe` portable |
-| --------------------- | :------------: | :-------------: |
-| Installation requise |      Oui       | Non — exécutable de partout |
-| Mises à jour automatiques          |   ✅ dans l'app    |   ❌ téléchargement manuel |
-| Vitesse de démarrage         |   ✅ plus rapide    |   ⚠️ démarrage à froid plus lent |
-| Ajouté au menu Démarrer    |      ✅        |       ❌        |
-| Désinstallation simple        |      ✅        |   ❌ supprime juste le fichier |
+|               | Installeur NSIS | `.exe` portable |
+| ------------- | :----------------------: | :---------------------: |
+| Installation requise | Oui  | Non — exécutable de partout  |
+| Mises à jour automatiques | ✅ dans l'app  | ❌ téléchargement manuel  |
+| Vitesse de démarrage | ✅ plus rapide  | ⚠️ démarrage à froid plus lent  |
+| Ajouté au menu Démarrer |            ✅            |           ❌            |
+| Désinstallation simple |            ✅            | ❌ supprime juste le fichier  |
 
 **Recommandation :** utilise l'installeur NSIS pour les mises à jour automatiques et un démarrage plus rapide. Utilise le `.exe` portable pour une option sans installation ni registre.
 
@@ -252,8 +252,8 @@ Pour un usage personnel et privé, c'est généralement accepté dans la plupart
 
 À venir — approximativement par ordre de priorité :
 
-| Fonctionnalité | Description |
-| ------- | ----------- |
+| Fonctionnalité    | Description    |
+| ---------------- | ---------------- |
 | **Téléchargement de playlists et chaînes** | Colle l'URL d'une playlist ou d'une chaîne ; mets toutes les vidéos en file avec des filtres de date ou de nombre |
 | **Saisie d'URLs en lot** | Colle plusieurs URLs d'un coup et lance tout ensemble |
 | **Conversion de format** | Convertis les téléchargements en MP3, WAV, FLAC sans outil supplémentaire |

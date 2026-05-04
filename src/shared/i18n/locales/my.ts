@@ -79,6 +79,12 @@ const my = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'Proxy မှတဆင့် traffic လမ်းကြောင်းလွှဲပါ — ဂျီဩဂရပ်ကန့်သတ်ချက်ရှိသော အကြောင်းအရာများအတွက် အသုံးဝင်သည်။',
+        placeholder: 'http://host:port',
+        clear: 'ရှင်းလင်း'
+      },
       closeToTray: {
         toggle: 'ပိတ်လျှင် tray သို့ ဝှက်မည်',
         toggleDescription: 'ဝင်းဒိုးပိတ်ပြီးနောက်လည်း နောက်ခံတွင် ဒေါင်းလုဒ်ဆက်လုပ်မည်။'
@@ -333,6 +339,12 @@ const my = {
       hide: 'Tray သို့ ဝှက်မည်',
       quit: 'ထွက်မည်',
       remember: 'နောက်ထပ်မမေးတော့ပါ'
+    },
+    rendererCrashed: {
+      message: 'Arroxy တွင် ပြဿနာတစ်ခုဖြစ်ပေါ်ပါသည်',
+      detail: 'Renderer လုပ်ငန်းစဉ် ပျက်ကွက်သွားပါသည် ({{reason}})။ ထပ်မံကြိုးစားရန် ပြန်ဖွင့်ပါ။',
+      reload: 'ပြန်ဖွင့်မည်',
+      quit: 'ထွက်မည်'
     }
   }
 } as const;

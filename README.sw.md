@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · MP3 · Shorts · Subtitles · SponsorBlock**
 
-**Soma kwa:** [English](README.md) · [Español](README.es.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md) · [বাংলা](README.bn.md) · [العربية](README.ar.md) · [O'zbekcha](README.uz.md) · [မြန်မာဘာသာ](README.my.md) · [پښتو](README.ps.md) · **Kiswahili** · [አማርኛ](README.am.md) · [Afaan Oromoo](README.om.md) · [Ελληνικά](README.el.md) · [Српски](README.sr.md)
+**Soma kwa:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · **Kiswahili** · [O'zbekcha](README.uz.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![Toleo](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ujenzi](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Leseni](https://img.shields.io/badge/license-MIT-green) ![Majukwaa](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Lugha](https://img.shields.io/badge/i18n-18_languages-blue)
+[![Toleo](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ujenzi](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Leseni](https://img.shields.io/badge/license-MIT-green) ![Majukwaa](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Lugha](https://img.shields.io/badge/i18n-19_languages-blue)
 
 Pakua video yoyote ya YouTube, Short, au wimbo wa sauti kwa ubora wa asili — hadi 4K HDR kwa fps 60, au kama MP3 / AAC / Opus. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna kuingia, hakuna vidakuzi vya kivinjari, hakuna akaunti ya Google iliyounganishwa.**
 
@@ -38,15 +38,15 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 
 Ulinganisho wa pamoja na mbadala za kawaida zaidi:
 
-|                              | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------------------------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Bure, hakuna ngazi ya malipo        |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| Chanzo wazi                  |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| Usindikaji wa mahali hapo tu        |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Hakuna kuingia au kuhamisha vidakuzi    |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
-| Hakuna vikwazo vya matumizi                |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| Programu ya mezani inayofanya kazi kwenye mifumo yote   |   ✅   |         ✅          |     ✅      |             N/A            |         ❌         |
-| Manukuu + SponsorBlock     |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| Bure, hakuna ngazi ya malipo |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| Chanzo wazi |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| Usindikaji wa mahali hapo tu |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
+| Hakuna kuingia au kuhamisha vidakuzi |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
+| Hakuna vikwazo vya matumizi |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| Programu ya mezani inayofanya kazi kwenye mifumo yote |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
+| Manukuu + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
 Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Hakuna akaunti, hakuna mauzo ya ziada, hakuna ukusanyaji wa data.
 
@@ -110,32 +110,32 @@ YouTube inapoboresha ugunduzi wake wa boti, zana nyingi hukuambia kuhamisha vida
 
 ## <a id="download"></a>Pakua
 
-| Jukwaa | Fomati |
-| -------- | ------ |
-| Windows  | Kisanidi (NSIS) au Inayobebeka `.exe` |
-| macOS    | `.dmg` (Intel + Apple Silicon) |
-| Linux    | `.AppImage` au `.flatpak` (imewekwa sanduku) |
+| Jukwaa | Fomati   |
+| ------------------- | ------------------- |
+| Windows             | Kisanidi (NSIS) au Inayobebeka `.exe`   |
+| macOS               | `.dmg` (Intel + Apple Silicon)   |
+| Linux               | `.AppImage` au `.flatpak` (imewekwa sanduku) |
 
 [**Pata toleo la hivi karibuni →**](../../releases/latest)
 
 ### Sanidi kupitia meneja wa pakiti
 
-| Njia  | Amri |
-| -------- | ------- |
-| Winget   | `winget install AntonioOrionus.Arroxy` |
-| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy` |
+| Njia | Amri                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
 
 <details>
 <summary><strong>Windows: Kisanidi dhidi ya Inayobebeka</strong></summary>
 
-|                       | Kisanidi cha NSIS | Inayobebeka `.exe` |
-| --------------------- | :------------: | :-------------: |
-| Usanidi unahitajika |      Ndiyo       | Hapana — endesha kutoka mahali popote |
-| Masasisho ya kiotomatiki          |   ✅ ndani ya programu    |   ❌ upakuaji wa mkono |
-| Kasi ya uzinduzi         |   ✅ ya haraka zaidi    |   ⚠️ mwanzo wa polepole baridi |
-| Inaongeza kwenye Menyu ya Kuanza    |      ✅        |       ❌        |
-| Kuondoa kwa urahisi        |      ✅        |   ❌ futa faili |
+|               | Kisanidi cha NSIS | Inayobebeka `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| Usanidi unahitajika | Ndiyo  | Hapana — endesha kutoka mahali popote  |
+| Masasisho ya kiotomatiki | ✅ ndani ya programu  | ❌ upakuaji wa mkono  |
+| Kasi ya uzinduzi | ✅ ya haraka zaidi  | ⚠️ mwanzo wa polepole baridi  |
+| Inaongeza kwenye Menyu ya Kuanza |            ✅            |           ❌            |
+| Kuondoa kwa urahisi |            ✅            | ❌ futa faili  |
 
 **Pendekezo:** tumia kisanidi cha NSIS kwa masasisho ya kiotomatiki na uzinduzi wa haraka. Tumia `.exe` inayobebeka kwa chaguo lisilo na usanidi na bila usajili.
 
@@ -250,8 +250,8 @@ Kwa matumizi ya kibinafsi na ya faragha, kwa ujumla inakubaliwa katika mamlaka n
 
 Inakuja — kwa takriban mpangilio wa kipaumbele:
 
-| Kipengele | Maelezo |
-| ------- | ----------- |
+| Kipengele    | Maelezo    |
+| ---------------- | ---------------- |
 | **Upakuaji wa orodha ya kucheza na vituo** | Bandika URL ya orodha ya kucheza au kituo; panga video zote na vichujio vya tarehe au idadi |
 | **Uingizaji wa URL nyingi** | Bandika URL nyingi kwa wakati mmoja na uziendeshe mara moja |
 | **Ubadilishaji wa fomati** | Badilisha maudhui yaliyopakuliwa kuwa MP3, WAV, FLAC bila zana nyingine |

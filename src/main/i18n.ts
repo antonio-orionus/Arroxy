@@ -17,6 +17,7 @@ import am from '@shared/i18n/locales/am';
 import om from '@shared/i18n/locales/om';
 import el from '@shared/i18n/locales/el';
 import sr from '@shared/i18n/locales/sr';
+import ur from '@shared/i18n/locales/ur';
 import type { SupportedLang } from '@shared/i18n/types';
 
 const RESOURCES: Record<SupportedLang, unknown> = {
@@ -38,7 +39,8 @@ const RESOURCES: Record<SupportedLang, unknown> = {
   am,
   om,
   el,
-  sr
+  sr,
+  ur
 };
 
 function lookup(tree: unknown, dottedKey: string): string | undefined {

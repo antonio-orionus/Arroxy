@@ -79,6 +79,12 @@ const ps = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'د پراکسي له لارې ترافیک لیږدول — د جغرافیایي محدودیتونو لرونکي مینځپانګې لپاره ګټور.',
+        placeholder: 'http://host:port',
+        clear: 'پاکول'
+      },
       closeToTray: {
         toggle: 'د تړولو پر وخت ټرې ته پټ کړه',
         toggleDescription: 'د کړکۍ د تړولو وروسته شاتهپرده ډاونلوډونه دوام کړئ.'
@@ -333,6 +339,12 @@ const ps = {
       hide: 'ټرې ته پټول',
       quit: 'وتل',
       remember: 'بیا مه پوښتئ'
+    },
+    rendererCrashed: {
+      message: 'Arroxy ستونزې سره مخ شو',
+      detail: 'د رینډرر پروسه کریش شوه ({{reason}}). بیا هڅه کولو لپاره بیا بار کړئ.',
+      reload: 'بیا بار کړئ',
+      quit: 'وتل'
     }
   }
 } as const;

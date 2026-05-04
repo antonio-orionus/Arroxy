@@ -79,6 +79,12 @@ const am = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'ትራፊክን በፕሮክሲ ለማስተላለፍ — በጂኦ-ተከልካይ ይዘት ለሚጠቀሙ ጠቃሚ።',
+        placeholder: 'http://host:port',
+        clear: 'አጽዳ'
+      },
       closeToTray: {
         toggle: 'ሲዘጋ ወደ ትሬ ደብቅ',
         toggleDescription: 'መስኮት ሲዘጋ ዳውንሎዶችን ዳራ ቀጥል።'
@@ -333,6 +339,12 @@ const am = {
       hide: 'ወደ ትሬ ደብቅ',
       quit: 'ዝጋ',
       remember: 'እንደገና አትጠይቅ'
+    },
+    rendererCrashed: {
+      message: 'Arroxy ችግር አጋጥሟል',
+      detail: 'የተቀጣጣሪ ሂደት ተቋርጧል ({{reason}})። ለማደስ ዳግም ጫን።',
+      reload: 'ዳግም ጫን',
+      quit: 'ዝጋ'
     }
   }
 } as const;

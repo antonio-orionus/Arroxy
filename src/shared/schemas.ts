@@ -24,7 +24,7 @@ export const sponsorBlockCategorySchema = z.enum(['sponsor', 'intro', 'outro', '
 export type SponsorBlockCategory = z.infer<typeof sponsorBlockCategorySchema>;
 export const SPONSORBLOCK_CATEGORIES = sponsorBlockCategorySchema.options;
 
-export const supportedLangSchema = z.enum(['en', 'zh', 'hi', 'es', 'ar', 'fr', 'bn', 'ru', 'sw', 'de', 'ja', 'ps', 'om', 'uk', 'uz', 'my', 'am', 'el', 'sr']);
+export const supportedLangSchema = z.enum(['om', 'de', 'en', 'es', 'fr', 'sw', 'uz', 'am', 'ar', 'ur', 'ps', 'bn', 'hi', 'my', 'el', 'ru', 'sr', 'uk', 'zh', 'ja']);
 export type SupportedLang = z.infer<typeof supportedLangSchema>;
 export const SUPPORTED_LANGS = supportedLangSchema.options;
 
@@ -179,6 +179,7 @@ export const updateSettingsSchema = z.object({
     .optional(),
   cookiesPath: z.string().optional(),
   cookiesEnabled: z.boolean().optional(),
+  proxyUrl: z.string().optional(),
   clipboardWatchEnabled: z.boolean().optional(),
   closeBehavior: z.enum(['ask', 'tray', 'quit']).optional(),
   embedChapters: z.boolean().optional(),

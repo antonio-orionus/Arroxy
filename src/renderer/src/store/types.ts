@@ -101,6 +101,7 @@ export interface SystemSlice {
   setLanguage: (lang: SupportedLang) => void;
   setCookiesPath: (path: string) => Promise<void>;
   setCookiesEnabled: (enabled: boolean) => Promise<void>;
+  setProxyUrl: (url: string) => Promise<void>;
   setClipboardWatchEnabled: (enabled: boolean) => Promise<void>;
   setCloseBehavior: (value: 'tray' | 'quit') => Promise<void>;
   setAnalyticsEnabled: (enabled: boolean) => Promise<void>;

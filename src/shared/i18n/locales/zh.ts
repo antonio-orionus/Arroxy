@@ -79,6 +79,12 @@ const zh = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: '通过代理路由流量 — 适用于地区限制内容。',
+        placeholder: 'http://host:port',
+        clear: '清除'
+      },
       closeToTray: {
         toggle: '关闭时最小化到托盘',
         toggleDescription: '关闭窗口后继续在后台下载。'
@@ -333,6 +339,12 @@ const zh = {
       hide: '最小化到托盘',
       quit: '退出',
       remember: '不再询问'
+    },
+    rendererCrashed: {
+      message: 'Arroxy 遇到了一个问题',
+      detail: '渲染进程崩溃（{{reason}}）。请重新加载以重试。',
+      reload: '重新加载',
+      quit: '退出'
     }
   }
 } as const;

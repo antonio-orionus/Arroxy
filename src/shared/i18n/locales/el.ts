@@ -79,6 +79,12 @@ const el = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'Δρομολόγηση κίνησης μέσω proxy — χρήσιμο για περιεχόμενο με γεωγραφικούς περιορισμούς.',
+        placeholder: 'http://host:port',
+        clear: 'Εκκαθάριση'
+      },
       closeToTray: {
         toggle: 'Απόκρυψη στο δίσκο κατά το κλείσιμο',
         toggleDescription: 'Συνέχιση λήψεων στο παρασκήνιο μετά το κλείσιμο του παραθύρου.'
@@ -333,6 +339,12 @@ const el = {
       hide: 'Απόκρυψη στο δίσκο',
       quit: 'Έξοδος',
       remember: 'Να μη ζητηθεί ξανά'
+    },
+    rendererCrashed: {
+      message: 'Το Arroxy αντιμετώπισε πρόβλημα',
+      detail: 'Η διαδικασία απόδοσης κατέρρευσε ({{reason}}). Ανανέωσε για να δοκιμάσεις ξανά.',
+      reload: 'Ανανέωση',
+      quit: 'Έξοδος'
     }
   }
 } as const;

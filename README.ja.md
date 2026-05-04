@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · MP3 · Shorts · Subtitles · SponsorBlock**
 
-**言語：** [English](README.md) · [Español](README.es.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · **日本語** · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md) · [বাংলা](README.bn.md) · [العربية](README.ar.md) · [O'zbekcha](README.uz.md) · [မြန်မာဘာသာ](README.my.md) · [پښتو](README.ps.md) · [Kiswahili](README.sw.md) · [አማርኛ](README.am.md) · [Afaan Oromoo](README.om.md) · [Ελληνικά](README.el.md) · [Српски](README.sr.md)
+**言語：** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · **日本語**
 
-[![リリース](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![ビルド](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![ライセンス](https://img.shields.io/badge/license-MIT-green) ![プラットフォーム](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![対応言語](https://img.shields.io/badge/i18n-18_languages-blue)
+[![リリース](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![ビルド](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![ライセンス](https://img.shields.io/badge/license-MIT-green) ![プラットフォーム](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![対応言語](https://img.shields.io/badge/i18n-19_languages-blue)
 
 YouTube の動画・Shorts・音声トラックをオリジナル品質でダウンロード — 最大 4K HDR 60fps、または MP3 / AAC / Opus として。Windows、macOS、Linux でローカル動作。**広告なし、ログインなし、ブラウザ Cookie なし、Google アカウント連携なし。**
 
@@ -40,15 +40,15 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 
 最もよく使われる代替手段との比較：
 
-|                              | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------------------------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| 無料、プレミアム層なし        |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| オープンソース                  |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| ローカル処理のみ        |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| ログイン・Cookie エクスポート不要    |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
-| 利用回数制限なし                |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| クロスプラットフォームのデスクトップアプリ   |   ✅   |         ✅          |     ✅      |             N/A            |         ❌         |
-| 字幕 + SponsorBlock     |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| 無料、プレミアム層なし |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| オープンソース |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| ローカル処理のみ |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
+| ログイン・Cookie エクスポート不要 |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
+| 利用回数制限なし |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| クロスプラットフォームのデスクトップアプリ |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
+| 字幕 + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
 Arroxy はひとつのことのために作られています：URL を貼って、クリーンなローカルファイルを得る。アカウントなし、アップセルなし、データ収集なし。
 
@@ -112,32 +112,32 @@ YouTube が bot 検出を更新すると、多くのツールはブラウザの 
 
 ## <a id="download"></a>ダウンロード
 
-| プラットフォーム | フォーマット |
-| -------- | ------ |
-| Windows  | インストーラ（NSIS）またはポータブル `.exe` |
-| macOS    | `.dmg`（Intel + Apple Silicon） |
-| Linux    | `.AppImage` または `.flatpak`（サンドボックス） |
+| プラットフォーム | フォーマット   |
+| ------------------- | ------------------- |
+| Windows             | インストーラ（NSIS）またはポータブル `.exe`   |
+| macOS               | `.dmg`（Intel + Apple Silicon）   |
+| Linux               | `.AppImage` または `.flatpak`（サンドボックス） |
 
 [**最新リリースを入手 →**](../../releases/latest)
 
 ### パッケージマネージャー経由でインストール
 
-| チャンネル  | コマンド |
-| -------- | ------- |
-| Winget   | `winget install AntonioOrionus.Arroxy` |
-| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy` |
+| チャンネル | コマンド                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
 
 <details>
 <summary><strong>Windows：インストーラ vs ポータブル</strong></summary>
 
-|                       | NSIS インストーラ | ポータブル `.exe` |
-| --------------------- | :------------: | :-------------: |
-| インストール必要 |      はい       | いいえ — どこからでも実行可能 |
-| 自動アップデート          |   ✅ アプリ内    |   ❌ 手動ダウンロード |
-| 起動速度         |   ✅ 速い    |   ⚠️ コールドスタートが遅め |
-| スタートメニューに追加    |      ✅        |       ❌        |
-| 簡単アンインストール        |      ✅        |   ❌ ファイルを削除するだけ |
+|               | NSIS インストーラ | ポータブル `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| インストール必要 | はい  | いいえ — どこからでも実行可能  |
+| 自動アップデート | ✅ アプリ内  | ❌ 手動ダウンロード  |
+| 起動速度 | ✅ 速い  | ⚠️ コールドスタートが遅め  |
+| スタートメニューに追加 |            ✅            |           ❌            |
+| 簡単アンインストール |            ✅            | ❌ ファイルを削除するだけ  |
 
 **おすすめ：** 自動アップデートと高速起動には NSIS インストーラを使用。インストール不要・レジストリ非変更のオプションにはポータブル `.exe` を使用。
 
@@ -252,8 +252,8 @@ YouTube が提供するすべて：4K UHD（2160p）、1440p、1080p、720p、48
 
 予定されている機能 — おおよその優先順位順：
 
-| 機能 | 説明 |
-| ------- | ----------- |
+| 機能    | 説明    |
+| ---------------- | ---------------- |
 | **プレイリスト・チャンネルのダウンロード** | プレイリストまたはチャンネルの URL を貼り付け、日付や件数のフィルタで全動画をキューに追加 |
 | **複数 URL の一括入力** | 複数の URL を一度に貼り付けて一気に実行 |
 | **フォーマット変換** | 別のツールなしにダウンロードを MP3、WAV、FLAC に変換 |

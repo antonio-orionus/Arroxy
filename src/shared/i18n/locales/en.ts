@@ -79,6 +79,12 @@ const en = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'Route traffic through a proxy — useful for geo-restricted content.',
+        placeholder: 'http://host:port',
+        clear: 'Clear'
+      },
       closeToTray: {
         toggle: 'Hide to tray on close',
         toggleDescription: 'Continue downloads in the background after closing the window.'
@@ -333,6 +339,12 @@ const en = {
       hide: 'Hide to tray',
       quit: 'Quit',
       remember: "Don't ask again"
+    },
+    rendererCrashed: {
+      message: 'Arroxy encountered a problem',
+      detail: 'The renderer process crashed ({{reason}}). Reload to try again.',
+      reload: 'Reload',
+      quit: 'Quit'
     }
   }
 } as const;

@@ -19,13 +19,14 @@ const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookies
 
 export function StepUrlInput(): JSX.Element {
   const { t } = useTranslation();
-  const { wizardUrl, setWizardUrl, submitUrl, queue, settings, initialized, setCookiesPath, setCookiesEnabled, setClipboardWatchEnabled, setCloseBehavior, setAnalyticsEnabled } = useAppStore();
+  const { wizardUrl, setWizardUrl, submitUrl, queue, settings, initialized, setCookiesPath, setCookiesEnabled, setClipboardWatchEnabled, setCloseBehavior, setAnalyticsEnabled, setProxyUrl } = useAppStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const hasActiveDownloads = queue.some((i) => i.status === 'downloading');
   const [pendingClipboardUrl, setPendingClipboardUrl] = useState<string | null>(null);
 
   const cookiesPath = settings?.cookiesPath ?? '';
   const cookiesEnabled = settings?.cookiesEnabled ?? false;
+  const proxyUrl = settings?.proxyUrl ?? '';
   const commonPaths = settings?.commonPaths;
   const showMissingFileWarning = cookiesEnabled && !cookiesPath.trim();
 
@@ -155,6 +156,19 @@ export function StepUrlInput(): JSX.Element {
           <div className="flex flex-col gap-1 text-[11px] text-[var(--text-subtle)] leading-relaxed">
             <p>{t('wizard.url.cookies.risk')}</p>
             <p className="text-amber-600 dark:text-amber-400">{t('wizard.url.cookies.banWarning')}</p>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[13px] font-medium text-foreground">{t('wizard.url.proxy.label')}</span>
+              <span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.proxy.description')}</span>
+            </div>
+            <div className="flex gap-2">
+              <Input type="url" value={proxyUrl} onChange={(e) => void setProxyUrl(e.target.value)} placeholder={t('wizard.url.proxy.placeholder')} className="flex-1 h-9 text-[12px] font-mono" data-testid="proxy-url-input" />
+              <Button type="button" size="sm" variant="ghost" onClick={() => void setProxyUrl('')} disabled={!proxyUrl} data-testid="proxy-clear">
+                {t('wizard.url.proxy.clear')}
+              </Button>
+            </div>
           </div>
 
           {(window as Window & { platform?: string }).platform !== 'darwin' && (

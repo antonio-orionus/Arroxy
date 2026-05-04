@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · MP3 · Shorts · Subtitles · SponsorBlock**
 
-**Читај на:** [English](README.md) · [Español](README.es.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md) · [বাংলা](README.bn.md) · [العربية](README.ar.md) · [O'zbekcha](README.uz.md) · [မြန်မာဘာသာ](README.my.md) · [پښتو](README.ps.md) · [Kiswahili](README.sw.md) · [አማርኛ](README.am.md) · [Afaan Oromoo](README.om.md) · [Ελληνικά](README.el.md) · **Српски**
+**Читај на:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · **Српски** · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![Издање](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Изградња](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Лиценца](https://img.shields.io/badge/license-MIT-green) ![Платформе](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Језици](https://img.shields.io/badge/i18n-18_languages-blue)
+[![Издање](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Изградња](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Лиценца](https://img.shields.io/badge/license-MIT-green) ![Платформе](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Језици](https://img.shields.io/badge/i18n-19_languages-blue)
 
 Преузмите било који YouTube видео, Short или аудио снимак у оригиналном квалитету — до 4K HDR при 60 fps, или као MP3 / AAC / Opus. Ради локално на Windows-у, macOS-у и Linux-у. **Без реклама, без пријаве, без колачића претраживача, без повезаног Google налога.**
 
@@ -38,15 +38,15 @@
 
 Поређење са најчешћим алтернативама:
 
-|                              | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
-| ---------------------------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Бесплатно, без премијум нивоа        |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
-| Отворени код                  |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
-| Само локална обрада        |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Без пријаве или извоза колачића    |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
-| Без ограничења употребе                |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
-| Кроссплатформна десктоп апликација   |   ✅   |         ✅          |     ✅      |             N/A            |         ❌         |
-| Титлови + SponsorBlock     |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
+|            | Arroxy | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+| ---------- | :----: | :-----------------: | :---------: | :------------------------: | :----------------: |
+| Бесплатно, без премијум нивоа |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
+| Отворени код |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
+| Само локална обрада |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
+| Без пријаве или извоза колачића |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
+| Без ограничења употребе |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
+| Кроссплатформна десктоп апликација |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
+| Титлови + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
 Arroxy је направљен за једну ствар: налепите URL, добијете чист локални фајл. Без налога, без додатне продаје, без прикупљања података.
 
@@ -110,32 +110,32 @@ Arroxy је направљен за једну ствар: налепите URL,
 
 ## <a id="download"></a>Преузимање
 
-| Платформа | Формат |
-| -------- | ------ |
-| Windows  | Инсталатер (NSIS) или преносиви `.exe` |
-| macOS    | `.dmg` (Intel + Apple Silicon) |
-| Linux    | `.AppImage` или `.flatpak` (у песковнику) |
+| Платформа | Формат   |
+| ------------------- | ------------------- |
+| Windows             | Инсталатер (NSIS) или преносиви `.exe`   |
+| macOS               | `.dmg` (Intel + Apple Silicon)   |
+| Linux               | `.AppImage` или `.flatpak` (у песковнику) |
 
 [**Преузмите најновије издање →**](../../releases/latest)
 
 ### Инсталирај преко менаџера пакета
 
-| Канал  | Команда |
-| -------- | ------- |
-| Winget   | `winget install AntonioOrionus.Arroxy` |
-| Scoop    | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew | `brew tap antonio-orionus/arroxy && brew install --cask arroxy` |
+| Канал | Команда                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
 
 <details>
 <summary><strong>Windows: Инсталатер vs Преносиви</strong></summary>
 
-|                       | NSIS Инсталатер | Преносиви `.exe` |
-| --------------------- | :------------: | :-------------: |
-| Потребна инсталација |      Да       | Не — покрени са било ког места |
-| Аутоматска ажурирања          |   ✅ унутар апликације    |   ❌ ручно преузимање |
-| Брзина покретања         |   ✅ брже    |   ⚠️ спорије хладно покретање |
-| Додаје у Start мени    |      ✅        |       ❌        |
-| Лако деинсталирање        |      ✅        |   ❌ обришите фајл |
+|               | NSIS Инсталатер | Преносиви `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| Потребна инсталација | Да  | Не — покрени са било ког места  |
+| Аутоматска ажурирања | ✅ унутар апликације  | ❌ ручно преузимање  |
+| Брзина покретања | ✅ брже  | ⚠️ спорије хладно покретање  |
+| Додаје у Start мени |            ✅            |           ❌            |
+| Лако деинсталирање |            ✅            | ❌ обришите фајл  |
 
 **Препорука:** користите NSIS инсталатер за аутоматска ажурирања и брже покретање. Користите преносиви `.exe` за опцију без инсталације и регистра.
 
@@ -250,8 +250,8 @@ Arroxy шаље анонимну, збирну телеметрију преко
 
 Предстоји — приближно по приоритету:
 
-| Функционалност | Опис |
-| ------- | ----------- |
+| Функционалност    | Опис    |
+| ---------------- | ---------------- |
 | **Преузимање плејлисти и канала** | Налепите URL плејлисте или канала; ставите у ред сва видеа са филтерима по датуму или броју |
 | **Групни унос URL-ова** | Налепите више URL-ова одједном и покрените их у једном потезу |
 | **Конверзија формата** | Конвертујте преузимања у MP3, WAV, FLAC без засебног алата |

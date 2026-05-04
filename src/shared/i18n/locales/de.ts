@@ -79,6 +79,12 @@ const de = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'Datenverkehr über einen Proxy leiten — nützlich für geo-gesperrte Inhalte.',
+        placeholder: 'http://host:port',
+        clear: 'Löschen'
+      },
       closeToTray: {
         toggle: 'Beim Schließen in die Taskleiste minimieren',
         toggleDescription: 'Downloads im Hintergrund fortsetzen, wenn das Fenster geschlossen wird.'
@@ -333,6 +339,12 @@ const de = {
       hide: 'In Infobereich minimieren',
       quit: 'Beenden',
       remember: 'Nicht mehr fragen'
+    },
+    rendererCrashed: {
+      message: 'Arroxy hat ein Problem festgestellt',
+      detail: 'Der Renderer-Prozess ist abgestürzt ({{reason}}). Neu laden, um es erneut zu versuchen.',
+      reload: 'Neu laden',
+      quit: 'Beenden'
     }
   }
 } as const;

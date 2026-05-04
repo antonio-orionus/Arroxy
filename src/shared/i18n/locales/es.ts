@@ -79,6 +79,12 @@ const es = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'Enruta el tráfico a través de un proxy — útil para contenido con restricciones geográficas.',
+        placeholder: 'http://host:port',
+        clear: 'Borrar'
+      },
       closeToTray: {
         toggle: 'Minimizar a la bandeja al cerrar',
         toggleDescription: 'Continuar descargas en segundo plano al cerrar la ventana.'
@@ -333,6 +339,12 @@ const es = {
       hide: 'Ocultar en bandeja',
       quit: 'Salir',
       remember: 'No volver a preguntar'
+    },
+    rendererCrashed: {
+      message: 'Arroxy encontró un problema',
+      detail: 'El proceso de renderizado falló ({{reason}}). Recarga para intentarlo de nuevo.',
+      reload: 'Recargar',
+      quit: 'Salir'
     }
   }
 } as const;

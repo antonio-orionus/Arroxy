@@ -79,6 +79,12 @@ const sw = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'Peleka trafiki kupitia proksi — muhimu kwa maudhui yenye vizuizi vya kijiografia.',
+        placeholder: 'http://host:port',
+        clear: 'Futa'
+      },
       closeToTray: {
         toggle: 'Ficha kwenye tray ukifunga',
         toggleDescription: 'Endelea kupakua nyuma ya pazia baada ya kufunga dirisha.'
@@ -333,6 +339,12 @@ const sw = {
       hide: 'Ficha kwenye tray',
       quit: 'Toka',
       remember: 'Usiulize tena'
+    },
+    rendererCrashed: {
+      message: 'Arroxy imekutana na tatizo',
+      detail: 'Mchakato wa uonyeshaji umeanguka ({{reason}}). Pakia upya ujaribu tena.',
+      reload: 'Pakia upya',
+      quit: 'Toka'
     }
   }
 } as const;

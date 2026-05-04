@@ -252,6 +252,32 @@ if (hasSingleInstanceLock) {
 
     registerUpdaterHandlers(mainWindow);
 
+    app.on('render-process-gone', (_event, webContents, details) => {
+      log.error(`Renderer process gone: reason=${details.reason} exitCode=${details.exitCode}`);
+      if (details.reason === 'clean-exit') return;
+      trackMain('crash_detected', { type: 'renderer', reason: details.reason });
+      if (webContents !== mainWindow.webContents) return;
+      const lang = languageRef.current;
+      const opts = {
+        type: 'error' as const,
+        buttons: [mainT(lang, 'dialogs.rendererCrashed.reload'), mainT(lang, 'dialogs.rendererCrashed.quit')],
+        defaultId: 0,
+        cancelId: 1,
+        message: mainT(lang, 'dialogs.rendererCrashed.message'),
+        detail: mainT(lang, 'dialogs.rendererCrashed.detail', { reason: details.reason })
+      };
+      void (mainWindow.isDestroyed() ? dialog.showMessageBox(opts) : dialog.showMessageBox(mainWindow, opts)).then(({ response }) => {
+        if (response === 0 && !mainWindow.isDestroyed()) mainWindow.reload();
+        else app.quit();
+      });
+    });
+
+    app.on('child-process-gone', (_event, details) => {
+      if (details.reason === 'clean-exit') return;
+      log.warn(`Child process gone: type=${details.type} reason=${details.reason} exitCode=${details.exitCode}`);
+      trackMain('crash_detected', { type: details.type, reason: details.reason });
+    });
+
     if (process.platform !== 'darwin') {
       try {
         tray = new TrayManager(mainWindow, downloadService, languageRef, () => {

@@ -79,6 +79,12 @@ const hi = {
         extensionFirefox: 'cookies.txt (Firefox)',
         extensionChrome: 'Get cookies.txt LOCALLY (Chrome)'
       },
+      proxy: {
+        label: 'Proxy URL',
+        description: 'प्रॉक्सी के माध्यम से ट्रैफ़िक रूट करें — भू-प्रतिबंधित सामग्री के लिए उपयोगी।',
+        placeholder: 'http://host:port',
+        clear: 'साफ़ करें'
+      },
       closeToTray: {
         toggle: 'बंद करने पर ट्रे में छिपाएं',
         toggleDescription: 'विंडो बंद करने के बाद पृष्ठभूमि में डाउनलोड जारी रखें।'
@@ -333,6 +339,12 @@ const hi = {
       hide: 'ट्रे में छिपाएं',
       quit: 'बाहर निकलें',
       remember: 'दोबारा न पूछें'
+    },
+    rendererCrashed: {
+      message: 'Arroxy में एक समस्या आई',
+      detail: 'रेंडरर प्रक्रिया क्रैश हो गई ({{reason}})। पुनः प्रयास करने के लिए रीलोड करें।',
+      reload: 'रीलोड करें',
+      quit: 'बाहर निकलें'
     }
   }
 } as const;
