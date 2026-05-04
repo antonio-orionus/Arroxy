@@ -15,6 +15,7 @@ export const bn = {
   nav_features: "বৈশিষ্ট্য",
   nav_screenshots: "স্ক্রিনশট",
   nav_install: "ইনস্টল",
+  nav_blog: "Blog",
   nav_download: "ডাউনলোড",
 
   hero_eyebrow: "Open Source · MIT · সক্রিয় উন্নয়ন",

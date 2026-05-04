@@ -15,6 +15,7 @@ export const my = {
   nav_features: "လုပ်ဆောင်ချက်များ",
   nav_screenshots: "ဖန်သားပြင်ဓာတ်ပုံများ",
   nav_install: "တပ်ဆင်ခြင်း",
+  nav_blog: "Blog",
   nav_download: "ဒေါင်းလုဒ်",
 
   hero_eyebrow: "Open Source · MIT · တက်ကြွစွာ ထိန်းသိမ်းနေသည်",

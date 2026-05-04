@@ -15,6 +15,7 @@ export const sr = {
   nav_features: "Функције",
   nav_screenshots: "Снимци екрана",
   nav_install: "Инсталација",
+  nav_blog: "Blog",
   nav_download: "Преузми",
 
   hero_eyebrow: "Open Source · MIT · Активни развој",

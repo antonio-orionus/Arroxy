@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{title}} · Arroxy Blog</title>
+    <meta name="description" content="{{description}}" />
+    <link rel="canonical" href="{{CANONICAL}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Arroxy" />
+    <meta property="og:url" content="{{CANONICAL}}" />
+    <meta property="og:title" content="{{title}}" />
+    <meta property="og:description" content="{{description}}" />
+    <meta property="og:image" content="{{ogImage}}" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="article:published_time" content="{{datePublished}}" />
+    <meta property="article:modified_time" content="{{dateModified}}" />
+    <meta property="article:author" content="{{author}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{title}}" />
+    <meta name="twitter:description" content="{{description}}" />
+    <meta name="twitter:image" content="{{ogImage}}" />
+
+    <meta name="theme-color" content="#0d1019" />
+    <link rel="icon" href="/assets/icon.png" />
+    <link rel="apple-touch-icon" href="/assets/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">{{JSON_LD}}</script>
+
+    <style>
+      :root {
+        --bg: hsl(240 20% 6%);
+        --bg-elev: hsl(240 18% 9%);
+        --bg-card: hsl(240 16% 11%);
+        --border: hsl(240 12% 18%);
+        --border-strong: hsl(240 12% 26%);
+        --text: hsl(0 0% 98%);
+        --text-dim: hsl(0 0% 72%);
+        --text-subtle: hsl(0 0% 52%);
+        --brand: hsl(220 100% 56%);
+        --brand-hover: hsl(220 100% 65%);
+        --brand-glow: hsl(220 100% 56% / 0.32);
+        --accent: hsl(195 100% 70%);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(60rem 40rem at 20% -10%, hsl(220 100% 56% / 0.16), transparent 60%),
+          radial-gradient(50rem 35rem at 90% 10%, hsl(195 100% 70% / 0.08), transparent 60%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(14px);
+        background: hsl(240 20% 6% / 0.65);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+        width: min(1080px, 94%);
+        margin: 0 auto;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .brand img { width: 32px; height: 32px; border-radius: 8px; }
+      .nav-cta {
+        background: var(--brand);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        text-decoration: none;
+        box-shadow: 0 0 0 1px hsl(220 100% 70% / 0.3), 0 8px 24px var(--brand-glow);
+        transition: transform .15s, box-shadow .15s, background .15s;
+      }
+      .nav-cta:hover {
+        background: var(--brand-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 0 0 1px hsl(220 100% 75% / 0.4), 0 12px 30px var(--brand-glow);
+      }
+
+      article {
+        width: min(1080px, 92%);
+        margin: 0 auto;
+        padding: 56px 0 96px;
+      }
+      @media (max-width: 720px) {
+        article { padding: 32px 0 64px; }
+      }
+
+      .post-eyebrow {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--brand-hover);
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: hsl(220 100% 56% / 0.1);
+        border: 1px solid hsl(220 100% 56% / 0.25);
+        margin-bottom: 22px;
+      }
+      h1 {
+        font-size: clamp(2rem, 4.4vw, 3rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin-bottom: 14px;
+        text-wrap: balance;
+        background: linear-gradient(120deg, var(--text) 0%, var(--accent) 80%, var(--brand-hover) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .post-meta {
+        font-size: 14px;
+        color: var(--text-subtle);
+        margin-bottom: 40px;
+      }
+      .post-meta a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+      .post-prose h2 {
+        font-size: clamp(1.4rem, 2.4vw, 1.75rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 56px 0 18px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+      .post-prose h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin: 36px 0 14px;
+        color: var(--text);
+      }
+      .post-prose p { margin: 0 0 18px; color: var(--text-dim); font-size: 16.5px; }
+      .post-prose strong { color: var(--text); font-weight: 600; }
+      .post-prose em { color: var(--text); }
+      .post-prose ul, .post-prose ol { margin: 0 0 18px 20px; color: var(--text-dim); }
+      .post-prose li { margin-bottom: 6px; }
+      .post-prose a {
+        color: var(--brand-hover);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1px;
+        transition: color .15s;
+      }
+      .post-prose a:hover { color: var(--accent); }
+      .post-prose code {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.9em;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        padding: 1px 6px;
+        border-radius: 6px;
+        color: var(--accent);
+      }
+      .post-prose hr {
+        border: 0;
+        border-top: 1px solid var(--border);
+        margin: 48px 0;
+      }
+      .post-prose blockquote {
+        margin: 0 0 18px;
+        padding: 12px 18px;
+        border-left: 3px solid var(--brand);
+        background: hsl(220 100% 56% / 0.06);
+        border-radius: 0 8px 8px 0;
+        color: var(--text-dim);
+        font-style: italic;
+      }
+
+      /* Tables: shared style for both the board and the matrix. */
+      .post-prose table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0 0 24px;
+        font-size: 14px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .post-prose th, .post-prose td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+        vertical-align: top;
+        color: var(--text-dim);
+      }
+      .post-prose th {
+        background: var(--bg-elev);
+        color: var(--text);
+        font-weight: 600;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+      .post-prose tbody tr:last-child td { border-bottom: 0; }
+      .post-prose tbody tr:hover { background: hsl(240 12% 14%); }
+      .post-prose td a { white-space: nowrap; }
+
+      /* Wide capabilities matrix: breaks out to full viewport width. */
+      .matrix-scroll {
+        overflow-x: auto;
+        margin: 0 calc(50% - 50vw) 24px;
+        padding: 0 calc(50vw - 50%);
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-strong) transparent;
+      }
+      .matrix-scroll::-webkit-scrollbar { height: 10px; }
+      .matrix-scroll::-webkit-scrollbar-thumb {
+        background: var(--border-strong);
+        border-radius: 999px;
+      }
+      .matrix-scroll table { font-size: 12.5px; min-width: 1400px; }
+      .matrix-scroll th, .matrix-scroll td { padding: 6px 8px; }
+      .matrix-scroll thead tr:first-child th {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--brand-hover);
+      }
+      .matrix-scroll td[align="center"] { text-align: center; color: hsl(153 74% 60%); }
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 32px 0;
+        margin-top: 64px;
+        text-align: center;
+        color: var(--text-subtle);
+        font-size: 13px;
+      }
+      footer a { color: var(--text-dim); text-decoration: none; transition: color .15s; }
+      footer a:hover { color: var(--brand-hover); }
+      footer .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-inner">
+        <a class="brand" href="/">
+          <img src="/assets/icon.png" alt="Arroxy" />
+          <span>Arroxy</span>
+        </a>
+        <a class="nav-cta" href="/">Get Arroxy →</a>
+      </div>
+    </nav>
+
+    <article>
+      <span class="post-eyebrow">Blog</span>
+      <h1>{{title}}</h1>
+      <div class="post-meta">
+        Published <time datetime="{{datePublished}}">{{datePublishedHuman}}</time> · by {{author}}
+      </div>
+      <div class="post-prose">
+        {{body_html}}
+      </div>
+    </article>
+
+    <footer>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="https://github.com/antonio-orionus/Arroxy">GitHub</a>
+      </div>
+      <div>© Arroxy · MIT licensed</div>
+    </footer>
+  </body>
+</html>

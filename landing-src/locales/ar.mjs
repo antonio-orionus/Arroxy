@@ -15,6 +15,7 @@ export const ar = {
   nav_features: "المميزات",
   nav_screenshots: "لقطات الشاشة",
   nav_install: "التثبيت",
+  nav_blog: "Blog",
   nav_download: "تحميل",
 
   hero_eyebrow: "مفتوح المصدر · MIT · قيد التطوير النشط",

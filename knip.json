@@ -27,6 +27,7 @@
     "shadcn",
     "tw-animate-css",
     "tailwindcss",
-    "@types/extract-zip"
+    "@types/extract-zip",
+    "gray-matter"
   ]
 }

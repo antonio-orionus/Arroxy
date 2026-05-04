@@ -15,6 +15,7 @@ export const sw = {
   nav_features: "Vipengele",
   nav_screenshots: "Picha za skrini",
   nav_install: "Sakinisha",
+  nav_blog: "Blog",
   nav_download: "Pakua",
 
   hero_eyebrow: "Open Source · MIT · Maendeleo yanayoendelea",

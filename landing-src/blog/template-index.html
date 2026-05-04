@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Arroxy Blog</title>
+    <meta name="description" content="Long-form posts from the Arroxy team — comparisons, deep dives, and release notes." />
+    <link rel="canonical" href="https://arroxy.orionus.dev/blog/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Arroxy" />
+    <meta property="og:url" content="https://arroxy.orionus.dev/blog/" />
+    <meta property="og:title" content="Arroxy Blog" />
+    <meta property="og:description" content="Long-form posts from the Arroxy team — comparisons, deep dives, and release notes." />
+    <meta property="og:image" content="https://arroxy.orionus.dev/assets/icon.png" />
+    <meta name="theme-color" content="#0d1019" />
+    <link rel="icon" href="/assets/icon.png" />
+    <link rel="apple-touch-icon" href="/assets/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: hsl(240 20% 6%);
+        --bg-elev: hsl(240 18% 9%);
+        --bg-card: hsl(240 16% 11%);
+        --border: hsl(240 12% 18%);
+        --text: hsl(0 0% 98%);
+        --text-dim: hsl(0 0% 72%);
+        --text-subtle: hsl(0 0% 52%);
+        --brand: hsl(220 100% 56%);
+        --brand-hover: hsl(220 100% 65%);
+        --brand-glow: hsl(220 100% 56% / 0.32);
+        --accent: hsl(195 100% 70%);
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(60rem 40rem at 20% -10%, hsl(220 100% 56% / 0.16), transparent 60%),
+          radial-gradient(50rem 35rem at 90% 10%, hsl(195 100% 70% / 0.08), transparent 60%);
+        pointer-events: none;
+        z-index: -1;
+      }
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(14px);
+        background: hsl(240 20% 6% / 0.65);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+        width: min(1080px, 94%);
+        margin: 0 auto;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 18px;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .brand img { width: 32px; height: 32px; border-radius: 8px; }
+      .nav-cta {
+        background: var(--brand);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        text-decoration: none;
+        box-shadow: 0 0 0 1px hsl(220 100% 70% / 0.3), 0 8px 24px var(--brand-glow);
+      }
+      .nav-cta:hover { background: var(--brand-hover); }
+
+      main {
+        width: min(1080px, 92%);
+        margin: 0 auto;
+        padding: 64px 0 96px;
+      }
+      .index-eyebrow {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--brand-hover);
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: hsl(220 100% 56% / 0.1);
+        border: 1px solid hsl(220 100% 56% / 0.25);
+        margin-bottom: 22px;
+      }
+      h1 {
+        font-size: clamp(2.2rem, 5vw, 3rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-bottom: 12px;
+        background: linear-gradient(120deg, var(--brand), var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .index-tagline {
+        color: var(--text-dim);
+        font-size: 1.1rem;
+        margin-bottom: 48px;
+      }
+
+      .post-list { display: flex; flex-direction: column; gap: 18px; }
+      .post-card {
+        display: block;
+        padding: 24px 28px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        text-decoration: none;
+        color: inherit;
+        transition: transform .15s, border-color .15s, box-shadow .15s;
+      }
+      .post-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--brand);
+        box-shadow: 0 12px 30px hsl(0 0% 0% / 0.3);
+      }
+      .post-card-meta {
+        font-size: 13px;
+        color: var(--text-subtle);
+        margin-bottom: 8px;
+      }
+      .post-card h2 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 8px;
+        color: var(--text);
+      }
+      .post-card p {
+        color: var(--text-dim);
+        font-size: 15px;
+        line-height: 1.55;
+      }
+      .post-card .read-more {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--brand-hover);
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 32px 0;
+        text-align: center;
+        color: var(--text-subtle);
+        font-size: 13px;
+      }
+      footer a { color: var(--text-dim); text-decoration: none; }
+      footer a:hover { color: var(--brand-hover); }
+      footer .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-inner">
+        <a class="brand" href="/">
+          <img src="/assets/icon.png" alt="Arroxy" />
+          <span>Arroxy</span>
+        </a>
+        <a class="nav-cta" href="/">Get Arroxy →</a>
+      </div>
+    </nav>
+
+    <main>
+      <span class="index-eyebrow">Blog</span>
+      <h1>Arroxy Blog</h1>
+      <p class="index-tagline">Comparisons, deep dives, and release notes from the Arroxy team.</p>
+
+      <div class="post-list">
+        {{POSTS_HTML}}
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="https://github.com/antonio-orionus/Arroxy">GitHub</a>
+      </div>
+      <div>© Arroxy · MIT licensed</div>
+    </footer>
+  </body>
+</html>

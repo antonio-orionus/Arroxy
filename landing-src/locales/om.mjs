@@ -15,6 +15,7 @@ export const om = {
   nav_features: "Amaloota",
   nav_screenshots: "Fakkiiwwan",
   nav_install: "Diriirsi",
+  nav_blog: "Blog",
   nav_download: "Buufi",
 
   hero_eyebrow: "Open Source · MIT · Guddinni Itti Fufa",

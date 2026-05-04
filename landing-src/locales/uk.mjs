@@ -15,6 +15,7 @@ export const uk = {
   nav_features: "Можливості",
   nav_screenshots: "Скриншоти",
   nav_install: "Встановлення",
+  nav_blog: "Blog",
   nav_download: "Завантажити",
 
   hero_eyebrow: "Open Source · MIT · Активна розробка",

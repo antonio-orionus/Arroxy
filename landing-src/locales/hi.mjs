@@ -15,6 +15,7 @@ export const hi = {
   nav_features: "विशेषताएँ",
   nav_screenshots: "स्क्रीनशॉट",
   nav_install: "इंस्टॉल",
+  nav_blog: "Blog",
   nav_download: "डाउनलोड",
 
   hero_eyebrow: "Open Source · MIT · सक्रिय विकास",

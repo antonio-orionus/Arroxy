@@ -15,6 +15,7 @@ export const uz = {
   nav_features: "Imkoniyatlar",
   nav_screenshots: "Skrinshotlar",
   nav_install: "O'rnatish",
+  nav_blog: "Blog",
   nav_download: "Yuklab olish",
 
   hero_eyebrow: "Open Source · MIT · Faol ishlab chiqilmoqda",

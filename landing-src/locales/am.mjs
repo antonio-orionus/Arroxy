@@ -15,6 +15,7 @@ export const am = {
   nav_features: "ባህሪያት",
   nav_screenshots: "ቅጽበታዊ ምስሎች",
   nav_install: "ጫን",
+  nav_blog: "Blog",
   nav_download: "አውርድ",
 
   hero_eyebrow: "Open Source · MIT · ቀጣይ ልማት",

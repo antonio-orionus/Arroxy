@@ -15,6 +15,7 @@ export const zh = {
   nav_features: "功能",
   nav_screenshots: "截图",
   nav_install: "安装",
+  nav_blog: "Blog",
   nav_download: "下载",
 
   hero_eyebrow: "开源 · MIT · 持续维护中",

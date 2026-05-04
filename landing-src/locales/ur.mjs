@@ -15,6 +15,7 @@ export const ur = {
   nav_features: "خصوصیات",
   nav_screenshots: "اسکرین شاٹس",
   nav_install: "انسٹال",
+  nav_blog: "Blog",
   nav_download: "ڈاؤن لوڈ",
 
   hero_eyebrow: "اوپن سورس · MIT · فعال ترقی",

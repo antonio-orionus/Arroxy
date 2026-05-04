@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video Downloader Comparison: 30+ Cross-Platform GUIs · Arroxy Blog</title>
+    <meta name="description" content="A capability-by-capability comparison of cross-platform video downloader GUIs (yt-dlp-powered and otherwise) — feature matrix, pick-by-use-case guidance, and where Arroxy fits." />
+    <link rel="canonical" href="https://arroxy.orionus.dev/blog/video-downloader-comparison/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Arroxy" />
+    <meta property="og:url" content="https://arroxy.orionus.dev/blog/video-downloader-comparison/" />
+    <meta property="og:title" content="Video Downloader Comparison: 30+ Cross-Platform GUIs" />
+    <meta property="og:description" content="A capability-by-capability comparison of cross-platform video downloader GUIs (yt-dlp-powered and otherwise) — feature matrix, pick-by-use-case guidance, and where Arroxy fits." />
+    <meta property="og:image" content="https://arroxy.orionus.dev/assets/icon.png" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="article:published_time" content="2026-05-04" />
+    <meta property="article:modified_time" content="2026-05-04" />
+    <meta property="article:author" content="Antonio Orionus" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Video Downloader Comparison: 30+ Cross-Platform GUIs" />
+    <meta name="twitter:description" content="A capability-by-capability comparison of cross-platform video downloader GUIs (yt-dlp-powered and otherwise) — feature matrix, pick-by-use-case guidance, and where Arroxy fits." />
+    <meta name="twitter:image" content="https://arroxy.orionus.dev/assets/icon.png" />
+
+    <meta name="theme-color" content="#0d1019" />
+    <link rel="icon" href="/assets/icon.png" />
+    <link rel="apple-touch-icon" href="/assets/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Video Downloader Comparison: 30+ Cross-Platform GUIs","description":"A capability-by-capability comparison of cross-platform video downloader GUIs (yt-dlp-powered and otherwise) — feature matrix, pick-by-use-case guidance, and where Arroxy fits.","image":"https://arroxy.orionus.dev/assets/icon.png","datePublished":"2026-05-04","dateModified":"2026-05-04","author":{"@type":"Person","name":"Antonio Orionus","url":"https://x.com/OrionusAI"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://arroxy.orionus.dev/blog/video-downloader-comparison/"},"inLanguage":"en"}</script>
+
+    <style>
+      :root {
+        --bg: hsl(240 20% 6%);
+        --bg-elev: hsl(240 18% 9%);
+        --bg-card: hsl(240 16% 11%);
+        --border: hsl(240 12% 18%);
+        --border-strong: hsl(240 12% 26%);
+        --text: hsl(0 0% 98%);
+        --text-dim: hsl(0 0% 72%);
+        --text-subtle: hsl(0 0% 52%);
+        --brand: hsl(220 100% 56%);
+        --brand-hover: hsl(220 100% 65%);
+        --brand-glow: hsl(220 100% 56% / 0.32);
+        --accent: hsl(195 100% 70%);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(60rem 40rem at 20% -10%, hsl(220 100% 56% / 0.16), transparent 60%),
+          radial-gradient(50rem 35rem at 90% 10%, hsl(195 100% 70% / 0.08), transparent 60%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(14px);
+        background: hsl(240 20% 6% / 0.65);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+        width: min(1080px, 94%);
+        margin: 0 auto;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .brand img { width: 32px; height: 32px; border-radius: 8px; }
+      .nav-cta {
+        background: var(--brand);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        text-decoration: none;
+        box-shadow: 0 0 0 1px hsl(220 100% 70% / 0.3), 0 8px 24px var(--brand-glow);
+        transition: transform .15s, box-shadow .15s, background .15s;
+      }
+      .nav-cta:hover {
+        background: var(--brand-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 0 0 1px hsl(220 100% 75% / 0.4), 0 12px 30px var(--brand-glow);
+      }
+
+      article {
+        width: min(1080px, 92%);
+        margin: 0 auto;
+        padding: 56px 0 96px;
+      }
+      @media (max-width: 720px) {
+        article { padding: 32px 0 64px; }
+      }
+
+      .post-eyebrow {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--brand-hover);
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: hsl(220 100% 56% / 0.1);
+        border: 1px solid hsl(220 100% 56% / 0.25);
+        margin-bottom: 22px;
+      }
+      h1 {
+        font-size: clamp(2rem, 4.4vw, 3rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin-bottom: 14px;
+        text-wrap: balance;
+        background: linear-gradient(120deg, var(--text) 0%, var(--accent) 80%, var(--brand-hover) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .post-meta {
+        font-size: 14px;
+        color: var(--text-subtle);
+        margin-bottom: 40px;
+      }
+      .post-meta a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+      .post-prose h2 {
+        font-size: clamp(1.4rem, 2.4vw, 1.75rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 56px 0 18px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+      .post-prose h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin: 36px 0 14px;
+        color: var(--text);
+      }
+      .post-prose p { margin: 0 0 18px; color: var(--text-dim); font-size: 16.5px; }
+      .post-prose strong { color: var(--text); font-weight: 600; }
+      .post-prose em { color: var(--text); }
+      .post-prose ul, .post-prose ol { margin: 0 0 18px 20px; color: var(--text-dim); }
+      .post-prose li { margin-bottom: 6px; }
+      .post-prose a {
+        color: var(--brand-hover);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1px;
+        transition: color .15s;
+      }
+      .post-prose a:hover { color: var(--accent); }
+      .post-prose code {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.9em;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        padding: 1px 6px;
+        border-radius: 6px;
+        color: var(--accent);
+      }
+      .post-prose hr {
+        border: 0;
+        border-top: 1px solid var(--border);
+        margin: 48px 0;
+      }
+      .post-prose blockquote {
+        margin: 0 0 18px;
+        padding: 12px 18px;
+        border-left: 3px solid var(--brand);
+        background: hsl(220 100% 56% / 0.06);
+        border-radius: 0 8px 8px 0;
+        color: var(--text-dim);
+        font-style: italic;
+      }
+
+      /* Tables: shared style for both the board and the matrix. */
+      .post-prose table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0 0 24px;
+        font-size: 14px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .post-prose th, .post-prose td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+        vertical-align: top;
+        color: var(--text-dim);
+      }
+      .post-prose th {
+        background: var(--bg-elev);
+        color: var(--text);
+        font-weight: 600;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+      .post-prose tbody tr:last-child td { border-bottom: 0; }
+      .post-prose tbody tr:hover { background: hsl(240 12% 14%); }
+      .post-prose td a { white-space: nowrap; }
+
+      /* Wide capabilities matrix: breaks out to full viewport width. */
+      .matrix-scroll {
+        overflow-x: auto;
+        margin: 0 calc(50% - 50vw) 24px;
+        padding: 0 calc(50vw - 50%);
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-strong) transparent;
+      }
+      .matrix-scroll::-webkit-scrollbar { height: 10px; }
+      .matrix-scroll::-webkit-scrollbar-thumb {
+        background: var(--border-strong);
+        border-radius: 999px;
+      }
+      .matrix-scroll table { font-size: 12.5px; min-width: 1400px; }
+      .matrix-scroll th, .matrix-scroll td { padding: 6px 8px; }
+      .matrix-scroll thead tr:first-child th {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--brand-hover);
+      }
+      .matrix-scroll td[align="center"] { text-align: center; color: hsl(153 74% 60%); }
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 32px 0;
+        margin-top: 64px;
+        text-align: center;
+        color: var(--text-subtle);
+        font-size: 13px;
+      }
+      footer a { color: var(--text-dim); text-decoration: none; transition: color .15s; }
+      footer a:hover { color: var(--brand-hover); }
+      footer .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-inner">
+        <a class="brand" href="/">
+          <img src="/assets/icon.png" alt="Arroxy" />
+          <span>Arroxy</span>
+        </a>
+        <a class="nav-cta" href="/">Get Arroxy →</a>
+      </div>
+    </nav>
+
+    <article>
+      <span class="post-eyebrow">Blog</span>
+      <h1>Video Downloader Comparison: 30+ Cross-Platform GUIs</h1>
+      <div class="post-meta">
+        Published <time datetime="2026-05-04">May 4, 2026</time> · by Antonio Orionus
+      </div>
+      <div class="post-prose">
+        <p>A curated, opinion-light comparison of user-facing apps for downloading video and audio from YouTube and other sites.</p>
+<p>Most entries are powered by <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a> under the hood. This post compares <strong>cross-platform desktop GUIs only</strong> — Windows-only apps, Android apps, browser extensions, and self-hosted tools are excluded. Data was compiled from each project&#39;s README, docs, and source on 2026-05-01; star counts are as of that day. Apps ship — corrections welcome.</p>
+<h2>Pick by use case</h2>
+<ul>
+<li><em>I just want to grab a YouTube video occasionally</em> → ytDownloader, YTSage, Parabolic, Arroxy</li>
+<li><em>Polished Linux / GNOME native</em> → Parabolic, varia</li>
+<li><em>Available on Winget / Scoop / Homebrew</em> → ytDownloader, NeoDLP, varia, media-downloader, Arroxy</li>
+<li><em>Auto-download new videos from channels you follow</em> → youwee</li>
+<li><em>Tiny native binary, low RAM</em> → Sunder, NeoDLP, comine, Pulsar, omniget, Parabolic</li>
+<li><em>Streaming music player, not a file downloader</em> → Sunder</li>
+<li><em>Download torrents alongside video</em> → varia, omniget, comine, Aither-Download-Manager</li>
+<li><em>Streaming services (Spotify / Tidal / Qobuz / Deezer)</em> → mediaharbor, vibedownloader-desktop</li>
+<li><em>E-learning courses (Udemy / Hotmart / Teachable)</em> → omniget</li>
+<li><em>Subtitle authoring + AI summaries</em> → youwee</li>
+<li><em>Image-board galleries</em> → GDownloader, comine</li>
+<li><em>Also runs on Android</em> → comine</li>
+<li><em>Install via <code>pip</code></em> → YTSage, yt-channel-downloader, ytget-gui</li>
+</ul>
+<h2>The board</h2>
+<p>Every cross-platform desktop GUI on the list, ranked by total features and annotated with what makes each one stand out. The score breakdown shows sub-totals across the six feature categories (Sources / Downloads / Quality / Subtitles / Auth / Automation) detailed in the matrix below.</p>
+<table>
+<thead>
+<tr>
+<th align="right">#</th>
+<th>Project</th>
+<th>Stack</th>
+<th>Platforms</th>
+<th>License</th>
+<th>Distribution</th>
+<th>Score</th>
+<th>Headline traits</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td><a href="https://github.com/vanloctech/youwee">youwee</a></td>
+<td>Tauri</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>GitHub</td>
+<td><strong>21</strong> · S2 D5 Q4 Su3 A4 Au3</td>
+<td>RSS auto · Whisper subs · AI summary · cookie-free</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td><a href="https://github.com/antonio-orionus/Arroxy">Arroxy</a></td>
+<td>Electron</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>Winget · Scoop · Homebrew · Flatpak</td>
+<td><strong>19</strong> · S1 D3 Q5 Su4 A4 Au2</td>
+<td>4-mode subs · metadata+thumbnail embed · proxy · cookies.txt · system tray · clipboard watch</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td><a href="https://github.com/hstr0100/GDownloader">GDownloader</a></td>
+<td>Java/Swing</td>
+<td>🪟 🍎 🐧</td>
+<td>GPL-3.0</td>
+<td>GitHub</td>
+<td><strong>18</strong> · S4 D4 Q4 Su1 A3 Au2</td>
+<td>clipboard-first · 3 downloaders (yt-dlp + gallery-dl + spotDL) · HW transcoding</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td><a href="https://github.com/imsyy/yt-dlp-gui">yt-dlp-gui (imsyy)</a></td>
+<td>Tauri</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>GitHub</td>
+<td><strong>18</strong> · S2 D6 Q3 Su3 A4 Au0</td>
+<td>bilingual subs merge · HDR aware · cookie-free</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td><a href="https://github.com/neosubhamoy/neodlp">neodlp</a></td>
+<td>Tauri</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>Winget · Homebrew · Flathub</td>
+<td><strong>17</strong> · S2 D4 Q4 Su1 A5 Au1</td>
+<td>bundled bgutil-pot · 5/5 auth options · browser extension</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td><a href="https://github.com/NickvisionApps/Parabolic">Parabolic</a></td>
+<td>.NET native</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>Flathub · GitHub</td>
+<td><strong>16</strong> · S2 D5 Q3 Su4 A1 Au1</td>
+<td>4-mode subs · GTK4 + WinUI native · batch URL list</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td><a href="https://github.com/oop7/YTSage">YTSage</a></td>
+<td>Python/PySide6</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>PyPI · GitHub</td>
+<td><strong>16</strong> · S1 D6 Q2 Su2 A5 Au0</td>
+<td>pip-installable · EBU R128 audio · HDR aware · cookie-free</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td><a href="https://github.com/nichind/comine">comine</a></td>
+<td>Tauri</td>
+<td>🪟 🍎 🐧 🤖</td>
+<td>GPL-3.0</td>
+<td>GitHub</td>
+<td><strong>15</strong> · S4 D5 Q1 Su1 A2 Au2</td>
+<td>Android target · Discord RPC · multi-backend</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td><a href="https://github.com/ErfanNamira/ytget-gui">ytget-gui</a></td>
+<td>Python/PyQt</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>PyPI · GitHub</td>
+<td><strong>14</strong> · S1 D5 Q4 Su1 A3 Au0</td>
+<td>pip-installable · retry config · 5/7 download options</td>
+</tr>
+<tr>
+<td align="right">10</td>
+<td><a href="https://github.com/aandrew-me/ytDownloader">ytDownloader</a></td>
+<td>Electron</td>
+<td>🪟 🍎 🐧</td>
+<td>GPL-3.0</td>
+<td>Scoop · Winget · Chocolatey</td>
+<td><strong>13</strong> · S2 D4 Q3 Su1 A3 Au0</td>
+<td>built-in video compressor · Scoop · Winget · Chocolatey</td>
+</tr>
+<tr>
+<td align="right">11</td>
+<td><a href="https://github.com/giantpinkrobots/varia">varia</a></td>
+<td>Python/GTK</td>
+<td>🪟 🍎 🐧</td>
+<td>MPL-2.0</td>
+<td>Flathub · AUR · Snap</td>
+<td><strong>13</strong> · S3 D4 Q0 Su0 A3 Au3</td>
+<td>download scheduler · sleep-on-completion · GTK native</td>
+</tr>
+<tr>
+<td align="right">12</td>
+<td><a href="https://github.com/NoahMustafa/Aither-Download-Manager">Aither-Download-Manager</a></td>
+<td>Tauri</td>
+<td>🪟</td>
+<td>none</td>
+<td>GitHub</td>
+<td><strong>13</strong> · S3 D4 Q2 Su0 A2 Au2</td>
+<td>in-page browser overlay · 16 UI languages</td>
+</tr>
+<tr>
+<td align="right">13</td>
+<td><a href="https://github.com/Shripad735/streamfetch">streamfetch</a></td>
+<td>Electron</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>GitHub</td>
+<td><strong>12</strong> · S2 D5 Q2 Su0 A2 Au1</td>
+<td>turbo mode · clip studio</td>
+</tr>
+<tr>
+<td align="right">14</td>
+<td><a href="https://github.com/MediaHarbor/mediaharbor">mediaharbor</a></td>
+<td>Electron</td>
+<td>🪟 🍎 🐧</td>
+<td>GPL-3.0</td>
+<td>MS Store · GitHub</td>
+<td><strong>12</strong> · S2 D4 Q3 Su1 A2 Au0</td>
+<td>native Tidal / Qobuz / Deezer clients · built-in player</td>
+</tr>
+<tr>
+<td align="right">15</td>
+<td><a href="https://github.com/FuzjaJadrowa/Pulsar">Pulsar</a></td>
+<td>Tauri</td>
+<td>🪟 🍎 🐧</td>
+<td>GPL-3.0</td>
+<td>Flathub · GitHub</td>
+<td><strong>12</strong> · S2 D3 Q2 Su2 A2 Au1</td>
+<td>preset system · video converter mode</td>
+</tr>
+<tr>
+<td align="right">16</td>
+<td><a href="https://github.com/tonhowtf/omniget">omniget</a></td>
+<td>Tauri</td>
+<td>🪟 🍎 🐧</td>
+<td>GPL-3.0</td>
+<td>GitHub</td>
+<td><strong>10</strong> · S4 D4 Q0 Su0 A0 Au2</td>
+<td>plugin marketplace · P2P transfer · course downloads</td>
+</tr>
+<tr>
+<td align="right">17</td>
+<td><a href="https://github.com/seckinaktunc/cosmo-downloader">cosmo-downloader</a></td>
+<td>Electron</td>
+<td>🪟 🐧</td>
+<td>custom</td>
+<td>GitHub</td>
+<td><strong>10</strong> · S2 D3 Q2 Su0 A2 Au1</td>
+<td>granular codec / bitrate UI</td>
+</tr>
+<tr>
+<td align="right">18</td>
+<td><a href="https://github.com/naeem5877/vibedownloader-desktop">vibedownloader-desktop</a></td>
+<td>Electron</td>
+<td>🪟 🍎 🐧</td>
+<td>custom</td>
+<td>GitHub</td>
+<td><strong>10</strong> · S3 D3 Q2 Su0 A1 Au1</td>
+<td>lossless Spotify FLAC via proxy</td>
+</tr>
+<tr>
+<td align="right">19</td>
+<td><a href="https://github.com/yassine-krichen/avrix-downloader">avrix-downloader</a></td>
+<td>Python/PyQt</td>
+<td>🪟 🍎 🐧</td>
+<td>none</td>
+<td>GitHub</td>
+<td><strong>9</strong> · S1 D3 Q3 Su1 A0 Au1</td>
+<td>sidecar subs · resume on restart</td>
+</tr>
+<tr>
+<td align="right">20</td>
+<td><a href="https://github.com/hyperfield/yt-channel-downloader">yt-channel-downloader</a></td>
+<td>Python/PyQt</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>PyPI · GitHub</td>
+<td><strong>8</strong> · S2 D3 Q1 Su0 A2 Au0</td>
+<td>channel-first UI · size &amp; ETA preview</td>
+</tr>
+<tr>
+<td align="right">21</td>
+<td><a href="https://github.com/karenpommeroy/yt-grabber">yt-grabber</a></td>
+<td>Electron</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>GitHub</td>
+<td><strong>8</strong> · S2 D4 Q2 Su0 A0 Au0</td>
+<td>GIF generation · 8 themes</td>
+</tr>
+<tr>
+<td align="right">22</td>
+<td><a href="https://github.com/ivan-an/YouStealD">YouStealD</a></td>
+<td>C++/Qt</td>
+<td>🪟</td>
+<td>MIT</td>
+<td>GitHub</td>
+<td><strong>8</strong> · S1 D4 Q0 Su0 A2 Au1</td>
+<td>C++/Qt native · channel webhooks</td>
+</tr>
+<tr>
+<td align="right">23</td>
+<td><a href="https://github.com/archisvaze/arcdlp">arcdlp</a></td>
+<td>Electron</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>GitHub</td>
+<td><strong>7</strong> · S2 D3 Q0 Su0 A2 Au0</td>
+<td>Instagram saved collections · cookie-mint window</td>
+</tr>
+<tr>
+<td align="right">24</td>
+<td><a href="https://github.com/aliencaocao/ytdlp-gui">ytdlp-gui (aliencaocao)</a></td>
+<td>Python/Tkinter</td>
+<td>🪟 🍎 🐧</td>
+<td>none</td>
+<td>GitHub</td>
+<td><strong>7</strong> · S2 D4 Q0 Su0 A1 Au0</td>
+<td>single-file executable</td>
+</tr>
+<tr>
+<td align="right">25</td>
+<td><a href="https://github.com/markop404/media-downloader">media-downloader</a></td>
+<td>Python/PyQt</td>
+<td>🪟 🐧</td>
+<td>GPL-3.0</td>
+<td>Flathub · Winget</td>
+<td><strong>7</strong> · S2 D2 Q2 Su1 A0 Au0</td>
+<td>PGP-verified yt-dlp updates</td>
+</tr>
+<tr>
+<td align="right">26</td>
+<td><a href="https://github.com/FrogSnot/Sunder">Sunder</a></td>
+<td>Tauri</td>
+<td>🪟 🍎 🐧</td>
+<td>AGPL-3.0</td>
+<td>AUR · GitHub</td>
+<td><strong>7</strong> · S1 D2 Q1 Su1 A0 Au2</td>
+<td>streaming music player · 10-band EQ</td>
+</tr>
+<tr>
+<td align="right">27</td>
+<td><a href="https://github.com/MAymanKH/YouTube-Downloader">YouTube-Downloader</a></td>
+<td>Python/Tkinter</td>
+<td>🪟 🐧</td>
+<td>none</td>
+<td>GitHub</td>
+<td><strong>6</strong> · S1 D3 Q2 Su0 A0 Au0</td>
+<td>YouTube search built in</td>
+</tr>
+<tr>
+<td align="right">28</td>
+<td><a href="https://github.com/BERNARDO31P/FastDownloader">FastDownloader</a></td>
+<td>Electron</td>
+<td>🪟 🍎 🐧</td>
+<td>GPL-3.0</td>
+<td>AUR · GitHub</td>
+<td><strong>6</strong> · S2 D2 Q0 Su0 A1 Au1</td>
+<td>YouTube Premium · YT Music conversion</td>
+</tr>
+<tr>
+<td align="right">29</td>
+<td><a href="https://github.com/thisal-d/pytube-downloader">pytube-downloader</a></td>
+<td>Python/Tkinter</td>
+<td>🪟</td>
+<td>MIT</td>
+<td>GitHub</td>
+<td><strong>5</strong> · S1 D3 Q0 Su0 A0 Au1</td>
+<td>Windows toast notifications</td>
+</tr>
+<tr>
+<td align="right">30</td>
+<td><a href="https://github.com/oheyek/VidGrabber">VidGrabber</a></td>
+<td>Python/Tkinter</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>GitHub</td>
+<td><strong>4</strong> · S1 D2 Q1 Su0 A0 Au0</td>
+<td></td>
+</tr>
+<tr>
+<td align="right">31</td>
+<td><a href="https://github.com/Shaikh-Suja-Rahaman/YT-Forge">YT-Forge</a></td>
+<td>Electron</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>GitHub</td>
+<td><strong>4</strong> · S1 D2 Q1 Su0 A0 Au0</td>
+<td></td>
+</tr>
+<tr>
+<td align="right">32</td>
+<td><a href="https://github.com/taherx7/MusicYT-Downloader">MusicYT-Downloader</a></td>
+<td>Electron</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>GitHub</td>
+<td><strong>4</strong> · S1 D1 Q2 Su0 A0 Au0</td>
+<td></td>
+</tr>
+<tr>
+<td align="right">33</td>
+<td><a href="https://github.com/sylviiu/ezytdl">ezytdl</a></td>
+<td>Electron</td>
+<td>🪟 🍎 🐧</td>
+<td>GPL-3.0</td>
+<td>GitHub</td>
+<td><strong>3</strong> · S2 D1 Q0 Su0 A0 Au0</td>
+<td>Python bridge for fast yt-dlp startup</td>
+</tr>
+<tr>
+<td align="right">34</td>
+<td><a href="https://github.com/AndreaSillano/VidDownloader">VidDownloader</a></td>
+<td>Flutter</td>
+<td>🪟 🍎 🐧</td>
+<td>MIT</td>
+<td>GitHub</td>
+<td><strong>3</strong> · S1 D2 Q0 Su0 A0 Au0</td>
+<td>Flutter UI</td>
+</tr>
+</tbody></table>
+<h2>Capabilities matrix</h2>
+<p>Single wide matrix — every feature, every project, on one row each. Same row order as <strong>The board</strong> above so you can cross-reference top to bottom. The matrix scrolls horizontally on narrow screens.</p>
+<div class="matrix-scroll">
+<table>
+<thead>
+<tr><th rowspan="2" align="left">#</th><th rowspan="2" align="left">Project</th><th colspan="6" align="center">Sources</th><th colspan="7" align="center">Downloads</th><th colspan="5" align="center">Quality of life</th><th colspan="4" align="center">Subtitles</th><th colspan="5" align="center">Authentication</th><th colspan="6" align="center">Automation</th></tr>
+<tr><th align="center">YouTube</th><th align="center">1000+ sites</th><th align="center">Torrents</th><th align="center">Music services</th><th align="center">Galleries</th><th align="center">Courses</th><th align="center">Audio-only</th><th align="center">Format picker</th><th align="center">HDR</th><th align="center">Trim</th><th align="center">Playlists</th><th align="center">URL list</th><th align="center">Speed limit</th><th align="center">SponsorBlock</th><th align="center">Metadata embed</th><th align="center">Thumbnail embed</th><th align="center">Auto-retry</th><th align="center">Resume on restart</th><th align="center">Save separate</th><th align="center">Embed in container</th><th align="center">Format choice</th><th align="center">Post-edit</th><th align="center">Cookies from browser</th><th align="center">cookies.txt</th><th align="center">Proxy</th><th align="center">Custom args</th><th align="center">Cookie-free anti-bot</th><th align="center">Browser extension</th><th align="center">Clipboard watch</th><th align="center">Channel / RSS auto</th><th align="center">Scheduler</th><th align="center">System tray</th><th align="center">Global hotkey</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td><a href="https://github.com/vanloctech/youwee">youwee</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td></tr>
+<tr><td>2</td><td><a href="https://github.com/hstr0100/GDownloader">GDownloader</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td></tr>
+<tr><td>3</td><td><a href="https://github.com/imsyy/yt-dlp-gui">yt-dlp-gui (imsyy)</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>4</td><td><a href="https://github.com/neosubhamoy/neodlp">neodlp</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>5</td><td><a href="https://github.com/NickvisionApps/Parabolic">Parabolic</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>6</td><td><a href="https://github.com/oop7/YTSage">YTSage</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>7</td><td><a href="https://github.com/nichind/comine">comine</a></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td></tr>
+<tr><td>8</td><td><a href="https://github.com/ErfanNamira/ytget-gui">ytget-gui</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>9</td><td><a href="https://github.com/aandrew-me/ytDownloader">ytDownloader</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>10</td><td><a href="https://github.com/giantpinkrobots/varia">varia</a></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td></tr>
+<tr><td>11</td><td><a href="https://github.com/NoahMustafa/Aither-Download-Manager">Aither-Download-Manager</a></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td></tr>
+<tr><td>12</td><td><a href="https://github.com/antonio-orionus/Arroxy">Arroxy</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>13</td><td><a href="https://github.com/Shripad735/streamfetch">streamfetch</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>14</td><td><a href="https://github.com/MediaHarbor/mediaharbor">mediaharbor</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>15</td><td><a href="https://github.com/FuzjaJadrowa/Pulsar">Pulsar</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td></tr>
+<tr><td>16</td><td><a href="https://github.com/tonhowtf/omniget">omniget</a></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td></tr>
+<tr><td>17</td><td><a href="https://github.com/seckinaktunc/cosmo-downloader">cosmo-downloader</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>18</td><td><a href="https://github.com/naeem5877/vibedownloader-desktop">vibedownloader-desktop</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td></tr>
+<tr><td>19</td><td><a href="https://github.com/yassine-krichen/avrix-downloader">avrix-downloader</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td></tr>
+<tr><td>20</td><td><a href="https://github.com/hyperfield/yt-channel-downloader">yt-channel-downloader</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>21</td><td><a href="https://github.com/karenpommeroy/yt-grabber">yt-grabber</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>22</td><td><a href="https://github.com/ivan-an/YouStealD">YouStealD</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td></tr>
+<tr><td>23</td><td><a href="https://github.com/archisvaze/arcdlp">arcdlp</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>24</td><td><a href="https://github.com/aliencaocao/ytdlp-gui">ytdlp-gui (aliencaocao)</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>25</td><td><a href="https://github.com/markop404/media-downloader">media-downloader</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>26</td><td><a href="https://github.com/FrogSnot/Sunder">Sunder</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td></tr>
+<tr><td>27</td><td><a href="https://github.com/MAymanKH/YouTube-Downloader">YouTube-Downloader</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>28</td><td><a href="https://github.com/BERNARDO31P/FastDownloader">FastDownloader</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td></tr>
+<tr><td>29</td><td><a href="https://github.com/thisal-d/pytube-downloader">pytube-downloader</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td></tr>
+<tr><td>30</td><td><a href="https://github.com/oheyek/VidGrabber">VidGrabber</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>31</td><td><a href="https://github.com/Shaikh-Suja-Rahaman/YT-Forge">YT-Forge</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>32</td><td><a href="https://github.com/taherx7/MusicYT-Downloader">MusicYT-Downloader</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>33</td><td><a href="https://github.com/sylviiu/ezytdl">ezytdl</a></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+<tr><td>34</td><td><a href="https://github.com/AndreaSillano/VidDownloader">VidDownloader</a></td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✅</td><td align="center">✅</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td></tr>
+</tbody>
+</table>
+</div><h2>Where Arroxy stands out</h2>
+<p>Arroxy isn&#39;t trying to be the most-featured app on this list — youwee, GDownloader, and yt-dlp-gui (imsyy) all have wider feature surfaces. It&#39;s trying to be the most <em>polished</em> app for the common case: paste a YouTube URL, pick a quality, get a clean file with subtitles, metadata, and a thumbnail embedded.</p>
+<p>What that translates to on the matrix above:</p>
+<ul>
+<li><strong>4-mode subtitle handling</strong> (off · embed soft · burn-in · separate file), including automatic-captions</li>
+<li><strong>Metadata + thumbnail embedding</strong> by default — your library shows correct titles and cover art</li>
+<li><strong>First-class auth</strong>: cookies-from-browser, <code>cookies.txt</code>, proxy, plus a system-tray clipboard watcher for one-click captures</li>
+<li><strong>Distributed everywhere</strong>: Winget, Scoop, Homebrew, Flathub, AppImage, NSIS, DMG, portable — auto-updates work on all of them</li>
+<li><strong>All four desktop OSes from one Electron build</strong>, type-safe end-to-end (TypeScript main + renderer)</li>
+</ul>
+<p>If your day-to-day need is &quot;grab a YouTube video, keep it organized,&quot; that combination is hard to match. If you need RSS auto-download or torrent support, the apps above are the better pick — and that&#39;s by design.</p>
+<p><a href="/">← Back to Arroxy</a></p>
+
+      </div>
+    </article>
+
+    <footer>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="https://github.com/antonio-orionus/Arroxy">GitHub</a>
+      </div>
+      <div>© Arroxy · MIT licensed</div>
+    </footer>
+  </body>
+</html>

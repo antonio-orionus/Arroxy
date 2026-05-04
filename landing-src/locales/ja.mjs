@@ -15,6 +15,7 @@ export const ja = {
   nav_features: "機能",
   nav_screenshots: "スクリーンショット",
   nav_install: "インストール",
+  nav_blog: "Blog",
   nav_download: "ダウンロード",
 
   hero_eyebrow: "Open Source · MIT · 継続開発中",

@@ -11,6 +11,10 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { LOCALES } from "./strings.mjs";
+import { loadPosts } from "./blog/loadPosts.mjs";
+import { escapeHtml, safeJson, applyStrings, applyMacros } from "./lib/render.mjs";
+
+const POSTS = loadPosts();
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..");
@@ -23,14 +27,6 @@ const OG_IMAGE_WIDTH = "1003";
 const OG_IMAGE_HEIGHT = "1123";
 const REPO_URL = "https://github.com/antonio-orionus/Arroxy";
 const RELEASES_URL = `${REPO_URL}/releases/latest`;
-
-function escapeHtml(s) {
-  return String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
 
 function localeUrl(loc) {
   return loc.dir ? `${SITE_URL}${loc.dir}/` : SITE_URL;
@@ -71,11 +67,6 @@ function buildOgLocaleAlt(currentLoc, locales) {
     .filter((l) => l.code !== currentLoc.code)
     .map((l) => `    <meta property="og:locale:alternate" content="${l.ogLocale}" />`)
     .join("\n");
-}
-
-// Escape `</script` to prevent any payload from breaking out of the script tag.
-function safeJson(data) {
-  return JSON.stringify(data).replace(/<\/script/gi, "<\\/script");
 }
 
 function buildJsonLd(loc) {
@@ -157,7 +148,7 @@ function buildSitemap(locales) {
   const xDefault = `    <xhtml:link rel="alternate" hreflang="x-default" href="${localeUrl(locales.find((l) => l.code === "en"))}" />`;
   const today = new Date().toISOString().slice(0, 10);
 
-  const urls = locales
+  const localeUrls = locales
     .map(
       (l) => `  <url>
     <loc>${localeUrl(l)}</loc>
@@ -168,10 +159,26 @@ ${xDefault}
     )
     .join("\n");
 
+  // Blog URLs — English-only for now, no hreflang alternates.
+  const blogIndexUrl = `  <url>
+    <loc>${SITE_URL}blog/</loc>
+    <lastmod>${today}</lastmod>
+  </url>`;
+  const blogPostUrls = POSTS
+    .map(
+      (p) => `  <url>
+    <loc>${SITE_URL}blog/${p.slug}/</loc>
+    <lastmod>${p.dateModified}</lastmod>
+  </url>`,
+    )
+    .join("\n");
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${urls}
+${localeUrls}
+${blogIndexUrl}
+${blogPostUrls}
 </urlset>
 `;
 }
@@ -223,21 +230,6 @@ function buildLangPicker(currentLoc, locales) {
       return `          <a href="${href}" hreflang="${l.code}" lang="${l.code}"${aria}>${escapeHtml(l.name)}</a>`;
     })
     .join("\n");
-}
-
-function applyStrings(template, strings) {
-  return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
-    if (!(key in strings)) return match; // leave non-string placeholders for later
-    const val = strings[key];
-    return key.endsWith("_html") ? val : escapeHtml(val);
-  });
-}
-
-function applyMacros(html, macros) {
-  for (const [key, val] of Object.entries(macros)) {
-    html = html.replaceAll(`{{${key}}}`, val);
-  }
-  return html;
 }
 
 async function main() {

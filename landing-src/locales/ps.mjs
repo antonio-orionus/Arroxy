@@ -15,6 +15,7 @@ export const ps = {
   nav_features: "ځانګړتیاوې",
   nav_screenshots: "سکرین شاټونه",
   nav_install: "نصب کول",
+  nav_blog: "Blog",
   nav_download: "ډاونلوډ",
 
   hero_eyebrow: "Open Source · MIT · فعاله پراختیا",

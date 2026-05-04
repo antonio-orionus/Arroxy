@@ -15,6 +15,7 @@ export const es = {
   nav_features: "Funciones",
   nav_screenshots: "Capturas",
   nav_install: "Instalar",
+  nav_blog: "Blog",
   nav_download: "Descargar",
 
   hero_eyebrow: "Open Source · MIT · Desarrollo activo",

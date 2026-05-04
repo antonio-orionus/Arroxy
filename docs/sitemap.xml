@@ -501,4 +501,12 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://arroxy.orionus.dev/ja/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://arroxy.orionus.dev/" />
   </url>
+  <url>
+    <loc>https://arroxy.orionus.dev/blog/</loc>
+    <lastmod>2026-05-04</lastmod>
+  </url>
+  <url>
+    <loc>https://arroxy.orionus.dev/blog/video-downloader-comparison/</loc>
+    <lastmod>2026-05-04</lastmod>
+  </url>
 </urlset>

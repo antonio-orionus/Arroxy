@@ -15,6 +15,7 @@ export const el = {
   nav_features: "Χαρακτηριστικά",
   nav_screenshots: "Στιγμιότυπα",
   nav_install: "Εγκατάσταση",
+  nav_blog: "Blog",
   nav_download: "Λήψη",
 
   hero_eyebrow: "Open Source · MIT · Ενεργή ανάπτυξη",

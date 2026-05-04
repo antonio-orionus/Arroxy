@@ -15,6 +15,7 @@ export const ru = {
   nav_features: "Возможности",
   nav_screenshots: "Скриншоты",
   nav_install: "Установка",
+  nav_blog: "Blog",
   nav_download: "Скачать",
 
   hero_eyebrow: "Open Source · MIT · Активная разработка",
