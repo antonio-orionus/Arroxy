@@ -2,7 +2,7 @@ import type { DownloadJob, QueueItem } from '@shared/types';
 import { DEFAULTS } from '@shared/constants';
 import { queueItemSchema } from '@shared/schemas';
 
-export { ok, fail } from '@shared/result';
+export { ok } from '@shared/result';
 
 export function makeItem(
   overrides: Partial<QueueItem> & Pick<QueueItem, 'id' | 'status'>

@@ -8,8 +8,9 @@
 // Reject filename-illegal chars including ASCII control bytes (\x00-\x1F),
 // which are explicitly disallowed on Windows and produce undefined behavior
 // in path APIs on POSIX.
-// eslint-disable-next-line no-control-regex
+// eslint-disable-next-line no-control-regex -- control bytes are intentionally matched here
 const FORBIDDEN_CHARS = /[<>:"/\\|?*\x00-\x1F]/;
+// eslint-disable-next-line security/detect-unsafe-regex -- `.*` follows a literal `\.` so backtracking is bounded by the extension; no ReDoS risk
 const RESERVED_NAMES = /^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(\..*)?$/i;
 
 export const SUBFOLDER_NAME_MAX = 64;

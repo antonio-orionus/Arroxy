@@ -4,7 +4,7 @@ import type { AppSettings } from '@shared/types';
 import { defaultAppSettings } from '@shared/constants';
 import { ok } from '@shared/result';
 
-export function buildMockSettings(overrides: Partial<AppSettings> = {}): AppSettings {
+function buildMockSettings(overrides: Partial<AppSettings> = {}): AppSettings {
   return {
     ...defaultAppSettings('/tmp'),
     ...overrides

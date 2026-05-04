@@ -381,6 +381,7 @@ export class DownloadService extends EventEmitter {
         active.mediaPath = mergerMatch[1] ?? mergerMatch[2];
       }
 
+      // eslint-disable-next-line security/detect-unsafe-regex -- bounded: \d+ is constrained by yt-dlp output line length
       const sleepMatch = line.match(/Sleeping (\d+(?:\.\d+)?) seconds/);
       if (sleepMatch) {
         const seconds = Math.round(parseFloat(sleepMatch[1]));

@@ -12,10 +12,9 @@ export const useAppStore = create<AppState>()((set, get) => ({
   ...createQueueSlice(set, get)
 }));
 
-// Re-export pure helpers and types so existing import paths
+// Re-export pure helpers so existing import paths
 // (`import { foo } from '../store/useAppStore'`) keep working without churn
 // in component files.
-export type { WizardStep, GroupedVideoFormat } from './helpers';
 export {
   presetLabel,
   presetOptions,

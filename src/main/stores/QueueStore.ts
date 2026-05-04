@@ -1,8 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { QueueItem } from '@shared/types';
-import { queueArraySchema } from '@shared/schemas';
-import { QUEUE_STATUS } from '@shared/constants';
+import { queueArraySchema, QUEUE_STATUS } from '@shared/schemas';
 import { fail, ok, type Result } from '@shared/result';
 import { createAppError } from '@main/utils/errorFactory';
 import { JsonFileStore } from './JsonFileStore';

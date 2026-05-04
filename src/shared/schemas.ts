@@ -81,7 +81,7 @@ export const STATUS_KEY = {
 } as const;
 export type StatusKey = typeof STATUS_KEY[keyof typeof STATUS_KEY];
 
-export const statusKeySchema = z.enum(Object.values(STATUS_KEY) as [StatusKey, ...StatusKey[]]);
+const statusKeySchema = z.enum(Object.values(STATUS_KEY) as [StatusKey, ...StatusKey[]]);
 
 // Zoom bounds — kept here so the schema constraint and the renderer clamp share one source.
 export const ZOOM_MIN = 0.7;
@@ -93,7 +93,7 @@ export const MAX_SUBTITLE_LANGUAGES = 50;
 
 const youtubeHostRegex = /(^|\.)(youtube\.com|youtu\.be)$/i;
 
-export function isYouTubeHostname(hostname: string): boolean {
+function isYouTubeHostname(hostname: string): boolean {
   return youtubeHostRegex.test(hostname);
 }
 
@@ -105,7 +105,7 @@ export function isYouTubeUrl(input: string): boolean {
   }
 }
 
-export const youtubeUrlSchema = z
+const youtubeUrlSchema = z
   .string()
   .url('URL must be valid')
   .superRefine((value, ctx) => {
@@ -126,6 +126,7 @@ export const getFormatsSchema = z.object({
 // Accepts BCP-47-ish language codes plus the yt-dlp `-orig` suffix used for
 // the source-language auto-caption track. Examples: `en`, `en-US`, `pt-BR`,
 // `zh-Hans`, `en-orig`.
+// eslint-disable-next-line security/detect-unsafe-regex -- bounded: explicit length limits {2,3} and a small fixed set of suffixes
 const subtitleLangRegex = /^[a-z]{2,3}(-[A-Za-z0-9]+)?(-orig)?$/;
 
 export const startDownloadSchema = z.object({
@@ -256,7 +257,7 @@ export const queueArraySchema = z.array(queueItemSchema);
 // `undefined` at this boundary via `preprocess` so consumers see one
 // absent-value sentinel and the inferred properties stay genuinely
 // optional (a `.transform()` would mark them required-but-undefinable).
-const nullToUndef = (v: unknown) => (v === null ? undefined : v);
+const nullToUndef = (v: unknown): unknown => (v === null ? undefined : v);
 const optStr = z.preprocess(nullToUndef, z.string().optional());
 const optNum = z.preprocess(nullToUndef, z.number().optional());
 
@@ -287,6 +288,5 @@ export const ytDlpInfoSchema = z.object({
   automatic_captions: z.preprocess(nullToUndef, z.record(z.string(), z.array(ytDlpSubtitleTrackSchema)).optional())
 }).passthrough();
 
-export type YtDlpFormat = z.infer<typeof ytDlpFormatSchema>;
 export type YtDlpInfo = z.infer<typeof ytDlpInfoSchema>;
 export type YtDlpSubtitleTrack = z.infer<typeof ytDlpSubtitleTrackSchema>;

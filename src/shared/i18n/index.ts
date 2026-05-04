@@ -22,8 +22,8 @@ import sr from './locales/sr';
 import { SUPPORTED_LANGS, type SupportedLang, type EnTranslation, type LocaleResource } from './types';
 
 export { SUPPORTED_LANGS, LANGUAGE_NATIVE_NAMES } from './types';
-export type { SupportedLang, StatusKey, YtdlpErrorKey, LocalizedError } from './types';
-export { isRtl, RTL_LANGS } from './rtl';
+export type { SupportedLang, YtdlpErrorKey, LocalizedError } from './types';
+export { isRtl } from './rtl';
 
 const RESOURCES: Record<SupportedLang, LocaleResource> = { en, es, fr, de, ru, uk, ja, zh, hi, bn, ar, uz, my, ps, sw, am, om, el, sr };
 

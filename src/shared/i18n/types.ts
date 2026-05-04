@@ -2,10 +2,7 @@ import type en from './locales/en';
 import {
   SUPPORTED_LANGS as LANGS,
   type SupportedLang as Lang,
-  STATUS_KEY,
-  type StatusKey as StatusKeyAlias,
   type YtdlpErrorKey as YtdlpErrorKeyAlias,
-  YTDLP_ERROR_KEYS as ERROR_KEYS
 } from '../schemas';
 
 // Re-export so existing imports of `@shared/i18n/types` and `@shared/i18n`
@@ -13,11 +10,7 @@ import {
 export type SupportedLang = Lang;
 export const SUPPORTED_LANGS = LANGS;
 
-export type StatusKey = StatusKeyAlias;
-export { STATUS_KEY };
-
 export type YtdlpErrorKey = YtdlpErrorKeyAlias;
-export const YTDLP_ERROR_KEYS = ERROR_KEYS;
 
 export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
   en: 'English',

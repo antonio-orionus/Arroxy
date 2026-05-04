@@ -22,7 +22,7 @@ export function updateQueueItem(set: SetState, id: string, patch: Partial<QueueI
   }));
 }
 
-export function maybeShowQueueTip(set: SetState): void {
+function maybeShowQueueTip(set: SetState): void {
   if (!localStorage.getItem('arroxy_seen_queue_tip')) {
     localStorage.setItem('arroxy_seen_queue_tip', '1');
     set({ drawerOpen: true, showQueueTip: true });

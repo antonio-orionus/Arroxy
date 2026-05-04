@@ -1,7 +1,6 @@
 import type { YtdlpErrorKey } from '@shared/i18n/types';
 
 export type StderrSignal = YtdlpErrorKey;
-export type { YtdlpErrorKey };
 
 // Adding a YtdlpErrorKey makes this Record fail to compile until the new key
 // has a regex pattern — the link to the enum is enforced by the type system.

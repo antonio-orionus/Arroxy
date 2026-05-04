@@ -1,0 +1,32 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "src/main/index.ts",
+    "src/preload/index.ts",
+    "electron.vite.config.ts",
+    "scripts/**/*.ts"
+  ],
+  "project": [
+    "src/**/*.{ts,tsx}",
+    "scripts/**/*.ts",
+    "tests/**/*.{ts,tsx}"
+  ],
+  "ignore": [
+    "src/renderer/src/components/ui/**"
+  ],
+  "ignoreExportsUsedInFile": {
+    "interface": true,
+    "type": true
+  },
+  "ignoreDependencies": [
+    "@fontsource-variable/geist",
+    "@fontsource/jetbrains-mono",
+    "@fontsource/outfit",
+    "@fontsource/poppins",
+    "shadcn",
+    "tw-animate-css",
+    "tailwindcss",
+    "prettier",
+    "@types/extract-zip"
+  ]
+}

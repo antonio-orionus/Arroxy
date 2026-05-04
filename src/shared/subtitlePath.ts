@@ -6,7 +6,8 @@ import { SUBTITLE_FORMATS } from './schemas';
 
 const EXTS_ALT = SUBTITLE_FORMATS.join('|');
 
-export const SUBTITLE_EXT_REGEX = new RegExp(`\\.(${EXTS_ALT})$`, 'i');
+// eslint-disable-next-line security/detect-non-literal-regexp -- EXTS_ALT is derived from the hardcoded SUBTITLE_FORMATS enum; not user input
+const SUBTITLE_EXT_REGEX = new RegExp(`\\.(${EXTS_ALT})$`, 'i');
 
 export function isSubtitleFile(path: string): boolean {
   return SUBTITLE_EXT_REGEX.test(path);
@@ -23,6 +24,7 @@ function escapeRegExp(s: string): string {
 // should fall back to 'und' (not to a positional guess).
 export function detectSubtitleLang(path: string, requestedLangs: readonly string[]): string | null {
   for (const lang of requestedLangs) {
+    // eslint-disable-next-line security/detect-non-literal-regexp -- lang is from requestedLangs (caller-validated BCP-47); EXTS_ALT is from hardcoded enum
     const re = new RegExp(`\\.${escapeRegExp(lang)}\\.(${EXTS_ALT})$`, 'i');
     if (re.test(path)) return lang;
   }

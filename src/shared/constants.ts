@@ -1,10 +1,6 @@
 import type { SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme } from './schemas';
 import type { AppSettings } from './types';
 
-// Re-export so older imports of `@shared/constants` for status/queue still resolve.
-export { STATUS_KEY, QUEUE_STATUS, type StatusKey } from './schemas';
-export { SUBTITLE_EXT_REGEX } from './subtitlePath';
-
 // Defaults — single source. Anywhere that needs a fallback for a missing field
 // (initial state, persistence migration, test fixtures, IPC fallback) must
 // import from here so changes propagate everywhere.

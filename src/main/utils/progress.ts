@@ -1,4 +1,5 @@
 export function parsePercentFromLine(line: string): number | undefined {
+  // eslint-disable-next-line security/detect-unsafe-regex -- bounded: \d+ is constrained by the line length from yt-dlp output
   const match = line.match(/(\d+(?:\.\d+)?)%/);
   if (!match) return undefined;
 

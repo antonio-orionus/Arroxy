@@ -63,10 +63,6 @@ export type YtDlpResult =
       stderr: string;
     };
 
-export function isSuccess(r: YtDlpResult): r is Extract<YtDlpResult, { kind: 'success' }> {
-  return r.kind === 'success';
-}
-
 // VidBee's strategy: skip the player clients that demand a PoT, so the
 // non-PoT download path works without needing to mint anything.
 const PLAYER_CLIENT_FALLBACK = 'youtube:player_client=default,-web,-web_safari';

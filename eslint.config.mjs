@@ -5,13 +5,33 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import reactPlugin from 'eslint-plugin-react';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import tseslint from 'typescript-eslint';
+import security from 'eslint-plugin-security';
+import electronToolkitTs from '@electron-toolkit/eslint-config-ts';
 
 export default tseslint.config(
   {
-    ignores: ['dist', 'out', 'node_modules', 'dist-electron', 'playwright-report', 'test-results', 'refs']
+    ignores: ['dist', 'out', 'node_modules', 'dist-electron', 'playwright-report', 'test-results', 'refs', 'landing-src', 'readme-src']
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  // @electron-toolkit/eslint-config-ts — curated TS rules for Electron (ban-ts-comment,
+  // explicit-function-return-type with expression allowances, no-empty-function, etc.)
+  ...electronToolkitTs.configs.recommended,
+  // Security rules — scoped to main-process and shared code (Node.js surface)
+  {
+    files: ['src/main/**/*.ts', 'src/preload/**/*.ts', 'src/shared/**/*.ts', 'scripts/**/*.ts'],
+    plugins: { security },
+    rules: {
+      ...security.configs.recommended.rules,
+      // Disabled: every legitimate fs.readFile(somePath) and obj[key] triggers these.
+      // The signal-to-noise ratio is unworkable.
+      'security/detect-non-literal-fs-filename': 'off',
+      'security/detect-object-injection': 'off',
+      // Promote remaining rules from warn → error so they actually gate CI.
+      'security/detect-unsafe-regex': 'error',
+      'security/detect-non-literal-regexp': 'error',
+    },
+  },
   // React JSX rules — restricted to .tsx only since react/* rules are irrelevant for plain TS
   {
     files: ['**/*.tsx'],
@@ -62,7 +82,7 @@ export default tseslint.config(
       'no-undef': 'off',
     }
   },
-  // shadcn/ui generated files — not a real HMR issue; a11y disabled since we don't control that code
+  // shadcn/ui generated files — not a real HMR issue; a11y + return-type disabled since we don't control that code
   {
     files: ['src/renderer/src/components/ui/**/*.tsx'],
     rules: {
@@ -70,13 +90,15 @@ export default tseslint.config(
       'jsx-a11y/click-events-have-key-events': 'off',
       'jsx-a11y/no-static-element-interactions': 'off',
       'jsx-a11y/interactive-supports-focus': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off',
     }
   },
-  // Test files — mocking patterns legitimately use `any`
+  // Test files — mocking patterns legitimately use `any`; describe/it callbacks infer void
   {
     files: ['tests/**/*.ts', 'tests/**/*.tsx', '**/*.test.ts', '**/*.test.tsx'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off',
     }
   }
 );
