@@ -1,0 +1,1 @@
+bun run lint && bun run knip && bun run typecheck
