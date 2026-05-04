@@ -45,3 +45,4 @@ flatpak/flathub.json
 flatpak/io.github.antonio_orionus.Arroxy.yml
 .flatpak-builder/
 build-dir/
+private

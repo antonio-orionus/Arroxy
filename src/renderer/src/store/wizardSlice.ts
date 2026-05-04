@@ -5,7 +5,7 @@ import type { GetState, SetState, WizardSlice, WizardStep } from './types';
 
 // Private helpers — only used inside this slice.
 
-function groupedNonAudioFormats(formats: FormatOption[]) {
+function groupedNonAudioFormats(formats: FormatOption[]): { resolution: string; formatId: string }[] {
   const seen = new Set<string>();
   const out: { resolution: string; formatId: string }[] = [];
   for (const f of formats) {
