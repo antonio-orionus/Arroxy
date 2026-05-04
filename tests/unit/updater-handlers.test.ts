@@ -15,6 +15,7 @@ vi.mock('electron-updater', () => ({
     autoInstallOnAppQuit: true,
     on: vi.fn(),
     removeAllListeners: vi.fn(),
+    setFeedURL: vi.fn(),
     checkForUpdates: vi.fn().mockResolvedValue(undefined),
     downloadUpdate: vi.fn().mockResolvedValue(undefined),
     quitAndInstall: vi.fn()
@@ -110,6 +111,7 @@ describe('registerUpdaterHandlers', () => {
         autoInstallOnAppQuit: true,
         on: vi.fn(),
         removeAllListeners: vi.fn(),
+        setFeedURL: vi.fn(),
         checkForUpdates: vi.fn().mockResolvedValue(undefined),
         downloadUpdate: vi.fn().mockResolvedValue(undefined),
         quitAndInstall: vi.fn()
@@ -153,6 +155,7 @@ describe('registerUpdaterHandlers', () => {
         autoInstallOnAppQuit: true,
         on: vi.fn(),
         removeAllListeners: vi.fn(),
+        setFeedURL: vi.fn(),
         checkForUpdates: vi.fn().mockResolvedValue(undefined),
         downloadUpdate: vi.fn().mockResolvedValue(undefined),
         quitAndInstall: vi.fn()
@@ -287,6 +290,7 @@ describe('registerUpdaterHandlers', () => {
           autoInstallOnAppQuit: true,
           on: vi.fn(),
           removeAllListeners: vi.fn(),
+          setFeedURL: vi.fn(),
           checkForUpdates: vi.fn().mockResolvedValue(undefined),
           downloadUpdate: vi.fn().mockResolvedValue(undefined),
           quitAndInstall: vi.fn()
