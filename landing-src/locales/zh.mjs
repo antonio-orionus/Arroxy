@@ -1,0 +1,159 @@
+// Landing-page translations for "zh". One key per string; build.mjs
+// validates parity against en.mjs at build time.
+//
+// Keys ending in `_html` are injected as raw HTML so translations can
+// keep inline tags like <em>. Everything else is HTML-escaped.
+
+export const zh = {
+  title: "Arroxy — 免费 4K YouTube 下载器，无需登录",
+  description:
+    "免费、MIT 许可的桌面 YouTube 下载器，支持 Windows、macOS 和 Linux。无需 Google 账号、浏览器 Cookie 或任何登录，即可下载高达 4K HDR 60 fps 的视频。",
+  og_title: "Arroxy — 免费 4K YouTube 下载器，无需登录",
+  og_description:
+    "免费 4K YouTube 下载器。无 Cookie，无需登录，无断会话。MIT 许可。Windows · macOS · Linux。",
+
+  nav_features: "功能",
+  nav_screenshots: "截图",
+  nav_install: "安装",
+  nav_download: "下载",
+
+  hero_eyebrow: "开源 · MIT · 持续维护中",
+  hero_h1_a: "免费 4K YouTube 下载器。",
+  hero_h1_b: "无 Cookie。无需登录。无断会话。",
+  hero_tagline:
+    "Arroxy 是一款免费、MIT 许可的桌面 YouTube 下载器，支持 Windows、macOS 和 Linux。最高可下载 4K HDR 60 fps 的视频 — 无需 Google 账号、浏览器 Cookie 或任何登录。",
+  pill_no_account: "无需 Google 账号",
+  pill_open_source: "开源（MIT）",
+  hero_trust: "在 GitHub 上审查每一行代码。",
+  pill_no_tracking: "无追踪",
+  cta_download_os: "下载适合你系统的版本",
+  cta_view_github: "在 GitHub 上查看",
+  release_label: "最新版本:",
+  release_loading: "加载中…",
+
+  cta_download_windows: "下载 Windows 版",
+  cta_download_windows_portable: "便携版 .exe（免安装）",
+  cta_download_mac_arm: "下载 macOS 版（Apple Silicon）",
+  cta_download_mac_intel: "Intel Mac？获取 x64 DMG",
+  cta_download_linux_appimage: "下载 Linux 版（.AppImage）",
+  cta_download_linux_flatpak: "Flatpak 安装包 →",
+  cta_other_platforms: "其他平台 / 所有下载",
+  cta_os_windows: "Windows",
+  cta_os_mac: "macOS",
+  cta_os_linux: "Linux",
+  cta_installer_label: "安装程序",
+  cta_portable_label: "便携版",
+  cta_arm_label: "Apple Silicon",
+  cta_intel_label: "Intel",
+  mobile_notice: "Arroxy 是适用于 Windows、macOS 和 Linux 的桌面应用。",
+  mobile_notice_sub: "请在电脑上访问此页面进行下载。",
+  mobile_copy_link: "复制页面链接",
+  first_launch_label: "首次启动帮助",
+  first_launch_mac_html:
+    "macOS 在首次启动时会显示<em>未识别的开发者</em>警告 —— Arroxy 尚未进行代码签名。<strong>右键单击应用图标 → 打开</strong>，然后在对话框中点击<strong>打开</strong>。仅需一次。",
+  first_launch_linux_html:
+    "<strong>AppImage：</strong>右键单击文件 → <strong>属性 → 允许作为程序执行</strong>，或在终端运行 <code>chmod +x Arroxy-*.AppImage</code>。如果仍无法启动，请安装 <code>libfuse2</code> (Ubuntu/Debian)、<code>fuse-libs</code> (Fedora) 或 <code>fuse2</code> (Arch)。<br><br><strong>Flatpak：</strong>运行 <code>flatpak install --user Arroxy-*.flatpak</code>，然后从应用菜单启动或运行 <code>flatpak run io.github.antonio_orionus.Arroxy</code>。",
+
+  features_eyebrow: "它能做什么",
+  features_h2: "一切如你所愿，毫无阻碍。",
+  features_sub: "粘贴 URL，选择画质，点击下载。就这么简单。",
+  f1_h: "高达 4K UHD",
+  f1_p: "2160p、1440p、1080p、720p — YouTube 提供的每一种分辨率，外加 MP3、AAC、Opus 纯音频。",
+  f2_h: "保留 60 fps 与 HDR",
+  f2_p: "高帧率与 HDR 流原样直通，正如 YouTube 编码的那样 — 零画质损失。",
+  f3_h: "多任务并行",
+  f3_p: "想排多少视频就排多少。下载面板并行显示每个任务的进度。",
+  f4_h: "自动更新",
+  f4_p: "Arroxy 在后台保持 yt-dlp 与 ffmpeg 最新 — 应对 YouTube 的每一次变化。",
+  f5_h: "9 种语言",
+  f5_p: "English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — 自动检测你的语言。",
+  f6_h: "跨平台",
+  f6_p: "Windows、macOS、Linux 原生构建 — 安装包、便携版、DMG 或 AppImage。",
+  f7_h: "字幕，随你所愿",
+  f7_p: "以 SRT、VTT 或 ASS 获取手动或自动生成的字幕 — 保存到视频旁边、嵌入便携的 .mkv，或整理到 Subtitles/ 子文件夹。",
+  f8_h: "内置 SponsorBlock",
+  f8_p: "跳过或标记赞助商、片头、片尾、自我推广等片段 — 用 FFmpeg 剪除或直接添加章节。按类别自由选择。",
+  f9_h: "剪贴板自动填写",
+  f9_p: "在任何地方复制 YouTube 链接，切换回应用时 Arroxy 立即检测 — 确认提示让你保持控制。在高级设置中开启或关闭。",
+  f10_h: "自动清理 URL",
+  f10_p: "粘贴的 YouTube 链接会自动剥除跟踪参数（si、pp、feature、utm_*、fbclid、gclid 等），并解包 youtube.com/redirect 跳转链接 — URL 字段始终显示规范链接。",
+  f11_h: "最小化到托盘",
+  f11_p: "关闭窗口后 Arroxy 将缩入系统托盘，下载在后台持续运行 — 单击托盘图标可恢复窗口，或通过托盘菜单退出应用。",
+  f12_h: "嵌入元数据与封面",
+  f12_p: "标题、上传日期、艺术家、描述、封面和章节标记直接写入文件——无需附属文件，无需手动标注。",
+
+  shots_eyebrow: "实际效果",
+  shots_h2: "为清晰而生，拒绝杂乱。",
+  shot1_alt: "粘贴 URL",
+  shot2_alt: "选择画质",
+  shot3_alt: "选择保存位置",
+  shot4_alt: "并行下载",
+  shot5_alt: "字幕步骤 — 选择语言、格式与保存方式",
+  og_image_alt: "Arroxy 应用图标 — 用于以 4K 下载 YouTube 视频的桌面应用。",
+
+  privacy_eyebrow: "隐私",
+  privacy_h2_html: "Arroxy <em>不会</em>做什么。",
+  privacy_sub:
+    "大多数 YouTube 下载器迟早会向你索取 Cookie。Arroxy 永远不会。",
+  p1_h: "无需登录",
+  p1_p: "无需 Google 账号。没有会话过期问题。账号被标记的风险为零。",
+  p2_h: "无 Cookie",
+  p2_p: "Arroxy 请求的只是浏览器同样会请求的令牌。不导出，不保存。",
+  p3_h: "无用户 ID",
+  p3_p: "匿名、仅会话级遥测，由 Aptabase 提供 — 无安装 ID，无指纹识别，无个人数据。你的下载、历史和文件永远不会离开你的设备。",
+  p4_h: "无第三方服务器",
+  p4_p: "整个流程通过 yt-dlp + ffmpeg 在本地运行。文件永远不会经过远程服务器。",
+
+  install_eyebrow: "安装",
+  install_h2: "选择你的渠道。",
+  install_sub:
+    "直接下载或任意主流包管理器 — 每次发布都会自动更新。",
+  badge_windows: "Windows",
+  badge_macos: "macOS",
+  badge_linux: "Linux",
+  badge_all: "全部",
+  winget_desc: "推荐用于 Windows 10/11。随系统自动更新。",
+  scoop_desc: "通过 Scoop bucket 便携安装。无需管理员权限。",
+  brew_desc: "添加 cask，一行命令安装。通用二进制 (Intel + Apple Silicon)。",
+  flatpak_h: "Flatpak",
+  flatpak_desc: "沙箱安装。从 Releases 下载 .flatpak 包，一行命令安装。无需配置 Flathub。",
+  direct_h: "直接下载",
+  direct_desc: "NSIS 安装包、便携 .exe、.dmg、.AppImage 或 .flatpak — 直接从 GitHub Releases 获取。",
+  direct_btn: "打开 Releases →",
+  copy_label: "复制",
+  copied_label: "已复制！",
+
+  footer_made_by: "MIT 许可证 · 用心制作:",
+  footer_github: "GitHub",
+  footer_issues: "Issues",
+  footer_releases: "Releases",
+  footer_languages_label: "语言:",
+
+  faq_eyebrow: "FAQ",
+  faq_h2: "常见问题",
+  faq_q1: "能下载哪些画质？",
+  faq_a1:
+    "YouTube 提供的都行 — 4K UHD（2160p）、1440p QHD、1080p Full HD、720p、480p、360p 以及纯音频。高帧率（60 fps、120 fps）和 HDR 内容原样保留。Arroxy 列出所有可用格式，让你精准挑选。",
+  faq_q2: "真的免费吗？",
+  faq_a2: "真的。MIT 许可证。没有付费版、没有功能门槛。",
+  faq_q3: "Arroxy 支持哪些语言？",
+  faq_a3:
+    "开箱即用支持九种：English、Español（西班牙语）、Deutsch（德语）、Français（法语）、日本語（日语）、中文、Русский（俄语）、Українська（乌克兰语）、हिन्दी（印地语）。Arroxy 在首次启动时自动检测系统语言，随时可在工具栏的语言选择器中切换。翻译以纯 TypeScript 对象的形式存放在 src/shared/i18n/locales/ — 在 GitHub 上发个 PR 即可贡献。",
+  faq_q4: "需要装别的东西吗？",
+  faq_a4:
+    "不需要。yt-dlp 和 ffmpeg 在首次启动时从它们的官方 GitHub releases 自动下载并缓存到本地。之后无需任何额外配置。",
+  faq_q5: "如果 YouTube 改了什么，还能用吗？",
+  faq_a5:
+    "能 — Arroxy 有两层保障。第一，yt-dlp 是社区里最活跃维护的开源工具之一 — YouTube 一变，几小时内就更新。第二，Arroxy 完全不依赖 Cookie 或你的 Google 账号，所以没有会话过期，没有凭据要轮换。这两点结合让它比依赖浏览器导出 Cookie 的工具稳定得多。",
+  faq_q6: "能下播放列表吗？",
+  faq_a6: "目前支持单个视频。播放列表和频道支持在路线图里。",
+  faq_q7: "需要我的 YouTube 账号或 Cookie 吗？",
+  faq_a7:
+    "不需要 — 这事比听起来更重要。大多数在 YouTube 更新后就罢工的工具会让你导出浏览器的 YouTube Cookie。这种方案每 30 分钟左右就坏一次（YouTube 会轮换会话），而 yt-dlp 自己的文档警告这可能让你的 Google 账号被标记。Arroxy 从不使用 Cookie 或凭据。无登录、无账号绑定，没东西过期，没东西被封。",
+  faq_q8: 'macOS 提示 "应用已损坏" 或 "无法打开" — 怎么办？',
+  faq_a8:
+    "这是 macOS Gatekeeper 在拦截未签名应用 — 并不是真的损坏。README 里有 macOS 首次启动的分步指引。",
+  faq_q9: "这合法吗？",
+  faq_a9:
+    "为个人使用下载视频，在大多数地区一般是被接受的。你需要自己负责遵守 YouTube 的服务条款和当地法律。",
+};

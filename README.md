@@ -5,7 +5,7 @@
 
 **4K · 1080p60 · HDR · MP3 · Shorts · Subtitles · SponsorBlock**
 
-**Read in:** **English** · [Español](README.es.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md)
+**Read in:** **English** · [Español](README.es.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [中文](README.zh.md) · [Русский](README.ru.md) · [Українська](README.uk.md) · [हिन्दी](README.hi.md) · [বাংলা](README.bn.md) · [العربية](README.ar.md) · [O'zbekcha](README.uz.md) · [မြန်မာဘာသာ](README.my.md) · [پښتو](README.ps.md) · [Kiswahili](README.sw.md) · [አማርኛ](README.am.md) · [Afaan Oromoo](README.om.md) · [Ελληνικά](README.el.md) · [Српски](README.sr.md)
 
 [![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![License](https://img.shields.io/badge/license-MIT-green) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Languages](https://img.shields.io/badge/i18n-9_languages-blue)
 

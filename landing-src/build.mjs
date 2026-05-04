@@ -259,6 +259,13 @@ async function main() {
     const base = loc.dir ? "../" : "";
 
     let html = applyStrings(template, loc.strings);
+    // Map of base-language-code → URL dir for client-side locale redirect on
+    // the root page. Only non-empty dirs (i.e. non-English locales) are
+    // included; English is the fall-through default and lives at the root.
+    const langDirs = Object.fromEntries(
+      LOCALES.filter((l) => l.dir).map((l) => [l.code, l.dir]),
+    );
+
     html = applyMacros(html, {
       LANG: loc.code,
       BASE: base,
@@ -270,6 +277,7 @@ async function main() {
       OG_LOCALE_ALT: buildOgLocaleAlt(loc, LOCALES),
       HREFLANG_LINKS: hreflangLinks,
       LANG_PICKER: buildLangPicker(loc, LOCALES),
+      LANG_DIRS_JSON: safeJson(langDirs),
       JSON_LD: buildJsonLd(loc),
       FAQ_JSON_LD: buildFaqJsonLd(loc),
     });

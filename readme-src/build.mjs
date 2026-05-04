@@ -65,6 +65,7 @@ async function main() {
     md = applyMacros(md, {
       LANG_NAV: buildLangNav(loc, LOCALES),
     });
+    md = md.replace(/\n{3,}/g, "\n\n");
 
     const outPath = resolve(ROOT, loc.filename);
     await writeFile(outPath, md, "utf8");

@@ -1,0 +1,159 @@
+// Landing-page translations for "hi". One key per string; build.mjs
+// validates parity against en.mjs at build time.
+//
+// Keys ending in `_html` are injected as raw HTML so translations can
+// keep inline tags like <em>. Everything else is HTML-escaped.
+
+export const hi = {
+  title: "Arroxy — मुफ़्त 4K YouTube डाउनलोडर, बिना लॉगिन के",
+  description:
+    "Windows, macOS और Linux के लिए मुफ़्त, MIT-लाइसेंस्ड डेस्कटॉप YouTube डाउनलोडर। Google खाते, browser cookies या किसी भी login के बिना 4K HDR तक 60 fps में वीडियो डाउनलोड करें।",
+  og_title: "Arroxy — मुफ़्त 4K YouTube डाउनलोडर, बिना लॉगिन के",
+  og_description:
+    "मुफ़्त 4K YouTube डाउनलोडर। कोई cookies नहीं, कोई login नहीं, कोई टूटा हुआ session नहीं। MIT-लाइसेंस्ड। Windows · macOS · Linux।",
+
+  nav_features: "विशेषताएँ",
+  nav_screenshots: "स्क्रीनशॉट",
+  nav_install: "इंस्टॉल",
+  nav_download: "डाउनलोड",
+
+  hero_eyebrow: "Open Source · MIT · सक्रिय विकास",
+  hero_h1_a: "मुफ़्त 4K YouTube डाउनलोडर।",
+  hero_h1_b: "कोई cookies नहीं। कोई login नहीं। कोई टूटा हुआ session नहीं।",
+  hero_tagline:
+    "Arroxy Windows, macOS और Linux के लिए एक मुफ़्त, MIT-लाइसेंस्ड डेस्कटॉप YouTube डाउनलोडर है। यह 4K HDR तक 60 fps में वीडियो डाउनलोड करता है — बिना Google खाता, browser cookies या किसी भी login के।",
+  hero_trust: "GitHub पर हर लाइन ऑडिट करें।",
+  pill_no_tracking: "कोई ट्रैकिंग नहीं",
+  pill_no_account: "कोई Google खाता नहीं",
+  pill_open_source: "Open source (MIT)",
+  cta_download_os: "अपने OS के लिए डाउनलोड करें",
+  cta_view_github: "GitHub पर देखें",
+  release_label: "नवीनतम रिलीज़:",
+  release_loading: "लोड हो रहा है…",
+
+  cta_download_windows: "Windows के लिए डाउनलोड करें",
+  cta_download_windows_portable: "पोर्टेबल .exe (इंस्टॉल नहीं)",
+  cta_download_mac_arm: "macOS के लिए डाउनलोड करें (Apple Silicon)",
+  cta_download_mac_intel: "Intel Mac? x64 DMG लें",
+  cta_download_linux_appimage: "Linux के लिए डाउनलोड करें (.AppImage)",
+  cta_download_linux_flatpak: "Flatpak बंडल →",
+  cta_other_platforms: "अन्य प्लेटफ़ॉर्म / सभी डाउनलोड",
+  cta_os_windows: "Windows",
+  cta_os_mac: "macOS",
+  cta_os_linux: "Linux",
+  cta_installer_label: "इंस्टॉलर",
+  cta_portable_label: "पोर्टेबल",
+  cta_arm_label: "Apple Silicon",
+  cta_intel_label: "Intel",
+  mobile_notice: "Arroxy Windows, macOS और Linux के लिए डेस्कटॉप ऐप है।",
+  mobile_notice_sub: "डाउनलोड करने के लिए अपने कंप्यूटर पर यह पेज खोलें।",
+  mobile_copy_link: "पेज लिंक कॉपी करें",
+  first_launch_label: "पहले लॉन्च की मदद",
+  first_launch_mac_html:
+    "macOS पहले लॉन्च पर <em>अज्ञात डेवलपर</em> की चेतावनी दिखाता है — Arroxy अभी कोड-साइन्ड नहीं है। <strong>ऐप आइकन पर राइट-क्लिक → Open</strong>, फिर डायलॉग में <strong>Open</strong> क्लिक करें। बस एक बार।",
+  first_launch_linux_html:
+    "<strong>AppImage:</strong> फ़ाइल पर राइट-क्लिक → <strong>Properties → Allow executing as program</strong>, या टर्मिनल में <code>chmod +x Arroxy-*.AppImage</code> चलाएँ। फिर भी न चले तो <code>libfuse2</code> (Ubuntu/Debian), <code>fuse-libs</code> (Fedora) या <code>fuse2</code> (Arch) इंस्टॉल करें।<br><br><strong>Flatpak:</strong> <code>flatpak install --user Arroxy-*.flatpak</code> चलाएँ, फिर ऐप मेन्यू से लॉन्च करें या <code>flatpak run io.github.antonio_orionus.Arroxy</code> चलाएँ।",
+
+  features_eyebrow: "यह क्या करता है",
+  features_h2: "जो आप उम्मीद करते हैं वह सब, बिना किसी अड़चन के।",
+  features_sub: "URL पेस्ट करें, गुणवत्ता चुनें, डाउनलोड पर क्लिक करें। बस इतना।",
+  f1_h: "4K UHD तक",
+  f1_p: "2160p, 1440p, 1080p, 720p — हर वह रिज़ॉल्यूशन जो YouTube देता है, साथ ही केवल-ऑडियो MP3, AAC और Opus।",
+  f2_h: "60 fps और HDR सुरक्षित",
+  f2_p: "हाई फ्रेम-रेट और HDR स्ट्रीम बिल्कुल वैसी ही आती हैं जैसी YouTube एनकोड करता है — बिना गुणवत्ता के नुकसान।",
+  f3_h: "एक साथ कई",
+  f3_p: "जितने चाहें उतने वीडियो कतार में लगाएँ। डाउनलोड पैनल हर एक की प्रगति समानांतर में दिखाता है।",
+  f4_h: "स्वचालित अपडेट",
+  f4_p: "Arroxy yt-dlp और ffmpeg को पीछे से ताज़ा रखता है — YouTube के हर बदलाव के साथ चलता है।",
+  f5_h: "9 भाषाएँ",
+  f5_p: "English, Español, Deutsch, Français, 日本語, 中文, Русский, Українська, हिन्दी — आपकी भाषा अपने आप पहचानता है।",
+  f6_h: "क्रॉस-प्लेटफ़ॉर्म",
+  f6_p: "Windows, macOS और Linux के लिए नेटिव बिल्ड — इंस्टॉलर, पोर्टेबल, DMG या AppImage।",
+  f7_h: "सबटाइटल, आपके अंदाज़ में",
+  f7_p: "SRT, VTT या ASS में मैनुअल या ऑटो-जेनरेटेड सबटाइटल — वीडियो के बग़ल में सेव करें, पोर्टेबल .mkv में एम्बेड करें, या Subtitles/ फ़ोल्डर में रखें।",
+  f8_h: "SponsorBlock बिल्ट-इन",
+  f8_p: "स्पॉन्सर सेगमेंट, इंट्रो, आउट्रो, सेल्फ-प्रोमो और अन्य को स्किप या मार्क करें — FFmpeg से काटें या बस चैप्टर जोड़ें। हर कैटेगरी के लिए आपकी पसंद।",
+  f9_h: "क्लिपबोर्ड ऑटो-फ़िल",
+  f9_p: "कहीं भी YouTube लिंक कॉपी करें और वापस स्विच करने पर Arroxy तुरंत पहचान लेता है — एक पुष्टि प्रॉम्प्ट नियंत्रण बनाए रखता है। उन्नत सेटिंग में सक्षम या अक्षम करें।",
+  f10_h: "URL को अपने आप साफ़ करें",
+  f10_p: "पेस्ट किए गए YouTube लिंक से ट्रैकिंग पैरामीटर (si, pp, feature, utm_*, fbclid, gclid और अन्य) अपने आप हट जाते हैं, और youtube.com/redirect रैपर खुल जाते हैं — URL फ़ील्ड में हमेशा कैनोनिकल लिंक दिखता है।",
+  f11_h: "ट्रे में छुपाएं",
+  f11_p: "विंडो बंद करने पर Arroxy सिस्टम ट्रे में चला जाता है। डाउनलोड बैकग्राउंड में जारी रहते हैं — ट्रे आइकन पर क्लिक करके विंडो वापस लाएं, या ट्रे मेनू से बाहर निकलें।",
+  f12_h: "एम्बेडेड मेटाडेटा और कवर आर्ट",
+  f12_p: "शीर्षक, अपलोड तिथि, कलाकार, विवरण, कवर आर्ट और चैप्टर मार्कर सीधे फ़ाइल में लिखे जाते हैं — कोई साइडकार फ़ाइल नहीं, कोई मैन्युअल टैगिंग नहीं।",
+
+  shots_eyebrow: "क्रिया में देखें",
+  shots_h2: "स्पष्टता के लिए बना है, अव्यवस्था के लिए नहीं।",
+  shot1_alt: "URL पेस्ट करें",
+  shot2_alt: "अपनी गुणवत्ता चुनें",
+  shot3_alt: "सहेजने का स्थान चुनें",
+  shot4_alt: "समानांतर डाउनलोड",
+  shot5_alt: "सबटाइटल स्टेप — भाषाएँ, फ़ॉर्मैट और सेव मोड चुनें",
+  og_image_alt: "Arroxy ऐप आइकन — YouTube वीडियो को 4K में डाउनलोड करने के लिए डेस्कटॉप ऐप।",
+
+  privacy_eyebrow: "गोपनीयता",
+  privacy_h2_html: "Arroxy जो <em>नहीं</em> करता है।",
+  privacy_sub:
+    "अधिकांश YouTube डाउनलोडर अंततः आपकी कुकीज़ माँगते हैं। Arroxy कभी नहीं माँगेगा।",
+  p1_h: "कोई लॉगिन नहीं",
+  p1_p: "कोई Google खाता नहीं। कोई समाप्त होने वाली सत्र नहीं। आपके खाते पर ध्वजांकित होने का शून्य जोखिम।",
+  p2_h: "कोई कुकीज़ नहीं",
+  p2_p: "Arroxy वही टोकन माँगता है जो कोई भी ब्राउज़र। कुछ निर्यात नहीं, कुछ संग्रहीत नहीं।",
+  p3_h: "कोई यूज़र ID नहीं",
+  p3_p: "Aptabase के ज़रिए गुमनाम, केवल-सेशन टेलीमेट्री — कोई इंस्टॉल ID नहीं, कोई फ़िंगरप्रिंटिंग नहीं, कोई व्यक्तिगत डेटा नहीं। आपके डाउनलोड, इतिहास और फ़ाइलें कभी आपकी मशीन नहीं छोड़तीं।",
+  p4_h: "कोई तृतीय-पक्ष सर्वर नहीं",
+  p4_p: "पूरी पाइपलाइन yt-dlp + ffmpeg के माध्यम से स्थानीय रूप से चलती है। फ़ाइलें कभी रिमोट सर्वर को नहीं छूतीं।",
+
+  install_eyebrow: "इंस्टॉल",
+  install_h2: "अपना चैनल चुनें।",
+  install_sub:
+    "सीधा डाउनलोड या कोई भी प्रमुख पैकेज मैनेजर — हर रिलीज़ के साथ स्वचालित रूप से अपडेट।",
+  badge_windows: "Windows",
+  badge_macos: "macOS",
+  badge_linux: "Linux",
+  badge_all: "सभी",
+  winget_desc: "Windows 10/11 के लिए अनुशंसित। सिस्टम के साथ ऑटो-अपडेट।",
+  scoop_desc: "Scoop bucket के माध्यम से पोर्टेबल इंस्टॉल। एडमिन अधिकार आवश्यक नहीं।",
+  brew_desc: "Cask टैप करें, एक कमांड से इंस्टॉल करें। यूनिवर्सल बाइनरी (Intel + Apple Silicon)।",
+  flatpak_h: "Flatpak",
+  flatpak_desc: "सैंडबॉक्स्ड इंस्टॉल। Releases से .flatpak बंडल डाउनलोड करें, एक कमांड से इंस्टॉल। Flathub सेटअप ज़रूरी नहीं।",
+  direct_h: "सीधा डाउनलोड",
+  direct_desc: "NSIS इंस्टॉलर, पोर्टेबल .exe, .dmg, .AppImage या .flatpak — सीधे GitHub Releases से।",
+  direct_btn: "Releases खोलें →",
+  copy_label: "कॉपी करें",
+  copied_label: "कॉपी हो गया!",
+
+  footer_made_by: "MIT लाइसेंस · सावधानी से बनाया गया:",
+  footer_github: "GitHub",
+  footer_issues: "Issues",
+  footer_releases: "Releases",
+  footer_languages_label: "भाषा:",
+
+  faq_eyebrow: "FAQ",
+  faq_h2: "अक्सर पूछे जाने वाले प्रश्न",
+  faq_q1: "मैं किन क्वालिटी में डाउनलोड कर सकता हूँ?",
+  faq_a1:
+    "जो भी YouTube देता है — 4K UHD (2160p), 1440p QHD, 1080p Full HD, 720p, 480p, 360p और ऑडियो-only। हाई फ़्रेम-रेट (60 fps, 120 fps) और HDR कंटेंट जैसे हैं वैसे ही रहते हैं। Arroxy हर उपलब्ध फ़ॉर्मैट दिखाता है और आपको ठीक वही चुनने देता है जो लेना है।",
+  faq_q2: "क्या यह सच में मुफ़्त है?",
+  faq_a2: "हाँ। MIT लाइसेंस। कोई प्रीमियम टियर नहीं, कोई फ़ीचर लॉक नहीं।",
+  faq_q3: "Arroxy किन भाषाओं में उपलब्ध है?",
+  faq_a3:
+    "नौ, बॉक्स से बाहर: English, Español (स्पेनिश), Deutsch (जर्मन), Français (फ़्रेंच), 日本語 (जापानी), 中文 (चीनी), Русский (रूसी), Українська (यूक्रेनी) और हिन्दी। Arroxy पहले लॉन्च पर आपके ऑपरेटिंग सिस्टम की भाषा अपने आप पहचानता है, और आप टूलबार में भाषा चुनने वाले से कभी भी बदल सकते हैं। लोकेल फ़ाइलें src/shared/i18n/locales/ में सादे TypeScript ऑब्जेक्ट्स हैं — योगदान के लिए GitHub पर एक PR खोलें।",
+  faq_q4: "क्या मुझे कुछ इंस्टॉल करना होगा?",
+  faq_a4:
+    "नहीं। yt-dlp और ffmpeg पहले लॉन्च पर अपने ऑफ़िशियल GitHub releases से अपने आप डाउनलोड हो जाते हैं और आपकी मशीन पर कैश हो जाते हैं। उसके बाद कोई एक्स्ट्रा सेटअप ज़रूरी नहीं।",
+  faq_q5: "अगर YouTube कुछ बदले तो क्या यह काम करता रहेगा?",
+  faq_a5:
+    "हाँ — और Arroxy में दो लेयर रिज़िलियेंस है। पहला, yt-dlp सबसे एक्टिवली मेनटेन्ड ओपन-सोर्स टूल्स में से एक है — YouTube के बदलाव के घंटों के भीतर अपडेट होता है। दूसरा, Arroxy कुकीज़ या आपके Google अकाउंट पर बिल्कुल निर्भर नहीं है, इसलिए कोई सेशन एक्सपायर नहीं होता और कोई क्रेडेंशियल रोटेट नहीं करना। यह कॉम्बिनेशन इसे ब्राउज़र की कुकीज़ एक्सपोर्ट करने पर निर्भर टूल्स से कहीं ज़्यादा स्थिर बनाता है।",
+  faq_q6: "क्या मैं प्लेलिस्ट डाउनलोड कर सकता हूँ?",
+  faq_a6: "अभी सिंगल वीडियो सपोर्टेड हैं। प्लेलिस्ट और चैनल सपोर्ट रोडमैप पर है।",
+  faq_q7: "क्या इसे मेरे YouTube अकाउंट या कुकीज़ की ज़रूरत है?",
+  faq_a7:
+    "नहीं — और यह जितना लगता है उससे ज़्यादा अहम है। ज़्यादातर टूल्स जो YouTube के अपडेट के बाद बंद हो जाते हैं, आपको ब्राउज़र की YouTube कुकीज़ एक्सपोर्ट करने को कहते हैं। यह वर्कअराउंड हर ~30 मिनट में टूटता है क्योंकि YouTube सेशन रोटेट करता है, और yt-dlp की अपनी डॉक्स चेताती है कि इससे आपका Google अकाउंट फ़्लैग हो सकता है। Arroxy कभी कुकीज़ या क्रेडेंशियल इस्तेमाल नहीं करता। कोई लॉगिन नहीं। कोई अकाउंट लिंक नहीं। कुछ एक्सपायर नहीं होता, कुछ बैन नहीं होता।",
+  faq_q8: 'macOS कहता है "ऐप ख़राब है" या "नहीं खुल सकती" — क्या करूँ?',
+  faq_a8:
+    "यह macOS Gatekeeper बिना साइन की हुई ऐप को ब्लॉक कर रहा है — असली नुक़सान नहीं है। macOS पर पहली बार लॉन्च के लिए README में क़दम-दर-क़दम निर्देश हैं।",
+  faq_q9: "क्या यह क़ानूनी है?",
+  faq_a9:
+    "ज़्यादातर अधिकार-क्षेत्रों में पर्सनल इस्तेमाल के लिए वीडियो डाउनलोड करना आम तौर पर स्वीकार्य है। YouTube की Terms of Service और अपने स्थानीय क़ानूनों का पालन करना आपकी ज़िम्मेदारी है।",
+};
