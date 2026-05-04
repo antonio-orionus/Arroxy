@@ -378,4 +378,5 @@ if (!('appApi' in window)) {
   };
 
   (window as unknown as { appApi: AppApi }).appApi = mock;
+  (window as unknown as { appVersion: string }).appVersion = '0.0.0-dev';
 }

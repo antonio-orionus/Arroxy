@@ -1,4 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
+
+declare const __APP_VERSION__: string;
 import { IPC_CHANNELS } from '@shared/ipc';
 import type { AppApi } from '@shared/api';
 import type { ProgressEvent, QueueItem, StatusEvent, UpdateAvailablePayload } from '@shared/types';
@@ -85,3 +87,4 @@ const api: AppApi = {
 
 contextBridge.exposeInMainWorld('appApi', api);
 contextBridge.exposeInMainWorld('platform', process.platform);
+contextBridge.exposeInMainWorld('appVersion', __APP_VERSION__);

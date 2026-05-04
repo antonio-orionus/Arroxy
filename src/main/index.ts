@@ -22,6 +22,8 @@ import { HiddenWindowTokenProvider } from '@main/token/providers/HiddenWindowTok
 import { MockTokenProvider } from '@main/token/providers/MockTokenProvider';
 import { defaultAppSettings } from '@shared/constants';
 import { runSmokeMode, readSmokeUrl, exitWithCode } from '@main/smoke';
+import contextMenu from 'electron-context-menu';
+import windowStateKeeper from 'electron-window-state';
 
 log.initialize();
 
@@ -38,9 +40,13 @@ if (!hasSingleInstanceLock) {
 }
 
 function createMainWindow(): BrowserWindow {
+  const winState = windowStateKeeper({ defaultWidth: 900, defaultHeight: 760 });
+
   const window = new BrowserWindow({
-    width: 900,
-    height: 760,
+    x: winState.x,
+    y: winState.y,
+    width: winState.width,
+    height: winState.height,
     minWidth: 720,
     minHeight: 460,
     title: 'Arroxy',
@@ -54,6 +60,8 @@ function createMainWindow(): BrowserWindow {
       sandbox: true
     }
   });
+
+  winState.manage(window);
 
   window.on('maximize', () => window.webContents.send(IPC_CHANNELS.windowMaximizedChange, true));
   window.on('unmaximize', () => window.webContents.send(IPC_CHANNELS.windowMaximizedChange, false));
@@ -124,6 +132,13 @@ if (hasSingleInstanceLock) {
     });
 
     const mainWindow = createMainWindow();
+
+    contextMenu({
+      window: mainWindow.webContents,
+      showSaveImageAs: true,
+      showCopyImageAddress: true,
+      showInspectElement: !app.isPackaged
+    });
 
     app.on('second-instance', () => {
       if (mainWindow.isDestroyed()) return;

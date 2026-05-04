@@ -1,7 +1,11 @@
 import path from 'node:path';
+import { createRequire } from 'node:module';
 import { defineConfig, externalizeDepsPlugin, loadEnv } from 'electron-vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+
+const require = createRequire(import.meta.url);
+const { version } = require('./package.json') as { version: string };
 
 export default defineConfig(({ mode }) => {
   // Inline APTABASE_KEY from .env at build time. Without this, process.env.APTABASE_KEY
@@ -25,6 +29,9 @@ export default defineConfig(({ mode }) => {
     },
     preload: {
       plugins: [externalizeDepsPlugin()],
+      define: {
+        '__APP_VERSION__': JSON.stringify(version),
+      },
       resolve: {
         alias: {
           '@preload': path.resolve('src/preload'),

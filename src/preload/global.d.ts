@@ -4,6 +4,7 @@ declare global {
   interface Window {
     appApi: AppApi;
     platform: NodeJS.Platform;
+    appVersion: string;
   }
 }
 
