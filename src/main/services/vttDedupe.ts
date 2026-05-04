@@ -56,7 +56,10 @@ function parseVttCues(content: string): { header: string; cues: Cue[] } {
   let i = 0;
   while (i < nonEmpty.length) {
     const tc = parseVttTimecode(nonEmpty[i]);
-    if (!tc) { i++; continue; }
+    if (!tc) {
+      i++;
+      continue;
+    }
     let textLines = '';
     let j = i + 1;
     while (j < nonEmpty.length) {

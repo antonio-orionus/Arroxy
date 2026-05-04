@@ -20,9 +20,7 @@ export const sponsorBlockModeSchema = z.enum(['off', 'mark', 'remove']);
 export type SponsorBlockMode = z.infer<typeof sponsorBlockModeSchema>;
 export const SPONSORBLOCK_MODES = sponsorBlockModeSchema.options;
 
-export const sponsorBlockCategorySchema = z.enum([
-  'sponsor', 'intro', 'outro', 'selfpromo', 'music_offtopic', 'preview', 'filler'
-]);
+export const sponsorBlockCategorySchema = z.enum(['sponsor', 'intro', 'outro', 'selfpromo', 'music_offtopic', 'preview', 'filler']);
 export type SponsorBlockCategory = z.infer<typeof sponsorBlockCategorySchema>;
 export const SPONSORBLOCK_CATEGORIES = sponsorBlockCategorySchema.options;
 
@@ -36,15 +34,7 @@ export type UiTheme = z.infer<typeof uiThemeSchema>;
 export const queueItemStatusSchema = z.enum(['pending', 'downloading', 'paused', 'done', 'error', 'cancelled']);
 export type QueueItemStatus = z.infer<typeof queueItemStatusSchema>;
 
-export const ytdlpErrorKeySchema = z.enum([
-  'botBlock',
-  'ipBlock',
-  'rateLimit',
-  'ageRestricted',
-  'unavailable',
-  'geoBlocked',
-  'outOfDiskSpace'
-]);
+export const ytdlpErrorKeySchema = z.enum(['botBlock', 'ipBlock', 'rateLimit', 'ageRestricted', 'unavailable', 'geoBlocked', 'outOfDiskSpace']);
 export type YtdlpErrorKey = z.infer<typeof ytdlpErrorKeySchema>;
 export const YTDLP_ERROR_KEYS = ytdlpErrorKeySchema.options;
 
@@ -79,7 +69,7 @@ export const STATUS_KEY = {
   downloadingBinary: 'downloadingBinary',
   unknownStartupFailure: 'unknownStartupFailure'
 } as const;
-export type StatusKey = typeof STATUS_KEY[keyof typeof STATUS_KEY];
+export type StatusKey = (typeof STATUS_KEY)[keyof typeof STATUS_KEY];
 
 const statusKeySchema = z.enum(Object.values(STATUS_KEY) as [StatusKey, ...StatusKey[]]);
 
@@ -135,10 +125,7 @@ export const startDownloadSchema = z.object({
   formatId: z.string().min(1).optional(),
   preset: z.string().optional(),
   cookiesEnabled: z.boolean().optional(),
-  subtitleLanguages: z
-    .array(z.string().regex(subtitleLangRegex, 'Invalid subtitle language code'))
-    .max(MAX_SUBTITLE_LANGUAGES)
-    .optional(),
+  subtitleLanguages: z.array(z.string().regex(subtitleLangRegex, 'Invalid subtitle language code')).max(MAX_SUBTITLE_LANGUAGES).optional(),
   writeAutoSubs: z.boolean().optional(),
   subtitleMode: subtitleModeSchema.optional(),
   subtitleFormat: subtitleFormatSchema.optional(),
@@ -166,7 +153,7 @@ export const resumeSchema = z.object({
 
 export const analyticsTrackSchema = z.object({
   name: z.string().min(1).max(64),
-  props: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional(),
+  props: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional()
 });
 
 export const updateSettingsSchema = z.object({
@@ -261,32 +248,38 @@ const nullToUndef = (v: unknown): unknown => (v === null ? undefined : v);
 const optStr = z.preprocess(nullToUndef, z.string().optional());
 const optNum = z.preprocess(nullToUndef, z.number().optional());
 
-const ytDlpFormatSchema = z.object({
-  format_id: optStr,
-  ext: optStr,
-  resolution: optStr,
-  format_note: optStr,
-  fps: optNum,
-  abr: optNum,
-  filesize: optNum,
-  vcodec: optStr,
-  acodec: optStr,
-  dynamic_range: optStr
-}).passthrough();
+const ytDlpFormatSchema = z
+  .object({
+    format_id: optStr,
+    ext: optStr,
+    resolution: optStr,
+    format_note: optStr,
+    fps: optNum,
+    abr: optNum,
+    filesize: optNum,
+    vcodec: optStr,
+    acodec: optStr,
+    dynamic_range: optStr
+  })
+  .passthrough();
 
-const ytDlpSubtitleTrackSchema = z.object({
-  ext: optStr,
-  name: optStr
-}).passthrough();
+const ytDlpSubtitleTrackSchema = z
+  .object({
+    ext: optStr,
+    name: optStr
+  })
+  .passthrough();
 
-export const ytDlpInfoSchema = z.object({
-  formats: z.preprocess(nullToUndef, z.array(ytDlpFormatSchema).optional()),
-  title: optStr,
-  thumbnail: optStr,
-  duration: optNum,
-  subtitles: z.preprocess(nullToUndef, z.record(z.string(), z.array(ytDlpSubtitleTrackSchema)).optional()),
-  automatic_captions: z.preprocess(nullToUndef, z.record(z.string(), z.array(ytDlpSubtitleTrackSchema)).optional())
-}).passthrough();
+export const ytDlpInfoSchema = z
+  .object({
+    formats: z.preprocess(nullToUndef, z.array(ytDlpFormatSchema).optional()),
+    title: optStr,
+    thumbnail: optStr,
+    duration: optNum,
+    subtitles: z.preprocess(nullToUndef, z.record(z.string(), z.array(ytDlpSubtitleTrackSchema)).optional()),
+    automatic_captions: z.preprocess(nullToUndef, z.record(z.string(), z.array(ytDlpSubtitleTrackSchema)).optional())
+  })
+  .passthrough();
 
 export type YtDlpInfo = z.infer<typeof ytDlpInfoSchema>;
 export type YtDlpSubtitleTrack = z.infer<typeof ytDlpSubtitleTrackSchema>;

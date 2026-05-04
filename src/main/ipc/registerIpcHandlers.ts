@@ -3,17 +3,7 @@ import type { ZodType } from 'zod';
 import { createAppError, unknownToMessage } from '@main/utils/errorFactory';
 import { fail, ok, type Result } from '@shared/result';
 import { IPC_CHANNELS } from '@shared/ipc';
-import {
-  analyticsTrackSchema,
-  cancelDownloadSchema,
-  getFormatsSchema,
-  pauseResumeSchema,
-  queueArraySchema,
-  resumeSchema,
-  startDownloadSchema,
-  supportedLangSchema,
-  updateSettingsSchema
-} from '@shared/schemas';
+import { analyticsTrackSchema, cancelDownloadSchema, getFormatsSchema, pauseResumeSchema, queueArraySchema, resumeSchema, startDownloadSchema, supportedLangSchema, updateSettingsSchema } from '@shared/schemas';
 import type { AppError, WarmUpOutput } from '@shared/types';
 import type { SupportedLang } from '@shared/i18n/types';
 import { setAnalyticsEnabled, trackMain } from '@main/services/analytics';
@@ -52,14 +42,14 @@ function toUnknownFailure(error: unknown): Result<never> {
 }
 
 function safeAppPath(name: Parameters<typeof app.getPath>[0]): string | null {
-  try { return app.getPath(name); } catch { return null; }
+  try {
+    return app.getPath(name);
+  } catch {
+    return null;
+  }
 }
 
-function handle<T, R>(
-  channel: string,
-  schema: ZodType<T>,
-  fn: (data: T) => Promise<Result<R>>
-): void {
+function handle<T, R>(channel: string, schema: ZodType<T>, fn: (data: T) => Promise<Result<R>>): void {
   ipcMain.removeHandler(channel);
   ipcMain.handle(channel, async (_, payload: unknown) => {
     const parsed = schema.safeParse(payload ?? {});
@@ -80,28 +70,11 @@ function handleRaw(channel: string, listener: Parameters<typeof ipcMain.handle>[
 }
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-  const {
-    binaryManager,
-    downloadService,
-    formatProbeService,
-    settingsStore,
-    queueStore,
-    mainWindow,
-    logService,
-    tokenService,
-    languageRef,
-    clipboardWatcher
-  } = deps;
+  const { binaryManager, downloadService, formatProbeService, settingsStore, queueStore, mainWindow, logService, tokenService, languageRef, clipboardWatcher } = deps;
   let warmUpPromise: Promise<Result<WarmUpOutput>> | null = null;
 
   handleRaw(IPC_CHANNELS.appWarmUp, () => {
-    warmUpPromise ??= Promise.allSettled([
-      binaryManager.ensureYtDlp(),
-      binaryManager.ensureFFmpeg(),
-      binaryManager.ensureFFprobe(),
-      binaryManager.ensureDeno(),
-      tokenService.warmUp()
-    ]).then((results) => {
+    warmUpPromise ??= Promise.allSettled([binaryManager.ensureYtDlp(), binaryManager.ensureFFmpeg(), binaryManager.ensureFFprobe(), binaryManager.ensureDeno(), tokenService.warmUp()]).then((results) => {
       const failures = results.flatMap((result) => {
         if (result.status === 'fulfilled') return [];
         return result.reason instanceof Error ? [result.reason.message] : [String(result.reason)];
@@ -128,12 +101,16 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
     }
   });
 
-  handleRaw(IPC_CHANNELS.windowMinimize, () => { mainWindow.minimize(); });
+  handleRaw(IPC_CHANNELS.windowMinimize, () => {
+    mainWindow.minimize();
+  });
   handleRaw(IPC_CHANNELS.windowMaximize, () => {
     if (mainWindow.isMaximized()) mainWindow.unmaximize();
     else mainWindow.maximize();
   });
-  handleRaw(IPC_CHANNELS.windowClose, () => { mainWindow.close(); });
+  handleRaw(IPC_CHANNELS.windowClose, () => {
+    mainWindow.close();
+  });
   handleRaw(IPC_CHANNELS.windowIsMaximized, () => mainWindow.isMaximized());
 
   handleRaw(IPC_CHANNELS.chooseFolder, async () => {
@@ -142,7 +119,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
         properties: ['openDirectory'],
         defaultPath: app.getPath('downloads')
       });
-      return ok({ path: result.canceled ? null : result.filePaths[0] ?? null });
+      return ok({ path: result.canceled ? null : (result.filePaths[0] ?? null) });
     } catch (error) {
       return toUnknownFailure(error);
     }
@@ -157,20 +134,22 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
           { name: 'All files', extensions: ['*'] }
         ]
       });
-      return ok({ path: result.canceled ? null : result.filePaths[0] ?? null });
+      return ok({ path: result.canceled ? null : (result.filePaths[0] ?? null) });
     } catch (error) {
       return toUnknownFailure(error);
     }
   });
 
-  handle(IPC_CHANNELS.downloadsGetFormats, getFormatsSchema, ({ url }) =>
-    formatProbeService.getFormats(url)
-  );
+  handle(IPC_CHANNELS.downloadsGetFormats, getFormatsSchema, ({ url }) => formatProbeService.getFormats(url));
 
   handle(IPC_CHANNELS.downloadsStart, startDownloadSchema, async (data) => {
     const settings = await settingsStore.get();
     const outputDir = data.outputDir ?? settings.defaultOutputDir;
-    return downloadService.start({ ...data, outputDir, cookiesEnabled: settings.cookiesEnabled ?? false });
+    return downloadService.start({
+      ...data,
+      outputDir,
+      cookiesEnabled: settings.cookiesEnabled ?? false
+    });
   });
 
   handle(IPC_CHANNELS.downloadsCancel, cancelDownloadSchema, ({ jobId }) => {
@@ -192,12 +171,14 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
           downloads: safeAppPath('downloads'),
           videos: safeAppPath('videos'),
           music: safeAppPath('music'),
-          ...(isFlatpak ? {} : {
-            desktop: safeAppPath('desktop'),
-            documents: safeAppPath('documents'),
-            pictures: safeAppPath('pictures'),
-            home: safeAppPath('home'),
-          }),
+          ...(isFlatpak
+            ? {}
+            : {
+                desktop: safeAppPath('desktop'),
+                documents: safeAppPath('documents'),
+                pictures: safeAppPath('pictures'),
+                home: safeAppPath('home')
+              })
         }
       });
     } catch (error) {

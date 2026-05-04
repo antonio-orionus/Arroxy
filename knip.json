@@ -26,7 +26,6 @@
     "shadcn",
     "tw-animate-css",
     "tailwindcss",
-    "prettier",
     "@types/extract-zip"
   ]
 }

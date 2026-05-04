@@ -10,7 +10,9 @@ vi.mock('@main/utils/process', async (importOriginal) => {
 
 import { spawnYtDlp } from '@main/utils/process';
 
-beforeEach(() => { vi.clearAllMocks(); });
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 function makeFakeProcess(exitCode: number, stderr = '', stdout = '') {
   const proc = Object.assign(new EventEmitter(), {
@@ -29,9 +31,7 @@ function makeFakeProcess(exitCode: number, stderr = '', stdout = '') {
 const MINIMAL_JSON = JSON.stringify({
   title: 'Test Video',
   thumbnail: 'https://example.com/thumb.jpg',
-  formats: [
-    { format_id: '22', ext: 'mp4', resolution: '720p', vcodec: 'avc1', acodec: 'mp4a', fps: 30 }
-  ]
+  formats: [{ format_id: '22', ext: 'mp4', resolution: '720p', vcodec: 'avc1', acodec: 'mp4a', fps: 30 }]
 });
 
 function makeService(tokenOverrides: { token?: string; visitorData?: string } = {}) {
@@ -124,9 +124,7 @@ describe('FormatProbeService — bot-block retry', () => {
       .mockReturnValueOnce(makeFakeProcess(0, '', MINIMAL_JSON) as never);
 
     const { service, tokenService } = makeService();
-    tokenService.mintTokenForUrl
-      .mockResolvedValueOnce({ token: 'old-token', visitorData: 'old-visitor' })
-      .mockResolvedValueOnce({ token: 'new-token', visitorData: 'new-visitor' });
+    tokenService.mintTokenForUrl.mockResolvedValueOnce({ token: 'old-token', visitorData: 'old-visitor' }).mockResolvedValueOnce({ token: 'new-token', visitorData: 'new-visitor' });
 
     const result = await service.getFormats(YOUTUBE_URL);
 

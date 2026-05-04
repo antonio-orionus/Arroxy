@@ -1,10 +1,4 @@
-import type {
-  AppError,
-  FormatOption,
-  LocalizedError,
-  Preset,
-  StatusSnapshot
-} from '@shared/types';
+import type { AppError, FormatOption, LocalizedError, Preset, StatusSnapshot } from '@shared/types';
 import { PRESETS } from '@shared/schemas';
 import { i18next } from '@shared/i18n';
 import type { WizardStep } from './types';
@@ -39,10 +33,7 @@ export function buildFormatId(videoFormatId: string, audioFormatId: string | nul
 
 // Selected-audio-id → human label. Used by buildFormatLabel (queue item) and
 // StepConfirm (preview row) so they can't drift.
-export function resolveAudioLabel(
-  audioFormatId: string | null,
-  audioFormats: FormatOption[]
-): string {
+export function resolveAudioLabel(audioFormatId: string | null, audioFormats: FormatOption[]): string {
   if (audioFormatId === null) return i18next.t('wizard.formats.noAudio');
   const audioFmt = audioFormats.find((f) => f.formatId === audioFormatId);
   return audioFmt?.label ?? i18next.t('formatLabel.audioFallback');
@@ -51,23 +42,13 @@ export function resolveAudioLabel(
 // Selected-video-id → resolution label. The audio-only case returns
 // `audioOnlyFallback`, which differs by caller: queue items store the
 // untranslated sentinel `'audio-only'`; the confirm view shows a translated string.
-export function resolveVideoResolution(
-  selectedVideoFormatId: string,
-  formats: FormatOption[],
-  audioOnlyFallback: string
-): string {
+export function resolveVideoResolution(selectedVideoFormatId: string, formats: FormatOption[], audioOnlyFallback: string): string {
   if (selectedVideoFormatId === '') return audioOnlyFallback;
   const grouped = groupVideoFormats(formats).filter((g) => !g.isAudioOnly);
   return grouped.find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? selectedVideoFormatId;
 }
 
-export function buildFormatLabel(
-  videoFormatId: string,
-  videoResolution: string,
-  audioFormatId: string | null,
-  audioFormats: FormatOption[],
-  preset: Preset | null
-): string {
+export function buildFormatLabel(videoFormatId: string, videoResolution: string, audioFormatId: string | null, audioFormats: FormatOption[], preset: Preset | null): string {
   if (preset) {
     return i18next.t(`presets.${preset}.label` as const);
   }
@@ -85,7 +66,13 @@ export function groupVideoFormats(formats: FormatOption[]): GroupedVideoFormat[]
     const key = `${f.resolution}|${f.dynamicRange ?? ''}`;
     if (!seen.has(key)) {
       seen.add(key);
-      grouped.push({ resolution: f.resolution, formatId: f.formatId, label: f.label, isAudioOnly: false, dynamicRange: f.dynamicRange });
+      grouped.push({
+        resolution: f.resolution,
+        formatId: f.formatId,
+        label: f.label,
+        isAudioOnly: false,
+        dynamicRange: f.dynamicRange
+      });
     }
   }
 

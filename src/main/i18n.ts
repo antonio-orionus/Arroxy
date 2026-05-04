@@ -19,7 +19,27 @@ import el from '@shared/i18n/locales/el';
 import sr from '@shared/i18n/locales/sr';
 import type { SupportedLang } from '@shared/i18n/types';
 
-const RESOURCES: Record<SupportedLang, unknown> = { en, es, fr, de, ru, uk, ja, zh, hi, bn, ar, uz, my, ps, sw, am, om, el, sr };
+const RESOURCES: Record<SupportedLang, unknown> = {
+  en,
+  es,
+  fr,
+  de,
+  ru,
+  uk,
+  ja,
+  zh,
+  hi,
+  bn,
+  ar,
+  uz,
+  my,
+  ps,
+  sw,
+  am,
+  om,
+  el,
+  sr
+};
 
 function lookup(tree: unknown, dottedKey: string): string | undefined {
   const parts = dottedKey.split('.');
@@ -42,11 +62,7 @@ function interpolate(template: string, params?: Record<string, string | number>)
   });
 }
 
-export function mainT(
-  lang: SupportedLang,
-  dottedKey: string,
-  params?: Record<string, string | number>
-): string {
+export function mainT(lang: SupportedLang, dottedKey: string, params?: Record<string, string | number>): string {
   const fromLang = lookup(RESOURCES[lang], dottedKey);
   if (fromLang) return interpolate(fromLang, params);
   const fromEn = lookup(RESOURCES.en, dottedKey);

@@ -15,13 +15,4 @@ export const useAppStore = create<AppState>()((set, get) => ({
 // Re-export pure helpers so existing import paths
 // (`import { foo } from '../store/useAppStore'`) keep working without churn
 // in component files.
-export {
-  presetLabel,
-  presetOptions,
-  groupVideoFormats,
-  resolveAudioLabel,
-  resolveVideoResolution,
-  formatStatus,
-  formatLocalizedError,
-  formatError
-} from './helpers';
+export { presetLabel, presetOptions, groupVideoFormats, resolveAudioLabel, resolveVideoResolution, formatStatus, formatLocalizedError, formatError } from './helpers';

@@ -10,7 +10,9 @@ vi.mock('@main/utils/process', async (importOriginal) => {
 
 import { spawnYtDlp } from '@main/utils/process';
 
-beforeEach(() => { vi.clearAllMocks(); });
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 function makeFakeProcess(exitCode: number) {
   const proc = Object.assign(new EventEmitter(), {

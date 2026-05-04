@@ -38,9 +38,30 @@ describe('mapFormats', () => {
   it('sorts by resolution descending then filesize descending', () => {
     const mapped = mapFormats({
       formats: [
-        { format_id: '18', resolution: '360p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac', filesize: 10000 },
-        { format_id: '22', resolution: '720p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac', filesize: 50000 },
-        { format_id: '137', resolution: '1080p', ext: 'mp4', vcodec: 'avc1', acodec: 'none', filesize: 90000 }
+        {
+          format_id: '18',
+          resolution: '360p',
+          ext: 'mp4',
+          vcodec: 'avc1',
+          acodec: 'aac',
+          filesize: 10000
+        },
+        {
+          format_id: '22',
+          resolution: '720p',
+          ext: 'mp4',
+          vcodec: 'avc1',
+          acodec: 'aac',
+          filesize: 50000
+        },
+        {
+          format_id: '137',
+          resolution: '1080p',
+          ext: 'mp4',
+          vcodec: 'avc1',
+          acodec: 'none',
+          filesize: 90000
+        }
       ]
     });
 

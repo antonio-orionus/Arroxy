@@ -10,7 +10,9 @@ vi.mock('@main/utils/process', async (importOriginal) => {
 
 import { spawnYtDlp } from '@main/utils/process';
 
-beforeEach(() => { vi.clearAllMocks(); });
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 function makeFakeProcess(exitCode: number, stderr = '', stdout = '') {
   const proc = Object.assign(new EventEmitter(), {
@@ -46,7 +48,14 @@ function makeService() {
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 
-const BASE_FORMAT = { format_id: '22', ext: 'mp4', resolution: '720p', vcodec: 'avc1', acodec: 'mp4a', fps: 30 };
+const BASE_FORMAT = {
+  format_id: '22',
+  ext: 'mp4',
+  resolution: '720p',
+  vcodec: 'avc1',
+  acodec: 'mp4a',
+  fps: 30
+};
 
 describe('FormatProbeService — subtitle parsing', () => {
   it('forwards subtitles and automatic_captions from yt-dlp JSON', async () => {

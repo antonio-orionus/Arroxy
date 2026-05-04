@@ -10,9 +10,7 @@ if (!('appApi' in window)) {
 
   setTimeout(() => {
     // Flip installChannel to 'scoop' / 'homebrew' / 'winget' to preview those banner states
-    updateListeners.forEach((l) =>
-      l({ version: '1.2.0', currentVersion: '0.0.1', installChannel: 'direct' })
-    );
+    updateListeners.forEach((l) => l({ version: '1.2.0', currentVersion: '0.0.1', installChannel: 'direct' }));
   }, 3_000);
 
   let settings: AppSettings = {
@@ -30,7 +28,7 @@ if (!('appApi' in window)) {
       music: '/home/user/Music',
       documents: '/home/user/Documents',
       pictures: '/home/user/Pictures',
-      home: '/home/user',
+      home: '/home/user'
     }
   };
 
@@ -51,9 +49,7 @@ if (!('appApi' in window)) {
       { stage: 'download', key: 'startingYtdlp' }
     ];
     for (const { stage, key } of stages) {
-      statusListeners.forEach((l) =>
-        l({ jobId: id, stage, statusKey: key, at: new Date().toISOString() })
-      );
+      statusListeners.forEach((l) => l({ jobId: id, stage, statusKey: key, at: new Date().toISOString() }));
       await delay(300);
     }
 
@@ -85,15 +81,11 @@ if (!('appApi' in window)) {
     ];
 
     for (const step of steps) {
-      progressListeners.forEach((l) =>
-        l({ jobId: id, line: step.line, percent: step.pct, at: new Date().toISOString() })
-      );
+      progressListeners.forEach((l) => l({ jobId: id, line: step.line, percent: step.pct, at: new Date().toISOString() }));
       await delay(500);
     }
 
-    statusListeners.forEach((l) =>
-      l({ jobId: id, stage: 'done', statusKey: 'complete', at: new Date().toISOString() })
-    );
+    statusListeners.forEach((l) => l({ jobId: id, stage: 'done', statusKey: 'complete', at: new Date().toISOString() }));
   }
 
   const mock: AppApi = {
@@ -102,13 +94,21 @@ if (!('appApi' in window)) {
         await delay(900);
         return { ok: true, data: { completed: true, failures: [] } };
       },
-      setLanguage: async () => { /* no-op in browser */ }
+      setLanguage: async () => {
+        /* no-op in browser */
+      }
     },
 
     window: {
-      minimize: async () => { /* no-op in browser */ },
-      maximize: async () => { /* no-op in browser */ },
-      close: async () => { /* no-op in browser */ },
+      minimize: async () => {
+        /* no-op in browser */
+      },
+      maximize: async () => {
+        /* no-op in browser */
+      },
+      close: async () => {
+        /* no-op in browser */
+      },
       isMaximized: async () => false,
       onMaximizedChange: () => () => undefined
     },
@@ -131,18 +131,126 @@ if (!('appApi' in window)) {
             title: 'Mock Video — Lo-fi Hip Hop Radio 24/7',
             thumbnail: 'https://i.ytimg.com/vi/jfKfPfyJRdk/hqdefault.jpg',
             formats: [
-              { formatId: '313', label: '2160p | webm | 30fps | 2.2 GB', ext: 'webm', resolution: '2160p', fps: 30, filesize: 2_400_000_000, isVideoOnly: true, isAudioOnly: false },
-              { formatId: '271', label: '1440p | webm | 30fps | 906.2 MB', ext: 'webm', resolution: '1440p', fps: 30, filesize: 950_000_000, isVideoOnly: true, isAudioOnly: false },
-              { formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, isVideoOnly: true, isAudioOnly: false },
-              { formatId: '248', label: '1080p | webm | 30fps | 400.5 MB', ext: 'webm', resolution: '1080p', fps: 30, filesize: 420_000_000, isVideoOnly: true, isAudioOnly: false },
-              { formatId: '136', label: '720p | mp4 | 30fps | 209.8 MB', ext: 'mp4', resolution: '720p', fps: 30, filesize: 220_000_000, isVideoOnly: true, isAudioOnly: false },
-              { formatId: '247', label: '720p | webm | 30fps | 171.7 MB', ext: 'webm', resolution: '720p', fps: 30, filesize: 180_000_000, isVideoOnly: true, isAudioOnly: false },
-              { formatId: '135', label: '480p | mp4 | 30fps | 104.9 MB', ext: 'mp4', resolution: '480p', fps: 30, filesize: 110_000_000, isVideoOnly: true, isAudioOnly: false },
-              { formatId: '134', label: '360p | mp4 | 30fps | 62.0 MB', ext: 'mp4', resolution: '360p', fps: 30, filesize: 65_000_000, isVideoOnly: true, isAudioOnly: false },
-              { formatId: '251', label: 'webm · Opus · 132 kbps · 5.0 MB', ext: 'webm', resolution: 'audio only', abr: 132, filesize: 5_200_000, isVideoOnly: false, isAudioOnly: true },
-              { formatId: '140', label: 'm4a · AAC · 129 kbps · 4.8 MB', ext: 'm4a', resolution: 'audio only', abr: 129, filesize: 5_000_000, isVideoOnly: false, isAudioOnly: true },
-              { formatId: '249', label: 'webm · Opus · 50 kbps · 2.0 MB', ext: 'webm', resolution: 'audio only', abr: 50, filesize: 2_000_000, isVideoOnly: false, isAudioOnly: true },
-              { formatId: '139', label: 'm4a · AAC · 48 kbps · 1.8 MB', ext: 'm4a', resolution: 'audio only', abr: 48, filesize: 1_900_000, isVideoOnly: false, isAudioOnly: true }
+              {
+                formatId: '313',
+                label: '2160p | webm | 30fps | 2.2 GB',
+                ext: 'webm',
+                resolution: '2160p',
+                fps: 30,
+                filesize: 2_400_000_000,
+                isVideoOnly: true,
+                isAudioOnly: false
+              },
+              {
+                formatId: '271',
+                label: '1440p | webm | 30fps | 906.2 MB',
+                ext: 'webm',
+                resolution: '1440p',
+                fps: 30,
+                filesize: 950_000_000,
+                isVideoOnly: true,
+                isAudioOnly: false
+              },
+              {
+                formatId: '137',
+                label: '1080p | mp4 | 30fps | 515.0 MB',
+                ext: 'mp4',
+                resolution: '1080p',
+                fps: 30,
+                filesize: 540_000_000,
+                isVideoOnly: true,
+                isAudioOnly: false
+              },
+              {
+                formatId: '248',
+                label: '1080p | webm | 30fps | 400.5 MB',
+                ext: 'webm',
+                resolution: '1080p',
+                fps: 30,
+                filesize: 420_000_000,
+                isVideoOnly: true,
+                isAudioOnly: false
+              },
+              {
+                formatId: '136',
+                label: '720p | mp4 | 30fps | 209.8 MB',
+                ext: 'mp4',
+                resolution: '720p',
+                fps: 30,
+                filesize: 220_000_000,
+                isVideoOnly: true,
+                isAudioOnly: false
+              },
+              {
+                formatId: '247',
+                label: '720p | webm | 30fps | 171.7 MB',
+                ext: 'webm',
+                resolution: '720p',
+                fps: 30,
+                filesize: 180_000_000,
+                isVideoOnly: true,
+                isAudioOnly: false
+              },
+              {
+                formatId: '135',
+                label: '480p | mp4 | 30fps | 104.9 MB',
+                ext: 'mp4',
+                resolution: '480p',
+                fps: 30,
+                filesize: 110_000_000,
+                isVideoOnly: true,
+                isAudioOnly: false
+              },
+              {
+                formatId: '134',
+                label: '360p | mp4 | 30fps | 62.0 MB',
+                ext: 'mp4',
+                resolution: '360p',
+                fps: 30,
+                filesize: 65_000_000,
+                isVideoOnly: true,
+                isAudioOnly: false
+              },
+              {
+                formatId: '251',
+                label: 'webm · Opus · 132 kbps · 5.0 MB',
+                ext: 'webm',
+                resolution: 'audio only',
+                abr: 132,
+                filesize: 5_200_000,
+                isVideoOnly: false,
+                isAudioOnly: true
+              },
+              {
+                formatId: '140',
+                label: 'm4a · AAC · 129 kbps · 4.8 MB',
+                ext: 'm4a',
+                resolution: 'audio only',
+                abr: 129,
+                filesize: 5_000_000,
+                isVideoOnly: false,
+                isAudioOnly: true
+              },
+              {
+                formatId: '249',
+                label: 'webm · Opus · 50 kbps · 2.0 MB',
+                ext: 'webm',
+                resolution: 'audio only',
+                abr: 50,
+                filesize: 2_000_000,
+                isVideoOnly: false,
+                isAudioOnly: true
+              },
+              {
+                formatId: '139',
+                label: 'm4a · AAC · 48 kbps · 1.8 MB',
+                ext: 'm4a',
+                resolution: 'audio only',
+                abr: 48,
+                filesize: 1_900_000,
+                isVideoOnly: false,
+                isAudioOnly: true
+              }
             ],
             subtitles: {
               en: [{ ext: 'vtt', name: 'English' }],
@@ -224,12 +332,7 @@ if (!('appApi' in window)) {
 
     dialog: {
       chooseFolder: async () => {
-        const paths = [
-          '/home/user/Downloads',
-          '/home/user/Videos',
-          '/home/user/Desktop',
-          '/tmp/arroxy-downloads'
-        ];
+        const paths = ['/home/user/Downloads', '/home/user/Videos', '/home/user/Desktop', '/tmp/arroxy-downloads'];
         const path = paths[Math.floor(Math.random() * paths.length)];
         await delay(200);
         return { ok: true, data: { path } };
@@ -249,7 +352,7 @@ if (!('appApi' in window)) {
         progressListeners.add(listener);
         return () => progressListeners.delete(listener);
       },
-      onClipboardUrl: () => () => undefined,
+      onClipboardUrl: () => () => undefined
     },
 
     queue: {
@@ -266,12 +369,12 @@ if (!('appApi' in window)) {
         await delay(2_000);
         console.log('[mock] updater: install complete (would quit in real app)');
         return { ok: true } as const;
-      },
+      }
     },
 
     analytics: {
-      track: (name, props) => console.log('[mock] analytics', name, props),
-    },
+      track: (name, props) => console.log('[mock] analytics', name, props)
+    }
   };
 
   (window as unknown as { appApi: AppApi }).appApi = mock;

@@ -1,28 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import {
-  isYouTubeUrl,
-  startDownloadSchema,
-  ytDlpInfoSchema,
-  queueArraySchema,
-  MAX_SUBTITLE_LANGUAGES
-} from '@shared/schemas';
+import { isYouTubeUrl, startDownloadSchema, ytDlpInfoSchema, queueArraySchema, MAX_SUBTITLE_LANGUAGES } from '@shared/schemas';
 
 describe('isYouTubeUrl', () => {
-  it.each([
-    'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-    'https://youtu.be/dQw4w9WgXcQ',
-    'https://m.youtube.com/watch?v=abc',
-    'https://music.youtube.com/watch?v=abc'
-  ])('accepts %s', (url) => {
+  it.each(['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://youtu.be/dQw4w9WgXcQ', 'https://m.youtube.com/watch?v=abc', 'https://music.youtube.com/watch?v=abc'])('accepts %s', (url) => {
     expect(isYouTubeUrl(url)).toBe(true);
   });
 
-  it.each([
-    'https://example.com/watch?v=dQw4w9WgXcQ',
-    'https://youtube.evil.com/watch?v=abc',
-    'not a url',
-    ''
-  ])('rejects %s', (url) => {
+  it.each(['https://example.com/watch?v=dQw4w9WgXcQ', 'https://youtube.evil.com/watch?v=abc', 'not a url', ''])('rejects %s', (url) => {
     expect(isYouTubeUrl(url)).toBe(false);
   });
 });
@@ -35,22 +19,16 @@ describe('startDownloadSchema — subtitleLanguages regex', () => {
     });
   }
 
-  it.each([
-    ['en'],
-    ['en-US'],
-    ['pt-BR'],
-    ['en-orig'],
-    ['fr-CA-orig']
-  ])('accepts %j', (lang) => {
+  it.each([['en'], ['en-US'], ['pt-BR'], ['en-orig'], ['fr-CA-orig']])('accepts %j', (lang) => {
     expect(build([lang]).success).toBe(true);
   });
 
   it.each([
-    ['x'],            // single letter
-    ['english'],      // too long
-    ['EN'],           // uppercase primary
-    ['en_US'],        // underscore separator
-    ['en-']           // trailing dash
+    ['x'], // single letter
+    ['english'], // too long
+    ['EN'], // uppercase primary
+    ['en_US'], // underscore separator
+    ['en-'] // trailing dash
   ])('rejects %j', (lang) => {
     expect(build([lang]).success).toBe(false);
   });
@@ -70,9 +48,7 @@ describe('ytDlpInfoSchema — null normalization', () => {
       title: 'x',
       thumbnail: null,
       duration: null,
-      formats: [
-        { format_id: '22', filesize: null, fps: null, abr: null, ext: 'mp4' }
-      ],
+      formats: [{ format_id: '22', filesize: null, fps: null, abr: null, ext: 'mp4' }],
       subtitles: null,
       automatic_captions: null
     };
@@ -102,7 +78,15 @@ describe('ytDlpInfoSchema — null normalization', () => {
       thumbnail: 't.jpg',
       duration: 120,
       formats: [
-        { format_id: '22', filesize: 1024, fps: 30, ext: 'mp4', resolution: '720p', vcodec: 'avc1', acodec: 'mp4a' }
+        {
+          format_id: '22',
+          filesize: 1024,
+          fps: 30,
+          ext: 'mp4',
+          resolution: '720p',
+          vcodec: 'avc1',
+          acodec: 'mp4a'
+        }
       ],
       subtitles: { en: [{ ext: 'vtt', name: 'English' }] },
       automatic_captions: { 'en-orig': [{ ext: 'vtt' }] }
@@ -114,12 +98,23 @@ describe('ytDlpInfoSchema — null normalization', () => {
 
 describe('queueArraySchema', () => {
   const valid = {
-    id: 'a', url: 'u', title: 't', thumbnail: '',
-    outputDir: '/tmp', formatLabel: 'Best', status: 'done',
-    progressPercent: 100, progressDetail: null, lastStatus: null,
-    error: null, finishedAt: null, downloadJobId: null,
-    subtitleLanguages: [], writeAutoSubs: false,
-    subtitleMode: 'sidecar', subtitleFormat: 'srt'
+    id: 'a',
+    url: 'u',
+    title: 't',
+    thumbnail: '',
+    outputDir: '/tmp',
+    formatLabel: 'Best',
+    status: 'done',
+    progressPercent: 100,
+    progressDetail: null,
+    lastStatus: null,
+    error: null,
+    finishedAt: null,
+    downloadJobId: null,
+    subtitleLanguages: [],
+    writeAutoSubs: false,
+    subtitleMode: 'sidecar',
+    subtitleFormat: 'srt'
   };
 
   it('accepts an empty array', () => {
@@ -135,10 +130,14 @@ describe('queueArraySchema', () => {
   });
 
   it('rejects when error.key is not a known YtdlpErrorKey', () => {
-    expect(queueArraySchema.safeParse([{
-      ...valid,
-      status: 'error',
-      error: { key: 'totallyMadeUp', rawMessage: 'oops' }
-    }]).success).toBe(false);
+    expect(
+      queueArraySchema.safeParse([
+        {
+          ...valid,
+          status: 'error',
+          error: { key: 'totallyMadeUp', rawMessage: 'oops' }
+        }
+      ]).success
+    ).toBe(false);
   });
 });

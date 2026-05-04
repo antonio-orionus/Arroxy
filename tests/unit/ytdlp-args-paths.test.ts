@@ -17,7 +17,7 @@ function makeFakeProcess(exitCode = 0) {
   const proc = Object.assign(new EventEmitter(), {
     stdout: new EventEmitter(),
     stderr: new EventEmitter(),
-    kill: vi.fn(),
+    kill: vi.fn()
   });
   setTimeout(() => proc.emit('close', exitCode), 10);
   return proc;
@@ -26,13 +26,13 @@ function makeFakeProcess(exitCode = 0) {
 function makeYtDlp() {
   const tokenService = {
     mintTokenForUrl: vi.fn().mockResolvedValue({ token: 'tok', visitorData: 'vd' }),
-    invalidateCache: vi.fn(),
+    invalidateCache: vi.fn()
   };
   const binaryManager = {
     ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'),
     ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'),
     ensureDeno: vi.fn().mockResolvedValue('/fake/deno'),
-    ensureFFprobe: vi.fn().mockResolvedValue(null),
+    ensureFFprobe: vi.fn().mockResolvedValue(null)
   };
   const settingsStore = { get: vi.fn().mockResolvedValue({}) };
   return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
@@ -88,8 +88,11 @@ describe('YtDlp — --paths temp dir (video)', () => {
 describe('YtDlp — --paths temp dir (video+embed)', () => {
   it('when tempDir provided: uses --paths home: and --paths temp:', async () => {
     await makeYtDlp().run({
-      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR, tempDir: TEMP_DIR,
-      subtitleLanguages: ['en'],
+      kind: 'video+embed',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      tempDir: TEMP_DIR,
+      subtitleLanguages: ['en']
     });
     const args = getArgs();
     const homeIdx = args.indexOf('--paths');
@@ -102,16 +105,22 @@ describe('YtDlp — --paths temp dir (video+embed)', () => {
 describe('YtDlp — subtitle requests unchanged by --paths', () => {
   it('subtitle kind does not use --paths', async () => {
     await makeYtDlp().run({
-      kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], subtitleFormat: 'vtt',
+      kind: 'subtitle',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      subtitleFormat: 'vtt'
     });
     expect(getArgs()).not.toContain('--paths');
   });
 
   it('subtitle -o still contains outputDir', async () => {
     await makeYtDlp().run({
-      kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], subtitleFormat: 'srt',
+      kind: 'subtitle',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      subtitleFormat: 'srt'
     });
     const args = getArgs();
     const oIdx = args.indexOf('-o');

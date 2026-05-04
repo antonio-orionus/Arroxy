@@ -14,7 +14,7 @@ if (typeof window !== 'undefined' && !window.matchMedia) {
       onchange: null,
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
-      dispatchEvent: vi.fn(),
-    })),
+      dispatchEvent: vi.fn()
+    }))
   });
 }

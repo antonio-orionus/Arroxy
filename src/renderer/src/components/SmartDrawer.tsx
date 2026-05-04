@@ -18,23 +18,12 @@ export function SmartDrawer(): JSX.Element {
   const clearCompleted = useAppStore((s) => s.clearCompleted);
 
   const reversedQueue = useMemo(() => [...queue].reverse(), [queue]);
-  const activeItems = useMemo(
-    () => queue.filter((i) => i.status === 'downloading'),
-    [queue]
-  );
+  const activeItems = useMemo(() => queue.filter((i) => i.status === 'downloading'), [queue]);
   const activeCount = activeItems.length;
   const totalCount = queue.length;
-  const hasCompleted = useMemo(
-    () => queue.some((i) => i.status === 'done' || i.status === 'cancelled'),
-    [queue]
-  );
+  const hasCompleted = useMemo(() => queue.some((i) => i.status === 'done' || i.status === 'cancelled'), [queue]);
 
-  const aggregatePercent = useMemo(
-    () => activeItems.length === 0
-      ? 0
-      : activeItems.reduce((sum, i) => sum + i.progressPercent, 0) / activeItems.length,
-    [activeItems]
-  );
+  const aggregatePercent = useMemo(() => (activeItems.length === 0 ? 0 : activeItems.reduce((sum, i) => sum + i.progressPercent, 0) / activeItems.length), [activeItems]);
   const headerProgress = activeCount === 1 ? activeItems[0].progressPercent : aggregatePercent;
 
   let headerSummary: string | null = null;
@@ -54,18 +43,14 @@ export function SmartDrawer(): JSX.Element {
   return (
     <section className="relative shrink-0 border-t border-border bg-background" data-testid="smart-drawer">
       <QueueTipNudge visible={showQueueTip} onDismiss={dismissQueueTip} />
-      <button
-        type="button"
-        onClick={() => setDrawerOpen(!drawerOpen)}
-        className="relative overflow-hidden w-full flex items-center justify-between px-4 h-9 hover:bg-accent transition-colors"
-        data-testid="drawer-toggle"
-        title={t('queue.toggleTitle')}
-      >
+      <button type="button" onClick={() => setDrawerOpen(!drawerOpen)} className="relative overflow-hidden w-full flex items-center justify-between px-4 h-9 hover:bg-accent transition-colors" data-testid="drawer-toggle" title={t('queue.toggleTitle')}>
         <div className="flex items-center gap-2">
           <span className="text-[12px] font-bold uppercase tracking-widest text-muted-foreground">
             {t('queue.header')}
             {totalCount > 0 && (
-              <Badge variant="secondary" className="ml-1 text-[9px] font-mono h-4 px-1">{totalCount}</Badge>
+              <Badge variant="secondary" className="ml-1 text-[9px] font-mono h-4 px-1">
+                {totalCount}
+              </Badge>
             )}
           </span>
           {headerSummary && (
@@ -79,7 +64,10 @@ export function SmartDrawer(): JSX.Element {
             <button
               type="button"
               data-testid="btn-clear-completed"
-              onClick={(e) => { e.stopPropagation(); clearCompleted(); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                clearCompleted();
+              }}
               className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded hover:bg-accent"
               title={t('queue.clearTitle')}
             >
@@ -87,15 +75,9 @@ export function SmartDrawer(): JSX.Element {
               {t('queue.clear')}
             </button>
           )}
-          {totalCount > 0 && !drawerOpen && (
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand)] animate-pulse" aria-hidden />
-          )}
+          {totalCount > 0 && !drawerOpen && <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand)] animate-pulse" aria-hidden />}
           <span className={activeCount > 0 ? 'text-[var(--brand)]' : 'text-muted-foreground'}>
-            <ChevronDown
-              size={activeCount > 0 ? 14 : 12}
-              strokeWidth={activeCount > 0 ? 2.5 : 2}
-              className={`transition-all duration-300 ${drawerOpen ? '' : 'rotate-180'}`}
-            />
+            <ChevronDown size={activeCount > 0 ? 14 : 12} strokeWidth={activeCount > 0 ? 2.5 : 2} className={`transition-all duration-300 ${drawerOpen ? '' : 'rotate-180'}`} />
           </span>
         </div>
         {activeCount > 0 && (
@@ -106,17 +88,13 @@ export function SmartDrawer(): JSX.Element {
             style={{
               width: `${headerProgress}%`,
               background: 'linear-gradient(90deg, var(--brand), var(--brand-hover))',
-              boxShadow: '0 0 8px var(--brand-glow)',
+              boxShadow: '0 0 8px var(--brand-glow)'
             }}
           />
         )}
       </button>
 
-      <div
-        className="drawer-body"
-        style={{ maxHeight: drawerOpen ? '16rem' : '0px' }}
-        data-testid="drawer-body"
-      >
+      <div className="drawer-body" style={{ maxHeight: drawerOpen ? '16rem' : '0px' }} data-testid="drawer-body">
         <ScrollArea className="max-h-64">
           <ul className="px-3 pt-2 pb-3 flex flex-col gap-1.5">
             {queue.length === 0 ? (
@@ -125,9 +103,7 @@ export function SmartDrawer(): JSX.Element {
                 <span>{t('queue.empty')}</span>
               </li>
             ) : (
-              reversedQueue.map((item) => (
-                <QueueItemCard key={item.id} item={item} />
-              ))
+              reversedQueue.map((item) => <QueueItemCard key={item.id} item={item} />)
             )}
           </ul>
         </ScrollArea>

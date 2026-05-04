@@ -17,11 +17,11 @@ describe('Queue store — phase status transitions', () => {
         start: vi.fn(),
         cancel: vi.fn().mockResolvedValue(ok({ cancelled: true })),
         getFormats: vi.fn(),
-        pause: vi.fn().mockResolvedValue(ok({ paused: true })),
+        pause: vi.fn().mockResolvedValue(ok({ paused: true }))
       },
       settings: {
         get: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false })),
-        update: vi.fn().mockResolvedValue(ok({})),
+        update: vi.fn().mockResolvedValue(ok({}))
       },
       shell: { openFolder: vi.fn(), openExternal: vi.fn() },
       logs: { openDir: vi.fn() },
@@ -32,7 +32,7 @@ describe('Queue store — phase status transitions', () => {
           return () => undefined;
         }),
         onProgress: vi.fn().mockReturnValue(() => undefined),
-        onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
+        onClipboardUrl: vi.fn().mockReturnValue(() => undefined)
       },
       queue: {
         save: vi.fn().mockResolvedValue({ ok: true, data: { saved: true } }),
@@ -52,12 +52,26 @@ describe('Queue store — phase status transitions', () => {
   beforeEach(async () => {
     capturedOnStatus = null;
     useAppStore.setState({
-      initialized: false, initializing: false, settings: null,
-      wizardStep: 'url', formatsLoading: false, wizardUrl: '', wizardTitle: '', wizardThumbnail: '',
-      wizardFormats: [], selectedVideoFormatId: '', selectedAudioFormatId: null, activePreset: null,
-      wizardOutputDir: '', wizardError: null, wizardErrorOrigin: null,
-      wizardSubtitles: {}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: [],
-      queue: [], drawerOpen: false,
+      initialized: false,
+      initializing: false,
+      settings: null,
+      wizardStep: 'url',
+      formatsLoading: false,
+      wizardUrl: '',
+      wizardTitle: '',
+      wizardThumbnail: '',
+      wizardFormats: [],
+      selectedVideoFormatId: '',
+      selectedAudioFormatId: null,
+      activePreset: null,
+      wizardOutputDir: '',
+      wizardError: null,
+      wizardErrorOrigin: null,
+      wizardSubtitles: {},
+      wizardAutomaticCaptions: {},
+      wizardSubtitleLanguages: [],
+      queue: [],
+      drawerOpen: false
     });
     vi.clearAllMocks();
 

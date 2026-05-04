@@ -85,7 +85,7 @@ describe('dedupeCues — algorithm branches', () => {
     // the next cue's start.
     const out = collect([
       { start: 0, end: 1000, text: 'first sentence' },
-      { start: 500, end: 2000, text: 'tail' },     // extends prev.end → 2000
+      { start: 500, end: 2000, text: 'tail' }, // extends prev.end → 2000
       { start: 1500, end: 3000, text: 'a fully distinct third cue with more words' }
     ]);
     // Verify no overlap.

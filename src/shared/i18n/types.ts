@@ -1,9 +1,5 @@
 import type en from './locales/en';
-import {
-  SUPPORTED_LANGS as LANGS,
-  type SupportedLang as Lang,
-  type YtdlpErrorKey as YtdlpErrorKeyAlias,
-} from '../schemas';
+import { SUPPORTED_LANGS as LANGS, type SupportedLang as Lang, type YtdlpErrorKey as YtdlpErrorKeyAlias } from '../schemas';
 
 // Re-export so existing imports of `@shared/i18n/types` and `@shared/i18n`
 // continue to work; canonical definitions live in shared/schemas.ts.
@@ -41,10 +37,6 @@ export interface LocalizedError {
 
 export type EnTranslation = typeof en;
 
-type WidenStrings<T> = T extends string
-  ? string
-  : T extends readonly (infer U)[]
-    ? readonly WidenStrings<U>[]
-    : { readonly [K in keyof T]: WidenStrings<T[K]> };
+type WidenStrings<T> = T extends string ? string : T extends readonly (infer U)[] ? readonly WidenStrings<U>[] : { readonly [K in keyof T]: WidenStrings<T[K]> };
 
 export type LocaleResource = WidenStrings<EnTranslation>;

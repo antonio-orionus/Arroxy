@@ -34,11 +34,7 @@ export function joinSubfolder(base: string, sub: string): string {
   return trimmed + sep + sub;
 }
 
-export function effectiveOutputDir(
-  base: string,
-  enabled: boolean,
-  subfolder: string
-): string {
+export function effectiveOutputDir(base: string, enabled: boolean, subfolder: string): string {
   const t = subfolder.trim();
   if (!enabled || !t || !isValidSubfolder(t)) return base;
   return joinSubfolder(base, t);

@@ -29,7 +29,6 @@ if (process.env.ELECTRON_USER_DATA) {
   app.setPath('userData', process.env.ELECTRON_USER_DATA);
 }
 
-
 const hasSingleInstanceLock = app.requestSingleInstanceLock();
 
 if (!hasSingleInstanceLock) {
@@ -73,10 +72,7 @@ function createMainWindow(): BrowserWindow {
 
 if (hasSingleInstanceLock) {
   // Must be called before app.isReady() so aptabase registers its custom protocol scheme.
-  setupAnalytics(
-    process.env.APTABASE_KEY,
-    !!(process.env.ELECTRON_RENDERER_URL) || isMockBackend || !!process.env.ARROXY_SMOKE_URL
-  );
+  setupAnalytics(process.env.APTABASE_KEY, !!process.env.ELECTRON_RENDERER_URL || isMockBackend || !!process.env.ARROXY_SMOKE_URL);
 
   void app.whenReady().then(async () => {
     const userDataPath = app.getPath('userData');
@@ -121,7 +117,7 @@ if (hasSingleInstanceLock) {
     trackMain('app_started', {
       install_channel: detectInstallChannel(app.getName()),
       platform_arch: `${process.platform}-${arch}`,
-      is_first_run: isFirstRun,
+      is_first_run: isFirstRun
     });
 
     const mainWindow = createMainWindow();
@@ -144,13 +140,12 @@ if (hasSingleInstanceLock) {
       const lang = languageRef.current;
       const { response } = await dialog.showMessageBox(mainWindow, {
         type: 'warning',
-        buttons: [
-          mainT(lang, 'dialogs.quitWithActiveDownloads.confirm'),
-          mainT(lang, 'dialogs.quitWithActiveDownloads.keep')
-        ],
+        buttons: [mainT(lang, 'dialogs.quitWithActiveDownloads.confirm'), mainT(lang, 'dialogs.quitWithActiveDownloads.keep')],
         defaultId: 1,
         cancelId: 1,
-        message: mainT(lang, `dialogs.quitWithActiveDownloads.${pluralKey('message', count)}`, { count }),
+        message: mainT(lang, `dialogs.quitWithActiveDownloads.${pluralKey('message', count)}`, {
+          count
+        }),
         detail: mainT(lang, 'dialogs.quitWithActiveDownloads.detail')
       });
       if (response === 0) app.quit();
@@ -164,13 +159,12 @@ if (hasSingleInstanceLock) {
         const lang = languageRef.current;
         const choice = dialog.showMessageBoxSync(mainWindow, {
           type: 'warning',
-          buttons: [
-            mainT(lang, 'dialogs.quitWithActiveDownloads.confirm'),
-            mainT(lang, 'dialogs.quitWithActiveDownloads.keep')
-          ],
+          buttons: [mainT(lang, 'dialogs.quitWithActiveDownloads.confirm'), mainT(lang, 'dialogs.quitWithActiveDownloads.keep')],
           defaultId: 1,
           cancelId: 1,
-          message: mainT(lang, `dialogs.quitWithActiveDownloads.${pluralKey('message', count)}`, { count }),
+          message: mainT(lang, `dialogs.quitWithActiveDownloads.${pluralKey('message', count)}`, {
+            count
+          }),
           detail: mainT(lang, 'dialogs.quitWithActiveDownloads.detail')
         });
         if (choice === 1) event.preventDefault();
@@ -202,10 +196,7 @@ if (hasSingleInstanceLock) {
         const lang = languageRef.current;
         const { response, checkboxChecked } = await dialog.showMessageBox(mainWindow, {
           type: 'question',
-          buttons: [
-            mainT(lang, 'dialogs.closeToTray.hide'),
-            mainT(lang, 'dialogs.closeToTray.quit')
-          ],
+          buttons: [mainT(lang, 'dialogs.closeToTray.hide'), mainT(lang, 'dialogs.closeToTray.quit')],
           defaultId: 0,
           cancelId: 1,
           message: mainT(lang, 'dialogs.closeToTray.message'),

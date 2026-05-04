@@ -40,7 +40,7 @@ describe('QueueStore', () => {
       id: 'b',
       status: 'done',
       progressPercent: 100,
-      finishedAt: '2024-01-01T12:00:00.000Z',
+      finishedAt: '2024-01-01T12:00:00.000Z'
     });
     await store.save([item]);
 
@@ -52,7 +52,11 @@ describe('QueueStore', () => {
 
   it('round-trips error items with error preserved', async () => {
     const [store] = await tempStore();
-    const item = makeItem({ id: 'c', status: 'error', error: { key: null, rawMessage: 'Network error' } });
+    const item = makeItem({
+      id: 'c',
+      status: 'error',
+      error: { key: null, rawMessage: 'Network error' }
+    });
     await store.save([item]);
 
     const loaded = await loadOk(store);
@@ -67,7 +71,7 @@ describe('QueueStore', () => {
       status: 'downloading',
       progressPercent: 67,
       progressDetail: '4.5MiB/s ETA 00:10',
-      downloadJobId: 'job-xyz',
+      downloadJobId: 'job-xyz'
     });
     await store.save([item]);
 
@@ -85,7 +89,7 @@ describe('QueueStore', () => {
       status: 'paused',
       progressPercent: 40,
       progressDetail: '1.2MiB/s',
-      downloadJobId: 'job-abc',
+      downloadJobId: 'job-abc'
     });
     await store.save([item]);
 
@@ -98,10 +102,7 @@ describe('QueueStore', () => {
 
   it('excludes cancelled items from save', async () => {
     const [store] = await tempStore();
-    await store.save([
-      makeItem({ id: 'keep', status: 'pending' }),
-      makeItem({ id: 'drop', status: 'cancelled' }),
-    ]);
+    await store.save([makeItem({ id: 'keep', status: 'pending' }), makeItem({ id: 'drop', status: 'cancelled' })]);
 
     const loaded = await loadOk(store);
     expect(loaded).toHaveLength(1);

@@ -90,11 +90,7 @@ async function downloadFile(url: string, destination: string): Promise<void> {
       const req = https
         .get(targetUrl, { headers: { 'User-Agent': 'arroxy/1.0' } }, async (res) => {
           try {
-            if (
-              res.statusCode &&
-              [301, 302, 307, 308].includes(res.statusCode) &&
-              res.headers.location
-            ) {
+            if (res.statusCode && [301, 302, 307, 308].includes(res.statusCode) && res.headers.location) {
               request(resolveRedirect(targetUrl, res.headers.location));
               return;
             }
@@ -135,24 +131,24 @@ type AssetPlatform = 'win32' | 'darwin' | 'linux';
 type AssetArch = 'arm64' | 'x64';
 
 const YT_DLP_ASSETS: Record<AssetPlatform, Record<AssetArch, string>> = {
-  win32:  { x64: 'yt-dlp.exe',         arm64: 'yt-dlp.exe' },
+  win32: { x64: 'yt-dlp.exe', arm64: 'yt-dlp.exe' },
   darwin: { x64: 'yt-dlp_macos_legacy', arm64: 'yt-dlp_macos' },
-  linux:  { x64: 'yt-dlp_linux',       arm64: 'yt-dlp_linux_aarch64' }
+  linux: { x64: 'yt-dlp_linux', arm64: 'yt-dlp_linux_aarch64' }
 };
 
 const FFMPEG_ASSETS: Record<AssetPlatform, Record<AssetArch, string>> = {
-  win32:  { x64: 'ffmpeg-win32-x64',  arm64: 'ffmpeg-win32-arm64' },
+  win32: { x64: 'ffmpeg-win32-x64', arm64: 'ffmpeg-win32-arm64' },
   darwin: { x64: 'ffmpeg-darwin-x64', arm64: 'ffmpeg-darwin-arm64' },
-  linux:  { x64: 'ffmpeg-linux-x64',  arm64: 'ffmpeg-linux-arm64' }
+  linux: { x64: 'ffmpeg-linux-x64', arm64: 'ffmpeg-linux-arm64' }
 };
 
 // Deno releases ship as ZIPs named deno-<rust-target>.zip on the GitHub release
 // page. The archive contains a single binary (deno or deno.exe).
 // Note: Windows ARM64 has no official deno build yet — null falls back to no JS runtime.
 const DENO_ASSETS: Record<AssetPlatform, Record<AssetArch, string | null>> = {
-  win32:  { x64: 'x86_64-pc-windows-msvc',     arm64: null },
-  darwin: { x64: 'x86_64-apple-darwin',        arm64: 'aarch64-apple-darwin' },
-  linux:  { x64: 'x86_64-unknown-linux-gnu',   arm64: 'aarch64-unknown-linux-gnu' }
+  win32: { x64: 'x86_64-pc-windows-msvc', arm64: null },
+  darwin: { x64: 'x86_64-apple-darwin', arm64: 'aarch64-apple-darwin' },
+  linux: { x64: 'x86_64-unknown-linux-gnu', arm64: 'aarch64-unknown-linux-gnu' }
 };
 
 function currentAssetTarget(): { platform: AssetPlatform; arch: AssetArch } | null {
@@ -232,7 +228,7 @@ export class BinaryManager {
 
   async ensureYtDlp(onStatus?: StatusReporter): Promise<string> {
     const override = process.env.ARROXY_YT_DLP_PATH;
-    if (override && await this.isUsableBinary(override)) {
+    if (override && (await this.isUsableBinary(override))) {
       this.logger.log('INFO', 'Using pre-installed yt-dlp', { path: override });
       return override;
     }
@@ -273,7 +269,7 @@ export class BinaryManager {
   // the asarUnpack glob in package.json's build config.
   async ensureFFprobe(onStatus?: StatusReporter): Promise<string | null> {
     const override = process.env.ARROXY_FFPROBE_PATH;
-    if (override && await this.isUsableBinary(override)) {
+    if (override && (await this.isUsableBinary(override))) {
       this.logger.log('INFO', 'Using pre-installed ffprobe', { path: override });
       return override;
     }
@@ -282,7 +278,7 @@ export class BinaryManager {
     let bundledSize: number;
     try {
       const ffprobeMod = await import('@ffprobe-installer/ffprobe');
-      const exported = (ffprobeMod as { default?: { path: string }; path?: string });
+      const exported = ffprobeMod as { default?: { path: string }; path?: string };
       bundledPath = exported.default?.path ?? exported.path!;
       bundledSize = (await fsPromises.stat(bundledPath)).size;
     } catch (err) {
@@ -300,7 +296,9 @@ export class BinaryManager {
           this.logger.log('INFO', 'ffprobe binary already exists', { destinationPath: targetPath });
           return targetPath;
         }
-        this.logger.log('INFO', 'ffprobe binary outdated, refreshing', { destinationPath: targetPath });
+        this.logger.log('INFO', 'ffprobe binary outdated, refreshing', {
+          destinationPath: targetPath
+        });
       } catch {
         // stat failed — fall through to copy.
       }
@@ -326,7 +324,7 @@ export class BinaryManager {
   // the download. Bot-block fallbacks still cover us.
   async ensureDeno(onStatus?: StatusReporter): Promise<string | null> {
     const override = process.env.ARROXY_DENO_PATH;
-    if (override && await this.isUsableBinary(override)) {
+    if (override && (await this.isUsableBinary(override))) {
       this.logger.log('INFO', 'Using pre-installed deno', { path: override });
       return override;
     }
@@ -356,11 +354,13 @@ export class BinaryManager {
         expectedSha256: async () => {
           try {
             const checksumText = await downloadText(checksumUrl);
-            return parseShaLine(checksumText, assetName)
-              ?? (() => {
+            return (
+              parseShaLine(checksumText, assetName) ??
+              (() => {
                 const firstToken = checksumText.trim().split(/\s+/)[0];
                 return /^[a-fA-F0-9]{64}$/.test(firstToken) ? firstToken.toLowerCase() : null;
-              })();
+              })()
+            );
           } catch {
             return null;
           }
@@ -379,7 +379,7 @@ export class BinaryManager {
 
   async ensureFFmpeg(onStatus?: StatusReporter): Promise<string | null> {
     const override = process.env.ARROXY_FFMPEG_PATH;
-    if (override && await this.isUsableBinary(override)) {
+    if (override && (await this.isUsableBinary(override))) {
       this.logger.log('INFO', 'Using pre-installed ffmpeg', { path: override });
       return override;
     }
@@ -418,15 +418,7 @@ export class BinaryManager {
     return targetPath;
   }
 
-  private async ensureZippedBinary(config: {
-    name: string;
-    downloadUrl: string;
-    zipFileName: string;
-    innerExecutableName: string;
-    destinationPath: string;
-    expectedSha256: () => Promise<string | null>;
-    onStatus?: StatusReporter;
-  }): Promise<void> {
+  private async ensureZippedBinary(config: { name: string; downloadUrl: string; zipFileName: string; innerExecutableName: string; destinationPath: string; expectedSha256: () => Promise<string | null>; onStatus?: StatusReporter }): Promise<void> {
     const { destinationPath, name, onStatus } = config;
 
     const existing = this.inProgress.get(destinationPath);
@@ -449,9 +441,7 @@ export class BinaryManager {
         if (expected) {
           const actual = await sha256ForFile(zipPath);
           if (actual !== expected) {
-            throw this.toBinaryError(
-              `${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`
-            );
+            throw this.toBinaryError(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`);
           }
         } else {
           this.logger.log('WARN', `Checksum unavailable for ${name}, proceeding without verification`);
@@ -463,9 +453,7 @@ export class BinaryManager {
 
         const innerPath = await this.findExecutableInTree(extractDir, config.innerExecutableName);
         if (!innerPath) {
-          throw this.toBinaryError(
-            `${name} archive did not contain ${config.innerExecutableName}`
-          );
+          throw this.toBinaryError(`${name} archive did not contain ${config.innerExecutableName}`);
         }
 
         await fsPromises.mkdir(path.dirname(destinationPath), { recursive: true });
@@ -553,18 +541,14 @@ export class BinaryManager {
       const expected = await expectedSha256();
       if (!expected && requiredChecksum) {
         await fsPromises.rm(tempPath, { force: true });
-        throw this.toBinaryError(
-          `Checksum source unavailable for ${name}. Refusing to use unverified binary.`
-        );
+        throw this.toBinaryError(`Checksum source unavailable for ${name}. Refusing to use unverified binary.`);
       }
 
       if (expected) {
         const actual = await sha256ForFile(tempPath);
         if (actual !== expected) {
           await fsPromises.rm(tempPath, { force: true });
-          throw this.toBinaryError(
-            `${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`
-          );
+          throw this.toBinaryError(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`);
         }
       } else {
         this.logger.log('WARN', `Checksum unavailable for ${name}, proceeding without verification`);
@@ -580,10 +564,7 @@ export class BinaryManager {
   }
 
   private async isYtDlpUpToDate(binaryPath: string): Promise<boolean> {
-    const [local, remote] = await Promise.all([
-      this.getLocalYtDlpVersion(binaryPath),
-      this.getRemoteYtDlpVersion()
-    ]);
+    const [local, remote] = await Promise.all([this.getLocalYtDlpVersion(binaryPath), this.getRemoteYtDlpVersion()]);
     if (!local) return false;
     if (!remote) {
       this.logger.log('WARN', 'Could not fetch yt-dlp remote version, skipping update check');

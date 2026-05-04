@@ -15,7 +15,9 @@ async function runEmbedMux(ctx: PhaseContext): Promise<void> {
   }
   if (!active.mediaPath || active.subtitlePaths.length === 0) {
     logger.log('WARN', 'embed-mux: missing video or sub paths', {
-      jobId: job.id, videoPath: active.mediaPath, subCount: active.subtitlePaths.length
+      jobId: job.id,
+      videoPath: active.mediaPath,
+      subCount: active.subtitlePaths.length
     });
     ctx.emitStatus('download', STATUS_KEY.subtitlesFailed);
     return;
@@ -49,19 +51,22 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 
       ctx.emitStatus('download', STATUS_KEY.fetchingSubtitles);
 
-      const subResult = await ytDlp.run({
-        kind: 'subtitle',
-        url: input.url,
-        outputDir: input.outputDir!,
-        subtitleLanguages: input.subtitleLanguages ?? [],
-        subtitleMode: input.subtitleMode,
-        subtitleFormat: input.subtitleFormat ?? DEFAULTS.subtitleFormat,
-        writeAutoSubs: input.writeAutoSubs,
-      }, {
-        onSpawn: (proc) => ctx.attachYtDlpProcess(proc),
-        onStdout: (text) => ctx.safeConsume(text),
-        onStderr: (text) => ctx.safeConsume(text),
-      });
+      const subResult = await ytDlp.run(
+        {
+          kind: 'subtitle',
+          url: input.url,
+          outputDir: input.outputDir!,
+          subtitleLanguages: input.subtitleLanguages ?? [],
+          subtitleMode: input.subtitleMode,
+          subtitleFormat: input.subtitleFormat ?? DEFAULTS.subtitleFormat,
+          writeAutoSubs: input.writeAutoSubs
+        },
+        {
+          onSpawn: (proc) => ctx.attachYtDlpProcess(proc),
+          onStdout: (text) => ctx.safeConsume(text),
+          onStderr: (text) => ctx.safeConsume(text)
+        }
+      );
 
       if (subResult.kind !== 'success') {
         ctx.logger.log('WARN', 'Subtitle fetch failed — video already saved', {

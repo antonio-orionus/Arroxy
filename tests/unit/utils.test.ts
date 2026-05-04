@@ -8,7 +8,7 @@ const commonPaths = {
   music: '/Users/bob/Music',
   documents: '/Users/bob/Documents',
   pictures: '/Users/bob/Pictures',
-  home: '/Users/bob',
+  home: '/Users/bob'
 };
 
 describe('formatHomeRelativePath', () => {

@@ -1,11 +1,7 @@
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
 import path from 'node:path';
 
-export function spawnYtDlp(
-  binaryPath: string,
-  args: string[],
-  ffmpegPath: string | null
-): ChildProcessWithoutNullStreams {
+export function spawnYtDlp(binaryPath: string, args: string[], ffmpegPath: string | null): ChildProcessWithoutNullStreams {
   const env = { ...process.env };
 
   if (ffmpegPath) {
@@ -13,16 +9,20 @@ export function spawnYtDlp(
     env.PATH = ffmpegDir + path.delimiter + (env.PATH ?? '');
   }
 
-  return spawn(binaryPath, args, { env, windowsHide: true, detached: process.platform !== 'win32' });
+  return spawn(binaryPath, args, {
+    env,
+    windowsHide: true,
+    detached: process.platform !== 'win32'
+  });
 }
 
-export function spawnFFmpeg(
-  binaryPath: string,
-  args: string[]
-): ChildProcessWithoutNullStreams {
+export function spawnFFmpeg(binaryPath: string, args: string[]): ChildProcessWithoutNullStreams {
   return spawn(binaryPath, args, { windowsHide: true });
 }
 
 export function splitStderrLines(text: string): string[] {
-  return text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  return text
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
 }

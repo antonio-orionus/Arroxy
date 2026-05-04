@@ -1,18 +1,5 @@
 import type { StoreApi } from 'zustand';
-import type {
-  AppError,
-  AppSettings,
-  FormatOption,
-  Preset,
-  QueueItem,
-  SubtitleFormat,
-  SubtitleMap,
-  SubtitleMode,
-  SponsorBlockMode,
-  SponsorBlockCategory,
-  SupportedLang,
-  UiTheme
-} from '@shared/types';
+import type { AppError, AppSettings, FormatOption, Preset, QueueItem, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme } from '@shared/types';
 export type WizardStep = 'url' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error';
 
 export type SetState = StoreApi<AppState>['setState'];
@@ -54,7 +41,7 @@ export interface WizardSlice {
   back: () => void;
   reset: () => void;
   retry: () => Promise<void>;
-setWizardOutputDir: (dir: string, persist?: boolean) => Promise<void>;
+  setWizardOutputDir: (dir: string, persist?: boolean) => Promise<void>;
   setSelectedVideoFormatId: (id: string) => void;
   setAudioFormatId: (id: string | null) => void;
   setPreset: (p: Preset) => void;

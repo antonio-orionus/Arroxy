@@ -7,7 +7,7 @@ const uk = {
     loading: 'Завантаження…'
   },
   app: {
-    feedback: 'Зворотний зв\'язок',
+    feedback: "Зворотний зв'язок",
     logs: 'Журнали',
     feedbackNudge: 'Подобається Arroxy? Я б залюбки почув твою думку! 💬',
     debugCopied: 'Скопійовано!',
@@ -222,7 +222,7 @@ const uk = {
   queue: {
     header: 'Черга завантажень',
     toggleTitle: 'Показати/сховати чергу завантажень',
-    empty: 'Тут з\'являться завантаження, додані в чергу',
+    empty: "Тут з'являться завантаження, додані в чергу",
     noDownloads: 'Завантажень поки немає.',
     activeCount: '{{count}} завантажуються · {{percent}}%',
     clear: 'Очистити',
@@ -258,7 +258,7 @@ const uk = {
     remintingToken: 'Оновлення токена…',
     startingYtdlp: 'Запуск процесу yt-dlp…',
     downloadingMedia: 'Завантаження відео та аудіо…',
-    mergingFormats: 'Об\'єднання аудіо та відео…',
+    mergingFormats: "Об'єднання аудіо та відео…",
     fetchingSubtitles: 'Отримання субтитрів…',
     sleepingBetweenRequests: 'Очікування {{seconds}}с для уникнення лімітів…',
     subtitlesFailed: 'Відео збережено — деякі субтитри не завантажилися',

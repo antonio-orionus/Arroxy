@@ -15,7 +15,11 @@ describe('Queue parallel/sequential download behavior', () => {
     useAppStore.setState({
       initialized: false,
       initializing: false,
-      settings: { defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false },
+      settings: {
+        defaultOutputDir: '/tmp',
+        rememberLastOutputDir: false,
+        clipboardWatchEnabled: false
+      },
       wizardStep: 'url',
       formatsLoading: false,
       wizardUrl: '',
@@ -69,7 +73,12 @@ describe('Queue parallel/sequential download behavior', () => {
   it('"Download" button on pending card starts immediately even while another is downloading', async () => {
     useAppStore.setState({
       queue: [
-        makeItem({ id: 'item-1', status: 'downloading', downloadJobId: 'job-1', progressPercent: 50 }),
+        makeItem({
+          id: 'item-1',
+          status: 'downloading',
+          downloadJobId: 'job-1',
+          progressPercent: 50
+        }),
         makeItem({ id: 'item-2', status: 'pending' })
       ]
     });
@@ -79,20 +88,32 @@ describe('Queue parallel/sequential download behavior', () => {
     await useAppStore.getState().startItemDownload('item-2');
 
     expect(startMock).toHaveBeenCalledOnce();
-    expect(startMock).toHaveBeenCalledWith(
-      expect.objectContaining({ url: 'https://youtube.com/watch?v=item-2' })
-    );
+    expect(startMock).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://youtube.com/watch?v=item-2' }));
     expect(useAppStore.getState().queue.find((i) => i.id === 'item-2')?.status).toBe('downloading');
   });
 
   it('"Add + Download Now" starts the new item immediately even while another is downloading', async () => {
     useAppStore.setState({
       queue: [
-        makeItem({ id: 'item-1', status: 'downloading', downloadJobId: 'job-1', progressPercent: 30 })
+        makeItem({
+          id: 'item-1',
+          status: 'downloading',
+          downloadJobId: 'job-1',
+          progressPercent: 30
+        })
       ],
       wizardUrl: 'https://youtube.com/watch?v=item-2',
       wizardTitle: 'Video 2',
-      wizardFormats: [{ formatId: '22', label: '720p', ext: 'mp4', resolution: '720p', isVideoOnly: false, isAudioOnly: false }],
+      wizardFormats: [
+        {
+          formatId: '22',
+          label: '720p',
+          ext: 'mp4',
+          resolution: '720p',
+          isVideoOnly: false,
+          isAudioOnly: false
+        }
+      ],
       selectedVideoFormatId: '22',
       selectedAudioFormatId: null,
       activePreset: null,
@@ -106,9 +127,7 @@ describe('Queue parallel/sequential download behavior', () => {
     await useAppStore.getState().addAndDownloadImmediately();
 
     expect(startMock).toHaveBeenCalledOnce();
-    expect(startMock).toHaveBeenCalledWith(
-      expect.objectContaining({ url: 'https://youtube.com/watch?v=item-2' })
-    );
+    expect(startMock).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://youtube.com/watch?v=item-2' }));
   });
 
   it('when a download completes, only ONE pending item starts (sequential queue)', async () => {
@@ -116,7 +135,12 @@ describe('Queue parallel/sequential download behavior', () => {
 
     useAppStore.setState({
       queue: [
-        makeItem({ id: 'item-1', status: 'downloading', downloadJobId: 'job-1', progressPercent: 100 }),
+        makeItem({
+          id: 'item-1',
+          status: 'downloading',
+          downloadJobId: 'job-1',
+          progressPercent: 100
+        }),
         makeItem({ id: 'item-2', status: 'pending' }),
         makeItem({ id: 'item-3', status: 'pending' })
       ]
@@ -135,8 +159,6 @@ describe('Queue parallel/sequential download behavior', () => {
 
     // Sequential: only item-2 (the first pending) should start, not item-3
     expect(startMock).toHaveBeenCalledTimes(1);
-    expect(startMock).toHaveBeenCalledWith(
-      expect.objectContaining({ url: 'https://youtube.com/watch?v=item-2' })
-    );
+    expect(startMock).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://youtube.com/watch?v=item-2' }));
   });
 });

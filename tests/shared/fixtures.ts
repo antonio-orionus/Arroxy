@@ -4,9 +4,7 @@ import { queueItemSchema } from '@shared/schemas';
 
 export { ok } from '@shared/result';
 
-export function makeItem(
-  overrides: Partial<QueueItem> & Pick<QueueItem, 'id' | 'status'>
-): QueueItem {
+export function makeItem(overrides: Partial<QueueItem> & Pick<QueueItem, 'id' | 'status'>): QueueItem {
   const candidate = {
     url: `https://youtube.com/watch?v=${overrides.id}`,
     title: overrides.id,
@@ -31,7 +29,7 @@ export function makeItem(
     embedThumbnail: DEFAULTS.embedThumbnail,
     writeDescription: DEFAULTS.writeDescription,
     writeThumbnail: DEFAULTS.writeThumbnail,
-    ...overrides,
+    ...overrides
   };
   // Schema-validate so a future field added to QueueItem cannot silently slip
   // past test fixtures — the fixture and the real shape are forced to agree.

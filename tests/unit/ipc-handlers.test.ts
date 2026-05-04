@@ -21,7 +21,7 @@ vi.mock('electron', () => ({
       removeHandlerCalls.push(channel);
     }),
     on: vi.fn(),
-    removeAllListeners: vi.fn(),
+    removeAllListeners: vi.fn()
   }
 }));
 
@@ -46,9 +46,19 @@ function makeDeps() {
     close: vi.fn(),
     isMaximized: vi.fn().mockReturnValue(false)
   };
-  const queueStore = { save: vi.fn().mockResolvedValue(undefined), load: vi.fn().mockResolvedValue({ ok: true, data: [] }) };
+  const queueStore = {
+    save: vi.fn().mockResolvedValue(undefined),
+    load: vi.fn().mockResolvedValue({ ok: true, data: [] })
+  };
   const logService = { log: vi.fn(), getLogsDir: vi.fn().mockReturnValue('/tmp/logs') };
-  const settingsStore = { get: vi.fn().mockResolvedValue({ defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false }), update: vi.fn() };
+  const settingsStore = {
+    get: vi.fn().mockResolvedValue({
+      defaultOutputDir: '/tmp',
+      rememberLastOutputDir: true,
+      clipboardWatchEnabled: false
+    }),
+    update: vi.fn()
+  };
   const languageRef: { current: string } = { current: 'en' };
   const clipboardWatcher = { setEnabled: vi.fn(), dispose: vi.fn() };
   return {
@@ -58,7 +68,12 @@ function makeDeps() {
     settingsStore: settingsStore as never,
     queueStore: queueStore as never,
     logService: logService as never,
-    binaryManager: { ensureYtDlp: vi.fn(), ensureFFmpeg: vi.fn(), ensureDeno: vi.fn(), ensureFFprobe: vi.fn() } as never,
+    binaryManager: {
+      ensureYtDlp: vi.fn(),
+      ensureFFmpeg: vi.fn(),
+      ensureDeno: vi.fn(),
+      ensureFFprobe: vi.fn()
+    } as never,
     tokenService: { warmUp: vi.fn() } as never,
     languageRef: languageRef as never,
     clipboardWatcher: clipboardWatcher as never,
@@ -194,11 +209,7 @@ describe('registerIpcHandlers', () => {
       await handler(null, 'klingon');
 
       expect(deps._raw.languageRef.current).toBe('en');
-      expect(deps._raw.logService.log).toHaveBeenCalledWith(
-        'WARN',
-        'app:setLanguage rejected — invalid language',
-        expect.any(Object)
-      );
+      expect(deps._raw.logService.log).toHaveBeenCalledWith('WARN', 'app:setLanguage rejected — invalid language', expect.any(Object));
     });
 
     it('app:setLanguage accepts a valid SupportedLang', async () => {
@@ -216,7 +227,10 @@ describe('registerIpcHandlers', () => {
       registerIpcHandlers(deps);
 
       const handler = findCall(IPC_CHANNELS.queueSave)!.fn;
-      const result = await handler(null, 'not an array') as { ok: boolean; error?: { code: string } };
+      const result = (await handler(null, 'not an array')) as {
+        ok: boolean;
+        error?: { code: string };
+      };
       expect(result.ok).toBe(false);
       expect(deps._raw.queueStore.save).not.toHaveBeenCalled();
     });
@@ -227,17 +241,32 @@ describe('registerIpcHandlers', () => {
 
       const handler = findCall(IPC_CHANNELS.queueSave)!.fn;
       const validItem = {
-        id: 'a', url: 'u', title: 't', thumbnail: '',
-        outputDir: '/tmp', formatLabel: 'Best', status: 'done',
-        progressPercent: 100, progressDetail: null, lastStatus: null,
-        error: null, finishedAt: null, downloadJobId: null,
-        subtitleLanguages: [], writeAutoSubs: false,
-        subtitleMode: 'sidecar', subtitleFormat: 'srt',
-        sponsorBlockMode: 'off', sponsorBlockCategories: [],
-        embedChapters: true, embedMetadata: true, embedThumbnail: true,
-        writeDescription: false, writeThumbnail: false
+        id: 'a',
+        url: 'u',
+        title: 't',
+        thumbnail: '',
+        outputDir: '/tmp',
+        formatLabel: 'Best',
+        status: 'done',
+        progressPercent: 100,
+        progressDetail: null,
+        lastStatus: null,
+        error: null,
+        finishedAt: null,
+        downloadJobId: null,
+        subtitleLanguages: [],
+        writeAutoSubs: false,
+        subtitleMode: 'sidecar',
+        subtitleFormat: 'srt',
+        sponsorBlockMode: 'off',
+        sponsorBlockCategories: [],
+        embedChapters: true,
+        embedMetadata: true,
+        embedThumbnail: true,
+        writeDescription: false,
+        writeThumbnail: false
       };
-      const result = await handler(null, [validItem]) as { ok: boolean };
+      const result = (await handler(null, [validItem])) as { ok: boolean };
       expect(result.ok).toBe(true);
       expect(deps._raw.queueStore.save).toHaveBeenCalledOnce();
     });

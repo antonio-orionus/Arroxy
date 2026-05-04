@@ -25,11 +25,11 @@ describe('Queue persistence — store behavior', () => {
         cancel: vi.fn().mockResolvedValue(ok({ cancelled: true })),
         getFormats: vi.fn(),
         pause: vi.fn().mockResolvedValue(ok({ paused: true })),
-        resume: vi.fn().mockResolvedValue(ok({ resumed: false })),
+        resume: vi.fn().mockResolvedValue(ok({ resumed: false }))
       },
       settings: {
         get: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false })),
-        update: vi.fn().mockResolvedValue(ok({})),
+        update: vi.fn().mockResolvedValue(ok({}))
       },
       shell: { openFolder: vi.fn(), openExternal: vi.fn() },
       logs: { openDir: vi.fn() },
@@ -40,9 +40,9 @@ describe('Queue persistence — store behavior', () => {
           return () => undefined;
         }),
         onProgress: vi.fn().mockReturnValue(() => undefined),
-        onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
+        onClipboardUrl: vi.fn().mockReturnValue(() => undefined)
       },
-      queue: { save: saveMock, load: loadMock },
+      queue: { save: saveMock, load: loadMock }
     };
   }
 
@@ -65,7 +65,7 @@ describe('Queue persistence — store behavior', () => {
       wizardError: null,
       wizardErrorOrigin: null,
       queue: [],
-      drawerOpen: false,
+      drawerOpen: false
     });
     vi.clearAllMocks();
   });
@@ -108,9 +108,7 @@ describe('Queue persistence — store behavior', () => {
       await new Promise((r) => setTimeout(r, 20));
 
       expect(startMock).toHaveBeenCalledOnce();
-      expect(startMock).toHaveBeenCalledWith(
-        expect.objectContaining({ url: 'https://youtube.com/watch?v=pending-restored' }),
-      );
+      expect(startMock).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://youtube.com/watch?v=pending-restored' }));
     });
 
     it('does NOT auto-start when restored queue has only done items', async () => {
@@ -145,13 +143,26 @@ describe('Queue persistence — store behavior', () => {
       useAppStore.setState({
         wizardUrl: 'https://youtube.com/watch?v=new',
         wizardTitle: 'New Video',
-        wizardFormats: [{ formatId: '22', label: '720p', ext: 'mp4', resolution: '720p', isVideoOnly: false, isAudioOnly: false }],
+        wizardFormats: [
+          {
+            formatId: '22',
+            label: '720p',
+            ext: 'mp4',
+            resolution: '720p',
+            isVideoOnly: false,
+            isAudioOnly: false
+          }
+        ],
         selectedVideoFormatId: '22',
         selectedAudioFormatId: null,
         activePreset: null,
         wizardOutputDir: '/tmp',
         wizardStep: 'confirm',
-        settings: { defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false },
+        settings: {
+          defaultOutputDir: '/tmp',
+          rememberLastOutputDir: false,
+          clipboardWatchEnabled: false
+        }
       });
 
       await useAppStore.getState().addToQueue();
@@ -161,7 +172,7 @@ describe('Queue persistence — store behavior', () => {
 
     it('calls save when removeQueueItem() removes a done item', () => {
       useAppStore.setState({
-        queue: [makeItem({ id: 'rem', status: 'done', progressPercent: 100 })],
+        queue: [makeItem({ id: 'rem', status: 'done', progressPercent: 100 })]
       });
 
       useAppStore.getState().removeQueueItem('rem');
@@ -172,7 +183,7 @@ describe('Queue persistence — store behavior', () => {
 
     it('calls save when cancelItemDownload() cancels an active item', async () => {
       useAppStore.setState({
-        queue: [makeItem({ id: 'can', status: 'downloading', downloadJobId: 'j1' })],
+        queue: [makeItem({ id: 'can', status: 'downloading', downloadJobId: 'j1' })]
       });
 
       await useAppStore.getState().cancelItemDownload('can');
@@ -183,7 +194,7 @@ describe('Queue persistence — store behavior', () => {
 
     it('calls save with paused status when pauseItemDownload() pauses an item', async () => {
       useAppStore.setState({
-        queue: [makeItem({ id: 'pausing', status: 'downloading', downloadJobId: 'j-pause' })],
+        queue: [makeItem({ id: 'pausing', status: 'downloading', downloadJobId: 'j-pause' })]
       });
 
       await useAppStore.getState().pauseItemDownload('pausing');
@@ -194,7 +205,7 @@ describe('Queue persistence — store behavior', () => {
 
     it('calls save when retryQueueItem() resets a failed item', async () => {
       useAppStore.setState({
-        queue: [makeItem({ id: 'err', status: 'error', error: { key: null, rawMessage: 'oops' } })],
+        queue: [makeItem({ id: 'err', status: 'error', error: { key: null, rawMessage: 'oops' } })]
       });
 
       await useAppStore.getState().retryQueueItem('err');
@@ -213,7 +224,7 @@ describe('Queue persistence — store behavior', () => {
       });
 
       useAppStore.setState({
-        queue: [makeItem({ id: 'fail-start', status: 'pending' })],
+        queue: [makeItem({ id: 'fail-start', status: 'pending' })]
       });
 
       await useAppStore.getState().startItemDownload('fail-start');
@@ -221,7 +232,10 @@ describe('Queue persistence — store behavior', () => {
       expect(useAppStore.getState().queue[0].status).toBe('error');
       expect(useAppStore.getState().queue[0].error?.rawMessage).toBe('kaboom');
       expect(saveMock).toHaveBeenCalled();
-      const lastSavedItems = saveMock.mock.calls.at(-1)?.[0] as Array<{ id: string; status: string }>;
+      const lastSavedItems = saveMock.mock.calls.at(-1)?.[0] as Array<{
+        id: string;
+        status: string;
+      }>;
       expect(lastSavedItems.find((i) => i.id === 'fail-start')?.status).toBe('error');
     });
   });
@@ -239,16 +253,14 @@ describe('Queue persistence — store behavior', () => {
       const resumeMock = vi.fn().mockImplementation(async () => {
         // While main is "thinking", flip the item to cancelled.
         useAppStore.setState((state) => ({
-          queue: state.queue.map((i) =>
-            i.id === 'racing' ? { ...i, status: 'cancelled' as const } : i
-          )
+          queue: state.queue.map((i) => (i.id === 'racing' ? { ...i, status: 'cancelled' as const } : i))
         }));
         return ok({ resumed: false });
       });
       (window.appApi as unknown as { downloads: { resume: typeof resumeMock } }).downloads.resume = resumeMock;
 
       useAppStore.setState({
-        queue: [makeItem({ id: 'racing', status: 'paused', downloadJobId: 'j-race' })],
+        queue: [makeItem({ id: 'racing', status: 'paused', downloadJobId: 'j-race' })]
       });
 
       await useAppStore.getState().resumeItemDownload('racing');
@@ -263,7 +275,7 @@ describe('Queue persistence — store behavior', () => {
       // renderer should re-start. (This test guards against an over-broad
       // late-cancel guard that would also skip the legitimate fallback path.)
       useAppStore.setState({
-        queue: [makeItem({ id: 'cross-restart', status: 'paused', downloadJobId: 'j-old' })],
+        queue: [makeItem({ id: 'cross-restart', status: 'paused', downloadJobId: 'j-old' })]
       });
 
       await useAppStore.getState().resumeItemDownload('cross-restart');
@@ -278,10 +290,15 @@ describe('Queue persistence — store behavior', () => {
       await useAppStore.getState().initialize();
 
       useAppStore.setState({
-        queue: [makeItem({ id: 'fin', status: 'downloading', downloadJobId: 'j-fin' })],
+        queue: [makeItem({ id: 'fin', status: 'downloading', downloadJobId: 'j-fin' })]
       });
 
-      capturedOnStatus!({ jobId: 'j-fin', stage: 'done', statusKey: 'complete', at: new Date().toISOString() });
+      capturedOnStatus!({
+        jobId: 'j-fin',
+        stage: 'done',
+        statusKey: 'complete',
+        at: new Date().toISOString()
+      });
       await new Promise((r) => setTimeout(r, 20));
 
       expect(saveMock).toHaveBeenCalled();
@@ -293,7 +310,7 @@ describe('Queue persistence — store behavior', () => {
       await useAppStore.getState().initialize();
 
       useAppStore.setState({
-        queue: [makeItem({ id: 'bad', status: 'downloading', downloadJobId: 'j-bad' })],
+        queue: [makeItem({ id: 'bad', status: 'downloading', downloadJobId: 'j-bad' })]
       });
 
       capturedOnStatus!({
@@ -320,12 +337,7 @@ describe('Queue persistence — store behavior', () => {
 
     it('removes done and cancelled items, keeps pending and error', () => {
       useAppStore.setState({
-        queue: [
-          makeItem({ id: 'p', status: 'pending' }),
-          makeItem({ id: 'd', status: 'done', progressPercent: 100 }),
-          makeItem({ id: 'e', status: 'error', error: { key: null, rawMessage: 'oops' } }),
-          makeItem({ id: 'c', status: 'cancelled' }),
-        ],
+        queue: [makeItem({ id: 'p', status: 'pending' }), makeItem({ id: 'd', status: 'done', progressPercent: 100 }), makeItem({ id: 'e', status: 'error', error: { key: null, rawMessage: 'oops' } }), makeItem({ id: 'c', status: 'cancelled' })]
       });
 
       useAppStore.getState().clearCompleted();
@@ -339,7 +351,7 @@ describe('Queue persistence — store behavior', () => {
 
     it('calls queue.save after clearing', () => {
       useAppStore.setState({
-        queue: [makeItem({ id: 'done-item', status: 'done', progressPercent: 100 })],
+        queue: [makeItem({ id: 'done-item', status: 'done', progressPercent: 100 })]
       });
 
       useAppStore.getState().clearCompleted();
@@ -349,7 +361,7 @@ describe('Queue persistence — store behavior', () => {
 
     it('does nothing when no clearable items exist', () => {
       useAppStore.setState({
-        queue: [makeItem({ id: 'p', status: 'pending' })],
+        queue: [makeItem({ id: 'p', status: 'pending' })]
       });
 
       useAppStore.getState().clearCompleted();

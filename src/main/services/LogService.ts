@@ -53,9 +53,7 @@ export class LogService {
   private rotateLogs(): void {
     try {
       const files = fs.readdirSync(this.logsDir);
-      const logs = files
-        .filter((f) => f.startsWith('app-') && f.endsWith('.log'))
-        .sort();
+      const logs = files.filter((f) => f.startsWith('app-') && f.endsWith('.log')).sort();
       const toDelete = logs.slice(0, Math.max(0, logs.length - MAX_LOG_FILES));
       for (const f of toDelete) {
         try {

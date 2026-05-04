@@ -116,7 +116,7 @@ const en = {
         heading: 'Format'
       },
       embedNote: 'Embed mode saves output as .mkv so subtitle tracks embed reliably.',
-      autoAssNote: 'Auto-captions will be saved as SRT instead of ASS — they\'re always cleaned of YouTube\'s rolling-cue duplication, which our ASS converter can\'t replicate yet.'
+      autoAssNote: "Auto-captions will be saved as SRT instead of ASS — they're always cleaned of YouTube's rolling-cue duplication, which our ASS converter can't replicate yet."
     },
     sponsorblock: {
       modeHeading: 'Sponsor filtering',

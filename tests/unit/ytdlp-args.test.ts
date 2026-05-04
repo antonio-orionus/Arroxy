@@ -17,31 +17,33 @@ function makeFakeProcess(exitCode = 0) {
   const proc = Object.assign(new EventEmitter(), {
     stdout: new EventEmitter(),
     stderr: new EventEmitter(),
-    kill: vi.fn(),
+    kill: vi.fn()
   });
   setTimeout(() => proc.emit('close', exitCode), 10);
   return proc;
 }
 
-function makeYtDlp(opts: {
-  settings?: Record<string, unknown>;
-  token?: string;
-  visitorData?: string;
-  denoPath?: string | null;
-} = {}) {
+function makeYtDlp(
+  opts: {
+    settings?: Record<string, unknown>;
+    token?: string;
+    visitorData?: string;
+    denoPath?: string | null;
+  } = {}
+) {
   const tokenService = {
     mintTokenForUrl: vi.fn().mockResolvedValue({
       token: opts.token ?? 'tok',
-      visitorData: opts.visitorData ?? 'vd',
+      visitorData: opts.visitorData ?? 'vd'
     }),
-    invalidateCache: vi.fn(),
+    invalidateCache: vi.fn()
   };
   const denoPath = opts.denoPath === undefined ? '/fake/deno' : opts.denoPath;
   const binaryManager = {
     ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'),
     ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'),
     ensureDeno: vi.fn().mockResolvedValue(denoPath),
-    ensureFFprobe: vi.fn().mockResolvedValue(null),
+    ensureFFprobe: vi.fn().mockResolvedValue(null)
   };
   const settingsStore = { get: vi.fn().mockResolvedValue(opts.settings ?? {}) };
   return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
@@ -96,8 +98,11 @@ describe('YtDlp — video args', () => {
 describe('YtDlp — video+embed args', () => {
   it('with subs → embed subtitle flags and EMBED_CONTAINER_EXT', async () => {
     await makeYtDlp().run({
-      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en', 'ja'], writeAutoSubs: false,
+      kind: 'video+embed',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en', 'ja'],
+      writeAutoSubs: false
     });
     const args = getArgs();
     expect(args).toContain('--write-subs');
@@ -111,16 +116,21 @@ describe('YtDlp — video+embed args', () => {
 
   it('writeAutoSubs=true → adds --write-auto-subs', async () => {
     await makeYtDlp().run({
-      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], writeAutoSubs: true,
+      kind: 'video+embed',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      writeAutoSubs: true
     });
     expect(getArgs()).toContain('--write-auto-subs');
   });
 
   it('empty subs array → falls back to no-subs branch', async () => {
     await makeYtDlp().run({
-      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: [],
+      kind: 'video+embed',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: []
     });
     const args = getArgs();
     expect(args).toContain('--no-write-subs');
@@ -132,8 +142,11 @@ describe('YtDlp — video+embed args', () => {
 describe('YtDlp — subtitle args', () => {
   it('baseline: skip-download, write-subs, sub-langs, sleep, sub-format, convert-subs', async () => {
     await makeYtDlp().run({
-      kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], subtitleFormat: 'vtt',
+      kind: 'subtitle',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      subtitleFormat: 'vtt'
     });
     const args = getArgs();
     expect(args).toContain('--skip-download');
@@ -148,16 +161,24 @@ describe('YtDlp — subtitle args', () => {
 
   it('writeAutoSubs=true → adds --write-auto-subs', async () => {
     await makeYtDlp().run({
-      kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], subtitleFormat: 'srt', writeAutoSubs: true,
+      kind: 'subtitle',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      subtitleFormat: 'srt',
+      writeAutoSubs: true
     });
     expect(getArgs()).toContain('--write-auto-subs');
   });
 
   it('subtitleMode=subfolder → output path under <dir>/subtitles/', async () => {
     await makeYtDlp().run({
-      kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], subtitleFormat: 'srt', subtitleMode: 'subfolder',
+      kind: 'subtitle',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      subtitleFormat: 'srt',
+      subtitleMode: 'subfolder'
     });
     const args = getArgs();
     expect(args[args.indexOf('-o') + 1]).toContain(`${OUTPUT_DIR}/subtitles`);
@@ -165,8 +186,12 @@ describe('YtDlp — subtitle args', () => {
 
   it('subtitleMode=sidecar → output path is directly in outputDir (no subfolder)', async () => {
     await makeYtDlp().run({
-      kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], subtitleFormat: 'srt', subtitleMode: 'sidecar',
+      kind: 'subtitle',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      subtitleFormat: 'srt',
+      subtitleMode: 'sidecar'
     });
     const oArg = getArgs()[getArgs().indexOf('-o') + 1];
     expect(oArg).not.toContain('/subtitles');
@@ -175,8 +200,12 @@ describe('YtDlp — subtitle args', () => {
 
   it('ass + writeAutoSubs → coerced to srt in args, effectiveSubtitleFormat=srt on result', async () => {
     const result = await makeYtDlp().run({
-      kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], subtitleFormat: 'ass', writeAutoSubs: true,
+      kind: 'subtitle',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      subtitleFormat: 'ass',
+      writeAutoSubs: true
     });
     const args = getArgs();
     expect(args[args.indexOf('--sub-format') + 1]).toBe('srt/best');
@@ -187,8 +216,12 @@ describe('YtDlp — subtitle args', () => {
 
   it('ass without writeAutoSubs → no coercion', async () => {
     await makeYtDlp().run({
-      kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], subtitleFormat: 'ass', writeAutoSubs: false,
+      kind: 'subtitle',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      subtitleFormat: 'ass',
+      writeAutoSubs: false
     });
     const args = getArgs();
     expect(args[args.indexOf('--sub-format') + 1]).toBe('ass/best');
@@ -198,7 +231,9 @@ describe('YtDlp — subtitle args', () => {
 
 describe('YtDlp — cookies injection', () => {
   it('cookiesEnabled+valid path → --cookies <path>', async () => {
-    const ytDlp = makeYtDlp({ settings: { cookiesEnabled: true, cookiesPath: '/home/u/cookies.txt' } });
+    const ytDlp = makeYtDlp({
+      settings: { cookiesEnabled: true, cookiesPath: '/home/u/cookies.txt' }
+    });
     await ytDlp.run({ kind: 'probe', url: URL });
     const args = getArgs();
     const idx = args.indexOf('--cookies');
@@ -207,7 +242,9 @@ describe('YtDlp — cookies injection', () => {
   });
 
   it('cookiesEnabled=false → no --cookies even with path', async () => {
-    const ytDlp = makeYtDlp({ settings: { cookiesEnabled: false, cookiesPath: '/home/u/cookies.txt' } });
+    const ytDlp = makeYtDlp({
+      settings: { cookiesEnabled: false, cookiesPath: '/home/u/cookies.txt' }
+    });
     await ytDlp.run({ kind: 'probe', url: URL });
     expect(getArgs()).not.toContain('--cookies');
   });
@@ -247,26 +284,32 @@ describe('YtDlp — output embed flags', () => {
 
   it('sponsorBlock.mode=mark + embedChapters=false → no --embed-chapters (setting fully owns the flag)', async () => {
     await makeYtDlp().run({
-      kind: 'video', url: URL, outputDir: OUTPUT_DIR,
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
       embedChapters: false,
-      sponsorBlock: { mode: 'mark', categories: ['sponsor'] },
+      sponsorBlock: { mode: 'mark', categories: ['sponsor'] }
     });
     expect(getArgs()).not.toContain('--embed-chapters');
   });
 
   it('sponsorBlock.mode=mark + embedChapters undefined → no --embed-chapters', async () => {
     await makeYtDlp().run({
-      kind: 'video', url: URL, outputDir: OUTPUT_DIR,
-      sponsorBlock: { mode: 'mark', categories: ['sponsor'] },
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      sponsorBlock: { mode: 'mark', categories: ['sponsor'] }
     });
     expect(getArgs()).not.toContain('--embed-chapters');
   });
 
   it('sponsorBlock.mode=mark + embedChapters=true → --embed-chapters present', async () => {
     await makeYtDlp().run({
-      kind: 'video', url: URL, outputDir: OUTPUT_DIR,
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
       embedChapters: true,
-      sponsorBlock: { mode: 'mark', categories: ['sponsor'] },
+      sponsorBlock: { mode: 'mark', categories: ['sponsor'] }
     });
     expect(getArgs()).toContain('--embed-chapters');
   });
@@ -294,15 +337,23 @@ describe('YtDlp — output embed flags', () => {
   });
 
   it('embedThumbnail=false on kind=video → no thumbnail flags', async () => {
-    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, embedThumbnail: false });
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      embedThumbnail: false
+    });
     expect(getArgs()).not.toContain('--embed-thumbnail');
     expect(getArgs()).not.toContain('--convert-thumbnails');
   });
 
   it('embedThumbnail=true on kind=video+embed with subs → flags absent (MKV-forced)', async () => {
     await makeYtDlp().run({
-      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], embedThumbnail: true,
+      kind: 'video+embed',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      embedThumbnail: true
     });
     expect(getArgs()).not.toContain('--embed-thumbnail');
     expect(getArgs()).not.toContain('--convert-thumbnails');
@@ -310,8 +361,11 @@ describe('YtDlp — output embed flags', () => {
 
   it('embedThumbnail=true on kind=video+embed with empty subs → flags PRESENT (no MKV-force)', async () => {
     await makeYtDlp().run({
-      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: [], embedThumbnail: true,
+      kind: 'video+embed',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: [],
+      embedThumbnail: true
     });
     const args = getArgs();
     expect(args).toContain('--embed-thumbnail');
@@ -321,12 +375,22 @@ describe('YtDlp — output embed flags', () => {
 
 describe('YtDlp — sidecar flags', () => {
   it('writeDescription=true on kind=video → --write-description present', async () => {
-    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, writeDescription: true });
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      writeDescription: true
+    });
     expect(getArgs()).toContain('--write-description');
   });
 
   it('writeDescription=false on kind=video → no --write-description', async () => {
-    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, writeDescription: false });
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      writeDescription: false
+    });
     expect(getArgs()).not.toContain('--write-description');
   });
 
@@ -341,7 +405,12 @@ describe('YtDlp — sidecar flags', () => {
   });
 
   it('writeThumbnail=false on kind=video → no --write-thumbnail', async () => {
-    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, writeThumbnail: false });
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      writeThumbnail: false
+    });
     expect(getArgs()).not.toContain('--write-thumbnail');
   });
 
@@ -352,22 +421,34 @@ describe('YtDlp — sidecar flags', () => {
 
   it('writeDescription=true on kind=video+embed → --write-description present', async () => {
     await makeYtDlp().run({
-      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], writeDescription: true,
+      kind: 'video+embed',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      writeDescription: true
     });
     expect(getArgs()).toContain('--write-description');
   });
 
   it('writeThumbnail=true on kind=video+embed → --write-thumbnail present', async () => {
     await makeYtDlp().run({
-      kind: 'video+embed', url: URL, outputDir: OUTPUT_DIR,
-      subtitleLanguages: ['en'], writeThumbnail: true,
+      kind: 'video+embed',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      subtitleLanguages: ['en'],
+      writeThumbnail: true
     });
     expect(getArgs()).toContain('--write-thumbnail');
   });
 
   it('both sidecar flags true on kind=video → both flags present', async () => {
-    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR, writeDescription: true, writeThumbnail: true });
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      writeDescription: true,
+      writeThumbnail: true
+    });
     const args = getArgs();
     expect(args).toContain('--write-description');
     expect(args).toContain('--write-thumbnail');

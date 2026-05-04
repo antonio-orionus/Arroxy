@@ -19,19 +19,7 @@ const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookies
 
 export function StepUrlInput(): JSX.Element {
   const { t } = useTranslation();
-  const {
-    wizardUrl,
-    setWizardUrl,
-    submitUrl,
-    queue,
-    settings,
-    initialized,
-    setCookiesPath,
-    setCookiesEnabled,
-    setClipboardWatchEnabled,
-    setCloseBehavior,
-    setAnalyticsEnabled
-  } = useAppStore();
+  const { wizardUrl, setWizardUrl, submitUrl, queue, settings, initialized, setCookiesPath, setCookiesEnabled, setClipboardWatchEnabled, setCloseBehavior, setAnalyticsEnabled } = useAppStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const hasActiveDownloads = queue.some((i) => i.status === 'downloading');
   const [pendingClipboardUrl, setPendingClipboardUrl] = useState<string | null>(null);
@@ -107,48 +95,19 @@ export function StepUrlInput(): JSX.Element {
 
   return (
     <div className="wizard-step flex flex-col gap-4" data-testid="step-url">
-      <MascotBubble
-        image={hasActiveDownloads ? downloadingImg : hiImg}
-        message={hasActiveDownloads ? t('wizard.url.mascotBusy') : t('wizard.url.mascotIdle')}
-      />
+      <MascotBubble image={hasActiveDownloads ? downloadingImg : hiImg} message={hasActiveDownloads ? t('wizard.url.mascotBusy') : t('wizard.url.mascotIdle')} />
       <div className="flex flex-col gap-1.5">
-        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
-          {t('wizard.url.heading')}
-        </p>
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.url.heading')}</p>
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Input
-              ref={inputRef}
-              type="url"
-              className={`h-10 ${wizardUrl.trim() ? 'pr-9' : ''}`}
-              value={wizardUrl}
-              onChange={(e) => setWizardUrl(e.target.value)}
-              onKeyDown={handleKeyDown}
-              onPaste={handlePaste}
-              placeholder={t('wizard.url.placeholder')}
-              spellCheck={false}
-              data-testid="url-input"
-            />
+            <Input ref={inputRef} type="url" className={`h-10 ${wizardUrl.trim() ? 'pr-9' : ''}`} value={wizardUrl} onChange={(e) => setWizardUrl(e.target.value)} onKeyDown={handleKeyDown} onPaste={handlePaste} placeholder={t('wizard.url.placeholder')} spellCheck={false} data-testid="url-input" />
             {wizardUrl.trim() ? (
-              <button
-                type="button"
-                onClick={handleClearUrl}
-                aria-label={t('wizard.url.clearAria')}
-                data-testid="url-clear"
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-subtle)] hover:bg-muted hover:text-foreground transition-colors"
-              >
+              <button type="button" onClick={handleClearUrl} aria-label={t('wizard.url.clearAria')} data-testid="url-clear" className="absolute right-1.5 top-1/2 -translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-subtle)] hover:bg-muted hover:text-foreground transition-colors">
                 <X size={14} />
               </button>
             ) : null}
           </div>
-          <Button
-            type="button"
-            size="lg"
-            onClick={() => void submitUrl()}
-            disabled={!wizardUrl.trim()}
-            data-testid="btn-find-formats"
-            className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none gap-2"
-          >
+          <Button type="button" size="lg" onClick={() => void submitUrl()} disabled={!wizardUrl.trim()} data-testid="btn-find-formats" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none gap-2">
             {t('wizard.url.fetchFormats')} <ArrowRight size={16} className="rtl:rotate-180" />
           </Button>
         </div>
@@ -156,73 +115,32 @@ export function StepUrlInput(): JSX.Element {
       </div>
 
       <details className="group rounded-md border border-[var(--border-strong)] bg-card/40" data-testid="advanced-section">
-        <summary className="cursor-pointer select-none px-3 py-2 text-[12px] font-medium text-[var(--text-subtle)] hover:text-foreground">
-          {t('wizard.url.advanced')}
-        </summary>
+        <summary className="cursor-pointer select-none px-3 py-2 text-[12px] font-medium text-[var(--text-subtle)] hover:text-foreground">{t('wizard.url.advanced')}</summary>
         <div className="flex flex-col gap-3 px-3 pb-3 pt-1">
           <div className="flex items-center justify-between gap-3">
             <div className="flex flex-col gap-0.5">
-              <span className="text-[13px] font-medium text-foreground">
-                {t('wizard.url.clipboard.toggle')}
-              </span>
-              <span className="text-[11px] text-[var(--text-subtle)]">
-                {t('wizard.url.clipboard.toggleDescription')}
-              </span>
+              <span className="text-[13px] font-medium text-foreground">{t('wizard.url.clipboard.toggle')}</span>
+              <span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.clipboard.toggleDescription')}</span>
             </div>
-            <Switch
-              checked={settings?.clipboardWatchEnabled ?? false}
-              onCheckedChange={(checked) => void setClipboardWatchEnabled(checked)}
-              aria-label={t('wizard.url.clipboard.toggle')}
-              data-testid="clipboard-watch-toggle"
-            />
+            <Switch checked={settings?.clipboardWatchEnabled ?? false} onCheckedChange={(checked) => void setClipboardWatchEnabled(checked)} aria-label={t('wizard.url.clipboard.toggle')} data-testid="clipboard-watch-toggle" />
           </div>
 
           <div className="flex items-center justify-between gap-3">
             <div className="flex flex-col gap-0.5">
-              <span className="text-[13px] font-medium text-foreground">
-                {t('wizard.url.cookies.toggle')}
-              </span>
-              <span className="text-[11px] text-[var(--text-subtle)]">
-                {t('wizard.url.cookies.toggleDescription')}
-              </span>
+              <span className="text-[13px] font-medium text-foreground">{t('wizard.url.cookies.toggle')}</span>
+              <span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.cookies.toggleDescription')}</span>
             </div>
-            <Switch
-              checked={cookiesEnabled}
-              onCheckedChange={(checked) => void setCookiesEnabled(checked)}
-              aria-label={t('wizard.url.cookies.toggle')}
-              data-testid="cookies-toggle"
-            />
+            <Switch checked={cookiesEnabled} onCheckedChange={(checked) => void setCookiesEnabled(checked)} aria-label={t('wizard.url.cookies.toggle')} data-testid="cookies-toggle" />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <span className="text-[11px] font-medium text-[var(--text-subtle)]">
-              {t('wizard.url.cookies.fileLabel')}
-            </span>
+            <span className="text-[11px] font-medium text-[var(--text-subtle)]">{t('wizard.url.cookies.fileLabel')}</span>
             <div className="flex gap-2">
-              <Input
-                readOnly
-                value={cookiesPath ? formatHomeRelativePath(cookiesPath, commonPaths) : ''}
-                placeholder={t('wizard.url.cookies.placeholder')}
-                className="flex-1 h-9 text-[12px] font-mono"
-                data-testid="cookies-path"
-              />
-              <Button
-                type="button"
-                size="sm"
-                variant="outline"
-                onClick={() => void handleChooseCookies()}
-                data-testid="cookies-choose"
-              >
+              <Input readOnly value={cookiesPath ? formatHomeRelativePath(cookiesPath, commonPaths) : ''} placeholder={t('wizard.url.cookies.placeholder')} className="flex-1 h-9 text-[12px] font-mono" data-testid="cookies-path" />
+              <Button type="button" size="sm" variant="outline" onClick={() => void handleChooseCookies()} data-testid="cookies-choose">
                 {t('wizard.url.cookies.choose')}
               </Button>
-              <Button
-                type="button"
-                size="sm"
-                variant="ghost"
-                onClick={() => void setCookiesPath('')}
-                disabled={!cookiesPath}
-                data-testid="cookies-clear"
-              >
+              <Button type="button" size="sm" variant="ghost" onClick={() => void setCookiesPath('')} disabled={!cookiesPath} data-testid="cookies-clear">
                 {t('wizard.url.cookies.clear')}
               </Button>
             </div>
@@ -242,75 +160,36 @@ export function StepUrlInput(): JSX.Element {
           {(window as Window & { platform?: string }).platform !== 'darwin' && (
             <div className="flex items-center justify-between gap-3">
               <div className="flex flex-col gap-0.5">
-                <span className="text-[13px] font-medium text-foreground">
-                  {t('wizard.url.closeToTray.toggle')}
-                </span>
-                <span className="text-[11px] text-[var(--text-subtle)]">
-                  {t('wizard.url.closeToTray.toggleDescription')}
-                </span>
+                <span className="text-[13px] font-medium text-foreground">{t('wizard.url.closeToTray.toggle')}</span>
+                <span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.closeToTray.toggleDescription')}</span>
               </div>
-              <Switch
-                checked={settings?.closeBehavior === 'tray'}
-                onCheckedChange={(checked) => void setCloseBehavior(checked ? 'tray' : 'quit')}
-                aria-label={t('wizard.url.closeToTray.toggle')}
-                data-testid="close-to-tray-toggle"
-              />
+              <Switch checked={settings?.closeBehavior === 'tray'} onCheckedChange={(checked) => void setCloseBehavior(checked ? 'tray' : 'quit')} aria-label={t('wizard.url.closeToTray.toggle')} data-testid="close-to-tray-toggle" />
             </div>
           )}
 
           <div className="flex items-center justify-between gap-3">
             <div className="flex flex-col gap-0.5">
-              <span className="text-[13px] font-medium text-foreground">
-                {t('wizard.url.analytics.toggle')}
-              </span>
-              <span className="text-[11px] text-[var(--text-subtle)]">
-                {t('wizard.url.analytics.toggleDescription')}
-              </span>
+              <span className="text-[13px] font-medium text-foreground">{t('wizard.url.analytics.toggle')}</span>
+              <span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.analytics.toggleDescription')}</span>
             </div>
-            <Switch
-              checked={settings?.analyticsEnabled ?? true}
-              onCheckedChange={(checked) => void setAnalyticsEnabled(checked)}
-              aria-label={t('wizard.url.analytics.toggle')}
-              data-testid="analytics-toggle"
-            />
+            <Switch checked={settings?.analyticsEnabled ?? true} onCheckedChange={(checked) => void setAnalyticsEnabled(checked)} aria-label={t('wizard.url.analytics.toggle')} data-testid="analytics-toggle" />
           </div>
 
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
-            <button
-              type="button"
-              className="underline text-[var(--text-subtle)] hover:text-foreground"
-              onClick={() => void window.appApi.shell.openExternal(COOKIES_HELP_URL)}
-              data-testid="cookies-help-link"
-            >
+            <button type="button" className="underline text-[var(--text-subtle)] hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_HELP_URL)} data-testid="cookies-help-link">
               {t('wizard.url.cookies.helpLink')}
             </button>
-            <button
-              type="button"
-              className="underline text-[var(--text-subtle)] hover:text-foreground"
-              onClick={() => void window.appApi.shell.openExternal(COOKIES_FIREFOX_URL)}
-              data-testid="cookies-firefox-link"
-            >
+            <button type="button" className="underline text-[var(--text-subtle)] hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_FIREFOX_URL)} data-testid="cookies-firefox-link">
               {t('wizard.url.cookies.extensionFirefox')} ↗
             </button>
-            <button
-              type="button"
-              className="underline text-[var(--text-subtle)] hover:text-foreground"
-              onClick={() => void window.appApi.shell.openExternal(COOKIES_CHROME_URL)}
-              data-testid="cookies-chrome-link"
-            >
+            <button type="button" className="underline text-[var(--text-subtle)] hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_CHROME_URL)} data-testid="cookies-chrome-link">
               {t('wizard.url.cookies.extensionChrome')} ↗
             </button>
           </div>
         </div>
       </details>
 
-      <ClipboardConfirmDialog
-        open={pendingClipboardUrl !== null && initialized}
-        url={pendingClipboardUrl}
-        onUse={handleConfirmClipboard}
-        onDisable={handleDisableClipboard}
-        onCancel={handleCancelClipboard}
-      />
+      <ClipboardConfirmDialog open={pendingClipboardUrl !== null && initialized} url={pendingClipboardUrl} onUse={handleConfirmClipboard} onDisable={handleDisableClipboard} onCancel={handleCancelClipboard} />
     </div>
   );
 }

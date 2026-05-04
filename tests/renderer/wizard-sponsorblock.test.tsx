@@ -10,8 +10,25 @@ const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 
 const PROBE_RESULT: GetFormatsOutput = {
   formats: [
-    { formatId: '22', label: '720p | mp4 | 30fps', ext: 'mp4', resolution: '720p', fps: 30, filesize: 400_000_000, isVideoOnly: false, isAudioOnly: false },
-    { formatId: '140', label: 'opus 128kbps', ext: 'opus', resolution: 'audio only', abr: 128, isVideoOnly: false, isAudioOnly: true }
+    {
+      formatId: '22',
+      label: '720p | mp4 | 30fps',
+      ext: 'mp4',
+      resolution: '720p',
+      fps: 30,
+      filesize: 400_000_000,
+      isVideoOnly: false,
+      isAudioOnly: false
+    },
+    {
+      formatId: '140',
+      label: 'opus 128kbps',
+      ext: 'opus',
+      resolution: 'audio only',
+      abr: 128,
+      isVideoOnly: false,
+      isAudioOnly: true
+    }
   ],
   title: 'Test Video',
   thumbnail: '',
@@ -27,14 +44,25 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
       setLanguage: vi.fn().mockResolvedValue(undefined)
     },
     downloads: {
-      start: vi.fn().mockResolvedValue(ok({ job: { id: 'job-1', url: YOUTUBE_URL, outputDir: '/tmp', status: 'running', createdAt: '', updatedAt: '' } })),
+      start: vi.fn().mockResolvedValue(
+        ok({
+          job: {
+            id: 'job-1',
+            url: YOUTUBE_URL,
+            outputDir: '/tmp',
+            status: 'running',
+            createdAt: '',
+            updatedAt: ''
+          }
+        })
+      ),
       cancel: vi.fn().mockResolvedValue(ok({ cancelled: true })),
       getFormats: vi.fn().mockResolvedValue(ok(PROBE_RESULT)),
-      pause: vi.fn().mockResolvedValue(ok({ paused: true })),
+      pause: vi.fn().mockResolvedValue(ok({ paused: true }))
     },
     settings: {
       get: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false, ...settingsOverrides })),
-      update: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false, ...settingsOverrides })),
+      update: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false, ...settingsOverrides }))
     },
     shell: { openFolder: vi.fn(), openExternal: vi.fn() },
     logs: { openDir: vi.fn() },
@@ -42,11 +70,11 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
     events: {
       onStatus: vi.fn().mockImplementation((_cb: (event: StatusEvent) => void) => () => undefined),
       onProgress: vi.fn().mockReturnValue(() => undefined),
-      onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
+      onClipboardUrl: vi.fn().mockReturnValue(() => undefined)
     },
     queue: {
       save: vi.fn().mockResolvedValue({ ok: true, data: { saved: true } }),
-      load: vi.fn().mockResolvedValue({ ok: true, data: [] }),
+      load: vi.fn().mockResolvedValue({ ok: true, data: [] })
     },
     updater: {
       onUpdateAvailable: vi.fn().mockReturnValue(() => undefined),
@@ -54,7 +82,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
     },
     analytics: {
       track: vi.fn()
-    },
+    }
   };
 }
 
@@ -83,7 +111,7 @@ function resetStore() {
     wizardSponsorBlockMode: DEFAULTS.sponsorBlockMode,
     wizardSponsorBlockCategories: [...DEFAULTS.sponsorBlockCategories],
     queue: [],
-    drawerOpen: false,
+    drawerOpen: false
   });
 }
 
@@ -127,7 +155,10 @@ describe('SponsorBlock wizard slice — state', () => {
   });
 
   it('reset() restores SponsorBlock to defaults', () => {
-    useAppStore.setState({ wizardSponsorBlockMode: 'remove', wizardSponsorBlockCategories: ['filler'] });
+    useAppStore.setState({
+      wizardSponsorBlockMode: 'remove',
+      wizardSponsorBlockCategories: ['filler']
+    });
     useAppStore.getState().reset();
     expect(useAppStore.getState().wizardSponsorBlockMode).toBe('off');
     expect(useAppStore.getState().wizardSponsorBlockCategories).toEqual(['sponsor', 'selfpromo']);
@@ -136,7 +167,10 @@ describe('SponsorBlock wizard slice — state', () => {
 
 describe('SponsorBlock wizard slice — settings restoration', () => {
   it('submitUrl restores lastSponsorBlockMode from settings', async () => {
-    window.appApi = buildMockApi({ lastSponsorBlockMode: 'mark', lastSponsorBlockCategories: ['sponsor', 'intro'] }) as never;
+    window.appApi = buildMockApi({
+      lastSponsorBlockMode: 'mark',
+      lastSponsorBlockCategories: ['sponsor', 'intro']
+    }) as never;
     await useAppStore.getState().initialize();
     useAppStore.getState().setWizardUrl(YOUTUBE_URL);
     await useAppStore.getState().submitUrl();
@@ -145,7 +179,10 @@ describe('SponsorBlock wizard slice — settings restoration', () => {
   });
 
   it('submitUrl restores lastSponsorBlockCategories from settings', async () => {
-    window.appApi = buildMockApi({ lastSponsorBlockMode: 'remove', lastSponsorBlockCategories: ['outro', 'filler'] }) as never;
+    window.appApi = buildMockApi({
+      lastSponsorBlockMode: 'remove',
+      lastSponsorBlockCategories: ['outro', 'filler']
+    }) as never;
     await useAppStore.getState().initialize();
     useAppStore.getState().setWizardUrl(YOUTUBE_URL);
     await useAppStore.getState().submitUrl();
@@ -188,7 +225,10 @@ describe('SponsorBlock wizard slice — queue serialization', () => {
     });
 
     const updateCall = api.settings.update.mock.calls.at(-1)?.[0];
-    expect(updateCall).toMatchObject({ lastSponsorBlockMode: 'mark', lastSponsorBlockCategories: ['intro'] });
+    expect(updateCall).toMatchObject({
+      lastSponsorBlockMode: 'mark',
+      lastSponsorBlockCategories: ['intro']
+    });
   });
 });
 
@@ -200,7 +240,10 @@ describe('SponsorBlock wizard slice — download invocation', () => {
     useAppStore.getState().setWizardUrl(YOUTUBE_URL);
     await useAppStore.getState().submitUrl();
     useAppStore.getState().setSponsorBlockMode('remove');
-    useAppStore.setState({ wizardSponsorBlockCategories: ['sponsor', 'selfpromo'], wizardOutputDir: '/tmp' });
+    useAppStore.setState({
+      wizardSponsorBlockCategories: ['sponsor', 'selfpromo'],
+      wizardOutputDir: '/tmp'
+    });
 
     await act(async () => {
       await useAppStore.getState().addToQueue();
@@ -209,7 +252,7 @@ describe('SponsorBlock wizard slice — download invocation', () => {
     const startCall = api.downloads.start.mock.calls[0]?.[0];
     expect(startCall).toMatchObject({
       sponsorBlockMode: 'remove',
-      sponsorBlockCategories: ['sponsor', 'selfpromo'],
+      sponsorBlockCategories: ['sponsor', 'selfpromo']
     });
   });
 
@@ -335,7 +378,7 @@ describe('SponsorBlock — StepSponsorBlock UI', () => {
     useAppStore.setState({
       wizardStep: 'sponsorblock',
       wizardSponsorBlockMode: 'mark',
-      wizardSponsorBlockCategories: ['sponsor'],
+      wizardSponsorBlockCategories: ['sponsor']
     });
 
     render(<StepSponsorBlock />);

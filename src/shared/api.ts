@@ -1,23 +1,6 @@
 import type { Result } from './result';
 import type { SupportedLang } from './i18n/types';
-import type {
-  AppSettings,
-  CancelDownloadInput,
-  CancelDownloadOutput,
-  DownloadJob,
-  GetFormatsInput,
-  GetFormatsOutput,
-  PauseDownloadInput,
-  PauseDownloadOutput,
-  ProgressEvent,
-  QueueItem,
-  StartDownloadInput,
-  StartDownloadOutput,
-  StatusEvent,
-  UpdateAvailablePayload,
-  UpdateInstallResult,
-  WarmUpOutput
-} from './types';
+import type { AppSettings, CancelDownloadInput, CancelDownloadOutput, DownloadJob, GetFormatsInput, GetFormatsOutput, PauseDownloadInput, PauseDownloadOutput, ProgressEvent, QueueItem, StartDownloadInput, StartDownloadOutput, StatusEvent, UpdateAvailablePayload, UpdateInstallResult, WarmUpOutput } from './types';
 
 export interface WindowApi {
   minimize(): Promise<void>;

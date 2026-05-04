@@ -208,7 +208,7 @@ const de = {
       audioOnly: 'Nur Audio',
       addToQueue: '+ Warteschlange',
       addToQueueTooltip: 'Startet, wenn andere Downloads fertig sind — volle Bandbreite',
-      pullIt: 'Hol\'s rein! ↓',
+      pullIt: "Hol's rein! ↓",
       pullItTooltip: 'Startet sofort — läuft parallel zu anderen aktiven Downloads'
     },
     error: {

@@ -6,10 +6,7 @@ import { binaryInternals } from '@main/services/BinaryManager';
 
 describe('binaryInternals', () => {
   it('parses SHA lines', () => {
-    const sha = binaryInternals.parseShaLine(
-      'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  yt-dlp.exe',
-      'yt-dlp.exe'
-    );
+    const sha = binaryInternals.parseShaLine('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  yt-dlp.exe', 'yt-dlp.exe');
 
     expect(sha).toBe('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
   });

@@ -2,9 +2,7 @@ import { BrowserWindow, session } from 'electron';
 import type { TokenProvider } from '@main/token/TokenProvider';
 import type { LogService } from '@main/services/LogService';
 
-const CHROME_UA =
-  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ' +
-  '(KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
+const CHROME_UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ' + '(KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 const YOUTUBE_URL = 'https://www.youtube.com?themeRefresh=1';
 
 function delay(ms: number): Promise<void> {
@@ -78,9 +76,7 @@ export class HiddenWindowTokenProvider implements TokenProvider {
   async getVisitorData(): Promise<string> {
     const win = this.getWindow();
     await this.ensureReady();
-    return win.webContents.executeJavaScript(
-      `(function(){try{return window.ytcfg?.get?.('VISITOR_DATA')||window.ytcfg?.data_?.VISITOR_DATA||'';}catch(e){return '';}})()`
-    );
+    return win.webContents.executeJavaScript(`(function(){try{return window.ytcfg?.get?.('VISITOR_DATA')||window.ytcfg?.data_?.VISITOR_DATA||'';}catch(e){return '';}})()`);
   }
 
   async mintToken(contentBinding: string): Promise<string> {

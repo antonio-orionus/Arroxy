@@ -7,7 +7,7 @@ import type { YtDlpResult } from '@main/services/YtDlp';
 
 vi.mock('@main/services/subtitlePostProcess', () => ({
   dedupeSubtitleFiles: vi.fn().mockResolvedValue(undefined),
-  muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ ok: true, outputPath: '/tmp/video.mkv' }),
+  muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ ok: true, outputPath: '/tmp/video.mkv' })
 }));
 
 import { dedupeSubtitleFiles, muxSubtitlesIntoVideo } from '@main/services/subtitlePostProcess';
@@ -21,7 +21,7 @@ function makeJob(): DownloadJob {
     outputDir: '/tmp',
     status: 'running',
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   };
 }
 
@@ -32,7 +32,7 @@ const BASE_INPUT: StartDownloadInput = {
   subtitleLanguages: ['en'],
   subtitleMode: 'sidecar',
   writeAutoSubs: false,
-  subtitleFormat: 'srt',
+  subtitleFormat: 'srt'
 };
 
 function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
@@ -43,14 +43,11 @@ function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
     pauseRequested: false,
     subtitlePaths: ['/tmp/video.en.srt'],
     mediaPath: '/tmp/video.mp4',
-    ...overrides,
+    ...overrides
   };
 }
 
-function makeCtx(
-  runResult: YtDlpResult,
-  activeOverrides: Partial<ActiveDownload> = {}
-): PhaseContext {
+function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload> = {}): PhaseContext {
   const runMock = vi.fn().mockResolvedValue(runResult);
   return {
     active: makeActive(activeOverrides),
@@ -63,12 +60,24 @@ function makeCtx(
     cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
     cleanupTempDir: vi.fn().mockResolvedValue(undefined),
     finalize: vi.fn().mockResolvedValue(undefined),
-    moveToPaused: vi.fn(),
+    moveToPaused: vi.fn()
   };
 }
 
-const SUCCESS: YtDlpResult = { kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false };
-const EXIT_ERROR: YtDlpResult = { kind: 'exit-error', exitCode: 1, signal: null, rawError: 'fail', stdout: '', stderr: '' };
+const SUCCESS: YtDlpResult = {
+  kind: 'success',
+  stdout: '',
+  stderr: '',
+  usedExtractorFallback: false
+};
+const EXIT_ERROR: YtDlpResult = {
+  kind: 'exit-error',
+  exitCode: 1,
+  signal: null,
+  rawError: 'fail',
+  stdout: '',
+  stderr: ''
+};
 
 describe('SidecarSubsPhase(embedAfter=false)', () => {
   it('calls ytDlp.run with kind: subtitle', async () => {
@@ -103,9 +112,11 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
   });
 
   it('writeAutoSubs=false → dedupeSubtitleFiles not called', async () => {
-    await SidecarSubsPhase(false).run(makeCtx(SUCCESS, {
-      input: { ...BASE_INPUT, writeAutoSubs: false },
-    }));
+    await SidecarSubsPhase(false).run(
+      makeCtx(SUCCESS, {
+        input: { ...BASE_INPUT, writeAutoSubs: false }
+      })
+    );
     expect(dedupeSubtitleFiles).not.toHaveBeenCalled();
   });
 
@@ -113,7 +124,7 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
     const paths = ['/tmp/video.en.srt'];
     const ctx = makeCtx(SUCCESS, {
       input: { ...BASE_INPUT, writeAutoSubs: true },
-      subtitlePaths: paths,
+      subtitlePaths: paths
     });
     await SidecarSubsPhase(false).run(ctx);
     expect(dedupeSubtitleFiles).toHaveBeenCalledOnce();
@@ -124,7 +135,7 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
   it('dedupeSubtitleFiles shouldAbort reflects cancelRequested', async () => {
     const ctx = makeCtx(SUCCESS, {
       input: { ...BASE_INPUT, writeAutoSubs: true },
-      subtitlePaths: ['/tmp/video.en.srt'],
+      subtitlePaths: ['/tmp/video.en.srt']
     });
     await SidecarSubsPhase(false).run(ctx);
 
@@ -144,17 +155,20 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
   it('ffmpeg available + mediaPath + subtitlePaths → calls muxSubtitlesIntoVideo', async () => {
     const ctx = makeCtx(SUCCESS, {
       mediaPath: '/tmp/video.mp4',
-      subtitlePaths: ['/tmp/video.en.srt'],
+      subtitlePaths: ['/tmp/video.en.srt']
     });
     await SidecarSubsPhase(true).run(ctx);
     expect(muxSubtitlesIntoVideo).toHaveBeenCalledOnce();
   });
 
   it('mux success → updates active.mediaPath to muxed output', async () => {
-    vi.mocked(muxSubtitlesIntoVideo).mockResolvedValueOnce({ ok: true, outputPath: '/tmp/video.mkv' });
+    vi.mocked(muxSubtitlesIntoVideo).mockResolvedValueOnce({
+      ok: true,
+      outputPath: '/tmp/video.mkv'
+    });
     const ctx = makeCtx(SUCCESS, {
       mediaPath: '/tmp/video.mp4',
-      subtitlePaths: ['/tmp/video.en.srt'],
+      subtitlePaths: ['/tmp/video.en.srt']
     });
     await SidecarSubsPhase(true).run(ctx);
     expect(ctx.active.mediaPath).toBe('/tmp/video.mkv');
@@ -163,7 +177,7 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
   it('ffmpeg=null → skips mux, emits subtitlesFailed, returns completed', async () => {
     const ctx = makeCtx(SUCCESS, {
       mediaPath: '/tmp/video.mp4',
-      subtitlePaths: ['/tmp/video.en.srt'],
+      subtitlePaths: ['/tmp/video.en.srt']
     });
     (ctx.ytDlp as unknown as Record<string, unknown>).ffmpegPath = null;
     const outcome = await SidecarSubsPhase(true).run(ctx);
@@ -176,7 +190,7 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
     vi.mocked(muxSubtitlesIntoVideo).mockResolvedValueOnce({ ok: false });
     const ctx = makeCtx(SUCCESS, {
       mediaPath: '/tmp/video.mp4',
-      subtitlePaths: ['/tmp/video.en.srt'],
+      subtitlePaths: ['/tmp/video.en.srt']
     });
     const originalPath = ctx.active.mediaPath;
     const outcome = await SidecarSubsPhase(true).run(ctx);
@@ -187,7 +201,7 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
   it('no mediaPath → skips mux, returns completed', async () => {
     const ctx = makeCtx(SUCCESS, {
       mediaPath: undefined,
-      subtitlePaths: ['/tmp/video.en.srt'],
+      subtitlePaths: ['/tmp/video.en.srt']
     });
     const outcome = await SidecarSubsPhase(true).run(ctx);
     expect(muxSubtitlesIntoVideo).not.toHaveBeenCalled();
@@ -197,7 +211,7 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
   it('empty subtitlePaths → skips mux, returns completed', async () => {
     const ctx = makeCtx(SUCCESS, {
       mediaPath: '/tmp/video.mp4',
-      subtitlePaths: [],
+      subtitlePaths: []
     });
     const outcome = await SidecarSubsPhase(true).run(ctx);
     expect(muxSubtitlesIntoVideo).not.toHaveBeenCalled();
@@ -207,7 +221,7 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
   it('emits mergingFormats before mux', async () => {
     const ctx = makeCtx(SUCCESS, {
       mediaPath: '/tmp/video.mp4',
-      subtitlePaths: ['/tmp/video.en.srt'],
+      subtitlePaths: ['/tmp/video.en.srt']
     });
     await SidecarSubsPhase(true).run(ctx);
     expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('download', STATUS_KEY.mergingFormats);
@@ -223,7 +237,7 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
     });
     const ctx = makeCtx(SUCCESS, {
       mediaPath: '/tmp/video.mp4',
-      subtitlePaths: ['/tmp/video.en.srt'],
+      subtitlePaths: ['/tmp/video.en.srt']
     });
     await SidecarSubsPhase(true).run(ctx);
     expect(procDuringMux).toBeDefined();

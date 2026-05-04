@@ -1,13 +1,15 @@
 import { describe, expect, it, vi } from 'vitest';
 import { TokenService } from '@main/services/TokenService';
 
-function makeProvider(overrides: Partial<{
-  ensureReady: () => Promise<void>;
-  getVisitorData: () => Promise<string>;
-  mintToken: (binding: string) => Promise<string>;
-  releaseWindow: () => void;
-  dispose: () => void;
-}> = {}) {
+function makeProvider(
+  overrides: Partial<{
+    ensureReady: () => Promise<void>;
+    getVisitorData: () => Promise<string>;
+    mintToken: (binding: string) => Promise<string>;
+    releaseWindow: () => void;
+    dispose: () => void;
+  }> = {}
+) {
   return {
     ensureReady: vi.fn().mockResolvedValue(undefined),
     getVisitorData: vi.fn().mockResolvedValue('visitor-abc'),
@@ -55,7 +57,9 @@ describe('TokenService.warmUp', () => {
   });
 
   it('swallows errors silently when provider throws', async () => {
-    const provider = makeProvider({ ensureReady: vi.fn().mockRejectedValue(new Error('Network error')) });
+    const provider = makeProvider({
+      ensureReady: vi.fn().mockRejectedValue(new Error('Network error'))
+    });
     const service = new TokenService(provider as never, makeLogger() as never);
 
     await expect(service.warmUp()).resolves.toBeUndefined();

@@ -27,7 +27,7 @@ export const DEFAULTS: {
   embedMetadata: true,
   embedThumbnail: true,
   writeDescription: false,
-  writeThumbnail: false,
+  writeThumbnail: false
 };
 
 // Single factory for the AppSettings shape — main process, tests, and

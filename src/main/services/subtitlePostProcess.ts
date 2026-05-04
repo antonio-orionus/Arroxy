@@ -18,11 +18,35 @@ import type { LogService } from './LogService';
 // auto-pickup with 2-letter codes but 3-letter is more correct. For codes we
 // don't recognize (e.g. "en-orig", regional variants), pass through as-is.
 const ISO_639_1_TO_2B: Record<string, string> = {
-  en: 'eng', es: 'spa', fr: 'fre', de: 'ger', it: 'ita', pt: 'por',
-  ru: 'rus', ja: 'jpn', ko: 'kor', zh: 'chi', ar: 'ara', hi: 'hin',
-  uk: 'ukr', pl: 'pol', tr: 'tur', nl: 'dut', sv: 'swe', da: 'dan',
-  no: 'nor', fi: 'fin', cs: 'cze', el: 'gre', he: 'heb', th: 'tha',
-  vi: 'vie', id: 'ind', ro: 'rum', hu: 'hun', bg: 'bul'
+  en: 'eng',
+  es: 'spa',
+  fr: 'fre',
+  de: 'ger',
+  it: 'ita',
+  pt: 'por',
+  ru: 'rus',
+  ja: 'jpn',
+  ko: 'kor',
+  zh: 'chi',
+  ar: 'ara',
+  hi: 'hin',
+  uk: 'ukr',
+  pl: 'pol',
+  tr: 'tur',
+  nl: 'dut',
+  sv: 'swe',
+  da: 'dan',
+  no: 'nor',
+  fi: 'fin',
+  cs: 'cze',
+  el: 'gre',
+  he: 'heb',
+  th: 'tha',
+  vi: 'vie',
+  id: 'ind',
+  ro: 'rum',
+  hu: 'hun',
+  bg: 'bul'
 };
 
 function toIso639(lang: string): string {
@@ -31,11 +55,7 @@ function toIso639(lang: string): string {
   return lang;
 }
 
-function buildSubtitleEmbedArgs(opts: {
-  videoPath: string;
-  subtitleTracks: Array<{ path: string; lang: string }>;
-  outputPath: string;
-}): string[] {
+function buildSubtitleEmbedArgs(opts: { videoPath: string; subtitleTracks: Array<{ path: string; lang: string }>; outputPath: string }): string[] {
   const args: string[] = ['-y'];
   args.push('-i', opts.videoPath);
   for (const track of opts.subtitleTracks) args.push('-i', track.path);
@@ -50,20 +70,12 @@ function buildSubtitleEmbedArgs(opts: {
 // YouTube auto-captions arrive as rolling cues — each cue duplicates the
 // previous + 1 word. Run pure-TS dedupe on each .srt / .vtt we wrote.
 // Failures are logged and swallowed: dedupe glitches must never lose a video.
-export async function dedupeSubtitleFiles(
-  paths: readonly string[],
-  logger: LogService,
-  jobId: string,
-  shouldAbort: () => boolean
-): Promise<void> {
+export async function dedupeSubtitleFiles(paths: readonly string[], logger: LogService, jobId: string, shouldAbort: () => boolean): Promise<void> {
   await Promise.all(
     paths.map(async (path) => {
       if (shouldAbort()) return;
       const ext = extname(path).toLowerCase();
-      const dedupe =
-        ext === '.srt' ? dedupeSrt :
-        ext === '.vtt' ? dedupeVtt :
-        null;
+      const dedupe = ext === '.srt' ? dedupeSrt : ext === '.vtt' ? dedupeVtt : null;
       if (!dedupe) return;
       try {
         const original = await readFile(path, 'utf8');
@@ -73,7 +85,9 @@ export async function dedupeSubtitleFiles(
         }
       } catch (err) {
         logger.log('WARN', 'auto-caption dedupe skipped', {
-          jobId, path, message: err instanceof Error ? err.message : String(err)
+          jobId,
+          path,
+          message: err instanceof Error ? err.message : String(err)
         });
       }
     })
@@ -91,15 +105,7 @@ export interface MuxResult {
 // Lang attribution is strict: each sub path must end in `.<lang>.<ext>` for
 // one of the requested langs. Unknown → 'und' (no positional fallback —
 // yt-dlp doesn't guarantee output order matches input order).
-export async function muxSubtitlesIntoVideo(opts: {
-  ffmpegPath: string;
-  videoPath: string;
-  subtitlePaths: readonly string[];
-  requestedLangs: readonly string[];
-  onSpawn: (proc: ChildProcessWithoutNullStreams) => void;
-  logger: LogService;
-  jobId: string;
-}): Promise<MuxResult> {
+export async function muxSubtitlesIntoVideo(opts: { ffmpegPath: string; videoPath: string; subtitlePaths: readonly string[]; requestedLangs: readonly string[]; onSpawn: (proc: ChildProcessWithoutNullStreams) => void; logger: LogService; jobId: string }): Promise<MuxResult> {
   if (opts.subtitlePaths.length === 0) return { ok: false };
 
   const tracks = opts.subtitlePaths.map((path) => ({
@@ -136,7 +142,8 @@ export async function muxSubtitlesIntoVideo(opts: {
     return { ok: true, outputPath };
   } catch (err) {
     opts.logger.log('WARN', 'subtitle mux: post-mux cleanup partial', {
-      jobId: opts.jobId, message: err instanceof Error ? err.message : String(err)
+      jobId: opts.jobId,
+      message: err instanceof Error ? err.message : String(err)
     });
     return { ok: true, outputPath };
   }

@@ -13,7 +13,7 @@ function makeJob(): DownloadJob {
     outputDir: '/tmp',
     status: 'running',
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   };
 }
 
@@ -24,7 +24,7 @@ const BASE_INPUT: StartDownloadInput = {
   subtitleLanguages: ['en', 'ja'],
   subtitleMode: 'embed',
   writeAutoSubs: false,
-  subtitleFormat: 'vtt',
+  subtitleFormat: 'vtt'
 };
 
 function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
@@ -34,14 +34,11 @@ function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
     cancelRequested: false,
     pauseRequested: false,
     subtitlePaths: [],
-    ...overrides,
+    ...overrides
   };
 }
 
-function makeCtx(
-  runResult: YtDlpResult,
-  activeOverrides: Partial<ActiveDownload> = {}
-): PhaseContext & { runMock: ReturnType<typeof vi.fn> } {
+function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload> = {}): PhaseContext & { runMock: ReturnType<typeof vi.fn> } {
   const runMock = vi.fn().mockImplementation((_req, signal) => {
     return Promise.resolve(runResult).then((r) => {
       signal?.onAttempt?.(0);
@@ -60,14 +57,31 @@ function makeCtx(
     cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
     cleanupTempDir: vi.fn().mockResolvedValue(undefined),
     finalize: vi.fn().mockResolvedValue(undefined),
-    moveToPaused: vi.fn(),
+    moveToPaused: vi.fn()
   };
   return Object.assign(ctx, { runMock });
 }
 
-const SUCCESS: YtDlpResult = { kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false };
-const SUCCESS_FALLBACK: YtDlpResult = { kind: 'success', stdout: '', stderr: '', usedExtractorFallback: true };
-const EXIT_ERROR: YtDlpResult = { kind: 'exit-error', exitCode: 1, signal: 'botBlock', rawError: 'bot', stdout: '', stderr: '' };
+const SUCCESS: YtDlpResult = {
+  kind: 'success',
+  stdout: '',
+  stderr: '',
+  usedExtractorFallback: false
+};
+const SUCCESS_FALLBACK: YtDlpResult = {
+  kind: 'success',
+  stdout: '',
+  stderr: '',
+  usedExtractorFallback: true
+};
+const EXIT_ERROR: YtDlpResult = {
+  kind: 'exit-error',
+  exitCode: 1,
+  signal: 'botBlock',
+  rawError: 'bot',
+  stdout: '',
+  stderr: ''
+};
 
 describe('VideoPhase(embed=false)', () => {
   it('calls ytDlp.run with kind: video', async () => {
@@ -108,7 +122,7 @@ describe('VideoPhase(embed=true)', () => {
 
   it('embed=true but no subtitleLanguages → falls back to video kind', async () => {
     const ctx = makeCtx(SUCCESS, {
-      input: { ...BASE_INPUT, subtitleLanguages: undefined },
+      input: { ...BASE_INPUT, subtitleLanguages: undefined }
     });
     await VideoPhase(true).run(ctx);
     const [req] = ctx.runMock.mock.calls[0];
@@ -117,7 +131,7 @@ describe('VideoPhase(embed=true)', () => {
 
   it('embed=true with empty subtitleLanguages → falls back to video kind', async () => {
     const ctx = makeCtx(SUCCESS, {
-      input: { ...BASE_INPUT, subtitleLanguages: [] },
+      input: { ...BASE_INPUT, subtitleLanguages: [] }
     });
     await VideoPhase(true).run(ctx);
     const [req] = ctx.runMock.mock.calls[0];
@@ -128,7 +142,7 @@ describe('VideoPhase(embed=true)', () => {
 describe('VideoPhase — sidecar field propagation', () => {
   it('writeDescription propagates to YtDlpRequest (video kind)', async () => {
     const ctx = makeCtx(SUCCESS, {
-      input: { ...BASE_INPUT, subtitleLanguages: [], writeDescription: true },
+      input: { ...BASE_INPUT, subtitleLanguages: [], writeDescription: true }
     });
     await VideoPhase(false).run(ctx);
     const [req] = ctx.runMock.mock.calls[0];
@@ -137,7 +151,7 @@ describe('VideoPhase — sidecar field propagation', () => {
 
   it('writeThumbnail propagates to YtDlpRequest (video kind)', async () => {
     const ctx = makeCtx(SUCCESS, {
-      input: { ...BASE_INPUT, subtitleLanguages: [], writeThumbnail: true },
+      input: { ...BASE_INPUT, subtitleLanguages: [], writeThumbnail: true }
     });
     await VideoPhase(false).run(ctx);
     const [req] = ctx.runMock.mock.calls[0];
@@ -146,7 +160,7 @@ describe('VideoPhase — sidecar field propagation', () => {
 
   it('writeDescription propagates to YtDlpRequest (video+embed kind)', async () => {
     const ctx = makeCtx(SUCCESS, {
-      input: { ...BASE_INPUT, writeDescription: true },
+      input: { ...BASE_INPUT, writeDescription: true }
     });
     await VideoPhase(true).run(ctx);
     const [req] = ctx.runMock.mock.calls[0];
@@ -155,7 +169,7 @@ describe('VideoPhase — sidecar field propagation', () => {
 
   it('writeThumbnail propagates to YtDlpRequest (video+embed kind)', async () => {
     const ctx = makeCtx(SUCCESS, {
-      input: { ...BASE_INPUT, writeThumbnail: true },
+      input: { ...BASE_INPUT, writeThumbnail: true }
     });
     await VideoPhase(true).run(ctx);
     const [req] = ctx.runMock.mock.calls[0];
@@ -179,7 +193,7 @@ describe('VideoPhase — cancel / pause', () => {
       cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
       cleanupTempDir: vi.fn().mockResolvedValue(undefined),
       finalize: vi.fn().mockResolvedValue(undefined),
-      moveToPaused: vi.fn(),
+      moveToPaused: vi.fn()
     };
     // Set cancelRequested during the run
     runMock.mockImplementationOnce(async () => {
@@ -204,7 +218,7 @@ describe('VideoPhase — cancel / pause', () => {
       cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
       cleanupTempDir: vi.fn().mockResolvedValue(undefined),
       finalize: vi.fn().mockResolvedValue(undefined),
-      moveToPaused: vi.fn(),
+      moveToPaused: vi.fn()
     };
     runMock.mockImplementationOnce(async () => {
       ctx.active.pauseRequested = true;
@@ -234,7 +248,7 @@ describe('VideoPhase — signal callbacks', () => {
       cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
       cleanupTempDir: vi.fn().mockResolvedValue(undefined),
       finalize: vi.fn().mockResolvedValue(undefined),
-      moveToPaused: vi.fn(),
+      moveToPaused: vi.fn()
     };
 
     await VideoPhase(false).run(ctx);
@@ -259,7 +273,7 @@ describe('VideoPhase — signal callbacks', () => {
       cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
       cleanupTempDir: vi.fn().mockResolvedValue(undefined),
       finalize: vi.fn().mockResolvedValue(undefined),
-      moveToPaused: vi.fn(),
+      moveToPaused: vi.fn()
     };
 
     await VideoPhase(false).run(ctx);
@@ -284,7 +298,7 @@ describe('VideoPhase — signal callbacks', () => {
       cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
       cleanupTempDir: vi.fn().mockResolvedValue(undefined),
       finalize: vi.fn().mockResolvedValue(undefined),
-      moveToPaused: vi.fn(),
+      moveToPaused: vi.fn()
     };
 
     await VideoPhase(false).run(ctx);
@@ -309,7 +323,7 @@ describe('VideoPhase — signal callbacks', () => {
       cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
       cleanupTempDir: vi.fn().mockResolvedValue(undefined),
       finalize: vi.fn().mockResolvedValue(undefined),
-      moveToPaused: vi.fn(),
+      moveToPaused: vi.fn()
     };
 
     await VideoPhase(false).run(ctx);

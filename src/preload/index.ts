@@ -13,7 +13,7 @@ const api: AppApi = {
     maximize: () => ipcRenderer.invoke(IPC_CHANNELS.windowMaximize),
     close: () => ipcRenderer.invoke(IPC_CHANNELS.windowClose),
     isMaximized: () => ipcRenderer.invoke(IPC_CHANNELS.windowIsMaximized),
-onMaximizedChange: (listener) => {
+    onMaximizedChange: (listener) => {
       const wrapped = (_: Electron.IpcRendererEvent, isMax: boolean): void => listener(isMax);
       ipcRenderer.on(IPC_CHANNELS.windowMaximizedChange, wrapped);
       return () => {
@@ -76,11 +76,11 @@ onMaximizedChange: (listener) => {
       ipcRenderer.on(IPC_CHANNELS.updaterAvailable, wrapped);
       return () => ipcRenderer.removeListener(IPC_CHANNELS.updaterAvailable, wrapped);
     },
-    install: () => ipcRenderer.invoke(IPC_CHANNELS.updaterInstall),
+    install: () => ipcRenderer.invoke(IPC_CHANNELS.updaterInstall)
   },
   analytics: {
-    track: (name, props) => ipcRenderer.send(IPC_CHANNELS.analyticsTrack, { name, props }),
-  },
+    track: (name, props) => ipcRenderer.send(IPC_CHANNELS.analyticsTrack, { name, props })
+  }
 };
 
 contextBridge.exposeInMainWorld('appApi', api);

@@ -10,7 +10,9 @@ vi.mock('@main/utils/process', async (importOriginal) => {
 
 import { spawnYtDlp } from '@main/utils/process';
 
-beforeEach(() => { vi.clearAllMocks(); });
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 function makeFakeProcess(exitCode: number, stderr = '', stdout = '') {
   const proc = Object.assign(new EventEmitter(), {
@@ -93,7 +95,10 @@ describe('DownloadService — error surfacing', () => {
     vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(1, stderrMsg) as never);
 
     const { service, recentJobsStore } = makeService();
-    const statusEvents: { statusKey: string; error?: { key: string | null; rawMessage?: string } }[] = [];
+    const statusEvents: {
+      statusKey: string;
+      error?: { key: string | null; rawMessage?: string };
+    }[] = [];
     service.on('status', (ev) => statusEvents.push({ statusKey: ev.statusKey, error: ev.error }));
 
     await service.start({ url: YOUTUBE_URL, outputDir: '/tmp' });
@@ -111,13 +116,11 @@ describe('DownloadService — bot-block retry', () => {
     const botStderr = "ERROR: [youtube] abc: Sign in to confirm you're not a bot.";
 
     vi.mocked(spawnYtDlp)
-      .mockReturnValueOnce(makeFakeProcess(1, botStderr) as never)  // first attempt fails
-      .mockReturnValueOnce(makeFakeProcess(0) as never);              // retry succeeds
+      .mockReturnValueOnce(makeFakeProcess(1, botStderr) as never) // first attempt fails
+      .mockReturnValueOnce(makeFakeProcess(0) as never); // retry succeeds
 
     const { service, tokenService, recentJobsStore } = makeService();
-    tokenService.mintTokenForUrl
-      .mockResolvedValueOnce({ token: 'old-token', visitorData: 'old-visitor' })
-      .mockResolvedValueOnce({ token: 'new-token', visitorData: 'new-visitor' });
+    tokenService.mintTokenForUrl.mockResolvedValueOnce({ token: 'old-token', visitorData: 'old-visitor' }).mockResolvedValueOnce({ token: 'new-token', visitorData: 'new-visitor' });
 
     await service.start({ url: YOUTUBE_URL, outputDir: '/tmp' });
     await new Promise((r) => setTimeout(r, 150));

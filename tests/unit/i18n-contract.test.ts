@@ -35,15 +35,27 @@ describe('i18n contract', () => {
   });
 
   it('non-en saveMode strings are translated (not English copies)', () => {
-    const enSaveMode = (en as LocaleResource & {
-      wizard: { subtitles: { saveMode: { heading: string; sidecar: string; embed: string; subfolder: string } } };
-    }).wizard.subtitles.saveMode;
+    const enSaveMode = (
+      en as LocaleResource & {
+        wizard: {
+          subtitles: {
+            saveMode: { heading: string; sidecar: string; embed: string; subfolder: string };
+          };
+        };
+      }
+    ).wizard.subtitles.saveMode;
 
     for (const [name, resource] of Object.entries(LOCALES)) {
       if (name === 'en') continue;
-      const sm = (resource as LocaleResource & {
-        wizard: { subtitles: { saveMode: { heading: string; sidecar: string; embed: string; subfolder: string } } };
-      }).wizard.subtitles.saveMode;
+      const sm = (
+        resource as LocaleResource & {
+          wizard: {
+            subtitles: {
+              saveMode: { heading: string; sidecar: string; embed: string; subfolder: string };
+            };
+          };
+        }
+      ).wizard.subtitles.saveMode;
       // Heading and sidecar must differ from English. Embed/subfolder may
       // legitimately keep an English keyword in non-Latin scripts (e.g. zh
       // keeps "subtitles/" as the literal folder path), so we don't enforce

@@ -37,20 +37,28 @@ describe('phasesFor — strategy selection', () => {
   });
 
   it('formatId + langs + mode=embed + writeAutoSubs=false → preflight + video+embed', () => {
-    const phases = phasesFor(input({
-      formatId: FORMAT_ID, subtitleLanguages: LANGS,
-      subtitleMode: 'embed', writeAutoSubs: false,
-    }));
+    const phases = phasesFor(
+      input({
+        formatId: FORMAT_ID,
+        subtitleLanguages: LANGS,
+        subtitleMode: 'embed',
+        writeAutoSubs: false
+      })
+    );
     expect(phases).toHaveLength(2);
     expect(phases[0].kind).toBe('preflight');
     expect(phases[1].kind).toBe('video+embed');
   });
 
   it('formatId + langs + mode=embed + writeAutoSubs=true → preflight + video + sidecar-subs', () => {
-    const phases = phasesFor(input({
-      formatId: FORMAT_ID, subtitleLanguages: LANGS,
-      subtitleMode: 'embed', writeAutoSubs: true,
-    }));
+    const phases = phasesFor(
+      input({
+        formatId: FORMAT_ID,
+        subtitleLanguages: LANGS,
+        subtitleMode: 'embed',
+        writeAutoSubs: true
+      })
+    );
     expect(phases).toHaveLength(3);
     expect(phases[0].kind).toBe('preflight');
     expect(phases[1].kind).toBe('video');
@@ -86,9 +94,13 @@ describe('phasesFor — strategy selection', () => {
   });
 
   it('formatId + langs + mode=subfolder → preflight + video + sidecar-subs', () => {
-    const phases = phasesFor(input({
-      formatId: FORMAT_ID, subtitleLanguages: LANGS, subtitleMode: 'subfolder',
-    }));
+    const phases = phasesFor(
+      input({
+        formatId: FORMAT_ID,
+        subtitleLanguages: LANGS,
+        subtitleMode: 'subfolder'
+      })
+    );
     expect(phases).toHaveLength(3);
     expect(phases[0].kind).toBe('preflight');
     expect(phases[1].kind).toBe('video');

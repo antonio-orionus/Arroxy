@@ -8,11 +8,11 @@ import type { Phase } from './types';
 type StrategyKind = 'subtitle-only' | 'video' | 'video+sidecar' | 'video+embed' | 'video+embed+auto';
 
 const PHASES: Record<StrategyKind, Phase[]> = {
-  'subtitle-only':    [SubtitleOnlyPhase],
-  'video':            [VideoPhase(false)],
-  'video+embed':      [VideoPhase(true)],
-  'video+sidecar':    [VideoPhase(false), SidecarSubsPhase(false)],
-  'video+embed+auto': [VideoPhase(false), SidecarSubsPhase(true)],
+  'subtitle-only': [SubtitleOnlyPhase],
+  video: [VideoPhase(false)],
+  'video+embed': [VideoPhase(true)],
+  'video+sidecar': [VideoPhase(false), SidecarSubsPhase(false)],
+  'video+embed+auto': [VideoPhase(false), SidecarSubsPhase(true)]
 };
 
 function strategyFor(input: StartDownloadInput): StrategyKind {

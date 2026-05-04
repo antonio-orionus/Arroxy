@@ -12,9 +12,7 @@ export class RecentJobsStore extends JsonFileStore {
   }
 
   async list(): Promise<RecentJob[]> {
-    const jobs = await this.readJson<RecentJob[]>([], (err) =>
-      console.error('[RecentJobsStore] Failed to load recent jobs — returning empty', err)
-    );
+    const jobs = await this.readJson<RecentJob[]>([], (err) => console.error('[RecentJobsStore] Failed to load recent jobs — returning empty', err));
     if (!Array.isArray(jobs)) return [];
     return jobs.sort((a, b) => (a.finishedAt < b.finishedAt ? 1 : -1));
   }

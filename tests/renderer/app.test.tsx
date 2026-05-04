@@ -47,9 +47,7 @@ describe('App renderer', () => {
     fireEvent.click(screen.getByTestId('btn-find-formats'));
 
     await waitFor(() => {
-      expect(mockAppApi.downloads.getFormats).toHaveBeenCalledWith(
-        expect.objectContaining({ url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' })
-      );
+      expect(mockAppApi.downloads.getFormats).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }));
     });
   });
 

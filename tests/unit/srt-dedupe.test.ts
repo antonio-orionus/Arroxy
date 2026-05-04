@@ -22,8 +22,7 @@ describe('dedupeSrt', () => {
 
     const timecodes = [...out.matchAll(/^(\d+):(\d+):(\d+),(\d+) --> (\d+):(\d+):(\d+),(\d+)/gm)];
     expect(timecodes.length).toBeGreaterThan(0);
-    const toMs = (m: RegExpMatchArray, off: number): number =>
-      Number(m[off]) * 3600000 + Number(m[off + 1]) * 60000 + Number(m[off + 2]) * 1000 + Number(m[off + 3]);
+    const toMs = (m: RegExpMatchArray, off: number): number => Number(m[off]) * 3600000 + Number(m[off + 1]) * 60000 + Number(m[off + 2]) * 1000 + Number(m[off + 3]);
 
     let lastEnd = -1;
     for (const m of timecodes) {

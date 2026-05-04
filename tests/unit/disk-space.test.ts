@@ -8,7 +8,9 @@ vi.mock('node:fs/promises', async (importOriginal) => {
 
 import { statfs } from 'node:fs/promises';
 
-beforeEach(() => { vi.clearAllMocks(); });
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 function mockStatfs(freeBytes: number) {
   // bsize=4096, bavail computed from freeBytes

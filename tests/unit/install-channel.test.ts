@@ -106,7 +106,7 @@ describe('detectInstallChannel', () => {
   it('detects flatpak on linux when /.flatpak-info exists', async () => {
     setPlatform('linux');
     vi.doMock('node:fs', () => ({
-      default: { existsSync: (p: string) => p === '/.flatpak-info' },
+      default: { existsSync: (p: string) => p === '/.flatpak-info' }
     }));
     const { detectInstallChannel } = await import('@main/installChannel');
     expect(detectInstallChannel('arroxy')).toBe('flatpak');

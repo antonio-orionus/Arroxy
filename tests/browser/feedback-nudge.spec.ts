@@ -46,10 +46,10 @@ test('nudge auto-dismisses after 8 seconds', async ({ page }) => {
   });
 
   // Use waitForFunction to poll until nudge disappears (up to 10s real time)
-  await page.waitForFunction(
-    () => !document.querySelector('[data-testid="feedback-nudge"]'),
-    { timeout: 10_000, polling: 500 }
-  );
+  await page.waitForFunction(() => !document.querySelector('[data-testid="feedback-nudge"]'), {
+    timeout: 10_000,
+    polling: 500
+  });
 
   await expect(page.getByTestId('feedback-nudge')).not.toBeVisible();
 });
@@ -72,7 +72,7 @@ test('visual screenshot — nudge above Feedback button', async ({ page }) => {
   if (box) {
     await page.screenshot({
       path: 'tests/browser/screenshots/nudge-footer-zoom.png',
-      clip: { x: box.x, y: box.y - 80, width: box.width, height: box.height + 80 },
+      clip: { x: box.x, y: box.y - 80, width: box.width, height: box.height + 80 }
     });
   }
 

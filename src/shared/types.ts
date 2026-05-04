@@ -3,16 +3,7 @@ import type { LocalizedError } from './i18n/types';
 // Re-export the enum types whose canonical definition lives in `schemas.ts`
 // (where they're z.enum schemas). Importing from `@shared/types` continues to
 // work for callers that don't care about the schema vs type distinction.
-export type {
-  Preset,
-  SubtitleMode,
-  SubtitleFormat,
-  SponsorBlockMode,
-  SponsorBlockCategory,
-  SupportedLang,
-  UiTheme,
-  QueueItemStatus
-} from './schemas';
+export type { Preset, SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, QueueItemStatus } from './schemas';
 
 export type { StatusKey } from './schemas';
 export type { LocalizedError, YtdlpErrorKey } from './i18n/types';
@@ -221,9 +212,7 @@ export interface PauseDownloadOutput {
 
 export type InstallChannel = 'direct' | 'winget' | 'scoop' | 'homebrew' | 'flatpak' | 'portable';
 
-export const INSTALL_CHANNELS: readonly InstallChannel[] = [
-  'direct', 'winget', 'scoop', 'homebrew', 'flatpak', 'portable'
-] as const;
+export const INSTALL_CHANNELS: readonly InstallChannel[] = ['direct', 'winget', 'scoop', 'homebrew', 'flatpak', 'portable'] as const;
 
 export interface UpdateAvailablePayload {
   version: string;
@@ -231,6 +220,4 @@ export interface UpdateAvailablePayload {
   installChannel: InstallChannel;
 }
 
-export type UpdateInstallResult =
-  | { ok: true }
-  | { ok: false; error: string };
+export type UpdateInstallResult = { ok: true } | { ok: false; error: string };

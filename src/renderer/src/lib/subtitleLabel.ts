@@ -7,12 +7,7 @@ export const SUBTITLE_MODE_I18N_KEYS = {
   subfolder: 'wizard.subtitles.saveMode.subfolder'
 } as const satisfies Record<SubtitleMode, string>;
 
-export function resolveSubtitleLabel(
-  code: string,
-  subtitles: SubtitleMap,
-  automaticCaptions: SubtitleMap,
-  uiLanguage: string
-): string {
+export function resolveSubtitleLabel(code: string, subtitles: SubtitleMap, automaticCaptions: SubtitleMap, uiLanguage: string): string {
   const fromMeta = subtitles[code]?.[0]?.name ?? automaticCaptions[code]?.[0]?.name;
   if (fromMeta) return fromMeta;
   try {
@@ -24,11 +19,7 @@ export function resolveSubtitleLabel(
   }
 }
 
-export function buildSubtitleList(
-  subtitles: SubtitleMap,
-  automaticCaptions: SubtitleMap,
-  uiLanguage: string
-): { code: string; displayName: string; isAuto: boolean }[] {
+export function buildSubtitleList(subtitles: SubtitleMap, automaticCaptions: SubtitleMap, uiLanguage: string): { code: string; displayName: string; isAuto: boolean }[] {
   const manual = Object.keys(subtitles)
     .filter((code) => code !== LIVE_CHAT_LANG)
     .map((code) => ({

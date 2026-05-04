@@ -109,9 +109,7 @@ describe('Footer feedback controls', () => {
   it('Feedback button calls openExternal with the GitHub issues URL', async () => {
     render(<App />);
     fireEvent.click(await screen.findByTestId('btn-feedback'));
-    expect(mockOpenExternal).toHaveBeenCalledWith(
-      'https://github.com/antonio-orionus/Arroxy/issues/new/choose'
-    );
+    expect(mockOpenExternal).toHaveBeenCalledWith('https://github.com/antonio-orionus/Arroxy/issues/new/choose');
   });
 
   it('Copy debug info writes platform, Electron, and Chrome fields to clipboard', async () => {
@@ -164,7 +162,9 @@ describe('Footer feedback controls', () => {
 
     expect(screen.getByTestId('btn-debug')).toHaveAttribute('title', 'Copied!');
 
-    act(() => { vi.advanceTimersByTime(1600); });
+    act(() => {
+      vi.advanceTimersByTime(1600);
+    });
 
     expect(screen.getByTestId('btn-debug')).toHaveAttribute('title', 'Copy debug info (Electron, OS, Chrome versions)');
   });

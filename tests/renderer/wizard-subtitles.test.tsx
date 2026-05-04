@@ -12,8 +12,25 @@ const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 
 const PROBE_RESULT: GetFormatsOutput = {
   formats: [
-    { formatId: '22', label: '720p | mp4 | 30fps', ext: 'mp4', resolution: '720p', fps: 30, filesize: 400_000_000, isVideoOnly: false, isAudioOnly: false },
-    { formatId: '140', label: 'opus 128kbps', ext: 'opus', resolution: 'audio only', abr: 128, isVideoOnly: false, isAudioOnly: true }
+    {
+      formatId: '22',
+      label: '720p | mp4 | 30fps',
+      ext: 'mp4',
+      resolution: '720p',
+      fps: 30,
+      filesize: 400_000_000,
+      isVideoOnly: false,
+      isAudioOnly: false
+    },
+    {
+      formatId: '140',
+      label: 'opus 128kbps',
+      ext: 'opus',
+      resolution: 'audio only',
+      abr: 128,
+      isVideoOnly: false,
+      isAudioOnly: true
+    }
   ],
   title: 'Test Video',
   thumbnail: '',
@@ -29,14 +46,25 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, getFormat
       setLanguage: vi.fn().mockResolvedValue(undefined)
     },
     downloads: {
-      start: vi.fn().mockResolvedValue(ok({ job: { id: 'job-1', url: YOUTUBE_URL, outputDir: '/tmp', status: 'running', createdAt: '', updatedAt: '' } })),
+      start: vi.fn().mockResolvedValue(
+        ok({
+          job: {
+            id: 'job-1',
+            url: YOUTUBE_URL,
+            outputDir: '/tmp',
+            status: 'running',
+            createdAt: '',
+            updatedAt: ''
+          }
+        })
+      ),
       cancel: vi.fn().mockResolvedValue(ok({ cancelled: true })),
       getFormats: vi.fn().mockResolvedValue(ok(getFormatsResult)),
-      pause: vi.fn().mockResolvedValue(ok({ paused: true })),
+      pause: vi.fn().mockResolvedValue(ok({ paused: true }))
     },
     settings: {
       get: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false, ...settingsOverrides })),
-      update: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false, ...settingsOverrides })),
+      update: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false, ...settingsOverrides }))
     },
     shell: { openFolder: vi.fn(), openExternal: vi.fn() },
     logs: { openDir: vi.fn() },
@@ -44,11 +72,11 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, getFormat
     events: {
       onStatus: vi.fn().mockImplementation((_cb: (event: StatusEvent) => void) => () => undefined),
       onProgress: vi.fn().mockReturnValue(() => undefined),
-      onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
+      onClipboardUrl: vi.fn().mockReturnValue(() => undefined)
     },
     queue: {
       save: vi.fn().mockResolvedValue({ ok: true, data: { saved: true } }),
-      load: vi.fn().mockResolvedValue({ ok: true, data: [] }),
+      load: vi.fn().mockResolvedValue({ ok: true, data: [] })
     },
     updater: {
       onUpdateAvailable: vi.fn().mockReturnValue(() => undefined),
@@ -56,7 +84,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, getFormat
     },
     analytics: {
       track: vi.fn()
-    },
+    }
   };
 }
 
@@ -86,7 +114,7 @@ function resetStore() {
     wizardSponsorBlockMode: 'off' as const,
     wizardSponsorBlockCategories: ['sponsor', 'selfpromo'] as never[],
     queue: [],
-    drawerOpen: false,
+    drawerOpen: false
   });
 }
 
@@ -268,7 +296,7 @@ describe('Wizard subtitle step — store behavior', () => {
       wizardFormats: PROBE_RESULT.formats,
       wizardSubtitles: PROBE_RESULT.subtitles,
       wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-      wizardSubtitleLanguages: ['de-orig'],  // auto-only lang
+      wizardSubtitleLanguages: ['de-orig'], // auto-only lang
       wizardStep: 'confirm'
     });
 
@@ -496,7 +524,7 @@ describe('StepSubtitles — save mode UI', () => {
       wizardAutomaticCaptions: {},
       wizardSubtitleLanguages: [],
       wizardSubtitleMode: subtitleMode as never,
-      wizardSubtitleFormat: 'srt',
+      wizardSubtitleFormat: 'srt'
     });
     return render(<StepSubtitles />);
   }
@@ -584,7 +612,7 @@ describe('StepConfirm — subtitle summary', () => {
       wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
       wizardSubtitleLanguages: opts.languages,
       wizardSubtitleMode: opts.mode as never,
-      wizardSubtitleFormat: opts.format as never,
+      wizardSubtitleFormat: opts.format as never
     });
     return render(<StepConfirm />);
   }
@@ -626,7 +654,7 @@ describe('StepFormatSelect — subtitle-only preset disables format columns', ()
       wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
       wizardSubtitleLanguages: [],
       wizardSubtitleMode: 'sidecar',
-      wizardSubtitleFormat: 'srt',
+      wizardSubtitleFormat: 'srt'
     });
     return render(<StepFormatSelect />);
   }
@@ -668,7 +696,7 @@ describe('StepConfirm — subtitle-only safeguards', () => {
       wizardSubtitleLanguages: languages,
       wizardSubtitleSkipped: skipped,
       wizardSubtitleMode: 'sidecar',
-      wizardSubtitleFormat: 'srt',
+      wizardSubtitleFormat: 'srt'
     });
     return render(<StepConfirm />);
   }

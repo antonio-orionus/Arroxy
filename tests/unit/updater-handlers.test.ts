@@ -21,7 +21,9 @@ vi.mock('electron-updater', () => ({
   }
 }));
 
-vi.mock('@main/installChannel', () => ({ detectInstallChannel: vi.fn().mockReturnValue('direct') }));
+vi.mock('@main/installChannel', () => ({
+  detectInstallChannel: vi.fn().mockReturnValue('direct')
+}));
 
 import { app, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
@@ -91,9 +93,14 @@ describe('registerUpdaterHandlers', () => {
 
   it('forwards installChannel from runtime detection', async () => {
     vi.resetModules();
-    vi.doMock('@main/installChannel', () => ({ detectInstallChannel: vi.fn().mockReturnValue('scoop') }));
+    vi.doMock('@main/installChannel', () => ({
+      detectInstallChannel: vi.fn().mockReturnValue('scoop')
+    }));
     vi.doMock('electron', () => ({
-      app: { getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy') },
+      app: {
+        getVersion: vi.fn().mockReturnValue('1.0.0'),
+        getName: vi.fn().mockReturnValue('arroxy')
+      },
       ipcMain: { handle: vi.fn(), removeHandler: vi.fn() }
     }));
     vi.doMock('electron-updater', () => ({
@@ -119,10 +126,7 @@ describe('registerUpdaterHandlers', () => {
     registerWithScoop(win);
     handlers['update-available']!({ version: '2.0.0' });
 
-    expect(win.webContents.send).toHaveBeenCalledWith(
-      IPC_CHANNELS.updaterAvailable,
-      expect.objectContaining({ installChannel: 'scoop' })
-    );
+    expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({ installChannel: 'scoop' }));
 
     vi.doUnmock('@main/installChannel');
     vi.doUnmock('electron');
@@ -132,9 +136,14 @@ describe('registerUpdaterHandlers', () => {
 
   it('skips autoUpdater entirely when running under Flatpak', async () => {
     vi.resetModules();
-    vi.doMock('@main/installChannel', () => ({ detectInstallChannel: vi.fn().mockReturnValue('flatpak') }));
+    vi.doMock('@main/installChannel', () => ({
+      detectInstallChannel: vi.fn().mockReturnValue('flatpak')
+    }));
     vi.doMock('electron', () => ({
-      app: { getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy') },
+      app: {
+        getVersion: vi.fn().mockReturnValue('1.0.0'),
+        getName: vi.fn().mockReturnValue('arroxy')
+      },
       ipcMain: { handle: vi.fn(), removeHandler: vi.fn() }
     }));
     vi.doMock('electron-updater', () => ({
@@ -263,15 +272,22 @@ describe('registerUpdaterHandlers', () => {
   it('updater:install rejects with ok:false on non-installable channels', async () => {
     for (const channel of ['scoop', 'homebrew', 'portable'] as const) {
       vi.resetModules();
-      vi.doMock('@main/installChannel', () => ({ detectInstallChannel: vi.fn().mockReturnValue(channel) }));
+      vi.doMock('@main/installChannel', () => ({
+        detectInstallChannel: vi.fn().mockReturnValue(channel)
+      }));
       vi.doMock('electron', () => ({
-        app: { getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy') },
+        app: {
+          getVersion: vi.fn().mockReturnValue('1.0.0'),
+          getName: vi.fn().mockReturnValue('arroxy')
+        },
         ipcMain: { handle: vi.fn(), removeHandler: vi.fn() }
       }));
       vi.doMock('electron-updater', () => ({
         autoUpdater: {
-          autoDownload: true, autoInstallOnAppQuit: true,
-          on: vi.fn(), removeAllListeners: vi.fn(),
+          autoDownload: true,
+          autoInstallOnAppQuit: true,
+          on: vi.fn(),
+          removeAllListeners: vi.fn(),
           checkForUpdates: vi.fn().mockResolvedValue(undefined),
           downloadUpdate: vi.fn().mockResolvedValue(undefined),
           quitAndInstall: vi.fn()
@@ -323,9 +339,6 @@ describe('registerUpdaterHandlers', () => {
 
     handlers['update-available']!({ version: '1.0.0' });
 
-    expect(win.webContents.send).toHaveBeenCalledWith(
-      IPC_CHANNELS.updaterAvailable,
-      expect.objectContaining({ currentVersion: '0.5.3' })
-    );
+    expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({ currentVersion: '0.5.3' }));
   });
 });

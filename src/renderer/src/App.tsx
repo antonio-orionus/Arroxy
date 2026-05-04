@@ -79,7 +79,7 @@ export function App(): JSX.Element {
   }, [uiTheme]);
 
   useEffect(() => {
-    const delay = (window as unknown as Record<string, unknown>).__NUDGE_DELAY_MS as number ?? 45_000;
+    const delay = ((window as unknown as Record<string, unknown>).__NUDGE_DELAY_MS as number) ?? 45_000;
     const t = setTimeout(() => setShowNudge(true), delay);
     return () => clearTimeout(t);
   }, []);
@@ -92,96 +92,72 @@ export function App(): JSX.Element {
 
   return (
     <TooltipProvider>
-    <div className="relative flex flex-col h-screen w-screen bg-background overflow-hidden" data-testid="app-root">
-      <TitleBar />
+      <div className="relative flex flex-col h-screen w-screen bg-background overflow-hidden" data-testid="app-root">
+        <TitleBar />
 
-      {updateInfo && (
-        <UpdateBanner
-          info={updateInfo}
-          installing={installing}
-          installError={installError}
-          onInstall={handleInstall}
-          onDownload={handleDownload}
-          onDismiss={() => { setUpdateInfo(null); setInstallError(null); }}
-        />
-      )}
+        {updateInfo && (
+          <UpdateBanner
+            info={updateInfo}
+            installing={installing}
+            installError={installError}
+            onInstall={handleInstall}
+            onDownload={handleDownload}
+            onDismiss={() => {
+              setUpdateInfo(null);
+              setInstallError(null);
+            }}
+          />
+        )}
 
-      <div className="flex-1 flex flex-col overflow-hidden" data-testid="app-content">
-        <div className="flex-1 flex flex-col overflow-hidden" style={{ zoom: uiZoom }}>
-          <div className="flex-1 overflow-y-auto overflow-x-hidden">
-            <WizardPanel />
+        <div className="flex-1 flex flex-col overflow-hidden" data-testid="app-content">
+          <div className="flex-1 flex flex-col overflow-hidden" style={{ zoom: uiZoom }}>
+            <div className="flex-1 overflow-y-auto overflow-x-hidden">
+              <WizardPanel />
+            </div>
+            <SmartDrawer />
           </div>
-          <SmartDrawer />
         </div>
-      </div>
 
-      <footer className="shrink-0 flex items-center justify-between border-t border-border px-4 h-7">
-        <div className="flex items-center gap-1">
-          <button
-            type="button"
-            onClick={() => setUiZoom(uiZoom - ZOOM_STEP)}
-            disabled={uiZoom <= ZOOM_MIN}
-            className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
-            aria-label={t('app.zoomOut')}
-          >−</button>
-          <span className="text-[13px] text-muted-foreground w-8 text-center tabular-nums">
-            {Math.round(uiZoom * 100)}%
-          </span>
-          <button
-            type="button"
-            onClick={() => setUiZoom(uiZoom + ZOOM_STEP)}
-            disabled={uiZoom >= ZOOM_MAX}
-            className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none"
-            aria-label={t('app.zoomIn')}
-          >+</button>
-          <div className="w-px h-3 bg-border mx-1" aria-hidden />
-          <ThemeToggle />
-          <div className="w-px h-3 bg-border mx-1" aria-hidden />
-          <LanguagePicker />
-        </div>
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-foreground/80 transition-colors"
-            onClick={copyDebugInfo}
-            title={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')}
-            data-testid="btn-debug"
-          >
-            <Bug size={14} />
-          </button>
-          <div className="relative">
-            <FeedbackNudge
-              visible={showNudge}
-              message={t('app.feedbackNudge')}
-            />
-            <button
-              type="button"
-              className={cn(
-                'text-[13px] transition-colors',
-                showNudge ? 'feedback-btn-nudging' : 'text-muted-foreground hover:text-foreground/80'
-              )}
-              onClick={() => {
-                setShowNudge(false);
-                void window.appApi.shell.openExternal(FEEDBACK_URL);
-              }}
-              data-testid="btn-feedback"
-            >
-              {t('app.feedback')}
+        <footer className="shrink-0 flex items-center justify-between border-t border-border px-4 h-7">
+          <div className="flex items-center gap-1">
+            <button type="button" onClick={() => setUiZoom(uiZoom - ZOOM_STEP)} disabled={uiZoom <= ZOOM_MIN} className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none" aria-label={t('app.zoomOut')}>
+              −
+            </button>
+            <span className="text-[13px] text-muted-foreground w-8 text-center tabular-nums">{Math.round(uiZoom * 100)}%</span>
+            <button type="button" onClick={() => setUiZoom(uiZoom + ZOOM_STEP)} disabled={uiZoom >= ZOOM_MAX} className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none" aria-label={t('app.zoomIn')}>
+              +
+            </button>
+            <div className="w-px h-3 bg-border mx-1" aria-hidden />
+            <ThemeToggle />
+            <div className="w-px h-3 bg-border mx-1" aria-hidden />
+            <LanguagePicker />
+          </div>
+          <div className="flex items-center gap-3">
+            <button type="button" className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-foreground/80 transition-colors" onClick={copyDebugInfo} title={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')} data-testid="btn-debug">
+              <Bug size={14} />
+            </button>
+            <div className="relative">
+              <FeedbackNudge visible={showNudge} message={t('app.feedbackNudge')} />
+              <button
+                type="button"
+                className={cn('text-[13px] transition-colors', showNudge ? 'feedback-btn-nudging' : 'text-muted-foreground hover:text-foreground/80')}
+                onClick={() => {
+                  setShowNudge(false);
+                  void window.appApi.shell.openExternal(FEEDBACK_URL);
+                }}
+                data-testid="btn-feedback"
+              >
+                {t('app.feedback')}
+              </button>
+            </div>
+            <button type="button" className="text-[13px] text-muted-foreground hover:text-foreground/80 transition-colors" onClick={() => void openLogs()} data-testid="btn-logs">
+              {t('app.logs')}
             </button>
           </div>
-          <button
-            type="button"
-            className="text-[13px] text-muted-foreground hover:text-foreground/80 transition-colors"
-            onClick={() => void openLogs()}
-            data-testid="btn-logs"
-          >
-            {t('app.logs')}
-          </button>
-        </div>
-      </footer>
+        </footer>
 
-      <SplashScreen initialized={initialized} warmupFailures={warmupFailures} />
-    </div>
+        <SplashScreen initialized={initialized} warmupFailures={warmupFailures} />
+      </div>
     </TooltipProvider>
   );
 }

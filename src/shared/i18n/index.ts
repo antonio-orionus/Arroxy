@@ -25,7 +25,27 @@ export { SUPPORTED_LANGS, LANGUAGE_NATIVE_NAMES } from './types';
 export type { SupportedLang, YtdlpErrorKey, LocalizedError } from './types';
 export { isRtl } from './rtl';
 
-const RESOURCES: Record<SupportedLang, LocaleResource> = { en, es, fr, de, ru, uk, ja, zh, hi, bn, ar, uz, my, ps, sw, am, om, el, sr };
+const RESOURCES: Record<SupportedLang, LocaleResource> = {
+  en,
+  es,
+  fr,
+  de,
+  ru,
+  uk,
+  ja,
+  zh,
+  hi,
+  bn,
+  ar,
+  uz,
+  my,
+  ps,
+  sw,
+  am,
+  om,
+  el,
+  sr
+};
 
 export function pickLanguage(raw: string | undefined | null): SupportedLang {
   if (!raw) return 'en';
@@ -51,9 +71,7 @@ export function initI18n(language: SupportedLang): I18nInstance {
     supportedLngs: SUPPORTED_LANGS as unknown as string[],
     defaultNS: 'translation',
     ns: ['translation'],
-    resources: Object.fromEntries(
-      (Object.keys(RESOURCES) as SupportedLang[]).map((k) => [k, { translation: RESOURCES[k] }])
-    ),
+    resources: Object.fromEntries((Object.keys(RESOURCES) as SupportedLang[]).map((k) => [k, { translation: RESOURCES[k] }])),
     interpolation: { escapeValue: false },
     returnNull: false
   });

@@ -30,9 +30,15 @@ const mockAppApi = {
     get: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: true })),
     update: vi.fn()
   },
-  shell: { openFolder: vi.fn().mockResolvedValue(ok({ opened: true })), openExternal: mockOpenExternal },
+  shell: {
+    openFolder: vi.fn().mockResolvedValue(ok({ opened: true })),
+    openExternal: mockOpenExternal
+  },
   logs: { openDir: vi.fn().mockResolvedValue(ok({ opened: true })) },
-  dialog: { chooseFolder: vi.fn().mockResolvedValue(ok({ path: '/tmp' })), chooseFile: vi.fn().mockResolvedValue(ok({ path: null })) },
+  dialog: {
+    chooseFolder: vi.fn().mockResolvedValue(ok({ path: '/tmp' })),
+    chooseFile: vi.fn().mockResolvedValue(ok({ path: null }))
+  },
   events: {
     onStatus: vi.fn().mockReturnValue(() => undefined),
     onProgress: vi.fn().mockReturnValue(() => undefined),
@@ -53,11 +59,21 @@ const mockAppApi = {
 
 function resetStore() {
   useAppStore.setState({
-    initialized: false, settings: null, wizardStep: 'url',
-    formatsLoading: false, wizardUrl: '', wizardTitle: '',
-    wizardThumbnail: '', wizardFormats: [], selectedVideoFormatId: '',
-    selectedAudioFormatId: null, activePreset: null,
-    wizardOutputDir: '', wizardError: null, wizardErrorOrigin: null, queue: []
+    initialized: false,
+    settings: null,
+    wizardStep: 'url',
+    formatsLoading: false,
+    wizardUrl: '',
+    wizardTitle: '',
+    wizardThumbnail: '',
+    wizardFormats: [],
+    selectedVideoFormatId: '',
+    selectedAudioFormatId: null,
+    activePreset: null,
+    wizardOutputDir: '',
+    wizardError: null,
+    wizardErrorOrigin: null,
+    queue: []
   });
 }
 
@@ -69,7 +85,8 @@ describe('Feedback nudge', () => {
     // Override the 45s delay to 500ms so timers are fast in tests
     (window as unknown as Record<string, unknown>).__NUDGE_DELAY_MS = 500;
     Object.defineProperty(navigator, 'clipboard', {
-      writable: true, configurable: true,
+      writable: true,
+      configurable: true,
       value: { writeText: vi.fn().mockResolvedValue(undefined) }
     });
     vi.clearAllMocks();
@@ -91,10 +108,12 @@ describe('Feedback nudge', () => {
     render(<App />);
     await act(async () => {});
 
-    act(() => { vi.advanceTimersByTime(501); });
+    act(() => {
+      vi.advanceTimersByTime(501);
+    });
 
     expect(screen.getByTestId('feedback-nudge')).toBeInTheDocument();
-    expect(screen.getByText('Enjoying Arroxy? I\'d love to hear from you! 💬')).toBeInTheDocument();
+    expect(screen.getByText("Enjoying Arroxy? I'd love to hear from you! 💬")).toBeInTheDocument();
   });
 
   it('nudge auto-dismisses after 8 seconds', async () => {
@@ -102,14 +121,20 @@ describe('Feedback nudge', () => {
     await act(async () => {});
 
     // Trigger nudge
-    act(() => { vi.advanceTimersByTime(501); });
+    act(() => {
+      vi.advanceTimersByTime(501);
+    });
     expect(screen.getByTestId('feedback-nudge')).toBeInTheDocument();
 
     // Auto-dismiss fires after 8s — advance in two steps so React re-renders
     // between the dismiss trigger and the exit-animation timer
-    act(() => { vi.advanceTimersByTime(8_001); });
+    act(() => {
+      vi.advanceTimersByTime(8_001);
+    });
     // FeedbackNudge now has visible=false, registers its 220ms exit timer
-    act(() => { vi.advanceTimersByTime(250); });
+    act(() => {
+      vi.advanceTimersByTime(250);
+    });
     expect(screen.queryByTestId('feedback-nudge')).not.toBeInTheDocument();
   });
 
@@ -117,19 +142,21 @@ describe('Feedback nudge', () => {
     render(<App />);
     await act(async () => {});
 
-    act(() => { vi.advanceTimersByTime(501); });
+    act(() => {
+      vi.advanceTimersByTime(501);
+    });
     expect(screen.getByTestId('feedback-nudge')).toBeInTheDocument();
 
     await act(async () => {
       fireEvent.click(screen.getByTestId('btn-feedback'));
     });
 
-    expect(mockOpenExternal).toHaveBeenCalledWith(
-      'https://github.com/antonio-orionus/Arroxy/issues/new/choose'
-    );
+    expect(mockOpenExternal).toHaveBeenCalledWith('https://github.com/antonio-orionus/Arroxy/issues/new/choose');
 
     // After exit animation completes
-    act(() => { vi.advanceTimersByTime(250); });
+    act(() => {
+      vi.advanceTimersByTime(250);
+    });
     expect(screen.queryByTestId('feedback-nudge')).not.toBeInTheDocument();
   });
 
@@ -140,12 +167,18 @@ describe('Feedback nudge', () => {
     const btn = screen.getByTestId('btn-feedback');
     expect(btn.className).not.toContain('feedback-btn-nudging');
 
-    act(() => { vi.advanceTimersByTime(501); });
+    act(() => {
+      vi.advanceTimersByTime(501);
+    });
     expect(screen.getByTestId('btn-feedback').className).toContain('feedback-btn-nudging');
 
     // After auto-dismiss + animation (two steps so React re-renders between them)
-    act(() => { vi.advanceTimersByTime(8_001); });
-    act(() => { vi.advanceTimersByTime(250); });
+    act(() => {
+      vi.advanceTimersByTime(8_001);
+    });
+    act(() => {
+      vi.advanceTimersByTime(250);
+    });
     expect(screen.getByTestId('btn-feedback').className).not.toContain('feedback-btn-nudging');
   });
 });

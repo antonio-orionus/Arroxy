@@ -1,16 +1,7 @@
-import type {
-  LocalizedError,
-  QueueItem,
-  StartDownloadInput
-} from '@shared/types';
+import type { LocalizedError, QueueItem, StartDownloadInput } from '@shared/types';
 import { QUEUE_STATUS } from '@shared/schemas';
 import { ProgressFormatter } from './progress';
-import {
-  buildFormatId,
-  buildFormatLabel,
-  generateId,
-  resolveVideoResolution
-} from './helpers';
+import { buildFormatId, buildFormatLabel, generateId, resolveVideoResolution } from './helpers';
 import { effectiveOutputDir } from '@renderer/lib/path';
 import type { GetState, SetState, QueueSlice } from './types';
 
@@ -61,9 +52,7 @@ function buildQueueItem(get: GetState): QueueItem | null {
 
   const selectedIds = [selectedVideoFormatId, selectedAudioFormatId].filter(Boolean) as string[];
   const selectedSizes = selectedIds.map((id) => wizardFormats.find((f) => f.formatId === id)?.filesize);
-  const expectedBytes = selectedIds.length > 0 && selectedSizes.every((s) => s !== undefined)
-    ? selectedSizes.reduce<number>((a, b) => a + b!, 0)
-    : undefined;
+  const expectedBytes = selectedIds.length > 0 && selectedSizes.every((s) => s !== undefined) ? selectedSizes.reduce<number>((a, b) => a + b!, 0) : undefined;
 
   const subtitleLanguages = state.wizardSubtitleSkipped ? [] : state.wizardSubtitleLanguages;
 
@@ -84,9 +73,7 @@ function buildQueueItem(get: GetState): QueueItem | null {
     finishedAt: null,
     downloadJobId: null,
     subtitleLanguages,
-    writeAutoSubs: subtitleLanguages.some(
-      (l) => !!state.wizardAutomaticCaptions[l] && !state.wizardSubtitles[l]
-    ),
+    writeAutoSubs: subtitleLanguages.some((l) => !!state.wizardAutomaticCaptions[l] && !state.wizardSubtitles[l]),
     subtitleMode: state.wizardSubtitleMode,
     subtitleFormat: state.wizardSubtitleFormat,
     sponsorBlockMode: state.wizardSponsorBlockMode,
@@ -96,7 +83,7 @@ function buildQueueItem(get: GetState): QueueItem | null {
     embedThumbnail: state.wizardEmbedThumbnail,
     writeDescription: state.wizardWriteDescription,
     writeThumbnail: state.wizardWriteThumbnail,
-    expectedBytes,
+    expectedBytes
   };
 }
 
@@ -111,16 +98,18 @@ function buildStartInput(item: QueueItem): StartDownloadInput {
     writeAutoSubs: hasSubs ? item.writeAutoSubs : undefined,
     subtitleMode: item.subtitleMode,
     subtitleFormat: item.subtitleFormat,
-    ...(item.sponsorBlockMode !== 'off' && item.sponsorBlockCategories.length > 0 ? {
-      sponsorBlockMode: item.sponsorBlockMode,
-      sponsorBlockCategories: item.sponsorBlockCategories
-    } : {}),
+    ...(item.sponsorBlockMode !== 'off' && item.sponsorBlockCategories.length > 0
+      ? {
+          sponsorBlockMode: item.sponsorBlockMode,
+          sponsorBlockCategories: item.sponsorBlockCategories
+        }
+      : {}),
     embedChapters: item.embedChapters,
     embedMetadata: item.embedMetadata,
     embedThumbnail: item.embedThumbnail,
     writeDescription: item.writeDescription,
     writeThumbnail: item.writeThumbnail,
-    expectedBytes: item.expectedBytes,
+    expectedBytes: item.expectedBytes
   };
 }
 
@@ -135,11 +124,13 @@ async function persistFormatPrefs(set: SetState, get: GetState): Promise<void> {
   const patch = {
     lastVideoResolution: videoResolution,
     lastPreset: activePreset,
-    ...(wizardSubtitleLanguages.length > 0 ? {
-      lastSubtitleLanguages: wizardSubtitleLanguages,
-      lastSubtitleMode: get().wizardSubtitleMode,
-      lastSubtitleFormat: get().wizardSubtitleFormat,
-    } : {}),
+    ...(wizardSubtitleLanguages.length > 0
+      ? {
+          lastSubtitleLanguages: wizardSubtitleLanguages,
+          lastSubtitleMode: get().wizardSubtitleMode,
+          lastSubtitleFormat: get().wizardSubtitleFormat
+        }
+      : {}),
     lastSponsorBlockMode: get().wizardSponsorBlockMode,
     lastSponsorBlockCategories: get().wizardSponsorBlockCategories,
     lastSubfolderEnabled: get().wizardSubfolderEnabled,
@@ -148,7 +139,7 @@ async function persistFormatPrefs(set: SetState, get: GetState): Promise<void> {
     embedMetadata: get().wizardEmbedMetadata,
     embedThumbnail: get().wizardEmbedThumbnail,
     writeDescription: get().wizardWriteDescription,
-    writeThumbnail: get().wizardWriteThumbnail,
+    writeThumbnail: get().wizardWriteThumbnail
   };
   const result = await window.appApi.settings.update(patch);
   if (result.ok) {
@@ -220,7 +211,9 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
       const item = get().queue.find((i) => i.id === itemId);
       if (!item || item.status !== QUEUE_STATUS.downloading) return;
 
-      const result = await window.appApi.downloads.pause({ jobId: item.downloadJobId ?? undefined });
+      const result = await window.appApi.downloads.pause({
+        jobId: item.downloadJobId ?? undefined
+      });
       if (result.ok && result.data.paused) {
         updateQueueItem(set, itemId, { status: QUEUE_STATUS.paused, progressDetail: null });
         saveQueue(get);

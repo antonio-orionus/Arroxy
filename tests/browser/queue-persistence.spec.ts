@@ -37,7 +37,7 @@ async function completeOneDownload(page: import('@playwright/test').Page) {
       const items = document.querySelectorAll('[data-status="done"]');
       return items.length > 0;
     },
-    { timeout: 15_000, polling: 500 },
+    { timeout: 15_000, polling: 500 }
   );
 }
 
@@ -106,7 +106,7 @@ test('screenshot — Clear button in drawer header after completed download', as
   if (box) {
     await page.screenshot({
       path: 'tests/browser/screenshots/queue-clear-button.png',
-      clip: { x: box.x, y: box.y, width: box.width, height: box.height },
+      clip: { x: box.x, y: box.y, width: box.width, height: box.height }
     });
   }
   await expect(page.getByTestId('btn-clear-completed')).toBeVisible();

@@ -7,7 +7,7 @@ import type { YtDlpResult } from '@main/services/YtDlp';
 
 vi.mock('@main/services/subtitlePostProcess', () => ({
   dedupeSubtitleFiles: vi.fn().mockResolvedValue(undefined),
-  muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ ok: false }),
+  muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ ok: false })
 }));
 
 import { dedupeSubtitleFiles } from '@main/services/subtitlePostProcess';
@@ -21,7 +21,7 @@ function makeJob(): DownloadJob {
     outputDir: '/tmp',
     status: 'running',
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   };
 }
 
@@ -31,7 +31,7 @@ const BASE_INPUT: StartDownloadInput = {
   subtitleLanguages: ['en'],
   subtitleMode: 'sidecar',
   writeAutoSubs: false,
-  subtitleFormat: 'srt',
+  subtitleFormat: 'srt'
 };
 
 function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
@@ -41,14 +41,11 @@ function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
     cancelRequested: false,
     pauseRequested: false,
     subtitlePaths: ['/tmp/video.en.srt'],
-    ...overrides,
+    ...overrides
   };
 }
 
-function makeCtx(
-  runResult: YtDlpResult,
-  activeOverrides: Partial<ActiveDownload> = {}
-): PhaseContext {
+function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload> = {}): PhaseContext {
   const runMock = vi.fn().mockResolvedValue(runResult);
   return {
     active: makeActive(activeOverrides),
@@ -61,12 +58,24 @@ function makeCtx(
     cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
     cleanupTempDir: vi.fn().mockResolvedValue(undefined),
     finalize: vi.fn().mockResolvedValue(undefined),
-    moveToPaused: vi.fn(),
+    moveToPaused: vi.fn()
   };
 }
 
-const SUCCESS: YtDlpResult = { kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false };
-const EXIT_ERROR: YtDlpResult = { kind: 'exit-error', exitCode: 1, signal: null, rawError: 'fail', stdout: '', stderr: '' };
+const SUCCESS: YtDlpResult = {
+  kind: 'success',
+  stdout: '',
+  stderr: '',
+  usedExtractorFallback: false
+};
+const EXIT_ERROR: YtDlpResult = {
+  kind: 'exit-error',
+  exitCode: 1,
+  signal: null,
+  rawError: 'fail',
+  stdout: '',
+  stderr: ''
+};
 
 describe('SubtitleOnlyPhase', () => {
   it('calls ytDlp.run with kind: subtitle', async () => {
@@ -97,9 +106,11 @@ describe('SubtitleOnlyPhase', () => {
   });
 
   it('writeAutoSubs=false → dedupeSubtitleFiles not called', async () => {
-    await SubtitleOnlyPhase.run(makeCtx(SUCCESS, {
-      input: { ...BASE_INPUT, writeAutoSubs: false },
-    }));
+    await SubtitleOnlyPhase.run(
+      makeCtx(SUCCESS, {
+        input: { ...BASE_INPUT, writeAutoSubs: false }
+      })
+    );
     expect(dedupeSubtitleFiles).not.toHaveBeenCalled();
   });
 
@@ -107,7 +118,7 @@ describe('SubtitleOnlyPhase', () => {
     const paths = ['/tmp/video.en.srt'];
     const ctx = makeCtx(SUCCESS, {
       input: { ...BASE_INPUT, writeAutoSubs: true },
-      subtitlePaths: paths,
+      subtitlePaths: paths
     });
     await SubtitleOnlyPhase.run(ctx);
     expect(dedupeSubtitleFiles).toHaveBeenCalledOnce();
@@ -117,7 +128,7 @@ describe('SubtitleOnlyPhase', () => {
 
   it('dedupeSubtitleFiles shouldAbort reflects cancelRequested', async () => {
     const ctx = makeCtx(SUCCESS, {
-      input: { ...BASE_INPUT, writeAutoSubs: true },
+      input: { ...BASE_INPUT, writeAutoSubs: true }
     });
     await SubtitleOnlyPhase.run(ctx);
 
@@ -139,7 +150,7 @@ describe('SubtitleOnlyPhase', () => {
       cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
       cleanupTempDir: vi.fn().mockResolvedValue(undefined),
       finalize: vi.fn().mockResolvedValue(undefined),
-      moveToPaused: vi.fn(),
+      moveToPaused: vi.fn()
     };
     const runMock = vi.fn().mockImplementationOnce(async () => {
       ctx.active.cancelRequested = true;
@@ -168,7 +179,7 @@ describe('SubtitleOnlyPhase', () => {
       cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
       cleanupTempDir: vi.fn().mockResolvedValue(undefined),
       finalize: vi.fn().mockResolvedValue(undefined),
-      moveToPaused: vi.fn(),
+      moveToPaused: vi.fn()
     };
 
     await SubtitleOnlyPhase.run(ctx);
@@ -193,7 +204,7 @@ describe('SubtitleOnlyPhase', () => {
       cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
       cleanupTempDir: vi.fn().mockResolvedValue(undefined),
       finalize: vi.fn().mockResolvedValue(undefined),
-      moveToPaused: vi.fn(),
+      moveToPaused: vi.fn()
     };
 
     await SubtitleOnlyPhase.run(ctx);
@@ -218,7 +229,7 @@ describe('SubtitleOnlyPhase', () => {
       cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
       cleanupTempDir: vi.fn().mockResolvedValue(undefined),
       finalize: vi.fn().mockResolvedValue(undefined),
-      moveToPaused: vi.fn(),
+      moveToPaused: vi.fn()
     };
 
     await SubtitleOnlyPhase.run(ctx);

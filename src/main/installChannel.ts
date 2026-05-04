@@ -23,10 +23,7 @@ export function detectInstallChannel(appName: string): InstallChannel {
   }
 
   if (process.platform === 'darwin') {
-    if (
-      fs.existsSync(`/opt/homebrew/Caskroom/${appName}`) ||
-      fs.existsSync(`/usr/local/Caskroom/${appName}`)
-    ) {
+    if (fs.existsSync(`/opt/homebrew/Caskroom/${appName}`) || fs.existsSync(`/usr/local/Caskroom/${appName}`)) {
       return 'homebrew';
     }
     return 'direct';

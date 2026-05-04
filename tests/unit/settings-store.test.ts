@@ -67,8 +67,20 @@ describe('settings and recent stores', () => {
     const store = new RecentJobsStore(userData);
 
     await Promise.all([
-      store.push({ id: 'job-a', url: 'https://youtu.be/a', outputDir: '/tmp', status: 'completed', finishedAt: '2024-01-01T00:00:00.000Z' }),
-      store.push({ id: 'job-b', url: 'https://youtu.be/b', outputDir: '/tmp', status: 'completed', finishedAt: '2024-01-02T00:00:00.000Z' }),
+      store.push({
+        id: 'job-a',
+        url: 'https://youtu.be/a',
+        outputDir: '/tmp',
+        status: 'completed',
+        finishedAt: '2024-01-01T00:00:00.000Z'
+      }),
+      store.push({
+        id: 'job-b',
+        url: 'https://youtu.be/b',
+        outputDir: '/tmp',
+        status: 'completed',
+        finishedAt: '2024-01-02T00:00:00.000Z'
+      })
     ]);
 
     const list = await store.list();
@@ -79,7 +91,11 @@ describe('settings and recent stores', () => {
 
   it('logs an error when settings.json is corrupted', async () => {
     const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-corrupt-'));
-    const store = new SettingsStore(userData, { defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false });
+    const store = new SettingsStore(userData, {
+      defaultOutputDir: '/tmp',
+      rememberLastOutputDir: true,
+      clipboardWatchEnabled: false
+    });
     await fs.writeFile(path.join(userData, 'settings.json'), 'not valid json', 'utf-8');
 
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {});

@@ -64,9 +64,7 @@ describe('QueueItemCard — base rendering', () => {
     expect(container.querySelector('.thumb-shimmer')).toBeInTheDocument();
   });
 
-  it.each<QueueItemStatus>([
-    'pending', 'downloading', 'paused', 'done', 'error', 'cancelled'
-  ])('sets data-status=%s on the wrapper', (status) => {
+  it.each<QueueItemStatus>(['pending', 'downloading', 'paused', 'done', 'error', 'cancelled'])('sets data-status=%s on the wrapper', (status) => {
     render(<QueueItemCard item={makeItem({ status })} />);
     expect(screen.getByTestId('queue-card-q1')).toHaveAttribute('data-status', status);
   });
@@ -74,7 +72,15 @@ describe('QueueItemCard — base rendering', () => {
 
 describe('QueueItemCard — progress display', () => {
   it('shows progress bar and percent when downloading', () => {
-    render(<QueueItemCard item={makeItem({ status: 'downloading', progressPercent: 42.5, progressDetail: '1.2 MiB/s' })} />);
+    render(
+      <QueueItemCard
+        item={makeItem({
+          status: 'downloading',
+          progressPercent: 42.5,
+          progressDetail: '1.2 MiB/s'
+        })}
+      />
+    );
     expect(screen.getByTestId('queue-progress')).toBeInTheDocument();
     expect(screen.getByTestId('queue-progress-label')).toHaveTextContent('42.5%');
     expect(screen.getByTestId('queue-progress-label')).toHaveTextContent('1.2 MiB/s');
@@ -176,22 +182,26 @@ describe('QueueItemCard — phase indicators', () => {
     ['sleepingBetweenRequests', 'lucide-hourglass']
   ])('renders phase icon for %s status', (statusKey, iconClass) => {
     const { container } = render(
-      <QueueItemCard item={makeItem({
-        status: 'downloading',
-        progressPercent: 5,
-        lastStatus: { key: statusKey as never, params: {} }
-      })} />
+      <QueueItemCard
+        item={makeItem({
+          status: 'downloading',
+          progressPercent: 5,
+          lastStatus: { key: statusKey as never, params: {} }
+        })}
+      />
     );
     expect(container.querySelector(`svg.${iconClass}`)).toBeInTheDocument();
   });
 
   it('uses paused color class on the progress label when sleeping', () => {
     render(
-      <QueueItemCard item={makeItem({
-        status: 'downloading',
-        progressPercent: 50,
-        lastStatus: { key: 'sleepingBetweenRequests', params: { seconds: 5 } }
-      })} />
+      <QueueItemCard
+        item={makeItem({
+          status: 'downloading',
+          progressPercent: 50,
+          lastStatus: { key: 'sleepingBetweenRequests', params: { seconds: 5 } }
+        })}
+      />
     );
     const label = screen.getByTestId('queue-progress-label');
     expect(label.className).toContain('color-status-paused');
@@ -199,11 +209,13 @@ describe('QueueItemCard — phase indicators', () => {
 
   it('uses brand color (no paused) when actively downloading', () => {
     render(
-      <QueueItemCard item={makeItem({
-        status: 'downloading',
-        progressPercent: 50,
-        lastStatus: { key: 'downloadingMedia', params: {} }
-      })} />
+      <QueueItemCard
+        item={makeItem({
+          status: 'downloading',
+          progressPercent: 50,
+          lastStatus: { key: 'downloadingMedia', params: {} }
+        })}
+      />
     );
     const label = screen.getByTestId('queue-progress-label');
     expect(label.className).not.toContain('color-status-paused');
@@ -214,11 +226,13 @@ describe('QueueItemCard — phase indicators', () => {
 describe('QueueItemCard — subtitlesFailed warning', () => {
   it('shows the warning row when status=done and lastStatus=subtitlesFailed', () => {
     render(
-      <QueueItemCard item={makeItem({
-        status: 'done',
-        finishedAt: '2026-04-27T10:30:00Z',
-        lastStatus: { key: 'subtitlesFailed', params: {} }
-      })} />
+      <QueueItemCard
+        item={makeItem({
+          status: 'done',
+          finishedAt: '2026-04-27T10:30:00Z',
+          lastStatus: { key: 'subtitlesFailed', params: {} }
+        })}
+      />
     );
     expect(screen.getByTestId('queue-subs-warning')).toBeInTheDocument();
     expect(screen.getByTestId('queue-subs-warning')).toHaveTextContent(/subtitles/i);
@@ -226,21 +240,25 @@ describe('QueueItemCard — subtitlesFailed warning', () => {
 
   it('does NOT show warning row when status=done and lastStatus=complete', () => {
     render(
-      <QueueItemCard item={makeItem({
-        status: 'done',
-        finishedAt: '2026-04-27T10:30:00Z',
-        lastStatus: { key: 'complete', params: {} }
-      })} />
+      <QueueItemCard
+        item={makeItem({
+          status: 'done',
+          finishedAt: '2026-04-27T10:30:00Z',
+          lastStatus: { key: 'complete', params: {} }
+        })}
+      />
     );
     expect(screen.queryByTestId('queue-subs-warning')).not.toBeInTheDocument();
   });
 
   it('does NOT show warning row when status=downloading and lastStatus=subtitlesFailed', () => {
     render(
-      <QueueItemCard item={makeItem({
-        status: 'downloading',
-        lastStatus: { key: 'subtitlesFailed', params: {} }
-      })} />
+      <QueueItemCard
+        item={makeItem({
+          status: 'downloading',
+          lastStatus: { key: 'subtitlesFailed', params: {} }
+        })}
+      />
     );
     expect(screen.queryByTestId('queue-subs-warning')).not.toBeInTheDocument();
   });

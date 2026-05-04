@@ -26,6 +26,8 @@
     "preview": "electron-vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
+    "format": "prettier --write src tests",
+    "format:check": "prettier --check src tests",
     "knip": "knip",
     "test": "vitest run",
     "test:watch": "vitest",

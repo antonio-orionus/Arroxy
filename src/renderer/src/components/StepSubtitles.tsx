@@ -13,34 +13,17 @@ import { SUBTITLE_FORMATS, SUBTITLE_MODES } from '@shared/schemas';
 
 export function StepSubtitles(): JSX.Element {
   const { t, i18n } = useTranslation();
-  const {
-    wizardSubtitles,
-    wizardAutomaticCaptions,
-    wizardSubtitleLanguages,
-    wizardSubtitleMode,
-    wizardSubtitleFormat,
-    toggleSubtitleLanguage,
-    setSubtitleMode,
-    setSubtitleFormat,
-    advance,
-    back,
-    skipSubtitles
-  } = useAppStore();
+  const { wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, toggleSubtitleLanguage, setSubtitleMode, setSubtitleFormat, advance, back, skipSubtitles } = useAppStore();
 
   const [query, setQuery] = useState('');
 
-  const allLangs = useMemo(
-    () => buildSubtitleList(wizardSubtitles, wizardAutomaticCaptions, i18n.language),
-    [wizardSubtitles, wizardAutomaticCaptions, i18n.language]
-  );
+  const allLangs = useMemo(() => buildSubtitleList(wizardSubtitles, wizardAutomaticCaptions, i18n.language), [wizardSubtitles, wizardAutomaticCaptions, i18n.language]);
 
   const hasLangs = allLangs.length > 0;
   const selectedCount = wizardSubtitleLanguages.length;
   // Show a heads-up when ASS is paired with auto-captions: we force SRT in
   // that combo because our auto-cap dedupe doesn't have an ASS code path.
-  const hasAutoSelected = wizardSubtitleLanguages.some(
-    (code) => allLangs.find((l) => l.code === code)?.isAuto
-  );
+  const hasAutoSelected = wizardSubtitleLanguages.some((code) => allLangs.find((l) => l.code === code)?.isAuto);
   const showAutoAssNote = hasAutoSelected && wizardSubtitleFormat === 'ass' && wizardSubtitleMode !== 'embed';
 
   const q = query.trim().toLowerCase();
@@ -63,65 +46,43 @@ export function StepSubtitles(): JSX.Element {
     <div className="wizard-step flex flex-col gap-1.5" data-testid="step-subtitles">
       {/* ── Save as / Format — only relevant when subs exist ─ */}
       {hasLangs && (
-      <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2.5 items-center -mx-1">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">
-          {t('wizard.subtitles.saveMode.heading')}
-        </span>
-        <div role="radiogroup" aria-label={t('wizard.subtitles.saveMode.heading')} className="flex flex-row flex-wrap gap-1">
-          {saveModes.map(({ mode, label }) => (
-            <RadioOption
-              key={mode}
-              label={label}
-              checked={wizardSubtitleMode === mode}
-              onClick={() => setSubtitleMode(mode)}
-              className="py-0.5"
-            />
-          ))}
+        <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2.5 items-center -mx-1">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">{t('wizard.subtitles.saveMode.heading')}</span>
+          <div role="radiogroup" aria-label={t('wizard.subtitles.saveMode.heading')} className="flex flex-row flex-wrap gap-1">
+            {saveModes.map(({ mode, label }) => (
+              <RadioOption key={mode} label={label} checked={wizardSubtitleMode === mode} onClick={() => setSubtitleMode(mode)} className="py-0.5" />
+            ))}
+          </div>
+
+          {wizardSubtitleMode === 'embed' ? (
+            <>
+              <span />
+              <p data-testid="subtitle-embed-note" className="text-[11px] text-[var(--text-subtle)] leading-snug">
+                {t('wizard.subtitles.embedNote')}
+              </p>
+            </>
+          ) : (
+            <>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">{t('wizard.subtitles.format.heading')}</span>
+              <div className="flex items-center gap-1.5">
+                {SUBTITLE_FORMATS.map((fmt) => (
+                  <button key={fmt} type="button" aria-pressed={wizardSubtitleFormat === fmt} onClick={() => setSubtitleFormat(fmt)} className="h-6 px-2 rounded text-[11px] font-semibold uppercase border border-[var(--border-strong)] transition-colors aria-pressed:bg-[var(--brand-dim)] aria-pressed:border-[var(--brand)] aria-pressed:text-[var(--brand)] hover:bg-accent/60">
+                    {fmt.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+
+          {showAutoAssNote && (
+            <>
+              <span />
+              <p data-testid="subtitle-auto-ass-note" className="text-[11px] text-[var(--text-subtle)] leading-snug">
+                {t('wizard.subtitles.autoAssNote')}
+              </p>
+            </>
+          )}
         </div>
-
-        {wizardSubtitleMode === 'embed' ? (
-          <>
-            <span />
-            <p
-              data-testid="subtitle-embed-note"
-              className="text-[11px] text-[var(--text-subtle)] leading-snug"
-            >
-              {t('wizard.subtitles.embedNote')}
-            </p>
-          </>
-        ) : (
-          <>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">
-              {t('wizard.subtitles.format.heading')}
-            </span>
-            <div className="flex items-center gap-1.5">
-              {SUBTITLE_FORMATS.map((fmt) => (
-                <button
-                  key={fmt}
-                  type="button"
-                  aria-pressed={wizardSubtitleFormat === fmt}
-                  onClick={() => setSubtitleFormat(fmt)}
-                  className="h-6 px-2 rounded text-[11px] font-semibold uppercase border border-[var(--border-strong)] transition-colors aria-pressed:bg-[var(--brand-dim)] aria-pressed:border-[var(--brand)] aria-pressed:text-[var(--brand)] hover:bg-accent/60"
-                >
-                  {fmt.toUpperCase()}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
-
-        {showAutoAssNote && (
-          <>
-            <span />
-            <p
-              data-testid="subtitle-auto-ass-note"
-              className="text-[11px] text-[var(--text-subtle)] leading-snug"
-            >
-              {t('wizard.subtitles.autoAssNote')}
-            </p>
-          </>
-        )}
-      </div>
       )}
 
       {hasLangs && <Separator className="bg-border/50 -mx-6 w-auto my-1.5" />}
@@ -137,15 +98,10 @@ export function StepSubtitles(): JSX.Element {
           <div className="flex items-center gap-2 min-h-[28px]">
             <div className="flex flex-1 flex-wrap gap-1.5 overflow-hidden">
               {selectedItems.length === 0 ? (
-                <span className="text-[11px] italic text-[var(--text-subtle)]">
-                  {t('wizard.subtitles.noSelected')}
-                </span>
+                <span className="text-[11px] italic text-[var(--text-subtle)]">{t('wizard.subtitles.noSelected')}</span>
               ) : (
                 selectedItems.map(({ code, displayName }) => (
-                  <span
-                    key={code}
-                    className="flex items-center gap-1 h-6 pl-2.5 pr-1.5 rounded-full text-[11px] font-semibold bg-[var(--brand)] text-white"
-                  >
+                  <span key={code} className="flex items-center gap-1 h-6 pl-2.5 pr-1.5 rounded-full text-[11px] font-semibold bg-[var(--brand)] text-white">
                     {displayName}
                     <button
                       type="button"
@@ -162,15 +118,9 @@ export function StepSubtitles(): JSX.Element {
               )}
             </div>
             <div className="flex items-center gap-2 shrink-0">
+              {selectedCount > 0 && <span className="text-[11px] text-[var(--text-subtle)]">{selectedCount}</span>}
               {selectedCount > 0 && (
-                <span className="text-[11px] text-[var(--text-subtle)]">{selectedCount}</span>
-              )}
-              {selectedCount > 0 && (
-                <button
-                  type="button"
-                  onClick={clearAll}
-                  className="text-[11px] text-[var(--brand)] hover:underline cursor-pointer"
-                >
+                <button type="button" onClick={clearAll} className="text-[11px] text-[var(--brand)] hover:underline cursor-pointer">
                   {t('wizard.subtitles.clearAll')}
                 </button>
               )}
@@ -179,10 +129,7 @@ export function StepSubtitles(): JSX.Element {
 
           {/* Search input */}
           <div className="relative">
-            <Search
-              size={13}
-              className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--text-subtle)] pointer-events-none"
-            />
+            <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--text-subtle)] pointer-events-none" />
             <input
               type="text"
               value={query}
@@ -197,72 +144,38 @@ export function StepSubtitles(): JSX.Element {
           {/* Language list */}
           <div className="flex flex-col -mx-1 px-1">
             {noMatches ? (
-              <p className="py-4 text-center text-sm text-[var(--text-subtle)]">
-                {t('wizard.subtitles.noMatches')}
-              </p>
+              <p className="py-4 text-center text-sm text-[var(--text-subtle)]">{t('wizard.subtitles.noMatches')}</p>
             ) : (
               <>
-                <LangSection
-                  label={t('wizard.subtitles.sectionManual')}
-                  items={manualLangs}
-                  selected={wizardSubtitleLanguages}
-                  onToggle={toggleSubtitleLanguage}
-                  autoBadge={t('wizard.subtitles.autoBadge')}
-                />
-                <LangSection
-                  label={t('wizard.subtitles.sectionAuto')}
-                  items={autoLangs}
-                  selected={wizardSubtitleLanguages}
-                  onToggle={toggleSubtitleLanguage}
-                  autoBadge={t('wizard.subtitles.autoBadge')}
-                />
+                <LangSection label={t('wizard.subtitles.sectionManual')} items={manualLangs} selected={wizardSubtitleLanguages} onToggle={toggleSubtitleLanguage} autoBadge={t('wizard.subtitles.autoBadge')} />
+                <LangSection label={t('wizard.subtitles.sectionAuto')} items={autoLangs} selected={wizardSubtitleLanguages} onToggle={toggleSubtitleLanguage} autoBadge={t('wizard.subtitles.autoBadge')} />
               </>
             )}
           </div>
-
         </>
       )}
 
       <Separator className="bg-border/50 -mx-6 w-auto my-1.5" />
       <div className="flex items-center justify-between py-3 -mx-6 px-6">
-        {hasLangs ? (
-          <MascotBubble image={loveImg} message={t('wizard.subtitles.mascot')} side="left" />
-        ) : (
-          <span />
-        )}
+        {hasLangs ? <MascotBubble image={loveImg} message={t('wizard.subtitles.mascot')} side="left" /> : <span />}
         <div className="flex items-center gap-2 shrink-0">
-          <Button
-            variant="ghost"
-            type="button"
-            onClick={back}
-            className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground"
-          >
+          <Button variant="ghost" type="button" onClick={back} className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground">
             {t('common.back')}
           </Button>
           {selectedCount > 0 ? (
             <>
-              <Button
-                variant="ghost"
-                type="button"
-                onClick={skipSubtitles}
-                className="border-[1.5px] border-[var(--border-strong)] text-foreground hover:bg-accent/60"
-              >
+              <Button variant="ghost" type="button" onClick={skipSubtitles} className="border-[1.5px] border-[var(--border-strong)] text-foreground hover:bg-accent/60">
                 {t('wizard.subtitles.skipSubs')}
               </Button>
               <Tooltip>
-                <TooltipTrigger render={(props) => (
-                  <Button
-                    {...props}
-                    type="button"
-                    onClick={advance}
-                    className="shadow-[0_4px_14px_var(--brand-glow)]"
-                  >
-                    {t('common.continue')}
-                  </Button>
-                )} />
-                <TooltipContent data-testid="subtitle-selected-tooltip">
-                  {t('wizard.subtitles.selectedNote', { count: selectedCount })}
-                </TooltipContent>
+                <TooltipTrigger
+                  render={(props) => (
+                    <Button {...props} type="button" onClick={advance} className="shadow-[0_4px_14px_var(--brand-glow)]">
+                      {t('common.continue')}
+                    </Button>
+                  )}
+                />
+                <TooltipContent data-testid="subtitle-selected-tooltip">{t('wizard.subtitles.selectedNote', { count: selectedCount })}</TooltipContent>
               </Tooltip>
             </>
           ) : (
@@ -284,13 +197,7 @@ interface LangSectionProps {
   autoBadge: string;
 }
 
-function LangSection({
-  label,
-  items,
-  selected,
-  onToggle,
-  autoBadge
-}: LangSectionProps): JSX.Element | null {
+function LangSection({ label, items, selected, onToggle, autoBadge }: LangSectionProps): JSX.Element | null {
   if (items.length === 0) return null;
   return (
     <div>
@@ -311,19 +218,11 @@ function LangSection({
               }}
               className="flex w-full items-center gap-2 h-7 px-2 rounded-md text-sm font-medium transition-colors cursor-pointer aria-checked:bg-[var(--brand-dim)] aria-checked:border-l-2 aria-checked:border-[var(--brand)] aria-checked:text-[var(--brand)] hover:bg-accent/60"
             >
-              <span
-                aria-hidden="true"
-                className="flex h-4 w-4 shrink-0 items-center justify-center rounded border border-[var(--border-strong)] transition-colors"
-                style={isChecked ? { borderColor: 'var(--brand)' } : undefined}
-              >
+              <span aria-hidden="true" className="flex h-4 w-4 shrink-0 items-center justify-center rounded border border-[var(--border-strong)] transition-colors" style={isChecked ? { borderColor: 'var(--brand)' } : undefined}>
                 {isChecked && <Check size={10} strokeWidth={3} className="text-[var(--brand)]" />}
               </span>
               <span className="flex-1 text-left truncate">{displayName}</span>
-              {isAuto && (
-                <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-[var(--brand-dim)] text-[var(--brand)] shrink-0">
-                  {autoBadge}
-                </span>
-              )}
+              {isAuto && <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-[var(--brand-dim)] text-[var(--brand)] shrink-0">{autoBadge}</span>}
             </button>
           );
         })}

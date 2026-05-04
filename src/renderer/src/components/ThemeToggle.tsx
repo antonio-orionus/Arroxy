@@ -12,7 +12,9 @@ export function ThemeToggle(): React.JSX.Element {
   return (
     <ToggleGroup
       value={[uiTheme]}
-      onValueChange={(arr) => { if (arr[0]) setUiTheme(arr[0] as Theme); }}
+      onValueChange={(arr) => {
+        if (arr[0]) setUiTheme(arr[0] as Theme);
+      }}
       size="sm"
     >
       <ToggleGroupItem value="light" aria-label={t('theme.light')}>

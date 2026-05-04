@@ -25,39 +25,44 @@ export function VideoPhase(embed: boolean): Phase {
       const tempDir = await setupTempDir(job.outputDir, job.id);
       if (tempDir) active.tempDir = tempDir;
 
-      const sbConfig = input.sponsorBlockMode && input.sponsorBlockMode !== 'off' && input.sponsorBlockCategories?.length
-        ? { mode: input.sponsorBlockMode as Exclude<typeof input.sponsorBlockMode, 'off'>, categories: input.sponsorBlockCategories }
-        : undefined;
+      const sbConfig =
+        input.sponsorBlockMode && input.sponsorBlockMode !== 'off' && input.sponsorBlockCategories?.length
+          ? {
+              mode: input.sponsorBlockMode as Exclude<typeof input.sponsorBlockMode, 'off'>,
+              categories: input.sponsorBlockCategories
+            }
+          : undefined;
 
-      const req: YtDlpRequest = embed && (input.subtitleLanguages?.length ?? 0) > 0
-        ? {
-            kind: 'video+embed',
-            url: input.url,
-            outputDir: input.outputDir!,
-            tempDir,
-            formatId: input.formatId,
-            subtitleLanguages: input.subtitleLanguages!,
-            writeAutoSubs: input.writeAutoSubs,
-            sponsorBlock: sbConfig,
-            embedChapters: input.embedChapters,
-            embedMetadata: input.embedMetadata,
-            embedThumbnail: input.embedThumbnail,
-            writeDescription: input.writeDescription,
-            writeThumbnail: input.writeThumbnail,
-          }
-        : {
-            kind: 'video',
-            url: input.url,
-            outputDir: input.outputDir!,
-            tempDir,
-            formatId: input.formatId,
-            sponsorBlock: sbConfig,
-            embedChapters: input.embedChapters,
-            embedMetadata: input.embedMetadata,
-            embedThumbnail: input.embedThumbnail,
-            writeDescription: input.writeDescription,
-            writeThumbnail: input.writeThumbnail,
-          };
+      const req: YtDlpRequest =
+        embed && (input.subtitleLanguages?.length ?? 0) > 0
+          ? {
+              kind: 'video+embed',
+              url: input.url,
+              outputDir: input.outputDir!,
+              tempDir,
+              formatId: input.formatId,
+              subtitleLanguages: input.subtitleLanguages!,
+              writeAutoSubs: input.writeAutoSubs,
+              sponsorBlock: sbConfig,
+              embedChapters: input.embedChapters,
+              embedMetadata: input.embedMetadata,
+              embedThumbnail: input.embedThumbnail,
+              writeDescription: input.writeDescription,
+              writeThumbnail: input.writeThumbnail
+            }
+          : {
+              kind: 'video',
+              url: input.url,
+              outputDir: input.outputDir!,
+              tempDir,
+              formatId: input.formatId,
+              sponsorBlock: sbConfig,
+              embedChapters: input.embedChapters,
+              embedMetadata: input.embedMetadata,
+              embedThumbnail: input.embedThumbnail,
+              writeDescription: input.writeDescription,
+              writeThumbnail: input.writeThumbnail
+            };
 
       const result = await ytDlp.run(req, {
         onAttempt: (attempt) => {
@@ -66,7 +71,7 @@ export function VideoPhase(embed: boolean): Phase {
         },
         onSpawn: (proc) => ctx.attachYtDlpProcess(proc, STATUS_KEY.downloadingMedia),
         onStdout: (text) => ctx.safeConsume(text),
-        onStderr: (text) => ctx.safeConsume(text),
+        onStderr: (text) => ctx.safeConsume(text)
       });
 
       if (active.pauseRequested) return { kind: 'paused' };

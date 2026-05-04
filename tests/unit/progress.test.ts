@@ -1,11 +1,5 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
-import {
-  parseSpeedBps,
-  parseEtaSeconds,
-  formatEta,
-  ProgressFormatter,
-  nextMonotonicPercent,
-} from '../../src/renderer/src/store/progress';
+import { parseSpeedBps, parseEtaSeconds, formatEta, ProgressFormatter, nextMonotonicPercent } from '../../src/renderer/src/store/progress';
 
 describe('parseSpeedBps', () => {
   it('parses MiB/s', () => {
@@ -95,8 +89,7 @@ describe('ProgressFormatter', () => {
     vi.useRealTimers();
   });
 
-  const downloadLine = (speed: string, eta: string) =>
-    `[download]   9.2% of   18.88GiB at  ${speed} ETA ${eta}`;
+  const downloadLine = (speed: string, eta: string) => `[download]   9.2% of   18.88GiB at  ${speed} ETA ${eta}`;
 
   it('returns null on first Unknown line (nothing to display yet)', () => {
     expect(formatter.update(downloadLine('Unknown B/s', 'Unknown'))).toBeNull();

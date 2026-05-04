@@ -16,7 +16,7 @@ function makeFakeProcess(exitCode: number, stderr = '') {
   const proc = Object.assign(new EventEmitter(), {
     stdout: new EventEmitter(),
     stderr: new EventEmitter(),
-    kill: vi.fn(),
+    kill: vi.fn()
   });
   setTimeout(() => {
     if (stderr) proc.stderr.emit('data', Buffer.from(stderr));
@@ -25,24 +25,21 @@ function makeFakeProcess(exitCode: number, stderr = '') {
   return proc;
 }
 
-function makeYtDlp(tokenService?: {
-  mintTokenForUrl: ReturnType<typeof vi.fn>;
-  invalidateCache: ReturnType<typeof vi.fn>;
-}) {
+function makeYtDlp(tokenService?: { mintTokenForUrl: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn> }) {
   const ts = tokenService ?? {
     mintTokenForUrl: vi.fn().mockResolvedValue({ token: 'tok', visitorData: 'vd' }),
-    invalidateCache: vi.fn(),
+    invalidateCache: vi.fn()
   };
   const binaryManager = {
     ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'),
     ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'),
     ensureDeno: vi.fn().mockResolvedValue(null),
-    ensureFFprobe: vi.fn().mockResolvedValue(null),
+    ensureFFprobe: vi.fn().mockResolvedValue(null)
   };
   const settingsStore = { get: vi.fn().mockResolvedValue({}) };
   return {
     ytDlp: new YtDlp(binaryManager as never, ts as never, settingsStore as never),
-    tokenService: ts,
+    tokenService: ts
   };
 }
 
@@ -71,9 +68,7 @@ describe('YtDlp — retry ladder', () => {
       .mockReturnValueOnce(makeFakeProcess(0) as never);
 
     const { ytDlp, tokenService } = makeYtDlp();
-    tokenService.mintTokenForUrl
-      .mockResolvedValueOnce({ token: 'old-tok', visitorData: 'vd' })
-      .mockResolvedValueOnce({ token: 'new-tok', visitorData: 'vd' });
+    tokenService.mintTokenForUrl.mockResolvedValueOnce({ token: 'old-tok', visitorData: 'vd' }).mockResolvedValueOnce({ token: 'new-tok', visitorData: 'vd' });
     const attemptSpy = vi.fn();
 
     const result = await ytDlp.run({ kind: 'probe', url: URL }, { onAttempt: attemptSpy });
@@ -110,9 +105,7 @@ describe('YtDlp — retry ladder', () => {
     expect(attemptSpy).toHaveBeenNthCalledWith(3, 2);
 
     const fallbackArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[2][1];
-    expect(fallbackArgs[fallbackArgs.indexOf('--extractor-args') + 1]).toBe(
-      'youtube:player_client=default,-web,-web_safari'
-    );
+    expect(fallbackArgs[fallbackArgs.indexOf('--extractor-args') + 1]).toBe('youtube:player_client=default,-web,-web_safari');
   });
 
   it('first mint throws → skips to attempt 2 (fallback), onAttempt sees 0 then 2', async () => {
@@ -132,9 +125,7 @@ describe('YtDlp — retry ladder', () => {
     expect(attemptSpy).toHaveBeenNthCalledWith(2, 2);
 
     const fallbackArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1];
-    expect(fallbackArgs[fallbackArgs.indexOf('--extractor-args') + 1]).toBe(
-      'youtube:player_client=default,-web,-web_safari'
-    );
+    expect(fallbackArgs[fallbackArgs.indexOf('--extractor-args') + 1]).toBe('youtube:player_client=default,-web,-web_safari');
   });
 
   it('re-mint throws → falls back to attempt 2', async () => {
@@ -143,9 +134,7 @@ describe('YtDlp — retry ladder', () => {
       .mockReturnValueOnce(makeFakeProcess(0) as never);
 
     const { ytDlp, tokenService } = makeYtDlp();
-    tokenService.mintTokenForUrl
-      .mockResolvedValueOnce({ token: 'tok', visitorData: 'vd' })
-      .mockRejectedValueOnce(new Error('re-mint failed'));
+    tokenService.mintTokenForUrl.mockResolvedValueOnce({ token: 'tok', visitorData: 'vd' }).mockRejectedValueOnce(new Error('re-mint failed'));
     const attemptSpy = vi.fn();
 
     const result = await ytDlp.run({ kind: 'probe', url: URL }, { onAttempt: attemptSpy });
@@ -175,7 +164,7 @@ describe('YtDlp — retry ladder', () => {
     const fakeProc = Object.assign(new EventEmitter(), {
       stdout: new EventEmitter(),
       stderr: new EventEmitter(),
-      kill: vi.fn(),
+      kill: vi.fn()
     });
     setTimeout(() => fakeProc.emit('error', new Error('ENOENT')), 10);
     vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as never);
@@ -192,8 +181,12 @@ describe('YtDlp — retry ladder', () => {
     const { ytDlp } = makeYtDlp();
 
     const result = await ytDlp.run({
-      kind: 'subtitle', url: URL, outputDir: '/tmp',
-      subtitleLanguages: ['en'], subtitleFormat: 'ass', writeAutoSubs: true,
+      kind: 'subtitle',
+      url: URL,
+      outputDir: '/tmp',
+      subtitleLanguages: ['en'],
+      subtitleFormat: 'ass',
+      writeAutoSubs: true
     });
 
     expect(result.kind).toBe('success');

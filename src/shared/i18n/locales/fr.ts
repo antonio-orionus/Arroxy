@@ -9,7 +9,7 @@ const fr = {
   app: {
     feedback: 'Commentaires',
     logs: 'Journaux',
-    feedbackNudge: 'Tu apprécies Arroxy ? J\'adorerais avoir ton avis ! 💬',
+    feedbackNudge: "Tu apprécies Arroxy ? J'adorerais avoir ton avis ! 💬",
     debugCopied: 'Copié !',
     debugCopyTitle: 'Copier les infos de débogage (versions Electron, OS, Chrome)',
     zoomIn: 'Zoom avant',
@@ -49,17 +49,17 @@ const fr = {
       placeholder: 'https://www.youtube.com/watch?v=...',
       hint: 'Compatible avec les liens youtube.com et youtu.be',
       fetchFormats: 'Récupérer les formats',
-      mascotIdle: 'Lance-moi un lien YouTube (vidéo ou Short) — clique sur « Récupérer les formats » et je m\'occupe du reste ✨',
+      mascotIdle: "Lance-moi un lien YouTube (vidéo ou Short) — clique sur « Récupérer les formats » et je m'occupe du reste ✨",
       mascotBusy: 'Téléchargement en arrière-plan… je peux faire plusieurs choses à la fois 😎',
       advanced: 'Avancé',
-      clearAria: 'Effacer l\'URL',
+      clearAria: "Effacer l'URL",
       clipboard: {
         toggle: 'Surveiller le presse-papiers',
         toggleDescription: 'Remplit automatiquement le champ URL lorsque vous copiez un lien YouTube.',
         dialog: {
           title: 'URL YouTube détectée',
           body: 'Utiliser ce lien depuis votre presse-papiers ?',
-          useButton: 'Utiliser l\'URL',
+          useButton: "Utiliser l'URL",
           disableButton: 'Désactiver',
           cancelButton: 'Annuler',
           disableNote: 'Vous pouvez réactiver la surveillance du presse-papiers plus tard dans les Réglages avancés.'
@@ -67,7 +67,7 @@ const fr = {
       },
       cookies: {
         toggle: 'Utiliser un fichier de cookies',
-        toggleDescription: 'Aide pour les vidéos avec restriction d\'âge, réservées aux membres ou privées du compte.',
+        toggleDescription: "Aide pour les vidéos avec restriction d'âge, réservées aux membres ou privées du compte.",
         risk: 'Risque : un cookies.txt contient toutes les sessions connectées de ce navigateur — gardez-le privé.',
         fileLabel: 'Fichier de cookies',
         choose: 'Choisir…',
@@ -84,8 +84,8 @@ const fr = {
         toggleDescription: 'Continuer les téléchargements en arrière-plan après la fermeture de la fenêtre.'
       },
       analytics: {
-        toggle: 'Envoyer des statistiques d\'utilisation anonymes',
-        toggleDescription: 'Compte uniquement les lancements de l\'application. Aucune URL, nom de fichier ou donnée personnelle.'
+        toggle: "Envoyer des statistiques d'utilisation anonymes",
+        toggleDescription: "Compte uniquement les lancements de l'application. Aucune URL, nom de fichier ou donnée personnelle."
       }
     },
     subtitles: {
@@ -97,7 +97,7 @@ const fr = {
       skipSubs: 'Ignorer pour cette vidéo',
       selectAll: 'Tout sélectionner',
       deselectAll: 'Tout désélectionner',
-      mascot: 'Zéro, un ou plusieurs — c\'est vous qui choisissez ✨',
+      mascot: "Zéro, un ou plusieurs — c'est vous qui choisissez ✨",
       searchPlaceholder: 'Rechercher des langues…',
       noMatches: 'Aucune langue ne correspond',
       clearAll: 'Tout effacer',
@@ -116,7 +116,7 @@ const fr = {
         heading: 'Format'
       },
       embedNote: 'Le mode « incorporé » enregistre la sortie en .mkv pour que les pistes de sous-titres soient intégrées de façon fiable.',
-      autoAssNote: 'Les sous-titres automatiques seront enregistrés en SRT au lieu d\'ASS — ils sont toujours nettoyés des duplications de cues en cascade de YouTube, ce que notre convertisseur ASS ne peut pas encore reproduire.'
+      autoAssNote: "Les sous-titres automatiques seront enregistrés en SRT au lieu d'ASS — ils sont toujours nettoyés des duplications de cues en cascade de YouTube, ce que notre convertisseur ASS ne peut pas encore reproduire."
     },
     sponsorblock: {
       modeHeading: 'Filtrer les sponsors',
@@ -204,7 +204,7 @@ const fr = {
       labelSaveTo: 'Dossier',
       labelSize: 'Taille',
       sizeUnknown: 'Inconnue',
-      nothingToDownload: 'Le préréglage Sous-titres uniquement est actif mais aucune langue de sous-titres n\'est sélectionnée — rien ne sera téléchargé.',
+      nothingToDownload: "Le préréglage Sous-titres uniquement est actif mais aucune langue de sous-titres n'est sélectionnée — rien ne sera téléchargé.",
       audioOnly: 'Audio seul',
       addToQueue: '+ File',
       addToQueueTooltip: 'Démarre quand les autres téléchargements terminent — bande passante complète',
@@ -222,8 +222,8 @@ const fr = {
   queue: {
     header: 'File de téléchargement',
     toggleTitle: 'Afficher/masquer la file de téléchargement',
-    empty: 'Les téléchargements en file s\'afficheront ici',
-    noDownloads: 'Aucun téléchargement pour l\'instant.',
+    empty: "Les téléchargements en file s'afficheront ici",
+    noDownloads: "Aucun téléchargement pour l'instant.",
     activeCount: '{{count}} en cours · {{percent}}%',
     clear: 'Effacer',
     clearTitle: 'Effacer les téléchargements terminés',
@@ -232,7 +232,7 @@ const fr = {
       doneAt: 'Terminé {{time}}',
       paused: 'En pause',
       defaultError: 'Échec du téléchargement',
-      openUrl: 'Ouvrir l\'URL',
+      openUrl: "Ouvrir l'URL",
       pause: 'Pause',
       resume: 'Reprendre',
       cancel: 'Annuler',
@@ -261,12 +261,12 @@ const fr = {
     mergingFormats: 'Fusion audio et vidéo…',
     fetchingSubtitles: 'Récupération des sous-titres…',
     sleepingBetweenRequests: 'Attente {{seconds}}s pour éviter les limites…',
-    subtitlesFailed: 'Vidéo enregistrée — certains sous-titres n\'ont pu être téléchargés',
+    subtitlesFailed: "Vidéo enregistrée — certains sous-titres n'ont pu être téléchargés",
     cancelled: 'Téléchargement annulé',
     complete: 'Téléchargement terminé',
     usedExtractorFallback: 'Téléchargé avec un extracteur assoupli — configurez un cookies.txt pour des téléchargements plus fiables',
     ytdlpProcessError: 'Erreur du processus yt-dlp : {{error}}',
-    ytdlpExitCode: 'yt-dlp s\'est terminé avec le code {{code}}',
+    ytdlpExitCode: "yt-dlp s'est terminé avec le code {{code}}",
     downloadingBinary: 'Téléchargement du binaire {{name}}…',
     unknownStartupFailure: 'Échec inconnu au démarrage du téléchargement'
   },
@@ -276,9 +276,9 @@ const fr = {
       ipBlock: 'Ton adresse IP semble bloquée par YouTube. Réessaie plus tard ou utilise un VPN.',
       rateLimit: 'YouTube limite le débit des requêtes. Attends une minute puis réessaie.',
       ageRestricted: 'Cette vidéo est limitée par âge et ne peut pas être téléchargée sans compte connecté.',
-      unavailable: 'Cette vidéo n\'est pas disponible — elle est peut-être privée, supprimée ou restreinte par région.',
-      geoBlocked: 'Cette vidéo n\'est pas disponible dans ta région.',
-      outOfDiskSpace: 'Espace disque insuffisant. Libère de l\'espace et réessaie.'
+      unavailable: "Cette vidéo n'est pas disponible — elle est peut-être privée, supprimée ou restreinte par région.",
+      geoBlocked: "Cette vidéo n'est pas disponible dans ta région.",
+      outOfDiskSpace: "Espace disque insuffisant. Libère de l'espace et réessaie."
     }
   },
   presets: {
@@ -300,7 +300,7 @@ const fr = {
     },
     'subtitle-only': {
       label: 'Sous-titres uniquement',
-      desc: 'Pas de vidéo ni d\'audio, juste les sous-titres'
+      desc: "Pas de vidéo ni d'audio, juste les sous-titres"
     }
   },
   formatLabel: {

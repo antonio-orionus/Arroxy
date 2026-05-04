@@ -19,11 +19,11 @@ function makeStubs(binaryOverrides: Partial<{ ensureYtDlp: () => Promise<string>
     ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'),
     ensureDeno: vi.fn().mockResolvedValue(null),
     ensureFFprobe: vi.fn().mockResolvedValue(null),
-    ...binaryOverrides,
+    ...binaryOverrides
   };
   const tokenService = {
     mintTokenForUrl: vi.fn().mockResolvedValue({ token: 'tok', visitorData: 'vd' }),
-    invalidateCache: vi.fn(),
+    invalidateCache: vi.fn()
   };
   const recentJobsStore = { push: vi.fn().mockResolvedValue(undefined) };
   const logService = { log: vi.fn() };
@@ -34,7 +34,9 @@ function makeStubs(binaryOverrides: Partial<{ ensureYtDlp: () => Promise<string>
 
 const URL = 'https://www.youtube.com/watch?v=test';
 
-afterEach(() => { vi.restoreAllMocks(); });
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 describe('pendingCancelCount', () => {
   it('is 0 after cancel() even while process has not yet closed', async () => {
@@ -42,11 +44,7 @@ describe('pendingCancelCount', () => {
     const fakeProc = new FakeProcess(); // never fires close
     vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as never);
 
-    const svc = new DownloadService(
-      stubs.ytDlp,
-      stubs.recentJobsStore as never,
-      stubs.logService as never
-    );
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never, stubs.logService as never);
 
     await svc.start({ url: URL, outputDir: '/tmp' });
     expect(svc.activeCount).toBe(1);
@@ -67,23 +65,16 @@ describe('pendingCancelCount', () => {
       .mockReturnValueOnce(proc1 as never)
       .mockReturnValueOnce(proc2 as never);
 
-    const svc = new DownloadService(
-      stubs.ytDlp,
-      stubs.recentJobsStore as never,
-      stubs.logService as never
-    );
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never, stubs.logService as never);
 
-    const [r1] = await Promise.all([
-      svc.start({ url: URL, outputDir: '/tmp' }),
-      svc.start({ url: URL, outputDir: '/tmp' }),
-    ]);
+    const [r1] = await Promise.all([svc.start({ url: URL, outputDir: '/tmp' }), svc.start({ url: URL, outputDir: '/tmp' })]);
 
     expect(svc.pendingCancelCount).toBe(2);
 
     const jobId1 = r1.ok ? r1.data.job.id : '';
     await svc.cancel(jobId1);
 
-    expect(svc.activeCount).toBe(2);      // both still in map (no close event)
+    expect(svc.activeCount).toBe(2); // both still in map (no close event)
     expect(svc.pendingCancelCount).toBe(1); // only one cancelled
   });
 });
@@ -99,11 +90,7 @@ describe('process group kill on POSIX', () => {
 
     const killSpy = vi.spyOn(process, 'kill').mockImplementation(() => true);
 
-    const svc = new DownloadService(
-      stubs.ytDlp,
-      stubs.recentJobsStore as never,
-      stubs.logService as never
-    );
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never, stubs.logService as never);
 
     await svc.start({ url: URL, outputDir: '/tmp' });
     await new Promise((r) => setTimeout(r, 30)); // let setupTempDir + spawnYtDlp complete
@@ -116,14 +103,12 @@ describe('process group kill on POSIX', () => {
 describe('pre-spawn cancel emits status event', () => {
   it('emits error status when cancelled during binary setup', async () => {
     let resolveBinary!: (v: string) => void;
-    const binaryHeld = new Promise<string>((resolve) => { resolveBinary = resolve; });
+    const binaryHeld = new Promise<string>((resolve) => {
+      resolveBinary = resolve;
+    });
 
     const stubs = makeStubs({ ensureYtDlp: vi.fn().mockReturnValue(binaryHeld) });
-    const svc = new DownloadService(
-      stubs.ytDlp,
-      stubs.recentJobsStore as never,
-      stubs.logService as never
-    );
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never, stubs.logService as never);
 
     const statuses: { stage: string; statusKey: string }[] = [];
     svc.on('status', (ev) => statuses.push({ stage: ev.stage, statusKey: ev.statusKey }));
@@ -150,11 +135,7 @@ describe('pre-spawn cancel emits status event', () => {
     const stubs = makeStubs();
     stubs.tokenService.mintTokenForUrl = vi.fn().mockReturnValue(tokenHeld);
 
-    const svc = new DownloadService(
-      stubs.ytDlp,
-      stubs.recentJobsStore as never,
-      stubs.logService as never
-    );
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never, stubs.logService as never);
 
     const statuses: { stage: string; statusKey: string }[] = [];
     svc.on('status', (ev) => statuses.push({ stage: ev.stage, statusKey: ev.statusKey }));

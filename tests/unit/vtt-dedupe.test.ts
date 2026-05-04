@@ -19,7 +19,10 @@ describe('dedupeVtt', () => {
     // Dedupe must shrink the file — rolling cues are highly redundant.
     expect(out.length).toBeLessThan(rolling.length / 2);
     // No two consecutive cues share identical text (the rolling pattern).
-    const cueBlocks = out.split(/\n\n/).slice(1).filter((b) => b.includes('-->'));
+    const cueBlocks = out
+      .split(/\n\n/)
+      .slice(1)
+      .filter((b) => b.includes('-->'));
     const texts = cueBlocks.map((b) => b.split('\n').slice(1).join(' ').trim());
     for (let i = 1; i < texts.length; i++) {
       expect(texts[i]).not.toBe(texts[i - 1]);
@@ -33,8 +36,7 @@ describe('dedupeVtt', () => {
 
     const timecodes = [...out.matchAll(/^(\d+):(\d+):(\d+)\.(\d+) --> (\d+):(\d+):(\d+)\.(\d+)/gm)];
     expect(timecodes.length).toBeGreaterThan(0);
-    const toMs = (m: RegExpMatchArray, off: number): number =>
-      Number(m[off]) * 3600000 + Number(m[off + 1]) * 60000 + Number(m[off + 2]) * 1000 + Number(m[off + 3]);
+    const toMs = (m: RegExpMatchArray, off: number): number => Number(m[off]) * 3600000 + Number(m[off + 1]) * 60000 + Number(m[off + 2]) * 1000 + Number(m[off + 3]);
 
     let lastEnd = -1;
     for (const m of timecodes) {
@@ -61,8 +63,7 @@ describe('dedupeVtt', () => {
 
     const timecodes = [...out.matchAll(/^(\d+):(\d+):(\d+)\.(\d+) --> (\d+):(\d+):(\d+)\.(\d+)/gm)];
     expect(timecodes.length).toBeGreaterThan(20); // sanity — should have many cues
-    const toMs = (m: RegExpMatchArray, off: number): number =>
-      Number(m[off]) * 3600000 + Number(m[off + 1]) * 60000 + Number(m[off + 2]) * 1000 + Number(m[off + 3]);
+    const toMs = (m: RegExpMatchArray, off: number): number => Number(m[off]) * 3600000 + Number(m[off + 1]) * 60000 + Number(m[off + 2]) * 1000 + Number(m[off + 3]);
 
     let lastEnd = -1;
     for (const m of timecodes) {

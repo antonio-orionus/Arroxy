@@ -1,11 +1,6 @@
 import type { AppError, AppErrorCode } from '@shared/types';
 
-export function createAppError(
-  code: AppErrorCode,
-  message: string,
-  details?: string,
-  recoverable = true
-): AppError {
+export function createAppError(code: AppErrorCode, message: string, details?: string, recoverable = true): AppError {
   return { code, message, details, recoverable };
 }
 

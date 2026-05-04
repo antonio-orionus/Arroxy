@@ -10,10 +10,7 @@ import { ytDlpInfoSchema, type YtDlpInfo, type YtDlpSubtitleTrack } from '@share
 import { LIVE_CHAT_LANG } from '@shared/constants';
 import { YtDlp } from './YtDlp';
 
-function sanitizeSubtitleMap(
-  raw: Record<string, YtDlpSubtitleTrack[]> | undefined,
-  isAutomaticCaptions = false
-): SubtitleMap {
+function sanitizeSubtitleMap(raw: Record<string, YtDlpSubtitleTrack[]> | undefined, isAutomaticCaptions = false): SubtitleMap {
   if (!raw) return {};
   const result: SubtitleMap = {};
   for (const [lang, tracks] of Object.entries(raw)) {
@@ -22,10 +19,12 @@ function sanitizeSubtitleMap(
     // Only keys ending in `-orig` are real generated tracks — everything else is a translation
     // request that YouTube generates live and rate-limits aggressively.
     if (isAutomaticCaptions && !lang.endsWith('-orig')) continue;
-    const valid = tracks.filter((t) => typeof t.ext === 'string' && t.ext.length > 0).map((t) => ({
-      ext: t.ext as string,
-      ...(t.name ? { name: t.name } : {})
-    }));
+    const valid = tracks
+      .filter((t) => typeof t.ext === 'string' && t.ext.length > 0)
+      .map((t) => ({
+        ext: t.ext as string,
+        ...(t.name ? { name: t.name } : {})
+      }));
     if (valid.length > 0) result[lang] = valid;
   }
   return result;
@@ -52,9 +51,7 @@ export function mapFormats(info: YtDlpInfo): FormatOption[] {
       if (isAudioOnly) {
         const abr = item.abr;
         const codec = friendlyCodec(item.acodec ?? '');
-        const details = [ext, codec, abr ? `${Math.round(abr)} kbps` : null, filesize ? humanSize(filesize) : null]
-          .filter(Boolean)
-          .join(' · ');
+        const details = [ext, codec, abr ? `${Math.round(abr)} kbps` : null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' · ');
         return {
           formatId,
           label: details,
@@ -72,9 +69,7 @@ export function mapFormats(info: YtDlpInfo): FormatOption[] {
       const fps = item.fps;
       const isVideoOnly = item.acodec === 'none';
       const dynamicRange = item.dynamic_range && item.dynamic_range !== 'SDR' ? item.dynamic_range : undefined;
-      const details = [resolution, ext, fps ? `${fps}fps` : null, dynamicRange ?? null, filesize ? humanSize(filesize) : null]
-        .filter(Boolean)
-        .join(' | ');
+      const details = [resolution, ext, fps ? `${fps}fps` : null, dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' | ');
 
       return {
         formatId,
@@ -114,9 +109,36 @@ export class FormatProbeService {
       if (this.mockMode) {
         return ok({
           formats: [
-            { formatId: '137', label: '1080p | mp4 | 30fps', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 800_000_000, isVideoOnly: true, isAudioOnly: false },
-            { formatId: '22', label: '720p | mp4 | 30fps', ext: 'mp4', resolution: '720p', fps: 30, filesize: 400_000_000, isVideoOnly: false, isAudioOnly: false },
-            { formatId: '18', label: '360p | mp4 | 30fps', ext: 'mp4', resolution: '360p', fps: 30, filesize: 150_000_000, isVideoOnly: false, isAudioOnly: false }
+            {
+              formatId: '137',
+              label: '1080p | mp4 | 30fps',
+              ext: 'mp4',
+              resolution: '1080p',
+              fps: 30,
+              filesize: 800_000_000,
+              isVideoOnly: true,
+              isAudioOnly: false
+            },
+            {
+              formatId: '22',
+              label: '720p | mp4 | 30fps',
+              ext: 'mp4',
+              resolution: '720p',
+              fps: 30,
+              filesize: 400_000_000,
+              isVideoOnly: false,
+              isAudioOnly: false
+            },
+            {
+              formatId: '18',
+              label: '360p | mp4 | 30fps',
+              ext: 'mp4',
+              resolution: '360p',
+              fps: 30,
+              filesize: 150_000_000,
+              isVideoOnly: false,
+              isAudioOnly: false
+            }
           ],
           title: 'Mock Video Title',
           thumbnail: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
@@ -128,13 +150,16 @@ export class FormatProbeService {
 
       this.logger.log('INFO', 'Format probe started', { url });
 
-      const result = await this.ytDlp.run({ kind: 'probe', url }, {
-        onStderr: (chunk) => {
-          for (const line of splitStderrLines(chunk)) {
-            this.logger.log('INFO', line, { source: 'yt-dlp-format-probe' });
+      const result = await this.ytDlp.run(
+        { kind: 'probe', url },
+        {
+          onStderr: (chunk) => {
+            for (const line of splitStderrLines(chunk)) {
+              this.logger.log('INFO', line, { source: 'yt-dlp-format-probe' });
+            }
           }
         }
-      });
+      );
 
       if (result.kind !== 'success') {
         const code = result.kind === 'exit-error' ? result.exitCode : null;
@@ -143,7 +168,7 @@ export class FormatProbeService {
         this.logger.log('ERROR', 'yt-dlp format probe failed', { code, url, signal });
         trackMain('format_probed', {
           duration_bucket: probeDurationBucket(Date.now() - startMs),
-          error_category: categorizeProbeError(rawError ?? ''),
+          error_category: categorizeProbeError(rawError ?? '')
         });
         return fail(createAppError('download', rawError ?? 'Format probing failed'));
       }
@@ -157,13 +182,17 @@ export class FormatProbeService {
           trackMain('format_probed', {
             outcome: 'error',
             duration_bucket: probeDurationBucket(Date.now() - startMs),
-            error_category: 'parse',
+            error_category: 'parse'
           });
           return fail(createAppError('download', 'Unexpected yt-dlp output shape', message));
         }
         const parsed = parseResult.data;
         const formats = mapFormats(parsed);
-        this.logger.log('INFO', 'Format probe complete', { url, title: parsed.title, formatCount: formats.length });
+        this.logger.log('INFO', 'Format probe complete', {
+          url,
+          title: parsed.title,
+          formatCount: formats.length
+        });
         return ok({
           formats,
           title: parsed.title ?? '',
@@ -177,7 +206,7 @@ export class FormatProbeService {
         this.logger.log('ERROR', 'Format probe JSON parse failed', { message, url });
         trackMain('format_probed', {
           duration_bucket: probeDurationBucket(Date.now() - startMs),
-          error_category: 'parse',
+          error_category: 'parse'
         });
         return fail(createAppError('download', 'Failed to parse format list', message));
       }
@@ -186,7 +215,7 @@ export class FormatProbeService {
       this.logger.log('ERROR', 'Format probe failure', { message, url });
       trackMain('format_probed', {
         duration_bucket: probeDurationBucket(Date.now() - startMs),
-        error_category: categorizeProbeError(message),
+        error_category: categorizeProbeError(message)
       });
       return fail(createAppError('download', message));
     }

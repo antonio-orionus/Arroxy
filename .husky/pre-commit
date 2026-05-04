@@ -1,1 +1,1 @@
-bun run lint && bun run knip && bun run typecheck
+bun run format:check && bun run lint && bun run knip && bun run typecheck

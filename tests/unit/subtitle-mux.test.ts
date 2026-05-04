@@ -5,7 +5,7 @@ vi.mock('node:fs/promises', () => ({
   readFile: vi.fn(),
   writeFile: vi.fn().mockResolvedValue(undefined),
   rename: vi.fn().mockResolvedValue(undefined),
-  unlink: vi.fn().mockResolvedValue(undefined),
+  unlink: vi.fn().mockResolvedValue(undefined)
 }));
 
 vi.mock('@main/utils/process', async (importOriginal) => {
@@ -51,7 +51,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
       requestedLangs: ['en'],
       onSpawn: vi.fn(),
       logger: LOG,
-      jobId: JOB_ID,
+      jobId: JOB_ID
     });
 
     const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0];
@@ -82,7 +82,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
       requestedLangs: ['en', 'ja'],
       onSpawn: vi.fn(),
       logger: LOG,
-      jobId: JOB_ID,
+      jobId: JOB_ID
     });
 
     const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0];
@@ -108,7 +108,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
       requestedLangs: ['ja', 'zh', 'ko'],
       onSpawn: vi.fn(),
       logger: LOG,
-      jobId: JOB_ID,
+      jobId: JOB_ID
     });
 
     const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0];
@@ -129,7 +129,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
       requestedLangs: ['und'],
       onSpawn: vi.fn(),
       logger: LOG,
-      jobId: JOB_ID,
+      jobId: JOB_ID
     });
 
     const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0];
@@ -148,7 +148,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
       requestedLangs: ['en'], // 'xx' doesn't match 'en'
       onSpawn: vi.fn(),
       logger: LOG,
-      jobId: JOB_ID,
+      jobId: JOB_ID
     });
 
     const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0];
@@ -169,7 +169,7 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
       requestedLangs: ['en'],
       onSpawn: vi.fn(),
       logger: LOG,
-      jobId: JOB_ID,
+      jobId: JOB_ID
     });
 
     expect(result.ok).toBe(true);
@@ -186,7 +186,7 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
       requestedLangs: ['en'],
       onSpawn: vi.fn(),
       logger: LOG,
-      jobId: JOB_ID,
+      jobId: JOB_ID
     });
 
     expect(result.ok).toBe(false);
@@ -205,7 +205,7 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
       requestedLangs: ['en'],
       onSpawn: vi.fn(),
       logger: LOG,
-      jobId: JOB_ID,
+      jobId: JOB_ID
     });
 
     expect(result.ok).toBe(false);
@@ -219,7 +219,7 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
       requestedLangs: ['en'],
       onSpawn: vi.fn(),
       logger: LOG,
-      jobId: JOB_ID,
+      jobId: JOB_ID
     });
 
     expect(result.ok).toBe(false);
@@ -240,7 +240,7 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
       requestedLangs: ['en'],
       onSpawn,
       logger: LOG,
-      jobId: JOB_ID,
+      jobId: JOB_ID
     });
 
     expect(onSpawn).toHaveBeenCalledWith(fakeProc);
@@ -258,13 +258,10 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
       requestedLangs: ['en'],
       onSpawn: vi.fn(),
       logger: LOG,
-      jobId: JOB_ID,
+      jobId: JOB_ID
     });
 
-    expect(rename).toHaveBeenCalledWith(
-      expect.stringContaining('.muxing.mkv'),
-      '/tmp/video.mkv'
-    );
+    expect(rename).toHaveBeenCalledWith(expect.stringContaining('.muxing.mkv'), '/tmp/video.mkv');
     expect(unlink).toHaveBeenCalledWith('/tmp/video.en.srt');
   });
 });
@@ -315,9 +312,7 @@ describe('dedupeSubtitleFiles', () => {
   it('read error → logged and swallowed, never throws', async () => {
     vi.mocked(readFile).mockRejectedValue(new Error('ENOENT'));
 
-    await expect(
-      dedupeSubtitleFiles(['/tmp/missing.srt'], LOG, JOB_ID, () => false)
-    ).resolves.toBeUndefined();
+    await expect(dedupeSubtitleFiles(['/tmp/missing.srt'], LOG, JOB_ID, () => false)).resolves.toBeUndefined();
 
     expect((LOG as unknown as { log: ReturnType<typeof vi.fn> }).log).toHaveBeenCalledWith('WARN', 'auto-caption dedupe skipped', expect.any(Object));
   });
@@ -325,11 +320,7 @@ describe('dedupeSubtitleFiles', () => {
   it('shouldAbort() true before file → that file is skipped', async () => {
     vi.mocked(readFile).mockResolvedValue('content' as never);
 
-    await dedupeSubtitleFiles(
-      ['/tmp/video.en.srt', '/tmp/video.ja.srt'],
-      LOG, JOB_ID,
-      () => true
-    );
+    await dedupeSubtitleFiles(['/tmp/video.en.srt', '/tmp/video.ja.srt'], LOG, JOB_ID, () => true);
 
     expect(readFile).not.toHaveBeenCalled();
   });
@@ -337,11 +328,7 @@ describe('dedupeSubtitleFiles', () => {
   it('processes multiple files', async () => {
     vi.mocked(readFile).mockResolvedValue('1\n00:00:00,000 --> 00:00:01,000\nhello' as never);
 
-    await dedupeSubtitleFiles(
-      ['/tmp/video.en.srt', '/tmp/video.ja.srt'],
-      LOG, JOB_ID,
-      () => false
-    );
+    await dedupeSubtitleFiles(['/tmp/video.en.srt', '/tmp/video.ja.srt'], LOG, JOB_ID, () => false);
 
     expect(readFile).toHaveBeenCalledTimes(2);
   });

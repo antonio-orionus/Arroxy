@@ -6,11 +6,7 @@ export interface DiskSpaceResult {
   requiredBytes: number | undefined;
 }
 
-export async function checkDiskSpace(
-  dir: string,
-  expectedBytes: number | undefined,
-  marginFactor = 1.5
-): Promise<DiskSpaceResult> {
+export async function checkDiskSpace(dir: string, expectedBytes: number | undefined, marginFactor = 1.5): Promise<DiskSpaceResult> {
   if (expectedBytes === undefined) {
     return { ok: true, freeBytes: undefined, requiredBytes: undefined };
   }

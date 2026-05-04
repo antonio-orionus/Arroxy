@@ -61,10 +61,7 @@ describe('DownloadService (mock mode)', () => {
   it('allows two downloads to start concurrently', async () => {
     const { service, recentJobsStore } = makeService();
 
-    const [r1, r2] = await Promise.all([
-      service.start({ url: 'https://youtube.com/watch?v=1', outputDir: '/tmp' }),
-      service.start({ url: 'https://youtube.com/watch?v=2', outputDir: '/tmp' })
-    ]);
+    const [r1, r2] = await Promise.all([service.start({ url: 'https://youtube.com/watch?v=1', outputDir: '/tmp' }), service.start({ url: 'https://youtube.com/watch?v=2', outputDir: '/tmp' })]);
 
     expect(r1.ok).toBe(true);
     expect(r2.ok).toBe(true);
@@ -76,10 +73,7 @@ describe('DownloadService (mock mode)', () => {
   it('cancel(jobId) cancels only the specified job, not others', async () => {
     const { service, recentJobsStore } = makeService();
 
-    const [r1, r2] = await Promise.all([
-      service.start({ url: 'https://youtube.com/watch?v=1', outputDir: '/tmp' }),
-      service.start({ url: 'https://youtube.com/watch?v=2', outputDir: '/tmp' })
-    ]);
+    const [r1, r2] = await Promise.all([service.start({ url: 'https://youtube.com/watch?v=1', outputDir: '/tmp' }), service.start({ url: 'https://youtube.com/watch?v=2', outputDir: '/tmp' })]);
 
     expect(r1.ok).toBe(true);
     expect(r2.ok).toBe(true);
@@ -128,10 +122,7 @@ describe('DownloadService (mock mode)', () => {
       updatedAt: new Date().toISOString()
     };
     type PausedDownload = { job: DownloadJob; input: { url: string; outputDir: string } };
-    (service as unknown as { pausedJobs: Map<string, PausedDownload> }).pausedJobs.set(
-      pausedJob.id,
-      { job: pausedJob, input: { url: pausedJob.url, outputDir: pausedJob.outputDir } }
-    );
+    (service as unknown as { pausedJobs: Map<string, PausedDownload> }).pausedJobs.set(pausedJob.id, { job: pausedJob, input: { url: pausedJob.url, outputDir: pausedJob.outputDir } });
 
     const cancelResult = await service.cancel(pausedJob.id);
     expect(cancelResult.ok).toBe(true);
@@ -202,10 +193,7 @@ describe('DownloadService (mock mode)', () => {
       updatedAt: new Date().toISOString()
     };
     type PausedDownload = { job: DownloadJob; input: { url: string; outputDir: string } };
-    (service as unknown as { pausedJobs: Map<string, PausedDownload> }).pausedJobs.set(
-      pausedJob.id,
-      { job: pausedJob, input: { url: pausedJob.url, outputDir: pausedJob.outputDir } }
-    );
+    (service as unknown as { pausedJobs: Map<string, PausedDownload> }).pausedJobs.set(pausedJob.id, { job: pausedJob, input: { url: pausedJob.url, outputDir: pausedJob.outputDir } });
 
     const resumePromise = service.resume(pausedJob.id);
     // resume() is now awaiting ensureYtDlp; fire cancel which will mark

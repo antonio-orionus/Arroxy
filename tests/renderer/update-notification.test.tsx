@@ -8,11 +8,13 @@ import { ok } from '../shared/fixtures';
 
 type UpdateListener = (info: UpdateAvailablePayload) => void;
 
-function makeApi(overrides: {
-  onUpdateAvailable?: (listener: UpdateListener) => () => void;
-  install?: () => Promise<{ ok: true } | { ok: false; error: string }>;
-  openExternal?: (url: string) => Promise<unknown>;
-} = {}) {
+function makeApi(
+  overrides: {
+    onUpdateAvailable?: (listener: UpdateListener) => () => void;
+    install?: () => Promise<{ ok: true } | { ok: false; error: string }>;
+    openExternal?: (url: string) => Promise<unknown>;
+  } = {}
+) {
   return {
     app: {
       warmUp: vi.fn().mockResolvedValue(ok({ completed: true, failures: [] })),
@@ -62,11 +64,21 @@ function makeApi(overrides: {
 
 function resetStore() {
   useAppStore.setState({
-    initialized: false, settings: null, wizardStep: 'url',
-    formatsLoading: false, wizardUrl: '', wizardTitle: '',
-    wizardThumbnail: '', wizardFormats: [], selectedVideoFormatId: '',
-    selectedAudioFormatId: null, activePreset: null,
-    wizardOutputDir: '', wizardError: null, wizardErrorOrigin: null, queue: []
+    initialized: false,
+    settings: null,
+    wizardStep: 'url',
+    formatsLoading: false,
+    wizardUrl: '',
+    wizardTitle: '',
+    wizardThumbnail: '',
+    wizardFormats: [],
+    selectedVideoFormatId: '',
+    selectedAudioFormatId: null,
+    activePreset: null,
+    wizardOutputDir: '',
+    wizardError: null,
+    wizardErrorOrigin: null,
+    queue: []
   });
 }
 
@@ -75,7 +87,8 @@ describe('UpdateBanner integration in App', () => {
     resetStore();
     window.platform = 'linux';
     Object.defineProperty(navigator, 'clipboard', {
-      writable: true, configurable: true,
+      writable: true,
+      configurable: true,
       value: { writeText: vi.fn().mockResolvedValue(undefined) }
     });
   });
@@ -196,9 +209,7 @@ describe('UpdateBanner integration in App', () => {
       fireEvent.click(screen.getByText('Download ↗'));
     });
 
-    expect(openExternal).toHaveBeenCalledWith(
-      'https://github.com/antonio-orionus/Arroxy/releases/latest'
-    );
+    expect(openExternal).toHaveBeenCalledWith('https://github.com/antonio-orionus/Arroxy/releases/latest');
   });
 
   it('Download ↗ dismisses the banner after clicking', async () => {
@@ -250,7 +261,10 @@ describe('UpdateBanner integration in App', () => {
       capturedListener = listener;
       return () => undefined;
     };
-    const installMock = vi.fn().mockResolvedValue({ ok: false, error: 'no network' }) as () => Promise<{ ok: false; error: string }>;
+    const installMock = vi.fn().mockResolvedValue({ ok: false, error: 'no network' }) as () => Promise<{
+      ok: false;
+      error: string;
+    }>;
     window.appApi = makeApi({ onUpdateAvailable, install: installMock });
 
     render(<App />);
@@ -275,7 +289,10 @@ describe('UpdateBanner integration in App', () => {
       capturedListener = listener;
       return () => undefined;
     };
-    const installMock = vi.fn().mockResolvedValue({ ok: false, error: 'transient' }) as () => Promise<{ ok: false; error: string }>;
+    const installMock = vi.fn().mockResolvedValue({ ok: false, error: 'transient' }) as () => Promise<{
+      ok: false;
+      error: string;
+    }>;
     window.appApi = makeApi({ onUpdateAvailable, install: installMock });
 
     render(<App />);

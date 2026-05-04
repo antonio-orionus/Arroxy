@@ -54,16 +54,11 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
         } else {
           // Phase transitions (merge, fetch subs, sleep) supersede stale download-speed
           // progress detail — clear it so the phase status text becomes visible.
-          const isPhaseTransition =
-            event.statusKey === STATUS_KEY.mergingFormats ||
-            event.statusKey === STATUS_KEY.fetchingSubtitles ||
-            event.statusKey === STATUS_KEY.sleepingBetweenRequests;
+          const isPhaseTransition = event.statusKey === STATUS_KEY.mergingFormats || event.statusKey === STATUS_KEY.fetchingSubtitles || event.statusKey === STATUS_KEY.sleepingBetweenRequests;
           // yt-dlp emits per-file percent (0→100% for each sub, then video, then audio).
           // Reset the bar when a new file becomes the active download target so the
           // first sub's instant 100% doesn't peg it for the rest of the job.
-          const isFileBoundary =
-            event.statusKey === STATUS_KEY.downloadingMedia ||
-            event.statusKey === STATUS_KEY.fetchingSubtitles;
+          const isFileBoundary = event.statusKey === STATUS_KEY.downloadingMedia || event.statusKey === STATUS_KEY.fetchingSubtitles;
           updateQueueItem(set, item.id, {
             lastStatus: { key: event.statusKey, params: event.params },
             ...(isPhaseTransition ? { progressDetail: null } : {}),
@@ -92,11 +87,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
       const warmUpPromise = window.appApi.app.warmUp();
       const queuePromise = window.appApi.queue.load();
 
-      const [settingsResult, warmUpResult, queueResult] = await Promise.all([
-        settingsPromise,
-        warmUpPromise,
-        queuePromise
-      ]);
+      const [settingsResult, warmUpResult, queueResult] = await Promise.all([settingsPromise, warmUpPromise, queuePromise]);
 
       const savedQueue = queueResult.ok ? queueResult.data : [];
       if (!queueResult.ok) {
@@ -127,7 +118,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
       const warmupFailures = warmUpResult.ok ? warmUpResult.data.failures : [];
 
       if (savedQueue.length > 0) {
-        type StoredItem = typeof savedQueue[number] & {
+        type StoredItem = (typeof savedQueue)[number] & {
           subtitleLanguages?: string[];
           writeAutoSubs?: boolean;
           subtitleMode?: SubtitleMode;

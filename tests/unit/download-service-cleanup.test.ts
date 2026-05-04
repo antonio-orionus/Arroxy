@@ -16,7 +16,9 @@ describe('cleanupPartFiles', () => {
 
   afterEach(() => {
     for (const dir of dirs) {
-      try { rmSync(dir, { recursive: true, force: true }); } catch {}
+      try {
+        rmSync(dir, { recursive: true, force: true });
+      } catch {}
     }
     dirs.length = 0;
   });

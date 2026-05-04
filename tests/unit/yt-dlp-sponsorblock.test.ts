@@ -11,7 +11,9 @@ vi.mock('@main/utils/process', async (importOriginal) => {
 
 import { spawnYtDlp } from '@main/utils/process';
 
-beforeEach(() => { vi.clearAllMocks(); });
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 function makeFakeProcess(exitCode: number) {
   const proc = Object.assign(new EventEmitter(), {
@@ -73,7 +75,7 @@ describe('SponsorBlock — yt-dlp arg injection', () => {
       outputDir: '/tmp',
       formatId: '137+251',
       sponsorBlockMode: 'mark',
-      sponsorBlockCategories: ['sponsor', 'selfpromo'],
+      sponsorBlockCategories: ['sponsor', 'selfpromo']
     });
     await done;
 
@@ -92,7 +94,7 @@ describe('SponsorBlock — yt-dlp arg injection', () => {
       outputDir: '/tmp',
       formatId: '137+251',
       sponsorBlockMode: 'remove',
-      sponsorBlockCategories: ['sponsor', 'intro', 'outro'],
+      sponsorBlockCategories: ['sponsor', 'intro', 'outro']
     });
     await done;
 
@@ -111,7 +113,7 @@ describe('SponsorBlock — yt-dlp arg injection', () => {
       outputDir: '/tmp',
       formatId: '137+251',
       sponsorBlockMode: 'off',
-      sponsorBlockCategories: ['sponsor'],
+      sponsorBlockCategories: ['sponsor']
     });
     await done;
 
@@ -129,7 +131,7 @@ describe('SponsorBlock — yt-dlp arg injection', () => {
       outputDir: '/tmp',
       formatId: '137+251',
       sponsorBlockMode: 'mark',
-      sponsorBlockCategories: [],
+      sponsorBlockCategories: []
     });
     await done;
 
@@ -144,7 +146,7 @@ describe('SponsorBlock — yt-dlp arg injection', () => {
     await service.start({
       url: YOUTUBE_URL,
       outputDir: '/tmp',
-      formatId: '137+251',
+      formatId: '137+251'
     });
     await done;
 
@@ -163,7 +165,7 @@ describe('SponsorBlock — yt-dlp arg injection', () => {
       formatId: '137+251',
       subtitleLanguages: ['en'],
       sponsorBlockMode: 'remove',
-      sponsorBlockCategories: ['sponsor'],
+      sponsorBlockCategories: ['sponsor']
     });
     await done;
 
@@ -182,7 +184,7 @@ describe('SponsorBlock — yt-dlp arg injection', () => {
       outputDir: '/tmp',
       subtitleLanguages: ['en'],
       sponsorBlockMode: 'mark',
-      sponsorBlockCategories: ['sponsor'],
+      sponsorBlockCategories: ['sponsor']
     });
     await done;
 

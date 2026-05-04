@@ -98,9 +98,24 @@ describe('SmartDrawer header summary', () => {
 
   it('aggregates correctly with 3 mixed-phase active items', () => {
     setQueue([
-      makeItem({ id: 'q1', status: 'downloading', progressPercent: 30, lastStatus: { key: 'mergingFormats', params: {} } }),
-      makeItem({ id: 'q2', status: 'downloading', progressPercent: 60, lastStatus: { key: 'downloadingMedia', params: {} } }),
-      makeItem({ id: 'q3', status: 'downloading', progressPercent: 90, lastStatus: { key: 'fetchingSubtitles', params: {} } })
+      makeItem({
+        id: 'q1',
+        status: 'downloading',
+        progressPercent: 30,
+        lastStatus: { key: 'mergingFormats', params: {} }
+      }),
+      makeItem({
+        id: 'q2',
+        status: 'downloading',
+        progressPercent: 60,
+        lastStatus: { key: 'downloadingMedia', params: {} }
+      }),
+      makeItem({
+        id: 'q3',
+        status: 'downloading',
+        progressPercent: 90,
+        lastStatus: { key: 'fetchingSubtitles', params: {} }
+      })
     ]);
     render(<SmartDrawer />);
     const summary = screen.getByTestId('drawer-header-summary');
@@ -110,10 +125,7 @@ describe('SmartDrawer header summary', () => {
   });
 
   it('renders no summary when queue has only completed/idle items', () => {
-    setQueue([
-      makeItem({ id: 'q1', status: 'done', progressPercent: 100 }),
-      makeItem({ id: 'q2', status: 'pending', progressPercent: 0 })
-    ]);
+    setQueue([makeItem({ id: 'q1', status: 'done', progressPercent: 100 }), makeItem({ id: 'q2', status: 'pending', progressPercent: 0 })]);
     render(<SmartDrawer />);
     expect(screen.queryByTestId('drawer-header-summary')).not.toBeInTheDocument();
     expect(screen.queryByTestId('drawer-header-progress')).not.toBeInTheDocument();

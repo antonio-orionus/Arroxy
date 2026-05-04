@@ -6,15 +6,15 @@ type Props = Record<string, string | number | boolean>;
 // Any call with an unknown event or disallowed key throws in dev and silently
 // drops in prod, preventing accidental URL/path/title leakage.
 const ALLOWED: Record<string, readonly string[]> = {
-  app_started:            ['install_channel', 'platform_arch', 'is_first_run'],
-  update_available:       ['to_version', 'install_channel'],
+  app_started: ['install_channel', 'platform_arch', 'is_first_run'],
+  update_available: ['to_version', 'install_channel'],
   update_install_clicked: ['install_channel'],
-  format_probed:          ['duration_bucket', 'error_category'],
-  download_started:       ['preset', 'has_subtitles', 'has_sponsorblock', 'cookies_enabled', 'embed_metadata', 'embed_thumbnail'],
-  download_finished:      ['outcome', 'duration_bucket', 'size_bucket', 'error_category'],
-  tray_close_chosen:      ['choice', 'remember'],
-  binary_setup_failed:    ['binary', 'phase'],
-  wizard_started:         [],
+  format_probed: ['duration_bucket', 'error_category'],
+  download_started: ['preset', 'has_subtitles', 'has_sponsorblock', 'cookies_enabled', 'embed_metadata', 'embed_thumbnail'],
+  download_finished: ['outcome', 'duration_bucket', 'size_bucket', 'error_category'],
+  tray_close_chosen: ['choice', 'remember'],
+  binary_setup_failed: ['binary', 'phase'],
+  wizard_started: []
 };
 
 const MAX_STR = 32;

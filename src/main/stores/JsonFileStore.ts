@@ -21,10 +21,7 @@ export class JsonFileStore {
   }
 
   protected writeJson(value: unknown): Promise<void> {
-    const write = this.writeQueue.then(() =>
-      fs.mkdir(path.dirname(this.filePath), { recursive: true })
-        .then(() => fs.writeFile(this.filePath, JSON.stringify(value, null, 2), 'utf-8'))
-    );
+    const write = this.writeQueue.then(() => fs.mkdir(path.dirname(this.filePath), { recursive: true }).then(() => fs.writeFile(this.filePath, JSON.stringify(value, null, 2), 'utf-8')));
     // Keep the queue alive on failure so subsequent writes don't deadlock,
     // but log the failure so it's visible. Callers awaiting `write` still see
     // the rejection.

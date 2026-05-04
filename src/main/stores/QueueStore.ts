@@ -22,7 +22,7 @@ export class QueueStore extends JsonFileStore {
           status: wasDownloading ? QUEUE_STATUS.pending : item.status,
           progressPercent: wasActive ? 0 : item.progressPercent,
           progressDetail: wasActive ? null : item.progressDetail,
-          downloadJobId: null,
+          downloadJobId: null
         };
       });
 

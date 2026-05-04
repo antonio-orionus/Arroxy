@@ -28,12 +28,18 @@ function formatSrt(cues: Iterable<Cue>): string {
 }
 
 function parseSrtCues(content: string): Cue[] {
-  const nonEmpty = content.split('\n').map((l) => l.replace(/\r$/, '')).filter((l) => l.trim().length > 0);
+  const nonEmpty = content
+    .split('\n')
+    .map((l) => l.replace(/\r$/, ''))
+    .filter((l) => l.trim().length > 0);
   const cues: Cue[] = [];
   let i = 0;
   while (i < nonEmpty.length) {
     const tc = parseSrtTimecode(nonEmpty[i]);
-    if (!tc) { i++; continue; }
+    if (!tc) {
+      i++;
+      continue;
+    }
     let textLines = '';
     let j = i + 1;
     while (j < nonEmpty.length) {

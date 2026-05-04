@@ -21,7 +21,19 @@ export type YtDlpRequest =
       subtitleFormat: SubtitleFormat;
       writeAutoSubs?: boolean;
     }
-  | { kind: 'video'; url: string; outputDir: string; tempDir?: string; formatId?: string; sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] }; embedChapters?: boolean; embedMetadata?: boolean; embedThumbnail?: boolean; writeDescription?: boolean; writeThumbnail?: boolean }
+  | {
+      kind: 'video';
+      url: string;
+      outputDir: string;
+      tempDir?: string;
+      formatId?: string;
+      sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] };
+      embedChapters?: boolean;
+      embedMetadata?: boolean;
+      embedThumbnail?: boolean;
+      writeDescription?: boolean;
+      writeThumbnail?: boolean;
+    }
   | {
       kind: 'video+embed';
       url: string;
@@ -125,7 +137,12 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 
     proc.on('close', (code) => {
       if (code === 0) {
-        resolve({ kind: 'success', stdout, stderr, usedExtractorFallback: strategy.kind === 'fallback' });
+        resolve({
+          kind: 'success',
+          stdout,
+          stderr,
+          usedExtractorFallback: strategy.kind === 'fallback'
+        });
         return;
       }
       resolve({
@@ -134,7 +151,7 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
         signal: classifyStderr(stderr),
         rawError: extractLastError(stderr),
         stdout,
-        stderr,
+        stderr
       });
     });
   });
@@ -182,19 +199,9 @@ function effectiveSubtitleFormat(req: { writeAutoSubs?: boolean; subtitleFormat:
 }
 
 function buildSubtitleArgs(req: Extract<YtDlpRequest, { kind: 'subtitle' }>): string[] {
-  const subOutputDir = req.subtitleMode === 'subfolder'
-    ? `${req.outputDir}/subtitles`
-    : req.outputDir;
+  const subOutputDir = req.subtitleMode === 'subfolder' ? `${req.outputDir}/subtitles` : req.outputDir;
   const fmt = effectiveSubtitleFormat(req);
-  return [
-    '--skip-download', '--no-playlist',
-    '--write-subs', '--sub-langs', req.subtitleLanguages.join(','),
-    ...(req.writeAutoSubs ? ['--write-auto-subs'] : []),
-    '--sleep-subtitles', '3',
-    '--sub-format', `${fmt}/best`,
-    '--convert-subs', fmt,
-    '-o', `${subOutputDir}/%(title)s.%(ext)s`, req.url
-  ];
+  return ['--skip-download', '--no-playlist', '--write-subs', '--sub-langs', req.subtitleLanguages.join(','), ...(req.writeAutoSubs ? ['--write-auto-subs'] : []), '--sleep-subtitles', '3', '--sub-format', `${fmt}/best`, '--convert-subs', fmt, '-o', `${subOutputDir}/%(title)s.%(ext)s`, req.url];
 }
 
 function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embed' }>): string[] {
@@ -206,13 +213,7 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
     // mkv embeds vtt natively as a webvtt stream — no --convert-subs needed.
     // mp4+mov_text muxing is unreliable across YouTube's auto-caption variants.
     // --compat-options no-keep-subs deletes the sidecar .vtt files after embed.
-    args.push(
-      '--write-subs', '--embed-subs',
-      '--sub-langs', req.subtitleLanguages.join(','),
-      '--merge-output-format', EMBED_CONTAINER_EXT,
-      '--compat-options', 'no-keep-subs',
-      '--sleep-subtitles', '3'
-    );
+    args.push('--write-subs', '--embed-subs', '--sub-langs', req.subtitleLanguages.join(','), '--merge-output-format', EMBED_CONTAINER_EXT, '--compat-options', 'no-keep-subs', '--sleep-subtitles', '3');
     if (req.writeAutoSubs) args.push('--write-auto-subs');
   } else {
     args.push('--no-write-subs', '--no-write-auto-subs');
@@ -264,7 +265,7 @@ export class YtDlp {
   constructor(
     private readonly binaryManager: BinaryManager,
     private readonly tokenService: TokenService,
-    private readonly settingsStore: SettingsStore,
+    private readonly settingsStore: SettingsStore
   ) {}
 
   // Call once at job start to emit binary-setup status events.
@@ -296,7 +297,7 @@ export class YtDlp {
       args,
       tokenService: this.tokenService,
       cookiesPath,
-      signal,
+      signal
     });
     if (result.kind === 'success' && subtitleFormat) {
       return { ...result, effectiveSubtitleFormat: subtitleFormat };

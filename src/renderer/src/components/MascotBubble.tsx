@@ -14,19 +14,9 @@ export function MascotBubble({ image, message, side = 'left', className }: Props
   return (
     <div className={cn('flex items-center rtl:[transform:scaleX(-1)]', isRight && 'flex-row-reverse', className)}>
       <div className="rounded-2xl bg-[var(--brand-dim)] p-2 shrink-0 rtl:[transform:scaleX(-1)]">
-        <img
-          src={image}
-          alt=""
-          aria-hidden
-          className="w-20 h-20 object-contain"
-        />
+        <img src={image} alt="" aria-hidden className="w-20 h-20 object-contain" />
       </div>
-      <div
-        className={cn(
-          'relative rounded-xl border border-border bg-secondary px-3 py-2 text-xs text-muted-foreground leading-relaxed shadow-sm rtl:[transform:scaleX(-1)]',
-          !isRight ? 'ml-2' : 'mr-2'
-        )}
-      >
+      <div className={cn('relative rounded-xl border border-border bg-secondary px-3 py-2 text-xs text-muted-foreground leading-relaxed shadow-sm rtl:[transform:scaleX(-1)]', !isRight ? 'ml-2' : 'mr-2')}>
         {message}
         {!isRight && (
           <>
@@ -36,7 +26,7 @@ export function MascotBubble({ image, message, side = 'left', className }: Props
               style={{
                 borderTop: '6px solid transparent',
                 borderBottom: '6px solid transparent',
-                borderRight: '7px solid var(--border)',
+                borderRight: '7px solid var(--border)'
               }}
             />
             <span
@@ -45,7 +35,7 @@ export function MascotBubble({ image, message, side = 'left', className }: Props
               style={{
                 borderTop: '6px solid transparent',
                 borderBottom: '6px solid transparent',
-                borderRight: '7px solid var(--secondary)',
+                borderRight: '7px solid var(--secondary)'
               }}
             />
           </>
@@ -58,7 +48,7 @@ export function MascotBubble({ image, message, side = 'left', className }: Props
               style={{
                 borderTop: '6px solid transparent',
                 borderBottom: '6px solid transparent',
-                borderLeft: '7px solid var(--border)',
+                borderLeft: '7px solid var(--border)'
               }}
             />
             <span
@@ -67,7 +57,7 @@ export function MascotBubble({ image, message, side = 'left', className }: Props
               style={{
                 borderTop: '6px solid transparent',
                 borderBottom: '6px solid transparent',
-                borderLeft: '7px solid var(--secondary)',
+                borderLeft: '7px solid var(--secondary)'
               }}
             />
           </>

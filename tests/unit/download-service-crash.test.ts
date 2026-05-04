@@ -24,17 +24,17 @@ function makeStubs() {
     ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'),
     ensureFFmpeg: vi.fn().mockResolvedValue(null),
     ensureDeno: vi.fn().mockResolvedValue(null),
-    ensureFFprobe: vi.fn().mockResolvedValue(null),
+    ensureFFprobe: vi.fn().mockResolvedValue(null)
   } as unknown as BinaryManager;
   const tokenService = {
     mintTokenForUrl: vi.fn().mockResolvedValue({ token: 'tok', visitorData: 'vd' }),
-    invalidateCache: vi.fn(),
+    invalidateCache: vi.fn()
   } as unknown as TokenService;
   const recentJobsStore = {
-    push: vi.fn().mockResolvedValue(undefined),
+    push: vi.fn().mockResolvedValue(undefined)
   } as unknown as RecentJobsStore;
   const settingsStore = {
-    get: vi.fn().mockResolvedValue({}),
+    get: vi.fn().mockResolvedValue({})
   } as never;
   const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore);
   return { logger, binaryManager, tokenService, recentJobsStore, settingsStore, ytDlp };
@@ -47,9 +47,7 @@ afterEach(() => {
 describe('DownloadService stdout/stderr crash safety', () => {
   it('stdout data handler swallows exceptions from consumeProgress', async () => {
     const stubs = makeStubs();
-    const svc = new DownloadService(
-      stubs.ytDlp, stubs.recentJobsStore, stubs.logger
-    );
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore, stubs.logger);
 
     const fakeProc = new FakeProcess();
     vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as any);
@@ -67,9 +65,7 @@ describe('DownloadService stdout/stderr crash safety', () => {
 
   it('stderr data handler swallows exceptions from consumeProgress', async () => {
     const stubs = makeStubs();
-    const svc = new DownloadService(
-      stubs.ytDlp, stubs.recentJobsStore, stubs.logger
-    );
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore, stubs.logger);
 
     const fakeProc = new FakeProcess();
     vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as any);
@@ -86,9 +82,7 @@ describe('DownloadService stdout/stderr crash safety', () => {
 
   it('active job count is still correct after a crash in the stdout handler', async () => {
     const stubs = makeStubs();
-    const svc = new DownloadService(
-      stubs.ytDlp, stubs.recentJobsStore, stubs.logger
-    );
+    const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore, stubs.logger);
 
     const fakeProc = new FakeProcess();
     vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as any);
@@ -96,7 +90,11 @@ describe('DownloadService stdout/stderr crash safety', () => {
       throw new Error('write error');
     });
 
-    const result = await svc.start({ url: 'https://youtube.com/watch?v=test', outputDir: '/tmp', formatId: 'x' });
+    const result = await svc.start({
+      url: 'https://youtube.com/watch?v=test',
+      outputDir: '/tmp',
+      formatId: 'x'
+    });
     expect(result.ok).toBe(true);
     expect(svc.activeCount).toBe(1);
 

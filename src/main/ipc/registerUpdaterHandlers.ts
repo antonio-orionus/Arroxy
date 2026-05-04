@@ -9,9 +9,7 @@ import type { InstallChannel, UpdateAvailablePayload, UpdateInstallResult } from
 // external package manager owns updates (scoop/homebrew) or because the
 // install layout can't accept an NSIS overwrite (portable). The renderer
 // still gets a banner so the user can copy the upgrade command.
-const NON_INSTALLABLE: ReadonlySet<InstallChannel> = new Set([
-  'scoop', 'homebrew', 'portable'
-]);
+const NON_INSTALLABLE: ReadonlySet<InstallChannel> = new Set(['scoop', 'homebrew', 'portable']);
 
 export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
   const installChannel = detectInstallChannel(app.getName());
@@ -38,7 +36,7 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
     const payload: UpdateAvailablePayload = {
       version: info.version,
       currentVersion: app.getVersion(),
-      installChannel,
+      installChannel
     };
     mainWindow.webContents.send(IPC_CHANNELS.updaterAvailable, payload);
     trackMain('update_available', { to_version: info.version, install_channel: installChannel });
@@ -81,5 +79,7 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
     });
   });
 
-  setTimeout(() => { void autoUpdater.checkForUpdates(); }, 5_000);
+  setTimeout(() => {
+    void autoUpdater.checkForUpdates();
+  }, 5_000);
 }

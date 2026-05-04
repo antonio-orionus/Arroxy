@@ -13,18 +13,7 @@ import { parsePercentFromLine } from '@main/utils/progress';
 import { fail, ok, type Result } from '@shared/result';
 import { isSubtitleFile } from '@shared/subtitlePath';
 import { STATUS_KEY } from '@shared/schemas';
-import type {
-  CancelDownloadOutput,
-  DownloadJob,
-  LocalizedError,
-  PauseDownloadOutput,
-  ProgressEvent,
-  RecentJob,
-  StartDownloadInput,
-  StartDownloadOutput,
-  StatusEvent,
-  StatusKey
-} from '@shared/types';
+import type { CancelDownloadOutput, DownloadJob, LocalizedError, PauseDownloadOutput, ProgressEvent, RecentJob, StartDownloadInput, StartDownloadOutput, StatusEvent, StatusKey } from '@shared/types';
 import type { LogService } from './LogService';
 import type { RecentJobsStore } from '@main/stores/RecentJobsStore';
 import { YtDlp, type YtDlpResult } from './YtDlp';
@@ -49,7 +38,11 @@ function killProcessTree(proc: ChildProcessWithoutNullStreams, signal: NodeJS.Si
     spawn('taskkill', ['/pid', String(proc.pid), '/T', '/F'], { windowsHide: true });
     return;
   }
-  try { process.kill(-proc.pid, signal); } catch { proc.kill(signal); }
+  try {
+    process.kill(-proc.pid, signal);
+  } catch {
+    proc.kill(signal);
+  }
 }
 
 function killActiveProcesses(active: ActiveDownload, signal: NodeJS.Signals): void {
@@ -98,19 +91,26 @@ export class DownloadService extends EventEmitter {
       updatedAt: now
     };
     const active: ActiveDownload = {
-      job, input,
-      cancelRequested: false, pauseRequested: false,
+      job,
+      input,
+      cancelRequested: false,
+      pauseRequested: false,
       subtitlePaths: []
     };
     this.activeJobs.set(job.id, active);
-    this.logger.log('INFO', 'Download job created', { jobId: job.id, url: job.url, formatId: job.formatId, outputDir: job.outputDir });
+    this.logger.log('INFO', 'Download job created', {
+      jobId: job.id,
+      url: job.url,
+      formatId: job.formatId,
+      outputDir: job.outputDir
+    });
     trackMain('download_started', {
       preset: input.preset ?? 'custom',
       has_subtitles: Boolean(input.subtitleLanguages?.length),
       has_sponsorblock: Boolean(input.sponsorBlockMode && input.sponsorBlockMode !== 'off'),
       cookies_enabled: Boolean(input.cookiesEnabled),
       embed_metadata: Boolean(input.embedMetadata),
-      embed_thumbnail: Boolean(input.embedThumbnail),
+      embed_thumbnail: Boolean(input.embedThumbnail)
     });
     return this.runJob(active);
   }
@@ -127,8 +127,10 @@ export class DownloadService extends EventEmitter {
     job.status = 'running';
     job.updatedAt = nowIso();
     const active: ActiveDownload = {
-      job, input,
-      cancelRequested: false, pauseRequested: false,
+      job,
+      input,
+      cancelRequested: false,
+      pauseRequested: false,
       subtitlePaths: []
     };
     this.activeJobs.set(job.id, active);
@@ -151,7 +153,9 @@ export class DownloadService extends EventEmitter {
       });
 
       if (active.cancelRequested) {
-        this.logger.log('INFO', 'Download cancelled before binary setup completed', { jobId: job.id });
+        this.logger.log('INFO', 'Download cancelled before binary setup completed', {
+          jobId: job.id
+        });
         this.emitStatus(job.id, 'error', STATUS_KEY.cancelled);
         await this.finalize(job, 'cancelled');
         return fail(createAppError('download', 'Download cancelled before start'));
@@ -164,14 +168,13 @@ export class DownloadService extends EventEmitter {
         return ok({ job });
       }
 
-      void this.runPhases(active)
-        .catch(async (error) => {
-          const message = error instanceof Error ? error.message : 'Unknown phase failure';
-          this.logger.log('ERROR', 'Download phase threw unexpectedly', { jobId: job.id, message });
-          const payload: LocalizedError = { key: null, rawMessage: message };
-          this.emitStatus(job.id, 'error', STATUS_KEY.unknownStartupFailure, undefined, payload);
-          await this.finalize(job, 'failed', payload);
-        });
+      void this.runPhases(active).catch(async (error) => {
+        const message = error instanceof Error ? error.message : 'Unknown phase failure';
+        this.logger.log('ERROR', 'Download phase threw unexpectedly', { jobId: job.id, message });
+        const payload: LocalizedError = { key: null, rawMessage: message };
+        this.emitStatus(job.id, 'error', STATUS_KEY.unknownStartupFailure, undefined, payload);
+        await this.finalize(job, 'failed', payload);
+      });
 
       return ok({ job });
     } catch (error) {
@@ -199,7 +202,10 @@ export class DownloadService extends EventEmitter {
       moveToPaused: () => {
         this.activeJobs.delete(job.id);
         this.pausedJobs.set(job.id, { job, input, tempDir: active.tempDir });
-        this.logger.log('INFO', 'Download paused — temp dir preserved', { jobId: job.id, tempDir: active.tempDir });
+        this.logger.log('INFO', 'Download paused — temp dir preserved', {
+          jobId: job.id,
+          tempDir: active.tempDir
+        });
       }
     };
     await new PhaseExecutor().run(ctx, phasesFor(input));
@@ -228,7 +234,10 @@ export class DownloadService extends EventEmitter {
       this.emitStatus(jobId, 'error', STATUS_KEY.ytdlpProcessError, { error: result.error.message }, payload);
       return payload;
     }
-    const payload: LocalizedError = { key: result.signal, rawMessage: result.rawError ?? undefined };
+    const payload: LocalizedError = {
+      key: result.signal,
+      rawMessage: result.rawError ?? undefined
+    };
     if (result.signal) {
       this.emitStatus(jobId, 'error', STATUS_KEY.ytdlpExitCode, { code: result.exitCode }, payload);
     } else if (result.rawError) {
@@ -249,7 +258,10 @@ export class DownloadService extends EventEmitter {
 
       const paused = this.pausedJobs.get(jobId);
       if (paused) {
-        this.logger.log('INFO', 'Cancelling paused job — cleaning up temp dir and .part files', { jobId, outputDir: paused.job.outputDir });
+        this.logger.log('INFO', 'Cancelling paused job — cleaning up temp dir and .part files', {
+          jobId,
+          outputDir: paused.job.outputDir
+        });
         this.pausedJobs.delete(jobId);
         if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir);
         await this.cleanupPartFiles(paused.job.outputDir);
@@ -261,7 +273,10 @@ export class DownloadService extends EventEmitter {
     }
 
     const hadJobs = this.activeJobs.size > 0 || this.pausedJobs.size > 0;
-    this.logger.log('INFO', 'Cancelling all jobs', { activeCount: this.activeJobs.size, pausedCount: this.pausedJobs.size });
+    this.logger.log('INFO', 'Cancelling all jobs', {
+      activeCount: this.activeJobs.size,
+      pausedCount: this.pausedJobs.size
+    });
     await Promise.all([...this.activeJobs.values()].map((a) => this.cancelOne(a)));
     for (const paused of this.pausedJobs.values()) {
       if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir);
@@ -290,7 +305,9 @@ export class DownloadService extends EventEmitter {
     }
 
     if (!active.ytDlpProcess) {
-      this.logger.log('INFO', 'pause() called but job has no process yet', { jobId: active.job.id });
+      this.logger.log('INFO', 'pause() called but job has no process yet', {
+        jobId: active.job.id
+      });
       return ok({ paused: false });
     }
 
@@ -320,7 +337,9 @@ export class DownloadService extends EventEmitter {
       return ok({ cancelled: true });
     }
 
-    this.logger.log('INFO', 'cancelOne() — job had no process or timer (pre-spawn cancel)', { jobId: active.job.id });
+    this.logger.log('INFO', 'cancelOne() — job had no process or timer (pre-spawn cancel)', {
+      jobId: active.job.id
+    });
     return ok({ cancelled: true });
   }
 
@@ -332,7 +351,10 @@ export class DownloadService extends EventEmitter {
         this.logger.log('INFO', 'cleanupPartFiles — no .part/.ytdl files found', { outputDir });
         return;
       }
-      this.logger.log('INFO', 'cleanupPartFiles — deleting leftover files', { outputDir, files: toDelete });
+      this.logger.log('INFO', 'cleanupPartFiles — deleting leftover files', {
+        outputDir,
+        files: toDelete
+      });
       await Promise.all(toDelete.map((f) => unlink(join(outputDir, f)).catch(() => {})));
       this.logger.log('INFO', 'cleanupPartFiles — done', { outputDir, deleted: toDelete.length });
     } catch {
@@ -368,11 +390,7 @@ export class DownloadService extends EventEmitter {
         } else {
           active.mediaPath = path;
         }
-        this.emitStatus(
-          jobId,
-          'download',
-          kind === 'subtitle' ? STATUS_KEY.fetchingSubtitles : STATUS_KEY.downloadingMedia
-        );
+        this.emitStatus(jobId, 'download', kind === 'subtitle' ? STATUS_KEY.fetchingSubtitles : STATUS_KEY.downloadingMedia);
         continue;
       }
 
@@ -404,13 +422,7 @@ export class DownloadService extends EventEmitter {
     }
   }
 
-  private emitStatus(
-    jobId: string,
-    stage: StatusEvent['stage'],
-    statusKey: StatusKey,
-    params?: Record<string, string | number>,
-    error?: LocalizedError
-  ): void {
+  private emitStatus(jobId: string, stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError): void {
     const event: StatusEvent = {
       jobId,
       stage,
@@ -423,11 +435,7 @@ export class DownloadService extends EventEmitter {
     this.logger.log(stage === 'error' ? 'ERROR' : 'INFO', statusKey, { jobId, stage, params });
   }
 
-  private async finalize(
-    job: DownloadJob,
-    status: RecentJob['status'],
-    error?: LocalizedError
-  ): Promise<void> {
+  private async finalize(job: DownloadJob, status: RecentJob['status'], error?: LocalizedError): Promise<void> {
     this.logger.log('INFO', 'Job finalized', { jobId: job.id, status, ...(error && { error }) });
     this.activeJobs.delete(job.id);
 
@@ -440,7 +448,7 @@ export class DownloadService extends EventEmitter {
       outcome,
       duration_bucket: downloadDurationBucket(durationMs),
       ...(status !== 'cancelled' && job.expectedBytes != null ? { size_bucket: sizeBucket(job.expectedBytes) } : {}),
-      ...(outcome === 'error' ? { error_category: categorizeDownloadError(error?.rawMessage ?? '') } : {}),
+      ...(outcome === 'error' ? { error_category: categorizeDownloadError(error?.rawMessage ?? '') } : {})
     });
 
     const recent: RecentJob = {
@@ -464,9 +472,7 @@ export class DownloadService extends EventEmitter {
     const timer = setInterval(async () => {
       percent += 10;
 
-      const line = `[download] ${percent.toFixed(1)}% of ~10MiB at 1.2MiB/s ETA 00:0${
-        Math.max(0, 10 - percent / 10)
-      }`;
+      const line = `[download] ${percent.toFixed(1)}% of ~10MiB at 1.2MiB/s ETA 00:0${Math.max(0, 10 - percent / 10)}`;
       this.consumeProgress(active, line);
 
       if (percent >= 100) {

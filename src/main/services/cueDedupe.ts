@@ -7,15 +7,15 @@
 
 export interface Cue {
   start: number; // ms
-  end: number;   // ms
+  end: number; // ms
   text: string;
 }
 
 // Tunables. Names instead of magic numbers so tests + future tweaks have a
 // shared vocabulary. Values inherited from Parabolic's reference implementation.
-const NEAR_ZERO_DURATION_MS = 150;        // cue.start - cue.end < this → "instant" cue
-const SHORT_TAIL_WORD_THRESHOLD = 2;       // ≤N words on the trailing line → fold into prev
-const SOLO_WORD_MIN_LENGTH = 2;            // single-word prev shorter than this isn't a sentinel
+const NEAR_ZERO_DURATION_MS = 150; // cue.start - cue.end < this → "instant" cue
+const SHORT_TAIL_WORD_THRESHOLD = 2; // ≤N words on the trailing line → fold into prev
+const SOLO_WORD_MIN_LENGTH = 2; // single-word prev shorter than this isn't a sentinel
 
 // Enforces strict, non-overlapping order. The dedupe loop has several
 // `continue` branches that extend `prev.end` to the current cue's end
@@ -46,7 +46,10 @@ function* dedupeCuesRaw(cues: Iterable<Cue>): Generator<Cue> {
   for (const orig of cues) {
     const cue: Cue = { start: orig.start, end: orig.end, text: orig.text.trim() };
 
-    if (prev === null) { prev = cue; continue; }
+    if (prev === null) {
+      prev = cue;
+      continue;
+    }
     if (cue.text.length === 0) continue;
 
     if (cue.start - cue.end < NEAR_ZERO_DURATION_MS && prev.text.includes(cue.text)) {
@@ -80,7 +83,11 @@ function* dedupeCuesRaw(cues: Iterable<Cue>): Generator<Cue> {
     }
 
     if (cue.start <= prev.end) prev.end = cue.start - 1;
-    if (cue.start >= cue.end) { const t = cue.end; cue.end = cue.start; cue.start = t; }
+    if (cue.start >= cue.end) {
+      const t = cue.end;
+      cue.end = cue.start;
+      cue.start = t;
+    }
 
     if (!singleWord) yield prev;
     prev = cue;

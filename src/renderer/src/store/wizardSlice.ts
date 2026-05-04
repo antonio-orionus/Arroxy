@@ -11,7 +11,10 @@ function groupedNonAudioFormats(formats: FormatOption[]): { resolution: string; 
   for (const f of formats) {
     if (f.isAudioOnly) continue;
     const key = `${f.resolution}|${f.dynamicRange ?? ''}`;
-    if (!seen.has(key)) { seen.add(key); out.push({ resolution: f.resolution, formatId: f.formatId }); }
+    if (!seen.has(key)) {
+      seen.add(key);
+      out.push({ resolution: f.resolution, formatId: f.formatId });
+    }
   }
   return out;
 }
@@ -26,17 +29,20 @@ function applyPreset(preset: Preset, formats: FormatOption[]): { videoFormatId: 
   if (preset === 'audio-only') return { videoFormatId: '', audioFormatId: bestAudio };
   if (preset === 'subtitle-only') return { videoFormatId: '', audioFormatId: null };
   if (preset === 'balanced') {
-    const target = grouped.find((g) => { const m = g.resolution.match(/(\d+)/); return m ? Number(m[1]) <= 720 : false; });
-    return { videoFormatId: target?.formatId ?? grouped[grouped.length - 1]?.formatId ?? '', audioFormatId: bestAudio };
+    const target = grouped.find((g) => {
+      const m = g.resolution.match(/(\d+)/);
+      return m ? Number(m[1]) <= 720 : false;
+    });
+    return {
+      videoFormatId: target?.formatId ?? grouped[grouped.length - 1]?.formatId ?? '',
+      audioFormatId: bestAudio
+    };
   }
   // small-file
   return { videoFormatId: grouped[grouped.length - 1]?.formatId ?? '', audioFormatId: worstAudio };
 }
 
-function restoreFormatSelection(
-  formats: FormatOption[],
-  settings: AppSettings | null
-): { videoFormatId: string; audioFormatId: string | null; preset: Preset | null } {
+function restoreFormatSelection(formats: FormatOption[], settings: AppSettings | null): { videoFormatId: string; audioFormatId: string | null; preset: Preset | null } {
   const grouped = groupedNonAudioFormats(formats);
   const audioFormats = formats.filter((f) => f.isAudioOnly);
   const bestAudio = audioFormats[0]?.formatId ?? null;
@@ -50,11 +56,7 @@ function restoreFormatSelection(
   return { ...applyPreset('best-quality', formats), preset: 'best-quality' };
 }
 
-function restoreSubtitleSelection(
-  subtitles: SubtitleMap | undefined,
-  automaticCaptions: SubtitleMap | undefined,
-  settings: AppSettings | null
-): { languages: string[] } {
+function restoreSubtitleSelection(subtitles: SubtitleMap | undefined, automaticCaptions: SubtitleMap | undefined, settings: AppSettings | null): { languages: string[] } {
   const available = new Set([...Object.keys(subtitles ?? {}), ...Object.keys(automaticCaptions ?? {})]);
   const languages = (settings?.lastSubtitleLanguages ?? []).filter((l) => available.has(l));
   return { languages };
@@ -90,7 +92,7 @@ const RESET_STATE = {
   wizardWriteDescription: DEFAULTS.writeDescription,
   wizardWriteThumbnail: DEFAULTS.writeThumbnail,
   wizardSubfolderEnabled: false,
-  wizardSubfolderName: '',
+  wizardSubfolderName: ''
 } as const;
 
 export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
@@ -110,7 +112,12 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
 
       const result = await window.appApi.downloads.getFormats({ url });
       if (!result.ok) {
-        set({ wizardStep: 'error', formatsLoading: false, wizardError: result.error, wizardErrorOrigin: 'formats' });
+        set({
+          wizardStep: 'error',
+          formatsLoading: false,
+          wizardError: result.error,
+          wizardErrorOrigin: 'formats'
+        });
         return;
       }
 
@@ -193,14 +200,17 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
     setPreset: (p) => {
       const { wizardFormats } = get();
       const { videoFormatId, audioFormatId } = applyPreset(p, wizardFormats);
-      set({ activePreset: p, selectedVideoFormatId: videoFormatId, selectedAudioFormatId: audioFormatId });
+      set({
+        activePreset: p,
+        selectedVideoFormatId: videoFormatId,
+        selectedAudioFormatId: audioFormatId
+      });
     },
 
-    toggleSubtitleLanguage: (lang) => set((state) => ({
-      wizardSubtitleLanguages: state.wizardSubtitleLanguages.includes(lang)
-        ? state.wizardSubtitleLanguages.filter((l) => l !== lang)
-        : [...state.wizardSubtitleLanguages, lang]
-    })),
+    toggleSubtitleLanguage: (lang) =>
+      set((state) => ({
+        wizardSubtitleLanguages: state.wizardSubtitleLanguages.includes(lang) ? state.wizardSubtitleLanguages.filter((l) => l !== lang) : [...state.wizardSubtitleLanguages, lang]
+      })),
 
     setSubtitleMode: (mode) => set({ wizardSubtitleMode: mode }),
     setSubtitleFormat: (format) => set({ wizardSubtitleFormat: format }),
@@ -231,16 +241,15 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
 
     setSponsorBlockMode: (mode) => set({ wizardSponsorBlockMode: mode }),
 
-    toggleSponsorBlockCategory: (cat) => set((state) => ({
-      wizardSponsorBlockCategories: state.wizardSponsorBlockCategories.includes(cat)
-        ? state.wizardSponsorBlockCategories.filter((c) => c !== cat)
-        : [...state.wizardSponsorBlockCategories, cat]
-    })),
+    toggleSponsorBlockCategory: (cat) =>
+      set((state) => ({
+        wizardSponsorBlockCategories: state.wizardSponsorBlockCategories.includes(cat) ? state.wizardSponsorBlockCategories.filter((c) => c !== cat) : [...state.wizardSponsorBlockCategories, cat]
+      })),
 
     setEmbedChapters: (v) => set({ wizardEmbedChapters: v }),
     setEmbedMetadata: (v) => set({ wizardEmbedMetadata: v }),
     setEmbedThumbnail: (v) => set({ wizardEmbedThumbnail: v }),
     setWriteDescription: (v) => set({ wizardWriteDescription: v }),
-    setWriteThumbnail: (v) => set({ wizardWriteThumbnail: v }),
+    setWriteThumbnail: (v) => set({ wizardWriteThumbnail: v })
   };
 }

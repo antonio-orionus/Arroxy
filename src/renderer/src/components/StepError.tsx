@@ -9,11 +9,7 @@ export function StepError(): JSX.Element {
 
   return (
     <div className="wizard-step flex flex-col items-center gap-4 py-4 text-center" data-testid="step-error">
-      <div
-        className="w-10 h-10 rounded-full bg-[var(--color-status-error)]/10 text-[var(--color-status-error)] flex items-center justify-center text-base font-bold error-icon-pulse"
-        aria-hidden
-        data-testid="error-icon"
-      >
+      <div className="w-10 h-10 rounded-full bg-[var(--color-status-error)]/10 text-[var(--color-status-error)] flex items-center justify-center text-base font-bold error-icon-pulse" aria-hidden data-testid="error-icon">
         ✕
       </div>
       <p className="text-sm text-foreground/80 max-w-sm" data-testid="error-message">

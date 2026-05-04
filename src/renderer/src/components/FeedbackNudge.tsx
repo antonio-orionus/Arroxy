@@ -23,21 +23,10 @@ export function FeedbackNudge({ visible, message }: Props): JSX.Element | null {
   if (!rendered) return null;
 
   return (
-    <div
-      className="absolute bottom-full right-0 mb-1.5 pointer-events-none"
-      data-testid="feedback-nudge"
-    >
-      <div
-        className={cn(cls, 'flex items-end gap-2 pointer-events-auto')}
-      >
+    <div className="absolute bottom-full right-0 mb-1.5 pointer-events-none" data-testid="feedback-nudge">
+      <div className={cn(cls, 'flex items-end gap-2 pointer-events-auto')}>
         {/* Mascot */}
-        <img
-          src={loveImg}
-          alt=""
-          aria-hidden
-          draggable={false}
-          className="w-9 h-9 object-contain shrink-0"
-        />
+        <img src={loveImg} alt="" aria-hidden draggable={false} className="w-9 h-9 object-contain shrink-0" />
         {/* Speech bubble */}
         <div className="relative bg-secondary border border-border rounded-xl px-3 py-2 text-xs text-foreground/80 leading-relaxed whitespace-nowrap shadow-lg">
           {message}
@@ -48,7 +37,7 @@ export function FeedbackNudge({ visible, message }: Props): JSX.Element | null {
             style={{
               borderLeft: '6px solid transparent',
               borderRight: '6px solid transparent',
-              borderTop: '7px solid var(--border)',
+              borderTop: '7px solid var(--border)'
             }}
           />
           <span
@@ -57,7 +46,7 @@ export function FeedbackNudge({ visible, message }: Props): JSX.Element | null {
             style={{
               borderLeft: '6px solid transparent',
               borderRight: '6px solid transparent',
-              borderTop: '6px solid var(--secondary)',
+              borderTop: '6px solid var(--secondary)'
             }}
           />
         </div>

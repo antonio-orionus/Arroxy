@@ -50,9 +50,7 @@ describe('LogService', () => {
     await fsPromises.mkdir(logsDir, { recursive: true });
 
     // Create 7 fake old log files
-    const fakeFiles = Array.from({ length: 7 }, (_, i) =>
-      `app-2024-01-0${i + 1}T00-00-00-000Z.log`
-    );
+    const fakeFiles = Array.from({ length: 7 }, (_, i) => `app-2024-01-0${i + 1}T00-00-00-000Z.log`);
     for (const f of fakeFiles) {
       await fsPromises.writeFile(path.join(logsDir, f), 'old log');
     }

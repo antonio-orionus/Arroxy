@@ -11,19 +11,22 @@ function makeJob(id = 'job-1'): DownloadJob {
     outputDir: '/tmp',
     status: 'running',
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   };
 }
 
 function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
-  const input: StartDownloadInput = { url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp' };
+  const input: StartDownloadInput = {
+    url: 'https://www.youtube.com/watch?v=test',
+    outputDir: '/tmp'
+  };
   return {
     job: makeJob(),
     input,
     cancelRequested: false,
     pauseRequested: false,
     subtitlePaths: [],
-    ...overrides,
+    ...overrides
   };
 }
 
@@ -39,7 +42,7 @@ function makeCtx(activeOverrides: Partial<ActiveDownload> = {}): PhaseContext {
     cleanupPartFiles: vi.fn().mockResolvedValue(undefined),
     cleanupTempDir: vi.fn().mockResolvedValue(undefined),
     finalize: vi.fn().mockResolvedValue(undefined),
-    moveToPaused: vi.fn(),
+    moveToPaused: vi.fn()
   };
 }
 

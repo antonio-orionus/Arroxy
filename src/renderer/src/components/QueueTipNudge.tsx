@@ -26,15 +26,11 @@ export function QueueTipNudge({ visible, onDismiss }: Props): JSX.Element | null
     <div className="absolute bottom-full left-0 right-0 mb-1 pointer-events-none z-10 flex justify-center px-4">
       <div
         className={cn(cls, 'flex items-end gap-2 pointer-events-auto')}
-        onAnimationEnd={() => { if (!visible) setRendered(false); }}
+        onAnimationEnd={() => {
+          if (!visible) setRendered(false);
+        }}
       >
-        <img
-          src={downloadingImg}
-          alt=""
-          aria-hidden
-          draggable={false}
-          className="w-9 h-9 object-contain shrink-0"
-        />
+        <img src={downloadingImg} alt="" aria-hidden draggable={false} className="w-9 h-9 object-contain shrink-0" />
         <div className="relative bg-secondary border border-border rounded-xl px-3 py-2 text-xs text-foreground/80 leading-relaxed whitespace-nowrap shadow-lg">
           {t('queue.tip')}
           <span
@@ -43,7 +39,7 @@ export function QueueTipNudge({ visible, onDismiss }: Props): JSX.Element | null
             style={{
               borderLeft: '6px solid transparent',
               borderRight: '6px solid transparent',
-              borderTop: '6px solid var(--secondary)',
+              borderTop: '6px solid var(--secondary)'
             }}
           />
         </div>

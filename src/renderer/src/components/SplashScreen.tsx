@@ -27,16 +27,16 @@ export function SplashScreen({ initialized, warmupFailures }: Props): JSX.Elemen
     <div
       className="splash-overlay"
       style={{ opacity: fading ? 0 : 1 }}
-      onTransitionEnd={() => { if (fading) setGone(true); }}
+      onTransitionEnd={() => {
+        if (fading) setGone(true);
+      }}
       aria-hidden
     >
       <img src={mainImg} alt="" className="splash-mascot" />
       <div className="splash-text">
         <p className="splash-greeting">{t('splash.greeting')}</p>
         <p className="splash-name">{t('splash.warmup')}</p>
-        {initialized && warmupFailures.length > 0 && (
-          <p className="splash-warning">{t('splash.warning')}</p>
-        )}
+        {initialized && warmupFailures.length > 0 && <p className="splash-warning">{t('splash.warning')}</p>}
       </div>
     </div>
   );

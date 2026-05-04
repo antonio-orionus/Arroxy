@@ -25,5 +25,5 @@ export const IPC_CHANNELS = {
   updaterAvailable: 'updater:available',
   updaterInstall: 'updater:install',
   eventsClipboardUrl: 'events:clipboardUrl',
-  analyticsTrack: 'analytics:track',
+  analyticsTrack: 'analytics:track'
 } as const;

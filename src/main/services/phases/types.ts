@@ -24,13 +24,7 @@ export interface PausedDownload {
   tempDir?: string;
 }
 
-export type PhaseOutcome =
-  | { kind: 'continue' }
-  | { kind: 'completed' }
-  | { kind: 'soft-failed'; status: StatusKey }
-  | { kind: 'hard-failed'; error: LocalizedError }
-  | { kind: 'cancelled' }
-  | { kind: 'paused' };
+export type PhaseOutcome = { kind: 'continue' } | { kind: 'completed' } | { kind: 'soft-failed'; status: StatusKey } | { kind: 'hard-failed'; error: LocalizedError } | { kind: 'cancelled' } | { kind: 'paused' };
 
 export interface Phase {
   readonly kind: string;

@@ -19,16 +19,7 @@ export function parseVideoId(url: string): string | null {
 
 const YOUTUBE_TRACKING_PARAMS = ['feature', 'gclid', 'kw', 'si', 'pp'];
 
-const GLOBAL_TRACKING_PARAM_PATTERNS = [
-  /^utm_/i,
-  /^fbclid$/i,
-  /^_ga$/i,
-  /^_gl$/i,
-  /^srsltid$/i,
-  /^msclkid$/i,
-  /^mkt_tok$/i,
-  /^mc_(eid|cid|tc)$/i
-];
+const GLOBAL_TRACKING_PARAM_PATTERNS = [/^utm_/i, /^fbclid$/i, /^_ga$/i, /^_gl$/i, /^srsltid$/i, /^msclkid$/i, /^mkt_tok$/i, /^mc_(eid|cid|tc)$/i];
 
 function isYoutubeHost(host: string): boolean {
   return host === 'youtu.be' || host === 'youtube.com' || host.endsWith('.youtube.com');

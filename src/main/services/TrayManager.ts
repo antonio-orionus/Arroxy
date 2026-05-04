@@ -93,23 +93,14 @@ export class TrayManager {
       statusLabel = mainT(lang, 'tray.menu.statusIdle');
     } else {
       const percents = [...this.jobPercents.values()];
-      const avg = percents.length > 0
-        ? Math.round(percents.reduce((s, p) => s + p, 0) / percents.length)
-        : 0;
-      statusLabel = mainT(
-        lang,
-        `tray.menu.${pluralKey('statusActive', activeCount)}`,
-        { count: activeCount, percent: avg }
-      );
+      const avg = percents.length > 0 ? Math.round(percents.reduce((s, p) => s + p, 0) / percents.length) : 0;
+      statusLabel = mainT(lang, `tray.menu.${pluralKey('statusActive', activeCount)}`, {
+        count: activeCount,
+        percent: avg
+      });
     }
 
-    const menu = Menu.buildFromTemplate([
-      { label: statusLabel, enabled: false },
-      { type: 'separator' },
-      { label: mainT(lang, 'tray.menu.open'), click: () => this.toggleWindow() },
-      { type: 'separator' },
-      { label: mainT(lang, 'tray.menu.quit'), click: () => this.onQuit() }
-    ]);
+    const menu = Menu.buildFromTemplate([{ label: statusLabel, enabled: false }, { type: 'separator' }, { label: mainT(lang, 'tray.menu.open'), click: () => this.toggleWindow() }, { type: 'separator' }, { label: mainT(lang, 'tray.menu.quit'), click: () => this.onQuit() }]);
     this.tray.setContextMenu(menu);
   }
 }

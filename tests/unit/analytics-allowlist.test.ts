@@ -21,9 +21,7 @@ describe('allowlist validation', () => {
 
   it('throws for disallowed prop key in dev mode', () => {
     setupAnalytics(undefined, true);
-    expect(() => trackMain('app_started', { install_channel: 'direct', url: 'http://evil.com' } as any)).toThrow(
-      /prop "url" not allowed/
-    );
+    expect(() => trackMain('app_started', { install_channel: 'direct', url: 'http://evil.com' } as any)).toThrow(/prop "url" not allowed/);
   });
 
   it('(b) throws for overlong prop string values in dev mode', () => {
@@ -46,14 +44,22 @@ describe('(c) analyticsEnabled=false short-circuits', () => {
   it('does not call trackEvent when disabled', async () => {
     setupAnalytics('A-EU-test123456', false);
     setAnalyticsEnabled(false);
-    trackMain('app_started', { install_channel: 'direct', platform_arch: 'linux-x64', is_first_run: false });
+    trackMain('app_started', {
+      install_channel: 'direct',
+      platform_arch: 'linux-x64',
+      is_first_run: false
+    });
     expect(trackEvent).not.toHaveBeenCalled();
   });
 
   it('does not call trackEvent when no app key (not started)', () => {
     setupAnalytics(undefined, false);
     setAnalyticsEnabled(true);
-    trackMain('app_started', { install_channel: 'direct', platform_arch: 'linux-x64', is_first_run: false });
+    trackMain('app_started', {
+      install_channel: 'direct',
+      platform_arch: 'linux-x64',
+      is_first_run: false
+    });
     expect(trackEvent).not.toHaveBeenCalled();
   });
 });

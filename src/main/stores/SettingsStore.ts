@@ -11,9 +11,7 @@ export class SettingsStore extends JsonFileStore {
   }
 
   async get(): Promise<AppSettings> {
-    const data = await this.readJson<Partial<AppSettings>>({}, (err) =>
-      console.error('[SettingsStore] Failed to load settings — using defaults', err)
-    );
+    const data = await this.readJson<Partial<AppSettings>>({}, (err) => console.error('[SettingsStore] Failed to load settings — using defaults', err));
     return { ...this.defaults, ...data };
   }
 

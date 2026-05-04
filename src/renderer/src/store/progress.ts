@@ -70,10 +70,7 @@ export class ProgressFormatter {
 
     const now = Date.now();
 
-    if (
-      this.lastEmittedSpeedBps !== null &&
-      speedBps < this.lastEmittedSpeedBps * SPIKE_DROP_RATIO
-    ) {
+    if (this.lastEmittedSpeedBps !== null && speedBps < this.lastEmittedSpeedBps * SPIKE_DROP_RATIO) {
       if (this.suppressedSinceMs === null) this.suppressedSinceMs = now;
       if (now - this.suppressedSinceMs < SUPPRESSION_WINDOW_MS) {
         return this.lastDetail;
