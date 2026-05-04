@@ -132,12 +132,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Render manifest for this release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           TARBALL="Arroxy-${VERSION}.tar.gz"
-          curl -L --fail \
-            "https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/$TARBALL" \
-            -o "$TARBALL"
+          gh release download "${GITHUB_REF_NAME}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --pattern "$TARBALL"
           HASH=$(sha256sum "$TARBALL" | awk '{print $1}')
           rm "$TARBALL"
           python3 scripts/render-flatpak-manifest.py \
