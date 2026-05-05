@@ -131,7 +131,8 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
           subtitleMode: item.subtitleMode ?? DEFAULTS.subtitleMode,
           subtitleFormat: item.subtitleFormat ?? DEFAULTS.subtitleFormat
         }));
-        set({ queue: migratedQueue, drawerOpen: true });
+        const restoredDrawerOpen = settingsResult.ok ? (settingsResult.data.drawerOpen ?? false) : false;
+        set({ queue: migratedQueue, drawerOpen: restoredDrawerOpen });
         await maybeStartNext(get);
       }
 

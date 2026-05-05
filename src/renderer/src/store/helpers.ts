@@ -1,7 +1,7 @@
-import type { AppError, FormatOption, LocalizedError, Preset, StatusSnapshot } from '@shared/types';
+import type { AppError, AudioConvert, FormatOption, LocalizedError, Preset, StatusSnapshot } from '@shared/types';
 import { PRESETS } from '@shared/schemas';
 import { i18next } from '@shared/i18n';
-import type { WizardStep } from './types';
+import type { AudioSelection, WizardStep } from './types';
 export type { WizardStep };
 
 export interface GroupedVideoFormat {
@@ -24,18 +24,40 @@ export function presetOptions(): { value: Preset; label: string; desc: string }[
   }));
 }
 
-export function buildFormatId(videoFormatId: string, audioFormatId: string | null): string | undefined {
+// Composes the yt-dlp `-f` value for native + video selections. Convert
+// selections set `formatId: undefined` and pass `audioConvert` instead — the
+// main process then forces `-f bestaudio/best`.
+export function buildFormatId(videoFormatId: string, audioSelection: AudioSelection): string | undefined {
+  if (audioSelection.kind === 'convert') return undefined;
+  const audioFormatId = audioSelection.kind === 'native' ? audioSelection.formatId : null;
   if (videoFormatId === '' && audioFormatId === null) return undefined;
   if (videoFormatId === '') return audioFormatId ?? undefined;
   if (audioFormatId === null) return videoFormatId;
   return `${videoFormatId}+${audioFormatId}`;
 }
 
-// Selected-audio-id → human label. Used by buildFormatLabel (queue item) and
+// IPC payload mirror of audioSelection. Returns the `audioConvert` field for
+// the IPC schema, or undefined for native/none picks.
+export function buildAudioConvertPayload(audioSelection: AudioSelection): AudioConvert | undefined {
+  if (audioSelection.kind !== 'convert') return undefined;
+  if (audioSelection.target === 'wav') return { target: 'wav' };
+  return { target: audioSelection.target, bitrateKbps: audioSelection.bitrateKbps };
+}
+
+// Selected audio → human label. Used by buildFormatLabel (queue item) and
 // StepConfirm (preview row) so they can't drift.
-export function resolveAudioLabel(audioFormatId: string | null, audioFormats: FormatOption[]): string {
-  if (audioFormatId === null) return i18next.t('wizard.formats.noAudio');
-  const audioFmt = audioFormats.find((f) => f.formatId === audioFormatId);
+export function resolveAudioLabel(audioSelection: AudioSelection, audioFormats: FormatOption[]): string {
+  if (audioSelection.kind === 'none') return i18next.t('wizard.formats.noAudio');
+  if (audioSelection.kind === 'convert') {
+    if (audioSelection.target === 'wav') return i18next.t('wizard.formats.convert.wavLabel');
+    // i18next typed-resource inference doesn't always pick up placeholders in
+    // every locale variant — cast through `unknown` like formatStatus does.
+    return (i18next.t as (k: string, opts?: Record<string, unknown>) => string)('wizard.formats.convert.lossyLabel', {
+      target: audioSelection.target.toUpperCase(),
+      bitrate: audioSelection.bitrateKbps
+    });
+  }
+  const audioFmt = audioFormats.find((f) => f.formatId === audioSelection.formatId);
   return audioFmt?.label ?? i18next.t('formatLabel.audioFallback');
 }
 
@@ -48,11 +70,11 @@ export function resolveVideoResolution(selectedVideoFormatId: string, formats: F
   return grouped.find((g) => g.formatId === selectedVideoFormatId)?.resolution ?? selectedVideoFormatId;
 }
 
-export function buildFormatLabel(videoFormatId: string, videoResolution: string, audioFormatId: string | null, audioFormats: FormatOption[], preset: Preset | null): string {
+export function buildFormatLabel(videoFormatId: string, videoResolution: string, audioSelection: AudioSelection, audioFormats: FormatOption[], preset: Preset | null): string {
   if (preset) {
     return i18next.t(`presets.${preset}.label` as const);
   }
-  const audioLabel = resolveAudioLabel(audioFormatId, audioFormats);
+  const audioLabel = resolveAudioLabel(audioSelection, audioFormats);
   if (videoFormatId === '') return i18next.t('formatLabel.audioOnlyDot', { audio: audioLabel });
   return i18next.t('formatLabel.videoDot', { resolution: videoResolution, audio: audioLabel });
 }

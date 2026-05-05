@@ -160,7 +160,16 @@ const uz = {
       loadingHint: 'Odatda bir soniya vaqt oladi',
       loadingAria: 'Formatlar yuklanmoqda',
       sizeUnknown: "Hajm noma'lum",
-      total: 'Jami'
+      total: 'Jami',
+      convert: {
+        label: 'Konvertatsiya qilish',
+        uncompressed: 'Konvertatsiya · siqilmagan',
+        bitrate: 'Bit tezligi',
+        wavLabel: 'WAV (uncompressed)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'Audio konvertatsiyasi faqat audio rejimini talab qiladi (video tanlovini bekor qiling).',
+        requiresLossy: "Mahalliy oqim tanlangan — bit tezligi faqat mp3, m4a yoki opus ga konvertatsiya qilishda qo'llaniladi."
+      }
     },
     folder: {
       heading: 'Saqlash joyi',

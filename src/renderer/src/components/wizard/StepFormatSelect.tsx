@@ -1,7 +1,10 @@
 import { useState, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { Preset } from '@shared/types';
+import type { AudioBitrate, AudioConvertTarget, Preset } from '@shared/types';
+import { AUDIO_CONVERT_TARGETS } from '@shared/audioTargets';
+import { AUDIO_BITRATES } from '@shared/schemas';
 import { humanSize } from '@shared/format';
+import type { AudioSelection } from '../../store/types';
 import { useAppStore, groupVideoFormats, presetOptions } from '../../store/useAppStore';
 import { Button } from '../ui/button';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
@@ -9,6 +12,7 @@ import { Tooltip, TooltipTrigger, TooltipContent } from '../ui/tooltip';
 import { Separator } from '../ui/separator';
 import { RadioOption } from '../ui/radio-option';
 import { cn } from '@renderer/lib/utils';
+import { ScrollArea } from '../ui/scroll-area';
 import { VideoSummaryCard } from '../shared/VideoSummaryCard';
 import { MascotBubble } from '../shared/MascotBubble';
 import choosingImg from '../../assets/Choosing.png';
@@ -16,19 +20,23 @@ import downloadingImg from '../../assets/Downloading.png';
 
 export function StepFormatSelect(): JSX.Element {
   const { t } = useTranslation();
-  const { wizardFormats, formatsLoading, wizardTitle, wizardThumbnail, wizardDuration, selectedVideoFormatId, selectedAudioFormatId, activePreset, setSelectedVideoFormatId, setAudioFormatId, setPreset, advance, back } = useAppStore();
+  const { wizardFormats, formatsLoading, wizardTitle, wizardThumbnail, wizardDuration, selectedVideoFormatId, audioSelection, lastConvertBitrate, activePreset, setSelectedVideoFormatId, setAudioSelection, setPreset, advance, back } = useAppStore();
 
   const [extFilter, setExtFilter] = useState<string | null>(null);
   const [drFilter, setDrFilter] = useState<string | null>(null);
+  const [audioExtFilter, setAudioExtFilter] = useState<string | null>(null);
 
   const filteredFormats = wizardFormats.filter((f) => !extFilter || f.ext === extFilter).filter((f) => !drFilter || (drFilter === 'SDR' ? !f.dynamicRange : f.dynamicRange === drFilter));
 
   const videoGroups = groupVideoFormats(filteredFormats);
   const isAudioOnly = selectedVideoFormatId === '';
   const subtitleOnlyPreset = activePreset === 'subtitle-only';
+  // Audio conversion (-x) is mutually exclusive with video+audio merging.
+  // When the user picks a video resolution, dim the convert rows.
+  const convertDisabled = !isAudioOnly;
   // 'subtitle-only' preset deliberately picks no video + no audio. The subtitle
   // step + confirm step then guarantee at least one language is chosen.
-  const canContinue = subtitleOnlyPreset || !(isAudioOnly && selectedAudioFormatId === null);
+  const canContinue = subtitleOnlyPreset || !(isAudioOnly && audioSelection.kind === 'none');
 
   const uniqueExts = [...new Set(wizardFormats.filter((f) => f.isVideoOnly).map((f) => f.ext))];
   const uniqueDynamicRanges = [...new Set(wizardFormats.filter((f) => f.isVideoOnly).map((f) => f.dynamicRange ?? 'SDR'))];
@@ -108,7 +116,7 @@ export function StepFormatSelect(): JSX.Element {
 
       <div className="grid grid-cols-2 gap-[20px]">
         {/* Video column */}
-        <div className="flex flex-col gap-0">
+        <div className="flex flex-col gap-0 h-full">
           <div className="flex items-center justify-between mb-[6px]">
             <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.formats.video')}</p>
             <div className="flex items-center gap-[6px]">
@@ -133,70 +141,172 @@ export function StepFormatSelect(): JSX.Element {
             </div>
           </div>
 
-          {videoGroups.map((g) => {
-            const isChecked = selectedVideoFormatId === g.formatId;
-            const rawFmt = filteredFormats.find((f) => f.formatId === g.formatId);
-            const filesize = rawFmt?.filesize;
-            const barWidth = filesize ? Math.max(2, (filesize / maxFilesize) * 100) : 0;
-            const meta = g.isAudioOnly ? '' : [rawFmt?.ext, rawFmt?.fps ? `${rawFmt.fps}fps` : null, rawFmt?.dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' · ');
+          <ScrollArea className="flex-1 min-h-0">
+            {videoGroups.map((g) => {
+              const isChecked = selectedVideoFormatId === g.formatId;
+              const rawFmt = filteredFormats.find((f) => f.formatId === g.formatId);
+              const filesize = rawFmt?.filesize;
+              const barWidth = filesize ? Math.max(2, (filesize / maxFilesize) * 100) : 0;
+              const meta = g.isAudioOnly ? '' : [rawFmt?.ext, rawFmt?.fps ? `${rawFmt.fps}fps` : null, rawFmt?.dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' · ');
 
-            return (
-              <RadioOption
-                key={g.formatId || 'audio-only'}
-                checked={isChecked}
-                disabled={subtitleOnlyPreset}
-                onClick={() => setSelectedVideoFormatId(g.formatId)}
-                label={g.resolution}
-                labelClassName="min-w-[68px]"
-                meta={
-                  <>
-                    {!g.isAudioOnly && (
-                      <div className="w-[32px] h-[2px] bg-accent rounded-full flex-shrink-0">
-                        <div className={cn('h-full rounded-full bg-[var(--brand)]', isChecked ? 'opacity-100' : 'opacity-25')} style={{ width: barWidth > 0 ? `${barWidth}%` : '0%' }} />
-                      </div>
-                    )}
-                    {meta && (
-                      <span
-                        className="text-[13px] ml-auto whitespace-nowrap"
-                        style={{
-                          color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)'
-                        }}
-                      >
-                        {meta}
-                      </span>
-                    )}
-                  </>
-                }
-              />
-            );
-          })}
-        </div>
-
-        {/* Audio column */}
-        <div className="flex flex-col gap-0">
-          <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-[6px]">{t('wizard.formats.audio')}</p>
-          {wizardFormats
-            .filter((f) => f.isAudioOnly)
-            .map((fmt) => {
-              const isChecked = selectedAudioFormatId === fmt.formatId;
               return (
                 <RadioOption
-                  key={fmt.formatId}
+                  key={g.formatId || 'audio-only'}
                   checked={isChecked}
                   disabled={subtitleOnlyPreset}
-                  onClick={() => setAudioFormatId(fmt.formatId)}
-                  label={fmt.ext}
+                  onClick={() => setSelectedVideoFormatId(g.formatId)}
+                  label={g.resolution}
+                  labelClassName="min-w-[68px]"
                   meta={
-                    <span className="text-[11px] ml-auto whitespace-nowrap" style={{ color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)' }}>
-                      {fmt.label}
-                    </span>
+                    <>
+                      {!g.isAudioOnly && (
+                        <div className="w-[32px] h-[2px] bg-accent rounded-full flex-shrink-0">
+                          <div className={cn('h-full rounded-full bg-[var(--brand)]', isChecked ? 'opacity-100' : 'opacity-25')} style={{ width: barWidth > 0 ? `${barWidth}%` : '0%' }} />
+                        </div>
+                      )}
+                      {meta && (
+                        <span
+                          className="text-[13px] ml-auto whitespace-nowrap"
+                          style={{
+                            color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)'
+                          }}
+                        >
+                          {meta}
+                        </span>
+                      )}
+                    </>
                   }
                 />
               );
             })}
-          <RadioOption checked={selectedAudioFormatId === null} disabled={isAudioOnly || subtitleOnlyPreset} onClick={() => setAudioFormatId(null)} label={t('wizard.formats.noAudio')} meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.videoOnly')}</span>} />
+          </ScrollArea>
+        </div>
 
-          <MascotBubble image={choosingImg} message={t('wizard.formats.mascot')} side="right" className="mt-3" />
+        {/* Audio column */}
+        <div className="flex flex-col gap-0">
+          {(() => {
+            const nativeAudios = wizardFormats.filter((f) => f.isAudioOnly);
+            const nativeExts = [...new Set(nativeAudios.map((f) => f.ext))];
+            const convertExts: AudioConvertTarget[] = AUDIO_CONVERT_TARGETS.map((s) => s.target);
+            const audioExts = [...nativeExts, ...convertExts.filter((e) => !nativeExts.includes(e))];
+
+            const matchExt = (ext: string): boolean => !audioExtFilter || ext === audioExtFilter;
+            // Bitrate strip is only rendered for lossy convert targets (mp3/m4a/opus).
+            // Pulled out via a narrowed const so TypeScript follows the discriminant.
+            const lossyConvert = audioSelection.kind === 'convert' && audioSelection.target !== 'wav' ? audioSelection : null;
+
+            const isNativeChecked = (formatId: string): boolean => audioSelection.kind === 'native' && audioSelection.formatId === formatId;
+            const isConvertChecked = (target: AudioConvertTarget): boolean => audioSelection.kind === 'convert' && audioSelection.target === target;
+
+            const pickConvert = (target: AudioConvertTarget): AudioSelection => (target === 'wav' ? { kind: 'convert', target: 'wav' } : { kind: 'convert', target, bitrateKbps: lastConvertBitrate });
+
+            return (
+              <>
+                <div className="flex items-center justify-between mb-[6px]">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.formats.audio')}</p>
+                  {audioExts.length > 1 && (
+                    <ToggleGroup value={audioExtFilter ? [audioExtFilter] : []} onValueChange={(vals) => setAudioExtFilter(vals[0] ?? null)} className="gap-[3px]">
+                      {audioExts.map((ext) => (
+                        <ToggleGroupItem key={ext} value={ext} className="h-5 px-[7px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground">
+                          {ext}
+                        </ToggleGroupItem>
+                      ))}
+                    </ToggleGroup>
+                  )}
+                </div>
+
+                <ScrollArea className="max-h-[240px]">
+                  {nativeAudios
+                    .filter((f) => matchExt(f.ext))
+                    .map((fmt) => {
+                      const isChecked = isNativeChecked(fmt.formatId);
+                      return (
+                        <RadioOption
+                          key={fmt.formatId}
+                          checked={isChecked}
+                          disabled={subtitleOnlyPreset}
+                          onClick={() => setAudioSelection({ kind: 'native', formatId: fmt.formatId })}
+                          label={fmt.ext}
+                          meta={
+                            <span className="text-[11px] ml-auto whitespace-nowrap" style={{ color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)' }}>
+                              {fmt.label}
+                            </span>
+                          }
+                        />
+                      );
+                    })}
+
+                  {convertExts
+                    .filter((e) => matchExt(e))
+                    .map((target) => {
+                      const isChecked = isConvertChecked(target);
+                      const meta = target === 'wav' ? t('wizard.formats.convert.uncompressed') : t('wizard.formats.convert.label');
+                      const radio = (
+                        <RadioOption
+                          key={`convert-${target}`}
+                          checked={isChecked}
+                          disabled={subtitleOnlyPreset || convertDisabled}
+                          onClick={() => setAudioSelection(pickConvert(target))}
+                          label={target}
+                          meta={
+                            <span className="text-[11px] ml-auto whitespace-nowrap" style={{ color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)' }}>
+                              {meta}
+                            </span>
+                          }
+                        />
+                      );
+                      return convertDisabled && !subtitleOnlyPreset ? (
+                        <Tooltip key={`convert-${target}`}>
+                          <TooltipTrigger render={(props) => <div {...props}>{radio}</div>} />
+                          <TooltipContent>{t('wizard.formats.convert.requiresAudioOnly')}</TooltipContent>
+                        </Tooltip>
+                      ) : (
+                        radio
+                      );
+                    })}
+
+                  <RadioOption checked={audioSelection.kind === 'none'} disabled={isAudioOnly || subtitleOnlyPreset} onClick={() => setAudioSelection({ kind: 'none' })} label={t('wizard.formats.noAudio')} meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.videoOnly')}</span>} />
+                </ScrollArea>
+
+                {(() => {
+                  const blocked = !lossyConvert;
+                  const displayBitrate = lossyConvert?.bitrateKbps ?? lastConvertBitrate;
+                  const strip = (
+                    <div className={cn('flex items-center justify-between mt-2 px-1 transition-opacity', blocked && 'opacity-40 pointer-events-none')} data-testid="audio-bitrate-strip">
+                      <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.formats.convert.bitrate')}</span>
+                      <ToggleGroup
+                        value={[String(displayBitrate)]}
+                        onValueChange={(vals) => {
+                          if (!lossyConvert) return;
+                          const next = Number(vals[0]) as AudioBitrate;
+                          if (!AUDIO_BITRATES.includes(next)) return;
+                          setAudioSelection({ kind: 'convert', target: lossyConvert.target, bitrateKbps: next });
+                        }}
+                        className="gap-[3px]"
+                      >
+                        {AUDIO_BITRATES.map((rate) => (
+                          <ToggleGroupItem key={rate} value={String(rate)} className="h-6 px-[10px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground">
+                            {rate}
+                          </ToggleGroupItem>
+                        ))}
+                      </ToggleGroup>
+                    </div>
+                  );
+                  const tooltipMsg = convertDisabled ? t('wizard.formats.convert.requiresAudioOnly') : blocked ? t('wizard.formats.convert.requiresLossy') : null;
+                  return tooltipMsg ? (
+                    <Tooltip>
+                      <TooltipTrigger render={(props) => <div {...props}>{strip}</div>} />
+                      <TooltipContent>{tooltipMsg}</TooltipContent>
+                    </Tooltip>
+                  ) : (
+                    strip
+                  );
+                })()}
+
+                <MascotBubble image={choosingImg} message={t('wizard.formats.mascot')} side="right" className="mt-3" />
+              </>
+            );
+          })()}
         </div>
       </div>
 

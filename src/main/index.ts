@@ -20,7 +20,7 @@ import { QueueStore } from '@main/stores/QueueStore';
 import { ClipboardWatcher, watcherWindowFromBrowserWindow } from '@main/services/ClipboardWatcher';
 import { HiddenWindowTokenProvider } from '@main/token/providers/HiddenWindowTokenProvider';
 import { MockTokenProvider } from '@main/token/providers/MockTokenProvider';
-import { defaultAppSettings } from '@shared/constants';
+import { defaultAppSettings, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT } from '@shared/constants';
 import { runSmokeMode, readSmokeUrl, exitWithCode } from '@main/smoke';
 import contextMenu from 'electron-context-menu';
 import windowStateKeeper from 'electron-window-state';
@@ -40,15 +40,15 @@ if (!hasSingleInstanceLock) {
 }
 
 function createMainWindow(): BrowserWindow {
-  const winState = windowStateKeeper({ defaultWidth: 900, defaultHeight: 760 });
+  const winState = windowStateKeeper({ defaultWidth: WINDOW_DEFAULT_WIDTH, defaultHeight: WINDOW_DEFAULT_HEIGHT });
 
   const window = new BrowserWindow({
     x: winState.x,
     y: winState.y,
     width: winState.width,
     height: winState.height,
-    minWidth: 720,
-    minHeight: 460,
+    minWidth: WINDOW_MIN_WIDTH,
+    minHeight: WINDOW_MIN_HEIGHT,
     title: 'Arroxy',
     frame: false,
     titleBarStyle: 'hidden',

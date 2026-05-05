@@ -1,7 +1,8 @@
 import { DEFAULTS } from '@shared/constants';
+import { DEFAULT_AUDIO_BITRATE } from '@shared/schemas';
 import type { AppSettings, FormatOption, Preset, SubtitleMap, SponsorBlockMode, SponsorBlockCategory } from '@shared/types';
 import { cleanYoutubeUrl } from '@shared/url';
-import type { GetState, SetState, WizardSlice, WizardStep } from './types';
+import type { AudioSelection, GetState, SetState, WizardSlice, WizardStep } from './types';
 
 // Private helpers — only used inside this slice.
 
@@ -19,15 +20,19 @@ function groupedNonAudioFormats(formats: FormatOption[]): { resolution: string; 
   return out;
 }
 
-function applyPreset(preset: Preset, formats: FormatOption[]): { videoFormatId: string; audioFormatId: string | null } {
+function nativeAudio(formatId: string | null): AudioSelection {
+  return formatId === null ? { kind: 'none' } : { kind: 'native', formatId };
+}
+
+function applyPreset(preset: Preset, formats: FormatOption[]): { videoFormatId: string; audioSelection: AudioSelection } {
   const grouped = groupedNonAudioFormats(formats);
   const audioFormats = formats.filter((f) => f.isAudioOnly);
   const bestAudio = audioFormats[0]?.formatId ?? null;
   const worstAudio = audioFormats[audioFormats.length - 1]?.formatId ?? bestAudio;
 
-  if (preset === 'best-quality') return { videoFormatId: grouped[0]?.formatId ?? '', audioFormatId: bestAudio };
-  if (preset === 'audio-only') return { videoFormatId: '', audioFormatId: bestAudio };
-  if (preset === 'subtitle-only') return { videoFormatId: '', audioFormatId: null };
+  if (preset === 'best-quality') return { videoFormatId: grouped[0]?.formatId ?? '', audioSelection: nativeAudio(bestAudio) };
+  if (preset === 'audio-only') return { videoFormatId: '', audioSelection: nativeAudio(bestAudio) };
+  if (preset === 'subtitle-only') return { videoFormatId: '', audioSelection: { kind: 'none' } };
   if (preset === 'balanced') {
     const target = grouped.find((g) => {
       const m = g.resolution.match(/(\d+)/);
@@ -35,23 +40,23 @@ function applyPreset(preset: Preset, formats: FormatOption[]): { videoFormatId: 
     });
     return {
       videoFormatId: target?.formatId ?? grouped[grouped.length - 1]?.formatId ?? '',
-      audioFormatId: bestAudio
+      audioSelection: nativeAudio(bestAudio)
     };
   }
   // small-file
-  return { videoFormatId: grouped[grouped.length - 1]?.formatId ?? '', audioFormatId: worstAudio };
+  return { videoFormatId: grouped[grouped.length - 1]?.formatId ?? '', audioSelection: nativeAudio(worstAudio) };
 }
 
-function restoreFormatSelection(formats: FormatOption[], settings: AppSettings | null): { videoFormatId: string; audioFormatId: string | null; preset: Preset | null } {
+function restoreFormatSelection(formats: FormatOption[], settings: AppSettings | null): { videoFormatId: string; audioSelection: AudioSelection; preset: Preset | null } {
   const grouped = groupedNonAudioFormats(formats);
   const audioFormats = formats.filter((f) => f.isAudioOnly);
   const bestAudio = audioFormats[0]?.formatId ?? null;
 
   if (settings?.lastPreset) return { ...applyPreset(settings.lastPreset, formats), preset: settings.lastPreset };
-  if (settings?.lastVideoResolution === 'audio-only') return { videoFormatId: '', audioFormatId: bestAudio, preset: null };
+  if (settings?.lastVideoResolution === 'audio-only') return { videoFormatId: '', audioSelection: nativeAudio(bestAudio), preset: 'audio-only' };
   if (settings?.lastVideoResolution) {
     const match = grouped.find((g) => g.resolution === settings.lastVideoResolution);
-    if (match) return { videoFormatId: match.formatId, audioFormatId: bestAudio, preset: null };
+    if (match) return { videoFormatId: match.formatId, audioSelection: nativeAudio(bestAudio), preset: null };
   }
   return { ...applyPreset('best-quality', formats), preset: 'best-quality' };
 }
@@ -99,7 +104,8 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
   return {
     ...RESET_STATE,
     selectedVideoFormatId: '',
-    selectedAudioFormatId: null,
+    audioSelection: { kind: 'none' },
+    lastConvertBitrate: DEFAULT_AUDIO_BITRATE,
     activePreset: null,
     wizardOutputDir: '',
 
@@ -123,7 +129,7 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
 
       const { formats, title, thumbnail, duration, subtitles = {}, automaticCaptions = {} } = result.data;
       const settings = get().settings;
-      const { videoFormatId, audioFormatId, preset } = restoreFormatSelection(formats, settings);
+      const { videoFormatId, audioSelection, preset } = restoreFormatSelection(formats, settings);
       const { languages: subtitleLanguages } = restoreSubtitleSelection(subtitles, automaticCaptions, settings);
 
       set({
@@ -132,7 +138,7 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
         wizardThumbnail: thumbnail,
         wizardDuration: duration,
         selectedVideoFormatId: videoFormatId,
-        selectedAudioFormatId: audioFormatId,
+        audioSelection,
         activePreset: preset,
         wizardSubtitles: subtitles,
         wizardAutomaticCaptions: automaticCaptions,
@@ -194,16 +200,22 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
       if (persist) await window.appApi.settings.update({ defaultOutputDir: dir });
     },
 
-    setSelectedVideoFormatId: (id) => set({ selectedVideoFormatId: id, activePreset: null }),
-    setAudioFormatId: (id) => set({ selectedAudioFormatId: id, activePreset: null }),
+    setSelectedVideoFormatId: (id) => set({ selectedVideoFormatId: id, activePreset: id === '' ? 'audio-only' : null }),
+    setAudioSelection: (sel) =>
+      set((state) => ({
+        audioSelection: sel,
+        activePreset: state.selectedVideoFormatId === '' ? 'audio-only' : null,
+        // Keep the user's bitrate choice sticky across mp3/m4a/opus toggles.
+        lastConvertBitrate: sel.kind === 'convert' && sel.target !== 'wav' ? sel.bitrateKbps : state.lastConvertBitrate
+      })),
 
     setPreset: (p) => {
       const { wizardFormats } = get();
-      const { videoFormatId, audioFormatId } = applyPreset(p, wizardFormats);
+      const { videoFormatId, audioSelection } = applyPreset(p, wizardFormats);
       set({
         activePreset: p,
         selectedVideoFormatId: videoFormatId,
-        selectedAudioFormatId: audioFormatId
+        audioSelection
       });
     },
 

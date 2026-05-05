@@ -29,7 +29,7 @@ export function useUpdateChannel(): UpdateChannelState {
   }
 
   function download(): void {
-    void window.appApi.shell.openExternal('https://github.com/antonio-orionus/Arroxy/releases/latest');
+    void window.appApi.shell.openExternal('https://arroxy.orionus.dev/');
     setInfo(null);
   }
 

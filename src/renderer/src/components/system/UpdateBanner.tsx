@@ -13,7 +13,7 @@ interface Props {
   onDismiss(): void;
 }
 
-const RELEASES_URL = 'https://github.com/antonio-orionus/Arroxy/releases/latest';
+const DOWNLOAD_URL = 'https://arroxy.orionus.dev/';
 
 export function UpdateBanner({ info, installing, installError, onInstall, onDownload, onDismiss }: Props): JSX.Element {
   const { t } = useTranslation();
@@ -53,7 +53,7 @@ export function UpdateBanner({ info, installing, installError, onInstall, onDown
 
         {action.kind === 'download' && (
           <a
-            href={RELEASES_URL}
+            href={DOWNLOAD_URL}
             onClick={(e) => {
               e.preventDefault();
               onDownload();

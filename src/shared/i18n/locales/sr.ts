@@ -160,7 +160,16 @@ const sr = {
       loadingHint: 'Обично траје секунду',
       loadingAria: 'Учитавање формата',
       sizeUnknown: 'Величина непозната',
-      total: 'Укупно'
+      total: 'Укупно',
+      convert: {
+        label: 'Конвертуј',
+        uncompressed: 'Конвертуј · некомпресовано',
+        bitrate: 'Битрејт',
+        wavLabel: 'WAV (uncompressed)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'Конверзија звука захтева режим само-звука (поништи избор видеа).',
+        requiresLossy: 'Изабран је нативни стрим — битрејт се примењује само при конверзији у mp3, m4a или opus.'
+      }
     },
     folder: {
       heading: 'Сачувај у',

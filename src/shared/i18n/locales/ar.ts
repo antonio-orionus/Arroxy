@@ -160,7 +160,16 @@ const ar = {
       loadingHint: 'عادةً يستغرق ثانية',
       loadingAria: 'جارٍ تحميل الصيغ',
       sizeUnknown: 'الحجم غير معروف',
-      total: 'الإجمالي'
+      total: 'الإجمالي',
+      convert: {
+        label: 'تحويل',
+        uncompressed: 'تحويل · غير مضغوط',
+        bitrate: 'معدل البت',
+        wavLabel: 'WAV (غير مضغوط)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'يتطلب تحويل الصوت وضع الصوت فقط (قم بإلغاء تحديد الفيديو).',
+        requiresLossy: 'تم اختيار مقطع صوتي أصلي — معدل البت لا ينطبق إلا عند التحويل إلى mp3 أو m4a أو opus.'
+      }
     },
     folder: {
       heading: 'الحفظ في',

@@ -12,13 +12,13 @@ import loveImg from '../../assets/Love.png';
 
 export function StepConfirm(): JSX.Element {
   const { t, i18n } = useTranslation();
-  const { wizardTitle, wizardThumbnail, wizardDuration, wizardOutputDir, selectedVideoFormatId, selectedAudioFormatId, activePreset, wizardFormats, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped, commonPaths, wizardSubfolderEnabled, wizardSubfolderName, addToQueue, addAndDownloadImmediately, back } = useAppStore();
+  const { wizardTitle, wizardThumbnail, wizardDuration, wizardOutputDir, selectedVideoFormatId, audioSelection, activePreset, wizardFormats, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped, commonPaths, wizardSubfolderEnabled, wizardSubfolderName, addToQueue, addAndDownloadImmediately, back } = useAppStore();
 
   const effectiveSubtitleLanguages = wizardSubtitleSkipped ? [] : wizardSubtitleLanguages;
 
   const audioFormats = wizardFormats.filter((f) => f.isAudioOnly);
   const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, t('wizard.confirm.audioOnly'));
-  const audioLabel = resolveAudioLabel(selectedAudioFormatId, audioFormats);
+  const audioLabel = resolveAudioLabel(audioSelection, audioFormats);
 
   const videoSummary = activePreset ? presetLabel(activePreset) : selectedVideoFormatId === '' ? t('wizard.confirm.audioOnly') : videoResolution;
 
@@ -44,7 +44,7 @@ export function StepConfirm(): JSX.Element {
     { key: 'size', label: t('wizard.confirm.labelSize'), value: estimatedSize }
   ];
 
-  const hasNothingSelected = selectedVideoFormatId === '' && selectedAudioFormatId === null && effectiveSubtitleLanguages.length === 0;
+  const hasNothingSelected = selectedVideoFormatId === '' && audioSelection.kind === 'none' && effectiveSubtitleLanguages.length === 0;
 
   return (
     <div className="wizard-step flex flex-col gap-4" data-testid="step-confirm">

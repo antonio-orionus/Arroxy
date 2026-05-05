@@ -160,7 +160,16 @@ const sw = {
       loadingHint: 'Kawaida huchukua sekunde moja',
       loadingAria: 'Inapakia maumbo',
       sizeUnknown: 'Ukubwa haujulikani',
-      total: 'Jumla'
+      total: 'Jumla',
+      convert: {
+        label: 'Badilisha',
+        uncompressed: 'Badilisha · isiyoshinikizwa',
+        bitrate: 'Kiwango cha biti',
+        wavLabel: 'WAV (uncompressed)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'Ubadilishaji wa sauti unahitaji hali ya sauti peke yake (ondoa chaguo la video).',
+        requiresLossy: 'Mkondo wa asili umechaguliwa — kiwango cha biti kinatumika tu unapobadilisha kuwa mp3, m4a, au opus.'
+      }
     },
     folder: {
       heading: 'Hifadhi kwenye',

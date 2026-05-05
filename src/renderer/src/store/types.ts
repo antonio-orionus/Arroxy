@@ -1,6 +1,15 @@
 import type { StoreApi } from 'zustand';
-import type { AppError, AppSettings, FormatOption, Preset, QueueItem, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme } from '@shared/types';
+import type { AppError, AppSettings, AudioBitrate, AudioConvertTarget, FormatOption, Preset, QueueItem, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme } from '@shared/types';
 export type WizardStep = 'url' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error';
+
+// Discriminated union for the renderer's audio-column selection. Three modes:
+//   none    — no audio (video-only download)
+//   native  — pick a YouTube audio stream as-is (existing behavior)
+//   convert — let yt-dlp re-encode/remux to a target codec; main process
+//             translates this to -x --audio-format X (--audio-quality NK).
+// The IPC payload is derived at queue-build time: convert sends `audioConvert`
+// + `formatId=undefined`; native sends `formatId` composed with the video pick.
+export type AudioSelection = { kind: 'none' } | { kind: 'native'; formatId: string } | { kind: 'convert'; target: 'wav' } | { kind: 'convert'; target: Exclude<AudioConvertTarget, 'wav'>; bitrateKbps: AudioBitrate };
 
 export type SetState = StoreApi<AppState>['setState'];
 export type GetState = StoreApi<AppState>['getState'];
@@ -14,7 +23,12 @@ export interface WizardSlice {
   wizardDuration?: number;
   wizardFormats: FormatOption[];
   selectedVideoFormatId: string;
-  selectedAudioFormatId: string | null;
+  audioSelection: AudioSelection;
+  // Preserves the user's bitrate choice when toggling between mp3/m4a/opus
+  // rows or away to wav and back. Default 192 (industry standard MP3).
+  lastConvertBitrate: AudioBitrate;
+  // May be set IMPLICITLY when video='' (see setSelectedVideoFormatId).
+  // Don't treat it as "the preset the user explicitly clicked."
   activePreset: Preset | null;
   wizardOutputDir: string;
   wizardError: AppError | null;
@@ -43,7 +57,7 @@ export interface WizardSlice {
   retry: () => Promise<void>;
   setWizardOutputDir: (dir: string, persist?: boolean) => Promise<void>;
   setSelectedVideoFormatId: (id: string) => void;
-  setAudioFormatId: (id: string | null) => void;
+  setAudioSelection: (sel: AudioSelection) => void;
   setPreset: (p: Preset) => void;
   toggleSubtitleLanguage: (lang: string) => void;
   setSubtitleMode: (mode: SubtitleMode) => void;

@@ -73,7 +73,7 @@ function resetStore() {
     wizardThumbnail: '',
     wizardFormats: [],
     selectedVideoFormatId: '',
-    selectedAudioFormatId: null,
+    audioSelection: { kind: 'none' },
     activePreset: null,
     wizardOutputDir: '',
     wizardError: null,
@@ -209,7 +209,7 @@ describe('UpdateBanner integration in App', () => {
       fireEvent.click(screen.getByText('Download ↗'));
     });
 
-    expect(openExternal).toHaveBeenCalledWith('https://github.com/antonio-orionus/Arroxy/releases/latest');
+    expect(openExternal).toHaveBeenCalledWith('https://arroxy.orionus.dev/');
   });
 
   it('Download ↗ dismisses the banner after clicking', async () => {

@@ -160,7 +160,16 @@ const uk = {
       loadingHint: 'Зазвичай займає секунду',
       loadingAria: 'Завантаження форматів',
       sizeUnknown: 'Розмір невідомий',
-      total: 'Усього'
+      total: 'Усього',
+      convert: {
+        label: 'Конвертувати',
+        uncompressed: 'Конвертувати · без стиснення',
+        bitrate: 'Бітрейт',
+        wavLabel: 'WAV (uncompressed)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'Конвертація аудіо потребує режиму «Тільки аудіо» (зніміть вибір відео).',
+        requiresLossy: 'Вибрано нативний потік — бітрейт застосовується лише при конвертації в mp3, m4a або opus.'
+      }
     },
     folder: {
       heading: 'Зберегти у',

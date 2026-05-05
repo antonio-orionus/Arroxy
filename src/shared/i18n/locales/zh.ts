@@ -160,7 +160,16 @@ const zh = {
       loadingHint: '通常只需一秒',
       loadingAria: '正在加载格式',
       sizeUnknown: '大小未知',
-      total: '总计'
+      total: '总计',
+      convert: {
+        label: '转换',
+        uncompressed: '转换 · 无损',
+        bitrate: '比特率',
+        wavLabel: 'WAV (uncompressed)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: '音频转换需要仅音频模式（取消选择视频选项）。',
+        requiresLossy: '已选择原生流——比特率仅在转换为 mp3、m4a 或 opus 时适用。'
+      }
     },
     folder: {
       heading: '保存到',

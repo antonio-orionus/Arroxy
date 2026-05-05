@@ -3,7 +3,8 @@ import { spawnYtDlp } from '@main/utils/process';
 import { classifyStderr, extractLastError, type StderrSignal } from '@main/utils/ytdlpErrors';
 import { resolveCookiesPath } from './cookiesResolver';
 import { EMBED_CONTAINER_EXT } from '@shared/subtitlePath';
-import type { SubtitleFormat, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, StatusKey } from '@shared/types';
+import type { SubtitleFormat, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, StatusKey, AudioConvert } from '@shared/types';
+import { resolveEmbedPolicy } from '@shared/embedPolicy';
 import type { BinaryManager } from './BinaryManager';
 import type { TokenService } from './TokenService';
 import type { SettingsStore } from '@main/stores/SettingsStore';
@@ -27,6 +28,7 @@ export type YtDlpRequest =
       outputDir: string;
       tempDir?: string;
       formatId?: string;
+      audioConvert?: AudioConvert;
       sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] };
       embedChapters?: boolean;
       embedMetadata?: boolean;
@@ -210,6 +212,9 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
   const args: string[] = ['--progress', '--no-playlist'];
 
   const forcesMkv = req.kind === 'video+embed' && req.subtitleLanguages.length > 0;
+  // Audio-only conversion is mutually exclusive with subtitle embedding (no
+  // video container to embed into) — typed off here, enforced at the wizard.
+  const audioConvert = req.kind === 'video' ? req.audioConvert : undefined;
 
   if (forcesMkv) {
     // mkv embeds vtt natively as a webvtt stream — no --convert-subs needed.
@@ -231,13 +236,29 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
   }
 
   if (req.embedChapters) args.push('--embed-chapters');
-  if (req.embedMetadata) args.push('--add-metadata');
-  if (req.embedThumbnail && !forcesMkv) args.push('--embed-thumbnail', '--convert-thumbnails', 'jpg');
+
+  const { embedMetadata, embedThumbnail } = resolveEmbedPolicy({
+    embedMetadata: req.embedMetadata,
+    embedThumbnail: req.embedThumbnail,
+    audioConvert
+  });
+
+  if (embedMetadata) args.push('--add-metadata');
+  if (embedThumbnail && !forcesMkv) args.push('--embed-thumbnail', '--convert-thumbnails', 'jpg');
 
   if (req.writeDescription) args.push('--write-description');
   if (req.writeThumbnail) args.push('--write-thumbnail');
 
-  if (req.formatId) args.push('-f', req.formatId);
+  if (audioConvert) {
+    // Override format to bestaudio: -x is mutually exclusive with video+audio
+    // merging, and the audio post-processor needs an audio-only source.
+    args.push('-f', 'bestaudio/best', '-x', '--audio-format', audioConvert.target);
+    if (audioConvert.target !== 'wav') {
+      args.push('--audio-quality', `${audioConvert.bitrateKbps}K`);
+    }
+  } else if (req.formatId) {
+    args.push('-f', req.formatId);
+  }
   if (req.tempDir) {
     args.push('--paths', `home:${req.outputDir}`, '--paths', `temp:${req.tempDir}`, '-o', '%(title)s.%(ext)s');
   } else {

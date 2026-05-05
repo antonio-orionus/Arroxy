@@ -100,7 +100,7 @@ function resetStore() {
     wizardThumbnail: '',
     wizardFormats: [],
     selectedVideoFormatId: '',
-    selectedAudioFormatId: null,
+    audioSelection: { kind: 'none' },
     activePreset: null,
     wizardOutputDir: '',
     wizardError: null,
@@ -135,7 +135,7 @@ describe('Subtitle-only preset', () => {
     const state = useAppStore.getState();
     expect(state.activePreset).toBe('subtitle-only');
     expect(state.selectedVideoFormatId).toBe('');
-    expect(state.selectedAudioFormatId).toBeNull();
+    expect(state.audioSelection).toEqual({ kind: 'none' });
   });
 
   it('subtitle-only preset produces undefined formatId in queue item', async () => {
@@ -264,7 +264,7 @@ describe('Wizard subtitle step — store behavior', () => {
       wizardThumbnail: '',
       wizardOutputDir: '/tmp',
       selectedVideoFormatId: '22',
-      selectedAudioFormatId: '140',
+      audioSelection: { kind: 'native', formatId: '140' },
       activePreset: null,
       wizardFormats: PROBE_RESULT.formats,
       wizardSubtitles: PROBE_RESULT.subtitles,
@@ -291,7 +291,7 @@ describe('Wizard subtitle step — store behavior', () => {
       wizardThumbnail: '',
       wizardOutputDir: '/tmp',
       selectedVideoFormatId: '22',
-      selectedAudioFormatId: '140',
+      audioSelection: { kind: 'native', formatId: '140' },
       activePreset: null,
       wizardFormats: PROBE_RESULT.formats,
       wizardSubtitles: PROBE_RESULT.subtitles,
@@ -316,7 +316,7 @@ describe('Wizard subtitle step — store behavior', () => {
       wizardThumbnail: '',
       wizardOutputDir: '/tmp',
       selectedVideoFormatId: '22',
-      selectedAudioFormatId: '140',
+      audioSelection: { kind: 'native', formatId: '140' },
       activePreset: null,
       wizardFormats: PROBE_RESULT.formats,
       wizardSubtitles: PROBE_RESULT.subtitles,
@@ -349,7 +349,7 @@ describe('Wizard subtitle step — store behavior', () => {
       wizardThumbnail: '',
       wizardOutputDir: '/tmp',
       selectedVideoFormatId: '22',
-      selectedAudioFormatId: '140',
+      audioSelection: { kind: 'native', formatId: '140' },
       activePreset: null,
       wizardFormats: PROBE_RESULT.formats,
       wizardSubtitles: PROBE_RESULT.subtitles,
@@ -397,7 +397,7 @@ describe('Wizard subtitle step — store behavior', () => {
       wizardThumbnail: '',
       wizardOutputDir: '/tmp',
       selectedVideoFormatId: '22',
-      selectedAudioFormatId: '140',
+      audioSelection: { kind: 'native', formatId: '140' },
       activePreset: null,
       wizardFormats: PROBE_RESULT.formats,
       wizardSubtitles: PROBE_RESULT.subtitles,
@@ -425,7 +425,7 @@ describe('Wizard subtitle step — store behavior', () => {
       wizardThumbnail: '',
       wizardOutputDir: '/tmp',
       selectedVideoFormatId: '22',
-      selectedAudioFormatId: '140',
+      audioSelection: { kind: 'native', formatId: '140' },
       activePreset: null,
       wizardFormats: PROBE_RESULT.formats,
       wizardSubtitles: PROBE_RESULT.subtitles,
@@ -460,7 +460,7 @@ describe('Wizard subtitle step — store behavior', () => {
       wizardThumbnail: '',
       wizardOutputDir: '/tmp',
       selectedVideoFormatId: '22',
-      selectedAudioFormatId: '140',
+      audioSelection: { kind: 'native', formatId: '140' },
       activePreset: null,
       wizardFormats: PROBE_RESULT.formats,
       wizardSubtitles: PROBE_RESULT.subtitles,
@@ -605,7 +605,7 @@ describe('StepConfirm — subtitle summary', () => {
       wizardThumbnail: '',
       wizardOutputDir: '/tmp',
       selectedVideoFormatId: '22',
-      selectedAudioFormatId: '140',
+      audioSelection: { kind: 'native', formatId: '140' },
       activePreset: null,
       wizardFormats: PROBE_RESULT.formats,
       wizardSubtitles: PROBE_RESULT.subtitles,
@@ -647,7 +647,7 @@ describe('StepFormatSelect — subtitle-only preset disables format columns', ()
       wizardThumbnail: '',
       wizardOutputDir: '/tmp',
       selectedVideoFormatId: preset === 'subtitle-only' ? '' : '22',
-      selectedAudioFormatId: preset === 'subtitle-only' ? null : '140',
+      audioSelection: preset === 'subtitle-only' ? { kind: 'none' } : { kind: 'native', formatId: '140' },
       activePreset: preset,
       wizardFormats: PROBE_RESULT.formats,
       wizardSubtitles: PROBE_RESULT.subtitles,
@@ -668,13 +668,14 @@ describe('StepFormatSelect — subtitle-only preset disables format columns', ()
     }
   });
 
-  it('does not disable radios for non-subtitle-only presets', () => {
+  it('disables only the audio-convert radios for non-subtitle-only presets with a video pick', () => {
     renderFormats('best-quality');
     const radios = screen.getAllByRole('radio');
     const disabledCount = radios.filter((r) => r.getAttribute('aria-disabled') === 'true').length;
-    // Only the "No audio" radio is disabled when audio-only video is the choice;
-    // for best-quality (with a video selected) nothing should be disabled.
-    expect(disabledCount).toBe(0);
+    // best-quality picks a video → audio-convert rows (mp3/m4a/opus/wav) are
+    // disabled because yt-dlp's -x is mutually exclusive with video+audio merging.
+    // Native video and native audio rows stay enabled.
+    expect(disabledCount).toBe(4);
   });
 });
 
@@ -688,7 +689,7 @@ describe('StepConfirm — subtitle-only safeguards', () => {
       wizardThumbnail: '',
       wizardOutputDir: '/tmp',
       selectedVideoFormatId: '',
-      selectedAudioFormatId: null,
+      audioSelection: { kind: 'none' },
       activePreset: 'subtitle-only',
       wizardFormats: PROBE_RESULT.formats,
       wizardSubtitles: PROBE_RESULT.subtitles,

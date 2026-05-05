@@ -160,7 +160,16 @@ const bn = {
       loadingHint: 'সাধারণত এক সেকেন্ড লাগে',
       loadingAria: 'ফরম্যাট লোড হচ্ছে',
       sizeUnknown: 'আকার অজানা',
-      total: 'মোট'
+      total: 'মোট',
+      convert: {
+        label: 'কনভার্ট করুন',
+        uncompressed: 'কনভার্ট · আনকম্প্রেসড',
+        bitrate: 'বিটরেট',
+        wavLabel: 'WAV (uncompressed)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'অডিও কনভার্শনের জন্য শুধু অডিও মোড প্রয়োজন (ভিডিও পিক বাতিল করুন)।',
+        requiresLossy: 'একটি নেটিভ স্ট্রিম নির্বাচিত — বিটরেট শুধুমাত্র mp3, m4a, বা opus-এ কনভার্ট করার সময় প্রযোজ্য।'
+      }
     },
     folder: {
       heading: 'সেভ করুন',

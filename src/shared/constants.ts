@@ -42,6 +42,11 @@ export function defaultAppSettings(downloadsDir: string): AppSettings {
   };
 }
 
+export const WINDOW_MIN_WIDTH = 720;
+export const WINDOW_MIN_HEIGHT = 680;
+export const WINDOW_DEFAULT_WIDTH = 900;
+export const WINDOW_DEFAULT_HEIGHT = 760;
+
 // YouTube buckets `live_chat` into `subtitles` even though it isn't a caption
 // track. Both probe-side filtering and renderer-side display filter it out.
 export const LIVE_CHAT_LANG = 'live_chat';

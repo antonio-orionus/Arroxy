@@ -160,7 +160,16 @@ const ja = {
       loadingHint: '通常は1秒ほどで完了',
       loadingAria: '形式を読み込み中',
       sizeUnknown: 'サイズ不明',
-      total: '合計'
+      total: '合計',
+      convert: {
+        label: '変換',
+        uncompressed: '変換 · 非圧縮',
+        bitrate: 'ビットレート',
+        wavLabel: 'WAV (uncompressed)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: '音声変換には音声のみモードが必要です（動画の選択を解除してください）。',
+        requiresLossy: 'ネイティブストリームが選択されています — ビットレートは mp3、m4a、または opus に変換する場合にのみ適用されます。'
+      }
     },
     folder: {
       heading: '保存先',

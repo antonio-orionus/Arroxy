@@ -160,7 +160,16 @@ const el = {
       loadingHint: 'Συνήθως παίρνει ένα δευτερόλεπτο',
       loadingAria: 'Φόρτωση μορφών',
       sizeUnknown: 'Άγνωστο μέγεθος',
-      total: 'Σύνολο'
+      total: 'Σύνολο',
+      convert: {
+        label: 'Μετατροπή',
+        uncompressed: 'Μετατροπή · αμετάβλητο',
+        bitrate: 'Ρυθμός bit',
+        wavLabel: 'WAV (αμετάβλητο)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'Η μετατροπή ήχου απαιτεί λειτουργία μόνο ήχου (αποεπίλεξε το βίντεο).',
+        requiresLossy: 'Επιλέχθηκε εγγενής ροή — ο ρυθμός bit ισχύει μόνο κατά τη μετατροπή σε mp3, m4a ή opus.'
+      }
     },
     folder: {
       heading: 'Αποθήκευση σε',

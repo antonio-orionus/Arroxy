@@ -68,7 +68,7 @@ function resetStore() {
     wizardThumbnail: '',
     wizardFormats: [],
     selectedVideoFormatId: '',
-    selectedAudioFormatId: null,
+    audioSelection: { kind: 'none' },
     activePreset: null,
     wizardOutputDir: '',
     wizardError: null,

@@ -160,7 +160,16 @@ const om = {
       loadingHint: "Yeroo baay'ee sekoondii fudhata",
       loadingAria: "Foormaatii fe'amaa jira",
       sizeUnknown: "Bal'inni hin beekamne",
-      total: 'Waliigala'
+      total: 'Waliigala',
+      convert: {
+        label: 'Jijjiiri',
+        uncompressed: 'Jijjiiri · cuqxaa hin taane',
+        bitrate: 'Saaffata bitii',
+        wavLabel: 'WAV (cuqxaa hin taane)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'Jijjiirraa sagalee haala sagalee-qofa (filannoo viidiyoo haqi) gaafata.',
+        requiresLossy: 'Tarreessa uumamaa filatameera — saaffatni bitii yoo mp3, m4a, ykn opus keessatti jijjiiramu qofa hojiirra oola.'
+      }
     },
     folder: {
       heading: 'Kuusi gara',

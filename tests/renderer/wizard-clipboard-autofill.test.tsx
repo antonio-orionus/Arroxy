@@ -28,7 +28,7 @@ function resetStore(overrides: Partial<ReturnType<typeof useAppStore.getState>> 
     wizardThumbnail: '',
     wizardFormats: [],
     selectedVideoFormatId: '',
-    selectedAudioFormatId: null,
+    audioSelection: { kind: 'none' },
     activePreset: null,
     wizardOutputDir: '',
     wizardError: null,

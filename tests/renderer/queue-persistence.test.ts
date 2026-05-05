@@ -59,7 +59,7 @@ describe('Queue persistence — store behavior', () => {
       wizardThumbnail: '',
       wizardFormats: [],
       selectedVideoFormatId: '',
-      selectedAudioFormatId: null,
+      audioSelection: { kind: 'none' },
       activePreset: null,
       wizardOutputDir: '',
       wizardError: null,
@@ -154,7 +154,7 @@ describe('Queue persistence — store behavior', () => {
           }
         ],
         selectedVideoFormatId: '22',
-        selectedAudioFormatId: null,
+        audioSelection: { kind: 'none' },
         activePreset: null,
         wizardOutputDir: '/tmp',
         wizardStep: 'confirm',

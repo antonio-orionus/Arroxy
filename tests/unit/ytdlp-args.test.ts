@@ -95,6 +95,110 @@ describe('YtDlp — video args', () => {
   });
 });
 
+describe('YtDlp — audio convert args', () => {
+  it('mp3 192K → -f bestaudio/best, -x, --audio-format mp3, --audio-quality 192K', async () => {
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      audioConvert: { target: 'mp3', bitrateKbps: 192 }
+    });
+    const args = getArgs();
+    expect(args[args.indexOf('-f') + 1]).toBe('bestaudio/best');
+    expect(args).toContain('-x');
+    expect(args[args.indexOf('--audio-format') + 1]).toBe('mp3');
+    expect(args[args.indexOf('--audio-quality') + 1]).toBe('192K');
+  });
+
+  it('wav → no --audio-quality', async () => {
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      audioConvert: { target: 'wav' }
+    });
+    const args = getArgs();
+    expect(args[args.indexOf('--audio-format') + 1]).toBe('wav');
+    expect(args).not.toContain('--audio-quality');
+  });
+
+  it('mp3 → auto-embeds thumbnail + metadata when toggles unset', async () => {
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      audioConvert: { target: 'mp3', bitrateKbps: 192 }
+    });
+    const args = getArgs();
+    expect(args).toContain('--embed-thumbnail');
+    expect(args[args.indexOf('--convert-thumbnails') + 1]).toBe('jpg');
+    expect(args).toContain('--add-metadata');
+  });
+
+  it('wav → auto-metadata yes, auto-thumbnail no (incompatible)', async () => {
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      audioConvert: { target: 'wav' }
+    });
+    const args = getArgs();
+    expect(args).toContain('--add-metadata');
+    expect(args).not.toContain('--embed-thumbnail');
+  });
+
+  it('explicit embedThumbnail=false overrides auto-embed for music format', async () => {
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      audioConvert: { target: 'mp3', bitrateKbps: 192 },
+      embedThumbnail: false,
+      embedMetadata: false
+    });
+    const args = getArgs();
+    expect(args).not.toContain('--embed-thumbnail');
+    expect(args).not.toContain('--add-metadata');
+  });
+
+  it('opus 128K threads bitrate correctly', async () => {
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      audioConvert: { target: 'opus', bitrateKbps: 128 }
+    });
+    const args = getArgs();
+    expect(args[args.indexOf('--audio-format') + 1]).toBe('opus');
+    expect(args[args.indexOf('--audio-quality') + 1]).toBe('128K');
+  });
+
+  it('m4a 256K threads bitrate correctly', async () => {
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      audioConvert: { target: 'm4a', bitrateKbps: 256 }
+    });
+    const args = getArgs();
+    expect(args[args.indexOf('--audio-format') + 1]).toBe('m4a');
+    expect(args[args.indexOf('--audio-quality') + 1]).toBe('256K');
+  });
+
+  it('audioConvert overrides any provided formatId', async () => {
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      formatId: 'bv+ba',
+      audioConvert: { target: 'mp3', bitrateKbps: 192 }
+    });
+    const args = getArgs();
+    expect(args[args.indexOf('-f') + 1]).toBe('bestaudio/best');
+    expect(args.filter((a) => a === '-f').length).toBe(1);
+  });
+});
+
 describe('YtDlp — video+embed args', () => {
   it('with subs → embed subtitle flags and EMBED_CONTAINER_EXT', async () => {
     await makeYtDlp().run({

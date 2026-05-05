@@ -160,7 +160,16 @@ const hi = {
       loadingHint: 'आमतौर पर एक सेकंड लगता है',
       loadingAria: 'फ़ॉर्मेट लोड हो रहे हैं',
       sizeUnknown: 'साइज़ अज्ञात',
-      total: 'कुल'
+      total: 'कुल',
+      convert: {
+        label: 'कनवर्ट करें',
+        uncompressed: 'कनवर्ट करें · असंपीड़ित',
+        bitrate: 'बिटरेट',
+        wavLabel: 'WAV (uncompressed)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'ऑडियो कनवर्शन के लिए केवल-ऑडियो मोड ज़रूरी है (वीडियो चयन हटाएं)।',
+        requiresLossy: 'एक नेटिव स्ट्रीम चुनी गई है — बिटरेट केवल mp3, m4a, या opus में कनवर्ट करते समय लागू होता है।'
+      }
     },
     folder: {
       heading: 'यहाँ सेव करें',

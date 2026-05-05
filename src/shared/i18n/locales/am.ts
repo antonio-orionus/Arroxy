@@ -160,7 +160,16 @@ const am = {
       loadingHint: 'ብዙውን ጊዜ ሰከንድ ይወስዳል',
       loadingAria: 'ቅርጸቶችን በመጫን ላይ',
       sizeUnknown: 'መጠን አይታወቅም',
-      total: 'ጠቅላላ'
+      total: 'ጠቅላላ',
+      convert: {
+        label: 'ቀይር',
+        uncompressed: 'ቀይር · ያልተጨመቀ',
+        bitrate: 'ቢትሬት',
+        wavLabel: 'WAV (ያልተጨመቀ)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'የድምጽ ቅርጸት ለወጥ ድምጽ-ብቻ ሁነታ ያስፈልጋል (የቪዲዮ ምርጫውን ሰርዝ)።',
+        requiresLossy: 'የቀጥታ ዥረት ተመርጧል — ቢትሬት የሚሰራው ወደ mp3፣ m4a፣ ወይም opus ሲቀይሩ ብቻ ነው።'
+      }
     },
     folder: {
       heading: 'አስቀምጥ ወደ',

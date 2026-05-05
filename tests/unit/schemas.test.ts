@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isYouTubeUrl, startDownloadSchema, ytDlpInfoSchema, queueArraySchema, MAX_SUBTITLE_LANGUAGES } from '@shared/schemas';
+import { isYouTubeUrl, startDownloadSchema, ytDlpInfoSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES } from '@shared/schemas';
 
 describe('isYouTubeUrl', () => {
   it.each(['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://youtu.be/dQw4w9WgXcQ', 'https://m.youtube.com/watch?v=abc', 'https://music.youtube.com/watch?v=abc'])('accepts %s', (url) => {
@@ -93,6 +93,42 @@ describe('ytDlpInfoSchema — null normalization', () => {
     };
     const result = ytDlpInfoSchema.safeParse(raw);
     expect(result.success).toBe(true);
+  });
+});
+
+describe('audioConvertSchema', () => {
+  it.each([
+    { target: 'mp3' as const, bitrateKbps: 128 as const },
+    { target: 'mp3' as const, bitrateKbps: 192 as const },
+    { target: 'mp3' as const, bitrateKbps: 256 as const },
+    { target: 'mp3' as const, bitrateKbps: 320 as const },
+    { target: 'm4a' as const, bitrateKbps: 192 as const },
+    { target: 'opus' as const, bitrateKbps: 128 as const },
+    { target: 'wav' as const },
+    { target: 'wav' as const, bitrateKbps: 192 as const } // excess key permitted (non-strict object)
+  ])('accepts %j', (value) => {
+    expect(audioConvertSchema.safeParse(value).success).toBe(true);
+  });
+
+  it.each([
+    { target: 'flac' }, // unknown target
+    { target: 'mp3' }, // missing bitrate for lossy
+    { target: 'mp3', bitrateKbps: 96 }, // unsupported bitrate
+    { target: 'mp3', bitrateKbps: 256000 }, // bps not kbps
+    {} // missing target
+  ])('rejects %j', (value) => {
+    expect(audioConvertSchema.safeParse(value).success).toBe(false);
+  });
+
+  it('threads audioConvert through startDownloadSchema', () => {
+    const parsed = startDownloadSchema.safeParse({
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      audioConvert: { target: 'mp3', bitrateKbps: 192 }
+    });
+    expect(parsed.success).toBe(true);
+    if (parsed.success) {
+      expect(parsed.data.audioConvert).toEqual({ target: 'mp3', bitrateKbps: 192 });
+    }
   });
 });
 

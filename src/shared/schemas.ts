@@ -1,5 +1,8 @@
 import { z } from 'zod';
 import { isValidSubfolder, SUBFOLDER_NAME_MAX } from './subfolder';
+import { AUDIO_CONVERT_TARGETS, type AudioConvertTarget } from './audioTargets';
+
+export type { AudioConvertTarget };
 
 // Enum schemas — single source of truth. Types below are inferred so adding
 // or removing a value never requires hand-editing a parallel union.
@@ -23,6 +26,20 @@ export const SPONSORBLOCK_MODES = sponsorBlockModeSchema.options;
 export const sponsorBlockCategorySchema = z.enum(['sponsor', 'intro', 'outro', 'selfpromo', 'music_offtopic', 'preview', 'filler']);
 export type SponsorBlockCategory = z.infer<typeof sponsorBlockCategorySchema>;
 export const SPONSORBLOCK_CATEGORIES = sponsorBlockCategorySchema.options;
+
+// Audio-conversion targets surfaced in the wizard's audio column. yt-dlp will
+// run --extract-audio + --audio-format <target> as a post-processor (requires
+// ffmpeg). For lossy targets (mp3/m4a/opus) the bitrate is shared via the
+// strip below the column; wav has no bitrate.
+const LOSSY_TARGET_VALUES = AUDIO_CONVERT_TARGETS.filter((s) => s.lossy).map((s) => s.target) as ['mp3', 'm4a', 'opus'];
+
+export const audioBitrateSchema = z.union([z.literal(128), z.literal(192), z.literal(256), z.literal(320)]);
+export type AudioBitrate = z.infer<typeof audioBitrateSchema>;
+export const AUDIO_BITRATES: readonly AudioBitrate[] = [128, 192, 256, 320];
+export const DEFAULT_AUDIO_BITRATE: AudioBitrate = 192;
+
+export const audioConvertSchema = z.discriminatedUnion('target', [z.object({ target: z.literal('wav') }), z.object({ target: z.enum(LOSSY_TARGET_VALUES), bitrateKbps: audioBitrateSchema })]);
+export type AudioConvert = z.infer<typeof audioConvertSchema>;
 
 export const supportedLangSchema = z.enum(['om', 'de', 'en', 'es', 'fr', 'sw', 'uz', 'am', 'ar', 'ur', 'ps', 'bn', 'hi', 'my', 'el', 'ru', 'sr', 'uk', 'zh', 'ja']);
 export type SupportedLang = z.infer<typeof supportedLangSchema>;
@@ -136,6 +153,7 @@ export const startDownloadSchema = z.object({
   embedThumbnail: z.boolean().optional(),
   writeDescription: z.boolean().optional(),
   writeThumbnail: z.boolean().optional(),
+  audioConvert: audioConvertSchema.optional(),
   expectedBytes: z.number().positive().optional()
 });
 
@@ -188,7 +206,8 @@ export const updateSettingsSchema = z.object({
   writeDescription: z.boolean().optional(),
   writeThumbnail: z.boolean().optional(),
   analyticsEnabled: z.boolean().optional(),
-  firstRunCompleted: z.boolean().optional()
+  firstRunCompleted: z.boolean().optional(),
+  drawerOpen: z.boolean().optional()
 });
 
 // Queue item schema — used by both queueSave IPC handler and queueStore.load
@@ -230,6 +249,7 @@ export const queueItemSchema = z.object({
   embedThumbnail: z.boolean(),
   writeDescription: z.boolean(),
   writeThumbnail: z.boolean(),
+  audioConvert: audioConvertSchema.optional(),
   expectedBytes: z.number().positive().optional()
 });
 

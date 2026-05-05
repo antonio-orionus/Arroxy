@@ -98,7 +98,7 @@ function resetStore() {
     wizardThumbnail: '',
     wizardFormats: [],
     selectedVideoFormatId: '',
-    selectedAudioFormatId: null,
+    audioSelection: { kind: 'none' },
     activePreset: null,
     wizardOutputDir: '',
     wizardError: null,
@@ -331,6 +331,41 @@ describe('SponsorBlock wizard slice — step navigation', () => {
     useAppStore.setState({ wizardStep: 'folder' });
     useAppStore.getState().back();
     // audio-only skips sponsorblock but shows output
+    expect(useAppStore.getState().wizardStep).toBe('output');
+  });
+
+  it('setSelectedVideoFormatId("") syncs activePreset to audio-only', () => {
+    useAppStore.setState({ selectedVideoFormatId: '22', activePreset: null });
+    useAppStore.getState().setSelectedVideoFormatId('');
+    expect(useAppStore.getState().activePreset).toBe('audio-only');
+  });
+
+  it('setSelectedVideoFormatId(nonEmpty) clears activePreset', () => {
+    useAppStore.setState({ selectedVideoFormatId: '', activePreset: 'audio-only' });
+    useAppStore.getState().setSelectedVideoFormatId('22');
+    expect(useAppStore.getState().activePreset).toBeNull();
+  });
+
+  it('setAudioSelection preserves audio-only preset when selectedVideoFormatId is empty', () => {
+    useAppStore.setState({ selectedVideoFormatId: '', activePreset: 'audio-only' });
+    useAppStore.getState().setAudioSelection({ kind: 'convert', target: 'mp3', bitrateKbps: 128 });
+    expect(useAppStore.getState().activePreset).toBe('audio-only');
+  });
+
+  it('setAudioSelection clears preset when a video format is selected', () => {
+    useAppStore.setState({ selectedVideoFormatId: '22', activePreset: 'best-quality' });
+    useAppStore.getState().setAudioSelection({ kind: 'native', formatId: '140' });
+    expect(useAppStore.getState().activePreset).toBeNull();
+  });
+
+  it('advance from subtitles skips sponsorblock after manually selecting audio-only format', async () => {
+    window.appApi = buildMockApi() as never;
+    await useAppStore.getState().initialize();
+    useAppStore.getState().setWizardUrl(YOUTUBE_URL);
+    await useAppStore.getState().submitUrl();
+    useAppStore.getState().setSelectedVideoFormatId('');
+    useAppStore.setState({ wizardStep: 'subtitles' });
+    useAppStore.getState().advance();
     expect(useAppStore.getState().wizardStep).toBe('output');
   });
 });

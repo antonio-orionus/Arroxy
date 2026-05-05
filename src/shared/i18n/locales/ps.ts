@@ -160,7 +160,16 @@ const ps = {
       loadingHint: 'معمولاً یوه ثانیه وخت نیسي',
       loadingAria: 'بڼې بارول',
       sizeUnknown: 'اندازه نامعلومه',
-      total: 'ټول'
+      total: 'ټول',
+      convert: {
+        label: 'بدلول',
+        uncompressed: 'بدلول · غیر فشارشوی',
+        bitrate: 'بټ ریټ',
+        wavLabel: 'WAV (uncompressed)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'د غږ بدلول یوازې د غږ حالت ته اړتیا لري (د ویډیو انتخاب لغوه کړئ).',
+        requiresLossy: 'یو اصلي سټریم غوره شوی — بټ ریټ یوازې د mp3, m4a, یا opus ته د بدلولو پر وخت پلي کیږي.'
+      }
     },
     folder: {
       heading: 'خوندي کولو ځای',

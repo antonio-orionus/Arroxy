@@ -160,7 +160,16 @@ const ru = {
       loadingHint: 'Обычно занимает секунду',
       loadingAria: 'Загрузка форматов',
       sizeUnknown: 'Размер неизвестен',
-      total: 'Всего'
+      total: 'Всего',
+      convert: {
+        label: 'Конвертировать',
+        uncompressed: 'Конвертировать · без сжатия',
+        bitrate: 'Битрейт',
+        wavLabel: 'WAV (без сжатия)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'Конвертация аудио требует режима «только аудио» (отмени выбор видео).',
+        requiresLossy: 'Выбран нативный поток — битрейт применяется только при конвертации в mp3, m4a или opus.'
+      }
     },
     folder: {
       heading: 'Сохранить в',

@@ -27,7 +27,7 @@ describe('Queue parallel/sequential download behavior', () => {
       wizardThumbnail: '',
       wizardFormats: [],
       selectedVideoFormatId: '',
-      selectedAudioFormatId: null,
+      audioSelection: { kind: 'none' },
       activePreset: null,
       wizardOutputDir: '/tmp',
       wizardError: null,
@@ -115,7 +115,7 @@ describe('Queue parallel/sequential download behavior', () => {
         }
       ],
       selectedVideoFormatId: '22',
-      selectedAudioFormatId: null,
+      audioSelection: { kind: 'none' },
       activePreset: null,
       wizardOutputDir: '/tmp',
       wizardStep: 'confirm',

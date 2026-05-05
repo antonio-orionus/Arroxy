@@ -9,7 +9,12 @@ export function createUiSlice(set: SetState, _get: GetState): UiSlice {
     drawerOpen: false,
     showQueueTip: false,
 
-    setDrawerOpen: (open) => set({ drawerOpen: open }),
+    setDrawerOpen: (open) => {
+      set({ drawerOpen: open });
+      void window.appApi.settings.update({ drawerOpen: open }).then((result) => {
+        if (!result.ok) console.error('[settings] drawerOpen save failed', result.error);
+      });
+    },
     dismissQueueTip: () => set({ showQueueTip: false }),
 
     setUiZoom: (zoom) => {

@@ -56,6 +56,7 @@ export function VideoPhase(embed: boolean): Phase {
               outputDir: input.outputDir!,
               tempDir,
               formatId: input.formatId,
+              audioConvert: input.audioConvert,
               sponsorBlock: sbConfig,
               embedChapters: input.embedChapters,
               embedMetadata: input.embedMetadata,

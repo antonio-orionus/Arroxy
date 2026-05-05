@@ -1,7 +1,7 @@
 import type { LocalizedError, QueueItem, StartDownloadInput } from '@shared/types';
 import { QUEUE_STATUS } from '@shared/schemas';
 import { ProgressFormatter } from './progress';
-import { buildFormatId, buildFormatLabel, generateId, resolveVideoResolution } from './helpers';
+import { buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution } from './helpers';
 import { effectiveOutputDir } from '@renderer/lib/path';
 import type { GetState, SetState, QueueSlice } from './types';
 
@@ -41,18 +41,22 @@ function buildQueueItem(get: GetState): QueueItem | null {
   const state = get();
   const { wizardUrl, wizardTitle, wizardThumbnail, wizardOutputDir } = state;
   const { wizardSubfolderEnabled, wizardSubfolderName } = state;
-  const { selectedVideoFormatId, selectedAudioFormatId, activePreset, wizardFormats } = state;
+  const { selectedVideoFormatId, audioSelection, activePreset, wizardFormats } = state;
   const outputDir = effectiveOutputDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName);
 
   const audioFormats = wizardFormats.filter((f) => f.isAudioOnly);
   const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, 'audio-only');
 
-  const formatId = buildFormatId(selectedVideoFormatId, selectedAudioFormatId);
-  const formatLabel = buildFormatLabel(selectedVideoFormatId, videoResolution, selectedAudioFormatId, audioFormats, activePreset);
+  const formatId = buildFormatId(selectedVideoFormatId, audioSelection);
+  const audioConvert = buildAudioConvertPayload(audioSelection);
+  const formatLabel = buildFormatLabel(selectedVideoFormatId, videoResolution, audioSelection, audioFormats, activePreset);
 
-  const selectedIds = [selectedVideoFormatId, selectedAudioFormatId].filter(Boolean) as string[];
+  // Convert downloads have unknown final size (post-encoding); only sum
+  // selected stream sizes for the native paths where they're meaningful.
+  const nativeAudioId = audioSelection.kind === 'native' ? audioSelection.formatId : null;
+  const selectedIds = [selectedVideoFormatId, nativeAudioId].filter(Boolean) as string[];
   const selectedSizes = selectedIds.map((id) => wizardFormats.find((f) => f.formatId === id)?.filesize);
-  const expectedBytes = selectedIds.length > 0 && selectedSizes.every((s) => s !== undefined) ? selectedSizes.reduce<number>((a, b) => a + b!, 0) : undefined;
+  const expectedBytes = !audioConvert && selectedIds.length > 0 && selectedSizes.every((s) => s !== undefined) ? selectedSizes.reduce<number>((a, b) => a + b!, 0) : undefined;
 
   const subtitleLanguages = state.wizardSubtitleSkipped ? [] : state.wizardSubtitleLanguages;
 
@@ -83,6 +87,7 @@ function buildQueueItem(get: GetState): QueueItem | null {
     embedThumbnail: state.wizardEmbedThumbnail,
     writeDescription: state.wizardWriteDescription,
     writeThumbnail: state.wizardWriteThumbnail,
+    audioConvert,
     expectedBytes
   };
 }
@@ -109,6 +114,7 @@ function buildStartInput(item: QueueItem): StartDownloadInput {
     embedThumbnail: item.embedThumbnail,
     writeDescription: item.writeDescription,
     writeThumbnail: item.writeThumbnail,
+    audioConvert: item.audioConvert,
     expectedBytes: item.expectedBytes
   };
 }

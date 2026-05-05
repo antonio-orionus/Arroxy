@@ -160,7 +160,16 @@ const en = {
       loadingHint: 'Usually takes a second',
       loadingAria: 'Loading formats',
       sizeUnknown: 'Size unknown',
-      total: 'Total'
+      total: 'Total',
+      convert: {
+        label: 'Convert',
+        uncompressed: 'Convert · uncompressed',
+        bitrate: 'Bitrate',
+        wavLabel: 'WAV (uncompressed)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'Audio conversion requires audio-only mode (deselect the video pick).',
+        requiresLossy: 'A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus.'
+      }
     },
     folder: {
       heading: 'Save to',

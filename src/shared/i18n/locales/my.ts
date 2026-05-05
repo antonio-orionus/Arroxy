@@ -160,7 +160,16 @@ const my = {
       loadingHint: 'များသောအားဖြင့် တစ်စက္ကန့်ခန့်ကြာသည်',
       loadingAria: 'ဖော်မတ်များဖွင့်နေသည်',
       sizeUnknown: 'အရွယ်အစားမသိ',
-      total: 'စုစုပေါင်း'
+      total: 'စုစုပေါင်း',
+      convert: {
+        label: 'ပြောင်းရန်',
+        uncompressed: 'ပြောင်းရန် · ချုံ့မထားသော',
+        bitrate: 'Bitrate',
+        wavLabel: 'WAV (ချုံ့မထားသော)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'အသံပြောင်းလဲမှုအတွက် အသံသာမုဒ် လိုအပ်သည် (ဗီဒီယိုရွေးချယ်မှုကို ဖြုတ်ပါ)။',
+        requiresLossy: 'Native stream ရွေးထားသည် — bitrate သည် mp3, m4a, သို့မဟုတ် opus သို့ပြောင်းရန်သာ သက်ဆိုင်သည်။'
+      }
     },
     folder: {
       heading: 'ဤနေရာတွင်သိမ်းမည်',

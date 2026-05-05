@@ -160,7 +160,16 @@ const ur = {
       loadingHint: 'عام طور پر ایک سیکنڈ لگتا ہے',
       loadingAria: 'فارمیٹس لوڈ ہو رہے ہیں',
       sizeUnknown: 'سائز نامعلوم',
-      total: 'کل'
+      total: 'کل',
+      convert: {
+        label: 'کنورٹ کریں',
+        uncompressed: 'کنورٹ کریں · غیر کمپریسڈ',
+        bitrate: 'بٹ ریٹ',
+        wavLabel: 'WAV (uncompressed)',
+        lossyLabel: '{{target}} {{bitrate}} kbps',
+        requiresAudioOnly: 'آڈیو کنورژن کے لیے صرف آڈیو موڈ ضروری ہے (ویڈیو انتخاب ہٹائیں)۔',
+        requiresLossy: 'ایک نیٹیو سٹریم منتخب ہے — بٹ ریٹ صرف اس وقت لاگو ہوتا ہے جب mp3، m4a، یا opus میں کنورٹ کیا جائے۔'
+      }
     },
     folder: {
       heading: 'محفوظ کریں',
