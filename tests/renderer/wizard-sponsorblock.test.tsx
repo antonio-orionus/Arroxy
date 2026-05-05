@@ -82,7 +82,8 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
     },
     analytics: {
       track: vi.fn()
-    }
+    },
+    diagnostics: { logWizardStep: vi.fn() }
   };
 }
 
@@ -118,6 +119,7 @@ function resetStore() {
 beforeEach(() => {
   resetStore();
   vi.clearAllMocks();
+  window.appApi = buildMockApi() as never;
 });
 
 describe('SponsorBlock wizard slice — state', () => {

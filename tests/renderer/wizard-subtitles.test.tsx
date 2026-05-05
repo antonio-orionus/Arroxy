@@ -84,7 +84,8 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, getFormat
     },
     analytics: {
       track: vi.fn()
-    }
+    },
+    diagnostics: { logWizardStep: vi.fn() }
   };
 }
 

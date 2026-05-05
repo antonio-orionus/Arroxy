@@ -66,7 +66,8 @@ describe('Queue parallel/sequential download behavior', () => {
       },
       analytics: {
         track: vi.fn()
-      }
+      },
+      diagnostics: { logWizardStep: vi.fn() }
     } as never;
   });
 

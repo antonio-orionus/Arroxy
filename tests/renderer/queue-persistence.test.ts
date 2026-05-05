@@ -42,7 +42,8 @@ describe('Queue persistence — store behavior', () => {
         onProgress: vi.fn().mockReturnValue(() => undefined),
         onClipboardUrl: vi.fn().mockReturnValue(() => undefined)
       },
-      queue: { save: saveMock, load: loadMock }
+      queue: { save: saveMock, load: loadMock },
+      diagnostics: { logWizardStep: vi.fn() }
     };
   }
 
