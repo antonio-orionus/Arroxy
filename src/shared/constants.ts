@@ -25,7 +25,7 @@ export const DEFAULTS: {
   uiTheme: 'system',
   embedChapters: true,
   embedMetadata: true,
-  embedThumbnail: true,
+  embedThumbnail: false,
   writeDescription: false,
   writeThumbnail: false
 };

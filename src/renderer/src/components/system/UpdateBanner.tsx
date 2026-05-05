@@ -8,9 +8,9 @@ interface Props {
   info: UpdateAvailablePayload;
   installing: boolean;
   installError: string | null;
-  onInstall(): void;
-  onDownload(): void;
-  onDismiss(): void;
+  onInstall: () => void;
+  onDownload: () => void;
+  onDismiss: () => void;
 }
 
 const DOWNLOAD_URL = 'https://arroxy.orionus.dev/';

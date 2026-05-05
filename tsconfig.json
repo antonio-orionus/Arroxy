@@ -29,6 +29,7 @@
     "electron.vite.config.ts",
     "vitest.config.mts",
     "playwright.config.ts",
+    "playwright.browser.config.ts",
     "eslint.config.mjs",
     "tests",
     "scripts"

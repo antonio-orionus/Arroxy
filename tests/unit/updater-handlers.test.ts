@@ -201,7 +201,7 @@ describe('registerUpdaterHandlers', () => {
     registerUpdaterHandlers(makeWindow());
 
     const err = new Error('network failure');
-    handlers['error']!(err);
+    handlers.error!(err);
 
     expect(log.error).toHaveBeenCalledWith('[updater]', 'network failure');
   });
@@ -255,7 +255,7 @@ describe('registerUpdaterHandlers', () => {
     registerUpdaterHandlers(makeWindow());
 
     const promise = installHandler!();
-    handlers['error']!(new Error('checksum mismatch'));
+    handlers.error!(new Error('checksum mismatch'));
     await expect(promise).resolves.toEqual({ ok: false, error: 'checksum mismatch' });
   });
 

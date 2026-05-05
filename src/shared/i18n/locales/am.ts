@@ -198,7 +198,7 @@ const am = {
       },
       embedThumbnail: {
         label: 'ድንክ ምስል ክተት',
-        description: 'የሽፋን ስዕል ውስጥ ፋይሉ። MP4 / M4A ብቻ — ንዑስ ርዕሶቹ ሲካተቱ ይዘለሉ።'
+        description: 'የሽፋን ስዕል ውስጥ ፋይሉ። WebM ቪዲዮ ወደ MKV ይቀየራል፤ ንዑስ ርዕሶቹ ሲካተቱ ይዘለሉ።'
       },
       writeDescription: {
         label: 'መግለጫ አስቀምጥ',

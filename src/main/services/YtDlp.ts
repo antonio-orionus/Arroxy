@@ -2,6 +2,7 @@ import type { ChildProcessWithoutNullStreams } from 'node:child_process';
 import { spawnYtDlp } from '@main/utils/process';
 import { classifyStderr, extractLastError, type StderrSignal } from '@main/utils/ytdlpErrors';
 import { resolveCookiesPath } from './cookiesResolver';
+import { nonEmpty } from '@shared/format';
 import { EMBED_CONTAINER_EXT } from '@shared/subtitlePath';
 import type { SubtitleFormat, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, StatusKey, AudioConvert } from '@shared/types';
 import { resolveEmbedPolicy } from '@shared/embedPolicy';
@@ -52,12 +53,12 @@ export type YtDlpRequest =
       writeThumbnail?: boolean;
     };
 
-export type YtDlpSignal = {
+export interface YtDlpSignal {
   onAttempt?: (attempt: 0 | 1 | 2) => void;
   onSpawn?: (proc: ChildProcessWithoutNullStreams) => void;
   onStdout?: (chunk: string) => void;
   onStderr?: (chunk: string) => void;
-};
+}
 
 export type YtDlpResult =
   | {
@@ -125,14 +126,14 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 
     opts.signal?.onSpawn?.(proc);
 
-    proc.stdout.on('data', (chunk) => {
-      const text = chunk.toString() as string;
+    proc.stdout.on('data', (chunk: Buffer) => {
+      const text = chunk.toString();
       stdout += text;
       opts.signal?.onStdout?.(text);
     });
 
-    proc.stderr.on('data', (chunk) => {
-      const text = chunk.toString() as string;
+    proc.stderr.on('data', (chunk: Buffer) => {
+      const text = chunk.toString();
       stderr += text;
       opts.signal?.onStderr?.(text);
     });
@@ -312,7 +313,7 @@ export class YtDlp {
     if (!this._ytDlpPath) await this.prepare();
     const settings = await this.settingsStore.get();
     const cookiesPath = resolveCookiesPath(settings);
-    const proxyUrl = settings.proxyUrl?.trim() || undefined;
+    const proxyUrl = nonEmpty(settings.proxyUrl?.trim());
     const { args, subtitleFormat } = buildArgs(req);
     const result = await invokeWithRetry({
       url: req.url,

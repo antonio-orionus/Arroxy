@@ -3,7 +3,9 @@ import type { RecentJob } from '@shared/types';
 
 const MAX_JOBS = 30;
 
-type RecentJobsData = { jobs: RecentJob[] };
+interface RecentJobsData {
+  jobs: RecentJob[];
+}
 
 export class RecentJobsStore {
   private readonly store: Store<RecentJobsData>;

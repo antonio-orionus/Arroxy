@@ -7,7 +7,7 @@ export function nextMonotonicPercent(current: number, incoming?: number): number
 const UNITS: Record<string, number> = { B: 1, KiB: 1024, MiB: 1024 ** 2, GiB: 1024 ** 3 };
 
 export function parseSpeedBps(speed: string): number | null {
-  const match = speed.match(/^([\d.]+)\s*(B|KiB|MiB|GiB)\/s$/);
+  const match = /^([\d.]+)\s*(B|KiB|MiB|GiB)\/s$/.exec(speed);
   if (!match) return null;
   const unit = UNITS[match[2]];
   if (unit === undefined) return null;
@@ -51,7 +51,7 @@ export class ProgressFormatter {
       return 'Merging…';
     }
 
-    const ffmpegMatch = line.match(/time=(\d{2}:\d{2}:\d{2}).*?speed=\s*(\S+x)/);
+    const ffmpegMatch = /time=(\d{2}:\d{2}:\d{2}).*?speed=\s*(\S+x)/.exec(line);
     if (ffmpegMatch) {
       this.lastDetail = `Merging… ${ffmpegMatch[2]} · ${ffmpegMatch[1]}`;
       return this.lastDetail;
@@ -59,7 +59,7 @@ export class ProgressFormatter {
 
     if (!line.startsWith('[download]')) return null;
 
-    const match = line.match(/\bat\s+(.+?)\s+ETA\s+(.+)$/);
+    const match = /\bat\s+(.+?)\s+ETA\s+(.+)$/.exec(line);
     if (!match) return null;
 
     const speedStr = match[1].trim();
@@ -71,7 +71,7 @@ export class ProgressFormatter {
     const now = Date.now();
 
     if (this.lastEmittedSpeedBps !== null && speedBps < this.lastEmittedSpeedBps * SPIKE_DROP_RATIO) {
-      if (this.suppressedSinceMs === null) this.suppressedSinceMs = now;
+      this.suppressedSinceMs ??= now;
       if (now - this.suppressedSinceMs < SUPPRESSION_WINDOW_MS) {
         return this.lastDetail;
       }

@@ -1,7 +1,7 @@
 import type { AppSettings } from '@shared/types';
+import { nonEmpty } from '@shared/format';
 
 export function resolveCookiesPath(settings: AppSettings): string | undefined {
   if (!settings.cookiesEnabled) return undefined;
-  const trimmed = settings.cookiesPath?.trim();
-  return trimmed ? trimmed : undefined;
+  return nonEmpty(settings.cookiesPath?.trim());
 }

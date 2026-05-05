@@ -198,7 +198,7 @@ const en = {
       },
       embedThumbnail: {
         label: 'Embed thumbnail',
-        description: 'Cover art inside the file. MP4 / M4A only — skipped when subtitles are embedded.'
+        description: 'Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded.'
       },
       writeDescription: {
         label: 'Save description',

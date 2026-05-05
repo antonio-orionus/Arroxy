@@ -212,7 +212,7 @@ describe('SubtitleOnlyPhase', () => {
   it('onSpawn → calls attachYtDlpProcess with proc and fetchingSubtitles', async () => {
     const fakeProc = {};
     const runMock = vi.fn().mockImplementation(async (_req, signal) => {
-      signal?.onSpawn?.(fakeProc as never);
+      signal?.onSpawn?.(fakeProc);
       return SUCCESS;
     });
     const ctx: PhaseContext = {

@@ -9,6 +9,7 @@
 // reports to stdout; exits cleanly.
 
 import { app } from 'electron';
+import { nonEmpty } from '@shared/format';
 import type { BinaryManager } from './services/BinaryManager';
 import type { FormatProbeService } from './services/FormatProbeService';
 import type { TokenService } from './services/TokenService';
@@ -92,8 +93,7 @@ export async function runSmokeMode(deps: SmokeDeps): Promise<number> {
 }
 
 export function readSmokeUrl(): string | null {
-  const url = process.env.ARROXY_SMOKE_URL?.trim();
-  return url ? url : null;
+  return nonEmpty(process.env.ARROXY_SMOKE_URL?.trim()) ?? null;
 }
 
 export function exitWithCode(code: number): void {

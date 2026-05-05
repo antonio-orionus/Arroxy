@@ -198,7 +198,7 @@ const fr = {
       },
       embedThumbnail: {
         label: 'Intégrer la miniature',
-        description: 'Pochette dans le fichier. MP4 / M4A uniquement — ignoré quand les sous-titres sont intégrés.'
+        description: 'Pochette dans le fichier. Les vidéos WebM seront remuxées en MKV ; ignoré quand les sous-titres sont intégrés.'
       },
       writeDescription: {
         label: 'Enregistrer la description',

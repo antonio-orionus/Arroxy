@@ -286,6 +286,7 @@ export class DownloadService extends EventEmitter {
     return ok({ cancelled: hadJobs });
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await -- IPC handler signature requires Promise
   async pause(jobId?: string): Promise<Result<PauseDownloadOutput>> {
     const active = jobId ? this.activeJobs.get(jobId) : [...this.activeJobs.values()][0];
     if (!active) {
@@ -380,7 +381,7 @@ export class DownloadService extends EventEmitter {
     for (const line of splitStderrLines(text)) {
       logger.info(line, { jobId, source: 'yt-dlp-progress' });
 
-      const destMatch = line.match(/^\[download\] Destination:\s+(.+)$/);
+      const destMatch = /^\[download\] Destination:\s+(.+)$/.exec(line);
       if (destMatch) {
         const path = destMatch[1];
         const kind = isSubtitleFile(path) ? 'subtitle' : 'media';
@@ -394,7 +395,7 @@ export class DownloadService extends EventEmitter {
         continue;
       }
 
-      const mergerMatch = line.match(/^\[Merger\] Merging formats into "([^"]+)"|^\[Merger\] Merging formats into (.+)$/);
+      const mergerMatch = /^\[Merger\] Merging formats into "([^"]+)"|^\[Merger\] Merging formats into (.+)$/.exec(line);
       if (mergerMatch) {
         active.mediaPath = mergerMatch[1] ?? mergerMatch[2];
       }
@@ -402,7 +403,7 @@ export class DownloadService extends EventEmitter {
       // yt-dlp emits this when the merged file pre-exists from an earlier run
       // and skips the download entirely. No [download] Destination: or [Merger]
       // line will follow, so this is our only chance to record mediaPath.
-      const alreadyMatch = line.match(/^\[download\]\s+(.+?)\s+has already been downloaded$/);
+      const alreadyMatch = /^\[download\]\s+(.+?)\s+has already been downloaded$/.exec(line);
       if (alreadyMatch && !isSubtitleFile(alreadyMatch[1])) {
         active.mediaPath = alreadyMatch[1];
         continue;
@@ -412,14 +413,14 @@ export class DownloadService extends EventEmitter {
       // after postprocessing. Update mediaPath only when src is the file we're
       // tracking — sidecar moves (.jpg, .description) don't touch mediaPath
       // because their src never matched.
-      const moveMatch = line.match(/^\[MoveFiles\] Moving file "([^"]+)" to "([^"]+)"$/);
+      const moveMatch = /^\[MoveFiles\] Moving file "([^"]+)" to "([^"]+)"$/.exec(line);
       if (moveMatch && active.mediaPath === moveMatch[1]) {
         active.mediaPath = moveMatch[2];
         continue;
       }
 
       // eslint-disable-next-line security/detect-unsafe-regex -- bounded: \d+ is constrained by yt-dlp output line length
-      const sleepMatch = line.match(/Sleeping (\d+(?:\.\d+)?) seconds/);
+      const sleepMatch = /Sleeping (\d+(?:\.\d+)?) seconds/.exec(line);
       if (sleepMatch) {
         const seconds = Math.round(parseFloat(sleepMatch[1]));
         this.emitStatus(jobId, 'download', STATUS_KEY.sleepingBetweenRequests, { seconds });
@@ -489,7 +490,7 @@ export class DownloadService extends EventEmitter {
     if (!active) return;
     let percent = 0;
 
-    const timer = setInterval(async () => {
+    const timer = setInterval(() => {
       percent += 10;
 
       const line = `[download] ${percent.toFixed(1)}% of ~10MiB at 1.2MiB/s ETA 00:0${Math.max(0, 10 - percent / 10)}`;
@@ -498,7 +499,7 @@ export class DownloadService extends EventEmitter {
       if (percent >= 100) {
         clearInterval(timer);
         this.emitStatus(jobId, 'done', STATUS_KEY.complete);
-        await this.finalize(active.job, 'completed');
+        void this.finalize(active.job, 'completed');
       }
     }, 250);
 

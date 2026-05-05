@@ -198,7 +198,7 @@ const ar = {
       },
       embedThumbnail: {
         label: 'تضمين الصورة المصغرة',
-        description: 'صورة الغلاف داخل الملف. MP4 / M4A فقط — يُتخطى عند تضمين الترجمات.'
+        description: 'صورة الغلاف داخل الملف. سيُعاد تغليف فيديو WebM إلى MKV؛ يُتخطى عند تضمين الترجمات.'
       },
       writeDescription: {
         label: 'حفظ الوصف',

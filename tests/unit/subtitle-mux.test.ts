@@ -40,8 +40,8 @@ beforeEach(() => {
 describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
   it('one sub: -y -i video -i sub -c copy -c:s srt -metadata:s:s:0 language=eng tempPath', async () => {
     vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never);
-    vi.mocked(rename).mockResolvedValue(undefined as never);
-    vi.mocked(unlink).mockResolvedValue(undefined as never);
+    vi.mocked(rename).mockResolvedValue(undefined);
+    vi.mocked(unlink).mockResolvedValue(undefined);
 
     await muxSubtitlesIntoVideo({
       ffmpegPath: '/fake/ffmpeg',
@@ -70,8 +70,8 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 
   it('two subs → two -i flags and two -metadata entries indexed correctly', async () => {
     vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never);
-    vi.mocked(rename).mockResolvedValue(undefined as never);
-    vi.mocked(unlink).mockResolvedValue(undefined as never);
+    vi.mocked(rename).mockResolvedValue(undefined);
+    vi.mocked(unlink).mockResolvedValue(undefined);
 
     await muxSubtitlesIntoVideo({
       ffmpegPath: '/fake/ffmpeg',
@@ -95,8 +95,8 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 
   it('ISO 639-1 → 639-2/B: ja→jpn, zh→chi, ko→kor, ru→rus', async () => {
     vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never);
-    vi.mocked(rename).mockResolvedValue(undefined as never);
-    vi.mocked(unlink).mockResolvedValue(undefined as never);
+    vi.mocked(rename).mockResolvedValue(undefined);
+    vi.mocked(unlink).mockResolvedValue(undefined);
 
     await muxSubtitlesIntoVideo({
       ffmpegPath: '/fake/ffmpeg',
@@ -115,8 +115,8 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 
   it('unknown / 3-letter lang passes through unchanged', async () => {
     vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never);
-    vi.mocked(rename).mockResolvedValue(undefined as never);
-    vi.mocked(unlink).mockResolvedValue(undefined as never);
+    vi.mocked(rename).mockResolvedValue(undefined);
+    vi.mocked(unlink).mockResolvedValue(undefined);
 
     await muxSubtitlesIntoVideo({
       ffmpegPath: '/fake/ffmpeg',
@@ -133,8 +133,8 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 
   it('unrecognized path lang → und (detectSubtitleLang returns null)', async () => {
     vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never);
-    vi.mocked(rename).mockResolvedValue(undefined as never);
-    vi.mocked(unlink).mockResolvedValue(undefined as never);
+    vi.mocked(rename).mockResolvedValue(undefined);
+    vi.mocked(unlink).mockResolvedValue(undefined);
 
     await muxSubtitlesIntoVideo({
       ffmpegPath: '/fake/ffmpeg',
@@ -153,8 +153,8 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 describe('muxSubtitlesIntoVideo — outcomes', () => {
   it('ffmpeg exit 0 → { ok: true, outputPath }', async () => {
     vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never);
-    vi.mocked(rename).mockResolvedValue(undefined as never);
-    vi.mocked(unlink).mockResolvedValue(undefined as never);
+    vi.mocked(rename).mockResolvedValue(undefined);
+    vi.mocked(unlink).mockResolvedValue(undefined);
 
     const result = await muxSubtitlesIntoVideo({
       ffmpegPath: '/fake/ffmpeg',
@@ -219,8 +219,8 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
   it('onSpawn invoked with the ffmpeg proc', async () => {
     const fakeProc = makeFakeFFmpeg(0);
     vi.mocked(spawnFFmpeg).mockReturnValue(fakeProc as never);
-    vi.mocked(rename).mockResolvedValue(undefined as never);
-    vi.mocked(unlink).mockResolvedValue(undefined as never);
+    vi.mocked(rename).mockResolvedValue(undefined);
+    vi.mocked(unlink).mockResolvedValue(undefined);
 
     const onSpawn = vi.fn();
     await muxSubtitlesIntoVideo({
@@ -237,8 +237,8 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
 
   it('success renames tempPath to outputPath and deletes sub files', async () => {
     vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never);
-    vi.mocked(rename).mockResolvedValue(undefined as never);
-    vi.mocked(unlink).mockResolvedValue(undefined as never);
+    vi.mocked(rename).mockResolvedValue(undefined);
+    vi.mocked(unlink).mockResolvedValue(undefined);
 
     await muxSubtitlesIntoVideo({
       ffmpegPath: '/fake/ffmpeg',
@@ -260,7 +260,7 @@ describe('dedupeSubtitleFiles', () => {
   it('.srt: reads, dedupes, writes back if content changed', async () => {
     const original = '1\n00:00:00,000 --> 00:00:01,000\nhello\n\n2\n00:00:00,500 --> 00:00:01,500\nhello\nworld\n';
     const parsed = '1\n00:00:00,000 --> 00:00:01,500\nhello\nworld';
-    vi.mocked(readFile).mockResolvedValue(original as never);
+    vi.mocked(readFile).mockResolvedValue(original);
 
     await dedupeSubtitleFiles(['/tmp/video.en.srt'], JOB_ID, () => false);
 
@@ -272,7 +272,7 @@ describe('dedupeSubtitleFiles', () => {
 
   it('.vtt: reads, dedupes, writes back if content changed', async () => {
     const original = 'WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nhello\n\n00:00:00.500 --> 00:00:01.500\nhello world\n';
-    vi.mocked(readFile).mockResolvedValue(original as never);
+    vi.mocked(readFile).mockResolvedValue(original);
 
     await dedupeSubtitleFiles(['/tmp/video.en.vtt'], JOB_ID, () => false);
 
@@ -290,7 +290,7 @@ describe('dedupeSubtitleFiles', () => {
   it('content unchanged → writeFile not called', async () => {
     // A single non-duplicate SRT cue — dedupe output equals input
     const content = '1\n00:00:00,000 --> 00:00:01,000\nhello';
-    vi.mocked(readFile).mockResolvedValue(content as never);
+    vi.mocked(readFile).mockResolvedValue(content);
 
     await dedupeSubtitleFiles(['/tmp/video.en.srt'], JOB_ID, () => false);
 
@@ -304,7 +304,7 @@ describe('dedupeSubtitleFiles', () => {
   });
 
   it('shouldAbort() true before file → that file is skipped', async () => {
-    vi.mocked(readFile).mockResolvedValue('content' as never);
+    vi.mocked(readFile).mockResolvedValue('content');
 
     await dedupeSubtitleFiles(['/tmp/video.en.srt', '/tmp/video.ja.srt'], JOB_ID, () => true);
 
@@ -312,7 +312,7 @@ describe('dedupeSubtitleFiles', () => {
   });
 
   it('processes multiple files', async () => {
-    vi.mocked(readFile).mockResolvedValue('1\n00:00:00,000 --> 00:00:01,000\nhello' as never);
+    vi.mocked(readFile).mockResolvedValue('1\n00:00:00,000 --> 00:00:01,000\nhello');
 
     await dedupeSubtitleFiles(['/tmp/video.en.srt', '/tmp/video.ja.srt'], JOB_ID, () => false);
 

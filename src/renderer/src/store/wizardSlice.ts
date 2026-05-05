@@ -1,6 +1,6 @@
 import { DEFAULTS } from '@shared/constants';
 import { DEFAULT_AUDIO_BITRATE } from '@shared/schemas';
-import type { AppSettings, FormatOption, Preset, SubtitleMap, SponsorBlockMode, SponsorBlockCategory } from '@shared/types';
+import type { AppSettings, FormatOption, Preset, SubtitleMap } from '@shared/types';
 import { cleanYoutubeUrl } from '@shared/url';
 import type { AudioSelection, GetState, SetState, WizardSlice, WizardStep } from './types';
 
@@ -35,7 +35,7 @@ function applyPreset(preset: Preset, formats: FormatOption[]): { videoFormatId: 
   if (preset === 'subtitle-only') return { videoFormatId: '', audioSelection: { kind: 'none' } };
   if (preset === 'balanced') {
     const target = grouped.find((g) => {
-      const m = g.resolution.match(/(\d+)/);
+      const m = /(\d+)/.exec(g.resolution);
       return m ? Number(m[1]) <= 720 : false;
     });
     return {
@@ -89,8 +89,8 @@ const RESET_STATE = {
   wizardSubtitleSkipped: false,
   wizardSubtitleMode: DEFAULTS.subtitleMode,
   wizardSubtitleFormat: DEFAULTS.subtitleFormat,
-  wizardSponsorBlockMode: DEFAULTS.sponsorBlockMode as SponsorBlockMode,
-  wizardSponsorBlockCategories: DEFAULTS.sponsorBlockCategories as SponsorBlockCategory[],
+  wizardSponsorBlockMode: DEFAULTS.sponsorBlockMode,
+  wizardSponsorBlockCategories: DEFAULTS.sponsorBlockCategories,
   wizardEmbedChapters: DEFAULTS.embedChapters,
   wizardEmbedMetadata: DEFAULTS.embedMetadata,
   wizardEmbedThumbnail: DEFAULTS.embedThumbnail,
@@ -200,14 +200,36 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
       if (persist) await window.appApi.settings.update({ defaultOutputDir: dir });
     },
 
-    setSelectedVideoFormatId: (id) => set({ selectedVideoFormatId: id, activePreset: id === '' ? 'audio-only' : null }),
+    // Invariant: (video !== '') && (audio.kind === 'convert') is invalid —
+    // convert (-x) is mutually exclusive with video+audio merging.
+    // Reconcile here instead of relying on the UI to prevent it.
+    setSelectedVideoFormatId: (id) =>
+      set((state) => {
+        const reconcileAudio = id !== '' && state.audioSelection.kind === 'convert';
+        if (!reconcileAudio) {
+          return { selectedVideoFormatId: id, activePreset: id === '' ? 'audio-only' : null };
+        }
+        const bestAudio = state.wizardFormats.find((f) => f.isAudioOnly)?.formatId ?? null;
+        return {
+          selectedVideoFormatId: id,
+          activePreset: null,
+          audioSelection: nativeAudio(bestAudio)
+        };
+      }),
     setAudioSelection: (sel) =>
-      set((state) => ({
-        audioSelection: sel,
-        activePreset: state.selectedVideoFormatId === '' ? 'audio-only' : null,
-        // Keep the user's bitrate choice sticky across mp3/m4a/opus toggles.
-        lastConvertBitrate: sel.kind === 'convert' && sel.target !== 'wav' ? sel.bitrateKbps : state.lastConvertBitrate
-      })),
+      set((state) => {
+        // Symmetric guard: picking a convert target while a video is selected
+        // clears the video to audio-only — the user's intent is "I want this
+        // audio-converted file", and convert can't be merged with video.
+        const clearVideo = sel.kind === 'convert' && state.selectedVideoFormatId !== '';
+        return {
+          audioSelection: sel,
+          selectedVideoFormatId: clearVideo ? '' : state.selectedVideoFormatId,
+          activePreset: clearVideo || state.selectedVideoFormatId === '' ? 'audio-only' : null,
+          // Keep the user's bitrate choice sticky across mp3/m4a/opus toggles.
+          lastConvertBitrate: sel.kind === 'convert' && sel.target !== 'wav' ? sel.bitrateKbps : state.lastConvertBitrate
+        };
+      }),
 
     setPreset: (p) => {
       const { wizardFormats } = get();

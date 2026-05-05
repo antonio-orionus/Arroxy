@@ -1,5 +1,6 @@
 import type { BrowserWindow } from 'electron';
 import { IPC_CHANNELS } from '@shared/ipc';
+import type { ProgressEvent, StatusEvent } from '@shared/types';
 import type { DownloadService } from './DownloadService';
 
 const PROGRESS_THROTTLE_MS = 100;
@@ -16,7 +17,7 @@ export class DownloadEventBridge {
     this.downloadService.removeAllListeners('status');
     this.downloadService.removeAllListeners('progress');
 
-    this.downloadService.on('status', (event) => {
+    this.downloadService.on('status', (event: StatusEvent) => {
       if (event.stage === 'done' || event.stage === 'error') {
         this.lastProgressAt.delete(event.jobId);
       }
@@ -24,7 +25,7 @@ export class DownloadEventBridge {
       this.window.webContents.send(IPC_CHANNELS.eventsStatus, event);
     });
 
-    this.downloadService.on('progress', (event) => {
+    this.downloadService.on('progress', (event: ProgressEvent) => {
       if (this.window.isDestroyed()) return;
       const now = Date.now();
       const last = this.lastProgressAt.get(event.jobId) ?? 0;

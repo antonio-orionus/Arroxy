@@ -120,7 +120,10 @@ describe('DownloadService (mock mode)', () => {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
-    type PausedDownload = { job: DownloadJob; input: { url: string; outputDir: string } };
+    interface PausedDownload {
+      job: DownloadJob;
+      input: { url: string; outputDir: string };
+    }
     (service as unknown as { pausedJobs: Map<string, PausedDownload> }).pausedJobs.set(pausedJob.id, { job: pausedJob, input: { url: pausedJob.url, outputDir: pausedJob.outputDir } });
 
     const cancelResult = await service.cancel(pausedJob.id);
@@ -190,7 +193,10 @@ describe('DownloadService (mock mode)', () => {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
-    type PausedDownload = { job: DownloadJob; input: { url: string; outputDir: string } };
+    interface PausedDownload {
+      job: DownloadJob;
+      input: { url: string; outputDir: string };
+    }
     (service as unknown as { pausedJobs: Map<string, PausedDownload> }).pausedJobs.set(pausedJob.id, { job: pausedJob, input: { url: pausedJob.url, outputDir: pausedJob.outputDir } });
 
     const resumePromise = service.resume(pausedJob.id);

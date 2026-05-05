@@ -83,8 +83,10 @@ describe('Queue persistence — store behavior', () => {
       expect(queue[0].status).toBe('done');
     });
 
-    it('opens the drawer when restored queue is non-empty', async () => {
-      window.appApi = buildMockApi([makeItem({ id: 'x', status: 'pending' })]) as never;
+    it('restores drawerOpen=true from settings when queue is non-empty', async () => {
+      const api = buildMockApi([makeItem({ id: 'x', status: 'pending' })]);
+      api.settings.get = vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false, drawerOpen: true }));
+      window.appApi = api as never;
 
       await useAppStore.getState().initialize();
 
@@ -232,10 +234,10 @@ describe('Queue persistence — store behavior', () => {
       expect(useAppStore.getState().queue[0].status).toBe('error');
       expect(useAppStore.getState().queue[0].error?.rawMessage).toBe('kaboom');
       expect(saveMock).toHaveBeenCalled();
-      const lastSavedItems = saveMock.mock.calls.at(-1)?.[0] as Array<{
+      const lastSavedItems = saveMock.mock.calls.at(-1)?.[0] as {
         id: string;
         status: string;
-      }>;
+      }[];
       expect(lastSavedItems.find((i) => i.id === 'fail-start')?.status).toBe('error');
     });
   });

@@ -198,7 +198,7 @@ const zh = {
       },
       embedThumbnail: {
         label: '嵌入缩略图',
-        description: '文件内封面图。仅限 MP4 / M4A — 嵌入字幕时跳过。'
+        description: '文件内封面图。WebM 视频将重新封装为 MKV；嵌入字幕时跳过。'
       },
       writeDescription: {
         label: '保存描述',

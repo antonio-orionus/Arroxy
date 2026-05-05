@@ -74,7 +74,8 @@ export class HiddenWindowTokenProvider implements TokenProvider {
   async getVisitorData(): Promise<string> {
     const win = this.getWindow();
     await this.ensureReady();
-    return win.webContents.executeJavaScript(`(function(){try{return window.ytcfg?.get?.('VISITOR_DATA')||window.ytcfg?.data_?.VISITOR_DATA||'';}catch(e){return '';}})()`);
+    const result: unknown = await win.webContents.executeJavaScript(`(function(){try{return window.ytcfg?.get?.('VISITOR_DATA')||window.ytcfg?.data_?.VISITOR_DATA||'';}catch(e){return '';}})()`);
+    return typeof result === 'string' ? result : '';
   }
 
   async mintToken(contentBinding: string): Promise<string> {
@@ -84,8 +85,15 @@ export class HiddenWindowTokenProvider implements TokenProvider {
     const backoffMs = 1_000;
     const maxTries = 10;
 
+    interface WpcResult {
+      token?: string;
+      backoff?: boolean;
+      error?: string;
+    }
+    const isWpcResult = (v: unknown): v is WpcResult => typeof v === 'object' && v !== null;
+
     for (let attempt = 0; attempt < maxTries; attempt += 1) {
-      const result = await win.webContents.executeJavaScript(`
+      const raw: unknown = await win.webContents.executeJavaScript(`
         (async function() {
           try {
             const keys = new Set([...Object.keys(window.top), ...Object.getOwnPropertyNames(window.top)]);
@@ -113,14 +121,15 @@ export class HiddenWindowTokenProvider implements TokenProvider {
           }
         })()
       `);
+      const result: WpcResult = isWpcResult(raw) ? raw : {};
 
-      if (result?.token) return result.token as string;
-      if (result?.backoff) {
+      if (typeof result.token === 'string' && result.token) return result.token;
+      if (result.backoff) {
         await delay(backoffMs);
         continue;
       }
 
-      const errorMessage = result?.error ?? 'unknown error';
+      const errorMessage = result.error ?? 'unknown error';
       logger.warn('PoT scrape: mintToken returned error', {
         error: errorMessage,
         attempt

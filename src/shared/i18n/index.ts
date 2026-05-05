@@ -70,7 +70,7 @@ export function initI18n(language: SupportedLang): I18nInstance {
   void i18next.use(initReactI18next).init({
     lng: language,
     fallbackLng: 'en',
-    supportedLngs: SUPPORTED_LANGS as unknown as string[],
+    supportedLngs: SUPPORTED_LANGS,
     defaultNS: 'translation',
     ns: ['translation'],
     resources: Object.fromEntries((Object.keys(RESOURCES) as SupportedLang[]).map((k) => [k, { translation: RESOURCES[k] }])),

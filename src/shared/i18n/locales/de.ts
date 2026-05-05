@@ -198,7 +198,7 @@ const de = {
       },
       embedThumbnail: {
         label: 'Thumbnail einbetten',
-        description: 'Cover-Art in der Datei. Nur MP4 / M4A — wird übersprungen, wenn Untertitel eingebettet werden.'
+        description: 'Cover-Art in der Datei. WebM-Video wird zu MKV remuxed; wird übersprungen, wenn Untertitel eingebettet werden.'
       },
       writeDescription: {
         label: 'Beschreibung speichern',

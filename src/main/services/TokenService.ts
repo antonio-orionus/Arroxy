@@ -1,5 +1,6 @@
 import log from 'electron-log/main';
 import { parseVideoId } from '@shared/url';
+import { nonEmpty } from '@shared/format';
 import { unknownToMessage } from '@main/utils/errorFactory';
 import type { TokenProvider } from '@main/token/TokenProvider';
 
@@ -7,11 +8,11 @@ const logger = log.scope('token');
 
 const TTL_MS = 5 * 60 * 60 * 1_000; // 5 hours — within ~6 h token lifetime
 
-type TokenCache = {
+interface TokenCache {
   token: string;
   visitorData: string;
   mintedAt: number;
-};
+}
 
 export class TokenService {
   private cache: TokenCache | null = null;
@@ -45,7 +46,7 @@ export class TokenService {
     try {
       await this.provider.ensureReady();
       const visitorData = await this.provider.getVisitorData();
-      const binding = visitorData || parseVideoId(url) || url;
+      const binding = nonEmpty(visitorData) ?? parseVideoId(url) ?? url;
 
       logger.info('Minting PO token', { bindingLength: binding.length });
       const token = await this.provider.mintToken(binding);

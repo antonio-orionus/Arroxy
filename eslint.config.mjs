@@ -13,10 +13,16 @@ export default tseslint.config(
     ignores: ['dist', 'out', 'node_modules', 'dist-electron', 'playwright-report', 'test-results', 'refs', 'landing-src', 'readme-src']
   },
   js.configs.recommended,
-  ...tseslint.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
   // @electron-toolkit/eslint-config-ts — curated TS rules for Electron (ban-ts-comment,
   // explicit-function-return-type with expression allowances, no-empty-function, etc.)
   ...electronToolkitTs.configs.recommended,
+  // Disable type-aware linting on non-TS files (config, build scripts) — they're not in tsconfig.
+  {
+    files: ['**/*.{js,mjs,cjs,mts,cts}'],
+    ...tseslint.configs.disableTypeChecked,
+  },
   // Security rules — scoped to main-process and shared code (Node.js surface)
   {
     files: ['src/main/**/*.ts', 'src/preload/**/*.ts', 'src/shared/**/*.ts', 'scripts/**/*.ts'],
@@ -43,6 +49,8 @@ export default tseslint.config(
       ...jsxA11y.flatConfigs.recommended.rules,
       'react/prop-types': 'off',
       'react/display-name': 'off',
+      'react/jsx-no-constructed-context-values': 'warn',
+      'react/no-array-index-key': 'warn',
     }
   },
   // All TS/TSX: hooks, refresh, and shared overrides
@@ -51,6 +59,10 @@ export default tseslint.config(
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
       globals: {
         ...globals.node,
         ...globals.browser
@@ -65,6 +77,22 @@ export default tseslint.config(
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       'no-empty': ['error', { allowEmptyCatch: true }],
+      'no-debugger': 'error',
+    }
+  },
+  // Ban console.* in main process — use electron-log instead.
+  {
+    files: ['src/main/**/*.ts'],
+    rules: {
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+    }
+  },
+  // Stores and token providers implement async-shaped contracts that callers
+  // always await; require-await is noise here even when the body is sync.
+  {
+    files: ['src/main/stores/**/*.ts', 'src/main/token/providers/**/*.ts'],
+    rules: {
+      '@typescript-eslint/require-await': 'off',
     }
   },
   // CommonJS files
@@ -93,12 +121,31 @@ export default tseslint.config(
       '@typescript-eslint/explicit-function-return-type': 'off',
     }
   },
-  // Test files — mocking patterns legitimately use `any`; describe/it callbacks infer void
+  // Test files — mocking patterns legitimately use `any`; describe/it callbacks infer void.
+  // Type-aware unsafe-* rules and unbound-method are noise here because mocks intentionally
+  // strip types and pass method refs around.
   {
     files: ['tests/**/*.ts', 'tests/**/*.tsx', '**/*.test.ts', '**/*.test.tsx'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/unbound-method': 'off',
+      '@typescript-eslint/require-await': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
+    }
+  },
+  // Playwright/Vitest config files — same reasoning as tests.
+  {
+    files: ['playwright.*.config.ts', 'playwright.config.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
     }
   }
 );

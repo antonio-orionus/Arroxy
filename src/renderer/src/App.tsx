@@ -19,8 +19,8 @@ const FEEDBACK_URL = 'https://github.com/antonio-orionus/Arroxy/issues/new/choos
 
 function buildDebugInfo(): string {
   const ua = navigator.userAgent;
-  const electron = ua.match(/Electron\/([\d.]+)/)?.[1] ?? 'unknown';
-  const chrome = ua.match(/Chrome\/([\d.]+)/)?.[1] ?? 'unknown';
+  const electron = /Electron\/([\d.]+)/.exec(ua)?.[1] ?? 'unknown';
+  const chrome = /Chrome\/([\d.]+)/.exec(ua)?.[1] ?? 'unknown';
   return [`Platform: ${window.platform}`, `Electron: ${electron}`, `Chrome: ${chrome}`].join('\n');
 }
 

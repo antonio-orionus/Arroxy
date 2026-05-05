@@ -22,9 +22,9 @@ function sanitizeSubtitleMap(raw: Record<string, YtDlpSubtitleTrack[]> | undefin
     // request that YouTube generates live and rate-limits aggressively.
     if (isAutomaticCaptions && !lang.endsWith('-orig')) continue;
     const valid = tracks
-      .filter((t) => typeof t.ext === 'string' && t.ext.length > 0)
+      .filter((t): t is YtDlpSubtitleTrack & { ext: string } => typeof t.ext === 'string' && t.ext.length > 0)
       .map((t) => ({
-        ext: t.ext as string,
+        ext: t.ext,
         ...(t.name ? { name: t.name } : {})
       }));
     if (valid.length > 0) result[lang] = valid;
@@ -175,7 +175,7 @@ export class FormatProbeService {
       }
 
       try {
-        const raw = JSON.parse(result.stdout);
+        const raw: unknown = JSON.parse(result.stdout);
         const parseResult = ytDlpInfoSchema.safeParse(raw);
         if (!parseResult.success) {
           const message = parseResult.error.issues[0]?.message ?? 'yt-dlp output failed schema validation';

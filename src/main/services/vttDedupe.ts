@@ -14,7 +14,7 @@ const INLINE_TIMING_RE = /<\d+:\d+:\d+\.\d+>/g;
 const INLINE_STYLE_RE = /<\/?c[^>]*>/g;
 
 function parseVttTimecode(line: string): [number, number] | null {
-  const m = line.match(VTT_TIMECODE_RE);
+  const m = VTT_TIMECODE_RE.exec(line);
   if (!m) return null;
   return [timecodeToMs(m[1], m[2], m[3], m[4]), timecodeToMs(m[5], m[6], m[7], m[8])];
 }

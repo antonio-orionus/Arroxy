@@ -2,7 +2,7 @@ import type { TokenProvider } from '@main/token/TokenProvider';
 
 export class MockTokenProvider implements TokenProvider {
   async ensureReady(): Promise<void> {
-    return Promise.resolve();
+    // No-op
   }
 
   async getVisitorData(): Promise<string> {

@@ -198,7 +198,7 @@ const ja = {
       },
       embedThumbnail: {
         label: 'サムネイルを埋め込む',
-        description: 'ファイル内のカバーアート。MP4 / M4Aのみ — 字幕を埋め込む場合はスキップ。'
+        description: 'ファイル内のカバーアート。WebM動画はMKVに再パッケージされます。字幕を埋め込む場合はスキップ。'
       },
       writeDescription: {
         label: '説明を保存',

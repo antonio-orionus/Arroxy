@@ -198,7 +198,7 @@ const es = {
       },
       embedThumbnail: {
         label: 'Incrustar miniatura',
-        description: 'Portada dentro del archivo. Solo MP4 / M4A — se omite al incrustar subtítulos.'
+        description: 'Portada dentro del archivo. El vídeo WebM se remultiplexará a MKV; se omite al incrustar subtítulos.'
       },
       writeDescription: {
         label: 'Guardar descripción',

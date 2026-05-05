@@ -154,7 +154,7 @@ describe('Subtitle-only preset', () => {
   });
 
   it('downloads.start receives undefined formatId and the chosen subtitleLanguages', async () => {
-    const api = buildMockApi() as never as ReturnType<typeof buildMockApi>;
+    const api = buildMockApi();
     window.appApi = api as never;
     await useAppStore.getState().initialize();
     useAppStore.getState().setWizardUrl(YOUTUBE_URL);
@@ -704,16 +704,16 @@ describe('StepConfirm — subtitle-only safeguards', () => {
 
   it('disables download buttons when nothing is selected (no media + no subs)', () => {
     renderConfirmSubtitleOnly([]);
-    const download = screen.getByTestId('btn-download-now') as HTMLButtonElement;
-    const queue = screen.getByTestId('btn-add-to-queue') as HTMLButtonElement;
+    const download = screen.getByTestId<HTMLButtonElement>('btn-download-now');
+    const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue');
     expect(download.disabled).toBe(true);
     expect(queue.disabled).toBe(true);
   });
 
   it('enables download buttons when subtitle-only with at least one language', () => {
     renderConfirmSubtitleOnly(['en']);
-    const download = screen.getByTestId('btn-download-now') as HTMLButtonElement;
-    const queue = screen.getByTestId('btn-add-to-queue') as HTMLButtonElement;
+    const download = screen.getByTestId<HTMLButtonElement>('btn-download-now');
+    const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue');
     expect(download.disabled).toBe(false);
     expect(queue.disabled).toBe(false);
   });
@@ -722,8 +722,8 @@ describe('StepConfirm — subtitle-only safeguards', () => {
     // skipSubtitles() sets wizardSubtitleSkipped=true without clearing wizardSubtitleLanguages.
     // The effective languages are [] so there is nothing to download.
     renderConfirmSubtitleOnly(['en'], true);
-    const download = screen.getByTestId('btn-download-now') as HTMLButtonElement;
-    const queue = screen.getByTestId('btn-add-to-queue') as HTMLButtonElement;
+    const download = screen.getByTestId<HTMLButtonElement>('btn-download-now');
+    const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue');
     expect(download.disabled).toBe(true);
     expect(queue.disabled).toBe(true);
   });

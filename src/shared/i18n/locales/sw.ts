@@ -198,7 +198,7 @@ const sw = {
       },
       embedThumbnail: {
         label: 'Ingiza picha ndogo',
-        description: 'Sanaa ya jalada ndani ya faili. MP4 / M4A peke yake — hupitishwa wakati manukuu yanaingizwa.'
+        description: 'Sanaa ya jalada ndani ya faili. Video ya WebM itabadilishwa kuwa MKV; hupitishwa wakati manukuu yanaingizwa.'
       },
       writeDescription: {
         label: 'Hifadhi maelezo',

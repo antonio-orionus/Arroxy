@@ -28,7 +28,7 @@ export function VideoPhase(embed: boolean): Phase {
       const sbConfig =
         input.sponsorBlockMode && input.sponsorBlockMode !== 'off' && input.sponsorBlockCategories?.length
           ? {
-              mode: input.sponsorBlockMode as Exclude<typeof input.sponsorBlockMode, 'off'>,
+              mode: input.sponsorBlockMode,
               categories: input.sponsorBlockCategories
             }
           : undefined;

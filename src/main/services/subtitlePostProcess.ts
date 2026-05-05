@@ -57,7 +57,7 @@ function toIso639(lang: string): string {
   return lang;
 }
 
-function buildSubtitleEmbedArgs(opts: { videoPath: string; subtitleTracks: Array<{ path: string; lang: string }>; outputPath: string }): string[] {
+function buildSubtitleEmbedArgs(opts: { videoPath: string; subtitleTracks: { path: string; lang: string }[]; outputPath: string }): string[] {
   const args: string[] = ['-y'];
   args.push('-i', opts.videoPath);
   for (const track of opts.subtitleTracks) args.push('-i', track.path);

@@ -23,7 +23,7 @@ function makeProvider(
 describe('TokenService.warmUp', () => {
   it('pre-mints token when visitorData is available and populates cache', async () => {
     const provider = makeProvider();
-    const service = new TokenService(provider as never);
+    const service = new TokenService(provider);
 
     await service.warmUp();
 
@@ -40,7 +40,7 @@ describe('TokenService.warmUp', () => {
 
   it('skips minting when visitorData is empty', async () => {
     const provider = makeProvider({ getVisitorData: vi.fn().mockResolvedValue('') });
-    const service = new TokenService(provider as never);
+    const service = new TokenService(provider);
 
     await service.warmUp();
 
@@ -56,7 +56,7 @@ describe('TokenService.warmUp', () => {
     const provider = makeProvider({
       ensureReady: vi.fn().mockRejectedValue(new Error('Network error'))
     });
-    const service = new TokenService(provider as never);
+    const service = new TokenService(provider);
 
     await expect(service.warmUp()).resolves.toBeUndefined();
   });
@@ -65,7 +65,7 @@ describe('TokenService.warmUp', () => {
 describe('TokenService.mintTokenForUrl', () => {
   it('returns cached token without calling provider', async () => {
     const provider = makeProvider();
-    const service = new TokenService(provider as never);
+    const service = new TokenService(provider);
 
     // Inject cache directly
     (service as unknown as { cache: unknown }).cache = {
@@ -82,7 +82,7 @@ describe('TokenService.mintTokenForUrl', () => {
 
   it('re-mints when cache is expired', async () => {
     const provider = makeProvider();
-    const service = new TokenService(provider as never);
+    const service = new TokenService(provider);
 
     // Inject expired cache (7 hours old)
     (service as unknown as { cache: unknown }).cache = {
@@ -98,7 +98,7 @@ describe('TokenService.mintTokenForUrl', () => {
 
   it('populates cache on fresh mint', async () => {
     const provider = makeProvider();
-    const service = new TokenService(provider as never);
+    const service = new TokenService(provider);
 
     await service.mintTokenForUrl('https://youtube.com/watch?v=x');
 
@@ -112,7 +112,7 @@ describe('TokenService.mintTokenForUrl', () => {
 describe('TokenService.invalidateCache', () => {
   it('forces re-mint on next mintTokenForUrl call', async () => {
     const provider = makeProvider();
-    const service = new TokenService(provider as never);
+    const service = new TokenService(provider);
 
     await service.warmUp();
     expect(provider.mintToken).toHaveBeenCalledOnce();
@@ -127,7 +127,7 @@ describe('TokenService.invalidateCache', () => {
 describe('TokenService.dispose', () => {
   it('clears cache and calls provider.dispose', async () => {
     const provider = makeProvider();
-    const service = new TokenService(provider as never);
+    const service = new TokenService(provider);
 
     await service.warmUp();
 

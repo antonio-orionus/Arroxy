@@ -34,7 +34,7 @@ function makeStubs() {
   const settingsStore = {
     get: vi.fn().mockResolvedValue({})
   } as never;
-  const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore);
+  const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore);
   return { binaryManager, tokenService, recentJobsStore, settingsStore, ytDlp };
 }
 

@@ -3,7 +3,9 @@ import type { QueueItem } from '@shared/types';
 import { queueArraySchema, QUEUE_STATUS } from '@shared/schemas';
 import { fail, ok, type Result } from '@shared/result';
 
-type QueueData = { items: QueueItem[] };
+interface QueueData {
+  items: QueueItem[];
+}
 
 export class QueueStore {
   private readonly store: Store<QueueData>;

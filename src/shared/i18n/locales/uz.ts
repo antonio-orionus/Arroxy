@@ -198,7 +198,7 @@ const uz = {
       },
       embedThumbnail: {
         label: 'Muqovani joylashtirish',
-        description: "Fayl ichidagi muqova rasmi. Faqat MP4 / M4A — subtitrlar joylashtirilganda o'tkazib yuboriladi."
+        description: "Fayl ichidagi muqova rasmi. WebM video MKV formatiga o'tkaziladi; subtitrlar joylashtirilganda o'tkazib yuboriladi."
       },
       writeDescription: {
         label: 'Tavsifni saqlash',

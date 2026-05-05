@@ -1,7 +1,7 @@
 import type { FormatOption } from './types';
 
 function resolutionHeight(resolution: string): number {
-  const m = resolution.match(/(\d{3,4})/);
+  const m = /(\d{3,4})/.exec(resolution);
   return m ? Number.parseInt(m[1], 10) : 0;
 }
 

@@ -56,7 +56,7 @@ function buildQueueItem(get: GetState): QueueItem | null {
   const nativeAudioId = audioSelection.kind === 'native' ? audioSelection.formatId : null;
   const selectedIds = [selectedVideoFormatId, nativeAudioId].filter(Boolean) as string[];
   const selectedSizes = selectedIds.map((id) => wizardFormats.find((f) => f.formatId === id)?.filesize);
-  const expectedBytes = !audioConvert && selectedIds.length > 0 && selectedSizes.every((s) => s !== undefined) ? selectedSizes.reduce<number>((a, b) => a + b!, 0) : undefined;
+  const expectedBytes = !audioConvert && selectedIds.length > 0 && selectedSizes.every((s): s is number => s !== undefined) ? selectedSizes.reduce((a, b) => a + b, 0) : undefined;
 
   const subtitleLanguages = state.wizardSubtitleSkipped ? [] : state.wizardSubtitleLanguages;
 
@@ -215,7 +215,7 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 
     pauseItemDownload: async (itemId) => {
       const item = get().queue.find((i) => i.id === itemId);
-      if (!item || item.status !== QUEUE_STATUS.downloading) return;
+      if (item?.status !== QUEUE_STATUS.downloading) return;
 
       const result = await window.appApi.downloads.pause({
         jobId: item.downloadJobId ?? undefined
@@ -228,7 +228,7 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 
     resumeItemDownload: async (itemId) => {
       const item = get().queue.find((i) => i.id === itemId);
-      if (!item || item.status !== QUEUE_STATUS.paused) return;
+      if (item?.status !== QUEUE_STATUS.paused) return;
 
       updateQueueItem(set, itemId, { status: QUEUE_STATUS.downloading, error: null });
       saveQueue(get);

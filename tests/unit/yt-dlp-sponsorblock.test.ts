@@ -56,7 +56,7 @@ function waitForDone(service: DownloadService): Promise<void> {
 }
 
 function callArgs(callIndex = 0): string[] {
-  return vi.mocked(spawnYtDlp).mock.calls[callIndex][1] as string[];
+  return vi.mocked(spawnYtDlp).mock.calls[callIndex][1];
 }
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';

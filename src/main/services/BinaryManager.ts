@@ -11,9 +11,8 @@ import extractZip from 'extract-zip';
 import log from 'electron-log/main';
 
 const execFileAsync = promisify(execFile);
-import { createAppError } from '@main/utils/errorFactory';
 import { trackMain } from '@main/services/analytics';
-import type { AppError, StatusKey } from '@shared/types';
+import type { StatusKey } from '@shared/types';
 
 const logger = log.scope('binary');
 
@@ -90,24 +89,21 @@ async function downloadFile(url: string, destination: string): Promise<void> {
   await new Promise<void>((resolve, reject) => {
     const request = (targetUrl: string): void => {
       const req = https
-        .get(targetUrl, { headers: { 'User-Agent': 'arroxy/1.0' } }, async (res) => {
-          try {
-            if (res.statusCode && [301, 302, 307, 308].includes(res.statusCode) && res.headers.location) {
-              request(resolveRedirect(targetUrl, res.headers.location));
-              return;
-            }
-
-            if (res.statusCode !== 200) {
-              reject(new Error(`HTTP ${res.statusCode ?? 'unknown'} while downloading binary`));
-              return;
-            }
-
-            const out = fs.createWriteStream(destination);
-            await pipeline(res, out);
-            resolve();
-          } catch (error) {
-            reject(error);
+        .get(targetUrl, { headers: { 'User-Agent': 'arroxy/1.0' } }, (res) => {
+          if (res.statusCode && [301, 302, 307, 308].includes(res.statusCode) && res.headers.location) {
+            request(resolveRedirect(targetUrl, res.headers.location));
+            return;
           }
+
+          if (res.statusCode !== 200) {
+            reject(new Error(`HTTP ${res.statusCode ?? 'unknown'} while downloading binary`));
+            return;
+          }
+
+          const out = fs.createWriteStream(destination);
+          pipeline(res, out).then(resolve, (error: unknown) => {
+            reject(error instanceof Error ? error : new Error(String(error)));
+          });
         })
         .on('error', reject);
       req.setTimeout(HTTP_TIMEOUT_MS, () => {
@@ -344,7 +340,7 @@ export class BinaryManager {
           // URL alongside the artifact (BtbN signs with PGP; evermeet uses
           // signed JSON metadata). Skipping checksum is consistent with how
           // ffmpeg's checksum is treated as best-effort.
-          expectedSha256: async () => null,
+          expectedSha256: () => Promise.resolve(null),
           onStatus
         });
       } else {
@@ -397,7 +393,7 @@ export class BinaryManager {
 
         const innerPath = await this.findExecutableInTree(extractDir, config.innerExecutableName);
         if (!innerPath) {
-          throw this.toBinaryError(`${name} archive did not contain ${config.innerExecutableName}`);
+          throw new Error(`${name} archive did not contain ${config.innerExecutableName}`);
         }
 
         await fsPromises.mkdir(path.dirname(destinationPath), { recursive: true });
@@ -541,7 +537,7 @@ export class BinaryManager {
         if (expected) {
           const actual = await sha256ForFile(zipPath);
           if (actual !== expected) {
-            throw this.toBinaryError(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`);
+            throw new Error(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`);
           }
         } else {
           logger.warn(`Checksum unavailable for ${name}, proceeding without verification`);
@@ -553,7 +549,7 @@ export class BinaryManager {
 
         const innerPath = await this.findExecutableInTree(extractDir, config.innerExecutableName);
         if (!innerPath) {
-          throw this.toBinaryError(`${name} archive did not contain ${config.innerExecutableName}`);
+          throw new Error(`${name} archive did not contain ${config.innerExecutableName}`);
         }
 
         await fsPromises.mkdir(path.dirname(destinationPath), { recursive: true });
@@ -641,14 +637,14 @@ export class BinaryManager {
       const expected = await expectedSha256();
       if (!expected && requiredChecksum) {
         await fsPromises.rm(tempPath, { force: true });
-        throw this.toBinaryError(`Checksum source unavailable for ${name}. Refusing to use unverified binary.`);
+        throw new Error(`Checksum source unavailable for ${name}. Refusing to use unverified binary.`);
       }
 
       if (expected) {
         const actual = await sha256ForFile(tempPath);
         if (actual !== expected) {
           await fsPromises.rm(tempPath, { force: true });
-          throw this.toBinaryError(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`);
+          throw new Error(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`);
         }
       } else {
         logger.warn(`Checksum unavailable for ${name}, proceeding without verification`);
@@ -705,10 +701,6 @@ export class BinaryManager {
     } catch {
       return false;
     }
-  }
-
-  private toBinaryError(message: string): AppError {
-    return createAppError('binary', message);
   }
 }
 

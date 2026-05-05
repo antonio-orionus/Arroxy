@@ -20,7 +20,7 @@ if (!('appApi' in window)) {
     cookiesEnabled: false,
     embedChapters: true,
     embedMetadata: true,
-    embedThumbnail: true,
+    embedThumbnail: false,
     commonPaths: {
       downloads: '/home/user/Downloads',
       videos: '/home/user/Videos',
@@ -109,7 +109,7 @@ if (!('appApi' in window)) {
       close: async () => {
         /* no-op in browser */
       },
-      isMaximized: async () => false,
+      isMaximized: () => Promise.resolve(false),
       onMaximizedChange: () => () => undefined
     },
 
@@ -267,11 +267,11 @@ if (!('appApi' in window)) {
         };
       },
 
-      start: async (input) => {
+      start: (input) => {
         const id = jobId();
         const shouldError = input.url.toLowerCase().includes('error');
         void simulateDownload(id, shouldError);
-        return {
+        return Promise.resolve({
           ok: true,
           data: {
             job: {
@@ -284,21 +284,14 @@ if (!('appApi' in window)) {
               updatedAt: new Date().toISOString()
             }
           }
-        };
+        } as const);
       },
 
-      cancel: async () => {
-        return { ok: true, data: { cancelled: true } };
-      },
+      cancel: () => Promise.resolve({ ok: true, data: { cancelled: true } } as const),
 
-      pause: async () => {
-        return { ok: true, data: { paused: true } };
-      },
+      pause: () => Promise.resolve({ ok: true, data: { paused: true } } as const),
 
-      resume: async () => {
-        // Browser mock has no real job persistence; renderer falls back to start().
-        return { ok: true, data: { resumed: false } };
-      }
+      resume: () => Promise.resolve({ ok: true, data: { resumed: false } } as const)
     },
 
     settings: {
@@ -306,27 +299,27 @@ if (!('appApi' in window)) {
         await delay(80);
         return { ok: true, data: { ...settings } };
       },
-      update: async (patch) => {
+      update: (patch) => {
         settings = { ...settings, ...patch };
-        return { ok: true, data: { ...settings } };
+        return Promise.resolve({ ok: true, data: { ...settings } } as const);
       }
     },
 
     shell: {
-      openFolder: async (path) => {
+      openFolder: (path) => {
         console.log('[mock] openFolder', path);
-        return { ok: true, data: { opened: true } };
+        return Promise.resolve({ ok: true, data: { opened: true } } as const);
       },
-      openExternal: async (url) => {
+      openExternal: (url) => {
         window.open(url, '_blank', 'noopener');
-        return { ok: true, data: { opened: true } };
+        return Promise.resolve({ ok: true, data: { opened: true } } as const);
       }
     },
 
     logs: {
-      openDir: async () => {
+      openDir: () => {
         console.log('[mock] openDir');
-        return { ok: true, data: { opened: true } };
+        return Promise.resolve({ ok: true, data: { opened: true } } as const);
       }
     },
 
@@ -356,8 +349,8 @@ if (!('appApi' in window)) {
     },
 
     queue: {
-      save: async () => ({ ok: true, data: { saved: true } }),
-      load: async () => ({ ok: true, data: [] })
+      save: () => Promise.resolve({ ok: true, data: { saved: true } } as const),
+      load: () => Promise.resolve({ ok: true, data: [] } as const)
     },
 
     updater: {

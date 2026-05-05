@@ -63,7 +63,7 @@ function makeService() {
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 
 function callArgs(callIndex: number): string[] {
-  return vi.mocked(spawnYtDlp).mock.calls[callIndex][1] as string[];
+  return vi.mocked(spawnYtDlp).mock.calls[callIndex][1];
 }
 
 describe('DownloadService — split video/subtitle invocations', () => {
