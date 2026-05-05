@@ -20,7 +20,9 @@ function makeFakeProcess(exitCode: number) {
     stderr: new EventEmitter(),
     kill: vi.fn()
   });
-  setTimeout(() => proc.emit('close', exitCode), 10);
+  proc.once('newListener', (event) => {
+    if (event === 'close') queueMicrotask(() => proc.emit('close', exitCode));
+  });
   return proc;
 }
 
@@ -55,7 +57,7 @@ describe('cookies flag injection', () => {
     const { service } = makeService({ cookiesEnabled: true, cookiesPath: '/home/u/cookies.txt' });
 
     await service.start({ url: URL, outputDir: '/tmp' });
-    await new Promise((r) => setTimeout(r, 50));
+    await vi.waitFor(() => expect(vi.mocked(spawnYtDlp)).toHaveBeenCalled());
 
     const args: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1];
     const idx = args.indexOf('--cookies');
@@ -69,7 +71,7 @@ describe('cookies flag injection', () => {
     const { service } = makeService({ cookiesEnabled: false, cookiesPath: '/home/u/cookies.txt' });
 
     await service.start({ url: URL, outputDir: '/tmp' });
-    await new Promise((r) => setTimeout(r, 50));
+    await vi.waitFor(() => expect(vi.mocked(spawnYtDlp)).toHaveBeenCalled());
 
     const args: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1];
     expect(args).not.toContain('--cookies');
@@ -79,7 +81,7 @@ describe('cookies flag injection', () => {
     const { service } = makeService({ cookiesEnabled: true, cookiesPath: '   ' });
 
     await service.start({ url: URL, outputDir: '/tmp' });
-    await new Promise((r) => setTimeout(r, 50));
+    await vi.waitFor(() => expect(vi.mocked(spawnYtDlp)).toHaveBeenCalled());
 
     const args: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1];
     expect(args).not.toContain('--cookies');
@@ -89,7 +91,7 @@ describe('cookies flag injection', () => {
     const { service } = makeService({});
 
     await service.start({ url: URL, outputDir: '/tmp' });
-    await new Promise((r) => setTimeout(r, 50));
+    await vi.waitFor(() => expect(vi.mocked(spawnYtDlp)).toHaveBeenCalled());
 
     const args: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1];
     expect(args).not.toContain('--cookies');
