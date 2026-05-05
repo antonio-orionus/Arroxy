@@ -130,11 +130,13 @@ export const getFormatsSchema = z.object({
   url: youtubeUrlSchema
 });
 
-// Accepts BCP-47-ish language codes plus the yt-dlp `-orig` suffix used for
-// the source-language auto-caption track. Examples: `en`, `en-US`, `pt-BR`,
-// `zh-Hans`, `en-orig`.
-// eslint-disable-next-line security/detect-unsafe-regex -- bounded: explicit length limits {2,3} and a small fixed set of suffixes
-const subtitleLangRegex = /^[a-z]{2,3}(-[A-Za-z0-9]+)?(-orig)?$/;
+// Accepts BCP-47-ish language codes plus yt-dlp/YouTube extensions: the
+// `-orig` suffix used for the source-language auto-caption track, and the
+// multi-segment auto-translation codes YouTube emits (e.g.
+// `en-en-nP7-2PuUl7o`, `zh-Hans-en-nP7-2PuUl7o`). Examples: `en`, `en-US`,
+// `pt-BR`, `zh-Hans`, `en-orig`, `en-en-nP7-2PuUl7o`.
+// eslint-disable-next-line security/detect-unsafe-regex -- bounded: explicit length limits and segment count
+const subtitleLangRegex = /^[a-z]{2,3}(-[A-Za-z0-9]{1,32}){0,4}$/;
 
 export const startDownloadSchema = z.object({
   url: youtubeUrlSchema,
