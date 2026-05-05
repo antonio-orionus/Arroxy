@@ -287,7 +287,7 @@ const es = {
   },
   errors: {
     ytdlp: {
-      botBlock: 'YouTube marcó esta solicitud como un bot. Inténtalo de nuevo en un momento.',
+      botBlock: 'La protección contra bots se activó. La IP que estás usando probablemente está marcada (rango de datacenter o salida de VPN con mucho tráfico). Cambia tu IP o elige un punto de salida de VPN diferente y vuelve a intentarlo. Si sigue fallando, puede ser un cambio temporal de YouTube — Arroxy actualiza yt-dlp automáticamente al iniciar, por lo que la corrección llegará sola en cuanto esté disponible en el repositorio.',
       ipBlock: 'Tu dirección IP parece estar bloqueada por YouTube. Inténtalo más tarde o usa una VPN.',
       rateLimit: 'YouTube está limitando las solicitudes. Espera un minuto y reintenta.',
       ageRestricted: 'Este vídeo tiene restricción de edad y no se puede descargar sin una cuenta iniciada.',

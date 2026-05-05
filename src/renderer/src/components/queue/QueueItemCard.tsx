@@ -93,7 +93,7 @@ export function QueueItemCard({ item }: Props): JSX.Element {
         )}
 
         {status === 'error' && (
-          <p className="text-[12px] text-[var(--color-status-error)] mt-0.5 truncate" data-testid="queue-error-msg">
+          <p className="text-[12px] text-[var(--color-status-error)] mt-0.5 leading-snug" data-testid="queue-error-msg">
             {errorText}
           </p>
         )}

@@ -287,7 +287,7 @@ const uz = {
   },
   errors: {
     ytdlp: {
-      botBlock: "YouTube bu so'rovni bot deb belgiladi. Bir oz kutib qayta urinib ko'ring.",
+      botBlock: "Bot himoyasi ishga tushdi. Siz foydalanayotgan IP manzil, ehtimol, bloklangan (ma'lumot markazi diapazoni yoki band VPN chiqish nuqtasi). IP manzilingizni o'zgartiring yoki boshqa VPN nuqtasini tanlang va qayta urinib ko'ring. Muammo davom etsa, bu YouTube tomonidan vaqtinchalik o'zgarish bo'lishi mumkin — Arroxy ishga tushganda yt-dlp ni avtomatik yangilaydi, shuning uchun tuzatish yuqori oqim chiqarilishi bilan avtomatik amalga oshiriladi.",
       ipBlock: "IP manzilingiz YouTube tomonidan bloklangan ko'rinadi. Keyinroq urinib ko'ring yoki VPN ishlating.",
       rateLimit: "YouTube so'rovlarni cheklayapti. Bir daqiqa kuting va qayta urinib ko'ring.",
       ageRestricted: "Bu video yosh cheklovli va tizimga kirgan hisob bo'lmasdan yuklab bo'lmaydi.",

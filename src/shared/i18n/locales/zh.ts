@@ -287,7 +287,7 @@ const zh = {
   },
   errors: {
     ytdlp: {
-      botBlock: 'YouTube 将此请求标记为机器人。请稍后再试。',
+      botBlock: '触发了机器人保护。你所使用的 IP 很可能已被标记（数据中心地址段或繁忙的 VPN 出口）。请更换 IP 或选择其他 VPN 节点后重试。如果持续失败，这可能是 YouTube 临时性的变动——Arroxy 会在启动时自动更新 yt-dlp，一旦上游发布修复，会自动生效。',
       ipBlock: '你的 IP 地址似乎被 YouTube 屏蔽。请稍后再试或使用 VPN。',
       rateLimit: 'YouTube 正在限制请求频率。等一分钟后再重试。',
       ageRestricted: '该视频有年龄限制,未登录账号无法下载。',

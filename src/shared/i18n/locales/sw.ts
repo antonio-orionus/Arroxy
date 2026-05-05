@@ -287,7 +287,7 @@ const sw = {
   },
   errors: {
     ytdlp: {
-      botBlock: 'YouTube iliashiria ombi hili kama boti. Jaribu tena baada ya muda mfupi.',
+      botBlock: 'Ulinzi wa boti umeanzishwa. IP unayotumia ina uwezekano mkubwa wa kuwa imepigwa alama (anuwai ya kituo cha data au mlango wa VPN wenye msongamano). Badilisha IP yako au chagua seva nyingine ya VPN na ujaribu tena. Ikiwa itaendelea kushindwa, hii inaweza kuwa mabadiliko ya muda ya upande wa YouTube — Arroxy inasasisha yt-dlp kiotomatiki wakati wa uzinduzi, kwa hivyo marekebisho yatafika kiotomatiki mara chanzo kikitoa sasisho.',
       ipBlock: 'Anwani yako ya IP inaonekana kuzuiwa na YouTube. Jaribu tena baadaye au tumia VPN.',
       rateLimit: 'YouTube inazuia maombi. Subiri dakika moja kisha ujaribu tena.',
       ageRestricted: 'Video hii ina kikwazo cha umri na haiwezi kupakuliwa bila akaunti iliyoingia.',

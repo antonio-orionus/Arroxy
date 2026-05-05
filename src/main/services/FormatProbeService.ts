@@ -171,7 +171,7 @@ export class FormatProbeService {
           duration_bucket: probeDurationBucket(Date.now() - startMs),
           error_category: categorizeProbeError(rawError ?? '')
         });
-        return fail(createAppError('download', rawError ?? 'Format probing failed'));
+        return fail(createAppError('download', rawError ?? 'Format probing failed', undefined, true, signal ?? undefined));
       }
 
       try {

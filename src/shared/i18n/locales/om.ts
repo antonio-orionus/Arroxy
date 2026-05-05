@@ -287,7 +287,7 @@ const om = {
   },
   errors: {
     ytdlp: {
-      botBlock: "YouTube gaaffii kana bot'tti mallattesse. Daqiiqaa tokko booda irra deebi'i.",
+      botBlock: "Eegumsa bot ka'eera. IP fayyadamaa jirtu naannoo datacenter ykn VPN baay'ee fayyadamame irraa ta'uu mala — IP kee jijjiiri ykn VPN endpoint biraa filadhu achiin irra deebi'i. Yoo itti fufe dhabamsiisuu baate, jijjiirra yeroo gabaabaadhaaf YouTube gama ta'uu danda'a — Arroxy jalqabbii irratti yt-dlp ofumaan haaromsa, kanaaf fooyyessaan olka'iinsa irra ga'ee booda ofumaan ni dhufaa.",
       ipBlock: "Teessoon IP kee YouTube'n cufamuu mala. Yeroo booda irra deebi'i ykn VPN fayyadami.",
       rateLimit: "YouTube gaaffii daangeessaa jira. Daqiiqaa tokko eegi achiin irra deebi'i.",
       ageRestricted: "Viidiyoon kun umuriin-daangeffamee seensa malee buufachuu hin danda'u.",

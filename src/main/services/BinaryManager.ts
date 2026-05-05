@@ -274,7 +274,7 @@ export class BinaryManager {
 
     const assetName = ytDlpAssetName();
     const expectedSha256 = async (): Promise<string | null> => {
-      const sumsUrl = 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/SHA2-256SUMS';
+      const sumsUrl = 'https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download/SHA2-256SUMS';
       const sumsFile = await downloadText(sumsUrl);
       return parseShaLine(sumsFile, assetName);
     };
@@ -284,7 +284,7 @@ export class BinaryManager {
       await this.ensureBinary({
         name: 'yt-dlp',
         destinationPath: targetPath,
-        downloadUrl: `https://github.com/yt-dlp/yt-dlp/releases/latest/download/${assetName}`,
+        downloadUrl: `https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download/${assetName}`,
         expectedSha256,
         onStatus,
         requiredChecksum: true,
@@ -685,7 +685,7 @@ export class BinaryManager {
 
   private async getRemoteYtDlpVersion(): Promise<string | null> {
     try {
-      const json = await downloadText('https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest');
+      const json = await downloadText('https://api.github.com/repos/yt-dlp/yt-dlp-nightly-builds/releases/latest');
       const parsed = JSON.parse(json) as { tag_name?: string };
       return parsed.tag_name ?? null;
     } catch {

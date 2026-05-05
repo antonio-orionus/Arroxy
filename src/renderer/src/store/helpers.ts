@@ -127,5 +127,6 @@ export function formatLocalizedError(error: LocalizedError | null): string {
 
 export function formatError(error: AppError | null): string {
   if (!error) return '';
+  if (error.localizedKey) return i18next.t(`errors.ytdlp.${error.localizedKey}` as const);
   return error.message;
 }

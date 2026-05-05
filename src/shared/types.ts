@@ -17,6 +17,7 @@ export interface AppError {
   message: string;
   details?: string;
   recoverable?: boolean;
+  localizedKey?: import('./schemas').YtdlpErrorKey;
 }
 
 export interface AppSettings {
