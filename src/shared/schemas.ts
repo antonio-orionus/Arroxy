@@ -7,7 +7,7 @@ export type { AudioConvertTarget };
 // Enum schemas — single source of truth. Types below are inferred so adding
 // or removing a value never requires hand-editing a parallel union.
 
-export const presetSchema = z.enum(['best-quality', 'balanced', 'audio-only', 'small-file', 'subtitle-only']);
+export const presetSchema = z.enum(['best-quality', 'balanced', 'small-file', 'audio-only', 'subtitle-only']);
 export type Preset = z.infer<typeof presetSchema>;
 export const PRESETS = presetSchema.options;
 
