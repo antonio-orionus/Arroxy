@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../../store/useAppStore';
 import { STEPS } from '../../store/wizardSlice';
-import { presetProducesMedia, presetProducesVideo } from '../../store/presetTraits';
+import { presetProducesMedia, presetProducesVideo } from '@shared/presetTraits';
 import { StepUrlInput } from '../wizard/StepUrlInput';
 import { StepFormatSelect } from '../wizard/StepFormatSelect';
 import { StepFolderConfirm } from '../wizard/StepFolderConfirm';

@@ -1,9 +1,39 @@
 import { DEFAULTS } from '@shared/constants';
 import { DEFAULT_AUDIO_BITRATE } from '@shared/schemas';
-import type { AppSettings, FormatOption, Preset, SubtitleMap } from '@shared/types';
+import type { AppSettings, FormatOption, Preset, SubtitleMap, WizardTransition } from '@shared/types';
 import { cleanYoutubeUrl } from '@shared/url';
-import type { AudioSelection, GetState, SetState, WizardSlice, WizardStep } from './types';
-import { presetProducesMedia, presetProducesVideo } from './presetTraits';
+import type { AppState, AudioSelection, GetState, SetState, WizardSlice, WizardStep } from './types';
+import { presetProducesMedia, presetProducesVideo } from '@shared/presetTraits';
+
+function pickWizardSnapshot(state: AppState): Record<string, unknown> {
+  return {
+    url: state.wizardUrl,
+    title: state.wizardTitle,
+    duration: state.wizardDuration,
+    formatsCount: state.wizardFormats.length,
+    selectedVideoFormatId: state.selectedVideoFormatId,
+    audioSelection: state.audioSelection,
+    activePreset: state.activePreset,
+    subtitleLanguages: state.wizardSubtitleLanguages,
+    subtitleMode: state.wizardSubtitleMode,
+    subtitleFormat: state.wizardSubtitleFormat,
+    subtitleSkipped: state.wizardSubtitleSkipped,
+    sponsorBlockMode: state.wizardSponsorBlockMode,
+    sponsorBlockCategories: state.wizardSponsorBlockCategories,
+    embedChapters: state.wizardEmbedChapters,
+    embedMetadata: state.wizardEmbedMetadata,
+    embedThumbnail: state.wizardEmbedThumbnail,
+    writeDescription: state.wizardWriteDescription,
+    writeThumbnail: state.wizardWriteThumbnail,
+    outputDir: state.wizardOutputDir,
+    subfolderEnabled: state.wizardSubfolderEnabled,
+    subfolderName: state.wizardSubfolderName
+  };
+}
+
+function logStep(transition: WizardTransition, fromStep: WizardStep, toStep: WizardStep, snapshot: Record<string, unknown>): void {
+  window.appApi.diagnostics.logWizardStep({ transition, fromStep, toStep, snapshot });
+}
 
 // Private helpers — only used inside this slice.
 
@@ -25,7 +55,7 @@ function nativeAudio(formatId: string | null): AudioSelection {
   return formatId === null ? { kind: 'none' } : { kind: 'native', formatId };
 }
 
-function applyPreset(preset: Preset, formats: FormatOption[]): { videoFormatId: string; audioSelection: AudioSelection } {
+export function applyPreset(preset: Preset, formats: FormatOption[]): { videoFormatId: string; audioSelection: AudioSelection } {
   const grouped = groupedNonAudioFormats(formats);
   const audioFormats = formats.filter((f) => f.isAudioOnly);
   const bestAudio = audioFormats[0]?.formatId ?? null;
@@ -112,7 +142,9 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
     submitUrl: async () => {
       const url = cleanYoutubeUrl(get().wizardUrl.trim());
       if (!url) return;
+      const fromStep = get().wizardStep;
       set({ wizardUrl: url, wizardStep: 'formats', formatsLoading: true, wizardError: null });
+      logStep('submitUrl', fromStep, 'formats', pickWizardSnapshot(get()));
 
       const result = await window.appApi.downloads.getFormats({ url });
       if (!result.ok) {
@@ -166,6 +198,7 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
       if (STEPS[nextIdx] === 'output' && activePreset && !presetProducesMedia(activePreset)) nextIdx++;
       const target = STEPS[nextIdx] ?? STEPS[STEPS.length - 1];
       set({ wizardStep: target });
+      logStep('advance', wizardStep, target, pickWizardSnapshot(get()));
     },
 
     back: () => {
@@ -177,14 +210,20 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
       if (STEPS[prevIdx] === 'sponsorblock' && activePreset && !presetProducesVideo(activePreset)) prevIdx--;
       const target = STEPS[prevIdx] ?? STEPS[0];
       set({ wizardStep: target, ...(target === 'subtitles' && { wizardSubtitleSkipped: false }) });
+      logStep('back', wizardStep, target, pickWizardSnapshot(get()));
     },
 
-    reset: () => set(RESET_STATE),
+    reset: () => {
+      const fromStep = get().wizardStep;
+      set(RESET_STATE);
+      logStep('reset', fromStep, 'url', pickWizardSnapshot(get()));
+    },
 
     retry: async () => {
-      const { wizardErrorOrigin } = get();
+      const { wizardErrorOrigin, wizardStep } = get();
       if (wizardErrorOrigin === 'formats') {
         set({ wizardStep: 'formats', formatsLoading: true, wizardError: null });
+        logStep('retry', wizardStep, 'formats', pickWizardSnapshot(get()));
         await get().submitUrl();
       }
     },
@@ -262,6 +301,7 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
         if (STEPS[nextIdx] === 'output' && activePreset && !presetProducesMedia(activePreset)) nextIdx++;
         const target = STEPS[nextIdx] ?? STEPS[STEPS.length - 1];
         set({ wizardSubtitleSkipped: true, wizardStep: target });
+        logStep('skipSubtitles', wizardStep, target, pickWizardSnapshot(get()));
       }
     },
 

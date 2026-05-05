@@ -1,6 +1,6 @@
 import type { Result } from './result';
 import type { SupportedLang } from './i18n/types';
-import type { AppSettings, CancelDownloadInput, CancelDownloadOutput, DownloadJob, GetFormatsInput, GetFormatsOutput, PauseDownloadInput, PauseDownloadOutput, ProgressEvent, QueueItem, StartDownloadInput, StartDownloadOutput, StatusEvent, UpdateAvailablePayload, UpdateInstallResult, WarmUpOutput } from './types';
+import type { AppSettings, CancelDownloadInput, CancelDownloadOutput, DownloadJob, GetFormatsInput, GetFormatsOutput, PauseDownloadInput, PauseDownloadOutput, ProgressEvent, QueueItem, StartDownloadInput, StartDownloadOutput, StatusEvent, UpdateAvailablePayload, UpdateInstallResult, WarmUpOutput, WizardStepSnapshot } from './types';
 
 export interface WindowApi {
   minimize(): Promise<void>;
@@ -53,5 +53,8 @@ export interface AppApi {
   };
   analytics: {
     track(name: string, props?: Record<string, string | number | boolean>): void;
+  };
+  diagnostics: {
+    logWizardStep(snapshot: WizardStepSnapshot): void;
   };
 }

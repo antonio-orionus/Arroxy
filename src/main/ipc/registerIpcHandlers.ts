@@ -16,6 +16,7 @@ import { registerSettingsHandlers } from './settingsHandlers';
 import { registerFileHandlers } from './fileHandlers';
 import { registerQueueHandlers } from './queueHandlers';
 import { registerAnalyticsHandlers } from './analyticsHandlers';
+import { registerDiagnosticsHandlers } from './diagnosticsHandlers';
 
 export interface IpcDependencies {
   mainWindow: BrowserWindow;
@@ -40,6 +41,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
   registerFileHandlers(mainWindow);
   registerQueueHandlers(queueStore);
   registerAnalyticsHandlers();
+  registerDiagnosticsHandlers();
 
   new DownloadEventBridge(downloadService, mainWindow).attach();
 }

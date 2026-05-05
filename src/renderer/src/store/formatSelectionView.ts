@@ -5,7 +5,7 @@ import type { Preset } from '@shared/schemas';
 import type { AudioSelection } from './types';
 import { useAppStore } from './useAppStore';
 import { resolveVideoResolution } from './helpers';
-import { presetProducesMedia } from './presetTraits';
+import { presetProducesMedia } from '@shared/presetTraits';
 
 export type ConvertTooltipKey = 'wizard.formats.convert.requiresAudioOnly' | 'wizard.formats.convert.requiresLossy';
 

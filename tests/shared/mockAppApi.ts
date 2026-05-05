@@ -93,6 +93,9 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
     },
     analytics: {
       track: vi.fn()
+    },
+    diagnostics: {
+      logWizardStep: vi.fn()
     }
   };
 }

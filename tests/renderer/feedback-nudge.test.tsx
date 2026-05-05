@@ -54,6 +54,9 @@ const mockAppApi = {
   },
   analytics: {
     track: vi.fn()
+  },
+  diagnostics: {
+    logWizardStep: vi.fn()
   }
 };
 

@@ -82,6 +82,9 @@ const api: AppApi = {
   },
   analytics: {
     track: (name, props) => ipcRenderer.send(IPC_CHANNELS.analyticsTrack, { name, props })
+  },
+  diagnostics: {
+    logWizardStep: (snapshot) => ipcRenderer.send(IPC_CHANNELS.diagnosticsLogWizardStep, snapshot)
   }
 };
 

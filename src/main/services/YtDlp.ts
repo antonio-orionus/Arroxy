@@ -1,4 +1,5 @@
 import type { ChildProcessWithoutNullStreams } from 'node:child_process';
+import log from 'electron-log/main';
 import { spawnYtDlp } from '@main/utils/process';
 import { classifyStderr, extractLastError, type StderrSignal } from '@main/utils/ytdlpErrors';
 import { resolveCookiesPath } from './cookiesResolver';
@@ -11,6 +12,20 @@ import type { TokenService } from './TokenService';
 import type { SettingsStore } from '@main/stores/SettingsStore';
 
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void;
+
+const ytDlpLog = log.scope('yt-dlp');
+
+function redactProxy(url: string | undefined): string | null {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    if (u.username) u.username = '***';
+    if (u.password) u.password = '***';
+    return u.toString();
+  } catch {
+    return '<unparseable>';
+  }
+}
 
 export type YtDlpRequest =
   | { kind: 'probe'; url: string }
@@ -118,6 +133,17 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
   // silently fall back to JS-free clients (where our web.gvs PoT is unused).
   const jsRuntimeArgs = opts.denoPath ? ['--js-runtimes', `deno:${opts.denoPath}`] : [];
   const args = ['--extractor-args', extractorArgs, ...cookiesArgs, ...proxyArgs, ...jsRuntimeArgs, ...opts.args];
+
+  ytDlpLog.info('spawn', {
+    attempt: strategy.kind,
+    reMint: strategy.kind === 'pot' ? strategy.reMint : undefined,
+    binary: opts.ytDlpPath,
+    ffmpeg: opts.ffmpegPath,
+    deno: opts.denoPath,
+    cookiesPath: opts.cookiesPath ?? null,
+    proxy: redactProxy(opts.proxyUrl),
+    args
+  });
 
   return new Promise<YtDlpResult>((resolve) => {
     const proc = spawnYtDlp(opts.ytDlpPath, args, opts.ffmpegPath);
@@ -269,7 +295,7 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
   return args;
 }
 
-function buildArgs(req: YtDlpRequest): { args: string[]; subtitleFormat?: SubtitleFormat } {
+export function buildArgs(req: YtDlpRequest): { args: string[]; subtitleFormat?: SubtitleFormat } {
   switch (req.kind) {
     case 'probe':
       return { args: ['--dump-json', '--no-playlist', req.url] };

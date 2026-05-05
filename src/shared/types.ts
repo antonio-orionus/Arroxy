@@ -115,7 +115,7 @@ export interface QueueItem {
   outputDir: string;
   formatId?: string;
   formatLabel: string;
-  preset?: string;
+  preset?: Preset | 'custom';
   status: import('./schemas').QueueItemStatus;
   progressPercent: number;
   progressDetail: string | null;
@@ -175,7 +175,7 @@ export interface StartDownloadInput {
   url: string;
   outputDir?: string;
   formatId?: string;
-  preset?: string;
+  preset?: Preset | 'custom';
   cookiesEnabled?: boolean;
   subtitleLanguages?: string[];
   writeAutoSubs?: boolean;
@@ -236,3 +236,14 @@ export interface UpdateAvailablePayload {
 }
 
 export type UpdateInstallResult = { ok: true } | { ok: false; error: string };
+
+export type WizardStepName = 'url' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error';
+
+export type WizardTransition = 'submitUrl' | 'advance' | 'back' | 'skipSubtitles' | 'retry' | 'reset';
+
+export interface WizardStepSnapshot {
+  transition: WizardTransition;
+  fromStep: WizardStepName;
+  toStep: WizardStepName;
+  snapshot: Record<string, unknown>;
+}
