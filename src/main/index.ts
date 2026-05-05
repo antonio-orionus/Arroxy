@@ -7,7 +7,7 @@ import { mainT, pluralKey } from '@main/i18n';
 import { pickLanguage } from '@shared/i18n';
 import { registerIpcHandlers } from '@main/ipc/registerIpcHandlers';
 import { registerUpdaterHandlers } from '@main/ipc/registerUpdaterHandlers';
-import { setupAnalytics, setAnalyticsEnabled, trackMain } from '@main/services/analytics';
+import { setupAnalytics, setAnalyticsEnabled, trackCrashDetectedOncePerSession, trackMain } from '@main/services/analytics';
 import { detectInstallChannel } from '@main/installChannel';
 import { BinaryManager } from '@main/services/BinaryManager';
 import { DownloadService } from '@main/services/DownloadService';
@@ -255,7 +255,11 @@ if (hasSingleInstanceLock) {
     app.on('render-process-gone', (_event, webContents, details) => {
       log.error(`Renderer process gone: reason=${details.reason} exitCode=${details.exitCode}`);
       if (details.reason === 'clean-exit') return;
-      trackMain('crash_detected', { type: 'renderer', reason: details.reason });
+      trackCrashDetectedOncePerSession({
+        kind: 'renderer',
+        windowRole: webContents === mainWindow.webContents ? 'main-window' : 'auxiliary-window',
+        reason: details.reason
+      });
       if (webContents !== mainWindow.webContents) return;
       const lang = languageRef.current;
       const opts = {
@@ -274,8 +278,14 @@ if (hasSingleInstanceLock) {
 
     app.on('child-process-gone', (_event, details) => {
       if (details.reason === 'clean-exit') return;
-      log.warn(`Child process gone: type=${details.type} reason=${details.reason} exitCode=${details.exitCode}`);
-      trackMain('crash_detected', { type: details.type, reason: details.reason });
+      log.warn(`Child process gone: type=${details.type} reason=${details.reason} exitCode=${details.exitCode} name=${details.name ?? 'unknown'} serviceName=${details.serviceName ?? 'unknown'}`);
+      trackCrashDetectedOncePerSession({
+        kind: 'child',
+        type: details.type,
+        reason: details.reason,
+        name: details.name,
+        serviceName: details.serviceName
+      });
     });
 
     if (process.platform !== 'darwin') {

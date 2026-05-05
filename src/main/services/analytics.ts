@@ -1,6 +1,23 @@
 import { initialize as aptabaseInit, trackEvent } from '@aptabase/electron/main';
 
 type Props = Record<string, string | number | boolean>;
+type CrashReason = 'clean-exit' | 'abnormal-exit' | 'killed' | 'crashed' | 'oom' | 'launch-failed' | 'integrity-failure' | 'memory-eviction';
+type ChildProcessType = 'Utility' | 'Zygote' | 'Sandbox helper' | 'GPU' | 'Pepper Plugin' | 'Pepper Plugin Broker' | 'Unknown';
+type RendererWindowRole = 'main-window' | 'auxiliary-window';
+
+type CrashDetectedInput =
+  | {
+      kind: 'renderer';
+      windowRole: RendererWindowRole;
+      reason: Exclude<CrashReason, 'clean-exit'>;
+    }
+  | {
+      kind: 'child';
+      type: ChildProcessType;
+      reason: Exclude<CrashReason, 'clean-exit'>;
+      name?: string;
+      serviceName?: string;
+    };
 
 // Allowlist: event name → permitted prop keys.
 // Any call with an unknown event or disallowed key throws in dev and silently
@@ -23,6 +40,7 @@ const MAX_STR = 32;
 let _dev = false;
 let _started = false;
 let _on = false;
+const _seenCrashSignatures = new Set<string>();
 
 // Must be called synchronously before app.isReady() so aptabase can register
 // its custom protocol scheme before Electron locks the scheme registry.
@@ -34,6 +52,8 @@ let _on = false;
 export function setupAnalytics(appKey: string | undefined, isDev: boolean): void {
   _dev = isDev;
   _started = false;
+  _on = false;
+  _seenCrashSignatures.clear();
   if (!appKey) return;
   const debugOptIn = process.env.ARROXY_ANALYTICS_DEBUG === '1';
   if (isDev && !debugOptIn) return;
@@ -73,24 +93,48 @@ export function sizeBucket(bytes: number): string {
 
 // --- Core track function ---
 
-export function trackMain(name: string, props?: Props): void {
+export function trackMain(name: string, props?: Props): boolean {
   const keys = ALLOWED[name];
   if (keys === undefined) {
     if (_dev) throw new Error(`[analytics] unknown event: "${name}"`);
-    return;
+    return false;
   }
   if (props) {
     for (const [k, v] of Object.entries(props)) {
       if (!keys.includes(k)) {
         if (_dev) throw new Error(`[analytics] prop "${k}" not allowed on event "${name}"`);
-        return;
+        return false;
       }
       if (typeof v === 'string' && v.length > MAX_STR) {
         if (_dev) throw new Error(`[analytics] prop "${k}" value too long (${v.length} > ${MAX_STR})`);
-        return;
+        return false;
       }
     }
   }
-  if (!_started || !_on) return;
+  if (!_started || !_on) return false;
   void trackEvent(name, props);
+  return true;
+}
+
+function normalizeCrashSignaturePart(value: string): string {
+  return value.trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function crashSignature(input: CrashDetectedInput): string {
+  if (input.kind === 'renderer') {
+    return `renderer|${normalizeCrashSignaturePart(input.reason)}`;
+  }
+
+  return `child|${normalizeCrashSignaturePart(input.type)}|${normalizeCrashSignaturePart(input.reason)}`;
+}
+
+export function trackCrashDetectedOncePerSession(input: CrashDetectedInput): void {
+  const signature = crashSignature(input);
+  if (_seenCrashSignatures.has(signature)) return;
+
+  const didTrack = input.kind === 'renderer' ? trackMain('crash_detected', { type: 'renderer', reason: input.reason }) : trackMain('crash_detected', { type: input.type, reason: input.reason });
+
+  if (didTrack) {
+    _seenCrashSignatures.add(signature);
+  }
 }
