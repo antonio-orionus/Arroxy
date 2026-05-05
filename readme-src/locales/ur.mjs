@@ -78,9 +78,11 @@ export const ur = {
   badge_license_alt: "لائسنس",
   badge_platforms_alt: "پلیٹ فارمز",
   badge_i18n_alt: "زبانیں",
+  badge_website_alt: "ویب سائٹ",
   hero_desc:
     "کوئی بھی YouTube ویڈیو، Short یا آڈیو ٹریک اصل کوالٹی میں ڈاؤن لوڈ کریں — 60 fps پر 4K HDR تک، یا MP3 / AAC / Opus کے طور پر۔ Windows، macOS اور Linux پر مقامی طور پر چلتا ہے۔ **کوئی اشتہارات نہیں، کوئی لاگ ان نہیں، کوئی براؤزر کوکیز نہیں، کوئی Google اکاؤنٹ منسلک نہیں۔**",
   cta_latest: "↓ تازہ ترین ریلیز ڈاؤن لوڈ کریں",
+  cta_website: "ویب سائٹ",
   demo_alt: "Arroxy ڈیمو",
   star_cta: "اگر Arroxy آپ کا وقت بچاتا ہے، تو ایک ⭐ دوسروں کو اسے ڈھونڈنے میں مدد کرتا ہے۔",
   ai_notice:

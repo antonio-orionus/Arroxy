@@ -78,9 +78,11 @@ export const ps = {
   badge_license_alt: "جواز",
   badge_platforms_alt: "پلیټفارمونه",
   badge_i18n_alt: "ژبې",
+  badge_website_alt: "ویب پاڼه",
   hero_desc:
     "هر YouTube ویډیو، Short، یا اوډیو ټریک د اصلي کیفیت سره ډاونلوډ کړئ — تر 4K HDR پورې د 60 fps سره، یا د MP3 / AAC / Opus په توګه. د Windows، macOS، او Linux پر سیستم ځایي چلیږي. **هیڅ اعلانات، هیڅ ننوتل، هیڅ براوزر کوکیز، هیڅ د ګوګل اکاونټ لینک نه دی.**",
   cta_latest: "↓ وروستۍ خپرونه ډاونلوډ کړئ",
+  cta_website: "ویب پاڼه",
   demo_alt: "د Arroxy ډیمو",
   star_cta: "که Arroxy ستاسو وخت خوندي کوي، یو ⭐ نورو سره مرسته کوي چې ومومي.",
   ai_notice: "",

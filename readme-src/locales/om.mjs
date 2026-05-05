@@ -78,9 +78,11 @@ export const om = {
   badge_license_alt: "Hayyama",
   badge_platforms_alt: "Platformoota",
   badge_i18n_alt: "Afaanonni",
+  badge_website_alt: "Marsariitii",
   hero_desc:
     "Viidiyoo YouTube, Short, ykn sagalee kamiyyuu qulqullina jalqabaatiin buusi — hanga 4K HDR 60 fps, ykn MP3 / AAC / Opus. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, seensuu hin barbaachisu, kuukkii biraawzaraa hin fayyadamu, akkaawuntii Google waliin hin hidhu.**",
   cta_latest: "↓ Baasii Haaraa Buusi",
+  cta_website: "Marsariitii",
   demo_alt: "Arroxy demo",
   star_cta: "Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.",
   ai_notice: "",

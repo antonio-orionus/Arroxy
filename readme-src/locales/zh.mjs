@@ -78,9 +78,11 @@ export const zh = {
   badge_license_alt: "许可证",
   badge_platforms_alt: "平台",
   badge_i18n_alt: "语言",
+  badge_website_alt: "官网",
   hero_desc:
     "下载任意 YouTube 视频、Shorts 或音轨，保留原始画质 — 最高 4K HDR 60 fps，或导出为 MP3 / AAC / Opus。在 Windows、macOS 和 Linux 本地运行。**无广告、无登录、无浏览器 Cookie、无 Google 账号绑定。**",
   cta_latest: "↓ 下载最新版本",
+  cta_website: "官网",
   demo_alt: "Arroxy 演示",
   star_cta: "如果 Arroxy 帮你节省了时间，点个 ⭐ 让更多人发现它。",
   ai_notice:

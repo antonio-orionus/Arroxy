@@ -78,9 +78,11 @@ export const bn = {
   badge_license_alt: "লাইসেন্স",
   badge_platforms_alt: "প্ল্যাটফর্ম",
   badge_i18n_alt: "ভাষাসমূহ",
+  badge_website_alt: "ওয়েবসাইট",
   hero_desc:
     "যেকোনো YouTube ভিডিও, Short বা অডিও ট্র্যাক মূল মানে ডাউনলোড করুন — 60 fps-এ 4K HDR পর্যন্ত, অথবা MP3 / AAC / Opus হিসেবে। Windows, macOS ও Linux-এ লোকালি চলে। **কোনো বিজ্ঞাপন নেই, কোনো লগইন নেই, কোনো ব্রাউজার কুকিজ নেই, কোনো Google অ্যাকাউন্ট লিঙ্ক নেই।**",
   cta_latest: "↓ সর্বশেষ রিলিজ ডাউনলোড করুন",
+  cta_website: "ওয়েবসাইট",
   demo_alt: "Arroxy ডেমো",
   star_cta: "Arroxy যদি আপনার সময় বাঁচায়, তাহলে একটি ⭐ অন্যদের খুঁজে পেতে সাহায্য করে।",
   ai_notice: "",

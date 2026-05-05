@@ -78,9 +78,11 @@ export const uk = {
   badge_license_alt: "Ліцензія",
   badge_platforms_alt: "Платформи",
   badge_i18n_alt: "Мови",
+  badge_website_alt: "Сайт",
   hero_desc:
     "Завантажуйте будь-яке відео YouTube, Shorts або аудіодоріжку в оригінальній якості — до 4K HDR при 60 fps, або як MP3 / AAC / Opus. Працює локально на Windows, macOS та Linux. **Без реклами, без логіну, без кук браузера, без прив'язки акаунта Google.**",
   cta_latest: "↓ Завантажити останній реліз",
+  cta_website: "Сайт",
   demo_alt: "Демо Arroxy",
   star_cta: "Якщо Arroxy економить ваш час, ⭐ допомагає іншим його знайти.",
   ai_notice:

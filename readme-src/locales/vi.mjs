@@ -78,9 +78,11 @@ export const vi = {
   badge_license_alt: "Giấy phép",
   badge_platforms_alt: "Nền tảng",
   badge_i18n_alt: "Ngôn ngữ",
+  badge_website_alt: "Trang web",
   hero_desc:
     "Tải xuống bất kỳ video YouTube, Short hay bản nhạc nào ở chất lượng gốc — lên tới 4K HDR ở 60 fps, hoặc dưới dạng MP3 / AAC / Opus. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không đăng nhập, không cookie trình duyệt, không liên kết tài khoản Google.**",
   cta_latest: "↓ Tải phiên bản mới nhất",
+  cta_website: "Trang web",
   demo_alt: "Demo Arroxy",
   star_cta: "Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp người khác tìm thấy nó.",
   ai_notice: "",

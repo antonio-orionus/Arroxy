@@ -78,9 +78,11 @@ export const ja = {
   badge_license_alt: "ライセンス",
   badge_platforms_alt: "プラットフォーム",
   badge_i18n_alt: "対応言語",
+  badge_website_alt: "ウェブサイト",
   hero_desc:
     "YouTube の動画・Shorts・音声トラックをオリジナル品質でダウンロード — 最大 4K HDR 60fps、または MP3 / AAC / Opus として。Windows、macOS、Linux でローカル動作。**広告なし、ログインなし、ブラウザ Cookie なし、Google アカウント連携なし。**",
   cta_latest: "↓ 最新リリースをダウンロード",
+  cta_website: "ウェブサイト",
   demo_alt: "Arroxy デモ",
   star_cta: "Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助けてください。",
   ai_notice:

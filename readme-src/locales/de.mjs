@@ -78,9 +78,11 @@ export const de = {
   badge_license_alt: "License",
   badge_platforms_alt: "Platforms",
   badge_i18n_alt: "Languages",
+  badge_website_alt: "Webseite",
   hero_desc:
     "Lade jedes YouTube-Video, jeden Short oder jeden Audio-Track in Originalqualität herunter — bis zu 4K HDR mit 60 fps, oder als MP3 / AAC / Opus. Läuft lokal auf Windows, macOS und Linux. **Keine Werbung, kein Login, keine Browser-Cookies, kein verknüpftes Google-Konto.**",
   cta_latest: "↓ Neueste Version herunterladen",
+  cta_website: "Webseite",
   demo_alt: "Arroxy Demo",
   star_cta: "Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.",
   ai_notice:

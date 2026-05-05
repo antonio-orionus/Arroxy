@@ -78,9 +78,11 @@ export const sw = {
   badge_license_alt: "Leseni",
   badge_platforms_alt: "Majukwaa",
   badge_i18n_alt: "Lugha",
+  badge_website_alt: "Tovuti",
   hero_desc:
     "Pakua video yoyote ya YouTube, Short, au wimbo wa sauti kwa ubora wa asili — hadi 4K HDR kwa fps 60, au kama MP3 / AAC / Opus. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna kuingia, hakuna vidakuzi vya kivinjari, hakuna akaunti ya Google iliyounganishwa.**",
   cta_latest: "↓ Pakua Toleo la Hivi Karibuni",
+  cta_website: "Tovuti",
   demo_alt: "Demo ya Arroxy",
   star_cta: "Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.",
   ai_notice: "",

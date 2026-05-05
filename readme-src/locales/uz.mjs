@@ -78,9 +78,11 @@ export const uz = {
   badge_license_alt: "Litsenziya",
   badge_platforms_alt: "Platformalar",
   badge_i18n_alt: "Tillar",
+  badge_website_alt: "Veb-sayt",
   hero_desc:
     "Istalgan YouTube videosini, Shortni yoki audio treklarni original sifatda yuklab oling — 60 fps da 4K HDR gacha yoki MP3 / AAC / Opus sifatida. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, kirish yo'q, brauzer kukilari yo'q, Google hisob bog'liq emas.**",
   cta_latest: "↓ Oxirgi Relizni Yuklab Olish",
+  cta_website: "Veb-sayt",
   demo_alt: "Arroxy demosi",
   star_cta: "Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.",
   ai_notice: "",

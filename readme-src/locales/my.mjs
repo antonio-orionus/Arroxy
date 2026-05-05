@@ -78,9 +78,11 @@ export const my = {
   badge_license_alt: "လိုင်စင်",
   badge_platforms_alt: "Platforms",
   badge_i18n_alt: "ဘာသာစကားများ",
+  badge_website_alt: "ဝဘ်ဆိုက်",
   hero_desc:
     "မည်သည့် YouTube ဗီဒီယို၊ Short သို့မဟုတ် audio track ကိုမဆို မူလအရည်အသွေးဖြင့် ဒေါင်းလုဒ်ဆွဲပါ — 60 fps တွင် 4K HDR အထိ၊ သို့မဟုတ် MP3 / AAC / Opus အဖြစ်။ Windows, macOS နှင့် Linux တွင် သင့်ကွန်ပျူတာပေါ်တွင်သာ run ပါသည်။ **ကြော်ငြာမပါ၊ login မလိုအပ်၊ browser cookie မလိုအပ်၊ Google account ချိတ်ဆက်မှုမပါ။**",
   cta_latest: "↓ နောက်ဆုံး Release ကို ဒေါင်းလုဒ်ဆွဲပါ",
+  cta_website: "ဝဘ်ဆိုက်",
   demo_alt: "Arroxy demo",
   star_cta: "Arroxy သည် သင့်အချိန်ကို သက်သာစေပါက ⭐ တစ်ချက်က အခြားသူများ ရှာတွေ့ရန် ကူညီပါသည်။",
   ai_notice: "",

@@ -78,9 +78,11 @@ export const ru = {
   badge_license_alt: "Лицензия",
   badge_platforms_alt: "Платформы",
   badge_i18n_alt: "Языки",
+  badge_website_alt: "Сайт",
   hero_desc:
     "Скачивайте любое видео YouTube, Shorts или аудиодорожку в оригинальном качестве — до 4K HDR при 60 fps или в виде MP3 / AAC / Opus. Работает локально на Windows, macOS и Linux. **Без рекламы, без логина, без кук браузера, без привязки к аккаунту Google.**",
   cta_latest: "↓ Скачать последний релиз",
+  cta_website: "Сайт",
   demo_alt: "Демо Arroxy",
   star_cta: "Если Arroxy экономит вам время — ⭐ поможет другим его найти.",
   ai_notice:

@@ -78,9 +78,11 @@ export const ar = {
   badge_license_alt: "الرخصة",
   badge_platforms_alt: "الأنظمة",
   badge_i18n_alt: "اللغات",
+  badge_website_alt: "الموقع الإلكتروني",
   hero_desc:
     "نزِّل أي فيديو أو Short أو مقطع صوتي من يوتيوب بجودته الأصلية — حتى 4K HDR بـ 60 إطاراً في الثانية، أو بصيغ MP3 / AAC / Opus. يعمل محلياً على Windows وmacOS وLinux. **لا إعلانات، لا تسجيل دخول، لا كوكيز متصفح، لا ربط بحساب Google.**",
   cta_latest: "↓ تنزيل أحدث إصدار",
+  cta_website: "الموقع الإلكتروني",
   demo_alt: "عرض توضيحي لـ Arroxy",
   star_cta: "إذا وفّر لك Arroxy الوقت، فإن ⭐ يساعد الآخرين على اكتشافه.",
   ai_notice: "",

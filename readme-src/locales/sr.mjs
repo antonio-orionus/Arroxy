@@ -78,9 +78,11 @@ export const sr = {
   badge_license_alt: "Лиценца",
   badge_platforms_alt: "Платформе",
   badge_i18n_alt: "Језици",
+  badge_website_alt: "Веб-сајт",
   hero_desc:
     "Преузмите било који YouTube видео, Short или аудио снимак у оригиналном квалитету — до 4K HDR при 60 fps, или као MP3 / AAC / Opus. Ради локално на Windows-у, macOS-у и Linux-у. **Без реклама, без пријаве, без колачића претраживача, без повезаног Google налога.**",
   cta_latest: "↓ Преузмите најновије издање",
+  cta_website: "Веб-сајт",
   demo_alt: "Arroxy демонстрација",
   star_cta: "Ако вам Arroxy уштеди времена, ⭐ помаже другима да га пронађу.",
   ai_notice: "",

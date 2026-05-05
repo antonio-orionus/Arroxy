@@ -78,9 +78,11 @@ export const am = {
   badge_license_alt: "ፈቃድ",
   badge_platforms_alt: "ሥርዓቶች",
   badge_i18n_alt: "ቋንቋዎች",
+  badge_website_alt: "ድር ጣቢያ",
   hero_desc:
     "ማንኛውንም YouTube ቪዲዮ፣ Short፣ ወይም የድምፅ ትራክ በዋናው ጥራት ያውርዱ — እስከ 4K HDR በ60 fps፣ ወይም MP3 / AAC / Opus። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ግባ፣ ምንም ብሮውዘር ኩኪ፣ ምንም Google ሂሳብ አልተያያዘም።**",
   cta_latest: "↓ የቅርብ ጊዜ ስሪት አውርድ",
+  cta_website: "ድር ጣቢያ",
   demo_alt: "የ Arroxy ማሳያ",
   star_cta: "Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረዳል።",
   ai_notice: "",

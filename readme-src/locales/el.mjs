@@ -78,9 +78,11 @@ export const el = {
   badge_license_alt: "Άδεια",
   badge_platforms_alt: "Πλατφόρμες",
   badge_i18n_alt: "Γλώσσες",
+  badge_website_alt: "Ιστότοπος",
   hero_desc:
     "Κατεβάστε οποιοδήποτε βίντεο YouTube, Short ή ηχητικό κομμάτι σε αρχική ποιότητα — έως 4K HDR στα 60 fps, ή ως MP3 / AAC / Opus. Εκτελείται τοπικά σε Windows, macOS και Linux. **Χωρίς διαφημίσεις, χωρίς σύνδεση, χωρίς cookies προγράμματος περιήγησης, χωρίς συνδεδεμένο λογαριασμό Google.**",
   cta_latest: "↓ Λήψη Τελευταίας Έκδοσης",
+  cta_website: "Ιστότοπος",
   demo_alt: "Demo του Arroxy",
   star_cta: "Αν το Arroxy σας εξοικονομεί χρόνο, ένα ⭐ βοηθά άλλους να το βρουν.",
   ai_notice: "",
