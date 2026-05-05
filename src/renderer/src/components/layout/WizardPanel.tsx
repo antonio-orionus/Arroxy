@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../../store/useAppStore';
-import { STEPS, NO_VIDEO_PRESETS } from '../../store/wizardSlice';
+import { STEPS } from '../../store/wizardSlice';
+import { presetProducesMedia, presetProducesVideo } from '../../store/presetTraits';
 import { StepUrlInput } from '../wizard/StepUrlInput';
 import { StepFormatSelect } from '../wizard/StepFormatSelect';
 import { StepFolderConfirm } from '../wizard/StepFolderConfirm';
@@ -18,8 +19,8 @@ export function WizardPanel(): JSX.Element {
   const activePreset = useAppStore((s) => s.activePreset);
 
   const visibleSteps = STEPS.filter((step) => {
-    if (step === 'sponsorblock' && activePreset && NO_VIDEO_PRESETS.has(activePreset)) return false;
-    if (step === 'output' && activePreset === 'subtitle-only') return false;
+    if (step === 'sponsorblock' && activePreset && !presetProducesVideo(activePreset)) return false;
+    if (step === 'output' && activePreset && !presetProducesMedia(activePreset)) return false;
     return true;
   });
 

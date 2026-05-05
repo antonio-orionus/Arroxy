@@ -9,7 +9,7 @@ export type WizardStep = 'url' | 'formats' | 'subtitles' | 'sponsorblock' | 'out
 //             translates this to -x --audio-format X (--audio-quality NK).
 // The IPC payload is derived at queue-build time: convert sends `audioConvert`
 // + `formatId=undefined`; native sends `formatId` composed with the video pick.
-export type AudioSelection = { kind: 'none' } | { kind: 'native'; formatId: string } | { kind: 'convert'; target: 'wav' } | { kind: 'convert'; target: Exclude<AudioConvertTarget, 'wav'>; bitrateKbps: AudioBitrate };
+export type AudioSelection = { kind: 'none' } | { kind: 'native'; formatId: string } | { kind: 'convert-lossless'; target: 'wav' } | { kind: 'convert-lossy'; target: Exclude<AudioConvertTarget, 'wav'>; bitrateKbps: AudioBitrate };
 
 export type SetState = StoreApi<AppState>['setState'];
 export type GetState = StoreApi<AppState>['getState'];

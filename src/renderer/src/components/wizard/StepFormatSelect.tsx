@@ -1,7 +1,7 @@
 import type { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../../store/useAppStore';
-import { resolveVideoResolution } from '../../store/helpers';
+import { useFormatSelectionView } from '../../store/formatSelectionView';
 import { VideoSummaryCard } from '../shared/VideoSummaryCard';
 import downloadingImg from '../../assets/Downloading.png';
 import { PresetStrip } from './format/PresetStrip';
@@ -11,16 +11,8 @@ import { FormatFooter } from './format/FormatFooter';
 
 export function StepFormatSelect(): JSX.Element {
   const { t } = useTranslation();
-  const { wizardFormats, formatsLoading, wizardTitle, wizardThumbnail, wizardDuration, selectedVideoFormatId, audioSelection, lastConvertBitrate, activePreset, setSelectedVideoFormatId, setAudioSelection, setPreset, advance, back } = useAppStore();
-
-  const isAudioOnly = selectedVideoFormatId === '';
-  const subtitleOnlyPreset = activePreset === 'subtitle-only';
-  // After the store invariants, (video !== '') && (audio.kind === 'convert')
-  // is unreachable. The only invalid leaf is audio-only + no audio.
-  const canContinue = subtitleOnlyPreset || !(isAudioOnly && audioSelection.kind === 'none');
-
-  const selectedFilesize = wizardFormats.find((f) => f.formatId === selectedVideoFormatId)?.filesize;
-  const currentResolutionLabel = subtitleOnlyPreset ? t('presets.subtitle-only.label') : isAudioOnly ? t('wizard.formats.audioOnly') : resolveVideoResolution(selectedVideoFormatId, wizardFormats, t('wizard.formats.audioOnly'));
+  const { wizardFormats, formatsLoading, wizardTitle, wizardThumbnail, wizardDuration, selectedVideoFormatId, audioSelection, activePreset, setSelectedVideoFormatId, setAudioSelection, setPreset, advance, back } = useAppStore();
+  const view = useFormatSelectionView();
 
   if (formatsLoading) {
     return (
@@ -59,16 +51,16 @@ export function StepFormatSelect(): JSX.Element {
 
   return (
     <div className="wizard-step flex flex-col gap-3" data-testid="step-formats">
-      <VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} resolution={currentResolutionLabel} />
+      <VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} resolution={view.currentResolutionLabel} />
 
       <PresetStrip activePreset={activePreset} onSelect={setPreset} />
 
       <div className="grid grid-cols-2 gap-[20px]">
-        <VideoColumn formats={wizardFormats} selectedVideoFormatId={selectedVideoFormatId} disabled={subtitleOnlyPreset} onSelect={setSelectedVideoFormatId} />
-        <AudioColumn formats={wizardFormats} audioSelection={audioSelection} lastConvertBitrate={lastConvertBitrate} isAudioOnly={isAudioOnly} subtitleOnlyPreset={subtitleOnlyPreset} onSelect={setAudioSelection} />
+        <VideoColumn formats={wizardFormats} selectedVideoFormatId={selectedVideoFormatId} onSelect={setSelectedVideoFormatId} />
+        <AudioColumn formats={wizardFormats} audioSelection={audioSelection} onSelect={setAudioSelection} />
       </div>
 
-      <FormatFooter selectedFilesize={selectedFilesize} isAudioOnly={isAudioOnly} subtitleOnlyPreset={subtitleOnlyPreset} canContinue={canContinue} onBack={back} onContinue={advance} />
+      <FormatFooter onBack={back} onContinue={advance} />
     </div>
   );
 }

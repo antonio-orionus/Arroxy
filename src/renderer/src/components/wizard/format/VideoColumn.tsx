@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import type { FormatOption } from '@shared/types';
 import { humanSize } from '@shared/format';
 import { groupVideoFormats } from '../../../store/useAppStore';
+import { useFormatSelectionView } from '../../../store/formatSelectionView';
 import { ToggleGroup, ToggleGroupItem } from '../../ui/toggle-group';
 import { RadioOption } from '../../ui/radio-option';
 import { ScrollArea } from '../../ui/scroll-area';
@@ -11,11 +12,11 @@ import { cn } from '@renderer/lib/utils';
 interface VideoColumnProps {
   formats: FormatOption[];
   selectedVideoFormatId: string;
-  disabled: boolean;
   onSelect: (formatId: string) => void;
 }
 
-export function VideoColumn({ formats, selectedVideoFormatId, disabled, onSelect }: VideoColumnProps): JSX.Element {
+export function VideoColumn({ formats, selectedVideoFormatId, onSelect }: VideoColumnProps): JSX.Element {
+  const { video } = useFormatSelectionView();
   const { t } = useTranslation();
   const [extFilter, setExtFilter] = useState<string | null>(null);
   const [drFilter, setDrFilter] = useState<string | null>(null);
@@ -66,7 +67,7 @@ export function VideoColumn({ formats, selectedVideoFormatId, disabled, onSelect
             <RadioOption
               key={g.formatId || 'audio-only'}
               checked={isChecked}
-              disabled={disabled}
+              disabled={video.disabled}
               onClick={() => onSelect(g.formatId)}
               label={g.resolution}
               labelClassName="min-w-[68px]"

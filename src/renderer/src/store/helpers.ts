@@ -28,7 +28,7 @@ export function presetOptions(): { value: Preset; label: string; desc: string }[
 // selections set `formatId: undefined` and pass `audioConvert` instead — the
 // main process then forces `-f bestaudio/best`.
 export function buildFormatId(videoFormatId: string, audioSelection: AudioSelection): string | undefined {
-  if (audioSelection.kind === 'convert') return undefined;
+  if (audioSelection.kind === 'convert-lossy' || audioSelection.kind === 'convert-lossless') return undefined;
   const audioFormatId = audioSelection.kind === 'native' ? audioSelection.formatId : null;
   if (videoFormatId === '' && audioFormatId === null) return undefined;
   if (videoFormatId === '') return audioFormatId ?? undefined;
@@ -39,17 +39,17 @@ export function buildFormatId(videoFormatId: string, audioSelection: AudioSelect
 // IPC payload mirror of audioSelection. Returns the `audioConvert` field for
 // the IPC schema, or undefined for native/none picks.
 export function buildAudioConvertPayload(audioSelection: AudioSelection): AudioConvert | undefined {
-  if (audioSelection.kind !== 'convert') return undefined;
-  if (audioSelection.target === 'wav') return { target: 'wav' };
-  return { target: audioSelection.target, bitrateKbps: audioSelection.bitrateKbps };
+  if (audioSelection.kind === 'convert-lossless') return { target: 'wav' };
+  if (audioSelection.kind === 'convert-lossy') return { target: audioSelection.target, bitrateKbps: audioSelection.bitrateKbps };
+  return undefined;
 }
 
 // Selected audio → human label. Used by buildFormatLabel (queue item) and
 // StepConfirm (preview row) so they can't drift.
 export function resolveAudioLabel(audioSelection: AudioSelection, audioFormats: FormatOption[]): string {
   if (audioSelection.kind === 'none') return i18next.t('wizard.formats.noAudio');
-  if (audioSelection.kind === 'convert') {
-    if (audioSelection.target === 'wav') return i18next.t('wizard.formats.convert.wavLabel');
+  if (audioSelection.kind === 'convert-lossless') return i18next.t('wizard.formats.convert.wavLabel');
+  if (audioSelection.kind === 'convert-lossy') {
     // i18next typed-resource inference doesn't always pick up placeholders in
     // every locale variant — cast through `unknown` like formatStatus does.
     return (i18next.t as (k: string, opts?: Record<string, unknown>) => string)('wizard.formats.convert.lossyLabel', {

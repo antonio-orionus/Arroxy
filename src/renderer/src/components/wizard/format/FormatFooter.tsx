@@ -1,32 +1,30 @@
 import type { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { humanSize } from '@shared/format';
+import { useFormatSelectionView } from '../../../store/formatSelectionView';
 import { Button } from '../../ui/button';
 import { Separator } from '../../ui/separator';
 
 interface FormatFooterProps {
-  selectedFilesize: number | undefined;
-  isAudioOnly: boolean;
-  subtitleOnlyPreset: boolean;
-  canContinue: boolean;
   onBack: () => void;
   onContinue: () => void;
 }
 
-export function FormatFooter({ selectedFilesize, isAudioOnly, subtitleOnlyPreset, canContinue, onBack, onContinue }: FormatFooterProps): JSX.Element {
+export function FormatFooter({ onBack, onContinue }: FormatFooterProps): JSX.Element {
   const { t } = useTranslation();
+  const { mode, selectedFilesize, canContinue } = useFormatSelectionView();
   return (
     <>
       <Separator className="bg-border/50 -mx-6 w-auto" />
       <div className="flex items-center justify-between sticky bottom-0 bg-background py-3 -mx-6 px-6">
         <span className="text-[13px] text-muted-foreground">
-          {subtitleOnlyPreset ? (
+          {mode === 'subtitle-only' ? (
             t('presets.subtitle-only.label')
           ) : selectedFilesize ? (
             <>
               {t('wizard.formats.total')} <span className="text-[17px] font-bold text-[var(--brand)]">~{humanSize(selectedFilesize)}</span>
             </>
-          ) : isAudioOnly ? (
+          ) : mode === 'audio-only' ? (
             t('wizard.formats.audioOnly')
           ) : (
             t('wizard.formats.sizeUnknown')

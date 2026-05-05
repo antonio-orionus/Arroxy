@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "electron-vite dev",
+    "dev": "ELECTRON_DISABLE_SANDBOX=1 electron-vite dev",
     "clean": "rm -rf dist out",
     "build": "bun run typecheck && electron-vite build",
     "dist": "bun run clean && bun run build && electron-builder --publish never",

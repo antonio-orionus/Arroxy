@@ -3,6 +3,7 @@ import { DEFAULT_AUDIO_BITRATE } from '@shared/schemas';
 import type { AppSettings, FormatOption, Preset, SubtitleMap } from '@shared/types';
 import { cleanYoutubeUrl } from '@shared/url';
 import type { AudioSelection, GetState, SetState, WizardSlice, WizardStep } from './types';
+import { presetProducesMedia, presetProducesVideo } from './presetTraits';
 
 // Private helpers — only used inside this slice.
 
@@ -69,9 +70,6 @@ function restoreSubtitleSelection(subtitles: SubtitleMap | undefined, automaticC
 
 export type VisibleStep = Exclude<WizardStep, 'error'>;
 export const STEPS: VisibleStep[] = ['url', 'formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm'];
-
-// Presets that don't download video — SponsorBlock is not applicable.
-export const NO_VIDEO_PRESETS = new Set<string>(['audio-only', 'subtitle-only']);
 
 const RESET_STATE = {
   wizardStep: 'url' as WizardStep,
@@ -164,10 +162,8 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
       const i = STEPS.indexOf(wizardStep as VisibleStep);
       if (i < 0 || i >= STEPS.length - 1) return;
       let nextIdx = i + 1;
-      // Skip sponsorblock for presets that don't produce a video
-      if (STEPS[nextIdx] === 'sponsorblock' && activePreset && NO_VIDEO_PRESETS.has(activePreset)) nextIdx++;
-      // Skip output for subtitle-only preset (no media file to embed into)
-      if (STEPS[nextIdx] === 'output' && activePreset === 'subtitle-only') nextIdx++;
+      if (STEPS[nextIdx] === 'sponsorblock' && activePreset && !presetProducesVideo(activePreset)) nextIdx++;
+      if (STEPS[nextIdx] === 'output' && activePreset && !presetProducesMedia(activePreset)) nextIdx++;
       const target = STEPS[nextIdx] ?? STEPS[STEPS.length - 1];
       set({ wizardStep: target });
     },
@@ -177,10 +173,8 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
       const i = STEPS.indexOf(wizardStep as VisibleStep);
       if (i <= 0) return;
       let prevIdx = i - 1;
-      // Skip output for subtitle-only preset
-      if (STEPS[prevIdx] === 'output' && activePreset === 'subtitle-only') prevIdx--;
-      // Skip sponsorblock for presets that don't produce a video
-      if (STEPS[prevIdx] === 'sponsorblock' && activePreset && NO_VIDEO_PRESETS.has(activePreset)) prevIdx--;
+      if (STEPS[prevIdx] === 'output' && activePreset && !presetProducesMedia(activePreset)) prevIdx--;
+      if (STEPS[prevIdx] === 'sponsorblock' && activePreset && !presetProducesVideo(activePreset)) prevIdx--;
       const target = STEPS[prevIdx] ?? STEPS[0];
       set({ wizardStep: target, ...(target === 'subtitles' && { wizardSubtitleSkipped: false }) });
     },
@@ -200,12 +194,12 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
       if (persist) await window.appApi.settings.update({ defaultOutputDir: dir });
     },
 
-    // Invariant: (video !== '') && (audio.kind === 'convert') is invalid —
+    // Invariant: (video !== '') && (audio.kind === 'convert-lossy' | 'convert-lossless') is invalid —
     // convert (-x) is mutually exclusive with video+audio merging.
     // Reconcile here instead of relying on the UI to prevent it.
     setSelectedVideoFormatId: (id) =>
       set((state) => {
-        const reconcileAudio = id !== '' && state.audioSelection.kind === 'convert';
+        const reconcileAudio = id !== '' && (state.audioSelection.kind === 'convert-lossy' || state.audioSelection.kind === 'convert-lossless');
         if (!reconcileAudio) {
           return { selectedVideoFormatId: id, activePreset: id === '' ? 'audio-only' : null };
         }
@@ -221,13 +215,13 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
         // Symmetric guard: picking a convert target while a video is selected
         // clears the video to audio-only — the user's intent is "I want this
         // audio-converted file", and convert can't be merged with video.
-        const clearVideo = sel.kind === 'convert' && state.selectedVideoFormatId !== '';
+        const clearVideo = (sel.kind === 'convert-lossy' || sel.kind === 'convert-lossless') && state.selectedVideoFormatId !== '';
         return {
           audioSelection: sel,
           selectedVideoFormatId: clearVideo ? '' : state.selectedVideoFormatId,
           activePreset: clearVideo || state.selectedVideoFormatId === '' ? 'audio-only' : null,
           // Keep the user's bitrate choice sticky across mp3/m4a/opus toggles.
-          lastConvertBitrate: sel.kind === 'convert' && sel.target !== 'wav' ? sel.bitrateKbps : state.lastConvertBitrate
+          lastConvertBitrate: sel.kind === 'convert-lossy' ? sel.bitrateKbps : state.lastConvertBitrate
         };
       }),
 
@@ -264,10 +258,8 @@ export function createWizardSlice(set: SetState, get: GetState): WizardSlice {
       const i = STEPS.indexOf(wizardStep as VisibleStep);
       if (i < STEPS.length - 1) {
         let nextIdx = i + 1;
-        // Skip sponsorblock for no-video presets
-        if (STEPS[nextIdx] === 'sponsorblock' && activePreset && NO_VIDEO_PRESETS.has(activePreset)) nextIdx++;
-        // Skip output for subtitle-only preset
-        if (STEPS[nextIdx] === 'output' && activePreset === 'subtitle-only') nextIdx++;
+        if (STEPS[nextIdx] === 'sponsorblock' && activePreset && !presetProducesVideo(activePreset)) nextIdx++;
+        if (STEPS[nextIdx] === 'output' && activePreset && !presetProducesMedia(activePreset)) nextIdx++;
         const target = STEPS[nextIdx] ?? STEPS[STEPS.length - 1];
         set({ wizardSubtitleSkipped: true, wizardStep: target });
       }

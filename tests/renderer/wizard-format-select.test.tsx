@@ -57,7 +57,7 @@ describe('wizard slice — invariant: video + convert audio is unreachable', () 
   it('switching from audio-only to a video format while audio is convert resets audio to best native', () => {
     useAppStore.setState({
       selectedVideoFormatId: '',
-      audioSelection: { kind: 'convert', target: 'mp3', bitrateKbps: 320 },
+      audioSelection: { kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320 },
       activePreset: 'audio-only'
     });
 
@@ -72,7 +72,7 @@ describe('wizard slice — invariant: video + convert audio is unreachable', () 
   it('switching to video while audio is wav-convert also resets to best native', () => {
     useAppStore.setState({
       selectedVideoFormatId: '',
-      audioSelection: { kind: 'convert', target: 'wav' }
+      audioSelection: { kind: 'convert-lossless', target: 'wav' }
     });
 
     useAppStore.getState().setSelectedVideoFormatId('137');
@@ -84,7 +84,7 @@ describe('wizard slice — invariant: video + convert audio is unreachable', () 
     useAppStore.setState({
       wizardFormats: FORMATS.filter((f) => !f.isAudioOnly),
       selectedVideoFormatId: '',
-      audioSelection: { kind: 'convert', target: 'mp3', bitrateKbps: 192 }
+      audioSelection: { kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192 }
     });
 
     useAppStore.getState().setSelectedVideoFormatId('22');
@@ -110,11 +110,11 @@ describe('wizard slice — invariant: video + convert audio is unreachable', () 
       activePreset: null
     });
 
-    useAppStore.getState().setAudioSelection({ kind: 'convert', target: 'mp3', bitrateKbps: 192 });
+    useAppStore.getState().setAudioSelection({ kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192 });
 
     const { selectedVideoFormatId, audioSelection, activePreset } = useAppStore.getState();
     expect(selectedVideoFormatId).toBe('');
-    expect(audioSelection).toEqual({ kind: 'convert', target: 'mp3', bitrateKbps: 192 });
+    expect(audioSelection).toEqual({ kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192 });
     expect(activePreset).toBe('audio-only');
   });
 

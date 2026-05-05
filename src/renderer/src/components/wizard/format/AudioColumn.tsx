@@ -4,6 +4,7 @@ import type { AudioBitrate, AudioConvertTarget, FormatOption } from '@shared/typ
 import { AUDIO_CONVERT_TARGETS } from '@shared/audioTargets';
 import { AUDIO_BITRATES } from '@shared/schemas';
 import type { AudioSelection } from '../../../store/types';
+import { useFormatSelectionView } from '../../../store/formatSelectionView';
 import { ToggleGroup, ToggleGroupItem } from '../../ui/toggle-group';
 import { Tooltip, TooltipTrigger, TooltipContent } from '../../ui/tooltip';
 import { RadioOption } from '../../ui/radio-option';
@@ -15,45 +16,37 @@ import choosingImg from '../../../assets/Choosing.png';
 interface AudioColumnProps {
   formats: FormatOption[];
   audioSelection: AudioSelection;
-  lastConvertBitrate: AudioBitrate;
-  isAudioOnly: boolean;
-  subtitleOnlyPreset: boolean;
   onSelect: (sel: AudioSelection) => void;
 }
 
-export function AudioColumn({ formats, audioSelection, lastConvertBitrate, isAudioOnly, subtitleOnlyPreset, onSelect }: AudioColumnProps): JSX.Element {
+export function AudioColumn({ formats, audioSelection, onSelect }: AudioColumnProps): JSX.Element {
   const { t } = useTranslation();
+  const { mode, audio } = useFormatSelectionView();
   const [audioExtFilter, setAudioExtFilter] = useState<string | null>(null);
 
+  const subtitleOnly = mode === 'subtitle-only';
   const nativeAudios = formats.filter((f) => f.isAudioOnly);
   const nativeExts = [...new Set(nativeAudios.map((f) => f.ext))];
   const convertExts: AudioConvertTarget[] = AUDIO_CONVERT_TARGETS.map((s) => s.target);
   const audioExts = [...nativeExts, ...convertExts.filter((e) => !nativeExts.includes(e))];
 
   const matchExt = (ext: string): boolean => !audioExtFilter || ext === audioExtFilter;
-  // Audio convert (-x) is mutually exclusive with video+audio merging.
-  // Disabled visually here too; the store also enforces the invariant.
-  const convertDisabled = !isAudioOnly;
-  // Bitrate strip is only rendered for lossy convert targets (mp3/m4a/opus).
-  const lossyConvert = audioSelection.kind === 'convert' && audioSelection.target !== 'wav' ? audioSelection : null;
 
   const isNativeChecked = (formatId: string): boolean => audioSelection.kind === 'native' && audioSelection.formatId === formatId;
-  const isConvertChecked = (target: AudioConvertTarget): boolean => audioSelection.kind === 'convert' && audioSelection.target === target;
+  const isConvertChecked = (target: AudioConvertTarget): boolean => (audioSelection.kind === 'convert-lossless' || audioSelection.kind === 'convert-lossy') && audioSelection.target === target;
 
-  const pickConvert = (target: AudioConvertTarget): AudioSelection => (target === 'wav' ? { kind: 'convert', target: 'wav' } : { kind: 'convert', target, bitrateKbps: lastConvertBitrate });
+  const pickConvert = (target: AudioConvertTarget): AudioSelection => (target === 'wav' ? { kind: 'convert-lossless', target: 'wav' } : { kind: 'convert-lossy', target, bitrateKbps: audio.bitrateStrip.value });
 
-  const blocked = !lossyConvert;
-  const displayBitrate = lossyConvert?.bitrateKbps ?? lastConvertBitrate;
   const bitrateStrip = (
-    <div className={cn('flex items-center justify-between mt-2 px-1 transition-opacity', blocked && 'opacity-40 pointer-events-none')} data-testid="audio-bitrate-strip">
+    <div className={cn('flex items-center justify-between mt-2 px-1 transition-opacity', audio.bitrateStrip.blocked && 'opacity-40 pointer-events-none')} data-testid="audio-bitrate-strip">
       <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.formats.convert.bitrate')}</span>
       <ToggleGroup
-        value={[String(displayBitrate)]}
+        value={[String(audio.bitrateStrip.value)]}
         onValueChange={(vals) => {
-          if (!lossyConvert) return;
+          if (audioSelection.kind !== 'convert-lossy') return;
           const next = Number(vals[0]) as AudioBitrate;
           if (!AUDIO_BITRATES.includes(next)) return;
-          onSelect({ kind: 'convert', target: lossyConvert.target, bitrateKbps: next });
+          onSelect({ kind: 'convert-lossy', target: audioSelection.target, bitrateKbps: next });
         }}
         className="gap-[3px]"
       >
@@ -66,7 +59,7 @@ export function AudioColumn({ formats, audioSelection, lastConvertBitrate, isAud
     </div>
   );
 
-  const bitrateTooltipMsg = convertDisabled ? t('wizard.formats.convert.requiresAudioOnly') : blocked ? t('wizard.formats.convert.requiresLossy') : null;
+  const bitrateTooltipMsg = audio.bitrateStrip.tooltipKey ? t(audio.bitrateStrip.tooltipKey) : null;
 
   return (
     <div className="flex flex-col gap-0">
@@ -92,7 +85,7 @@ export function AudioColumn({ formats, audioSelection, lastConvertBitrate, isAud
               <RadioOption
                 key={fmt.formatId}
                 checked={isChecked}
-                disabled={subtitleOnlyPreset}
+                disabled={subtitleOnly}
                 onClick={() => onSelect({ kind: 'native', formatId: fmt.formatId })}
                 label={fmt.ext}
                 meta={
@@ -113,7 +106,7 @@ export function AudioColumn({ formats, audioSelection, lastConvertBitrate, isAud
               <RadioOption
                 key={`convert-${target}`}
                 checked={isChecked}
-                disabled={subtitleOnlyPreset || convertDisabled}
+                disabled={subtitleOnly || audio.convertDisabled}
                 onClick={() => onSelect(pickConvert(target))}
                 label={target}
                 meta={
@@ -123,7 +116,7 @@ export function AudioColumn({ formats, audioSelection, lastConvertBitrate, isAud
                 }
               />
             );
-            return convertDisabled && !subtitleOnlyPreset ? (
+            return audio.convertDisabled && !subtitleOnly ? (
               <Tooltip key={`convert-${target}`}>
                 <TooltipTrigger render={(props) => <div {...props}>{radio}</div>} />
                 <TooltipContent>{t('wizard.formats.convert.requiresAudioOnly')}</TooltipContent>
@@ -133,7 +126,7 @@ export function AudioColumn({ formats, audioSelection, lastConvertBitrate, isAud
             );
           })}
 
-        <RadioOption checked={audioSelection.kind === 'none'} disabled={isAudioOnly || subtitleOnlyPreset} onClick={() => onSelect({ kind: 'none' })} label={t('wizard.formats.noAudio')} meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.videoOnly')}</span>} />
+        <RadioOption checked={audioSelection.kind === 'none'} disabled={audio.noAudioDisabled} onClick={() => onSelect({ kind: 'none' })} label={t('wizard.formats.noAudio')} meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.videoOnly')}</span>} />
       </ScrollArea>
 
       {bitrateTooltipMsg ? (

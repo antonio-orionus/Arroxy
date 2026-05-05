@@ -348,7 +348,7 @@ describe('SponsorBlock wizard slice — step navigation', () => {
 
   it('setAudioSelection preserves audio-only preset when selectedVideoFormatId is empty', () => {
     useAppStore.setState({ selectedVideoFormatId: '', activePreset: 'audio-only' });
-    useAppStore.getState().setAudioSelection({ kind: 'convert', target: 'mp3', bitrateKbps: 128 });
+    useAppStore.getState().setAudioSelection({ kind: 'convert-lossy', target: 'mp3', bitrateKbps: 128 });
     expect(useAppStore.getState().activePreset).toBe('audio-only');
   });
 
