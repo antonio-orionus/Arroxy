@@ -41,7 +41,7 @@ export const DEFAULT_AUDIO_BITRATE: AudioBitrate = 192;
 export const audioConvertSchema = z.discriminatedUnion('target', [z.object({ target: z.literal('wav') }), z.object({ target: z.enum(LOSSY_TARGET_VALUES), bitrateKbps: audioBitrateSchema })]);
 export type AudioConvert = z.infer<typeof audioConvertSchema>;
 
-export const supportedLangSchema = z.enum(['om', 'de', 'en', 'es', 'fr', 'sw', 'uz', 'am', 'ar', 'ur', 'ps', 'bn', 'hi', 'my', 'el', 'ru', 'sr', 'uk', 'zh', 'ja']);
+export const supportedLangSchema = z.enum(['om', 'de', 'en', 'es', 'fr', 'sw', 'uz', 'vi', 'am', 'ar', 'ur', 'ps', 'bn', 'hi', 'my', 'el', 'ru', 'sr', 'uk', 'zh', 'ja']);
 export type SupportedLang = z.infer<typeof supportedLangSchema>;
 export const SUPPORTED_LANGS = supportedLangSchema.options;
 

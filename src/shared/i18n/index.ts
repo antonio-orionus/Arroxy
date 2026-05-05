@@ -20,6 +20,7 @@ import sr from './locales/sr';
 import uk from './locales/uk';
 import zh from './locales/zh';
 import ja from './locales/ja';
+import vi from './locales/vi';
 import { SUPPORTED_LANGS, type SupportedLang, type EnTranslation, type LocaleResource } from './types';
 
 export { SUPPORTED_LANGS, LANGUAGE_NATIVE_NAMES } from './types';
@@ -34,6 +35,7 @@ const RESOURCES: Record<SupportedLang, LocaleResource> = {
   fr,
   sw,
   uz,
+  vi,
   am,
   ar,
   ur,

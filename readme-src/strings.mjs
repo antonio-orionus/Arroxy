@@ -16,6 +16,7 @@ import { es } from "./locales/es.mjs";
 import { fr } from "./locales/fr.mjs";
 import { sw } from "./locales/sw.mjs";
 import { uz } from "./locales/uz.mjs";
+import { vi } from "./locales/vi.mjs";
 import { am } from "./locales/am.mjs";
 import { ar } from "./locales/ar.mjs";
 import { ur } from "./locales/ur.mjs";
@@ -38,6 +39,7 @@ export const LOCALES = [
   { code: "fr", filename: "README.fr.md", name: "Français", strings: fr },
   { code: "sw", filename: "README.sw.md", name: "Kiswahili", strings: sw },
   { code: "uz", filename: "README.uz.md", name: "O'zbekcha", strings: uz },
+  { code: "vi", filename: "README.vi.md", name: "Tiếng Việt", strings: vi },
   { code: "am", filename: "README.am.md", name: "አማርኛ", strings: am },
   { code: "ar", filename: "README.ar.md", name: "العربية", strings: ar },
   { code: "ur", filename: "README.ur.md", name: "اردو", strings: ur },

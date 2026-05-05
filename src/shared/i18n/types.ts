@@ -18,6 +18,7 @@ export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
   fr: 'Français',
   sw: 'Kiswahili',
   uz: "O'zbekcha",
+  vi: 'Tiếng Việt',
   am: 'አማርኛ',
   ar: 'العربية',
   ur: 'اردو',
