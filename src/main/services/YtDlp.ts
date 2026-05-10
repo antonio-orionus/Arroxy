@@ -146,7 +146,15 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
   // client. With deno bundled, we point yt-dlp at it explicitly so it doesn't
   // silently fall back to JS-free clients (where our web.gvs PoT is unused).
   const jsRuntimeArgs = opts.denoPath ? ['--js-runtimes', `deno:${opts.denoPath}`] : [];
-  const args = ['--extractor-args', extractorArgs, ...cookiesArgs, ...proxyArgs, ...jsRuntimeArgs, ...opts.args];
+  // Pass ffmpeg's location to yt-dlp explicitly instead of relying on the PATH
+  // injection in spawnYtDlp. That PATH approach is unreliable inside the packaged
+  // Electron portable on Windows: `process.env` can expose the variable as `Path`,
+  // so `{ ...process.env }` then `env.PATH = …` writes a *second* key `PATH`
+  // holding only ffmpegDir. The child ends up with both `Path=` and `PATH=`, and
+  // yt-dlp's frozen-Python `shutil.which('ffmpeg')` reads the original `Path`
+  // (without ffmpegDir) → "Preprocessing/Postprocessing: ffmpeg not found".
+  const ffmpegLocationArgs = opts.ffmpegPath ? ['--ffmpeg-location', opts.ffmpegPath] : [];
+  const args = [...ffmpegLocationArgs, '--extractor-args', extractorArgs, ...cookiesArgs, ...proxyArgs, ...jsRuntimeArgs, ...opts.args];
 
   ytDlpLog.info('spawn', {
     attempt: strategy.kind,
