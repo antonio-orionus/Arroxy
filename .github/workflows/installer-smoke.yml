@@ -51,7 +51,7 @@ jobs:
           else
             bun run dist:win:nsis
           fi
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: installer
           path: |
@@ -127,7 +127,7 @@ jobs:
 
       - name: Upload crash dumps + analysis
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: crash-dump-cold
           path: ${{ runner.temp }}/../../AppData/Local/CrashDumps/
@@ -164,7 +164,7 @@ jobs:
 
       - name: Upload crash dumps on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: crash-dump-cycle
           path: ${{ runner.temp }}/../../AppData/Local/CrashDumps/
