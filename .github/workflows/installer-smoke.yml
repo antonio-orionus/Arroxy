@@ -32,7 +32,7 @@ jobs:
     name: Build Windows installer
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
@@ -174,7 +174,7 @@ jobs:
     name: electron-builder dist-tag advisory
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Compare installed electron-builder vs npm latest
         run: |
           installed=$(jq -r '.devDependencies."electron-builder"' package.json | sed 's/^[~^]//')

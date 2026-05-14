@@ -14,7 +14,7 @@ jobs:
   verify-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Ensure tag matches package version and release branch
@@ -87,7 +87,7 @@ jobs:
             dist-cmd: dist:release:mac
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
@@ -102,7 +102,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Set release title and notes
         run: |
           NOTES=$(gh api repos/${{ github.repository }}/releases/generate-notes \
@@ -180,7 +180,7 @@ jobs:
       image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
       options: --privileged
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Need full tag history so render-flatpak-manifest.py can read tagger
           # dates of prior v* tags to render the metainfo <releases> block.
@@ -252,7 +252,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout bucket
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: antonio-orionus/scoop-bucket
           token: ${{ secrets.WINGET_TOKEN }}
@@ -293,7 +293,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout tap
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: antonio-orionus/homebrew-arroxy
           token: ${{ secrets.WINGET_TOKEN }}

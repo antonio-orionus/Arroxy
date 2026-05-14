@@ -26,7 +26,7 @@ jobs:
       image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
       options: --privileged
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # render-flatpak-manifest.py reads v* tags to build the metainfo
           # <releases> block, matching the tagged release workflow.
