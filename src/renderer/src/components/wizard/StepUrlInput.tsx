@@ -11,6 +11,7 @@ import { MascotBubble } from '../shared/MascotBubble.js';
 import { ClipboardConfirmDialog } from '../shared/ClipboardConfirmDialog.js';
 import { IncompleteCookiesConfigDialog } from './IncompleteCookiesConfigDialog.js';
 import { LimitRatePicker } from '../shared/LimitRatePicker.js';
+import { NetworkPacingSettings } from './NetworkPacingSettings.js';
 import { formatHomeRelativePath } from '@renderer/lib/utils.js';
 import { cleanUrl } from '@shared/cleanUrl.js';
 import type { CookiesBrowser, CookiesMode } from '@shared/types.js';
@@ -35,7 +36,7 @@ const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookies
 
 export function StepUrlInput(): JSX.Element {
   const { t } = useTranslation();
-  const { wizardUrl, setWizardUrl, submitUrl, queue, settings, initialized, advancedAutoOpen, setAdvancedAutoOpen, setCookiesPath, setCookiesMode, setCookiesBrowser, setClipboardWatchEnabled, setCloseBehavior, setAnalyticsEnabled, setProxyUrl, setLimitRate, cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, openShareDialog, setShareInlineCardDismissed } = useAppStore();
+  const { wizardUrl, setWizardUrl, submitUrl, queue, settings, initialized, advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen, setCookiesPath, setCookiesMode, setCookiesBrowser, setClipboardWatchEnabled, setCloseBehavior, setAnalyticsEnabled, setProxyUrl, setLimitRate, cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, openShareDialog, setShareInlineCardDismissed } = useAppStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const hasActiveDownloads = queue.some((i) => i.status === 'running');
   const [pendingClipboardUrl, setPendingClipboardUrl] = useState<string | null>(null);
@@ -63,19 +64,20 @@ export function StepUrlInput(): JSX.Element {
     }
   }, []);
 
-  // Honor `openCookiesSettings()` from the wizard error step: expand the
-  // advanced section and scroll the cookies block into view, then clear
+  // Honor "open advanced settings" links from modals/error steps: expand the
+  // advanced section and scroll the requested block into view, then clear
   // the flag so a subsequent reset doesn't re-fire it.
   useEffect(() => {
     if (!advancedAutoOpen) return;
     const advanced = document.querySelector('[data-testid="advanced-section"]');
     if (advanced instanceof HTMLDetailsElement) advanced.open = true;
-    const cookiesSection = document.querySelector('[data-testid="cookies-source"]');
-    if (cookiesSection instanceof HTMLElement) {
-      cookiesSection.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
+    const targetTestId = advancedAutoTarget === 'network' ? 'network-pacing-section' : 'cookies-source';
+    const target = document.querySelector(`[data-testid="${targetTestId}"]`);
+    if (target instanceof HTMLElement) {
+      target.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
     }
-    setAdvancedAutoOpen(false);
-  }, [advancedAutoOpen, setAdvancedAutoOpen]);
+    setAdvancedAutoOpen(false, advancedAutoTarget);
+  }, [advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen]);
 
   useEffect(() => {
     return window.appApi.events.onClipboardUrl((url) => {
@@ -297,6 +299,8 @@ export function StepUrlInput(): JSX.Element {
             </div>
             <LimitRatePicker value={settings?.common?.limitRate?.trim() ? settings.common.limitRate : undefined} onChange={(v) => void setLimitRate(v)} />
           </div>
+
+          <NetworkPacingSettings />
 
           {(window as Window & { platform?: string }).platform !== 'darwin' && (
             <div className="flex items-center justify-between gap-3">

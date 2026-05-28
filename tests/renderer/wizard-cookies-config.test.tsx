@@ -1,7 +1,9 @@
 // @vitest-environment jsdom
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { StepUrlInput } from '@renderer/components/wizard/StepUrlInput.js';
+import { MixedUrlPromptDialog } from '@renderer/components/wizard/MixedUrlPromptDialog.js';
+import { TooltipProvider } from '@renderer/components/ui/tooltip.js';
 import { useAppStore } from '@renderer/store/useAppStore.js';
 import { buildMockAppApi } from '../shared/mockAppApi.js';
 import type { AppApi, SettingsPatch } from '@shared/api.js';
@@ -46,6 +48,7 @@ function resetStore(settings: AppSettings): void {
     wizardExtractorKey: '',
     wizardWebpageUrl: '',
     advancedAutoOpen: false,
+    advancedAutoTarget: 'cookies',
     selectedVideoFormatId: '',
     audioSelection: { kind: 'none' },
     lastConvertBitrate: 192,
@@ -94,6 +97,41 @@ beforeEach(() => {
   window.appApi = mockApi;
   window.platform = 'linux';
   resetStore(buildSettings());
+});
+
+describe('advanced network settings', () => {
+  it('renders playlist probe limit controls and saves a preset', async () => {
+    render(<StepUrlInput />);
+
+    const advanced = screen.getByTestId('advanced-section');
+    if (advanced instanceof HTMLDetailsElement) advanced.open = true;
+
+    expect(screen.getByTestId('network-pacing-section')).toBeInTheDocument();
+    const playlistSection = screen.getByTestId('playlist-probe-limit-section');
+    fireEvent.click(within(playlistSection).getByText('250'));
+
+    await waitFor(() => {
+      expect(mockApi.settings.update).toHaveBeenCalledWith({ common: { playlistProbeLimit: 250 } });
+    });
+  });
+
+  it('mixed URL dialog shows the current playlist cap and opens Advanced at network settings', async () => {
+    resetStore(buildSettings({ playlistProbeLimit: 250 }));
+    useAppStore.setState({ mixedUrlPromptOpen: true, mixedUrlPending: SINGLE_URL });
+
+    render(
+      <TooltipProvider>
+        <MixedUrlPromptDialog />
+      </TooltipProvider>
+    );
+
+    expect(screen.getByTestId('mixed-playlist-cap')).toHaveTextContent('Playlist probe limit: 250 items');
+    fireEvent.click(screen.getByTestId('mixed-open-advanced'));
+
+    expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false);
+    expect(useAppStore.getState().advancedAutoOpen).toBe(true);
+    expect(useAppStore.getState().advancedAutoTarget).toBe('network');
+  });
 });
 
 describe('incomplete cookies config guard', () => {

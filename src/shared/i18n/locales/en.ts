@@ -112,7 +112,11 @@ const en = {
       title: 'This link has a playlist',
       body: "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next.",
       singleVideo: 'Just this one',
-      pickFromPlaylist: 'Pick from playlist'
+      pickFromPlaylist: 'Pick from playlist',
+      playlistLimit: 'Playlist probe limit: {{count}} items',
+      advancedSettings: 'Advanced settings',
+      singleTooltip: 'Uses yt-dlp single-video mode so the playlist attached to this URL is ignored.',
+      playlistTooltip: 'Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker.'
     },
     url: {
       heading: 'Video URL',
@@ -186,12 +190,50 @@ const en = {
       },
       limitRate: {
         label: 'Download speed limit',
-        description: 'Cap bandwidth to look less bot-like to YouTube. Applies to video downloads only.',
+        description: 'Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever.',
         off: 'Off',
         custom: 'Custom…',
         customPlaceholder: 'e.g. 750K or 1.5M',
         invalid: 'Use a number followed by K or M (e.g. 500K, 1.5M)',
         activeWarning: 'Active downloads keep their current limit. Pause + Resume to apply changes.'
+      },
+      playlistProbeLimit: {
+        label: 'Playlist items to scan',
+        description: 'Maximum entries Arroxy loads when a playlist, channel, or search result is opened.',
+        current: 'Current limit: {{count}} items',
+        custom: 'Custom…',
+        invalid: 'Use a whole number from 1 to 5000',
+        tooltip: 'Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker.'
+      },
+      networkPacing: {
+        heading: 'Network pacing',
+        description: 'Add small waits between yt-dlp network actions. Values are seconds unless noted.',
+        presetLabel: 'How cautious should Arroxy be?',
+        tooltip: 'yt-dlp supports sleeps between extraction requests, before downloads, and before subtitle downloads.',
+        summary: 'Waits: {{requests}} between metadata requests, {{downloads}} before each download, {{subtitles}} before subtitle files. Fragment threads: {{fragments}}.',
+        presets: {
+          off: 'Off',
+          balanced: 'Balanced',
+          careful: 'Careful',
+          custom: 'Custom'
+        },
+        tooltips: {
+          off: 'Adds no request or download sleeps beyond Arroxy defaults.',
+          balanced: 'Uses yt-dlp sleep-style pacing: short extraction sleeps and a randomized pause before downloads.',
+          careful: 'Uses longer sleeps for large playlists or networks that frequently hit rate limits.',
+          custom: 'Lets you tune the underlying yt-dlp pacing flags directly.'
+        },
+        fields: {
+          sleepRequests: 'Wait between metadata requests',
+          sleepInterval: 'Minimum wait before each download',
+          maxSleepInterval: 'Maximum wait before each download',
+          sleepSubtitles: 'Wait before subtitle files',
+          concurrentFragments: 'Parallel fragment downloads'
+        },
+        units: {
+          seconds: 'sec',
+          threads: 'threads'
+        }
       },
       closeToTray: {
         toggle: 'Hide to tray on close',

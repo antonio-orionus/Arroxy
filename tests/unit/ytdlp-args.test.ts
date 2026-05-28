@@ -67,7 +67,7 @@ describe('YtDlp — probe args', () => {
     expect(args).not.toContain('--yes-playlist');
     expect(args).not.toContain('--no-playlist');
     expect(args).toContain('--playlist-end');
-    expect(args[args.indexOf('--playlist-end') + 1]).toBe('500');
+    expect(args[args.indexOf('--playlist-end') + 1]).toBe('100');
     expect(args[args.length - 1]).toBe(URL);
   });
 
@@ -79,13 +79,19 @@ describe('YtDlp — probe args', () => {
     expect(args).not.toContain('--playlist-end');
   });
 
-  it("playlistMode='playlist': adds --yes-playlist + --playlist-end 500", async () => {
+  it("playlistMode='playlist': adds --yes-playlist + --playlist-end 100", async () => {
     await makeYtDlp().run({ kind: 'probe', url: URL, playlistMode: 'playlist' });
     const args = getArgs();
     expect(args).toContain('--yes-playlist');
     expect(args).not.toContain('--no-playlist');
     expect(args).toContain('--playlist-end');
-    expect(args[args.indexOf('--playlist-end') + 1]).toBe('500');
+    expect(args[args.indexOf('--playlist-end') + 1]).toBe('100');
+  });
+
+  it('settings.playlistProbeLimit overrides default --playlist-end', async () => {
+    await makeYtDlp({ settings: { playlistProbeLimit: 250 } }).run({ kind: 'probe', url: URL });
+    const args = getArgs();
+    expect(args[args.indexOf('--playlist-end') + 1]).toBe('250');
   });
 });
 
@@ -774,6 +780,31 @@ describe('YtDlp — limit-rate', () => {
   it('settings.limitRate undefined → no --limit-rate', async () => {
     await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
     expect(getArgs()).not.toContain('--limit-rate');
+  });
+});
+
+describe('YtDlp — network pacing', () => {
+  it('balanced preset applies request pacing to probes', async () => {
+    await makeYtDlp({ settings: { networkPacingPreset: 'balanced' } }).run({ kind: 'probe', url: URL });
+    const args = getArgs();
+    expect(args).toContain('--sleep-requests');
+    expect(args[args.indexOf('--sleep-requests') + 1]).toBe('1');
+  });
+
+  it('balanced preset applies download pacing to video downloads', async () => {
+    await makeYtDlp({ settings: { networkPacingPreset: 'balanced' } }).run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
+    const args = getArgs();
+    expect(args[args.indexOf('--sleep-requests') + 1]).toBe('1');
+    expect(args[args.indexOf('--sleep-interval') + 1]).toBe('10');
+    expect(args[args.indexOf('--max-sleep-interval') + 1]).toBe('20');
+    expect(args[args.indexOf('--concurrent-fragments') + 1]).toBe('1');
+  });
+
+  it('custom preset applies subtitle sleep to subtitle requests', async () => {
+    await makeYtDlp({ settings: { networkPacingPreset: 'custom', pacingSleepRequests: 2, pacingSleepSubtitles: 7 } }).run({ kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR, subtitleLanguages: ['en'], subtitleFormat: 'srt' });
+    const args = getArgs();
+    expect(args[args.indexOf('--sleep-requests') + 1]).toBe('2');
+    expect(args[args.indexOf('--sleep-subtitles') + 1]).toBe('7');
   });
 });
 

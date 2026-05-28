@@ -9,6 +9,8 @@ import { EMBED_CONTAINER_EXT } from '@shared/subtitlePath.js';
 import { siteForUrl } from '@shared/sites/index.js';
 import type { SubtitleFormat, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, StatusKey, AudioConvert } from '@shared/types.js';
 import { resolveEmbedPolicy } from '@shared/embedPolicy.js';
+import { resolveNetworkPacing, resolvePlaylistProbeLimit } from '@shared/networkPacing.js';
+import { DEFAULT_PLAYLIST_PROBE_LIMIT, type NetworkPacingArgs } from '@shared/constants.js';
 import type { BinaryManager } from './BinaryManager.js';
 import type { TokenService } from './TokenService.js';
 import type { SettingsStore } from '@main/stores/SettingsStore.js';
@@ -148,6 +150,46 @@ interface InvokeOptions {
   timeoutMs?: number;
   signal?: YtDlpSignal;
   isProbe?: boolean;
+}
+
+function formatPacingNumber(value: number): string {
+  return String(value);
+}
+
+function appendRequestPacingArgs(args: string[], pacing: NetworkPacingArgs | undefined): void {
+  if (pacing?.sleepRequests !== undefined && pacing.sleepRequests > 0) {
+    args.push('--sleep-requests', formatPacingNumber(pacing.sleepRequests));
+  }
+}
+
+function insertBeforeLastArg(args: string[], values: string[]): void {
+  if (values.length === 0) return;
+  args.splice(Math.max(0, args.length - 1), 0, ...values);
+}
+
+function requestPacingArgs(pacing: NetworkPacingArgs | undefined): string[] {
+  const args: string[] = [];
+  appendRequestPacingArgs(args, pacing);
+  return args;
+}
+
+function downloadPacingArgs(pacing: NetworkPacingArgs | undefined): string[] {
+  const args: string[] = [];
+  appendDownloadPacingArgs(args, pacing);
+  return args;
+}
+
+function appendDownloadPacingArgs(args: string[], pacing: NetworkPacingArgs | undefined): void {
+  appendRequestPacingArgs(args, pacing);
+  if (pacing?.sleepInterval !== undefined && pacing.sleepInterval > 0) {
+    args.push('--sleep-interval', formatPacingNumber(pacing.sleepInterval));
+    if (pacing.maxSleepInterval !== undefined && pacing.maxSleepInterval >= pacing.sleepInterval) {
+      args.push('--max-sleep-interval', formatPacingNumber(pacing.maxSleepInterval));
+    }
+  }
+  if (pacing?.concurrentFragments !== undefined && pacing.concurrentFragments > 0) {
+    args.push('--concurrent-fragments', String(Math.trunc(pacing.concurrentFragments)));
+  }
 }
 
 async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise<YtDlpResult> {
@@ -464,7 +506,7 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
   return args;
 }
 
-export function buildArgs(req: YtDlpRequest): { args: string[]; subtitleFormat?: SubtitleFormat } {
+export function buildArgs(req: YtDlpRequest, opts: { pacing?: NetworkPacingArgs; playlistProbeLimit?: number } = {}): { args: string[]; subtitleFormat?: SubtitleFormat } {
   switch (req.kind) {
     case 'probe': {
       // --dump-single-json: one JSON document per URL regardless of content type.
@@ -478,14 +520,37 @@ export function buildArgs(req: YtDlpRequest): { args: string[]; subtitleFormat?:
       // playlistMode disambiguates mixed YouTube URLs (?v=X&list=Y): yt-dlp's
       //   default routes Radio/Mix to playlist, which is rarely user intent.
       const modeFlag = req.playlistMode === 'video' ? ['--no-playlist'] : req.playlistMode === 'playlist' ? ['--yes-playlist'] : [];
-      const capFlag = req.playlistMode === 'video' ? [] : ['--playlist-end', '500'];
-      return { args: ['--dump-single-json', '--flat-playlist', ...modeFlag, ...capFlag, req.url] };
+      const capFlag = req.playlistMode === 'video' ? [] : ['--playlist-end', String(opts.playlistProbeLimit ?? DEFAULT_PLAYLIST_PROBE_LIMIT)];
+      const args = ['--dump-single-json', '--flat-playlist', ...modeFlag, ...capFlag];
+      appendRequestPacingArgs(args, opts.pacing);
+      args.push(req.url);
+      return { args };
     }
-    case 'subtitle':
-      return { args: buildSubtitleArgs(req), subtitleFormat: effectiveSubtitleFormat(req) };
+    case 'subtitle': {
+      const args = buildSubtitleArgs(req);
+      insertBeforeLastArg(args, requestPacingArgs(opts.pacing));
+      if (opts.pacing?.sleepSubtitles !== undefined) {
+        const idx = args.indexOf('--sleep-subtitles');
+        if (idx >= 0) args.splice(idx, 2);
+        if (opts.pacing.sleepSubtitles > 0) args.splice(args.length - 1, 0, '--sleep-subtitles', formatPacingNumber(opts.pacing.sleepSubtitles));
+      }
+      return { args, subtitleFormat: effectiveSubtitleFormat(req) };
+    }
     case 'video':
-    case 'video+embed':
-      return { args: buildVideoArgs(req) };
+    case 'video+embed': {
+      const args = buildVideoArgs(req);
+      if (req.loadInfoJsonPath) {
+        args.push(...downloadPacingArgs(opts.pacing));
+      } else {
+        insertBeforeLastArg(args, downloadPacingArgs(opts.pacing));
+      }
+      if (opts.pacing?.sleepSubtitles !== undefined && (req.kind === 'video+embed' || args.includes('--sleep-subtitles'))) {
+        const idx = args.indexOf('--sleep-subtitles');
+        if (idx >= 0) args.splice(idx, 2);
+        if (opts.pacing.sleepSubtitles > 0 && req.kind === 'video+embed') args.splice(args.length - 1, 0, '--sleep-subtitles', formatPacingNumber(opts.pacing.sleepSubtitles));
+      }
+      return { args };
+    }
   }
 }
 
@@ -522,7 +587,9 @@ export class YtDlp {
     const settings = await this.settingsStore.get();
     const cookies = resolveCookies(settings);
     const proxyUrl = nonEmpty(settings.common?.proxyUrl?.trim());
-    const { args, subtitleFormat } = buildArgs(req);
+    const pacing = resolveNetworkPacing(settings.common);
+    const playlistProbeLimit = resolvePlaylistProbeLimit(settings.common);
+    const { args, subtitleFormat } = buildArgs(req, { pacing, playlistProbeLimit });
     const isProbe = req.kind === 'probe';
     // Bandwidth cap applies to media downloads only — probes need raw speed
     // for snappy "Fetch formats" UX, sidecar subs are tiny so throttling

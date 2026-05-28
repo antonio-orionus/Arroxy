@@ -4,6 +4,7 @@ import type { AudioSelection } from '@shared/schemas.js';
 import type { IncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 export type { AudioSelection };
 export type WizardStep = 'url' | 'playlistItems' | 'playlistPresets' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error';
+export type AdvancedSettingsTarget = 'cookies' | 'network';
 
 // Explicit mode tag so consumers don't re-derive intent from
 // `playlistItems.length > 0`. `single` = format-probe flow; `playlist` =
@@ -129,14 +130,16 @@ export interface WizardDialogsSlice {
   mixedUrlPromptOpen: boolean;
   mixedUrlPending: string | null;
   // Transient flag set when the user navigates to the URL step from the
-  // CookiesErrorAlert's "Open cookies settings" link. `StepUrlInput` reads
-  // it on mount, expands the advanced section, scrolls the cookies block
-  // into view, and clears the flag so it doesn't re-fire on re-render.
+  // an "Open advanced settings" link. `StepUrlInput` reads it on mount,
+  // expands the advanced section, scrolls the requested block into view,
+  // and clears the flag so it doesn't re-fire on re-render.
   advancedAutoOpen: boolean;
+  advancedAutoTarget: AdvancedSettingsTarget;
   cookiesConfigDialogIssue: IncompleteCookiesConfigIssue | null;
 
-  setAdvancedAutoOpen: (open: boolean) => void;
+  setAdvancedAutoOpen: (open: boolean, target?: AdvancedSettingsTarget) => void;
   dismissCookiesConfigDialog: () => void;
+  openAdvancedSettings: (target: AdvancedSettingsTarget) => void;
 }
 
 // Renderer's queue slice is a read-only projection of QueueService (main).
@@ -207,6 +210,13 @@ export interface SystemSlice {
   setCookiesBrowser: (browser: CookiesBrowser) => Promise<void>;
   setProxyUrl: (url: string) => Promise<void>;
   setLimitRate: (value: string | undefined) => Promise<void>;
+  setPlaylistProbeLimit: (value: number) => Promise<void>;
+  setNetworkPacingPreset: (value: AppSettings['common']['networkPacingPreset']) => Promise<void>;
+  setPacingSleepRequests: (value: number | undefined) => Promise<void>;
+  setPacingSleepInterval: (value: number | undefined) => Promise<void>;
+  setPacingMaxSleepInterval: (value: number | undefined) => Promise<void>;
+  setPacingSleepSubtitles: (value: number | undefined) => Promise<void>;
+  setPacingConcurrentFragments: (value: number | undefined) => Promise<void>;
   setClipboardWatchEnabled: (enabled: boolean) => Promise<void>;
   setCloseBehavior: (value: 'tray' | 'quit') => Promise<void>;
   setAnalyticsEnabled: (enabled: boolean) => Promise<void>;

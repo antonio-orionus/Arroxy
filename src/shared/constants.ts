@@ -1,4 +1,4 @@
-import type { SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme } from './schemas.js';
+import type { SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, NetworkPacingPreset } from './schemas.js';
 import type { AppSettings } from './types.js';
 
 // Defaults — single source. Anywhere that needs a fallback for a missing field
@@ -68,3 +68,32 @@ export const LIVE_CHAT_LANG = 'live_chat';
 export const NORMAL_LANE_CAP = 1;
 export const MAX_CONCURRENT_DOWNLOADS = 4;
 export const INTER_JOB_SLEEP_MS = 3000;
+
+export const DEFAULT_PLAYLIST_PROBE_LIMIT = 100;
+export const PLAYLIST_PROBE_LIMIT_PRESETS = [50, 100, 250, 500, 1000] as const;
+
+export interface NetworkPacingArgs {
+  sleepRequests?: number;
+  sleepInterval?: number;
+  maxSleepInterval?: number;
+  sleepSubtitles?: number;
+  concurrentFragments?: number;
+}
+
+export const NETWORK_PACING_PRESET_VALUES: Record<Exclude<NetworkPacingPreset, 'custom'>, NetworkPacingArgs> = {
+  off: {},
+  balanced: {
+    sleepRequests: 1,
+    sleepInterval: 10,
+    maxSleepInterval: 20,
+    sleepSubtitles: 5,
+    concurrentFragments: 1
+  },
+  careful: {
+    sleepRequests: 2,
+    sleepInterval: 15,
+    maxSleepInterval: 45,
+    sleepSubtitles: 5,
+    concurrentFragments: 1
+  }
+};

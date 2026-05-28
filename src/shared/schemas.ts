@@ -66,6 +66,16 @@ export type CookiesMode = z.infer<typeof cookiesModeSchema>;
 export const cookiesBrowserSchema = z.enum(['firefox', 'chromium', 'chrome', 'brave', 'edge', 'safari', 'vivaldi']);
 export type CookiesBrowser = z.infer<typeof cookiesBrowserSchema>;
 
+export const networkPacingPresetSchema = z.enum(['off', 'balanced', 'careful', 'custom']);
+export type NetworkPacingPreset = z.infer<typeof networkPacingPresetSchema>;
+
+export const PLAYLIST_PROBE_LIMIT_MIN = 1;
+export const PLAYLIST_PROBE_LIMIT_MAX = 5000;
+
+export const playlistProbeLimitSchema = z.number().int().min(PLAYLIST_PROBE_LIMIT_MIN).max(PLAYLIST_PROBE_LIMIT_MAX);
+export const pacingSleepSecondsSchema = z.number().min(0).max(120);
+export const pacingConcurrentFragmentsSchema = z.number().int().min(0).max(16);
+
 // QueueItemStatus is now a 7-value union with paused split. paused-held is
 // "queued + waiting + never spawned a job" (resume = transition to pending).
 // paused-active is "had a running job, user paused it" (resume = re-spawn,
@@ -253,6 +263,13 @@ export const limitRateSchema = z.string().regex(/^(|\s*|\d+(\.\d+)?[KM])$/i, 'Us
 const commonSettingsPatchSchema = z.object({
   defaultOutputDir: z.string().min(1).optional(),
   limitRate: limitRateSchema.optional(),
+  playlistProbeLimit: playlistProbeLimitSchema.optional(),
+  networkPacingPreset: networkPacingPresetSchema.optional(),
+  pacingSleepRequests: pacingSleepSecondsSchema.optional(),
+  pacingSleepInterval: pacingSleepSecondsSchema.optional(),
+  pacingMaxSleepInterval: pacingSleepSecondsSchema.optional(),
+  pacingSleepSubtitles: pacingSleepSecondsSchema.optional(),
+  pacingConcurrentFragments: pacingConcurrentFragmentsSchema.optional(),
   rememberLastOutputDir: z.boolean().optional(),
   uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
   uiTheme: uiThemeSchema.optional(),

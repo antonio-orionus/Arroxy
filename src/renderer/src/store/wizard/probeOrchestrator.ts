@@ -451,7 +451,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
       // and a stalled YouTube fallback chain can otherwise keep the spinner
       // bound and emit results into a step the user already left.
       void window.appApi.downloads.probeCancel();
-      set({ wizardStep: 'url', wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, cookiesConfigDialogIssue: null });
+      set({ wizardStep: 'url', wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, advancedAutoTarget: 'cookies', cookiesConfigDialogIssue: null });
     }
   };
 }

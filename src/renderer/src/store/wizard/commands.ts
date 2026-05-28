@@ -57,6 +57,7 @@ export const RESET_WIZARD_STATE = {
   wizardSubfolderName: '',
   // dialogs
   advancedAutoOpen: false,
+  advancedAutoTarget: 'cookies' as const,
   mixedUrlPromptOpen: false,
   mixedUrlPending: null as string | null,
   cookiesConfigDialogIssue: null

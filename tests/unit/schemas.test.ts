@@ -218,3 +218,28 @@ describe('updateSettingsSchema — common.limitRate', () => {
     expect(updateSettingsSchema.safeParse({ common: { limitRate: value } }).success).toBe(false);
   });
 });
+
+describe('updateSettingsSchema — network pacing', () => {
+  it.each([1, 100, 5000])('accepts playlistProbeLimit=%s', (value) => {
+    expect(updateSettingsSchema.safeParse({ common: { playlistProbeLimit: value } }).success).toBe(true);
+  });
+
+  it.each([0, -1, 5001, 1.5])('rejects playlistProbeLimit=%s', (value) => {
+    expect(updateSettingsSchema.safeParse({ common: { playlistProbeLimit: value } }).success).toBe(false);
+  });
+
+  it('accepts pacing preset and custom fields', () => {
+    expect(
+      updateSettingsSchema.safeParse({
+        common: {
+          networkPacingPreset: 'custom',
+          pacingSleepRequests: 1,
+          pacingSleepInterval: 10,
+          pacingMaxSleepInterval: 20,
+          pacingSleepSubtitles: 5,
+          pacingConcurrentFragments: 1
+        }
+      }).success
+    ).toBe(true);
+  });
+});

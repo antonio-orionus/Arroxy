@@ -343,6 +343,34 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
       await applyCommonPatchAsync(get, set, 'limitRate', { limitRate: value ?? '' });
     },
 
+    setPlaylistProbeLimit: async (value) => {
+      await applyCommonPatchAsync(get, set, 'playlistProbeLimit', { playlistProbeLimit: value });
+    },
+
+    setNetworkPacingPreset: async (value) => {
+      await applyCommonPatchAsync(get, set, 'networkPacingPreset', { networkPacingPreset: value });
+    },
+
+    setPacingSleepRequests: async (value) => {
+      await applyCommonPatchAsync(get, set, 'pacingSleepRequests', { pacingSleepRequests: value });
+    },
+
+    setPacingSleepInterval: async (value) => {
+      await applyCommonPatchAsync(get, set, 'pacingSleepInterval', { pacingSleepInterval: value });
+    },
+
+    setPacingMaxSleepInterval: async (value) => {
+      await applyCommonPatchAsync(get, set, 'pacingMaxSleepInterval', { pacingMaxSleepInterval: value });
+    },
+
+    setPacingSleepSubtitles: async (value) => {
+      await applyCommonPatchAsync(get, set, 'pacingSleepSubtitles', { pacingSleepSubtitles: value });
+    },
+
+    setPacingConcurrentFragments: async (value) => {
+      await applyCommonPatchAsync(get, set, 'pacingConcurrentFragments', { pacingConcurrentFragments: value });
+    },
+
     setClipboardWatchEnabled: async (enabled) => {
       await applyCommonPatchAsync(get, set, 'clipboardWatchEnabled', { clipboardWatchEnabled: enabled });
     },
