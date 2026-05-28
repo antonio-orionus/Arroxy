@@ -243,10 +243,10 @@ function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist'
       ? {
           ...restoreCommonWizardPrefs(settings),
           wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
-          wizardSubfolderName: settings?.common?.lastSubfolder ?? ''
+          wizardSubfolderName: settings?.common?.lastSubfolder ?? '',
+          selectedPlaylistPreset
         }
-      : {}),
-    selectedPlaylistPreset
+      : {})
   });
 }
 
