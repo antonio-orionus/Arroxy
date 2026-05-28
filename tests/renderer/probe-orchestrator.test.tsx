@@ -37,8 +37,8 @@ const PLAYLIST_PROBE: Extract<ProbeResult, { kind: 'playlist' }> = {
   playlistId: 'PLtest',
   isMultiVideo: false,
   entries: [
-    { id: 'e1', title: 'Entry 1', url: 'https://youtu.be/e1', thumbnail: '', duration: 60, playlistIndex: 1 },
-    { id: 'e2', title: 'Entry 2', url: 'https://youtu.be/e2', thumbnail: '', duration: 120, playlistIndex: 2 }
+    { id: 'e1', title: 'Entry 1', url: 'https://youtu.be/e1', thumbnail: '', duration: 60, playlistIndex: 1, videoId: 'e1' },
+    { id: 'e2', title: 'Entry 2', url: 'https://youtu.be/e2', thumbnail: '', duration: 120, playlistIndex: 2, videoId: 'e2' }
   ]
 };
 

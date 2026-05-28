@@ -187,6 +187,7 @@ export interface PlaylistEntry {
   thumbnail: string;
   duration?: number;
   playlistIndex: number;
+  videoId: string | null; // raw yt-dlp %(id)s; null when extractor yields none
 }
 
 export type ProbePlaylistMode = 'auto' | 'video' | 'playlist';

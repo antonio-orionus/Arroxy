@@ -106,7 +106,13 @@ const en = {
       noSelection: 'Select at least one video to continue',
       loadingItems: 'Fetching playlist…',
       thumbnailAlt: 'Video thumbnail',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncWithFolder: 'Sync with folder',
+      syncPanelDir: 'Folder',
+      syncChange: 'Change…',
+      syncApply: 'Apply sync',
+      syncNoPriorDownloads: 'No prior downloads found in this folder',
+      alreadyDownloaded: 'Already downloaded'
     },
     mixedPrompt: {
       title: 'This link has a playlist',

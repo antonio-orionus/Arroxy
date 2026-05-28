@@ -7,6 +7,7 @@ import type { TokenService } from '@main/services/TokenService.js';
 import type { SettingsStore } from '@main/stores/SettingsStore.js';
 import type { QueueService } from '@main/services/QueueService.js';
 import type { ClipboardWatcher } from '@main/services/ClipboardWatcher.js';
+import type { PlaylistManifestStore } from '@main/stores/PlaylistManifestStore.js';
 import { DownloadEventBridge } from '@main/services/DownloadEventBridge.js';
 import { QueueEventBridge } from '@main/services/QueueEventBridge.js';
 import { WarmupService } from '@main/services/WarmupService.js';
@@ -18,6 +19,7 @@ import { registerFileHandlers } from './fileHandlers.js';
 import { registerQueueHandlers } from './queueHandlers.js';
 import { registerAnalyticsHandlers } from './analyticsHandlers.js';
 import { registerDiagnosticsHandlers } from './diagnosticsHandlers.js';
+import { registerPlaylistHandlers } from './playlistHandlers.js';
 
 export interface IpcDependencies {
   mainWindow: BrowserWindow;
@@ -29,13 +31,14 @@ export interface IpcDependencies {
   tokenService: TokenService;
   languageRef: { current: SupportedLang };
   clipboardWatcher: ClipboardWatcher;
+  playlistManifestStore: PlaylistManifestStore;
 }
 
 let activeDownloadBridge: DownloadEventBridge | null = null;
 let activeQueueBridge: QueueEventBridge | null = null;
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-  const { mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher } = deps;
+  const { mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, playlistManifestStore } = deps;
 
   const warmupService = new WarmupService({ binaryManager, tokenService, window: mainWindow });
   registerAppHandlers({ warmupService, languageRef });
@@ -46,6 +49,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
   registerQueueHandlers(queueService);
   registerAnalyticsHandlers();
   registerDiagnosticsHandlers();
+  registerPlaylistHandlers(playlistManifestStore);
 
   activeDownloadBridge?.detach();
   activeDownloadBridge = new DownloadEventBridge(downloadService, mainWindow);

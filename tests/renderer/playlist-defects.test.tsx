@@ -7,9 +7,9 @@ import { ok } from '../shared/fixtures.js';
 import type { PlaylistEntry } from '@shared/types.js';
 
 const PLAYLIST_ENTRIES: PlaylistEntry[] = [
-  { id: 'p1', url: 'https://youtube.com/watch?v=p1', title: 'Vid 1', thumbnail: '', playlistIndex: 1 },
-  { id: 'p2', url: 'https://youtube.com/watch?v=p2', title: 'Vid 2', thumbnail: '', playlistIndex: 2 },
-  { id: 'p3', url: 'https://youtube.com/watch?v=p3', title: 'Vid 3', thumbnail: '', playlistIndex: 3 }
+  { id: 'p1', url: 'https://youtube.com/watch?v=p1', title: 'Vid 1', thumbnail: '', playlistIndex: 1, videoId: 'p1' },
+  { id: 'p2', url: 'https://youtube.com/watch?v=p2', title: 'Vid 2', thumbnail: '', playlistIndex: 2, videoId: 'p2' },
+  { id: 'p3', url: 'https://youtube.com/watch?v=p3', title: 'Vid 3', thumbnail: '', playlistIndex: 3, videoId: 'p3' }
 ];
 
 function buildMockApi(settingsUpdateMock?: ReturnType<typeof vi.fn>) {
@@ -61,7 +61,11 @@ function buildMockApi(settingsUpdateMock?: ReturnType<typeof vi.fn>) {
       install: vi.fn()
     },
     analytics: { track: vi.fn() },
-    diagnostics: { logWizardStep: vi.fn() }
+    diagnostics: { logWizardStep: vi.fn() },
+    playlist: {
+      scanFolder: vi.fn().mockResolvedValue({ ok: true, data: { matchedIds: [] } }),
+      registerManifest: vi.fn().mockResolvedValue({ ok: true, data: undefined })
+    }
   };
 }
 
