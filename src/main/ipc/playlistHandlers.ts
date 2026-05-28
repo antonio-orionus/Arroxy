@@ -1,31 +1,41 @@
 import { promises as fsPromises } from 'node:fs';
+import log from 'electron-log/main.js';
 import { z } from 'zod';
+import { createAppError } from '@main/utils/errorFactory.js';
 import { IPC_CHANNELS } from '@shared/ipc.js';
+import { findPlayableFileName } from '@shared/playlistMedia.js';
 import { playlistManifestSchema } from '@shared/schemas.js';
-import { ok } from '@shared/result.js';
+import { fail, ok } from '@shared/result.js';
 import type { PlaylistManifestStore } from '@main/stores/PlaylistManifestStore.js';
+import type { SettingsStore } from '@main/stores/SettingsStore.js';
+import { collectPlaylistScanRoots, resolveAllowedOutputDir } from '@main/services/playlistScanPath.js';
 import { handle, toUnknownFailure } from './utils.js';
+
+const logger = log.scope('playlist');
 
 const scanInputSchema = z.object({ outputDir: z.string().min(1), videoIds: z.array(z.string()) });
 
-// Match `[<id>]` as a delimited substring. Brackets make fixed-width ids
-// collision-safe. Note: ids are matched raw — for YouTube (alnum/-/_) this
-// equals yt-dlp's sanitized form; slug-id extractors may differ and fall
-// through to a worst-case re-download (documented in the spec).
 export async function scanFolderForVideoIds(outputDir: string, videoIds: string[]): Promise<string[]> {
   let names: string[];
   try {
-    names = await fsPromises.readdir(outputDir);
+    const entries = await fsPromises.readdir(outputDir, { withFileTypes: true });
+    names = entries.filter((e) => e.isFile()).map((e) => e.name);
   } catch {
     return [];
   }
-  return videoIds.filter((id) => names.some((n) => n.includes(`[${id}]`)));
+  return videoIds.filter((id) => findPlayableFileName(names, id) !== undefined);
 }
 
-export function registerPlaylistHandlers(manifestStore: PlaylistManifestStore): void {
+export function registerPlaylistHandlers(manifestStore: PlaylistManifestStore, settingsStore: SettingsStore): void {
   handle(IPC_CHANNELS.playlistScanFolder, scanInputSchema, async ({ outputDir, videoIds }) => {
     try {
-      return ok({ matchedIds: await scanFolderForVideoIds(outputDir, videoIds) });
+      const roots = collectPlaylistScanRoots(settingsStore.getSync());
+      const resolved = await resolveAllowedOutputDir(outputDir, roots);
+      if (!resolved.ok) {
+        logger.warn('playlist:scanFolder rejected', { outputDir, reason: resolved.message });
+        return fail(createAppError('validation', resolved.message));
+      }
+      return ok({ matchedIds: await scanFolderForVideoIds(resolved.path, videoIds) });
     } catch (err) {
       return toUnknownFailure(err);
     }

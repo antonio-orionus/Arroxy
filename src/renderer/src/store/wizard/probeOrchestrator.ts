@@ -381,16 +381,19 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
     setPlaylistPreset: (p) => set({ selectedPlaylistPreset: p, wizardSubtitleSkipped: false }),
 
     syncWithFolder: async () => {
-      const { wizardOutputDir, playlistItems, selectedPlaylistItemIds } = get();
+      const { wizardOutputDir, playlistItems } = get();
       const videoIds = playlistItems.map((e) => e.videoId).filter((v): v is string => v !== null);
       const res = await window.appApi.playlist.scanFolder({ outputDir: wizardOutputDir, videoIds });
       if (!res.ok) return;
-      const matched = new Set(res.data.matchedIds);
-      const stillSelected = selectedPlaylistItemIds.filter((id) => {
-        const entry = playlistItems.find((e) => e.id === id);
-        return !entry?.videoId || !matched.has(entry.videoId);
+      const matchedIds = res.data.matchedIds;
+      const matched = new Set(matchedIds);
+      set((state) => {
+        const stillSelected = state.selectedPlaylistItemIds.filter((id) => {
+          const entry = state.playlistItems.find((e) => e.id === id);
+          return !entry?.videoId || !matched.has(entry.videoId);
+        });
+        return { syncedDownloadedIds: matchedIds, selectedPlaylistItemIds: stillSelected };
       });
-      set({ syncedDownloadedIds: res.data.matchedIds, selectedPlaylistItemIds: stillSelected });
     },
 
     advance: () => {

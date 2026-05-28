@@ -489,7 +489,13 @@ export class QueueService extends EventEmitter {
         this.items[idx] = next;
         this.persist();
         if (isTerminalStatus(next.status) && next.playlistGroupId) {
-          void this.maybeWritePlaylistM3u(next.playlistGroupId);
+          const groupId = next.playlistGroupId;
+          void this.maybeWritePlaylistM3u(groupId).catch((err) => {
+            logger.error('Failed to write playlist M3U', {
+              playlistGroupId: groupId,
+              error: err instanceof Error ? err.message : String(err)
+            });
+          });
         }
         if (mutation.evt.kind === 'progress') this.emitProgress(next);
         else this.emitImmediate(next);

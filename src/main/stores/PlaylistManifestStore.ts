@@ -28,7 +28,11 @@ export class PlaylistManifestStore {
   }
 
   get(playlistGroupId: string): PlaylistManifest | null {
-    const raw = this.store.get('byGroup')[playlistGroupId];
+    const byGroup = this.store.get('byGroup');
+    if (typeof byGroup !== 'object' || byGroup === null || Array.isArray(byGroup)) {
+      return null;
+    }
+    const raw = byGroup[playlistGroupId];
     if (!raw) return null;
     const parsed = playlistManifestSchema.safeParse(raw);
     return parsed.success ? parsed.data : null;

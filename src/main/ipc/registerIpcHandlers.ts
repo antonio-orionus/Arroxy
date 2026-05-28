@@ -49,7 +49,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
   registerQueueHandlers(queueService);
   registerAnalyticsHandlers();
   registerDiagnosticsHandlers();
-  registerPlaylistHandlers(playlistManifestStore);
+  registerPlaylistHandlers(playlistManifestStore, settingsStore);
 
   activeDownloadBridge?.detach();
   activeDownloadBridge = new DownloadEventBridge(downloadService, mainWindow);

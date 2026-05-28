@@ -23,4 +23,13 @@ describe('scanFolderForVideoIds', () => {
     const dir = await tmp(['v [abcd].mp4']);
     expect(await scanFolderForVideoIds(dir, ['abc'])).toEqual([]);
   });
+  it('ignores subdirectories that contain bracketed ids in the name', async () => {
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'scan-dir-'));
+    await fs.mkdir(path.join(dir, '[dQw4w9WgXcQ]'));
+    expect(await scanFolderForVideoIds(dir, ['dQw4w9WgXcQ'])).toEqual([]);
+  });
+  it('ignores non-media sidecar files that contain the bracketed id', async () => {
+    const dir = await tmp(['Rick [dQw4w9WgXcQ].jpg', 'Rick [dQw4w9WgXcQ].mp4']);
+    expect(await scanFolderForVideoIds(dir, ['dQw4w9WgXcQ'])).toEqual(['dQw4w9WgXcQ']);
+  });
 });

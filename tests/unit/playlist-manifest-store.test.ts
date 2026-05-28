@@ -37,4 +37,10 @@ describe('PlaylistManifestStore', () => {
     await s.remove('g1');
     expect(s.get('g1')).toBeNull();
   });
+  it('returns null when persisted byGroup is malformed', async () => {
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'pl-manifest-'));
+    await fs.writeFile(path.join(dir, 'playlist-manifests.json'), JSON.stringify({ byGroup: null }));
+    const s = new PlaylistManifestStore(dir);
+    expect(s.get('g1')).toBeNull();
+  });
 });

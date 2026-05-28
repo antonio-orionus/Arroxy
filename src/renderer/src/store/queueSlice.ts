@@ -165,6 +165,7 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
     if (get().wizardMode === 'playlist') {
       const groupId = generateId();
       const selected = playlistItems.filter((e) => selectedPlaylistItemIds.includes(e.id));
+      if (selected.length === 0) return;
       const items = selected.map((e) => buildPlaylistQueueItem(e, get, groupId, lane));
       const baseDir = items[0]?.outputDir ?? get().wizardOutputDir;
       await window.appApi.playlist.registerManifest({
