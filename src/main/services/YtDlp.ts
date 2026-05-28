@@ -547,7 +547,13 @@ export function buildArgs(req: YtDlpRequest, opts: { pacing?: NetworkPacingArgs;
       if (opts.pacing?.sleepSubtitles !== undefined && (req.kind === 'video+embed' || args.includes('--sleep-subtitles'))) {
         const idx = args.indexOf('--sleep-subtitles');
         if (idx >= 0) args.splice(idx, 2);
-        if (opts.pacing.sleepSubtitles > 0 && req.kind === 'video+embed') args.splice(args.length - 1, 0, '--sleep-subtitles', formatPacingNumber(opts.pacing.sleepSubtitles));
+        if (opts.pacing.sleepSubtitles > 0 && req.kind === 'video+embed') {
+          if (req.loadInfoJsonPath) {
+            args.push('--sleep-subtitles', formatPacingNumber(opts.pacing.sleepSubtitles));
+          } else {
+            args.splice(args.length - 1, 0, '--sleep-subtitles', formatPacingNumber(opts.pacing.sleepSubtitles));
+          }
+        }
       }
       return { args };
     }

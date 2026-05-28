@@ -125,7 +125,7 @@ describe('advanced network settings', () => {
       </TooltipProvider>
     );
 
-    expect(screen.getByTestId('mixed-playlist-cap')).toHaveTextContent('Playlist probe limit: 250 items');
+    expect(screen.getByTestId('mixed-playlist-cap')).toHaveTextContent('250');
     fireEvent.click(screen.getByTestId('mixed-open-advanced'));
 
     expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false);

@@ -28,12 +28,12 @@ const CUSTOM_PLACEHOLDERS = {
   concurrentFragments: NETWORK_PACING_PRESET_VALUES.balanced.concurrentFragments
 } as const;
 
-function HelpTooltip({ children, testId }: { children: ReactNode; testId: string }): JSX.Element {
+function HelpTooltip({ children, testId, label }: { children: ReactNode; testId: string; label: string }): JSX.Element {
   return (
     <Tooltip>
       <TooltipTrigger
         render={(props) => (
-          <button {...props} type="button" className="inline-flex h-5 w-5 items-center justify-center rounded text-[var(--text-subtle)] hover:bg-muted hover:text-foreground" data-testid={testId}>
+          <button {...props} type="button" aria-label={label} className="inline-flex h-5 w-5 items-center justify-center rounded text-[var(--text-subtle)] hover:bg-muted hover:text-foreground" data-testid={testId}>
             <Info size={13} />
           </button>
         )}
@@ -71,6 +71,7 @@ export function NetworkPacingSettings(): JSX.Element {
   const playlistIsPreset = (PLAYLIST_PROBE_LIMIT_PRESETS as readonly number[]).includes(playlistLimit);
   const pacingPreset: NetworkPacingPreset = common?.networkPacingPreset ?? 'off';
   const [customLimitDraft, setCustomLimitDraft] = useState(playlistIsPreset ? '' : String(playlistLimit));
+  const [fieldDrafts, setFieldDrafts] = useState<Partial<Record<(typeof CUSTOM_FIELDS)[number]['key'], string>>>({});
 
   const customLimitInvalid = customLimitDraft.trim() !== '' && !playlistProbeLimitSchema.safeParse(Number(customLimitDraft)).success;
 
@@ -85,18 +86,30 @@ export function NetworkPacingSettings(): JSX.Element {
     if (playlistProbeLimitSchema.safeParse(parsed).success) void setPlaylistProbeLimit(parsed);
   }
 
-  function updateNumber(key: (typeof CUSTOM_FIELDS)[number]['key'], value: string): void {
-    const parsed = value === '' ? 0 : Number(value);
+  const FIELD_SETTERS = {
+    pacingSleepRequests: setPacingSleepRequests,
+    pacingSleepInterval: setPacingSleepInterval,
+    pacingMaxSleepInterval: setPacingMaxSleepInterval,
+    pacingSleepSubtitles: setPacingSleepSubtitles,
+    pacingConcurrentFragments: setPacingConcurrentFragments
+  } as const;
+
+  function onFieldChange(key: (typeof CUSTOM_FIELDS)[number]['key'], value: string): void {
+    setFieldDrafts((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function onFieldBlur(key: (typeof CUSTOM_FIELDS)[number]['key']): void {
+    const draft = fieldDrafts[key];
+    if (draft === undefined) return;
+    const parsed = draft === '' ? 0 : Number(draft);
     const schema = key === 'pacingConcurrentFragments' ? pacingConcurrentFragmentsSchema : pacingSleepSecondsSchema;
-    if (parsed !== undefined && !schema.safeParse(parsed).success) return;
-    const setters = {
-      pacingSleepRequests: setPacingSleepRequests,
-      pacingSleepInterval: setPacingSleepInterval,
-      pacingMaxSleepInterval: setPacingMaxSleepInterval,
-      pacingSleepSubtitles: setPacingSleepSubtitles,
-      pacingConcurrentFragments: setPacingConcurrentFragments
-    };
-    void setters[key](parsed);
+    if (!schema.safeParse(parsed).success) return;
+    setFieldDrafts((prev) => {
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+    void FIELD_SETTERS[key](parsed);
   }
 
   return (
@@ -108,8 +121,10 @@ export function NetworkPacingSettings(): JSX.Element {
 
       <div className="flex flex-col gap-1.5 rounded-md border border-[var(--border-strong)] bg-background/35 p-2.5" data-testid="playlist-probe-limit-section">
         <div className="flex items-center gap-1">
-          <span className="text-[12px] font-medium text-foreground">{t('wizard.url.playlistProbeLimit.label')}</span>
-          <HelpTooltip testId="playlist-probe-limit-tooltip">{t('wizard.url.playlistProbeLimit.tooltip')}</HelpTooltip>
+          <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.url.playlistProbeLimit.label')}</span>
+          <HelpTooltip testId="playlist-probe-limit-tooltip" label={t('wizard.url.playlistProbeLimit.label')}>
+            {t('wizard.url.playlistProbeLimit.tooltip')}
+          </HelpTooltip>
         </div>
         <p className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.playlistProbeLimit.description')}</p>
         <div className="grid grid-cols-3 gap-0.5" role="radiogroup" aria-label={t('wizard.url.playlistProbeLimit.label')}>
@@ -131,8 +146,10 @@ export function NetworkPacingSettings(): JSX.Element {
 
       <div className="flex flex-col gap-1.5 rounded-md border border-[var(--border-strong)] bg-background/35 p-2.5">
         <div className="flex items-center gap-1">
-          <span className="text-[12px] font-medium text-foreground">{t('wizard.url.networkPacing.presetLabel')}</span>
-          <HelpTooltip testId="network-pacing-tooltip">{t('wizard.url.networkPacing.tooltip')}</HelpTooltip>
+          <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.url.networkPacing.presetLabel')}</span>
+          <HelpTooltip testId="network-pacing-tooltip" label={t('wizard.url.networkPacing.presetLabel')}>
+            {t('wizard.url.networkPacing.tooltip')}
+          </HelpTooltip>
         </div>
         <div className="grid grid-cols-2 gap-0.5" role="radiogroup" aria-label={t('wizard.url.networkPacing.presetLabel')}>
           {(['off', 'balanced', 'careful', 'custom'] as const).map((preset) => (
@@ -163,7 +180,7 @@ export function NetworkPacingSettings(): JSX.Element {
             <label key={field.key} className="flex flex-col gap-1">
               <span className="text-[11px] font-medium text-[var(--text-subtle)]">{t(`wizard.url.networkPacing.fields.${field.labelKey}`)}</span>
               <div className="relative">
-                <Input type="number" min={0} value={toDraft(common?.[field.key])} onChange={(e) => updateNumber(field.key, e.target.value)} placeholder={String(CUSTOM_PLACEHOLDERS[field.labelKey] ?? '')} className="h-8 pe-14 text-[12px] font-mono" data-testid={field.testId} />
+                <Input type="number" min={0} value={fieldDrafts[field.key] ?? toDraft(common?.[field.key])} onChange={(e) => onFieldChange(field.key, e.target.value)} onBlur={() => onFieldBlur(field.key)} placeholder={String(CUSTOM_PLACEHOLDERS[field.labelKey] ?? '')} className="h-8 pe-14 text-[12px] font-mono" data-testid={field.testId} />
                 <span className="pointer-events-none absolute end-2 top-1/2 -translate-y-1/2 text-[11px] text-[var(--text-subtle)]">{t(`wizard.url.networkPacing.units.${field.unitKey}`)}</span>
               </div>
             </label>
