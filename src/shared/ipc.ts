@@ -49,5 +49,7 @@ export const IPC_CHANNELS = {
   diagnosticsLogWizardStep: 'diagnostics:logWizardStep',
   warmupProgress: 'warmup:progress',
   dialogChooseExecutable: 'dialog:chooseExecutable',
-  shellOpenBinariesDir: 'shell:openBinariesDir'
+  shellOpenBinariesDir: 'shell:openBinariesDir',
+  playlistScanFolder: 'playlist:scanFolder',
+  playlistRegisterManifest: 'playlist:registerManifest'
 } as const;

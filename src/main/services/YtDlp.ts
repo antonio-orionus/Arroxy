@@ -409,7 +409,7 @@ function effectiveSubtitleFormat(req: { writeAutoSubs?: boolean; subtitleFormat:
 function buildSubtitleArgs(req: Extract<YtDlpRequest, { kind: 'subtitle' }>): string[] {
   const subOutputDir = req.subtitleMode === 'subfolder' ? `${req.outputDir}/subtitles` : req.outputDir;
   const fmt = effectiveSubtitleFormat(req);
-  const template = req.outputTemplate ?? '%(title)s.%(ext)s';
+  const template = req.outputTemplate ?? '%(title).200B.%(ext)s';
   return ['--skip-download', '--no-playlist', '--write-subs', '--sub-langs', req.subtitleLanguages.join(','), ...(req.writeAutoSubs ? ['--write-auto-subs'] : []), '--sleep-subtitles', '3', '--sub-format', `${fmt}/best`, '--convert-subs', fmt, '-o', `${subOutputDir}/${template}`, req.url];
 }
 
@@ -487,7 +487,7 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
   } else if (req.formatId) {
     args.push('-f', req.formatId);
   }
-  const template = req.outputTemplate ?? '%(title)s.%(ext)s';
+  const template = req.outputTemplate ?? '%(title).200B.%(ext)s';
   if (req.tempDir) {
     args.push('--paths', `home:${req.outputDir}`, '--paths', `temp:${req.tempDir}`, '-o', template);
   } else {

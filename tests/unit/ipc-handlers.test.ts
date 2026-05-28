@@ -89,6 +89,7 @@ function makeDeps() {
     tokenService: { warmUp: vi.fn() } as never,
     languageRef: languageRef as never,
     clipboardWatcher: clipboardWatcher as never,
+    playlistManifestStore: { save: vi.fn(), get: vi.fn(), remove: vi.fn() } as never,
     _raw: { downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher }
   };
 }

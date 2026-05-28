@@ -68,7 +68,7 @@ describe('YtDlp — --paths temp dir (video)', () => {
     const oIdx = args.indexOf('-o');
     expect(oIdx).toBeGreaterThan(-1);
     expect(args[oIdx + 1]).not.toContain(OUTPUT_DIR);
-    expect(args[oIdx + 1]).toBe('%(title)s.%(ext)s');
+    expect(args[oIdx + 1]).toBe('%(title).200B.%(ext)s');
   });
 
   it('when tempDir is absent: falls back to old -o <outputDir>/%(title)s.%(ext)s', async () => {

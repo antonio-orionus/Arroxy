@@ -22,15 +22,21 @@ import log from 'electron-log/main.js';
 import { fail, ok, type Result } from '@shared/result.js';
 import { createAppError } from '@main/utils/errorFactory.js';
 import { nowIso } from '@main/utils/clock.js';
-import { QUEUE_STATUS, STATUS_KEY, type QueueLane, type StatusKey } from '@shared/schemas.js';
+import { QUEUE_STATUS, STATUS_KEY, type QueueItemStatus, type QueueLane, type StatusKey } from '@shared/schemas.js';
 import { transition, illegalTransition, type QueueEvent } from '@shared/queueTransition.js';
 import { ProgressFormatter, nextMonotonicPercent } from '@shared/progressFormat.js';
 import { INTER_JOB_SLEEP_MS, MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP } from '@shared/constants.js';
 import type { ProgressEvent, QueueItem, StatusEvent } from '@shared/types.js';
 import type { QueueStore } from '@main/stores/QueueStore.js';
+import type { PlaylistManifestStore } from '@main/stores/PlaylistManifestStore.js';
+import type { PlaylistManifest } from '@shared/playlistManifest.js';
 import type { DownloadService } from './DownloadService.js';
 
 const logger = log.scope('queue');
+
+function isTerminalStatus(s: QueueItemStatus): boolean {
+  return s === QUEUE_STATUS.done || s === QUEUE_STATUS.error || s === QUEUE_STATUS.cancelled;
+}
 
 // Discriminated union covering every shape a mutation can take. commit()
 // is the only writer; new mutation kinds add a case here (compile-checked
@@ -76,7 +82,11 @@ export class QueueService extends EventEmitter {
     private readonly queueStore: QueueStore,
     private readonly downloadService: DownloadService,
     private readonly normalCap = NORMAL_LANE_CAP,
-    private readonly maxConcurrent = MAX_CONCURRENT_DOWNLOADS
+    private readonly maxConcurrent = MAX_CONCURRENT_DOWNLOADS,
+    private readonly playlist?: {
+      manifestStore: PlaylistManifestStore;
+      writeM3u: (manifest: PlaylistManifest) => Promise<void>;
+    }
   ) {
     super();
     this.downloadService.on('status', (event: StatusEvent) => this.consumeStatusEvent(event));
@@ -478,6 +488,9 @@ export class QueueService extends EventEmitter {
         const next = transition(prev, mutation.evt);
         this.items[idx] = next;
         this.persist();
+        if (isTerminalStatus(next.status) && next.playlistGroupId) {
+          void this.maybeWritePlaylistM3u(next.playlistGroupId);
+        }
         if (mutation.evt.kind === 'progress') this.emitProgress(next);
         else this.emitImmediate(next);
         break;
@@ -625,6 +638,16 @@ export class QueueService extends EventEmitter {
 
   private findByJobId(jobId: string): QueueItem | undefined {
     return this.items.find((i) => i.lastJobId === jobId);
+  }
+
+  private async maybeWritePlaylistM3u(playlistGroupId: string): Promise<void> {
+    if (!this.playlist) return;
+    const group = this.items.filter((i) => i.playlistGroupId === playlistGroupId);
+    const allTerminal = group.every((i) => isTerminalStatus(i.status));
+    if (!allTerminal) return;
+    const manifest = this.playlist.manifestStore.get(playlistGroupId);
+    if (!manifest) return;
+    await this.playlist.writeM3u(manifest);
   }
 
   // Persist gate: short-circuits when a bulk op (cancelAll, clearCompleted)

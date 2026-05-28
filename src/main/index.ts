@@ -20,6 +20,8 @@ import { YtDlp } from '@main/services/YtDlp.js';
 import { RecentJobsStore } from '@main/stores/RecentJobsStore.js';
 import { SettingsStore } from '@main/stores/SettingsStore.js';
 import { QueueStore } from '@main/stores/QueueStore.js';
+import { PlaylistManifestStore } from '@main/stores/PlaylistManifestStore.js';
+import { writePlaylistM3u } from '@main/services/playlistM3u.js';
 import { ClipboardWatcher, watcherWindowFromBrowserWindow } from '@main/services/ClipboardWatcher.js';
 import { HiddenWindowTokenProvider } from '@main/token/providers/HiddenWindowTokenProvider.js';
 import { MockTokenProvider } from '@main/token/providers/MockTokenProvider.js';
@@ -166,6 +168,7 @@ if (hasSingleInstanceLock) {
     };
     const recentJobsStore = new RecentJobsStore(userDataPath);
     const queueStore = new QueueStore(userDataPath);
+    const playlistManifestStore = new PlaylistManifestStore(userDataPath);
     const binaryManager = new BinaryManager(userDataPath, {
       overridesProvider: () => settingsStore.getSync().common.binaryOverrides
     });
@@ -174,7 +177,7 @@ if (hasSingleInstanceLock) {
     const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore);
     const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend);
     const probeService = new ProbeService(ytDlp, isMockBackend);
-    const queueService = new QueueService(queueStore, downloadService);
+    const queueService = new QueueService(queueStore, downloadService, undefined, undefined, { manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u });
     await queueService.init();
 
     // Headless smoke mode — exercises PoT scrape + 3-attempt ladder against
@@ -318,7 +321,8 @@ if (hasSingleInstanceLock) {
       queueService,
       tokenService,
       languageRef,
-      clipboardWatcher
+      clipboardWatcher,
+      playlistManifestStore
     });
 
     registerUpdaterHandlers(mainWindow);

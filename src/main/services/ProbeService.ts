@@ -188,7 +188,12 @@ function buildEntryUrl(entry: InfoDict): string | null {
   return null;
 }
 
-function mapPlaylistEntries(entries: readonly InfoDict[], jobUrl: string, site: Site): PlaylistEntry[] {
+export function mapPlaylistEntries(entries: readonly InfoDict[], jobUrl: string, siteOrExtractor: Site | string): PlaylistEntry[] {
+  const site = typeof siteOrExtractor === 'string' ? siteForExtractor(siteOrExtractor) : siteOrExtractor;
+  return mapPlaylistEntriesInner(entries, jobUrl, site);
+}
+
+function mapPlaylistEntriesInner(entries: readonly InfoDict[], jobUrl: string, site: Site): PlaylistEntry[] {
   // First pass: detect whether the result set contains any real video entry
   // (id without a known container prefix). If yes, the heterogeneous-result
   // case applies and we'll filter containers out below. If no (all nested),
@@ -249,7 +254,8 @@ function mapPlaylistEntries(entries: readonly InfoDict[], jobUrl: string, site: 
       title,
       thumbnail: pickEntryThumbnail(entry),
       duration: typeof v.duration === 'number' ? Math.round(v.duration) : undefined,
-      playlistIndex
+      playlistIndex,
+      videoId: idStr.length > 0 ? idStr : null
     });
     fallbackIndex++;
   }

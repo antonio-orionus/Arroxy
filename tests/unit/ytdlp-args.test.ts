@@ -135,10 +135,10 @@ describe('YtDlp — outputTemplate', () => {
     expect(args).toContain('--paths');
   });
 
-  it('video kind: omitting outputTemplate keeps default %(title)s.%(ext)s', async () => {
+  it('video kind: omitting outputTemplate keeps default %(title).200B.%(ext)s', async () => {
     await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
     const args = getArgs();
-    expect(args[args.indexOf('-o') + 1]).toBe(`${OUTPUT_DIR}/%(title)s.%(ext)s`);
+    expect(args[args.indexOf('-o') + 1]).toBe(`${OUTPUT_DIR}/%(title).200B.%(ext)s`);
   });
 });
 

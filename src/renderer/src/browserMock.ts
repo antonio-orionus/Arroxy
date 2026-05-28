@@ -292,7 +292,8 @@ export function installBrowserMock(): void {
             title: `Mock playlist item ${i + 1} — ${i % 3 === 0 ? 'a longer title that should ellipsize gracefully when the row is narrow' : 'short title'}`,
             thumbnail: i % 5 === 0 ? '' : 'https://i.ytimg.com/vi/jfKfPfyJRdk/mqdefault.jpg',
             duration: 90 + i * 47,
-            playlistIndex: i + 1
+            playlistIndex: i + 1,
+            videoId: `mockid${i + 1}`
           }));
           return {
             ok: true,
@@ -682,6 +683,14 @@ export function installBrowserMock(): void {
 
     diagnostics: {
       logWizardStep: (snapshot) => console.log('[mock] wizard step', snapshot)
+    },
+
+    playlist: {
+      scanFolder: async () => {
+        await delay(150);
+        return { ok: true as const, data: { matchedIds: [] } };
+      },
+      registerManifest: () => Promise.resolve({ ok: true as const, data: undefined })
     }
   };
 
