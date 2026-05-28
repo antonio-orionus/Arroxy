@@ -430,7 +430,9 @@ const ps = {
     ytdlpExitCode: 'yt-dlp د {{code}} کوډ سره وتلو',
     downloadingBinary: '{{name}} بائنري ډاونلوډیږي…',
     unknownStartupFailure: 'نامعلومه د پیل ناکامي',
-    diskSpaceInsufficient: 'د ډیسک ځای کافي نه دی — {{required}} ته اړتیا ده، یوازې {{free}} شتون لري'
+    diskSpaceInsufficient: 'د ډیسک ځای کافي نه دی — {{required}} ته اړتیا ده، یوازې {{free}} شتون لري',
+    fetchingSponsorBlock: 'SponsorBlock سره اړیکه نیول کیږي…',
+    retryingSponsorBlock: 'SponsorBlock شتون نلري، بیا هڅه کیږي ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

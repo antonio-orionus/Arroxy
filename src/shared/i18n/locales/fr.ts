@@ -430,7 +430,9 @@ const fr = {
     ytdlpExitCode: "yt-dlp s'est terminé avec le code {{code}}",
     downloadingBinary: 'Téléchargement du binaire {{name}}…',
     unknownStartupFailure: 'Échec inconnu au démarrage du téléchargement',
-    diskSpaceInsufficient: 'Espace disque insuffisant — {{required}} nécessaires, seulement {{free}} disponibles'
+    diskSpaceInsufficient: 'Espace disque insuffisant — {{required}} nécessaires, seulement {{free}} disponibles',
+    fetchingSponsorBlock: 'Contacter SponsorBlock…',
+    retryingSponsorBlock: 'SponsorBlock indisponible, nouvelle tentative ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

@@ -378,8 +378,8 @@ export class DownloadService extends EventEmitter {
       clearInterval(active.mockTimer);
       active.mockTimer = undefined;
       await this.cleanupPartFiles(job.outputDir);
-      await this.finalize(job, 'cancelled');
       this.emitStatus(job.id, 'error', STATUS_KEY.cancelled);
+      await this.finalize(job, 'cancelled');
       return ok({ cancelled: true });
     }
 

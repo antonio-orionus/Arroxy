@@ -17,6 +17,7 @@
 // caller decides when to schedule; it always happens.
 
 import { EventEmitter } from 'node:events';
+import { stat } from 'node:fs/promises';
 import log from 'electron-log/main.js';
 import { fail, ok, type Result } from '@shared/result.js';
 import { createAppError } from '@main/utils/errorFactory.js';
@@ -233,7 +234,17 @@ export class QueueService extends EventEmitter {
       }
     }
 
-    return this.spawnViaStart(itemId, item.tempDir);
+    let tempDir = item.tempDir;
+    if (tempDir) {
+      try {
+        const s = await stat(tempDir);
+        if (!s.isDirectory()) tempDir = undefined;
+      } catch {
+        logger.debug('resume: persisted tempDir missing — restarting fresh', { itemId, tempDir });
+        tempDir = undefined;
+      }
+    }
+    return this.spawnViaStart(itemId, tempDir);
   }
 
   async cancel(itemId: string | null): Promise<Result<void>> {
@@ -579,6 +590,11 @@ export class QueueService extends EventEmitter {
       if (!result.ok) {
         this.commit({ kind: 'event', itemId, evt: { kind: 'failed', error: { kind: 'unknown', raw: result.error.message } } });
         return fail(result.error);
+      }
+      const currentItem = this.findItem(itemId);
+      if (!currentItem || currentItem.status === QUEUE_STATUS.cancelled) {
+        await this.downloadService.cancel(result.data.job.id);
+        return ok(undefined);
       }
       this.commit({ kind: 'event', itemId, evt: { kind: 'started', lastJobId: result.data.job.id } });
       return ok(undefined);

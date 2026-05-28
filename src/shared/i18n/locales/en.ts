@@ -452,7 +452,9 @@ const en = {
     ytdlpExitCode: 'yt-dlp exited with code {{code}}',
     downloadingBinary: 'Downloading {{name}} binary…',
     unknownStartupFailure: 'Unknown download startup failure',
-    diskSpaceInsufficient: 'Not enough disk space — need {{required}}, only {{free}} available'
+    diskSpaceInsufficient: 'Not enough disk space — need {{required}}, only {{free}} available',
+    fetchingSponsorBlock: 'Contacting SponsorBlock…',
+    retryingSponsorBlock: 'SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

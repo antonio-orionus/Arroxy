@@ -430,7 +430,9 @@ const de = {
     ytdlpExitCode: 'yt-dlp wurde mit Code {{code}} beendet',
     downloadingBinary: 'Binärdatei {{name}} wird heruntergeladen…',
     unknownStartupFailure: 'Unbekannter Fehler beim Starten des Downloads',
-    diskSpaceInsufficient: 'Nicht genug Speicherplatz — {{required}} benötigt, nur {{free}} verfügbar'
+    diskSpaceInsufficient: 'Nicht genug Speicherplatz — {{required}} benötigt, nur {{free}} verfügbar',
+    fetchingSponsorBlock: 'SponsorBlock wird kontaktiert…',
+    retryingSponsorBlock: 'SponsorBlock nicht verfügbar, erneuter Versuch ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

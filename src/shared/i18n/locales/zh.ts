@@ -430,7 +430,9 @@ const zh = {
     ytdlpExitCode: 'yt-dlp 以代码 {{code}} 退出',
     downloadingBinary: '正在下载二进制 {{name}}…',
     unknownStartupFailure: '启动下载时出现未知错误',
-    diskSpaceInsufficient: '磁盘空间不足 — 需要 {{required}}，当前仅剩 {{free}}'
+    diskSpaceInsufficient: '磁盘空间不足 — 需要 {{required}}，当前仅剩 {{free}}',
+    fetchingSponsorBlock: '正在连接 SponsorBlock…',
+    retryingSponsorBlock: 'SponsorBlock 暂时不可用，正在重试 ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

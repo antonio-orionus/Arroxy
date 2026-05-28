@@ -430,7 +430,9 @@ const vi = {
     ytdlpExitCode: 'yt-dlp thoát với mã {{code}}',
     downloadingBinary: 'Đang tải xuống tệp nhị phân {{name}}…',
     unknownStartupFailure: 'Lỗi khởi động tải xuống không xác định',
-    diskSpaceInsufficient: 'Không đủ dung lượng đĩa — cần {{required}}, chỉ còn {{free}}'
+    diskSpaceInsufficient: 'Không đủ dung lượng đĩa — cần {{required}}, chỉ còn {{free}}',
+    fetchingSponsorBlock: 'Đang kết nối SponsorBlock…',
+    retryingSponsorBlock: 'SponsorBlock không khả dụng, đang thử lại ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

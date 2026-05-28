@@ -54,6 +54,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, probeResu
       setLanguage: vi.fn().mockResolvedValue(undefined)
     },
     downloads: {
+      probeCancel: vi.fn().mockResolvedValue(undefined),
       start: vi.fn().mockResolvedValue(
         ok({
           job: {

@@ -430,7 +430,9 @@ const sr = {
     ytdlpExitCode: 'yt-dlp је завршио са кодом {{code}}',
     downloadingBinary: 'Преузимање {{name}} бинарне датотеке…',
     unknownStartupFailure: 'Непозната грешка при покретању преузимања',
-    diskSpaceInsufficient: 'Нема довољно простора на диску — потребно {{required}}, доступно само {{free}}'
+    diskSpaceInsufficient: 'Нема довољно простора на диску — потребно {{required}}, доступно само {{free}}',
+    fetchingSponsorBlock: 'Успостављање везе са SponsorBlock-ом…',
+    retryingSponsorBlock: 'SponsorBlock недоступан, поновни покушај ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

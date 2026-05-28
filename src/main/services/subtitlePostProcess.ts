@@ -144,24 +144,22 @@ export async function muxSubtitlesIntoVideo(opts: { ffmpegPath: string; videoPat
 
   try {
     await rename(tempPath, outputPath);
-    if (outputPath !== opts.videoPath) {
-      await unlink(opts.videoPath).catch((err) => {
-        logger.warn('subtitle mux: original video unlink failed', { jobId: opts.jobId, path: opts.videoPath, message: err instanceof Error ? err.message : String(err) });
-      });
-    }
-    await Promise.all(
-      opts.subtitlePaths.map((p) =>
-        unlink(p).catch((err) => {
-          logger.warn('subtitle mux: sidecar unlink failed', { jobId: opts.jobId, path: p, message: err instanceof Error ? err.message : String(err) });
-        })
-      )
-    );
-    return { ok: true, outputPath };
   } catch (err) {
-    logger.warn('subtitle mux: post-mux cleanup partial', {
-      jobId: opts.jobId,
-      message: err instanceof Error ? err.message : String(err)
-    });
-    return { ok: true, outputPath };
+    logger.error('subtitle mux: rename failed', { jobId: opts.jobId, message: err instanceof Error ? err.message : String(err) });
+    await unlink(tempPath).catch(() => {});
+    return { ok: false };
   }
+  if (outputPath !== opts.videoPath) {
+    await unlink(opts.videoPath).catch((err) => {
+      logger.warn('subtitle mux: original video unlink failed', { jobId: opts.jobId, path: opts.videoPath, message: err instanceof Error ? err.message : String(err) });
+    });
+  }
+  await Promise.all(
+    opts.subtitlePaths.map((p) =>
+      unlink(p).catch((err) => {
+        logger.warn('subtitle mux: sidecar unlink failed', { jobId: opts.jobId, path: p, message: err instanceof Error ? err.message : String(err) });
+      })
+    )
+  );
+  return { ok: true, outputPath };
 }

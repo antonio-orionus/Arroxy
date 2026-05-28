@@ -1,5 +1,5 @@
 import { memo, type JSX, type ReactNode } from 'react';
-import { AlertTriangle, Ban, Captions, CheckCircle2, Clock, Download, ExternalLink, FastForward, Film, FolderInput, FolderOpen, Hourglass, Layers, Loader2, Music, Pause, PauseCircle, Play, RotateCcw, Tags, X, XCircle, Zap } from 'lucide-react';
+import { AlertTriangle, Ban, Captions, CheckCircle2, Clock, Download, ExternalLink, FastForward, Film, FolderInput, FolderOpen, Hourglass, Layers, Loader2, Music, Pause, PauseCircle, Play, RotateCcw, Shield, ShieldAlert, Tags, X, XCircle, Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { QueueItem, QueueItemStatus, StatusKey } from '@shared/types.js';
 import { useAppStore, formatStatus, formatLocalizedError } from '../../store/useAppStore.js';
@@ -18,7 +18,9 @@ const PHASE_ICON: Partial<Record<StatusKey, ReactNode>> = {
   movingFiles: <FolderInput size={11} className="animate-pulse" />,
   fetchingSubtitles: <Captions size={11} />,
   sleepingBetweenRequests: <Hourglass size={11} className="animate-pulse" />,
-  subtitlesFailed: <AlertTriangle size={11} />
+  subtitlesFailed: <AlertTriangle size={11} />,
+  fetchingSponsorBlock: <Shield size={11} className="animate-pulse" />,
+  retryingSponsorBlock: <ShieldAlert size={11} />
 };
 
 interface Props {

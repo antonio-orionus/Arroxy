@@ -430,7 +430,9 @@ const am = {
     ytdlpExitCode: 'yt-dlp በኮድ {{code}} ወጥቷል',
     downloadingBinary: '{{name}} ሁለዮሽ ፋይል እያወረዱ…',
     unknownStartupFailure: 'ያልታወቀ ዳውንሎድ መጀመሪያ ወደቀ',
-    diskSpaceInsufficient: 'በቂ የዲስክ ቦታ የለም — {{required}} ያስፈልጋል፣ {{free}} ብቻ አለ'
+    diskSpaceInsufficient: 'በቂ የዲስክ ቦታ የለም — {{required}} ያስፈልጋል፣ {{free}} ብቻ አለ',
+    fetchingSponsorBlock: 'SponsorBlock እያነጋገሩ…',
+    retryingSponsorBlock: 'SponsorBlock አይገኝም፣ እንደገና እየሞከሩ ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

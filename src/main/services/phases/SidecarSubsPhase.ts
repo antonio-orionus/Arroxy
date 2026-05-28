@@ -81,6 +81,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
       );
 
       if (active.pauseRequested) return { kind: 'paused' };
+      if (active.cancelRequested) return { kind: 'cancelled' };
       if (subResult.kind !== 'success') {
         logger.warn('Subtitle fetch failed — video already saved', {
           jobId: job.id,

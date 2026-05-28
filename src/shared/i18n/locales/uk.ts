@@ -430,7 +430,9 @@ const uk = {
     ytdlpExitCode: 'yt-dlp завершився з кодом {{code}}',
     downloadingBinary: 'Завантаження бінарника {{name}}…',
     unknownStartupFailure: 'Невідома помилка під час запуску завантаження',
-    diskSpaceInsufficient: 'Недостатньо місця на диску — потрібно {{required}}, доступно лише {{free}}'
+    diskSpaceInsufficient: 'Недостатньо місця на диску — потрібно {{required}}, доступно лише {{free}}',
+    fetchingSponsorBlock: 'Підключення до SponsorBlock…',
+    retryingSponsorBlock: 'SponsorBlock недоступний, повторна спроба ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

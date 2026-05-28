@@ -101,5 +101,15 @@ export function illegalTransition(item: QueueItem, evt: QueueEvent): string | nu
   if (item.status === QUEUE_STATUS.done && evt.kind !== 'retry-reset') {
     return `event ${evt.kind} on done item is a stale signal`;
   }
+  if (item.status === QUEUE_STATUS.error) {
+    if (evt.kind !== 'retry-reset' && evt.kind !== 'cancelled') {
+      return `event ${evt.kind} on error item is a stale signal`;
+    }
+  }
+  if (item.status === QUEUE_STATUS.pausedHeld) {
+    if (evt.kind === 'started' || evt.kind === 'progress' || evt.kind === 'completed' || evt.kind === 'failed') {
+      return `event ${evt.kind} on paused-held item is a stale signal`;
+    }
+  }
   return null;
 }

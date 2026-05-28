@@ -429,7 +429,9 @@ const sw = {
     ytdlpExitCode: 'yt-dlp ilitoka na msimbo {{code}}',
     downloadingBinary: 'Inapakua binary ya {{name}}…',
     unknownStartupFailure: 'Kushindwa kwa kuanzisha pasijulikane',
-    diskSpaceInsufficient: 'Nafasi ya diski haitoshi — inahitajika {{required}}, {{free}} tu inapatikana'
+    diskSpaceInsufficient: 'Nafasi ya diski haitoshi — inahitajika {{required}}, {{free}} tu inapatikana',
+    fetchingSponsorBlock: 'Inawasiliana na SponsorBlock…',
+    retryingSponsorBlock: 'SponsorBlock haipatikani, inajaribu tena ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

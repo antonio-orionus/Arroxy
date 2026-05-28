@@ -30,7 +30,13 @@ export class ProgressParser {
   consume(active: ActiveDownload, text: string): void {
     const jobId = active.job.id;
     for (const line of splitStderrLines(text)) {
-      logger.info(line, { jobId, source: 'yt-dlp-progress' });
+      if (line.startsWith('WARNING:') || line.startsWith('ERROR:')) {
+        logger.warn(line, { jobId, source: 'yt-dlp-progress' });
+      } else if (/^\[download\]\s+(?:\d+(?:\.\d+)?|Unknown)% of /.test(line)) {
+        logger.debug(line, { jobId, source: 'yt-dlp-progress' });
+      } else {
+        logger.info(line, { jobId, source: 'yt-dlp-progress' });
+      }
 
       const destMatch = /^\[download\] Destination:\s+(.+)$/.exec(line);
       if (destMatch) {
@@ -73,6 +79,17 @@ export class ProgressParser {
       if (sleepMatch) {
         const seconds = Math.round(parseFloat(sleepMatch[1]));
         this.emitStatus(jobId, 'download', STATUS_KEY.sleepingBetweenRequests, { seconds });
+        continue;
+      }
+
+      if (line === '[SponsorBlock] Fetching SponsorBlock segments') {
+        this.emitStatus(jobId, 'download', STATUS_KEY.fetchingSponsorBlock);
+        continue;
+      }
+
+      const sbRetryMatch = /Unable to communicate with SponsorBlock API:.+Retrying \((\d+)\/(\d+)\)/.exec(line);
+      if (sbRetryMatch) {
+        this.emitStatus(jobId, 'download', STATUS_KEY.retryingSponsorBlock, { attempt: Number(sbRetryMatch[1]), total: Number(sbRetryMatch[2]) });
         continue;
       }
 

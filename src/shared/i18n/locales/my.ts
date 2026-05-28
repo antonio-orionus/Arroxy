@@ -430,7 +430,9 @@ const my = {
     ytdlpExitCode: 'yt-dlp သည် code {{code}} ဖြင့်ထွက်သွားသည်',
     downloadingBinary: '{{name}} binary ဒေါင်းလုဒ်လုပ်နေသည်…',
     unknownStartupFailure: 'မသိသောဒေါင်းလုဒ်စတင်မှုပျက်ကွက်မှု',
-    diskSpaceInsufficient: 'disk နေရာ မလုံလောက်ပါ — {{required}} လိုအပ်သည်၊ {{free}} သာ ရရှိနိုင်သည်'
+    diskSpaceInsufficient: 'disk နေရာ မလုံလောက်ပါ — {{required}} လိုအပ်သည်၊ {{free}} သာ ရရှိနိုင်သည်',
+    fetchingSponsorBlock: 'SponsorBlock သို့ ဆက်သွယ်နေသည်…',
+    retryingSponsorBlock: 'SponsorBlock မရရှိနိုင်ပါ၊ ပြန်လည်ကြိုးစားနေသည် ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

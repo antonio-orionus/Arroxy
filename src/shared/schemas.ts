@@ -119,7 +119,9 @@ export const STATUS_KEY = {
   ytdlpExitCode: 'ytdlpExitCode',
   downloadingBinary: 'downloadingBinary',
   unknownStartupFailure: 'unknownStartupFailure',
-  diskSpaceInsufficient: 'diskSpaceInsufficient'
+  diskSpaceInsufficient: 'diskSpaceInsufficient',
+  fetchingSponsorBlock: 'fetchingSponsorBlock',
+  retryingSponsorBlock: 'retryingSponsorBlock'
 } as const;
 export type StatusKey = (typeof STATUS_KEY)[keyof typeof STATUS_KEY];
 

@@ -429,7 +429,9 @@ const om = {
     ytdlpExitCode: 'yt-dlp koodii {{code}} wajjin bahe',
     downloadingBinary: 'Faayilii binaryii {{name}} buufaa jira…',
     unknownStartupFailure: 'Daawniloodii jalqabbii hin beekamne kufee',
-    diskSpaceInsufficient: 'Bakki kuusaa gahaa miti — {{required}} barbaachisa, {{free}} qofa jira'
+    diskSpaceInsufficient: 'Bakki kuusaa gahaa miti — {{required}} barbaachisa, {{free}} qofa jira',
+    fetchingSponsorBlock: 'SponsorBlock waliin qunnamtii godhamaa jira…',
+    retryingSponsorBlock: "SponsorBlock hin argamne, irra deebi'ii yaalamuutti jira ({{attempt}}/{{total}})…"
   },
   errors: {
     ytdlp: {

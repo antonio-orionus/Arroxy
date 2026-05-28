@@ -15,10 +15,6 @@
   "ignore": [
     "src/renderer/src/components/ui/**"
   ],
-  "ignoreWorkspaces": [
-    ".agents/**",
-    ".claude/**"
-  ],
   "ignoreExportsUsedInFile": {
     "interface": true,
     "type": true

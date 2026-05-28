@@ -430,7 +430,9 @@ const ur = {
     ytdlpExitCode: 'yt-dlp کوڈ {{code}} کے ساتھ ختم ہوا',
     downloadingBinary: '{{name}} بائنری ڈاؤن لوڈ ہو رہی ہے…',
     unknownStartupFailure: 'نامعلوم ڈاؤن لوڈ اسٹارٹ اپ ناکامی',
-    diskSpaceInsufficient: 'ڈسک میں کافی جگہ نہیں — {{required}} درکار ہے، صرف {{free}} دستیاب ہے'
+    diskSpaceInsufficient: 'ڈسک میں کافی جگہ نہیں — {{required}} درکار ہے، صرف {{free}} دستیاب ہے',
+    fetchingSponsorBlock: 'SponsorBlock سے رابطہ ہو رہا ہے…',
+    retryingSponsorBlock: 'SponsorBlock دستیاب نہیں، دوبارہ کوشش ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

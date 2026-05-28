@@ -430,7 +430,9 @@ const bn = {
     ytdlpExitCode: 'yt-dlp {{code}} কোড দিয়ে বন্ধ হয়েছে',
     downloadingBinary: '{{name}} বাইনারি ডাউনলোড হচ্ছে…',
     unknownStartupFailure: 'অজানা ডাউনলোড স্টার্টআপ ব্যর্থতা',
-    diskSpaceInsufficient: 'পর্যাপ্ত ডিস্ক স্থান নেই — {{required}} প্রয়োজন, মাত্র {{free}} পাওয়া যাচ্ছে'
+    diskSpaceInsufficient: 'পর্যাপ্ত ডিস্ক স্থান নেই — {{required}} প্রয়োজন, মাত্র {{free}} পাওয়া যাচ্ছে',
+    fetchingSponsorBlock: 'SponsorBlock-এর সাথে যোগাযোগ করা হচ্ছে…',
+    retryingSponsorBlock: 'SponsorBlock অনুপলব্ধ, আবার চেষ্টা হচ্ছে ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

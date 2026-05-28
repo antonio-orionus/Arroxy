@@ -430,7 +430,9 @@ const ja = {
     ytdlpExitCode: 'yt-dlpがコード{{code}}で終了しました',
     downloadingBinary: 'バイナリ {{name}} をダウンロード中…',
     unknownStartupFailure: 'ダウンロード開始時に不明なエラーが発生しました',
-    diskSpaceInsufficient: 'ディスク空き容量が不足しています — {{required}} 必要ですが、空きは {{free}} のみです'
+    diskSpaceInsufficient: 'ディスク空き容量が不足しています — {{required}} 必要ですが、空きは {{free}} のみです',
+    fetchingSponsorBlock: 'SponsorBlock に接続中…',
+    retryingSponsorBlock: 'SponsorBlock が利用できません、再試行中 ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

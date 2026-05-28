@@ -430,7 +430,9 @@ const el = {
     ytdlpExitCode: 'Το yt-dlp έγινε έξοδος με κωδικό {{code}}',
     downloadingBinary: 'Λήψη δυαδικού {{name}}…',
     unknownStartupFailure: 'Άγνωστη αποτυχία εκκίνησης λήψης',
-    diskSpaceInsufficient: 'Ανεπαρκής χώρος δίσκου — απαιτούνται {{required}}, διαθέσιμα μόνο {{free}}'
+    diskSpaceInsufficient: 'Ανεπαρκής χώρος δίσκου — απαιτούνται {{required}}, διαθέσιμα μόνο {{free}}',
+    fetchingSponsorBlock: 'Σύνδεση με το SponsorBlock…',
+    retryingSponsorBlock: 'Το SponsorBlock δεν είναι διαθέσιμο, επανάληψη ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

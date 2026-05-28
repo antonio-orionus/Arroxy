@@ -430,7 +430,9 @@ const ar = {
     ytdlpExitCode: 'خرج yt-dlp بالرمز {{code}}',
     downloadingBinary: 'جارٍ تنزيل ثنائي {{name}}…',
     unknownStartupFailure: 'فشل غير معروف في بدء التنزيل',
-    diskSpaceInsufficient: 'مساحة القرص غير كافية — تحتاج {{required}}، والمتاح فقط {{free}}'
+    diskSpaceInsufficient: 'مساحة القرص غير كافية — تحتاج {{required}}، والمتاح فقط {{free}}',
+    fetchingSponsorBlock: 'جارٍ الاتصال بـ SponsorBlock…',
+    retryingSponsorBlock: 'SponsorBlock غير متاح، جارٍ إعادة المحاولة ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

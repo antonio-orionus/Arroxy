@@ -430,7 +430,9 @@ const hi = {
     ytdlpExitCode: 'yt-dlp कोड {{code}} के साथ बंद हो गया',
     downloadingBinary: '{{name}} बाइनरी डाउनलोड हो रही है…',
     unknownStartupFailure: 'डाउनलोड शुरू करने में अज्ञात त्रुटि',
-    diskSpaceInsufficient: 'पर्याप्त डिस्क स्थान नहीं है — {{required}} चाहिए, केवल {{free}} उपलब्ध है'
+    diskSpaceInsufficient: 'पर्याप्त डिस्क स्थान नहीं है — {{required}} चाहिए, केवल {{free}} उपलब्ध है',
+    fetchingSponsorBlock: 'SponsorBlock से संपर्क हो रहा है…',
+    retryingSponsorBlock: 'SponsorBlock अनुपलब्ध है, पुनः प्रयास ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {

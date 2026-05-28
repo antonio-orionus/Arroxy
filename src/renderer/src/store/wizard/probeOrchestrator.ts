@@ -159,7 +159,7 @@ function maybeBlockIncompleteCookiesConfig(url: string, set: SetState, get: GetS
   return true;
 }
 
-function applyVideoProbeResult(probe: Extract<ProbeResult, { kind: 'video' }>, set: SetState, get: GetState): void {
+function applyVideoProbeResult(probe: Extract<ProbeResult, { kind: 'video' }>, set: SetState, get: GetState, firstProbe: boolean): void {
   const settings = get().settings;
   const { formats, title, thumbnail, duration, subtitles, automaticCaptions, degraded } = probe;
   // Format/audio/subtitle/preset prefs are scoped to YouTube. Non-YT extractors
@@ -198,11 +198,15 @@ function applyVideoProbeResult(probe: Extract<ProbeResult, { kind: 'video' }>, s
     wizardAutomaticCaptions: automaticCaptions,
     wizardSubtitleLanguages: subtitleLanguages,
     wizardSubtitleSkipped: false,
-    wizardSubtitleMode: scopedSettings?.single?.lastSubtitleMode ?? DEFAULTS.subtitleMode,
-    wizardSubtitleFormat: scopedSettings?.single?.lastSubtitleFormat ?? DEFAULTS.subtitleFormat,
-    ...restoreCommonWizardPrefs(settings),
-    wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
-    wizardSubfolderName: settings?.common?.lastSubfolder ?? '',
+    ...(firstProbe
+      ? {
+          wizardSubtitleMode: scopedSettings?.single?.lastSubtitleMode ?? DEFAULTS.subtitleMode,
+          wizardSubtitleFormat: scopedSettings?.single?.lastSubtitleFormat ?? DEFAULTS.subtitleFormat,
+          ...restoreCommonWizardPrefs(settings),
+          wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
+          wizardSubfolderName: settings?.common?.lastSubfolder ?? ''
+        }
+      : {}),
     formatsLoading: false,
     playlistProbeLoading: false,
     playlistItems: [],
@@ -213,7 +217,7 @@ function applyVideoProbeResult(probe: Extract<ProbeResult, { kind: 'video' }>, s
   });
 }
 
-function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist' }>, set: SetState, get: GetState): void {
+function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist' }>, set: SetState, get: GetState, firstProbe: boolean): void {
   const settings = get().settings;
   // Audio-only sources skip the persisted video preset and default straight
   // to `audio-best` — the user came to a music host, video presets would be
@@ -235,14 +239,19 @@ function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist'
     formatsLoading: false,
     wizardFormats: [],
     wizardFormatsDegraded: null,
-    ...restoreCommonWizardPrefs(settings),
-    selectedPlaylistPreset,
-    wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
-    wizardSubfolderName: settings?.common?.lastSubfolder ?? ''
+    ...(firstProbe
+      ? {
+          ...restoreCommonWizardPrefs(settings),
+          wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
+          wizardSubfolderName: settings?.common?.lastSubfolder ?? ''
+        }
+      : {}),
+    selectedPlaylistPreset
   });
 }
 
-async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState): Promise<void> {
+async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe = true): Promise<void> {
+  void window.appApi.downloads.probeCancel();
   const fromStep = get().wizardStep;
   const initialStep: WizardStep = playlistMode === 'playlist' ? 'playlistItems' : 'formats';
   set({
@@ -288,9 +297,9 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
   }
 
   if (result.data.kind === 'playlist') {
-    applyPlaylistProbeResult(result.data, set, get);
+    applyPlaylistProbeResult(result.data, set, get, firstProbe);
   } else {
-    applyVideoProbeResult(result.data, set, get);
+    applyVideoProbeResult(result.data, set, get, firstProbe);
   }
 }
 
@@ -424,7 +433,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
       if (!wizardUrl) return;
       set({ formatsLoading: true, wizardFormatsDegraded: null });
       const playlistMode: ProbePlaylistMode = get().wizardMode === 'playlist' ? 'playlist' : 'auto';
-      await runProbe(wizardUrl, playlistMode, set, get);
+      await runProbe(wizardUrl, playlistMode, set, get, false);
     },
 
     retryProbeWithCookies: async () => {

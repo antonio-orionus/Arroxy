@@ -430,7 +430,9 @@ const uz = {
     ytdlpExitCode: 'yt-dlp {{code}} kodi bilan chiqdi',
     downloadingBinary: '{{name}} ikkilik fayli yuklanmoqda…',
     unknownStartupFailure: "Noma'lum yuklama ishga tushirish xatosi",
-    diskSpaceInsufficient: 'Disk xotirasi yetarli emas — {{required}} kerak, faqat {{free}} mavjud'
+    diskSpaceInsufficient: 'Disk xotirasi yetarli emas — {{required}} kerak, faqat {{free}} mavjud',
+    fetchingSponsorBlock: "SponsorBlock bilan bog'lanilmoqda…",
+    retryingSponsorBlock: 'SponsorBlock mavjud emas, qayta urinilmoqda ({{attempt}}/{{total}})…'
   },
   errors: {
     ytdlp: {
