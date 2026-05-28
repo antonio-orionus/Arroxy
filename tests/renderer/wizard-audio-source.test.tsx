@@ -42,7 +42,7 @@ function buildPlaylistProbe(extractor: string, isAudioOnlySource: boolean): Prob
     isMultiVideo: false,
     playlistId: 'p1',
     playlistTitle: 'Playlist',
-    entries: [{ id: 'e1', url: 'https://example.com/e1', title: 'Entry 1', thumbnail: '', playlistIndex: 1 }]
+    entries: [{ id: 'e1', url: 'https://example.com/e1', title: 'Entry 1', thumbnail: '', playlistIndex: 1, videoId: 'e1' }]
   };
 }
 

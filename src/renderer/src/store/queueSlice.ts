@@ -100,9 +100,8 @@ function buildQueueItem(get: GetState, lane: QueueLane): QueueItem | null {
   };
 }
 
-function padPlaylistIndex(index: number, maxIndex: number): string {
-  const width = Math.max(2, String(maxIndex).length);
-  return String(index).padStart(width, '0');
+export function playlistOutputTemplate(): string {
+  return '%(title).200B [%(id)s].%(ext)s';
 }
 
 function buildPlaylistQueueItem(entry: PlaylistEntry, get: GetState, playlistGroupId: string, lane: QueueLane): QueueItem {
@@ -113,8 +112,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, get: GetState, playlistGro
   const baseDir = wizardSubfolderEnabled && wizardSubfolderName ? joinSubfolder(wizardOutputDir, wizardSubfolderName) : joinSubfolder(wizardOutputDir, safeFolderName(state.playlistTitle || 'Playlist'));
 
   const formatLabel = i18next.t(`playlistPresets.${selectedPlaylistPreset}.label` as const);
-  const maxPlaylistIndex = state.playlistItems.reduce((max, item) => Math.max(max, item.playlistIndex), 0);
-  const outputTemplate = `${padPlaylistIndex(entry.playlistIndex, maxPlaylistIndex)} - %(title)s.%(ext)s`;
+  const outputTemplate = playlistOutputTemplate();
 
   const embed: EmbedOptions = {
     chapters: state.wizardEmbedChapters,
@@ -168,6 +166,13 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
       const groupId = generateId();
       const selected = playlistItems.filter((e) => selectedPlaylistItemIds.includes(e.id));
       const items = selected.map((e) => buildPlaylistQueueItem(e, get, groupId, lane));
+      const baseDir = items[0]?.outputDir ?? get().wizardOutputDir;
+      await window.appApi.playlist.registerManifest({
+        playlistGroupId: groupId,
+        playlistTitle: get().playlistTitle || 'Playlist',
+        outputDir: baseDir,
+        items: playlistItems.map((e) => ({ videoId: e.videoId, title: e.title, duration: e.duration }))
+      });
       await window.appApi.queue.cmd.add(items);
     } else {
       const item = buildQueueItem(get, lane);

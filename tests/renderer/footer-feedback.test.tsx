@@ -85,6 +85,10 @@ const mockAppApi = {
   },
   diagnostics: {
     logWizardStep: vi.fn()
+  },
+  playlist: {
+    scanFolder: vi.fn().mockResolvedValue({ ok: true, data: { matchedIds: [] } }),
+    registerManifest: vi.fn().mockResolvedValue({ ok: true, data: undefined })
   }
 };
 

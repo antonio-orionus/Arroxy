@@ -19,10 +19,11 @@ function formatEntryDuration(seconds: number | undefined, liveLabel: string): st
 
 export function StepPlaylistItems(): JSX.Element {
   const { t } = useTranslation();
-  const { playlistItems, selectedPlaylistItemIds, playlistTitle, playlistProbeLoading, setPlaylistItemSelected, selectAllPlaylistItems, selectNonePlaylistItems, selectPlaylistRange, confirmPlaylistSelection, back, wizardExtractor } = useAppStore();
+  const { playlistItems, selectedPlaylistItemIds, playlistTitle, playlistProbeLoading, syncedDownloadedIds, wizardOutputDir, setPlaylistItemSelected, selectAllPlaylistItems, selectNonePlaylistItems, selectPlaylistRange, confirmPlaylistSelection, back, wizardExtractor, syncWithFolder, chooseWizardFolder } = useAppStore();
 
   const [rangeFrom, setRangeFrom] = useState('');
   const [rangeTo, setRangeTo] = useState('');
+  const [syncOpen, setSyncOpen] = useState(false);
 
   const parentRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line react-hooks/incompatible-library
@@ -60,12 +61,15 @@ export function StepPlaylistItems(): JSX.Element {
         <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">{t('wizard.playlist.loadingItems')}</div>
       ) : (
         <>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Button type="button" variant="outline" size="sm" onClick={selectAllPlaylistItems}>
               {t('wizard.playlist.selectAll')}
             </Button>
             <Button type="button" variant="outline" size="sm" onClick={selectNonePlaylistItems}>
               {t('wizard.playlist.selectNone')}
+            </Button>
+            <Button type="button" variant="outline" size="sm" onClick={() => setSyncOpen((v) => !v)}>
+              {t('wizard.playlist.syncWithFolder')}
             </Button>
             <div className="ml-auto flex items-center gap-1">
               <span className="text-xs text-muted-foreground">{t('wizard.playlist.rangeFrom')}</span>
@@ -78,11 +82,30 @@ export function StepPlaylistItems(): JSX.Element {
             </div>
           </div>
 
+          {syncOpen && (
+            <div className="rounded-md border border-border bg-muted/30 px-3 py-2 flex flex-col gap-2">
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-muted-foreground shrink-0">{t('wizard.playlist.syncPanelDir')}</span>
+                <span className="flex-1 truncate font-mono text-[11px]">{wizardOutputDir || '—'}</span>
+                <Button type="button" variant="ghost" size="sm" className="h-6 px-2 text-xs" onClick={() => void chooseWizardFolder()}>
+                  {t('wizard.playlist.syncChange')}
+                </Button>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button type="button" variant="outline" size="sm" onClick={() => void syncWithFolder()}>
+                  {t('wizard.playlist.syncApply')}
+                </Button>
+                {syncedDownloadedIds.length === 0 && <span className="text-xs text-muted-foreground">{t('wizard.playlist.syncNoPriorDownloads')}</span>}
+              </div>
+            </div>
+          )}
+
           <div ref={parentRef} className="h-[calc(100vh-280px)] min-h-[300px] overflow-y-auto rounded-md border border-border">
             <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
               {virtualizer.getVirtualItems().map((virtualRow) => {
                 const entry = playlistItems[virtualRow.index];
                 const checked = selectedPlaylistItemIds.includes(entry.id);
+                const isAlreadyDownloaded = !!(entry.videoId && syncedDownloadedIds.includes(entry.videoId));
                 return (
                   <div
                     key={entry.id}
@@ -101,6 +124,7 @@ export function StepPlaylistItems(): JSX.Element {
                     <Checkbox checked={checked} onCheckedChange={(v) => setPlaylistItemSelected(entry.id, !!v)} onClick={(e) => e.stopPropagation()} />
                     {hasAnyThumbnail ? entry.thumbnail ? <img src={entry.thumbnail} alt={t('wizard.playlist.thumbnailAlt')} referrerPolicy="no-referrer" className="h-8 w-[56px] shrink-0 rounded-sm object-cover" loading="lazy" /> : <div className="h-8 w-[56px] shrink-0 rounded-sm bg-muted" /> : null}
                     <span className="flex-1 truncate text-sm">{entry.title}</span>
+                    {isAlreadyDownloaded && <span className="shrink-0 rounded-sm bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{t('wizard.playlist.alreadyDownloaded')}</span>}
                     <span className="shrink-0 text-xs text-muted-foreground">{formatEntryDuration(entry.duration, liveLabel)}</span>
                   </div>
                 );

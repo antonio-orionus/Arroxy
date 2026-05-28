@@ -141,6 +141,10 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
     },
     diagnostics: {
       logWizardStep: vi.fn()
+    },
+    playlist: {
+      scanFolder: vi.fn().mockResolvedValue(ok({ matchedIds: [] as string[] })),
+      registerManifest: vi.fn().mockResolvedValue(ok(undefined))
     }
   };
 }

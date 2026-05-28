@@ -50,6 +50,9 @@ export interface ProbeOrchestratorSlice {
   playlistProbeLoading: boolean;
   selectedPlaylistPreset: PlaylistPreset | null;
 
+  // videoIds matched on disk by the last syncWithFolder call
+  syncedDownloadedIds: string[];
+
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
   dismissMixedPrompt: (choice: 'video' | 'playlist') => Promise<void>;
@@ -59,6 +62,7 @@ export interface ProbeOrchestratorSlice {
   selectPlaylistRange: (from: number, to: number) => void;
   confirmPlaylistSelection: () => void;
   setPlaylistPreset: (p: PlaylistPreset) => void;
+  syncWithFolder: () => Promise<void>;
   advance: () => void;
   back: () => void;
   skipSubtitles: () => void;

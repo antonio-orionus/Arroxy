@@ -7,9 +7,9 @@ import { buildAppSettings } from '../shared/settingsFixtures.js';
 import type { PlaylistEntry, StatusEvent } from '@shared/types.js';
 
 const PLAYLIST_ENTRIES: PlaylistEntry[] = [
-  { id: 'p1', url: 'https://youtube.com/watch?v=p1', title: 'Vid 1', thumbnail: '', playlistIndex: 1 },
-  { id: 'p2', url: 'https://youtube.com/watch?v=p2', title: 'Vid 2', thumbnail: '', playlistIndex: 2 },
-  { id: 'p3', url: 'https://youtube.com/watch?v=p3', title: 'Vid 3', thumbnail: '', playlistIndex: 3 }
+  { id: 'p1', url: 'https://youtube.com/watch?v=p1', title: 'Vid 1', thumbnail: '', playlistIndex: 1, videoId: 'p1' },
+  { id: 'p2', url: 'https://youtube.com/watch?v=p2', title: 'Vid 2', thumbnail: '', playlistIndex: 2, videoId: 'p2' },
+  { id: 'p3', url: 'https://youtube.com/watch?v=p3', title: 'Vid 3', thumbnail: '', playlistIndex: 3, videoId: 'p3' }
 ];
 
 function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
@@ -69,7 +69,11 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
         onRemoved: vi.fn().mockReturnValue(() => undefined)
       }
     },
-    diagnostics: { logWizardStep: vi.fn() }
+    diagnostics: { logWizardStep: vi.fn() },
+    playlist: {
+      scanFolder: vi.fn().mockResolvedValue(ok({ matchedIds: [] as string[] })),
+      registerManifest: vi.fn().mockResolvedValue(ok(undefined))
+    }
   };
 }
 
@@ -189,7 +193,7 @@ describe('playlist regressions', () => {
     expect(useAppStore.getState().selectedPlaylistPreset).toBe('video-1080p');
   });
 
-  it('playlist outputTemplate padding scales with playlist length', async () => {
+  it('playlist outputTemplate is position-independent with id-suffix and byte-safe title', async () => {
     window.appApi = buildMockApi() as never;
 
     useAppStore.setState({
@@ -198,9 +202,9 @@ describe('playlist regressions', () => {
       wizardMode: 'playlist',
       playlistTitle: 'Big Playlist',
       playlistItems: [
-        { id: 'p9', url: 'https://youtube.com/watch?v=p9', title: 'Vid 9', thumbnail: '', playlistIndex: 9 },
-        { id: 'p10', url: 'https://youtube.com/watch?v=p10', title: 'Vid 10', thumbnail: '', playlistIndex: 10 },
-        { id: 'p100', url: 'https://youtube.com/watch?v=p100', title: 'Vid 100', thumbnail: '', playlistIndex: 100 }
+        { id: 'p9', url: 'https://youtube.com/watch?v=p9', title: 'Vid 9', thumbnail: '', playlistIndex: 9, videoId: 'p9' },
+        { id: 'p10', url: 'https://youtube.com/watch?v=p10', title: 'Vid 10', thumbnail: '', playlistIndex: 10, videoId: 'p10' },
+        { id: 'p100', url: 'https://youtube.com/watch?v=p100', title: 'Vid 100', thumbnail: '', playlistIndex: 100, videoId: 'p100' }
       ],
       selectedPlaylistItemIds: ['p9', 'p10', 'p100'],
       selectedPlaylistPreset: 'video-1080p',
@@ -213,6 +217,6 @@ describe('playlist regressions', () => {
 
     const templates = (vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []).map((item) => (item.job.kind === 'playlist-preset' ? item.job.outputTemplate : null));
 
-    expect(templates).toEqual(['009 - %(title)s.%(ext)s', '010 - %(title)s.%(ext)s', '100 - %(title)s.%(ext)s']);
+    expect(templates).toEqual(['%(title).200B [%(id)s].%(ext)s', '%(title).200B [%(id)s].%(ext)s', '%(title).200B [%(id)s].%(ext)s']);
   });
 });

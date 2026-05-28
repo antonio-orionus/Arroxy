@@ -23,14 +23,14 @@ export function createOutputConfigSlice(set: SetState, _get: GetState): OutputCo
     wizardWriteThumbnail: DEFAULTS.writeThumbnail,
 
     setWizardOutputDir: async (dir, persist = true) => {
-      set({ wizardOutputDir: dir });
+      set({ wizardOutputDir: dir, syncedDownloadedIds: [] });
       if (persist) await window.appApi.settings.update({ common: { defaultOutputDir: dir } });
     },
 
     chooseWizardFolder: async () => {
       const result = await window.appApi.dialog.chooseFolder();
       if (!result.ok || !result.data.path) return;
-      set({ wizardOutputDir: result.data.path });
+      set({ wizardOutputDir: result.data.path, syncedDownloadedIds: [] });
       await window.appApi.settings.update({ common: { defaultOutputDir: result.data.path } });
     },
 

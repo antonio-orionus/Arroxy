@@ -55,6 +55,8 @@ export const RESET_WIZARD_STATE = {
   wizardWriteThumbnail: DEFAULTS.writeThumbnail,
   wizardSubfolderEnabled: false,
   wizardSubfolderName: '',
+  // sync-with-folder
+  syncedDownloadedIds: [] as string[],
   // dialogs
   advancedAutoOpen: false,
   advancedAutoTarget: 'cookies' as const,
