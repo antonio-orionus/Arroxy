@@ -223,7 +223,8 @@ function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist'
   // to `audio-best` — the user came to a music host, video presets would be
   // wrong (and yt-dlp would reject a video preset for audio-only entries).
   const persistedPreset = settings?.playlist?.lastPlaylistPreset ?? 'video-best';
-  const selectedPlaylistPreset: PlaylistPreset | null = probe.isAudioOnlySource ? 'audio-best' : persistedPreset;
+  const computedPreset: PlaylistPreset | null = probe.isAudioOnlySource ? 'audio-best' : persistedPreset;
+  const selectedPlaylistPreset = firstProbe ? computedPreset : (get().selectedPlaylistPreset ?? computedPreset);
   set({
     wizardStep: 'playlistItems',
     wizardMode: 'playlist',
@@ -243,10 +244,10 @@ function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist'
       ? {
           ...restoreCommonWizardPrefs(settings),
           wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
-          wizardSubfolderName: settings?.common?.lastSubfolder ?? '',
-          selectedPlaylistPreset
+          wizardSubfolderName: settings?.common?.lastSubfolder ?? ''
         }
-      : {})
+      : {}),
+    selectedPlaylistPreset
   });
 }
 
