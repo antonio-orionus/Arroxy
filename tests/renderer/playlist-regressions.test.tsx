@@ -174,6 +174,21 @@ describe('playlist regressions', () => {
     });
   });
 
+  it('playlist format retry preserves a manually selected playlist preset', async () => {
+    window.appApi = buildMockApi({ lastPlaylistPreset: 'audio-mp3' }) as never;
+
+    await useAppStore.getState().initialize();
+    useAppStore.getState().setWizardUrl('https://www.youtube.com/playlist?list=PL123');
+    await useAppStore.getState().submitUrl();
+    useAppStore.getState().setPlaylistPreset('video-1080p');
+
+    await act(async () => {
+      await useAppStore.getState().retryFormatProbe();
+    });
+
+    expect(useAppStore.getState().selectedPlaylistPreset).toBe('video-1080p');
+  });
+
   it('playlist outputTemplate padding scales with playlist length', async () => {
     window.appApi = buildMockApi() as never;
 

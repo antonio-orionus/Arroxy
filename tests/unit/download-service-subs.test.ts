@@ -757,11 +757,12 @@ describe('DownloadService — per-file phase tracking via Destination lines', ()
     const events = captureStatuses(service);
 
     await service.start({ url: YOUTUBE_URL, outputDir: '/tmp', job: makeJob({ formatId: '137+251' }) });
-    await new Promise((r) => setTimeout(r, 80));
 
     // downloadingMedia is emitted when the media Destination line is parsed.
-    const mediaEvents = events.filter((e) => e.statusKey === 'downloadingMedia');
-    expect(mediaEvents.length).toBeGreaterThanOrEqual(1);
+    await vi.waitFor(() => {
+      const mediaEvents = events.filter((e) => e.statusKey === 'downloadingMedia');
+      expect(mediaEvents.length).toBeGreaterThanOrEqual(1);
+    });
   });
 
   it('suppresses percent in progress events while a subtitle file is the active Destination', async () => {

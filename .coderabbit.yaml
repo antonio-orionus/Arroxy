@@ -1,0 +1,104 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+reviews:
+  profile: assertive
+  high_level_summary_instructions: >-
+    Write a concise PR summary with:
+
+    1. User-facing changes
+
+    2. Internal/refactor changes
+
+    3. Risk areas, especially Electron security, release/build behavior, dependency changes, and IPC
+    boundaries
+
+    4. Tests or checks that should be run
+
+
+    Avoid marketing language. Do not invent test results.
+  auto_title_instructions: |-
+    Generate concise PR titles. Prefer conventional style when clear:
+    fix(scope): ...
+    feat(scope): ...
+    refactor(scope): ...
+    chore(scope): ...
+    docs(scope): ...
+    test(scope): ...
+
+    Do not use hype. Do not include implementation details unless they are the point of the PR.
+  review_details: true
+  sequence_diagrams: false
+  assess_linked_issues: false
+  related_issues: false
+  related_prs: false
+  auto_apply_labels: true
+  labeling_instructions:
+    - label: bug
+      instructions: >-
+        Use this label when the PR fixes broken behavior, regressions, crashes, incorrect UI
+        behavior, failed runtime behavior, failing tests, or user-visible defects.
+    - label: enhancement
+      instructions: >-
+        Use this label when the PR adds a new user-facing capability, improves an existing workflow,
+        expands app functionality, or changes behavior in a way users would notice.
+    - label: dependencies
+      instructions: >-
+        Use this label when the PR changes package.json, bun.lock, Dependabot configuration,
+        dependency versions, dependency constraints, or package manager behavior.
+    - label: documentation
+      instructions: >-
+        Use this label when the PR changes README files, generated documentation, docs source files,
+        user-facing comments, changelog text, or release-note content.
+    - label: github_actions
+      instructions: >-
+        Use this label when the PR changes GitHub Actions workflows, release automation, CI checks,
+        Dependabot automation, permissions, secrets usage, artifact handling, or repository
+        automation.
+  suggested_reviewers: false
+  in_progress_fortune: false
+  poem: false
+  pre_merge_checks:
+    docstrings:
+      mode: off
+  tools:
+    eslint:
+      enabled: false
+  path_filters:
+    - '!dist/**'
+    - '!out/**'
+    - '!release/**'
+    - '!node_modules/**'
+    - '!coverage/**'
+    - '!playwright-report/**'
+    - '!test-results/**'
+    - '!*.log'
+  path_instructions:
+    - path: .github/workflows/**
+      instructions: >-
+        Review GitHub Actions for least-privilege permissions, unsafe secret exposure, untrusted PR
+        execution, shell quoting, release/tag correctness, artifact handling, and whether commands
+        can fail silently.
+    - path: scripts/**
+      instructions: >-
+        Review shell and Node/Bun scripts for unsafe command construction, unquoted variables, path
+        traversal, platform-specific assumptions, missing error handling, and release/build
+        reproducibility.
+    - path: src/main/**
+      instructions: >-
+        This is Electron main-process code. Prioritize security, IPC boundaries, filesystem access,
+        updater/download behavior, child process usage, path handling, and validation of
+        renderer-provided input.
+    - path: src/preload/**
+      instructions: >-
+        This is Electron preload code. Ensure contextBridge exposes the minimum safe API, does not
+        leak Node/Electron primitives, validates IPC inputs, and keeps renderer access constrained.
+    - path: src/renderer/**
+      instructions: >-
+        Review React/UI code for state correctness, accessibility, i18n regressions, unsafe DOM
+        usage, IPC misuse, race conditions, and user-facing error handling. Avoid style-only
+        nitpicks unless they affect maintainability.
+    - path: tests/**
+      instructions: >-
+        Prioritize meaningful coverage, determinism, and whether tests validate behavior. Do not
+        nitpick formatting or implementation style unless it makes the test unreliable.
+  slop_detection:
+    label: needs-human-review
