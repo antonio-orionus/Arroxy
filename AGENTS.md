@@ -260,7 +260,7 @@ Tag w/ semver pre-release suffix (e.g. `v0.4.0-beta.1`):
 - Manually download the artifact from the GitHub Release page to validate.
 - When ready: bump to plain semver (`v0.4.0`), tag annotated, push.
 
-**NSIS installer:** pin `electron-builder ≥ 26.9.0` (26.8.x has a `multiUser.nsh:35` buffer over-read on cold-heap). Drop `build/installer.nsh`. Any future custom NSIS `Page custom` callback must open with `${If} ${Silent} \n Abort \n ${EndIf}`.
+**NSIS installer:** pin `electron-builder ≥ 26.9.0` (26.8.x has a `multiUser.nsh:35` buffer over-read on cold-heap). Drop `build/installer.nsh`. Any future custom NSIS `Page custom` callback must open with `${If} ${Silent} \n Abort \n ${EndIf}`. Note: npm `latest` dist-tag is broken `26.8.1`; pin from `next` channel — `bun update --latest` silently downgrades.
 
 ### Release notes — CHANGELOG.md is SSOT
 
