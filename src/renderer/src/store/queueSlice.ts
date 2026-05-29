@@ -168,15 +168,20 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
       if (selected.length === 0) return;
       const items = selected.map((e) => buildPlaylistQueueItem(e, get, groupId, lane));
       const baseDir = items[0]?.outputDir ?? get().wizardOutputDir;
-      // Manifest drives post-completion M3U generation; a failure here only
-      // forfeits that convenience artifact, so log and proceed with the queue.
-      const manifestRes = await window.appApi.playlist.registerManifest({
-        playlistGroupId: groupId,
-        playlistTitle: get().playlistTitle || 'Playlist',
-        outputDir: baseDir,
-        items: playlistItems.map((e) => ({ videoId: e.videoId, title: e.title, duration: e.duration }))
-      });
-      if (!manifestRes.ok) console.warn('playlist manifest registration failed; M3U will be skipped', manifestRes.error);
+      // Manifest drives post-completion M3U generation; a failure (returned or
+      // thrown) only forfeits that convenience artifact, so log and never let it
+      // block enqueueing the actual download.
+      try {
+        const manifestRes = await window.appApi.playlist.registerManifest({
+          playlistGroupId: groupId,
+          playlistTitle: get().playlistTitle || 'Playlist',
+          outputDir: baseDir,
+          items: playlistItems.map((e) => ({ videoId: e.videoId, title: e.title, duration: e.duration }))
+        });
+        if (!manifestRes.ok) console.warn('playlist manifest registration failed; M3U will be skipped', manifestRes.error);
+      } catch (err) {
+        console.warn('playlist manifest registration threw; M3U will be skipped', err);
+      }
       await window.appApi.queue.cmd.add(items);
     } else {
       const item = buildQueueItem(get, lane);

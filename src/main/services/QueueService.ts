@@ -656,10 +656,13 @@ export class QueueService extends EventEmitter {
     // them sequential (writes are idempotent — the file is rebuilt from disk).
     const prev = this.m3uWriteChains.get(playlistGroupId) ?? Promise.resolve();
     const next = prev.then(() => this.writePlaylistM3uIfComplete(playlistGroupId));
-    this.m3uWriteChains.set(
-      playlistGroupId,
-      next.catch(() => {})
-    );
+    const stored = next.catch(() => {});
+    this.m3uWriteChains.set(playlistGroupId, stored);
+    // Drop the entry once it settles, unless a newer write already replaced it
+    // — otherwise the map retains one promise per group for the app's lifetime.
+    void stored.finally(() => {
+      if (this.m3uWriteChains.get(playlistGroupId) === stored) this.m3uWriteChains.delete(playlistGroupId);
+    });
     return next;
   }
 

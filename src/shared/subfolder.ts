@@ -58,5 +58,6 @@ export function effectiveOutputDir(base: string, enabled: boolean, subfolder: st
 // (buildPlaylistQueueItem) and where we scan for already-downloaded items
 // (syncWithFolder) — the two must agree or the sync feature scans the wrong dir.
 export function playlistBaseDir(base: string, subfolderEnabled: boolean, subfolderName: string, playlistTitle: string): string {
-  return subfolderEnabled && subfolderName ? joinSubfolder(base, subfolderName) : joinSubfolder(base, safeFolderName(playlistTitle || 'Playlist'));
+  const sub = subfolderName.trim();
+  return subfolderEnabled && sub ? joinSubfolder(base, sub) : joinSubfolder(base, safeFolderName(playlistTitle || 'Playlist'));
 }
