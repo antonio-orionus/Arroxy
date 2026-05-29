@@ -1,4 +1,4 @@
-import { useEffect, useRef, type JSX } from 'react';
+import { useRef, type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { resolvePlaylistProbeLimit } from '@shared/networkPacing.js';
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogFooter } from '../ui/dialog.js';
@@ -17,13 +17,11 @@ export function MixedUrlPromptDialog(): JSX.Element {
   const playlistButtonRef = useRef<HTMLButtonElement>(null);
   const playlistLimit = resolvePlaylistProbeLimit(settings?.common);
 
-  useEffect(() => {
-    if (mixedUrlPromptOpen) playlistButtonRef.current?.focus();
-  }, [mixedUrlPromptOpen]);
-
   return (
     <Dialog open={mixedUrlPromptOpen} onOpenChange={() => undefined}>
-      <DialogContent>
+      {/* Focus "Pick from playlist" on open — the recommended action — instead
+          of the close button / advanced-settings link the trap would pick. */}
+      <DialogContent initialFocus={playlistButtonRef}>
         <DialogTitle>{t('wizard.mixedPrompt.title')}</DialogTitle>
         <DialogDescription>{t('wizard.mixedPrompt.body')}</DialogDescription>
         <div className="mt-3 flex items-center justify-between gap-3 rounded-md border border-[var(--border-strong)] bg-card/40 px-3 py-2 text-[12px]" data-testid="mixed-playlist-cap">
