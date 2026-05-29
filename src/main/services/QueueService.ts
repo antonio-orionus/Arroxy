@@ -78,6 +78,9 @@ export class QueueService extends EventEmitter {
   // 500+ writes back-to-back blocks the main thread for seconds.
   private inBulk = false;
 
+  // Per-playlist-group serialization for M3U writes. See maybeWritePlaylistM3u.
+  private readonly m3uWriteChains = new Map<string, Promise<void>>();
+
   constructor(
     private readonly queueStore: QueueStore,
     private readonly downloadService: DownloadService,
@@ -646,11 +649,27 @@ export class QueueService extends EventEmitter {
     return this.items.find((i) => i.lastJobId === jobId);
   }
 
-  private async maybeWritePlaylistM3u(playlistGroupId: string): Promise<void> {
+  private maybeWritePlaylistM3u(playlistGroupId: string): Promise<void> {
+    // Serialize per group: two items in the same playlist can reach a terminal
+    // state in the same tick and both pass the all-terminal gate below, so
+    // overlapping writeFile() calls would race on one .m3u path. Chaining keeps
+    // them sequential (writes are idempotent — the file is rebuilt from disk).
+    const prev = this.m3uWriteChains.get(playlistGroupId) ?? Promise.resolve();
+    const next = prev.then(() => this.writePlaylistM3uIfComplete(playlistGroupId));
+    this.m3uWriteChains.set(
+      playlistGroupId,
+      next.catch(() => {})
+    );
+    return next;
+  }
+
+  private async writePlaylistM3uIfComplete(playlistGroupId: string): Promise<void> {
     if (!this.playlist) return;
     const group = this.items.filter((i) => i.playlistGroupId === playlistGroupId);
-    const allTerminal = group.every((i) => isTerminalStatus(i.status));
-    if (!allTerminal) return;
+    if (group.length === 0 || !group.every((i) => isTerminalStatus(i.status))) return;
+    // Skip when nothing actually downloaded (e.g. the whole group was
+    // cancelled) — buildM3u would otherwise write a header-only playlist file.
+    if (!group.some((i) => i.status === QUEUE_STATUS.done)) return;
     const manifest = this.playlist.manifestStore.get(playlistGroupId);
     if (!manifest) return;
     await this.playlist.writeM3u(manifest);

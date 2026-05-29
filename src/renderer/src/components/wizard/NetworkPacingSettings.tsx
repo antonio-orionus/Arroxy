@@ -20,14 +20,6 @@ const CUSTOM_FIELDS = [
 
 const OFF_SUBTITLE_SLEEP_SECONDS = 3;
 
-const CUSTOM_PLACEHOLDERS = {
-  sleepRequests: NETWORK_PACING_PRESET_VALUES.balanced.sleepRequests,
-  sleepInterval: NETWORK_PACING_PRESET_VALUES.balanced.sleepInterval,
-  maxSleepInterval: NETWORK_PACING_PRESET_VALUES.balanced.maxSleepInterval,
-  sleepSubtitles: NETWORK_PACING_PRESET_VALUES.balanced.sleepSubtitles,
-  concurrentFragments: NETWORK_PACING_PRESET_VALUES.balanced.concurrentFragments
-} as const;
-
 function HelpTooltip({ children, testId, label }: { children: ReactNode; testId: string; label: string }): JSX.Element {
   return (
     <Tooltip>
@@ -180,7 +172,7 @@ export function NetworkPacingSettings(): JSX.Element {
             <label key={field.key} className="flex flex-col gap-1">
               <span className="text-[11px] font-medium text-[var(--text-subtle)]">{t(`wizard.url.networkPacing.fields.${field.labelKey}`)}</span>
               <div className="relative">
-                <Input type="number" min={0} value={fieldDrafts[field.key] ?? toDraft(common?.[field.key])} onChange={(e) => onFieldChange(field.key, e.target.value)} onBlur={() => onFieldBlur(field.key)} placeholder={String(CUSTOM_PLACEHOLDERS[field.labelKey] ?? '')} className="h-8 pe-14 text-[12px] font-mono" data-testid={field.testId} />
+                <Input type="number" min={0} value={fieldDrafts[field.key] ?? toDraft(common?.[field.key])} onChange={(e) => onFieldChange(field.key, e.target.value)} onBlur={() => onFieldBlur(field.key)} placeholder={String(NETWORK_PACING_PRESET_VALUES.balanced[field.labelKey] ?? '')} className="h-8 pe-14 text-[12px] font-mono" data-testid={field.testId} />
                 <span className="pointer-events-none absolute end-2 top-1/2 -translate-y-1/2 text-[11px] text-[var(--text-subtle)]">{t(`wizard.url.networkPacing.units.${field.unitKey}`)}</span>
               </div>
             </label>

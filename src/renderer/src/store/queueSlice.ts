@@ -10,7 +10,7 @@ import type { PlaylistEntry, QueueItem, QueueLane } from '@shared/types.js';
 import { QUEUE_STATUS } from '@shared/schemas.js';
 import { buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution } from './helpers.js';
 import { effectiveOutputDir } from '@renderer/lib/path.js';
-import { joinSubfolder, safeFolderName } from '@shared/subfolder.js';
+import { playlistBaseDir } from '@shared/subfolder.js';
 import { prepareJob } from '@shared/prepareJob.js';
 import type { EmbedOptions, SubtitleOptions } from '@shared/preparedJob.js';
 import { sanitizeJobOptions } from '@shared/sanitizeJobOptions.js';
@@ -109,7 +109,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, get: GetState, playlistGro
   const { wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName, selectedPlaylistPreset } = state;
   if (!selectedPlaylistPreset) throw new Error('playlist preset missing');
 
-  const baseDir = wizardSubfolderEnabled && wizardSubfolderName ? joinSubfolder(wizardOutputDir, wizardSubfolderName) : joinSubfolder(wizardOutputDir, safeFolderName(state.playlistTitle || 'Playlist'));
+  const baseDir = playlistBaseDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName, state.playlistTitle);
 
   const formatLabel = i18next.t(`playlistPresets.${selectedPlaylistPreset}.label` as const);
   const outputTemplate = playlistOutputTemplate();
@@ -168,12 +168,15 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
       if (selected.length === 0) return;
       const items = selected.map((e) => buildPlaylistQueueItem(e, get, groupId, lane));
       const baseDir = items[0]?.outputDir ?? get().wizardOutputDir;
-      await window.appApi.playlist.registerManifest({
+      // Manifest drives post-completion M3U generation; a failure here only
+      // forfeits that convenience artifact, so log and proceed with the queue.
+      const manifestRes = await window.appApi.playlist.registerManifest({
         playlistGroupId: groupId,
         playlistTitle: get().playlistTitle || 'Playlist',
         outputDir: baseDir,
         items: playlistItems.map((e) => ({ videoId: e.videoId, title: e.title, duration: e.duration }))
       });
+      if (!manifestRes.ok) console.warn('playlist manifest registration failed; M3U will be skipped', manifestRes.error);
       await window.appApi.queue.cmd.add(items);
     } else {
       const item = buildQueueItem(get, lane);

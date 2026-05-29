@@ -51,3 +51,12 @@ export function effectiveOutputDir(base: string, enabled: boolean, subfolder: st
   if (!enabled || !t || !isValidSubfolder(t)) return base;
   return joinSubfolder(base, t);
 }
+
+// Directory a playlist's files land in: an explicit subfolder when the user
+// named one, else a folder named after the (sanitized) playlist title.
+// Single source of truth for where playlist media is written
+// (buildPlaylistQueueItem) and where we scan for already-downloaded items
+// (syncWithFolder) — the two must agree or the sync feature scans the wrong dir.
+export function playlistBaseDir(base: string, subfolderEnabled: boolean, subfolderName: string, playlistTitle: string): string {
+  return subfolderEnabled && subfolderName ? joinSubfolder(base, subfolderName) : joinSubfolder(base, safeFolderName(playlistTitle || 'Playlist'));
+}

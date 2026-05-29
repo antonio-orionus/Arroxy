@@ -12,6 +12,7 @@ import { DEFAULTS } from '@shared/constants.js';
 import type { AppSettings, PlaylistPreset, ProbePlaylistMode, ProbeResult, WizardTransition } from '@shared/types.js';
 import { getIncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 import { cleanUrl } from '@shared/cleanUrl.js';
+import { playlistBaseDir } from '@shared/subfolder.js';
 import { isYouTubeExtractor } from '@shared/ytdlp/extractorPredicates.js';
 import { applyPreset, restoreFormatSelection, restoreSubtitleSelection } from './formatPicker.js';
 import { WizardCommands, RESET_WIZARD_STATE } from './commands.js';
@@ -382,9 +383,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
     setPlaylistPreset: (p) => set({ selectedPlaylistPreset: p, wizardSubtitleSkipped: false }),
 
     syncWithFolder: async () => {
-      const { wizardOutputDir, playlistItems } = get();
+      const { wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName, playlistTitle, playlistItems } = get();
       const videoIds = playlistItems.map((e) => e.videoId).filter((v): v is string => v !== null);
-      const res = await window.appApi.playlist.scanFolder({ outputDir: wizardOutputDir, videoIds });
+      // Scan the per-playlist subfolder the files actually land in — not the
+      // bare output dir — or no match is ever found. Mirrors buildPlaylistQueueItem.
+      const outputDir = playlistBaseDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName, playlistTitle);
+      const res = await window.appApi.playlist.scanFolder({ outputDir, videoIds });
       if (!res.ok) return;
       const matchedIds = res.data.matchedIds;
       const matched = new Set(matchedIds);

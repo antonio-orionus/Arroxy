@@ -18,14 +18,6 @@ export function findPlayableFileName(files: readonly string[], videoId: string):
 
 /** Strip control chars so renderer-provided titles cannot inject M3U lines. */
 export function sanitizeM3uTitle(title: string): string {
-  let out = '';
-  for (const ch of title) {
-    const code = ch.charCodeAt(0);
-    if (ch === '\r' || ch === '\n' || code < 32 || code === 127) {
-      out += ' ';
-    } else {
-      out += ch;
-    }
-  }
-  return out.trim();
+  // eslint-disable-next-line no-control-regex -- control bytes are intentionally matched here
+  return title.replace(/[\x00-\x1F\x7F]/g, ' ').trim();
 }

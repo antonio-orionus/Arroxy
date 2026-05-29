@@ -152,44 +152,35 @@ interface InvokeOptions {
   isProbe?: boolean;
 }
 
-function formatPacingNumber(value: number): string {
-  return String(value);
-}
-
-function appendRequestPacingArgs(args: string[], pacing: NetworkPacingArgs | undefined): void {
-  if (pacing?.sleepRequests !== undefined && pacing.sleepRequests > 0) {
-    args.push('--sleep-requests', formatPacingNumber(pacing.sleepRequests));
-  }
-}
-
-function insertBeforeLastArg(args: string[], values: string[]): void {
-  if (values.length === 0) return;
-  args.splice(Math.max(0, args.length - 1), 0, ...values);
-}
+// Subtitle throttle applied when no pacing override is configured (the 'off'
+// preset). Kept in lockstep with OFF_SUBTITLE_SLEEP_SECONDS in the settings UI.
+const DEFAULT_SLEEP_SUBTITLES = 3;
 
 function requestPacingArgs(pacing: NetworkPacingArgs | undefined): string[] {
-  const args: string[] = [];
-  appendRequestPacingArgs(args, pacing);
-  return args;
+  return pacing?.sleepRequests !== undefined && pacing.sleepRequests > 0 ? ['--sleep-requests', String(pacing.sleepRequests)] : [];
 }
 
 function downloadPacingArgs(pacing: NetworkPacingArgs | undefined): string[] {
-  const args: string[] = [];
-  appendDownloadPacingArgs(args, pacing);
-  return args;
-}
-
-function appendDownloadPacingArgs(args: string[], pacing: NetworkPacingArgs | undefined): void {
-  appendRequestPacingArgs(args, pacing);
+  const args = requestPacingArgs(pacing);
   if (pacing?.sleepInterval !== undefined && pacing.sleepInterval > 0) {
-    args.push('--sleep-interval', formatPacingNumber(pacing.sleepInterval));
+    args.push('--sleep-interval', String(pacing.sleepInterval));
     if (pacing.maxSleepInterval !== undefined && pacing.maxSleepInterval >= pacing.sleepInterval) {
-      args.push('--max-sleep-interval', formatPacingNumber(pacing.maxSleepInterval));
+      args.push('--max-sleep-interval', String(pacing.maxSleepInterval));
     }
   }
   if (pacing?.concurrentFragments !== undefined && pacing.concurrentFragments > 0) {
     args.push('--concurrent-fragments', String(Math.trunc(pacing.concurrentFragments)));
   }
+  return args;
+}
+
+// `--sleep-subtitles` value: undefined (no override) keeps the default,
+// 0 omits the flag entirely (user opted out), >0 uses the configured value.
+function sleepSubtitlesArgs(pacing: NetworkPacingArgs | undefined): string[] {
+  const value = pacing?.sleepSubtitles;
+  if (value === undefined) return ['--sleep-subtitles', String(DEFAULT_SLEEP_SUBTITLES)];
+  if (value <= 0) return [];
+  return ['--sleep-subtitles', String(value)];
 }
 
 async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise<YtDlpResult> {
@@ -406,14 +397,14 @@ function effectiveSubtitleFormat(req: { writeAutoSubs?: boolean; subtitleFormat:
   return req.subtitleFormat;
 }
 
-function buildSubtitleArgs(req: Extract<YtDlpRequest, { kind: 'subtitle' }>): string[] {
+function buildSubtitleArgs(req: Extract<YtDlpRequest, { kind: 'subtitle' }>, pacing: NetworkPacingArgs | undefined): string[] {
   const subOutputDir = req.subtitleMode === 'subfolder' ? `${req.outputDir}/subtitles` : req.outputDir;
   const fmt = effectiveSubtitleFormat(req);
   const template = req.outputTemplate ?? '%(title).200B.%(ext)s';
-  return ['--skip-download', '--no-playlist', '--write-subs', '--sub-langs', req.subtitleLanguages.join(','), ...(req.writeAutoSubs ? ['--write-auto-subs'] : []), '--sleep-subtitles', '3', '--sub-format', `${fmt}/best`, '--convert-subs', fmt, '-o', `${subOutputDir}/${template}`, req.url];
+  return ['--skip-download', '--no-playlist', '--write-subs', '--sub-langs', req.subtitleLanguages.join(','), ...(req.writeAutoSubs ? ['--write-auto-subs'] : []), ...sleepSubtitlesArgs(pacing), ...requestPacingArgs(pacing), '--sub-format', `${fmt}/best`, '--convert-subs', fmt, '-o', `${subOutputDir}/${template}`, req.url];
 }
 
-function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embed' }>): string[] {
+function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embed' }>, pacing: NetworkPacingArgs | undefined): string[] {
   const skipDownload = req.kind === 'video' && req.skipDownload === true;
   const args: string[] = ['--progress', '--no-playlist'];
   // Resume hardening: feed cached metadata from a prior spawn so yt-dlp
@@ -444,7 +435,7 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
     // mkv embeds vtt natively as a webvtt stream — no --convert-subs needed.
     // mp4+mov_text muxing is unreliable across YouTube's auto-caption variants.
     // --compat-options no-keep-subs deletes the sidecar .vtt files after embed.
-    args.push('--write-subs', '--embed-subs', '--sub-langs', req.subtitleLanguages.join(','), '--merge-output-format', EMBED_CONTAINER_EXT, '--compat-options', 'no-keep-subs', '--sleep-subtitles', '3');
+    args.push('--write-subs', '--embed-subs', '--sub-langs', req.subtitleLanguages.join(','), '--merge-output-format', EMBED_CONTAINER_EXT, '--compat-options', 'no-keep-subs', ...sleepSubtitlesArgs(pacing));
     if (req.writeAutoSubs) args.push('--write-auto-subs');
   } else {
     args.push('--no-write-subs', '--no-write-auto-subs');
@@ -500,6 +491,8 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
   if (req.tempDir && !skipDownload) {
     args.push('--write-info-json', '-o', `infojson:${req.tempDir}/_arroxy`);
   }
+  // Network pacing (sleep/concurrency) emitted before the trailing URL.
+  args.push(...downloadPacingArgs(pacing));
   // With --load-info-json, the info.json is the input source; passing a URL
   // triggers "WARNING: URLs are ignored due to --load-info-json" noise.
   if (!req.loadInfoJsonPath) args.push(req.url);
@@ -521,41 +514,15 @@ export function buildArgs(req: YtDlpRequest, opts: { pacing?: NetworkPacingArgs;
       //   default routes Radio/Mix to playlist, which is rarely user intent.
       const modeFlag = req.playlistMode === 'video' ? ['--no-playlist'] : req.playlistMode === 'playlist' ? ['--yes-playlist'] : [];
       const capFlag = req.playlistMode === 'video' ? [] : ['--playlist-end', String(opts.playlistProbeLimit ?? DEFAULT_PLAYLIST_PROBE_LIMIT)];
-      const args = ['--dump-single-json', '--flat-playlist', ...modeFlag, ...capFlag];
-      appendRequestPacingArgs(args, opts.pacing);
-      args.push(req.url);
+      const args = ['--dump-single-json', '--flat-playlist', ...modeFlag, ...capFlag, ...requestPacingArgs(opts.pacing), req.url];
       return { args };
     }
     case 'subtitle': {
-      const args = buildSubtitleArgs(req);
-      insertBeforeLastArg(args, requestPacingArgs(opts.pacing));
-      if (opts.pacing?.sleepSubtitles !== undefined) {
-        const idx = args.indexOf('--sleep-subtitles');
-        if (idx >= 0) args.splice(idx, 2);
-        if (opts.pacing.sleepSubtitles > 0) args.splice(args.length - 1, 0, '--sleep-subtitles', formatPacingNumber(opts.pacing.sleepSubtitles));
-      }
-      return { args, subtitleFormat: effectiveSubtitleFormat(req) };
+      return { args: buildSubtitleArgs(req, opts.pacing), subtitleFormat: effectiveSubtitleFormat(req) };
     }
     case 'video':
     case 'video+embed': {
-      const args = buildVideoArgs(req);
-      if (req.loadInfoJsonPath) {
-        args.push(...downloadPacingArgs(opts.pacing));
-      } else {
-        insertBeforeLastArg(args, downloadPacingArgs(opts.pacing));
-      }
-      if (opts.pacing?.sleepSubtitles !== undefined && (req.kind === 'video+embed' || args.includes('--sleep-subtitles'))) {
-        const idx = args.indexOf('--sleep-subtitles');
-        if (idx >= 0) args.splice(idx, 2);
-        if (opts.pacing.sleepSubtitles > 0 && req.kind === 'video+embed') {
-          if (req.loadInfoJsonPath) {
-            args.push('--sleep-subtitles', formatPacingNumber(opts.pacing.sleepSubtitles));
-          } else {
-            args.splice(args.length - 1, 0, '--sleep-subtitles', formatPacingNumber(opts.pacing.sleepSubtitles));
-          }
-        }
-      }
-      return { args };
+      return { args: buildVideoArgs(req, opts.pacing) };
     }
   }
 }
