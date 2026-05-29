@@ -22,7 +22,7 @@ import log from 'electron-log/main.js';
 import { fail, ok, type Result } from '@shared/result.js';
 import { createAppError } from '@main/utils/errorFactory.js';
 import { nowIso } from '@main/utils/clock.js';
-import { QUEUE_STATUS, STATUS_KEY, type QueueItemStatus, type QueueLane, type StatusKey } from '@shared/schemas.js';
+import { QUEUE_STATUS, STATUS_KEY, type QueueLane, type StatusKey } from '@shared/schemas.js';
 import { transition, illegalTransition, type QueueEvent } from '@shared/queueTransition.js';
 import { ProgressFormatter, nextMonotonicPercent } from '@shared/progressFormat.js';
 import { INTER_JOB_SLEEP_MS, MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP } from '@shared/constants.js';
@@ -33,10 +33,6 @@ import type { PlaylistManifest } from '@shared/playlistManifest.js';
 import type { DownloadService } from './DownloadService.js';
 
 const logger = log.scope('queue');
-
-function isTerminalStatus(s: QueueItemStatus): boolean {
-  return s === QUEUE_STATUS.done || s === QUEUE_STATUS.error || s === QUEUE_STATUS.cancelled;
-}
 
 // Discriminated union covering every shape a mutation can take. commit()
 // is the only writer; new mutation kinds add a case here (compile-checked
@@ -491,7 +487,13 @@ export class QueueService extends EventEmitter {
         const next = transition(prev, mutation.evt);
         this.items[idx] = next;
         this.persist();
-        if (isTerminalStatus(next.status) && next.playlistGroupId) {
+        // Write the playlist M3U incrementally after each successful item, not
+        // only when the whole group finishes: a crash, a parked (paused) item,
+        // or items spread across lanes would otherwise leave no M3U despite
+        // completed downloads. buildM3u is idempotent (scans disk, includes
+        // only files that exist), so each write grows the playlist; a fully
+        // cancelled group never triggers one, so no header-only file.
+        if (next.status === QUEUE_STATUS.done && next.playlistGroupId) {
           const groupId = next.playlistGroupId;
           void this.maybeWritePlaylistM3u(groupId).catch((err) => {
             logger.error('Failed to write playlist M3U', {
@@ -650,12 +652,11 @@ export class QueueService extends EventEmitter {
   }
 
   private maybeWritePlaylistM3u(playlistGroupId: string): Promise<void> {
-    // Serialize per group: two items in the same playlist can reach a terminal
-    // state in the same tick and both pass the all-terminal gate below, so
-    // overlapping writeFile() calls would race on one .m3u path. Chaining keeps
-    // them sequential (writes are idempotent — the file is rebuilt from disk).
+    // Serialize per group: two items in the same playlist can complete in the
+    // same tick, so overlapping writeFile() calls would race on one .m3u path.
+    // Chaining keeps them sequential (writes are idempotent — file rebuilt from disk).
     const prev = this.m3uWriteChains.get(playlistGroupId) ?? Promise.resolve();
-    const next = prev.then(() => this.writePlaylistM3uIfComplete(playlistGroupId));
+    const next = prev.then(() => this.writePlaylistM3u(playlistGroupId));
     const stored = next.catch(() => {});
     this.m3uWriteChains.set(playlistGroupId, stored);
     // Drop the entry once it settles, unless a newer write already replaced it
@@ -666,13 +667,8 @@ export class QueueService extends EventEmitter {
     return next;
   }
 
-  private async writePlaylistM3uIfComplete(playlistGroupId: string): Promise<void> {
+  private async writePlaylistM3u(playlistGroupId: string): Promise<void> {
     if (!this.playlist) return;
-    const group = this.items.filter((i) => i.playlistGroupId === playlistGroupId);
-    if (group.length === 0 || !group.every((i) => isTerminalStatus(i.status))) return;
-    // Skip when nothing actually downloaded (e.g. the whole group was
-    // cancelled) — buildM3u would otherwise write a header-only playlist file.
-    if (!group.some((i) => i.status === QUEUE_STATUS.done)) return;
     const manifest = this.playlist.manifestStore.get(playlistGroupId);
     if (!manifest) return;
     await this.playlist.writeM3u(manifest);
