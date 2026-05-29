@@ -29,6 +29,10 @@ export function StepPlaylistItems(): JSX.Element {
   const [rangeFrom, setRangeFrom] = useState('');
   const [rangeTo, setRangeTo] = useState('');
   const [syncOpen, setSyncOpen] = useState(false);
+  // Tracks whether a sync actually ran for the current folder, so the
+  // "no prior downloads" hint only shows after a scan — not on the empty
+  // initial state, which would falsely claim the folder was checked.
+  const [syncRan, setSyncRan] = useState(false);
 
   const parentRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line react-hooks/incompatible-library
@@ -92,15 +96,31 @@ export function StepPlaylistItems(): JSX.Element {
               <div className="flex items-center gap-2 text-xs">
                 <span className="text-muted-foreground shrink-0">{t('wizard.playlist.syncPanelDir')}</span>
                 <span className="flex-1 truncate font-mono text-[11px]">{syncDir || '—'}</span>
-                <Button type="button" variant="ghost" size="sm" className="h-6 px-2 text-xs" onClick={() => void chooseWizardFolder()}>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 px-2 text-xs"
+                  onClick={() => {
+                    setSyncRan(false);
+                    void chooseWizardFolder();
+                  }}
+                >
                   {t('wizard.playlist.syncChange')}
                 </Button>
               </div>
               <div className="flex items-center gap-2">
-                <Button type="button" variant="outline" size="sm" onClick={() => void syncWithFolder()}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    void syncWithFolder().then(() => setSyncRan(true));
+                  }}
+                >
                   {t('wizard.playlist.syncApply')}
                 </Button>
-                {syncedDownloadedIds.length === 0 && <span className="text-xs text-muted-foreground">{t('wizard.playlist.syncNoPriorDownloads')}</span>}
+                {syncRan && syncedDownloadedIds.length === 0 && <span className="text-xs text-muted-foreground">{t('wizard.playlist.syncNoPriorDownloads')}</span>}
               </div>
             </div>
           )}
