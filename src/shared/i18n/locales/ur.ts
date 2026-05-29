@@ -100,7 +100,15 @@ const ur = {
       noSelection: 'جاری رکھنے کے لیے کم از کم ایک ویڈیو منتخب کریں',
       loadingItems: 'Playlist لائی جا رہی ہے…',
       thumbnailAlt: 'ویڈیو تھمب نیل',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'فولڈر تبدیل کریں…',
+      syncApply: 'سنک لاگو کریں',
+      syncScanning: 'فولڈر چیک ہو رہا ہے…',
+      syncFoundTitle: 'فولڈر میں پہلے سے موجود',
+      syncFoundDesc: 'ان ویڈیوز میں سے {{n}} پہلے ہی {{dir}} میں موجود ہیں۔ صرف نئی ویڈیوز ڈاؤن لوڈ کرنے کے لیے سنک کریں؟',
+      syncNoneTitle: 'ابھی تک کچھ ڈاؤن لوڈ نہیں ہوا',
+      syncNoneDesc: 'اس پلے لسٹ کی کوئی ویڈیوز {{dir}} میں نہیں ملیں۔',
+      alreadyDownloaded: 'پہلے سے ڈاؤن لوڈ شدہ'
     },
     playlistPresets: {
       heading: 'بیچ کے لیے کوالٹی منتخب کریں',
@@ -184,6 +192,10 @@ const ur = {
         description: 'پراکسی کے ذریعے ٹریفک روٹ کریں — جغرافیائی پابندی والے مواد کے لیے مفید۔',
         placeholder: 'http://host:port',
         clear: 'صاف کریں'
+      },
+      singleFilenameId: {
+        toggle: 'سنگل فائل ناموں میں ویڈیو ID شامل کریں',
+        toggleDescription: 'عنوان بدلنے یا ٹکرانے پر ایک بار کی ڈاؤن لوڈز کو منفرد رکھتا ہے۔'
       },
       closeToTray: {
         toggle: 'بند کرنے پر ٹرے میں چھپائیں',

@@ -107,6 +107,18 @@ describe('VideoPhase(embed=false)', () => {
     expect(req.kind).toBe('video');
   });
 
+  it('forwards a single-mode outputTemplate to yt-dlp', async () => {
+    const ctx = makeCtx(SUCCESS, {
+      input: {
+        ...BASE_INPUT,
+        job: { ...BASE_JOB, outputTemplate: '%(title).200B [%(id)s].%(ext)s' }
+      }
+    });
+    await VideoPhase(false).run(ctx);
+    const [req] = ctx.runMock.mock.calls[0];
+    expect(req.outputTemplate).toBe('%(title).200B [%(id)s].%(ext)s');
+  });
+
   it('success → returns continue', async () => {
     const outcome = await VideoPhase(false).run(makeCtx(SUCCESS));
     expect(outcome.kind).toBe('continue');

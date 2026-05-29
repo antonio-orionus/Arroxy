@@ -100,7 +100,15 @@ const am = {
       noSelection: 'ለመቀጠል ቢያንስ አንድ ቪዲዮ ምረጥ',
       loadingItems: 'Playlist እየጫኑ…',
       thumbnailAlt: 'የቪዲዮ ድንክ ምስል',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'ፎልደር ቀይር…',
+      syncApply: 'ማመሳሰልን ተግብር',
+      syncScanning: 'ፎልደር በመፈተሽ ላይ…',
+      syncFoundTitle: 'ቀድሞ በፎልደር ውስጥ',
+      syncFoundDesc: '{{n}} ከእነዚህ ቪዲዮዎች በ{{dir}} ውስጥ ቀድሞውኑ አሉ። አዳዲሶቹን ብቻ ለማውረድ ይመሳሰል?',
+      syncNoneTitle: 'እስካሁን ምንም አልወረደም',
+      syncNoneDesc: 'ከዚህ አጫዋች ዝርዝር ውስጥ ምንም ቪዲዮ በ{{dir}} ውስጥ አልተገኘም።',
+      alreadyDownloaded: 'ቀድሞ ወርዷል'
     },
     playlistPresets: {
       heading: 'ለቡድኑ ጥራት ይምረጡ',
@@ -184,6 +192,10 @@ const am = {
         description: 'ትራፊክን በፕሮክሲ ለማስተላለፍ — በጂኦ-ተከልካይ ይዘት ለሚጠቀሙ ጠቃሚ።',
         placeholder: 'http://host:port',
         clear: 'አጽዳ'
+      },
+      singleFilenameId: {
+        toggle: 'የቪዲዮ ID ወደ ነጠላ ፋይል ስሞች ጨምር',
+        toggleDescription: 'ርዕሶች ሲቀየሩ ወይም ሲጋጩ ነጠላ ማውረዶችን ልዩ ያደርጋል።'
       },
       closeToTray: {
         toggle: 'ሲዘጋ ወደ ትሬ ደብቅ',

@@ -127,6 +127,10 @@ export const vi = {
     "**Chế độ khay hệ thống** — đóng cửa sổ vẫn tiếp tục tải xuống ở nền",
   feat_workflow_6:
     "**21 ngôn ngữ** — tự động phát hiện ngôn ngữ hệ thống, có thể đổi bất cứ lúc nào",
+  feat_workflow_7:
+    "**Đồng bộ danh sách phát** — quét lại danh sách phát với một thư mục cục bộ để bỏ qua các video đã tải; tạo tệp danh sách phát `.m3u` được cập nhật sau mỗi video tải xuống",
+  feat_workflow_8:
+    "**Chế độ thận trọng** — các preset nhịp độ có thể cấu hình (*Tắt · Cân bằng · Thận trọng · Tùy chỉnh*) thêm độ trễ giữa các yêu cầu và giới hạn fragment threads, giảm khả năng gặp bot-blocks trên danh sách phát lớn",
   feat_post_h3: "Phụ đề & hậu xử lý",
   feat_post_1:
     "**Phụ đề** dạng SRT, VTT hoặc ASS — thủ công hoặc tự tạo, trong bất kỳ ngôn ngữ nào có sẵn",

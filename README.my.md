@@ -78,6 +78,8 @@ Arroxy ကို တစ်ခုတည်းသောရည်ရွယ်ချ
 - **Auto-clean URLs** — tracking params (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) ကိုဖယ်ရှားပြီး `youtube.com/redirect` links ကိုဖြေရှင်းသည်
 - **Tray mode** — window ကိုပိတ်လျှင် downloads များသည် နောက်ကွယ်တွင် ဆက်လည်ပတ်နေသည်
 - **ဘာသာစကား ၂၁ မျိုး** — system locale ကို auto-detect လုပ်ပြီး မည်သည့်အချိန်မဆို ပြောင်းလဲနိုင်သည်
+- **Playlist sync** — ဒေါင်းလုဒ်လုပ်ပြီးသား ဗီဒီယိုများကို ကျော်ရန် playlist ကို local folder နှင့် ပြန်စစ်ဆေးပြီး၊ ဗီဒီယိုတစ်ခုစီ ဒေါင်းလုဒ်ပြီးတိုင်း အပ်ဒိတ်ဖြစ်သော `.m3u` playlist ဖိုင်ကို ဖန်တီးသည်
+- **Cautious mode** — တောင်းဆိုမှုများအကြား နှောင့်နှေးချိန်ထည့်ပြီး fragment threads ကို ကန့်သတ်သည့် ပြင်ဆင်နိုင်သော pacing presets (*ပိတ် · မျှတ · သတိထား · စိတ်ကြိုက်*) ဖြင့် ကြီးမားသော playlists များတွင် bot-block ဖြစ်နိုင်ခြေကို လျှော့ချသည်
 
 ### Subtitles နှင့် post-processing
 

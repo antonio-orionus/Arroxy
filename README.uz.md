@@ -78,6 +78,8 @@ Arroxy bir narsa uchun yaratilgan: URL'ni joylashtiring, toza mahalliy fayl olin
 - **URL'larni avtomatik tozalash** — kuzatish parametrlarini olib tashlaydi (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) va `youtube.com/redirect` havolalarini ochadi
 - **Tray rejimi** — oynani yopish yuklamalarni fon rejimida davom ettiradi
 - **21 til** — tizim tilini avtomatik aniqlaydi, istalgan vaqt almashtirish mumkin
+- **Pleylist sinxronlashuvi** — allaqachon yuklab olingan videolarni o'tkazib yuborish uchun pleylistni mahalliy jild bilan qayta tekshiradi; har bir video yuklanganda yangilanadigan `.m3u` pleylist faylini yaratadi
+- **Ehtiyotkor rejim** — sozlanadigan pacing presetlari (*O'chiq · Muvozanatli · Ehtiyotkor · Maxsus*) so'rovlar orasiga kechikishlar qo'shadi va fragment threads sonini cheklaydi, katta pleylistlarda bot-blocks ehtimolini kamaytiradi
 
 ### Subtitrlar va keyingi qayta ishlash
 

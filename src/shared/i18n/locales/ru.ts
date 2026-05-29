@@ -100,7 +100,15 @@ const ru = {
       noSelection: 'Выбери хотя бы одно видео, чтобы продолжить',
       loadingItems: 'Загрузка Playlist…',
       thumbnailAlt: 'Превью видео',
-      durationUnknown: 'прямой эфир'
+      durationUnknown: 'прямой эфир',
+      syncChange: 'Изменить папку…',
+      syncApply: 'Применить синхронизацию',
+      syncScanning: 'Проверяем папку…',
+      syncFoundTitle: 'Уже в папке',
+      syncFoundDesc: '{{n}} из этих видео уже есть в {{dir}}. Синхронизировать, чтобы скачать только новые?',
+      syncNoneTitle: 'Пока ничего не скачано',
+      syncNoneDesc: 'Видео из этого плейлиста не найдены в {{dir}}.',
+      alreadyDownloaded: 'Уже скачано'
     },
     playlistPresets: {
       heading: 'Выбери качество для пакетной загрузки',
@@ -184,6 +192,10 @@ const ru = {
         description: 'Направлять трафик через прокси — полезно для контента с географическими ограничениями.',
         placeholder: 'http://host:port',
         clear: 'Очистить'
+      },
+      singleFilenameId: {
+        toggle: 'Добавлять ID видео к одиночным именам файлов',
+        toggleDescription: 'Помогает сохранять одиночные загрузки уникальными, когда названия меняются или совпадают.'
       },
       closeToTray: {
         toggle: 'Скрывать в трей при закрытии',

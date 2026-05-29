@@ -100,7 +100,15 @@ const fr = {
       noSelection: 'Sélectionnez au moins une vidéo pour continuer',
       loadingItems: 'Récupération de la Playlist…',
       thumbnailAlt: 'Miniature de la vidéo',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'Changer de dossier…',
+      syncApply: 'Appliquer la synchronisation',
+      syncScanning: 'Vérification du dossier…',
+      syncFoundTitle: 'Déjà dans le dossier',
+      syncFoundDesc: '{{n}} de ces vidéos sont déjà dans {{dir}}. Synchroniser pour télécharger uniquement les nouvelles ?',
+      syncNoneTitle: 'Rien de téléchargé pour le moment',
+      syncNoneDesc: 'Aucune vidéo de cette playlist n’a été trouvée dans {{dir}}.',
+      alreadyDownloaded: 'Déjà téléchargé'
     },
     playlistPresets: {
       heading: 'Choisir la qualité pour le lot',
@@ -184,6 +192,10 @@ const fr = {
         description: 'Acheminer le trafic via un proxy — utile pour les contenus géo-restreints.',
         placeholder: 'http://host:port',
         clear: 'Effacer'
+      },
+      singleFilenameId: {
+        toggle: 'Ajouter l’ID vidéo aux noms de fichiers individuels',
+        toggleDescription: 'Garde les téléchargements ponctuels uniques lorsque les titres changent ou se ressemblent.'
       },
       closeToTray: {
         toggle: 'Masquer dans la barre des tâches à la fermeture',

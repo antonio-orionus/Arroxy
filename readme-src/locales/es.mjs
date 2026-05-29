@@ -128,6 +128,10 @@ export const es = {
     "**Modo bandeja** — cerrar la ventana mantiene las descargas en segundo plano",
   feat_workflow_6:
     "**21 idiomas** — detecta automáticamente el idioma del sistema, se puede cambiar en cualquier momento",
+  feat_workflow_7:
+    "**Sincronización de playlists** — vuelve a escanear una playlist contra una carpeta local para omitir vídeos ya descargados; genera un archivo de playlist `.m3u` que se actualiza con cada vídeo descargado",
+  feat_workflow_8:
+    "**Modo cauteloso** — ajustes de ritmo configurables (*Desactivado · Equilibrado · Cuidadoso · Personalizado*) que añaden pausas entre solicitudes y limitan los hilos de fragmentos, reduciendo la probabilidad de bot-blocks en playlists grandes",
   feat_post_h3: "Subtítulos y posprocesamiento",
   feat_post_1:
     "**Subtítulos** en SRT, VTT o ASS — manuales o generados automáticamente, en cualquier idioma disponible",

@@ -78,6 +78,8 @@ Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argad
 - **URL of-qulqulleessa** — params hordoffii (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) haqa fi linkiiwwan `youtube.com/redirect` bana
 - **Haala tray** — window cufuu buufannoo duubatti itti fufsisee hojechisisa
 - **Afaan 21** — afaan siistamaa of-danda'ee addaan baafata, yeroo kamiyyuu jijjiiruu danda'ama
+- **Walsimsiisa playlist** — viidiyoowwan duraan buufaman akka darbaman playlist galmee naannoo waliin irra deebi'ee sakatta'a; faayila playlist `.m3u` viidiyoon tokko tokko buufamu hunda irratti haaromsamu uuma
+- **Haala of-eeggannoo** — pacing presets sirreeffamuu danda'an (*Dhaame · Madaalawaa · Of-eeggannoo · Kan ofii*) gaaffiiwwan gidduutti tursiisaa fi fragment threads daangessu, playlist guddaa irratti carraa bot-blocks xiqqeessa
 
 ### Subtitle & seensuu boodaa
 

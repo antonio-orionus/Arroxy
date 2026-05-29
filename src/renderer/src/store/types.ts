@@ -50,8 +50,11 @@ export interface ProbeOrchestratorSlice {
   playlistProbeLoading: boolean;
   selectedPlaylistPreset: PlaylistPreset | null;
 
-  // videoIds matched on disk by the last syncWithFolder call
+  // videoIds matched on disk by the last folder scan
   syncedDownloadedIds: string[];
+  // Folder-scan lifecycle: 'idle' before any scan, 'scanning' while in flight,
+  // 'done' once a result is available (drives the sync alert in StepPlaylistItems).
+  syncScanState: 'idle' | 'scanning' | 'done';
 
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
@@ -62,7 +65,8 @@ export interface ProbeOrchestratorSlice {
   selectPlaylistRange: (from: number, to: number) => void;
   confirmPlaylistSelection: () => void;
   setPlaylistPreset: (p: PlaylistPreset) => void;
-  syncWithFolder: () => Promise<void>;
+  scanDownloadedInFolder: () => Promise<void>;
+  applyFolderSync: () => void;
   advance: () => void;
   back: () => void;
   skipSubtitles: () => void;
@@ -115,6 +119,7 @@ export interface OutputConfigSlice {
 
   setWizardOutputDir: (dir: string, persist?: boolean) => Promise<void>;
   chooseWizardFolder: () => Promise<void>;
+  setPlaylistFolder: (dir: string) => Promise<void>;
   setWizardSubfolderEnabled: (enabled: boolean) => void;
   setWizardSubfolderName: (name: string) => void;
   setSponsorBlockMode: (mode: SponsorBlockMode) => void;
@@ -215,6 +220,7 @@ export interface SystemSlice {
   setProxyUrl: (url: string) => Promise<void>;
   setLimitRate: (value: string | undefined) => Promise<void>;
   setPlaylistProbeLimit: (value: number) => Promise<void>;
+  setIncludeIdInSingleFilenames: (enabled: boolean) => Promise<void>;
   setNetworkPacingPreset: (value: AppSettings['common']['networkPacingPreset']) => Promise<void>;
   setPacingSleepRequests: (value: number | undefined) => Promise<void>;
   setPacingSleepInterval: (value: number | undefined) => Promise<void>;

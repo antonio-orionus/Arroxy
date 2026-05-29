@@ -16,13 +16,14 @@ const BASE: Pick<PrepareJobInput, 'extractor' | 'extractorKey' | 'sponsorBlockMo
 describe('prepareJob', () => {
   describe('single-format kind', () => {
     it('builds with formatId + custom preset', () => {
-      const job = prepareJob({ ...BASE, mode: 'single', formatId: '137+140', activePreset: null });
+      const job = prepareJob({ ...BASE, mode: 'single', formatId: '137+140', activePreset: null, outputTemplate: '%(title).200B [%(id)s].%(ext)s' });
       expect(job).toEqual({
         kind: 'single-format',
         extractor: 'youtube',
         extractorKey: 'Youtube',
         formatId: '137+140',
         preset: 'custom',
+        outputTemplate: '%(title).200B [%(id)s].%(ext)s',
         subtitles: undefined,
         sponsorBlock: { mode: 'off' },
         embed: EMBED_OFF,
@@ -70,7 +71,8 @@ describe('prepareJob', () => {
         ...BASE,
         mode: 'single',
         audioConvert: { target: 'mp3', bitrateKbps: 192 },
-        activePreset: 'audio-only'
+        activePreset: 'audio-only',
+        outputTemplate: '%(title).200B [%(id)s].%(ext)s'
       });
       expect(job).toEqual({
         kind: 'audio-convert',
@@ -78,6 +80,7 @@ describe('prepareJob', () => {
         extractorKey: 'Youtube',
         audioConvert: { target: 'mp3', bitrateKbps: 192 },
         preset: 'audio-only',
+        outputTemplate: '%(title).200B [%(id)s].%(ext)s',
         subtitles: undefined,
         sponsorBlock: { mode: 'off' },
         embed: EMBED_OFF
@@ -98,12 +101,14 @@ describe('prepareJob', () => {
         ...BASE,
         mode: 'single',
         activePreset: 'subtitle-only',
-        subtitles: { languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false }
+        subtitles: { languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false },
+        outputTemplate: '%(title).200B [%(id)s].%(ext)s'
       });
       expect(job).toEqual({
         kind: 'subtitle-only',
         extractor: 'youtube',
         extractorKey: 'Youtube',
+        outputTemplate: '%(title).200B [%(id)s].%(ext)s',
         subtitles: { languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false }
       });
       expect(preparedJobSchema.safeParse(job).success).toBe(true);

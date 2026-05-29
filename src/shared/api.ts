@@ -45,7 +45,7 @@ export interface AppApi {
     openDir(): Promise<Result<{ opened: boolean }>>;
   };
   dialog: {
-    chooseFolder(): Promise<Result<{ path: string | null }>>;
+    chooseFolder(defaultPath?: string): Promise<Result<{ path: string | null }>>;
     chooseFile(): Promise<Result<{ path: string | null }>>;
     chooseExecutable(binary: DependencyId): Promise<Result<{ path: string | null }>>;
   };

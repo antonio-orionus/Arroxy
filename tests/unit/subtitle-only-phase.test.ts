@@ -90,6 +90,18 @@ describe('SubtitleOnlyPhase', () => {
     expect(req.subtitleLanguages).toEqual(['en']);
   });
 
+  it('forwards outputTemplate for single subtitle-only jobs', async () => {
+    const ctx = makeCtx(SUCCESS, {
+      input: {
+        ...BASE_INPUT,
+        job: { ...BASE_JOB, outputTemplate: '%(title).200B [%(id)s].%(ext)s' }
+      }
+    });
+    await SubtitleOnlyPhase.run(ctx);
+    const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0];
+    expect(req.outputTemplate).toBe('%(title).200B [%(id)s].%(ext)s');
+  });
+
   it('success → returns completed', async () => {
     const outcome = await SubtitleOnlyPhase.run(makeCtx(SUCCESS));
     expect(outcome.kind).toBe('completed');

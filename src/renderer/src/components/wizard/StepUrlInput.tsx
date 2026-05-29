@@ -14,6 +14,7 @@ import { LimitRatePicker } from '../shared/LimitRatePicker.js';
 import { NetworkPacingSettings } from './NetworkPacingSettings.js';
 import { formatHomeRelativePath } from '@renderer/lib/utils.js';
 import { cleanUrl } from '@shared/cleanUrl.js';
+import { DEFAULTS } from '@shared/constants.js';
 import type { CookiesBrowser, CookiesMode } from '@shared/types.js';
 import hiImg from '../../assets/Hi.png';
 import downloadingImg from '../../assets/Downloading.png';
@@ -36,7 +37,7 @@ const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookies
 
 export function StepUrlInput(): JSX.Element {
   const { t } = useTranslation();
-  const { wizardUrl, setWizardUrl, submitUrl, queue, settings, initialized, advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen, setCookiesPath, setCookiesMode, setCookiesBrowser, setClipboardWatchEnabled, setCloseBehavior, setAnalyticsEnabled, setProxyUrl, setLimitRate, cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, openShareDialog, setShareInlineCardDismissed } = useAppStore();
+  const { wizardUrl, setWizardUrl, submitUrl, queue, settings, initialized, advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen, setCookiesPath, setCookiesMode, setCookiesBrowser, setClipboardWatchEnabled, setIncludeIdInSingleFilenames, setCloseBehavior, setAnalyticsEnabled, setProxyUrl, setLimitRate, cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, openShareDialog, setShareInlineCardDismissed } = useAppStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const hasActiveDownloads = queue.some((i) => i.status === 'running');
   const [pendingClipboardUrl, setPendingClipboardUrl] = useState<string | null>(null);
@@ -301,6 +302,14 @@ export function StepUrlInput(): JSX.Element {
           </div>
 
           <NetworkPacingSettings />
+
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[13px] font-medium text-foreground">{t('wizard.url.singleFilenameId.toggle')}</span>
+              <span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.singleFilenameId.toggleDescription')}</span>
+            </div>
+            <Switch checked={settings?.common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames} onCheckedChange={(checked) => void setIncludeIdInSingleFilenames(checked)} aria-label={t('wizard.url.singleFilenameId.toggle')} data-testid="single-filename-id-toggle" />
+          </div>
 
           {(window as Window & { platform?: string }).platform !== 'darwin' && (
             <div className="flex items-center justify-between gap-3">

@@ -80,6 +80,8 @@ Arroxy está diseñado para una sola cosa: pega una URL y obtén un archivo loca
 - **Limpieza automática de URLs** — elimina parámetros de seguimiento (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) y desempaqueta los enlaces `youtube.com/redirect`
 - **Modo bandeja** — cerrar la ventana mantiene las descargas en segundo plano
 - **21 idiomas** — detecta automáticamente el idioma del sistema, se puede cambiar en cualquier momento
+- **Sincronización de playlists** — vuelve a escanear una playlist contra una carpeta local para omitir vídeos ya descargados; genera un archivo de playlist `.m3u` que se actualiza con cada vídeo descargado
+- **Modo cauteloso** — ajustes de ritmo configurables (*Desactivado · Equilibrado · Cuidadoso · Personalizado*) que añaden pausas entre solicitudes y limitan los hilos de fragmentos, reduciendo la probabilidad de bot-blocks en playlists grandes
 
 ### Subtítulos y posprocesamiento
 

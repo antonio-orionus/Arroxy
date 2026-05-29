@@ -128,6 +128,10 @@ export const de = {
     "**Tray-Modus** — das Schließen des Fensters lässt Downloads im Hintergrund weiterlaufen",
   feat_workflow_6:
     "**21 Sprachen** — erkennt automatisch die Systemsprache, jederzeit umschaltbar",
+  feat_workflow_7:
+    "**Playlist-Sync** — scannt eine Playlist erneut gegen einen lokalen Ordner, um bereits heruntergeladene Videos zu überspringen; erzeugt eine `.m3u`-Playlistdatei, die nach jedem Video aktualisiert wird",
+  feat_workflow_8:
+    "**Vorsichtsmodus** — konfigurierbare Tempo-Presets (*Aus · Ausgewogen · Vorsichtig · Benutzerdefiniert*) fügen Pausen zwischen Anfragen hinzu und begrenzen Fragment-Threads, um Bot-Blocks bei großen Playlists zu reduzieren",
   feat_post_h3: "Untertitel & Nachbearbeitung",
   feat_post_1:
     "**Untertitel** in SRT, VTT oder ASS — manuell oder automatisch generiert, in jeder verfügbaren Sprache",

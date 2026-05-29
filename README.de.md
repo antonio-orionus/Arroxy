@@ -80,6 +80,8 @@ Arroxy ist für eine Sache gebaut: URL einfügen, saubere lokale Datei erhalten.
 - **URLs automatisch bereinigen** — entfernt Tracking-Parameter (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) und löst `youtube.com/redirect`-Links auf
 - **Tray-Modus** — das Schließen des Fensters lässt Downloads im Hintergrund weiterlaufen
 - **21 Sprachen** — erkennt automatisch die Systemsprache, jederzeit umschaltbar
+- **Playlist-Sync** — scannt eine Playlist erneut gegen einen lokalen Ordner, um bereits heruntergeladene Videos zu überspringen; erzeugt eine `.m3u`-Playlistdatei, die nach jedem Video aktualisiert wird
+- **Vorsichtsmodus** — konfigurierbare Tempo-Presets (*Aus · Ausgewogen · Vorsichtig · Benutzerdefiniert*) fügen Pausen zwischen Anfragen hinzu und begrenzen Fragment-Threads, um Bot-Blocks bei großen Playlists zu reduzieren
 
 ### Untertitel & Nachbearbeitung
 

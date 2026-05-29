@@ -30,6 +30,7 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
   const sponsorBlock = toSponsorBlockOptions(input.sponsorBlockMode, input.sponsorBlockCategories);
   const subtitles = input.subtitles && input.subtitles.languages.length > 0 ? input.subtitles : undefined;
   const identity: ExtractorIdentity = { extractor: input.extractor, extractorKey: input.extractorKey };
+  const outputTemplate = input.outputTemplate ? { outputTemplate: input.outputTemplate } : {};
 
   if (input.mode === 'playlist') {
     if (!input.playlistPreset) throw new Error('prepareJob: playlist mode requires playlistPreset');
@@ -53,7 +54,7 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 
   if (input.activePreset === 'subtitle-only' || (!hasMedia && hasSubs)) {
     if (!subtitles) throw new Error('prepareJob: subtitle-only requires non-empty subtitle languages');
-    return { kind: 'subtitle-only', ...identity, subtitles };
+    return { kind: 'subtitle-only', ...identity, ...outputTemplate, subtitles };
   }
 
   if (input.audioConvert) {
@@ -62,6 +63,7 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
       ...identity,
       audioConvert: input.audioConvert,
       preset: input.activePreset ?? 'custom',
+      ...outputTemplate,
       subtitles,
       sponsorBlock,
       embed: input.embed
@@ -74,6 +76,7 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
     ...identity,
     formatId: input.formatId,
     preset: input.activePreset ?? 'custom',
+    ...outputTemplate,
     subtitles,
     sponsorBlock,
     embed: input.embed,

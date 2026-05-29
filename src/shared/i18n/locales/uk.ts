@@ -100,7 +100,15 @@ const uk = {
       noSelection: 'Вибери хоча б одне відео, щоб продовжити',
       loadingItems: 'Завантаження Playlist…',
       thumbnailAlt: 'Мініатюра відео',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'Змінити папку…',
+      syncApply: 'Застосувати синхронізацію',
+      syncScanning: 'Перевіряємо папку…',
+      syncFoundTitle: 'Уже в папці',
+      syncFoundDesc: '{{n}} із цих відео вже є в {{dir}}. Синхронізувати, щоб завантажити лише нові?',
+      syncNoneTitle: 'Поки нічого не завантажено',
+      syncNoneDesc: 'Відео з цього плейлиста не знайдено в {{dir}}.',
+      alreadyDownloaded: 'Уже завантажено'
     },
     playlistPresets: {
       heading: 'Вибери якість для пакетного завантаження',
@@ -184,6 +192,10 @@ const uk = {
         description: 'Направляти трафік через проксі — корисно для контенту з географічними обмеженнями.',
         placeholder: 'http://host:port',
         clear: 'Очистити'
+      },
+      singleFilenameId: {
+        toggle: 'Додавати ID відео до одиночних імен файлів',
+        toggleDescription: 'Зберігає одноразові завантаження унікальними, коли назви змінюються або збігаються.'
       },
       closeToTray: {
         toggle: 'Приховувати в трей при закритті',

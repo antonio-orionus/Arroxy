@@ -56,8 +56,20 @@ export function effectiveOutputDir(base: string, enabled: boolean, subfolder: st
 // named one, else a folder named after the (sanitized) playlist title.
 // Single source of truth for where playlist media is written
 // (buildPlaylistQueueItem) and where we scan for already-downloaded items
-// (syncWithFolder) — the two must agree or the sync feature scans the wrong dir.
+// (scanDownloadedInFolder) — the two must agree or the scan looks in the wrong dir.
 export function playlistBaseDir(base: string, subfolderEnabled: boolean, subfolderName: string, playlistTitle: string): string {
   const sub = subfolderName.trim();
   return subfolderEnabled && sub ? joinSubfolder(base, sub) : joinSubfolder(base, safeFolderName(playlistTitle || 'Playlist'));
+}
+
+// Inverse of joinSubfolder: split a directory path into its parent and final
+// segment, tolerating either separator and trailing slashes. Maps a user-picked
+// playlist folder back onto base + explicit subfolder so the base+subfolder
+// SSOT stays consistent and playlistBaseDir reproduces the chosen dir exactly
+// (rather than appending the auto/saved subfolder a second time).
+export function splitDir(dir: string): { parent: string; leaf: string } {
+  const trimmed = dir.replace(/[/\\]+$/, '');
+  const idx = Math.max(trimmed.lastIndexOf('/'), trimmed.lastIndexOf('\\'));
+  if (idx < 0) return { parent: '', leaf: trimmed };
+  return { parent: idx === 0 ? trimmed.slice(0, 1) : trimmed.slice(0, idx), leaf: trimmed.slice(idx + 1) };
 }

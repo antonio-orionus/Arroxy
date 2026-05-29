@@ -127,6 +127,10 @@ export const om = {
     "**Haala tray** — window cufuu buufannoo duubatti itti fufsisee hojechisisa",
   feat_workflow_6:
     "**Afaan 21** — afaan siistamaa of-danda'ee addaan baafata, yeroo kamiyyuu jijjiiruu danda'ama",
+  feat_workflow_7:
+    "**Walsimsiisa playlist** — viidiyoowwan duraan buufaman akka darbaman playlist galmee naannoo waliin irra deebi'ee sakatta'a; faayila playlist `.m3u` viidiyoon tokko tokko buufamu hunda irratti haaromsamu uuma",
+  feat_workflow_8:
+    "**Haala of-eeggannoo** — pacing presets sirreeffamuu danda'an (*Dhaame · Madaalawaa · Of-eeggannoo · Kan ofii*) gaaffiiwwan gidduutti tursiisaa fi fragment threads daangessu, playlist guddaa irratti carraa bot-blocks xiqqeessa",
   feat_post_h3: "Subtitle & seensuu boodaa",
   feat_post_1:
     "**Subtitles** SRT, VTT, ykn ASS keessatti — harka ykn of-hojeetee, afaan kamiyyuu argamu keessatti",

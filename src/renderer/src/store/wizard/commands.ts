@@ -57,6 +57,7 @@ export const RESET_WIZARD_STATE = {
   wizardSubfolderName: '',
   // sync-with-folder
   syncedDownloadedIds: [] as string[],
+  syncScanState: 'idle' as 'idle' | 'scanning' | 'done',
   // dialogs
   advancedAutoOpen: false,
   advancedAutoTarget: 'cookies' as const,

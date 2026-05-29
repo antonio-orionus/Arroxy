@@ -100,7 +100,15 @@ const ps = {
       noSelection: 'دوام کولو لپاره لږترلږه یو ویډیو غوره کړئ',
       loadingItems: 'Playlist ترلاسه کیږي…',
       thumbnailAlt: 'د ویډیو تھمبنیل',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'فولډر بدل کړه…',
+      syncApply: 'همغږي پلي کړه',
+      syncScanning: 'فولډر کتل کېږي…',
+      syncFoundTitle: 'مخکې په فولډر کې شته',
+      syncFoundDesc: 'له دې ویډیوګانو څخه {{n}} مخکې په {{dir}} کې شته. یوازې نوي ډاونلوډولو لپاره همغږي کوې؟',
+      syncNoneTitle: 'تر اوسه هېڅ نه دي ډاونلوډ شوي',
+      syncNoneDesc: 'د دې پلی‌لېست هېڅ ویډیو په {{dir}} کې ونه موندل شوه.',
+      alreadyDownloaded: 'مخکې ډاونلوډ شوی'
     },
     playlistPresets: {
       heading: 'د بیچ لپاره کیفیت وټاکئ',
@@ -184,6 +192,10 @@ const ps = {
         description: 'د پراکسي له لارې ترافیک لیږدول — د جغرافیایي محدودیتونو لرونکي مینځپانګې لپاره ګټور.',
         placeholder: 'http://host:port',
         clear: 'پاکول'
+      },
+      singleFilenameId: {
+        toggle: 'د یوازینو فایل نومونو ته د ویډیو ID ورزیات کړه',
+        toggleDescription: 'کله چې سرلیکونه بدل شي یا سره ټکر وکړي، یو ځلني ډاونلوډونه ځانګړي ساتي.'
       },
       closeToTray: {
         toggle: 'د تړولو پر وخت ټرې ته پټ کړه',

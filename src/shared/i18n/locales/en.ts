@@ -107,11 +107,13 @@ const en = {
       loadingItems: 'Fetching playlist…',
       thumbnailAlt: 'Video thumbnail',
       durationUnknown: 'live',
-      syncWithFolder: 'Sync with folder',
-      syncPanelDir: 'Folder',
-      syncChange: 'Change…',
+      syncChange: 'Change folder…',
       syncApply: 'Apply sync',
-      syncNoPriorDownloads: 'No prior downloads found in this folder',
+      syncScanning: 'Checking folder…',
+      syncFoundTitle: 'Already in folder',
+      syncFoundDesc: '{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?',
+      syncNoneTitle: 'Nothing downloaded yet',
+      syncNoneDesc: 'No videos from this playlist were found in {{dir}}.',
       alreadyDownloaded: 'Already downloaded'
     },
     mixedPrompt: {
@@ -210,6 +212,10 @@ const en = {
         custom: 'Custom…',
         invalid: 'Use a whole number from 1 to 5000',
         tooltip: 'Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker.'
+      },
+      singleFilenameId: {
+        toggle: 'Add video ID to single filenames',
+        toggleDescription: 'Keeps one-off downloads unique when titles change or collide.'
       },
       networkPacing: {
         heading: 'Network pacing',

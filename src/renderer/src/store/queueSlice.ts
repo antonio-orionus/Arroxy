@@ -8,9 +8,10 @@
 
 import type { PlaylistEntry, QueueItem, QueueLane } from '@shared/types.js';
 import { QUEUE_STATUS } from '@shared/schemas.js';
+import { DEFAULTS } from '@shared/constants.js';
 import { buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution } from './helpers.js';
 import { effectiveOutputDir } from '@renderer/lib/path.js';
-import { playlistBaseDir } from '@shared/subfolder.js';
+import { resolvePlaylistDir } from './wizard/playlistDir.js';
 import { prepareJob } from '@shared/prepareJob.js';
 import type { EmbedOptions, SubtitleOptions } from '@shared/preparedJob.js';
 import { sanitizeJobOptions } from '@shared/sanitizeJobOptions.js';
@@ -76,6 +77,7 @@ function buildQueueItem(get: GetState, lane: QueueLane): QueueItem | null {
     audioConvert,
     activePreset,
     expectedBytes,
+    outputTemplate: singleOutputTemplate(state.settings?.common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames),
     subtitles,
     sponsorBlockMode: overrides.sponsorBlockMode,
     sponsorBlockCategories: state.wizardSponsorBlockCategories,
@@ -100,16 +102,20 @@ function buildQueueItem(get: GetState, lane: QueueLane): QueueItem | null {
   };
 }
 
+export function singleOutputTemplate(includeId: boolean): string {
+  return includeId ? '%(title).200B [%(id)s].%(ext)s' : '%(title).200B.%(ext)s';
+}
+
 export function playlistOutputTemplate(): string {
   return '%(title).200B [%(id)s].%(ext)s';
 }
 
 function buildPlaylistQueueItem(entry: PlaylistEntry, get: GetState, playlistGroupId: string, lane: QueueLane): QueueItem {
   const state = get();
-  const { wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName, selectedPlaylistPreset } = state;
+  const { selectedPlaylistPreset } = state;
   if (!selectedPlaylistPreset) throw new Error('playlist preset missing');
 
-  const baseDir = playlistBaseDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName, state.playlistTitle);
+  const baseDir = resolvePlaylistDir(state);
 
   const formatLabel = i18next.t(`playlistPresets.${selectedPlaylistPreset}.label` as const);
   const outputTemplate = playlistOutputTemplate();
@@ -171,6 +177,11 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
       // Manifest drives post-completion M3U generation; a failure (returned or
       // thrown) only forfeits that convenience artifact, so log and never let it
       // block enqueueing the actual download.
+      //
+      // Register the FULL probed playlist (`playlistItems`), not just the queued
+      // `selected` subset: the M3U is rebuilt from the manifest ∩ files-on-disk
+      // (see buildM3u), so carrying every entry lets a sync re-add of a grown
+      // playlist append the new videos to the complete ordered M3U.
       try {
         const manifestRes = await window.appApi.playlist.registerManifest({
           playlistGroupId: groupId,

@@ -26,7 +26,8 @@ export const SubtitleOnlyPhase: Phase = {
         subtitleLanguages: subtitles.languages,
         subtitleMode: subtitles.mode,
         subtitleFormat: subtitles.format ?? DEFAULTS.subtitleFormat,
-        writeAutoSubs: subtitles.writeAuto
+        writeAutoSubs: subtitles.writeAuto,
+        outputTemplate: preparedJob.outputTemplate
       },
       buildYtDlpSignal(ctx, active, {
         onMinting: (attempt) => {

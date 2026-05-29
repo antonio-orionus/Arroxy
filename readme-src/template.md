@@ -80,6 +80,8 @@
 - {{feat_workflow_4}}
 - {{feat_workflow_5}}
 - {{feat_workflow_6}}
+- {{feat_workflow_7}}
+- {{feat_workflow_8}}
 
 ### {{feat_post_h3}}
 

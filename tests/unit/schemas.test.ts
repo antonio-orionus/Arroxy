@@ -33,7 +33,7 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
   it('accepts single-format job', () => {
     const result = startDownloadSchema.safeParse({
       url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-      job: { kind: 'single-format', ...IDENTITY, formatId: '137+251', preset: 'custom', sponsorBlock: { mode: 'off' }, embed: BASE_EMBED }
+      job: { kind: 'single-format', ...IDENTITY, formatId: '137+251', preset: 'custom', outputTemplate: '%(title).200B [%(id)s].%(ext)s', sponsorBlock: { mode: 'off' }, embed: BASE_EMBED }
     });
     expect(result.success).toBe(true);
   });
@@ -216,6 +216,12 @@ describe('updateSettingsSchema — common.limitRate', () => {
 
   it.each(['500', 'abc', '1G', '500KB', '1 M', '-1M', '1.M'])('rejects %s', (value) => {
     expect(updateSettingsSchema.safeParse({ common: { limitRate: value } }).success).toBe(false);
+  });
+});
+
+describe('updateSettingsSchema — common.includeIdInSingleFilenames', () => {
+  it.each([true, false])('accepts includeIdInSingleFilenames=%s', (value) => {
+    expect(updateSettingsSchema.safeParse({ common: { includeIdInSingleFilenames: value } }).success).toBe(true);
   });
 });
 

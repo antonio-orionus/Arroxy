@@ -78,7 +78,7 @@ describe('invoke methods → correct IPC channel', () => {
   it('dialog.chooseFolder', () => {
     const api = createPreloadApi(ipc.ipcRenderer);
     void api.dialog.chooseFolder();
-    expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.chooseFolder);
+    expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.chooseFolder, undefined);
   });
 
   it('queue.cmd.add', () => {

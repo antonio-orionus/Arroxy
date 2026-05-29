@@ -100,7 +100,15 @@ const uz = {
       noSelection: 'Davom etish uchun kamida bitta videoni tanlang',
       loadingItems: 'Playlist yuklanmoqda…',
       thumbnailAlt: 'Video muqovasi',
-      durationUnknown: 'jonli'
+      durationUnknown: 'jonli',
+      syncChange: 'Jildni o‘zgartirish…',
+      syncApply: 'Sinxronlashni qo‘llash',
+      syncScanning: 'Jild tekshirilmoqda…',
+      syncFoundTitle: 'Allaqachon jildda',
+      syncFoundDesc: 'Bu videolarning {{n}} tasi allaqachon {{dir}} ichida. Faqat yangilarini yuklab olish uchun sinxronlansinmi?',
+      syncNoneTitle: 'Hali hech narsa yuklab olinmagan',
+      syncNoneDesc: 'Bu pleylistdan hech bir video {{dir}} ichida topilmadi.',
+      alreadyDownloaded: 'Allaqachon yuklab olingan'
     },
     playlistPresets: {
       heading: 'Paket uchun sifatni tanlang',
@@ -184,6 +192,10 @@ const uz = {
         description: "Trafikni proksi orqali yo'naltirish — geo-cheklangan kontent uchun foydali.",
         placeholder: 'http://host:port',
         clear: 'Tozalash'
+      },
+      singleFilenameId: {
+        toggle: 'Yakka fayl nomlariga video ID qo‘shish',
+        toggleDescription: 'Sarlavhalar o‘zgarganda yoki mos kelib qolganda yakka yuklab olishlarni noyob saqlaydi.'
       },
       closeToTray: {
         toggle: 'Yopilganda tizim soatiga yashirish',

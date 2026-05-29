@@ -100,7 +100,15 @@ const vi = {
       noSelection: 'Chọn ít nhất một video để tiếp tục',
       loadingItems: 'Đang tải Playlist…',
       thumbnailAlt: 'Hình thu nhỏ video',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'Đổi thư mục…',
+      syncApply: 'Áp dụng đồng bộ',
+      syncScanning: 'Đang kiểm tra thư mục…',
+      syncFoundTitle: 'Đã có trong thư mục',
+      syncFoundDesc: '{{n}} video trong số này đã có trong {{dir}}. Đồng bộ để chỉ tải các video mới?',
+      syncNoneTitle: 'Chưa có gì được tải xuống',
+      syncNoneDesc: 'Không tìm thấy video nào từ danh sách phát này trong {{dir}}.',
+      alreadyDownloaded: 'Đã tải xuống'
     },
     playlistPresets: {
       heading: 'Chọn chất lượng cho lô',
@@ -184,6 +192,10 @@ const vi = {
         description: 'Chuyển lưu lượng qua proxy — hữu ích cho nội dung bị chặn theo khu vực.',
         placeholder: 'http://host:port',
         clear: 'Xóa'
+      },
+      singleFilenameId: {
+        toggle: 'Thêm ID video vào tên tệp đơn lẻ',
+        toggleDescription: 'Giữ các lượt tải một lần là duy nhất khi tiêu đề thay đổi hoặc trùng nhau.'
       },
       closeToTray: {
         toggle: 'Ẩn xuống khay khi đóng',

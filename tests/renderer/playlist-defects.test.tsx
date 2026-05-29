@@ -228,7 +228,7 @@ describe('D2 — persistFormatPrefs mode-keyed', () => {
   });
 });
 
-describe('D4 — syncWithFolder scans the per-playlist subfolder', () => {
+describe('D4 — scanDownloadedInFolder scans the per-playlist subfolder', () => {
   it('auto subfolder: scans <outputDir>/<sanitized title>, not the bare outputDir', async () => {
     const api = buildMockApi();
     window.appApi = api as never;
@@ -242,7 +242,7 @@ describe('D4 — syncWithFolder scans the per-playlist subfolder', () => {
       selectedPlaylistItemIds: ['p1', 'p2', 'p3']
     } as never);
 
-    await useAppStore.getState().syncWithFolder();
+    await useAppStore.getState().scanDownloadedInFolder();
 
     expect(api.playlist.scanFolder).toHaveBeenCalledWith(expect.objectContaining({ outputDir: '/tmp/dl/My Playlist' }));
   });
@@ -260,7 +260,7 @@ describe('D4 — syncWithFolder scans the per-playlist subfolder', () => {
       selectedPlaylistItemIds: ['p1']
     } as never);
 
-    await useAppStore.getState().syncWithFolder();
+    await useAppStore.getState().scanDownloadedInFolder();
 
     expect(api.playlist.scanFolder).toHaveBeenCalledWith(expect.objectContaining({ outputDir: '/tmp/dl/Custom' }));
   });

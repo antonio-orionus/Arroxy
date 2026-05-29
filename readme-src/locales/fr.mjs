@@ -128,6 +128,10 @@ export const fr = {
     "**Mode tray** — fermer la fenêtre garde les téléchargements en cours en arrière-plan",
   feat_workflow_6:
     "**21 langues** — détecte automatiquement la langue du système, modifiable à tout moment",
+  feat_workflow_7:
+    "**Synchronisation de playlist** — rescane une playlist par rapport à un dossier local pour ignorer les vidéos déjà téléchargées ; génère un fichier de playlist `.m3u` mis à jour à chaque vidéo téléchargée",
+  feat_workflow_8:
+    "**Mode prudent** — des préréglages de rythme configurables (*Désactivé · Équilibré · Prudent · Personnalisé*) ajoutent des pauses entre les requêtes et limitent les threads de fragments, ce qui réduit le risque de bot-block sur les grosses playlists",
   feat_post_h3: "Sous-titres & post-traitement",
   feat_post_1:
     "**Sous-titres** en SRT, VTT ou ASS — manuels ou auto-générés, dans toute langue disponible",

@@ -12,7 +12,7 @@ import { DEFAULTS } from '@shared/constants.js';
 import type { AppSettings, PlaylistPreset, ProbePlaylistMode, ProbeResult, WizardTransition } from '@shared/types.js';
 import { getIncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 import { cleanUrl } from '@shared/cleanUrl.js';
-import { playlistBaseDir } from '@shared/subfolder.js';
+import { resolvePlaylistDir } from './playlistDir.js';
 import { isYouTubeExtractor } from '@shared/ytdlp/extractorPredicates.js';
 import { applyPreset, restoreFormatSelection, restoreSubtitleSelection } from './formatPicker.js';
 import { WizardCommands, RESET_WIZARD_STATE } from './commands.js';
@@ -279,6 +279,8 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
     playlistTitle: '',
     playlistId: '',
     playlistIsMultiVideo: false,
+    syncedDownloadedIds: [],
+    syncScanState: 'idle',
     wizardExtractor: '',
     wizardExtractorKey: '',
     wizardWebpageUrl: ''
@@ -300,6 +302,9 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
 
   if (result.data.kind === 'playlist') {
     applyPlaylistProbeResult(result.data, set, get, firstProbe);
+    // Background-scan the destination folder so the sync alert is ready by the
+    // time the user looks at the list — no manual "Sync with folder" click.
+    void get().scanDownloadedInFolder();
   } else {
     applyVideoProbeResult(result.data, set, get, firstProbe);
   }
@@ -328,6 +333,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
     playlistProbeLoading: RESET_WIZARD_STATE.playlistProbeLoading,
     selectedPlaylistPreset: RESET_WIZARD_STATE.selectedPlaylistPreset,
     syncedDownloadedIds: RESET_WIZARD_STATE.syncedDownloadedIds,
+    syncScanState: RESET_WIZARD_STATE.syncScanState,
 
     setWizardUrl: (url) => set({ wizardUrl: url }),
 
@@ -382,24 +388,36 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
     setPlaylistPreset: (p) => set({ selectedPlaylistPreset: p, wizardSubtitleSkipped: false }),
 
-    syncWithFolder: async () => {
-      const { wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName, playlistTitle, playlistItems } = get();
-      const videoIds = playlistItems.map((e) => e.videoId).filter((v): v is string => v !== null);
-      // Scan the per-playlist subfolder the files actually land in — not the
-      // bare output dir — or no match is ever found. Mirrors buildPlaylistQueueItem.
-      const outputDir = playlistBaseDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName, playlistTitle);
+    // Scan the destination folder for already-downloaded items. Populates
+    // syncedDownloadedIds (drives the "already downloaded" badges + the sync
+    // alert) but does NOT change the selection — that's applyFolderSync's job.
+    // Runs automatically after a playlist probe and on every folder change.
+    scanDownloadedInFolder: async () => {
+      const state = get();
+      const videoIds = state.playlistItems.map((e) => e.videoId).filter((v): v is string => v !== null);
+      // Scan the resolved playlist dir (override or base+subfolder) — the exact
+      // folder the files land in — via the shared resolver, so scan == download.
+      const outputDir = resolvePlaylistDir(state);
+      set({ syncScanState: 'scanning' });
       const res = await window.appApi.playlist.scanFolder({ outputDir, videoIds });
-      if (!res.ok) return;
-      const matchedIds = res.data.matchedIds;
-      const matched = new Set(matchedIds);
+      if (!res.ok) {
+        set({ syncedDownloadedIds: [], syncScanState: 'done' });
+        return;
+      }
+      set({ syncedDownloadedIds: res.data.matchedIds, syncScanState: 'done' });
+    },
+
+    // Deselect every item already present in the folder, leaving only the ones
+    // that still need downloading. Driven by the sync alert's "Apply" action.
+    applyFolderSync: () =>
       set((state) => {
-        const stillSelected = state.selectedPlaylistItemIds.filter((id) => {
+        const matched = new Set(state.syncedDownloadedIds);
+        const selectedPlaylistItemIds = state.selectedPlaylistItemIds.filter((id) => {
           const entry = state.playlistItems.find((e) => e.id === id);
           return !entry?.videoId || !matched.has(entry.videoId);
         });
-        return { syncedDownloadedIds: matchedIds, selectedPlaylistItemIds: stillSelected };
-      });
-    },
+        return { selectedPlaylistItemIds };
+      }),
 
     advance: () => {
       const state = get();

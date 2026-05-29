@@ -127,6 +127,10 @@ export const en = {
     "**Tray mode** — closing the window keeps downloads running in the background",
   feat_workflow_6:
     "**21 languages** — auto-detects system locale, switchable any time",
+  feat_workflow_7:
+    "**Playlist sync** — re-scan a playlist against a local folder to skip already-downloaded videos; generates an `.m3u` playlist file updated as each video downloads",
+  feat_workflow_8:
+    "**Cautious mode** — configurable pacing presets (*Off · Balanced · Careful · Custom*) that add delays between requests and cap fragment threads, reducing the chance of bot-blocks on heavy playlists",
   feat_post_h3: "Subtitles & post-processing",
   feat_post_1:
     "**Subtitles** in SRT, VTT, or ASS — manual or auto-generated, in any available language",

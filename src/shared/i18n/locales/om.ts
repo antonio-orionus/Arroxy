@@ -100,7 +100,15 @@ const om = {
       noSelection: 'Itti fufuuf viidiyoo tokko yoo xiqqaate filadhu',
       loadingItems: 'Playlist fidaa jira…',
       thumbnailAlt: 'Thumbnail viidiyoo',
-      durationUnknown: 'kallattii'
+      durationUnknown: 'kallattii',
+      syncChange: 'Galmee jijjiiri…',
+      syncApply: 'Walsimsiisa hojiirra oolchi',
+      syncScanning: 'Galmee sakatta’aa jira…',
+      syncFoundTitle: 'Duraan galmee keessa jira',
+      syncFoundDesc: 'Viidiyoowwan kana keessaa {{n}} duraan {{dir}} keessa jiru. Kan haaraa qofa buufachuuf walsimsiisi?',
+      syncNoneTitle: 'Ammaaf homtuu hin buufamne',
+      syncNoneDesc: 'Viidiyoon playlist kanaa {{dir}} keessatti hin argamne.',
+      alreadyDownloaded: 'Duraan buufameera'
     },
     playlistPresets: {
       heading: 'Kutaa gurmuu barbaadi',
@@ -183,6 +191,10 @@ const om = {
         description: 'Geejjiba proxy darbii ergi — qabiyyee mootummaan dhorge argachuuf gargaara.',
         placeholder: 'http://host:port',
         clear: 'Haquu'
+      },
+      singleFilenameId: {
+        toggle: 'Maqaa faayila tokko tokkootti ID viidiyoo dabali',
+        toggleDescription: 'Mata dureewwan yeroo jijjiiraman ykn walitti bu’an buufata tokko tokko adda taasisa.'
       },
       closeToTray: {
         toggle: 'Cufuun dura tiiree dhoksi',

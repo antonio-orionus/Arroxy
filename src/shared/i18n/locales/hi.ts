@@ -100,7 +100,15 @@ const hi = {
       noSelection: 'जारी रखने के लिए कम से कम एक वीडियो चुनें',
       loadingItems: 'Playlist लाया जा रहा है…',
       thumbnailAlt: 'वीडियो थंबनेल',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'फ़ोल्डर बदलें…',
+      syncApply: 'सिंक लागू करें',
+      syncScanning: 'फ़ोल्डर जाँचा जा रहा है…',
+      syncFoundTitle: 'पहले से फ़ोल्डर में',
+      syncFoundDesc: 'इन वीडियो में से {{n}} पहले से {{dir}} में हैं। केवल नए वीडियो डाउनलोड करने के लिए सिंक करें?',
+      syncNoneTitle: 'अभी तक कुछ डाउनलोड नहीं हुआ',
+      syncNoneDesc: 'इस प्लेलिस्ट के कोई वीडियो {{dir}} में नहीं मिले।',
+      alreadyDownloaded: 'पहले से डाउनलोड किया गया'
     },
     playlistPresets: {
       heading: 'बैच के लिए गुणवत्ता चुनें',
@@ -184,6 +192,10 @@ const hi = {
         description: 'प्रॉक्सी के माध्यम से ट्रैफ़िक रूट करें — भू-प्रतिबंधित सामग्री के लिए उपयोगी।',
         placeholder: 'http://host:port',
         clear: 'साफ़ करें'
+      },
+      singleFilenameId: {
+        toggle: 'एकल फ़ाइलनामों में वीडियो ID जोड़ें',
+        toggleDescription: 'शीर्षक बदलने या टकराने पर एकबारगी डाउनलोड को अलग रखता है।'
       },
       closeToTray: {
         toggle: 'बंद करने पर ट्रे में छिपाएं',

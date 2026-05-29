@@ -78,6 +78,8 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
 - **Usafi wa URL kiotomatiki** — huondoa vigezo vya ufuatiliaji (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) na kufungua viungo vya `youtube.com/redirect`
 - **Hali ya tray** — kufunga dirisha kunaacha maudhui kuendelea kupakuliwa nyuma ya skrini
 - **Lugha 21** — hugundua kiotomatiki lugha ya mfumo, inaweza kubadilishwa wakati wowote
+- **Usawazishaji wa orodha ya kucheza** — hukagua tena orodha ya kucheza dhidi ya folda ya ndani ili kuruka video zilizopakuliwa tayari; hutengeneza faili ya orodha ya kucheza `.m3u` inayosasishwa kila video inapopakuliwa
+- **Hali ya tahadhari** — mipangilio ya kasi inayoweza kubadilishwa (*Imezimwa · Sawazisha · Tahadhari · Maalum*) huongeza ucheleweshaji kati ya maombi na kupunguza fragment threads, ikipunguza uwezekano wa bot-blocks kwenye orodha kubwa za kucheza
 
 ### Manukuu na usindikaji wa baada ya kupakua
 

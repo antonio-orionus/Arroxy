@@ -100,7 +100,15 @@ const sw = {
       noSelection: 'Chagua angalau video moja ili kuendelea',
       loadingItems: 'Inapata Playlist…',
       thumbnailAlt: 'Picha ndogo ya video',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'Badilisha folda…',
+      syncApply: 'Tekeleza usawazishaji',
+      syncScanning: 'Inakagua folda…',
+      syncFoundTitle: 'Tayari ipo kwenye folda',
+      syncFoundDesc: '{{n}} kati ya video hizi tayari zipo kwenye {{dir}}. Sawazisha ili kupakua mpya pekee?',
+      syncNoneTitle: 'Hakuna kilichopakuliwa bado',
+      syncNoneDesc: 'Hakuna video kutoka orodha hii ya kucheza zilizopatikana kwenye {{dir}}.',
+      alreadyDownloaded: 'Tayari imepakuliwa'
     },
     playlistPresets: {
       heading: 'Chagua ubora wa kundi',
@@ -183,6 +191,10 @@ const sw = {
         description: 'Peleka trafiki kupitia proksi — muhimu kwa maudhui yenye vizuizi vya kijiografia.',
         placeholder: 'http://host:port',
         clear: 'Futa'
+      },
+      singleFilenameId: {
+        toggle: 'Ongeza ID ya video kwenye majina ya faili moja moja',
+        toggleDescription: 'Huweka upakuaji wa mara moja kuwa wa kipekee wakati vichwa vinabadilika au kugongana.'
       },
       closeToTray: {
         toggle: 'Ficha kwenye tray ukifunga',

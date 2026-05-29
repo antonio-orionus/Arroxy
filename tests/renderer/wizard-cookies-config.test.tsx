@@ -115,6 +115,19 @@ describe('advanced network settings', () => {
     });
   });
 
+  it('saves the single-filename id suffix switch', async () => {
+    render(<StepUrlInput />);
+
+    const advanced = screen.getByTestId('advanced-section');
+    if (advanced instanceof HTMLDetailsElement) advanced.open = true;
+
+    fireEvent.click(screen.getByTestId('single-filename-id-toggle'));
+
+    await waitFor(() => {
+      expect(mockApi.settings.update).toHaveBeenCalledWith({ common: { includeIdInSingleFilenames: false } });
+    });
+  });
+
   it('mixed URL dialog shows the current playlist cap and opens Advanced at network settings', async () => {
     resetStore(buildSettings({ playlistProbeLimit: 250 }));
     useAppStore.setState({ mixedUrlPromptOpen: true, mixedUrlPending: SINGLE_URL });

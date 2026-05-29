@@ -40,6 +40,7 @@ export type PreparedJob =
       kind: 'single-format';
       formatId: string;
       preset: PresetOrCustom;
+      outputTemplate?: string;
       subtitles?: SubtitleOptions;
       sponsorBlock: SponsorBlockOptions;
       embed: EmbedOptions;
@@ -49,6 +50,7 @@ export type PreparedJob =
       kind: 'audio-convert';
       audioConvert: AudioConvert;
       preset: PresetOrCustom;
+      outputTemplate?: string;
       subtitles?: SubtitleOptions;
       sponsorBlock: SponsorBlockOptions;
       embed: EmbedOptions;
@@ -65,6 +67,7 @@ export type PreparedJob =
     })
   | (ExtractorIdentity & {
       kind: 'subtitle-only';
+      outputTemplate?: string;
       subtitles: SubtitleOptions;
     });
 

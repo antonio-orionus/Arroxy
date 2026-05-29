@@ -127,6 +127,10 @@ export const sw = {
     "**Hali ya tray** — kufunga dirisha kunaacha maudhui kuendelea kupakuliwa nyuma ya skrini",
   feat_workflow_6:
     "**Lugha 21** — hugundua kiotomatiki lugha ya mfumo, inaweza kubadilishwa wakati wowote",
+  feat_workflow_7:
+    "**Usawazishaji wa orodha ya kucheza** — hukagua tena orodha ya kucheza dhidi ya folda ya ndani ili kuruka video zilizopakuliwa tayari; hutengeneza faili ya orodha ya kucheza `.m3u` inayosasishwa kila video inapopakuliwa",
+  feat_workflow_8:
+    "**Hali ya tahadhari** — mipangilio ya kasi inayoweza kubadilishwa (*Imezimwa · Sawazisha · Tahadhari · Maalum*) huongeza ucheleweshaji kati ya maombi na kupunguza fragment threads, ikipunguza uwezekano wa bot-blocks kwenye orodha kubwa za kucheza",
   feat_post_h3: "Manukuu na usindikaji wa baada ya kupakua",
   feat_post_1:
     "**Manukuu** katika SRT, VTT, au ASS — ya mkono au yaliyozalishwa kiotomatiki, katika lugha yoyote inayopatikana",

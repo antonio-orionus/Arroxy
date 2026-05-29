@@ -1,6 +1,6 @@
 import type { AppSettings } from '@shared/types.js';
 
-const COMMON_KEYS = new Set(['defaultOutputDir', 'rememberLastOutputDir', 'uiZoom', 'uiTheme', 'language', 'commonPaths', 'cookiesPath', 'cookiesMode', 'cookiesBrowser', 'cookiesEnabled', 'proxyUrl', 'clipboardWatchEnabled', 'closeBehavior', 'embedChapters', 'embedMetadata', 'embedThumbnail', 'writeDescription', 'writeThumbnail', 'lastSponsorBlockMode', 'lastSponsorBlockCategories', 'analyticsEnabled', 'firstRunCompleted', 'drawerOpen', 'lastSubfolderEnabled', 'lastSubfolder']);
+const COMMON_KEYS = new Set(['defaultOutputDir', 'rememberLastOutputDir', 'uiZoom', 'uiTheme', 'language', 'commonPaths', 'cookiesPath', 'cookiesMode', 'cookiesBrowser', 'cookiesEnabled', 'proxyUrl', 'clipboardWatchEnabled', 'closeBehavior', 'embedChapters', 'embedMetadata', 'embedThumbnail', 'writeDescription', 'writeThumbnail', 'lastSponsorBlockMode', 'lastSponsorBlockCategories', 'analyticsEnabled', 'firstRunCompleted', 'drawerOpen', 'lastSubfolderEnabled', 'lastSubfolder', 'includeIdInSingleFilenames']);
 
 const SINGLE_KEYS = new Set(['lastPreset', 'lastVideoResolution', 'lastSubtitleLanguages', 'lastSubtitleMode', 'lastSubtitleFormat']);
 

@@ -100,7 +100,15 @@ const zh = {
       noSelection: '请至少选择一个视频以继续',
       loadingItems: '正在获取 Playlist…',
       thumbnailAlt: '视频缩略图',
-      durationUnknown: '直播'
+      durationUnknown: '直播',
+      syncChange: '更改文件夹…',
+      syncApply: '应用同步',
+      syncScanning: '正在检查文件夹…',
+      syncFoundTitle: '已在文件夹中',
+      syncFoundDesc: '这些视频中有 {{n}} 个已在 {{dir}} 中。要同步以仅下载新视频吗？',
+      syncNoneTitle: '尚未下载任何内容',
+      syncNoneDesc: '在 {{dir}} 中未找到此播放列表的视频。',
+      alreadyDownloaded: '已下载'
     },
     playlistPresets: {
       heading: '选择批量下载画质',
@@ -184,6 +192,10 @@ const zh = {
         description: '通过代理路由流量 — 适用于地区限制内容。',
         placeholder: 'http://host:port',
         clear: '清除'
+      },
+      singleFilenameId: {
+        toggle: '将视频 ID 添加到单个文件名',
+        toggleDescription: '当标题变化或重复时，让单次下载保持唯一。'
       },
       closeToTray: {
         toggle: '关闭时最小化到托盘',

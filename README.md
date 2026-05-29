@@ -78,6 +78,8 @@ Arroxy is built for one thing: paste a URL, get a clean local file. No accounts,
 - **Auto-clean URLs** — strips tracking params (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) and unwraps `youtube.com/redirect` links
 - **Tray mode** — closing the window keeps downloads running in the background
 - **21 languages** — auto-detects system locale, switchable any time
+- **Playlist sync** — re-scan a playlist against a local folder to skip already-downloaded videos; generates an `.m3u` playlist file updated as each video downloads
+- **Cautious mode** — configurable pacing presets (*Off · Balanced · Careful · Custom*) that add delays between requests and cap fragment threads, reducing the chance of bot-blocks on heavy playlists
 
 ### Subtitles & post-processing
 

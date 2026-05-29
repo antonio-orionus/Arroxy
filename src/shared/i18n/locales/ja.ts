@@ -100,7 +100,15 @@ const ja = {
       noSelection: '続行するには少なくとも1本の動画を選択してください',
       loadingItems: 'Playlist を取得中…',
       thumbnailAlt: '動画サムネイル',
-      durationUnknown: 'ライブ'
+      durationUnknown: 'ライブ',
+      syncChange: 'フォルダーを変更…',
+      syncApply: '同期を適用',
+      syncScanning: 'フォルダーを確認中…',
+      syncFoundTitle: 'すでにフォルダー内にあります',
+      syncFoundDesc: 'これらの動画のうち {{n}} 件はすでに {{dir}} にあります。新しいものだけをダウンロードするために同期しますか？',
+      syncNoneTitle: 'まだダウンロードされていません',
+      syncNoneDesc: 'このプレイリストの動画は {{dir}} で見つかりませんでした。',
+      alreadyDownloaded: 'ダウンロード済み'
     },
     playlistPresets: {
       heading: 'バッチの画質を選択',
@@ -184,6 +192,10 @@ const ja = {
         description: 'プロキシ経由でトラフィックを転送 — 地域制限コンテンツに有効。',
         placeholder: 'http://host:port',
         clear: 'クリア'
+      },
+      singleFilenameId: {
+        toggle: '単体ファイル名に動画IDを追加',
+        toggleDescription: 'タイトルが変わったり重複したりしても、単発ダウンロードを一意に保ちます。'
       },
       closeToTray: {
         toggle: '閉じるときにトレイに格納',

@@ -78,6 +78,8 @@ Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận 
 - **Tự làm sạch URL** — loại bỏ các tham số theo dõi (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) và mở gói các liên kết `youtube.com/redirect`
 - **Chế độ khay hệ thống** — đóng cửa sổ vẫn tiếp tục tải xuống ở nền
 - **21 ngôn ngữ** — tự động phát hiện ngôn ngữ hệ thống, có thể đổi bất cứ lúc nào
+- **Đồng bộ danh sách phát** — quét lại danh sách phát với một thư mục cục bộ để bỏ qua các video đã tải; tạo tệp danh sách phát `.m3u` được cập nhật sau mỗi video tải xuống
+- **Chế độ thận trọng** — các preset nhịp độ có thể cấu hình (*Tắt · Cân bằng · Thận trọng · Tùy chỉnh*) thêm độ trễ giữa các yêu cầu và giới hạn fragment threads, giảm khả năng gặp bot-blocks trên danh sách phát lớn
 
 ### Phụ đề & hậu xử lý
 

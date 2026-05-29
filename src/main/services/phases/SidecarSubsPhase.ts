@@ -75,7 +75,8 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
           subtitleLanguages: subs.languages,
           subtitleMode: subs.mode,
           subtitleFormat: subs.format ?? DEFAULTS.subtitleFormat,
-          writeAutoSubs: subs.writeAuto
+          writeAutoSubs: subs.writeAuto,
+          outputTemplate: preparedJob.outputTemplate
         },
         buildYtDlpSignal(ctx, active)
       );

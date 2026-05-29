@@ -100,7 +100,15 @@ const de = {
       noSelection: 'Wähle mindestens ein Video aus, um fortzufahren',
       loadingItems: 'Playlist wird geladen…',
       thumbnailAlt: 'Video-Vorschaubild',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'Ordner ändern…',
+      syncApply: 'Sync anwenden',
+      syncScanning: 'Ordner wird geprüft…',
+      syncFoundTitle: 'Bereits im Ordner',
+      syncFoundDesc: '{{n}} dieser Videos sind bereits in {{dir}}. Synchronisieren, um nur die neuen herunterzuladen?',
+      syncNoneTitle: 'Noch nichts heruntergeladen',
+      syncNoneDesc: 'Keine Videos aus dieser Playlist wurden in {{dir}} gefunden.',
+      alreadyDownloaded: 'Bereits heruntergeladen'
     },
     playlistPresets: {
       heading: 'Qualität für den Stapel wählen',
@@ -184,6 +192,10 @@ const de = {
         description: 'Datenverkehr über einen Proxy leiten — nützlich für geo-gesperrte Inhalte.',
         placeholder: 'http://host:port',
         clear: 'Löschen'
+      },
+      singleFilenameId: {
+        toggle: 'Video-ID zu einzelnen Dateinamen hinzufügen',
+        toggleDescription: 'Hält einzelne Downloads eindeutig, wenn sich Titel ändern oder kollidieren.'
       },
       closeToTray: {
         toggle: 'Beim Schließen in die Taskleiste minimieren',

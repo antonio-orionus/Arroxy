@@ -193,6 +193,7 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
     ...extractorIdentitySchema,
     formatId: z.string().min(1),
     preset: presetOrCustomSchema,
+    outputTemplate: z.string().min(1).optional(),
     subtitles: subtitleOptionsSchema.optional(),
     sponsorBlock: sponsorBlockOptionsSchema,
     embed: embedOptionsSchema,
@@ -203,6 +204,7 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
     ...extractorIdentitySchema,
     audioConvert: audioConvertSchema,
     preset: presetOrCustomSchema,
+    outputTemplate: z.string().min(1).optional(),
     subtitles: subtitleOptionsSchema.optional(),
     sponsorBlock: sponsorBlockOptionsSchema,
     embed: embedOptionsSchema
@@ -221,6 +223,7 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('subtitle-only'),
     ...extractorIdentitySchema,
+    outputTemplate: z.string().min(1).optional(),
     subtitles: subtitleOptionsSchema
   })
 ]);
@@ -279,6 +282,7 @@ const commonSettingsPatchSchema = z.object({
   cookiesBrowser: cookiesBrowserSchema.optional(),
   proxyUrl: z.string().optional(),
   clipboardWatchEnabled: z.boolean().optional(),
+  includeIdInSingleFilenames: z.boolean().optional(),
   closeBehavior: z.enum(['ask', 'tray', 'quit']).optional(),
   embedChapters: z.boolean().optional(),
   embedMetadata: z.boolean().optional(),

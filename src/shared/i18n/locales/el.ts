@@ -100,7 +100,15 @@ const el = {
       noSelection: 'Επέλεξε τουλάχιστον ένα βίντεο για να συνεχίσεις',
       loadingItems: 'Φόρτωση playlist…',
       thumbnailAlt: 'Μικρογραφία βίντεο',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'Αλλαγή φακέλου…',
+      syncApply: 'Εφαρμογή συγχρονισμού',
+      syncScanning: 'Έλεγχος φακέλου…',
+      syncFoundTitle: 'Ήδη στον φάκελο',
+      syncFoundDesc: '{{n}} από αυτά τα βίντεο υπάρχουν ήδη στο {{dir}}. Να γίνει συγχρονισμός για να κατεβούν μόνο τα νέα;',
+      syncNoneTitle: 'Δεν έχει κατεβεί τίποτα ακόμη',
+      syncNoneDesc: 'Δεν βρέθηκαν βίντεο από αυτήν την playlist στο {{dir}}.',
+      alreadyDownloaded: 'Ήδη κατεβασμένο'
     },
     playlistPresets: {
       heading: 'Επιλογή ποιότητας για την ομαδική λήψη',
@@ -184,6 +192,10 @@ const el = {
         description: 'Δρομολόγηση κίνησης μέσω proxy — χρήσιμο για περιεχόμενο με γεωγραφικούς περιορισμούς.',
         placeholder: 'http://host:port',
         clear: 'Εκκαθάριση'
+      },
+      singleFilenameId: {
+        toggle: 'Προσθήκη ID βίντεο στα μεμονωμένα ονόματα αρχείων',
+        toggleDescription: 'Κρατά τις μεμονωμένες λήψεις μοναδικές όταν αλλάζουν ή συμπίπτουν οι τίτλοι.'
       },
       closeToTray: {
         toggle: 'Απόκρυψη στο δίσκο κατά το κλείσιμο',

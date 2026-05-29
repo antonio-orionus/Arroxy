@@ -5,7 +5,7 @@ import type { SettingsPatch } from '@shared/api.js';
 
 export type { SettingsPatch };
 
-const COMMON_FLAT_KEYS = ['defaultOutputDir', 'rememberLastOutputDir', 'uiZoom', 'uiTheme', 'language', 'commonPaths', 'cookiesPath', 'cookiesMode', 'cookiesBrowser', 'proxyUrl', 'limitRate', 'playlistProbeLimit', 'networkPacingPreset', 'pacingSleepRequests', 'pacingSleepInterval', 'pacingMaxSleepInterval', 'pacingSleepSubtitles', 'pacingConcurrentFragments', 'clipboardWatchEnabled', 'closeBehavior', 'embedChapters', 'embedMetadata', 'embedThumbnail', 'writeDescription', 'writeThumbnail', 'lastSponsorBlockMode', 'lastSponsorBlockCategories', 'analyticsEnabled', 'firstRunCompleted', 'drawerOpen', 'installId', 'lastSubfolderEnabled', 'lastSubfolder'] as const;
+const COMMON_FLAT_KEYS = ['defaultOutputDir', 'rememberLastOutputDir', 'uiZoom', 'uiTheme', 'language', 'commonPaths', 'cookiesPath', 'cookiesMode', 'cookiesBrowser', 'proxyUrl', 'limitRate', 'playlistProbeLimit', 'networkPacingPreset', 'pacingSleepRequests', 'pacingSleepInterval', 'pacingMaxSleepInterval', 'pacingSleepSubtitles', 'pacingConcurrentFragments', 'clipboardWatchEnabled', 'includeIdInSingleFilenames', 'closeBehavior', 'embedChapters', 'embedMetadata', 'embedThumbnail', 'writeDescription', 'writeThumbnail', 'lastSponsorBlockMode', 'lastSponsorBlockCategories', 'analyticsEnabled', 'firstRunCompleted', 'drawerOpen', 'installId', 'lastSubfolderEnabled', 'lastSubfolder'] as const;
 
 // Legacy keys retained only so the flat-to-nested migration can pick them up
 // from old settings files. The values are normalized in `migrateCookiesMode`

@@ -63,6 +63,7 @@ export interface CommonSettings {
   pacingSleepSubtitles?: number;
   pacingConcurrentFragments?: number;
   clipboardWatchEnabled: boolean;
+  includeIdInSingleFilenames?: boolean;
   closeBehavior?: 'ask' | 'tray' | 'quit';
   embedChapters?: boolean;
   embedMetadata?: boolean;

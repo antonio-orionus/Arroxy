@@ -16,6 +16,7 @@ export const DEFAULTS: {
   embedThumbnail: boolean;
   writeDescription: boolean;
   writeThumbnail: boolean;
+  includeIdInSingleFilenames: boolean;
 } = {
   subtitleMode: 'sidecar',
   subtitleFormat: 'srt',
@@ -27,7 +28,8 @@ export const DEFAULTS: {
   embedMetadata: true,
   embedThumbnail: false,
   writeDescription: false,
-  writeThumbnail: false
+  writeThumbnail: false,
+  includeIdInSingleFilenames: true
 };
 
 // Single factory for the AppSettings shape — main process, tests, and
@@ -44,7 +46,8 @@ export function defaultAppSettings(downloadsDir: string): AppSettings {
       defaultOutputDir: downloadsDir,
       rememberLastOutputDir: true,
       clipboardWatchEnabled: true,
-      analyticsEnabled: true
+      analyticsEnabled: true,
+      includeIdInSingleFilenames: DEFAULTS.includeIdInSingleFilenames
     },
     single: {},
     playlist: {}

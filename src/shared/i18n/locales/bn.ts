@@ -100,7 +100,15 @@ const bn = {
       noSelection: 'চালিয়ে যেতে কমপক্ষে একটি ভিডিও নির্বাচন করুন',
       loadingItems: 'Playlist আনা হচ্ছে…',
       thumbnailAlt: 'ভিডিও থাম্বনেইল',
-      durationUnknown: 'লাইভ'
+      durationUnknown: 'লাইভ',
+      syncChange: 'ফোল্ডার বদলান…',
+      syncApply: 'সিঙ্ক প্রয়োগ করুন',
+      syncScanning: 'ফোল্ডার পরীক্ষা করা হচ্ছে…',
+      syncFoundTitle: 'ইতিমধ্যেই ফোল্ডারে আছে',
+      syncFoundDesc: 'এই ভিডিওগুলোর মধ্যে {{n}}টি ইতিমধ্যেই {{dir}}-এ আছে। শুধু নতুনগুলো ডাউনলোড করতে সিঙ্ক করবেন?',
+      syncNoneTitle: 'এখনও কিছু ডাউনলোড হয়নি',
+      syncNoneDesc: 'এই প্লেলিস্টের কোনো ভিডিও {{dir}}-এ পাওয়া যায়নি।',
+      alreadyDownloaded: 'ইতিমধ্যেই ডাউনলোড করা'
     },
     playlistPresets: {
       heading: 'ব্যাচের জন্য মান বেছে নিন',
@@ -184,6 +192,10 @@ const bn = {
         description: 'প্রক্সির মাধ্যমে ট্র্যাফিক রাউট করুন — ভৌগোলিকভাবে সীমাবদ্ধ কন্টেন্টের জন্য উপযোগী।',
         placeholder: 'http://host:port',
         clear: 'মুছুন'
+      },
+      singleFilenameId: {
+        toggle: 'একক ফাইলনামে ভিডিও ID যোগ করুন',
+        toggleDescription: 'শিরোনাম বদলালে বা মিলে গেলে এককালীন ডাউনলোডগুলোকে আলাদা রাখে।'
       },
       closeToTray: {
         toggle: 'বন্ধে ট্রেতে লুকান',

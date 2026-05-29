@@ -100,7 +100,15 @@ const ar = {
       noSelection: 'حدد فيديو واحداً على الأقل للمتابعة',
       loadingItems: 'جارٍ جلب القائمة…',
       thumbnailAlt: 'صورة مصغرة للفيديو',
-      durationUnknown: 'مباشر'
+      durationUnknown: 'مباشر',
+      syncChange: 'تغيير المجلد…',
+      syncApply: 'تطبيق المزامنة',
+      syncScanning: 'جارٍ فحص المجلد…',
+      syncFoundTitle: 'موجود بالفعل في المجلد',
+      syncFoundDesc: '{{n}} من هذه الفيديوهات موجودة بالفعل في {{dir}}. هل تريد المزامنة لتنزيل الجديد فقط؟',
+      syncNoneTitle: 'لم يتم تنزيل شيء بعد',
+      syncNoneDesc: 'لم يتم العثور على أي فيديوهات من قائمة التشغيل هذه في {{dir}}.',
+      alreadyDownloaded: 'تم تنزيله بالفعل'
     },
     playlistPresets: {
       heading: 'اختر الجودة للدفعة',
@@ -184,6 +192,10 @@ const ar = {
         description: 'توجيه حركة البيانات عبر وكيل — مفيد للمحتوى المقيّد جغرافياً.',
         placeholder: 'http://host:port',
         clear: 'مسح'
+      },
+      singleFilenameId: {
+        toggle: 'إضافة معرّف الفيديو إلى أسماء الملفات الفردية',
+        toggleDescription: 'يبقي التنزيلات الفردية فريدة عندما تتغير العناوين أو تتكرر.'
       },
       closeToTray: {
         toggle: 'الإخفاء في علبة النظام عند الإغلاق',

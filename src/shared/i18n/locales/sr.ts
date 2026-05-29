@@ -100,7 +100,15 @@ const sr = {
       noSelection: 'Изабери барем један видео да би наставио/ла',
       loadingItems: 'Преузимање плејлисте…',
       thumbnailAlt: 'Сличица видеа',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'Промени фолдер…',
+      syncApply: 'Примени синхронизацију',
+      syncScanning: 'Провера фолдера…',
+      syncFoundTitle: 'Већ је у фолдеру',
+      syncFoundDesc: '{{n}} ових видео снимака је већ у {{dir}}. Синхронизовати да се преузму само нови?',
+      syncNoneTitle: 'Још ништа није преузето',
+      syncNoneDesc: 'Ниједан видео из ове плејлисте није пронађен у {{dir}}.',
+      alreadyDownloaded: 'Већ преузето'
     },
     playlistPresets: {
       heading: 'Изабери квалитет за групно преузимање',
@@ -184,6 +192,10 @@ const sr = {
         description: 'Прусмери саобраћај кроз прокси — корисно за географски ограничен садржај.',
         placeholder: 'http://host:port',
         clear: 'Обриши'
+      },
+      singleFilenameId: {
+        toggle: 'Додај ID видеа у појединачна имена фајлова',
+        toggleDescription: 'Чува појединачна преузимања јединственим када се наслови промене или поклопе.'
       },
       closeToTray: {
         toggle: 'Сакриј у системски трај при затварању',

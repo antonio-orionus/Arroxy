@@ -100,7 +100,15 @@ const my = {
       noSelection: 'ဆက်လက်ရန် ဗီဒီယိုတစ်ခုအနည်းဆုံးရွေးပါ',
       loadingItems: 'Playlist ရယူနေသည်…',
       thumbnailAlt: 'ဗီဒီယို thumbnail',
-      durationUnknown: 'live'
+      durationUnknown: 'live',
+      syncChange: 'ဖိုလ်ဒါ ပြောင်းရန်…',
+      syncApply: 'Sync ကို အသုံးပြုရန်',
+      syncScanning: 'ဖိုလ်ဒါ စစ်ဆေးနေသည်…',
+      syncFoundTitle: 'ဖိုလ်ဒါထဲတွင် ရှိပြီးသား',
+      syncFoundDesc: 'ဤဗီဒီယိုများထဲမှ {{n}} ခုသည် {{dir}} တွင် ရှိပြီးသားဖြစ်သည်။ အသစ်များကိုသာ ဒေါင်းလုဒ်ရန် sync လုပ်မလား။',
+      syncNoneTitle: 'ဒေါင်းလုဒ်လုပ်ထားတာ မရှိသေးပါ',
+      syncNoneDesc: 'ဤ playlist မှ ဗီဒီယိုများကို {{dir}} တွင် မတွေ့ပါ။',
+      alreadyDownloaded: 'ဒေါင်းလုဒ်ပြီးသား'
     },
     playlistPresets: {
       heading: 'Batch အတွက် အရည်အသွေးရွေးပါ',
@@ -184,6 +192,10 @@ const my = {
         description: 'Proxy မှတဆင့် traffic လမ်းကြောင်းလွှဲပါ — ဂျီဩဂရပ်ကန့်သတ်ချက်ရှိသော အကြောင်းအရာများအတွက် အသုံးဝင်သည်။',
         placeholder: 'http://host:port',
         clear: 'ရှင်းလင်း'
+      },
+      singleFilenameId: {
+        toggle: 'တစ်ခုချင်း ဖိုင်အမည်များတွင် ဗီဒီယို ID ထည့်ရန်',
+        toggleDescription: 'ခေါင်းစဉ်များ ပြောင်းလဲခြင်း သို့မဟုတ် တူညီခြင်း ဖြစ်သည့်အခါ တစ်ခုချင်း ဒေါင်းလုဒ်များကို မတူညီအောင် ထိန်းထားသည်။'
       },
       closeToTray: {
         toggle: 'ပိတ်လျှင် tray သို့ ဝှက်မည်',

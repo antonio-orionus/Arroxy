@@ -127,6 +127,10 @@ export const uz = {
     "**Tray rejimi** — oynani yopish yuklamalarni fon rejimida davom ettiradi",
   feat_workflow_6:
     "**21 til** — tizim tilini avtomatik aniqlaydi, istalgan vaqt almashtirish mumkin",
+  feat_workflow_7:
+    "**Pleylist sinxronlashuvi** — allaqachon yuklab olingan videolarni o'tkazib yuborish uchun pleylistni mahalliy jild bilan qayta tekshiradi; har bir video yuklanganda yangilanadigan `.m3u` pleylist faylini yaratadi",
+  feat_workflow_8:
+    "**Ehtiyotkor rejim** — sozlanadigan pacing presetlari (*O'chiq · Muvozanatli · Ehtiyotkor · Maxsus*) so'rovlar orasiga kechikishlar qo'shadi va fragment threads sonini cheklaydi, katta pleylistlarda bot-blocks ehtimolini kamaytiradi",
   feat_post_h3: "Subtitrlar va keyingi qayta ishlash",
   feat_post_1:
     "**Subtitrlar** SRT, VTT yoki ASS formatida — qo'lda yoki avtomatik yaratilgan, istalgan mavjud tilda",

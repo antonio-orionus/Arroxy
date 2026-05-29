@@ -8,11 +8,14 @@ import type { BinaryManager } from '@main/services/BinaryManager.js';
 import { handleRaw, toIpcFailure, toUnknownFailure } from './utils.js';
 
 export function registerFileHandlers(mainWindow: BrowserWindow, binaryManager: BinaryManager): void {
-  handleRaw(IPC_CHANNELS.chooseFolder, async () => {
+  handleRaw(IPC_CHANNELS.chooseFolder, async (_, payload: unknown) => {
     try {
+      // Open at the caller's current folder when provided, so "Change folder"
+      // starts from where the files already are — not always ~/Downloads.
+      const defaultPath = typeof payload === 'string' && payload.length > 0 ? payload : app.getPath('downloads');
       const result = await dialog.showOpenDialog(mainWindow, {
         properties: ['openDirectory'],
-        defaultPath: app.getPath('downloads')
+        defaultPath
       });
       return ok({ path: result.canceled ? null : (result.filePaths[0] ?? null) });
     } catch (error) {

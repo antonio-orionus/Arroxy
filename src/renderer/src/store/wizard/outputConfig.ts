@@ -7,9 +7,10 @@
 // pass at queue-submit time captures the rest.
 
 import { DEFAULTS } from '@shared/constants.js';
+import { splitDir } from '@shared/subfolder.js';
 import type { GetState, OutputConfigSlice, SetState } from '../types.js';
 
-export function createOutputConfigSlice(set: SetState, _get: GetState): OutputConfigSlice {
+export function createOutputConfigSlice(set: SetState, get: GetState): OutputConfigSlice {
   return {
     wizardOutputDir: '',
     wizardSubfolderEnabled: false,
@@ -28,10 +29,23 @@ export function createOutputConfigSlice(set: SetState, _get: GetState): OutputCo
     },
 
     chooseWizardFolder: async () => {
-      const result = await window.appApi.dialog.chooseFolder();
+      // Seed the dialog with the current output dir so it opens there.
+      const result = await window.appApi.dialog.chooseFolder(get().wizardOutputDir || undefined);
       if (!result.ok || !result.data.path) return;
       set({ wizardOutputDir: result.data.path, syncedDownloadedIds: [] });
       await window.appApi.settings.update({ common: { defaultOutputDir: result.data.path } });
+    },
+
+    // Point the playlist at an exact folder (sync "Change folder"). We keep ONE
+    // source of truth — base + subfolder — by inverting the dir into base=parent
+    // + explicit subfolder=leaf (see splitDir). This keeps the output settings
+    // and the playlist dir in sync both ways: picking a folder updates base +
+    // subfolder, and editing base/subfolder re-derives the playlist dir.
+    setPlaylistFolder: async (dir) => {
+      const { parent, leaf } = splitDir(dir);
+      if (!leaf) return;
+      set({ wizardOutputDir: parent, wizardSubfolderEnabled: true, wizardSubfolderName: leaf, syncedDownloadedIds: [] });
+      await window.appApi.settings.update({ common: { defaultOutputDir: parent } });
     },
 
     setWizardSubfolderEnabled: (enabled) => set({ wizardSubfolderEnabled: enabled }),

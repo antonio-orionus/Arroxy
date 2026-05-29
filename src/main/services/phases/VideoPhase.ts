@@ -69,7 +69,7 @@ export function VideoPhase(embed: boolean): Phase {
       const formatId = preparedJob.kind === 'single-format' ? preparedJob.formatId : undefined;
       const formatSelector = preparedJob.kind === 'playlist-preset' ? preparedJob.formatSelector : undefined;
       const audioConvert = preparedJob.kind === 'audio-convert' ? preparedJob.audioConvert : preparedJob.kind === 'playlist-preset' ? preparedJob.audioConvert : undefined;
-      const outputTemplate = preparedJob.kind === 'playlist-preset' ? preparedJob.outputTemplate : undefined;
+      const outputTemplate = preparedJob.outputTemplate;
       const { embed: embedOpts } = preparedJob;
 
       const req: YtDlpRequest =

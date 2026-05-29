@@ -54,7 +54,7 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
       openDir: () => ipcRenderer.invoke(IPC_CHANNELS.logsOpenDir)
     },
     dialog: {
-      chooseFolder: () => ipcRenderer.invoke(IPC_CHANNELS.chooseFolder),
+      chooseFolder: (defaultPath?: string) => ipcRenderer.invoke(IPC_CHANNELS.chooseFolder, defaultPath),
       chooseFile: () => ipcRenderer.invoke(IPC_CHANNELS.chooseFile),
       chooseExecutable: (binary) => ipcRenderer.invoke(IPC_CHANNELS.dialogChooseExecutable, binary)
     },

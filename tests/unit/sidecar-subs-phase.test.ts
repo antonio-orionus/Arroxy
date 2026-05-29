@@ -101,6 +101,18 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
     expect(req.kind).toBe('subtitle');
   });
 
+  it('forwards the media outputTemplate so sidecar subtitles match single filenames', async () => {
+    const ctx = makeCtx(SUCCESS, {
+      input: {
+        ...BASE_INPUT,
+        job: { ...BASE_JOB, outputTemplate: '%(title).200B [%(id)s].%(ext)s' }
+      }
+    });
+    await SidecarSubsPhase(false).run(ctx);
+    const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0];
+    expect(req.outputTemplate).toBe('%(title).200B [%(id)s].%(ext)s');
+  });
+
   it('emits fetchingSubtitles status before run', async () => {
     const ctx = makeCtx(SUCCESS);
     await SidecarSubsPhase(false).run(ctx);
