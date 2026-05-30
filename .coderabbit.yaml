@@ -71,6 +71,16 @@ reviews:
     - '!playwright-report/**'
     - '!test-results/**'
     - '!*.log'
+    - '!.agents/**'
+    - '!.claude/**'
+    - '!dev-docs/**'
+    # Translated/generated locale artifacts — only the en source is reviewed.
+    - '!README*.md'
+    - '!readme-src/template.md'
+    - '!readme-src/locales/**'
+    - '!src/shared/i18n/locales/**'
+    - 'readme-src/locales/en.mjs'
+    - 'src/shared/i18n/locales/en.ts'
   path_instructions:
     - path: .github/workflows/**
       instructions: >-
