@@ -11,6 +11,7 @@ import { WizardStepFooterActions } from './WizardStepFooterActions.js';
 import { isAudioOnlySource } from '@shared/ytdlp/extractorPredicates.js';
 import { resolvePlaylistDir } from '../../store/wizard/playlistDir.js';
 import { formatDuration } from '@renderer/lib/formatDuration.js';
+import { notify } from '@renderer/lib/notify.js';
 
 // undefined = no duration metadata (common for nested-playlist entries from
 // music search, channel root, etc.) — render an em-dash instead of falsely
@@ -39,13 +40,20 @@ export function StepPlaylistItems(): JSX.Element {
 
   function changeSyncFolder(): void {
     // Open at the current playlist dir; the pick becomes base+subfolder via
-    // setPlaylistFolder (single SSOT), then we rescan the new location.
-    void window.appApi.dialog.chooseFolder(syncDir || undefined).then(async (res) => {
-      if (!res.ok || !res.data.path) return;
-      setSyncDismissed(false);
-      await setPlaylistFolder(res.data.path);
-      void scanDownloadedInFolder();
-    });
+    // setPlaylistFolder (single SSOT), then we rescan the new location. State
+    // only changes after a successful pick + folder write, so a rejected dialog
+    // or failed settings persist can't leave the sync UI inconsistent.
+    void (async () => {
+      try {
+        const res = await window.appApi.dialog.chooseFolder(syncDir || undefined);
+        if (!res.ok || !res.data.path) return;
+        await setPlaylistFolder(res.data.path);
+        setSyncDismissed(false);
+        void scanDownloadedInFolder();
+      } catch (error) {
+        notify.folderSelectFailed(error);
+      }
+    })();
   }
 
   const parentRef = useRef<HTMLDivElement>(null);

@@ -98,6 +98,7 @@ function buildQueueItem(get: GetState, lane: QueueLane): QueueItem | null {
     lastStatus: null,
     error: null,
     finishedAt: null,
+    writeM3u: state.wizardWriteM3u,
     job
   };
 }
@@ -154,6 +155,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, get: GetState, playlistGro
     error: null,
     finishedAt: null,
     playlistGroupId,
+    writeM3u: state.wizardWriteM3u,
     job
   };
 }

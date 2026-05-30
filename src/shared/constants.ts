@@ -16,6 +16,7 @@ export const DEFAULTS: {
   embedThumbnail: boolean;
   writeDescription: boolean;
   writeThumbnail: boolean;
+  writeM3u: boolean;
   includeIdInSingleFilenames: boolean;
 } = {
   subtitleMode: 'sidecar',
@@ -29,6 +30,7 @@ export const DEFAULTS: {
   embedThumbnail: false,
   writeDescription: false,
   writeThumbnail: false,
+  writeM3u: true,
   includeIdInSingleFilenames: true
 };
 

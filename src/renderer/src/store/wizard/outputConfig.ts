@@ -1,6 +1,7 @@
 // OutputConfig slice — owns the wizard's "where + how the file lands" state:
-// output dir + subfolder, SponsorBlock mode + categories, embed flags
-// (chapters / metadata / thumbnail / description / thumbnailSidecar).
+// output dir + subfolder, SponsorBlock mode + categories, embed / sidecar
+// output flags (chapters / metadata / thumbnail / description /
+// thumbnailSidecar / M3U).
 //
 // `chooseWizardFolder` and `setWizardOutputDir` persist the selection to
 // SettingsStore via the system slice's IPC; the format-prefs persistence
@@ -8,6 +9,7 @@
 
 import { DEFAULTS } from '@shared/constants.js';
 import { splitDir } from '@shared/subfolder.js';
+import { notify } from '@renderer/lib/notify.js';
 import type { GetState, OutputConfigSlice, SetState } from '../types.js';
 
 export function createOutputConfigSlice(set: SetState, get: GetState): OutputConfigSlice {
@@ -22,6 +24,7 @@ export function createOutputConfigSlice(set: SetState, get: GetState): OutputCon
     wizardEmbedThumbnail: DEFAULTS.embedThumbnail,
     wizardWriteDescription: DEFAULTS.writeDescription,
     wizardWriteThumbnail: DEFAULTS.writeThumbnail,
+    wizardWriteM3u: DEFAULTS.writeM3u,
 
     setWizardOutputDir: async (dir, persist = true) => {
       set({ wizardOutputDir: dir, syncedDownloadedIds: [] });
@@ -43,7 +46,13 @@ export function createOutputConfigSlice(set: SetState, get: GetState): OutputCon
     // subfolder, and editing base/subfolder re-derives the playlist dir.
     setPlaylistFolder: async (dir) => {
       const { parent, leaf } = splitDir(dir);
-      if (!leaf) return;
+      // A drive/POSIX root (empty leaf) or a separator-less path (empty parent)
+      // can't be inverted into base + explicit subfolder without producing an
+      // inconsistent output dir — decline rather than write a broken SSOT.
+      if (!leaf || !parent) {
+        notify.playlistFolderRejected(dir);
+        return;
+      }
       set({ wizardOutputDir: parent, wizardSubfolderEnabled: true, wizardSubfolderName: leaf, syncedDownloadedIds: [] });
       await window.appApi.settings.update({ common: { defaultOutputDir: parent } });
     },
@@ -62,6 +71,7 @@ export function createOutputConfigSlice(set: SetState, get: GetState): OutputCon
     setEmbedMetadata: (v) => set({ wizardEmbedMetadata: v }),
     setEmbedThumbnail: (v) => set({ wizardEmbedThumbnail: v }),
     setWriteDescription: (v) => set({ wizardWriteDescription: v }),
-    setWriteThumbnail: (v) => set({ wizardWriteThumbnail: v })
+    setWriteThumbnail: (v) => set({ wizardWriteThumbnail: v }),
+    setWriteM3u: (v) => set({ wizardWriteM3u: v })
   };
 }

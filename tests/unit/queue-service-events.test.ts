@@ -334,3 +334,35 @@ describe('QueueService — bulk persist coalescing', () => {
     expect(saveSpy.mock.calls.length - baselineCalls).toBe(0);
   });
 });
+
+describe('QueueService — playlist M3U write gate (writeM3u opt-out)', () => {
+  function makePlaylistService() {
+    const ds = new FakeDownloadService();
+    const writeM3u = vi.fn().mockResolvedValue(undefined);
+    const manifestStore = { get: vi.fn().mockReturnValue({ playlistGroupId: 'g-1', playlistTitle: 'P', outputDir: '/tmp', items: [] }) };
+    const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, 1, 4, { manifestStore: manifestStore as never, writeM3u });
+    return { qs, ds, writeM3u };
+  }
+
+  const flush = (): Promise<void> => new Promise((r) => setTimeout(r, 0));
+
+  it('playlist item finishing with writeM3u !== false writes the M3U', async () => {
+    const { qs, ds, writeM3u } = makePlaylistService();
+    qs.add([makeItem({ id: 'q-1', status: 'running', lastJobId: 'job-1', playlistGroupId: 'g-1', writeM3u: true })]);
+
+    ds.emit('status', doneStatus('job-1'));
+    await flush();
+
+    expect(writeM3u).toHaveBeenCalledTimes(1);
+  });
+
+  it('playlist item finishing with writeM3u === false does NOT write the M3U', async () => {
+    const { qs, ds, writeM3u } = makePlaylistService();
+    qs.add([makeItem({ id: 'q-1', status: 'running', lastJobId: 'job-1', playlistGroupId: 'g-1', writeM3u: false })]);
+
+    ds.emit('status', doneStatus('job-1'));
+    await flush();
+
+    expect(writeM3u).not.toHaveBeenCalled();
+  });
+});

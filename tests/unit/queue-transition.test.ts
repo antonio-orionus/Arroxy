@@ -22,6 +22,7 @@ function makeItem(overrides: Partial<QueueItem> = {}): QueueItem {
     lastStatus: null,
     error: null,
     finishedAt: null,
+    writeM3u: true,
     job: PREPARED,
     ...overrides
   };

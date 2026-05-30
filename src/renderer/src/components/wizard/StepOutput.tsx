@@ -7,7 +7,8 @@ import { Switch } from '../ui/switch.js';
 
 export function StepOutput(): JSX.Element {
   const { t } = useTranslation();
-  const { wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, setEmbedChapters, setEmbedMetadata, setEmbedThumbnail, setWriteDescription, setWriteThumbnail, advance, back } = useAppStore();
+  const { wizardMode, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardWriteM3u, setEmbedChapters, setEmbedMetadata, setEmbedThumbnail, setWriteDescription, setWriteThumbnail, setWriteM3u, advance, back } = useAppStore();
+  const isPlaylist = wizardMode === 'playlist';
 
   return (
     <div className="wizard-step flex flex-col gap-1.5" data-testid="step-output">
@@ -56,6 +57,22 @@ export function StepOutput(): JSX.Element {
           <Switch checked={wizardWriteThumbnail} onCheckedChange={setWriteThumbnail} aria-label={t('wizard.output.writeThumbnail.label')} data-testid="write-thumbnail-toggle" />
         </div>
       </div>
+
+      {isPlaylist && (
+        <>
+          <Separator className="bg-border/50 -mx-6 w-auto my-1.5" />
+
+          <div className="flex flex-col gap-3 py-1">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[13px] font-medium text-foreground">{t('wizard.output.writeM3u.label')}</span>
+                <span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.output.writeM3u.description')}</span>
+              </div>
+              <Switch checked={wizardWriteM3u} onCheckedChange={setWriteM3u} aria-label={t('wizard.output.writeM3u.label')} data-testid="write-m3u-toggle" />
+            </div>
+          </div>
+        </>
+      )}
 
       <WizardStepFooterActions onBack={back} onContinue={advance} />
     </div>

@@ -401,6 +401,10 @@ const en = {
       writeThumbnail: {
         label: 'Save thumbnail',
         description: 'Saves the thumbnail as a .jpg image file next to the download.'
+      },
+      writeM3u: {
+        label: 'Generate .m3u playlist file',
+        description: 'Save an .m3u playlist alongside the videos so they open in order in your media player.'
       }
     },
     confirm: {

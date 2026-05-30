@@ -9,5 +9,11 @@ export const notify = {
   },
   shellActionFailed(action: string, error: unknown): void {
     console.error(`[shell] ${action} failed`, error);
+  },
+  folderSelectFailed(error: unknown): void {
+    console.error('[dialog] folder selection failed', error);
+  },
+  playlistFolderRejected(dir: string): void {
+    console.warn('[playlist] picked folder is not usable as base + subfolder', dir);
   }
 };

@@ -123,6 +123,7 @@ function pickWizardSnapshot(state: AppState): Record<string, unknown> {
     embedThumbnail: state.wizardEmbedThumbnail,
     writeDescription: state.wizardWriteDescription,
     writeThumbnail: state.wizardWriteThumbnail,
+    writeM3u: state.wizardWriteM3u,
     outputDir: state.wizardOutputDir,
     subfolderEnabled: state.wizardSubfolderEnabled,
     subfolderName: state.wizardSubfolderName
@@ -133,7 +134,7 @@ function logStep(transition: WizardTransition, fromStep: WizardStep, toStep: Wiz
   window.appApi.diagnostics.logWizardStep({ transition, fromStep, toStep, snapshot });
 }
 
-function restoreCommonWizardPrefs(settings: AppSettings | null): Pick<AppState, 'wizardSponsorBlockMode' | 'wizardSponsorBlockCategories' | 'wizardEmbedChapters' | 'wizardEmbedMetadata' | 'wizardEmbedThumbnail' | 'wizardWriteDescription' | 'wizardWriteThumbnail'> {
+function restoreCommonWizardPrefs(settings: AppSettings | null): Pick<AppState, 'wizardSponsorBlockMode' | 'wizardSponsorBlockCategories' | 'wizardEmbedChapters' | 'wizardEmbedMetadata' | 'wizardEmbedThumbnail' | 'wizardWriteDescription' | 'wizardWriteThumbnail' | 'wizardWriteM3u'> {
   return {
     wizardSponsorBlockMode: settings?.common?.lastSponsorBlockMode ?? DEFAULTS.sponsorBlockMode,
     wizardSponsorBlockCategories: settings?.common?.lastSponsorBlockCategories ?? [...DEFAULTS.sponsorBlockCategories],
@@ -141,7 +142,8 @@ function restoreCommonWizardPrefs(settings: AppSettings | null): Pick<AppState, 
     wizardEmbedMetadata: settings?.common?.embedMetadata ?? DEFAULTS.embedMetadata,
     wizardEmbedThumbnail: settings?.common?.embedThumbnail ?? DEFAULTS.embedThumbnail,
     wizardWriteDescription: settings?.common?.writeDescription ?? DEFAULTS.writeDescription,
-    wizardWriteThumbnail: settings?.common?.writeThumbnail ?? DEFAULTS.writeThumbnail
+    wizardWriteThumbnail: settings?.common?.writeThumbnail ?? DEFAULTS.writeThumbnail,
+    wizardWriteM3u: settings?.common?.writeM3u ?? DEFAULTS.writeM3u
   };
 }
 

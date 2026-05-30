@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { startDownloadSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema } from '@shared/schemas.js';
+import { DEFAULTS } from '@shared/constants.js';
 
 const IDENTITY = { extractor: 'youtube', extractorKey: 'Youtube' };
 
@@ -192,6 +193,18 @@ describe('queueArraySchema', () => {
     expect(queueArraySchema.safeParse([{ ...valid, lane: 'priority' }]).success).toBe(true);
   });
 
+  it('defaults writeM3u to true when missing (pre-existing items keep always-on M3U)', () => {
+    const parsed = queueArraySchema.safeParse([valid]);
+    expect(parsed.success).toBe(true);
+    if (parsed.success) expect(parsed.data[0].writeM3u).toBe(true);
+  });
+
+  it('preserves an explicit writeM3u=false (playlist opt-out)', () => {
+    const parsed = queueArraySchema.safeParse([{ ...valid, writeM3u: false }]);
+    expect(parsed.success).toBe(true);
+    if (parsed.success) expect(parsed.data[0].writeM3u).toBe(false);
+  });
+
   it('rejects an unknown lane value', () => {
     expect(queueArraySchema.safeParse([{ ...valid, lane: 'turbo' }]).success).toBe(false);
   });
@@ -222,6 +235,21 @@ describe('updateSettingsSchema — common.limitRate', () => {
 describe('updateSettingsSchema — common.includeIdInSingleFilenames', () => {
   it.each([true, false])('accepts includeIdInSingleFilenames=%s', (value) => {
     expect(updateSettingsSchema.safeParse({ common: { includeIdInSingleFilenames: value } }).success).toBe(true);
+  });
+});
+
+describe('updateSettingsSchema — common.writeM3u', () => {
+  it.each([true, false])('accepts writeM3u=%s', (value) => {
+    expect(updateSettingsSchema.safeParse({ common: { writeM3u: value } }).success).toBe(true);
+  });
+  it('rejects a non-boolean writeM3u', () => {
+    expect(updateSettingsSchema.safeParse({ common: { writeM3u: 'yes' } }).success).toBe(false);
+  });
+});
+
+describe('DEFAULTS — output prefs', () => {
+  it('writeM3u defaults to true (playlist M3U on by default)', () => {
+    expect(DEFAULTS.writeM3u).toBe(true);
   });
 });
 

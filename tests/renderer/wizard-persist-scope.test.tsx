@@ -125,6 +125,25 @@ describe('persist scope — WRITE side', () => {
     expect(lastPatch.common).toHaveProperty('lastSubfolder');
     expect(lastPatch).not.toHaveProperty('single');
   });
+
+  it('common patch persists writeM3u so the playlist M3U toggle is remembered across sessions', async () => {
+    const updateMock = vi.fn().mockImplementation(async () => ok(buildAppSettings({})));
+    const api = buildMockAppApi({ settings: buildAppSettings({}) });
+    api.settings.update = updateMock;
+    api.downloads.probe = vi.fn().mockResolvedValue(ok(buildVideoProbe('youtube')));
+    window.appApi = api;
+
+    await useAppStore.getState().initialize();
+    useAppStore.getState().setWizardUrl('https://www.youtube.com/watch?v=x');
+    await useAppStore.getState().submitUrl();
+    // Toggle off AFTER probe — submitUrl restores common prefs from settings,
+    // so an earlier set would be clobbered by the restoration pass.
+    useAppStore.getState().setWriteM3u(false);
+    await useAppStore.getState().addToQueue();
+
+    const lastPatch = updateMock.mock.calls[updateMock.mock.calls.length - 1][0];
+    expect(lastPatch.common).toHaveProperty('writeM3u', false);
+  });
 });
 
 describe('persist scope — READ side', () => {

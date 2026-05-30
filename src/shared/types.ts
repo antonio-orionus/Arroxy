@@ -70,6 +70,7 @@ export interface CommonSettings {
   embedThumbnail?: boolean;
   writeDescription?: boolean;
   writeThumbnail?: boolean;
+  writeM3u?: boolean;
   lastSponsorBlockMode?: SponsorBlockMode;
   lastSponsorBlockCategories?: SponsorBlockCategory[];
   analyticsEnabled?: boolean;
@@ -174,6 +175,9 @@ export interface QueueItem {
   error: LocalizedError | null;
   finishedAt: string | null;
   playlistGroupId?: string;
+  // Per-item opt-out for the playlist `.m3u` artifact. Defaults true; only an
+  // explicit `false` (set by the wizard in playlist mode) suppresses the write.
+  writeM3u: boolean;
   // Persisted resume context. `lastJobId` set iff status ∈ {running,
   // paused-active}; `tempDir` set iff paused-active mid-download.
   tempDir?: string;

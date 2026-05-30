@@ -277,4 +277,51 @@ describe('playlist regressions', () => {
 
     expect(templates).toEqual(['%(title).200B [%(id)s].%(ext)s', '%(title).200B [%(id)s].%(ext)s', '%(title).200B [%(id)s].%(ext)s']);
   });
+
+  it('built playlist items carry writeM3u from wizard state (opt-out propagates)', async () => {
+    window.appApi = buildMockApi() as never;
+
+    useAppStore.setState({
+      initialized: true,
+      settings: buildAppSettings(),
+      wizardMode: 'playlist',
+      playlistTitle: 'Big Playlist',
+      playlistItems: [{ id: 'p1', url: 'https://youtube.com/watch?v=p1', title: 'Vid 1', thumbnail: '', playlistIndex: 1, videoId: 'p1' }],
+      selectedPlaylistItemIds: ['p1'],
+      selectedPlaylistPreset: 'video-1080p',
+      wizardOutputDir: '/tmp/out',
+      wizardWriteM3u: false
+    } as never);
+
+    await act(async () => {
+      await useAppStore.getState().addToQueue();
+    });
+
+    const items = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? [];
+    expect(items).toHaveLength(1);
+    expect(items[0]?.writeM3u).toBe(false);
+  });
+
+  it('built playlist items default writeM3u to true (M3U on by default)', async () => {
+    window.appApi = buildMockApi() as never;
+
+    useAppStore.setState({
+      initialized: true,
+      settings: buildAppSettings(),
+      wizardMode: 'playlist',
+      playlistTitle: 'Big Playlist',
+      playlistItems: [{ id: 'p1', url: 'https://youtube.com/watch?v=p1', title: 'Vid 1', thumbnail: '', playlistIndex: 1, videoId: 'p1' }],
+      selectedPlaylistItemIds: ['p1'],
+      selectedPlaylistPreset: 'video-1080p',
+      wizardOutputDir: '/tmp/out',
+      wizardWriteM3u: true
+    } as never);
+
+    await act(async () => {
+      await useAppStore.getState().addToQueue();
+    });
+
+    const items = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? [];
+    expect(items[0]?.writeM3u).toBe(true);
+  });
 });

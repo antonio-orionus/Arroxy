@@ -493,7 +493,7 @@ export class QueueService extends EventEmitter {
         // completed downloads. buildM3u is idempotent (scans disk, includes
         // only files that exist), so each write grows the playlist; a fully
         // cancelled group never triggers one, so no header-only file.
-        if (next.status === QUEUE_STATUS.done && next.playlistGroupId) {
+        if (next.status === QUEUE_STATUS.done && next.playlistGroupId && next.writeM3u !== false) {
           const groupId = next.playlistGroupId;
           void this.maybeWritePlaylistM3u(groupId).catch((err) => {
             logger.error('Failed to write playlist M3U', {

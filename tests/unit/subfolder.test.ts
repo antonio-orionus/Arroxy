@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isValidSubfolder, effectiveOutputDir, joinSubfolder } from '@shared/subfolder.js';
+import { isValidSubfolder, effectiveOutputDir, joinSubfolder, playlistBaseDir, splitDir } from '@shared/subfolder.js';
 
 describe('isValidSubfolder', () => {
   it('accepts ordinary names', () => {
@@ -77,5 +77,59 @@ describe('effectiveOutputDir', () => {
 
   it('joins valid subfolder', () => {
     expect(effectiveOutputDir('/home/user', true, 'mixes')).toBe('/home/user/mixes');
+  });
+});
+
+describe('playlistBaseDir', () => {
+  it('uses the explicit subfolder when valid', () => {
+    expect(playlistBaseDir('/home/user', true, 'mixes', 'Playlist Title')).toBe('/home/user/mixes');
+  });
+
+  it('falls back to the playlist title when the explicit subfolder is invalid', () => {
+    expect(playlistBaseDir('/home/user', true, 'CON', 'Road Trip')).toBe('/home/user/Road Trip');
+  });
+});
+
+describe('splitDir', () => {
+  it('splits a POSIX path into parent + leaf', () => {
+    expect(splitDir('/home/user/Videos')).toEqual({ parent: '/home/user', leaf: 'Videos' });
+  });
+
+  it('splits a Windows path into parent + leaf', () => {
+    expect(splitDir('C:\\Users\\bob\\Videos')).toEqual({ parent: 'C:\\Users\\bob', leaf: 'Videos' });
+  });
+
+  it('tolerates a trailing separator', () => {
+    expect(splitDir('/home/user/Videos/')).toEqual({ parent: '/home/user', leaf: 'Videos' });
+  });
+
+  it('keeps a top-level POSIX segment anchored to root', () => {
+    expect(splitDir('/foo')).toEqual({ parent: '/', leaf: 'foo' });
+  });
+
+  // Drive/POSIX roots: leaf must be empty so joinSubfolder(parent, leaf)
+  // round-trips back to the root instead of producing a mangled path
+  // (e.g. the old code turned "C:\\" into parent='' leaf='C:').
+  it('treats a Windows drive root as root parent with empty leaf', () => {
+    expect(splitDir('C:\\')).toEqual({ parent: 'C:\\', leaf: '' });
+    expect(splitDir('C:')).toEqual({ parent: 'C:\\', leaf: '' });
+  });
+
+  it('treats a POSIX root as root parent with empty leaf', () => {
+    expect(splitDir('/')).toEqual({ parent: '/', leaf: '' });
+  });
+
+  it('is the inverse of joinSubfolder for non-root dirs', () => {
+    for (const dir of ['/home/user/Videos', 'C:\\Users\\bob\\Videos', 'C:\\Users', '/foo']) {
+      const { parent, leaf } = splitDir(dir);
+      expect(joinSubfolder(parent, leaf)).toBe(dir);
+    }
+  });
+
+  it('round-trips roots back to themselves', () => {
+    for (const dir of ['C:\\', '/']) {
+      const { parent, leaf } = splitDir(dir);
+      expect(joinSubfolder(parent, leaf)).toBe(dir);
+    }
   });
 });

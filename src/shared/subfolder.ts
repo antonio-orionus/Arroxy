@@ -59,7 +59,7 @@ export function effectiveOutputDir(base: string, enabled: boolean, subfolder: st
 // (scanDownloadedInFolder) — the two must agree or the scan looks in the wrong dir.
 export function playlistBaseDir(base: string, subfolderEnabled: boolean, subfolderName: string, playlistTitle: string): string {
   const sub = subfolderName.trim();
-  return subfolderEnabled && sub ? joinSubfolder(base, sub) : joinSubfolder(base, safeFolderName(playlistTitle || 'Playlist'));
+  return subfolderEnabled && isValidSubfolder(sub) ? joinSubfolder(base, sub) : joinSubfolder(base, safeFolderName(playlistTitle || 'Playlist'));
 }
 
 // Inverse of joinSubfolder: split a directory path into its parent and final
@@ -69,7 +69,15 @@ export function playlistBaseDir(base: string, subfolderEnabled: boolean, subfold
 // (rather than appending the auto/saved subfolder a second time).
 export function splitDir(dir: string): { parent: string; leaf: string } {
   const trimmed = dir.replace(/[/\\]+$/, '');
+  // Windows drive root ("C:\" or "C:"): the root IS the parent and there is no
+  // leaf, so joinSubfolder(parent, '') round-trips back to the drive root
+  // instead of mangling it to "/C:".
+  if (/^[A-Za-z]:$/.test(trimmed)) return { parent: trimmed + '\\', leaf: '' };
+  // Separator-only root ("/" or "\") collapsed to empty by the trim above —
+  // restore the bare root as the parent so the round-trip holds.
+  if (trimmed === '' && dir !== '') return { parent: dir.slice(0, 1), leaf: '' };
   const idx = Math.max(trimmed.lastIndexOf('/'), trimmed.lastIndexOf('\\'));
   if (idx < 0) return { parent: '', leaf: trimmed };
-  return { parent: idx === 0 ? trimmed.slice(0, 1) : trimmed.slice(0, idx), leaf: trimmed.slice(idx + 1) };
+  const parent = idx === 0 ? trimmed.slice(0, 1) : trimmed.slice(0, idx);
+  return { parent: /^[A-Za-z]:$/.test(parent) && trimmed[idx] === '\\' ? parent + '\\' : parent, leaf: trimmed.slice(idx + 1) };
 }

@@ -104,7 +104,7 @@ export interface FormatPickerSlice {
   setSubtitleFormat: (format: SubtitleFormat) => void;
 }
 
-// OutputConfig — output dir / subfolder / SponsorBlock / embed flags.
+// OutputConfig — output dir / subfolder / SponsorBlock / output artifact flags.
 export interface OutputConfigSlice {
   wizardOutputDir: string;
   wizardSubfolderEnabled: boolean;
@@ -116,6 +116,7 @@ export interface OutputConfigSlice {
   wizardEmbedThumbnail: boolean;
   wizardWriteDescription: boolean;
   wizardWriteThumbnail: boolean;
+  wizardWriteM3u: boolean;
 
   setWizardOutputDir: (dir: string, persist?: boolean) => Promise<void>;
   chooseWizardFolder: () => Promise<void>;
@@ -129,6 +130,7 @@ export interface OutputConfigSlice {
   setEmbedThumbnail: (v: boolean) => void;
   setWriteDescription: (v: boolean) => void;
   setWriteThumbnail: (v: boolean) => void;
+  setWriteM3u: (value: boolean) => void;
 }
 
 // WizardDialogs — transient UI flags that gate modal interruptions.
