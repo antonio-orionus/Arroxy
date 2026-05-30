@@ -123,7 +123,8 @@ describe('settings and recent stores', () => {
     expect((settings.common as unknown as { cookiesEnabled?: boolean }).cookiesEnabled).toBeUndefined();
     expect(settings.single.lastPreset).toBe('best-quality');
     expect(settings.common.lastSubfolder).toBe('old-subfolder');
-    expect(settings.playlist.lastPlaylistPreset).toBe('video-1080p');
+    // Legacy flat `lastPlaylistPreset` has no mapping in the new schema — dropped on migration.
+    expect((settings.playlist as Record<string, unknown>).lastPlaylistPreset).toBeUndefined();
 
     // After migration the file holds only the nested shape — flat keys gone.
     const persisted = JSON.parse(await fs.readFile(path.join(userData, 'settings.json'), 'utf-8'));

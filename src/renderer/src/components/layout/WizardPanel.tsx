@@ -12,13 +12,13 @@ export function WizardPanel(): JSX.Element {
   const wizardStep = useAppStore((s) => s.wizardStep);
   const activePreset = useAppStore((s) => s.activePreset);
   const wizardMode = useAppStore((s) => s.wizardMode);
-  const selectedPlaylistPreset = useAppStore((s) => s.selectedPlaylistPreset);
+  const playlistSelection = useAppStore((s) => s.playlistSelection);
   const wizardExtractor = useAppStore((s) => s.wizardExtractor);
   const wizardSubtitles = useAppStore((s) => s.wizardSubtitles);
   const wizardAutomaticCaptions = useAppStore((s) => s.wizardAutomaticCaptions);
   const hasSubtitles = useMemo(() => Object.keys(wizardSubtitles).length > 0 || Object.keys(wizardAutomaticCaptions).length > 0, [wizardSubtitles, wizardAutomaticCaptions]);
 
-  const visibleSteps = useMemo(() => STEPS.filter((step) => !shouldSkip(step, { activePreset, wizardMode, selectedPlaylistPreset, wizardExtractor, hasSubtitles })), [activePreset, wizardMode, selectedPlaylistPreset, wizardExtractor, hasSubtitles]);
+  const visibleSteps = useMemo(() => STEPS.filter((step) => !shouldSkip(step, { activePreset, wizardMode, playlistSelection, wizardExtractor, hasSubtitles })), [activePreset, wizardMode, playlistSelection, wizardExtractor, hasSubtitles]);
 
   const activeIndex = visibleSteps.indexOf(wizardStep as (typeof STEPS)[number]);
   const activeDescriptor = STEP_REGISTRY.find((d) => d.id === wizardStep);

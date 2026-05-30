@@ -4,7 +4,7 @@ const COMMON_KEYS = new Set(['defaultOutputDir', 'rememberLastOutputDir', 'uiZoo
 
 const SINGLE_KEYS = new Set(['lastPreset', 'lastVideoResolution', 'lastSubtitleLanguages', 'lastSubtitleMode', 'lastSubtitleFormat']);
 
-const PLAYLIST_KEYS = new Set(['lastPlaylistPreset']);
+const PLAYLIST_KEYS = new Set(['lastPlaylistSelection']);
 
 // Lets test files keep their flat-override style ({ lastSponsorBlockMode: 'mark', lastPreset: 'audio-only' })
 // while the production shape is now nested. Maps each flat key to its mode slot.

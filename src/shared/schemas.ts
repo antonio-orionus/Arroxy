@@ -13,9 +13,17 @@ export const presetSchema = z.enum(['best-quality', 'balanced', 'small-file', 'a
 export type Preset = z.infer<typeof presetSchema>;
 export const PRESETS = presetSchema.options;
 
-export const playlistPresetSchema = z.enum(['video-best', 'video-2160p', 'video-1440p', 'video-1080p', 'video-720p', 'video-480p', 'video-360p', 'audio-best', 'audio-mp3']);
-export type PlaylistPreset = z.infer<typeof playlistPresetSchema>;
-export const PLAYLIST_PRESETS = playlistPresetSchema.options;
+const PLAYLIST_VIDEO_TIER_VALUES = ['best', '2160', '1440', '1080', '720', '480', '360'] as const;
+export const playlistVideoTierSchema = z.enum(PLAYLIST_VIDEO_TIER_VALUES);
+export type PlaylistVideoTier = z.infer<typeof playlistVideoTierSchema>;
+// Zod v4 stores enum entries in an object, so numeric-like string keys are
+// reordered by JavaScript property ordering. Keep the intended UI order here.
+export const PLAYLIST_VIDEO_TIERS: readonly PlaylistVideoTier[] = PLAYLIST_VIDEO_TIER_VALUES;
+
+const playlistVideoCodecSchema = z.enum(['best', 'mp4']);
+
+export const playlistAudioFormatSchema = z.enum(['best', 'mp3', 'm4a', 'opus']);
+export type PlaylistAudioFormat = z.infer<typeof playlistAudioFormatSchema>;
 
 export const subtitleModeSchema = z.enum(['sidecar', 'embed', 'subfolder']);
 export type SubtitleMode = z.infer<typeof subtitleModeSchema>;
@@ -46,6 +54,21 @@ export const DEFAULT_AUDIO_BITRATE: AudioBitrate = 192;
 
 export const audioConvertSchema = z.discriminatedUnion('target', [z.object({ target: z.literal('wav') }), z.object({ target: z.enum(LOSSY_TARGET_VALUES), bitrateKbps: audioBitrateSchema })]);
 export type AudioConvert = z.infer<typeof audioConvertSchema>;
+
+export const playlistSelectionSchema = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('video'),
+    tier: playlistVideoTierSchema,
+    codec: playlistVideoCodecSchema
+  }),
+  z.object({
+    kind: z.literal('audio'),
+    format: playlistAudioFormatSchema,
+    bitrateKbps: audioBitrateSchema.optional()
+  })
+]);
+export type PlaylistSelection = z.infer<typeof playlistSelectionSchema>;
+export const DEFAULT_PLAYLIST_SELECTION: PlaylistSelection = { kind: 'video', tier: 'best', codec: 'best' };
 
 // Renderer's audio-column selection. Three convert kinds + native + none.
 // Defined here (not in renderer/store/types.ts) because it's persisted in
@@ -212,8 +235,10 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('playlist-preset'),
     ...extractorIdentitySchema,
-    preset: playlistPresetSchema,
+    selection: playlistSelectionSchema,
     formatSelector: z.string().min(1).optional(),
+    formatSort: z.string().min(1).optional(),
+    mergeOutputFormat: z.string().min(1).optional(),
     audioConvert: audioConvertSchema.optional(),
     outputTemplate: z.string().min(1),
     subtitles: subtitleOptionsSchema.optional(),
@@ -327,7 +352,7 @@ const singlePrefsPatchSchema = z.object({
 });
 
 const playlistPrefsPatchSchema = z.object({
-  lastPlaylistPreset: playlistPresetSchema.optional()
+  lastPlaylistSelection: playlistSelectionSchema.optional()
 });
 
 export const updateSettingsSchema = z

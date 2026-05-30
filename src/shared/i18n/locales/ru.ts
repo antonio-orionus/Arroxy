@@ -517,15 +517,47 @@ const ru = {
     }
   },
   playlistPresets: {
-    'video-best': { label: 'Лучшее качество', desc: 'Максимальное разрешение + лучшее аудио на каждый элемент' },
-    'video-2160p': { label: 'До 4K', desc: 'Ограничено 2160p, с откатом ниже для каждого элемента' },
-    'video-1440p': { label: 'До 1440p', desc: 'Ограничено 2K, с откатом ниже для каждого элемента' },
-    'video-1080p': { label: 'До 1080p', desc: 'Ограничено для каждого элемента, с откатом ниже' },
-    'video-720p': { label: 'До 720p', desc: 'Меньший размер файла, широкая совместимость' },
-    'video-480p': { label: 'До 480p', desc: 'Низкий трафик' },
-    'video-360p': { label: 'До 360p', desc: 'Минимальное видео' },
-    'audio-best': { label: 'Audio (best)', desc: 'Лучшее нативное аудио без перекодирования' },
-    'audio-mp3': { label: 'Audio (MP3)', desc: 'Конвертировать в MP3 192 kbps' }
+    type: { video: 'Video', audio: 'Audio' },
+    videoFormat: {
+      best: 'Best codec',
+      mp4: 'MP4 (H.264)'
+    },
+    videoFormatDesc: {
+      best: 'Highest available codec per item',
+      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+    },
+    tier: {
+      best: 'Best quality',
+      '2160': 'Up to 4K',
+      '1440': 'Up to 1440p',
+      '1080': 'Up to 1080p',
+      '720': 'Up to 720p',
+      '480': 'Up to 480p',
+      '360': 'Up to 360p'
+    },
+    tierDesc: {
+      best: 'Highest available video + audio per item',
+      '2160': 'Capped at 2160p, falls back to lower per item',
+      '1440': 'Capped at 2K, falls back to lower per item',
+      '1080': 'Capped at 1080p, falls back to lower per item',
+      '720': 'Smaller files, broad compatibility',
+      '480': 'Low bandwidth',
+      '360': 'Smallest video'
+    },
+    audioFormat: {
+      best: 'Audio (best)',
+      mp3: 'MP3',
+      m4a: 'M4A',
+      opus: 'Opus'
+    },
+    audioFormatDesc: {
+      best: 'Native best audio, no re-encode',
+      mp3: 'Convert to MP3',
+      m4a: 'Convert to M4A (AAC)',
+      opus: 'Convert to Opus'
+    },
+    audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
+    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
   },
   formatLabel: {
     audioFallback: 'Аудио',

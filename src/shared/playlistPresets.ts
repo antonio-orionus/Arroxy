@@ -1,33 +1,55 @@
-import type { AudioConvert, PlaylistPreset } from './schemas.js';
+import type { AudioConvert, PlaylistSelection } from './schemas.js';
+import { DEFAULT_AUDIO_BITRATE } from './schemas.js';
 
 export interface PlaylistPresetSpec {
   formatSelector?: string;
+  // -S sort string — never fails, picks closest match. Used for MP4 (H.264 preferred).
+  formatSort?: string;
+  // --merge-output-format container override. Only set when formatSort targets a codec.
+  mergeOutputFormat?: string;
   audioConvert?: AudioConvert;
   producesVideo: boolean;
 }
 
-// Each preset compiles to a yt-dlp -f selector expression resolved per-video.
-// Heterogeneous playlists (mixed resolutions/codecs) survive because the
-// expression caps or floors quality per item rather than pinning a literal id.
-export function playlistPresetSpec(p: PlaylistPreset): PlaylistPresetSpec {
-  switch (p) {
-    case 'video-best':
-      return { formatSelector: 'bestvideo*+bestaudio/best', producesVideo: true };
-    case 'video-2160p':
-      return { formatSelector: 'bestvideo[height<=2160]+bestaudio/best[height<=2160]', producesVideo: true };
-    case 'video-1440p':
-      return { formatSelector: 'bestvideo[height<=1440]+bestaudio/best[height<=1440]', producesVideo: true };
-    case 'video-1080p':
-      return { formatSelector: 'bestvideo[height<=1080]+bestaudio/best[height<=1080]', producesVideo: true };
-    case 'video-720p':
-      return { formatSelector: 'bestvideo[height<=720]+bestaudio/best[height<=720]', producesVideo: true };
-    case 'video-480p':
-      return { formatSelector: 'bestvideo[height<=480]+bestaudio/best[height<=480]', producesVideo: true };
-    case 'video-360p':
-      return { formatSelector: 'bestvideo[height<=360]+bestaudio/best[height<=360]', producesVideo: true };
-    case 'audio-best':
+// Maps a PlaylistSelection to yt-dlp arguments per video in the playlist.
+// Uses -S (sort) rather than -f codec filters so no item is ever skipped —
+// yt-dlp degrades gracefully to the closest available format.
+export function playlistPresetSpec(s: PlaylistSelection): PlaylistPresetSpec {
+  if (s.kind === 'audio') {
+    if (s.format === 'best') {
       return { formatSelector: 'bestaudio/best', producesVideo: false };
-    case 'audio-mp3':
-      return { audioConvert: { target: 'mp3', bitrateKbps: 192 }, producesVideo: false };
+    }
+    const bitrateKbps = s.bitrateKbps ?? DEFAULT_AUDIO_BITRATE;
+    return {
+      audioConvert: { target: s.format, bitrateKbps },
+      producesVideo: false
+    };
   }
+
+  // Video
+  const { tier, codec } = s;
+
+  if (tier === 'best') {
+    return { formatSelector: 'bestvideo*+bestaudio/best', producesVideo: true };
+  }
+
+  const heights: Record<string, number> = { '2160': 2160, '1440': 1440, '1080': 1080, '720': 720, '480': 480, '360': 360 };
+  const h = heights[tier];
+
+  if (codec === 'mp4') {
+    // Prefer H.264 + AAC in MP4 via -S; never hard-filters so an AV1-only item
+    // still downloads (AV1 in mp4 container) rather than erroring.
+    return {
+      formatSelector: `bv*[height<=${h}]+ba/b[height<=${h}]/bv*+ba/b`,
+      formatSort: 'vcodec:h264,acodec:m4a,ext:mp4',
+      mergeOutputFormat: 'mp4',
+      producesVideo: true
+    };
+  }
+
+  // codec === 'best'
+  return {
+    formatSelector: `bestvideo[height<=${h}]+bestaudio/best[height<=${h}]`,
+    producesVideo: true
+  };
 }

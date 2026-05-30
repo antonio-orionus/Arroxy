@@ -235,6 +235,51 @@ describe('QueueService — POST_DOWNLOAD_PHASES progress gate', () => {
     qs.flushPendingProgressForTests();
     expect(qs.snapshot()[0].progressPercent).toBeCloseTo(30, 1);
   });
+
+  it('ignores bogus HLS bootstrap 100% and accepts later fragment progress', () => {
+    const { qs, ds } = makeService();
+    qs.add([makeItem({ id: 'q-1', status: 'running', lastJobId: 'job-1' })]);
+    ds.emit('status', phaseStatus('job-1', 'downloadingMedia'));
+
+    ds.emit('progress', {
+      jobId: 'job-1',
+      percent: 100,
+      line: '[download] 100.0% of ~   1.00KiB at    1.25KiB/s ETA Unknown (frag 0/128)',
+      at: new Date().toISOString()
+    } satisfies ProgressEvent);
+    ds.emit('progress', {
+      jobId: 'job-1',
+      percent: 1.6,
+      line: '[download]   1.6% of ~ 127.88MiB at    1.94MiB/s ETA Unknown (frag 1/128)',
+      at: new Date().toISOString()
+    } satisfies ProgressEvent);
+    qs.flushPendingProgressForTests();
+
+    expect(qs.snapshot()[0].progressPercent).toBeCloseTo(1.6, 1);
+  });
+
+  it('does not display 100% from progress while the item is still running', () => {
+    const { qs, ds } = makeService();
+    qs.add([makeItem({ id: 'q-1', status: 'running', lastJobId: 'job-1' })]);
+    ds.emit('status', phaseStatus('job-1', 'downloadingMedia'));
+
+    ds.emit('progress', {
+      jobId: 'job-1',
+      percent: 100,
+      line: '[download] 100.0% of 240.00MiB in 00:52',
+      at: new Date().toISOString()
+    } satisfies ProgressEvent);
+    qs.flushPendingProgressForTests();
+
+    const [running] = qs.snapshot();
+    expect(running.status).toBe('running');
+    expect(running.progressPercent).toBeLessThan(100);
+
+    ds.emit('status', doneStatus('job-1'));
+    const [done] = qs.snapshot();
+    expect(done.status).toBe('done');
+    expect(done.progressPercent).toBe(100);
+  });
 });
 
 describe('QueueService — progress coalescing', () => {

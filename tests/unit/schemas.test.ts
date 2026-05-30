@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { startDownloadSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema } from '@shared/schemas.js';
+import { startDownloadSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS } from '@shared/schemas.js';
 import { DEFAULTS } from '@shared/constants.js';
 
 const IDENTITY = { extractor: 'youtube', extractorKey: 'Youtube' };
@@ -41,6 +41,12 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
 
   it(`MAX_SUBTITLE_LANGUAGES (${MAX_SUBTITLE_LANGUAGES}) is exported and positive`, () => {
     expect(MAX_SUBTITLE_LANGUAGES).toBeGreaterThan(0);
+  });
+});
+
+describe('playlist video tiers', () => {
+  it('preserves highest-to-lowest presentation order', () => {
+    expect(PLAYLIST_VIDEO_TIERS).toEqual(['best', '2160', '1440', '1080', '720', '480', '360']);
   });
 });
 

@@ -10,7 +10,7 @@ import { isYouTubeExtractor } from '@shared/ytdlp/extractorPredicates.js';
 import type { GetState, SetState } from '../types.js';
 
 export async function persistFormatPrefs(set: SetState, get: GetState): Promise<void> {
-  const { selectedVideoFormatId, activePreset, audioSelection, wizardFormats, wizardSubtitleLanguages, settings, wizardMode, selectedPlaylistPreset, wizardExtractor } = get();
+  const { selectedVideoFormatId, activePreset, audioSelection, wizardFormats, wizardSubtitleLanguages, settings, wizardMode, playlistSelection, wizardExtractor } = get();
   if (!settings) return;
   const inPlaylist = wizardMode === 'playlist';
   // Single-mode persisted prefs are scoped to YouTube. Non-YT runs skip the
@@ -34,7 +34,7 @@ export async function persistFormatPrefs(set: SetState, get: GetState): Promise<
 
   if (inPlaylist) {
     const playlist = {
-      ...(selectedPlaylistPreset ? { lastPlaylistPreset: selectedPlaylistPreset } : {})
+      ...(playlistSelection ? { lastPlaylistSelection: playlistSelection } : {})
     };
     const result = await window.appApi.settings.update({ common, playlist });
     if (result.ok) set({ settings: result.data });

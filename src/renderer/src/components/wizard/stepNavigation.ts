@@ -1,4 +1,4 @@
-import type { PlaylistPreset, Preset } from '@shared/types.js';
+import type { PlaylistSelection, Preset } from '@shared/types.js';
 import { playlistPresetSpec } from '@shared/playlistPresets.js';
 import { presetProducesMedia, presetProducesVideo } from '@shared/presetTraits.js';
 import { isYouTubeExtractor } from '@shared/ytdlp/extractorPredicates.js';
@@ -9,7 +9,7 @@ export type VisibleStep = Exclude<WizardStep, 'error'>;
 export interface StepContext {
   activePreset: Preset | null;
   wizardMode: WizardMode;
-  selectedPlaylistPreset: PlaylistPreset | null;
+  playlistSelection: PlaylistSelection | null;
   // yt-dlp extractor for the URL the user submitted. Empty pre-probe.
   // SponsorBlock step is YouTube-only — non-YT extractors hide the step.
   wizardExtractor: string;
@@ -31,22 +31,22 @@ export const STEP_APPLICABLE: Record<VisibleStep, (ctx: StepContext) => boolean>
   // Playlist-mode skips subtitles once a preset is locked in. Single-mode
   // skips when the probe returned no subtitle tracks (no manual + no
   // auto-captions).
-  subtitles: ({ wizardMode, selectedPlaylistPreset, hasSubtitles }) => {
-    if (wizardMode === 'playlist' && !!selectedPlaylistPreset) return false;
+  subtitles: ({ wizardMode, playlistSelection, hasSubtitles }) => {
+    if (wizardMode === 'playlist' && !!playlistSelection) return false;
     if (wizardMode !== 'playlist' && !hasSubtitles) return false;
     return true;
   },
-  sponsorblock: ({ wizardMode, selectedPlaylistPreset, activePreset, wizardExtractor }) => {
+  sponsorblock: ({ wizardMode, playlistSelection, activePreset, wizardExtractor }) => {
     // SponsorBlock relies on YouTube's chapter timestamps + the SponsorBlock
     // crowdsourced segment database keyed by YouTube video IDs. Non-YT URLs
     // get nothing useful — hide the step entirely.
     if (!isYouTubeExtractor(wizardExtractor)) return false;
-    if (wizardMode === 'playlist' && selectedPlaylistPreset) return playlistPresetSpec(selectedPlaylistPreset).producesVideo;
+    if (wizardMode === 'playlist' && playlistSelection) return playlistPresetSpec(playlistSelection).producesVideo;
     if (activePreset && !presetProducesVideo(activePreset)) return false;
     return true;
   },
-  output: ({ wizardMode, selectedPlaylistPreset, activePreset }) => {
-    if (wizardMode === 'playlist' && selectedPlaylistPreset) return true;
+  output: ({ wizardMode, playlistSelection, activePreset }) => {
+    if (wizardMode === 'playlist' && playlistSelection) return true;
     if (activePreset && !presetProducesMedia(activePreset)) return false;
     return true;
   },

@@ -517,15 +517,47 @@ const zh = {
     }
   },
   playlistPresets: {
-    'video-best': { label: '最佳画质', desc: '每项最高分辨率 + 最佳音频' },
-    'video-2160p': { label: '最高 4K', desc: '上限 2160p，每项自动降级' },
-    'video-1440p': { label: '最高 1440p', desc: '上限 2K，每项自动降级' },
-    'video-1080p': { label: '最高 1080p', desc: '每项上限，自动降级' },
-    'video-720p': { label: '最高 720p', desc: '文件较小，兼容性好' },
-    'video-480p': { label: '最高 480p', desc: '低流量' },
-    'video-360p': { label: '最高 360p', desc: '最小视频' },
-    'audio-best': { label: 'Audio (best)', desc: '原生最佳音频，无需重新编码' },
-    'audio-mp3': { label: 'Audio (MP3)', desc: '转换为 MP3 192 kbps' }
+    type: { video: 'Video', audio: 'Audio' },
+    videoFormat: {
+      best: 'Best codec',
+      mp4: 'MP4 (H.264)'
+    },
+    videoFormatDesc: {
+      best: 'Highest available codec per item',
+      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+    },
+    tier: {
+      best: 'Best quality',
+      '2160': 'Up to 4K',
+      '1440': 'Up to 1440p',
+      '1080': 'Up to 1080p',
+      '720': 'Up to 720p',
+      '480': 'Up to 480p',
+      '360': 'Up to 360p'
+    },
+    tierDesc: {
+      best: 'Highest available video + audio per item',
+      '2160': 'Capped at 2160p, falls back to lower per item',
+      '1440': 'Capped at 2K, falls back to lower per item',
+      '1080': 'Capped at 1080p, falls back to lower per item',
+      '720': 'Smaller files, broad compatibility',
+      '480': 'Low bandwidth',
+      '360': 'Smallest video'
+    },
+    audioFormat: {
+      best: 'Audio (best)',
+      mp3: 'MP3',
+      m4a: 'M4A',
+      opus: 'Opus'
+    },
+    audioFormatDesc: {
+      best: 'Native best audio, no re-encode',
+      mp3: 'Convert to MP3',
+      m4a: 'Convert to M4A (AAC)',
+      opus: 'Convert to Opus'
+    },
+    audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
+    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
   },
   formatLabel: {
     audioFallback: '音频',

@@ -517,15 +517,47 @@ const om = {
     }
   },
   playlistPresets: {
-    'video-best': { label: "Qulqullina ol'aanaa", desc: 'Viidiyoo fi sagalee ol aanaa hunda wanta hundaaf' },
-    'video-2160p': { label: 'Hanga 4K', desc: "Hanga 2160p, gadi aanaatti deebi'a wanta hundaaf" },
-    'video-1440p': { label: 'Hanga 1440p', desc: "Hanga 2K, gadi aanaatti deebi'a wanta hundaaf" },
-    'video-1080p': { label: 'Hanga 1080p', desc: "Wanta hundaaf daangeffame, gadi aanaatti deebi'a" },
-    'video-720p': { label: 'Hanga 720p', desc: "Faayilii xiqqaa, walii galteen bal'aa" },
-    'video-480p': { label: 'Hanga 480p', desc: 'Intarneetii gadi aanaa' },
-    'video-360p': { label: 'Hanga 360p', desc: 'Viidiyoo xiqqaa' },
-    'audio-best': { label: 'Audio (caalmaa)', desc: 'Sagalee caalmaa uumamaa, irra deebi hojii hin qabu' },
-    'audio-mp3': { label: 'Audio (MP3)', desc: 'MP3 192 kbps tti jijjiiri' }
+    type: { video: 'Video', audio: 'Audio' },
+    videoFormat: {
+      best: 'Best codec',
+      mp4: 'MP4 (H.264)'
+    },
+    videoFormatDesc: {
+      best: 'Highest available codec per item',
+      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+    },
+    tier: {
+      best: 'Best quality',
+      '2160': 'Up to 4K',
+      '1440': 'Up to 1440p',
+      '1080': 'Up to 1080p',
+      '720': 'Up to 720p',
+      '480': 'Up to 480p',
+      '360': 'Up to 360p'
+    },
+    tierDesc: {
+      best: 'Highest available video + audio per item',
+      '2160': 'Capped at 2160p, falls back to lower per item',
+      '1440': 'Capped at 2K, falls back to lower per item',
+      '1080': 'Capped at 1080p, falls back to lower per item',
+      '720': 'Smaller files, broad compatibility',
+      '480': 'Low bandwidth',
+      '360': 'Smallest video'
+    },
+    audioFormat: {
+      best: 'Audio (best)',
+      mp3: 'MP3',
+      m4a: 'M4A',
+      opus: 'Opus'
+    },
+    audioFormatDesc: {
+      best: 'Native best audio, no re-encode',
+      mp3: 'Convert to MP3',
+      m4a: 'Convert to M4A (AAC)',
+      opus: 'Convert to Opus'
+    },
+    audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
+    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
   },
   formatLabel: {
     audioFallback: 'Sagalee',

@@ -21,7 +21,7 @@ export function StepConfirm(): JSX.Element {
     thumbnailEmbedNotSupported: t('wizard.confirm.thumbnailEmbedNotSupported'),
     subtitleEmbedAudioOnly: t('wizard.confirm.subtitleEmbedAudioOnly')
   };
-  const { wizardTitle, wizardThumbnail, wizardDuration, wizardWebpageUrl, wizardOutputDir, selectedVideoFormatId, audioSelection, activePreset, wizardFormats, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped, commonPaths, wizardSubfolderEnabled, wizardSubfolderName, addToQueue, addAndDownloadImmediately, back, playlistItems, selectedPlaylistItemIds, selectedPlaylistPreset, playlistTitle, wizardMode, wizardExtractor, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardSponsorBlockMode, isSubmittingToQueue } = useAppStore();
+  const { wizardTitle, wizardThumbnail, wizardDuration, wizardWebpageUrl, wizardOutputDir, selectedVideoFormatId, audioSelection, activePreset, wizardFormats, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped, commonPaths, wizardSubfolderEnabled, wizardSubfolderName, addToQueue, addAndDownloadImmediately, back, playlistItems, selectedPlaylistItemIds, playlistSelection, playlistTitle, wizardMode, wizardExtractor, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardSponsorBlockMode, isSubmittingToQueue } = useAppStore();
   const inPlaylist = wizardMode === 'playlist';
 
   const effectiveSubtitleLanguages = wizardSubtitleSkipped ? [] : wizardSubtitleLanguages;
@@ -46,12 +46,19 @@ export function StepConfirm(): JSX.Element {
     return `${langList} · ${formatPart}${modeLabel}`;
   })();
 
-  const presetLabelStr = selectedPlaylistPreset ? t(`playlistPresets.${selectedPlaylistPreset}.label` as const) : '';
+  const presetLabelStr = (() => {
+    if (!playlistSelection) return '';
+    if (playlistSelection.kind === 'audio') {
+      if (playlistSelection.format === 'best') return t('playlistPresets.audioFormat.best');
+      return t('playlistPresets.audioFormatBitrate', { format: playlistSelection.format.toUpperCase(), kbps: playlistSelection.bitrateKbps ?? 192 });
+    }
+    const tierLabel = t(`playlistPresets.tier.${playlistSelection.tier}`);
+    return playlistSelection.codec === 'mp4' ? `MP4 · ${tierLabel}` : tierLabel;
+  })();
   // "videos" vs "tracks" — pick the unit that matches the actual content.
   // Audio-only extractors (Bandcamp, QQMusic, etc.) and audio playlist
-  // presets (audio-best, audio-mp3) → "tracks". Video extractors / video
-  // presets → "videos".
-  const isAudioPlaylistPreset = !!selectedPlaylistPreset && !playlistPresetSpec(selectedPlaylistPreset).producesVideo;
+  // selections → "tracks". Video selections → "videos".
+  const isAudioPlaylistPreset = !!playlistSelection && !playlistPresetSpec(playlistSelection).producesVideo;
   const itemsAreAudio = isAudioOnlySource(wizardExtractor) || isAudioPlaylistPreset;
   const itemsValue = t(itemsAreAudio ? 'wizard.confirm.itemsValueAudio' : 'wizard.confirm.itemsValue', { count: selectedPlaylistItemIds.length, total: String(playlistItems.length) });
 
@@ -70,7 +77,7 @@ export function StepConfirm(): JSX.Element {
         { key: 'size', label: t('wizard.confirm.labelSize'), value: estimatedSize }
       ];
 
-  const hasNothingSelected = inPlaylist ? !selectedPlaylistPreset || selectedPlaylistItemIds.length === 0 : selectedVideoFormatId === '' && audioSelection.kind === 'none' && effectiveSubtitleLanguages.length === 0;
+  const hasNothingSelected = inPlaylist ? !playlistSelection || selectedPlaylistItemIds.length === 0 : selectedVideoFormatId === '' && audioSelection.kind === 'none' && effectiveSubtitleLanguages.length === 0;
 
   // Only surface conflicts the user actively created through visible wizard steps.
   // subtitle-only skips the output + sponsorblock steps, so those options are never

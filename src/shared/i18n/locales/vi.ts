@@ -488,15 +488,47 @@ const vi = {
     }
   },
   playlistPresets: {
-    'video-best': { label: 'Chất lượng tốt nhất', desc: 'Video + âm thanh cao nhất hiện có cho mỗi mục' },
-    'video-2160p': { label: 'Đến 4K', desc: 'Giới hạn ở 2160p, chuyển sang thấp hơn theo từng mục' },
-    'video-1440p': { label: 'Đến 1440p', desc: 'Giới hạn ở 2K, chuyển sang thấp hơn theo từng mục' },
-    'video-1080p': { label: 'Đến 1080p', desc: 'Giới hạn theo từng mục, chuyển sang thấp hơn' },
-    'video-720p': { label: 'Đến 720p', desc: 'Tệp nhỏ hơn, tương thích rộng' },
-    'video-480p': { label: 'Đến 480p', desc: 'Băng thông thấp' },
-    'video-360p': { label: 'Đến 360p', desc: 'Video nhỏ nhất' },
-    'audio-best': { label: 'Audio (tốt nhất)', desc: 'Âm thanh gốc tốt nhất, không mã hóa lại' },
-    'audio-mp3': { label: 'Audio (MP3)', desc: 'Chuyển đổi sang MP3 192 kbps' }
+    type: { video: 'Video', audio: 'Audio' },
+    videoFormat: {
+      best: 'Best codec',
+      mp4: 'MP4 (H.264)'
+    },
+    videoFormatDesc: {
+      best: 'Highest available codec per item',
+      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+    },
+    tier: {
+      best: 'Best quality',
+      '2160': 'Up to 4K',
+      '1440': 'Up to 1440p',
+      '1080': 'Up to 1080p',
+      '720': 'Up to 720p',
+      '480': 'Up to 480p',
+      '360': 'Up to 360p'
+    },
+    tierDesc: {
+      best: 'Highest available video + audio per item',
+      '2160': 'Capped at 2160p, falls back to lower per item',
+      '1440': 'Capped at 2K, falls back to lower per item',
+      '1080': 'Capped at 1080p, falls back to lower per item',
+      '720': 'Smaller files, broad compatibility',
+      '480': 'Low bandwidth',
+      '360': 'Smallest video'
+    },
+    audioFormat: {
+      best: 'Audio (best)',
+      mp3: 'MP3',
+      m4a: 'M4A',
+      opus: 'Opus'
+    },
+    audioFormatDesc: {
+      best: 'Native best audio, no re-encode',
+      mp3: 'Convert to MP3',
+      m4a: 'Convert to M4A (AAC)',
+      opus: 'Convert to Opus'
+    },
+    audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
+    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
   },
   formatLabel: {
     audioFallback: 'Âm thanh',

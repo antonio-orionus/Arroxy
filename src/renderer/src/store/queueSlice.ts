@@ -6,7 +6,7 @@
 // from wizard state because the wizard data lives in the renderer; once
 // built, the items are pushed to main via queue.cmd.add.
 
-import type { PlaylistEntry, QueueItem, QueueLane } from '@shared/types.js';
+import type { PlaylistEntry, PlaylistSelection, QueueItem, QueueLane } from '@shared/types.js';
 import { QUEUE_STATUS } from '@shared/schemas.js';
 import { DEFAULTS } from '@shared/constants.js';
 import { buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution } from './helpers.js';
@@ -111,14 +111,24 @@ export function playlistOutputTemplate(): string {
   return '%(title).200B [%(id)s].%(ext)s';
 }
 
+function resolvePlaylistFormatLabel(s: PlaylistSelection): string {
+  if (s.kind === 'audio') {
+    if (s.format === 'best') return i18next.t('playlistPresets.audioFormat.best');
+    return i18next.t('playlistPresets.audioFormatBitrate', { format: s.format.toUpperCase(), kbps: s.bitrateKbps ?? 192 });
+  }
+  const tierLabel = i18next.t(`playlistPresets.tier.${s.tier}` as const);
+  if (s.codec === 'mp4') return `MP4 · ${tierLabel}`;
+  return tierLabel;
+}
+
 function buildPlaylistQueueItem(entry: PlaylistEntry, get: GetState, playlistGroupId: string, lane: QueueLane): QueueItem {
   const state = get();
-  const { selectedPlaylistPreset } = state;
-  if (!selectedPlaylistPreset) throw new Error('playlist preset missing');
+  const { playlistSelection } = state;
+  if (!playlistSelection) throw new Error('playlist selection missing');
 
   const baseDir = resolvePlaylistDir(state);
 
-  const formatLabel = i18next.t(`playlistPresets.${selectedPlaylistPreset}.label` as const);
+  const formatLabel = resolvePlaylistFormatLabel(playlistSelection);
   const outputTemplate = playlistOutputTemplate();
 
   const embed: EmbedOptions = {
@@ -133,7 +143,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, get: GetState, playlistGro
     mode: 'playlist',
     extractor: state.wizardExtractor,
     extractorKey: state.wizardExtractorKey,
-    playlistPreset: selectedPlaylistPreset,
+    playlistSelection,
     outputTemplate,
     sponsorBlockMode: state.wizardSponsorBlockMode,
     sponsorBlockCategories: state.wizardSponsorBlockCategories,

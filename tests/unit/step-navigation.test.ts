@@ -9,7 +9,7 @@ import { nextStep, type NavContext } from '@renderer/components/wizard/nextStep.
 const baseCtx: StepContext = {
   activePreset: null,
   wizardMode: 'single',
-  selectedPlaylistPreset: null,
+  playlistSelection: null,
   wizardExtractor: '',
   hasSubtitles: false
 };
@@ -24,11 +24,11 @@ describe('subtitles step gating', () => {
   });
 
   it('hidden in playlist mode after preset chosen (preset auto-runs subs)', () => {
-    expect(shouldSkip('subtitles', { ...baseCtx, wizardMode: 'playlist', selectedPlaylistPreset: 'video-1080p', hasSubtitles: true })).toBe(true);
+    expect(shouldSkip('subtitles', { ...baseCtx, wizardMode: 'playlist', playlistSelection: { kind: 'video', tier: '1080', codec: 'best' }, hasSubtitles: true })).toBe(true);
   });
 
   it('shown in playlist mode pre-preset (user can still pick languages)', () => {
-    expect(shouldSkip('subtitles', { ...baseCtx, wizardMode: 'playlist', selectedPlaylistPreset: null, hasSubtitles: true })).toBe(false);
+    expect(shouldSkip('subtitles', { ...baseCtx, wizardMode: 'playlist', playlistSelection: null, hasSubtitles: true })).toBe(false);
   });
 });
 
@@ -53,7 +53,7 @@ describe('sponsorblock step gating — YouTube-only', () => {
 const baseNavCtx: NavContext = {
   activePreset: null,
   wizardMode: 'single',
-  selectedPlaylistPreset: null,
+  playlistSelection: null,
   wizardExtractor: '',
   hasSubtitles: false,
   wizardSubtitleSkipped: false

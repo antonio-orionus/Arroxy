@@ -1,6 +1,6 @@
 import { playlistPresetSpec } from './playlistPresets.js';
 import type { EmbedOptions, ExtractorIdentity, PreparedJob, SponsorBlockOptions, SubtitleOptions } from './preparedJob.js';
-import type { AudioConvert, PlaylistPreset, Preset, SponsorBlockCategory, SponsorBlockMode } from './schemas.js';
+import type { AudioConvert, PlaylistSelection, Preset, SponsorBlockCategory, SponsorBlockMode } from './schemas.js';
 
 // Pure builder. Lives in `src/shared/` (not renderer) so future QueueStore
 // migrations in main can synthesize jobs without a renderer dependency.
@@ -17,7 +17,7 @@ export interface PrepareJobInput extends ExtractorIdentity {
   activePreset?: Preset | null;
   expectedBytes?: number;
   // playlist-mode inputs (set when mode === 'playlist')
-  playlistPreset?: PlaylistPreset | null;
+  playlistSelection?: PlaylistSelection | null;
   outputTemplate?: string;
   // shared
   subtitles?: SubtitleOptions;
@@ -33,14 +33,16 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
   const outputTemplate = input.outputTemplate ? { outputTemplate: input.outputTemplate } : {};
 
   if (input.mode === 'playlist') {
-    if (!input.playlistPreset) throw new Error('prepareJob: playlist mode requires playlistPreset');
+    if (!input.playlistSelection) throw new Error('prepareJob: playlist mode requires playlistSelection');
     if (!input.outputTemplate) throw new Error('prepareJob: playlist mode requires outputTemplate');
-    const spec = playlistPresetSpec(input.playlistPreset);
+    const spec = playlistPresetSpec(input.playlistSelection);
     return {
       kind: 'playlist-preset',
       ...identity,
-      preset: input.playlistPreset,
+      selection: input.playlistSelection,
       formatSelector: spec.formatSelector,
+      formatSort: spec.formatSort,
+      mergeOutputFormat: spec.mergeOutputFormat,
       audioConvert: spec.audioConvert,
       outputTemplate: input.outputTemplate,
       subtitles,

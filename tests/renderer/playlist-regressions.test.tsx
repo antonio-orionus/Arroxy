@@ -119,7 +119,7 @@ beforeEach(() => {
     playlistId: '',
     playlistProbeLoading: false,
     playlistIsMultiVideo: false,
-    selectedPlaylistPreset: null,
+    playlistSelection: null,
     wizardExtractor: '',
     wizardExtractorKey: '',
     wizardWebpageUrl: '',
@@ -189,6 +189,7 @@ describe('playlist regressions', () => {
   });
 
   it('playlist probe restores persisted common prefs before the first playlist save', async () => {
+    const selAudioMp3 = { kind: 'audio' as const, format: 'mp3' as const, bitrateKbps: 192 as const };
     const api = buildMockApi({
       embedChapters: true,
       embedMetadata: true,
@@ -197,7 +198,7 @@ describe('playlist regressions', () => {
       writeThumbnail: true,
       lastSponsorBlockMode: 'mark',
       lastSponsorBlockCategories: ['intro'],
-      lastPlaylistPreset: 'audio-mp3',
+      lastPlaylistSelection: selAudioMp3,
       lastSubfolderEnabled: true,
       lastSubfolder: 'Saved Folder'
     });
@@ -214,7 +215,7 @@ describe('playlist regressions', () => {
     expect(useAppStore.getState().wizardWriteThumbnail).toBe(true);
     expect(useAppStore.getState().wizardSponsorBlockMode).toBe('mark');
     expect(useAppStore.getState().wizardSponsorBlockCategories).toEqual(['intro']);
-    expect(useAppStore.getState().selectedPlaylistPreset).toBe('audio-mp3');
+    expect(useAppStore.getState().playlistSelection).toEqual(selAudioMp3);
     expect(useAppStore.getState().wizardSubfolderEnabled).toBe(true);
     expect(useAppStore.getState().wizardSubfolderName).toBe('Saved Folder');
 
@@ -236,19 +237,21 @@ describe('playlist regressions', () => {
     });
   });
 
-  it('playlist format retry preserves a manually selected playlist preset', async () => {
-    window.appApi = buildMockApi({ lastPlaylistPreset: 'audio-mp3' }) as never;
+  it('playlist format retry preserves a manually selected playlist selection', async () => {
+    const selAudioMp3 = { kind: 'audio' as const, format: 'mp3' as const, bitrateKbps: 192 as const };
+    const sel1080 = { kind: 'video' as const, tier: '1080' as const, codec: 'best' as const };
+    window.appApi = buildMockApi({ lastPlaylistSelection: selAudioMp3 }) as never;
 
     await useAppStore.getState().initialize();
     useAppStore.getState().setWizardUrl('https://www.youtube.com/playlist?list=PL123');
     await useAppStore.getState().submitUrl();
-    useAppStore.getState().setPlaylistPreset('video-1080p');
+    useAppStore.getState().setPlaylistSelection(sel1080);
 
     await act(async () => {
       await useAppStore.getState().retryFormatProbe();
     });
 
-    expect(useAppStore.getState().selectedPlaylistPreset).toBe('video-1080p');
+    expect(useAppStore.getState().playlistSelection).toEqual(sel1080);
   });
 
   it('playlist outputTemplate is position-independent with id-suffix and byte-safe title', async () => {
@@ -265,7 +268,7 @@ describe('playlist regressions', () => {
         { id: 'p100', url: 'https://youtube.com/watch?v=p100', title: 'Vid 100', thumbnail: '', playlistIndex: 100, videoId: 'p100' }
       ],
       selectedPlaylistItemIds: ['p9', 'p10', 'p100'],
-      selectedPlaylistPreset: 'video-1080p',
+      playlistSelection: { kind: 'video', tier: '1080', codec: 'best' },
       wizardOutputDir: '/tmp/out'
     } as never);
 
@@ -288,7 +291,7 @@ describe('playlist regressions', () => {
       playlistTitle: 'Big Playlist',
       playlistItems: [{ id: 'p1', url: 'https://youtube.com/watch?v=p1', title: 'Vid 1', thumbnail: '', playlistIndex: 1, videoId: 'p1' }],
       selectedPlaylistItemIds: ['p1'],
-      selectedPlaylistPreset: 'video-1080p',
+      playlistSelection: { kind: 'video', tier: '1080', codec: 'best' },
       wizardOutputDir: '/tmp/out',
       wizardWriteM3u: false
     } as never);
@@ -312,7 +315,7 @@ describe('playlist regressions', () => {
       playlistTitle: 'Big Playlist',
       playlistItems: [{ id: 'p1', url: 'https://youtube.com/watch?v=p1', title: 'Vid 1', thumbnail: '', playlistIndex: 1, videoId: 'p1' }],
       selectedPlaylistItemIds: ['p1'],
-      selectedPlaylistPreset: 'video-1080p',
+      playlistSelection: { kind: 'video', tier: '1080', codec: 'best' },
       wizardOutputDir: '/tmp/out',
       wizardWriteM3u: true
     } as never);

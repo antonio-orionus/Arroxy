@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import Store from 'electron-store';
-import type { AppSettings, CommonSettings, PlaylistPrefs, SinglePrefs } from '@shared/types.js';
+import type { AppSettings, CommonSettings, SinglePrefs } from '@shared/types.js';
 import type { SettingsPatch } from '@shared/api.js';
 
 export type { SettingsPatch };
@@ -14,7 +14,7 @@ const LEGACY_COMMON_FLAT_KEYS = ['cookiesEnabled'] as const;
 
 const SINGLE_FLAT_KEYS = ['lastPreset', 'lastVideoResolution', 'lastSubtitleLanguages', 'lastSubtitleMode', 'lastSubtitleFormat'] as const;
 
-const PLAYLIST_FLAT_KEYS = ['lastPlaylistPreset'] as const;
+const PLAYLIST_FLAT_KEYS = [] as const;
 
 function pickKeys<K extends string>(src: Record<string, unknown>, keys: readonly K[]): Partial<Record<K, unknown>> {
   const out: Partial<Record<K, unknown>> = {};
@@ -36,7 +36,7 @@ function migrateFlatToNested(raw: Record<string, unknown>, defaults: AppSettings
   const picked = { ...pickKeys(raw, COMMON_FLAT_KEYS), ...pickKeys(raw, LEGACY_COMMON_FLAT_KEYS) };
   const common = { ...defaults.common, ...picked } as CommonSettings & { cookiesEnabled?: boolean };
   const single = { ...defaults.single, ...pickKeys(raw, SINGLE_FLAT_KEYS) } as SinglePrefs;
-  const playlist = { ...defaults.playlist, ...pickKeys(raw, PLAYLIST_FLAT_KEYS) } as PlaylistPrefs;
+  const playlist = { ...defaults.playlist, ...pickKeys(raw, PLAYLIST_FLAT_KEYS) };
   return { common, single, playlist };
 }
 

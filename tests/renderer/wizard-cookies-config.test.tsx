@@ -77,7 +77,7 @@ function resetStore(settings: AppSettings): void {
     playlistId: '',
     playlistIsMultiVideo: false,
     cookiesConfigDialogIssue: null,
-    selectedPlaylistPreset: null,
+    playlistSelection: null,
     queue: [],
     drawerOpen: false
   });

@@ -106,7 +106,7 @@ function resetStore() {
     wizardWriteThumbnail: false,
     playlistItems: [],
     selectedPlaylistItemIds: [],
-    selectedPlaylistPreset: null,
+    playlistSelection: null,
     playlistTitle: '',
     queue: [],
     drawerOpen: true
@@ -127,7 +127,7 @@ describe('D1/D3 — StepConfirm playlist-mode rendering', () => {
       playlistTitle: 'My Playlist',
       playlistItems: PLAYLIST_ENTRIES,
       selectedPlaylistItemIds: ['p1', 'p2'],
-      selectedPlaylistPreset: 'video-1080p',
+      playlistSelection: { kind: 'video', tier: '1080', codec: 'best' },
       wizardOutputDir: '/tmp/playlists'
     } as never);
   }
@@ -160,7 +160,7 @@ describe('D1/D3 — StepConfirm playlist-mode rendering', () => {
   it('disables AddToQueue when no preset selected (playlist mode has no Pull-it CTA)', () => {
     window.appApi = buildMockApi() as never;
     setPlaylistConfirmState();
-    useAppStore.setState({ selectedPlaylistPreset: null } as never);
+    useAppStore.setState({ playlistSelection: null } as never);
     render(<StepConfirm />);
     expect(screen.queryByTestId('btn-download-now')).toBeNull();
     expect(screen.getByTestId('btn-add-to-queue')).toBeDisabled();
@@ -186,7 +186,7 @@ describe('D2 — persistFormatPrefs mode-keyed', () => {
       playlistTitle: 'PL',
       playlistItems: PLAYLIST_ENTRIES,
       selectedPlaylistItemIds: ['p1'],
-      selectedPlaylistPreset: 'audio-mp3',
+      playlistSelection: { kind: 'audio', format: 'mp3', bitrateKbps: 192 },
       wizardSubfolderEnabled: true,
       wizardSubfolderName: 'PlaylistFolder',
       wizardOutputDir: '/tmp'
@@ -196,7 +196,7 @@ describe('D2 — persistFormatPrefs mode-keyed', () => {
 
     expect(update).toHaveBeenCalledOnce();
     const patch = update.mock.calls[0][0];
-    expect(patch.playlist).toEqual({ lastPlaylistPreset: 'audio-mp3' });
+    expect(patch.playlist).toEqual({ lastPlaylistSelection: { kind: 'audio', format: 'mp3', bitrateKbps: 192 } });
     expect(patch.common).toMatchObject({ lastSubfolderEnabled: true, lastSubfolder: 'PlaylistFolder' });
     expect(patch).not.toHaveProperty('single');
   });

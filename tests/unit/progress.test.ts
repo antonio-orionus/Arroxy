@@ -1,5 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { parseSpeedBps, parseEtaSeconds, formatEta, ProgressFormatter, nextMonotonicPercent } from '../../src/shared/progressFormat.js';
+import { ProgressNormalizer } from '../../src/shared/progressNormalizer.js';
 
 describe('parseSpeedBps', () => {
   it('parses MiB/s', () => {
@@ -74,6 +75,43 @@ describe('nextMonotonicPercent', () => {
 
   it('returns current on undefined', () => {
     expect(nextMonotonicPercent(42, undefined)).toBe(42);
+  });
+});
+
+describe('ProgressNormalizer', () => {
+  it('ignores low-confidence HLS bootstrap completion', () => {
+    const normalizer = new ProgressNormalizer();
+    const next = normalizer.nextRunningPercent(0, {
+      percent: 100,
+      line: '[download] 100.0% of ~   1.00KiB at    1.25KiB/s ETA Unknown (frag 0/128)'
+    });
+
+    expect(next).toBe(0);
+  });
+
+  it('accepts later HLS fragment progress after bootstrap noise', () => {
+    const normalizer = new ProgressNormalizer();
+    const afterBootstrap = normalizer.nextRunningPercent(0, {
+      percent: 100,
+      line: '[download] 100.0% of ~   1.00KiB at    1.25KiB/s ETA Unknown (frag 0/128)'
+    });
+    const next = normalizer.nextRunningPercent(afterBootstrap, {
+      percent: 1.6,
+      line: '[download]   1.6% of ~ 127.88MiB at    1.94MiB/s ETA Unknown (frag 1/128)'
+    });
+
+    expect(next).toBeCloseTo(1.6, 1);
+  });
+
+  it('caps running progress below 100 until a terminal status completes the job', () => {
+    const normalizer = new ProgressNormalizer();
+
+    const next = normalizer.nextRunningPercent(88, {
+      percent: 100,
+      line: '[download] 100.0% of 240.00MiB in 00:52'
+    });
+
+    expect(next).toBe(99.9);
   });
 });
 

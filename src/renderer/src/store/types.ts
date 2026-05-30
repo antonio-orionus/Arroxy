@@ -1,5 +1,5 @@
 import type { StoreApi } from 'zustand';
-import type { AppSettings, AudioBitrate, CookiesBrowser, CookiesMode, DependencyDiagnostic, DependencyId, FormatOption, PlaylistEntry, PlaylistPreset, Preset, ProbeError, ProbeDegradationReason, QueueItem, QueueLane, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme } from '@shared/types.js';
+import type { AppSettings, AudioBitrate, CookiesBrowser, CookiesMode, DependencyDiagnostic, DependencyId, FormatOption, PlaylistEntry, PlaylistSelection, Preset, ProbeError, ProbeDegradationReason, QueueItem, QueueLane, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme } from '@shared/types.js';
 import type { AudioSelection } from '@shared/schemas.js';
 import type { IncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 export type { AudioSelection };
@@ -48,7 +48,7 @@ export interface ProbeOrchestratorSlice {
   playlistId: string;
   playlistIsMultiVideo: boolean;
   playlistProbeLoading: boolean;
-  selectedPlaylistPreset: PlaylistPreset | null;
+  playlistSelection: PlaylistSelection | null;
 
   // videoIds matched on disk by the last folder scan
   syncedDownloadedIds: string[];
@@ -64,7 +64,7 @@ export interface ProbeOrchestratorSlice {
   selectNonePlaylistItems: () => void;
   selectPlaylistRange: (from: number, to: number) => void;
   confirmPlaylistSelection: () => void;
-  setPlaylistPreset: (p: PlaylistPreset) => void;
+  setPlaylistSelection: (s: PlaylistSelection) => void;
   scanDownloadedInFolder: () => Promise<void>;
   applyFolderSync: () => void;
   advance: () => void;

@@ -24,7 +24,8 @@ import { createAppError } from '@main/utils/errorFactory.js';
 import { nowIso } from '@main/utils/clock.js';
 import { QUEUE_STATUS, STATUS_KEY, type QueueLane, type StatusKey } from '@shared/schemas.js';
 import { transition, illegalTransition, type QueueEvent } from '@shared/queueTransition.js';
-import { ProgressFormatter, nextMonotonicPercent } from '@shared/progressFormat.js';
+import { ProgressFormatter } from '@shared/progressFormat.js';
+import { ProgressNormalizer } from '@shared/progressNormalizer.js';
 import { INTER_JOB_SLEEP_MS, MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP } from '@shared/constants.js';
 import type { ProgressEvent, QueueItem, StatusEvent } from '@shared/types.js';
 import type { QueueStore } from '@main/stores/QueueStore.js';
@@ -60,6 +61,9 @@ export class QueueService extends EventEmitter {
   // One ProgressFormatter per running jobId — preserves throttle / spike-suppress
   // state across consecutive progress lines for that job.
   private readonly progressFormatters = new Map<string, ProgressFormatter>();
+  // One ProgressNormalizer per running jobId — keeps yt-dlp percent quirks out
+  // of the queue state machine.
+  private readonly progressNormalizers = new Map<string, ProgressNormalizer>();
   // Progress-event coalescing seam. yt-dlp emits many progress lines per second
   // per job; un-throttled, the renderer queue projection (290+ items) cannot
   // keep up with the IPC fan-out. Progress is lossy (latest wins per item),
@@ -273,6 +277,8 @@ export class QueueService extends EventEmitter {
       this.inBulk = true;
       try {
         for (const id of ids) {
+          const jobId = this.findItem(id)?.lastJobId;
+          if (jobId) this.forgetProgressState(jobId);
           this.commit({ kind: 'event', itemId: id, evt: { kind: 'cancelled' } });
         }
       } finally {
@@ -299,6 +305,7 @@ export class QueueService extends EventEmitter {
 
     if (item.lastJobId) {
       await this.downloadService.cancel(item.lastJobId);
+      this.forgetProgressState(item.lastJobId);
     }
     this.commit({ kind: 'event', itemId, evt: { kind: 'cancelled' } });
     return ok(undefined);
@@ -359,7 +366,7 @@ export class QueueService extends EventEmitter {
     const item = this.findByJobId(event.jobId);
     if (!item) return;
     if (event.stage === 'done') {
-      this.progressFormatters.delete(event.jobId);
+      this.forgetProgressState(event.jobId);
       // Inter-job cooldown applies only when a normal-lane job finishes —
       // priority jobs are user-driven bursts, no need to throttle the queue
       // after they wrap.
@@ -372,7 +379,7 @@ export class QueueService extends EventEmitter {
       return;
     }
     if (event.stage === 'error') {
-      this.progressFormatters.delete(event.jobId);
+      this.forgetProgressState(event.jobId);
       // Cancellation arrives as STATUS_KEY.cancelled — already projected via
       // the cancel command path. Skip a redundant transition.
       if (event.statusKey === 'cancelled') return;
@@ -393,6 +400,11 @@ export class QueueService extends EventEmitter {
       reason: `phase:${event.statusKey}`,
       patcher: (prev) => ({ ...prev, lastStatus: { key: event.statusKey, params: event.params }, progressDetail: null })
     });
+  }
+
+  private forgetProgressState(jobId: string): void {
+    this.progressFormatters.delete(jobId);
+    this.progressNormalizers.delete(jobId);
   }
 
   // Post-download phase keys. yt-dlp can emit a straggler `[download] X%`
@@ -419,11 +431,16 @@ export class QueueService extends EventEmitter {
       formatter = new ProgressFormatter();
       this.progressFormatters.set(event.jobId, formatter);
     }
+    let normalizer = this.progressNormalizers.get(event.jobId);
+    if (!normalizer) {
+      normalizer = new ProgressNormalizer();
+      this.progressNormalizers.set(event.jobId, normalizer);
+    }
     const detail = formatter.update(event.line);
     this.commit({
       kind: 'event',
       itemId: item.id,
-      evt: { kind: 'progress', percent: nextMonotonicPercent(item.progressPercent, event.percent), ...(detail !== null ? { detail } : {}) }
+      evt: { kind: 'progress', percent: normalizer.nextRunningPercent(item.progressPercent, event), ...(detail !== null ? { detail } : {}) }
     });
   }
 

@@ -5,7 +5,7 @@
 
 import { DEFAULTS } from '@shared/constants.js';
 import { DEFAULT_AUDIO_BITRATE } from '@shared/schemas.js';
-import type { FormatOption, PlaylistEntry, PlaylistPreset, SubtitleMap } from '@shared/types.js';
+import type { FormatOption, PlaylistEntry, PlaylistSelection, SubtitleMap } from '@shared/types.js';
 import type { SetState, WizardMode, WizardStep } from '../types.js';
 
 // Full wizard reset state — owned conceptually by the four slices but applied
@@ -32,7 +32,7 @@ export const RESET_WIZARD_STATE = {
   playlistId: '',
   playlistIsMultiVideo: false,
   playlistProbeLoading: false,
-  selectedPlaylistPreset: null as PlaylistPreset | null,
+  playlistSelection: null as PlaylistSelection | null,
   // formatPicker
   wizardFormats: [] as FormatOption[],
   selectedVideoFormatId: '',

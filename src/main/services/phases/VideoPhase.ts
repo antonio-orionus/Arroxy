@@ -68,6 +68,8 @@ export function VideoPhase(embed: boolean): Phase {
 
       const formatId = preparedJob.kind === 'single-format' ? preparedJob.formatId : undefined;
       const formatSelector = preparedJob.kind === 'playlist-preset' ? preparedJob.formatSelector : undefined;
+      const formatSort = preparedJob.kind === 'playlist-preset' ? preparedJob.formatSort : undefined;
+      const mergeOutputFormat = preparedJob.kind === 'playlist-preset' ? preparedJob.mergeOutputFormat : undefined;
       const audioConvert = preparedJob.kind === 'audio-convert' ? preparedJob.audioConvert : preparedJob.kind === 'playlist-preset' ? preparedJob.audioConvert : undefined;
       const outputTemplate = preparedJob.outputTemplate;
       const { embed: embedOpts } = preparedJob;
@@ -81,6 +83,8 @@ export function VideoPhase(embed: boolean): Phase {
               tempDir,
               formatId,
               formatSelector,
+              formatSort,
+              mergeOutputFormat,
               audioConvert,
               subtitleLanguages: preparedJob.subtitles!.languages,
               writeAutoSubs: preparedJob.subtitles!.writeAuto,
@@ -100,6 +104,8 @@ export function VideoPhase(embed: boolean): Phase {
               tempDir,
               formatId,
               formatSelector,
+              formatSort,
+              mergeOutputFormat,
               audioConvert,
               sponsorBlock: sbConfig,
               embedChapters: embedOpts.chapters,

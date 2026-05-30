@@ -9,7 +9,8 @@
 // one transition so the UI never sees a half-updated wizard.
 
 import { DEFAULTS } from '@shared/constants.js';
-import type { AppSettings, PlaylistPreset, ProbePlaylistMode, ProbeResult, WizardTransition } from '@shared/types.js';
+import type { AppSettings, PlaylistSelection, ProbePlaylistMode, ProbeResult, WizardTransition } from '@shared/types.js';
+import { DEFAULT_PLAYLIST_SELECTION } from '@shared/schemas.js';
 import { getIncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 import { cleanUrl } from '@shared/cleanUrl.js';
 import { resolvePlaylistDir } from './playlistDir.js';
@@ -27,9 +28,11 @@ export function isMixedYouTubeUrl(url: string): boolean {
   try {
     const u = new URL(url);
     const host = u.hostname.toLowerCase();
-    const isYouTube = host === 'youtube.com' || host.endsWith('.youtube.com');
+    const isYouTube = host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtu.be';
     if (!isYouTube) return false;
-    return !!u.searchParams.get('v') && !!u.searchParams.get('list');
+    // youtu.be/<videoId>?list=... — video ID is in the pathname, not ?v=
+    const hasVideo = !!u.searchParams.get('v') || (host === 'youtu.be' && u.pathname.length > 1);
+    return hasVideo && !!u.searchParams.get('list');
   } catch {
     return false;
   }
@@ -95,7 +98,7 @@ function navCtx(state: AppState): NavContext {
   return {
     activePreset: state.activePreset,
     wizardMode: state.wizardMode,
-    selectedPlaylistPreset: state.selectedPlaylistPreset,
+    playlistSelection: state.playlistSelection,
     wizardExtractor: state.wizardExtractor,
     hasSubtitles,
     wizardSubtitleSkipped: state.wizardSubtitleSkipped
@@ -222,12 +225,11 @@ function applyVideoProbeResult(probe: Extract<ProbeResult, { kind: 'video' }>, s
 
 function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist' }>, set: SetState, get: GetState, firstProbe: boolean): void {
   const settings = get().settings;
-  // Audio-only sources skip the persisted video preset and default straight
-  // to `audio-best` — the user came to a music host, video presets would be
-  // wrong (and yt-dlp would reject a video preset for audio-only entries).
-  const persistedPreset = settings?.playlist?.lastPlaylistPreset ?? 'video-best';
-  const computedPreset: PlaylistPreset = probe.isAudioOnlySource ? 'audio-best' : persistedPreset;
-  const selectedPlaylistPreset = firstProbe ? computedPreset : (get().selectedPlaylistPreset ?? computedPreset);
+  // Audio-only sources skip the persisted video selection and default to
+  // audio-best — the user came to a music host, video presets would fail.
+  const persistedSelection: PlaylistSelection = settings?.playlist?.lastPlaylistSelection ?? DEFAULT_PLAYLIST_SELECTION;
+  const computedSelection: PlaylistSelection = probe.isAudioOnlySource ? { kind: 'audio', format: 'best' } : persistedSelection;
+  const playlistSelection = firstProbe ? computedSelection : (get().playlistSelection ?? computedSelection);
   set({
     wizardStep: 'playlistItems',
     wizardMode: 'playlist',
@@ -250,7 +252,7 @@ function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist'
           wizardSubfolderName: settings?.common?.lastSubfolder ?? ''
         }
       : {}),
-    selectedPlaylistPreset
+    playlistSelection
   });
 }
 
@@ -333,7 +335,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
     playlistId: RESET_WIZARD_STATE.playlistId,
     playlistIsMultiVideo: RESET_WIZARD_STATE.playlistIsMultiVideo,
     playlistProbeLoading: RESET_WIZARD_STATE.playlistProbeLoading,
-    selectedPlaylistPreset: RESET_WIZARD_STATE.selectedPlaylistPreset,
+    playlistSelection: RESET_WIZARD_STATE.playlistSelection,
     syncedDownloadedIds: RESET_WIZARD_STATE.syncedDownloadedIds,
     syncScanState: RESET_WIZARD_STATE.syncScanState,
 
@@ -388,7 +390,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
       logStep('advance', wizardStep, 'playlistPresets', pickWizardSnapshot(get()));
     },
 
-    setPlaylistPreset: (p) => set({ selectedPlaylistPreset: p, wizardSubtitleSkipped: false }),
+    setPlaylistSelection: (s) => set({ playlistSelection: s, wizardSubtitleSkipped: false }),
 
     // Scan the destination folder for already-downloaded items. Populates
     // syncedDownloadedIds (drives the "already downloaded" badges + the sync

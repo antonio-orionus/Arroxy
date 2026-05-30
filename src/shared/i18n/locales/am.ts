@@ -488,15 +488,47 @@ const am = {
     }
   },
   playlistPresets: {
-    'video-best': { label: 'ምርጥ ጥራት', desc: 'ለእያንዳንዱ ንጥል ከፍተኛ ቪዲዮ + ድምጽ' },
-    'video-2160p': { label: '4K ድረስ', desc: '2160p ተወስኗል፣ ለእያንዳንዱ ንጥል ዝቅ ይላል' },
-    'video-1440p': { label: '1440p ድረስ', desc: '2K ተወስኗል፣ ለእያንዳንዱ ንጥል ዝቅ ይላል' },
-    'video-1080p': { label: '1080p ድረስ', desc: 'ለእያንዳንዱ ንጥል ተወስኗል፣ ዝቅ ይላል' },
-    'video-720p': { label: '720p ድረስ', desc: 'ትናንሽ ፋይሎች፣ ሰፊ ተኳሃኝነት' },
-    'video-480p': { label: '480p ድረስ', desc: 'ዝቅተኛ ባንድዊድዝ' },
-    'video-360p': { label: '360p ድረስ', desc: 'ትንሹ ቪዲዮ' },
-    'audio-best': { label: 'Audio (ምርጥ)', desc: 'ተፈጥሯዊ ምርጥ ድምጽ፣ ዳግም ኢንኮድ የለም' },
-    'audio-mp3': { label: 'Audio (MP3)', desc: 'ወደ MP3 192 kbps ቀይር' }
+    type: { video: 'Video', audio: 'Audio' },
+    videoFormat: {
+      best: 'Best codec',
+      mp4: 'MP4 (H.264)'
+    },
+    videoFormatDesc: {
+      best: 'Highest available codec per item',
+      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+    },
+    tier: {
+      best: 'Best quality',
+      '2160': 'Up to 4K',
+      '1440': 'Up to 1440p',
+      '1080': 'Up to 1080p',
+      '720': 'Up to 720p',
+      '480': 'Up to 480p',
+      '360': 'Up to 360p'
+    },
+    tierDesc: {
+      best: 'Highest available video + audio per item',
+      '2160': 'Capped at 2160p, falls back to lower per item',
+      '1440': 'Capped at 2K, falls back to lower per item',
+      '1080': 'Capped at 1080p, falls back to lower per item',
+      '720': 'Smaller files, broad compatibility',
+      '480': 'Low bandwidth',
+      '360': 'Smallest video'
+    },
+    audioFormat: {
+      best: 'Audio (best)',
+      mp3: 'MP3',
+      m4a: 'M4A',
+      opus: 'Opus'
+    },
+    audioFormatDesc: {
+      best: 'Native best audio, no re-encode',
+      mp3: 'Convert to MP3',
+      m4a: 'Convert to M4A (AAC)',
+      opus: 'Convert to Opus'
+    },
+    audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
+    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
   },
   formatLabel: {
     audioFallback: 'ድምጽ',

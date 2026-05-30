@@ -84,7 +84,7 @@ function resetStore(): void {
     playlistId: '',
     playlistIsMultiVideo: false,
     cookiesConfigDialogIssue: null,
-    selectedPlaylistPreset: null,
+    playlistSelection: null,
     queue: [],
     drawerOpen: false
   });
@@ -127,8 +127,9 @@ describe('audio-only source UI propagation — single video', () => {
 });
 
 describe('audio-only source UI propagation — playlist', () => {
-  it('forces playlist preset=audio-best when isAudioOnlySource:true (qqmusic)', async () => {
-    const api = buildMockAppApi({ settings: buildAppSettings({ lastPlaylistPreset: 'video-1080p' }) });
+  it('forces playlist selection=audio-best when isAudioOnlySource:true (qqmusic)', async () => {
+    const sel1080 = { kind: 'video' as const, tier: '1080' as const, codec: 'best' as const };
+    const api = buildMockAppApi({ settings: buildAppSettings({ lastPlaylistSelection: sel1080 }) });
     api.downloads.probe = vi.fn().mockResolvedValue(ok(buildPlaylistProbe('qqmusic:playlist', true)));
     window.appApi = api;
 
@@ -137,11 +138,12 @@ describe('audio-only source UI propagation — playlist', () => {
     await useAppStore.getState().submitUrl();
 
     const state = useAppStore.getState();
-    expect(state.selectedPlaylistPreset).toBe('audio-best');
+    expect(state.playlistSelection).toEqual({ kind: 'audio', format: 'best' });
   });
 
-  it('respects persisted playlist preset when isAudioOnlySource:false (youtube playlist)', async () => {
-    const api = buildMockAppApi({ settings: buildAppSettings({ lastPlaylistPreset: 'video-1080p' }) });
+  it('respects persisted playlist selection when isAudioOnlySource:false (youtube playlist)', async () => {
+    const sel1080 = { kind: 'video' as const, tier: '1080' as const, codec: 'best' as const };
+    const api = buildMockAppApi({ settings: buildAppSettings({ lastPlaylistSelection: sel1080 }) });
     api.downloads.probe = vi.fn().mockResolvedValue(ok(buildPlaylistProbe('youtube:tab', false)));
     window.appApi = api;
 
@@ -150,6 +152,6 @@ describe('audio-only source UI propagation — playlist', () => {
     await useAppStore.getState().submitUrl();
 
     const state = useAppStore.getState();
-    expect(state.selectedPlaylistPreset).toBe('video-1080p');
+    expect(state.playlistSelection).toEqual(sel1080);
   });
 });

@@ -5,7 +5,7 @@ function ctx(overrides: Partial<NavContext> = {}): NavContext {
   return {
     activePreset: null,
     wizardMode: 'single',
-    selectedPlaylistPreset: null,
+    playlistSelection: null,
     wizardExtractor: 'youtube',
     hasSubtitles: true,
     wizardSubtitleSkipped: false,

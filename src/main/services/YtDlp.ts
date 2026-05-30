@@ -56,6 +56,10 @@ export type YtDlpRequest =
       tempDir?: string;
       formatId?: string;
       formatSelector?: string;
+      // -S sort string for codec/container preference (never fails, picks closest).
+      formatSort?: string;
+      // --merge-output-format container override (e.g. 'mp4' for playlist MP4 mode).
+      mergeOutputFormat?: string;
       skipDownload?: boolean;
       audioConvert?: AudioConvert;
       sponsorBlock?: { mode: Exclude<SponsorBlockMode, 'off'>; categories: SponsorBlockCategory[] };
@@ -77,6 +81,8 @@ export type YtDlpRequest =
       tempDir?: string;
       formatId?: string;
       formatSelector?: string;
+      formatSort?: string;
+      mergeOutputFormat?: string;
       audioConvert?: AudioConvert;
       subtitleLanguages: string[];
       writeAutoSubs?: boolean;
@@ -404,7 +410,7 @@ function buildSubtitleArgs(req: Extract<YtDlpRequest, { kind: 'subtitle' }>, pac
   return ['--skip-download', '--no-playlist', '--write-subs', '--sub-langs', req.subtitleLanguages.join(','), ...(req.writeAutoSubs ? ['--write-auto-subs'] : []), ...sleepSubtitlesArgs(pacing), ...requestPacingArgs(pacing), '--sub-format', `${fmt}/best`, '--convert-subs', fmt, '-o', `${subOutputDir}/${template}`, req.url];
 }
 
-function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embed' }>, pacing: NetworkPacingArgs | undefined): string[] {
+export function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embed' }>, pacing: NetworkPacingArgs | undefined): string[] {
   const skipDownload = req.kind === 'video' && req.skipDownload === true;
   const args: string[] = ['--progress', '--no-playlist'];
   // Resume hardening: feed cached metadata from a prior spawn so yt-dlp
@@ -475,6 +481,10 @@ function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embe
     }
   } else if (req.formatSelector) {
     args.push('-f', req.formatSelector);
+    if (req.formatSort) args.push('-S', req.formatSort);
+    // forcesMkv (embed) takes precedence — embed's --merge-output-format mkv
+    // wins over playlist MP4 so subtitle embedding stays intact.
+    if (req.mergeOutputFormat && !forcesMkv) args.push('--merge-output-format', req.mergeOutputFormat);
   } else if (req.formatId) {
     args.push('-f', req.formatId);
   }

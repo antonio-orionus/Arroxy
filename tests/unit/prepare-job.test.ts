@@ -138,10 +138,11 @@ describe('prepareJob', () => {
 
   describe('playlist-preset kind', () => {
     it('builds video preset with formatSelector', () => {
+      const sel = { kind: 'video' as const, tier: '1080' as const, codec: 'best' as const };
       const job = prepareJob({
         ...BASE,
         mode: 'playlist',
-        playlistPreset: 'video-1080p',
+        playlistSelection: sel,
         outputTemplate: '01 - %(title)s.%(ext)s',
         embed: EMBED_ALL
       });
@@ -149,8 +150,10 @@ describe('prepareJob', () => {
         kind: 'playlist-preset',
         extractor: 'youtube',
         extractorKey: 'Youtube',
-        preset: 'video-1080p',
+        selection: sel,
         formatSelector: 'bestvideo[height<=1080]+bestaudio/best[height<=1080]',
+        formatSort: undefined,
+        mergeOutputFormat: undefined,
         audioConvert: undefined,
         outputTemplate: '01 - %(title)s.%(ext)s',
         subtitles: undefined,
@@ -160,25 +163,43 @@ describe('prepareJob', () => {
       expect(preparedJobSchema.safeParse(job).success).toBe(true);
     });
 
-    it('builds audio-mp3 preset with audioConvert', () => {
-      const job = prepareJob({ ...BASE, mode: 'playlist', playlistPreset: 'audio-mp3', outputTemplate: '01 - %(title)s.%(ext)s' });
+    it('builds audio lossy preset with audioConvert', () => {
+      const job = prepareJob({
+        ...BASE,
+        mode: 'playlist',
+        playlistSelection: { kind: 'audio', format: 'mp3', bitrateKbps: 192 },
+        outputTemplate: '01 - %(title)s.%(ext)s'
+      });
       if (job.kind !== 'playlist-preset') throw new Error('unreachable');
       expect(job.audioConvert).toEqual({ target: 'mp3', bitrateKbps: 192 });
       expect(job.formatSelector).toBeUndefined();
     });
 
-    it('preserves the preset name (regression: was lost as "custom")', () => {
-      const job = prepareJob({ ...BASE, mode: 'playlist', playlistPreset: 'video-720p', outputTemplate: 't.ext' });
+    it('mp4 codec emits formatSort + mergeOutputFormat', () => {
+      const job = prepareJob({
+        ...BASE,
+        mode: 'playlist',
+        playlistSelection: { kind: 'video', tier: '720', codec: 'mp4' },
+        outputTemplate: 't.ext'
+      });
       if (job.kind !== 'playlist-preset') throw new Error('unreachable');
-      expect(job.preset).toBe('video-720p');
+      expect(job.formatSort).toContain('vcodec:h264');
+      expect(job.mergeOutputFormat).toBe('mp4');
     });
 
-    it('throws when playlist mode missing preset', () => {
-      expect(() => prepareJob({ ...BASE, mode: 'playlist', outputTemplate: 't.ext' })).toThrow(/playlistPreset/);
+    it('preserves selection (regression: was lost as "custom")', () => {
+      const sel = { kind: 'video' as const, tier: '720' as const, codec: 'best' as const };
+      const job = prepareJob({ ...BASE, mode: 'playlist', playlistSelection: sel, outputTemplate: 't.ext' });
+      if (job.kind !== 'playlist-preset') throw new Error('unreachable');
+      expect(job.selection).toEqual(sel);
+    });
+
+    it('throws when playlist mode missing selection', () => {
+      expect(() => prepareJob({ ...BASE, mode: 'playlist', outputTemplate: 't.ext' })).toThrow(/playlistSelection/);
     });
 
     it('throws when playlist mode missing outputTemplate', () => {
-      expect(() => prepareJob({ ...BASE, mode: 'playlist', playlistPreset: 'video-1080p' })).toThrow(/outputTemplate/);
+      expect(() => prepareJob({ ...BASE, mode: 'playlist', playlistSelection: { kind: 'video', tier: '1080', codec: 'best' } })).toThrow(/outputTemplate/);
     });
   });
 

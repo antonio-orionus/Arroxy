@@ -518,15 +518,47 @@ const my = {
     }
   },
   playlistPresets: {
-    'video-best': { label: 'အကောင်းဆုံးအရည်အသွေး', desc: 'တစ်ခုချင်းစီ အမြင့်ဆုံး ဗီဒီယို + အသံ' },
-    'video-2160p': { label: '4K အထိ', desc: '2160p ကန့်သတ်ထား၊ တစ်ခုချင်းစီ နိမ့်သောဘက်သို့ fallback' },
-    'video-1440p': { label: '1440p အထိ', desc: '2K ကန့်သတ်ထား၊ တစ်ခုချင်းစီ နိမ့်သောဘက်သို့ fallback' },
-    'video-1080p': { label: '1080p အထိ', desc: 'တစ်ခုချင်းစီ ကန့်သတ်ထား၊ နိမ့်သောဘက်သို့ fallback' },
-    'video-720p': { label: '720p အထိ', desc: 'ဖိုင်သေး၊ ကျယ်ပြန့်သော ကိုက်ညီမှု' },
-    'video-480p': { label: '480p အထိ', desc: 'Bandwidth နည်း' },
-    'video-360p': { label: '360p အထိ', desc: 'အသေးဆုံးဗီဒီယို' },
-    'audio-best': { label: 'Audio (အကောင်းဆုံး)', desc: 'မူလ အကောင်းဆုံးအသံ၊ ပြန်encode မလုပ်' },
-    'audio-mp3': { label: 'Audio (MP3)', desc: 'MP3 192 kbps သို့ ပြောင်းမည်' }
+    type: { video: 'Video', audio: 'Audio' },
+    videoFormat: {
+      best: 'Best codec',
+      mp4: 'MP4 (H.264)'
+    },
+    videoFormatDesc: {
+      best: 'Highest available codec per item',
+      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+    },
+    tier: {
+      best: 'Best quality',
+      '2160': 'Up to 4K',
+      '1440': 'Up to 1440p',
+      '1080': 'Up to 1080p',
+      '720': 'Up to 720p',
+      '480': 'Up to 480p',
+      '360': 'Up to 360p'
+    },
+    tierDesc: {
+      best: 'Highest available video + audio per item',
+      '2160': 'Capped at 2160p, falls back to lower per item',
+      '1440': 'Capped at 2K, falls back to lower per item',
+      '1080': 'Capped at 1080p, falls back to lower per item',
+      '720': 'Smaller files, broad compatibility',
+      '480': 'Low bandwidth',
+      '360': 'Smallest video'
+    },
+    audioFormat: {
+      best: 'Audio (best)',
+      mp3: 'MP3',
+      m4a: 'M4A',
+      opus: 'Opus'
+    },
+    audioFormatDesc: {
+      best: 'Native best audio, no re-encode',
+      mp3: 'Convert to MP3',
+      m4a: 'Convert to M4A (AAC)',
+      opus: 'Convert to Opus'
+    },
+    audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
+    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
   },
   formatLabel: {
     audioFallback: 'အသံ',

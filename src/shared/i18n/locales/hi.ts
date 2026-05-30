@@ -518,15 +518,47 @@ const hi = {
     }
   },
   playlistPresets: {
-    'video-best': { label: 'बेहतरीन गुणवत्ता', desc: 'प्रति आइटम सर्वोच्च वीडियो + ऑडियो' },
-    'video-2160p': { label: '4K तक', desc: '2160p तक सीमित, प्रति आइटम कम पर फ़ॉलबैक' },
-    'video-1440p': { label: '1440p तक', desc: '2K तक सीमित, प्रति आइटम कम पर फ़ॉलबैक' },
-    'video-1080p': { label: '1080p तक', desc: 'प्रति आइटम सीमित, कम पर फ़ॉलबैक' },
-    'video-720p': { label: '720p तक', desc: 'छोटी फ़ाइलें, व्यापक संगतता' },
-    'video-480p': { label: '480p तक', desc: 'कम बैंडविड्थ' },
-    'video-360p': { label: '360p तक', desc: 'सबसे छोटा वीडियो' },
-    'audio-best': { label: 'Audio (बेहतरीन)', desc: 'नेटिव सर्वश्रेष्ठ ऑडियो, पुनः एन्कोड नहीं' },
-    'audio-mp3': { label: 'Audio (MP3)', desc: 'MP3 192 kbps में कनवर्ट करें' }
+    type: { video: 'Video', audio: 'Audio' },
+    videoFormat: {
+      best: 'Best codec',
+      mp4: 'MP4 (H.264)'
+    },
+    videoFormatDesc: {
+      best: 'Highest available codec per item',
+      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+    },
+    tier: {
+      best: 'Best quality',
+      '2160': 'Up to 4K',
+      '1440': 'Up to 1440p',
+      '1080': 'Up to 1080p',
+      '720': 'Up to 720p',
+      '480': 'Up to 480p',
+      '360': 'Up to 360p'
+    },
+    tierDesc: {
+      best: 'Highest available video + audio per item',
+      '2160': 'Capped at 2160p, falls back to lower per item',
+      '1440': 'Capped at 2K, falls back to lower per item',
+      '1080': 'Capped at 1080p, falls back to lower per item',
+      '720': 'Smaller files, broad compatibility',
+      '480': 'Low bandwidth',
+      '360': 'Smallest video'
+    },
+    audioFormat: {
+      best: 'Audio (best)',
+      mp3: 'MP3',
+      m4a: 'M4A',
+      opus: 'Opus'
+    },
+    audioFormatDesc: {
+      best: 'Native best audio, no re-encode',
+      mp3: 'Convert to MP3',
+      m4a: 'Convert to M4A (AAC)',
+      opus: 'Convert to Opus'
+    },
+    audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
+    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
   },
   formatLabel: {
     audioFallback: 'ऑडियो',

@@ -517,15 +517,47 @@ const ja = {
     }
   },
   playlistPresets: {
-    'video-best': { label: '最高画質', desc: '各アイテムで最高解像度 + 最高音質' },
-    'video-2160p': { label: '最大 4K', desc: '2160p上限、各アイテムで自動フォールバック' },
-    'video-1440p': { label: '最大 1440p', desc: '2K上限、各アイテムで自動フォールバック' },
-    'video-1080p': { label: '最大 1080p', desc: '各アイテムで上限設定、自動フォールバック' },
-    'video-720p': { label: '最大 720p', desc: 'ファイルサイズ小、互換性良好' },
-    'video-480p': { label: '最大 480p', desc: '低帯域幅' },
-    'video-360p': { label: '最大 360p', desc: '最小動画' },
-    'audio-best': { label: 'Audio (best)', desc: 'ネイティブ最高音質、再エンコードなし' },
-    'audio-mp3': { label: 'Audio (MP3)', desc: 'MP3 192 kbps に変換' }
+    type: { video: 'Video', audio: 'Audio' },
+    videoFormat: {
+      best: 'Best codec',
+      mp4: 'MP4 (H.264)'
+    },
+    videoFormatDesc: {
+      best: 'Highest available codec per item',
+      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+    },
+    tier: {
+      best: 'Best quality',
+      '2160': 'Up to 4K',
+      '1440': 'Up to 1440p',
+      '1080': 'Up to 1080p',
+      '720': 'Up to 720p',
+      '480': 'Up to 480p',
+      '360': 'Up to 360p'
+    },
+    tierDesc: {
+      best: 'Highest available video + audio per item',
+      '2160': 'Capped at 2160p, falls back to lower per item',
+      '1440': 'Capped at 2K, falls back to lower per item',
+      '1080': 'Capped at 1080p, falls back to lower per item',
+      '720': 'Smaller files, broad compatibility',
+      '480': 'Low bandwidth',
+      '360': 'Smallest video'
+    },
+    audioFormat: {
+      best: 'Audio (best)',
+      mp3: 'MP3',
+      m4a: 'M4A',
+      opus: 'Opus'
+    },
+    audioFormatDesc: {
+      best: 'Native best audio, no re-encode',
+      mp3: 'Convert to MP3',
+      m4a: 'Convert to M4A (AAC)',
+      opus: 'Convert to Opus'
+    },
+    audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
+    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
   },
   formatLabel: {
     audioFallback: '音声',
