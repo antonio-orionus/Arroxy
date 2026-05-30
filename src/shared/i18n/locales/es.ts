@@ -196,6 +196,36 @@ const es = {
         toggle: 'Añadir ID del vídeo a nombres de archivo individuales',
         toggleDescription: 'Mantiene únicas las descargas sueltas cuando los títulos cambian o coinciden.'
       },
+      networkPacing: {
+        heading: 'Descargas suaves',
+        description: 'Añade pequeñas pausas durante cada descarga para que Arroxy no sobrecargue el sitio. Los valores son segundos salvo que se indique lo contrario.',
+        presetLabel: '¿Qué tan cauteloso debe ser Arroxy?',
+        tooltip: 'Estas pausas ocurren dentro de cada descarga. Arroxy sigue descargando en cola de una en una.',
+        summary: 'Pausas: {{requests}} entre comprobaciones, {{downloads}} antes de iniciar el medio, {{subtitles}} antes de archivos de subtítulos. Conexiones: {{fragments}}.',
+        presets: {
+          off: 'Desactivado',
+          balanced: 'Equilibrado',
+          careful: 'Cuidadoso',
+          custom: 'Personalizado'
+        },
+        tooltips: {
+          off: 'Usa solo las pequeñas pausas base que Arroxy mantiene para medios y subtítulos.',
+          balanced: 'Por defecto. Añade pausas cortas y usa una conexión de descarga.',
+          careful: 'Añade pausas más largas para playlists grandes o redes que frecuentemente alcanzan límites.',
+          custom: 'Ajusta tú mismo los controles avanzados por descarga.'
+        },
+        fields: {
+          sleepRequests: 'Pausa entre comprobaciones de metadatos',
+          sleepInterval: 'Pausa antes de iniciar el medio: mín',
+          maxSleepInterval: 'Pausa antes de iniciar el medio: máx',
+          sleepSubtitles: 'Pausa antes de archivos de subtítulos',
+          concurrentFragments: 'Conexiones de descarga'
+        },
+        units: {
+          seconds: 'seg',
+          threads: 'hilos'
+        }
+      },
       closeToTray: {
         toggle: 'Minimizar a la bandeja al cerrar',
         toggleDescription: 'Continuar descargas en segundo plano al cerrar la ventana.'

@@ -196,6 +196,36 @@ const sw = {
         toggle: 'Ongeza ID ya video kwenye majina ya faili moja moja',
         toggleDescription: 'Huweka upakuaji wa mara moja kuwa wa kipekee wakati vichwa vinabadilika au kugongana.'
       },
+      networkPacing: {
+        heading: 'Upakuaji wa taratibu',
+        description: 'Inaongeza mapumziko madogo wakati wa kila upakuaji ili Arroxy isishambue tovuti. Maadili ni sekunde isipokuwa imetajwa.',
+        presetLabel: 'Arroxy iwe makini kiasi gani?',
+        tooltip: 'Mapumziko haya hutokea ndani ya kila upakuaji. Arroxy bado inashughulikia vipakuzi vya foleni moja kwa moja.',
+        summary: 'Mapumziko: {{requests}} kati ya ukaguzi, {{downloads}} kabla ya media kuanza, {{subtitles}} kabla ya faili za manukuu. Miunganisho: {{fragments}}.',
+        presets: {
+          off: 'Zima',
+          balanced: 'Uwiano',
+          careful: 'Uangalifu',
+          custom: 'Maalum'
+        },
+        tooltips: {
+          off: 'Inatumia mapumziko madogo ya msingi tu ambayo Arroxy inayashikilia kwa media na manukuu.',
+          balanced: 'Chaguo-msingi. Inaongeza mapumziko mafupi na kutumia muunganisho mmoja wa kupakua.',
+          careful: 'Inaongeza mapumziko marefu kwa playlists kubwa au mitandao inayofikia vikwazo mara kwa mara.',
+          custom: 'Rekebisha mwenyewe udhibiti wa hali ya juu wa kila upakuaji.'
+        },
+        fields: {
+          sleepRequests: 'Pumzika kati ya ukaguzi wa metadata',
+          sleepInterval: 'Pumzika kabla ya media kuanza: kiwango cha chini',
+          maxSleepInterval: 'Pumzika kabla ya media kuanza: kiwango cha juu',
+          sleepSubtitles: 'Pumzika kabla ya faili za manukuu',
+          concurrentFragments: 'Miunganisho ya kupakua'
+        },
+        units: {
+          seconds: 'sek',
+          threads: 'miunganisho'
+        }
+      },
       closeToTray: {
         toggle: 'Ficha kwenye tray ukifunga',
         toggleDescription: 'Endelea kupakua nyuma ya pazia baada ya kufunga dirisha.'

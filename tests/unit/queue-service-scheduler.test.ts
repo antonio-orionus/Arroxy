@@ -96,7 +96,7 @@ describe('QueueService — inter-job sleep', () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
 
-  it('does not start next item immediately on done — waits for sleep timer', async () => {
+  it('does not start next item immediately on done — waits for the short sleep timer', async () => {
     const { qs, ds } = makeService();
 
     ds.start.mockResolvedValueOnce(jobResult('job-1')).mockResolvedValue(jobResult('job-2'));
@@ -114,8 +114,8 @@ describe('QueueService — inter-job sleep', () => {
     expect(ds.start).toHaveBeenCalledOnce();
     expect(qs.snapshot().find((i) => i.id === 'b')?.status).toBe('pending');
 
-    // Advance past the 3000ms inter-job sleep.
-    await vi.advanceTimersByTimeAsync(3100);
+    // Advance past the 500ms inter-job sleep.
+    await vi.advanceTimersByTimeAsync(600);
     await flushMicrotasks();
 
     expect(ds.start).toHaveBeenCalledTimes(2);
@@ -140,7 +140,7 @@ describe('QueueService — inter-job sleep', () => {
     await qs.cancel(null);
 
     // Advance well past sleep.
-    await vi.advanceTimersByTimeAsync(5000);
+    await vi.advanceTimersByTimeAsync(1000);
     await flushMicrotasks();
 
     // No second start — cancel cleared the timer and item b is cancelled.
@@ -359,7 +359,7 @@ describe('QueueService — priority lane interactions with sleep window', () => 
     expect(qs.snapshot().find((i) => i.id === 'n2')?.status).toBe('pending');
 
     // After the sleep window expires, the normal lane unblocks.
-    await vi.advanceTimersByTimeAsync(3100);
+    await vi.advanceTimersByTimeAsync(600);
     await flushMicrotasks();
     expect(ds.start).toHaveBeenCalledTimes(3);
     expect(qs.snapshot().find((i) => i.id === 'n2')?.status).toBe('running');
@@ -397,7 +397,7 @@ describe('QueueService — priority lane interactions with sleep window', () => 
     await flushMicrotasks();
     await qs.cancel(null);
 
-    await vi.advanceTimersByTimeAsync(5000);
+    await vi.advanceTimersByTimeAsync(1000);
     await flushMicrotasks();
 
     expect(ds.start).toHaveBeenCalledOnce();
@@ -831,7 +831,7 @@ describe('QueueService — completion + lane cascade', () => {
     expect(qs.snapshot().find((i) => i.id === 'n2')?.status).toBe('pending');
     expect(ds.start).toHaveBeenCalledTimes(3);
 
-    await vi.advanceTimersByTimeAsync(3100);
+    await vi.advanceTimersByTimeAsync(600);
     await flushMicrotasks();
     expect(qs.snapshot().find((i) => i.id === 'n2')?.status).toBe('running');
   });

@@ -535,6 +535,36 @@ const vi = {
       quit: 'Thoát'
     }
   },
+  networkPacing: {
+    heading: 'Tải xuống nhẹ nhàng',
+    description: 'Thêm khoảng dừng nhỏ trong mỗi lần tải xuống để Arroxy không truy cập trang web quá mức. Giá trị tính bằng giây trừ khi có ghi chú.',
+    tooltip: 'Các khoảng dừng này xảy ra bên trong mỗi lần tải xuống. Arroxy vẫn duy trì tải xuống trong hàng đợi theo thứ tự từng cái một.',
+    summary: 'Chờ: {{requests}} giữa các lần kiểm tra, {{downloads}} trước khi media bắt đầu, {{subtitles}} trước các tệp phụ đề. Kết nối: {{fragments}}.',
+    presets: {
+      off: {
+        label: 'Tắt',
+        description: 'Chỉ sử dụng các khoảng dừng cơ bản nhỏ mà Arroxy duy trì cho media và phụ đề.'
+      },
+      balanced: {
+        label: 'Cân bằng',
+        description: 'Mặc định. Thêm các khoảng dừng ngắn và sử dụng một kết nối tải xuống.'
+      },
+      careful: {
+        label: 'Cẩn thận',
+        description: 'Thêm khoảng dừng dài hơn cho danh sách phát lớn hoặc mạng thường xuyên bị giới hạn.'
+      },
+      custom: {
+        label: 'Tùy chỉnh',
+        description: 'Tự điều chỉnh các điều khiển tải xuống nâng cao.'
+      }
+    },
+    fields: {
+      sleepRequests: 'Chờ giữa các lần kiểm tra metadata',
+      sleepInterval: 'Dừng trước khi media bắt đầu: tối thiểu',
+      maxSleepInterval: 'Dừng trước khi media bắt đầu: tối đa',
+      concurrentFragments: 'Kết nối tải xuống'
+    }
+  },
   share: {
     title: 'Chia sẻ Arroxy',
     description: 'Arroxy miễn phí và mã nguồn mở. Chia sẻ giúp nhiều người hơn khám phá ra nó.',

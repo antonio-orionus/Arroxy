@@ -13,7 +13,7 @@ export function resolvePlaylistProbeLimit(settings: Pick<CommonSettings, 'playli
 }
 
 export function resolveNetworkPacing(settings: CommonSettings | null | undefined): NetworkPacingArgs {
-  const preset = settings?.networkPacingPreset ?? 'off';
+  const preset = settings?.networkPacingPreset ?? 'balanced';
   if (preset !== 'custom') return NETWORK_PACING_PRESET_VALUES[preset];
   if (!settings) return {};
   return {

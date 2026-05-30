@@ -197,6 +197,35 @@ const ja = {
         toggle: '単体ファイル名に動画IDを追加',
         toggleDescription: 'タイトルが変わったり重複したりしても、単発ダウンロードを一意に保ちます。'
       },
+      networkPacing: {
+        heading: 'やさしいダウンロード',
+        description: '各ダウンロード中に小さな待機を追加して、Arroxy がサイトに過度にアクセスしないようにします。値は特に指定がない限り秒単位です。',
+        tooltip: 'これらの待機は各ダウンロードの内部で発生します。Arroxy は通常通りキューのダウンロードを1件ずつ処理します。',
+        summary: '待機：{{requests}} チェック間、{{downloads}} メディア開始前、{{subtitles}} 字幕ファイル前。接続数：{{fragments}}。',
+        presets: {
+          off: 'オフ',
+          balanced: 'バランス',
+          careful: '慎重',
+          custom: 'カスタム'
+        },
+        tooltips: {
+          off: 'Arroxyがメディアと字幕のために保持している小さなベースライン一時停止のみを使用します。',
+          balanced: 'デフォルト。短い一時停止を追加し、ダウンロード接続を1つ使用します。',
+          careful: '大きなプレイリストや頻繁に制限に引っかかるネットワーク向けに長い一時停止を追加します。',
+          custom: 'ダウンロードごとの高度なコントロールを自分で調整します。'
+        },
+        fields: {
+          sleepRequests: 'メタデータチェック間の待機',
+          sleepInterval: 'メディア開始前の一時停止：最小',
+          maxSleepInterval: 'メディア開始前の一時停止：最大',
+          sleepSubtitles: '字幕ファイル前の待機',
+          concurrentFragments: 'ダウンロード接続数'
+        },
+        units: {
+          seconds: '秒',
+          threads: 'スレッド'
+        }
+      },
       closeToTray: {
         toggle: '閉じるときにトレイに格納',
         toggleDescription: 'ウィンドウを閉じた後もバックグラウンドでダウンロードを続けます。'

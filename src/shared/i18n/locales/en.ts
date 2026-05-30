@@ -218,11 +218,11 @@ const en = {
         toggleDescription: 'Keeps one-off downloads unique when titles change or collide.'
       },
       networkPacing: {
-        heading: 'Network pacing',
-        description: 'Add small waits between yt-dlp network actions. Values are seconds unless noted.',
+        heading: 'Gentle downloads',
+        description: 'Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted.',
         presetLabel: 'How cautious should Arroxy be?',
-        tooltip: 'yt-dlp supports sleeps between extraction requests, before downloads, and before subtitle downloads.',
-        summary: 'Waits: {{requests}} between metadata requests, {{downloads}} before each download, {{subtitles}} before subtitle files. Fragment threads: {{fragments}}.',
+        tooltip: 'These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time.',
+        summary: 'Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}.',
         presets: {
           off: 'Off',
           balanced: 'Balanced',
@@ -230,17 +230,17 @@ const en = {
           custom: 'Custom'
         },
         tooltips: {
-          off: 'Adds no request or download sleeps beyond Arroxy defaults.',
-          balanced: 'Uses yt-dlp sleep-style pacing: short extraction sleeps and a randomized pause before downloads.',
-          careful: 'Uses longer sleeps for large playlists or networks that frequently hit rate limits.',
-          custom: 'Lets you tune the underlying yt-dlp pacing flags directly.'
+          off: 'Uses only the small baseline pauses Arroxy keeps for media and subtitles.',
+          balanced: 'Default. Adds short pauses and uses one download connection.',
+          careful: 'Adds longer pauses for large playlists or networks that frequently hit limits.',
+          custom: 'Tune the advanced per-download controls yourself.'
         },
         fields: {
-          sleepRequests: 'Wait between metadata requests',
-          sleepInterval: 'Minimum wait before each download',
-          maxSleepInterval: 'Maximum wait before each download',
+          sleepRequests: 'Wait between metadata checks',
+          sleepInterval: 'Pause before media starts: min',
+          maxSleepInterval: 'Pause before media starts: max',
           sleepSubtitles: 'Wait before subtitle files',
-          concurrentFragments: 'Parallel fragment downloads'
+          concurrentFragments: 'Download connections'
         },
         units: {
           seconds: 'sec',

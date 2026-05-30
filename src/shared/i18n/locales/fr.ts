@@ -197,6 +197,36 @@ const fr = {
         toggle: 'Ajouter l’ID vidéo aux noms de fichiers individuels',
         toggleDescription: 'Garde les téléchargements ponctuels uniques lorsque les titres changent ou se ressemblent.'
       },
+      networkPacing: {
+        heading: 'Téléchargements en douceur',
+        description: "Ajoute de petites pauses pendant chaque téléchargement afin qu'Arroxy ne sollicite pas le site de manière trop agressive. Les valeurs sont en secondes sauf indication contraire.",
+        presetLabel: "Jusqu'à quel point Arroxy doit-il être prudent ?",
+        tooltip: "Ces pauses se produisent à l'intérieur de chaque téléchargement. Arroxy continue à traiter les téléchargements en file un par un.",
+        summary: 'Pauses : {{requests}} entre vérifications, {{downloads}} avant le début du média, {{subtitles}} avant les fichiers de sous-titres. Connexions : {{fragments}}.',
+        presets: {
+          off: 'Désactivé',
+          balanced: 'Équilibré',
+          careful: 'Prudent',
+          custom: 'Personnalisé'
+        },
+        tooltips: {
+          off: "Utilise uniquement les petites pauses de base qu'Arroxy conserve pour les médias et les sous-titres.",
+          balanced: 'Par défaut. Ajoute de courtes pauses et utilise une seule connexion de téléchargement.',
+          careful: 'Ajoute de plus longues pauses pour les grandes playlists ou les réseaux qui atteignent souvent les limites.',
+          custom: 'Ajustez vous-même les contrôles avancés par téléchargement.'
+        },
+        fields: {
+          sleepRequests: 'Pause entre les vérifications de métadonnées',
+          sleepInterval: 'Pause avant le début du média : min',
+          maxSleepInterval: 'Pause avant le début du média : max',
+          sleepSubtitles: 'Pause avant les fichiers de sous-titres',
+          concurrentFragments: 'Connexions de téléchargement'
+        },
+        units: {
+          seconds: 'sec',
+          threads: 'connexions'
+        }
+      },
       closeToTray: {
         toggle: 'Masquer dans la barre des tâches à la fermeture',
         toggleDescription: 'Continuer les téléchargements en arrière-plan après la fermeture de la fenêtre.'

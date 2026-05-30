@@ -218,7 +218,7 @@ describe('queue lifecycle — completion + restart', () => {
     expect(second.qs.snapshot().find((i) => i.id === 'b')?.status).toBe('pending');
 
     // After sleep window, next pending spawns.
-    await vi.advanceTimersByTimeAsync(3100);
+    await vi.advanceTimersByTimeAsync(600);
     await flushMicrotasks();
     expect(second.ds.start).toHaveBeenCalledTimes(2);
     expect(second.qs.snapshot().find((i) => i.id === 'b')?.status).toBe('running');

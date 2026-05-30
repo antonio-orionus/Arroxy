@@ -197,6 +197,36 @@ const de = {
         toggle: 'Video-ID zu einzelnen Dateinamen hinzufügen',
         toggleDescription: 'Hält einzelne Downloads eindeutig, wenn sich Titel ändern oder kollidieren.'
       },
+      networkPacing: {
+        heading: 'Sanftes Herunterladen',
+        description: 'Fügt bei jedem Download kleine Pausen ein, damit Arroxy die Seite nicht zu aggressiv belastet. Werte sind Sekunden, sofern nicht anders angegeben.',
+        presetLabel: 'Wie vorsichtig soll Arroxy sein?',
+        tooltip: 'Diese Pausen passieren innerhalb jedes Downloads. Arroxy lädt weiterhin normale Downloads der Reihe nach herunter.',
+        summary: 'Pausen: {{requests}} zwischen Abfragen, {{downloads}} vor Medienbeginn, {{subtitles}} vor Untertiteldateien. Verbindungen: {{fragments}}.',
+        presets: {
+          off: 'Aus',
+          balanced: 'Ausgewogen',
+          careful: 'Vorsichtig',
+          custom: 'Benutzerdefiniert'
+        },
+        tooltips: {
+          off: 'Nutzt nur die kleinen Basispausen, die Arroxy für Medien und Untertitel beibehält.',
+          balanced: 'Standard. Fügt kurze Pausen hinzu und verwendet eine Download-Verbindung.',
+          careful: 'Fügt längere Pausen für große Playlists oder Netzwerke ein, die häufig an Limits stoßen.',
+          custom: 'Passe die erweiterten Download-Steuerungen selbst an.'
+        },
+        fields: {
+          sleepRequests: 'Pause zwischen Metadaten-Abfragen',
+          sleepInterval: 'Pause vor Medienbeginn: Min',
+          maxSleepInterval: 'Pause vor Medienbeginn: Max',
+          sleepSubtitles: 'Pause vor Untertiteldateien',
+          concurrentFragments: 'Download-Verbindungen'
+        },
+        units: {
+          seconds: 'Sek',
+          threads: 'Threads'
+        }
+      },
       closeToTray: {
         toggle: 'Beim Schließen in die Taskleiste minimieren',
         toggleDescription: 'Downloads im Hintergrund fortsetzen, wenn das Fenster geschlossen wird.'

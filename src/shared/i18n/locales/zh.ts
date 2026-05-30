@@ -197,6 +197,35 @@ const zh = {
         toggle: '将视频 ID 添加到单个文件名',
         toggleDescription: '当标题变化或重复时，让单次下载保持唯一。'
       },
+      networkPacing: {
+        heading: '温和下载',
+        description: '在每次下载时添加小等待，使 Arroxy 不会过于频繁地访问网站。除非另有说明，值的单位为秒。',
+        tooltip: '这些等待发生在每次下载内部。Arroxy 仍然按顺序逐个处理队列中的下载任务。',
+        summary: '等待：{{requests}} 次检查间隔，{{downloads}} 媒体开始前，{{subtitles}} 字幕文件前。连接数：{{fragments}}。',
+        presets: {
+          off: '关闭',
+          balanced: '均衡',
+          careful: '谨慎',
+          custom: '自定义'
+        },
+        tooltips: {
+          off: '仅使用 Arroxy 为媒体和字幕保留的小基准暂停。',
+          balanced: '默认。添加短暂停并使用一个下载连接。',
+          careful: '为大型播放列表或经常触达限制的网络添加更长的暂停。',
+          custom: '自行调整每次下载的高级控制参数。'
+        },
+        fields: {
+          sleepRequests: '元数据检查之间的等待',
+          sleepInterval: '媒体开始前暂停：最小值',
+          maxSleepInterval: '媒体开始前暂停：最大值',
+          sleepSubtitles: '字幕文件前等待',
+          concurrentFragments: '下载连接数'
+        },
+        units: {
+          seconds: '秒',
+          threads: '线程'
+        }
+      },
       closeToTray: {
         toggle: '关闭时最小化到托盘',
         toggleDescription: '关闭窗口后继续在后台下载。'

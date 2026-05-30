@@ -535,6 +535,36 @@ const uz = {
       quit: 'Chiqish'
     }
   },
+  networkPacing: {
+    heading: 'Yumshoq yuklamalar',
+    description: "Arroxy saytga haddan tashqari agressiv murojaat qilmasligi uchun har bir yuklab olish paytida kichik kutish vaqtlarini qo'shadi. Qiymatlar soniyalarda (boshqacha ko'rsatilmagan holda).",
+    tooltip: "Bu kutish vaqtlari har bir yuklab olish ichida sodir bo'ladi. Arroxy oddiy navbatdagi yuklamalarni baribir ketma-ket bajaradi.",
+    summary: 'Kutish: {{requests}} tekshiruvlar orasida, {{downloads}} media boshlanishidan oldin, {{subtitles}} subtitrl fayllaridan oldin. Ulanishlar: {{fragments}}.',
+    presets: {
+      off: {
+        label: "O'chiriq",
+        description: 'Arroxy media va subtitrlar uchun saqlaydigan kichik asosiy tanaffuslarnigina ishlatadi.'
+      },
+      balanced: {
+        label: 'Muvozanatli',
+        description: "Standart. Qisqa tanaffuslar qo'shadi va bitta yuklab olish ulanishidan foydalanadi."
+      },
+      careful: {
+        label: 'Ehtiyotkor',
+        description: "Katta pleylistlar yoki tez-tez cheklovlarga duch keladigan tarmoqlar uchun uzunroq tanaffuslar qo'shadi."
+      },
+      custom: {
+        label: 'Maxsus',
+        description: "Yuklab olish boshqaruvlarini o'zingiz sozlang."
+      }
+    },
+    fields: {
+      sleepRequests: 'Metadata tekshiruvlari orasidagi kutish',
+      sleepInterval: 'Media boshlanishidan oldingi pauza: min',
+      maxSleepInterval: 'Media boshlanishidan oldingi pauza: maks',
+      concurrentFragments: 'Yuklab olish ulanishlari'
+    }
+  },
   share: {
     title: 'Arroxy ni ulashing',
     description: "Arroxy bepul va ochiq manbali. Ulashish ko'proq odamlar uni topishiga yordam beradi.",

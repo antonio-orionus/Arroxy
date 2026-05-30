@@ -196,6 +196,36 @@ const om = {
         toggle: 'Maqaa faayila tokko tokkootti ID viidiyoo dabali',
         toggleDescription: 'Mata dureewwan yeroo jijjiiraman ykn walitti bu’an buufata tokko tokko adda taasisa.'
       },
+      networkPacing: {
+        heading: 'Buufata laafaa',
+        description: 'Buufata tokko tokkotti yeroo gabaabaaf eegaa jira, kanaafuu Arroxy gara saayitichatti garmalee hin dhiibu. Gatiin daqiiqaa malee sekooondii dha.',
+        presetLabel: 'Arroxy hangam of-eeggachuu qaba?',
+        tooltip: "Eegumsa kun buufata tokko tokko keessa ta'a. Arroxy buufata tartiibsifame tokkotti itti fufa.",
+        summary: 'Eegumsa: {{requests}} qorannoo gidduutti, {{downloads}} miidiyaa jalqabuuf, {{subtitles}} axxiinni faayiloota dura. Walqunnamtii: {{fragments}}.',
+        presets: {
+          off: 'Dhaabbi',
+          balanced: 'Walsimu',
+          careful: 'Of-eeggannaa',
+          custom: "Ofiin qindi'i"
+        },
+        tooltips: {
+          off: 'Arroxy miidiyaa fi axxiinni qofaaf eegaa xiqaa qabaatutu fayyadama.',
+          balanced: 'Durtii. Eegaa gabaabaa dabalaa fi walqunnamtii buufata tokko fayyadama.',
+          careful: 'Eegaa dheeraaf playlist guddoo ykn network yeroo yeroon daangaa gahu dabalaa.',
+          custom: "Too'annoo ammayyaa buufata tokko tokkoos ofiin sirreessi."
+        },
+        fields: {
+          sleepRequests: 'Qorannoo metadata gidduutti eegii',
+          sleepInterval: 'Miidiyaan jalqabuuf dura gidduu dhabi: isa xiqqaa',
+          maxSleepInterval: "Miidiyaan jalqabuuf dura gidduu dhabi: isa ol'aanaa",
+          sleepSubtitles: 'Axxiinni faayiloota dura eegii',
+          concurrentFragments: 'Walqunnamtii buufata'
+        },
+        units: {
+          seconds: 'sec',
+          threads: 'threads'
+        }
+      },
       closeToTray: {
         toggle: 'Cufuun dura tiiree dhoksi',
         toggleDescription: 'Daawniloodii booda gubbaan cufamuu itti fufi.'

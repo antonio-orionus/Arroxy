@@ -535,6 +535,36 @@ const am = {
       quit: 'ዝጋ'
     }
   },
+  networkPacing: {
+    heading: 'ለዝቅ ያሉ ዳውንሎዶች',
+    description: 'Arroxy ጣቢያን ከልክ ያለፈ ጥያቄ እንዳያደርግ እያንዳንዱ ዳውንሎድ ላይ ትናንሽ መጠበቂያዎችን ያክላል። ዋጋዎች በሰከንድ ነው (ካልተጠቀሰ)።',
+    tooltip: 'እነዚህ መጠበቂያዎች ማሳወቂያ ዳውንሎዶች ውስጥ ይሆናሉ። Arroxy ተራ የሆኑ ዳውንሎዶችን አሁንም አንድ ባንድ ያስተዳድራል።',
+    summary: 'መጠበቂያ: {{requests}} ምርምሮች መካከል፣ {{downloads}} ሚዲያ ከመጀመሩ በፊት፣ {{subtitles}} ንዑስ ርዕስ ፋይሎች በፊት። ግንኙነቶች: {{fragments}}።',
+    presets: {
+      off: {
+        label: 'ጠፍ',
+        description: 'Arroxy ለሚዲያ እና ንዑስ ርዕሶች የሚያቆየውን ትንሽ መሰረታዊ እረፍት ብቻ ይጠቀማል።'
+      },
+      balanced: {
+        label: 'ሚዛናዊ',
+        description: 'ነባሪ። አጫጭር እረፍቶችን ያክላል እና አንድ የዳውንሎድ ግንኙነት ይጠቀማል።'
+      },
+      careful: {
+        label: 'ጥንቁቅ',
+        description: 'ለትልልቅ playlists ወይም ቶሎ ቶሎ ገደብ ለሚያጋጥማቸው አውታሮች ረዥም እረፍቶችን ያክላል።'
+      },
+      custom: {
+        label: 'ብጁ',
+        description: 'የከፍተኛ ዳውንሎድ መቆጣጠሪያዎችን እራስዎ ያስተካክሉ።'
+      }
+    },
+    fields: {
+      sleepRequests: 'ምርምሮች መካከል መጠበቂያ',
+      sleepInterval: 'ሚዲያ ከመጀመሩ በፊት እረፍት: ዝቅ.',
+      maxSleepInterval: 'ሚዲያ ከመጀመሩ በፊት እረፍት: ከፍ.',
+      concurrentFragments: 'የዳውንሎድ ግንኙነቶች'
+    }
+  },
   share: {
     title: 'Arroxy ያጋሩ',
     description: 'Arroxy ነፃ እና ክፍት ምንጭ ነው። ማጋራት ብዙ ሰዎች እንዲያገኙት ይረዳቸዋል።',

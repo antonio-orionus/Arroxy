@@ -61,7 +61,7 @@ export function NetworkPacingSettings(): JSX.Element {
   const common = settings?.common;
   const playlistLimit = resolvePlaylistProbeLimit(common);
   const playlistIsPreset = (PLAYLIST_PROBE_LIMIT_PRESETS as readonly number[]).includes(playlistLimit);
-  const pacingPreset: NetworkPacingPreset = common?.networkPacingPreset ?? 'off';
+  const pacingPreset: NetworkPacingPreset = common?.networkPacingPreset ?? 'balanced';
   const [customLimitDraft, setCustomLimitDraft] = useState(playlistIsPreset ? '' : String(playlistLimit));
   const [fieldDrafts, setFieldDrafts] = useState<Partial<Record<(typeof CUSTOM_FIELDS)[number]['key'], string>>>({});
 
