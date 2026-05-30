@@ -784,6 +784,12 @@ describe('YtDlp — limit-rate', () => {
 });
 
 describe('YtDlp — network pacing', () => {
+  function getArgValue(args: string[], flag: string): string {
+    const idx = args.indexOf(flag);
+    if (idx === -1) throw new Error(`flag ${flag} not found in args: ${args.join(' ')}`);
+    return args[idx + 1];
+  }
+
   it('balanced preset applies request pacing to probes', async () => {
     await makeYtDlp({ settings: { networkPacingPreset: 'balanced' } }).run({ kind: 'probe', url: URL });
     const args = getArgs();
@@ -794,40 +800,40 @@ describe('YtDlp — network pacing', () => {
   it('missing pacing preset defaults to balanced', async () => {
     await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
     const args = getArgs();
-    expect(args[args.indexOf('--sleep-requests') + 1]).toBe('1');
-    expect(args[args.indexOf('--sleep-interval') + 1]).toBe('5');
-    expect(args[args.indexOf('--max-sleep-interval') + 1]).toBe('10');
-    expect(args[args.indexOf('--concurrent-fragments') + 1]).toBe('1');
+    expect(getArgValue(args, '--sleep-requests')).toBe('1');
+    expect(getArgValue(args, '--sleep-interval')).toBe('5');
+    expect(getArgValue(args, '--max-sleep-interval')).toBe('10');
+    expect(getArgValue(args, '--concurrent-fragments')).toBe('1');
   });
 
   it('balanced preset applies download pacing to video downloads', async () => {
     await makeYtDlp({ settings: { networkPacingPreset: 'balanced' } }).run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
     const args = getArgs();
-    expect(args[args.indexOf('--sleep-requests') + 1]).toBe('1');
-    expect(args[args.indexOf('--sleep-interval') + 1]).toBe('5');
-    expect(args[args.indexOf('--max-sleep-interval') + 1]).toBe('10');
-    expect(args[args.indexOf('--concurrent-fragments') + 1]).toBe('1');
+    expect(getArgValue(args, '--sleep-requests')).toBe('1');
+    expect(getArgValue(args, '--sleep-interval')).toBe('5');
+    expect(getArgValue(args, '--max-sleep-interval')).toBe('10');
+    expect(getArgValue(args, '--concurrent-fragments')).toBe('1');
   });
 
   it('balanced preset applies 3s subtitle pacing to subtitle requests', async () => {
     await makeYtDlp({ settings: { networkPacingPreset: 'balanced' } }).run({ kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR, subtitleLanguages: ['en'], subtitleFormat: 'srt' });
     const args = getArgs();
-    expect(args[args.indexOf('--sleep-subtitles') + 1]).toBe('3');
+    expect(getArgValue(args, '--sleep-subtitles')).toBe('3');
   });
 
   it('off preset still keeps the baseline media-start pause', async () => {
     await makeYtDlp({ settings: { networkPacingPreset: 'off' } }).run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
     const args = getArgs();
     expect(args).not.toContain('--sleep-requests');
-    expect(args[args.indexOf('--sleep-interval') + 1]).toBe('1');
-    expect(args[args.indexOf('--max-sleep-interval') + 1]).toBe('3');
+    expect(getArgValue(args, '--sleep-interval')).toBe('1');
+    expect(getArgValue(args, '--max-sleep-interval')).toBe('3');
   });
 
   it('custom preset applies subtitle sleep to subtitle requests', async () => {
     await makeYtDlp({ settings: { networkPacingPreset: 'custom', pacingSleepRequests: 2, pacingSleepSubtitles: 7 } }).run({ kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR, subtitleLanguages: ['en'], subtitleFormat: 'srt' });
     const args = getArgs();
-    expect(args[args.indexOf('--sleep-requests') + 1]).toBe('2');
-    expect(args[args.indexOf('--sleep-subtitles') + 1]).toBe('7');
+    expect(getArgValue(args, '--sleep-requests')).toBe('2');
+    expect(getArgValue(args, '--sleep-subtitles')).toBe('7');
   });
 });
 
