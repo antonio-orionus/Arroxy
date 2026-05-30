@@ -28,6 +28,7 @@ import { isPlaylistLike, type VideoInfo } from '../src/shared/ytdlp/infoDict.js'
 import { resolveSmokeUrl } from './smoke-shared.js';
 
 const PLAYER_CLIENT_FALLBACK = 'youtube:player_client=default,-web,-web_safari';
+const RUN_TIMEOUT_MS = 120_000;
 
 interface CliArgs {
   url?: string;
@@ -92,11 +93,26 @@ function runYtDlp(binary: string, args: string[]): Promise<RunResult> {
     const proc = spawn(binary, args, { stdio: ['ignore', 'pipe', 'pipe'] });
     let stdout = '';
     let stderr = '';
+    let timedOut = false;
+    let settled = false;
+    const timer = setTimeout(() => {
+      timedOut = true;
+      stderr += `${stderr.endsWith('\n') || stderr === '' ? '' : '\n'}Timed out after ${RUN_TIMEOUT_MS}ms.`;
+      proc.kill('SIGKILL');
+    }, RUN_TIMEOUT_MS);
     proc.stdout.on('data', (c: Buffer) => { stdout += c.toString(); });
     proc.stderr.on('data', (c: Buffer) => { stderr += c.toString(); });
-    proc.on('error', reject);
+    proc.on('error', (err) => {
+      clearTimeout(timer);
+      if (settled) return;
+      settled = true;
+      reject(err);
+    });
     proc.on('close', (code) => {
-      resolve({ exitCode: code ?? -1, stdout, stderr, durationMs: Date.now() - start });
+      clearTimeout(timer);
+      if (settled) return;
+      settled = true;
+      resolve({ exitCode: timedOut ? -1 : (code ?? -1), stdout, stderr, durationMs: Date.now() - start });
     });
   });
 }

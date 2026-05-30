@@ -247,6 +247,9 @@ describe('QueueService — POST_DOWNLOAD_PHASES progress gate', () => {
       line: '[download] 100.0% of ~   1.00KiB at    1.25KiB/s ETA Unknown (frag 0/128)',
       at: new Date().toISOString()
     } satisfies ProgressEvent);
+    qs.flushPendingProgressForTests();
+    expect(qs.snapshot()[0].progressPercent).toBe(0);
+
     ds.emit('progress', {
       jobId: 'job-1',
       percent: 1.6,

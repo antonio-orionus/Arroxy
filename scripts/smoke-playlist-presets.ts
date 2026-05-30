@@ -24,6 +24,7 @@ const DEFAULT_URL = 'https://www.youtube.com/watch?v=WO2b03Zdu4Q&pp=ygUCNGvSBwkJ
 const PLAYER_CLIENT_FALLBACK = 'youtube:player_client=default,-web,-web_safari';
 const OUTPUT_TEMPLATE = '%(title).200B [%(id)s].%(ext)s';
 const UI_REACHABLE_MP4_TIERS = ['1080', '720', '480', '360'] as const;
+const RUN_TIMEOUT_MS = 120_000;
 
 type ExtractorStrategy = 'auto' | 'vanilla' | 'fallback';
 
@@ -66,12 +67,12 @@ function parseArgs(argv: string[]): CliArgs {
   const args: CliArgs = { extractorStrategy: 'auto', keepTemp: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a === '--url') args.url = argv[++i];
-    else if (a === '--cookies') args.cookies = argv[++i];
-    else if (a === '--cookies-from-browser') args.cookiesFromBrowser = argv[++i];
-    else if (a === '--yt-dlp') args.ytDlpPath = argv[++i];
-    else if (a === '--deno') args.denoPath = argv[++i];
-    else if (a === '--extractor-strategy') args.extractorStrategy = parseExtractorStrategy(argv[++i]);
+    if (a === '--url') args.url = readFlagValue(argv, i++, a);
+    else if (a === '--cookies') args.cookies = readFlagValue(argv, i++, a);
+    else if (a === '--cookies-from-browser') args.cookiesFromBrowser = readFlagValue(argv, i++, a);
+    else if (a === '--yt-dlp') args.ytDlpPath = readFlagValue(argv, i++, a);
+    else if (a === '--deno') args.denoPath = readFlagValue(argv, i++, a);
+    else if (a === '--extractor-strategy') args.extractorStrategy = parseExtractorStrategy(readFlagValue(argv, i++, a));
     else if (a === '--keep-temp') args.keepTemp = true;
     else if (a === '-h' || a === '--help') {
       console.log('Usage: bun run smoke:playlist [-- --url X --cookies file --cookies-from-browser firefox]');
@@ -80,6 +81,14 @@ function parseArgs(argv: string[]): CliArgs {
     }
   }
   return args;
+}
+
+function readFlagValue(argv: string[], index: number, flag: string): string {
+  const value = argv[index + 1];
+  if (value === undefined || value.startsWith('-')) {
+    throw new Error(`Missing value for ${flag}.`);
+  }
+  return value;
 }
 
 function parseExtractorStrategy(value: string | undefined): ExtractorStrategy {
@@ -119,15 +128,30 @@ function run(binary: string, args: string[]): Promise<RunResult> {
     const proc = spawn(binary, args, { stdio: ['ignore', 'pipe', 'pipe'] });
     let stdout = '';
     let stderr = '';
+    let timedOut = false;
+    let settled = false;
+    const timer = setTimeout(() => {
+      timedOut = true;
+      stderr += `${stderr.endsWith('\n') || stderr === '' ? '' : '\n'}Timed out after ${RUN_TIMEOUT_MS}ms.`;
+      proc.kill('SIGKILL');
+    }, RUN_TIMEOUT_MS);
     proc.stdout.on('data', (c: Buffer) => {
       stdout += c.toString();
     });
     proc.stderr.on('data', (c: Buffer) => {
       stderr += c.toString();
     });
-    proc.on('error', reject);
+    proc.on('error', (err) => {
+      clearTimeout(timer);
+      if (settled) return;
+      settled = true;
+      reject(err);
+    });
     proc.on('close', (code) => {
-      resolve({ exitCode: code ?? -1, stdout, stderr, durationMs: Date.now() - start });
+      clearTimeout(timer);
+      if (settled) return;
+      settled = true;
+      resolve({ exitCode: timedOut ? -1 : (code ?? -1), stdout, stderr, durationMs: Date.now() - start });
     });
   });
 }

@@ -103,6 +103,23 @@ describe('ProgressNormalizer', () => {
     expect(next).toBeCloseTo(1.6, 1);
   });
 
+  it('ignores non-finite incoming progress', () => {
+    const normalizer = new ProgressNormalizer();
+
+    expect(
+      normalizer.nextRunningPercent(42, {
+        percent: Infinity,
+        line: '[download] Infinity% of 240.00MiB'
+      })
+    ).toBe(42);
+    expect(
+      normalizer.nextRunningPercent(42, {
+        percent: -Infinity,
+        line: '[download] -Infinity% of 240.00MiB'
+      })
+    ).toBe(42);
+  });
+
   it('caps running progress below 100 until a terminal status completes the job', () => {
     const normalizer = new ProgressNormalizer();
 

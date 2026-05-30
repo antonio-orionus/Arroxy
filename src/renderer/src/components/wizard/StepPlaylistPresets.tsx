@@ -1,4 +1,4 @@
-import { type JSX } from 'react';
+import { type JSX, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { type PlaylistAudioFormat, type PlaylistVideoTier, type PlaylistSelection, AUDIO_BITRATES, DEFAULT_PLAYLIST_SELECTION, PLAYLIST_VIDEO_TIERS } from '@shared/schemas.js';
 import { useAppStore } from '../../store/useAppStore.js';
@@ -23,6 +23,10 @@ export function StepPlaylistPresets(): JSX.Element {
   const { playlistSelection, setPlaylistSelection, advance, back, skipToConfirm, selectedPlaylistItemIds } = useAppStore();
 
   const sel: PlaylistSelection = playlistSelection ?? DEFAULT_PLAYLIST_SELECTION;
+
+  useEffect(() => {
+    if (playlistSelection === null) setPlaylistSelection(DEFAULT_PLAYLIST_SELECTION);
+  }, [playlistSelection, setPlaylistSelection]);
 
   function setKind(kind: 'video' | 'audio'): void {
     if (kind === 'video') {
@@ -211,7 +215,7 @@ export function StepPlaylistPresets(): JSX.Element {
               {/* Bitrate chips — lossy formats only */}
               {showBitrate && (
                 <div>
-                  <p className={SECTION_LABEL}>Bitrate</p>
+                  <p className={SECTION_LABEL}>{t('wizard.formats.convert.bitrate')}</p>
                   <div className="flex flex-wrap gap-2">
                     {AUDIO_BITRATES.map((kbps) => (
                       <Button key={kbps} type="button" variant={currentBitrate === kbps ? 'default' : 'outline'} size="sm" onClick={() => setBitrate(kbps)} className={cn('rounded-full px-3', currentBitrate === kbps && 'shadow-[0_4px_14px_var(--brand-glow)]')}>
@@ -226,8 +230,8 @@ export function StepPlaylistPresets(): JSX.Element {
         </div>
       </ScrollArea>
 
-      <WizardStepFooterActions onBack={back} onContinue={advance} continueDisabled={playlistSelection === null}>
-        <Button type="button" disabled={playlistSelection === null} onClick={skipToConfirm} title={t('wizard.formats.skipToConfirmTooltip')} className="shadow-[0_4px_14px_var(--brand-glow)]">
+      <WizardStepFooterActions onBack={back} onContinue={advance}>
+        <Button type="button" onClick={skipToConfirm} title={t('wizard.formats.skipToConfirmTooltip')} className="shadow-[0_4px_14px_var(--brand-glow)]">
           {t('wizard.formats.skipToConfirm')}
         </Button>
       </WizardStepFooterActions>

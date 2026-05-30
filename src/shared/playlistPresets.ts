@@ -1,4 +1,4 @@
-import type { AudioConvert, PlaylistSelection } from './schemas.js';
+import type { AudioConvert, PlaylistSelection, PlaylistVideoTier } from './schemas.js';
 import { DEFAULT_AUDIO_BITRATE } from './schemas.js';
 
 export interface PlaylistPresetSpec {
@@ -33,7 +33,7 @@ export function playlistPresetSpec(s: PlaylistSelection): PlaylistPresetSpec {
     return { formatSelector: 'bestvideo*+bestaudio/best', producesVideo: true };
   }
 
-  const heights: Record<string, number> = { '2160': 2160, '1440': 1440, '1080': 1080, '720': 720, '480': 480, '360': 360 };
+  const heights: Record<Exclude<PlaylistVideoTier, 'best'>, number> = { '2160': 2160, '1440': 1440, '1080': 1080, '720': 720, '480': 480, '360': 360 };
   const h = heights[tier];
 
   if (codec === 'mp4') {

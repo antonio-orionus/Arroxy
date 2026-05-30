@@ -25,7 +25,7 @@ function isHlsBootstrapComplete(line: string, percent: number): boolean {
 
 export class ProgressNormalizer {
   nextRunningPercent(current: number, incoming: { line: string; percent?: number }): number {
-    if (incoming.percent === undefined || Number.isNaN(incoming.percent)) return current;
+    if (incoming.percent === undefined || !Number.isFinite(incoming.percent)) return current;
     if (isHlsBootstrapComplete(incoming.line, incoming.percent)) return current;
 
     const boundedCurrent = Math.min(current, RUNNING_MAX_PERCENT);
