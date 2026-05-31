@@ -28,6 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
+          persist-credentials: false
           # render-flatpak-manifest.py reads v* tags to build the metainfo
           # <releases> block, matching the tagged release workflow.
           fetch-depth: 0
