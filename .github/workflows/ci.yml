@@ -12,10 +12,6 @@ concurrency:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-  BUN_VERSION: '1.2.23'
-
-permissions:
-  contents: read
 
 jobs:
   check:
@@ -30,7 +26,7 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2.2.0
         with:
-          bun-version: ${{ env.BUN_VERSION }}
+          bun-version: latest
 
       - name: Install dependencies
         run: bun install --frozen-lockfile

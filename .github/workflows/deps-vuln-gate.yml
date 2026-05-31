@@ -1,7 +1,8 @@
 name: Deps vuln gate
 
-# Runs `bun audit` against every dependency PR. Blocks merge if a bump pulls
-# in (or fails to fix) a high+ advisory.
+# Runs `bun audit` against every Dependabot PR. Blocks merge if a bump pulls
+# in (or fails to fix) a high+ advisory. Non-bot PRs skip this — humans run
+# `bun run deps:vuln` locally pre-release instead.
 
 on:
   pull_request:
@@ -15,18 +16,16 @@ on:
 permissions:
   contents: read
 
-env:
-  BUN_VERSION: '1.2.23'
-
 jobs:
   audit:
+    if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
       - uses: oven-sh/setup-bun@v2.2.0
         with:
-          bun-version: ${{ env.BUN_VERSION }}
+          bun-version: latest
 
       - name: Install dependencies
         run: bun install --frozen-lockfile

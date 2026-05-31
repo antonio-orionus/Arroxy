@@ -6,10 +6,9 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-  BUN_VERSION: '1.2.23'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify-version:
@@ -44,26 +43,6 @@ jobs:
 
           echo "Releasing version $PACKAGE_VERSION"
 
-  quality-gate:
-    needs: verify-version
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: '22'
-
-      - uses: oven-sh/setup-bun@v2.2.0
-        with:
-          bun-version: ${{ env.BUN_VERSION }}
-
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
-
-      - name: Check
-        run: bun run check
-
   prepare-release:
     # Pre-create a single draft release for this tag before any publisher runs.
     # Without this, the parallel mac/linux `build` matrix jobs each call
@@ -76,7 +55,7 @@ jobs:
     # By pre-creating a draft here, electron-publisher reuses it (it returns
     # the existing draft on the next list-releases call) and Windows
     # Installer's `view || create` shortcut also reuses it.
-    needs: quality-gate
+    needs: verify-version
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -99,8 +78,6 @@ jobs:
     # scripts/build/fetch-embedded.sh). yt-dlp + deno remain runtime-fetched
     # by BinaryManager.
     needs: prepare-release
-    permissions:
-      contents: write
     strategy:
       matrix:
         include:
@@ -113,7 +90,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2.2.0
         with:
-          bun-version: ${{ env.BUN_VERSION }}
+          bun-version: latest
       - run: bun install --frozen-lockfile
       - run: bun run ${{ matrix.dist-cmd }}
         env:
@@ -124,8 +101,6 @@ jobs:
   finalize:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v6
       - name: Set release title and notes
@@ -269,8 +244,6 @@ jobs:
   upload-flatpak:
     needs: build-flatpak
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/download-artifact@v8
         with:

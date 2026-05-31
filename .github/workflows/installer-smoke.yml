@@ -25,10 +25,6 @@ concurrency:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-  BUN_VERSION: '1.2.23'
-
-permissions:
-  contents: read
 
 jobs:
   build:
@@ -38,7 +34,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2.2.0
         with:
-          bun-version: ${{ env.BUN_VERSION }}
+          bun-version: latest
       - run: bun install --frozen-lockfile
       # On tag push, build both NSIS Setup and Portable (both shipped on the
       # GitHub Release; portable feeds the scoop bucket). Otherwise, only

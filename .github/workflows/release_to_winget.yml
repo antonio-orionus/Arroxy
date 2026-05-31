@@ -8,9 +8,6 @@ on:
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
-permissions:
-  contents: read
-
 jobs:
   publish:
     runs-on: windows-latest
@@ -26,7 +23,7 @@ jobs:
             });
             core.setOutput("tag", latest.data.tag_name);
 
-      - uses: vedantmgoyal9/winget-releaser@7bd472be23763def6e16bd06cc8b1cdfab0e2fd5
+      - uses: vedantmgoyal9/winget-releaser@main
         with:
           identifier: AntonioOrionus.Arroxy
           installers-regex: '^Arroxy-Setup-.*\.exe$'
