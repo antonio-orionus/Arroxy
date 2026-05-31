@@ -122,12 +122,25 @@ const es = {
       title: 'Este enlace tiene una Playlist',
       body: '¿Solo el video en el que hiciste clic o prefieres elegir de la Playlist? En el siguiente paso podrás seleccionar videos concretos o un rango.',
       singleVideo: 'Solo este',
-      pickFromPlaylist: 'Elegir de la Playlist'
+      pickFromPlaylist: 'Elegir de la Playlist',
+      playlistLimit: 'Límite de análisis de playlist: {{count}} elementos',
+      advancedSettings: 'Ajustes avanzados',
+      singleTooltip: 'Usa el modo de vídeo único de yt-dlp para ignorar la playlist adjunta a esta URL.',
+      playlistTooltip: 'Usa el modo playlist de yt-dlp y carga hasta tu límite de análisis antes de mostrar el selector.'
     },
     url: {
       heading: 'URL de YouTube',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'Obtener formatos',
+      fetchFormatsTooltip: 'Elige formatos, subtítulos, carpeta y elementos de playlist paso a paso antes de enviar a la cola.',
+      quickDownload: 'Descarga rápida',
+      quickDownloadTooltip: 'Usa tus preferencias guardadas o predeterminadas y añade este video individual a la cola sin abrir los pasos de configuración.',
+      quickPreparing: 'Preparando',
+      quickQueued: 'Añadido a la cola',
+      quickSingleOnly: 'La descarga rápida es solo para videos individuales. Usa Obtener formatos para playlists y canales.',
+      quickProbeFailed: 'Falló el análisis',
+      quickPrepareFailed: 'No se pudo preparar el elemento de la cola',
+      quickFailed: 'No se pudo añadir: {{error}}',
       features: {
         heading: 'Qué puede bajar Arroxy',
         youtube: {
@@ -249,6 +262,15 @@ const es = {
       analytics: {
         toggle: 'Enviar estadísticas de uso anónimas',
         toggleDescription: 'Solo cuenta los inicios de la app. Sin URLs, nombres de archivo ni datos personales.'
+      },
+      limitRate: {
+        label: 'Límite de velocidad de descarga',
+        description: 'Limita el ancho de banda de las descargas multimedia. El ritmo de solicitudes de abajo suele ser el control más fuerte.',
+        off: 'Desactivado',
+        custom: 'Personalizado…',
+        customPlaceholder: 'p. ej. 750K o 1.5M',
+        invalid: 'Usa un número seguido de K o M (p. ej. 500K, 1.5M)',
+        activeWarning: 'Las descargas activas conservan su límite actual. Pausa + Reanuda para aplicar cambios.'
       }
     },
     subtitles: {
@@ -396,6 +418,10 @@ const es = {
       writeThumbnail: {
         label: 'Guardar miniatura',
         description: 'Guarda la miniatura como archivo .jpg junto a la descarga.'
+      },
+      writeM3u: {
+        label: 'Generar archivo de playlist .m3u',
+        description: 'Guarda una playlist .m3u junto a los vídeos para abrirlos en orden en tu reproductor.'
       }
     },
     confirm: {
@@ -450,8 +476,22 @@ const es = {
       hold: 'Retener',
       resume: 'Reanudar',
       cancel: 'Cancelar',
-      remove: 'Quitar'
-    }
+      remove: 'Quitar',
+      pullNow: 'Descargar ahora — saltar la cola',
+      priorityBadge: 'Prioridad',
+      statusPending: 'Esperando',
+      statusRunning: 'Descargando',
+      statusHeld: 'Retenido',
+      statusPaused: 'Pausado',
+      statusDone: 'Listo',
+      statusError: 'Error',
+      statusCancelled: 'Cancelado'
+    },
+    resumeAll: 'Reanudar cola',
+    resumeAllTitle: 'Reanudar descargas pausadas y dejar que la cola continúe',
+    limitRate: 'Velocidad: {{value}}',
+    limitRateOff: 'Velocidad: desactivada',
+    limitRateTitle: 'Límite de ancho de banda para descargas'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -539,24 +579,24 @@ const es = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'Códec más alto disponible por elemento',
+      mp4: 'H.264 + AAC preferido, contenedor MP4 · mejor esfuerzo'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'Hasta 4K',
+      '1440': 'Hasta 1440p',
+      '1080': 'Hasta 1080p',
+      '720': 'Hasta 720p',
+      '480': 'Hasta 480p',
+      '360': 'Hasta 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'Mejor vídeo + audio disponible por elemento',
+      '2160': 'Limitado a 2160p, baja por elemento si hace falta',
+      '1440': 'Limitado a 2K, baja por elemento si hace falta',
+      '1080': 'Limitado a 1080p, baja por elemento si hace falta',
+      '720': 'Archivos más pequeños, amplia compatibilidad',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -567,13 +607,13 @@ const es = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'Mejor audio nativo, sin recodificar',
+      mp3: 'Convertir a MP3',
+      m4a: 'Convertir a M4A (AAC)',
+      opus: 'Convertir a Opus'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'H.264 por encima de 1080p no está disponible en YouTube — se limita automáticamente a 1080p'
   },
   formatLabel: {
     audioFallback: 'Audio',
@@ -596,7 +636,8 @@ const es = {
       message_other: '{{count}} descargas en curso',
       detail: 'Cerrar cancelará todas las descargas activas.',
       confirm: 'Cancelar descargas y salir',
-      keep: 'Seguir descargando'
+      keep: 'Seguir descargando',
+      pause: 'Pausar descargas y salir'
     },
     closeToTray: {
       message: '¿Ocultar Arroxy en la bandeja del sistema al cerrar?',

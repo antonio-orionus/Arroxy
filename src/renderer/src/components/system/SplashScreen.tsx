@@ -49,7 +49,7 @@ export function SplashScreen({ initialized, warmupBlocking, warmupDiagnostics, w
     <div
       className="splash-overlay"
       data-testid="splash-overlay"
-      style={{ opacity: fading ? 0 : 1, pointerEvents: blocked ? 'auto' : 'none' }}
+      style={{ opacity: fading ? 0 : 1, pointerEvents: fading ? 'none' : 'auto' }}
       onTransitionEnd={() => {
         if (fading) setGone(true);
       }}

@@ -122,13 +122,26 @@ const vi = {
       title: 'Liên kết này có Playlist',
       body: 'Bạn chỉ muốn video đã chọn, hay muốn chọn từ Playlist? Bạn sẽ chọn các video cụ thể hoặc một đoạn ở bước tiếp theo.',
       singleVideo: 'Chỉ cái này thôi',
-      pickFromPlaylist: 'Chọn từ Playlist'
+      pickFromPlaylist: 'Chọn từ Playlist',
+      playlistLimit: 'Giới hạn dò playlist: {{count}} mục',
+      advancedSettings: 'Cài đặt nâng cao',
+      singleTooltip: 'Dùng chế độ video đơn của yt-dlp để bỏ qua playlist gắn với URL này.',
+      playlistTooltip: 'Dùng chế độ playlist của yt-dlp và lấy đến giới hạn dò playlist trước khi hiện bộ chọn.'
     },
 
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'Tải định dạng',
+      fetchFormatsTooltip: 'Chọn định dạng, phụ đề, thư mục và mục playlist từng bước trước khi thêm vào hàng đợi.',
+      quickDownload: 'Tải nhanh',
+      quickDownloadTooltip: 'Dùng tùy chọn đã lưu hoặc mặc định của bạn và thêm video đơn này vào hàng đợi mà không mở các bước thiết lập.',
+      quickPreparing: 'Đang chuẩn bị',
+      quickQueued: 'Đã thêm vào hàng đợi',
+      quickSingleOnly: 'Tải nhanh chỉ dành cho video đơn. Dùng Lấy định dạng cho playlist và kênh.',
+      quickProbeFailed: 'Thăm dò thất bại',
+      quickPrepareFailed: 'Không thể chuẩn bị mục hàng đợi',
+      quickFailed: 'Không thể thêm mục này: {{error}}',
       features: {
         heading: 'Arroxy có thể tải gì',
         youtube: {
@@ -234,7 +247,13 @@ const vi = {
           sleepRequests: 'Chờ giữa các lần kiểm tra metadata',
           sleepInterval: 'Dừng trước khi media bắt đầu: tối thiểu',
           maxSleepInterval: 'Dừng trước khi media bắt đầu: tối đa',
-          concurrentFragments: 'Kết nối tải xuống'
+          concurrentFragments: 'Kết nối tải xuống',
+          sleepSubtitles: 'Chờ trước tệp phụ đề'
+        },
+        presetLabel: 'Arroxy nên thận trọng mức nào?',
+        units: {
+          seconds: 'giây',
+          threads: 'luồng'
         }
       },
       closeToTray: {
@@ -244,6 +263,15 @@ const vi = {
       analytics: {
         toggle: 'Gửi thống kê sử dụng ẩn danh',
         toggleDescription: 'Chỉ đếm số lần khởi động ứng dụng. Không có URL, tên tệp hay dữ liệu cá nhân.'
+      },
+      limitRate: {
+        label: 'Giới hạn tốc độ tải',
+        description: 'Giới hạn băng thông cho tải media. Nhịp yêu cầu bên dưới thường là đòn bẩy giới hạn mạnh hơn.',
+        off: 'Tắt',
+        custom: 'Tùy chỉnh…',
+        customPlaceholder: 'vd. 750K hoặc 1.5M',
+        invalid: 'Dùng một số theo sau bởi K hoặc M (vd. 500K, 1.5M)',
+        activeWarning: 'Tải xuống đang chạy giữ giới hạn hiện tại. Tạm dừng + Tiếp tục để áp dụng.'
       }
     },
     subtitles: {
@@ -391,6 +419,10 @@ const vi = {
       writeThumbnail: {
         label: 'Lưu hình thu nhỏ',
         description: 'Lưu hình thu nhỏ dưới dạng tệp ảnh .jpg cạnh tệp tải xuống.'
+      },
+      writeM3u: {
+        label: 'Tạo tệp playlist .m3u',
+        description: 'Lưu playlist .m3u cạnh các video để mở đúng thứ tự trong trình phát.'
       }
     },
     confirm: {
@@ -445,8 +477,22 @@ const vi = {
       hold: 'Giữ',
       resume: 'Tiếp tục',
       cancel: 'Hủy',
-      remove: 'Xóa'
-    }
+      remove: 'Xóa',
+      pullNow: 'Tải ngay — bỏ qua hàng đợi',
+      priorityBadge: 'Ưu tiên',
+      statusPending: 'Đang chờ',
+      statusRunning: 'Đang tải',
+      statusHeld: 'Đang giữ',
+      statusPaused: 'Tạm dừng',
+      statusDone: 'Xong',
+      statusError: 'Lỗi',
+      statusCancelled: 'Đã hủy'
+    },
+    resumeAll: 'Tiếp tục hàng đợi',
+    resumeAllTitle: 'Tiếp tục các tải xuống đã tạm dừng và cho hàng đợi chạy tiếp',
+    limitRate: 'Tốc độ: {{value}}',
+    limitRateOff: 'Tốc độ: Tắt',
+    limitRateTitle: 'Giới hạn băng thông cho tải xuống'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -534,24 +580,24 @@ const vi = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'Codec cao nhất có sẵn cho từng mục',
+      mp4: 'Ưu tiên H.264 + AAC, vùng chứa MP4 · cố gắng tốt nhất'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'Tối đa 4K',
+      '1440': 'Tối đa 1440p',
+      '1080': 'Tối đa 1080p',
+      '720': 'Tối đa 720p',
+      '480': 'Tối đa 480p',
+      '360': 'Tối đa 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'Video + âm thanh tốt nhất có sẵn cho từng mục',
+      '2160': 'Giới hạn 2160p, hạ xuống theo từng mục nếu cần',
+      '1440': 'Giới hạn 2K, hạ xuống theo từng mục nếu cần',
+      '1080': 'Giới hạn 1080p, hạ xuống theo từng mục nếu cần',
+      '720': 'Tệp nhỏ hơn, tương thích rộng',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -562,13 +608,13 @@ const vi = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'Âm thanh gốc tốt nhất, không mã hóa lại',
+      mp3: 'Chuyển sang MP3',
+      m4a: 'Chuyển sang M4A (AAC)',
+      opus: 'Chuyển sang Opus'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'H.264 trên 1080p không có trên YouTube — tự động giới hạn ở 1080p'
   },
   formatLabel: {
     audioFallback: 'Âm thanh',
@@ -591,7 +637,8 @@ const vi = {
       message_other: '{{count}} tải xuống đang tiến hành',
       detail: 'Đóng ứng dụng sẽ hủy tất cả các tải xuống đang hoạt động.',
       confirm: 'Hủy tải xuống & Thoát',
-      keep: 'Tiếp tục tải xuống'
+      keep: 'Tiếp tục tải xuống',
+      pause: 'Tạm dừng tải và thoát'
     },
     closeToTray: {
       message: 'Ẩn Arroxy xuống khay hệ thống khi đóng?',

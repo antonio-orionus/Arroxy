@@ -122,13 +122,26 @@ const my = {
       title: 'ဤလင့်ခ်တွင် Playlist ပါဝင်သည်',
       body: 'သင်နှိပ်ခဲ့သော ဗီဒီယိုကိုသာ လိုချင်သလော၊ Playlist မှ ရွေးချင်သလော? နောက်တွင် သီးခြားဗီဒီယိုများ သို့မဟုတ် အပိုင်းအခြား ရွေးနိုင်မည်။',
       singleVideo: 'ဤတစ်ခုသာ',
-      pickFromPlaylist: 'Playlist မှ ရွေးမည်'
+      pickFromPlaylist: 'Playlist မှ ရွေးမည်',
+      playlistLimit: 'Playlist စစ်ဆေးမှု ကန့်သတ်ချက်: {{count}} ခု',
+      advancedSettings: 'အဆင့်မြင့် ဆက်တင်များ',
+      singleTooltip: 'ဤ URL နှင့်တွဲနေသော playlist ကို လျစ်လျူရှုရန် yt-dlp ၏ ဗီဒီယိုတစ်ခုချင်း မုဒ်ကို သုံးသည်။',
+      playlistTooltip: 'yt-dlp ၏ playlist မုဒ်ကို သုံးပြီး ရွေးချယ်ကိရိယာ မပြမီ သင့်ကန့်သတ်ချက်အထိ ယူသည်။'
     },
 
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'ဖော်မတ်များရယူမည်',
+      fetchFormatsTooltip: 'တန်းစီစာရင်းထဲ မထည့်မီ ဖော်မတ်များ၊ စာတန်းထိုးများ၊ ဖိုင်တွဲနှင့် playlist အရာများကို အဆင့်လိုက် ရွေးပါ။',
+      quickDownload: 'အမြန်ဒေါင်းလုဒ်',
+      quickDownloadTooltip: 'သိမ်းထားသော သို့မဟုတ် မူရင်းရွေးချယ်မှုများကို အသုံးပြုပြီး ပြင်ဆင်မှုအဆင့်များ မဖွင့်ဘဲ ဤဗီဒီယိုတစ်ခုကို တန်းစီစာရင်းထဲ ထည့်သည်။',
+      quickPreparing: 'ပြင်ဆင်နေသည်',
+      quickQueued: 'တန်းစီစာရင်းထဲ ထည့်ပြီး',
+      quickSingleOnly: 'အမြန်ဒေါင်းလုဒ်သည် ဗီဒီယိုတစ်ခုချင်းအတွက်သာ ဖြစ်သည်။ Playlists နှင့် channels အတွက် ဖော်မတ်များ ရယူရန်ကို သုံးပါ။',
+      quickProbeFailed: 'စစ်ဆေးမှု မအောင်မြင်ပါ',
+      quickPrepareFailed: 'တန်းစီအရာကို မပြင်ဆင်နိုင်ပါ',
+      quickFailed: 'ဤအရာကို ထည့်မရပါ: {{error}}',
       features: {
         heading: 'Arroxy ဆွဲထုတ်နိုင်သည်',
         youtube: {
@@ -250,6 +263,15 @@ const my = {
       analytics: {
         toggle: 'အမည်မသိ သုံးစွဲမှုစာရင်းအင်းများ ပေးပို့ပါ',
         toggleDescription: 'အက်ပ် ဖွင့်သည့်အကြိမ်ရေကိုသာ ရေတွက်သည်။ URL၊ ဖိုင်အမည် သို့မဟုတ် ကိုယ်ရေးကိုယ်တာ ဒေတာ မပါဝင်ပါ။'
+      },
+      limitRate: {
+        label: 'ဒေါင်းလုဒ် အမြန်နှုန်း ကန့်သတ်ချက်',
+        description: 'မီဒီယာ ဒေါင်းလုဒ်များအတွက် bandwidth ကို ကန့်သတ်ပါ။ အောက်ပါ request pacing သည် အများအားဖြင့် ပိုအားကောင်းသော ကန့်သတ်ကိရိယာ ဖြစ်သည်။',
+        off: 'ပိတ်',
+        custom: 'စိတ်ကြိုက်…',
+        customPlaceholder: 'ဥပမာ 750K သို့ 1.5M',
+        invalid: 'K သို့ M ဖြင့်လိုက်သော နံပါတ်ကို သုံးပါ (ဥပမာ 500K, 1.5M)',
+        activeWarning: 'လုပ်ဆောင်နေသော ဒေါင်းလုဒ်များသည် လက်ရှိကန့်သတ်ချက်ကို ထိန်းထားသည်။ အသုံးပြုရန် ရပ်နား + ဆက်လုပ်ပါ။'
       }
     },
     subtitles: {
@@ -397,6 +419,10 @@ const my = {
       writeThumbnail: {
         label: 'Thumbnail သိမ်းမည်',
         description: 'Thumbnail ကို ဒေါင်းလုဒ်နဘေးတွင် .jpg ဓာတ်ပုံဖိုင်အဖြစ် သိမ်းမည်။'
+      },
+      writeM3u: {
+        label: '.m3u playlist ဖိုင် ဖန်တီးပါ',
+        description: 'ဗီဒီယိုများကို media player တွင် အစဉ်လိုက် ဖွင့်ရန် .m3u playlist ကို အတူသိမ်းသည်။'
       }
     },
     confirm: {
@@ -451,8 +477,22 @@ const my = {
       hold: 'ဆိုင်းငံ့မည်',
       resume: 'ဆက်လုပ်မည်',
       cancel: 'ပယ်ဖျက်မည်',
-      remove: 'ဖျက်မည်'
-    }
+      remove: 'ဖျက်မည်',
+      pullNow: 'ယခု ဒေါင်းလုဒ် — တန်းစီစာရင်း ကျော်',
+      priorityBadge: 'ဦးစားပေး',
+      statusPending: 'စောင့်နေသည်',
+      statusRunning: 'ဒေါင်းလုဒ်လုပ်နေသည်',
+      statusHeld: 'ထိန်းထားသည်',
+      statusPaused: 'ရပ်နားထားသည်',
+      statusDone: 'ပြီးပြီ',
+      statusError: 'အမှား',
+      statusCancelled: 'ပယ်ဖျက်ပြီး'
+    },
+    resumeAll: 'တန်းစီစာရင်း ဆက်လုပ်',
+    resumeAllTitle: 'ရပ်နားထားသော ဒေါင်းလုဒ်များကို ဆက်လုပ်ပြီး တန်းစီစာရင်းကို ဆက်လက်လည်ပတ်စေသည်',
+    limitRate: 'အမြန်နှုန်း: {{value}}',
+    limitRateOff: 'အမြန်နှုန်း: ပိတ်',
+    limitRateTitle: 'ဒေါင်းလုဒ်များအတွက် bandwidth ကန့်သတ်ချက်'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -540,24 +580,24 @@ const my = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'အရာတစ်ခုချင်းစီအတွက် ရနိုင်သော အမြင့်ဆုံး codec',
+      mp4: 'H.264 + AAC ကို ဦးစားပေး၊ MP4 container · အကောင်းဆုံးကြိုးစားမှု'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': '4K အထိ',
+      '1440': '1440p အထိ',
+      '1080': '1080p အထိ',
+      '720': '720p အထိ',
+      '480': '480p အထိ',
+      '360': '360p အထိ'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'အရာတစ်ခုချင်းစီအတွက် အကောင်းဆုံး ဗီဒီယို + အသံ',
+      '2160': '2160p တွင် ကန့်သတ်ပြီး အရာအလိုက် လိုအပ်လျှင် လျော့သည်',
+      '1440': '2K တွင် ကန့်သတ်ပြီး အရာအလိုက် လိုအပ်လျှင် လျော့သည်',
+      '1080': '1080p တွင် ကန့်သတ်ပြီး အရာအလိုက် လိုအပ်လျှင် လျော့သည်',
+      '720': 'ဖိုင်သေး၊ ကိုက်ညီမှု ကျယ်ပြန့်',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -568,13 +608,13 @@ const my = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'အကောင်းဆုံး မူရင်းအသံ၊ ပြန် encode မလုပ်',
+      mp3: 'MP3 သို့ ပြောင်း',
+      m4a: 'M4A (AAC) သို့ ပြောင်း',
+      opus: 'Opus သို့ ပြောင်း'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'YouTube တွင် 1080p အထက် H.264 မရှိပါ — 1080p သို့ အလိုအလျောက် ကန့်သတ်သည်'
   },
   formatLabel: {
     audioFallback: 'အသံ',
@@ -597,7 +637,8 @@ const my = {
       message_other: '{{count}} ဒေါင်းလုဒ်များ လုပ်ဆောင်နေဆဲ',
       detail: 'ပိတ်လျှင် လက်ရှိဒေါင်းလုဒ်အားလုံးကို ပယ်ဖျက်မည်။',
       confirm: 'ဒေါင်းလုဒ်ပယ်ဖျက်ပြီး ထွက်မည်',
-      keep: 'ဒေါင်းလုဒ်ဆက်လုပ်မည်'
+      keep: 'ဒေါင်းလုဒ်ဆက်လုပ်မည်',
+      pause: 'ဒေါင်းလုဒ်များ ရပ်နားပြီး ထွက်'
     },
     closeToTray: {
       message: 'ပိတ်သောအခါ Arroxy ကို system tray သို့ ဝှက်မည်လား?',

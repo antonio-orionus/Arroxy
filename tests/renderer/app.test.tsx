@@ -51,6 +51,53 @@ describe('App renderer', () => {
     });
   });
 
+  it('renders quick download and disables URL actions while preparing', async () => {
+    let resolveProbe!: (value: Awaited<ReturnType<typeof mockAppApi.downloads.probe>>) => void;
+    vi.mocked(mockAppApi.downloads.probe).mockReturnValue(
+      new Promise((resolve) => {
+        resolveProbe = resolve;
+      })
+    );
+    render(<App />);
+
+    const quick = await screen.findByTestId('btn-quick-download');
+    const fetch = screen.getByTestId('btn-find-formats');
+    expect(quick).toHaveTextContent('Quick download');
+    expect(quick).toBeDisabled();
+
+    const input = await screen.findByPlaceholderText(/^https/i);
+    fireEvent.change(input, { target: { value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' } });
+    fireEvent.click(quick);
+
+    await waitFor(() => {
+      expect(quick).toBeDisabled();
+      expect(fetch).toBeDisabled();
+      expect(quick).toHaveTextContent('Preparing');
+    });
+
+    resolveProbe({
+      ok: true,
+      data: {
+        kind: 'video',
+        extractor: 'youtube',
+        extractorKey: 'Youtube',
+        webpageUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        isAudioOnlySource: false,
+        formats: [{ formatId: '22', label: '720p | mp4', ext: 'mp4', resolution: '720p', fps: 30, isVideoOnly: false, isAudioOnly: false }],
+        title: 'Test Video',
+        thumbnail: '',
+        subtitles: {},
+        automaticCaptions: {},
+        isLive: false,
+        hasDrm: false
+      }
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('quick-download-feedback')).toHaveTextContent('Added to queue');
+    });
+  });
+
   it('shows queue panel below wizard', async () => {
     render(<App />);
     expect(await screen.findByLabelText('Download Queue')).toBeInTheDocument();

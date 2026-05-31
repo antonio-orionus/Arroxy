@@ -122,13 +122,26 @@ const fr = {
       title: 'Ce lien contient une Playlist',
       body: "Seulement la vidéo sur laquelle tu as cliqué, ou tu préfères choisir dans la Playlist ? Tu pourras sélectionner des vidéos précises ou une plage à l'étape suivante.",
       singleVideo: 'Juste celle-ci',
-      pickFromPlaylist: 'Choisir dans la Playlist'
+      pickFromPlaylist: 'Choisir dans la Playlist',
+      playlistLimit: 'Limite d’analyse de playlist : {{count}} éléments',
+      advancedSettings: 'Paramètres avancés',
+      singleTooltip: 'Utilise le mode vidéo seule de yt-dlp afin d’ignorer la playlist attachée à cette URL.',
+      playlistTooltip: 'Utilise le mode playlist de yt-dlp et récupère jusqu’à votre limite avant d’afficher le sélecteur.'
     },
 
     url: {
       heading: 'URL YouTube',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'Récupérer les formats',
+      fetchFormatsTooltip: 'Choisissez les formats, sous-titres, dossier et éléments de playlist étape par étape avant l’ajout à la file.',
+      quickDownload: 'Téléchargement rapide',
+      quickDownloadTooltip: 'Utilise vos préférences enregistrées ou par défaut et ajoute cette vidéo seule à la file sans ouvrir les étapes de configuration.',
+      quickPreparing: 'Préparation',
+      quickQueued: 'Ajouté à la file',
+      quickSingleOnly: 'Le téléchargement rapide est réservé aux vidéos seules. Utilisez Récupérer les formats pour les playlists et les chaînes.',
+      quickProbeFailed: 'Analyse échouée',
+      quickPrepareFailed: 'Impossible de préparer l’élément de file',
+      quickFailed: 'Impossible d’ajouter cet élément : {{error}}',
       features: {
         heading: "Ce qu'Arroxy peut récupérer",
         youtube: {
@@ -250,6 +263,15 @@ const fr = {
       analytics: {
         toggle: "Envoyer des statistiques d'utilisation anonymes",
         toggleDescription: "Compte uniquement les lancements de l'application. Aucune URL, nom de fichier ou donnée personnelle."
+      },
+      limitRate: {
+        label: 'Limite de vitesse de téléchargement',
+        description: 'Limite la bande passante des téléchargements média. Le rythme des requêtes ci-dessous est souvent le levier le plus fort.',
+        off: 'Désactivé',
+        custom: 'Personnalisé…',
+        customPlaceholder: 'ex. 750K ou 1.5M',
+        invalid: 'Utilisez un nombre suivi de K ou M (ex. 500K, 1.5M)',
+        activeWarning: 'Les téléchargements actifs gardent leur limite actuelle. Pause + Reprendre pour appliquer.'
       }
     },
     subtitles: {
@@ -397,6 +419,10 @@ const fr = {
       writeThumbnail: {
         label: 'Enregistrer la miniature',
         description: 'Enregistre la miniature en fichier .jpg à côté du téléchargement.'
+      },
+      writeM3u: {
+        label: 'Générer un fichier playlist .m3u',
+        description: 'Enregistre une playlist .m3u à côté des vidéos pour les ouvrir dans l’ordre dans votre lecteur.'
       }
     },
     confirm: {
@@ -451,8 +477,22 @@ const fr = {
       hold: 'En attente',
       resume: 'Reprendre',
       cancel: 'Annuler',
-      remove: 'Supprimer'
-    }
+      remove: 'Supprimer',
+      pullNow: 'Télécharger maintenant — ignorer la file',
+      priorityBadge: 'Priorité',
+      statusPending: 'En attente',
+      statusRunning: 'Téléchargement',
+      statusHeld: 'Retenu',
+      statusPaused: 'En pause',
+      statusDone: 'Terminé',
+      statusError: 'Erreur',
+      statusCancelled: 'Annulé'
+    },
+    resumeAll: 'Reprendre la file',
+    resumeAllTitle: 'Reprendre les téléchargements en pause et laisser la file continuer',
+    limitRate: 'Vitesse : {{value}}',
+    limitRateOff: 'Vitesse : désactivée',
+    limitRateTitle: 'Limite de bande passante des téléchargements'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -540,24 +580,24 @@ const fr = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'Codec le plus élevé disponible par élément',
+      mp4: 'H.264 + AAC privilégiés, conteneur MP4 · au mieux'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'Jusqu’à 4K',
+      '1440': 'Jusqu’à 1440p',
+      '1080': 'Jusqu’à 1080p',
+      '720': 'Jusqu’à 720p',
+      '480': 'Jusqu’à 480p',
+      '360': 'Jusqu’à 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'Meilleurs vidéo + audio disponibles par élément',
+      '2160': 'Limité à 2160p, baisse par élément si nécessaire',
+      '1440': 'Limité à 2K, baisse par élément si nécessaire',
+      '1080': 'Limité à 1080p, baisse par élément si nécessaire',
+      '720': 'Fichiers plus petits, large compatibilité',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -568,13 +608,13 @@ const fr = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'Meilleur audio natif, sans réencodage',
+      mp3: 'Convertir en MP3',
+      m4a: 'Convertir en M4A (AAC)',
+      opus: 'Convertir en Opus'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'H.264 au-dessus de 1080p n’est pas disponible sur YouTube — limité automatiquement à 1080p'
   },
   formatLabel: {
     audioFallback: 'Audio',
@@ -597,7 +637,8 @@ const fr = {
       message_other: '{{count}} téléchargements en cours',
       detail: 'La fermeture annulera tous les téléchargements actifs.',
       confirm: 'Annuler et quitter',
-      keep: 'Continuer le téléchargement'
+      keep: 'Continuer le téléchargement',
+      pause: 'Mettre en pause et quitter'
     },
     closeToTray: {
       message: 'Masquer Arroxy dans la barre des tâches lors de la fermeture ?',

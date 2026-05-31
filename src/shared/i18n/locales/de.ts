@@ -122,13 +122,26 @@ const de = {
       title: 'Dieser Link enthält eine Playlist',
       body: 'Nur das angeklickte Video oder aus der Playlist auswählen? Im nächsten Schritt kannst du einzelne Videos oder einen Bereich festlegen.',
       singleVideo: 'Nur dieses eine',
-      pickFromPlaylist: 'Aus Playlist auswählen'
+      pickFromPlaylist: 'Aus Playlist auswählen',
+      playlistLimit: 'Playlist-Prüflimit: {{count}} Einträge',
+      advancedSettings: 'Erweiterte Einstellungen',
+      singleTooltip: 'Verwendet den Einzelvideo-Modus von yt-dlp, sodass die an diese URL angehängte Playlist ignoriert wird.',
+      playlistTooltip: 'Verwendet den Playlist-Modus von yt-dlp und lädt bis zu deinem Playlist-Prüflimit, bevor die Auswahl angezeigt wird.'
     },
 
     url: {
       heading: 'YouTube-URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'Formate abrufen',
+      fetchFormatsTooltip: 'Formate, Untertitel, Ordner und Playlist-Elemente Schritt für Schritt auswählen, bevor sie zur Warteschlange hinzugefügt werden.',
+      quickDownload: 'Schnelldownload',
+      quickDownloadTooltip: 'Verwendet deine gespeicherten oder Standard-Einstellungen und fügt dieses einzelne Video zur Warteschlange hinzu, ohne die Einrichtungsschritte zu öffnen.',
+      quickPreparing: 'Wird vorbereitet',
+      quickQueued: 'Zur Warteschlange hinzugefügt',
+      quickSingleOnly: 'Schnelldownload ist nur für einzelne Videos gedacht. Nutze Formate abrufen für Playlists und Kanäle.',
+      quickProbeFailed: 'Prüfung fehlgeschlagen',
+      quickPrepareFailed: 'Warteschlangeneintrag konnte nicht vorbereitet werden',
+      quickFailed: 'Konnte dieses Element nicht hinzufügen: {{error}}',
       features: {
         heading: 'Was Arroxy laden kann',
         youtube: {
@@ -250,6 +263,15 @@ const de = {
       analytics: {
         toggle: 'Anonyme Nutzungsstatistiken senden',
         toggleDescription: 'Zählt nur App-Starts. Keine URLs, Dateinamen oder persönliche Daten.'
+      },
+      limitRate: {
+        label: 'Download-Geschwindigkeitslimit',
+        description: 'Begrenzt die Bandbreite für Mediendownloads. Die Anfrage-Pausen darunter sind meist der stärkere Hebel gegen Limits.',
+        off: 'Aus',
+        custom: 'Benutzerdefiniert…',
+        customPlaceholder: 'z. B. 750K oder 1.5M',
+        invalid: 'Nutze eine Zahl mit K oder M (z. B. 500K, 1.5M)',
+        activeWarning: 'Aktive Downloads behalten ihr aktuelles Limit. Pausieren + Fortsetzen wendet Änderungen an.'
       }
     },
     subtitles: {
@@ -397,6 +419,10 @@ const de = {
       writeThumbnail: {
         label: 'Thumbnail speichern',
         description: 'Speichert das Thumbnail als .jpg-Bilddatei neben dem Download.'
+      },
+      writeM3u: {
+        label: '.m3u-Playlistdatei erstellen',
+        description: 'Speichert eine .m3u-Playlist neben den Videos, damit sie in Reihenfolge im Mediaplayer geöffnet werden.'
       }
     },
     confirm: {
@@ -451,8 +477,22 @@ const de = {
       hold: 'Zurückhalten',
       resume: 'Fortsetzen',
       cancel: 'Abbrechen',
-      remove: 'Entfernen'
-    }
+      remove: 'Entfernen',
+      pullNow: 'Jetzt starten — Warteschlange überspringen',
+      priorityBadge: 'Priorität',
+      statusPending: 'Wartet',
+      statusRunning: 'Lädt herunter',
+      statusHeld: 'Zurückgehalten',
+      statusPaused: 'Pausiert',
+      statusDone: 'Fertig',
+      statusError: 'Fehler',
+      statusCancelled: 'Abgebrochen'
+    },
+    resumeAll: 'Warteschlange fortsetzen',
+    resumeAllTitle: 'Pausierte Downloads fortsetzen und die Warteschlange weiterlaufen lassen',
+    limitRate: 'Tempo: {{value}}',
+    limitRateOff: 'Tempo: Aus',
+    limitRateTitle: 'Bandbreitenlimit für Downloads'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -540,24 +580,24 @@ const de = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'Höchster verfügbarer Codec pro Eintrag',
+      mp4: 'H.264 + AAC bevorzugt, MP4-Container · bestmöglich'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'Bis 4K',
+      '1440': 'Bis 1440p',
+      '1080': 'Bis 1080p',
+      '720': 'Bis 720p',
+      '480': 'Bis 480p',
+      '360': 'Bis 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'Höchstes verfügbares Video + Audio pro Eintrag',
+      '2160': 'Auf 2160p begrenzt, fällt pro Eintrag niedriger aus',
+      '1440': 'Auf 2K begrenzt, fällt pro Eintrag niedriger aus',
+      '1080': 'Auf 1080p begrenzt, fällt pro Eintrag niedriger aus',
+      '720': 'Kleinere Dateien, breite Kompatibilität',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -568,13 +608,13 @@ const de = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'Bestes natives Audio, keine Neukodierung',
+      mp3: 'In MP3 umwandeln',
+      m4a: 'In M4A (AAC) umwandeln',
+      opus: 'In Opus umwandeln'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'H.264 über 1080p ist auf YouTube nicht verfügbar — automatisch auf 1080p begrenzt'
   },
   formatLabel: {
     audioFallback: 'Audio',
@@ -597,7 +637,8 @@ const de = {
       message_other: '{{count}} Downloads laufen',
       detail: 'Beim Schließen werden alle aktiven Downloads abgebrochen.',
       confirm: 'Downloads abbrechen & beenden',
-      keep: 'Weiter herunterladen'
+      keep: 'Weiter herunterladen',
+      pause: 'Downloads pausieren & beenden'
     },
     closeToTray: {
       message: 'Arroxy beim Schließen in den Infobereich minimieren?',

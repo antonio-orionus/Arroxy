@@ -132,6 +132,15 @@ const en = {
       heading: 'Video URL',
       placeholder: 'https://...',
       fetchFormats: 'Fetch formats',
+      fetchFormatsTooltip: 'Choose formats, subtitles, folder, and playlist items step by step before queueing.',
+      quickDownload: 'Quick download',
+      quickDownloadTooltip: 'Uses your saved or default preferences and adds this single video to the queue without opening the setup steps.',
+      quickPreparing: 'Preparing',
+      quickQueued: 'Added to queue',
+      quickSingleOnly: 'Quick download is for single videos. Use Fetch formats for playlists and channels.',
+      quickProbeFailed: 'Probe failed',
+      quickPrepareFailed: 'Queue item could not be prepared',
+      quickFailed: "Couldn't add this one: {{error}}",
       features: {
         heading: 'What Arroxy can pull',
         youtube: {

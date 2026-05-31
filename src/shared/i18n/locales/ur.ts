@@ -122,13 +122,26 @@ const ur = {
       title: 'اس لنک میں Playlist ہے',
       body: 'کیا آپ صرف وہی ویڈیو چاہتے ہیں جس پر کلک کیا، یا Playlist سے انتخاب کرنا چاہتے ہیں؟ اگلے مرحلے میں آپ مخصوص ویڈیوز یا رینج منتخب کریں گے۔',
       singleVideo: 'صرف یہ ایک',
-      pickFromPlaylist: 'Playlist سے انتخاب'
+      pickFromPlaylist: 'Playlist سے انتخاب',
+      playlistLimit: 'پلے لسٹ جانچ حد: {{count}} آئٹمز',
+      advancedSettings: 'اعلیٰ ترتیبات',
+      singleTooltip: 'yt-dlp کا واحد ویڈیو موڈ استعمال کرتا ہے تاکہ اس URL سے منسلک پلے لسٹ نظر انداز ہو۔',
+      playlistTooltip: 'yt-dlp کا پلے لسٹ موڈ استعمال کرتا ہے اور انتخاب دکھانے سے پہلے آپ کی حد تک آئٹمز لاتا ہے۔'
     },
 
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'فارمیٹس لائیں',
+      fetchFormatsTooltip: 'قطار میں شامل کرنے سے پہلے فارمیٹس، سب ٹائٹلز، فولڈر اور پلے لسٹ آئٹمز مرحلہ وار منتخب کریں۔',
+      quickDownload: 'فوری ڈاؤن لوڈ',
+      quickDownloadTooltip: 'آپ کی محفوظ یا ڈیفالٹ ترجیحات استعمال کرکے سیٹ اپ مراحل کھولے بغیر اس واحد ویڈیو کو قطار میں شامل کرتا ہے۔',
+      quickPreparing: 'تیاری ہو رہی ہے',
+      quickQueued: 'قطار میں شامل ہو گیا',
+      quickSingleOnly: 'فوری ڈاؤن لوڈ صرف ایک ویڈیو کے لیے ہے۔ پلے لسٹس اور چینلز کے لیے فارمیٹس حاصل کریں استعمال کریں۔',
+      quickProbeFailed: 'جانچ ناکام ہوگئی',
+      quickPrepareFailed: 'قطار آئٹم تیار نہیں کیا جا سکا',
+      quickFailed: 'یہ شامل نہیں ہو سکا: {{error}}',
       features: {
         heading: 'Arroxy کیا لا سکتا ہے',
         youtube: {
@@ -234,7 +247,13 @@ const ur = {
           sleepRequests: 'میٹا ڈیٹا چیکس کے درمیان انتظار',
           sleepInterval: 'میڈیا شروع ہونے سے پہلے وقفہ: کم از کم',
           maxSleepInterval: 'میڈیا شروع ہونے سے پہلے وقفہ: زیادہ سے زیادہ',
-          concurrentFragments: 'ڈاؤن لوڈ کنکشنز'
+          concurrentFragments: 'ڈاؤن لوڈ کنکشنز',
+          sleepSubtitles: 'سب ٹائٹل فائلوں سے پہلے انتظار'
+        },
+        presetLabel: 'Arroxy کتنی احتیاط کرے؟',
+        units: {
+          seconds: 'سیکنڈ',
+          threads: 'تھریڈز'
         }
       },
       closeToTray: {
@@ -244,6 +263,15 @@ const ur = {
       analytics: {
         toggle: 'گمنام استعمال کے اعداد و شمار بھیجیں',
         toggleDescription: 'صرف ایپ لانچز گنتا ہے۔ کوئی URL، فائل نام، یا ذاتی ڈیٹا نہیں۔'
+      },
+      limitRate: {
+        label: 'ڈاؤن لوڈ رفتار حد',
+        description: 'میڈیا ڈاؤن لوڈز کے لیے بینڈوڈتھ محدود کریں۔ نیچے درخواستوں کی رفتار عام طور پر زیادہ مضبوط حد ہے۔',
+        off: 'بند',
+        custom: 'حسب ضرورت…',
+        customPlaceholder: 'مثلاً 750K یا 1.5M',
+        invalid: 'K یا M کے ساتھ ایک نمبر استعمال کریں (مثلاً 500K، 1.5M)',
+        activeWarning: 'فعال ڈاؤن لوڈز اپنی موجودہ حد رکھتے ہیں۔ لاگو کرنے کے لیے توقف + جاری رکھیں۔'
       }
     },
     subtitles: {
@@ -391,6 +419,10 @@ const ur = {
       writeThumbnail: {
         label: 'تھمب نیل محفوظ کریں',
         description: 'تھمب نیل کو ڈاؤن لوڈ کے ساتھ .jpg امیج فائل کے طور پر محفوظ کرتا ہے۔'
+      },
+      writeM3u: {
+        label: '.m3u پلے لسٹ فائل بنائیں',
+        description: 'ویڈیوز کے ساتھ .m3u پلے لسٹ محفوظ کرتا ہے تاکہ وہ میڈیا پلیئر میں ترتیب سے کھلیں۔'
       }
     },
     confirm: {
@@ -445,8 +477,22 @@ const ur = {
       hold: 'روکیں',
       resume: 'دوبارہ شروع کریں',
       cancel: 'منسوخ کریں',
-      remove: 'ہٹائیں'
-    }
+      remove: 'ہٹائیں',
+      pullNow: 'اب ڈاؤن لوڈ — قطار چھوڑیں',
+      priorityBadge: 'ترجیح',
+      statusPending: 'منتظر',
+      statusRunning: 'ڈاؤن لوڈ ہو رہا ہے',
+      statusHeld: 'روکا گیا',
+      statusPaused: 'توقف شدہ',
+      statusDone: 'مکمل',
+      statusError: 'خرابی',
+      statusCancelled: 'منسوخ'
+    },
+    resumeAll: 'قطار جاری رکھیں',
+    resumeAllTitle: 'رکے ہوئے ڈاؤن لوڈز جاری رکھیں اور قطار چلنے دیں',
+    limitRate: 'رفتار: {{value}}',
+    limitRateOff: 'رفتار: بند',
+    limitRateTitle: 'ڈاؤن لوڈز کے لیے بینڈوڈتھ حد'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -534,24 +580,24 @@ const ur = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'ہر آئٹم کے لیے سب سے اعلیٰ دستیاب کوڈیک',
+      mp4: 'H.264 + AAC ترجیحی، MP4 کنٹینر · بہترین کوشش'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': '4K تک',
+      '1440': '1440p تک',
+      '1080': '1080p تک',
+      '720': '720p تک',
+      '480': '480p تک',
+      '360': '360p تک'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'ہر آئٹم کے لیے بہترین ویڈیو + آڈیو',
+      '2160': '2160p تک محدود، ہر آئٹم پر ضرورت ہو تو کم',
+      '1440': '2K تک محدود، ہر آئٹم پر ضرورت ہو تو کم',
+      '1080': '1080p تک محدود، ہر آئٹم پر ضرورت ہو تو کم',
+      '720': 'چھوٹی فائلیں، وسیع مطابقت',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -562,13 +608,13 @@ const ur = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'بہترین اصل آڈیو، دوبارہ encode نہیں',
+      mp3: 'MP3 میں تبدیل کریں',
+      m4a: 'M4A (AAC) میں تبدیل کریں',
+      opus: 'Opus میں تبدیل کریں'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'YouTube پر 1080p سے اوپر H.264 دستیاب نہیں — خودکار طور پر 1080p تک محدود'
   },
   formatLabel: {
     audioFallback: 'آڈیو',
@@ -591,7 +637,8 @@ const ur = {
       message_other: '{{count}} ڈاؤن لوڈز جاری ہیں',
       detail: 'بند کرنے سے تمام ایکٹو ڈاؤن لوڈز منسوخ ہو جائیں گے۔',
       confirm: 'ڈاؤن لوڈز منسوخ کریں اور بند کریں',
-      keep: 'ڈاؤن لوڈ جاری رکھیں'
+      keep: 'ڈاؤن لوڈ جاری رکھیں',
+      pause: 'ڈاؤن لوڈز روک کر بند کریں'
     },
     closeToTray: {
       message: 'بند کرتے وقت Arroxy کو سسٹم ٹرے میں چھپائیں؟',

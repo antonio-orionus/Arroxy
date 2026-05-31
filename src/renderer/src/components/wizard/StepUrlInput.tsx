@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type JSX, type ReactNode } from 'react';
-import { ArrowRight, AlertTriangle, Share2, X, Video, ListVideo, Music, Tv, Smartphone, Mic, Globe, ListMusic, AudioLines, Captions } from 'lucide-react';
+import { ArrowRight, AlertTriangle, Download, Share2, X, Video, ListVideo, Music, Tv, Smartphone, Mic, Globe, ListMusic, AudioLines, Captions } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../../store/useAppStore.js';
 import { track } from '@renderer/lib/analytics.js';
@@ -7,6 +7,7 @@ import { Input } from '../ui/input.js';
 import { Button } from '../ui/button.js';
 import { Switch } from '../ui/switch.js';
 import { RadioOption } from '../ui/radio-option.js';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip.js';
 import { MascotBubble } from '../shared/MascotBubble.js';
 import { ClipboardConfirmDialog } from '../shared/ClipboardConfirmDialog.js';
 import { IncompleteCookiesConfigDialog } from './IncompleteCookiesConfigDialog.js';
@@ -37,12 +38,15 @@ const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookies
 
 export function StepUrlInput(): JSX.Element {
   const { t } = useTranslation();
-  const { wizardUrl, setWizardUrl, submitUrl, queue, settings, initialized, advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen, setCookiesPath, setCookiesMode, setCookiesBrowser, setClipboardWatchEnabled, setIncludeIdInSingleFilenames, setCloseBehavior, setAnalyticsEnabled, setProxyUrl, setLimitRate, cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, openShareDialog, setShareInlineCardDismissed } = useAppStore();
+  const { wizardUrl, setWizardUrl, submitUrl, quickDownload, quickDownloadStatus, quickDownloadError, queue, settings, initialized, advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen, setCookiesPath, setCookiesMode, setCookiesBrowser, setClipboardWatchEnabled, setIncludeIdInSingleFilenames, setCloseBehavior, setAnalyticsEnabled, setProxyUrl, setLimitRate, cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, openShareDialog, setShareInlineCardDismissed } = useAppStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const hasActiveDownloads = queue.some((i) => i.status === 'running');
   const [pendingClipboardUrl, setPendingClipboardUrl] = useState<string | null>(null);
 
   const shareCardVisible = !(settings?.common?.shareInlineCardDismissed ?? false);
+  const quickPreparing = quickDownloadStatus === 'preparing';
+  const quickErrorText = quickDownloadError === 'wizard.url.quickSingleOnly' ? t('wizard.url.quickSingleOnly') : quickDownloadError === 'wizard.url.quickProbeFailed' ? t('wizard.url.quickProbeFailed') : quickDownloadError === 'wizard.url.quickPrepareFailed' ? t('wizard.url.quickPrepareFailed') : (quickDownloadError ?? '');
+  const quickFeedback = quickDownloadStatus === 'queued' ? t('wizard.url.quickQueued') : quickDownloadStatus === 'error' ? (quickDownloadError === 'wizard.url.quickSingleOnly' ? quickErrorText : t('wizard.url.quickFailed', { error: quickErrorText })) : null;
 
   function handleShareInlineCardClick(): void {
     openShareDialog('wizard-card');
@@ -87,6 +91,7 @@ export function StepUrlInput(): JSX.Element {
       const { wizardUrl: currentUrl, formatsLoading } = useAppStore.getState();
       if (currentUrl) return;
       if (formatsLoading) return;
+      if (useAppStore.getState().quickDownloadStatus === 'preparing') return;
       setPendingClipboardUrl(cleanUrl(url));
     });
   }, []);
@@ -118,7 +123,7 @@ export function StepUrlInput(): JSX.Element {
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
-    if (e.key === 'Enter' && wizardUrl.trim()) {
+    if (e.key === 'Enter' && wizardUrl.trim() && !quickPreparing) {
       void submitUrl();
     }
   }
@@ -157,10 +162,41 @@ export function StepUrlInput(): JSX.Element {
                 </button>
               ) : null}
             </div>
-            <Button type="button" size="lg" onClick={() => void submitUrl()} disabled={!wizardUrl.trim()} data-testid="btn-find-formats" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none gap-2">
-              {t('wizard.url.fetchFormats')} <ArrowRight size={16} className="rtl:rotate-180" />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger
+                render={(props) => (
+                  <span {...props} className="inline-flex">
+                    <Button type="button" size="lg" variant="outline" onClick={() => void quickDownload()} disabled={!wizardUrl.trim() || quickPreparing} data-testid="btn-quick-download" className="gap-2">
+                      {quickPreparing ? <span className="h-4 w-4 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden /> : <Download size={16} />}
+                      {quickPreparing ? t('wizard.url.quickPreparing') : t('wizard.url.quickDownload')}
+                    </Button>
+                  </span>
+                )}
+              />
+              <TooltipContent className="max-w-[18rem] leading-snug" data-testid="quick-download-tooltip">
+                {t('wizard.url.quickDownloadTooltip')}
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger
+                render={(props) => (
+                  <span {...props} className="inline-flex">
+                    <Button type="button" size="lg" onClick={() => void submitUrl()} disabled={!wizardUrl.trim() || quickPreparing} data-testid="btn-find-formats" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none gap-2">
+                      {t('wizard.url.fetchFormats')} <ArrowRight size={16} className="rtl:rotate-180" />
+                    </Button>
+                  </span>
+                )}
+              />
+              <TooltipContent className="max-w-[18rem] leading-snug" data-testid="fetch-formats-tooltip">
+                {t('wizard.url.fetchFormatsTooltip')}
+              </TooltipContent>
+            </Tooltip>
           </div>
+          {quickFeedback ? (
+            <p role="status" aria-live="polite" data-testid="quick-download-feedback" className={quickDownloadStatus === 'error' ? 'text-[11px] text-amber-500' : 'text-[11px] text-[var(--text-subtle)]'}>
+              {quickFeedback}
+            </p>
+          ) : null}
         </div>
       </div>
 

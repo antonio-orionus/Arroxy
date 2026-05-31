@@ -122,13 +122,26 @@ const el = {
       title: 'Αυτός ο σύνδεσμος έχει playlist',
       body: 'Θέλεις μόνο το βίντεο που έκανες κλικ, ή να επιλέξεις από την playlist; Θα διαλέξεις συγκεκριμένα βίντεο ή εύρος στη συνέχεια.',
       singleVideo: 'Μόνο αυτό',
-      pickFromPlaylist: 'Επιλογή από την playlist'
+      pickFromPlaylist: 'Επιλογή από την playlist',
+      playlistLimit: 'Όριο ελέγχου playlist: {{count}} στοιχεία',
+      advancedSettings: 'Σύνθετες ρυθμίσεις',
+      singleTooltip: 'Χρησιμοποιεί τη λειτουργία μεμονωμένου βίντεο του yt-dlp ώστε να αγνοηθεί η playlist που είναι συνδεδεμένη με αυτό το URL.',
+      playlistTooltip: 'Χρησιμοποιεί τη λειτουργία playlist του yt-dlp και ανακτά μέχρι το όριό σου πριν εμφανίσει τον επιλογέα.'
     },
 
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'Φόρτωση μορφών',
+      fetchFormatsTooltip: 'Επίλεξε μορφές, υπότιτλους, φάκελο και στοιχεία playlist βήμα προς βήμα πριν μπουν στην ουρά.',
+      quickDownload: 'Γρήγορη λήψη',
+      quickDownloadTooltip: 'Χρησιμοποιεί τις αποθηκευμένες ή προεπιλεγμένες προτιμήσεις σου και προσθέτει αυτό το μεμονωμένο βίντεο στην ουρά χωρίς τα βήματα ρύθμισης.',
+      quickPreparing: 'Προετοιμασία',
+      quickQueued: 'Προστέθηκε στην ουρά',
+      quickSingleOnly: 'Η γρήγορη λήψη είναι μόνο για μεμονωμένα βίντεο. Χρησιμοποίησε την ανάκτηση μορφών για playlist και κανάλια.',
+      quickProbeFailed: 'Ο έλεγχος απέτυχε',
+      quickPrepareFailed: 'Δεν ήταν δυνατή η προετοιμασία του στοιχείου ουράς',
+      quickFailed: 'Δεν ήταν δυνατή η προσθήκη: {{error}}',
       features: {
         heading: 'Τι μπορεί να κατεβάσει το Arroxy',
         youtube: {
@@ -250,6 +263,15 @@ const el = {
       analytics: {
         toggle: 'Αποστολή ανώνυμων στατιστικών χρήσης',
         toggleDescription: 'Μετράει μόνο εκκινήσεις εφαρμογής. Χωρίς URL, ονόματα αρχείων ή προσωπικά δεδομένα.'
+      },
+      limitRate: {
+        label: 'Όριο ταχύτητας λήψης',
+        description: 'Περιόρισε το bandwidth για λήψεις πολυμέσων. Ο ρυθμός αιτημάτων παρακάτω είναι συνήθως ισχυρότερος μοχλός ορίων.',
+        off: 'Ανενεργό',
+        custom: 'Προσαρμογή…',
+        customPlaceholder: 'π.χ. 750K ή 1.5M',
+        invalid: 'Χρησιμοποίησε αριθμό με K ή M (π.χ. 500K, 1.5M)',
+        activeWarning: 'Οι ενεργές λήψεις κρατούν το τρέχον όριο. Παύση + Συνέχεια για εφαρμογή αλλαγών.'
       }
     },
     subtitles: {
@@ -397,6 +419,10 @@ const el = {
       writeThumbnail: {
         label: 'Αποθήκευση μικρογραφίας',
         description: 'Αποθηκεύει τη μικρογραφία ως αρχείο εικόνας .jpg δίπλα στη λήψη.'
+      },
+      writeM3u: {
+        label: 'Δημιουργία αρχείου playlist .m3u',
+        description: 'Αποθηκεύει μια playlist .m3u δίπλα στα βίντεο ώστε να ανοίγουν με σειρά στο media player.'
       }
     },
     confirm: {
@@ -451,8 +477,22 @@ const el = {
       hold: 'Αναμονή',
       resume: 'Συνέχεια',
       cancel: 'Ακύρωση',
-      remove: 'Κατάργηση'
-    }
+      remove: 'Κατάργηση',
+      pullNow: 'Λήψη τώρα — παράκαμψη ουράς',
+      priorityBadge: 'Προτεραιότητα',
+      statusPending: 'Αναμονή',
+      statusRunning: 'Λήψη',
+      statusHeld: 'Σε κράτηση',
+      statusPaused: 'Σε παύση',
+      statusDone: 'Ολοκληρώθηκε',
+      statusError: 'Σφάλμα',
+      statusCancelled: 'Ακυρώθηκε'
+    },
+    resumeAll: 'Συνέχιση ουράς',
+    resumeAllTitle: 'Συνέχισε τις λήψεις σε παύση και άφησε την ουρά να προχωρήσει',
+    limitRate: 'Ταχύτητα: {{value}}',
+    limitRateOff: 'Ταχύτητα: Ανενεργή',
+    limitRateTitle: 'Όριο bandwidth για λήψεις'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -540,24 +580,24 @@ const el = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'Υψηλότερος διαθέσιμος codec ανά στοιχείο',
+      mp4: 'Προτιμάται H.264 + AAC, κοντέινερ MP4 · βέλτιστη προσπάθεια'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'Έως 4K',
+      '1440': 'Έως 1440p',
+      '1080': 'Έως 1080p',
+      '720': 'Έως 720p',
+      '480': 'Έως 480p',
+      '360': 'Έως 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'Καλύτερο διαθέσιμο βίντεο + ήχος ανά στοιχείο',
+      '2160': 'Περιορισμός στα 2160p, πέφτει ανά στοιχείο αν χρειαστεί',
+      '1440': 'Περιορισμός στα 2K, πέφτει ανά στοιχείο αν χρειαστεί',
+      '1080': 'Περιορισμός στα 1080p, πέφτει ανά στοιχείο αν χρειαστεί',
+      '720': 'Μικρότερα αρχεία, ευρεία συμβατότητα',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -568,13 +608,13 @@ const el = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'Καλύτερος εγγενής ήχος, χωρίς επανακωδικοποίηση',
+      mp3: 'Μετατροπή σε MP3',
+      m4a: 'Μετατροπή σε M4A (AAC)',
+      opus: 'Μετατροπή σε Opus'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'Το H.264 πάνω από 1080p δεν είναι διαθέσιμο στο YouTube — περιορίζεται αυτόματα στα 1080p'
   },
   formatLabel: {
     audioFallback: 'Ήχος',
@@ -597,7 +637,8 @@ const el = {
       message_other: '{{count}} λήψεις σε εξέλιξη',
       detail: 'Το κλείσιμο θα ακυρώσει όλες τις ενεργές λήψεις.',
       confirm: 'Ακύρωση λήψεων & Έξοδος',
-      keep: 'Συνέχεια λήψεων'
+      keep: 'Συνέχεια λήψεων',
+      pause: 'Παύση λήψεων και έξοδος'
     },
     closeToTray: {
       message: 'Απόκρυψη Arroxy στο δίσκο συστήματος κατά το κλείσιμο;',

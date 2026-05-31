@@ -18,6 +18,9 @@ import { resolvePlaylistDir } from './playlistDir.js';
 import { isYouTubeExtractor } from '@shared/ytdlp/extractorPredicates.js';
 import { applyPreset, restoreFormatSelection, restoreSubtitleSelection } from './formatPicker.js';
 import { WizardCommands, RESET_WIZARD_STATE } from './commands.js';
+import { persistFormatPrefs } from './persistFormatPrefs.js';
+import { buildSingleQueueItemFromState, maybeShowQueueTip } from '../queueSlice.js';
+import { formatProbeError } from '../helpers.js';
 import type { AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep } from '../types.js';
 import { type VisibleStep } from '../../components/wizard/stepNavigation.js';
 import { nextStep, type NavContext } from '../../components/wizard/nextStep.js';
@@ -166,8 +169,8 @@ function maybeBlockIncompleteCookiesConfig(url: string, set: SetState, get: GetS
   return true;
 }
 
-function applyVideoProbeResult(probe: Extract<ProbeResult, { kind: 'video' }>, set: SetState, get: GetState, firstProbe: boolean): void {
-  const settings = get().settings;
+function videoProbeState(probe: Extract<ProbeResult, { kind: 'video' }>, state: AppState, firstProbe: boolean): Partial<AppState> {
+  const settings = state.settings;
   const { formats, title, thumbnail, duration, subtitles, automaticCaptions, degraded } = probe;
   // Format/audio/subtitle/preset prefs are scoped to YouTube. Non-YT extractors
   // get fresh defaults so a YT formatId / 1080p resolution doesn't leak into a
@@ -187,8 +190,7 @@ function applyVideoProbeResult(probe: Extract<ProbeResult, { kind: 'video' }>, s
     audioSelection = audioOnlyPick.audioSelection;
     preset = 'audio-only';
   }
-  set({
-    wizardStep: 'formats',
+  return {
     wizardMode: 'single',
     wizardFormats: formats,
     wizardFormatsDegraded: degraded ?? null,
@@ -221,6 +223,13 @@ function applyVideoProbeResult(probe: Extract<ProbeResult, { kind: 'video' }>, s
     playlistTitle: '',
     playlistId: '',
     playlistIsMultiVideo: false
+  };
+}
+
+function applyVideoProbeResult(probe: Extract<ProbeResult, { kind: 'video' }>, set: SetState, get: GetState, firstProbe: boolean): void {
+  set({
+    wizardStep: 'formats',
+    ...videoProbeState(probe, get(), firstProbe)
   });
 }
 
@@ -343,10 +352,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
     playlistLikelyCapped: RESET_WIZARD_STATE.playlistLikelyCapped,
     playlistProbeLoading: RESET_WIZARD_STATE.playlistProbeLoading,
     playlistSelection: RESET_WIZARD_STATE.playlistSelection,
+    quickDownloadStatus: RESET_WIZARD_STATE.quickDownloadStatus,
+    quickDownloadError: RESET_WIZARD_STATE.quickDownloadError,
     syncedDownloadedIds: RESET_WIZARD_STATE.syncedDownloadedIds,
     syncScanState: RESET_WIZARD_STATE.syncScanState,
 
-    setWizardUrl: (url) => set({ wizardUrl: url }),
+    setWizardUrl: (url) => set({ wizardUrl: url, quickDownloadStatus: 'idle', quickDownloadError: null }),
 
     submitUrl: async () => {
       const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()));
@@ -359,6 +370,57 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
       }
       if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return;
       await runProbe(cleaned, 'auto', set, get);
+    },
+
+    quickDownload: async () => {
+      if (get().quickDownloadStatus === 'preparing') return;
+      const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()));
+      if (!cleaned) return;
+      if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return;
+
+      void window.appApi.downloads.probeCancel();
+      set({ wizardUrl: cleaned, quickDownloadStatus: 'preparing', quickDownloadError: null, wizardError: null, cookiesConfigDialogIssue: null });
+
+      try {
+        const result = await window.appApi.downloads.probe({ url: cleaned, playlistMode: 'video' });
+        if (!result.ok) {
+          set({ quickDownloadStatus: 'error', quickDownloadError: formatProbeError(result.error) || 'wizard.url.quickProbeFailed' });
+          return;
+        }
+
+        if (result.data.kind !== 'video') {
+          set({ quickDownloadStatus: 'error', quickDownloadError: 'wizard.url.quickSingleOnly' });
+          return;
+        }
+
+        const currentOutputDir = get().wizardOutputDir;
+        const fallbackOutputDir = get().settings?.common?.defaultOutputDir ?? '';
+
+        set({
+          wizardUrl: cleaned,
+          wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir,
+          ...videoProbeState(result.data, get(), true)
+        });
+
+        const item = buildSingleQueueItemFromState(get, 'normal');
+        if (!item) {
+          set({ quickDownloadStatus: 'error', quickDownloadError: 'wizard.url.quickPrepareFailed' });
+          return;
+        }
+
+        const addResult = await window.appApi.queue.cmd.add([item]);
+        if (!addResult.ok) {
+          set({ quickDownloadStatus: 'error', quickDownloadError: addResult.error.message });
+          return;
+        }
+
+        maybeShowQueueTip(set);
+        await persistFormatPrefs(set, get);
+        WizardCommands.resetAll(set);
+        set({ quickDownloadStatus: 'queued', quickDownloadError: null });
+      } catch (err) {
+        set({ quickDownloadStatus: 'error', quickDownloadError: err instanceof Error ? err.message : String(err) });
+      }
     },
 
     dismissMixedPrompt: async (choice) => {

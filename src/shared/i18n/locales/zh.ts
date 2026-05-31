@@ -122,13 +122,26 @@ const zh = {
       title: '此链接包含 Playlist',
       body: '只想下载你点击的那个视频，还是从 Playlist 中挑选？下一步可以选择特定视频或指定范围。',
       singleVideo: '就这一个',
-      pickFromPlaylist: '从 Playlist 中挑选'
+      pickFromPlaylist: '从 Playlist 中挑选',
+      playlistLimit: '播放列表探测限制：{{count}} 个项目',
+      advancedSettings: '高级设置',
+      singleTooltip: '使用 yt-dlp 单视频模式，因此会忽略此 URL 附带的播放列表。',
+      playlistTooltip: '使用 yt-dlp 播放列表模式，并在显示选择器前获取到你的探测限制。'
     },
 
     url: {
       heading: 'YouTube 链接',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: '获取格式',
+      fetchFormatsTooltip: '加入队列前，逐步选择格式、字幕、文件夹和播放列表项目。',
+      quickDownload: '快速下载',
+      quickDownloadTooltip: '使用已保存或默认偏好设置，将此单个视频加入队列，而不打开设置步骤。',
+      quickPreparing: '正在准备',
+      quickQueued: '已加入队列',
+      quickSingleOnly: '快速下载仅适用于单个视频。播放列表和频道请使用获取格式。',
+      quickProbeFailed: '探测失败',
+      quickPrepareFailed: '无法准备队列项目',
+      quickFailed: '无法添加此项：{{error}}',
       features: {
         heading: 'Arroxy 能下载什么',
         youtube: {
@@ -240,7 +253,8 @@ const zh = {
         units: {
           seconds: '秒',
           threads: '线程'
-        }
+        },
+        presetLabel: 'Arroxy 应该多谨慎？'
       },
       closeToTray: {
         toggle: '关闭时最小化到托盘',
@@ -249,6 +263,15 @@ const zh = {
       analytics: {
         toggle: '发送匿名使用统计',
         toggleDescription: '仅统计应用启动次数，不包含任何URL、文件名或个人数据。'
+      },
+      limitRate: {
+        label: '下载速度限制',
+        description: '限制媒体下载的带宽。下面的请求节奏通常是更强的限速手段。',
+        off: '关闭',
+        custom: '自定义…',
+        customPlaceholder: '例如 750K 或 1.5M',
+        invalid: '使用数字并加上 K 或 M（例如 500K、1.5M）',
+        activeWarning: '正在进行的下载会保留当前限制。暂停再继续即可应用更改。'
       }
     },
     subtitles: {
@@ -396,6 +419,10 @@ const zh = {
       writeThumbnail: {
         label: '保存缩略图',
         description: '将缩略图保存为 .jpg 图片文件，放在下载文件旁边。'
+      },
+      writeM3u: {
+        label: '生成 .m3u 播放列表文件',
+        description: '在视频旁保存 .m3u 播放列表，以便播放器按顺序打开。'
       }
     },
     confirm: {
@@ -450,8 +477,22 @@ const zh = {
       hold: '搁置',
       resume: '继续',
       cancel: '取消',
-      remove: '移除'
-    }
+      remove: '移除',
+      pullNow: '立即下载 — 跳过队列',
+      priorityBadge: '优先',
+      statusPending: '等待中',
+      statusRunning: '下载中',
+      statusHeld: '已挂起',
+      statusPaused: '已暂停',
+      statusDone: '完成',
+      statusError: '错误',
+      statusCancelled: '已取消'
+    },
+    resumeAll: '继续队列',
+    resumeAllTitle: '继续已暂停的下载并让队列继续运行',
+    limitRate: '速度：{{value}}',
+    limitRateOff: '速度：关闭',
+    limitRateTitle: '下载带宽限制'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -539,24 +580,24 @@ const zh = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: '每个项目可用的最高编解码器',
+      mp4: '优先 H.264 + AAC，MP4 容器 · 尽力匹配'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': '最高 4K',
+      '1440': '最高 1440p',
+      '1080': '最高 1080p',
+      '720': '最高 720p',
+      '480': '最高 480p',
+      '360': '最高 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: '每个项目可用的最佳视频 + 音频',
+      '2160': '限制为 2160p，每项必要时降级',
+      '1440': '限制为 2K，每项必要时降级',
+      '1080': '限制为 1080p，每项必要时降级',
+      '720': '文件更小，兼容性广',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -567,13 +608,13 @@ const zh = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: '最佳原生音频，不重新编码',
+      mp3: '转换为 MP3',
+      m4a: '转换为 M4A (AAC)',
+      opus: '转换为 Opus'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'YouTube 不提供 1080p 以上的 H.264 — 自动限制为 1080p'
   },
   formatLabel: {
     audioFallback: '音频',
@@ -596,7 +637,8 @@ const zh = {
       message_other: '正在进行 {{count}} 个下载',
       detail: '关闭将取消所有正在进行的下载。',
       confirm: '取消下载并退出',
-      keep: '继续下载'
+      keep: '继续下载',
+      pause: '暂停下载并退出'
     },
     closeToTray: {
       message: '关闭时将 Arroxy 最小化到系统托盘？',

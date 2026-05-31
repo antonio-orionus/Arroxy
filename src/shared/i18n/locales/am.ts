@@ -122,13 +122,26 @@ const am = {
       title: 'ይህ ሊንክ Playlist አለው',
       body: 'የጠቀሱትን ቪዲዮ ብቻ ይፈልጋሉ፣ ወይስ ከ Playlist ይምረጣሉ? በቀጣዩ ደረጃ የተወሰኑ ቪዲዮዎችን ወይም ክልል ይምረጣሉ።',
       singleVideo: 'ይህን ብቻ',
-      pickFromPlaylist: 'ከ Playlist ምረጥ'
+      pickFromPlaylist: 'ከ Playlist ምረጥ',
+      playlistLimit: 'የፕሌይሊስት መፈተሻ ገደብ፦ {{count}} ንጥሎች',
+      advancedSettings: 'የላቁ ቅንብሮች',
+      singleTooltip: 'yt-dlp የነጠላ ቪዲዮ ሁነታን ይጠቀማል፣ ከዚህ URL ጋር የተያያዘው playlist ይተዋል።',
+      playlistTooltip: 'yt-dlp የplaylist ሁነታን ተጠቅሞ አስመራጩን ከማሳየቱ በፊት እስከ ገደብዎ ይወስዳል።'
     },
 
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'ቅርጸቶችን ጫን',
+      fetchFormatsTooltip: 'ወደ ወረፋ ከመጨመርዎ በፊት ቅርጸቶችን፣ ንዑስ ጽሑፎችን፣ አቃፊን እና የፕሌይሊስት ንጥሎችን በደረጃ ይምረጡ።',
+      quickDownload: 'ፈጣን አውርድ',
+      quickDownloadTooltip: 'የተቀመጡ ወይም ነባሪ ምርጫዎችዎን ተጠቅሞ ይህን ነጠላ ቪዲዮ የማዘጋጃ ደረጃዎችን ሳይከፍት ወደ ወረፋ ያክላል።',
+      quickPreparing: 'በመዘጋጀት ላይ',
+      quickQueued: 'ወደ ወረፋ ታክሏል',
+      quickSingleOnly: 'ፈጣን አውርድ ለነጠላ ቪዲዮዎች ብቻ ነው። ለፕሌይሊስቶች እና ቻናሎች ቅርጸቶችን አምጣን ይጠቀሙ።',
+      quickProbeFailed: 'መፈተሹ አልተሳካም',
+      quickPrepareFailed: 'የወረፋ ንጥል ማዘጋጀት አልተቻለም',
+      quickFailed: 'ይህን ማከል አልተቻለም፦ {{error}}',
       features: {
         heading: 'Arroxy ምን ሊያወርድ ይችላል',
         youtube: {
@@ -234,7 +247,13 @@ const am = {
           sleepRequests: 'ምርምሮች መካከል መጠበቂያ',
           sleepInterval: 'ሚዲያ ከመጀመሩ በፊት እረፍት: ዝቅ.',
           maxSleepInterval: 'ሚዲያ ከመጀመሩ በፊት እረፍት: ከፍ.',
-          concurrentFragments: 'የዳውንሎድ ግንኙነቶች'
+          concurrentFragments: 'የዳውንሎድ ግንኙነቶች',
+          sleepSubtitles: 'ከንዑስ ጽሑፍ ፋይሎች በፊት ጠብቅ'
+        },
+        presetLabel: 'Arroxy ምን ያህል ጥንቃቄ ያድርግ?',
+        units: {
+          seconds: 'ሰከንድ',
+          threads: 'ክሮች'
         }
       },
       closeToTray: {
@@ -244,6 +263,15 @@ const am = {
       analytics: {
         toggle: 'ስም-አልባ የአጠቃቀም ስታቲስቲክስ ላክ',
         toggleDescription: 'የመተግበሪያ ማስጀመሪያዎችን ብቻ ይቆጥራል። ምንም URL፣ የፋይል ስሞች ወይም የግል መረጃ የለም።'
+      },
+      limitRate: {
+        label: 'የማውረድ ፍጥነት ገደብ',
+        description: 'ለሚዲያ ማውረዶች ባንድዊድዝ ይገድቡ። ከታች ያለው የጥያቄ እረፍት ብዙ ጊዜ የበለጠ ጠንካራ መቆጣጠሪያ ነው።',
+        off: 'ጠፍቷል',
+        custom: 'ብጁ…',
+        customPlaceholder: 'ለምሳሌ 750K ወይም 1.5M',
+        invalid: 'K ወይም M የሚከተለውን ቁጥር ይጠቀሙ (ለምሳሌ 500K, 1.5M)',
+        activeWarning: 'ንቁ ማውረዶች አሁን ያላቸውን ገደብ ይይዛሉ። ለማስፈጸም አቁም + ቀጥል።'
       }
     },
     subtitles: {
@@ -391,6 +419,10 @@ const am = {
       writeThumbnail: {
         label: 'ድንክ ምስል አስቀምጥ',
         description: 'ድንክ ምስሉን እንደ .jpg ምስል ፋይል ከዳውንሎዱ ጎን ያስቀምጣል።'
+      },
+      writeM3u: {
+        label: '.m3u playlist ፋይል ፍጠር',
+        description: 'ቪዲዮዎች በሚዲያ አጫዋች በቅደም ተከተል እንዲከፈቱ .m3u playlist ከእነሱ ጋር ያስቀምጣል።'
       }
     },
     confirm: {
@@ -445,8 +477,22 @@ const am = {
       hold: 'አቆይ',
       resume: 'ቀጥል',
       cancel: 'ሰርዝ',
-      remove: 'አስወግድ'
-    }
+      remove: 'አስወግድ',
+      pullNow: 'አሁን አውርድ — ወረፋን ዝለል',
+      priorityBadge: 'ቅድሚያ',
+      statusPending: 'በመጠበቅ ላይ',
+      statusRunning: 'በማውረድ ላይ',
+      statusHeld: 'ተይዟል',
+      statusPaused: 'ቆሟል',
+      statusDone: 'ተጠናቋል',
+      statusError: 'ስህተት',
+      statusCancelled: 'ተሰርዟል'
+    },
+    resumeAll: 'ወረፋ ቀጥል',
+    resumeAllTitle: 'የቆሙ ማውረዶችን ቀጥል እና ወረፋውን እንዲቀጥል ፍቀድ',
+    limitRate: 'ፍጥነት፦ {{value}}',
+    limitRateOff: 'ፍጥነት፦ ጠፍቷል',
+    limitRateTitle: 'ለማውረዶች የባንድዊድዝ ገደብ'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -534,24 +580,24 @@ const am = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'ለእያንዳንዱ ንጥል የሚገኝ ከፍተኛ codec',
+      mp4: 'H.264 + AAC ይመረጣል፣ MP4 ኮንቴነር · በተቻለ መጠን'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'እስከ 4K',
+      '1440': 'እስከ 1440p',
+      '1080': 'እስከ 1080p',
+      '720': 'እስከ 720p',
+      '480': 'እስከ 480p',
+      '360': 'እስከ 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'ለእያንዳንዱ ንጥል ምርጥ ቪዲዮ + ድምጽ',
+      '2160': 'በ2160p ይገደባል፣ ለእያንዳንዱ ንጥል ዝቅ ይላል',
+      '1440': 'በ2K ይገደባል፣ ለእያንዳንዱ ንጥል ዝቅ ይላል',
+      '1080': 'በ1080p ይገደባል፣ ለእያንዳንዱ ንጥል ዝቅ ይላል',
+      '720': 'ትንሽ ፋይሎች፣ ሰፊ ተኳኋኝነት',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -562,13 +608,13 @@ const am = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'ምርጥ ነባር ድምጽ፣ ዳግም ኮድ አይደረግም',
+      mp3: 'ወደ MP3 ቀይር',
+      m4a: 'ወደ M4A (AAC) ቀይር',
+      opus: 'ወደ Opus ቀይር'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'H.264 ከ1080p በላይ በYouTube ላይ አይገኝም — በራስ-ሰር ወደ 1080p ይገደባል'
   },
   formatLabel: {
     audioFallback: 'ድምጽ',
@@ -591,7 +637,8 @@ const am = {
       message_other: '{{count}} ዳውንሎዶች እየሄዱ ናቸው',
       detail: 'መዝጋት ሁሉንም ዳውንሎዶች ይሰርዛል።',
       confirm: 'ዳውንሎዶችን ሰርዝ እና ዝጋ',
-      keep: 'ዳውንሎዱን ቀጥል'
+      keep: 'ዳውንሎዱን ቀጥል',
+      pause: 'ማውረዶችን አቁም እና ውጣ'
     },
     closeToTray: {
       message: 'Arroxy ሲዘጋ ወደ ትሬ ደብቅ?',

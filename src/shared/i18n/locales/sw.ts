@@ -122,12 +122,25 @@ const sw = {
       title: 'Kiungo hiki kina Playlist',
       body: 'Unataka video uliyobofya tu, au uchague kutoka Playlist? Hatua inayofuata utachagua video maalum au anuwai.',
       singleVideo: 'Hii tu',
-      pickFromPlaylist: 'Chagua kutoka Playlist'
+      pickFromPlaylist: 'Chagua kutoka Playlist',
+      playlistLimit: 'Kikomo cha kuchunguza playlist: vipengee {{count}}',
+      advancedSettings: 'Mipangilio ya kina',
+      singleTooltip: 'Hutumia modi ya video moja ya yt-dlp ili kupuuza playlist iliyounganishwa na URL hii.',
+      playlistTooltip: 'Hutumia modi ya playlist ya yt-dlp na kuchukua hadi kikomo chako kabla ya kuonyesha kichaguaji.'
     },
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'Pata maumbo',
+      fetchFormatsTooltip: 'Chagua fomati, manukuu, folda na vipengee vya orodha ya kucheza hatua kwa hatua kabla ya kuongeza kwenye foleni.',
+      quickDownload: 'Pakua haraka',
+      quickDownloadTooltip: 'Hutumia mapendeleo yako yaliyohifadhiwa au chaguomsingi na kuongeza video hii moja kwenye foleni bila kufungua hatua za usanidi.',
+      quickPreparing: 'Inaandaa',
+      quickQueued: 'Imeongezwa kwenye foleni',
+      quickSingleOnly: 'Pakua haraka ni kwa video moja tu. Tumia Leta fomati kwa orodha za kucheza na vituo.',
+      quickProbeFailed: 'Uchunguzi umeshindikana',
+      quickPrepareFailed: 'Kipengee cha foleni hakikuweza kuandaliwa',
+      quickFailed: 'Haikuweza kuongeza hii: {{error}}',
       features: {
         heading: 'Arroxy inaweza kupakua nini',
         youtube: {
@@ -249,6 +262,15 @@ const sw = {
       analytics: {
         toggle: 'Tuma takwimu za matumizi zisizo na jina',
         toggleDescription: 'Huhesabu tu uzinduzi wa programu. Hakuna URL, majina ya faili, au data za kibinafsi.'
+      },
+      limitRate: {
+        label: 'Kikomo cha kasi ya kupakua',
+        description: 'Dhibiti bandwidth ya vipakuliwa vya media. Udhibiti wa maombi hapa chini mara nyingi una nguvu zaidi.',
+        off: 'Imezimwa',
+        custom: 'Maalum…',
+        customPlaceholder: 'mf. 750K au 1.5M',
+        invalid: 'Tumia nambari ikifuatiwa na K au M (mf. 500K, 1.5M)',
+        activeWarning: 'Vipakuliwa vinavyoendelea huhifadhi kikomo cha sasa. Sitisha + Endelea ili kutumia mabadiliko.'
       }
     },
     subtitles: {
@@ -396,6 +418,10 @@ const sw = {
       writeThumbnail: {
         label: 'Hifadhi picha ndogo',
         description: 'Inahifadhi picha ndogo kama faili ya picha ya .jpg karibu na kipakuliwa.'
+      },
+      writeM3u: {
+        label: 'Tengeneza faili ya playlist .m3u',
+        description: 'Hifadhi playlist ya .m3u pamoja na video ili zifunguke kwa mpangilio kwenye kicheza media.'
       }
     },
     confirm: {
@@ -450,8 +476,22 @@ const sw = {
       hold: 'Simama',
       resume: 'Endelea',
       cancel: 'Ghairi',
-      remove: 'Ondoa'
-    }
+      remove: 'Ondoa',
+      pullNow: 'Pakua sasa — ruka foleni',
+      priorityBadge: 'Kipaumbele',
+      statusPending: 'Inasubiri',
+      statusRunning: 'Inapakua',
+      statusHeld: 'Imeshikiliwa',
+      statusPaused: 'Imesitishwa',
+      statusDone: 'Imekamilika',
+      statusError: 'Hitilafu',
+      statusCancelled: 'Imeghairiwa'
+    },
+    resumeAll: 'Endeleza foleni',
+    resumeAllTitle: 'Endeleza vipakuliwa vilivyosimamishwa na ruhusu foleni iendelee',
+    limitRate: 'Kasi: {{value}}',
+    limitRateOff: 'Kasi: Imezimwa',
+    limitRateTitle: 'Kikomo cha bandwidth kwa vipakuliwa'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -539,24 +579,24 @@ const sw = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'Kodeki bora inayopatikana kwa kila kipengee',
+      mp4: 'H.264 + AAC inapendelewa, kontena MP4 · juhudi bora'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'Hadi 4K',
+      '1440': 'Hadi 1440p',
+      '1080': 'Hadi 1080p',
+      '720': 'Hadi 720p',
+      '480': 'Hadi 480p',
+      '360': 'Hadi 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'Video + sauti bora inayopatikana kwa kila kipengee',
+      '2160': 'Imepunguzwa hadi 2160p, hushuka kwa kila kipengee ikihitajika',
+      '1440': 'Imepunguzwa hadi 2K, hushuka kwa kila kipengee ikihitajika',
+      '1080': 'Imepunguzwa hadi 1080p, hushuka kwa kila kipengee ikihitajika',
+      '720': 'Faili ndogo, upatanifu mpana',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -567,13 +607,13 @@ const sw = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'Sauti bora asilia, bila kusimba upya',
+      mp3: 'Geuza kuwa MP3',
+      m4a: 'Geuza kuwa M4A (AAC)',
+      opus: 'Geuza kuwa Opus'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'H.264 zaidi ya 1080p haipatikani YouTube — hupunguzwa kiotomatiki hadi 1080p'
   },
   formatLabel: {
     audioFallback: 'Sauti',
@@ -596,7 +636,8 @@ const sw = {
       message_other: 'Vipakuzi {{count}} vinavyoendelea',
       detail: 'Kufunga kutafuta vipakuzi vyote vinavyofanya kazi.',
       confirm: 'Ghairi Vipakuzi na Toka',
-      keep: 'Endelea Kupakua'
+      keep: 'Endelea Kupakua',
+      pause: 'Sitisha vipakuliwa na uondoke'
     },
     closeToTray: {
       message: 'Ficha Arroxy kwenye tray ya mfumo ukifunga?',

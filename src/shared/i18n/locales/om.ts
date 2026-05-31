@@ -122,12 +122,25 @@ const om = {
       title: 'Liinkin kun Playlist qaba',
       body: 'Viidiyoo tokko kana filadda, moo Playlist keessaa barbaadda? Viidiyoowwan addaddaa yookaan kutaa filattu itti aanu.',
       singleVideo: 'Kana qofa',
-      pickFromPlaylist: 'Playlist keessaa filadhu'
+      pickFromPlaylist: 'Playlist keessaa filadhu',
+      playlistLimit: 'Daangaa sakatta’iinsa playlist: wantoota {{count}}',
+      advancedSettings: 'Qindaa’inoota sadarkaa olaanaa',
+      singleTooltip: 'Haala viidiyoo tokkoo yt-dlp fayyadama; playlist URL kanaan hidhame ni tuffatama.',
+      playlistTooltip: 'Haala playlist yt-dlp fayyadamee hanga daangaa sakatta’iinsa playlist kee dura filannoo agarsiisa.'
     },
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'Foormaatii fidi',
+      fetchFormatsTooltip: 'Osoo tarree buusuu hin dabaliin dura formatoota, subtaitiloota, galmee fi wantoota playlist tarkaanfiin fili.',
+      quickDownload: 'Buusuu ariifachiisaa',
+      quickDownloadTooltip: 'Filannoowwan kee kuufaman yookiin durtii fayyadamee viidiyoo tokko kana tarree buusutti dabala, tarkaanfii qindaa’inaa osoo hin banu.',
+      quickPreparing: 'Qopheessaa jira',
+      quickQueued: 'Tarreetti dabalame',
+      quickSingleOnly: 'Buusuu ariifachiisaa viidiyoo tokko qofaf. Playlist fi channelootaaf Formatoota fidi fayyadami.',
+      quickProbeFailed: 'Sakatta’iinsi hin milkoofne',
+      quickPrepareFailed: 'Wantoota tarree qopheessuu hin dandeenye',
+      quickFailed: 'Kana dabaluun hin danda’amne: {{error}}',
       features: {
         heading: "Arroxy maal buufachuu danda'a",
         youtube: {
@@ -249,6 +262,15 @@ const om = {
       analytics: {
         toggle: 'Tilastoo faayidaa maqaa-malee ergaa',
         toggleDescription: 'Jalqabbii app qofa lakkaawa. URL, maqaa faayilii, ykn daataa dhuunfaa hin qabatu.'
+      },
+      limitRate: {
+        label: 'Daangaa saffisa buusuu',
+        description: 'Baandwiidtii buusuu miidiyaa daangeessi. Pacing gaaffii armaan gadii yeroo baay’ee caalaa jabaa dha.',
+        off: 'Dhaamsame',
+        custom: 'Kan mataa keetii…',
+        customPlaceholder: 'fkn. 750K yookiin 1.5M',
+        invalid: 'Lakkoofsa K yookiin M itti aanu fayyadami (fkn. 500K, 1.5M)',
+        activeWarning: 'Buusuuwwan hojiirra jiran daangaa isaanii ammaa qabu. Jijjiiruuf Dhaabi + Itti fufi.'
       }
     },
     subtitles: {
@@ -396,6 +418,10 @@ const om = {
       writeThumbnail: {
         label: 'Thumbnail kuusi',
         description: "Thumbnail .jpg faayilii suuraa ta'ee daawniloodii cinaa ni kuusa."
+      },
+      writeM3u: {
+        label: 'Faayilii playlist .m3u uumi',
+        description: 'Viidiyoowwan tarreen media player keessatti banamaniif .m3u isaan cinatti kuusi.'
       }
     },
     confirm: {
@@ -450,8 +476,22 @@ const om = {
       hold: 'Eegi',
       resume: 'Itti fufi',
       cancel: 'Haqi',
-      remove: 'Balleessi'
-    }
+      remove: 'Balleessi',
+      pullNow: 'Amma buusi — tarree darbii',
+      priorityBadge: 'Dursa',
+      statusPending: 'Eegaa jira',
+      statusRunning: 'Buusaa jira',
+      statusHeld: 'Qabame',
+      statusPaused: 'Dhaabbate',
+      statusDone: 'Xumurame',
+      statusError: 'Dogoggora',
+      statusCancelled: 'Haqame'
+    },
+    resumeAll: 'Tarree itti fufi',
+    resumeAllTitle: 'Buusuu dhaabbate itti fufi; tarreenis haa deemuu',
+    limitRate: 'Saffisa: {{value}}',
+    limitRateOff: 'Saffisa: Dhaamsame',
+    limitRateTitle: 'Daangaa baandwiidtii buusuuwwanii'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -539,24 +579,24 @@ const om = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'Codec ol’aanaa argamu tokkoon tokkoon wantaaf',
+      mp4: 'H.264 + AAC filatama, konteenera MP4 · carraa gaarii'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'Hanga 4K',
+      '1440': 'Hanga 1440p',
+      '1080': 'Hanga 1080p',
+      '720': 'Hanga 720p',
+      '480': 'Hanga 480p',
+      '360': 'Hanga 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'Viidiyoo + sagalee ol’aanaa tokkoon tokkoon wantaaf',
+      '2160': 'Hanga 2160p daangeffama, tokkoon tokkoon wantaaf gara gadi deebi’a',
+      '1440': 'Hanga 2K daangeffama, tokkoon tokkoon wantaaf gara gadi deebi’a',
+      '1080': 'Hanga 1080p daangeffama, tokkoon tokkoon wantaaf gara gadi deebi’a',
+      '720': 'Faayiloota xiqqaa, walsimsiisa bal’aa',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -567,13 +607,13 @@ const om = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'Sagalee native ol’aanaa, irra deebi’ee hin encode’u',
+      mp3: 'Gara MP3 jijjiiri',
+      m4a: 'Gara M4A (AAC) jijjiiri',
+      opus: 'Gara Opus jijjiiri'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'H.264 1080p olii YouTube irratti hin jiru — ofumaan 1080p irratti daangeffama'
   },
   formatLabel: {
     audioFallback: 'Sagalee',
@@ -596,7 +636,8 @@ const om = {
       message_other: 'Daawniloodoonni {{count}} adeemaa jiru',
       detail: 'Cufuun daawniloodoonni hundi haqama.',
       confirm: 'Daawniloodii Haqi fi Cufii',
-      keep: 'Daawniloodii itti fufi'
+      keep: 'Daawniloodii itti fufi',
+      pause: 'Buusuu dhaabiitii ba’i'
     },
     closeToTray: {
       message: 'Cufuun Arroxy tiiree irratti dhoksi?',

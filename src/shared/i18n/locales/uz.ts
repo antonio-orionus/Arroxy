@@ -122,13 +122,26 @@ const uz = {
       title: 'Bu havola Playlist ga tegishli',
       body: 'Faqat bosilgan videoni olasizmi yoki Playlist dan tanlaysizmi? Keyingi qadamda aniq videolar yoki diapazon tanlanadi.',
       singleVideo: 'Faqat shu birini',
-      pickFromPlaylist: 'Playlist dan tanlash'
+      pickFromPlaylist: 'Playlist dan tanlash',
+      playlistLimit: 'Pleylist tekshiruv chegarasi: {{count}} ta element',
+      advancedSettings: 'Kengaytirilgan sozlamalar',
+      singleTooltip: 'Bu URLga ulangan pleylist e’tiborsiz qolishi uchun yt-dlp bitta video rejimidan foydalanadi.',
+      playlistTooltip: 'Tanlagichni ko‘rsatishdan oldin yt-dlp pleylist rejimida belgilangan chegaragacha yuklaydi.'
     },
 
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'Formatlarni olish',
+      fetchFormatsTooltip: 'Navbatga qo‘shishdan oldin formatlar, subtitrlar, jild va pleylist elementlarini bosqichma-bosqich tanlang.',
+      quickDownload: 'Tez yuklab olish',
+      quickDownloadTooltip: 'Saqlangan yoki standart sozlamalaringizdan foydalanib, sozlash bosqichlarini ochmasdan bu bitta videoni navbatga qo‘shadi.',
+      quickPreparing: 'Tayyorlanmoqda',
+      quickQueued: 'Navbatga qo‘shildi',
+      quickSingleOnly: 'Tez yuklab olish faqat bitta video uchun. Pleylistlar va kanallar uchun Formatlarni olishdan foydalaning.',
+      quickProbeFailed: 'Tekshiruv muvaffaqiyatsiz',
+      quickPrepareFailed: 'Navbat elementi tayyorlanmadi',
+      quickFailed: 'Buni qo‘shib bo‘lmadi: {{error}}',
       features: {
         heading: 'Arroxy nima yuklab olishi mumkin',
         youtube: {
@@ -234,7 +247,13 @@ const uz = {
           sleepRequests: 'Metadata tekshiruvlari orasidagi kutish',
           sleepInterval: 'Media boshlanishidan oldingi pauza: min',
           maxSleepInterval: 'Media boshlanishidan oldingi pauza: maks',
-          concurrentFragments: 'Yuklab olish ulanishlari'
+          concurrentFragments: 'Yuklab olish ulanishlari',
+          sleepSubtitles: 'Subtitr fayllaridan oldin kutish'
+        },
+        presetLabel: 'Arroxy qanchalik ehtiyotkor bo‘lsin?',
+        units: {
+          seconds: 'soniya',
+          threads: 'oqim'
         }
       },
       closeToTray: {
@@ -244,6 +263,15 @@ const uz = {
       analytics: {
         toggle: 'Anonim foydalanish statistikasini yuborish',
         toggleDescription: 'Faqat ilovani ishga tushirish sonini hisoblaydi. URL, fayl nomlari yoki shaxsiy maʼlumotlar yoʼq.'
+      },
+      limitRate: {
+        label: 'Yuklab olish tezligi chegarasi',
+        description: 'Media yuklab olishlar uchun tarmoq sarfini cheklang. Quyidagi so‘rov oralig‘i odatda kuchliroq vosita.',
+        off: 'O‘chiq',
+        custom: 'Maxsus…',
+        customPlaceholder: 'mas. 750K yoki 1.5M',
+        invalid: 'K yoki M bilan tugaydigan son kiriting (mas. 500K, 1.5M)',
+        activeWarning: 'Faol yuklab olishlar joriy chegarasini saqlaydi. Qo‘llash uchun Pauza + Davom ettiring.'
       }
     },
     subtitles: {
@@ -391,6 +419,10 @@ const uz = {
       writeThumbnail: {
         label: 'Muqovani saqlash',
         description: 'Muqovani yuklamaning yoniga .jpg rasm fayli sifatida saqlaydi.'
+      },
+      writeM3u: {
+        label: '.m3u pleylist faylini yaratish',
+        description: 'Videolar media pleerda tartib bilan ochilishi uchun yoniga .m3u pleylistini saqlaydi.'
       }
     },
     confirm: {
@@ -445,8 +477,22 @@ const uz = {
       hold: 'Ushlab tur',
       resume: 'Davom ettirish',
       cancel: 'Bekor qilish',
-      remove: "O'chirish"
-    }
+      remove: "O'chirish",
+      pullNow: 'Hozir yuklab olish — navbatni o‘tkazish',
+      priorityBadge: 'Ustuvor',
+      statusPending: 'Kutilmoqda',
+      statusRunning: 'Yuklanmoqda',
+      statusHeld: 'Ushlab turilgan',
+      statusPaused: 'Pauzada',
+      statusDone: 'Tayyor',
+      statusError: 'Xato',
+      statusCancelled: 'Bekor qilingan'
+    },
+    resumeAll: 'Navbatni davom ettirish',
+    resumeAllTitle: 'Pauzadagi yuklab olishlarni davom ettirib, navbatni yurgizish',
+    limitRate: 'Tezlik: {{value}}',
+    limitRateOff: 'Tezlik: o‘chiq',
+    limitRateTitle: 'Yuklab olishlar uchun tarmoq chegarasi'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -534,24 +580,24 @@ const uz = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'Har bir element uchun mavjud eng yuqori kodek',
+      mp4: 'H.264 + AAC afzal, MP4 konteyner · imkon qadar'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': '4K gacha',
+      '1440': '1440p gacha',
+      '1080': '1080p gacha',
+      '720': '720p gacha',
+      '480': '480p gacha',
+      '360': '360p gacha'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'Har bir element uchun eng yaxshi video + audio',
+      '2160': '2160p bilan cheklanadi, har elementda pastroqqa tushadi',
+      '1440': '2K bilan cheklanadi, har elementda pastroqqa tushadi',
+      '1080': '1080p bilan cheklanadi, har elementda pastroqqa tushadi',
+      '720': 'Kichikroq fayllar, keng moslik',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -562,13 +608,13 @@ const uz = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'Eng yaxshi asl audio, qayta kodlanmaydi',
+      mp3: 'MP3 ga aylantirish',
+      m4a: 'M4A (AAC) ga aylantirish',
+      opus: 'Opus ga aylantirish'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'YouTube’da 1080p dan yuqori H.264 mavjud emas — avtomatik 1080p bilan cheklanadi'
   },
   formatLabel: {
     audioFallback: 'Audio',
@@ -591,7 +637,8 @@ const uz = {
       message_other: '{{count}} ta yuklama jarayonda',
       detail: 'Yopilsa barcha faol yuklamalar bekor qilinadi.',
       confirm: 'Yuklamalarni bekor qilish va chiqish',
-      keep: 'Yuklab olishni davom ettirish'
+      keep: 'Yuklab olishni davom ettirish',
+      pause: 'Yuklab olishlarni pauzalab chiqish'
     },
     closeToTray: {
       message: 'Yopilganda Arroxy ni tizim soatiga yashirasizmi?',

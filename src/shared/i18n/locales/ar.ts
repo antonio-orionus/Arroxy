@@ -122,13 +122,26 @@ const ar = {
       title: 'هذا الرابط يحتوي على Playlist',
       body: 'هل تريد الفيديو الذي اخترته فقط، أم تفضّل الاختيار من الـ Playlist؟ ستختار فيديوهات بعينها أو نطاقاً في الخطوة التالية.',
       singleVideo: 'هذا الواحد فقط',
-      pickFromPlaylist: 'اختر من الـ Playlist'
+      pickFromPlaylist: 'اختر من الـ Playlist',
+      playlistLimit: 'حد فحص قائمة التشغيل: {{count}} عنصرًا',
+      advancedSettings: 'إعدادات متقدمة',
+      singleTooltip: 'يستخدم وضع الفيديو المفرد في yt-dlp بحيث يتم تجاهل قائمة التشغيل المرتبطة بهذا الرابط.',
+      playlistTooltip: 'يستخدم وضع قائمة التشغيل في yt-dlp ويجلب العناصر حتى حد الفحص قبل عرض أداة الاختيار.'
     },
 
     url: {
       heading: 'رابط YouTube',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'جلب الصيغ',
+      fetchFormatsTooltip: 'اختر الصيغ والترجمات والمجلد وعناصر قوائم التشغيل خطوة بخطوة قبل الإضافة إلى قائمة الانتظار.',
+      quickDownload: 'تنزيل سريع',
+      quickDownloadTooltip: 'يستخدم تفضيلاتك المحفوظة أو الافتراضية ويضيف هذا الفيديو المفرد إلى قائمة الانتظار دون فتح خطوات الإعداد.',
+      quickPreparing: 'جارٍ التحضير',
+      quickQueued: 'تمت الإضافة إلى قائمة الانتظار',
+      quickSingleOnly: 'التنزيل السريع مخصص للفيديوهات المفردة فقط. استخدم جلب الصيغ لقوائم التشغيل والقنوات.',
+      quickProbeFailed: 'فشل الفحص',
+      quickPrepareFailed: 'تعذر تحضير عنصر قائمة الانتظار',
+      quickFailed: 'تعذرت إضافة هذا العنصر: {{error}}',
       features: {
         heading: 'ما الذي يستطيع Arroxy سحبه',
         youtube: {
@@ -234,7 +247,13 @@ const ar = {
           sleepRequests: 'انتظار بين فحوصات البيانات الوصفية',
           sleepInterval: 'توقف قبل بدء الوسائط: الحد الأدنى',
           maxSleepInterval: 'توقف قبل بدء الوسائط: الحد الأقصى',
-          concurrentFragments: 'اتصالات التنزيل'
+          concurrentFragments: 'اتصالات التنزيل',
+          sleepSubtitles: 'انتظار قبل ملفات الترجمة'
+        },
+        presetLabel: 'ما مدى حذر Arroxy؟',
+        units: {
+          seconds: 'ث',
+          threads: 'مسارات'
         }
       },
       closeToTray: {
@@ -244,6 +263,15 @@ const ar = {
       analytics: {
         toggle: 'إرسال إحصائيات الاستخدام المجهولة',
         toggleDescription: 'يحسب فقط مرات تشغيل التطبيق. بدون عناوين URL أو أسماء ملفات أو بيانات شخصية.'
+      },
+      limitRate: {
+        label: 'حد سرعة التنزيل',
+        description: 'يحد من النطاق الترددي لتنزيلات الوسائط. إيقاع الطلبات أدناه غالبًا هو أداة الحد الأقوى.',
+        off: 'إيقاف',
+        custom: 'مخصص…',
+        customPlaceholder: 'مثل 750K أو 1.5M',
+        invalid: 'استخدم رقمًا متبوعًا بـ K أو M (مثل 500K، 1.5M)',
+        activeWarning: 'التنزيلات النشطة تحتفظ بحدها الحالي. استخدم إيقاف مؤقت + استئناف لتطبيق التغييرات.'
       }
     },
     subtitles: {
@@ -391,6 +419,10 @@ const ar = {
       writeThumbnail: {
         label: 'حفظ الصورة المصغرة',
         description: 'يحفظ الصورة المصغرة كملف صورة .jpg بجانب التنزيل.'
+      },
+      writeM3u: {
+        label: 'إنشاء ملف قائمة تشغيل .m3u',
+        description: 'يحفظ قائمة .m3u بجانب الفيديوهات كي تفتح بالترتيب في مشغل الوسائط.'
       }
     },
     confirm: {
@@ -445,8 +477,22 @@ const ar = {
       hold: 'تأجيل',
       resume: 'استئناف',
       cancel: 'إلغاء',
-      remove: 'إزالة'
-    }
+      remove: 'إزالة',
+      pullNow: 'تنزيل الآن — تجاوز القائمة',
+      priorityBadge: 'أولوية',
+      statusPending: 'بانتظار',
+      statusRunning: 'جارٍ التنزيل',
+      statusHeld: 'معلّق',
+      statusPaused: 'متوقف مؤقتًا',
+      statusDone: 'تم',
+      statusError: 'خطأ',
+      statusCancelled: 'أُلغي'
+    },
+    resumeAll: 'استئناف القائمة',
+    resumeAllTitle: 'استئناف التنزيلات المتوقفة والسماح للقائمة بالمتابعة',
+    limitRate: 'السرعة: {{value}}',
+    limitRateOff: 'السرعة: إيقاف',
+    limitRateTitle: 'حد النطاق الترددي للتنزيلات'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -534,24 +580,24 @@ const ar = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'أعلى ترميز متاح لكل عنصر',
+      mp4: 'يفضّل H.264 + AAC، حاوية MP4 · أفضل محاولة'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'حتى 4K',
+      '1440': 'حتى 1440p',
+      '1080': 'حتى 1080p',
+      '720': 'حتى 720p',
+      '480': 'حتى 480p',
+      '360': 'حتى 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'أفضل فيديو + صوت متاح لكل عنصر',
+      '2160': 'محدود عند 2160p ويهبط لكل عنصر عند الحاجة',
+      '1440': 'محدود عند 2K ويهبط لكل عنصر عند الحاجة',
+      '1080': 'محدود عند 1080p ويهبط لكل عنصر عند الحاجة',
+      '720': 'ملفات أصغر وتوافق واسع',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -562,13 +608,13 @@ const ar = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'أفضل صوت أصلي، بلا إعادة ترميز',
+      mp3: 'تحويل إلى MP3',
+      m4a: 'تحويل إلى M4A (AAC)',
+      opus: 'تحويل إلى Opus'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'H.264 أعلى من 1080p غير متاح على YouTube — يحد تلقائيًا إلى 1080p'
   },
   formatLabel: {
     audioFallback: 'صوت',
@@ -591,7 +637,8 @@ const ar = {
       message_other: '{{count}} تنزيلات قيد التقدم',
       detail: 'سيؤدي الإغلاق إلى إلغاء جميع التنزيلات النشطة.',
       confirm: 'إلغاء التنزيلات والخروج',
-      keep: 'الاستمرار في التنزيل'
+      keep: 'الاستمرار في التنزيل',
+      pause: 'إيقاف التنزيلات مؤقتًا والخروج'
     },
     closeToTray: {
       message: 'هل تريد إخفاء Arroxy في علبة النظام عند الإغلاق؟',

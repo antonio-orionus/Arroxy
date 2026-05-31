@@ -43,7 +43,7 @@
     "check:pins": "node scripts/check-dependency-pins.mjs",
     "deps:vuln": "node scripts/check-deps-vuln.mjs",
     "deps:vuln:strict": "node scripts/check-deps-vuln.mjs --threshold moderate",
-    "check": "concurrently -c auto --kill-others-on-fail -n lint,types,knip,madge,loc,pins,test \"bun run lint\" \"bun run typecheck\" \"bun run knip\" \"bun run madge\" \"bun run check:loc\" \"bun run check:pins\" \"bun run test\"",
+    "check": "concurrently -c auto --kill-others-on-fail -n lint,types,knip,madge,loc,pins,i18n,test \"bun run lint\" \"bun run typecheck\" \"bun run knip\" \"bun run madge\" \"bun run check:loc\" \"bun run check:pins\" \"bun run check:app\" \"bun run test\"",
     "madge": "madge --circular --extensions ts,tsx src/",
     "test": "vitest run",
     "test:watch": "vitest",

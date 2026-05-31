@@ -1,5 +1,5 @@
 import type { StoreApi } from 'zustand';
-import type { AppSettings, AudioBitrate, CookiesBrowser, CookiesMode, DependencyDiagnostic, DependencyId, FormatOption, PlaylistEntry, PlaylistSelection, Preset, ProbeError, ProbeDegradationReason, QueueItem, QueueLane, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme } from '@shared/types.js';
+import type { AppSettings, AudioBitrate, CookiesBrowser, CookiesMode, DependencyDiagnostic, DependencyId, FormatOption, PlaylistEntry, PlaylistSelection, Preset, ProbeError, ProbeDegradationReason, QueueItem, QueueLane, QuickDownloadStatus, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme } from '@shared/types.js';
 import type { AudioSelection } from '@shared/schemas.js';
 import type { IncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 export type { AudioSelection };
@@ -50,6 +50,8 @@ export interface ProbeOrchestratorSlice {
   playlistLikelyCapped: boolean;
   playlistProbeLoading: boolean;
   playlistSelection: PlaylistSelection | null;
+  quickDownloadStatus: QuickDownloadStatus;
+  quickDownloadError: string | null;
 
   // videoIds matched on disk by the last folder scan
   syncedDownloadedIds: string[];
@@ -59,6 +61,7 @@ export interface ProbeOrchestratorSlice {
 
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
+  quickDownload: () => Promise<void>;
   dismissMixedPrompt: (choice: 'video' | 'playlist') => Promise<void>;
   setPlaylistItemSelected: (id: string, checked: boolean) => void;
   selectAllPlaylistItems: () => void;

@@ -122,13 +122,26 @@ const sr = {
       title: 'Овај линк је из плејлисте',
       body: 'Желиш само видео на који си кликнуо, или да бираш из плејлисте? Следећи корак ти омогућава да одабереш одређене видеосе или распон.',
       singleVideo: 'Само овај',
-      pickFromPlaylist: 'Бирај из плејлисте'
+      pickFromPlaylist: 'Бирај из плејлисте',
+      playlistLimit: 'Limit provere plejliste: {{count}} stavki',
+      advancedSettings: 'Napredna podešavanja',
+      singleTooltip: 'Koristi yt-dlp režim za pojedinačni video, pa se plejlista vezana za ovaj URL ignoriše.',
+      playlistTooltip: 'Koristi yt-dlp režim plejliste i učitava do vašeg limita pre prikaza birača.'
     },
 
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'Учитај формате',
+      fetchFormatsTooltip: 'Izaberite formate, titlove, fasciklu i stavke plejliste korak po korak pre dodavanja u red.',
+      quickDownload: 'Brzo preuzimanje',
+      quickDownloadTooltip: 'Koristi sačuvana ili podrazumevana podešavanja i dodaje ovaj pojedinačni video u red bez otvaranja koraka podešavanja.',
+      quickPreparing: 'Priprema',
+      quickQueued: 'Dodato u red',
+      quickSingleOnly: 'Brzo preuzimanje je samo za pojedinačne video snimke. Za plejliste i kanale koristite Preuzmi formate.',
+      quickProbeFailed: 'Provera nije uspela',
+      quickPrepareFailed: 'Stavka reda nije mogla da se pripremi',
+      quickFailed: 'Nije moguće dodati: {{error}}',
       features: {
         heading: 'Шта Arroxy може да преузме',
         youtube: {
@@ -240,7 +253,8 @@ const sr = {
         units: {
           seconds: 'сек',
           threads: 'нити'
-        }
+        },
+        presetLabel: 'Насколько осторожным должен быть Arroxy?'
       },
       closeToTray: {
         toggle: 'Сакриј у системски трај при затварању',
@@ -249,6 +263,15 @@ const sr = {
       analytics: {
         toggle: 'Пошаљи анонимне статистике коришћења',
         toggleDescription: 'Броји само покретања апликације. Без URL-ова, имена датотека или личних података.'
+      },
+      limitRate: {
+        label: 'Ограничение скорости загрузки',
+        description: 'Ограничивает пропускную способность для загрузки медиа. Интервалы запросов ниже обычно сильнее влияют на лимиты.',
+        off: 'Выкл.',
+        custom: 'Своя…',
+        customPlaceholder: 'например 750K или 1.5M',
+        invalid: 'Введите число с K или M (например 500K, 1.5M)',
+        activeWarning: 'Активные загрузки сохранят текущий лимит. Пауза + Возобновить применит изменения.'
       }
     },
     subtitles: {
@@ -396,6 +419,10 @@ const sr = {
       writeThumbnail: {
         label: 'Сачувај сличицу',
         description: 'Чува сличицу као .jpg датотеку слике поред преузимања.'
+      },
+      writeM3u: {
+        label: 'Создать файл плейлиста .m3u',
+        description: 'Сохраняет .m3u рядом с видео, чтобы медиаплеер открывал их по порядку.'
       }
     },
     confirm: {
@@ -450,8 +477,22 @@ const sr = {
       hold: 'Задржи',
       resume: 'Настави',
       cancel: 'Откажи',
-      remove: 'Уклони'
-    }
+      remove: 'Уклони',
+      pullNow: 'Загрузить сейчас — пропустить очередь',
+      priorityBadge: 'Приоритет',
+      statusPending: 'Ожидание',
+      statusRunning: 'Загрузка',
+      statusHeld: 'Удержано',
+      statusPaused: 'Пауза',
+      statusDone: 'Готово',
+      statusError: 'Ошибка',
+      statusCancelled: 'Отменено'
+    },
+    resumeAll: 'Возобновить очередь',
+    resumeAllTitle: 'Возобновить приостановленные загрузки и продолжить очередь',
+    limitRate: 'Скорость: {{value}}',
+    limitRateOff: 'Скорость: выкл.',
+    limitRateTitle: 'Ограничение пропускной способности для загрузок'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -539,24 +580,24 @@ const sr = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'Najviši dostupan kodek po stavci',
+      mp4: 'Prednost H.264 + AAC, MP4 kontejner · najbolji pokušaj'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'Do 4K',
+      '1440': 'Do 1440p',
+      '1080': 'Do 1080p',
+      '720': 'Do 720p',
+      '480': 'Do 480p',
+      '360': 'Do 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'Najbolji dostupan video + audio po stavci',
+      '2160': 'Ograničeno na 2160p, pada niže po stavci',
+      '1440': 'Ograničeno na 2K, pada niže po stavci',
+      '1080': 'Ograničeno na 1080p, pada niže po stavci',
+      '720': 'Manji fajlovi, široka kompatibilnost',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -567,13 +608,13 @@ const sr = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'Najbolji izvorni audio, bez ponovnog kodiranja',
+      mp3: 'Konvertuj u MP3',
+      m4a: 'Konvertuj u M4A (AAC)',
+      opus: 'Konvertuj u Opus'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'H.264 iznad 1080p nije dostupan na YouTube-u — automatski se ograničava na 1080p'
   },
   formatLabel: {
     audioFallback: 'Звук',
@@ -596,7 +637,8 @@ const sr = {
       message_other: '{{count}} преузимања у току',
       detail: 'Затварање ће отказати сва активна преузимања.',
       confirm: 'Откажи преузимања и Затвори',
-      keep: 'Настави преузимање'
+      keep: 'Настави преузимање',
+      pause: 'Поставить загрузки на паузу и выйти'
     },
     closeToTray: {
       message: 'Сакрити Arroxy у системски трај при затварању?',

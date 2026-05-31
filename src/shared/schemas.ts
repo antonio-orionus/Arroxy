@@ -84,6 +84,9 @@ export const SUPPORTED_LANGS = supportedLangSchema.options;
 export const uiThemeSchema = z.enum(['light', 'dark', 'system']);
 export type UiTheme = z.infer<typeof uiThemeSchema>;
 
+export const quickDownloadStatusSchema = z.enum(['idle', 'preparing', 'queued', 'error']);
+export type QuickDownloadStatus = z.infer<typeof quickDownloadStatusSchema>;
+
 export const cookiesModeSchema = z.enum(['off', 'file', 'browser']);
 export type CookiesMode = z.infer<typeof cookiesModeSchema>;
 

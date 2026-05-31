@@ -122,13 +122,26 @@ const ps = {
       title: 'دا لینک یو Playlist لري',
       body: 'یوازې هغه ویډیو چې کلیک مو کاوه، که د Playlist نه غوره کول غواړئ؟ بعد به ځانګړي ویډیوګانې یا سلسله غوره کړئ.',
       singleVideo: 'یوازې دا یو',
-      pickFromPlaylist: 'له Playlist نه غوره کړئ'
+      pickFromPlaylist: 'له Playlist نه غوره کړئ',
+      playlistLimit: 'د پلی‌لېسټ کتنې حد: {{count}} توکي',
+      advancedSettings: 'پرمختللې امستنې',
+      singleTooltip: 'د yt-dlp د یوه ویډیو حالت کاروي، نو له دې URL سره تړلی پلی‌لېسټ له پامه غورځول کېږي.',
+      playlistTooltip: 'د yt-dlp د پلی‌لېسټ حالت کاروي او د انتخابګر تر ښودلو مخکې ستاسې تر ټاکلي حد پورې توکي راولي.'
     },
 
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'بڼې ترلاسه کړه',
+      fetchFormatsTooltip: 'له قطار ته تر زیاتولو مخکې بڼې، فرعي لیکنې، پوښۍ او د پلی‌لېسټ توکي ګام په ګام وټاکئ.',
+      quickDownload: 'چټک ډاونلوډ',
+      quickDownloadTooltip: 'ستاسې خوندي شوې یا تلواله خوښې کاروي او دا یو ویډیو د چمتو کولو پړاوونو له پرانیستو پرته قطار ته زیاتوي.',
+      quickPreparing: 'چمتو کېږي',
+      quickQueued: 'قطار ته زیات شو',
+      quickSingleOnly: 'چټک ډاونلوډ یوازې د یوه ویډیو لپاره دی. د پلی‌لېسټونو او چینلونو لپاره بڼې راوړئ وکاروئ.',
+      quickProbeFailed: 'کتنه ناکامه شوه',
+      quickPrepareFailed: 'د قطار توکی چمتو نه شو',
+      quickFailed: 'دا ونه زیاتېدل: {{error}}',
       features: {
         heading: 'Arroxy څه ډاونلوډ کولی شي',
         youtube: {
@@ -250,6 +263,15 @@ const ps = {
       analytics: {
         toggle: 'د ناپیژندل شوي کارونې احصائیې واستوئ',
         toggleDescription: 'یوازې د اپلیکیشن پیلونه شمیري. هیڅ URL، د فایل نومونه، یا شخصي معلومات نه شته.'
+      },
+      limitRate: {
+        label: 'د ډاونلوډ سرعت حد',
+        description: 'د رسنیو د ډاونلوډونو بینډوېډت محدودوي. لاندې د غوښتنو تمپو عموماً پیاوړی محدودوونکی دی.',
+        off: 'بند',
+        custom: 'ځانګړی…',
+        customPlaceholder: 'لکه 750K یا 1.5M',
+        invalid: 'له K یا M سره عدد وکاروئ (لکه 500K، 1.5M)',
+        activeWarning: 'فعال ډاونلوډونه خپل اوسنی حد ساتي. د پلي کولو لپاره ودرول + دوام وکاروئ.'
       }
     },
     subtitles: {
@@ -397,6 +419,10 @@ const ps = {
       writeThumbnail: {
         label: 'تھمبنیل خوندي کړه',
         description: 'تھمبنیل د ډاونلوډ سره یوځای د .jpg انځور فایل بڼه کې خوندي کوي.'
+      },
+      writeM3u: {
+        label: 'د .m3u پلی‌لېسټ فایل جوړول',
+        description: 'د ویډیوګانو ترڅنګ .m3u پلی‌لېسټ ساتي چې په میډیا پلیر کې په ترتیب خلاص شي.'
       }
     },
     confirm: {
@@ -451,8 +477,22 @@ const ps = {
       hold: 'ودرول',
       resume: 'دوام',
       cancel: 'لغوه کول',
-      remove: 'لیرې کول'
-    }
+      remove: 'لیرې کول',
+      pullNow: 'اوس ډاونلوډ — قطار پرېږدئ',
+      priorityBadge: 'لومړیتوب',
+      statusPending: 'په تمه',
+      statusRunning: 'ډاونلوډ کېږي',
+      statusHeld: 'ساتل شوی',
+      statusPaused: 'درول شوی',
+      statusDone: 'بشپړ',
+      statusError: 'تېروتنه',
+      statusCancelled: 'لغوه شوی'
+    },
+    resumeAll: 'قطار ته دوام ورکړئ',
+    resumeAllTitle: 'درول شوي ډاونلوډونه دوام کړئ او قطار روان پرېږدئ',
+    limitRate: 'سرعت: {{value}}',
+    limitRateOff: 'سرعت: بند',
+    limitRateTitle: 'د ډاونلوډونو بینډوېډت حد'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -540,24 +580,24 @@ const ps = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'د هر توکي لپاره تر ټولو لوړ موجود codec',
+      mp4: 'H.264 + AAC غوره، MP4 کانتینر · تر وسه ښه'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'تر 4K پورې',
+      '1440': 'تر 1440p پورې',
+      '1080': 'تر 1080p پورې',
+      '720': 'تر 720p پورې',
+      '480': 'تر 480p پورې',
+      '360': 'تر 360p پورې'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'د هر توکي لپاره غوره ویډیو + غږ',
+      '2160': 'تر 2160p محدود، د هر توکي لپاره ښکته راځي',
+      '1440': 'تر 2K محدود، د هر توکي لپاره ښکته راځي',
+      '1080': 'تر 1080p محدود، د هر توکي لپاره ښکته راځي',
+      '720': 'کوچني فایلونه، پراخه سازګاري',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -568,13 +608,13 @@ const ps = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'غوره اصلي غږ، بیا کوډ نه کېږي',
+      mp3: 'MP3 ته بدلول',
+      m4a: 'M4A (AAC) ته بدلول',
+      opus: 'Opus ته بدلول'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'په YouTube کې له 1080p پورته H.264 نشته — په اتومات ډول 1080p ته محدودېږي'
   },
   formatLabel: {
     audioFallback: 'غږ',
@@ -597,7 +637,8 @@ const ps = {
       message_other: '{{count}} ډاونلوډونه روان دي',
       detail: 'تړول به ټول فعال ډاونلوډونه لغوه کړي.',
       confirm: 'ډاونلوډونه لغوه کړه او وتلو',
-      keep: 'ډاونلوډ دوام کړه'
+      keep: 'ډاونلوډ دوام کړه',
+      pause: 'ډاونلوډونه ودرول او وتل'
     },
     closeToTray: {
       message: 'ایا د تړولو پر وخت Arroxy سیسټم ټرې ته پټ کړو؟',

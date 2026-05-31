@@ -122,13 +122,26 @@ const ja = {
       title: 'このリンクは Playlist に含まれています',
       body: 'クリックした動画だけをダウンロードしますか？それとも Playlist から選びますか？次のステップで特定の動画や範囲を選択できます。',
       singleVideo: 'この1本だけ',
-      pickFromPlaylist: 'Playlist から選ぶ'
+      pickFromPlaylist: 'Playlist から選ぶ',
+      playlistLimit: 'プレイリスト取得上限: {{count}} 件',
+      advancedSettings: '詳細設定',
+      singleTooltip: 'yt-dlp の単一動画モードを使い、この URL に付いたプレイリストを無視します。',
+      playlistTooltip: 'yt-dlp のプレイリストモードを使い、選択画面を出す前に上限まで取得します。'
     },
 
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: '形式を取得',
+      fetchFormatsTooltip: 'キューに追加する前に、形式、字幕、フォルダー、プレイリスト項目を手順ごとに選びます。',
+      quickDownload: 'クイックダウンロード',
+      quickDownloadTooltip: '保存済みまたは既定の設定を使い、設定手順を開かずにこの単一動画をキューへ追加します。',
+      quickPreparing: '準備中',
+      quickQueued: 'キューに追加しました',
+      quickSingleOnly: 'クイックダウンロードは単一動画専用です。プレイリストやチャンネルには形式を取得を使ってください。',
+      quickProbeFailed: '解析に失敗しました',
+      quickPrepareFailed: 'キュー項目を準備できませんでした',
+      quickFailed: '追加できませんでした: {{error}}',
       features: {
         heading: 'Arroxyで取得できるもの',
         youtube: {
@@ -240,7 +253,8 @@ const ja = {
         units: {
           seconds: '秒',
           threads: 'スレッド'
-        }
+        },
+        presetLabel: 'Arroxy はどのくらい慎重にしますか？'
       },
       closeToTray: {
         toggle: '閉じるときにトレイに格納',
@@ -249,6 +263,15 @@ const ja = {
       analytics: {
         toggle: '匿名の使用統計を送信',
         toggleDescription: 'アプリの起動回数のみを記録します。URL、ファイル名、個人情報は含まれません。'
+      },
+      limitRate: {
+        label: 'ダウンロード速度制限',
+        description: 'メディアダウンロードの帯域を制限します。下のリクエスト間隔のほうが強い制限になることが多いです。',
+        off: 'オフ',
+        custom: 'カスタム…',
+        customPlaceholder: '例: 750K または 1.5M',
+        invalid: 'K または M を付けた数値を使ってください（例: 500K、1.5M）',
+        activeWarning: '進行中のダウンロードは現在の制限を保持します。適用するには一時停止して再開してください。'
       }
     },
     subtitles: {
@@ -396,6 +419,10 @@ const ja = {
       writeThumbnail: {
         label: 'サムネイルを保存',
         description: 'サムネイルを .jpg 画像ファイルとしてダウンロードの隣に保存します。'
+      },
+      writeM3u: {
+        label: '.m3u プレイリストファイルを生成',
+        description: '動画の横に .m3u プレイリストを保存し、メディアプレーヤーで順番に開けるようにします。'
       }
     },
     confirm: {
@@ -450,8 +477,22 @@ const ja = {
       hold: '保留',
       resume: '再開',
       cancel: 'キャンセル',
-      remove: '削除'
-    }
+      remove: '削除',
+      pullNow: '今すぐ開始 — キューをスキップ',
+      priorityBadge: '優先',
+      statusPending: '待機中',
+      statusRunning: 'ダウンロード中',
+      statusHeld: '保留中',
+      statusPaused: '一時停止',
+      statusDone: '完了',
+      statusError: 'エラー',
+      statusCancelled: 'キャンセル済み'
+    },
+    resumeAll: 'キューを再開',
+    resumeAllTitle: '一時停止中のダウンロードを再開し、キューを続行します',
+    limitRate: '速度: {{value}}',
+    limitRateOff: '速度: オフ',
+    limitRateTitle: 'ダウンロードの帯域制限'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -539,24 +580,24 @@ const ja = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: '各項目で利用可能な最高のコーデック',
+      mp4: 'H.264 + AAC を優先、MP4 コンテナ · 可能な範囲で'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': '最大 4K',
+      '1440': '最大 1440p',
+      '1080': '最大 1080p',
+      '720': '最大 720p',
+      '480': '最大 480p',
+      '360': '最大 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: '各項目で利用可能な最高の動画 + 音声',
+      '2160': '2160p までに制限し、項目ごとに下位へフォールバック',
+      '1440': '2K までに制限し、項目ごとに下位へフォールバック',
+      '1080': '1080p までに制限し、項目ごとに下位へフォールバック',
+      '720': '小さめのファイル、広い互換性',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -567,13 +608,13 @@ const ja = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: '最高のネイティブ音声、再エンコードなし',
+      mp3: 'MP3 に変換',
+      m4a: 'M4A (AAC) に変換',
+      opus: 'Opus に変換'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'YouTube では 1080p 超の H.264 は利用できません — 自動的に 1080p に制限されます'
   },
   formatLabel: {
     audioFallback: '音声',
@@ -596,7 +637,8 @@ const ja = {
       message_other: 'ダウンロード{{count}}件を実行中',
       detail: '閉じるとアクティブなダウンロードはすべてキャンセルされます。',
       confirm: 'ダウンロードをキャンセルして終了',
-      keep: 'ダウンロードを続ける'
+      keep: 'ダウンロードを続ける',
+      pause: 'ダウンロードを一時停止して終了'
     },
     closeToTray: {
       message: '閉じるときにArroxyをシステムトレイに格納しますか？',

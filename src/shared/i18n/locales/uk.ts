@@ -122,13 +122,26 @@ const uk = {
       title: 'Це посилання з Playlist',
       body: 'Хочеш завантажити лише те відео, на яке натиснув, чи вибрати з Playlist? Далі зможеш вказати конкретні відео або діапазон.',
       singleVideo: 'Лише це одне',
-      pickFromPlaylist: 'Вибрати з Playlist'
+      pickFromPlaylist: 'Вибрати з Playlist',
+      playlistLimit: 'Ліміт перевірки плейлиста: {{count}} елементів',
+      advancedSettings: 'Додаткові налаштування',
+      singleTooltip: 'Використовує режим одного відео yt-dlp, тому плейлист у цьому URL ігнорується.',
+      playlistTooltip: 'Використовує режим плейлиста yt-dlp і завантажує елементи до твого ліміту перед показом вибору.'
     },
 
     url: {
       heading: 'Посилання YouTube',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'Отримати формати',
+      fetchFormatsTooltip: 'Вибери формати, субтитри, папку й елементи плейлиста крок за кроком перед додаванням у чергу.',
+      quickDownload: 'Швидке завантаження',
+      quickDownloadTooltip: 'Використовує збережені або стандартні налаштування й додає це окреме відео в чергу без кроків налаштування.',
+      quickPreparing: 'Підготовка',
+      quickQueued: 'Додано в чергу',
+      quickSingleOnly: 'Швидке завантаження працює лише для окремих відео. Для плейлистів і каналів використовуй Отримати формати.',
+      quickProbeFailed: 'Перевірка не вдалася',
+      quickPrepareFailed: 'Не вдалося підготувати елемент черги',
+      quickFailed: 'Не вдалося додати: {{error}}',
       features: {
         heading: 'Що Arroxy вміє завантажувати',
         youtube: {
@@ -240,7 +253,8 @@ const uk = {
         units: {
           seconds: 'сек',
           threads: 'потоків'
-        }
+        },
+        presetLabel: 'Наскільки обережним має бути Arroxy?'
       },
       closeToTray: {
         toggle: 'Приховувати в трей при закритті',
@@ -249,6 +263,15 @@ const uk = {
       analytics: {
         toggle: 'Надсилати анонімну статистику',
         toggleDescription: 'Лише підрахунок запусків додатку. Без URL, імен файлів чи особистих даних.'
+      },
+      limitRate: {
+        label: 'Обмеження швидкості завантаження',
+        description: 'Обмежує пропускну здатність для медіазавантажень. Інтервали запитів нижче зазвичай сильніше впливають на ліміти.',
+        off: 'Вимкнено',
+        custom: 'Власне…',
+        customPlaceholder: 'наприклад 750K або 1.5M',
+        invalid: 'Введи число з K або M (наприклад 500K, 1.5M)',
+        activeWarning: 'Активні завантаження зберігають поточний ліміт. Пауза + Продовжити застосує зміни.'
       }
     },
     subtitles: {
@@ -396,6 +419,10 @@ const uk = {
       writeThumbnail: {
         label: 'Зберегти мініатюру',
         description: 'Зберігає мініатюру як файл .jpg поруч із завантаженням.'
+      },
+      writeM3u: {
+        label: 'Створити файл плейлиста .m3u',
+        description: 'Зберігає .m3u поруч із відео, щоб вони відкривалися в медіаплеєрі по порядку.'
       }
     },
     confirm: {
@@ -450,8 +477,22 @@ const uk = {
       hold: 'Утримати',
       resume: 'Продовжити',
       cancel: 'Скасувати',
-      remove: 'Видалити'
-    }
+      remove: 'Видалити',
+      pullNow: 'Завантажити зараз — пропустити чергу',
+      priorityBadge: 'Пріоритет',
+      statusPending: 'Очікує',
+      statusRunning: 'Завантажується',
+      statusHeld: 'Утримано',
+      statusPaused: 'На паузі',
+      statusDone: 'Готово',
+      statusError: 'Помилка',
+      statusCancelled: 'Скасовано'
+    },
+    resumeAll: 'Продовжити чергу',
+    resumeAllTitle: 'Продовжити призупинені завантаження й дати черзі рухатися далі',
+    limitRate: 'Швидкість: {{value}}',
+    limitRateOff: 'Швидкість: вимкнено',
+    limitRateTitle: 'Обмеження пропускної здатності для завантажень'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -539,24 +580,24 @@ const uk = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'Найвищий доступний кодек для кожного елемента',
+      mp4: 'Перевага H.264 + AAC, контейнер MP4 · наскільки можливо'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': 'До 4K',
+      '1440': 'До 1440p',
+      '1080': 'До 1080p',
+      '720': 'До 720p',
+      '480': 'До 480p',
+      '360': 'До 360p'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'Найкраще доступне відео + аудіо для кожного елемента',
+      '2160': 'Обмежено 2160p, знижується окремо для кожного елемента',
+      '1440': 'Обмежено 2K, знижується окремо для кожного елемента',
+      '1080': 'Обмежено 1080p, знижується окремо для кожного елемента',
+      '720': 'Менші файли, широка сумісність',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -567,13 +608,13 @@ const uk = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'Найкраще оригінальне аудіо, без перекодування',
+      mp3: 'Перетворити на MP3',
+      m4a: 'Перетворити на M4A (AAC)',
+      opus: 'Перетворити на Opus'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'H.264 вище 1080p недоступний на YouTube — автоматично обмежується 1080p'
   },
   formatLabel: {
     audioFallback: 'Аудіо',
@@ -596,7 +637,8 @@ const uk = {
       message_other: 'Триває завантажень: {{count}}',
       detail: 'Закриття скасує всі активні завантаження.',
       confirm: 'Скасувати завантаження й вийти',
-      keep: 'Продовжити завантаження'
+      keep: 'Продовжити завантаження',
+      pause: 'Призупинити завантаження й вийти'
     },
     closeToTray: {
       message: 'Приховувати Arroxy в системний трей при закритті?',

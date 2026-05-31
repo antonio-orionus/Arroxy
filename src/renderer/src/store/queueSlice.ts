@@ -20,14 +20,14 @@ import i18next from 'i18next';
 import type { GetState, SetState, QueueSlice } from './types.js';
 import { persistFormatPrefs } from './wizard/persistFormatPrefs.js';
 
-function maybeShowQueueTip(set: SetState): void {
+export function maybeShowQueueTip(set: SetState): void {
   if (!localStorage.getItem('arroxy_seen_queue_tip')) {
     localStorage.setItem('arroxy_seen_queue_tip', '1');
     set({ drawerOpen: true, showQueueTip: true });
   }
 }
 
-function buildQueueItem(get: GetState, lane: QueueLane): QueueItem | null {
+export function buildSingleQueueItemFromState(get: GetState, lane: QueueLane): QueueItem | null {
   const state = get();
   const { wizardUrl, wizardTitle, wizardThumbnail, wizardOutputDir } = state;
   const { wizardSubfolderEnabled, wizardSubfolderName } = state;
@@ -207,7 +207,7 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
       }
       await window.appApi.queue.cmd.add(items);
     } else {
-      const item = buildQueueItem(get, lane);
+      const item = buildSingleQueueItemFromState(get, lane);
       if (!item) return;
       await window.appApi.queue.cmd.add([item]);
     }

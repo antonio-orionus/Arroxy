@@ -34,6 +34,8 @@ export const RESET_WIZARD_STATE = {
   playlistLikelyCapped: false,
   playlistProbeLoading: false,
   playlistSelection: null as PlaylistSelection | null,
+  quickDownloadStatus: 'idle' as const,
+  quickDownloadError: null as string | null,
   // formatPicker
   wizardFormats: [] as FormatOption[],
   selectedVideoFormatId: '',

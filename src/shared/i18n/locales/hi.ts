@@ -122,13 +122,26 @@ const hi = {
       title: 'इस लिंक में एक Playlist है',
       body: 'सिर्फ़ वही वीडियो चाहिए जिस पर क्लिक किया था, या Playlist में से चुनना है? आगे आप विशेष वीडियो या रेंज चुन सकते हैं।',
       singleVideo: 'बस यही एक',
-      pickFromPlaylist: 'Playlist में से चुनें'
+      pickFromPlaylist: 'Playlist में से चुनें',
+      playlistLimit: 'प्लेलिस्ट जाँच सीमा: {{count}} आइटम',
+      advancedSettings: 'उन्नत सेटिंग्स',
+      singleTooltip: 'yt-dlp का एकल-वीडियो मोड उपयोग करता है ताकि इस URL से जुड़ी प्लेलिस्ट अनदेखी हो।',
+      playlistTooltip: 'yt-dlp का प्लेलिस्ट मोड उपयोग करता है और पिकर दिखाने से पहले आपकी सीमा तक आइटम लाता है।'
     },
 
     url: {
       heading: 'YouTube URL',
       placeholder: 'https://www.youtube.com/watch?v=...',
       fetchFormats: 'फ़ॉर्मेट लाएँ',
+      fetchFormatsTooltip: 'क्यू में जोड़ने से पहले फॉर्मैट, सबटाइटल, फ़ोल्डर और प्लेलिस्ट आइटम चरण-दर-चरण चुनें।',
+      quickDownload: 'त्वरित डाउनलोड',
+      quickDownloadTooltip: 'आपकी सेव की गई या डिफ़ॉल्ट पसंदों का उपयोग करके सेटअप चरण खोले बिना इस एकल वीडियो को क्यू में जोड़ता है।',
+      quickPreparing: 'तैयार हो रहा है',
+      quickQueued: 'क्यू में जोड़ दिया गया',
+      quickSingleOnly: 'त्वरित डाउनलोड केवल एकल वीडियो के लिए है। प्लेलिस्ट और चैनलों के लिए फॉर्मैट लाएँ का उपयोग करें।',
+      quickProbeFailed: 'जाँच विफल रही',
+      quickPrepareFailed: 'क्यू आइटम तैयार नहीं किया जा सका',
+      quickFailed: 'इसे जोड़ा नहीं जा सका: {{error}}',
       features: {
         heading: 'Arroxy क्या डाउनलोड कर सकता है',
         youtube: {
@@ -250,6 +263,15 @@ const hi = {
       analytics: {
         toggle: 'अनाम उपयोग आँकड़े भेजें',
         toggleDescription: 'केवल ऐप लॉन्च गिनता है। कोई URL, फ़ाइलनाम या व्यक्तिगत डेटा नहीं।'
+      },
+      limitRate: {
+        label: 'डाउनलोड गति सीमा',
+        description: 'मीडिया डाउनलोड के लिए बैंडविड्थ सीमित करें। नीचे की अनुरोध गति अक्सर अधिक मजबूत सीमा नियंत्रण है।',
+        off: 'बंद',
+        custom: 'कस्टम…',
+        customPlaceholder: 'जैसे 750K या 1.5M',
+        invalid: 'K या M के बाद वाली संख्या दें (जैसे 500K, 1.5M)',
+        activeWarning: 'चल रहे डाउनलोड अपनी मौजूदा सीमा रखते हैं। लागू करने के लिए विराम + फिर शुरू करें।'
       }
     },
     subtitles: {
@@ -397,6 +419,10 @@ const hi = {
       writeThumbnail: {
         label: 'थंबनेल सहेजें',
         description: 'थंबनेल को डाउनलोड के पास .jpg छवि फ़ाइल के रूप में सहेजता है।'
+      },
+      writeM3u: {
+        label: '.m3u प्लेलिस्ट फ़ाइल बनाएँ',
+        description: 'वीडियो के साथ .m3u प्लेलिस्ट सेव करता है ताकि वे मीडिया प्लेयर में क्रम से खुलें।'
       }
     },
     confirm: {
@@ -451,8 +477,22 @@ const hi = {
       hold: 'होल्ड',
       resume: 'फिर से शुरू',
       cancel: 'रद्द करें',
-      remove: 'हटाएँ'
-    }
+      remove: 'हटाएँ',
+      pullNow: 'अभी डाउनलोड — क्यू छोड़ें',
+      priorityBadge: 'प्राथमिकता',
+      statusPending: 'प्रतीक्षा में',
+      statusRunning: 'डाउनलोड हो रहा है',
+      statusHeld: 'रोका गया',
+      statusPaused: 'रुका हुआ',
+      statusDone: 'पूरा',
+      statusError: 'त्रुटि',
+      statusCancelled: 'रद्द'
+    },
+    resumeAll: 'क्यू फिर शुरू करें',
+    resumeAllTitle: 'रुके हुए डाउनलोड फिर शुरू करें और क्यू को चलने दें',
+    limitRate: 'गति: {{value}}',
+    limitRateOff: 'गति: बंद',
+    limitRateTitle: 'डाउनलोड के लिए बैंडविड्थ सीमा'
   },
   update: {
     appVersion: 'Arroxy {{version}}',
@@ -540,24 +580,24 @@ const hi = {
       mp4: 'MP4 (H.264)'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'हर आइटम के लिए उपलब्ध उच्चतम कोडेक',
+      mp4: 'H.264 + AAC प्राथमिक, MP4 कंटेनर · सर्वोत्तम प्रयास'
     },
     tier: {
       best: 'Best quality',
-      '2160': 'Up to 4K',
-      '1440': 'Up to 1440p',
-      '1080': 'Up to 1080p',
-      '720': 'Up to 720p',
-      '480': 'Up to 480p',
-      '360': 'Up to 360p'
+      '2160': '4K तक',
+      '1440': '1440p तक',
+      '1080': '1080p तक',
+      '720': '720p तक',
+      '480': '480p तक',
+      '360': '360p तक'
     },
     tierDesc: {
-      best: 'Highest available video + audio per item',
-      '2160': 'Capped at 2160p, falls back to lower per item',
-      '1440': 'Capped at 2K, falls back to lower per item',
-      '1080': 'Capped at 1080p, falls back to lower per item',
-      '720': 'Smaller files, broad compatibility',
+      best: 'हर आइटम के लिए सर्वश्रेष्ठ वीडियो + ऑडियो',
+      '2160': '2160p तक सीमित, हर आइटम पर ज़रूरत हो तो कम',
+      '1440': '2K तक सीमित, हर आइटम पर ज़रूरत हो तो कम',
+      '1080': '1080p तक सीमित, हर आइटम पर ज़रूरत हो तो कम',
+      '720': 'छोटी फ़ाइलें, व्यापक संगतता',
       '480': 'Low bandwidth',
       '360': 'Smallest video'
     },
@@ -568,13 +608,13 @@ const hi = {
       opus: 'Opus'
     },
     audioFormatDesc: {
-      best: 'Native best audio, no re-encode',
-      mp3: 'Convert to MP3',
-      m4a: 'Convert to M4A (AAC)',
-      opus: 'Convert to Opus'
+      best: 'सर्वश्रेष्ठ मूल ऑडियो, फिर से encode नहीं',
+      mp3: 'MP3 में बदलें',
+      m4a: 'M4A (AAC) में बदलें',
+      opus: 'Opus में बदलें'
     },
     audioFormatBitrate: 'Audio ({{format}} {{kbps}}K)',
-    mp4Cap: 'H.264 above 1080p is not available on YouTube — capped to 1080p automatically'
+    mp4Cap: 'YouTube पर 1080p से ऊपर H.264 उपलब्ध नहीं है — अपने-आप 1080p तक सीमित'
   },
   formatLabel: {
     audioFallback: 'ऑडियो',
@@ -597,7 +637,8 @@ const hi = {
       message_other: '{{count}} डाउनलोड चल रही हैं',
       detail: 'बंद करने पर सभी सक्रिय डाउनलोड रद्द हो जाएँगी।',
       confirm: 'डाउनलोड रद्द करके बंद करें',
-      keep: 'डाउनलोड जारी रखें'
+      keep: 'डाउनलोड जारी रखें',
+      pause: 'डाउनलोड रोकें और बाहर निकलें'
     },
     closeToTray: {
       message: 'बंद करने पर Arroxy को सिस्टम ट्रे में छिपाएं?',
