@@ -10,9 +10,9 @@ export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number];
 export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics';
 type ScenarioKind = 'default' | 'probe' | 'queue' | 'update' | 'diagnostics' | 'dialog';
 
-export const SINGLE_NORMAL_MOCK_STEPS = ['formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm'] as const;
-export const PLAYLIST_NORMAL_MOCK_STEPS = ['playlistItems', 'playlistPresets', 'sponsorblock', 'output', 'folder', 'confirm'] as const;
-export const BROWSER_MOCK_STEPS = [...SINGLE_NORMAL_MOCK_STEPS, ...PLAYLIST_NORMAL_MOCK_STEPS] as const;
+const SINGLE_NORMAL_MOCK_STEPS = ['formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm'] as const;
+const PLAYLIST_NORMAL_MOCK_STEPS = ['playlistItems', 'playlistPresets', 'sponsorblock', 'output', 'folder', 'confirm'] as const;
+export const BROWSER_MOCK_STEPS = [...new Set([...SINGLE_NORMAL_MOCK_STEPS, ...PLAYLIST_NORMAL_MOCK_STEPS])] as const;
 export type BrowserMockStep = (typeof BROWSER_MOCK_STEPS)[number];
 
 export interface BrowserMockScenario {
@@ -143,6 +143,12 @@ export function mockStepForScenario(scenario: Pick<BrowserMockScenario, 'id'>, s
   if (scenario.id === 'single-normal' && (SINGLE_NORMAL_MOCK_STEPS as readonly string[]).includes(step)) return step;
   if (scenario.id === 'playlist-normal' && (PLAYLIST_NORMAL_MOCK_STEPS as readonly string[]).includes(step)) return step;
   return null;
+}
+
+export function mockStepsForScenario(scenario: Pick<BrowserMockScenario, 'id'>): readonly BrowserMockStep[] {
+  if (scenario.id === 'single-normal') return SINGLE_NORMAL_MOCK_STEPS;
+  if (scenario.id === 'playlist-normal') return PLAYLIST_NORMAL_MOCK_STEPS;
+  return [];
 }
 
 export function buildScenarioAppApiState(scenario: BrowserMockScenario, params?: BrowserMockUrlParams, knobs?: BrowserMockKnobs): BrowserMockState {

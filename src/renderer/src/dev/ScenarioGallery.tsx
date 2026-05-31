@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'rea
 import { ChevronDown, RotateCcw, TestTube2 } from 'lucide-react';
 import { SUPPORTED_LANGS, YT_DLP_ERROR_KINDS } from '@shared/schemas.js';
 import type { SupportedLang, YtDlpErrorKind } from '@shared/schemas.js';
-import { BROWSER_MOCK_SCENARIOS, getScenario, isHappyPathScenario, mockStepForScenario, PLAYLIST_NORMAL_MOCK_STEPS, readScenarioIdFromUrl, readUrlParams, SINGLE_NORMAL_MOCK_STEPS, type BrowserMockScenario, type BrowserMockScenarioGroup, type BrowserMockStep } from './browserMockScenarios.js';
+import { BROWSER_MOCK_SCENARIOS, getScenario, isHappyPathScenario, mockStepForScenario, mockStepsForScenario, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario, type BrowserMockScenarioGroup, type BrowserMockStep } from './browserMockScenarios.js';
 import { applyThemeLive, knobUrl, MOCK_PLATFORM_LABELS, MOCK_PLATFORMS, readKnobs, type MockPlatform } from './browserMockKnobs.js';
 import type { UiTheme } from '@shared/schemas.js';
 import { cn } from '../lib/utils.js';
@@ -92,9 +92,7 @@ function applyMockStep(scenario: BrowserMockScenario, step: BrowserMockStep | nu
 }
 
 function mockStepOptions(scenario: BrowserMockScenario): readonly BrowserMockStep[] {
-  if (scenario.id === 'single-normal') return SINGLE_NORMAL_MOCK_STEPS;
-  if (scenario.id === 'playlist-normal') return PLAYLIST_NORMAL_MOCK_STEPS;
-  return [];
+  return mockStepsForScenario(scenario);
 }
 
 function applyKnob(updates: { theme?: UiTheme | null; locale?: SupportedLang | null; platform?: MockPlatform | null }): void {
