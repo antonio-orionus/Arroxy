@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildScenarioAppApiState, getScenario, readScenarioIdFromUrl, readUrlParams } from '@renderer/dev/browserMockScenarios.js';
+import { buildScenarioAppApiState, getScenario, mockStepForScenario, readScenarioIdFromUrl, readUrlParams } from '@renderer/dev/browserMockScenarios.js';
 
 describe('browser mock scenarios', () => {
   it('reads known scenario ids from URLs', () => {
@@ -10,8 +10,21 @@ describe('browser mock scenarios', () => {
   });
 
   it('falls back to the default scenario for unknown ids', () => {
+    expect(getScenario('single-normal').id).toBe('single-normal');
+    expect(getScenario('playlist-normal').id).toBe('playlist-normal');
     expect(getScenario('probe-audio-only').id).toBe('probe-audio-only');
     expect(getScenario('not-real').id).toBe('default');
+  });
+
+  it('parses mock step params and rejects invalid step/scenario combinations', () => {
+    expect(readUrlParams(new URL('http://localhost:5173/?scenario=single-normal&mockStep=confirm')).mockStep).toBe('confirm');
+    expect(readUrlParams(new URL('http://localhost:5173/?scenario=single-normal&mockStep=nope')).mockStep).toBeNull();
+    expect(readUrlParams(new URL('http://localhost:5173/')).mockStep).toBeNull();
+
+    expect(mockStepForScenario(getScenario('single-normal'), 'subtitles')).toBe('subtitles');
+    expect(mockStepForScenario(getScenario('single-normal'), 'playlistPresets')).toBeNull();
+    expect(mockStepForScenario(getScenario('playlist-normal'), 'playlistPresets')).toBe('playlistPresets');
+    expect(mockStepForScenario(getScenario('playlist-normal'), 'formats')).toBeNull();
   });
 
   it('builds playlist fixtures via ?playlist=n param', () => {
@@ -42,6 +55,23 @@ describe('browser mock scenarios', () => {
 
     expect(state.probeResult.entries).toHaveLength(100);
     expect(state.probeResult.entries.every((entry) => entry.thumbnail === '')).toBe(true);
+  });
+
+  it('builds normal happy-path fixtures', () => {
+    const single = buildScenarioAppApiState(getScenario('single-normal'));
+    expect(single.probeResult?.kind).toBe('video');
+    if (single.probeResult?.kind !== 'video') throw new Error('expected video probe');
+    expect(single.probeResult.extractor).toBe('youtube');
+    expect(single.probeResult.formats.length).toBeGreaterThan(6);
+    expect(Object.keys(single.probeResult.subtitles)).toContain('en');
+    expect(Object.keys(single.probeResult.automaticCaptions)).toContain('en-orig');
+
+    const playlist = buildScenarioAppApiState(getScenario('playlist-normal'));
+    expect(playlist.probeResult?.kind).toBe('playlist');
+    if (playlist.probeResult?.kind !== 'playlist') throw new Error('expected playlist probe');
+    expect(playlist.probeResult.entries).toHaveLength(12);
+    expect(playlist.probeResult.entries.every((entry) => entry.thumbnail !== '')).toBe(true);
+    expect(playlist.probeResult.entries.every((entry) => entry.duration !== undefined)).toBe(true);
   });
 
   it('builds probe errors via ?probeError=kind param', () => {

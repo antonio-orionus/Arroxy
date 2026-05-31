@@ -1,7 +1,7 @@
 import type { AppApi } from '@shared/api.js';
 import type { AppSettings, DependencyDiagnostic, DependencyId, ProgressEvent, QueueItem, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent } from '@shared/types.js';
 import { QUEUE_STATUS, STATUS_KEY } from '@shared/schemas.js';
-import { buildScenarioAppApiState, getScenario, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario } from './dev/browserMockScenarios.js';
+import { buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario } from './dev/browserMockScenarios.js';
 import { applyThemeLive, readKnobs, RTL_LANGS } from './dev/browserMockKnobs.js';
 
 const BROWSER_MOCK_LAUNCH_MODES = ['ready', 'cold-loading', 'cold-error'] as const;
@@ -320,28 +320,9 @@ export function installBrowserMock(): void {
               return 12;
             }
           })();
-          const entries = Array.from({ length: itemCount }, (_, i) => ({
-            id: `mock${i + 1}`,
-            url: `https://www.youtube.com/watch?v=mock${i + 1}`,
-            title: `Mock playlist item ${i + 1} — ${i % 3 === 0 ? 'a longer title that should ellipsize gracefully when the row is narrow' : 'short title'}`,
-            thumbnail: i % 5 === 0 ? '' : 'https://i.ytimg.com/vi/jfKfPfyJRdk/mqdefault.jpg',
-            duration: 90 + i * 47,
-            playlistIndex: i + 1,
-            videoId: `mockid${i + 1}`
-          }));
           return {
             ok: true,
-            data: {
-              kind: 'playlist',
-              extractor: 'youtube:tab',
-              extractorKey: 'YoutubeTab',
-              webpageUrl: input.url,
-              isAudioOnlySource: false,
-              isMultiVideo: false,
-              playlistId: 'PLmock_browser',
-              playlistTitle: 'Mock Browser Playlist',
-              entries
-            }
+            data: playlistProbe(itemCount, { webpageUrl: input.url })
           };
         }
 
@@ -370,152 +351,10 @@ export function installBrowserMock(): void {
 
         return {
           ok: true,
-          data: {
-            kind: 'video',
-            extractor: 'youtube',
-            extractorKey: 'Youtube',
+          data: normalVideoProbe({
             webpageUrl: input.url,
-            isAudioOnlySource: false,
-            isLive: false,
-            hasDrm: false,
-            duration: 60 * 60 * 24,
-            title: 'Mock Video — Lo-fi Hip Hop Radio 24/7',
-            thumbnail: 'https://i.ytimg.com/vi/jfKfPfyJRdk/hqdefault.jpg',
-            ...(simulateBotWall ? { degraded: { reasons: ['botWall' as const] } } : {}),
-            formats: [
-              {
-                formatId: '313',
-                label: '2160p | webm | 30fps | 2.2 GB',
-                ext: 'webm',
-                resolution: '2160p',
-                fps: 30,
-                filesize: 2_400_000_000,
-                isVideoOnly: true,
-                isAudioOnly: false
-              },
-              {
-                formatId: '271',
-                label: '1440p | webm | 30fps | 906.2 MB',
-                ext: 'webm',
-                resolution: '1440p',
-                fps: 30,
-                filesize: 950_000_000,
-                isVideoOnly: true,
-                isAudioOnly: false
-              },
-              {
-                formatId: '137',
-                label: '1080p | mp4 | 30fps | 515.0 MB',
-                ext: 'mp4',
-                resolution: '1080p',
-                fps: 30,
-                filesize: 540_000_000,
-                isVideoOnly: true,
-                isAudioOnly: false
-              },
-              {
-                formatId: '248',
-                label: '1080p | webm | 30fps | 400.5 MB',
-                ext: 'webm',
-                resolution: '1080p',
-                fps: 30,
-                filesize: 420_000_000,
-                isVideoOnly: true,
-                isAudioOnly: false
-              },
-              {
-                formatId: '136',
-                label: '720p | mp4 | 30fps | 209.8 MB',
-                ext: 'mp4',
-                resolution: '720p',
-                fps: 30,
-                filesize: 220_000_000,
-                isVideoOnly: true,
-                isAudioOnly: false
-              },
-              {
-                formatId: '247',
-                label: '720p | webm | 30fps | 171.7 MB',
-                ext: 'webm',
-                resolution: '720p',
-                fps: 30,
-                filesize: 180_000_000,
-                isVideoOnly: true,
-                isAudioOnly: false
-              },
-              {
-                formatId: '135',
-                label: '480p | mp4 | 30fps | 104.9 MB',
-                ext: 'mp4',
-                resolution: '480p',
-                fps: 30,
-                filesize: 110_000_000,
-                isVideoOnly: true,
-                isAudioOnly: false
-              },
-              {
-                formatId: '134',
-                label: '360p | mp4 | 30fps | 62.0 MB',
-                ext: 'mp4',
-                resolution: '360p',
-                fps: 30,
-                filesize: 65_000_000,
-                isVideoOnly: true,
-                isAudioOnly: false
-              },
-              {
-                formatId: '251',
-                label: 'webm · Opus · 132 kbps · 5.0 MB',
-                ext: 'webm',
-                resolution: 'audio only',
-                abr: 132,
-                filesize: 5_200_000,
-                isVideoOnly: false,
-                isAudioOnly: true
-              },
-              {
-                formatId: '140',
-                label: 'm4a · AAC · 129 kbps · 4.8 MB',
-                ext: 'm4a',
-                resolution: 'audio only',
-                abr: 129,
-                filesize: 5_000_000,
-                isVideoOnly: false,
-                isAudioOnly: true
-              },
-              {
-                formatId: '249',
-                label: 'webm · Opus · 50 kbps · 2.0 MB',
-                ext: 'webm',
-                resolution: 'audio only',
-                abr: 50,
-                filesize: 2_000_000,
-                isVideoOnly: false,
-                isAudioOnly: true
-              },
-              {
-                formatId: '139',
-                label: 'm4a · AAC · 48 kbps · 1.8 MB',
-                ext: 'm4a',
-                resolution: 'audio only',
-                abr: 48,
-                filesize: 1_900_000,
-                isVideoOnly: false,
-                isAudioOnly: true
-              }
-            ],
-            subtitles: {
-              en: [{ ext: 'vtt', name: 'English' }],
-              es: [{ ext: 'vtt', name: 'Español' }]
-            },
-            // Note: in real yt-dlp output, `automatic_captions` includes BOTH the actual
-            // generated track (key ends with `-orig`) AND many on-demand translation
-            // options (e.g. `hy`, `eu`). ProbeService filters the latter for YouTube — the
-            // mock simulates post-filter state, so only `-orig` entries are present here.
-            automaticCaptions: {
-              'en-orig': [{ ext: 'vtt', name: 'English (auto)' }]
-            }
-          }
+            degraded: simulateBotWall ? { reasons: ['botWall' as const] } : undefined
+          })
         };
       },
 

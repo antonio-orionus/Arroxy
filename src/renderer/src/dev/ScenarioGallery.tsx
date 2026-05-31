@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'rea
 import { ChevronDown, RotateCcw, TestTube2 } from 'lucide-react';
 import { SUPPORTED_LANGS, YT_DLP_ERROR_KINDS } from '@shared/schemas.js';
 import type { SupportedLang, YtDlpErrorKind } from '@shared/schemas.js';
-import { BROWSER_MOCK_SCENARIOS, getScenario, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario, type BrowserMockScenarioGroup } from './browserMockScenarios.js';
+import { BROWSER_MOCK_SCENARIOS, getScenario, isHappyPathScenario, mockStepForScenario, PLAYLIST_NORMAL_MOCK_STEPS, readScenarioIdFromUrl, readUrlParams, SINGLE_NORMAL_MOCK_STEPS, type BrowserMockScenario, type BrowserMockScenarioGroup, type BrowserMockStep } from './browserMockScenarios.js';
 import { applyThemeLive, knobUrl, MOCK_PLATFORM_LABELS, MOCK_PLATFORMS, readKnobs, type MockPlatform } from './browserMockKnobs.js';
 import type { UiTheme } from '@shared/schemas.js';
 import { cn } from '../lib/utils.js';
@@ -24,7 +24,7 @@ function activeUrlParams(): ReturnType<typeof readUrlParams> {
   try {
     return readUrlParams(window.location);
   } catch {
-    return { playlistCount: null, probeErrorKind: null };
+    return { playlistCount: null, probeErrorKind: null, mockStep: null };
   }
 }
 
@@ -40,6 +40,7 @@ function scenarioUrl(id: BrowserMockScenario['id']): string {
   const url = new URL(window.location.href);
   url.searchParams.delete('playlist');
   url.searchParams.delete('probeError');
+  url.searchParams.delete('mockStep');
   if (id === 'default') url.searchParams.delete('scenario');
   else url.searchParams.set('scenario', id);
   return `${url.pathname}${url.search}${url.hash}`;
@@ -49,6 +50,7 @@ function playlistParamUrl(count: number): string {
   const url = new URL(window.location.href);
   url.searchParams.delete('scenario');
   url.searchParams.delete('probeError');
+  url.searchParams.delete('mockStep');
   url.searchParams.set('playlist', String(count));
   return `${url.pathname}${url.search}${url.hash}`;
 }
@@ -57,8 +59,19 @@ function probeErrorParamUrl(kind: YtDlpErrorKind | null): string {
   const url = new URL(window.location.href);
   url.searchParams.delete('scenario');
   url.searchParams.delete('playlist');
+  url.searchParams.delete('mockStep');
   if (kind === null) url.searchParams.delete('probeError');
   else url.searchParams.set('probeError', kind);
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+function mockStepUrl(scenario: BrowserMockScenario, step: BrowserMockStep | null): string {
+  const url = new URL(window.location.href);
+  url.searchParams.delete('playlist');
+  url.searchParams.delete('probeError');
+  url.searchParams.set('scenario', scenario.id);
+  if (step === null) url.searchParams.delete('mockStep');
+  else url.searchParams.set('mockStep', step);
   return `${url.pathname}${url.search}${url.hash}`;
 }
 
@@ -72,6 +85,16 @@ function applyPlaylistCount(count: number): void {
 
 function applyProbeErrorKind(kind: YtDlpErrorKind | null): void {
   window.location.assign(probeErrorParamUrl(kind));
+}
+
+function applyMockStep(scenario: BrowserMockScenario, step: BrowserMockStep | null): void {
+  window.location.assign(mockStepUrl(scenario, step));
+}
+
+function mockStepOptions(scenario: BrowserMockScenario): readonly BrowserMockStep[] {
+  if (scenario.id === 'single-normal') return SINGLE_NORMAL_MOCK_STEPS;
+  if (scenario.id === 'playlist-normal') return PLAYLIST_NORMAL_MOCK_STEPS;
+  return [];
 }
 
 function applyKnob(updates: { theme?: UiTheme | null; locale?: SupportedLang | null; platform?: MockPlatform | null }): void {
@@ -106,14 +129,18 @@ export function ScenarioGallery(): JSX.Element {
   );
 
   useEffect(() => {
-    if (!initialized || autoAppliedRef.current === scenario.id) return;
-    autoAppliedRef.current = scenario.id;
+    const applyKey = `${scenario.id}:${urlParams.playlistCount ?? ''}:${urlParams.probeErrorKind ?? ''}:${urlParams.mockStep ?? ''}`;
+    if (!initialized || autoAppliedRef.current === applyKey) return;
+    autoAppliedRef.current = applyKey;
     const store = useAppStore.getState();
 
-    if (scenario.kind === 'probe') {
+    if (scenario.kind === 'probe' || urlParams.playlistCount !== null || urlParams.probeErrorKind !== null) {
       store.reset();
       store.setWizardUrl(`https://example.com/${scenario.id}`);
-      void store.submitUrl();
+      void store.submitUrl().then(() => {
+        const targetStep = mockStepForScenario(scenario, urlParams.mockStep);
+        if (targetStep !== null) useAppStore.setState({ wizardStep: targetStep });
+      });
     } else if (scenario.kind === 'dialog') {
       if (scenario.id === 'dialog-mixed-url') {
         useAppStore.setState({
@@ -124,10 +151,13 @@ export function ScenarioGallery(): JSX.Element {
         useAppStore.setState({ cookiesConfigDialogIssue: 'file-missing-path' });
       }
     }
-  }, [initialized, scenario.id, scenario.kind]);
+  }, [initialized, scenario, scenario.id, scenario.kind, urlParams.mockStep, urlParams.playlistCount, urlParams.probeErrorKind]);
 
   const isPlaylistParam = urlParams.playlistCount !== null;
   const isProbeErrorParam = urlParams.probeErrorKind !== null;
+  const currentMockStep = mockStepForScenario(scenario, urlParams.mockStep);
+  const showMockStepPicker = isHappyPathScenario(scenario) && !isPlaylistParam && !isProbeErrorParam;
+  const availableMockSteps = mockStepOptions(scenario);
 
   function activeLabel(): string {
     if (isPlaylistParam) return `Playlist ×${urlParams.playlistCount}`;
@@ -138,6 +168,7 @@ export function ScenarioGallery(): JSX.Element {
   function activeDescription(): string {
     if (isPlaylistParam) return `Playlist probe with ${urlParams.playlistCount} entries.`;
     if (isProbeErrorParam) return `Probe error: ${urlParams.probeErrorKind ?? ''}.`;
+    if (currentMockStep !== null) return `${scenario.description} Opens directly to ${currentMockStep}.`;
     return scenario.description;
   }
 
@@ -228,6 +259,32 @@ export function ScenarioGallery(): JSX.Element {
                 </div>
               </div>
             </section>
+
+            {showMockStepPicker && (
+              <section className="mb-4" data-testid="mock-step-section">
+                <h3 className="mb-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Screen</h3>
+                <div className="flex items-center gap-2">
+                  <Select value={currentMockStep ?? ''} onValueChange={(v) => applyMockStep(scenario, v === '' ? null : (v as BrowserMockStep))}>
+                    <SelectTrigger size="sm" className={cn('flex-1 text-[11px]', currentMockStep !== null ? 'border-[var(--brand)]' : '')} data-testid="mock-step-select">
+                      <SelectValue placeholder="Natural landing screen" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="">Natural landing screen</SelectItem>
+                      {availableMockSteps.map((step) => (
+                        <SelectItem key={step} value={step}>
+                          {step}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {currentMockStep !== null && (
+                    <button type="button" onClick={() => applyMockStep(scenario, null)} className="h-7 rounded border border-border px-2 text-[10px] font-medium text-muted-foreground hover:text-foreground" data-testid="mock-step-clear">
+                      Clear
+                    </button>
+                  )}
+                </div>
+              </section>
+            )}
 
             {grouped.map(({ group, scenarios }) => (
               <section key={group} className="mb-4 last:mb-0">

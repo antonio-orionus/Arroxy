@@ -49,6 +49,30 @@ test('playlist count presets in gallery navigate to ?playlist=n', async ({ page 
   await expect(page.getByTestId('playlist-preset-101')).toBeVisible();
 });
 
+test('normal happy path scenarios land on their natural screens', async ({ page }) => {
+  await openScenario(page, 'single-normal');
+  await expect(page.getByTestId('step-formats')).toBeVisible({ timeout: 6_000 });
+
+  await openScenario(page, 'playlist-normal');
+  await expect(page.getByTestId('step-playlist-items')).toBeVisible({ timeout: 6_000 });
+});
+
+test('mockStep opens normal happy paths directly to confirm', async ({ page }) => {
+  await openWithParams(page, 'scenario=single-normal&mockStep=confirm');
+  await expect(page.getByTestId('step-confirm')).toBeVisible({ timeout: 6_000 });
+
+  await openWithParams(page, 'scenario=playlist-normal&mockStep=confirm');
+  await expect(page.getByTestId('step-confirm')).toBeVisible({ timeout: 6_000 });
+});
+
+test('normal happy path scenarios expose the screen picker', async ({ page }) => {
+  await openScenario(page, 'single-normal');
+  await page.getByTestId('scenario-gallery-toggle').click();
+  await expect(page.getByTestId('scenario-button-single-normal')).toBeVisible();
+  await expect(page.getByTestId('scenario-button-playlist-normal')).toBeVisible();
+  await expect(page.getByTestId('mock-step-select')).toBeVisible();
+});
+
 test('probe error dropdown shows all error kinds', async ({ page }) => {
   await openScenario(page, 'default');
   await page.getByTestId('scenario-gallery-toggle').click();

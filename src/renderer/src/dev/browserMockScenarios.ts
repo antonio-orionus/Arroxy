@@ -4,11 +4,16 @@ import type { AppSettings, DependencyDiagnostic, DependencyId, InstallChannel, P
 import type { YtDlpErrorKind } from '@shared/schemas.js';
 import type { BrowserMockKnobs } from './browserMockKnobs.js';
 
-export const BROWSER_MOCK_SCENARIO_IDS = ['default', 'playlist-no-thumbnails', 'playlist-long-titles', 'probe-audio-only', 'probe-with-subtitles', 'probe-no-formats', 'probe-live-stream', 'dialog-mixed-url', 'dialog-cookies-issue', 'update-direct', 'update-homebrew', 'update-scoop', 'update-portable', 'update-darwin-dmg', 'update-winget', 'update-flatpak', 'update-none', 'queue-empty', 'queue-running', 'queue-paused-active', 'queue-paused-held', 'queue-cancelled', 'queue-error', 'queue-completed', 'queue-subtitles-failed', 'queue-multi', 'diagnostics-all-ok', 'diagnostics-ytdlp-missing', 'diagnostics-ffmpeg-broken', 'diagnostics-deno-missing', 'diagnostics-ffprobe-broken', 'diagnostics-all-missing', 'diagnostics-warmup-running'] as const;
+export const BROWSER_MOCK_SCENARIO_IDS = ['default', 'single-normal', 'playlist-normal', 'playlist-no-thumbnails', 'playlist-long-titles', 'probe-audio-only', 'probe-with-subtitles', 'probe-no-formats', 'probe-live-stream', 'dialog-mixed-url', 'dialog-cookies-issue', 'update-direct', 'update-homebrew', 'update-scoop', 'update-portable', 'update-darwin-dmg', 'update-winget', 'update-flatpak', 'update-none', 'queue-empty', 'queue-running', 'queue-paused-active', 'queue-paused-held', 'queue-cancelled', 'queue-error', 'queue-completed', 'queue-subtitles-failed', 'queue-multi', 'diagnostics-all-ok', 'diagnostics-ytdlp-missing', 'diagnostics-ffmpeg-broken', 'diagnostics-deno-missing', 'diagnostics-ffprobe-broken', 'diagnostics-all-missing', 'diagnostics-warmup-running'] as const;
 
 export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number];
 export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics';
 type ScenarioKind = 'default' | 'probe' | 'queue' | 'update' | 'diagnostics' | 'dialog';
+
+export const SINGLE_NORMAL_MOCK_STEPS = ['formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm'] as const;
+export const PLAYLIST_NORMAL_MOCK_STEPS = ['playlistItems', 'playlistPresets', 'sponsorblock', 'output', 'folder', 'confirm'] as const;
+export const BROWSER_MOCK_STEPS = [...SINGLE_NORMAL_MOCK_STEPS, ...PLAYLIST_NORMAL_MOCK_STEPS] as const;
+export type BrowserMockStep = (typeof BROWSER_MOCK_STEPS)[number];
 
 export interface BrowserMockScenario {
   id: BrowserMockScenarioId;
@@ -31,6 +36,7 @@ export interface BrowserMockState {
 export interface BrowserMockUrlParams {
   playlistCount: number | null;
   probeErrorKind: YtDlpErrorKind | null;
+  mockStep: BrowserMockStep | null;
 }
 
 export function readUrlParams(location: Pick<Location, 'search'> | URL): BrowserMockUrlParams {
@@ -42,7 +48,10 @@ export function readUrlParams(location: Pick<Location, 'search'> | URL): Browser
   const rawKind = params.get('probeError');
   const probeErrorKind = rawKind !== null && (YT_DLP_ERROR_KINDS as readonly string[]).includes(rawKind) ? (rawKind as YtDlpErrorKind) : null;
 
-  return { playlistCount, probeErrorKind };
+  const rawStep = params.get('mockStep');
+  const mockStep = rawStep !== null && (BROWSER_MOCK_STEPS as readonly string[]).includes(rawStep) ? (rawStep as BrowserMockStep) : null;
+
+  return { playlistCount, probeErrorKind, mockStep };
 }
 
 const COMMON_PATHS = {
@@ -67,7 +76,9 @@ const WIN_COMMON_PATHS = {
 
 export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
   { id: 'default', group: 'General', title: 'Default app', description: 'Standard mock video flow and clean queue.', kind: 'default' },
+  { id: 'single-normal', group: 'General', title: 'Single video normal', description: 'Happy-path YouTube video with formats, subtitles, and SponsorBlock steps.', kind: 'probe' },
 
+  { id: 'playlist-normal', group: 'Playlist', title: 'Playlist normal', description: 'Happy-path playlist with thumbnails, durations, and default preset selection.', kind: 'probe' },
   { id: 'playlist-no-thumbnails', group: 'Playlist', title: 'No thumbnails', description: 'Playlist rows with no thumbnail column.', kind: 'probe' },
   { id: 'playlist-long-titles', group: 'Playlist', title: 'Long titles', description: 'Playlist rows with intentionally long titles.', kind: 'probe' },
 
@@ -123,6 +134,17 @@ export function getScenario(id: string | null | undefined): BrowserMockScenario 
   return SCENARIOS_BY_ID.get(id) ?? BROWSER_MOCK_SCENARIOS[0];
 }
 
+export function isHappyPathScenario(scenario: Pick<BrowserMockScenario, 'id'>): boolean {
+  return scenario.id === 'single-normal' || scenario.id === 'playlist-normal';
+}
+
+export function mockStepForScenario(scenario: Pick<BrowserMockScenario, 'id'>, step: BrowserMockStep | null): BrowserMockStep | null {
+  if (step === null) return null;
+  if (scenario.id === 'single-normal' && (SINGLE_NORMAL_MOCK_STEPS as readonly string[]).includes(step)) return step;
+  if (scenario.id === 'playlist-normal' && (PLAYLIST_NORMAL_MOCK_STEPS as readonly string[]).includes(step)) return step;
+  return null;
+}
+
 export function buildScenarioAppApiState(scenario: BrowserMockScenario, params?: BrowserMockUrlParams, knobs?: BrowserMockKnobs): BrowserMockState {
   const settings = buildSettings(scenario, knobs);
   return {
@@ -164,6 +186,10 @@ function buildProbeResult(scenario: BrowserMockScenario, params?: BrowserMockUrl
     return playlistProbe(params.playlistCount);
   }
   switch (scenario.id) {
+    case 'single-normal':
+      return normalVideoProbe();
+    case 'playlist-normal':
+      return playlistProbe(12, { fullThumbnails: true });
     case 'playlist-no-thumbnails':
       return playlistProbe(100, { thumbnails: false });
     case 'playlist-long-titles':
@@ -213,6 +239,45 @@ const MOCK_FORMATS = [
   { formatId: '251', label: 'webm · Opus · 132 kbps · 5.0 MB', ext: 'webm', resolution: 'audio only', abr: 132, filesize: 5_200_000, isVideoOnly: false, isAudioOnly: true },
   { formatId: '140', label: 'm4a · AAC · 129 kbps · 4.8 MB', ext: 'm4a', resolution: 'audio only', abr: 129, filesize: 5_000_000, isVideoOnly: false, isAudioOnly: true }
 ] as const;
+
+const NORMAL_VIDEO_FORMATS = [
+  { formatId: '313', label: '2160p | webm | 30fps | 2.2 GB', ext: 'webm', resolution: '2160p', fps: 30, filesize: 2_400_000_000, isVideoOnly: true, isAudioOnly: false },
+  { formatId: '271', label: '1440p | webm | 30fps | 906.2 MB', ext: 'webm', resolution: '1440p', fps: 30, filesize: 950_000_000, isVideoOnly: true, isAudioOnly: false },
+  { formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, isVideoOnly: true, isAudioOnly: false },
+  { formatId: '248', label: '1080p | webm | 30fps | 400.5 MB', ext: 'webm', resolution: '1080p', fps: 30, filesize: 420_000_000, isVideoOnly: true, isAudioOnly: false },
+  { formatId: '136', label: '720p | mp4 | 30fps | 209.8 MB', ext: 'mp4', resolution: '720p', fps: 30, filesize: 220_000_000, isVideoOnly: true, isAudioOnly: false },
+  { formatId: '247', label: '720p | webm | 30fps | 171.7 MB', ext: 'webm', resolution: '720p', fps: 30, filesize: 180_000_000, isVideoOnly: true, isAudioOnly: false },
+  { formatId: '135', label: '480p | mp4 | 30fps | 104.9 MB', ext: 'mp4', resolution: '480p', fps: 30, filesize: 110_000_000, isVideoOnly: true, isAudioOnly: false },
+  { formatId: '134', label: '360p | mp4 | 30fps | 62.0 MB', ext: 'mp4', resolution: '360p', fps: 30, filesize: 65_000_000, isVideoOnly: true, isAudioOnly: false },
+  { formatId: '251', label: 'webm · Opus · 132 kbps · 5.0 MB', ext: 'webm', resolution: 'audio only', abr: 132, filesize: 5_200_000, isVideoOnly: false, isAudioOnly: true },
+  { formatId: '140', label: 'm4a · AAC · 129 kbps · 4.8 MB', ext: 'm4a', resolution: 'audio only', abr: 129, filesize: 5_000_000, isVideoOnly: false, isAudioOnly: true },
+  { formatId: '249', label: 'webm · Opus · 50 kbps · 2.0 MB', ext: 'webm', resolution: 'audio only', abr: 50, filesize: 2_000_000, isVideoOnly: false, isAudioOnly: true },
+  { formatId: '139', label: 'm4a · AAC · 48 kbps · 1.8 MB', ext: 'm4a', resolution: 'audio only', abr: 48, filesize: 1_900_000, isVideoOnly: false, isAudioOnly: true }
+] as const;
+
+export function normalVideoProbe(options: { webpageUrl?: string; degraded?: Extract<ProbeResult, { kind: 'video' }>['degraded'] } = {}): ProbeResult {
+  return {
+    kind: 'video',
+    extractor: 'youtube',
+    extractorKey: 'Youtube',
+    webpageUrl: options.webpageUrl ?? 'https://www.youtube.com/watch?v=mock-normal',
+    isAudioOnlySource: false,
+    isLive: false,
+    hasDrm: false,
+    duration: 60 * 60 * 24,
+    title: 'Mock Video - Lo-fi Hip Hop Radio 24/7',
+    thumbnail: 'https://i.ytimg.com/vi/jfKfPfyJRdk/hqdefault.jpg',
+    ...(options.degraded ? { degraded: options.degraded } : {}),
+    formats: [...NORMAL_VIDEO_FORMATS],
+    subtitles: {
+      en: [{ ext: 'vtt', name: 'English' }],
+      es: [{ ext: 'vtt', name: 'Espanol' }]
+    },
+    automaticCaptions: {
+      'en-orig': [{ ext: 'vtt', name: 'English (auto)' }]
+    }
+  };
+}
 
 function audioOnlyProbe(): ProbeResult {
   return {
@@ -303,7 +368,7 @@ function liveStreamProbe(): ProbeResult {
   };
 }
 
-function playlistProbe(count: number, options: { thumbnails?: boolean; longTitles?: boolean } = {}): ProbeResult {
+export function playlistProbe(count: number, options: { thumbnails?: boolean; fullThumbnails?: boolean; longTitles?: boolean; webpageUrl?: string } = {}): ProbeResult {
   const entries: PlaylistEntry[] = Array.from({ length: count }, (_, i) => {
     const number = i + 1;
     const title = options.longTitles ? `Mock playlist item ${number} - an intentionally long title with extra metadata, brackets, episode numbers, and enough words to pressure every row layout` : `Mock playlist item ${number} - ${i % 3 === 0 ? 'a longer title that should ellipsize gracefully when the row is narrow' : 'short title'}`;
@@ -311,7 +376,7 @@ function playlistProbe(count: number, options: { thumbnails?: boolean; longTitle
       id: `mock${number}`,
       url: `https://www.youtube.com/watch?v=mock${number}`,
       title,
-      thumbnail: options.thumbnails === false ? '' : i % 5 === 0 ? '' : 'https://i.ytimg.com/vi/jfKfPfyJRdk/mqdefault.jpg',
+      thumbnail: options.thumbnails === false ? '' : options.fullThumbnails === true || i % 5 !== 0 ? 'https://i.ytimg.com/vi/jfKfPfyJRdk/mqdefault.jpg' : '',
       duration: 90 + i * 47,
       playlistIndex: number,
       videoId: `mockid${number}`
@@ -322,7 +387,7 @@ function playlistProbe(count: number, options: { thumbnails?: boolean; longTitle
     kind: 'playlist',
     extractor: 'youtube:tab',
     extractorKey: 'YoutubeTab',
-    webpageUrl: 'https://example.com/mock-playlist',
+    webpageUrl: options.webpageUrl ?? 'https://example.com/mock-playlist',
     isAudioOnlySource: false,
     isMultiVideo: false,
     playlistId: 'PLmock_browser',
