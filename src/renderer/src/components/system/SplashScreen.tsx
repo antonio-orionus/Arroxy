@@ -58,7 +58,11 @@ export function SplashScreen({ initialized, warmupBlocking, warmupDiagnostics, w
     >
       <img src={mainImg} alt="" className="splash-mascot" />
       <div className="splash-text">
-        {showGreeting && <p className="splash-greeting">{t('splash.greeting')}</p>}
+        {showGreeting && (
+          <p className="splash-greeting" data-testid="splash-greeting">
+            {t('splash.greeting')}
+          </p>
+        )}
         {showProgress ? (
           <>
             <p className="splash-name">{activeEntry ? t('splash.downloading', { binary: activeEntry.binary }) : t('splash.warmup')}</p>

@@ -1,29 +1,11 @@
 import { execFile } from 'node:child_process';
-import { constants as fsConstants } from 'node:fs';
-import fsPromises from 'node:fs/promises';
 import { promisify } from 'node:util';
 import log from 'electron-log/main.js';
-import { whereOnPath } from './BinaryProbe.js';
+import { firstExecutable, whereOnPath } from './BinaryProbe.js';
 
 const execFileAsync = promisify(execFile);
 const logger = log.scope('homebrew-repair');
 const HOMEBREW_INSTALL_TIMEOUT_MS = 10 * 60 * 1000;
-
-async function isExecutable(filePath: string): Promise<boolean> {
-  try {
-    await fsPromises.access(filePath, fsConstants.X_OK);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-async function firstExecutable(candidates: string[]): Promise<string | null> {
-  for (const candidate of candidates) {
-    if (await isExecutable(candidate)) return candidate;
-  }
-  return null;
-}
 
 export async function installYtDlpWithHomebrew(): Promise<string> {
   if (process.platform !== 'darwin') {

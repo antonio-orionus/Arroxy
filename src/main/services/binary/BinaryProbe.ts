@@ -1,4 +1,5 @@
 import { execFile } from 'node:child_process';
+import { constants as fsConstants } from 'node:fs';
 import fsPromises from 'node:fs/promises';
 import path from 'node:path';
 import { promisify } from 'node:util';
@@ -38,6 +39,22 @@ export function fallbackPathCandidates(name: string, platform: NodeJS.Platform =
 
   const exeName = name.toLowerCase().endsWith('.exe') ? name : `${name}.exe`;
   return [process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Microsoft', 'WindowsApps', exeName) : null, process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Microsoft', 'WinGet', 'Links', exeName) : null, process.env.ProgramFiles ? path.join(process.env.ProgramFiles, 'WinGet', 'Links', exeName) : null, process.env['ProgramFiles(x86)'] ? path.join(process.env['ProgramFiles(x86)'], 'WinGet', 'Links', exeName) : null].filter((candidate): candidate is string => candidate !== null);
+}
+
+async function isExecutable(filePath: string): Promise<boolean> {
+  try {
+    await fsPromises.access(filePath, fsConstants.X_OK);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export async function firstExecutable(candidates: string[]): Promise<string | null> {
+  for (const candidate of candidates) {
+    if (await isExecutable(candidate)) return candidate;
+  }
+  return null;
 }
 
 export function classifyProbeError(err: NodeJS.ErrnoException, stderr?: string): DependencyFailure {

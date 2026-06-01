@@ -1,28 +1,16 @@
 import { execFile } from 'node:child_process';
-import { constants as fsConstants } from 'node:fs';
-import fsPromises from 'node:fs/promises';
 import { promisify } from 'node:util';
 import log from 'electron-log/main.js';
-import { whereOnPath } from './BinaryProbe.js';
+import { firstExecutable, whereOnPath } from './BinaryProbe.js';
 
 const execFileAsync = promisify(execFile);
 const logger = log.scope('winget-repair');
 const WINGET_INSTALL_TIMEOUT_MS = 10 * 60 * 1000;
+const WINGET_ALREADY_INSTALLED_CODES = new Set([-1978335135, -1978334963, -1978335189, 2316632161, 2316632333, 2316632107]);
 
-async function isExecutable(filePath: string): Promise<boolean> {
-  try {
-    await fsPromises.access(filePath, fsConstants.X_OK);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-async function firstExecutable(candidates: string[]): Promise<string | null> {
-  for (const candidate of candidates) {
-    if (await isExecutable(candidate)) return candidate;
-  }
-  return null;
+function isIdempotentWingetInstallExit(error: unknown): boolean {
+  const code = (error as { code?: unknown }).code;
+  return typeof code === 'number' && WINGET_ALREADY_INSTALLED_CODES.has(code);
 }
 
 export async function installYtDlpWithWinget(): Promise<string> {
@@ -36,11 +24,16 @@ export async function installYtDlpWithWinget(): Promise<string> {
   }
 
   logger.info('Installing yt-dlp with WinGet', { wingetPath });
-  await execFileAsync(wingetPath, ['install', '--id', 'yt-dlp.yt-dlp', '--exact', '--silent', '--accept-package-agreements', '--accept-source-agreements'], {
-    timeout: WINGET_INSTALL_TIMEOUT_MS,
-    maxBuffer: 4 * 1024 * 1024,
-    windowsHide: true
-  });
+  try {
+    await execFileAsync(wingetPath, ['install', '--id', 'yt-dlp.yt-dlp', '--exact', '--silent', '--accept-package-agreements', '--accept-source-agreements'], {
+      timeout: WINGET_INSTALL_TIMEOUT_MS,
+      maxBuffer: 4 * 1024 * 1024,
+      windowsHide: true
+    });
+  } catch (error) {
+    if (!isIdempotentWingetInstallExit(error)) throw error;
+    logger.info('WinGet reported yt-dlp is already installed', { wingetPath, code: (error as { code?: unknown }).code });
+  }
 
   const installed = await firstExecutable(await whereOnPath('yt-dlp.exe'));
   if (installed) return installed;

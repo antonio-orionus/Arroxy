@@ -51,8 +51,9 @@ export function RepairPanel({ diagnostics, blocking }: Props): JSX.Element {
   const warmupCancellable = useAppStore((s) => s.warmupCancellable);
   const settings = useAppStore((s) => s.settings);
   const overrides = settings?.common?.binaryOverrides;
-  const isMac = typeof navigator !== 'undefined' && /Mac/i.test(navigator.platform);
-  const isWindows = typeof navigator !== 'undefined' && /Win/i.test(navigator.platform);
+  const platform = typeof navigator !== 'undefined' ? ((navigator as { userAgentData?: { platform?: string } }).userAgentData?.platform ?? navigator.platform ?? '') : '';
+  const isMac = /Mac/i.test(platform);
+  const isWindows = /Win/i.test(platform);
 
   async function pickAndOverride(id: DependencyId): Promise<void> {
     const result = await window.appApi.dialog.chooseExecutable(id);

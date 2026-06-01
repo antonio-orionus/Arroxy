@@ -41,11 +41,11 @@ describe('SplashScreen', () => {
   it('shows the welcome-back greeting only when requested', () => {
     const { rerender } = render(<SplashScreen initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} />);
 
-    expect(screen.queryByText('Hey, welcome back!')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('splash-greeting')).not.toBeInTheDocument();
 
     rerender(<SplashScreen initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting />);
 
-    expect(screen.getByText('Hey, welcome back!')).toBeInTheDocument();
+    expect(screen.getByTestId('splash-greeting')).toBeInTheDocument();
   });
 
   it('does not show cancel during non-cancellable package-manager repair phases', () => {

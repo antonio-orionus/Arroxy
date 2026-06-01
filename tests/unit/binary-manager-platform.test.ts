@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import { binaryInternals } from '@main/services/BinaryManager.js';
 
@@ -111,7 +112,7 @@ describe('fallbackPathCandidates', () => {
     process.env.ProgramFiles = 'C:\\Program Files';
     process.env['ProgramFiles(x86)'] = 'C:\\Program Files (x86)';
 
-    expect(binaryInternals.fallbackPathCandidates('yt-dlp', 'win32')).toEqual(['C:\\Users\\me\\AppData\\Local/Microsoft/WindowsApps/yt-dlp.exe', 'C:\\Users\\me\\AppData\\Local/Microsoft/WinGet/Links/yt-dlp.exe', 'C:\\Program Files/WinGet/Links/yt-dlp.exe', 'C:\\Program Files (x86)/WinGet/Links/yt-dlp.exe']);
+    expect(binaryInternals.fallbackPathCandidates('yt-dlp', 'win32')).toEqual([path.join('C:\\Users\\me\\AppData\\Local', 'Microsoft', 'WindowsApps', 'yt-dlp.exe'), path.join('C:\\Users\\me\\AppData\\Local', 'Microsoft', 'WinGet', 'Links', 'yt-dlp.exe'), path.join('C:\\Program Files', 'WinGet', 'Links', 'yt-dlp.exe'), path.join('C:\\Program Files (x86)', 'WinGet', 'Links', 'yt-dlp.exe')]);
   });
 
   it('does not add package-manager fallbacks on Linux', () => {

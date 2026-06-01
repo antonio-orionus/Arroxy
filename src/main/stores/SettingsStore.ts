@@ -142,6 +142,6 @@ export class SettingsStore {
       }
     };
     this.store.set(next);
-    return { settings: this.store.store, isFirstRun, launchCount };
+    return { settings: next, isFirstRun, launchCount };
   }
 }
