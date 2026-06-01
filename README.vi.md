@@ -72,14 +72,14 @@ Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận 
 
 ### Quy trình làm việc
 
-- **Dán bất kỳ liên kết nào** — video YouTube, Shorts, kênh, playlist, podcast và YouTube Music, cùng hơn 2000 trang mà yt-dlp hỗ trợ; tải toàn bộ playlist hoặc chọn trước những video cụ thể
-- **Hàng đợi tải xuống nhiều luồng** — theo dõi nhiều lượt tải song song
+- **Chế độ bắt đầu linh hoạt** — chọn tải một video có hướng dẫn, bộ chọn playlist/kênh, dán URL hàng loạt, hoặc Quick Download với mặc định đã lưu
+- **Hàng đợi tải xuống trung tâm** — mọi tác vụ đơn lẻ, playlist, hàng loạt hoặc nhanh đều vào một nơi để theo dõi tiến độ, tạm dừng, tiếp tục, hủy, thử lại và điều chỉnh ưu tiên
 - **Theo dõi clipboard** — sao chép liên kết YouTube và Arroxy tự điền URL khi bạn chuyển lại ứng dụng (bật/tắt trong Cài đặt nâng cao)
 - **Tự làm sạch URL** — loại bỏ các tham số theo dõi (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) và mở gói các liên kết `youtube.com/redirect`
 - **Chế độ khay hệ thống** — đóng cửa sổ vẫn tiếp tục tải xuống ở nền
 - **21 ngôn ngữ** — tự động phát hiện ngôn ngữ hệ thống, có thể đổi bất cứ lúc nào
 - **Đồng bộ danh sách phát** — quét lại danh sách phát với một thư mục cục bộ để bỏ qua các video đã tải; tạo tệp danh sách phát `.m3u` được cập nhật sau mỗi video tải xuống
-- **Chế độ thận trọng** — các preset nhịp độ có thể cấu hình (*Tắt · Cân bằng · Thận trọng · Tùy chỉnh*) thêm độ trễ giữa các yêu cầu và giới hạn fragment threads, giảm khả năng gặp bot-blocks trên danh sách phát lớn
+- **Điều khiển tốc độ và nhịp tải** — giới hạn băng thông tải xuống, thêm độ trễ giữa các yêu cầu và tinh chỉnh fragment threads bằng preset (*Tắt · Cân bằng · Cẩn thận · Tùy chỉnh*)
 
 ### Phụ đề & hậu xử lý
 
@@ -301,7 +301,7 @@ Hai mươi mốt ngôn ngữ, có sẵn ngay khi cài đặt: English, Español 
 Không. yt-dlp được tải xuống tự động khi khởi động lần đầu và được lưu vào bộ nhớ đệm trên máy của bạn; ffmpeg và ffprobe đi kèm với ứng dụng. Sau đó, không cần thiết lập thêm gì.
 
 **Tôi có thể tải xuống danh sách phát hoặc toàn bộ kênh không?**
-Có — cả hai. Dán URL danh sách phát hoặc URL kênh (ví dụ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy liệt kê tới 500 mục, sau đó bạn xếp hàng toàn bộ danh sách hoặc chọn từng video cụ thể. Bộ lọc theo khoảng ngày và số lượng sẽ sớm ra mắt.
+Có — cả hai. Dán URL playlist hoặc kênh (ví dụ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); chọn số mục cần quét, rồi đưa cả danh sách vào hàng đợi hoặc chọn từng video. Bộ lọc theo khoảng ngày sẽ có sớm.
 
 **macOS báo "ứng dụng bị hỏng" — tôi phải làm gì?**
 Đó là macOS Gatekeeper chặn ứng dụng chưa được ký, không phải file thực sự bị hỏng. Xem ["App is damaged" — sửa bằng Terminal](#macos-first-launch) để biết lệnh `xattr` một dòng giải quyết vấn đề.
@@ -313,15 +313,13 @@ Có — cả hai. Dán URL danh sách phát hoặc URL kênh (ví dụ `youtube.
 
 ## <a id="roadmap"></a>Lộ trình phát triển
 
-Sắp ra mắt — theo thứ tự ưu tiên:
+Vẫn được lên kế hoạch — theo thứ tự ưu tiên tương đối:
 
 | Tính năng    | Mô tả    |
 | ---------------- | ---------------- |
-| **Bộ lọc danh sách phát & kênh** | Bộ lọc theo khoảng ngày và số lượng khi liệt kê danh sách phát hoặc kênh (hiện tại giới hạn cố định là 500 mục) |
-| **Nhập URL hàng loạt** | Dán nhiều URL cùng lúc và chạy tất cả trong một lần |
+| **Bộ lọc danh sách phát & kênh** | Bộ lọc khoảng ngày khi liệt kê playlist hoặc kênh |
 | **Mẫu tên file tùy chỉnh** | Đặt tên file theo tiêu đề, người tải lên, ngày, độ phân giải — với xem trước trực tiếp |
 | **Tải xuống theo lịch** | Bắt đầu hàng đợi vào thời điểm đặt trước (chạy qua đêm) |
-| **Giới hạn tốc độ** | Giới hạn băng thông để tải xuống không làm quá tải kết nối |
 | **Cắt đoạn clip** | Chỉ tải xuống một đoạn theo thời gian bắt đầu/kết thúc |
 
 Bạn có ý tưởng tính năng? [Mở yêu cầu](../../issues) — ý kiến cộng đồng định hình thứ tự ưu tiên.

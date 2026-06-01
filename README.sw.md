@@ -72,14 +72,14 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
 
 ### Mtiririko wa kazi
 
-- **Bandika kiungo chochote** — video za YouTube, Shorts, vituo, orodha za kucheza, podikasti na Muziki, pamoja na tovuti 2000+ zinazoungwa mkono na yt-dlp; pakua orodha nzima ya kucheza au chagua video maalum kwanza
-- **Foleni ya upakuaji wa pamoja** — fuatilia maudhui kadhaa yanayopakuliwa wakati huo huo
+- **Njia rahisi za kuanza** — chagua upakuaji mmoja unaoongozwa, kichagua playlist/channel, kubandika URL nyingi, au Quick Download kwa mipangilio chaguomsingi iliyohifadhiwa
+- **Foleni kuu ya upakuaji** — kazi ya single, playlist, bulk, au quick yote huingia sehemu moja kwa maendeleo, kusitisha, kuendelea, kughairi, kujaribu tena, na udhibiti wa kipaumbele
 - **Ufuatiliaji wa ubao wa kunakili** — nakili kiungo cha YouTube na Arroxy itajaza URL kiotomatiki ukirejesha umakini kwenye programu (washa/zima katika mipangilio ya Kina)
 - **Usafi wa URL kiotomatiki** — huondoa vigezo vya ufuatiliaji (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) na kufungua viungo vya `youtube.com/redirect`
 - **Hali ya tray** — kufunga dirisha kunaacha maudhui kuendelea kupakuliwa nyuma ya skrini
 - **Lugha 21** — hugundua kiotomatiki lugha ya mfumo, inaweza kubadilishwa wakati wowote
 - **Usawazishaji wa orodha ya kucheza** — hukagua tena orodha ya kucheza dhidi ya folda ya ndani ili kuruka video zilizopakuliwa tayari; hutengeneza faili ya orodha ya kucheza `.m3u` inayosasishwa kila video inapopakuliwa
-- **Hali ya tahadhari** — mipangilio ya kasi inayoweza kubadilishwa (*Imezimwa · Sawazisha · Tahadhari · Maalum*) huongeza ucheleweshaji kati ya maombi na kupunguza fragment threads, ikipunguza uwezekano wa bot-blocks kwenye orodha kubwa za kucheza
+- **Udhibiti wa kasi na pacing** — weka kikomo cha bandwidth ya upakuaji, ongeza ucheleweshaji wa maombi, na rekebisha fragment threads kwa presets (*Off · Balanced · Careful · Custom*)
 
 ### Manukuu na usindikaji wa baada ya kupakua
 
@@ -301,7 +301,7 @@ Ishirini na moja, kutoka mwanzoni: English, Español (Kihispania), Deutsch (Kije
 Hapana. yt-dlp hupakuliwa kiotomatiki wakati wa uzinduzi wa kwanza na kuhifadhiwa kwenye kifaa chako; ffmpeg na ffprobe huja pamoja na programu. Baada ya hapo, hakuna usanidi wa ziada unaohitajika.
 
 **Je, ninaweza kupakua orodha za kucheza au vituo vyote?**
-Ndiyo — vyote viwili. Bandika URL ya playlist au URL ya kituo (k.m. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy inahesabu hadi ingizo 500, kisha unaweza kuweka foleni orodha nzima au kuchagua video maalum. Vichujio vya masafa ya tarehe na idadi vinakuja hivi karibuni.
+Ndiyo — zote mbili. Bandika URL ya playlist au channel (mf. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); chagua idadi ya vipengee vya kuchanganua, kisha weka orodha yote kwenye foleni au chagua video maalum. Vichujio vya tarehe vinakuja hivi karibuni.
 
 **macOS inasema "programu imeharibiwa" — nifanye nini?**
 Hiyo ni macOS Gatekeeper inayozuia programu isiyosainiwa, si uharibifu wa kweli. Tazama ["App is damaged" — suluhisho la Terminal](#macos-first-launch) kwa amri ya mstari mmoja ya `xattr` inayoondoa kizuizi.
@@ -313,15 +313,13 @@ Kwa matumizi ya kibinafsi na ya faragha, kwa ujumla inakubaliwa katika mamlaka n
 
 ## <a id="roadmap"></a>Ramani ya Barabara
 
-Inakuja — kwa takriban mpangilio wa kipaumbele:
+Bado imepangwa — takriban kwa mpangilio wa kipaumbele:
 
 | Kipengele    | Maelezo    |
 | ---------------- | ---------------- |
-| **Vichujio vya orodha za kucheza na vituo** | Vichujio vya masafa ya tarehe na idadi wakati wa kuhesabu orodha ya kucheza au kituo (kwa sasa kikomo ni ingizo 500 imara) |
-| **Uingizaji wa URL nyingi** | Bandika URL nyingi kwa wakati mmoja na uziendeshe mara moja |
+| **Vichujio vya orodha za kucheza na vituo** | Vichujio vya muda wa tarehe unapoorodhesha playlist au channel |
 | **Templeti maalum za majina ya faili** | Weka jina la faili kwa kichwa, mpakiaji, tarehe, azimio — na onyesho la moja kwa moja |
 | **Upakuaji uliopangwa** | Anza foleni kwa wakati uliowekwa (uendeshaji wa usiku) |
-| **Vikwazo vya kasi** | Punguza kipimo data ili maudhui yasijaze muunganisho wako |
 | **Kukata sehemu** | Pakua sehemu pekee kwa wakati wa kuanza/kumalizia |
 
 Una kipengele unachofikiria? [Fungua ombi](../../issues) — maoni ya jamii huathiri kipaumbele.

@@ -117,9 +117,9 @@ export const fr = {
   feat_privacy_3: "Fichiers enregistrés directement dans le dossier que tu choisis",
   feat_workflow_h3: "Flux de travail",
   feat_workflow_1:
-    "**Colle n'importe quel lien** — vidéos YouTube, Shorts, chaînes, playlists, podcasts et Music, plus 2000+ autres sites supportés par yt-dlp ; télécharge toute la playlist ou choisis d'abord des vidéos précises",
+    "**Modes de démarrage flexibles** — choisis un téléchargement unique guidé, un sélecteur de playlist/chaîne, un collage d’URL en lot ou Quick Download avec tes valeurs par défaut enregistrées",
   feat_workflow_2:
-    "**File de téléchargement multi** — suivi de plusieurs téléchargements en parallèle",
+    "**File de téléchargement centrale** — chaque tâche unique, playlist, lot ou rapide arrive au même endroit pour suivre, mettre en pause, reprendre, annuler, réessayer et gérer la priorité",
   feat_workflow_3:
     "**Surveillance du presse-papiers** — copie un lien YouTube et Arroxy remplit automatiquement l'URL quand tu reviens sur l'app (désactivable dans les Paramètres avancés)",
   feat_workflow_4:
@@ -131,7 +131,7 @@ export const fr = {
   feat_workflow_7:
     "**Synchronisation de playlist** — rescane une playlist par rapport à un dossier local pour ignorer les vidéos déjà téléchargées ; génère un fichier de playlist `.m3u` mis à jour à chaque vidéo téléchargée",
   feat_workflow_8:
-    "**Mode prudent** — des préréglages de rythme configurables (*Désactivé · Équilibré · Prudent · Personnalisé*) ajoutent des pauses entre les requêtes et limitent les threads de fragments, ce qui réduit le risque de bot-block sur les grosses playlists",
+    "**Contrôles de vitesse et de rythme** — limite la bande passante, ajoute des pauses entre les requêtes et règle les threads de fragments avec des préréglages (*Désactivé · Équilibré · Prudent · Personnalisé*)",
   feat_post_h3: "Sous-titres & post-traitement",
   feat_post_1:
     "**Sous-titres** en SRT, VTT ou ASS — manuels ou auto-générés, dans toute langue disponible",
@@ -300,19 +300,18 @@ export const fr = {
     "Non. yt-dlp est téléchargé automatiquement au premier lancement et mis en cache sur ta machine ; ffmpeg et ffprobe sont inclus dans l’app. Après ça, aucune configuration supplémentaire.",
   faq_q8: "Puis-je télécharger des playlists ou des chaînes entières ?",
   faq_a8:
-    "Oui — les deux. Colle une URL de playlist ou une URL de chaîne (ex. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`) ; Arroxy énumère jusqu'à 500 entrées, puis tu mets toute la liste en file ou tu choisis des vidéos précises. Des filtres par plage de dates et par nombre arrivent bientôt.",
+    "Oui — les deux. Colle une URL de playlist ou de chaîne (p. ex. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`) ; choisis combien d’entrées analyser, puis mets toute la liste en file ou sélectionne des vidéos précises. Les filtres par date arrivent bientôt.",
   faq_q9: 'macOS dit "l\'application est endommagée" — que faire ?',
   faq_a9:
     'C\'est Gatekeeper de macOS qui bloque une app non signée, pas un vrai endommagement. Voir ["App is damaged" — correction via Terminal](#macos-first-launch) pour la commande `xattr` en une ligne qui règle le problème.',
   faq_q10: "Télécharger des vidéos YouTube est-il légal ?",
   faq_a10:
     "Pour un usage personnel et privé, c'est généralement accepté dans la plupart des juridictions. Tu es responsable de respecter les [Conditions d'Utilisation](https://www.youtube.com/t/terms) de YouTube et les lois sur le droit d'auteur de ton pays.",
-  plan_intro: "À venir — approximativement par ordre de priorité :",
+  plan_intro: "Toujours prévu — approximativement par ordre de priorité :",
   plan_col1: "Fonctionnalité",
   plan_col2: "Description",
   plan_r1_name: "**Filtres de playlists et chaînes**",
-  plan_r1_desc:
-    "Filtres par plage de dates et par nombre lors de l'énumération d'une playlist ou d'une chaîne (aujourd'hui le plafond est fixe à 500 entrées)",
+  plan_r1_desc: "Filtres par plage de dates lors de l’énumération d’une playlist ou d’une chaîne",
   plan_r2_name: "**Saisie d'URLs en lot**",
   plan_r2_desc: "Colle plusieurs URLs d'un coup et lance tout ensemble",
   plan_r4_name: "**Modèles de noms de fichier personnalisés**",

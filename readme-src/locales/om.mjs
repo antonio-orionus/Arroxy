@@ -116,9 +116,9 @@ export const om = {
   feat_privacy_3: "Faayiloonni kallattiin foldera filatteen seenu",
   feat_workflow_h3: "Hojii hordoffii",
   feat_workflow_1:
-    "**Liinkii kamiyyuu maxxansi** — viidiyoowwan YouTube, Shorts, chaanaalota, playlistoota, podkaastota fi Muuziqaa, fi saayitiiwwan 2000+ yt-dlp deeggaru; playlist guutuu buufadhu yookaan dura viidiyoowwan filataman qofa filadhu",
+    "**Haalawwan jalqabaa jijjiiramaa** — buusuu tokko qajeelfamaan, filannoo playlist/channel, URL hedduu maxxansuu, ykn Quick Download filannoowwan duraan kuufamaniin filadhu",
   feat_workflow_2:
-    "**Queue buufannoo heddu** — buufannoota heddu walitti aanee hordofi",
+    "**Tarree buusuu giddugaleessaa** — hojii tokko, playlist, bulk, ykn quick hundi bakka tokkotti walitti dhufa: adeemsa, dhaabuu, itti fufsiisuu, haquu, irra deebi’uu, fi dursa to’achuuf",
   feat_workflow_3:
     "**Eegaa clipboard** — link YouTube koppiisi Arroxy URL of-hordofaa guutu yeroo app deebi'itu (Advanced settings keessatti jijjiiri)",
   feat_workflow_4:
@@ -130,7 +130,7 @@ export const om = {
   feat_workflow_7:
     "**Walsimsiisa playlist** — viidiyoowwan duraan buufaman akka darbaman playlist galmee naannoo waliin irra deebi'ee sakatta'a; faayila playlist `.m3u` viidiyoon tokko tokko buufamu hunda irratti haaromsamu uuma",
   feat_workflow_8:
-    "**Haala of-eeggannoo** — pacing presets sirreeffamuu danda'an (*Dhaame · Madaalawaa · Of-eeggannoo · Kan ofii*) gaaffiiwwan gidduutti tursiisaa fi fragment threads daangessu, playlist guddaa irratti carraa bot-blocks xiqqeessa",
+    "**To’annoo saffisaa fi pacing** — bandwidth buusuu daangessi, turtii gaaffii dabali, fi thread fragment presets (*Off · Balanced · Careful · Custom*) waliin sirreessi",
   feat_post_h3: "Subtitle & seensuu boodaa",
   feat_post_1:
     "**Subtitles** SRT, VTT, ykn ASS keessatti — harka ykn of-hojeetee, afaan kamiyyuu argamu keessatti",
@@ -299,19 +299,18 @@ export const om = {
     "Lakki. yt-dlp jalqaba banuu irratti ofumaan buufamee meeshaa kee irratti kuufama; ffmpeg fi ffprobe app waliin dhufu. Sana booda qindaaʼinni dabalataa hin barbaachisu.",
   faq_q8: "Playlist ykn chaanaalii guutuu buusuu danda'aa?",
   faq_a8:
-    "Eeyyee — lamaanuu. URL playlist ykn URL chaanaalii maxxansi (fkn. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy hanga galmeewwan 500 lakkaa'a, booda tarree guutuu yookaan viidiyoowwan filataman queue keessa galchi. Hojjettoonni guyyaa fi lakkoofsa dursaa dhufaa jiru.",
+    "Eeyyee — lamaan isaaniiyyuu. URL playlist ykn channel maxxansi (fkn. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); galfata meeqa akka sakatta’u filadhu, ergasii tarree guutuu queue godhi ykn viidiyoo addaa filadhu. Filtraroonni guyyaa gara fuulduraatti dhufu.",
   faq_q9: 'macOS "app miidhaameera" jedha — maal godhaa?',
   faq_a9:
     'Sun macOS Gatekeeper app mallattoo hin qabne dhorku, midhaa dhugaa miti. ["App is damaged" — Terminal dursaa](#macos-first-launch) ilaali, ajaja sarara tokkoo `xattr` kan sirreessuu argachuuf.',
   faq_q10: "Viidiyoo YouTube buusuu seeraa dha?",
   faq_a10:
     "Fayyadama dhuunfaa, dhoksaa qofaaf yeroo hedduun mootummoota heddu keessatti fudhatama. [Dambii Tajaajilaaf](https://www.youtube.com/t/terms) YouTube fi seeraa mirga-qopheessaa naannoo keetti hordofuuf ati itti gaafatamtummaa qabda.",
-  plan_intro: "Dhufuuf jiru — bakka dursa hordofee:",
+  plan_intro: "Amma iyyuu karoorfame — tilmaamaan tartiiba dursaatiin:",
   plan_col1: "Amalli",
   plan_col2: "Ibsa",
   plan_r1_name: "**Playlist & chaanaalii hojjettoota**",
-  plan_r1_desc:
-    "Hojjettoota guyyaa fi lakkoofsa playlist ykn chaanaalii lakkaa'uu irratti (har'a daangaan galmeewwan 500 dhaabbataa)",
+  plan_r1_desc: "Yeroo playlist ykn channel sakatta’an filtraroota guyyaa",
   plan_r2_name: "**Galchii URL fakkaataa**",
   plan_r2_desc: "URLs heddu yeroo tokkotti maxxansi fi isaan tokkoon oofii",
   plan_r4_name: "**Template maqaa faayilaa dhuunfaa**",

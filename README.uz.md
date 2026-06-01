@@ -72,14 +72,14 @@ Arroxy bir narsa uchun yaratilgan: URL'ni joylashtiring, toza mahalliy fayl olin
 
 ### Ish oqimi
 
-- **Istalgan havolani joylashtiring** — YouTube videolari, Shorts, kanallar, pleylistlar, podkastlar va Musiqa, hamda yt-dlp qo’llab-quvvatlaydigan 2000+ boshqa saytlar; butun pleylistni yuklab oling yoki avval aniq videolarni tanlang
-- **Ko'p yuklab olish navbati** — bir nechta yuklamalarni parallel kuzatib boring
+- **Moslashuvchan boshlash rejimlari** — boshqariladigan bitta yuklab olish, playlist/kanal tanlagichi, URLlarni ommaviy joylash yoki saqlangan standartlar bilan Quick Downloadni tanlang
+- **Markaziy yuklab olish navbati** — bitta, playlist, bulk yoki quick ishlarning barchasi jarayon, pauza, davom ettirish, bekor qilish, qayta urinish va ustuvorlik boshqaruvi uchun bir joyga tushadi
 - **Bufer kuzatish** — YouTube havolasini nusxalang va Arroxy ilovaga qaytganingizda URL'ni avtomatik to'ldiradi (Kengaytirilgan sozlamalarda o'chirish/yoqish mumkin)
 - **URL'larni avtomatik tozalash** — kuzatish parametrlarini olib tashlaydi (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) va `youtube.com/redirect` havolalarini ochadi
 - **Tray rejimi** — oynani yopish yuklamalarni fon rejimida davom ettiradi
 - **21 til** — tizim tilini avtomatik aniqlaydi, istalgan vaqt almashtirish mumkin
 - **Pleylist sinxronlashuvi** — allaqachon yuklab olingan videolarni o'tkazib yuborish uchun pleylistni mahalliy jild bilan qayta tekshiradi; har bir video yuklanganda yangilanadigan `.m3u` pleylist faylini yaratadi
-- **Ehtiyotkor rejim** — sozlanadigan pacing presetlari (*O'chiq · Muvozanatli · Ehtiyotkor · Maxsus*) so'rovlar orasiga kechikishlar qo'shadi va fragment threads sonini cheklaydi, katta pleylistlarda bot-blocks ehtimolini kamaytiradi
+- **Tezlik va pacing boshqaruvlari** — yuklab olish bandwidthini cheklang, so‘rovlar orasiga kutish qo‘shing va fragment threadlarini presetlar bilan sozlang (*Off · Balanced · Careful · Custom*)
 
 ### Subtitrlar va keyingi qayta ishlash
 
@@ -301,7 +301,7 @@ Yigirma bir, darhol tayyor: English, Español (ispan), Deutsch (nemis), Françai
 Yo‘q. yt-dlp birinchi ishga tushirishda avtomatik yuklab olinadi va kompyuteringizda keshlanadi; ffmpeg va ffprobe ilova bilan birga keladi. Undan keyin qo‘shimcha sozlash shart emas.
 
 **Playlist yoki butun kanallarni yuklab olishim mumkinmi?**
-Ha — ikkalasi ham. Playlist URL yoki kanal URL’ini joylang (masalan, `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy 500 tagacha yozuvni ro’yxatga oladi, so’ng butun ro’yxatni navbatga qo’shasiz yoki aniq videolarni tanlab olasiz. Sana oralig’i va miqdor filtrlari tez orada qo’shiladi.
+Ha — ikkalasi ham. Playlist yoki kanal URLini joylang (masalan, `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); nechta yozuv skanerlanishini tanlang, keyin butun ro‘yxatni navbatga qo‘ying yoki alohida videolarni tanlang. Sana oralig‘i filtrlari tez orada keladi.
 
 **macOS "ilova shikastlangan" deydi — nima qilaman?**
 Bu macOS Gatekeeper imzalanmagan ilovani bloklayotgani, haqiqiy shikastlanish emas. Bir qatorli `xattr` buyrug'i haqida ["App is damaged" — Terminal orqali tuzatish](#macos-first-launch) ga qarang.
@@ -313,15 +313,13 @@ Shaxsiy, xususiy foydalanish uchun bu ko'pchilik yurisdiktsiyalarda umumiy qabul
 
 ## <a id="roadmap"></a>Yo'l xaritasi
 
-Kelayotgan — taxminan ustuvorlik tartibida:
+Hali rejalashtirilgan — taxminan ustuvorlik tartibida:
 
 | Xususiyat    | Tavsif    |
 | ---------------- | ---------------- |
-| **Playlist va kanal filtrlari** | Playlist yoki kanal sanab chiqilganda sana oralig'i va miqdor filtrlari (hozircha chegara 500 yozuvga belgilangan) |
-| **Toplu URL kiritish** | Bir vaqtning o'zida bir nechta URL'larni joylashtiring va ularni bitta yugurishda bajaring |
+| **Playlist va kanal filtrlari** | Playlist yoki kanalni ro‘yxatlashda sana oralig‘i filtrlari |
 | **Maxsus fayl nomi shablonlari** | Fayllarni sarlavha, yuklovchi, sana, aniqlik bo'yicha nomlash — jonli ko'rinish bilan |
 | **Rejalashtirilgan yuklab olishlar** | Navbatni belgilangan vaqtda boshlash (tunda ishlash) |
-| **Tezlik cheklovlari** | Yuklamalar ulanishingizni to'liq egallab olmasligi uchun o'tkazish qobiliyatini cheklash |
 | **Klip qirqish** | Boshlash/tugash vaqti bo'yicha faqat bir segmentni yuklab olish |
 
 Xayyolizda xususiyat bormi? [So'rov yuboring](../../issues) — jamiyat ishtiroki ustuvorlikni belgilaydi.

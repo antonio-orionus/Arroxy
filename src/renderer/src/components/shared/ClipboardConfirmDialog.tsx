@@ -1,5 +1,5 @@
 import { type JSX, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog.js';
 import { Button } from '../ui/button.js';
@@ -23,11 +23,13 @@ interface Props {
   onUse: () => void;
   onFetch: () => void;
   onBulk: () => void;
+  onQuickDownload: () => void;
   onDisable: () => void;
   onCancel: () => void;
+  quickPreparing: boolean;
 }
 
-export function ClipboardConfirmDialog({ open, prompt, onUse, onFetch, onBulk, onDisable, onCancel }: Props): JSX.Element {
+export function ClipboardConfirmDialog({ open, prompt, onUse, onFetch, onBulk, onQuickDownload, onDisable, onCancel, quickPreparing }: Props): JSX.Element {
   const { t } = useTranslation();
   const fetchButtonRef = useRef<HTMLButtonElement>(null);
   const bulkButtonRef = useRef<HTMLButtonElement>(null);
@@ -40,7 +42,7 @@ export function ClipboardConfirmDialog({ open, prompt, onUse, onFetch, onBulk, o
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent showCloseButton={false} data-testid="clipboard-confirm-dialog" initialFocus={() => bulkButtonRef.current ?? fetchButtonRef.current} className="sm:max-w-lg">
+      <DialogContent showCloseButton={false} data-testid="clipboard-confirm-dialog" initialFocus={() => bulkButtonRef.current ?? fetchButtonRef.current} className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>{isBulk ? t('wizard.url.clipboard.dialog.bulkTitle') : t('wizard.url.clipboard.dialog.title')}</DialogTitle>
           <DialogDescription>{isBulk ? t('wizard.url.clipboard.dialog.bulkBody') : t('wizard.url.clipboard.dialog.body')}</DialogDescription>
@@ -71,7 +73,7 @@ export function ClipboardConfirmDialog({ open, prompt, onUse, onFetch, onBulk, o
             </div>
           </div>
         ) : null}
-        <DialogFooter>
+        <DialogFooter className="sm:flex-wrap sm:items-center">
           <Tooltip>
             <TooltipTrigger
               render={(props) => (
@@ -96,7 +98,11 @@ export function ClipboardConfirmDialog({ open, prompt, onUse, onFetch, onBulk, o
               <Button type="button" variant="outline" onClick={onUse} data-testid="clipboard-confirm-use">
                 {t('wizard.url.clipboard.dialog.useButton')}
               </Button>
-              <Button ref={fetchButtonRef} type="button" onClick={onFetch} data-testid="clipboard-confirm-fetch" className="shadow-[0_4px_14px_var(--brand-glow)] gap-2">
+              <Button type="button" variant="outline" onClick={onQuickDownload} disabled={quickPreparing} data-testid="clipboard-confirm-quick-download" className="gap-2">
+                {quickPreparing ? <span className="h-4 w-4 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden /> : <Download size={16} />}
+                {quickPreparing ? t('wizard.url.quickPreparing') : t('wizard.url.quickDownload')}
+              </Button>
+              <Button ref={fetchButtonRef} type="button" onClick={onFetch} disabled={quickPreparing} data-testid="clipboard-confirm-fetch" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none gap-2">
                 {t('wizard.url.fetchFormats')} <ArrowRight size={16} className="rtl:rotate-180" />
               </Button>
             </>

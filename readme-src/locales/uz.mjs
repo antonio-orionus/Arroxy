@@ -116,9 +116,9 @@ export const uz = {
   feat_privacy_3: "Fayllar siz tanlagan papkaga to'g'ridan-to'g'ri saqlanadi",
   feat_workflow_h3: "Ish oqimi",
   feat_workflow_1:
-    "**Istalgan havolani joylashtiring** — YouTube videolari, Shorts, kanallar, pleylistlar, podkastlar va Musiqa, hamda yt-dlp qo’llab-quvvatlaydigan 2000+ boshqa saytlar; butun pleylistni yuklab oling yoki avval aniq videolarni tanlang",
+    "**Moslashuvchan boshlash rejimlari** — boshqariladigan bitta yuklab olish, playlist/kanal tanlagichi, URLlarni ommaviy joylash yoki saqlangan standartlar bilan Quick Downloadni tanlang",
   feat_workflow_2:
-    "**Ko'p yuklab olish navbati** — bir nechta yuklamalarni parallel kuzatib boring",
+    "**Markaziy yuklab olish navbati** — bitta, playlist, bulk yoki quick ishlarning barchasi jarayon, pauza, davom ettirish, bekor qilish, qayta urinish va ustuvorlik boshqaruvi uchun bir joyga tushadi",
   feat_workflow_3:
     "**Bufer kuzatish** — YouTube havolasini nusxalang va Arroxy ilovaga qaytganingizda URL'ni avtomatik to'ldiradi (Kengaytirilgan sozlamalarda o'chirish/yoqish mumkin)",
   feat_workflow_4:
@@ -130,7 +130,7 @@ export const uz = {
   feat_workflow_7:
     "**Pleylist sinxronlashuvi** — allaqachon yuklab olingan videolarni o'tkazib yuborish uchun pleylistni mahalliy jild bilan qayta tekshiradi; har bir video yuklanganda yangilanadigan `.m3u` pleylist faylini yaratadi",
   feat_workflow_8:
-    "**Ehtiyotkor rejim** — sozlanadigan pacing presetlari (*O'chiq · Muvozanatli · Ehtiyotkor · Maxsus*) so'rovlar orasiga kechikishlar qo'shadi va fragment threads sonini cheklaydi, katta pleylistlarda bot-blocks ehtimolini kamaytiradi",
+    "**Tezlik va pacing boshqaruvlari** — yuklab olish bandwidthini cheklang, so‘rovlar orasiga kutish qo‘shing va fragment threadlarini presetlar bilan sozlang (*Off · Balanced · Careful · Custom*)",
   feat_post_h3: "Subtitrlar va keyingi qayta ishlash",
   feat_post_1:
     "**Subtitrlar** SRT, VTT yoki ASS formatida — qo'lda yoki avtomatik yaratilgan, istalgan mavjud tilda",
@@ -299,19 +299,18 @@ export const uz = {
     "Yo‘q. yt-dlp birinchi ishga tushirishda avtomatik yuklab olinadi va kompyuteringizda keshlanadi; ffmpeg va ffprobe ilova bilan birga keladi. Undan keyin qo‘shimcha sozlash shart emas.",
   faq_q8: "Playlist yoki butun kanallarni yuklab olishim mumkinmi?",
   faq_a8:
-    "Ha — ikkalasi ham. Playlist URL yoki kanal URL’ini joylang (masalan, `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy 500 tagacha yozuvni ro’yxatga oladi, so’ng butun ro’yxatni navbatga qo’shasiz yoki aniq videolarni tanlab olasiz. Sana oralig’i va miqdor filtrlari tez orada qo’shiladi.",
+    "Ha — ikkalasi ham. Playlist yoki kanal URLini joylang (masalan, `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); nechta yozuv skanerlanishini tanlang, keyin butun ro‘yxatni navbatga qo‘ying yoki alohida videolarni tanlang. Sana oralig‘i filtrlari tez orada keladi.",
   faq_q9: 'macOS "ilova shikastlangan" deydi — nima qilaman?',
   faq_a9:
     'Bu macOS Gatekeeper imzalanmagan ilovani bloklayotgani, haqiqiy shikastlanish emas. Bir qatorli `xattr` buyrug\'i haqida ["App is damaged" — Terminal orqali tuzatish](#macos-first-launch) ga qarang.',
   faq_q10: "YouTube videolarini yuklab olish qonuniyimi?",
   faq_a10:
     "Shaxsiy, xususiy foydalanish uchun bu ko'pchilik yurisdiktsiyalarda umumiy qabul qilingan. Siz YouTube ning [Foydalanish Shartlari](https://www.youtube.com/t/terms) va mahalliy mualliflik huquqi qonunlariga rioya qilish uchun javobgarsiz.",
-  plan_intro: "Kelayotgan — taxminan ustuvorlik tartibida:",
+  plan_intro: "Hali rejalashtirilgan — taxminan ustuvorlik tartibida:",
   plan_col1: "Xususiyat",
   plan_col2: "Tavsif",
   plan_r1_name: "**Playlist va kanal filtrlari**",
-  plan_r1_desc:
-    "Playlist yoki kanal sanab chiqilganda sana oralig'i va miqdor filtrlari (hozircha chegara 500 yozuvga belgilangan)",
+  plan_r1_desc: "Playlist yoki kanalni ro‘yxatlashda sana oralig‘i filtrlari",
   plan_r2_name: "**Toplu URL kiritish**",
   plan_r2_desc: "Bir vaqtning o'zida bir nechta URL'larni joylashtiring va ularni bitta yugurishda bajaring",
   plan_r4_name: "**Maxsus fayl nomi shablonlari**",

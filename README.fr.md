@@ -74,14 +74,14 @@ Arroxy est conçu pour une seule chose : coller une URL et obtenir un fichier lo
 
 ### Flux de travail
 
-- **Colle n'importe quel lien** — vidéos YouTube, Shorts, chaînes, playlists, podcasts et Music, plus 2000+ autres sites supportés par yt-dlp ; télécharge toute la playlist ou choisis d'abord des vidéos précises
-- **File de téléchargement multi** — suivi de plusieurs téléchargements en parallèle
+- **Modes de démarrage flexibles** — choisis un téléchargement unique guidé, un sélecteur de playlist/chaîne, un collage d’URL en lot ou Quick Download avec tes valeurs par défaut enregistrées
+- **File de téléchargement centrale** — chaque tâche unique, playlist, lot ou rapide arrive au même endroit pour suivre, mettre en pause, reprendre, annuler, réessayer et gérer la priorité
 - **Surveillance du presse-papiers** — copie un lien YouTube et Arroxy remplit automatiquement l'URL quand tu reviens sur l'app (désactivable dans les Paramètres avancés)
 - **Nettoyage auto des URLs** — supprime les paramètres de tracking (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) et dénoue les liens `youtube.com/redirect`
 - **Mode tray** — fermer la fenêtre garde les téléchargements en cours en arrière-plan
 - **21 langues** — détecte automatiquement la langue du système, modifiable à tout moment
 - **Synchronisation de playlist** — rescane une playlist par rapport à un dossier local pour ignorer les vidéos déjà téléchargées ; génère un fichier de playlist `.m3u` mis à jour à chaque vidéo téléchargée
-- **Mode prudent** — des préréglages de rythme configurables (*Désactivé · Équilibré · Prudent · Personnalisé*) ajoutent des pauses entre les requêtes et limitent les threads de fragments, ce qui réduit le risque de bot-block sur les grosses playlists
+- **Contrôles de vitesse et de rythme** — limite la bande passante, ajoute des pauses entre les requêtes et règle les threads de fragments avec des préréglages (*Désactivé · Équilibré · Prudent · Personnalisé*)
 
 ### Sous-titres & post-traitement
 
@@ -303,7 +303,7 @@ Vingt-et-une, prêtes à l'emploi : English, Español (espagnol), Deutsch (allem
 Non. yt-dlp est téléchargé automatiquement au premier lancement et mis en cache sur ta machine ; ffmpeg et ffprobe sont inclus dans l’app. Après ça, aucune configuration supplémentaire.
 
 **Puis-je télécharger des playlists ou des chaînes entières ?**
-Oui — les deux. Colle une URL de playlist ou une URL de chaîne (ex. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`) ; Arroxy énumère jusqu'à 500 entrées, puis tu mets toute la liste en file ou tu choisis des vidéos précises. Des filtres par plage de dates et par nombre arrivent bientôt.
+Oui — les deux. Colle une URL de playlist ou de chaîne (p. ex. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`) ; choisis combien d’entrées analyser, puis mets toute la liste en file ou sélectionne des vidéos précises. Les filtres par date arrivent bientôt.
 
 **macOS dit "l'application est endommagée" — que faire ?**
 C'est Gatekeeper de macOS qui bloque une app non signée, pas un vrai endommagement. Voir ["App is damaged" — correction via Terminal](#macos-first-launch) pour la commande `xattr` en une ligne qui règle le problème.
@@ -315,15 +315,13 @@ Pour un usage personnel et privé, c'est généralement accepté dans la plupart
 
 ## <a id="roadmap"></a>Feuille de route
 
-À venir — approximativement par ordre de priorité :
+Toujours prévu — approximativement par ordre de priorité :
 
 | Fonctionnalité    | Description    |
 | ---------------- | ---------------- |
-| **Filtres de playlists et chaînes** | Filtres par plage de dates et par nombre lors de l'énumération d'une playlist ou d'une chaîne (aujourd'hui le plafond est fixe à 500 entrées) |
-| **Saisie d'URLs en lot** | Colle plusieurs URLs d'un coup et lance tout ensemble |
+| **Filtres de playlists et chaînes** | Filtres par plage de dates lors de l’énumération d’une playlist ou d’une chaîne |
 | **Modèles de noms de fichier personnalisés** | Nomme les fichiers par titre, auteur, date, résolution — avec aperçu en direct |
 | **Téléchargements programmés** | Démarre une file à une heure définie (lancements nocturnes) |
-| **Limites de vitesse** | Plafonne la bande passante pour ne pas saturer ta connexion |
 | **Découpe de clips** | Télécharge uniquement un segment par heure de début/fin |
 
 Tu as une fonctionnalité en tête ? [Ouvre une demande](../../issues) — les retours de la communauté orientent les priorités.

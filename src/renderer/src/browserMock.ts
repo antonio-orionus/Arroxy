@@ -1,7 +1,7 @@
 import type { AppApi } from '@shared/api.js';
 import type { AppSettings, DependencyDiagnostic, DependencyId, ProgressEvent, QueueItem, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent } from '@shared/types.js';
 import { QUEUE_STATUS, STATUS_KEY } from '@shared/schemas.js';
-import { buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario } from './dev/browserMockScenarios.js';
+import { buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, type BrowserMockScenario } from './dev/browserMockScenarios.js';
 import { applyThemeLive, readKnobs, RTL_LANGS } from './dev/browserMockKnobs.js';
 
 const BROWSER_MOCK_LAUNCH_MODES = ['ready', 'cold-loading', 'cold-error'] as const;
@@ -66,6 +66,7 @@ export function installBrowserMock(): void {
   const progressListeners = new Set<(e: ProgressEvent) => void>();
   const updateListeners = new Set<(info: UpdateAvailablePayload) => void>();
   const warmupProgressListeners = new Set<(e: WarmupProgressEvent) => void>();
+  const clipboardUrlListeners = new Set<(url: string) => void>();
   const queueSnapshotListeners = new Set<(items: QueueItem[]) => void>();
   const queueAddedListeners = new Set<(event: { items: QueueItem[]; atIdx: number }) => void>();
   const queueUpdatedListeners = new Set<(event: { item: QueueItem }) => void>();
@@ -76,6 +77,10 @@ export function installBrowserMock(): void {
   const launchMode = readBrowserMockLaunchMode();
 
   let settings: AppSettings = scenarioState.settings;
+
+  (window as Window & { __arroxyMockEmitClipboardUrl?: (url: string) => void }).__arroxyMockEmitClipboardUrl = (url) => {
+    clipboardUrlListeners.forEach((listener) => listener(url));
+  };
 
   function emitScenarioUpdate(listener: (info: UpdateAvailablePayload) => void): void {
     const update = scenarioState.update ?? { version: '1.2.0', currentVersion: '0.0.1', installChannel: 'direct' as const };
@@ -298,6 +303,10 @@ export function installBrowserMock(): void {
           return { ok: false, error: scenarioState.probeError };
         }
 
+        if (shouldMockEmptyPlaylistScopeReload(scenarioState.scenario, input.playlistMode, input.playlistScope)) {
+          return { ok: false, error: { kind: 'other', message: 'Playlist returned no entries' } };
+        }
+
         if (scenarioState.probeResult) {
           return {
             ok: true,
@@ -447,7 +456,10 @@ export function installBrowserMock(): void {
         progressListeners.add(listener);
         return () => progressListeners.delete(listener);
       },
-      onClipboardUrl: () => () => undefined,
+      onClipboardUrl: (listener) => {
+        clipboardUrlListeners.add(listener);
+        return () => clipboardUrlListeners.delete(listener);
+      },
       onWarmupProgress: (listener) => {
         warmupProgressListeners.add(listener);
         return () => warmupProgressListeners.delete(listener);

@@ -117,9 +117,9 @@ export const de = {
   feat_privacy_3: "Dateien direkt in den von dir gewählten Ordner gespeichert",
   feat_workflow_h3: "Workflow",
   feat_workflow_1:
-    "**Beliebigen Link einfügen** — YouTube-Videos, Shorts, Kanäle, Playlists, Podcasts und Musik sowie 2000+ weitere von yt-dlp unterstützte Seiten; lade die ganze Playlist herunter oder wähle zuerst einzelne Videos aus",
+    "**Flexible Startmodi** — wähle einen geführten Einzel-Download, eine Playlist-/Kanal-Auswahl, Bulk-URL-Eingabe oder Quick Download mit gespeicherten Standardwerten",
   feat_workflow_2:
-    "**Mehrfach-Download-Warteschlange** — mehrere Downloads parallel verfolgen",
+    "**Zentrale Download-Warteschlange** — jeder Einzel-, Playlist-, Bulk- oder Quick-Job landet an einem Ort für Fortschritt, Pausieren, Fortsetzen, Abbrechen, Wiederholen und Priorität",
   feat_workflow_3:
     "**Zwischenablage-Überwachung** — kopiere einen YouTube-Link und Arroxy füllt die URL automatisch aus, wenn du die App wieder fokussierst (in den erweiterten Einstellungen umschaltbar)",
   feat_workflow_4:
@@ -131,7 +131,7 @@ export const de = {
   feat_workflow_7:
     "**Playlist-Sync** — scannt eine Playlist erneut gegen einen lokalen Ordner, um bereits heruntergeladene Videos zu überspringen; erzeugt eine `.m3u`-Playlistdatei, die nach jedem Video aktualisiert wird",
   feat_workflow_8:
-    "**Vorsichtsmodus** — konfigurierbare Tempo-Presets (*Aus · Ausgewogen · Vorsichtig · Benutzerdefiniert*) fügen Pausen zwischen Anfragen hinzu und begrenzen Fragment-Threads, um Bot-Blocks bei großen Playlists zu reduzieren",
+    "**Geschwindigkeits- und Pacing-Kontrollen** — begrenze die Download-Bandbreite, füge Anfragepausen hinzu und passe Fragment-Threads mit Presets an (*Aus · Ausgewogen · Vorsichtig · Benutzerdefiniert*)",
   feat_post_h3: "Untertitel & Nachbearbeitung",
   feat_post_1:
     "**Untertitel** in SRT, VTT oder ASS — manuell oder automatisch generiert, in jeder verfügbaren Sprache",
@@ -300,19 +300,18 @@ export const de = {
     "Nein. yt-dlp wird beim ersten Start automatisch heruntergeladen und auf deinem Rechner gecacht; ffmpeg und ffprobe werden mit der App geliefert. Danach ist keine weitere Einrichtung nötig.",
   faq_q8: "Kann ich Playlists oder ganze Kanäle herunterladen?",
   faq_a8:
-    "Ja — beides. Füge eine Playlist-URL oder eine Kanal-URL ein (z. B. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy zählt bis zu 500 Einträge auf, danach stellst du die gesamte Liste oder einzelne Videos in die Warteschlange. Datums- und Anzahlfilter folgen in Kürze.",
+    "Ja — beides. Füge eine Playlist-URL oder Kanal-URL ein (z. B. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); wähle, wie viele Einträge gescannt werden sollen, und stelle dann die ganze Liste in die Warteschlange oder wähle einzelne Videos aus. Datumsfilter kommen bald.",
   faq_q9: 'macOS sagt „die App ist beschädigt" — was tun?',
   faq_a9:
     'Das ist macOS Gatekeeper, der eine unsignierte App blockiert — kein echter Schaden. Siehe ["App is damaged" — Terminal-Fix](#macos-first-launch) für den einzeiligen `xattr`-Befehl, der das behebt.',
   faq_q10: "Ist das Herunterladen von YouTube-Videos legal?",
   faq_a10:
     "Für den persönlichen, privaten Gebrauch ist es in den meisten Rechtsordnungen allgemein akzeptiert. Du bist selbst dafür verantwortlich, die [Nutzungsbedingungen](https://www.youtube.com/t/terms) von YouTube und die Urheberrechtsgesetze deines Landes einzuhalten.",
-  plan_intro: "Was kommt — grob nach Priorität sortiert:",
+  plan_intro: "Weiter geplant — grob nach Priorität sortiert:",
   plan_col1: "Funktion",
   plan_col2: "Beschreibung",
   plan_r1_name: "**Playlist- & Kanal-Filter**",
-  plan_r1_desc:
-    "Datums- und Anzahlfilter beim Aufzählen einer Playlist oder eines Kanals (derzeit ist die Grenze fest auf 500 Einträge gesetzt)",
+  plan_r1_desc: "Datumsfilter beim Einlesen einer Playlist oder eines Kanals",
   plan_r2_name: "**Mehrere URLs auf einmal eingeben**",
   plan_r2_desc: "Mehrere URLs einfügen und alle auf einmal starten",
   plan_r4_name: "**Eigene Dateinamen-Vorlagen**",

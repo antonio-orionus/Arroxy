@@ -121,11 +121,14 @@ jobs:
           OPENPANEL_CLIENT_ID: ${{ secrets.OPENPANEL_CLIENT_ID }}
           OPENPANEL_CLIENT_SECRET: ${{ secrets.OPENPANEL_CLIENT_SECRET }}
 
-  finalize:
-    needs: build
+  publish-release:
+    needs: [build, upload-flatpak]
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
+      attestations: write
+      artifact-metadata: write
     steps:
       - uses: actions/checkout@v6
       - name: Set release title and notes
@@ -185,17 +188,100 @@ jobs:
           exit 1
       - name: Generate SHA256SUMS
         run: |
+          set -euo pipefail
+
+          VERSION="${GITHUB_REF_NAME#v}"
+          rm -rf artifacts
           mkdir artifacts
-          gh release download ${{ github.ref_name }} \
+
+          gh release download "${GITHUB_REF_NAME}" \
+            --repo "${GITHUB_REPOSITORY}" \
             --dir artifacts \
-            --pattern "*.exe" \
-            --pattern "*.dmg" \
-            --pattern "*.AppImage" \
-            --pattern "*.tar.gz"
-          sha256sum artifacts/* > SHA256SUMS
-          gh release upload ${{ github.ref_name }} SHA256SUMS --clobber
+            --pattern "Arroxy-Setup-*.exe" \
+            --pattern "Arroxy-Portable-*.exe" \
+            --pattern "Arroxy-*.dmg" \
+            --pattern "Arroxy-*.AppImage" \
+            --pattern "Arroxy-*.tar.gz" \
+            --pattern "Arroxy-*.flatpak"
+
+          required=(
+            "Arroxy-Setup-${VERSION}.exe"
+            "Arroxy-Portable-${VERSION}.exe"
+            "Arroxy-${VERSION}-arm64.dmg"
+            "Arroxy-${VERSION}-x64.dmg"
+            "Arroxy-${VERSION}.AppImage"
+            "Arroxy-${VERSION}.tar.gz"
+            "Arroxy-${VERSION}.flatpak"
+          )
+          for file in "${required[@]}"; do
+            if [ ! -f "artifacts/${file}" ]; then
+              echo "::error::Missing required release asset for checksums: ${file}"
+              find artifacts -maxdepth 1 -type f -printf '%f\n' | sort
+              exit 1
+            fi
+          done
+
+          (cd artifacts && sha256sum * > ../SHA256SUMS)
+          gh release upload "${GITHUB_REF_NAME}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            SHA256SUMS \
+            --clobber
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate artifact attestations
+        uses: actions/attest@v4
+        with:
+          subject-path: |
+            artifacts/Arroxy-Setup-*.exe
+            artifacts/Arroxy-Portable-*.exe
+            artifacts/Arroxy-*.dmg
+            artifacts/Arroxy-*.AppImage
+            artifacts/Arroxy-*.tar.gz
+            artifacts/Arroxy-*.flatpak
+            SHA256SUMS
+      - name: Ensure GitHub CLI supports attestations
+        run: |
+          set -euo pipefail
+
+          if gh attestation --help >/dev/null 2>&1; then
+            gh --version
+            exit 0
+          fi
+
+          sudo mkdir -p -m 755 /etc/apt/keyrings
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+            | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null
+          sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+            | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
+          sudo apt-get update
+          sudo apt-get install -y gh
+
+          gh attestation --help >/dev/null
+          gh --version
+      - name: Verify artifact attestations
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          verify_attestation() {
+            local artifact="$1"
+            for attempt in $(seq 1 6); do
+              if gh attestation verify "$artifact" -R "${GITHUB_REPOSITORY}"; then
+                return 0
+              fi
+              echo "Attestation not ready for ${artifact} (${attempt}/6); retrying..."
+              sleep 10
+            done
+            echo "::error::Could not verify attestation for ${artifact}"
+            return 1
+          }
+
+          while IFS= read -r artifact; do
+            verify_attestation "$artifact"
+          done < <(find artifacts -maxdepth 1 -type f | sort)
+          verify_attestation SHA256SUMS
       - name: Publish release
         # Tags w/ a semver pre-release suffix (e.g. v0.4.0-beta.1) un-draft as
         # GitHub Pre-release. electron-updater's GitHub provider queries
@@ -217,10 +303,10 @@ jobs:
     # Build a Flatpak bundle for the GitHub Release only.
     # This does not publish to Flathub or commit manifest changes back to main.
     #
-    # Depends on `build` (not `finalize`) so it runs in parallel with the
-    # Windows build + finalize chain instead of waiting on it. The tar.gz
+    # Depends on `build` so Flatpak can be uploaded before `publish-release`
+    # generates SHA256SUMS and verifies release asset attestations. The tar.gz
     # hash is computed directly from the artifact rather than read out of
-    # SHA256SUMS — saves ~5 min on the release pipeline tail.
+    # SHA256SUMS, keeping this job independent from the final publish gate.
     needs: build
     runs-on: ubuntu-latest
     container:
@@ -294,7 +380,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   notify-web-release-manifest:
-    needs: [finalize, upload-flatpak]
+    needs: publish-release
     # Only stable releases should update the public landing-page manifest.
     # Pre-releases are intentionally invisible to /releases/latest.
     if: ${{ !contains(github.ref_name, '-') }}
@@ -312,7 +398,7 @@ jobs:
             -f client_payload[source_repo]="$GITHUB_REPOSITORY"
 
   publish-scoop:
-    needs: finalize
+    needs: publish-release
     # Skip for pre-release tags (e.g. v0.4.0-beta.1) — only stable releases
     # bump the public Scoop bucket.
     if: ${{ !contains(github.ref_name, '-') }}
@@ -354,7 +440,7 @@ jobs:
           git push
 
   publish-homebrew:
-    needs: finalize
+    needs: publish-release
     # Skip for pre-release tags — only stable releases bump the Homebrew tap.
     if: ${{ !contains(github.ref_name, '-') }}
     runs-on: ubuntu-latest

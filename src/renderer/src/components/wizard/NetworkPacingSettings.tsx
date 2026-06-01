@@ -8,7 +8,6 @@ import { useAppStore } from '../../store/useAppStore.js';
 import { Input } from '../ui/input.js';
 import { RadioOption } from '../ui/radio-option.js';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip.js';
-import { PlaylistProbeLimitSelector } from './PlaylistProbeLimitSelector.js';
 
 const CUSTOM_FIELDS = [
   { key: 'pacingSleepRequests', labelKey: 'sleepRequests', unitKey: 'seconds', testId: 'pacing-sleep-requests' },
@@ -93,17 +92,6 @@ export function NetworkPacingSettings(): JSX.Element {
       <div className="flex flex-col gap-0.5">
         <span className="text-[13px] font-medium text-foreground">{t('wizard.url.networkPacing.heading')}</span>
         <span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.networkPacing.description')}</span>
-      </div>
-
-      <div className="flex flex-col gap-1.5 rounded-md border border-[var(--border-strong)] bg-background/35 p-2.5" data-testid="playlist-probe-limit-section">
-        <div className="flex items-center gap-1">
-          <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.url.playlistProbeLimit.label')}</span>
-          <HelpTooltip testId="playlist-probe-limit-tooltip" label={t('wizard.url.playlistProbeLimit.label')}>
-            {t('wizard.url.playlistProbeLimit.tooltip')}
-          </HelpTooltip>
-        </div>
-        <p className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.playlistProbeLimit.description')}</p>
-        <PlaylistProbeLimitSelector testId="playlist-probe-limit" className="w-full" />
       </div>
 
       <div className="flex flex-col gap-1.5 rounded-md border border-[var(--border-strong)] bg-background/35 p-2.5">

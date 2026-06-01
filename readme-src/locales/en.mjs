@@ -116,9 +116,9 @@ export const en = {
   feat_privacy_3: "Files saved straight to the folder you choose",
   feat_workflow_h3: "Workflow",
   feat_workflow_1:
-    "**Paste any link** — YouTube videos, Shorts, channels, playlists, podcasts, and Music, plus 2000+ other sites yt-dlp supports; download the whole playlist or pick specific videos first",
+    "**Flexible start modes** — choose a guided single download, playlist/channel picker, bulk URL paste, or Quick Download with saved defaults",
   feat_workflow_2:
-    "**Multi-download queue** — track several downloads in parallel",
+    "**Central download queue** — every single, playlist, bulk, or quick job lands in one place for progress, pause, resume, cancel, retry, and priority control",
   feat_workflow_3:
     "**Clipboard watch** — copy a YouTube link and Arroxy auto-fills the URL when you refocus the app (toggle in Advanced settings)",
   feat_workflow_4:
@@ -130,7 +130,7 @@ export const en = {
   feat_workflow_7:
     "**Playlist sync** — re-scan a playlist against a local folder to skip already-downloaded videos; generates an `.m3u` playlist file updated as each video downloads",
   feat_workflow_8:
-    "**Cautious mode** — configurable pacing presets (*Off · Balanced · Careful · Custom*) that add delays between requests and cap fragment threads, reducing the chance of bot-blocks on heavy playlists",
+    "**Speed and pacing controls** — cap download bandwidth, add request delays, and tune fragment threads with presets (*Off · Balanced · Careful · Custom*)",
   feat_post_h3: "Subtitles & post-processing",
   feat_post_1:
     "**Subtitles** in SRT, VTT, or ASS — manual or auto-generated, in any available language",
@@ -299,19 +299,19 @@ export const en = {
     "No. yt-dlp is downloaded automatically on first launch and cached on your machine; ffmpeg and ffprobe ship with the app. After that, no extra setup is needed.",
   faq_q8: "Can I download playlists or whole channels?",
   faq_a8:
-    "Yes — both. Paste a playlist URL or a channel URL (e.g. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy enumerates up to 500 entries, then you queue the whole list or pick specific videos. Date-range and count filters are coming soon.",
+    "Yes — both. Paste a playlist URL or a channel URL (e.g. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); choose how many entries to scan, then queue the whole list or pick specific videos. Date-range filters are coming soon.",
   faq_q9: 'macOS says "the app is damaged" — what do I do?',
   faq_a9:
     'That\'s macOS Gatekeeper blocking an unsigned app, not actual damage. See ["App is damaged" — Terminal fix](#macos-first-launch) for the one-line `xattr` command that clears it.',
   faq_q10: "Is downloading YouTube videos legal?",
   faq_a10:
     "For personal, private use it is generally accepted in most jurisdictions. You are responsible for complying with YouTube's [Terms of Service](https://www.youtube.com/t/terms) and your local copyright laws.",
-  plan_intro: "Coming up — roughly in priority order:",
+  plan_intro: "Still planned — roughly in priority order:",
   plan_col1: "Feature",
   plan_col2: "Description",
   plan_r1_name: "**Playlist & channel filters**",
   plan_r1_desc:
-    "Date-range and count filters when enumerating a playlist or channel (today the cap is a fixed 500 entries)",
+    "Date-range filters when enumerating a playlist or channel",
   plan_r2_name: "**Batch URL input**",
   plan_r2_desc: "Paste multiple URLs at once and run them in one go",
   plan_r4_name: "**Custom filename templates**",

@@ -289,11 +289,11 @@ Tag w/ semver pre-release suffix (e.g. `v0.4.0-beta.1`):
 
 ### Release notes — CHANGELOG.md is SSOT
 
-Release notes are hand-written in `CHANGELOG.md` and keyed by version (e.g. `## 0.3.5-beta.1`). The `finalize` job in `release.yml` extracts the matching section, appends the auto-generated "What's Changed" PR list + Full Changelog link, and posts the combined body as the GitHub Release notes.
+Release notes are hand-written in `CHANGELOG.md` and keyed by version (e.g. `## 0.3.5-beta.1`). The `publish-release` job in `release.yml` extracts the matching section, appends the auto-generated "What's Changed" PR list + Full Changelog link, and posts the combined body as the GitHub Release notes.
 
 **Before tagging a release**, add a new `## <version>` section at the top of `CHANGELOG.md` in the same shape as the previous entry. Tone is friendly user-facing prose grouped by feature (look at `## 0.3.4` as the reference). If no matching section exists, the workflow falls back to pure auto-generated notes and emits a `::warning::` — the release will still publish but the body will only be the PR list.
 
-Do **not** edit GitHub Release notes directly via the web UI or `gh release edit`. The `finalize` step runs late in the pipeline and will overwrite manual edits made before it. Edit `CHANGELOG.md` instead and push a fix-up commit; re-running `finalize` rewrites the notes from the file.
+Do **not** edit GitHub Release notes directly via the web UI or `gh release edit`. The `publish-release` step runs late in the pipeline and will overwrite manual edits made before it. Edit `CHANGELOG.md` instead and push a fix-up commit; re-running `publish-release` rewrites the notes from the file.
 
 ### Pre-release checks
 
@@ -335,11 +335,13 @@ git push --follow-tags
 
 ### Job graph
 
-`.github/workflows/release.yml`: `verify-version` → `quality-gate` (`bun run check`) → `prepare-release` → `build` matrix (linux + mac on `ubuntu-latest`/`macos-latest`) → `finalize`; `build-flatpak` starts after `build`, then `upload-flatpak`; stable tags also run `publish-scoop` + `publish-homebrew` after `finalize`, and `notify-web-release-manifest` after both `finalize` and `upload-flatpak`. Read the YAML for step-level detail.
+`.github/workflows/release.yml`: `verify-version` → `quality-gate` (`bun run check`) → `prepare-release` → `build` matrix (linux + mac on `ubuntu-latest`/`macos-latest`); `build-flatpak` starts after `build`, then `upload-flatpak`; `publish-release` waits for `upload-flatpak`, polls for Windows assets, generates `SHA256SUMS`, attests and verifies user-facing release assets, then un-drafts the release. Stable tags also run `publish-scoop`, `publish-homebrew`, and `notify-web-release-manifest` after `publish-release`. Read the YAML for step-level detail.
 
-Windows is built separately via a dedicated Windows Installer workflow (smoke-testable before publish); `finalize` polls up to 15min until the Windows Setup + Portable `.exe` artifacts appear before generating `SHA256SUMS` and un-drafting the release.
+Windows is built separately via a dedicated Windows Installer workflow (smoke-testable before publish); `publish-release` polls up to 15min until the Windows Setup + Portable `.exe` artifacts appear before generating `SHA256SUMS` and un-drafting the release.
 
-`.github/workflows/release_to_winget.yml` triggers on the `released` event: once `finalize` un-drafts the release, the SHA-pinned `vedantmgoyal9/winget-releaser` action runs `komac update AntonioOrionus.Arroxy --submit` → opens a PR against `microsoft/winget-pkgs`. Microsoft reviewers merge within hours-to-a-day. Keep that third-party action pinned to a full commit SHA because it receives `WINGET_TOKEN`.
+`publish-release` uses GitHub artifact attestations for user-facing downloads only: Setup `.exe`, Portable `.exe`, both DMGs, AppImage, tar.gz, Flatpak, and `SHA256SUMS`. It intentionally excludes updater metadata (`latest*.yml`) and blockmaps. To verify a downloaded asset locally, install a recent GitHub CLI and run `gh attestation verify <asset> -R antonio-orionus/Arroxy`. Attestations are provenance, not code signing, and do not replace electron-updater's release metadata checks.
+
+`.github/workflows/release_to_winget.yml` triggers on the `released` event: once `publish-release` un-drafts the release, the SHA-pinned `vedantmgoyal9/winget-releaser` action runs `komac update AntonioOrionus.Arroxy --submit` → opens a PR against `microsoft/winget-pkgs`. Microsoft reviewers merge within hours-to-a-day. Keep that third-party action pinned to a full commit SHA because it receives `WINGET_TOKEN`.
 
 ### Required GitHub repo secret
 

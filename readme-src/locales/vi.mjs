@@ -116,9 +116,9 @@ export const vi = {
   feat_privacy_3: "File được lưu thẳng vào thư mục bạn chọn",
   feat_workflow_h3: "Quy trình làm việc",
   feat_workflow_1:
-    "**Dán bất kỳ liên kết nào** — video YouTube, Shorts, kênh, playlist, podcast và YouTube Music, cùng hơn 2000 trang mà yt-dlp hỗ trợ; tải toàn bộ playlist hoặc chọn trước những video cụ thể",
+    "**Chế độ bắt đầu linh hoạt** — chọn tải một video có hướng dẫn, bộ chọn playlist/kênh, dán URL hàng loạt, hoặc Quick Download với mặc định đã lưu",
   feat_workflow_2:
-    "**Hàng đợi tải xuống nhiều luồng** — theo dõi nhiều lượt tải song song",
+    "**Hàng đợi tải xuống trung tâm** — mọi tác vụ đơn lẻ, playlist, hàng loạt hoặc nhanh đều vào một nơi để theo dõi tiến độ, tạm dừng, tiếp tục, hủy, thử lại và điều chỉnh ưu tiên",
   feat_workflow_3:
     "**Theo dõi clipboard** — sao chép liên kết YouTube và Arroxy tự điền URL khi bạn chuyển lại ứng dụng (bật/tắt trong Cài đặt nâng cao)",
   feat_workflow_4:
@@ -130,7 +130,7 @@ export const vi = {
   feat_workflow_7:
     "**Đồng bộ danh sách phát** — quét lại danh sách phát với một thư mục cục bộ để bỏ qua các video đã tải; tạo tệp danh sách phát `.m3u` được cập nhật sau mỗi video tải xuống",
   feat_workflow_8:
-    "**Chế độ thận trọng** — các preset nhịp độ có thể cấu hình (*Tắt · Cân bằng · Thận trọng · Tùy chỉnh*) thêm độ trễ giữa các yêu cầu và giới hạn fragment threads, giảm khả năng gặp bot-blocks trên danh sách phát lớn",
+    "**Điều khiển tốc độ và nhịp tải** — giới hạn băng thông tải xuống, thêm độ trễ giữa các yêu cầu và tinh chỉnh fragment threads bằng preset (*Tắt · Cân bằng · Cẩn thận · Tùy chỉnh*)",
   feat_post_h3: "Phụ đề & hậu xử lý",
   feat_post_1:
     "**Phụ đề** dạng SRT, VTT hoặc ASS — thủ công hoặc tự tạo, trong bất kỳ ngôn ngữ nào có sẵn",
@@ -299,19 +299,18 @@ export const vi = {
     "Không. yt-dlp được tải xuống tự động khi khởi động lần đầu và được lưu vào bộ nhớ đệm trên máy của bạn; ffmpeg và ffprobe đi kèm với ứng dụng. Sau đó, không cần thiết lập thêm gì.",
   faq_q8: "Tôi có thể tải xuống danh sách phát hoặc toàn bộ kênh không?",
   faq_a8:
-    "Có — cả hai. Dán URL danh sách phát hoặc URL kênh (ví dụ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy liệt kê tới 500 mục, sau đó bạn xếp hàng toàn bộ danh sách hoặc chọn từng video cụ thể. Bộ lọc theo khoảng ngày và số lượng sẽ sớm ra mắt.",
+    "Có — cả hai. Dán URL playlist hoặc kênh (ví dụ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); chọn số mục cần quét, rồi đưa cả danh sách vào hàng đợi hoặc chọn từng video. Bộ lọc theo khoảng ngày sẽ có sớm.",
   faq_q9: 'macOS báo "ứng dụng bị hỏng" — tôi phải làm gì?',
   faq_a9:
     'Đó là macOS Gatekeeper chặn ứng dụng chưa được ký, không phải file thực sự bị hỏng. Xem ["App is damaged" — sửa bằng Terminal](#macos-first-launch) để biết lệnh `xattr` một dòng giải quyết vấn đề.',
   faq_q10: "Tải video YouTube có hợp pháp không?",
   faq_a10:
     "Đối với mục đích sử dụng cá nhân, riêng tư thì nhìn chung được chấp nhận ở hầu hết các khu vực pháp lý. Bạn có trách nhiệm tuân thủ [Điều khoản dịch vụ](https://www.youtube.com/t/terms) của YouTube và luật bản quyền tại địa phương của bạn.",
-  plan_intro: "Sắp ra mắt — theo thứ tự ưu tiên:",
+  plan_intro: "Vẫn được lên kế hoạch — theo thứ tự ưu tiên tương đối:",
   plan_col1: "Tính năng",
   plan_col2: "Mô tả",
   plan_r1_name: "**Bộ lọc danh sách phát & kênh**",
-  plan_r1_desc:
-    "Bộ lọc theo khoảng ngày và số lượng khi liệt kê danh sách phát hoặc kênh (hiện tại giới hạn cố định là 500 mục)",
+  plan_r1_desc: "Bộ lọc khoảng ngày khi liệt kê playlist hoặc kênh",
   plan_r2_name: "**Nhập URL hàng loạt**",
   plan_r2_desc: "Dán nhiều URL cùng lúc và chạy tất cả trong một lần",
   plan_r4_name: "**Mẫu tên file tùy chỉnh**",

@@ -5,7 +5,7 @@
 
 import { DEFAULTS } from '@shared/constants.js';
 import { DEFAULT_AUDIO_BITRATE } from '@shared/schemas.js';
-import type { BulkMetadataItemStatus, BulkMetadataStatus, FormatOption, PlaylistEntry, PlaylistSelection, SubtitleMap, WizardMode } from '@shared/types.js';
+import type { BulkMetadataItemStatus, BulkMetadataStatus, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode } from '@shared/types.js';
 import type { SetState, WizardStep } from '../types.js';
 
 // Full wizard reset state — owned conceptually by the four slices but applied
@@ -33,6 +33,9 @@ export const RESET_WIZARD_STATE = {
   playlistIsMultiVideo: false,
   playlistLikelyCapped: false,
   playlistProbeLoading: false,
+  playlistScopeReloading: false,
+  playlistScopeError: null as string | null,
+  playlistScope: { items: { kind: 'app-limit' } } as PlaylistScope,
   playlistSelection: null as PlaylistSelection | null,
   bulkMetadataStatus: 'idle' as BulkMetadataStatus,
   bulkMetadataCompleted: 0,

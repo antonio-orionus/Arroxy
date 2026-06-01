@@ -116,10 +116,8 @@ export const zh = {
   feat_privacy_2: "无登录、无 Cookie、无 Google 账号绑定",
   feat_privacy_3: "文件直接保存到你选择的文件夹",
   feat_workflow_h3: "工作流",
-  feat_workflow_1:
-    "**粘贴任意链接** — YouTube 视频、Shorts、频道、播放列表、播客和 Music，以及 yt-dlp 支持的 2000+ 个其他网站；可下载整个播放列表，也可先挑选具体视频",
-  feat_workflow_2:
-    "**多任务下载队列** — 并行跟踪多个下载",
+  feat_workflow_1: "**灵活的开始模式** — 选择引导式单个下载、播放列表/频道选择器、批量粘贴 URL，或使用已保存默认值的 Quick Download",
+  feat_workflow_2: "**中央下载队列** — 单个、播放列表、批量或快速任务都会进入同一个地方，用于查看进度、暂停、继续、取消、重试和控制优先级",
   feat_workflow_3:
     "**剪贴板监控** — 复制 YouTube 链接后切回应用，Arroxy 自动填入 URL（可在高级设置中切换）",
   feat_workflow_4:
@@ -130,8 +128,7 @@ export const zh = {
     "**21 种语言** — 自动检测系统语言，随时切换",
   feat_workflow_7:
     "**播放列表同步** — 将播放列表与本地文件夹重新比对，跳过已下载的视频；生成一个 `.m3u` 播放列表文件，并在每个视频下载后更新",
-  feat_workflow_8:
-    "**谨慎模式** — 可配置的节奏预设（*关闭 · 均衡 · 谨慎 · 自定义*）会在请求之间加入延迟并限制分片线程数，降低大型播放列表触发 bot-blocks 的概率",
+  feat_workflow_8: "**速度和节奏控制** — 限制下载带宽、添加请求延迟，并用预设调整分片线程（*关闭 · 平衡 · 谨慎 · 自定义*）",
   feat_post_h3: "字幕与后处理",
   feat_post_1:
     "**字幕**以 SRT、VTT 或 ASS 格式下载 — 手动或自动生成，支持任意可用语言",
@@ -300,19 +297,18 @@ export const zh = {
     "不需要。yt-dlp 会在首次启动时自动下载并缓存到你的机器上；ffmpeg 和 ffprobe 随应用一起提供。之后无需任何额外配置。",
   faq_q8: "能下载播放列表或整个频道吗？",
   faq_a8:
-    "两者都支持。粘贴播放列表或频道链接（如 `youtube.com/@handle`、`/channel/UC…`、`/c/Name`、`/user/Old`）；Arroxy 最多枚举 500 条，然后可以将整个列表加入队列，也可以挑选具体视频。按日期范围和数量筛选的功能即将推出。",
+    "可以，两者都支持。粘贴播放列表或频道 URL（例如 `youtube.com/@handle`、`/channel/UC…`、`/c/Name`、`/user/Old`）；选择要扫描的条目数量，然后将整个列表加入队列或选择特定视频。日期范围筛选即将推出。",
   faq_q9: 'macOS 提示"应用已损坏" — 怎么处理？',
   faq_a9:
     '这是 macOS Gatekeeper 在拦截未签名应用，并非真正损坏。请参见["App is damaged" — Terminal 修复方法](#macos-first-launch)，其中有一行 `xattr` 命令即可清除该问题。',
   faq_q10: "下载 YouTube 视频合法吗？",
   faq_a10:
     "在大多数地区，个人私人使用一般被接受。你需要自行负责遵守 YouTube 的[服务条款](https://www.youtube.com/t/terms)及当地版权法律。",
-  plan_intro: "即将推出 — 大致按优先级排序：",
+  plan_intro: "仍在计划中 — 大致按优先级排序：",
   plan_col1: "功能",
   plan_col2: "描述",
   plan_r1_name: "**播放列表与频道筛选**",
-  plan_r1_desc:
-    "枚举播放列表或频道时按日期范围和数量筛选（当前上限为固定的 500 条）",
+  plan_r1_desc: "枚举播放列表或频道时的日期范围筛选",
   plan_r2_name: "**批量 URL 输入**",
   plan_r2_desc: "一次粘贴多个链接，全部一起运行",
   plan_r4_name: "**自定义文件名模板**",

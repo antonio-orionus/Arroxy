@@ -116,9 +116,9 @@ export const my = {
   feat_privacy_3: "သင်ရွေးချယ်သောဖိုဒါတွင် ဖိုင်များကို တိုက်ရိုက်သိမ်းဆည်းသည်",
   feat_workflow_h3: "Workflow",
   feat_workflow_1:
-    "**မည်သည့်လင့်ခ်မဆို paste လုပ်ပါ** — YouTube video များ၊ Shorts၊ channel များ၊ playlist များ၊ podcast များနှင့် Music၊ ထို့အပြင် yt-dlp ထောက်ပံ့သော ၂၀၀၀+ အခြားဆိုဒ်များ; playlist တစ်ခုလုံးကို download လုပ်နိုင်သလို သင်ရွေးထားသော video များကိုသာ အရင်ရွေးပြီး download လုပ်နိုင်သည်",
+    "**ပြောင်းလွယ်ပြင်လွယ် စတင်မုဒ်များ** — လမ်းညွှန်ထားသော single download၊ playlist/channel picker၊ bulk URL paste၊ သို့မဟုတ် သိမ်းထားသော defaults ဖြင့် Quick Download ကိုရွေးပါ",
   feat_workflow_2:
-    "**Multi-download queue** — downloads များစွာကို တပြိုင်တည်း ခြေရာခံပါ",
+    "**ဗဟို download queue** — single၊ playlist၊ bulk၊ quick job အားလုံးသည် progress၊ pause၊ resume၊ cancel၊ retry နှင့် priority control အတွက် တစ်နေရာတည်းသို့ ရောက်သည်",
   feat_workflow_3:
     "**Clipboard watch** — YouTube link ကို copy လုပ်ပြီး app ကို refocus လုပ်သောအခါ Arroxy သည် URL ကို auto-fill လုပ်သည် (Advanced settings တွင် toggle နှိပ်ပါ)",
   feat_workflow_4:
@@ -130,7 +130,7 @@ export const my = {
   feat_workflow_7:
     "**Playlist sync** — ဒေါင်းလုဒ်လုပ်ပြီးသား ဗီဒီယိုများကို ကျော်ရန် playlist ကို local folder နှင့် ပြန်စစ်ဆေးပြီး၊ ဗီဒီယိုတစ်ခုစီ ဒေါင်းလုဒ်ပြီးတိုင်း အပ်ဒိတ်ဖြစ်သော `.m3u` playlist ဖိုင်ကို ဖန်တီးသည်",
   feat_workflow_8:
-    "**Cautious mode** — တောင်းဆိုမှုများအကြား နှောင့်နှေးချိန်ထည့်ပြီး fragment threads ကို ကန့်သတ်သည့် ပြင်ဆင်နိုင်သော pacing presets (*ပိတ် · မျှတ · သတိထား · စိတ်ကြိုက်*) ဖြင့် ကြီးမားသော playlists များတွင် bot-block ဖြစ်နိုင်ခြေကို လျှော့ချသည်",
+    "**Speed နှင့် pacing controls** — download bandwidth ကိုကန့်သတ်ပါ၊ request delays ထည့်ပါ၊ presets (*Off · Balanced · Careful · Custom*) ဖြင့် fragment threads ကိုညှိပါ",
   feat_post_h3: "Subtitles နှင့် post-processing",
   feat_post_1:
     "SRT, VTT သို့မဟုတ် ASS တွင် **Subtitles** — ကိုယ်တိုင်ရိုက်ထည့်ထားသော သို့မဟုတ် auto-generated၊ မည်သည့် language မဆို",
@@ -299,19 +299,18 @@ export const my = {
     "မလိုပါ။ yt-dlp သည် ပထမဆုံး ဖွင့်ချိန်တွင် အလိုအလျောက် ဒေါင်းလုဒ်လုပ်ပြီး သင့်စက်တွင် cache လုပ်သည်; ffmpeg နှင့် ffprobe သည် app နှင့်အတူ ပါလာသည်။ ထို့နောက် နောက်ထပ် setup မလိုအပ်ပါ။",
   faq_q8: "Playlist များ သို့မဟုတ် channel တစ်ခုလုံး ဒေါင်းလုဒ်ဆွဲနိုင်သလား?",
   faq_a8:
-    "ဟုတ်ပါတယ် — နှစ်ခုလုံး။ playlist URL သို့မဟုတ် channel URL (ဥပမာ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`) ကို paste လုပ်ပါ; Arroxy သည် ၅၀၀ ခုအထိ ရေတွက်ပြီး စာရင်းတစ်ခုလုံးကို queue ထည့်နိုင်သည် သို့မဟုတ် သင်ရွေးချယ်သော video များကိုသာ ရွေးနိုင်သည်။ ရက်စွဲ-အပိုင်းအခြားနှင့် အရေအတွက် filters များ မကြာမီလာမည်။",
+    "ရပါတယ် — နှစ်မျိုးလုံး။ playlist သို့မဟုတ် channel URL ကို paste လုပ်ပါ (ဥပမာ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); scan လုပ်မည့် entries အရေအတွက်ကိုရွေးပြီး စာရင်းတစ်ခုလုံးကို queue ထဲထည့်ပါ သို့မဟုတ် video များကို သီးသန့်ရွေးပါ။ date-range filters မကြာမီလာပါမည်။",
   faq_q9: 'macOS က "app ပျက်စီးနေသည်" ဟုဆိုသည် — ဘာလုပ်ရမည်နည်း?',
   faq_a9:
     '၎င်းသည် macOS Gatekeeper သည် unsigned app ကို ပိတ်ဆို့ခြင်းဖြစ်ပြီး တကယ်ပျက်စီးမှုမဟုတ်ပါ။ ["App is damaged" — Terminal fix](#macos-first-launch) ကိုကြည့်ပါ၊ ၎င်းကိုဖြေရှင်းသည့် တစ်ကြောင်းတည်းသော `xattr` command ပါဝင်သည်။',
   faq_q10: "YouTube ဗီဒီယိုများ ဒေါင်းလုဒ်ဆွဲခြင်း တရားဝင်ပါသလား?",
   faq_a10:
     "ကိုယ်ရေးကိုယ်တာ သုံးစွဲမှုအတွက် ကိုယ်ရေးကိုယ်တာ purposes အတွက် နိုင်ငံအများစုတွင် ယေဘုယျအားဖြင့် လက်ခံသည်။ YouTube ၏ [Terms of Service](https://www.youtube.com/t/terms) နှင့် သင့်ဒေသခံ copyright ဥပဒေများနှင့် ကိုက်ညီသည်ကို သင်ကိုယ်တိုင် တာဝန်ယူရသည်။",
-  plan_intro: "အနီးကပ် ဦးစားပေးအစဉ်လိုက် လာမည့်အရာများ:",
+  plan_intro: "ဆက်လက်စီစဉ်ထားသည် — ဦးစားပေးအစဉ်လိုက် ခန့်မှန်းအားဖြင့်:",
   plan_col1: "လုပ်ဆောင်ချက်",
   plan_col2: "ဖော်ပြချက်",
   plan_r1_name: "**Playlist နှင့် channel filters**",
-  plan_r1_desc:
-    "Playlist သို့မဟုတ် channel ကို ရေတွက်သောအခါ ရက်စွဲ-အပိုင်းအခြားနှင့် အရေအတွက် filters (ယနေ့ cap သည် ၅၀၀ ခုသတ်မှတ်ထားသည်)",
+  plan_r1_desc: "playlist သို့မဟုတ် channel ကို enumerate လုပ်သည့်အခါ date-range filters",
   plan_r2_name: "**Batch URL ထည့်သွင်းမှု**",
   plan_r2_desc: "URLs များစွာကို တစ်ကြိမ်တည်း paste လုပ်ပြီး တစ်ကြိမ်တည်း run ပါ",
   plan_r4_name: "**ကိုယ်ပိုင် filename ပုံစံများ**",

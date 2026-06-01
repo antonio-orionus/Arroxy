@@ -117,9 +117,9 @@ export const hi = {
   feat_privacy_3: "फ़ाइलें सीधे आपके चुने हुए फ़ोल्डर में सेव",
   feat_workflow_h3: "वर्कफ़्लो",
   feat_workflow_1:
-    "**कोई भी लिंक पेस्ट करें** — YouTube वीडियो, Shorts, चैनल, प्लेलिस्ट, पॉडकास्ट और Music, साथ ही 2000+ अन्य साइटें जिन्हें yt-dlp सपोर्ट करता है; पूरी playlist डाउनलोड करें या पहले चुने हुए वीडियो चुनें",
+    "**लचीले स्टार्ट मोड** — गाइडेड single download, playlist/channel picker, bulk URL paste, या saved defaults के साथ Quick Download चुनें",
   feat_workflow_2:
-    "**मल्टी-डाउनलोड क़तार** — कई डाउनलोड एक साथ ट्रैक करें",
+    "**केंद्रीय download queue** — हर single, playlist, bulk, या quick job progress, pause, resume, cancel, retry, और priority control के लिए एक जगह आता है",
   feat_workflow_3:
     "**क्लिपबोर्ड वॉच** — YouTube लिंक कॉपी करें और ऐप पर वापस आते ही Arroxy URL अपने आप भर देता है (एडवांस्ड सेटिंग्स में टॉगल करें)",
   feat_workflow_4:
@@ -131,7 +131,7 @@ export const hi = {
   feat_workflow_7:
     "**प्लेलिस्ट सिंक** — पहले से डाउनलोड किए गए वीडियो छोड़ने के लिए प्लेलिस्ट को स्थानीय फ़ोल्डर के विरुद्ध फिर से स्कैन करता है; हर वीडियो डाउनलोड होते ही अपडेट होने वाली `.m3u` प्लेलिस्ट फ़ाइल बनाता है",
   feat_workflow_8:
-    "**सावधान मोड** — कॉन्फ़िगर करने योग्य पेसिंग प्रीसेट (*बंद · संतुलित · सावधान · कस्टम*) जो अनुरोधों के बीच देरी जोड़ते हैं और फ्रैगमेंट थ्रेड सीमित करते हैं, जिससे भारी प्लेलिस्ट पर bot-blocks की संभावना घटती है",
+    "**Speed और pacing controls** — download bandwidth cap करें, request delays जोड़ें, और presets (*Off · Balanced · Careful · Custom*) से fragment threads tune करें",
   feat_post_h3: "सबटाइटल और पोस्ट-प्रोसेसिंग",
   feat_post_1:
     "**सबटाइटल** SRT, VTT या ASS में — मैनुअल या ऑटो-जेनरेटेड, किसी भी उपलब्ध भाषा में",
@@ -300,19 +300,18 @@ export const hi = {
     "नहीं। yt-dlp पहले लॉन्च पर अपने आप डाउनलोड होकर आपकी मशीन पर कैश हो जाता है; ffmpeg और ffprobe ऐप के साथ आते हैं। उसके बाद कोई अतिरिक्त सेटअप ज़रूरी नहीं।",
   faq_q8: "क्या मैं प्लेलिस्ट या पूरे चैनल डाउनलोड कर सकता हूँ?",
   faq_a8:
-    "हाँ — दोनों। एक playlist URL या channel URL (`youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`) पेस्ट करें; Arroxy 500 एंट्री तक गिनता है, फिर पूरी सूची queue करें या चुने हुए वीडियो चुनें। तारीख़-रेंज और संख्या के फ़िल्टर जल्द आ रहे हैं।",
+    "हाँ — दोनों। playlist या channel URL paste करें (जैसे `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); कितनी entries scan करनी हैं चुनें, फिर पूरी list queue करें या specific videos चुनें। date-range filters जल्द आ रहे हैं।",
   faq_q9: 'macOS कहता है "ऐप ख़राब है" — क्या करूँ?',
   faq_a9:
     'यह macOS Gatekeeper बिना साइन की ऐप को ब्लॉक कर रहा है, असली नुकसान नहीं। ["App is damaged" — Terminal fix](#macos-first-launch) देखें जहाँ एक लाइन का `xattr` कमांड इसे ठीक करता है।',
   faq_q10: "क्या YouTube वीडियो डाउनलोड करना क़ानूनी है?",
   faq_a10:
     "ज़्यादातर अधिकार-क्षेत्रों में पर्सनल, प्राइवेट इस्तेमाल के लिए यह आम तौर पर स्वीकार्य है। YouTube की [Terms of Service](https://www.youtube.com/t/terms) और अपने स्थानीय कॉपीराइट क़ानूनों का पालन करना आपकी ज़िम्मेदारी है।",
-  plan_intro: "आने वाले — लगभग प्राथमिकता के क्रम में:",
+  plan_intro: "अभी भी योजना में — लगभग प्राथमिकता के क्रम में:",
   plan_col1: "फ़ीचर",
   plan_col2: "विवरण",
   plan_r1_name: "**प्लेलिस्ट और चैनल फ़िल्टर**",
-  plan_r1_desc:
-    "प्लेलिस्ट या चैनल की गिनती करते समय तारीख़-रेंज और संख्या के फ़िल्टर (आज कैप एक निश्चित 500 एंट्री है)",
+  plan_r1_desc: "playlist या channel enumerate करते समय date-range filters",
   plan_r2_name: "**बैच URL इनपुट**",
   plan_r2_desc: "एक साथ कई URLs पेस्ट करें और सब एक झटके में चलाएँ",
   plan_r4_name: "**कस्टम फ़ाइल नाम टेम्पलेट**",

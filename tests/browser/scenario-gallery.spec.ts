@@ -70,7 +70,23 @@ test('normal happy path scenarios expose the screen picker', async ({ page }) =>
   await page.getByTestId('scenario-gallery-toggle').click();
   await expect(page.getByTestId('scenario-button-single-normal')).toBeVisible();
   await expect(page.getByTestId('scenario-button-playlist-normal')).toBeVisible();
+  await expect(page.getByTestId('scenario-button-playlist-scope-empty-reload')).toBeVisible();
   await expect(page.getByTestId('mock-step-select')).toBeVisible();
+});
+
+test('playlist scope empty reload scenario stays on playlist with inline error', async ({ page }) => {
+  await openScenario(page, 'playlist-scope-empty-reload');
+  await waitForPlaylist(page);
+
+  await page.getByTestId('playlist-scope-change').click();
+  await page.getByText('Range', { exact: true }).click();
+  await page.getByTestId('playlist-scope-range-from').fill('900');
+  await page.getByTestId('playlist-scope-range-to').fill('950');
+  await page.getByTestId('playlist-scope-apply').click();
+
+  await expect(page.getByTestId('playlist-scope-apply')).toHaveText('Reloading...');
+  await expect(page.getByTestId('playlist-scope-error')).toContainText('No videos matched that playlist scope');
+  await expect(page.getByTestId('step-playlist-items')).toBeVisible();
 });
 
 test('probe error dropdown shows all error kinds', async ({ page }) => {

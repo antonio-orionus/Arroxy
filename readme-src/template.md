@@ -316,10 +316,8 @@ sha256sum Arroxy-*.AppImage
 | {{plan_col1}}    | {{plan_col2}}    |
 | ---------------- | ---------------- |
 | {{plan_r1_name}} | {{plan_r1_desc}} |
-| {{plan_r2_name}} | {{plan_r2_desc}} |
 | {{plan_r4_name}} | {{plan_r4_desc}} |
 | {{plan_r5_name}} | {{plan_r5_desc}} |
-| {{plan_r6_name}} | {{plan_r6_desc}} |
 | {{plan_r7_name}} | {{plan_r7_desc}} |
 
 {{plan_cta}}

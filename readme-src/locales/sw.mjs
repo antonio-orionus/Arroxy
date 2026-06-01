@@ -116,9 +116,9 @@ export const sw = {
   feat_privacy_3: "Faili zimehifadhiwa moja kwa moja kwenye folda unayochagua",
   feat_workflow_h3: "Mtiririko wa kazi",
   feat_workflow_1:
-    "**Bandika kiungo chochote** — video za YouTube, Shorts, vituo, orodha za kucheza, podikasti na Muziki, pamoja na tovuti 2000+ zinazoungwa mkono na yt-dlp; pakua orodha nzima ya kucheza au chagua video maalum kwanza",
+    "**Njia rahisi za kuanza** — chagua upakuaji mmoja unaoongozwa, kichagua playlist/channel, kubandika URL nyingi, au Quick Download kwa mipangilio chaguomsingi iliyohifadhiwa",
   feat_workflow_2:
-    "**Foleni ya upakuaji wa pamoja** — fuatilia maudhui kadhaa yanayopakuliwa wakati huo huo",
+    "**Foleni kuu ya upakuaji** — kazi ya single, playlist, bulk, au quick yote huingia sehemu moja kwa maendeleo, kusitisha, kuendelea, kughairi, kujaribu tena, na udhibiti wa kipaumbele",
   feat_workflow_3:
     "**Ufuatiliaji wa ubao wa kunakili** — nakili kiungo cha YouTube na Arroxy itajaza URL kiotomatiki ukirejesha umakini kwenye programu (washa/zima katika mipangilio ya Kina)",
   feat_workflow_4:
@@ -130,7 +130,7 @@ export const sw = {
   feat_workflow_7:
     "**Usawazishaji wa orodha ya kucheza** — hukagua tena orodha ya kucheza dhidi ya folda ya ndani ili kuruka video zilizopakuliwa tayari; hutengeneza faili ya orodha ya kucheza `.m3u` inayosasishwa kila video inapopakuliwa",
   feat_workflow_8:
-    "**Hali ya tahadhari** — mipangilio ya kasi inayoweza kubadilishwa (*Imezimwa · Sawazisha · Tahadhari · Maalum*) huongeza ucheleweshaji kati ya maombi na kupunguza fragment threads, ikipunguza uwezekano wa bot-blocks kwenye orodha kubwa za kucheza",
+    "**Udhibiti wa kasi na pacing** — weka kikomo cha bandwidth ya upakuaji, ongeza ucheleweshaji wa maombi, na rekebisha fragment threads kwa presets (*Off · Balanced · Careful · Custom*)",
   feat_post_h3: "Manukuu na usindikaji wa baada ya kupakua",
   feat_post_1:
     "**Manukuu** katika SRT, VTT, au ASS — ya mkono au yaliyozalishwa kiotomatiki, katika lugha yoyote inayopatikana",
@@ -299,19 +299,18 @@ export const sw = {
     "Hapana. yt-dlp hupakuliwa kiotomatiki wakati wa uzinduzi wa kwanza na kuhifadhiwa kwenye kifaa chako; ffmpeg na ffprobe huja pamoja na programu. Baada ya hapo, hakuna usanidi wa ziada unaohitajika.",
   faq_q8: "Je, ninaweza kupakua orodha za kucheza au vituo vyote?",
   faq_a8:
-    "Ndiyo — vyote viwili. Bandika URL ya playlist au URL ya kituo (k.m. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy inahesabu hadi ingizo 500, kisha unaweza kuweka foleni orodha nzima au kuchagua video maalum. Vichujio vya masafa ya tarehe na idadi vinakuja hivi karibuni.",
+    "Ndiyo — zote mbili. Bandika URL ya playlist au channel (mf. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); chagua idadi ya vipengee vya kuchanganua, kisha weka orodha yote kwenye foleni au chagua video maalum. Vichujio vya tarehe vinakuja hivi karibuni.",
   faq_q9: 'macOS inasema "programu imeharibiwa" — nifanye nini?',
   faq_a9:
     'Hiyo ni macOS Gatekeeper inayozuia programu isiyosainiwa, si uharibifu wa kweli. Tazama ["App is damaged" — suluhisho la Terminal](#macos-first-launch) kwa amri ya mstari mmoja ya `xattr` inayoondoa kizuizi.',
   faq_q10: "Je, ni halali kupakua video za YouTube?",
   faq_a10:
     "Kwa matumizi ya kibinafsi na ya faragha, kwa ujumla inakubaliwa katika mamlaka nyingi. Unawajibika kufuata [Masharti ya Huduma](https://www.youtube.com/t/terms) ya YouTube na sheria za haki miliki za mamlaka yako.",
-  plan_intro: "Inakuja — kwa takriban mpangilio wa kipaumbele:",
+  plan_intro: "Bado imepangwa — takriban kwa mpangilio wa kipaumbele:",
   plan_col1: "Kipengele",
   plan_col2: "Maelezo",
   plan_r1_name: "**Vichujio vya orodha za kucheza na vituo**",
-  plan_r1_desc:
-    "Vichujio vya masafa ya tarehe na idadi wakati wa kuhesabu orodha ya kucheza au kituo (kwa sasa kikomo ni ingizo 500 imara)",
+  plan_r1_desc: "Vichujio vya muda wa tarehe unapoorodhesha playlist au channel",
   plan_r2_name: "**Uingizaji wa URL nyingi**",
   plan_r2_desc: "Bandika URL nyingi kwa wakati mmoja na uziendeshe mara moja",
   plan_r4_name: "**Templeti maalum za majina ya faili**",

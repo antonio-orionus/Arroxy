@@ -145,6 +145,12 @@ export function StepUrlInput(): JSX.Element {
     setPendingClipboard(null);
   }
 
+  async function handleQuickDownloadClipboard(): Promise<void> {
+    if (pendingClipboard?.kind === 'single') setWizardUrl(pendingClipboard.url);
+    setPendingClipboard(null);
+    await quickDownload();
+  }
+
   function handleDisableClipboard(): void {
     void setClipboardWatchEnabled(false);
     setPendingClipboard(null);
@@ -434,7 +440,7 @@ export function StepUrlInput(): JSX.Element {
         </div>
       </details>
 
-      <ClipboardConfirmDialog open={pendingClipboard !== null && initialized} prompt={pendingClipboard} onUse={handleConfirmClipboard} onFetch={() => void handleFetchClipboard()} onBulk={handleBulkClipboard} onDisable={handleDisableClipboard} onCancel={handleCancelClipboard} />
+      <ClipboardConfirmDialog open={pendingClipboard !== null && initialized} prompt={pendingClipboard} onUse={handleConfirmClipboard} onFetch={() => void handleFetchClipboard()} onBulk={handleBulkClipboard} onQuickDownload={() => void handleQuickDownloadClipboard()} onDisable={handleDisableClipboard} onCancel={handleCancelClipboard} quickPreparing={quickPreparing} />
       {bulkOpen ? <BulkUrlDialog open={bulkOpen} onOpenChange={setBulkOpen} initialRaw={bulkInitialRaw} /> : null}
       <IncompleteCookiesConfigDialog issue={cookiesConfigDialogIssue} onDismiss={dismissCookiesConfigDialog} onOpenSettings={openCookiesSettings} />
     </div>

@@ -25,11 +25,11 @@ function getCookiesValidationFailure(settings: Awaited<ReturnType<SettingsStore[
 export function registerDownloadHandlers(deps: DownloadHandlerDeps): void {
   const { downloadService, probeService, settingsStore } = deps;
 
-  handle<z.infer<typeof probeSchema>, ProbeResult, ProbeError>(IPC_CHANNELS.downloadsProbe, probeSchema, async ({ url, playlistMode }) => {
+  handle<z.infer<typeof probeSchema>, ProbeResult, ProbeError>(IPC_CHANNELS.downloadsProbe, probeSchema, async ({ url, playlistMode, playlistScope }) => {
     const settings = await settingsStore.get();
     const issue = getIncompleteCookiesConfigIssue(settings.common);
     if (issue) return fail<ProbeResult, ProbeError>({ kind: 'other', message: cookiesConfigIssueMessage(issue) });
-    return probeService.probe(url, settings.common.cookiesMode ?? 'off', playlistMode ?? 'auto');
+    return probeService.probe(url, settings.common.cookiesMode ?? 'off', playlistMode ?? 'auto', playlistScope);
   });
 
   // Renderer fires this when the user changes URL or navigates away from a

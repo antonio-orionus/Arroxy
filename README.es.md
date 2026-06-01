@@ -74,14 +74,14 @@ Arroxy está diseñado para una sola cosa: pega una URL y obtén un archivo loca
 
 ### Flujo de trabajo
 
-- **Pega cualquier enlace** — videos de YouTube, Shorts, canales, playlists, podcasts y Music, más 2000+ sitios compatibles con yt-dlp; descarga toda la playlist o elige primero videos concretos
-- **Cola de múltiples descargas** — sigue varias descargas en paralelo
+- **Modos de inicio flexibles** — elige una descarga individual guiada, selector de playlist/canal, pegado masivo de URLs o Quick Download con tus valores guardados
+- **Cola central de descargas** — cada trabajo individual, de playlist, masivo o rápido llega a un solo lugar para ver progreso, pausar, reanudar, cancelar, reintentar y controlar prioridad
 - **Monitoreo del portapapeles** — copia un enlace de YouTube y Arroxy rellena automáticamente la URL al volver a enfocar la app (actívalo en la Configuración avanzada)
 - **Limpieza automática de URLs** — elimina parámetros de seguimiento (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) y desempaqueta los enlaces `youtube.com/redirect`
 - **Modo bandeja** — cerrar la ventana mantiene las descargas en segundo plano
 - **21 idiomas** — detecta automáticamente el idioma del sistema, se puede cambiar en cualquier momento
 - **Sincronización de playlists** — vuelve a escanear una playlist contra una carpeta local para omitir vídeos ya descargados; genera un archivo de playlist `.m3u` que se actualiza con cada vídeo descargado
-- **Modo cauteloso** — ajustes de ritmo configurables (*Desactivado · Equilibrado · Cuidadoso · Personalizado*) que añaden pausas entre solicitudes y limitan los hilos de fragmentos, reduciendo la probabilidad de bot-blocks en playlists grandes
+- **Controles de velocidad y ritmo** — limita el ancho de banda de descarga, añade pausas entre solicitudes y ajusta los hilos de fragmentos con presets (*Desactivado · Equilibrado · Cuidadoso · Personalizado*)
 
 ### Subtítulos y posprocesamiento
 
@@ -303,7 +303,7 @@ Veintiuno, listos para usar: English, Español, Deutsch (alemán), Français (fr
 No. yt-dlp se descarga automáticamente en el primer arranque y se guarda en caché en tu máquina; ffmpeg y ffprobe vienen incluidos con la app. Después de eso, no se necesita configuración adicional.
 
 **¿Puedo descargar listas de reproducción o canales completos?**
-Sí — ambos. Pega una URL de playlist o una URL de canal (p. ej. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy enumera hasta 500 entradas y luego puedes poner en cola toda la lista o elegir videos concretos. Los filtros por rango de fechas y por cantidad estarán disponibles próximamente.
+Sí — ambas cosas. Pega una URL de playlist o canal (p. ej. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); elige cuántas entradas escanear y luego pon toda la lista en cola o selecciona videos concretos. Los filtros por fecha llegarán pronto.
 
 **macOS dice "la aplicación está dañada" — ¿qué hago?**
 Es Gatekeeper de macOS bloqueando una app sin firmar, no un daño real. Consulta ["App is damaged" — solución con Terminal](#macos-first-launch) para el comando `xattr` de una sola línea que lo resuelve.
@@ -315,15 +315,13 @@ Para uso personal y privado, generalmente se acepta en la mayoría de jurisdicci
 
 ## <a id="roadmap"></a>Hoja de ruta
 
-Próximamente — aproximadamente por orden de prioridad:
+Todavía planeado — aproximadamente por orden de prioridad:
 
 | Función    | Descripción    |
 | ---------------- | ---------------- |
-| **Filtros de listas y canales** | Filtros por rango de fechas y por cantidad al enumerar una playlist o canal (hoy el límite es fijo de 500 entradas) |
-| **Entrada de URLs por lotes** | Pega varias URLs a la vez y lánzalas todas juntas |
+| **Filtros de listas y canales** | Filtros por rango de fechas al enumerar una playlist o un canal |
 | **Plantillas de nombre de archivo personalizadas** | Nombra archivos por título, autor, fecha, resolución — con vista previa en vivo |
 | **Descargas programadas** | Inicia una cola a una hora fijada (ejecuciones nocturnas) |
-| **Límites de velocidad** | Limita el ancho de banda para que las descargas no saturen tu conexión |
 | **Recorte de clips** | Descarga solo un segmento especificando tiempo de inicio y fin |
 
 ¿Tienes alguna función en mente? [Abre una solicitud](../../issues) — la opinión de la comunidad guía la prioridad.

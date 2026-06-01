@@ -72,14 +72,14 @@ Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argad
 
 ### Hojii hordoffii
 
-- **Liinkii kamiyyuu maxxansi** — viidiyoowwan YouTube, Shorts, chaanaalota, playlistoota, podkaastota fi Muuziqaa, fi saayitiiwwan 2000+ yt-dlp deeggaru; playlist guutuu buufadhu yookaan dura viidiyoowwan filataman qofa filadhu
-- **Queue buufannoo heddu** — buufannoota heddu walitti aanee hordofi
+- **Haalawwan jalqabaa jijjiiramaa** — buusuu tokko qajeelfamaan, filannoo playlist/channel, URL hedduu maxxansuu, ykn Quick Download filannoowwan duraan kuufamaniin filadhu
+- **Tarree buusuu giddugaleessaa** — hojii tokko, playlist, bulk, ykn quick hundi bakka tokkotti walitti dhufa: adeemsa, dhaabuu, itti fufsiisuu, haquu, irra deebi’uu, fi dursa to’achuuf
 - **Eegaa clipboard** — link YouTube koppiisi Arroxy URL of-hordofaa guutu yeroo app deebi'itu (Advanced settings keessatti jijjiiri)
 - **URL of-qulqulleessa** — params hordoffii (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) haqa fi linkiiwwan `youtube.com/redirect` bana
 - **Haala tray** — window cufuu buufannoo duubatti itti fufsisee hojechisisa
 - **Afaan 21** — afaan siistamaa of-danda'ee addaan baafata, yeroo kamiyyuu jijjiiruu danda'ama
 - **Walsimsiisa playlist** — viidiyoowwan duraan buufaman akka darbaman playlist galmee naannoo waliin irra deebi'ee sakatta'a; faayila playlist `.m3u` viidiyoon tokko tokko buufamu hunda irratti haaromsamu uuma
-- **Haala of-eeggannoo** — pacing presets sirreeffamuu danda'an (*Dhaame · Madaalawaa · Of-eeggannoo · Kan ofii*) gaaffiiwwan gidduutti tursiisaa fi fragment threads daangessu, playlist guddaa irratti carraa bot-blocks xiqqeessa
+- **To’annoo saffisaa fi pacing** — bandwidth buusuu daangessi, turtii gaaffii dabali, fi thread fragment presets (*Off · Balanced · Careful · Custom*) waliin sirreessi
 
 ### Subtitle & seensuu boodaa
 
@@ -301,7 +301,7 @@ Digdamatokkoo, yeroo jalqabaatii: English, Español (Spanish), Deutsch (German),
 Lakki. yt-dlp jalqaba banuu irratti ofumaan buufamee meeshaa kee irratti kuufama; ffmpeg fi ffprobe app waliin dhufu. Sana booda qindaaʼinni dabalataa hin barbaachisu.
 
 **Playlist ykn chaanaalii guutuu buusuu danda'aa?**
-Eeyyee — lamaanuu. URL playlist ykn URL chaanaalii maxxansi (fkn. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy hanga galmeewwan 500 lakkaa'a, booda tarree guutuu yookaan viidiyoowwan filataman queue keessa galchi. Hojjettoonni guyyaa fi lakkoofsa dursaa dhufaa jiru.
+Eeyyee — lamaan isaaniiyyuu. URL playlist ykn channel maxxansi (fkn. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); galfata meeqa akka sakatta’u filadhu, ergasii tarree guutuu queue godhi ykn viidiyoo addaa filadhu. Filtraroonni guyyaa gara fuulduraatti dhufu.
 
 **macOS "app miidhaameera" jedha — maal godhaa?**
 Sun macOS Gatekeeper app mallattoo hin qabne dhorku, midhaa dhugaa miti. ["App is damaged" — Terminal dursaa](#macos-first-launch) ilaali, ajaja sarara tokkoo `xattr` kan sirreessuu argachuuf.
@@ -313,15 +313,13 @@ Fayyadama dhuunfaa, dhoksaa qofaaf yeroo hedduun mootummoota heddu keessatti fud
 
 ## <a id="roadmap"></a>Karoora
 
-Dhufuuf jiru — bakka dursa hordofee:
+Amma iyyuu karoorfame — tilmaamaan tartiiba dursaatiin:
 
 | Amalli    | Ibsa    |
 | ---------------- | ---------------- |
-| **Playlist & chaanaalii hojjettoota** | Hojjettoota guyyaa fi lakkoofsa playlist ykn chaanaalii lakkaa'uu irratti (har'a daangaan galmeewwan 500 dhaabbataa) |
-| **Galchii URL fakkaataa** | URLs heddu yeroo tokkotti maxxansi fi isaan tokkoon oofii |
+| **Playlist & chaanaalii hojjettoota** | Yeroo playlist ykn channel sakatta’an filtraroota guyyaa |
 | **Template maqaa faayilaa dhuunfaa** | Faayiloota mata-duree, olkaa'aa, guyyaa, mookii shan — preview qindoofame wajjin maqaa kaa'i |
 | **Buufannoo yeroo qabamee** | Queue yeroo qindaawaa irratti eegali (halkaniidhumaan hojeti) |
-| **Daangaa saffisaa** | Bandwidth daangessii buufannoonni walitti hidhamina kee hin guunnee |
 | **Muraa Clip** | Tokkicha kutaa yeroo eegaluu/dhumu irratti buusi |
 
 Amala yaaddetee jirtaa? [Gaaffii bani](../../issues) — galchiin hawaasaa dursa murteessa.

@@ -72,14 +72,14 @@ Arroxy ကို တစ်ခုတည်းသောရည်ရွယ်ချ
 
 ### Workflow
 
-- **မည်သည့်လင့်ခ်မဆို paste လုပ်ပါ** — YouTube video များ၊ Shorts၊ channel များ၊ playlist များ၊ podcast များနှင့် Music၊ ထို့အပြင် yt-dlp ထောက်ပံ့သော ၂၀၀၀+ အခြားဆိုဒ်များ; playlist တစ်ခုလုံးကို download လုပ်နိုင်သလို သင်ရွေးထားသော video များကိုသာ အရင်ရွေးပြီး download လုပ်နိုင်သည်
-- **Multi-download queue** — downloads များစွာကို တပြိုင်တည်း ခြေရာခံပါ
+- **ပြောင်းလွယ်ပြင်လွယ် စတင်မုဒ်များ** — လမ်းညွှန်ထားသော single download၊ playlist/channel picker၊ bulk URL paste၊ သို့မဟုတ် သိမ်းထားသော defaults ဖြင့် Quick Download ကိုရွေးပါ
+- **ဗဟို download queue** — single၊ playlist၊ bulk၊ quick job အားလုံးသည် progress၊ pause၊ resume၊ cancel၊ retry နှင့် priority control အတွက် တစ်နေရာတည်းသို့ ရောက်သည်
 - **Clipboard watch** — YouTube link ကို copy လုပ်ပြီး app ကို refocus လုပ်သောအခါ Arroxy သည် URL ကို auto-fill လုပ်သည် (Advanced settings တွင် toggle နှိပ်ပါ)
 - **Auto-clean URLs** — tracking params (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) ကိုဖယ်ရှားပြီး `youtube.com/redirect` links ကိုဖြေရှင်းသည်
 - **Tray mode** — window ကိုပိတ်လျှင် downloads များသည် နောက်ကွယ်တွင် ဆက်လည်ပတ်နေသည်
 - **ဘာသာစကား ၂၁ မျိုး** — system locale ကို auto-detect လုပ်ပြီး မည်သည့်အချိန်မဆို ပြောင်းလဲနိုင်သည်
 - **Playlist sync** — ဒေါင်းလုဒ်လုပ်ပြီးသား ဗီဒီယိုများကို ကျော်ရန် playlist ကို local folder နှင့် ပြန်စစ်ဆေးပြီး၊ ဗီဒီယိုတစ်ခုစီ ဒေါင်းလုဒ်ပြီးတိုင်း အပ်ဒိတ်ဖြစ်သော `.m3u` playlist ဖိုင်ကို ဖန်တီးသည်
-- **Cautious mode** — တောင်းဆိုမှုများအကြား နှောင့်နှေးချိန်ထည့်ပြီး fragment threads ကို ကန့်သတ်သည့် ပြင်ဆင်နိုင်သော pacing presets (*ပိတ် · မျှတ · သတိထား · စိတ်ကြိုက်*) ဖြင့် ကြီးမားသော playlists များတွင် bot-block ဖြစ်နိုင်ခြေကို လျှော့ချသည်
+- **Speed နှင့် pacing controls** — download bandwidth ကိုကန့်သတ်ပါ၊ request delays ထည့်ပါ၊ presets (*Off · Balanced · Careful · Custom*) ဖြင့် fragment threads ကိုညှိပါ
 
 ### Subtitles နှင့် post-processing
 
@@ -301,7 +301,7 @@ yt-dlp ကို launch တိုင်း အလိုအလျောက် upd
 မလိုပါ။ yt-dlp သည် ပထမဆုံး ဖွင့်ချိန်တွင် အလိုအလျောက် ဒေါင်းလုဒ်လုပ်ပြီး သင့်စက်တွင် cache လုပ်သည်; ffmpeg နှင့် ffprobe သည် app နှင့်အတူ ပါလာသည်။ ထို့နောက် နောက်ထပ် setup မလိုအပ်ပါ။
 
 **Playlist များ သို့မဟုတ် channel တစ်ခုလုံး ဒေါင်းလုဒ်ဆွဲနိုင်သလား?**
-ဟုတ်ပါတယ် — နှစ်ခုလုံး။ playlist URL သို့မဟုတ် channel URL (ဥပမာ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`) ကို paste လုပ်ပါ; Arroxy သည် ၅၀၀ ခုအထိ ရေတွက်ပြီး စာရင်းတစ်ခုလုံးကို queue ထည့်နိုင်သည် သို့မဟုတ် သင်ရွေးချယ်သော video များကိုသာ ရွေးနိုင်သည်။ ရက်စွဲ-အပိုင်းအခြားနှင့် အရေအတွက် filters များ မကြာမီလာမည်။
+ရပါတယ် — နှစ်မျိုးလုံး။ playlist သို့မဟုတ် channel URL ကို paste လုပ်ပါ (ဥပမာ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); scan လုပ်မည့် entries အရေအတွက်ကိုရွေးပြီး စာရင်းတစ်ခုလုံးကို queue ထဲထည့်ပါ သို့မဟုတ် video များကို သီးသန့်ရွေးပါ။ date-range filters မကြာမီလာပါမည်။
 
 **macOS က "app ပျက်စီးနေသည်" ဟုဆိုသည် — ဘာလုပ်ရမည်နည်း?**
 ၎င်းသည် macOS Gatekeeper သည် unsigned app ကို ပိတ်ဆို့ခြင်းဖြစ်ပြီး တကယ်ပျက်စီးမှုမဟုတ်ပါ။ ["App is damaged" — Terminal fix](#macos-first-launch) ကိုကြည့်ပါ၊ ၎င်းကိုဖြေရှင်းသည့် တစ်ကြောင်းတည်းသော `xattr` command ပါဝင်သည်။
@@ -313,15 +313,13 @@ yt-dlp ကို launch တိုင်း အလိုအလျောက် upd
 
 ## <a id="roadmap"></a>လမ်းပြမြေပုံ
 
-အနီးကပ် ဦးစားပေးအစဉ်လိုက် လာမည့်အရာများ:
+ဆက်လက်စီစဉ်ထားသည် — ဦးစားပေးအစဉ်လိုက် ခန့်မှန်းအားဖြင့်:
 
 | လုပ်ဆောင်ချက်    | ဖော်ပြချက်    |
 | ---------------- | ---------------- |
-| **Playlist နှင့် channel filters** | Playlist သို့မဟုတ် channel ကို ရေတွက်သောအခါ ရက်စွဲ-အပိုင်းအခြားနှင့် အရေအတွက် filters (ယနေ့ cap သည် ၅၀၀ ခုသတ်မှတ်ထားသည်) |
-| **Batch URL ထည့်သွင်းမှု** | URLs များစွာကို တစ်ကြိမ်တည်း paste လုပ်ပြီး တစ်ကြိမ်တည်း run ပါ |
+| **Playlist နှင့် channel filters** | playlist သို့မဟုတ် channel ကို enumerate လုပ်သည့်အခါ date-range filters |
 | **ကိုယ်ပိုင် filename ပုံစံများ** | ဖိုင်များကို ခေါင်းစဉ်၊ uploader, date, resolution ဖြင့် နာမည်ပေးပြီး live preview ဖြင့် |
 | **ဒေါင်းလုဒ်ချိန်သတ်မှတ်ခြင်း** | သတ်မှတ်ချိန်တွင် queue ကို စတင်ပါ (ညဘက် runs) |
-| **အမြန်နှုန်း ကန့်သတ်ချက်** | ဒေါင်းလုဒ်များသည် သင့် connection ကို မပြည့်လျှံစေရန် bandwidth ကို cap လုပ်ပါ |
 | **Clip ဖြတ်တောက်ခြင်း** | start/end time ဖြင့် segment တစ်ခုသာ ဒေါင်းလုဒ်ဆွဲပါ |
 
 လုပ်ဆောင်ချက်တစ်ခု ကြံဆထားပါသလား? [Request တင်ပါ](../../issues) — community input က ဦးစားပေးမှုကို ပုံဖော်သည်။

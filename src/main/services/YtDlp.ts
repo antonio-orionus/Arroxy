@@ -7,9 +7,10 @@ import { resolveCookies, type ResolvedCookies } from './cookiesResolver.js';
 import { nonEmpty } from '@shared/format.js';
 import { EMBED_CONTAINER_EXT } from '@shared/subtitlePath.js';
 import { siteForUrl } from '@shared/sites/index.js';
-import type { SubtitleFormat, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, StatusKey, AudioConvert } from '@shared/types.js';
+import type { PlaylistScope, SubtitleFormat, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, StatusKey, AudioConvert } from '@shared/types.js';
 import { resolveEmbedPolicy } from '@shared/embedPolicy.js';
 import { resolveNetworkPacing, resolvePlaylistProbeLimit } from '@shared/networkPacing.js';
+import { describePlaylistScopeForLog, playlistScopeSentinelFields } from '@shared/playlistScope.js';
 import { DEFAULT_PLAYLIST_PROBE_LIMIT, type NetworkPacingArgs } from '@shared/constants.js';
 import type { BinaryManager } from './BinaryManager.js';
 import type { TokenService } from './TokenService.js';
@@ -51,7 +52,7 @@ export function redactYtDlpArgsForLog(args: string[]): string[] {
 export type ProbePlaylistMode = 'auto' | 'video' | 'playlist';
 
 export type YtDlpRequest =
-  | { kind: 'probe'; url: string; playlistMode?: ProbePlaylistMode }
+  | { kind: 'probe'; url: string; playlistMode?: ProbePlaylistMode; playlistScope?: PlaylistScope }
   | {
       kind: 'subtitle';
       url: string;
@@ -423,6 +424,11 @@ function buildSubtitleArgs(req: Extract<YtDlpRequest, { kind: 'subtitle' }>, pac
   return ['--skip-download', '--no-playlist', '--write-subs', '--sub-langs', req.subtitleLanguages.join(','), ...(req.writeAutoSubs ? ['--write-auto-subs'] : []), ...sleepSubtitlesArgs(pacing), ...requestPacingArgs(pacing), '--sub-format', `${fmt}/best`, '--convert-subs', fmt, '-o', `${subOutputDir}/${template}`, req.url];
 }
 
+function playlistScopeArgs(scope: PlaylistScope | undefined, visibleLimit: number): string[] {
+  const fields = playlistScopeSentinelFields(scope, visibleLimit);
+  return [fields.ytDlpFlag, fields.ytDlpValue];
+}
+
 export function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embed' }>, pacing: NetworkPacingArgs | undefined): string[] {
   const skipDownload = req.kind === 'video' && req.skipDownload === true;
   const args: string[] = ['--progress', '--no-playlist'];
@@ -538,8 +544,8 @@ export function buildArgs(req: YtDlpRequest, opts: { pacing?: NetworkPacingArgs;
       //   default routes Radio/Mix to playlist, which is rarely user intent.
       const modeFlag = req.playlistMode === 'video' ? ['--no-playlist'] : req.playlistMode === 'playlist' ? ['--yes-playlist'] : [];
       const visibleLimit = opts.playlistProbeLimit ?? DEFAULT_PLAYLIST_PROBE_LIMIT;
-      const capFlag = req.playlistMode === 'video' ? [] : ['--playlist-end', String(visibleLimit + 1)];
-      const args = ['--dump-single-json', '--flat-playlist', ...modeFlag, ...capFlag, ...requestPacingArgs(opts.pacing), req.url];
+      const scopeArgs = req.playlistMode === 'video' ? [] : playlistScopeArgs(req.playlistScope, visibleLimit);
+      const args = ['--dump-single-json', '--flat-playlist', ...modeFlag, ...scopeArgs, ...requestPacingArgs(opts.pacing), req.url];
       return { args };
     }
     case 'subtitle': {
@@ -589,6 +595,13 @@ export class YtDlp {
     const playlistProbeLimit = resolvePlaylistProbeLimit(settings.common);
     const { args, subtitleFormat } = buildArgs(req, { pacing, playlistProbeLimit });
     const isProbe = req.kind === 'probe';
+    if (isProbe) {
+      ytDlpLog.info('probe request', {
+        url: req.url,
+        playlistMode: req.playlistMode ?? 'auto',
+        playlistScope: req.playlistMode === 'video' ? null : describePlaylistScopeForLog(req.playlistScope, playlistProbeLimit)
+      });
+    }
     // Bandwidth cap applies to media downloads only — probes need raw speed
     // for snappy "Fetch formats" UX, sidecar subs are tiny so throttling
     // wouldn't change YouTube's anti-bot signal.

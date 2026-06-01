@@ -117,9 +117,9 @@ export const es = {
   feat_privacy_3: "Archivos guardados directamente en la carpeta que elijas",
   feat_workflow_h3: "Flujo de trabajo",
   feat_workflow_1:
-    "**Pega cualquier enlace** — videos de YouTube, Shorts, canales, playlists, podcasts y Music, más 2000+ sitios compatibles con yt-dlp; descarga toda la playlist o elige primero videos concretos",
+    "**Modos de inicio flexibles** — elige una descarga individual guiada, selector de playlist/canal, pegado masivo de URLs o Quick Download con tus valores guardados",
   feat_workflow_2:
-    "**Cola de múltiples descargas** — sigue varias descargas en paralelo",
+    "**Cola central de descargas** — cada trabajo individual, de playlist, masivo o rápido llega a un solo lugar para ver progreso, pausar, reanudar, cancelar, reintentar y controlar prioridad",
   feat_workflow_3:
     "**Monitoreo del portapapeles** — copia un enlace de YouTube y Arroxy rellena automáticamente la URL al volver a enfocar la app (actívalo en la Configuración avanzada)",
   feat_workflow_4:
@@ -131,7 +131,7 @@ export const es = {
   feat_workflow_7:
     "**Sincronización de playlists** — vuelve a escanear una playlist contra una carpeta local para omitir vídeos ya descargados; genera un archivo de playlist `.m3u` que se actualiza con cada vídeo descargado",
   feat_workflow_8:
-    "**Modo cauteloso** — ajustes de ritmo configurables (*Desactivado · Equilibrado · Cuidadoso · Personalizado*) que añaden pausas entre solicitudes y limitan los hilos de fragmentos, reduciendo la probabilidad de bot-blocks en playlists grandes",
+    "**Controles de velocidad y ritmo** — limita el ancho de banda de descarga, añade pausas entre solicitudes y ajusta los hilos de fragmentos con presets (*Desactivado · Equilibrado · Cuidadoso · Personalizado*)",
   feat_post_h3: "Subtítulos y posprocesamiento",
   feat_post_1:
     "**Subtítulos** en SRT, VTT o ASS — manuales o generados automáticamente, en cualquier idioma disponible",
@@ -300,19 +300,18 @@ export const es = {
     "No. yt-dlp se descarga automáticamente en el primer arranque y se guarda en caché en tu máquina; ffmpeg y ffprobe vienen incluidos con la app. Después de eso, no se necesita configuración adicional.",
   faq_q8: "¿Puedo descargar listas de reproducción o canales completos?",
   faq_a8:
-    "Sí — ambos. Pega una URL de playlist o una URL de canal (p. ej. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); Arroxy enumera hasta 500 entradas y luego puedes poner en cola toda la lista o elegir videos concretos. Los filtros por rango de fechas y por cantidad estarán disponibles próximamente.",
+    "Sí — ambas cosas. Pega una URL de playlist o canal (p. ej. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); elige cuántas entradas escanear y luego pon toda la lista en cola o selecciona videos concretos. Los filtros por fecha llegarán pronto.",
   faq_q9: 'macOS dice "la aplicación está dañada" — ¿qué hago?',
   faq_a9:
     'Es Gatekeeper de macOS bloqueando una app sin firmar, no un daño real. Consulta ["App is damaged" — solución con Terminal](#macos-first-launch) para el comando `xattr` de una sola línea que lo resuelve.',
   faq_q10: "¿Es legal descargar videos de YouTube?",
   faq_a10:
     "Para uso personal y privado, generalmente se acepta en la mayoría de jurisdicciones. Eres responsable de cumplir con los [Términos de Servicio](https://www.youtube.com/t/terms) de YouTube y las leyes de propiedad intelectual de tu jurisdicción.",
-  plan_intro: "Próximamente — aproximadamente por orden de prioridad:",
+  plan_intro: "Todavía planeado — aproximadamente por orden de prioridad:",
   plan_col1: "Función",
   plan_col2: "Descripción",
   plan_r1_name: "**Filtros de listas y canales**",
-  plan_r1_desc:
-    "Filtros por rango de fechas y por cantidad al enumerar una playlist o canal (hoy el límite es fijo de 500 entradas)",
+  plan_r1_desc: "Filtros por rango de fechas al enumerar una playlist o un canal",
   plan_r2_name: "**Entrada de URLs por lotes**",
   plan_r2_desc: "Pega varias URLs a la vez y lánzalas todas juntas",
   plan_r4_name: "**Plantillas de nombre de archivo personalizadas**",

@@ -100,51 +100,14 @@ beforeEach(() => {
 });
 
 describe('advanced network settings', () => {
-  it('renders playlist probe limit controls and saves a preset', async () => {
+  it('renders network pacing settings without playlist scope controls', async () => {
     render(<StepUrlInput />);
 
     const advanced = screen.getByTestId('advanced-section');
     if (advanced instanceof HTMLDetailsElement) advanced.open = true;
 
     expect(screen.getByTestId('network-pacing-section')).toBeInTheDocument();
-    const playlistSection = screen.getByTestId('playlist-probe-limit-section');
-    fireEvent.click(within(playlistSection).getByTestId('playlist-probe-limit-trigger'));
-    fireEvent.click(await screen.findByTestId('playlist-probe-limit-option-250'));
-
-    await waitFor(() => {
-      expect(mockApi.settings.update).toHaveBeenCalledWith({ common: { playlistProbeLimit: 250 } });
-    });
-  });
-
-  it('saves a custom playlist probe limit from the dialog', async () => {
-    render(<StepUrlInput />);
-
-    const advanced = screen.getByTestId('advanced-section');
-    if (advanced instanceof HTMLDetailsElement) advanced.open = true;
-
-    const playlistSection = screen.getByTestId('playlist-probe-limit-section');
-    fireEvent.click(within(playlistSection).getByTestId('playlist-probe-limit-trigger'));
-    fireEvent.click(await screen.findByTestId('playlist-probe-limit-option-custom'));
-    fireEvent.change(await screen.findByTestId('playlist-probe-limit-custom-input'), { target: { value: '375' } });
-    fireEvent.click(screen.getByTestId('playlist-probe-limit-custom-save'));
-
-    await waitFor(() => {
-      expect(mockApi.settings.update).toHaveBeenCalledWith({ common: { playlistProbeLimit: 375 } });
-    });
-  });
-
-  it('does not save an invalid custom playlist probe limit', async () => {
-    render(<StepUrlInput />);
-
-    const advanced = screen.getByTestId('advanced-section');
-    if (advanced instanceof HTMLDetailsElement) advanced.open = true;
-
-    const playlistSection = screen.getByTestId('playlist-probe-limit-section');
-    fireEvent.click(within(playlistSection).getByTestId('playlist-probe-limit-trigger'));
-    fireEvent.click(await screen.findByTestId('playlist-probe-limit-option-custom'));
-    fireEvent.change(await screen.findByTestId('playlist-probe-limit-custom-input'), { target: { value: '5001' } });
-
-    expect(screen.getByTestId('playlist-probe-limit-custom-save')).toBeDisabled();
+    expect(screen.queryByTestId('playlist-probe-limit-section')).not.toBeInTheDocument();
     expect(mockApi.settings.update).not.toHaveBeenCalled();
   });
 
