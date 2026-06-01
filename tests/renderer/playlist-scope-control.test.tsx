@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { PlaylistScopeControl } from '@renderer/components/wizard/PlaylistScopeControl.js';
 import { StepPlaylistItems } from '@renderer/components/wizard/StepPlaylistItems.js';
 import { useAppStore } from '@renderer/store/useAppStore.js';
 import { RESET_WIZARD_STATE } from '@renderer/store/wizard/commands.js';
@@ -138,5 +139,21 @@ describe('PlaylistScopeControl', () => {
     await act(async () => {
       resolveProbe(ok(playlistProbe()));
     });
+  });
+
+  it('shows an inline dialog error when the apply callback rejects unexpectedly', async () => {
+    const onApplyScope = vi.fn().mockRejectedValue(new Error('IPC bridge crashed'));
+    render(<PlaylistScopeControl onApplyScope={onApplyScope} applyLabel="Apply and reload" pendingLabel="Reloading..." />);
+
+    fireEvent.click(screen.getByTestId('playlist-scope-change'));
+    fireEvent.click(await screen.findByText('First'));
+    fireEvent.change(screen.getByTestId('playlist-scope-first-input'), { target: { value: '50' } });
+    fireEvent.click(screen.getByTestId('playlist-scope-apply'));
+
+    await waitFor(() => {
+      expect(screen.getByTestId('playlist-scope-apply-error')).toHaveTextContent('IPC bridge crashed');
+    });
+    expect(screen.getByTestId('playlist-scope-dialog')).toBeInTheDocument();
+    expect(useAppStore.getState().playlistScope).toEqual({ items: { kind: 'app-limit' } });
   });
 });

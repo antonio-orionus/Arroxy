@@ -28,6 +28,12 @@ function scopeSummary(scope: PlaylistScope, appLimit: number, t: TFunction): str
   return scope.items.kind === 'app-limit' ? copy(t, 'wizard.url.playlistScope.summaryAppLimit', 'Load first {{count}} items', { count: appLimit }) : scope.items.kind === 'first' ? copy(t, 'wizard.url.playlistScope.summaryFirst', 'Load first {{count}} items', { count: scope.items.count }) : copy(t, 'wizard.url.playlistScope.summaryRange', 'Load items {{from}}-{{to}}', { from: scope.items.from, to: scope.items.to });
 }
 
+function errorMessage(error: unknown): string {
+  if (error instanceof Error && error.message) return error.message;
+  if (typeof error === 'string' && error.length > 0) return error;
+  return 'Unknown error';
+}
+
 export function PlaylistScopeControl({ onApplyScope, applyLabel, pendingLabel, disabled = false }: PlaylistScopeControlProps): JSX.Element {
   const { t } = useTranslation();
   const { playlistScope, setPlaylistScope, settings } = useAppStore();
@@ -38,12 +44,14 @@ export function PlaylistScopeControl({ onApplyScope, applyLabel, pendingLabel, d
   const [firstDraft, setFirstDraft] = useState(playlistScope.items.kind === 'first' ? String(playlistScope.items.count) : String(appLimit));
   const [fromDraft, setFromDraft] = useState(playlistScope.items.kind === 'range' ? String(playlistScope.items.from) : '1');
   const [toDraft, setToDraft] = useState(playlistScope.items.kind === 'range' ? String(playlistScope.items.to) : String(appLimit));
+  const [applyError, setApplyError] = useState<string | null>(null);
 
   function syncDraftsFromScope(): void {
     setMode(playlistScope.items.kind);
     setFirstDraft(playlistScope.items.kind === 'first' ? String(playlistScope.items.count) : String(appLimit));
     setFromDraft(playlistScope.items.kind === 'range' ? String(playlistScope.items.from) : '1');
     setToDraft(playlistScope.items.kind === 'range' ? String(playlistScope.items.to) : String(appLimit));
+    setApplyError(null);
   }
 
   function parseScope(): PlaylistScope | null {
@@ -60,15 +68,19 @@ export function PlaylistScopeControl({ onApplyScope, applyLabel, pendingLabel, d
     setFirstDraft(String(appLimit));
     setFromDraft('1');
     setToDraft(String(appLimit));
+    setApplyError(null);
   }
 
   async function applyScope(): Promise<void> {
     if (!parsedScope) return;
+    setApplyError(null);
     if (onApplyScope) {
       setApplying(true);
       try {
         await onApplyScope(parsedScope);
         setOpen(false);
+      } catch (error) {
+        setApplyError(copy(t, 'wizard.url.playlistScope.applyError', 'Could not apply that playlist scope: {{message}}', { message: errorMessage(error) }));
       } finally {
         setApplying(false);
       }
@@ -129,6 +141,11 @@ export function PlaylistScopeControl({ onApplyScope, applyLabel, pendingLabel, d
               </div>
             </div>
             {!parsedScope && <p className="text-[11px] text-amber-500">{copy(t, 'wizard.url.playlistScope.invalid', 'Use whole item numbers from 1 to 5000, with the start no higher than the end.')}</p>}
+            {applyError ? (
+              <p className="text-[11px] text-amber-500" data-testid="playlist-scope-apply-error">
+                {applyError}
+              </p>
+            ) : null}
           </div>
 
           <DialogFooter>

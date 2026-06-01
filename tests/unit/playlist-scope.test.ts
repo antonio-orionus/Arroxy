@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { describePlaylistScopeForLog } from '@shared/playlistScope.js';
+import { describePlaylistScopeForLog, playlistScopeSentinelFields } from '@shared/playlistScope.js';
 
 describe('describePlaylistScopeForLog', () => {
   it('describes the app limit with a sentinel playlist-end value', () => {
@@ -32,6 +32,15 @@ describe('describePlaylistScopeForLog', () => {
       sentinel: true,
       ytDlpFlag: '--playlist-items',
       ytDlpValue: '500:601'
+    });
+  });
+
+  it('exposes the same sentinel fields used by yt-dlp args', () => {
+    expect(playlistScopeSentinelFields({ items: { kind: 'range', from: 20, to: 40 } }, 100)).toEqual({
+      requestedCount: 21,
+      sentinel: true,
+      ytDlpFlag: '--playlist-items',
+      ytDlpValue: '20:41'
     });
   });
 });

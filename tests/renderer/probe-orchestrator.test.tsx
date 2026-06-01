@@ -524,6 +524,43 @@ describe('submitUrl — playlist probe', () => {
       })
     );
   });
+
+  it('restores playlist state and logs when scoped playlist reload throws', async () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockRejectedValue(new Error('IPC bridge crashed'));
+    window.appApi = api;
+
+    useAppStore.setState({
+      wizardStep: 'playlistItems',
+      wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
+      playlistItems: PLAYLIST_PROBE.entries,
+      selectedPlaylistItemIds: PLAYLIST_PROBE.entries.map((entry) => entry.id),
+      playlistScope: { items: { kind: 'app-limit' } }
+    });
+
+    const requestedScope = { items: { kind: 'range' as const, from: 900, to: 950 } };
+    await useAppStore.getState().reloadPlaylistWithScope(requestedScope);
+
+    expect(useAppStore.getState().playlistScope).toEqual({ items: { kind: 'app-limit' } });
+    expect(useAppStore.getState().playlistScopeReloading).toBe(false);
+    expect(useAppStore.getState().playlistScopeError).toBe('Could not reload that playlist scope: IPC bridge crashed. Your previous list is still shown.');
+    expect(api.diagnostics.logWizardStep).toHaveBeenCalledWith(
+      expect.objectContaining({
+        transition: 'playlistScopeReloadFailure',
+        fromStep: 'playlistItems',
+        toStep: 'playlistItems',
+        snapshot: expect.objectContaining({
+          requestedScope,
+          restoredScope: { items: { kind: 'app-limit' } },
+          previousItemsCount: 2,
+          playlistItemsCount: 2,
+          selectedPlaylistItemsCount: 2,
+          errorKind: 'exception',
+          message: 'Could not reload that playlist scope: IPC bridge crashed. Your previous list is still shown.'
+        })
+      })
+    );
+  });
 });
 
 describe('reset', () => {

@@ -293,6 +293,12 @@ function playlistScopeReloadErrorMessage(error: Parameters<typeof formatProbeErr
   return formatProbeError(error) || 'Could not reload that playlist scope. Your previous list is still shown.';
 }
 
+function unknownErrorMessage(error: unknown): string {
+  if (error instanceof Error && error.message) return error.message;
+  if (typeof error === 'string' && error.length > 0) return error;
+  return 'Unknown error';
+}
+
 async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe = true): Promise<void> {
   void window.appApi.downloads.probeCancel();
   const fromStep = get().wizardStep;
@@ -383,7 +389,27 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
     playlistLikelyCapped: false
   });
 
-  const result = await window.appApi.downloads.probe({ url, playlistMode: 'playlist', playlistScope: scope });
+  let result: Awaited<ReturnType<typeof window.appApi.downloads.probe>>;
+  try {
+    result = await window.appApi.downloads.probe({ url, playlistMode: 'playlist', playlistScope: scope });
+  } catch (error) {
+    const message = `Could not reload that playlist scope: ${unknownErrorMessage(error)}. Your previous list is still shown.`;
+    set({
+      playlistScope: previousScope,
+      playlistScopeReloading: false,
+      playlistScopeError: message
+    });
+    logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {
+      ...pickWizardSnapshot(get()),
+      requestedScope: scope,
+      restoredScope: previousScope,
+      previousItemsCount,
+      errorKind: 'exception',
+      message
+    });
+    return;
+  }
+
   if (!result.ok) {
     const message = playlistScopeReloadErrorMessage(result.error);
     set({

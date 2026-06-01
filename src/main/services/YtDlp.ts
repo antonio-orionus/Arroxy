@@ -10,7 +10,7 @@ import { siteForUrl } from '@shared/sites/index.js';
 import type { PlaylistScope, SubtitleFormat, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, StatusKey, AudioConvert } from '@shared/types.js';
 import { resolveEmbedPolicy } from '@shared/embedPolicy.js';
 import { resolveNetworkPacing, resolvePlaylistProbeLimit } from '@shared/networkPacing.js';
-import { describePlaylistScopeForLog } from '@shared/playlistScope.js';
+import { describePlaylistScopeForLog, playlistScopeSentinelFields } from '@shared/playlistScope.js';
 import { DEFAULT_PLAYLIST_PROBE_LIMIT, type NetworkPacingArgs } from '@shared/constants.js';
 import type { BinaryManager } from './BinaryManager.js';
 import type { TokenService } from './TokenService.js';
@@ -412,9 +412,8 @@ function buildSubtitleArgs(req: Extract<YtDlpRequest, { kind: 'subtitle' }>, pac
 }
 
 function playlistScopeArgs(scope: PlaylistScope | undefined, visibleLimit: number): string[] {
-  if (!scope || scope.items.kind === 'app-limit') return ['--playlist-end', String(visibleLimit + 1)];
-  if (scope.items.kind === 'first') return ['--playlist-items', `1:${scope.items.count + 1}`];
-  return ['--playlist-items', `${scope.items.from}:${scope.items.to + 1}`];
+  const fields = playlistScopeSentinelFields(scope, visibleLimit);
+  return [fields.ytDlpFlag, fields.ytDlpValue];
 }
 
 export function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'video+embed' }>, pacing: NetworkPacingArgs | undefined): string[] {
