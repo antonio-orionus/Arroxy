@@ -126,6 +126,26 @@ describe('wizard clipboard confirm dialog', () => {
     expect(submitSpy).toHaveBeenCalledTimes(1);
   });
 
+  it('"Quick download" appears before fetch, applies the URL, closes the dialog, and calls quickDownload', async () => {
+    const quickDownloadSpy = vi.fn().mockResolvedValue(undefined);
+    useAppStore.setState({ quickDownload: quickDownloadSpy } as Partial<ReturnType<typeof useAppStore.getState>>);
+
+    render(<StepUrlInput />);
+    act(() => {
+      clipboardListener!(FRESH_URL);
+    });
+
+    expect(screen.getByTestId('clipboard-confirm-dialog')).toHaveTextContent(/Quick download.*Fetch formats/s);
+
+    await act(async () => {
+      fireEvent.click(screen.getByTestId('clipboard-confirm-quick-download'));
+    });
+
+    expect(useAppStore.getState().wizardUrl).toBe(FRESH_URL);
+    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
+    expect(quickDownloadSpy).toHaveBeenCalledTimes(1);
+  });
+
   it('"Cancel" closes without touching wizardUrl', () => {
     render(<StepUrlInput />);
     act(() => {
