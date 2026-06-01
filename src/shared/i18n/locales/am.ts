@@ -1,6 +1,7 @@
 const am = {
   common: {
     back: 'ተመለስ',
+    cancel: 'ሰርዝ',
     continue: 'ቀጥል',
     retry: 'እንደገና ሞክር',
     startOver: 'ከመጀመሪያ ጀምር'
@@ -57,6 +58,8 @@ const am = {
     },
     actions: {
       chooseExecutable: 'ፈፃሚ ፋይል ምረጥ',
+      installWithHomebrew: 'በHomebrew ጫን',
+      installWithWinget: 'በWinGet ጫን',
       resetToDefault: 'ወደ ነባሪ መልስ',
       retrySetup: 'ማዋቀሩን እንደገና ሞክር',
       cancel: 'ሰርዝ',
@@ -86,10 +89,17 @@ const am = {
     },
     playlist: {
       heading: 'የ Playlist ቪዲዮዎች',
+      bulkHeading: 'ብዙ URLዎች',
       itemCount_one: '{{count}} ቪዲዮ',
       itemCount_other: '{{count}} ቪዲዮዎች',
       itemCountAudio_one: '{{count}} ዘፈን',
       itemCountAudio_other: '{{count}} ዘፈኖች',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URLዎች',
+      bulkMetadataResolving: 'የቪዲዮ ዝርዝሮች በመ 가져오는 ላይ… {{done}}/{{total}}',
+      bulkRowWaiting: 'በመጠባበቅ ላይ',
+      bulkRowResolving: 'ዝርዝሮች በመ 가져오는 ላይ',
+      bulkRowFailed: 'ዝርዝሮች አይገኙም',
       selectAll: 'ሁሉ ምረጥ',
       selectNone: 'ምንም አትምረጥ',
       rangeFrom: 'ከ',
@@ -111,6 +121,22 @@ const am = {
       alreadyDownloaded: 'ቀድሞ ወርዷል',
       probeLimitAlertTitle: 'የ Playlist ቃኝት ተገድቧል',
       probeLimitAlertDesc: 'Arroxy ከ {{count}} በላይ ንጥሎችን አግኝቷል፣ ስለዚህ የአሁኑ ቃኝት ገደብ የቀሩትን እየደበቀ ነው።'
+    },
+    bulk: {
+      title: 'ብዙ URLዎች',
+      description: 'የቪዲዮ ወይም የድምጽ URLዎችን ለብቻ ለብቻ ለጥፍ። Arroxy ተደጋጋሚዎችን ያጸዳል እና የplaylist ወይም channel አገናኞችን ያሳያል።',
+      textareaLabel: 'የURL ዝርዝር',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'ዝግጁ',
+      ignoredCount: 'ተተው',
+      emptyPreview: 'ቡድኑን ለማየት ቢያንስ ሁለት URLዎች ለጥፍ።',
+      needsTwo: 'ለመቀጠል ቢያንስ ሁለት የሚደገፉ URLዎች ጨምር።',
+      confirm: 'እነዚህን URLዎች ተጠቀም',
+      reject: {
+        duplicate: 'ተደጋጋሚ',
+        playlist: 'የplaylist ፍሰት ተጠቀም',
+        channel: 'የchannel ፍሰት ተጠቀም'
+      }
     },
     playlistPresets: {
       heading: 'ለቡድኑ ጥራት ይምረጡ',
@@ -142,6 +168,8 @@ const am = {
       quickProbeFailed: 'መፈተሹ አልተሳካም',
       quickPrepareFailed: 'የወረፋ ንጥል ማዘጋጀት አልተቻለም',
       quickFailed: 'ይህን ማከል አልተቻለም፦ {{error}}',
+      bulkButton: 'ብዙ URLዎች',
+      bulkTooltip: 'የተለዩ URLዎችን ዝርዝር ለጥፍ፣ የተጸዳውን ዝርዝር ተመልከት፣ ከዚያ በአንድ የጥራት preset ወደ queue አክል።',
       features: {
         heading: 'Arroxy ምን ሊያወርድ ይችላል',
         youtube: {
@@ -175,6 +203,11 @@ const am = {
         dialog: {
           title: 'YouTube URL ተገኝቷል',
           body: 'ይህን አገናኝ ከቅጂ ሰሌዳ ይጠቀሙ?',
+          bulkTitle: 'ብዙ URLዎች ተገኙ',
+          bulkBody: 'እነዚህን የclipboard አገናኞች እንደ ብዙ ዳውንሎድ ትጠቀም?',
+          bulkSummary: '{{count}} URLዎች ዝግጁ',
+          bulkIgnored: '{{count}} ተተው',
+          bulkButton: 'ብዙ አውርድ',
           useButton: 'URL ጠቀም',
           disableButton: 'አሰናክል',
           cancelButton: 'ሰርዝ',
@@ -444,12 +477,15 @@ const am = {
       pullIt: 'ሳቡት! ↓',
       pullItTooltip: 'ወዲያው ይጀምራል — ከሌሎች ዳውንሎዶች ጋር ይሰራል',
       labelPlaylist: 'Playlist',
+      labelBulk: 'ብዙ URLዎች',
       labelPreset: 'ቅድመ-ቅንብር',
       labelItems: 'ቁጥር',
       itemsValue_one: '{{count}} ከ {{total}} ቪዲዮ',
       itemsValue_other: '{{count}} ከ {{total}} ቪዲዮዎች',
       itemsValueAudio_one: '{{count}} ከ {{total}} ዘፈን',
-      itemsValueAudio_other: '{{count}} ከ {{total}} ዘፈኖች'
+      itemsValueAudio_other: '{{count}} ከ {{total}} ዘፈኖች',
+      itemsValueBulk_one: '{{count}} ከ{{total}} URL',
+      itemsValueBulk_other: '{{count}} ከ{{total}} URLዎች'
     }
   },
   videoCard: {

@@ -1,6 +1,7 @@
 const zh = {
   common: {
     back: '返回',
+    cancel: '取消',
     continue: '继续',
     retry: '重试',
     startOver: '重新开始'
@@ -57,6 +58,8 @@ const zh = {
     },
     actions: {
       chooseExecutable: '选择可执行文件',
+      installWithHomebrew: '使用 Homebrew 安装',
+      installWithWinget: '使用 WinGet 安装',
       resetToDefault: '恢复默认',
       retrySetup: '重试初始化',
       cancel: '取消',
@@ -86,10 +89,17 @@ const zh = {
     },
     playlist: {
       heading: 'Playlist 视频',
+      bulkHeading: '批量 URL',
       itemCount_one: '{{count}} 个视频',
       itemCount_other: '{{count}} 个视频',
       itemCountAudio_one: '{{count}} 首曲目',
       itemCountAudio_other: '{{count}} 首曲目',
+      itemCountBulk_one: '{{count}} 个 URL',
+      itemCountBulk_other: '{{count}} 个 URL',
+      bulkMetadataResolving: '正在获取视频详情… {{done}}/{{total}}',
+      bulkRowWaiting: '等待中',
+      bulkRowResolving: '正在获取详情',
+      bulkRowFailed: '详情不可用',
       selectAll: '全选',
       selectNone: '取消全选',
       rangeFrom: '从',
@@ -111,6 +121,22 @@ const zh = {
       alreadyDownloaded: '已下载',
       probeLimitAlertTitle: '播放列表扫描已达上限',
       probeLimitAlertDesc: 'Arroxy 发现超过 {{count}} 个项目，当前扫描上限隐藏了其余内容。'
+    },
+    bulk: {
+      title: '批量 URL',
+      description: '粘贴单个视频或音频 URL。Arroxy 会清理重复项，并在加入队列前标记播放列表或频道链接。',
+      textareaLabel: 'URL 列表',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: '就绪',
+      ignoredCount: '已忽略',
+      emptyPreview: '至少粘贴两个 URL 以预览批次。',
+      needsTwo: '至少添加两个受支持的 URL 才能继续。',
+      confirm: '使用这些 URL',
+      reject: {
+        duplicate: '重复',
+        playlist: '使用播放列表流程',
+        channel: '使用频道流程'
+      }
     },
     playlistPresets: {
       heading: '选择批量下载画质',
@@ -142,6 +168,8 @@ const zh = {
       quickProbeFailed: '探测失败',
       quickPrepareFailed: '无法准备队列项目',
       quickFailed: '无法添加此项：{{error}}',
+      bulkButton: '批量 URL',
+      bulkTooltip: '粘贴单个 URL 列表，预览清理后的列表，然后使用同一个质量预设加入队列。',
       features: {
         heading: 'Arroxy 能下载什么',
         youtube: {
@@ -175,6 +203,11 @@ const zh = {
         dialog: {
           title: '检测到 YouTube 链接',
           body: '使用剪贴板中的此链接吗?',
+          bulkTitle: '检测到批量 URL',
+          bulkBody: '将剪贴板中的这些链接作为批量下载使用？',
+          bulkSummary: '{{count}} 个 URL 就绪',
+          bulkIgnored: '已忽略 {{count}} 个',
+          bulkButton: '批量下载',
           useButton: '使用 URL',
           disableButton: '禁用',
           cancelButton: '取消',
@@ -444,12 +477,15 @@ const zh = {
       pullIt: '开始下载! ↓',
       pullItTooltip: '立即开始 — 与其他活动下载并行运行',
       labelPlaylist: '播放列表',
+      labelBulk: '批量 URL',
       labelPreset: '预设',
       labelItems: '项目',
       itemsValue_one: '{{total}} 个视频中的 {{count}} 个',
       itemsValue_other: '{{total}} 个视频中的 {{count}} 个',
       itemsValueAudio_one: '{{total}} 首曲目中的 {{count}} 首',
-      itemsValueAudio_other: '{{total}} 首曲目中的 {{count}} 首'
+      itemsValueAudio_other: '{{total}} 首曲目中的 {{count}} 首',
+      itemsValueBulk_one: '{{count}} / {{total}} 个 URL',
+      itemsValueBulk_other: '{{count}} / {{total}} 个 URL'
     }
   },
   videoCard: {

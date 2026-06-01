@@ -1,6 +1,7 @@
 const om = {
   common: {
     back: 'Duubatti',
+    cancel: 'Haqi',
     continue: 'Itti fufi',
     retry: "Irra deebi'i",
     startOver: "Jalqabbii irra deebi'i"
@@ -57,6 +58,8 @@ const om = {
     },
     actions: {
       chooseExecutable: 'Faayilii hojjetu filadhu',
+      installWithHomebrew: 'Homebrew dhaan fe’i',
+      installWithWinget: 'WinGet dhaan fe’i',
       resetToDefault: "Durtii irra deebi'i",
       retrySetup: "Qindaa'inaa irra deebi'i yaali",
       cancel: 'Haqdhaabi',
@@ -86,10 +89,17 @@ const om = {
     },
     playlist: {
       heading: 'Wantoota Playlist',
+      bulkHeading: 'URL hedduu',
       itemCount_one: '{{count}} viidiyoo',
       itemCount_other: '{{count}} viidiyoowwan',
       itemCountAudio_one: '{{count}} weellaa',
       itemCountAudio_other: '{{count}} weellaalee',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URL',
+      bulkMetadataResolving: 'Ibsa viidiyoo fidaa… {{done}}/{{total}}',
+      bulkRowWaiting: 'Eegaa jira',
+      bulkRowResolving: 'Ibsa fidaa jira',
+      bulkRowFailed: 'Ibsi hin argamne',
       selectAll: 'Hunda filadhu',
       selectNone: 'Tokkollee hin filin',
       rangeFrom: 'Irraa',
@@ -111,6 +121,22 @@ const om = {
       alreadyDownloaded: 'Duraan buufameera',
       probeLimitAlertTitle: 'Qorannaan playlist daangeffameera',
       probeLimitAlertDesc: 'Arroxy wantoota {{count}} ol argateera, kanaafuu daangaan qorannaa ammaa kan hafan dhoksaa jira.'
+    },
+    bulk: {
+      title: 'URL hedduu',
+      description: 'URL viidiyoo ykn sagalee kophaa as maxxansi. Arroxy irra-deebii ni qulqulleessa, hidhannoowwan playlist ykn channel immoo ni agarsiisa.',
+      textareaLabel: 'Tarree URL',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'Qophaa’e',
+      ignoredCount: 'Tuffatame',
+      emptyPreview: 'Garee ilaaluu dura URL yoo xiqqaate lama maxxansi.',
+      needsTwo: 'Itti fufuuf URL deeggaraman yoo xiqqaate lama dabali.',
+      confirm: 'URL kana fayyadami',
+      reject: {
+        duplicate: 'Irra-deebi',
+        playlist: 'Adeemsa playlist fayyadami',
+        channel: 'Adeemsa channel fayyadami'
+      }
     },
     playlistPresets: {
       heading: 'Kutaa gurmuu barbaadi',
@@ -141,6 +167,8 @@ const om = {
       quickProbeFailed: 'Sakatta’iinsi hin milkoofne',
       quickPrepareFailed: 'Wantoota tarree qopheessuu hin dandeenye',
       quickFailed: 'Kana dabaluun hin danda’amne: {{error}}',
+      bulkButton: 'URL hedduu',
+      bulkTooltip: 'Tarree URL kophaa maxxansi, tarree qulqullaa’e ilaali, sana booda filannoo qulqullina waliinii queue keessa galchi.',
       features: {
         heading: "Arroxy maal buufachuu danda'a",
         youtube: {
@@ -174,6 +202,11 @@ const om = {
         dialog: {
           title: 'YouTube URL argame',
           body: 'Liinkii kana kliipboordii kee irraa fayyadamduu?',
+          bulkTitle: 'URL hedduun argaman',
+          bulkBody: 'Hidhannoowwan clipboard kana buufannaa hedduuf fayyadamuu?',
+          bulkSummary: '{{count}} URL qophaa’e',
+          bulkIgnored: '{{count}} tuffatame',
+          bulkButton: 'Hedduu buusi',
           useButton: 'URL fayyadami',
           disableButton: 'Dhaabbi',
           cancelButton: 'Haqi',
@@ -443,12 +476,15 @@ const om = {
       pullIt: 'Buusi! ↓',
       pullItTooltip: 'Immediately jalqaba — daawniloodoonni biroo waliin hojjeta',
       labelPlaylist: 'Playlist',
+      labelBulk: 'URL hedduu',
       labelPreset: 'Preset',
       labelItems: 'Wantota',
       itemsValue_one: '{{count}} fi {{total}} keessaa viidiyoo',
       itemsValue_other: '{{count}} fi {{total}} keessaa viidiyoowwan',
       itemsValueAudio_one: '{{count}} fi {{total}} keessaa weellaa',
-      itemsValueAudio_other: '{{count}} fi {{total}} keessaa weellaalee'
+      itemsValueAudio_other: '{{count}} fi {{total}} keessaa weellaalee',
+      itemsValueBulk_one: '{{count}} URL keessaa {{total}}',
+      itemsValueBulk_other: '{{count}} URL keessaa {{total}}'
     }
   },
   videoCard: {

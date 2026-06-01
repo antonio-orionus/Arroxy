@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AlertTriangle, FolderOpen, RefreshCw, FileSearch, RotateCcw, X } from 'lucide-react';
+import { AlertTriangle, FolderOpen, RefreshCw, FileSearch, RotateCcw, X, PackagePlus } from 'lucide-react';
 import type { BinaryOverrides, DependencyDiagnostic, DependencyFailureKind, DependencyId } from '@shared/types.js';
 import { FAILURE_CODE } from '@shared/types.js';
 import { useAppStore } from '../../store/useAppStore.js';
@@ -40,14 +40,19 @@ const OVERRIDE_KEY: Record<DependencyId, keyof BinaryOverrides> = {
 export function RepairPanel({ diagnostics, blocking }: Props): JSX.Element {
   const { t } = useTranslation();
   const repairWarmup = useAppStore((s) => s.repairWarmup);
+  const repairYtDlpWithHomebrew = useAppStore((s) => s.repairYtDlpWithHomebrew);
+  const repairYtDlpWithWinget = useAppStore((s) => s.repairYtDlpWithWinget);
   const cancelWarmup = useAppStore((s) => s.cancelWarmup);
   const setBinaryOverride = useAppStore((s) => s.setBinaryOverride);
   const clearBinaryOverride = useAppStore((s) => s.clearBinaryOverride);
   const openBinariesDir = useAppStore((s) => s.openBinariesDir);
   const openLogs = useAppStore((s) => s.openLogs);
   const warmupRunning = useAppStore((s) => s.warmupRunning);
+  const warmupCancellable = useAppStore((s) => s.warmupCancellable);
   const settings = useAppStore((s) => s.settings);
   const overrides = settings?.common?.binaryOverrides;
+  const isMac = typeof navigator !== 'undefined' && /Mac/i.test(navigator.platform);
+  const isWindows = typeof navigator !== 'undefined' && /Win/i.test(navigator.platform);
 
   async function pickAndOverride(id: DependencyId): Promise<void> {
     const result = await window.appApi.dialog.chooseExecutable(id);
@@ -92,6 +97,16 @@ export function RepairPanel({ diagnostics, blocking }: Props): JSX.Element {
                 <Button size="sm" variant="outline" onClick={() => void pickAndOverride(id)} disabled={warmupRunning}>
                   <FileSearch size={14} /> {t('repair.actions.chooseExecutable')}
                 </Button>
+                {id === 'yt-dlp' && isMac && (
+                  <Button size="sm" variant="outline" onClick={() => void repairYtDlpWithHomebrew()} disabled={warmupRunning}>
+                    <PackagePlus size={14} /> {t('repair.actions.installWithHomebrew')}
+                  </Button>
+                )}
+                {id === 'yt-dlp' && isWindows && (
+                  <Button size="sm" variant="outline" onClick={() => void repairYtDlpWithWinget()} disabled={warmupRunning}>
+                    <PackagePlus size={14} /> {t('repair.actions.installWithWinget')}
+                  </Button>
+                )}
                 {overrideActive && (
                   <Button size="sm" variant="outline" onClick={() => void clearBinaryOverride(id)} disabled={warmupRunning}>
                     <RotateCcw size={14} /> {t('repair.actions.resetToDefault')}
@@ -106,7 +121,7 @@ export function RepairPanel({ diagnostics, blocking }: Props): JSX.Element {
         <Button size="sm" onClick={() => void repairWarmup()} disabled={warmupRunning}>
           <RefreshCw size={14} className={warmupRunning ? 'animate-spin' : undefined} /> {t('repair.actions.retrySetup')}
         </Button>
-        {warmupRunning && (
+        {warmupRunning && warmupCancellable && (
           <Button size="sm" variant="outline" onClick={() => void cancelWarmup()}>
             <X size={14} /> {t('repair.actions.cancel')}
           </Button>

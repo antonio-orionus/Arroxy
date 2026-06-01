@@ -1,6 +1,7 @@
 const sr = {
   common: {
     back: 'Назад',
+    cancel: 'Откажи',
     continue: 'Настави',
     retry: 'Покушај поново',
     startOver: 'Почни испочетка'
@@ -57,6 +58,8 @@ const sr = {
     },
     actions: {
       chooseExecutable: 'Изабери извршну датотеку',
+      installWithHomebrew: 'Инсталирај преко Homebrew-а',
+      installWithWinget: 'Инсталирај преко WinGet-а',
       resetToDefault: 'Врати на подразумевано',
       retrySetup: 'Покушај подешавање поново',
       cancel: 'Откажи',
@@ -86,10 +89,17 @@ const sr = {
     },
     playlist: {
       heading: 'Ставке плејлисте',
+      bulkHeading: 'Групни URL-ови',
       itemCount_one: '{{count}} видео',
       itemCount_other: '{{count}} видеа',
       itemCountAudio_one: '{{count}} нумера',
       itemCountAudio_other: '{{count}} нумера',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URL-ова',
+      bulkMetadataResolving: 'Преузимање детаља видеа… {{done}}/{{total}}',
+      bulkRowWaiting: 'Чека',
+      bulkRowResolving: 'Преузимање детаља',
+      bulkRowFailed: 'Детаљи нису доступни',
       selectAll: 'Изабери све',
       selectNone: 'Поништи избор',
       rangeFrom: 'Од',
@@ -111,6 +121,22 @@ const sr = {
       alreadyDownloaded: 'Већ преузето',
       probeLimitAlertTitle: 'Скенирање плејлисте је ограничено',
       probeLimitAlertDesc: 'Arroxy је пронашао више од {{count}} ставки, па тренутно ограничење скенирања скрива остатак.'
+    },
+    bulk: {
+      title: 'Групни URL-ови',
+      description: 'Налепи појединачне видео или аудио URL-ове. Arroxy ће очистити дупликате и означити playlist или channel линкове пре додавања у ред.',
+      textareaLabel: 'Листа URL-ова',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'Спремно',
+      ignoredCount: 'Занемарено',
+      emptyPreview: 'Налепи најмање два URL-а за преглед групе.',
+      needsTwo: 'Додај најмање два подржана URL-а за наставак.',
+      confirm: 'Користи ове URL-ове',
+      reject: {
+        duplicate: 'Дупликат',
+        playlist: 'Користи playlist ток',
+        channel: 'Користи channel ток'
+      }
     },
     playlistPresets: {
       heading: 'Изабери квалитет за групно преузимање',
@@ -142,6 +168,8 @@ const sr = {
       quickProbeFailed: 'Provera nije uspela',
       quickPrepareFailed: 'Stavka reda nije mogla da se pripremi',
       quickFailed: 'Nije moguće dodati: {{error}}',
+      bulkButton: 'Групни URL-ови',
+      bulkTooltip: 'Налепи листу појединачних URL-ова, прегледај очишћену листу, па их додај у ред са заједничким quality preset-ом.',
       features: {
         heading: 'Шта Arroxy може да преузме',
         youtube: {
@@ -175,6 +203,11 @@ const sr = {
         dialog: {
           title: 'Откривен YouTube URL',
           body: 'Да ли да користиш овај линк из клипборда?',
+          bulkTitle: 'Откривени су групни URL-ови',
+          bulkBody: 'Користити ове линкове из clipboard-а као групно преузимање?',
+          bulkSummary: '{{count}} URL-ова спремно',
+          bulkIgnored: '{{count}} занемарено',
+          bulkButton: 'Групно преузимање',
           useButton: 'Користи URL',
           disableButton: 'Онемогући',
           cancelButton: 'Откажи',
@@ -444,12 +477,15 @@ const sr = {
       pullIt: 'Преузми! ↓',
       pullItTooltip: 'Покреће се одмах — ради упоредо са другим активним преузимањима',
       labelPlaylist: 'Плејлиста',
+      labelBulk: 'Групни URL-ови',
       labelPreset: 'Поставка',
       labelItems: 'Ставке',
       itemsValue_one: '{{count}} од {{total}} видеа',
       itemsValue_other: '{{count}} од {{total}} видеа',
       itemsValueAudio_one: '{{count}} од {{total}} нумере',
-      itemsValueAudio_other: '{{count}} од {{total}} нумера'
+      itemsValueAudio_other: '{{count}} од {{total}} нумера',
+      itemsValueBulk_one: '{{count}} од {{total}} URL-а',
+      itemsValueBulk_other: '{{count}} од {{total}} URL-ова'
     }
   },
   videoCard: {

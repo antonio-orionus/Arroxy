@@ -21,6 +21,8 @@ export interface AppApi {
   app: {
     warmUp(input?: { force?: boolean }): Promise<Result<WarmUpOutput>>;
     cancelWarmup(): Promise<void>;
+    installYtDlpWithHomebrew(): Promise<Result<{ installedPath: string }>>;
+    installYtDlpWithWinget(): Promise<Result<{ installedPath: string }>>;
     setLanguage(language: SupportedLang): Promise<void>;
   };
   window: WindowApi;

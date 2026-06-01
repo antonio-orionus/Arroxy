@@ -34,6 +34,43 @@ describe('settings and recent stores', () => {
     expect(readBack.single.lastSubtitleLanguages).toEqual(['en', 'es']);
   });
 
+  it('records launch count so only the second launch is marked welcome-back eligible', async () => {
+    const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-launch-count-'));
+    const store = new SettingsStore(userData, baseDefaults);
+
+    const first = await store.recordLaunch();
+    expect(first.isFirstRun).toBe(true);
+    expect(first.launchCount).toBe(1);
+    expect(first.settings.common.firstRunCompleted).toBe(true);
+
+    const second = await store.recordLaunch();
+    expect(second.isFirstRun).toBe(false);
+    expect(second.launchCount).toBe(2);
+
+    const third = await store.recordLaunch();
+    expect(third.isFirstRun).toBe(false);
+    expect(third.launchCount).toBe(3);
+  });
+
+  it('treats existing installs without launch history as past the welcome-back launch', async () => {
+    const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-existing-launch-count-'));
+    await fs.writeFile(
+      path.join(userData, 'settings.json'),
+      JSON.stringify({
+        common: { ...baseDefaults.common, firstRunCompleted: true },
+        single: {},
+        playlist: {}
+      }),
+      'utf-8'
+    );
+    const store = new SettingsStore(userData, baseDefaults);
+
+    const launch = await store.recordLaunch();
+
+    expect(launch.isFirstRun).toBe(false);
+    expect(launch.launchCount).toBe(3);
+  });
+
   it('keeps recent jobs bounded and sorted', async () => {
     const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'recent-jobs-'));
     const store = new RecentJobsStore(userData);

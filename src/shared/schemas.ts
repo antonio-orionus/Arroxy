@@ -356,6 +356,7 @@ const commonSettingsPatchSchema = z.object({
   lastSponsorBlockCategories: z.array(sponsorBlockCategorySchema).optional(),
   analyticsEnabled: z.boolean().optional(),
   firstRunCompleted: z.boolean().optional(),
+  launchCount: z.number().int().nonnegative().optional(),
   drawerOpen: z.boolean().optional(),
   successfulDownloadCount: z.number().int().nonnegative().optional(),
   shareInlineCardDismissed: z.boolean().optional(),

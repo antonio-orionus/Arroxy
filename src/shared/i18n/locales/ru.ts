@@ -1,6 +1,7 @@
 const ru = {
   common: {
     back: 'Назад',
+    cancel: 'Отменить',
     continue: 'Продолжить',
     retry: 'Повторить',
     startOver: 'Начать заново'
@@ -57,6 +58,8 @@ const ru = {
     },
     actions: {
       chooseExecutable: 'Выбрать исполняемый файл',
+      installWithHomebrew: 'Установить через Homebrew',
+      installWithWinget: 'Установить через WinGet',
       resetToDefault: 'Сбросить по умолчанию',
       retrySetup: 'Повторить настройку',
       cancel: 'Отменить',
@@ -86,10 +89,17 @@ const ru = {
     },
     playlist: {
       heading: 'Элементы Playlist',
+      bulkHeading: 'Массовые URL',
       itemCount_one: '{{count}} видео',
       itemCount_other: '{{count}} видео',
       itemCountAudio_one: '{{count}} трек',
       itemCountAudio_other: '{{count}} треков',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URL',
+      bulkMetadataResolving: 'Получение сведений о видео… {{done}}/{{total}}',
+      bulkRowWaiting: 'Ожидание',
+      bulkRowResolving: 'Получение сведений',
+      bulkRowFailed: 'Сведения недоступны',
       selectAll: 'Выбрать все',
       selectNone: 'Снять выбор',
       rangeFrom: 'С',
@@ -111,6 +121,22 @@ const ru = {
       alreadyDownloaded: 'Уже скачано',
       probeLimitAlertTitle: 'Сканирование плейлиста ограничено',
       probeLimitAlertDesc: 'Arroxy нашёл более {{count}} элементов, поэтому текущий лимит сканирования скрывает остальные.'
+    },
+    bulk: {
+      title: 'Массовые URL',
+      description: 'Вставьте отдельные URL видео или аудио. Arroxy удалит дубликаты и отметит ссылки на плейлисты или каналы перед добавлением в очередь.',
+      textareaLabel: 'Список URL',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'Готово',
+      ignoredCount: 'Пропущено',
+      emptyPreview: 'Вставьте хотя бы два URL, чтобы просмотреть пакет.',
+      needsTwo: 'Добавьте хотя бы два поддерживаемых URL, чтобы продолжить.',
+      confirm: 'Использовать эти URL',
+      reject: {
+        duplicate: 'Дубликат',
+        playlist: 'Использовать сценарий плейлиста',
+        channel: 'Использовать сценарий канала'
+      }
     },
     playlistPresets: {
       heading: 'Выбери качество для пакетной загрузки',
@@ -142,6 +168,8 @@ const ru = {
       quickProbeFailed: 'Проверка не удалась',
       quickPrepareFailed: 'Не удалось подготовить элемент очереди',
       quickFailed: 'Не удалось добавить: {{error}}',
+      bulkButton: 'Массовые URL',
+      bulkTooltip: 'Вставьте список отдельных URL, проверьте очищенный список и добавьте их в очередь с общим пресетом качества.',
       features: {
         heading: 'Что умеет скачивать Arroxy',
         youtube: {
@@ -175,6 +203,11 @@ const ru = {
         dialog: {
           title: 'Найдена ссылка YouTube',
           body: 'Использовать эту ссылку из буфера обмена?',
+          bulkTitle: 'Обнаружены массовые URL',
+          bulkBody: 'Использовать эти ссылки из буфера как массовую загрузку?',
+          bulkSummary: '{{count}} URL готовы',
+          bulkIgnored: '{{count}} пропущено',
+          bulkButton: 'Массовая загрузка',
           useButton: 'Использовать URL',
           disableButton: 'Отключить',
           cancelButton: 'Отмена',
@@ -444,12 +477,15 @@ const ru = {
       pullIt: 'Качаем! ↓',
       pullItTooltip: 'Запускается сразу — параллельно с другими активными загрузками',
       labelPlaylist: 'Плейлист',
+      labelBulk: 'Массовые URL',
       labelPreset: 'Пресет',
       labelItems: 'Видео',
       itemsValue_one: '{{count}} из {{total}} видео',
       itemsValue_other: '{{count}} из {{total}} видео',
       itemsValueAudio_one: '{{count}} из {{total}} трека',
-      itemsValueAudio_other: '{{count}} из {{total}} треков'
+      itemsValueAudio_other: '{{count}} из {{total}} треков',
+      itemsValueBulk_one: '{{count}} из {{total}} URL',
+      itemsValueBulk_other: '{{count}} из {{total}} URL'
     }
   },
   videoCard: {

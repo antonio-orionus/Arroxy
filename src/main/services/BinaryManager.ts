@@ -13,8 +13,11 @@ const execFileAsync = promisify(execFile);
 
 import { trackMain } from '@main/services/analytics.js';
 import { FAILURE_CODE, type BinaryOverrides, type DependencyAttempt, type DependencyDiagnostic, type DependencyFailure, type DependencyId, type DependencySource, type StatusKey } from '@shared/types.js';
-import { probeArgs, probeBinary, whereOnPath, classifyProbeError, cancelError, PROBE_TIMEOUT_MS } from './binary/BinaryProbe.js';
+import { probeArgs, probeBinary, whereOnPath, classifyProbeError, cancelError, fallbackPathCandidates, PROBE_TIMEOUT_MS } from './binary/BinaryProbe.js';
 import { classifyDownloadError, downloadErrorDetails, downloadFile, downloadText, parseShaLine, parseStandaloneSha256, parsePowerShellFileHash, parseTagFromLocation, sha256ForFile, wrapDownloadProgressEmitter, parseContentRangeStart, resolvePartialResponseMode, HTTP_HEADERS, HTTP_RETRY, HTTP_TIMEOUT, type DownloadProgressCallback, type ProgressEmitter } from './binary/BinaryDownloader.js';
+import { installYtDlpWithHomebrew } from './binary/HomebrewRepair.js';
+import { ManagedSetupError, managedSetupCause, managedSetupStep, sourceTelemetry, withManagedSetupStep } from './binary/ManagedSetup.js';
+import { installYtDlpWithWinget } from './binary/WingetRepair.js';
 
 function stringifyHeader(header: string | string[] | undefined): string | null {
   if (!header) return null;
@@ -231,19 +234,22 @@ export class BinaryManager {
   // whether to fall through to the next attempt.
   private async probeAndAccept(id: DependencyId, source: DependencySource, candidatePath: string, attempts: DependencyAttempt[], onProgress?: ProgressEmitter, signal?: AbortSignal): Promise<DependencyDiagnostic | null> {
     onProgress?.({ binary: id, phase: 'probing', source });
-    const probe = await probeBinary(candidatePath, probeArgs(id), PROBE_TIMEOUT_MS, signal);
+    const args = probeArgs(id);
+    const startedAt = Date.now();
+    const probe = await probeBinary(candidatePath, args, PROBE_TIMEOUT_MS, signal);
+    const elapsedMs = Date.now() - startedAt;
     if (probe.ok) {
       attempts.push(makeAttempt(source));
       this.resolved[id] = candidatePath;
       onProgress?.({ binary: id, phase: 'done', source });
       const diag = runnableDiagnostic(id, source, candidatePath, attempts, probe.output);
       this.lastDiagnostics[id] = diag;
-      logger.info(`${id} probe ok`, { source, path: candidatePath, version: probe.output.split('\n')[0] });
+      logger.info(`${id} probe ok`, { source, path: candidatePath, args, elapsedMs, version: probe.output.split('\n')[0] });
       return diag;
     }
     attempts.push(makeAttempt(source, probe.failure));
     onProgress?.({ binary: id, phase: 'failed', source, failureKind: probe.failure.kind });
-    logger.warn(`${id} probe failed`, { source, path: candidatePath, failureKind: probe.failure.kind, message: probe.failure.message });
+    logger.warn(`${id} probe failed`, { source, path: candidatePath, args, timeoutMs: PROBE_TIMEOUT_MS, elapsedMs, failureKind: probe.failure.kind, message: probe.failure.message });
     return null;
   }
 
@@ -260,11 +266,7 @@ export class BinaryManager {
         destinationPath,
         downloadUrl,
         expectedSha256: async () => {
-          try {
-            return parseShaLine(await downloadText(`${channelSource.download}/SHA2-256SUMS`, signal), assetName);
-          } catch {
-            return null;
-          }
+          return parseShaLine(await downloadText(`${channelSource.download}/SHA2-256SUMS`, signal), assetName);
         },
         onStatus: opts.onStatus,
         onDownloadProgress: makeDownloadProgress(id, source, onProgress),
@@ -273,7 +275,13 @@ export class BinaryManager {
         signal
       })
     );
-    if (!downloadOk) return null;
+    if (!downloadOk) {
+      if (await this.isUsableBinary(destinationPath)) {
+        logger.warn('Using existing yt-dlp after managed update failed', { channel, path: destinationPath });
+        return this.probeAndAccept(id, source, destinationPath, attempts, onProgress, signal);
+      }
+      return null;
+    }
     return this.probeAndAccept(id, source, destinationPath, attempts, onProgress, signal);
   }
 
@@ -326,23 +334,34 @@ export class BinaryManager {
   // Wraps a managed-download attempt, recording download/extract/hash failures
   // as attempts on the chain. Returns true if the file is on disk after the
   // call (probe still has to run separately).
-  private recordManagedFailure(id: DependencyId, attempts: DependencyAttempt[], source: DependencySource, onProgress: ProgressEmitter | undefined, err: unknown): void {
-    const failure: DependencyFailure = { kind: classifyDownloadError(err), message: errorMessage(err) };
+  private recordManagedFailure(id: DependencyId, attempts: DependencyAttempt[], source: DependencySource, onProgress: ProgressEmitter | undefined, err: unknown, elapsedMs: number): void {
+    const cause = managedSetupCause(err);
+    const failure: DependencyFailure = { kind: classifyDownloadError(cause), message: errorMessage(cause) };
     attempts.push(makeAttempt(source, failure));
     onProgress?.({ binary: id, phase: 'failed', source, failureKind: failure.kind });
     const tracked = id === 'yt-dlp' ? 'ytdlp' : id;
-    trackMain('binary_setup_failed', { binary: tracked, phase: failure.kind, code: FAILURE_CODE[failure.kind], ...downloadErrorDetails(err) });
-    logger.warn(`${id} managed download failed`, { source, error: failure.message });
+    trackMain('binary_setup_failed', {
+      binary: tracked,
+      phase: failure.kind,
+      code: FAILURE_CODE[failure.kind],
+      operation: 'managed-download',
+      setup_step: managedSetupStep(err),
+      ...sourceTelemetry(source),
+      elapsed_ms: elapsedMs,
+      ...downloadErrorDetails(cause)
+    });
+    logger.warn(`${id} managed download failed`, { source, setupStep: managedSetupStep(err), elapsedMs, error: failure.message });
   }
 
   private async tryManagedDownload(id: DependencyId, attempts: DependencyAttempt[], source: DependencySource, onProgress: ProgressEmitter | undefined, run: () => Promise<void>): Promise<boolean> {
     onProgress?.({ binary: id, phase: 'downloading', source });
+    const startedAt = Date.now();
     try {
       await run();
       onProgress?.({ binary: id, phase: 'extracting', source });
       return true;
     } catch (err) {
-      this.recordManagedFailure(id, attempts, source, onProgress, err);
+      this.recordManagedFailure(id, attempts, source, onProgress, err, Date.now() - startedAt);
       return false;
     }
   }
@@ -361,6 +380,14 @@ export class BinaryManager {
       throw new Error(diag.failure?.message ?? 'yt-dlp could not be resolved');
     }
     return diag.resolvedPath;
+  }
+
+  async installYtDlpWithHomebrew(): Promise<string> {
+    return installYtDlpWithHomebrew();
+  }
+
+  async installYtDlpWithWinget(): Promise<string> {
+    return installYtDlpWithWinget();
   }
 
   // ffmpeg + ffprobe ship via electron-builder extraResources at build time.
@@ -610,7 +637,7 @@ export class BinaryManager {
   private async downloadBinary(config: EnsureBinaryConfig): Promise<void> {
     const maxAttempts = 3;
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-      if (config.signal?.aborted) throw cancelError();
+      if (config.signal?.aborted) throw new ManagedSetupError('preflight', cancelError());
       try {
         await this.attemptDownload(config);
         return;
@@ -635,32 +662,34 @@ export class BinaryManager {
     onStatus?.('downloadingBinary', { name });
     logger.info(`Downloading ${name}`, { downloadUrl, destinationPath });
 
-    await downloadFile(downloadUrl, tempPath, onDownloadProgress, true, signal);
+    await withManagedSetupStep('download', () => downloadFile(downloadUrl, tempPath, onDownloadProgress, true, signal));
 
     if (expectedSha256) {
-      const expected = await expectedSha256();
+      const expected = await withManagedSetupStep('checksum_lookup', () => expectedSha256());
       if (!expected && requiredChecksum) {
         await fsPromises.rm(tempPath, { force: true });
-        throw new Error(`Checksum source unavailable for ${name}. Refusing to use unverified binary.`);
+        throw new ManagedSetupError('checksum_lookup', new Error(`Checksum source unavailable for ${name}. Refusing to use unverified binary.`));
       }
 
       if (expected) {
-        const actual = await sha256ForFile(tempPath);
+        const actual = await withManagedSetupStep('checksum_verify', () => sha256ForFile(tempPath));
         if (actual !== expected) {
           await fsPromises.rm(tempPath, { force: true });
-          throw new Error(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`);
+          throw new ManagedSetupError('checksum_verify', new Error(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`));
         }
       } else {
         logger.warn(`Checksum unavailable for ${name}, proceeding without verification`);
       }
     }
 
-    await fsPromises.mkdir(path.dirname(destinationPath), { recursive: true });
-    await fsPromises.rename(tempPath, destinationPath);
+    await withManagedSetupStep('install', async () => {
+      await fsPromises.mkdir(path.dirname(destinationPath), { recursive: true });
+      await fsPromises.rename(tempPath, destinationPath);
 
-    if (process.platform !== 'win32') {
-      await fsPromises.chmod(destinationPath, 0o755);
-    }
+      if (process.platform !== 'win32') {
+        await fsPromises.chmod(destinationPath, 0o755);
+      }
+    });
   }
 
   private async isYtDlpUpToDate(binaryPath: string, releaseLatestUrl: string, signal?: AbortSignal): Promise<boolean> {
@@ -691,9 +720,10 @@ export class BinaryManager {
 
   private async getLocalYtDlpVersion(binaryPath: string, signal?: AbortSignal): Promise<string | null> {
     try {
-      const { stdout } = await execFileAsync(binaryPath, ['--version'], { signal });
+      const { stdout } = await execFileAsync(binaryPath, ['--version'], { timeout: PROBE_TIMEOUT_MS, signal });
       return stdout.trim();
-    } catch {
+    } catch (err) {
+      logger.warn('yt-dlp local version check failed', { path: binaryPath, timeoutMs: PROBE_TIMEOUT_MS, error: errorMessage(err) });
       return null;
     }
   }
@@ -746,5 +776,6 @@ export const binaryInternals = {
   classifyProbeError,
   classifyDownloadError,
   whereOnPath,
+  fallbackPathCandidates,
   bundledBinaryPath
 };

@@ -4,17 +4,20 @@ import { IPC_CHANNELS } from '@shared/ipc.js';
 import { supportedLangSchema } from '@shared/schemas.js';
 import type { SupportedLang } from '@shared/i18n/types.js';
 import type { WarmupService } from '@main/services/WarmupService.js';
-import { handleRaw } from './utils.js';
+import type { BinaryManager } from '@main/services/BinaryManager.js';
+import { ok } from '@shared/result.js';
+import { handleRaw, toUnknownFailure } from './utils.js';
 
 interface AppHandlerDeps {
   warmupService: WarmupService;
+  binaryManager: BinaryManager;
   languageRef: { current: SupportedLang };
 }
 
 const warmUpInputSchema = z.object({ force: z.boolean().optional() }).optional();
 
 export function registerAppHandlers(deps: AppHandlerDeps): void {
-  const { warmupService, languageRef } = deps;
+  const { warmupService, binaryManager, languageRef } = deps;
 
   handleRaw(IPC_CHANNELS.appWarmUp, (_, payload: unknown) => {
     const parsed = warmUpInputSchema.safeParse(payload);
@@ -27,6 +30,24 @@ export function registerAppHandlers(deps: AppHandlerDeps): void {
 
   handleRaw(IPC_CHANNELS.appCancelWarmup, () => {
     warmupService.cancel();
+  });
+
+  handleRaw(IPC_CHANNELS.appInstallYtDlpHomebrew, async () => {
+    try {
+      const installedPath = await binaryManager.installYtDlpWithHomebrew();
+      return ok({ installedPath });
+    } catch (error) {
+      return toUnknownFailure(error);
+    }
+  });
+
+  handleRaw(IPC_CHANNELS.appInstallYtDlpWinget, async () => {
+    try {
+      const installedPath = await binaryManager.installYtDlpWithWinget();
+      return ok({ installedPath });
+    } catch (error) {
+      return toUnknownFailure(error);
+    }
   });
 
   handleRaw(IPC_CHANNELS.appSetLanguage, (_, payload: unknown) => {

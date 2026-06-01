@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-const { ctorMock, trackMock, identifyMock, setGlobalPropertiesMock } = vi.hoisted(() => {
+const { ctorMock, trackMock, identifyMock, setGlobalPropertiesMock, addHeaderMock } = vi.hoisted(() => {
   const trackMock = vi.fn().mockResolvedValue(undefined);
   const identifyMock = vi.fn().mockResolvedValue(undefined);
   const setGlobalPropertiesMock = vi.fn();
@@ -8,7 +8,7 @@ const { ctorMock, trackMock, identifyMock, setGlobalPropertiesMock } = vi.hoiste
   const ctorMock = vi.fn().mockImplementation(function () {
     return { track: trackMock, identify: identifyMock, setGlobalProperties: setGlobalPropertiesMock, api: { addHeader: addHeaderMock } };
   });
-  return { ctorMock, trackMock, identifyMock, setGlobalPropertiesMock };
+  return { ctorMock, trackMock, identifyMock, setGlobalPropertiesMock, addHeaderMock };
 });
 
 vi.mock('@openpanel/sdk', () => ({ OpenPanel: ctorMock }));
@@ -48,7 +48,7 @@ describe('allowlist validation', () => {
 
   it('accepts stable failure code on binary_setup_failed', () => {
     setupAnalytics(undefined, undefined, true, 'install-id-test');
-    expect(() => trackMain('binary_setup_failed', { binary: 'ffmpeg', phase: 'download_failed', code: 'ARX-001' })).not.toThrow();
+    expect(() => trackMain('binary_setup_failed', { binary: 'ffmpeg', phase: 'download_failed', code: 'ARX-001', operation: 'managed-download', setup_step: 'download', source_kind: 'managed', source_channel: 'nightly', elapsed_ms: 123 })).not.toThrow();
   });
 });
 
@@ -155,6 +155,20 @@ describe('identify + global properties', () => {
     });
     const props = setGlobalPropertiesMock.mock.calls[0][0];
     expect(props.model_name.length).toBe(64);
+  });
+
+  it('uses deviceInfo Darwin version in the browser-like User-Agent', () => {
+    setupAnalytics('client-id', 'client-secret', false, 'install-id-test', {
+      appVersion: '1.0.0',
+      platform: 'darwin',
+      architecture: 'x64',
+      systemVersion: '24.1.0',
+      modelName: 'Intel Mac',
+      osLocale: 'en-US',
+      appLocale: 'en-US'
+    });
+
+    expect(addHeaderMock).toHaveBeenCalledWith('user-agent', expect.stringContaining('Mac OS X 15_1_0'));
   });
 
   it('still calls identify (no properties) when deviceInfo is omitted', () => {

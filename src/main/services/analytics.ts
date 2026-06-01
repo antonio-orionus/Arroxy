@@ -42,7 +42,7 @@ const ALLOWED: Record<string, readonly string[]> = {
   download_cancelled: ['duration_bucket'],
   download_failed: ['duration_bucket', 'size_bucket', 'error_category'],
   tray_close_chosen: ['choice', 'remember'],
-  binary_setup_failed: ['binary', 'phase', 'code', 'error_code', 'status_code'],
+  binary_setup_failed: ['binary', 'phase', 'code', 'error_code', 'status_code', 'operation', 'setup_step', 'source_kind', 'source_channel', 'elapsed_ms'],
   crash_detected: ['type', 'reason'],
   wizard_started: [],
   share_dialog_opened: ['via'],
@@ -67,6 +67,19 @@ function mapOperatingSystem(platform: NodeJS.Platform): string {
 // UAParser): a generic Node fetch UA matches its server-event regex, so the
 // server skips sessionId/deviceId/os/browser. Sending a Chrome-shaped UA makes
 // it parse correctly and mint a session.
+function darwinReleaseToMacOsUserAgentVersion(systemVersion: string | undefined): string {
+  if (!systemVersion) return '10_15_7';
+  const parts = systemVersion.split('.').map((part) => Number.parseInt(part, 10));
+  const major = parts[0];
+  if (!Number.isFinite(major)) return '10_15_7';
+  const minor = Number.isFinite(parts[1]) ? parts[1] : 0;
+  const patch = Number.isFinite(parts[2]) ? parts[2] : 0;
+  if (major >= 20) return `${major - 9}_${minor}_${patch}`;
+  if (major === 19) return `10_15_${minor}`;
+  if (major >= 4) return `10_${major - 4}_${minor}`;
+  return '10_15_7';
+}
+
 function buildBrowserishUserAgent(info?: DeviceInfo): string {
   const chromeVersion = process.versions.chrome ?? '124.0.0.0';
   const platform = info?.platform ?? process.platform;
@@ -75,7 +88,7 @@ function buildBrowserishUserAgent(info?: DeviceInfo): string {
   if (platform === 'win32') {
     osPart = 'Windows NT 10.0; Win64; x64';
   } else if (platform === 'darwin') {
-    osPart = 'Macintosh; Intel Mac OS X 10_15_7';
+    osPart = `Macintosh; Intel Mac OS X ${darwinReleaseToMacOsUserAgentVersion(info?.systemVersion)}`;
   } else {
     const linuxArch = arch === 'arm64' ? 'aarch64' : 'x86_64';
     osPart = `X11; Linux ${linuxArch}`;

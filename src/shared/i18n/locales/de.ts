@@ -1,6 +1,7 @@
 const de = {
   common: {
     back: 'Zurück',
+    cancel: 'Abbrechen',
     continue: 'Weiter',
     retry: 'Erneut versuchen',
     startOver: 'Von vorn beginnen'
@@ -57,6 +58,8 @@ const de = {
     },
     actions: {
       chooseExecutable: 'Ausführbare Datei wählen',
+      installWithHomebrew: 'Mit Homebrew installieren',
+      installWithWinget: 'Mit WinGet installieren',
       resetToDefault: 'Auf Standard zurücksetzen',
       retrySetup: 'Einrichtung wiederholen',
       cancel: 'Abbrechen',
@@ -86,10 +89,17 @@ const de = {
     },
     playlist: {
       heading: 'Playlist-Elemente',
+      bulkHeading: 'Bulk-URLs',
       itemCount_one: '{{count}} video',
       itemCount_other: '{{count}} videos',
       itemCountAudio_one: '{{count}} Titel',
       itemCountAudio_other: '{{count}} Titel',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URLs',
+      bulkMetadataResolving: 'Videodetails werden geladen… {{done}}/{{total}}',
+      bulkRowWaiting: 'Wartet',
+      bulkRowResolving: 'Details werden geladen',
+      bulkRowFailed: 'Details nicht verfügbar',
       selectAll: 'Alle auswählen',
       selectNone: 'Keine auswählen',
       rangeFrom: 'Von',
@@ -111,6 +121,22 @@ const de = {
       alreadyDownloaded: 'Bereits heruntergeladen',
       probeLimitAlertTitle: 'Playlist-Scan ist begrenzt',
       probeLimitAlertDesc: 'Arroxy hat mehr als {{count}} Einträge gefunden, daher verbirgt das aktuelle Scan-Limit den Rest.'
+    },
+    bulk: {
+      title: 'Bulk-URLs',
+      description: 'Füge einzelne Video- oder Audio-URLs ein. Arroxy bereinigt Duplikate und markiert Playlist- oder Kanal-Links vor dem Einreihen.',
+      textareaLabel: 'URL-Liste',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'Bereit',
+      ignoredCount: 'Ignoriert',
+      emptyPreview: 'Füge mindestens zwei URLs ein, um den Stapel anzuzeigen.',
+      needsTwo: 'Füge mindestens zwei unterstützte URLs hinzu, um fortzufahren.',
+      confirm: 'Diese URLs verwenden',
+      reject: {
+        duplicate: 'Duplikat',
+        playlist: 'Playlist-Ablauf verwenden',
+        channel: 'Kanal-Ablauf verwenden'
+      }
     },
     playlistPresets: {
       heading: 'Qualität für den Stapel wählen',
@@ -142,6 +168,8 @@ const de = {
       quickProbeFailed: 'Prüfung fehlgeschlagen',
       quickPrepareFailed: 'Warteschlangeneintrag konnte nicht vorbereitet werden',
       quickFailed: 'Konnte dieses Element nicht hinzufügen: {{error}}',
+      bulkButton: 'Bulk-URLs',
+      bulkTooltip: 'Füge eine Liste einzelner URLs ein, prüfe die bereinigte Liste und stelle sie dann mit einer gemeinsamen Qualitätsvorgabe in die Warteschlange.',
       features: {
         heading: 'Was Arroxy laden kann',
         youtube: {
@@ -175,6 +203,11 @@ const de = {
         dialog: {
           title: 'YouTube-URL erkannt',
           body: 'Diesen Link aus deiner Zwischenablage verwenden?',
+          bulkTitle: 'Bulk-URLs erkannt',
+          bulkBody: 'Diese Links aus der Zwischenablage als Bulk-Download verwenden?',
+          bulkSummary: '{{count}} URLs bereit',
+          bulkIgnored: '{{count}} ignoriert',
+          bulkButton: 'Bulk-Download',
           useButton: 'URL verwenden',
           disableButton: 'Deaktivieren',
           cancelButton: 'Abbrechen',
@@ -444,12 +477,15 @@ const de = {
       pullIt: "Hol's rein! ↓",
       pullItTooltip: 'Startet sofort — läuft parallel zu anderen aktiven Downloads',
       labelPlaylist: 'Playlist',
+      labelBulk: 'Bulk-URLs',
       labelPreset: 'Voreinstellung',
       labelItems: 'Elemente',
       itemsValue_one: '{{count}} von {{total}} Video',
       itemsValue_other: '{{count}} von {{total}} Videos',
       itemsValueAudio_one: '{{count}} von {{total}} Titel',
-      itemsValueAudio_other: '{{count}} von {{total}} Titeln'
+      itemsValueAudio_other: '{{count}} von {{total}} Titeln',
+      itemsValueBulk_one: '{{count}} von {{total}} URL',
+      itemsValueBulk_other: '{{count}} von {{total}} URLs'
     }
   },
   videoCard: {

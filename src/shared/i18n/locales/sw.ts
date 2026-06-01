@@ -1,6 +1,7 @@
 const sw = {
   common: {
     back: 'Rudi',
+    cancel: 'Ghairi',
     continue: 'Endelea',
     retry: 'Jaribu tena',
     startOver: 'Anza upya'
@@ -57,6 +58,8 @@ const sw = {
     },
     actions: {
       chooseExecutable: 'Chagua faili inayotekelezwa',
+      installWithHomebrew: 'Sakinisha kwa Homebrew',
+      installWithWinget: 'Sakinisha kwa WinGet',
       resetToDefault: 'Rejesha chaguo-msingi',
       retrySetup: 'Jaribu usanidi tena',
       cancel: 'Ghairi',
@@ -86,10 +89,17 @@ const sw = {
     },
     playlist: {
       heading: 'Vipande vya Playlist',
+      bulkHeading: 'URL nyingi',
       itemCount_one: '{{count}} video',
       itemCount_other: '{{count}} video',
       itemCountAudio_one: '{{count}} wimbo',
       itemCountAudio_other: '{{count}} nyimbo',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URL',
+      bulkMetadataResolving: 'Inaleta maelezo ya video… {{done}}/{{total}}',
+      bulkRowWaiting: 'Inasubiri',
+      bulkRowResolving: 'Inaleta maelezo',
+      bulkRowFailed: 'Maelezo hayapatikani',
       selectAll: 'Chagua yote',
       selectNone: 'Futa uchaguzi wote',
       rangeFrom: 'Kutoka',
@@ -111,6 +121,22 @@ const sw = {
       alreadyDownloaded: 'Tayari imepakuliwa',
       probeLimitAlertTitle: 'Skani ya playlist imefungwa',
       probeLimitAlertDesc: 'Arroxy imepata zaidi ya vipande {{count}}, kwa hivyo kikomo cha skani cha sasa kinaficha vilivyobaki.'
+    },
+    bulk: {
+      title: 'URL nyingi',
+      description: 'Bandika URL binafsi za video au sauti. Arroxy itaondoa zilizorudiwa na kuonyesha viungo vya playlist au channel kabla ya kupanga foleni.',
+      textareaLabel: 'Orodha ya URL',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'Tayari',
+      ignoredCount: 'Zimepuuzwa',
+      emptyPreview: 'Bandika angalau URL mbili ili kuona kundi.',
+      needsTwo: 'Ongeza angalau URL mbili zinazotumika ili kuendelea.',
+      confirm: 'Tumia URL hizi',
+      reject: {
+        duplicate: 'Imerudiwa',
+        playlist: 'Tumia mtiririko wa playlist',
+        channel: 'Tumia mtiririko wa channel'
+      }
     },
     playlistPresets: {
       heading: 'Chagua ubora wa kundi',
@@ -141,6 +167,8 @@ const sw = {
       quickProbeFailed: 'Uchunguzi umeshindikana',
       quickPrepareFailed: 'Kipengee cha foleni hakikuweza kuandaliwa',
       quickFailed: 'Haikuweza kuongeza hii: {{error}}',
+      bulkButton: 'URL nyingi',
+      bulkTooltip: 'Bandika orodha ya URL binafsi, hakiki orodha iliyosafishwa, kisha ziweke foleni kwa preset moja ya ubora.',
       features: {
         heading: 'Arroxy inaweza kupakua nini',
         youtube: {
@@ -174,6 +202,11 @@ const sw = {
         dialog: {
           title: 'YouTube URL imegunduliwa',
           body: 'Tumia kiungo hiki kutoka kwenye ubao wako wa kunakili?',
+          bulkTitle: 'URL nyingi zimegunduliwa',
+          bulkBody: 'Utumie viungo hivi vya clipboard kama upakuaji wa kundi?',
+          bulkSummary: '{{count}} URL tayari',
+          bulkIgnored: '{{count}} zimepuuzwa',
+          bulkButton: 'Pakua kundi',
           useButton: 'Tumia URL',
           disableButton: 'Zima',
           cancelButton: 'Ghairi',
@@ -443,12 +476,15 @@ const sw = {
       pullIt: 'Pakua sasa! ↓',
       pullItTooltip: 'Inaanza mara moja — inafanya kazi pamoja na vipakuzi vingine vinavyofanya kazi',
       labelPlaylist: 'Playlist',
+      labelBulk: 'URL nyingi',
       labelPreset: 'Mpangilio',
       labelItems: 'Vipande',
       itemsValue_one: '{{count}} kati ya {{total}} video',
       itemsValue_other: '{{count}} kati ya {{total}} video',
       itemsValueAudio_one: '{{count}} kati ya {{total}} wimbo',
-      itemsValueAudio_other: '{{count}} kati ya {{total}} nyimbo'
+      itemsValueAudio_other: '{{count}} kati ya {{total}} nyimbo',
+      itemsValueBulk_one: '{{count}} kati ya {{total}} URL',
+      itemsValueBulk_other: '{{count}} kati ya {{total}} URL'
     }
   },
   videoCard: {

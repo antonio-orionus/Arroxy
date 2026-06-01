@@ -1,6 +1,7 @@
 const ps = {
   common: {
     back: 'شاته',
+    cancel: 'لغوه کړئ',
     continue: 'دوام ورکړه',
     retry: 'بیا هڅه وکړه',
     startOver: 'له سره پیل کړه'
@@ -57,6 +58,8 @@ const ps = {
     },
     actions: {
       chooseExecutable: 'د اجرا وړ فایل غوره کړئ',
+      installWithHomebrew: 'په Homebrew نصب کړئ',
+      installWithWinget: 'په WinGet نصب کړئ',
       resetToDefault: 'ډیفالټ ته بیرته شئ',
       retrySetup: 'نصب بیا وکړئ',
       cancel: 'لغوه کړئ',
@@ -86,10 +89,17 @@ const ps = {
     },
     playlist: {
       heading: 'د Playlist توکي',
+      bulkHeading: 'ډېر URLونه',
       itemCount_one: '{{count}} ویډیو',
       itemCount_other: '{{count}} ویډیوګانې',
       itemCountAudio_one: '{{count}} ټریک',
       itemCountAudio_other: '{{count}} ټریکونه',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URLونه',
+      bulkMetadataResolving: 'د ویډیو جزییات راوړل کېږي… {{done}}/{{total}}',
+      bulkRowWaiting: 'انتظار',
+      bulkRowResolving: 'جزییات راوړل کېږي',
+      bulkRowFailed: 'جزییات نشته',
       selectAll: 'ټول غوره کړئ',
       selectNone: 'هیڅ غوره مه کوئ',
       rangeFrom: 'له',
@@ -111,6 +121,22 @@ const ps = {
       alreadyDownloaded: 'مخکې ډاونلوډ شوی',
       probeLimitAlertTitle: 'د Playlist سکین محدود دی',
       probeLimitAlertDesc: 'Arroxy له {{count}} څخه زیات توکي وموندل، نو اوسنی سکین حد پاتې توکي پټوي.'
+    },
+    bulk: {
+      title: 'ډېر URLونه',
+      description: 'د ویډیو یا غږ جلا URLونه ونښلوئ. Arroxy به تکراري پاک کړي او د playlist یا channel لینکونه به د کتار مخکې وښيي.',
+      textareaLabel: 'د URL لست',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'چمتو',
+      ignoredCount: 'له پامه غورځول شوي',
+      emptyPreview: 'د ډلې د کتلو لپاره لږ تر لږه دوه URLونه ونښلوئ.',
+      needsTwo: 'د دوام لپاره لږ تر لږه دوه ملاتړ شوي URLونه زیات کړئ.',
+      confirm: 'دا URLونه وکاروئ',
+      reject: {
+        duplicate: 'تکراري',
+        playlist: 'د playlist لاره وکاروئ',
+        channel: 'د channel لاره وکاروئ'
+      }
     },
     playlistPresets: {
       heading: 'د بیچ لپاره کیفیت وټاکئ',
@@ -142,6 +168,8 @@ const ps = {
       quickProbeFailed: 'کتنه ناکامه شوه',
       quickPrepareFailed: 'د قطار توکی چمتو نه شو',
       quickFailed: 'دا ونه زیاتېدل: {{error}}',
+      bulkButton: 'ډېر URLونه',
+      bulkTooltip: 'د جلا URLونو لست ونښلوئ، پاک شوی لست وګورئ، بیا یې په ګډ quality preset سره کتار ته واچوئ.',
       features: {
         heading: 'Arroxy څه ډاونلوډ کولی شي',
         youtube: {
@@ -175,6 +203,11 @@ const ps = {
         dialog: {
           title: 'YouTube URL وموندل شو',
           body: 'ایا د کلیپبورډ دا لینک وکاروئ؟',
+          bulkTitle: 'ډېر URLونه وموندل شول',
+          bulkBody: 'د clipboard دا لینکونه د bulk download په توګه وکارول شي؟',
+          bulkSummary: '{{count}} URLونه چمتو',
+          bulkIgnored: '{{count}} له پامه غورځول شوي',
+          bulkButton: 'ډله‌ییز ډاونلوډ',
           useButton: 'URL وکاروئ',
           disableButton: 'غیر فعاله کړه',
           cancelButton: 'لغوه کړه',
@@ -444,12 +477,15 @@ const ps = {
       pullIt: 'راکش یې کړه! ↓',
       pullItTooltip: 'سمدلاسه پیل کیږي — د نورو فعالو ډاونلوډونو سره یوځای چلیږي',
       labelPlaylist: 'Playlist',
+      labelBulk: 'ډېر URLونه',
       labelPreset: 'Preset',
       labelItems: 'توکي',
       itemsValue_one: '{{count}} له {{total}} ویډیو',
       itemsValue_other: '{{count}} له {{total}} ویډیوګانې',
       itemsValueAudio_one: '{{count}} له {{total}} ټریک',
-      itemsValueAudio_other: '{{count}} له {{total}} ټریکونه'
+      itemsValueAudio_other: '{{count}} له {{total}} ټریکونه',
+      itemsValueBulk_one: '{{count}} له {{total}} URL',
+      itemsValueBulk_other: '{{count}} له {{total}} URLونو'
     }
   },
   videoCard: {

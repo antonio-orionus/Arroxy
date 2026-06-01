@@ -1,6 +1,7 @@
 const ja = {
   common: {
     back: '戻る',
+    cancel: 'キャンセル',
     continue: '続行',
     retry: '再試行',
     startOver: '最初からやり直す'
@@ -57,6 +58,8 @@ const ja = {
     },
     actions: {
       chooseExecutable: '実行ファイルを選択',
+      installWithHomebrew: 'Homebrew でインストール',
+      installWithWinget: 'WinGet でインストール',
       resetToDefault: 'デフォルトにリセット',
       retrySetup: 'セットアップを再試行',
       cancel: 'キャンセル',
@@ -86,10 +89,17 @@ const ja = {
     },
     playlist: {
       heading: 'Playlist アイテム',
+      bulkHeading: '一括 URL',
       itemCount_one: '{{count}} 本の動画',
       itemCount_other: '{{count}} 本の動画',
       itemCountAudio_one: '{{count}} 曲',
       itemCountAudio_other: '{{count}} 曲',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URL',
+      bulkMetadataResolving: '動画の詳細を取得中… {{done}}/{{total}}',
+      bulkRowWaiting: '待機中',
+      bulkRowResolving: '詳細を取得中',
+      bulkRowFailed: '詳細を取得できません',
       selectAll: 'すべて選択',
       selectNone: 'すべて解除',
       rangeFrom: '開始',
@@ -111,6 +121,22 @@ const ja = {
       alreadyDownloaded: 'ダウンロード済み',
       probeLimitAlertTitle: 'プレイリストのスキャンが上限に達しました',
       probeLimitAlertDesc: 'Arroxy は {{count}} 件を超えるアイテムを検出しましたが、現在のスキャン上限により残りは表示されていません。'
+    },
+    bulk: {
+      title: '一括 URL',
+      description: '個別の動画または音声 URL を貼り付けます。Arroxy は重複を整理し、キューに入れる前に playlist や channel のリンクを示します。',
+      textareaLabel: 'URL リスト',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: '準備完了',
+      ignoredCount: '無視',
+      emptyPreview: '一括内容を確認するには、少なくとも 2 件の URL を貼り付けてください。',
+      needsTwo: '続行するには、対応している URL を少なくとも 2 件追加してください。',
+      confirm: 'これらの URL を使う',
+      reject: {
+        duplicate: '重複',
+        playlist: 'playlist フローを使う',
+        channel: 'channel フローを使う'
+      }
     },
     playlistPresets: {
       heading: 'バッチの画質を選択',
@@ -142,6 +168,8 @@ const ja = {
       quickProbeFailed: '解析に失敗しました',
       quickPrepareFailed: 'キュー項目を準備できませんでした',
       quickFailed: '追加できませんでした: {{error}}',
+      bulkButton: '一括 URL',
+      bulkTooltip: '個別 URL のリストを貼り付け、整理後の一覧を確認してから、共通の品質プリセットでキューに追加します。',
       features: {
         heading: 'Arroxyで取得できるもの',
         youtube: {
@@ -175,6 +203,11 @@ const ja = {
         dialog: {
           title: 'YouTubeのURLを検出',
           body: 'クリップボードのこのリンクを使いますか?',
+          bulkTitle: '一括 URL を検出しました',
+          bulkBody: 'クリップボードのこれらのリンクを一括ダウンロードとして使いますか？',
+          bulkSummary: '{{count}} URL が準備完了',
+          bulkIgnored: '{{count}} 件を無視',
+          bulkButton: '一括ダウンロード',
           useButton: 'URLを使う',
           disableButton: '無効化',
           cancelButton: 'キャンセル',
@@ -444,12 +477,15 @@ const ja = {
       pullIt: '取得! ↓',
       pullItTooltip: 'すぐ開始 — 他のアクティブなダウンロードと並行実行',
       labelPlaylist: 'Playlist',
+      labelBulk: '一括 URL',
       labelPreset: 'プリセット',
       labelItems: '件数',
       itemsValue_one: '全{{total}}本中{{count}}本',
       itemsValue_other: '全{{total}}本中{{count}}本',
       itemsValueAudio_one: '全{{total}}曲中{{count}}曲',
-      itemsValueAudio_other: '全{{total}}曲中{{count}}曲'
+      itemsValueAudio_other: '全{{total}}曲中{{count}}曲',
+      itemsValueBulk_one: '{{count}} / {{total}} URL',
+      itemsValueBulk_other: '{{count}} / {{total}} URL'
     }
   },
   videoCard: {

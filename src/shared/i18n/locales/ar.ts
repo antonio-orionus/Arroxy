@@ -1,6 +1,7 @@
 const ar = {
   common: {
     back: 'رجوع',
+    cancel: 'إلغاء',
     continue: 'متابعة',
     retry: 'إعادة المحاولة',
     startOver: 'البدء من جديد'
@@ -57,6 +58,8 @@ const ar = {
     },
     actions: {
       chooseExecutable: 'اختر الملف القابل للتنفيذ',
+      installWithHomebrew: 'التثبيت عبر Homebrew',
+      installWithWinget: 'التثبيت عبر WinGet',
       resetToDefault: 'إعادة إلى الافتراضي',
       retrySetup: 'إعادة محاولة الإعداد',
       cancel: 'إلغاء',
@@ -86,10 +89,17 @@ const ar = {
     },
     playlist: {
       heading: 'عناصر القائمة',
+      bulkHeading: 'روابط متعددة',
       itemCount_one: '{{count}} فيديو',
       itemCount_other: '{{count}} مقاطع فيديو',
       itemCountAudio_one: '{{count}} مقطع صوتي',
       itemCountAudio_other: '{{count}} مقاطع صوتية',
+      itemCountBulk_one: '{{count}} رابط',
+      itemCountBulk_other: '{{count}} روابط',
+      bulkMetadataResolving: 'جارٍ جلب تفاصيل الفيديو… {{done}}/{{total}}',
+      bulkRowWaiting: 'بانتظار',
+      bulkRowResolving: 'جارٍ جلب التفاصيل',
+      bulkRowFailed: 'التفاصيل غير متاحة',
       selectAll: 'تحديد الكل',
       selectNone: 'إلغاء تحديد الكل',
       rangeFrom: 'من',
@@ -111,6 +121,22 @@ const ar = {
       alreadyDownloaded: 'تم تنزيله بالفعل',
       probeLimitAlertTitle: 'فحص قائمة التشغيل محدود',
       probeLimitAlertDesc: 'عثر Arroxy على أكثر من {{count}} عنصر، لذا يُخفي حد الفحص الحالي بقية العناصر.'
+    },
+    bulk: {
+      title: 'روابط متعددة',
+      description: 'الصق روابط فيديو أو صوت منفردة. سيزيل Arroxy التكرارات ويعلّم روابط قوائم التشغيل أو القنوات قبل إضافتها إلى الطابور.',
+      textareaLabel: 'قائمة الروابط',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'جاهزة',
+      ignoredCount: 'متجاهلة',
+      emptyPreview: 'الصق رابطين على الأقل لمعاينة الدفعة.',
+      needsTwo: 'أضف رابطين مدعومين على الأقل للمتابعة.',
+      confirm: 'استخدم هذه الروابط',
+      reject: {
+        duplicate: 'مكرر',
+        playlist: 'استخدم مسار قائمة التشغيل',
+        channel: 'استخدم مسار القناة'
+      }
     },
     playlistPresets: {
       heading: 'اختر الجودة للدفعة',
@@ -142,6 +168,8 @@ const ar = {
       quickProbeFailed: 'فشل الفحص',
       quickPrepareFailed: 'تعذر تحضير عنصر قائمة الانتظار',
       quickFailed: 'تعذرت إضافة هذا العنصر: {{error}}',
+      bulkButton: 'روابط متعددة',
+      bulkTooltip: 'الصق قائمة روابط منفردة، راجع القائمة المنظفة، ثم أضفها إلى الطابور بإعداد جودة مشترك.',
       features: {
         heading: 'ما الذي يستطيع Arroxy سحبه',
         youtube: {
@@ -175,6 +203,11 @@ const ar = {
         dialog: {
           title: 'تم اكتشاف رابط YouTube',
           body: 'هل تريد استخدام هذا الرابط من الحافظة؟',
+          bulkTitle: 'تم اكتشاف روابط متعددة',
+          bulkBody: 'استخدام روابط الحافظة هذه كتنزيل دفعي؟',
+          bulkSummary: '{{count}} روابط جاهزة',
+          bulkIgnored: '{{count}} متجاهلة',
+          bulkButton: 'تنزيل دفعي',
           useButton: 'استخدام الرابط',
           disableButton: 'تعطيل',
           cancelButton: 'إلغاء',
@@ -444,12 +477,15 @@ const ar = {
       pullIt: 'اسحبه! ↓',
       pullItTooltip: 'يبدأ فوراً — يعمل جنباً إلى جنب مع التنزيلات النشطة الأخرى',
       labelPlaylist: 'قائمة التشغيل',
+      labelBulk: 'روابط متعددة',
       labelPreset: 'الإعداد المسبق',
       labelItems: 'العناصر',
       itemsValue_one: '{{count}} من {{total}} فيديو',
       itemsValue_other: '{{count}} من {{total}} مقاطع فيديو',
       itemsValueAudio_one: '{{count}} من {{total}} مقطع صوتي',
-      itemsValueAudio_other: '{{count}} من {{total}} مقاطع صوتية'
+      itemsValueAudio_other: '{{count}} من {{total}} مقاطع صوتية',
+      itemsValueBulk_one: '{{count}} من {{total}} رابط',
+      itemsValueBulk_other: '{{count}} من {{total}} روابط'
     }
   },
   videoCard: {

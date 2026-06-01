@@ -1,6 +1,7 @@
 const my = {
   common: {
     back: 'နောက်သို့',
+    cancel: 'ပယ်ဖျက်မည်',
     continue: 'ဆက်လက်သွားမည်',
     retry: 'ထပ်မံကြိုးစားမည်',
     startOver: 'အစကနေပြန်စမည်'
@@ -57,6 +58,8 @@ const my = {
     },
     actions: {
       chooseExecutable: 'Executable ရွေးမည်',
+      installWithHomebrew: 'Homebrew ဖြင့် ထည့်သွင်းမည်',
+      installWithWinget: 'WinGet ဖြင့် ထည့်သွင်းမည်',
       resetToDefault: 'မူလသို့ပြန်ထားမည်',
       retrySetup: 'Setup ထပ်ကြိုးစားမည်',
       cancel: 'ပယ်ဖျက်မည်',
@@ -86,10 +89,17 @@ const my = {
     },
     playlist: {
       heading: 'Playlist အကြောင်းအရာများ',
+      bulkHeading: 'URL အများအပြား',
       itemCount_one: '{{count}} ဗီဒီယို',
       itemCount_other: '{{count}} ဗီဒီယိုများ',
       itemCountAudio_one: '{{count}} ခု သီချင်း',
       itemCountAudio_other: '{{count}} ခု သီချင်းများ',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URL',
+      bulkMetadataResolving: 'ဗီဒီယိုအသေးစိတ် ရယူနေသည်… {{done}}/{{total}}',
+      bulkRowWaiting: 'စောင့်နေသည်',
+      bulkRowResolving: 'အသေးစိတ် ရယူနေသည်',
+      bulkRowFailed: 'အသေးစိတ် မရနိုင်ပါ',
       selectAll: 'အားလုံးရွေးမည်',
       selectNone: 'အားလုံးဖြုတ်မည်',
       rangeFrom: 'မှ',
@@ -111,6 +121,22 @@ const my = {
       alreadyDownloaded: 'ဒေါင်းလုဒ်ပြီးသား',
       probeLimitAlertTitle: 'Playlist scan ကန့်သတ်ထားသည်',
       probeLimitAlertDesc: 'Arroxy သည် {{count}} ထက်ပိုသော အကြောင်းအရာများ တွေ့ရှိသောကြောင့် လက်ရှိ scan ကန့်သတ်ချက်ကြောင့် ကျန်သောအရာများ ဖျောက်ထားသည်။'
+    },
+    bulk: {
+      title: 'URL အများအပြား',
+      description: 'တစ်ခုချင်းစီသော video သို့မဟုတ် audio URL များကို paste လုပ်ပါ။ Arroxy သည် ထပ်နေသောအရာများကို ဖယ်ရှားပြီး queue မထည့်မီ playlist သို့မဟုတ် channel link များကို ဖော်ပြပါမည်။',
+      textareaLabel: 'URL စာရင်း',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'အဆင်သင့်',
+      ignoredCount: 'လျစ်လျူရှုထားသည်',
+      emptyPreview: 'batch ကိုကြည့်ရန် URL အနည်းဆုံးနှစ်ခု paste လုပ်ပါ။',
+      needsTwo: 'ဆက်လက်လုပ်ဆောင်ရန် supported URL အနည်းဆုံးနှစ်ခု ထည့်ပါ။',
+      confirm: 'ဤ URL များကိုသုံးမည်',
+      reject: {
+        duplicate: 'ထပ်နေသည်',
+        playlist: 'playlist flow သုံးမည်',
+        channel: 'channel flow သုံးမည်'
+      }
     },
     playlistPresets: {
       heading: 'Batch အတွက် အရည်အသွေးရွေးပါ',
@@ -142,6 +168,8 @@ const my = {
       quickProbeFailed: 'စစ်ဆေးမှု မအောင်မြင်ပါ',
       quickPrepareFailed: 'တန်းစီအရာကို မပြင်ဆင်နိုင်ပါ',
       quickFailed: 'ဤအရာကို ထည့်မရပါ: {{error}}',
+      bulkButton: 'URL အများအပြား',
+      bulkTooltip: 'URL တစ်ခုချင်းစီစာရင်းကို paste လုပ်ပါ၊ ရှင်းလင်းပြီးစာရင်းကိုကြည့်ပါ၊ ထို့နောက် quality preset တစ်ခုတည်းဖြင့် queue ထဲထည့်ပါ။',
       features: {
         heading: 'Arroxy ဆွဲထုတ်နိုင်သည်',
         youtube: {
@@ -175,6 +203,11 @@ const my = {
         dialog: {
           title: 'YouTube URL တွေ့ပြီ',
           body: 'ကလစ်ဘုတ်မှ ဤလင့်ခ်ကို အသုံးပြုမည်လား?',
+          bulkTitle: 'URL အများအပြား တွေ့ရှိသည်',
+          bulkBody: 'clipboard ထဲရှိ link များကို bulk download အဖြစ်သုံးမလား?',
+          bulkSummary: '{{count}} URL အဆင်သင့်',
+          bulkIgnored: '{{count}} လျစ်လျူရှုထားသည်',
+          bulkButton: 'Bulk download',
           useButton: 'URL အသုံးပြုမည်',
           disableButton: 'ပိတ်မည်',
           cancelButton: 'မလုပ်တော့ပါ',
@@ -444,12 +477,15 @@ const my = {
       pullIt: 'ဆွဲထုတ်မည်! ↓',
       pullItTooltip: 'ချက်ချင်းစတင်မည် — အခြားဒေါင်းလုဒ်များနှင့်အတူ အပြိုင်လုပ်မည်',
       labelPlaylist: 'Playlist',
+      labelBulk: 'URL အများအပြား',
       labelPreset: 'Preset',
       labelItems: 'အကြောင်းအရာ',
       itemsValue_one: '{{total}} ခုမှ {{count}} ဗီဒီယို',
       itemsValue_other: '{{total}} ခုမှ {{count}} ဗီဒီယိုများ',
       itemsValueAudio_one: '{{total}} ခုမှ {{count}} သီချင်း',
-      itemsValueAudio_other: '{{total}} ခုမှ {{count}} သီချင်းများ'
+      itemsValueAudio_other: '{{total}} ခုမှ {{count}} သီချင်းများ',
+      itemsValueBulk_one: '{{total}} URL မှ {{count}}',
+      itemsValueBulk_other: '{{total}} URL မှ {{count}}'
     }
   },
   videoCard: {

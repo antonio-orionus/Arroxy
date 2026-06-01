@@ -5,7 +5,7 @@ import type { SettingsPatch } from '@shared/api.js';
 
 export type { SettingsPatch };
 
-const COMMON_FLAT_KEYS = ['defaultOutputDir', 'rememberLastOutputDir', 'uiZoom', 'uiTheme', 'language', 'commonPaths', 'cookiesPath', 'cookiesMode', 'cookiesBrowser', 'proxyUrl', 'limitRate', 'playlistProbeLimit', 'networkPacingPreset', 'pacingSleepRequests', 'pacingSleepInterval', 'pacingMaxSleepInterval', 'pacingSleepSubtitles', 'pacingConcurrentFragments', 'clipboardWatchEnabled', 'includeIdInSingleFilenames', 'closeBehavior', 'embedChapters', 'embedMetadata', 'embedThumbnail', 'writeDescription', 'writeThumbnail', 'lastSponsorBlockMode', 'lastSponsorBlockCategories', 'analyticsEnabled', 'firstRunCompleted', 'drawerOpen', 'installId', 'lastSubfolderEnabled', 'lastSubfolder'] as const;
+const COMMON_FLAT_KEYS = ['defaultOutputDir', 'rememberLastOutputDir', 'uiZoom', 'uiTheme', 'language', 'commonPaths', 'cookiesPath', 'cookiesMode', 'cookiesBrowser', 'proxyUrl', 'limitRate', 'playlistProbeLimit', 'networkPacingPreset', 'pacingSleepRequests', 'pacingSleepInterval', 'pacingMaxSleepInterval', 'pacingSleepSubtitles', 'pacingConcurrentFragments', 'clipboardWatchEnabled', 'includeIdInSingleFilenames', 'closeBehavior', 'embedChapters', 'embedMetadata', 'embedThumbnail', 'writeDescription', 'writeThumbnail', 'lastSponsorBlockMode', 'lastSponsorBlockCategories', 'analyticsEnabled', 'firstRunCompleted', 'launchCount', 'drawerOpen', 'installId', 'lastSubfolderEnabled', 'lastSubfolder'] as const;
 
 // Legacy keys retained only so the flat-to-nested migration can pick them up
 // from old settings files. The values are normalized in `migrateCookiesMode`
@@ -126,5 +126,22 @@ export class SettingsStore {
     const merged = deepMerge(this.store.store, patch);
     this.store.set(merged);
     return this.store.store;
+  }
+
+  async recordLaunch(): Promise<{ settings: AppSettings; isFirstRun: boolean; launchCount: number }> {
+    const current = this.store.store;
+    const isFirstRun = !current.common.firstRunCompleted;
+    const baselineLaunchCount = current.common.launchCount ?? (isFirstRun ? 0 : 2);
+    const launchCount = baselineLaunchCount + 1;
+    const next: AppSettings = {
+      ...current,
+      common: {
+        ...current.common,
+        firstRunCompleted: true,
+        launchCount
+      }
+    };
+    this.store.set(next);
+    return { settings: this.store.store, isFirstRun, launchCount };
   }
 }

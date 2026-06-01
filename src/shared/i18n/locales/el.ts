@@ -1,6 +1,7 @@
 const el = {
   common: {
     back: 'Πίσω',
+    cancel: 'Ακύρωση',
     continue: 'Συνέχεια',
     retry: 'Επανάληψη',
     startOver: 'Επανεκκίνηση'
@@ -57,6 +58,8 @@ const el = {
     },
     actions: {
       chooseExecutable: 'Επιλογή εκτελέσιμου',
+      installWithHomebrew: 'Εγκατάσταση με Homebrew',
+      installWithWinget: 'Εγκατάσταση με WinGet',
       resetToDefault: 'Επαναφορά στις προεπιλογές',
       retrySetup: 'Επανάληψη ρύθμισης',
       cancel: 'Ακύρωση',
@@ -86,10 +89,17 @@ const el = {
     },
     playlist: {
       heading: 'Στοιχεία playlist',
+      bulkHeading: 'Μαζικά URL',
       itemCount_one: '{{count}} βίντεο',
       itemCount_other: '{{count}} βίντεο',
       itemCountAudio_one: '{{count}} κομμάτι',
       itemCountAudio_other: '{{count}} κομμάτια',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URL',
+      bulkMetadataResolving: 'Ανάκτηση λεπτομερειών βίντεο… {{done}}/{{total}}',
+      bulkRowWaiting: 'Σε αναμονή',
+      bulkRowResolving: 'Ανάκτηση λεπτομερειών',
+      bulkRowFailed: 'Οι λεπτομέρειες δεν είναι διαθέσιμες',
       selectAll: 'Επιλογή όλων',
       selectNone: 'Αποεπιλογή όλων',
       rangeFrom: 'Από',
@@ -111,6 +121,22 @@ const el = {
       alreadyDownloaded: 'Ήδη κατεβασμένο',
       probeLimitAlertTitle: 'Η σάρωση playlist έχει περιοριστεί',
       probeLimitAlertDesc: 'Το Arroxy βρήκε περισσότερα από {{count}} στοιχεία, οπότε το τρέχον όριο σάρωσης αποκρύπτει τα υπόλοιπα.'
+    },
+    bulk: {
+      title: 'Μαζικά URL',
+      description: 'Επικολλήστε μεμονωμένα URL βίντεο ή ήχου. Το Arroxy θα καθαρίσει τα διπλότυπα και θα επισημάνει συνδέσμους playlist ή καναλιού πριν την ουρά.',
+      textareaLabel: 'Λίστα URL',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'Έτοιμα',
+      ignoredCount: 'Αγνοήθηκαν',
+      emptyPreview: 'Επικολλήστε τουλάχιστον δύο URL για προεπισκόπηση της παρτίδας.',
+      needsTwo: 'Προσθέστε τουλάχιστον δύο υποστηριζόμενα URL για συνέχεια.',
+      confirm: 'Χρήση αυτών των URL',
+      reject: {
+        duplicate: 'Διπλότυπο',
+        playlist: 'Χρήση ροής playlist',
+        channel: 'Χρήση ροής καναλιού'
+      }
     },
     playlistPresets: {
       heading: 'Επιλογή ποιότητας για την ομαδική λήψη',
@@ -142,6 +168,8 @@ const el = {
       quickProbeFailed: 'Ο έλεγχος απέτυχε',
       quickPrepareFailed: 'Δεν ήταν δυνατή η προετοιμασία του στοιχείου ουράς',
       quickFailed: 'Δεν ήταν δυνατή η προσθήκη: {{error}}',
+      bulkButton: 'Μαζικά URL',
+      bulkTooltip: 'Επικολλήστε μια λίστα μεμονωμένων URL, δείτε την καθαρισμένη λίστα και βάλτε τα στην ουρά με κοινή ποιότητα.',
       features: {
         heading: 'Τι μπορεί να κατεβάσει το Arroxy',
         youtube: {
@@ -175,6 +203,11 @@ const el = {
         dialog: {
           title: 'Εντοπίστηκε YouTube URL',
           body: 'Να χρησιμοποιηθεί αυτός ο σύνδεσμος από το πρόχειρο;',
+          bulkTitle: 'Εντοπίστηκαν μαζικά URL',
+          bulkBody: 'Χρήση αυτών των συνδέσμων από το πρόχειρο ως μαζική λήψη;',
+          bulkSummary: '{{count}} URL έτοιμα',
+          bulkIgnored: '{{count}} αγνοήθηκαν',
+          bulkButton: 'Μαζική λήψη',
           useButton: 'Χρήση URL',
           disableButton: 'Απενεργοποίηση',
           cancelButton: 'Ακύρωση',
@@ -444,12 +477,15 @@ const el = {
       pullIt: 'Κατέβασέ το! ↓',
       pullItTooltip: 'Ξεκινά αμέσως — εκτελείται παράλληλα με άλλες ενεργές λήψεις',
       labelPlaylist: 'Playlist',
+      labelBulk: 'Μαζικά URL',
       labelPreset: 'Προεπιλογή',
       labelItems: 'Στοιχεία',
       itemsValue_one: '{{count}} από {{total}} βίντεο',
       itemsValue_other: '{{count}} από {{total}} βίντεο',
       itemsValueAudio_one: '{{count}} από {{total}} κομμάτι',
-      itemsValueAudio_other: '{{count}} από {{total}} κομμάτια'
+      itemsValueAudio_other: '{{count}} από {{total}} κομμάτια',
+      itemsValueBulk_one: '{{count}} από {{total}} URL',
+      itemsValueBulk_other: '{{count}} από {{total}} URL'
     }
   },
   videoCard: {

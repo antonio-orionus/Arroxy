@@ -269,6 +269,14 @@ export function installBrowserMock(): void {
       cancelWarmup: async () => {
         /* no-op in browser */
       },
+      installYtDlpWithHomebrew: async () => {
+        await delay(800);
+        return { ok: true, data: { installedPath: '/opt/homebrew/bin/yt-dlp' } };
+      },
+      installYtDlpWithWinget: async () => {
+        await delay(800);
+        return { ok: true, data: { installedPath: 'C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe' } };
+      },
       setLanguage: async () => {
         /* no-op in browser */
       }

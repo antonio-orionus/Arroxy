@@ -112,6 +112,21 @@ describe('BinaryManager download retry', () => {
     expect(spy).toHaveBeenCalledOnce();
   });
 
+  it('keeps the existing yt-dlp when an update download fails', async () => {
+    const mgr = await makeMgr();
+    stubProbe(mgr);
+    const binaryPath = mgr.getYtDlpPath();
+    await fs.mkdir(path.dirname(binaryPath), { recursive: true });
+    await fs.writeFile(binaryPath, 'fake-binary');
+    if (process.platform !== 'win32') await fs.chmod(binaryPath, 0o755);
+
+    spyOnPrivate(mgr, 'getLocalYtDlpVersion').mockResolvedValue('2024.11.01');
+    spyOnPrivate(mgr, 'getRemoteYtDlpVersion').mockResolvedValue({ tag: '2025.01.15', reason: null });
+    spyOnPrivate(mgr, 'attemptDownload').mockRejectedValue(new Error('HTTP 503'));
+
+    await expect(mgr.ensureYtDlp()).resolves.toBe(binaryPath);
+  });
+
   it('re-downloads yt-dlp when local version cannot be determined', async () => {
     const mgr = await makeMgr();
     stubProbe(mgr);

@@ -1,4 +1,5 @@
 import { execFile } from 'node:child_process';
+import fsPromises from 'node:fs/promises';
 import path from 'node:path';
 import { promisify } from 'node:util';
 import type { DependencyFailure, DependencyId } from '@shared/types.js';
@@ -27,6 +28,16 @@ function abortFailure(message: string): DependencyFailure {
 export function probeArgs(id: DependencyId): string[] {
   if (id === 'ffmpeg' || id === 'ffprobe') return ['-version'];
   return ['--version'];
+}
+
+const MACOS_HOMEBREW_BIN_DIRS = ['/opt/homebrew/bin', '/usr/local/bin'] as const;
+
+export function fallbackPathCandidates(name: string, platform: NodeJS.Platform = process.platform): string[] {
+  if (platform === 'darwin') return MACOS_HOMEBREW_BIN_DIRS.map((dir) => path.join(dir, name));
+  if (platform !== 'win32') return [];
+
+  const exeName = name.toLowerCase().endsWith('.exe') ? name : `${name}.exe`;
+  return [process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Microsoft', 'WindowsApps', exeName) : null, process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Microsoft', 'WinGet', 'Links', exeName) : null, process.env.ProgramFiles ? path.join(process.env.ProgramFiles, 'WinGet', 'Links', exeName) : null, process.env['ProgramFiles(x86)'] ? path.join(process.env['ProgramFiles(x86)'], 'WinGet', 'Links', exeName) : null].filter((candidate): candidate is string => candidate !== null);
 }
 
 export function classifyProbeError(err: NodeJS.ErrnoException, stderr?: string): DependencyFailure {
@@ -91,15 +102,29 @@ export async function probeBinary(filePath: string, args: string[], timeoutMs: n
 // Discover binaries on PATH. On Windows uses `where.exe`; on POSIX uses `which`.
 // Returns absolute paths in PATH order. Empty array on failure.
 export async function whereOnPath(name: string, signal?: AbortSignal): Promise<string[]> {
+  const found: string[] = [];
   try {
     const tool = process.platform === 'win32' ? 'where' : 'which';
     const args = process.platform === 'win32' ? [name] : ['-a', name];
     const { stdout } = await execFileAsync(tool, args, { windowsHide: true, signal });
-    return stdout
-      .split(/\r?\n/)
-      .map((line) => line.trim())
-      .filter((line) => line.length > 0);
+    found.push(
+      ...stdout
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter((line) => line.length > 0)
+    );
   } catch {
-    return [];
+    // PATH lookup failed; macOS GUI apps often miss Homebrew's bin dirs.
   }
+
+  for (const candidate of fallbackPathCandidates(name)) {
+    try {
+      await fsPromises.access(candidate);
+      found.push(candidate);
+    } catch {
+      // absent fallback path
+    }
+  }
+
+  return [...new Set(found)];
 }

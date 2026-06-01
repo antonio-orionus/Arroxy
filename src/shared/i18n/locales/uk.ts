@@ -1,6 +1,7 @@
 const uk = {
   common: {
     back: 'Назад',
+    cancel: 'Скасувати',
     continue: 'Продовжити',
     retry: 'Повторити',
     startOver: 'Почати спочатку'
@@ -57,6 +58,8 @@ const uk = {
     },
     actions: {
       chooseExecutable: 'Вибрати виконуваний файл',
+      installWithHomebrew: 'Установити через Homebrew',
+      installWithWinget: 'Установити через WinGet',
       resetToDefault: 'Скинути до стандартного',
       retrySetup: 'Повторити налаштування',
       cancel: 'Скасувати',
@@ -86,10 +89,17 @@ const uk = {
     },
     playlist: {
       heading: 'Елементи Playlist',
+      bulkHeading: 'Масові URL',
       itemCount_one: '{{count}} відео',
       itemCount_other: '{{count}} відео',
       itemCountAudio_one: '{{count}} трек',
       itemCountAudio_other: '{{count}} треків',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URL',
+      bulkMetadataResolving: 'Отримання відомостей про відео… {{done}}/{{total}}',
+      bulkRowWaiting: 'Очікування',
+      bulkRowResolving: 'Отримання відомостей',
+      bulkRowFailed: 'Відомості недоступні',
       selectAll: 'Вибрати всі',
       selectNone: 'Зняти вибір',
       rangeFrom: 'Від',
@@ -111,6 +121,22 @@ const uk = {
       alreadyDownloaded: 'Уже завантажено',
       probeLimitAlertTitle: 'Сканування плейлиста обмежено',
       probeLimitAlertDesc: 'Arroxy знайшов більше {{count}} елементів, тому поточний ліміт сканування приховує решту.'
+    },
+    bulk: {
+      title: 'Масові URL',
+      description: 'Вставте окремі URL відео або аудіо. Arroxy прибере дублікати й позначить посилання на плейлисти або канали перед додаванням у чергу.',
+      textareaLabel: 'Список URL',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'Готово',
+      ignoredCount: 'Пропущено',
+      emptyPreview: 'Вставте щонайменше два URL, щоб переглянути пакет.',
+      needsTwo: 'Додайте щонайменше два підтримувані URL, щоб продовжити.',
+      confirm: 'Використати ці URL',
+      reject: {
+        duplicate: 'Дублікат',
+        playlist: 'Використати сценарій плейлиста',
+        channel: 'Використати сценарій каналу'
+      }
     },
     playlistPresets: {
       heading: 'Вибери якість для пакетного завантаження',
@@ -142,6 +168,8 @@ const uk = {
       quickProbeFailed: 'Перевірка не вдалася',
       quickPrepareFailed: 'Не вдалося підготувати елемент черги',
       quickFailed: 'Не вдалося додати: {{error}}',
+      bulkButton: 'Масові URL',
+      bulkTooltip: 'Вставте список окремих URL, перегляньте очищений список і додайте їх у чергу зі спільним пресетом якості.',
       features: {
         heading: 'Що Arroxy вміє завантажувати',
         youtube: {
@@ -175,6 +203,11 @@ const uk = {
         dialog: {
           title: 'Знайдено посилання YouTube',
           body: 'Використати це посилання з буфера обміну?',
+          bulkTitle: 'Виявлено масові URL',
+          bulkBody: 'Використати ці посилання з буфера як масове завантаження?',
+          bulkSummary: '{{count}} URL готові',
+          bulkIgnored: '{{count}} пропущено',
+          bulkButton: 'Масове завантаження',
           useButton: 'Використати URL',
           disableButton: 'Вимкнути',
           cancelButton: 'Скасувати',
@@ -444,12 +477,15 @@ const uk = {
       pullIt: 'Качаємо! ↓',
       pullItTooltip: 'Запускається миттєво — паралельно з іншими активними завантаженнями',
       labelPlaylist: 'Плейлист',
+      labelBulk: 'Масові URL',
       labelPreset: 'Пресет',
       labelItems: 'Елементи',
       itemsValue_one: '{{count}} з {{total}} відео',
       itemsValue_other: '{{count}} з {{total}} відео',
       itemsValueAudio_one: '{{count}} з {{total}} треку',
-      itemsValueAudio_other: '{{count}} з {{total}} треків'
+      itemsValueAudio_other: '{{count}} з {{total}} треків',
+      itemsValueBulk_one: '{{count}} з {{total}} URL',
+      itemsValueBulk_other: '{{count}} з {{total}} URL'
     }
   },
   videoCard: {

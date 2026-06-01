@@ -1,6 +1,7 @@
 const vi = {
   common: {
     back: 'Quay lại',
+    cancel: 'Hủy',
     continue: 'Tiếp tục',
     retry: 'Thử lại',
     startOver: 'Bắt đầu lại'
@@ -57,6 +58,8 @@ const vi = {
     },
     actions: {
       chooseExecutable: 'Chọn tệp thực thi',
+      installWithHomebrew: 'Cài bằng Homebrew',
+      installWithWinget: 'Cài bằng WinGet',
       resetToDefault: 'Đặt lại về mặc định',
       retrySetup: 'Thử thiết lập lại',
       cancel: 'Hủy',
@@ -86,10 +89,17 @@ const vi = {
     },
     playlist: {
       heading: 'Các mục Playlist',
+      bulkHeading: 'URL hàng loạt',
       itemCount_one: '{{count}} video',
       itemCount_other: '{{count}} video',
       itemCountAudio_one: '{{count}} bản nhạc',
       itemCountAudio_other: '{{count}} bản nhạc',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URL',
+      bulkMetadataResolving: 'Đang lấy chi tiết video… {{done}}/{{total}}',
+      bulkRowWaiting: 'Đang chờ',
+      bulkRowResolving: 'Đang lấy chi tiết',
+      bulkRowFailed: 'Không có chi tiết',
       selectAll: 'Chọn tất cả',
       selectNone: 'Bỏ chọn tất cả',
       rangeFrom: 'Từ',
@@ -111,6 +121,22 @@ const vi = {
       alreadyDownloaded: 'Đã tải xuống',
       probeLimitAlertTitle: 'Quét playlist đã bị giới hạn',
       probeLimitAlertDesc: 'Arroxy tìm thấy nhiều hơn {{count}} mục, vì vậy giới hạn quét hiện tại đang ẩn phần còn lại.'
+    },
+    bulk: {
+      title: 'URL hàng loạt',
+      description: 'Dán từng URL video hoặc âm thanh. Arroxy sẽ lọc trùng và đánh dấu liên kết playlist hoặc kênh trước khi đưa vào hàng đợi.',
+      textareaLabel: 'Danh sách URL',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'Sẵn sàng',
+      ignoredCount: 'Bị bỏ qua',
+      emptyPreview: 'Dán ít nhất hai URL để xem trước lô.',
+      needsTwo: 'Thêm ít nhất hai URL được hỗ trợ để tiếp tục.',
+      confirm: 'Dùng các URL này',
+      reject: {
+        duplicate: 'Trùng lặp',
+        playlist: 'Dùng luồng playlist',
+        channel: 'Dùng luồng kênh'
+      }
     },
     playlistPresets: {
       heading: 'Chọn chất lượng cho lô',
@@ -142,6 +168,8 @@ const vi = {
       quickProbeFailed: 'Thăm dò thất bại',
       quickPrepareFailed: 'Không thể chuẩn bị mục hàng đợi',
       quickFailed: 'Không thể thêm mục này: {{error}}',
+      bulkButton: 'URL hàng loạt',
+      bulkTooltip: 'Dán danh sách URL riêng lẻ, xem trước danh sách đã làm sạch rồi xếp hàng với một preset chất lượng chung.',
       features: {
         heading: 'Arroxy có thể tải gì',
         youtube: {
@@ -175,6 +203,11 @@ const vi = {
         dialog: {
           title: 'Đã phát hiện YouTube URL',
           body: 'Sử dụng liên kết này từ bộ nhớ tạm của bạn?',
+          bulkTitle: 'Đã phát hiện URL hàng loạt',
+          bulkBody: 'Dùng các liên kết trong clipboard này làm tải xuống hàng loạt?',
+          bulkSummary: '{{count}} URL sẵn sàng',
+          bulkIgnored: '{{count}} bị bỏ qua',
+          bulkButton: 'Tải hàng loạt',
           useButton: 'Dùng URL',
           disableButton: 'Tắt',
           cancelButton: 'Hủy',
@@ -444,12 +477,15 @@ const vi = {
       pullIt: 'Tải về! ↓',
       pullItTooltip: 'Bắt đầu ngay lập tức — chạy song song với các tải xuống đang hoạt động',
       labelPlaylist: 'Danh sách phát',
+      labelBulk: 'URL hàng loạt',
       labelPreset: 'Cài đặt sẵn',
       labelItems: 'Mục',
       itemsValue_one: '{{count}} trong {{total}} video',
       itemsValue_other: '{{count}} trong {{total}} video',
       itemsValueAudio_one: '{{count}} trong {{total}} bản nhạc',
-      itemsValueAudio_other: '{{count}} trong {{total}} bản nhạc'
+      itemsValueAudio_other: '{{count}} trong {{total}} bản nhạc',
+      itemsValueBulk_one: '{{count}} trên {{total}} URL',
+      itemsValueBulk_other: '{{count}} trên {{total}} URL'
     }
   },
   videoCard: {

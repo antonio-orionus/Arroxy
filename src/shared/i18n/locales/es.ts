@@ -1,6 +1,7 @@
 const es = {
   common: {
     back: 'Atrás',
+    cancel: 'Cancelar',
     continue: 'Continuar',
     retry: 'Reintentar',
     startOver: 'Empezar de nuevo'
@@ -57,6 +58,8 @@ const es = {
     },
     actions: {
       chooseExecutable: 'Elegir ejecutable',
+      installWithHomebrew: 'Instalar con Homebrew',
+      installWithWinget: 'Instalar con WinGet',
       resetToDefault: 'Restablecer predeterminado',
       retrySetup: 'Reintentar configuración',
       cancel: 'Cancelar',
@@ -86,10 +89,17 @@ const es = {
     },
     playlist: {
       heading: 'Elementos de la Playlist',
+      bulkHeading: 'URLs en lote',
       itemCount_one: '{{count}} video',
       itemCount_other: '{{count}} videos',
       itemCountAudio_one: '{{count}} pista',
       itemCountAudio_other: '{{count}} pistas',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URLs',
+      bulkMetadataResolving: 'Obteniendo detalles del vídeo… {{done}}/{{total}}',
+      bulkRowWaiting: 'Esperando',
+      bulkRowResolving: 'Obteniendo detalles',
+      bulkRowFailed: 'Detalles no disponibles',
       selectAll: 'Seleccionar todo',
       selectNone: 'Deseleccionar todo',
       rangeFrom: 'Desde',
@@ -111,6 +121,22 @@ const es = {
       alreadyDownloaded: 'Ya descargado',
       probeLimitAlertTitle: 'El escaneo de la playlist está limitado',
       probeLimitAlertDesc: 'Arroxy encontró más de {{count}} elementos, por lo que el límite de escaneo actual está ocultando el resto.'
+    },
+    bulk: {
+      title: 'URLs en lote',
+      description: 'Pega URLs individuales de vídeo o audio. Arroxy limpiará duplicados y marcará enlaces de playlist o canal antes de enviarlos a la cola.',
+      textareaLabel: 'Lista de URLs',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'Listas',
+      ignoredCount: 'Ignoradas',
+      emptyPreview: 'Pega al menos dos URLs para previsualizar el lote.',
+      needsTwo: 'Añade al menos dos URLs compatibles para continuar.',
+      confirm: 'Usar estas URLs',
+      reject: {
+        duplicate: 'Duplicado',
+        playlist: 'Usar flujo de playlist',
+        channel: 'Usar flujo de canal'
+      }
     },
     playlistPresets: {
       heading: 'Elige la calidad para el lote',
@@ -141,6 +167,8 @@ const es = {
       quickProbeFailed: 'Falló el análisis',
       quickPrepareFailed: 'No se pudo preparar el elemento de la cola',
       quickFailed: 'No se pudo añadir: {{error}}',
+      bulkButton: 'URLs en lote',
+      bulkTooltip: 'Pega una lista de URLs individuales, revisa la lista limpia y ponlas en cola con una calidad compartida.',
       features: {
         heading: 'Qué puede bajar Arroxy',
         youtube: {
@@ -174,6 +202,11 @@ const es = {
         dialog: {
           title: 'URL de YouTube detectada',
           body: '¿Usar este enlace de tu portapapeles?',
+          bulkTitle: 'URLs en lote detectadas',
+          bulkBody: '¿Usar estos enlaces del portapapeles como descarga en lote?',
+          bulkSummary: '{{count}} URLs listas',
+          bulkIgnored: '{{count}} ignoradas',
+          bulkButton: 'Descarga en lote',
           useButton: 'Usar URL',
           disableButton: 'Desactivar',
           cancelButton: 'Cancelar',
@@ -443,12 +476,15 @@ const es = {
       pullIt: '¡Bájalo! ↓',
       pullItTooltip: 'Empieza al instante — corre junto a otras descargas activas',
       labelPlaylist: 'Playlist',
+      labelBulk: 'URLs en lote',
       labelPreset: 'Calidad',
       labelItems: 'Elementos',
       itemsValue_one: '{{count}} de {{total}} vídeo',
       itemsValue_other: '{{count}} de {{total}} vídeos',
       itemsValueAudio_one: '{{count}} de {{total}} pista',
-      itemsValueAudio_other: '{{count}} de {{total}} pistas'
+      itemsValueAudio_other: '{{count}} de {{total}} pistas',
+      itemsValueBulk_one: '{{count}} de {{total}} URL',
+      itemsValueBulk_other: '{{count}} de {{total}} URLs'
     }
   },
   videoCard: {

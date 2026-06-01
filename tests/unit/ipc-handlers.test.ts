@@ -28,6 +28,7 @@ vi.mock('electron', () => ({
 import { registerIpcHandlers } from '@main/ipc/registerIpcHandlers.js';
 import { IPC_CHANNELS } from '@shared/ipc.js';
 import { shell } from 'electron';
+import log from 'electron-log/main.js';
 
 class FakeDownloadService extends EventEmitter {
   start = vi.fn();
@@ -84,7 +85,9 @@ function makeDeps() {
       ensureYtDlp: vi.fn(),
       ensureFFmpeg: vi.fn(),
       ensureDeno: vi.fn(),
-      ensureFFprobe: vi.fn()
+      ensureFFprobe: vi.fn(),
+      installYtDlpWithHomebrew: vi.fn().mockResolvedValue('/opt/homebrew/bin/yt-dlp'),
+      installYtDlpWithWinget: vi.fn().mockResolvedValue('C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe')
     } as never,
     tokenService: { warmUp: vi.fn() } as never,
     languageRef: languageRef as never,
@@ -253,6 +256,32 @@ describe('registerIpcHandlers', () => {
       expect(deps._raw.languageRef.current).toBe('fr');
     });
 
+    it('app:installYtDlpHomebrew invokes the binary manager repair action', async () => {
+      const deps = makeDeps();
+      registerIpcHandlers(deps);
+
+      const handler = findCall(IPC_CHANNELS.appInstallYtDlpHomebrew)!.fn;
+      const result = (await handler(null, undefined)) as {
+        ok: boolean;
+        data?: { installedPath: string };
+      };
+
+      expect(result).toEqual({ ok: true, data: { installedPath: '/opt/homebrew/bin/yt-dlp' } });
+    });
+
+    it('app:installYtDlpWinget invokes the binary manager repair action', async () => {
+      const deps = makeDeps();
+      registerIpcHandlers(deps);
+
+      const handler = findCall(IPC_CHANNELS.appInstallYtDlpWinget)!.fn;
+      const result = (await handler(null, undefined)) as {
+        ok: boolean;
+        data?: { installedPath: string };
+      };
+
+      expect(result).toEqual({ ok: true, data: { installedPath: 'C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe' } });
+    });
+
     it('queue:cmd:add rejects non-array payloads with a Result failure', async () => {
       const deps = makeDeps();
       registerIpcHandlers(deps);
@@ -374,6 +403,25 @@ describe('registerIpcHandlers', () => {
 
         expect(result.ok).toBe(true);
         expect(shell.showItemInFolder).toHaveBeenCalledWith('/tmp/logs/main.log');
+        expect(shell.openPath).not.toHaveBeenCalled();
+      } finally {
+        Object.defineProperty(process, 'platform', originalPlatform);
+      }
+    });
+
+    it.each(['/Users/monterey/Library/Application Support/arroxy/logs/main.log', '/Users/monterey/Library/Application Support/Arroxy/logs/main.log'])('logs:openDir reveals the active macOS main.log path (%s)', async (logPath) => {
+      const originalPlatform = Object.getOwnPropertyDescriptor(process, 'platform')!;
+      Object.defineProperty(process, 'platform', { value: 'darwin', configurable: true });
+      vi.mocked(log.transports.file.getFile).mockReturnValue({ path: logPath } as ReturnType<typeof log.transports.file.getFile>);
+      try {
+        const deps = makeDeps();
+        registerIpcHandlers(deps);
+
+        const handler = findCall(IPC_CHANNELS.logsOpenDir)!.fn;
+        const result = (await handler(null, undefined)) as { ok: boolean };
+
+        expect(result.ok).toBe(true);
+        expect(shell.showItemInFolder).toHaveBeenCalledWith(logPath);
         expect(shell.openPath).not.toHaveBeenCalled();
       } finally {
         Object.defineProperty(process, 'platform', originalPlatform);

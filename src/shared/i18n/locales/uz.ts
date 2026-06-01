@@ -1,6 +1,7 @@
 const uz = {
   common: {
     back: 'Orqaga',
+    cancel: 'Bekor qilish',
     continue: 'Davom etish',
     retry: 'Qayta urinish',
     startOver: 'Qaytadan boshlash'
@@ -57,6 +58,8 @@ const uz = {
     },
     actions: {
       chooseExecutable: 'Bajariladigan faylni tanlash',
+      installWithHomebrew: 'Homebrew bilan o‘rnatish',
+      installWithWinget: 'WinGet bilan o‘rnatish',
       resetToDefault: 'Standartga qaytarish',
       retrySetup: 'Sozlashni qayta boshlash',
       cancel: 'Bekor qilish',
@@ -86,10 +89,17 @@ const uz = {
     },
     playlist: {
       heading: 'Playlist elementlari',
+      bulkHeading: 'Ommaviy URLlar',
       itemCount_one: '{{count}} ta video',
       itemCount_other: '{{count}} ta video',
       itemCountAudio_one: '{{count}} ta trek',
       itemCountAudio_other: '{{count}} ta trek',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URL',
+      bulkMetadataResolving: 'Video tafsilotlari olinmoqda… {{done}}/{{total}}',
+      bulkRowWaiting: 'Kutilmoqda',
+      bulkRowResolving: 'Tafsilotlar olinmoqda',
+      bulkRowFailed: 'Tafsilotlar mavjud emas',
       selectAll: 'Hammasini tanlash',
       selectNone: 'Hammasini bekor qilish',
       rangeFrom: 'Dan',
@@ -111,6 +121,22 @@ const uz = {
       alreadyDownloaded: 'Allaqachon yuklab olingan',
       probeLimitAlertTitle: 'Pleylist skaneri cheklangan',
       probeLimitAlertDesc: 'Arroxy {{count}} tadan ortiq element topdi, shuning uchun joriy skaner chekovi qolganlarini yashirmoqda.'
+    },
+    bulk: {
+      title: 'Ommaviy URLlar',
+      description: 'Alohida video yoki audio URLlarini joylang. Arroxy navbatga qo‘shishdan oldin takrorlarni tozalaydi va playlist yoki kanal havolalarini belgilaydi.',
+      textareaLabel: 'URL ro‘yxati',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'Tayyor',
+      ignoredCount: 'E’tiborsiz',
+      emptyPreview: 'To‘plamni ko‘rish uchun kamida ikki URL joylang.',
+      needsTwo: 'Davom etish uchun kamida ikki qo‘llab-quvvatlanadigan URL qo‘shing.',
+      confirm: 'Bu URLlardan foydalanish',
+      reject: {
+        duplicate: 'Takror',
+        playlist: 'Playlist oqimidan foydalanish',
+        channel: 'Kanal oqimidan foydalanish'
+      }
     },
     playlistPresets: {
       heading: 'Paket uchun sifatni tanlang',
@@ -142,6 +168,8 @@ const uz = {
       quickProbeFailed: 'Tekshiruv muvaffaqiyatsiz',
       quickPrepareFailed: 'Navbat elementi tayyorlanmadi',
       quickFailed: 'Buni qo‘shib bo‘lmadi: {{error}}',
+      bulkButton: 'Ommaviy URLlar',
+      bulkTooltip: 'Alohida URLlar ro‘yxatini joylang, tozalangan ro‘yxatni ko‘ring va umumiy sifat presetida navbatga qo‘shing.',
       features: {
         heading: 'Arroxy nima yuklab olishi mumkin',
         youtube: {
@@ -175,6 +203,11 @@ const uz = {
         dialog: {
           title: 'YouTube URL aniqlandi',
           body: 'Buferingizdagi bu havoladan foydalanasizmi?',
+          bulkTitle: 'Ommaviy URLlar topildi',
+          bulkBody: 'Clipboarddagi bu havolalarni ommaviy yuklama sifatida ishlatilsinmi?',
+          bulkSummary: '{{count}} URL tayyor',
+          bulkIgnored: '{{count}} e’tiborsiz',
+          bulkButton: 'Ommaviy yuklash',
           useButton: 'URLdan foydalanish',
           disableButton: "O'chirish",
           cancelButton: 'Bekor qilish',
@@ -444,12 +477,15 @@ const uz = {
       pullIt: 'Yuklab ol! ↓',
       pullItTooltip: 'Darhol boshlanadi — boshqa faol yuklamalar bilan parallel ishlaydi',
       labelPlaylist: 'Pleylist',
+      labelBulk: 'Ommaviy URLlar',
       labelPreset: 'Sozlama',
       labelItems: 'Elementlar',
       itemsValue_one: '{{total}} ta videoning {{count}} tasi',
       itemsValue_other: '{{total}} ta videoning {{count}} tasi',
       itemsValueAudio_one: '{{total}} ta trekning {{count}} tasi',
-      itemsValueAudio_other: '{{total}} ta trekning {{count}} tasi'
+      itemsValueAudio_other: '{{total}} ta trekning {{count}} tasi',
+      itemsValueBulk_one: '{{total}} URLdan {{count}} tasi',
+      itemsValueBulk_other: '{{total}} URLdan {{count}} tasi'
     }
   },
   videoCard: {

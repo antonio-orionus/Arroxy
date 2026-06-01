@@ -58,6 +58,8 @@ const en = {
     },
     actions: {
       chooseExecutable: 'Choose executable',
+      installWithHomebrew: 'Install with Homebrew',
+      installWithWinget: 'Install with WinGet',
       resetToDefault: 'Reset to default',
       retrySetup: 'Retry setup',
       cancel: 'Cancel',

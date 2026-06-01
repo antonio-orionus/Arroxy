@@ -75,6 +75,7 @@ export interface CommonSettings {
   lastSponsorBlockCategories?: SponsorBlockCategory[];
   analyticsEnabled?: boolean;
   firstRunCompleted?: boolean;
+  launchCount?: number;
   drawerOpen?: boolean;
   binaryOverrides?: BinaryOverrides;
   successfulDownloadCount?: number;

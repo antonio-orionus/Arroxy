@@ -18,6 +18,8 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
     app: {
       warmUp: (input) => ipcRenderer.invoke(IPC_CHANNELS.appWarmUp, input ?? {}),
       cancelWarmup: () => ipcRenderer.invoke(IPC_CHANNELS.appCancelWarmup),
+      installYtDlpWithHomebrew: () => ipcRenderer.invoke(IPC_CHANNELS.appInstallYtDlpHomebrew),
+      installYtDlpWithWinget: () => ipcRenderer.invoke(IPC_CHANNELS.appInstallYtDlpWinget),
       setLanguage: (language) => ipcRenderer.invoke(IPC_CHANNELS.appSetLanguage, language)
     },
     window: {

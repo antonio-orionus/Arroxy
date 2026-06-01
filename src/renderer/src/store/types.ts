@@ -217,6 +217,7 @@ export interface SystemSlice {
   warmupDiagnostics: Record<DependencyId, DependencyDiagnostic> | null;
   warmupBlocking: DependencyId[];
   warmupRunning: boolean;
+  warmupCancellable: boolean;
   warmupProgress: Partial<Record<DependencyId, import('@shared/types.js').WarmupProgressEvent>> | null;
   settings: AppSettings | null;
   language: SupportedLang;
@@ -225,6 +226,8 @@ export interface SystemSlice {
   shareDialogTrigger: ShareTrigger | null;
   initialize: () => Promise<void>;
   repairWarmup: () => Promise<void>;
+  repairYtDlpWithHomebrew: () => Promise<void>;
+  repairYtDlpWithWinget: () => Promise<void>;
   cancelWarmup: () => Promise<void>;
   setBinaryOverride: (id: DependencyId, path: string) => Promise<void>;
   clearBinaryOverride: (id: DependencyId) => Promise<void>;

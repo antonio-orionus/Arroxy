@@ -14,6 +14,8 @@ const mockAppApi = {
   app: {
     warmUp: vi.fn().mockResolvedValue(ok({ completed: true, dependencies: {}, blockingFailures: [], cancelled: false })),
     cancelWarmup: vi.fn().mockResolvedValue(undefined),
+    installYtDlpWithHomebrew: vi.fn().mockResolvedValue(ok({ installedPath: '/opt/homebrew/bin/yt-dlp' })),
+    installYtDlpWithWinget: vi.fn().mockResolvedValue(ok({ installedPath: 'C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe' })),
     setLanguage: vi.fn().mockResolvedValue(undefined)
   },
   window: {

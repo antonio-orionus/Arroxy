@@ -41,7 +41,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
   const { mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, playlistManifestStore } = deps;
 
   const warmupService = new WarmupService({ binaryManager, tokenService, window: mainWindow });
-  registerAppHandlers({ warmupService, languageRef });
+  registerAppHandlers({ warmupService, binaryManager, languageRef });
   registerWindowHandlers(mainWindow);
   registerDownloadHandlers({ downloadService, probeService, settingsStore });
   registerSettingsHandlers({ settingsStore, clipboardWatcher });

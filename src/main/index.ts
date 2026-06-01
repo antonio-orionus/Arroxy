@@ -197,15 +197,12 @@ if (hasSingleInstanceLock) {
 
     // Enable analytics now that we know it's a real (non-smoke) session.
     setAnalyticsEnabled(initialSettings.common.analyticsEnabled ?? true);
-    const isFirstRun = !initialSettings.common.firstRunCompleted;
-    if (isFirstRun) {
-      await settingsStore.update({ common: { firstRunCompleted: true } });
-    }
+    const launch = await settingsStore.recordLaunch();
     const arch: string = process.arch === 'arm64' ? 'arm64' : 'x64';
     trackMain('app_started', {
       install_channel: detectInstallChannel(app.getName()),
       platform_arch: `${process.platform}-${arch}`,
-      is_first_run: isFirstRun
+      is_first_run: launch.isFirstRun
     });
 
     const mainWindow = createMainWindow();

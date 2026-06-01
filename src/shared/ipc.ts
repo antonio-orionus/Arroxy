@@ -1,6 +1,8 @@
 export const IPC_CHANNELS = {
   appWarmUp: 'app:warmUp',
   appCancelWarmup: 'app:cancelWarmup',
+  appInstallYtDlpHomebrew: 'app:installYtDlpHomebrew',
+  appInstallYtDlpWinget: 'app:installYtDlpWinget',
   downloadsStart: 'downloads:start',
   downloadsCancel: 'downloads:cancel',
   downloadsPause: 'downloads:pause',

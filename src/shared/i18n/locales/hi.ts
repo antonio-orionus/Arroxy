@@ -1,6 +1,7 @@
 const hi = {
   common: {
     back: 'वापस',
+    cancel: 'रद्द करें',
     continue: 'जारी रखें',
     retry: 'फिर से कोशिश करें',
     startOver: 'फिर से शुरू करें'
@@ -57,6 +58,8 @@ const hi = {
     },
     actions: {
       chooseExecutable: 'एक्ज़ीक्यूटेबल चुनें',
+      installWithHomebrew: 'Homebrew से इंस्टॉल करें',
+      installWithWinget: 'WinGet से इंस्टॉल करें',
       resetToDefault: 'डिफ़ॉल्ट पर रीसेट करें',
       retrySetup: 'सेटअप पुनः प्रयास करें',
       cancel: 'रद्द करें',
@@ -86,10 +89,17 @@ const hi = {
     },
     playlist: {
       heading: 'Playlist आइटम',
+      bulkHeading: 'बल्क URLs',
       itemCount_one: '{{count}} वीडियो',
       itemCount_other: '{{count}} वीडियो',
       itemCountAudio_one: '{{count}} ट्रैक',
       itemCountAudio_other: '{{count}} ट्रैक',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URLs',
+      bulkMetadataResolving: 'वीडियो विवरण लाए जा रहे हैं… {{done}}/{{total}}',
+      bulkRowWaiting: 'प्रतीक्षा में',
+      bulkRowResolving: 'विवरण लाए जा रहे हैं',
+      bulkRowFailed: 'विवरण उपलब्ध नहीं',
       selectAll: 'सभी चुनें',
       selectNone: 'कोई नहीं चुनें',
       rangeFrom: 'से',
@@ -111,6 +121,22 @@ const hi = {
       alreadyDownloaded: 'पहले से डाउनलोड किया गया',
       probeLimitAlertTitle: 'प्लेलिस्ट स्कैन सीमित है',
       probeLimitAlertDesc: 'Arroxy को {{count}} से अधिक आइटम मिले, इसलिए वर्तमान स्कैन सीमा बाकी को छुपा रही है।'
+    },
+    bulk: {
+      title: 'बल्क URLs',
+      description: 'अलग-अलग वीडियो या ऑडियो URLs पेस्ट करें। Arroxy कतार में जोड़ने से पहले डुप्लिकेट साफ करेगा और playlist या channel links को चिह्नित करेगा।',
+      textareaLabel: 'URL सूची',
+      textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
+      acceptedCount: 'तैयार',
+      ignoredCount: 'नज़रअंदाज़',
+      emptyPreview: 'बैच देखने के लिए कम से कम दो URLs पेस्ट करें।',
+      needsTwo: 'जारी रखने के लिए कम से कम दो समर्थित URLs जोड़ें।',
+      confirm: 'ये URLs इस्तेमाल करें',
+      reject: {
+        duplicate: 'डुप्लिकेट',
+        playlist: 'playlist flow इस्तेमाल करें',
+        channel: 'channel flow इस्तेमाल करें'
+      }
     },
     playlistPresets: {
       heading: 'बैच के लिए गुणवत्ता चुनें',
@@ -142,6 +168,8 @@ const hi = {
       quickProbeFailed: 'जाँच विफल रही',
       quickPrepareFailed: 'क्यू आइटम तैयार नहीं किया जा सका',
       quickFailed: 'इसे जोड़ा नहीं जा सका: {{error}}',
+      bulkButton: 'बल्क URLs',
+      bulkTooltip: 'अलग URLs की सूची पेस्ट करें, साफ सूची देखें, फिर एक साझा quality preset के साथ कतार में जोड़ें।',
       features: {
         heading: 'Arroxy क्या डाउनलोड कर सकता है',
         youtube: {
@@ -175,6 +203,11 @@ const hi = {
         dialog: {
           title: 'YouTube URL मिला',
           body: 'क्या आप अपने क्लिपबोर्ड का यह लिंक उपयोग करना चाहते हैं?',
+          bulkTitle: 'बल्क URLs मिले',
+          bulkBody: 'clipboard के इन links को bulk download के रूप में इस्तेमाल करें?',
+          bulkSummary: '{{count}} URLs तैयार',
+          bulkIgnored: '{{count}} नज़रअंदाज़',
+          bulkButton: 'बल्क डाउनलोड',
           useButton: 'URL उपयोग करें',
           disableButton: 'बंद करें',
           cancelButton: 'रद्द करें',
@@ -444,12 +477,15 @@ const hi = {
       pullIt: 'खींच लो! ↓',
       pullItTooltip: 'तुरंत शुरू — बाक़ी सक्रिय डाउनलोड के साथ-साथ चलेगा',
       labelPlaylist: 'Playlist',
+      labelBulk: 'बल्क URLs',
       labelPreset: 'प्रीसेट',
       labelItems: 'आइटम',
       itemsValue_one: '{{total}} में से {{count}} वीडियो',
       itemsValue_other: '{{total}} में से {{count}} वीडियो',
       itemsValueAudio_one: '{{total}} में से {{count}} ट्रैक',
-      itemsValueAudio_other: '{{total}} में से {{count}} ट्रैक'
+      itemsValueAudio_other: '{{total}} में से {{count}} ट्रैक',
+      itemsValueBulk_one: '{{total}} URL में से {{count}}',
+      itemsValueBulk_other: '{{total}} URLs में से {{count}}'
     }
   },
   videoCard: {

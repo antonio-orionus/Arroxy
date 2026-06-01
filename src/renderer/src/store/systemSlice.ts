@@ -81,6 +81,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
     warmupDiagnostics: null,
     warmupBlocking: [],
     warmupRunning: false,
+    warmupCancellable: false,
     warmupProgress: null,
     settings: null,
     // Guard `navigator` so vitest's node-env tests (e.g. format-selection-view)
@@ -203,7 +204,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
         }));
       });
 
-      set({ warmupRunning: true });
+      set({ warmupRunning: true, warmupCancellable: true });
       const settingsPromise = window.appApi.settings.get();
       const warmUpPromise = window.appApi.app.warmUp();
       const snapshotPromise = window.appApi.queue.cmd.getSnapshot();
@@ -236,7 +237,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
       const warmupDiagnostics = warmUpResult.ok ? warmUpResult.data.dependencies : null;
       const warmupBlocking = warmUpResult.ok ? warmUpResult.data.blockingFailures : [];
 
-      set({ initialized: true, initializing: false, warmupRunning: false, warmupDiagnostics, warmupBlocking });
+      set({ initialized: true, initializing: false, warmupRunning: false, warmupCancellable: false, warmupDiagnostics, warmupBlocking });
     },
 
     cancelWarmup: async () => {
@@ -249,7 +250,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
     repairWarmup: async () => {
       if (get().warmupRunning) return;
-      set({ warmupRunning: true });
+      set({ warmupRunning: true, warmupCancellable: true });
       try {
         const result = await window.appApi.app.warmUp({ force: true });
         if (result.ok) {
@@ -260,7 +261,53 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
       } catch (err) {
         notify.warmupFailed('repair threw', err);
       } finally {
-        set({ warmupRunning: false });
+        set({ warmupRunning: false, warmupCancellable: false });
+      }
+    },
+
+    repairYtDlpWithHomebrew: async () => {
+      if (get().warmupRunning) return;
+      set({ warmupRunning: true, warmupCancellable: false });
+      try {
+        const install = await window.appApi.app.installYtDlpWithHomebrew();
+        if (!install.ok) {
+          notify.warmupFailed('homebrew repair failed', install.error);
+          return;
+        }
+        set({ warmupCancellable: true });
+        const result = await window.appApi.app.warmUp({ force: true });
+        if (result.ok) {
+          set({ warmupDiagnostics: result.data.dependencies, warmupBlocking: result.data.blockingFailures });
+        } else {
+          notify.warmupFailed('post-homebrew repair failed', result.error);
+        }
+      } catch (err) {
+        notify.warmupFailed('homebrew repair threw', err);
+      } finally {
+        set({ warmupRunning: false, warmupCancellable: false });
+      }
+    },
+
+    repairYtDlpWithWinget: async () => {
+      if (get().warmupRunning) return;
+      set({ warmupRunning: true, warmupCancellable: false });
+      try {
+        const install = await window.appApi.app.installYtDlpWithWinget();
+        if (!install.ok) {
+          notify.warmupFailed('winget repair failed', install.error);
+          return;
+        }
+        set({ warmupCancellable: true });
+        const result = await window.appApi.app.warmUp({ force: true });
+        if (result.ok) {
+          set({ warmupDiagnostics: result.data.dependencies, warmupBlocking: result.data.blockingFailures });
+        } else {
+          notify.warmupFailed('post-winget repair failed', result.error);
+        }
+      } catch (err) {
+        notify.warmupFailed('winget repair threw', err);
+      } finally {
+        set({ warmupRunning: false, warmupCancellable: false });
       }
     },
 

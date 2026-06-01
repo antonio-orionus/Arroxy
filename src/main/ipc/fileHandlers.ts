@@ -65,7 +65,7 @@ export function registerFileHandlers(mainWindow: BrowserWindow, binaryManager: B
   handleRaw(IPC_CHANNELS.logsOpenDir, async () => {
     try {
       const logPath = log.transports.file.getFile().path;
-      if (process.platform === 'win32') {
+      if (process.platform === 'win32' || process.platform === 'darwin') {
         shell.showItemInFolder(logPath);
         return ok({ opened: true });
       }

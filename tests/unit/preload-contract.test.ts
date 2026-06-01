@@ -43,6 +43,18 @@ describe('invoke methods → correct IPC channel', () => {
     expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.appCancelWarmup);
   });
 
+  it('app.installYtDlpWithHomebrew', () => {
+    const api = createPreloadApi(ipc.ipcRenderer);
+    void api.app.installYtDlpWithHomebrew();
+    expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.appInstallYtDlpHomebrew);
+  });
+
+  it('app.installYtDlpWithWinget', () => {
+    const api = createPreloadApi(ipc.ipcRenderer);
+    void api.app.installYtDlpWithWinget();
+    expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.appInstallYtDlpWinget);
+  });
+
   it('downloads.probe', () => {
     const api = createPreloadApi(ipc.ipcRenderer);
     const input = { url: 'https://youtube.com/watch?v=x' };

@@ -30,7 +30,7 @@ function buildDebugInfo(): string {
 
 export function App(): JSX.Element {
   const { t } = useTranslation();
-  const { initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, warmupBlocking, warmupDiagnostics, warmupProgress, setAboutDialogOpen, openShareDialog } = useAppStore();
+  const { initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, warmupBlocking, warmupDiagnostics, warmupProgress, settings, setAboutDialogOpen, openShareDialog } = useAppStore();
   const update = useUpdateChannel();
   const [debugCopied, setDebugCopied] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
@@ -138,7 +138,7 @@ export function App(): JSX.Element {
           </div>
         </footer>
 
-        <SplashScreen initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} />
+        <SplashScreen initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={settings?.common?.launchCount === 2} />
         <AboutDialog />
         <ShareDialog />
         {SHOW_SCENARIO_GALLERY && <ScenarioGallery />}

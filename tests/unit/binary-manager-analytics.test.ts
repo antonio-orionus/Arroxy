@@ -34,7 +34,12 @@ describe('BinaryManager analytics', () => {
     expect(trackMain).toHaveBeenCalledWith('binary_setup_failed', {
       binary: 'ffmpeg',
       phase: 'hash_failed',
-      code: 'ARX-003'
+      code: 'ARX-003',
+      operation: 'managed-download',
+      setup_step: 'unknown',
+      source_kind: 'managed',
+      source_channel: 'default',
+      elapsed_ms: expect.any(Number)
     });
   });
 
@@ -59,7 +64,12 @@ describe('BinaryManager analytics', () => {
     expect(trackMain).toHaveBeenCalledWith('binary_setup_failed', {
       binary: 'ffmpeg',
       phase: 'timeout',
-      code: 'ARX-008'
+      code: 'ARX-008',
+      operation: 'managed-download',
+      setup_step: 'unknown',
+      source_kind: 'managed',
+      source_channel: 'default',
+      elapsed_ms: expect.any(Number)
     });
   });
 
@@ -84,7 +94,12 @@ describe('BinaryManager analytics', () => {
     expect(trackMain).toHaveBeenCalledWith('binary_setup_failed', {
       binary: 'ffmpeg',
       phase: 'download_failed',
-      code: 'ARX-001'
+      code: 'ARX-001',
+      operation: 'managed-download',
+      setup_step: 'unknown',
+      source_kind: 'managed',
+      source_channel: 'default',
+      elapsed_ms: expect.any(Number)
     });
   });
 });
