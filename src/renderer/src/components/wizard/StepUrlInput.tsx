@@ -42,7 +42,7 @@ const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookies
 
 export function StepUrlInput(): JSX.Element {
   const { t } = useTranslation();
-  const { wizardUrl, setWizardUrl, submitUrl, quickDownload, quickDownloadStatus, quickDownloadError, queue, settings, initialized, advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen, setCookiesPath, setCookiesMode, setCookiesBrowser, setClipboardWatchEnabled, setIncludeIdInSingleFilenames, setCloseBehavior, setAnalyticsEnabled, setProxyUrl, setLimitRate, cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, openShareDialog, setShareInlineCardDismissed } = useAppStore();
+  const { wizardUrl, setWizardUrl, submitUrl, quickDownload, quickDownloadStatus, quickDownloadError, queue, settings, initialized, splashDismissed, advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen, setCookiesPath, setCookiesMode, setCookiesBrowser, setClipboardWatchEnabled, setIncludeIdInSingleFilenames, setCloseBehavior, setAnalyticsEnabled, setProxyUrl, setLimitRate, cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, openShareDialog, setShareInlineCardDismissed } = useAppStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const bulkOpenRef = useRef(false);
   const hasActiveDownloads = queue.some((i) => i.status === 'running');
@@ -440,7 +440,7 @@ export function StepUrlInput(): JSX.Element {
         </div>
       </details>
 
-      <ClipboardConfirmDialog open={pendingClipboard !== null && initialized} prompt={pendingClipboard} onUse={handleConfirmClipboard} onFetch={() => void handleFetchClipboard()} onBulk={handleBulkClipboard} onQuickDownload={() => void handleQuickDownloadClipboard()} onDisable={handleDisableClipboard} onCancel={handleCancelClipboard} quickPreparing={quickPreparing} />
+      <ClipboardConfirmDialog open={pendingClipboard !== null && initialized && splashDismissed} prompt={pendingClipboard} onUse={handleConfirmClipboard} onFetch={() => void handleFetchClipboard()} onBulk={handleBulkClipboard} onQuickDownload={() => void handleQuickDownloadClipboard()} onDisable={handleDisableClipboard} onCancel={handleCancelClipboard} quickPreparing={quickPreparing} />
       {bulkOpen ? <BulkUrlDialog open={bulkOpen} onOpenChange={setBulkOpen} initialRaw={bulkInitialRaw} /> : null}
       <IncompleteCookiesConfigDialog issue={cookiesConfigDialogIssue} onDismiss={dismissCookiesConfigDialog} onOpenSettings={openCookiesSettings} />
     </div>

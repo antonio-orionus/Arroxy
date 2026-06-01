@@ -10,6 +10,7 @@ interface Props {
   warmupDiagnostics: Record<DependencyId, DependencyDiagnostic> | null;
   warmupProgress: Partial<Record<DependencyId, WarmupProgressEvent>> | null;
   showGreeting: boolean;
+  onDismissed?: () => void;
 }
 
 const MIN_MS = 3000;
@@ -19,7 +20,7 @@ function formatBytes(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-export function SplashScreen({ initialized, warmupBlocking, warmupDiagnostics, warmupProgress, showGreeting }: Props): JSX.Element | null {
+export function SplashScreen({ initialized, warmupBlocking, warmupDiagnostics, warmupProgress, showGreeting, onDismissed }: Props): JSX.Element | null {
   const { t } = useTranslation();
   const [minPassed, setMinPassed] = useState(false);
   const [gone, setGone] = useState(false);
@@ -51,8 +52,10 @@ export function SplashScreen({ initialized, warmupBlocking, warmupDiagnostics, w
       className="splash-overlay"
       data-testid="splash-overlay"
       style={{ opacity: fading ? 0 : 1, pointerEvents: fading ? 'none' : 'auto' }}
-      onTransitionEnd={() => {
-        if (fading) setGone(true);
+      onTransitionEnd={(event) => {
+        if (!fading || event.currentTarget !== event.target) return;
+        setGone(true);
+        onDismissed?.();
       }}
       aria-hidden={!blocked}
     >

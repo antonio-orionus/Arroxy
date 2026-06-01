@@ -14,6 +14,7 @@ import { LanguagePicker } from './components/system/LanguagePicker.js';
 import { AboutDialog } from './components/system/AboutDialog.js';
 import { ShareDialog } from './components/system/ShareDialog.js';
 import { useUpdateChannel } from './components/system/useUpdateChannel.js';
+import { shouldShowSplashGreeting } from './components/system/splashGreeting.js';
 import { TooltipProvider } from './components/ui/tooltip.js';
 import { ScenarioGallery } from './dev/ScenarioGallery.js';
 import { cn } from './lib/utils.js';
@@ -30,7 +31,7 @@ function buildDebugInfo(): string {
 
 export function App(): JSX.Element {
   const { t } = useTranslation();
-  const { initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, warmupBlocking, warmupDiagnostics, warmupProgress, settings, setAboutDialogOpen, openShareDialog } = useAppStore();
+  const { initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, warmupBlocking, warmupDiagnostics, warmupProgress, settings, setSplashDismissed, setAboutDialogOpen, openShareDialog } = useAppStore();
   const update = useUpdateChannel();
   const [debugCopied, setDebugCopied] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
@@ -138,7 +139,7 @@ export function App(): JSX.Element {
           </div>
         </footer>
 
-        <SplashScreen initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={settings?.common?.launchCount === 2} />
+        <SplashScreen initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={shouldShowSplashGreeting(settings)} onDismissed={() => setSplashDismissed(true)} />
         <AboutDialog />
         <ShareDialog />
         {SHOW_SCENARIO_GALLERY && <ScenarioGallery />}

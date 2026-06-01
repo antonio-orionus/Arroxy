@@ -10,6 +10,7 @@ describe('App renderer', () => {
   beforeEach(() => {
     useAppStore.setState({
       initialized: false,
+      splashDismissed: false,
       settings: null,
       wizardStep: 'url',
       formatsLoading: false,
@@ -102,5 +103,17 @@ describe('App renderer', () => {
     render(<App />);
     expect(await screen.findByLabelText('Download Queue')).toBeInTheDocument();
     expect(await screen.findAllByText(/no downloads yet/i)).not.toHaveLength(0);
+  });
+
+  it('shows the welcome-back greeting while warmup is still running', async () => {
+    const pendingWarmupApi = buildMockAppApi({ settings: { common: { defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false, launchCount: 4 } } });
+    vi.mocked(pendingWarmupApi.app.warmUp).mockReturnValue(new Promise(() => undefined));
+    window.appApi = pendingWarmupApi;
+
+    render(<App />);
+
+    expect(await screen.findByTestId('splash-greeting')).toHaveTextContent('Hey, welcome back!');
+    expect(screen.getByTestId('splash-overlay')).toHaveTextContent('Arroxy is warming up');
+    expect(useAppStore.getState().initialized).toBe(false);
   });
 });

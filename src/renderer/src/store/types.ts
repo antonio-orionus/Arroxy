@@ -214,6 +214,7 @@ export type ShareTrigger = 'footer' | 'titlebar' | 'about' | 'wizard-card' | 'mi
 export interface SystemSlice {
   initialized: boolean;
   initializing: boolean;
+  splashDismissed: boolean;
   warmupDiagnostics: Record<DependencyId, DependencyDiagnostic> | null;
   warmupBlocking: DependencyId[];
   warmupRunning: boolean;
@@ -225,6 +226,7 @@ export interface SystemSlice {
   shareDialogOpen: boolean;
   shareDialogTrigger: ShareTrigger | null;
   initialize: () => Promise<void>;
+  setSplashDismissed: (dismissed: boolean) => void;
   repairWarmup: () => Promise<void>;
   repairYtDlpWithHomebrew: () => Promise<void>;
   repairYtDlpWithWinget: () => Promise<void>;

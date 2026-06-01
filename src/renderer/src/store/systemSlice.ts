@@ -78,6 +78,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
   return {
     initialized: false,
     initializing: false,
+    splashDismissed: false,
     warmupDiagnostics: null,
     warmupBlocking: [],
     warmupRunning: false,
@@ -94,7 +95,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
     initialize: async () => {
       if (get().initialized || get().initializing) return;
-      set({ initializing: true });
+      set({ initializing: true, splashDismissed: false });
 
       // Detach prior queue projection bindings (defense for a future re-init flow).
       unbindQueueSnapshot?.();
@@ -208,8 +209,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
       const settingsPromise = window.appApi.settings.get();
       const warmUpPromise = window.appApi.app.warmUp();
       const snapshotPromise = window.appApi.queue.cmd.getSnapshot();
-      const [settingsResult, warmUpResult, snapshotResult] = await Promise.all([settingsPromise, warmUpPromise, snapshotPromise]);
-      if (snapshotResult.ok) set({ queue: snapshotResult.data });
+      const settingsResult = await settingsPromise;
 
       if (settingsResult.ok) {
         const common = settingsResult.data.common ?? ({} as AppSettings['common']);
@@ -234,10 +234,17 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
         });
       }
 
+      const [warmUpResult, snapshotResult] = await Promise.all([warmUpPromise, snapshotPromise]);
+      if (snapshotResult.ok) set({ queue: snapshotResult.data });
+
       const warmupDiagnostics = warmUpResult.ok ? warmUpResult.data.dependencies : null;
       const warmupBlocking = warmUpResult.ok ? warmUpResult.data.blockingFailures : [];
 
       set({ initialized: true, initializing: false, warmupRunning: false, warmupCancellable: false, warmupDiagnostics, warmupBlocking });
+    },
+
+    setSplashDismissed: (dismissed) => {
+      set({ splashDismissed: dismissed });
     },
 
     cancelWarmup: async () => {

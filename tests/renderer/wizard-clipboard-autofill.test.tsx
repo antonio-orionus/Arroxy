@@ -14,6 +14,7 @@ function resetStore(overrides: Partial<ReturnType<typeof useAppStore.getState>> 
   useAppStore.setState({
     initialized: true,
     initializing: false,
+    splashDismissed: true,
     settings: {
       common: {
         defaultOutputDir: '/tmp',
@@ -96,6 +97,24 @@ describe('wizard clipboard confirm dialog', () => {
     });
 
     expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
+  });
+
+  it('waits until the splash screen has finished dismissing before opening', () => {
+    resetStore({ initialized: true, splashDismissed: false });
+    render(<StepUrlInput />);
+
+    act(() => {
+      clipboardListener!(FRESH_URL);
+    });
+
+    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
+
+    act(() => {
+      useAppStore.getState().setSplashDismissed(true);
+    });
+
+    expect(screen.getByTestId('clipboard-confirm-dialog')).toBeInTheDocument();
+    expect(screen.getByTestId('clipboard-confirm-url')).toHaveTextContent(FRESH_URL);
   });
 
   it('"Use URL" applies the URL and closes the dialog', () => {
