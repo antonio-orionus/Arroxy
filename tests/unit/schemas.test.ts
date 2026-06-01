@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { startDownloadSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS } from '@shared/schemas.js';
+import { startDownloadSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, probeSchema } from '@shared/schemas.js';
 import { DEFAULTS } from '@shared/constants.js';
 
 const IDENTITY = { extractor: 'youtube', extractorKey: 'Youtube' };
@@ -47,6 +47,18 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
 describe('playlist video tiers', () => {
   it('preserves highest-to-lowest presentation order', () => {
     expect(PLAYLIST_VIDEO_TIERS).toEqual(['best', '2160', '1440', '1080', '720', '480', '360']);
+  });
+});
+
+describe('probeSchema — playlist scope', () => {
+  const url = 'https://www.youtube.com/playlist?list=PLabc';
+
+  it.each([{ items: { kind: 'app-limit' } }, { items: { kind: 'first', count: 50 } }, { items: { kind: 'range', from: 500, to: 600 } }])('accepts %j', (playlistScope) => {
+    expect(probeSchema.safeParse({ url, playlistMode: 'playlist', playlistScope }).success).toBe(true);
+  });
+
+  it.each([{ items: { kind: 'first', count: 0 } }, { items: { kind: 'first', count: 1.5 } }, { items: { kind: 'range', from: 0, to: 10 } }, { items: { kind: 'range', from: 20, to: 10 } }])('rejects %j', (playlistScope) => {
+    expect(probeSchema.safeParse({ url, playlistMode: 'playlist', playlistScope }).success).toBe(false);
   });
 });
 

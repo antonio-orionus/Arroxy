@@ -6,12 +6,12 @@ export type { PreparedJob } from './preparedJob.js';
 // Re-export the enum types whose canonical definition lives in `schemas.ts`
 // (where they're z.enum schemas). Importing from `@shared/types` continues to
 // work for callers that don't care about the schema vs type distinction.
-export type { Preset, PlaylistSelection, PlaylistVideoTier, PlaylistAudioFormat, SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, QueueItemStatus, QueueLane, AudioConvertTarget, AudioBitrate, AudioConvert, AudioSelection, CookiesMode, CookiesBrowser, NetworkPacingPreset, QuickDownloadStatus } from './schemas.js';
+export type { Preset, PlaylistSelection, PlaylistScope, PlaylistVideoTier, PlaylistAudioFormat, SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, QueueItemStatus, QueueLane, AudioConvertTarget, AudioBitrate, AudioConvert, AudioSelection, CookiesMode, CookiesBrowser, NetworkPacingPreset, QuickDownloadStatus } from './schemas.js';
 
 export type { StatusKey } from './schemas.js';
 export type { LocalizedError, YtDlpErrorKind } from './i18n/types.js';
 
-import type { AudioSelection, Preset, SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, StatusKey, CookiesMode, CookiesBrowser, NetworkPacingPreset } from './schemas.js';
+import type { AudioSelection, Preset, PlaylistScope, SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, StatusKey, CookiesMode, CookiesBrowser, NetworkPacingPreset } from './schemas.js';
 
 export type AppErrorCode = 'validation' | 'token' | 'binary' | 'download' | 'ipc' | 'unknown';
 
@@ -203,6 +203,9 @@ export interface ProbeInput {
   // extractor decide; 'video' forces single-video resolution; 'playlist'
   // forces playlist enumeration.
   playlistMode?: ProbePlaylistMode;
+  // Probe-time scope for playlist/channel/search enumeration. Downloads still
+  // split into Arroxy queue items after this filtered flat probe.
+  playlistScope?: PlaylistScope;
 }
 
 export type ProbeDegradationReason = 'botWall' | 'extractor';
@@ -384,7 +387,7 @@ export type UpdateInstallResult = { ok: true } | { ok: false; error: string };
 
 export type WizardStepName = 'url' | 'playlistItems' | 'playlistPresets' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error';
 
-export type WizardTransition = 'submitUrl' | 'advance' | 'back' | 'skipSubtitles' | 'skipToConfirm' | 'retry' | 'reset';
+export type WizardTransition = 'submitUrl' | 'advance' | 'back' | 'skipSubtitles' | 'skipToConfirm' | 'retry' | 'reset' | 'playlistScopeReloadStart' | 'playlistScopeReloadSuccess' | 'playlistScopeReloadFailure' | 'playlistScopeReloadIgnored';
 
 export interface WizardStepSnapshot {
   transition: WizardTransition;

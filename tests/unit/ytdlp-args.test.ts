@@ -93,6 +93,37 @@ describe('YtDlp — probe args', () => {
     const args = getArgs();
     expect(args[args.indexOf('--playlist-end') + 1]).toBe('251');
   });
+
+  it('playlist scope first count maps to --playlist-items with a sentinel', async () => {
+    await makeYtDlp().run({ kind: 'probe', url: URL, playlistScope: { items: { kind: 'first', count: 50 } } });
+    const args = getArgs();
+    expect(args).toContain('--playlist-items');
+    expect(args[args.indexOf('--playlist-items') + 1]).toBe('1:51');
+    expect(args).not.toContain('--playlist-end');
+  });
+
+  it('playlist scope range maps to --playlist-items with an exclusive sentinel end', async () => {
+    await makeYtDlp().run({ kind: 'probe', url: URL, playlistScope: { items: { kind: 'range', from: 500, to: 600 } } });
+    const args = getArgs();
+    expect(args).toContain('--playlist-items');
+    expect(args[args.indexOf('--playlist-items') + 1]).toBe('500:601');
+    expect(args).not.toContain('--playlist-end');
+  });
+
+  it("playlistMode='video' ignores playlist scope args", async () => {
+    await makeYtDlp().run({
+      kind: 'probe',
+      url: URL,
+      playlistMode: 'video',
+      playlistScope: { items: { kind: 'range', from: 10, to: 20 } }
+    });
+    const args = getArgs();
+    expect(args).toContain('--no-playlist');
+    expect(args).not.toContain('--playlist-items');
+    expect(args).not.toContain('--playlist-end');
+    expect(args).not.toContain('--dateafter');
+    expect(args).not.toContain('--extractor-args');
+  });
 });
 
 describe('YtDlp — outputTemplate', () => {

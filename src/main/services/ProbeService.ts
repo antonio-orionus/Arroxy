@@ -4,7 +4,7 @@ import { splitStderrLines } from '@main/utils/process.js';
 import { ok, fail, type Result } from '@shared/result.js';
 import { sortFormatsByQuality } from '@shared/qualitySorter.js';
 import { humanSize } from '@shared/format.js';
-import type { FormatOption, PlaylistEntry, ProbeError, ProbePlaylistMode, ProbeResult, ProbeDegradationReason, SubtitleMap } from '@shared/types.js';
+import type { FormatOption, PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, ProbeDegradationReason, SubtitleMap } from '@shared/types.js';
 import { LIVE_CHAT_LANG } from '@shared/constants.js';
 import { infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpFormat, type YtDlpSubtitleTrack } from '@shared/ytdlp/infoDict.js';
 import { isAudioOnlySource } from '@shared/ytdlp/extractorPredicates.js';
@@ -38,6 +38,8 @@ interface ProbeSignal {
 }
 
 type ProbeAttemptName = 'initial' | 'retry';
+
+type PlaylistScopeRequestLog = PlaylistScope['items'];
 
 interface ProbeAttemptSuccess {
   info: InfoDict;
@@ -334,7 +336,7 @@ export class ProbeService {
     this.inFlight.clear();
   }
 
-  async probe(url: string, cookiesMode: 'off' | 'file' | 'browser' = 'off', playlistMode: ProbePlaylistMode = 'auto'): Promise<Result<ProbeResult, ProbeError>> {
+  async probe(url: string, cookiesMode: 'off' | 'file' | 'browser' = 'off', playlistMode: ProbePlaylistMode = 'auto', playlistScope?: PlaylistScope): Promise<Result<ProbeResult, ProbeError>> {
     const startMs = Date.now();
     const emitSuccess = (result: ProbeResult): void => {
       trackMain('format_probed', {
@@ -357,9 +359,9 @@ export class ProbeService {
     try {
       if (this.mockMode) return ok(buildMockProbeResult(url));
 
-      logger.info('Probe started', { url });
+      logger.info('Probe started', { url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope) });
 
-      const probeResult = await this.probeWithRedirectFollow(url, playlistMode, controller.signal);
+      const probeResult = await this.probeWithRedirectFollow(url, playlistMode, playlistScope, controller.signal);
       if (controller.signal.aborted) {
         emitFailure('cancelled');
         return fail<ProbeResult, ProbeError>({ kind: 'other', message: 'Probe cancelled' });
@@ -380,6 +382,7 @@ export class ProbeService {
           // valid container with no entries (private playlist, members-only,
           // geo-blocked, exhausted page). Categorize accordingly so analytics
           // and any user-facing copy can distinguish the cause.
+          logger.warn('Playlist probe returned no entries', { url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope) });
           emitFailure('content_unavailable');
           return fail<ProbeResult, ProbeError>({ kind: 'other', message: 'Playlist returned no entries' });
         }
@@ -401,11 +404,11 @@ export class ProbeService {
       }
 
       emitSuccess(mapped);
-      logger.info('Probe result', summarizeProbeResult(mapped));
+      logger.info('Probe result', { ...summarizeProbeResult(mapped), playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope) });
       return ok(mapped);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown probing error';
-      logger.error('Probe failure', { message, url });
+      logger.error('Probe failure', { message, url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope) });
       emitFailure(controller.signal.aborted ? 'cancelled' : classifyProbeFailure(message));
       return fail<ProbeResult, ProbeError>({ kind: 'other', message });
     } finally {
@@ -416,26 +419,26 @@ export class ProbeService {
   // Loop over `_type: 'url' / 'url_transparent'` redirects up to depth 1 to
   // follow extractor redirects (e.g. Bandcamp track → resolved video). Anything
   // deeper is a misbehaving extractor — bail rather than loop.
-  private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, signal: AbortSignal): Promise<ProbeAttemptResult> {
+  private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal): Promise<ProbeAttemptResult> {
     let currentUrl = url;
     for (let depth = 0; depth <= 1; depth++) {
       if (signal.aborted) return { kind: 'failure', error: { kind: 'other', message: 'Probe cancelled' } satisfies ProbeError, errorCategory: 'cancelled' };
-      const attempt = await this.runProbeWithDegradationRetry(currentUrl, playlistMode, signal);
+      const attempt = await this.runProbeWithDegradationRetry(currentUrl, playlistMode, playlistScope, signal);
       if (attempt.kind === 'failure') return attempt;
       const info = attempt.data.info;
       if (!isUrlRedirect(info)) return attempt;
       const next = info.url;
       if (!next || next === currentUrl) return attempt;
-      logger.info('Probe redirect', { from: currentUrl, to: next, depth });
+      logger.info('Probe redirect', { from: currentUrl, to: next, depth, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope) });
       currentUrl = next;
     }
     // Fell through both attempts; return whatever we got — caller surfaces as
     // 'redirected too many times' if still a url_redirect.
-    return this.runProbeWithDegradationRetry(currentUrl, playlistMode, signal);
+    return this.runProbeWithDegradationRetry(currentUrl, playlistMode, playlistScope, signal);
   }
 
-  private async runProbeWithDegradationRetry(url: string, playlistMode: ProbePlaylistMode, signal: AbortSignal): Promise<ProbeAttemptResult> {
-    const initial = await this.runProbeAttempt(url, 'initial', playlistMode, signal);
+  private async runProbeWithDegradationRetry(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal): Promise<ProbeAttemptResult> {
+    const initial = await this.runProbeAttempt(url, 'initial', playlistMode, playlistScope, signal);
     if (initial.kind === 'failure') return initial;
     if (initial.data.degradationSignals.length === 0) return initial;
     if (signal.aborted) return initial;
@@ -445,9 +448,9 @@ export class ProbeService {
       degradationSignals: initial.data.degradationSignals
     });
 
-    const retry = await this.runProbeAttempt(url, 'retry', playlistMode, signal);
+    const retry = await this.runProbeAttempt(url, 'retry', playlistMode, playlistScope, signal);
     if (retry.kind === 'failure') {
-      logger.info('Probe retry failed; using initial degraded result', { url });
+      logger.info('Probe retry failed; using initial degraded result', { url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope) });
       return initial;
     }
     if (retry.data.degradationSignals.length === 0) return retry;
@@ -458,10 +461,10 @@ export class ProbeService {
     return retryFormatCount > initialFormatCount ? retry : initial;
   }
 
-  private async runProbeAttempt(url: string, attempt: ProbeAttemptName, playlistMode: ProbePlaylistMode, signal: AbortSignal): Promise<ProbeAttemptResult> {
+  private async runProbeAttempt(url: string, attempt: ProbeAttemptName, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal): Promise<ProbeAttemptResult> {
     const source = attempt === 'retry' ? 'yt-dlp-probe-retry' : 'yt-dlp-probe';
     const result = await this.ytDlp.run(
-      { kind: 'probe', url, playlistMode },
+      { kind: 'probe', url, playlistMode, playlistScope },
       {
         abortSignal: signal,
         onStderr: (chunk) => {
@@ -488,7 +491,7 @@ export class ProbeService {
       // probe-time failures we additionally recognize 'unsupportedUrl' which
       // yt-dlp emits before extraction begins.
       const probeKind = classifyProbeFailure(rawError ?? '');
-      logger.error('yt-dlp probe failed', { attempt, code, url, kind: probeKind });
+      logger.error('yt-dlp probe failed', { attempt, code, url, kind: probeKind, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope) });
       return {
         kind: 'failure',
         error: { kind: 'ytdlp', error: { kind: probeKind, raw: rawError ?? 'Probing failed' } } satisfies ProbeError,
@@ -525,6 +528,8 @@ export class ProbeService {
     logger.info('Probe complete', {
       attempt,
       url,
+      playlistMode,
+      playlistScope: playlistScopeRequestForLog(playlistScope),
       type: info._type ?? 'video',
       title: (info as VideoInfo).title,
       extractor: (info as VideoInfo).extractor,
@@ -541,6 +546,10 @@ function formatCount(info: InfoDict): number {
   if (isPlaylistLike(info)) return info.entries.length;
   const v = info as VideoInfo;
   return v.formats?.length ?? 0;
+}
+
+function playlistScopeRequestForLog(scope: PlaylistScope | undefined): PlaylistScopeRequestLog {
+  return scope?.items ?? { kind: 'app-limit' };
 }
 
 // Compact, log-friendly summary of a ProbeResult. Intentionally drops large

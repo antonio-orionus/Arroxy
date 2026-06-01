@@ -14,6 +14,7 @@ import { resolvePlaylistDir } from '../../store/wizard/playlistDir.js';
 import { formatDuration } from '@renderer/lib/formatDuration.js';
 import { notify } from '@renderer/lib/notify.js';
 import { PlaylistProbeLimitSelector } from './PlaylistProbeLimitSelector.js';
+import { PlaylistScopeControl } from './PlaylistScopeControl.js';
 
 // undefined = no duration metadata (common for nested-playlist entries from
 // music search, channel root, etc.) — render an em-dash instead of falsely
@@ -26,7 +27,7 @@ function formatEntryDuration(seconds: number | undefined, liveLabel: string): st
 export function StepPlaylistItems(): JSX.Element {
   const { t } = useTranslation();
   const store = useAppStore();
-  const { playlistItems, selectedPlaylistItemIds, playlistTitle, playlistProbeLoading, playlistLikelyCapped, syncedDownloadedIds, syncScanState, setPlaylistItemSelected, selectAllPlaylistItems, selectNonePlaylistItems, selectPlaylistRange, confirmPlaylistSelection, back, wizardExtractor, scanDownloadedInFolder, applyFolderSync, setPlaylistFolder, settings, retryFormatProbe } = store;
+  const { playlistItems, selectedPlaylistItemIds, playlistTitle, playlistProbeLoading, playlistScopeReloading, playlistScopeError, playlistLikelyCapped, syncedDownloadedIds, syncScanState, setPlaylistItemSelected, selectAllPlaylistItems, selectNonePlaylistItems, selectPlaylistRange, confirmPlaylistSelection, back, wizardExtractor, scanDownloadedInFolder, applyFolderSync, setPlaylistFolder, settings, reloadPlaylistWithScope, retryFormatProbe } = store;
 
   // Effective folder the playlist's files land in (and where the scan looks) —
   // the same resolver the queue builder + scan use, so display == download == scan.
@@ -70,6 +71,7 @@ export function StepPlaylistItems(): JSX.Element {
   const selectedCount = selectedPlaylistItemIds.length;
   const playlistLimit = resolvePlaylistProbeLimit(settings?.common);
   const showProbeLimitAlert = !playlistProbeLoading && playlistLikelyCapped;
+  const probeLimitDescription = t('wizard.playlist.probeLimitAlertDesc', { count: playlistLimit });
   // yt-dlp's --flat-playlist returns thumbnails for some extractors
   // (YouTube tab) but not others (PornHub paged list, generic). When no
   // entry has one, hide the thumbnail slot entirely so the list renders
@@ -92,12 +94,24 @@ export function StepPlaylistItems(): JSX.Element {
         <span className="shrink-0 text-xs text-muted-foreground">{t(isAudioOnlySource(wizardExtractor) ? 'wizard.playlist.itemCountAudio' : 'wizard.playlist.itemCount', { count: playlistItems.length })}</span>
       </div>
 
+      <PlaylistScopeControl applyLabel={t('wizard.url.playlistScope.applyReload', { defaultValue: 'Apply and reload' })} pendingLabel={t('wizard.url.playlistScope.reloading', { defaultValue: 'Reloading...' })} disabled={playlistProbeLoading || playlistScopeReloading} onApplyScope={reloadPlaylistWithScope} />
+
+      {playlistScopeError ? (
+        <Alert variant="warning" className="flex items-start gap-3" data-testid="playlist-scope-error">
+          <Info className="mt-0.5 size-4 shrink-0 text-amber-500" />
+          <div className="min-w-0 flex-1">
+            <AlertTitle>{t('wizard.url.playlistScope.emptyTitle', { defaultValue: 'No videos in that scope' })}</AlertTitle>
+            <AlertDescription className="break-words">{playlistScopeError}</AlertDescription>
+          </div>
+        </Alert>
+      ) : null}
+
       {showProbeLimitAlert && (
         <Alert variant="warning" className="flex items-start gap-3" data-testid="playlist-probe-limit-alert">
           <Info className="mt-0.5 size-4 shrink-0 text-sky-500" />
           <div className="min-w-0 flex-1">
             <AlertTitle>{t('wizard.playlist.probeLimitAlertTitle')}</AlertTitle>
-            <AlertDescription className="break-words">{t('wizard.playlist.probeLimitAlertDesc', { count: playlistLimit })}</AlertDescription>
+            <AlertDescription className="break-words">{probeLimitDescription}</AlertDescription>
           </div>
           <PlaylistProbeLimitSelector testId="playlist-alert-probe-limit" showCurrent={false} onLimitChanged={() => retryFormatProbe()} className="w-40" />
         </Alert>

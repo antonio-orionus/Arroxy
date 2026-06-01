@@ -1,5 +1,5 @@
 import type { StoreApi } from 'zustand';
-import type { AppSettings, AudioBitrate, CookiesBrowser, CookiesMode, DependencyDiagnostic, DependencyId, FormatOption, PlaylistEntry, PlaylistSelection, Preset, ProbeError, ProbeDegradationReason, QueueItem, QueueLane, QuickDownloadStatus, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme } from '@shared/types.js';
+import type { AppSettings, AudioBitrate, CookiesBrowser, CookiesMode, DependencyDiagnostic, DependencyId, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, Preset, ProbeError, ProbeDegradationReason, QueueItem, QueueLane, QuickDownloadStatus, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme } from '@shared/types.js';
 import type { AudioSelection } from '@shared/schemas.js';
 import type { IncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 export type { AudioSelection };
@@ -49,6 +49,9 @@ export interface ProbeOrchestratorSlice {
   playlistIsMultiVideo: boolean;
   playlistLikelyCapped: boolean;
   playlistProbeLoading: boolean;
+  playlistScopeReloading: boolean;
+  playlistScopeError: string | null;
+  playlistScope: PlaylistScope;
   playlistSelection: PlaylistSelection | null;
   quickDownloadStatus: QuickDownloadStatus;
   quickDownloadError: string | null;
@@ -64,6 +67,8 @@ export interface ProbeOrchestratorSlice {
   quickDownload: () => Promise<void>;
   dismissMixedPrompt: (choice: 'video' | 'playlist') => Promise<void>;
   setPlaylistItemSelected: (id: string, checked: boolean) => void;
+  setPlaylistScope: (scope: PlaylistScope) => void;
+  reloadPlaylistWithScope: (scope: PlaylistScope) => Promise<void>;
   selectAllPlaylistItems: () => void;
   selectNonePlaylistItems: () => void;
   selectPlaylistRange: (from: number, to: number) => void;

@@ -9,7 +9,7 @@
 // one transition so the UI never sees a half-updated wizard.
 
 import { DEFAULTS } from '@shared/constants.js';
-import type { AppSettings, PlaylistSelection, ProbePlaylistMode, ProbeResult, WizardTransition } from '@shared/types.js';
+import type { AppSettings, PlaylistScope, PlaylistSelection, ProbePlaylistMode, ProbeResult, WizardTransition } from '@shared/types.js';
 import { DEFAULT_PLAYLIST_SELECTION } from '@shared/schemas.js';
 import { getIncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 import { cleanUrl } from '@shared/cleanUrl.js';
@@ -133,7 +133,13 @@ function pickWizardSnapshot(state: AppState): Record<string, unknown> {
     writeM3u: state.wizardWriteM3u,
     outputDir: state.wizardOutputDir,
     subfolderEnabled: state.wizardSubfolderEnabled,
-    subfolderName: state.wizardSubfolderName
+    subfolderName: state.wizardSubfolderName,
+    playlistScope: state.playlistScope,
+    playlistItemsCount: state.playlistItems.length,
+    selectedPlaylistItemsCount: state.selectedPlaylistItemIds.length,
+    playlistLikelyCapped: state.playlistLikelyCapped,
+    playlistScopeReloading: state.playlistScopeReloading,
+    playlistScopeError: state.playlistScopeError
   };
 }
 
@@ -233,11 +239,20 @@ function applyVideoProbeResult(probe: Extract<ProbeResult, { kind: 'video' }>, s
   });
 }
 
+function playlistVisibleLimit(state: AppState): number {
+  const scope = state.playlistScope;
+  if (scope.items.kind === 'first') return scope.items.count;
+  if (scope.items.kind === 'range') return scope.items.to - scope.items.from + 1;
+  return resolvePlaylistProbeLimit(state.settings?.common);
+}
+
 function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist' }>, set: SetState, get: GetState, firstProbe: boolean): void {
-  const settings = get().settings;
-  const playlistLimit = resolvePlaylistProbeLimit(settings?.common);
-  const playlistLikelyCapped = probe.entries.length > playlistLimit;
-  const playlistItems = playlistLikelyCapped ? probe.entries.slice(0, playlistLimit) : probe.entries;
+  const state = get();
+  const settings = state.settings;
+  const playlistLimit = playlistVisibleLimit(state);
+  const hasSentinel = probe.entries.length > playlistLimit;
+  const playlistLikelyCapped = hasSentinel && state.playlistScope.items.kind === 'app-limit';
+  const playlistItems = hasSentinel ? probe.entries.slice(0, playlistLimit) : probe.entries;
   // Audio-only sources skip the persisted video selection and default to
   // audio-best — the user came to a music host, video presets would fail.
   const persistedSelection: PlaylistSelection = settings?.playlist?.lastPlaylistSelection ?? DEFAULT_PLAYLIST_SELECTION;
@@ -255,6 +270,7 @@ function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist'
     playlistId: probe.playlistId,
     playlistIsMultiVideo: probe.isMultiVideo,
     playlistLikelyCapped,
+    playlistScopeError: null,
     playlistProbeLoading: false,
     formatsLoading: false,
     wizardFormats: [],
@@ -270,6 +286,13 @@ function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist'
   });
 }
 
+function playlistScopeReloadErrorMessage(error: Parameters<typeof formatProbeError>[0]): string {
+  if (error?.kind === 'other' && error.message === 'Playlist returned no entries') {
+    return 'No videos matched that playlist scope. Your previous list is still shown.';
+  }
+  return formatProbeError(error) || 'Could not reload that playlist scope. Your previous list is still shown.';
+}
+
 async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe = true): Promise<void> {
   void window.appApi.downloads.probeCancel();
   const fromStep = get().wizardStep;
@@ -280,6 +303,7 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
     wizardMode: playlistMode === 'playlist' ? 'playlist' : 'single',
     formatsLoading: playlistMode !== 'playlist',
     playlistProbeLoading: playlistMode !== 'video',
+    playlistScopeError: null,
     wizardError: null,
     cookiesConfigDialogIssue: null,
     wizardFormats: [],
@@ -298,6 +322,7 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
     playlistId: '',
     playlistIsMultiVideo: false,
     playlistLikelyCapped: false,
+    playlistScopeReloading: false,
     syncedDownloadedIds: [],
     syncScanState: 'idle',
     wizardExtractor: '',
@@ -306,7 +331,8 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
   });
   logStep('submitUrl', fromStep, initialStep, pickWizardSnapshot(get()));
 
-  const result = await window.appApi.downloads.probe({ url, playlistMode });
+  const playlistScope = get().playlistScope;
+  const result = await window.appApi.downloads.probe({ url, playlistMode, ...(playlistMode === 'video' ? {} : { playlistScope }) });
   if (!result.ok) {
     set({
       wizardStep: 'error',
@@ -327,6 +353,85 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
   } else {
     applyVideoProbeResult(result.data, set, get, firstProbe);
   }
+}
+
+async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get: GetState): Promise<void> {
+  const state = get();
+  const url = state.wizardUrl;
+  if (!url || state.playlistScopeReloading) {
+    logStep('playlistScopeReloadIgnored', state.wizardStep, state.wizardStep, {
+      ...pickWizardSnapshot(state),
+      requestedScope: scope,
+      reason: !url ? 'missing-url' : 'already-reloading'
+    });
+    return;
+  }
+  const previousScope = state.playlistScope;
+  const previousItemsCount = state.playlistItems.length;
+
+  void window.appApi.downloads.probeCancel();
+  logStep('playlistScopeReloadStart', state.wizardStep, state.wizardStep, {
+    ...pickWizardSnapshot(state),
+    requestedScope: scope,
+    previousScope,
+    previousItemsCount
+  });
+  set({
+    playlistScope: scope,
+    playlistScopeReloading: true,
+    playlistScopeError: null,
+    playlistLikelyCapped: false
+  });
+
+  const result = await window.appApi.downloads.probe({ url, playlistMode: 'playlist', playlistScope: scope });
+  if (!result.ok) {
+    const message = playlistScopeReloadErrorMessage(result.error);
+    set({
+      playlistScope: previousScope,
+      playlistScopeReloading: false,
+      playlistScopeError: message
+    });
+    logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {
+      ...pickWizardSnapshot(get()),
+      requestedScope: scope,
+      restoredScope: previousScope,
+      previousItemsCount,
+      errorKind: result.error.kind,
+      message
+    });
+    return;
+  }
+
+  if (result.data.kind !== 'playlist') {
+    const message = 'No videos matched that playlist scope. Your previous list is still shown.';
+    set({
+      playlistScope: previousScope,
+      playlistScopeReloading: false,
+      playlistScopeError: message
+    });
+    logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {
+      ...pickWizardSnapshot(get()),
+      requestedScope: scope,
+      restoredScope: previousScope,
+      previousItemsCount,
+      resultKind: result.data.kind,
+      message
+    });
+    return;
+  }
+
+  const returnedEntryCount = result.data.entries.length;
+  applyPlaylistProbeResult(result.data, set, get, false);
+  set({ playlistScopeReloading: false, playlistScopeError: null });
+  logStep('playlistScopeReloadSuccess', get().wizardStep, get().wizardStep, {
+    ...pickWizardSnapshot(get()),
+    requestedScope: scope,
+    previousScope,
+    previousItemsCount,
+    returnedEntryCount,
+    visibleItemsCount: get().playlistItems.length
+  });
+  void get().scanDownloadedInFolder();
 }
 
 export function createProbeOrchestratorSlice(set: SetState, get: GetState): ProbeOrchestratorSlice {
@@ -351,6 +456,9 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
     playlistIsMultiVideo: RESET_WIZARD_STATE.playlistIsMultiVideo,
     playlistLikelyCapped: RESET_WIZARD_STATE.playlistLikelyCapped,
     playlistProbeLoading: RESET_WIZARD_STATE.playlistProbeLoading,
+    playlistScopeReloading: RESET_WIZARD_STATE.playlistScopeReloading,
+    playlistScopeError: RESET_WIZARD_STATE.playlistScopeError,
+    playlistScope: RESET_WIZARD_STATE.playlistScope,
     playlistSelection: RESET_WIZARD_STATE.playlistSelection,
     quickDownloadStatus: RESET_WIZARD_STATE.quickDownloadStatus,
     quickDownloadError: RESET_WIZARD_STATE.quickDownloadError,
@@ -439,6 +547,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
       set((state) => ({
         selectedPlaylistItemIds: checked ? (state.selectedPlaylistItemIds.includes(id) ? state.selectedPlaylistItemIds : [...state.selectedPlaylistItemIds, id]) : state.selectedPlaylistItemIds.filter((x) => x !== id)
       })),
+
+    setPlaylistScope: (scope) => set({ playlistScope: scope }),
+
+    reloadPlaylistWithScope: async (scope) => {
+      await reloadPlaylistWithScope(scope, set, get);
+    },
 
     selectAllPlaylistItems: () => set((state) => ({ selectedPlaylistItemIds: state.playlistItems.map((e) => e.id) })),
 

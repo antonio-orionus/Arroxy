@@ -1,10 +1,10 @@
 import { defaultAppSettings, DEFAULT_PLAYLIST_PROBE_LIMIT } from '@shared/constants.js';
 import { QUEUE_STATUS, STATUS_KEY, YT_DLP_ERROR_KINDS } from '@shared/schemas.js';
-import type { AppSettings, DependencyDiagnostic, DependencyId, InstallChannel, PlaylistEntry, ProbeError, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUpOutput } from '@shared/types.js';
+import type { AppSettings, DependencyDiagnostic, DependencyId, InstallChannel, PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUpOutput } from '@shared/types.js';
 import type { YtDlpErrorKind } from '@shared/schemas.js';
 import type { BrowserMockKnobs } from './browserMockKnobs.js';
 
-export const BROWSER_MOCK_SCENARIO_IDS = ['default', 'single-normal', 'playlist-normal', 'playlist-no-thumbnails', 'playlist-long-titles', 'probe-audio-only', 'probe-with-subtitles', 'probe-no-formats', 'probe-live-stream', 'dialog-mixed-url', 'dialog-cookies-issue', 'update-direct', 'update-homebrew', 'update-scoop', 'update-portable', 'update-darwin-dmg', 'update-winget', 'update-flatpak', 'update-none', 'queue-empty', 'queue-running', 'queue-paused-active', 'queue-paused-held', 'queue-cancelled', 'queue-error', 'queue-completed', 'queue-subtitles-failed', 'queue-multi', 'diagnostics-all-ok', 'diagnostics-ytdlp-missing', 'diagnostics-ffmpeg-broken', 'diagnostics-deno-missing', 'diagnostics-ffprobe-broken', 'diagnostics-all-missing', 'diagnostics-warmup-running'] as const;
+export const BROWSER_MOCK_SCENARIO_IDS = ['default', 'single-normal', 'playlist-normal', 'playlist-scope-empty-reload', 'playlist-no-thumbnails', 'playlist-long-titles', 'probe-audio-only', 'probe-with-subtitles', 'probe-no-formats', 'probe-live-stream', 'dialog-mixed-url', 'dialog-cookies-issue', 'update-direct', 'update-homebrew', 'update-scoop', 'update-portable', 'update-darwin-dmg', 'update-winget', 'update-flatpak', 'update-none', 'queue-empty', 'queue-running', 'queue-paused-active', 'queue-paused-held', 'queue-cancelled', 'queue-error', 'queue-completed', 'queue-subtitles-failed', 'queue-multi', 'diagnostics-all-ok', 'diagnostics-ytdlp-missing', 'diagnostics-ffmpeg-broken', 'diagnostics-deno-missing', 'diagnostics-ffprobe-broken', 'diagnostics-all-missing', 'diagnostics-warmup-running'] as const;
 
 export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number];
 export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics';
@@ -79,6 +79,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
   { id: 'single-normal', group: 'General', title: 'Single video normal', description: 'Happy-path YouTube video with formats, subtitles, and SponsorBlock steps.', kind: 'probe' },
 
   { id: 'playlist-normal', group: 'Playlist', title: 'Playlist normal', description: 'Happy-path playlist with thumbnails, durations, and default preset selection.', kind: 'probe' },
+  { id: 'playlist-scope-empty-reload', group: 'Playlist', title: 'Scope reload empty', description: 'Playlist opens normally; applying any non-default scope reload returns no entries and should stay inline.', kind: 'probe' },
   { id: 'playlist-no-thumbnails', group: 'Playlist', title: 'No thumbnails', description: 'Playlist rows with no thumbnail column.', kind: 'probe' },
   { id: 'playlist-long-titles', group: 'Playlist', title: 'Long titles', description: 'Playlist rows with intentionally long titles.', kind: 'probe' },
 
@@ -135,20 +136,24 @@ export function getScenario(id: string | null | undefined): BrowserMockScenario 
 }
 
 export function isHappyPathScenario(scenario: Pick<BrowserMockScenario, 'id'>): boolean {
-  return scenario.id === 'single-normal' || scenario.id === 'playlist-normal';
+  return scenario.id === 'single-normal' || scenario.id === 'playlist-normal' || scenario.id === 'playlist-scope-empty-reload';
 }
 
 export function mockStepForScenario(scenario: Pick<BrowserMockScenario, 'id'>, step: BrowserMockStep | null): BrowserMockStep | null {
   if (step === null) return null;
   if (scenario.id === 'single-normal' && (SINGLE_NORMAL_MOCK_STEPS as readonly string[]).includes(step)) return step;
-  if (scenario.id === 'playlist-normal' && (PLAYLIST_NORMAL_MOCK_STEPS as readonly string[]).includes(step)) return step;
+  if ((scenario.id === 'playlist-normal' || scenario.id === 'playlist-scope-empty-reload') && (PLAYLIST_NORMAL_MOCK_STEPS as readonly string[]).includes(step)) return step;
   return null;
 }
 
 export function mockStepsForScenario(scenario: Pick<BrowserMockScenario, 'id'>): readonly BrowserMockStep[] {
   if (scenario.id === 'single-normal') return SINGLE_NORMAL_MOCK_STEPS;
-  if (scenario.id === 'playlist-normal') return PLAYLIST_NORMAL_MOCK_STEPS;
+  if (scenario.id === 'playlist-normal' || scenario.id === 'playlist-scope-empty-reload') return PLAYLIST_NORMAL_MOCK_STEPS;
   return [];
+}
+
+export function shouldMockEmptyPlaylistScopeReload(scenario: Pick<BrowserMockScenario, 'id'>, playlistMode: ProbePlaylistMode | undefined, playlistScope: PlaylistScope | undefined): boolean {
+  return scenario.id === 'playlist-scope-empty-reload' && playlistMode === 'playlist' && playlistScope !== undefined && playlistScope.items.kind !== 'app-limit';
 }
 
 export function buildScenarioAppApiState(scenario: BrowserMockScenario, params?: BrowserMockUrlParams, knobs?: BrowserMockKnobs): BrowserMockState {
@@ -195,6 +200,7 @@ function buildProbeResult(scenario: BrowserMockScenario, params?: BrowserMockUrl
     case 'single-normal':
       return normalVideoProbe();
     case 'playlist-normal':
+    case 'playlist-scope-empty-reload':
       return playlistProbe(12, { fullThumbnails: true });
     case 'playlist-no-thumbnails':
       return playlistProbe(100, { thumbnails: false });

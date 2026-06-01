@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildScenarioAppApiState, getScenario, mockStepForScenario, readScenarioIdFromUrl, readUrlParams } from '@renderer/dev/browserMockScenarios.js';
+import { buildScenarioAppApiState, getScenario, mockStepForScenario, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload } from '@renderer/dev/browserMockScenarios.js';
 
 describe('browser mock scenarios', () => {
   it('reads known scenario ids from URLs', () => {
@@ -12,6 +12,7 @@ describe('browser mock scenarios', () => {
   it('falls back to the default scenario for unknown ids', () => {
     expect(getScenario('single-normal').id).toBe('single-normal');
     expect(getScenario('playlist-normal').id).toBe('playlist-normal');
+    expect(getScenario('playlist-scope-empty-reload').id).toBe('playlist-scope-empty-reload');
     expect(getScenario('probe-audio-only').id).toBe('probe-audio-only');
     expect(getScenario('not-real').id).toBe('default');
   });
@@ -24,6 +25,7 @@ describe('browser mock scenarios', () => {
     expect(mockStepForScenario(getScenario('single-normal'), 'subtitles')).toBe('subtitles');
     expect(mockStepForScenario(getScenario('single-normal'), 'playlistPresets')).toBeNull();
     expect(mockStepForScenario(getScenario('playlist-normal'), 'playlistPresets')).toBe('playlistPresets');
+    expect(mockStepForScenario(getScenario('playlist-scope-empty-reload'), 'playlistItems')).toBe('playlistItems');
     expect(mockStepForScenario(getScenario('playlist-normal'), 'formats')).toBeNull();
   });
 
@@ -72,6 +74,21 @@ describe('browser mock scenarios', () => {
     expect(playlist.probeResult.entries).toHaveLength(12);
     expect(playlist.probeResult.entries.every((entry) => entry.thumbnail !== '')).toBe(true);
     expect(playlist.probeResult.entries.every((entry) => entry.duration !== undefined)).toBe(true);
+
+    const scopeEmptyReload = buildScenarioAppApiState(getScenario('playlist-scope-empty-reload'));
+    expect(scopeEmptyReload.probeResult?.kind).toBe('playlist');
+    if (scopeEmptyReload.probeResult?.kind !== 'playlist') throw new Error('expected playlist probe');
+    expect(scopeEmptyReload.probeResult.entries).toHaveLength(12);
+  });
+
+  it('flags only scoped playlist reloads for the empty-scope scenario', () => {
+    const scenario = getScenario('playlist-scope-empty-reload');
+
+    expect(shouldMockEmptyPlaylistScopeReload(scenario, 'auto', { items: { kind: 'range', from: 50, to: 60 } })).toBe(false);
+    expect(shouldMockEmptyPlaylistScopeReload(scenario, 'playlist', { items: { kind: 'app-limit' } })).toBe(false);
+    expect(shouldMockEmptyPlaylistScopeReload(scenario, 'playlist', { items: { kind: 'first', count: 50 } })).toBe(true);
+    expect(shouldMockEmptyPlaylistScopeReload(scenario, 'playlist', { items: { kind: 'range', from: 50, to: 60 } })).toBe(true);
+    expect(shouldMockEmptyPlaylistScopeReload(getScenario('playlist-normal'), 'playlist', { items: { kind: 'range', from: 50, to: 60 } })).toBe(false);
   });
 
   it('builds probe errors via ?probeError=kind param', () => {

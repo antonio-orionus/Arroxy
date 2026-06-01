@@ -328,6 +328,39 @@ describe('submitUrl — playlist probe', () => {
     expect(selectedPlaylistItemIds).toEqual(playlistItems.map((e) => e.id));
   });
 
+  it('threads playlist scope into playlist probes', async () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE));
+    window.appApi = api;
+
+    useAppStore.setState({
+      wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
+      playlistScope: { items: { kind: 'range', from: 10, to: 20 } }
+    });
+    await useAppStore.getState().submitUrl();
+
+    expect(api.downloads.probe).toHaveBeenCalledWith({
+      url: 'https://www.youtube.com/playlist?list=PLtest',
+      playlistMode: 'auto',
+      playlistScope: { items: { kind: 'range', from: 10, to: 20 } }
+    });
+  });
+
+  it('keeps playlist-step range selection as selection-only', async () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE));
+    window.appApi = api;
+
+    useAppStore.setState({ wizardUrl: 'https://www.youtube.com/playlist?list=PLtest' });
+    await useAppStore.getState().submitUrl();
+    vi.mocked(api.downloads.probe).mockClear();
+
+    useAppStore.getState().selectPlaylistRange(2, 2);
+
+    expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['e2']);
+    expect(api.downloads.probe).not.toHaveBeenCalled();
+  });
+
   it('trims the sentinel entry and marks the playlist as likely capped', async () => {
     const api = buildMockAppApi();
     vi.mocked(api.downloads.probe).mockResolvedValue(ok(playlistProbeWithEntries(101)));
@@ -367,6 +400,129 @@ describe('submitUrl — playlist probe', () => {
     const state = useAppStore.getState();
     expect(state.playlistItems).toHaveLength(100);
     expect(state.playlistLikelyCapped).toBe(false);
+  });
+
+  it('trims first-count scoped probes without showing the app-limit cap alert', async () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockResolvedValue(ok(playlistProbeWithEntries(51)));
+    window.appApi = api;
+
+    useAppStore.setState({
+      wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
+      playlistScope: { items: { kind: 'first', count: 50 } },
+      settings: {
+        common: { defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false, playlistProbeLimit: 100 },
+        single: {},
+        playlist: {}
+      }
+    });
+    await useAppStore.getState().submitUrl();
+
+    const state = useAppStore.getState();
+    expect(state.playlistItems).toHaveLength(50);
+    expect(state.playlistLikelyCapped).toBe(false);
+  });
+
+  it('trims range scoped probes to the requested inclusive count', async () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockResolvedValue(ok(playlistProbeWithEntries(102)));
+    window.appApi = api;
+
+    useAppStore.setState({
+      wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
+      playlistScope: { items: { kind: 'range', from: 500, to: 600 } },
+      settings: {
+        common: { defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false, playlistProbeLimit: 100 },
+        single: {},
+        playlist: {}
+      }
+    });
+    await useAppStore.getState().submitUrl();
+
+    const state = useAppStore.getState();
+    expect(state.playlistItems).toHaveLength(101);
+    expect(state.playlistLikelyCapped).toBe(false);
+  });
+
+  it('logs scoped playlist reload start and success diagnostics', async () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockResolvedValue(ok(playlistProbeWithEntries(51)));
+    window.appApi = api;
+
+    useAppStore.setState({
+      wizardStep: 'playlistItems',
+      wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
+      playlistItems: PLAYLIST_PROBE.entries,
+      selectedPlaylistItemIds: PLAYLIST_PROBE.entries.map((entry) => entry.id),
+      playlistScope: { items: { kind: 'app-limit' } }
+    });
+
+    const requestedScope = { items: { kind: 'first' as const, count: 50 } };
+    await useAppStore.getState().reloadPlaylistWithScope(requestedScope);
+
+    expect(api.diagnostics.logWizardStep).toHaveBeenCalledWith(
+      expect.objectContaining({
+        transition: 'playlistScopeReloadStart',
+        fromStep: 'playlistItems',
+        toStep: 'playlistItems',
+        snapshot: expect.objectContaining({
+          requestedScope,
+          previousScope: { items: { kind: 'app-limit' } },
+          previousItemsCount: 2,
+          playlistItemsCount: 2,
+          selectedPlaylistItemsCount: 2
+        })
+      })
+    );
+    expect(api.diagnostics.logWizardStep).toHaveBeenCalledWith(
+      expect.objectContaining({
+        transition: 'playlistScopeReloadSuccess',
+        fromStep: 'playlistItems',
+        toStep: 'playlistItems',
+        snapshot: expect.objectContaining({
+          requestedScope,
+          previousItemsCount: 2,
+          returnedEntryCount: 51,
+          visibleItemsCount: 50,
+          playlistItemsCount: 50,
+          selectedPlaylistItemsCount: 50
+        })
+      })
+    );
+  });
+
+  it('logs scoped playlist reload failures with the restored scope', async () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockResolvedValue(fail({ kind: 'other', message: 'Playlist returned no entries' }));
+    window.appApi = api;
+
+    useAppStore.setState({
+      wizardStep: 'playlistItems',
+      wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
+      playlistItems: PLAYLIST_PROBE.entries,
+      selectedPlaylistItemIds: PLAYLIST_PROBE.entries.map((entry) => entry.id),
+      playlistScope: { items: { kind: 'app-limit' } }
+    });
+
+    const requestedScope = { items: { kind: 'range' as const, from: 900, to: 950 } };
+    await useAppStore.getState().reloadPlaylistWithScope(requestedScope);
+
+    expect(api.diagnostics.logWizardStep).toHaveBeenCalledWith(
+      expect.objectContaining({
+        transition: 'playlistScopeReloadFailure',
+        fromStep: 'playlistItems',
+        toStep: 'playlistItems',
+        snapshot: expect.objectContaining({
+          requestedScope,
+          restoredScope: { items: { kind: 'app-limit' } },
+          previousItemsCount: 2,
+          playlistItemsCount: 2,
+          selectedPlaylistItemsCount: 2,
+          errorKind: 'other',
+          message: 'No videos matched that playlist scope. Your previous list is still shown.'
+        })
+      })
+    );
   });
 });
 

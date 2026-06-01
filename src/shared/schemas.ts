@@ -177,9 +177,27 @@ export const MAX_SUBTITLE_LANGUAGES = 50;
 // match) and surfaces "Unsupported URL" via stderr if not.
 const webUrlSchema = z.url('URL must be valid').refine((value) => /^https?:\/\//i.test(value), { message: 'Only http/https URLs are supported' });
 
+const playlistScopeItemsSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('app-limit') }),
+  z.object({ kind: z.literal('first'), count: playlistProbeLimitSchema }),
+  z
+    .object({
+      kind: z.literal('range'),
+      from: playlistProbeLimitSchema,
+      to: playlistProbeLimitSchema
+    })
+    .refine((value) => value.from <= value.to, { message: 'Range start must be less than or equal to range end', path: ['to'] })
+]);
+
+export const playlistScopeSchema = z.object({
+  items: playlistScopeItemsSchema
+});
+export type PlaylistScope = z.infer<typeof playlistScopeSchema>;
+
 export const probeSchema = z.object({
   url: webUrlSchema,
-  playlistMode: z.enum(['auto', 'video', 'playlist']).optional()
+  playlistMode: z.enum(['auto', 'video', 'playlist']).optional(),
+  playlistScope: playlistScopeSchema.optional()
 });
 
 // PreparedJob discriminated-union schema. Type aliases live in

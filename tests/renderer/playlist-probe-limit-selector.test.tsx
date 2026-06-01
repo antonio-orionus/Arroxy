@@ -139,7 +139,7 @@ describe('playlist probe limit selector alert', () => {
 
     await waitFor(() => {
       expect(api.settings.update).toHaveBeenCalledWith({ common: { playlistProbeLimit: 100 } });
-      expect(api.downloads.probe).toHaveBeenCalledWith({ url: PLAYLIST_URL, playlistMode: 'playlist' });
+      expect(api.downloads.probe).toHaveBeenCalledWith({ url: PLAYLIST_URL, playlistMode: 'playlist', playlistScope: { items: { kind: 'app-limit' } } });
     });
   });
 

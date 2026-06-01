@@ -1,7 +1,7 @@
 import type { AppApi } from '@shared/api.js';
 import type { AppSettings, DependencyDiagnostic, DependencyId, ProgressEvent, QueueItem, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent } from '@shared/types.js';
 import { QUEUE_STATUS, STATUS_KEY } from '@shared/schemas.js';
-import { buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario } from './dev/browserMockScenarios.js';
+import { buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, type BrowserMockScenario } from './dev/browserMockScenarios.js';
 import { applyThemeLive, readKnobs, RTL_LANGS } from './dev/browserMockKnobs.js';
 
 const BROWSER_MOCK_LAUNCH_MODES = ['ready', 'cold-loading', 'cold-error'] as const;
@@ -301,6 +301,10 @@ export function installBrowserMock(): void {
 
         if (scenarioState.probeError) {
           return { ok: false, error: scenarioState.probeError };
+        }
+
+        if (shouldMockEmptyPlaylistScopeReload(scenarioState.scenario, input.playlistMode, input.playlistScope)) {
+          return { ok: false, error: { kind: 'other', message: 'Playlist returned no entries' } };
         }
 
         if (scenarioState.probeResult) {
