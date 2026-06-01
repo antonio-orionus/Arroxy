@@ -130,6 +130,16 @@ bun run dev        # normal dev start
 bun run dev:fresh  # clear main.log then start (cross-platform)
 ```
 
+### Worktree workflow
+
+Use the repo bootstrap script instead of raw `git worktree add`:
+
+```bash
+bun run worktree codex/my-feature [../yt-download-ui-my-feature]
+```
+
+It creates the worktree, runs `bun install`, verifies Electron's generated `path.txt` + `dist/electron` payload, repairs it from the source checkout if Bun reports "no changes" but Electron is half-installed, and fetches embedded ffmpeg/ffprobe. Raw worktrees are easy to leave broken because Git does not copy ignored runtime artifacts and `bun install` may skip Electron postinstall repair.
+
 ### Test runner
 
 Use `bun run test` (vitest), **not** `bun test` (Bun's built-in runner ignores vitest config and per-file `// @vitest-environment` directives). For a single file: `bunx vitest run --project node <path>` or `--project jsdom <path>` from repo root.

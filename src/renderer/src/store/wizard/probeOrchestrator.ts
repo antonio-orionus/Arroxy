@@ -13,7 +13,9 @@ import type { AppSettings, PlaylistSelection, ProbePlaylistMode, ProbeResult, Wi
 import { DEFAULT_PLAYLIST_SELECTION } from '@shared/schemas.js';
 import { getIncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 import { cleanUrl } from '@shared/cleanUrl.js';
+import { deriveBulkUrlLabel, extractYouTubeVideoId, isClearlyIndividualYouTubeUrl } from '@shared/bulkUrls.js';
 import { resolvePlaylistProbeLimit } from '@shared/networkPacing.js';
+import { bulkLogger, redactUrlForLog } from '@renderer/lib/bulkLogger.js';
 import { resolvePlaylistDir } from './playlistDir.js';
 import { isYouTubeExtractor } from '@shared/ytdlp/extractorPredicates.js';
 import { applyPreset, restoreFormatSelection, restoreSubtitleSelection } from './formatPicker.js';
@@ -22,8 +24,37 @@ import { persistFormatPrefs } from './persistFormatPrefs.js';
 import { buildSingleQueueItemFromState, maybeShowQueueTip } from '../queueSlice.js';
 import { formatProbeError } from '../helpers.js';
 import type { AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep } from '../types.js';
+import type { BulkMetadataCancelReason } from '@shared/types.js';
 import { type VisibleStep } from '../../components/wizard/stepNavigation.js';
 import { nextStep, type NavContext } from '../../components/wizard/nextStep.js';
+
+const BULK_METADATA_CONCURRENCY = 2;
+let bulkMetadataRunSeq = 0;
+
+function nextBulkMetadataRunId(): number {
+  bulkMetadataRunSeq += 1;
+  return bulkMetadataRunSeq;
+}
+
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
+}
+
+function cancelBulkMetadataProbes(reason: BulkMetadataCancelReason, state?: Pick<AppState, 'bulkMetadataStatus' | 'bulkMetadataCompleted' | 'bulkMetadataTotal'>): void {
+  const previousRunId = bulkMetadataRunSeq;
+  const nextRunId = nextBulkMetadataRunId();
+  bulkLogger.info('Bulk metadata cancellation requested', {
+    reason,
+    previousRunId,
+    nextRunId,
+    status: state?.bulkMetadataStatus,
+    completed: state?.bulkMetadataCompleted,
+    total: state?.bulkMetadataTotal
+  });
+  if (typeof window.appApi.downloads.probeCancel === 'function') {
+    void window.appApi.downloads.probeCancel();
+  }
+}
 
 // Detect YouTube URLs that carry both `v=` (single video) and `list=` (playlist).
 // yt-dlp's default for these routes Radio/Mix lists to playlist enumeration;
@@ -270,6 +301,104 @@ function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist'
   });
 }
 
+async function hydrateBulkMetadata(urls: string[], set: SetState, runId: number): Promise<void> {
+  let nextIndex = 0;
+  bulkLogger.info('Bulk metadata hydration started', {
+    runId,
+    total: urls.length,
+    concurrency: Math.min(BULK_METADATA_CONCURRENCY, urls.length)
+  });
+
+  async function worker(): Promise<void> {
+    while (bulkMetadataRunSeq === runId && nextIndex < urls.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      const url = urls[index];
+      const id = `bulk-${index + 1}`;
+      let finalStatus: 'done' | 'failed' = 'failed';
+
+      set((state) => {
+        if (state.wizardMode !== 'bulk') return {};
+        const current = state.playlistItems.find((entry) => entry.id === id);
+        if (current?.url !== url) return {};
+        return { bulkMetadataById: { ...state.bulkMetadataById, [id]: 'resolving' } };
+      });
+
+      try {
+        bulkLogger.debug('Bulk metadata probe started', { runId, itemId: id, index: index + 1, url: redactUrlForLog(url) });
+        const result = await window.appApi.downloads.probe({ url, playlistMode: 'video' });
+        if (!result.ok) {
+          if (result.error.kind === 'other' && result.error.message === 'Probe cancelled') {
+            bulkLogger.info('Bulk metadata probe cancelled', { runId, itemId: id, index: index + 1, url: redactUrlForLog(url) });
+            continue;
+          }
+          bulkLogger.warn('Bulk metadata probe failed', { runId, itemId: id, index: index + 1, url: redactUrlForLog(url), error: result.error });
+          continue;
+        }
+        if (result.data.kind !== 'video') {
+          bulkLogger.warn('Bulk metadata probe returned non-video result', { runId, itemId: id, index: index + 1, url: redactUrlForLog(url), kind: result.data.kind });
+          continue;
+        }
+        if (bulkMetadataRunSeq !== runId) return;
+
+        const probe = result.data;
+        finalStatus = 'done';
+        bulkLogger.info('Bulk metadata resolved', {
+          runId,
+          itemId: id,
+          index: index + 1,
+          title: probe.title,
+          videoId: probe.videoId,
+          extractor: probe.extractor,
+          duration: probe.duration
+        });
+        set((state) => {
+          if (state.wizardMode !== 'bulk') return {};
+          const current = state.playlistItems.find((entry) => entry.id === id);
+          if (current?.url !== url) return {};
+          return {
+            playlistItems: state.playlistItems.map((entry) =>
+              entry.id === id
+                ? {
+                    ...entry,
+                    title: probe.title.trim() || entry.title,
+                    thumbnail: probe.thumbnail || entry.thumbnail,
+                    duration: probe.duration ?? entry.duration,
+                    videoId: probe.videoId ?? entry.videoId
+                  }
+                : entry
+            )
+          };
+        });
+      } catch (error) {
+        // Metadata hydration is best-effort; synthetic rows remain usable.
+        bulkLogger.warn('Bulk metadata probe threw', { runId, itemId: id, index: index + 1, url: redactUrlForLog(url), error: errorMessage(error) });
+      } finally {
+        if (bulkMetadataRunSeq === runId) {
+          set((state) => {
+            if (state.wizardMode !== 'bulk') return {};
+            const current = state.playlistItems.find((entry) => entry.id === id);
+            if (current?.url !== url) return {};
+            const completed = Math.min(state.bulkMetadataCompleted + 1, state.bulkMetadataTotal);
+            return {
+              bulkMetadataCompleted: completed,
+              bulkMetadataStatus: completed >= state.bulkMetadataTotal ? 'done' : 'resolving',
+              bulkMetadataById: { ...state.bulkMetadataById, [id]: finalStatus }
+            };
+          });
+        }
+      }
+    }
+  }
+
+  await Promise.all(Array.from({ length: Math.min(BULK_METADATA_CONCURRENCY, urls.length) }, () => worker()));
+  if (bulkMetadataRunSeq === runId) {
+    bulkLogger.info('Bulk metadata hydration finished', { runId, total: urls.length });
+  } else {
+    bulkLogger.info('Bulk metadata hydration stopped', { runId, supersededByRunId: bulkMetadataRunSeq });
+  }
+}
+
 async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe = true): Promise<void> {
   void window.appApi.downloads.probeCancel();
   const fromStep = get().wizardStep;
@@ -298,6 +427,10 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
     playlistId: '',
     playlistIsMultiVideo: false,
     playlistLikelyCapped: false,
+    bulkMetadataStatus: 'idle',
+    bulkMetadataCompleted: 0,
+    bulkMetadataTotal: 0,
+    bulkMetadataById: {},
     syncedDownloadedIds: [],
     syncScanState: 'idle',
     wizardExtractor: '',
@@ -352,6 +485,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
     playlistLikelyCapped: RESET_WIZARD_STATE.playlistLikelyCapped,
     playlistProbeLoading: RESET_WIZARD_STATE.playlistProbeLoading,
     playlistSelection: RESET_WIZARD_STATE.playlistSelection,
+    bulkMetadataStatus: RESET_WIZARD_STATE.bulkMetadataStatus,
+    bulkMetadataCompleted: RESET_WIZARD_STATE.bulkMetadataCompleted,
+    bulkMetadataTotal: RESET_WIZARD_STATE.bulkMetadataTotal,
+    bulkMetadataById: RESET_WIZARD_STATE.bulkMetadataById,
     quickDownloadStatus: RESET_WIZARD_STATE.quickDownloadStatus,
     quickDownloadError: RESET_WIZARD_STATE.quickDownloadError,
     syncedDownloadedIds: RESET_WIZARD_STATE.syncedDownloadedIds,
@@ -421,6 +558,88 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
       } catch (err) {
         set({ quickDownloadStatus: 'error', quickDownloadError: err instanceof Error ? err.message : String(err) });
       }
+    },
+
+    startBulkUrls: (urls) => {
+      const previousState = get();
+      if (previousState.wizardMode === 'bulk' && previousState.bulkMetadataStatus === 'resolving') {
+        cancelBulkMetadataProbes('start-new-bulk', previousState);
+      }
+      const bulkRunId = nextBulkMetadataRunId();
+      const fromStep = get().wizardStep;
+      const settings = get().settings;
+      const allYouTubeVideos = urls.length > 0 && urls.every(isClearlyIndividualYouTubeUrl);
+      const playlistSelection: PlaylistSelection = settings?.playlist?.lastPlaylistSelection ?? DEFAULT_PLAYLIST_SELECTION;
+      const playlistItems = urls.map((url, index) => {
+        const number = index + 1;
+        return {
+          id: `bulk-${number}`,
+          url,
+          title: deriveBulkUrlLabel(url) ?? `Bulk URL ${number}`,
+          thumbnail: '',
+          playlistIndex: number,
+          videoId: extractYouTubeVideoId(url)
+        };
+      });
+
+      set({
+        wizardStep: 'playlistItems',
+        wizardMode: 'bulk',
+        wizardUrl: '',
+        wizardTitle: '',
+        wizardThumbnail: '',
+        wizardDuration: undefined,
+        wizardFormats: [],
+        wizardFormatsDegraded: null,
+        selectedVideoFormatId: '',
+        audioSelection: { kind: 'none' },
+        activePreset: null,
+        wizardSubtitles: {},
+        wizardAutomaticCaptions: {},
+        wizardSubtitleLanguages: [],
+        wizardSubtitleSkipped: false,
+        wizardExtractor: allYouTubeVideos ? 'youtube' : '',
+        wizardExtractorKey: allYouTubeVideos ? 'Youtube' : '',
+        wizardWebpageUrl: '',
+        formatsLoading: false,
+        playlistProbeLoading: false,
+        wizardError: null,
+        wizardErrorOrigin: null,
+        cookiesConfigDialogIssue: null,
+        playlistItems,
+        selectedPlaylistItemIds: playlistItems.map((entry) => entry.id),
+        playlistTitle: 'Bulk URLs',
+        playlistId: 'bulk',
+        playlistIsMultiVideo: false,
+        playlistLikelyCapped: false,
+        bulkMetadataStatus: urls.length > 0 ? 'resolving' : 'idle',
+        bulkMetadataCompleted: 0,
+        bulkMetadataTotal: urls.length,
+        bulkMetadataById: Object.fromEntries(playlistItems.map((entry) => [entry.id, 'pending'])),
+        syncedDownloadedIds: [],
+        syncScanState: 'idle',
+        ...restoreCommonWizardPrefs(settings),
+        wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
+        wizardSubfolderName: settings?.common?.lastSubfolder ?? '',
+        wizardWriteM3u: false,
+        playlistSelection
+      });
+      bulkLogger.info('Bulk URL flow started', {
+        runId: bulkRunId,
+        count: urls.length,
+        selectedCount: playlistItems.length,
+        allYouTubeVideos,
+        metadataConcurrency: BULK_METADATA_CONCURRENCY
+      });
+      void hydrateBulkMetadata(urls, set, bulkRunId);
+      logStep('submitUrl', fromStep, 'playlistItems', pickWizardSnapshot(get()));
+    },
+
+    cancelBulkMetadata: (reason = 'queue-submit') => {
+      const state = get();
+      if (state.wizardMode !== 'bulk' || state.bulkMetadataStatus !== 'resolving') return;
+      cancelBulkMetadataProbes(reason, state);
+      set({ bulkMetadataStatus: 'done' });
     },
 
     dismissMixedPrompt: async (choice) => {
@@ -504,6 +723,9 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
       const state = get();
       const target = nextStep(state.wizardStep as VisibleStep, navCtx(state), 'backward');
       if (!target) return;
+      if (state.wizardMode === 'bulk' && target === 'url' && state.bulkMetadataStatus === 'resolving') {
+        cancelBulkMetadataProbes('back-to-url', state);
+      }
       set({ wizardStep: target, ...(target === 'subtitles' && { wizardSubtitleSkipped: false }) });
       logStep('back', state.wizardStep, target, pickWizardSnapshot(get()));
     },
@@ -527,7 +749,11 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
     },
 
     reset: () => {
-      const fromStep = get().wizardStep;
+      const state = get();
+      const fromStep = state.wizardStep;
+      if (state.wizardMode === 'bulk' && state.bulkMetadataStatus === 'resolving') {
+        cancelBulkMetadataProbes('reset', state);
+      }
       WizardCommands.resetAll(set);
       logStep('reset', fromStep, 'url', pickWizardSnapshot(get()));
     },
@@ -543,6 +769,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
     retryFormatProbe: async () => {
       const { wizardUrl } = get();
+      if (get().wizardMode === 'bulk') return;
       if (!wizardUrl) return;
       set({ formatsLoading: true, wizardFormatsDegraded: null });
       const playlistMode: ProbePlaylistMode = get().wizardMode === 'playlist' ? 'playlist' : 'auto';

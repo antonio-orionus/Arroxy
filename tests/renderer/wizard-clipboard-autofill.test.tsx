@@ -26,6 +26,7 @@ function resetStore(overrides: Partial<ReturnType<typeof useAppStore.getState>> 
       playlist: {}
     },
     wizardStep: 'url',
+    wizardMode: 'single',
     formatsLoading: false,
     wizardUrl: '',
     wizardTitle: '',
@@ -37,6 +38,7 @@ function resetStore(overrides: Partial<ReturnType<typeof useAppStore.getState>> 
     wizardOutputDir: '',
     wizardError: null,
     wizardErrorOrigin: null,
+    playlistItems: [],
     queue: [],
     drawerOpen: false,
     ...overrides
@@ -167,11 +169,99 @@ describe('wizard clipboard confirm dialog', () => {
     expect(screen.getByTestId('clipboard-confirm-url')).toHaveTextContent(second);
   });
 
+  it('offers bulk download when clipboard text contains multiple accepted URLs', () => {
+    render(<StepUrlInput />);
+
+    act(() => {
+      clipboardListener!('Grab https://example.com/one, https://example.com/two');
+    });
+
+    expect(screen.getByTestId('clipboard-confirm-dialog')).toBeInTheDocument();
+    expect(screen.getByTestId('clipboard-confirm-bulk-count')).toHaveTextContent('2');
+    expect(screen.getByTestId('clipboard-confirm-bulk-preview')).toHaveTextContent('https://example.com/one');
+    expect(screen.queryByTestId('clipboard-confirm-use')).not.toBeInTheDocument();
+    expect(screen.getByTestId('clipboard-confirm-bulk')).toBeInTheDocument();
+  });
+
+  it('"Bulk download" opens the full bulk URL dialog with clipboard text', () => {
+    const clipboardText = 'https://example.com/one\nhttps://example.com/two';
+    render(<StepUrlInput />);
+
+    act(() => {
+      clipboardListener!(clipboardText);
+    });
+    fireEvent.click(screen.getByTestId('clipboard-confirm-bulk'));
+
+    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
+    expect(screen.getByTestId('bulk-url-dialog')).toBeInTheDocument();
+    expect(screen.getByTestId('bulk-url-textarea')).toHaveValue(clipboardText);
+    expect(screen.getByTestId('bulk-url-valid-count')).toHaveTextContent('2');
+    expect(useAppStore.getState().wizardStep).toBe('url');
+  });
+
+  it('confirming the clipboard-opened bulk dialog enters the selectable rows flow', () => {
+    render(<StepUrlInput />);
+
+    act(() => {
+      clipboardListener!('https://example.com/one\nhttps://example.com/two');
+    });
+    fireEvent.click(screen.getByTestId('clipboard-confirm-bulk'));
+    fireEvent.click(screen.getByTestId('bulk-url-confirm'));
+
+    const state = useAppStore.getState();
+    expect(state.wizardUrl).toBe('');
+    expect(state.wizardStep).toBe('playlistItems');
+    expect(state.wizardMode).toBe('bulk');
+    expect(state.playlistItems.map((item) => item.url)).toEqual(['https://example.com/one', 'https://example.com/two']);
+    expect(screen.queryByTestId('bulk-url-dialog')).not.toBeInTheDocument();
+  });
+
+  it('"Cancel" closes a bulk clipboard prompt without entering bulk mode', () => {
+    render(<StepUrlInput />);
+
+    act(() => {
+      clipboardListener!('https://example.com/one\nhttps://example.com/two');
+    });
+    fireEvent.click(screen.getByTestId('clipboard-confirm-cancel'));
+
+    expect(useAppStore.getState().wizardStep).toBe('url');
+    expect(useAppStore.getState().wizardMode).toBe('single');
+    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
+  });
+
+  it('"Disable" works from a bulk clipboard prompt', () => {
+    const updateSpy = vi.spyOn(mockApi.settings, 'update');
+    render(<StepUrlInput />);
+
+    act(() => {
+      clipboardListener!('https://example.com/one\nhttps://example.com/two');
+    });
+    fireEvent.click(screen.getByTestId('clipboard-confirm-disable'));
+
+    expect(updateSpy).toHaveBeenCalledWith(expect.objectContaining({ common: expect.objectContaining({ clipboardWatchEnabled: false }) }));
+    expect(useAppStore.getState().wizardStep).toBe('url');
+    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
+  });
+
   it('unsubscribes from clipboard events when StepUrlInput unmounts', () => {
     const { unmount } = render(<StepUrlInput />);
     expect(clipboardUnsub).not.toHaveBeenCalled();
     unmount();
     expect(clipboardUnsub).toHaveBeenCalledTimes(1);
+  });
+
+  it('ignores clipboard watcher events while the bulk URL dialog is open', () => {
+    render(<StepUrlInput />);
+
+    fireEvent.click(screen.getByTestId('btn-bulk-download'));
+    expect(screen.getByTestId('bulk-url-dialog')).toBeInTheDocument();
+
+    act(() => {
+      clipboardListener!(FRESH_URL);
+    });
+
+    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
+    expect(useAppStore.getState().wizardUrl).toBe('');
   });
 });
 
@@ -195,5 +285,58 @@ describe('URL input clear icon', () => {
     useAppStore.setState({ wizardUrl: '   ' });
     render(<StepUrlInput />);
     expect(screen.queryByTestId('url-clear')).not.toBeInTheDocument();
+  });
+});
+
+describe('bulk URL dialog', () => {
+  it('opens from the bulk button', () => {
+    render(<StepUrlInput />);
+
+    fireEvent.click(screen.getByTestId('btn-bulk-download'));
+
+    expect(screen.getByTestId('bulk-url-dialog')).toBeInTheDocument();
+    expect(screen.getByTestId('bulk-url-textarea')).toBeInTheDocument();
+  });
+
+  it('updates the preview from pasted URLs', () => {
+    render(<StepUrlInput />);
+    fireEvent.click(screen.getByTestId('btn-bulk-download'));
+
+    fireEvent.change(screen.getByTestId('bulk-url-textarea'), {
+      target: { value: 'https://example.com/one, https://example.com/two' }
+    });
+
+    expect(screen.getByTestId('bulk-url-valid-count')).toHaveTextContent('2');
+    expect(screen.getByText('https://example.com/one')).toBeInTheDocument();
+    expect(screen.getByText('https://example.com/two')).toBeInTheDocument();
+  });
+
+  it('keeps confirm disabled for zero or one accepted URL', () => {
+    render(<StepUrlInput />);
+    fireEvent.click(screen.getByTestId('btn-bulk-download'));
+
+    const confirm = screen.getByTestId('bulk-url-confirm');
+    expect(confirm).toBeDisabled();
+
+    fireEvent.change(screen.getByTestId('bulk-url-textarea'), {
+      target: { value: 'https://example.com/one' }
+    });
+
+    expect(confirm).toBeDisabled();
+  });
+
+  it('confirm populates selectable bulk rows', () => {
+    render(<StepUrlInput />);
+    fireEvent.click(screen.getByTestId('btn-bulk-download'));
+    fireEvent.change(screen.getByTestId('bulk-url-textarea'), {
+      target: { value: 'https://example.com/one\nhttps://example.com/two' }
+    });
+
+    fireEvent.click(screen.getByTestId('bulk-url-confirm'));
+
+    const state = useAppStore.getState();
+    expect(state.wizardStep).toBe('playlistItems');
+    expect(state.wizardMode).toBe('bulk');
+    expect(state.playlistItems.map((item) => item.url)).toEqual(['https://example.com/one', 'https://example.com/two']);
   });
 });

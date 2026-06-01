@@ -31,6 +31,19 @@ function redactProxy(url: string | undefined): string | null {
   }
 }
 
+function redactExtractorArgs(value: string): string {
+  return value.replace(/(po_token=)[^;]+/g, '$1<redacted>').replace(/(visitor_data=)[^;]+/g, '$1<redacted>');
+}
+
+export function redactYtDlpArgsForLog(args: string[]): string[] {
+  return args.map((arg, index) => {
+    const previous = args[index - 1];
+    if (previous === '--extractor-args') return redactExtractorArgs(arg);
+    if (previous === '--proxy') return redactProxy(arg) ?? '<redacted>';
+    return arg;
+  });
+}
+
 // 'auto' lets yt-dlp's extractor decide for ambiguous URLs (mixed video+playlist).
 // 'video' forces single-video resolution (--no-playlist); 'playlist' forces
 // playlist enumeration (--yes-playlist). Renderer surfaces a disambiguation
@@ -230,7 +243,7 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
     deno: opts.denoPath,
     cookies: opts.cookies?.kind ?? null,
     proxy: redactProxy(opts.proxyUrl),
-    args
+    args: redactYtDlpArgsForLog(args)
   });
 
   const abortSignal = opts.signal?.abortSignal;

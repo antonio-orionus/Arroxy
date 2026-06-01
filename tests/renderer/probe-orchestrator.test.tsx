@@ -11,6 +11,7 @@ const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 
 const VIDEO_PROBE: Extract<ProbeResult, { kind: 'video' }> = {
   kind: 'video',
+  videoId: 'dQw4w9WgXcQ',
   extractor: 'youtube',
   extractorKey: 'Youtube',
   webpageUrl: YOUTUBE_URL,
@@ -367,6 +368,193 @@ describe('submitUrl — playlist probe', () => {
     const state = useAppStore.getState();
     expect(state.playlistItems).toHaveLength(100);
     expect(state.playlistLikelyCapped).toBe(false);
+  });
+});
+
+describe('bulk URL mode', () => {
+  it('enters playlistItems with synthetic bulk entries before metadata probes resolve', () => {
+    const api = buildMockAppApi();
+    window.appApi = api;
+
+    useAppStore.getState().startBulkUrls(['https://vimeo.com/1', 'https://example.com/video/2']);
+
+    const state = useAppStore.getState();
+    expect(state.wizardStep).toBe('playlistItems');
+    expect(state.wizardMode).toBe('bulk');
+    expect(state.playlistTitle).toBe('Bulk URLs');
+    expect(state.playlistItems.map((item) => item.title)).toEqual(['vimeo.com/1', 'example.com/video/2']);
+    expect(state.bulkMetadataStatus).toBe('resolving');
+    expect(state.bulkMetadataCompleted).toBe(0);
+    expect(state.bulkMetadataTotal).toBe(2);
+    expect(state.bulkMetadataById).toEqual({ 'bulk-1': 'resolving', 'bulk-2': 'resolving' });
+    expect(state.selectedPlaylistItemIds).toEqual(state.playlistItems.map((item) => item.id));
+    expect(state.wizardExtractor).toBe('');
+    expect(state.wizardWriteM3u).toBe(false);
+  });
+
+  it('hydrates bulk titles, thumbnails, durations, and video ids from yt-dlp probes', async () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockImplementation(async ({ url }) =>
+      ok({
+        ...VIDEO_PROBE,
+        title: url.endsWith('/1') ? 'Resolved One' : 'Resolved Two',
+        thumbnail: url.endsWith('/1') ? 'https://img.example/one.jpg' : 'https://img.example/two.jpg',
+        duration: url.endsWith('/1') ? 11 : 22,
+        videoId: url.endsWith('/1') ? 'one-id' : 'two-id'
+      })
+    );
+    window.appApi = api;
+
+    useAppStore.getState().startBulkUrls(['https://vimeo.com/1', 'https://example.com/video/2']);
+
+    await vi.waitFor(() => {
+      expect(useAppStore.getState().playlistItems.map((item) => item.title)).toEqual(['Resolved One', 'Resolved Two']);
+    });
+    expect(useAppStore.getState().playlistItems.map((item) => item.thumbnail)).toEqual(['https://img.example/one.jpg', 'https://img.example/two.jpg']);
+    expect(useAppStore.getState().playlistItems.map((item) => item.duration)).toEqual([11, 22]);
+    expect(useAppStore.getState().playlistItems.map((item) => item.videoId)).toEqual(['one-id', 'two-id']);
+    expect(useAppStore.getState().bulkMetadataStatus).toBe('done');
+    expect(useAppStore.getState().bulkMetadataCompleted).toBe(2);
+    expect(useAppStore.getState().bulkMetadataById).toEqual({ 'bulk-1': 'done', 'bulk-2': 'done' });
+    expect(api.downloads.probe).toHaveBeenCalledWith({ url: 'https://vimeo.com/1', playlistMode: 'video' });
+    expect(api.downloads.probe).toHaveBeenCalledWith({ url: 'https://example.com/video/2', playlistMode: 'video' });
+  });
+
+  it('keeps synthetic bulk metadata when a probe fails or returns a playlist', async () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE));
+    window.appApi = api;
+
+    useAppStore.getState().startBulkUrls(['https://vimeo.com/1', 'https://example.com/video/2']);
+
+    await vi.waitFor(() => {
+      expect(api.downloads.probe).toHaveBeenCalledTimes(2);
+    });
+    expect(useAppStore.getState().playlistItems.map((item) => item.title)).toEqual(['vimeo.com/1', 'example.com/video/2']);
+    expect(useAppStore.getState().playlistItems.map((item) => item.videoId)).toEqual([null, null]);
+    expect(useAppStore.getState().bulkMetadataStatus).toBe('done');
+    expect(useAppStore.getState().bulkMetadataCompleted).toBe(2);
+    expect(useAppStore.getState().bulkMetadataById).toEqual({ 'bulk-1': 'failed', 'bulk-2': 'failed' });
+  });
+
+  it('limits bulk metadata probes to two concurrent URLs', async () => {
+    const api = buildMockAppApi();
+    const resolvers: ((value: Result<ProbeResult, ProbeError>) => void)[] = [];
+    function resolveProbeAt(index: number, value: Result<ProbeResult, ProbeError>): void {
+      const resolve = resolvers[index];
+      if (!resolve) throw new Error(`missing bulk metadata resolver ${index}`);
+      resolve(value);
+    }
+    vi.mocked(api.downloads.probe).mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolvers.push(resolve);
+        })
+    );
+    window.appApi = api;
+
+    useAppStore.getState().startBulkUrls(['https://example.com/1', 'https://example.com/2', 'https://example.com/3']);
+
+    expect(api.downloads.probe).toHaveBeenCalledTimes(2);
+    expect(useAppStore.getState().bulkMetadataById).toEqual({
+      'bulk-1': 'resolving',
+      'bulk-2': 'resolving',
+      'bulk-3': 'pending'
+    });
+
+    resolveProbeAt(0, ok({ ...VIDEO_PROBE, title: 'Resolved One', videoId: 'one-id' }));
+
+    await vi.waitFor(() => {
+      expect(api.downloads.probe).toHaveBeenCalledTimes(3);
+    });
+    expect(useAppStore.getState().bulkMetadataById['bulk-3']).toBe('resolving');
+
+    resolveProbeAt(1, ok({ ...VIDEO_PROBE, title: 'Resolved Two', videoId: 'two-id' }));
+    resolveProbeAt(2, ok({ ...VIDEO_PROBE, title: 'Resolved Three', videoId: 'three-id' }));
+
+    await vi.waitFor(() => {
+      expect(useAppStore.getState().bulkMetadataStatus).toBe('done');
+    });
+    expect(useAppStore.getState().bulkMetadataById).toEqual({
+      'bulk-1': 'done',
+      'bulk-2': 'done',
+      'bulk-3': 'done'
+    });
+  });
+
+  it('cancels bulk metadata probes and prevents pending probes after reset', async () => {
+    const api = buildMockAppApi();
+    const resolvers: ((value: Result<ProbeResult, ProbeError>) => void)[] = [];
+    vi.mocked(api.downloads.probe).mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolvers.push(resolve);
+        })
+    );
+    window.appApi = api;
+
+    useAppStore.getState().startBulkUrls(['https://example.com/1', 'https://example.com/2', 'https://example.com/3']);
+    expect(api.downloads.probe).toHaveBeenCalledTimes(2);
+    vi.mocked(api.downloads.probeCancel).mockClear();
+
+    useAppStore.getState().reset();
+
+    expect(api.downloads.probeCancel).toHaveBeenCalledTimes(1);
+    expect(useAppStore.getState().wizardStep).toBe('url');
+    resolvers[0]?.(ok({ ...VIDEO_PROBE, title: 'Stale One', videoId: 'stale-one' }));
+    resolvers[1]?.(ok({ ...VIDEO_PROBE, title: 'Stale Two', videoId: 'stale-two' }));
+    await Promise.resolve();
+
+    expect(api.downloads.probe).toHaveBeenCalledTimes(2);
+    expect(useAppStore.getState().playlistItems).toEqual([]);
+  });
+
+  it('cancels bulk metadata probes when backing out to the URL step', () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockImplementation(() => new Promise(() => undefined));
+    window.appApi = api;
+
+    useAppStore.getState().startBulkUrls(['https://example.com/1', 'https://example.com/2']);
+    vi.mocked(api.downloads.probeCancel).mockClear();
+
+    useAppStore.getState().back();
+
+    expect(api.downloads.probeCancel).toHaveBeenCalledTimes(1);
+    expect(useAppStore.getState().wizardStep).toBe('url');
+  });
+
+  it('allows advancing bulk items while metadata is still resolving', () => {
+    window.appApi = buildMockAppApi();
+    useAppStore.setState({
+      wizardStep: 'playlistItems',
+      wizardMode: 'bulk',
+      selectedPlaylistItemIds: ['bulk-1'],
+      bulkMetadataStatus: 'resolving'
+    } as Partial<ReturnType<typeof useAppStore.getState>>);
+
+    useAppStore.getState().confirmPlaylistSelection();
+
+    expect(useAppStore.getState().wizardStep).toBe('playlistPresets');
+  });
+
+  it('marks bulk as YouTube-only only when every URL is a clear individual YouTube URL', () => {
+    window.appApi = buildMockAppApi();
+
+    useAppStore.getState().startBulkUrls(['https://www.youtube.com/watch?v=one', 'https://youtu.be/two']);
+
+    expect(useAppStore.getState().wizardExtractor).toBe('youtube');
+    expect(useAppStore.getState().wizardExtractorKey).toBe('Youtube');
+  });
+
+  it('does not retry a format probe in bulk mode', async () => {
+    const api = buildMockAppApi();
+    window.appApi = api;
+
+    useAppStore.getState().startBulkUrls(['https://vimeo.com/1', 'https://vimeo.com/2']);
+    vi.mocked(api.downloads.probe).mockClear();
+    await useAppStore.getState().retryFormatProbe();
+
+    expect(api.downloads.probe).not.toHaveBeenCalled();
   });
 });
 

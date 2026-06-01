@@ -89,6 +89,27 @@ describe('ClipboardWatcher', () => {
     expect(win.send).toHaveBeenCalledExactlyOnceWith('events:clipboardUrl', 'https://vimeo.com/12345');
   });
 
+  it('forwards raw clipboard text when it contains multiple accepted URLs', () => {
+    const text = 'Grab these: https://vimeo.com/12345, https://example.com/video/67890';
+    const reader = { readText: vi.fn().mockReturnValue('') };
+    const win = makeWindow();
+    const watcher = new ClipboardWatcher(win, 800, reader);
+    watcher.setEnabled(true);
+    reader.readText.mockReturnValue(text);
+    vi.advanceTimersByTime(800);
+    expect(win.send).toHaveBeenCalledExactlyOnceWith('events:clipboardUrl', text);
+  });
+
+  it('does not forward freeform text with only one accepted URL', () => {
+    const reader = { readText: vi.fn().mockReturnValue('') };
+    const win = makeWindow();
+    const watcher = new ClipboardWatcher(win, 800, reader);
+    watcher.setEnabled(true);
+    reader.readText.mockReturnValue('watch this later: https://vimeo.com/12345');
+    vi.advanceTimersByTime(800);
+    expect(win.send).not.toHaveBeenCalled();
+  });
+
   it('sends the channel with a YouTube URL on detection', () => {
     const url = yt('abc');
     const reader = { readText: vi.fn().mockReturnValue('') };

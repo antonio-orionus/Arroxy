@@ -1,6 +1,6 @@
 import { EventEmitter } from 'node:events';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
-import { YtDlp } from '@main/services/YtDlp.js';
+import { YtDlp, redactYtDlpArgsForLog } from '@main/services/YtDlp.js';
 import { EMBED_CONTAINER_EXT } from '@shared/subtitlePath.js';
 
 vi.mock('@main/utils/process', async (importOriginal) => {
@@ -56,6 +56,21 @@ function getArgs(callIndex = 0): string[] {
 beforeEach(() => {
   vi.clearAllMocks();
   vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(0) as never);
+});
+
+describe('redactYtDlpArgsForLog', () => {
+  it('redacts PO token, visitor data, and proxy credentials without changing real spawn args', () => {
+    const args = ['--extractor-args', 'youtube:po_token=web.gvs+secret-token;visitor_data=secret-visitor', '--proxy', 'http://user:pass@proxy.example:8080', 'https://www.youtube.com/watch?v=test'];
+
+    const redacted = redactYtDlpArgsForLog(args);
+
+    expect(redacted).toEqual(['--extractor-args', 'youtube:po_token=<redacted>;visitor_data=<redacted>', '--proxy', 'http://***:***@proxy.example:8080/', 'https://www.youtube.com/watch?v=test']);
+    expect(args[1]).toContain('secret-token');
+  });
+
+  it('keeps non-sensitive extractor args visible', () => {
+    expect(redactYtDlpArgsForLog(['--extractor-args', 'youtube:player_client=default,-web,-web_safari'])).toEqual(['--extractor-args', 'youtube:player_client=default,-web,-web_safari']);
+  });
 });
 
 describe('YtDlp — probe args', () => {

@@ -4,6 +4,10 @@ import { presetProducesMedia, presetProducesVideo } from '@shared/presetTraits.j
 import { isYouTubeExtractor } from '@shared/ytdlp/extractorPredicates.js';
 import type { WizardMode, WizardStep } from '../../store/types.js';
 
+function isBatchMode(mode: WizardMode): boolean {
+  return mode === 'playlist' || mode === 'bulk';
+}
+
 export type VisibleStep = Exclude<WizardStep, 'error'>;
 
 export interface StepContext {
@@ -25,15 +29,15 @@ export interface StepContext {
 // it without pulling components into the store's import cycle.
 export const STEP_APPLICABLE: Record<VisibleStep, (ctx: StepContext) => boolean> = {
   url: () => true,
-  playlistItems: ({ wizardMode }) => wizardMode === 'playlist',
-  playlistPresets: ({ wizardMode }) => wizardMode === 'playlist',
-  formats: ({ wizardMode }) => wizardMode !== 'playlist',
+  playlistItems: ({ wizardMode }) => isBatchMode(wizardMode),
+  playlistPresets: ({ wizardMode }) => isBatchMode(wizardMode),
+  formats: ({ wizardMode }) => !isBatchMode(wizardMode),
   // Playlist-mode skips subtitles once a preset is locked in. Single-mode
   // skips when the probe returned no subtitle tracks (no manual + no
   // auto-captions).
   subtitles: ({ wizardMode, playlistSelection, hasSubtitles }) => {
-    if (wizardMode === 'playlist' && !!playlistSelection) return false;
-    if (wizardMode !== 'playlist' && !hasSubtitles) return false;
+    if (isBatchMode(wizardMode) && !!playlistSelection) return false;
+    if (!isBatchMode(wizardMode) && !hasSubtitles) return false;
     return true;
   },
   sponsorblock: ({ wizardMode, playlistSelection, activePreset, wizardExtractor }) => {
@@ -41,12 +45,12 @@ export const STEP_APPLICABLE: Record<VisibleStep, (ctx: StepContext) => boolean>
     // crowdsourced segment database keyed by YouTube video IDs. Non-YT URLs
     // get nothing useful — hide the step entirely.
     if (!isYouTubeExtractor(wizardExtractor)) return false;
-    if (wizardMode === 'playlist' && playlistSelection) return playlistPresetSpec(playlistSelection).producesVideo;
+    if (isBatchMode(wizardMode) && playlistSelection) return playlistPresetSpec(playlistSelection).producesVideo;
     if (activePreset && !presetProducesVideo(activePreset)) return false;
     return true;
   },
   output: ({ wizardMode, playlistSelection, activePreset }) => {
-    if (wizardMode === 'playlist' && playlistSelection) return true;
+    if (isBatchMode(wizardMode) && playlistSelection) return true;
     if (activePreset && !presetProducesMedia(activePreset)) return false;
     return true;
   },

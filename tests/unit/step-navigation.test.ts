@@ -64,6 +64,19 @@ describe('nextStep traversal', () => {
     expect(nextStep('url', baseNavCtx, 'forward')).toBe('formats');
   });
 
+  it('bulk mode: forward from url enters the batch item picker', () => {
+    expect(nextStep('url', { ...baseNavCtx, wizardMode: 'bulk' }, 'forward')).toBe('playlistItems');
+  });
+
+  it('bulk mode: skips single format selection after items are confirmed', () => {
+    const ctx: NavContext = { ...baseNavCtx, wizardMode: 'bulk', playlistSelection: { kind: 'video', tier: '1080', codec: 'best' } };
+    expect(nextStep('playlistPresets', ctx, 'forward')).toBe('output');
+  });
+
+  it('bulk mode: backward from playlistItems returns url', () => {
+    expect(nextStep('playlistItems', { ...baseNavCtx, wizardMode: 'bulk' }, 'backward')).toBe('url');
+  });
+
   it('forward from formats skips subtitles when wizardSubtitleSkipped is true', () => {
     const ctx = { ...baseNavCtx, wizardSubtitleSkipped: true };
     const result = nextStep('formats', ctx, 'forward');

@@ -1,21 +1,25 @@
 import { useEffect, useRef, useState, type JSX, type ReactNode } from 'react';
-import { ArrowRight, AlertTriangle, Download, Share2, X, Video, ListVideo, Music, Tv, Smartphone, Mic, Globe, ListMusic, AudioLines, Captions } from 'lucide-react';
+import { ArrowRight, AlertTriangle, Download, ListPlus, Share2, X, Video, ListVideo, Music, Tv, Smartphone, Mic, Globe, ListMusic, AudioLines, Captions } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { bulkLogger } from '@renderer/lib/bulkLogger.js';
 import { useAppStore } from '../../store/useAppStore.js';
 import { track } from '@renderer/lib/analytics.js';
 import { Input } from '../ui/input.js';
 import { Button } from '../ui/button.js';
+import { ButtonGroup } from '../ui/button-group.js';
 import { Switch } from '../ui/switch.js';
 import { RadioOption } from '../ui/radio-option.js';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip.js';
 import { MascotBubble } from '../shared/MascotBubble.js';
-import { ClipboardConfirmDialog } from '../shared/ClipboardConfirmDialog.js';
+import { ClipboardConfirmDialog, type ClipboardPrompt } from '../shared/ClipboardConfirmDialog.js';
+import { BulkUrlDialog } from './BulkUrlDialog.js';
 import { IncompleteCookiesConfigDialog } from './IncompleteCookiesConfigDialog.js';
 import { LimitRatePicker } from '../shared/LimitRatePicker.js';
 import { NetworkPacingSettings } from './NetworkPacingSettings.js';
 import { formatHomeRelativePath } from '@renderer/lib/utils.js';
 import { cleanUrl } from '@shared/cleanUrl.js';
 import { DEFAULTS } from '@shared/constants.js';
+import { parseBulkUrls } from '@shared/bulkUrls.js';
 import type { CookiesBrowser, CookiesMode } from '@shared/types.js';
 import hiImg from '../../assets/Hi.png';
 import downloadingImg from '../../assets/Downloading.png';
@@ -40,8 +44,11 @@ export function StepUrlInput(): JSX.Element {
   const { t } = useTranslation();
   const { wizardUrl, setWizardUrl, submitUrl, quickDownload, quickDownloadStatus, quickDownloadError, queue, settings, initialized, advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen, setCookiesPath, setCookiesMode, setCookiesBrowser, setClipboardWatchEnabled, setIncludeIdInSingleFilenames, setCloseBehavior, setAnalyticsEnabled, setProxyUrl, setLimitRate, cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, openShareDialog, setShareInlineCardDismissed } = useAppStore();
   const inputRef = useRef<HTMLInputElement>(null);
+  const bulkOpenRef = useRef(false);
   const hasActiveDownloads = queue.some((i) => i.status === 'running');
-  const [pendingClipboardUrl, setPendingClipboardUrl] = useState<string | null>(null);
+  const [pendingClipboard, setPendingClipboard] = useState<ClipboardPrompt | null>(null);
+  const [bulkOpen, setBulkOpen] = useState(false);
+  const [bulkInitialRaw, setBulkInitialRaw] = useState('');
 
   const shareCardVisible = !(settings?.common?.shareInlineCardDismissed ?? false);
   const quickPreparing = quickDownloadStatus === 'preparing';
@@ -69,6 +76,10 @@ export function StepUrlInput(): JSX.Element {
     }
   }, []);
 
+  useEffect(() => {
+    bulkOpenRef.current = bulkOpen;
+  }, [bulkOpen]);
+
   // Honor "open advanced settings" links from modals/error steps: expand the
   // advanced section and scroll the requested block into view, then clear
   // the flag so a subsequent reset doesn't re-fire it.
@@ -85,36 +96,62 @@ export function StepUrlInput(): JSX.Element {
   }, [advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen]);
 
   useEffect(() => {
-    return window.appApi.events.onClipboardUrl((url) => {
+    return window.appApi.events.onClipboardUrl((payload) => {
       // Read fresh state — listener is registered once per mount but the store
       // changes underneath; stale closures would read stale wizardUrl.
+      if (bulkOpenRef.current) {
+        bulkLogger.info('Clipboard URL ignored while bulk dialog is open');
+        return;
+      }
       const { wizardUrl: currentUrl, formatsLoading } = useAppStore.getState();
       if (currentUrl) return;
       if (formatsLoading) return;
       if (useAppStore.getState().quickDownloadStatus === 'preparing') return;
-      setPendingClipboardUrl(cleanUrl(url));
+      const parsed = parseBulkUrls(payload);
+      if (parsed.accepted.length >= 2) {
+        bulkLogger.info('Bulk URLs detected from clipboard', {
+          accepted: parsed.accepted.length,
+          rejected: parsed.rejected.length,
+          ignored: parsed.ignoredCount
+        });
+        setPendingClipboard({ kind: 'bulk', raw: payload, urls: parsed.accepted.map((item) => item.url), ignoredCount: parsed.ignoredCount });
+        return;
+      }
+      setPendingClipboard({ kind: 'single', url: parsed.accepted[0]?.url ?? cleanUrl(payload) });
     });
   }, []);
 
   function handleConfirmClipboard(): void {
-    if (pendingClipboardUrl) setWizardUrl(pendingClipboardUrl);
-    setPendingClipboardUrl(null);
+    if (pendingClipboard?.kind === 'single') setWizardUrl(pendingClipboard.url);
+    setPendingClipboard(null);
     inputRef.current?.focus();
   }
 
   async function handleFetchClipboard(): Promise<void> {
-    if (pendingClipboardUrl) setWizardUrl(pendingClipboardUrl);
-    setPendingClipboardUrl(null);
+    if (pendingClipboard?.kind === 'single') setWizardUrl(pendingClipboard.url);
+    setPendingClipboard(null);
     await submitUrl();
+  }
+
+  function handleBulkClipboard(): void {
+    if (pendingClipboard?.kind === 'bulk') {
+      bulkLogger.info('Opening bulk dialog from clipboard prompt', {
+        accepted: pendingClipboard.urls.length,
+        ignored: pendingClipboard.ignoredCount
+      });
+      setBulkInitialRaw(pendingClipboard.raw);
+      setBulkOpen(true);
+    }
+    setPendingClipboard(null);
   }
 
   function handleDisableClipboard(): void {
     void setClipboardWatchEnabled(false);
-    setPendingClipboardUrl(null);
+    setPendingClipboard(null);
   }
 
   function handleCancelClipboard(): void {
-    setPendingClipboardUrl(null);
+    setPendingClipboard(null);
   }
 
   function handleClearUrl(): void {
@@ -153,44 +190,63 @@ export function StepUrlInput(): JSX.Element {
         <MascotBubble image={hasActiveDownloads ? downloadingImg : hiImg} message={hasActiveDownloads ? t('wizard.url.mascotBusy') : t('wizard.url.mascotIdle')} className="w-[30%] shrink-0" />
         <div className="flex flex-col gap-1.5 flex-1 min-w-0">
           <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.url.heading')}</p>
-          <div className="flex gap-2">
-            <div className="relative flex-1">
-              <Input ref={inputRef} type="url" className={`h-10 ${wizardUrl.trim() ? 'pe-9' : ''}`} value={wizardUrl} onChange={(e) => setWizardUrl(e.target.value)} onKeyDown={handleKeyDown} onPaste={handlePaste} placeholder={t('wizard.url.placeholder')} spellCheck={false} data-testid="url-input" />
+          <div className="flex">
+            <ButtonGroup className="w-full min-w-0">
+              <Input ref={inputRef} type="url" className="h-10" value={wizardUrl} onChange={(e) => setWizardUrl(e.target.value)} onKeyDown={handleKeyDown} onPaste={handlePaste} placeholder={t('wizard.url.placeholder')} spellCheck={false} data-testid="url-input" />
               {wizardUrl.trim() ? (
-                <button type="button" onClick={handleClearUrl} aria-label={t('wizard.url.clearAria')} data-testid="url-clear" className="absolute end-1.5 top-1/2 -translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-md text-[var(--text-subtle)] hover:bg-muted hover:text-foreground transition-colors">
-                  <X size={14} />
-                </button>
+                <Button type="button" size="icon-lg" variant="outline" onClick={handleClearUrl} aria-label={t('wizard.url.clearAria')} data-testid="url-clear">
+                  <X />
+                </Button>
               ) : null}
-            </div>
-            <Tooltip>
-              <TooltipTrigger
-                render={(props) => (
-                  <span {...props} className="inline-flex">
-                    <Button type="button" size="lg" variant="outline" onClick={() => void quickDownload()} disabled={!wizardUrl.trim() || quickPreparing} data-testid="btn-quick-download" className="gap-2">
-                      {quickPreparing ? <span className="h-4 w-4 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden /> : <Download size={16} />}
+              <Tooltip>
+                <TooltipTrigger
+                  render={(props) => (
+                    <Button
+                      {...props}
+                      type="button"
+                      size="lg"
+                      variant="outline"
+                      onClick={() => {
+                        setBulkInitialRaw('');
+                        setBulkOpen(true);
+                      }}
+                      data-testid="btn-bulk-download"
+                    >
+                      <ListPlus data-icon="inline-start" />
+                      {t('wizard.url.bulkButton')}
+                    </Button>
+                  )}
+                />
+                <TooltipContent className="max-w-[18rem] leading-snug" data-testid="bulk-download-tooltip">
+                  {t('wizard.url.bulkTooltip')}
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger
+                  render={(props) => (
+                    <Button {...props} type="button" size="lg" variant="outline" onClick={() => void quickDownload()} disabled={!wizardUrl.trim() || quickPreparing} data-testid="btn-quick-download">
+                      {quickPreparing ? <span className="h-4 w-4 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden /> : <Download data-icon="inline-start" />}
                       {quickPreparing ? t('wizard.url.quickPreparing') : t('wizard.url.quickDownload')}
                     </Button>
-                  </span>
-                )}
-              />
-              <TooltipContent className="max-w-[18rem] leading-snug" data-testid="quick-download-tooltip">
-                {t('wizard.url.quickDownloadTooltip')}
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger
-                render={(props) => (
-                  <span {...props} className="inline-flex">
-                    <Button type="button" size="lg" onClick={() => void submitUrl()} disabled={!wizardUrl.trim() || quickPreparing} data-testid="btn-find-formats" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none gap-2">
-                      {t('wizard.url.fetchFormats')} <ArrowRight size={16} className="rtl:rotate-180" />
+                  )}
+                />
+                <TooltipContent className="max-w-[18rem] leading-snug" data-testid="quick-download-tooltip">
+                  {t('wizard.url.quickDownloadTooltip')}
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger
+                  render={(props) => (
+                    <Button {...props} type="button" size="lg" onClick={() => void submitUrl()} disabled={!wizardUrl.trim() || quickPreparing} data-testid="btn-find-formats" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
+                      {t('wizard.url.fetchFormats')} <ArrowRight data-icon="inline-end" className="rtl:rotate-180" />
                     </Button>
-                  </span>
-                )}
-              />
-              <TooltipContent className="max-w-[18rem] leading-snug" data-testid="fetch-formats-tooltip">
-                {t('wizard.url.fetchFormatsTooltip')}
-              </TooltipContent>
-            </Tooltip>
+                  )}
+                />
+                <TooltipContent className="max-w-[18rem] leading-snug" data-testid="fetch-formats-tooltip">
+                  {t('wizard.url.fetchFormatsTooltip')}
+                </TooltipContent>
+              </Tooltip>
+            </ButtonGroup>
           </div>
           {quickFeedback ? (
             <p role="status" aria-live="polite" data-testid="quick-download-feedback" className={quickDownloadStatus === 'error' ? 'text-[11px] text-amber-500' : 'text-[11px] text-[var(--text-subtle)]'}>
@@ -378,7 +434,8 @@ export function StepUrlInput(): JSX.Element {
         </div>
       </details>
 
-      <ClipboardConfirmDialog open={pendingClipboardUrl !== null && initialized} url={pendingClipboardUrl} onUse={handleConfirmClipboard} onFetch={() => void handleFetchClipboard()} onDisable={handleDisableClipboard} onCancel={handleCancelClipboard} />
+      <ClipboardConfirmDialog open={pendingClipboard !== null && initialized} prompt={pendingClipboard} onUse={handleConfirmClipboard} onFetch={() => void handleFetchClipboard()} onBulk={handleBulkClipboard} onDisable={handleDisableClipboard} onCancel={handleCancelClipboard} />
+      {bulkOpen ? <BulkUrlDialog open={bulkOpen} onOpenChange={setBulkOpen} initialRaw={bulkInitialRaw} /> : null}
       <IncompleteCookiesConfigDialog issue={cookiesConfigDialogIssue} onDismiss={dismissCookiesConfigDialog} onOpenSettings={openCookiesSettings} />
     </div>
   );

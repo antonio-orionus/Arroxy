@@ -26,7 +26,8 @@ function formatEntryDuration(seconds: number | undefined, liveLabel: string): st
 export function StepPlaylistItems(): JSX.Element {
   const { t } = useTranslation();
   const store = useAppStore();
-  const { playlistItems, selectedPlaylistItemIds, playlistTitle, playlistProbeLoading, playlistLikelyCapped, syncedDownloadedIds, syncScanState, setPlaylistItemSelected, selectAllPlaylistItems, selectNonePlaylistItems, selectPlaylistRange, confirmPlaylistSelection, back, wizardExtractor, scanDownloadedInFolder, applyFolderSync, setPlaylistFolder, settings, retryFormatProbe } = store;
+  const { playlistItems, selectedPlaylistItemIds, playlistTitle, playlistProbeLoading, playlistLikelyCapped, bulkMetadataStatus, bulkMetadataCompleted, bulkMetadataTotal, bulkMetadataById, syncedDownloadedIds, syncScanState, setPlaylistItemSelected, selectAllPlaylistItems, selectNonePlaylistItems, selectPlaylistRange, confirmPlaylistSelection, back, wizardExtractor, scanDownloadedInFolder, applyFolderSync, setPlaylistFolder, settings, retryFormatProbe, wizardMode } = store;
+  const isBulk = wizardMode === 'bulk';
 
   // Effective folder the playlist's files land in (and where the scan looks) —
   // the same resolver the queue builder + scan use, so display == download == scan.
@@ -69,7 +70,7 @@ export function StepPlaylistItems(): JSX.Element {
 
   const selectedCount = selectedPlaylistItemIds.length;
   const playlistLimit = resolvePlaylistProbeLimit(settings?.common);
-  const showProbeLimitAlert = !playlistProbeLoading && playlistLikelyCapped;
+  const showProbeLimitAlert = !isBulk && !playlistProbeLoading && playlistLikelyCapped;
   // yt-dlp's --flat-playlist returns thumbnails for some extractors
   // (YouTube tab) but not others (PornHub paged list, generic). When no
   // entry has one, hide the thumbnail slot entirely so the list renders
@@ -88,8 +89,8 @@ export function StepPlaylistItems(): JSX.Element {
   return (
     <div className="flex h-full flex-col gap-3 px-4 py-3" data-testid="step-playlist-items">
       <div className="flex items-baseline justify-between gap-2">
-        <h2 className="text-sm font-semibold truncate">{playlistTitle || t('wizard.playlist.heading')}</h2>
-        <span className="shrink-0 text-xs text-muted-foreground">{t(isAudioOnlySource(wizardExtractor) ? 'wizard.playlist.itemCountAudio' : 'wizard.playlist.itemCount', { count: playlistItems.length })}</span>
+        <h2 className="text-sm font-semibold truncate">{isBulk ? t('wizard.playlist.bulkHeading') : playlistTitle || t('wizard.playlist.heading')}</h2>
+        <span className="shrink-0 text-xs text-muted-foreground">{t(isBulk ? 'wizard.playlist.itemCountBulk' : isAudioOnlySource(wizardExtractor) ? 'wizard.playlist.itemCountAudio' : 'wizard.playlist.itemCount', { count: playlistItems.length })}</span>
       </div>
 
       {showProbeLimitAlert && (
@@ -125,14 +126,21 @@ export function StepPlaylistItems(): JSX.Element {
             </div>
           </div>
 
-          {syncScanState === 'scanning' && (
+          {!isBulk && syncScanState === 'scanning' && (
             <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <FolderSearch size={13} />
               {t('wizard.playlist.syncScanning')}
             </p>
           )}
 
-          {syncScanState === 'done' && !syncDismissed && foundCount > 0 && (
+          {isBulk && bulkMetadataStatus === 'resolving' && (
+            <p className="flex items-center gap-1.5 text-xs text-muted-foreground" data-testid="bulk-metadata-status">
+              <span className="h-3 w-3 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden />
+              {t('wizard.playlist.bulkMetadataResolving', { done: bulkMetadataCompleted, total: bulkMetadataTotal })}
+            </p>
+          )}
+
+          {!isBulk && syncScanState === 'done' && !syncDismissed && foundCount > 0 && (
             <Alert variant="success" className="flex items-start gap-3">
               <FolderCheck className="mt-0.5 size-4 shrink-0 text-emerald-500" />
               <div className="min-w-0 flex-1">
@@ -160,7 +168,7 @@ export function StepPlaylistItems(): JSX.Element {
             </Alert>
           )}
 
-          {syncScanState === 'done' && !syncDismissed && foundCount === 0 && (
+          {!isBulk && syncScanState === 'done' && !syncDismissed && foundCount === 0 && (
             <Alert variant="info" className="flex items-start gap-3">
               <Info className="mt-0.5 size-4 shrink-0 text-sky-500" />
               <div className="min-w-0 flex-1">
@@ -184,6 +192,8 @@ export function StepPlaylistItems(): JSX.Element {
                 const entry = playlistItems[virtualRow.index];
                 const checked = selectedPlaylistItemIds.includes(entry.id);
                 const isAlreadyDownloaded = !!(entry.videoId && syncedDownloadedIds.includes(entry.videoId));
+                const bulkRowStatus = isBulk ? bulkMetadataById[entry.id] : undefined;
+                const bulkRowStatusKey = bulkRowStatus === 'pending' ? 'wizard.playlist.bulkRowWaiting' : bulkRowStatus === 'resolving' ? 'wizard.playlist.bulkRowResolving' : bulkRowStatus === 'failed' ? 'wizard.playlist.bulkRowFailed' : null;
                 return (
                   <div
                     key={entry.id}
@@ -201,7 +211,15 @@ export function StepPlaylistItems(): JSX.Element {
                   >
                     <Checkbox checked={checked} onCheckedChange={(v) => setPlaylistItemSelected(entry.id, !!v)} onClick={(e) => e.stopPropagation()} />
                     {hasAnyThumbnail ? entry.thumbnail ? <img src={entry.thumbnail} alt={t('wizard.playlist.thumbnailAlt')} referrerPolicy="no-referrer" className="h-8 w-[56px] shrink-0 rounded-sm object-cover" loading="lazy" /> : <div className="h-8 w-[56px] shrink-0 rounded-sm bg-muted" /> : null}
-                    <span className="flex-1 truncate text-sm">{entry.title}</span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm">{entry.title}</span>
+                      {isBulk ? (
+                        <span className="block truncate font-mono text-[11px] text-muted-foreground" data-testid={`bulk-row-url-${entry.id}`}>
+                          {bulkRowStatusKey ? <span className="font-sans">{t(bulkRowStatusKey)} · </span> : null}
+                          {entry.url}
+                        </span>
+                      ) : null}
+                    </span>
                     {isAlreadyDownloaded && <span className="shrink-0 rounded-sm bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{t('wizard.playlist.alreadyDownloaded')}</span>}
                     <span className="shrink-0 text-xs text-muted-foreground">{formatEntryDuration(entry.duration, liveLabel)}</span>
                   </div>

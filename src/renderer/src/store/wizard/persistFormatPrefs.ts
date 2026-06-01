@@ -12,7 +12,7 @@ import type { GetState, SetState } from '../types.js';
 export async function persistFormatPrefs(set: SetState, get: GetState): Promise<void> {
   const { selectedVideoFormatId, activePreset, audioSelection, wizardFormats, wizardSubtitleLanguages, settings, wizardMode, playlistSelection, wizardExtractor } = get();
   if (!settings) return;
-  const inPlaylist = wizardMode === 'playlist';
+  const inBatch = wizardMode === 'playlist' || wizardMode === 'bulk';
   // Single-mode persisted prefs are scoped to YouTube. Non-YT runs skip the
   // `single.*` patch so a Vimeo/PornHub formatId or "YouTube Music" subfolder
   // doesn't leak into the next YouTube probe. Common prefs (sponsorblock mode,
@@ -27,12 +27,12 @@ export async function persistFormatPrefs(set: SetState, get: GetState): Promise<
     embedThumbnail: get().wizardEmbedThumbnail,
     writeDescription: get().wizardWriteDescription,
     writeThumbnail: get().wizardWriteThumbnail,
-    writeM3u: get().wizardWriteM3u,
+    ...(wizardMode !== 'bulk' ? { writeM3u: get().wizardWriteM3u } : {}),
     lastSubfolderEnabled: get().wizardSubfolderEnabled,
     lastSubfolder: get().wizardSubfolderName.trim()
   };
 
-  if (inPlaylist) {
+  if (inBatch) {
     const playlist = {
       ...(playlistSelection ? { lastPlaylistSelection: playlistSelection } : {})
     };

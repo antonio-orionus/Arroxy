@@ -7,6 +7,7 @@ const aliasObj = {
   '@renderer': path.resolve('src/renderer/src'),
   '@shared': path.resolve('src/shared'),
   'electron-log/main.js': path.resolve('tests/__mocks__/electron-log-main.ts'),
+  'electron-log/renderer.js': path.resolve('tests/__mocks__/electron-log-renderer.ts'),
   electron: path.resolve('tests/__mocks__/electron.ts')
 };
 

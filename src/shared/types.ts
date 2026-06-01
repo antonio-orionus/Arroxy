@@ -6,7 +6,7 @@ export type { PreparedJob } from './preparedJob.js';
 // Re-export the enum types whose canonical definition lives in `schemas.ts`
 // (where they're z.enum schemas). Importing from `@shared/types` continues to
 // work for callers that don't care about the schema vs type distinction.
-export type { Preset, PlaylistSelection, PlaylistVideoTier, PlaylistAudioFormat, SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, QueueItemStatus, QueueLane, AudioConvertTarget, AudioBitrate, AudioConvert, AudioSelection, CookiesMode, CookiesBrowser, NetworkPacingPreset, QuickDownloadStatus } from './schemas.js';
+export type { Preset, PlaylistSelection, PlaylistVideoTier, PlaylistAudioFormat, SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, QueueItemStatus, QueueLane, AudioConvertTarget, AudioBitrate, AudioConvert, AudioSelection, CookiesMode, CookiesBrowser, NetworkPacingPreset, QuickDownloadStatus, WizardMode, BulkMetadataStatus, BulkMetadataItemStatus, BulkMetadataCancelReason, BulkUrlRejectReason } from './schemas.js';
 
 export type { StatusKey } from './schemas.js';
 export type { LocalizedError, YtDlpErrorKind } from './i18n/types.js';
@@ -220,6 +220,7 @@ interface ProbeCommon {
 
 export interface VideoProbeResult extends ProbeCommon {
   kind: 'video';
+  videoId?: string | null;
   formats: FormatOption[];
   title: string;
   thumbnail: string;

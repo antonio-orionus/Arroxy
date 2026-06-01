@@ -274,6 +274,7 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: { reas
   const site = siteForExtractor(extractor);
   return {
     kind: 'video',
+    videoId: typeof info.id === 'string' && info.id.length > 0 ? info.id : null,
     extractor,
     extractorKey: info.extractor_key ?? '',
     webpageUrl: info.webpage_url ?? jobUrl,

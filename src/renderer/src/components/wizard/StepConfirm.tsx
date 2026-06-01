@@ -23,6 +23,8 @@ export function StepConfirm(): JSX.Element {
   };
   const { wizardTitle, wizardThumbnail, wizardDuration, wizardWebpageUrl, wizardOutputDir, selectedVideoFormatId, audioSelection, activePreset, wizardFormats, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped, commonPaths, wizardSubfolderEnabled, wizardSubfolderName, addToQueue, addAndDownloadImmediately, back, playlistItems, selectedPlaylistItemIds, playlistSelection, playlistTitle, wizardMode, wizardExtractor, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardSponsorBlockMode, isSubmittingToQueue } = useAppStore();
   const inPlaylist = wizardMode === 'playlist';
+  const inBulk = wizardMode === 'bulk';
+  const inBatch = inPlaylist || inBulk;
 
   const effectiveSubtitleLanguages = wizardSubtitleSkipped ? [] : wizardSubtitleLanguages;
 
@@ -60,11 +62,11 @@ export function StepConfirm(): JSX.Element {
   // selections → "tracks". Video selections → "videos".
   const isAudioPlaylistPreset = !!playlistSelection && !playlistPresetSpec(playlistSelection).producesVideo;
   const itemsAreAudio = isAudioOnlySource(wizardExtractor) || isAudioPlaylistPreset;
-  const itemsValue = t(itemsAreAudio ? 'wizard.confirm.itemsValueAudio' : 'wizard.confirm.itemsValue', { count: selectedPlaylistItemIds.length, total: String(playlistItems.length) });
+  const itemsValue = inBulk ? t('wizard.confirm.itemsValueBulk', { count: selectedPlaylistItemIds.length, total: String(playlistItems.length) }) : t(itemsAreAudio ? 'wizard.confirm.itemsValueAudio' : 'wizard.confirm.itemsValue', { count: selectedPlaylistItemIds.length, total: String(playlistItems.length) });
 
-  const summaryRows: { key: string; label: string; value: string }[] = inPlaylist
+  const summaryRows: { key: string; label: string; value: string }[] = inBatch
     ? [
-        { key: 'playlist', label: t('wizard.confirm.labelPlaylist'), value: playlistTitle || '—' },
+        { key: 'playlist', label: t(inBulk ? 'wizard.confirm.labelBulk' : 'wizard.confirm.labelPlaylist'), value: inBulk ? t('wizard.bulk.title') : playlistTitle || '—' },
         { key: 'preset', label: t('wizard.confirm.labelPreset'), value: presetLabelStr || '—' },
         { key: 'items', label: t('wizard.confirm.labelItems'), value: itemsValue },
         { key: 'saveTo', label: t('wizard.confirm.labelSaveTo'), value: shortPath }
@@ -77,13 +79,13 @@ export function StepConfirm(): JSX.Element {
         { key: 'size', label: t('wizard.confirm.labelSize'), value: estimatedSize }
       ];
 
-  const hasNothingSelected = inPlaylist ? !playlistSelection || selectedPlaylistItemIds.length === 0 : selectedVideoFormatId === '' && audioSelection.kind === 'none' && effectiveSubtitleLanguages.length === 0;
+  const hasNothingSelected = inBatch ? !playlistSelection || selectedPlaylistItemIds.length === 0 : selectedVideoFormatId === '' && audioSelection.kind === 'none' && effectiveSubtitleLanguages.length === 0;
 
   // Only surface conflicts the user actively created through visible wizard steps.
   // subtitle-only skips the output + sponsorblock steps, so those options are never
   // shown to the user — silently sanitized in buildQueueItem but not displayed here.
   const USER_VISIBLE_CONFLICTS: ReadonlySet<string> = new Set(['thumbnailEmbedNotSupported', 'subtitleEmbedAudioOnly']);
-  const { conflicts: allConflicts } = !inPlaylist
+  const { conflicts: allConflicts } = !inBatch
     ? sanitizeJobOptions({
         isSubtitleOnly: activePreset === 'subtitle-only',
         hasVideoTrack: selectedVideoFormatId !== '',
@@ -98,7 +100,7 @@ export function StepConfirm(): JSX.Element {
 
   return (
     <div className="wizard-step flex flex-col gap-4" data-testid="step-confirm">
-      {!inPlaylist && <VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} resolution={selectedVideoFormatId !== '' ? videoResolution : undefined} webpageUrl={wizardWebpageUrl} />}
+      {!inBatch && <VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} resolution={selectedVideoFormatId !== '' ? videoResolution : undefined} webpageUrl={wizardWebpageUrl} />}
 
       {/* Mascot banner */}
       <div className="flex items-center gap-4 p-4 rounded-lg border border-[hsla(220,100%,56%,0.15)] bg-[var(--brand-dim)] shrink-0">
@@ -148,8 +150,8 @@ export function StepConfirm(): JSX.Element {
         <Button variant="ghost" type="button" onClick={back} data-testid="btn-back" disabled={isSubmittingToQueue} className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground">
           {t('common.back')}
         </Button>
-        {wizardMode === 'playlist' ? (
-          // Playlists always go through the queue — parallel-pulling N entries
+        {inBatch ? (
+          // Batch downloads always go through the queue — parallel-pulling N entries
           // would spike YouTube rate-limits and bot-detection. No Pull-it CTA.
           <Tooltip>
             <TooltipTrigger

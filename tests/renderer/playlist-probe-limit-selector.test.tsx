@@ -158,3 +158,85 @@ describe('playlist probe limit selector alert', () => {
     expect(api.downloads.probe).not.toHaveBeenCalled();
   });
 });
+
+describe('bulk playlist item metadata state', () => {
+  it('shows raw URLs and metadata progress while bulk details resolve', () => {
+    installApi();
+    useAppStore.setState({
+      initialized: true,
+      initializing: false,
+      settings: settings(50),
+      wizardStep: 'playlistItems',
+      wizardMode: 'bulk',
+      wizardUrl: '',
+      wizardExtractor: '',
+      wizardExtractorKey: '',
+      wizardWebpageUrl: '',
+      formatsLoading: false,
+      playlistProbeLoading: false,
+      wizardError: null,
+      wizardErrorOrigin: null,
+      playlistItems: [
+        { id: 'bulk-1', url: 'https://example.com/one', title: 'Bulk URL 1', thumbnail: '', playlistIndex: 1, videoId: null },
+        { id: 'bulk-2', url: 'https://example.com/two', title: 'Bulk URL 2', thumbnail: '', playlistIndex: 2, videoId: null }
+      ],
+      selectedPlaylistItemIds: ['bulk-1', 'bulk-2'],
+      playlistTitle: 'Bulk URLs',
+      playlistId: 'bulk',
+      playlistIsMultiVideo: false,
+      playlistLikelyCapped: false,
+      playlistSelection: { kind: 'video', tier: 'best', codec: 'best' },
+      bulkMetadataStatus: 'resolving',
+      bulkMetadataCompleted: 0,
+      bulkMetadataTotal: 2,
+      bulkMetadataById: { 'bulk-1': 'resolving', 'bulk-2': 'pending' },
+      syncedDownloadedIds: [],
+      syncScanState: 'idle',
+      queue: [],
+      drawerOpen: false
+    } as never);
+
+    render(<StepPlaylistItems />);
+
+    expect(screen.getByTestId('bulk-metadata-status')).toHaveTextContent('0/2');
+    expect(screen.getByRole('button', { name: 'Continue' })).toBeEnabled();
+  });
+
+  it('allows bulk continue after metadata probing has settled', () => {
+    installApi();
+    useAppStore.setState({
+      initialized: true,
+      initializing: false,
+      settings: settings(50),
+      wizardStep: 'playlistItems',
+      wizardMode: 'bulk',
+      wizardUrl: '',
+      wizardExtractor: '',
+      wizardExtractorKey: '',
+      wizardWebpageUrl: '',
+      formatsLoading: false,
+      playlistProbeLoading: false,
+      wizardError: null,
+      wizardErrorOrigin: null,
+      playlistItems: [{ id: 'bulk-1', url: 'https://example.com/one', title: 'Resolved One', thumbnail: '', playlistIndex: 1, videoId: 'one-id' }],
+      selectedPlaylistItemIds: ['bulk-1'],
+      playlistTitle: 'Bulk URLs',
+      playlistId: 'bulk',
+      playlistIsMultiVideo: false,
+      playlistLikelyCapped: false,
+      playlistSelection: { kind: 'video', tier: 'best', codec: 'best' },
+      bulkMetadataStatus: 'done',
+      bulkMetadataCompleted: 1,
+      bulkMetadataTotal: 1,
+      bulkMetadataById: { 'bulk-1': 'done' },
+      syncedDownloadedIds: [],
+      syncScanState: 'idle',
+      queue: [],
+      drawerOpen: false
+    } as never);
+
+    render(<StepPlaylistItems />);
+
+    expect(screen.getByRole('button', { name: 'Continue' })).toBeEnabled();
+  });
+});

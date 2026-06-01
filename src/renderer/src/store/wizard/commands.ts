@@ -5,8 +5,8 @@
 
 import { DEFAULTS } from '@shared/constants.js';
 import { DEFAULT_AUDIO_BITRATE } from '@shared/schemas.js';
-import type { FormatOption, PlaylistEntry, PlaylistSelection, SubtitleMap } from '@shared/types.js';
-import type { SetState, WizardMode, WizardStep } from '../types.js';
+import type { BulkMetadataItemStatus, BulkMetadataStatus, FormatOption, PlaylistEntry, PlaylistSelection, SubtitleMap, WizardMode } from '@shared/types.js';
+import type { SetState, WizardStep } from '../types.js';
 
 // Full wizard reset state — owned conceptually by the four slices but applied
 // in one set() call so the UI never sees a half-reset wizard. Per-slice reset
@@ -34,6 +34,10 @@ export const RESET_WIZARD_STATE = {
   playlistLikelyCapped: false,
   playlistProbeLoading: false,
   playlistSelection: null as PlaylistSelection | null,
+  bulkMetadataStatus: 'idle' as BulkMetadataStatus,
+  bulkMetadataCompleted: 0,
+  bulkMetadataTotal: 0,
+  bulkMetadataById: {} as Record<string, BulkMetadataItemStatus>,
   quickDownloadStatus: 'idle' as const,
   quickDownloadError: null as string | null,
   // formatPicker

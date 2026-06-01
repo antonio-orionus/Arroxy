@@ -48,6 +48,7 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
       probe: vi.fn().mockResolvedValue(
         ok({
           kind: 'video' as const,
+          videoId: 'dQw4w9WgXcQ',
           extractor: 'youtube',
           extractorKey: 'Youtube',
           webpageUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',

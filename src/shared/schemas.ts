@@ -87,6 +87,21 @@ export type UiTheme = z.infer<typeof uiThemeSchema>;
 export const quickDownloadStatusSchema = z.enum(['idle', 'preparing', 'queued', 'error']);
 export type QuickDownloadStatus = z.infer<typeof quickDownloadStatusSchema>;
 
+export const wizardModeSchema = z.enum(['single', 'playlist', 'bulk']);
+export type WizardMode = z.infer<typeof wizardModeSchema>;
+
+export const bulkMetadataStatusSchema = z.enum(['idle', 'resolving', 'done']);
+export type BulkMetadataStatus = z.infer<typeof bulkMetadataStatusSchema>;
+
+export const bulkMetadataItemStatusSchema = z.enum(['pending', 'resolving', 'done', 'failed']);
+export type BulkMetadataItemStatus = z.infer<typeof bulkMetadataItemStatusSchema>;
+
+export const bulkMetadataCancelReasonSchema = z.enum(['queue-submit', 'reset', 'back-to-url', 'start-new-bulk']);
+export type BulkMetadataCancelReason = z.infer<typeof bulkMetadataCancelReasonSchema>;
+
+export const bulkUrlRejectReasonSchema = z.enum(['duplicate', 'unsupported-playlist', 'unsupported-channel']);
+export type BulkUrlRejectReason = z.infer<typeof bulkUrlRejectReasonSchema>;
+
 export const cookiesModeSchema = z.enum(['off', 'file', 'browser']);
 export type CookiesMode = z.infer<typeof cookiesModeSchema>;
 

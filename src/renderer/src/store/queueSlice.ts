@@ -17,6 +17,7 @@ import type { EmbedOptions, SubtitleOptions } from '@shared/preparedJob.js';
 import { sanitizeJobOptions } from '@shared/sanitizeJobOptions.js';
 import { resolveOutputContainer } from './wizard/resolveContainer.js';
 import i18next from 'i18next';
+import { bulkLogger } from '@renderer/lib/bulkLogger.js';
 import type { GetState, SetState, QueueSlice } from './types.js';
 import { persistFormatPrefs } from './wizard/persistFormatPrefs.js';
 
@@ -164,8 +165,8 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, get: GetState, playlistGro
     lastStatus: null,
     error: null,
     finishedAt: null,
-    playlistGroupId,
-    writeM3u: state.wizardWriteM3u,
+    ...(state.wizardMode === 'playlist' ? { playlistGroupId } : {}),
+    writeM3u: state.wizardMode === 'playlist' ? state.wizardWriteM3u : false,
     job
   };
 }
@@ -177,10 +178,22 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
   // and end up with duplicate queue items. Pair with `isSubmittingToQueue`
   // being read by StepConfirm to also disable the buttons.
   if (get().isSubmittingToQueue) return;
+  const stateBeforeSubmit = get();
+  if (stateBeforeSubmit.wizardMode === 'bulk') {
+    bulkLogger.info('Bulk queue submission requested', {
+      lane,
+      selectedCount: stateBeforeSubmit.selectedPlaylistItemIds.length,
+      total: stateBeforeSubmit.playlistItems.length,
+      metadataStatus: stateBeforeSubmit.bulkMetadataStatus,
+      metadataCompleted: stateBeforeSubmit.bulkMetadataCompleted,
+      metadataTotal: stateBeforeSubmit.bulkMetadataTotal
+    });
+    get().cancelBulkMetadata('queue-submit');
+  }
   set({ isSubmittingToQueue: true });
   try {
     const { playlistItems, selectedPlaylistItemIds } = get();
-    if (get().wizardMode === 'playlist') {
+    if (get().wizardMode !== 'single') {
       const groupId = generateId();
       const selected = playlistItems.filter((e) => selectedPlaylistItemIds.includes(e.id));
       if (selected.length === 0) return;
@@ -194,16 +207,18 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
       // `selected` subset: the M3U is rebuilt from the manifest ∩ files-on-disk
       // (see buildM3u), so carrying every entry lets a sync re-add of a grown
       // playlist append the new videos to the complete ordered M3U.
-      try {
-        const manifestRes = await window.appApi.playlist.registerManifest({
-          playlistGroupId: groupId,
-          playlistTitle: get().playlistTitle || 'Playlist',
-          outputDir: baseDir,
-          items: playlistItems.map((e) => ({ videoId: e.videoId, title: e.title, duration: e.duration }))
-        });
-        if (!manifestRes.ok) console.warn('playlist manifest registration failed; M3U will be skipped', manifestRes.error);
-      } catch (err) {
-        console.warn('playlist manifest registration threw; M3U will be skipped', err);
+      if (get().wizardMode === 'playlist') {
+        try {
+          const manifestRes = await window.appApi.playlist.registerManifest({
+            playlistGroupId: groupId,
+            playlistTitle: get().playlistTitle || 'Playlist',
+            outputDir: baseDir,
+            items: playlistItems.map((e) => ({ videoId: e.videoId, title: e.title, duration: e.duration }))
+          });
+          if (!manifestRes.ok) console.warn('playlist manifest registration failed; M3U will be skipped', manifestRes.error);
+        } catch (err) {
+          console.warn('playlist manifest registration threw; M3U will be skipped', err);
+        }
       }
       await window.appApi.queue.cmd.add(items);
     } else {

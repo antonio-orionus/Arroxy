@@ -1,5 +1,6 @@
 import { clipboard, type BrowserWindow } from 'electron';
 import { IPC_CHANNELS } from '@shared/ipc.js';
+import { parseBulkUrls } from '@shared/bulkUrls.js';
 
 function isProbablyDownloadableUrl(input: string): boolean {
   try {
@@ -106,7 +107,8 @@ export class ClipboardWatcher {
     if (!text || text === this.lastSeen) return;
     this.lastSeen = text;
     const trimmed = text.trim();
-    if (!isProbablyDownloadableUrl(trimmed)) return;
+    const parsed = parseBulkUrls(trimmed);
+    if (!isProbablyDownloadableUrl(trimmed) && parsed.accepted.length < 2) return;
     if (this.window.isDestroyed()) return;
     this.window.send(IPC_CHANNELS.eventsClipboardUrl, trimmed);
   }

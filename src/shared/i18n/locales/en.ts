@@ -1,6 +1,7 @@
 const en = {
   common: {
     back: 'Back',
+    cancel: 'Cancel',
     continue: 'Continue',
     retry: 'Retry',
     startOver: 'Start over'
@@ -92,10 +93,17 @@ const en = {
     },
     playlist: {
       heading: 'Playlist items',
+      bulkHeading: 'Bulk URLs',
       itemCount_one: '{{count}} video',
       itemCount_other: '{{count}} videos',
       itemCountAudio_one: '{{count}} track',
       itemCountAudio_other: '{{count}} tracks',
+      itemCountBulk_one: '{{count}} URL',
+      itemCountBulk_other: '{{count}} URLs',
+      bulkMetadataResolving: 'Fetching video details… {{done}}/{{total}}',
+      bulkRowWaiting: 'Waiting',
+      bulkRowResolving: 'Fetching details',
+      bulkRowFailed: 'Details unavailable',
       selectAll: 'Select all',
       selectNone: 'Select none',
       rangeFrom: 'From',
@@ -117,6 +125,22 @@ const en = {
       alreadyDownloaded: 'Already downloaded',
       probeLimitAlertTitle: 'Playlist scan is capped',
       probeLimitAlertDesc: 'Arroxy found more than {{count}} items, so the current scan limit is hiding the rest.'
+    },
+    bulk: {
+      title: 'Bulk URLs',
+      description: 'Paste individual video or audio URLs. Arroxy will clean duplicates and flag playlist or channel links before queueing.',
+      textareaLabel: 'URL list',
+      textareaPlaceholder: 'https://example.com/video-1\nhttps://example.com/video-2\nhttps://example.com/video-3',
+      acceptedCount: 'Ready',
+      ignoredCount: 'Ignored',
+      emptyPreview: 'Paste at least two URLs to preview the batch.',
+      needsTwo: 'Add at least two supported URLs to continue.',
+      confirm: 'Use these URLs',
+      reject: {
+        duplicate: 'Duplicate',
+        playlist: 'Use playlist flow',
+        channel: 'Use channel flow'
+      }
     },
     mixedPrompt: {
       title: 'This link has a playlist',
@@ -141,6 +165,8 @@ const en = {
       quickProbeFailed: 'Probe failed',
       quickPrepareFailed: 'Queue item could not be prepared',
       quickFailed: "Couldn't add this one: {{error}}",
+      bulkButton: 'Bulk URLs',
+      bulkTooltip: 'Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset.',
       features: {
         heading: 'What Arroxy can pull',
         youtube: {
@@ -174,6 +200,11 @@ const en = {
         dialog: {
           title: 'Video URL detected',
           body: 'Use this link from your clipboard?',
+          bulkTitle: 'Bulk URLs detected',
+          bulkBody: 'Use these clipboard links as a bulk download?',
+          bulkSummary: '{{count}} URLs ready',
+          bulkIgnored: '{{count}} ignored',
+          bulkButton: 'Bulk download',
           useButton: 'Use URL',
           disableButton: 'Disable',
           cancelButton: 'Cancel',
@@ -443,12 +474,15 @@ const en = {
       pullIt: 'Pull it! ↓',
       pullItTooltip: 'Skips the queue — starts now, runs alongside other active downloads',
       labelPlaylist: 'Playlist',
+      labelBulk: 'Batch',
       labelPreset: 'Preset',
       labelItems: 'Items',
       itemsValue_one: '{{count}} of {{total}} video',
       itemsValue_other: '{{count}} of {{total}} videos',
       itemsValueAudio_one: '{{count}} of {{total}} track',
-      itemsValueAudio_other: '{{count}} of {{total}} tracks'
+      itemsValueAudio_other: '{{count}} of {{total}} tracks',
+      itemsValueBulk_one: '{{count}} of {{total}} URL',
+      itemsValueBulk_other: '{{count}} of {{total}} URLs'
     }
   },
   videoCard: {

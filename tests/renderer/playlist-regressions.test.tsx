@@ -327,4 +327,88 @@ describe('playlist regressions', () => {
     const items = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? [];
     expect(items[0]?.writeM3u).toBe(true);
   });
+
+  it('bulk queues one item per selected URL without registering a playlist manifest', async () => {
+    window.appApi = buildMockApi() as never;
+
+    useAppStore.setState({
+      initialized: true,
+      settings: buildAppSettings(),
+      wizardMode: 'bulk',
+      playlistTitle: 'Bulk URLs',
+      playlistItems: [
+        { id: 'bulk-1', url: 'https://vimeo.com/1', title: 'Bulk URL 1', thumbnail: '', playlistIndex: 1, videoId: null },
+        { id: 'bulk-2', url: 'https://example.com/video/2', title: 'Bulk URL 2', thumbnail: '', playlistIndex: 2, videoId: null }
+      ],
+      selectedPlaylistItemIds: ['bulk-1', 'bulk-2'],
+      playlistSelection: { kind: 'video', tier: '1080', codec: 'best' },
+      wizardOutputDir: '/tmp/out',
+      wizardWriteM3u: false
+    } as never);
+
+    await act(async () => {
+      await useAppStore.getState().addToQueue();
+    });
+
+    const items = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? [];
+    expect(items).toHaveLength(2);
+    expect(items.map((item) => item.url)).toEqual(['https://vimeo.com/1', 'https://example.com/video/2']);
+    expect(items.every((item) => item.job.kind === 'playlist-preset')).toBe(true);
+    expect(items.every((item) => item.writeM3u === false)).toBe(true);
+    expect(window.appApi.playlist.registerManifest).not.toHaveBeenCalled();
+  });
+
+  it('cancels resolving bulk metadata before queue submission can start downloads', async () => {
+    window.appApi = buildMockApi() as never;
+
+    useAppStore.setState({
+      initialized: true,
+      settings: buildAppSettings(),
+      wizardMode: 'bulk',
+      bulkMetadataStatus: 'resolving',
+      bulkMetadataCompleted: 0,
+      bulkMetadataTotal: 2,
+      bulkMetadataById: { 'bulk-1': 'resolving', 'bulk-2': 'pending' },
+      playlistTitle: 'Bulk URLs',
+      playlistItems: [
+        { id: 'bulk-1', url: 'https://vimeo.com/1', title: 'Bulk URL 1', thumbnail: '', playlistIndex: 1, videoId: null },
+        { id: 'bulk-2', url: 'https://example.com/video/2', title: 'Bulk URL 2', thumbnail: '', playlistIndex: 2, videoId: null }
+      ],
+      selectedPlaylistItemIds: ['bulk-1', 'bulk-2'],
+      playlistSelection: { kind: 'video', tier: '1080', codec: 'best' },
+      wizardOutputDir: '/tmp/out',
+      wizardWriteM3u: false
+    } as never);
+
+    await act(async () => {
+      await useAppStore.getState().addToQueue();
+    });
+
+    expect(window.appApi.downloads.probeCancel).toHaveBeenCalled();
+    expect(window.appApi.queue.cmd.add).toHaveBeenCalled();
+    expect(vi.mocked(window.appApi.downloads.probeCancel).mock.invocationCallOrder[0]).toBeLessThan(vi.mocked(window.appApi.queue.cmd.add).mock.invocationCallOrder[0] ?? Infinity);
+  });
+
+  it('bulk persists the batch playlist preset preference', async () => {
+    window.appApi = buildMockApi() as never;
+
+    const selection = { kind: 'audio' as const, format: 'mp3' as const, bitrateKbps: 192 as const };
+    useAppStore.setState({
+      initialized: true,
+      settings: buildAppSettings(),
+      wizardMode: 'bulk',
+      playlistTitle: 'Bulk URLs',
+      playlistItems: [{ id: 'bulk-1', url: 'https://vimeo.com/1', title: 'Bulk URL 1', thumbnail: '', playlistIndex: 1, videoId: null }],
+      selectedPlaylistItemIds: ['bulk-1'],
+      playlistSelection: selection,
+      wizardOutputDir: '/tmp/out',
+      wizardWriteM3u: false
+    } as never);
+
+    await act(async () => {
+      await useAppStore.getState().addToQueue();
+    });
+
+    expect(window.appApi.settings.update).toHaveBeenCalledWith(expect.objectContaining({ playlist: { lastPlaylistSelection: selection } }));
+  });
 });

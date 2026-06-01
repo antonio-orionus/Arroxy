@@ -1,16 +1,15 @@
 import type { StoreApi } from 'zustand';
-import type { AppSettings, AudioBitrate, CookiesBrowser, CookiesMode, DependencyDiagnostic, DependencyId, FormatOption, PlaylistEntry, PlaylistSelection, Preset, ProbeError, ProbeDegradationReason, QueueItem, QueueLane, QuickDownloadStatus, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme } from '@shared/types.js';
+import type { AppSettings, AudioBitrate, BulkMetadataCancelReason, BulkMetadataItemStatus, BulkMetadataStatus, CookiesBrowser, CookiesMode, DependencyDiagnostic, DependencyId, FormatOption, PlaylistEntry, PlaylistSelection, Preset, ProbeError, ProbeDegradationReason, QueueItem, QueueLane, QuickDownloadStatus, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, WizardMode } from '@shared/types.js';
 import type { AudioSelection } from '@shared/schemas.js';
 import type { IncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 export type { AudioSelection };
+export type { BulkMetadataCancelReason, BulkMetadataItemStatus, BulkMetadataStatus, WizardMode } from '@shared/types.js';
 export type WizardStep = 'url' | 'playlistItems' | 'playlistPresets' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error';
 export type AdvancedSettingsTarget = 'cookies' | 'network';
 
 // Explicit mode tag so consumers don't re-derive intent from
 // `playlistItems.length > 0`. `single` = format-probe flow; `playlist` =
 // flat-probe + preset flow. Set on probe entry, cleared on reset.
-export type WizardMode = 'single' | 'playlist';
-
 export type SetState = StoreApi<AppState>['setState'];
 export type GetState = StoreApi<AppState>['getState'];
 
@@ -50,6 +49,10 @@ export interface ProbeOrchestratorSlice {
   playlistLikelyCapped: boolean;
   playlistProbeLoading: boolean;
   playlistSelection: PlaylistSelection | null;
+  bulkMetadataStatus: BulkMetadataStatus;
+  bulkMetadataCompleted: number;
+  bulkMetadataTotal: number;
+  bulkMetadataById: Record<string, BulkMetadataItemStatus>;
   quickDownloadStatus: QuickDownloadStatus;
   quickDownloadError: string | null;
 
@@ -62,6 +65,8 @@ export interface ProbeOrchestratorSlice {
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
   quickDownload: () => Promise<void>;
+  startBulkUrls: (urls: string[]) => void;
+  cancelBulkMetadata: (reason?: BulkMetadataCancelReason) => void;
   dismissMixedPrompt: (choice: 'video' | 'playlist') => Promise<void>;
   setPlaylistItemSelected: (id: string, checked: boolean) => void;
   selectAllPlaylistItems: () => void;
