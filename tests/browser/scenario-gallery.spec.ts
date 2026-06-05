@@ -49,7 +49,7 @@ test('playlist count presets in gallery navigate to ?playlist=n', async ({ page 
   await expect(page.getByTestId('playlist-preset-101')).toBeVisible();
 });
 
-test('normal happy path scenarios land on their natural screens', async ({ page }) => {
+test('screen preset scenarios land on their natural screens', async ({ page }) => {
   await openScenario(page, 'single-normal');
   await expect(page.getByTestId('step-formats')).toBeVisible({ timeout: 6_000 });
 
@@ -57,7 +57,7 @@ test('normal happy path scenarios land on their natural screens', async ({ page 
   await expect(page.getByTestId('step-playlist-items')).toBeVisible({ timeout: 6_000 });
 });
 
-test('mockStep opens normal happy paths directly to confirm', async ({ page }) => {
+test('mockStep opens screen presets directly to confirm', async ({ page }) => {
   await openWithParams(page, 'scenario=single-normal&mockStep=confirm');
   await expect(page.getByTestId('step-confirm')).toBeVisible({ timeout: 6_000 });
 
@@ -65,12 +65,13 @@ test('mockStep opens normal happy paths directly to confirm', async ({ page }) =
   await expect(page.getByTestId('step-confirm')).toBeVisible({ timeout: 6_000 });
 });
 
-test('normal happy path scenarios expose the screen picker', async ({ page }) => {
+test('screen preset scenarios expose the screen picker', async ({ page }) => {
   await openScenario(page, 'single-normal');
   await page.getByTestId('scenario-gallery-toggle').click();
   await expect(page.getByTestId('scenario-button-single-normal')).toBeVisible();
   await expect(page.getByTestId('scenario-button-playlist-normal')).toBeVisible();
   await expect(page.getByTestId('scenario-button-playlist-scope-empty-reload')).toBeVisible();
+  await expect(page.getByTestId('scenario-button-bulk-stress')).toBeVisible();
   await expect(page.getByTestId('mock-step-select')).toBeVisible();
 });
 
@@ -131,6 +132,35 @@ test('screenshots - playlist cap alert across viewports', async ({ page }) => {
     await waitForSplashToLeave(page);
     await page.screenshot({
       path: `tests/browser/screenshots/scenario-playlist-over-limit-${viewport.width}.png`,
+      fullPage: false
+    });
+  }
+});
+
+test('screenshots - bulk stress workbench state across viewports', async ({ page }) => {
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 768, height: 900 },
+    { width: 1200, height: 900 }
+  ]) {
+    await page.setViewportSize(viewport);
+    await openScenario(page, 'bulk-stress');
+    await expect(page.getByTestId('step-playlist-items')).toBeVisible({ timeout: 6_000 });
+    await expect(page.getByTestId('bulk-metadata-status')).toContainText('/50');
+    await expect(page.locator('[role="checkbox"][data-index="0"]')).toBeVisible();
+    await expect(page.getByText('Fetching details').first()).toBeVisible();
+    await expect(page.getByText('Waiting').first()).toBeVisible();
+    await expect(page.getByText('Details unavailable').first()).toBeVisible();
+
+    const scroller = page.locator('[data-testid="step-playlist-items"] .overflow-y-auto').last();
+    await scroller.evaluate((element) => {
+      element.scrollTop = element.scrollHeight;
+    });
+    await expect(page.locator('[role="checkbox"][data-index="49"]')).toBeVisible();
+
+    await waitForSplashToLeave(page);
+    await page.screenshot({
+      path: `tests/browser/screenshots/scenario-bulk-stress-${viewport.width}.png`,
       fullPage: false
     });
   }

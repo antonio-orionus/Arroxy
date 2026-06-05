@@ -1,6 +1,10 @@
 import { EventEmitter } from 'node:events';
-import { describe, expect, it, vi, beforeEach } from 'vitest';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { YtDlp, redactYtDlpArgsForLog } from '@main/services/YtDlp.js';
+import { resolveE2eHarnessMode, type E2eHarnessMode } from '@main/e2eHarness.js';
 import { EMBED_CONTAINER_EXT } from '@shared/subtitlePath.js';
 
 vi.mock('@main/utils/process', async (importOriginal) => {
@@ -12,6 +16,7 @@ import { spawnYtDlp } from '@main/utils/process.js';
 
 const URL = 'https://www.youtube.com/watch?v=test';
 const OUTPUT_DIR = '/downloads';
+const tempRoots: string[] = [];
 
 function makeFakeProcess(exitCode = 0) {
   const proc = Object.assign(new EventEmitter(), {
@@ -29,6 +34,7 @@ function makeYtDlp(
     token?: string;
     visitorData?: string;
     denoPath?: string | null;
+    e2eMode?: E2eHarnessMode;
   } = {}
 ) {
   const tokenService = {
@@ -46,7 +52,7 @@ function makeYtDlp(
     ensureFFprobe: vi.fn().mockResolvedValue(null)
   };
   const settingsStore = { get: vi.fn().mockResolvedValue({ common: opts.settings ?? {}, single: {}, playlist: {} }) };
-  return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never);
+  return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never, { e2eMode: opts.e2eMode });
 }
 
 function getArgs(callIndex = 0): string[] {
@@ -57,6 +63,20 @@ beforeEach(() => {
   vi.clearAllMocks();
   vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(0) as never);
 });
+
+afterEach(() => {
+  for (const root of tempRoots.splice(0)) {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
+function makePluginRoot(): string {
+  const parent = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-ytdlp-plugin-parent-'));
+  const root = path.join(parent, 'yt-dlp-plugins');
+  tempRoots.push(parent);
+  fs.mkdirSync(path.join(root, 'yt_dlp_plugins'), { recursive: true });
+  return root;
+}
 
 describe('redactYtDlpArgsForLog', () => {
   it('redacts PO token, visitor data, and proxy credentials without changing real spawn args', () => {
@@ -70,6 +90,27 @@ describe('redactYtDlpArgsForLog', () => {
 
   it('keeps non-sensitive extractor args visible', () => {
     expect(redactYtDlpArgsForLog(['--extractor-args', 'youtube:player_client=default,-web,-web_safari'])).toEqual(['--extractor-args', 'youtube:player_client=default,-web,-web_safari']);
+  });
+});
+
+describe('YtDlp — E2E harness args', () => {
+  it('prepends deterministic plugin args and --newline for download runs only in gated E2E mode', async () => {
+    const pluginRoot = makePluginRoot();
+    const e2eMode = resolveE2eHarnessMode({ ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: pluginRoot }, { isPackaged: false });
+
+    await makeYtDlp({ e2eMode }).run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
+
+    expect(getArgs().slice(0, 5)).toEqual(['--ignore-config', '--plugin-dirs', path.dirname(pluginRoot), '--no-cache-dir', '--newline']);
+  });
+
+  it('prepends deterministic plugin args without --newline for probe runs', async () => {
+    const pluginRoot = makePluginRoot();
+    const e2eMode = resolveE2eHarnessMode({ ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: pluginRoot }, { isPackaged: false });
+
+    await makeYtDlp({ e2eMode }).run({ kind: 'probe', url: URL });
+
+    expect(getArgs().slice(0, 4)).toEqual(['--ignore-config', '--plugin-dirs', path.dirname(pluginRoot), '--no-cache-dir']);
+    expect(getArgs()).not.toContain('--newline');
   });
 });
 
@@ -664,6 +705,60 @@ describe('YtDlp — output embed flags', () => {
   });
 });
 
+describe('YtDlp — SponsorBlock args', () => {
+  function expectNoSponsorBlockArgs(args: string[]): void {
+    expect(args).not.toContain('--sponsorblock-mark');
+    expect(args).not.toContain('--sponsorblock-remove');
+  }
+
+  it('mark mode adds --sponsorblock-mark without implying chapter embedding', async () => {
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      sponsorBlock: { mode: 'mark', categories: ['sponsor', 'selfpromo'] }
+    });
+
+    const args = getArgs();
+    expect(args).toContain('--sponsorblock-mark');
+    expect(args[args.indexOf('--sponsorblock-mark') + 1]).toBe('sponsor,selfpromo');
+    expect(args).not.toContain('--sponsorblock-remove');
+    expect(args).not.toContain('--embed-chapters');
+  });
+
+  it('remove mode adds --sponsorblock-remove without implying chapter embedding', async () => {
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      sponsorBlock: { mode: 'remove', categories: ['sponsor', 'intro', 'outro'] }
+    });
+
+    const args = getArgs();
+    expect(args).toContain('--sponsorblock-remove');
+    expect(args[args.indexOf('--sponsorblock-remove') + 1]).toBe('sponsor,intro,outro');
+    expect(args).not.toContain('--sponsorblock-mark');
+    expect(args).not.toContain('--embed-chapters');
+  });
+
+  it('off mode reaches YtDlp as no sponsorBlock config', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
+
+    expectNoSponsorBlockArgs(getArgs());
+  });
+
+  it('empty categories omit SponsorBlock args', async () => {
+    await makeYtDlp().run({
+      kind: 'video',
+      url: URL,
+      outputDir: OUTPUT_DIR,
+      sponsorBlock: { mode: 'mark', categories: [] }
+    });
+
+    expectNoSponsorBlockArgs(getArgs());
+  });
+});
+
 describe('YtDlp — sidecar flags', () => {
   it('writeDescription=true on kind=video → --write-description present', async () => {
     await makeYtDlp().run({
@@ -873,6 +968,27 @@ describe('YtDlp — network pacing', () => {
     expect(args).not.toContain('--sleep-requests');
     expect(getArgValue(args, '--sleep-interval')).toBe('1');
     expect(getArgValue(args, '--max-sleep-interval')).toBe('3');
+  });
+
+  it('video downloads abort on unavailable fragments and back off fragment retries', async () => {
+    await makeYtDlp().run({ kind: 'video', url: URL, outputDir: OUTPUT_DIR });
+    const args = getArgs();
+    expect(args).toContain('--abort-on-unavailable-fragments');
+    expect(getArgValue(args, '--retry-sleep')).toBe('fragment:exp=1:20');
+  });
+
+  it('fragment hardening does not apply to probes or subtitle-only downloads', async () => {
+    vi.mocked(spawnYtDlp)
+      .mockReturnValueOnce(makeFakeProcess(0) as never)
+      .mockReturnValueOnce(makeFakeProcess(0) as never);
+
+    await makeYtDlp().run({ kind: 'probe', url: URL });
+    await makeYtDlp().run({ kind: 'subtitle', url: URL, outputDir: OUTPUT_DIR, subtitleLanguages: ['en'], subtitleFormat: 'srt' });
+
+    expect(getArgs(0)).not.toContain('--abort-on-unavailable-fragments');
+    expect(getArgs(0)).not.toContain('--retry-sleep');
+    expect(getArgs(1)).not.toContain('--abort-on-unavailable-fragments');
+    expect(getArgs(1)).not.toContain('--retry-sleep');
   });
 
   it('custom preset applies subtitle sleep to subtitle requests', async () => {

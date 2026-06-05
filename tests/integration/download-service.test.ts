@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mkdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -37,8 +37,18 @@ function makeService() {
   return { service, recentJobsStore };
 }
 
+afterEach(() => {
+  vi.useRealTimers();
+});
+
+async function finishMockDownloadTimers(): Promise<void> {
+  await vi.advanceTimersByTimeAsync(2_500);
+  await Promise.resolve();
+}
+
 describe('DownloadService (mock mode)', () => {
   it('starts and emits lifecycle events', async () => {
+    vi.useFakeTimers();
     const { service, recentJobsStore } = makeService();
     const statuses: string[] = [];
     service.on('status', (event) => statuses.push(event.stage));
@@ -50,7 +60,7 @@ describe('DownloadService (mock mode)', () => {
     });
 
     expect(result.ok).toBe(true);
-    await new Promise((resolve) => setTimeout(resolve, 3200));
+    await finishMockDownloadTimers();
     expect(statuses).toContain('setup');
     expect(statuses).toContain('token');
     expect(statuses).toContain('download');
@@ -76,6 +86,7 @@ describe('DownloadService (mock mode)', () => {
   });
 
   it('allows two downloads to start concurrently', async () => {
+    vi.useFakeTimers();
     const { service, recentJobsStore } = makeService();
 
     const [r1, r2] = await Promise.all([service.start({ url: 'https://youtube.com/watch?v=1', outputDir: '/tmp', job: DEFAULT_JOB }), service.start({ url: 'https://youtube.com/watch?v=2', outputDir: '/tmp', job: DEFAULT_JOB })]);
@@ -83,11 +94,12 @@ describe('DownloadService (mock mode)', () => {
     expect(r1.ok).toBe(true);
     expect(r2.ok).toBe(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 3200));
+    await finishMockDownloadTimers();
     expect(recentJobsStore.push).toHaveBeenCalledTimes(2);
   });
 
   it('cancel(jobId) cancels only the specified job, not others', async () => {
+    vi.useFakeTimers();
     const { service, recentJobsStore } = makeService();
 
     const [r1, r2] = await Promise.all([service.start({ url: 'https://youtube.com/watch?v=1', outputDir: '/tmp', job: DEFAULT_JOB }), service.start({ url: 'https://youtube.com/watch?v=2', outputDir: '/tmp', job: DEFAULT_JOB })]);
@@ -100,7 +112,7 @@ describe('DownloadService (mock mode)', () => {
     expect(cancelResult.ok).toBe(true);
     if (cancelResult.ok) expect(cancelResult.data.cancelled).toBe(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 3200));
+    await finishMockDownloadTimers();
 
     const statuses = recentJobsStore.push.mock.calls.map((c) => c[0].status);
     expect(statuses).toContain('cancelled');
@@ -155,6 +167,7 @@ describe('DownloadService (mock mode)', () => {
   });
 
   it('resume() re-runs a paused mock job under the same id', async () => {
+    vi.useFakeTimers();
     const { service } = makeService();
 
     const startResult = await service.start({
@@ -174,9 +187,11 @@ describe('DownloadService (mock mode)', () => {
 
     const pausedJobs = (service as unknown as { pausedJobs: Map<string, unknown> }).pausedJobs;
     expect(pausedJobs.has(jobId)).toBe(false);
+    await finishMockDownloadTimers();
   });
 
   it('resume() restores tempDir from PausedDownload onto the new ActiveDownload when dir still exists', async () => {
+    vi.useFakeTimers();
     const { service } = makeService();
 
     // Resume validates the preserved tempDir exists on disk; create one in
@@ -215,12 +230,14 @@ describe('DownloadService (mock mode)', () => {
       const activeJobs = (service as unknown as { activeJobs: Map<string, ActiveDownload> }).activeJobs;
       const active = activeJobs.get(pausedJob.id);
       expect(active?.tempDir).toBe(tempDir);
+      await finishMockDownloadTimers();
     } finally {
       await rm(outputDir, { recursive: true, force: true });
     }
   });
 
   it('resume() drops tempDir when the preserved path no longer exists', async () => {
+    vi.useFakeTimers();
     const { service } = makeService();
 
     const pausedJob: DownloadJob = {
@@ -253,6 +270,7 @@ describe('DownloadService (mock mode)', () => {
     const activeJobs = (service as unknown as { activeJobs: Map<string, ActiveDownload> }).activeJobs;
     const active = activeJobs.get(pausedJob.id);
     expect(active?.tempDir).toBeUndefined();
+    await finishMockDownloadTimers();
   });
 
   it('resume() returns { resumed: false } for unknown jobId (renderer falls back to start)', async () => {

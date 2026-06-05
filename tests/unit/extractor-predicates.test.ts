@@ -18,8 +18,17 @@ describe('isYouTubeExtractor', () => {
     expect(isYouTubeExtractor('YOUTUBE:TAB')).toBe(true);
   });
 
+  it('accepts yt-dlp plugin suffixes on canonical YouTube extractor names', () => {
+    expect(isYouTubeExtractor('youtube+arroxyfixture')).toBe(true);
+    expect(isYouTubeExtractor('YouTube:Tab+ArroxyFixture')).toBe(true);
+  });
+
   it.each(['vimeo', 'pornhub', 'PornHubPagedVideoList', 'qqmusic', 'bandcamp', 'soundcloud'])('rejects %s', (name) => {
     expect(isYouTubeExtractor(name)).toBe(false);
+  });
+
+  it('rejects yt-dlp plugin suffixes on non-YouTube extractor names', () => {
+    expect(isYouTubeExtractor('vimeo+arroxyfixture')).toBe(false);
   });
 
   it('rejects empty / nullish inputs', () => {

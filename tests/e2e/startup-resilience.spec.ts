@@ -51,17 +51,39 @@ test('seeded pending queue → drawer hydrates from persisted store', async () =
   // Write a queue.json that has one pending item — simulates an unfinished
   // download from a previous session. The app should re-hydrate it and open
   // the drawer automatically.
+  const outputDir = os.tmpdir();
   const queueData = {
     items: [
       {
         id: 'test-item-1',
         url: 'https://www.youtube.com/watch?v=seeded',
-        outputDir: os.tmpdir(),
+        title: 'Seeded pending item',
+        thumbnail: '',
+        outputDir,
+        formatLabel: '720p · mp4',
         status: 'pending',
-        label: 'Seeded pending item',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        progressPercent: 0
+        lane: 'normal',
+        progressPercent: 0,
+        progressDetail: null,
+        lastStatus: null,
+        error: null,
+        finishedAt: null,
+        writeM3u: true,
+        job: {
+          kind: 'single-format',
+          extractor: 'youtube',
+          extractorKey: 'Youtube',
+          formatId: '22',
+          preset: 'custom',
+          sponsorBlock: { mode: 'off' },
+          embed: {
+            chapters: false,
+            metadata: false,
+            thumbnail: false,
+            description: false,
+            thumbnailSidecar: false
+          }
+        }
       }
     ]
   };
@@ -71,11 +93,9 @@ test('seeded pending queue → drawer hydrates from persisted store', async () =
   const page = await app.firstWindow();
 
   await expect(page.locator('[data-testid="app-root"]')).toBeVisible({ timeout: 15_000 });
-
-  // The queue hydrated — at least one item should appear in the DOM.
-  // The drawer auto-opens when the queue is non-empty on launch.
-  // We look for any queue item card; exact label may vary by mock backend behavior.
-  await expect(page.locator('[data-testid="app-root"]')).toBeVisible();
+  await expect(page.locator('[data-testid="drawer-body"]')).toBeVisible();
+  await expect(page.locator('[data-testid="queue-card-test-item-1"]')).toHaveAttribute('data-status', 'pending');
+  await expect(page.locator('[data-testid="queue-card-test-item-1"] [data-testid="queue-title"]')).toContainText('Seeded pending item');
 
   await app.close();
 });

@@ -234,9 +234,15 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
         });
       }
 
-      const [warmUpResult, snapshotResult] = await Promise.all([warmUpPromise, snapshotPromise]);
-      if (snapshotResult.ok) set({ queue: snapshotResult.data });
+      const snapshotResult = await snapshotPromise;
+      if (snapshotResult.ok) {
+        set({
+          queue: snapshotResult.data,
+          ...(snapshotResult.data.length > 0 ? { drawerOpen: true } : {})
+        });
+      }
 
+      const warmUpResult = await warmUpPromise;
       const warmupDiagnostics = warmUpResult.ok ? warmUpResult.data.dependencies : null;
       const warmupBlocking = warmUpResult.ok ? warmUpResult.data.blockingFailures : [];
 

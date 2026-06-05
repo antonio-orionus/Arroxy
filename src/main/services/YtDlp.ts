@@ -12,6 +12,7 @@ import { resolveEmbedPolicy } from '@shared/embedPolicy.js';
 import { resolveNetworkPacing, resolvePlaylistProbeLimit } from '@shared/networkPacing.js';
 import { describePlaylistScopeForLog, playlistScopeSentinelFields } from '@shared/playlistScope.js';
 import { DEFAULT_PLAYLIST_PROBE_LIMIT, type NetworkPacingArgs } from '@shared/constants.js';
+import type { E2eHarnessMode } from '@main/e2eHarness.js';
 import type { BinaryManager } from './BinaryManager.js';
 import type { TokenService } from './TokenService.js';
 import type { SettingsStore } from '@main/stores/SettingsStore.js';
@@ -162,6 +163,7 @@ interface InvokeOptions {
   ytDlpPath: string;
   ffmpegPath: string | null;
   denoPath: string | null;
+  e2eMode?: E2eHarnessMode;
   args: string[];
   tokenService: TokenService;
   cookies?: ResolvedCookies | null;
@@ -234,7 +236,8 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
   // yt-dlp's frozen-Python `shutil.which('ffmpeg')` reads the original `Path`
   // (without ffmpegDir) → "Preprocessing/Postprocessing: ffmpeg not found".
   const ffmpegLocationArgs = opts.ffmpegPath ? ['--ffmpeg-location', opts.ffmpegPath] : [];
-  const args = [...ffmpegLocationArgs, ...extractorArgsArr, ...cookiesArgs, ...proxyArgs, ...limitRateArgs, ...jsRuntimeArgs, ...opts.args];
+  const e2eArgs = opts.e2eMode?.ytDlpArgs({ isProbe: opts.isProbe === true }) ?? [];
+  const args = [...e2eArgs, ...ffmpegLocationArgs, ...extractorArgsArr, ...cookiesArgs, ...proxyArgs, ...limitRateArgs, ...jsRuntimeArgs, ...opts.args];
 
   ytDlpLog.info('spawn', {
     attempt: strategy.kind,
@@ -259,7 +262,7 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
     });
   }
   return new Promise<YtDlpResult>((resolve) => {
-    const proc = spawnYtDlp(opts.ytDlpPath, args, opts.ffmpegPath);
+    const proc = spawnYtDlp(opts.ytDlpPath, args, opts.ffmpegPath, opts.e2eMode);
     let stdout = '';
     let stderr = '';
     let settled = false;
@@ -447,8 +450,9 @@ export function buildVideoArgs(req: Extract<YtDlpRequest, { kind: 'video' | 'vid
     // ranged HTTP that frequently truncates mid-body, surfacing as
     // "X bytes read, Y more expected. Retrying ...". Splitting into 10MB
     // ranges sidesteps the truncation. Doubled retry budgets cover the
-    // long tail when YT throttles a chunk hard.
-    args.push('--continue', '--http-chunk-size', '10M', '--retries', '20', '--fragment-retries', '20');
+    // long tail when YT throttles a chunk hard. Abort unavailable fragments
+    // instead of accepting a "successful" file with missing media.
+    args.push('--continue', '--http-chunk-size', '10M', '--retries', '20', '--fragment-retries', '20', '--retry-sleep', 'fragment:exp=1:20', '--abort-on-unavailable-fragments');
   }
 
   const forcesMkv = req.kind === 'video+embed' && req.subtitleLanguages.length > 0;
@@ -566,7 +570,8 @@ export class YtDlp {
   constructor(
     private readonly binaryManager: BinaryManager,
     private readonly tokenService: TokenService,
-    private readonly settingsStore: SettingsStore
+    private readonly settingsStore: SettingsStore,
+    private readonly opts: { e2eMode?: E2eHarnessMode } = {}
   ) {}
 
   // Call once at job start to emit binary-setup status events.
@@ -579,7 +584,7 @@ export class YtDlp {
     // injection picks up both. We don't need to track the path separately —
     // yt-dlp's post-processors discover it via PATH.
     await this.binaryManager.ensureFFprobe(onStatus);
-    this._denoPath = await this.binaryManager.ensureDeno(onStatus);
+    this._denoPath = this.opts.e2eMode?.skipDeno ? null : await this.binaryManager.ensureDeno(onStatus);
   }
 
   get ffmpegPath(): string | null {
@@ -612,6 +617,7 @@ export class YtDlp {
       ytDlpPath: this._ytDlpPath!,
       ffmpegPath: this._ffmpegPath,
       denoPath: this._denoPath,
+      e2eMode: this.opts.e2eMode,
       args,
       tokenService: this.tokenService,
       cookies,

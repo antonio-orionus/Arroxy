@@ -79,7 +79,7 @@ export function StepPlaylistPresets(): JSX.Element {
   const showMp4Cap = sel.kind === 'video' && sel.codec === 'mp4';
 
   return (
-    <div className="flex h-full flex-col gap-3 px-4 py-3">
+    <div className="flex h-full flex-col gap-3 px-4 py-3" data-testid="step-playlist-presets">
       <div className="flex items-baseline justify-between gap-2">
         <h2 className="text-sm font-semibold">{t('wizard.playlistPresets.heading')}</h2>
         <span className="shrink-0 text-xs text-muted-foreground">{t('wizard.playlistPresets.itemCount_other', { count: selectedPlaylistItemIds.length })}</span>

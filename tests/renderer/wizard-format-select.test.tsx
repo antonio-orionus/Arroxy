@@ -122,11 +122,48 @@ describe('wizard slice — invariant: video + convert audio is unreachable', () 
     useAppStore.setState({
       selectedVideoFormatId: '22',
       audioSelection: { kind: 'none' },
-      activePreset: null
+      activePreset: 'best-quality'
     });
 
     useAppStore.getState().setAudioSelection({ kind: 'native', formatId: '140' });
 
     expect(useAppStore.getState().selectedVideoFormatId).toBe('22');
+    expect(useAppStore.getState().activePreset).toBeNull();
+  });
+
+  it('clearing the video selection syncs activePreset to audio-only', () => {
+    useAppStore.setState({
+      selectedVideoFormatId: '22',
+      audioSelection: { kind: 'native', formatId: '140' },
+      activePreset: null
+    });
+
+    useAppStore.getState().setSelectedVideoFormatId('');
+
+    expect(useAppStore.getState().activePreset).toBe('audio-only');
+  });
+
+  it('selecting a video format clears an existing audio-only preset', () => {
+    useAppStore.setState({
+      selectedVideoFormatId: '',
+      audioSelection: { kind: 'native', formatId: '140' },
+      activePreset: 'audio-only'
+    });
+
+    useAppStore.getState().setSelectedVideoFormatId('137');
+
+    expect(useAppStore.getState().activePreset).toBeNull();
+  });
+
+  it('selecting audio while no video is selected preserves the audio-only preset', () => {
+    useAppStore.setState({
+      selectedVideoFormatId: '',
+      audioSelection: { kind: 'none' },
+      activePreset: 'audio-only'
+    });
+
+    useAppStore.getState().setAudioSelection({ kind: 'native', formatId: '249' });
+
+    expect(useAppStore.getState().activePreset).toBe('audio-only');
   });
 });

@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
-import { buildScenarioAppApiState, getScenario, mockStepForScenario, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload } from '@renderer/dev/browserMockScenarios.js';
+import { applyScenarioWorkbenchState, buildScenarioAppApiState, bulkStressFixture, getScenario, mockStepForScenario, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, type ScenarioWorkbenchStore } from '@renderer/dev/browserMockScenarios.js';
 
 describe('browser mock scenarios', () => {
   it('reads known scenario ids from URLs', () => {
@@ -59,7 +59,7 @@ describe('browser mock scenarios', () => {
     expect(state.probeResult.entries.every((entry) => entry.thumbnail === '')).toBe(true);
   });
 
-  it('builds normal happy-path fixtures', () => {
+  it('builds normal screen preset fixtures', () => {
     const single = buildScenarioAppApiState(getScenario('single-normal'));
     expect(single.probeResult?.kind).toBe('video');
     if (single.probeResult?.kind !== 'video') throw new Error('expected video probe');
@@ -79,6 +79,41 @@ describe('browser mock scenarios', () => {
     expect(scopeEmptyReload.probeResult?.kind).toBe('playlist');
     if (scopeEmptyReload.probeResult?.kind !== 'playlist') throw new Error('expected playlist probe');
     expect(scopeEmptyReload.probeResult.entries).toHaveLength(12);
+  });
+
+  it('builds the bulk stress workbench fixture', () => {
+    const fixture = bulkStressFixture();
+
+    expect(getScenario('bulk-stress').kind).toBe('bulk');
+    expect(fixture.entries).toHaveLength(50);
+    expect(fixture.total).toBe(50);
+    expect(fixture.completed).toBeGreaterThan(0);
+    expect(fixture.entries.some((entry) => entry.thumbnail === '')).toBe(true);
+    expect(fixture.entries.some((entry) => entry.duration === undefined)).toBe(true);
+    expect(new Set(fixture.entries.map((entry) => entry.title)).size).toBeLessThan(fixture.entries.length);
+    expect(Object.values(fixture.metadataById)).toEqual(expect.arrayContaining(['pending', 'resolving', 'failed', 'done']));
+  });
+
+  it('applies scenario workbench state through one interface', async () => {
+    const store: ScenarioWorkbenchStore = {
+      reset: vi.fn(),
+      setWizardUrl: vi.fn(),
+      submitUrl: vi.fn().mockResolvedValue(undefined),
+      setState: vi.fn()
+    };
+
+    await applyScenarioWorkbenchState({ scenario: getScenario('bulk-stress'), params: readUrlParams(new URL('http://localhost:5173/?scenario=bulk-stress')), store });
+
+    expect(store.reset).toHaveBeenCalledOnce();
+    const bulkPatch = vi.mocked(store.setState).mock.calls[0]?.[0];
+    expect(bulkPatch).toMatchObject({ wizardMode: 'bulk', wizardStep: 'playlistItems', bulkMetadataTotal: 50 });
+
+    await applyScenarioWorkbenchState({ scenario: getScenario('single-normal'), params: readUrlParams(new URL('http://localhost:5173/?scenario=single-normal&mockStep=confirm')), store });
+
+    expect(store.setWizardUrl).toHaveBeenCalledWith('https://example.com/single-normal');
+    expect(store.submitUrl).toHaveBeenCalled();
+    const lastPatch = vi.mocked(store.setState).mock.calls.at(-1)?.[0];
+    expect(lastPatch).toMatchObject({ wizardStep: 'confirm' });
   });
 
   it('flags only scoped playlist reloads for the empty-scope scenario', () => {

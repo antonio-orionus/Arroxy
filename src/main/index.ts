@@ -30,6 +30,7 @@ import { runSmokeMode, readSmokeUrl, exitWithCode } from '@main/smoke.js';
 import { cancelQueueBeforeExit } from '@main/shutdown.js';
 import { decideCloseAction, decideRendererCrashAction } from '@main/windowLifecycle.js';
 import { registerPreloadDiagnostics, resolveMainWindowPreloadPath } from '@main/preloadDiagnostics.js';
+import { resolveE2eHarnessMode } from '@main/e2eHarness.js';
 import contextMenu from 'electron-context-menu';
 import windowStateKeeper from 'electron-window-state';
 
@@ -57,6 +58,11 @@ log.info('boot', {
 });
 
 const isMockBackend = process.env.MOCK_BACKEND === '1';
+const e2eMode = resolveE2eHarnessMode(process.env, { isPackaged: app.isPackaged });
+
+for (const commandLineSwitch of e2eMode.commandLineSwitches) {
+  app.commandLine.appendSwitch(commandLineSwitch);
+}
 
 if (process.env.ELECTRON_USER_DATA) {
   app.setPath('userData', process.env.ELECTRON_USER_DATA);
@@ -145,24 +151,30 @@ if (hasSingleInstanceLock) {
       .then((info) => log.info('gpu info', info))
       .catch((err: unknown) => log.warn('gpu info failed', err));
 
-    const settingsStore = new SettingsStore(userDataPath, defaultAppSettings(app.getPath('downloads')));
-    const initialSettings = await settingsStore.get();
+    const baseSettings = defaultAppSettings(app.getPath('downloads'));
+    const settingsStore = new SettingsStore(userDataPath, e2eMode.applyAppSettingsDefaults(baseSettings));
+    let initialSettings = await settingsStore.get();
+    if (e2eMode.enabled && (initialSettings.common.clipboardWatchEnabled || initialSettings.common.analyticsEnabled !== false)) {
+      initialSettings = await settingsStore.update({ common: { clipboardWatchEnabled: false, analyticsEnabled: false } });
+    }
     // installId is stamped lazily by SettingsStore on first launch — guaranteed
     // present after `get()`. Empty string fallback keeps TS happy without
     // weakening the type elsewhere.
     const installId = initialSettings.common.installId ?? '';
-    const isDev = !!process.env.ELECTRON_RENDERER_URL || isMockBackend || !!process.env.ARROXY_SMOKE_URL;
+    const isDev = !!process.env.ELECTRON_RENDERER_URL || isMockBackend || e2eMode.enabled || !!process.env.ARROXY_SMOKE_URL;
     const cpuModel = os.cpus()[0]?.model ?? 'unknown';
     const osLocale = app.getLocale();
-    setupAnalytics(process.env.OPENPANEL_CLIENT_ID, process.env.OPENPANEL_CLIENT_SECRET, isDev, installId, {
-      appVersion: app.getVersion(),
-      platform: process.platform,
-      architecture: process.arch,
-      systemVersion: os.release(),
-      modelName: cpuModel,
-      osLocale,
-      appLocale: initialSettings.common.language ?? osLocale
-    });
+    if (!e2eMode.disableAnalytics) {
+      setupAnalytics(process.env.OPENPANEL_CLIENT_ID, process.env.OPENPANEL_CLIENT_SECRET, isDev, installId, {
+        appVersion: app.getVersion(),
+        platform: process.platform,
+        architecture: process.arch,
+        systemVersion: os.release(),
+        modelName: cpuModel,
+        osLocale,
+        appLocale: initialSettings.common.language ?? osLocale
+      });
+    }
     const languageRef: { current: ReturnType<typeof pickLanguage> } = {
       current: pickLanguage(initialSettings.common.language ?? app.getLocale())
     };
@@ -172,9 +184,9 @@ if (hasSingleInstanceLock) {
     const binaryManager = new BinaryManager(userDataPath, {
       overridesProvider: () => settingsStore.getSync().common.binaryOverrides
     });
-    const tokenProvider = isMockBackend ? new MockTokenProvider() : new HiddenWindowTokenProvider();
+    const tokenProvider = isMockBackend || e2eMode.useMockTokenProvider ? new MockTokenProvider() : new HiddenWindowTokenProvider();
     const tokenService = new TokenService(tokenProvider);
-    const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore);
+    const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, { e2eMode });
     const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend);
     const probeService = new ProbeService(ytDlp, isMockBackend);
     const queueService = new QueueService(queueStore, downloadService, undefined, undefined, { manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u });
@@ -195,15 +207,19 @@ if (hasSingleInstanceLock) {
       return;
     }
 
-    // Enable analytics now that we know it's a real (non-smoke) session.
-    setAnalyticsEnabled(initialSettings.common.analyticsEnabled ?? true);
     const launch = await settingsStore.recordLaunch();
-    const arch: string = process.arch === 'arm64' ? 'arm64' : 'x64';
-    trackMain('app_started', {
-      install_channel: detectInstallChannel(app.getName()),
-      platform_arch: `${process.platform}-${arch}`,
-      is_first_run: launch.isFirstRun
-    });
+    if (!e2eMode.disableAnalytics) {
+      // Enable analytics now that we know it's a real (non-smoke) session.
+      setAnalyticsEnabled(initialSettings.common.analyticsEnabled ?? true);
+      const arch: string = process.arch === 'arm64' ? 'arm64' : 'x64';
+      trackMain('app_started', {
+        install_channel: detectInstallChannel(app.getName()),
+        platform_arch: `${process.platform}-${arch}`,
+        is_first_run: launch.isFirstRun
+      });
+    } else {
+      void launch;
+    }
 
     const mainWindow = createMainWindow();
 
@@ -319,10 +335,13 @@ if (hasSingleInstanceLock) {
       tokenService,
       languageRef,
       clipboardWatcher,
-      playlistManifestStore
+      playlistManifestStore,
+      e2eMode
     });
 
-    registerUpdaterHandlers(mainWindow);
+    if (!e2eMode.disableUpdater) {
+      registerUpdaterHandlers(mainWindow);
+    }
 
     app.on('render-process-gone', (_event, webContents, details) => {
       log.error(`Renderer process gone: reason=${details.reason} exitCode=${details.exitCode}`);

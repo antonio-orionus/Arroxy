@@ -101,6 +101,20 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
     expect(req.kind).toBe('subtitle');
   });
 
+  it('does not forward SponsorBlock config to the subtitle request', async () => {
+    const ctx = makeCtx(SUCCESS, {
+      input: {
+        ...BASE_INPUT,
+        job: { ...BASE_JOB, sponsorBlock: { mode: 'remove', categories: ['sponsor'] } }
+      }
+    });
+
+    await SidecarSubsPhase(false).run(ctx);
+
+    const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0];
+    expect((req as { sponsorBlock?: unknown }).sponsorBlock).toBeUndefined();
+  });
+
   it('forwards the media outputTemplate so sidecar subtitles match single filenames', async () => {
     const ctx = makeCtx(SUCCESS, {
       input: {

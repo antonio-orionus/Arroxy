@@ -39,7 +39,7 @@ describe('App renderer', () => {
     expect(await screen.findByPlaceholderText(/^https/i)).toBeInTheDocument();
   });
 
-  it('advances to format step after submitting URL', async () => {
+  it('submits URL probes through the preload API', async () => {
     render(<App />);
 
     const input = await screen.findByPlaceholderText(/^https/i);

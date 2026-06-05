@@ -73,6 +73,14 @@ describe('nextStep — backward', () => {
     expect(nextStep('output', ctx({ wizardSubtitleSkipped: true, wizardExtractor: 'vimeo' }), 'backward')).toBe('formats');
   });
 
+  it('folder → output for video presets', () => {
+    expect(nextStep('folder', ctx({ activePreset: 'best-quality' }), 'backward')).toBe('output');
+  });
+
+  it('folder → output for audio-only presets', () => {
+    expect(nextStep('folder', ctx({ activePreset: 'audio-only' }), 'backward')).toBe('output');
+  });
+
   it('returns null at url boundary', () => {
     expect(nextStep('url', ctx(), 'backward')).toBeNull();
   });

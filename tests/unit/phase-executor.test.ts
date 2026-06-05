@@ -118,6 +118,17 @@ describe('PhaseExecutor', () => {
     expect(vi.mocked(ctx.emitStatus)).not.toHaveBeenCalled();
   });
 
+  it('hard-failed stops pipeline — phase after hard failure is not called', async () => {
+    const ctx = makeCtx();
+    const error: LocalizedError = { kind: 'botBlock', raw: '' };
+    const phase1 = stubPhase({ kind: 'hard-failed', error });
+    const phase2 = stubPhase({ kind: 'continue' });
+
+    await new PhaseExecutor().run(ctx, [phase1, phase2]);
+
+    expect(phase2.run).not.toHaveBeenCalled();
+  });
+
   it('cancelled → emits cancelled status, returns cancelled', async () => {
     const ctx = makeCtx();
     const phase = stubPhase({ kind: 'cancelled' });

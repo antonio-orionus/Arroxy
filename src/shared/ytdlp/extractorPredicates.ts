@@ -9,7 +9,8 @@ const YOUTUBE_IE_NAMES: ReadonlySet<string> = new Set(['youtube', 'youtube:tab',
 
 export function isYouTubeExtractor(extractor: string | undefined | null): boolean {
   if (!extractor) return false;
-  return YOUTUBE_IE_NAMES.has(extractor.toLowerCase());
+  const canonicalName = extractor.toLowerCase().split('+', 1)[0] ?? '';
+  return YOUTUBE_IE_NAMES.has(canonicalName);
 }
 
 // Sites whose extractors return audio-only content. Used to default the wizard

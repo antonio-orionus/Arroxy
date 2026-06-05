@@ -6,6 +6,7 @@ import { IPC_CHANNELS } from '@shared/ipc.js';
 import { BLOCKING_DEPENDENCY_IDS, DEPENDENCY_IDS, type DependencyDiagnostic, type DependencyId, type WarmUpOutput, type WarmupProgressEvent } from '@shared/types.js';
 import type { BinaryManager } from './BinaryManager.js';
 import type { TokenService } from './TokenService.js';
+import type { E2eHarnessMode } from '@main/e2eHarness.js';
 
 const logger = log.scope('warmup');
 
@@ -29,6 +30,7 @@ interface WarmupServiceDeps {
   tokenService: TokenService;
   window?: BrowserWindow;
   onResolved?: () => void;
+  e2eMode?: E2eHarnessMode;
 }
 
 export class WarmupService {
@@ -129,10 +131,19 @@ export class WarmupService {
     // resolves with whichever fires first.
     const budgetSignal = (): AbortSignal => AbortSignal.any([userSignal, AbortSignal.timeout(PER_BINARY_BUDGET_MS)]);
 
+    const skippedDenoDiag: DependencyDiagnostic = {
+      id: 'deno',
+      state: 'failed',
+      source: { kind: 'managed', channel: 'default', url: 'e2e-harness' },
+      resolvedPath: null,
+      failure: { kind: 'spawn_failed', message: 'Skipped in E2E harness' },
+      attempts: []
+    };
+
     const [ytDlpDiag, ffmpegPair, denoDiag, tokenStatus] = await Promise.all([
       binaryManager.resolveYtDlp({ onProgress: emit, signal: budgetSignal() }),
       binaryManager.resolveFFmpegPair({ onProgress: emit, signal: budgetSignal() }),
-      binaryManager.resolveDeno({ onProgress: emit, signal: budgetSignal() }),
+      this.deps.e2eMode?.skipDeno ? Promise.resolve(skippedDenoDiag) : binaryManager.resolveDeno({ onProgress: emit, signal: budgetSignal() }),
       // Plumb userSignal so cancel() interrupts the HiddenWindow scrape and
       // mint round-trip — without this, cancelling a slow probe/scrape leaves
       // the token warmup running until natural completion.

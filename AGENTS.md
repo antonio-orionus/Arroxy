@@ -1,17 +1,3 @@
-## Shell command wrapper
-
-This repo prefers `rtk` as a token-optimized shell command proxy.
-
-Bootstrap exception: before using `rtk`, check whether it is available:
-
-```bash
-command -v rtk
-```
-
-If available, prefix repo shell commands with `rtk`. If unavailable, run commands directly and mention that `rtk` was not found.
-
-@RTK.md
-
 # General
 
 ## Engineering Principles
@@ -145,6 +131,69 @@ It creates the worktree under `.worktrees/` by default, runs `bun install`, veri
 Use `bun run test` (vitest), **not** `bun test` (Bun's built-in runner ignores vitest config and per-file `// @vitest-environment` directives). For a single file: `bunx vitest run --project node <path>` or `--project jsdom <path>` from repo root.
 
 When adding idempotent IPC registration (`ipcMain.removeHandler()`, `autoUpdater.removeAllListeners()`), add the method as `vi.fn()` to the matching `vi.mock('electron')` / `vi.mock('electron-updater')` blocks — otherwise tests fail at module-load with `TypeError: X is not a function`.
+
+---
+
+## Arroxy Testing Architecture
+
+Arroxy is an Electron desktop app. Do not let React/component testing habits replace product workflow validation. A bug found through real user actions such as paste, metadata loading, wizard navigation, queue controls, pause/resume/cancel, or file output must be verified through the layer that can exercise those actions in the real app.
+
+Fixture Product E2E is the **acceptance owner for real user workflows**, not the default test type for every behavior. Keep it to a small number of strong scenarios per risk group. Local rules, rendering states, process-supervision failures, and startup/security checks still belong in their cheaper owning layers.
+
+### Test layer ownership
+
+- **Fast logic tests** (`tests/unit`, Vitest): use for pure rules and closed interfaces such as `QueueEvent` transition, `ProgressNormalizer`, URL parsing, yt-dlp argument construction, extractor classification, error classification, and wizard `nextStep`. These tests should not pretend to prove a full user workflow.
+- **Renderer tests** (`tests/renderer`, jsdom): use for renderer-local state and component contracts when the behavior is too small to justify a full app launch. Do not use these as acceptance tests for download, probe, queue, or filesystem workflows.
+- **Scenario Workbench** (`tests/browser`, `bun run dev:mock`): use browser-mock and the scenario gallery for visual inspection, layout stress, screenshots, and fast review of many UI states. This proves how a state looks, not whether the real product workflow works.
+- **Mock Electron smoke tests** (`tests/e2e` with `MOCK_BACKEND=1`): use for app shell, preload bridge, context isolation, startup resilience, and mocked persistence checks. Do not use this layer for normal download acceptance.
+- **Fixture Product E2E** (`ARROXY_E2E=1`): use as the acceptance layer for real product workflows that require real Electron, real IPC, real yt-dlp, filesystem output, or realistic user interaction. This layer runs real Electron, real IPC, real `ProbeService`, real `DownloadService`, real `QueueService`, real filesystem effects, and real spawned yt-dlp, while only the video platform is deterministic through the fixture extractor plugin, local media server, and deny proxy.
+- **Cold-start packaged E2E**: use for packaged binary/warmup behavior, managed binary downloads, and production bootstrapping. Keep it narrow because it is slow.
+- **Live smoke tests**: use only to detect real YouTube/yt-dlp drift. They are external, flaky by nature, and must not be the acceptance gate for Arroxy product workflow correctness.
+
+### Choosing the right test
+
+- If the issue was discovered by manually opening the app and performing a workflow, prefer Fixture Product E2E.
+- If the behavior is a pure domain rule with no UI, filesystem, process, or IPC requirement, use a fast logic test.
+- If the concern is visual layout, responsive fit, empty/loading/error surfaces, or screenshot review, use the Scenario Workbench.
+- If the concern is app boot, preload, or context isolation, use Mock Electron smoke tests.
+- If the concern is whether real YouTube currently works, use a tiny live smoke test outside normal acceptance.
+
+### Scenario design
+
+Do not create one giant "everything" E2E scenario. Group product E2E by risk case so failures are local and useful:
+
+- **Bulk input**: real clipboard paste, messy lists, invalid lines, duplicates, large lists.
+- **Metadata fetching**: concurrency limits, slow probes, partial failure, late thumbnails/subtitles, user navigation while probes are still running.
+- **Wizard navigation**: back/next while state is incomplete, skipped steps, preserved output/format choices.
+- **Queue controls**: active downloads, priority, pause item, resume item, cancel item, pause all, resume all.
+- **Failure and recovery**: failed metadata, failed media, subtitle soft failure, retry, cancel during slow stream.
+- **Persistence and restart**: pending queue, paused active item, restored output folder, completed/cancelled lifecycle after app restart.
+- **Scale and UX stress**: many URLs, long titles, drawer scrolling, progress churn, layout stability.
+
+For each risk group, add Fixture Product E2E only for behavior that needs real app wiring or realistic user interaction. Keep pure rules and local UI states in lower layers. Each Fixture Product E2E scenario should declare:
+
+1. The user-facing risk being tested.
+2. The fixture videos, delays, failures, and output directory.
+3. The real user actions, preferably via mouse, keyboard, and OS clipboard.
+4. The milestones that prove each workflow phase completed.
+5. The final oracles: visible UI state, E2E diagnostics when needed, filesystem outputs, and deny-proxy request log.
+
+### Workflow feedback rules
+
+- Prefer visible UI milestones first: title appears, row count changes, progress/status changes, buttons enable/disable, queue card reaches the expected state.
+- Use E2E-only diagnostics only when visible UI is insufficient. Gate diagnostics behind `ARROXY_E2E=1`; never expose them in normal packaged production.
+- Use filesystem assertions for download outcomes. A completed queue item is not enough if the expected output file is missing or implausible.
+- Use the deny proxy request log as an oracle. Deterministic fixture tests must fail if yt-dlp reaches non-local network.
+- Avoid hardcoded sleeps. Wait for specific UI, diagnostic, process, filesystem, or network milestones.
+- Capture screenshots/traces for complex scenario failures so an agent can inspect what a human would have seen.
+
+### Anti-patterns
+
+- Do not add unit tests to claim a real paste -> metadata -> queue -> download workflow is fixed.
+- Do not duplicate the same acceptance behavior in unit, jsdom, browser-mock, and fixture E2E layers.
+- Do not treat browser-mock as proof that real IPC, yt-dlp, queue scheduling, or filesystem behavior works.
+- Do not use fake yt-dlp as the normal download acceptance strategy. Keep fake yt-dlp only for process-supervision failures such as spawn failure, permission denied, crash, invalid JSON, huge stderr, hang, and signal termination.
+- Do not make one super scenario that covers every risk at once. Prefer grouped, realistic scenarios with clear ownership.
 
 ---
 

@@ -3,6 +3,7 @@ import { WarmupService } from '@main/services/WarmupService.js';
 import type { BinaryManager } from '@main/services/BinaryManager.js';
 import type { TokenService } from '@main/services/TokenService.js';
 import type { DependencyDiagnostic, DependencyId } from '@shared/types.js';
+import type { E2eHarnessMode } from '@main/e2eHarness.js';
 
 function diag(id: DependencyId, state: DependencyDiagnostic['state']): DependencyDiagnostic {
   return {
@@ -29,6 +30,18 @@ function fakeBinaryManager(opts: { ytDlp: 'runnable' | 'failed'; ffmpeg: 'runnab
 
 const noopToken = { warmUp: vi.fn().mockResolvedValue({ ready: true }) } as unknown as TokenService;
 
+const e2eMode = {
+  enabled: true,
+  skipDeno: true,
+  disableAnalytics: true,
+  disableUpdater: true,
+  useMockTokenProvider: true,
+  commandLineSwitches: [],
+  applyAppSettingsDefaults: (settings) => settings,
+  applySpawnEnv: (env) => ({ ...env }),
+  ytDlpArgs: () => []
+} satisfies E2eHarnessMode;
+
 afterEach(() => {
   vi.restoreAllMocks();
 });
@@ -52,6 +65,19 @@ describe('WarmupService', () => {
     if (!result.ok) throw new Error('expected ok');
     expect(result.data.completed).toBe(false);
     expect(result.data.blockingFailures).toEqual(['yt-dlp']);
+  });
+
+  it('skips deno resolution when requested by the E2E harness', async () => {
+    const bm = fakeBinaryManager({ ytDlp: 'runnable', ffmpeg: 'runnable', ffprobe: 'runnable', deno: 'runnable' });
+    const svc = new WarmupService({ binaryManager: bm, tokenService: noopToken, e2eMode });
+
+    const result = await svc.run();
+
+    expect(bm.resolveDeno).not.toHaveBeenCalled();
+    if (!result.ok) throw new Error('expected ok');
+    expect(result.data.completed).toBe(true);
+    expect(result.data.dependencies.deno.state).toBe('failed');
+    expect(result.data.dependencies.deno.failure?.message).toMatch(/Skipped/);
   });
 
   it('force-rerun invalidates cached binaries and returns fresh result', async () => {

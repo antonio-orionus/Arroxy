@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'rea
 import { ChevronDown, RotateCcw, TestTube2 } from 'lucide-react';
 import { SUPPORTED_LANGS, YT_DLP_ERROR_KINDS } from '@shared/schemas.js';
 import type { SupportedLang, YtDlpErrorKind } from '@shared/schemas.js';
-import { BROWSER_MOCK_SCENARIOS, getScenario, isHappyPathScenario, mockStepForScenario, mockStepsForScenario, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario, type BrowserMockScenarioGroup, type BrowserMockStep } from './browserMockScenarios.js';
+import { applyScenarioWorkbenchState, BROWSER_MOCK_SCENARIOS, getScenario, isScreenPresetScenario, mockStepForScenario, mockStepsForScenario, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario, type BrowserMockScenarioGroup, type BrowserMockStep } from './browserMockScenarios.js';
 import { applyThemeLive, knobUrl, MOCK_PLATFORM_LABELS, MOCK_PLATFORMS, readKnobs, type MockPlatform } from './browserMockKnobs.js';
 import type { UiTheme } from '@shared/schemas.js';
 import { cn } from '../lib/utils.js';
@@ -132,29 +132,21 @@ export function ScenarioGallery(): JSX.Element {
     autoAppliedRef.current = applyKey;
     const store = useAppStore.getState();
 
-    if (scenario.kind === 'probe' || urlParams.playlistCount !== null || urlParams.probeErrorKind !== null) {
-      store.reset();
-      store.setWizardUrl(`https://example.com/${scenario.id}`);
-      void store.submitUrl().then(() => {
-        const targetStep = mockStepForScenario(scenario, urlParams.mockStep);
-        if (targetStep !== null) useAppStore.setState({ wizardStep: targetStep });
-      });
-    } else if (scenario.kind === 'dialog') {
-      if (scenario.id === 'dialog-mixed-url') {
-        useAppStore.setState({
-          mixedUrlPromptOpen: true,
-          mixedUrlPending: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ\nhttps://www.youtube.com/watch?v=jNQXAC9IVRw'
-        });
-      } else if (scenario.id === 'dialog-cookies-issue') {
-        useAppStore.setState({ cookiesConfigDialogIssue: 'file-missing-path' });
-      }
-    }
+    void applyScenarioWorkbenchState({
+      scenario,
+      params: {
+        playlistCount: urlParams.playlistCount,
+        probeErrorKind: urlParams.probeErrorKind,
+        mockStep: urlParams.mockStep
+      },
+      store: { reset: store.reset, setWizardUrl: store.setWizardUrl, submitUrl: store.submitUrl, setState: useAppStore.setState }
+    });
   }, [initialized, scenario, scenario.id, scenario.kind, urlParams.mockStep, urlParams.playlistCount, urlParams.probeErrorKind]);
 
   const isPlaylistParam = urlParams.playlistCount !== null;
   const isProbeErrorParam = urlParams.probeErrorKind !== null;
   const currentMockStep = mockStepForScenario(scenario, urlParams.mockStep);
-  const showMockStepPicker = isHappyPathScenario(scenario) && !isPlaylistParam && !isProbeErrorParam;
+  const showMockStepPicker = isScreenPresetScenario(scenario) && !isPlaylistParam && !isProbeErrorParam;
   const availableMockSteps = mockStepOptions(scenario);
 
   function activeLabel(): string {

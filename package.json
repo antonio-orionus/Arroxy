@@ -50,6 +50,8 @@
     "test:watch": "vitest",
     "test:e2e": "bun run build && xvfb-run -a playwright test",
     "test:e2e:cold": "bunx playwright test tests/e2e/cold-start.spec.ts --config playwright.config.ts",
+    "test:e2e:fixtures:dev": "playwright test tests/e2e/fixture-*.spec.ts --config playwright.config.ts --workers=1",
+    "test:e2e:fixtures:ci": "bun run embed:fetch:host && bun run build && xvfb-run -a playwright test tests/e2e/fixture-*.spec.ts --config playwright.config.ts --workers=1",
     "test:browser": "playwright test --config playwright.browser.config.ts",
     "build:readme": "bun readme-src/build.mjs",
     "check:readme": "bun readme-src/build.mjs --strict",

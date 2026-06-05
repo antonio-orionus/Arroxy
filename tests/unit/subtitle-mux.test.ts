@@ -1,5 +1,5 @@
-import { EventEmitter } from 'node:events';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { createTranscriptProcess } from '../helpers/processTranscript.js';
 
 vi.mock('node:fs/promises', () => ({
   readFile: vi.fn(),
@@ -20,15 +20,11 @@ import { dedupeSubtitleFiles, muxSubtitlesIntoVideo } from '@main/services/subti
 const JOB_ID = 'job-1';
 
 function makeFakeFFmpeg(exitCode: number) {
-  const proc = Object.assign(new EventEmitter(), { kill: vi.fn() });
-  setTimeout(() => proc.emit('close', exitCode), 10);
-  return proc;
+  return createTranscriptProcess([{ close: exitCode }]);
 }
 
 function makeFakeFFmpegError() {
-  const proc = Object.assign(new EventEmitter(), { kill: vi.fn() });
-  setTimeout(() => proc.emit('error', new Error('ENOENT')), 10);
-  return proc;
+  return createTranscriptProcess([{ error: new Error('ENOENT') }]);
 }
 
 beforeEach(() => {

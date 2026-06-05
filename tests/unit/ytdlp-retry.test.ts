@@ -1,6 +1,6 @@
-import { EventEmitter } from 'node:events';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { YtDlp } from '@main/services/YtDlp.js';
+import { createTranscriptProcess } from '../helpers/processTranscript.js';
 
 vi.mock('@main/utils/process', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@main/utils/process.js')>();
@@ -13,16 +13,7 @@ const URL = 'https://www.youtube.com/watch?v=test';
 const BOT_STDERR = "ERROR: [youtube] abc: Sign in to confirm you're not a bot.";
 
 function makeFakeProcess(exitCode: number, stderr = '') {
-  const proc = Object.assign(new EventEmitter(), {
-    stdout: new EventEmitter(),
-    stderr: new EventEmitter(),
-    kill: vi.fn()
-  });
-  setTimeout(() => {
-    if (stderr) proc.stderr.emit('data', Buffer.from(stderr));
-    proc.emit('close', exitCode);
-  }, 10);
-  return proc;
+  return createTranscriptProcess(stderr ? [{ stream: 'stderr', data: stderr }, { close: exitCode }] : [{ close: exitCode }]);
 }
 
 function makeYtDlp(tokenService?: { mintTokenForUrl: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn> }) {
@@ -143,13 +134,7 @@ describe('YtDlp — retry ladder', () => {
   });
 
   it('spawn error returns kind: spawn-error immediately', async () => {
-    const fakeProc = Object.assign(new EventEmitter(), {
-      stdout: new EventEmitter(),
-      stderr: new EventEmitter(),
-      kill: vi.fn()
-    });
-    setTimeout(() => fakeProc.emit('error', new Error('ENOENT')), 10);
-    vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as never);
+    vi.mocked(spawnYtDlp).mockReturnValue(createTranscriptProcess([{ error: new Error('ENOENT') }]) as never);
 
     const { ytDlp } = makeYtDlp();
     const result = await ytDlp.run({ kind: 'video', url: URL, outputDir: '/tmp' });

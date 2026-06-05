@@ -1,19 +1,10 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { YtDlpErrorKind } from '@shared/types.js';
-
-vi.mock('@main/utils/diskSpace', () => ({
-  checkDiskSpace: vi.fn()
-}));
-
 import { classifyYtDlpFailure } from '@main/services/download/errorClassification.js';
-import { checkDiskSpace } from '@main/utils/diskSpace.js';
+import type { DiskProbe } from '@main/services/download/errorClassification.js';
 import type { DiskSpaceResult } from '@main/utils/diskSpace.js';
 import { STATUS_KEY } from '@shared/schemas.js';
 import type { YtDlpResult } from '@main/services/YtDlp.js';
-
-beforeEach(() => {
-  vi.clearAllMocks();
-});
 
 const OUTPUT_DIR = '/output';
 const JOB_ID = 'job-1';
@@ -36,6 +27,10 @@ function diskFull(freeBytes = 100_000): DiskSpaceResult {
 
 function diskError(error: string): DiskSpaceResult {
   return { ok: false, freeBytes: undefined, requiredBytes: undefined, error };
+}
+
+function diskProbe(result: DiskSpaceResult): DiskProbe {
+  return vi.fn().mockResolvedValue(result);
 }
 
 describe('classifyYtDlpFailure', () => {
@@ -94,32 +89,33 @@ describe('classifyYtDlpFailure', () => {
 
   describe('postprocessFailure → disk space upgrade', () => {
     it('reclassifies to outOfDiskSpace when disk probe finds low space', async () => {
-      vi.mocked(checkDiskSpace).mockResolvedValue(diskFull());
-      const result = await classifyYtDlpFailure(exitError('postprocessFailure', 'ERROR: Postprocessing: Conversion failed!'), OUTPUT_DIR, JOB_ID);
+      const probe = diskProbe(diskFull());
+      const result = await classifyYtDlpFailure(exitError('postprocessFailure', 'ERROR: Postprocessing: Conversion failed!'), OUTPUT_DIR, JOB_ID, probe);
       expect(result.payload.kind).toBe('outOfDiskSpace');
+      expect(probe).toHaveBeenCalledWith(OUTPUT_DIR);
     });
 
     it('keeps postprocessFailure when disk probe confirms OK', async () => {
-      vi.mocked(checkDiskSpace).mockResolvedValue(diskOk());
-      const result = await classifyYtDlpFailure(exitError('postprocessFailure', 'ERROR: Postprocessing: Conversion failed!'), OUTPUT_DIR, JOB_ID);
+      const result = await classifyYtDlpFailure(exitError('postprocessFailure', 'ERROR: Postprocessing: Conversion failed!'), OUTPUT_DIR, JOB_ID, diskProbe(diskOk()));
       expect(result.payload.kind).toBe('postprocessFailure');
     });
 
     it('keeps postprocessFailure when disk probe itself errors (inconclusive)', async () => {
-      vi.mocked(checkDiskSpace).mockResolvedValue(diskError('ENOENT: statfs failed'));
-      const result = await classifyYtDlpFailure(exitError('postprocessFailure', 'ERROR: Postprocessing: Conversion failed!'), OUTPUT_DIR, JOB_ID);
+      const result = await classifyYtDlpFailure(exitError('postprocessFailure', 'ERROR: Postprocessing: Conversion failed!'), OUTPUT_DIR, JOB_ID, diskProbe(diskError('ENOENT: statfs failed')));
       expect(result.payload.kind).toBe('postprocessFailure');
     });
 
     it('does not probe disk for non-postprocess errors', async () => {
-      await classifyYtDlpFailure(exitError('botBlock'), OUTPUT_DIR, JOB_ID);
-      expect(checkDiskSpace).not.toHaveBeenCalled();
+      const probe: DiskProbe = vi.fn();
+      await classifyYtDlpFailure(exitError('botBlock'), OUTPUT_DIR, JOB_ID, probe);
+      expect(probe).not.toHaveBeenCalled();
     });
 
     it('does not probe when rawError does not match postprocess pattern', async () => {
       // errorKind=postprocessFailure but rawError lacks the ERROR: prefix — isPostprocessFailure returns false
-      await classifyYtDlpFailure(exitError('postprocessFailure', 'Conversion failed!'), OUTPUT_DIR, JOB_ID);
-      expect(checkDiskSpace).not.toHaveBeenCalled();
+      const probe: DiskProbe = vi.fn();
+      await classifyYtDlpFailure(exitError('postprocessFailure', 'Conversion failed!'), OUTPUT_DIR, JOB_ID, probe);
+      expect(probe).not.toHaveBeenCalled();
     });
   });
 });

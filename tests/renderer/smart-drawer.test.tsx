@@ -24,6 +24,7 @@ function setQueue(queue: QueueItem[]): void {
     queue,
     drawerOpen: false,
     showQueueTip: false,
+    settings: null,
     ...stubActions
   });
 }
@@ -33,6 +34,12 @@ beforeEach(() => {
 });
 
 describe('SmartDrawer header summary', () => {
+  it('does not render sleep banner', () => {
+    setQueue([]);
+    render(<SmartDrawer />);
+    expect(screen.queryByTestId('inter-job-sleep-banner')).not.toBeInTheDocument();
+  });
+
   it('shows "No downloads yet." when queue is empty', () => {
     setQueue([]);
     render(<SmartDrawer />);
