@@ -183,7 +183,7 @@ export const ur = {
     "**تجویز:** خودکار اپ ڈیٹس اور تیز اسٹارٹ اپ کے لیے NSIS انسٹالر استعمال کریں۔ بغیر انسٹالیشن، بغیر رجسٹری آپشن کے لیے پورٹیبل `.exe` استعمال کریں۔",
   dl_win_smartscreen_h4: "Windows SmartScreen وارننگ",
   dl_win_smartscreen_intro:
-    "پہلی بار لانچ پر آپ کو **\"Windows protected your PC\"** یا **\"Unknown publisher\"** نظر آ سکتا ہے۔ یہ `Arroxy-Setup-*.exe` اور `Arroxy-Portable-*.exe` دونوں پر لاگو ہوتا ہے۔ Arroxy مفت اور اوپن سورس ہے اور Windows بلڈز کو ادائیگی والے سرٹیفکیٹ سے کوڈ سائن نہیں کیا گیا، اسی لیے SmartScreen انہیں فلیگ کرتا ہے۔ اس کا مطلب **نہیں** کہ Arroxy خود بخود غیر محفوظ ہے۔ جاری رکھنے کے لیے:",
+    "پہلی بار لانچ پر آپ کو **\"Windows protected your PC\"** یا **\"Unknown publisher\"** نظر آ سکتا ہے۔ یہ `Arroxy-win-x64-Setup.exe` اور `Arroxy-win-x64-Portable.exe` دونوں پر لاگو ہوتا ہے۔ Arroxy مفت اور اوپن سورس ہے اور Windows بلڈز کو ادائیگی والے سرٹیفکیٹ سے کوڈ سائن نہیں کیا گیا، اسی لیے SmartScreen انہیں فلیگ کرتا ہے۔ اس کا مطلب **نہیں** کہ Arroxy خود بخود غیر محفوظ ہے۔ جاری رکھنے کے لیے:",
   dl_win_smartscreen_step1: "**More info** پر کلک کریں۔",
   dl_win_smartscreen_step2: "**Run anyway** پر کلک کریں۔",
   dl_win_smartscreen_official:
@@ -229,7 +229,7 @@ export const ur = {
     'More info کھولنے کے بعد SmartScreen ڈائیلاگ، جس میں "Run anyway" بٹن دکھائی دے رہا ہے',
   dl_win_defender_h4: "اگر Windows Defender فائل کو فلیگ کرے یا ہٹا دے",
   dl_win_defender_p:
-    "Defender کے ہیورسٹکس کبھی کبھی غیر سائنڈ NSIS انسٹالرز اور Electron پورٹیبلز کو مشکوک قرار دیتے ہیں۔ اگر Defender نے `Arroxy-Setup-*.exe` یا `Arroxy-Portable-*.exe` کو قرنطینہ میں ڈالا ہو، تو اسے **Windows Security → Virus & threat protection → Protection history** سے بحال کریں، پھر Arroxy ایگزیکیوٹیبل کو **Manage settings → Add or remove exclusions** کے تحت اجازت یافتہ آئٹم کے طور پر شامل کریں۔ SmartScreen کی طرح، وجہ غائب پبلشر دستخط ہے، کوئی دریافت شدہ میلویئر نہیں۔",
+    "Defender کے ہیورسٹکس کبھی کبھی غیر سائنڈ NSIS انسٹالرز اور Electron پورٹیبلز کو مشکوک قرار دیتے ہیں۔ اگر Defender نے `Arroxy-win-x64-Setup.exe` یا `Arroxy-win-x64-Portable.exe` کو قرنطینہ میں ڈالا ہو، تو اسے **Windows Security → Virus & threat protection → Protection history** سے بحال کریں، پھر Arroxy ایگزیکیوٹیبل کو **Manage settings → Add or remove exclusions** کے تحت اجازت یافتہ آئٹم کے طور پر شامل کریں۔ SmartScreen کی طرح، وجہ غائب پبلشر دستخط ہے، کوئی دریافت شدہ میلویئر نہیں۔",
 
   dl_macos_first_h3: "macOS پر پہلی بار لانچ",
   dl_macos_intro:

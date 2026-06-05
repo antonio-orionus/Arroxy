@@ -183,7 +183,7 @@ export const hi = {
     "**सिफ़ारिश:** ऑटो-अपडेट और तेज़ स्टार्टअप के लिए NSIS इंस्टॉलर इस्तेमाल करें। बिना इंस्टॉल और बिना रजिस्ट्री विकल्प के लिए पोर्टेबल `.exe` लें।",
   dl_win_smartscreen_h4: "Windows SmartScreen चेतावनी",
   dl_win_smartscreen_intro:
-    "पहले लॉन्च पर आप **\"Windows protected your PC\"** या **\"Unknown publisher.\"** देख सकते हैं। यह `Arroxy-Setup-*.exe` और `Arroxy-Portable-*.exe` दोनों पर लागू होता है। Arroxy मुफ़्त और ओपन-सोर्स है और Windows बिल्ड पेड सर्टिफ़िकेट से कोड-साइन नहीं हैं, इसीलिए SmartScreen फ़्लैग करता है। इसका **अपने आप** यह मतलब नहीं कि Arroxy असुरक्षित है। जारी रखने के लिए:",
+    "पहले लॉन्च पर आप **\"Windows protected your PC\"** या **\"Unknown publisher.\"** देख सकते हैं। यह `Arroxy-win-x64-Setup.exe` और `Arroxy-win-x64-Portable.exe` दोनों पर लागू होता है। Arroxy मुफ़्त और ओपन-सोर्स है और Windows बिल्ड पेड सर्टिफ़िकेट से कोड-साइन नहीं हैं, इसीलिए SmartScreen फ़्लैग करता है। इसका **अपने आप** यह मतलब नहीं कि Arroxy असुरक्षित है। जारी रखने के लिए:",
   dl_win_smartscreen_step1: "**More info** क्लिक करें।",
   dl_win_smartscreen_step2: "**Run anyway** क्लिक करें।",
   dl_win_smartscreen_official:
@@ -229,7 +229,7 @@ export const hi = {
     'More info खुलने के बाद SmartScreen डायलॉग, जिसमें "Run anyway" बटन दिख रहा है',
   dl_win_defender_h4: "अगर Windows Defender फ़ाइल फ़्लैग करे या हटाए",
   dl_win_defender_p:
-    "Defender की heuristics कभी-कभी बिना साइन के NSIS इंस्टॉलर और Electron portables को संदिग्ध मान लेती है। अगर Defender `Arroxy-Setup-*.exe` या `Arroxy-Portable-*.exe` को quarantine करे, तो **Windows Security → Virus & threat protection → Protection history** से रिस्टोर करें, फिर Arroxy एक्ज़ीक्यूटेबल को **Manage settings → Add or remove exclusions** के तहत अनुमत आइटम के रूप में जोड़ें। SmartScreen की तरह ही, ट्रिगर ग़ायब publisher signature है, न कि कोई मैलवेयर।",
+    "Defender की heuristics कभी-कभी बिना साइन के NSIS इंस्टॉलर और Electron portables को संदिग्ध मान लेती है। अगर Defender `Arroxy-win-x64-Setup.exe` या `Arroxy-win-x64-Portable.exe` को quarantine करे, तो **Windows Security → Virus & threat protection → Protection history** से रिस्टोर करें, फिर Arroxy एक्ज़ीक्यूटेबल को **Manage settings → Add or remove exclusions** के तहत अनुमत आइटम के रूप में जोड़ें। SmartScreen की तरह ही, ट्रिगर ग़ायब publisher signature है, न कि कोई मैलवेयर।",
 
   dl_macos_first_h3: "macOS पहला लॉन्च",
   dl_macos_intro:

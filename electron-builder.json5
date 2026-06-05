@@ -33,10 +33,10 @@
     "oneClick": true,
     "perMachine": false,
     "allowElevation": false,
-    "artifactName": "${productName}-Setup-${version}.${ext}"
+    "artifactName": "${productName}-win-${arch}-Setup.${ext}"
   },
   "portable": {
-    "artifactName": "${productName}-Portable-${version}.${ext}"
+    "artifactName": "${productName}-win-${arch}-Portable.${ext}"
   },
   "mac": {
     "identity": null,
@@ -45,7 +45,7 @@
       { "from": "build/embedded/darwin-${arch}/ffprobe", "to": "ffprobe" }
     ],
     "target": [{ "target": "dmg", "arch": ["arm64", "x64"] }],
-    "artifactName": "${productName}-${version}-${arch}.${ext}"
+    "artifactName": "${productName}-mac-${arch}.${ext}"
   },
   "linux": {
     "extraResources": [
@@ -57,7 +57,7 @@
       { "target": "AppImage", "arch": ["x64"] },
       { "target": "tar.gz", "arch": ["x64"] }
     ],
-    "artifactName": "${productName}-${version}.${ext}"
+    "artifactName": "${productName}-linux-${arch}.${ext}"
   },
   "publish": {
     "provider": "github",

@@ -11,7 +11,7 @@
 
 **YouTube と 2000 以上の対応サイト**から動画・Shorts・音楽・チャンネル・ポッドキャスト・音声トラックをダウンロード — 最大 4K HDR 60fps、または MP3 / AAC / Opus として。Windows、macOS、Linux でローカル動作。**広告なし、余計なものなし、アップセルなし。**
 
-[**↓ 最新リリースをダウンロード**](../../releases/latest) &nbsp;·&nbsp; [**ウェブサイト**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#download) · [macOS](#download) · [Linux](#download)
+[**↓ 最新リリースをダウンロード**](#install) &nbsp;·&nbsp; [**ウェブサイト**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
 
 <img src="build/demo.gif" alt="Arroxy デモ" width="720" />
 
@@ -29,13 +29,176 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 
 ## 目次
 
+- [ダウンロード](#install)
 - [なぜ Arroxy？](#why)
 - [機能](#features)
-- [ダウンロード](#download)
 - [プライバシー](#privacy)
 - [よくある質問](#faq)
 - [ロードマップ](#roadmap)
 - [技術詳細](#tech)
+
+---
+
+## <a id="install"></a>ダウンロード
+
+| プラットフォーム | フォーマット |
+| ------------------- | ----------------- |
+| 🪟 Windows          | [NSIS インストーラ](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) · [ポータブル `.exe`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |
+| 🍎 macOS            | [arm64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) · [x64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg) |
+| 🐧 Linux            | [AppImage](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.AppImage) · [Flatpak](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.flatpak) · [`tar.gz`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.tar.gz) |
+| 🔐 SHA256           | [SHA256SUMS](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) |
+
+[**最新リリースを入手 →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="why-warning"></a>警告が表示される理由
+
+Arroxy はオープンソースで MIT ライセンスのソフトウェアです。Windows および macOS のビルドは**コード署名されていません** — Apple Developer ID と Windows EV のコード署名証明書はそれぞれ年間数百ドルかかり、個人プロジェクトでは自己負担になります。署名がない場合、Windows SmartScreen と macOS Gatekeeper は初回起動時に警告を表示します。これらの警告は*OS が発行元を認識していない*ことを意味するものであり、Arroxy がマルウェアであることを示すものではありません。
+
+自分で Arroxy を検証する 3 つの方法（厳密さの高い順）：
+
+- **ソースコードを読む。** すべての行は [GitHub](https://github.com/antonio-orionus/Arroxy) にあり、[ソースからビルド](#tech)することもできます。
+- **SHA256 を確認する。** ダウンロードしたファイルを公開済みの [`SHA256SUMS`](../../releases/latest) と照合してください — 下記の[ダウンロードの検証](#verify)を参照。
+- **サードパーティのスキャンを実行する。** [VirusTotal](https://www.virustotal.com) にファイルをアップロード。
+
+### <a id="windows-first-launch"></a>Windows 初回起動
+
+初回起動時に **«Windows protected your PC»** または **«Unknown publisher»** が表示されることがあります。これは `Arroxy-win-x64-Setup.exe` と `Arroxy-win-x64-Portable.exe` の両方に該当します。Arroxy は無料のオープンソースソフトウェアであり、Windows ビルドには有料の証明書によるコード署名がないため、SmartScreen がフラグを立てます。これは Arroxy が危険であることを**自動的に**意味するわけではありません。続行するには：
+
+<div align="center">
+  <img src="build/win-smartscreen-more-info.png" width="46%" alt="SmartScreen "Windows protected your PC" dialog with the "More info" link highlighted" />
+  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="SmartScreen dialog after expanding More info, showing the "Run anyway" button" />
+</div>
+
+1. **More info** をクリック。
+2. **Run anyway** をクリック。
+
+#### Windows Defender がファイルをフラグまたは削除した場合
+
+Defender のヒューリスティックは、署名されていない NSIS インストーラーや Electron のポータブル版を不審として検出することがあります。Defender が `Arroxy-win-x64-Setup.exe` または `Arroxy-win-x64-Portable.exe` を隔離した場合は、**Windows Security → Virus & threat protection → Protection history** から復元し、**Manage settings → Add or remove exclusions** で Arroxy の実行ファイルを許可リストに追加してください。SmartScreen と同様に、トリガーとなるのは発行元署名の欠如であり、マルウェアの検出ではありません。
+
+> Arroxy は必ず公式の GitHub Releases ページからダウンロードしてください。他のウェブサイトから入手したファイルや、誰かから送られてきたファイルは削除し、公式ソースから新しいコピーをダウンロードしてください。ソースコードは公開されているため、ご自身で確認したり、Arroxy をビルドしたりすることも可能です。
+
+### <a id="macos-first-launch"></a>macOS 初回起動
+
+Arroxy はまだ macOS 向けのコード署名が行われていないため、Gatekeeper が初回起動をブロックします。許可する方法は macOS のバージョンによって異なります — Sequoia 15 では旧来の右クリック → 開く による回避策が制限されました。
+
+#### macOS Sequoia 15 以降（現行）
+
+Sequoia 15 以降では、右クリック → 開く では多くの隔離済みアプリの Gatekeeper をバイパスできなくなりました。代わりにシステム設定パネルを使用してください：
+
+1. マウントした DMG から `Arroxy.app` を `/Applications` にドラッグ。
+2. Arroxy をダブルクリックするとブロックダイアログが表示されます — **Done** をクリック（*Move to Trash* はクリックしない）。
+3. **System Settings → Privacy & Security** を開き、**Security** セクションまでスクロール。*"Arroxy was blocked to protect your Mac"*（または同様のメッセージ）が表示されます。
+4. **Open Anyway** をクリックし、パスワードまたは Touch ID で確認後、`/Applications` から Arroxy を再起動してください。
+
+#### macOS Sonoma 14 以前
+
+1. マウントした DMG から `Arroxy.app` を `/Applications` にドラッグ。
+2. `/Applications` 内の `Arroxy.app` を右クリック（または Control-クリック）して **Open** を選択。
+3. 警告ダイアログに **Open** ボタンが表示されます — クリックして確認。Arroxy が正常に開き、以後警告は表示されません。
+
+#### "App is damaged" または Gatekeeper の継続的なブロック — Terminal による修正
+
+macOS が *"Arroxy is damaged and can't be opened"* と表示する場合、または上記の手順でブロックが解除できない場合、原因は DMG の隔離属性です（一部のブラウザや macOS 自体のトランスロケーション動作が設定します）。インストール済みアプリからその属性を削除してください：
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Arroxy.app
+```
+
+**Apple Silicon vs Intel：** M シリーズ Mac（M1 / M2 / M3 / M4）では `arm64` DMG をダウンロード。Intel Mac では `x64` DMG をダウンロード。誤ったビルドも Rosetta 経由で動作しますが、速度は明らかに遅くなります。
+
+> macOS ビルドは Apple Silicon と Intel の CI ランナーで生成されます。問題が発生した場合は [issue を開いて](../../issues) ください — macOS ユーザーからのフィードバックが macOS のテストサイクルを積極的に形成します。
+
+### <a id="linux-first-launch"></a>Linux 初回起動
+
+AppImage はインストール不要で直接実行できます。ファイルを実行可能としてマークするだけです。
+
+**ファイルマネージャー：** `.AppImage` を右クリック → **プロパティ** → **権限** → **プログラムとして実行を許可** を有効化、ダブルクリックで起動。
+
+**ターミナル：**
+
+```bash
+chmod +x Arroxy-linux-x64.AppImage
+./Arroxy-linux-x64.AppImage
+```
+
+それでも起動しない場合、FUSE が不足している可能性があります：
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y libfuse2
+
+# Fedora
+sudo dnf install -y fuse-libs
+
+# Arch
+sudo pacman -S fuse2
+```
+
+**省略可能なデスクトップ統合：** [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) を一度インストールしておくと、ダブルクリックした AppImage が自動的にランチャーメニューに登録されます — `.desktop` ファイルの手動作成は不要です。
+
+**Flatpak（サンドボックス版）：** 同じリリースページから `Arroxy-*.flatpak` をダウンロード。
+
+```bash
+flatpak install --user Arroxy-linux-x64.flatpak
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+<details>
+<summary><strong><a id="verify"></a>ダウンロードの検証（SHA256）</strong></summary>
+
+各リリースではバイナリと一緒に `SHA256SUMS` ファイルが公開されています。ダウンロードが転送中に破損または改ざんされていないことを確認するには、ファイルをローカルでハッシュ計算し、`SHA256SUMS` の該当行と照合してください。最新リリースページを開き → **Assets** → `SHA256SUMS` をダウンロード。
+
+**Windows (PowerShell or Command Prompt):**
+
+```powershell
+certutil -hashfile Arroxy-win-x64-Setup.exe SHA256
+```
+
+**macOS (Terminal):**
+
+```bash
+shasum -a 256 Arroxy-mac-arm64.dmg
+```
+
+**Linux (Terminal):**
+
+```bash
+sha256sum Arroxy-linux-x64.AppImage
+```
+
+サードパーティのマルウェアスキャンを希望する場合は、[VirusTotal](https://www.virustotal.com) にファイルをアップロードしてください。マイナーなエンジンによる汎用ヒューリスティックの数件の検出は、署名されていない Electron アプリでは通常の範囲内です。主要エンジンによる広範な検出があれば、それは本物の懸念事項です。
+
+</details>
+
+<details>
+<summary><strong>パッケージマネージャー経由でインストール</strong></summary>
+
+パッケージマネージャーを使っている場合は、手動ダウンロードのステップを省略できます。
+
+| チャンネル | コマンド                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
+
+</details>
+
+<details>
+<summary><strong>Windows：インストーラ vs ポータブル</strong></summary>
+
+|               | NSIS インストーラ | ポータブル `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| インストール必要 | はい  | いいえ — どこからでも実行可能  |
+| 自動アップデート | ✅ アプリ内  | ❌ 手動ダウンロード  |
+| 起動速度 | ✅ 速い  | ⚠️ コールドスタートが遅め  |
+| スタートメニューに追加 |            ✅            |           ❌            |
+| 簡単アンインストール |            ✅            | ❌ ファイルを削除するだけ  |
+
+**おすすめ：** 自動アップデートと高速起動には NSIS インストーラを使用。インストール不要・レジストリ非変更のオプションにはポータブル `.exe` を使用。
+
+</details>
 
 ---
 
@@ -106,168 +269,6 @@ Arroxy はひとつのことのために作られています：URL を貼って
   <br/>
   <img src="build/Subtitles-screenshot.png" width="48%" alt="字幕の言語とフォーマットの選択" />
 </div>
-
----
-
-## <a id="download"></a>ダウンロード
-
-| プラットフォーム | フォーマット   |
-| ------------------- | ------------------- |
-| Windows             | インストーラ（NSIS）またはポータブル `.exe`   |
-| macOS               | `.dmg`（Intel + Apple Silicon）   |
-| Linux               | `.AppImage` または `.flatpak`（サンドボックス） |
-
-[**最新リリースを入手 →**](../../releases/latest)
-
-### <a id="why-warning"></a>警告が表示される理由
-
-Arroxy はオープンソースで MIT ライセンスのソフトウェアです。Windows および macOS のビルドは**コード署名されていません** — Apple Developer ID と Windows EV のコード署名証明書はそれぞれ年間数百ドルかかり、個人プロジェクトでは自己負担になります。署名がない場合、Windows SmartScreen と macOS Gatekeeper は初回起動時に警告を表示します。これらの警告は*OS が発行元を認識していない*ことを意味するものであり、Arroxy がマルウェアであることを示すものではありません。
-
-自分で Arroxy を検証する 3 つの方法（厳密さの高い順）：
-
-- **ソースコードを読む。** すべての行は [GitHub](https://github.com/antonio-orionus/Arroxy) にあり、[ソースからビルド](#tech)することもできます。
-- **SHA256 を確認する。** ダウンロードしたファイルを公開済みの [`SHA256SUMS`](../../releases/latest) と照合してください — 下記の[ダウンロードの検証](#verify)を参照。
-- **サードパーティのスキャンを実行する。** [VirusTotal](https://www.virustotal.com) にファイルをアップロード。
-
-### <a id="windows-first-launch"></a>Windows 初回起動
-
-初回起動時に **«Windows protected your PC»** または **«Unknown publisher»** が表示されることがあります。これは `Arroxy-Setup-*.exe` と `Arroxy-Portable-*.exe` の両方に該当します。Arroxy は無料のオープンソースソフトウェアであり、Windows ビルドには有料の証明書によるコード署名がないため、SmartScreen がフラグを立てます。これは Arroxy が危険であることを**自動的に**意味するわけではありません。続行するには：
-
-<div align="center">
-  <img src="build/win-smartscreen-more-info.png" width="46%" alt="SmartScreen "Windows protected your PC" dialog with the "More info" link highlighted" />
-  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="SmartScreen dialog after expanding More info, showing the "Run anyway" button" />
-</div>
-
-1. **More info** をクリック。
-2. **Run anyway** をクリック。
-
-#### Windows Defender がファイルをフラグまたは削除した場合
-
-Defender のヒューリスティックは、署名されていない NSIS インストーラーや Electron のポータブル版を不審として検出することがあります。Defender が `Arroxy-Setup-*.exe` または `Arroxy-Portable-*.exe` を隔離した場合は、**Windows Security → Virus & threat protection → Protection history** から復元し、**Manage settings → Add or remove exclusions** で Arroxy の実行ファイルを許可リストに追加してください。SmartScreen と同様に、トリガーとなるのは発行元署名の欠如であり、マルウェアの検出ではありません。
-
-> Arroxy は必ず公式の GitHub Releases ページからダウンロードしてください。他のウェブサイトから入手したファイルや、誰かから送られてきたファイルは削除し、公式ソースから新しいコピーをダウンロードしてください。ソースコードは公開されているため、ご自身で確認したり、Arroxy をビルドしたりすることも可能です。
-
-### <a id="macos-first-launch"></a>macOS 初回起動
-
-Arroxy はまだ macOS 向けのコード署名が行われていないため、Gatekeeper が初回起動をブロックします。許可する方法は macOS のバージョンによって異なります — Sequoia 15 では旧来の右クリック → 開く による回避策が制限されました。
-
-#### macOS Sequoia 15 以降（現行）
-
-Sequoia 15 以降では、右クリック → 開く では多くの隔離済みアプリの Gatekeeper をバイパスできなくなりました。代わりにシステム設定パネルを使用してください：
-
-1. マウントした DMG から `Arroxy.app` を `/Applications` にドラッグ。
-2. Arroxy をダブルクリックするとブロックダイアログが表示されます — **Done** をクリック（*Move to Trash* はクリックしない）。
-3. **System Settings → Privacy & Security** を開き、**Security** セクションまでスクロール。*"Arroxy was blocked to protect your Mac"*（または同様のメッセージ）が表示されます。
-4. **Open Anyway** をクリックし、パスワードまたは Touch ID で確認後、`/Applications` から Arroxy を再起動してください。
-
-#### macOS Sonoma 14 以前
-
-1. マウントした DMG から `Arroxy.app` を `/Applications` にドラッグ。
-2. `/Applications` 内の `Arroxy.app` を右クリック（または Control-クリック）して **Open** を選択。
-3. 警告ダイアログに **Open** ボタンが表示されます — クリックして確認。Arroxy が正常に開き、以後警告は表示されません。
-
-#### "App is damaged" または Gatekeeper の継続的なブロック — Terminal による修正
-
-macOS が *"Arroxy is damaged and can't be opened"* と表示する場合、または上記の手順でブロックが解除できない場合、原因は DMG の隔離属性です（一部のブラウザや macOS 自体のトランスロケーション動作が設定します）。インストール済みアプリからその属性を削除してください：
-
-```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
-```
-
-**Apple Silicon vs Intel：** M シリーズ Mac（M1 / M2 / M3 / M4）では `arm64` DMG をダウンロード。Intel Mac では `x64` DMG をダウンロード。誤ったビルドも Rosetta 経由で動作しますが、速度は明らかに遅くなります。
-
-> macOS ビルドは Apple Silicon と Intel の CI ランナーで生成されます。問題が発生した場合は [issue を開いて](../../issues) ください — macOS ユーザーからのフィードバックが macOS のテストサイクルを積極的に形成します。
-
-### <a id="linux-first-launch"></a>Linux 初回起動
-
-AppImage はインストール不要で直接実行できます。ファイルを実行可能としてマークするだけです。
-
-**ファイルマネージャー：** `.AppImage` を右クリック → **プロパティ** → **権限** → **プログラムとして実行を許可** を有効化、ダブルクリックで起動。
-
-**ターミナル：**
-
-```bash
-chmod +x Arroxy-*.AppImage
-./Arroxy-*.AppImage
-```
-
-それでも起動しない場合、FUSE が不足している可能性があります：
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
-```
-
-**省略可能なデスクトップ統合：** [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) を一度インストールしておくと、ダブルクリックした AppImage が自動的にランチャーメニューに登録されます — `.desktop` ファイルの手動作成は不要です。
-
-**Flatpak（サンドボックス版）：** 同じリリースページから `Arroxy-*.flatpak` をダウンロード。
-
-```bash
-flatpak install --user Arroxy-*.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-<details>
-<summary><strong><a id="verify"></a>ダウンロードの検証（SHA256）</strong></summary>
-
-各リリースではバイナリと一緒に `SHA256SUMS` ファイルが公開されています。ダウンロードが転送中に破損または改ざんされていないことを確認するには、ファイルをローカルでハッシュ計算し、`SHA256SUMS` の該当行と照合してください。最新リリースページを開き → **Assets** → `SHA256SUMS` をダウンロード。
-
-**Windows (PowerShell or Command Prompt):**
-
-```powershell
-certutil -hashfile Arroxy-Setup-<version>.exe SHA256
-```
-
-**macOS (Terminal):**
-
-```bash
-shasum -a 256 Arroxy-<version>-arm64.dmg
-```
-
-**Linux (Terminal):**
-
-```bash
-sha256sum Arroxy-*.AppImage
-```
-
-サードパーティのマルウェアスキャンを希望する場合は、[VirusTotal](https://www.virustotal.com) にファイルをアップロードしてください。マイナーなエンジンによる汎用ヒューリスティックの数件の検出は、署名されていない Electron アプリでは通常の範囲内です。主要エンジンによる広範な検出があれば、それは本物の懸念事項です。
-
-</details>
-
-<details>
-<summary><strong>パッケージマネージャー経由でインストール</strong></summary>
-
-パッケージマネージャーを使っている場合は、手動ダウンロードのステップを省略できます。
-
-| チャンネル | コマンド                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-*.flatpak`                                                         |
-
-</details>
-
-<details>
-<summary><strong>Windows：インストーラ vs ポータブル</strong></summary>
-
-|               | NSIS インストーラ | ポータブル `.exe` |
-| ------------- | :----------------------: | :---------------------: |
-| インストール必要 | はい  | いいえ — どこからでも実行可能  |
-| 自動アップデート | ✅ アプリ内  | ❌ 手動ダウンロード  |
-| 起動速度 | ✅ 速い  | ⚠️ コールドスタートが遅め  |
-| スタートメニューに追加 |            ✅            |           ❌            |
-| 簡単アンインストール |            ✅            | ❌ ファイルを削除するだけ  |
-
-**おすすめ：** 自動アップデートと高速起動には NSIS インストーラを使用。インストール不要・レジストリ非変更のオプションにはポータブル `.exe` を使用。
-
-</details>
 
 ---
 
@@ -421,10 +422,10 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 ```bash
 # Windows (Portable) — PowerShell, run from the folder containing the exe
-.\Arroxy-Portable-<version>.exe --disable-gpu
+.\Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Portable) — Command Prompt (cmd.exe), from the same folder
-Arroxy-Portable-<version>.exe --disable-gpu
+Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Installed) — works in both PowerShell and cmd.exe
 "%LOCALAPPDATA%\Programs\Arroxy\Arroxy.exe" --disable-gpu
@@ -433,7 +434,7 @@ Arroxy-Portable-<version>.exe --disable-gpu
 /Applications/Arroxy.app/Contents/MacOS/Arroxy --disable-gpu
 
 # Linux (AppImage)
-./Arroxy-*.AppImage --disable-gpu
+./Arroxy-linux-x64.AppImage --disable-gpu
 ```
 
 If that works, the GPU/driver is the cause. Make the change permanent (next step).

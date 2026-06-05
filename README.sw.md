@@ -11,7 +11,7 @@
 
 Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 4K HDR kwa fps 60, au kama MP3 / AAC / Opus. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**
 
-[**↓ Pakua Toleo la Hivi Karibuni**](../../releases/latest) &nbsp;·&nbsp; [**Tovuti**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#download) · [macOS](#download) · [Linux](#download)
+[**↓ Pakua Toleo la Hivi Karibuni**](#install) &nbsp;·&nbsp; [**Tovuti**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
 
 <img src="build/demo.gif" alt="Demo ya Arroxy" width="720" />
 
@@ -27,13 +27,176 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 
 ## Yaliyomo
 
+- [Pakua](#install)
 - [Kwa Nini Arroxy](#why)
 - [Vipengele](#features)
-- [Pakua](#download)
 - [Faragha](#privacy)
 - [Maswali Yanayoulizwa Mara kwa Mara](#faq)
 - [Ramani ya Barabara](#roadmap)
 - [Imejengwa na](#tech)
+
+---
+
+## <a id="install"></a>Pakua
+
+| Jukwaa | Fomati |
+| ------------------- | ----------------- |
+| 🪟 Windows          | [Kisanidi cha NSIS](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) · [Inayobebeka `.exe`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |
+| 🍎 macOS            | [arm64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) · [x64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg) |
+| 🐧 Linux            | [AppImage](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.AppImage) · [Flatpak](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.flatpak) · [`tar.gz`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.tar.gz) |
+| 🔐 SHA256           | [SHA256SUMS](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) |
+
+[**Pata toleo la hivi karibuni →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="why-warning"></a>Kwa nini unaweza kuona onyo
+
+Arroxy ni chanzo wazi na ina leseni ya MIT. Ujenzi wa Windows na macOS **haujasainiwa kwa nambari** — cheti cha Apple Developer ID na Windows EV cha kutia saini msimbo huchangia mamia ya dola kwa mwaka, ambayo mradi wa kujitegemea hulipa mfukoni mwake. Bila saini hizo, Windows SmartScreen na macOS Gatekeeper watakuonya wakati wa uzinduzi wa kwanza. Maonyo hayo yanamaanisha *mfumo wako wa uendeshaji haukuitambua kampuni inayotoa programu* — hayamaanishi kwamba Arroxy ni programu hasidi.
+
+Njia tatu za kuthibitisha Arroxy mwenyewe, kwa uthabiti unaozidi:
+
+- **Soma msimbo wa chanzo.** Kila mstari uko kwenye [GitHub](https://github.com/antonio-orionus/Arroxy) na unaweza [kuijenga kutoka chanzo](#tech).
+- **Angalia SHA256.** Linganisha faili yako na [`SHA256SUMS`](../../releases/latest) iliyochapishwa — tazama [Thibitisha upakuaji wako](#verify) hapa chini.
+- **Fanya ukaguzi wa tatu.** Pakia faili kwenye [VirusTotal](https://www.virustotal.com).
+
+### <a id="windows-first-launch"></a>Uzinduzi wa kwanza wa Windows
+
+Wakati wa uzinduzi wa kwanza unaweza kuona **"Windows protected your PC"** au **"Unknown publisher."** Hii inatumika kwa `Arroxy-win-x64-Setup.exe` na `Arroxy-win-x64-Portable.exe`. Arroxy ni bure na chanzo wazi, na ujenzi wa Windows haujasainiwa kwa cheti cha malipo, ndiyo maana SmartScreen huipiga bendera. Hii **haimaanishi** kiotomatiki kwamba Arroxy si salama. Ili kuendelea:
+
+<div align="center">
+  <img src="build/win-smartscreen-more-info.png" width="46%" alt="SmartScreen "Windows protected your PC" dialog with the "More info" link highlighted" />
+  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="SmartScreen dialog after expanding More info, showing the "Run anyway" button" />
+</div>
+
+1. Bonyeza **More info**.
+2. Bonyeza **Run anyway**.
+
+#### Ikiwa Windows Defender inaweka bendera au kuondoa faili
+
+Heuristics za Defender wakati mwingine huweka bendera kwenye visanidi visivyosainiwa vya NSIS na portable za Electron kama zinazoshukiwa. Ikiwa Defender inaweka karantini `Arroxy-win-x64-Setup.exe` au `Arroxy-win-x64-Portable.exe`, irudishe kutoka **Windows Security → Virus & threat protection → Protection history**, kisha ongeza faili inayoweza kutekelezwa ya Arroxy kama kipengele kinachoruhusiwa chini ya **Manage settings → Add or remove exclusions**. Kama ilivyo na SmartScreen, kisababishi ni saini ya mchapishaji inayokosekana, si programu hasidi iliyogunduliwa.
+
+> Pakua Arroxy tu kutoka ukurasa rasmi wa GitHub Releases. Ukipata faili kutoka tovuti nyingine au mtu akikutumia, ifute na upakue nakala mpya kutoka chanzo rasmi. Msimbo wa chanzo ni wa umma, hivyo unaweza kuukagua au kuijenga Arroxy mwenyewe ukitaka.
+
+### <a id="macos-first-launch"></a>Uzinduzi wa kwanza wa macOS
+
+Arroxy bado haijasainiwa kwa nambari kwa macOS, kwa hivyo Gatekeeper itazuia uzinduzi wa kwanza. Njia halisi ya kuiruhusu inategemea toleo lako la macOS — Sequoia 15 ilifunga njia ya zamani ya kukwepa kwa kubonyeza kulia → Open.
+
+#### macOS Sequoia 15 na baadaye (ya sasa)
+
+Kwenye Sequoia 15 na toleo jipya zaidi, kubonyeza kulia → Open haizuii tena Gatekeeper kwa programu nyingi zilizowekwa karantini. Tumia paneli ya Mipangilio ya Mfumo badala yake:
+
+1. Buruta `Arroxy.app` kutoka kwenye DMG iliyopachikwa hadi `/Applications`.
+2. Bonyeza mara mbili Arroxy. Sanduku la mazungumzo la kuzuia linaonekana — bonyeza **Done** (usibonyeze *Move to Trash*).
+3. Fungua **System Settings → Privacy & Security** na tembeza hadi sehemu ya **Security**. Utaona *"Arroxy was blocked to protect your Mac"* (au ujumbe unaofanana sana).
+4. Bonyeza **Open Anyway**, thibitisha kwa nenosiri lako au Touch ID, kisha uzindue tena Arroxy kutoka `/Applications`.
+
+#### macOS Sonoma 14 na mapema zaidi
+
+1. Buruta `Arroxy.app` kutoka kwenye DMG iliyopachikwa hadi `/Applications`.
+2. Bonyeza kulia (au Control-bonyeza) `Arroxy.app` katika `/Applications` na uchague **Open**.
+3. Sanduku la onyo sasa lina kitufe cha **Open** — bonyeza na uthibitishe. Arroxy inafunguka kawaida na onyo halitatokea tena.
+
+#### "App is damaged" au kizuizi cha Gatekeeper kinachoendelea — suluhisho la Terminal
+
+Ikiwa macOS inasema *"Arroxy is damaged and can't be opened"*, au hakuna hatua zilizo hapo juu zinazoondoa kizuizi, sifa ya karantini kwenye DMG ndiyo sababu (vivinjari vingine na tabia ya translocation ya macOS yenyewe huiweka). Iondoe kutoka kwa programu iliyosanikishwa:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Arroxy.app
+```
+
+**Apple Silicon vs Intel:** kwenye Mac ya mfululizo wa M (M1 / M2 / M3 / M4), pakua DMG ya `arm64`. Kwenye Mac za Intel, pakua DMG ya `x64`. Kuendesha build isiyo sahihi bado kunafanya kazi kupitia Rosetta lakini ni polepole zaidi kwa kiasi kinachoonekana.
+
+> Ujenzi wa macOS hufanywa kupitia CI kwenye vichakataji vya Apple Silicon na Intel. Ukipata matatizo, tafadhali [fungua tatizo](../../issues) — maoni kutoka kwa watumiaji wa macOS yanaathiri kikamilifu mzunguko wa majaribio ya macOS.
+
+### <a id="linux-first-launch"></a>Uzinduzi wa kwanza wa Linux
+
+AppImages zinaendesha moja kwa moja — hakuna usanidi. Unahitaji tu kuweka faili kama inayoweza kutekelezwa.
+
+**Kidhibiti cha faili:** bonyeza kulia `.AppImage` → **Properties** → **Permissions** → wezesha **Allow executing file as program**, kisha bonyeza mara mbili.
+
+**Terminal:**
+
+```bash
+chmod +x Arroxy-linux-x64.AppImage
+./Arroxy-linux-x64.AppImage
+```
+
+Ikiwa uzinduzi bado unashindwa, huenda FUSE haipo:
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y libfuse2
+
+# Fedora
+sudo dnf install -y fuse-libs
+
+# Arch
+sudo pacman -S fuse2
+```
+
+**Uunganishaji wa hiari wa desktop:** sakinisha [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) mara moja, na AppImage yoyote unayobonyeza mara mbili itasajiliwa kiotomatiki kwenye menyu yako ya uzinduzi — hakuna faili ya `.desktop` ya mkono inayohitajika.
+
+**Flatpak (mbadala wenye sanduku):** pakua `Arroxy-*.flatpak` kutoka ukurasa huo huo wa toleo.
+
+```bash
+flatpak install --user Arroxy-linux-x64.flatpak
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+<details>
+<summary><strong><a id="verify"></a>Thibitisha upakuaji wako (SHA256)</strong></summary>
+
+Kila toleo linachapisha faili ya `SHA256SUMS` pamoja na faili za binary. Ili kuangalia kwamba upakuaji wako haukuharibiwa au kubadilishwa wakati wa usafirishaji, hesabu hash ya faili yako mahali hapo na ulinganishe mstari katika `SHA256SUMS`. Fungua ukurasa wa toleo la hivi karibuni → **Assets** → pakua `SHA256SUMS`.
+
+**Windows (PowerShell or Command Prompt):**
+
+```powershell
+certutil -hashfile Arroxy-win-x64-Setup.exe SHA256
+```
+
+**macOS (Terminal):**
+
+```bash
+shasum -a 256 Arroxy-mac-arm64.dmg
+```
+
+**Linux (Terminal):**
+
+```bash
+sha256sum Arroxy-linux-x64.AppImage
+```
+
+Unataka ukaguzi wa programu hasidi wa mtu wa tatu? Pakia faili kwenye [VirusTotal](https://www.virustotal.com). Bendera chache za heuristic za jumla kutoka kwa injini ndogo ni za kawaida kwa programu za Electron zisizosainiwa; ugunduzi ulioenea kutoka kwa injini kubwa ungekuwa wasiwasi wa kweli.
+
+</details>
+
+<details>
+<summary><strong>Sanidi kupitia meneja wa pakiti</strong></summary>
+
+Tayari unatumia meneja wa pakiti? Unaweza kuruka njia ya upakuaji wa mkono.
+
+| Njia | Amri                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
+
+</details>
+
+<details>
+<summary><strong>Windows: Kisanidi dhidi ya Inayobebeka</strong></summary>
+
+|               | Kisanidi cha NSIS | Inayobebeka `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| Usanidi unahitajika | Ndiyo  | Hapana — endesha kutoka mahali popote  |
+| Masasisho ya kiotomatiki | ✅ ndani ya programu  | ❌ upakuaji wa mkono  |
+| Kasi ya uzinduzi | ✅ ya haraka zaidi  | ⚠️ mwanzo wa polepole baridi  |
+| Inaongeza kwenye Menyu ya Kuanza |            ✅            |           ❌            |
+| Kuondoa kwa urahisi |            ✅            | ❌ futa faili  |
+
+**Pendekezo:** tumia kisanidi cha NSIS kwa masasisho ya kiotomatiki na uzinduzi wa haraka. Tumia `.exe` inayobebeka kwa chaguo lisilo na usanidi na bila usajili.
+
+</details>
 
 ---
 
@@ -104,168 +267,6 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
   <br/>
   <img src="build/Subtitles-screenshot.png" width="48%" alt="Kichaguo cha lugha na fomati ya manukuu" />
 </div>
-
----
-
-## <a id="download"></a>Pakua
-
-| Jukwaa | Fomati   |
-| ------------------- | ------------------- |
-| Windows             | Kisanidi (NSIS) au Inayobebeka `.exe`   |
-| macOS               | `.dmg` (Intel + Apple Silicon)   |
-| Linux               | `.AppImage` au `.flatpak` (imewekwa sanduku) |
-
-[**Pata toleo la hivi karibuni →**](../../releases/latest)
-
-### <a id="why-warning"></a>Kwa nini unaweza kuona onyo
-
-Arroxy ni chanzo wazi na ina leseni ya MIT. Ujenzi wa Windows na macOS **haujasainiwa kwa nambari** — cheti cha Apple Developer ID na Windows EV cha kutia saini msimbo huchangia mamia ya dola kwa mwaka, ambayo mradi wa kujitegemea hulipa mfukoni mwake. Bila saini hizo, Windows SmartScreen na macOS Gatekeeper watakuonya wakati wa uzinduzi wa kwanza. Maonyo hayo yanamaanisha *mfumo wako wa uendeshaji haukuitambua kampuni inayotoa programu* — hayamaanishi kwamba Arroxy ni programu hasidi.
-
-Njia tatu za kuthibitisha Arroxy mwenyewe, kwa uthabiti unaozidi:
-
-- **Soma msimbo wa chanzo.** Kila mstari uko kwenye [GitHub](https://github.com/antonio-orionus/Arroxy) na unaweza [kuijenga kutoka chanzo](#tech).
-- **Angalia SHA256.** Linganisha faili yako na [`SHA256SUMS`](../../releases/latest) iliyochapishwa — tazama [Thibitisha upakuaji wako](#verify) hapa chini.
-- **Fanya ukaguzi wa tatu.** Pakia faili kwenye [VirusTotal](https://www.virustotal.com).
-
-### <a id="windows-first-launch"></a>Uzinduzi wa kwanza wa Windows
-
-Wakati wa uzinduzi wa kwanza unaweza kuona **"Windows protected your PC"** au **"Unknown publisher."** Hii inatumika kwa `Arroxy-Setup-*.exe` na `Arroxy-Portable-*.exe`. Arroxy ni bure na chanzo wazi, na ujenzi wa Windows haujasainiwa kwa cheti cha malipo, ndiyo maana SmartScreen huipiga bendera. Hii **haimaanishi** kiotomatiki kwamba Arroxy si salama. Ili kuendelea:
-
-<div align="center">
-  <img src="build/win-smartscreen-more-info.png" width="46%" alt="SmartScreen "Windows protected your PC" dialog with the "More info" link highlighted" />
-  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="SmartScreen dialog after expanding More info, showing the "Run anyway" button" />
-</div>
-
-1. Bonyeza **More info**.
-2. Bonyeza **Run anyway**.
-
-#### Ikiwa Windows Defender inaweka bendera au kuondoa faili
-
-Heuristics za Defender wakati mwingine huweka bendera kwenye visanidi visivyosainiwa vya NSIS na portable za Electron kama zinazoshukiwa. Ikiwa Defender inaweka karantini `Arroxy-Setup-*.exe` au `Arroxy-Portable-*.exe`, irudishe kutoka **Windows Security → Virus & threat protection → Protection history**, kisha ongeza faili inayoweza kutekelezwa ya Arroxy kama kipengele kinachoruhusiwa chini ya **Manage settings → Add or remove exclusions**. Kama ilivyo na SmartScreen, kisababishi ni saini ya mchapishaji inayokosekana, si programu hasidi iliyogunduliwa.
-
-> Pakua Arroxy tu kutoka ukurasa rasmi wa GitHub Releases. Ukipata faili kutoka tovuti nyingine au mtu akikutumia, ifute na upakue nakala mpya kutoka chanzo rasmi. Msimbo wa chanzo ni wa umma, hivyo unaweza kuukagua au kuijenga Arroxy mwenyewe ukitaka.
-
-### <a id="macos-first-launch"></a>Uzinduzi wa kwanza wa macOS
-
-Arroxy bado haijasainiwa kwa nambari kwa macOS, kwa hivyo Gatekeeper itazuia uzinduzi wa kwanza. Njia halisi ya kuiruhusu inategemea toleo lako la macOS — Sequoia 15 ilifunga njia ya zamani ya kukwepa kwa kubonyeza kulia → Open.
-
-#### macOS Sequoia 15 na baadaye (ya sasa)
-
-Kwenye Sequoia 15 na toleo jipya zaidi, kubonyeza kulia → Open haizuii tena Gatekeeper kwa programu nyingi zilizowekwa karantini. Tumia paneli ya Mipangilio ya Mfumo badala yake:
-
-1. Buruta `Arroxy.app` kutoka kwenye DMG iliyopachikwa hadi `/Applications`.
-2. Bonyeza mara mbili Arroxy. Sanduku la mazungumzo la kuzuia linaonekana — bonyeza **Done** (usibonyeze *Move to Trash*).
-3. Fungua **System Settings → Privacy & Security** na tembeza hadi sehemu ya **Security**. Utaona *"Arroxy was blocked to protect your Mac"* (au ujumbe unaofanana sana).
-4. Bonyeza **Open Anyway**, thibitisha kwa nenosiri lako au Touch ID, kisha uzindue tena Arroxy kutoka `/Applications`.
-
-#### macOS Sonoma 14 na mapema zaidi
-
-1. Buruta `Arroxy.app` kutoka kwenye DMG iliyopachikwa hadi `/Applications`.
-2. Bonyeza kulia (au Control-bonyeza) `Arroxy.app` katika `/Applications` na uchague **Open**.
-3. Sanduku la onyo sasa lina kitufe cha **Open** — bonyeza na uthibitishe. Arroxy inafunguka kawaida na onyo halitatokea tena.
-
-#### "App is damaged" au kizuizi cha Gatekeeper kinachoendelea — suluhisho la Terminal
-
-Ikiwa macOS inasema *"Arroxy is damaged and can't be opened"*, au hakuna hatua zilizo hapo juu zinazoondoa kizuizi, sifa ya karantini kwenye DMG ndiyo sababu (vivinjari vingine na tabia ya translocation ya macOS yenyewe huiweka). Iondoe kutoka kwa programu iliyosanikishwa:
-
-```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
-```
-
-**Apple Silicon vs Intel:** kwenye Mac ya mfululizo wa M (M1 / M2 / M3 / M4), pakua DMG ya `arm64`. Kwenye Mac za Intel, pakua DMG ya `x64`. Kuendesha build isiyo sahihi bado kunafanya kazi kupitia Rosetta lakini ni polepole zaidi kwa kiasi kinachoonekana.
-
-> Ujenzi wa macOS hufanywa kupitia CI kwenye vichakataji vya Apple Silicon na Intel. Ukipata matatizo, tafadhali [fungua tatizo](../../issues) — maoni kutoka kwa watumiaji wa macOS yanaathiri kikamilifu mzunguko wa majaribio ya macOS.
-
-### <a id="linux-first-launch"></a>Uzinduzi wa kwanza wa Linux
-
-AppImages zinaendesha moja kwa moja — hakuna usanidi. Unahitaji tu kuweka faili kama inayoweza kutekelezwa.
-
-**Kidhibiti cha faili:** bonyeza kulia `.AppImage` → **Properties** → **Permissions** → wezesha **Allow executing file as program**, kisha bonyeza mara mbili.
-
-**Terminal:**
-
-```bash
-chmod +x Arroxy-*.AppImage
-./Arroxy-*.AppImage
-```
-
-Ikiwa uzinduzi bado unashindwa, huenda FUSE haipo:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
-```
-
-**Uunganishaji wa hiari wa desktop:** sakinisha [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) mara moja, na AppImage yoyote unayobonyeza mara mbili itasajiliwa kiotomatiki kwenye menyu yako ya uzinduzi — hakuna faili ya `.desktop` ya mkono inayohitajika.
-
-**Flatpak (mbadala wenye sanduku):** pakua `Arroxy-*.flatpak` kutoka ukurasa huo huo wa toleo.
-
-```bash
-flatpak install --user Arroxy-*.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-<details>
-<summary><strong><a id="verify"></a>Thibitisha upakuaji wako (SHA256)</strong></summary>
-
-Kila toleo linachapisha faili ya `SHA256SUMS` pamoja na faili za binary. Ili kuangalia kwamba upakuaji wako haukuharibiwa au kubadilishwa wakati wa usafirishaji, hesabu hash ya faili yako mahali hapo na ulinganishe mstari katika `SHA256SUMS`. Fungua ukurasa wa toleo la hivi karibuni → **Assets** → pakua `SHA256SUMS`.
-
-**Windows (PowerShell or Command Prompt):**
-
-```powershell
-certutil -hashfile Arroxy-Setup-<version>.exe SHA256
-```
-
-**macOS (Terminal):**
-
-```bash
-shasum -a 256 Arroxy-<version>-arm64.dmg
-```
-
-**Linux (Terminal):**
-
-```bash
-sha256sum Arroxy-*.AppImage
-```
-
-Unataka ukaguzi wa programu hasidi wa mtu wa tatu? Pakia faili kwenye [VirusTotal](https://www.virustotal.com). Bendera chache za heuristic za jumla kutoka kwa injini ndogo ni za kawaida kwa programu za Electron zisizosainiwa; ugunduzi ulioenea kutoka kwa injini kubwa ungekuwa wasiwasi wa kweli.
-
-</details>
-
-<details>
-<summary><strong>Sanidi kupitia meneja wa pakiti</strong></summary>
-
-Tayari unatumia meneja wa pakiti? Unaweza kuruka njia ya upakuaji wa mkono.
-
-| Njia | Amri                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-*.flatpak`                                                         |
-
-</details>
-
-<details>
-<summary><strong>Windows: Kisanidi dhidi ya Inayobebeka</strong></summary>
-
-|               | Kisanidi cha NSIS | Inayobebeka `.exe` |
-| ------------- | :----------------------: | :---------------------: |
-| Usanidi unahitajika | Ndiyo  | Hapana — endesha kutoka mahali popote  |
-| Masasisho ya kiotomatiki | ✅ ndani ya programu  | ❌ upakuaji wa mkono  |
-| Kasi ya uzinduzi | ✅ ya haraka zaidi  | ⚠️ mwanzo wa polepole baridi  |
-| Inaongeza kwenye Menyu ya Kuanza |            ✅            |           ❌            |
-| Kuondoa kwa urahisi |            ✅            | ❌ futa faili  |
-
-**Pendekezo:** tumia kisanidi cha NSIS kwa masasisho ya kiotomatiki na uzinduzi wa haraka. Tumia `.exe` inayobebeka kwa chaguo lisilo na usanidi na bila usajili.
-
-</details>
 
 ---
 
@@ -419,10 +420,10 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 ```bash
 # Windows (Portable) — PowerShell, run from the folder containing the exe
-.\Arroxy-Portable-<version>.exe --disable-gpu
+.\Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Portable) — Command Prompt (cmd.exe), from the same folder
-Arroxy-Portable-<version>.exe --disable-gpu
+Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Installed) — works in both PowerShell and cmd.exe
 "%LOCALAPPDATA%\Programs\Arroxy\Arroxy.exe" --disable-gpu
@@ -431,7 +432,7 @@ Arroxy-Portable-<version>.exe --disable-gpu
 /Applications/Arroxy.app/Contents/MacOS/Arroxy --disable-gpu
 
 # Linux (AppImage)
-./Arroxy-*.AppImage --disable-gpu
+./Arroxy-linux-x64.AppImage --disable-gpu
 ```
 
 If that works, the GPU/driver is the cause. Make the change permanent (next step).

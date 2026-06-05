@@ -182,7 +182,7 @@ export const vi = {
     "**Khuyến nghị:** sử dụng NSIS installer để có tự động cập nhật và khởi động nhanh hơn. Dùng portable `.exe` nếu bạn muốn không cần cài đặt, không ghi registry.",
   dl_win_smartscreen_h4: "Cảnh báo Windows SmartScreen",
   dl_win_smartscreen_intro:
-    "Khi khởi động lần đầu, bạn có thể thấy **\"Windows protected your PC\"** hoặc **\"Unknown publisher.\"** Điều này áp dụng cho cả `Arroxy-Setup-*.exe` và `Arroxy-Portable-*.exe`. Arroxy là phần mềm miễn phí và mã nguồn mở, các bản build trên Windows không được ký mã bằng chứng chỉ có phí, đó là lý do SmartScreen gắn cờ chúng. Điều này **không** tự động có nghĩa là Arroxy không an toàn. Để tiếp tục:",
+    "Khi khởi động lần đầu, bạn có thể thấy **\"Windows protected your PC\"** hoặc **\"Unknown publisher.\"** Điều này áp dụng cho cả `Arroxy-win-x64-Setup.exe` và `Arroxy-win-x64-Portable.exe`. Arroxy là phần mềm miễn phí và mã nguồn mở, các bản build trên Windows không được ký mã bằng chứng chỉ có phí, đó là lý do SmartScreen gắn cờ chúng. Điều này **không** tự động có nghĩa là Arroxy không an toàn. Để tiếp tục:",
   dl_win_smartscreen_step1: "Nhấp **More info**.",
   dl_win_smartscreen_step2: "Nhấp **Run anyway**.",
   dl_win_smartscreen_official:
@@ -228,7 +228,7 @@ export const vi = {
     'Hộp thoại SmartScreen sau khi mở rộng More info, hiển thị nút "Run anyway"',
   dl_win_defender_h4: "Nếu Windows Defender gắn cờ hoặc xóa file",
   dl_win_defender_p:
-    "Heuristic của Defender đôi khi gắn cờ các trình cài đặt NSIS không được ký và Electron portable là đáng ngờ. Nếu Defender cách ly `Arroxy-Setup-*.exe` hoặc `Arroxy-Portable-*.exe`, hãy khôi phục nó từ **Windows Security → Virus & threat protection → Protection history**, sau đó thêm file thực thi Arroxy làm mục được phép trong **Manage settings → Add or remove exclusions**. Cũng giống SmartScreen, nguyên nhân là thiếu chữ ký nhà phát hành, không phải phần mềm độc hại bị phát hiện.",
+    "Heuristic của Defender đôi khi gắn cờ các trình cài đặt NSIS không được ký và Electron portable là đáng ngờ. Nếu Defender cách ly `Arroxy-win-x64-Setup.exe` hoặc `Arroxy-win-x64-Portable.exe`, hãy khôi phục nó từ **Windows Security → Virus & threat protection → Protection history**, sau đó thêm file thực thi Arroxy làm mục được phép trong **Manage settings → Add or remove exclusions**. Cũng giống SmartScreen, nguyên nhân là thiếu chữ ký nhà phát hành, không phải phần mềm độc hại bị phát hiện.",
 
   dl_macos_first_h3: "Lần đầu khởi động trên macOS",
   dl_macos_intro:

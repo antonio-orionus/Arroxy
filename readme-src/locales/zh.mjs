@@ -180,7 +180,7 @@ export const zh = {
     "**建议：** 使用 NSIS 安装版以获得自动更新和更快的启动速度。使用便携版 `.exe` 实现免安装、不写注册表。",
   dl_win_smartscreen_h4: "Windows SmartScreen 警告",
   dl_win_smartscreen_intro:
-    "首次启动时，您可能会看到 **«Windows protected your PC»** 或 **«Unknown publisher»**。这适用于 `Arroxy-Setup-*.exe` 和 `Arroxy-Portable-*.exe`。Arroxy 是免费开源软件，Windows 版本未使用付费证书签名，这正是 SmartScreen 标记它们的原因。这**不**代表 Arroxy 自动就是不安全的。要继续操作：",
+    "首次启动时，您可能会看到 **«Windows protected your PC»** 或 **«Unknown publisher»**。这适用于 `Arroxy-win-x64-Setup.exe` 和 `Arroxy-win-x64-Portable.exe`。Arroxy 是免费开源软件，Windows 版本未使用付费证书签名，这正是 SmartScreen 标记它们的原因。这**不**代表 Arroxy 自动就是不安全的。要继续操作：",
   dl_win_smartscreen_step1: "点击 **More info**。",
   dl_win_smartscreen_step2: "点击 **Run anyway**。",
   dl_win_smartscreen_official:
@@ -226,7 +226,7 @@ export const zh = {
     'SmartScreen dialog after expanding More info, showing the "Run anyway" button',
   dl_win_defender_h4: "如果 Windows Defender 标记或删除了文件",
   dl_win_defender_p:
-    "Defender 启发式规则有时会将未签名的 NSIS 安装包和 Electron 便携版标记为可疑。如果 Defender 隔离了 `Arroxy-Setup-*.exe` 或 `Arroxy-Portable-*.exe`，请从 **Windows Security → Virus & threat protection → Protection history** 还原，然后在 **Manage settings → Add or remove exclusions** 中将 Arroxy 可执行文件添加为允许项。与 SmartScreen 一样，触发原因是缺少发布者签名，而非检测到恶意软件。",
+    "Defender 启发式规则有时会将未签名的 NSIS 安装包和 Electron 便携版标记为可疑。如果 Defender 隔离了 `Arroxy-win-x64-Setup.exe` 或 `Arroxy-win-x64-Portable.exe`，请从 **Windows Security → Virus & threat protection → Protection history** 还原，然后在 **Manage settings → Add or remove exclusions** 中将 Arroxy 可执行文件添加为允许项。与 SmartScreen 一样，触发原因是缺少发布者签名，而非检测到恶意软件。",
 
   dl_macos_first_h3: "macOS 首次启动",
   dl_macos_intro:

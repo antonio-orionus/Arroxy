@@ -81,7 +81,7 @@ export const en = {
   badge_website_alt: "Website",
   hero_desc:
     "Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 4K HDR at 60 fps, or as MP3 / AAC / Opus. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**",
-  cta_latest: "↓ Download Latest Release",
+  cta_latest: "↓ Install Latest Release",
   cta_website: "Website",
   demo_alt: "Arroxy demo",
   star_cta: "If Arroxy saves you time, a ⭐ helps others find it.",
@@ -89,7 +89,7 @@ export const en = {
   toc_heading: "Contents",
   why_h2: "Why Arroxy",
   features_h2: "Features",
-  dl_h2: "Download",
+  dl_h2: "Install",
   privacy_h2: "Privacy",
   faq_h2: "FAQ",
   roadmap_h2: "Roadmap",
@@ -155,11 +155,11 @@ export const en = {
   shot4_alt: "Download queue in action",
   shot5_alt: "Subtitle language and format picker",
   dl_platform_col: "Platform",
-  dl_format_col: "Format",
+  dl_format_col: "Direct download",
   dl_win_format: "Installer (NSIS) or Portable `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` or `.flatpak` (sandboxed)",
-  dl_grab: "Grab the latest release →",
+  dl_grab: "All release assets →",
   dl_pkg_h3: "Install via package manager",
   dl_channel_col: "Channel",
   dl_command_col: "Command",
@@ -182,7 +182,7 @@ export const en = {
     "**Recommendation:** use the NSIS installer for auto-updates and faster startup. Use the portable `.exe` for a no-install, no-registry option.",
   dl_win_smartscreen_h4: "Windows SmartScreen warning",
   dl_win_smartscreen_intro:
-    "On first launch you may see **\"Windows protected your PC\"** or **\"Unknown publisher.\"** This applies to both `Arroxy-Setup-*.exe` and `Arroxy-Portable-*.exe`. Arroxy is free and open-source and the Windows builds are not code-signed with a paid certificate, which is why SmartScreen flags them. It does **not** automatically mean Arroxy is unsafe. To continue:",
+    "On first launch you may see **\"Windows protected your PC\"** or **\"Unknown publisher.\"** This applies to both `Arroxy-win-x64-Setup.exe` and `Arroxy-win-x64-Portable.exe`. Arroxy is free and open-source and the Windows builds are not code-signed with a paid certificate, which is why SmartScreen flags them. It does **not** automatically mean Arroxy is unsafe. To continue:",
   dl_win_smartscreen_step1: "Click **More info**.",
   dl_win_smartscreen_step2: "Click **Run anyway**.",
   dl_win_smartscreen_official:
@@ -212,14 +212,14 @@ export const en = {
   dl_linux_m2_h4: "Terminal:",
   dl_linux_fuse_text: "If launch still fails, you may be missing FUSE:",
   dl_linux_flatpak_intro:
-    "**Flatpak (sandboxed alternative):** download `Arroxy-*.flatpak` from the same release page.",
+    "**Flatpak (sandboxed alternative):** download `Arroxy-linux-x64.flatpak` from the same release page.",
 
   // ---- Reorganized install help (normie-first, manual-download primary) ----
   dl_warning_h3: "Why you may see a warning",
   dl_warning_p1:
     "Arroxy is open-source and MIT-licensed. The Windows and macOS builds are **not code-signed** — Apple Developer ID and Windows EV code-signing certificates each cost hundreds of dollars per year, which an indie project pays out of pocket. Without those signatures, Windows SmartScreen and macOS Gatekeeper will warn you on first launch. The warnings mean *your OS doesn't recognize the publisher* — they don't mean Arroxy is malware.",
   dl_warning_p2:
-    "Three ways to verify Arroxy yourself, in increasing rigor:\n\n- **Read the source.** Every line is on [GitHub](https://github.com/antonio-orionus/Arroxy) and you can [build it from source](#tech).\n- **Check the SHA256.** Match your file against the published [`SHA256SUMS`](../../releases/latest) — see [Verify your download](#verify) below.\n- **Run a third-party scan.** Upload the file to [VirusTotal](https://www.virustotal.com).",
+    "Three ways to verify Arroxy yourself, in increasing rigor:\n\n- **Read the source.** Every line is on [GitHub](https://github.com/antonio-orionus/Arroxy) and you can [build it from source](#tech).\n- **Check the SHA256.** Match your file against the published [`SHA256SUMS`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) — see [Verify your download](#verify) below.\n- **Run a third-party scan.** Upload the file to [VirusTotal](https://www.virustotal.com).",
 
   dl_win_first_h3: "Windows first launch",
   shot_smartscreen_more_alt:
@@ -228,7 +228,7 @@ export const en = {
     'SmartScreen dialog after expanding More info, showing the "Run anyway" button',
   dl_win_defender_h4: "If Windows Defender flags or removes the file",
   dl_win_defender_p:
-    "Defender heuristics sometimes flag unsigned NSIS installers and Electron portables as suspicious. If Defender quarantines `Arroxy-Setup-*.exe` or `Arroxy-Portable-*.exe`, restore it from **Windows Security → Virus & threat protection → Protection history**, then add the Arroxy executable as an allowed item under **Manage settings → Add or remove exclusions**. As with SmartScreen, the trigger is the missing publisher signature, not detected malware.",
+    "Defender heuristics sometimes flag unsigned NSIS installers and Electron portables as suspicious. If Defender quarantines `Arroxy-win-x64-Setup.exe` or `Arroxy-win-x64-Portable.exe`, restore it from **Windows Security → Virus & threat protection → Protection history**, then add the Arroxy executable as an allowed item under **Manage settings → Add or remove exclusions**. As with SmartScreen, the trigger is the missing publisher signature, not detected malware.",
 
   dl_macos_first_h3: "macOS first launch",
   dl_macos_intro:

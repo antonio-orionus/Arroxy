@@ -379,7 +379,7 @@ Write-Step "copying artifacts to $OutputDir"
 New-Item -ItemType Directory -Path $OutputDir -Force | Out-Null
 $distDir = Join-Path $RepoPath 'dist'
 $artifacts = Get-ChildItem $distDir -File -ErrorAction SilentlyContinue |
-  Where-Object { $_.Name -match '^Arroxy-(Setup|Portable)-.*\.exe$' }
+  Where-Object { $_.Name -match '^Arroxy-win-x64-(Setup|Portable)\.exe$' }
 if (-not $artifacts) {
   throw "no Arroxy installers found in $distDir (build said success -- check output above)"
 }
@@ -398,7 +398,7 @@ if ($OpenOutput) {
   Start-Process explorer.exe -ArgumentList $OutputDir
 }
 if ($Launch) {
-  $portable = $copied | Where-Object { $_ -match 'Arroxy-Portable' } | Select-Object -First 1
+  $portable = $copied | Where-Object { $_ -match 'Arroxy-win-x64-Portable' } | Select-Object -First 1
   if ($portable) {
     Start-Process $portable
     Write-Ok "launched $portable"

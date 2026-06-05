@@ -72,7 +72,7 @@ jobs:
           with urllib.request.urlopen(checksum_req) as response:
               checksums = response.read().decode("utf-8")
 
-          target = f"Arroxy-{version}.tar.gz"
+          target = "Arroxy-linux-x64.tar.gz"
           hash_value = None
           for line in checksums.splitlines():
               if target in line:
@@ -92,7 +92,7 @@ jobs:
           VERSION="${{ steps.resolve.outputs.version }}"
           gh release download "v${VERSION}" \
             --repo antonio-orionus/Arroxy \
-            --pattern "Arroxy-${VERSION}.tar.gz" \
+            --pattern "Arroxy-linux-x64.tar.gz" \
             --dir flatpak
       - name: Render temporary manifest
         run: |
@@ -100,7 +100,7 @@ jobs:
           VERSION="${{ steps.resolve.outputs.version }}"
           python3 scripts/render-flatpak-manifest.py \
             --sha256 "${{ steps.resolve.outputs.sha256 }}" \
-            --archive-path "Arroxy-${VERSION}.tar.gz" \
+            --archive-path "Arroxy-linux-x64.tar.gz" \
             --template flatpak/io.github.antonio_orionus.Arroxy.yml.in \
             --output flatpak/io.github.antonio_orionus.Arroxy.yml \
             --metainfo-template flatpak/io.github.antonio_orionus.Arroxy.metainfo.xml.in \

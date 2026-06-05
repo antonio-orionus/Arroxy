@@ -182,7 +182,7 @@ export const ps = {
     "**سپارښتنه:** د اتوماتیک تازه کولو او ګړندي پیل لپاره د NSIS نصب کوونکی وکاروئ. د بې نصبه، بې ریجسټرۍ اختیار لپاره پورټیبل `.exe` وکاروئ.",
   dl_win_smartscreen_h4: "Windows SmartScreen خبرداری",
   dl_win_smartscreen_intro:
-    "د لومړي پیلولو پر مهال ممکن وګورئ **\"Windows protected your PC\"** یا **\"Unknown publisher.\"** دا د دواړو `Arroxy-Setup-*.exe` او `Arroxy-Portable-*.exe` پر لور پلي کیږي. Arroxy وړیا او خلاصه سرچینه ده او د Windows جوړونې د پیسو ورکولو سند سره کوډ لاسلیک شوي نه دي، له همدې امله SmartScreen یې بیرغ کوي. دا **اوتومات** معنی نه لري چې Arroxy خطرناک ده. د دوام لپاره:",
+    "د لومړي پیلولو پر مهال ممکن وګورئ **\"Windows protected your PC\"** یا **\"Unknown publisher.\"** دا د دواړو `Arroxy-win-x64-Setup.exe` او `Arroxy-win-x64-Portable.exe` پر لور پلي کیږي. Arroxy وړیا او خلاصه سرچینه ده او د Windows جوړونې د پیسو ورکولو سند سره کوډ لاسلیک شوي نه دي، له همدې امله SmartScreen یې بیرغ کوي. دا **اوتومات** معنی نه لري چې Arroxy خطرناک ده. د دوام لپاره:",
   dl_win_smartscreen_step1: "**More info** کلیک کړئ.",
   dl_win_smartscreen_step2: "**Run anyway** کلیک کړئ.",
   dl_win_smartscreen_official:
@@ -228,7 +228,7 @@ export const ps = {
     'SmartScreen د More info پراخولو وروسته ډیالوګ، د "Run anyway" تڼۍ ښودلو سره',
   dl_win_defender_h4: "که Windows Defender فایل بیرغ کوي یا لرې کوي",
   dl_win_defender_p:
-    "د Defender د اټکل کولو میکانیزمونه ځینې وختونه بې لاسلیکه NSIS نصب کوونکي او Electron پورټیبل د شکمن وګڼي. که Defender `Arroxy-Setup-*.exe` یا `Arroxy-Portable-*.exe` قرنطین کوي، له **Windows Security → Virus & threat protection → Protection history** بیرته راولئ، بیا د Arroxy اجرایوي د مجاز توکي تحت **Manage settings → Add or remove exclusions** ووهئ. لکه SmartScreen، محرک د غیر موجوده خپرندې لاسلیک دی، نه کشف شوی malware.",
+    "د Defender د اټکل کولو میکانیزمونه ځینې وختونه بې لاسلیکه NSIS نصب کوونکي او Electron پورټیبل د شکمن وګڼي. که Defender `Arroxy-win-x64-Setup.exe` یا `Arroxy-win-x64-Portable.exe` قرنطین کوي، له **Windows Security → Virus & threat protection → Protection history** بیرته راولئ، بیا د Arroxy اجرایوي د مجاز توکي تحت **Manage settings → Add or remove exclusions** ووهئ. لکه SmartScreen، محرک د غیر موجوده خپرندې لاسلیک دی، نه کشف شوی malware.",
 
   dl_macos_first_h3: "macOS لومړی پیل",
   dl_macos_intro:

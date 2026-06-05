@@ -11,7 +11,7 @@
 
 Преузимајте видео снимке, Shorts, музику, каналe, подкасте или аудио записе са **YouTube-а и 2000+ подржаних сајтова** — до 4K HDR при 60 fps, или у MP3 / AAC / Opus формату. Ради локално на Windows-у, macOS-у и Linux-у. **Без реклама, без непотребног, без додатне продаје.**
 
-[**↓ Преузмите најновије издање**](../../releases/latest) &nbsp;·&nbsp; [**Веб-сајт**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#download) · [macOS](#download) · [Linux](#download)
+[**↓ Преузмите најновије издање**](#install) &nbsp;·&nbsp; [**Веб-сајт**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
 
 <img src="build/demo.gif" alt="Arroxy демонстрација" width="720" />
 
@@ -27,13 +27,176 @@
 
 ## Садржај
 
+- [Преузимање](#install)
 - [Зашто Arroxy](#why)
 - [Функционалности](#features)
-- [Преузимање](#download)
 - [Приватност](#privacy)
 - [ЧПП](#faq)
 - [Планови](#roadmap)
 - [Израђено помоћу](#tech)
+
+---
+
+## <a id="install"></a>Преузимање
+
+| Платформа | Формат |
+| ------------------- | ----------------- |
+| 🪟 Windows          | [NSIS Инсталатер](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) · [Преносиви `.exe`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |
+| 🍎 macOS            | [arm64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) · [x64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg) |
+| 🐧 Linux            | [AppImage](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.AppImage) · [Flatpak](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.flatpak) · [`tar.gz`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.tar.gz) |
+| 🔐 SHA256           | [SHA256SUMS](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) |
+
+[**Преузмите најновије издање →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="why-warning"></a>Зашто можете видети упозорење
+
+Arroxy је open-source пројекат са MIT лиценцом. Windows и macOS верзије **нису потписане кодом** — сертификати Apple Developer ID и Windows EV за потписивање кода коштају стотине долара годишње, које независни пројекат плаћа из сопственог џепа. Без тих потписа, Windows SmartScreen и macOS Gatekeeper ће вас упозорити при првом покретању. Упозорења значе *да ваш оперативни систем не препознаје издавача* — не значе да је Arroxy малвер.
+
+Три начина да сами проверите Arroxy, по растућој строгости:
+
+- **Прочитајте изворни код.** Свака линија је на [GitHub](https://github.com/antonio-orionus/Arroxy)-у и можете [изградити апликацију из изворног кода](#tech).
+- **Проверите SHA256.** Упоредите свој фајл са објављеним [`SHA256SUMS`](../../releases/latest) — погледајте [Верификујте преузимање](#verify) испод.
+- **Покрените скенирање треће стране.** Отпремите фајл на [VirusTotal](https://www.virustotal.com).
+
+### <a id="windows-first-launch"></a>Windows: прво покретање
+
+При prvom покретању можете видети **«Windows protected your PC»** или **«Unknown publisher»**. Ово се односи на `Arroxy-win-x64-Setup.exe` и `Arroxy-win-x64-Portable.exe`. Arroxy је бесплатан и отвореног кода, а Windows верзије нису потписане плаћеним сертификатом — због тога SmartScreen означава ове фајлове. То **не** значи аутоматски да је Arroxy несигуран. Да бисте наставили:
+
+<div align="center">
+  <img src="build/win-smartscreen-more-info.png" width="46%" alt="SmartScreen "Windows protected your PC" dialog with the "More info" link highlighted" />
+  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="SmartScreen dialog after expanding More info, showing the "Run anyway" button" />
+</div>
+
+1. Кликните **More info**.
+2. Кликните **Run anyway**.
+
+#### Ако Windows Defender означи или уклони фајл
+
+Defender хеуристика понекад означава непотписане NSIS инсталатере и Electron преносиве верзије као сумњиве. Ако Defender стави у карантин `Arroxy-win-x64-Setup.exe` или `Arroxy-win-x64-Portable.exe`, вратите га из **Windows Security → Virus & threat protection → Protection history**, а затим додајте Arroxy извршни фајл као дозвољену ставку под **Manage settings → Add or remove exclusions**. Као и у случају SmartScreen-а, покретач је недостајући потпис издавача, а не откривен малвер.
+
+> Преузимајте Arroxy искључиво са званичне GitHub Releases странице. Ако сте добили фајл са другог сајта или вам је неко послао, обришите га и преузмите свежу копију из званичног извора. Изворни код је јаван, тако да га можете сами прегледати или компајлирати ако желите.
+
+### <a id="macos-first-launch"></a>macOS: прво покретање
+
+Arroxy још увек није потписан кодом за macOS, па ће Gatekeeper блокирати прво покретање. Тачан начин да га дозволите зависи од верзије macOS-а — Sequoia 15 је затегла стари обилазак преко десног клика → Отвори.
+
+#### macOS Sequoia 15 и новије (актуелно)
+
+На Sequoia 15 и новијим верзијама, десни клик → Отвори више не заобилази Gatekeeper за многе апликације у карантину. Уместо тога користите панел Системских подешавања:
+
+1. Превуците `Arroxy.app` са монтираног DMG у `/Applications`.
+2. Двокликните Arroxy. Приказује се дијалог блокирања — кликните **Done** (не кликајте *Move to Trash*).
+3. Отворите **System Settings → Privacy & Security** и скролујте до одељка **Security**. Видећете *"Arroxy was blocked to protect your Mac"* (или сличну поруку).
+4. Кликните **Open Anyway**, потврдите лозинком или Touch ID-ом, а затим поново покрените Arroxy из `/Applications`.
+
+#### macOS Sonoma 14 и старије
+
+1. Превуците `Arroxy.app` са монтираног DMG у `/Applications`.
+2. Десним кликом (или Control-кликом) кликните на `Arroxy.app` у `/Applications` и одаберите **Open**.
+3. Дијалог упозорења сада има дугме **Open** — кликните га и потврдите. Arroxy се отвара нормално и упозорење се никад више не приказује.
+
+#### "App is damaged" или упорна блокада Gatekeeper-а — исправка путем Terminal-а
+
+Ако macOS каже *"Arroxy is damaged and can't be opened"*, или ниједан од горњих корака не уклони блокаду, узрок је атрибут карантина на DMG-у (неки претраживачи и macOS-ово сопствено понашање трансположења га постављају). Уклоните га са инсталиране апликације:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Arroxy.app
+```
+
+**Apple Silicon vs Intel:** на Mac рачунару са процесором серије M (M1 / M2 / M3 / M4), преузмите DMG за `arm64`. На Intel Mac рачунарима, преузмите DMG за `x64`. Покретање погрешне верзије ради преко Rosetta, али је приметно спорије.
+
+> macOS верзије се производе путем CI на Apple Silicon и Intel покретачима. Ако наиђете на проблеме, [отворите пријаву](../../issues) — повратне информације корисника macOS-а активно обликују циклус тестирања.
+
+### <a id="linux-first-launch"></a>Linux: прво покретање
+
+AppImage-ови се покрећу директно — без инсталације. Само треба означити фајл као извршни.
+
+**Менаџер фајлова:** кликните десним тастером на `.AppImage` → **Своjства** → **Дозволе** → омогућите **Дозволи извршавање фајла као програм**, затим двокликните.
+
+**Терминал:**
+
+```bash
+chmod +x Arroxy-linux-x64.AppImage
+./Arroxy-linux-x64.AppImage
+```
+
+Ако покретање и даље не успе, можда недостаје FUSE:
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y libfuse2
+
+# Fedora
+sudo dnf install -y fuse-libs
+
+# Arch
+sudo pacman -S fuse2
+```
+
+**Опционална интеграција са десктопом:** инсталирајте [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) једном, и свака AppImage коју двокликнете аутоматски се региструје у менију покретача — без ручног креирања `.desktop` фајлова.
+
+**Flatpak (алтернатива у песковнику):** преузмите `Arroxy-*.flatpak` са исте странице издања.
+
+```bash
+flatpak install --user Arroxy-linux-x64.flatpak
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+<details>
+<summary><strong><a id="verify"></a>Верификујте преузимање (SHA256)</strong></summary>
+
+Свако издање објављује `SHA256SUMS` фајл поред бинарних датотека. Да бисте проверили да ваше преузимање није оштећено или измењено у транзиту, хешујте свој фајл локално и упоредите га са линијом у `SHA256SUMS`. Отворите страницу најновијег издања → **Assets** → преузмите `SHA256SUMS`.
+
+**Windows (PowerShell or Command Prompt):**
+
+```powershell
+certutil -hashfile Arroxy-win-x64-Setup.exe SHA256
+```
+
+**macOS (Terminal):**
+
+```bash
+shasum -a 256 Arroxy-mac-arm64.dmg
+```
+
+**Linux (Terminal):**
+
+```bash
+sha256sum Arroxy-linux-x64.AppImage
+```
+
+Желите скенирање малвера треће стране? Отпремите фајл на [VirusTotal](https://www.virustotal.com). Неколико генеричко-хеуристичких означавања од стране мањих машина је нормално за непотписане Electron апликације; масовна откривања од стране главних машина би представљала прави разлог за забринутост.
+
+</details>
+
+<details>
+<summary><strong>Инсталирај преко менаџера пакета</strong></summary>
+
+Већ користите менаџер пакета? Можете прескочити путању ручног преузимања.
+
+| Канал | Команда                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
+
+</details>
+
+<details>
+<summary><strong>Windows: Инсталатер vs Преносиви</strong></summary>
+
+|               | NSIS Инсталатер | Преносиви `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| Потребна инсталација | Да  | Не — покрени са било ког места  |
+| Аутоматска ажурирања | ✅ унутар апликације  | ❌ ручно преузимање  |
+| Брзина покретања | ✅ брже  | ⚠️ спорије хладно покретање  |
+| Додаје у Start мени |            ✅            |           ❌            |
+| Лако деинсталирање |            ✅            | ❌ обришите фајл  |
+
+**Препорука:** користите NSIS инсталатер за аутоматска ажурирања и брже покретање. Користите преносиви `.exe` за опцију без инсталације и регистра.
+
+</details>
 
 ---
 
@@ -104,168 +267,6 @@ Arroxy је направљен за једну ствар: налепите URL,
   <br/>
   <img src="build/Subtitles-screenshot.png" width="48%" alt="Избор језика и формата титлова" />
 </div>
-
----
-
-## <a id="download"></a>Преузимање
-
-| Платформа | Формат   |
-| ------------------- | ------------------- |
-| Windows             | Инсталатер (NSIS) или преносиви `.exe`   |
-| macOS               | `.dmg` (Intel + Apple Silicon)   |
-| Linux               | `.AppImage` или `.flatpak` (у песковнику) |
-
-[**Преузмите најновије издање →**](../../releases/latest)
-
-### <a id="why-warning"></a>Зашто можете видети упозорење
-
-Arroxy је open-source пројекат са MIT лиценцом. Windows и macOS верзије **нису потписане кодом** — сертификати Apple Developer ID и Windows EV за потписивање кода коштају стотине долара годишње, које независни пројекат плаћа из сопственог џепа. Без тих потписа, Windows SmartScreen и macOS Gatekeeper ће вас упозорити при првом покретању. Упозорења значе *да ваш оперативни систем не препознаје издавача* — не значе да је Arroxy малвер.
-
-Три начина да сами проверите Arroxy, по растућој строгости:
-
-- **Прочитајте изворни код.** Свака линија је на [GitHub](https://github.com/antonio-orionus/Arroxy)-у и можете [изградити апликацију из изворног кода](#tech).
-- **Проверите SHA256.** Упоредите свој фајл са објављеним [`SHA256SUMS`](../../releases/latest) — погледајте [Верификујте преузимање](#verify) испод.
-- **Покрените скенирање треће стране.** Отпремите фајл на [VirusTotal](https://www.virustotal.com).
-
-### <a id="windows-first-launch"></a>Windows: прво покретање
-
-При prvom покретању можете видети **«Windows protected your PC»** или **«Unknown publisher»**. Ово се односи на `Arroxy-Setup-*.exe` и `Arroxy-Portable-*.exe`. Arroxy је бесплатан и отвореног кода, а Windows верзије нису потписане плаћеним сертификатом — због тога SmartScreen означава ове фајлове. То **не** значи аутоматски да је Arroxy несигуран. Да бисте наставили:
-
-<div align="center">
-  <img src="build/win-smartscreen-more-info.png" width="46%" alt="SmartScreen "Windows protected your PC" dialog with the "More info" link highlighted" />
-  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="SmartScreen dialog after expanding More info, showing the "Run anyway" button" />
-</div>
-
-1. Кликните **More info**.
-2. Кликните **Run anyway**.
-
-#### Ако Windows Defender означи или уклони фајл
-
-Defender хеуристика понекад означава непотписане NSIS инсталатере и Electron преносиве верзије као сумњиве. Ако Defender стави у карантин `Arroxy-Setup-*.exe` или `Arroxy-Portable-*.exe`, вратите га из **Windows Security → Virus & threat protection → Protection history**, а затим додајте Arroxy извршни фајл као дозвољену ставку под **Manage settings → Add or remove exclusions**. Као и у случају SmartScreen-а, покретач је недостајући потпис издавача, а не откривен малвер.
-
-> Преузимајте Arroxy искључиво са званичне GitHub Releases странице. Ако сте добили фајл са другог сајта или вам је неко послао, обришите га и преузмите свежу копију из званичног извора. Изворни код је јаван, тако да га можете сами прегледати или компајлирати ако желите.
-
-### <a id="macos-first-launch"></a>macOS: прво покретање
-
-Arroxy још увек није потписан кодом за macOS, па ће Gatekeeper блокирати прво покретање. Тачан начин да га дозволите зависи од верзије macOS-а — Sequoia 15 је затегла стари обилазак преко десног клика → Отвори.
-
-#### macOS Sequoia 15 и новије (актуелно)
-
-На Sequoia 15 и новијим верзијама, десни клик → Отвори више не заобилази Gatekeeper за многе апликације у карантину. Уместо тога користите панел Системских подешавања:
-
-1. Превуците `Arroxy.app` са монтираног DMG у `/Applications`.
-2. Двокликните Arroxy. Приказује се дијалог блокирања — кликните **Done** (не кликајте *Move to Trash*).
-3. Отворите **System Settings → Privacy & Security** и скролујте до одељка **Security**. Видећете *"Arroxy was blocked to protect your Mac"* (или сличну поруку).
-4. Кликните **Open Anyway**, потврдите лозинком или Touch ID-ом, а затим поново покрените Arroxy из `/Applications`.
-
-#### macOS Sonoma 14 и старије
-
-1. Превуците `Arroxy.app` са монтираног DMG у `/Applications`.
-2. Десним кликом (или Control-кликом) кликните на `Arroxy.app` у `/Applications` и одаберите **Open**.
-3. Дијалог упозорења сада има дугме **Open** — кликните га и потврдите. Arroxy се отвара нормално и упозорење се никад више не приказује.
-
-#### "App is damaged" или упорна блокада Gatekeeper-а — исправка путем Terminal-а
-
-Ако macOS каже *"Arroxy is damaged and can't be opened"*, или ниједан од горњих корака не уклони блокаду, узрок је атрибут карантина на DMG-у (неки претраживачи и macOS-ово сопствено понашање трансположења га постављају). Уклоните га са инсталиране апликације:
-
-```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
-```
-
-**Apple Silicon vs Intel:** на Mac рачунару са процесором серије M (M1 / M2 / M3 / M4), преузмите DMG за `arm64`. На Intel Mac рачунарима, преузмите DMG за `x64`. Покретање погрешне верзије ради преко Rosetta, али је приметно спорије.
-
-> macOS верзије се производе путем CI на Apple Silicon и Intel покретачима. Ако наиђете на проблеме, [отворите пријаву](../../issues) — повратне информације корисника macOS-а активно обликују циклус тестирања.
-
-### <a id="linux-first-launch"></a>Linux: прво покретање
-
-AppImage-ови се покрећу директно — без инсталације. Само треба означити фајл као извршни.
-
-**Менаџер фајлова:** кликните десним тастером на `.AppImage` → **Своjства** → **Дозволе** → омогућите **Дозволи извршавање фајла као програм**, затим двокликните.
-
-**Терминал:**
-
-```bash
-chmod +x Arroxy-*.AppImage
-./Arroxy-*.AppImage
-```
-
-Ако покретање и даље не успе, можда недостаје FUSE:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
-```
-
-**Опционална интеграција са десктопом:** инсталирајте [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) једном, и свака AppImage коју двокликнете аутоматски се региструје у менију покретача — без ручног креирања `.desktop` фајлова.
-
-**Flatpak (алтернатива у песковнику):** преузмите `Arroxy-*.flatpak` са исте странице издања.
-
-```bash
-flatpak install --user Arroxy-*.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-<details>
-<summary><strong><a id="verify"></a>Верификујте преузимање (SHA256)</strong></summary>
-
-Свако издање објављује `SHA256SUMS` фајл поред бинарних датотека. Да бисте проверили да ваше преузимање није оштећено или измењено у транзиту, хешујте свој фајл локално и упоредите га са линијом у `SHA256SUMS`. Отворите страницу најновијег издања → **Assets** → преузмите `SHA256SUMS`.
-
-**Windows (PowerShell or Command Prompt):**
-
-```powershell
-certutil -hashfile Arroxy-Setup-<version>.exe SHA256
-```
-
-**macOS (Terminal):**
-
-```bash
-shasum -a 256 Arroxy-<version>-arm64.dmg
-```
-
-**Linux (Terminal):**
-
-```bash
-sha256sum Arroxy-*.AppImage
-```
-
-Желите скенирање малвера треће стране? Отпремите фајл на [VirusTotal](https://www.virustotal.com). Неколико генеричко-хеуристичких означавања од стране мањих машина је нормално за непотписане Electron апликације; масовна откривања од стране главних машина би представљала прави разлог за забринутост.
-
-</details>
-
-<details>
-<summary><strong>Инсталирај преко менаџера пакета</strong></summary>
-
-Већ користите менаџер пакета? Можете прескочити путању ручног преузимања.
-
-| Канал | Команда                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-*.flatpak`                                                         |
-
-</details>
-
-<details>
-<summary><strong>Windows: Инсталатер vs Преносиви</strong></summary>
-
-|               | NSIS Инсталатер | Преносиви `.exe` |
-| ------------- | :----------------------: | :---------------------: |
-| Потребна инсталација | Да  | Не — покрени са било ког места  |
-| Аутоматска ажурирања | ✅ унутар апликације  | ❌ ручно преузимање  |
-| Брзина покретања | ✅ брже  | ⚠️ спорије хладно покретање  |
-| Додаје у Start мени |            ✅            |           ❌            |
-| Лако деинсталирање |            ✅            | ❌ обришите фајл  |
-
-**Препорука:** користите NSIS инсталатер за аутоматска ажурирања и брже покретање. Користите преносиви `.exe` за опцију без инсталације и регистра.
-
-</details>
 
 ---
 
@@ -419,10 +420,10 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 ```bash
 # Windows (Portable) — PowerShell, run from the folder containing the exe
-.\Arroxy-Portable-<version>.exe --disable-gpu
+.\Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Portable) — Command Prompt (cmd.exe), from the same folder
-Arroxy-Portable-<version>.exe --disable-gpu
+Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Installed) — works in both PowerShell and cmd.exe
 "%LOCALAPPDATA%\Programs\Arroxy\Arroxy.exe" --disable-gpu
@@ -431,7 +432,7 @@ Arroxy-Portable-<version>.exe --disable-gpu
 /Applications/Arroxy.app/Contents/MacOS/Arroxy --disable-gpu
 
 # Linux (AppImage)
-./Arroxy-*.AppImage --disable-gpu
+./Arroxy-linux-x64.AppImage --disable-gpu
 ```
 
 If that works, the GPU/driver is the cause. Make the change permanent (next step).

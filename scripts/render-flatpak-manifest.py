@@ -70,11 +70,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description="Render Flatpak manifest + metainfo from checked-in templates."
     )
-    parser.add_argument("--sha256", required=True, help="SHA256 of Arroxy-<version>.tar.gz")
+    parser.add_argument("--sha256", required=True, help="SHA256 of the Arroxy Linux tarball")
     parser.add_argument(
         "--archive-path",
         required=True,
-        help="Path to the local Arroxy-<version>.tar.gz, relative to the manifest directory",
+        help="Path to the local Arroxy Linux tarball, relative to the manifest directory",
     )
     parser.add_argument(
         "--template",

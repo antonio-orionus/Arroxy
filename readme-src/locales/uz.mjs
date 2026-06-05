@@ -182,7 +182,7 @@ export const uz = {
     "**Tavsiya:** avtomatik yangilanishlar va tezroq ishga tushish uchun NSIS o'rnatuvchisidan foydalaning. O'rnatishsiz, reyestrg'a ta'sir qilmaydigan variant uchun portable `.exe` dan foydalaning.",
   dl_win_smartscreen_h4: "Windows SmartScreen ogohlantirishи",
   dl_win_smartscreen_intro:
-    "Birinchi ishga tushirishda **\"Windows protected your PC\"** yoki **\"Unknown publisher\"** xabarini ko'rishingiz mumkin. Bu `Arroxy-Setup-*.exe` va `Arroxy-Portable-*.exe` ikkisiga ham tegishli. Arroxy bepul va ochiq manbali dastur bo'lib, Windows qurilmalari pulli sertifikat bilan imzolanmagan, shuning uchun SmartScreen ularni belgilaydi. Bu Arroxy xavfli ekanligini **avtomatik ravishda** anglatmaydi. Davom etish uchun:",
+    "Birinchi ishga tushirishda **\"Windows protected your PC\"** yoki **\"Unknown publisher\"** xabarini ko'rishingiz mumkin. Bu `Arroxy-win-x64-Setup.exe` va `Arroxy-win-x64-Portable.exe` ikkisiga ham tegishli. Arroxy bepul va ochiq manbali dastur bo'lib, Windows qurilmalari pulli sertifikat bilan imzolanmagan, shuning uchun SmartScreen ularni belgilaydi. Bu Arroxy xavfli ekanligini **avtomatik ravishda** anglatmaydi. Davom etish uchun:",
   dl_win_smartscreen_step1: "**More info** tugmasini bosing.",
   dl_win_smartscreen_step2: "**Run anyway** tugmasini bosing.",
   dl_win_smartscreen_official:
@@ -228,7 +228,7 @@ export const uz = {
     'More info kengaytirilgandan so\'ng SmartScreen dialogi, "Run anyway" tugmasi ko\'rsatilgan holda',
   dl_win_defender_h4: "Windows Defender fayl ni belgilasa yoki olib tashlasa",
   dl_win_defender_p:
-    "Defender evristikasi ba'zida imzalanmagan NSIS o'rnatuvchilari va Electron portableni shubhali deb belgilaydi. Agar Defender `Arroxy-Setup-*.exe` yoki `Arroxy-Portable-*.exe` ni karantinga olsa, uni **Windows Security → Virus & threat protection → Protection history** dan qayta tiklang, so'ng Arroxy bajariladigan faylini **Manage settings → Add or remove exclusions** ostida ruxsat etilgan element sifatida qo'shing. SmartScreen singari, bu ham aniqlanmagan zararli dastur emas, balki etishmayotgan nashriyotchi imzosi sababli yuzaga keladi.",
+    "Defender evristikasi ba'zida imzalanmagan NSIS o'rnatuvchilari va Electron portableni shubhali deb belgilaydi. Agar Defender `Arroxy-win-x64-Setup.exe` yoki `Arroxy-win-x64-Portable.exe` ni karantinga olsa, uni **Windows Security → Virus & threat protection → Protection history** dan qayta tiklang, so'ng Arroxy bajariladigan faylini **Manage settings → Add or remove exclusions** ostida ruxsat etilgan element sifatida qo'shing. SmartScreen singari, bu ham aniqlanmagan zararli dastur emas, balki etishmayotgan nashriyotchi imzosi sababli yuzaga keladi.",
 
   dl_macos_first_h3: "macOS da birinchi ishga tushirish",
   dl_macos_intro:

@@ -175,8 +175,8 @@ jobs:
             assets=$(gh release view "${{ github.ref_name }}" \
               --repo "${{ github.repository }}" \
               --json assets --jq '.assets[].name' 2>/dev/null || echo "")
-            if echo "$assets" | grep -q "Arroxy-Setup-.*\.exe$" \
-              && echo "$assets" | grep -q "Arroxy-Portable-.*\.exe$"; then
+            if echo "$assets" | grep -Fxq "Arroxy-win-x64-Setup.exe" \
+              && echo "$assets" | grep -Fxq "Arroxy-win-x64-Portable.exe"; then
               echo "Windows artifacts present after ${i}0s"
               exit 0
             fi
@@ -190,28 +190,28 @@ jobs:
         run: |
           set -euo pipefail
 
-          VERSION="${GITHUB_REF_NAME#v}"
           rm -rf artifacts
           mkdir artifacts
 
           gh release download "${GITHUB_REF_NAME}" \
             --repo "${GITHUB_REPOSITORY}" \
             --dir artifacts \
-            --pattern "Arroxy-Setup-*.exe" \
-            --pattern "Arroxy-Portable-*.exe" \
-            --pattern "Arroxy-*.dmg" \
-            --pattern "Arroxy-*.AppImage" \
-            --pattern "Arroxy-*.tar.gz" \
-            --pattern "Arroxy-*.flatpak"
+            --pattern "Arroxy-win-x64-Setup.exe" \
+            --pattern "Arroxy-win-x64-Portable.exe" \
+            --pattern "Arroxy-mac-arm64.dmg" \
+            --pattern "Arroxy-mac-x64.dmg" \
+            --pattern "Arroxy-linux-x64.AppImage" \
+            --pattern "Arroxy-linux-x64.tar.gz" \
+            --pattern "Arroxy-linux-x64.flatpak"
 
           required=(
-            "Arroxy-Setup-${VERSION}.exe"
-            "Arroxy-Portable-${VERSION}.exe"
-            "Arroxy-${VERSION}-arm64.dmg"
-            "Arroxy-${VERSION}-x64.dmg"
-            "Arroxy-${VERSION}.AppImage"
-            "Arroxy-${VERSION}.tar.gz"
-            "Arroxy-${VERSION}.flatpak"
+            "Arroxy-win-x64-Setup.exe"
+            "Arroxy-win-x64-Portable.exe"
+            "Arroxy-mac-arm64.dmg"
+            "Arroxy-mac-x64.dmg"
+            "Arroxy-linux-x64.AppImage"
+            "Arroxy-linux-x64.tar.gz"
+            "Arroxy-linux-x64.flatpak"
           )
           for file in "${required[@]}"; do
             if [ ! -f "artifacts/${file}" ]; then
@@ -232,12 +232,13 @@ jobs:
         uses: actions/attest@v4
         with:
           subject-path: |
-            artifacts/Arroxy-Setup-*.exe
-            artifacts/Arroxy-Portable-*.exe
-            artifacts/Arroxy-*.dmg
-            artifacts/Arroxy-*.AppImage
-            artifacts/Arroxy-*.tar.gz
-            artifacts/Arroxy-*.flatpak
+            artifacts/Arroxy-win-x64-Setup.exe
+            artifacts/Arroxy-win-x64-Portable.exe
+            artifacts/Arroxy-mac-arm64.dmg
+            artifacts/Arroxy-mac-x64.dmg
+            artifacts/Arroxy-linux-x64.AppImage
+            artifacts/Arroxy-linux-x64.tar.gz
+            artifacts/Arroxy-linux-x64.flatpak
             SHA256SUMS
       - name: Ensure GitHub CLI supports attestations
         run: |
@@ -331,8 +332,7 @@ jobs:
           # too, but only into a temporary config that doesn't always survive
           # across steps in this container image.
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          VERSION="${GITHUB_REF_NAME#v}"
-          TARBALL="Arroxy-${VERSION}.tar.gz"
+          TARBALL="Arroxy-linux-x64.tar.gz"
           gh release download "${GITHUB_REF_NAME}" \
             --repo "${GITHUB_REPOSITORY}" \
             --pattern "$TARBALL" \
@@ -366,17 +366,16 @@ jobs:
           path: flatpak-artifact
       - name: Upload to release
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
           FILE=$(find flatpak-artifact -name "*.flatpak" -print -quit)
           if [ -z "$FILE" ]; then
             echo "::error::Could not find built .flatpak artifact"
             find flatpak-artifact -maxdepth 3 -type f
             exit 1
           fi
-          mv "$FILE" "Arroxy-${VERSION}.flatpak"
+          mv "$FILE" "Arroxy-linux-x64.flatpak"
           gh release upload "$GITHUB_REF_NAME" \
             --repo "${{ github.repository }}" \
-            "Arroxy-${VERSION}.flatpak" \
+            "Arroxy-linux-x64.flatpak" \
             --clobber
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -418,7 +417,7 @@ jobs:
       - name: Update manifest
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          PORTABLE="Arroxy-Portable-${VERSION}.exe"
+          PORTABLE="Arroxy-win-x64-Portable.exe"
           HASH=$(grep "$PORTABLE" SHA256SUMS | awk '{print $1}')
           if [ -z "$HASH" ]; then
             echo "::error::Could not find $PORTABLE in SHA256SUMS"
@@ -463,8 +462,8 @@ jobs:
         # parts than a sed-replace can safely handle.
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          DMG_ARM="Arroxy-${VERSION}-arm64.dmg"
-          DMG_X64="Arroxy-${VERSION}-x64.dmg"
+          DMG_ARM="Arroxy-mac-arm64.dmg"
+          DMG_X64="Arroxy-mac-x64.dmg"
           HASH_ARM=$(grep "$DMG_ARM" SHA256SUMS | awk '{print $1}')
           HASH_X64=$(grep "$DMG_X64" SHA256SUMS | awk '{print $1}')
           if [ -z "$HASH_ARM" ] || [ -z "$HASH_X64" ]; then
@@ -478,11 +477,11 @@ jobs:
 
             on_arm do
               sha256 "${HASH_ARM}"
-              url "https://github.com/antonio-orionus/Arroxy/releases/download/v#{version}/Arroxy-#{version}-arm64.dmg"
+              url "https://github.com/antonio-orionus/Arroxy/releases/download/v#{version}/Arroxy-mac-arm64.dmg"
             end
             on_intel do
               sha256 "${HASH_X64}"
-              url "https://github.com/antonio-orionus/Arroxy/releases/download/v#{version}/Arroxy-#{version}-x64.dmg"
+              url "https://github.com/antonio-orionus/Arroxy/releases/download/v#{version}/Arroxy-mac-x64.dmg"
             end
 
             name "Arroxy"

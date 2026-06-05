@@ -182,7 +182,7 @@ export const sr = {
     "**Препорука:** користите NSIS инсталатер за аутоматска ажурирања и брже покретање. Користите преносиви `.exe` за опцију без инсталације и регистра.",
   dl_win_smartscreen_h4: "Упозорење Windows SmartScreen",
   dl_win_smartscreen_intro:
-    "При prvom покретању можете видети **«Windows protected your PC»** или **«Unknown publisher»**. Ово се односи на `Arroxy-Setup-*.exe` и `Arroxy-Portable-*.exe`. Arroxy је бесплатан и отвореног кода, а Windows верзије нису потписане плаћеним сертификатом — због тога SmartScreen означава ове фајлове. То **не** значи аутоматски да је Arroxy несигуран. Да бисте наставили:",
+    "При prvom покретању можете видети **«Windows protected your PC»** или **«Unknown publisher»**. Ово се односи на `Arroxy-win-x64-Setup.exe` и `Arroxy-win-x64-Portable.exe`. Arroxy је бесплатан и отвореног кода, а Windows верзије нису потписане плаћеним сертификатом — због тога SmartScreen означава ове фајлове. То **не** значи аутоматски да је Arroxy несигуран. Да бисте наставили:",
   dl_win_smartscreen_step1: "Кликните **More info**.",
   dl_win_smartscreen_step2: "Кликните **Run anyway**.",
   dl_win_smartscreen_official:
@@ -228,7 +228,7 @@ export const sr = {
     'SmartScreen dialog after expanding More info, showing the "Run anyway" button',
   dl_win_defender_h4: "Ако Windows Defender означи или уклони фајл",
   dl_win_defender_p:
-    "Defender хеуристика понекад означава непотписане NSIS инсталатере и Electron преносиве верзије као сумњиве. Ако Defender стави у карантин `Arroxy-Setup-*.exe` или `Arroxy-Portable-*.exe`, вратите га из **Windows Security → Virus & threat protection → Protection history**, а затим додајте Arroxy извршни фајл као дозвољену ставку под **Manage settings → Add or remove exclusions**. Као и у случају SmartScreen-а, покретач је недостајући потпис издавача, а не откривен малвер.",
+    "Defender хеуристика понекад означава непотписане NSIS инсталатере и Electron преносиве верзије као сумњиве. Ако Defender стави у карантин `Arroxy-win-x64-Setup.exe` или `Arroxy-win-x64-Portable.exe`, вратите га из **Windows Security → Virus & threat protection → Protection history**, а затим додајте Arroxy извршни фајл као дозвољену ставку под **Manage settings → Add or remove exclusions**. Као и у случају SmartScreen-а, покретач је недостајући потпис издавача, а не откривен малвер.",
 
   dl_macos_first_h3: "macOS: прво покретање",
   dl_macos_intro:

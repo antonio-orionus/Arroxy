@@ -183,7 +183,7 @@ export const ru = {
     "**Рекомендация:** используйте установщик NSIS для авто-обновлений и быстрого запуска. Портативный `.exe` подходит тем, кто предпочитает вариант без установки и без изменений реестра.",
   dl_win_smartscreen_h4: "Предупреждение Windows SmartScreen",
   dl_win_smartscreen_intro:
-    "При первом запуске вы можете увидеть **«Windows protected your PC»** или **«Unknown publisher»**. Это касается как `Arroxy-Setup-*.exe`, так и `Arroxy-Portable-*.exe`. Arroxy бесплатный и открытый, а Windows-сборки не подписаны платным сертификатом — именно поэтому SmartScreen их помечает. Это **не** означает автоматически, что Arroxy опасен. Чтобы продолжить:",
+    "При первом запуске вы можете увидеть **«Windows protected your PC»** или **«Unknown publisher»**. Это касается как `Arroxy-win-x64-Setup.exe`, так и `Arroxy-win-x64-Portable.exe`. Arroxy бесплатный и открытый, а Windows-сборки не подписаны платным сертификатом — именно поэтому SmartScreen их помечает. Это **не** означает автоматически, что Arroxy опасен. Чтобы продолжить:",
   dl_win_smartscreen_step1: "Нажмите **More info**.",
   dl_win_smartscreen_step2: "Нажмите **Run anyway**.",
   dl_win_smartscreen_official:
@@ -229,7 +229,7 @@ export const ru = {
     'SmartScreen dialog after expanding More info, showing the "Run anyway" button',
   dl_win_defender_h4: "Если Windows Defender пометил или удалил файл",
   dl_win_defender_p:
-    "Эвристика Defender иногда помечает неподписанные установщики NSIS и портативные версии Electron как подозрительные. Если Defender поместил в карантин `Arroxy-Setup-*.exe` или `Arroxy-Portable-*.exe`, восстановите файл из **Windows Security → Virus & threat protection → Protection history**, а затем добавьте исполняемый файл Arroxy в список разрешённых элементов в разделе **Manage settings → Add or remove exclusions**. Как и в случае со SmartScreen, причиной является отсутствие подписи издателя, а не обнаружение вредоносного ПО.",
+    "Эвристика Defender иногда помечает неподписанные установщики NSIS и портативные версии Electron как подозрительные. Если Defender поместил в карантин `Arroxy-win-x64-Setup.exe` или `Arroxy-win-x64-Portable.exe`, восстановите файл из **Windows Security → Virus & threat protection → Protection history**, а затем добавьте исполняемый файл Arroxy в список разрешённых элементов в разделе **Manage settings → Add or remove exclusions**. Как и в случае со SmartScreen, причиной является отсутствие подписи издателя, а не обнаружение вредоносного ПО.",
 
   dl_macos_first_h3: "macOS: первый запуск",
   dl_macos_intro:

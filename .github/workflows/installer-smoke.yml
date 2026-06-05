@@ -60,9 +60,9 @@ jobs:
         with:
           name: installer
           path: |
-            dist/Arroxy-Setup-*.exe
-            dist/Arroxy-Setup-*.exe.blockmap
-            dist/Arroxy-Portable-*.exe
+            dist/Arroxy-win-x64-Setup.exe
+            dist/Arroxy-win-x64-Setup.exe.blockmap
+            dist/Arroxy-win-x64-Portable.exe
             dist/latest.yml
           if-no-files-found: warn
           retention-days: 7
@@ -90,7 +90,7 @@ jobs:
       - name: Silent install + uninstall (single cold cycle)
         shell: pwsh
         run: |
-          $inst = (Get-ChildItem ./installer/Arroxy-Setup-*.exe | Select-Object -First 1).FullName
+          $inst = (Get-ChildItem ./installer/Arroxy-win-x64-Setup.exe | Select-Object -First 1).FullName
           if (-not $inst) { throw "No installer artifact found in ./installer" }
           Write-Host "Testing: $inst"
 
@@ -159,7 +159,7 @@ jobs:
       - name: 1x install + uninstall
         shell: pwsh
         run: |
-          $inst = (Get-ChildItem ./installer/Arroxy-Setup-*.exe | Select-Object -First 1).FullName
+          $inst = (Get-ChildItem ./installer/Arroxy-win-x64-Setup.exe | Select-Object -First 1).FullName
           $uninst = "$env:LOCALAPPDATA\Programs\Arroxy\Uninstall Arroxy.exe"
           $p = Start-Process -FilePath $inst -ArgumentList '/S' -Wait -PassThru
           if ($p.ExitCode -ne 0) { throw "Install: exit $($p.ExitCode)" }
@@ -226,7 +226,7 @@ jobs:
           gh release upload "${{ github.ref_name }}" \
             --repo "${{ github.repository }}" \
             --clobber \
-            ./dist/Arroxy-Setup-*.exe \
-            ./dist/Arroxy-Setup-*.exe.blockmap \
-            ./dist/Arroxy-Portable-*.exe \
+            ./dist/Arroxy-win-x64-Setup.exe \
+            ./dist/Arroxy-win-x64-Setup.exe.blockmap \
+            ./dist/Arroxy-win-x64-Portable.exe \
             ./dist/latest.yml

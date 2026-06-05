@@ -182,7 +182,7 @@ export const om = {
     "**Gorsa:** Of-haaromeessaa fi saffisa eegaluu gaaariif NSIS fayyadu fayyadami. Fayyadu hin barbaachifne, reejistrii hin barbaachifne filannoof portable `.exe` fayyadami.",
   dl_win_smartscreen_h4: "Windows SmartScreen akeekkachiisa",
   dl_win_smartscreen_intro:
-    "Jalqaba banuu irratti **\"Windows protected your PC\"** ykn **\"Unknown publisher\"** arguu dandeessa. Kun `Arroxy-Setup-*.exe` fi `Arroxy-Portable-*.exe` lameeniifuu hojjeta. Arroxy bilisaa fi madda banaa dha, ijaarsonni Windows mallattoo kafaltii hin qabne waliin hin mallatteffamne, kanaafuu SmartScreen mallattoo isaanirratti kaa'a. Kun Arroxy nageenya hin qabu **jechuuf** of-hordofaan miti. Itti fufuuf:",
+    "Jalqaba banuu irratti **\"Windows protected your PC\"** ykn **\"Unknown publisher\"** arguu dandeessa. Kun `Arroxy-win-x64-Setup.exe` fi `Arroxy-win-x64-Portable.exe` lameeniifuu hojjeta. Arroxy bilisaa fi madda banaa dha, ijaarsonni Windows mallattoo kafaltii hin qabne waliin hin mallatteffamne, kanaafuu SmartScreen mallattoo isaanirratti kaa'a. Kun Arroxy nageenya hin qabu **jechuuf** of-hordofaan miti. Itti fufuuf:",
   dl_win_smartscreen_step1: "**More info** cuqaasi.",
   dl_win_smartscreen_step2: "**Run anyway** cuqaasi.",
   dl_win_smartscreen_official:
@@ -228,7 +228,7 @@ export const om = {
     'SmartScreen dialog after expanding More info, showing the "Run anyway" button',
   dl_win_defender_h4: "Windows Defender faayila mallattaa itti kaa'e ykn haqe yoo ta'e",
   dl_win_defender_p:
-    "Heuristics Defender sometimes flag unsigned NSIS installers fi Electron portables akka shakkisiisoo. Defender `Arroxy-Setup-*.exe` ykn `Arroxy-Portable-*.exe` karantinii keessa kaa'e yoo ta'e, **Windows Security → Virus & threat protection → Protection history** irraa deebi'i, erga Arroxy executable **Manage settings → Add or remove exclusions** jalatti wantoota hayyamamaniitti dabalii. SmartScreen wajjin akkuma, kasaara mallattoo maxxantii dhabuu irraa dhufa, malwaare argamuuurraa miti.",
+    "Heuristics Defender sometimes flag unsigned NSIS installers fi Electron portables akka shakkisiisoo. Defender `Arroxy-win-x64-Setup.exe` ykn `Arroxy-win-x64-Portable.exe` karantinii keessa kaa'e yoo ta'e, **Windows Security → Virus & threat protection → Protection history** irraa deebi'i, erga Arroxy executable **Manage settings → Add or remove exclusions** jalatti wantoota hayyamamaniitti dabalii. SmartScreen wajjin akkuma, kasaara mallattoo maxxantii dhabuu irraa dhufa, malwaare argamuuurraa miti.",
 
   dl_macos_first_h3: "macOS yeroo jalqabaa eegaluu",
   dl_macos_intro:

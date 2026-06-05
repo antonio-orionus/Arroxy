@@ -182,7 +182,7 @@ export const sw = {
     "**Pendekezo:** tumia kisanidi cha NSIS kwa masasisho ya kiotomatiki na uzinduzi wa haraka. Tumia `.exe` inayobebeka kwa chaguo lisilo na usanidi na bila usajili.",
   dl_win_smartscreen_h4: "Onyo la Windows SmartScreen",
   dl_win_smartscreen_intro:
-    "Wakati wa uzinduzi wa kwanza unaweza kuona **\"Windows protected your PC\"** au **\"Unknown publisher.\"** Hii inatumika kwa `Arroxy-Setup-*.exe` na `Arroxy-Portable-*.exe`. Arroxy ni bure na chanzo wazi, na ujenzi wa Windows haujasainiwa kwa cheti cha malipo, ndiyo maana SmartScreen huipiga bendera. Hii **haimaanishi** kiotomatiki kwamba Arroxy si salama. Ili kuendelea:",
+    "Wakati wa uzinduzi wa kwanza unaweza kuona **\"Windows protected your PC\"** au **\"Unknown publisher.\"** Hii inatumika kwa `Arroxy-win-x64-Setup.exe` na `Arroxy-win-x64-Portable.exe`. Arroxy ni bure na chanzo wazi, na ujenzi wa Windows haujasainiwa kwa cheti cha malipo, ndiyo maana SmartScreen huipiga bendera. Hii **haimaanishi** kiotomatiki kwamba Arroxy si salama. Ili kuendelea:",
   dl_win_smartscreen_step1: "Bonyeza **More info**.",
   dl_win_smartscreen_step2: "Bonyeza **Run anyway**.",
   dl_win_smartscreen_official:
@@ -228,7 +228,7 @@ export const sw = {
     'SmartScreen dialog after expanding More info, showing the "Run anyway" button',
   dl_win_defender_h4: "Ikiwa Windows Defender inaweka bendera au kuondoa faili",
   dl_win_defender_p:
-    "Heuristics za Defender wakati mwingine huweka bendera kwenye visanidi visivyosainiwa vya NSIS na portable za Electron kama zinazoshukiwa. Ikiwa Defender inaweka karantini `Arroxy-Setup-*.exe` au `Arroxy-Portable-*.exe`, irudishe kutoka **Windows Security → Virus & threat protection → Protection history**, kisha ongeza faili inayoweza kutekelezwa ya Arroxy kama kipengele kinachoruhusiwa chini ya **Manage settings → Add or remove exclusions**. Kama ilivyo na SmartScreen, kisababishi ni saini ya mchapishaji inayokosekana, si programu hasidi iliyogunduliwa.",
+    "Heuristics za Defender wakati mwingine huweka bendera kwenye visanidi visivyosainiwa vya NSIS na portable za Electron kama zinazoshukiwa. Ikiwa Defender inaweka karantini `Arroxy-win-x64-Setup.exe` au `Arroxy-win-x64-Portable.exe`, irudishe kutoka **Windows Security → Virus & threat protection → Protection history**, kisha ongeza faili inayoweza kutekelezwa ya Arroxy kama kipengele kinachoruhusiwa chini ya **Manage settings → Add or remove exclusions**. Kama ilivyo na SmartScreen, kisababishi ni saini ya mchapishaji inayokosekana, si programu hasidi iliyogunduliwa.",
 
   dl_macos_first_h3: "Uzinduzi wa kwanza wa macOS",
   dl_macos_intro:

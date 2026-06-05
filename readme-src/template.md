@@ -11,7 +11,7 @@
 
 {{hero_desc}}
 
-[**{{cta_latest}}**](../../releases/latest) &nbsp;·&nbsp; [**{{cta_website}}**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#download) · [macOS](#download) · [Linux](#download)
+[**{{cta_latest}}**](#install) &nbsp;·&nbsp; [**{{cta_website}}**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
 
 <img src="build/demo.gif" alt="{{demo_alt}}" width="720" />
 
@@ -29,13 +29,172 @@
 
 ## {{toc_heading}}
 
+- [{{dl_h2}}](#install)
 - [{{why_h2}}](#why)
 - [{{features_h2}}](#features)
-- [{{dl_h2}}](#download)
 - [{{privacy_h2}}](#privacy)
 - [{{faq_h2}}](#faq)
 - [{{roadmap_h2}}](#roadmap)
 - [{{tech_h2}}](#tech)
+
+---
+
+## <a id="install"></a>{{dl_h2}}
+
+| {{dl_platform_col}} | {{dl_format_col}} |
+| ------------------- | ----------------- |
+| 🪟 Windows          | [{{dl_win_col_installer}}](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) · [{{dl_win_col_portable}}](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |
+| 🍎 macOS            | [arm64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) · [x64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg) |
+| 🐧 Linux            | [AppImage](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.AppImage) · [Flatpak](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.flatpak) · [`tar.gz`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.tar.gz) |
+| 🔐 SHA256           | [SHA256SUMS](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) |
+
+[**{{dl_grab}}**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="why-warning"></a>{{dl_warning_h3}}
+
+{{dl_warning_p1}}
+
+{{dl_warning_p2}}
+
+### <a id="windows-first-launch"></a>{{dl_win_first_h3}}
+
+{{dl_win_smartscreen_intro}}
+
+<div align="center">
+  <img src="build/win-smartscreen-more-info.png" width="46%" alt="{{shot_smartscreen_more_alt}}" />
+  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="{{shot_smartscreen_run_alt}}" />
+</div>
+
+1. {{dl_win_smartscreen_step1}}
+2. {{dl_win_smartscreen_step2}}
+
+#### {{dl_win_defender_h4}}
+
+{{dl_win_defender_p}}
+
+> {{dl_win_smartscreen_official}}
+
+### <a id="macos-first-launch"></a>{{dl_macos_first_h3}}
+
+{{dl_macos_intro}}
+
+#### {{dl_macos_sequoia_h4}}
+
+{{dl_macos_sequoia_intro}}
+
+1. {{dl_macos_sequoia_step1}}
+2. {{dl_macos_sequoia_step2}}
+3. {{dl_macos_sequoia_step3}}
+4. {{dl_macos_sequoia_step4}}
+
+#### {{dl_macos_sonoma_h4}}
+
+1. {{dl_macos_sonoma_step1}}
+2. {{dl_macos_sonoma_step2}}
+3. {{dl_macos_sonoma_step3}}
+
+#### {{dl_macos_damaged_h4}}
+
+{{dl_macos_damaged_p}}
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Arroxy.app
+```
+
+{{dl_macos_arch_note}}
+
+> {{dl_macos_note}}
+
+### <a id="linux-first-launch"></a>{{dl_linux_first_h3}}
+
+{{dl_linux_intro}}
+
+{{dl_linux_m1_text}}
+
+**{{dl_linux_m2_h4}}**
+
+```bash
+chmod +x Arroxy-linux-x64.AppImage
+./Arroxy-linux-x64.AppImage
+```
+
+{{dl_linux_fuse_text}}
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y libfuse2
+
+# Fedora
+sudo dnf install -y fuse-libs
+
+# Arch
+sudo pacman -S fuse2
+```
+
+{{dl_linux_appimagelauncher}}
+
+{{dl_linux_flatpak_intro}}
+
+```bash
+flatpak install --user Arroxy-linux-x64.flatpak
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+<details>
+<summary><strong><a id="verify"></a>{{dl_verify_h3}}</strong></summary>
+
+{{dl_verify_intro}}
+
+**{{dl_verify_win_label}}**
+
+```powershell
+certutil -hashfile Arroxy-win-x64-Setup.exe SHA256
+```
+
+**{{dl_verify_mac_label}}**
+
+```bash
+shasum -a 256 Arroxy-mac-arm64.dmg
+```
+
+**{{dl_verify_linux_label}}**
+
+```bash
+sha256sum Arroxy-linux-x64.AppImage
+```
+
+{{dl_verify_vt_text}}
+
+</details>
+
+<details>
+<summary><strong>{{dl_pkg_h3}}</strong></summary>
+
+{{dl_pm_intro}}
+
+| {{dl_channel_col}} | {{dl_command_col}}                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
+
+</details>
+
+<details>
+<summary><strong>{{dl_win_h3}}</strong></summary>
+
+|               | {{dl_win_col_installer}} | {{dl_win_col_portable}} |
+| ------------- | :----------------------: | :---------------------: |
+| {{dl_win_r1}} | {{dl_win_r1_installer}}  | {{dl_win_r1_portable}}  |
+| {{dl_win_r2}} | {{dl_win_r2_installer}}  | {{dl_win_r2_portable}}  |
+| {{dl_win_r3}} | {{dl_win_r3_installer}}  | {{dl_win_r3_portable}}  |
+| {{dl_win_r4}} |            ✅            |           ❌            |
+| {{dl_win_r5}} |            ✅            | {{dl_win_r5_portable}}  |
+
+{{dl_win_rec}}
+
+</details>
 
 ---
 
@@ -106,164 +265,6 @@
   <br/>
   <img src="build/Subtitles-screenshot.png" width="48%" alt="{{shot5_alt}}" />
 </div>
-
----
-
-## <a id="download"></a>{{dl_h2}}
-
-| {{dl_platform_col}} | {{dl_format_col}}   |
-| ------------------- | ------------------- |
-| Windows             | {{dl_win_format}}   |
-| macOS               | {{dl_mac_format}}   |
-| Linux               | {{dl_linux_format}} |
-
-[**{{dl_grab}}**](../../releases/latest)
-
-### <a id="why-warning"></a>{{dl_warning_h3}}
-
-{{dl_warning_p1}}
-
-{{dl_warning_p2}}
-
-### <a id="windows-first-launch"></a>{{dl_win_first_h3}}
-
-{{dl_win_smartscreen_intro}}
-
-<div align="center">
-  <img src="build/win-smartscreen-more-info.png" width="46%" alt="{{shot_smartscreen_more_alt}}" />
-  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="{{shot_smartscreen_run_alt}}" />
-</div>
-
-1. {{dl_win_smartscreen_step1}}
-2. {{dl_win_smartscreen_step2}}
-
-#### {{dl_win_defender_h4}}
-
-{{dl_win_defender_p}}
-
-> {{dl_win_smartscreen_official}}
-
-### <a id="macos-first-launch"></a>{{dl_macos_first_h3}}
-
-{{dl_macos_intro}}
-
-#### {{dl_macos_sequoia_h4}}
-
-{{dl_macos_sequoia_intro}}
-
-1. {{dl_macos_sequoia_step1}}
-2. {{dl_macos_sequoia_step2}}
-3. {{dl_macos_sequoia_step3}}
-4. {{dl_macos_sequoia_step4}}
-
-#### {{dl_macos_sonoma_h4}}
-
-1. {{dl_macos_sonoma_step1}}
-2. {{dl_macos_sonoma_step2}}
-3. {{dl_macos_sonoma_step3}}
-
-#### {{dl_macos_damaged_h4}}
-
-{{dl_macos_damaged_p}}
-
-```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
-```
-
-{{dl_macos_arch_note}}
-
-> {{dl_macos_note}}
-
-### <a id="linux-first-launch"></a>{{dl_linux_first_h3}}
-
-{{dl_linux_intro}}
-
-{{dl_linux_m1_text}}
-
-**{{dl_linux_m2_h4}}**
-
-```bash
-chmod +x Arroxy-*.AppImage
-./Arroxy-*.AppImage
-```
-
-{{dl_linux_fuse_text}}
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
-```
-
-{{dl_linux_appimagelauncher}}
-
-{{dl_linux_flatpak_intro}}
-
-```bash
-flatpak install --user Arroxy-*.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-<details>
-<summary><strong><a id="verify"></a>{{dl_verify_h3}}</strong></summary>
-
-{{dl_verify_intro}}
-
-**{{dl_verify_win_label}}**
-
-```powershell
-certutil -hashfile Arroxy-Setup-<version>.exe SHA256
-```
-
-**{{dl_verify_mac_label}}**
-
-```bash
-shasum -a 256 Arroxy-<version>-arm64.dmg
-```
-
-**{{dl_verify_linux_label}}**
-
-```bash
-sha256sum Arroxy-*.AppImage
-```
-
-{{dl_verify_vt_text}}
-
-</details>
-
-<details>
-<summary><strong>{{dl_pkg_h3}}</strong></summary>
-
-{{dl_pm_intro}}
-
-| {{dl_channel_col}} | {{dl_command_col}}                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-*.flatpak`                                                         |
-
-</details>
-
-<details>
-<summary><strong>{{dl_win_h3}}</strong></summary>
-
-|               | {{dl_win_col_installer}} | {{dl_win_col_portable}} |
-| ------------- | :----------------------: | :---------------------: |
-| {{dl_win_r1}} | {{dl_win_r1_installer}}  | {{dl_win_r1_portable}}  |
-| {{dl_win_r2}} | {{dl_win_r2_installer}}  | {{dl_win_r2_portable}}  |
-| {{dl_win_r3}} | {{dl_win_r3_installer}}  | {{dl_win_r3_portable}}  |
-| {{dl_win_r4}} |            ✅            |           ❌            |
-| {{dl_win_r5}} |            ✅            | {{dl_win_r5_portable}}  |
-
-{{dl_win_rec}}
-
-</details>
 
 ---
 
@@ -348,10 +349,10 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 ```bash
 # Windows (Portable) — PowerShell, run from the folder containing the exe
-.\Arroxy-Portable-<version>.exe --disable-gpu
+.\Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Portable) — Command Prompt (cmd.exe), from the same folder
-Arroxy-Portable-<version>.exe --disable-gpu
+Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Installed) — works in both PowerShell and cmd.exe
 "%LOCALAPPDATA%\Programs\Arroxy\Arroxy.exe" --disable-gpu
@@ -360,7 +361,7 @@ Arroxy-Portable-<version>.exe --disable-gpu
 /Applications/Arroxy.app/Contents/MacOS/Arroxy --disable-gpu
 
 # Linux (AppImage)
-./Arroxy-*.AppImage --disable-gpu
+./Arroxy-linux-x64.AppImage --disable-gpu
 ```
 
 If that works, the GPU/driver is the cause. Make the change permanent (next step).

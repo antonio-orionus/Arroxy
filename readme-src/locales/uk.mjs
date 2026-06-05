@@ -183,7 +183,7 @@ export const uk = {
     "**Рекомендація:** використовуйте інсталятор NSIS для авто-оновлень і швидкого запуску. Використовуйте портативний `.exe` для варіанту без встановлення та без змін реєстру.",
   dl_win_smartscreen_h4: "Попередження Windows SmartScreen",
   dl_win_smartscreen_intro:
-    "При першому запуску ви можете побачити **«Windows protected your PC»** або **«Unknown publisher»**. Це стосується як `Arroxy-Setup-*.exe`, так і `Arroxy-Portable-*.exe`. Arroxy є безкоштовним і відкритим, а Windows-збірки не підписані платним сертифікатом — саме тому SmartScreen їх позначає. Це **не** означає автоматично, що Arroxy небезпечний. Щоб продовжити:",
+    "При першому запуску ви можете побачити **«Windows protected your PC»** або **«Unknown publisher»**. Це стосується як `Arroxy-win-x64-Setup.exe`, так і `Arroxy-win-x64-Portable.exe`. Arroxy є безкоштовним і відкритим, а Windows-збірки не підписані платним сертифікатом — саме тому SmartScreen їх позначає. Це **не** означає автоматично, що Arroxy небезпечний. Щоб продовжити:",
   dl_win_smartscreen_step1: "Натисніть **More info**.",
   dl_win_smartscreen_step2: "Натисніть **Run anyway**.",
   dl_win_smartscreen_official:
@@ -229,7 +229,7 @@ export const uk = {
     'SmartScreen dialog after expanding More info, showing the "Run anyway" button',
   dl_win_defender_h4: "Якщо Windows Defender позначив або видалив файл",
   dl_win_defender_p:
-    "Евристика Defender іноді позначає непідписані інсталятори NSIS і портативні версії Electron як підозрілі. Якщо Defender помістив у карантин `Arroxy-Setup-*.exe` або `Arroxy-Portable-*.exe`, відновіть файл із **Windows Security → Virus & threat protection → Protection history**, а потім додайте виконуваний файл Arroxy до списку дозволених елементів у розділі **Manage settings → Add or remove exclusions**. Як і у випадку зі SmartScreen, причиною є відсутній підпис видавця, а не виявлення шкідливого ПЗ.",
+    "Евристика Defender іноді позначає непідписані інсталятори NSIS і портативні версії Electron як підозрілі. Якщо Defender помістив у карантин `Arroxy-win-x64-Setup.exe` або `Arroxy-win-x64-Portable.exe`, відновіть файл із **Windows Security → Virus & threat protection → Protection history**, а потім додайте виконуваний файл Arroxy до списку дозволених елементів у розділі **Manage settings → Add or remove exclusions**. Як і у випадку зі SmartScreen, причиною є відсутній підпис видавця, а не виявлення шкідливого ПЗ.",
 
   dl_macos_first_h3: "macOS: перший запуск",
   dl_macos_intro:

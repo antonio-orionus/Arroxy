@@ -182,7 +182,7 @@ export const ar = {
     "**التوصية:** استخدم مثبِّت NSIS للتحديثات التلقائية والتشغيل الأسرع. استخدم `.exe` المحمول لخيار بدون تثبيت وبدون سجل.",
   dl_win_smartscreen_h4: "تحذير Windows SmartScreen",
   dl_win_smartscreen_intro:
-    "عند التشغيل الأول قد تظهر **\"Windows protected your PC\"** أو **\"Unknown publisher.\"** ينطبق هذا على كلٍّ من `Arroxy-Setup-*.exe` و`Arroxy-Portable-*.exe`. Arroxy مجاني ومفتوح المصدر وإصدارات Windows غير موقَّعة بشهادة مدفوعة، لذا يُعلِّمها SmartScreen. هذا **لا** يعني تلقائياً أن Arroxy غير آمن. للمتابعة:",
+    "عند التشغيل الأول قد تظهر **\"Windows protected your PC\"** أو **\"Unknown publisher.\"** ينطبق هذا على كلٍّ من `Arroxy-win-x64-Setup.exe` و`Arroxy-win-x64-Portable.exe`. Arroxy مجاني ومفتوح المصدر وإصدارات Windows غير موقَّعة بشهادة مدفوعة، لذا يُعلِّمها SmartScreen. هذا **لا** يعني تلقائياً أن Arroxy غير آمن. للمتابعة:",
   dl_win_smartscreen_step1: "انقر **More info**.",
   dl_win_smartscreen_step2: "انقر **Run anyway**.",
   dl_win_smartscreen_official:
@@ -228,7 +228,7 @@ export const ar = {
     'نافذة SmartScreen بعد توسيع More info، تعرض زر "Run anyway"',
   dl_win_defender_h4: "إذا علّم Windows Defender الملف أو أزاله",
   dl_win_defender_p:
-    "أحياناً تُعلِّم خوارزميات Defender التجريبية مثبّتات NSIS غير الموقَّعة وNSIS Electron المحمولة باعتبارها مشبوهة. إذا عزل Defender ملف `Arroxy-Setup-*.exe` أو `Arroxy-Portable-*.exe`، فاستعده من **Windows Security → Virus & threat protection → Protection history**، ثم أضف ملف Arroxy التنفيذي كعنصر مسموح به ضمن **Manage settings → Add or remove exclusions**. كما هو الحال مع SmartScreen، السبب هو غياب توقيع الناشر لا وجود برنامج خبيث.",
+    "أحياناً تُعلِّم خوارزميات Defender التجريبية مثبّتات NSIS غير الموقَّعة وNSIS Electron المحمولة باعتبارها مشبوهة. إذا عزل Defender ملف `Arroxy-win-x64-Setup.exe` أو `Arroxy-win-x64-Portable.exe`، فاستعده من **Windows Security → Virus & threat protection → Protection history**، ثم أضف ملف Arroxy التنفيذي كعنصر مسموح به ضمن **Manage settings → Add or remove exclusions**. كما هو الحال مع SmartScreen، السبب هو غياب توقيع الناشر لا وجود برنامج خبيث.",
 
   dl_macos_first_h3: "التشغيل الأول على macOS",
   dl_macos_intro:

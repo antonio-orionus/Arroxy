@@ -11,7 +11,7 @@
 
 Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 4K HDR at 60 fps, or as MP3 / AAC / Opus. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**
 
-[**↓ Download Latest Release**](../../releases/latest) &nbsp;·&nbsp; [**Website**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#download) · [macOS](#download) · [Linux](#download)
+[**↓ Install Latest Release**](#install) &nbsp;·&nbsp; [**Website**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
 
 <img src="build/demo.gif" alt="Arroxy demo" width="720" />
 
@@ -27,13 +27,176 @@ If Arroxy saves you time, a ⭐ helps others find it.
 
 ## Contents
 
+- [Install](#install)
 - [Why Arroxy](#why)
 - [Features](#features)
-- [Download](#download)
 - [Privacy](#privacy)
 - [FAQ](#faq)
 - [Roadmap](#roadmap)
 - [Built with](#tech)
+
+---
+
+## <a id="install"></a>Install
+
+| Platform | Direct download |
+| ------------------- | ----------------- |
+| 🪟 Windows          | [NSIS Installer](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) · [Portable `.exe`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |
+| 🍎 macOS            | [arm64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) · [x64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg) |
+| 🐧 Linux            | [AppImage](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.AppImage) · [Flatpak](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.flatpak) · [`tar.gz`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.tar.gz) |
+| 🔐 SHA256           | [SHA256SUMS](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) |
+
+[**All release assets →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="why-warning"></a>Why you may see a warning
+
+Arroxy is open-source and MIT-licensed. The Windows and macOS builds are **not code-signed** — Apple Developer ID and Windows EV code-signing certificates each cost hundreds of dollars per year, which an indie project pays out of pocket. Without those signatures, Windows SmartScreen and macOS Gatekeeper will warn you on first launch. The warnings mean *your OS doesn't recognize the publisher* — they don't mean Arroxy is malware.
+
+Three ways to verify Arroxy yourself, in increasing rigor:
+
+- **Read the source.** Every line is on [GitHub](https://github.com/antonio-orionus/Arroxy) and you can [build it from source](#tech).
+- **Check the SHA256.** Match your file against the published [`SHA256SUMS`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) — see [Verify your download](#verify) below.
+- **Run a third-party scan.** Upload the file to [VirusTotal](https://www.virustotal.com).
+
+### <a id="windows-first-launch"></a>Windows first launch
+
+On first launch you may see **"Windows protected your PC"** or **"Unknown publisher."** This applies to both `Arroxy-win-x64-Setup.exe` and `Arroxy-win-x64-Portable.exe`. Arroxy is free and open-source and the Windows builds are not code-signed with a paid certificate, which is why SmartScreen flags them. It does **not** automatically mean Arroxy is unsafe. To continue:
+
+<div align="center">
+  <img src="build/win-smartscreen-more-info.png" width="46%" alt="SmartScreen "Windows protected your PC" dialog with the "More info" link highlighted" />
+  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="SmartScreen dialog after expanding More info, showing the "Run anyway" button" />
+</div>
+
+1. Click **More info**.
+2. Click **Run anyway**.
+
+#### If Windows Defender flags or removes the file
+
+Defender heuristics sometimes flag unsigned NSIS installers and Electron portables as suspicious. If Defender quarantines `Arroxy-win-x64-Setup.exe` or `Arroxy-win-x64-Portable.exe`, restore it from **Windows Security → Virus & threat protection → Protection history**, then add the Arroxy executable as an allowed item under **Manage settings → Add or remove exclusions**. As with SmartScreen, the trigger is the missing publisher signature, not detected malware.
+
+> Only download Arroxy from the official GitHub Releases page. If you got the file from another website or someone sent it to you, delete it and download a fresh copy from the official source. The source code is public, so you can inspect it or build Arroxy yourself if you prefer.
+
+### <a id="macos-first-launch"></a>macOS first launch
+
+Arroxy is not yet code-signed for macOS, so Gatekeeper will block the first launch. The exact path to allow it depends on your macOS version — Sequoia 15 tightened the old right-click → Open bypass.
+
+#### macOS Sequoia 15 and later (current)
+
+On Sequoia 15 and newer, right-click → Open no longer bypasses Gatekeeper for many quarantined apps. Use the System Settings panel instead:
+
+1. Drag `Arroxy.app` from the mounted DMG into `/Applications`.
+2. Double-click Arroxy. The block dialog appears — click **Done** (don't click *Move to Trash*).
+3. Open **System Settings → Privacy & Security** and scroll to the **Security** section. You'll see *"Arroxy was blocked to protect your Mac"* (or a near-identical message).
+4. Click **Open Anyway**, confirm with your password or Touch ID, then re-launch Arroxy from `/Applications`.
+
+#### macOS Sonoma 14 and earlier
+
+1. Drag `Arroxy.app` from the mounted DMG into `/Applications`.
+2. Right-click (or Control-click) `Arroxy.app` in `/Applications` and choose **Open**.
+3. The warning dialog now has an **Open** button — click it and confirm. Arroxy opens normally and the warning never appears again.
+
+#### "App is damaged" or persistent Gatekeeper block — Terminal fix
+
+If macOS says *"Arroxy is damaged and can't be opened"*, or none of the steps above clear the block, the quarantine attribute on the DMG is the cause (some browsers and macOS's own translocation behavior set it). Strip it from the installed app:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Arroxy.app
+```
+
+**Apple Silicon vs Intel:** on an M-series Mac (M1 / M2 / M3 / M4), download the `arm64` DMG. On Intel Macs, download the `x64` DMG. Running the wrong build still works via Rosetta but is noticeably slower.
+
+> macOS builds are produced via CI on Apple Silicon and Intel runners. If you hit issues, please [open an issue](../../issues) — feedback from macOS users actively shapes the macOS testing cycle.
+
+### <a id="linux-first-launch"></a>Linux first launch
+
+AppImages run directly — no installation. You just need to mark the file as executable.
+
+**File manager:** right-click the `.AppImage` → **Properties** → **Permissions** → enable **Allow executing file as program**, then double-click.
+
+**Terminal:**
+
+```bash
+chmod +x Arroxy-linux-x64.AppImage
+./Arroxy-linux-x64.AppImage
+```
+
+If launch still fails, you may be missing FUSE:
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y libfuse2
+
+# Fedora
+sudo dnf install -y fuse-libs
+
+# Arch
+sudo pacman -S fuse2
+```
+
+**Optional desktop integration:** install [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) once, and any AppImage you double-click gets registered into your launcher menu automatically — no manual `.desktop` file needed.
+
+**Flatpak (sandboxed alternative):** download `Arroxy-linux-x64.flatpak` from the same release page.
+
+```bash
+flatpak install --user Arroxy-linux-x64.flatpak
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+<details>
+<summary><strong><a id="verify"></a>Verify your download (SHA256)</strong></summary>
+
+Every release publishes a `SHA256SUMS` file alongside the binaries. To check that your download wasn't corrupted or tampered with in transit, hash your file locally and match the line in `SHA256SUMS`. Open the latest release page → **Assets** → download `SHA256SUMS`.
+
+**Windows (PowerShell or Command Prompt):**
+
+```powershell
+certutil -hashfile Arroxy-win-x64-Setup.exe SHA256
+```
+
+**macOS (Terminal):**
+
+```bash
+shasum -a 256 Arroxy-mac-arm64.dmg
+```
+
+**Linux (Terminal):**
+
+```bash
+sha256sum Arroxy-linux-x64.AppImage
+```
+
+Want a third-party malware scan? Upload the file at [VirusTotal](https://www.virustotal.com). A handful of generic-heuristic flags from minor engines is normal for unsigned Electron apps; widespread detections from major engines would be a real concern.
+
+</details>
+
+<details>
+<summary><strong>Install via package manager</strong></summary>
+
+Already use a package manager? You can skip the manual download path.
+
+| Channel | Command                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
+
+</details>
+
+<details>
+<summary><strong>Windows: Installer vs Portable</strong></summary>
+
+|               | NSIS Installer | Portable `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| Installation required | Yes  | No — run from anywhere  |
+| Auto-updates | ✅ in-app  | ❌ manual download  |
+| Startup speed | ✅ faster  | ⚠️ slower cold start  |
+| Adds to Start Menu |            ✅            |           ❌            |
+| Easy uninstall |            ✅            | ❌ delete the file  |
+
+**Recommendation:** use the NSIS installer for auto-updates and faster startup. Use the portable `.exe` for a no-install, no-registry option.
+
+</details>
 
 ---
 
@@ -104,168 +267,6 @@ Arroxy is built for one thing: paste a URL, get a clean local file. No accounts,
   <br/>
   <img src="build/Subtitles-screenshot.png" width="48%" alt="Subtitle language and format picker" />
 </div>
-
----
-
-## <a id="download"></a>Download
-
-| Platform | Format   |
-| ------------------- | ------------------- |
-| Windows             | Installer (NSIS) or Portable `.exe`   |
-| macOS               | `.dmg` (Intel + Apple Silicon)   |
-| Linux               | `.AppImage` or `.flatpak` (sandboxed) |
-
-[**Grab the latest release →**](../../releases/latest)
-
-### <a id="why-warning"></a>Why you may see a warning
-
-Arroxy is open-source and MIT-licensed. The Windows and macOS builds are **not code-signed** — Apple Developer ID and Windows EV code-signing certificates each cost hundreds of dollars per year, which an indie project pays out of pocket. Without those signatures, Windows SmartScreen and macOS Gatekeeper will warn you on first launch. The warnings mean *your OS doesn't recognize the publisher* — they don't mean Arroxy is malware.
-
-Three ways to verify Arroxy yourself, in increasing rigor:
-
-- **Read the source.** Every line is on [GitHub](https://github.com/antonio-orionus/Arroxy) and you can [build it from source](#tech).
-- **Check the SHA256.** Match your file against the published [`SHA256SUMS`](../../releases/latest) — see [Verify your download](#verify) below.
-- **Run a third-party scan.** Upload the file to [VirusTotal](https://www.virustotal.com).
-
-### <a id="windows-first-launch"></a>Windows first launch
-
-On first launch you may see **"Windows protected your PC"** or **"Unknown publisher."** This applies to both `Arroxy-Setup-*.exe` and `Arroxy-Portable-*.exe`. Arroxy is free and open-source and the Windows builds are not code-signed with a paid certificate, which is why SmartScreen flags them. It does **not** automatically mean Arroxy is unsafe. To continue:
-
-<div align="center">
-  <img src="build/win-smartscreen-more-info.png" width="46%" alt="SmartScreen "Windows protected your PC" dialog with the "More info" link highlighted" />
-  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="SmartScreen dialog after expanding More info, showing the "Run anyway" button" />
-</div>
-
-1. Click **More info**.
-2. Click **Run anyway**.
-
-#### If Windows Defender flags or removes the file
-
-Defender heuristics sometimes flag unsigned NSIS installers and Electron portables as suspicious. If Defender quarantines `Arroxy-Setup-*.exe` or `Arroxy-Portable-*.exe`, restore it from **Windows Security → Virus & threat protection → Protection history**, then add the Arroxy executable as an allowed item under **Manage settings → Add or remove exclusions**. As with SmartScreen, the trigger is the missing publisher signature, not detected malware.
-
-> Only download Arroxy from the official GitHub Releases page. If you got the file from another website or someone sent it to you, delete it and download a fresh copy from the official source. The source code is public, so you can inspect it or build Arroxy yourself if you prefer.
-
-### <a id="macos-first-launch"></a>macOS first launch
-
-Arroxy is not yet code-signed for macOS, so Gatekeeper will block the first launch. The exact path to allow it depends on your macOS version — Sequoia 15 tightened the old right-click → Open bypass.
-
-#### macOS Sequoia 15 and later (current)
-
-On Sequoia 15 and newer, right-click → Open no longer bypasses Gatekeeper for many quarantined apps. Use the System Settings panel instead:
-
-1. Drag `Arroxy.app` from the mounted DMG into `/Applications`.
-2. Double-click Arroxy. The block dialog appears — click **Done** (don't click *Move to Trash*).
-3. Open **System Settings → Privacy & Security** and scroll to the **Security** section. You'll see *"Arroxy was blocked to protect your Mac"* (or a near-identical message).
-4. Click **Open Anyway**, confirm with your password or Touch ID, then re-launch Arroxy from `/Applications`.
-
-#### macOS Sonoma 14 and earlier
-
-1. Drag `Arroxy.app` from the mounted DMG into `/Applications`.
-2. Right-click (or Control-click) `Arroxy.app` in `/Applications` and choose **Open**.
-3. The warning dialog now has an **Open** button — click it and confirm. Arroxy opens normally and the warning never appears again.
-
-#### "App is damaged" or persistent Gatekeeper block — Terminal fix
-
-If macOS says *"Arroxy is damaged and can't be opened"*, or none of the steps above clear the block, the quarantine attribute on the DMG is the cause (some browsers and macOS's own translocation behavior set it). Strip it from the installed app:
-
-```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
-```
-
-**Apple Silicon vs Intel:** on an M-series Mac (M1 / M2 / M3 / M4), download the `arm64` DMG. On Intel Macs, download the `x64` DMG. Running the wrong build still works via Rosetta but is noticeably slower.
-
-> macOS builds are produced via CI on Apple Silicon and Intel runners. If you hit issues, please [open an issue](../../issues) — feedback from macOS users actively shapes the macOS testing cycle.
-
-### <a id="linux-first-launch"></a>Linux first launch
-
-AppImages run directly — no installation. You just need to mark the file as executable.
-
-**File manager:** right-click the `.AppImage` → **Properties** → **Permissions** → enable **Allow executing file as program**, then double-click.
-
-**Terminal:**
-
-```bash
-chmod +x Arroxy-*.AppImage
-./Arroxy-*.AppImage
-```
-
-If launch still fails, you may be missing FUSE:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
-```
-
-**Optional desktop integration:** install [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) once, and any AppImage you double-click gets registered into your launcher menu automatically — no manual `.desktop` file needed.
-
-**Flatpak (sandboxed alternative):** download `Arroxy-*.flatpak` from the same release page.
-
-```bash
-flatpak install --user Arroxy-*.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-<details>
-<summary><strong><a id="verify"></a>Verify your download (SHA256)</strong></summary>
-
-Every release publishes a `SHA256SUMS` file alongside the binaries. To check that your download wasn't corrupted or tampered with in transit, hash your file locally and match the line in `SHA256SUMS`. Open the latest release page → **Assets** → download `SHA256SUMS`.
-
-**Windows (PowerShell or Command Prompt):**
-
-```powershell
-certutil -hashfile Arroxy-Setup-<version>.exe SHA256
-```
-
-**macOS (Terminal):**
-
-```bash
-shasum -a 256 Arroxy-<version>-arm64.dmg
-```
-
-**Linux (Terminal):**
-
-```bash
-sha256sum Arroxy-*.AppImage
-```
-
-Want a third-party malware scan? Upload the file at [VirusTotal](https://www.virustotal.com). A handful of generic-heuristic flags from minor engines is normal for unsigned Electron apps; widespread detections from major engines would be a real concern.
-
-</details>
-
-<details>
-<summary><strong>Install via package manager</strong></summary>
-
-Already use a package manager? You can skip the manual download path.
-
-| Channel | Command                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-*.flatpak`                                                         |
-
-</details>
-
-<details>
-<summary><strong>Windows: Installer vs Portable</strong></summary>
-
-|               | NSIS Installer | Portable `.exe` |
-| ------------- | :----------------------: | :---------------------: |
-| Installation required | Yes  | No — run from anywhere  |
-| Auto-updates | ✅ in-app  | ❌ manual download  |
-| Startup speed | ✅ faster  | ⚠️ slower cold start  |
-| Adds to Start Menu |            ✅            |           ❌            |
-| Easy uninstall |            ✅            | ❌ delete the file  |
-
-**Recommendation:** use the NSIS installer for auto-updates and faster startup. Use the portable `.exe` for a no-install, no-registry option.
-
-</details>
 
 ---
 
@@ -419,10 +420,10 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 ```bash
 # Windows (Portable) — PowerShell, run from the folder containing the exe
-.\Arroxy-Portable-<version>.exe --disable-gpu
+.\Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Portable) — Command Prompt (cmd.exe), from the same folder
-Arroxy-Portable-<version>.exe --disable-gpu
+Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Installed) — works in both PowerShell and cmd.exe
 "%LOCALAPPDATA%\Programs\Arroxy\Arroxy.exe" --disable-gpu
@@ -431,7 +432,7 @@ Arroxy-Portable-<version>.exe --disable-gpu
 /Applications/Arroxy.app/Contents/MacOS/Arroxy --disable-gpu
 
 # Linux (AppImage)
-./Arroxy-*.AppImage --disable-gpu
+./Arroxy-linux-x64.AppImage --disable-gpu
 ```
 
 If that works, the GPU/driver is the cause. Make the change permanent (next step).

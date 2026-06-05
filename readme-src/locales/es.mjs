@@ -183,7 +183,7 @@ export const es = {
     "**Recomendación:** usa el instalador NSIS para obtener auto-actualizaciones y un arranque más rápido. Usa el `.exe` portátil si prefieres no instalar ni tocar el registro.",
   dl_win_smartscreen_h4: "Advertencia de Windows SmartScreen",
   dl_win_smartscreen_intro:
-    "En el primer arranque puede aparecer **\"Windows protected your PC\"** o **\"Unknown publisher.\"** Esto aplica tanto a `Arroxy-Setup-*.exe` como a `Arroxy-Portable-*.exe`. Arroxy es gratuito y de código abierto, y las compilaciones de Windows no están firmadas con un certificado de pago, por lo que SmartScreen las marca. Eso **no** significa automáticamente que Arroxy sea inseguro. Para continuar:",
+    "En el primer arranque puede aparecer **\"Windows protected your PC\"** o **\"Unknown publisher.\"** Esto aplica tanto a `Arroxy-win-x64-Setup.exe` como a `Arroxy-win-x64-Portable.exe`. Arroxy es gratuito y de código abierto, y las compilaciones de Windows no están firmadas con un certificado de pago, por lo que SmartScreen las marca. Eso **no** significa automáticamente que Arroxy sea inseguro. Para continuar:",
   dl_win_smartscreen_step1: "Haz clic en **More info**.",
   dl_win_smartscreen_step2: "Haz clic en **Run anyway**.",
   dl_win_smartscreen_official:
@@ -229,7 +229,7 @@ export const es = {
     'SmartScreen dialog after expanding More info, showing the "Run anyway" button',
   dl_win_defender_h4: "Si Windows Defender marca o elimina el archivo",
   dl_win_defender_p:
-    "La heurística de Defender a veces marca los instaladores NSIS sin firmar y los portables de Electron como sospechosos. Si Defender pone en cuarentena `Arroxy-Setup-*.exe` o `Arroxy-Portable-*.exe`, recupéralo desde **Windows Security → Virus & threat protection → Protection history**, y añade el ejecutable de Arroxy como elemento permitido en **Manage settings → Add or remove exclusions**. Al igual que con SmartScreen, el motivo es la firma del editor ausente, no malware detectado.",
+    "La heurística de Defender a veces marca los instaladores NSIS sin firmar y los portables de Electron como sospechosos. Si Defender pone en cuarentena `Arroxy-win-x64-Setup.exe` o `Arroxy-win-x64-Portable.exe`, recupéralo desde **Windows Security → Virus & threat protection → Protection history**, y añade el ejecutable de Arroxy como elemento permitido en **Manage settings → Add or remove exclusions**. Al igual que con SmartScreen, el motivo es la firma del editor ausente, no malware detectado.",
 
   dl_macos_first_h3: "Primer arranque en macOS",
   dl_macos_intro:

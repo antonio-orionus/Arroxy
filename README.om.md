@@ -11,7 +11,7 @@
 
 Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 4K HDR 60 fps, ykn MP3 / AAC / Opus. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**
 
-[**↓ Baasii Haaraa Buusi**](../../releases/latest) &nbsp;·&nbsp; [**Marsariitii**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#download) · [macOS](#download) · [Linux](#download)
+[**↓ Baasii Haaraa Buusi**](#install) &nbsp;·&nbsp; [**Marsariitii**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
 
 <img src="build/demo.gif" alt="Arroxy demo" width="720" />
 
@@ -27,13 +27,176 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 
 ## Qabiyyee
 
+- [Buusi](#install)
 - [Maaliif Arroxy](#why)
 - [Amaloota](#features)
-- [Buusi](#download)
 - [Icciitii](#privacy)
 - [Gaaffilee Deddeebii](#faq)
 - [Karoora](#roadmap)
 - [Waan itti Ijaare](#tech)
+
+---
+
+## <a id="install"></a>Buusi
+
+| Platform | Format |
+| ------------------- | ----------------- |
+| 🪟 Windows          | [NSIS Fayyadu](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) · [Portable `.exe`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |
+| 🍎 macOS            | [arm64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) · [x64 `.dmg`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg) |
+| 🐧 Linux            | [AppImage](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.AppImage) · [Flatpak](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.flatpak) · [`tar.gz`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.tar.gz) |
+| 🔐 SHA256           | [SHA256SUMS](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) |
+
+[**Baasii haaraa fudhachuu →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="why-warning"></a>Maaliif akeekkachiisa arguu dandeessa
+
+Arroxy madda banaa fi hayyama MIT qaba. Ijaarsonni Windows fi macOS **mallattoo hin qaban** — ragaaleen Apple Developer ID fi Windows EV mallattoo koodii kafaltii waggaatti dhibba doolara baay'ee waan gaafataniif, pirojektiin self-funded baasii kana mataa isaarraa kafala. Mallattoo sana malee, Windows SmartScreen fi macOS Gatekeeper yeroo jalqabaatti si akeekachisuu. Akeekkachiisni kun *siistamni kee maxxantiisa hin beeku* jechuudha — Arroxy malwaare dha jechuuf miti.
+
+Haala sadii Arroxy ofii keetiin mirkaneessuuf, kutaa cimina irraa cimina gaditti:
+
+- **Koodii madda dubbisi.** Sarara hundi [GitHub](https://github.com/antonio-orionus/Arroxy) irratti jira fi [madda irraa ijaaruuf](#tech) ni danda'ama.
+- **SHA256 mirkaneessi.** Faayila kee [`SHA256SUMS`](../../releases/latest) maxxanfame walitti bira qabbi — armaan gadii [Buufannoo kee mirkaneessi](#verify) ilaali.
+- **Sakattaa miilaafi baasii.** Faayila [VirusTotal](https://www.virustotal.com) irratti fe'i.
+
+### <a id="windows-first-launch"></a>Windows yeroo jalqabaa eegaluu
+
+Jalqaba banuu irratti **"Windows protected your PC"** ykn **"Unknown publisher"** arguu dandeessa. Kun `Arroxy-win-x64-Setup.exe` fi `Arroxy-win-x64-Portable.exe` lameeniifuu hojjeta. Arroxy bilisaa fi madda banaa dha, ijaarsonni Windows mallattoo kafaltii hin qabne waliin hin mallatteffamne, kanaafuu SmartScreen mallattoo isaanirratti kaa'a. Kun Arroxy nageenya hin qabu **jechuuf** of-hordofaan miti. Itti fufuuf:
+
+<div align="center">
+  <img src="build/win-smartscreen-more-info.png" width="46%" alt="SmartScreen "Windows protected your PC" dialog with the "More info" link highlighted" />
+  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="SmartScreen dialog after expanding More info, showing the "Run anyway" button" />
+</div>
+
+1. **More info** cuqaasi.
+2. **Run anyway** cuqaasi.
+
+#### Windows Defender faayila mallattaa itti kaa'e ykn haqe yoo ta'e
+
+Heuristics Defender sometimes flag unsigned NSIS installers fi Electron portables akka shakkisiisoo. Defender `Arroxy-win-x64-Setup.exe` ykn `Arroxy-win-x64-Portable.exe` karantinii keessa kaa'e yoo ta'e, **Windows Security → Virus & threat protection → Protection history** irraa deebi'i, erga Arroxy executable **Manage settings → Add or remove exclusions** jalatti wantoota hayyamamaniitti dabalii. SmartScreen wajjin akkuma, kasaara mallattoo maxxantii dhabuu irraa dhufa, malwaare argamuuurraa miti.
+
+> Arroxy fuula GitHub Releases mirkaneessaatii qofa buufi. Faayila marsariitii biraatii argatte ykn namni tokko si erge yoo ta'e, haqii fi ganda mirkaneessaatii faayila haaraa buufi. Koodii madda ummataadhaan banaa waan ta'eef, of irraadhaa sakatta'uu ykn Arroxy of irraadhaa ijaaru dandeessa.
+
+### <a id="macos-first-launch"></a>macOS yeroo jalqabaa eegaluu
+
+Arroxy ammallee macOS'f mallattoo hin qabdu, kanaafuu Gatekeeper yeroo jalqabaa ni dhorka. Hayyama kennuuf karaan sirrii macOS version keetiin murteeffama — Sequoia 15 mirga-cuqaasuu → banuu darbuu dulloomaa cime.
+
+#### macOS Sequoia 15 fi booda (ammaa)
+
+Sequoia 15 fi haaraa irraatti, mirga-cuqaasuu → banuu apps heddu quarantine jiran Gatekeeper hin darbu. System Settings panel fayyadami:
+
+1. `Arroxy.app` DMG ramadame irraa `/Applications` tti harkisi.
+2. Arroxy lama-cuqaasi. Diyaalogiin dhorkaaf ni mul'ata — **Done** cuqaasi (*Move to Trash* hin cuqasin).
+3. **System Settings → Privacy & Security** bani fi kutaa **Security** hamma gaditti deemi. *"Arroxy was blocked to protect your Mac"* (ykn ergaa itti dhiyaatu) ni argita.
+4. **Open Anyway** cuqaasi, jecha darbii keetin ykn Touch ID waliin mirkaneessi, erga Arroxy `/Applications` irraa deebi'ii eegali.
+
+#### macOS Sonoma 14 fi dura
+
+1. `Arroxy.app` DMG ramadame irraa `/Applications` tti harkisi.
+2. `Arroxy.app` `/Applications` keessatti mirga-cuqaasi (ykn Control-cuqaasi) fi **Open** filadhu.
+3. Diyaalogiin akeekkachiisaa amma **Open** button qaba — cuqaasii mirkaneessi. Arroxy salphaan ni banama fi akeekkachiisni ammas hin mul'atu.
+
+#### "App is damaged" ykn Gatekeeper dhorku cimaa — Terminal dursaa
+
+macOS *"Arroxy is damaged and can't be opened"* jedhe yoo ta'e, ykn tarkaanfiiwwan armaan olii hanga tokkollee dhorkuu hin baasnee, qabiyyeen quarantine DMG irratti sababii (biraawzarootni muraasaa fi macOS mataa isaa translocation behavior waan qindaa'aniif). App fayyadu irraa balleessi:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Arroxy.app
+```
+
+**Apple Silicon vs Intel:** Mac M-series (M1 / M2 / M3 / M4) irratti, `arm64` DMG buusi. Intel Macs irratti, `x64` DMG buusi. Ijaarsaa dogoggora oofuu Rosetta fayyadamuudhaan hojjeta garuu ifa gadi bu'aa.
+
+> Ijaarsi macOS CI irratti Apple Silicon fi Intel runners irratti hojjetama. Rakkoo yoo qabaatte, maaloo [gaaffii bani](../../issues) — yaada fayyadamtootaa macOS irraa yeroo hedduu qabxii qormaata macOS murteessa.
+
+### <a id="linux-first-launch"></a>Linux yeroo jalqabaa eegaluu
+
+AppImages kallattiin oofuu — fayyadu hin barbaachisu. Faayila akka hojjetu galchuuf qofa mallattaa itti kaa'uun barbaachisa.
+
+**Bulchiinsa faayilaa:** `.AppImage` mirga-cuqaasi → **Properties** → **Permissions** → **Allow executing file as program** dandeessisi, erga lama-cuqaasi.
+
+**Terminal:**
+
+```bash
+chmod +x Arroxy-linux-x64.AppImage
+./Arroxy-linux-x64.AppImage
+```
+
+Eegaluun yoo ammallee fashale, FUSE dhabu danda'a:
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y libfuse2
+
+# Fedora
+sudo dnf install -y fuse-libs
+
+# Arch
+sudo pacman -S fuse2
+```
+
+**Walitti makoo desktop filannoo:** [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) yeroo tokkoo fayyadi, AppImage lama-cuqaaste kamiyyuu launcher menu keessatti of-dursuudhaan galmeeffama — faayila `.desktop` harkaan barbaachisu hin jiru.
+
+**Flatpak (filannoo sandboxed):** `Arroxy-*.flatpak` gara fuula baasii sanuma irraa buusi.
+
+```bash
+flatpak install --user Arroxy-linux-x64.flatpak
+flatpak run io.github.antonio_orionus.Arroxy
+```
+
+<details>
+<summary><strong><a id="verify"></a>Buufannoo kee mirkaneessi (SHA256)</strong></summary>
+
+Baasii hundi faayila `SHA256SUMS` binary waliin maxxansa. Buufannoon kee darbuu ykn dabsuu hin qabne mirkaneessuuf, faayila naannoo keessatti hash godhi fi sarara `SHA256SUMS` walitti bira qabbi. Fuula baasii haaraa bani → **Assets** → `SHA256SUMS` buusi.
+
+**Windows (PowerShell or Command Prompt):**
+
+```powershell
+certutil -hashfile Arroxy-win-x64-Setup.exe SHA256
+```
+
+**macOS (Terminal):**
+
+```bash
+shasum -a 256 Arroxy-mac-arm64.dmg
+```
+
+**Linux (Terminal):**
+
+```bash
+sha256sum Arroxy-linux-x64.AppImage
+```
+
+Sakattaa malwaare miilaafi baasii barbaaddaa? Faayila [VirusTotal](https://www.virustotal.com) irratti fe'i. Mallattoo heuristic yeroo muraasaa injinii xiqqaa irraa arguu Electron apps mallattoo hin qabne bira darbaa; injinii gurguddoo irraa arguu bal'aa rakkoo dhugaa ta'a.
+
+</details>
+
+<details>
+<summary><strong>Package manager fayyadamuun fayyadu</strong></summary>
+
+Durumaa package manager fayyadamtaa? Karaa buufannoo harkaa darbuu dandeessa.
+
+| Chaanaalii | Ajajaa                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
+
+</details>
+
+<details>
+<summary><strong>Windows: Fayyadu vs Portable</strong></summary>
+
+|               | NSIS Fayyadu | Portable `.exe` |
+| ------------- | :----------------------: | :---------------------: |
+| Fayyadu barbaachisa | Eeyyee  | Lakki — bakka kamiyyuu irraa oofii  |
+| Of-haaromeessa | ✅ app keessatti  | ❌ of-harkaan buusi  |
+| Saffisa eegaluu | ✅ saffisaa  | ⚠️ yeroo eegaluu jabinaafi gara jabina qabu  |
+| Start Menu tti dabalama |            ✅            |           ❌            |
+| Salphatti maqaa itti haquu |            ✅            | ❌ faayila haquu  |
+
+**Gorsa:** Of-haaromeessaa fi saffisa eegaluu gaaariif NSIS fayyadu fayyadami. Fayyadu hin barbaachifne, reejistrii hin barbaachifne filannoof portable `.exe` fayyadami.
+
+</details>
 
 ---
 
@@ -104,168 +267,6 @@ Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argad
   <br/>
   <img src="build/Subtitles-screenshot.png" width="48%" alt="Afaan fi format subtitle filuuf" />
 </div>
-
----
-
-## <a id="download"></a>Buusi
-
-| Platform | Format   |
-| ------------------- | ------------------- |
-| Windows             | Fayyadu (NSIS) ykn Portable `.exe`   |
-| macOS               | `.dmg` (Intel + Apple Silicon)   |
-| Linux               | `.AppImage` ykn `.flatpak` (sandboxed) |
-
-[**Baasii haaraa fudhachuu →**](../../releases/latest)
-
-### <a id="why-warning"></a>Maaliif akeekkachiisa arguu dandeessa
-
-Arroxy madda banaa fi hayyama MIT qaba. Ijaarsonni Windows fi macOS **mallattoo hin qaban** — ragaaleen Apple Developer ID fi Windows EV mallattoo koodii kafaltii waggaatti dhibba doolara baay'ee waan gaafataniif, pirojektiin self-funded baasii kana mataa isaarraa kafala. Mallattoo sana malee, Windows SmartScreen fi macOS Gatekeeper yeroo jalqabaatti si akeekachisuu. Akeekkachiisni kun *siistamni kee maxxantiisa hin beeku* jechuudha — Arroxy malwaare dha jechuuf miti.
-
-Haala sadii Arroxy ofii keetiin mirkaneessuuf, kutaa cimina irraa cimina gaditti:
-
-- **Koodii madda dubbisi.** Sarara hundi [GitHub](https://github.com/antonio-orionus/Arroxy) irratti jira fi [madda irraa ijaaruuf](#tech) ni danda'ama.
-- **SHA256 mirkaneessi.** Faayila kee [`SHA256SUMS`](../../releases/latest) maxxanfame walitti bira qabbi — armaan gadii [Buufannoo kee mirkaneessi](#verify) ilaali.
-- **Sakattaa miilaafi baasii.** Faayila [VirusTotal](https://www.virustotal.com) irratti fe'i.
-
-### <a id="windows-first-launch"></a>Windows yeroo jalqabaa eegaluu
-
-Jalqaba banuu irratti **"Windows protected your PC"** ykn **"Unknown publisher"** arguu dandeessa. Kun `Arroxy-Setup-*.exe` fi `Arroxy-Portable-*.exe` lameeniifuu hojjeta. Arroxy bilisaa fi madda banaa dha, ijaarsonni Windows mallattoo kafaltii hin qabne waliin hin mallatteffamne, kanaafuu SmartScreen mallattoo isaanirratti kaa'a. Kun Arroxy nageenya hin qabu **jechuuf** of-hordofaan miti. Itti fufuuf:
-
-<div align="center">
-  <img src="build/win-smartscreen-more-info.png" width="46%" alt="SmartScreen "Windows protected your PC" dialog with the "More info" link highlighted" />
-  <img src="build/win-smartscreen-run-anyway.png" width="46%" alt="SmartScreen dialog after expanding More info, showing the "Run anyway" button" />
-</div>
-
-1. **More info** cuqaasi.
-2. **Run anyway** cuqaasi.
-
-#### Windows Defender faayila mallattaa itti kaa'e ykn haqe yoo ta'e
-
-Heuristics Defender sometimes flag unsigned NSIS installers fi Electron portables akka shakkisiisoo. Defender `Arroxy-Setup-*.exe` ykn `Arroxy-Portable-*.exe` karantinii keessa kaa'e yoo ta'e, **Windows Security → Virus & threat protection → Protection history** irraa deebi'i, erga Arroxy executable **Manage settings → Add or remove exclusions** jalatti wantoota hayyamamaniitti dabalii. SmartScreen wajjin akkuma, kasaara mallattoo maxxantii dhabuu irraa dhufa, malwaare argamuuurraa miti.
-
-> Arroxy fuula GitHub Releases mirkaneessaatii qofa buufi. Faayila marsariitii biraatii argatte ykn namni tokko si erge yoo ta'e, haqii fi ganda mirkaneessaatii faayila haaraa buufi. Koodii madda ummataadhaan banaa waan ta'eef, of irraadhaa sakatta'uu ykn Arroxy of irraadhaa ijaaru dandeessa.
-
-### <a id="macos-first-launch"></a>macOS yeroo jalqabaa eegaluu
-
-Arroxy ammallee macOS'f mallattoo hin qabdu, kanaafuu Gatekeeper yeroo jalqabaa ni dhorka. Hayyama kennuuf karaan sirrii macOS version keetiin murteeffama — Sequoia 15 mirga-cuqaasuu → banuu darbuu dulloomaa cime.
-
-#### macOS Sequoia 15 fi booda (ammaa)
-
-Sequoia 15 fi haaraa irraatti, mirga-cuqaasuu → banuu apps heddu quarantine jiran Gatekeeper hin darbu. System Settings panel fayyadami:
-
-1. `Arroxy.app` DMG ramadame irraa `/Applications` tti harkisi.
-2. Arroxy lama-cuqaasi. Diyaalogiin dhorkaaf ni mul'ata — **Done** cuqaasi (*Move to Trash* hin cuqasin).
-3. **System Settings → Privacy & Security** bani fi kutaa **Security** hamma gaditti deemi. *"Arroxy was blocked to protect your Mac"* (ykn ergaa itti dhiyaatu) ni argita.
-4. **Open Anyway** cuqaasi, jecha darbii keetin ykn Touch ID waliin mirkaneessi, erga Arroxy `/Applications` irraa deebi'ii eegali.
-
-#### macOS Sonoma 14 fi dura
-
-1. `Arroxy.app` DMG ramadame irraa `/Applications` tti harkisi.
-2. `Arroxy.app` `/Applications` keessatti mirga-cuqaasi (ykn Control-cuqaasi) fi **Open** filadhu.
-3. Diyaalogiin akeekkachiisaa amma **Open** button qaba — cuqaasii mirkaneessi. Arroxy salphaan ni banama fi akeekkachiisni ammas hin mul'atu.
-
-#### "App is damaged" ykn Gatekeeper dhorku cimaa — Terminal dursaa
-
-macOS *"Arroxy is damaged and can't be opened"* jedhe yoo ta'e, ykn tarkaanfiiwwan armaan olii hanga tokkollee dhorkuu hin baasnee, qabiyyeen quarantine DMG irratti sababii (biraawzarootni muraasaa fi macOS mataa isaa translocation behavior waan qindaa'aniif). App fayyadu irraa balleessi:
-
-```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
-```
-
-**Apple Silicon vs Intel:** Mac M-series (M1 / M2 / M3 / M4) irratti, `arm64` DMG buusi. Intel Macs irratti, `x64` DMG buusi. Ijaarsaa dogoggora oofuu Rosetta fayyadamuudhaan hojjeta garuu ifa gadi bu'aa.
-
-> Ijaarsi macOS CI irratti Apple Silicon fi Intel runners irratti hojjetama. Rakkoo yoo qabaatte, maaloo [gaaffii bani](../../issues) — yaada fayyadamtootaa macOS irraa yeroo hedduu qabxii qormaata macOS murteessa.
-
-### <a id="linux-first-launch"></a>Linux yeroo jalqabaa eegaluu
-
-AppImages kallattiin oofuu — fayyadu hin barbaachisu. Faayila akka hojjetu galchuuf qofa mallattaa itti kaa'uun barbaachisa.
-
-**Bulchiinsa faayilaa:** `.AppImage` mirga-cuqaasi → **Properties** → **Permissions** → **Allow executing file as program** dandeessisi, erga lama-cuqaasi.
-
-**Terminal:**
-
-```bash
-chmod +x Arroxy-*.AppImage
-./Arroxy-*.AppImage
-```
-
-Eegaluun yoo ammallee fashale, FUSE dhabu danda'a:
-
-```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
-```
-
-**Walitti makoo desktop filannoo:** [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) yeroo tokkoo fayyadi, AppImage lama-cuqaaste kamiyyuu launcher menu keessatti of-dursuudhaan galmeeffama — faayila `.desktop` harkaan barbaachisu hin jiru.
-
-**Flatpak (filannoo sandboxed):** `Arroxy-*.flatpak` gara fuula baasii sanuma irraa buusi.
-
-```bash
-flatpak install --user Arroxy-*.flatpak
-flatpak run io.github.antonio_orionus.Arroxy
-```
-
-<details>
-<summary><strong><a id="verify"></a>Buufannoo kee mirkaneessi (SHA256)</strong></summary>
-
-Baasii hundi faayila `SHA256SUMS` binary waliin maxxansa. Buufannoon kee darbuu ykn dabsuu hin qabne mirkaneessuuf, faayila naannoo keessatti hash godhi fi sarara `SHA256SUMS` walitti bira qabbi. Fuula baasii haaraa bani → **Assets** → `SHA256SUMS` buusi.
-
-**Windows (PowerShell or Command Prompt):**
-
-```powershell
-certutil -hashfile Arroxy-Setup-<version>.exe SHA256
-```
-
-**macOS (Terminal):**
-
-```bash
-shasum -a 256 Arroxy-<version>-arm64.dmg
-```
-
-**Linux (Terminal):**
-
-```bash
-sha256sum Arroxy-*.AppImage
-```
-
-Sakattaa malwaare miilaafi baasii barbaaddaa? Faayila [VirusTotal](https://www.virustotal.com) irratti fe'i. Mallattoo heuristic yeroo muraasaa injinii xiqqaa irraa arguu Electron apps mallattoo hin qabne bira darbaa; injinii gurguddoo irraa arguu bal'aa rakkoo dhugaa ta'a.
-
-</details>
-
-<details>
-<summary><strong>Package manager fayyadamuun fayyadu</strong></summary>
-
-Durumaa package manager fayyadamtaa? Karaa buufannoo harkaa darbuu dandeessa.
-
-| Chaanaalii | Ajajaa                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-*.flatpak`                                                         |
-
-</details>
-
-<details>
-<summary><strong>Windows: Fayyadu vs Portable</strong></summary>
-
-|               | NSIS Fayyadu | Portable `.exe` |
-| ------------- | :----------------------: | :---------------------: |
-| Fayyadu barbaachisa | Eeyyee  | Lakki — bakka kamiyyuu irraa oofii  |
-| Of-haaromeessa | ✅ app keessatti  | ❌ of-harkaan buusi  |
-| Saffisa eegaluu | ✅ saffisaa  | ⚠️ yeroo eegaluu jabinaafi gara jabina qabu  |
-| Start Menu tti dabalama |            ✅            |           ❌            |
-| Salphatti maqaa itti haquu |            ✅            | ❌ faayila haquu  |
-
-**Gorsa:** Of-haaromeessaa fi saffisa eegaluu gaaariif NSIS fayyadu fayyadami. Fayyadu hin barbaachifne, reejistrii hin barbaachifne filannoof portable `.exe` fayyadami.
-
-</details>
 
 ---
 
@@ -419,10 +420,10 @@ The Arroxy process starts but no window shows up. Most often this is a GPU drive
 
 ```bash
 # Windows (Portable) — PowerShell, run from the folder containing the exe
-.\Arroxy-Portable-<version>.exe --disable-gpu
+.\Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Portable) — Command Prompt (cmd.exe), from the same folder
-Arroxy-Portable-<version>.exe --disable-gpu
+Arroxy-win-x64-Portable.exe --disable-gpu
 
 # Windows (Installed) — works in both PowerShell and cmd.exe
 "%LOCALAPPDATA%\Programs\Arroxy\Arroxy.exe" --disable-gpu
@@ -431,7 +432,7 @@ Arroxy-Portable-<version>.exe --disable-gpu
 /Applications/Arroxy.app/Contents/MacOS/Arroxy --disable-gpu
 
 # Linux (AppImage)
-./Arroxy-*.AppImage --disable-gpu
+./Arroxy-linux-x64.AppImage --disable-gpu
 ```
 
 If that works, the GPU/driver is the cause. Make the change permanent (next step).
