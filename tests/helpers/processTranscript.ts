@@ -22,19 +22,39 @@ interface HangingProcessOptions {
 
 export function createTranscriptProcess(steps: readonly TranscriptStep[], options: TranscriptOptions = {}): TranscriptProcess {
   const proc = baseProcess();
-  options.beforeStart?.();
-  setTimeout(() => {
-    for (const step of steps) {
-      if ('stream' in step) {
-        proc[step.stream].emit('data', Buffer.isBuffer(step.data) ? step.data : Buffer.from(step.data));
-      } else if ('error' in step) {
-        proc.emit('error', step.error);
-      } else {
-        proc.emit('close', step.close);
+  let started = false;
+  const start = (): void => {
+    if (started) return;
+    started = true;
+    options.beforeStart?.();
+    setTimeout(() => {
+      for (const step of steps) {
+        if ('stream' in step) {
+          proc[step.stream].emit('data', Buffer.isBuffer(step.data) ? step.data : Buffer.from(step.data));
+        } else if ('error' in step) {
+          proc.emit('error', step.error);
+        } else {
+          proc.emit('close', step.close);
+        }
       }
-    }
-  }, options.delayMs ?? 10);
+    }, options.delayMs ?? 10);
+  };
+
+  const terminalEvents = new Set(steps.map((step) => ('close' in step ? 'close' : 'error' in step ? 'error' : null)).filter((event): event is 'close' | 'error' => event !== null));
+  proc.on('newListener', (event) => {
+    if (!isTranscriptTerminalEvent(event) || !terminalEvents.has(event)) return;
+    start();
+  });
+
+  if (terminalEvents.size === 0) {
+    setTimeout(start, 0);
+  }
+
   return proc;
+}
+
+function isTranscriptTerminalEvent(event: string | symbol): event is 'close' | 'error' {
+  return event === 'close' || event === 'error';
 }
 
 export function createHangingProcess(options: HangingProcessOptions = {}): TranscriptProcess {
