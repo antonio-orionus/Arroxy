@@ -44,11 +44,12 @@ test('screenshot — Clear button in drawer header for completed scenario', asyn
 
   const drawer = page.getByTestId('smart-drawer');
   const box = await drawer.boundingBox();
-  if (box) {
-    await page.screenshot({
-      path: 'tests/browser/screenshots/queue-clear-button.png',
-      clip: { x: box.x, y: box.y, width: box.width, height: box.height }
-    });
+  if (!box) {
+    throw new Error('Expected smart drawer bounding box before queue-clear-button screenshot capture');
   }
+  await page.screenshot({
+    path: 'tests/browser/screenshots/queue-clear-button.png',
+    clip: { x: box.x, y: box.y, width: box.width, height: box.height }
+  });
   await expect(page.getByTestId('btn-clear-completed')).toBeVisible();
 });

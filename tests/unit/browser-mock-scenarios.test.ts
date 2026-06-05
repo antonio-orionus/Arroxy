@@ -108,10 +108,14 @@ describe('browser mock scenarios', () => {
     const bulkPatch = vi.mocked(store.setState).mock.calls[0]?.[0];
     expect(bulkPatch).toMatchObject({ wizardMode: 'bulk', wizardStep: 'playlistItems', bulkMetadataTotal: 50 });
 
+    vi.mocked(store.setWizardUrl).mockClear();
+    vi.mocked(store.submitUrl).mockClear();
+    vi.mocked(store.setState).mockClear();
+
     await applyScenarioWorkbenchState({ scenario: getScenario('single-normal'), params: readUrlParams(new URL('http://localhost:5173/?scenario=single-normal&mockStep=confirm')), store });
 
     expect(store.setWizardUrl).toHaveBeenCalledWith('https://example.com/single-normal');
-    expect(store.submitUrl).toHaveBeenCalled();
+    expect(store.submitUrl).toHaveBeenCalledOnce();
     const lastPatch = vi.mocked(store.setState).mock.calls.at(-1)?.[0];
     expect(lastPatch).toMatchObject({ wizardStep: 'confirm' });
   });

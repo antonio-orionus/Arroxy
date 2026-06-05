@@ -83,6 +83,14 @@ function files(outputDir: string): FileHelpers {
   };
 }
 
+async function attemptCleanup(cleanup: () => Promise<void> | void): Promise<void> {
+  try {
+    await cleanup();
+  } catch {
+    // Best-effort test teardown; keep draining the remaining resources.
+  }
+}
+
 export async function withFixtureProductApp(options: FixtureProductOptions, run: (ctx: FixtureProductContext) => Promise<void>): Promise<void> {
   const ytDlpPath = await prepareFixtureRuntime();
   const fixtureServer = await startFixtureServer(options.behavior);
@@ -113,11 +121,10 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
     });
     assertNoExternalRequests(denyProxy);
   } finally {
-    if (app) await app.close();
-    await denyProxy.close();
-    await fixtureServer.close();
-    fs.rmSync(userDataDir, { recursive: true, force: true });
-    fs.rmSync(outputDir, { recursive: true, force: true });
+    const appToClose = app;
+    await Promise.all([appToClose ? attemptCleanup(() => appToClose.close()) : Promise.resolve(), attemptCleanup(() => denyProxy.close()), attemptCleanup(() => fixtureServer.close())]);
+    await attemptCleanup(() => fs.rmSync(userDataDir, { recursive: true, force: true }));
+    await attemptCleanup(() => fs.rmSync(outputDir, { recursive: true, force: true }));
   }
 }
 
@@ -141,9 +148,8 @@ export async function withFixtureYtDlp(options: FixtureYtDlpOptions, run: (ctx: 
     });
     assertNoExternalRequests(denyProxy);
   } finally {
-    await denyProxy.close();
-    await fixtureServer.close();
-    fs.rmSync(userDataDir, { recursive: true, force: true });
-    fs.rmSync(outputDir, { recursive: true, force: true });
+    await Promise.all([attemptCleanup(() => denyProxy.close()), attemptCleanup(() => fixtureServer.close())]);
+    await attemptCleanup(() => fs.rmSync(userDataDir, { recursive: true, force: true }));
+    await attemptCleanup(() => fs.rmSync(outputDir, { recursive: true, force: true }));
   }
 }

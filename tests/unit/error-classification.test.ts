@@ -30,7 +30,7 @@ function diskError(error: string): DiskSpaceResult {
 }
 
 function diskProbe(result: DiskSpaceResult): DiskProbe {
-  return vi.fn().mockResolvedValue(result);
+  return vi.fn<DiskProbe>().mockResolvedValue(result);
 }
 
 describe('classifyYtDlpFailure', () => {
@@ -93,6 +93,7 @@ describe('classifyYtDlpFailure', () => {
       const result = await classifyYtDlpFailure(exitError('postprocessFailure', 'ERROR: Postprocessing: Conversion failed!'), OUTPUT_DIR, JOB_ID, probe);
       expect(result.payload.kind).toBe('outOfDiskSpace');
       expect(probe).toHaveBeenCalledWith(OUTPUT_DIR);
+      expect(probe).toHaveBeenCalledTimes(1);
     });
 
     it('keeps postprocessFailure when disk probe confirms OK', async () => {
@@ -106,14 +107,14 @@ describe('classifyYtDlpFailure', () => {
     });
 
     it('does not probe disk for non-postprocess errors', async () => {
-      const probe: DiskProbe = vi.fn();
+      const probe = vi.fn<DiskProbe>();
       await classifyYtDlpFailure(exitError('botBlock'), OUTPUT_DIR, JOB_ID, probe);
       expect(probe).not.toHaveBeenCalled();
     });
 
     it('does not probe when rawError does not match postprocess pattern', async () => {
       // errorKind=postprocessFailure but rawError lacks the ERROR: prefix — isPostprocessFailure returns false
-      const probe: DiskProbe = vi.fn();
+      const probe = vi.fn<DiskProbe>();
       await classifyYtDlpFailure(exitError('postprocessFailure', 'Conversion failed!'), OUTPUT_DIR, JOB_ID, probe);
       expect(probe).not.toHaveBeenCalled();
     });

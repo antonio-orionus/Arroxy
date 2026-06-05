@@ -9,7 +9,10 @@ export async function prepareFixtureRuntime(): Promise<string> {
   fixtureRuntimePromise ??= (async () => {
     await ensureHostEmbeddedBinaries();
     return ensureYtDlpPath();
-  })();
+  })().catch((error) => {
+    fixtureRuntimePromise = null;
+    throw error;
+  });
   return fixtureRuntimePromise;
 }
 
@@ -32,7 +35,11 @@ export function stringField(record: Record<string, unknown>, key: string): strin
 export function recordArrayField(record: Record<string, unknown>, key: string): Record<string, unknown>[] {
   const value = record[key];
   if (!Array.isArray(value)) throw new Error(`Expected array field ${key}`);
-  return value.filter(isRecord);
+  const invalidIndex = value.findIndex((entry) => !isRecord(entry));
+  if (invalidIndex !== -1) {
+    throw new Error(`Expected record[] field ${key}; index ${invalidIndex} was ${typeof value[invalidIndex]}`);
+  }
+  return value as Record<string, unknown>[];
 }
 
 export function listFilesRecursive(dir: string): string[] {
