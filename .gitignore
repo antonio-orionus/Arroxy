@@ -58,3 +58,4 @@ private
 # Use **/ prefix so it matches both <root>/build/embedded/ and any accidental
 # copies (e.g. src/build/embedded/ if a tool resolves cwd wrong).
 **/build/embedded/*
+.ref
