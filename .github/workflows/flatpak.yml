@@ -72,14 +72,14 @@ jobs:
           with urllib.request.urlopen(checksum_req) as response:
               checksums = response.read().decode("utf-8")
 
-          target = "Arroxy-linux-x64.tar.gz"
+          targets = ["Arroxy-linux-x64.tar.gz", f"Arroxy-{version}.tar.gz"]
           hash_value = None
           for line in checksums.splitlines():
-              if target in line:
+              if any(target in line for target in targets):
                   hash_value = line.split()[0]
                   break
           if hash_value is None:
-              raise SystemExit(f"::error::Could not find {target} in SHA256SUMS")
+              raise SystemExit(f"::error::Could not find any of {targets} in SHA256SUMS")
 
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
               output.write(f"version={version}\n")
