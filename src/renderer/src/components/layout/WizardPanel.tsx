@@ -5,6 +5,7 @@ import { STEP_REGISTRY } from '../wizard/stepRegistry.js';
 import { STEPS, shouldSkip } from '../wizard/stepNavigation.js';
 import { StepError } from '../wizard/StepError.js';
 import { MixedUrlPromptDialog } from '../wizard/MixedUrlPromptDialog.js';
+import { QuickPlaylistCapDialog } from '../wizard/QuickPlaylistCapDialog.js';
 import { cn } from '@renderer/lib/utils.js';
 
 export function WizardPanel(): JSX.Element {
@@ -22,6 +23,7 @@ export function WizardPanel(): JSX.Element {
 
   const activeIndex = visibleSteps.indexOf(wizardStep as (typeof STEPS)[number]);
   const activeDescriptor = STEP_REGISTRY.find((d) => d.id === wizardStep);
+  const isDownloadHome = wizardStep === 'url';
 
   const prevIndexRef = useRef(activeIndex);
   const [isBackward, setIsBackward] = useState(false);
@@ -32,8 +34,8 @@ export function WizardPanel(): JSX.Element {
   }, [activeIndex]);
 
   return (
-    <section className={cn('px-6 pt-3 min-h-full flex flex-col', isBackward ? 'wizard-backward' : 'wizard-forward')} data-testid="wizard-panel">
-      {wizardStep !== 'error' && (
+    <section className={cn('px-6 min-h-full flex flex-col', isDownloadHome ? 'pt-4' : 'pt-3', isBackward ? 'wizard-backward' : 'wizard-forward')} data-testid="wizard-panel">
+      {wizardStep !== 'error' && !isDownloadHome && (
         <div className="flex items-center mb-4" aria-hidden data-testid="step-indicator">
           {visibleSteps.map((stepKey, i) => {
             const isDone = i < activeIndex;
@@ -55,6 +57,7 @@ export function WizardPanel(): JSX.Element {
 
       {wizardStep === 'error' ? <StepError /> : activeDescriptor?.render()}
       <MixedUrlPromptDialog />
+      <QuickPlaylistCapDialog />
     </section>
   );
 }

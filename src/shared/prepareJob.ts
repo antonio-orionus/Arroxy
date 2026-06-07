@@ -1,6 +1,6 @@
-import { playlistPresetSpec } from './playlistPresets.js';
+import { mediaIntentSpec, playlistSelectionToMediaIntent } from './mediaIntent.js';
 import type { EmbedOptions, ExtractorIdentity, PreparedJob, SponsorBlockOptions, SubtitleOptions } from './preparedJob.js';
-import type { AudioConvert, PlaylistSelection, Preset, SponsorBlockCategory, SponsorBlockMode } from './schemas.js';
+import type { AudioConvert, MediaIntent, PlaylistSelection, Preset, SponsorBlockCategory, SponsorBlockMode } from './schemas.js';
 
 // Pure builder. Lives in `src/shared/` (not renderer) so future QueueStore
 // migrations in main can synthesize jobs without a renderer dependency.
@@ -18,6 +18,7 @@ export interface PrepareJobInput extends ExtractorIdentity {
   expectedBytes?: number;
   // playlist-mode inputs (set when mode === 'playlist')
   playlistSelection?: PlaylistSelection | null;
+  mediaIntent?: MediaIntent | null;
   outputTemplate?: string;
   // shared
   subtitles?: SubtitleOptions;
@@ -33,13 +34,14 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
   const outputTemplate = input.outputTemplate ? { outputTemplate: input.outputTemplate } : {};
 
   if (input.mode === 'playlist') {
-    if (!input.playlistSelection) throw new Error('prepareJob: playlist mode requires playlistSelection');
+    const intent = input.mediaIntent ?? (input.playlistSelection ? playlistSelectionToMediaIntent(input.playlistSelection) : null);
+    if (!intent) throw new Error('prepareJob: playlist mode requires mediaIntent');
     if (!input.outputTemplate) throw new Error('prepareJob: playlist mode requires outputTemplate');
-    const spec = playlistPresetSpec(input.playlistSelection);
+    const spec = mediaIntentSpec(intent);
     return {
-      kind: 'playlist-preset',
+      kind: 'ranged-format',
       ...identity,
-      selection: input.playlistSelection,
+      intent,
       formatSelector: spec.formatSelector,
       formatSort: spec.formatSort,
       mergeOutputFormat: spec.mergeOutputFormat,

@@ -15,5 +15,8 @@ export const notify = {
   },
   playlistFolderRejected(dir: string): void {
     console.warn('[playlist] picked folder is not usable as base + subfolder', dir);
+  },
+  clipboardAutofilled(message: string): void {
+    console.info('[clipboard]', message);
   }
 };

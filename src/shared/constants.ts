@@ -53,7 +53,11 @@ export function defaultAppSettings(downloadsDir: string): AppSettings {
       includeIdInSingleFilenames: DEFAULTS.includeIdInSingleFilenames
     },
     single: {},
-    playlist: {}
+    playlist: {},
+    profiles: {
+      active: { kind: 'builtin', id: 'balanced' },
+      custom: []
+    }
   };
 }
 

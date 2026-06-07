@@ -10,10 +10,10 @@ import { buildQueueItems } from './scenarios/queueScenarios.js';
 import { buildUpdate } from './scenarios/updateScenarios.js';
 import { buildWarmUp } from './scenarios/diagnosticScenarios.js';
 
-export const BROWSER_MOCK_SCENARIO_IDS = ['default', 'single-normal', 'playlist-normal', 'playlist-scope-empty-reload', 'playlist-no-thumbnails', 'playlist-long-titles', 'bulk-stress', 'probe-audio-only', 'probe-with-subtitles', 'probe-no-formats', 'probe-live-stream', 'dialog-mixed-url', 'dialog-cookies-issue', 'update-direct', 'update-homebrew', 'update-scoop', 'update-portable', 'update-darwin-dmg', 'update-winget', 'update-flatpak', 'update-none', 'queue-empty', 'queue-running', 'queue-paused-active', 'queue-paused-held', 'queue-cancelled', 'queue-error', 'queue-completed', 'queue-subtitles-failed', 'queue-multi', 'diagnostics-all-ok', 'diagnostics-ytdlp-missing', 'diagnostics-ffmpeg-broken', 'diagnostics-deno-missing', 'diagnostics-ffprobe-broken', 'diagnostics-all-missing', 'diagnostics-warmup-running'] as const;
+export const BROWSER_MOCK_SCENARIO_IDS = ['default', 'single-normal', 'playlist-normal', 'playlist-scope-empty-reload', 'playlist-no-thumbnails', 'playlist-long-titles', 'bulk-stress', 'profiles-home-empty', 'profiles-home-clipboard-single', 'profiles-home-clipboard-bulk', 'profiles-split-menu', 'profiles-editor', 'profiles-bulk', 'profiles-playlist-cap', 'probe-audio-only', 'probe-with-subtitles', 'probe-no-formats', 'probe-live-stream', 'dialog-mixed-url', 'dialog-cookies-issue', 'update-direct', 'update-homebrew', 'update-scoop', 'update-portable', 'update-darwin-dmg', 'update-winget', 'update-flatpak', 'update-none', 'queue-empty', 'queue-running', 'queue-paused-active', 'queue-paused-held', 'queue-cancelled', 'queue-error', 'queue-completed', 'queue-subtitles-failed', 'queue-multi', 'diagnostics-all-ok', 'diagnostics-ytdlp-missing', 'diagnostics-ffmpeg-broken', 'diagnostics-deno-missing', 'diagnostics-ffprobe-broken', 'diagnostics-all-missing', 'diagnostics-warmup-running'] as const;
 
 export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number];
-export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics';
+export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Profiles' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics';
 type ScenarioKind = 'default' | 'probe' | 'bulk' | 'queue' | 'update' | 'diagnostics' | 'dialog';
 
 const SINGLE_NORMAL_MOCK_STEPS = ['formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm'] as const;
@@ -98,6 +98,13 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
   { id: 'playlist-no-thumbnails', group: 'Playlist', title: 'No thumbnails', description: 'Playlist rows with no thumbnail column.', kind: 'probe' },
   { id: 'playlist-long-titles', group: 'Playlist', title: 'Long titles', description: 'Playlist rows with intentionally long titles.', kind: 'probe' },
   { id: 'bulk-stress', group: 'Playlist', title: 'Bulk stress', description: 'Visual fixture for 50 bulk URL rows with long duplicate titles, missing thumbnails, and mixed metadata states.', kind: 'bulk' },
+  { id: 'profiles-home-empty', group: 'Profiles', title: 'Profiles home', description: 'Redesigned main screen with active built-in profile and no custom profile dialog open.', kind: 'default' },
+  { id: 'profiles-home-clipboard-single', group: 'Profiles', title: 'Clipboard single', description: 'Profile home after clipboard watching filled one link and showed a toast.', kind: 'default' },
+  { id: 'profiles-home-clipboard-bulk', group: 'Profiles', title: 'Clipboard bulk', description: 'Profile home after clipboard watching filled several links and showed a toast.', kind: 'default' },
+  { id: 'profiles-split-menu', group: 'Profiles', title: 'Profile menu', description: 'Quick Download split button with profile picker opened.', kind: 'default' },
+  { id: 'profiles-editor', group: 'Profiles', title: 'Profile editor', description: 'Create/edit profile form in one dialog.', kind: 'default' },
+  { id: 'profiles-bulk', group: 'Profiles', title: 'Bulk URLs dialog', description: 'Existing bulk dialog opened from the redesigned main screen.', kind: 'default' },
+  { id: 'profiles-playlist-cap', group: 'Profiles', title: 'Playlist cap dialog', description: 'Quick Download playlist probe limit confirmation.', kind: 'default' },
   { id: 'probe-audio-only', group: 'Probe Results', title: 'Audio only source', description: 'isAudioOnlySource:true - wizard defaults to audio-only mode (Bandcamp/SoundCloud-like extractor).', kind: 'probe' },
   { id: 'probe-with-subtitles', group: 'Probe Results', title: 'With subtitles', description: 'Video with manual subtitle tracks and auto-caption pool.', kind: 'probe' },
   { id: 'probe-no-formats', group: 'Probe Results', title: 'No formats', description: 'Video probe returns empty formats array - tests graceful empty state in the format picker.', kind: 'probe' },

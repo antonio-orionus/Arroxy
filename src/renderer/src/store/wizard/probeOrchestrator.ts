@@ -20,86 +20,14 @@ import { resolvePlaylistDir } from './playlistDir.js';
 import { isYouTubeExtractor } from '@shared/ytdlp/extractorPredicates.js';
 import { applyPreset, restoreFormatSelection, restoreSubtitleSelection } from './formatPicker.js';
 import { WizardCommands, RESET_WIZARD_STATE } from './commands.js';
-import { persistFormatPrefs } from './persistFormatPrefs.js';
-import { buildSingleQueueItemFromState, maybeShowQueueTip } from '../queueSlice.js';
+import { buildActiveProfileQueueItemsFromProbe, maybeShowQueueTip } from '../queueSlice.js';
 import { formatProbeError } from '../helpers.js';
 import type { AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep } from '../types.js';
 import { type VisibleStep } from '../../components/wizard/stepNavigation.js';
 import { nextStep, type NavContext } from '../../components/wizard/nextStep.js';
 import { BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, hydrateBulkMetadata, nextBulkMetadataRunId } from './bulkMetadataHydration.js';
 import { playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage } from './playlistScopeReload.js';
-
-// Detect YouTube URLs that carry both `v=` (single video) and `list=` (playlist).
-// yt-dlp's default for these routes Radio/Mix lists to playlist enumeration;
-// users typically want the single video they clicked, so we surface a prompt.
-export function isMixedYouTubeUrl(url: string): boolean {
-  try {
-    const u = new URL(url);
-    const host = u.hostname.toLowerCase();
-    const isYouTube = host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtu.be';
-    if (!isYouTube) return false;
-    // youtu.be/<videoId>?list=... — video ID is in the pathname, not ?v=
-    const hasVideo = !!u.searchParams.get('v') || (host === 'youtu.be' && u.pathname.length > 1);
-    return hasVideo && !!u.searchParams.get('list');
-  } catch {
-    return false;
-  }
-}
-
-// YouTube channel-root URLs (`/@handle`, `/channel/UC…`, `/c/CustomName`,
-// `/user/OldName`) hit the Featured tab in yt-dlp, which returns a meta
-// playlist of nested playlists (Videos, Shorts, Streams) rather than actual
-// videos. Users almost always want the Videos tab — append `/videos` so the
-// probe returns a flat enumerable list. URLs that already have a tab path
-// (`/videos`, `/shorts`, `/playlists`, `/about`, etc.) pass through.
-const YT_CHANNEL_TAB_NAMES = new Set(['videos', 'shorts', 'streams', 'live', 'playlists', 'community', 'about', 'featured', 'channels', 'store', 'releases', 'podcasts']);
-
-/**
- * Whole-channel / channel-batch download support entry point.
- *
- * Rewrites a YouTube channel-root URL to its `/videos` tab so the probe
- * pipeline can treat the channel as a playlist and enumerate up to the
- * configured playlist probe limit. The user can
- * then queue every entry or pick a subset from the wizard playlist picker.
- *
- * Accepted channel-root shapes (all rewritten to `<root>/videos`):
- *   - `youtube.com/@handle`
- *   - `youtube.com/channel/UC…` (24-char browse id)
- *   - `youtube.com/c/CustomName`
- *   - `youtube.com/user/OldName`
- *
- * Tab-suffixed URLs (`/videos`, `/shorts`, `/playlists`, …) pass through
- * unchanged so a deliberate Shorts-only or Playlists-only download stays
- * scoped to that tab.
- *
- * Keywords for code search: channel download, whole-channel, channel-batch,
- * channel URL, /@handle, /channel/UC, /c/, /user/, channel enumeration,
- * channel playlist, channel videos tab, batch channel.
- *
- * @see YtDlp.ts `buildArgs` — `--flat-playlist --playlist-end <limit + 1>`
- *   is what actually enumerates the channel entries server-side.
- * @see ../../components/wizard/StepPlaylistItems.tsx — UI that lets the
- *   user pick specific channel videos from the enumerated list.
- */
-export function rewriteYouTubeChannelRoot(url: string): string {
-  try {
-    const u = new URL(url);
-    const host = u.hostname.toLowerCase();
-    const isYouTube = host === 'youtube.com' || host.endsWith('.youtube.com');
-    if (!isYouTube) return url;
-    const segments = u.pathname.split('/').filter(Boolean);
-    if (segments.length === 0) return url;
-    const isChannelRoot = (segments[0].startsWith('@') && segments.length === 1) || ((segments[0] === 'channel' || segments[0] === 'c' || segments[0] === 'user') && segments.length === 2);
-    if (!isChannelRoot) return url;
-    // Don't rewrite if path already ends with an explicit tab name.
-    const lastSegment = segments[segments.length - 1].toLowerCase();
-    if (YT_CHANNEL_TAB_NAMES.has(lastSegment)) return url;
-    u.pathname = `${u.pathname.replace(/\/$/, '')}/videos`;
-    return u.toString();
-  } catch {
-    return url;
-  }
-}
+import { isMixedYouTubeUrl, rewriteYouTubeChannelRoot } from './urlIntake.js';
 
 function navCtx(state: AppState): NavContext {
   const hasSubtitles = Object.keys(state.wizardSubtitles).length > 0 || Object.keys(state.wizardAutomaticCaptions).length > 0;
@@ -356,6 +284,49 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
   }
 }
 
+async function enqueueActiveProfileProbeResult(probe: ProbeResult, set: SetState, get: GetState): Promise<boolean> {
+  let probeForQueue = probe;
+  if (probe.kind === 'playlist') {
+    applyPlaylistProbeResult(probe, set, get, true);
+    if (get().playlistLikelyCapped) {
+      set({ quickDownloadStatus: 'idle', quickDownloadError: null, quickPlaylistCapDialogOpen: true });
+      return false;
+    }
+    if (get().playlistItems.length === 0) {
+      set({ quickDownloadStatus: 'error', quickDownloadError: 'wizard.url.quickPrepareFailed' });
+      return false;
+    }
+    probeForQueue = { ...probe, entries: get().playlistItems };
+  }
+
+  const prepared = buildActiveProfileQueueItemsFromProbe(probeForQueue, get, 'normal');
+  if (prepared.items.length === 0) {
+    set({ quickDownloadStatus: 'error', quickDownloadError: 'wizard.url.quickPrepareFailed' });
+    return false;
+  }
+
+  if (probeForQueue.kind === 'playlist' && prepared.playlistGroupId) {
+    try {
+      const manifestRes = await window.appApi.playlist.registerManifest({
+        playlistGroupId: prepared.playlistGroupId,
+        playlistTitle: prepared.playlistTitle?.trim() ? prepared.playlistTitle : probeForQueue.playlistTitle.trim() ? probeForQueue.playlistTitle : 'Playlist',
+        outputDir: prepared.items[0]?.outputDir ?? get().wizardOutputDir,
+        items: probeForQueue.entries.map((e) => ({ videoId: e.videoId, title: e.title, duration: e.duration }))
+      });
+      if (!manifestRes.ok) console.warn('playlist manifest registration failed; M3U will be skipped', manifestRes.error);
+    } catch (err) {
+      console.warn('playlist manifest registration threw; M3U will be skipped', err);
+    }
+  }
+
+  const addResult = await window.appApi.queue.cmd.add(prepared.items);
+  if (!addResult.ok) {
+    set({ quickDownloadStatus: 'error', quickDownloadError: addResult.error.message });
+    return false;
+  }
+  return true;
+}
+
 async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get: GetState): Promise<void> {
   const state = get();
   const url = state.wizardUrl;
@@ -515,40 +486,62 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
       set({ wizardUrl: cleaned, quickDownloadStatus: 'preparing', quickDownloadError: null, wizardError: null, cookiesConfigDialogIssue: null });
 
       try {
-        const result = await window.appApi.downloads.probe({ url: cleaned, playlistMode: 'video' });
+        const playlistMode: ProbePlaylistMode = isMixedYouTubeUrl(cleaned) ? 'video' : 'auto';
+        const result = await window.appApi.downloads.probe({ url: cleaned, playlistMode, ...(playlistMode === 'video' ? {} : { playlistScope: get().playlistScope }) });
         if (!result.ok) {
           set({ quickDownloadStatus: 'error', quickDownloadError: formatProbeError(result.error) || 'wizard.url.quickProbeFailed' });
           return;
         }
 
-        if (result.data.kind !== 'video') {
-          set({ quickDownloadStatus: 'error', quickDownloadError: 'wizard.url.quickSingleOnly' });
-          return;
-        }
-
         const currentOutputDir = get().wizardOutputDir;
         const fallbackOutputDir = get().settings?.common?.defaultOutputDir ?? '';
+        set({ wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir });
 
-        set({
-          wizardUrl: cleaned,
-          wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir,
-          ...videoProbeState(result.data, get(), true)
-        });
+        const queued = await enqueueActiveProfileProbeResult(result.data, set, get);
+        if (!queued) return;
 
-        const item = buildSingleQueueItemFromState(get, 'normal');
-        if (!item) {
-          set({ quickDownloadStatus: 'error', quickDownloadError: 'wizard.url.quickPrepareFailed' });
-          return;
-        }
+        maybeShowQueueTip(set);
+        WizardCommands.resetAll(set);
+        set({ quickDownloadStatus: 'queued', quickDownloadError: null });
+      } catch (err) {
+        set({ quickDownloadStatus: 'error', quickDownloadError: err instanceof Error ? err.message : String(err) });
+      }
+    },
 
-        const addResult = await window.appApi.queue.cmd.add([item]);
-        if (!addResult.ok) {
-          set({ quickDownloadStatus: 'error', quickDownloadError: addResult.error.message });
-          return;
+    quickDownloadUrls: async (urls) => {
+      if (get().quickDownloadStatus === 'preparing') return;
+      const cleanedUrls = urls.map((url) => rewriteYouTubeChannelRoot(cleanUrl(url.trim()))).filter((url) => url.length > 0);
+      if (cleanedUrls.length === 0) return;
+
+      for (const url of cleanedUrls) {
+        if (maybeBlockIncompleteCookiesConfig(url, set, get)) return;
+      }
+
+      void window.appApi.downloads.probeCancel();
+      const currentOutputDir = get().wizardOutputDir;
+      const fallbackOutputDir = get().settings?.common?.defaultOutputDir ?? '';
+      set({
+        wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir,
+        quickDownloadStatus: 'preparing',
+        quickDownloadError: null,
+        wizardError: null,
+        cookiesConfigDialogIssue: null
+      });
+
+      try {
+        for (const url of cleanedUrls) {
+          set({ wizardUrl: url });
+          const playlistMode: ProbePlaylistMode = isMixedYouTubeUrl(url) ? 'video' : 'auto';
+          const result = await window.appApi.downloads.probe({ url, playlistMode, ...(playlistMode === 'video' ? {} : { playlistScope: get().playlistScope }) });
+          if (!result.ok) {
+            set({ quickDownloadStatus: 'error', quickDownloadError: formatProbeError(result.error) || 'wizard.url.quickProbeFailed' });
+            return;
+          }
+          const queued = await enqueueActiveProfileProbeResult(result.data, set, get);
+          if (!queued) return;
         }
 
         maybeShowQueueTip(set);
-        await persistFormatPrefs(set, get);
         WizardCommands.resetAll(set);
         set({ quickDownloadStatus: 'queued', quickDownloadError: null });
       } catch (err) {
@@ -793,6 +786,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
       // and a stalled YouTube fallback chain can otherwise keep the spinner
       // bound and emit results into a step the user already left.
       void window.appApi.downloads.probeCancel();
+      if (typeof window !== 'undefined') {
+        window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#settings`);
+        window.dispatchEvent(new Event('hashchange'));
+      }
       set({ wizardStep: 'url', wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, advancedAutoTarget: 'cookies', cookiesConfigDialogIssue: null });
     }
   };

@@ -3,7 +3,7 @@
 //
 // Pipeline under test:
 //   PlaylistSelection
-//   → playlistPresetSpec → PlaylistPresetSpec
+//   → mediaIntentSpec → MediaIntentSpec
 //   → YtDlpRequest (as VideoPhase builds it)
 //   → buildVideoArgs → string[]
 //
@@ -11,7 +11,7 @@
 // Pacing is omitted (undefined) — covered by pacing-specific tests.
 
 import { describe, expect, it } from 'vitest';
-import { playlistPresetSpec } from '@shared/playlistPresets.js';
+import { mediaIntentSpec, playlistSelectionToMediaIntent } from '@shared/mediaIntent.js';
 import { buildVideoArgs } from '@main/services/YtDlp.js';
 import type { YtDlpRequest } from '@main/services/YtDlp.js';
 import type { PlaylistSelection } from '@shared/schemas.js';
@@ -22,7 +22,7 @@ const TEMPLATE = '%(title).200B [%(id)s].%(ext)s';
 
 // Build a minimal 'video' YtDlpRequest from a PlaylistSelection, mirroring VideoPhase logic.
 function reqFor(sel: PlaylistSelection): Extract<YtDlpRequest, { kind: 'video' }> {
-  const spec = playlistPresetSpec(sel);
+  const spec = mediaIntentSpec(playlistSelectionToMediaIntent(sel));
   return {
     kind: 'video',
     url: URL,
@@ -87,7 +87,7 @@ describe('Video · MP4 codec', () => {
   });
 
   it('forcesMkv (video+embed with subs) → embed merge wins over playlist mp4 merge', () => {
-    const spec = playlistPresetSpec({ kind: 'video', tier: '1080', codec: 'mp4' });
+    const spec = mediaIntentSpec(playlistSelectionToMediaIntent({ kind: 'video', tier: '1080', codec: 'mp4' }));
     const req: Extract<YtDlpRequest, { kind: 'video+embed' }> = {
       kind: 'video+embed',
       url: URL,
@@ -155,7 +155,7 @@ describe('Audio · Lossy convert', () => {
   });
 
   it('format=mp3 without bitrateKbps defaults to 192K', () => {
-    // bitrateKbps omitted → playlistPresetSpec defaults to DEFAULT_AUDIO_BITRATE (192)
+    // bitrateKbps omitted → mediaIntentSpec defaults to DEFAULT_AUDIO_BITRATE (192)
     const args = argsFor({ kind: 'audio', format: 'mp3' });
     const aqIdx = args.indexOf('--audio-quality');
     expect(args[aqIdx + 1]).toBe('192K');

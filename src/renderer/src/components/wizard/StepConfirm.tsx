@@ -12,7 +12,7 @@ import { Tooltip, TooltipTrigger, TooltipContent } from '../ui/tooltip.js';
 import { WizardFooter } from './WizardFooter.js';
 import { VideoSummaryCard } from '../shared/VideoSummaryCard.js';
 import { isAudioOnlySource } from '@shared/ytdlp/extractorPredicates.js';
-import { playlistPresetSpec } from '@shared/playlistPresets.js';
+import { mediaIntentSpec, playlistSelectionToMediaIntent } from '@shared/mediaIntent.js';
 import loveImg from '../../assets/Love.png';
 
 export function StepConfirm(): JSX.Element {
@@ -60,7 +60,7 @@ export function StepConfirm(): JSX.Element {
   // "videos" vs "tracks" — pick the unit that matches the actual content.
   // Audio-only extractors (Bandcamp, QQMusic, etc.) and audio playlist
   // selections → "tracks". Video selections → "videos".
-  const isAudioPlaylistPreset = !!playlistSelection && !playlistPresetSpec(playlistSelection).producesVideo;
+  const isAudioPlaylistPreset = !!playlistSelection && !mediaIntentSpec(playlistSelectionToMediaIntent(playlistSelection)).producesVideo;
   const itemsAreAudio = isAudioOnlySource(wizardExtractor) || isAudioPlaylistPreset;
   const itemsValue = inBulk ? t('wizard.confirm.itemsValueBulk', { count: selectedPlaylistItemIds.length, total: String(playlistItems.length) }) : t(itemsAreAudio ? 'wizard.confirm.itemsValueAudio' : 'wizard.confirm.itemsValue', { count: selectedPlaylistItemIds.length, total: String(playlistItems.length) });
 

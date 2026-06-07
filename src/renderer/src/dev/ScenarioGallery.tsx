@@ -9,7 +9,7 @@ import { cn } from '../lib/utils.js';
 import { useAppStore } from '../store/useAppStore.js';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select.js';
 
-const GROUPS: BrowserMockScenarioGroup[] = ['General', 'Playlist', 'Probe Results', 'Probe Errors', 'Dialogs', 'Updates', 'Queue', 'Diagnostics'];
+const GROUPS: BrowserMockScenarioGroup[] = ['General', 'Playlist', 'Profiles', 'Probe Results', 'Probe Errors', 'Dialogs', 'Updates', 'Queue', 'Diagnostics'];
 const PLAYLIST_PRESETS = [99, 100, 101] as const;
 
 function activeScenario(): BrowserMockScenario {

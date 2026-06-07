@@ -1,6 +1,7 @@
-import type { AppSettings, DependencyId, QueueItem } from '@shared/types.js';
+import type { AppSettings, DependencyId, DownloadProfile, DownloadProfileRef, QueueItem } from '@shared/types.js';
 import { QUEUE_STATUS } from '@shared/schemas.js';
 import { DEFAULTS } from '@shared/constants.js';
+import { DEFAULT_DOWNLOAD_PROFILES_PREFS, removeCustomDownloadProfile as removeCustomProfileFromPrefs, upsertCustomDownloadProfile } from '@shared/downloadProfiles.js';
 import { i18next, pickLanguage, isRtl } from '@shared/i18n/index.js';
 import type { GetState, SetState, ShareTrigger, SystemSlice } from './types.js';
 import { notify } from '../lib/notify.js';
@@ -56,6 +57,22 @@ async function applyCommonPatchAsync(get: GetState, set: SetState, label: string
     return;
   }
   set({ settings: result.data });
+}
+
+async function applyProfilesPatchAsync(get: GetState, set: SetState, label: string, profiles: AppSettings['profiles']): Promise<void> {
+  const previous = get().settings;
+  if (previous) set({ settings: { ...previous, profiles } });
+  const result = await window.appApi.settings.update({ profiles });
+  if (!result.ok) {
+    if (previous) set({ settings: previous });
+    notify.settingsSaveFailed(label, result.error);
+    return;
+  }
+  set({ settings: result.data });
+}
+
+function currentProfiles(settings: AppSettings | null): AppSettings['profiles'] {
+  return settings?.profiles ?? DEFAULT_DOWNLOAD_PROFILES_PREFS;
 }
 
 function openShareDialogInternal(set: SetState, trigger: ShareTrigger): void {
@@ -445,6 +462,23 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
     setAnalyticsEnabled: async (enabled) => {
       await applyCommonPatchAsync(get, set, 'analyticsEnabled', { analyticsEnabled: enabled });
+    },
+
+    setActiveDownloadProfile: async (ref: DownloadProfileRef) => {
+      const profiles = { ...currentProfiles(get().settings), active: ref };
+      await applyProfilesPatchAsync(get, set, 'downloadProfile.active', profiles);
+    },
+
+    saveDownloadProfile: async (profile: DownloadProfile, activate = true) => {
+      const previous = currentProfiles(get().settings);
+      const upserted = upsertCustomDownloadProfile(previous, profile);
+      const profiles = activate ? { ...upserted, active: { kind: 'custom' as const, id: profile.id } } : upserted;
+      await applyProfilesPatchAsync(get, set, 'downloadProfile.save', profiles);
+    },
+
+    removeCustomDownloadProfile: async (id: string) => {
+      const profiles = removeCustomProfileFromPrefs(currentProfiles(get().settings), id);
+      await applyProfilesPatchAsync(get, set, 'downloadProfile.remove', profiles);
     },
 
     openShareDialog: (trigger) => {

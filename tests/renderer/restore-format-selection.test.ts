@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
 import { applyPreset, restoreFormatSelection, restoreSubtitleSelection } from '@renderer/store/wizard/formatPicker.js';
+import { defaultAppSettings } from '@shared/constants.js';
 import type { AppSettings, FormatOption, SinglePrefs } from '@shared/types.js';
 
 const FORMATS: FormatOption[] = [
@@ -11,9 +12,11 @@ const FORMATS: FormatOption[] = [
 ];
 
 function settingsWith(single: SinglePrefs): AppSettings {
+  const base = defaultAppSettings('/tmp');
   return {
+    ...base,
     common: {
-      defaultOutputDir: '/tmp',
+      ...base.common,
       rememberLastOutputDir: false,
       uiZoom: 1,
       uiTheme: 'system',
@@ -22,7 +25,7 @@ function settingsWith(single: SinglePrefs): AppSettings {
       clipboardWatchEnabled: false
     },
     single,
-    playlist: {}
+    playlist: base.playlist
   };
 }
 

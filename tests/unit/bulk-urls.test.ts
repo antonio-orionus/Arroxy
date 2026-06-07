@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { deriveBulkUrlLabel, extractYouTubeVideoId, isClearlyIndividualYouTubeUrl, parseBulkUrls } from '@shared/bulkUrls.js';
+import { classifyBulkUrlKind, deriveBulkUrlLabel, extractYouTubeVideoId, isClearlyIndividualYouTubeUrl, parseBulkUrls } from '@shared/bulkUrls.js';
 
 describe('parseBulkUrls', () => {
   it('parses newline-separated URLs', () => {
@@ -28,11 +28,11 @@ describe('parseBulkUrls', () => {
     expect(result.duplicateCount).toBe(1);
   });
 
-  it('flags obvious YouTube playlist and channel URLs as unsupported', () => {
-    const result = parseBulkUrls('https://www.youtube.com/playlist?list=PLtest https://www.youtube.com/@arroxy https://www.youtube.com/watch?v=abc123&list=PLtest');
+  it('accepts and classifies YouTube playlist, channel, search, and mixed watch URLs', () => {
+    const result = parseBulkUrls('https://www.youtube.com/playlist?list=PLtest https://www.youtube.com/@arroxy https://www.youtube.com/results?search_query=arroxy https://www.youtube.com/watch?v=abc123&list=PLtest');
 
-    expect(result.accepted).toEqual([]);
-    expect(result.rejected.map((item) => item.reason)).toEqual(['unsupported-playlist', 'unsupported-channel', 'unsupported-playlist']);
+    expect(result.accepted.map((item) => item.kind)).toEqual(['playlist', 'channel', 'search', 'single']);
+    expect(result.rejected).toEqual([]);
   });
 
   it('cleans tracking parameters per URL', () => {
@@ -49,9 +49,9 @@ describe('isClearlyIndividualYouTubeUrl', () => {
     expect(isClearlyIndividualYouTubeUrl('https://youtu.be/abc123')).toBe(true);
   });
 
-  it('rejects non-YouTube and YouTube URLs with playlist params', () => {
+  it('rejects non-YouTube but accepts mixed watch/list URLs as individual YouTube videos', () => {
     expect(isClearlyIndividualYouTubeUrl('https://vimeo.com/123')).toBe(false);
-    expect(isClearlyIndividualYouTubeUrl('https://www.youtube.com/watch?v=abc123&list=PLtest')).toBe(false);
+    expect(isClearlyIndividualYouTubeUrl('https://www.youtube.com/watch?v=abc123&list=PLtest')).toBe(true);
   });
 });
 
@@ -62,9 +62,22 @@ describe('extractYouTubeVideoId', () => {
     expect(extractYouTubeVideoId('https://youtu.be/bee123')).toBe('bee123');
   });
 
-  it('does not derive ids for unsupported playlist/channel URLs', () => {
-    expect(extractYouTubeVideoId('https://www.youtube.com/watch?v=abc123&list=PLtest')).toBeNull();
+  it('does not derive ids for playlist/channel URLs', () => {
+    expect(extractYouTubeVideoId('https://www.youtube.com/playlist?list=PLtest')).toBeNull();
     expect(extractYouTubeVideoId('https://www.youtube.com/@arroxy')).toBeNull();
+  });
+});
+
+describe('classifyBulkUrlKind', () => {
+  it.each([
+    ['https://www.youtube.com/watch?v=abc123', 'single'],
+    ['https://www.youtube.com/watch?v=abc123&list=PLtest', 'single'],
+    ['https://www.youtube.com/playlist?list=PLtest', 'playlist'],
+    ['https://www.youtube.com/@arroxy', 'channel'],
+    ['https://www.youtube.com/results?search_query=arroxy', 'search'],
+    ['https://vimeo.com/123', 'other']
+  ] as const)('%s -> %s', (url, kind) => {
+    expect(classifyBulkUrlKind(url)).toBe(kind);
   });
 });
 

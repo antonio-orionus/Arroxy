@@ -1,8 +1,9 @@
 import { cleanUrl } from './cleanUrl.js';
-import type { BulkUrlRejectReason } from './schemas.js';
+import type { BulkUrlKind, BulkUrlRejectReason } from './schemas.js';
 
 export interface BulkUrlAccepted {
   url: string;
+  kind: BulkUrlKind;
 }
 
 export interface BulkUrlRejected {
@@ -38,32 +39,30 @@ function isYouTubeHost(hostname: string): boolean {
   return host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtu.be';
 }
 
-function classifyUnsupported(url: string): BulkUrlRejectReason | null {
+export function classifyBulkUrlKind(url: string): BulkUrlKind {
   const parsed = parseUrl(url);
-  if (!parsed || !isYouTubeHost(parsed.hostname)) return null;
+  if (!parsed || !isYouTubeHost(parsed.hostname)) return 'other';
 
+  const host = parsed.hostname.toLowerCase();
   const segments = parsed.pathname.split('/').filter(Boolean);
-  if (parsed.searchParams.has('list') || segments[0] === 'playlist') return 'unsupported-playlist';
-  if (segments[0]?.startsWith('@') || segments[0] === 'channel' || segments[0] === 'c' || segments[0] === 'user') return 'unsupported-channel';
-  return null;
+  if (segments[0] === 'results' && parsed.searchParams.has('search_query')) return 'search';
+  if (segments[0]?.startsWith('@') || segments[0] === 'channel' || segments[0] === 'c' || segments[0] === 'user') return 'channel';
+
+  const hasSingleVideoId = (host === 'youtu.be' && segments.length === 1 && !!segments[0]) || (segments[0] === 'watch' && !!parsed.searchParams.get('v')) || (segments[0] === 'shorts' && segments.length === 2 && !!segments[1]);
+  if (hasSingleVideoId) return 'single';
+  if (parsed.searchParams.has('list') || segments[0] === 'playlist') return 'playlist';
+  return 'other';
 }
 
 export function isClearlyIndividualYouTubeUrl(url: string): boolean {
   const parsed = parseUrl(url);
   if (!parsed || !isYouTubeHost(parsed.hostname)) return false;
-  if (classifyUnsupported(url)) return false;
-
-  const host = parsed.hostname.toLowerCase();
-  const segments = parsed.pathname.split('/').filter(Boolean);
-  if (host === 'youtu.be') return segments.length === 1 && !!segments[0];
-  if (segments[0] === 'watch') return !!parsed.searchParams.get('v');
-  if (segments[0] === 'shorts') return segments.length === 2 && !!segments[1];
-  return false;
+  return classifyBulkUrlKind(url) === 'single';
 }
 
 export function extractYouTubeVideoId(url: string): string | null {
   const parsed = parseUrl(url);
-  if (!parsed || !isYouTubeHost(parsed.hostname) || classifyUnsupported(url)) return null;
+  if (!parsed || !isYouTubeHost(parsed.hostname) || classifyBulkUrlKind(url) !== 'single') return null;
 
   const host = parsed.hostname.toLowerCase();
   const segments = parsed.pathname.split('/').filter(Boolean);
@@ -93,12 +92,6 @@ export function parseBulkUrls(raw: string): BulkUrlParseResult {
 
   for (const match of raw.matchAll(URL_RE)) {
     const cleaned = cleanUrl(trimUrlToken(match[0]));
-    const unsupportedReason = classifyUnsupported(cleaned);
-    if (unsupportedReason) {
-      rejectedIndex++;
-      rejected.push({ id: `rejected-${rejectedIndex}`, url: cleaned, reason: unsupportedReason });
-      continue;
-    }
 
     if (seen.has(cleaned)) {
       duplicateCount++;
@@ -108,7 +101,7 @@ export function parseBulkUrls(raw: string): BulkUrlParseResult {
     }
 
     seen.add(cleaned);
-    accepted.push({ url: cleaned });
+    accepted.push({ url: cleaned, kind: classifyBulkUrlKind(cleaned) });
   }
 
   return {

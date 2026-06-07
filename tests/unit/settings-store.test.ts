@@ -4,13 +4,10 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { RecentJobsStore } from '@main/stores/RecentJobsStore.js';
 import { SettingsStore } from '@main/stores/SettingsStore.js';
+import { defaultAppSettings } from '@shared/constants.js';
 
 describe('settings and recent stores', () => {
-  const baseDefaults = {
-    common: { defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false },
-    single: {},
-    playlist: {}
-  };
+  const baseDefaults = defaultAppSettings('/tmp');
 
   it('persists settings updates', async () => {
     const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-'));
@@ -131,6 +128,7 @@ describe('settings and recent stores', () => {
 
     const settings = await store.get();
     expect(settings.common.defaultOutputDir).toBe('/tmp');
+    expect(settings.profiles.active).toEqual({ kind: 'builtin', id: 'balanced' });
   });
 
   it('migrates legacy flat shape to nested on first read', async () => {
@@ -170,6 +168,19 @@ describe('settings and recent stores', () => {
     expect(persisted.common).toBeDefined();
     expect(persisted.single).toBeDefined();
     expect(persisted.playlist).toBeDefined();
+    expect(persisted.profiles).toBeDefined();
+  });
+
+  it('merges download profile patches by bucket', async () => {
+    const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-patch-'));
+    const store = new SettingsStore(userData, baseDefaults);
+
+    const updated = await store.update({ profiles: { active: { kind: 'builtin', id: 'audio-only' } } });
+    expect(updated.profiles.active).toEqual({ kind: 'builtin', id: 'audio-only' });
+    expect(updated.profiles.custom).toEqual([]);
+
+    const readBack = await store.get();
+    expect(readBack.profiles.active).toEqual({ kind: 'builtin', id: 'audio-only' });
   });
 
   it('merges binaryOverrides patches by key — partial patch leaves siblings intact', async () => {

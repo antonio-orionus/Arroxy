@@ -1,5 +1,5 @@
 import type { StoreApi } from 'zustand';
-import type { AppSettings, AudioBitrate, BulkMetadataCancelReason, BulkMetadataItemStatus, BulkMetadataStatus, CookiesBrowser, CookiesMode, DependencyDiagnostic, DependencyId, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, Preset, ProbeError, ProbeDegradationReason, QueueItem, QueueLane, QuickDownloadStatus, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, WizardMode } from '@shared/types.js';
+import type { AppSettings, AudioBitrate, BulkMetadataCancelReason, BulkMetadataItemStatus, BulkMetadataStatus, CookiesBrowser, CookiesMode, DependencyDiagnostic, DependencyId, DownloadProfile, DownloadProfileRef, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, Preset, ProbeError, ProbeDegradationReason, QueueItem, QueueLane, QuickDownloadStatus, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, WizardMode } from '@shared/types.js';
 import type { AudioSelection } from '@shared/schemas.js';
 import type { IncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 export type { AudioSelection };
@@ -68,6 +68,7 @@ export interface ProbeOrchestratorSlice {
   setWizardUrl: (url: string) => void;
   submitUrl: () => Promise<void>;
   quickDownload: () => Promise<void>;
+  quickDownloadUrls: (urls: string[]) => Promise<void>;
   startBulkUrls: (urls: string[]) => void;
   cancelBulkMetadata: (reason?: BulkMetadataCancelReason) => void;
   dismissMixedPrompt: (choice: 'video' | 'playlist') => Promise<void>;
@@ -161,10 +162,12 @@ export interface WizardDialogsSlice {
   advancedAutoOpen: boolean;
   advancedAutoTarget: AdvancedSettingsTarget;
   cookiesConfigDialogIssue: IncompleteCookiesConfigIssue | null;
+  quickPlaylistCapDialogOpen: boolean;
 
   setAdvancedAutoOpen: (open: boolean, target?: AdvancedSettingsTarget) => void;
   cancelMixedPrompt: () => void;
   dismissCookiesConfigDialog: () => void;
+  dismissQuickPlaylistCapDialog: () => void;
   openAdvancedSettings: (target: AdvancedSettingsTarget) => void;
 }
 
@@ -181,6 +184,7 @@ export interface QueueSlice {
 
   addToQueue: () => Promise<void>;
   addAndDownloadImmediately: () => Promise<void>;
+  queueLoadedPlaylistWithActiveProfile: () => Promise<void>;
   setItemLane: (itemId: string, lane: QueueLane) => Promise<void>;
   cancelItemDownload: (itemId: string) => Promise<void>;
   pauseItemDownload: (itemId: string) => Promise<void>;
@@ -252,6 +256,9 @@ export interface SystemSlice {
   setClipboardWatchEnabled: (enabled: boolean) => Promise<void>;
   setCloseBehavior: (value: 'tray' | 'quit') => Promise<void>;
   setAnalyticsEnabled: (enabled: boolean) => Promise<void>;
+  setActiveDownloadProfile: (ref: DownloadProfileRef) => Promise<void>;
+  saveDownloadProfile: (profile: DownloadProfile, activate?: boolean) => Promise<void>;
+  removeCustomDownloadProfile: (id: string) => Promise<void>;
   openShareDialog: (trigger: ShareTrigger) => void;
   closeShareDialog: () => void;
   setShareInlineCardDismissed: () => Promise<void>;

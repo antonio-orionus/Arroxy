@@ -130,18 +130,18 @@ const en = {
     },
     bulk: {
       title: 'Bulk URLs',
-      description: 'Paste individual video or audio URLs. Arroxy will clean duplicates and flag playlist or channel links before queueing.',
+      description: 'Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing.',
       textareaLabel: 'URL list',
       textareaPlaceholder: 'https://example.com/video-1\nhttps://example.com/video-2\nhttps://example.com/video-3',
       acceptedCount: 'Ready',
       ignoredCount: 'Ignored',
       emptyPreview: 'Paste at least two URLs to preview the batch.',
-      needsTwo: 'Add at least two supported URLs to continue.',
+      needsTwo: 'Add at least one supported URL to continue.',
       confirm: 'Use these URLs',
       reject: {
         duplicate: 'Duplicate',
-        playlist: 'Use playlist flow',
-        channel: 'Use channel flow'
+        playlist: 'Playlist',
+        channel: 'Channel'
       }
     },
     mixedPrompt: {
@@ -160,10 +160,10 @@ const en = {
       fetchFormats: 'Fetch formats',
       fetchFormatsTooltip: 'Choose formats, subtitles, folder, and playlist items step by step before queueing.',
       quickDownload: 'Quick download',
-      quickDownloadTooltip: 'Uses your saved or default preferences and adds this single video to the queue without opening the setup steps.',
+      quickDownloadTooltip: 'Uses the active Download Profile and queues the URL without opening the setup steps.',
       quickPreparing: 'Preparing',
       quickQueued: 'Added to queue',
-      quickSingleOnly: 'Quick download is for single videos. Use Fetch formats for playlists and channels.',
+      quickSingleOnly: 'Quick Download can use single videos, playlists, channels, searches, and Bulk URLs.',
       quickProbeFailed: 'Probe failed',
       quickPrepareFailed: 'Queue item could not be prepared',
       quickFailed: "Couldn't add this one: {{error}}",

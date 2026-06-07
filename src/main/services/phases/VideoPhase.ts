@@ -73,10 +73,10 @@ export function VideoPhase(embed: boolean): Phase {
       const sbConfig = site.supportsSponsorBlock && preparedJob.sponsorBlock.mode !== 'off' ? { mode: preparedJob.sponsorBlock.mode, categories: preparedJob.sponsorBlock.categories } : undefined;
 
       const formatId = preparedJob.kind === 'single-format' ? preparedJob.formatId : undefined;
-      const formatSelector = preparedJob.kind === 'playlist-preset' ? preparedJob.formatSelector : undefined;
-      const formatSort = preparedJob.kind === 'playlist-preset' ? preparedJob.formatSort : undefined;
-      const mergeOutputFormat = preparedJob.kind === 'playlist-preset' ? preparedJob.mergeOutputFormat : undefined;
-      const audioConvert = preparedJob.kind === 'audio-convert' ? preparedJob.audioConvert : preparedJob.kind === 'playlist-preset' ? preparedJob.audioConvert : undefined;
+      const formatSelector = preparedJob.kind === 'ranged-format' ? preparedJob.formatSelector : undefined;
+      const formatSort = preparedJob.kind === 'ranged-format' ? preparedJob.formatSort : undefined;
+      const mergeOutputFormat = preparedJob.kind === 'ranged-format' ? preparedJob.mergeOutputFormat : undefined;
+      const audioConvert = preparedJob.kind === 'audio-convert' ? preparedJob.audioConvert : preparedJob.kind === 'ranged-format' ? preparedJob.audioConvert : undefined;
       const outputTemplate = preparedJob.outputTemplate;
       const { embed: embedOpts } = preparedJob;
 

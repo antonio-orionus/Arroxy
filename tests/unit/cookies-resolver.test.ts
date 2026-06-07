@@ -1,13 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { resolveCookies } from '@main/services/cookiesResolver.js';
+import { defaultAppSettings } from '@shared/constants.js';
 import type { AppSettings } from '@shared/types.js';
 
 function settings(common: Partial<AppSettings['common']>): AppSettings {
-  return {
-    common: { defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, ...common },
-    single: {},
-    playlist: {}
-  };
+  const base = defaultAppSettings('/tmp');
+  return { ...base, common: { ...base.common, rememberLastOutputDir: true, clipboardWatchEnabled: false, ...common } };
 }
 
 describe('resolveCookies', () => {

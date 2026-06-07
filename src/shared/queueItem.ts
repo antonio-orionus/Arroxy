@@ -14,7 +14,7 @@ export function isHighValueDownload(item: QueueItem): boolean {
   switch (item.job.kind) {
     case 'audio-convert':
     case 'subtitle-only':
-    case 'playlist-preset':
+    case 'ranged-format':
       return true;
     case 'single-format': {
       const hasSubs = (item.job.subtitles?.languages.length ?? 0) > 0;

@@ -74,7 +74,8 @@ export const RESET_WIZARD_STATE = {
   advancedAutoTarget: 'cookies' as const,
   mixedUrlPromptOpen: false,
   mixedUrlPending: null as string | null,
-  cookiesConfigDialogIssue: null
+  cookiesConfigDialogIssue: null,
+  quickPlaylistCapDialogOpen: false
 } as const;
 
 export const WizardCommands = {

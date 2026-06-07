@@ -26,6 +26,9 @@ const playlistVideoCodecSchema = z.enum(['best', 'mp4']);
 export const playlistAudioFormatSchema = z.enum(['best', 'mp3', 'm4a', 'opus']);
 export type PlaylistAudioFormat = z.infer<typeof playlistAudioFormatSchema>;
 
+export const downloadProfileIconSchema = z.enum(['download', 'video', 'captions', 'audio', 'music', 'podcast', 'classes', 'clip', 'archive']);
+export type DownloadProfileIcon = z.infer<typeof downloadProfileIconSchema>;
+
 export const subtitleModeSchema = z.enum(['sidecar', 'embed', 'subfolder']);
 export type SubtitleMode = z.infer<typeof subtitleModeSchema>;
 export const SUBTITLE_MODES = subtitleModeSchema.options;
@@ -53,6 +56,19 @@ export type AudioBitrate = z.infer<typeof audioBitrateSchema>;
 export const AUDIO_BITRATES: readonly AudioBitrate[] = [128, 192, 256, 320];
 export const DEFAULT_AUDIO_BITRATE: AudioBitrate = 192;
 
+// Hard cap on subtitle languages per download — protects against argv length blow-up.
+export const MAX_SUBTITLE_LANGUAGES = 50;
+
+export const PLAYLIST_PROBE_LIMIT_MIN = 1;
+export const PLAYLIST_PROBE_LIMIT_MAX = 5000;
+
+export const playlistProbeLimitSchema = z.number().int().min(PLAYLIST_PROBE_LIMIT_MIN).max(PLAYLIST_PROBE_LIMIT_MAX);
+
+const subfolderNameSchema = z
+  .string()
+  .max(SUBFOLDER_NAME_MAX)
+  .refine((s) => s === '' || isValidSubfolder(s), { message: 'Invalid subfolder name' });
+
 export const audioConvertSchema = z.discriminatedUnion('target', [z.object({ target: z.literal('wav') }), z.object({ target: z.enum(LOSSY_TARGET_VALUES), bitrateKbps: audioBitrateSchema })]);
 export type AudioConvert = z.infer<typeof audioConvertSchema>;
 
@@ -70,6 +86,96 @@ export const playlistSelectionSchema = z.discriminatedUnion('kind', [
 ]);
 export type PlaylistSelection = z.infer<typeof playlistSelectionSchema>;
 export const DEFAULT_PLAYLIST_SELECTION: PlaylistSelection = { kind: 'video', tier: 'best', codec: 'best' };
+
+const downloadProfileAudioSchema = z.object({
+  format: playlistAudioFormatSchema,
+  bitrateKbps: audioBitrateSchema.optional()
+});
+
+export const downloadProfileMediaSchema = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('video-audio'),
+    codec: playlistVideoCodecSchema,
+    tiers: z.array(playlistVideoTierSchema).min(1)
+  }),
+  z.object({
+    kind: z.literal('video-only'),
+    codec: playlistVideoCodecSchema,
+    tiers: z.array(playlistVideoTierSchema).min(1)
+  }),
+  z.object({
+    kind: z.literal('audio-only'),
+    audio: downloadProfileAudioSchema
+  }),
+  z.object({
+    kind: z.literal('subtitles-only')
+  })
+]);
+export type DownloadProfileMedia = z.infer<typeof downloadProfileMediaSchema>;
+
+export const mediaIntentSchema = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('video-audio'),
+    codec: playlistVideoCodecSchema,
+    tiers: z.array(playlistVideoTierSchema).min(1)
+  }),
+  z.object({
+    kind: z.literal('video-only'),
+    codec: playlistVideoCodecSchema,
+    tiers: z.array(playlistVideoTierSchema).min(1)
+  }),
+  z.object({
+    kind: z.literal('audio-only'),
+    audio: downloadProfileAudioSchema
+  })
+]);
+export type MediaIntent = z.infer<typeof mediaIntentSchema>;
+
+const downloadProfileSubtitleSourceSchema = z.enum(['manual-first', 'manual-only', 'auto-only']);
+
+const downloadProfileSubtitlesSchema = z.object({
+  enabled: z.boolean(),
+  languages: z.array(z.string()).max(MAX_SUBTITLE_LANGUAGES),
+  source: downloadProfileSubtitleSourceSchema,
+  mode: subtitleModeSchema,
+  format: subtitleFormatSchema
+});
+
+const downloadProfileOutputSchema = z.discriminatedUnion('kind', [z.object({ kind: z.literal('default') }), z.object({ kind: z.literal('fixed'), dir: z.string().min(1) })]);
+
+export const downloadProfileSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().trim().min(1).max(80),
+  icon: downloadProfileIconSchema,
+  media: downloadProfileMediaSchema,
+  subtitles: downloadProfileSubtitlesSchema,
+  output: downloadProfileOutputSchema,
+  subfolder: z.object({ enabled: z.boolean(), name: subfolderNameSchema }),
+  sponsorBlock: z.object({
+    mode: sponsorBlockModeSchema,
+    categories: z.array(sponsorBlockCategorySchema)
+  }),
+  embed: z.object({
+    chapters: z.boolean(),
+    metadata: z.boolean(),
+    thumbnail: z.boolean(),
+    description: z.boolean(),
+    thumbnailSidecar: z.boolean()
+  }),
+  playlistProbeCap: z.union([z.literal('confirm'), playlistProbeLimitSchema]),
+  createdAt: z.string(),
+  updatedAt: z.string()
+});
+export type DownloadProfile = z.infer<typeof downloadProfileSchema>;
+
+export const downloadProfileRefSchema = z.discriminatedUnion('kind', [z.object({ kind: z.literal('builtin'), id: z.string().min(1) }), z.object({ kind: z.literal('custom'), id: z.string().min(1) })]);
+export type DownloadProfileRef = z.infer<typeof downloadProfileRefSchema>;
+
+export const downloadProfilesPrefsSchema = z.object({
+  active: downloadProfileRefSchema,
+  custom: z.array(downloadProfileSchema)
+});
+export type DownloadProfilesPrefs = z.infer<typeof downloadProfilesPrefsSchema>;
 
 // Renderer's audio-column selection. Three convert kinds + native + none.
 // Defined here (not in renderer/store/types.ts) because it's persisted in
@@ -99,7 +205,10 @@ export type BulkMetadataItemStatus = z.infer<typeof bulkMetadataItemStatusSchema
 export const bulkMetadataCancelReasonSchema = z.enum(['queue-submit', 'reset', 'back-to-url', 'start-new-bulk']);
 export type BulkMetadataCancelReason = z.infer<typeof bulkMetadataCancelReasonSchema>;
 
-export const bulkUrlRejectReasonSchema = z.enum(['duplicate', 'unsupported-playlist', 'unsupported-channel']);
+export const bulkUrlKindSchema = z.enum(['single', 'playlist', 'channel', 'search', 'other']);
+export type BulkUrlKind = z.infer<typeof bulkUrlKindSchema>;
+
+export const bulkUrlRejectReasonSchema = z.enum(['duplicate']);
 export type BulkUrlRejectReason = z.infer<typeof bulkUrlRejectReasonSchema>;
 
 export const cookiesModeSchema = z.enum(['off', 'file', 'browser']);
@@ -111,10 +220,6 @@ export type CookiesBrowser = z.infer<typeof cookiesBrowserSchema>;
 export const networkPacingPresetSchema = z.enum(['off', 'balanced', 'careful', 'custom']);
 export type NetworkPacingPreset = z.infer<typeof networkPacingPresetSchema>;
 
-export const PLAYLIST_PROBE_LIMIT_MIN = 1;
-export const PLAYLIST_PROBE_LIMIT_MAX = 5000;
-
-export const playlistProbeLimitSchema = z.number().int().min(PLAYLIST_PROBE_LIMIT_MIN).max(PLAYLIST_PROBE_LIMIT_MAX);
 export const pacingSleepSecondsSchema = z.number().min(0).max(120);
 export const pacingConcurrentFragmentsSchema = z.number().int().min(0).max(16);
 
@@ -183,9 +288,6 @@ const statusKeySchema = z.enum(Object.values(STATUS_KEY) as [StatusKey, ...Statu
 export const ZOOM_MIN = 0.7;
 export const ZOOM_MAX = 1.5;
 export const ZOOM_STEP = 0.05;
-
-// Hard cap on subtitle languages per download — protects against argv length blow-up.
-export const MAX_SUBTITLE_LANGUAGES = 50;
 
 // Permissive http(s) URL schema. Multi-site support means we can't pre-filter
 // by host — yt-dlp itself decides whether the URL is supported (via extractor
@@ -270,9 +372,9 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
     embed: embedOptionsSchema
   }),
   z.object({
-    kind: z.literal('playlist-preset'),
+    kind: z.literal('ranged-format'),
     ...extractorIdentitySchema,
-    selection: playlistSelectionSchema,
+    intent: mediaIntentSchema,
     formatSelector: z.string().min(1).optional(),
     formatSort: z.string().min(1).optional(),
     mergeOutputFormat: z.string().min(1).optional(),
@@ -313,11 +415,6 @@ export const analyticsTrackSchema = z.object({
   name: z.string().min(1).max(64),
   props: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional()
 });
-
-const subfolderNameSchema = z
-  .string()
-  .max(SUBFOLDER_NAME_MAX)
-  .refine((s) => s === '' || isValidSubfolder(s), { message: 'Invalid subfolder name' });
 
 // yt-dlp `--limit-rate` syntax: integer or decimal followed by K (KB/s) or M (MB/s).
 // e.g. "500K", "1.5M". Case-insensitive. Stored verbatim — passed straight to yt-dlp.
@@ -393,16 +490,22 @@ const playlistPrefsPatchSchema = z.object({
   lastPlaylistSelection: playlistSelectionSchema.optional()
 });
 
+const downloadProfilesPrefsPatchSchema = z.object({
+  active: downloadProfileRefSchema.optional(),
+  custom: z.array(downloadProfileSchema).optional()
+});
+
 export const updateSettingsSchema = z
   .object({
     common: commonSettingsPatchSchema.optional(),
     single: singlePrefsPatchSchema.optional(),
-    playlist: playlistPrefsPatchSchema.optional()
+    playlist: playlistPrefsPatchSchema.optional(),
+    profiles: downloadProfilesPrefsPatchSchema.optional()
   })
   .refine(
     (patch) => {
       const hasField = (sub: Record<string, unknown> | undefined): boolean => sub !== undefined && Object.values(sub).some((v) => v !== undefined);
-      return hasField(patch.common) || hasField(patch.single) || hasField(patch.playlist);
+      return hasField(patch.common) || hasField(patch.single) || hasField(patch.playlist) || hasField(patch.profiles);
     },
     { message: 'settings:update payload must contain at least one defined field' }
   );

@@ -23,8 +23,8 @@ describe('strategyFor — kind routing', () => {
     expect(strategyFor(job)).toBe<StrategyKind>('video');
   });
 
-  it('playlist-preset with no subtitles → video', () => {
-    const job: PreparedJob = { kind: 'playlist-preset', extractor: 'youtube', extractorKey: 'Youtube', selection: { kind: 'video', tier: 'best', codec: 'best' }, outputTemplate: '%(title)s.%(ext)s', sponsorBlock: SB_OFF, embed: EMBED_OFF };
+  it('ranged-format with no subtitles → video', () => {
+    const job: PreparedJob = { kind: 'ranged-format', extractor: 'youtube', extractorKey: 'Youtube', intent: { kind: 'video-audio', codec: 'best', tiers: ['best'] }, outputTemplate: '%(title)s.%(ext)s', sponsorBlock: SB_OFF, embed: EMBED_OFF };
     expect(strategyFor(job)).toBe<StrategyKind>('video');
   });
 

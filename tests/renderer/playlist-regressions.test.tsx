@@ -276,7 +276,7 @@ describe('playlist regressions', () => {
       await useAppStore.getState().addToQueue();
     });
 
-    const templates = (vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []).map((item) => (item.job.kind === 'playlist-preset' ? item.job.outputTemplate : null));
+    const templates = (vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []).map((item) => (item.job.kind === 'ranged-format' ? item.job.outputTemplate : null));
 
     expect(templates).toEqual(['%(title).200B [%(id)s].%(ext)s', '%(title).200B [%(id)s].%(ext)s', '%(title).200B [%(id)s].%(ext)s']);
   });
@@ -353,7 +353,7 @@ describe('playlist regressions', () => {
     const items = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? [];
     expect(items).toHaveLength(2);
     expect(items.map((item) => item.url)).toEqual(['https://vimeo.com/1', 'https://example.com/video/2']);
-    expect(items.every((item) => item.job.kind === 'playlist-preset')).toBe(true);
+    expect(items.every((item) => item.job.kind === 'ranged-format')).toBe(true);
     expect(items.every((item) => item.writeM3u === false)).toBe(true);
     expect(window.appApi.playlist.registerManifest).not.toHaveBeenCalled();
   });

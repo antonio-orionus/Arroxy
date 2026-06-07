@@ -6,20 +6,23 @@
 // from wizard state because the wizard data lives in the renderer; once
 // built, the items are pushed to main via queue.cmd.add.
 
-import type { PlaylistEntry, PlaylistSelection, QueueItem, QueueLane } from '@shared/types.js';
+import type { DownloadProfile, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane } from '@shared/types.js';
 import { QUEUE_STATUS } from '@shared/schemas.js';
 import { DEFAULTS } from '@shared/constants.js';
 import { buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution } from './helpers.js';
 import { effectiveOutputDir } from '@renderer/lib/path.js';
+import { playlistBaseDir } from '@shared/subfolder.js';
 import { resolvePlaylistDir } from './wizard/playlistDir.js';
 import { prepareJob } from '@shared/prepareJob.js';
-import type { EmbedOptions, SubtitleOptions } from '@shared/preparedJob.js';
+import type { EmbedOptions, PreparedJob, SubtitleOptions } from '@shared/preparedJob.js';
 import { sanitizeJobOptions } from '@shared/sanitizeJobOptions.js';
+import { downloadProfileLabel, resolveActiveDownloadProfile, resolveDownloadProfile, type ResolvedDownloadProfile } from '@shared/downloadProfiles.js';
 import { resolveOutputContainer } from './wizard/resolveContainer.js';
 import i18next from 'i18next';
 import { bulkLogger } from '@renderer/lib/bulkLogger.js';
 import type { GetState, SetState, QueueSlice } from './types.js';
 import { persistFormatPrefs } from './wizard/persistFormatPrefs.js';
+import { WizardCommands } from './wizard/commands.js';
 
 export function maybeShowQueueTip(set: SetState): void {
   if (!localStorage.getItem('arroxy_seen_queue_tip')) {
@@ -28,7 +31,7 @@ export function maybeShowQueueTip(set: SetState): void {
   }
 }
 
-export function buildSingleQueueItemFromState(get: GetState, lane: QueueLane): QueueItem | null {
+function buildSingleQueueItemFromState(get: GetState, lane: QueueLane): QueueItem | null {
   const state = get();
   const { wizardUrl, wizardTitle, wizardThumbnail, wizardOutputDir } = state;
   const { wizardSubfolderEnabled, wizardSubfolderName } = state;
@@ -110,6 +113,107 @@ export function singleOutputTemplate(includeId: boolean): string {
 
 export function playlistOutputTemplate(): string {
   return '%(title).200B [%(id)s].%(ext)s';
+}
+
+function profileBaseOutputDir(profile: DownloadProfile, get: GetState): string {
+  const state = get();
+  if (profile.output.kind === 'fixed') return profile.output.dir;
+  const currentOutputDir = state.wizardOutputDir.trim();
+  if (currentOutputDir) return currentOutputDir;
+  return state.settings?.common?.defaultOutputDir ?? '';
+}
+
+function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extractorKey: string, outputTemplate: string): PreparedJob {
+  if (resolved.isSubtitleOnly) {
+    return prepareJob({
+      mode: 'single',
+      extractor,
+      extractorKey,
+      activePreset: 'subtitle-only',
+      outputTemplate,
+      subtitles: resolved.subtitles,
+      sponsorBlockMode: 'off',
+      sponsorBlockCategories: [],
+      embed: resolved.embed
+    });
+  }
+
+  if (!resolved.intent) throw new Error('download profile media intent missing');
+  return prepareJob({
+    mode: 'playlist',
+    extractor,
+    extractorKey,
+    mediaIntent: resolved.intent,
+    outputTemplate,
+    subtitles: resolved.subtitles,
+    sponsorBlockMode: resolved.sponsorBlock.mode,
+    sponsorBlockCategories: resolved.sponsorBlock.mode === 'off' ? [] : resolved.sponsorBlock.categories,
+    embed: resolved.embed
+  });
+}
+
+function buildProfileEntryQueueItem(params: { entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail'>; outputDir: string; extractor: string; extractorKey: string; resolved: ResolvedDownloadProfile; profile: DownloadProfile; playlistGroupId?: string; writeM3u: boolean; lane: QueueLane }): QueueItem {
+  const outputTemplate = playlistOutputTemplate();
+  return {
+    id: generateId(),
+    url: params.entry.url,
+    title: params.entry.title || params.entry.url,
+    thumbnail: params.entry.thumbnail,
+    outputDir: params.outputDir,
+    formatLabel: downloadProfileLabel(params.profile),
+    status: QUEUE_STATUS.pending,
+    lane: params.lane,
+    progressPercent: 0,
+    progressDetail: null,
+    lastStatus: null,
+    error: null,
+    finishedAt: null,
+    ...(params.playlistGroupId ? { playlistGroupId: params.playlistGroupId } : {}),
+    writeM3u: params.writeM3u,
+    job: profileJob(params.resolved, params.extractor, params.extractorKey, outputTemplate)
+  };
+}
+
+export function buildActiveProfileQueueItemsFromProbe(probe: ProbeResult, get: GetState, lane: QueueLane): { items: QueueItem[]; playlistGroupId?: string; playlistTitle?: string } {
+  const { profile, ref } = resolveActiveDownloadProfile(get().settings?.profiles);
+  const resolved = resolveDownloadProfile(profile, ref);
+  const baseDir = profileBaseOutputDir(profile, get);
+
+  if (probe.kind === 'video') {
+    const outputDir = effectiveOutputDir(baseDir, profile.subfolder.enabled, profile.subfolder.name);
+    const item = buildProfileEntryQueueItem({
+      entry: { url: get().wizardUrl || probe.webpageUrl, title: probe.title, thumbnail: probe.thumbnail },
+      outputDir,
+      extractor: probe.extractor,
+      extractorKey: probe.extractorKey,
+      resolved,
+      profile,
+      writeM3u: false,
+      lane
+    });
+    return { items: [item] };
+  }
+
+  const playlistGroupId = generateId();
+  const outputDir = playlistBaseDir(baseDir, profile.subfolder.enabled, profile.subfolder.name, probe.playlistTitle);
+  const writeM3u = get().settings?.common?.writeM3u ?? DEFAULTS.writeM3u;
+  return {
+    playlistGroupId,
+    playlistTitle: probe.playlistTitle,
+    items: probe.entries.map((entry) =>
+      buildProfileEntryQueueItem({
+        entry,
+        outputDir,
+        extractor: probe.extractor,
+        extractorKey: probe.extractorKey,
+        resolved,
+        profile,
+        playlistGroupId,
+        writeM3u,
+        lane
+      })
+    )
+  };
 }
 
 function resolvePlaylistFormatLabel(s: PlaylistSelection): string {
@@ -234,6 +338,55 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
   }
 }
 
+async function queueLoadedPlaylistWithActiveProfile(set: SetState, get: GetState, lane: QueueLane): Promise<void> {
+  if (get().isSubmittingToQueue) return;
+  const state = get();
+  if (state.playlistItems.length === 0) return;
+
+  set({ isSubmittingToQueue: true });
+  try {
+    const probe: Extract<ProbeResult, { kind: 'playlist' }> = {
+      kind: 'playlist',
+      extractor: state.wizardExtractor,
+      extractorKey: state.wizardExtractorKey,
+      webpageUrl: state.wizardWebpageUrl || state.wizardUrl,
+      isAudioOnlySource: false,
+      playlistTitle: state.playlistTitle || 'Playlist',
+      playlistId: state.playlistId,
+      isMultiVideo: state.playlistIsMultiVideo,
+      entries: state.playlistItems
+    };
+    const prepared = buildActiveProfileQueueItemsFromProbe(probe, get, lane);
+    if (prepared.items.length === 0) return;
+
+    if (prepared.playlistGroupId) {
+      try {
+        const manifestRes = await window.appApi.playlist.registerManifest({
+          playlistGroupId: prepared.playlistGroupId,
+          playlistTitle: prepared.playlistTitle?.trim() ? prepared.playlistTitle : state.playlistTitle.trim() ? state.playlistTitle : 'Playlist',
+          outputDir: prepared.items[0]?.outputDir ?? state.wizardOutputDir,
+          items: state.playlistItems.map((e) => ({ videoId: e.videoId, title: e.title, duration: e.duration }))
+        });
+        if (!manifestRes.ok) console.warn('playlist manifest registration failed; M3U will be skipped', manifestRes.error);
+      } catch (err) {
+        console.warn('playlist manifest registration threw; M3U will be skipped', err);
+      }
+    }
+
+    const addResult = await window.appApi.queue.cmd.add(prepared.items);
+    if (!addResult.ok) {
+      set({ quickDownloadStatus: 'error', quickDownloadError: addResult.error.message, quickPlaylistCapDialogOpen: false });
+      return;
+    }
+
+    maybeShowQueueTip(set);
+    WizardCommands.resetAll(set);
+    set({ quickDownloadStatus: 'queued', quickDownloadError: null });
+  } finally {
+    set({ isSubmittingToQueue: false });
+  }
+}
+
 export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
   return {
     queue: [],
@@ -246,6 +399,8 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
     addToQueue: () => submitWizardToQueue(set, get, 'normal'),
 
     addAndDownloadImmediately: () => submitWizardToQueue(set, get, 'priority'),
+
+    queueLoadedPlaylistWithActiveProfile: () => queueLoadedPlaylistWithActiveProfile(set, get, 'normal'),
 
     setItemLane: async (itemId, lane) => {
       await window.appApi.queue.cmd.setLane({ itemId, lane });

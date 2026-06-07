@@ -136,8 +136,8 @@ describe('prepareJob', () => {
     });
   });
 
-  describe('playlist-preset kind', () => {
-    it('builds video preset with formatSelector', () => {
+  describe('ranged-format kind', () => {
+    it('builds video intent with formatSelector', () => {
       const sel = { kind: 'video' as const, tier: '1080' as const, codec: 'best' as const };
       const job = prepareJob({
         ...BASE,
@@ -147,10 +147,10 @@ describe('prepareJob', () => {
         embed: EMBED_ALL
       });
       expect(job).toEqual({
-        kind: 'playlist-preset',
+        kind: 'ranged-format',
         extractor: 'youtube',
         extractorKey: 'Youtube',
-        selection: sel,
+        intent: { kind: 'video-audio', codec: 'best', tiers: ['1080'] },
         formatSelector: 'bestvideo[height<=1080]+bestaudio/best[height<=1080]',
         formatSort: undefined,
         mergeOutputFormat: undefined,
@@ -170,7 +170,8 @@ describe('prepareJob', () => {
         playlistSelection: { kind: 'audio', format: 'mp3', bitrateKbps: 192 },
         outputTemplate: '01 - %(title)s.%(ext)s'
       });
-      if (job.kind !== 'playlist-preset') throw new Error('unreachable');
+      if (job.kind !== 'ranged-format') throw new Error('unreachable');
+      expect(job.intent).toEqual({ kind: 'audio-only', audio: { format: 'mp3', bitrateKbps: 192 } });
       expect(job.audioConvert).toEqual({ target: 'mp3', bitrateKbps: 192 });
       expect(job.formatSelector).toBeUndefined();
     });
@@ -182,20 +183,29 @@ describe('prepareJob', () => {
         playlistSelection: { kind: 'video', tier: '720', codec: 'mp4' },
         outputTemplate: 't.ext'
       });
-      if (job.kind !== 'playlist-preset') throw new Error('unreachable');
+      if (job.kind !== 'ranged-format') throw new Error('unreachable');
       expect(job.formatSort).toContain('vcodec:h264');
       expect(job.mergeOutputFormat).toBe('mp4');
     });
 
-    it('preserves selection (regression: was lost as "custom")', () => {
+    it('preserves media intent (regression: was lost as "custom")', () => {
       const sel = { kind: 'video' as const, tier: '720' as const, codec: 'best' as const };
       const job = prepareJob({ ...BASE, mode: 'playlist', playlistSelection: sel, outputTemplate: 't.ext' });
-      if (job.kind !== 'playlist-preset') throw new Error('unreachable');
-      expect(job.selection).toEqual(sel);
+      if (job.kind !== 'ranged-format') throw new Error('unreachable');
+      expect(job.intent).toEqual({ kind: 'video-audio', codec: 'best', tiers: ['720'] });
     });
 
-    it('throws when playlist mode missing selection', () => {
-      expect(() => prepareJob({ ...BASE, mode: 'playlist', outputTemplate: 't.ext' })).toThrow(/playlistSelection/);
+    it('accepts profile media intent directly', () => {
+      const intent = { kind: 'video-only' as const, codec: 'mp4' as const, tiers: ['1080' as const, '720' as const] };
+      const job = prepareJob({ ...BASE, mode: 'playlist', mediaIntent: intent, outputTemplate: 't.ext' });
+      if (job.kind !== 'ranged-format') throw new Error('unreachable');
+      expect(job.intent).toEqual(intent);
+      expect(job.formatSelector).toContain('height<=1080');
+      expect(job.formatSort).toContain('vcodec:h264');
+    });
+
+    it('throws when ranged mode missing media intent', () => {
+      expect(() => prepareJob({ ...BASE, mode: 'playlist', outputTemplate: 't.ext' })).toThrow(/mediaIntent/);
     });
 
     it('throws when playlist mode missing outputTemplate', () => {

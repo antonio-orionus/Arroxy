@@ -3,7 +3,7 @@
 // Arroxy splits playlists into per-video queue items, so this does NOT use
 // yt-dlp native playlist downloads. It probes one YouTube item, caches the real
 // info JSON, then runs every UI-reachable PlaylistSelection through Arroxy's
-// playlistPresetSpec -> buildVideoArgs path with yt-dlp --load-info-json.
+// mediaIntentSpec -> buildVideoArgs path with yt-dlp --load-info-json.
 //
 // Usage:
 //   bun run smoke:playlist
@@ -16,7 +16,7 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { playlistPresetSpec } from '../src/shared/playlistPresets.js';
+import { mediaIntentSpec, playlistSelectionToMediaIntent } from '../src/shared/mediaIntent.js';
 import { AUDIO_BITRATES, PLAYLIST_VIDEO_TIERS, playlistAudioFormatSchema, type AudioBitrate, type PlaylistSelection } from '../src/shared/schemas.js';
 import { buildVideoArgs, type YtDlpRequest } from '../src/main/services/YtDlp.js';
 
@@ -196,7 +196,7 @@ async function probeInfoJson(ytDlpPath: string, url: string, cli: CliArgs, denoP
 }
 
 function reqFor(selection: PlaylistSelection, outputDir: string, infoJsonPath: string): Extract<YtDlpRequest, { kind: 'video' }> {
-  const spec = playlistPresetSpec(selection);
+  const spec = mediaIntentSpec(playlistSelectionToMediaIntent(selection));
   return {
     kind: 'video',
     url: DEFAULT_URL,

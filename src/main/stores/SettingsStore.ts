@@ -37,7 +37,7 @@ function migrateFlatToNested(raw: Record<string, unknown>, defaults: AppSettings
   const common = { ...defaults.common, ...picked } as CommonSettings & { cookiesEnabled?: boolean };
   const single = { ...defaults.single, ...pickKeys(raw, SINGLE_FLAT_KEYS) } as SinglePrefs;
   const playlist = { ...defaults.playlist, ...pickKeys(raw, PLAYLIST_FLAT_KEYS) };
-  return { common, single, playlist };
+  return { common, single, playlist, profiles: defaults.profiles };
 }
 
 // Normalize the cookies setting from the pre-radio shape (`cookiesEnabled`
@@ -66,11 +66,13 @@ function mergeCommon(base: CommonSettings, patch: Partial<CommonSettings> | unde
   return { ...base, ...patch, binaryOverrides };
 }
 
-function deepMerge(base: AppSettings, patch: SettingsPatch): AppSettings {
+function deepMerge(base: AppSettings, patch: SettingsPatch, defaults: AppSettings): AppSettings {
+  const baseProfiles = base.profiles ?? defaults.profiles;
   return {
     common: mergeCommon(base.common, patch.common),
     single: { ...base.single, ...(patch.single ?? {}) },
-    playlist: { ...base.playlist, ...(patch.playlist ?? {}) }
+    playlist: { ...base.playlist, ...(patch.playlist ?? {}) },
+    profiles: { ...baseProfiles, ...(patch.profiles ?? {}) }
   };
 }
 
@@ -102,8 +104,9 @@ export class SettingsStore {
     const raw = this.store.store as unknown as Record<string, unknown>;
     const isLegacy = isLegacyShape(raw);
     const baseline: AppSettings = isLegacy ? migrateFlatToNested(raw, this.defaults) : this.store.store;
-    const cookiesMigrated: AppSettings = { ...baseline, common: migrateCookiesMode(baseline.common) };
-    if (!isLegacy && cookiesMigrated.common === baseline.common) return;
+    const withDefaults: AppSettings = { ...baseline, profiles: baseline.profiles ?? this.defaults.profiles };
+    const cookiesMigrated: AppSettings = { ...withDefaults, common: migrateCookiesMode(withDefaults.common) };
+    if (!isLegacy && cookiesMigrated.common === withDefaults.common && withDefaults.profiles === baseline.profiles) return;
     // Replace the entire on-disk shape with the migrated one. Wiping any
     // legacy flat keys first prevents both shapes from coexisting on disk.
     this.store.clear();
@@ -123,7 +126,7 @@ export class SettingsStore {
   }
 
   async update(patch: SettingsPatch): Promise<AppSettings> {
-    const merged = deepMerge(this.store.store, patch);
+    const merged = deepMerge(this.store.store, patch, this.defaults);
     this.store.set(merged);
     return this.store.store;
   }

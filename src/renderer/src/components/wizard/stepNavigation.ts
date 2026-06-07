@@ -1,5 +1,5 @@
 import type { PlaylistSelection, Preset } from '@shared/types.js';
-import { playlistPresetSpec } from '@shared/playlistPresets.js';
+import { mediaIntentSpec, playlistSelectionToMediaIntent } from '@shared/mediaIntent.js';
 import { presetProducesMedia, presetProducesVideo } from '@shared/presetTraits.js';
 import { isYouTubeExtractor } from '@shared/ytdlp/extractorPredicates.js';
 import type { WizardMode, WizardStep } from '../../store/types.js';
@@ -45,7 +45,7 @@ export const STEP_APPLICABLE: Record<VisibleStep, (ctx: StepContext) => boolean>
     // crowdsourced segment database keyed by YouTube video IDs. Non-YT URLs
     // get nothing useful — hide the step entirely.
     if (!isYouTubeExtractor(wizardExtractor)) return false;
-    if (isBatchMode(wizardMode) && playlistSelection) return playlistPresetSpec(playlistSelection).producesVideo;
+    if (isBatchMode(wizardMode) && playlistSelection) return mediaIntentSpec(playlistSelectionToMediaIntent(playlistSelection)).producesVideo;
     if (activePreset && !presetProducesVideo(activePreset)) return false;
     return true;
   },

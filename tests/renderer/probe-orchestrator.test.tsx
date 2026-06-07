@@ -137,19 +137,16 @@ describe('submitUrl — video probe', () => {
 });
 
 describe('quickDownload', () => {
-  it('probes in forced single-video mode and queues a prepared item from saved prefs', async () => {
+  it('keeps mixed watch/list URLs in forced single-video mode and queues the active profile', async () => {
     const api = buildMockAppApi();
     vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE));
     window.appApi = api;
 
+    const settings = defaultAppSettings('/tmp/downloads');
     useAppStore.setState({
       wizardUrl: `${YOUTUBE_URL}&list=PLtest`,
       wizardOutputDir: '/tmp/downloads',
-      settings: {
-        common: { defaultOutputDir: '/tmp/downloads', rememberLastOutputDir: false, clipboardWatchEnabled: false, includeIdInSingleFilenames: true },
-        single: { lastPreset: 'balanced' },
-        playlist: {}
-      }
+      settings: { ...settings, common: { ...settings.common, rememberLastOutputDir: false, clipboardWatchEnabled: false, includeIdInSingleFilenames: true } }
     });
 
     await useAppStore.getState().quickDownload();
@@ -166,9 +163,10 @@ describe('quickDownload', () => {
       status: 'pending',
       lane: 'normal',
       job: expect.objectContaining({
-        kind: 'single-format',
+        kind: 'ranged-format',
         extractor: 'youtube',
         extractorKey: 'Youtube',
+        intent: { kind: 'video-audio', codec: 'best', tiers: ['720'] },
         outputTemplate: '%(title).200B [%(id)s].%(ext)s'
       })
     });
@@ -177,7 +175,7 @@ describe('quickDownload', () => {
     expect(useAppStore.getState().quickDownloadStatus).toBe('queued');
   });
 
-  it('works on first launch with default settings and no saved single prefs', async () => {
+  it('works on first launch with default profile settings', async () => {
     const api = buildMockAppApi();
     vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE));
     window.appApi = api;
@@ -193,10 +191,10 @@ describe('quickDownload', () => {
     const queued = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0]?.[0];
     expect(queued).toMatchObject({
       outputDir: '/tmp/first-launch-downloads',
-      formatLabel: 'Best quality',
+      formatLabel: 'Video + audio · best codec · 720',
       job: expect.objectContaining({
-        kind: 'single-format',
-        preset: 'best-quality'
+        kind: 'ranged-format',
+        intent: { kind: 'video-audio', codec: 'best', tiers: ['720'] }
       })
     });
     expect(useAppStore.getState().quickDownloadStatus).toBe('queued');
@@ -236,18 +234,116 @@ describe('quickDownload', () => {
     expect(useAppStore.getState().quickDownloadStatus).toBe('queued');
   });
 
-  it('rejects playlist probe results without enqueueing', async () => {
+  it('queues every loaded playlist entry with the active profile', async () => {
     const api = buildMockAppApi();
     vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE));
     window.appApi = api;
 
-    useAppStore.setState({ wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', wizardOutputDir: '/tmp' });
+    useAppStore.setState({ wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp') });
+    await useAppStore.getState().quickDownload();
+
+    expect(api.downloads.probe).toHaveBeenCalledWith({
+      url: 'https://www.youtube.com/playlist?list=PLtest',
+      playlistMode: 'auto',
+      playlistScope: expect.any(Object)
+    });
+    const items = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0] ?? [];
+    expect(items).toHaveLength(2);
+    expect(items.every((item) => item.job.kind === 'ranged-format')).toBe(true);
+    expect(items.every((item) => item.playlistGroupId === items[0]?.playlistGroupId)).toBe(true);
+    expect(api.playlist.registerManifest).toHaveBeenCalledWith(
+      expect.objectContaining({
+        playlistTitle: 'My Playlist',
+        items: [
+          { videoId: 'e1', title: 'Entry 1', duration: 60 },
+          { videoId: 'e2', title: 'Entry 2', duration: 120 }
+        ]
+      })
+    );
+    expect(useAppStore.getState().quickDownloadStatus).toBe('queued');
+    expect(useAppStore.getState().wizardStep).toBe('url');
+  });
+
+  it('opens the quick playlist cap dialog when a playlist quick scan is capped', async () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockResolvedValue(ok(playlistProbeWithEntries(101)));
+    window.appApi = api;
+
+    const settings = defaultAppSettings('/tmp');
+    useAppStore.setState({
+      wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
+      wizardOutputDir: '/tmp',
+      settings: { ...settings, common: { ...settings.common, playlistProbeLimit: 100 } }
+    });
     await useAppStore.getState().quickDownload();
 
     expect(api.queue.cmd.add).not.toHaveBeenCalled();
-    expect(useAppStore.getState().wizardUrl).toBe('https://www.youtube.com/playlist?list=PLtest');
-    expect(useAppStore.getState().quickDownloadStatus).toBe('error');
-    expect(useAppStore.getState().quickDownloadError).toBe('wizard.url.quickSingleOnly');
+    expect(useAppStore.getState().wizardStep).toBe('playlistItems');
+    expect(useAppStore.getState().playlistLikelyCapped).toBe(true);
+    expect(useAppStore.getState().playlistItems).toHaveLength(100);
+    expect(useAppStore.getState().quickDownloadStatus).toBe('idle');
+    expect(useAppStore.getState().quickDownloadError).toBeNull();
+    expect(useAppStore.getState().quickPlaylistCapDialogOpen).toBe(true);
+  });
+
+  it('queues capped playlist loaded items with the active profile', async () => {
+    const api = buildMockAppApi();
+    window.appApi = api;
+
+    const settings = defaultAppSettings('/tmp');
+    useAppStore.setState({
+      wizardStep: 'playlistItems',
+      wizardMode: 'playlist',
+      wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
+      wizardOutputDir: '/tmp',
+      wizardExtractor: 'youtube:playlist',
+      wizardExtractorKey: 'YoutubePlaylist',
+      wizardWebpageUrl: 'https://www.youtube.com/playlist?list=PLtest',
+      playlistItems: PLAYLIST_PROBE.entries,
+      selectedPlaylistItemIds: PLAYLIST_PROBE.entries.map((entry) => entry.id),
+      playlistTitle: 'My Playlist',
+      playlistId: 'PLtest',
+      playlistIsMultiVideo: false,
+      playlistLikelyCapped: true,
+      quickPlaylistCapDialogOpen: true,
+      settings
+    });
+
+    await useAppStore.getState().queueLoadedPlaylistWithActiveProfile();
+
+    const items = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0] ?? [];
+    expect(items).toHaveLength(2);
+    expect(items.every((item) => item.job.kind === 'ranged-format')).toBe(true);
+    expect(items.every((item) => item.playlistGroupId === items[0]?.playlistGroupId)).toBe(true);
+    expect(api.playlist.registerManifest).toHaveBeenCalledWith(
+      expect.objectContaining({
+        playlistTitle: 'My Playlist',
+        items: [
+          { videoId: 'e1', title: 'Entry 1', duration: 60 },
+          { videoId: 'e2', title: 'Entry 2', duration: 120 }
+        ]
+      })
+    );
+    expect(useAppStore.getState().wizardStep).toBe('url');
+    expect(useAppStore.getState().quickPlaylistCapDialogOpen).toBe(false);
+    expect(useAppStore.getState().quickDownloadStatus).toBe('queued');
+  });
+
+  it('quickDownloadUrls probes and queues every accepted bulk URL with the active profile', async () => {
+    const api = buildMockAppApi();
+    vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE));
+    window.appApi = api;
+
+    useAppStore.setState({ wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp') });
+    await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', 'https://youtu.be/two']);
+
+    expect(api.downloads.probe).toHaveBeenCalledTimes(2);
+    expect(api.queue.cmd.add).toHaveBeenCalledTimes(2);
+    const allQueued = vi.mocked(api.queue.cmd.add).mock.calls.flatMap((call) => call[0]);
+    expect(allQueued).toHaveLength(2);
+    expect(allQueued.every((item) => item.job.kind === 'ranged-format')).toBe(true);
+    expect(useAppStore.getState().quickDownloadStatus).toBe('queued');
+    expect(useAppStore.getState().wizardStep).toBe('url');
   });
 
   it('keeps the URL and shows an error when probing fails', async () => {
@@ -285,11 +381,7 @@ describe('quickDownload', () => {
     useAppStore.setState({
       wizardUrl: YOUTUBE_URL,
       wizardOutputDir: '/tmp',
-      settings: {
-        common: { defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false, cookiesMode: 'file', cookiesPath: '' },
-        single: {},
-        playlist: {}
-      }
+      settings: { ...defaultAppSettings('/tmp'), common: { ...defaultAppSettings('/tmp').common, rememberLastOutputDir: false, clipboardWatchEnabled: false, cookiesMode: 'file', cookiesPath: '' } }
     });
 
     await useAppStore.getState().quickDownload();
@@ -369,11 +461,7 @@ describe('submitUrl — playlist probe', () => {
 
     useAppStore.setState({
       wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
-      settings: {
-        common: { defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false, playlistProbeLimit: 100 },
-        single: {},
-        playlist: {}
-      }
+      settings: { ...defaultAppSettings('/tmp'), common: { ...defaultAppSettings('/tmp').common, rememberLastOutputDir: false, clipboardWatchEnabled: false, playlistProbeLimit: 100 } }
     });
     await useAppStore.getState().submitUrl();
 
@@ -390,11 +478,7 @@ describe('submitUrl — playlist probe', () => {
 
     useAppStore.setState({
       wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
-      settings: {
-        common: { defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false, playlistProbeLimit: 100 },
-        single: {},
-        playlist: {}
-      }
+      settings: { ...defaultAppSettings('/tmp'), common: { ...defaultAppSettings('/tmp').common, rememberLastOutputDir: false, clipboardWatchEnabled: false, playlistProbeLimit: 100 } }
     });
     await useAppStore.getState().submitUrl();
 
@@ -411,11 +495,7 @@ describe('submitUrl — playlist probe', () => {
     useAppStore.setState({
       wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
       playlistScope: { items: { kind: 'first', count: 50 } },
-      settings: {
-        common: { defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false, playlistProbeLimit: 100 },
-        single: {},
-        playlist: {}
-      }
+      settings: { ...defaultAppSettings('/tmp'), common: { ...defaultAppSettings('/tmp').common, rememberLastOutputDir: false, clipboardWatchEnabled: false, playlistProbeLimit: 100 } }
     });
     await useAppStore.getState().submitUrl();
 
@@ -432,11 +512,7 @@ describe('submitUrl — playlist probe', () => {
     useAppStore.setState({
       wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
       playlistScope: { items: { kind: 'range', from: 500, to: 600 } },
-      settings: {
-        common: { defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false, playlistProbeLimit: 100 },
-        single: {},
-        playlist: {}
-      }
+      settings: { ...defaultAppSettings('/tmp'), common: { ...defaultAppSettings('/tmp').common, rememberLastOutputDir: false, clipboardWatchEnabled: false, playlistProbeLimit: 100 } }
     });
     await useAppStore.getState().submitUrl();
 

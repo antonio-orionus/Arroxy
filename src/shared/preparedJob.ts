@@ -2,7 +2,7 @@
 // `schemas.ts` (which depends on these types via `queueItemSchema` and
 // `startDownloadSchema`) does not import a sibling that would re-import
 // it — keeps module init free of circular hazards.
-import type { AudioConvert, PlaylistSelection, Preset, SponsorBlockCategory, SubtitleFormat, SubtitleMode } from './schemas.js';
+import type { AudioConvert, MediaIntent, Preset, SponsorBlockCategory, SubtitleFormat, SubtitleMode } from './schemas.js';
 
 export interface ExtractorIdentity {
   // yt-dlp's IE_NAME for the extractor that produced this job — e.g. 'youtube',
@@ -56,8 +56,8 @@ export type PreparedJob =
       embed: EmbedOptions;
     })
   | (ExtractorIdentity & {
-      kind: 'playlist-preset';
-      selection: PlaylistSelection;
+      kind: 'ranged-format';
+      intent: MediaIntent;
       formatSelector?: string;
       formatSort?: string;
       mergeOutputFormat?: string;

@@ -12,6 +12,7 @@ export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardD
     advancedAutoOpen: false,
     advancedAutoTarget: 'cookies',
     cookiesConfigDialogIssue: null,
+    quickPlaylistCapDialogOpen: false,
 
     setAdvancedAutoOpen: (open, target = 'cookies') => set({ advancedAutoOpen: open, advancedAutoTarget: target }),
 
@@ -20,6 +21,10 @@ export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardD
     },
 
     openAdvancedSettings: (target) => {
+      if (typeof window !== 'undefined') {
+        window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#settings`);
+        window.dispatchEvent(new Event('hashchange'));
+      }
       set({
         wizardStep: 'url',
         wizardError: null,
@@ -34,6 +39,10 @@ export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardD
 
     dismissCookiesConfigDialog: () => {
       set({ cookiesConfigDialogIssue: null });
+    },
+
+    dismissQuickPlaylistCapDialog: () => {
+      set({ quickPlaylistCapDialogOpen: false, quickDownloadStatus: 'idle', quickDownloadError: null });
     }
   };
 }

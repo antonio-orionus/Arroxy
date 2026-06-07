@@ -5,6 +5,7 @@ import { StepPlaylistItems } from '@renderer/components/wizard/StepPlaylistItems
 import { useAppStore } from '@renderer/store/useAppStore.js';
 import { buildMockAppApi } from '../shared/mockAppApi.js';
 import { ok } from '../shared/fixtures.js';
+import { defaultAppSettings } from '@shared/constants.js';
 import type { AppApi, SettingsPatch } from '@shared/api.js';
 import type { AppSettings, PlaylistEntry, ProbeResult } from '@shared/types.js';
 
@@ -25,16 +26,8 @@ function entries(count: number): PlaylistEntry[] {
 }
 
 function settings(limit: number): AppSettings {
-  return {
-    common: {
-      defaultOutputDir: '/tmp',
-      rememberLastOutputDir: false,
-      clipboardWatchEnabled: false,
-      playlistProbeLimit: limit
-    },
-    single: {},
-    playlist: {}
-  };
+  const base = defaultAppSettings('/tmp');
+  return { ...base, common: { ...base.common, rememberLastOutputDir: false, clipboardWatchEnabled: false, playlistProbeLimit: limit } };
 }
 
 function playlistProbe(count: number): Extract<ProbeResult, { kind: 'playlist' }> {
@@ -87,7 +80,8 @@ function installApi(): AppApi {
     return ok({
       common: { ...current.common, ...(input.common ?? {}) },
       single: { ...current.single, ...(input.single ?? {}) },
-      playlist: { ...current.playlist, ...(input.playlist ?? {}) }
+      playlist: { ...current.playlist, ...(input.playlist ?? {}) },
+      profiles: { ...current.profiles, ...(input.profiles ?? {}) }
     });
   });
   vi.mocked(api.downloads.probe).mockResolvedValue(ok(playlistProbe(2)));

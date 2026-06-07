@@ -6,6 +6,7 @@ import { MixedUrlPromptDialog } from '@renderer/components/wizard/MixedUrlPrompt
 import { TooltipProvider } from '@renderer/components/ui/tooltip.js';
 import { useAppStore } from '@renderer/store/useAppStore.js';
 import { buildMockAppApi } from '../shared/mockAppApi.js';
+import { defaultAppSettings } from '@shared/constants.js';
 import type { AppApi, SettingsPatch } from '@shared/api.js';
 import type { AppSettings } from '@shared/types.js';
 import { ok } from '../shared/fixtures.js';
@@ -15,18 +16,8 @@ const SINGLE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 let mockApi: AppApi;
 
 function buildSettings(common: Partial<AppSettings['common']> = {}): AppSettings {
-  return {
-    common: {
-      defaultOutputDir: '/tmp',
-      rememberLastOutputDir: false,
-      clipboardWatchEnabled: false,
-      cookiesMode: 'off',
-      cookiesPath: '',
-      ...common
-    },
-    single: {},
-    playlist: {}
-  };
+  const base = defaultAppSettings('/tmp');
+  return { ...base, common: { ...base.common, rememberLastOutputDir: false, clipboardWatchEnabled: false, cookiesMode: 'off', cookiesPath: '', ...common } };
 }
 
 function resetStore(settings: AppSettings): void {
@@ -84,13 +75,15 @@ function resetStore(settings: AppSettings): void {
 }
 
 beforeEach(() => {
+  window.history.replaceState(null, '', '/');
   mockApi = buildMockAppApi();
   mockApi.settings.update = vi.fn(async (input: SettingsPatch) => {
     const current = useAppStore.getState().settings ?? buildSettings();
     const next: AppSettings = {
       common: { ...current.common, ...(input.common ?? {}) },
       single: { ...current.single, ...(input.single ?? {}) },
-      playlist: { ...current.playlist, ...(input.playlist ?? {}) }
+      playlist: { ...current.playlist, ...(input.playlist ?? {}) },
+      profiles: { ...current.profiles, ...(input.profiles ?? {}) }
     };
     return ok(next);
   });
@@ -99,12 +92,19 @@ beforeEach(() => {
   resetStore(buildSettings());
 });
 
+function openSettingsTab(): void {
+  fireEvent.click(screen.getByRole('button', { name: 'Settings' }));
+}
+
+function enterUrlAndStartInteractiveDownload(): void {
+  fireEvent.change(screen.getByTestId('profiles-main-input'), { target: { value: SINGLE_URL } });
+  fireEvent.click(screen.getByTestId('profiles-interactive-download'));
+}
+
 describe('advanced network settings', () => {
   it('renders network pacing settings without playlist scope controls', async () => {
     render(<StepUrlInput />);
-
-    const advanced = screen.getByTestId('advanced-section');
-    if (advanced instanceof HTMLDetailsElement) advanced.open = true;
+    openSettingsTab();
 
     expect(screen.getByTestId('network-pacing-section')).toBeInTheDocument();
     expect(screen.queryByTestId('playlist-probe-limit-section')).not.toBeInTheDocument();
@@ -113,9 +113,7 @@ describe('advanced network settings', () => {
 
   it('saves the single-filename id suffix switch', async () => {
     render(<StepUrlInput />);
-
-    const advanced = screen.getByTestId('advanced-section');
-    if (advanced instanceof HTMLDetailsElement) advanced.open = true;
+    openSettingsTab();
 
     fireEvent.click(screen.getByTestId('single-filename-id-toggle'));
 
@@ -178,9 +176,7 @@ describe('advanced network settings', () => {
 describe('incomplete cookies config guard', () => {
   it('keeps cookie export help links with the cookies source controls', () => {
     render(<StepUrlInput />);
-
-    const advanced = screen.getByTestId('advanced-section');
-    if (advanced instanceof HTMLDetailsElement) advanced.open = true;
+    openSettingsTab();
 
     const cookiesSource = screen.getByTestId('cookies-source');
     expect(within(cookiesSource).getByTestId('cookies-help-link')).toBeInTheDocument();
@@ -192,8 +188,7 @@ describe('incomplete cookies config guard', () => {
     resetStore(buildSettings({ cookiesMode: 'file', cookiesPath: '   ' }));
     render(<StepUrlInput />);
 
-    fireEvent.change(screen.getByTestId('url-input'), { target: { value: SINGLE_URL } });
-    fireEvent.click(screen.getByTestId('btn-find-formats'));
+    enterUrlAndStartInteractiveDownload();
 
     expect(await screen.findByTestId('cookies-config-dialog')).toBeInTheDocument();
     expect(mockApi.downloads.probe).not.toHaveBeenCalled();
@@ -205,8 +200,7 @@ describe('incomplete cookies config guard', () => {
     resetStore(buildSettings({ cookiesMode: 'browser' }));
     render(<StepUrlInput />);
 
-    fireEvent.change(screen.getByTestId('url-input'), { target: { value: SINGLE_URL } });
-    fireEvent.click(screen.getByTestId('btn-find-formats'));
+    enterUrlAndStartInteractiveDownload();
 
     expect(await screen.findByTestId('cookies-config-dialog')).toBeInTheDocument();
     expect(mockApi.downloads.probe).not.toHaveBeenCalled();
@@ -217,20 +211,15 @@ describe('incomplete cookies config guard', () => {
     resetStore(buildSettings({ cookiesMode: 'file', cookiesPath: '' }));
     render(<StepUrlInput />);
 
-    fireEvent.change(screen.getByTestId('url-input'), { target: { value: SINGLE_URL } });
-    fireEvent.click(screen.getByTestId('btn-find-formats'));
-
-    const advanced = screen.getByTestId('advanced-section');
-    if (!(advanced instanceof HTMLDetailsElement)) {
-      throw new Error('advanced section should render as <details>');
-    }
-    expect(advanced.open).toBe(false);
+    enterUrlAndStartInteractiveDownload();
+    expect(screen.queryByTestId('profiles-settings-tab')).not.toBeInTheDocument();
 
     fireEvent.click(await screen.findByTestId('cookies-config-dialog-open-settings'));
 
     await waitFor(() => {
-      expect(advanced.open).toBe(true);
+      expect(screen.getByTestId('profiles-settings-tab')).toBeInTheDocument();
     });
+    expect(screen.getByTestId('cookies-source')).toBeInTheDocument();
     expect(screen.queryByTestId('cookies-config-dialog')).not.toBeInTheDocument();
   });
 
@@ -238,8 +227,7 @@ describe('incomplete cookies config guard', () => {
     resetStore(buildSettings({ cookiesMode: 'file', cookiesPath: '' }));
     render(<StepUrlInput />);
 
-    fireEvent.change(screen.getByTestId('url-input'), { target: { value: SINGLE_URL } });
-    fireEvent.click(screen.getByTestId('btn-find-formats'));
+    enterUrlAndStartInteractiveDownload();
 
     expect(await screen.findByTestId('cookies-config-dialog')).toBeInTheDocument();
 
@@ -251,7 +239,7 @@ describe('incomplete cookies config guard', () => {
     expect(useAppStore.getState().cookiesConfigDialogIssue).toBeNull();
     expect(mockApi.downloads.probe).not.toHaveBeenCalled();
 
-    fireEvent.click(screen.getByTestId('btn-find-formats'));
+    fireEvent.click(screen.getByTestId('profiles-interactive-download'));
 
     expect(await screen.findByTestId('cookies-config-dialog')).toBeInTheDocument();
     expect(useAppStore.getState().cookiesConfigDialogIssue).toBe('file-missing-path');
@@ -263,8 +251,7 @@ describe('incomplete cookies config guard', () => {
     resetStore(buildSettings({ cookiesMode: 'browser' }));
     render(<StepUrlInput />);
 
-    fireEvent.change(screen.getByTestId('url-input'), { target: { value: SINGLE_URL } });
-    fireEvent.click(screen.getByTestId('btn-find-formats'));
+    enterUrlAndStartInteractiveDownload();
 
     const dialog = await screen.findByTestId('cookies-config-dialog');
     fireEvent.keyDown(dialog, { key: 'Escape', code: 'Escape' });

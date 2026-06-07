@@ -3,7 +3,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, act, fireEvent, screen } from '@testing-library/react';
 import { useAppStore } from '@renderer/store/useAppStore.js';
 import { StepUrlInput } from '@renderer/components/wizard/StepUrlInput.js';
+import { notify } from '@renderer/lib/notify.js';
 import { buildMockAppApi } from '../shared/mockAppApi.js';
+import { defaultAppSettings } from '@shared/constants.js';
 import type { AppApi } from '@shared/api.js';
 
 let mockApi: AppApi;
@@ -11,21 +13,12 @@ let clipboardUnsub: () => void;
 let clipboardListener: ((url: string) => void) | null;
 
 function resetStore(overrides: Partial<ReturnType<typeof useAppStore.getState>> = {}): void {
+  const settings = defaultAppSettings('/tmp');
   useAppStore.setState({
     initialized: true,
     initializing: false,
     splashDismissed: true,
-    settings: {
-      common: {
-        defaultOutputDir: '/tmp',
-        rememberLastOutputDir: false,
-        clipboardWatchEnabled: true,
-        cookiesMode: 'off',
-        cookiesPath: ''
-      },
-      single: {},
-      playlist: {}
-    },
+    settings: { ...settings, common: { ...settings.common, rememberLastOutputDir: false, clipboardWatchEnabled: true, cookiesMode: 'off', cookiesPath: '' } },
     wizardStep: 'url',
     wizardMode: 'single',
     formatsLoading: false,
@@ -47,6 +40,7 @@ function resetStore(overrides: Partial<ReturnType<typeof useAppStore.getState>> 
 }
 
 beforeEach(() => {
+  window.history.replaceState(null, '', '/');
   clipboardListener = null;
   clipboardUnsub = vi.fn();
   mockApi = buildMockAppApi();
@@ -61,22 +55,21 @@ beforeEach(() => {
 
 const FRESH_URL = 'https://www.youtube.com/watch?v=fromClipboard';
 
-describe('wizard clipboard confirm dialog', () => {
-  it('opens the dialog when the watcher fires and the field is empty', () => {
+describe('wizard clipboard auto-fill', () => {
+  it('fills the URL field when the watcher fires and the field is empty', () => {
+    const toastSpy = vi.spyOn(notify, 'clipboardAutofilled').mockImplementation(() => undefined);
     render(<StepUrlInput />);
-    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
 
     act(() => {
       clipboardListener!(FRESH_URL);
     });
 
-    expect(screen.getByTestId('clipboard-confirm-dialog')).toBeInTheDocument();
-    expect(screen.getByTestId('clipboard-confirm-url')).toHaveTextContent(FRESH_URL);
-    // wizardUrl is NOT touched until the user confirms.
-    expect(useAppStore.getState().wizardUrl).toBe('');
+    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
+    expect(useAppStore.getState().wizardUrl).toBe(FRESH_URL);
+    expect(toastSpy).toHaveBeenCalledWith('Link added from clipboard');
   });
 
-  it('does not open the dialog if wizardUrl already has a value', () => {
+  it('does not replace an existing manual URL', () => {
     useAppStore.setState({ wizardUrl: 'already-here' });
     render(<StepUrlInput />);
 
@@ -84,11 +77,10 @@ describe('wizard clipboard confirm dialog', () => {
       clipboardListener!(FRESH_URL);
     });
 
-    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
     expect(useAppStore.getState().wizardUrl).toBe('already-here');
   });
 
-  it('does not open the dialog while a probe is in flight', () => {
+  it('ignores clipboard watcher events while a probe is in flight', () => {
     useAppStore.setState({ wizardUrl: '', formatsLoading: true });
     render(<StepUrlInput />);
 
@@ -96,10 +88,10 @@ describe('wizard clipboard confirm dialog', () => {
       clipboardListener!(FRESH_URL);
     });
 
-    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
+    expect(useAppStore.getState().wizardUrl).toBe('');
   });
 
-  it('waits until the splash screen has finished dismissing before opening', () => {
+  it('auto-fills even while the splash screen is dismissing', () => {
     resetStore({ initialized: true, splashDismissed: false });
     render(<StepUrlInput />);
 
@@ -107,179 +99,20 @@ describe('wizard clipboard confirm dialog', () => {
       clipboardListener!(FRESH_URL);
     });
 
-    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
-
-    act(() => {
-      useAppStore.getState().setSplashDismissed(true);
-    });
-
-    expect(screen.getByTestId('clipboard-confirm-dialog')).toBeInTheDocument();
-    expect(screen.getByTestId('clipboard-confirm-url')).toHaveTextContent(FRESH_URL);
-  });
-
-  it('"Use URL" applies the URL and closes the dialog', () => {
-    render(<StepUrlInput />);
-    act(() => {
-      clipboardListener!(FRESH_URL);
-    });
-
-    fireEvent.click(screen.getByTestId('clipboard-confirm-use'));
-
     expect(useAppStore.getState().wizardUrl).toBe(FRESH_URL);
     expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
   });
 
-  it('"Fetch Formats" applies the URL, closes the dialog, and calls submitUrl', async () => {
-    const submitSpy = vi.fn().mockResolvedValue(undefined);
-    useAppStore.setState({ submitUrl: submitSpy } as Partial<ReturnType<typeof useAppStore.getState>>);
-
-    render(<StepUrlInput />);
-    act(() => {
-      clipboardListener!(FRESH_URL);
-    });
-
-    await act(async () => {
-      fireEvent.click(screen.getByTestId('clipboard-confirm-fetch'));
-    });
-
-    expect(useAppStore.getState().wizardUrl).toBe(FRESH_URL);
-    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
-    expect(submitSpy).toHaveBeenCalledTimes(1);
-  });
-
-  it('"Quick download" appears before fetch, applies the URL, closes the dialog, and calls quickDownload', async () => {
-    const quickDownloadSpy = vi.fn().mockResolvedValue(undefined);
-    useAppStore.setState({ quickDownload: quickDownloadSpy } as Partial<ReturnType<typeof useAppStore.getState>>);
-
-    render(<StepUrlInput />);
-    act(() => {
-      clipboardListener!(FRESH_URL);
-    });
-
-    expect(screen.getByTestId('clipboard-confirm-dialog')).toHaveTextContent(/Quick download.*Fetch formats/s);
-
-    await act(async () => {
-      fireEvent.click(screen.getByTestId('clipboard-confirm-quick-download'));
-    });
-
-    expect(useAppStore.getState().wizardUrl).toBe(FRESH_URL);
-    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
-    expect(quickDownloadSpy).toHaveBeenCalledTimes(1);
-  });
-
-  it('"Cancel" closes without touching wizardUrl', () => {
-    render(<StepUrlInput />);
-    act(() => {
-      clipboardListener!(FRESH_URL);
-    });
-
-    fireEvent.click(screen.getByTestId('clipboard-confirm-cancel'));
-
-    expect(useAppStore.getState().wizardUrl).toBe('');
-    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
-  });
-
-  it('"Disable" calls settings.update with clipboardWatchEnabled=false and closes', () => {
-    const updateSpy = vi.spyOn(mockApi.settings, 'update');
-    render(<StepUrlInput />);
-    act(() => {
-      clipboardListener!(FRESH_URL);
-    });
-
-    fireEvent.click(screen.getByTestId('clipboard-confirm-disable'));
-
-    expect(updateSpy).toHaveBeenCalledWith(expect.objectContaining({ common: expect.objectContaining({ clipboardWatchEnabled: false }) }));
-    expect(useAppStore.getState().wizardUrl).toBe('');
-    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
-  });
-
-  it('replaces the pending URL when a second clipboard event fires while dialog is open', () => {
-    const second = 'https://www.youtube.com/watch?v=second';
-    render(<StepUrlInput />);
-
-    act(() => {
-      clipboardListener!(FRESH_URL);
-    });
-    expect(screen.getByTestId('clipboard-confirm-url')).toHaveTextContent(FRESH_URL);
-
-    act(() => {
-      clipboardListener!(second);
-    });
-    expect(screen.getByTestId('clipboard-confirm-url')).toHaveTextContent(second);
-  });
-
-  it('offers bulk download when clipboard text contains multiple accepted URLs', () => {
+  it('fills the first URL and reports when clipboard text contains several accepted URLs', () => {
+    const toastSpy = vi.spyOn(notify, 'clipboardAutofilled').mockImplementation(() => undefined);
     render(<StepUrlInput />);
 
     act(() => {
       clipboardListener!('Grab https://example.com/one, https://example.com/two');
     });
 
-    expect(screen.getByTestId('clipboard-confirm-dialog')).toBeInTheDocument();
-    expect(screen.getByTestId('clipboard-confirm-bulk-count')).toHaveTextContent('2');
-    expect(screen.getByTestId('clipboard-confirm-bulk-preview')).toHaveTextContent('https://example.com/one');
-    expect(screen.queryByTestId('clipboard-confirm-use')).not.toBeInTheDocument();
-    expect(screen.getByTestId('clipboard-confirm-bulk')).toBeInTheDocument();
-  });
-
-  it('"Bulk download" opens the full bulk URL dialog with clipboard text', () => {
-    const clipboardText = 'https://example.com/one\nhttps://example.com/two';
-    render(<StepUrlInput />);
-
-    act(() => {
-      clipboardListener!(clipboardText);
-    });
-    fireEvent.click(screen.getByTestId('clipboard-confirm-bulk'));
-
-    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
-    expect(screen.getByTestId('bulk-url-dialog')).toBeInTheDocument();
-    expect(screen.getByTestId('bulk-url-textarea')).toHaveValue(clipboardText);
-    expect(screen.getByTestId('bulk-url-valid-count')).toHaveTextContent('2');
-    expect(useAppStore.getState().wizardStep).toBe('url');
-  });
-
-  it('confirming the clipboard-opened bulk dialog enters the selectable rows flow', () => {
-    render(<StepUrlInput />);
-
-    act(() => {
-      clipboardListener!('https://example.com/one\nhttps://example.com/two');
-    });
-    fireEvent.click(screen.getByTestId('clipboard-confirm-bulk'));
-    fireEvent.click(screen.getByTestId('bulk-url-confirm'));
-
-    const state = useAppStore.getState();
-    expect(state.wizardUrl).toBe('');
-    expect(state.wizardStep).toBe('playlistItems');
-    expect(state.wizardMode).toBe('bulk');
-    expect(state.playlistItems.map((item) => item.url)).toEqual(['https://example.com/one', 'https://example.com/two']);
-    expect(screen.queryByTestId('bulk-url-dialog')).not.toBeInTheDocument();
-  });
-
-  it('"Cancel" closes a bulk clipboard prompt without entering bulk mode', () => {
-    render(<StepUrlInput />);
-
-    act(() => {
-      clipboardListener!('https://example.com/one\nhttps://example.com/two');
-    });
-    fireEvent.click(screen.getByTestId('clipboard-confirm-cancel'));
-
-    expect(useAppStore.getState().wizardStep).toBe('url');
-    expect(useAppStore.getState().wizardMode).toBe('single');
-    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
-  });
-
-  it('"Disable" works from a bulk clipboard prompt', () => {
-    const updateSpy = vi.spyOn(mockApi.settings, 'update');
-    render(<StepUrlInput />);
-
-    act(() => {
-      clipboardListener!('https://example.com/one\nhttps://example.com/two');
-    });
-    fireEvent.click(screen.getByTestId('clipboard-confirm-disable'));
-
-    expect(updateSpy).toHaveBeenCalledWith(expect.objectContaining({ common: expect.objectContaining({ clipboardWatchEnabled: false }) }));
-    expect(useAppStore.getState().wizardStep).toBe('url');
-    expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument();
+    expect(useAppStore.getState().wizardUrl).toBe('https://example.com/one');
+    expect(toastSpy).toHaveBeenCalledWith('2 links found; first link added');
   });
 
   it('unsubscribes from clipboard events when StepUrlInput unmounts', () => {
@@ -292,7 +125,7 @@ describe('wizard clipboard confirm dialog', () => {
   it('ignores clipboard watcher events while the bulk URL dialog is open', () => {
     render(<StepUrlInput />);
 
-    fireEvent.click(screen.getByTestId('btn-bulk-download'));
+    fireEvent.click(screen.getByTestId('profiles-bulk-urls'));
     expect(screen.getByTestId('bulk-url-dialog')).toBeInTheDocument();
 
     act(() => {
@@ -331,7 +164,7 @@ describe('bulk URL dialog', () => {
   it('opens from the bulk button', () => {
     render(<StepUrlInput />);
 
-    fireEvent.click(screen.getByTestId('btn-bulk-download'));
+    fireEvent.click(screen.getByTestId('profiles-bulk-urls'));
 
     expect(screen.getByTestId('bulk-url-dialog')).toBeInTheDocument();
     expect(screen.getByTestId('bulk-url-textarea')).toBeInTheDocument();
@@ -339,7 +172,7 @@ describe('bulk URL dialog', () => {
 
   it('updates the preview from pasted URLs', () => {
     render(<StepUrlInput />);
-    fireEvent.click(screen.getByTestId('btn-bulk-download'));
+    fireEvent.click(screen.getByTestId('profiles-bulk-urls'));
 
     fireEvent.change(screen.getByTestId('bulk-url-textarea'), {
       target: { value: 'https://example.com/one, https://example.com/two' }
@@ -350,23 +183,26 @@ describe('bulk URL dialog', () => {
     expect(screen.getByText('https://example.com/two')).toBeInTheDocument();
   });
 
-  it('keeps confirm disabled for zero or one accepted URL', () => {
+  it('keeps actions disabled for zero accepted URLs and enables them for one accepted URL', () => {
     render(<StepUrlInput />);
-    fireEvent.click(screen.getByTestId('btn-bulk-download'));
+    fireEvent.click(screen.getByTestId('profiles-bulk-urls'));
 
     const confirm = screen.getByTestId('bulk-url-confirm');
+    const quickConfirm = screen.getByTestId('bulk-url-quick-confirm');
     expect(confirm).toBeDisabled();
+    expect(quickConfirm).toBeDisabled();
 
     fireEvent.change(screen.getByTestId('bulk-url-textarea'), {
       target: { value: 'https://example.com/one' }
     });
 
-    expect(confirm).toBeDisabled();
+    expect(confirm).toBeEnabled();
+    expect(quickConfirm).toBeEnabled();
   });
 
   it('confirm populates selectable bulk rows', () => {
     render(<StepUrlInput />);
-    fireEvent.click(screen.getByTestId('btn-bulk-download'));
+    fireEvent.click(screen.getByTestId('profiles-bulk-urls'));
     fireEvent.change(screen.getByTestId('bulk-url-textarea'), {
       target: { value: 'https://example.com/one\nhttps://example.com/two' }
     });
