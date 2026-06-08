@@ -191,16 +191,14 @@
       }
     },
     {
-      "files": ["**/*.{js,mjs,cjs,mts,cts}"],
+      "files": ["build/*.mjs", "scripts/*.mjs", "src/preload/index.cts", "src/renderer/vite.config.mjs", "vitest.config.mts"],
       "rules": {
         "typescript/explicit-function-return-type": "off",
-        "typescript/no-explicit-any": "off",
         "typescript/no-unsafe-assignment": "off",
         "typescript/no-unsafe-member-access": "off",
         "typescript/no-unsafe-call": "off",
         "typescript/no-unsafe-argument": "off",
         "typescript/no-unsafe-return": "off",
-        "typescript/unbound-method": "off",
         "typescript/require-await": "off",
         "typescript/no-misused-promises": "off"
       }
