@@ -30,13 +30,14 @@ const DENO_ASSETS: Record<AssetPlatform, Record<AssetArch, string | null>> = {
 function currentAssetTarget(): { platform: AssetPlatform; arch: AssetArch } | null {
   const platform = process.platform;
   if (platform !== 'win32' && platform !== 'darwin' && platform !== 'linux') return null;
-  const arch: AssetArch = process.arch === 'arm64' ? 'arm64' : 'x64';
+  const arch = process.arch;
+  if (arch !== 'arm64' && arch !== 'x64') return null;
   return { platform, arch };
 }
 
-export function ytDlpAssetName(): string {
+export function ytDlpAssetName(): string | null {
   const target = currentAssetTarget();
-  if (!target) return 'yt-dlp_linux';
+  if (!target) return null;
   return YT_DLP_ASSETS[target.platform][target.arch];
 }
 

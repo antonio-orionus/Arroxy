@@ -271,13 +271,14 @@ export class BinaryManager {
     }
 
     const assetName = ytDlpAssetName();
+    if (assetName) {
+      const nightlyDiag = await this.tryManagedYtDlpChannel(id, 'nightly', BINARY_SOURCES.ytDlpNightly, process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp', assetName, attempts, opts, onProgress, signal);
+      if (nightlyDiag) return nightlyDiag;
 
-    const nightlyDiag = await this.tryManagedYtDlpChannel(id, 'nightly', BINARY_SOURCES.ytDlpNightly, process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp', assetName, attempts, opts, onProgress, signal);
-    if (nightlyDiag) return nightlyDiag;
-
-    onProgress?.({ binary: id, phase: 'fallback' });
-    const stableDiag = await this.tryManagedYtDlpChannel(id, 'stable', BINARY_SOURCES.ytDlpStable, process.platform === 'win32' ? 'yt-dlp-stable.exe' : 'yt-dlp-stable', assetName, attempts, opts, onProgress, signal);
-    if (stableDiag) return stableDiag;
+      onProgress?.({ binary: id, phase: 'fallback' });
+      const stableDiag = await this.tryManagedYtDlpChannel(id, 'stable', BINARY_SOURCES.ytDlpStable, process.platform === 'win32' ? 'yt-dlp-stable.exe' : 'yt-dlp-stable', assetName, attempts, opts, onProgress, signal);
+      if (stableDiag) return stableDiag;
+    }
 
     // System PATH — last resort. Picks up brew/pipx/distro-package installs
     // when managed download is unreachable (firewalled, rate-limited, etc.).

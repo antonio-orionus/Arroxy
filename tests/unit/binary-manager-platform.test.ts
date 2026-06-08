@@ -40,6 +40,16 @@ describe('ytDlpAssetName', () => {
     setPlatform('linux', 'arm64');
     expect(binaryInternals.ytDlpAssetName()).toBe('yt-dlp_linux_aarch64');
   });
+
+  it('unknown platform → null', () => {
+    setPlatform('freebsd', 'x64');
+    expect(binaryInternals.ytDlpAssetName()).toBeNull();
+  });
+
+  it('unsupported arch → null', () => {
+    setPlatform('linux', 'ia32');
+    expect(binaryInternals.ytDlpAssetName()).toBeNull();
+  });
 });
 
 describe('denoAssetName', () => {
@@ -75,6 +85,11 @@ describe('denoAssetName', () => {
 
   it('unknown platform → null', () => {
     setPlatform('freebsd', 'x64');
+    expect(binaryInternals.denoAssetName()).toBeNull();
+  });
+
+  it('unsupported arch → null', () => {
+    setPlatform('linux', 'ia32');
     expect(binaryInternals.denoAssetName()).toBeNull();
   });
 });

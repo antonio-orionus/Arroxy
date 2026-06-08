@@ -2,7 +2,7 @@
 
 Audit date: 2026-06-08.
 
-Implementation branch: `codex/tooling-migration-main`.
+Implementation branch: `tooling-migration-main`.
 
 ## Implemented Decision
 
@@ -101,9 +101,10 @@ Oxlint JS-plugin bridge covers the remaining plugin-specific rules:
 Representative parity probes are checked by `scripts/check-tooling-parity.mjs`:
 
 - Biome rejects a legacy octal literal.
-- Oxlint type-aware lint catches `no-unsafe-assignment`, `no-unsafe-call`, `no-unsafe-member-access`, and `no-unsafe-return`.
-- React hooks bridge catches `rules-of-hooks` and `set-state-in-render`.
+- Oxlint type-aware lint catches `no-unsafe-assignment`, `no-unsafe-call`, `no-unsafe-member-access`, `no-unsafe-return`, `restrict-template-expressions`, and `unbound-method`.
+- React hooks bridge catches `rules-of-hooks`, `set-state-in-render`, and `static-components`.
 - Security bridge catches `detect-child-process` and `detect-non-literal-regexp`.
+- React bridge catches `react-js/no-deprecated`.
 - The repo config contains the parity-critical rule IDs.
 
 The JS-plugin bridge is still an operational risk because Oxlint documents it as alpha. The parity script is the guardrail for this one-phase migration.
@@ -120,6 +121,10 @@ If the bridge becomes unstable, the fallback is not a staged migration; it is to
 
 - React compiler hooks: restore a tiny ESLint command scoped only to hooks/compiler rules, or use Oxlint native `react-hooks` if it reaches parity.
 - Security plugin: restore a tiny ESLint security command, or add Semgrep/CodeQL for CI security coverage.
+
+## Follow-Up Cleanup
+
+The migration keeps broad `typescript/no-explicit-any`, `typescript/no-unsafe-*`, and `typescript/unbound-method` exceptions for current JS/MJS scripts and tests. Removing those exceptions in this PR opens a large pre-existing cleanup across build hooks, test mocks, E2E helpers, and shadcn UI wrappers, so the one-phase migration preserves the existing gate and documents the cleanup instead of mixing it into the tooling swap.
 
 ## Source Docs Checked
 

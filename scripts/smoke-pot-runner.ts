@@ -32,6 +32,12 @@ function run(cmd: string, args: string[], envOverrides: NodeJS.ProcessEnv = {}):
   });
 }
 
+function electronArgs(needsXvfb: boolean, electronBin: string): string[] {
+  if (needsXvfb) return ['-a', electronBin, '--no-sandbox', '.'];
+  if (process.platform === 'linux') return ['--no-sandbox', '.'];
+  return ['.'];
+}
+
 async function main(): Promise<void> {
   let url: string;
   try {
@@ -52,7 +58,7 @@ async function main(): Promise<void> {
   // On Linux without an X display, use xvfb-run.
   const needsXvfb = process.platform === 'linux' && !process.env.DISPLAY;
   const cmd = needsXvfb ? 'xvfb-run' : electronBin;
-  const args = needsXvfb ? ['-a', electronBin, '--no-sandbox', '.'] : process.platform === 'linux' ? ['--no-sandbox', '.'] : ['.'];
+  const args = electronArgs(needsXvfb, electronBin);
 
   // Use a dedicated userData dir so we don't contend with a running
   // `bun run dev` instance for the single-instance lock.

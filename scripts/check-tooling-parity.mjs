@@ -125,8 +125,28 @@ try {
   assertFailsWith(run('Biome parser parity', bin('biome'), ['check', '--config-path', biomeConfigPath, biomeSyntaxPath]), ['octal']);
 
   const unsafePath = join(tempDir, 'unsafe.ts');
-  writeFileSync(unsafePath, ['declare const value: any;', 'export const assigned: string = value;', 'export const member = value.deep.field;', 'export const called = value();', 'export function leak() {', '  return value;', '}', 'export const message = `value: ${value}`;'].join('\n'));
-  assertFailsWith(run('Oxlint type-aware parity', bin('oxlint'), ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, unsafePath]), ['no-unsafe-assignment', 'no-unsafe-call', 'no-unsafe-member-access', 'no-unsafe-return']);
+  writeFileSync(
+    unsafePath,
+    [
+      'declare const value: any;',
+      'export const assigned: string = value;',
+      'export const member = value.deep.field;',
+      'export const called = value();',
+      'export function leak() {',
+      '  return value;',
+      '}',
+      "const objectValue = { label: 'value' };",
+      'export const message = `value: ${objectValue}`;',
+      'class Counter {',
+      '  method() {',
+      '    return 1;',
+      '  }',
+      '}',
+      'const counter = new Counter();',
+      'export const unbound = counter.method;'
+    ].join('\n')
+  );
+  assertFailsWith(run('Oxlint type-aware parity', bin('oxlint'), ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, unsafePath]), ['no-unsafe-assignment', 'no-unsafe-call', 'no-unsafe-member-access', 'no-unsafe-return', 'restrict-template-expressions', 'unbound-method']);
 
   const bridgeConfigPath = join(tempDir, '.oxlintrc.parity.json');
   writeFileSync(
@@ -145,13 +165,16 @@ try {
         },
         jsPlugins: [
           { name: 'react-hooks-js', specifier: requireFromRepo.resolve('eslint-plugin-react-hooks') },
-          { name: 'security', specifier: requireFromRepo.resolve('eslint-plugin-security') }
+          { name: 'security', specifier: requireFromRepo.resolve('eslint-plugin-security') },
+          { name: 'react-js', specifier: requireFromRepo.resolve('eslint-plugin-react') }
         ],
         rules: {
           'react-hooks-js/rules-of-hooks': 'error',
           'react-hooks-js/set-state-in-render': 'error',
+          'react-hooks-js/static-components': 'error',
           'security/detect-child-process': 'error',
-          'security/detect-non-literal-regexp': 'error'
+          'security/detect-non-literal-regexp': 'error',
+          'react-js/no-deprecated': 'error'
         }
       },
       null,
@@ -166,6 +189,14 @@ try {
   const setStatePath = join(tempDir, 'set-state.tsx');
   writeFileSync(setStatePath, ["import { useState } from 'react';", 'export function BrokenSetState({ value }: { value: number }) {', '  const [count, setCount] = useState(0);', '  setCount(value);', '  return <button>{count}</button>;', '}'].join('\n'));
   assertFailsWith(run('Oxlint React compiler bridge parity', bin('oxlint'), ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, setStatePath]), ['set-state-in-render']);
+
+  const staticPath = join(tempDir, 'static.tsx');
+  writeFileSync(staticPath, ['export function Parent({ value }: { value: number }) {', '  function Child() {', '    return <span>{value}</span>;', '  }', '  return <Child />;', '}'].join('\n'));
+  assertFailsWith(run('Oxlint React static-components bridge parity', bin('oxlint'), ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, staticPath]), ['static-components']);
+
+  const deprecatedReactPath = join(tempDir, 'deprecated-react.tsx');
+  writeFileSync(deprecatedReactPath, ["import ReactDOM from 'react-dom';", "const root = document.createElement('div');", 'ReactDOM.render(<span />, root);'].join('\n'));
+  assertFailsWith(run('Oxlint React deprecated bridge parity', bin('oxlint'), ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, deprecatedReactPath]), ['no-deprecated']);
 
   const securityPath = join(tempDir, 'security.js');
   writeFileSync(securityPath, ["const childProcess = require('node:child_process');", 'const command = process.argv[2];', 'const pattern = process.argv[3];', 'childProcess.exec(command);', 'new RegExp(pattern);'].join('\n'));
