@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { applyScenarioWorkbenchState, buildScenarioAppApiState, bulkStressFixture, getScenario, mockStepForScenario, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, type ScenarioWorkbenchStore } from '@renderer/dev/browserMockScenarios.js';
+import { applyScenarioWorkbenchState, buildScenarioAppApiState, bulkStressFixture, getScenario, mockStepForScenario, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, shouldShowBrowserMockStartupSplash, type ScenarioWorkbenchStore } from '@renderer/dev/browserMockScenarios.js';
 
 describe('browser mock scenarios', () => {
   it('reads known scenario ids from URLs', () => {
@@ -159,6 +159,23 @@ describe('browser mock scenarios', () => {
     expect(diagnostics.completed).toBe(false);
     expect(diagnostics.blockingFailures).toEqual(['yt-dlp']);
     expect(diagnostics.dependencies['yt-dlp'].state).toBe('failed');
+  });
+
+  it('only requests the browser-mock startup splash for startup-focused states', () => {
+    const readyDefault = buildScenarioAppApiState(getScenario('default'));
+    expect(shouldShowBrowserMockStartupSplash({ launchMode: 'ready', warmUp: readyDefault.warmUp })).toBe(false);
+
+    const readyQueue = buildScenarioAppApiState(getScenario('queue-running'));
+    expect(shouldShowBrowserMockStartupSplash({ launchMode: 'ready', warmUp: readyQueue.warmUp })).toBe(false);
+
+    expect(shouldShowBrowserMockStartupSplash({ launchMode: 'cold-loading', warmUp: readyDefault.warmUp })).toBe(true);
+    expect(shouldShowBrowserMockStartupSplash({ launchMode: 'cold-error', warmUp: readyDefault.warmUp })).toBe(true);
+
+    const blockedWarmup = buildScenarioAppApiState(getScenario('diagnostics-ytdlp-missing')).warmUp;
+    expect(shouldShowBrowserMockStartupSplash({ launchMode: 'ready', warmUp: blockedWarmup })).toBe(true);
+
+    const incompleteWarmup = buildScenarioAppApiState(getScenario('diagnostics-warmup-running')).warmUp;
+    expect(shouldShowBrowserMockStartupSplash({ launchMode: 'ready', warmUp: incompleteWarmup })).toBe(true);
   });
 
   it('builds new queue scenarios', () => {

@@ -48,6 +48,7 @@ export function AudioColumn({ formats, audioSelection, onSelect }: AudioColumnPr
           if (!AUDIO_BITRATES.includes(next)) return;
           onSelect({ kind: 'convert-lossy', target: audioSelection.target, bitrateKbps: next });
         }}
+        spacing={1}
         className="gap-[3px]"
       >
         {AUDIO_BITRATES.map((rate) => (
@@ -66,7 +67,7 @@ export function AudioColumn({ formats, audioSelection, onSelect }: AudioColumnPr
       <div className="flex items-center justify-between mb-[6px]">
         <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.formats.audio')}</p>
         {audioExts.length > 1 && (
-          <ToggleGroup value={audioExtFilter ? [audioExtFilter] : []} onValueChange={(vals) => setAudioExtFilter(vals[0] ?? null)} className="gap-[3px]">
+          <ToggleGroup value={audioExtFilter ? [audioExtFilter] : []} onValueChange={(vals) => setAudioExtFilter(vals[0] ?? null)} spacing={1} className="gap-[3px]">
             {audioExts.map((ext) => (
               <ToggleGroupItem key={ext} value={ext} className="h-5 px-[7px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground">
                 {ext}

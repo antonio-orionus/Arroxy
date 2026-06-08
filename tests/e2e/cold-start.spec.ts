@@ -50,8 +50,8 @@ test('packaged exe: downloads binaries, completes warmup, shows wizard', async (
       timeout: WARMUP_TIMEOUT_MS
     });
 
-    // Wizard screen is now visible to the user.
-    await expect(page.locator('[data-testid="url-input"]')).toBeVisible({ timeout: 5_000 });
+    // Download home is now visible to the user.
+    await expect(page.locator('[data-testid="profiles-main-input"]')).toBeVisible({ timeout: 5_000 });
   } finally {
     await app.close();
 

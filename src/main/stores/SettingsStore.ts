@@ -67,7 +67,8 @@ function mergeCommon(base: CommonSettings, patch: Partial<CommonSettings> | unde
 }
 
 function deepMerge(base: AppSettings, patch: SettingsPatch, defaults: AppSettings): AppSettings {
-  const baseProfiles = base.profiles ?? defaults.profiles;
+  const profileSource = base.profiles ?? defaults.profiles;
+  const baseProfiles = { ...profileSource, overrides: profileSource.overrides ?? [] };
   return {
     common: mergeCommon(base.common, patch.common),
     single: { ...base.single, ...(patch.single ?? {}) },
@@ -104,7 +105,8 @@ export class SettingsStore {
     const raw = this.store.store as unknown as Record<string, unknown>;
     const isLegacy = isLegacyShape(raw);
     const baseline: AppSettings = isLegacy ? migrateFlatToNested(raw, this.defaults) : this.store.store;
-    const withDefaults: AppSettings = { ...baseline, profiles: baseline.profiles ?? this.defaults.profiles };
+    const profileSource = baseline.profiles ?? this.defaults.profiles;
+    const withDefaults: AppSettings = { ...baseline, profiles: { ...profileSource, overrides: profileSource.overrides ?? [] } };
     const cookiesMigrated: AppSettings = { ...withDefaults, common: migrateCookiesMode(withDefaults.common) };
     if (!isLegacy && cookiesMigrated.common === withDefaults.common && withDefaults.profiles === baseline.profiles) return;
     // Replace the entire on-disk shape with the migrated one. Wiping any

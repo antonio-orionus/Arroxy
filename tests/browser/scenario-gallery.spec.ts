@@ -25,8 +25,15 @@ test('scenario gallery is available in browser-mock mode', async ({ page }) => {
   await openScenario(page, 'default');
 
   await expect(page.getByTestId('scenario-gallery')).toBeVisible();
+  await expect(page.getByTestId('splash-overlay')).toHaveCount(0);
   await page.getByTestId('scenario-gallery-toggle').click();
   await expect(page.getByTestId('scenario-button-queue-running')).toBeVisible();
+});
+
+test('startup launch modes keep the browser-mock splash available', async ({ page }) => {
+  await openWithParams(page, 'mockLaunch=cold-loading');
+
+  await expect(page.getByTestId('splash-overlay')).toBeVisible();
 });
 
 test('playlist cap alert follows ?playlist=n param counts', async ({ page }) => {

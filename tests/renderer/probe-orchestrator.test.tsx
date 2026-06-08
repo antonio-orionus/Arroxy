@@ -159,14 +159,14 @@ describe('quickDownload', () => {
     expect(queued).toMatchObject({
       url: `${YOUTUBE_URL}&list=PLtest`,
       title: 'Test Video',
-      outputDir: '/tmp/downloads',
+      outputDir: '/tmp/downloads/Balanced',
       status: 'pending',
       lane: 'normal',
       job: expect.objectContaining({
         kind: 'ranged-format',
         extractor: 'youtube',
         extractorKey: 'Youtube',
-        intent: { kind: 'video-audio', codec: 'best', tiers: ['720'] },
+        intent: { kind: 'video-audio', codec: 'best', tiers: ['720'], audio: { format: 'best' } },
         outputTemplate: '%(title).200B [%(id)s].%(ext)s'
       })
     });
@@ -190,11 +190,11 @@ describe('quickDownload', () => {
 
     const queued = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0]?.[0];
     expect(queued).toMatchObject({
-      outputDir: '/tmp/first-launch-downloads',
-      formatLabel: 'Video + audio · best codec · 720',
+      outputDir: '/tmp/first-launch-downloads/Balanced',
+      formatLabel: 'Video + audio · best codec · 720 · best audio',
       job: expect.objectContaining({
         kind: 'ranged-format',
-        intent: { kind: 'video-audio', codec: 'best', tiers: ['720'] }
+        intent: { kind: 'video-audio', codec: 'best', tiers: ['720'], audio: { format: 'best' } }
       })
     });
     expect(useAppStore.getState().quickDownloadStatus).toBe('queued');

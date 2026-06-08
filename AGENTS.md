@@ -264,6 +264,8 @@ async (page) => {
 
 Config (style, aliases, icon library, CSS entry) lives in `components.json`. Runtime deps already present: `class-variance-authority`, `clsx`, `tailwind-merge`, `lucide-react`.
 
+shadcn/ui is the primary source for renderer UI primitives. Before inventing custom controls, panels, form layouts, option groups, empty states, callouts, badges, or grouped inputs, first reuse an installed shadcn component or install the needed component through the shadcn CLI. Prefer composition of shadcn primitives (`Field`, `InputGroup`, `ButtonGroup`, `ToggleGroup`, `Card`, `Alert`, `Empty`, `Separator`, `Badge`, etc.) over raw styled `div`/`button` markup. Custom primitives are acceptable only when shadcn has no fitting component or the component encodes Arroxy-specific product behavior.
+
 **Do not add Radix.** This project does **not** use `@radix-ui/*` — the `base-nova` registry doesn't depend on Radix primitives. Don't add Radix deps or assume Radix is available.
 
 **Install via CLI:** `npx shadcn@latest add <component>` (style: `base-nova`). Never hand-roll `@base-ui/react/*` wrappers. After install, modify freely to match app style.

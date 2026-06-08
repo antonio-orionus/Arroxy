@@ -150,7 +150,7 @@ describe('prepareJob', () => {
         kind: 'ranged-format',
         extractor: 'youtube',
         extractorKey: 'Youtube',
-        intent: { kind: 'video-audio', codec: 'best', tiers: ['1080'] },
+        intent: { kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: { format: 'best' } },
         formatSelector: 'bestvideo[height<=1080]+bestaudio/best[height<=1080]',
         formatSort: undefined,
         mergeOutputFormat: undefined,
@@ -192,7 +192,7 @@ describe('prepareJob', () => {
       const sel = { kind: 'video' as const, tier: '720' as const, codec: 'best' as const };
       const job = prepareJob({ ...BASE, mode: 'playlist', playlistSelection: sel, outputTemplate: 't.ext' });
       if (job.kind !== 'ranged-format') throw new Error('unreachable');
-      expect(job.intent).toEqual({ kind: 'video-audio', codec: 'best', tiers: ['720'] });
+      expect(job.intent).toEqual({ kind: 'video-audio', codec: 'best', tiers: ['720'], audio: { format: 'best' } });
     });
 
     it('accepts profile media intent directly', () => {

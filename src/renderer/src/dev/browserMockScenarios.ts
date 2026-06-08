@@ -10,6 +10,9 @@ import { buildQueueItems } from './scenarios/queueScenarios.js';
 import { buildUpdate } from './scenarios/updateScenarios.js';
 import { buildWarmUp } from './scenarios/diagnosticScenarios.js';
 
+export const BROWSER_MOCK_LAUNCH_MODES = ['ready', 'cold-loading', 'cold-error'] as const;
+export type BrowserMockLaunchMode = (typeof BROWSER_MOCK_LAUNCH_MODES)[number];
+
 export const BROWSER_MOCK_SCENARIO_IDS = ['default', 'single-normal', 'playlist-normal', 'playlist-scope-empty-reload', 'playlist-no-thumbnails', 'playlist-long-titles', 'bulk-stress', 'profiles-home-empty', 'profiles-home-clipboard-single', 'profiles-home-clipboard-bulk', 'profiles-split-menu', 'profiles-editor', 'profiles-bulk', 'profiles-playlist-cap', 'probe-audio-only', 'probe-with-subtitles', 'probe-no-formats', 'probe-live-stream', 'dialog-mixed-url', 'dialog-cookies-issue', 'update-direct', 'update-homebrew', 'update-scoop', 'update-portable', 'update-darwin-dmg', 'update-winget', 'update-flatpak', 'update-none', 'queue-empty', 'queue-running', 'queue-paused-active', 'queue-paused-held', 'queue-cancelled', 'queue-error', 'queue-completed', 'queue-subtitles-failed', 'queue-multi', 'diagnostics-all-ok', 'diagnostics-ytdlp-missing', 'diagnostics-ffmpeg-broken', 'diagnostics-deno-missing', 'diagnostics-ffprobe-broken', 'diagnostics-all-missing', 'diagnostics-warmup-running'] as const;
 
 export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number];
@@ -151,6 +154,10 @@ export function readScenarioIdFromUrl(location: Pick<Location, 'search'> | URL):
 export function getScenario(id: string | null | undefined): BrowserMockScenario {
   if (!id) return BROWSER_MOCK_SCENARIOS[0];
   return SCENARIOS_BY_ID.get(id) ?? BROWSER_MOCK_SCENARIOS[0];
+}
+
+export function shouldShowBrowserMockStartupSplash(input: { launchMode: BrowserMockLaunchMode; warmUp: Pick<WarmUpOutput, 'completed' | 'blockingFailures'> }): boolean {
+  return input.launchMode !== 'ready' || !input.warmUp.completed || input.warmUp.blockingFailures.length > 0;
 }
 
 export function isScreenPresetScenario(scenario: Pick<BrowserMockScenario, 'id'>): boolean {

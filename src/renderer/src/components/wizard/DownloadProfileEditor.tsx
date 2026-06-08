@@ -1,15 +1,16 @@
-import { useState, type JSX, type ReactNode } from 'react';
+import { useId, useState, type JSX, type ReactNode } from 'react';
 import { Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, Headphones, Info, Music, Plus, Scissors, X, type LucideIcon } from 'lucide-react';
 import { DEFAULTS } from '@shared/constants.js';
-import { DEFAULT_AUDIO_BITRATE } from '@shared/schemas.js';
-import type { DownloadProfile } from '@shared/types.js';
-import { safeFolderName } from '@shared/subfolder.js';
+import { DEFAULT_AUDIO_BITRATE, DOWNLOAD_PROFILE_ICONS } from '@shared/schemas.js';
+import type { DownloadProfile, DownloadProfileIcon } from '@shared/types.js';
+import { isValidSubfolder, safeFolderName } from '@shared/subfolder.js';
 import { cn } from '@renderer/lib/utils.js';
 import { Badge } from '../ui/badge.js';
 import { Button } from '../ui/button.js';
 import { Checkbox } from '../ui/checkbox.js';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog.js';
-import { Input } from '../ui/input.js';
+import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '../ui/field.js';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '../ui/input-group.js';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover.js';
 import { ScrollArea } from '../ui/scroll-area.js';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select.js';
@@ -27,7 +28,6 @@ type ProfileSubtitleFormat = 'srt' | 'vtt' | 'ass';
 type ProfileSubtitleSource = 'manual-first' | 'manual-only' | 'auto-only';
 type ProfileSponsorBlockMode = 'off' | 'mark' | 'remove';
 type ProfilePlaylistCap = 'confirm' | '100' | '250' | '500' | '1000';
-type ProfileIconId = 'download' | 'video' | 'captions' | 'audio' | 'music' | 'podcast' | 'classes' | 'clip' | 'archive';
 
 interface SelectOption<T extends string> {
   value: T;
@@ -41,17 +41,19 @@ const MEDIA_MODES: { value: ProfileMediaMode; label: string; description: string
   { value: 'subtitles-only', label: 'Subs only', description: 'Caption files only', icon: Captions }
 ];
 
-const PROFILE_ICON_OPTIONS: { value: ProfileIconId; label: string; icon: LucideIcon }[] = [
-  { value: 'download', label: 'Download', icon: Download },
-  { value: 'video', label: 'Video', icon: Clapperboard },
-  { value: 'captions', label: 'Captions', icon: Captions },
-  { value: 'audio', label: 'Audio', icon: FileAudio },
-  { value: 'music', label: 'Music', icon: Music },
-  { value: 'podcast', label: 'Podcast', icon: Headphones },
-  { value: 'classes', label: 'Classes', icon: BookOpen },
-  { value: 'clip', label: 'Clip', icon: Scissors },
-  { value: 'archive', label: 'Archive', icon: Archive }
-];
+const PROFILE_ICON_META: Record<DownloadProfileIcon, { label: string; icon: LucideIcon }> = {
+  download: { label: 'Download', icon: Download },
+  video: { label: 'Video', icon: Clapperboard },
+  captions: { label: 'Captions', icon: Captions },
+  audio: { label: 'Audio', icon: FileAudio },
+  music: { label: 'Music', icon: Music },
+  podcast: { label: 'Podcast', icon: Headphones },
+  classes: { label: 'Classes', icon: BookOpen },
+  clip: { label: 'Clip', icon: Scissors },
+  archive: { label: 'Archive', icon: Archive }
+};
+
+const PROFILE_ICON_OPTIONS = DOWNLOAD_PROFILE_ICONS.map((value) => ({ value, ...PROFILE_ICON_META[value] }));
 
 const CODEC_OPTIONS: SelectOption<ProfileCodec>[] = [
   { value: 'best', label: 'Best codec' },
@@ -73,6 +75,11 @@ const AUDIO_FORMAT_OPTIONS: SelectOption<ProfileAudioFormat>[] = [
   { value: 'mp3', label: 'MP3' },
   { value: 'm4a', label: 'M4A' },
   { value: 'opus', label: 'Opus' }
+];
+
+const VIDEO_AUDIO_FORMAT_OPTIONS: SelectOption<Extract<ProfileAudioFormat, 'best' | 'm4a'>>[] = [
+  { value: 'best', label: 'Best' },
+  { value: 'm4a', label: 'M4A' }
 ];
 
 const AUDIO_QUALITY_OPTIONS: SelectOption<ProfileAudioQuality>[] = [
@@ -170,7 +177,13 @@ function initialResolution(profile: DownloadProfile | null): ProfileResolution {
 
 function initialAudioFormat(profile: DownloadProfile | null): ProfileAudioFormat {
   const media = profile?.media;
-  return media?.kind === 'audio-only' ? media.audio.format : 'mp3';
+  if (media?.kind === 'audio-only') return media.audio.format;
+  if (media?.kind === 'video-audio') return media.audio.format;
+  return 'm4a';
+}
+
+function defaultProfileSubfolderName(name: string): string {
+  return safeFolderName(name.trim() || 'Download Profile');
 }
 
 function ProfilePanel({ title, description, children, className }: { title: string; description?: string; children: ReactNode; className?: string }): JSX.Element {
@@ -185,30 +198,35 @@ function ProfilePanel({ title, description, children, className }: { title: stri
   );
 }
 
-function ProfileSelect<T extends string>({ label, value, options, onValueChange, testId }: { label: string; value: T; options: readonly SelectOption<T>[]; onValueChange: (value: T) => void; testId?: string }): JSX.Element {
+function ProfileSelect<T extends string>({ label, value, options, onValueChange, testId, disabled = false }: { label: string; value: T; options: readonly SelectOption<T>[]; onValueChange: (value: T) => void; testId?: string; disabled?: boolean }): JSX.Element {
+  const generatedId = useId();
+  const triggerId = testId ? `${testId}-trigger` : generatedId;
+
   return (
-    <label className="flex flex-col gap-1.5">
-      <span className="text-[12px] font-medium text-[var(--text-subtle)]">{label}</span>
+    <Field className="gap-1.5">
+      <FieldLabel htmlFor={triggerId} className="text-[12px] font-medium text-[var(--text-subtle)]">
+        {label}
+      </FieldLabel>
       <Select
         value={value}
         onValueChange={(next) => {
           if (typeof next === 'string') onValueChange(next);
         }}
       >
-        <SelectTrigger className="w-full" data-testid={testId}>
+        <SelectTrigger id={triggerId} className="w-full" data-testid={testId} disabled={disabled}>
           <SelectValue>{(selected) => optionLabel(options, selected)}</SelectValue>
         </SelectTrigger>
         <SelectContent align="start">
           <SelectGroup>
             {options.map((option) => (
-              <SelectItem key={option.value} value={option.value} onClick={() => onValueChange(option.value)}>
+              <SelectItem key={option.value} value={option.value} onClick={() => onValueChange(option.value)} data-testid={testId ? `${testId}-option-${option.value}` : undefined}>
                 {option.label}
               </SelectItem>
             ))}
           </SelectGroup>
         </SelectContent>
       </Select>
-    </label>
+    </Field>
   );
 }
 
@@ -229,21 +247,21 @@ function ProfileHelpTooltip({ label, children }: { label: string; children: Reac
 
 function ProfileSwitchRow({ id, label, description, checked, onCheckedChange }: { id: string; label: string; description?: string; checked: boolean; onCheckedChange: (checked: boolean) => void }): JSX.Element {
   return (
-    <div className="flex min-h-10 items-center justify-between gap-3 rounded-md border border-border bg-background/25 px-3 py-2 text-[12px]">
-      <span className="min-w-0">
-        <span id={id} className="flex items-center gap-1.5 font-medium">
+    <Field orientation="horizontal" className="min-h-10 items-center justify-between gap-3 rounded-md border border-border bg-background/25 px-3 py-2 text-[12px]">
+      <FieldContent className="min-w-0">
+        <FieldTitle id={id} className="flex items-center gap-1.5 text-[12px] font-medium">
           {label}
           {description ? <ProfileHelpTooltip label={label}>{description}</ProfileHelpTooltip> : null}
-        </span>
-      </span>
+        </FieldTitle>
+      </FieldContent>
       <Switch checked={checked} onCheckedChange={onCheckedChange} aria-labelledby={id} />
-    </div>
+    </Field>
   );
 }
 
 export function DownloadProfileEditor({ initialProfile = null, open, onOpenChange, onSave }: { initialProfile?: DownloadProfile | null; open: boolean; onOpenChange: (open: boolean) => void; onSave?: (profile: DownloadProfile) => void | Promise<void> }): JSX.Element {
   const [profileName, setProfileName] = useState(initialProfile?.name ?? 'Study Captions');
-  const [profileIcon, setProfileIcon] = useState<ProfileIconId>(initialProfile?.icon ?? 'captions');
+  const [profileIcon, setProfileIcon] = useState<DownloadProfileIcon>(initialProfile?.icon ?? 'captions');
   const [profileIconPickerOpen, setProfileIconPickerOpen] = useState(false);
   const [mediaMode, setMediaMode] = useState<ProfileMediaMode>(() => initialMediaMode(initialProfile));
   const [codec, setCodec] = useState<ProfileCodec>(() => initialCodec(initialProfile));
@@ -256,8 +274,9 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
   const [subtitleSource, setSubtitleSource] = useState<ProfileSubtitleSource>(initialProfile?.subtitles.source ?? 'manual-first');
   const [subtitleDelivery, setSubtitleDelivery] = useState<ProfileSubtitleDelivery>(initialProfile?.subtitles.mode ?? 'sidecar');
   const [subtitleFormat, setSubtitleFormat] = useState<ProfileSubtitleFormat>(initialProfile?.subtitles.format ?? 'srt');
-  const [destination, setDestination] = useState(initialProfile?.output.kind === 'fixed' ? initialProfile.output.dir : '/home/user/Videos/Classes');
+  const [destination, setDestination] = useState(initialProfile?.output.kind === 'fixed' ? initialProfile.output.dir : '');
   const [saveInsideSubfolder, setSaveInsideSubfolder] = useState(initialProfile?.subfolder.enabled ?? true);
+  const [subfolderName, setSubfolderName] = useState(initialProfile?.subfolder.name ?? defaultProfileSubfolderName(initialProfile?.name ?? 'Study Captions'));
   const [embedMetadata, setEmbedMetadata] = useState(initialProfile?.embed.metadata ?? true);
   const [embedChapters, setEmbedChapters] = useState(initialProfile?.embed.chapters ?? true);
   const [saveDescription, setSaveDescription] = useState(initialProfile?.embed.description ?? true);
@@ -270,10 +289,30 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
   const effectiveSubtitleEnabled = subtitlesOnly || subtitleEnabled;
   const outputEnabledCount = [embedMetadata, embedChapters, saveDescription, saveThumbnail].filter(Boolean).length;
   const SelectedProfileIcon = PROFILE_ICON_OPTIONS.find((option) => option.value === profileIcon)?.icon ?? Captions;
+  const subfolderInvalid = saveInsideSubfolder && subfolderName.trim() !== '' && !isValidSubfolder(subfolderName);
+  const videoAudioFormat: Extract<ProfileAudioFormat, 'best' | 'm4a'> = audioFormat === 'm4a' ? 'm4a' : 'best';
+
+  function changeProfileName(nextName: string): void {
+    const previousDefaultSubfolder = defaultProfileSubfolderName(profileName);
+    const nextDefaultSubfolder = defaultProfileSubfolderName(nextName);
+    setProfileName(nextName);
+    setSubfolderName((current) => (current === previousDefaultSubfolder ? nextDefaultSubfolder : current));
+  }
 
   function setProfileMediaMode(nextMode: ProfileMediaMode): void {
     setMediaMode(nextMode);
     if (nextMode === 'subtitles-only') setSubtitleEnabled(true);
+    if (nextMode === 'audio-only') {
+      setAudioFormat('best');
+      setAudioQuality('best');
+      return;
+    }
+    setAudioFormat(codec === 'mp4' ? 'm4a' : 'best');
+    setAudioQuality('best');
+  }
+
+  function setProfileCodec(nextCodec: ProfileCodec): void {
+    setCodec(nextCodec);
   }
 
   function addSubtitleLanguages(): void {
@@ -294,7 +333,7 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
       id,
       name: profileName.trim() || 'Download Profile',
       icon: profileIcon,
-      media: mediaMode === 'audio-only' ? { kind: 'audio-only', audio: { format: audioFormat, bitrateKbps: audioFormat === 'best' ? undefined : audioQuality === 'best' ? DEFAULT_AUDIO_BITRATE : (Number(audioQuality) as 128 | 192 | 320) } } : mediaMode === 'subtitles-only' ? { kind: 'subtitles-only' } : { kind: mediaMode, codec, tiers: [resolution] },
+      media: mediaMode === 'audio-only' ? { kind: 'audio-only', audio: { format: audioFormat, bitrateKbps: audioFormat === 'best' ? undefined : audioQuality === 'best' ? DEFAULT_AUDIO_BITRATE : (Number(audioQuality) as 128 | 192 | 320) } } : mediaMode === 'subtitles-only' ? { kind: 'subtitles-only' } : mediaMode === 'video-audio' ? { kind: mediaMode, codec, tiers: [resolution], audio: { format: videoAudioFormat } } : { kind: mediaMode, codec, tiers: [resolution] },
       subtitles: {
         enabled: effectiveSubtitleEnabled,
         languages: effectiveSubtitleEnabled ? subtitleLanguages : [],
@@ -303,7 +342,7 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
         format: subtitleFormat
       },
       output: destination.trim() ? { kind: 'fixed', dir: destination.trim() } : { kind: 'default' },
-      subfolder: { enabled: saveInsideSubfolder, name: saveInsideSubfolder ? safeFolderName(profileName.trim() || 'Download Profile') : '' },
+      subfolder: { enabled: saveInsideSubfolder, name: saveInsideSubfolder ? subfolderName.trim() || defaultProfileSubfolderName(profileName) : '' },
       sponsorBlock: {
         mode: showVideo ? sponsorBlockMode : 'off',
         categories: showVideo && sponsorBlockMode !== 'off' ? [...DEFAULTS.sponsorBlockCategories] : []
@@ -334,18 +373,22 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
           <div className="grid gap-4 p-1 pr-3 lg:grid-cols-[minmax(0,1fr)_minmax(19rem,0.85fr)]">
             <div className="flex flex-col gap-3">
               <ProfilePanel title="Profile identity" description="Name and icon shown in Quick Download, Bulk URLs, and profile lists.">
-                <label className="flex flex-col gap-1.5" htmlFor="profile-name">
-                  <span className="text-[12px] font-medium text-[var(--text-subtle)]">Profile name</span>
-                  <div className="flex items-center gap-2">
+                <Field className="gap-1.5">
+                  <FieldLabel htmlFor="profile-name" className="text-[12px] font-medium text-[var(--text-subtle)]">
+                    Profile name
+                  </FieldLabel>
+                  <InputGroup className="h-10" aria-label="Profile name and icon">
                     <Popover open={profileIconPickerOpen} onOpenChange={setProfileIconPickerOpen}>
-                      <PopoverTrigger
-                        render={
-                          <Button type="button" variant="outline" className="h-10 w-16 shrink-0 justify-between px-2" aria-label="Choose profile icon" data-testid="profiles-editor-icon-trigger">
-                            <SelectedProfileIcon aria-hidden />
-                            <ChevronDown aria-hidden />
-                          </Button>
-                        }
-                      />
+                      <InputGroupAddon align="inline-start" className="pl-1.5">
+                        <PopoverTrigger
+                          render={
+                            <InputGroupButton type="button" size="sm" className="h-8 w-14 justify-between px-2" aria-label="Choose profile icon" data-testid="profiles-editor-icon-trigger">
+                              <SelectedProfileIcon data-icon="inline-start" aria-hidden />
+                              <ChevronDown data-icon="inline-end" aria-hidden />
+                            </InputGroupButton>
+                          }
+                        />
+                      </InputGroupAddon>
                       <PopoverContent align="start" sideOffset={6} className="w-40" data-testid="profiles-editor-icon-menu">
                         <div className="grid grid-cols-3 gap-1.5" role="radiogroup" aria-label="Profile icon">
                           {PROFILE_ICON_OPTIONS.map((option) => {
@@ -373,9 +416,9 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                         </div>
                       </PopoverContent>
                     </Popover>
-                    <Input id="profile-name" value={profileName} onChange={(event) => setProfileName(event.target.value)} data-testid="profiles-editor-name" className="min-w-0 flex-1" />
-                  </div>
-                </label>
+                    <InputGroupInput id="profile-name" value={profileName} onChange={(event) => changeProfileName(event.target.value)} data-testid="profiles-editor-name" />
+                  </InputGroup>
+                </Field>
               </ProfilePanel>
 
               <ProfilePanel title="Download type" description="Choose the primary way you want to download.">
@@ -385,6 +428,7 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                   onValueChange={(value) => {
                     if (value[0]) setProfileMediaMode(value[0] as ProfileMediaMode);
                   }}
+                  spacing={2}
                   className="grid w-full grid-cols-2 gap-2 sm:grid-cols-4"
                 >
                   {MEDIA_MODES.map((option) => {
@@ -402,19 +446,25 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
               <div className="grid gap-3 sm:grid-cols-2">
                 {showVideo ? (
                   <ProfilePanel title="Video">
-                    <div className="flex flex-col gap-3">
-                      <ProfileSelect label="Codec" value={codec} options={CODEC_OPTIONS} onValueChange={setCodec} testId="profiles-editor-video-codec" />
+                    <FieldGroup className="gap-3">
+                      <ProfileSelect label="Codec" value={codec} options={CODEC_OPTIONS} onValueChange={setProfileCodec} testId="profiles-editor-video-codec" />
                       <ProfileSelect label="Resolution" value={resolution} options={RESOLUTION_OPTIONS} onValueChange={setResolution} testId="profiles-editor-video-resolution" />
-                    </div>
+                    </FieldGroup>
                   </ProfilePanel>
                 ) : null}
 
                 {showAudio ? (
                   <ProfilePanel title="Audio">
-                    <div className="flex flex-col gap-3">
-                      <ProfileSelect label="Format" value={audioFormat} options={AUDIO_FORMAT_OPTIONS} onValueChange={setAudioFormat} testId="profiles-editor-audio-format" />
-                      <ProfileSelect label="Quality" value={audioQuality} options={AUDIO_QUALITY_OPTIONS} onValueChange={setAudioQuality} testId="profiles-editor-audio-quality" />
-                    </div>
+                    <FieldGroup className="gap-3">
+                      {mediaMode === 'audio-only' ? (
+                        <>
+                          <ProfileSelect label="Format" value={audioFormat} options={AUDIO_FORMAT_OPTIONS} onValueChange={setAudioFormat} testId="profiles-editor-audio-format" />
+                          <ProfileSelect label="Quality" value={audioQuality} options={AUDIO_QUALITY_OPTIONS} onValueChange={setAudioQuality} testId="profiles-editor-audio-quality" />
+                        </>
+                      ) : (
+                        <ProfileSelect label="Format" value={videoAudioFormat} options={VIDEO_AUDIO_FORMAT_OPTIONS} onValueChange={setAudioFormat} testId="profiles-editor-audio-format" />
+                      )}
+                    </FieldGroup>
                   </ProfilePanel>
                 ) : null}
               </div>
@@ -422,14 +472,17 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
               {subtitlesOnly ? <div className="rounded-md border border-[var(--brand)]/40 bg-[var(--brand-dim)] px-3 py-2 text-[12px] text-[var(--text-subtle)]">This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped.</div> : null}
 
               <ProfilePanel title="Subtitles">
-                <div className="flex flex-col gap-3">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[12px] font-medium text-[var(--text-subtle)]">Subtitle downloads</span>
-                      <span className="text-[11px] leading-snug text-[var(--text-subtle)]">Profiles request language codes; availability is resolved for each URL.</span>
-                    </div>
+                <FieldGroup className="gap-3">
+                  <Field orientation="horizontal" className="items-start justify-between gap-3">
+                    <FieldContent className="gap-1">
+                      <FieldTitle id="profile-subtitle-downloads" className="text-[12px] font-medium text-[var(--text-subtle)]">
+                        Subtitle downloads
+                      </FieldTitle>
+                      <FieldDescription className="text-[11px] leading-snug text-[var(--text-subtle)]">Profiles request language codes; availability is resolved for each URL.</FieldDescription>
+                    </FieldContent>
                     <ToggleGroup
                       variant="outline"
+                      aria-labelledby="profile-subtitle-downloads"
                       value={[effectiveSubtitleEnabled ? 'on' : 'off']}
                       onValueChange={(value) => {
                         const next = value[0];
@@ -445,14 +498,16 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                         On
                       </ToggleGroupItem>
                     </ToggleGroup>
-                  </div>
+                  </Field>
 
                   {!effectiveSubtitleEnabled ? (
                     <div className="rounded-md border border-border bg-background/25 px-3 py-2 text-[12px] leading-snug text-[var(--text-subtle)]">No subtitle files or embedded subtitle tracks will be requested for this profile.</div>
                   ) : (
                     <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.65fr)]">
-                      <div className="flex flex-col gap-1.5">
-                        <span className="text-[12px] font-medium text-[var(--text-subtle)]">Languages</span>
+                      <Field className="gap-1.5">
+                        <FieldLabel htmlFor="profile-subtitle-language-draft" className="text-[12px] font-medium text-[var(--text-subtle)]">
+                          Languages
+                        </FieldLabel>
                         <div className="flex min-h-8 flex-wrap items-center gap-1.5 rounded-lg border border-input bg-background/30 px-2 py-1">
                           {subtitleLanguages.length > 0 ? (
                             subtitleLanguages.map((code) => (
@@ -465,8 +520,9 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                             <span className="px-1 text-[11px] italic text-[var(--text-subtle)]">No languages selected</span>
                           )}
                         </div>
-                        <div className="flex gap-2">
-                          <Input
+                        <InputGroup aria-label="Subtitle language codes">
+                          <InputGroupInput
+                            id="profile-subtitle-language-draft"
                             value={subtitleLanguageDraft}
                             onChange={(event) => setSubtitleLanguageDraft(event.target.value)}
                             onKeyDown={(event) => {
@@ -475,23 +531,28 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                               addSubtitleLanguages();
                             }}
                             placeholder="en, uk, pt-br"
-                            className="h-8 text-[12px]"
+                            className="text-[12px]"
                             aria-label="Subtitle language codes"
                           />
-                          <Button type="button" variant="outline" size="sm" className="h-8 shrink-0 px-2 text-[11px]" onClick={addSubtitleLanguages} disabled={subtitleLanguageDraft.trim().length === 0}>
-                            <Plus data-icon="inline-start" />
-                            Add
-                          </Button>
-                        </div>
-                      </div>
+                          <InputGroupAddon align="inline-end">
+                            <InputGroupButton type="button" className="text-[11px]" onClick={addSubtitleLanguages} disabled={subtitleLanguageDraft.trim().length === 0}>
+                              <Plus data-icon="inline-start" />
+                              Add
+                            </InputGroupButton>
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </Field>
 
-                      <div className="flex flex-col gap-3">
+                      <FieldGroup className="gap-3">
                         <ProfileSelect label="Source" value={subtitleSource} options={SUBTITLE_SOURCE_OPTIONS} onValueChange={setSubtitleSource} testId="profiles-editor-subtitle-source" />
 
-                        <div className="flex flex-col gap-1.5">
-                          <span className="text-[12px] font-medium text-[var(--text-subtle)]">Delivery</span>
+                        <Field className="gap-1.5">
+                          <FieldTitle id="profile-subtitle-delivery" className="text-[12px] font-medium text-[var(--text-subtle)]">
+                            Delivery
+                          </FieldTitle>
                           <ToggleGroup
                             variant="outline"
+                            aria-labelledby="profile-subtitle-delivery"
                             value={[subtitleDelivery]}
                             onValueChange={(value) => {
                               if (value[0]) setSubtitleDelivery(value[0] as ProfileSubtitleDelivery);
@@ -504,14 +565,17 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                               </ToggleGroupItem>
                             ))}
                           </ToggleGroup>
-                          {subtitleDelivery === 'embed' ? <span className="text-[11px] leading-snug text-[var(--text-subtle)]">Embed mode saves output as .mkv so subtitle tracks embed reliably.</span> : null}
-                        </div>
+                          {subtitleDelivery === 'embed' ? <FieldDescription className="text-[11px] leading-snug text-[var(--text-subtle)]">Embed mode saves output as .mkv so subtitle tracks embed reliably.</FieldDescription> : null}
+                        </Field>
 
                         {subtitleDelivery !== 'embed' ? (
-                          <div className="flex flex-col gap-1.5">
-                            <span className="text-[12px] font-medium text-[var(--text-subtle)]">Format</span>
+                          <Field className="gap-1.5">
+                            <FieldTitle id="profile-subtitle-format" className="text-[12px] font-medium text-[var(--text-subtle)]">
+                              Format
+                            </FieldTitle>
                             <ToggleGroup
                               variant="outline"
+                              aria-labelledby="profile-subtitle-format"
                               value={[subtitleFormat]}
                               onValueChange={(value) => {
                                 if (value[0]) setSubtitleFormat(value[0] as ProfileSubtitleFormat);
@@ -524,32 +588,47 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                                 </ToggleGroupItem>
                               ))}
                             </ToggleGroup>
-                            {subtitleSource !== 'manual-only' && subtitleFormat === 'ass' ? <span className="text-[11px] leading-snug text-[var(--text-subtle)]">Auto-captions will be saved as SRT instead of ASS.</span> : null}
-                          </div>
+                            {subtitleSource !== 'manual-only' && subtitleFormat === 'ass' ? <FieldDescription className="text-[11px] leading-snug text-[var(--text-subtle)]">Auto-captions will be saved as SRT instead of ASS.</FieldDescription> : null}
+                          </Field>
                         ) : null}
-                      </div>
+                      </FieldGroup>
                     </div>
                   )}
-                </div>
+                </FieldGroup>
               </ProfilePanel>
             </div>
 
             <ProfilePanel title="Advanced options" className="lg:self-start">
-              <div className="flex flex-col gap-3">
-                <label className="flex flex-col gap-1.5" htmlFor="profile-destination">
-                  <span className="text-[12px] font-medium text-[var(--text-subtle)]">Destination</span>
-                  <div className="flex gap-2">
-                    <Input id="profile-destination" value={destination} onChange={(event) => setDestination(event.target.value)} className="font-mono text-[12px]" />
-                    <Button type="button" variant="outline" size="icon" aria-label="Choose destination folder">
-                      <Folder />
-                    </Button>
-                  </div>
-                </label>
+              <FieldGroup className="gap-3">
+                <Field className="gap-1.5">
+                  <FieldLabel htmlFor="profile-destination" className="text-[12px] font-medium text-[var(--text-subtle)]">
+                    Destination
+                  </FieldLabel>
+                  <InputGroup aria-label="Destination folder">
+                    <InputGroupInput id="profile-destination" value={destination} onChange={(event) => setDestination(event.target.value)} placeholder="Default downloads folder" className="font-mono text-[12px]" />
+                    <InputGroupAddon align="inline-end">
+                      <InputGroupButton type="button" size="icon-xs" aria-label="Choose destination folder">
+                        <Folder aria-hidden />
+                      </InputGroupButton>
+                    </InputGroupAddon>
+                  </InputGroup>
+                </Field>
 
-                <div className="flex items-center gap-2 text-[12px] text-[var(--text-subtle)]">
-                  <Checkbox checked={saveInsideSubfolder} onCheckedChange={(checked) => setSaveInsideSubfolder(checked === true)} aria-labelledby="profile-subfolder-label" />
-                  <span id="profile-subfolder-label">Save inside subfolder</span>
-                </div>
+                <Field orientation="horizontal" className="items-center gap-2 text-[12px] text-[var(--text-subtle)]">
+                  <Checkbox id="profile-subfolder-enabled" checked={saveInsideSubfolder} onCheckedChange={(checked) => setSaveInsideSubfolder(checked === true)} />
+                  <FieldLabel htmlFor="profile-subfolder-enabled" className="text-[12px] text-[var(--text-subtle)]">
+                    Save inside subfolder
+                  </FieldLabel>
+                </Field>
+                <Field className="gap-1.5 pl-7">
+                  <FieldLabel htmlFor="profile-subfolder-name" className="text-[12px] font-medium text-[var(--text-subtle)]">
+                    Subfolder name
+                  </FieldLabel>
+                  <InputGroup aria-label="Subfolder name">
+                    <InputGroupInput id="profile-subfolder-name" value={subfolderName} onChange={(event) => setSubfolderName(event.target.value)} disabled={!saveInsideSubfolder} placeholder={defaultProfileSubfolderName(profileName)} maxLength={64} aria-invalid={subfolderInvalid} data-testid="profiles-editor-subfolder-name" />
+                  </InputGroup>
+                  {subfolderInvalid ? <FieldDescription className="text-[12px] text-destructive">Use a valid folder name without / \ : * ? &quot; &lt; &gt; |.</FieldDescription> : null}
+                </Field>
 
                 <section className="rounded-lg border border-border bg-background/25 p-3">
                   <div className="mb-2 flex items-center justify-between gap-3">
@@ -590,7 +669,7 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                 </section>
 
                 <ProfileSelect label="Playlist probe cap" value={playlistCap} options={PLAYLIST_CAP_OPTIONS} onValueChange={setPlaylistCap} testId="profiles-editor-playlist-cap" />
-              </div>
+              </FieldGroup>
             </ProfilePanel>
           </div>
         </ScrollArea>
@@ -598,7 +677,7 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
           <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
-          <Button type="button" onClick={() => void saveProfile()} className="shadow-[0_4px_14px_var(--brand-glow)]">
+          <Button type="button" onClick={() => void saveProfile()} disabled={subfolderInvalid} className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
             Save profile
           </Button>
         </DialogFooter>

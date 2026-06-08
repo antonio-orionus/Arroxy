@@ -28,6 +28,7 @@ export type PlaylistAudioFormat = z.infer<typeof playlistAudioFormatSchema>;
 
 export const downloadProfileIconSchema = z.enum(['download', 'video', 'captions', 'audio', 'music', 'podcast', 'classes', 'clip', 'archive']);
 export type DownloadProfileIcon = z.infer<typeof downloadProfileIconSchema>;
+export const DOWNLOAD_PROFILE_ICONS = downloadProfileIconSchema.options;
 
 export const subtitleModeSchema = z.enum(['sidecar', 'embed', 'subfolder']);
 export type SubtitleMode = z.infer<typeof subtitleModeSchema>;
@@ -92,11 +93,16 @@ const downloadProfileAudioSchema = z.object({
   bitrateKbps: audioBitrateSchema.optional()
 });
 
+const downloadProfileVideoAudioSchema = z.object({
+  format: z.enum(['best', 'm4a'])
+});
+
 export const downloadProfileMediaSchema = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('video-audio'),
     codec: playlistVideoCodecSchema,
-    tiers: z.array(playlistVideoTierSchema).min(1)
+    tiers: z.array(playlistVideoTierSchema).min(1),
+    audio: downloadProfileVideoAudioSchema
   }),
   z.object({
     kind: z.literal('video-only'),
@@ -117,7 +123,8 @@ export const mediaIntentSchema = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('video-audio'),
     codec: playlistVideoCodecSchema,
-    tiers: z.array(playlistVideoTierSchema).min(1)
+    tiers: z.array(playlistVideoTierSchema).min(1),
+    audio: downloadProfileVideoAudioSchema
   }),
   z.object({
     kind: z.literal('video-only'),
@@ -173,7 +180,8 @@ export type DownloadProfileRef = z.infer<typeof downloadProfileRefSchema>;
 
 export const downloadProfilesPrefsSchema = z.object({
   active: downloadProfileRefSchema,
-  custom: z.array(downloadProfileSchema)
+  custom: z.array(downloadProfileSchema),
+  overrides: z.array(downloadProfileSchema)
 });
 export type DownloadProfilesPrefs = z.infer<typeof downloadProfilesPrefsSchema>;
 
@@ -492,7 +500,8 @@ const playlistPrefsPatchSchema = z.object({
 
 const downloadProfilesPrefsPatchSchema = z.object({
   active: downloadProfileRefSchema.optional(),
-  custom: z.array(downloadProfileSchema).optional()
+  custom: z.array(downloadProfileSchema).optional(),
+  overrides: z.array(downloadProfileSchema).optional()
 });
 
 export const updateSettingsSchema = z

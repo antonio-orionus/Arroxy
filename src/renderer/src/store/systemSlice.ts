@@ -1,7 +1,7 @@
 import type { AppSettings, DependencyId, DownloadProfile, DownloadProfileRef, QueueItem } from '@shared/types.js';
 import { QUEUE_STATUS } from '@shared/schemas.js';
 import { DEFAULTS } from '@shared/constants.js';
-import { DEFAULT_DOWNLOAD_PROFILES_PREFS, removeCustomDownloadProfile as removeCustomProfileFromPrefs, upsertCustomDownloadProfile } from '@shared/downloadProfiles.js';
+import { DEFAULT_DOWNLOAD_PROFILES_PREFS, normalizeDownloadProfilesPrefs, removeDownloadProfileFromPrefs, saveDownloadProfileToPrefs } from '@shared/downloadProfiles.js';
 import { i18next, pickLanguage, isRtl } from '@shared/i18n/index.js';
 import type { GetState, SetState, ShareTrigger, SystemSlice } from './types.js';
 import { notify } from '../lib/notify.js';
@@ -72,7 +72,7 @@ async function applyProfilesPatchAsync(get: GetState, set: SetState, label: stri
 }
 
 function currentProfiles(settings: AppSettings | null): AppSettings['profiles'] {
-  return settings?.profiles ?? DEFAULT_DOWNLOAD_PROFILES_PREFS;
+  return normalizeDownloadProfilesPrefs(settings?.profiles ?? DEFAULT_DOWNLOAD_PROFILES_PREFS);
 }
 
 function openShareDialogInternal(set: SetState, trigger: ShareTrigger): void {
@@ -471,13 +471,12 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
     saveDownloadProfile: async (profile: DownloadProfile, activate = true) => {
       const previous = currentProfiles(get().settings);
-      const upserted = upsertCustomDownloadProfile(previous, profile);
-      const profiles = activate ? { ...upserted, active: { kind: 'custom' as const, id: profile.id } } : upserted;
+      const profiles = saveDownloadProfileToPrefs(previous, profile, activate);
       await applyProfilesPatchAsync(get, set, 'downloadProfile.save', profiles);
     },
 
-    removeCustomDownloadProfile: async (id: string) => {
-      const profiles = removeCustomProfileFromPrefs(currentProfiles(get().settings), id);
+    removeDownloadProfile: async (id: string) => {
+      const profiles = removeDownloadProfileFromPrefs(currentProfiles(get().settings), id);
       await applyProfilesPatchAsync(get, set, 'downloadProfile.remove', profiles);
     },
 

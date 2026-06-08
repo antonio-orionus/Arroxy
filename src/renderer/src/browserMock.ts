@@ -1,11 +1,9 @@
 import type { AppApi } from '@shared/api.js';
 import type { AppSettings, DependencyDiagnostic, DependencyId, ProgressEvent, QueueItem, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent } from '@shared/types.js';
 import { QUEUE_STATUS, STATUS_KEY } from '@shared/schemas.js';
-import { buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, type BrowserMockScenario } from './dev/browserMockScenarios.js';
+import { BROWSER_MOCK_LAUNCH_MODES, buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, shouldShowBrowserMockStartupSplash, type BrowserMockLaunchMode, type BrowserMockScenario } from './dev/browserMockScenarios.js';
 import { applyThemeLive, readKnobs, RTL_LANGS } from './dev/browserMockKnobs.js';
 
-const BROWSER_MOCK_LAUNCH_MODES = ['ready', 'cold-loading', 'cold-error'] as const;
-export type BrowserMockLaunchMode = (typeof BROWSER_MOCK_LAUNCH_MODES)[number];
 const BROWSER_MOCK_LAUNCH_STORAGE_KEY = 'arroxy:browserMockLaunch';
 
 function isBrowserMockLaunchMode(value: string | null): value is BrowserMockLaunchMode {
@@ -75,7 +73,9 @@ export function installBrowserMock(): void {
   if ('appApi' in window) return;
 
   const knobs = readKnobs(location);
+  const launchMode = readBrowserMockLaunchMode();
   const scenarioState = buildScenarioAppApiState(readBrowserMockScenario(), readUrlParams(location), knobs);
+  (window as Window & { __arroxyBrowserMockShowStartupSplash?: boolean }).__arroxyBrowserMockShowStartupSplash = shouldShowBrowserMockStartupSplash({ launchMode, warmUp: scenarioState.warmUp });
 
   // Apply theme immediately so the first render uses the right colour scheme.
   applyThemeLive(knobs.theme);
@@ -101,7 +101,6 @@ export function installBrowserMock(): void {
   const queueItems: QueueItem[] = [...scenarioState.queueItems];
   let queueRunning = false;
   let warmupCallCount = 0;
-  const launchMode = readBrowserMockLaunchMode();
 
   let settings: AppSettings = scenarioState.settings;
 

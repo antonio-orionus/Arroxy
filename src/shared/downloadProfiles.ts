@@ -1,10 +1,24 @@
 import { DEFAULTS } from './constants.js';
 import { DEFAULT_AUDIO_BITRATE } from './schemas.js';
-import type { DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, MediaIntent } from './schemas.js';
+import type { DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, MediaIntent, PlaylistVideoTier } from './schemas.js';
 import { mediaIntentFromProfileMedia, mediaIntentSpec, type MediaIntentSpec } from './mediaIntent.js';
 import type { EmbedOptions, SponsorBlockOptions, SubtitleOptions } from './preparedJob.js';
+import { safeFolderName } from './subfolder.js';
 
 const BUILTIN_TIMESTAMP = '2026-06-07T00:00:00.000Z';
+const BUILTIN_PROFILE_EMBED = {
+  chapters: true,
+  metadata: true,
+  thumbnail: false,
+  description: false,
+  thumbnailSidecar: false
+} as const;
+
+type VideoAudioProfileMedia = Extract<DownloadProfile['media'], { kind: 'video-audio' }>;
+
+function videoAudio(codec: 'best' | 'mp4', tiers: PlaylistVideoTier[]): VideoAudioProfileMedia {
+  return { kind: 'video-audio', codec, tiers, audio: { format: codec === 'mp4' ? 'm4a' : 'best' } };
+}
 
 function baseProfile(id: string, name: string, media: DownloadProfile['media'], icon: DownloadProfile['icon']): DownloadProfile {
   return {
@@ -19,33 +33,32 @@ function baseProfile(id: string, name: string, media: DownloadProfile['media'], 
       mode: DEFAULTS.subtitleMode,
       format: DEFAULTS.subtitleFormat
     },
-    output: { kind: 'default' },
-    subfolder: { enabled: false, name: '' },
     sponsorBlock: {
       mode: DEFAULTS.sponsorBlockMode,
       categories: [...DEFAULTS.sponsorBlockCategories]
     },
     embed: {
-      chapters: DEFAULTS.embedChapters,
-      metadata: DEFAULTS.embedMetadata,
-      thumbnail: DEFAULTS.embedThumbnail,
-      description: DEFAULTS.writeDescription,
-      thumbnailSidecar: DEFAULTS.writeThumbnail
+      ...BUILTIN_PROFILE_EMBED
     },
     playlistProbeCap: 'confirm',
     createdAt: BUILTIN_TIMESTAMP,
-    updatedAt: BUILTIN_TIMESTAMP
+    updatedAt: BUILTIN_TIMESTAMP,
+    output: { kind: 'default' },
+    subfolder: { enabled: true, name: safeFolderName(name) }
   };
 }
 
-export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [baseProfile('best-quality', 'Best quality', { kind: 'video-audio', codec: 'best', tiers: ['best'] }, 'video'), baseProfile('balanced', 'Balanced', { kind: 'video-audio', codec: 'best', tiers: ['720'] }, 'download'), baseProfile('small-file', 'Small file', { kind: 'video-audio', codec: 'best', tiers: ['480', '360'] }, 'clip'), baseProfile('audio-only', 'Audio only', { kind: 'audio-only', audio: { format: 'best', bitrateKbps: DEFAULT_AUDIO_BITRATE } }, 'audio')] as const;
+export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [baseProfile('best-quality', 'Best quality', videoAudio('best', ['best']), 'video'), baseProfile('best-2160', '2160p', videoAudio('best', ['2160']), 'video'), baseProfile('best-1440', '1440p', videoAudio('best', ['1440']), 'video'), baseProfile('hd-1080', 'HD 1080p', videoAudio('best', ['1080']), 'video'), baseProfile('balanced', 'Balanced', videoAudio('best', ['720']), 'download'), baseProfile('small-file', 'Small file', videoAudio('best', ['480', '360']), 'clip'), baseProfile('mp4-2160', 'MP4 2160p', videoAudio('mp4', ['2160']), 'video'), baseProfile('mp4-1440', 'MP4 1440p', videoAudio('mp4', ['1440']), 'video'), baseProfile('mp4-1080', 'MP4 1080p', videoAudio('mp4', ['1080']), 'video'), baseProfile('audio-only', 'Audio only', { kind: 'audio-only', audio: { format: 'best' } }, 'audio')] as const;
 
 export const DEFAULT_DOWNLOAD_PROFILE_REF: DownloadProfileRef = { kind: 'builtin', id: 'balanced' };
 
 export const DEFAULT_DOWNLOAD_PROFILES_PREFS: DownloadProfilesPrefs = {
   active: DEFAULT_DOWNLOAD_PROFILE_REF,
-  custom: []
+  custom: [],
+  overrides: []
 };
+
+export type DownloadProfileOrigin = { kind: 'builtin'; overridden: boolean } | { kind: 'custom' };
 
 export interface ResolvedDownloadProfile {
   profile: DownloadProfile;
@@ -58,34 +71,87 @@ export interface ResolvedDownloadProfile {
   isSubtitleOnly: boolean;
 }
 
+function isBuiltinDownloadProfileId(id: string): boolean {
+  return BUILTIN_DOWNLOAD_PROFILES.some((profile) => profile.id === id);
+}
+
+export function normalizeDownloadProfilesPrefs(prefs: DownloadProfilesPrefs | undefined): DownloadProfilesPrefs {
+  const source = prefs ?? DEFAULT_DOWNLOAD_PROFILES_PREFS;
+  return {
+    active: source.active ?? DEFAULT_DOWNLOAD_PROFILE_REF,
+    custom: (source.custom ?? []).filter((profile) => !isBuiltinDownloadProfileId(profile.id)),
+    overrides: (source.overrides ?? []).filter((profile) => isBuiltinDownloadProfileId(profile.id))
+  };
+}
+
+function overriddenBuiltinProfiles(prefs: DownloadProfilesPrefs | undefined): DownloadProfile[] {
+  const normalized = normalizeDownloadProfilesPrefs(prefs);
+  return BUILTIN_DOWNLOAD_PROFILES.map((builtin) => normalized.overrides.find((profile) => profile.id === builtin.id) ?? builtin);
+}
+
 export function allDownloadProfiles(prefs: DownloadProfilesPrefs | undefined): DownloadProfile[] {
-  return [...BUILTIN_DOWNLOAD_PROFILES, ...(prefs?.custom ?? [])];
+  const normalized = normalizeDownloadProfilesPrefs(prefs);
+  return [...overriddenBuiltinProfiles(normalized), ...normalized.custom];
 }
 
 function findDownloadProfile(ref: DownloadProfileRef, prefs: DownloadProfilesPrefs | undefined): DownloadProfile | null {
-  const profiles = ref.kind === 'builtin' ? BUILTIN_DOWNLOAD_PROFILES : (prefs?.custom ?? []);
+  const normalized = normalizeDownloadProfilesPrefs(prefs);
+  const profiles = ref.kind === 'builtin' ? overriddenBuiltinProfiles(normalized) : normalized.custom;
   return profiles.find((profile) => profile.id === ref.id) ?? null;
 }
 
 export function resolveActiveDownloadProfile(prefs: DownloadProfilesPrefs | undefined): { profile: DownloadProfile; ref: DownloadProfileRef } {
-  const active = prefs?.active ?? DEFAULT_DOWNLOAD_PROFILE_REF;
-  const found = findDownloadProfile(active, prefs);
-  if (found) return { profile: found, ref: active };
-  const fallback = findDownloadProfile(DEFAULT_DOWNLOAD_PROFILE_REF, prefs) ?? BUILTIN_DOWNLOAD_PROFILES[0];
+  const normalized = normalizeDownloadProfilesPrefs(prefs);
+  const found = findDownloadProfile(normalized.active, normalized);
+  if (found) return { profile: found, ref: normalized.active };
+  const fallback = findDownloadProfile(DEFAULT_DOWNLOAD_PROFILE_REF, normalized) ?? BUILTIN_DOWNLOAD_PROFILES[0];
   if (!fallback) throw new Error('No built-in download profiles available');
   return { profile: fallback, ref: DEFAULT_DOWNLOAD_PROFILE_REF };
 }
 
-export function upsertCustomDownloadProfile(prefs: DownloadProfilesPrefs, profile: DownloadProfile): DownloadProfilesPrefs {
-  const without = prefs.custom.filter((item) => item.id !== profile.id);
-  return { ...prefs, custom: [...without, profile] };
+export function downloadProfileOrigin(profile: DownloadProfile, prefs: DownloadProfilesPrefs | undefined): DownloadProfileOrigin {
+  if (!isBuiltinDownloadProfileId(profile.id)) return { kind: 'custom' };
+  const normalized = normalizeDownloadProfilesPrefs(prefs);
+  return { kind: 'builtin', overridden: normalized.overrides.some((item) => item.id === profile.id) };
 }
 
-export function removeCustomDownloadProfile(prefs: DownloadProfilesPrefs, id: string): DownloadProfilesPrefs {
-  const custom = prefs.custom.filter((profile) => profile.id !== id);
-  const activeRemoved = prefs.active.kind === 'custom' && prefs.active.id === id;
+export function downloadProfileRefFor(profile: DownloadProfile, _prefs: DownloadProfilesPrefs | undefined): DownloadProfileRef {
+  return isBuiltinDownloadProfileId(profile.id) ? { kind: 'builtin', id: profile.id } : { kind: 'custom', id: profile.id };
+}
+
+export function saveDownloadProfileToPrefs(prefs: DownloadProfilesPrefs, profile: DownloadProfile, activate = true): DownloadProfilesPrefs {
+  const normalized = normalizeDownloadProfilesPrefs(prefs);
+  const ref = downloadProfileRefFor(profile, normalized);
+  if (ref.kind === 'builtin') {
+    const overrides = normalized.overrides.filter((item) => item.id !== profile.id);
+    return {
+      ...normalized,
+      active: activate ? ref : normalized.active,
+      custom: normalized.custom.filter((item) => item.id !== profile.id),
+      overrides: [...overrides, profile]
+    };
+  }
+  const custom = normalized.custom.filter((item) => item.id !== profile.id);
   return {
-    active: activeRemoved ? DEFAULT_DOWNLOAD_PROFILE_REF : prefs.active,
+    ...normalized,
+    active: activate ? ref : normalized.active,
+    custom: [...custom, profile]
+  };
+}
+
+export function removeDownloadProfileFromPrefs(prefs: DownloadProfilesPrefs, id: string): DownloadProfilesPrefs {
+  const normalized = normalizeDownloadProfilesPrefs(prefs);
+  if (isBuiltinDownloadProfileId(id)) {
+    return {
+      ...normalized,
+      overrides: normalized.overrides.filter((profile) => profile.id !== id)
+    };
+  }
+  const custom = normalized.custom.filter((profile) => profile.id !== id);
+  const activeRemoved = normalized.active.kind === 'custom' && normalized.active.id === id;
+  return {
+    ...normalized,
+    active: activeRemoved ? DEFAULT_DOWNLOAD_PROFILE_REF : normalized.active,
     custom
   };
 }
@@ -131,7 +197,7 @@ export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadPr
 export function downloadProfileLabel(profile: DownloadProfile): string {
   switch (profile.media.kind) {
     case 'video-audio':
-      return `Video + audio · ${profile.media.codec === 'mp4' ? 'MP4' : 'best codec'} · ${profile.media.tiers.join('/')}`;
+      return `Video + audio · ${profile.media.codec === 'mp4' ? 'MP4' : 'best codec'} · ${profile.media.tiers.join('/')} · ${profile.media.audio.format === 'm4a' ? 'M4A audio' : 'best audio'}`;
     case 'video-only':
       return `Video, no audio · ${profile.media.codec === 'mp4' ? 'MP4' : 'best codec'} · ${profile.media.tiers.join('/')}`;
     case 'audio-only':

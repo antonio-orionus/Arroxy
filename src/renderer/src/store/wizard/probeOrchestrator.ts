@@ -27,6 +27,7 @@ import { type VisibleStep } from '../../components/wizard/stepNavigation.js';
 import { nextStep, type NavContext } from '../../components/wizard/nextStep.js';
 import { BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, hydrateBulkMetadata, nextBulkMetadataRunId } from './bulkMetadataHydration.js';
 import { playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage } from './playlistScopeReload.js';
+import { playlistTitleFallback } from './playlistTitle.js';
 import { isMixedYouTubeUrl, rewriteYouTubeChannelRoot } from './urlIntake.js';
 
 function navCtx(state: AppState): NavContext {
@@ -309,7 +310,7 @@ async function enqueueActiveProfileProbeResult(probe: ProbeResult, set: SetState
     try {
       const manifestRes = await window.appApi.playlist.registerManifest({
         playlistGroupId: prepared.playlistGroupId,
-        playlistTitle: prepared.playlistTitle?.trim() ? prepared.playlistTitle : probeForQueue.playlistTitle.trim() ? probeForQueue.playlistTitle : 'Playlist',
+        playlistTitle: playlistTitleFallback(prepared.playlistTitle, probeForQueue.playlistTitle),
         outputDir: prepared.items[0]?.outputDir ?? get().wizardOutputDir,
         items: probeForQueue.entries.map((e) => ({ videoId: e.videoId, title: e.title, duration: e.duration }))
       });

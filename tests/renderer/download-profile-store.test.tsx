@@ -19,7 +19,7 @@ function resetStore(): void {
 
 function customProfile(): DownloadProfile {
   return {
-    ...BUILTIN_DOWNLOAD_PROFILES[1],
+    ...BUILTIN_DOWNLOAD_PROFILES.find((profile) => profile.id === 'balanced')!,
     id: 'study-captions',
     name: 'Study Captions',
     icon: 'captions',
@@ -59,7 +59,7 @@ describe('download profile store actions', () => {
 
     await useAppStore.getState().setActiveDownloadProfile({ kind: 'builtin', id: 'audio-only' });
 
-    expect(api.settings.update).toHaveBeenCalledWith({ profiles: { active: { kind: 'builtin', id: 'audio-only' }, custom: [] } });
+    expect(api.settings.update).toHaveBeenCalledWith({ profiles: { active: { kind: 'builtin', id: 'audio-only' }, custom: [], overrides: [] } });
     expect(useAppStore.getState().settings?.profiles.active).toEqual({ kind: 'builtin', id: 'audio-only' });
   });
 
@@ -76,17 +76,31 @@ describe('download profile store actions', () => {
     expect(profiles?.custom).toEqual([profile]);
   });
 
+  it('saves a built-in profile edit as an override and keeps the active ref builtin', async () => {
+    const settings = defaultAppSettings('/tmp');
+    installSettingsApi(settings);
+    useAppStore.setState({ settings });
+
+    const override = { ...BUILTIN_DOWNLOAD_PROFILES.find((profile) => profile.id === 'balanced')!, name: 'Balanced for lectures', icon: 'classes' as const };
+    await useAppStore.getState().saveDownloadProfile(override);
+
+    const profiles = useAppStore.getState().settings?.profiles;
+    expect(profiles?.active).toEqual({ kind: 'builtin', id: 'balanced' });
+    expect(profiles?.custom).toEqual([]);
+    expect(profiles?.overrides).toEqual([override]);
+  });
+
   it('removes an active custom profile and falls back to the default built-in', async () => {
     const profile = customProfile();
     const settings = {
       ...defaultAppSettings('/tmp'),
-      profiles: { active: { kind: 'custom' as const, id: profile.id }, custom: [profile] }
+      profiles: { active: { kind: 'custom' as const, id: profile.id }, custom: [profile], overrides: [] }
     };
     installSettingsApi(settings);
     useAppStore.setState({ settings });
 
-    await useAppStore.getState().removeCustomDownloadProfile(profile.id);
+    await useAppStore.getState().removeDownloadProfile(profile.id);
 
-    expect(useAppStore.getState().settings?.profiles).toEqual({ active: { kind: 'builtin', id: 'balanced' }, custom: [] });
+    expect(useAppStore.getState().settings?.profiles).toEqual({ active: { kind: 'builtin', id: 'balanced' }, custom: [], overrides: [] });
   });
 });

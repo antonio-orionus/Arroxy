@@ -35,7 +35,7 @@ export function VideoColumn({ formats, selectedVideoFormatId, onSelect }: VideoC
         <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.formats.video')}</p>
         <div className="flex items-center gap-[6px]">
           {uniqueDynamicRanges.length > 1 && (
-            <ToggleGroup value={drFilter ? [drFilter] : []} onValueChange={(vals) => setDrFilter(vals[0] ?? null)} className="gap-[3px]">
+            <ToggleGroup value={drFilter ? [drFilter] : []} onValueChange={(vals) => setDrFilter(vals[0] ?? null)} spacing={1} className="gap-[3px]">
               {uniqueDynamicRanges.map((dr) => (
                 <ToggleGroupItem key={dr} value={dr} className="h-5 px-[7px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground">
                   {dr}
@@ -44,7 +44,7 @@ export function VideoColumn({ formats, selectedVideoFormatId, onSelect }: VideoC
             </ToggleGroup>
           )}
           {uniqueExts.length > 1 && (
-            <ToggleGroup value={extFilter ? [extFilter] : []} onValueChange={(vals) => setExtFilter(vals[0] ?? null)} className="gap-[3px]">
+            <ToggleGroup value={extFilter ? [extFilter] : []} onValueChange={(vals) => setExtFilter(vals[0] ?? null)} spacing={1} className="gap-[3px]">
               {uniqueExts.map((ext) => (
                 <ToggleGroupItem key={ext} value={ext} className="h-5 px-[7px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground">
                   {ext}

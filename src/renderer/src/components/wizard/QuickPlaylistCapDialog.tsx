@@ -7,7 +7,14 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { PlaylistProbeLimitSelector } from './PlaylistProbeLimitSelector.js';
 
 export function QuickPlaylistCapDialog(): JSX.Element {
-  const { dismissQuickPlaylistCapDialog, isSubmittingToQueue, playlistItems, playlistTitle, quickPlaylistCapDialogOpen, queueLoadedPlaylistWithActiveProfile, retryFormatProbe, settings } = useAppStore();
+  const quickPlaylistCapDialogOpen = useAppStore((state) => state.quickPlaylistCapDialogOpen);
+  const playlistItems = useAppStore((state) => state.playlistItems);
+  const playlistTitle = useAppStore((state) => state.playlistTitle);
+  const isSubmittingToQueue = useAppStore((state) => state.isSubmittingToQueue);
+  const settings = useAppStore((state) => state.settings);
+  const dismissQuickPlaylistCapDialog = useAppStore((state) => state.dismissQuickPlaylistCapDialog);
+  const queueLoadedPlaylistWithActiveProfile = useAppStore((state) => state.queueLoadedPlaylistWithActiveProfile);
+  const retryFormatProbe = useAppStore((state) => state.retryFormatProbe);
   const playlistLimit = resolvePlaylistProbeLimit(settings?.common);
   const itemCount = playlistItems.length;
 

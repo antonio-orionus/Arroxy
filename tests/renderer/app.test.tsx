@@ -64,7 +64,15 @@ describe('App renderer', () => {
     const quick = await screen.findByTestId('profiles-quick-download');
     const fetch = screen.getByTestId('profiles-interactive-download');
     expect(quick).toHaveTextContent('Quick Download');
+    expect(screen.getByTestId('profiles-quick-preview')).toHaveTextContent('Active profile');
+    expect(screen.getByRole('button', { name: 'Edit selected profile: Balanced' })).toBeInTheDocument();
+    const profileMenuTrigger = screen.getByRole('button', { name: 'Choose active download profile' });
+    expect(profileMenuTrigger).toBeInTheDocument();
     expect(quick).toBeDisabled();
+
+    fireEvent.click(profileMenuTrigger);
+    expect(await screen.findByText('Switch profile')).toBeInTheDocument();
+    expect(screen.getByText('Change the active profile for Quick Download, Bulk URLs, and playlists.')).toBeInTheDocument();
 
     const input = await screen.findByTestId('profiles-main-input');
     fireEvent.change(input, { target: { value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' } });

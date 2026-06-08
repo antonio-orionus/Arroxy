@@ -5,8 +5,9 @@ import { NETWORK_PACING_PRESET_VALUES } from '@shared/constants.js';
 import { pacingConcurrentFragmentsSchema, pacingSleepSecondsSchema } from '@shared/schemas.js';
 import type { NetworkPacingPreset } from '@shared/types.js';
 import { useAppStore } from '../../store/useAppStore.js';
-import { Input } from '../ui/input.js';
-import { RadioOption } from '../ui/radio-option.js';
+import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '../ui/field.js';
+import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from '../ui/input-group.js';
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group.js';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip.js';
 
 const CUSTOM_FIELDS = [
@@ -88,27 +89,40 @@ export function NetworkPacingSettings(): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col gap-3" data-testid="network-pacing-section">
-      <div className="flex flex-col gap-0.5">
-        <span className="text-[13px] font-medium text-foreground">{t('wizard.url.networkPacing.heading')}</span>
-        <span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.networkPacing.description')}</span>
-      </div>
+    <Field className="gap-3" data-testid="network-pacing-section">
+      <FieldContent className="gap-0.5">
+        <FieldTitle id="network-pacing-heading" className="text-[13px] font-medium text-foreground">
+          {t('wizard.url.networkPacing.heading')}
+        </FieldTitle>
+        <FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.networkPacing.description')}</FieldDescription>
+      </FieldContent>
 
       <div className="flex flex-col gap-1.5 rounded-md border border-[var(--border-strong)] bg-background/35 p-2.5">
         <div className="flex items-center gap-1">
-          <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.url.networkPacing.presetLabel')}</span>
+          <span id="network-pacing-preset-label" className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
+            {t('wizard.url.networkPacing.presetLabel')}
+          </span>
           <HelpTooltip testId="network-pacing-tooltip" label={t('wizard.url.networkPacing.presetLabel')}>
             {t('wizard.url.networkPacing.tooltip')}
           </HelpTooltip>
         </div>
-        <div className="grid grid-cols-2 gap-0.5" role="radiogroup" aria-label={t('wizard.url.networkPacing.presetLabel')}>
+        <ToggleGroup
+          variant="outline"
+          value={[pacingPreset]}
+          onValueChange={(value) => {
+            if (value[0]) void setNetworkPacingPreset(value[0] as NetworkPacingPreset);
+          }}
+          spacing={1}
+          className="grid w-full grid-cols-2 gap-1"
+          aria-labelledby="network-pacing-preset-label"
+        >
           {(['off', 'balanced', 'careful', 'custom'] as const).map((preset) => (
             <Tooltip key={preset}>
               <TooltipTrigger
                 render={(props) => (
-                  <div {...props}>
-                    <RadioOption label={t(`wizard.url.networkPacing.presets.${preset}`)} checked={pacingPreset === preset} onClick={() => void setNetworkPacingPreset(preset)} />
-                  </div>
+                  <ToggleGroupItem {...props} value={preset} className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+                    {t(`wizard.url.networkPacing.presets.${preset}`)}
+                  </ToggleGroupItem>
                 )}
               />
               <TooltipContent className="max-w-[18rem] leading-snug" data-testid={`network-pacing-${preset}-tooltip`}>
@@ -116,7 +130,7 @@ export function NetworkPacingSettings(): JSX.Element {
               </TooltipContent>
             </Tooltip>
           ))}
-        </div>
+        </ToggleGroup>
         {pacingPreset !== 'custom' && (
           <p className="text-[11px] text-[var(--text-subtle)]" data-testid="network-pacing-summary">
             {t('wizard.url.networkPacing.summary', presetSummaryValues(pacingPreset))}
@@ -125,18 +139,22 @@ export function NetworkPacingSettings(): JSX.Element {
       </div>
 
       {pacingPreset === 'custom' && (
-        <div className="grid grid-cols-2 gap-2 rounded-md border border-[var(--border-strong)] bg-background/35 p-2.5" data-testid="network-pacing-custom">
+        <FieldGroup className="grid grid-cols-2 gap-2 rounded-md border border-[var(--border-strong)] bg-background/35 p-2.5" data-testid="network-pacing-custom">
           {CUSTOM_FIELDS.map((field) => (
-            <label key={field.key} className="flex flex-col gap-1">
-              <span className="text-[11px] font-medium text-[var(--text-subtle)]">{t(`wizard.url.networkPacing.fields.${field.labelKey}`)}</span>
-              <div className="relative">
-                <Input type="number" min={0} value={fieldDrafts[field.key] ?? toDraft(common?.[field.key])} onChange={(e) => onFieldChange(field.key, e.target.value)} onBlur={() => onFieldBlur(field.key)} placeholder={String(NETWORK_PACING_PRESET_VALUES.balanced[field.labelKey] ?? '')} className="h-8 pe-14 text-[12px] font-mono" data-testid={field.testId} />
-                <span className="pointer-events-none absolute end-2 top-1/2 -translate-y-1/2 text-[11px] text-[var(--text-subtle)]">{t(`wizard.url.networkPacing.units.${field.unitKey}`)}</span>
-              </div>
-            </label>
+            <Field key={field.key} className="gap-1">
+              <FieldLabel htmlFor={field.testId} className="text-[11px] font-medium text-[var(--text-subtle)]">
+                {t(`wizard.url.networkPacing.fields.${field.labelKey}`)}
+              </FieldLabel>
+              <InputGroup>
+                <InputGroupInput id={field.testId} type="number" min={0} value={fieldDrafts[field.key] ?? toDraft(common?.[field.key])} onChange={(e) => onFieldChange(field.key, e.target.value)} onBlur={() => onFieldBlur(field.key)} placeholder={String(NETWORK_PACING_PRESET_VALUES.balanced[field.labelKey] ?? '')} className="text-[12px] font-mono" data-testid={field.testId} />
+                <InputGroupAddon align="inline-end">
+                  <InputGroupText className="text-[11px]">{t(`wizard.url.networkPacing.units.${field.unitKey}`)}</InputGroupText>
+                </InputGroupAddon>
+              </InputGroup>
+            </Field>
           ))}
-        </div>
+        </FieldGroup>
       )}
-    </div>
+    </Field>
   );
 }

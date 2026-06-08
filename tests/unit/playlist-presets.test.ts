@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mediaIntentSpec, playlistSelectionToMediaIntent } from '@shared/mediaIntent.js';
-import type { PlaylistSelection } from '@shared/schemas.js';
+import type { MediaIntent, PlaylistSelection } from '@shared/schemas.js';
 
 function specFor(selection: PlaylistSelection) {
   return mediaIntentSpec(playlistSelectionToMediaIntent(selection));
@@ -43,6 +43,32 @@ describe('mediaIntentSpec', () => {
       expect(spec.mergeOutputFormat).toBe('mp4');
       expect(spec.audioConvert).toBeUndefined();
       expect(spec.producesVideo).toBe(true);
+    });
+  });
+
+  describe('video profile audio preference', () => {
+    it('best codec can prefer native M4A audio without forcing MP4 video', () => {
+      const intent: MediaIntent = { kind: 'video-audio', codec: 'best', tiers: ['1440'], audio: { format: 'm4a' } };
+      const spec = mediaIntentSpec(intent);
+
+      expect(spec.formatSelector).toBe('bestvideo[height<=1440]+bestaudio[ext=m4a]/bestvideo[height<=1440]+bestaudio/best[height<=1440]');
+      expect(spec.formatSort).toBe('acodec:m4a');
+      expect(spec.mergeOutputFormat).toBeUndefined();
+      expect(spec.audioConvert).toBeUndefined();
+      expect(spec.producesVideo).toBe(true);
+      expect(spec.producesAudio).toBe(true);
+    });
+
+    it('MP4 video can keep best native audio when the profile does not prefer M4A', () => {
+      const intent: MediaIntent = { kind: 'video-audio', codec: 'mp4', tiers: ['1080'], audio: { format: 'best' } };
+      const spec = mediaIntentSpec(intent);
+
+      expect(spec.formatSelector).toBe('bv*[height<=1080]+ba/b[height<=1080]/bv*+ba/b');
+      expect(spec.formatSort).toBe('vcodec:h264,ext:mp4');
+      expect(spec.mergeOutputFormat).toBe('mp4');
+      expect(spec.audioConvert).toBeUndefined();
+      expect(spec.producesVideo).toBe(true);
+      expect(spec.producesAudio).toBe(true);
     });
   });
 

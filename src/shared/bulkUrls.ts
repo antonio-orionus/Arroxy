@@ -39,6 +39,10 @@ function isYouTubeHost(hostname: string): boolean {
   return host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtu.be';
 }
 
+function isSingleVideoYouTubePath(host: string, segments: string[], searchParams: URLSearchParams): boolean {
+  return (host === 'youtu.be' && segments.length === 1 && !!segments[0]) || (segments[0] === 'watch' && !!searchParams.get('v')) || (segments[0] === 'shorts' && segments.length === 2 && !!segments[1]);
+}
+
 export function classifyBulkUrlKind(url: string): BulkUrlKind {
   const parsed = parseUrl(url);
   if (!parsed || !isYouTubeHost(parsed.hostname)) return 'other';
@@ -48,8 +52,7 @@ export function classifyBulkUrlKind(url: string): BulkUrlKind {
   if (segments[0] === 'results' && parsed.searchParams.has('search_query')) return 'search';
   if (segments[0]?.startsWith('@') || segments[0] === 'channel' || segments[0] === 'c' || segments[0] === 'user') return 'channel';
 
-  const hasSingleVideoId = (host === 'youtu.be' && segments.length === 1 && !!segments[0]) || (segments[0] === 'watch' && !!parsed.searchParams.get('v')) || (segments[0] === 'shorts' && segments.length === 2 && !!segments[1]);
-  if (hasSingleVideoId) return 'single';
+  if (isSingleVideoYouTubePath(host, segments, parsed.searchParams)) return 'single';
   if (parsed.searchParams.has('list') || segments[0] === 'playlist') return 'playlist';
   return 'other';
 }

@@ -22,6 +22,7 @@ export function PresetStrip({ activePreset, onSelect }: PresetStripProps): JSX.E
         onValueChange={(vals) => {
           if (vals[0]) onSelect(vals[0] as Preset);
         }}
+        spacing={2}
         className="grid grid-cols-5 gap-1.5 w-full"
       >
         {options.map((p) => (

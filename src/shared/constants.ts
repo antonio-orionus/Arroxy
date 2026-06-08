@@ -56,7 +56,8 @@ export function defaultAppSettings(downloadsDir: string): AppSettings {
     playlist: {},
     profiles: {
       active: { kind: 'builtin', id: 'balanced' },
-      custom: []
+      custom: [],
+      overrides: []
     }
   };
 }

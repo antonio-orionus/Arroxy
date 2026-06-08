@@ -22,6 +22,11 @@ import { cn } from './lib/utils.js';
 const FEEDBACK_URL = 'https://github.com/antonio-orionus/Arroxy/issues/new/choose';
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock';
 
+function shouldRenderStartupSplash(): boolean {
+  if (import.meta.env.MODE !== 'browser-mock') return true;
+  return window.__arroxyBrowserMockShowStartupSplash === true;
+}
+
 function buildDebugInfo(): string {
   const ua = navigator.userAgent;
   const electron = /Electron\/([\d.]+)/.exec(ua)?.[1] ?? 'unknown';
@@ -35,6 +40,7 @@ export function App(): JSX.Element {
   const update = useUpdateChannel();
   const [debugCopied, setDebugCopied] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
+  const showStartupSplash = shouldRenderStartupSplash();
 
   function copyDebugInfo(): void {
     void navigator.clipboard.writeText(buildDebugInfo()).then(() => {
@@ -139,7 +145,7 @@ export function App(): JSX.Element {
           </div>
         </footer>
 
-        <SplashScreen initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={shouldShowSplashGreeting(settings)} onDismissed={() => setSplashDismissed(true)} />
+        {showStartupSplash && <SplashScreen initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={shouldShowSplashGreeting(settings)} onDismissed={() => setSplashDismissed(true)} />}
         <AboutDialog />
         <ShareDialog />
         {SHOW_SCENARIO_GALLERY && <ScenarioGallery />}

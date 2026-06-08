@@ -6,7 +6,7 @@
 // from wizard state because the wizard data lives in the renderer; once
 // built, the items are pushed to main via queue.cmd.add.
 
-import type { DownloadProfile, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane } from '@shared/types.js';
+import type { DownloadProfile, DownloadProfileRef, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane } from '@shared/types.js';
 import { QUEUE_STATUS } from '@shared/schemas.js';
 import { DEFAULTS } from '@shared/constants.js';
 import { buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution } from './helpers.js';
@@ -23,6 +23,7 @@ import { bulkLogger } from '@renderer/lib/bulkLogger.js';
 import type { GetState, SetState, QueueSlice } from './types.js';
 import { persistFormatPrefs } from './wizard/persistFormatPrefs.js';
 import { WizardCommands } from './wizard/commands.js';
+import { playlistTitleFallback } from './wizard/playlistTitle.js';
 
 export function maybeShowQueueTip(set: SetState): void {
   if (!localStorage.getItem('arroxy_seen_queue_tip')) {
@@ -138,7 +139,7 @@ function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extrac
     });
   }
 
-  if (!resolved.intent) throw new Error('download profile media intent missing');
+  if (!resolved.intent) throw new Error(`download profile media intent missing for ${downloadProfileRefLabel(resolved.ref)}`);
   return prepareJob({
     mode: 'playlist',
     extractor,
@@ -150,6 +151,10 @@ function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extrac
     sponsorBlockCategories: resolved.sponsorBlock.mode === 'off' ? [] : resolved.sponsorBlock.categories,
     embed: resolved.embed
   });
+}
+
+function downloadProfileRefLabel(ref: DownloadProfileRef): string {
+  return `${ref.kind}:${ref.id}`;
 }
 
 function buildProfileEntryQueueItem(params: { entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail'>; outputDir: string; extractor: string; extractorKey: string; resolved: ResolvedDownloadProfile; profile: DownloadProfile; playlistGroupId?: string; writeM3u: boolean; lane: QueueLane }): QueueItem {
@@ -363,7 +368,7 @@ async function queueLoadedPlaylistWithActiveProfile(set: SetState, get: GetState
       try {
         const manifestRes = await window.appApi.playlist.registerManifest({
           playlistGroupId: prepared.playlistGroupId,
-          playlistTitle: prepared.playlistTitle?.trim() ? prepared.playlistTitle : state.playlistTitle.trim() ? state.playlistTitle : 'Playlist',
+          playlistTitle: playlistTitleFallback(prepared.playlistTitle, state.playlistTitle),
           outputDir: prepared.items[0]?.outputDir ?? state.wizardOutputDir,
           items: state.playlistItems.map((e) => ({ videoId: e.videoId, title: e.title, duration: e.duration }))
         });
