@@ -72,7 +72,7 @@
 		"@openpanel/sdk": "1.3.1",
 		"@tanstack/react-virtual": "3.13.26",
 		"@testing-library/dom": "10.4.1",
-		"@url-sanitize/clearurls": "0.1.2",
+		"@url-sanitize/clearurls": "1.0.0",
 		"@url-sanitize/core": "0.1.2",
 		"class-variance-authority": "0.7.1",
 		"clsx": "2.1.1",
