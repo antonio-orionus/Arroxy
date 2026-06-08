@@ -8,11 +8,14 @@ import { bulkLogger } from '@renderer/lib/bulkLogger.js';
 import { notify } from '@renderer/lib/notify.js';
 import { cn } from '@renderer/lib/utils.js';
 import { useAppStore } from '../../store/useAppStore.js';
+import { Alert, AlertDescription } from '../ui/alert.js';
 import { Badge } from '../ui/badge.js';
 import { Button } from '../ui/button.js';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card.js';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '../ui/input-group.js';
 import { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from '../ui/popover.js';
 import { Separator } from '../ui/separator.js';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs.js';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip.js';
 import { BulkUrlDialog } from './BulkUrlDialog.js';
 import { DownloadProfileEditor } from './DownloadProfileEditor.js';
@@ -23,6 +26,7 @@ import downloadingImg from '../../assets/Downloading.png';
 
 type ProfilesTab = 'download' | 'profiles' | 'settings';
 type DownloadInputType = 'Single URL' | 'Playlist URL' | 'Channel URL' | 'Search URL' | 'URL' | 'Unknown URL';
+const PROFILE_TABS = ['download', 'profiles', 'settings'] as const satisfies readonly ProfilesTab[];
 
 const ICONS: Record<DownloadProfileIcon, LucideIcon> = {
   archive: Archive,
@@ -41,6 +45,10 @@ function tabFromHash(hash = window.location.hash): ProfilesTab {
   if (value === 'profile' || value === 'profiles') return 'profiles';
   if (value === 'setting' || value === 'settings') return 'settings';
   return 'download';
+}
+
+function isProfilesTab(value: unknown): value is ProfilesTab {
+  return typeof value === 'string' && PROFILE_TABS.includes(value as ProfilesTab);
 }
 
 function tabHash(tab: ProfilesTab): string {
@@ -234,88 +242,108 @@ export function DownloadProfilesHome(): JSX.Element {
 
   return (
     <div className="wizard-step mx-auto flex w-full max-w-6xl flex-col gap-4 pb-5" data-testid="download-profiles-home">
-      <nav className="flex flex-wrap items-center gap-5 border-b border-border/80" aria-label="Download profile navigation" data-testid="profiles-tabs">
-        <TabButton active={activeTab === 'download'} icon={Download} label="Download" onClick={() => selectTab('download')} />
-        <TabButton active={activeTab === 'profiles'} icon={Users} label="Profiles" onClick={() => selectTab('profiles')} />
-        <TabButton active={activeTab === 'settings'} icon={Settings} label="Settings" onClick={() => selectTab('settings')} />
-      </nav>
+      <Tabs
+        value={activeTab}
+        onValueChange={(value) => {
+          if (isProfilesTab(value)) selectTab(value);
+        }}
+        className="gap-4"
+      >
+        <TabsList variant="line" className="flex h-11 w-full justify-start gap-5 border-b border-border/80 p-0" aria-label="Download profile navigation" data-testid="profiles-tabs">
+          <TabsTrigger value="download" className="h-11 flex-none rounded-none border-b-2 px-1 data-active:border-[var(--brand)]">
+            <Download data-icon="inline-start" aria-hidden />
+            Download
+          </TabsTrigger>
+          <TabsTrigger value="profiles" className="h-11 flex-none rounded-none border-b-2 px-1 data-active:border-[var(--brand)]">
+            <Users data-icon="inline-start" aria-hidden />
+            Profiles
+          </TabsTrigger>
+          <TabsTrigger value="settings" className="h-11 flex-none rounded-none border-b-2 px-1 data-active:border-[var(--brand)]">
+            <Settings data-icon="inline-start" aria-hidden />
+            Settings
+          </TabsTrigger>
+        </TabsList>
 
-      {activeTab === 'download' ? (
-        <>
-          <section className="rounded-lg border border-[var(--border-strong)] bg-card/40 p-4" data-testid="profiles-download-panel">
-            <div className="flex items-center gap-3">
+        <TabsContent value="download" className="flex flex-col gap-4">
+          <Card className="rounded-lg border-[var(--border-strong)] bg-card/40" data-testid="profiles-download-panel">
+            <CardHeader className="flex-row items-center gap-3">
               <div className="grid size-12 shrink-0 place-items-center rounded-lg border border-[var(--brand)]/40 bg-[var(--brand-dim)] text-[var(--brand)]">
                 <Download aria-hidden />
               </div>
               <div className="min-w-0">
-                <h2 className="text-xl font-semibold leading-tight">Download input</h2>
-                <p className="mt-1 text-[12px] text-[var(--text-subtle)]">Enter a URL to start your download.</p>
+                <CardTitle className="text-xl font-semibold leading-tight">Download input</CardTitle>
+                <CardDescription className="mt-1 text-[12px] text-[var(--text-subtle)]">Enter a URL to start your download.</CardDescription>
               </div>
-            </div>
-
-            <InputGroup className="mt-5 h-12 border-[var(--border-strong)] bg-background/35">
-              <InputGroupAddon align="inline-start">
-                <Link2 aria-hidden />
-              </InputGroupAddon>
-              <InputGroupInput ref={inputRef} type="url" value={wizardUrl} onChange={(event) => setWizardUrl(event.target.value)} onKeyDown={handleKeyDown} onPaste={handlePaste} placeholder="Paste a URL..." spellCheck={false} data-testid="profiles-main-input" className="text-[13px]" />
-              {hasInput ? (
-                <InputGroupAddon align="inline-end">
-                  <InputGroupButton type="button" size="icon-sm" aria-label="Clear URL" onClick={handleClearUrl} data-testid="url-clear">
-                    <X aria-hidden />
-                  </InputGroupButton>
+            </CardHeader>
+            <CardContent>
+              <InputGroup className="mt-5 h-12 border-[var(--border-strong)] bg-background/35">
+                <InputGroupAddon align="inline-start">
+                  <Link2 aria-hidden />
                 </InputGroupAddon>
-              ) : null}
-            </InputGroup>
+                <InputGroupInput ref={inputRef} type="url" value={wizardUrl} onChange={(event) => setWizardUrl(event.target.value)} onKeyDown={handleKeyDown} onPaste={handlePaste} placeholder="Paste a URL..." spellCheck={false} data-testid="profiles-main-input" className="text-[13px]" />
+                {hasInput ? (
+                  <InputGroupAddon align="inline-end">
+                    <InputGroupButton type="button" size="icon-sm" aria-label="Clear URL" onClick={handleClearUrl} data-testid="url-clear">
+                      <X aria-hidden />
+                    </InputGroupButton>
+                  </InputGroupAddon>
+                ) : null}
+              </InputGroup>
 
-            <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-[var(--text-subtle)]">
-              <Badge variant={hasInput ? 'secondary' : 'outline'} className={cn(!hasInput && 'text-[var(--text-subtle)]')}>
-                {hasInput ? 'URL entered' : 'Waiting for URL'}
-              </Badge>
-              {inputType ? (
-                <Badge variant="outline" className="border-[var(--brand)]/40 bg-[var(--brand-dim)] text-[var(--brand)]">
-                  {inputType}
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-[var(--text-subtle)]">
+                <Badge variant={hasInput ? 'secondary' : 'outline'} className={cn(!hasInput && 'text-[var(--text-subtle)]')}>
+                  {hasInput ? 'URL entered' : 'Waiting for URL'}
                 </Badge>
+                {inputType ? (
+                  <Badge variant="outline" className="border-[var(--brand)]/40 bg-[var(--brand-dim)] text-[var(--brand)]">
+                    {inputType}
+                  </Badge>
+                ) : null}
+              </div>
+
+              <Separator className="my-5" />
+
+              <QuickProfileCard
+                activeProfile={activeProfile}
+                disabled={!hasInput || quickPreparing}
+                menuOpen={profileMenuOpen}
+                onDownload={() => void quickDownload()}
+                onEditProfile={() => openEditor(activeProfile)}
+                onManageProfiles={() => {
+                  setProfileMenuOpen(false);
+                  selectTab('profiles');
+                }}
+                onMenuOpenChange={setProfileMenuOpen}
+                onNewProfile={() => {
+                  setProfileMenuOpen(false);
+                  openEditor(null);
+                }}
+                onPickProfile={activateProfile}
+                profiles={profiles}
+              />
+
+              {quickDownloadStatus === 'error' ? (
+                <Alert variant="warning" className="mt-2 py-2" data-testid="quick-download-feedback">
+                  <AlertDescription className="text-[11px]">Quick Download failed: {quickErrorText}</AlertDescription>
+                </Alert>
               ) : null}
-            </div>
 
-            <Separator className="my-5" />
-
-            <QuickProfileCard
-              activeProfile={activeProfile}
-              disabled={!hasInput || quickPreparing}
-              menuOpen={profileMenuOpen}
-              onDownload={() => void quickDownload()}
-              onEditProfile={() => openEditor(activeProfile)}
-              onManageProfiles={() => {
-                setProfileMenuOpen(false);
-                selectTab('profiles');
-              }}
-              onMenuOpenChange={setProfileMenuOpen}
-              onNewProfile={() => {
-                setProfileMenuOpen(false);
-                openEditor(null);
-              }}
-              onPickProfile={activateProfile}
-              profiles={profiles}
-            />
-
-            {quickDownloadStatus === 'error' ? (
-              <p className="mt-2 text-[11px] text-amber-500" data-testid="quick-download-feedback">
-                Quick Download failed: {quickErrorText}
-              </p>
-            ) : null}
-
-            <div className="mt-3 grid gap-2">
-              <ActionRow disabled={!hasInput || quickPreparing} icon={Wand2} title="Interactive Download" description="Review and customize options before downloading." onClick={() => void submitUrl()} testId="profiles-interactive-download" />
-              <ActionRow icon={ListPlus} title="Bulk URLs" description="Choose Quick or Interactive for batch downloads." onClick={() => setBulkOpen(true)} testId="profiles-bulk-urls" />
-            </div>
-          </section>
+              <div className="mt-3 grid gap-2">
+                <ActionRow disabled={!hasInput || quickPreparing} icon={Wand2} title="Interactive Download" description="Review and customize options before downloading." onClick={() => void submitUrl()} testId="profiles-interactive-download" />
+                <ActionRow icon={ListPlus} title="Bulk URLs" description="Choose Quick or Interactive for batch downloads." onClick={() => setBulkOpen(true)} testId="profiles-bulk-urls" />
+              </div>
+            </CardContent>
+          </Card>
           {showMascotHelp ? <DownloadMascotHelpCard help={mascotHelp} onDismiss={() => setDismissedMascotKey(mascotHelp.key)} /> : null}
-        </>
-      ) : null}
+        </TabsContent>
 
-      {activeTab === 'profiles' ? <ProfilesTab activeProfile={activeProfile} onEdit={openEditor} onPick={activateProfile} onRemove={(profile) => void removeDownloadProfile(profile.id)} profiles={profiles} profilesPrefs={profilesPrefs} /> : null}
-      {activeTab === 'settings' ? <DownloadProfilesSettingsTab /> : null}
+        <TabsContent value="profiles">
+          <ProfilesTab activeProfile={activeProfile} onEdit={openEditor} onPick={activateProfile} onRemove={(profile) => void removeDownloadProfile(profile.id)} profiles={profiles} profilesPrefs={profilesPrefs} />
+        </TabsContent>
+        <TabsContent value="settings">
+          <DownloadProfilesSettingsTab />
+        </TabsContent>
+      </Tabs>
 
       {bulkOpen ? <BulkUrlDialog open={bulkOpen} onOpenChange={setBulkOpen} initialRaw="" /> : null}
       <DownloadProfileEditor key={editorSessionId} initialProfile={editingProfile} open={editorOpen} onOpenChange={setEditorOpen} onSave={(profile) => saveDownloadProfile(profile)} />
@@ -326,7 +354,7 @@ export function DownloadProfilesHome(): JSX.Element {
 
 function DownloadMascotHelpCard({ help, onDismiss }: { help: ReturnType<typeof downloadMascotHelp>; onDismiss: () => void }): JSX.Element {
   return (
-    <aside className="flex w-full max-w-[34rem] items-center gap-4 rounded-lg border border-[var(--border-strong)] bg-background/30 px-4 py-3" data-testid="profiles-mascot-help">
+    <Card className="flex w-full max-w-[34rem] flex-row items-center gap-4 rounded-lg border-[var(--border-strong)] bg-background/30 px-4 py-3" data-testid="profiles-mascot-help">
       <img src={help.image} alt="" aria-hidden className="size-20 shrink-0 object-contain" />
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold text-foreground">{help.title}</p>
@@ -342,16 +370,7 @@ function DownloadMascotHelpCard({ help, onDismiss }: { help: ReturnType<typeof d
       <Button type="button" variant="ghost" size="sm" onClick={onDismiss} className="shrink-0 text-[var(--brand)] hover:text-[var(--brand)]" data-testid="profiles-mascot-dismiss">
         Got it
       </Button>
-    </aside>
-  );
-}
-
-function TabButton({ active, icon: Icon, label, onClick }: { active: boolean; icon: LucideIcon; label: string; onClick: () => void }): JSX.Element {
-  return (
-    <button type="button" aria-current={active ? 'page' : undefined} className={cn('inline-flex h-11 items-center gap-2 border-b-2 px-1 text-sm transition-colors', active ? 'border-[var(--brand)] font-semibold text-foreground' : 'border-transparent font-medium text-[var(--text-subtle)] hover:text-foreground')} onClick={onClick}>
-      <Icon data-icon="inline-start" aria-hidden />
-      {label}
-    </button>
+    </Card>
   );
 }
 
@@ -467,18 +486,18 @@ function ActionRow({ description, disabled = false, icon: Icon, onClick, testId,
 
 function ProfilesTab({ activeProfile, onEdit, onPick, onRemove, profiles, profilesPrefs }: { activeProfile: DownloadProfile; onEdit: (profile: DownloadProfile | null) => void; onPick: (profile: DownloadProfile) => void; onRemove: (profile: DownloadProfile) => void; profiles: DownloadProfile[]; profilesPrefs: DownloadProfilesPrefs | undefined }): JSX.Element {
   return (
-    <section className="rounded-lg border border-[var(--border-strong)] bg-card/40 p-4" data-testid="profiles-manage-tab">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <Card className="rounded-lg border-[var(--border-strong)] bg-card/40" data-testid="profiles-manage-tab">
+      <CardHeader className="flex-row flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-semibold leading-tight">Download Profiles</h2>
-          <p className="mt-1 text-[12px] text-[var(--text-subtle)]">Create, select, edit, or remove reusable download setups.</p>
+          <CardTitle className="text-xl font-semibold leading-tight">Download Profiles</CardTitle>
+          <CardDescription className="mt-1 text-[12px] text-[var(--text-subtle)]">Create, select, edit, or remove reusable download setups.</CardDescription>
         </div>
         <Button type="button" onClick={() => onEdit(null)} className="shadow-[0_4px_14px_var(--brand-glow)]">
           <Plus data-icon="inline-start" />
           New profile
         </Button>
-      </div>
-      <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+      </CardHeader>
+      <CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {profiles.map((profile) => {
           const Icon = ICONS[profile.icon];
           const active = activeProfile.id === profile.id;
@@ -514,7 +533,7 @@ function ProfilesTab({ activeProfile, onEdit, onPick, onRemove, profiles, profil
             </article>
           );
         })}
-      </div>
-    </section>
+      </CardContent>
+    </Card>
   );
 }

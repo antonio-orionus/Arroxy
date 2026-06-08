@@ -5,6 +5,7 @@ import { NETWORK_PACING_PRESET_VALUES } from '@shared/constants.js';
 import { pacingConcurrentFragmentsSchema, pacingSleepSecondsSchema } from '@shared/schemas.js';
 import type { NetworkPacingPreset } from '@shared/types.js';
 import { useAppStore } from '../../store/useAppStore.js';
+import { Button } from '../ui/button.js';
 import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '../ui/field.js';
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from '../ui/input-group.js';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group.js';
@@ -25,9 +26,9 @@ function HelpTooltip({ children, testId, label }: { children: ReactNode; testId:
     <Tooltip>
       <TooltipTrigger
         render={(props) => (
-          <button {...props} type="button" aria-label={label} className="inline-flex h-5 w-5 items-center justify-center rounded text-[var(--text-subtle)] hover:bg-muted hover:text-foreground" data-testid={testId}>
-            <Info size={13} />
-          </button>
+          <Button {...props} type="button" variant="ghost" size="icon-xs" aria-label={label} className="text-[var(--text-subtle)] hover:text-foreground" data-testid={testId}>
+            <Info aria-hidden />
+          </Button>
         )}
       />
       <TooltipContent className="max-w-[18rem] leading-snug">{children}</TooltipContent>

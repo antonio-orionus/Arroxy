@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { AlertTriangle } from 'lucide-react';
 import { limitRateSchema } from '@shared/schemas.js';
 import { useAppStore } from '../../store/useAppStore.js';
+import { Alert, AlertDescription } from '../ui/alert.js';
 import { Input } from '../ui/input.js';
-import { RadioOption } from '../ui/radio-option.js';
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group.js';
 import { LIMIT_RATE_PRESETS, formatLimitRateLabel, isLimitRatePreset } from './limitRateFormat.js';
 
 interface Props {
@@ -40,6 +41,7 @@ export function LimitRatePicker({ value, onChange }: Props): JSX.Element {
   const customMode = editingCustom || !valueIsPreset;
   const trimmedDraft = customDraft.trim();
   const customError = customMode && trimmedDraft !== '' && !limitRateSchema.safeParse(trimmedDraft).success;
+  const selectedToggleValue = customMode ? 'custom' : (value ?? 'off');
 
   const pickPreset = (preset: string | undefined): void => {
     setEditingCustom(false);
@@ -62,18 +64,38 @@ export function LimitRatePicker({ value, onChange }: Props): JSX.Element {
   return (
     <div className="flex flex-col gap-2" data-testid="limit-rate-picker">
       {hasActiveDownloads && (
-        <p className="flex items-start gap-1.5 text-[11px] text-amber-500" data-testid="limit-rate-active-warning">
-          <AlertTriangle size={12} className="mt-0.5 shrink-0" />
-          <span>{t('wizard.url.limitRate.activeWarning')}</span>
-        </p>
+        <Alert variant="warning" data-testid="limit-rate-active-warning">
+          <AlertTriangle />
+          <AlertDescription className="text-[11px]">{t('wizard.url.limitRate.activeWarning')}</AlertDescription>
+        </Alert>
       )}
-      <div className="grid grid-cols-2 gap-0.5" role="radiogroup" aria-label={t('wizard.url.limitRate.label')}>
-        <RadioOption label={t('wizard.url.limitRate.off')} checked={!customMode && value === undefined} onClick={() => pickPreset(undefined)} />
+      <ToggleGroup
+        value={[selectedToggleValue]}
+        onValueChange={(values) => {
+          const next = values[0];
+          if (!next) return;
+          if (next === 'custom') {
+            setEditingCustom(true);
+            return;
+          }
+          pickPreset(next === 'off' ? undefined : next);
+        }}
+        aria-label={t('wizard.url.limitRate.label')}
+        spacing={1}
+        className="grid w-full grid-cols-2 items-stretch"
+      >
+        <ToggleGroupItem value="off" className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+          {t('wizard.url.limitRate.off')}
+        </ToggleGroupItem>
         {LIMIT_RATE_PRESETS.map((preset) => (
-          <RadioOption key={preset} label={formatLimitRateLabel(preset)} checked={!customMode && value === preset} onClick={() => pickPreset(preset)} />
+          <ToggleGroupItem key={preset} value={preset} className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+            {formatLimitRateLabel(preset)}
+          </ToggleGroupItem>
         ))}
-        <RadioOption label={t('wizard.url.limitRate.custom')} checked={customMode} onClick={() => setEditingCustom(true)} />
-      </div>
+        <ToggleGroupItem value="custom" className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+          {t('wizard.url.limitRate.custom')}
+        </ToggleGroupItem>
+      </ToggleGroup>
       {customMode && (
         <div className="flex flex-col gap-1">
           <Input type="text" value={customDraft} onChange={(e) => handleCustomChange(e.target.value)} placeholder={t('wizard.url.limitRate.customPlaceholder')} className="h-8 text-[12px] font-mono" aria-invalid={customError} data-testid="limit-rate-custom-input" />

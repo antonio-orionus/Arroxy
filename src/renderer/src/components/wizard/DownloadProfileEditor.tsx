@@ -5,8 +5,10 @@ import { DEFAULT_AUDIO_BITRATE, DOWNLOAD_PROFILE_ICONS } from '@shared/schemas.j
 import type { DownloadProfile, DownloadProfileIcon } from '@shared/types.js';
 import { isValidSubfolder, safeFolderName } from '@shared/subfolder.js';
 import { cn } from '@renderer/lib/utils.js';
+import { Alert, AlertDescription } from '../ui/alert.js';
 import { Badge } from '../ui/badge.js';
 import { Button } from '../ui/button.js';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card.js';
 import { Checkbox } from '../ui/checkbox.js';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog.js';
 import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '../ui/field.js';
@@ -189,13 +191,13 @@ function defaultProfileSubfolderName(name: string): string {
 
 function ProfilePanel({ title, description, children, className }: { title: string; description?: string; children: ReactNode; className?: string }): JSX.Element {
   return (
-    <section className={cn('rounded-lg border border-[var(--border-strong)] bg-card/40 p-3', className)}>
-      <div className="mb-3">
-        <h3 className="text-sm font-semibold leading-tight">{title}</h3>
-        {description ? <p className="mt-1 text-[12px] leading-snug text-[var(--text-subtle)]">{description}</p> : null}
-      </div>
-      {children}
-    </section>
+    <Card size="sm" className={cn('gap-3 rounded-lg border-[var(--border-strong)] bg-card/40 py-3', className)}>
+      <CardHeader className="gap-1 px-3">
+        <CardTitle className="text-sm font-semibold leading-tight">{title}</CardTitle>
+        {description ? <CardDescription className="text-[12px] leading-snug text-[var(--text-subtle)]">{description}</CardDescription> : null}
+      </CardHeader>
+      <CardContent className="px-3">{children}</CardContent>
+    </Card>
   );
 }
 
@@ -236,9 +238,9 @@ function ProfileHelpTooltip({ label, children }: { label: string; children: Reac
     <Tooltip>
       <TooltipTrigger
         render={(props) => (
-          <button type="button" {...props} aria-label={`${label} help`} className="inline-flex size-5 items-center justify-center rounded text-[var(--text-subtle)] hover:bg-muted hover:text-foreground">
-            <Info className="size-3.5" aria-hidden />
-          </button>
+          <Button {...props} type="button" variant="ghost" size="icon-xs" aria-label={`${label} help`} className="text-[var(--text-subtle)] hover:text-foreground">
+            <Info aria-hidden />
+          </Button>
         )}
       />
       <TooltipContent className="max-w-[18rem] leading-snug">{children}</TooltipContent>
@@ -392,30 +394,29 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                         />
                       </InputGroupAddon>
                       <PopoverContent align="start" sideOffset={6} className="w-40" data-testid="profiles-editor-icon-menu">
-                        <div className="grid grid-cols-3 gap-1.5" role="radiogroup" aria-label="Profile icon">
+                        <ToggleGroup
+                          variant="outline"
+                          value={[profileIcon]}
+                          onValueChange={(value) => {
+                            const next = value[0] as DownloadProfileIcon | undefined;
+                            if (!next) return;
+                            setProfileIcon(next);
+                            setProfileIconPickerOpen(false);
+                          }}
+                          spacing={1}
+                          className="grid w-full grid-cols-3 gap-1.5"
+                          aria-label="Profile icon"
+                        >
                           {PROFILE_ICON_OPTIONS.map((option) => {
                             const Icon = option.icon;
-                            const selected = profileIcon === option.value;
                             return (
-                              <button
-                                key={option.value}
-                                type="button"
-                                role="radio"
-                                aria-checked={selected}
-                                title={option.label}
-                                onClick={() => {
-                                  setProfileIcon(option.value);
-                                  setProfileIconPickerOpen(false);
-                                }}
-                                className={cn('grid h-10 place-items-center rounded-lg border bg-background/25 text-[var(--text-subtle)] transition-colors hover:border-[var(--border-strong)] hover:text-foreground', selected ? 'border-[var(--brand)] bg-[var(--brand-dim)] text-[var(--brand)] shadow-[0_0_0_2px_var(--brand-dim)]' : 'border-border')}
-                                data-testid={`profiles-editor-icon-${option.value}`}
-                              >
+                              <ToggleGroupItem key={option.value} value={option.value} title={option.label} className="grid h-10 place-items-center rounded-lg border bg-background/25 p-0 text-[var(--text-subtle)] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] hover:border-[var(--border-strong)] hover:text-foreground" data-testid={`profiles-editor-icon-${option.value}`}>
                                 <Icon aria-hidden />
                                 <span className="sr-only">{option.label}</span>
-                              </button>
+                              </ToggleGroupItem>
                             );
                           })}
-                        </div>
+                        </ToggleGroup>
                       </PopoverContent>
                     </Popover>
                     <InputGroupInput id="profile-name" value={profileName} onChange={(event) => changeProfileName(event.target.value)} data-testid="profiles-editor-name" />
@@ -471,7 +472,11 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                 ) : null}
               </div>
 
-              {subtitlesOnly ? <div className="rounded-md border border-[var(--brand)]/40 bg-[var(--brand-dim)] px-3 py-2 text-[12px] text-[var(--text-subtle)]">This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped.</div> : null}
+              {subtitlesOnly ? (
+                <Alert variant="info" className="py-2 text-[12px]">
+                  <AlertDescription className="text-[12px]">This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped.</AlertDescription>
+                </Alert>
+              ) : null}
 
               <ProfilePanel title="Subtitles">
                 <FieldGroup className="gap-3">
@@ -503,7 +508,9 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                   </Field>
 
                   {!effectiveSubtitleEnabled ? (
-                    <div className="rounded-md border border-border bg-background/25 px-3 py-2 text-[12px] leading-snug text-[var(--text-subtle)]">No subtitle files or embedded subtitle tracks will be requested for this profile.</div>
+                    <Alert variant="info" className="py-2 text-[12px]">
+                      <AlertDescription className="text-[12px]">No subtitle files or embedded subtitle tracks will be requested for this profile.</AlertDescription>
+                    </Alert>
                   ) : (
                     <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.65fr)]">
                       <Field className="gap-1.5">
@@ -513,10 +520,12 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                         <div className="flex min-h-8 flex-wrap items-center gap-1.5 rounded-lg border border-input bg-background/30 px-2 py-1">
                           {subtitleLanguages.length > 0 ? (
                             subtitleLanguages.map((code) => (
-                              <button key={code} type="button" onClick={() => removeSubtitleLanguage(code)} className="inline-flex h-6 items-center gap-1 rounded-full bg-secondary px-2 text-[11px] font-semibold text-secondary-foreground hover:bg-muted" aria-label={`Remove ${code}`}>
+                              <Badge key={code} variant="secondary" className="h-6 gap-1 px-2 text-[11px] font-semibold">
                                 <span>{code}</span>
-                                <X className="size-3" aria-hidden />
-                              </button>
+                                <Button type="button" variant="ghost" size="icon-xs" onClick={() => removeSubtitleLanguage(code)} className="-me-1 size-4 rounded-full p-0" aria-label={`Remove ${code}`}>
+                                  <X data-icon="inline-start" aria-hidden />
+                                </Button>
+                              </Badge>
                             ))
                           ) : (
                             <span className="px-1 text-[11px] italic text-[var(--text-subtle)]">No languages selected</span>
@@ -632,7 +641,7 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                   {subfolderInvalid ? <FieldDescription className="text-[12px] text-destructive">Use a valid folder name without / \ : * ? &quot; &lt; &gt; |.</FieldDescription> : null}
                 </Field>
 
-                <section className="rounded-lg border border-border bg-background/25 p-3">
+                <Card size="sm" className="rounded-lg bg-background/25 px-3 py-3">
                   <div className="mb-2 flex items-center justify-between gap-3">
                     <h4 className="text-sm font-semibold">Output options</h4>
                     <Badge variant="outline">{outputEnabledCount} enabled</Badge>
@@ -643,9 +652,9 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                     <ProfileSwitchRow id="profile-output-description" label="Save description" description={OUTPUT_OPTION_DESCRIPTIONS.description} checked={saveDescription} onCheckedChange={setSaveDescription} />
                     <ProfileSwitchRow id="profile-output-thumbnail" label="Save thumbnail" description={OUTPUT_OPTION_DESCRIPTIONS.thumbnail} checked={saveThumbnail} onCheckedChange={setSaveThumbnail} />
                   </div>
-                </section>
+                </Card>
 
-                <section className="rounded-lg border border-border bg-background/25 p-3">
+                <Card size="sm" className="rounded-lg bg-background/25 px-3 py-3">
                   <div className="mb-2 flex items-center justify-between gap-3">
                     <h4 className="text-sm font-semibold">SponsorBlock</h4>
                     <Badge variant="outline">{showVideo ? optionLabel(SPONSOR_BLOCK_OPTIONS, sponsorBlockMode) : 'Skipped'}</Badge>
@@ -666,9 +675,11 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                       ))}
                     </ToggleGroup>
                   ) : (
-                    <p className="text-[12px] leading-snug text-[var(--text-subtle)]">Skipped for this output type.</p>
+                    <Alert variant="info" className="py-2 text-[12px]">
+                      <AlertDescription className="text-[12px]">Skipped for this output type.</AlertDescription>
+                    </Alert>
                   )}
-                </section>
+                </Card>
 
                 <ProfileSelect label="Playlist probe cap" value={playlistCap} options={PLAYLIST_CAP_OPTIONS} onValueChange={setPlaylistCap} testId="profiles-editor-playlist-cap" />
               </FieldGroup>

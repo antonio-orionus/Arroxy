@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../../store/useAppStore.js';
 import { useFormatSelectionView } from '../../store/formatSelectionView.js';
 import { VideoSummaryCard } from '../shared/VideoSummaryCard.js';
+import { Spinner } from '../ui/spinner.js';
 import downloadingImg from '../../assets/Downloading.png';
 import { PresetStrip } from './format/PresetStrip.js';
 import { VideoColumn } from './format/VideoColumn.js';
@@ -19,7 +20,7 @@ export function StepFormatSelect(): JSX.Element {
     return (
       <div className="wizard-step flex flex-col items-center gap-4 py-8">
         <div className="rounded-2xl bg-[var(--brand-dim)] p-4 shadow-[0_0_28px_var(--brand-glow)]">
-          <img src={downloadingImg} alt="" aria-hidden className="w-28 h-28 object-contain" />
+          <img src={downloadingImg} alt="" aria-hidden className="size-28 object-contain" />
         </div>
         <div className="relative rounded-xl border border-border bg-secondary px-4 py-2.5 text-sm text-muted-foreground leading-relaxed shadow-sm text-center max-w-[260px]">
           <span
@@ -43,7 +44,7 @@ export function StepFormatSelect(): JSX.Element {
           {t('wizard.formats.sniffing')}
         </div>
         <div className="flex items-center gap-2 text-xs text-[var(--text-subtle)]">
-          <div className="spinner" aria-label={t('wizard.formats.loadingAria')} />
+          <Spinner aria-label={t('wizard.formats.loadingAria')} />
           <span>{t('wizard.formats.loadingHint')}</span>
         </div>
       </div>

@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 import { AlertTriangle, RefreshCw, ShieldCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '@renderer/store/useAppStore.js';
+import { Alert, AlertDescription, AlertTitle } from '@renderer/components/ui/alert.js';
 import { Button } from '@renderer/components/ui/button.js';
 
 interface Props {
@@ -29,26 +30,22 @@ export function BotWallNotice({ forceShow = false }: Props): JSX.Element | null 
   const body = variant === 'unconfigured' ? t('wizard.formats.botWall.bodyUnconfigured') : variant === 'disabled' ? t('wizard.formats.botWall.bodyDisabled') : t('wizard.formats.botWall.bodyEnabled');
 
   return (
-    <div role="status" data-testid="bot-wall-notice" data-variant={variant} className="flex flex-col gap-2 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-[12px] text-amber-900 dark:text-amber-100">
-      <div className="flex items-start gap-2">
-        <AlertTriangle size={14} className="mt-0.5 shrink-0 text-amber-500" />
-        <div className="flex flex-col gap-0.5">
-          <span className="font-semibold">{t('wizard.formats.botWall.heading')}</span>
-          <span className="leading-snug">{body}</span>
-        </div>
-      </div>
-      <div className="flex flex-wrap gap-2 ps-6">
+    <Alert role="status" variant="warning" data-testid="bot-wall-notice" data-variant={variant} className="text-[12px]">
+      <AlertTriangle />
+      <AlertTitle className="text-[12px]">{t('wizard.formats.botWall.heading')}</AlertTitle>
+      <AlertDescription className="text-[12px] text-current">{body}</AlertDescription>
+      <div className="col-start-2 flex flex-wrap gap-2">
         {variant === 'disabled' ? (
-          <Button type="button" size="sm" variant="default" onClick={() => void retryProbeWithCookies()} className="gap-1.5" data-testid="bot-wall-enable-cta">
-            <ShieldCheck size={12} />
+          <Button type="button" size="sm" variant="default" onClick={() => void retryProbeWithCookies()} data-testid="bot-wall-enable-cta">
+            <ShieldCheck data-icon="inline-start" />
             {t('wizard.formats.botWall.enableRetryCta')}
           </Button>
         ) : null}
-        <Button type="button" size="sm" variant="outline" onClick={() => void retryFormatProbe()} className="gap-1.5" data-testid="bot-wall-retry-cta">
-          <RefreshCw size={12} />
+        <Button type="button" size="sm" variant="outline" onClick={() => void retryFormatProbe()} data-testid="bot-wall-retry-cta">
+          <RefreshCw data-icon="inline-start" />
           {t('wizard.formats.botWall.retryCta')}
         </Button>
       </div>
-    </div>
+    </Alert>
   );
 }

@@ -6,10 +6,12 @@ import { playlistScopeSchema, PLAYLIST_PROBE_LIMIT_MAX, PLAYLIST_PROBE_LIMIT_MIN
 import type { PlaylistScope } from '@shared/types.js';
 import { resolvePlaylistProbeLimit } from '@shared/networkPacing.js';
 import { useAppStore } from '../../store/useAppStore.js';
+import { Alert, AlertDescription } from '../ui/alert.js';
 import { Button } from '../ui/button.js';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog.js';
+import { Field, FieldLabel } from '../ui/field.js';
 import { Input } from '../ui/input.js';
-import { RadioOption } from '../ui/radio-option.js';
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group.js';
 
 type ItemMode = PlaylistScope['items']['kind'];
 
@@ -103,7 +105,6 @@ export function PlaylistScopeControl({ onApplyScope, applyLabel, pendingLabel, d
           type="button"
           size="sm"
           variant="outline"
-          className="gap-1.5"
           onClick={() => {
             syncDraftsFromScope();
             setOpen(true);
@@ -111,7 +112,7 @@ export function PlaylistScopeControl({ onApplyScope, applyLabel, pendingLabel, d
           data-testid="playlist-scope-change"
           disabled={disabled || applying}
         >
-          <SlidersHorizontal size={14} />
+          <SlidersHorizontal data-icon="inline-start" />
           {copy(t, 'wizard.url.playlistScope.change', 'Change')}
         </Button>
       </div>
@@ -124,13 +125,29 @@ export function PlaylistScopeControl({ onApplyScope, applyLabel, pendingLabel, d
           </DialogHeader>
 
           <div className="flex flex-col gap-3">
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[11px] font-medium text-[var(--text-subtle)]">{copy(t, 'wizard.url.playlistScope.itemsLabel', 'Items to load')}</span>
-              <div className="grid gap-1" role="radiogroup" aria-label={copy(t, 'wizard.url.playlistScope.itemsLabel', 'Items to load')}>
-                <RadioOption label={copy(t, 'wizard.url.playlistScope.appLimit', 'Use app limit: {{count}}', { count: appLimit })} checked={mode === 'app-limit'} onClick={() => setMode('app-limit')} />
-                <RadioOption label={copy(t, 'wizard.url.playlistScope.first', 'First')} checked={mode === 'first'} onClick={() => setMode('first')} />
+            <Field className="gap-1.5">
+              <FieldLabel className="text-[11px] font-medium text-[var(--text-subtle)]">{copy(t, 'wizard.url.playlistScope.itemsLabel', 'Items to load')}</FieldLabel>
+              <ToggleGroup
+                value={[mode]}
+                onValueChange={(values) => {
+                  const next = values[0] as ItemMode | undefined;
+                  if (next) setMode(next);
+                }}
+                aria-label={copy(t, 'wizard.url.playlistScope.itemsLabel', 'Items to load')}
+                orientation="vertical"
+                spacing={1}
+                className="grid w-full items-stretch"
+              >
+                <ToggleGroupItem value="app-limit" className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+                  {copy(t, 'wizard.url.playlistScope.appLimit', 'Use app limit: {{count}}', { count: appLimit })}
+                </ToggleGroupItem>
+                <ToggleGroupItem value="first" className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+                  {copy(t, 'wizard.url.playlistScope.first', 'First')}
+                </ToggleGroupItem>
                 {mode === 'first' && <Input type="number" min={PLAYLIST_PROBE_LIMIT_MIN} max={PLAYLIST_PROBE_LIMIT_MAX} value={firstDraft} onChange={(event) => setFirstDraft(event.target.value)} className="h-8 font-mono" data-testid="playlist-scope-first-input" />}
-                <RadioOption label={copy(t, 'wizard.url.playlistScope.range', 'Range')} checked={mode === 'range'} onClick={() => setMode('range')} />
+                <ToggleGroupItem value="range" className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+                  {copy(t, 'wizard.url.playlistScope.range', 'Range')}
+                </ToggleGroupItem>
                 {mode === 'range' && (
                   <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
                     <Input type="number" min={PLAYLIST_PROBE_LIMIT_MIN} max={PLAYLIST_PROBE_LIMIT_MAX} value={fromDraft} onChange={(event) => setFromDraft(event.target.value)} className="h-8 font-mono" data-testid="playlist-scope-range-from" />
@@ -138,13 +155,17 @@ export function PlaylistScopeControl({ onApplyScope, applyLabel, pendingLabel, d
                     <Input type="number" min={PLAYLIST_PROBE_LIMIT_MIN} max={PLAYLIST_PROBE_LIMIT_MAX} value={toDraft} onChange={(event) => setToDraft(event.target.value)} className="h-8 font-mono" data-testid="playlist-scope-range-to" />
                   </div>
                 )}
-              </div>
-            </div>
-            {!parsedScope && <p className="text-[11px] text-amber-500">{copy(t, 'wizard.url.playlistScope.invalid', 'Use whole item numbers from 1 to 5000, with the start no higher than the end.')}</p>}
+              </ToggleGroup>
+            </Field>
+            {!parsedScope && (
+              <Alert variant="warning">
+                <AlertDescription className="text-[11px]">{copy(t, 'wizard.url.playlistScope.invalid', 'Use whole item numbers from 1 to 5000, with the start no higher than the end.')}</AlertDescription>
+              </Alert>
+            )}
             {applyError ? (
-              <p className="text-[11px] text-amber-500" data-testid="playlist-scope-apply-error">
-                {applyError}
-              </p>
+              <Alert variant="warning" data-testid="playlist-scope-apply-error">
+                <AlertDescription className="text-[11px]">{applyError}</AlertDescription>
+              </Alert>
             ) : null}
           </div>
 

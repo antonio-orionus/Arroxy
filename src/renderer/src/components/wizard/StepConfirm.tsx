@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+import { AlertTriangle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { humanSize } from '@shared/format.js';
 import { useAppStore, presetLabel, resolveAudioLabel, resolveVideoResolution } from '../../store/useAppStore.js';
@@ -7,7 +8,9 @@ import { effectiveOutputDir } from '@renderer/lib/path.js';
 import { resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS } from '../../lib/subtitleLabel.js';
 import { sanitizeJobOptions } from '@shared/sanitizeJobOptions.js';
 import { resolveOutputContainer } from '../../store/wizard/resolveContainer.js';
+import { Alert, AlertDescription } from '../ui/alert.js';
 import { Button } from '../ui/button.js';
+import { Table, TableBody, TableCell, TableRow } from '../ui/table.js';
 import { Tooltip, TooltipTrigger, TooltipContent } from '../ui/tooltip.js';
 import { WizardFooter } from './WizardFooter.js';
 import { VideoSummaryCard } from '../shared/VideoSummaryCard.js';
@@ -104,7 +107,7 @@ export function StepConfirm(): JSX.Element {
 
       {/* Mascot banner */}
       <div className="flex items-center gap-4 p-4 rounded-lg border border-[hsla(220,100%,56%,0.15)] bg-[var(--brand-dim)] shrink-0">
-        <img src={loveImg} alt="" aria-hidden className="w-16 h-16 object-contain shrink-0" />
+        <img src={loveImg} alt="" aria-hidden className="size-16 shrink-0 object-contain" />
         <div>
           <p className="text-sm font-semibold text-foreground">{t('wizard.confirm.readyHeadline')}</p>
           <p className="text-xs text-muted-foreground mt-1">
@@ -114,36 +117,38 @@ export function StepConfirm(): JSX.Element {
       </div>
 
       {/* Summary table */}
-      <div className="rounded-lg border border-border bg-secondary overflow-hidden" data-testid="confirm-preview">
-        <table className="w-full">
-          <tbody>
+      <div className="overflow-hidden rounded-lg border border-border bg-secondary" data-testid="confirm-preview">
+        <Table>
+          <TableBody>
             {summaryRows.map((row) => (
-              <tr key={row.key} className="border-b border-border last:border-b-0">
-                <td className="px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] w-16 whitespace-nowrap">{row.label}</td>
-                <td className="px-4 py-2 text-xs text-foreground/80 font-mono truncate max-w-xs" data-testid={`confirm-${row.key}`}>
-                  {row.value}
-                </td>
-              </tr>
+              <TableRow key={row.key} className="hover:bg-transparent">
+                <TableCell className="w-16 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{row.label}</TableCell>
+                <TableCell className="max-w-xs px-4 py-2 font-mono text-xs text-foreground/80" data-testid={`confirm-${row.key}`}>
+                  <span className="block truncate">{row.value}</span>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
 
       {conflicts.length > 0 && (
-        <ul className="space-y-1" data-testid="confirm-conflicts">
-          {conflicts.map((c) => (
-            <li key={c.code} className="flex items-start gap-1.5 text-xs text-amber-500 dark:text-amber-400/90 px-1">
-              <span className="shrink-0 mt-px">⚠</span>
-              <span>{CONFLICT_LABELS[c.code]}</span>
-            </li>
-          ))}
-        </ul>
+        <Alert variant="warning" data-testid="confirm-conflicts">
+          <AlertTriangle />
+          <AlertDescription>
+            <ul className="flex flex-col gap-1">
+              {conflicts.map((c) => (
+                <li key={c.code}>{CONFLICT_LABELS[c.code]}</li>
+              ))}
+            </ul>
+          </AlertDescription>
+        </Alert>
       )}
 
       {hasNothingSelected && (
-        <p className="text-xs text-muted-foreground text-center px-2" data-testid="nothing-to-download-note">
-          {t('wizard.confirm.nothingToDownload')}
-        </p>
+        <Alert variant="info" data-testid="nothing-to-download-note">
+          <AlertDescription>{t('wizard.confirm.nothingToDownload')}</AlertDescription>
+        </Alert>
       )}
 
       <WizardFooter>

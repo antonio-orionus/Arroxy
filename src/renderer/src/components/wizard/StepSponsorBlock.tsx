@@ -4,7 +4,7 @@ import { useAppStore } from '../../store/useAppStore.js';
 import { Checkbox } from '../ui/checkbox.js';
 import { Separator } from '../ui/separator.js';
 import { WizardStepFooterActions } from './WizardStepFooterActions.js';
-import { RadioOption } from '../ui/radio-option.js';
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group.js';
 import { SPONSORBLOCK_CATEGORIES, SPONSORBLOCK_MODES } from '@shared/schemas.js';
 import type { SponsorBlockMode } from '@shared/types.js';
 
@@ -31,11 +31,22 @@ export function StepSponsorBlock(): JSX.Element {
       {/* ── Mode ───────────────────────────────────────── */}
       <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2.5 items-center -mx-1">
         <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">{t('wizard.sponsorblock.modeHeading')}</span>
-        <div role="radiogroup" aria-label={t('wizard.sponsorblock.modeHeading')} className="flex flex-row flex-wrap gap-1">
+        <ToggleGroup
+          value={[wizardSponsorBlockMode]}
+          onValueChange={(values) => {
+            const next = values[0] as SponsorBlockMode | undefined;
+            if (next) setSponsorBlockMode(next);
+          }}
+          aria-label={t('wizard.sponsorblock.modeHeading')}
+          spacing={1}
+          className="flex-wrap"
+        >
           {SPONSORBLOCK_MODES.map((mode) => (
-            <RadioOption key={mode} label={t(SB_MODE_LABEL_KEYS[mode])} checked={wizardSponsorBlockMode === mode} onClick={() => setSponsorBlockMode(mode)} className="py-0.5" />
+            <ToggleGroupItem key={mode} value={mode} className="h-7 px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+              {t(SB_MODE_LABEL_KEYS[mode])}
+            </ToggleGroupItem>
           ))}
-        </div>
+        </ToggleGroup>
 
         <span />
         <p className="text-[11px] text-[var(--text-subtle)] leading-snug">{t(SB_MODE_HINT_KEYS[wizardSponsorBlockMode])}</p>

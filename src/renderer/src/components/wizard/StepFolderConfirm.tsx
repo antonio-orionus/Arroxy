@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../../store/useAppStore.js';
 import { Button } from '../ui/button.js';
 import { WizardFooter } from './WizardFooter.js';
-import { RadioOption } from '../ui/radio-option.js';
+import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field.js';
 import { Switch } from '../ui/switch.js';
 import { Input } from '../ui/input.js';
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group.js';
 import { formatHomeRelativePath } from '@renderer/lib/utils.js';
 import { isValidSubfolder } from '@renderer/lib/path.js';
 import { VideoSummaryCard } from '../shared/VideoSummaryCard.js';
@@ -97,24 +98,16 @@ export function StepFolderConfirm(): JSX.Element {
     return formatHomeRelativePath(loc.path, commonPaths);
   };
 
-  const renderRadio = (loc: Location, full: boolean): JSX.Element => {
-    const isSelected = selectedId === loc.id;
+  const renderLocation = (loc: Location, full: boolean): JSX.Element => {
     const path = displayPath(loc);
     return (
-      <RadioOption
-        key={loc.id}
-        checked={isSelected}
-        onClick={() => void handleSelect(loc)}
-        className={full ? 'col-span-2 gap-3' : 'gap-3'}
-        labelClassName="flex-1 truncate"
-        adornment={
-          <span className="text-base leading-none" aria-hidden>
-            {loc.icon}
-          </span>
-        }
-        label={loc.label}
-        meta={path && <code className="font-mono text-[12px] text-[var(--text-subtle)] truncate max-w-[140px]">{path}</code>}
-      />
+      <ToggleGroupItem key={loc.id} value={loc.id} className={full ? 'col-span-2 h-auto min-h-9 justify-start gap-3 px-2 aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]' : 'h-auto min-h-9 justify-start gap-3 px-2 aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]'}>
+        <span className="text-base leading-none" aria-hidden>
+          {loc.icon}
+        </span>
+        <span className="min-w-0 flex-1 truncate text-start">{loc.label}</span>
+        {path ? <code className="max-w-[140px] truncate font-mono text-[12px] text-[var(--text-subtle)]">{path}</code> : null}
+      </ToggleGroupItem>
     );
   };
 
@@ -124,20 +117,30 @@ export function StepFolderConfirm(): JSX.Element {
 
       <div className="flex flex-col gap-1.5">
         <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.folder.heading')}</p>
-        <div className="grid grid-cols-2 gap-1.5">
-          {presets.map((loc) => renderRadio(loc, false))}
-          {renderRadio(custom, true)}
-        </div>
+        <ToggleGroup
+          value={[selectedId]}
+          onValueChange={(values) => {
+            const next = values[0];
+            const loc = locations.find((location) => location.id === next);
+            if (loc) void handleSelect(loc);
+          }}
+          spacing={1}
+          className="grid w-full grid-cols-2 items-stretch"
+          aria-label={t('wizard.folder.heading')}
+        >
+          {presets.map((loc) => renderLocation(loc, false))}
+          {renderLocation(custom, true)}
+        </ToggleGroup>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className="flex items-center gap-2.5 cursor-pointer">
+      <FieldGroup className="gap-2">
+        <Field orientation="horizontal" className="items-center gap-2.5">
           <Switch checked={wizardSubfolderEnabled} onCheckedChange={setWizardSubfolderEnabled} aria-label={t('wizard.folder.subfolder.toggle')} />
-          <span className="text-[13px] font-medium text-foreground">{t('wizard.folder.subfolder.toggle')}</span>
-        </label>
-        <Input type="text" value={wizardSubfolderName} onChange={(e) => setWizardSubfolderName(e.target.value)} disabled={!wizardSubfolderEnabled} placeholder={t('wizard.folder.subfolder.placeholder')} maxLength={64} aria-invalid={wizardSubfolderEnabled && wizardSubfolderName.trim() !== '' && !isValidSubfolder(wizardSubfolderName)} className="ml-[42px] w-[calc(100%-42px)]" />
-        {wizardSubfolderEnabled && wizardSubfolderName.trim() !== '' && !isValidSubfolder(wizardSubfolderName) && <p className="ml-[42px] text-[12px] text-destructive">{t('wizard.folder.subfolder.invalid')}</p>}
-      </div>
+          <FieldLabel className="text-[13px] font-medium text-foreground">{t('wizard.folder.subfolder.toggle')}</FieldLabel>
+        </Field>
+        <Input type="text" value={wizardSubfolderName} onChange={(e) => setWizardSubfolderName(e.target.value)} disabled={!wizardSubfolderEnabled} placeholder={t('wizard.folder.subfolder.placeholder')} maxLength={64} aria-invalid={wizardSubfolderEnabled && wizardSubfolderName.trim() !== '' && !isValidSubfolder(wizardSubfolderName)} className="ms-[42px] w-[calc(100%-42px)]" />
+        {wizardSubfolderEnabled && wizardSubfolderName.trim() !== '' && !isValidSubfolder(wizardSubfolderName) ? <FieldError className="ms-[42px] text-[12px]">{t('wizard.folder.subfolder.invalid')}</FieldError> : null}
+      </FieldGroup>
 
       <WizardFooter>
         <Button variant="ghost" type="button" onClick={back} className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground">

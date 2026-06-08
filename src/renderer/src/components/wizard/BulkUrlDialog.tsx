@@ -5,8 +5,13 @@ import { parseBulkUrls } from '@shared/bulkUrls.js';
 import type { BulkUrlRejectReason } from '@shared/types.js';
 import { bulkLogger } from '@renderer/lib/bulkLogger.js';
 import { cn } from '@renderer/lib/utils.js';
+import { Badge } from '../ui/badge.js';
 import { Button } from '../ui/button.js';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog.js';
+import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '../ui/empty.js';
+import { Field, FieldLabel } from '../ui/field.js';
+import { Item, ItemActions, ItemContent, ItemGroup, ItemMedia, ItemTitle } from '../ui/item.js';
+import { Textarea } from '../ui/textarea.js';
 import { useAppStore } from '../../store/useAppStore.js';
 
 export interface BulkUrlDialogActionState {
@@ -82,12 +87,12 @@ export function BulkUrlDialog({ open, onOpenChange, initialRaw = '', renderActio
           <DialogDescription>{t('wizard.bulk.description')}</DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col gap-2">
-          <label htmlFor="bulk-url-textarea" className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
+        <Field className="gap-2">
+          <FieldLabel htmlFor="bulk-url-textarea" className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
             {t('wizard.bulk.textareaLabel')}
-          </label>
-          <textarea ref={textareaRef} id="bulk-url-textarea" data-testid="bulk-url-textarea" value={raw} onChange={(event) => setRaw(event.target.value)} placeholder={t('wizard.bulk.textareaPlaceholder')} spellCheck={false} className="min-h-32 w-full resize-y rounded-lg border border-input bg-transparent px-2.5 py-2 text-sm outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30" />
-        </div>
+          </FieldLabel>
+          <Textarea ref={textareaRef} id="bulk-url-textarea" data-testid="bulk-url-textarea" value={raw} onChange={(event) => setRaw(event.target.value)} placeholder={t('wizard.bulk.textareaPlaceholder')} spellCheck={false} className="min-h-32 resize-y text-sm" />
+        </Field>
 
         <div className="flex items-center gap-3 text-xs text-muted-foreground">
           <span>
@@ -105,25 +110,42 @@ export function BulkUrlDialog({ open, onOpenChange, initialRaw = '', renderActio
 
         <div className="max-h-48 overflow-y-auto rounded-md border border-border bg-secondary/50" data-testid="bulk-url-preview">
           {parsed.accepted.length === 0 && parsed.rejected.length === 0 ? (
-            <p className="px-3 py-4 text-center text-xs text-muted-foreground">{t('wizard.bulk.emptyPreview')}</p>
+            <Empty className="min-h-28 rounded-none border-0 p-4">
+              <EmptyHeader>
+                <EmptyTitle>{t('wizard.bulk.emptyPreview')}</EmptyTitle>
+                <EmptyDescription>{t('wizard.bulk.needsAtLeastOne')}</EmptyDescription>
+              </EmptyHeader>
+            </Empty>
           ) : (
-            <div className="divide-y divide-border">
+            <ItemGroup className="gap-0 divide-y divide-border" data-size="xs">
               {parsed.accepted.map((item, index) => (
-                <div key={item.url} className="flex items-center gap-2 px-3 py-2 text-xs">
-                  <Link2 size={13} className="shrink-0 text-[var(--brand)]" />
-                  <span className="shrink-0 font-mono text-muted-foreground">{index + 1}</span>
-                  <span className="min-w-0 flex-1 truncate font-mono text-foreground/80">{item.url}</span>
-                  <span className="shrink-0 rounded-full border border-border px-2 py-0.5 text-[10px] uppercase tracking-[0.08em] text-muted-foreground">{item.kind}</span>
-                </div>
+                <Item key={item.url} size="xs" className="rounded-none border-0 px-3 py-2">
+                  <ItemMedia variant="icon" className="text-[var(--brand)]">
+                    <Link2 />
+                  </ItemMedia>
+                  <span className="shrink-0 font-mono text-xs text-muted-foreground">{index + 1}</span>
+                  <ItemContent className="min-w-0">
+                    <ItemTitle className="block w-full truncate font-mono text-xs font-normal text-foreground/80">{item.url}</ItemTitle>
+                  </ItemContent>
+                  <ItemActions>
+                    <Badge variant="outline" className="text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                      {item.kind}
+                    </Badge>
+                  </ItemActions>
+                </Item>
               ))}
               {parsed.rejected.map((item) => (
-                <div key={item.id} className="flex items-center gap-2 px-3 py-2 text-xs text-amber-500">
-                  <AlertTriangle size={13} className="shrink-0" />
-                  <span className="min-w-0 flex-1 truncate font-mono">{item.url}</span>
-                  <span className="shrink-0">{t(REJECT_I18N[item.reason])}</span>
-                </div>
+                <Item key={item.id} size="xs" className="rounded-none border-0 px-3 py-2 text-[var(--color-status-paused)]">
+                  <ItemMedia variant="icon">
+                    <AlertTriangle />
+                  </ItemMedia>
+                  <ItemContent className="min-w-0">
+                    <ItemTitle className="block w-full truncate font-mono text-xs font-normal">{item.url}</ItemTitle>
+                  </ItemContent>
+                  <ItemActions className="text-xs">{t(REJECT_I18N[item.reason])}</ItemActions>
+                </Item>
               ))}
-            </div>
+            </ItemGroup>
           )}
         </div>
 
@@ -138,11 +160,11 @@ export function BulkUrlDialog({ open, onOpenChange, initialRaw = '', renderActio
                 {t('common.cancel')}
               </Button>
               <Button type="button" onClick={() => void confirmQuick()} disabled={!canConfirm || quickPreparing} data-testid="bulk-url-quick-confirm" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
-                <Download size={16} />
+                <Download data-icon="inline-start" />
                 {quickPreparing ? t('wizard.url.quickPreparing') : 'Quick Download'}
               </Button>
               <Button type="button" variant="outline" onClick={confirm} disabled={!canConfirm} data-testid="bulk-url-confirm">
-                <WandSparkles size={16} />
+                <WandSparkles data-icon="inline-start" />
                 Interactive Download
               </Button>
             </>

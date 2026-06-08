@@ -15,6 +15,8 @@ import { AboutDialog } from './components/system/AboutDialog.js';
 import { ShareDialog } from './components/system/ShareDialog.js';
 import { useUpdateChannel } from './components/system/useUpdateChannel.js';
 import { shouldShowSplashGreeting } from './components/system/splashGreeting.js';
+import { Button } from './components/ui/button.js';
+import { ButtonGroup } from './components/ui/button-group.js';
 import { TooltipProvider } from './components/ui/tooltip.js';
 import { ScenarioGallery } from './dev/ScenarioGallery.js';
 import { cn } from './lib/utils.js';
@@ -98,38 +100,42 @@ export function App(): JSX.Element {
 
         <footer className="shrink-0 flex items-center justify-between border-t border-border px-4 h-7">
           <div className="flex items-center gap-1">
-            <button type="button" onClick={() => setUiZoom(uiZoom - ZOOM_STEP)} disabled={uiZoom <= ZOOM_MIN} className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none" aria-label={t('app.zoomOut')}>
-              −
-            </button>
-            <span className="text-[13px] text-muted-foreground w-8 text-center tabular-nums">{Math.round(uiZoom * 100)}%</span>
-            <button type="button" onClick={() => setUiZoom(uiZoom + ZOOM_STEP)} disabled={uiZoom >= ZOOM_MAX} className="w-4 h-4 flex items-center justify-center text-muted-foreground hover:text-foreground/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-base leading-none" aria-label={t('app.zoomIn')}>
-              +
-            </button>
-            <div className="w-px h-3 bg-border mx-1" aria-hidden />
+            <ButtonGroup>
+              <Button type="button" variant="ghost" size="icon-xs" onClick={() => setUiZoom(uiZoom - ZOOM_STEP)} disabled={uiZoom <= ZOOM_MIN} className="size-5 text-base leading-none text-muted-foreground" aria-label={t('app.zoomOut')}>
+                −
+              </Button>
+              <Button type="button" variant="ghost" size="icon-xs" onClick={() => setUiZoom(uiZoom + ZOOM_STEP)} disabled={uiZoom >= ZOOM_MAX} className="size-5 text-base leading-none text-muted-foreground" aria-label={t('app.zoomIn')}>
+                +
+              </Button>
+            </ButtonGroup>
+            <span className="w-8 text-center text-[13px] text-muted-foreground tabular-nums">{Math.round(uiZoom * 100)}%</span>
+            <div className="mx-1 h-3 w-px bg-border" aria-hidden />
             <ThemeToggle />
-            <div className="w-px h-3 bg-border mx-1" aria-hidden />
+            <div className="mx-1 h-3 w-px bg-border" aria-hidden />
             <LanguagePicker />
           </div>
           <div className="flex items-center gap-3">
-            <button type="button" className="inline-flex items-center h-5 leading-none text-[11px] text-muted-foreground/50 tabular-nums select-none hover:text-foreground/80 transition-colors" onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about-version">
+            <Button type="button" variant="ghost" size="xs" className="h-5 px-0 text-[11px] text-muted-foreground/50 tabular-nums" onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about-version">
               v{window.appVersion}
-            </button>
-            <button type="button" className="inline-flex items-center h-5 leading-none gap-1.5 text-[13px] text-muted-foreground hover:text-foreground/80 transition-colors" onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about">
-              <Info size={14} />
+            </Button>
+            <Button type="button" variant="ghost" size="xs" className="h-5 px-0 text-[13px] text-muted-foreground" onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about">
+              <Info data-icon="inline-start" aria-hidden />
               {t('about.button')}
-            </button>
-            <button type="button" className="inline-flex items-center justify-center w-5 h-5 leading-none text-muted-foreground hover:text-foreground/80 transition-colors" onClick={copyDebugInfo} title={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')} data-testid="btn-debug">
-              <Bug size={14} />
-            </button>
-            <button type="button" className="inline-flex items-center h-5 leading-none gap-1.5 text-[13px] text-muted-foreground hover:text-foreground/80 transition-colors" onClick={() => openShareDialog('footer')} title={t('share.footerTooltip')} data-testid="btn-share">
-              <Share2 size={14} />
+            </Button>
+            <Button type="button" variant="ghost" size="icon-xs" className="size-5 text-muted-foreground" onClick={copyDebugInfo} title={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')} data-testid="btn-debug">
+              <Bug aria-hidden />
+            </Button>
+            <Button type="button" variant="ghost" size="xs" className="h-5 px-0 text-[13px] text-muted-foreground" onClick={() => openShareDialog('footer')} title={t('share.footerTooltip')} data-testid="btn-share">
+              <Share2 data-icon="inline-start" aria-hidden />
               {t('share.footerLabel')}
-            </button>
+            </Button>
             <div className="relative inline-flex items-center h-5">
               <FeedbackNudge visible={showNudge} message={t('app.feedbackNudge')} />
-              <button
+              <Button
                 type="button"
-                className={cn('inline-flex items-center h-5 leading-none text-[13px] transition-colors', showNudge ? 'feedback-btn-nudging' : 'text-muted-foreground hover:text-foreground/80')}
+                variant="ghost"
+                size="xs"
+                className={cn('h-5 px-0 text-[13px]', showNudge ? 'feedback-btn-nudging' : 'text-muted-foreground')}
                 onClick={() => {
                   setShowNudge(false);
                   void window.appApi.shell.openExternal(FEEDBACK_URL);
@@ -137,11 +143,11 @@ export function App(): JSX.Element {
                 data-testid="btn-feedback"
               >
                 {t('app.feedback')}
-              </button>
+              </Button>
             </div>
-            <button type="button" className="inline-flex items-center h-5 leading-none text-[13px] text-muted-foreground hover:text-foreground/80 transition-colors" onClick={() => void openLogs()} data-testid="btn-logs">
+            <Button type="button" variant="ghost" size="xs" className="h-5 px-0 text-[13px] text-muted-foreground" onClick={() => void openLogs()} data-testid="btn-logs">
               {t('app.logs')}
-            </button>
+            </Button>
           </div>
         </footer>
 

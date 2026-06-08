@@ -93,7 +93,7 @@ beforeEach(() => {
 });
 
 function openSettingsTab(): void {
-  fireEvent.click(screen.getByRole('button', { name: 'Settings' }));
+  fireEvent.click(screen.getByRole('tab', { name: 'Settings' }));
 }
 
 function enterUrlAndStartInteractiveDownload(): void {

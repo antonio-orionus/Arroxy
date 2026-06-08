@@ -108,7 +108,7 @@ export function PlaylistProbeLimitSelector({ testId = 'playlist-probe-limit', cl
                 {formatOptionLabel(preset)}
               </SelectItem>
             ))}
-            <SelectItem value={CUSTOM_VALUE} onClick={openCustomDialogAfterSelectClose} data-testid={`${testId}-option-custom`}>
+            <SelectItem value={CUSTOM_VALUE} onClick={() => handleValueChange(CUSTOM_VALUE)} data-testid={`${testId}-option-custom`}>
               {t('wizard.url.playlistProbeLimit.custom')}
             </SelectItem>
           </SelectGroup>

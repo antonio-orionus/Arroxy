@@ -2,6 +2,7 @@ import type { JSX, ReactNode } from 'react';
 import { AlertTriangle, ExternalLink } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '@renderer/store/useAppStore.js';
+import { Alert, AlertDescription } from '@renderer/components/ui/alert.js';
 import { Button } from '@renderer/components/ui/button.js';
 
 const DPAPI_DOCS_URL = 'https://github.com/yt-dlp/yt-dlp/issues/10927';
@@ -20,13 +21,11 @@ interface CookiesAlertShellProps {
 
 function CookiesAlertShell({ mode, variant, body, footer }: CookiesAlertShellProps): JSX.Element {
   return (
-    <div role="status" data-testid="cookies-error-alert" data-mode={mode} {...(variant ? { 'data-variant': variant } : {})} className="flex flex-col gap-2 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-[12px] text-amber-900 dark:text-amber-100">
-      <div className="flex items-start gap-2">
-        <AlertTriangle size={14} className="mt-0.5 shrink-0 text-amber-500" />
-        <div className="flex flex-col gap-1">{body}</div>
-      </div>
-      {footer}
-    </div>
+    <Alert role="status" variant="warning" data-testid="cookies-error-alert" data-mode={mode} {...(variant ? { 'data-variant': variant } : {})} className="text-[12px]">
+      <AlertTriangle />
+      <AlertDescription className="flex flex-col gap-1 text-[12px] text-current">{body}</AlertDescription>
+      <div className="col-start-2 flex flex-col gap-2">{footer}</div>
+    </Alert>
   );
 }
 
@@ -34,9 +33,9 @@ function OpenCookiesSettingsButton(): JSX.Element {
   const { t } = useTranslation();
   const { openCookiesSettings } = useAppStore();
   return (
-    <div className="flex flex-wrap gap-2 ps-6">
-      <Button type="button" size="sm" variant="outline" onClick={() => openCookiesSettings()} className="gap-1.5" data-testid="cookies-error-open-settings-cta">
-        <ExternalLink size={12} />
+    <div className="flex flex-wrap gap-2">
+      <Button type="button" size="sm" variant="outline" onClick={() => openCookiesSettings()} data-testid="cookies-error-open-settings-cta">
+        <ExternalLink data-icon="inline-start" />
         {t('wizard.formats.cookiesError.openSettingsCta')}
       </Button>
     </div>
@@ -89,7 +88,7 @@ export function CookiesErrorAlert({ forceShowCookiesOff = false }: CookiesErrorA
         }
         footer={
           <>
-            <ol className="flex flex-col gap-1.5 ps-9 list-decimal marker:text-amber-700/80 dark:marker:text-amber-200/70">
+            <ol className="flex list-decimal flex-col gap-1.5 ps-4 marker:text-amber-700/80 dark:marker:text-amber-200/70">
               <li>
                 <span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixFirefoxLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixFirefoxBody')}</span>
               </li>
@@ -98,9 +97,10 @@ export function CookiesErrorAlert({ forceShowCookiesOff = false }: CookiesErrorA
               </li>
               <li>
                 <span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixUnsafeLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixUnsafeBody')}</span>{' '}
-                <button type="button" className="underline hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(DPAPI_DOCS_URL)} data-testid="cookies-error-dpapi-docs-link">
-                  {t('wizard.formats.cookiesError.dpapi.docsLinkLabel')} ↗
-                </button>
+                <Button type="button" variant="link" size="xs" className="h-auto px-0 align-baseline text-[12px]" onClick={() => void window.appApi.shell.openExternal(DPAPI_DOCS_URL)} data-testid="cookies-error-dpapi-docs-link">
+                  {t('wizard.formats.cookiesError.dpapi.docsLinkLabel')}
+                  <ExternalLink data-icon="inline-end" />
+                </Button>
               </li>
             </ol>
             <OpenCookiesSettingsButton />

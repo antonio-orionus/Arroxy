@@ -4,7 +4,9 @@ import { DEFAULTS } from '@shared/constants.js';
 import type { CookiesBrowser, CookiesMode } from '@shared/types.js';
 import { formatHomeRelativePath } from '@renderer/lib/utils.js';
 import { useAppStore } from '../../store/useAppStore.js';
+import { Alert, AlertDescription } from '../ui/alert.js';
 import { Button } from '../ui/button.js';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card.js';
 import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '../ui/field.js';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '../ui/input-group.js';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover.js';
@@ -31,13 +33,13 @@ const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookies
 
 function SettingsPanel({ title, description, children }: { title: string; description?: string; children: ReactNode }): JSX.Element {
   return (
-    <section className="rounded-lg border border-[var(--border-strong)] bg-card/40 p-3">
-      <div className="mb-3">
-        <h3 className="text-sm font-semibold leading-tight">{title}</h3>
-        {description ? <p className="mt-1 text-[12px] leading-snug text-[var(--text-subtle)]">{description}</p> : null}
-      </div>
-      {children}
-    </section>
+    <Card size="sm" className="gap-3 rounded-lg border-[var(--border-strong)] bg-card/40 py-3">
+      <CardHeader className="gap-1 px-3">
+        <CardTitle className="text-sm font-semibold leading-tight">{title}</CardTitle>
+        {description ? <CardDescription className="text-[12px] leading-snug text-[var(--text-subtle)]">{description}</CardDescription> : null}
+      </CardHeader>
+      <CardContent className="px-3">{children}</CardContent>
+    </Card>
   );
 }
 
@@ -240,9 +242,9 @@ export function DownloadProfilesSettingsTab(): JSX.Element {
 
 function WarningText({ text }: { text: string }): JSX.Element {
   return (
-    <p className="flex items-center gap-1.5 text-[11px] text-amber-500">
-      <AlertTriangle size={12} />
-      {text}
-    </p>
+    <Alert variant="warning" className="py-1.5">
+      <AlertTriangle aria-hidden />
+      <AlertDescription className="text-[11px]">{text}</AlertDescription>
+    </Alert>
   );
 }

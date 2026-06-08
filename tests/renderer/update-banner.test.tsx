@@ -85,7 +85,8 @@ describe('UpdateBanner', () => {
   it('shows Download ↗ for direct channel on darwin', () => {
     window.platform = 'darwin';
     render(<UpdateBanner info={makeInfo({ installChannel: 'direct' })} installing={false} installError={null} onInstall={vi.fn()} onDownload={vi.fn()} onDismiss={vi.fn()} />);
-    expect(screen.getByText('Download ↗')).toBeInTheDocument();
+    const downloadLink = screen.getByRole('link', { name: 'Download ↗' });
+    expect(downloadLink).toHaveAttribute('href', 'https://arroxy.orionus.dev/');
     expect(screen.queryByRole('button', { name: 'Install & Restart' })).not.toBeInTheDocument();
   });
 
@@ -161,7 +162,7 @@ describe('UpdateBanner', () => {
     window.platform = 'darwin';
     const onDownload = vi.fn();
     render(<UpdateBanner info={makeInfo({ installChannel: 'direct' })} installing={false} installError={null} onInstall={vi.fn()} onDownload={onDownload} onDismiss={vi.fn()} />);
-    fireEvent.click(screen.getByText('Download ↗'));
+    fireEvent.click(screen.getByRole('link', { name: 'Download ↗' }));
     expect(onDownload).toHaveBeenCalledOnce();
   });
 
