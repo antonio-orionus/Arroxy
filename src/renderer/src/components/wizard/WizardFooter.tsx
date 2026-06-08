@@ -1,4 +1,4 @@
-import type {JSX, ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import {Separator} from '../ui/separator.js'
 
 interface WizardFooterProps {
@@ -7,7 +7,7 @@ interface WizardFooterProps {
 	extraAbove?: ReactNode
 }
 
-export function WizardFooter({children, info, extraAbove}: WizardFooterProps): JSX.Element {
+export function WizardFooter({children, info, extraAbove}: WizardFooterProps): ReactNode {
 	return (
 		<div className="sticky bottom-0 -mx-6 px-6 bg-background z-10">
 			{extraAbove}

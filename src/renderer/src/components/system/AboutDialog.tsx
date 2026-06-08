@@ -1,4 +1,4 @@
-import {type JSX} from 'react'
+import {type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {ExternalLink, Share2} from 'lucide-react'
 import {Button} from '../ui/button.js'
@@ -10,13 +10,13 @@ const WEBSITE_URL = 'https://arroxy.orionus.dev/'
 const GITHUB_URL = 'https://github.com/antonio-orionus/Arroxy'
 const NOTICES_URL = 'https://github.com/antonio-orionus/Arroxy/blob/main/THIRD_PARTY_NOTICES.txt'
 
-export function AboutDialog(): JSX.Element {
+function openExternalUrl(url: string): void {
+	void window.appApi.shell.openExternal(url)
+}
+
+export function AboutDialog(): ReactNode {
 	const {t} = useTranslation()
 	const {aboutDialogOpen, setAboutDialogOpen, openShareDialog} = useAppStore()
-
-	function open(url: string): void {
-		void window.appApi.shell.openExternal(url)
-	}
 
 	function handleShare(): void {
 		setAboutDialogOpen(false)
@@ -34,11 +34,11 @@ export function AboutDialog(): JSX.Element {
 				</DialogHeader>
 
 				<div className="flex gap-2 justify-center">
-					<Button type="button" variant="outline" size="sm" onClick={() => open(WEBSITE_URL)} data-testid="about-link-website">
+					<Button type="button" variant="outline" size="sm" onClick={() => openExternalUrl(WEBSITE_URL)} data-testid="about-link-website">
 						{t('about.websiteLink')}
 						<ExternalLink size={12} aria-hidden />
 					</Button>
-					<Button type="button" variant="outline" size="sm" onClick={() => open(GITHUB_URL)} data-testid="about-link-github">
+					<Button type="button" variant="outline" size="sm" onClick={() => openExternalUrl(GITHUB_URL)} data-testid="about-link-github">
 						{t('about.githubLink')}
 						<ExternalLink size={12} aria-hidden />
 					</Button>
@@ -50,7 +50,7 @@ export function AboutDialog(): JSX.Element {
 
 				<div className="flex flex-col items-center gap-2 text-xs text-muted-foreground">
 					<span>{t('about.licenseLine')}</span>
-					<button type="button" onClick={() => open(NOTICES_URL)} className="inline-flex items-center gap-1 underline underline-offset-2 hover:text-foreground transition-colors" data-testid="about-link-notices">
+					<button type="button" onClick={() => openExternalUrl(NOTICES_URL)} className="inline-flex items-center gap-1 underline underline-offset-2 hover:text-foreground transition-colors" data-testid="about-link-notices">
 						{t('about.thirdPartyNotices')}
 						<ExternalLink size={11} aria-hidden />
 					</button>

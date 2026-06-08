@@ -1,9 +1,10 @@
+import type {ReactNode} from 'react'
 import {Tabs as TabsPrimitive} from '@base-ui/react/tabs'
 import {cva, type VariantProps} from 'class-variance-authority'
 
 import {cn} from '@renderer/lib/utils.js'
 
-function Tabs({className, orientation = 'horizontal', ...props}: TabsPrimitive.Root.Props) {
+function Tabs({className, orientation = 'horizontal', ...props}: TabsPrimitive.Root.Props): ReactNode {
 	return <TabsPrimitive.Root data-slot="tabs" orientation={orientation} data-orientation={orientation} className={cn('group/tabs flex gap-2 data-horizontal:flex-col', className)} {...props} />
 }
 
@@ -12,11 +13,11 @@ const tabsListVariants = cva('group/tabs-list inline-flex w-fit items-center jus
 	defaultVariants: {variant: 'default'}
 })
 
-function TabsList({className, variant = 'default', ...props}: TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>) {
+function TabsList({className, variant = 'default', ...props}: TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>): ReactNode {
 	return <TabsPrimitive.List data-slot="tabs-list" data-variant={variant} className={cn(tabsListVariants({variant}), className)} {...props} />
 }
 
-function TabsTrigger({className, ...props}: TabsPrimitive.Tab.Props) {
+function TabsTrigger({className, ...props}: TabsPrimitive.Tab.Props): ReactNode {
 	return (
 		<TabsPrimitive.Tab
 			data-slot="tabs-trigger"
@@ -32,8 +33,8 @@ function TabsTrigger({className, ...props}: TabsPrimitive.Tab.Props) {
 	)
 }
 
-function TabsContent({className, ...props}: TabsPrimitive.Panel.Props) {
+function TabsContent({className, ...props}: TabsPrimitive.Panel.Props): ReactNode {
 	return <TabsPrimitive.Panel data-slot="tabs-content" className={cn('flex-1 text-sm outline-none', className)} {...props} />
 }
 
-export {Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants}
+export {Tabs, TabsList, TabsTrigger, TabsContent}

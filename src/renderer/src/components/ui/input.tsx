@@ -1,9 +1,10 @@
+import type {ReactNode} from 'react'
 import * as React from 'react'
 import {Input as InputPrimitive} from '@base-ui/react/input'
 
 import {cn} from '@renderer/lib/utils.js'
 
-function Input({className, type, ...props}: React.ComponentProps<'input'>) {
+function Input({className, type, ...props}: React.ComponentProps<'input'>): ReactNode {
 	return (
 		<InputPrimitive
 			type={type}

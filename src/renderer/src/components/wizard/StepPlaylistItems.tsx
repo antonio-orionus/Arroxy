@@ -1,4 +1,4 @@
-import {type JSX, useMemo, useRef, useState} from 'react'
+import {useMemo, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useVirtualizer} from '@tanstack/react-virtual'
 import {FolderCheck, FolderSearch, Info, X} from 'lucide-react'
@@ -24,7 +24,7 @@ function formatEntryDuration(seconds: number | undefined, liveLabel: string): st
 	return formatDuration(seconds, liveLabel)
 }
 
-export function StepPlaylistItems(): JSX.Element {
+export function StepPlaylistItems(): ReactNode {
 	const {t} = useTranslation()
 	const store = useAppStore()
 	const {
@@ -234,6 +234,7 @@ export function StepPlaylistItems(): JSX.Element {
 								const bulkRowStatus = isBulk ? bulkMetadataById[entry.id] : undefined
 								const bulkRowStatusKey = bulkRowStatus === 'pending' ? 'wizard.playlist.bulkRowWaiting' : bulkRowStatus === 'resolving' ? 'wizard.playlist.bulkRowResolving' : bulkRowStatus === 'failed' ? 'wizard.playlist.bulkRowFailed' : null
 								return (
+									// react-doctor-disable-next-line react-doctor/prefer-tag-over-role
 									<div
 										key={entry.id}
 										role="checkbox"

@@ -18,9 +18,10 @@ export async function ensureAppBridge(options: EnsureAppBridgeOptions): Promise<
 	if (options.hasAppApi()) return 'preload'
 
 	if (options.mode === 'browser-mock') {
-		await options.installBrowserMock()
-		if (options.hasAppApi()) return 'browser-mock'
-		throw new BridgeUnavailableError('Browser mock mode did not install window.appApi.')
+		return Promise.resolve(options.installBrowserMock()).then(() => {
+			if (options.hasAppApi()) return 'browser-mock'
+			throw new BridgeUnavailableError('Browser mock mode did not install window.appApi.')
+		})
 	}
 
 	throw new BridgeUnavailableError('Electron preload bridge did not expose window.appApi.')

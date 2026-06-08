@@ -1,4 +1,4 @@
-import {useEffect, useState, type JSX} from 'react'
+import {useEffect, useState, type ReactNode} from 'react'
 import {Minus, Share2, Square, Minimize2, X} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {cn} from '@renderer/lib/utils.js'
@@ -10,7 +10,7 @@ const noDrag: React.CSSProperties = {WebkitAppRegion: 'no-drag'} as React.CSSPro
 
 const isMac = window.platform === 'darwin'
 
-function ShareButton(): JSX.Element {
+function ShareButton(): ReactNode {
 	const {t} = useTranslation()
 	const openShareDialog = useAppStore(s => s.openShareDialog)
 	return (
@@ -28,7 +28,7 @@ function ShareButton(): JSX.Element {
 	)
 }
 
-function MacControls({isMaximized}: {isMaximized: boolean}): JSX.Element {
+function MacControls({isMaximized}: {isMaximized: boolean}): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<div className="flex items-center gap-1.5" style={noDrag} data-testid="window-controls-mac">
@@ -45,7 +45,7 @@ function MacControls({isMaximized}: {isMaximized: boolean}): JSX.Element {
 	)
 }
 
-function WinLinuxControls({isMaximized}: {isMaximized: boolean}): JSX.Element {
+function WinLinuxControls({isMaximized}: {isMaximized: boolean}): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<div className="flex items-center" style={noDrag} data-testid="window-controls-win">
@@ -62,7 +62,7 @@ function WinLinuxControls({isMaximized}: {isMaximized: boolean}): JSX.Element {
 	)
 }
 
-export function TitleBar(): JSX.Element {
+export function TitleBar(): ReactNode {
 	const [isMaximized, setIsMaximized] = useState(false)
 
 	useEffect(() => {

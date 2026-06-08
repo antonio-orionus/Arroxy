@@ -1,4 +1,4 @@
-import {type JSX, useEffect} from 'react'
+import {useEffect, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {type PlaylistAudioFormat, type PlaylistVideoTier, type PlaylistSelection, AUDIO_BITRATES, DEFAULT_PLAYLIST_SELECTION, PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -18,7 +18,7 @@ const LOSSY_AUDIO = new Set<PlaylistAudioFormat>(['mp3', 'm4a', 'opus'])
 const SECTION_LABEL = 'text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-1.5'
 const KIND_TAB_CLASS = 'flex-1 aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] data-[state=on]:border-[var(--brand)] data-[state=on]:bg-[var(--brand-dim)] data-[state=on]:text-[var(--brand)]'
 
-export function StepPlaylistPresets(): JSX.Element {
+export function StepPlaylistPresets(): ReactNode {
 	const {t} = useTranslation()
 	const {playlistSelection, setPlaylistSelection, advance, back, skipToConfirm, selectedPlaylistItemIds} = useAppStore()
 

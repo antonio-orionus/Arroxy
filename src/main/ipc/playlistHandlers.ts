@@ -19,7 +19,7 @@ export async function scanFolderForVideoIds(outputDir: string, videoIds: string[
 	let names: string[]
 	try {
 		const entries = await fsPromises.readdir(outputDir, {withFileTypes: true})
-		names = entries.filter(e => e.isFile()).map(e => e.name)
+		names = entries.flatMap(e => (e.isFile() ? [e.name] : []))
 	} catch {
 		return []
 	}

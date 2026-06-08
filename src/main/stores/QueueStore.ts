@@ -75,11 +75,11 @@ export class QueueStore {
 	// Cancelled items are stripped (not worth restoring); running items are
 	// demoted to pending on save (the process didn't survive — restart it).
 	async save(items: QueueItem[], schedulerPaused = false): Promise<void> {
-		const toStore = items
-			.filter(item => item.status !== QUEUE_STATUS.cancelled)
-			.map((item): QueueItem => {
-				const wasRunning = item.status === QUEUE_STATUS.running
-				return {
+		const toStore = items.flatMap((item): QueueItem[] => {
+			if (item.status === QUEUE_STATUS.cancelled) return []
+			const wasRunning = item.status === QUEUE_STATUS.running
+			return [
+				{
 					...item,
 					status: wasRunning ? QUEUE_STATUS.pending : item.status,
 					progressPercent: wasRunning ? 0 : item.progressPercent,
@@ -88,7 +88,8 @@ export class QueueStore {
 					// so resume() can re-spawn under the same id when main still has it.
 					lastJobId: wasRunning ? undefined : item.lastJobId
 				}
-			})
+			]
+		})
 
 		const result = queueArraySchema.safeParse(toStore)
 		if (!result.success) {
@@ -97,6 +98,7 @@ export class QueueStore {
 
 		this.store.set('items', result.data)
 		this.store.set('schedulerPaused', schedulerPaused)
+		await Promise.resolve()
 	}
 
 	async load(): Promise<Result<{items: QueueItem[]; schedulerPaused: boolean}>> {
@@ -108,6 +110,7 @@ export class QueueStore {
 			return fail({code: 'validation', message: `Queue file is corrupted: ${issue}`})
 		}
 		const schedulerPaused = this.store.get('schedulerPaused') === true
+		await Promise.resolve()
 		return ok({items: validated.data, schedulerPaused})
 	}
 }

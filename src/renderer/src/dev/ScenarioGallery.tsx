@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useRef, useState, type JSX} from 'react'
+import {useCallback, useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import {ChevronDown, RotateCcw, TestTube2} from 'lucide-react'
 import {SUPPORTED_LANGS, YT_DLP_ERROR_KINDS} from '@shared/schemas.js'
 import type {SupportedLang, YtDlpErrorKind} from '@shared/schemas.js'
@@ -106,7 +106,7 @@ function applyKnob(updates: {theme?: UiTheme | null; locale?: SupportedLang | nu
 	}
 }
 
-export function ScenarioGallery(): JSX.Element {
+export function ScenarioGallery(): ReactNode {
 	const [open, setOpen] = useState(false)
 	const scenario = activeScenario()
 	const urlParams = activeUrlParams()
@@ -284,6 +284,7 @@ export function ScenarioGallery(): JSX.Element {
 											<input
 												type="number"
 												min={1}
+												aria-label="Playlist item count"
 												placeholder="e.g. 50"
 												value={playlistInput}
 												onChange={e => setPlaylistInput(e.target.value)}

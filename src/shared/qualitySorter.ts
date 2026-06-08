@@ -9,7 +9,7 @@ export function sortFormatsByQuality(formats: FormatOption[]): FormatOption[] {
 	const video = formats.filter(f => !f.isAudioOnly)
 	const audio = formats.filter(f => f.isAudioOnly)
 
-	const sortedVideo = [...video].sort((a, b) => {
+	const sortedVideo = video.toSorted((a, b) => {
 		const byResolution = resolutionHeight(b.resolution) - resolutionHeight(a.resolution)
 		if (byResolution !== 0) return byResolution
 		const byFps = (b.fps ?? 0) - (a.fps ?? 0)
@@ -17,7 +17,7 @@ export function sortFormatsByQuality(formats: FormatOption[]): FormatOption[] {
 		return (b.filesize ?? 0) - (a.filesize ?? 0)
 	})
 
-	const sortedAudio = [...audio].sort((a, b) => (b.abr ?? 0) - (a.abr ?? 0))
+	const sortedAudio = audio.toSorted((a, b) => (b.abr ?? 0) - (a.abr ?? 0))
 
 	return [...sortedVideo, ...sortedAudio]
 }

@@ -34,8 +34,8 @@ export function spawnFFmpeg(binaryPath: string, args: string[]): ChildProcessWit
 }
 
 export function splitStderrLines(text: string): string[] {
-	return text
-		.split(/\r?\n/)
-		.map(line => line.trim())
-		.filter(Boolean)
+	return text.split(/\r?\n/).flatMap(line => {
+		const trimmed = line.trim()
+		return trimmed ? [trimmed] : []
+	})
 }

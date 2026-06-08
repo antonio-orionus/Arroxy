@@ -1,8 +1,9 @@
+import type {ReactNode} from 'react'
 import {Checkbox as CheckboxPrimitive} from '@base-ui/react/checkbox'
 import {Check} from 'lucide-react'
 import {cn} from '@renderer/lib/utils.js'
 
-function Checkbox({className, ...props}: CheckboxPrimitive.Root.Props) {
+function Checkbox({className, ...props}: CheckboxPrimitive.Root.Props): ReactNode {
 	return (
 		<CheckboxPrimitive.Root
 			data-slot="checkbox"

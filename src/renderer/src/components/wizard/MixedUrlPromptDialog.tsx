@@ -1,4 +1,4 @@
-import {useRef, type JSX} from 'react'
+import {useRef, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Info} from 'lucide-react'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
@@ -14,7 +14,7 @@ import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 // (they clicked a specific video). The wizardSlice opens this dialog before
 // probing whenever it detects the mixed pattern; the user's choice flows
 // through to the probe IPC as `playlistMode: 'video' | 'playlist'`.
-export function MixedUrlPromptDialog(): JSX.Element {
+export function MixedUrlPromptDialog(): ReactNode {
 	const {t} = useTranslation()
 	const {mixedUrlPromptOpen, cancelMixedPrompt, dismissMixedPrompt, settings} = useAppStore()
 	const playlistButtonRef = useRef<HTMLButtonElement>(null)

@@ -1,4 +1,4 @@
-import type {JSX} from 'react'
+import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {Preset} from '@shared/types.js'
 import {presetOptions} from '../../../store/useAppStore.js'
@@ -10,7 +10,7 @@ interface PresetStripProps {
 	onSelect: (p: Preset) => void
 }
 
-export function PresetStrip({activePreset, onSelect}: PresetStripProps): JSX.Element {
+export function PresetStrip({activePreset, onSelect}: PresetStripProps): ReactNode {
 	const {t} = useTranslation()
 	const options = presetOptions()
 

@@ -1,8 +1,9 @@
+import type {ReactNode} from 'react'
 import {Switch as SwitchPrimitive} from '@base-ui/react/switch'
 
 import {cn} from '@renderer/lib/utils.js'
 
-function Switch({className, size = 'default', ...props}: SwitchPrimitive.Root.Props & {size?: 'sm' | 'default'}) {
+function Switch({className, size = 'default', ...props}: SwitchPrimitive.Root.Props & {size?: 'sm' | 'default'}): ReactNode {
 	return (
 		<SwitchPrimitive.Root
 			data-slot="switch"

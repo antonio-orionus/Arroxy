@@ -99,6 +99,7 @@ export function installBrowserMock(): void {
 	const queueUpdatedListeners = new Set<(event: {item: QueueItem}) => void>()
 	const queueRemovedListeners = new Set<(event: {itemId: string}) => void>()
 	const queueItems: QueueItem[] = [...scenarioState.queueItems]
+	const queueItemById = new Map(queueItems.map(item => [item.id, item]))
 	let queueRunning = false
 	let warmupCallCount = 0
 
@@ -176,6 +177,7 @@ export function installBrowserMock(): void {
 		const index = queueItems.findIndex(item => item.id === nextItem.id)
 		if (index < 0) return
 		queueItems[index] = nextItem
+		queueItemById.set(nextItem.id, nextItem)
 		emitQueueUpdated(nextItem)
 	}
 
@@ -183,6 +185,7 @@ export function installBrowserMock(): void {
 		const index = queueItems.findIndex(item => item.id === itemId)
 		if (index < 0) return
 		queueItems.splice(index, 1)
+		queueItemById.delete(itemId)
 		queueRemovedListeners.forEach(listener => listener({itemId}))
 	}
 
@@ -201,7 +204,7 @@ export function installBrowserMock(): void {
 		const steps = [8, 21, 38, 54, 71, 88, 100]
 		for (const percent of steps) {
 			await delay(250)
-			const stillCurrent = queueItems.find(candidate => candidate.id === item.id)
+			const stillCurrent = queueItemById.get(item.id)
 			if (stillCurrent?.status !== QUEUE_STATUS.running) {
 				queueRunning = false
 				maybeStartNextQueueItem()
@@ -290,8 +293,6 @@ export function installBrowserMock(): void {
 				/* no-op in browser */
 			},
 			probe: async input => {
-				await delay(1400)
-
 				if (!looksLikeUrl(input.url)) {
 					return {ok: false, error: {kind: 'other', message: 'Not a valid http(s) URL'}}
 				}
@@ -306,10 +307,12 @@ export function installBrowserMock(): void {
 
 				if (shouldMockPlaylistProbe(input)) {
 					const itemCount = mockPlaylistItemCount(input.url)
+					await delay(1400)
 					return {ok: true, data: playlistProbe(itemCount, {webpageUrl: input.url})}
 				}
 
 				if (scenarioState.probeResult) {
+					await delay(1400)
 					return {ok: true, data: {...scenarioState.probeResult, webpageUrl: input.url}}
 				}
 
@@ -336,6 +339,7 @@ export function installBrowserMock(): void {
 				// the BotWallNotice variants in the renderer dev server.
 				const simulateBotWall = /[?&]bot=1\b/.test(input.url)
 
+				await delay(1400)
 				return {ok: true, data: normalVideoProbe({webpageUrl: input.url, degraded: simulateBotWall ? {reasons: ['botWall' as const]} : undefined})}
 			},
 
@@ -427,13 +431,14 @@ export function installBrowserMock(): void {
 				add: items => {
 					const atIdx = queueItems.length
 					queueItems.push(...items)
+					for (const item of items) queueItemById.set(item.id, item)
 					queueAddedListeners.forEach(listener => listener({items, atIdx}))
 					maybeStartNextQueueItem()
 					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id)}} as const)
 				},
 				getSnapshot: () => Promise.resolve({ok: true, data: [...queueItems]} as const),
 				start: ({itemId}) => {
-					const item = queueItems.find(candidate => candidate.id === itemId)
+					const item = queueItemById.get(itemId)
 					if (item && item.status !== QUEUE_STATUS.done && item.status !== QUEUE_STATUS.cancelled) {
 						setQueueItem({...item, status: QUEUE_STATUS.pending})
 						maybeStartNextQueueItem()
@@ -441,13 +446,13 @@ export function installBrowserMock(): void {
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
 				pause: ({itemId}) => {
-					const item = queueItems.find(candidate => candidate.id === itemId)
+					const item = queueItemById.get(itemId)
 					if (item?.status === QUEUE_STATUS.running) setQueueItem({...item, status: QUEUE_STATUS.pausedActive})
 					else if (item?.status === QUEUE_STATUS.pending) setQueueItem({...item, status: QUEUE_STATUS.pausedHeld})
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
 				resume: ({itemId}) => {
-					const item = queueItems.find(candidate => candidate.id === itemId)
+					const item = queueItemById.get(itemId)
 					if (item?.status === QUEUE_STATUS.pausedActive || item?.status === QUEUE_STATUS.pausedHeld) {
 						setQueueItem({...item, status: QUEUE_STATUS.pending})
 						maybeStartNextQueueItem()
@@ -455,16 +460,15 @@ export function installBrowserMock(): void {
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
 				cancel: ({itemId}) => {
-					const targets = itemId === null ? [...queueItems] : queueItems.filter(item => item.id === itemId)
+					const targets = itemId === null ? [...queueItems] : [queueItemById.get(itemId)].filter((item): item is QueueItem => item !== undefined)
 					targets.forEach(item => setQueueItem({...item, status: QUEUE_STATUS.cancelled, progressDetail: null, finishedAt: new Date().toISOString()}))
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
 				retry: () => Promise.resolve({ok: true, data: undefined} as const),
 				clearCompleted: () => {
-					queueItems
-						.filter(item => item.status === QUEUE_STATUS.done)
-						.map(item => item.id)
-						.forEach(removeQueueItem)
+					for (const item of [...queueItems]) {
+						if (item.status === QUEUE_STATUS.done) removeQueueItem(item.id)
+					}
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
 				remove: ({itemId}) => {
@@ -472,16 +476,20 @@ export function installBrowserMock(): void {
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
 				setLane: ({itemId, lane}) => {
-					const item = queueItems.find(candidate => candidate.id === itemId)
+					const item = queueItemById.get(itemId)
 					if (item) setQueueItem({...item, lane})
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
 				pauseAll: () => {
-					queueItems.filter(i => i.status === QUEUE_STATUS.running).forEach(i => setQueueItem({...i, status: QUEUE_STATUS.pausedActive}))
+					for (const item of queueItems) {
+						if (item.status === QUEUE_STATUS.running) setQueueItem({...item, status: QUEUE_STATUS.pausedActive})
+					}
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
 				resumeAll: () => {
-					queueItems.filter(i => i.status === QUEUE_STATUS.pausedActive || i.status === QUEUE_STATUS.pausedHeld).forEach(i => setQueueItem({...i, status: QUEUE_STATUS.pending}))
+					for (const item of queueItems) {
+						if (item.status === QUEUE_STATUS.pausedActive || item.status === QUEUE_STATUS.pausedHeld) setQueueItem({...item, status: QUEUE_STATUS.pending})
+					}
 					maybeStartNextQueueItem()
 					return Promise.resolve({ok: true, data: undefined} as const)
 				}

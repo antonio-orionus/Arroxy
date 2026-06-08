@@ -1,13 +1,11 @@
-import {useState, type JSX} from 'react'
+import {useState, type ReactNode} from 'react'
 import {Copy, CopyCheck, X} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import type {UpdateAvailablePayload} from '@shared/types.js'
-import {Button, buttonVariants} from '../ui/button.js'
+import {Button} from '../ui/button.js'
 import {ButtonGroup} from '../ui/button-group.js'
 import {Spinner} from '../ui/spinner.js'
 import {resolveAction} from './updateBannerAction.js'
-
-const DOWNLOAD_URL = 'https://arroxy.orionus.dev/'
 
 interface Props {
 	info: UpdateAvailablePayload
@@ -18,7 +16,7 @@ interface Props {
 	onDismiss: () => void
 }
 
-export function UpdateBanner({info, installing, installError, onInstall, onDownload, onDismiss}: Props): JSX.Element {
+export function UpdateBanner({info, installing, installError, onInstall, onDownload, onDismiss}: Props): ReactNode {
 	const {t} = useTranslation()
 	const action = resolveAction(info.installChannel, window.platform)
 	const [copied, setCopied] = useState(false)
@@ -52,17 +50,9 @@ export function UpdateBanner({info, installing, installError, onInstall, onDownl
 				)}
 
 				{action.kind === 'download' && (
-					<a
-						href={DOWNLOAD_URL}
-						data-slot="button"
-						className={buttonVariants({size: 'sm', className: 'bg-[var(--brand)] text-white hover:bg-[var(--brand)]/90'})}
-						onClick={e => {
-							e.preventDefault()
-							onDownload()
-						}}
-					>
+					<Button type="button" onClick={onDownload} size="sm" className="bg-[var(--brand)] text-white hover:bg-[var(--brand)]/90">
 						{t('update.download')}
-					</a>
+					</Button>
 				)}
 
 				{action.kind === 'command' && (

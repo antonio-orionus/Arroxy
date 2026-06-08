@@ -1,4 +1,4 @@
-import type {JSX} from 'react'
+import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {formatProbeError, useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
@@ -6,7 +6,7 @@ import {BotWallNotice} from './format/BotWallNotice.js'
 import {CookiesErrorAlert} from './format/CookiesErrorAlert.js'
 import {isBotWallKind, isCookiesNeededKind} from './format/cookiesGate.js'
 
-export function StepError(): JSX.Element {
+export function StepError(): ReactNode {
 	const {t} = useTranslation()
 	const {wizardError, settings, retry, reset} = useAppStore()
 	const message = formatProbeError(wizardError)

@@ -41,7 +41,7 @@ export function createTranscriptProcess(steps: readonly TranscriptStep[], option
 	}
 
 	const terminalEvents = new Set(steps.map(step => ('close' in step ? 'close' : 'error' in step ? 'error' : null)).filter((event): event is 'close' | 'error' => event !== null))
-	proc.on('newListener', event => {
+	proc.on('newListener', (event: string | symbol): void => {
 		if (!isTranscriptTerminalEvent(event) || !terminalEvents.has(event)) return
 		start()
 	})

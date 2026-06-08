@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState, type JSX} from 'react'
+import {useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
 import {STEP_REGISTRY} from '../wizard/stepRegistry.js'
@@ -8,7 +8,7 @@ import {MixedUrlPromptDialog} from '../wizard/MixedUrlPromptDialog.js'
 import {QuickPlaylistCapDialog} from '../wizard/QuickPlaylistCapDialog.js'
 import {cn} from '@renderer/lib/utils.js'
 
-export function WizardPanel(): JSX.Element {
+export function WizardPanel(): ReactNode {
 	const {t} = useTranslation()
 	const wizardStep = useAppStore(s => s.wizardStep)
 	const activePreset = useAppStore(s => s.activePreset)

@@ -1,17 +1,17 @@
 'use client'
 
 import * as React from 'react'
-import {useMemo} from 'react'
+import {use, useMemo, type ReactNode} from 'react'
 import {Toggle as TogglePrimitive} from '@base-ui/react/toggle'
 import {ToggleGroup as ToggleGroupPrimitive} from '@base-ui/react/toggle-group'
 import {type VariantProps} from 'class-variance-authority'
 
 import {cn} from '@renderer/lib/utils.js'
-import {toggleVariants} from '@renderer/components/ui/toggle.js'
+import {toggleVariants} from '@renderer/components/ui/toggle.variants.js'
 
 const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants> & {spacing?: number; orientation?: 'horizontal' | 'vertical'}>({size: 'default', variant: 'default', spacing: 0, orientation: 'horizontal'})
 
-function ToggleGroup({className, variant, size, spacing = 0, orientation = 'horizontal', children, ...props}: ToggleGroupPrimitive.Props & VariantProps<typeof toggleVariants> & {spacing?: number; orientation?: 'horizontal' | 'vertical'}) {
+function ToggleGroup({className, variant, size, spacing = 0, orientation = 'horizontal', children, ...props}: ToggleGroupPrimitive.Props & VariantProps<typeof toggleVariants> & {spacing?: number; orientation?: 'horizontal' | 'vertical'}): ReactNode {
 	const ctx = useMemo(() => ({variant, size, spacing, orientation}), [variant, size, spacing, orientation])
 	return (
 		<ToggleGroupPrimitive
@@ -29,8 +29,8 @@ function ToggleGroup({className, variant, size, spacing = 0, orientation = 'hori
 	)
 }
 
-function ToggleGroupItem({className, children, variant = 'default', size = 'default', ...props}: TogglePrimitive.Props & VariantProps<typeof toggleVariants>) {
-	const context = React.useContext(ToggleGroupContext)
+function ToggleGroupItem({className, children, variant = 'default', size = 'default', ...props}: TogglePrimitive.Props & VariantProps<typeof toggleVariants>): ReactNode {
+	const context = use(ToggleGroupContext)
 
 	return (
 		<TogglePrimitive

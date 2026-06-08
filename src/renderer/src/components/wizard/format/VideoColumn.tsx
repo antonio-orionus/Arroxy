@@ -1,4 +1,4 @@
-import {useState, type JSX} from 'react'
+import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {FormatOption} from '@shared/types.js'
 import {humanSize} from '@shared/format.js'
@@ -15,19 +15,20 @@ interface VideoColumnProps {
 	onSelect: (formatId: string) => void
 }
 
-export function VideoColumn({formats, selectedVideoFormatId, onSelect}: VideoColumnProps): JSX.Element {
+export function VideoColumn({formats, selectedVideoFormatId, onSelect}: VideoColumnProps): ReactNode {
 	const {video} = useFormatSelectionView()
 	const {t} = useTranslation()
 	const [extFilter, setExtFilter] = useState<string | null>(null)
 	const [drFilter, setDrFilter] = useState<string | null>(null)
 
-	const filteredFormats = formats.filter(f => !extFilter || f.ext === extFilter).filter(f => !drFilter || (drFilter === 'SDR' ? !f.dynamicRange : f.dynamicRange === drFilter))
+	const filteredFormats = formats.filter(f => (!extFilter || f.ext === extFilter) && (!drFilter || (drFilter === 'SDR' ? !f.dynamicRange : f.dynamicRange === drFilter)))
 	const videoGroups = groupVideoFormats(filteredFormats)
+	const formatById = new Map(filteredFormats.map(format => [format.formatId, format]))
 
-	const uniqueExts = [...new Set(formats.filter(f => f.isVideoOnly).map(f => f.ext))]
-	const uniqueDynamicRanges = [...new Set(formats.filter(f => f.isVideoOnly).map(f => f.dynamicRange ?? 'SDR'))]
+	const uniqueExts = [...new Set(formats.flatMap(f => (f.isVideoOnly ? [f.ext] : [])))]
+	const uniqueDynamicRanges = [...new Set(formats.flatMap(f => (f.isVideoOnly ? [f.dynamicRange ?? 'SDR'] : [])))]
 
-	const maxFilesize = Math.max(...videoGroups.filter(g => !g.isAudioOnly).map(g => filteredFormats.find(f => f.formatId === g.formatId)?.filesize ?? 0), 1)
+	const maxFilesize = Math.max(...videoGroups.flatMap(g => (g.isAudioOnly ? [] : [formatById.get(g.formatId)?.filesize ?? 0])), 1)
 
 	return (
 		<div className="flex flex-col gap-0 h-full">
@@ -58,20 +59,14 @@ export function VideoColumn({formats, selectedVideoFormatId, onSelect}: VideoCol
 			<ScrollArea className="flex-1 min-h-0">
 				{videoGroups.map(g => {
 					const isChecked = selectedVideoFormatId === g.formatId
-					const rawFmt = filteredFormats.find(f => f.formatId === g.formatId)
+					const rawFmt = formatById.get(g.formatId)
 					const filesize = rawFmt?.filesize
 					const barWidth = filesize ? Math.max(2, (filesize / maxFilesize) * 100) : 0
 					const meta = g.isAudioOnly ? '' : [rawFmt?.ext, rawFmt?.fps ? `${rawFmt.fps}fps` : null, rawFmt?.dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' · ')
 
 					return (
-						<RadioOption
-							key={g.formatId || 'audio-only'}
-							checked={isChecked}
-							disabled={video.disabled}
-							onClick={() => onSelect(g.formatId)}
-							label={g.resolution}
-							labelClassName="min-w-[68px]"
-							meta={
+						<RadioOption key={g.formatId || 'audio-only'} checked={isChecked} disabled={video.disabled} onClick={() => onSelect(g.formatId)} label={g.resolution} labelClassName="min-w-[68px]">
+							{
 								<>
 									{!g.isAudioOnly && (
 										<div className="w-[32px] h-[2px] bg-accent rounded-full flex-shrink-0">
@@ -85,7 +80,7 @@ export function VideoColumn({formats, selectedVideoFormatId, onSelect}: VideoCol
 									)}
 								</>
 							}
-						/>
+						</RadioOption>
 					)
 				})}
 			</ScrollArea>

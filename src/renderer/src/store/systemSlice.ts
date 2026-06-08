@@ -26,6 +26,7 @@ let pendingQueueRemoved = new Set<string>()
 let queueFlushScheduled = false
 
 const SHARE_MILESTONES: readonly number[] = [3, 25, 100]
+const SHARE_MILESTONE_SET = new Set(SHARE_MILESTONES)
 
 function commonPatch(get: GetState, set: SetState, patch: Partial<AppSettings['common']>): void {
 	const previous = get().settings
@@ -191,7 +192,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 					const nextCount = prevMilestoneCount + doneIncrements
 					commonPatch(get, set, {successfulDownloadCount: nextCount})
 					for (let c = prevMilestoneCount + 1; c <= nextCount; c++) {
-						if (SHARE_MILESTONES.includes(c)) {
+						if (SHARE_MILESTONE_SET.has(c)) {
 							openShareDialogInternal(set, 'milestone')
 							break
 						}

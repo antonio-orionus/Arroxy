@@ -184,8 +184,9 @@ export function trackMain(name: string, props?: Props): boolean {
 		return false
 	}
 	if (props) {
+		const allowedKeys = new Set(keys)
 		for (const [k, v] of Object.entries(props)) {
-			if (!keys.includes(k)) {
+			if (!allowedKeys.has(k)) {
 				if (_dev) throw new Error(`[analytics] prop "${k}" not allowed on event "${name}"`)
 				return false
 			}

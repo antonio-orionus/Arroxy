@@ -1,4 +1,4 @@
-import {memo, type JSX, type ReactNode} from 'react'
+import {memo, type ReactNode} from 'react'
 import {AlertTriangle, Ban, Captions, CheckCircle2, Clock, Download, ExternalLink, FastForward, Film, FolderInput, FolderOpen, Hourglass, Layers, Loader2, Music, Pause, PauseCircle, Play, RotateCcw, Shield, ShieldAlert, Tags, X, XCircle, Zap} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import type {QueueItem, QueueItemStatus, StatusKey} from '@shared/types.js'
@@ -54,7 +54,7 @@ const STATUS_PILL: Record<QueueItemStatus, {icon: ReactNode; i18nKey: 'queue.ite
 	cancelled: {icon: <Ban size={10} />, i18nKey: 'queue.item.statusCancelled', tone: 'text-muted-foreground'}
 }
 
-function QueueItemCardImpl({item}: Props): JSX.Element {
+function QueueItemCardImpl({item}: Props): ReactNode {
 	const {t, i18n} = useTranslation()
 	const cancelItemDownload = useAppStore(s => s.cancelItemDownload)
 	const pauseItemDownload = useAppStore(s => s.pauseItemDownload)

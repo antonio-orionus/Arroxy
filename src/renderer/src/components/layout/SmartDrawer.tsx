@@ -1,5 +1,5 @@
-import type {JSX, KeyboardEvent as ReactKeyboardEvent} from 'react'
-import {useCallback, useMemo, useRef} from 'react'
+import type {KeyboardEvent as ReactKeyboardEvent} from 'react'
+import {useCallback, useMemo, useRef, type ReactNode} from 'react'
 import {useVirtualizer} from '@tanstack/react-virtual'
 import {ChevronDown, Gauge, Inbox, Pause, Play, Share2, Trash2, X} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
@@ -34,7 +34,7 @@ function rowStride(item: QueueItem): number {
 	return SHORT_ROW_STRIDE
 }
 
-export function SmartDrawer(): JSX.Element {
+export function SmartDrawer(): ReactNode {
 	const {t} = useTranslation()
 	const queue = useAppStore(s => s.queue)
 	const drawerOpen = useAppStore(s => s.drawerOpen)
@@ -112,6 +112,7 @@ export function SmartDrawer(): JSX.Element {
 	return (
 		<section className="relative shrink-0 border-t border-border bg-background" data-testid="smart-drawer">
 			<QueueTipNudge visible={showQueueTip} onDismiss={dismissQueueTip} />
+			{/* react-doctor-disable-next-line react-doctor/prefer-tag-over-role */}
 			<div
 				role="button"
 				tabIndex={0}

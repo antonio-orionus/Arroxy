@@ -1,4 +1,4 @@
-import {type JSX, useMemo, useState} from 'react'
+import {useMemo, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Search, X} from 'lucide-react'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -16,7 +16,7 @@ import {buildSubtitleList, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabe
 import loveImg from '../../assets/Love.png'
 import {SUBTITLE_FORMATS, SUBTITLE_MODES} from '@shared/schemas.js'
 
-export function StepSubtitles(): JSX.Element {
+export function StepSubtitles(): ReactNode {
 	const {t, i18n} = useTranslation()
 	const {wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, toggleSubtitleLanguage, setSubtitleMode, setSubtitleFormat, advance, back, skipSubtitles} = useAppStore()
 
@@ -26,6 +26,15 @@ export function StepSubtitles(): JSX.Element {
 
 	const hasLangs = allLangs.length > 0
 	const selectedCount = wizardSubtitleLanguages.length
+	const footerExtra = useMemo(
+		() =>
+			hasLangs ? (
+				<div className="flex pt-2">
+					<MascotBubble image={loveImg} message={t('wizard.subtitles.mascot')} side="left" />
+				</div>
+			) : undefined,
+		[hasLangs, t]
+	)
 	// Show a heads-up when ASS is paired with auto-captions: we force SRT in
 	// that combo because our auto-cap dedupe doesn't have an ASS code path.
 	const hasAutoSelected = wizardSubtitleLanguages.some(code => allLangs.find(l => l.code === code)?.isAuto)
@@ -188,15 +197,7 @@ export function StepSubtitles(): JSX.Element {
 				</>
 			)}
 
-			<WizardFooter
-				extraAbove={
-					hasLangs ? (
-						<div className="flex pt-2">
-							<MascotBubble image={loveImg} message={t('wizard.subtitles.mascot')} side="left" />
-						</div>
-					) : undefined
-				}
-			>
+			<WizardFooter extraAbove={footerExtra}>
 				<Button variant="ghost" type="button" onClick={back} className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground">
 					{t('common.back')}
 				</Button>
@@ -234,7 +235,7 @@ interface LangSectionProps {
 	autoBadge: string
 }
 
-function LangSection({label, items, selected, onToggle, autoBadge}: LangSectionProps): JSX.Element | null {
+function LangSection({label, items, selected, onToggle, autoBadge}: LangSectionProps): ReactNode | null {
 	if (items.length === 0) return null
 	return (
 		<div>

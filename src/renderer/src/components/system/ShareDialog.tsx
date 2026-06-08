@@ -1,4 +1,4 @@
-import {type JSX, type ComponentType, type SVGProps, useMemo, useRef, useState} from 'react'
+import {type ComponentType, type SVGProps, useMemo, useRef, useState, type ReactNode} from 'react'
 import {Copy, CopyCheck, Mail} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from '../ui/dialog.js'
@@ -89,7 +89,7 @@ const SOCIAL_DESTINATIONS: SocialDestination[] = [
 // popular ones simply appear later in the responsive grid.
 const POPULARITY_ORDER: Exclude<DestinationId, 'copy'>[] = ['facebook', 'whatsapp', 'twitter', 'linkedin', 'reddit', 'pinterest', 'telegram', 'threads', 'bluesky', 'mastodon', 'email', 'hackernews', 'tumblr', 'pocket', 'buffer', 'skype', 'line', 'weibo', 'qq', 'qzone', 'naver', 'kakao', 'hatena', 'douban', 'diaspora']
 
-export function ShareDialog(): JSX.Element {
+export function ShareDialog(): ReactNode {
 	const {t} = useTranslation()
 	const open = useAppStore(s => s.shareDialogOpen)
 	const trigger = useAppStore(s => s.shareDialogTrigger)

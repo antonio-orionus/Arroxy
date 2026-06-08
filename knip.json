@@ -19,20 +19,16 @@
     "interface": true,
     "type": true
   },
-  "ignoreDependencies": [
-    "@fontsource-variable/geist",
-    "@fontsource/jetbrains-mono",
-    "@fontsource/outfit",
-    "@fontsource/poppins",
-    "shadcn",
-    "tw-animate-css",
-    "tailwindcss",
-    "@types/extract-zip",
-    "gray-matter",
-    "@iconify-json/logos",
-    "@iconify-json/simple-icons",
-    "@svgr/plugin-jsx"
-  ],
+	"ignoreDependencies": [
+		"@fontsource/jetbrains-mono",
+		"@fontsource/outfit",
+		"@fontsource/poppins",
+		"shadcn",
+		"tw-animate-css",
+		"tailwindcss",
+		"@types/extract-zip",
+		"@svgr/plugin-jsx"
+	],
   "ignoreUnresolved": [
     "~icons/.*"
   ]

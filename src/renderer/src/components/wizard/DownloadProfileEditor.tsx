@@ -1,4 +1,4 @@
-import {useId, useState, type JSX, type ReactNode} from 'react'
+import {useId, useState, type ReactNode} from 'react'
 import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, Headphones, Info, Music, Plus, Scissors, X, type LucideIcon} from 'lucide-react'
 import {DEFAULTS} from '@shared/constants.js'
 import {DEFAULT_AUDIO_BITRATE, DOWNLOAD_PROFILE_ICONS} from '@shared/schemas.js'
@@ -186,7 +186,7 @@ function defaultProfileSubfolderName(name: string): string {
 	return safeFolderName(name.trim() || 'Download Profile')
 }
 
-function ProfilePanel({title, description, children, className}: {title: string; description?: string; children: ReactNode; className?: string}): JSX.Element {
+function ProfilePanel({title, description, children, className}: {title: string; description?: string; children: ReactNode; className?: string}): ReactNode {
 	return (
 		<Card size="sm" className={cn('gap-3 rounded-lg border-[var(--border-strong)] bg-card/40 py-3', className)}>
 			<CardHeader className="gap-1 px-3">
@@ -198,7 +198,7 @@ function ProfilePanel({title, description, children, className}: {title: string;
 	)
 }
 
-function ProfileSelect<T extends string>({label, value, options, onValueChange, testId, disabled = false}: {label: string; value: T; options: readonly SelectOption<T>[]; onValueChange: (value: T) => void; testId?: string; disabled?: boolean}): JSX.Element {
+function ProfileSelect<T extends string>({label, value, options, onValueChange, testId, disabled = false}: {label: string; value: T; options: readonly SelectOption<T>[]; onValueChange: (value: T) => void; testId?: string; disabled?: boolean}): ReactNode {
 	const generatedId = useId()
 	const triggerId = testId ? `${testId}-trigger` : generatedId
 
@@ -230,7 +230,7 @@ function ProfileSelect<T extends string>({label, value, options, onValueChange, 
 	)
 }
 
-function ProfileHelpTooltip({label, children}: {label: string; children: ReactNode}): JSX.Element {
+function ProfileHelpTooltip({label, children}: {label: string; children: ReactNode}): ReactNode {
 	return (
 		<Tooltip>
 			<TooltipTrigger
@@ -245,7 +245,7 @@ function ProfileHelpTooltip({label, children}: {label: string; children: ReactNo
 	)
 }
 
-function ProfileSwitchRow({id, label, description, checked, onCheckedChange}: {id: string; label: string; description?: string; checked: boolean; onCheckedChange: (checked: boolean) => void}): JSX.Element {
+function ProfileSwitchRow({id, label, description, checked, onCheckedChange}: {id: string; label: string; description?: string; checked: boolean; onCheckedChange: (checked: boolean) => void}): ReactNode {
 	return (
 		<Field orientation="horizontal" className="min-h-10 items-center justify-between gap-3 rounded-md border border-border bg-background/25 px-3 py-2 text-[12px]">
 			<FieldContent className="min-w-0">
@@ -259,7 +259,8 @@ function ProfileSwitchRow({id, label, description, checked, onCheckedChange}: {i
 	)
 }
 
-export function DownloadProfileEditor({initialProfile = null, open, onOpenChange, onSave}: {initialProfile?: DownloadProfile | null; open: boolean; onOpenChange: (open: boolean) => void; onSave?: (profile: DownloadProfile) => void | Promise<void>}): JSX.Element {
+// react-doctor-disable-next-line react-doctor/no-giant-component react-doctor/prefer-useReducer -- this dense profile form needs a focused decomposition outside the mechanical React Doctor cleanup
+export function DownloadProfileEditor({initialProfile = null, open, onOpenChange, onSave}: {initialProfile?: DownloadProfile | null; open: boolean; onOpenChange: (open: boolean) => void; onSave?: (profile: DownloadProfile) => void | Promise<void>}): ReactNode {
 	const [profileName, setProfileName] = useState(initialProfile?.name ?? 'Study Captions')
 	const [profileIcon, setProfileIcon] = useState<DownloadProfileIcon>(initialProfile?.icon ?? 'captions')
 	const [profileIconPickerOpen, setProfileIconPickerOpen] = useState(false)

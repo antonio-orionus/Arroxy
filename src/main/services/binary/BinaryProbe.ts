@@ -56,10 +56,9 @@ async function isExecutable(filePath: string): Promise<boolean> {
 }
 
 export async function firstExecutable(candidates: string[]): Promise<string | null> {
-	for (const candidate of candidates) {
-		if (await isExecutable(candidate)) return candidate
-	}
-	return null
+	const executable = await Promise.all(candidates.map(candidate => isExecutable(candidate)))
+	const firstIndex = executable.findIndex(Boolean)
+	return firstIndex >= 0 ? (candidates[firstIndex] ?? null) : null
 }
 
 export function classifyProbeError(err: NodeJS.ErrnoException, stderr?: string): DependencyFailure {
@@ -139,14 +138,19 @@ export async function whereOnPath(name: string, signal?: AbortSignal): Promise<s
 		// PATH lookup failed; macOS GUI apps often miss Homebrew's bin dirs.
 	}
 
-	for (const candidate of fallbackPathCandidates(name)) {
-		try {
-			await fsPromises.access(candidate)
-			found.push(candidate)
-		} catch {
-			// absent fallback path
-		}
-	}
+	const fallbackCandidates = fallbackPathCandidates(name)
+	const fallbackResults = await Promise.all(
+		fallbackCandidates.map(async candidate => {
+			try {
+				await fsPromises.access(candidate)
+				return candidate
+			} catch {
+				// absent fallback path
+				return null
+			}
+		})
+	)
+	found.push(...fallbackResults.filter((candidate): candidate is string => candidate !== null))
 
 	return [...new Set(found)]
 }

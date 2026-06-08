@@ -1,4 +1,4 @@
-import type {JSX} from 'react'
+import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {formatDuration} from '@renderer/lib/formatDuration.js'
 
@@ -22,7 +22,7 @@ function safeHost(url: string | undefined): string | null {
 	}
 }
 
-export function VideoSummaryCard({thumbnail, title, duration, resolution, webpageUrl}: Props): JSX.Element {
+export function VideoSummaryCard({thumbnail, title, duration, resolution, webpageUrl}: Props): ReactNode {
 	const {t} = useTranslation()
 	const host = safeHost(webpageUrl)
 	const meta = [host, duration !== undefined ? formatDuration(duration) : null, resolution ?? null].filter(Boolean).join(' · ')

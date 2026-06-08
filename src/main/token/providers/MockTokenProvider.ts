@@ -1,16 +1,16 @@
 import type {TokenProvider} from '@main/token/TokenProvider.js'
 
 export class MockTokenProvider implements TokenProvider {
-	async ensureReady(): Promise<void> {
-		// No-op
+	ensureReady(): Promise<void> {
+		return Promise.resolve()
 	}
 
-	async getVisitorData(): Promise<string> {
-		return 'MOCK_VISITOR_DATA'
+	getVisitorData(): Promise<string> {
+		return Promise.resolve('MOCK_VISITOR_DATA')
 	}
 
-	async mintToken(contentBinding: string): Promise<string> {
-		return `MOCK_TOKEN_${contentBinding.slice(0, 8)}`
+	mintToken(contentBinding: string): Promise<string> {
+		return Promise.resolve(`MOCK_TOKEN_${contentBinding.slice(0, 8)}`)
 	}
 
 	releaseWindow(): void {

@@ -1,4 +1,4 @@
-import {type JSX} from 'react'
+import {type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Checkbox} from '../ui/checkbox.js'
@@ -16,7 +16,7 @@ function isSponsorBlockMode(value: string | undefined): value is SponsorBlockMod
 	return value !== undefined && (SPONSORBLOCK_MODES as readonly string[]).includes(value)
 }
 
-export function StepSponsorBlock(): JSX.Element {
+export function StepSponsorBlock(): ReactNode {
 	const {t} = useTranslation()
 	const {wizardSponsorBlockMode, wizardSponsorBlockCategories, setSponsorBlockMode, toggleSponsorBlockCategory, advance, back} = useAppStore()
 

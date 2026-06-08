@@ -1,4 +1,4 @@
-import type {JSX} from 'react'
+import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {humanSize} from '@shared/format.js'
 import {useFormatSelectionView} from '../../../store/formatSelectionView.js'
@@ -11,7 +11,7 @@ interface FormatFooterProps {
 	onSkipToConfirm: () => void
 }
 
-export function FormatFooter({onBack, onContinue, onSkipToConfirm}: FormatFooterProps): JSX.Element {
+export function FormatFooter({onBack, onContinue, onSkipToConfirm}: FormatFooterProps): ReactNode {
 	const {t} = useTranslation()
 	const {mode, selectedFilesize, canContinue} = useFormatSelectionView()
 	return (

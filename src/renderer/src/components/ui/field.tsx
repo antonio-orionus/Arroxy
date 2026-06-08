@@ -1,21 +1,21 @@
 'use client'
 
-import {useMemo} from 'react'
+import type {ReactNode} from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 
 import {cn} from '@renderer/lib/utils.js'
 import {Label} from '@renderer/components/ui/label.js'
 import {Separator} from '@renderer/components/ui/separator.js'
 
-function FieldSet({className, ...props}: React.ComponentProps<'fieldset'>) {
+function FieldSet({className, ...props}: React.ComponentProps<'fieldset'>): ReactNode {
 	return <fieldset data-slot="field-set" className={cn('flex flex-col gap-4 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3', className)} {...props} />
 }
 
-function FieldLegend({className, variant = 'legend', ...props}: React.ComponentProps<'legend'> & {variant?: 'legend' | 'label'}) {
+function FieldLegend({className, variant = 'legend', ...props}: React.ComponentProps<'legend'> & {variant?: 'legend' | 'label'}): ReactNode {
 	return <legend data-slot="field-legend" data-variant={variant} className={cn('mb-1.5 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base', className)} {...props} />
 }
 
-function FieldGroup({className, ...props}: React.ComponentProps<'div'>) {
+function FieldGroup({className, ...props}: React.ComponentProps<'div'>): ReactNode {
 	return <div data-slot="field-group" className={cn('group/field-group @container/field-group flex w-full flex-col gap-5 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4', className)} {...props} />
 }
 
@@ -31,15 +31,15 @@ const fieldVariants = cva('group/field flex w-full gap-2 data-[invalid=true]:tex
 	defaultVariants: {orientation: 'vertical'}
 })
 
-function Field({className, orientation = 'vertical', ...props}: React.ComponentProps<'div'> & VariantProps<typeof fieldVariants>) {
-	return <div role="group" data-slot="field" data-orientation={orientation} className={cn(fieldVariants({orientation}), className)} {...props} />
+function Field({className, orientation = 'vertical', ...props}: React.ComponentProps<'div'> & VariantProps<typeof fieldVariants>): ReactNode {
+	return <div data-slot="field" data-orientation={orientation} className={cn(fieldVariants({orientation}), className)} {...props} />
 }
 
-function FieldContent({className, ...props}: React.ComponentProps<'div'>) {
+function FieldContent({className, ...props}: React.ComponentProps<'div'>): ReactNode {
 	return <div data-slot="field-content" className={cn('group/field-content flex flex-1 flex-col gap-0.5 leading-snug', className)} {...props} />
 }
 
-function FieldLabel({className, ...props}: React.ComponentProps<typeof Label>) {
+function FieldLabel({className, ...props}: React.ComponentProps<typeof Label>): ReactNode {
 	return (
 		<Label
 			data-slot="field-label"
@@ -53,11 +53,11 @@ function FieldLabel({className, ...props}: React.ComponentProps<typeof Label>) {
 	)
 }
 
-function FieldTitle({className, ...props}: React.ComponentProps<'div'>) {
+function FieldTitle({className, ...props}: React.ComponentProps<'div'>): ReactNode {
 	return <div data-slot="field-label" className={cn('flex w-fit items-center gap-2 text-sm font-medium group-data-[disabled=true]/field:opacity-50', className)} {...props} />
 }
 
-function FieldDescription({className, ...props}: React.ComponentProps<'p'>) {
+function FieldDescription({className, ...props}: React.ComponentProps<'p'>): ReactNode {
 	return (
 		<p
 			data-slot="field-description"
@@ -67,7 +67,7 @@ function FieldDescription({className, ...props}: React.ComponentProps<'p'>) {
 	)
 }
 
-function FieldSeparator({children, className, ...props}: React.ComponentProps<'div'> & {children?: React.ReactNode}) {
+function FieldSeparator({children, className, ...props}: React.ComponentProps<'div'> & {children?: React.ReactNode}): ReactNode {
 	return (
 		<div data-slot="field-separator" data-content={!!children} className={cn('relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2', className)} {...props}>
 			<Separator className="absolute inset-0 top-1/2" />
@@ -80,17 +80,14 @@ function FieldSeparator({children, className, ...props}: React.ComponentProps<'d
 	)
 }
 
-function FieldError({className, children, errors, ...props}: React.ComponentProps<'div'> & {errors?: ({message?: string} | undefined)[]}) {
-	const content = useMemo(() => {
-		if (children) return children
-		if (!errors?.length) return null
+function FieldError({className, children, errors, ...props}: React.ComponentProps<'div'> & {errors?: ({message?: string} | undefined)[]}): ReactNode {
+	let content = children
 
+	if (!content && errors?.length) {
 		const uniqueErrors = [...new Map(errors.map(error => [error?.message, error])).values()]
 
-		if (uniqueErrors.length === 1) return uniqueErrors[0]?.message
-
-		return <ul className="ml-4 flex list-disc flex-col gap-1">{uniqueErrors.map(error => (error?.message ? <li key={error.message}>{error.message}</li> : null))}</ul>
-	}, [children, errors])
+		content = uniqueErrors.length === 1 ? uniqueErrors[0]?.message : <ul className="ml-4 flex list-disc flex-col gap-1">{uniqueErrors.map(error => (error?.message ? <li key={error.message}>{error.message}</li> : null))}</ul>
+	}
 
 	if (!content) return null
 

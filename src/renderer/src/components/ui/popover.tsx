@@ -1,17 +1,27 @@
+import type {ReactNode} from 'react'
 import * as React from 'react'
 import {Popover as PopoverPrimitive} from '@base-ui/react/popover'
 
 import {cn} from '@renderer/lib/utils.js'
 
-function Popover({...props}: PopoverPrimitive.Root.Props) {
+function Popover({...props}: PopoverPrimitive.Root.Props): ReactNode {
 	return <PopoverPrimitive.Root data-slot="popover" {...props} />
 }
 
-function PopoverTrigger({...props}: PopoverPrimitive.Trigger.Props) {
+function PopoverTrigger({...props}: PopoverPrimitive.Trigger.Props): ReactNode {
 	return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
 }
 
-function PopoverContent({className, align = 'center', alignOffset = 0, collisionAvoidance, collisionPadding, side = 'bottom', sideOffset = 4, ...props}: PopoverPrimitive.Popup.Props & Pick<PopoverPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'collisionAvoidance' | 'collisionPadding' | 'side' | 'sideOffset'>) {
+function PopoverContent({
+	className,
+	align = 'center',
+	alignOffset = 0,
+	collisionAvoidance,
+	collisionPadding,
+	side = 'bottom',
+	sideOffset = 4,
+	...props
+}: PopoverPrimitive.Popup.Props & Pick<PopoverPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'collisionAvoidance' | 'collisionPadding' | 'side' | 'sideOffset'>): ReactNode {
 	return (
 		<PopoverPrimitive.Portal>
 			<PopoverPrimitive.Positioner align={align} alignOffset={alignOffset} collisionAvoidance={collisionAvoidance} collisionPadding={collisionPadding} side={side} sideOffset={sideOffset} className="isolate z-50">
@@ -28,15 +38,15 @@ function PopoverContent({className, align = 'center', alignOffset = 0, collision
 	)
 }
 
-function PopoverHeader({className, ...props}: React.ComponentProps<'div'>) {
+function PopoverHeader({className, ...props}: React.ComponentProps<'div'>): ReactNode {
 	return <div data-slot="popover-header" className={cn('flex flex-col gap-0.5 text-sm', className)} {...props} />
 }
 
-function PopoverTitle({className, ...props}: PopoverPrimitive.Title.Props) {
+function PopoverTitle({className, ...props}: PopoverPrimitive.Title.Props): ReactNode {
 	return <PopoverPrimitive.Title data-slot="popover-title" className={cn('font-medium', className)} {...props} />
 }
 
-function PopoverDescription({className, ...props}: PopoverPrimitive.Description.Props) {
+function PopoverDescription({className, ...props}: PopoverPrimitive.Description.Props): ReactNode {
 	return <PopoverPrimitive.Description data-slot="popover-description" className={cn('text-muted-foreground', className)} {...props} />
 }
 

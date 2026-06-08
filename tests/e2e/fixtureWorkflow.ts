@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import {expect, _electron as electron, type ElectronApplication, type Page} from '@playwright/test'
+import {expect, _electron as electron, type ElectronApplication, type Page, type Locator} from '@playwright/test'
 import {buildFixtureElectronEnv, ensureHostEmbeddedBinaries, ensureYtDlpPath, fixtureUrl, type DenyProxy, type FixtureServer, type FixtureServerRequest} from './fixtureHarness.js'
 
 let fixtureRuntimePromise: Promise<string> | null = null
@@ -131,7 +131,7 @@ export async function preparePlaylistConfirm(page: Page, playlistUrl: string): P
 	await expect(page.locator('[data-testid="step-confirm"]')).toBeVisible()
 }
 
-export function queueCardByTitle(page: Page, title: string) {
+export function queueCardByTitle(page: Page, title: string): Locator {
 	return page.locator('[data-testid^="queue-card-"]').filter({hasText: title}).first()
 }
 

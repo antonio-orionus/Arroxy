@@ -1,4 +1,4 @@
-import type {JSX} from 'react'
+import type {ReactNode} from 'react'
 import {cn} from '@renderer/lib/utils.js'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 	className?: string
 }
 
-export function MascotBubble({image, message, side = 'left', className}: Props): JSX.Element {
+export function MascotBubble({image, message, side = 'left', className}: Props): ReactNode {
 	const isRight = side === 'right'
 
 	return (

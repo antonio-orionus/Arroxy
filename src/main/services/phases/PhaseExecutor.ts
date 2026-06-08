@@ -9,6 +9,7 @@ import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 export class PhaseExecutor {
 	async run(ctx: PhaseContext, phases: Phase[]): Promise<PhaseOutcome> {
 		for (const phase of phases) {
+			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- phases are a dependent pipeline and must run in order
 			const out = await phase.run(ctx)
 			switch (out.kind) {
 				case 'continue':

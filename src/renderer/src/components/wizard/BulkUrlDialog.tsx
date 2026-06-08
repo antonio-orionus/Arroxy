@@ -1,4 +1,4 @@
-import {useRef, useState, type JSX, type ReactNode} from 'react'
+import {useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle, Download, Link2, WandSparkles} from 'lucide-react'
 import {parseBulkUrls} from '@shared/bulkUrls.js'
@@ -30,7 +30,7 @@ interface BulkUrlDialogProps {
 
 const REJECT_I18N: Record<BulkUrlRejectReason, 'wizard.bulk.reject.duplicate'> = {duplicate: 'wizard.bulk.reject.duplicate'}
 
-export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderActions}: BulkUrlDialogProps): JSX.Element {
+export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderActions}: BulkUrlDialogProps): ReactNode {
 	const {t} = useTranslation()
 	const startBulkUrls = useAppStore(state => state.startBulkUrls)
 	const quickDownloadUrls = useAppStore(state => state.quickDownloadUrls)

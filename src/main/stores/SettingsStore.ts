@@ -148,6 +148,7 @@ export class SettingsStore {
 	}
 
 	async get(): Promise<AppSettings> {
+		await Promise.resolve()
 		return this.store.store
 	}
 
@@ -162,6 +163,7 @@ export class SettingsStore {
 	async update(patch: SettingsPatch): Promise<AppSettings> {
 		const merged = deepMerge(this.store.store, patch, this.defaults)
 		this.store.set(merged)
+		await Promise.resolve()
 		return this.store.store
 	}
 
@@ -172,6 +174,7 @@ export class SettingsStore {
 		const launchCount = baselineLaunchCount + 1
 		const next: AppSettings = {...current, common: {...current.common, firstRunCompleted: true, launchCount}}
 		this.store.set(next)
+		await Promise.resolve()
 		return {settings: next, isFirstRun, launchCount}
 	}
 }

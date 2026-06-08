@@ -1,4 +1,4 @@
-import {type JSX} from 'react'
+import {type ReactNode} from 'react'
 import {AlertTriangle} from 'lucide-react'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -6,7 +6,7 @@ import {Button} from '../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 
-export function QuickPlaylistCapDialog(): JSX.Element {
+export function QuickPlaylistCapDialog(): ReactNode {
 	const quickPlaylistCapDialogOpen = useAppStore(state => state.quickPlaylistCapDialogOpen)
 	const playlistItems = useAppStore(state => state.playlistItems)
 	const playlistTitle = useAppStore(state => state.playlistTitle)

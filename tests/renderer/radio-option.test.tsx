@@ -55,7 +55,11 @@ describe('RadioOption', () => {
 	})
 
 	it('renders meta on the right when provided', () => {
-		render(<RadioOption label="X" checked onClick={vi.fn()} meta={<span data-testid="m">META</span>} />)
+		render(
+			<RadioOption label="X" checked onClick={vi.fn()}>
+				<span data-testid="m">META</span>
+			</RadioOption>
+		)
 		expect(screen.getByTestId('m')).toHaveTextContent('META')
 	})
 

@@ -1,3 +1,4 @@
+import type {ReactNode} from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 import type * as React from 'react'
 
@@ -13,8 +14,8 @@ const buttonGroupVariants = cva("flex w-fit items-stretch *:focus-visible:relati
 	defaultVariants: {orientation: 'horizontal'}
 })
 
-function ButtonGroup({className, orientation, ...props}: React.ComponentProps<'div'> & VariantProps<typeof buttonGroupVariants>) {
-	return <div role="group" data-slot="button-group" data-orientation={orientation} className={cn(buttonGroupVariants({orientation}), className)} {...props} />
+function ButtonGroup({className, orientation, ...props}: React.ComponentProps<'div'> & VariantProps<typeof buttonGroupVariants>): ReactNode {
+	return <div data-slot="button-group" data-orientation={orientation} className={cn(buttonGroupVariants({orientation}), className)} {...props} />
 }
 
-export {ButtonGroup, buttonGroupVariants}
+export {ButtonGroup}

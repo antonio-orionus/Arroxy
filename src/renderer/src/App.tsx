@@ -1,4 +1,4 @@
-import {useEffect, useState, type JSX} from 'react'
+import {useEffect, useState, type ReactNode} from 'react'
 import {Bug, Info, Share2} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {ZOOM_MIN, ZOOM_MAX, ZOOM_STEP} from '@shared/schemas.js'
@@ -36,7 +36,7 @@ function buildDebugInfo(): string {
 	return [`Platform: ${window.platform}`, `Electron: ${electron}`, `Chrome: ${chrome}`].join('\n')
 }
 
-export function App(): JSX.Element {
+export function App(): ReactNode {
 	const {t} = useTranslation()
 	const {initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, warmupBlocking, warmupDiagnostics, warmupProgress, settings, setSplashDismissed, setAboutDialogOpen, openShareDialog} = useAppStore()
 	const update = useUpdateChannel()

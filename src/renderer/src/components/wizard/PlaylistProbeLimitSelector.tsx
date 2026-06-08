@@ -1,4 +1,4 @@
-import {useRef, useState, type JSX} from 'react'
+import {useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {DEFAULT_PLAYLIST_PROBE_LIMIT, PLAYLIST_PROBE_LIMIT_PRESETS} from '@shared/constants.js'
 import {PLAYLIST_PROBE_LIMIT_MAX, PLAYLIST_PROBE_LIMIT_MIN, playlistProbeLimitSchema} from '@shared/schemas.js'
@@ -24,7 +24,7 @@ function isPreset(value: number): boolean {
 	return (PLAYLIST_PROBE_LIMIT_PRESETS as readonly number[]).includes(value)
 }
 
-export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', className, disabled = false, showCurrent = true, onLimitChanged}: Props): JSX.Element {
+export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', className, disabled = false, showCurrent = true, onLimitChanged}: Props): ReactNode {
 	const {t} = useTranslation()
 	const {settings, setPlaylistProbeLimit} = useAppStore()
 	const playlistLimit = resolvePlaylistProbeLimit(settings?.common)

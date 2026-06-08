@@ -1,4 +1,4 @@
-import type {JSX} from 'react'
+import type {ReactNode} from 'react'
 import {STEP_APPLICABLE, STEPS, type StepContext, type VisibleStep} from './stepNavigation.js'
 import {StepUrlInput} from './StepUrlInput.js'
 import {StepPlaylistItems} from './StepPlaylistItems.js'
@@ -12,11 +12,11 @@ import {StepConfirm} from './StepConfirm.js'
 
 export interface StepDescriptor {
 	id: VisibleStep
-	render(): JSX.Element
+	render(): ReactNode
 	applicable(ctx: StepContext): boolean
 }
 
-const RENDER_BY_STEP: Record<VisibleStep, () => JSX.Element> = {
+const RENDER_BY_STEP: Record<VisibleStep, () => ReactNode> = {
 	url: () => <StepUrlInput />,
 	playlistItems: () => <StepPlaylistItems />,
 	playlistPresets: () => <StepPlaylistPresets />,

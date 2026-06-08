@@ -1,5 +1,4 @@
-import type {JSX} from 'react'
-import {useState} from 'react'
+import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle} from 'lucide-react'
 import {limitRateSchema} from '@shared/schemas.js'
@@ -14,7 +13,7 @@ interface Props {
 	onChange: (value: string | undefined) => void
 }
 
-export function LimitRatePicker({value, onChange}: Props): JSX.Element {
+export function LimitRatePicker({value, onChange}: Props): ReactNode {
 	const {t} = useTranslation()
 	// Inline warning so users don't expect an in-flight change to throttle
 	// already-spawned yt-dlp processes. Pause + Resume re-spawns with new args.
@@ -25,39 +24,31 @@ export function LimitRatePicker({value, onChange}: Props): JSX.Element {
 	// the user opened it (editingCustom=true) or when the stored value isn't a
 	// preset (so the user can see/edit their existing custom value).
 	const [editingCustom, setEditingCustom] = useState(false)
-	const [customDraft, setCustomDraft] = useState(valueIsPreset ? '' : (value ?? ''))
-
-	// Adjust local draft when value changes from outside (e.g. other surface
-	// picked a preset, or popover re-opened with a stored custom value).
-	// Render-time state update — supported pattern, no effect needed.
-	const [trackedValue, setTrackedValue] = useState(value)
-	if (value !== trackedValue) {
-		setTrackedValue(value)
-		if (!valueIsPreset) {
-			setCustomDraft(value ?? '')
-		}
-	}
+	const [customError, setCustomError] = useState(false)
 
 	const customMode = editingCustom || !valueIsPreset
-	const trimmedDraft = customDraft.trim()
-	const customError = customMode && trimmedDraft !== '' && !limitRateSchema.safeParse(trimmedDraft).success
 	const selectedToggleValue = customMode ? 'custom' : (value ?? 'off')
+	const customInputKey = valueIsPreset ? 'preset' : (value ?? 'custom')
+	const customInitialValue = valueIsPreset ? '' : (value ?? '')
 
 	const pickPreset = (preset: string | undefined): void => {
 		setEditingCustom(false)
-		setCustomDraft('')
+		setCustomError(false)
 		onChange(preset)
 	}
 
 	const handleCustomChange = (next: string): void => {
-		setCustomDraft(next)
 		const trimmed = next.trim()
 		if (trimmed === '') {
+			setCustomError(false)
 			onChange(undefined)
 			return
 		}
 		if (limitRateSchema.safeParse(trimmed).success) {
+			setCustomError(false)
 			onChange(trimmed)
+		} else {
+			setCustomError(true)
 		}
 	}
 
@@ -98,7 +89,7 @@ export function LimitRatePicker({value, onChange}: Props): JSX.Element {
 			</ToggleGroup>
 			{customMode && (
 				<div className="flex flex-col gap-1">
-					<Input type="text" value={customDraft} onChange={e => handleCustomChange(e.target.value)} placeholder={t('wizard.url.limitRate.customPlaceholder')} className="h-8 text-[12px] font-mono" aria-invalid={customError} data-testid="limit-rate-custom-input" />
+					<Input key={customInputKey} type="text" defaultValue={customInitialValue} onChange={e => handleCustomChange(e.target.value)} placeholder={t('wizard.url.limitRate.customPlaceholder')} className="h-8 text-[12px] font-mono" aria-invalid={customError} data-testid="limit-rate-custom-input" />
 					{customError && (
 						<p className="text-[11px] text-amber-500" data-testid="limit-rate-custom-error">
 							{t('wizard.url.limitRate.invalid')}

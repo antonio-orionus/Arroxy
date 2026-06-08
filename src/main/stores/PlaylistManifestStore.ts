@@ -20,6 +20,7 @@ export class PlaylistManifestStore {
 		}
 		const byGroup = {...this.store.get('byGroup'), [parsed.data.playlistGroupId]: parsed.data}
 		this.store.set('byGroup', byGroup)
+		await Promise.resolve()
 	}
 
 	get(playlistGroupId: string): PlaylistManifest | null {
@@ -37,5 +38,6 @@ export class PlaylistManifestStore {
 		const byGroup = {...this.store.get('byGroup')}
 		delete byGroup[playlistGroupId]
 		this.store.set('byGroup', byGroup)
+		await Promise.resolve()
 	}
 }

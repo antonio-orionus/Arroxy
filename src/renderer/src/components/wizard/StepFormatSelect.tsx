@@ -1,4 +1,4 @@
-import type {JSX} from 'react'
+import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
 import {useFormatSelectionView} from '../../store/formatSelectionView.js'
@@ -11,7 +11,7 @@ import {BotWallNotice} from './format/BotWallNotice.js'
 import {AudioColumn} from './format/AudioColumn.js'
 import {FormatFooter} from './format/FormatFooter.js'
 
-export function StepFormatSelect(): JSX.Element {
+export function StepFormatSelect(): ReactNode {
 	const {t} = useTranslation()
 	const {wizardFormats, formatsLoading, wizardTitle, wizardThumbnail, wizardDuration, wizardWebpageUrl, selectedVideoFormatId, audioSelection, activePreset, setSelectedVideoFormatId, setAudioSelection, setPreset, advance, back, skipToConfirm} = useAppStore()
 	const view = useFormatSelectionView()

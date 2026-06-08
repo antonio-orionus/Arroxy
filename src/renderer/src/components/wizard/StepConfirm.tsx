@@ -1,4 +1,4 @@
-import type {JSX} from 'react'
+import type {ReactNode} from 'react'
 import {AlertTriangle} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {humanSize} from '@shared/format.js'
@@ -18,7 +18,7 @@ import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import loveImg from '../../assets/Love.png'
 
-export function StepConfirm(): JSX.Element {
+export function StepConfirm(): ReactNode {
 	const {t, i18n} = useTranslation()
 	const CONFLICT_LABELS: Record<string, string> = {thumbnailEmbedNotSupported: t('wizard.confirm.thumbnailEmbedNotSupported'), subtitleEmbedAudioOnly: t('wizard.confirm.subtitleEmbedAudioOnly')}
 	const {

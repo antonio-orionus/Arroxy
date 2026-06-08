@@ -20,15 +20,10 @@ describe('StepPlaylistPresets', () => {
 	it('renders video quality tiers from highest to lowest', () => {
 		render(<StepPlaylistPresets />)
 
-		const qualityList = screen.getAllByRole('list').find(list => within(list).queryByText('Up to 360p') !== null)
 		const expectedTierTitles = ['Best quality', 'Up to 4K', 'Up to 1440p', 'Up to 1080p', 'Up to 720p', 'Up to 480p', 'Up to 360p']
+		const tierButtons = screen.getAllByRole('button').filter(button => expectedTierTitles.some(title => within(button).queryByText(title) !== null))
 
-		expect(qualityList).toBeDefined()
-		expect(
-			within(qualityList!)
-				.getAllByRole('button')
-				.map(button => expectedTierTitles.find(title => within(button).queryByText(title) !== null))
-		).toEqual(expectedTierTitles)
+		expect(tierButtons.map(button => expectedTierTitles.find(title => within(button).queryByText(title) !== null))).toEqual(expectedTierTitles)
 	})
 
 	it('commits the displayed default playlist preset so the footer actions are enabled', async () => {

@@ -257,10 +257,12 @@ export class DownloadService extends EventEmitter {
 		const hadJobs = this.activeJobs.size > 0 || this.pausedJobs.size > 0
 		logger.info('Cancelling all jobs', {activeCount: this.activeJobs.size, pausedCount: this.pausedJobs.size})
 		await Promise.all([...this.activeJobs.values()].map(a => this.cancelOne(a)))
-		for (const paused of this.pausedJobs.values()) {
-			if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir)
-			await this.cleanupPartFiles(paused.job.outputDir)
-		}
+		await Promise.all(
+			[...this.pausedJobs.values()].map(async paused => {
+				if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir)
+				await this.cleanupPartFiles(paused.job.outputDir)
+			})
+		)
 		this.pausedJobs.clear()
 		return ok({cancelled: hadJobs})
 	}

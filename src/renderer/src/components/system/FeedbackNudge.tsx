@@ -1,4 +1,4 @@
-import {useState, useEffect, type JSX} from 'react'
+import type {ReactNode} from 'react'
 import {cn} from '@renderer/lib/utils.js'
 import loveImg from '../../assets/Love.png'
 
@@ -7,24 +7,12 @@ interface Props {
 	message: string
 }
 
-export function FeedbackNudge({visible, message}: Props): JSX.Element | null {
-	const [rendered, setRendered] = useState(visible)
-	const cls = visible ? 'nudge-in' : 'nudge-out'
-
-	if (visible && !rendered) setRendered(true)
-
-	useEffect(() => {
-		if (!visible && rendered) {
-			const t = setTimeout(() => setRendered(false), 220)
-			return () => clearTimeout(t)
-		}
-	}, [visible, rendered])
-
-	if (!rendered) return null
+export function FeedbackNudge({visible, message}: Props): ReactNode {
+	if (!visible) return null
 
 	return (
 		<div className="absolute bottom-full end-0 mb-1.5 pointer-events-none" data-testid="feedback-nudge">
-			<div className={cn(cls, 'flex items-end gap-2 pointer-events-auto')}>
+			<div className={cn('nudge-in', 'flex items-end gap-2 pointer-events-auto')}>
 				{/* Mascot */}
 				<img src={loveImg} alt="" aria-hidden draggable={false} className="w-9 h-9 object-contain shrink-0" />
 				{/* Speech bubble */}

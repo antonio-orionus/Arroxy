@@ -35,14 +35,23 @@ export async function resolveAllowedOutputDir(outputDir: string, allowedRoots: r
 		return {ok: false, message: 'Output directory does not exist or is not accessible'}
 	}
 
-	for (const root of allowedRoots) {
-		if (!root.trim()) continue
-		let resolvedRoot: string
-		try {
-			resolvedRoot = await fsPromises.realpath(path.resolve(root))
-		} catch {
-			continue
-		}
+	const resolvedRoots = await Promise.all(
+		allowedRoots.flatMap(root => {
+			if (!root.trim()) return []
+			return [
+				(async (): Promise<string | null> => {
+					try {
+						return await fsPromises.realpath(path.resolve(root))
+					} catch {
+						return null
+					}
+				})()
+			]
+		})
+	)
+
+	for (const resolvedRoot of resolvedRoots) {
+		if (resolvedRoot === null) continue
 		if (isPathInsideRoot(resolvedTarget, resolvedRoot)) {
 			return {ok: true, path: resolvedTarget}
 		}

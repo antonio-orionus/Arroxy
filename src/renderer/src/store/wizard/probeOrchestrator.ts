@@ -427,7 +427,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		quickDownloadUrls: async urls => {
 			if (get().quickDownloadStatus === 'preparing') return
-			const cleanedUrls = urls.map(url => rewriteYouTubeChannelRoot(cleanUrl(url.trim()))).filter(url => url.length > 0)
+			const cleanedUrls = urls.flatMap(url => {
+				const cleaned = rewriteYouTubeChannelRoot(cleanUrl(url.trim()))
+				return cleaned.length > 0 ? [cleaned] : []
+			})
 			if (cleanedUrls.length === 0) return
 
 			for (const url of cleanedUrls) {
@@ -440,17 +443,20 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			set({wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir, quickDownloadStatus: 'preparing', quickDownloadError: null, wizardError: null, cookiesConfigDialogIssue: null})
 
 			try {
-				for (const url of cleanedUrls) {
+				const queueNext = async (index: number): Promise<boolean> => {
+					if (index >= cleanedUrls.length) return true
+					const url = cleanedUrls[index]
 					set({wizardUrl: url})
 					const playlistMode: ProbePlaylistMode = isMixedYouTubeUrl(url) ? 'video' : 'auto'
 					const result = await window.appApi.downloads.probe({url, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope: get().playlistScope})})
 					if (!result.ok) {
 						set({quickDownloadStatus: 'error', quickDownloadError: formatProbeError(result.error) || 'wizard.url.quickProbeFailed'})
-						return
+						return false
 					}
 					const queued = await enqueueActiveProfileProbeResult(result.data, set, get)
-					if (!queued) return
+					return queued ? queueNext(index + 1) : false
 				}
+				if (!(await queueNext(0))) return
 
 				maybeShowQueueTip(set)
 				WizardCommands.resetAll(set)
@@ -557,7 +563,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			set(state => {
 				const lo = Math.min(from, to)
 				const hi = Math.max(from, to)
-				const ids = state.playlistItems.filter(e => e.playlistIndex >= lo && e.playlistIndex <= hi).map(e => e.id)
+				const ids = state.playlistItems.flatMap(e => (e.playlistIndex >= lo && e.playlistIndex <= hi ? [e.id] : []))
 				return {selectedPlaylistItemIds: ids}
 			}),
 

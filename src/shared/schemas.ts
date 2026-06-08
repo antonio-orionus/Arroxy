@@ -52,7 +52,7 @@ export const SPONSORBLOCK_CATEGORIES = sponsorBlockCategorySchema.options
 // run --extract-audio + --audio-format <target> as a post-processor (requires
 // ffmpeg). For lossy targets (mp3/m4a/opus) the bitrate is shared via the
 // strip below the column; wav has no bitrate.
-const LOSSY_TARGET_VALUES = AUDIO_CONVERT_TARGETS.filter(s => s.lossy).map(s => s.target) as ['mp3', 'm4a', 'opus']
+const LOSSY_TARGET_VALUES = AUDIO_CONVERT_TARGETS.flatMap(s => (s.lossy ? [s.target] : [])) as ['mp3', 'm4a', 'opus']
 
 export const audioBitrateSchema = z.union([z.literal(128), z.literal(192), z.literal(256), z.literal(320)])
 export type AudioBitrate = z.infer<typeof audioBitrateSchema>

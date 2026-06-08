@@ -1,4 +1,4 @@
-import {useState, type JSX} from 'react'
+import {useState, type ReactNode} from 'react'
 import {SlidersHorizontal} from 'lucide-react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
@@ -44,7 +44,8 @@ function errorMessage(error: unknown): string {
 	return 'Unknown error'
 }
 
-export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, disabled = false}: PlaylistScopeControlProps): JSX.Element {
+// react-doctor-disable-next-line react-doctor/prefer-useReducer -- independent dialog draft fields are clearer as local state than reducer actions here
+export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, disabled = false}: PlaylistScopeControlProps): ReactNode {
 	const {t} = useTranslation()
 	const {playlistScope, setPlaylistScope, settings} = useAppStore()
 	const appLimit = resolvePlaylistProbeLimit(settings?.common)

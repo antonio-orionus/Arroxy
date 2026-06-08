@@ -23,9 +23,12 @@ function escapeRegExp(s: string): string {
 // regex would produce. Returns null if no requested lang matches; callers
 // should fall back to 'und' (not to a positional guess).
 export function detectSubtitleLang(path: string, requestedLangs: readonly string[]): string | null {
-	for (const lang of requestedLangs) {
+	const patterns = requestedLangs.map(lang => ({
+		lang,
 		// eslint-disable-next-line security/detect-non-literal-regexp -- lang is from requestedLangs (caller-validated BCP-47); EXTS_ALT is from hardcoded enum
-		const re = new RegExp(`\\.${escapeRegExp(lang)}\\.(${EXTS_ALT})$`, 'i')
+		re: new RegExp(`\\.${escapeRegExp(lang)}\\.(${EXTS_ALT})$`, 'i')
+	}))
+	for (const {lang, re} of patterns) {
 		if (re.test(path)) return lang
 	}
 	return null

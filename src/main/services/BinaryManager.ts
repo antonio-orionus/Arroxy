@@ -280,6 +280,7 @@ export class BinaryManager {
 		const candidates = await whereOnPath(pathBinaryName, signal)
 		for (const candidate of candidates) {
 			const source: DependencySource = {kind: 'systemPath', path: candidate}
+			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- PATH candidates are accepted in PATH order
 			const diag = await this.probeAndAccept(id, source, candidate, attempts, onProgress, signal)
 			if (diag) return diag
 		}
@@ -560,6 +561,7 @@ export class BinaryManager {
 			if (entry.isSymbolicLink()) continue
 			const full = path.join(root, entry.name)
 			if (entry.isDirectory()) {
+				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- deterministic first match wins while walking extracted archives
 				const nested = await this.findExecutableInTree(full, name, depth + 1)
 				if (nested) return nested
 			} else if (entry.isFile() && entry.name === name) {
@@ -596,6 +598,7 @@ export class BinaryManager {
 		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
 			if (config.signal?.aborted) throw new ManagedSetupError('preflight', cancelError())
 			try {
+				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- retry attempts depend on prior failure and backoff
 				await this.attemptDownload(config)
 				return
 			} catch (err) {

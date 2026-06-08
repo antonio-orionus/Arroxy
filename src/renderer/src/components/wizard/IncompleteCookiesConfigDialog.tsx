@@ -1,4 +1,4 @@
-import {type JSX, useRef} from 'react'
+import {useRef, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {IncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import {Button} from '../ui/button.js'
@@ -10,7 +10,7 @@ interface Props {
 	onOpenSettings: () => void
 }
 
-export function IncompleteCookiesConfigDialog({issue, onDismiss, onOpenSettings}: Props): JSX.Element {
+export function IncompleteCookiesConfigDialog({issue, onDismiss, onOpenSettings}: Props): ReactNode {
 	const {t} = useTranslation()
 	const openSettingsButtonRef = useRef<HTMLButtonElement>(null)
 	const open = issue !== null

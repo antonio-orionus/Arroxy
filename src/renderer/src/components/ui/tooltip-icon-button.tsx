@@ -1,4 +1,4 @@
-import type {JSX, ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import {Button} from './button.js'
 import {Tooltip, TooltipTrigger, TooltipContent} from './tooltip.js'
 
@@ -12,7 +12,7 @@ interface TooltipIconButtonProps {
 	'data-testid'?: string
 }
 
-export function TooltipIconButton({icon, label, onClick, variant = 'ghost', size = 'icon', className, 'data-testid': dataTestId}: TooltipIconButtonProps): JSX.Element {
+export function TooltipIconButton({icon, label, onClick, variant = 'ghost', size = 'icon', className, 'data-testid': dataTestId}: TooltipIconButtonProps): ReactNode {
 	return (
 		<Tooltip>
 			<TooltipTrigger

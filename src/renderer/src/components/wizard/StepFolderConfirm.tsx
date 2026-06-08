@@ -1,4 +1,4 @@
-import {useState, useMemo, type JSX} from 'react'
+import {useState, useMemo, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
@@ -23,7 +23,19 @@ function matchLocation(dir: string, locations: Location[]): string {
 	return preset?.id ?? 'custom'
 }
 
-export function StepFolderConfirm(): JSX.Element {
+function LocationOption({loc, path, full}: {loc: Location; path: string | null; full: boolean}): ReactNode {
+	return (
+		<ToggleGroupItem value={loc.id} className={cn('h-auto min-h-9 justify-start gap-3 px-2 aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]', full && 'col-span-2')}>
+			<span className="text-base leading-none" aria-hidden>
+				{loc.icon}
+			</span>
+			<span className="min-w-0 flex-1 truncate text-start">{loc.label}</span>
+			{path ? <code className="max-w-[140px] truncate font-mono text-[12px] text-[var(--text-subtle)]">{path}</code> : null}
+		</ToggleGroupItem>
+	)
+}
+
+export function StepFolderConfirm(): ReactNode {
 	const {t} = useTranslation()
 	const {wizardOutputDir, wizardThumbnail, wizardTitle, wizardDuration, wizardWebpageUrl, commonPaths, advance, back, setWizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName, setWizardSubfolderEnabled, setWizardSubfolderName} = useAppStore()
 
@@ -63,19 +75,6 @@ export function StepFolderConfirm(): JSX.Element {
 		return formatHomeRelativePath(loc.path, commonPaths)
 	}
 
-	const renderLocation = (loc: Location, full: boolean): JSX.Element => {
-		const path = displayPath(loc)
-		return (
-			<ToggleGroupItem key={loc.id} value={loc.id} className={cn('h-auto min-h-9 justify-start gap-3 px-2 aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]', full && 'col-span-2')}>
-				<span className="text-base leading-none" aria-hidden>
-					{loc.icon}
-				</span>
-				<span className="min-w-0 flex-1 truncate text-start">{loc.label}</span>
-				{path ? <code className="max-w-[140px] truncate font-mono text-[12px] text-[var(--text-subtle)]">{path}</code> : null}
-			</ToggleGroupItem>
-		)
-	}
-
 	return (
 		<div className="wizard-step flex flex-col gap-4" data-testid="step-folder">
 			<VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} webpageUrl={wizardWebpageUrl} />
@@ -93,8 +92,10 @@ export function StepFolderConfirm(): JSX.Element {
 					className="grid w-full grid-cols-2 items-stretch"
 					aria-label={t('wizard.folder.heading')}
 				>
-					{presets.map(loc => renderLocation(loc, false))}
-					{renderLocation(custom, true)}
+					{presets.map(loc => (
+						<LocationOption key={loc.id} loc={loc} path={displayPath(loc)} full={false} />
+					))}
+					<LocationOption loc={custom} path={displayPath(custom)} full />
 				</ToggleGroup>
 			</div>
 

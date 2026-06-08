@@ -52,6 +52,7 @@ function* dedupeCuesRaw(cues: Iterable<Cue>): Generator<Cue> {
 		}
 		if (cue.text.length === 0) continue
 
+		// react-doctor-disable-next-line react-doctor/js-set-map-lookups -- string containment, not array lookup
 		if (cue.start - cue.end < NEAR_ZERO_DURATION_MS && prev.text.includes(cue.text)) {
 			prev.end = cue.end
 			continue

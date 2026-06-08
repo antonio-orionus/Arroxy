@@ -255,7 +255,7 @@ export class QueueService extends EventEmitter {
 	async cancel(itemId: string | null): Promise<Result<void>> {
 		if (itemId === null) {
 			await this.downloadService.cancel()
-			const ids = this.items.filter(i => i.status === QUEUE_STATUS.running || i.status === QUEUE_STATUS.pausedActive || i.status === QUEUE_STATUS.pausedHeld || i.status === QUEUE_STATUS.pending).map(i => i.id)
+			const ids = this.items.flatMap(i => (i.status === QUEUE_STATUS.running || i.status === QUEUE_STATUS.pausedActive || i.status === QUEUE_STATUS.pausedHeld || i.status === QUEUE_STATUS.pending ? [i.id] : []))
 			logger.info('cancelAll', {ids: ids.length, snapshot: this.statusSummary()})
 			// Suppress scheduler during the sweep. Without this guard, the FIRST
 			// per-item commit fires recomputeSchedule, which sees the still-running
@@ -329,7 +329,7 @@ export class QueueService extends EventEmitter {
 	}
 
 	clearCompleted(): Result<void> {
-		const idsToRemove = this.items.filter(i => i.status === QUEUE_STATUS.done || i.status === QUEUE_STATUS.cancelled || i.status === QUEUE_STATUS.error).map(i => i.id)
+		const idsToRemove = this.items.flatMap(i => (i.status === QUEUE_STATUS.done || i.status === QUEUE_STATUS.cancelled || i.status === QUEUE_STATUS.error ? [i.id] : []))
 		this.inBulk = true
 		try {
 			for (const id of idsToRemove) {

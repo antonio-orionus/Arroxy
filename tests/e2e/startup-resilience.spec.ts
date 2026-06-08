@@ -1,7 +1,7 @@
 import path from 'node:path'
 import os from 'node:os'
 import fs from 'node:fs'
-import {expect, test, _electron as electron} from '@playwright/test'
+import {expect, test, _electron as electron, type ElectronApplication} from '@playwright/test'
 
 function buildEnv(userDataDir: string): Record<string, string> {
 	const env: Record<string, string> = Object.fromEntries(Object.entries(process.env).filter((entry): entry is [string, string] => typeof entry[1] === 'string'))
@@ -11,7 +11,7 @@ function buildEnv(userDataDir: string): Record<string, string> {
 	return env
 }
 
-async function launchApp(userDataDir: string) {
+async function launchApp(userDataDir: string): Promise<ElectronApplication> {
 	return electron.launch({args: [path.join(process.cwd(), 'out/main/index.js')], env: buildEnv(userDataDir)})
 }
 

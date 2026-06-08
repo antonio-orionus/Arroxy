@@ -29,61 +29,61 @@ export async function hydrateBulkMetadata(urls: string[], set: SetState, runId: 
 	bulkLogger.info('Bulk metadata hydration started', {runId, total: urls.length, concurrency: Math.min(BULK_METADATA_CONCURRENCY, urls.length)})
 
 	async function worker(): Promise<void> {
-		while (bulkMetadataRunSeq === runId && nextIndex < urls.length) {
-			const index = nextIndex
-			nextIndex += 1
-			const url = urls[index]
-			const id = `bulk-${index + 1}`
-			let finalStatus: BulkMetadataItemStatus = 'failed'
+		if (bulkMetadataRunSeq !== runId || nextIndex >= urls.length) return
+		const index = nextIndex
+		nextIndex += 1
+		const url = urls[index]
+		const id = `bulk-${index + 1}`
+		let finalStatus: BulkMetadataItemStatus = 'failed'
 
+		set(state => {
+			if (state.wizardMode !== 'bulk') return {}
+			const current = state.playlistItems[index]
+			if (current?.id !== id || current.url !== url) return {}
+			return {bulkMetadataById: {...state.bulkMetadataById, [id]: 'resolving'}}
+		})
+
+		try {
+			bulkLogger.debug('Bulk metadata probe started', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url)})
+			const result = await window.appApi.downloads.probe({url, playlistMode: 'video'})
+			if (!result.ok) {
+				if (result.error.kind === 'other' && result.error.message === 'Probe cancelled') {
+					bulkLogger.info('Bulk metadata probe cancelled', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url)})
+					return worker()
+				}
+				bulkLogger.warn('Bulk metadata probe failed', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url), error: result.error})
+				return worker()
+			}
+			if (result.data.kind !== 'video') {
+				bulkLogger.warn('Bulk metadata probe returned non-video result', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url), kind: result.data.kind})
+				return worker()
+			}
+			if (bulkMetadataRunSeq !== runId) return
+
+			const probe = result.data
+			finalStatus = 'done'
+			bulkLogger.info('Bulk metadata resolved', {runId, itemId: id, index: index + 1, title: probe.title, videoId: probe.videoId, extractor: probe.extractor, duration: probe.duration})
 			set(state => {
 				if (state.wizardMode !== 'bulk') return {}
-				const current = state.playlistItems.find(entry => entry.id === id)
-				if (current?.url !== url) return {}
-				return {bulkMetadataById: {...state.bulkMetadataById, [id]: 'resolving'}}
+				const current = state.playlistItems[index]
+				if (current?.id !== id || current.url !== url) return {}
+				return {playlistItems: state.playlistItems.map(entry => (entry.id === id ? {...entry, title: probe.title.trim() || entry.title, thumbnail: probe.thumbnail || entry.thumbnail, duration: probe.duration ?? entry.duration, videoId: probe.videoId ?? entry.videoId} : entry))}
 			})
-
-			try {
-				bulkLogger.debug('Bulk metadata probe started', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url)})
-				const result = await window.appApi.downloads.probe({url, playlistMode: 'video'})
-				if (!result.ok) {
-					if (result.error.kind === 'other' && result.error.message === 'Probe cancelled') {
-						bulkLogger.info('Bulk metadata probe cancelled', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url)})
-						continue
-					}
-					bulkLogger.warn('Bulk metadata probe failed', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url), error: result.error})
-					continue
-				}
-				if (result.data.kind !== 'video') {
-					bulkLogger.warn('Bulk metadata probe returned non-video result', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url), kind: result.data.kind})
-					continue
-				}
-				if (bulkMetadataRunSeq !== runId) return
-
-				const probe = result.data
-				finalStatus = 'done'
-				bulkLogger.info('Bulk metadata resolved', {runId, itemId: id, index: index + 1, title: probe.title, videoId: probe.videoId, extractor: probe.extractor, duration: probe.duration})
+		} catch (error) {
+			// Metadata hydration is best-effort; synthetic rows remain usable.
+			bulkLogger.warn('Bulk metadata probe threw', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url), error: errorMessage(error)})
+		} finally {
+			if (bulkMetadataRunSeq === runId) {
 				set(state => {
 					if (state.wizardMode !== 'bulk') return {}
-					const current = state.playlistItems.find(entry => entry.id === id)
-					if (current?.url !== url) return {}
-					return {playlistItems: state.playlistItems.map(entry => (entry.id === id ? {...entry, title: probe.title.trim() || entry.title, thumbnail: probe.thumbnail || entry.thumbnail, duration: probe.duration ?? entry.duration, videoId: probe.videoId ?? entry.videoId} : entry))}
+					const current = state.playlistItems[index]
+					if (current?.id !== id || current.url !== url) return {}
+					const completed = Math.min(state.bulkMetadataCompleted + 1, state.bulkMetadataTotal)
+					return {bulkMetadataCompleted: completed, bulkMetadataStatus: completed >= state.bulkMetadataTotal ? 'done' : 'resolving', bulkMetadataById: {...state.bulkMetadataById, [id]: finalStatus}}
 				})
-			} catch (error) {
-				// Metadata hydration is best-effort; synthetic rows remain usable.
-				bulkLogger.warn('Bulk metadata probe threw', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url), error: errorMessage(error)})
-			} finally {
-				if (bulkMetadataRunSeq === runId) {
-					set(state => {
-						if (state.wizardMode !== 'bulk') return {}
-						const current = state.playlistItems.find(entry => entry.id === id)
-						if (current?.url !== url) return {}
-						const completed = Math.min(state.bulkMetadataCompleted + 1, state.bulkMetadataTotal)
-						return {bulkMetadataCompleted: completed, bulkMetadataStatus: completed >= state.bulkMetadataTotal ? 'done' : 'resolving', bulkMetadataById: {...state.bulkMetadataById, [id]: finalStatus}}
-					})
-				}
 			}
 		}
+		return worker()
 	}
 
 	await Promise.all(Array.from({length: Math.min(BULK_METADATA_CONCURRENCY, urls.length)}, () => worker()))

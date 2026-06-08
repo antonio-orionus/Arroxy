@@ -1,4 +1,4 @@
-import {useState, type JSX, type ReactNode} from 'react'
+import {useState, type ReactNode} from 'react'
 import {Info} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {NETWORK_PACING_PRESET_VALUES} from '@shared/constants.js'
@@ -21,7 +21,7 @@ const CUSTOM_FIELDS = [
 
 const OFF_SUBTITLE_SLEEP_SECONDS = 3
 
-function HelpTooltip({children, testId, label}: {children: ReactNode; testId: string; label: string}): JSX.Element {
+function HelpTooltip({children, testId, label}: {children: ReactNode; testId: string; label: string}): ReactNode {
 	return (
 		<Tooltip>
 			<TooltipTrigger
@@ -51,7 +51,7 @@ function presetSummaryValues(preset: Exclude<NetworkPacingPreset, 'custom'>): {r
 	return {requests: formatSeconds(values.sleepRequests), downloads: values.sleepInterval !== undefined && values.maxSleepInterval !== undefined ? `${values.sleepInterval}-${values.maxSleepInterval}s` : '0s', subtitles: formatSeconds(subtitleSleep), fragments: values.concurrentFragments ?? 1}
 }
 
-export function NetworkPacingSettings(): JSX.Element {
+export function NetworkPacingSettings(): ReactNode {
 	const {t} = useTranslation()
 	const {settings, setNetworkPacingPreset, setPacingSleepRequests, setPacingSleepInterval, setPacingMaxSleepInterval, setPacingSleepSubtitles, setPacingConcurrentFragments} = useAppStore()
 	const common = settings?.common

@@ -1,15 +1,16 @@
 'use client'
 
+import type {ReactNode} from 'react'
 import {Radio as RadioPrimitive} from '@base-ui/react/radio'
 import {RadioGroup as RadioGroupPrimitive} from '@base-ui/react/radio-group'
 
 import {cn} from '@renderer/lib/utils.js'
 
-function RadioGroup({className, ...props}: RadioGroupPrimitive.Props) {
+function RadioGroup({className, ...props}: RadioGroupPrimitive.Props): ReactNode {
 	return <RadioGroupPrimitive data-slot="radio-group" className={cn('grid w-full gap-2', className)} {...props} />
 }
 
-function RadioGroupItem({className, ...props}: RadioPrimitive.Root.Props) {
+function RadioGroupItem({className, ...props}: RadioPrimitive.Root.Props): ReactNode {
 	return (
 		<RadioPrimitive.Root
 			data-slot="radio-group-item"

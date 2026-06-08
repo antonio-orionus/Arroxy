@@ -1,4 +1,4 @@
-import type {JSX, ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import {AlertTriangle, ExternalLink} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '@renderer/store/useAppStore.js'
@@ -19,7 +19,7 @@ interface CookiesAlertShellProps {
 	footer: ReactNode
 }
 
-function CookiesAlertShell({mode, variant, body, footer}: CookiesAlertShellProps): JSX.Element {
+function CookiesAlertShell({mode, variant, body, footer}: CookiesAlertShellProps): ReactNode {
 	return (
 		<Alert role="status" variant="warning" data-testid="cookies-error-alert" data-mode={mode} {...(variant ? {'data-variant': variant} : {})} className="text-[12px]">
 			<AlertTriangle />
@@ -29,7 +29,7 @@ function CookiesAlertShell({mode, variant, body, footer}: CookiesAlertShellProps
 	)
 }
 
-function OpenCookiesSettingsButton(): JSX.Element {
+function OpenCookiesSettingsButton(): ReactNode {
 	const {t} = useTranslation()
 	const {openCookiesSettings} = useAppStore()
 	return (
@@ -48,7 +48,7 @@ interface CookiesErrorAlertProps {
 	forceShowCookiesOff?: boolean
 }
 
-export function CookiesErrorAlert({forceShowCookiesOff = false}: CookiesErrorAlertProps = {}): JSX.Element | null {
+export function CookiesErrorAlert({forceShowCookiesOff = false}: CookiesErrorAlertProps = {}): ReactNode | null {
 	const {t} = useTranslation()
 	const {settings, wizardError} = useAppStore()
 	const cookiesMode = settings?.common?.cookiesMode ?? 'off'

@@ -1,4 +1,4 @@
-import type {JSX} from 'react'
+import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle, FolderOpen, RefreshCw, FileSearch, RotateCcw, X, PackagePlus} from 'lucide-react'
 import type {BinaryOverrides, DependencyDiagnostic, DependencyFailureKind, DependencyId} from '@shared/types.js'
@@ -27,7 +27,7 @@ const DEPENDENCY_LABEL_KEY = {'yt-dlp': 'repair.deps.ytDlp', ffmpeg: 'repair.dep
 
 const OVERRIDE_KEY: Record<DependencyId, keyof BinaryOverrides> = {'yt-dlp': 'ytDlp', ffmpeg: 'ffmpeg', ffprobe: 'ffprobe', deno: 'deno'}
 
-export function RepairPanel({diagnostics, blocking}: Props): JSX.Element {
+export function RepairPanel({diagnostics, blocking}: Props): ReactNode {
 	const {t} = useTranslation()
 	const repairWarmup = useAppStore(s => s.repairWarmup)
 	const repairYtDlpWithHomebrew = useAppStore(s => s.repairYtDlpWithHomebrew)

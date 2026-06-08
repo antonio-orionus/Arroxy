@@ -1,4 +1,4 @@
-import {useState, type JSX} from 'react'
+import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {AudioBitrate, AudioConvertTarget, FormatOption} from '@shared/types.js'
 import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
@@ -19,7 +19,7 @@ interface AudioColumnProps {
 	onSelect: (sel: AudioSelection) => void
 }
 
-export function AudioColumn({formats, audioSelection, onSelect}: AudioColumnProps): JSX.Element {
+export function AudioColumn({formats, audioSelection, onSelect}: AudioColumnProps): ReactNode {
 	const {t} = useTranslation()
 	const {mode, audio} = useFormatSelectionView()
 	const [audioExtFilter, setAudioExtFilter] = useState<string | null>(null)
@@ -28,7 +28,8 @@ export function AudioColumn({formats, audioSelection, onSelect}: AudioColumnProp
 	const nativeAudios = formats.filter(f => f.isAudioOnly)
 	const nativeExts = [...new Set(nativeAudios.map(f => f.ext))]
 	const convertExts: AudioConvertTarget[] = AUDIO_CONVERT_TARGETS.map(s => s.target)
-	const audioExts = [...nativeExts, ...convertExts.filter(e => !nativeExts.includes(e))]
+	const nativeExtSet = new Set(nativeExts)
+	const audioExts = [...nativeExts, ...convertExts.filter(e => !nativeExtSet.has(e))]
 
 	const matchExt = (ext: string): boolean => !audioExtFilter || ext === audioExtFilter
 
@@ -83,49 +84,36 @@ export function AudioColumn({formats, audioSelection, onSelect}: AudioColumnProp
             step. Convert/no-audio rows still follow for users who explicitly
             want extraction or video-only output. */}
 				{audio.selectedVideoIsMuxed && (
-					<RadioOption checked={audioSelection.kind === 'none'} disabled={audio.noAudioDisabled} onClick={() => onSelect({kind: 'none'})} label={t('wizard.formats.keepAudio')} meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.keepAudioMeta')}</span>} />
+					<RadioOption checked={audioSelection.kind === 'none'} disabled={audio.noAudioDisabled} onClick={() => onSelect({kind: 'none'})} label={t('wizard.formats.keepAudio')}>
+						<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.keepAudioMeta')}</span>
+					</RadioOption>
 				)}
 
-				{nativeAudios
-					.filter(f => matchExt(f.ext))
-					.map(fmt => {
-						const isChecked = isNativeChecked(fmt.formatId)
-						return (
-							<RadioOption
-								key={fmt.formatId}
-								checked={isChecked}
-								disabled={subtitleOnly}
-								onClick={() => onSelect({kind: 'native', formatId: fmt.formatId})}
-								label={fmt.ext}
-								meta={
-									<span className="text-[11px] ml-auto whitespace-nowrap" style={{color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)'}}>
-										{fmt.label}
-									</span>
-								}
-							/>
-						)
-					})}
+				{nativeAudios.flatMap(fmt => {
+					if (!matchExt(fmt.ext)) return []
+					const isChecked = isNativeChecked(fmt.formatId)
+					return [
+						<RadioOption key={fmt.formatId} checked={isChecked} disabled={subtitleOnly} onClick={() => onSelect({kind: 'native', formatId: fmt.formatId})} label={fmt.ext}>
+							<span className="text-[11px] ml-auto whitespace-nowrap" style={{color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)'}}>
+								{fmt.label}
+							</span>
+						</RadioOption>
+					]
+				})}
 
-				{convertExts
-					.filter(e => matchExt(e))
-					.map(target => {
-						const isChecked = isConvertChecked(target)
-						const meta = target === 'wav' ? t('wizard.formats.convert.uncompressed') : t('wizard.formats.convert.label')
-						const radio = (
-							<RadioOption
-								key={`convert-${target}`}
-								checked={isChecked}
-								disabled={subtitleOnly || audio.convertDisabled}
-								onClick={() => onSelect(pickConvert(target))}
-								label={target}
-								meta={
-									<span className="text-[11px] ml-auto whitespace-nowrap" style={{color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)'}}>
-										{meta}
-									</span>
-								}
-							/>
-						)
-						return audio.convertDisabled && !subtitleOnly ? (
+				{convertExts.flatMap(target => {
+					if (!matchExt(target)) return []
+					const isChecked = isConvertChecked(target)
+					const meta = target === 'wav' ? t('wizard.formats.convert.uncompressed') : t('wizard.formats.convert.label')
+					const radio = (
+						<RadioOption key={`convert-${target}`} checked={isChecked} disabled={subtitleOnly || audio.convertDisabled} onClick={() => onSelect(pickConvert(target))} label={target}>
+							<span className="text-[11px] ml-auto whitespace-nowrap" style={{color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)'}}>
+								{meta}
+							</span>
+						</RadioOption>
+					)
+					return [
+						audio.convertDisabled && !subtitleOnly ? (
 							<Tooltip key={`convert-${target}`}>
 								<TooltipTrigger render={props => <div {...props}>{radio}</div>} />
 								<TooltipContent>{t('wizard.formats.convert.requiresAudioOnly')}</TooltipContent>
@@ -133,10 +121,13 @@ export function AudioColumn({formats, audioSelection, onSelect}: AudioColumnProp
 						) : (
 							radio
 						)
-					})}
+					]
+				})}
 
 				{!audio.selectedVideoIsMuxed && (
-					<RadioOption checked={audioSelection.kind === 'none'} disabled={audio.noAudioDisabled} onClick={() => onSelect({kind: 'none'})} label={t('wizard.formats.noAudio')} meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.videoOnly')}</span>} />
+					<RadioOption checked={audioSelection.kind === 'none'} disabled={audio.noAudioDisabled} onClick={() => onSelect({kind: 'none'})} label={t('wizard.formats.noAudio')}>
+						<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.videoOnly')}</span>
+					</RadioOption>
 				)}
 			</ScrollArea>
 

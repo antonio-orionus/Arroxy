@@ -1,11 +1,11 @@
-import {type JSX} from 'react'
+import {type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Separator} from '../ui/separator.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {Switch} from '../ui/switch.js'
 
-export function StepOutput(): JSX.Element {
+export function StepOutput(): ReactNode {
 	const {t} = useTranslation()
 	const {wizardMode, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardWriteM3u, setEmbedChapters, setEmbedMetadata, setEmbedThumbnail, setWriteDescription, setWriteThumbnail, setWriteM3u, advance, back} = useAppStore()
 	const isPlaylist = wizardMode === 'playlist'

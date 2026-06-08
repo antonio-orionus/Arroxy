@@ -1,4 +1,4 @@
-import {useEffect, type JSX, type ReactNode} from 'react'
+import {useEffect, type ReactNode} from 'react'
 import {AlertTriangle, Gauge} from 'lucide-react'
 import {DEFAULTS} from '@shared/constants.js'
 import type {CookiesBrowser, CookiesMode} from '@shared/types.js'
@@ -31,7 +31,7 @@ const COOKIES_HELP_URL = 'https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pas
 const COOKIES_FIREFOX_URL = 'https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/'
 const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc'
 
-function SettingsPanel({title, description, children}: {title: string; description?: string; children: ReactNode}): JSX.Element {
+function SettingsPanel({title, description, children}: {title: string; description?: string; children: ReactNode}): ReactNode {
 	return (
 		<Card size="sm" className="gap-3 rounded-lg border-[var(--border-strong)] bg-card/40 py-3">
 			<CardHeader className="gap-1 px-3">
@@ -43,7 +43,7 @@ function SettingsPanel({title, description, children}: {title: string; descripti
 	)
 }
 
-function SettingSwitch({id, label, description, checked, onCheckedChange, testId}: {id: string; label: string; description: string; checked: boolean; onCheckedChange: (checked: boolean) => void; testId?: string}): JSX.Element {
+function SettingSwitch({id, label, description, checked, onCheckedChange, testId}: {id: string; label: string; description: string; checked: boolean; onCheckedChange: (checked: boolean) => void; testId?: string}): ReactNode {
 	return (
 		<Field orientation="horizontal" className="items-center justify-between gap-3">
 			<FieldContent className="gap-0.5">
@@ -57,7 +57,7 @@ function SettingSwitch({id, label, description, checked, onCheckedChange, testId
 	)
 }
 
-export function DownloadProfilesSettingsTab(): JSX.Element {
+export function DownloadProfilesSettingsTab(): ReactNode {
 	const {advancedAutoOpen, advancedAutoTarget, settings, setAdvancedAutoOpen, setClipboardWatchEnabled, setCookiesPath, setCookiesMode, setCookiesBrowser, setProxyUrl, setLimitRate, setIncludeIdInSingleFilenames, setCloseBehavior, setAnalyticsEnabled} = useAppStore()
 	const common = settings?.common
 	const cookiesPath = common?.cookiesPath ?? ''
@@ -247,7 +247,7 @@ export function DownloadProfilesSettingsTab(): JSX.Element {
 	)
 }
 
-function WarningText({text}: {text: string}): JSX.Element {
+function WarningText({text}: {text: string}): ReactNode {
 	return (
 		<Alert variant="warning" className="py-1.5">
 			<AlertTriangle aria-hidden />

@@ -16,6 +16,7 @@ export class AsyncStack {
 		const fns = this.fns.splice(0).reverse()
 		for (const fn of fns) {
 			try {
+				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- disposables drain in LIFO order
 				await fn()
 			} catch {}
 		}

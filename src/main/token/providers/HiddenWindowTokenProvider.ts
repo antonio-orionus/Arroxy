@@ -81,6 +81,7 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 		const isWpcResult = (v: unknown): v is WpcResult => typeof v === 'object' && v !== null
 
 		for (let attempt = 0; attempt < maxTries; attempt += 1) {
+			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- token minting retries are sequential backoff attempts
 			const raw: unknown = await win.webContents.executeJavaScript(`
         (async function() {
           try {
@@ -160,6 +161,7 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 
 		const deadline = Date.now() + timeoutMs
 		while (Date.now() < deadline) {
+			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- browser readiness polling is intentionally sequential
 			const found = (await win.webContents.executeJavaScript(script)) as boolean
 			if (found) return true
 			await delay(500)

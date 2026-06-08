@@ -1,4 +1,4 @@
-import type {JSX, ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Button} from '../ui/button.js'
 import {WizardFooter} from './WizardFooter.js'
@@ -15,7 +15,7 @@ interface WizardStepFooterActionsProps {
 	extraAbove?: ReactNode
 }
 
-export function WizardStepFooterActions({onBack, onContinue, continueDisabled, continueLabel, children, info, extraAbove}: WizardStepFooterActionsProps): JSX.Element {
+export function WizardStepFooterActions({onBack, onContinue, continueDisabled, continueLabel, children, info, extraAbove}: WizardStepFooterActionsProps): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<WizardFooter info={info} extraAbove={extraAbove}>

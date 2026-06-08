@@ -40,7 +40,7 @@ export async function writePlaylistM3u(manifest: PlaylistManifest): Promise<void
 	let files: string[]
 	try {
 		const entries = await fsPromises.readdir(manifest.outputDir, {withFileTypes: true})
-		files = entries.filter(e => e.isFile()).map(e => e.name)
+		files = entries.flatMap(e => (e.isFile() ? [e.name] : []))
 	} catch {
 		return
 	}

@@ -60,7 +60,7 @@ function sanitizeSubtitleMap(raw: Record<string, YtDlpSubtitleTrack[]> | undefin
 	for (const [lang, tracks] of Object.entries(raw)) {
 		if (lang === LIVE_CHAT_LANG) continue
 		if (requireOrig && !lang.endsWith('-orig')) continue
-		const valid = tracks.filter((t): t is YtDlpSubtitleTrack & {ext: string} => typeof t.ext === 'string' && t.ext.length > 0).map(t => ({ext: t.ext, ...(t.name ? {name: t.name} : {})}))
+		const valid = tracks.flatMap(t => (typeof t.ext === 'string' && t.ext.length > 0 ? [{ext: t.ext, ...(t.name ? {name: t.name} : {})}] : []))
 		if (valid.length > 0) result[lang] = valid
 	}
 	return result
@@ -73,30 +73,28 @@ function friendlyCodec(acodec: string): string {
 }
 
 export function mapFormats(formats: readonly YtDlpFormat[]): FormatOption[] {
-	const mapped = formats
-		.filter(item => item.format_id && item.ext !== 'mhtml')
-		.filter(item => item.vcodec !== 'none' || (item.acodec && item.acodec !== 'none'))
-		.map(item => {
-			const isAudioOnly = item.vcodec === 'none'
-			const ext = item.ext ?? 'unknown'
-			const filesize = item.filesize ?? item.filesize_approx
-			const formatId = item.format_id ?? ''
+	const mapped = formats.flatMap((item): FormatOption[] => {
+		if (!item.format_id || item.ext === 'mhtml' || (item.vcodec === 'none' && (!item.acodec || item.acodec === 'none'))) return []
+		const isAudioOnly = item.vcodec === 'none'
+		const ext = item.ext ?? 'unknown'
+		const filesize = item.filesize ?? item.filesize_approx
+		const formatId = item.format_id ?? ''
 
-			if (isAudioOnly) {
-				const abr = item.abr
-				const codec = friendlyCodec(item.acodec ?? '')
-				const details = [ext, codec, abr ? `${Math.round(abr)} kbps` : null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' · ')
-				return {formatId, label: details, ext, resolution: 'audio only', abr, filesize, isVideoOnly: false, isAudioOnly: true, dynamicRange: undefined} satisfies FormatOption
-			}
+		if (isAudioOnly) {
+			const abr = item.abr
+			const codec = friendlyCodec(item.acodec ?? '')
+			const details = [ext, codec, abr ? `${Math.round(abr)} kbps` : null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' · ')
+			return [{formatId, label: details, ext, resolution: 'audio only', abr, filesize, isVideoOnly: false, isAudioOnly: true, dynamicRange: undefined} satisfies FormatOption]
+		}
 
-			const resolution = item.resolution ?? item.format_note ?? 'unknown'
-			const fps = item.fps
-			const isVideoOnly = item.acodec === 'none'
-			const dynamicRange = item.dynamic_range && item.dynamic_range !== 'SDR' ? item.dynamic_range : undefined
-			const details = [resolution, ext, fps ? `${fps}fps` : null, dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' | ')
+		const resolution = item.resolution ?? item.format_note ?? 'unknown'
+		const fps = item.fps
+		const isVideoOnly = item.acodec === 'none'
+		const dynamicRange = item.dynamic_range && item.dynamic_range !== 'SDR' ? item.dynamic_range : undefined
+		const details = [resolution, ext, fps ? `${fps}fps` : null, dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' | ')
 
-			return {formatId, label: details, ext, resolution, fps, filesize, isVideoOnly, isAudioOnly: false, dynamicRange} satisfies FormatOption
-		})
+		return [{formatId, label: details, ext, resolution, fps, filesize, isVideoOnly, isAudioOnly: false, dynamicRange} satisfies FormatOption]
+	})
 
 	return sortFormatsByQuality(mapped)
 }
@@ -119,7 +117,7 @@ function classifyProbeFailure(rawError: string): YtDlpErrorKind {
 }
 
 function detectProbeDegradationSignals(stderr: string): ProbeSignal[] {
-	return PROBE_DEGRADATION_SIGNALS.filter(({pattern}) => pattern.test(stderr)).map(({label, category}) => ({label, category}))
+	return PROBE_DEGRADATION_SIGNALS.flatMap(({pattern, label, category}) => (pattern.test(stderr) ? [{label, category}] : []))
 }
 
 function deriveDegraded(signals: ProbeSignal[]): {reasons: ProbeDegradationReason[]} | undefined {
@@ -314,10 +312,6 @@ export class ProbeService {
 			logger.info('Probe started', {url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
 
 			const probeResult = await this.probeWithRedirectFollow(url, playlistMode, playlistScope, controller.signal)
-			if (controller.signal.aborted) {
-				emitFailure('cancelled')
-				return fail<ProbeResult, ProbeError>({kind: 'other', message: 'Probe cancelled'})
-			}
 			if (probeResult.kind === 'failure') {
 				emitFailure(probeResult.errorCategory)
 				return fail(probeResult.error)

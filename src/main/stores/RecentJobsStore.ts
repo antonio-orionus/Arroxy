@@ -42,12 +42,14 @@ export class RecentJobsStore {
 	async list(): Promise<RecentJob[]> {
 		const raw = this.store.get('jobs')
 		const migrated = Array.isArray(raw) ? raw.map(migrateJob).filter((j): j is RecentJob => j !== null) : []
-		return [...migrated].sort((a, b) => (a.finishedAt < b.finishedAt ? 1 : -1))
+		await Promise.resolve()
+		return migrated.toSorted((a, b) => (a.finishedAt < b.finishedAt ? 1 : -1))
 	}
 
 	async push(job: RecentJob): Promise<void> {
 		const current = this.store.get('jobs')
 		const merged = [job, ...current.filter(entry => entry.id !== job.id)].slice(0, MAX_JOBS)
 		this.store.set('jobs', merged)
+		await Promise.resolve()
 	}
 }

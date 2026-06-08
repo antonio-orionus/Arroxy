@@ -1,6 +1,6 @@
-import {type JSX} from 'react'
+import {type ReactNode} from 'react'
 import {DownloadProfilesHome} from './DownloadProfilesHome.js'
 
-export function StepUrlInput(): JSX.Element {
+export function StepUrlInput(): ReactNode {
 	return <DownloadProfilesHome />
 }

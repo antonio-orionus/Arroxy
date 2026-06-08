@@ -1,4 +1,4 @@
-import type {JSX, ReactNode, KeyboardEvent} from 'react'
+import type {ReactNode, KeyboardEvent} from 'react'
 import {cn} from '@renderer/lib/utils.js'
 import {Item, ItemActions, ItemContent, ItemMedia, ItemTitle} from './item.js'
 import {RadioDot} from './radio-dot.js'
@@ -9,12 +9,12 @@ interface Props {
 	onClick: () => void
 	disabled?: boolean
 	adornment?: ReactNode
-	meta?: ReactNode
+	children?: ReactNode
 	className?: string
 	labelClassName?: string
 }
 
-export function RadioOption({label, checked, onClick, disabled, adornment, meta, className, labelClassName}: Props): JSX.Element {
+export function RadioOption({label, checked, onClick, disabled, adornment, children, className, labelClassName}: Props): ReactNode {
 	const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>): void => {
 		if (disabled) return
 		if (e.key === 'Enter' || e.key === ' ') onClick()
@@ -40,7 +40,7 @@ export function RadioOption({label, checked, onClick, disabled, adornment, meta,
 			<ItemContent className="min-w-0 flex-none">
 				<ItemTitle className={cn('text-[13px]', effectiveChecked ? 'font-semibold text-[var(--brand)]' : 'font-medium text-muted-foreground', labelClassName)}>{label}</ItemTitle>
 			</ItemContent>
-			{meta ? <ItemActions className="ms-auto min-w-0">{meta}</ItemActions> : null}
+			{children ? <ItemActions className="ms-auto min-w-0">{children}</ItemActions> : null}
 		</Item>
 	)
 }
