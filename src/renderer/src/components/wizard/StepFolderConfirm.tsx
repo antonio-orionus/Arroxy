@@ -7,7 +7,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field.js';
 import { Switch } from '../ui/switch.js';
 import { Input } from '../ui/input.js';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group.js';
-import { formatHomeRelativePath } from '@renderer/lib/utils.js';
+import { cn, formatHomeRelativePath } from '@renderer/lib/utils.js';
 import { isValidSubfolder } from '@renderer/lib/path.js';
 import { VideoSummaryCard } from '../shared/VideoSummaryCard.js';
 
@@ -101,7 +101,7 @@ export function StepFolderConfirm(): JSX.Element {
   const renderLocation = (loc: Location, full: boolean): JSX.Element => {
     const path = displayPath(loc);
     return (
-      <ToggleGroupItem key={loc.id} value={loc.id} className={full ? 'col-span-2 h-auto min-h-9 justify-start gap-3 px-2 aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]' : 'h-auto min-h-9 justify-start gap-3 px-2 aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]'}>
+      <ToggleGroupItem key={loc.id} value={loc.id} className={cn('h-auto min-h-9 justify-start gap-3 px-2 aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]', full && 'col-span-2')}>
         <span className="text-base leading-none" aria-hidden>
           {loc.icon}
         </span>

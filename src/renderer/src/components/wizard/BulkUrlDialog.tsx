@@ -88,7 +88,7 @@ export function BulkUrlDialog({ open, onOpenChange, initialRaw = '', renderActio
         </DialogHeader>
 
         <Field className="gap-2">
-          <FieldLabel htmlFor="bulk-url-textarea" className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
+          <FieldLabel htmlFor="bulk-url-textarea" className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
             {t('wizard.bulk.textareaLabel')}
           </FieldLabel>
           <Textarea ref={textareaRef} id="bulk-url-textarea" data-testid="bulk-url-textarea" value={raw} onChange={(event) => setRaw(event.target.value)} placeholder={t('wizard.bulk.textareaPlaceholder')} spellCheck={false} className="min-h-32 resize-y text-sm" />

@@ -122,7 +122,7 @@ export function App(): JSX.Element {
               <Info data-icon="inline-start" aria-hidden />
               {t('about.button')}
             </Button>
-            <Button type="button" variant="ghost" size="icon-xs" className="size-5 text-muted-foreground" onClick={copyDebugInfo} title={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')} data-testid="btn-debug">
+            <Button type="button" variant="ghost" size="icon-xs" className="size-5 text-muted-foreground" onClick={copyDebugInfo} title={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')} aria-label={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')} data-testid="btn-debug">
               <Bug aria-hidden />
             </Button>
             <Button type="button" variant="ghost" size="xs" className="h-5 px-0 text-[13px] text-muted-foreground" onClick={() => openShareDialog('footer')} title={t('share.footerTooltip')} data-testid="btn-share">

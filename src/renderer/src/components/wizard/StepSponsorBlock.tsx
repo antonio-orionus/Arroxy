@@ -20,6 +20,10 @@ const SB_MODE_HINT_KEYS = {
   remove: 'wizard.sponsorblock.modeHint.remove'
 } as const satisfies Record<SponsorBlockMode, string>;
 
+function isSponsorBlockMode(value: string | undefined): value is SponsorBlockMode {
+  return value !== undefined && (SPONSORBLOCK_MODES as readonly string[]).includes(value);
+}
+
 export function StepSponsorBlock(): JSX.Element {
   const { t } = useTranslation();
   const { wizardSponsorBlockMode, wizardSponsorBlockCategories, setSponsorBlockMode, toggleSponsorBlockCategory, advance, back } = useAppStore();
@@ -34,8 +38,8 @@ export function StepSponsorBlock(): JSX.Element {
         <ToggleGroup
           value={[wizardSponsorBlockMode]}
           onValueChange={(values) => {
-            const next = values[0] as SponsorBlockMode | undefined;
-            if (next) setSponsorBlockMode(next);
+            const next = values[0];
+            if (isSponsorBlockMode(next)) setSponsorBlockMode(next);
           }}
           aria-label={t('wizard.sponsorblock.modeHeading')}
           spacing={1}

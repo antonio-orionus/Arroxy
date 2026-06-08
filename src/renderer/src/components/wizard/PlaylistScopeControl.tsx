@@ -15,6 +15,10 @@ import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group.js';
 
 type ItemMode = PlaylistScope['items']['kind'];
 
+function isItemMode(value: string | undefined): value is ItemMode {
+  return value === 'app-limit' || value === 'first' || value === 'range';
+}
+
 interface PlaylistScopeControlProps {
   onApplyScope?: (scope: PlaylistScope) => Promise<void> | void;
   applyLabel?: string;
@@ -130,8 +134,8 @@ export function PlaylistScopeControl({ onApplyScope, applyLabel, pendingLabel, d
               <ToggleGroup
                 value={[mode]}
                 onValueChange={(values) => {
-                  const next = values[0] as ItemMode | undefined;
-                  if (next) setMode(next);
+                  const next = values[0];
+                  if (isItemMode(next)) setMode(next);
                 }}
                 aria-label={copy(t, 'wizard.url.playlistScope.itemsLabel', 'Items to load')}
                 orientation="vertical"

@@ -122,7 +122,7 @@ export function StepConfirm(): JSX.Element {
           <TableBody>
             {summaryRows.map((row) => (
               <TableRow key={row.key} className="hover:bg-transparent">
-                <TableCell className="w-16 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{row.label}</TableCell>
+                <TableCell className="w-16 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{row.label}</TableCell>
                 <TableCell className="max-w-xs px-4 py-2 font-mono text-xs text-foreground/80" data-testid={`confirm-${row.key}`}>
                   <span className="block truncate">{row.value}</span>
                 </TableCell>
