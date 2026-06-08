@@ -111,9 +111,9 @@
 		"@types/react": "19.2.15",
 		"@types/react-dom": "19.2.3",
 		"@vitejs/plugin-react": "6.0.2",
-		"concurrently": "10.0.0",
+		"concurrently": "10.0.1",
 		"electron": "42.3.0",
-		"electron-builder": "26.11.1",
+		"electron-builder": "26.13.0",
 		"electron-vite": "5.0.0",
 		"eslint-plugin-react": "7.37.5",
 		"eslint-plugin-react-hooks": "7.1.1",
@@ -121,16 +121,16 @@
 		"gray-matter": "4.0.3",
 		"husky": "9.1.7",
 		"jsdom": "29.1.1",
-		"knip": "6.14.2",
-		"lint-staged": "17.0.5",
+		"knip": "6.15.0",
+		"lint-staged": "17.0.7",
 		"madge": "8.0.0",
 		"oxlint": "1.68.0",
 		"oxlint-tsgolint": "0.23.0",
 		"tailwindcss": "4.3.0",
 		"typescript": "6.0.3",
 		"unplugin-icons": "23.0.1",
-		"vite": "8.0.14",
-		"vitest": "4.1.7"
+		"vite": "8.0.16",
+		"vitest": "4.1.8"
 	},
 	"lint-staged": {"*.{ts,tsx,cts,mts,js,mjs,cjs,json,jsonc,css}": "biome format --write", "*.{ts,tsx,cts,mts,js,mjs,cjs}": "oxlint --fix --deny-warnings"}
 }
