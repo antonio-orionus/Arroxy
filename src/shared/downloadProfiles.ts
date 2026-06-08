@@ -156,7 +156,7 @@ export function removeDownloadProfileFromPrefs(prefs: DownloadProfilesPrefs, id:
   };
 }
 
-export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadProfileRef = { kind: 'custom', id: profile.id }): ResolvedDownloadProfile {
+export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadProfileRef = downloadProfileRefFor(profile, undefined)): ResolvedDownloadProfile {
   const intent = mediaIntentFromProfileMedia(profile.media);
   const spec = intent ? mediaIntentSpec(intent) : null;
   const isSubtitleOnly = profile.media.kind === 'subtitles-only';
@@ -201,7 +201,9 @@ export function downloadProfileLabel(profile: DownloadProfile): string {
     case 'video-only':
       return `Video, no audio · ${profile.media.codec === 'mp4' ? 'MP4' : 'best codec'} · ${profile.media.tiers.join('/')}`;
     case 'audio-only':
-      return profile.media.audio.format === 'best' ? 'Audio only · best' : `Audio only · ${profile.media.audio.format.toUpperCase()} ${profile.media.audio.bitrateKbps ?? DEFAULT_AUDIO_BITRATE}K`;
+      if (profile.media.audio.format === 'best') return 'Audio only · best';
+      if (profile.media.audio.format === 'wav') return 'Audio only · WAV';
+      return `Audio only · ${profile.media.audio.format.toUpperCase()} ${profile.media.audio.bitrateKbps ?? DEFAULT_AUDIO_BITRATE}K`;
     case 'subtitles-only':
       return 'Subtitles only';
   }

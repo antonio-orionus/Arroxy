@@ -51,6 +51,13 @@ function audioOnlyIntentSpec(intent: Extract<MediaIntent, { kind: 'audio-only' }
   if (intent.audio.format === 'best') {
     return { formatSelector: 'bestaudio/best', producesVideo: false, producesAudio: true };
   }
+  if (intent.audio.format === 'wav') {
+    return {
+      audioConvert: { target: 'wav' },
+      producesVideo: false,
+      producesAudio: true
+    };
+  }
   const bitrateKbps = intent.audio.bitrateKbps ?? DEFAULT_AUDIO_BITRATE;
   return {
     audioConvert: { target: intent.audio.format, bitrateKbps },

@@ -280,7 +280,24 @@ export function DownloadProfilesHome(): JSX.Element {
 
             <Separator className="my-5" />
 
-            <QuickProfileCard activeProfile={activeProfile} disabled={!hasInput || quickPreparing} menuOpen={profileMenuOpen} onDownload={() => void quickDownload()} onEditProfile={() => openEditor(activeProfile)} onManageProfiles={() => selectTab('profiles')} onMenuOpenChange={setProfileMenuOpen} onNewProfile={() => openEditor(null)} onPickProfile={activateProfile} profiles={profiles} />
+            <QuickProfileCard
+              activeProfile={activeProfile}
+              disabled={!hasInput || quickPreparing}
+              menuOpen={profileMenuOpen}
+              onDownload={() => void quickDownload()}
+              onEditProfile={() => openEditor(activeProfile)}
+              onManageProfiles={() => {
+                setProfileMenuOpen(false);
+                selectTab('profiles');
+              }}
+              onMenuOpenChange={setProfileMenuOpen}
+              onNewProfile={() => {
+                setProfileMenuOpen(false);
+                openEditor(null);
+              }}
+              onPickProfile={activateProfile}
+              profiles={profiles}
+            />
 
             {quickDownloadStatus === 'error' ? (
               <p className="mt-2 text-[11px] text-amber-500" data-testid="quick-download-feedback">

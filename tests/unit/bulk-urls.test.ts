@@ -31,7 +31,7 @@ describe('parseBulkUrls', () => {
   it('accepts and classifies YouTube playlist, channel, search, and mixed watch URLs', () => {
     const result = parseBulkUrls('https://www.youtube.com/playlist?list=PLtest https://www.youtube.com/@arroxy https://www.youtube.com/results?search_query=arroxy https://www.youtube.com/watch?v=abc123&list=PLtest');
 
-    expect(result.accepted.map((item) => item.kind)).toEqual(['playlist', 'channel', 'search', 'single']);
+    expect(result.accepted.map((item) => item.kind)).toEqual(['playlist', 'channel', 'search', 'playlist']);
     expect(result.rejected).toEqual([]);
   });
 
@@ -49,9 +49,9 @@ describe('isClearlyIndividualYouTubeUrl', () => {
     expect(isClearlyIndividualYouTubeUrl('https://youtu.be/abc123')).toBe(true);
   });
 
-  it('rejects non-YouTube but accepts mixed watch/list URLs as individual YouTube videos', () => {
+  it('rejects non-YouTube and mixed watch/list URLs as individual YouTube videos', () => {
     expect(isClearlyIndividualYouTubeUrl('https://vimeo.com/123')).toBe(false);
-    expect(isClearlyIndividualYouTubeUrl('https://www.youtube.com/watch?v=abc123&list=PLtest')).toBe(true);
+    expect(isClearlyIndividualYouTubeUrl('https://www.youtube.com/watch?v=abc123&list=PLtest')).toBe(false);
   });
 });
 
@@ -64,6 +64,7 @@ describe('extractYouTubeVideoId', () => {
 
   it('does not derive ids for playlist/channel URLs', () => {
     expect(extractYouTubeVideoId('https://www.youtube.com/playlist?list=PLtest')).toBeNull();
+    expect(extractYouTubeVideoId('https://www.youtube.com/watch?v=abc123&list=PLtest')).toBeNull();
     expect(extractYouTubeVideoId('https://www.youtube.com/@arroxy')).toBeNull();
   });
 });
@@ -71,7 +72,7 @@ describe('extractYouTubeVideoId', () => {
 describe('classifyBulkUrlKind', () => {
   it.each([
     ['https://www.youtube.com/watch?v=abc123', 'single'],
-    ['https://www.youtube.com/watch?v=abc123&list=PLtest', 'single'],
+    ['https://www.youtube.com/watch?v=abc123&list=PLtest', 'playlist'],
     ['https://www.youtube.com/playlist?list=PLtest', 'playlist'],
     ['https://www.youtube.com/@arroxy', 'channel'],
     ['https://www.youtube.com/results?search_query=arroxy', 'search'],

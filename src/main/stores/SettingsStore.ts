@@ -106,7 +106,8 @@ export class SettingsStore {
     const isLegacy = isLegacyShape(raw);
     const baseline: AppSettings = isLegacy ? migrateFlatToNested(raw, this.defaults) : this.store.store;
     const profileSource = baseline.profiles ?? this.defaults.profiles;
-    const withDefaults: AppSettings = { ...baseline, profiles: { ...profileSource, overrides: profileSource.overrides ?? [] } };
+    const profiles = profileSource.overrides === undefined ? { ...profileSource, overrides: [] } : profileSource;
+    const withDefaults: AppSettings = { ...baseline, profiles };
     const cookiesMigrated: AppSettings = { ...withDefaults, common: migrateCookiesMode(withDefaults.common) };
     if (!isLegacy && cookiesMigrated.common === withDefaults.common && withDefaults.profiles === baseline.profiles) return;
     // Replace the entire on-disk shape with the migrated one. Wiping any

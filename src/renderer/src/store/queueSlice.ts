@@ -157,8 +157,7 @@ function downloadProfileRefLabel(ref: DownloadProfileRef): string {
   return `${ref.kind}:${ref.id}`;
 }
 
-function buildProfileEntryQueueItem(params: { entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail'>; outputDir: string; extractor: string; extractorKey: string; resolved: ResolvedDownloadProfile; profile: DownloadProfile; playlistGroupId?: string; writeM3u: boolean; lane: QueueLane }): QueueItem {
-  const outputTemplate = playlistOutputTemplate();
+function buildProfileEntryQueueItem(params: { entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail'>; outputDir: string; extractor: string; extractorKey: string; resolved: ResolvedDownloadProfile; profile: DownloadProfile; outputTemplate: string; playlistGroupId?: string; writeM3u: boolean; lane: QueueLane }): QueueItem {
   return {
     id: generateId(),
     url: params.entry.url,
@@ -175,7 +174,7 @@ function buildProfileEntryQueueItem(params: { entry: Pick<PlaylistEntry, 'url' |
     finishedAt: null,
     ...(params.playlistGroupId ? { playlistGroupId: params.playlistGroupId } : {}),
     writeM3u: params.writeM3u,
-    job: profileJob(params.resolved, params.extractor, params.extractorKey, outputTemplate)
+    job: profileJob(params.resolved, params.extractor, params.extractorKey, params.outputTemplate)
   };
 }
 
@@ -186,6 +185,7 @@ export function buildActiveProfileQueueItemsFromProbe(probe: ProbeResult, get: G
 
   if (probe.kind === 'video') {
     const outputDir = effectiveOutputDir(baseDir, profile.subfolder.enabled, profile.subfolder.name);
+    const outputTemplate = singleOutputTemplate(get().settings?.common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames);
     const item = buildProfileEntryQueueItem({
       entry: { url: get().wizardUrl || probe.webpageUrl, title: probe.title, thumbnail: probe.thumbnail },
       outputDir,
@@ -193,6 +193,7 @@ export function buildActiveProfileQueueItemsFromProbe(probe: ProbeResult, get: G
       extractorKey: probe.extractorKey,
       resolved,
       profile,
+      outputTemplate,
       writeM3u: false,
       lane
     });
@@ -213,6 +214,7 @@ export function buildActiveProfileQueueItemsFromProbe(probe: ProbeResult, get: G
         extractorKey: probe.extractorKey,
         resolved,
         profile,
+        outputTemplate: playlistOutputTemplate(),
         playlistGroupId,
         writeM3u,
         lane

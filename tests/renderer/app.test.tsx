@@ -106,6 +106,32 @@ describe('App renderer', () => {
     });
   });
 
+  it('closes the profile picker when opening profile editor surfaces', async () => {
+    render(<App />);
+
+    const profileMenuTrigger = await screen.findByRole('button', { name: 'Choose active download profile' });
+    fireEvent.click(profileMenuTrigger);
+    expect(await screen.findByText('Switch profile')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'New profile' }));
+
+    await waitFor(() => {
+      expect(screen.queryByText('Switch profile')).not.toBeInTheDocument();
+    });
+    expect(await screen.findByTestId('profiles-editor-dialog')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+    fireEvent.click(profileMenuTrigger);
+    expect(await screen.findByText('Switch profile')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Manage profiles' }));
+
+    await waitFor(() => {
+      expect(screen.queryByText('Switch profile')).not.toBeInTheDocument();
+    });
+    expect(await screen.findByTestId('profiles-manage-tab')).toBeInTheDocument();
+  });
+
   it('shows queue panel below wizard', async () => {
     render(<App />);
     expect(await screen.findByLabelText('Download Queue')).toBeInTheDocument();

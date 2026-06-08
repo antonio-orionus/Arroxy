@@ -44,6 +44,25 @@ describe('DownloadProfileEditor', () => {
     });
   });
 
+  it('saves WAV audio-only profiles without a bitrate', async () => {
+    const profile = BUILTIN_DOWNLOAD_PROFILES.find((item) => item.id === 'audio-only');
+    expect(profile).toBeDefined();
+    const onSave = vi.fn<(saved: DownloadProfile) => void>();
+
+    render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />);
+
+    fireEvent.click(await screen.findByTestId('profiles-editor-audio-format'));
+    fireEvent.click(await screen.findByTestId('profiles-editor-audio-format-option-wav'));
+
+    expect(screen.getByTestId('profiles-editor-audio-quality')).toBeDisabled();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Save profile' }));
+
+    await waitFor(() => {
+      expect(onSave).toHaveBeenCalledWith(expect.objectContaining({ media: { kind: 'audio-only', audio: { format: 'wav' } } }));
+    });
+  });
+
   it('edits the explicit profile subfolder instead of deriving it silently on save', async () => {
     const profile = BUILTIN_DOWNLOAD_PROFILES.find((item) => item.id === 'mp4-1080');
     expect(profile).toBeDefined();

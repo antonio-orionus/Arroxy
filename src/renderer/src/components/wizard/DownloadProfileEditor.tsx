@@ -21,7 +21,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip.js';
 type ProfileMediaMode = 'video-audio' | 'video-only' | 'audio-only' | 'subtitles-only';
 type ProfileCodec = 'best' | 'mp4';
 type ProfileResolution = 'best' | '2160' | '1440' | '1080' | '720' | '480' | '360';
-type ProfileAudioFormat = 'best' | 'mp3' | 'm4a' | 'opus';
+type ProfileAudioFormat = 'best' | 'mp3' | 'm4a' | 'opus' | 'wav';
 type ProfileAudioQuality = 'best' | '320' | '192' | '128';
 type ProfileSubtitleDelivery = 'sidecar' | 'embed' | 'subfolder';
 type ProfileSubtitleFormat = 'srt' | 'vtt' | 'ass';
@@ -74,7 +74,8 @@ const AUDIO_FORMAT_OPTIONS: SelectOption<ProfileAudioFormat>[] = [
   { value: 'best', label: 'Best' },
   { value: 'mp3', label: 'MP3' },
   { value: 'm4a', label: 'M4A' },
-  { value: 'opus', label: 'Opus' }
+  { value: 'opus', label: 'Opus' },
+  { value: 'wav', label: 'WAV' }
 ];
 
 const VIDEO_AUDIO_FORMAT_OPTIONS: SelectOption<Extract<ProfileAudioFormat, 'best' | 'm4a'>>[] = [
@@ -291,6 +292,7 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
   const SelectedProfileIcon = PROFILE_ICON_OPTIONS.find((option) => option.value === profileIcon)?.icon ?? Captions;
   const subfolderInvalid = saveInsideSubfolder && subfolderName.trim() !== '' && !isValidSubfolder(subfolderName);
   const videoAudioFormat: Extract<ProfileAudioFormat, 'best' | 'm4a'> = audioFormat === 'm4a' ? 'm4a' : 'best';
+  const audioQualityDisabled = audioFormat === 'best' || audioFormat === 'wav';
 
   function changeProfileName(nextName: string): void {
     const previousDefaultSubfolder = defaultProfileSubfolderName(profileName);
@@ -333,7 +335,7 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
       id,
       name: profileName.trim() || 'Download Profile',
       icon: profileIcon,
-      media: mediaMode === 'audio-only' ? { kind: 'audio-only', audio: { format: audioFormat, bitrateKbps: audioFormat === 'best' ? undefined : audioQuality === 'best' ? DEFAULT_AUDIO_BITRATE : (Number(audioQuality) as 128 | 192 | 320) } } : mediaMode === 'subtitles-only' ? { kind: 'subtitles-only' } : mediaMode === 'video-audio' ? { kind: mediaMode, codec, tiers: [resolution], audio: { format: videoAudioFormat } } : { kind: mediaMode, codec, tiers: [resolution] },
+      media: mediaMode === 'audio-only' ? { kind: 'audio-only', audio: audioFormat === 'best' || audioFormat === 'wav' ? { format: audioFormat } : { format: audioFormat, bitrateKbps: audioQuality === 'best' ? DEFAULT_AUDIO_BITRATE : (Number(audioQuality) as 128 | 192 | 320) } } : mediaMode === 'subtitles-only' ? { kind: 'subtitles-only' } : mediaMode === 'video-audio' ? { kind: mediaMode, codec, tiers: [resolution], audio: { format: videoAudioFormat } } : { kind: mediaMode, codec, tiers: [resolution] },
       subtitles: {
         enabled: effectiveSubtitleEnabled,
         languages: effectiveSubtitleEnabled ? subtitleLanguages : [],
@@ -459,7 +461,7 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                       {mediaMode === 'audio-only' ? (
                         <>
                           <ProfileSelect label="Format" value={audioFormat} options={AUDIO_FORMAT_OPTIONS} onValueChange={setAudioFormat} testId="profiles-editor-audio-format" />
-                          <ProfileSelect label="Quality" value={audioQuality} options={AUDIO_QUALITY_OPTIONS} onValueChange={setAudioQuality} testId="profiles-editor-audio-quality" />
+                          <ProfileSelect label="Quality" value={audioQuality} options={AUDIO_QUALITY_OPTIONS} onValueChange={setAudioQuality} testId="profiles-editor-audio-quality" disabled={audioQualityDisabled} />
                         </>
                       ) : (
                         <ProfileSelect label="Format" value={videoAudioFormat} options={VIDEO_AUDIO_FORMAT_OPTIONS} onValueChange={setAudioFormat} testId="profiles-editor-audio-format" />

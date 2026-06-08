@@ -52,8 +52,8 @@ export function classifyBulkUrlKind(url: string): BulkUrlKind {
   if (segments[0] === 'results' && parsed.searchParams.has('search_query')) return 'search';
   if (segments[0]?.startsWith('@') || segments[0] === 'channel' || segments[0] === 'c' || segments[0] === 'user') return 'channel';
 
-  if (isSingleVideoYouTubePath(host, segments, parsed.searchParams)) return 'single';
   if (parsed.searchParams.has('list') || segments[0] === 'playlist') return 'playlist';
+  if (isSingleVideoYouTubePath(host, segments, parsed.searchParams)) return 'single';
   return 'other';
 }
 

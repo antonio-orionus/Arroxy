@@ -86,6 +86,15 @@ describe('download profiles', () => {
     }
   });
 
+  it('derives a builtin ref when resolving a builtin profile without an explicit ref', () => {
+    const profile = BUILTIN_DOWNLOAD_PROFILES.find((item) => item.id === 'balanced');
+    expect(profile).toBeDefined();
+
+    const resolved = resolveDownloadProfile(profile!);
+
+    expect(resolved.ref).toEqual({ kind: 'builtin', id: 'balanced' });
+  });
+
   it('resolves the active profile and falls back to the default built-in when missing', () => {
     const prefs = { ...DEFAULT_DOWNLOAD_PROFILES_PREFS, active: { kind: 'custom' as const, id: 'missing' } };
     expect(resolveActiveDownloadProfile(prefs).ref).toEqual(DEFAULT_DOWNLOAD_PROFILE_REF);
@@ -165,5 +174,15 @@ describe('download profiles', () => {
 
     expect(resolved.spec?.producesVideo).toBe(false);
     expect(resolved.subtitles).toEqual({ languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: true });
+  });
+
+  it('resolves WAV audio-only profiles as lossless conversion with no bitrate', () => {
+    const profile = customProfile({
+      media: { kind: 'audio-only', audio: { format: 'wav' } }
+    });
+    const resolved = resolveDownloadProfile(profile, { kind: 'custom', id: profile.id });
+
+    expect(resolved.spec?.audioConvert).toEqual({ target: 'wav' });
+    expect(downloadProfileLabel(profile)).toBe('Audio only · WAV');
   });
 });

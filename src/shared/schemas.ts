@@ -26,6 +26,8 @@ const playlistVideoCodecSchema = z.enum(['best', 'mp4']);
 export const playlistAudioFormatSchema = z.enum(['best', 'mp3', 'm4a', 'opus']);
 export type PlaylistAudioFormat = z.infer<typeof playlistAudioFormatSchema>;
 
+const downloadProfileAudioFormatSchema = z.enum(['best', 'mp3', 'm4a', 'opus', 'wav']);
+
 export const downloadProfileIconSchema = z.enum(['download', 'video', 'captions', 'audio', 'music', 'podcast', 'classes', 'clip', 'archive']);
 export type DownloadProfileIcon = z.infer<typeof downloadProfileIconSchema>;
 export const DOWNLOAD_PROFILE_ICONS = downloadProfileIconSchema.options;
@@ -89,7 +91,7 @@ export type PlaylistSelection = z.infer<typeof playlistSelectionSchema>;
 export const DEFAULT_PLAYLIST_SELECTION: PlaylistSelection = { kind: 'video', tier: 'best', codec: 'best' };
 
 const downloadProfileAudioSchema = z.object({
-  format: playlistAudioFormatSchema,
+  format: downloadProfileAudioFormatSchema,
   bitrateKbps: audioBitrateSchema.optional()
 });
 
