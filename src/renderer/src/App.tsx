@@ -13,6 +13,7 @@ import {ThemeToggle} from './components/system/ThemeToggle.js'
 import {LanguagePicker} from './components/system/LanguagePicker.js'
 import {AboutDialog} from './components/system/AboutDialog.js'
 import {ShareDialog} from './components/system/ShareDialog.js'
+import {FeedbackDialog} from './components/system/FeedbackDialog.js'
 import {useUpdateChannel} from './components/system/useUpdateChannel.js'
 import {shouldShowSplashGreeting} from './components/system/splashGreeting.js'
 import {Button} from './components/ui/button.js'
@@ -21,7 +22,6 @@ import {TooltipProvider} from './components/ui/tooltip.js'
 import {ScenarioGallery} from './dev/ScenarioGallery.js'
 import {cn} from './lib/utils.js'
 
-const FEEDBACK_URL = 'https://github.com/antonio-orionus/Arroxy/issues/new/choose'
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
 
 function shouldRenderStartupSplash(): boolean {
@@ -38,10 +38,11 @@ function buildDebugInfo(): string {
 
 export function App(): JSX.Element {
 	const {t} = useTranslation()
-	const {initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, warmupBlocking, warmupDiagnostics, warmupProgress, settings, setSplashDismissed, setAboutDialogOpen, openShareDialog} = useAppStore()
+	const {initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, language, warmupBlocking, warmupDiagnostics, warmupProgress, settings, wizardStep, wizardExtractor, wizardError, queue, setSplashDismissed, setAboutDialogOpen, openShareDialog} = useAppStore()
 	const update = useUpdateChannel()
 	const [debugCopied, setDebugCopied] = useState(false)
 	const [showNudge, setShowNudge] = useState(false)
+	const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false)
 	const showStartupSplash = shouldRenderStartupSplash()
 
 	function copyDebugInfo(): void {
@@ -138,7 +139,7 @@ export function App(): JSX.Element {
 								className={cn('h-5 px-0 text-[13px]', showNudge ? 'feedback-btn-nudging' : 'text-muted-foreground')}
 								onClick={() => {
 									setShowNudge(false)
-									void window.appApi.shell.openExternal(FEEDBACK_URL)
+									setFeedbackDialogOpen(true)
 								}}
 								data-testid="btn-feedback"
 							>
@@ -154,6 +155,7 @@ export function App(): JSX.Element {
 				{showStartupSplash && <SplashScreen initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={shouldShowSplashGreeting(settings)} onDismissed={() => setSplashDismissed(true)} />}
 				<AboutDialog />
 				<ShareDialog />
+				<FeedbackDialog open={feedbackDialogOpen} onOpenChange={setFeedbackDialogOpen} settings={settings} language={language} wizardStep={wizardStep} wizardExtractor={wizardExtractor} wizardError={wizardError} queue={queue} />
 				{SHOW_SCENARIO_GALLERY && <ScenarioGallery />}
 			</div>
 		</TooltipProvider>

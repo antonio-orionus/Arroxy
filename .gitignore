@@ -12,6 +12,8 @@ __pycache__/
 .DS_Store
 *.log
 *.tmp
+workers/**/.wrangler/
+workers/**/worker-startup.cpuprofile
 coverage/
 refs
 # Local environment variables (API keys — never commit)
