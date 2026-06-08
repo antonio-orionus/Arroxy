@@ -611,12 +611,12 @@ const en = {
   playlistPresets: {
     type: { video: 'Video', audio: 'Audio' },
     videoFormat: {
-      best: 'Best codec',
-      mp4: 'MP4 (H.264)'
+      best: 'Best native',
+      mp4: 'MP4 / Smart TV'
     },
     videoFormatDesc: {
-      best: 'Highest available codec per item',
-      mp4: 'H.264 + AAC preferred, MP4 container · best-effort'
+      best: 'Best available container and codecs per item',
+      mp4: 'Prefer H.264 video + AAC audio in MP4 when possible'
     },
     tier: {
       best: 'Best quality',

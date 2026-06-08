@@ -55,9 +55,9 @@ const PROFILE_ICON_META: Record<DownloadProfileIcon, { label: string; icon: Luci
 
 const PROFILE_ICON_OPTIONS = DOWNLOAD_PROFILE_ICONS.map((value) => ({ value, ...PROFILE_ICON_META[value] }));
 
-const CODEC_OPTIONS: SelectOption<ProfileCodec>[] = [
-  { value: 'best', label: 'Best codec' },
-  { value: 'mp4', label: 'MP4 (H.264)' }
+const VIDEO_COMPATIBILITY_OPTIONS: SelectOption<ProfileCodec>[] = [
+  { value: 'best', label: 'Best native' },
+  { value: 'mp4', label: 'MP4 / Smart TV' }
 ];
 
 const RESOLUTION_OPTIONS: SelectOption<ProfileResolution>[] = [
@@ -79,8 +79,8 @@ const AUDIO_FORMAT_OPTIONS: SelectOption<ProfileAudioFormat>[] = [
 ];
 
 const VIDEO_AUDIO_FORMAT_OPTIONS: SelectOption<Extract<ProfileAudioFormat, 'best' | 'm4a'>>[] = [
-  { value: 'best', label: 'Best' },
-  { value: 'm4a', label: 'M4A' }
+  { value: 'best', label: 'Best native' },
+  { value: 'm4a', label: 'M4A / AAC' }
 ];
 
 const AUDIO_QUALITY_OPTIONS: SelectOption<ProfileAudioQuality>[] = [
@@ -315,6 +315,9 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
 
   function setProfileCodec(nextCodec: ProfileCodec): void {
     setCodec(nextCodec);
+    if (mediaMode === 'video-audio') {
+      setAudioFormat(nextCodec === 'mp4' ? 'm4a' : 'best');
+    }
   }
 
   function addSubtitleLanguages(): void {
@@ -449,7 +452,7 @@ export function DownloadProfileEditor({ initialProfile = null, open, onOpenChang
                 {showVideo ? (
                   <ProfilePanel title="Video">
                     <FieldGroup className="gap-3">
-                      <ProfileSelect label="Codec" value={codec} options={CODEC_OPTIONS} onValueChange={setProfileCodec} testId="profiles-editor-video-codec" />
+                      <ProfileSelect label="Compatibility" value={codec} options={VIDEO_COMPATIBILITY_OPTIONS} onValueChange={setProfileCodec} testId="profiles-editor-video-codec" />
                       <ProfileSelect label="Resolution" value={resolution} options={RESOLUTION_OPTIONS} onValueChange={setResolution} testId="profiles-editor-video-resolution" />
                     </FieldGroup>
                   </ProfilePanel>

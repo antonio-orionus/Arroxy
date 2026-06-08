@@ -48,6 +48,19 @@ function baseProfile(id: string, name: string, media: DownloadProfile['media'], 
   };
 }
 
+function videoCompatibilityLabel(codec: 'best' | 'mp4'): string {
+  return codec === 'mp4' ? 'MP4 / Smart TV' : 'Best native';
+}
+
+function videoTierLabel(tiers: readonly PlaylistVideoTier[]): string {
+  const tier = tiers[0] ?? 'best';
+  return tier === 'best' ? 'best available' : `up to ${tier}p`;
+}
+
+function videoAudioLabel(format: 'best' | 'm4a'): string {
+  return format === 'm4a' ? 'AAC audio' : 'best native audio';
+}
+
 export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [baseProfile('best-quality', 'Best quality', videoAudio('best', ['best']), 'video'), baseProfile('best-2160', '2160p', videoAudio('best', ['2160']), 'video'), baseProfile('best-1440', '1440p', videoAudio('best', ['1440']), 'video'), baseProfile('hd-1080', 'HD 1080p', videoAudio('best', ['1080']), 'video'), baseProfile('balanced', 'Balanced', videoAudio('best', ['720']), 'download'), baseProfile('small-file', 'Small file', videoAudio('best', ['480', '360']), 'clip'), baseProfile('mp4-2160', 'MP4 2160p', videoAudio('mp4', ['2160']), 'video'), baseProfile('mp4-1440', 'MP4 1440p', videoAudio('mp4', ['1440']), 'video'), baseProfile('mp4-1080', 'MP4 1080p', videoAudio('mp4', ['1080']), 'video'), baseProfile('audio-only', 'Audio only', { kind: 'audio-only', audio: { format: 'best' } }, 'audio')] as const;
 
 export const DEFAULT_DOWNLOAD_PROFILE_REF: DownloadProfileRef = { kind: 'builtin', id: 'balanced' };
@@ -197,9 +210,9 @@ export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadPr
 export function downloadProfileLabel(profile: DownloadProfile): string {
   switch (profile.media.kind) {
     case 'video-audio':
-      return `Video + audio · ${profile.media.codec === 'mp4' ? 'MP4' : 'best codec'} · ${profile.media.tiers.join('/')} · ${profile.media.audio.format === 'm4a' ? 'M4A audio' : 'best audio'}`;
+      return `Video + audio · ${videoCompatibilityLabel(profile.media.codec)} · ${videoTierLabel(profile.media.tiers)} · ${videoAudioLabel(profile.media.audio.format)}`;
     case 'video-only':
-      return `Video, no audio · ${profile.media.codec === 'mp4' ? 'MP4' : 'best codec'} · ${profile.media.tiers.join('/')}`;
+      return `Video, no audio · ${videoCompatibilityLabel(profile.media.codec)} · ${videoTierLabel(profile.media.tiers)}`;
     case 'audio-only':
       if (profile.media.audio.format === 'best') return 'Audio only · best';
       if (profile.media.audio.format === 'wav') return 'Audio only · WAV';

@@ -55,7 +55,7 @@ export function StepConfirm(): JSX.Element {
       return t('playlistPresets.audioFormatBitrate', { format: playlistSelection.format.toUpperCase(), kbps: playlistSelection.bitrateKbps ?? 192 });
     }
     const tierLabel = t(`playlistPresets.tier.${playlistSelection.tier}`);
-    return playlistSelection.codec === 'mp4' ? `MP4 · ${tierLabel}` : tierLabel;
+    return playlistSelection.codec === 'mp4' ? `MP4 / Smart TV · ${tierLabel}` : tierLabel;
   })();
   // "videos" vs "tracks" — pick the unit that matches the actual content.
   // Audio-only extractors (Bandcamp, QQMusic, etc.) and audio playlist

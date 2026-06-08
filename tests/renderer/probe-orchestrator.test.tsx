@@ -191,7 +191,7 @@ describe('quickDownload', () => {
     const queued = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0]?.[0];
     expect(queued).toMatchObject({
       outputDir: '/tmp/first-launch-downloads/Balanced',
-      formatLabel: 'Video + audio · best codec · 720 · best audio',
+      formatLabel: 'Video + audio · Best native · up to 720p · best native audio',
       job: expect.objectContaining({
         kind: 'ranged-format',
         intent: { kind: 'video-audio', codec: 'best', tiers: ['720'], audio: { format: 'best' } }

@@ -146,7 +146,7 @@ describe('download profiles', () => {
     expect(resolved.subtitles).toEqual({ languages: ['en', 'uk'], mode: 'sidecar', format: 'srt', writeAuto: true });
     expect(resolved.sponsorBlock).toEqual({ mode: 'remove', categories: ['sponsor'] });
     expect(resolved.embed).toEqual({ chapters: true, metadata: true, thumbnail: false, description: true, thumbnailSidecar: true });
-    expect(downloadProfileLabel(profile)).toBe('Video + audio · MP4 · 1080/720 · M4A audio');
+    expect(downloadProfileLabel(profile)).toBe('Video + audio · MP4 / Smart TV · up to 1080p · AAC audio');
   });
 
   it('treats subtitles-only profiles as non-media jobs with sanitized embed and SponsorBlock options', () => {

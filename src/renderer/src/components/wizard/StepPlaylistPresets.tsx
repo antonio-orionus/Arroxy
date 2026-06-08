@@ -109,9 +109,9 @@ export function StepPlaylistPresets(): JSX.Element {
 
           {currentKind === 'video' && (
             <>
-              {/* Codec / format toggle */}
+              {/* Compatibility toggle */}
               <div>
-                <p className={SECTION_LABEL}>{t('playlistPresets.videoFormat.best')}</p>
+                <p className={SECTION_LABEL}>{t('playlistPresets.type.video')}</p>
                 <ItemGroup className="grid grid-cols-2 gap-2">
                   {(['best', 'mp4'] as const).map((codec) => {
                     const selected = currentCodec === codec;
