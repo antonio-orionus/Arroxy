@@ -9,7 +9,10 @@
 import en from '../src/shared/i18n/locales/en.js';
 import { SUPPORTED_LANGS } from '../src/shared/schemas.js';
 
-interface LeafEntry { path: string; value: string }
+interface LeafEntry {
+  path: string;
+  value: string;
+}
 
 function flattenLeaves(obj: unknown, prefix = ''): LeafEntry[] {
   if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
@@ -52,7 +55,12 @@ for (const lang of SUPPORTED_LANGS) {
     const lv = localeByPath.get(k);
     const ev = enByPath.get(k);
     if (lv === undefined || ev === undefined || lv !== ev) return false;
-    const words = lv.trim().replace(/\{\{[^}]+\}\}/g, '').trim().split(/\s+/).filter(w => /\w/.test(w)).length;
+    const words = lv
+      .trim()
+      .replace(/\{\{[^}]+\}\}/g, '')
+      .trim()
+      .split(/\s+/)
+      .filter((w) => /\w/.test(w)).length;
     return words >= PLACEHOLDER_MIN_WORDS;
   });
 
@@ -83,7 +91,7 @@ if (strict && (hadExtras || hadMissing || hadPlaceholders)) {
   process.exit(1);
 }
 if (hadExtras) {
-  console.warn('\nExtras: keys in non-en that don\'t exist in en. Stale — clean up via translate skill or hand-edit.');
+  console.warn("\nExtras: keys in non-en that don't exist in en. Stale — clean up via translate skill or hand-edit.");
 }
 if (hadMissing) {
   console.warn('\nMissing: keys absent in non-en (fall back to en at runtime). Partial-by-design; run translate to localize.');

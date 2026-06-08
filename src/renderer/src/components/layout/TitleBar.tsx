@@ -14,7 +14,15 @@ function ShareButton(): JSX.Element {
   const { t } = useTranslation();
   const openShareDialog = useAppStore((s) => s.openShareDialog);
   return (
-    <button type="button" aria-label={t('share.footerTooltip')} title={t('share.footerTooltip')} data-testid="btn-share-titlebar" onClick={() => openShareDialog('titlebar')} style={noDrag} className="h-8 w-8 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors rounded">
+    <button
+      type="button"
+      aria-label={t('share.footerTooltip')}
+      title={t('share.footerTooltip')}
+      data-testid="btn-share-titlebar"
+      onClick={() => openShareDialog('titlebar')}
+      style={noDrag}
+      className="h-8 w-8 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors rounded"
+    >
       <Share2 size={12} strokeWidth={2} />
     </button>
   );

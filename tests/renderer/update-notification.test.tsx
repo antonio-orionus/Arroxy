@@ -8,13 +8,7 @@ import { ok } from '../shared/fixtures.js';
 
 type UpdateListener = (info: UpdateAvailablePayload) => void;
 
-function makeApi(
-  overrides: {
-    onUpdateAvailable?: (listener: UpdateListener) => () => void;
-    install?: () => Promise<{ ok: true } | { ok: false; error: string }>;
-    openExternal?: (url: string) => Promise<unknown>;
-  } = {}
-) {
+function makeApi(overrides: { onUpdateAvailable?: (listener: UpdateListener) => () => void; install?: () => Promise<{ ok: true } | { ok: false; error: string }>; openExternal?: (url: string) => Promise<unknown> } = {}) {
   return {
     app: {
       warmUp: vi.fn().mockResolvedValue(ok({ completed: true, dependencies: {}, blockingFailures: [] })),

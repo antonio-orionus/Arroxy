@@ -29,8 +29,5 @@ export function resolveSmokeUrl(flagUrl?: string): string {
   if (flagUrl?.trim()) return flagUrl.trim();
   const fileUrl = readUrlFromLocalFile();
   if (fileUrl) return fileUrl;
-  throw new Error(
-    `No smoke URL configured. Provide one via ARROXY_SMOKE_URL=, the --url flag, ` +
-    `or the first non-comment line of ${LOCAL_FILE_NAME} (gitignored).`
-  );
+  throw new Error(`No smoke URL configured. Provide one via ARROXY_SMOKE_URL=, the --url flag, ` + `or the first non-comment line of ${LOCAL_FILE_NAME} (gitignored).`);
 }

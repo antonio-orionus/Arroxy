@@ -397,7 +397,8 @@ const de = {
         currentModeFile: 'Datei',
         currentModeBrowser: 'Browser',
         explanationFile: 'Deine Cookies-Datei könnte leer, abgelaufen oder im falschen Format vorliegen (yt-dlp erwartet Netscape cookies.txt). Versuche, die Cookies neu zu exportieren, eine andere Datei auszuwählen, in den Browser-Modus zu wechseln oder Cookies zu deaktivieren.',
-        explanationBrowser: 'Cookies werden direkt aus dem Browser gelesen. Wenn der Browser gerade läuft, ist die Cookie-Datenbank möglicherweise gesperrt (Chromium-Familie). Der Browser muss zudem bei YouTube angemeldet sein. Versuche, den Browser zu schließen, zu einem anderen Browser zu wechseln, in den Datei-Modus zu wechseln oder Cookies zu deaktivieren.',
+        explanationBrowser:
+          'Cookies werden direkt aus dem Browser gelesen. Wenn der Browser gerade läuft, ist die Cookie-Datenbank möglicherweise gesperrt (Chromium-Familie). Der Browser muss zudem bei YouTube angemeldet sein. Versuche, den Browser zu schließen, zu einem anderen Browser zu wechseln, in den Datei-Modus zu wechseln oder Cookies zu deaktivieren.',
         openSettingsCta: 'Cookies-Einstellungen öffnen',
         needsCookies: {
           heading: 'Diese Seite erfordert eine Anmeldung',
@@ -570,7 +571,8 @@ const de = {
   },
   errors: {
     ytdlp: {
-      botBlock: 'Bot-Schutz ausgelöst. Die verwendete IP ist höchstwahrscheinlich als verdächtig markiert (Rechenzentrumsbereich oder stark genutzter VPN-Ausgangsknoten). Wechsle deine IP oder wähle einen anderen VPN-Endpunkt und versuche es erneut. Falls das Problem weiterhin besteht, könnte es sich um eine vorübergehende Änderung seitens YouTube handeln – Arroxy aktualisiert yt-dlp beim Start automatisch, sodass der Fix automatisch angewendet wird, sobald er upstream verfügbar ist.',
+      botBlock:
+        'Bot-Schutz ausgelöst. Die verwendete IP ist höchstwahrscheinlich als verdächtig markiert (Rechenzentrumsbereich oder stark genutzter VPN-Ausgangsknoten). Wechsle deine IP oder wähle einen anderen VPN-Endpunkt und versuche es erneut. Falls das Problem weiterhin besteht, könnte es sich um eine vorübergehende Änderung seitens YouTube handeln – Arroxy aktualisiert yt-dlp beim Start automatisch, sodass der Fix automatisch angewendet wird, sobald er upstream verfügbar ist.',
       ipBlock: 'Deine IP-Adresse scheint von YouTube blockiert zu sein. Versuch es später oder nutze ein VPN.',
       rateLimit: 'YouTube drosselt die Anfragen. Warte eine Minute und versuch es dann erneut.',
       ageRestricted: 'Dieses Video ist altersbeschränkt und kann ohne angemeldetes Konto nicht heruntergeladen werden.',

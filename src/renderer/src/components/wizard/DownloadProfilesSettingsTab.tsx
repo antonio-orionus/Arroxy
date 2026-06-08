@@ -229,7 +229,14 @@ export function DownloadProfilesSettingsTab(): JSX.Element {
 
           <NetworkPacingSettings />
 
-          <SettingSwitch id="profiles-settings-filename-id" label="Include ID in single-video filenames" description="Keeps filenames stable when titles change." checked={common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames} onCheckedChange={(checked) => void setIncludeIdInSingleFilenames(checked)} testId="single-filename-id-toggle" />
+          <SettingSwitch
+            id="profiles-settings-filename-id"
+            label="Include ID in single-video filenames"
+            description="Keeps filenames stable when titles change."
+            checked={common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames}
+            onCheckedChange={(checked) => void setIncludeIdInSingleFilenames(checked)}
+            testId="single-filename-id-toggle"
+          />
 
           {platform !== 'darwin' ? <SettingSwitch id="profiles-settings-close-tray" label="Close to tray" description="Keep Arroxy running when the window closes." checked={common?.closeBehavior === 'tray'} onCheckedChange={(checked) => void setCloseBehavior(checked ? 'tray' : 'quit')} /> : null}
 

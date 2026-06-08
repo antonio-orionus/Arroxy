@@ -190,7 +190,12 @@ export type DownloadProfilesPrefs = z.infer<typeof downloadProfilesPrefsSchema>;
 // Renderer's audio-column selection. Three convert kinds + native + none.
 // Defined here (not in renderer/store/types.ts) because it's persisted in
 // `SinglePrefs.lastAudioSelection`, so the IPC patch schema needs to validate it.
-export const audioSelectionSchema = z.discriminatedUnion('kind', [z.object({ kind: z.literal('none') }), z.object({ kind: z.literal('native'), formatId: z.string().min(1) }), z.object({ kind: z.literal('convert-lossless'), target: z.literal('wav') }), z.object({ kind: z.literal('convert-lossy'), target: z.enum(LOSSY_TARGET_VALUES), bitrateKbps: audioBitrateSchema })]);
+export const audioSelectionSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('none') }),
+  z.object({ kind: z.literal('native'), formatId: z.string().min(1) }),
+  z.object({ kind: z.literal('convert-lossless'), target: z.literal('wav') }),
+  z.object({ kind: z.literal('convert-lossy'), target: z.enum(LOSSY_TARGET_VALUES), bitrateKbps: audioBitrateSchema })
+]);
 export type AudioSelection = z.infer<typeof audioSelectionSchema>;
 
 export const supportedLangSchema = z.enum(['om', 'de', 'en', 'es', 'fr', 'sw', 'uz', 'vi', 'am', 'ar', 'ur', 'ps', 'bn', 'hi', 'my', 'el', 'ru', 'sr', 'uk', 'zh', 'ja']);

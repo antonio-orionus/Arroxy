@@ -24,14 +24,5 @@
       "@shared/*": ["./src/shared/*"]
     }
   },
-  "include": [
-    "src",
-    "electron.vite.config.ts",
-    "vitest.config.mts",
-    "playwright.config.ts",
-    "playwright.browser.config.ts",
-    "eslint.config.mjs",
-    "tests",
-    "scripts"
-  ]
+  "include": ["src", "electron.vite.config.ts", "vitest.config.mts", "playwright.config.ts", "playwright.browser.config.ts", "tests", "scripts"]
 }

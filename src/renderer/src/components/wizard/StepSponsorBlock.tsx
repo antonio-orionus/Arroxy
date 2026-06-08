@@ -66,7 +66,11 @@ export function StepSponsorBlock(): JSX.Element {
               {SPONSORBLOCK_CATEGORIES.map((cat) => {
                 const isChecked = wizardSponsorBlockCategories.includes(cat);
                 return (
-                  <label key={cat} data-testid={`sb-cat-${cat}`} className="flex w-full items-center gap-2 h-7 px-2 rounded-md text-sm font-medium transition-colors cursor-pointer hover:bg-accent/60 has-[[data-checked]]:bg-[var(--brand-dim)] has-[[data-checked]]:border-s-2 has-[[data-checked]]:border-[var(--brand)] has-[[data-checked]]:text-[var(--brand)]">
+                  <label
+                    key={cat}
+                    data-testid={`sb-cat-${cat}`}
+                    className="flex w-full items-center gap-2 h-7 px-2 rounded-md text-sm font-medium transition-colors cursor-pointer hover:bg-accent/60 has-[[data-checked]]:bg-[var(--brand-dim)] has-[[data-checked]]:border-s-2 has-[[data-checked]]:border-[var(--brand)] has-[[data-checked]]:text-[var(--brand)]"
+                  >
                     <Checkbox checked={isChecked} onCheckedChange={() => toggleSponsorBlockCategory(cat)} className="border-[var(--border-strong)] data-checked:border-[var(--brand)] data-checked:bg-[var(--brand)] data-checked:text-white" />
                     <span className="flex-1 text-start truncate">{t(`wizard.sponsorblock.cat.${cat}`)}</span>
                   </label>

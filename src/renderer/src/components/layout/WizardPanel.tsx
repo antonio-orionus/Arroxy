@@ -43,7 +43,15 @@ export function WizardPanel(): JSX.Element {
             return (
               <div key={stepKey} className="flex items-center flex-1 last:flex-none">
                 <div className="flex flex-col items-center gap-1">
-                  <div className={cn('w-6 h-6 rounded-full flex items-center justify-center text-[12px] font-bold border transition-all duration-300', isActive && 'border-[var(--brand)] bg-[var(--brand-dim)] text-[var(--brand)]', isDone && 'border-transparent bg-[var(--brand)] text-white', !isActive && !isDone && 'border-[var(--border-strong)] bg-transparent text-[var(--text-subtle)]')} style={isActive ? { boxShadow: '0 0 0 3px var(--brand-dim), 0 0 12px var(--brand-glow)' } : isDone ? { boxShadow: '0 0 6px var(--brand-glow)' } : undefined}>
+                  <div
+                    className={cn(
+                      'w-6 h-6 rounded-full flex items-center justify-center text-[12px] font-bold border transition-all duration-300',
+                      isActive && 'border-[var(--brand)] bg-[var(--brand-dim)] text-[var(--brand)]',
+                      isDone && 'border-transparent bg-[var(--brand)] text-white',
+                      !isActive && !isDone && 'border-[var(--border-strong)] bg-transparent text-[var(--text-subtle)]'
+                    )}
+                    style={isActive ? { boxShadow: '0 0 0 3px var(--brand-dim), 0 0 12px var(--brand-glow)' } : isDone ? { boxShadow: '0 0 6px var(--brand-glow)' } : undefined}
+                  >
                     {isDone ? '✓' : i + 1}
                   </div>
                   <span className={cn('text-[11px] font-semibold uppercase tracking-[0.07em]', isActive && 'text-[var(--brand)]', (isDone || (!isActive && !isDone)) && 'text-[var(--text-subtle)]')}>{t(`wizard.steps.${stepKey}` as const)}</span>

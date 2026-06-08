@@ -126,7 +126,12 @@ const playlistFieldsSchema = z.object({
 
 // Recursive schema — playlist entries are themselves info_dicts. zod recursion
 // requires a thunked z.lazy + an explicit type alias to break the cycle.
-export type InfoDict = ({ _type?: 'video' } & z.infer<typeof videoFieldsSchema>) | ({ _type: 'playlist' } & z.infer<typeof playlistFieldsSchema> & { entries: InfoDict[] }) | ({ _type: 'multi_video' } & z.infer<typeof playlistFieldsSchema> & { entries: InfoDict[] }) | ({ _type: 'url' } & z.infer<typeof videoFieldsSchema> & { url: string; ie_key?: string }) | ({ _type: 'url_transparent' } & z.infer<typeof videoFieldsSchema> & { url: string; ie_key?: string });
+export type InfoDict =
+  | ({ _type?: 'video' } & z.infer<typeof videoFieldsSchema>)
+  | ({ _type: 'playlist' } & z.infer<typeof playlistFieldsSchema> & { entries: InfoDict[] })
+  | ({ _type: 'multi_video' } & z.infer<typeof playlistFieldsSchema> & { entries: InfoDict[] })
+  | ({ _type: 'url' } & z.infer<typeof videoFieldsSchema> & { url: string; ie_key?: string })
+  | ({ _type: 'url_transparent' } & z.infer<typeof videoFieldsSchema> & { url: string; ie_key?: string });
 
 export const infoDictSchema: z.ZodType<InfoDict> = z.lazy(() => {
   const videoArm = videoFieldsSchema

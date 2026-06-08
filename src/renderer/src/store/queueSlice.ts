@@ -157,7 +157,18 @@ function downloadProfileRefLabel(ref: DownloadProfileRef): string {
   return `${ref.kind}:${ref.id}`;
 }
 
-function buildProfileEntryQueueItem(params: { entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail'>; outputDir: string; extractor: string; extractorKey: string; resolved: ResolvedDownloadProfile; profile: DownloadProfile; outputTemplate: string; playlistGroupId?: string; writeM3u: boolean; lane: QueueLane }): QueueItem {
+function buildProfileEntryQueueItem(params: {
+  entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail'>;
+  outputDir: string;
+  extractor: string;
+  extractorKey: string;
+  resolved: ResolvedDownloadProfile;
+  profile: DownloadProfile;
+  outputTemplate: string;
+  playlistGroupId?: string;
+  writeM3u: boolean;
+  lane: QueueLane;
+}): QueueItem {
   return {
     id: generateId(),
     url: params.entry.url,

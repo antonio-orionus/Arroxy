@@ -93,7 +93,7 @@ export function SmartDrawer(): JSX.Element {
   const getScrollElement = useCallback(() => scrollRef.current, []);
   const estimateSize = useCallback((i: number) => rowStride(orderedQueue[i]), [orderedQueue]);
   const getItemKey = useCallback((i: number) => orderedQueue[i].id, [orderedQueue]);
-  // eslint-disable-next-line react-hooks/incompatible-library
+  // oxlint-disable-next-line react-hooks-js/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: orderedQueue.length,
     getScrollElement,
@@ -213,7 +213,13 @@ export function SmartDrawer(): JSX.Element {
             </button>
           )}
           <Popover>
-            <PopoverTrigger type="button" onClick={(e) => e.stopPropagation()} className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded hover:bg-accent" title={t('queue.limitRateTitle')} data-testid="btn-limit-rate">
+            <PopoverTrigger
+              type="button"
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded hover:bg-accent"
+              title={t('queue.limitRateTitle')}
+              data-testid="btn-limit-rate"
+            >
               <Gauge size={10} />
               {limitRate ? t('queue.limitRate', { value: formatLimitRateLabel(limitRate) }) : t('queue.limitRateOff')}
             </PopoverTrigger>
@@ -251,7 +257,13 @@ export function SmartDrawer(): JSX.Element {
               <Share2 size={11} className="shrink-0 text-[var(--brand)]" />
               <span className="flex-1 truncate">{t('share.highValueBanner.body')}</span>
             </button>
-            <button type="button" aria-label={t('share.highValueBanner.dismiss')} className="text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors w-7 inline-flex items-center justify-center cursor-pointer" onClick={() => void setShareHighValueBannerDismissed()} data-testid="share-high-value-banner-dismiss">
+            <button
+              type="button"
+              aria-label={t('share.highValueBanner.dismiss')}
+              className="text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors w-7 inline-flex items-center justify-center cursor-pointer"
+              onClick={() => void setShareHighValueBannerDismissed()}
+              data-testid="share-high-value-banner-dismiss"
+            >
               <X size={11} />
             </button>
           </div>

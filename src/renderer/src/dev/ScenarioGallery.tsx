@@ -211,7 +211,13 @@ export function ScenarioGallery(): JSX.Element {
                   <p className="mb-1 text-[10px] text-muted-foreground">Theme</p>
                   <div className="flex gap-1">
                     {(['light', 'dark'] as const).map((t) => (
-                      <button key={t} type="button" onClick={() => handleThemeToggle(t)} className={cn('h-7 rounded border px-2 text-[10px] font-medium capitalize transition-colors', liveTheme === t ? 'border-[var(--brand)] bg-[var(--brand-dim)] text-foreground' : 'border-border text-muted-foreground hover:text-foreground')} data-testid={`knob-theme-${t}`}>
+                      <button
+                        key={t}
+                        type="button"
+                        onClick={() => handleThemeToggle(t)}
+                        className={cn('h-7 rounded border px-2 text-[10px] font-medium capitalize transition-colors', liveTheme === t ? 'border-[var(--brand)] bg-[var(--brand-dim)] text-foreground' : 'border-border text-muted-foreground hover:text-foreground')}
+                        data-testid={`knob-theme-${t}`}
+                      >
                         {t}
                       </button>
                     ))}
@@ -241,7 +247,13 @@ export function ScenarioGallery(): JSX.Element {
                   <p className="mb-1 text-[10px] text-muted-foreground">Platform</p>
                   <div className="flex gap-1">
                     {MOCK_PLATFORMS.map((p) => (
-                      <button key={p} type="button" onClick={() => applyKnob({ platform: knobs.platform === p ? null : p })} className={cn('h-7 rounded border px-2 text-[10px] font-medium transition-colors', knobs.platform === p ? 'border-[var(--brand)] bg-[var(--brand-dim)] text-foreground' : 'border-border text-muted-foreground hover:text-foreground')} data-testid={`knob-platform-${p}`}>
+                      <button
+                        key={p}
+                        type="button"
+                        onClick={() => applyKnob({ platform: knobs.platform === p ? null : p })}
+                        className={cn('h-7 rounded border px-2 text-[10px] font-medium transition-colors', knobs.platform === p ? 'border-[var(--brand)] bg-[var(--brand-dim)] text-foreground' : 'border-border text-muted-foreground hover:text-foreground')}
+                        data-testid={`knob-platform-${p}`}
+                      >
                         {MOCK_PLATFORM_LABELS[p]}
                       </button>
                     ))}
@@ -284,7 +296,15 @@ export function ScenarioGallery(): JSX.Element {
                   <div className="mb-2">
                     <p className="mb-1.5 text-[10px] text-muted-foreground">Count — playlist probe with N items</p>
                     <form onSubmit={handlePlaylistSubmit} className="flex items-center gap-1.5">
-                      <input type="number" min={1} placeholder="e.g. 50" value={playlistInput} onChange={(e) => setPlaylistInput(e.target.value)} className={cn('h-7 w-20 rounded border bg-muted/20 px-2 text-[11px] focus:outline-none focus:ring-1 focus:ring-[var(--brand)]', isPlaylistParam ? 'border-[var(--brand)]' : 'border-border')} data-testid="playlist-count-input" />
+                      <input
+                        type="number"
+                        min={1}
+                        placeholder="e.g. 50"
+                        value={playlistInput}
+                        onChange={(e) => setPlaylistInput(e.target.value)}
+                        className={cn('h-7 w-20 rounded border bg-muted/20 px-2 text-[11px] focus:outline-none focus:ring-1 focus:ring-[var(--brand)]', isPlaylistParam ? 'border-[var(--brand)]' : 'border-border')}
+                        data-testid="playlist-count-input"
+                      />
                       <button type="submit" className="h-7 rounded border border-border px-2 text-[10px] font-medium text-muted-foreground hover:text-foreground">
                         Go
                       </button>
@@ -337,7 +357,14 @@ export function ScenarioGallery(): JSX.Element {
                     {scenarios.map((candidate) => {
                       const active = !isPlaylistParam && !isProbeErrorParam && candidate.id === scenario.id;
                       return (
-                        <button key={candidate.id} type="button" onClick={() => applyScenario(candidate.id)} className={cn('min-h-16 rounded-md border p-2 text-left transition-colors', active ? 'border-[var(--brand)] bg-[var(--brand-dim)] text-foreground' : 'border-border bg-muted/20 text-muted-foreground hover:border-[var(--border-strong)] hover:text-foreground')} data-testid={`scenario-button-${candidate.id}`} aria-pressed={active}>
+                        <button
+                          key={candidate.id}
+                          type="button"
+                          onClick={() => applyScenario(candidate.id)}
+                          className={cn('min-h-16 rounded-md border p-2 text-left transition-colors', active ? 'border-[var(--brand)] bg-[var(--brand-dim)] text-foreground' : 'border-border bg-muted/20 text-muted-foreground hover:border-[var(--border-strong)] hover:text-foreground')}
+                          data-testid={`scenario-button-${candidate.id}`}
+                          aria-pressed={active}
+                        >
                           <span className="block truncate text-[12px] font-semibold">{candidate.title}</span>
                           <span className="mt-1 block line-clamp-2 text-[10px] leading-snug">{candidate.description}</span>
                         </button>

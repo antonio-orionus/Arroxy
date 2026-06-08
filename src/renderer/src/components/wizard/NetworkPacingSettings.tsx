@@ -147,7 +147,17 @@ export function NetworkPacingSettings(): JSX.Element {
                 {t(`wizard.url.networkPacing.fields.${field.labelKey}`)}
               </FieldLabel>
               <InputGroup>
-                <InputGroupInput id={field.testId} type="number" min={0} value={fieldDrafts[field.key] ?? toDraft(common?.[field.key])} onChange={(e) => onFieldChange(field.key, e.target.value)} onBlur={() => onFieldBlur(field.key)} placeholder={String(NETWORK_PACING_PRESET_VALUES.balanced[field.labelKey] ?? '')} className="text-[12px] font-mono" data-testid={field.testId} />
+                <InputGroupInput
+                  id={field.testId}
+                  type="number"
+                  min={0}
+                  value={fieldDrafts[field.key] ?? toDraft(common?.[field.key])}
+                  onChange={(e) => onFieldChange(field.key, e.target.value)}
+                  onBlur={() => onFieldBlur(field.key)}
+                  placeholder={String(NETWORK_PACING_PRESET_VALUES.balanced[field.labelKey] ?? '')}
+                  className="text-[12px] font-mono"
+                  data-testid={field.testId}
+                />
                 <InputGroupAddon align="inline-end">
                   <InputGroupText className="text-[11px]">{t(`wizard.url.networkPacing.units.${field.unitKey}`)}</InputGroupText>
                 </InputGroupAddon>

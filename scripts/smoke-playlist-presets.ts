@@ -167,16 +167,7 @@ function denoArgs(denoPath: string): string[] {
 }
 
 function probeArgs(url: string, cli: CliArgs, denoPath: string, strategy: Exclude<ExtractorStrategy, 'auto'>): string[] {
-  return [
-    '--dump-single-json',
-    '--skip-download',
-    '--no-playlist',
-    '--no-warnings',
-    ...denoArgs(denoPath),
-    ...(strategy === 'fallback' ? ['--extractor-args', PLAYER_CLIENT_FALLBACK] : []),
-    ...cookiesArgs(cli),
-    url
-  ];
+  return ['--dump-single-json', '--skip-download', '--no-playlist', '--no-warnings', ...denoArgs(denoPath), ...(strategy === 'fallback' ? ['--extractor-args', PLAYER_CLIENT_FALLBACK] : []), ...cookiesArgs(cli), url];
 }
 
 async function probeInfoJson(ytDlpPath: string, url: string, cli: CliArgs, denoPath: string): Promise<{ json: string; strategy: Exclude<ExtractorStrategy, 'auto'>; durationMs: number }> {
@@ -322,24 +313,14 @@ function validate(caseDef: SmokeCase, args: string[], info: SelectedInfo): strin
   }
 
   const expectedBitrate: AudioBitrate = caseDef.selection.bitrateKbps ?? 192;
-  failures.push(
-    ...[
-      args.includes('-x') ? null : 'missing -x',
-      assertArgValue(args, '--audio-format', caseDef.selection.format),
-      assertArgValue(args, '--audio-quality', `${expectedBitrate}K`)
-    ].filter((s): s is string => s !== null)
-  );
+  failures.push(...[args.includes('-x') ? null : 'missing -x', assertArgValue(args, '--audio-format', caseDef.selection.format), assertArgValue(args, '--audio-quality', `${expectedBitrate}K`)].filter((s): s is string => s !== null));
   return failures;
 }
 
 function describeSelection(info: SelectedInfo): string {
   const video = selectedVideo(info);
   const audio = selectedAudio(info);
-  const parts = [
-    `ext=${info.ext ?? '?'}`,
-    video ? `v=${video.vcodec ?? '?'}@${video.height ?? '?'}p` : 'v=none',
-    audio ? `a=${audio.acodec ?? '?'}` : 'a=none'
-  ];
+  const parts = [`ext=${info.ext ?? '?'}`, video ? `v=${video.vcodec ?? '?'}@${video.height ?? '?'}p` : 'v=none', audio ? `a=${audio.acodec ?? '?'}` : 'a=none'];
   return parts.join('  ');
 }
 

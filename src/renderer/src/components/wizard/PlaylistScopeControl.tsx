@@ -31,7 +31,11 @@ function copy(t: TFunction, key: string, defaultValue: string, values: Record<st
 }
 
 function scopeSummary(scope: PlaylistScope, appLimit: number, t: TFunction): string {
-  return scope.items.kind === 'app-limit' ? copy(t, 'wizard.url.playlistScope.summaryAppLimit', 'Load first {{count}} items', { count: appLimit }) : scope.items.kind === 'first' ? copy(t, 'wizard.url.playlistScope.summaryFirst', 'Load first {{count}} items', { count: scope.items.count }) : copy(t, 'wizard.url.playlistScope.summaryRange', 'Load items {{from}}-{{to}}', { from: scope.items.from, to: scope.items.to });
+  return scope.items.kind === 'app-limit'
+    ? copy(t, 'wizard.url.playlistScope.summaryAppLimit', 'Load first {{count}} items', { count: appLimit })
+    : scope.items.kind === 'first'
+      ? copy(t, 'wizard.url.playlistScope.summaryFirst', 'Load first {{count}} items', { count: scope.items.count })
+      : copy(t, 'wizard.url.playlistScope.summaryRange', 'Load items {{from}}-{{to}}', { from: scope.items.from, to: scope.items.to });
 }
 
 function errorMessage(error: unknown): string {

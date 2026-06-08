@@ -51,7 +51,7 @@ export default defineConfig(({ mode }) => {
       define: {
         'process.env.OPENPANEL_CLIENT_ID': JSON.stringify(openpanelClientId),
         'process.env.OPENPANEL_CLIENT_SECRET': JSON.stringify(openpanelClientSecret),
-        'process.env.ARROXY_ANALYTICS_DEBUG': JSON.stringify(arroxyAnalyticsDebug),
+        'process.env.ARROXY_ANALYTICS_DEBUG': JSON.stringify(arroxyAnalyticsDebug)
       },
       resolve: {
         alias: {
@@ -77,7 +77,7 @@ export default defineConfig(({ mode }) => {
     },
     preload: {
       define: {
-        '__APP_VERSION__': JSON.stringify(version),
+        __APP_VERSION__: JSON.stringify(version)
       },
       resolve: {
         alias: {

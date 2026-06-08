@@ -569,7 +569,8 @@ const en = {
   },
   errors: {
     ytdlp: {
-      botBlock: "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it.",
+      botBlock:
+        "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it.",
       ipBlock: 'Your IP address appears to be blocked. Try again later or use a VPN.',
       rateLimit: 'Site is rate-limiting requests. Wait a minute then retry.',
       ageRestricted: 'This video is age-restricted and cannot be downloaded without a signed-in account.',

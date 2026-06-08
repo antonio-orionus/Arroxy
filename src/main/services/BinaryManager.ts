@@ -14,10 +14,29 @@ const execFileAsync = promisify(execFile);
 import { trackMain } from '@main/services/analytics.js';
 import { FAILURE_CODE, type BinaryOverrides, type DependencyAttempt, type DependencyDiagnostic, type DependencyFailure, type DependencyId, type DependencySource, type StatusKey } from '@shared/types.js';
 import { probeArgs, probeBinary, whereOnPath, classifyProbeError, cancelError, fallbackPathCandidates, PROBE_TIMEOUT_MS } from './binary/BinaryProbe.js';
-import { classifyDownloadError, downloadErrorDetails, downloadFile, downloadText, parseShaLine, parseStandaloneSha256, parsePowerShellFileHash, parseTagFromLocation, sha256ForFile, wrapDownloadProgressEmitter, parseContentRangeStart, resolvePartialResponseMode, HTTP_HEADERS, HTTP_RETRY, HTTP_TIMEOUT, type DownloadProgressCallback, type ProgressEmitter } from './binary/BinaryDownloader.js';
+import {
+  classifyDownloadError,
+  downloadErrorDetails,
+  downloadFile,
+  downloadText,
+  parseShaLine,
+  parseStandaloneSha256,
+  parsePowerShellFileHash,
+  parseTagFromLocation,
+  sha256ForFile,
+  wrapDownloadProgressEmitter,
+  parseContentRangeStart,
+  resolvePartialResponseMode,
+  HTTP_HEADERS,
+  HTTP_RETRY,
+  HTTP_TIMEOUT,
+  type DownloadProgressCallback,
+  type ProgressEmitter
+} from './binary/BinaryDownloader.js';
 import { installYtDlpWithHomebrew } from './binary/HomebrewRepair.js';
 import { ManagedSetupError, managedSetupCause, managedSetupStep, sourceTelemetry, withManagedSetupStep } from './binary/ManagedSetup.js';
 import { installYtDlpWithWinget } from './binary/WingetRepair.js';
+import { BINARY_SOURCES, denoAssetName, denoAssetTarget, denoExecutableName, ytDlpAssetName } from './binary/BinaryAssets.js';
 
 function stringifyHeader(header: string | string[] | undefined): string | null {
   if (!header) return null;
@@ -69,71 +88,6 @@ function makeDownloadProgress(id: DependencyId, source: DependencySource, onProg
 }
 
 const logger = log.scope('binary');
-
-// Upstream sources still reached at runtime. ffmpeg + ffprobe are no longer
-// here — they ship via electron-builder extraResources (see fetch-embedded.sh
-// + bundledBinaryPath above). Only yt-dlp + deno remain runtime-fetched.
-const BINARY_SOURCES = {
-  ytDlpNightly: {
-    download: 'https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download',
-    latest: 'https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest'
-  },
-  ytDlpStable: {
-    download: 'https://github.com/yt-dlp/yt-dlp/releases/latest/download',
-    latest: 'https://github.com/yt-dlp/yt-dlp/releases/latest'
-  },
-  deno: {
-    download: 'https://github.com/denoland/deno/releases/latest/download'
-  }
-} as const;
-
-type AssetPlatform = 'win32' | 'darwin' | 'linux';
-type AssetArch = 'arm64' | 'x64';
-
-// yt-dlp_macos is a Mach-O universal binary (x86_64 + arm64); yt-dlp_macos_legacy
-// was discontinued upstream and now 404s on every release tag.
-const YT_DLP_ASSETS: Record<AssetPlatform, Record<AssetArch, string>> = {
-  win32: { x64: 'yt-dlp.exe', arm64: 'yt-dlp.exe' },
-  darwin: { x64: 'yt-dlp_macos', arm64: 'yt-dlp_macos' },
-  linux: { x64: 'yt-dlp_linux', arm64: 'yt-dlp_linux_aarch64' }
-};
-
-// Deno releases ship as ZIPs named deno-<rust-target>.zip on the GitHub release
-// page. The archive contains a single binary (deno or deno.exe).
-// Note: Windows ARM64 has no official deno build yet — null falls back to no JS runtime.
-const DENO_ASSETS: Record<AssetPlatform, Record<AssetArch, string | null>> = {
-  win32: { x64: 'x86_64-pc-windows-msvc', arm64: null },
-  darwin: { x64: 'x86_64-apple-darwin', arm64: 'aarch64-apple-darwin' },
-  linux: { x64: 'x86_64-unknown-linux-gnu', arm64: 'aarch64-unknown-linux-gnu' }
-};
-
-function currentAssetTarget(): { platform: AssetPlatform; arch: AssetArch } | null {
-  const platform = process.platform;
-  if (platform !== 'win32' && platform !== 'darwin' && platform !== 'linux') return null;
-  const arch: AssetArch = process.arch === 'arm64' ? 'arm64' : 'x64';
-  return { platform, arch };
-}
-
-function ytDlpAssetName(): string {
-  const target = currentAssetTarget();
-  if (!target) return 'yt-dlp_linux';
-  return YT_DLP_ASSETS[target.platform][target.arch];
-}
-
-function denoAssetTarget(): string | null {
-  const target = currentAssetTarget();
-  if (!target) return null;
-  return DENO_ASSETS[target.platform][target.arch];
-}
-
-function denoAssetName(): string | null {
-  const target = denoAssetTarget();
-  return target ? `deno-${target}.zip` : null;
-}
-
-function denoExecutableName(): string {
-  return process.platform === 'win32' ? 'deno.exe' : 'deno';
-}
 
 // Resolve absolute path to a build-time-embedded ffmpeg/ffprobe binary.
 //
@@ -256,7 +210,17 @@ export class BinaryManager {
   // Attempt one managed yt-dlp channel (nightly or stable): build path + URL,
   // call tryManagedDownload, then probe-and-accept. Returns the diagnostic on
   // success or null to fall through.
-  private async tryManagedYtDlpChannel(id: DependencyId, channel: 'nightly' | 'stable', channelSource: { download: string; latest: string }, binaryFilename: string, assetName: string, attempts: DependencyAttempt[], opts: ResolveOptions, onProgress: ProgressEmitter | undefined, signal: AbortSignal | undefined): Promise<DependencyDiagnostic | null> {
+  private async tryManagedYtDlpChannel(
+    id: DependencyId,
+    channel: 'nightly' | 'stable',
+    channelSource: { download: string; latest: string },
+    binaryFilename: string,
+    assetName: string,
+    attempts: DependencyAttempt[],
+    opts: ResolveOptions,
+    onProgress: ProgressEmitter | undefined,
+    signal: AbortSignal | undefined
+  ): Promise<DependencyDiagnostic | null> {
     const destinationPath = path.join(this.cacheDir, binaryFilename);
     const downloadUrl = `${channelSource.download}/${assetName}`;
     const source: DependencySource = { kind: 'managed', channel, url: downloadUrl };
@@ -542,7 +506,18 @@ export class BinaryManager {
     return diag.resolvedPath;
   }
 
-  private async ensureZippedBinary(config: { name: string; downloadUrl: string; zipFileName: string; innerExecutableName: string; destinationPath: string; expectedSha256: () => Promise<string | null>; requiredChecksum?: boolean; onStatus?: StatusReporter; onDownloadProgress?: DownloadProgressCallback; signal?: AbortSignal }): Promise<void> {
+  private async ensureZippedBinary(config: {
+    name: string;
+    downloadUrl: string;
+    zipFileName: string;
+    innerExecutableName: string;
+    destinationPath: string;
+    expectedSha256: () => Promise<string | null>;
+    requiredChecksum?: boolean;
+    onStatus?: StatusReporter;
+    onDownloadProgress?: DownloadProgressCallback;
+    signal?: AbortSignal;
+  }): Promise<void> {
     const { destinationPath, name, onStatus, onDownloadProgress, signal } = config;
 
     const existing = this.inProgress.get(destinationPath);

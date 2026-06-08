@@ -601,7 +601,18 @@ describe('QueueService — two-lane heavy scenarios', () => {
 
     // Order: 4 priority, then 6 normal. Priorities spawn 4 immediately,
     // ceiling reached, no normal yet.
-    const items = [makeItem({ id: 'p1', status: 'pending', lane: 'priority' }), makeItem({ id: 'p2', status: 'pending', lane: 'priority' }), makeItem({ id: 'p3', status: 'pending', lane: 'priority' }), makeItem({ id: 'p4', status: 'pending', lane: 'priority' }), makeItem({ id: 'n1', status: 'pending', lane: 'normal' }), makeItem({ id: 'n2', status: 'pending', lane: 'normal' }), makeItem({ id: 'n3', status: 'pending', lane: 'normal' }), makeItem({ id: 'n4', status: 'pending', lane: 'normal' }), makeItem({ id: 'n5', status: 'pending', lane: 'normal' }), makeItem({ id: 'n6', status: 'pending', lane: 'normal' })];
+    const items = [
+      makeItem({ id: 'p1', status: 'pending', lane: 'priority' }),
+      makeItem({ id: 'p2', status: 'pending', lane: 'priority' }),
+      makeItem({ id: 'p3', status: 'pending', lane: 'priority' }),
+      makeItem({ id: 'p4', status: 'pending', lane: 'priority' }),
+      makeItem({ id: 'n1', status: 'pending', lane: 'normal' }),
+      makeItem({ id: 'n2', status: 'pending', lane: 'normal' }),
+      makeItem({ id: 'n3', status: 'pending', lane: 'normal' }),
+      makeItem({ id: 'n4', status: 'pending', lane: 'normal' }),
+      makeItem({ id: 'n5', status: 'pending', lane: 'normal' }),
+      makeItem({ id: 'n6', status: 'pending', lane: 'normal' })
+    ];
     qs.add(items);
     await vi.waitFor(() => expect(ds.start).toHaveBeenCalledTimes(4));
     const snap = qs.snapshot();
@@ -614,7 +625,18 @@ describe('QueueService — two-lane heavy scenarios', () => {
     const { qs, ds } = makeServiceCeiling(1, 4);
     jobMock(ds);
 
-    const items = [makeItem({ id: 'p1', status: 'pending', lane: 'priority' }), makeItem({ id: 'n1', status: 'pending', lane: 'normal' }), makeItem({ id: 'p2', status: 'pending', lane: 'priority' }), makeItem({ id: 'n2', status: 'pending', lane: 'normal' }), makeItem({ id: 'p3', status: 'pending', lane: 'priority' }), makeItem({ id: 'n3', status: 'pending', lane: 'normal' }), makeItem({ id: 'p4', status: 'pending', lane: 'priority' }), makeItem({ id: 'n4', status: 'pending', lane: 'normal' }), makeItem({ id: 'n5', status: 'pending', lane: 'normal' }), makeItem({ id: 'n6', status: 'pending', lane: 'normal' })];
+    const items = [
+      makeItem({ id: 'p1', status: 'pending', lane: 'priority' }),
+      makeItem({ id: 'n1', status: 'pending', lane: 'normal' }),
+      makeItem({ id: 'p2', status: 'pending', lane: 'priority' }),
+      makeItem({ id: 'n2', status: 'pending', lane: 'normal' }),
+      makeItem({ id: 'p3', status: 'pending', lane: 'priority' }),
+      makeItem({ id: 'n3', status: 'pending', lane: 'normal' }),
+      makeItem({ id: 'p4', status: 'pending', lane: 'priority' }),
+      makeItem({ id: 'n4', status: 'pending', lane: 'normal' }),
+      makeItem({ id: 'n5', status: 'pending', lane: 'normal' }),
+      makeItem({ id: 'n6', status: 'pending', lane: 'normal' })
+    ];
     qs.add(items);
     await vi.waitFor(() => expect(ds.start).toHaveBeenCalledTimes(4));
     const snap = qs.snapshot();

@@ -2,12 +2,12 @@
 // Vulnerability gate. Runs `bun audit --json`, fails on advisories at or above
 // THRESHOLD severity. Default threshold: "high". Lower with `--threshold moderate`.
 
-import { spawnSync } from "node:child_process";
+import { spawnSync } from 'node:child_process';
 
 const SEVERITY_RANK = { info: 0, low: 1, moderate: 2, high: 3, critical: 4 };
 const args = process.argv.slice(2);
-const tIdx = args.indexOf("--threshold");
-const threshold = tIdx >= 0 ? args[tIdx + 1] : "high";
+const tIdx = args.indexOf('--threshold');
+const threshold = tIdx >= 0 ? args[tIdx + 1] : 'high';
 const minRank = SEVERITY_RANK[threshold];
 
 if (minRank === undefined) {
@@ -15,9 +15,9 @@ if (minRank === undefined) {
   process.exit(2);
 }
 
-const result = spawnSync("bun", ["audit", "--json"], { encoding: "utf8" });
-const stdout = result.stdout ?? "";
-const jsonStart = stdout.indexOf("{");
+const result = spawnSync('bun', ['audit', '--json'], { encoding: 'utf8' });
+const stdout = result.stdout ?? '';
+const jsonStart = stdout.indexOf('{');
 if (jsonStart < 0) {
   // No advisories — bun prints a plain "0 vulnerabilities" line and exits 0.
   console.log(`[deps:vuln] OK — no advisories`);

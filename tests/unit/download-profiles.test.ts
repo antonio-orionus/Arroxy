@@ -1,6 +1,18 @@
 import { describe, expect, it } from 'vitest';
 import { downloadProfileSchema } from '@shared/schemas.js';
-import { BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF, DEFAULT_DOWNLOAD_PROFILES_PREFS, allDownloadProfiles, downloadProfileLabel, downloadProfileOrigin, downloadProfileRefFor, removeDownloadProfileFromPrefs, resolveActiveDownloadProfile, resolveDownloadProfile, saveDownloadProfileToPrefs } from '@shared/downloadProfiles.js';
+import {
+  BUILTIN_DOWNLOAD_PROFILES,
+  DEFAULT_DOWNLOAD_PROFILE_REF,
+  DEFAULT_DOWNLOAD_PROFILES_PREFS,
+  allDownloadProfiles,
+  downloadProfileLabel,
+  downloadProfileOrigin,
+  downloadProfileRefFor,
+  removeDownloadProfileFromPrefs,
+  resolveActiveDownloadProfile,
+  resolveDownloadProfile,
+  saveDownloadProfileToPrefs
+} from '@shared/downloadProfiles.js';
 import type { DownloadProfile } from '@shared/types.js';
 
 function customProfile(overrides: Partial<DownloadProfile> = {}): DownloadProfile {

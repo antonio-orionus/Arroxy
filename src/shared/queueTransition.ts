@@ -15,7 +15,16 @@ import { QUEUE_STATUS } from './schemas.js';
 // `paused-held` and `paused-active` are split because the source-of-truth for
 // "did a job ever spawn?" lives at the call site (QueueService.pause checks
 // item.status before deciding which event to fire).
-export type QueueEvent = { kind: 'started'; lastJobId: string } | { kind: 'progress'; percent: number; detail?: string | null } | { kind: 'paused-active'; tempDir?: string } | { kind: 'paused-held' } | { kind: 'resumed' } | { kind: 'failed'; error: LocalizedError; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number> } | { kind: 'completed'; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>; finishedAt: string } | { kind: 'cancelled' } | { kind: 'retry-reset' };
+export type QueueEvent =
+  | { kind: 'started'; lastJobId: string }
+  | { kind: 'progress'; percent: number; detail?: string | null }
+  | { kind: 'paused-active'; tempDir?: string }
+  | { kind: 'paused-held' }
+  | { kind: 'resumed' }
+  | { kind: 'failed'; error: LocalizedError; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number> }
+  | { kind: 'completed'; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>; finishedAt: string }
+  | { kind: 'cancelled' }
+  | { kind: 'retry-reset' };
 
 // Pure (item, event) -> item. No I/O, no IPC, no logging.
 export function transition(item: QueueItem, evt: QueueEvent): QueueItem {

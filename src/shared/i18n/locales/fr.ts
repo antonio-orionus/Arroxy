@@ -397,7 +397,8 @@ const fr = {
         currentModeFile: 'Fichier',
         currentModeBrowser: 'Navigateur',
         explanationFile: 'Votre fichier de cookies est peut-être vide, expiré ou dans un mauvais format (yt-dlp attend un Netscape cookies.txt). Essayez de ré-exporter les cookies, de choisir un autre fichier, de passer en mode Navigateur ou de désactiver les cookies.',
-        explanationBrowser: "Les cookies sont lus directement depuis le navigateur. Si le navigateur est en cours d'exécution, sa base de données de cookies est peut-être verrouillée (famille Chromium). Le navigateur doit également être connecté à YouTube. Essayez de fermer le navigateur, d'en choisir un autre, de passer en mode Fichier ou de désactiver les cookies.",
+        explanationBrowser:
+          "Les cookies sont lus directement depuis le navigateur. Si le navigateur est en cours d'exécution, sa base de données de cookies est peut-être verrouillée (famille Chromium). Le navigateur doit également être connecté à YouTube. Essayez de fermer le navigateur, d'en choisir un autre, de passer en mode Fichier ou de désactiver les cookies.",
         openSettingsCta: 'Ouvrir les paramètres des cookies',
         needsCookies: {
           heading: 'Ce site nécessite une connexion',
@@ -570,7 +571,8 @@ const fr = {
   },
   errors: {
     ytdlp: {
-      botBlock: "Protection anti-bot déclenchée. L'IP que tu utilises est très probablement signalée (plage de datacenter ou sortie VPN très sollicitée). Change ton IP ou choisis un autre point de sortie VPN et réessaie. Si le problème persiste, il peut s'agir d'un changement temporaire côté YouTube — Arroxy met à jour yt-dlp automatiquement au démarrage, donc le correctif sera appliqué dès que la mise à jour sera disponible en amont.",
+      botBlock:
+        "Protection anti-bot déclenchée. L'IP que tu utilises est très probablement signalée (plage de datacenter ou sortie VPN très sollicitée). Change ton IP ou choisis un autre point de sortie VPN et réessaie. Si le problème persiste, il peut s'agir d'un changement temporaire côté YouTube — Arroxy met à jour yt-dlp automatiquement au démarrage, donc le correctif sera appliqué dès que la mise à jour sera disponible en amont.",
       ipBlock: 'Ton adresse IP semble bloquée par YouTube. Réessaie plus tard ou utilise un VPN.',
       rateLimit: 'YouTube limite le débit des requêtes. Attends une minute puis réessaie.',
       ageRestricted: 'Cette vidéo est limitée par âge et ne peut pas être téléchargée sans compte connecté.',
@@ -578,7 +580,8 @@ const fr = {
       geoBlocked: "Cette vidéo n'est pas disponible dans ta région.",
       outOfDiskSpace: "Espace disque insuffisant. Libère de l'espace et réessaie.",
       unsupportedUrl: 'Ça ne ressemble pas à une URL de vidéo. Colle un lien vers une vidéo YouTube, un Short ou une playlist.',
-      chunkTransferFailure: 'Le serveur a interrompu le téléchargement en cours de route à plusieurs reprises et yt-dlp a abandonné après plusieurs tentatives. Cela touche généralement les formats vidéo les plus lourds (4K HDR / VP9 haut débit). Réessaie, change de réseau/VPN ou sélectionne un format de résolution inférieure.',
+      chunkTransferFailure:
+        'Le serveur a interrompu le téléchargement en cours de route à plusieurs reprises et yt-dlp a abandonné après plusieurs tentatives. Cela touche généralement les formats vidéo les plus lourds (4K HDR / VP9 haut débit). Réessaie, change de réseau/VPN ou sélectionne un format de résolution inférieure.',
       postprocessFailure: 'yt-dlp a terminé le téléchargement, mais le post-traitement (fusion / mux / conversion) a échoué. C’est souvent un souci ffmpeg passager — réessaie, et si ça persiste, essaie une autre combinaison de formats.',
       parse: 'Impossible d’analyser la réponse du site. L’extracteur de yt-dlp est peut-être désynchronisé. Arroxy met yt-dlp à jour automatiquement au démarrage — réessaie dans quelques minutes, le temps que le correctif arrive.',
       network: 'Erreur réseau. Vérifie ta connexion et réessaie.',

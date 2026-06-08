@@ -70,7 +70,7 @@ function findYtDlp(override?: string): string {
     userDataWin ? join(userDataWin, 'runtime-cache', 'binaries', ytDlpName) : null,
     '/opt/homebrew/bin/yt-dlp',
     '/usr/local/bin/yt-dlp',
-    '/usr/bin/yt-dlp',
+    '/usr/bin/yt-dlp'
   ].filter((p): p is string => Boolean(p));
 
   for (const c of candidates) {
@@ -100,8 +100,12 @@ function runYtDlp(binary: string, args: string[]): Promise<RunResult> {
       stderr += `${stderr.endsWith('\n') || stderr === '' ? '' : '\n'}Timed out after ${RUN_TIMEOUT_MS}ms.`;
       proc.kill('SIGKILL');
     }, RUN_TIMEOUT_MS);
-    proc.stdout.on('data', (c: Buffer) => { stdout += c.toString(); });
-    proc.stderr.on('data', (c: Buffer) => { stderr += c.toString(); });
+    proc.stdout.on('data', (c: Buffer) => {
+      stdout += c.toString();
+    });
+    proc.stderr.on('data', (c: Buffer) => {
+      stderr += c.toString();
+    });
     proc.on('error', (err) => {
       clearTimeout(timer);
       if (settled) return;
@@ -127,13 +131,7 @@ interface StrategyReport {
   schemaIssue?: string;
 }
 
-async function runStrategy(
-  name: string,
-  binary: string,
-  url: string,
-  extractorArgs: string | null,
-  cookiesPath?: string
-): Promise<StrategyReport> {
+async function runStrategy(name: string, binary: string, url: string, extractorArgs: string | null, cookiesPath?: string): Promise<StrategyReport> {
   const args: string[] = ['--dump-json', '--no-playlist', '--no-warnings'];
   if (extractorArgs) args.push('--extractor-args', extractorArgs);
   if (cookiesPath) args.push('--cookies', cookiesPath);
@@ -146,7 +144,7 @@ async function runStrategy(
       name,
       passed: false,
       durationMs: r.durationMs,
-      error: r.stderr.trim().split('\n').pop() ?? `exit ${r.exitCode}`,
+      error: r.stderr.trim().split('\n').pop() ?? `exit ${r.exitCode}`
     };
   }
 
@@ -158,7 +156,7 @@ async function runStrategy(
       name,
       passed: false,
       durationMs: r.durationMs,
-      error: `JSON parse failed: ${(e as Error).message}`,
+      error: `JSON parse failed: ${(e as Error).message}`
     };
   }
 
@@ -168,7 +166,7 @@ async function runStrategy(
       name,
       passed: false,
       durationMs: r.durationMs,
-      schemaIssue: schemaResult.error.issues[0]?.message ?? 'unknown schema issue',
+      schemaIssue: schemaResult.error.issues[0]?.message ?? 'unknown schema issue'
     };
   }
 
@@ -181,7 +179,7 @@ async function runStrategy(
     passed: true,
     durationMs: r.durationMs,
     formatCount,
-    title,
+    title
   };
 }
 

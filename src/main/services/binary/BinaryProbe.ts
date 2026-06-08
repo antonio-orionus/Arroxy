@@ -38,7 +38,12 @@ export function fallbackPathCandidates(name: string, platform: NodeJS.Platform =
   if (platform !== 'win32') return [];
 
   const exeName = name.toLowerCase().endsWith('.exe') ? name : `${name}.exe`;
-  return [process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Microsoft', 'WindowsApps', exeName) : null, process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Microsoft', 'WinGet', 'Links', exeName) : null, process.env.ProgramFiles ? path.join(process.env.ProgramFiles, 'WinGet', 'Links', exeName) : null, process.env['ProgramFiles(x86)'] ? path.join(process.env['ProgramFiles(x86)'], 'WinGet', 'Links', exeName) : null].filter((candidate): candidate is string => candidate !== null);
+  return [
+    process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Microsoft', 'WindowsApps', exeName) : null,
+    process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Microsoft', 'WinGet', 'Links', exeName) : null,
+    process.env.ProgramFiles ? path.join(process.env.ProgramFiles, 'WinGet', 'Links', exeName) : null,
+    process.env['ProgramFiles(x86)'] ? path.join(process.env['ProgramFiles(x86)'], 'WinGet', 'Links', exeName) : null
+  ].filter((candidate): candidate is string => candidate !== null);
 }
 
 async function isExecutable(filePath: string): Promise<boolean> {

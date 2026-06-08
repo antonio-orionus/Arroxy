@@ -35,16 +35,17 @@
     "dist:release:linux": "bun run clean && bun run build && ELECTRON_BUILDER_COMPRESSION_LEVEL=5 electron-builder --linux --publish always",
     "preview": "electron-vite preview",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint .",
-    "format": "prettier --write src tests",
-    "format:check": "prettier --check src tests",
+    "lint": "oxlint --type-aware .",
+    "lint:parity": "node scripts/check-tooling-parity.mjs",
+    "format": "biome format --write",
+    "format:check": "biome ci",
     "knip": "knip",
     "knip:test-only": "node scripts/find-test-only-exports.mjs",
     "check:loc": "node scripts/check-ts-max-loc.mjs",
     "check:pins": "node scripts/check-dependency-pins.mjs",
     "deps:vuln": "node scripts/check-deps-vuln.mjs",
     "deps:vuln:strict": "node scripts/check-deps-vuln.mjs --threshold moderate",
-    "check": "concurrently -c auto --kill-others-on-fail -n lint,types,knip,madge,loc,pins,i18n,test \"bun run lint\" \"bun run typecheck\" \"bun run knip\" \"bun run madge\" \"bun run check:loc\" \"bun run check:pins\" \"bun run check:app\" \"bun run test\"",
+    "check": "concurrently -c auto --kill-others-on-fail -n format,lint,parity,types,knip,madge,loc,pins,i18n,test \"bun run format:check\" \"bun run lint\" \"bun run lint:parity\" \"bun run typecheck\" \"bun run knip\" \"bun run madge\" \"bun run check:loc\" \"bun run check:pins\" \"bun run check:app\" \"bun run test\"",
     "madge": "madge --circular --extensions ts,tsx src/",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -104,7 +105,7 @@
     "tmp": "0.2.7"
   },
   "devDependencies": {
-    "@eslint/js": "10.0.1",
+    "@biomejs/biome": "2.4.16",
     "@iconify-json/logos": "1.2.11",
     "@iconify-json/simple-icons": "1.2.84",
     "@playwright/test": "1.60.0",
@@ -122,36 +123,25 @@
     "electron": "42.3.0",
     "electron-builder": "26.11.1",
     "electron-vite": "5.0.0",
-    "eslint": "10.4.0",
-    "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.1.1",
-    "eslint-plugin-react-refresh": "0.5.2",
     "eslint-plugin-security": "4.0.0",
-    "globals": "17.6.0",
     "gray-matter": "4.0.3",
     "husky": "9.1.7",
     "jsdom": "29.1.1",
     "knip": "6.14.2",
     "lint-staged": "17.0.5",
     "madge": "8.0.0",
-    "prettier": "3.8.3",
+    "oxlint": "1.68.0",
+    "oxlint-tsgolint": "0.23.0",
     "tailwindcss": "4.3.0",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.60.0",
     "unplugin-icons": "23.0.1",
     "vite": "8.0.14",
     "vitest": "4.1.7"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "prettier --write",
-      "eslint --fix --max-warnings=0"
-    ],
-    "src/**/*.css": "prettier --write",
-    "tests/**/*.{ts,tsx}": [
-      "prettier --write",
-      "eslint --fix --max-warnings=0"
-    ]
+    "*.{ts,tsx,cts,mts,js,mjs,cjs,json,jsonc,css}": "biome format --write",
+    "*.{ts,tsx,cts,mts,js,mjs,cjs}": "oxlint --fix --deny-warnings"
   }
 }

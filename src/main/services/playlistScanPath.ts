@@ -18,10 +18,7 @@ export function collectPlaylistScanRoots(settings: AppSettings): string[] {
   return [...roots];
 }
 
-export async function resolveAllowedOutputDir(
-  outputDir: string,
-  allowedRoots: readonly string[]
-): Promise<{ ok: true; path: string } | { ok: false; message: string }> {
+export async function resolveAllowedOutputDir(outputDir: string, allowedRoots: readonly string[]): Promise<{ ok: true; path: string } | { ok: false; message: string }> {
   let resolvedTarget: string;
   try {
     resolvedTarget = await fsPromises.realpath(path.resolve(outputDir));

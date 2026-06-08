@@ -396,7 +396,8 @@ const sw = {
         currentModeFile: 'Faili',
         currentModeBrowser: 'Kivinjari',
         explanationFile: 'Faili yako ya vidakuzi inaweza kuwa tupu, imeisha muda wake, au iko katika umbizo lisilo sahihi (yt-dlp inategemea Netscape cookies.txt). Jaribu kusafirisha vidakuzi tena, chagua faili tofauti, ubadilishe hadi hali ya Kivinjari, au uzime vidakuzi.',
-        explanationBrowser: 'Vidakuzi vinasomwa moja kwa moja kutoka kwenye kivinjari. Ikiwa kivinjari kinaendesha sasa hivi, hifadhidata yake ya vidakuzi inaweza kufungwa (familia ya Chromium). Kivinjari pia lazima kiingie katika YouTube. Jaribu kufunga kivinjari, ubadilishe hadi kivinjari tofauti, ubadilishe hadi hali ya Faili, au uzime vidakuzi.',
+        explanationBrowser:
+          'Vidakuzi vinasomwa moja kwa moja kutoka kwenye kivinjari. Ikiwa kivinjari kinaendesha sasa hivi, hifadhidata yake ya vidakuzi inaweza kufungwa (familia ya Chromium). Kivinjari pia lazima kiingie katika YouTube. Jaribu kufunga kivinjari, ubadilishe hadi kivinjari tofauti, ubadilishe hadi hali ya Faili, au uzime vidakuzi.',
         openSettingsCta: 'Fungua mipangilio ya vidakuzi',
         needsCookies: {
           heading: 'Tovuti hii inahitaji kuingia',
@@ -569,7 +570,8 @@ const sw = {
   },
   errors: {
     ytdlp: {
-      botBlock: 'Ulinzi wa boti umeanzishwa. IP unayotumia ina uwezekano mkubwa wa kuwa imepigwa alama (anuwai ya kituo cha data au mlango wa VPN wenye msongamano). Badilisha IP yako au chagua seva nyingine ya VPN na ujaribu tena. Ikiwa itaendelea kushindwa, hii inaweza kuwa mabadiliko ya muda ya upande wa YouTube — Arroxy inasasisha yt-dlp kiotomatiki wakati wa uzinduzi, kwa hivyo marekebisho yatafika kiotomatiki mara chanzo kikitoa sasisho.',
+      botBlock:
+        'Ulinzi wa boti umeanzishwa. IP unayotumia ina uwezekano mkubwa wa kuwa imepigwa alama (anuwai ya kituo cha data au mlango wa VPN wenye msongamano). Badilisha IP yako au chagua seva nyingine ya VPN na ujaribu tena. Ikiwa itaendelea kushindwa, hii inaweza kuwa mabadiliko ya muda ya upande wa YouTube — Arroxy inasasisha yt-dlp kiotomatiki wakati wa uzinduzi, kwa hivyo marekebisho yatafika kiotomatiki mara chanzo kikitoa sasisho.',
       ipBlock: 'Anwani yako ya IP inaonekana kuzuiwa na YouTube. Jaribu tena baadaye au tumia VPN.',
       rateLimit: 'YouTube inazuia maombi. Subiri dakika moja kisha ujaribu tena.',
       ageRestricted: 'Video hii ina kikwazo cha umri na haiwezi kupakuliwa bila akaunti iliyoingia.',

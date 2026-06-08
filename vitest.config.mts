@@ -16,10 +16,7 @@ const aliasObj = {
 // time. Vitest doesn't run that plugin — without a regex alias, every test
 // that transitively imports ShareDialog crashes on import resolution. Map
 // every `~icons/*` to a single inert SVG stub.
-const alias = [
-  ...Object.entries(aliasObj).map(([find, replacement]) => ({ find, replacement })),
-  { find: /^~icons\/.*/, replacement: path.resolve('tests/__mocks__/icons-stub.tsx') }
-];
+const alias = [...Object.entries(aliasObj).map(([find, replacement]) => ({ find, replacement })), { find: /^~icons\/.*/, replacement: path.resolve('tests/__mocks__/icons-stub.tsx') }];
 
 export default defineConfig({
   test: {

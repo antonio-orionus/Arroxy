@@ -52,11 +52,7 @@ async function main(): Promise<void> {
   // On Linux without an X display, use xvfb-run.
   const needsXvfb = process.platform === 'linux' && !process.env.DISPLAY;
   const cmd = needsXvfb ? 'xvfb-run' : electronBin;
-  const args = needsXvfb
-    ? ['-a', electronBin, '--no-sandbox', '.']
-    : process.platform === 'linux'
-      ? ['--no-sandbox', '.']
-      : ['.'];
+  const args = needsXvfb ? ['-a', electronBin, '--no-sandbox', '.'] : process.platform === 'linux' ? ['--no-sandbox', '.'] : ['.'];
 
   // Use a dedicated userData dir so we don't contend with a running
   // `bun run dev` instance for the single-instance lock.
@@ -66,10 +62,14 @@ async function main(): Promise<void> {
   try {
     code = await run(cmd, args, {
       ARROXY_SMOKE_URL: url,
-      ELECTRON_USER_DATA: isolatedUserData,
+      ELECTRON_USER_DATA: isolatedUserData
     });
   } finally {
-    try { rmSync(isolatedUserData, { recursive: true, force: true }); } catch { /* ignore */ }
+    try {
+      rmSync(isolatedUserData, { recursive: true, force: true });
+    } catch {
+      /* ignore */
+    }
   }
   process.exit(code);
 }

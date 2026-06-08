@@ -27,7 +27,35 @@ function formatEntryDuration(seconds: number | undefined, liveLabel: string): st
 export function StepPlaylistItems(): JSX.Element {
   const { t } = useTranslation();
   const store = useAppStore();
-  const { playlistItems, selectedPlaylistItemIds, playlistTitle, playlistProbeLoading, playlistScopeReloading, playlistScopeError, playlistLikelyCapped, bulkMetadataStatus, bulkMetadataCompleted, bulkMetadataTotal, bulkMetadataById, syncedDownloadedIds, syncScanState, setPlaylistItemSelected, selectAllPlaylistItems, selectNonePlaylistItems, selectPlaylistRange, confirmPlaylistSelection, back, wizardExtractor, scanDownloadedInFolder, applyFolderSync, setPlaylistFolder, settings, reloadPlaylistWithScope, retryFormatProbe, wizardMode } = store;
+  const {
+    playlistItems,
+    selectedPlaylistItemIds,
+    playlistTitle,
+    playlistProbeLoading,
+    playlistScopeReloading,
+    playlistScopeError,
+    playlistLikelyCapped,
+    bulkMetadataStatus,
+    bulkMetadataCompleted,
+    bulkMetadataTotal,
+    bulkMetadataById,
+    syncedDownloadedIds,
+    syncScanState,
+    setPlaylistItemSelected,
+    selectAllPlaylistItems,
+    selectNonePlaylistItems,
+    selectPlaylistRange,
+    confirmPlaylistSelection,
+    back,
+    wizardExtractor,
+    scanDownloadedInFolder,
+    applyFolderSync,
+    setPlaylistFolder,
+    settings,
+    reloadPlaylistWithScope,
+    retryFormatProbe,
+    wizardMode
+  } = store;
   const isBulk = wizardMode === 'bulk';
 
   // Effective folder the playlist's files land in (and where the scan looks) —
@@ -61,7 +89,7 @@ export function StepPlaylistItems(): JSX.Element {
   }
 
   const parentRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line react-hooks/incompatible-library
+  // oxlint-disable-next-line react-hooks-js/incompatible-library
   const virtualizer = useVirtualizer({
     count: playlistItems.length,
     getScrollElement: () => parentRef.current,
@@ -95,7 +123,9 @@ export function StepPlaylistItems(): JSX.Element {
         <span className="shrink-0 text-xs text-muted-foreground">{t(isBulk ? 'wizard.playlist.itemCountBulk' : isAudioOnlySource(wizardExtractor) ? 'wizard.playlist.itemCountAudio' : 'wizard.playlist.itemCount', { count: playlistItems.length })}</span>
       </div>
 
-      {!isBulk ? <PlaylistScopeControl applyLabel={t('wizard.url.playlistScope.applyReload', { defaultValue: 'Apply and reload' })} pendingLabel={t('wizard.url.playlistScope.reloading', { defaultValue: 'Reloading...' })} disabled={playlistProbeLoading || playlistScopeReloading} onApplyScope={reloadPlaylistWithScope} /> : null}
+      {!isBulk ? (
+        <PlaylistScopeControl applyLabel={t('wizard.url.playlistScope.applyReload', { defaultValue: 'Apply and reload' })} pendingLabel={t('wizard.url.playlistScope.reloading', { defaultValue: 'Reloading...' })} disabled={playlistProbeLoading || playlistScopeReloading} onApplyScope={reloadPlaylistWithScope} />
+      ) : null}
 
       {!isBulk && playlistScopeError ? (
         <Alert variant="warning" className="flex items-start gap-3" data-testid="playlist-scope-error">

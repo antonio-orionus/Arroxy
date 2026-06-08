@@ -3,13 +3,13 @@
 // Soft target is ~700 (see CLAUDE.md); hard cap defaults to 800.
 // Override: `--max 1000`.
 
-import { readdir, readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { readdir, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 
-const ROOT = "src";
+const ROOT = 'src';
 const DEFAULT_MAX = 800;
 const args = process.argv.slice(2);
-const maxIdx = args.indexOf("--max");
+const maxIdx = args.indexOf('--max');
 const MAX_LOC = maxIdx >= 0 ? Number(args[maxIdx + 1]) : DEFAULT_MAX;
 
 if (!Number.isFinite(MAX_LOC) || MAX_LOC <= 0) {
@@ -34,8 +34,8 @@ const files = await walk(ROOT);
 const offenders = [];
 
 for (const f of files) {
-  const text = await readFile(f, "utf8");
-  const lines = text.split("\n").length;
+  const text = await readFile(f, 'utf8');
+  const lines = text.split('\n').length;
   if (lines > MAX_LOC) {
     offenders.push({ file: f, lines });
   }
@@ -51,5 +51,5 @@ console.error(`[check:loc] FAIL — ${offenders.length} file(s) over ${MAX_LOC} 
 for (const { file, lines } of offenders) {
   console.error(`  ${lines}\t${file}`);
 }
-console.error("\nSplit the file or pass `--max <larger>` if intentional.");
+console.error('\nSplit the file or pass `--max <larger>` if intentional.');
 process.exit(1);

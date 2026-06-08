@@ -37,8 +37,14 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Format
+        run: bun run format:check
+
       - name: Lint
         run: bun run lint
+
+      - name: Lint parity
+        run: bun run lint:parity
 
       - name: Knip
         run: bun run knip

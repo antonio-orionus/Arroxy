@@ -24,7 +24,42 @@ export function StepConfirm(): JSX.Element {
     thumbnailEmbedNotSupported: t('wizard.confirm.thumbnailEmbedNotSupported'),
     subtitleEmbedAudioOnly: t('wizard.confirm.subtitleEmbedAudioOnly')
   };
-  const { wizardTitle, wizardThumbnail, wizardDuration, wizardWebpageUrl, wizardOutputDir, selectedVideoFormatId, audioSelection, activePreset, wizardFormats, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped, commonPaths, wizardSubfolderEnabled, wizardSubfolderName, addToQueue, addAndDownloadImmediately, back, playlistItems, selectedPlaylistItemIds, playlistSelection, playlistTitle, wizardMode, wizardExtractor, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardSponsorBlockMode, isSubmittingToQueue } = useAppStore();
+  const {
+    wizardTitle,
+    wizardThumbnail,
+    wizardDuration,
+    wizardWebpageUrl,
+    wizardOutputDir,
+    selectedVideoFormatId,
+    audioSelection,
+    activePreset,
+    wizardFormats,
+    wizardSubtitleLanguages,
+    wizardSubtitleMode,
+    wizardSubtitleFormat,
+    wizardSubtitles,
+    wizardAutomaticCaptions,
+    wizardSubtitleSkipped,
+    commonPaths,
+    wizardSubfolderEnabled,
+    wizardSubfolderName,
+    addToQueue,
+    addAndDownloadImmediately,
+    back,
+    playlistItems,
+    selectedPlaylistItemIds,
+    playlistSelection,
+    playlistTitle,
+    wizardMode,
+    wizardExtractor,
+    wizardEmbedChapters,
+    wizardEmbedMetadata,
+    wizardEmbedThumbnail,
+    wizardWriteDescription,
+    wizardWriteThumbnail,
+    wizardSponsorBlockMode,
+    isSubmittingToQueue
+  } = useAppStore();
   const inPlaylist = wizardMode === 'playlist';
   const inBulk = wizardMode === 'bulk';
   const inBatch = inPlaylist || inBulk;

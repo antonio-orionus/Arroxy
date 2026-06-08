@@ -18,18 +18,14 @@ import en from '../src/shared/i18n/locales/en.js';
 
 // Keys under these prefixes are built at runtime (e.g. `errors.ytdlp.${kind}`)
 // and cannot be detected by static string search. Treat all as used.
-const DYNAMIC_PREFIXES = [
-  'errors.ytdlp.',
-  'wizard.steps.',
-  'wizard.sponsorblock.cat.',
-  'playlistPresets.',
-  'presets.',
-  'status.',
-];
+const DYNAMIC_PREFIXES = ['errors.ytdlp.', 'wizard.steps.', 'wizard.sponsorblock.cat.', 'playlistPresets.', 'presets.', 'status.'];
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
-interface LeafEntry { path: string; value: string }
+interface LeafEntry {
+  path: string;
+  value: string;
+}
 
 function flattenLeaves(obj: unknown, prefix = ''): LeafEntry[] {
   if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
@@ -100,9 +96,7 @@ for (const { path } of enLeaves) {
     const base = path.slice(0, path.length - pluralMatch[0].length);
     if (staticRefs.has(base)) continue;
     // sibling literal reference (e.g. t('key_other', { count }))
-    const siblingReferenced = [...staticRefs].some(
-      (r) => r !== path && r.replace(PLURAL_SUFFIX, '') === base,
-    );
+    const siblingReferenced = [...staticRefs].some((r) => r !== path && r.replace(PLURAL_SUFFIX, '') === base);
     if (siblingReferenced) continue;
     // pluralKey('lastSegment', count) in a template literal
     const lastSegment = base.split('.').at(-1)!;
@@ -120,10 +114,7 @@ console.log(`⚠ ${unused.length} potentially unused en key${unused.length === 1
 for (const k of unused) {
   console.log(`  ${k}`);
 }
-console.log(
-  '\nNote: keys under dynamic prefixes are excluded from this check.',
-  '\nVerify manually before deleting — some keys may be referenced indirectly.',
-);
+console.log('\nNote: keys under dynamic prefixes are excluded from this check.', '\nVerify manually before deleting — some keys may be referenced indirectly.');
 
 if (strict) {
   console.error('\nFAIL: --strict and unused keys present.');

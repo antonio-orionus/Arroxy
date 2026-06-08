@@ -19,7 +19,16 @@ describe('rewriteYouTubeChannelRoot — appends /videos to bare channel-root URL
     expect(rewriteYouTubeChannelRoot('https://www.youtube.com/user/OldName')).toBe('https://www.youtube.com/user/OldName/videos');
   });
 
-  it.each(['https://www.youtube.com/@handle/videos', 'https://www.youtube.com/@handle/shorts', 'https://www.youtube.com/@handle/streams', 'https://www.youtube.com/@handle/playlists', 'https://www.youtube.com/@handle/about', 'https://www.youtube.com/@handle/community', 'https://www.youtube.com/channel/UCabcdefghijklmnopqrstuv/videos', 'https://www.youtube.com/c/CustomName/playlists'])('leaves %s unchanged (already has explicit tab)', (url) => {
+  it.each([
+    'https://www.youtube.com/@handle/videos',
+    'https://www.youtube.com/@handle/shorts',
+    'https://www.youtube.com/@handle/streams',
+    'https://www.youtube.com/@handle/playlists',
+    'https://www.youtube.com/@handle/about',
+    'https://www.youtube.com/@handle/community',
+    'https://www.youtube.com/channel/UCabcdefghijklmnopqrstuv/videos',
+    'https://www.youtube.com/c/CustomName/playlists'
+  ])('leaves %s unchanged (already has explicit tab)', (url) => {
     expect(rewriteYouTubeChannelRoot(url)).toBe(url);
   });
 

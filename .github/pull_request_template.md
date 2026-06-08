@@ -24,10 +24,7 @@
 
 Run from the repo root and confirm clean:
 
-- [ ] `bun run lint`
-- [ ] `bun run typecheck`
-- [ ] `bun run knip`
-- [ ] `bun run test` (if your change touches code under test)
+- [ ] `bun run check`
 
 ## Testing
 

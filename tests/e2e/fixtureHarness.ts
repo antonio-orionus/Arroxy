@@ -17,7 +17,10 @@ export const FIXTURE_PLAYLIST_VIDEO_IDS = [FIXTURE_VIDEO_IDS[0], FIXTURE_VIDEO_I
 const FIXTURE_PLUGIN_ROOT = path.join(process.cwd(), 'tests', 'e2e', 'yt-dlp-plugins');
 export const FIXTURE_PLUGIN_DIR_ARG = path.dirname(FIXTURE_PLUGIN_ROOT);
 
-const JPEG_1X1 = Buffer.from('/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAH/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAEFAqf/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAEDAQE/ASP/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAECAQE/ASP/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAY/Al//xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAE/IV//2gAMAwEAAgADAAAAEP/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QH//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QH//EABQQAQAAAAAAAAAAAAAAAAAAABD/2gAIAQEAAT8QH//Z', 'base64');
+const JPEG_1X1 = Buffer.from(
+  '/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAH/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAEFAqf/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAEDAQE/ASP/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAECAQE/ASP/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAY/Al//xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAE/IV//2gAMAwEAAgADAAAAEP/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QH//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QH//EABQQAQAAAAAAAAAAAAAAAAAAABD/2gAIAQEAAT8QH//Z',
+  'base64'
+);
 
 export interface FixtureServer {
   baseUrl: string;
@@ -36,7 +39,12 @@ export interface FixtureServerBehavior {
   subtitleFailureIds?: readonly string[];
 }
 
-export type FixtureServerRequest = { kind: 'probe-start'; videoId: string; at: number; activeProbeCount: number } | { kind: 'probe-end'; videoId: string; at: number; activeProbeCount: number; status: number } | { kind: 'media'; videoId: string; formatId: string; at: number; status: number } | { kind: 'subtitle'; videoId: string; at: number; status: number } | { kind: 'thumbnail'; videoId: string; at: number; status: number };
+export type FixtureServerRequest =
+  | { kind: 'probe-start'; videoId: string; at: number; activeProbeCount: number }
+  | { kind: 'probe-end'; videoId: string; at: number; activeProbeCount: number; status: number }
+  | { kind: 'media'; videoId: string; formatId: string; at: number; status: number }
+  | { kind: 'subtitle'; videoId: string; at: number; status: number }
+  | { kind: 'thumbnail'; videoId: string; at: number; status: number };
 
 export interface FixtureServerTelemetry {
   requests: FixtureServerRequest[];

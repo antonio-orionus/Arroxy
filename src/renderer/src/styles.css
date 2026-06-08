@@ -1,18 +1,18 @@
-@import 'tailwindcss';
-@import '@fontsource/poppins/400.css';
-@import '@fontsource/poppins/500.css';
-@import '@fontsource/poppins/600.css';
-@import '@fontsource/poppins/700.css';
-@import '@fontsource/jetbrains-mono/400.css';
-@import '@fontsource/jetbrains-mono/500.css';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
+@import "tailwindcss";
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: 'Poppins', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: "Poppins", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
   /* Primary brand color: Arroxi Blue */
   --brand: hsl(220, 100%, 56%);
   --brand-dim: hsl(220 100% 56% / 0.12);
@@ -134,10 +134,10 @@
 .wizard-backward .wizard-step {
   animation: fade-slide-in-backward 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
-[dir='rtl'] .wizard-forward .wizard-step {
+[dir="rtl"] .wizard-forward .wizard-step {
   animation-name: fade-slide-in-forward-rtl;
 }
-[dir='rtl'] .wizard-backward .wizard-step {
+[dir="rtl"] .wizard-backward .wizard-step {
   animation-name: fade-slide-in-backward-rtl;
 }
 
@@ -162,7 +162,7 @@
     transform: translateX(0);
   }
 }
-[dir='rtl'] .queue-card {
+[dir="rtl"] .queue-card {
   animation-name: card-enter-rtl;
 }
 .queue-card {
@@ -199,7 +199,7 @@
 }
 
 /* ── Progress bar glow ─────────────────────────────────── */
-.progress-glow [data-slot='progress-indicator'] {
+.progress-glow [data-slot="progress-indicator"] {
   background: linear-gradient(90deg, var(--brand), var(--brand-hover));
   box-shadow: 0 0 8px var(--brand-glow);
 }
@@ -360,7 +360,7 @@
 
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: 'Poppins', sans-serif;
+  --font-sans: "Poppins", sans-serif;
   --color-border-strong: var(--border-strong);
   --color-text-subtle: var(--text-subtle);
   --color-sidebar-ring: var(--sidebar-ring);

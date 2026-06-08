@@ -1,5 +1,35 @@
 import type { StoreApi } from 'zustand';
-import type { AppSettings, AudioBitrate, BulkMetadataCancelReason, BulkMetadataItemStatus, BulkMetadataStatus, CookiesBrowser, CookiesMode, DependencyDiagnostic, DependencyId, DownloadProfile, DownloadProfileRef, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, Preset, ProbeError, ProbeDegradationReason, QueueItem, QueueLane, QuickDownloadStatus, SubtitleFormat, SubtitleMap, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, WizardMode } from '@shared/types.js';
+import type {
+  AppSettings,
+  AudioBitrate,
+  BulkMetadataCancelReason,
+  BulkMetadataItemStatus,
+  BulkMetadataStatus,
+  CookiesBrowser,
+  CookiesMode,
+  DependencyDiagnostic,
+  DependencyId,
+  DownloadProfile,
+  DownloadProfileRef,
+  FormatOption,
+  PlaylistEntry,
+  PlaylistScope,
+  PlaylistSelection,
+  Preset,
+  ProbeError,
+  ProbeDegradationReason,
+  QueueItem,
+  QueueLane,
+  QuickDownloadStatus,
+  SubtitleFormat,
+  SubtitleMap,
+  SubtitleMode,
+  SponsorBlockMode,
+  SponsorBlockCategory,
+  SupportedLang,
+  UiTheme,
+  WizardMode
+} from '@shared/types.js';
 import type { AudioSelection } from '@shared/schemas.js';
 import type { IncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
 export type { AudioSelection };

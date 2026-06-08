@@ -28,15 +28,7 @@ function makeFakeProcess(exitCode = 0) {
   return proc;
 }
 
-function makeYtDlp(
-  opts: {
-    settings?: Record<string, unknown>;
-    token?: string;
-    visitorData?: string;
-    denoPath?: string | null;
-    e2eMode?: E2eHarnessMode;
-  } = {}
-) {
+function makeYtDlp(opts: { settings?: Record<string, unknown>; token?: string; visitorData?: string; denoPath?: string | null; e2eMode?: E2eHarnessMode } = {}) {
   const tokenService = {
     mintTokenForUrl: vi.fn().mockResolvedValue({
       token: opts.token ?? 'tok',

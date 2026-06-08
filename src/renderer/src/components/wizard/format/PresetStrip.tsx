@@ -29,7 +29,11 @@ export function PresetStrip({ activePreset, onSelect }: PresetStripProps): JSX.E
           <Tooltip key={p.value}>
             <TooltipTrigger
               render={(props) => (
-                <ToggleGroupItem {...props} value={p.value} className="flex items-center justify-center py-1.5 px-2.5 rounded-[8px] border h-auto w-full aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] border-[var(--border-strong)] bg-secondary/60 hover:border-muted-foreground hover:-translate-y-0.5 transition-all">
+                <ToggleGroupItem
+                  {...props}
+                  value={p.value}
+                  className="flex items-center justify-center py-1.5 px-2.5 rounded-[8px] border h-auto w-full aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] border-[var(--border-strong)] bg-secondary/60 hover:border-muted-foreground hover:-translate-y-0.5 transition-all"
+                >
                   <span className="text-[13px] font-semibold text-foreground truncate">{p.label}</span>
                 </ToggleGroupItem>
               )}

@@ -29,7 +29,14 @@ export function buildQueueItems(scenario: ScenarioLike): QueueItem[] {
 }
 
 function buildMultiQueueItems(): QueueItem[] {
-  return [queueItem({ id: 'mq-1', title: 'Running Download - Lo-fi Hip Hop Radio', status: QUEUE_STATUS.running, progressPercent: 61, progressDetail: 'Downloading 61%' }), queueItem({ id: 'mq-2', title: 'Pending Item - Waiting in Queue', status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null }), queueItem({ id: 'mq-3', title: 'Paused Held - Never Started', status: QUEUE_STATUS.pausedHeld, progressPercent: 0, progressDetail: null }), queueItem({ id: 'mq-4', title: 'Completed Download - Archive Recording', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, finishedAt: '2026-05-31T11:00:00.000Z' }), queueItem({ id: 'mq-5', title: 'Failed Download - Bot Block', status: QUEUE_STATUS.error, progressPercent: 12, progressDetail: null, error: { kind: 'botBlock', raw: "Sign in to confirm you're not a bot" }, finishedAt: '2026-05-31T10:30:00.000Z' }), queueItem({ id: 'mq-6', title: 'Cancelled Item - User Cancelled', status: QUEUE_STATUS.cancelled, progressPercent: 45, progressDetail: null, finishedAt: '2026-05-31T10:00:00.000Z' })];
+  return [
+    queueItem({ id: 'mq-1', title: 'Running Download - Lo-fi Hip Hop Radio', status: QUEUE_STATUS.running, progressPercent: 61, progressDetail: 'Downloading 61%' }),
+    queueItem({ id: 'mq-2', title: 'Pending Item - Waiting in Queue', status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null }),
+    queueItem({ id: 'mq-3', title: 'Paused Held - Never Started', status: QUEUE_STATUS.pausedHeld, progressPercent: 0, progressDetail: null }),
+    queueItem({ id: 'mq-4', title: 'Completed Download - Archive Recording', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, finishedAt: '2026-05-31T11:00:00.000Z' }),
+    queueItem({ id: 'mq-5', title: 'Failed Download - Bot Block', status: QUEUE_STATUS.error, progressPercent: 12, progressDetail: null, error: { kind: 'botBlock', raw: "Sign in to confirm you're not a bot" }, finishedAt: '2026-05-31T10:30:00.000Z' }),
+    queueItem({ id: 'mq-6', title: 'Cancelled Item - User Cancelled', status: QUEUE_STATUS.cancelled, progressPercent: 45, progressDetail: null, finishedAt: '2026-05-31T10:00:00.000Z' })
+  ];
 }
 
 function queueItem(overrides: Partial<QueueItem> & { id?: string }): QueueItem {

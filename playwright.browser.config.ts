@@ -8,12 +8,12 @@ export default defineConfig({
   reporter: 'list',
   use: {
     baseURL: 'http://localhost:5173',
-    headless: true,
+    headless: true
   },
   webServer: {
     command: 'npx vite src/renderer --port 5173 --config src/renderer/vite.config.mjs --mode browser-mock',
     url: 'http://localhost:5173',
     reuseExistingServer: true,
-    timeout: 30_000,
-  },
+    timeout: 30_000
+  }
 });

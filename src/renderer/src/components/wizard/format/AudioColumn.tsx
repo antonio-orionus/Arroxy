@@ -82,7 +82,9 @@ export function AudioColumn({ formats, audioSelection, onSelect }: AudioColumnPr
             zero-cost default — embedded audio stays in the file, no extraction
             step. Convert/no-audio rows still follow for users who explicitly
             want extraction or video-only output. */}
-        {audio.selectedVideoIsMuxed && <RadioOption checked={audioSelection.kind === 'none'} disabled={audio.noAudioDisabled} onClick={() => onSelect({ kind: 'none' })} label={t('wizard.formats.keepAudio')} meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.keepAudioMeta')}</span>} />}
+        {audio.selectedVideoIsMuxed && (
+          <RadioOption checked={audioSelection.kind === 'none'} disabled={audio.noAudioDisabled} onClick={() => onSelect({ kind: 'none' })} label={t('wizard.formats.keepAudio')} meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.keepAudioMeta')}</span>} />
+        )}
 
         {nativeAudios
           .filter((f) => matchExt(f.ext))
@@ -133,7 +135,9 @@ export function AudioColumn({ formats, audioSelection, onSelect }: AudioColumnPr
             );
           })}
 
-        {!audio.selectedVideoIsMuxed && <RadioOption checked={audioSelection.kind === 'none'} disabled={audio.noAudioDisabled} onClick={() => onSelect({ kind: 'none' })} label={t('wizard.formats.noAudio')} meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.videoOnly')}</span>} />}
+        {!audio.selectedVideoIsMuxed && (
+          <RadioOption checked={audioSelection.kind === 'none'} disabled={audio.noAudioDisabled} onClick={() => onSelect({ kind: 'none' })} label={t('wizard.formats.noAudio')} meta={<span className="text-[11px] text-[var(--text-subtle)] ml-auto whitespace-nowrap">{t('wizard.formats.videoOnly')}</span>} />
+        )}
       </ScrollArea>
 
       {bitrateTooltipMsg ? (

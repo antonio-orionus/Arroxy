@@ -205,7 +205,9 @@ function liveStreamProbe(): ProbeResult {
 export function playlistProbe(count: number, options: { thumbnails?: boolean; fullThumbnails?: boolean; longTitles?: boolean; webpageUrl?: string } = {}): ProbeResult {
   const entries: PlaylistEntry[] = Array.from({ length: count }, (_, i) => {
     const number = i + 1;
-    const title = options.longTitles ? `Mock playlist item ${number} - an intentionally long title with extra metadata, brackets, episode numbers, and enough words to pressure every row layout` : `Mock playlist item ${number} - ${i % 3 === 0 ? 'a longer title that should ellipsize gracefully when the row is narrow' : 'short title'}`;
+    const title = options.longTitles
+      ? `Mock playlist item ${number} - an intentionally long title with extra metadata, brackets, episode numbers, and enough words to pressure every row layout`
+      : `Mock playlist item ${number} - ${i % 3 === 0 ? 'a longer title that should ellipsize gracefully when the row is narrow' : 'short title'}`;
     return {
       id: `mock${number}`,
       url: `https://www.youtube.com/watch?v=mock${number}`,

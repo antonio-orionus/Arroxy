@@ -424,7 +424,23 @@ function buildSubtitleArgs(req: Extract<YtDlpRequest, { kind: 'subtitle' }>, pac
   const subOutputDir = req.subtitleMode === 'subfolder' ? `${req.outputDir}/subtitles` : req.outputDir;
   const fmt = effectiveSubtitleFormat(req);
   const template = req.outputTemplate ?? '%(title).200B.%(ext)s';
-  return ['--skip-download', '--no-playlist', '--write-subs', '--sub-langs', req.subtitleLanguages.join(','), ...(req.writeAutoSubs ? ['--write-auto-subs'] : []), ...sleepSubtitlesArgs(pacing), ...requestPacingArgs(pacing), '--sub-format', `${fmt}/best`, '--convert-subs', fmt, '-o', `${subOutputDir}/${template}`, req.url];
+  return [
+    '--skip-download',
+    '--no-playlist',
+    '--write-subs',
+    '--sub-langs',
+    req.subtitleLanguages.join(','),
+    ...(req.writeAutoSubs ? ['--write-auto-subs'] : []),
+    ...sleepSubtitlesArgs(pacing),
+    ...requestPacingArgs(pacing),
+    '--sub-format',
+    `${fmt}/best`,
+    '--convert-subs',
+    fmt,
+    '-o',
+    `${subOutputDir}/${template}`,
+    req.url
+  ];
 }
 
 function playlistScopeArgs(scope: PlaylistScope | undefined, visibleLimit: number): string[] {

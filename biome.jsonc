@@ -1,0 +1,46 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": ["package.json", "tsconfig.json", "components.json", "biome.jsonc", ".oxlintrc.json", "src/**/*.{ts,tsx,cts,css,json}", "tests/**/*.{ts,tsx,json}", "scripts/**/*.{ts,mjs,js,json}", "electron.vite.config.ts", "vitest.config.mts", "playwright.config.ts", "playwright.browser.config.ts"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 320
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double",
+      "semicolons": "always",
+      "trailingCommas": "none",
+      "lineWidth": 320
+    }
+  },
+  "json": {
+    "formatter": {
+      "lineWidth": 320
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    },
+    "formatter": {
+      "lineWidth": 320
+    }
+  },
+  "linter": {
+    "enabled": false
+  },
+  "assist": {
+    "enabled": false
+  }
+}
