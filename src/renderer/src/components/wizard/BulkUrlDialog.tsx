@@ -151,11 +151,11 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderAction
 							</Button>
 							<Button type="button" onClick={() => void confirmQuick()} disabled={!canConfirm || quickPreparing} data-testid="bulk-url-quick-confirm" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
 								<Download data-icon="inline-start" />
-								{quickPreparing ? t('wizard.url.quickPreparing') : 'Quick Download'}
+								{quickPreparing ? t('wizard.url.quickPreparing') : t('wizard.url.quickDownload')}
 							</Button>
 							<Button type="button" variant="outline" onClick={confirm} disabled={!canConfirm} data-testid="bulk-url-confirm">
 								<WandSparkles data-icon="inline-start" />
-								Interactive Download
+								{t('wizard.url.interactiveDownload')}
 							</Button>
 						</>
 					)}

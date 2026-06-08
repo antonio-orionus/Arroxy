@@ -52,8 +52,8 @@ test('Electron metadata failure surfaces retry and recovers', async () => {
 	const videoId = FIXTURE_VIDEO_IDS[3]
 
 	await withFixtureProductApp({behavior: {metadataFailureIds: [videoId]}, userDataPrefix: 'arroxy-fixture-metadata-retry-user-', outputPrefix: 'arroxy-fixture-metadata-retry-out-'}, async ({page, fixtureServer, urls}) => {
-		await page.locator('[data-testid="url-input"]').fill(urls.video(videoId))
-		await page.locator('[data-testid="btn-find-formats"]').click()
+		await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
+		await page.locator('[data-testid="profiles-interactive-download"]').click()
 		await expect(page.locator('[data-testid="step-error"]')).toBeVisible({timeout: 60_000})
 		await expect(page.locator('[data-testid="error-message"]')).toContainText('Fixture metadata failed')
 

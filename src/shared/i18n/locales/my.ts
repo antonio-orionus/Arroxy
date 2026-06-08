@@ -69,8 +69,7 @@ const my = {
 			ignoredCount: 'လျစ်လျူရှုထားသည်',
 			emptyPreview: 'batch ကိုကြည့်ရန် URL တစ်ခု သို့မဟုတ် ထို့ထက်ပိုပြီး paste လုပ်ပါ။',
 			needsAtLeastOne: 'ဆက်လက်လုပ်ဆောင်ရန် supported URL အနည်းဆုံးတစ်ခု ထည့်ပါ။',
-			confirm: 'ဤ URL များကိုသုံးမည်',
-			reject: {duplicate: 'ထပ်နေသည်', playlist: 'playlist flow သုံးမည်', channel: 'channel flow သုံးမည်'}
+			reject: {duplicate: 'ထပ်နေသည်'}
 		},
 		playlistPresets: {heading: 'Batch အတွက် အရည်အသွေးရွေးပါ', subhead: 'ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။', itemCount_one: '{{count}} ခု', itemCount_other: '{{count}} ခု'},
 		mixedPrompt: {
@@ -79,7 +78,6 @@ const my = {
 			singleVideo: 'ဤတစ်ခုသာ',
 			pickFromPlaylist: 'Playlist မှ ရွေးမည်',
 			playlistLimit: 'Playlist စစ်ဆေးမှု ကန့်သတ်ချက်: {{count}} ခု',
-			advancedSettings: 'အဆင့်မြင့် ဆက်တင်များ',
 			singleTooltip: 'ဤ URL နှင့်တွဲနေသော playlist ကို လျစ်လျူရှုရန် yt-dlp ၏ ဗီဒီယိုတစ်ခုချင်း မုဒ်ကို သုံးသည်။',
 			playlistTooltip: 'yt-dlp ၏ playlist မုဒ်ကို သုံးပြီး ရွေးချယ်ကိရိယာ မပြမီ သင့်ကန့်သတ်ချက်အထိ ယူသည်။'
 		},
@@ -87,7 +85,7 @@ const my = {
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'ဖော်မတ်များရယူမည်',
+			interactiveDownload: 'ဖော်မတ်များရယူမည်',
 			fetchFormatsTooltip: 'တန်းစီစာရင်းထဲ မထည့်မီ ဖော်မတ်များ၊ စာတန်းထိုးများ၊ ဖိုင်တွဲနှင့် playlist အရာများကို အဆင့်လိုက် ရွေးပါ။',
 			quickDownload: 'အမြန်ဒေါင်းလုဒ်',
 			quickDownloadTooltip: 'သိမ်းထားသော သို့မဟုတ် မူရင်းရွေးချယ်မှုများကို အသုံးပြုပြီး ပြင်ဆင်မှုအဆင့်များ မဖွင့်ဘဲ ဤဗီဒီယိုတစ်ခုကို တန်းစီစာရင်းထဲ ထည့်သည်။',
@@ -109,23 +107,7 @@ const my = {
 			mascotBusy: 'နောက်ခံတွင် ဒေါင်းလုဒ်လုပ်နေသည်… ကျွန်ုပ် တစ်ချိန်တည်းလုပ်နိုင်သည် 😎',
 			advanced: 'အဆင့်မြင့်',
 			clearAria: 'URL ရှင်းလင်းမည်',
-			clipboard: {
-				toggle: 'ကလစ်ဘုတ်ကြည့်မည်',
-				toggleDescription: 'YouTube လင့်ခ်ကော်ပီလုပ်လျှင် URL ဖြည့်သွင်းမည်။',
-				dialog: {
-					title: 'YouTube URL တွေ့ပြီ',
-					body: 'ကလစ်ဘုတ်မှ ဤလင့်ခ်ကို အသုံးပြုမည်လား?',
-					bulkTitle: 'URL အများအပြား တွေ့ရှိသည်',
-					bulkBody: 'clipboard ထဲရှိ link များကို bulk download အဖြစ်သုံးမလား?',
-					bulkSummary: '{{count}} URL အဆင်သင့်',
-					bulkIgnored: '{{count}} လျစ်လျူရှုထားသည်',
-					bulkButton: 'Bulk download',
-					useButton: 'URL အသုံးပြုမည်',
-					disableButton: 'ပိတ်မည်',
-					cancelButton: 'မလုပ်တော့ပါ',
-					disableNote: 'အဆင့်မြင့်ဆက်တင်တွင် ကလစ်ဘုတ်ကြည့်ရှုမှုကို နောက်မှပြန်ဖွင့်နိုင်သည်။'
-				}
-			},
+			clipboard: {toggle: 'ကလစ်ဘုတ်ကြည့်မည်', toggleDescription: 'YouTube လင့်ခ်ကော်ပီလုပ်လျှင် URL ဖြည့်သွင်းမည်။', dialog: {cancelButton: 'မလုပ်တော့ပါ'}},
 			cookies: {
 				sourceLabel: 'ကွတ်ကီးရင်းမြစ်',
 				sourceOff: 'ပိတ်',
@@ -455,7 +437,6 @@ const my = {
 		footerTooltip: 'Arroxy ကိုမျှဝေရန်',
 		footerLabel: 'မျှဝေရန်',
 		shareAction: 'Arroxy ကိုမျှဝေရန်',
-		inlineCard: {body: 'Arroxy ကို နှစ်သက်ပါသလား? အသုံးဝင်နိုင်သော သူတစ်ဦးနှင့် မျှဝေပါ။', dismiss: 'မျှဝေရန်အကြံပြုချက် ပယ်ဖျက်မည်'},
 		highValueBanner: {body: 'Arroxy ကို နှစ်သက်ပါသလား? အခြားသူများ ရှာဖွေတွေ့ရှိနိုင်ရန် ကူညီပါ။', dismiss: 'မျှဝေရန်အကြံပြုချက် ပယ်ဖျက်မည်'}
 	}
 } as const

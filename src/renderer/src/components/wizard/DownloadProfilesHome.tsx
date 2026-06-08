@@ -1,5 +1,7 @@
 import {useEffect, useMemo, useRef, useState, type ClipboardEvent, type JSX, type KeyboardEvent} from 'react'
-import {Archive, BookOpen, Captions, Check, ChevronDown, ChevronRight, Clapperboard, Download, FileAudio, Headphones, Link2, ListPlus, Music, PenLine, Plus, Scissors, Settings, Users, Wand2, X, type LucideIcon} from 'lucide-react'
+import type {TFunction} from 'i18next'
+import {useTranslation} from 'react-i18next'
+import {Archive, BookOpen, Captions, Check, ChevronDown, ChevronRight, Clapperboard, Clock3, Download, FileAudio, Globe2, Headphones, Link2, ListPlus, Loader2, Music, PenLine, Plus, Scissors, Settings, SlidersHorizontal, Sparkles, Users, Wand2, X, type LucideIcon} from 'lucide-react'
 import {allDownloadProfiles, downloadProfileLabel, downloadProfileOrigin, downloadProfileRefFor, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import type {DownloadProfile, DownloadProfileIcon, DownloadProfilesPrefs} from '@shared/types.js'
@@ -28,13 +30,27 @@ type ProfilesTab = 'download' | 'profiles' | 'settings'
 type DownloadInputType = 'Single URL' | 'Playlist URL' | 'Channel URL' | 'Search URL' | 'URL' | 'Unknown URL'
 const PROFILE_TABS = ['download', 'profiles', 'settings'] as const satisfies readonly ProfilesTab[]
 
-const ICONS: Record<DownloadProfileIcon, LucideIcon> = {archive: Archive, audio: FileAudio, captions: Captions, classes: BookOpen, clip: Scissors, download: Download, music: Music, podcast: Headphones, video: Clapperboard}
+const ICONS: Record<DownloadProfileIcon, LucideIcon> = {archive: Archive, audio: FileAudio, captions: Captions, classes: BookOpen, clip: Scissors, controls: SlidersHorizontal, download: Download, music: Music, podcast: Headphones, video: Clapperboard}
+const FEATURE_GROUPS = [
+	{heading: 'wizard.url.features.youtube.heading', icon: Clapperboard, items: ['wizard.url.features.youtube.video', 'wizard.url.features.youtube.channel', 'wizard.url.features.youtube.playlist', 'wizard.url.features.youtube.short', 'wizard.url.features.youtube.music', 'wizard.url.features.youtube.podcast']},
+	{heading: 'wizard.url.features.anySite.heading', icon: Globe2, items: ['wizard.url.features.anySite.video', 'wizard.url.features.anySite.videoPlaylist', 'wizard.url.features.anySite.musicPlaylist']},
+	{heading: 'wizard.url.features.always.heading', icon: Clock3, items: ['wizard.url.features.always.audioOnly', 'wizard.url.features.always.subtitles']}
+] as const
 
 function tabFromHash(hash = window.location.hash): ProfilesTab {
 	const value = hash.replace(/^#/, '').toLowerCase()
 	if (value === 'profile' || value === 'profiles') return 'profiles'
 	if (value === 'setting' || value === 'settings') return 'settings'
 	return 'download'
+}
+
+function browserMockScenarioId(): string | null {
+	if (import.meta.env.MODE !== 'browser-mock') return null
+	try {
+		return new URLSearchParams(window.location.search).get('scenario')
+	} catch {
+		return null
+	}
 }
 
 function isProfilesTab(value: unknown): value is ProfilesTab {
@@ -47,10 +63,10 @@ function tabHash(tab: ProfilesTab): string {
 	return '#download'
 }
 
-function profileDetail(profile: DownloadProfile): string {
-	const subs = profile.subtitles.enabled || profile.media.kind === 'subtitles-only' ? `${profile.subtitles.languages.join(', ') || 'selected'} subtitles` : 'no subtitles'
-	const output = profile.output.kind === 'fixed' ? profile.output.dir : 'default folder'
-	const artifacts = [profile.embed.metadata ? 'metadata' : null, profile.embed.thumbnailSidecar ? 'thumbnail' : null, profile.embed.description ? 'description' : null].filter(Boolean).join(' · ')
+function profileDetail(profile: DownloadProfile, t: TFunction): string {
+	const subs = profile.subtitles.enabled || profile.media.kind === 'subtitles-only' ? `${profile.subtitles.languages.join(', ') || 'selected'} ${t('wizard.confirm.labelSubtitles').toLowerCase()}` : t('wizard.subtitles.noSelected')
+	const output = profile.output.kind === 'fixed' ? profile.output.dir : t('wizard.folder.downloads')
+	const artifacts = [profile.embed.metadata ? t('wizard.output.embedMetadata.label') : null, profile.embed.thumbnailSidecar ? t('wizard.output.writeThumbnail.label') : null, profile.embed.description ? t('wizard.output.writeDescription.label') : null].filter(Boolean).join(' · ')
 	return `${subs} · ${output}${artifacts ? ` · ${artifacts}` : ''}`
 }
 
@@ -58,7 +74,9 @@ function detectUrlType(value: string): DownloadInputType | null {
 	const trimmed = value.trim()
 	if (!trimmed) return null
 	try {
-		const kind = classifyBulkUrlKind(cleanUrl(trimmed))
+		const cleaned = cleanUrl(trimmed)
+		new URL(cleaned)
+		const kind = classifyBulkUrlKind(cleaned)
 		if (kind === 'single') return 'Single URL'
 		if (kind === 'playlist') return 'Playlist URL'
 		if (kind === 'channel') return 'Channel URL'
@@ -69,7 +87,7 @@ function detectUrlType(value: string): DownloadInputType | null {
 	}
 }
 
-function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, inputType, quickDownloadStatus}: {activeProfileName: string; hasActiveDownloads: boolean; hasInput: boolean; inputType: DownloadInputType | null; quickDownloadStatus: string}): {
+function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t}: {activeProfileName: string; hasActiveDownloads: boolean; hasInput: boolean; inputType: DownloadInputType | null; quickDownloadStatus: string; t: TFunction}): {
 	key: string
 	title: string
 	body: string
@@ -77,55 +95,63 @@ function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, in
 	image: string
 } {
 	if (quickDownloadStatus === 'preparing') {
-		return {key: 'preparing', title: 'Preparing', body: `Quick Download is reading this link and applying ${activeProfileName}.`, points: ['No wizard steps', 'Queued when ready'], image: downloadingImg}
+		return {key: 'preparing', title: t('wizard.url.quickPreparing'), body: `${t('wizard.url.quickDownload')} is reading this link and applying ${activeProfileName}.`, points: ['No wizard steps', 'Queued when ready'], image: downloadingImg}
 	}
 
 	if (quickDownloadStatus === 'queued') {
-		return {key: 'queued', title: 'Queued', body: 'The queue is handling this download. You can paste another link while it works.', points: ['Queue keeps order', 'Profile already applied'], image: downloadingImg}
+		return {key: 'queued', title: t('wizard.url.quickQueued'), body: 'The queue is handling this download. You can paste another link while it works.', points: ['Queue keeps order', 'Profile applied'], image: downloadingImg}
 	}
 
 	if (!hasInput) {
 		return {
 			key: hasActiveDownloads ? 'idle-running' : 'idle',
 			title: hasActiveDownloads ? 'Downloads are running' : 'Tip',
-			body: 'Download Profiles save quality, subtitles, output folder, thumbnails, SponsorBlock, and playlist cap rules.',
-			points: ['Quick uses the active profile', 'Interactive opens the wizard', 'Bulk URLs handles lists'],
+			body: hasActiveDownloads ? t('wizard.url.mascotBusy') : t('wizard.url.mascotIdle'),
+			points: ['Quick uses the active profile', 'Interactive reviews first', 'Bulk handles lists'],
 			image: hasActiveDownloads ? downloadingImg : hiImg
 		}
 	}
 
 	if (inputType === 'Playlist URL' || inputType === 'Channel URL' || inputType === 'Search URL') {
-		return {key: `collection-${inputType}`, title: inputType, body: `Quick queues loaded items with ${activeProfileName}. Interactive lets you inspect or select items first.`, points: ['Quick queues all loaded items', 'Interactive supports selection', 'Profile rules apply to every item'], image: hiImg}
+		return {key: `collection-${inputType}`, title: inputType, body: `Quick queues loaded items with ${activeProfileName}. Interactive lets you inspect or select items first.`, points: ['Quick queues loaded items', 'Interactive supports selection', 'Profile rules apply'], image: hiImg}
 	}
 
 	if (inputType === 'Single URL') {
 		return {key: 'single', title: 'Single URL', body: `Quick starts one download with ${activeProfileName}. Use Interactive for one-off changes.`, points: ['Quick is fastest', 'Interactive can override options'], image: hiImg}
 	}
 
-	return {key: 'generic-url', title: 'URL detected', body: 'Quick will try the active profile. Interactive is safer when you want to review what the link contains.', points: ['Quick uses profile', 'Interactive reviews first'], image: hiImg}
+	return {key: 'generic-url', title: 'URL detected', body: t('wizard.url.quickSingleOnly'), points: ['Quick uses the active profile', 'Interactive reviews first'], image: hiImg}
+}
+
+function quickDownloadErrorText(t: TFunction, error: string | null | undefined): string {
+	if (!error) return ''
+	if (error === 'wizard.url.quickProbeFailed' || error === 'wizard.url.quickPrepareFailed') return t(error)
+	return error
 }
 
 export function DownloadProfilesHome(): JSX.Element {
+	const {t} = useTranslation()
 	const {cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, quickDownload, quickDownloadError, quickDownloadStatus, removeDownloadProfile, saveDownloadProfile, setActiveDownloadProfile, setWizardUrl, settings, submitUrl, wizardUrl} = useAppStore()
 	const hasActiveDownloads = useAppStore(state => state.queue.some(item => item.status === 'running'))
 	const inputRef = useRef<HTMLInputElement>(null)
 	const bulkOpenRef = useRef(false)
+	const initialBrowserMockScenario = browserMockScenarioId()
 	const [activeTab, setActiveTab] = useState<ProfilesTab>(() => tabFromHash())
-	const [bulkOpen, setBulkOpen] = useState(false)
-	const [editorOpen, setEditorOpen] = useState(false)
+	const [bulkOpen, setBulkOpen] = useState(() => initialBrowserMockScenario === 'profiles-bulk')
+	const [editorOpen, setEditorOpen] = useState(() => initialBrowserMockScenario === 'profiles-editor')
 	const [editorSessionId, setEditorSessionId] = useState(0)
 	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
-	const [profileMenuOpen, setProfileMenuOpen] = useState(false)
-	const [dismissedMascotKey, setDismissedMascotKey] = useState<string | null>(null)
+	const [profileMenuOpen, setProfileMenuOpen] = useState(() => initialBrowserMockScenario === 'profiles-split-menu')
 	const profilesPrefs = settings?.profiles
 	const profiles = useMemo(() => allDownloadProfiles(profilesPrefs), [profilesPrefs])
 	const {profile: activeProfile} = resolveActiveDownloadProfile(profilesPrefs)
 	const hasInput = wizardUrl.trim().length > 0
 	const inputType = detectUrlType(wizardUrl)
+	const urlReady = inputType !== null && inputType !== 'Unknown URL'
 	const quickPreparing = quickDownloadStatus === 'preparing'
-	const quickErrorText = quickDownloadError === 'wizard.url.quickProbeFailed' ? 'Could not read the URL.' : quickDownloadError === 'wizard.url.quickPrepareFailed' ? 'Could not prepare that download.' : (quickDownloadError ?? '')
-	const mascotHelp = downloadMascotHelp({activeProfileName: activeProfile.name, hasActiveDownloads, hasInput, inputType, quickDownloadStatus})
-	const showMascotHelp = dismissedMascotKey !== mascotHelp.key
+	const quickErrorText = quickDownloadErrorText(t, quickDownloadError)
+	const mascotHelp = downloadMascotHelp({activeProfileName: activeProfile.name, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
+	const showMascotHelp = inputType !== 'Unknown URL'
 	const activateProfile = (profile: DownloadProfile): void => {
 		void setActiveDownloadProfile(downloadProfileRefFor(profile, profilesPrefs))
 	}
@@ -186,7 +212,7 @@ export function DownloadProfilesHome(): JSX.Element {
 	}
 
 	function handleKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
-		if (event.key === 'Enter' && wizardUrl.trim() && !quickPreparing) {
+		if (event.key === 'Enter' && urlReady && !quickPreparing) {
 			void submitUrl()
 		}
 	}
@@ -203,7 +229,7 @@ export function DownloadProfilesHome(): JSX.Element {
 	}
 
 	return (
-		<div className="wizard-step mx-auto flex w-full max-w-6xl flex-col gap-4 pb-5" data-testid="download-profiles-home">
+		<div className="wizard-step mx-auto flex w-full max-w-[92rem] flex-col gap-4 pb-5" data-testid="download-profiles-home">
 			<Tabs
 				value={activeTab}
 				onValueChange={value => {
@@ -211,64 +237,48 @@ export function DownloadProfilesHome(): JSX.Element {
 				}}
 				className="gap-4"
 			>
-				<TabsList variant="line" className="flex h-11 w-full justify-start gap-5 border-b border-border/80 p-0" aria-label="Download profile navigation" data-testid="profiles-tabs">
-					<TabsTrigger value="download" className="h-11 flex-none rounded-none border-b-2 px-1 data-active:border-[var(--brand)]">
-						<Download data-icon="inline-start" aria-hidden />
-						Download
+				<TabsList variant="line" className="download-home-tabs flex h-14 w-full justify-start gap-8 border-b border-border/80 p-0" aria-label="Download profile navigation" data-testid="profiles-tabs">
+					<TabsTrigger value="download" className="h-14 flex-none rounded-none border-b-2 px-2 text-[15px] data-active:border-transparent">
+						<Link2 data-icon="inline-start" aria-hidden />
+						{t('wizard.steps.url')}
 					</TabsTrigger>
-					<TabsTrigger value="profiles" className="h-11 flex-none rounded-none border-b-2 px-1 data-active:border-[var(--brand)]">
+					<TabsTrigger value="profiles" className="h-14 flex-none rounded-none border-b-2 px-2 text-[15px] data-active:border-transparent">
 						<Users data-icon="inline-start" aria-hidden />
 						Profiles
 					</TabsTrigger>
-					<TabsTrigger value="settings" className="h-11 flex-none rounded-none border-b-2 px-1 data-active:border-[var(--brand)]">
+					<TabsTrigger value="settings" className="h-14 flex-none rounded-none border-b-2 px-2 text-[15px] data-active:border-transparent">
 						<Settings data-icon="inline-start" aria-hidden />
 						Settings
 					</TabsTrigger>
 				</TabsList>
 
 				<TabsContent value="download" className="flex flex-col gap-4">
-					<Card className="rounded-lg border-[var(--border-strong)] bg-card/40" data-testid="profiles-download-panel">
-						<CardHeader className="flex-row items-center gap-3">
-							<div className="grid size-12 shrink-0 place-items-center rounded-lg border border-[var(--brand)]/40 bg-[var(--brand-dim)] text-[var(--brand)]">
-								<Download aria-hidden />
-							</div>
+					<Card className="glow-panel rounded-[1.85rem] border-transparent" data-testid="profiles-download-panel">
+						<CardHeader className="px-6 pt-6 md:px-10 md:pt-7">
 							<div className="min-w-0">
-								<CardTitle className="text-xl font-semibold leading-tight">Download input</CardTitle>
-								<CardDescription className="mt-1 text-[12px] text-[var(--text-subtle)]">Enter a URL to start your download.</CardDescription>
+								<CardTitle className="text-2xl font-semibold leading-tight tracking-[-0.01em]">{t('wizard.url.heading')}</CardTitle>
+								<CardDescription className="mt-2 text-[13px] text-[var(--text-subtle)]">{t('wizard.url.quickSingleOnly')}</CardDescription>
+								<InputGroup className="glow-tile mt-5 h-14 rounded-2xl border-transparent px-1">
+									<InputGroupAddon align="inline-start">
+										<Link2 aria-hidden />
+									</InputGroupAddon>
+									<InputGroupInput ref={inputRef} type="url" value={wizardUrl} onChange={event => setWizardUrl(event.target.value)} onKeyDown={handleKeyDown} onPaste={handlePaste} placeholder={t('wizard.url.placeholder')} spellCheck={false} data-testid="profiles-main-input" className="text-[15px]" />
+									{hasInput ? (
+										<InputGroupAddon align="inline-end">
+											<InputGroupButton type="button" size="icon-sm" aria-label={t('wizard.url.clearAria')} onClick={handleClearUrl} data-testid="url-clear">
+												<X aria-hidden />
+											</InputGroupButton>
+										</InputGroupAddon>
+									) : null}
+								</InputGroup>
 							</div>
 						</CardHeader>
-						<CardContent>
-							<InputGroup className="mt-5 h-12 border-[var(--border-strong)] bg-background/35">
-								<InputGroupAddon align="inline-start">
-									<Link2 aria-hidden />
-								</InputGroupAddon>
-								<InputGroupInput ref={inputRef} type="url" value={wizardUrl} onChange={event => setWizardUrl(event.target.value)} onKeyDown={handleKeyDown} onPaste={handlePaste} placeholder="Paste a URL..." spellCheck={false} data-testid="profiles-main-input" className="text-[13px]" />
-								{hasInput ? (
-									<InputGroupAddon align="inline-end">
-										<InputGroupButton type="button" size="icon-sm" aria-label="Clear URL" onClick={handleClearUrl} data-testid="url-clear">
-											<X aria-hidden />
-										</InputGroupButton>
-									</InputGroupAddon>
-								) : null}
-							</InputGroup>
-
-							<div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-[var(--text-subtle)]">
-								<Badge variant={hasInput ? 'secondary' : 'outline'} className={cn(!hasInput && 'text-[var(--text-subtle)]')}>
-									{hasInput ? 'URL entered' : 'Waiting for URL'}
-								</Badge>
-								{inputType ? (
-									<Badge variant="outline" className="border-[var(--brand)]/40 bg-[var(--brand-dim)] text-[var(--brand)]">
-										{inputType}
-									</Badge>
-								) : null}
-							</div>
-
-							<Separator className="my-5" />
-
+						<CardContent className="px-6 pb-3 md:px-10">
 							<QuickProfileCard
 								activeProfile={activeProfile}
-								disabled={!hasInput || quickPreparing}
+								disabled={!urlReady || quickPreparing}
 								menuOpen={profileMenuOpen}
+								preparing={quickPreparing}
 								onDownload={() => void quickDownload()}
 								onEditProfile={() => openEditor(activeProfile)}
 								onManageProfiles={() => {
@@ -286,17 +296,17 @@ export function DownloadProfilesHome(): JSX.Element {
 
 							{quickDownloadStatus === 'error' ? (
 								<Alert variant="warning" className="mt-2 py-2" data-testid="quick-download-feedback">
-									<AlertDescription className="text-[11px]">Quick Download failed: {quickErrorText}</AlertDescription>
+									<AlertDescription className="text-[11px]">{t('wizard.url.quickFailed', {error: quickErrorText})}</AlertDescription>
 								</Alert>
 							) : null}
 
 							<div className="mt-3 grid gap-2">
-								<ActionRow disabled={!hasInput || quickPreparing} icon={Wand2} title="Interactive Download" description="Review and customize options before downloading." onClick={() => void submitUrl()} testId="profiles-interactive-download" />
-								<ActionRow icon={ListPlus} title="Bulk URLs" description="Choose Quick or Interactive for batch downloads." onClick={() => setBulkOpen(true)} testId="profiles-bulk-urls" />
+								<ActionRow disabled={!urlReady || quickPreparing} icon={Wand2} title={t('wizard.url.interactiveDownload')} description={t('wizard.url.fetchFormatsTooltip')} onClick={() => void submitUrl()} testId="profiles-interactive-download" />
+								<ActionRow icon={ListPlus} title={t('wizard.url.bulkButton')} description={t('wizard.url.bulkTooltip')} onClick={() => setBulkOpen(true)} testId="profiles-bulk-urls" />
 							</div>
 						</CardContent>
 					</Card>
-					{showMascotHelp ? <DownloadMascotHelpCard help={mascotHelp} onDismiss={() => setDismissedMascotKey(mascotHelp.key)} /> : null}
+					{showMascotHelp ? <DownloadMascotHelpCard help={mascotHelp} /> : null}
 				</TabsContent>
 
 				<TabsContent value="profiles">
@@ -314,25 +324,55 @@ export function DownloadProfilesHome(): JSX.Element {
 	)
 }
 
-function DownloadMascotHelpCard({help, onDismiss}: {help: ReturnType<typeof downloadMascotHelp>; onDismiss: () => void}): JSX.Element {
+function DownloadMascotHelpCard({help}: {help: ReturnType<typeof downloadMascotHelp>}): JSX.Element {
 	return (
-		<Card className="flex w-full max-w-[34rem] flex-row items-center gap-4 rounded-lg border-[var(--border-strong)] bg-background/30 px-4 py-3" data-testid="profiles-mascot-help">
-			<img src={help.image} alt="" aria-hidden className="size-20 shrink-0 object-contain" />
-			<div className="min-w-0 flex-1">
-				<p className="text-sm font-semibold text-foreground">{help.title}</p>
-				<p className="mt-1 max-w-2xl text-[13px] leading-relaxed text-[var(--text-subtle)]">{help.body}</p>
-				<div className="mt-2 flex flex-wrap gap-1.5">
-					{help.points.map(point => (
-						<Badge key={point} variant="outline" className="border-border bg-muted/20 text-[var(--text-subtle)]">
-							{point}
-						</Badge>
-					))}
+		<Card className="glow-panel flex w-full flex-col gap-6 rounded-[1.5rem] border-transparent !px-8 !py-7 sm:flex-row sm:items-center md:!px-12 md:!py-8" data-testid="profiles-mascot-help">
+			<img src={help.image} alt="" aria-hidden className="size-20 shrink-0 object-contain md:size-24" />
+			<div className="grid min-w-0 flex-1 gap-8 lg:grid-cols-[minmax(14rem,0.72fr)_minmax(0,1.28fr)] lg:items-center">
+				<div className="min-w-0">
+					<p className="text-base font-semibold text-foreground">{help.title}</p>
+					<p className="mt-1 max-w-xl text-[13px] leading-relaxed text-[var(--text-glass-muted)] md:text-sm">{help.body}</p>
+					<ul className="mt-3 grid gap-1.5 text-[12px] leading-snug text-[var(--text-glass-muted)]">
+						{help.points.map(point => (
+							<li key={point} className="flex min-w-0 items-start gap-2">
+								<Check className="mt-0.5 size-3.5 shrink-0 text-[var(--brand-hover)]" aria-hidden />
+								<span className="min-w-0">{point}</span>
+							</li>
+						))}
+					</ul>
 				</div>
+				<MascotCapabilityMatrix />
 			</div>
-			<Button type="button" variant="ghost" size="sm" onClick={onDismiss} className="shrink-0 text-[var(--brand)] hover:text-[var(--brand)]" data-testid="profiles-mascot-dismiss">
-				Got it
-			</Button>
 		</Card>
+	)
+}
+
+function MascotCapabilityMatrix(): JSX.Element {
+	const {t} = useTranslation()
+	return (
+		<div className="min-w-0 lg:border-l lg:border-[var(--glow-border)] lg:pl-7" data-testid="url-capabilities">
+			<p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.url.features.heading')}</p>
+			<div className="mt-3 grid gap-5 sm:grid-cols-3">
+				{FEATURE_GROUPS.map(group => {
+					const Icon = group.icon
+					return (
+						<div key={group.heading} className="min-w-0">
+							<p className="flex items-center gap-2 truncate text-[13px] font-semibold text-foreground">
+								<Icon className="size-4 shrink-0 text-[var(--brand-hover)]" aria-hidden />
+								{t(group.heading)}
+							</p>
+							<div className="mt-2 flex flex-wrap gap-1">
+								{group.items.map(item => (
+									<Badge key={item} variant="outline" className="glow-chip px-2 py-0 text-[12px] font-medium">
+										{t(item)}
+									</Badge>
+								))}
+							</div>
+						</div>
+					)
+				})}
+			</div>
+		</div>
 	)
 }
 
@@ -340,6 +380,7 @@ function QuickProfileCard({
 	activeProfile,
 	disabled,
 	menuOpen,
+	preparing,
 	onDownload,
 	onEditProfile,
 	onManageProfiles,
@@ -351,6 +392,7 @@ function QuickProfileCard({
 	activeProfile: DownloadProfile
 	disabled: boolean
 	menuOpen: boolean
+	preparing: boolean
 	onDownload: () => void
 	onEditProfile: () => void
 	onManageProfiles: () => void
@@ -359,47 +401,70 @@ function QuickProfileCard({
 	onPickProfile: (profile: DownloadProfile) => void
 	profiles: DownloadProfile[]
 }): JSX.Element {
+	const {t} = useTranslation()
 	const ActiveIcon = ICONS[activeProfile.icon]
 	return (
-		<div className="grid w-full grid-cols-[minmax(0,1fr)_4rem] overflow-hidden rounded-lg border border-[var(--brand)] bg-background/25 shadow-[0_4px_14px_var(--brand-glow)] md:grid-cols-[minmax(14rem,0.82fr)_minmax(20rem,1fr)_4rem]" data-testid="profiles-quick-preview">
+		<div className="grid w-full gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1.06fr)]" data-testid="profiles-quick-preview">
 			<button
 				type="button"
 				disabled={disabled}
+				aria-busy={preparing}
 				onClick={onDownload}
-				className="group/quick flex min-h-24 min-w-0 items-center gap-4 border-e border-[var(--brand)]/40 bg-[linear-gradient(135deg,var(--brand-dim),transparent_72%)] px-5 py-5 text-left transition-colors hover:bg-background/35 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none md:min-h-[7rem] md:gap-5 md:px-6 dark:hover:bg-white/5"
+				className={cn(
+					'glow-tile-primary group/quick relative flex min-h-[7rem] min-w-0 items-center gap-5 overflow-hidden rounded-[1.5rem] px-6 py-5 text-left text-white transition-[filter,transform] duration-200 md:min-h-[9rem] md:gap-8 md:px-8',
+					'hover:brightness-[1.08] active:translate-y-px',
+					'focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-white/70',
+					disabled && !preparing && 'pointer-events-none opacity-55 saturate-[0.65]',
+					preparing && 'pointer-events-none'
+				)}
 				data-testid="profiles-quick-download"
 			>
-				<Download className="size-10 shrink-0 text-[var(--brand)] md:size-11" aria-hidden />
-				<span className="flex min-w-0 flex-col">
-					<span className="text-lg font-semibold leading-tight text-foreground group-disabled/quick:text-foreground/70 md:text-xl dark:text-white dark:group-disabled/quick:text-white/80">Quick Download</span>
-					<span className="mt-1 text-[12px] font-medium leading-snug text-[var(--text-subtle)] group-disabled/quick:text-[var(--text-subtle)]/80 dark:text-white/70 dark:group-disabled/quick:text-white/55">Start download using the active profile.</span>
+				<span aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_90%_at_0%_0%,hsl(190_100%_82%/0.34),transparent_52%),radial-gradient(110%_120%_at_100%_120%,hsl(288_96%_68%/0.42),transparent_50%)]" />
+				<span className="icon-tile quick-icon-tile relative grid size-16 shrink-0 place-items-center rounded-2xl md:size-20 [&_svg]:size-8 md:[&_svg]:size-10">{preparing ? <Loader2 className="animate-spin" aria-hidden /> : <Download aria-hidden />}</span>
+				<span className="relative flex min-w-0 flex-col">
+					<span className="text-xl font-semibold leading-tight tracking-[-0.01em] md:text-2xl">{preparing ? `${t('wizard.url.quickPreparing')}…` : t('wizard.url.quickDownload')}</span>
+					<span className="mt-2 text-[13px] font-medium leading-snug text-white md:text-sm">{t('wizard.url.quickDownloadTooltip')}</span>
 				</span>
+				<ChevronRight className="relative ms-auto size-6 shrink-0 text-white/90 transition-transform duration-200 group-hover/quick:translate-x-0.5" aria-hidden />
 			</button>
-			<div className="order-3 col-span-2 flex min-w-0 items-center border-t border-border bg-background/20 p-3 md:order-none md:col-auto md:border-t-0 dark:border-white/10">
-				<div className="flex min-w-0 flex-1 items-center gap-3 rounded-md border border-[var(--border-strong)] bg-background/35 px-3 py-3 dark:bg-white/5" data-testid="profiles-active-profile-card">
-					<div className="grid size-12 shrink-0 place-items-center rounded-md border border-[var(--brand)]/30 bg-[var(--brand-dim)] text-[var(--brand)]">
-						<ActiveIcon aria-hidden />
-					</div>
-					<div className="min-w-0 flex-1">
-						<p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] dark:text-white/55">Active profile</p>
-						<p className="mt-1 truncate text-base font-semibold leading-tight text-foreground dark:text-white">{activeProfile.name}</p>
-						<p className="mt-1 truncate text-[12px] text-[var(--text-subtle)] dark:text-white/65">
-							{downloadProfileLabel(activeProfile)} · {profileDetail(activeProfile)}
-						</p>
-					</div>
+
+			<div className="glow-tile flex min-w-0 items-center gap-3 rounded-[1.5rem] border-transparent px-4 py-5 md:gap-5 md:px-7" data-testid="profiles-active-profile-card">
+				<div className="icon-tile grid size-14 shrink-0 place-items-center rounded-2xl md:size-20 [&_svg]:size-7 md:[&_svg]:size-8">
+					<ActiveIcon aria-hidden />
+				</div>
+				<div className="min-w-0 flex-1">
+					<p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Active profile</p>
+					<p className="mt-2 flex min-w-0 items-center gap-1.5 truncate text-base font-semibold leading-tight text-foreground md:gap-2 md:text-xl">
+						<span className="truncate">{activeProfile.name}</span>
+						<Sparkles className="hidden size-4 shrink-0 text-[var(--brand-hover)] md:block" aria-hidden />
+					</p>
+					<p className="glass-muted-text mt-1 line-clamp-2 text-[12px] leading-snug md:text-[13px]">
+						{downloadProfileLabel(activeProfile)} · {profileDetail(activeProfile, t)}
+					</p>
+				</div>
+				<div className="flex shrink-0 items-center gap-1.5 md:gap-2">
 					<Tooltip>
 						<TooltipTrigger
 							render={props => (
-								<Button {...props} type="button" variant="outline" size="icon" onClick={onEditProfile} aria-label={`Edit selected profile: ${activeProfile.name}`} className="size-10 shrink-0 border-border bg-background/45 hover:bg-muted dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10">
+								<Button
+									{...props}
+									type="button"
+									variant="outline"
+									size="icon-lg"
+									onClick={onEditProfile}
+									aria-label={`Edit active profile: ${activeProfile.name}`}
+									className="glow-tile glow-icon-button size-10 rounded-xl border-transparent bg-transparent hover:brightness-110 md:size-14"
+									data-testid="profiles-edit-active-profile"
+								>
 									<PenLine aria-hidden />
 								</Button>
 							)}
 						/>
-						<TooltipContent>Edit selected profile</TooltipContent>
+						<TooltipContent>Edit active profile</TooltipContent>
 					</Tooltip>
+					<ProfileMenu activeProfile={activeProfile} menuOpen={menuOpen} onManageProfiles={onManageProfiles} onMenuOpenChange={onMenuOpenChange} onNewProfile={onNewProfile} onPickProfile={onPickProfile} profiles={profiles} />
 				</div>
 			</div>
-			<ProfileMenu activeProfile={activeProfile} menuOpen={menuOpen} onManageProfiles={onManageProfiles} onMenuOpenChange={onMenuOpenChange} onNewProfile={onNewProfile} onPickProfile={onPickProfile} profiles={profiles} />
 		</div>
 	)
 }
@@ -425,15 +490,8 @@ function ProfileMenu({
 		<Popover open={menuOpen} onOpenChange={onMenuOpenChange}>
 			<PopoverTrigger
 				render={
-					<Button
-						type="button"
-						size="icon-lg"
-						className="order-2 h-full min-h-24 w-full rounded-s-none border-s border-[var(--brand)]/40 bg-background/20 hover:bg-background/35 md:order-none md:min-h-[7rem] dark:bg-white/5 dark:hover:bg-white/10"
-						aria-label="Choose active download profile"
-						title="Choose active download profile"
-						data-testid="profiles-profile-menu-trigger"
-					>
-						<ChevronDown aria-hidden />
+					<Button type="button" variant="outline" size="icon-lg" aria-label="Switch download profile" title="Switch download profile" className="glow-tile glow-icon-button size-10 rounded-xl border-transparent bg-transparent hover:brightness-110 md:size-14" data-testid="profiles-profile-menu-trigger">
+						<ChevronDown aria-hidden className="transition-transform duration-200 group-aria-expanded/button:rotate-180" />
 					</Button>
 				}
 			/>
@@ -493,13 +551,22 @@ function ProfileMenu({
 
 function ActionRow({description, disabled = false, icon: Icon, onClick, testId, title}: {description: string; disabled?: boolean; icon: LucideIcon; onClick: () => void; testId: string; title: string}): JSX.Element {
 	return (
-		<Button type="button" variant="outline" disabled={disabled} onClick={onClick} data-testid={testId} className="h-auto min-h-16 justify-start gap-3 whitespace-normal px-4 py-3 text-left">
-			<Icon data-icon="inline-start" />
-			<span className="flex min-w-0 flex-1 flex-col items-start">
-				<span className="font-semibold">{title}</span>
-				<span className="text-[12px] font-normal text-[var(--text-subtle)]">{description}</span>
+		<Button
+			type="button"
+			variant="ghost"
+			disabled={disabled}
+			onClick={onClick}
+			data-testid={testId}
+			className="glow-tile group/row h-auto min-h-16 justify-start gap-4 whitespace-normal rounded-[1.25rem] border-transparent px-5 py-2.5 text-left transition-[filter,transform] duration-200 hover:bg-transparent hover:brightness-[1.12] active:translate-y-px"
+		>
+			<span className="icon-tile grid size-12 shrink-0 place-items-center rounded-xl transition-transform duration-200 group-hover/row:scale-[1.05]">
+				<Icon className="size-5" aria-hidden />
 			</span>
-			<ChevronRight className="ms-auto text-[var(--text-subtle)]" aria-hidden />
+			<span className="flex min-w-0 flex-1 flex-col items-start">
+				<span className="text-base font-semibold">{title}</span>
+				<span className="glass-muted-text text-[13px] font-normal">{description}</span>
+			</span>
+			<ChevronRight className="glass-muted-text ms-auto" aria-hidden />
 		</Button>
 	)
 }
@@ -519,8 +586,9 @@ function ProfilesTab({
 	profiles: DownloadProfile[]
 	profilesPrefs: DownloadProfilesPrefs | undefined
 }): JSX.Element {
+	const {t} = useTranslation()
 	return (
-		<Card className="rounded-lg border-[var(--border-strong)] bg-card/40" data-testid="profiles-manage-tab">
+		<Card className="glow-panel rounded-2xl border-transparent" data-testid="profiles-manage-tab">
 			<CardHeader className="flex-row flex-wrap items-center justify-between gap-3">
 				<div>
 					<CardTitle className="text-xl font-semibold leading-tight">Download Profiles</CardTitle>
@@ -551,7 +619,7 @@ function ProfilesTab({
 										{active ? <Check className="ml-auto shrink-0 text-[var(--brand)]" aria-hidden /> : null}
 									</span>
 									<span className="mt-1 block text-[12px] leading-snug text-[var(--text-subtle)]">{downloadProfileLabel(profile)}</span>
-									<span className="block text-[12px] leading-snug text-[var(--text-subtle)]">{profileDetail(profile)}</span>
+									<span className="block text-[12px] leading-snug text-[var(--text-subtle)]">{profileDetail(profile, t)}</span>
 								</span>
 							</button>
 							<div className="mt-3 grid grid-cols-2 gap-2">

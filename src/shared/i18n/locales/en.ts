@@ -70,8 +70,7 @@ const en = {
 			ignoredCount: 'Ignored',
 			emptyPreview: 'Paste one or more URLs to preview the batch.',
 			needsAtLeastOne: 'Add at least one supported URL to continue.',
-			confirm: 'Use these URLs',
-			reject: {duplicate: 'Duplicate', playlist: 'Playlist', channel: 'Channel'}
+			reject: {duplicate: 'Duplicate'}
 		},
 		mixedPrompt: {
 			title: 'This link has a playlist',
@@ -79,14 +78,13 @@ const en = {
 			singleVideo: 'Just this one',
 			pickFromPlaylist: 'Pick from playlist',
 			playlistLimit: 'Playlist probe limit: {{count}} items',
-			advancedSettings: 'Advanced settings',
 			singleTooltip: 'Uses yt-dlp single-video mode so the playlist attached to this URL is ignored.',
 			playlistTooltip: 'Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker.'
 		},
 		url: {
 			heading: 'Video URL',
 			placeholder: 'https://...',
-			fetchFormats: 'Fetch formats',
+			interactiveDownload: 'Interactive Download',
 			fetchFormatsTooltip: 'Choose formats, subtitles, folder, and playlist items step by step before queueing.',
 			quickDownload: 'Quick download',
 			quickDownloadTooltip: 'Uses the active Download Profile and queues the URL without opening the setup steps.',
@@ -102,29 +100,13 @@ const en = {
 				heading: 'What Arroxy can pull',
 				youtube: {heading: 'YouTube', video: 'Videos', channel: 'Channels', playlist: 'Playlists', short: 'Shorts', music: 'Music', podcast: 'Podcasts'},
 				anySite: {heading: '2000+ sites', video: 'Videos', videoPlaylist: 'Video playlists', musicPlaylist: 'Music playlists'},
-				always: {heading: 'Always available', audioOnly: 'Audios only', subtitles: 'Subtitles'}
+				always: {heading: 'Always available', audioOnly: 'Audio only', subtitles: 'Subtitles'}
 			},
 			mascotIdle: 'Drop a link — YouTube or any of 2000+ sites ✨',
 			mascotBusy: 'Downloading in the background… I can multitask 😎',
 			advanced: 'Advanced',
 			clearAria: 'Clear URL',
-			clipboard: {
-				toggle: 'Watch clipboard',
-				toggleDescription: 'Auto-fill the URL field when you copy a video link.',
-				dialog: {
-					title: 'Video URL detected',
-					body: 'Use this link from your clipboard?',
-					bulkTitle: 'Bulk URLs detected',
-					bulkBody: 'Use these clipboard links as a bulk download?',
-					bulkSummary: '{{count}} URLs ready',
-					bulkIgnored: '{{count}} ignored',
-					bulkButton: 'Bulk download',
-					useButton: 'Use URL',
-					disableButton: 'Disable',
-					cancelButton: 'Cancel',
-					disableNote: 'You can re-enable clipboard watching later in Advanced settings.'
-				}
-			},
+			clipboard: {toggle: 'Watch clipboard', toggleDescription: 'Auto-fill the URL field when you copy a video link.', dialog: {cancelButton: 'Cancel'}},
 			cookies: {
 				sourceLabel: 'Cookies source',
 				sourceOff: 'Off',
@@ -452,7 +434,6 @@ const en = {
 		footerTooltip: 'Share Arroxy',
 		footerLabel: 'Share',
 		shareAction: 'Share Arroxy',
-		inlineCard: {body: 'Enjoying Arroxy? Share it with someone who might find it useful.', dismiss: 'Dismiss share suggestion'},
 		highValueBanner: {body: 'Enjoying Arroxy? Help others discover it.', dismiss: 'Dismiss share suggestion'}
 	}
 } as const

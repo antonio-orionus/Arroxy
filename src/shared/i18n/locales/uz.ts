@@ -78,8 +78,7 @@ const uz = {
 			ignoredCount: 'E’tiborsiz',
 			emptyPreview: 'To‘plamni ko‘rish uchun bitta yoki undan ko‘p URL joylang.',
 			needsAtLeastOne: 'Davom etish uchun kamida bitta qo‘llab-quvvatlanadigan URL qo‘shing.',
-			confirm: 'Bu URLlardan foydalanish',
-			reject: {duplicate: 'Takror', playlist: 'Playlist oqimidan foydalanish', channel: 'Kanal oqimidan foydalanish'}
+			reject: {duplicate: 'Takror'}
 		},
 		playlistPresets: {heading: 'Paket uchun sifatni tanlang', subhead: 'Har bir video tanlangan darajani mustaqil ravishda hal qiladi — turli xil playlistlar muammosiz ishlaydi.', itemCount_one: '{{count}} ta element', itemCount_other: '{{count}} ta element'},
 		mixedPrompt: {
@@ -88,7 +87,6 @@ const uz = {
 			singleVideo: 'Faqat shu birini',
 			pickFromPlaylist: 'Playlist dan tanlash',
 			playlistLimit: 'Pleylist tekshiruv chegarasi: {{count}} ta element',
-			advancedSettings: 'Kengaytirilgan sozlamalar',
 			singleTooltip: 'Bu URLga ulangan pleylist e’tiborsiz qolishi uchun yt-dlp bitta video rejimidan foydalanadi.',
 			playlistTooltip: 'Tanlagichni ko‘rsatishdan oldin yt-dlp pleylist rejimida belgilangan chegaragacha yuklaydi.'
 		},
@@ -96,7 +94,7 @@ const uz = {
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'Formatlarni olish',
+			interactiveDownload: 'Formatlarni olish',
 			fetchFormatsTooltip: 'Navbatga qo‘shishdan oldin formatlar, subtitrlar, jild va pleylist elementlarini bosqichma-bosqich tanlang.',
 			quickDownload: 'Tez yuklab olish',
 			quickDownloadTooltip: 'Saqlangan yoki standart sozlamalaringizdan foydalanib, sozlash bosqichlarini ochmasdan bu bitta videoni navbatga qo‘shadi.',
@@ -118,23 +116,7 @@ const uz = {
 			mascotBusy: "Fonda yuklanmoqda… Men bir vaqtda ko'p ish qila olaman 😎",
 			advanced: 'Kengaytirilgan',
 			clearAria: 'URLni tozalash',
-			clipboard: {
-				toggle: 'Buferga nazar solish',
-				toggleDescription: "YouTube havolasini nusxalaganda URL maydonini avtomatik to'ldiradi.",
-				dialog: {
-					title: 'YouTube URL aniqlandi',
-					body: 'Buferingizdagi bu havoladan foydalanasizmi?',
-					bulkTitle: 'Ommaviy URLlar topildi',
-					bulkBody: 'Clipboarddagi bu havolalarni ommaviy yuklama sifatida ishlatilsinmi?',
-					bulkSummary: '{{count}} URL tayyor',
-					bulkIgnored: '{{count}} e’tiborsiz',
-					bulkButton: 'Ommaviy yuklash',
-					useButton: 'URLdan foydalanish',
-					disableButton: "O'chirish",
-					cancelButton: 'Bekor qilish',
-					disableNote: 'Buferga nazar solishni keyinroq Kengaytirilgan sozlamalarda qayta yoqishingiz mumkin.'
-				}
-			},
+			clipboard: {toggle: 'Buferga nazar solish', toggleDescription: "YouTube havolasini nusxalaganda URL maydonini avtomatik to'ldiradi.", dialog: {cancelButton: 'Bekor qilish'}},
 			cookies: {
 				sourceLabel: 'Cookies manbai',
 				sourceOff: "O'chirilgan",
@@ -463,7 +445,6 @@ const uz = {
 		footerTooltip: 'Arroxy ulashish',
 		footerLabel: 'Ulashish',
 		shareAction: 'Arroxy ulashish',
-		inlineCard: {body: "Arroxy yoqdimi? Uni foydali deb topishi mumkin bo'lgan biri bilan ulashing.", dismiss: 'Ulashish taklifini yopish'},
 		highValueBanner: {body: 'Arroxy yoqdimi? Boshqalarga uni topishga yordam bering.', dismiss: 'Ulashish taklifini yopish'}
 	}
 } as const

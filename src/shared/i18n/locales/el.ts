@@ -78,8 +78,7 @@ const el = {
 			ignoredCount: 'Αγνοήθηκαν',
 			emptyPreview: 'Επικολλήστε ένα ή περισσότερα URL για προεπισκόπηση της παρτίδας.',
 			needsAtLeastOne: 'Προσθέστε τουλάχιστον ένα υποστηριζόμενο URL για συνέχεια.',
-			confirm: 'Χρήση αυτών των URL',
-			reject: {duplicate: 'Διπλότυπο', playlist: 'Χρήση ροής playlist', channel: 'Χρήση ροής καναλιού'}
+			reject: {duplicate: 'Διπλότυπο'}
 		},
 		playlistPresets: {heading: 'Επιλογή ποιότητας για την ομαδική λήψη', subhead: 'Κάθε βίντεο επιλύει το επιλεγμένο επίπεδο ανεξάρτητα — οι ανομοιογενείς playlist λειτουργούν χωρίς εκπλήξεις.', itemCount_one: '{{count}} στοιχείο', itemCount_other: '{{count}} στοιχεία'},
 		mixedPrompt: {
@@ -88,7 +87,6 @@ const el = {
 			singleVideo: 'Μόνο αυτό',
 			pickFromPlaylist: 'Επιλογή από την playlist',
 			playlistLimit: 'Όριο ελέγχου playlist: {{count}} στοιχεία',
-			advancedSettings: 'Σύνθετες ρυθμίσεις',
 			singleTooltip: 'Χρησιμοποιεί τη λειτουργία μεμονωμένου βίντεο του yt-dlp ώστε να αγνοηθεί η playlist που είναι συνδεδεμένη με αυτό το URL.',
 			playlistTooltip: 'Χρησιμοποιεί τη λειτουργία playlist του yt-dlp και ανακτά μέχρι το όριό σου πριν εμφανίσει τον επιλογέα.'
 		},
@@ -96,7 +94,7 @@ const el = {
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'Φόρτωση μορφών',
+			interactiveDownload: 'Φόρτωση μορφών',
 			fetchFormatsTooltip: 'Επίλεξε μορφές, υπότιτλους, φάκελο και στοιχεία playlist βήμα προς βήμα πριν μπουν στην ουρά.',
 			quickDownload: 'Γρήγορη λήψη',
 			quickDownloadTooltip: 'Χρησιμοποιεί τις αποθηκευμένες ή προεπιλεγμένες προτιμήσεις σου και προσθέτει αυτό το μεμονωμένο βίντεο στην ουρά χωρίς τα βήματα ρύθμισης.',
@@ -118,23 +116,7 @@ const el = {
 			mascotBusy: 'Λήψη στο παρασκήνιο… Ξέρω να κάνω πολλά μαζί 😎',
 			advanced: 'Για προχωρημένους',
 			clearAria: 'Εκκαθάριση URL',
-			clipboard: {
-				toggle: 'Παρακολούθηση πρόχειρου',
-				toggleDescription: 'Αυτόματη συμπλήρωση του πεδίου URL όταν αντιγράφεις σύνδεσμο YouTube.',
-				dialog: {
-					title: 'Εντοπίστηκε YouTube URL',
-					body: 'Να χρησιμοποιηθεί αυτός ο σύνδεσμος από το πρόχειρο;',
-					bulkTitle: 'Εντοπίστηκαν μαζικά URL',
-					bulkBody: 'Χρήση αυτών των συνδέσμων από το πρόχειρο ως μαζική λήψη;',
-					bulkSummary: '{{count}} URL έτοιμα',
-					bulkIgnored: '{{count}} αγνοήθηκαν',
-					bulkButton: 'Μαζική λήψη',
-					useButton: 'Χρήση URL',
-					disableButton: 'Απενεργοποίηση',
-					cancelButton: 'Ακύρωση',
-					disableNote: 'Μπορείς να επανενεργοποιήσεις την παρακολούθηση πρόχειρου αργότερα στις Ρυθμίσεις για προχωρημένους.'
-				}
-			},
+			clipboard: {toggle: 'Παρακολούθηση πρόχειρου', toggleDescription: 'Αυτόματη συμπλήρωση του πεδίου URL όταν αντιγράφεις σύνδεσμο YouTube.', dialog: {cancelButton: 'Ακύρωση'}},
 			cookies: {
 				sourceLabel: 'Πηγή cookies',
 				sourceOff: 'Απενεργοποιημένο',
@@ -474,7 +456,6 @@ const el = {
 		footerTooltip: 'Κοινή χρήση Arroxy',
 		footerLabel: 'Κοινή χρήση',
 		shareAction: 'Κοινή χρήση Arroxy',
-		inlineCard: {body: 'Σου αρέσει το Arroxy; Μοιράσου το με κάποιον που μπορεί να το βρει χρήσιμο.', dismiss: 'Απόρριψη πρότασης κοινοποίησης'},
 		highValueBanner: {body: 'Σου αρέσει το Arroxy; Βοήθησε άλλους να το ανακαλύψουν.', dismiss: 'Απόρριψη πρότασης κοινοποίησης'}
 	}
 } as const

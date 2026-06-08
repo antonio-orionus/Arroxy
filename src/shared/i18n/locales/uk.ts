@@ -78,8 +78,7 @@ const uk = {
 			ignoredCount: 'Пропущено',
 			emptyPreview: 'Вставте один або кілька URL, щоб переглянути пакет.',
 			needsAtLeastOne: 'Додайте щонайменше один підтримуваний URL, щоб продовжити.',
-			confirm: 'Використати ці URL',
-			reject: {duplicate: 'Дублікат', playlist: 'Використати сценарій плейлиста', channel: 'Використати сценарій каналу'}
+			reject: {duplicate: 'Дублікат'}
 		},
 		playlistPresets: {heading: 'Вибери якість для пакетного завантаження', subhead: 'Кожне відео самостійно підбирає відповідний рівень якості — неоднорідні плейлисти працюють без сюрпризів.', itemCount_one: '{{count}} елемент', itemCount_other: '{{count}} елементів'},
 		mixedPrompt: {
@@ -88,7 +87,6 @@ const uk = {
 			singleVideo: 'Лише це одне',
 			pickFromPlaylist: 'Вибрати з Playlist',
 			playlistLimit: 'Ліміт перевірки плейлиста: {{count}} елементів',
-			advancedSettings: 'Додаткові налаштування',
 			singleTooltip: 'Використовує режим одного відео yt-dlp, тому плейлист у цьому URL ігнорується.',
 			playlistTooltip: 'Використовує режим плейлиста yt-dlp і завантажує елементи до твого ліміту перед показом вибору.'
 		},
@@ -96,7 +94,7 @@ const uk = {
 		url: {
 			heading: 'Посилання YouTube',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'Отримати формати',
+			interactiveDownload: 'Отримати формати',
 			fetchFormatsTooltip: 'Вибери формати, субтитри, папку й елементи плейлиста крок за кроком перед додаванням у чергу.',
 			quickDownload: 'Швидке завантаження',
 			quickDownloadTooltip: 'Використовує збережені або стандартні налаштування й додає це окреме відео в чергу без кроків налаштування.',
@@ -118,23 +116,7 @@ const uk = {
 			mascotBusy: 'Завантажую у фоні… можу робити кілька справ одночасно 😎',
 			advanced: 'Додатково',
 			clearAria: 'Очистити URL',
-			clipboard: {
-				toggle: 'Стежити за буфером обміну',
-				toggleDescription: 'Автоматично підставляє посилання YouTube у поле URL при копіюванні.',
-				dialog: {
-					title: 'Знайдено посилання YouTube',
-					body: 'Використати це посилання з буфера обміну?',
-					bulkTitle: 'Виявлено масові URL',
-					bulkBody: 'Використати ці посилання з буфера як масове завантаження?',
-					bulkSummary: '{{count}} URL готові',
-					bulkIgnored: '{{count}} пропущено',
-					bulkButton: 'Масове завантаження',
-					useButton: 'Використати URL',
-					disableButton: 'Вимкнути',
-					cancelButton: 'Скасувати',
-					disableNote: 'Стеження за буфером обміну можна знову ввімкнути в додаткових налаштуваннях.'
-				}
-			},
+			clipboard: {toggle: 'Стежити за буфером обміну', toggleDescription: 'Автоматично підставляє посилання YouTube у поле URL при копіюванні.', dialog: {cancelButton: 'Скасувати'}},
 			cookies: {
 				sourceLabel: 'Джерело cookies',
 				sourceOff: 'Вимк',
@@ -473,7 +455,6 @@ const uk = {
 		footerTooltip: 'Поділитися Arroxy',
 		footerLabel: 'Поділитися',
 		shareAction: 'Поділитися Arroxy',
-		inlineCard: {body: 'Подобається Arroxy? Поділися ним із кимось, кому він може стати в пригоді.', dismiss: 'Закрити пропозицію поділитися'},
 		highValueBanner: {body: 'Подобається Arroxy? Допоможи іншим знайти його.', dismiss: 'Закрити пропозицію поділитися'}
 	}
 } as const

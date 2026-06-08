@@ -69,8 +69,7 @@ const ps = {
 			ignoredCount: 'له پامه غورځول شوي',
 			emptyPreview: 'د ډلې د کتلو لپاره یو یا زیات URLونه ونښلوئ.',
 			needsAtLeastOne: 'د دوام لپاره لږ تر لږه یو ملاتړ شوی URL زیات کړئ.',
-			confirm: 'دا URLونه وکاروئ',
-			reject: {duplicate: 'تکراري', playlist: 'د playlist لاره وکاروئ', channel: 'د channel لاره وکاروئ'}
+			reject: {duplicate: 'تکراري'}
 		},
 		playlistPresets: {heading: 'د بیچ لپاره کیفیت وټاکئ', subhead: 'هر ویډیو خپلواکه د غوره شوي کچې سره حل کوي — مخلوط Playlist ونه بیا پرته له مشکل کار کوي.', itemCount_one: '{{count}} توکی', itemCount_other: '{{count}} توکي'},
 		mixedPrompt: {
@@ -79,7 +78,6 @@ const ps = {
 			singleVideo: 'یوازې دا یو',
 			pickFromPlaylist: 'له Playlist نه غوره کړئ',
 			playlistLimit: 'د پلی‌لېسټ کتنې حد: {{count}} توکي',
-			advancedSettings: 'پرمختللې امستنې',
 			singleTooltip: 'د yt-dlp د یوه ویډیو حالت کاروي، نو له دې URL سره تړلی پلی‌لېسټ له پامه غورځول کېږي.',
 			playlistTooltip: 'د yt-dlp د پلی‌لېسټ حالت کاروي او د انتخابګر تر ښودلو مخکې ستاسې تر ټاکلي حد پورې توکي راولي.'
 		},
@@ -87,7 +85,7 @@ const ps = {
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'بڼې ترلاسه کړه',
+			interactiveDownload: 'بڼې ترلاسه کړه',
 			fetchFormatsTooltip: 'له قطار ته تر زیاتولو مخکې بڼې، فرعي لیکنې، پوښۍ او د پلی‌لېسټ توکي ګام په ګام وټاکئ.',
 			quickDownload: 'چټک ډاونلوډ',
 			quickDownloadTooltip: 'ستاسې خوندي شوې یا تلواله خوښې کاروي او دا یو ویډیو د چمتو کولو پړاوونو له پرانیستو پرته قطار ته زیاتوي.',
@@ -109,23 +107,7 @@ const ps = {
 			mascotBusy: 'شاتهپرده ډاونلوډ کیږي… زه کولی شم له ډیرو کارونو سره معامله وکړم 😎',
 			advanced: 'پرمختللي',
 			clearAria: 'URL پاکول',
-			clipboard: {
-				toggle: 'کلیپبورډ وګورئ',
-				toggleDescription: 'کله چې تاسو یو YouTube لینک کاپي کړئ، د URL ساحه اتوماتیک ډکه کړئ.',
-				dialog: {
-					title: 'YouTube URL وموندل شو',
-					body: 'ایا د کلیپبورډ دا لینک وکاروئ؟',
-					bulkTitle: 'ډېر URLونه وموندل شول',
-					bulkBody: 'د clipboard دا لینکونه د bulk download په توګه وکارول شي؟',
-					bulkSummary: '{{count}} URLونه چمتو',
-					bulkIgnored: '{{count}} له پامه غورځول شوي',
-					bulkButton: 'ډله‌ییز ډاونلوډ',
-					useButton: 'URL وکاروئ',
-					disableButton: 'غیر فعاله کړه',
-					cancelButton: 'لغوه کړه',
-					disableNote: 'تاسو کولی شئ وروسته د پرمختللو تنظیماتو کې د کلیپبورډ لیدل بیا فعاله کړئ.'
-				}
-			},
+			clipboard: {toggle: 'کلیپبورډ وګورئ', toggleDescription: 'کله چې تاسو یو YouTube لینک کاپي کړئ، د URL ساحه اتوماتیک ډکه کړئ.', dialog: {cancelButton: 'لغوه کړه'}},
 			cookies: {
 				sourceLabel: 'د کوکیزو سرچینه',
 				sourceOff: 'بند',
@@ -445,7 +427,6 @@ const ps = {
 		footerTooltip: 'Arroxy شریک کړئ',
 		footerLabel: 'شریک کړئ',
 		shareAction: 'Arroxy شریک کړئ',
-		inlineCard: {body: 'ایا Arroxy خوند درکوي؟ له چا سره یې شریک کړئ چې ممکن ورته ګټور وي.', dismiss: 'د شریکولو وړاندیز رد کړئ'},
 		highValueBanner: {body: 'ایا Arroxy خوند درکوي؟ نورو خلکو سره مرسته وکړئ چې ومومي.', dismiss: 'د شریکولو وړاندیز رد کړئ'}
 	}
 } as const

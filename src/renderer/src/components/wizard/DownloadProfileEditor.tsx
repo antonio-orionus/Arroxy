@@ -1,5 +1,5 @@
 import {useId, useState, type JSX, type ReactNode} from 'react'
-import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, Headphones, Info, Music, Plus, Scissors, X, type LucideIcon} from 'lucide-react'
+import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, Headphones, Info, Music, Plus, Scissors, SlidersHorizontal, X, type LucideIcon} from 'lucide-react'
 import {DEFAULTS} from '@shared/constants.js'
 import {DEFAULT_AUDIO_BITRATE, DOWNLOAD_PROFILE_ICONS} from '@shared/schemas.js'
 import type {DownloadProfile, DownloadProfileIcon} from '@shared/types.js'
@@ -44,6 +44,7 @@ const MEDIA_MODES: {value: ProfileMediaMode; label: string; description: string;
 ]
 
 const PROFILE_ICON_META: Record<DownloadProfileIcon, {label: string; icon: LucideIcon}> = {
+	controls: {label: 'Controls', icon: SlidersHorizontal},
 	download: {label: 'Download', icon: Download},
 	video: {label: 'Video', icon: Clapperboard},
 	captions: {label: 'Captions', icon: Captions},

@@ -82,6 +82,28 @@ test('screen preset scenarios expose the screen picker', async ({page}) => {
 	await expect(page.getByTestId('mock-step-select')).toBeVisible()
 })
 
+test('profile scenarios render their seeded browser-mock states', async ({page}) => {
+	await openScenario(page, 'profiles-home-empty')
+	await expect(page.getByTestId('download-profiles-home')).toBeVisible()
+	await expect(page.getByTestId('profiles-active-profile-card')).toContainText('Balanced')
+
+	await openScenario(page, 'profiles-home-clipboard-single')
+	await expect(page.getByTestId('profiles-main-input')).toHaveValue('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+
+	await openScenario(page, 'profiles-split-menu')
+	await expect(page.getByTestId('profiles-profile-menu')).toBeVisible()
+
+	await openScenario(page, 'profiles-editor')
+	await expect(page.getByTestId('profiles-editor-dialog')).toBeVisible()
+
+	await openScenario(page, 'profiles-bulk')
+	await expect(page.getByTestId('bulk-url-dialog')).toBeVisible()
+
+	await openScenario(page, 'profiles-playlist-cap')
+	await expect(page.getByTestId('quick-playlist-cap-dialog')).toBeVisible()
+	await expect(page.getByTestId('quick-playlist-cap-dialog')).toContainText('Mock Browser Playlist')
+})
+
 test('playlist scope empty reload scenario stays on playlist with inline error', async ({page}) => {
 	await openScenario(page, 'playlist-scope-empty-reload')
 	await waitForPlaylist(page)

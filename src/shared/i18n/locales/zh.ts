@@ -69,8 +69,7 @@ const zh = {
 			ignoredCount: '已忽略',
 			emptyPreview: '粘贴一个或多个 URL 以预览批次。',
 			needsAtLeastOne: '至少添加一个受支持的 URL 才能继续。',
-			confirm: '使用这些 URL',
-			reject: {duplicate: '重复', playlist: '使用播放列表流程', channel: '使用频道流程'}
+			reject: {duplicate: '重复'}
 		},
 		playlistPresets: {heading: '选择批量下载画质', subhead: '每个视频独立匹配所选画质档位——混合内容的播放列表也能正常处理，无意外。', itemCount_one: '{{count}} 项', itemCount_other: '{{count}} 项'},
 		mixedPrompt: {
@@ -79,7 +78,6 @@ const zh = {
 			singleVideo: '就这一个',
 			pickFromPlaylist: '从 Playlist 中挑选',
 			playlistLimit: '播放列表探测限制：{{count}} 个项目',
-			advancedSettings: '高级设置',
 			singleTooltip: '使用 yt-dlp 单视频模式，因此会忽略此 URL 附带的播放列表。',
 			playlistTooltip: '使用 yt-dlp 播放列表模式，并在显示选择器前获取到你的探测限制。'
 		},
@@ -87,7 +85,7 @@ const zh = {
 		url: {
 			heading: 'YouTube 链接',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: '获取格式',
+			interactiveDownload: '获取格式',
 			fetchFormatsTooltip: '加入队列前，逐步选择格式、字幕、文件夹和播放列表项目。',
 			quickDownload: '快速下载',
 			quickDownloadTooltip: '使用已保存或默认偏好设置，将此单个视频加入队列，而不打开设置步骤。',
@@ -109,23 +107,7 @@ const zh = {
 			mascotBusy: '正在后台下载… 我可以同时处理多个任务 😎',
 			advanced: '高级',
 			clearAria: '清除 URL',
-			clipboard: {
-				toggle: '监听剪贴板',
-				toggleDescription: '复制 YouTube 链接时自动填充 URL 字段。',
-				dialog: {
-					title: '检测到 YouTube 链接',
-					body: '使用剪贴板中的此链接吗?',
-					bulkTitle: '检测到批量 URL',
-					bulkBody: '将剪贴板中的这些链接作为批量下载使用？',
-					bulkSummary: '{{count}} 个 URL 就绪',
-					bulkIgnored: '已忽略 {{count}} 个',
-					bulkButton: '批量下载',
-					useButton: '使用 URL',
-					disableButton: '禁用',
-					cancelButton: '取消',
-					disableNote: '你可以稍后在高级设置中重新启用剪贴板监听。'
-				}
-			},
+			clipboard: {toggle: '监听剪贴板', toggleDescription: '复制 YouTube 链接时自动填充 URL 字段。', dialog: {cancelButton: '取消'}},
 			cookies: {
 				sourceLabel: 'Cookies 来源',
 				sourceOff: '关闭',
@@ -411,7 +393,6 @@ const zh = {
 		footerTooltip: '分享 Arroxy',
 		footerLabel: '分享',
 		shareAction: '分享 Arroxy',
-		inlineCard: {body: '喜欢 Arroxy 吗？把它分享给可能觉得有用的人吧。', dismiss: '关闭分享建议'},
 		highValueBanner: {body: '喜欢 Arroxy 吗？帮助其他人发现它。', dismiss: '关闭分享建议'}
 	}
 } as const

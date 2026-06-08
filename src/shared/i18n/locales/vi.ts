@@ -69,8 +69,7 @@ const vi = {
 			ignoredCount: 'Bị bỏ qua',
 			emptyPreview: 'Dán một hoặc nhiều URL để xem trước lô.',
 			needsAtLeastOne: 'Thêm ít nhất một URL được hỗ trợ để tiếp tục.',
-			confirm: 'Dùng các URL này',
-			reject: {duplicate: 'Trùng lặp', playlist: 'Dùng luồng playlist', channel: 'Dùng luồng kênh'}
+			reject: {duplicate: 'Trùng lặp'}
 		},
 		playlistPresets: {heading: 'Chọn chất lượng cho lô', subhead: 'Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà.', itemCount_one: '{{count}} mục', itemCount_other: '{{count}} mục'},
 		mixedPrompt: {
@@ -79,7 +78,6 @@ const vi = {
 			singleVideo: 'Chỉ cái này thôi',
 			pickFromPlaylist: 'Chọn từ Playlist',
 			playlistLimit: 'Giới hạn dò playlist: {{count}} mục',
-			advancedSettings: 'Cài đặt nâng cao',
 			singleTooltip: 'Dùng chế độ video đơn của yt-dlp để bỏ qua playlist gắn với URL này.',
 			playlistTooltip: 'Dùng chế độ playlist của yt-dlp và lấy đến giới hạn dò playlist trước khi hiện bộ chọn.'
 		},
@@ -87,7 +85,7 @@ const vi = {
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'Tải định dạng',
+			interactiveDownload: 'Tải định dạng',
 			fetchFormatsTooltip: 'Chọn định dạng, phụ đề, thư mục và mục playlist từng bước trước khi thêm vào hàng đợi.',
 			quickDownload: 'Tải nhanh',
 			quickDownloadTooltip: 'Dùng tùy chọn đã lưu hoặc mặc định của bạn và thêm video đơn này vào hàng đợi mà không mở các bước thiết lập.',
@@ -109,23 +107,7 @@ const vi = {
 			mascotBusy: 'Đang tải xuống trong nền… Tôi có thể làm nhiều việc cùng lúc 😎',
 			advanced: 'Nâng cao',
 			clearAria: 'Xóa URL',
-			clipboard: {
-				toggle: 'Theo dõi bộ nhớ tạm',
-				toggleDescription: 'Tự động điền vào trường URL khi bạn sao chép một liên kết YouTube.',
-				dialog: {
-					title: 'Đã phát hiện YouTube URL',
-					body: 'Sử dụng liên kết này từ bộ nhớ tạm của bạn?',
-					bulkTitle: 'Đã phát hiện URL hàng loạt',
-					bulkBody: 'Dùng các liên kết trong clipboard này làm tải xuống hàng loạt?',
-					bulkSummary: '{{count}} URL sẵn sàng',
-					bulkIgnored: '{{count}} bị bỏ qua',
-					bulkButton: 'Tải hàng loạt',
-					useButton: 'Dùng URL',
-					disableButton: 'Tắt',
-					cancelButton: 'Hủy',
-					disableNote: 'Bạn có thể bật lại tính năng theo dõi bộ nhớ tạm sau trong cài đặt Nâng cao.'
-				}
-			},
+			clipboard: {toggle: 'Theo dõi bộ nhớ tạm', toggleDescription: 'Tự động điền vào trường URL khi bạn sao chép một liên kết YouTube.', dialog: {cancelButton: 'Hủy'}},
 			cookies: {
 				sourceLabel: 'Nguồn cookies',
 				sourceOff: 'Tắt',
@@ -464,7 +446,6 @@ const vi = {
 		footerTooltip: 'Chia sẻ Arroxy',
 		footerLabel: 'Chia sẻ',
 		shareAction: 'Chia sẻ Arroxy',
-		inlineCard: {body: 'Bạn thích Arroxy không? Hãy chia sẻ với ai đó có thể thấy nó hữu ích.', dismiss: 'Bỏ qua gợi ý chia sẻ'},
 		highValueBanner: {body: 'Bạn thích Arroxy không? Hãy giúp người khác khám phá nó.', dismiss: 'Bỏ qua gợi ý chia sẻ'}
 	}
 } as const

@@ -23,16 +23,12 @@ export function FeedbackNudge({visible, message}: Props): JSX.Element | null {
 	if (!rendered) return null
 
 	return (
-		<div className="absolute bottom-full end-0 mb-1.5 pointer-events-none" data-testid="feedback-nudge">
-			<div className={cn(cls, 'flex items-end gap-2 pointer-events-auto')}>
-				{/* Mascot */}
-				<img src={loveImg} alt="" aria-hidden draggable={false} className="w-9 h-9 object-contain shrink-0" />
-				{/* Speech bubble */}
-				<div className="relative bg-secondary border border-border rounded-xl px-3 py-2 text-xs text-foreground/80 leading-relaxed whitespace-nowrap shadow-lg">
+		<div className="pointer-events-none absolute bottom-full end-0 mb-2" data-testid="feedback-nudge">
+			<div className={cn(cls, 'pointer-events-auto flex items-end gap-2')}>
+				<img src={loveImg} alt="" aria-hidden draggable={false} className="h-10 w-10 shrink-0 object-contain drop-shadow-[0_0_14px_var(--brand-glow)]" />
+				<div className="glow-tile relative whitespace-nowrap rounded-2xl border-transparent px-4 py-2.5 text-xs leading-relaxed text-foreground/85">
 					{message}
-					{/* Downward caret pointing toward the Feedback button */}
-					<span aria-hidden className="absolute -bottom-[7px] end-3 w-0 h-0" style={{borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderTop: '7px solid var(--border)'}} />
-					<span aria-hidden className="absolute -bottom-[5px] end-3 w-0 h-0" style={{borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderTop: '6px solid var(--secondary)'}} />
+					<span aria-hidden className="absolute -bottom-[7px] end-4 h-3 w-3 rotate-45 border-b border-r border-[var(--glow-border)] bg-[var(--card)]" />
 				</div>
 			</div>
 		</div>

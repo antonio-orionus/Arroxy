@@ -62,7 +62,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 
 export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number]
 export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Profiles' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics'
-type ScenarioKind = 'default' | 'probe' | 'bulk' | 'queue' | 'update' | 'diagnostics' | 'dialog'
+type ScenarioKind = 'default' | 'probe' | 'bulk' | 'profile' | 'queue' | 'update' | 'diagnostics' | 'dialog'
 
 const SINGLE_NORMAL_MOCK_STEPS = ['formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm'] as const
 const PLAYLIST_NORMAL_MOCK_STEPS = ['playlistItems', 'playlistPresets', 'sponsorblock', 'output', 'folder', 'confirm'] as const
@@ -130,13 +130,13 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'playlist-no-thumbnails', group: 'Playlist', title: 'No thumbnails', description: 'Playlist rows with no thumbnail column.', kind: 'probe'},
 	{id: 'playlist-long-titles', group: 'Playlist', title: 'Long titles', description: 'Playlist rows with intentionally long titles.', kind: 'probe'},
 	{id: 'bulk-stress', group: 'Playlist', title: 'Bulk stress', description: 'Visual fixture for 50 bulk URL rows with long duplicate titles, missing thumbnails, and mixed metadata states.', kind: 'bulk'},
-	{id: 'profiles-home-empty', group: 'Profiles', title: 'Profiles home', description: 'Redesigned main screen with active built-in profile and no custom profile dialog open.', kind: 'default'},
-	{id: 'profiles-home-clipboard-single', group: 'Profiles', title: 'Clipboard single', description: 'Profile home after clipboard watching filled one link and showed a toast.', kind: 'default'},
-	{id: 'profiles-home-clipboard-bulk', group: 'Profiles', title: 'Clipboard bulk', description: 'Profile home after clipboard watching filled several links and showed a toast.', kind: 'default'},
-	{id: 'profiles-split-menu', group: 'Profiles', title: 'Profile menu', description: 'Quick Download split button with profile picker opened.', kind: 'default'},
-	{id: 'profiles-editor', group: 'Profiles', title: 'Profile editor', description: 'Create/edit profile form in one dialog.', kind: 'default'},
-	{id: 'profiles-bulk', group: 'Profiles', title: 'Bulk URLs dialog', description: 'Existing bulk dialog opened from the redesigned main screen.', kind: 'default'},
-	{id: 'profiles-playlist-cap', group: 'Profiles', title: 'Playlist cap dialog', description: 'Quick Download playlist probe limit confirmation.', kind: 'default'},
+	{id: 'profiles-home-empty', group: 'Profiles', title: 'Profiles home', description: 'Redesigned main screen with active built-in profile and no dialog open.', kind: 'profile'},
+	{id: 'profiles-home-clipboard-single', group: 'Profiles', title: 'Clipboard single', description: 'Profile home with one clipboard-detected link prefilled.', kind: 'profile'},
+	{id: 'profiles-home-clipboard-bulk', group: 'Profiles', title: 'Clipboard bulk', description: 'Profile home after several clipboard links were detected; the first link is prefilled.', kind: 'profile'},
+	{id: 'profiles-split-menu', group: 'Profiles', title: 'Profile menu', description: 'Quick Download profile picker opened.', kind: 'profile'},
+	{id: 'profiles-editor', group: 'Profiles', title: 'Profile editor', description: 'New profile form opened in a dialog.', kind: 'profile'},
+	{id: 'profiles-bulk', group: 'Profiles', title: 'Bulk URLs dialog', description: 'Bulk URLs dialog opened from the redesigned main screen.', kind: 'profile'},
+	{id: 'profiles-playlist-cap', group: 'Profiles', title: 'Playlist cap dialog', description: 'Quick Download playlist probe limit confirmation.', kind: 'profile'},
 	{id: 'probe-audio-only', group: 'Probe Results', title: 'Audio only source', description: 'isAudioOnlySource:true - wizard defaults to audio-only mode (Bandcamp/SoundCloud-like extractor).', kind: 'probe'},
 	{id: 'probe-with-subtitles', group: 'Probe Results', title: 'With subtitles', description: 'Video with manual subtitle tracks and auto-caption pool.', kind: 'probe'},
 	{id: 'probe-no-formats', group: 'Probe Results', title: 'No formats', description: 'Video probe returns empty formats array - tests graceful empty state in the format picker.', kind: 'probe'},
@@ -211,6 +211,34 @@ export function buildScenarioAppApiState(scenario: BrowserMockScenario, params?:
 	return {scenario, settings, probeResult: buildProbeResult(scenario, params), probeError: buildProbeError(scenario, params), queueItems: buildQueueItems(scenario), update: buildUpdate(scenario), warmUp: buildWarmUp(scenario)}
 }
 
+const PROFILE_SINGLE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+const PROFILE_BULK_URLS = ['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://www.youtube.com/watch?v=jNQXAC9IVRw', 'https://www.youtube.com/watch?v=oHg5SJYRHA0'] as const
+
+function profileScenarioPatch(scenario: BrowserMockScenario): Partial<AppState> {
+	if (scenario.id === 'profiles-home-clipboard-single') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
+	if (scenario.id === 'profiles-home-clipboard-bulk') return {wizardStep: 'url', wizardUrl: PROFILE_BULK_URLS[0]}
+	if (scenario.id === 'profiles-split-menu') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
+	if (scenario.id === 'profiles-playlist-cap') {
+		const playlist = playlistProbe(DEFAULT_PLAYLIST_PROBE_LIMIT, {webpageUrl: 'https://www.youtube.com/playlist?list=PLbrowsermock&items=100'})
+		if (playlist.kind !== 'playlist') return {wizardStep: 'url', wizardUrl: ''}
+		return {
+			wizardStep: 'url',
+			wizardMode: 'playlist',
+			wizardUrl: playlist.webpageUrl,
+			wizardExtractor: playlist.extractor,
+			wizardExtractorKey: playlist.extractorKey,
+			playlistItems: playlist.entries,
+			selectedPlaylistItemIds: playlist.entries.map(entry => entry.id),
+			playlistTitle: playlist.playlistTitle,
+			playlistId: playlist.playlistId,
+			playlistIsMultiVideo: true,
+			playlistLikelyCapped: true,
+			quickPlaylistCapDialogOpen: true
+		}
+	}
+	return {wizardStep: 'url', wizardUrl: ''}
+}
+
 export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockScenario; params: BrowserMockUrlParams; store: ScenarioWorkbenchStore}): Promise<void> {
 	const {scenario, params, store} = input
 	if (scenario.kind === 'probe' || params.playlistCount !== null || params.probeErrorKind !== null) {
@@ -224,6 +252,11 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 	if (scenario.kind === 'bulk') {
 		store.reset()
 		store.setState(bulkStressState())
+		return
+	}
+	if (scenario.kind === 'profile') {
+		store.reset()
+		store.setState(profileScenarioPatch(scenario))
 		return
 	}
 	if (scenario.kind === 'dialog') {

@@ -49,7 +49,7 @@ export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [
 	baseProfile('best-2160', '2160p', videoAudio('best', ['2160']), 'video'),
 	baseProfile('best-1440', '1440p', videoAudio('best', ['1440']), 'video'),
 	baseProfile('hd-1080', 'HD 1080p', videoAudio('best', ['1080']), 'video'),
-	baseProfile('balanced', 'Balanced', videoAudio('best', ['720']), 'download'),
+	baseProfile('balanced', 'Balanced', videoAudio('best', ['720']), 'controls'),
 	baseProfile('small-file', 'Small file', videoAudio('best', ['480', '360']), 'clip'),
 	baseProfile('mp4-2160', 'MP4 2160p', videoAudio('mp4', ['2160']), 'video'),
 	baseProfile('mp4-1440', 'MP4 1440p', videoAudio('mp4', ['1440']), 'video'),

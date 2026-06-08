@@ -1,4 +1,5 @@
 import {useEffect, type JSX, type ReactNode} from 'react'
+import {useTranslation} from 'react-i18next'
 import {AlertTriangle, Gauge} from 'lucide-react'
 import {DEFAULTS} from '@shared/constants.js'
 import type {CookiesBrowser, CookiesMode} from '@shared/types.js'
@@ -58,6 +59,7 @@ function SettingSwitch({id, label, description, checked, onCheckedChange, testId
 }
 
 export function DownloadProfilesSettingsTab(): JSX.Element {
+	const {t} = useTranslation()
 	const {advancedAutoOpen, advancedAutoTarget, settings, setAdvancedAutoOpen, setClipboardWatchEnabled, setCookiesPath, setCookiesMode, setCookiesBrowser, setProxyUrl, setLimitRate, setIncludeIdInSingleFilenames, setCloseBehavior, setAnalyticsEnabled} = useAppStore()
 	const common = settings?.common
 	const cookiesPath = common?.cookiesPath ?? ''
@@ -88,16 +90,16 @@ export function DownloadProfilesSettingsTab(): JSX.Element {
 
 	return (
 		<div className="grid gap-4 lg:grid-cols-2" data-testid="profiles-settings-tab">
-			<SettingsPanel title="Input" description="Same controls that used to live in Advanced settings.">
+			<SettingsPanel title="Input" description={t('wizard.url.advanced')}>
 				<FieldGroup className="gap-4">
-					<SettingSwitch id="profiles-settings-clipboard" label="Clipboard watching" description="Detect copied links and fill the URL input automatically." checked={common?.clipboardWatchEnabled ?? false} onCheckedChange={checked => void setClipboardWatchEnabled(checked)} />
+					<SettingSwitch id="profiles-settings-clipboard" label={t('wizard.url.clipboard.toggle')} description={t('wizard.url.clipboard.toggleDescription')} checked={common?.clipboardWatchEnabled ?? false} onCheckedChange={checked => void setClipboardWatchEnabled(checked)} />
 
 					<Field className="gap-1.5" data-testid="cookies-source">
 						<FieldContent className="gap-0.5">
 							<FieldTitle id="profiles-settings-cookies-mode" className="text-[13px] font-medium text-foreground">
-								Cookie source
+								{t('wizard.url.cookies.sourceLabel')}
 							</FieldTitle>
-							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">Use browser cookies only when a site requires an authenticated session.</FieldDescription>
+							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.cookies.toggleDescription')}</FieldDescription>
 						</FieldContent>
 						<ToggleGroup
 							variant="outline"
@@ -110,52 +112,54 @@ export function DownloadProfilesSettingsTab(): JSX.Element {
 							aria-labelledby="profiles-settings-cookies-mode"
 						>
 							<ToggleGroupItem value="off" className="h-7 px-3 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
-								Off
+								{t('wizard.url.cookies.sourceOff')}
 							</ToggleGroupItem>
 							<ToggleGroupItem value="file" className="h-7 px-3 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
-								File
+								{t('wizard.url.cookies.sourceFile')}
 							</ToggleGroupItem>
 							<ToggleGroupItem value="browser" className="h-7 px-3 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
-								Browser
+								{t('wizard.url.cookies.sourceBrowser')}
 							</ToggleGroupItem>
 						</ToggleGroup>
 						<div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
 							<Button type="button" variant="link" size="xs" className="h-auto px-0 text-[11px] text-[var(--text-subtle)] hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_HELP_URL)} data-testid="cookies-help-link">
-								Help
+								{t('wizard.url.cookies.helpLink')}
 							</Button>
 							<Button type="button" variant="link" size="xs" className="h-auto px-0 text-[11px] text-[var(--text-subtle)] hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_FIREFOX_URL)} data-testid="cookies-firefox-link">
-								Firefox extension
+								{t('wizard.url.cookies.extensionFirefox')}
 							</Button>
 							<Button type="button" variant="link" size="xs" className="h-auto px-0 text-[11px] text-[var(--text-subtle)] hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_CHROME_URL)} data-testid="cookies-chrome-link">
-								Chrome extension
+								{t('wizard.url.cookies.extensionChrome')}
 							</Button>
 						</div>
+						<WarningText text={t('wizard.url.cookies.risk')} />
+						{cookiesMode !== 'off' ? <WarningText text={t('wizard.url.cookies.banWarning')} /> : null}
 					</Field>
 
 					{cookiesMode === 'file' ? (
 						<Field className="gap-1.5">
 							<FieldLabel htmlFor="profiles-settings-cookies-path" className="text-[11px] font-medium text-[var(--text-subtle)]">
-								cookies.txt file
+								{t('wizard.url.cookies.fileLabel')}
 							</FieldLabel>
 							<InputGroup className="h-9">
-								<InputGroupInput id="profiles-settings-cookies-path" readOnly value={cookiesPath ? formatHomeRelativePath(cookiesPath, commonPaths) : ''} placeholder="Choose cookies.txt..." className="text-[12px] font-mono" data-testid="profiles-settings-cookies-path" />
+								<InputGroupInput id="profiles-settings-cookies-path" readOnly value={cookiesPath ? formatHomeRelativePath(cookiesPath, commonPaths) : ''} placeholder={t('wizard.url.cookies.placeholder')} className="text-[12px] font-mono" data-testid="profiles-settings-cookies-path" />
 								<InputGroupAddon align="inline-end">
 									<InputGroupButton type="button" onClick={() => void chooseCookiesFile()}>
-										Choose
+										{t('wizard.url.cookies.choose')}
 									</InputGroupButton>
 									<InputGroupButton type="button" onClick={() => void setCookiesPath('')} disabled={!cookiesPath}>
-										Clear
+										{t('wizard.url.cookies.clear')}
 									</InputGroupButton>
 								</InputGroupAddon>
 							</InputGroup>
-							{showMissingFileWarning ? <WarningText text="Cookie file mode is enabled but no file is selected." /> : null}
+							{showMissingFileWarning ? <WarningText text={t('wizard.url.cookies.enabledButNoFile')} /> : null}
 						</Field>
 					) : null}
 
 					{cookiesMode === 'browser' ? (
 						<Field className="gap-1.5">
 							<FieldLabel htmlFor="profiles-settings-cookies-browser-trigger" className="text-[11px] font-medium text-[var(--text-subtle)]">
-								Browser
+								{t('wizard.url.cookies.browserLabel')}
 							</FieldLabel>
 							<Select
 								value={cookiesBrowser ?? ''}
@@ -164,7 +168,7 @@ export function DownloadProfilesSettingsTab(): JSX.Element {
 								}}
 							>
 								<SelectTrigger id="profiles-settings-cookies-browser-trigger" className="w-full" data-testid="profiles-settings-cookies-browser">
-									<SelectValue placeholder="Choose browser...">{selected => visibleBrowsers.find(browser => browser.value === selected)?.label ?? 'Choose browser...'}</SelectValue>
+									<SelectValue placeholder={t('wizard.url.cookies.browserPlaceholder')}>{selected => visibleBrowsers.find(browser => browser.value === selected)?.label ?? t('wizard.url.cookies.browserPlaceholder')}</SelectValue>
 								</SelectTrigger>
 								<SelectContent align="start">
 									<SelectGroup>
@@ -176,22 +180,23 @@ export function DownloadProfilesSettingsTab(): JSX.Element {
 									</SelectGroup>
 								</SelectContent>
 							</Select>
-							{showMissingBrowserWarning ? <WarningText text="Browser cookie mode is enabled but no browser is selected." /> : null}
+							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.cookies.browserHelp')}</FieldDescription>
+							{showMissingBrowserWarning ? <WarningText text={t('wizard.url.cookies.enabledButNoBrowser')} /> : null}
 						</Field>
 					) : null}
 
 					<Field className="gap-1.5">
 						<FieldContent className="gap-0.5">
 							<FieldLabel htmlFor="profiles-settings-proxy-url" className="text-[13px] font-medium text-foreground">
-								Proxy URL
+								{t('wizard.url.proxy.label')}
 							</FieldLabel>
-							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">Optional proxy passed to yt-dlp.</FieldDescription>
+							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.proxy.description')}</FieldDescription>
 						</FieldContent>
 						<InputGroup className="h-9">
-							<InputGroupInput id="profiles-settings-proxy-url" type="url" value={proxyUrl} onChange={event => void setProxyUrl(event.target.value)} placeholder="http://127.0.0.1:8080" className="text-[12px] font-mono" data-testid="profiles-settings-proxy-url" />
+							<InputGroupInput id="profiles-settings-proxy-url" type="url" value={proxyUrl} onChange={event => void setProxyUrl(event.target.value)} placeholder={t('wizard.url.proxy.placeholder')} className="text-[12px] font-mono" data-testid="profiles-settings-proxy-url" />
 							<InputGroupAddon align="inline-end">
 								<InputGroupButton type="button" onClick={() => void setProxyUrl('')} disabled={!proxyUrl}>
-									Clear
+									{t('wizard.url.proxy.clear')}
 								</InputGroupButton>
 							</InputGroupAddon>
 						</InputGroup>
@@ -204,23 +209,23 @@ export function DownloadProfilesSettingsTab(): JSX.Element {
 					<Field orientation="horizontal" className="items-center justify-between gap-3">
 						<FieldContent className="gap-0.5">
 							<FieldTitle id="profiles-settings-speed-limit" className="text-[13px] font-medium text-foreground">
-								Speed limit
+								{t('wizard.url.limitRate.label')}
 							</FieldTitle>
-							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">Throttle new downloads.</FieldDescription>
+							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.limitRate.description')}</FieldDescription>
 						</FieldContent>
 						<Popover>
 							<PopoverTrigger
 								render={
 									<Button type="button" variant="outline" size="sm" aria-labelledby="profiles-settings-speed-limit" data-testid="profiles-settings-limit-rate-trigger">
 										<Gauge data-icon="inline-start" aria-hidden />
-										{limitRate ? formatLimitRateLabel(limitRate) : 'Off'}
+										{limitRate ? formatLimitRateLabel(limitRate) : t('wizard.url.limitRate.off')}
 									</Button>
 								}
 							/>
 							<PopoverContent align="end" sideOffset={8} className="w-64">
 								<div className="flex flex-col gap-1">
-									<p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Speed limit</p>
-									<p className="text-[11px] text-[var(--text-subtle)]">Running jobs need pause/resume to apply changes.</p>
+									<p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{t('wizard.url.limitRate.label')}</p>
+									<p className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.limitRate.activeWarning')}</p>
 								</div>
 								<LimitRatePicker value={limitRate} onChange={value => void setLimitRate(value)} />
 							</PopoverContent>
@@ -231,16 +236,16 @@ export function DownloadProfilesSettingsTab(): JSX.Element {
 
 					<SettingSwitch
 						id="profiles-settings-filename-id"
-						label="Include ID in single-video filenames"
-						description="Keeps filenames stable when titles change."
+						label={t('wizard.url.singleFilenameId.toggle')}
+						description={t('wizard.url.singleFilenameId.toggleDescription')}
 						checked={common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames}
 						onCheckedChange={checked => void setIncludeIdInSingleFilenames(checked)}
 						testId="single-filename-id-toggle"
 					/>
 
-					{platform !== 'darwin' ? <SettingSwitch id="profiles-settings-close-tray" label="Close to tray" description="Keep Arroxy running when the window closes." checked={common?.closeBehavior === 'tray'} onCheckedChange={checked => void setCloseBehavior(checked ? 'tray' : 'quit')} /> : null}
+					{platform !== 'darwin' ? <SettingSwitch id="profiles-settings-close-tray" label={t('wizard.url.closeToTray.toggle')} description={t('wizard.url.closeToTray.toggleDescription')} checked={common?.closeBehavior === 'tray'} onCheckedChange={checked => void setCloseBehavior(checked ? 'tray' : 'quit')} /> : null}
 
-					<SettingSwitch id="profiles-settings-analytics" label="Anonymous analytics" description="Help improve Arroxy with anonymous usage events." checked={common?.analyticsEnabled ?? true} onCheckedChange={checked => void setAnalyticsEnabled(checked)} />
+					<SettingSwitch id="profiles-settings-analytics" label={t('wizard.url.analytics.toggle')} description={t('wizard.url.analytics.toggleDescription')} checked={common?.analyticsEnabled ?? true} onCheckedChange={checked => void setAnalyticsEnabled(checked)} />
 				</FieldGroup>
 			</SettingsPanel>
 		</div>

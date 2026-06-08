@@ -78,8 +78,7 @@ const sw = {
 			ignoredCount: 'Zimepuuzwa',
 			emptyPreview: 'Bandika URL moja au zaidi ili kuona kundi.',
 			needsAtLeastOne: 'Ongeza angalau URL moja inayotumika ili kuendelea.',
-			confirm: 'Tumia URL hizi',
-			reject: {duplicate: 'Imerudiwa', playlist: 'Tumia mtiririko wa playlist', channel: 'Tumia mtiririko wa channel'}
+			reject: {duplicate: 'Imerudiwa'}
 		},
 		playlistPresets: {heading: 'Chagua ubora wa kundi', subhead: 'Kila video inatatua kiwango kilichochaguliwa kwa kujitegemea — playlists tofauti hufanya kazi bila mshangao.', itemCount_one: '{{count}} kipande', itemCount_other: '{{count}} vipande'},
 		mixedPrompt: {
@@ -88,14 +87,13 @@ const sw = {
 			singleVideo: 'Hii tu',
 			pickFromPlaylist: 'Chagua kutoka Playlist',
 			playlistLimit: 'Kikomo cha kuchunguza playlist: vipengee {{count}}',
-			advancedSettings: 'Mipangilio ya kina',
 			singleTooltip: 'Hutumia modi ya video moja ya yt-dlp ili kupuuza playlist iliyounganishwa na URL hii.',
 			playlistTooltip: 'Hutumia modi ya playlist ya yt-dlp na kuchukua hadi kikomo chako kabla ya kuonyesha kichaguaji.'
 		},
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'Pata maumbo',
+			interactiveDownload: 'Pata maumbo',
 			fetchFormatsTooltip: 'Chagua fomati, manukuu, folda na vipengee vya orodha ya kucheza hatua kwa hatua kabla ya kuongeza kwenye foleni.',
 			quickDownload: 'Pakua haraka',
 			quickDownloadTooltip: 'Hutumia mapendeleo yako yaliyohifadhiwa au chaguomsingi na kuongeza video hii moja kwenye foleni bila kufungua hatua za usanidi.',
@@ -117,23 +115,7 @@ const sw = {
 			mascotBusy: 'Inapakua nyuma ya pazia… Ninaweza kufanya mambo mengi kwa wakati mmoja 😎',
 			advanced: 'Hali ya juu',
 			clearAria: 'Futa URL',
-			clipboard: {
-				toggle: 'Angalia ubao wa kunakili',
-				toggleDescription: 'Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube.',
-				dialog: {
-					title: 'YouTube URL imegunduliwa',
-					body: 'Tumia kiungo hiki kutoka kwenye ubao wako wa kunakili?',
-					bulkTitle: 'URL nyingi zimegunduliwa',
-					bulkBody: 'Utumie viungo hivi vya clipboard kama upakuaji wa kundi?',
-					bulkSummary: '{{count}} URL tayari',
-					bulkIgnored: '{{count}} zimepuuzwa',
-					bulkButton: 'Pakua kundi',
-					useButton: 'Tumia URL',
-					disableButton: 'Zima',
-					cancelButton: 'Ghairi',
-					disableNote: 'Unaweza kuwezesha tena uangalifu wa ubao wa kunakili baadaye katika mipangilio ya Hali ya juu.'
-				}
-			},
+			clipboard: {toggle: 'Angalia ubao wa kunakili', toggleDescription: 'Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube.', dialog: {cancelButton: 'Ghairi'}},
 			cookies: {
 				sourceLabel: 'Chanzo cha vidakuzi',
 				sourceOff: 'Zima',
@@ -473,7 +455,6 @@ const sw = {
 		footerTooltip: 'Shiriki Arroxy',
 		footerLabel: 'Shiriki',
 		shareAction: 'Shiriki Arroxy',
-		inlineCard: {body: 'Unafurahia Arroxy? Shiriki na mtu anayeweza kuifaidika.', dismiss: 'Funga pendekezo la kushiriki'},
 		highValueBanner: {body: 'Unafurahia Arroxy? Saidia wengine kuigundua.', dismiss: 'Funga pendekezo la kushiriki'}
 	}
 } as const

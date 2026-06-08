@@ -71,7 +71,7 @@ export function TitleBar(): JSX.Element {
 	}, [])
 
 	return (
-		<div className={cn('flex items-center h-9 border-b border-border select-none shrink-0', isMac ? 'pl-3 pr-2' : 'pl-4 pr-0')} style={drag} data-testid="title-bar">
+		<div className={cn('chrome-glass flex h-9 shrink-0 select-none items-center border-b border-border', isMac ? 'pl-3 pr-2' : 'pl-4 pr-0')} style={drag} data-testid="title-bar">
 			{isMac && <MacControls isMaximized={isMaximized} />}
 
 			<span className={cn('flex-1 flex items-center gap-1.5 text-xs font-medium text-muted-foreground tracking-wide', isMac ? 'justify-center' : 'pl-1')}>

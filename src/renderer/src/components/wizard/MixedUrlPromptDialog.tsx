@@ -29,7 +29,9 @@ export function MixedUrlPromptDialog(): JSX.Element {
 				<DialogDescription>{t('wizard.mixedPrompt.body')}</DialogDescription>
 				<Alert variant="info" className="mt-3 flex items-center gap-3 py-2 text-[12px]" data-testid="mixed-playlist-cap">
 					<Info className="shrink-0" />
-					<AlertDescription className="min-w-0 flex-1 text-[12px]">{t('wizard.mixedPrompt.playlistLimit', {count: playlistLimit})}</AlertDescription>
+					<AlertDescription className="min-w-0 flex-1 text-[12px]" title={t('wizard.url.playlistProbeLimit.tooltip')}>
+						{t('wizard.mixedPrompt.playlistLimit', {count: playlistLimit})} · {t('wizard.url.playlistProbeLimit.description')}
+					</AlertDescription>
 					<PlaylistProbeLimitSelector testId="mixed-playlist-probe-limit" showCurrent={false} className="w-36" />
 				</Alert>
 				<DialogFooter>

@@ -69,8 +69,7 @@ const bn = {
 			ignoredCount: 'উপেক্ষিত',
 			emptyPreview: 'ব্যাচ দেখতে এক বা একাধিক URL পেস্ট করুন।',
 			needsAtLeastOne: 'চালিয়ে যেতে অন্তত একটি সমর্থিত URL যোগ করুন।',
-			confirm: 'এই URLগুলো ব্যবহার করুন',
-			reject: {duplicate: 'ডুপ্লিকেট', playlist: 'playlist flow ব্যবহার করুন', channel: 'channel flow ব্যবহার করুন'}
+			reject: {duplicate: 'ডুপ্লিকেট'}
 		},
 		playlistPresets: {heading: 'ব্যাচের জন্য মান বেছে নিন', subhead: 'প্রতিটি ভিডিও স্বাধীনভাবে বেছে নেওয়া স্তর অনুযায়ী রেজোলিউশন করে — বৈচিত্র্যময় playlist অবাক করা ছাড়াই কাজ করে।', itemCount_one: '{{count}}টি আইটেম', itemCount_other: '{{count}}টি আইটেম'},
 		mixedPrompt: {
@@ -79,7 +78,6 @@ const bn = {
 			singleVideo: 'শুধু এটি',
 			pickFromPlaylist: 'Playlist থেকে বেছে নিন',
 			playlistLimit: 'প্লেলিস্ট প্রোব সীমা: {{count}}টি আইটেম',
-			advancedSettings: 'উন্নত সেটিংস',
 			singleTooltip: 'yt-dlp-এর একক-ভিডিও মোড ব্যবহার করে, তাই এই URL-এর সঙ্গে থাকা প্লেলিস্ট উপেক্ষা করা হয়।',
 			playlistTooltip: 'yt-dlp-এর প্লেলিস্ট মোড ব্যবহার করে এবং পিকার দেখানোর আগে আপনার সীমা পর্যন্ত আইটেম আনে।'
 		},
@@ -87,7 +85,7 @@ const bn = {
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'ফরম্যাট আনুন',
+			interactiveDownload: 'ফরম্যাট আনুন',
 			fetchFormatsTooltip: 'কিউতে যোগ করার আগে ধাপে ধাপে ফরম্যাট, সাবটাইটেল, ফোল্ডার এবং প্লেলিস্ট আইটেম বেছে নিন।',
 			quickDownload: 'দ্রুত ডাউনলোড',
 			quickDownloadTooltip: 'সেভ করা বা ডিফল্ট পছন্দ ব্যবহার করে সেটআপ ধাপ না খুলেই এই একক ভিডিওটি কিউতে যোগ করে।',
@@ -109,23 +107,7 @@ const bn = {
 			mascotBusy: 'ব্যাকগ্রাউন্ডে ডাউনলোড হচ্ছে… আমি একসাথে অনেক কাজ করতে পারি 😎',
 			advanced: 'উন্নত',
 			clearAria: 'URL মুছুন',
-			clipboard: {
-				toggle: 'ক্লিপবোর্ড দেখুন',
-				toggleDescription: 'YouTube লিংক কপি করলে URL ফিল্ড স্বয়ংক্রিয়ভাবে পূরণ হবে।',
-				dialog: {
-					title: 'YouTube URL পাওয়া গেছে',
-					body: 'ক্লিপবোর্ডের এই লিংকটি ব্যবহার করবেন?',
-					bulkTitle: 'বাল্ক URL পাওয়া গেছে',
-					bulkBody: 'clipboard-এর এই লিংকগুলো bulk download হিসেবে ব্যবহার করবেন?',
-					bulkSummary: '{{count}} URL প্রস্তুত',
-					bulkIgnored: '{{count}} উপেক্ষিত',
-					bulkButton: 'বাল্ক ডাউনলোড',
-					useButton: 'URL ব্যবহার করুন',
-					disableButton: 'বন্ধ করুন',
-					cancelButton: 'বাতিল',
-					disableNote: 'পরে উন্নত সেটিংসে ক্লিপবোর্ড দেখা আবার চালু করা যাবে।'
-				}
-			},
+			clipboard: {toggle: 'ক্লিপবোর্ড দেখুন', toggleDescription: 'YouTube লিংক কপি করলে URL ফিল্ড স্বয়ংক্রিয়ভাবে পূরণ হবে।', dialog: {cancelButton: 'বাতিল'}},
 			cookies: {
 				sourceLabel: 'কুকিজের উৎস',
 				sourceOff: 'বন্ধ',
@@ -440,7 +422,6 @@ const bn = {
 		footerTooltip: 'Arroxy শেয়ার করুন',
 		footerLabel: 'শেয়ার',
 		shareAction: 'Arroxy শেয়ার করুন',
-		inlineCard: {body: 'Arroxy পছন্দ হচ্ছে? এমন কাউকে শেয়ার করুন যে উপকৃত হতে পারেন।', dismiss: 'শেয়ার পরামর্শ বাতিল করুন'},
 		highValueBanner: {body: 'Arroxy পছন্দ হচ্ছে? অন্যদের আবিষ্কার করতে সাহায্য করুন।', dismiss: 'শেয়ার পরামর্শ বাতিল করুন'}
 	}
 } as const

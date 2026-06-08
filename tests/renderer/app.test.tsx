@@ -63,16 +63,16 @@ describe('App renderer', () => {
 
 		const quick = await screen.findByTestId('profiles-quick-download')
 		const fetch = screen.getByTestId('profiles-interactive-download')
-		expect(quick).toHaveTextContent('Quick Download')
+		expect(quick).toHaveTextContent(/Quick download/i)
 		expect(screen.getByTestId('profiles-quick-preview')).toHaveTextContent('Active profile')
-		expect(screen.getByRole('button', {name: 'Edit selected profile: Balanced'})).toBeInTheDocument()
-		const profileMenuTrigger = screen.getByRole('button', {name: 'Choose active download profile'})
+		expect(screen.getByRole('button', {name: 'Edit active profile: Balanced'})).toBeInTheDocument()
+		const profileMenuTrigger = screen.getByRole('button', {name: 'Switch download profile'})
 		expect(profileMenuTrigger).toBeInTheDocument()
 		expect(quick).toBeDisabled()
 
 		fireEvent.click(profileMenuTrigger)
 		expect(await screen.findByText('Switch profile')).toBeInTheDocument()
-		expect(screen.getByText('Change the active profile for Quick Download, Bulk URLs, and playlists.')).toBeInTheDocument()
+		expect(screen.getByTestId('profiles-profile-menu')).toBeInTheDocument()
 
 		const input = await screen.findByTestId('profiles-main-input')
 		fireEvent.change(input, {target: {value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}})
@@ -109,7 +109,7 @@ describe('App renderer', () => {
 	it('closes the profile picker when opening profile editor surfaces', async () => {
 		render(<App />)
 
-		const profileMenuTrigger = await screen.findByRole('button', {name: 'Choose active download profile'})
+		const profileMenuTrigger = await screen.findByRole('button', {name: 'Switch download profile'})
 		fireEvent.click(profileMenuTrigger)
 		expect(await screen.findByText('Switch profile')).toBeInTheDocument()
 

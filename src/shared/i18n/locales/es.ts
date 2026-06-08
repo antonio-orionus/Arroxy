@@ -78,8 +78,7 @@ const es = {
 			ignoredCount: 'Ignoradas',
 			emptyPreview: 'Pega una o más URLs para previsualizar el lote.',
 			needsAtLeastOne: 'Añade al menos una URL compatible para continuar.',
-			confirm: 'Usar estas URLs',
-			reject: {duplicate: 'Duplicado', playlist: 'Usar flujo de playlist', channel: 'Usar flujo de canal'}
+			reject: {duplicate: 'Duplicado'}
 		},
 		playlistPresets: {heading: 'Elige la calidad para el lote', subhead: 'Cada vídeo resuelve el nivel elegido de forma independiente — las playlists heterogéneas funcionan sin sorpresas.', itemCount_one: '{{count}} elemento', itemCount_other: '{{count}} elementos'},
 		mixedPrompt: {
@@ -88,14 +87,13 @@ const es = {
 			singleVideo: 'Solo este',
 			pickFromPlaylist: 'Elegir de la Playlist',
 			playlistLimit: 'Límite de análisis de playlist: {{count}} elementos',
-			advancedSettings: 'Ajustes avanzados',
 			singleTooltip: 'Usa el modo de vídeo único de yt-dlp para ignorar la playlist adjunta a esta URL.',
 			playlistTooltip: 'Usa el modo playlist de yt-dlp y carga hasta tu límite de análisis antes de mostrar el selector.'
 		},
 		url: {
 			heading: 'URL de YouTube',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'Obtener formatos',
+			interactiveDownload: 'Obtener formatos',
 			fetchFormatsTooltip: 'Elige formatos, subtítulos, carpeta y elementos de playlist paso a paso antes de enviar a la cola.',
 			quickDownload: 'Descarga rápida',
 			quickDownloadTooltip: 'Usa tus preferencias guardadas o predeterminadas y añade este video individual a la cola sin abrir los pasos de configuración.',
@@ -117,23 +115,7 @@ const es = {
 			mascotBusy: 'Descargando en segundo plano… puedo hacer varias cosas a la vez 😎',
 			advanced: 'Avanzado',
 			clearAria: 'Borrar URL',
-			clipboard: {
-				toggle: 'Vigilar portapapeles',
-				toggleDescription: 'Rellena automáticamente el campo URL al copiar un enlace de YouTube.',
-				dialog: {
-					title: 'URL de YouTube detectada',
-					body: '¿Usar este enlace de tu portapapeles?',
-					bulkTitle: 'URLs en lote detectadas',
-					bulkBody: '¿Usar estos enlaces del portapapeles como descarga en lote?',
-					bulkSummary: '{{count}} URLs listas',
-					bulkIgnored: '{{count}} ignoradas',
-					bulkButton: 'Descarga en lote',
-					useButton: 'Usar URL',
-					disableButton: 'Desactivar',
-					cancelButton: 'Cancelar',
-					disableNote: 'Puedes volver a activar la vigilancia del portapapeles más tarde en Avanzado.'
-				}
-			},
+			clipboard: {toggle: 'Vigilar portapapeles', toggleDescription: 'Rellena automáticamente el campo URL al copiar un enlace de YouTube.', dialog: {cancelButton: 'Cancelar'}},
 			cookies: {
 				sourceLabel: 'Fuente de cookies',
 				sourceOff: 'Desactivado',
@@ -473,7 +455,6 @@ const es = {
 		footerTooltip: 'Compartir Arroxy',
 		footerLabel: 'Compartir',
 		shareAction: 'Compartir Arroxy',
-		inlineCard: {body: '¿Disfrutando Arroxy? Compártelo con alguien a quien le pueda resultar útil.', dismiss: 'Descartar sugerencia de compartir'},
 		highValueBanner: {body: '¿Disfrutando Arroxy? Ayuda a otros a descubrirlo.', dismiss: 'Descartar sugerencia de compartir'}
 	}
 } as const

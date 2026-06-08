@@ -22,7 +22,7 @@ test('app shell renders with expected structure', async () => {
 
 	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 15_000})
 	await expect(page.locator('[data-testid="app-content"]')).toBeVisible()
-	await expect(page.locator('[data-testid="url-input"]')).toBeVisible()
+	await expect(page.locator('[data-testid="profiles-main-input"]')).toBeVisible()
 
 	await app.close()
 })
@@ -63,7 +63,7 @@ test('URL input is interactive', async () => {
 	const app = await launchApp(userDataDir)
 	const page = await app.firstWindow()
 
-	const input = page.locator('[data-testid="url-input"]')
+	const input = page.locator('[data-testid="profiles-main-input"]')
 	await input.waitFor({timeout: 15_000})
 
 	await input.fill('https://www.youtube.com/watch?v=test')

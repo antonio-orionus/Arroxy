@@ -84,7 +84,7 @@ export function App(): JSX.Element {
 
 	return (
 		<TooltipProvider>
-			<div className="relative flex flex-col h-screen w-screen bg-background overflow-hidden" data-testid="app-root">
+			<div className="relative flex flex-col h-screen w-screen overflow-hidden" data-testid="app-root">
 				<TitleBar />
 
 				{update.info && <UpdateBanner info={update.info} installing={update.installing} installError={update.error} onInstall={update.install} onDownload={update.download} onDismiss={update.dismiss} />}
@@ -98,7 +98,7 @@ export function App(): JSX.Element {
 					</div>
 				</div>
 
-				<footer className="shrink-0 flex items-center justify-between border-t border-border px-4 h-7">
+				<footer className="chrome-glass shrink-0 flex h-8 items-center justify-between border-t border-border px-4">
 					<div className="flex items-center gap-1">
 						<ButtonGroup>
 							<Button type="button" variant="ghost" size="icon-xs" onClick={() => setUiZoom(uiZoom - ZOOM_STEP)} disabled={uiZoom <= ZOOM_MIN} className="size-5 text-base leading-none text-muted-foreground" aria-label={t('app.zoomOut')}>
