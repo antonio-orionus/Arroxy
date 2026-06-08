@@ -129,8 +129,8 @@ const zh = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: '就绪',
       ignoredCount: '已忽略',
-      emptyPreview: '至少粘贴两个 URL 以预览批次。',
-      needsTwo: '至少添加两个受支持的 URL 才能继续。',
+      emptyPreview: '粘贴一个或多个 URL 以预览批次。',
+      needsAtLeastOne: '至少添加一个受支持的 URL 才能继续。',
       confirm: '使用这些 URL',
       reject: {
         duplicate: '重复',

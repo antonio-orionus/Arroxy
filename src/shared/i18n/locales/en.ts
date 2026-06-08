@@ -135,8 +135,8 @@ const en = {
       textareaPlaceholder: 'https://example.com/video-1\nhttps://example.com/video-2\nhttps://example.com/video-3',
       acceptedCount: 'Ready',
       ignoredCount: 'Ignored',
-      emptyPreview: 'Paste at least two URLs to preview the batch.',
-      needsTwo: 'Add at least one supported URL to continue.',
+      emptyPreview: 'Paste one or more URLs to preview the batch.',
+      needsAtLeastOne: 'Add at least one supported URL to continue.',
       confirm: 'Use these URLs',
       reject: {
         duplicate: 'Duplicate',

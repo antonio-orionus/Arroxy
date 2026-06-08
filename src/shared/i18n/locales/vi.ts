@@ -129,8 +129,8 @@ const vi = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'Sẵn sàng',
       ignoredCount: 'Bị bỏ qua',
-      emptyPreview: 'Dán ít nhất hai URL để xem trước lô.',
-      needsTwo: 'Thêm ít nhất hai URL được hỗ trợ để tiếp tục.',
+      emptyPreview: 'Dán một hoặc nhiều URL để xem trước lô.',
+      needsAtLeastOne: 'Thêm ít nhất một URL được hỗ trợ để tiếp tục.',
       confirm: 'Dùng các URL này',
       reject: {
         duplicate: 'Trùng lặp',

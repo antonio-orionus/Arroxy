@@ -129,8 +129,8 @@ const ja = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: '準備完了',
       ignoredCount: '無視',
-      emptyPreview: '一括内容を確認するには、少なくとも 2 件の URL を貼り付けてください。',
-      needsTwo: '続行するには、対応している URL を少なくとも 2 件追加してください。',
+      emptyPreview: '一括内容を確認するには、URL を 1 件以上貼り付けてください。',
+      needsAtLeastOne: '続行するには、対応している URL を少なくとも 1 件追加してください。',
       confirm: 'これらの URL を使う',
       reject: {
         duplicate: '重複',

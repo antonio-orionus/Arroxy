@@ -129,8 +129,8 @@ const el = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'Έτοιμα',
       ignoredCount: 'Αγνοήθηκαν',
-      emptyPreview: 'Επικολλήστε τουλάχιστον δύο URL για προεπισκόπηση της παρτίδας.',
-      needsTwo: 'Προσθέστε τουλάχιστον δύο υποστηριζόμενα URL για συνέχεια.',
+      emptyPreview: 'Επικολλήστε ένα ή περισσότερα URL για προεπισκόπηση της παρτίδας.',
+      needsAtLeastOne: 'Προσθέστε τουλάχιστον ένα υποστηριζόμενο URL για συνέχεια.',
       confirm: 'Χρήση αυτών των URL',
       reject: {
         duplicate: 'Διπλότυπο',

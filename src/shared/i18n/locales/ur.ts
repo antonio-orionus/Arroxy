@@ -129,8 +129,8 @@ const ur = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'تیار',
       ignoredCount: 'نظر انداز',
-      emptyPreview: 'بیچ دیکھنے کے لیے کم از کم دو URLs پیسٹ کریں۔',
-      needsTwo: 'جاری رکھنے کے لیے کم از کم دو supported URLs شامل کریں۔',
+      emptyPreview: 'بیچ دیکھنے کے لیے ایک یا زیادہ URLs پیسٹ کریں۔',
+      needsAtLeastOne: 'جاری رکھنے کے لیے کم از کم ایک supported URL شامل کریں۔',
       confirm: 'یہ URLs استعمال کریں',
       reject: {
         duplicate: 'نقل',

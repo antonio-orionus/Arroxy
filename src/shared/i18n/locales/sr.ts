@@ -129,8 +129,8 @@ const sr = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'Спремно',
       ignoredCount: 'Занемарено',
-      emptyPreview: 'Налепи најмање два URL-а за преглед групе.',
-      needsTwo: 'Додај најмање два подржана URL-а за наставак.',
+      emptyPreview: 'Налепи један или више URL-ова за преглед групе.',
+      needsAtLeastOne: 'Додај најмање један подржан URL за наставак.',
       confirm: 'Користи ове URL-ове',
       reject: {
         duplicate: 'Дупликат',

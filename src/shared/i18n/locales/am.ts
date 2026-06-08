@@ -129,8 +129,8 @@ const am = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'ዝግጁ',
       ignoredCount: 'ተተው',
-      emptyPreview: 'ቡድኑን ለማየት ቢያንስ ሁለት URLዎች ለጥፍ።',
-      needsTwo: 'ለመቀጠል ቢያንስ ሁለት የሚደገፉ URLዎች ጨምር።',
+      emptyPreview: 'ቡድኑን ለማየት አንድ ወይም ከዚያ በላይ URLዎች ለጥፍ።',
+      needsAtLeastOne: 'ለመቀጠል ቢያንስ አንድ የሚደገፍ URL ጨምር።',
       confirm: 'እነዚህን URLዎች ተጠቀም',
       reject: {
         duplicate: 'ተደጋጋሚ',

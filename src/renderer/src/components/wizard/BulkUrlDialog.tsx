@@ -127,7 +127,7 @@ export function BulkUrlDialog({ open, onOpenChange, initialRaw = '', renderActio
           )}
         </div>
 
-        {!canConfirm ? <p className="text-xs text-muted-foreground">{t('wizard.bulk.needsTwo')}</p> : null}
+        {!canConfirm ? <p className="text-xs text-muted-foreground">{t('wizard.bulk.needsAtLeastOne')}</p> : null}
 
         <DialogFooter className={cn(renderActions ? 'sm:justify-start' : undefined)}>
           {renderActions ? (

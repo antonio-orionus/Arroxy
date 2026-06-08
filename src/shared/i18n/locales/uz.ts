@@ -129,8 +129,8 @@ const uz = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'Tayyor',
       ignoredCount: 'E’tiborsiz',
-      emptyPreview: 'To‘plamni ko‘rish uchun kamida ikki URL joylang.',
-      needsTwo: 'Davom etish uchun kamida ikki qo‘llab-quvvatlanadigan URL qo‘shing.',
+      emptyPreview: 'To‘plamni ko‘rish uchun bitta yoki undan ko‘p URL joylang.',
+      needsAtLeastOne: 'Davom etish uchun kamida bitta qo‘llab-quvvatlanadigan URL qo‘shing.',
       confirm: 'Bu URLlardan foydalanish',
       reject: {
         duplicate: 'Takror',

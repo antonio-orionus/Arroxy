@@ -129,8 +129,8 @@ const uk = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'Готово',
       ignoredCount: 'Пропущено',
-      emptyPreview: 'Вставте щонайменше два URL, щоб переглянути пакет.',
-      needsTwo: 'Додайте щонайменше два підтримувані URL, щоб продовжити.',
+      emptyPreview: 'Вставте один або кілька URL, щоб переглянути пакет.',
+      needsAtLeastOne: 'Додайте щонайменше один підтримуваний URL, щоб продовжити.',
       confirm: 'Використати ці URL',
       reject: {
         duplicate: 'Дублікат',

@@ -129,8 +129,8 @@ const bn = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'প্রস্তুত',
       ignoredCount: 'উপেক্ষিত',
-      emptyPreview: 'ব্যাচ দেখতে অন্তত দুটি URL পেস্ট করুন।',
-      needsTwo: 'চালিয়ে যেতে অন্তত দুটি সমর্থিত URL যোগ করুন।',
+      emptyPreview: 'ব্যাচ দেখতে এক বা একাধিক URL পেস্ট করুন।',
+      needsAtLeastOne: 'চালিয়ে যেতে অন্তত একটি সমর্থিত URL যোগ করুন।',
       confirm: 'এই URLগুলো ব্যবহার করুন',
       reject: {
         duplicate: 'ডুপ্লিকেট',

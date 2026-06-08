@@ -129,8 +129,8 @@ const de = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'Bereit',
       ignoredCount: 'Ignoriert',
-      emptyPreview: 'Füge mindestens zwei URLs ein, um den Stapel anzuzeigen.',
-      needsTwo: 'Füge mindestens zwei unterstützte URLs hinzu, um fortzufahren.',
+      emptyPreview: 'Füge eine oder mehrere URLs ein, um den Stapel anzuzeigen.',
+      needsAtLeastOne: 'Füge mindestens eine unterstützte URL hinzu, um fortzufahren.',
       confirm: 'Diese URLs verwenden',
       reject: {
         duplicate: 'Duplikat',

@@ -129,8 +129,8 @@ const my = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'အဆင်သင့်',
       ignoredCount: 'လျစ်လျူရှုထားသည်',
-      emptyPreview: 'batch ကိုကြည့်ရန် URL အနည်းဆုံးနှစ်ခု paste လုပ်ပါ။',
-      needsTwo: 'ဆက်လက်လုပ်ဆောင်ရန် supported URL အနည်းဆုံးနှစ်ခု ထည့်ပါ။',
+      emptyPreview: 'batch ကိုကြည့်ရန် URL တစ်ခု သို့မဟုတ် ထို့ထက်ပိုပြီး paste လုပ်ပါ။',
+      needsAtLeastOne: 'ဆက်လက်လုပ်ဆောင်ရန် supported URL အနည်းဆုံးတစ်ခု ထည့်ပါ။',
       confirm: 'ဤ URL များကိုသုံးမည်',
       reject: {
         duplicate: 'ထပ်နေသည်',

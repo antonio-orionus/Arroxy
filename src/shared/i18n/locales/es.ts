@@ -129,8 +129,8 @@ const es = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'Listas',
       ignoredCount: 'Ignoradas',
-      emptyPreview: 'Pega al menos dos URLs para previsualizar el lote.',
-      needsTwo: 'Añade al menos dos URLs compatibles para continuar.',
+      emptyPreview: 'Pega una o más URLs para previsualizar el lote.',
+      needsAtLeastOne: 'Añade al menos una URL compatible para continuar.',
       confirm: 'Usar estas URLs',
       reject: {
         duplicate: 'Duplicado',

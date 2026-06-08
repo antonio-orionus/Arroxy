@@ -129,8 +129,8 @@ const om = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'Qophaa’e',
       ignoredCount: 'Tuffatame',
-      emptyPreview: 'Garee ilaaluu dura URL yoo xiqqaate lama maxxansi.',
-      needsTwo: 'Itti fufuuf URL deeggaraman yoo xiqqaate lama dabali.',
+      emptyPreview: 'Garee ilaaluu dura URL tokko yookaan isaa ol maxxansi.',
+      needsAtLeastOne: 'Itti fufuuf URL deeggaraman yoo xiqqaate tokko dabali.',
       confirm: 'URL kana fayyadami',
       reject: {
         duplicate: 'Irra-deebi',

@@ -129,8 +129,8 @@ const sw = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'Tayari',
       ignoredCount: 'Zimepuuzwa',
-      emptyPreview: 'Bandika angalau URL mbili ili kuona kundi.',
-      needsTwo: 'Ongeza angalau URL mbili zinazotumika ili kuendelea.',
+      emptyPreview: 'Bandika URL moja au zaidi ili kuona kundi.',
+      needsAtLeastOne: 'Ongeza angalau URL moja inayotumika ili kuendelea.',
       confirm: 'Tumia URL hizi',
       reject: {
         duplicate: 'Imerudiwa',

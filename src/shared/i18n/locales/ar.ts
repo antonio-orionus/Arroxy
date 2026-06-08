@@ -129,8 +129,8 @@ const ar = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'جاهزة',
       ignoredCount: 'متجاهلة',
-      emptyPreview: 'الصق رابطين على الأقل لمعاينة الدفعة.',
-      needsTwo: 'أضف رابطين مدعومين على الأقل للمتابعة.',
+      emptyPreview: 'الصق رابطًا واحدًا أو أكثر لمعاينة الدفعة.',
+      needsAtLeastOne: 'أضف رابطًا مدعومًا واحدًا على الأقل للمتابعة.',
       confirm: 'استخدم هذه الروابط',
       reject: {
         duplicate: 'مكرر',

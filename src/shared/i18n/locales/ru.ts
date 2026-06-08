@@ -129,8 +129,8 @@ const ru = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'Готово',
       ignoredCount: 'Пропущено',
-      emptyPreview: 'Вставьте хотя бы два URL, чтобы просмотреть пакет.',
-      needsTwo: 'Добавьте хотя бы два поддерживаемых URL, чтобы продолжить.',
+      emptyPreview: 'Вставьте один или несколько URL, чтобы просмотреть пакет.',
+      needsAtLeastOne: 'Добавьте хотя бы один поддерживаемый URL, чтобы продолжить.',
       confirm: 'Использовать эти URL',
       reject: {
         duplicate: 'Дубликат',

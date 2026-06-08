@@ -129,8 +129,8 @@ const hi = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'तैयार',
       ignoredCount: 'नज़रअंदाज़',
-      emptyPreview: 'बैच देखने के लिए कम से कम दो URLs पेस्ट करें।',
-      needsTwo: 'जारी रखने के लिए कम से कम दो समर्थित URLs जोड़ें।',
+      emptyPreview: 'बैच देखने के लिए एक या अधिक URLs पेस्ट करें।',
+      needsAtLeastOne: 'जारी रखने के लिए कम से कम एक समर्थित URL जोड़ें।',
       confirm: 'ये URLs इस्तेमाल करें',
       reject: {
         duplicate: 'डुप्लिकेट',

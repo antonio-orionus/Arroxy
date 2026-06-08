@@ -129,8 +129,8 @@ const ps = {
       textareaPlaceholder: 'https://video.example/one\nhttps://video.example/two\nhttps://video.example/three',
       acceptedCount: 'چمتو',
       ignoredCount: 'له پامه غورځول شوي',
-      emptyPreview: 'د ډلې د کتلو لپاره لږ تر لږه دوه URLونه ونښلوئ.',
-      needsTwo: 'د دوام لپاره لږ تر لږه دوه ملاتړ شوي URLونه زیات کړئ.',
+      emptyPreview: 'د ډلې د کتلو لپاره یو یا زیات URLونه ونښلوئ.',
+      needsAtLeastOne: 'د دوام لپاره لږ تر لږه یو ملاتړ شوی URL زیات کړئ.',
       confirm: 'دا URLونه وکاروئ',
       reject: {
         duplicate: 'تکراري',

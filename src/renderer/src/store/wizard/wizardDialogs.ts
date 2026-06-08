@@ -4,6 +4,7 @@
 // the wizard reset fires.
 
 import type { GetState, SetState, WizardDialogsSlice } from '../types.js';
+import { replaceHash } from '@renderer/lib/navigation.js';
 
 export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardDialogsSlice {
   return {
@@ -21,10 +22,7 @@ export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardD
     },
 
     openAdvancedSettings: (target) => {
-      if (typeof window !== 'undefined') {
-        window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#settings`);
-        window.dispatchEvent(new Event('hashchange'));
-      }
+      replaceHash('settings');
       set({
         wizardStep: 'url',
         wizardError: null,

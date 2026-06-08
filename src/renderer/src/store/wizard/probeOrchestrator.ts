@@ -16,6 +16,7 @@ import { cleanUrl } from '@shared/cleanUrl.js';
 import { deriveBulkUrlLabel, extractYouTubeVideoId, isClearlyIndividualYouTubeUrl } from '@shared/bulkUrls.js';
 import { resolvePlaylistProbeLimit } from '@shared/networkPacing.js';
 import { bulkLogger } from '@renderer/lib/bulkLogger.js';
+import { replaceHash } from '@renderer/lib/navigation.js';
 import { resolvePlaylistDir } from './playlistDir.js';
 import { isYouTubeExtractor } from '@shared/ytdlp/extractorPredicates.js';
 import { applyPreset, restoreFormatSelection, restoreSubtitleSelection } from './formatPicker.js';
@@ -787,10 +788,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
       // and a stalled YouTube fallback chain can otherwise keep the spinner
       // bound and emit results into a step the user already left.
       void window.appApi.downloads.probeCancel();
-      if (typeof window !== 'undefined') {
-        window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#settings`);
-        window.dispatchEvent(new Event('hashchange'));
-      }
+      replaceHash('settings');
       set({ wizardStep: 'url', wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, advancedAutoTarget: 'cookies', cookiesConfigDialogIssue: null });
     }
   };
