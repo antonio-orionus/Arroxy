@@ -1,3 +1,3 @@
 export function nowIso(): string {
-  return new Date().toISOString();
+	return new Date().toISOString()
 }

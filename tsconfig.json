@@ -1,28 +1,23 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "useDefineForClassFields": true,
-    "lib": ["ES2024", "ESNext.Disposable", "DOM", "DOM.Iterable"],
-    "module": "NodeNext",
-    "skipLibCheck": true,
-    "moduleResolution": "NodeNext",
-    "allowImportingTsExtensions": false,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "types": ["node", "vite/client", "electron"],
-    "paths": {
-      "@main/*": ["./src/main/*"],
-      "@preload/*": ["./src/preload/*"],
-      "@renderer/*": ["./src/renderer/src/*"],
-      "@shared/*": ["./src/shared/*"]
-    }
-  },
-  "include": ["src", "electron.vite.config.ts", "vitest.config.mts", "playwright.config.ts", "playwright.browser.config.ts", "tests", "scripts"]
+	"compilerOptions": {
+		"target": "ES2022",
+		"useDefineForClassFields": true,
+		"lib": ["ES2024", "ESNext.Disposable", "DOM", "DOM.Iterable"],
+		"module": "NodeNext",
+		"skipLibCheck": true,
+		"moduleResolution": "NodeNext",
+		"allowImportingTsExtensions": false,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"noEmit": true,
+		"jsx": "react-jsx",
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"types": ["node", "vite/client", "electron"],
+		"paths": {"@main/*": ["./src/main/*"], "@preload/*": ["./src/preload/*"], "@renderer/*": ["./src/renderer/src/*"], "@shared/*": ["./src/shared/*"]}
+	},
+	"include": ["src", "electron.vite.config.ts", "vitest.config.mts", "playwright.config.ts", "playwright.browser.config.ts", "tests", "scripts"]
 }

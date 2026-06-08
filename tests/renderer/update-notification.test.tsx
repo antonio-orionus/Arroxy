@@ -1,338 +1,298 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { App } from '@renderer/App.js';
-import { useAppStore } from '@renderer/store/useAppStore.js';
-import type { AppApi } from '@shared/api.js';
-import type { UpdateAvailablePayload } from '@shared/types.js';
-import { ok } from '../shared/fixtures.js';
+import {render, screen, fireEvent, act} from '@testing-library/react'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {App} from '@renderer/App.js'
+import {useAppStore} from '@renderer/store/useAppStore.js'
+import type {AppApi} from '@shared/api.js'
+import type {UpdateAvailablePayload} from '@shared/types.js'
+import {ok} from '../shared/fixtures.js'
 
-type UpdateListener = (info: UpdateAvailablePayload) => void;
+type UpdateListener = (info: UpdateAvailablePayload) => void
 
-function makeApi(overrides: { onUpdateAvailable?: (listener: UpdateListener) => () => void; install?: () => Promise<{ ok: true } | { ok: false; error: string }>; openExternal?: (url: string) => Promise<unknown> } = {}) {
-  return {
-    app: {
-      warmUp: vi.fn().mockResolvedValue(ok({ completed: true, dependencies: {}, blockingFailures: [] })),
-      setLanguage: vi.fn().mockResolvedValue(undefined)
-    },
-    window: {
-      minimize: vi.fn().mockResolvedValue(undefined),
-      maximize: vi.fn().mockResolvedValue(undefined),
-      close: vi.fn().mockResolvedValue(undefined),
-      isMaximized: vi.fn().mockResolvedValue(false),
-      onMaximizedChange: vi.fn().mockReturnValue(() => undefined)
-    },
-    downloads: {
-      probe: vi.fn().mockResolvedValue(ok({ kind: 'video' as const, extractor: 'youtube', extractorKey: 'Youtube', webpageUrl: '', formats: [], title: '', thumbnail: '', subtitles: {}, automaticCaptions: {}, isLive: false, hasDrm: false })),
-      start: vi.fn(),
-      cancel: vi.fn().mockResolvedValue(ok({ cancelled: true })),
-      pause: vi.fn().mockResolvedValue(ok({ paused: true }))
-    },
-    settings: {
-      get: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: true })),
-      update: vi.fn()
-    },
-    shell: {
-      openFolder: vi.fn().mockResolvedValue(ok({ opened: true })),
-      openExternal: overrides.openExternal ?? vi.fn().mockResolvedValue(ok({ opened: true }))
-    },
-    logs: { openDir: vi.fn().mockResolvedValue(ok({ opened: true })) },
-    dialog: { chooseFolder: vi.fn().mockResolvedValue(ok({ path: '/tmp' })) },
-    events: {
-      onStatus: vi.fn().mockReturnValue(() => undefined),
-      onProgress: vi.fn().mockReturnValue(() => undefined),
-      onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
-      onWarmupProgress: vi.fn().mockReturnValue(() => undefined)
-    },
-    queue: {
-      cmd: {
-        add: vi.fn().mockResolvedValue({ ok: true, data: { ids: [] } }),
-        getSnapshot: vi.fn().mockResolvedValue({ ok: true, data: [] }),
-        start: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        pause: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        resume: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        cancel: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        retry: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        clearCompleted: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        remove: vi.fn().mockResolvedValue({ ok: true, data: undefined })
-      },
-      events: {
-        onSnapshot: vi.fn().mockReturnValue(() => undefined),
-        onAdded: vi.fn().mockReturnValue(() => undefined),
-        onUpdated: vi.fn().mockReturnValue(() => undefined),
-        onRemoved: vi.fn().mockReturnValue(() => undefined)
-      }
-    },
-    updater: {
-      onUpdateAvailable: overrides.onUpdateAvailable ?? (() => () => undefined),
-      install: overrides.install ?? (vi.fn().mockResolvedValue({ ok: true }) as () => Promise<{ ok: true }>)
-    },
-    analytics: {
-      track: vi.fn()
-    }
-  } as unknown as AppApi;
+function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => () => void; install?: () => Promise<{ok: true} | {ok: false; error: string}>; openExternal?: (url: string) => Promise<unknown>} = {}) {
+	return {
+		app: {warmUp: vi.fn().mockResolvedValue(ok({completed: true, dependencies: {}, blockingFailures: []})), setLanguage: vi.fn().mockResolvedValue(undefined)},
+		window: {minimize: vi.fn().mockResolvedValue(undefined), maximize: vi.fn().mockResolvedValue(undefined), close: vi.fn().mockResolvedValue(undefined), isMaximized: vi.fn().mockResolvedValue(false), onMaximizedChange: vi.fn().mockReturnValue(() => undefined)},
+		downloads: {
+			probe: vi.fn().mockResolvedValue(ok({kind: 'video' as const, extractor: 'youtube', extractorKey: 'Youtube', webpageUrl: '', formats: [], title: '', thumbnail: '', subtitles: {}, automaticCaptions: {}, isLive: false, hasDrm: false})),
+			start: vi.fn(),
+			cancel: vi.fn().mockResolvedValue(ok({cancelled: true})),
+			pause: vi.fn().mockResolvedValue(ok({paused: true}))
+		},
+		settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: true})), update: vi.fn()},
+		shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: overrides.openExternal ?? vi.fn().mockResolvedValue(ok({opened: true}))},
+		logs: {openDir: vi.fn().mockResolvedValue(ok({opened: true}))},
+		dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'}))},
+		events: {onStatus: vi.fn().mockReturnValue(() => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined), onWarmupProgress: vi.fn().mockReturnValue(() => undefined)},
+		queue: {
+			cmd: {
+				add: vi.fn().mockResolvedValue({ok: true, data: {ids: []}}),
+				getSnapshot: vi.fn().mockResolvedValue({ok: true, data: []}),
+				start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				pause: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				resume: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				cancel: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				retry: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				clearCompleted: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				remove: vi.fn().mockResolvedValue({ok: true, data: undefined})
+			},
+			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined)}
+		},
+		updater: {onUpdateAvailable: overrides.onUpdateAvailable ?? (() => () => undefined), install: overrides.install ?? (vi.fn().mockResolvedValue({ok: true}) as () => Promise<{ok: true}>)},
+		analytics: {track: vi.fn()}
+	} as unknown as AppApi
 }
 
 function resetStore() {
-  useAppStore.setState({
-    initialized: false,
-    settings: null,
-    wizardStep: 'url',
-    formatsLoading: false,
-    wizardUrl: '',
-    wizardTitle: '',
-    wizardThumbnail: '',
-    wizardFormats: [],
-    selectedVideoFormatId: '',
-    audioSelection: { kind: 'none' },
-    activePreset: null,
-    wizardOutputDir: '',
-    wizardError: null,
-    wizardErrorOrigin: null,
-    queue: []
-  });
+	useAppStore.setState({
+		initialized: false,
+		settings: null,
+		wizardStep: 'url',
+		formatsLoading: false,
+		wizardUrl: '',
+		wizardTitle: '',
+		wizardThumbnail: '',
+		wizardFormats: [],
+		selectedVideoFormatId: '',
+		audioSelection: {kind: 'none'},
+		activePreset: null,
+		wizardOutputDir: '',
+		wizardError: null,
+		wizardErrorOrigin: null,
+		queue: []
+	})
 }
 
 describe('UpdateBanner integration in App', () => {
-  beforeEach(() => {
-    resetStore();
-    window.platform = 'linux';
-    Object.defineProperty(navigator, 'clipboard', {
-      writable: true,
-      configurable: true,
-      value: { writeText: vi.fn().mockResolvedValue(undefined) }
-    });
-  });
+	beforeEach(() => {
+		resetStore()
+		window.platform = 'linux'
+		Object.defineProperty(navigator, 'clipboard', {writable: true, configurable: true, value: {writeText: vi.fn().mockResolvedValue(undefined)}})
+	})
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
+	afterEach(() => {
+		vi.restoreAllMocks()
+	})
 
-  it('banner is not shown on initial render', async () => {
-    window.appApi = makeApi();
-    render(<App />);
-    await act(async () => {});
-    expect(screen.queryByTestId('update-banner')).not.toBeInTheDocument();
-  });
+	it('banner is not shown on initial render', async () => {
+		window.appApi = makeApi()
+		render(<App />)
+		await act(async () => {})
+		expect(screen.queryByTestId('update-banner')).not.toBeInTheDocument()
+	})
 
-  it('banner appears when onUpdateAvailable fires', async () => {
-    let capturedListener: UpdateListener | null = null;
-    const onUpdateAvailable = (listener: UpdateListener) => {
-      capturedListener = listener;
-      return () => undefined;
-    };
-    window.appApi = makeApi({ onUpdateAvailable });
+	it('banner appears when onUpdateAvailable fires', async () => {
+		let capturedListener: UpdateListener | null = null
+		const onUpdateAvailable = (listener: UpdateListener) => {
+			capturedListener = listener
+			return () => undefined
+		}
+		window.appApi = makeApi({onUpdateAvailable})
 
-    render(<App />);
-    await act(async () => {});
+		render(<App />)
+		await act(async () => {})
 
-    expect(screen.queryByTestId('update-banner')).not.toBeInTheDocument();
+		expect(screen.queryByTestId('update-banner')).not.toBeInTheDocument()
 
-    act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
-    });
+		act(() => {
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+		})
 
-    expect(screen.getByTestId('update-banner')).toBeInTheDocument();
-  });
+		expect(screen.getByTestId('update-banner')).toBeInTheDocument()
+	})
 
-  it('shows correct version numbers from the IPC payload', async () => {
-    let capturedListener: UpdateListener | null = null;
-    const onUpdateAvailable = (listener: UpdateListener) => {
-      capturedListener = listener;
-      return () => undefined;
-    };
-    window.appApi = makeApi({ onUpdateAvailable });
+	it('shows correct version numbers from the IPC payload', async () => {
+		let capturedListener: UpdateListener | null = null
+		const onUpdateAvailable = (listener: UpdateListener) => {
+			capturedListener = listener
+			return () => undefined
+		}
+		window.appApi = makeApi({onUpdateAvailable})
 
-    render(<App />);
-    await act(async () => {});
+		render(<App />)
+		await act(async () => {})
 
-    act(() => {
-      capturedListener!({ version: '3.1.0', currentVersion: '2.5.1', installChannel: 'direct' });
-    });
+		act(() => {
+			capturedListener!({version: '3.1.0', currentVersion: '2.5.1', installChannel: 'direct'})
+		})
 
-    expect(screen.getByText('Arroxy 3.1.0')).toBeInTheDocument();
-    expect(screen.getByText(/you have 2\.5\.1/)).toBeInTheDocument();
-  });
+		expect(screen.getByText('Arroxy 3.1.0')).toBeInTheDocument()
+		expect(screen.getByText(/you have 2\.5\.1/)).toBeInTheDocument()
+	})
 
-  it('dismiss button hides the banner', async () => {
-    let capturedListener: UpdateListener | null = null;
-    const onUpdateAvailable = (listener: UpdateListener) => {
-      capturedListener = listener;
-      return () => undefined;
-    };
-    window.appApi = makeApi({ onUpdateAvailable });
+	it('dismiss button hides the banner', async () => {
+		let capturedListener: UpdateListener | null = null
+		const onUpdateAvailable = (listener: UpdateListener) => {
+			capturedListener = listener
+			return () => undefined
+		}
+		window.appApi = makeApi({onUpdateAvailable})
 
-    render(<App />);
-    await act(async () => {});
+		render(<App />)
+		await act(async () => {})
 
-    act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
-    });
-    expect(screen.getByTestId('update-banner')).toBeInTheDocument();
+		act(() => {
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+		})
+		expect(screen.getByTestId('update-banner')).toBeInTheDocument()
 
-    await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Dismiss update banner' }));
-    });
-    expect(screen.queryByTestId('update-banner')).not.toBeInTheDocument();
-  });
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', {name: 'Dismiss update banner'}))
+		})
+		expect(screen.queryByTestId('update-banner')).not.toBeInTheDocument()
+	})
 
-  it('Install & Restart calls updater.install()', async () => {
-    let capturedListener: UpdateListener | null = null;
-    const onUpdateAvailable = (listener: UpdateListener) => {
-      capturedListener = listener;
-      return () => undefined;
-    };
-    const installMock = vi.fn().mockResolvedValue({ ok: true }) as () => Promise<{ ok: true }>;
-    window.appApi = makeApi({ onUpdateAvailable, install: installMock });
+	it('Install & Restart calls updater.install()', async () => {
+		let capturedListener: UpdateListener | null = null
+		const onUpdateAvailable = (listener: UpdateListener) => {
+			capturedListener = listener
+			return () => undefined
+		}
+		const installMock = vi.fn().mockResolvedValue({ok: true}) as () => Promise<{ok: true}>
+		window.appApi = makeApi({onUpdateAvailable, install: installMock})
 
-    render(<App />);
-    await act(async () => {});
+		render(<App />)
+		await act(async () => {})
 
-    act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
-    });
+		act(() => {
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+		})
 
-    await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Install & Restart' }));
-    });
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', {name: 'Install & Restart'}))
+		})
 
-    expect(installMock).toHaveBeenCalledOnce();
-  });
+		expect(installMock).toHaveBeenCalledOnce()
+	})
 
-  it('Download ↗ calls shell.openExternal with GitHub releases URL', async () => {
-    let capturedListener: UpdateListener | null = null;
-    const onUpdateAvailable = (listener: UpdateListener) => {
-      capturedListener = listener;
-      return () => undefined;
-    };
-    const openExternal = vi.fn().mockResolvedValue(ok({ opened: true }));
-    window.appApi = makeApi({ onUpdateAvailable, openExternal });
-    window.platform = 'darwin';
+	it('Download ↗ calls shell.openExternal with GitHub releases URL', async () => {
+		let capturedListener: UpdateListener | null = null
+		const onUpdateAvailable = (listener: UpdateListener) => {
+			capturedListener = listener
+			return () => undefined
+		}
+		const openExternal = vi.fn().mockResolvedValue(ok({opened: true}))
+		window.appApi = makeApi({onUpdateAvailable, openExternal})
+		window.platform = 'darwin'
 
-    render(<App />);
-    await act(async () => {});
+		render(<App />)
+		await act(async () => {})
 
-    act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
-    });
+		act(() => {
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+		})
 
-    await act(async () => {
-      fireEvent.click(screen.getByText('Download ↗'));
-    });
+		await act(async () => {
+			fireEvent.click(screen.getByText('Download ↗'))
+		})
 
-    expect(openExternal).toHaveBeenCalledWith('https://arroxy.orionus.dev/');
-  });
+		expect(openExternal).toHaveBeenCalledWith('https://arroxy.orionus.dev/')
+	})
 
-  it('Download ↗ dismisses the banner after clicking', async () => {
-    let capturedListener: UpdateListener | null = null;
-    const onUpdateAvailable = (listener: UpdateListener) => {
-      capturedListener = listener;
-      return () => undefined;
-    };
-    window.appApi = makeApi({ onUpdateAvailable });
-    window.platform = 'darwin';
+	it('Download ↗ dismisses the banner after clicking', async () => {
+		let capturedListener: UpdateListener | null = null
+		const onUpdateAvailable = (listener: UpdateListener) => {
+			capturedListener = listener
+			return () => undefined
+		}
+		window.appApi = makeApi({onUpdateAvailable})
+		window.platform = 'darwin'
 
-    render(<App />);
-    await act(async () => {});
+		render(<App />)
+		await act(async () => {})
 
-    act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
-    });
-    expect(screen.getByTestId('update-banner')).toBeInTheDocument();
+		act(() => {
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+		})
+		expect(screen.getByTestId('update-banner')).toBeInTheDocument()
 
-    await act(async () => {
-      fireEvent.click(screen.getByText('Download ↗'));
-    });
-    expect(screen.queryByTestId('update-banner')).not.toBeInTheDocument();
-  });
+		await act(async () => {
+			fireEvent.click(screen.getByText('Download ↗'))
+		})
+		expect(screen.queryByTestId('update-banner')).not.toBeInTheDocument()
+	})
 
-  it('shows Download ↗ (not Install & Restart) on macOS', async () => {
-    let capturedListener: UpdateListener | null = null;
-    const onUpdateAvailable = (listener: UpdateListener) => {
-      capturedListener = listener;
-      return () => undefined;
-    };
-    window.appApi = makeApi({ onUpdateAvailable });
-    window.platform = 'darwin';
+	it('shows Download ↗ (not Install & Restart) on macOS', async () => {
+		let capturedListener: UpdateListener | null = null
+		const onUpdateAvailable = (listener: UpdateListener) => {
+			capturedListener = listener
+			return () => undefined
+		}
+		window.appApi = makeApi({onUpdateAvailable})
+		window.platform = 'darwin'
 
-    render(<App />);
-    await act(async () => {});
+		render(<App />)
+		await act(async () => {})
 
-    act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
-    });
+		act(() => {
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+		})
 
-    expect(screen.getByText('Download ↗')).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /Install/i })).not.toBeInTheDocument();
-  });
+		expect(screen.getByText('Download ↗')).toBeInTheDocument()
+		expect(screen.queryByRole('button', {name: /Install/i})).not.toBeInTheDocument()
+	})
 
-  it('shows the failure message and Retry button when install rejects', async () => {
-    let capturedListener: UpdateListener | null = null;
-    const onUpdateAvailable = (listener: UpdateListener) => {
-      capturedListener = listener;
-      return () => undefined;
-    };
-    const installMock = vi.fn().mockResolvedValue({ ok: false, error: 'no network' }) as () => Promise<{
-      ok: false;
-      error: string;
-    }>;
-    window.appApi = makeApi({ onUpdateAvailable, install: installMock });
+	it('shows the failure message and Retry button when install rejects', async () => {
+		let capturedListener: UpdateListener | null = null
+		const onUpdateAvailable = (listener: UpdateListener) => {
+			capturedListener = listener
+			return () => undefined
+		}
+		const installMock = vi.fn().mockResolvedValue({ok: false, error: 'no network'}) as () => Promise<{ok: false; error: string}>
+		window.appApi = makeApi({onUpdateAvailable, install: installMock})
 
-    render(<App />);
-    await act(async () => {});
+		render(<App />)
+		await act(async () => {})
 
-    act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
-    });
+		act(() => {
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+		})
 
-    await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Install & Restart' }));
-    });
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', {name: 'Install & Restart'}))
+		})
 
-    // Spinner clears, error surfaces, button switches to Retry.
-    expect(screen.getByTestId('update-banner-message')).toHaveTextContent(/Update failed.*no network/);
-    expect(screen.getByRole('button', { name: 'Retry' })).toBeInTheDocument();
-  });
+		// Spinner clears, error surfaces, button switches to Retry.
+		expect(screen.getByTestId('update-banner-message')).toHaveTextContent(/Update failed.*no network/)
+		expect(screen.getByRole('button', {name: 'Retry'})).toBeInTheDocument()
+	})
 
-  it('Retry after failure calls install() again', async () => {
-    let capturedListener: UpdateListener | null = null;
-    const onUpdateAvailable = (listener: UpdateListener) => {
-      capturedListener = listener;
-      return () => undefined;
-    };
-    const installMock = vi.fn().mockResolvedValue({ ok: false, error: 'transient' }) as () => Promise<{
-      ok: false;
-      error: string;
-    }>;
-    window.appApi = makeApi({ onUpdateAvailable, install: installMock });
+	it('Retry after failure calls install() again', async () => {
+		let capturedListener: UpdateListener | null = null
+		const onUpdateAvailable = (listener: UpdateListener) => {
+			capturedListener = listener
+			return () => undefined
+		}
+		const installMock = vi.fn().mockResolvedValue({ok: false, error: 'transient'}) as () => Promise<{ok: false; error: string}>
+		window.appApi = makeApi({onUpdateAvailable, install: installMock})
 
-    render(<App />);
-    await act(async () => {});
+		render(<App />)
+		await act(async () => {})
 
-    act(() => {
-      capturedListener!({ version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct' });
-    });
+		act(() => {
+			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
+		})
 
-    await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Install & Restart' }));
-    });
-    await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
-    });
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', {name: 'Install & Restart'}))
+		})
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', {name: 'Retry'}))
+		})
 
-    expect(installMock).toHaveBeenCalledTimes(2);
-  });
+		expect(installMock).toHaveBeenCalledTimes(2)
+	})
 
-  it('registers and unregisters the listener on mount/unmount', async () => {
-    const unsubscribe = vi.fn();
-    const onUpdateAvailable = vi.fn().mockReturnValue(unsubscribe);
-    window.appApi = makeApi({ onUpdateAvailable });
+	it('registers and unregisters the listener on mount/unmount', async () => {
+		const unsubscribe = vi.fn()
+		const onUpdateAvailable = vi.fn().mockReturnValue(unsubscribe)
+		window.appApi = makeApi({onUpdateAvailable})
 
-    const { unmount } = render(<App />);
-    await act(async () => {});
+		const {unmount} = render(<App />)
+		await act(async () => {})
 
-    expect(onUpdateAvailable).toHaveBeenCalledOnce();
+		expect(onUpdateAvailable).toHaveBeenCalledOnce()
 
-    unmount();
-    expect(unsubscribe).toHaveBeenCalledOnce();
-  });
-});
+		unmount()
+		expect(unsubscribe).toHaveBeenCalledOnce()
+	})
+})

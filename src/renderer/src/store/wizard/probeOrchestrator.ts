@@ -8,788 +8,681 @@
 // updates format pools, subtitle pools, output prefs, and dialog flags in
 // one transition so the UI never sees a half-updated wizard.
 
-import { DEFAULTS } from '@shared/constants.js';
-import type { AppSettings, PlaylistScope, PlaylistSelection, ProbePlaylistMode, ProbeResult, WizardTransition } from '@shared/types.js';
-import { DEFAULT_PLAYLIST_SELECTION } from '@shared/schemas.js';
-import { getIncompleteCookiesConfigIssue } from '@shared/cookiesConfig.js';
-import { cleanUrl } from '@shared/cleanUrl.js';
-import { deriveBulkUrlLabel, extractYouTubeVideoId, isClearlyIndividualYouTubeUrl } from '@shared/bulkUrls.js';
-import { resolvePlaylistProbeLimit } from '@shared/networkPacing.js';
-import { bulkLogger } from '@renderer/lib/bulkLogger.js';
-import { replaceHash } from '@renderer/lib/navigation.js';
-import { resolvePlaylistDir } from './playlistDir.js';
-import { isYouTubeExtractor } from '@shared/ytdlp/extractorPredicates.js';
-import { applyPreset, restoreFormatSelection, restoreSubtitleSelection } from './formatPicker.js';
-import { WizardCommands, RESET_WIZARD_STATE } from './commands.js';
-import { buildActiveProfileQueueItemsFromProbe, maybeShowQueueTip } from '../queueSlice.js';
-import { formatProbeError } from '../helpers.js';
-import type { AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep } from '../types.js';
-import { type VisibleStep } from '../../components/wizard/stepNavigation.js';
-import { nextStep, type NavContext } from '../../components/wizard/nextStep.js';
-import { BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, hydrateBulkMetadata, nextBulkMetadataRunId } from './bulkMetadataHydration.js';
-import { playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage } from './playlistScopeReload.js';
-import { playlistTitleFallback } from './playlistTitle.js';
-import { isMixedYouTubeUrl, rewriteYouTubeChannelRoot } from './urlIntake.js';
+import {DEFAULTS} from '@shared/constants.js'
+import type {AppSettings, PlaylistScope, PlaylistSelection, ProbePlaylistMode, ProbeResult, WizardTransition} from '@shared/types.js'
+import {DEFAULT_PLAYLIST_SELECTION} from '@shared/schemas.js'
+import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
+import {cleanUrl} from '@shared/cleanUrl.js'
+import {deriveBulkUrlLabel, extractYouTubeVideoId, isClearlyIndividualYouTubeUrl} from '@shared/bulkUrls.js'
+import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
+import {bulkLogger} from '@renderer/lib/bulkLogger.js'
+import {replaceHash} from '@renderer/lib/navigation.js'
+import {resolvePlaylistDir} from './playlistDir.js'
+import {isYouTubeExtractor} from '@shared/ytdlp/extractorPredicates.js'
+import {applyPreset, restoreFormatSelection, restoreSubtitleSelection} from './formatPicker.js'
+import {WizardCommands, RESET_WIZARD_STATE} from './commands.js'
+import {buildActiveProfileQueueItemsFromProbe, maybeShowQueueTip} from '../queueSlice.js'
+import {formatProbeError} from '../helpers.js'
+import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep} from '../types.js'
+import {type VisibleStep} from '../../components/wizard/stepNavigation.js'
+import {nextStep, type NavContext} from '../../components/wizard/nextStep.js'
+import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, hydrateBulkMetadata, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
+import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
+import {playlistTitleFallback} from './playlistTitle.js'
+import {isMixedYouTubeUrl, rewriteYouTubeChannelRoot} from './urlIntake.js'
 
 function navCtx(state: AppState): NavContext {
-  const hasSubtitles = Object.keys(state.wizardSubtitles).length > 0 || Object.keys(state.wizardAutomaticCaptions).length > 0;
-  return {
-    activePreset: state.activePreset,
-    wizardMode: state.wizardMode,
-    playlistSelection: state.playlistSelection,
-    wizardExtractor: state.wizardExtractor,
-    hasSubtitles,
-    wizardSubtitleSkipped: state.wizardSubtitleSkipped
-  };
+	const hasSubtitles = Object.keys(state.wizardSubtitles).length > 0 || Object.keys(state.wizardAutomaticCaptions).length > 0
+	return {activePreset: state.activePreset, wizardMode: state.wizardMode, playlistSelection: state.playlistSelection, wizardExtractor: state.wizardExtractor, hasSubtitles, wizardSubtitleSkipped: state.wizardSubtitleSkipped}
 }
 
 function pickWizardSnapshot(state: AppState): Record<string, unknown> {
-  return {
-    url: state.wizardUrl,
-    extractor: state.wizardExtractor,
-    title: state.wizardTitle,
-    duration: state.wizardDuration,
-    formatsCount: state.wizardFormats.length,
-    selectedVideoFormatId: state.selectedVideoFormatId,
-    audioSelection: state.audioSelection,
-    activePreset: state.activePreset,
-    subtitleLanguages: state.wizardSubtitleLanguages,
-    subtitleMode: state.wizardSubtitleMode,
-    subtitleFormat: state.wizardSubtitleFormat,
-    subtitleSkipped: state.wizardSubtitleSkipped,
-    sponsorBlockMode: state.wizardSponsorBlockMode,
-    sponsorBlockCategories: state.wizardSponsorBlockCategories,
-    embedChapters: state.wizardEmbedChapters,
-    embedMetadata: state.wizardEmbedMetadata,
-    embedThumbnail: state.wizardEmbedThumbnail,
-    writeDescription: state.wizardWriteDescription,
-    writeThumbnail: state.wizardWriteThumbnail,
-    writeM3u: state.wizardWriteM3u,
-    outputDir: state.wizardOutputDir,
-    subfolderEnabled: state.wizardSubfolderEnabled,
-    subfolderName: state.wizardSubfolderName,
-    playlistScope: state.playlistScope,
-    playlistItemsCount: state.playlistItems.length,
-    selectedPlaylistItemsCount: state.selectedPlaylistItemIds.length,
-    playlistLikelyCapped: state.playlistLikelyCapped,
-    playlistScopeReloading: state.playlistScopeReloading,
-    playlistScopeError: state.playlistScopeError
-  };
+	return {
+		url: state.wizardUrl,
+		extractor: state.wizardExtractor,
+		title: state.wizardTitle,
+		duration: state.wizardDuration,
+		formatsCount: state.wizardFormats.length,
+		selectedVideoFormatId: state.selectedVideoFormatId,
+		audioSelection: state.audioSelection,
+		activePreset: state.activePreset,
+		subtitleLanguages: state.wizardSubtitleLanguages,
+		subtitleMode: state.wizardSubtitleMode,
+		subtitleFormat: state.wizardSubtitleFormat,
+		subtitleSkipped: state.wizardSubtitleSkipped,
+		sponsorBlockMode: state.wizardSponsorBlockMode,
+		sponsorBlockCategories: state.wizardSponsorBlockCategories,
+		embedChapters: state.wizardEmbedChapters,
+		embedMetadata: state.wizardEmbedMetadata,
+		embedThumbnail: state.wizardEmbedThumbnail,
+		writeDescription: state.wizardWriteDescription,
+		writeThumbnail: state.wizardWriteThumbnail,
+		writeM3u: state.wizardWriteM3u,
+		outputDir: state.wizardOutputDir,
+		subfolderEnabled: state.wizardSubfolderEnabled,
+		subfolderName: state.wizardSubfolderName,
+		playlistScope: state.playlistScope,
+		playlistItemsCount: state.playlistItems.length,
+		selectedPlaylistItemsCount: state.selectedPlaylistItemIds.length,
+		playlistLikelyCapped: state.playlistLikelyCapped,
+		playlistScopeReloading: state.playlistScopeReloading,
+		playlistScopeError: state.playlistScopeError
+	}
 }
 
 function logStep(transition: WizardTransition, fromStep: WizardStep, toStep: WizardStep, snapshot: Record<string, unknown>): void {
-  window.appApi.diagnostics.logWizardStep({ transition, fromStep, toStep, snapshot });
+	window.appApi.diagnostics.logWizardStep({transition, fromStep, toStep, snapshot})
 }
 
 function restoreCommonWizardPrefs(settings: AppSettings | null): Pick<AppState, 'wizardSponsorBlockMode' | 'wizardSponsorBlockCategories' | 'wizardEmbedChapters' | 'wizardEmbedMetadata' | 'wizardEmbedThumbnail' | 'wizardWriteDescription' | 'wizardWriteThumbnail' | 'wizardWriteM3u'> {
-  return {
-    wizardSponsorBlockMode: settings?.common?.lastSponsorBlockMode ?? DEFAULTS.sponsorBlockMode,
-    wizardSponsorBlockCategories: settings?.common?.lastSponsorBlockCategories ?? [...DEFAULTS.sponsorBlockCategories],
-    wizardEmbedChapters: settings?.common?.embedChapters ?? DEFAULTS.embedChapters,
-    wizardEmbedMetadata: settings?.common?.embedMetadata ?? DEFAULTS.embedMetadata,
-    wizardEmbedThumbnail: settings?.common?.embedThumbnail ?? DEFAULTS.embedThumbnail,
-    wizardWriteDescription: settings?.common?.writeDescription ?? DEFAULTS.writeDescription,
-    wizardWriteThumbnail: settings?.common?.writeThumbnail ?? DEFAULTS.writeThumbnail,
-    wizardWriteM3u: settings?.common?.writeM3u ?? DEFAULTS.writeM3u
-  };
+	return {
+		wizardSponsorBlockMode: settings?.common?.lastSponsorBlockMode ?? DEFAULTS.sponsorBlockMode,
+		wizardSponsorBlockCategories: settings?.common?.lastSponsorBlockCategories ?? [...DEFAULTS.sponsorBlockCategories],
+		wizardEmbedChapters: settings?.common?.embedChapters ?? DEFAULTS.embedChapters,
+		wizardEmbedMetadata: settings?.common?.embedMetadata ?? DEFAULTS.embedMetadata,
+		wizardEmbedThumbnail: settings?.common?.embedThumbnail ?? DEFAULTS.embedThumbnail,
+		wizardWriteDescription: settings?.common?.writeDescription ?? DEFAULTS.writeDescription,
+		wizardWriteThumbnail: settings?.common?.writeThumbnail ?? DEFAULTS.writeThumbnail,
+		wizardWriteM3u: settings?.common?.writeM3u ?? DEFAULTS.writeM3u
+	}
 }
 
 function maybeBlockIncompleteCookiesConfig(url: string, set: SetState, get: GetState): boolean {
-  const issue = getIncompleteCookiesConfigIssue(get().settings?.common);
-  if (!issue) return false;
-  set({
-    wizardUrl: url,
-    wizardStep: 'url',
-    formatsLoading: false,
-    playlistProbeLoading: false,
-    wizardError: null,
-    wizardErrorOrigin: null,
-    cookiesConfigDialogIssue: issue
-  });
-  return true;
+	const issue = getIncompleteCookiesConfigIssue(get().settings?.common)
+	if (!issue) return false
+	set({wizardUrl: url, wizardStep: 'url', formatsLoading: false, playlistProbeLoading: false, wizardError: null, wizardErrorOrigin: null, cookiesConfigDialogIssue: issue})
+	return true
 }
 
-function videoProbeState(probe: Extract<ProbeResult, { kind: 'video' }>, state: AppState, firstProbe: boolean): Partial<AppState> {
-  const settings = state.settings;
-  const { formats, title, thumbnail, duration, subtitles, automaticCaptions, degraded } = probe;
-  // Format/audio/subtitle/preset prefs are scoped to YouTube. Non-YT extractors
-  // get fresh defaults so a YT formatId / 1080p resolution doesn't leak into a
-  // Vimeo/PornHub/etc. probe. Subfolder + common prefs (embed flags, sponsorblock
-  // mode, output dir) are global intent and apply to all extractors.
-  const persistApplies = isYouTubeExtractor(probe.extractor);
-  const scopedSettings = persistApplies ? settings : null;
-  let { videoFormatId, audioSelection, preset } = restoreFormatSelection(formats, scopedSettings);
-  const { languages: subtitleLanguages } = restoreSubtitleSelection(subtitles, automaticCaptions, scopedSettings);
-  // Audio-only sources (Bandcamp, SoundCloud, QQMusic, etc.) — force the
-  // audio-only preset on first paint so the wizard doesn't mislead users
-  // with a video column for content that has no video. Non-music sources
-  // unaffected; YT's persisted preset still wins for YT.
-  if (probe.isAudioOnlySource) {
-    const audioOnlyPick = applyPreset('audio-only', formats);
-    videoFormatId = audioOnlyPick.videoFormatId;
-    audioSelection = audioOnlyPick.audioSelection;
-    preset = 'audio-only';
-  }
-  return {
-    wizardMode: 'single',
-    wizardFormats: formats,
-    wizardFormatsDegraded: degraded ?? null,
-    wizardExtractor: probe.extractor,
-    wizardExtractorKey: probe.extractorKey,
-    wizardWebpageUrl: probe.webpageUrl,
-    wizardTitle: title,
-    wizardThumbnail: thumbnail,
-    wizardDuration: duration,
-    selectedVideoFormatId: videoFormatId,
-    audioSelection,
-    activePreset: preset,
-    wizardSubtitles: subtitles,
-    wizardAutomaticCaptions: automaticCaptions,
-    wizardSubtitleLanguages: subtitleLanguages,
-    wizardSubtitleSkipped: false,
-    ...(firstProbe
-      ? {
-          wizardSubtitleMode: scopedSettings?.single?.lastSubtitleMode ?? DEFAULTS.subtitleMode,
-          wizardSubtitleFormat: scopedSettings?.single?.lastSubtitleFormat ?? DEFAULTS.subtitleFormat,
-          ...restoreCommonWizardPrefs(settings),
-          wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
-          wizardSubfolderName: settings?.common?.lastSubfolder ?? ''
-        }
-      : {}),
-    formatsLoading: false,
-    playlistProbeLoading: false,
-    playlistItems: [],
-    selectedPlaylistItemIds: [],
-    playlistTitle: '',
-    playlistId: '',
-    playlistIsMultiVideo: false
-  };
+function videoProbeState(probe: Extract<ProbeResult, {kind: 'video'}>, state: AppState, firstProbe: boolean): Partial<AppState> {
+	const settings = state.settings
+	const {formats, title, thumbnail, duration, subtitles, automaticCaptions, degraded} = probe
+	// Format/audio/subtitle/preset prefs are scoped to YouTube. Non-YT extractors
+	// get fresh defaults so a YT formatId / 1080p resolution doesn't leak into a
+	// Vimeo/PornHub/etc. probe. Subfolder + common prefs (embed flags, sponsorblock
+	// mode, output dir) are global intent and apply to all extractors.
+	const persistApplies = isYouTubeExtractor(probe.extractor)
+	const scopedSettings = persistApplies ? settings : null
+	let {videoFormatId, audioSelection, preset} = restoreFormatSelection(formats, scopedSettings)
+	const {languages: subtitleLanguages} = restoreSubtitleSelection(subtitles, automaticCaptions, scopedSettings)
+	// Audio-only sources (Bandcamp, SoundCloud, QQMusic, etc.) — force the
+	// audio-only preset on first paint so the wizard doesn't mislead users
+	// with a video column for content that has no video. Non-music sources
+	// unaffected; YT's persisted preset still wins for YT.
+	if (probe.isAudioOnlySource) {
+		const audioOnlyPick = applyPreset('audio-only', formats)
+		videoFormatId = audioOnlyPick.videoFormatId
+		audioSelection = audioOnlyPick.audioSelection
+		preset = 'audio-only'
+	}
+	return {
+		wizardMode: 'single',
+		wizardFormats: formats,
+		wizardFormatsDegraded: degraded ?? null,
+		wizardExtractor: probe.extractor,
+		wizardExtractorKey: probe.extractorKey,
+		wizardWebpageUrl: probe.webpageUrl,
+		wizardTitle: title,
+		wizardThumbnail: thumbnail,
+		wizardDuration: duration,
+		selectedVideoFormatId: videoFormatId,
+		audioSelection,
+		activePreset: preset,
+		wizardSubtitles: subtitles,
+		wizardAutomaticCaptions: automaticCaptions,
+		wizardSubtitleLanguages: subtitleLanguages,
+		wizardSubtitleSkipped: false,
+		...(firstProbe
+			? {
+					wizardSubtitleMode: scopedSettings?.single?.lastSubtitleMode ?? DEFAULTS.subtitleMode,
+					wizardSubtitleFormat: scopedSettings?.single?.lastSubtitleFormat ?? DEFAULTS.subtitleFormat,
+					...restoreCommonWizardPrefs(settings),
+					wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
+					wizardSubfolderName: settings?.common?.lastSubfolder ?? ''
+				}
+			: {}),
+		formatsLoading: false,
+		playlistProbeLoading: false,
+		playlistItems: [],
+		selectedPlaylistItemIds: [],
+		playlistTitle: '',
+		playlistId: '',
+		playlistIsMultiVideo: false
+	}
 }
 
-function applyVideoProbeResult(probe: Extract<ProbeResult, { kind: 'video' }>, set: SetState, get: GetState, firstProbe: boolean): void {
-  set({
-    wizardStep: 'formats',
-    ...videoProbeState(probe, get(), firstProbe)
-  });
+function applyVideoProbeResult(probe: Extract<ProbeResult, {kind: 'video'}>, set: SetState, get: GetState, firstProbe: boolean): void {
+	set({wizardStep: 'formats', ...videoProbeState(probe, get(), firstProbe)})
 }
 
 function playlistVisibleLimit(state: AppState): number {
-  const scope = state.playlistScope;
-  if (scope.items.kind === 'first') return scope.items.count;
-  if (scope.items.kind === 'range') return scope.items.to - scope.items.from + 1;
-  return resolvePlaylistProbeLimit(state.settings?.common);
+	const scope = state.playlistScope
+	if (scope.items.kind === 'first') return scope.items.count
+	if (scope.items.kind === 'range') return scope.items.to - scope.items.from + 1
+	return resolvePlaylistProbeLimit(state.settings?.common)
 }
 
-function applyPlaylistProbeResult(probe: Extract<ProbeResult, { kind: 'playlist' }>, set: SetState, get: GetState, firstProbe: boolean): void {
-  const state = get();
-  const settings = state.settings;
-  const playlistLimit = playlistVisibleLimit(state);
-  const hasSentinel = probe.entries.length > playlistLimit;
-  const playlistLikelyCapped = hasSentinel && state.playlistScope.items.kind === 'app-limit';
-  const playlistItems = hasSentinel ? probe.entries.slice(0, playlistLimit) : probe.entries;
-  // Audio-only sources skip the persisted video selection and default to
-  // audio-best — the user came to a music host, video presets would fail.
-  const persistedSelection: PlaylistSelection = settings?.playlist?.lastPlaylistSelection ?? DEFAULT_PLAYLIST_SELECTION;
-  const computedSelection: PlaylistSelection = probe.isAudioOnlySource ? { kind: 'audio', format: 'best' } : persistedSelection;
-  const playlistSelection = firstProbe ? computedSelection : (get().playlistSelection ?? computedSelection);
-  set({
-    wizardStep: 'playlistItems',
-    wizardMode: 'playlist',
-    wizardExtractor: probe.extractor,
-    wizardExtractorKey: probe.extractorKey,
-    wizardWebpageUrl: probe.webpageUrl,
-    playlistItems,
-    selectedPlaylistItemIds: playlistItems.map((e) => e.id),
-    playlistTitle: probe.playlistTitle,
-    playlistId: probe.playlistId,
-    playlistIsMultiVideo: probe.isMultiVideo,
-    playlistLikelyCapped,
-    playlistScopeError: null,
-    playlistProbeLoading: false,
-    formatsLoading: false,
-    wizardFormats: [],
-    wizardFormatsDegraded: null,
-    ...(firstProbe
-      ? {
-          ...restoreCommonWizardPrefs(settings),
-          wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
-          wizardSubfolderName: settings?.common?.lastSubfolder ?? ''
-        }
-      : {}),
-    playlistSelection
-  });
+function applyPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, set: SetState, get: GetState, firstProbe: boolean): void {
+	const state = get()
+	const settings = state.settings
+	const playlistLimit = playlistVisibleLimit(state)
+	const hasSentinel = probe.entries.length > playlistLimit
+	const playlistLikelyCapped = hasSentinel && state.playlistScope.items.kind === 'app-limit'
+	const playlistItems = hasSentinel ? probe.entries.slice(0, playlistLimit) : probe.entries
+	// Audio-only sources skip the persisted video selection and default to
+	// audio-best — the user came to a music host, video presets would fail.
+	const persistedSelection: PlaylistSelection = settings?.playlist?.lastPlaylistSelection ?? DEFAULT_PLAYLIST_SELECTION
+	const computedSelection: PlaylistSelection = probe.isAudioOnlySource ? {kind: 'audio', format: 'best'} : persistedSelection
+	const playlistSelection = firstProbe ? computedSelection : (get().playlistSelection ?? computedSelection)
+	set({
+		wizardStep: 'playlistItems',
+		wizardMode: 'playlist',
+		wizardExtractor: probe.extractor,
+		wizardExtractorKey: probe.extractorKey,
+		wizardWebpageUrl: probe.webpageUrl,
+		playlistItems,
+		selectedPlaylistItemIds: playlistItems.map(e => e.id),
+		playlistTitle: probe.playlistTitle,
+		playlistId: probe.playlistId,
+		playlistIsMultiVideo: probe.isMultiVideo,
+		playlistLikelyCapped,
+		playlistScopeError: null,
+		playlistProbeLoading: false,
+		formatsLoading: false,
+		wizardFormats: [],
+		wizardFormatsDegraded: null,
+		...(firstProbe ? {...restoreCommonWizardPrefs(settings), wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false, wizardSubfolderName: settings?.common?.lastSubfolder ?? ''} : {}),
+		playlistSelection
+	})
 }
 
 async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe = true): Promise<void> {
-  void window.appApi.downloads.probeCancel();
-  const fromStep = get().wizardStep;
-  const initialStep: WizardStep = playlistMode === 'playlist' ? 'playlistItems' : 'formats';
-  set({
-    wizardUrl: url,
-    wizardStep: initialStep,
-    wizardMode: playlistMode === 'playlist' ? 'playlist' : 'single',
-    formatsLoading: playlistMode !== 'playlist',
-    playlistProbeLoading: playlistMode !== 'video',
-    playlistScopeError: null,
-    wizardError: null,
-    cookiesConfigDialogIssue: null,
-    wizardFormats: [],
-    wizardFormatsDegraded: null,
-    // Clear subtitle pools so stale tracks from a previous probe don't keep
-    // the Subtitles step visible during the next probe's loading window. The
-    // step's gating predicate reads `wizardSubtitles` / `wizardAutomaticCaptions`
-    // — if they still reflect the prior video, the indicator misleadingly
-    // shows Subtitles before the new probe has decided.
-    wizardSubtitles: {},
-    wizardAutomaticCaptions: {},
-    wizardSubtitleLanguages: [],
-    playlistItems: [],
-    selectedPlaylistItemIds: [],
-    playlistTitle: '',
-    playlistId: '',
-    playlistIsMultiVideo: false,
-    playlistLikelyCapped: false,
-    playlistScopeReloading: false,
-    bulkMetadataStatus: 'idle',
-    bulkMetadataCompleted: 0,
-    bulkMetadataTotal: 0,
-    bulkMetadataById: {},
-    syncedDownloadedIds: [],
-    syncScanState: 'idle',
-    wizardExtractor: '',
-    wizardExtractorKey: '',
-    wizardWebpageUrl: ''
-  });
-  logStep('submitUrl', fromStep, initialStep, pickWizardSnapshot(get()));
+	void window.appApi.downloads.probeCancel()
+	const fromStep = get().wizardStep
+	const initialStep: WizardStep = playlistMode === 'playlist' ? 'playlistItems' : 'formats'
+	set({
+		wizardUrl: url,
+		wizardStep: initialStep,
+		wizardMode: playlistMode === 'playlist' ? 'playlist' : 'single',
+		formatsLoading: playlistMode !== 'playlist',
+		playlistProbeLoading: playlistMode !== 'video',
+		playlistScopeError: null,
+		wizardError: null,
+		cookiesConfigDialogIssue: null,
+		wizardFormats: [],
+		wizardFormatsDegraded: null,
+		// Clear subtitle pools so stale tracks from a previous probe don't keep
+		// the Subtitles step visible during the next probe's loading window. The
+		// step's gating predicate reads `wizardSubtitles` / `wizardAutomaticCaptions`
+		// — if they still reflect the prior video, the indicator misleadingly
+		// shows Subtitles before the new probe has decided.
+		wizardSubtitles: {},
+		wizardAutomaticCaptions: {},
+		wizardSubtitleLanguages: [],
+		playlistItems: [],
+		selectedPlaylistItemIds: [],
+		playlistTitle: '',
+		playlistId: '',
+		playlistIsMultiVideo: false,
+		playlistLikelyCapped: false,
+		playlistScopeReloading: false,
+		bulkMetadataStatus: 'idle',
+		bulkMetadataCompleted: 0,
+		bulkMetadataTotal: 0,
+		bulkMetadataById: {},
+		syncedDownloadedIds: [],
+		syncScanState: 'idle',
+		wizardExtractor: '',
+		wizardExtractorKey: '',
+		wizardWebpageUrl: ''
+	})
+	logStep('submitUrl', fromStep, initialStep, pickWizardSnapshot(get()))
 
-  const playlistScope = get().playlistScope;
-  const result = await window.appApi.downloads.probe({ url, playlistMode, ...(playlistMode === 'video' ? {} : { playlistScope }) });
-  if (!result.ok) {
-    set({
-      wizardStep: 'error',
-      formatsLoading: false,
-      playlistProbeLoading: false,
-      wizardError: result.error,
-      wizardErrorOrigin: 'formats',
-      wizardFormatsDegraded: null
-    });
-    return;
-  }
+	const playlistScope = get().playlistScope
+	const result = await window.appApi.downloads.probe({url, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope})})
+	if (!result.ok) {
+		set({wizardStep: 'error', formatsLoading: false, playlistProbeLoading: false, wizardError: result.error, wizardErrorOrigin: 'formats', wizardFormatsDegraded: null})
+		return
+	}
 
-  if (result.data.kind === 'playlist') {
-    applyPlaylistProbeResult(result.data, set, get, firstProbe);
-    // Background-scan the destination folder so the sync alert is ready by the
-    // time the user looks at the list — no manual "Sync with folder" click.
-    void get().scanDownloadedInFolder();
-  } else {
-    applyVideoProbeResult(result.data, set, get, firstProbe);
-  }
+	if (result.data.kind === 'playlist') {
+		applyPlaylistProbeResult(result.data, set, get, firstProbe)
+		// Background-scan the destination folder so the sync alert is ready by the
+		// time the user looks at the list — no manual "Sync with folder" click.
+		void get().scanDownloadedInFolder()
+	} else {
+		applyVideoProbeResult(result.data, set, get, firstProbe)
+	}
 }
 
 async function enqueueActiveProfileProbeResult(probe: ProbeResult, set: SetState, get: GetState): Promise<boolean> {
-  let probeForQueue = probe;
-  if (probe.kind === 'playlist') {
-    applyPlaylistProbeResult(probe, set, get, true);
-    if (get().playlistLikelyCapped) {
-      set({ quickDownloadStatus: 'idle', quickDownloadError: null, quickPlaylistCapDialogOpen: true });
-      return false;
-    }
-    if (get().playlistItems.length === 0) {
-      set({ quickDownloadStatus: 'error', quickDownloadError: 'wizard.url.quickPrepareFailed' });
-      return false;
-    }
-    probeForQueue = { ...probe, entries: get().playlistItems };
-  }
+	let probeForQueue = probe
+	if (probe.kind === 'playlist') {
+		applyPlaylistProbeResult(probe, set, get, true)
+		if (get().playlistLikelyCapped) {
+			set({quickDownloadStatus: 'idle', quickDownloadError: null, quickPlaylistCapDialogOpen: true})
+			return false
+		}
+		if (get().playlistItems.length === 0) {
+			set({quickDownloadStatus: 'error', quickDownloadError: 'wizard.url.quickPrepareFailed'})
+			return false
+		}
+		probeForQueue = {...probe, entries: get().playlistItems}
+	}
 
-  const prepared = buildActiveProfileQueueItemsFromProbe(probeForQueue, get, 'normal');
-  if (prepared.items.length === 0) {
-    set({ quickDownloadStatus: 'error', quickDownloadError: 'wizard.url.quickPrepareFailed' });
-    return false;
-  }
+	const prepared = buildActiveProfileQueueItemsFromProbe(probeForQueue, get, 'normal')
+	if (prepared.items.length === 0) {
+		set({quickDownloadStatus: 'error', quickDownloadError: 'wizard.url.quickPrepareFailed'})
+		return false
+	}
 
-  if (probeForQueue.kind === 'playlist' && prepared.playlistGroupId) {
-    try {
-      const manifestRes = await window.appApi.playlist.registerManifest({
-        playlistGroupId: prepared.playlistGroupId,
-        playlistTitle: playlistTitleFallback(prepared.playlistTitle, probeForQueue.playlistTitle),
-        outputDir: prepared.items[0]?.outputDir ?? get().wizardOutputDir,
-        items: probeForQueue.entries.map((e) => ({ videoId: e.videoId, title: e.title, duration: e.duration }))
-      });
-      if (!manifestRes.ok) console.warn('playlist manifest registration failed; M3U will be skipped', manifestRes.error);
-    } catch (err) {
-      console.warn('playlist manifest registration threw; M3U will be skipped', err);
-    }
-  }
+	if (probeForQueue.kind === 'playlist' && prepared.playlistGroupId) {
+		try {
+			const manifestRes = await window.appApi.playlist.registerManifest({
+				playlistGroupId: prepared.playlistGroupId,
+				playlistTitle: playlistTitleFallback(prepared.playlistTitle, probeForQueue.playlistTitle),
+				outputDir: prepared.items[0]?.outputDir ?? get().wizardOutputDir,
+				items: probeForQueue.entries.map(e => ({videoId: e.videoId, title: e.title, duration: e.duration}))
+			})
+			if (!manifestRes.ok) console.warn('playlist manifest registration failed; M3U will be skipped', manifestRes.error)
+		} catch (err) {
+			console.warn('playlist manifest registration threw; M3U will be skipped', err)
+		}
+	}
 
-  const addResult = await window.appApi.queue.cmd.add(prepared.items);
-  if (!addResult.ok) {
-    set({ quickDownloadStatus: 'error', quickDownloadError: addResult.error.message });
-    return false;
-  }
-  return true;
+	const addResult = await window.appApi.queue.cmd.add(prepared.items)
+	if (!addResult.ok) {
+		set({quickDownloadStatus: 'error', quickDownloadError: addResult.error.message})
+		return false
+	}
+	return true
 }
 
 async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get: GetState): Promise<void> {
-  const state = get();
-  const url = state.wizardUrl;
-  if (!url || state.playlistScopeReloading) {
-    logStep('playlistScopeReloadIgnored', state.wizardStep, state.wizardStep, {
-      ...pickWizardSnapshot(state),
-      requestedScope: scope,
-      reason: !url ? 'missing-url' : 'already-reloading'
-    });
-    return;
-  }
-  const previousScope = state.playlistScope;
-  const previousItemsCount = state.playlistItems.length;
+	const state = get()
+	const url = state.wizardUrl
+	if (!url || state.playlistScopeReloading) {
+		logStep('playlistScopeReloadIgnored', state.wizardStep, state.wizardStep, {...pickWizardSnapshot(state), requestedScope: scope, reason: !url ? 'missing-url' : 'already-reloading'})
+		return
+	}
+	const previousScope = state.playlistScope
+	const previousItemsCount = state.playlistItems.length
 
-  void window.appApi.downloads.probeCancel();
-  logStep('playlistScopeReloadStart', state.wizardStep, state.wizardStep, {
-    ...pickWizardSnapshot(state),
-    requestedScope: scope,
-    previousScope,
-    previousItemsCount
-  });
-  set({
-    playlistScope: scope,
-    playlistScopeReloading: true,
-    playlistScopeError: null,
-    playlistLikelyCapped: false
-  });
+	void window.appApi.downloads.probeCancel()
+	logStep('playlistScopeReloadStart', state.wizardStep, state.wizardStep, {...pickWizardSnapshot(state), requestedScope: scope, previousScope, previousItemsCount})
+	set({playlistScope: scope, playlistScopeReloading: true, playlistScopeError: null, playlistLikelyCapped: false})
 
-  let result: Awaited<ReturnType<typeof window.appApi.downloads.probe>>;
-  try {
-    result = await window.appApi.downloads.probe({ url, playlistMode: 'playlist', playlistScope: scope });
-  } catch (error) {
-    const message = `Could not reload that playlist scope: ${unknownPlaylistScopeReloadErrorMessage(error)}. Your previous list is still shown.`;
-    set({
-      playlistScope: previousScope,
-      playlistScopeReloading: false,
-      playlistScopeError: message
-    });
-    logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {
-      ...pickWizardSnapshot(get()),
-      requestedScope: scope,
-      restoredScope: previousScope,
-      previousItemsCount,
-      errorKind: 'exception',
-      message
-    });
-    return;
-  }
+	let result: Awaited<ReturnType<typeof window.appApi.downloads.probe>>
+	try {
+		result = await window.appApi.downloads.probe({url, playlistMode: 'playlist', playlistScope: scope})
+	} catch (error) {
+		const message = `Could not reload that playlist scope: ${unknownPlaylistScopeReloadErrorMessage(error)}. Your previous list is still shown.`
+		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message})
+		logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {...pickWizardSnapshot(get()), requestedScope: scope, restoredScope: previousScope, previousItemsCount, errorKind: 'exception', message})
+		return
+	}
 
-  if (!result.ok) {
-    const message = playlistScopeReloadErrorMessage(result.error);
-    set({
-      playlistScope: previousScope,
-      playlistScopeReloading: false,
-      playlistScopeError: message
-    });
-    logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {
-      ...pickWizardSnapshot(get()),
-      requestedScope: scope,
-      restoredScope: previousScope,
-      previousItemsCount,
-      errorKind: result.error.kind,
-      message
-    });
-    return;
-  }
+	if (!result.ok) {
+		const message = playlistScopeReloadErrorMessage(result.error)
+		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message})
+		logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {...pickWizardSnapshot(get()), requestedScope: scope, restoredScope: previousScope, previousItemsCount, errorKind: result.error.kind, message})
+		return
+	}
 
-  if (result.data.kind !== 'playlist') {
-    const message = 'No videos matched that playlist scope. Your previous list is still shown.';
-    set({
-      playlistScope: previousScope,
-      playlistScopeReloading: false,
-      playlistScopeError: message
-    });
-    logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {
-      ...pickWizardSnapshot(get()),
-      requestedScope: scope,
-      restoredScope: previousScope,
-      previousItemsCount,
-      resultKind: result.data.kind,
-      message
-    });
-    return;
-  }
+	if (result.data.kind !== 'playlist') {
+		const message = 'No videos matched that playlist scope. Your previous list is still shown.'
+		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message})
+		logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {...pickWizardSnapshot(get()), requestedScope: scope, restoredScope: previousScope, previousItemsCount, resultKind: result.data.kind, message})
+		return
+	}
 
-  const returnedEntryCount = result.data.entries.length;
-  applyPlaylistProbeResult(result.data, set, get, false);
-  set({ playlistScopeReloading: false, playlistScopeError: null });
-  logStep('playlistScopeReloadSuccess', get().wizardStep, get().wizardStep, {
-    ...pickWizardSnapshot(get()),
-    requestedScope: scope,
-    previousScope,
-    previousItemsCount,
-    returnedEntryCount,
-    visibleItemsCount: get().playlistItems.length
-  });
-  void get().scanDownloadedInFolder();
+	const returnedEntryCount = result.data.entries.length
+	applyPlaylistProbeResult(result.data, set, get, false)
+	set({playlistScopeReloading: false, playlistScopeError: null})
+	logStep('playlistScopeReloadSuccess', get().wizardStep, get().wizardStep, {...pickWizardSnapshot(get()), requestedScope: scope, previousScope, previousItemsCount, returnedEntryCount, visibleItemsCount: get().playlistItems.length})
+	void get().scanDownloadedInFolder()
 }
 
 export function createProbeOrchestratorSlice(set: SetState, get: GetState): ProbeOrchestratorSlice {
-  return {
-    wizardStep: RESET_WIZARD_STATE.wizardStep,
-    wizardMode: RESET_WIZARD_STATE.wizardMode,
-    wizardUrl: RESET_WIZARD_STATE.wizardUrl,
-    wizardTitle: RESET_WIZARD_STATE.wizardTitle,
-    wizardThumbnail: RESET_WIZARD_STATE.wizardThumbnail,
-    wizardDuration: RESET_WIZARD_STATE.wizardDuration,
-    wizardFormatsDegraded: RESET_WIZARD_STATE.wizardFormatsDegraded,
-    wizardExtractor: RESET_WIZARD_STATE.wizardExtractor,
-    wizardExtractorKey: RESET_WIZARD_STATE.wizardExtractorKey,
-    wizardWebpageUrl: RESET_WIZARD_STATE.wizardWebpageUrl,
-    formatsLoading: RESET_WIZARD_STATE.formatsLoading,
-    wizardError: RESET_WIZARD_STATE.wizardError,
-    wizardErrorOrigin: RESET_WIZARD_STATE.wizardErrorOrigin,
-    playlistItems: RESET_WIZARD_STATE.playlistItems,
-    selectedPlaylistItemIds: RESET_WIZARD_STATE.selectedPlaylistItemIds,
-    playlistTitle: RESET_WIZARD_STATE.playlistTitle,
-    playlistId: RESET_WIZARD_STATE.playlistId,
-    playlistIsMultiVideo: RESET_WIZARD_STATE.playlistIsMultiVideo,
-    playlistLikelyCapped: RESET_WIZARD_STATE.playlistLikelyCapped,
-    playlistProbeLoading: RESET_WIZARD_STATE.playlistProbeLoading,
-    playlistScopeReloading: RESET_WIZARD_STATE.playlistScopeReloading,
-    playlistScopeError: RESET_WIZARD_STATE.playlistScopeError,
-    playlistScope: RESET_WIZARD_STATE.playlistScope,
-    playlistSelection: RESET_WIZARD_STATE.playlistSelection,
-    bulkMetadataStatus: RESET_WIZARD_STATE.bulkMetadataStatus,
-    bulkMetadataCompleted: RESET_WIZARD_STATE.bulkMetadataCompleted,
-    bulkMetadataTotal: RESET_WIZARD_STATE.bulkMetadataTotal,
-    bulkMetadataById: RESET_WIZARD_STATE.bulkMetadataById,
-    quickDownloadStatus: RESET_WIZARD_STATE.quickDownloadStatus,
-    quickDownloadError: RESET_WIZARD_STATE.quickDownloadError,
-    syncedDownloadedIds: RESET_WIZARD_STATE.syncedDownloadedIds,
-    syncScanState: RESET_WIZARD_STATE.syncScanState,
+	return {
+		wizardStep: RESET_WIZARD_STATE.wizardStep,
+		wizardMode: RESET_WIZARD_STATE.wizardMode,
+		wizardUrl: RESET_WIZARD_STATE.wizardUrl,
+		wizardTitle: RESET_WIZARD_STATE.wizardTitle,
+		wizardThumbnail: RESET_WIZARD_STATE.wizardThumbnail,
+		wizardDuration: RESET_WIZARD_STATE.wizardDuration,
+		wizardFormatsDegraded: RESET_WIZARD_STATE.wizardFormatsDegraded,
+		wizardExtractor: RESET_WIZARD_STATE.wizardExtractor,
+		wizardExtractorKey: RESET_WIZARD_STATE.wizardExtractorKey,
+		wizardWebpageUrl: RESET_WIZARD_STATE.wizardWebpageUrl,
+		formatsLoading: RESET_WIZARD_STATE.formatsLoading,
+		wizardError: RESET_WIZARD_STATE.wizardError,
+		wizardErrorOrigin: RESET_WIZARD_STATE.wizardErrorOrigin,
+		playlistItems: RESET_WIZARD_STATE.playlistItems,
+		selectedPlaylistItemIds: RESET_WIZARD_STATE.selectedPlaylistItemIds,
+		playlistTitle: RESET_WIZARD_STATE.playlistTitle,
+		playlistId: RESET_WIZARD_STATE.playlistId,
+		playlistIsMultiVideo: RESET_WIZARD_STATE.playlistIsMultiVideo,
+		playlistLikelyCapped: RESET_WIZARD_STATE.playlistLikelyCapped,
+		playlistProbeLoading: RESET_WIZARD_STATE.playlistProbeLoading,
+		playlistScopeReloading: RESET_WIZARD_STATE.playlistScopeReloading,
+		playlistScopeError: RESET_WIZARD_STATE.playlistScopeError,
+		playlistScope: RESET_WIZARD_STATE.playlistScope,
+		playlistSelection: RESET_WIZARD_STATE.playlistSelection,
+		bulkMetadataStatus: RESET_WIZARD_STATE.bulkMetadataStatus,
+		bulkMetadataCompleted: RESET_WIZARD_STATE.bulkMetadataCompleted,
+		bulkMetadataTotal: RESET_WIZARD_STATE.bulkMetadataTotal,
+		bulkMetadataById: RESET_WIZARD_STATE.bulkMetadataById,
+		quickDownloadStatus: RESET_WIZARD_STATE.quickDownloadStatus,
+		quickDownloadError: RESET_WIZARD_STATE.quickDownloadError,
+		syncedDownloadedIds: RESET_WIZARD_STATE.syncedDownloadedIds,
+		syncScanState: RESET_WIZARD_STATE.syncScanState,
 
-    setWizardUrl: (url) => set({ wizardUrl: url, quickDownloadStatus: 'idle', quickDownloadError: null }),
+		setWizardUrl: url => set({wizardUrl: url, quickDownloadStatus: 'idle', quickDownloadError: null}),
 
-    submitUrl: async () => {
-      const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()));
-      if (!cleaned) return;
-      // Mixed YouTube URLs (?v=X&list=Y) — disambiguate before probing so the
-      // user picks intent rather than yt-dlp defaulting to playlist.
-      if (isMixedYouTubeUrl(cleaned)) {
-        set({ wizardUrl: cleaned, mixedUrlPromptOpen: true, mixedUrlPending: cleaned, wizardError: null, cookiesConfigDialogIssue: null });
-        return;
-      }
-      if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return;
-      await runProbe(cleaned, 'auto', set, get);
-    },
+		submitUrl: async () => {
+			const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()))
+			if (!cleaned) return
+			// Mixed YouTube URLs (?v=X&list=Y) — disambiguate before probing so the
+			// user picks intent rather than yt-dlp defaulting to playlist.
+			if (isMixedYouTubeUrl(cleaned)) {
+				set({wizardUrl: cleaned, mixedUrlPromptOpen: true, mixedUrlPending: cleaned, wizardError: null, cookiesConfigDialogIssue: null})
+				return
+			}
+			if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return
+			await runProbe(cleaned, 'auto', set, get)
+		},
 
-    quickDownload: async () => {
-      if (get().quickDownloadStatus === 'preparing') return;
-      const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()));
-      if (!cleaned) return;
-      if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return;
+		quickDownload: async () => {
+			if (get().quickDownloadStatus === 'preparing') return
+			const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()))
+			if (!cleaned) return
+			if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return
 
-      void window.appApi.downloads.probeCancel();
-      set({ wizardUrl: cleaned, quickDownloadStatus: 'preparing', quickDownloadError: null, wizardError: null, cookiesConfigDialogIssue: null });
+			void window.appApi.downloads.probeCancel()
+			set({wizardUrl: cleaned, quickDownloadStatus: 'preparing', quickDownloadError: null, wizardError: null, cookiesConfigDialogIssue: null})
 
-      try {
-        const playlistMode: ProbePlaylistMode = isMixedYouTubeUrl(cleaned) ? 'video' : 'auto';
-        const result = await window.appApi.downloads.probe({ url: cleaned, playlistMode, ...(playlistMode === 'video' ? {} : { playlistScope: get().playlistScope }) });
-        if (!result.ok) {
-          set({ quickDownloadStatus: 'error', quickDownloadError: formatProbeError(result.error) || 'wizard.url.quickProbeFailed' });
-          return;
-        }
+			try {
+				const playlistMode: ProbePlaylistMode = isMixedYouTubeUrl(cleaned) ? 'video' : 'auto'
+				const result = await window.appApi.downloads.probe({url: cleaned, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope: get().playlistScope})})
+				if (!result.ok) {
+					set({quickDownloadStatus: 'error', quickDownloadError: formatProbeError(result.error) || 'wizard.url.quickProbeFailed'})
+					return
+				}
 
-        const currentOutputDir = get().wizardOutputDir;
-        const fallbackOutputDir = get().settings?.common?.defaultOutputDir ?? '';
-        set({ wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir });
+				const currentOutputDir = get().wizardOutputDir
+				const fallbackOutputDir = get().settings?.common?.defaultOutputDir ?? ''
+				set({wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir})
 
-        const queued = await enqueueActiveProfileProbeResult(result.data, set, get);
-        if (!queued) return;
+				const queued = await enqueueActiveProfileProbeResult(result.data, set, get)
+				if (!queued) return
 
-        maybeShowQueueTip(set);
-        WizardCommands.resetAll(set);
-        set({ quickDownloadStatus: 'queued', quickDownloadError: null });
-      } catch (err) {
-        set({ quickDownloadStatus: 'error', quickDownloadError: err instanceof Error ? err.message : String(err) });
-      }
-    },
+				maybeShowQueueTip(set)
+				WizardCommands.resetAll(set)
+				set({quickDownloadStatus: 'queued', quickDownloadError: null})
+			} catch (err) {
+				set({quickDownloadStatus: 'error', quickDownloadError: err instanceof Error ? err.message : String(err)})
+			}
+		},
 
-    quickDownloadUrls: async (urls) => {
-      if (get().quickDownloadStatus === 'preparing') return;
-      const cleanedUrls = urls.map((url) => rewriteYouTubeChannelRoot(cleanUrl(url.trim()))).filter((url) => url.length > 0);
-      if (cleanedUrls.length === 0) return;
+		quickDownloadUrls: async urls => {
+			if (get().quickDownloadStatus === 'preparing') return
+			const cleanedUrls = urls.map(url => rewriteYouTubeChannelRoot(cleanUrl(url.trim()))).filter(url => url.length > 0)
+			if (cleanedUrls.length === 0) return
 
-      for (const url of cleanedUrls) {
-        if (maybeBlockIncompleteCookiesConfig(url, set, get)) return;
-      }
+			for (const url of cleanedUrls) {
+				if (maybeBlockIncompleteCookiesConfig(url, set, get)) return
+			}
 
-      void window.appApi.downloads.probeCancel();
-      const currentOutputDir = get().wizardOutputDir;
-      const fallbackOutputDir = get().settings?.common?.defaultOutputDir ?? '';
-      set({
-        wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir,
-        quickDownloadStatus: 'preparing',
-        quickDownloadError: null,
-        wizardError: null,
-        cookiesConfigDialogIssue: null
-      });
+			void window.appApi.downloads.probeCancel()
+			const currentOutputDir = get().wizardOutputDir
+			const fallbackOutputDir = get().settings?.common?.defaultOutputDir ?? ''
+			set({wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir, quickDownloadStatus: 'preparing', quickDownloadError: null, wizardError: null, cookiesConfigDialogIssue: null})
 
-      try {
-        for (const url of cleanedUrls) {
-          set({ wizardUrl: url });
-          const playlistMode: ProbePlaylistMode = isMixedYouTubeUrl(url) ? 'video' : 'auto';
-          const result = await window.appApi.downloads.probe({ url, playlistMode, ...(playlistMode === 'video' ? {} : { playlistScope: get().playlistScope }) });
-          if (!result.ok) {
-            set({ quickDownloadStatus: 'error', quickDownloadError: formatProbeError(result.error) || 'wizard.url.quickProbeFailed' });
-            return;
-          }
-          const queued = await enqueueActiveProfileProbeResult(result.data, set, get);
-          if (!queued) return;
-        }
+			try {
+				for (const url of cleanedUrls) {
+					set({wizardUrl: url})
+					const playlistMode: ProbePlaylistMode = isMixedYouTubeUrl(url) ? 'video' : 'auto'
+					const result = await window.appApi.downloads.probe({url, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope: get().playlistScope})})
+					if (!result.ok) {
+						set({quickDownloadStatus: 'error', quickDownloadError: formatProbeError(result.error) || 'wizard.url.quickProbeFailed'})
+						return
+					}
+					const queued = await enqueueActiveProfileProbeResult(result.data, set, get)
+					if (!queued) return
+				}
 
-        maybeShowQueueTip(set);
-        WizardCommands.resetAll(set);
-        set({ quickDownloadStatus: 'queued', quickDownloadError: null });
-      } catch (err) {
-        set({ quickDownloadStatus: 'error', quickDownloadError: err instanceof Error ? err.message : String(err) });
-      }
-    },
+				maybeShowQueueTip(set)
+				WizardCommands.resetAll(set)
+				set({quickDownloadStatus: 'queued', quickDownloadError: null})
+			} catch (err) {
+				set({quickDownloadStatus: 'error', quickDownloadError: err instanceof Error ? err.message : String(err)})
+			}
+		},
 
-    startBulkUrls: (urls) => {
-      const previousState = get();
-      if (previousState.wizardMode === 'bulk' && previousState.bulkMetadataStatus === 'resolving') {
-        cancelBulkMetadataProbes('start-new-bulk', previousState);
-      }
-      const bulkRunId = nextBulkMetadataRunId();
-      const fromStep = get().wizardStep;
-      const settings = get().settings;
-      const allYouTubeVideos = urls.length > 0 && urls.every(isClearlyIndividualYouTubeUrl);
-      const playlistSelection: PlaylistSelection = settings?.playlist?.lastPlaylistSelection ?? DEFAULT_PLAYLIST_SELECTION;
-      const playlistItems = urls.map((url, index) => {
-        const number = index + 1;
-        return {
-          id: `bulk-${number}`,
-          url,
-          title: deriveBulkUrlLabel(url) ?? `Bulk URL ${number}`,
-          thumbnail: '',
-          playlistIndex: number,
-          videoId: extractYouTubeVideoId(url)
-        };
-      });
+		startBulkUrls: urls => {
+			const previousState = get()
+			if (previousState.wizardMode === 'bulk' && previousState.bulkMetadataStatus === 'resolving') {
+				cancelBulkMetadataProbes('start-new-bulk', previousState)
+			}
+			const bulkRunId = nextBulkMetadataRunId()
+			const fromStep = get().wizardStep
+			const settings = get().settings
+			const allYouTubeVideos = urls.length > 0 && urls.every(isClearlyIndividualYouTubeUrl)
+			const playlistSelection: PlaylistSelection = settings?.playlist?.lastPlaylistSelection ?? DEFAULT_PLAYLIST_SELECTION
+			const playlistItems = urls.map((url, index) => {
+				const number = index + 1
+				return {id: `bulk-${number}`, url, title: deriveBulkUrlLabel(url) ?? `Bulk URL ${number}`, thumbnail: '', playlistIndex: number, videoId: extractYouTubeVideoId(url)}
+			})
 
-      set({
-        wizardStep: 'playlistItems',
-        wizardMode: 'bulk',
-        wizardUrl: '',
-        wizardTitle: '',
-        wizardThumbnail: '',
-        wizardDuration: undefined,
-        wizardFormats: [],
-        wizardFormatsDegraded: null,
-        selectedVideoFormatId: '',
-        audioSelection: { kind: 'none' },
-        activePreset: null,
-        wizardSubtitles: {},
-        wizardAutomaticCaptions: {},
-        wizardSubtitleLanguages: [],
-        wizardSubtitleSkipped: false,
-        wizardExtractor: allYouTubeVideos ? 'youtube' : '',
-        wizardExtractorKey: allYouTubeVideos ? 'Youtube' : '',
-        wizardWebpageUrl: '',
-        formatsLoading: false,
-        playlistProbeLoading: false,
-        wizardError: null,
-        wizardErrorOrigin: null,
-        cookiesConfigDialogIssue: null,
-        playlistItems,
-        selectedPlaylistItemIds: playlistItems.map((entry) => entry.id),
-        playlistTitle: 'Bulk URLs',
-        playlistId: 'bulk',
-        playlistIsMultiVideo: false,
-        playlistLikelyCapped: false,
-        bulkMetadataStatus: urls.length > 0 ? 'resolving' : 'idle',
-        bulkMetadataCompleted: 0,
-        bulkMetadataTotal: urls.length,
-        bulkMetadataById: Object.fromEntries(playlistItems.map((entry) => [entry.id, 'pending'])),
-        syncedDownloadedIds: [],
-        syncScanState: 'idle',
-        ...restoreCommonWizardPrefs(settings),
-        wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
-        wizardSubfolderName: settings?.common?.lastSubfolder ?? '',
-        wizardWriteM3u: false,
-        playlistSelection
-      });
-      bulkLogger.info('Bulk URL flow started', {
-        runId: bulkRunId,
-        count: urls.length,
-        selectedCount: playlistItems.length,
-        allYouTubeVideos,
-        metadataConcurrency: BULK_METADATA_CONCURRENCY
-      });
-      void hydrateBulkMetadata(urls, set, bulkRunId);
-      logStep('submitUrl', fromStep, 'playlistItems', pickWizardSnapshot(get()));
-    },
+			set({
+				wizardStep: 'playlistItems',
+				wizardMode: 'bulk',
+				wizardUrl: '',
+				wizardTitle: '',
+				wizardThumbnail: '',
+				wizardDuration: undefined,
+				wizardFormats: [],
+				wizardFormatsDegraded: null,
+				selectedVideoFormatId: '',
+				audioSelection: {kind: 'none'},
+				activePreset: null,
+				wizardSubtitles: {},
+				wizardAutomaticCaptions: {},
+				wizardSubtitleLanguages: [],
+				wizardSubtitleSkipped: false,
+				wizardExtractor: allYouTubeVideos ? 'youtube' : '',
+				wizardExtractorKey: allYouTubeVideos ? 'Youtube' : '',
+				wizardWebpageUrl: '',
+				formatsLoading: false,
+				playlistProbeLoading: false,
+				wizardError: null,
+				wizardErrorOrigin: null,
+				cookiesConfigDialogIssue: null,
+				playlistItems,
+				selectedPlaylistItemIds: playlistItems.map(entry => entry.id),
+				playlistTitle: 'Bulk URLs',
+				playlistId: 'bulk',
+				playlistIsMultiVideo: false,
+				playlistLikelyCapped: false,
+				bulkMetadataStatus: urls.length > 0 ? 'resolving' : 'idle',
+				bulkMetadataCompleted: 0,
+				bulkMetadataTotal: urls.length,
+				bulkMetadataById: Object.fromEntries(playlistItems.map(entry => [entry.id, 'pending'])),
+				syncedDownloadedIds: [],
+				syncScanState: 'idle',
+				...restoreCommonWizardPrefs(settings),
+				wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
+				wizardSubfolderName: settings?.common?.lastSubfolder ?? '',
+				wizardWriteM3u: false,
+				playlistSelection
+			})
+			bulkLogger.info('Bulk URL flow started', {runId: bulkRunId, count: urls.length, selectedCount: playlistItems.length, allYouTubeVideos, metadataConcurrency: BULK_METADATA_CONCURRENCY})
+			void hydrateBulkMetadata(urls, set, bulkRunId)
+			logStep('submitUrl', fromStep, 'playlistItems', pickWizardSnapshot(get()))
+		},
 
-    cancelBulkMetadata: (reason = 'queue-submit') => {
-      const state = get();
-      if (state.wizardMode !== 'bulk' || state.bulkMetadataStatus !== 'resolving') return;
-      cancelBulkMetadataProbes(reason, state);
-      set({ bulkMetadataStatus: 'done' });
-    },
+		cancelBulkMetadata: (reason = 'queue-submit') => {
+			const state = get()
+			if (state.wizardMode !== 'bulk' || state.bulkMetadataStatus !== 'resolving') return
+			cancelBulkMetadataProbes(reason, state)
+			set({bulkMetadataStatus: 'done'})
+		},
 
-    dismissMixedPrompt: async (choice) => {
-      const pending = get().mixedUrlPending;
-      set({ mixedUrlPromptOpen: false, mixedUrlPending: null });
-      if (!pending) return;
-      if (choice === 'video') {
-        if (maybeBlockIncompleteCookiesConfig(pending, set, get)) return;
-        await runProbe(pending, 'video', set, get);
-      } else {
-        await runProbe(pending, 'playlist', set, get);
-      }
-    },
+		dismissMixedPrompt: async choice => {
+			const pending = get().mixedUrlPending
+			set({mixedUrlPromptOpen: false, mixedUrlPending: null})
+			if (!pending) return
+			if (choice === 'video') {
+				if (maybeBlockIncompleteCookiesConfig(pending, set, get)) return
+				await runProbe(pending, 'video', set, get)
+			} else {
+				await runProbe(pending, 'playlist', set, get)
+			}
+		},
 
-    setPlaylistItemSelected: (id, checked) =>
-      set((state) => ({
-        selectedPlaylistItemIds: checked ? (state.selectedPlaylistItemIds.includes(id) ? state.selectedPlaylistItemIds : [...state.selectedPlaylistItemIds, id]) : state.selectedPlaylistItemIds.filter((x) => x !== id)
-      })),
+		setPlaylistItemSelected: (id, checked) => set(state => ({selectedPlaylistItemIds: checked ? (state.selectedPlaylistItemIds.includes(id) ? state.selectedPlaylistItemIds : [...state.selectedPlaylistItemIds, id]) : state.selectedPlaylistItemIds.filter(x => x !== id)})),
 
-    setPlaylistScope: (scope) => set({ playlistScope: scope }),
+		setPlaylistScope: scope => set({playlistScope: scope}),
 
-    reloadPlaylistWithScope: async (scope) => {
-      await reloadPlaylistWithScope(scope, set, get);
-    },
+		reloadPlaylistWithScope: async scope => {
+			await reloadPlaylistWithScope(scope, set, get)
+		},
 
-    selectAllPlaylistItems: () => set((state) => ({ selectedPlaylistItemIds: state.playlistItems.map((e) => e.id) })),
+		selectAllPlaylistItems: () => set(state => ({selectedPlaylistItemIds: state.playlistItems.map(e => e.id)})),
 
-    selectNonePlaylistItems: () => set({ selectedPlaylistItemIds: [] }),
+		selectNonePlaylistItems: () => set({selectedPlaylistItemIds: []}),
 
-    selectPlaylistRange: (from, to) =>
-      set((state) => {
-        const lo = Math.min(from, to);
-        const hi = Math.max(from, to);
-        const ids = state.playlistItems.filter((e) => e.playlistIndex >= lo && e.playlistIndex <= hi).map((e) => e.id);
-        return { selectedPlaylistItemIds: ids };
-      }),
+		selectPlaylistRange: (from, to) =>
+			set(state => {
+				const lo = Math.min(from, to)
+				const hi = Math.max(from, to)
+				const ids = state.playlistItems.filter(e => e.playlistIndex >= lo && e.playlistIndex <= hi).map(e => e.id)
+				return {selectedPlaylistItemIds: ids}
+			}),
 
-    confirmPlaylistSelection: () => {
-      const { selectedPlaylistItemIds, wizardStep } = get();
-      if (selectedPlaylistItemIds.length === 0) return;
-      set({ wizardStep: 'playlistPresets', wizardError: null });
-      logStep('advance', wizardStep, 'playlistPresets', pickWizardSnapshot(get()));
-    },
+		confirmPlaylistSelection: () => {
+			const {selectedPlaylistItemIds, wizardStep} = get()
+			if (selectedPlaylistItemIds.length === 0) return
+			set({wizardStep: 'playlistPresets', wizardError: null})
+			logStep('advance', wizardStep, 'playlistPresets', pickWizardSnapshot(get()))
+		},
 
-    setPlaylistSelection: (s) => set({ playlistSelection: s, wizardSubtitleSkipped: false }),
+		setPlaylistSelection: s => set({playlistSelection: s, wizardSubtitleSkipped: false}),
 
-    // Scan the destination folder for already-downloaded items. Populates
-    // syncedDownloadedIds (drives the "already downloaded" badges + the sync
-    // alert) but does NOT change the selection — that's applyFolderSync's job.
-    // Runs automatically after a playlist probe and on every folder change.
-    scanDownloadedInFolder: async () => {
-      const state = get();
-      const videoIds = state.playlistItems.map((e) => e.videoId).filter((v): v is string => v !== null);
-      // Scan the resolved playlist dir (override or base+subfolder) — the exact
-      // folder the files land in — via the shared resolver, so scan == download.
-      const outputDir = resolvePlaylistDir(state);
-      set({ syncScanState: 'scanning' });
-      const res = await window.appApi.playlist.scanFolder({ outputDir, videoIds });
-      if (!res.ok) {
-        set({ syncedDownloadedIds: [], syncScanState: 'done' });
-        return;
-      }
-      set({ syncedDownloadedIds: res.data.matchedIds, syncScanState: 'done' });
-    },
+		// Scan the destination folder for already-downloaded items. Populates
+		// syncedDownloadedIds (drives the "already downloaded" badges + the sync
+		// alert) but does NOT change the selection — that's applyFolderSync's job.
+		// Runs automatically after a playlist probe and on every folder change.
+		scanDownloadedInFolder: async () => {
+			const state = get()
+			const videoIds = state.playlistItems.map(e => e.videoId).filter((v): v is string => v !== null)
+			// Scan the resolved playlist dir (override or base+subfolder) — the exact
+			// folder the files land in — via the shared resolver, so scan == download.
+			const outputDir = resolvePlaylistDir(state)
+			set({syncScanState: 'scanning'})
+			const res = await window.appApi.playlist.scanFolder({outputDir, videoIds})
+			if (!res.ok) {
+				set({syncedDownloadedIds: [], syncScanState: 'done'})
+				return
+			}
+			set({syncedDownloadedIds: res.data.matchedIds, syncScanState: 'done'})
+		},
 
-    // Deselect every item already present in the folder, leaving only the ones
-    // that still need downloading. Driven by the sync alert's "Apply" action.
-    applyFolderSync: () =>
-      set((state) => {
-        const matched = new Set(state.syncedDownloadedIds);
-        const selectedPlaylistItemIds = state.selectedPlaylistItemIds.filter((id) => {
-          const entry = state.playlistItems.find((e) => e.id === id);
-          return !entry?.videoId || !matched.has(entry.videoId);
-        });
-        return { selectedPlaylistItemIds };
-      }),
+		// Deselect every item already present in the folder, leaving only the ones
+		// that still need downloading. Driven by the sync alert's "Apply" action.
+		applyFolderSync: () =>
+			set(state => {
+				const matched = new Set(state.syncedDownloadedIds)
+				const selectedPlaylistItemIds = state.selectedPlaylistItemIds.filter(id => {
+					const entry = state.playlistItems.find(e => e.id === id)
+					return !entry?.videoId || !matched.has(entry.videoId)
+				})
+				return {selectedPlaylistItemIds}
+			}),
 
-    advance: () => {
-      const state = get();
-      const target = nextStep(state.wizardStep as VisibleStep, navCtx(state), 'forward');
-      if (!target) return;
-      set({ wizardStep: target });
-      logStep('advance', state.wizardStep, target, pickWizardSnapshot(get()));
-    },
+		advance: () => {
+			const state = get()
+			const target = nextStep(state.wizardStep as VisibleStep, navCtx(state), 'forward')
+			if (!target) return
+			set({wizardStep: target})
+			logStep('advance', state.wizardStep, target, pickWizardSnapshot(get()))
+		},
 
-    back: () => {
-      const state = get();
-      const target = nextStep(state.wizardStep as VisibleStep, navCtx(state), 'backward');
-      if (!target) return;
-      if (state.wizardMode === 'bulk' && target === 'url' && state.bulkMetadataStatus === 'resolving') {
-        cancelBulkMetadataProbes('back-to-url', state);
-      }
-      set({ wizardStep: target, ...(target === 'subtitles' && { wizardSubtitleSkipped: false }) });
-      logStep('back', state.wizardStep, target, pickWizardSnapshot(get()));
-    },
+		back: () => {
+			const state = get()
+			const target = nextStep(state.wizardStep as VisibleStep, navCtx(state), 'backward')
+			if (!target) return
+			if (state.wizardMode === 'bulk' && target === 'url' && state.bulkMetadataStatus === 'resolving') {
+				cancelBulkMetadataProbes('back-to-url', state)
+			}
+			set({wizardStep: target, ...(target === 'subtitles' && {wizardSubtitleSkipped: false})})
+			logStep('back', state.wizardStep, target, pickWizardSnapshot(get()))
+		},
 
-    skipSubtitles: () => {
-      // Mark skipped first so nextStep treats `subtitles` as ineligible —
-      // the rest of the routing reuses the same eligibility table as
-      // advance(), so SponsorBlock + output skip rules can't drift.
-      set({ wizardSubtitleSkipped: true });
-      const state = get();
-      const target = nextStep(state.wizardStep as VisibleStep, navCtx(state), 'forward');
-      if (!target) return;
-      set({ wizardStep: target });
-      logStep('skipSubtitles', state.wizardStep, target, pickWizardSnapshot(get()));
-    },
+		skipSubtitles: () => {
+			// Mark skipped first so nextStep treats `subtitles` as ineligible —
+			// the rest of the routing reuses the same eligibility table as
+			// advance(), so SponsorBlock + output skip rules can't drift.
+			set({wizardSubtitleSkipped: true})
+			const state = get()
+			const target = nextStep(state.wizardStep as VisibleStep, navCtx(state), 'forward')
+			if (!target) return
+			set({wizardStep: target})
+			logStep('skipSubtitles', state.wizardStep, target, pickWizardSnapshot(get()))
+		},
 
-    skipToConfirm: () => {
-      const fromStep = get().wizardStep;
-      set({ wizardStep: 'confirm' });
-      logStep('skipToConfirm', fromStep, 'confirm', pickWizardSnapshot(get()));
-    },
+		skipToConfirm: () => {
+			const fromStep = get().wizardStep
+			set({wizardStep: 'confirm'})
+			logStep('skipToConfirm', fromStep, 'confirm', pickWizardSnapshot(get()))
+		},
 
-    reset: () => {
-      const state = get();
-      const fromStep = state.wizardStep;
-      if (state.wizardMode === 'bulk' && state.bulkMetadataStatus === 'resolving') {
-        cancelBulkMetadataProbes('reset', state);
-      }
-      WizardCommands.resetAll(set);
-      logStep('reset', fromStep, 'url', pickWizardSnapshot(get()));
-    },
+		reset: () => {
+			const state = get()
+			const fromStep = state.wizardStep
+			if (state.wizardMode === 'bulk' && state.bulkMetadataStatus === 'resolving') {
+				cancelBulkMetadataProbes('reset', state)
+			}
+			WizardCommands.resetAll(set)
+			logStep('reset', fromStep, 'url', pickWizardSnapshot(get()))
+		},
 
-    retry: async () => {
-      const { wizardErrorOrigin, wizardStep } = get();
-      if (wizardErrorOrigin === 'formats') {
-        set({ wizardStep: 'formats', formatsLoading: true, wizardError: null });
-        logStep('retry', wizardStep, 'formats', pickWizardSnapshot(get()));
-        await get().submitUrl();
-      }
-    },
+		retry: async () => {
+			const {wizardErrorOrigin, wizardStep} = get()
+			if (wizardErrorOrigin === 'formats') {
+				set({wizardStep: 'formats', formatsLoading: true, wizardError: null})
+				logStep('retry', wizardStep, 'formats', pickWizardSnapshot(get()))
+				await get().submitUrl()
+			}
+		},
 
-    retryFormatProbe: async () => {
-      const { wizardUrl } = get();
-      if (get().wizardMode === 'bulk') return;
-      if (!wizardUrl) return;
-      set({ formatsLoading: true, wizardFormatsDegraded: null });
-      const playlistMode: ProbePlaylistMode = get().wizardMode === 'playlist' ? 'playlist' : 'auto';
-      await runProbe(wizardUrl, playlistMode, set, get, false);
-    },
+		retryFormatProbe: async () => {
+			const {wizardUrl} = get()
+			if (get().wizardMode === 'bulk') return
+			if (!wizardUrl) return
+			set({formatsLoading: true, wizardFormatsDegraded: null})
+			const playlistMode: ProbePlaylistMode = get().wizardMode === 'playlist' ? 'playlist' : 'auto'
+			await runProbe(wizardUrl, playlistMode, set, get, false)
+		},
 
-    retryProbeWithCookies: async () => {
-      const settings = get().settings;
-      const path = settings?.common.cookiesPath?.trim();
-      const browser = settings?.common.cookiesBrowser;
-      const targetMode: 'file' | 'browser' | null = path ? 'file' : browser ? 'browser' : null;
-      if (!targetMode) return;
-      await get().setCookiesMode(targetMode);
-      await get().retryFormatProbe();
-    },
+		retryProbeWithCookies: async () => {
+			const settings = get().settings
+			const path = settings?.common.cookiesPath?.trim()
+			const browser = settings?.common.cookiesBrowser
+			const targetMode: 'file' | 'browser' | null = path ? 'file' : browser ? 'browser' : null
+			if (!targetMode) return
+			await get().setCookiesMode(targetMode)
+			await get().retryFormatProbe()
+		},
 
-    openCookiesSettings: () => {
-      // Cancel any in-flight probe — leaving the formats step abandons it,
-      // and a stalled YouTube fallback chain can otherwise keep the spinner
-      // bound and emit results into a step the user already left.
-      void window.appApi.downloads.probeCancel();
-      replaceHash('settings');
-      set({ wizardStep: 'url', wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, advancedAutoTarget: 'cookies', cookiesConfigDialogIssue: null });
-    }
-  };
+		openCookiesSettings: () => {
+			// Cancel any in-flight probe — leaving the formats step abandons it,
+			// and a stalled YouTube fallback chain can otherwise keep the spinner
+			// bound and emit results into a step the user already left.
+			void window.appApi.downloads.probeCancel()
+			replaceHash('settings')
+			set({wizardStep: 'url', wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, advancedAutoTarget: 'cookies', cookiesConfigDialogIssue: null})
+		}
+	}
 }

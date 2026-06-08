@@ -1,14 +1,11 @@
-import { vi } from 'vitest';
+import {vi} from 'vitest'
 
-const noop = vi.fn();
+const noop = vi.fn()
 
 function makeScope() {
-  return { info: noop, warn: noop, error: noop, debug: noop, verbose: noop, silly: noop };
+	return {info: noop, warn: noop, error: noop, debug: noop, verbose: noop, silly: noop}
 }
 
-const log = {
-  ...makeScope(),
-  scope: vi.fn().mockImplementation(() => makeScope())
-};
+const log = {...makeScope(), scope: vi.fn().mockImplementation(() => makeScope())}
 
-export default log;
+export default log

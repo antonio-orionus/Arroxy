@@ -1,645 +1,555 @@
 // @vitest-environment jsdom
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { useAppStore } from '@renderer/store/useAppStore.js';
-import type { ProbeResult, StatusEvent } from '@shared/types.js';
-import { ok } from '../shared/fixtures.js';
-import { buildAppSettings } from '../shared/settingsFixtures.js';
-import { StepSubtitles } from '@renderer/components/wizard/StepSubtitles.js';
-import { StepConfirm } from '@renderer/components/wizard/StepConfirm.js';
-import { StepFormatSelect } from '@renderer/components/wizard/StepFormatSelect.js';
+import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {render, screen, fireEvent} from '@testing-library/react'
+import {useAppStore} from '@renderer/store/useAppStore.js'
+import type {ProbeResult, StatusEvent} from '@shared/types.js'
+import {ok} from '../shared/fixtures.js'
+import {buildAppSettings} from '../shared/settingsFixtures.js'
+import {StepSubtitles} from '@renderer/components/wizard/StepSubtitles.js'
+import {StepConfirm} from '@renderer/components/wizard/StepConfirm.js'
+import {StepFormatSelect} from '@renderer/components/wizard/StepFormatSelect.js'
 
-const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
-const PROBE_RESULT: Extract<ProbeResult, { kind: 'video' }> = {
-  kind: 'video',
-  extractor: 'youtube',
-  extractorKey: 'Youtube',
-  webpageUrl: YOUTUBE_URL,
-  isAudioOnlySource: false,
-  formats: [
-    {
-      formatId: '22',
-      label: '720p | mp4 | 30fps',
-      ext: 'mp4',
-      resolution: '720p',
-      fps: 30,
-      filesize: 400_000_000,
-      isVideoOnly: false,
-      isAudioOnly: false
-    },
-    {
-      formatId: '140',
-      label: 'opus 128kbps',
-      ext: 'opus',
-      resolution: 'audio only',
-      abr: 128,
-      isVideoOnly: false,
-      isAudioOnly: true
-    }
-  ],
-  title: 'Test Video',
-  thumbnail: '',
-  duration: 120,
-  subtitles: { en: [{ ext: 'vtt', name: 'English' }], es: [{ ext: 'vtt' }] },
-  automaticCaptions: { 'de-orig': [{ ext: 'vtt' }], 'ja-orig': [{ ext: 'vtt' }] },
-  isLive: false,
-  hasDrm: false
-};
+const PROBE_RESULT: Extract<ProbeResult, {kind: 'video'}> = {
+	kind: 'video',
+	extractor: 'youtube',
+	extractorKey: 'Youtube',
+	webpageUrl: YOUTUBE_URL,
+	isAudioOnlySource: false,
+	formats: [
+		{formatId: '22', label: '720p | mp4 | 30fps', ext: 'mp4', resolution: '720p', fps: 30, filesize: 400_000_000, isVideoOnly: false, isAudioOnly: false},
+		{formatId: '140', label: 'opus 128kbps', ext: 'opus', resolution: 'audio only', abr: 128, isVideoOnly: false, isAudioOnly: true}
+	],
+	title: 'Test Video',
+	thumbnail: '',
+	duration: 120,
+	subtitles: {en: [{ext: 'vtt', name: 'English'}], es: [{ext: 'vtt'}]},
+	automaticCaptions: {'de-orig': [{ext: 'vtt'}], 'ja-orig': [{ext: 'vtt'}]},
+	isLive: false,
+	hasDrm: false
+}
 
 function buildMockApi(settingsOverrides: Record<string, unknown> = {}, probeResult: ProbeResult = PROBE_RESULT) {
-  return {
-    app: {
-      warmUp: vi.fn().mockResolvedValue(ok({ completed: true, failures: [] })),
-      setLanguage: vi.fn().mockResolvedValue(undefined)
-    },
-    downloads: {
-      probeCancel: vi.fn().mockResolvedValue(undefined),
-      start: vi.fn().mockResolvedValue(
-        ok({
-          job: {
-            id: 'job-1',
-            url: YOUTUBE_URL,
-            outputDir: '/tmp',
-            status: 'running',
-            createdAt: '',
-            updatedAt: ''
-          }
-        })
-      ),
-      cancel: vi.fn().mockResolvedValue(ok({ cancelled: true })),
-      probe: vi.fn().mockResolvedValue(ok(probeResult)),
-      pause: vi.fn().mockResolvedValue(ok({ paused: true }))
-    },
-    settings: {
-      get: vi.fn().mockResolvedValue(ok(buildAppSettings(settingsOverrides))),
-      update: vi.fn().mockResolvedValue(ok(buildAppSettings(settingsOverrides)))
-    },
-    shell: { openFolder: vi.fn(), openExternal: vi.fn() },
-    logs: { openDir: vi.fn() },
-    dialog: { chooseFolder: vi.fn() },
-    events: {
-      onStatus: vi.fn().mockImplementation((_cb: (event: StatusEvent) => void) => () => undefined),
-      onProgress: vi.fn().mockReturnValue(() => undefined),
-      onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
-      onWarmupProgress: vi.fn().mockReturnValue(() => undefined)
-    },
-    queue: {
-      cmd: {
-        add: vi.fn().mockResolvedValue({ ok: true, data: { ids: [] } }),
-        getSnapshot: vi.fn().mockResolvedValue({ ok: true, data: [] }),
-        start: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        pause: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        resume: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        cancel: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        retry: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        clearCompleted: vi.fn().mockResolvedValue({ ok: true, data: undefined }),
-        remove: vi.fn().mockResolvedValue({ ok: true, data: undefined })
-      },
-      events: {
-        onSnapshot: vi.fn().mockReturnValue(() => undefined),
-        onAdded: vi.fn().mockReturnValue(() => undefined),
-        onUpdated: vi.fn().mockReturnValue(() => undefined),
-        onRemoved: vi.fn().mockReturnValue(() => undefined)
-      }
-    },
-    updater: {
-      onUpdateAvailable: vi.fn().mockReturnValue(() => undefined),
-      install: vi.fn()
-    },
-    analytics: {
-      track: vi.fn()
-    },
-    diagnostics: { logWizardStep: vi.fn() }
-  };
+	return {
+		app: {warmUp: vi.fn().mockResolvedValue(ok({completed: true, failures: []})), setLanguage: vi.fn().mockResolvedValue(undefined)},
+		downloads: {
+			probeCancel: vi.fn().mockResolvedValue(undefined),
+			start: vi.fn().mockResolvedValue(ok({job: {id: 'job-1', url: YOUTUBE_URL, outputDir: '/tmp', status: 'running', createdAt: '', updatedAt: ''}})),
+			cancel: vi.fn().mockResolvedValue(ok({cancelled: true})),
+			probe: vi.fn().mockResolvedValue(ok(probeResult)),
+			pause: vi.fn().mockResolvedValue(ok({paused: true}))
+		},
+		settings: {get: vi.fn().mockResolvedValue(ok(buildAppSettings(settingsOverrides))), update: vi.fn().mockResolvedValue(ok(buildAppSettings(settingsOverrides)))},
+		shell: {openFolder: vi.fn(), openExternal: vi.fn()},
+		logs: {openDir: vi.fn()},
+		dialog: {chooseFolder: vi.fn()},
+		events: {onStatus: vi.fn().mockImplementation((_cb: (event: StatusEvent) => void) => () => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined), onWarmupProgress: vi.fn().mockReturnValue(() => undefined)},
+		queue: {
+			cmd: {
+				add: vi.fn().mockResolvedValue({ok: true, data: {ids: []}}),
+				getSnapshot: vi.fn().mockResolvedValue({ok: true, data: []}),
+				start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				pause: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				resume: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				cancel: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				retry: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				clearCompleted: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+				remove: vi.fn().mockResolvedValue({ok: true, data: undefined})
+			},
+			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined)}
+		},
+		updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn()},
+		analytics: {track: vi.fn()},
+		diagnostics: {logWizardStep: vi.fn()}
+	}
 }
 
 function resetStore() {
-  useAppStore.setState({
-    initialized: false,
-    initializing: false,
-    settings: null,
-    wizardStep: 'url',
-    formatsLoading: false,
-    wizardUrl: '',
-    wizardTitle: '',
-    wizardThumbnail: '',
-    wizardFormats: [],
-    selectedVideoFormatId: '',
-    audioSelection: { kind: 'none' },
-    activePreset: null,
-    wizardOutputDir: '',
-    wizardError: null,
-    wizardErrorOrigin: null,
-    wizardSubtitles: {},
-    wizardAutomaticCaptions: {},
-    wizardSubtitleLanguages: [],
-    wizardSubtitleSkipped: false,
-    wizardSubtitleMode: 'sidecar',
-    wizardSubtitleFormat: 'srt',
-    wizardSponsorBlockMode: 'off' as const,
-    wizardSponsorBlockCategories: ['sponsor', 'selfpromo'] as never[],
-    queue: [],
-    drawerOpen: false
-  });
+	useAppStore.setState({
+		initialized: false,
+		initializing: false,
+		settings: null,
+		wizardStep: 'url',
+		formatsLoading: false,
+		wizardUrl: '',
+		wizardTitle: '',
+		wizardThumbnail: '',
+		wizardFormats: [],
+		selectedVideoFormatId: '',
+		audioSelection: {kind: 'none'},
+		activePreset: null,
+		wizardOutputDir: '',
+		wizardError: null,
+		wizardErrorOrigin: null,
+		wizardSubtitles: {},
+		wizardAutomaticCaptions: {},
+		wizardSubtitleLanguages: [],
+		wizardSubtitleSkipped: false,
+		wizardSubtitleMode: 'sidecar',
+		wizardSubtitleFormat: 'srt',
+		wizardSponsorBlockMode: 'off' as const,
+		wizardSponsorBlockCategories: ['sponsor', 'selfpromo'] as never[],
+		queue: [],
+		drawerOpen: false
+	})
 }
 
 beforeEach(() => {
-  resetStore();
-  vi.clearAllMocks();
-});
+	resetStore()
+	vi.clearAllMocks()
+})
 
 describe('Subtitle-only preset', () => {
-  it('setPreset("subtitle-only") clears video and audio selections', async () => {
-    window.appApi = buildMockApi() as never;
-    await useAppStore.getState().initialize();
-    useAppStore.getState().setWizardUrl(YOUTUBE_URL);
-    await useAppStore.getState().submitUrl();
+	it('setPreset("subtitle-only") clears video and audio selections', async () => {
+		window.appApi = buildMockApi() as never
+		await useAppStore.getState().initialize()
+		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
+		await useAppStore.getState().submitUrl()
 
-    useAppStore.getState().setPreset('subtitle-only');
+		useAppStore.getState().setPreset('subtitle-only')
 
-    const state = useAppStore.getState();
-    expect(state.activePreset).toBe('subtitle-only');
-    expect(state.selectedVideoFormatId).toBe('');
-    expect(state.audioSelection).toEqual({ kind: 'none' });
-  });
+		const state = useAppStore.getState()
+		expect(state.activePreset).toBe('subtitle-only')
+		expect(state.selectedVideoFormatId).toBe('')
+		expect(state.audioSelection).toEqual({kind: 'none'})
+	})
 
-  it('subtitle-only preset produces undefined formatId in queue item', async () => {
-    window.appApi = buildMockApi() as never;
-    await useAppStore.getState().initialize();
-    useAppStore.getState().setWizardUrl(YOUTUBE_URL);
-    await useAppStore.getState().submitUrl();
-    useAppStore.getState().setPreset('subtitle-only');
-    useAppStore.getState().toggleSubtitleLanguage('en');
+	it('subtitle-only preset produces undefined formatId in queue item', async () => {
+		window.appApi = buildMockApi() as never
+		await useAppStore.getState().initialize()
+		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
+		await useAppStore.getState().submitUrl()
+		useAppStore.getState().setPreset('subtitle-only')
+		useAppStore.getState().toggleSubtitleLanguage('en')
 
-    await useAppStore.getState().addToQueue();
+		await useAppStore.getState().addToQueue()
 
-    const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0][0][0];
-    expect(item.job.kind).toBe('subtitle-only');
-    expect(item.job.kind === 'subtitle-only' ? item.job.subtitles.languages : []).toEqual(['en']);
-  });
-});
+		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0][0][0]
+		expect(item.job.kind).toBe('subtitle-only')
+		expect(item.job.kind === 'subtitle-only' ? item.job.subtitles.languages : []).toEqual(['en'])
+	})
+})
 
 describe('Wizard subtitle step — store behavior', () => {
-  it('populates subtitles + automaticCaptions from probe on submitUrl', async () => {
-    window.appApi = buildMockApi() as never;
-    await useAppStore.getState().initialize();
+	it('populates subtitles + automaticCaptions from probe on submitUrl', async () => {
+		window.appApi = buildMockApi() as never
+		await useAppStore.getState().initialize()
 
-    useAppStore.getState().setWizardUrl(YOUTUBE_URL);
-    await useAppStore.getState().submitUrl();
+		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
+		await useAppStore.getState().submitUrl()
 
-    const state = useAppStore.getState();
-    expect(state.wizardSubtitles).toEqual(PROBE_RESULT.subtitles);
-    expect(state.wizardAutomaticCaptions).toEqual(PROBE_RESULT.automaticCaptions);
-    expect(state.wizardSubtitleLanguages).toEqual([]);
-  });
+		const state = useAppStore.getState()
+		expect(state.wizardSubtitles).toEqual(PROBE_RESULT.subtitles)
+		expect(state.wizardAutomaticCaptions).toEqual(PROBE_RESULT.automaticCaptions)
+		expect(state.wizardSubtitleLanguages).toEqual([])
+	})
 
-  it('restores last-used subtitle languages from settings on submitUrl', async () => {
-    window.appApi = buildMockApi({ lastSubtitleLanguages: ['en', 'es'] }) as never;
-    await useAppStore.getState().initialize();
+	it('restores last-used subtitle languages from settings on submitUrl', async () => {
+		window.appApi = buildMockApi({lastSubtitleLanguages: ['en', 'es']}) as never
+		await useAppStore.getState().initialize()
 
-    useAppStore.getState().setWizardUrl(YOUTUBE_URL);
-    await useAppStore.getState().submitUrl();
+		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
+		await useAppStore.getState().submitUrl()
 
-    const state = useAppStore.getState();
-    expect(state.wizardSubtitleLanguages).toEqual(['en', 'es']);
-  });
+		const state = useAppStore.getState()
+		expect(state.wizardSubtitleLanguages).toEqual(['en', 'es'])
+	})
 
-  it('toggleSubtitleLanguage adds and removes a language', () => {
-    useAppStore.setState({ wizardSubtitleLanguages: [] });
-    useAppStore.getState().toggleSubtitleLanguage('en');
-    expect(useAppStore.getState().wizardSubtitleLanguages).toEqual(['en']);
+	it('toggleSubtitleLanguage adds and removes a language', () => {
+		useAppStore.setState({wizardSubtitleLanguages: []})
+		useAppStore.getState().toggleSubtitleLanguage('en')
+		expect(useAppStore.getState().wizardSubtitleLanguages).toEqual(['en'])
 
-    useAppStore.getState().toggleSubtitleLanguage('en');
-    expect(useAppStore.getState().wizardSubtitleLanguages).toEqual([]);
-  });
+		useAppStore.getState().toggleSubtitleLanguage('en')
+		expect(useAppStore.getState().wizardSubtitleLanguages).toEqual([])
+	})
 
-  it('buildQueueItem derives writeAutoSubs: false when all selected langs are in manual pool', async () => {
-    window.appApi = buildMockApi() as never;
-    await useAppStore.getState().initialize();
+	it('buildQueueItem derives writeAutoSubs: false when all selected langs are in manual pool', async () => {
+		window.appApi = buildMockApi() as never
+		await useAppStore.getState().initialize()
 
-    useAppStore.setState({
-      wizardUrl: YOUTUBE_URL,
-      wizardTitle: 'Test',
-      wizardThumbnail: '',
-      wizardOutputDir: '/tmp',
-      selectedVideoFormatId: '22',
-      audioSelection: { kind: 'native', formatId: '140' },
-      activePreset: null,
-      wizardFormats: PROBE_RESULT.formats,
-      wizardSubtitles: PROBE_RESULT.subtitles,
-      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-      wizardSubtitleLanguages: ['en', 'es'],
-      wizardStep: 'confirm',
-      wizardExtractor: 'youtube'
-    });
+		useAppStore.setState({
+			wizardUrl: YOUTUBE_URL,
+			wizardTitle: 'Test',
+			wizardThumbnail: '',
+			wizardOutputDir: '/tmp',
+			selectedVideoFormatId: '22',
+			audioSelection: {kind: 'native', formatId: '140'},
+			activePreset: null,
+			wizardFormats: PROBE_RESULT.formats,
+			wizardSubtitles: PROBE_RESULT.subtitles,
+			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+			wizardSubtitleLanguages: ['en', 'es'],
+			wizardStep: 'confirm',
+			wizardExtractor: 'youtube'
+		})
 
-    await useAppStore.getState().addToQueue();
+		await useAppStore.getState().addToQueue()
 
-    const queue = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? [];
-    expect(queue).toHaveLength(1);
-    expect(queue[0].job.subtitles?.languages).toEqual(['en', 'es']);
-    expect(queue[0].job.subtitles?.writeAuto).toBe(false);
-  });
+		const queue = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []
+		expect(queue).toHaveLength(1)
+		expect(queue[0].job.subtitles?.languages).toEqual(['en', 'es'])
+		expect(queue[0].job.subtitles?.writeAuto).toBe(false)
+	})
 
-  it('buildQueueItem derives writeAutoSubs: true when a selected lang is auto-only', async () => {
-    window.appApi = buildMockApi() as never;
-    await useAppStore.getState().initialize();
+	it('buildQueueItem derives writeAutoSubs: true when a selected lang is auto-only', async () => {
+		window.appApi = buildMockApi() as never
+		await useAppStore.getState().initialize()
 
-    useAppStore.setState({
-      wizardUrl: YOUTUBE_URL,
-      wizardTitle: 'Test',
-      wizardThumbnail: '',
-      wizardOutputDir: '/tmp',
-      selectedVideoFormatId: '22',
-      audioSelection: { kind: 'native', formatId: '140' },
-      activePreset: null,
-      wizardFormats: PROBE_RESULT.formats,
-      wizardSubtitles: PROBE_RESULT.subtitles,
-      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-      wizardSubtitleLanguages: ['de-orig'], // auto-only lang
-      wizardStep: 'confirm',
-      wizardExtractor: 'youtube'
-    });
+		useAppStore.setState({
+			wizardUrl: YOUTUBE_URL,
+			wizardTitle: 'Test',
+			wizardThumbnail: '',
+			wizardOutputDir: '/tmp',
+			selectedVideoFormatId: '22',
+			audioSelection: {kind: 'native', formatId: '140'},
+			activePreset: null,
+			wizardFormats: PROBE_RESULT.formats,
+			wizardSubtitles: PROBE_RESULT.subtitles,
+			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+			wizardSubtitleLanguages: ['de-orig'], // auto-only lang
+			wizardStep: 'confirm',
+			wizardExtractor: 'youtube'
+		})
 
-    await useAppStore.getState().addToQueue();
+		await useAppStore.getState().addToQueue()
 
-    const queue = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? [];
-    expect(queue[0].job.subtitles?.writeAuto).toBe(true);
-  });
+		const queue = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []
+		expect(queue[0].job.subtitles?.writeAuto).toBe(true)
+	})
 
-  it('persistFormatPrefs saves subtitle language prefs to settings', async () => {
-    const updateMock = vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false }));
-    window.appApi = {
-      ...buildMockApi(),
-      settings: {
-        get: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false })),
-        update: updateMock
-      }
-    } as never;
-    await useAppStore.getState().initialize();
+	it('persistFormatPrefs saves subtitle language prefs to settings', async () => {
+		const updateMock = vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false}))
+		window.appApi = {...buildMockApi(), settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false})), update: updateMock}} as never
+		await useAppStore.getState().initialize()
 
-    useAppStore.setState({
-      wizardUrl: YOUTUBE_URL,
-      wizardTitle: 'Test',
-      wizardThumbnail: '',
-      wizardOutputDir: '/tmp',
-      selectedVideoFormatId: '22',
-      audioSelection: { kind: 'native', formatId: '140' },
-      activePreset: null,
-      wizardFormats: PROBE_RESULT.formats,
-      wizardSubtitles: PROBE_RESULT.subtitles,
-      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-      wizardSubtitleLanguages: ['en', 'es'],
-      wizardStep: 'confirm',
-      wizardExtractor: 'youtube'
-    });
+		useAppStore.setState({
+			wizardUrl: YOUTUBE_URL,
+			wizardTitle: 'Test',
+			wizardThumbnail: '',
+			wizardOutputDir: '/tmp',
+			selectedVideoFormatId: '22',
+			audioSelection: {kind: 'native', formatId: '140'},
+			activePreset: null,
+			wizardFormats: PROBE_RESULT.formats,
+			wizardSubtitles: PROBE_RESULT.subtitles,
+			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+			wizardSubtitleLanguages: ['en', 'es'],
+			wizardStep: 'confirm',
+			wizardExtractor: 'youtube'
+		})
 
-    await useAppStore.getState().addToQueue();
+		await useAppStore.getState().addToQueue()
 
-    const updateCalls = updateMock.mock.calls;
-    const subtitleUpdateCall = updateCalls.find((args: unknown[]) => {
-      const patch = args[0] as { single?: Record<string, unknown> };
-      return !!patch.single && 'lastSubtitleLanguages' in patch.single;
-    });
-    expect(subtitleUpdateCall).toBeDefined();
-    expect(subtitleUpdateCall![0]).toMatchObject({
-      single: { lastSubtitleLanguages: ['en', 'es'] }
-    });
-    expect((subtitleUpdateCall![0] as { single?: Record<string, unknown> }).single).not.toHaveProperty('lastWriteAutoSubs');
-  });
+		const updateCalls = updateMock.mock.calls
+		const subtitleUpdateCall = updateCalls.find((args: unknown[]) => {
+			const patch = args[0] as {single?: Record<string, unknown>}
+			return !!patch.single && 'lastSubtitleLanguages' in patch.single
+		})
+		expect(subtitleUpdateCall).toBeDefined()
+		expect(subtitleUpdateCall![0]).toMatchObject({single: {lastSubtitleLanguages: ['en', 'es']}})
+		expect((subtitleUpdateCall![0] as {single?: Record<string, unknown>}).single).not.toHaveProperty('lastWriteAutoSubs')
+	})
 
-  it('wizardSubtitleMode defaults to sidecar and wizardSubtitleFormat to srt', () => {
-    expect(useAppStore.getState().wizardSubtitleMode).toBe('sidecar');
-    expect(useAppStore.getState().wizardSubtitleFormat).toBe('srt');
-  });
+	it('wizardSubtitleMode defaults to sidecar and wizardSubtitleFormat to srt', () => {
+		expect(useAppStore.getState().wizardSubtitleMode).toBe('sidecar')
+		expect(useAppStore.getState().wizardSubtitleFormat).toBe('srt')
+	})
 
-  it('setSubtitleMode updates wizardSubtitleMode', () => {
-    useAppStore.getState().setSubtitleMode('embed');
-    expect(useAppStore.getState().wizardSubtitleMode).toBe('embed');
-  });
+	it('setSubtitleMode updates wizardSubtitleMode', () => {
+		useAppStore.getState().setSubtitleMode('embed')
+		expect(useAppStore.getState().wizardSubtitleMode).toBe('embed')
+	})
 
-  it('setSubtitleFormat updates wizardSubtitleFormat', () => {
-    useAppStore.getState().setSubtitleFormat('vtt');
-    expect(useAppStore.getState().wizardSubtitleFormat).toBe('vtt');
-  });
+	it('setSubtitleFormat updates wizardSubtitleFormat', () => {
+		useAppStore.getState().setSubtitleFormat('vtt')
+		expect(useAppStore.getState().wizardSubtitleFormat).toBe('vtt')
+	})
 
-  it('buildQueueItem includes subtitleMode and subtitleFormat', async () => {
-    window.appApi = buildMockApi() as never;
-    await useAppStore.getState().initialize();
+	it('buildQueueItem includes subtitleMode and subtitleFormat', async () => {
+		window.appApi = buildMockApi() as never
+		await useAppStore.getState().initialize()
 
-    useAppStore.setState({
-      wizardUrl: YOUTUBE_URL,
-      wizardTitle: 'Test',
-      wizardThumbnail: '',
-      wizardOutputDir: '/tmp',
-      selectedVideoFormatId: '22',
-      audioSelection: { kind: 'native', formatId: '140' },
-      activePreset: null,
-      wizardFormats: PROBE_RESULT.formats,
-      wizardSubtitles: PROBE_RESULT.subtitles,
-      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-      wizardSubtitleLanguages: ['en'],
-      wizardSubtitleMode: 'subfolder',
-      wizardSubtitleFormat: 'vtt',
-      wizardStep: 'confirm',
-      wizardExtractor: 'youtube'
-    });
+		useAppStore.setState({
+			wizardUrl: YOUTUBE_URL,
+			wizardTitle: 'Test',
+			wizardThumbnail: '',
+			wizardOutputDir: '/tmp',
+			selectedVideoFormatId: '22',
+			audioSelection: {kind: 'native', formatId: '140'},
+			activePreset: null,
+			wizardFormats: PROBE_RESULT.formats,
+			wizardSubtitles: PROBE_RESULT.subtitles,
+			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+			wizardSubtitleLanguages: ['en'],
+			wizardSubtitleMode: 'subfolder',
+			wizardSubtitleFormat: 'vtt',
+			wizardStep: 'confirm',
+			wizardExtractor: 'youtube'
+		})
 
-    await useAppStore.getState().addToQueue();
+		await useAppStore.getState().addToQueue()
 
-    const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0][0][0];
-    expect(item.job.subtitles?.mode).toBe('subfolder');
-    expect(item.job.subtitles?.format).toBe('vtt');
-  });
+		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0][0][0]
+		expect(item.job.subtitles?.mode).toBe('subfolder')
+		expect(item.job.subtitles?.format).toBe('vtt')
+	})
 
-  it('persistFormatPrefs saves lastSubtitleMode and lastSubtitleFormat', async () => {
-    const updateMock = vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false }));
-    window.appApi = {
-      ...buildMockApi(),
-      settings: {
-        get: vi.fn().mockResolvedValue(ok({ defaultOutputDir: '/tmp', rememberLastOutputDir: false })),
-        update: updateMock
-      }
-    } as never;
-    await useAppStore.getState().initialize();
+	it('persistFormatPrefs saves lastSubtitleMode and lastSubtitleFormat', async () => {
+		const updateMock = vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false}))
+		window.appApi = {...buildMockApi(), settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false})), update: updateMock}} as never
+		await useAppStore.getState().initialize()
 
-    useAppStore.setState({
-      wizardUrl: YOUTUBE_URL,
-      wizardTitle: 'Test',
-      wizardThumbnail: '',
-      wizardOutputDir: '/tmp',
-      selectedVideoFormatId: '22',
-      audioSelection: { kind: 'native', formatId: '140' },
-      activePreset: null,
-      wizardFormats: PROBE_RESULT.formats,
-      wizardSubtitles: PROBE_RESULT.subtitles,
-      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-      wizardSubtitleLanguages: ['en'],
-      wizardSubtitleMode: 'subfolder',
-      wizardSubtitleFormat: 'vtt',
-      wizardStep: 'confirm',
-      wizardExtractor: 'youtube'
-    });
+		useAppStore.setState({
+			wizardUrl: YOUTUBE_URL,
+			wizardTitle: 'Test',
+			wizardThumbnail: '',
+			wizardOutputDir: '/tmp',
+			selectedVideoFormatId: '22',
+			audioSelection: {kind: 'native', formatId: '140'},
+			activePreset: null,
+			wizardFormats: PROBE_RESULT.formats,
+			wizardSubtitles: PROBE_RESULT.subtitles,
+			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+			wizardSubtitleLanguages: ['en'],
+			wizardSubtitleMode: 'subfolder',
+			wizardSubtitleFormat: 'vtt',
+			wizardStep: 'confirm',
+			wizardExtractor: 'youtube'
+		})
 
-    await useAppStore.getState().addToQueue();
+		await useAppStore.getState().addToQueue()
 
-    const updateCalls = updateMock.mock.calls;
-    const subtitleCall = updateCalls.find((args: unknown[]) => {
-      const patch = args[0] as { single?: Record<string, unknown> };
-      return !!patch.single && 'lastSubtitleLanguages' in patch.single;
-    });
-    expect(subtitleCall).toBeDefined();
-    expect(subtitleCall![0]).toMatchObject({
-      single: { lastSubtitleMode: 'subfolder', lastSubtitleFormat: 'vtt' }
-    });
-  });
+		const updateCalls = updateMock.mock.calls
+		const subtitleCall = updateCalls.find((args: unknown[]) => {
+			const patch = args[0] as {single?: Record<string, unknown>}
+			return !!patch.single && 'lastSubtitleLanguages' in patch.single
+		})
+		expect(subtitleCall).toBeDefined()
+		expect(subtitleCall![0]).toMatchObject({single: {lastSubtitleMode: 'subfolder', lastSubtitleFormat: 'vtt'}})
+	})
 
-  it('submitUrl restores lastSubtitleMode and lastSubtitleFormat from settings', async () => {
-    window.appApi = buildMockApi({ lastSubtitleMode: 'embed', lastSubtitleFormat: 'ass' }) as never;
-    await useAppStore.getState().initialize();
+	it('submitUrl restores lastSubtitleMode and lastSubtitleFormat from settings', async () => {
+		window.appApi = buildMockApi({lastSubtitleMode: 'embed', lastSubtitleFormat: 'ass'}) as never
+		await useAppStore.getState().initialize()
 
-    useAppStore.getState().setWizardUrl(YOUTUBE_URL);
-    await useAppStore.getState().submitUrl();
+		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
+		await useAppStore.getState().submitUrl()
 
-    expect(useAppStore.getState().wizardSubtitleMode).toBe('embed');
-    expect(useAppStore.getState().wizardSubtitleFormat).toBe('ass');
-  });
+		expect(useAppStore.getState().wizardSubtitleMode).toBe('embed')
+		expect(useAppStore.getState().wizardSubtitleFormat).toBe('ass')
+	})
 
-  it('reset() clears subtitle state and resets mode/format to defaults', () => {
-    useAppStore.setState({
-      wizardSubtitleLanguages: ['en'],
-      wizardSubtitles: { en: [{ ext: 'vtt' }] },
-      wizardAutomaticCaptions: { de: [{ ext: 'vtt' }] },
-      wizardSubtitleMode: 'embed',
-      wizardSubtitleFormat: 'vtt'
-    });
+	it('reset() clears subtitle state and resets mode/format to defaults', () => {
+		useAppStore.setState({wizardSubtitleLanguages: ['en'], wizardSubtitles: {en: [{ext: 'vtt'}]}, wizardAutomaticCaptions: {de: [{ext: 'vtt'}]}, wizardSubtitleMode: 'embed', wizardSubtitleFormat: 'vtt'})
 
-    useAppStore.getState().reset();
+		useAppStore.getState().reset()
 
-    const state = useAppStore.getState();
-    expect(state.wizardSubtitleLanguages).toEqual([]);
-    expect(state.wizardSubtitles).toEqual({});
-    expect(state.wizardAutomaticCaptions).toEqual({});
-    expect(state.wizardSubtitleMode).toBe('sidecar');
-    expect(state.wizardSubtitleFormat).toBe('srt');
-  });
-});
+		const state = useAppStore.getState()
+		expect(state.wizardSubtitleLanguages).toEqual([])
+		expect(state.wizardSubtitles).toEqual({})
+		expect(state.wizardAutomaticCaptions).toEqual({})
+		expect(state.wizardSubtitleMode).toBe('sidecar')
+		expect(state.wizardSubtitleFormat).toBe('srt')
+	})
+})
 
 describe('StepSubtitles — save mode UI', () => {
-  function renderStep(subtitleMode = 'sidecar') {
-    useAppStore.setState({
-      wizardStep: 'subtitles',
-      wizardSubtitles: { en: [{ ext: 'vtt', name: 'English' }] },
-      wizardAutomaticCaptions: {},
-      wizardSubtitleLanguages: [],
-      wizardSubtitleMode: subtitleMode as never,
-      wizardSubtitleFormat: 'srt'
-    });
-    return render(<StepSubtitles />);
-  }
+	function renderStep(subtitleMode = 'sidecar') {
+		useAppStore.setState({wizardStep: 'subtitles', wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}]}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: [], wizardSubtitleMode: subtitleMode as never, wizardSubtitleFormat: 'srt'})
+		return render(<StepSubtitles />)
+	}
 
-  it('renders save-mode radio options', () => {
-    renderStep();
-    expect(screen.getByText('Next to video')).toBeInTheDocument();
-    expect(screen.getByText('Embed into video')).toBeInTheDocument();
-    expect(screen.getByText('subtitles/ subfolder')).toBeInTheDocument();
-  });
+	it('renders save-mode radio options', () => {
+		renderStep()
+		expect(screen.getByText('Next to video')).toBeInTheDocument()
+		expect(screen.getByText('Embed into video')).toBeInTheDocument()
+		expect(screen.getByText('subtitles/ subfolder')).toBeInTheDocument()
+	})
 
-  it('shows format toggle buttons when mode is sidecar', () => {
-    renderStep('sidecar');
-    expect(screen.getByRole('button', { name: 'SRT' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'VTT' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'ASS' })).toBeInTheDocument();
-  });
+	it('shows format toggle buttons when mode is sidecar', () => {
+		renderStep('sidecar')
+		expect(screen.getByRole('button', {name: 'SRT'})).toBeInTheDocument()
+		expect(screen.getByRole('button', {name: 'VTT'})).toBeInTheDocument()
+		expect(screen.getByRole('button', {name: 'ASS'})).toBeInTheDocument()
+	})
 
-  it('hides format toggle buttons when mode is embed', () => {
-    renderStep('embed');
-    expect(screen.queryByRole('button', { name: 'SRT' })).not.toBeInTheDocument();
-  });
+	it('hides format toggle buttons when mode is embed', () => {
+		renderStep('embed')
+		expect(screen.queryByRole('button', {name: 'SRT'})).not.toBeInTheDocument()
+	})
 
-  it('shows the embed-note hint only when mode is embed', () => {
-    const { rerender } = renderStep('sidecar');
-    expect(screen.queryByTestId('subtitle-embed-note')).not.toBeInTheDocument();
+	it('shows the embed-note hint only when mode is embed', () => {
+		const {rerender} = renderStep('sidecar')
+		expect(screen.queryByTestId('subtitle-embed-note')).not.toBeInTheDocument()
 
-    useAppStore.setState({ wizardSubtitleMode: 'embed' });
-    rerender(<StepSubtitles />);
-    const note = screen.getByTestId('subtitle-embed-note');
-    expect(note).toBeInTheDocument();
-    expect(note.textContent).toMatch(/\.mkv/);
-  });
+		useAppStore.setState({wizardSubtitleMode: 'embed'})
+		rerender(<StepSubtitles />)
+		const note = screen.getByTestId('subtitle-embed-note')
+		expect(note).toBeInTheDocument()
+		expect(note.textContent).toMatch(/\.mkv/)
+	})
 
-  it('clicking embed mode calls setSubtitleMode', () => {
-    const setSubtitleMode = vi.spyOn(useAppStore.getState(), 'setSubtitleMode');
-    renderStep('sidecar');
-    fireEvent.click(screen.getByText('Embed into video'));
-    expect(setSubtitleMode).toHaveBeenCalledWith('embed');
-  });
+	it('clicking embed mode calls setSubtitleMode', () => {
+		const setSubtitleMode = vi.spyOn(useAppStore.getState(), 'setSubtitleMode')
+		renderStep('sidecar')
+		fireEvent.click(screen.getByText('Embed into video'))
+		expect(setSubtitleMode).toHaveBeenCalledWith('embed')
+	})
 
-  it('shows the auto-caption ASS-fallback note only when an auto language is selected and format is ASS', () => {
-    useAppStore.setState({
-      wizardStep: 'subtitles',
-      wizardSubtitles: {},
-      wizardAutomaticCaptions: { en: [{ ext: 'vtt' }] },
-      wizardSubtitleLanguages: ['en'],
-      wizardSubtitleMode: 'sidecar',
-      wizardSubtitleFormat: 'ass'
-    });
-    const { rerender } = render(<StepSubtitles />);
-    expect(screen.getByTestId('subtitle-auto-ass-note')).toBeInTheDocument();
+	it('shows the auto-caption ASS-fallback note only when an auto language is selected and format is ASS', () => {
+		useAppStore.setState({wizardStep: 'subtitles', wizardSubtitles: {}, wizardAutomaticCaptions: {en: [{ext: 'vtt'}]}, wizardSubtitleLanguages: ['en'], wizardSubtitleMode: 'sidecar', wizardSubtitleFormat: 'ass'})
+		const {rerender} = render(<StepSubtitles />)
+		expect(screen.getByTestId('subtitle-auto-ass-note')).toBeInTheDocument()
 
-    // Switch format away from ASS — note should disappear
-    useAppStore.setState({ wizardSubtitleFormat: 'srt' });
-    rerender(<StepSubtitles />);
-    expect(screen.queryByTestId('subtitle-auto-ass-note')).not.toBeInTheDocument();
+		// Switch format away from ASS — note should disappear
+		useAppStore.setState({wizardSubtitleFormat: 'srt'})
+		rerender(<StepSubtitles />)
+		expect(screen.queryByTestId('subtitle-auto-ass-note')).not.toBeInTheDocument()
 
-    // ASS again, but only manual sub selected — also no note
-    useAppStore.setState({
-      wizardSubtitleFormat: 'ass',
-      wizardSubtitles: { en: [{ ext: 'vtt' }] },
-      wizardAutomaticCaptions: {},
-      wizardSubtitleLanguages: ['en']
-    });
-    rerender(<StepSubtitles />);
-    expect(screen.queryByTestId('subtitle-auto-ass-note')).not.toBeInTheDocument();
-  });
-});
+		// ASS again, but only manual sub selected — also no note
+		useAppStore.setState({wizardSubtitleFormat: 'ass', wizardSubtitles: {en: [{ext: 'vtt'}]}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: ['en']})
+		rerender(<StepSubtitles />)
+		expect(screen.queryByTestId('subtitle-auto-ass-note')).not.toBeInTheDocument()
+	})
+})
 
 describe('StepConfirm — subtitle summary', () => {
-  function renderConfirm(opts: { mode: string; format: string; languages: string[] }) {
-    window.appApi = buildMockApi() as never;
-    useAppStore.setState({
-      wizardStep: 'confirm',
-      wizardUrl: YOUTUBE_URL,
-      wizardTitle: 'Test',
-      wizardThumbnail: '',
-      wizardOutputDir: '/tmp',
-      selectedVideoFormatId: '22',
-      audioSelection: { kind: 'native', formatId: '140' },
-      activePreset: null,
-      wizardFormats: PROBE_RESULT.formats,
-      wizardSubtitles: PROBE_RESULT.subtitles,
-      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-      wizardSubtitleLanguages: opts.languages,
-      wizardSubtitleMode: opts.mode as never,
-      wizardSubtitleFormat: opts.format as never
-    });
-    return render(<StepConfirm />);
-  }
+	function renderConfirm(opts: {mode: string; format: string; languages: string[]}) {
+		window.appApi = buildMockApi() as never
+		useAppStore.setState({
+			wizardStep: 'confirm',
+			wizardUrl: YOUTUBE_URL,
+			wizardTitle: 'Test',
+			wizardThumbnail: '',
+			wizardOutputDir: '/tmp',
+			selectedVideoFormatId: '22',
+			audioSelection: {kind: 'native', formatId: '140'},
+			activePreset: null,
+			wizardFormats: PROBE_RESULT.formats,
+			wizardSubtitles: PROBE_RESULT.subtitles,
+			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+			wizardSubtitleLanguages: opts.languages,
+			wizardSubtitleMode: opts.mode as never,
+			wizardSubtitleFormat: opts.format as never
+		})
+		return render(<StepConfirm />)
+	}
 
-  it('shows language + format + mode for sidecar', () => {
-    renderConfirm({ mode: 'sidecar', format: 'srt', languages: ['en'] });
-    const cell = screen.getByTestId('confirm-subtitles');
-    expect(cell.textContent).toContain('SRT');
-    expect(cell.textContent).toContain('Next to video');
-  });
+	it('shows language + format + mode for sidecar', () => {
+		renderConfirm({mode: 'sidecar', format: 'srt', languages: ['en']})
+		const cell = screen.getByTestId('confirm-subtitles')
+		expect(cell.textContent).toContain('SRT')
+		expect(cell.textContent).toContain('Next to video')
+	})
 
-  it('shows language + mode for embed (no format)', () => {
-    renderConfirm({ mode: 'embed', format: 'srt', languages: ['en'] });
-    const cell = screen.getByTestId('confirm-subtitles');
-    expect(cell.textContent).toContain('Embed into video');
-    expect(cell.textContent).not.toContain('SRT');
-  });
+	it('shows language + mode for embed (no format)', () => {
+		renderConfirm({mode: 'embed', format: 'srt', languages: ['en']})
+		const cell = screen.getByTestId('confirm-subtitles')
+		expect(cell.textContent).toContain('Embed into video')
+		expect(cell.textContent).not.toContain('SRT')
+	})
 
-  it('shows — when no languages selected', () => {
-    renderConfirm({ mode: 'sidecar', format: 'srt', languages: [] });
-    expect(screen.getByTestId('confirm-subtitles').textContent).toBe('—');
-  });
-});
+	it('shows — when no languages selected', () => {
+		renderConfirm({mode: 'sidecar', format: 'srt', languages: []})
+		expect(screen.getByTestId('confirm-subtitles').textContent).toBe('—')
+	})
+})
 
 describe('StepFormatSelect — subtitle-only preset disables format columns', () => {
-  function renderFormats(preset: 'best-quality' | 'subtitle-only') {
-    window.appApi = buildMockApi() as never;
-    useAppStore.setState({
-      wizardStep: 'formats',
-      wizardUrl: YOUTUBE_URL,
-      wizardTitle: 'Test',
-      wizardThumbnail: '',
-      wizardOutputDir: '/tmp',
-      selectedVideoFormatId: preset === 'subtitle-only' ? '' : '22',
-      audioSelection: preset === 'subtitle-only' ? { kind: 'none' } : { kind: 'native', formatId: '140' },
-      activePreset: preset,
-      wizardFormats: PROBE_RESULT.formats,
-      wizardSubtitles: PROBE_RESULT.subtitles,
-      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-      wizardSubtitleLanguages: [],
-      wizardSubtitleMode: 'sidecar',
-      wizardSubtitleFormat: 'srt'
-    });
-    return render(<StepFormatSelect />);
-  }
+	function renderFormats(preset: 'best-quality' | 'subtitle-only') {
+		window.appApi = buildMockApi() as never
+		useAppStore.setState({
+			wizardStep: 'formats',
+			wizardUrl: YOUTUBE_URL,
+			wizardTitle: 'Test',
+			wizardThumbnail: '',
+			wizardOutputDir: '/tmp',
+			selectedVideoFormatId: preset === 'subtitle-only' ? '' : '22',
+			audioSelection: preset === 'subtitle-only' ? {kind: 'none'} : {kind: 'native', formatId: '140'},
+			activePreset: preset,
+			wizardFormats: PROBE_RESULT.formats,
+			wizardSubtitles: PROBE_RESULT.subtitles,
+			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+			wizardSubtitleLanguages: [],
+			wizardSubtitleMode: 'sidecar',
+			wizardSubtitleFormat: 'srt'
+		})
+		return render(<StepFormatSelect />)
+	}
 
-  it('marks every video and audio radio as aria-disabled when subtitle-only preset is active', () => {
-    renderFormats('subtitle-only');
-    const radios = screen.getAllByRole('radio');
-    expect(radios.length).toBeGreaterThan(0);
-    for (const r of radios) {
-      expect(r.getAttribute('aria-disabled')).toBe('true');
-    }
-  });
+	it('marks every video and audio radio as aria-disabled when subtitle-only preset is active', () => {
+		renderFormats('subtitle-only')
+		const radios = screen.getAllByRole('radio')
+		expect(radios.length).toBeGreaterThan(0)
+		for (const r of radios) {
+			expect(r.getAttribute('aria-disabled')).toBe('true')
+		}
+	})
 
-  it('disables only the audio-convert radios for non-subtitle-only presets with a video pick', () => {
-    renderFormats('best-quality');
-    const radios = screen.getAllByRole('radio');
-    const disabledCount = radios.filter((r) => r.getAttribute('aria-disabled') === 'true').length;
-    // best-quality picks a video → audio-convert rows (mp3/m4a/opus/wav) are
-    // disabled because yt-dlp's -x is mutually exclusive with video+audio merging.
-    // Native video and native audio rows stay enabled.
-    expect(disabledCount).toBe(4);
-  });
-});
+	it('disables only the audio-convert radios for non-subtitle-only presets with a video pick', () => {
+		renderFormats('best-quality')
+		const radios = screen.getAllByRole('radio')
+		const disabledCount = radios.filter(r => r.getAttribute('aria-disabled') === 'true').length
+		// best-quality picks a video → audio-convert rows (mp3/m4a/opus/wav) are
+		// disabled because yt-dlp's -x is mutually exclusive with video+audio merging.
+		// Native video and native audio rows stay enabled.
+		expect(disabledCount).toBe(4)
+	})
+})
 
 describe('StepConfirm — subtitle-only safeguards', () => {
-  function renderConfirmSubtitleOnly(languages: string[], skipped = false) {
-    window.appApi = buildMockApi() as never;
-    useAppStore.setState({
-      wizardStep: 'confirm',
-      wizardUrl: YOUTUBE_URL,
-      wizardTitle: 'Test',
-      wizardThumbnail: '',
-      wizardOutputDir: '/tmp',
-      selectedVideoFormatId: '',
-      audioSelection: { kind: 'none' },
-      activePreset: 'subtitle-only',
-      wizardFormats: PROBE_RESULT.formats,
-      wizardSubtitles: PROBE_RESULT.subtitles,
-      wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-      wizardSubtitleLanguages: languages,
-      wizardSubtitleSkipped: skipped,
-      wizardSubtitleMode: 'sidecar',
-      wizardSubtitleFormat: 'srt'
-    });
-    return render(<StepConfirm />);
-  }
+	function renderConfirmSubtitleOnly(languages: string[], skipped = false) {
+		window.appApi = buildMockApi() as never
+		useAppStore.setState({
+			wizardStep: 'confirm',
+			wizardUrl: YOUTUBE_URL,
+			wizardTitle: 'Test',
+			wizardThumbnail: '',
+			wizardOutputDir: '/tmp',
+			selectedVideoFormatId: '',
+			audioSelection: {kind: 'none'},
+			activePreset: 'subtitle-only',
+			wizardFormats: PROBE_RESULT.formats,
+			wizardSubtitles: PROBE_RESULT.subtitles,
+			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+			wizardSubtitleLanguages: languages,
+			wizardSubtitleSkipped: skipped,
+			wizardSubtitleMode: 'sidecar',
+			wizardSubtitleFormat: 'srt'
+		})
+		return render(<StepConfirm />)
+	}
 
-  it('disables download buttons when nothing is selected (no media + no subs)', () => {
-    renderConfirmSubtitleOnly([]);
-    const download = screen.getByTestId<HTMLButtonElement>('btn-download-now');
-    const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue');
-    expect(download.disabled).toBe(true);
-    expect(queue.disabled).toBe(true);
-  });
+	it('disables download buttons when nothing is selected (no media + no subs)', () => {
+		renderConfirmSubtitleOnly([])
+		const download = screen.getByTestId<HTMLButtonElement>('btn-download-now')
+		const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue')
+		expect(download.disabled).toBe(true)
+		expect(queue.disabled).toBe(true)
+	})
 
-  it('enables download buttons when subtitle-only with at least one language', () => {
-    renderConfirmSubtitleOnly(['en']);
-    const download = screen.getByTestId<HTMLButtonElement>('btn-download-now');
-    const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue');
-    expect(download.disabled).toBe(false);
-    expect(queue.disabled).toBe(false);
-  });
+	it('enables download buttons when subtitle-only with at least one language', () => {
+		renderConfirmSubtitleOnly(['en'])
+		const download = screen.getByTestId<HTMLButtonElement>('btn-download-now')
+		const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue')
+		expect(download.disabled).toBe(false)
+		expect(queue.disabled).toBe(false)
+	})
 
-  it('disables download buttons when subtitle-only with languages but subtitles were skipped', () => {
-    // skipSubtitles() sets wizardSubtitleSkipped=true without clearing wizardSubtitleLanguages.
-    // The effective languages are [] so there is nothing to download.
-    renderConfirmSubtitleOnly(['en'], true);
-    const download = screen.getByTestId<HTMLButtonElement>('btn-download-now');
-    const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue');
-    expect(download.disabled).toBe(true);
-    expect(queue.disabled).toBe(true);
-  });
+	it('disables download buttons when subtitle-only with languages but subtitles were skipped', () => {
+		// skipSubtitles() sets wizardSubtitleSkipped=true without clearing wizardSubtitleLanguages.
+		// The effective languages are [] so there is nothing to download.
+		renderConfirmSubtitleOnly(['en'], true)
+		const download = screen.getByTestId<HTMLButtonElement>('btn-download-now')
+		const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue')
+		expect(download.disabled).toBe(true)
+		expect(queue.disabled).toBe(true)
+	})
 
-  it('shows — for subtitles row when languages were skipped', () => {
-    renderConfirmSubtitleOnly(['en'], true);
-    expect(screen.getByTestId('confirm-subtitles').textContent).toBe('—');
-  });
-});
+	it('shows — for subtitles row when languages were skipped', () => {
+		renderConfirmSubtitleOnly(['en'], true)
+		expect(screen.getByTestId('confirm-subtitles').textContent).toBe('—')
+	})
+})

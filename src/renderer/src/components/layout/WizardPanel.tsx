@@ -1,71 +1,71 @@
-import { useEffect, useMemo, useRef, useState, type JSX } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useAppStore } from '../../store/useAppStore.js';
-import { STEP_REGISTRY } from '../wizard/stepRegistry.js';
-import { STEPS, shouldSkip } from '../wizard/stepNavigation.js';
-import { StepError } from '../wizard/StepError.js';
-import { MixedUrlPromptDialog } from '../wizard/MixedUrlPromptDialog.js';
-import { QuickPlaylistCapDialog } from '../wizard/QuickPlaylistCapDialog.js';
-import { cn } from '@renderer/lib/utils.js';
+import {useEffect, useMemo, useRef, useState, type JSX} from 'react'
+import {useTranslation} from 'react-i18next'
+import {useAppStore} from '../../store/useAppStore.js'
+import {STEP_REGISTRY} from '../wizard/stepRegistry.js'
+import {STEPS, shouldSkip} from '../wizard/stepNavigation.js'
+import {StepError} from '../wizard/StepError.js'
+import {MixedUrlPromptDialog} from '../wizard/MixedUrlPromptDialog.js'
+import {QuickPlaylistCapDialog} from '../wizard/QuickPlaylistCapDialog.js'
+import {cn} from '@renderer/lib/utils.js'
 
 export function WizardPanel(): JSX.Element {
-  const { t } = useTranslation();
-  const wizardStep = useAppStore((s) => s.wizardStep);
-  const activePreset = useAppStore((s) => s.activePreset);
-  const wizardMode = useAppStore((s) => s.wizardMode);
-  const playlistSelection = useAppStore((s) => s.playlistSelection);
-  const wizardExtractor = useAppStore((s) => s.wizardExtractor);
-  const wizardSubtitles = useAppStore((s) => s.wizardSubtitles);
-  const wizardAutomaticCaptions = useAppStore((s) => s.wizardAutomaticCaptions);
-  const hasSubtitles = useMemo(() => Object.keys(wizardSubtitles).length > 0 || Object.keys(wizardAutomaticCaptions).length > 0, [wizardSubtitles, wizardAutomaticCaptions]);
+	const {t} = useTranslation()
+	const wizardStep = useAppStore(s => s.wizardStep)
+	const activePreset = useAppStore(s => s.activePreset)
+	const wizardMode = useAppStore(s => s.wizardMode)
+	const playlistSelection = useAppStore(s => s.playlistSelection)
+	const wizardExtractor = useAppStore(s => s.wizardExtractor)
+	const wizardSubtitles = useAppStore(s => s.wizardSubtitles)
+	const wizardAutomaticCaptions = useAppStore(s => s.wizardAutomaticCaptions)
+	const hasSubtitles = useMemo(() => Object.keys(wizardSubtitles).length > 0 || Object.keys(wizardAutomaticCaptions).length > 0, [wizardSubtitles, wizardAutomaticCaptions])
 
-  const visibleSteps = useMemo(() => STEPS.filter((step) => !shouldSkip(step, { activePreset, wizardMode, playlistSelection, wizardExtractor, hasSubtitles })), [activePreset, wizardMode, playlistSelection, wizardExtractor, hasSubtitles]);
+	const visibleSteps = useMemo(() => STEPS.filter(step => !shouldSkip(step, {activePreset, wizardMode, playlistSelection, wizardExtractor, hasSubtitles})), [activePreset, wizardMode, playlistSelection, wizardExtractor, hasSubtitles])
 
-  const activeIndex = visibleSteps.indexOf(wizardStep as (typeof STEPS)[number]);
-  const activeDescriptor = STEP_REGISTRY.find((d) => d.id === wizardStep);
-  const isDownloadHome = wizardStep === 'url';
+	const activeIndex = visibleSteps.indexOf(wizardStep as (typeof STEPS)[number])
+	const activeDescriptor = STEP_REGISTRY.find(d => d.id === wizardStep)
+	const isDownloadHome = wizardStep === 'url'
 
-  const prevIndexRef = useRef(activeIndex);
-  const [isBackward, setIsBackward] = useState(false);
+	const prevIndexRef = useRef(activeIndex)
+	const [isBackward, setIsBackward] = useState(false)
 
-  useEffect(() => {
-    setIsBackward(activeIndex >= 0 && prevIndexRef.current >= 0 && activeIndex < prevIndexRef.current);
-    prevIndexRef.current = activeIndex;
-  }, [activeIndex]);
+	useEffect(() => {
+		setIsBackward(activeIndex >= 0 && prevIndexRef.current >= 0 && activeIndex < prevIndexRef.current)
+		prevIndexRef.current = activeIndex
+	}, [activeIndex])
 
-  return (
-    <section className={cn('px-6 min-h-full flex flex-col', isDownloadHome ? 'pt-4' : 'pt-3', isBackward ? 'wizard-backward' : 'wizard-forward')} data-testid="wizard-panel">
-      {wizardStep !== 'error' && !isDownloadHome && (
-        <div className="flex items-center mb-4" aria-hidden data-testid="step-indicator">
-          {visibleSteps.map((stepKey, i) => {
-            const isDone = i < activeIndex;
-            const isActive = i === activeIndex;
-            return (
-              <div key={stepKey} className="flex items-center flex-1 last:flex-none">
-                <div className="flex flex-col items-center gap-1">
-                  <div
-                    className={cn(
-                      'w-6 h-6 rounded-full flex items-center justify-center text-[12px] font-bold border transition-all duration-300',
-                      isActive && 'border-[var(--brand)] bg-[var(--brand-dim)] text-[var(--brand)]',
-                      isDone && 'border-transparent bg-[var(--brand)] text-white',
-                      !isActive && !isDone && 'border-[var(--border-strong)] bg-transparent text-[var(--text-subtle)]'
-                    )}
-                    style={isActive ? { boxShadow: '0 0 0 3px var(--brand-dim), 0 0 12px var(--brand-glow)' } : isDone ? { boxShadow: '0 0 6px var(--brand-glow)' } : undefined}
-                  >
-                    {isDone ? '✓' : i + 1}
-                  </div>
-                  <span className={cn('text-[11px] font-semibold uppercase tracking-[0.07em]', isActive && 'text-[var(--brand)]', (isDone || (!isActive && !isDone)) && 'text-[var(--text-subtle)]')}>{t(`wizard.steps.${stepKey}` as const)}</span>
-                </div>
-                {i < visibleSteps.length - 1 && <div className={cn('h-[2px] flex-1 mb-4 mx-1 transition-all duration-500 rounded-full', isDone ? 'bg-[var(--brand)]' : 'bg-accent')} style={isDone ? { boxShadow: '0 0 4px var(--brand-glow)' } : undefined} />}
-              </div>
-            );
-          })}
-        </div>
-      )}
+	return (
+		<section className={cn('px-6 min-h-full flex flex-col', isDownloadHome ? 'pt-4' : 'pt-3', isBackward ? 'wizard-backward' : 'wizard-forward')} data-testid="wizard-panel">
+			{wizardStep !== 'error' && !isDownloadHome && (
+				<div className="flex items-center mb-4" aria-hidden data-testid="step-indicator">
+					{visibleSteps.map((stepKey, i) => {
+						const isDone = i < activeIndex
+						const isActive = i === activeIndex
+						return (
+							<div key={stepKey} className="flex items-center flex-1 last:flex-none">
+								<div className="flex flex-col items-center gap-1">
+									<div
+										className={cn(
+											'w-6 h-6 rounded-full flex items-center justify-center text-[12px] font-bold border transition-all duration-300',
+											isActive && 'border-[var(--brand)] bg-[var(--brand-dim)] text-[var(--brand)]',
+											isDone && 'border-transparent bg-[var(--brand)] text-white',
+											!isActive && !isDone && 'border-[var(--border-strong)] bg-transparent text-[var(--text-subtle)]'
+										)}
+										style={isActive ? {boxShadow: '0 0 0 3px var(--brand-dim), 0 0 12px var(--brand-glow)'} : isDone ? {boxShadow: '0 0 6px var(--brand-glow)'} : undefined}
+									>
+										{isDone ? '✓' : i + 1}
+									</div>
+									<span className={cn('text-[11px] font-semibold uppercase tracking-[0.07em]', isActive && 'text-[var(--brand)]', (isDone || (!isActive && !isDone)) && 'text-[var(--text-subtle)]')}>{t(`wizard.steps.${stepKey}` as const)}</span>
+								</div>
+								{i < visibleSteps.length - 1 && <div className={cn('h-[2px] flex-1 mb-4 mx-1 transition-all duration-500 rounded-full', isDone ? 'bg-[var(--brand)]' : 'bg-accent')} style={isDone ? {boxShadow: '0 0 4px var(--brand-glow)'} : undefined} />}
+							</div>
+						)
+					})}
+				</div>
+			)}
 
-      {wizardStep === 'error' ? <StepError /> : activeDescriptor?.render()}
-      <MixedUrlPromptDialog />
-      <QuickPlaylistCapDialog />
-    </section>
-  );
+			{wizardStep === 'error' ? <StepError /> : activeDescriptor?.render()}
+			<MixedUrlPromptDialog />
+			<QuickPlaylistCapDialog />
+		</section>
+	)
 }

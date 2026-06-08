@@ -14,7 +14,9 @@ Arroxy migrated in one phase from direct ESLint + Prettier scripts to:
 - Oxlint JS-plugin bridge for rules that Biome/Oxlint native coverage would otherwise lose.
 - `scripts/check-tooling-parity.mjs` for representative regression probes.
 
-The migration intentionally uses `lineWidth: 320`, not 100 or 120. Biome rejects the old Prettier `printWidth: 10000`; 320 is Biome's practical maximum and preserves the repo's token-minimizing preference better than conventional wrapping.
+The migration intentionally uses a token-minimizing Biome formatter profile: `lineWidth: 320`, tabs, compact object spacing, `expand: "never"`, `semicolons: "asNeeded"`, and `arrowParentheses: "asNeeded"`. Biome rejects the old Prettier `printWidth: 10000`; 320 is Biome's practical maximum and preserves the repo's token-minimizing preference better than conventional wrapping.
+
+The dense formatter profile reduced the Biome-managed file set from 3,004,113 bytes to 2,795,254 bytes versus the previous PR commit: -208,859 bytes, or -6.952%.
 
 Docs/prose are not part of the Biome formatter include list. Formatting is scoped to code, tests, scripts, CSS, config JSON, and core project config files.
 
@@ -22,7 +24,7 @@ Docs/prose are not part of the Biome formatter include list. Formatting is scope
 
 | Path | Role |
 | --- | --- |
-| `biome.jsonc` | Formatter config; Tailwind v4 parser enabled; `lineWidth: 320`; linter disabled |
+| `biome.jsonc` | Dense formatter config; Tailwind v4 parser enabled; `lineWidth: 320`; linter disabled |
 | `.oxlintrc.json` | Type-aware Oxlint config and JS-plugin bridge policy |
 | `scripts/check-tooling-parity.mjs` | Fixture probes for formatter/parser, type-aware lint, React hooks/compiler, and security bridge rules |
 | `package.json` | `format`, `format:check`, `lint`, `lint:parity`, `check`, and lint-staged commands |
