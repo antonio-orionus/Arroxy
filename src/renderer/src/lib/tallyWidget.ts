@@ -1,4 +1,5 @@
 const TALLY_WIDGET_SCRIPT = 'https://tally.so/widgets/embed.js'
+const TALLY_SCRIPT_STATE_ATTRIBUTE = 'data-arroxy-tally-state'
 
 export interface TallyPopupOptions {
 	layout?: 'default' | 'modal'
@@ -24,26 +25,46 @@ export async function openTallyPopup(formId: string, options: TallyPopupOptions)
 function loadTallyWidget(): Promise<TallyWidget> {
 	const existing = getTallyWidget()
 	if (existing) return Promise.resolve(existing)
-	widgetPromise ??= appendTallyScript()
+	widgetPromise ??= appendTallyScript().catch(error => {
+		widgetPromise = null
+		throw error
+	})
 	return widgetPromise
 }
 
 function appendTallyScript(): Promise<TallyWidget> {
 	return new Promise((resolve, reject) => {
 		const existingScript = document.querySelector<HTMLScriptElement>(`script[src="${TALLY_WIDGET_SCRIPT}"]`)
-		const script = existingScript ?? document.createElement('script')
+		if (existingScript && existingScript.getAttribute(TALLY_SCRIPT_STATE_ATTRIBUTE) !== 'loading') {
+			existingScript.remove()
+		}
+		const script = existingScript?.isConnected && existingScript.getAttribute(TALLY_SCRIPT_STATE_ATTRIBUTE) === 'loading' ? existingScript : document.createElement('script')
 
-		script.addEventListener('load', () => {
-			const widget = getTallyWidget()
-			if (widget) {
-				resolve(widget)
-			} else {
-				reject(new Error('Tally widget loaded without exposing window.Tally'))
-			}
-		})
-		script.addEventListener('error', () => reject(new Error('Failed to load Tally widget')))
+		script.addEventListener(
+			'load',
+			() => {
+				script.setAttribute(TALLY_SCRIPT_STATE_ATTRIBUTE, 'loaded')
+				const widget = getTallyWidget()
+				if (widget) {
+					resolve(widget)
+				} else {
+					reject(new Error('Tally widget loaded without exposing window.Tally'))
+				}
+			},
+			{once: true}
+		)
+		script.addEventListener(
+			'error',
+			() => {
+				script.setAttribute(TALLY_SCRIPT_STATE_ATTRIBUTE, 'failed')
+				script.remove()
+				reject(new Error('Failed to load Tally widget'))
+			},
+			{once: true}
+		)
 
-		if (!existingScript) {
+		if (!script.isConnected) {
+			script.setAttribute(TALLY_SCRIPT_STATE_ATTRIBUTE, 'loading')
 			script.src = TALLY_WIDGET_SCRIPT
 			script.async = true
 			document.body.appendChild(script)

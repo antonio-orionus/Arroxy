@@ -52,6 +52,41 @@ describe('FeedbackDiagnostics', () => {
 		}
 	})
 
+	it('aborts diagnostic uploads that do not complete before the timeout', async () => {
+		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-feedback-diagnostics-timeout-'))
+		const logPath = path.join(tempDir, 'main.log')
+		await fs.writeFile(logPath, 'diagnostic log\n')
+		const reportId = '11111111-1111-4111-8111-111111111111'
+		let markFetchStarted!: () => void
+		const fetchStarted = new Promise<void>(resolve => {
+			markFetchStarted = resolve
+		})
+		const fetchImpl = vi.fn((_endpoint: RequestInfo | URL, init?: RequestInit) => {
+			markFetchStarted()
+			return new Promise<Response>((_resolve, reject) => {
+				init?.signal?.addEventListener('abort', () => {
+					const error = new Error('Aborted')
+					error.name = 'AbortError'
+					reject(error)
+				})
+			})
+		})
+
+		try {
+			vi.useFakeTimers()
+			const upload = uploadFeedbackDiagnostic({endpoint: 'https://arroxy.orionus.dev/api/feedback-diagnostics', fetchImpl, logPath, reportId, timeoutMs: 1})
+			const rejectedUpload = expect(upload).rejects.toThrow('Diagnostic upload timed out')
+			await fetchStarted
+			await vi.advanceTimersByTimeAsync(1)
+			await rejectedUpload
+			expect(fetchImpl).toHaveBeenCalledOnce()
+			expect(fetchImpl.mock.calls[0][1]!.signal?.aborted).toBe(true)
+		} finally {
+			vi.useRealTimers()
+			await fs.rm(tempDir, {force: true, recursive: true})
+		}
+	})
+
 	it('rejects invalid report ids before reading or uploading logs', async () => {
 		const fetchImpl = vi.fn()
 

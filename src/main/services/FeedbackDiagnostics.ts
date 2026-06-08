@@ -6,6 +6,7 @@ import {promisify} from 'node:util'
 const gzipAsync = promisify(gzip)
 
 export const FEEDBACK_DIAGNOSTIC_TAIL_BYTES = 1024 * 1024
+const FEEDBACK_DIAGNOSTIC_UPLOAD_TIMEOUT_MS = 10_000
 const DEFAULT_FEEDBACK_DIAGNOSTICS_ENDPOINT = 'https://arroxy.orionus.dev/api/feedback-diagnostics'
 const REPORT_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
@@ -26,6 +27,7 @@ export interface UploadFeedbackDiagnosticInput {
 	fetchImpl?: typeof fetch
 	logPath: string
 	reportId: string
+	timeoutMs?: number
 }
 
 export interface UploadFeedbackDiagnosticResult {
@@ -61,23 +63,39 @@ export async function createFeedbackDiagnosticPayload({logPath}: FeedbackDiagnos
 	}
 }
 
-export async function uploadFeedbackDiagnostic({endpoint = process.env.ARROXY_FEEDBACK_DIAGNOSTICS_URL ?? DEFAULT_FEEDBACK_DIAGNOSTICS_ENDPOINT, fetchImpl = fetch, logPath, reportId}: UploadFeedbackDiagnosticInput): Promise<UploadFeedbackDiagnosticResult> {
+export async function uploadFeedbackDiagnostic({endpoint = process.env.ARROXY_FEEDBACK_DIAGNOSTICS_URL ?? DEFAULT_FEEDBACK_DIAGNOSTICS_ENDPOINT, fetchImpl = fetch, logPath, reportId, timeoutMs = FEEDBACK_DIAGNOSTIC_UPLOAD_TIMEOUT_MS}: UploadFeedbackDiagnosticInput): Promise<UploadFeedbackDiagnosticResult> {
 	const normalizedReportId = normalizeReportId(reportId)
 	const payload = await createFeedbackDiagnosticPayload({logPath})
-	const response = await fetchImpl(endpoint, {
-		method: 'POST',
-		headers: {
-			'x-arroxy-upload': 'feedback-diagnostic-v1',
-			'x-arroxy-report-id': normalizedReportId,
-			'content-type': 'application/gzip',
-			'content-encoding': 'gzip',
-			'x-arroxy-raw-bytes': String(payload.rawBytes),
-			'x-arroxy-compressed-bytes': String(payload.compressedBytes),
-			'x-arroxy-truncated': String(payload.truncated),
-			'x-arroxy-sha256': payload.sha256
-		},
-		body: bufferToArrayBuffer(payload.body)
-	})
+	const controller = new AbortController()
+	const timeout = setTimeout(() => {
+		controller.abort()
+	}, timeoutMs)
+	let response: Response
+
+	try {
+		response = await fetchImpl(endpoint, {
+			method: 'POST',
+			headers: {
+				'x-arroxy-upload': 'feedback-diagnostic-v1',
+				'x-arroxy-report-id': normalizedReportId,
+				'content-type': 'application/gzip',
+				'content-encoding': 'gzip',
+				'x-arroxy-raw-bytes': String(payload.rawBytes),
+				'x-arroxy-compressed-bytes': String(payload.compressedBytes),
+				'x-arroxy-truncated': String(payload.truncated),
+				'x-arroxy-sha256': payload.sha256
+			},
+			body: bufferToArrayBuffer(payload.body),
+			signal: controller.signal
+		})
+	} catch (error) {
+		if (isAbortError(error)) {
+			throw new Error('Diagnostic upload timed out')
+		}
+		throw error
+	} finally {
+		clearTimeout(timeout)
+	}
 
 	if (!response.ok) {
 		throw new Error(`Diagnostic upload failed (${response.status})`)
@@ -110,6 +128,10 @@ function redactDiagnosticLog(value: string): string {
 		.replace(/([?&](?:access_)?token=)[^&\s]+/gi, '$1<redacted>')
 		.replace(/([?&](?:api_)?key=)[^&\s]+/gi, '$1<redacted>')
 		.replace(/([?&](?:password|passwd|secret|session|auth|cookie)=)[^&\s]+/gi, '$1<redacted>')
+}
+
+function isAbortError(error: unknown): boolean {
+	return typeof DOMException !== 'undefined' && error instanceof DOMException ? error.name === 'AbortError' : error instanceof Error && error.name === 'AbortError'
 }
 
 function bufferToArrayBuffer(buffer: Buffer): ArrayBuffer {
