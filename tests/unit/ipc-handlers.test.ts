@@ -1,5 +1,8 @@
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {EventEmitter} from 'node:events'
+import fs from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
 
 // Capture every ipcMain.handle / removeHandler call so tests can introspect.
 const handleCalls: {channel: string; fn: (e: unknown, payload: unknown) => unknown}[] = []
@@ -349,6 +352,44 @@ describe('registerIpcHandlers', () => {
 			} finally {
 				Object.defineProperty(process, 'platform', originalPlatform)
 			}
+		})
+
+		it('logs:uploadFeedbackDiagnostic uploads a compressed log diagnostic', async () => {
+			const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-ipc-feedback-'))
+			const logPath = path.join(tempDir, 'main.log')
+			await fs.writeFile(logPath, 'diagnostic log\n')
+			vi.mocked(log.transports.file.getFile).mockReturnValue({path: logPath} as ReturnType<typeof log.transports.file.getFile>)
+			const reportId = '11111111-1111-4111-8111-111111111111'
+			const fetchImpl = vi.fn().mockResolvedValue(new Response(JSON.stringify({report_id: reportId, diagnostic_url: null}), {status: 201, headers: {'content-type': 'application/json'}}))
+			vi.stubGlobal('fetch', fetchImpl)
+			try {
+				const deps = makeDeps()
+				registerIpcHandlers(deps)
+
+				const handler = findCall(IPC_CHANNELS.logsUploadFeedbackDiagnostic)!.fn
+				const result = (await handler(null, {reportId})) as {ok: boolean; data?: {reportId: string; rawBytes: number; compressedBytes: number; truncated: boolean; sha256: string}}
+
+				expect(result.ok).toBe(true)
+				expect(result.data).toMatchObject({reportId, rawBytes: 15, truncated: false})
+				expect(result.data?.compressedBytes).toBeGreaterThan(0)
+				expect(result.data?.sha256).toMatch(/^[a-f0-9]{64}$/)
+				expect(fetchImpl).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({headers: expect.objectContaining({'x-arroxy-report-id': reportId})}))
+			} finally {
+				vi.unstubAllGlobals()
+				await fs.rm(tempDir, {force: true, recursive: true})
+			}
+		})
+
+		it('logs:uploadFeedbackDiagnostic rejects missing report ids before reading the log', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.logsUploadFeedbackDiagnostic)!.fn
+			const result = (await handler(null, undefined)) as {ok: boolean; error?: {message: string}}
+
+			expect(result.ok).toBe(false)
+			expect(result.error?.message).toBe('Invalid feedback report id')
+			expect(log.transports.file.getFile).not.toHaveBeenCalled()
 		})
 	})
 })

@@ -6,6 +6,7 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {ok} from '../shared/fixtures.js'
 
 const mockOpenExternal = vi.fn().mockResolvedValue(ok({opened: true}))
+const mockTallyOpenPopup = vi.fn()
 
 const mockAppApi = {
 	app: {
@@ -26,7 +27,7 @@ const mockAppApi = {
 	},
 	settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: true})), update: vi.fn()},
 	shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: mockOpenExternal, openBinariesDir: vi.fn().mockResolvedValue(ok({opened: true}))},
-	logs: {openDir: vi.fn().mockResolvedValue(ok({opened: true}))},
+	logs: {openDir: vi.fn().mockResolvedValue(ok({opened: true})), uploadFeedbackDiagnostic: vi.fn(async ({reportId}: {reportId: string}) => ok({reportId, diagnosticUrl: null, rawBytes: 42, compressedBytes: 31, truncated: false, sha256: 'a'.repeat(64)}))},
 	dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
 	events: {onStatus: vi.fn().mockReturnValue(() => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined), onWarmupProgress: vi.fn().mockReturnValue(() => undefined)},
 	queue: {
@@ -77,6 +78,7 @@ describe('Feedback nudge', () => {
 		resetStore()
 		window.appApi = mockAppApi
 		window.platform = 'linux'
+		;(window as unknown as {Tally?: {openPopup: typeof mockTallyOpenPopup}}).Tally = {openPopup: mockTallyOpenPopup}
 		// Override the 45s delay to 500ms so timers are fast in tests
 		;(window as unknown as Record<string, unknown>).__NUDGE_DELAY_MS = 500
 		Object.defineProperty(navigator, 'clipboard', {writable: true, configurable: true, value: {writeText: vi.fn().mockResolvedValue(undefined)}})
@@ -87,6 +89,7 @@ describe('Feedback nudge', () => {
 	afterEach(() => {
 		vi.useRealTimers()
 		delete (window as unknown as Record<string, unknown>).__NUDGE_DELAY_MS
+		delete (window as unknown as {Tally?: unknown}).Tally
 	})
 
 	it('nudge is NOT visible on initial render', async () => {
@@ -129,7 +132,7 @@ describe('Feedback nudge', () => {
 		expect(screen.queryByTestId('feedback-nudge')).not.toBeInTheDocument()
 	})
 
-	it('clicking Feedback while nudge is visible dismisses it and opens URL', async () => {
+	it('clicking Feedback while nudge is visible dismisses it and opens Tally', async () => {
 		render(<App />)
 		await act(async () => {})
 
@@ -142,7 +145,8 @@ describe('Feedback nudge', () => {
 			fireEvent.click(screen.getByTestId('btn-feedback'))
 		})
 
-		expect(mockOpenExternal).toHaveBeenCalledWith('https://github.com/antonio-orionus/Arroxy/issues/new/choose')
+		expect(mockOpenExternal).not.toHaveBeenCalled()
+		expect(mockTallyOpenPopup).toHaveBeenCalledWith('Ek6M8B', expect.objectContaining({hiddenFields: expect.objectContaining({source: 'app-footer', diagnostic_upload_status: 'requested'})}))
 
 		// After exit animation completes
 		act(() => {

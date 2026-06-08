@@ -31,7 +31,14 @@
     "gray-matter",
     "@iconify-json/logos",
     "@iconify-json/simple-icons",
-    "@svgr/plugin-jsx"
+    "@svgr/plugin-jsx",
+    "@biomejs/biome",
+    "oxlint",
+    "oxlint-tsgolint"
+  ],
+  "ignoreBinaries": [
+    "biome",
+    "oxlint"
   ],
   "ignoreUnresolved": [
     "~icons/.*"

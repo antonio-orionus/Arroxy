@@ -383,6 +383,10 @@ export function installBrowserMock(): void {
 			openDir: () => {
 				console.log('[mock] openDir')
 				return Promise.resolve({ok: true, data: {opened: true}} as const)
+			},
+			uploadFeedbackDiagnostic: input => {
+				console.log('[mock] uploadFeedbackDiagnostic', input.reportId)
+				return Promise.resolve({ok: true, data: {reportId: input.reportId, diagnosticUrl: null, rawBytes: 128_000, compressedBytes: 32_000, truncated: false, sha256: 'mock-diagnostic-sha256'}} as const)
 			}
 		},
 

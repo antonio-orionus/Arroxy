@@ -1,0 +1,32 @@
+{
+	"$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
+	"name": "arroxy-feedback-upload",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-06-08",
+	"observability": {
+		"enabled": true,
+		"head_sampling_rate": 1
+	},
+	"routes": [
+		{
+			"pattern": "arroxy.orionus.dev/api/feedback-diagnostics",
+			"zone_name": "orionus.dev"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "FEEDBACK_LOGS",
+			"bucket_name": "arroxy-feedback-diagnostics"
+		}
+	],
+	"ratelimits": [
+		{
+			"name": "FEEDBACK_UPLOAD_RATE_LIMIT",
+			"namespace_id": "2026060801",
+			"simple": {
+				"limit": 10,
+				"period": 60
+			}
+		}
+	]
+}
