@@ -325,11 +325,11 @@ msgstr "Video"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "सर्वश्रेष्ठ मूल (Native)"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "MP4 / Smart TV"
-msgstr "MP4 (H.264)"
+msgstr "MP4 / स्मार्ट टीवी (H.264)"
 
 msgctxt "playlistPresets.videoFormatDesc.best"
 msgid "Best available container and codecs per item"
@@ -1879,7 +1879,7 @@ msgstr "पीछे चुपचाप डाउनलोड कर रहा �
 
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-msgstr "मुझे YouTube का लिंक भेजो (वीडियो या Short) — फिर \"फ़ॉर्मेट लाएँ\" दबाओ और मैं काम पर लग जाऊँगा ✨"
+msgstr "एक लिंक डालें — YouTube या 2000+ साइटों में से कोई भी ✨"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
