@@ -2,6 +2,9 @@ import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import {mkdtempSync, readFileSync, writeFileSync, rmSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
+
+vi.unmock('node:fs/promises')
+
 import {DownloadService} from '@main/services/DownloadService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
 import {createHangingProcess, createTranscriptProcess, type TranscriptProcess} from '../helpers/processTranscript.js'

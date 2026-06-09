@@ -42,6 +42,15 @@ docs/my
 .claude/scheduled_tasks.lock
 .claude/*.lock
 .claude/settings.local.json
+
+# Local agent/design artifacts
+.agents/skills/impeccable/
+.backups/
+.claude/skills/impeccable/
+.github/skills/
+.impeccable/
+/output/
+/*.png
 # Flatpak build artifacts (relative to flatpak/ subdir, or repo root if built from there)
 flatpak/.flatpak-builder/
 flatpak/builddir/

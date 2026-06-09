@@ -18,7 +18,7 @@ import en from '../src/shared/i18n/locales/en.js'
 
 // Keys under these prefixes are built at runtime (e.g. `errors.ytdlp.${kind}`)
 // and cannot be detected by static string search. Treat all as used.
-const DYNAMIC_PREFIXES = ['errors.ytdlp.', 'wizard.steps.', 'wizard.sponsorblock.cat.', 'playlistPresets.', 'presets.', 'status.']
+const DYNAMIC_PREFIXES = ['errors.ytdlp.', 'wizard.steps.', 'wizard.sponsorblock.cat.', 'wizard.url.networkPacing.presets.', 'wizard.url.networkPacing.tooltips.', 'wizard.url.networkPacing.fields.', 'wizard.url.networkPacing.units.', 'playlistPresets.', 'presets.', 'status.']
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 

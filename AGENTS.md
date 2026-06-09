@@ -62,6 +62,8 @@ Format: `**Term** — definition. \`path\``. Add an entry when extracting a new 
 
 **Translation gate.** Edit `en` locale only first. Do not dispatch the `translate` skill or per-locale agents until the user explicitly approves the English copy. Plan approval is not translation authority.
 
+**i18n audit means the manual unused-key check too.** When the user asks whether i18n is correct, run `bun run check:app` and `bun run check:app:unused --strict` manually. `check:app` validates locale drift/placeholders; the unused-key check catches UI that stopped calling translation keys and often signals hard-coded English copy.
+
 ---
 
 ## Think Before Coding
