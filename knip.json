@@ -22,6 +22,8 @@
   "ignoreDependencies": [
     "@fontsource/jetbrains-mono",
     "@fontsource/poppins",
+    "@iconify-json/logos",
+    "@iconify-json/simple-icons",
     "shadcn",
 		"tw-animate-css",
 		"tailwindcss",

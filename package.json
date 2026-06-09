@@ -96,6 +96,8 @@
 	"overrides": {"fast-uri": "^3.1.2", "@types/react": "19.2.15", "tmp": "0.2.7"},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.16",
+		"@iconify-json/logos": "1.2.11",
+		"@iconify-json/simple-icons": "1.2.84",
 		"@playwright/test": "1.60.0",
 		"@svgr/core": "8.1.0",
 		"@svgr/plugin-jsx": "8.1.0",
