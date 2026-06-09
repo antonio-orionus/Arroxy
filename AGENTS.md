@@ -62,6 +62,10 @@ Format: `**Term** — definition. \`path\``. Add an entry when extracting a new 
 
 **Translation workflow.** Use the `translate-arroxy-i18n` project skill for app locale changes, PO/POT sync, generated locale JSON, and i18n audits.
 
+### Agent Skills
+
+- **translate-arroxy-i18n** — manages app locale updates, gettext PO/POT sync, runtime locale JSON generation, and i18n audit commands. Entry point: `.agents/skills/translate-arroxy-i18n/SKILL.md`.
+
 ---
 
 ## Think Before Coding
