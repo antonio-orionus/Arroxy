@@ -25,7 +25,7 @@ msgstr "Kuhusu Arroxy"
 
 msgctxt "about.tagline"
 msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
-msgstr "Kipakuzi cha video na sauti cha haraka na rahisi kwa kompyuta."
+msgstr "Kipakua cha haraka na rahisi kwa YouTube na tovuti nyingine 2000+."
 
 msgctxt "about.thirdPartyNotices"
 msgid "View third-party notices"
@@ -109,7 +109,7 @@ msgstr "Ghairi Vipakuzi na Toka"
 
 msgctxt "dialogs.quitWithActiveDownloads.detail"
 msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Kufunga kutafuta vipakuzi vyote vinavyofanya kazi."
+msgstr "Sitisha ili uendelee baadaye, au ghairi ili kutupa maendeleo."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -201,7 +201,7 @@ msgstr "Upakuaji umeshindwa. Tazama matokeo ghafi hapa chini."
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "Hii haionekani kama URL ya video. Bandika kiungo cha video ya YouTube, Short, au playlist."
+msgstr "URL hiyo haitumiki na yt-dlp. Jaribu kiungo kingine kutoka tovuti yoyote inayotumika na yt-dlp."
 
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
@@ -869,7 +869,7 @@ msgstr "Tayari"
 
 msgctxt "wizard.bulk.description"
 msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
-msgstr "Bandika URL binafsi za video au sauti. Arroxy itaondoa zilizorudiwa na kuonyesha viungo vya playlist au channel kabla ya kupanga foleni."
+msgstr "Bandika URL za video, orodha ya kucheza, kituo, utafutaji, au sauti. Arroxy itaondoa nakala kabla ya kuweka kwenye foleni."
 
 msgctxt "wizard.bulk.emptyPreview"
 msgid "Paste one or more URLs to preview the batch."
@@ -2059,7 +2059,7 @@ msgstr "Imeongezwa kwenye foleni"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "Pakua haraka ni kwa video moja tu. Tumia Leta fomati kwa orodha za kucheza na vituo."
+msgstr "Upakuaji wa Haraka unaweza kutumia video moja, orodha za kucheza, vituo, utafutaji, na URL za Wingi."
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

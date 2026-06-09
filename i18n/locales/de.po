@@ -25,7 +25,7 @@ msgstr "Über Arroxy"
 
 msgctxt "about.tagline"
 msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
-msgstr "Schneller, benutzerfreundlicher Video- und Audio-Downloader für den Desktop."
+msgstr "Schneller, freundlicher Downloader für YouTube und über 2000 weitere Seiten."
 
 msgctxt "about.thirdPartyNotices"
 msgid "View third-party notices"
@@ -109,7 +109,7 @@ msgstr "Downloads abbrechen & beenden"
 
 msgctxt "dialogs.quitWithActiveDownloads.detail"
 msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Beim Schließen werden alle aktiven Downloads abgebrochen."
+msgstr "Pausieren, um später fortzufahren, oder abbrechen, um den Fortschritt zu verwerfen."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -201,7 +201,7 @@ msgstr "Download fehlgeschlagen. Siehe die Rohausgabe unten."
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "Das sieht nicht wie eine Video-URL aus. Füge einen YouTube-Video-, Short- oder Playlist-Link ein."
+msgstr "Diese URL wird von yt-dlp nicht unterstützt. Versuche einen anderen Link von einer von yt-dlp unterstützten Seite."
 
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
@@ -869,7 +869,7 @@ msgstr "Bereit"
 
 msgctxt "wizard.bulk.description"
 msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
-msgstr "Füge einzelne Video- oder Audio-URLs ein. Arroxy bereinigt Duplikate und markiert Playlist- oder Kanal-Links vor dem Einreihen."
+msgstr "Füge Video-, Playlist-, Kanal-, Such- oder Audio-URLs ein. Arroxy bereinigt Duplikate vor dem Einreihen."
 
 msgctxt "wizard.bulk.emptyPreview"
 msgid "Paste one or more URLs to preview the batch."
@@ -2059,7 +2059,7 @@ msgstr "Zur Warteschlange hinzugefügt"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "Schnelldownload ist nur für einzelne Videos gedacht. Nutze Formate abrufen für Playlists und Kanäle."
+msgstr "Schnelldownload kann einzelne Videos, Playlists, Kanäle, Suchen und Bulk-URLs verwenden."
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

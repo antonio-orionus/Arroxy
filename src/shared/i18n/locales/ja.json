@@ -1,7 +1,7 @@
 {
 	"common": {"back": "戻る", "cancel": "キャンセル", "continue": "続行", "retry": "再試行", "startOver": "最初からやり直す"},
 	"app": {"feedback": "フィードバック", "logs": "ログ", "feedbackNudge": "Arroxyを楽しんでくれてる?ぜひ感想を聞かせて! 💬", "debugCopied": "コピーしました!", "debugCopyTitle": "デバッグ情報をコピー (Electron、OS、Chrome のバージョン)", "zoomIn": "拡大", "zoomOut": "縮小"},
-	"about": {"button": "情報", "openTitle": "Arroxy について", "tagline": "デスクトップ向けの高速で使いやすい動画・音声ダウンローダー。", "websiteLink": "公式サイト", "githubLink": "GitHub", "licenseLine": "MIT ライセンス · 作者 Antonio Orionus", "thirdPartyNotices": "サードパーティ通知を表示"},
+	"about": {"button": "情報", "openTitle": "Arroxy について", "tagline": "YouTube と 2000 以上の他サイトに対応する、高速で使いやすいダウンローダー。", "websiteLink": "公式サイト", "githubLink": "GitHub", "licenseLine": "MIT ライセンス · 作者 Antonio Orionus", "thirdPartyNotices": "サードパーティ通知を表示"},
 	"titleBar": {"close": "閉じる", "minimize": "最小化", "maximize": "最大化", "restore": "元に戻す"},
 	"splash": {"greeting": "やあ、おかえり!", "warmup": "Arroxyを起動中…", "downloading": "{{binary}} をダウンロード中…", "warmupFailedNoDiag": "セットアップに失敗しました。セットアップログを開いて詳細を確認してください。"},
 	"repair": {
@@ -34,6 +34,7 @@
 	"language": {"label": "言語"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "画質", "formats": "形式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "出力", "folder": "保存先", "confirm": "確認"},
+		"playlistPresets": {"heading": "バッチの画質を選択", "subhead": "各動画が選択した画質ティアを独立して解決します — 異なる動画が混在するPlaylistも問題なく処理できます。", "itemCount_one": "{{count}} 件", "itemCount_other": "{{count}} 件"},
 		"playlist": {
 			"heading": "Playlist アイテム",
 			"bulkHeading": "一括 URL",
@@ -71,7 +72,7 @@
 		},
 		"bulk": {
 			"title": "一括 URL",
-			"description": "個別の動画または音声 URL を貼り付けます。Arroxy は重複を整理し、キューに入れる前に playlist や channel のリンクを示します。",
+			"description": "動画、プレイリスト、チャンネル、検索、または音声の URL を貼り付けてください。Arroxy はキューに追加する前に重複を整理します。",
 			"textareaLabel": "URL リスト",
 			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "準備完了",
@@ -80,7 +81,6 @@
 			"needsAtLeastOne": "続行するには、対応している URL を少なくとも 1 件追加してください。",
 			"reject": {"duplicate": "重複"}
 		},
-		"playlistPresets": {"heading": "バッチの画質を選択", "subhead": "各動画が選択した画質ティアを独立して解決します — 異なる動画が混在するPlaylistも問題なく処理できます。", "itemCount_one": "{{count}} 件", "itemCount_other": "{{count}} 件"},
 		"mixedPrompt": {
 			"title": "このリンクは Playlist に含まれています",
 			"body": "クリックした動画だけをダウンロードしますか？それとも Playlist から選びますか？次のステップで特定の動画や範囲を選択できます。",
@@ -99,7 +99,7 @@
 			"quickDownloadTooltip": "保存済みまたは既定の設定を使い、設定手順を開かずにこの単一動画をキューへ追加します。",
 			"quickPreparing": "準備中",
 			"quickQueued": "キューに追加しました",
-			"quickSingleOnly": "クイックダウンロードは単一動画専用です。プレイリストやチャンネルには形式を取得を使ってください。",
+			"quickSingleOnly": "クイックダウンロードは、単体動画、プレイリスト、チャンネル、検索、Bulk URL を使用できます。",
 			"quickProbeFailed": "解析に失敗しました",
 			"quickPrepareFailed": "キュー項目を準備できませんでした",
 			"quickFailed": "追加できませんでした: {{error}}",
@@ -138,6 +138,15 @@
 				"extensionChrome": "cookies.txt をローカルで取得 (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "プロキシ経由でトラフィックを転送 — 地域制限コンテンツに有効。", "placeholder": "http://host:port", "clear": "クリア"},
+			"limitRate": {
+				"label": "ダウンロード速度制限",
+				"description": "メディアダウンロードの帯域を制限します。下のリクエスト間隔のほうが強い制限になることが多いです。",
+				"off": "オフ",
+				"custom": "カスタム…",
+				"customPlaceholder": "例: 750K または 1.5M",
+				"invalid": "K または M を付けた数値を使ってください（例: 500K、1.5M）",
+				"activeWarning": "進行中のダウンロードは現在の制限を保持します。適用するには一時停止して再開してください。"
+			},
 			"playlistProbeLimit": {
 				"label": "スキャンするプレイリストの項目数",
 				"description": "プレイリスト、チャンネル、または検索結果を開いたときに Arroxy が読み込む最大エントリ数。",
@@ -156,6 +165,7 @@
 			"networkPacing": {
 				"heading": "やさしいダウンロード",
 				"description": "各ダウンロード中に小さな待機を追加して、Arroxy がサイトに過度にアクセスしないようにします。値は特に指定がない限り秒単位です。",
+				"presetLabel": "Arroxy はどのくらい慎重にしますか？",
 				"tooltip": "これらの待機は各ダウンロードの内部で発生します。Arroxy は通常通りキューのダウンロードを1件ずつ処理します。",
 				"summary": "待機：{{requests}} チェック間、{{downloads}} メディア開始前、{{subtitles}} 字幕ファイル前。接続数：{{fragments}}。",
 				"presets": {"off": "オフ", "balanced": "バランス", "careful": "慎重", "custom": "カスタム"},
@@ -166,20 +176,10 @@
 					"custom": "ダウンロードごとの高度なコントロールを自分で調整します。"
 				},
 				"fields": {"sleepRequests": "メタデータチェック間の待機", "sleepInterval": "メディア開始前の一時停止：最小", "maxSleepInterval": "メディア開始前の一時停止：最大", "sleepSubtitles": "字幕ファイル前の待機", "concurrentFragments": "ダウンロード接続数"},
-				"units": {"seconds": "秒", "threads": "スレッド"},
-				"presetLabel": "Arroxy はどのくらい慎重にしますか？"
+				"units": {"seconds": "秒", "threads": "スレッド"}
 			},
 			"closeToTray": {"toggle": "閉じるときにトレイに格納", "toggleDescription": "ウィンドウを閉じた後もバックグラウンドでダウンロードを続けます。"},
-			"analytics": {"toggle": "匿名の使用統計を送信", "toggleDescription": "アプリの起動回数のみを記録します。URL、ファイル名、個人情報は含まれません。"},
-			"limitRate": {
-				"label": "ダウンロード速度制限",
-				"description": "メディアダウンロードの帯域を制限します。下のリクエスト間隔のほうが強い制限になることが多いです。",
-				"off": "オフ",
-				"custom": "カスタム…",
-				"customPlaceholder": "例: 750K または 1.5M",
-				"invalid": "K または M を付けた数値を使ってください（例: 500K、1.5M）",
-				"activeWarning": "進行中のダウンロードは現在の制限を保持します。適用するには一時停止して再開してください。"
-			}
+			"analytics": {"toggle": "匿名の使用統計を送信", "toggleDescription": "アプリの起動回数のみを記録します。URL、ファイル名、個人情報は含まれません。"}
 		},
 		"subtitles": {
 			"autoBadge": "自動",
@@ -213,6 +213,8 @@
 			"audio": "音声",
 			"noAudio": "音声なし",
 			"videoOnly": "動画のみ",
+			"keepAudio": "そのまま保持",
+			"keepAudioMeta": "内蔵音声",
 			"audioOnly": "音声のみ",
 			"audioOnlyOption": "音声のみ (動画なし)",
 			"mascot": "最高 + 最高 = 最高画質。これを選ぶよ!",
@@ -223,8 +225,6 @@
 			"total": "合計",
 			"skipToConfirm": "確認へスキップ",
 			"skipToConfirmTooltip": "残りのすべてのステップに保存済みの設定を使用します。設定を変更するには、ステップごとに進んでください — 選択内容は次回のために保存されます。",
-			"keepAudio": "そのまま保持",
-			"keepAudioMeta": "内蔵音声",
 			"convert": {
 				"label": "変換",
 				"uncompressed": "変換 · 非圧縮",
@@ -249,8 +249,8 @@
 				"currentModeBrowser": "ブラウザ",
 				"explanationFile": "Cookieファイルが空・期限切れ・または形式が正しくない可能性があります (yt-dlp は Netscape cookies.txt を期待しています)。Cookieを再エクスポートするか、別のファイルを選ぶか、ブラウザモードに切り替えるか、Cookieをオフにしてみてください。",
 				"explanationBrowser": "Cookieはブラウザから直接読み込まれます。ブラウザが起動中の場合、Cookieデータベースがロックされている可能性があります (Chromiumファミリー)。ブラウザがYouTubeにサインインしている必要もあります。ブラウザを閉じる、別のブラウザに切り替える、ファイルモードに変更する、またはCookieをオフにしてみてください。",
-				"needsCookies": {"heading": "このサイトはサインインが必要です", "body": "yt-dlpは認証なしでこの動画にアクセスできませんでした。詳細設定でCookieを設定してください — すでにサインイン済みのブラウザを指定するか、cookies.txtファイルをインポートしてください。"},
 				"openSettingsCta": "Cookie設定を開く",
+				"needsCookies": {"heading": "このサイトはサインインが必要です", "body": "yt-dlpは認証なしでこの動画にアクセスできませんでした。詳細設定でCookieを設定してください — すでにサインイン済みのブラウザを指定するか、cookies.txtファイルをインポートしてください。"},
 				"dpapi": {
 					"heading": "ChromeのCookieがWindowsの暗号化によりブロックされています",
 					"explanation": "Chrome 127以降、Windows上では他のアプリが読み取れない方法でCookieが暗号化されています。以下のいずれかの回避策をお試しください。",
@@ -325,8 +325,13 @@
 		"clearTitle": "完了したダウンロードをクリア",
 		"pauseAll": "すべて一時停止",
 		"pauseAllTitle": "すべてのアクティブなダウンロードを一時停止",
+		"resumeAll": "キューを再開",
+		"resumeAllTitle": "一時停止中のダウンロードを再開し、キューを続行します",
 		"cancelAll": "すべてキャンセル",
 		"cancelAllTitle": "すべてのアクティブおよび保留中のダウンロードをキャンセル",
+		"limitRate": "速度: {{value}}",
+		"limitRateOff": "速度: オフ",
+		"limitRateTitle": "ダウンロードの帯域制限",
 		"tip": "ダウンロードは下のキューに入りました — いつでも開いて進捗を確認できます。",
 		"item": {
 			"doneAt": "{{time}} 完了",
@@ -347,12 +352,7 @@
 			"statusDone": "完了",
 			"statusError": "エラー",
 			"statusCancelled": "キャンセル済み"
-		},
-		"resumeAll": "キューを再開",
-		"resumeAllTitle": "一時停止中のダウンロードを再開し、キューを続行します",
-		"limitRate": "速度: {{value}}",
-		"limitRateOff": "速度: オフ",
-		"limitRateTitle": "ダウンロードの帯域制限"
+		}
 	},
 	"update": {
 		"appVersion": "Arroxy {{version}}",
@@ -401,7 +401,7 @@
 			"unavailable": "この動画は利用できません — 非公開、削除済み、または地域制限の可能性があります。",
 			"geoBlocked": "この動画はあなたの地域では視聴できません。",
 			"outOfDiskSpace": "ディスク容量が不足しています。空き容量を増やして再試行してください。",
-			"unsupportedUrl": "動画のURLではないようです。YouTube動画、Short、またはプレイリストのリンクを貼り付けてください。",
+			"unsupportedUrl": "その URL は yt-dlp でサポートされていません。yt-dlp がサポートするサイトの別のリンクを試してください。",
 			"chunkTransferFailure": "サーバーがストリームの途中で接続を何度も切断し、yt-dlpは再試行を繰り返した末に断念しました。最も大きなビデオフォーマット（4K HDR / 高ビットレート VP9）で起こりやすい問題です。再試行するか、ネットワークまたは VPN を切り替えるか、解像度の低いフォーマットを選択してください。",
 			"postprocessFailure": "yt-dlp はダウンロードを完了しましたが、後処理（マージ / mux / 変換）に失敗しました。多くの場合、これは一時的な ffmpeg の問題です。再試行し、それでも続く場合は別のフォーマットの組み合わせを試してください。",
 			"parse": "サイトからの応答を解析できませんでした。yt-dlp の抽出機能が古くなっている可能性があります。Arroxy は起動時に yt-dlp を自動更新します — 修正版が配信されるまで数分待ってから再試行してください。",
@@ -443,10 +443,10 @@
 		"quitWithActiveDownloads": {
 			"message_one": "ダウンロード{{count}}件を実行中",
 			"message_other": "ダウンロード{{count}}件を実行中",
-			"detail": "閉じるとアクティブなダウンロードはすべてキャンセルされます。",
+			"detail": "後で再開するには一時停止し、進行状況を破棄するにはキャンセルします。",
 			"confirm": "ダウンロードをキャンセルして終了",
-			"keep": "ダウンロードを続ける",
-			"pause": "ダウンロードを一時停止して終了"
+			"pause": "ダウンロードを一時停止して終了",
+			"keep": "ダウンロードを続ける"
 		},
 		"closeToTray": {"message": "閉じるときにArroxyをシステムトレイに格納しますか？", "detail": "Arroxyは実行を続け、アクティブなダウンロードを完了します。詳細設定で変更できます。", "hide": "トレイに格納", "quit": "終了", "remember": "次回から表示しない"},
 		"rendererCrashed": {"message": "Arroxyで問題が発生しました", "detail": "レンダラープロセスがクラッシュしました ({{reason}})。再読み込みしてもう一度お試しください。", "reload": "再読み込み", "quit": "終了"}

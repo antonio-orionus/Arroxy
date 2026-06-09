@@ -25,7 +25,7 @@ msgstr "Arroxy について"
 
 msgctxt "about.tagline"
 msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
-msgstr "デスクトップ向けの高速で使いやすい動画・音声ダウンローダー。"
+msgstr "YouTube と 2000 以上の他サイトに対応する、高速で使いやすいダウンローダー。"
 
 msgctxt "about.thirdPartyNotices"
 msgid "View third-party notices"
@@ -109,7 +109,7 @@ msgstr "ダウンロードをキャンセルして終了"
 
 msgctxt "dialogs.quitWithActiveDownloads.detail"
 msgid "Pause to resume later, or cancel to discard progress."
-msgstr "閉じるとアクティブなダウンロードはすべてキャンセルされます。"
+msgstr "後で再開するには一時停止し、進行状況を破棄するにはキャンセルします。"
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -201,7 +201,7 @@ msgstr "ダウンロードに失敗しました。下の生の出力を確認し
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "動画のURLではないようです。YouTube動画、Short、またはプレイリストのリンクを貼り付けてください。"
+msgstr "その URL は yt-dlp でサポートされていません。yt-dlp がサポートするサイトの別のリンクを試してください。"
 
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
@@ -869,7 +869,7 @@ msgstr "準備完了"
 
 msgctxt "wizard.bulk.description"
 msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
-msgstr "個別の動画または音声 URL を貼り付けます。Arroxy は重複を整理し、キューに入れる前に playlist や channel のリンクを示します。"
+msgstr "動画、プレイリスト、チャンネル、検索、または音声の URL を貼り付けてください。Arroxy はキューに追加する前に重複を整理します。"
 
 msgctxt "wizard.bulk.emptyPreview"
 msgid "Paste one or more URLs to preview the batch."
@@ -2059,7 +2059,7 @@ msgstr "キューに追加しました"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "クイックダウンロードは単一動画専用です。プレイリストやチャンネルには形式を取得を使ってください。"
+msgstr "クイックダウンロードは、単体動画、プレイリスト、チャンネル、検索、Bulk URL を使用できます。"
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

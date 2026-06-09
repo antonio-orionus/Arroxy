@@ -1,7 +1,7 @@
 {
 	"common": {"back": "Rudi", "cancel": "Ghairi", "continue": "Endelea", "retry": "Jaribu tena", "startOver": "Anza upya"},
 	"app": {"feedback": "Maoni", "logs": "Kumbukumbu", "feedbackNudge": "Unafurahia Arroxy? Ningependa kusikia kutoka kwako! 💬", "debugCopied": "Imenakiliwa!", "debugCopyTitle": "Nakili maelezo ya utatuzi (matoleo ya Electron, OS, Chrome)", "zoomIn": "Kuza", "zoomOut": "Punguza"},
-	"about": {"button": "Kuhusu", "openTitle": "Kuhusu Arroxy", "tagline": "Kipakuzi cha video na sauti cha haraka na rahisi kwa kompyuta.", "websiteLink": "Tovuti", "githubLink": "GitHub", "licenseLine": "Leseni ya MIT · na Antonio Orionus", "thirdPartyNotices": "Tazama notisi za wengine"},
+	"about": {"button": "Kuhusu", "openTitle": "Kuhusu Arroxy", "tagline": "Kipakua cha haraka na rahisi kwa YouTube na tovuti nyingine 2000+.", "websiteLink": "Tovuti", "githubLink": "GitHub", "licenseLine": "Leseni ya MIT · na Antonio Orionus", "thirdPartyNotices": "Tazama notisi za wengine"},
 	"titleBar": {"close": "Funga", "minimize": "Punguza", "maximize": "Panua", "restore": "Rejesha"},
 	"splash": {"greeting": "Hujambo, karibu tena!", "warmup": "Arroxy inajipanga…", "downloading": "Inapakua {{binary}}…", "warmupFailedNoDiag": "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi."},
 	"repair": {
@@ -34,6 +34,7 @@
 	"language": {"label": "Lugha"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Ubora", "formats": "Umbizo", "subtitles": "Manukuu", "sponsorblock": "SponsorBlock", "output": "Matokeo", "folder": "Hifadhi", "confirm": "Thibitisha"},
+		"playlistPresets": {"heading": "Chagua ubora wa kundi", "subhead": "Kila video inatatua kiwango kilichochaguliwa kwa kujitegemea — playlists tofauti hufanya kazi bila mshangao.", "itemCount_one": "{{count}} kipande", "itemCount_other": "{{count}} vipande"},
 		"playlist": {
 			"heading": "Vipande vya Playlist",
 			"bulkHeading": "URL nyingi",
@@ -71,7 +72,7 @@
 		},
 		"bulk": {
 			"title": "URL nyingi",
-			"description": "Bandika URL binafsi za video au sauti. Arroxy itaondoa zilizorudiwa na kuonyesha viungo vya playlist au channel kabla ya kupanga foleni.",
+			"description": "Bandika URL za video, orodha ya kucheza, kituo, utafutaji, au sauti. Arroxy itaondoa nakala kabla ya kuweka kwenye foleni.",
 			"textareaLabel": "Orodha ya URL",
 			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "Tayari",
@@ -80,7 +81,6 @@
 			"needsAtLeastOne": "Ongeza angalau URL moja inayotumika ili kuendelea.",
 			"reject": {"duplicate": "Imerudiwa"}
 		},
-		"playlistPresets": {"heading": "Chagua ubora wa kundi", "subhead": "Kila video inatatua kiwango kilichochaguliwa kwa kujitegemea — playlists tofauti hufanya kazi bila mshangao.", "itemCount_one": "{{count}} kipande", "itemCount_other": "{{count}} vipande"},
 		"mixedPrompt": {
 			"title": "Kiungo hiki kina Playlist",
 			"body": "Unataka video uliyobofya tu, au uchague kutoka Playlist? Hatua inayofuata utachagua video maalum au anuwai.",
@@ -99,7 +99,7 @@
 			"quickDownloadTooltip": "Hutumia mapendeleo yako yaliyohifadhiwa au chaguomsingi na kuongeza video hii moja kwenye foleni bila kufungua hatua za usanidi.",
 			"quickPreparing": "Inaandaa",
 			"quickQueued": "Imeongezwa kwenye foleni",
-			"quickSingleOnly": "Pakua haraka ni kwa video moja tu. Tumia Leta fomati kwa orodha za kucheza na vituo.",
+			"quickSingleOnly": "Upakuaji wa Haraka unaweza kutumia video moja, orodha za kucheza, vituo, utafutaji, na URL za Wingi.",
 			"quickProbeFailed": "Uchunguzi umeshindikana",
 			"quickPrepareFailed": "Kipengee cha foleni hakikuweza kuandaliwa",
 			"quickFailed": "Haikuweza kuongeza hii: {{error}}",
@@ -138,6 +138,15 @@
 				"extensionChrome": "Pata cookies.txt NDANI YA KOMPYUTA (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Peleka trafiki kupitia proksi — muhimu kwa maudhui yenye vizuizi vya kijiografia.", "placeholder": "http://host:port", "clear": "Futa"},
+			"limitRate": {
+				"label": "Kikomo cha kasi ya kupakua",
+				"description": "Dhibiti bandwidth ya vipakuliwa vya media. Udhibiti wa maombi hapa chini mara nyingi una nguvu zaidi.",
+				"off": "Imezimwa",
+				"custom": "Maalum…",
+				"customPlaceholder": "mf. 750K au 1.5M",
+				"invalid": "Tumia nambari ikifuatiwa na K au M (mf. 500K, 1.5M)",
+				"activeWarning": "Vipakuliwa vinavyoendelea huhifadhi kikomo cha sasa. Sitisha + Endelea ili kutumia mabadiliko."
+			},
 			"playlistProbeLimit": {
 				"label": "Vipande vya playlist vya kuskanisha",
 				"description": "Idadi ya juu ya maingizo ambayo Arroxy hupakia wakati playlist, kituo, au matokeo ya utafutaji yanafunguliwa.",
@@ -170,16 +179,7 @@
 				"units": {"seconds": "sek", "threads": "miunganisho"}
 			},
 			"closeToTray": {"toggle": "Ficha kwenye tray ukifunga", "toggleDescription": "Endelea kupakua nyuma ya pazia baada ya kufunga dirisha."},
-			"analytics": {"toggle": "Tuma takwimu za matumizi zisizo na jina", "toggleDescription": "Huhesabu tu uzinduzi wa programu. Hakuna URL, majina ya faili, au data za kibinafsi."},
-			"limitRate": {
-				"label": "Kikomo cha kasi ya kupakua",
-				"description": "Dhibiti bandwidth ya vipakuliwa vya media. Udhibiti wa maombi hapa chini mara nyingi una nguvu zaidi.",
-				"off": "Imezimwa",
-				"custom": "Maalum…",
-				"customPlaceholder": "mf. 750K au 1.5M",
-				"invalid": "Tumia nambari ikifuatiwa na K au M (mf. 500K, 1.5M)",
-				"activeWarning": "Vipakuliwa vinavyoendelea huhifadhi kikomo cha sasa. Sitisha + Endelea ili kutumia mabadiliko."
-			}
+			"analytics": {"toggle": "Tuma takwimu za matumizi zisizo na jina", "toggleDescription": "Huhesabu tu uzinduzi wa programu. Hakuna URL, majina ya faili, au data za kibinafsi."}
 		},
 		"subtitles": {
 			"autoBadge": "Otomatiki",
@@ -325,8 +325,13 @@
 		"clearTitle": "Futa vipakuzi vilivyokamilika",
 		"pauseAll": "Simamisha vyote",
 		"pauseAllTitle": "Simamisha vipakuzi vyote vinavyoendelea",
+		"resumeAll": "Endeleza foleni",
+		"resumeAllTitle": "Endeleza vipakuliwa vilivyosimamishwa na ruhusu foleni iendelee",
 		"cancelAll": "Ghairi vyote",
 		"cancelAllTitle": "Ghairi vipakuzi vyote vinavyoendelea na vinavyosubiri",
+		"limitRate": "Kasi: {{value}}",
+		"limitRateOff": "Kasi: Imezimwa",
+		"limitRateTitle": "Kikomo cha bandwidth kwa vipakuliwa",
 		"tip": "Kipakuliwa chako kimewekwa kwenye foleni hapa chini — fungua wakati wowote kufuatilia maendeleo.",
 		"item": {
 			"doneAt": "Imekamilika {{time}}",
@@ -347,12 +352,7 @@
 			"statusDone": "Imekamilika",
 			"statusError": "Hitilafu",
 			"statusCancelled": "Imeghairiwa"
-		},
-		"resumeAll": "Endeleza foleni",
-		"resumeAllTitle": "Endeleza vipakuliwa vilivyosimamishwa na ruhusu foleni iendelee",
-		"limitRate": "Kasi: {{value}}",
-		"limitRateOff": "Kasi: Imezimwa",
-		"limitRateTitle": "Kikomo cha bandwidth kwa vipakuliwa"
+		}
 	},
 	"update": {
 		"appVersion": "Arroxy {{version}}",
@@ -401,7 +401,7 @@
 			"unavailable": "Video hii haipatikani — inaweza kuwa ya kibinafsi, imefutwa, au imezuiwa kwa mkoa.",
 			"geoBlocked": "Video hii haipatikani katika eneo lako.",
 			"outOfDiskSpace": "Nafasi ya diski haitoshi. Futa nafasi na ujaribu tena.",
-			"unsupportedUrl": "Hii haionekani kama URL ya video. Bandika kiungo cha video ya YouTube, Short, au playlist.",
+			"unsupportedUrl": "URL hiyo haitumiki na yt-dlp. Jaribu kiungo kingine kutoka tovuti yoyote inayotumika na yt-dlp.",
 			"chunkTransferFailure": "Seva ilikatiza upakuaji mara kwa mara na yt-dlp ilikata tamaa baada ya kujaribu tena. Hii hutokea zaidi kwa muundo mkubwa wa video (4K HDR / VP9 ya bitrate ya juu). Jaribu tena, badilisha mtandao/VPN, au chagua muundo wa ubora wa chini.",
 			"postprocessFailure": "yt-dlp ilimaliza kupakua lakini uchakataji wa baadaye (kuunganisha / mux / kubadilisha) ulishindwa. Mara nyingi hili ni tatizo la muda la ffmpeg — jaribu tena, na ikiendelea, jaribu mchanganyiko tofauti wa muundo.",
 			"parse": "Haikuwezekana kuchanganua jibu kutoka tovuti. Kichanganuzi cha yt-dlp kinaweza kuwa kimepitwa na wakati. Arroxy huboresha yt-dlp kiotomatiki wakati wa uzinduzi — jaribu tena baada ya dakika chache marekebisho yatakapowasili.",
@@ -440,7 +440,7 @@
 	"formatLabel": {"audioFallback": "Sauti", "audioOnlyDot": "Sauti peke yake · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
 	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Tulivu", "statusActive_one": "1 inapakua · {{percent}}%", "statusActive_other": "{{count}} zinapakua · {{percent}}%", "open": "Fungua Arroxy", "quit": "Funga Arroxy"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "Upakuaji {{count}} unaendelea", "message_other": "Vipakuzi {{count}} vinavyoendelea", "detail": "Kufunga kutafuta vipakuzi vyote vinavyofanya kazi.", "confirm": "Ghairi Vipakuzi na Toka", "keep": "Endelea Kupakua", "pause": "Sitisha vipakuliwa na uondoke"},
+		"quitWithActiveDownloads": {"message_one": "Upakuaji {{count}} unaendelea", "message_other": "Vipakuzi {{count}} vinavyoendelea", "detail": "Sitisha ili uendelee baadaye, au ghairi ili kutupa maendeleo.", "confirm": "Ghairi Vipakuzi na Toka", "pause": "Sitisha vipakuliwa na uondoke", "keep": "Endelea Kupakua"},
 		"closeToTray": {"message": "Ficha Arroxy kwenye tray ya mfumo ukifunga?", "detail": "Arroxy inaendelea kufanya kazi na kukamilisha vipakuzi vinavyofanya kazi. Badilisha hii baadaye katika mipangilio ya Hali ya juu.", "hide": "Ficha kwenye tray", "quit": "Toka", "remember": "Usiulize tena"},
 		"rendererCrashed": {"message": "Arroxy imekutana na tatizo", "detail": "Mchakato wa uonyeshaji umeanguka ({{reason}}). Pakia upya ujaribu tena.", "reload": "Pakia upya", "quit": "Toka"}
 	},

@@ -25,7 +25,7 @@ msgstr "Arroxy के बारे में"
 
 msgctxt "about.tagline"
 msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
-msgstr "डेस्कटॉप के लिए तेज़ और सरल वीडियो और ऑडियो डाउनलोडर।"
+msgstr "YouTube और 2000+ अन्य साइटों के लिए तेज़ और सरल डाउनलोडर।"
 
 msgctxt "about.thirdPartyNotices"
 msgid "View third-party notices"
@@ -109,7 +109,7 @@ msgstr "डाउनलोड रद्द करके बंद करें"
 
 msgctxt "dialogs.quitWithActiveDownloads.detail"
 msgid "Pause to resume later, or cancel to discard progress."
-msgstr "बंद करने पर सभी सक्रिय डाउनलोड रद्द हो जाएँगी।"
+msgstr "बाद में फिर शुरू करने के लिए रोकें, या प्रगति छोड़ने के लिए रद्द करें।"
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -201,7 +201,7 @@ msgstr "डाउनलोड विफल। नीचे raw output देख�
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "यह कोई वीडियो URL नहीं लगता। कोई YouTube वीडियो, Short, या playlist लिंक पेस्ट करें।"
+msgstr "यह URL yt-dlp द्वारा समर्थित नहीं है। yt-dlp की समर्थित साइटों में से कोई अन्य लिंक आज़माएँ।"
 
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
@@ -869,7 +869,7 @@ msgstr "तैयार"
 
 msgctxt "wizard.bulk.description"
 msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
-msgstr "अलग-अलग वीडियो या ऑडियो URLs पेस्ट करें। Arroxy कतार में जोड़ने से पहले डुप्लिकेट साफ करेगा और playlist या channel links को चिह्नित करेगा।"
+msgstr "वीडियो, प्लेलिस्ट, चैनल, खोज या ऑडियो URLs पेस्ट करें। Arroxy कतार में जोड़ने से पहले डुप्लिकेट साफ करेगा।"
 
 msgctxt "wizard.bulk.emptyPreview"
 msgid "Paste one or more URLs to preview the batch."
@@ -2059,7 +2059,7 @@ msgstr "क्यू में जोड़ दिया गया"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "त्वरित डाउनलोड केवल एकल वीडियो के लिए है। प्लेलिस्ट और चैनलों के लिए फॉर्मैट लाएँ का उपयोग करें।"
+msgstr "त्वरित डाउनलोड एकल वीडियो, प्लेलिस्ट, चैनल, खोज और बल्क URLs के लिए काम करता है।"
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

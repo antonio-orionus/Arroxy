@@ -1,7 +1,7 @@
 {
 	"common": {"back": "返回", "cancel": "取消", "continue": "继续", "retry": "重试", "startOver": "重新开始"},
 	"app": {"feedback": "反馈", "logs": "日志", "feedbackNudge": "喜欢 Arroxy 吗?我很想听听你的想法! 💬", "debugCopied": "已复制!", "debugCopyTitle": "复制调试信息(Electron、操作系统、Chrome 版本)", "zoomIn": "放大", "zoomOut": "缩小"},
-	"about": {"button": "关于", "openTitle": "关于 Arroxy", "tagline": "快速易用的桌面视频与音频下载工具。", "websiteLink": "官网", "githubLink": "GitHub", "licenseLine": "MIT 许可证 · 作者 Antonio Orionus", "thirdPartyNotices": "查看第三方声明"},
+	"about": {"button": "关于", "openTitle": "关于 Arroxy", "tagline": "适用于 YouTube 和其他 2000+ 网站的快速友好下载器。", "websiteLink": "官网", "githubLink": "GitHub", "licenseLine": "MIT 许可证 · 作者 Antonio Orionus", "thirdPartyNotices": "查看第三方声明"},
 	"titleBar": {"close": "关闭", "minimize": "最小化", "maximize": "最大化", "restore": "还原"},
 	"splash": {"greeting": "嘿,欢迎回来!", "warmup": "Arroxy 正在启动…", "downloading": "正在下载 {{binary}}…", "warmupFailedNoDiag": "初始化失败。打开设置日志查看详情。"},
 	"repair": {
@@ -25,6 +25,7 @@
 	"language": {"label": "语言"},
 	"wizard": {
 		"steps": {"url": "链接", "playlistItems": "Playlist", "playlistPresets": "画质", "formats": "格式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "输出", "folder": "保存", "confirm": "确认"},
+		"playlistPresets": {"heading": "选择批量下载画质", "subhead": "每个视频独立匹配所选画质档位——混合内容的播放列表也能正常处理，无意外。", "itemCount_one": "{{count}} 项", "itemCount_other": "{{count}} 项"},
 		"playlist": {
 			"heading": "Playlist 视频",
 			"bulkHeading": "批量 URL",
@@ -62,7 +63,7 @@
 		},
 		"bulk": {
 			"title": "批量 URL",
-			"description": "粘贴单个视频或音频 URL。Arroxy 会清理重复项，并在加入队列前标记播放列表或频道链接。",
+			"description": "粘贴视频、播放列表、频道、搜索或音频 URL。Arroxy 会在加入队列前清理重复项。",
 			"textareaLabel": "URL 列表",
 			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "就绪",
@@ -71,7 +72,6 @@
 			"needsAtLeastOne": "至少添加一个受支持的 URL 才能继续。",
 			"reject": {"duplicate": "重复"}
 		},
-		"playlistPresets": {"heading": "选择批量下载画质", "subhead": "每个视频独立匹配所选画质档位——混合内容的播放列表也能正常处理，无意外。", "itemCount_one": "{{count}} 项", "itemCount_other": "{{count}} 项"},
 		"mixedPrompt": {
 			"title": "此链接包含 Playlist",
 			"body": "只想下载你点击的那个视频，还是从 Playlist 中挑选？下一步可以选择特定视频或指定范围。",
@@ -90,7 +90,7 @@
 			"quickDownloadTooltip": "使用已保存或默认偏好设置，将此单个视频加入队列，而不打开设置步骤。",
 			"quickPreparing": "正在准备",
 			"quickQueued": "已加入队列",
-			"quickSingleOnly": "快速下载仅适用于单个视频。播放列表和频道请使用获取格式。",
+			"quickSingleOnly": "快速下载可以使用单个视频、播放列表、频道、搜索和批量 URL。",
 			"quickProbeFailed": "探测失败",
 			"quickPrepareFailed": "无法准备队列项目",
 			"quickFailed": "无法添加此项：{{error}}",
@@ -129,6 +129,15 @@
 				"extensionChrome": "本地获取 cookies.txt (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "通过代理路由流量 — 适用于地区限制内容。", "placeholder": "http://host:port", "clear": "清除"},
+			"limitRate": {
+				"label": "下载速度限制",
+				"description": "限制媒体下载的带宽。下面的请求节奏通常是更强的限速手段。",
+				"off": "关闭",
+				"custom": "自定义…",
+				"customPlaceholder": "例如 750K 或 1.5M",
+				"invalid": "使用数字并加上 K 或 M（例如 500K、1.5M）",
+				"activeWarning": "正在进行的下载会保留当前限制。暂停再继续即可应用更改。"
+			},
 			"playlistProbeLimit": {
 				"label": "要扫描的播放列表项目数",
 				"description": "打开播放列表、频道或搜索结果时，Arroxy 最多加载的条目数。",
@@ -147,25 +156,16 @@
 			"networkPacing": {
 				"heading": "温和下载",
 				"description": "在每次下载时添加小等待，使 Arroxy 不会过于频繁地访问网站。除非另有说明，值的单位为秒。",
+				"presetLabel": "Arroxy 应该多谨慎？",
 				"tooltip": "这些等待发生在每次下载内部。Arroxy 仍然按顺序逐个处理队列中的下载任务。",
 				"summary": "等待：{{requests}} 次检查间隔，{{downloads}} 媒体开始前，{{subtitles}} 字幕文件前。连接数：{{fragments}}。",
 				"presets": {"off": "关闭", "balanced": "均衡", "careful": "谨慎", "custom": "自定义"},
 				"tooltips": {"off": "仅使用 Arroxy 为媒体和字幕保留的小基准暂停。", "balanced": "默认。添加短暂停并使用一个下载连接。", "careful": "为大型播放列表或经常触达限制的网络添加更长的暂停。", "custom": "自行调整每次下载的高级控制参数。"},
 				"fields": {"sleepRequests": "元数据检查之间的等待", "sleepInterval": "媒体开始前暂停：最小值", "maxSleepInterval": "媒体开始前暂停：最大值", "sleepSubtitles": "字幕文件前等待", "concurrentFragments": "下载连接数"},
-				"units": {"seconds": "秒", "threads": "线程"},
-				"presetLabel": "Arroxy 应该多谨慎？"
+				"units": {"seconds": "秒", "threads": "线程"}
 			},
 			"closeToTray": {"toggle": "关闭时最小化到托盘", "toggleDescription": "关闭窗口后继续在后台下载。"},
-			"analytics": {"toggle": "发送匿名使用统计", "toggleDescription": "仅统计应用启动次数，不包含任何URL、文件名或个人数据。"},
-			"limitRate": {
-				"label": "下载速度限制",
-				"description": "限制媒体下载的带宽。下面的请求节奏通常是更强的限速手段。",
-				"off": "关闭",
-				"custom": "自定义…",
-				"customPlaceholder": "例如 750K 或 1.5M",
-				"invalid": "使用数字并加上 K 或 M（例如 500K、1.5M）",
-				"activeWarning": "正在进行的下载会保留当前限制。暂停再继续即可应用更改。"
-			}
+			"analytics": {"toggle": "发送匿名使用统计", "toggleDescription": "仅统计应用启动次数，不包含任何URL、文件名或个人数据。"}
 		},
 		"subtitles": {
 			"autoBadge": "自动",
@@ -199,6 +199,8 @@
 			"audio": "音频",
 			"noAudio": "无音频",
 			"videoOnly": "仅视频",
+			"keepAudio": "保持原样",
+			"keepAudioMeta": "内置音频",
 			"audioOnly": "仅音频",
 			"audioOnlyOption": "仅音频(无视频)",
 			"mascot": "最佳画质 + 最佳音质 = 最高质量。我会选这个!",
@@ -209,8 +211,6 @@
 			"total": "总计",
 			"skipToConfirm": "跳至确认",
 			"skipToConfirmTooltip": "使用您保存的偏好设置完成所有剩余步骤。若要更改某项设置，请逐步继续操作——您的选择将在下次保存。",
-			"keepAudio": "保持原样",
-			"keepAudioMeta": "内置音频",
 			"convert": {"label": "转换", "uncompressed": "转换 · 无损", "bitrate": "比特率", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresAudioOnly": "音频转换需要仅音频模式（取消选择视频选项）。", "requiresLossy": "已选择原生流——比特率仅在转换为 mp3、m4a 或 opus 时适用。"},
 			"botWall": {
 				"heading": "YouTube 限制了本次探测",
@@ -227,8 +227,8 @@
 				"currentModeBrowser": "浏览器",
 				"explanationFile": "你的 cookies 文件可能为空、已过期或格式不正确（yt-dlp 需要 Netscape cookies.txt 格式）。请尝试重新导出 cookies、选择其他文件、切换到浏览器模式或关闭 cookies。",
 				"explanationBrowser": "Cookies 直接从浏览器读取。如果浏览器当前正在运行，其 cookie 数据库可能已被锁定（Chromium-family）。浏览器还必须已登录 YouTube。请尝试关闭浏览器、切换到其他浏览器、切换到文件模式或关闭 cookies。",
-				"needsCookies": {"heading": "此网站需要登录", "body": "yt-dlp 无法在未经认证的情况下访问此视频。请在高级设置中配置 cookies——指向你已登录的浏览器，或导入 cookies.txt 文件。"},
 				"openSettingsCta": "打开 cookies 设置",
+				"needsCookies": {"heading": "此网站需要登录", "body": "yt-dlp 无法在未经认证的情况下访问此视频。请在高级设置中配置 cookies——指向你已登录的浏览器，或导入 cookies.txt 文件。"},
 				"dpapi": {
 					"heading": "Chrome Cookies 被 Windows 加密阻止",
 					"explanation": "Chrome 127 及更新版本以其他应用在 Windows 上无法读取的方式加密 cookies。请尝试以下任一解决方法。",
@@ -292,8 +292,13 @@
 		"clearTitle": "清除已完成的下载",
 		"pauseAll": "全部暂停",
 		"pauseAllTitle": "暂停所有正在进行的下载",
+		"resumeAll": "继续队列",
+		"resumeAllTitle": "继续已暂停的下载并让队列继续运行",
 		"cancelAll": "全部取消",
 		"cancelAllTitle": "取消所有正在进行和等待中的下载",
+		"limitRate": "速度：{{value}}",
+		"limitRateOff": "速度：关闭",
+		"limitRateTitle": "下载带宽限制",
 		"tip": "你的下载已在下方队列 — 随时打开查看进度。",
 		"item": {
 			"doneAt": "{{time}} 完成",
@@ -314,12 +319,7 @@
 			"statusDone": "完成",
 			"statusError": "错误",
 			"statusCancelled": "已取消"
-		},
-		"resumeAll": "继续队列",
-		"resumeAllTitle": "继续已暂停的下载并让队列继续运行",
-		"limitRate": "速度：{{value}}",
-		"limitRateOff": "速度：关闭",
-		"limitRateTitle": "下载带宽限制"
+		}
 	},
 	"update": {
 		"appVersion": "Arroxy {{version}}",
@@ -368,7 +368,7 @@
 			"unavailable": "该视频不可用 — 可能是私有、已删除或受地区限制。",
 			"geoBlocked": "该视频在你所在的地区不可用。",
 			"outOfDiskSpace": "磁盘空间不足。请清理空间后重试。",
-			"unsupportedUrl": "这看起来不像视频链接。请粘贴 YouTube 视频、Short 或播放列表的链接。",
+			"unsupportedUrl": "yt-dlp 不支持该 URL。请尝试 yt-dlp 支持的任意网站上的其他链接。",
 			"chunkTransferFailure": "服务器在传输过程中反复中断下载，yt-dlp 多次重试后放弃。此问题通常出现在最大的视频格式（4K HDR / 高码率 VP9）上。请重试、切换网络或 VPN，或选择分辨率较低的格式。",
 			"postprocessFailure": "yt-dlp 已完成下载，但后处理（合并 / mux / 转换）失败。这通常是 ffmpeg 的临时问题——请重试，如果仍然失败，请尝试其他格式组合。",
 			"parse": "无法解析网站的响应。yt-dlp 的提取器可能已过时。Arroxy 会在启动时自动更新 yt-dlp——请几分钟后再重试，等待修复发布。",
@@ -399,7 +399,7 @@
 	"formatLabel": {"audioFallback": "音频", "audioOnlyDot": "仅音频 · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
 	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "空闲", "statusActive_one": "1个下载中 · {{percent}}%", "statusActive_other": "{{count}}个下载中 · {{percent}}%", "open": "打开 Arroxy", "quit": "退出 Arroxy"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "正在进行 {{count}} 个下载", "message_other": "正在进行 {{count}} 个下载", "detail": "关闭将取消所有正在进行的下载。", "confirm": "取消下载并退出", "keep": "继续下载", "pause": "暂停下载并退出"},
+		"quitWithActiveDownloads": {"message_one": "正在进行 {{count}} 个下载", "message_other": "正在进行 {{count}} 个下载", "detail": "暂停以便稍后继续，或取消以丢弃进度。", "confirm": "取消下载并退出", "pause": "暂停下载并退出", "keep": "继续下载"},
 		"closeToTray": {"message": "关闭时将 Arroxy 最小化到系统托盘？", "detail": "Arroxy 将继续运行并完成活动下载。可在高级设置中更改。", "hide": "最小化到托盘", "quit": "退出", "remember": "不再询问"},
 		"rendererCrashed": {"message": "Arroxy 遇到了一个问题", "detail": "渲染进程崩溃（{{reason}}）。请重新加载以重试。", "reload": "重新加载", "quit": "退出"}
 	},

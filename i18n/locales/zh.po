@@ -25,7 +25,7 @@ msgstr "关于 Arroxy"
 
 msgctxt "about.tagline"
 msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
-msgstr "快速易用的桌面视频与音频下载工具。"
+msgstr "适用于 YouTube 和其他 2000+ 网站的快速友好下载器。"
 
 msgctxt "about.thirdPartyNotices"
 msgid "View third-party notices"
@@ -109,7 +109,7 @@ msgstr "取消下载并退出"
 
 msgctxt "dialogs.quitWithActiveDownloads.detail"
 msgid "Pause to resume later, or cancel to discard progress."
-msgstr "关闭将取消所有正在进行的下载。"
+msgstr "暂停以便稍后继续，或取消以丢弃进度。"
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -201,7 +201,7 @@ msgstr "下载失败。请查看下方的原始输出。"
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "这看起来不像视频链接。请粘贴 YouTube 视频、Short 或播放列表的链接。"
+msgstr "yt-dlp 不支持该 URL。请尝试 yt-dlp 支持的任意网站上的其他链接。"
 
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
@@ -869,7 +869,7 @@ msgstr "就绪"
 
 msgctxt "wizard.bulk.description"
 msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
-msgstr "粘贴单个视频或音频 URL。Arroxy 会清理重复项，并在加入队列前标记播放列表或频道链接。"
+msgstr "粘贴视频、播放列表、频道、搜索或音频 URL。Arroxy 会在加入队列前清理重复项。"
 
 msgctxt "wizard.bulk.emptyPreview"
 msgid "Paste one or more URLs to preview the batch."
@@ -2059,7 +2059,7 @@ msgstr "已加入队列"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "快速下载仅适用于单个视频。播放列表和频道请使用获取格式。"
+msgstr "快速下载可以使用单个视频、播放列表、频道、搜索和批量 URL。"
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

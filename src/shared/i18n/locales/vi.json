@@ -1,7 +1,7 @@
 {
 	"common": {"back": "Quay lại", "cancel": "Hủy", "continue": "Tiếp tục", "retry": "Thử lại", "startOver": "Bắt đầu lại"},
 	"app": {"feedback": "Phản hồi", "logs": "Nhật ký", "feedbackNudge": "Bạn thích Arroxy không? Tôi rất muốn nghe ý kiến của bạn! 💬", "debugCopied": "Đã sao chép!", "debugCopyTitle": "Sao chép thông tin gỡ lỗi (phiên bản Electron, OS, Chrome)", "zoomIn": "Phóng to", "zoomOut": "Thu nhỏ"},
-	"about": {"button": "Giới thiệu", "openTitle": "Giới thiệu về Arroxy", "tagline": "Phần mềm tải video & âm thanh nhanh, thân thiện dành cho máy tính.", "websiteLink": "Trang web", "githubLink": "GitHub", "licenseLine": "Giấy phép MIT · bởi Antonio Orionus", "thirdPartyNotices": "Xem thông báo bên thứ ba"},
+	"about": {"button": "Giới thiệu", "openTitle": "Giới thiệu về Arroxy", "tagline": "Trình tải xuống nhanh, thân thiện cho YouTube và hơn 2000 trang web khác.", "websiteLink": "Trang web", "githubLink": "GitHub", "licenseLine": "Giấy phép MIT · bởi Antonio Orionus", "thirdPartyNotices": "Xem thông báo bên thứ ba"},
 	"titleBar": {"close": "Đóng", "minimize": "Thu nhỏ", "maximize": "Phóng to", "restore": "Khôi phục"},
 	"splash": {"greeting": "Xin chào, chào mừng bạn quay lại!", "warmup": "Arroxy đang khởi động…", "downloading": "Đang tải xuống {{binary}}…", "warmupFailedNoDiag": "Thiết lập thất bại. Mở nhật ký thiết lập để xem chi tiết."},
 	"repair": {
@@ -34,6 +34,7 @@
 	"language": {"label": "Ngôn ngữ"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Chất lượng", "formats": "Định dạng", "subtitles": "Phụ đề", "sponsorblock": "SponsorBlock", "output": "Đầu ra", "folder": "Lưu", "confirm": "Xác nhận"},
+		"playlistPresets": {"heading": "Chọn chất lượng cho lô", "subhead": "Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà.", "itemCount_one": "{{count}} mục", "itemCount_other": "{{count}} mục"},
 		"playlist": {
 			"heading": "Các mục Playlist",
 			"bulkHeading": "URL hàng loạt",
@@ -71,7 +72,7 @@
 		},
 		"bulk": {
 			"title": "URL hàng loạt",
-			"description": "Dán từng URL video hoặc âm thanh. Arroxy sẽ lọc trùng và đánh dấu liên kết playlist hoặc kênh trước khi đưa vào hàng đợi.",
+			"description": "Dán URL video, danh sách phát, kênh, tìm kiếm hoặc âm thanh. Arroxy sẽ loại bỏ trùng lặp trước khi đưa vào hàng đợi.",
 			"textareaLabel": "Danh sách URL",
 			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "Sẵn sàng",
@@ -80,7 +81,6 @@
 			"needsAtLeastOne": "Thêm ít nhất một URL được hỗ trợ để tiếp tục.",
 			"reject": {"duplicate": "Trùng lặp"}
 		},
-		"playlistPresets": {"heading": "Chọn chất lượng cho lô", "subhead": "Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà.", "itemCount_one": "{{count}} mục", "itemCount_other": "{{count}} mục"},
 		"mixedPrompt": {
 			"title": "Liên kết này có Playlist",
 			"body": "Bạn chỉ muốn video đã chọn, hay muốn chọn từ Playlist? Bạn sẽ chọn các video cụ thể hoặc một đoạn ở bước tiếp theo.",
@@ -99,7 +99,7 @@
 			"quickDownloadTooltip": "Dùng tùy chọn đã lưu hoặc mặc định của bạn và thêm video đơn này vào hàng đợi mà không mở các bước thiết lập.",
 			"quickPreparing": "Đang chuẩn bị",
 			"quickQueued": "Đã thêm vào hàng đợi",
-			"quickSingleOnly": "Tải nhanh chỉ dành cho video đơn. Dùng Lấy định dạng cho playlist và kênh.",
+			"quickSingleOnly": "Tải nhanh có thể dùng video đơn lẻ, danh sách phát, kênh, tìm kiếm và URL hàng loạt.",
 			"quickProbeFailed": "Thăm dò thất bại",
 			"quickPrepareFailed": "Không thể chuẩn bị mục hàng đợi",
 			"quickFailed": "Không thể thêm mục này: {{error}}",
@@ -138,6 +138,15 @@
 				"extensionChrome": "Lấy cookies.txt TRÊN MÁY (Chrome)"
 			},
 			"proxy": {"label": "URL Proxy", "description": "Chuyển lưu lượng qua proxy — hữu ích cho nội dung bị chặn theo khu vực.", "placeholder": "http://host:port", "clear": "Xóa"},
+			"limitRate": {
+				"label": "Giới hạn tốc độ tải",
+				"description": "Giới hạn băng thông cho tải media. Nhịp yêu cầu bên dưới thường là đòn bẩy giới hạn mạnh hơn.",
+				"off": "Tắt",
+				"custom": "Tùy chỉnh…",
+				"customPlaceholder": "vd. 750K hoặc 1.5M",
+				"invalid": "Dùng một số theo sau bởi K hoặc M (vd. 500K, 1.5M)",
+				"activeWarning": "Tải xuống đang chạy giữ giới hạn hiện tại. Tạm dừng + Tiếp tục để áp dụng."
+			},
 			"playlistProbeLimit": {
 				"label": "Số mục playlist cần quét",
 				"description": "Số mục tối đa Arroxy tải khi mở một playlist, kênh hoặc kết quả tìm kiếm.",
@@ -156,6 +165,7 @@
 			"networkPacing": {
 				"heading": "Tải xuống nhẹ nhàng",
 				"description": "Thêm khoảng dừng nhỏ trong mỗi lần tải xuống để Arroxy không truy cập trang web quá mức. Giá trị tính bằng giây trừ khi có ghi chú.",
+				"presetLabel": "Arroxy nên thận trọng mức nào?",
 				"tooltip": "Các khoảng dừng này xảy ra bên trong mỗi lần tải xuống. Arroxy vẫn duy trì tải xuống trong hàng đợi theo thứ tự từng cái một.",
 				"summary": "Chờ: {{requests}} giữa các lần kiểm tra, {{downloads}} trước khi media bắt đầu, {{subtitles}} trước các tệp phụ đề. Kết nối: {{fragments}}.",
 				"presets": {"off": "Tắt", "balanced": "Cân bằng", "careful": "Cẩn thận", "custom": "Tùy chỉnh"},
@@ -165,21 +175,11 @@
 					"careful": "Thêm khoảng dừng dài hơn cho danh sách phát lớn hoặc mạng thường xuyên bị giới hạn.",
 					"custom": "Tự điều chỉnh các điều khiển tải xuống nâng cao."
 				},
-				"fields": {"sleepRequests": "Chờ giữa các lần kiểm tra metadata", "sleepInterval": "Dừng trước khi media bắt đầu: tối thiểu", "maxSleepInterval": "Dừng trước khi media bắt đầu: tối đa", "concurrentFragments": "Kết nối tải xuống", "sleepSubtitles": "Chờ trước tệp phụ đề"},
-				"presetLabel": "Arroxy nên thận trọng mức nào?",
+				"fields": {"sleepRequests": "Chờ giữa các lần kiểm tra metadata", "sleepInterval": "Dừng trước khi media bắt đầu: tối thiểu", "maxSleepInterval": "Dừng trước khi media bắt đầu: tối đa", "sleepSubtitles": "Chờ trước tệp phụ đề", "concurrentFragments": "Kết nối tải xuống"},
 				"units": {"seconds": "giây", "threads": "luồng"}
 			},
 			"closeToTray": {"toggle": "Ẩn xuống khay khi đóng", "toggleDescription": "Tiếp tục tải xuống trong nền sau khi đóng cửa sổ."},
-			"analytics": {"toggle": "Gửi thống kê sử dụng ẩn danh", "toggleDescription": "Chỉ đếm số lần khởi động ứng dụng. Không có URL, tên tệp hay dữ liệu cá nhân."},
-			"limitRate": {
-				"label": "Giới hạn tốc độ tải",
-				"description": "Giới hạn băng thông cho tải media. Nhịp yêu cầu bên dưới thường là đòn bẩy giới hạn mạnh hơn.",
-				"off": "Tắt",
-				"custom": "Tùy chỉnh…",
-				"customPlaceholder": "vd. 750K hoặc 1.5M",
-				"invalid": "Dùng một số theo sau bởi K hoặc M (vd. 500K, 1.5M)",
-				"activeWarning": "Tải xuống đang chạy giữ giới hạn hiện tại. Tạm dừng + Tiếp tục để áp dụng."
-			}
+			"analytics": {"toggle": "Gửi thống kê sử dụng ẩn danh", "toggleDescription": "Chỉ đếm số lần khởi động ứng dụng. Không có URL, tên tệp hay dữ liệu cá nhân."}
 		},
 		"subtitles": {
 			"autoBadge": "Tự động",
@@ -213,6 +213,8 @@
 			"audio": "Âm thanh",
 			"noAudio": "Không có âm thanh",
 			"videoOnly": "Chỉ video",
+			"keepAudio": "Giữ nguyên",
+			"keepAudioMeta": "Âm thanh tích hợp",
 			"audioOnly": "Chỉ âm thanh",
 			"audioOnlyOption": "Chỉ âm thanh (không có video)",
 			"mascot": "Tốt nhất + Tốt nhất = chất lượng cao nhất. Tôi sẽ chọn cái đó!",
@@ -223,8 +225,6 @@
 			"total": "Tổng cộng",
 			"skipToConfirm": "Bỏ qua đến xác nhận",
 			"skipToConfirmTooltip": "Sử dụng tùy chọn đã lưu của bạn cho tất cả các bước còn lại. Để thay đổi một cài đặt, hãy tiếp tục từng bước — lựa chọn của bạn sẽ được lưu cho lần sau.",
-			"keepAudio": "Giữ nguyên",
-			"keepAudioMeta": "Âm thanh tích hợp",
 			"convert": {
 				"label": "Chuyển đổi",
 				"uncompressed": "Chuyển đổi · không nén",
@@ -325,8 +325,13 @@
 		"clearTitle": "Xóa các tải xuống đã hoàn tất",
 		"pauseAll": "Tạm dừng tất cả",
 		"pauseAllTitle": "Tạm dừng tất cả các tải xuống đang hoạt động",
+		"resumeAll": "Tiếp tục hàng đợi",
+		"resumeAllTitle": "Tiếp tục các tải xuống đã tạm dừng và cho hàng đợi chạy tiếp",
 		"cancelAll": "Hủy tất cả",
 		"cancelAllTitle": "Hủy tất cả các tải xuống đang hoạt động và đang chờ",
+		"limitRate": "Tốc độ: {{value}}",
+		"limitRateOff": "Tốc độ: Tắt",
+		"limitRateTitle": "Giới hạn băng thông cho tải xuống",
 		"tip": "Tải xuống của bạn đang trong hàng đợi bên dưới — mở bất cứ lúc nào để theo dõi tiến trình.",
 		"item": {
 			"doneAt": "Hoàn tất {{time}}",
@@ -347,12 +352,7 @@
 			"statusDone": "Xong",
 			"statusError": "Lỗi",
 			"statusCancelled": "Đã hủy"
-		},
-		"resumeAll": "Tiếp tục hàng đợi",
-		"resumeAllTitle": "Tiếp tục các tải xuống đã tạm dừng và cho hàng đợi chạy tiếp",
-		"limitRate": "Tốc độ: {{value}}",
-		"limitRateOff": "Tốc độ: Tắt",
-		"limitRateTitle": "Giới hạn băng thông cho tải xuống"
+		}
 	},
 	"update": {
 		"appVersion": "Arroxy {{version}}",
@@ -401,7 +401,7 @@
 			"unavailable": "Video này không khả dụng — có thể là riêng tư, đã bị xóa hoặc bị chặn theo khu vực.",
 			"geoBlocked": "Video này không có sẵn ở khu vực của bạn.",
 			"outOfDiskSpace": "Không đủ dung lượng đĩa. Hãy giải phóng dung lượng rồi thử lại.",
-			"unsupportedUrl": "Đây không giống như URL video. Hãy dán liên kết video YouTube, Short hoặc danh sách phát.",
+			"unsupportedUrl": "URL đó không được yt-dlp hỗ trợ. Hãy thử một liên kết khác từ bất kỳ trang web nào được yt-dlp hỗ trợ.",
 			"chunkTransferFailure": "Máy chủ liên tục ngắt kết nối giữa chừng và yt-dlp đã bỏ cuộc sau nhiều lần thử lại. Lỗi này thường xảy ra với các định dạng video lớn nhất (4K HDR / VP9 bitrate cao). Hãy thử lại, đổi mạng/VPN, hoặc chọn định dạng độ phân giải thấp hơn.",
 			"postprocessFailure": "yt-dlp đã tải xong nhưng quá trình xử lý hậu kỳ (gộp / mux / chuyển đổi) bị lỗi. Thường đây là sự cố tạm thời của ffmpeg — hãy thử lại, và nếu vẫn lỗi thì thử một tổ hợp định dạng khác.",
 			"parse": "Không thể phân tích phản hồi từ trang web. Bộ trích xuất của yt-dlp có thể đã lỗi thời. Arroxy tự động cập nhật yt-dlp khi khởi chạy — hãy thử lại sau vài phút khi bản sửa lỗi được phát hành.",
@@ -440,7 +440,7 @@
 	"formatLabel": {"audioFallback": "Âm thanh", "audioOnlyDot": "Chỉ âm thanh · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
 	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Đang chờ", "statusActive_one": "1 đang tải · {{percent}}%", "statusActive_other": "{{count}} đang tải · {{percent}}%", "open": "Mở Arroxy", "quit": "Thoát Arroxy"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} tải xuống đang tiến hành", "message_other": "{{count}} tải xuống đang tiến hành", "detail": "Đóng ứng dụng sẽ hủy tất cả các tải xuống đang hoạt động.", "confirm": "Hủy tải xuống & Thoát", "keep": "Tiếp tục tải xuống", "pause": "Tạm dừng tải và thoát"},
+		"quitWithActiveDownloads": {"message_one": "{{count}} tải xuống đang tiến hành", "message_other": "{{count}} tải xuống đang tiến hành", "detail": "Tạm dừng để tiếp tục sau, hoặc hủy để bỏ tiến trình.", "confirm": "Hủy tải xuống & Thoát", "pause": "Tạm dừng tải và thoát", "keep": "Tiếp tục tải xuống"},
 		"closeToTray": {"message": "Ẩn Arroxy xuống khay hệ thống khi đóng?", "detail": "Arroxy vẫn tiếp tục chạy và hoàn thành các tải xuống đang hoạt động. Thay đổi điều này sau trong cài đặt Nâng cao.", "hide": "Ẩn xuống khay", "quit": "Thoát", "remember": "Không hỏi lại"},
 		"rendererCrashed": {"message": "Arroxy đã gặp sự cố", "detail": "Tiến trình renderer bị crash ({{reason}}). Tải lại để thử lại.", "reload": "Tải lại", "quit": "Thoát"}
 	},

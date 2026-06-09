@@ -1,7 +1,7 @@
 {
 	"common": {"back": "Retour", "cancel": "Annuler", "continue": "Continuer", "retry": "Réessayer", "startOver": "Recommencer"},
 	"app": {"feedback": "Commentaires", "logs": "Journaux", "feedbackNudge": "Tu apprécies Arroxy ? J'adorerais avoir ton avis ! 💬", "debugCopied": "Copié !", "debugCopyTitle": "Copier les infos de débogage (versions Electron, OS, Chrome)", "zoomIn": "Zoom avant", "zoomOut": "Zoom arrière"},
-	"about": {"button": "À propos", "openTitle": "À propos d'Arroxy", "tagline": "Téléchargeur vidéo et audio rapide et convivial pour le bureau.", "websiteLink": "Site web", "githubLink": "GitHub", "licenseLine": "Licence MIT · par Antonio Orionus", "thirdPartyNotices": "Voir les mentions tierces"},
+	"about": {"button": "À propos", "openTitle": "À propos d'Arroxy", "tagline": "Téléchargeur rapide et convivial pour YouTube et plus de 2000 autres sites.", "websiteLink": "Site web", "githubLink": "GitHub", "licenseLine": "Licence MIT · par Antonio Orionus", "thirdPartyNotices": "Voir les mentions tierces"},
 	"titleBar": {"close": "Fermer", "minimize": "Réduire", "maximize": "Agrandir", "restore": "Restaurer"},
 	"splash": {"greeting": "Salut, content de te revoir !", "warmup": "Arroxy se prépare…", "downloading": "Téléchargement de {{binary}}…", "warmupFailedNoDiag": "Échec de la configuration. Ouvre le journal de configuration pour plus de détails."},
 	"repair": {
@@ -34,6 +34,7 @@
 	"language": {"label": "Langue"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Qualité", "formats": "Format", "subtitles": "Sous-titres", "sponsorblock": "SponsorBlock", "output": "Sortie", "folder": "Enregistrer", "confirm": "Confirmer"},
+		"playlistPresets": {"heading": "Choisir la qualité pour le lot", "subhead": "Chaque vidéo résout le niveau choisi indépendamment — les playlists hétérogènes fonctionnent sans surprise.", "itemCount_one": "{{count}} élément", "itemCount_other": "{{count}} éléments"},
 		"playlist": {
 			"heading": "Éléments de la Playlist",
 			"bulkHeading": "URLs en lot",
@@ -71,7 +72,7 @@
 		},
 		"bulk": {
 			"title": "URLs en lot",
-			"description": "Collez des URLs vidéo ou audio individuelles. Arroxy supprimera les doublons et signalera les liens de playlist ou de chaîne avant la mise en file.",
+			"description": "Collez des URLs de vidéos, playlists, chaînes, recherches ou audio. Arroxy nettoiera les doublons avant la mise en file.",
 			"textareaLabel": "Liste d’URLs",
 			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "Prêtes",
@@ -80,7 +81,6 @@
 			"needsAtLeastOne": "Ajoutez au moins une URL prise en charge pour continuer.",
 			"reject": {"duplicate": "Doublon"}
 		},
-		"playlistPresets": {"heading": "Choisir la qualité pour le lot", "subhead": "Chaque vidéo résout le niveau choisi indépendamment — les playlists hétérogènes fonctionnent sans surprise.", "itemCount_one": "{{count}} élément", "itemCount_other": "{{count}} éléments"},
 		"mixedPrompt": {
 			"title": "Ce lien contient une Playlist",
 			"body": "Seulement la vidéo sur laquelle tu as cliqué, ou tu préfères choisir dans la Playlist ? Tu pourras sélectionner des vidéos précises ou une plage à l'étape suivante.",
@@ -99,7 +99,7 @@
 			"quickDownloadTooltip": "Utilise vos préférences enregistrées ou par défaut et ajoute cette vidéo seule à la file sans ouvrir les étapes de configuration.",
 			"quickPreparing": "Préparation",
 			"quickQueued": "Ajouté à la file",
-			"quickSingleOnly": "Le téléchargement rapide est réservé aux vidéos seules. Utilisez Récupérer les formats pour les playlists et les chaînes.",
+			"quickSingleOnly": "Le téléchargement rapide fonctionne pour les vidéos seules, playlists, chaînes, recherches et URLs en lot.",
 			"quickProbeFailed": "Analyse échouée",
 			"quickPrepareFailed": "Impossible de préparer l’élément de file",
 			"quickFailed": "Impossible d’ajouter cet élément : {{error}}",
@@ -138,6 +138,15 @@
 				"extensionChrome": "Obtenir cookies.txt EN LOCAL (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Acheminer le trafic via un proxy — utile pour les contenus géo-restreints.", "placeholder": "http://host:port", "clear": "Effacer"},
+			"limitRate": {
+				"label": "Limite de vitesse de téléchargement",
+				"description": "Limite la bande passante des téléchargements média. Le rythme des requêtes ci-dessous est souvent le levier le plus fort.",
+				"off": "Désactivé",
+				"custom": "Personnalisé…",
+				"customPlaceholder": "ex. 750K ou 1.5M",
+				"invalid": "Utilisez un nombre suivi de K ou M (ex. 500K, 1.5M)",
+				"activeWarning": "Les téléchargements actifs gardent leur limite actuelle. Pause + Reprendre pour appliquer."
+			},
 			"playlistProbeLimit": {
 				"label": "Éléments de playlist à scanner",
 				"description": "Nombre maximum d'entrées qu'Arroxy charge lors de l'ouverture d'une playlist, d'une chaîne ou d'un résultat de recherche.",
@@ -170,16 +179,7 @@
 				"units": {"seconds": "sec", "threads": "connexions"}
 			},
 			"closeToTray": {"toggle": "Masquer dans la barre des tâches à la fermeture", "toggleDescription": "Continuer les téléchargements en arrière-plan après la fermeture de la fenêtre."},
-			"analytics": {"toggle": "Envoyer des statistiques d'utilisation anonymes", "toggleDescription": "Compte uniquement les lancements de l'application. Aucune URL, nom de fichier ou donnée personnelle."},
-			"limitRate": {
-				"label": "Limite de vitesse de téléchargement",
-				"description": "Limite la bande passante des téléchargements média. Le rythme des requêtes ci-dessous est souvent le levier le plus fort.",
-				"off": "Désactivé",
-				"custom": "Personnalisé…",
-				"customPlaceholder": "ex. 750K ou 1.5M",
-				"invalid": "Utilisez un nombre suivi de K ou M (ex. 500K, 1.5M)",
-				"activeWarning": "Les téléchargements actifs gardent leur limite actuelle. Pause + Reprendre pour appliquer."
-			}
+			"analytics": {"toggle": "Envoyer des statistiques d'utilisation anonymes", "toggleDescription": "Compte uniquement les lancements de l'application. Aucune URL, nom de fichier ou donnée personnelle."}
 		},
 		"subtitles": {
 			"autoBadge": "Auto",
@@ -325,8 +325,13 @@
 		"clearTitle": "Effacer les téléchargements terminés",
 		"pauseAll": "Tout mettre en pause",
 		"pauseAllTitle": "Mettre en pause tous les téléchargements actifs",
+		"resumeAll": "Reprendre la file",
+		"resumeAllTitle": "Reprendre les téléchargements en pause et laisser la file continuer",
 		"cancelAll": "Tout annuler",
 		"cancelAllTitle": "Annuler tous les téléchargements actifs et en attente",
+		"limitRate": "Vitesse : {{value}}",
+		"limitRateOff": "Vitesse : désactivée",
+		"limitRateTitle": "Limite de bande passante des téléchargements",
 		"tip": "Ton téléchargement est en file ci-dessous — ouvre-la quand tu veux pour suivre la progression.",
 		"item": {
 			"doneAt": "Terminé {{time}}",
@@ -347,12 +352,7 @@
 			"statusDone": "Terminé",
 			"statusError": "Erreur",
 			"statusCancelled": "Annulé"
-		},
-		"resumeAll": "Reprendre la file",
-		"resumeAllTitle": "Reprendre les téléchargements en pause et laisser la file continuer",
-		"limitRate": "Vitesse : {{value}}",
-		"limitRateOff": "Vitesse : désactivée",
-		"limitRateTitle": "Limite de bande passante des téléchargements"
+		}
 	},
 	"update": {
 		"appVersion": "Arroxy {{version}}",
@@ -401,7 +401,7 @@
 			"unavailable": "Cette vidéo n'est pas disponible — elle est peut-être privée, supprimée ou restreinte par région.",
 			"geoBlocked": "Cette vidéo n'est pas disponible dans ta région.",
 			"outOfDiskSpace": "Espace disque insuffisant. Libère de l'espace et réessaie.",
-			"unsupportedUrl": "Ça ne ressemble pas à une URL de vidéo. Colle un lien vers une vidéo YouTube, un Short ou une playlist.",
+			"unsupportedUrl": "Cette URL n'est pas prise en charge par yt-dlp. Essayez un autre lien provenant d'un site pris en charge par yt-dlp.",
 			"chunkTransferFailure": "Le serveur a interrompu le téléchargement en cours de route à plusieurs reprises et yt-dlp a abandonné après plusieurs tentatives. Cela touche généralement les formats vidéo les plus lourds (4K HDR / VP9 haut débit). Réessaie, change de réseau/VPN ou sélectionne un format de résolution inférieure.",
 			"postprocessFailure": "yt-dlp a terminé le téléchargement, mais le post-traitement (fusion / mux / conversion) a échoué. C’est souvent un souci ffmpeg passager — réessaie, et si ça persiste, essaie une autre combinaison de formats.",
 			"parse": "Impossible d’analyser la réponse du site. L’extracteur de yt-dlp est peut-être désynchronisé. Arroxy met yt-dlp à jour automatiquement au démarrage — réessaie dans quelques minutes, le temps que le correctif arrive.",
@@ -440,7 +440,14 @@
 	"formatLabel": {"audioFallback": "Audio", "audioOnlyDot": "Audio seul · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
 	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Inactif", "statusActive_one": "1 téléchargement · {{percent}}%", "statusActive_other": "{{count}} téléchargements · {{percent}}%", "open": "Ouvrir Arroxy", "quit": "Quitter Arroxy"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} téléchargement en cours", "message_other": "{{count}} téléchargements en cours", "detail": "La fermeture annulera tous les téléchargements actifs.", "confirm": "Annuler et quitter", "keep": "Continuer le téléchargement", "pause": "Mettre en pause et quitter"},
+		"quitWithActiveDownloads": {
+			"message_one": "{{count}} téléchargement en cours",
+			"message_other": "{{count}} téléchargements en cours",
+			"detail": "Mettez en pause pour reprendre plus tard, ou annulez pour abandonner la progression.",
+			"confirm": "Annuler et quitter",
+			"pause": "Mettre en pause et quitter",
+			"keep": "Continuer le téléchargement"
+		},
 		"closeToTray": {"message": "Masquer Arroxy dans la barre des tâches lors de la fermeture ?", "detail": "Arroxy continue et termine les téléchargements actifs. Modifiez cela dans Paramètres avancés.", "hide": "Masquer dans la barre", "quit": "Quitter", "remember": "Ne plus demander"},
 		"rendererCrashed": {"message": "Arroxy a rencontré un problème", "detail": "Le processus de rendu a planté ({{reason}}). Rechargez pour réessayer.", "reload": "Recharger", "quit": "Quitter"}
 	},

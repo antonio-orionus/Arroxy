@@ -25,7 +25,7 @@ msgstr "Arroxy haqida"
 
 msgctxt "about.tagline"
 msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
-msgstr "Ish stoli uchun tez va qulay video va audio yuklash dasturi."
+msgstr "YouTube va 2000+ boshqa saytlar uchun tez va qulay yuklab oluvchi."
 
 msgctxt "about.thirdPartyNotices"
 msgid "View third-party notices"
@@ -109,7 +109,7 @@ msgstr "Yuklamalarni bekor qilish va chiqish"
 
 msgctxt "dialogs.quitWithActiveDownloads.detail"
 msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Yopilsa barcha faol yuklamalar bekor qilinadi."
+msgstr "Keyin davom ettirish uchun pauza qiling yoki jarayonni tashlab yuborish uchun bekor qiling."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -201,7 +201,7 @@ msgstr "Yuklab olish muvaffaqiyatsiz tugadi. Quyidagi xom natijani ko'ring."
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "Bu video URL manzilga o'xshamaydi. YouTube video, Short yoki pleylist havolasini joylashtiring."
+msgstr "Bu URL yt-dlp tomonidan qo'llab-quvvatlanmaydi. yt-dlp qo'llab-quvvatlaydigan saytlardan boshqa havolani sinab ko'ring."
 
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
@@ -869,7 +869,7 @@ msgstr "Tayyor"
 
 msgctxt "wizard.bulk.description"
 msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
-msgstr "Alohida video yoki audio URLlarini joylang. Arroxy navbatga qo‘shishdan oldin takrorlarni tozalaydi va playlist yoki kanal havolalarini belgilaydi."
+msgstr "Video, pleylist, kanal, qidiruv yoki audio URLlarini joylashtiring. Arroxy navbatga qo'shishdan oldin dublikatlarni tozalaydi."
 
 msgctxt "wizard.bulk.emptyPreview"
 msgid "Paste one or more URLs to preview the batch."
@@ -2059,7 +2059,7 @@ msgstr "Navbatga qo‘shildi"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "Tez yuklab olish faqat bitta video uchun. Pleylistlar va kanallar uchun Formatlarni olishdan foydalaning."
+msgstr "Tez yuklab olish alohida videolar, pleylistlar, kanallar, qidiruvlar va Bulk URLlardan foydalanishi mumkin."
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

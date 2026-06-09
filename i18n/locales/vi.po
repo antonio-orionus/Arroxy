@@ -25,7 +25,7 @@ msgstr "Giới thiệu về Arroxy"
 
 msgctxt "about.tagline"
 msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
-msgstr "Phần mềm tải video & âm thanh nhanh, thân thiện dành cho máy tính."
+msgstr "Trình tải xuống nhanh, thân thiện cho YouTube và hơn 2000 trang web khác."
 
 msgctxt "about.thirdPartyNotices"
 msgid "View third-party notices"
@@ -109,7 +109,7 @@ msgstr "Hủy tải xuống & Thoát"
 
 msgctxt "dialogs.quitWithActiveDownloads.detail"
 msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Đóng ứng dụng sẽ hủy tất cả các tải xuống đang hoạt động."
+msgstr "Tạm dừng để tiếp tục sau, hoặc hủy để bỏ tiến trình."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -201,7 +201,7 @@ msgstr "Tải xuống thất bại. Xem đầu ra thô bên dưới."
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "Đây không giống như URL video. Hãy dán liên kết video YouTube, Short hoặc danh sách phát."
+msgstr "URL đó không được yt-dlp hỗ trợ. Hãy thử một liên kết khác từ bất kỳ trang web nào được yt-dlp hỗ trợ."
 
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
@@ -869,7 +869,7 @@ msgstr "Sẵn sàng"
 
 msgctxt "wizard.bulk.description"
 msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
-msgstr "Dán từng URL video hoặc âm thanh. Arroxy sẽ lọc trùng và đánh dấu liên kết playlist hoặc kênh trước khi đưa vào hàng đợi."
+msgstr "Dán URL video, danh sách phát, kênh, tìm kiếm hoặc âm thanh. Arroxy sẽ loại bỏ trùng lặp trước khi đưa vào hàng đợi."
 
 msgctxt "wizard.bulk.emptyPreview"
 msgid "Paste one or more URLs to preview the batch."
@@ -2059,7 +2059,7 @@ msgstr "Đã thêm vào hàng đợi"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "Tải nhanh chỉ dành cho video đơn. Dùng Lấy định dạng cho playlist và kênh."
+msgstr "Tải nhanh có thể dùng video đơn lẻ, danh sách phát, kênh, tìm kiếm và URL hàng loạt."
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

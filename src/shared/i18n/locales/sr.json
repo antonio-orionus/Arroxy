@@ -1,7 +1,15 @@
 {
 	"common": {"back": "Назад", "cancel": "Откажи", "continue": "Настави", "retry": "Покушај поново", "startOver": "Почни испочетка"},
 	"app": {"feedback": "Повратна информација", "logs": "Дневници", "feedbackNudge": "Свиђа ти се Arroxy? Радо бих чуо твоје мишљење! 💬", "debugCopied": "Копирано!", "debugCopyTitle": "Копирај информације за отклањање грешака (Electron, ОС, верзије Chrome-а)", "zoomIn": "Увећај", "zoomOut": "Умањи"},
-	"about": {"button": "О апликацији", "openTitle": "О апликацији Arroxy", "tagline": "Брз и пријатан преузимач видеа и звука за рачунар.", "websiteLink": "Веб-сајт", "githubLink": "GitHub", "licenseLine": "Лиценца MIT · by Antonio Orionus", "thirdPartyNotices": "Прикажи обавештења о компонентама трећих страна"},
+	"about": {
+		"button": "О апликацији",
+		"openTitle": "О апликацији Arroxy",
+		"tagline": "Брз и приступачан преузимач за YouTube и још 2000+ сајтова.",
+		"websiteLink": "Веб-сајт",
+		"githubLink": "GitHub",
+		"licenseLine": "Лиценца MIT · by Antonio Orionus",
+		"thirdPartyNotices": "Прикажи обавештења о компонентама трећих страна"
+	},
 	"titleBar": {"close": "Затвори", "minimize": "Минимизуј", "maximize": "Максимизуј", "restore": "Врати"},
 	"splash": {"greeting": "Добродошао/ла назад!", "warmup": "Arroxy се покреће…", "downloading": "Преузимање {{binary}}…", "warmupFailedNoDiag": "Подешавање није успело. Отвори дневник подешавања за детаље."},
 	"repair": {
@@ -34,6 +42,7 @@
 	"language": {"label": "Језик"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Квалитет", "formats": "Формат", "subtitles": "Титлови", "sponsorblock": "SponsorBlock", "output": "Излаз", "folder": "Сачувај", "confirm": "Потврди"},
+		"playlistPresets": {"heading": "Изабери квалитет за групно преузимање", "subhead": "Свaki видео самостално проналази одговарајући ниво квалитета — хетерогене плејлисте раде без изненађења.", "itemCount_one": "{{count}} ставка", "itemCount_other": "{{count}} ставки"},
 		"playlist": {
 			"heading": "Ставке плејлисте",
 			"bulkHeading": "Групни URL-ови",
@@ -71,7 +80,7 @@
 		},
 		"bulk": {
 			"title": "Групни URL-ови",
-			"description": "Налепи појединачне видео или аудио URL-ове. Arroxy ће очистити дупликате и означити playlist или channel линкове пре додавања у ред.",
+			"description": "Налепите URL-ове видеа, плејлисте, канала, претраге или аудија. Arroxy ће уклонити дупликате пре додавања у ред.",
 			"textareaLabel": "Листа URL-ова",
 			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "Спремно",
@@ -80,7 +89,6 @@
 			"needsAtLeastOne": "Додај најмање један подржан URL за наставак.",
 			"reject": {"duplicate": "Дупликат"}
 		},
-		"playlistPresets": {"heading": "Изабери квалитет за групно преузимање", "subhead": "Свaki видео самостално проналази одговарајући ниво квалитета — хетерогене плејлисте раде без изненађења.", "itemCount_one": "{{count}} ставка", "itemCount_other": "{{count}} ставки"},
 		"mixedPrompt": {
 			"title": "Овај линк је из плејлисте",
 			"body": "Желиш само видео на који си кликнуо, или да бираш из плејлисте? Следећи корак ти омогућава да одабереш одређене видеосе или распон.",
@@ -99,7 +107,7 @@
 			"quickDownloadTooltip": "Koristi sačuvana ili podrazumevana podešavanja i dodaje ovaj pojedinačni video u red bez otvaranja koraka podešavanja.",
 			"quickPreparing": "Priprema",
 			"quickQueued": "Dodato u red",
-			"quickSingleOnly": "Brzo preuzimanje je samo za pojedinačne video snimke. Za plejliste i kanale koristite Preuzmi formate.",
+			"quickSingleOnly": "Брзо преузимање може да користи појединачне видео-снимке, плејлисте, канале, претраге и Bulk URL-ове.",
 			"quickProbeFailed": "Provera nije uspela",
 			"quickPrepareFailed": "Stavka reda nije mogla da se pripremi",
 			"quickFailed": "Nije moguće dodati: {{error}}",
@@ -138,6 +146,15 @@
 				"extensionChrome": "Преузми cookies.txt ЛОКАЛНО (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Прусмери саобраћај кроз прокси — корисно за географски ограничен садржај.", "placeholder": "http://host:port", "clear": "Обриши"},
+			"limitRate": {
+				"label": "Ограничение скорости загрузки",
+				"description": "Ограничивает пропускную способность для загрузки медиа. Интервалы запросов ниже обычно сильнее влияют на лимиты.",
+				"off": "Выкл.",
+				"custom": "Своя…",
+				"customPlaceholder": "например 750K или 1.5M",
+				"invalid": "Введите число с K или M (например 500K, 1.5M)",
+				"activeWarning": "Активные загрузки сохранят текущий лимит. Пауза + Возобновить применит изменения."
+			},
 			"playlistProbeLimit": {
 				"label": "Ставке плејлисте за скенирање",
 				"description": "Максималан број уноса које Arroxy учитава када се отвори плејлиста, канал или резултат претраге.",
@@ -156,6 +173,7 @@
 			"networkPacing": {
 				"heading": "Пажљива преузимања",
 				"description": "Додаје мале паузе током сваког преузимања тако да Arroxy не приступа сајту превише агресивно. Вредности су у секундама ако није другачије назначено.",
+				"presetLabel": "Насколько осторожным должен быть Arroxy?",
 				"tooltip": "Ове паузе се дешавају унутар сваког преузимања. Arroxy и даље обрађује преузимања из реда по једно.",
 				"summary": "Паузе: {{requests}} између провера, {{downloads}} пре почетка медија, {{subtitles}} пре фајлова титлова. Везе: {{fragments}}.",
 				"presets": {"off": "Искључено", "balanced": "Уравнотежено", "careful": "Пажљиво", "custom": "Прилагођено"},
@@ -166,20 +184,10 @@
 					"custom": "Самостално подеси напредне контроле по преузимању."
 				},
 				"fields": {"sleepRequests": "Чекање између провера метаподатака", "sleepInterval": "Пауза пре почетка медија: мин", "maxSleepInterval": "Пауза пре почетка медија: макс", "sleepSubtitles": "Чекање пре фајлова титлова", "concurrentFragments": "Везе за преузимање"},
-				"units": {"seconds": "сек", "threads": "нити"},
-				"presetLabel": "Насколько осторожным должен быть Arroxy?"
+				"units": {"seconds": "сек", "threads": "нити"}
 			},
 			"closeToTray": {"toggle": "Сакриј у системски трај при затварању", "toggleDescription": "Настави преузимања у позадини после затварања прозора."},
-			"analytics": {"toggle": "Пошаљи анонимне статистике коришћења", "toggleDescription": "Броји само покретања апликације. Без URL-ова, имена датотека или личних података."},
-			"limitRate": {
-				"label": "Ограничение скорости загрузки",
-				"description": "Ограничивает пропускную способность для загрузки медиа. Интервалы запросов ниже обычно сильнее влияют на лимиты.",
-				"off": "Выкл.",
-				"custom": "Своя…",
-				"customPlaceholder": "например 750K или 1.5M",
-				"invalid": "Введите число с K или M (например 500K, 1.5M)",
-				"activeWarning": "Активные загрузки сохранят текущий лимит. Пауза + Возобновить применит изменения."
-			}
+			"analytics": {"toggle": "Пошаљи анонимне статистике коришћења", "toggleDescription": "Броји само покретања апликације. Без URL-ова, имена датотека или личних података."}
 		},
 		"subtitles": {
 			"autoBadge": "Аутоматски",
@@ -213,6 +221,8 @@
 			"audio": "Звук",
 			"noAudio": "Без звука",
 			"videoOnly": "Само видео",
+			"keepAudio": "Задржи као јесте",
+			"keepAudioMeta": "Уграђени звук",
 			"audioOnly": "Само звук",
 			"audioOnlyOption": "Само звук (без видеа)",
 			"mascot": "Најбоље + Најбоље = максималан квалитет. То бих ја изабрао!",
@@ -223,8 +233,6 @@
 			"total": "Укупно",
 			"skipToConfirm": "Прескочи до потврде",
 			"skipToConfirmTooltip": "Користи твоја сачувана подешавања за све преостале кораке. Да бисте променили поставку, наставите корак по корак — твој избор ће бити сачуван за следећи пут.",
-			"keepAudio": "Задржи као јесте",
-			"keepAudioMeta": "Уграђени звук",
 			"convert": {
 				"label": "Конвертуј",
 				"uncompressed": "Конвертуј · некомпресовано",
@@ -249,8 +257,8 @@
 				"currentModeBrowser": "Прегледач",
 				"explanationFile": "Твоја датотека cookies можда је празна, истекла или у погрешном формату (yt-dlp очекује Netscape cookies.txt). Покушај поново да извезеш cookies, изабери другу датотеку, пређи у режим „Прегледач\" или искључи cookies.",
 				"explanationBrowser": "Cookies се читају директно из прегледача. Ако је прегледач тренутно покренут, његова база cookies може бити закључана (Chromium породица). Прегледач такође мора бити пријављен на YouTube. Покушај затворити прегледач, пређи на другачији прегледач, пређи у режим „Датотека\" или искључи cookies.",
-				"needsCookies": {"heading": "Овај сајт захтева пријаву", "body": "yt-dlp није могао да приступи овом видеу без аутентификације. Подеси cookies у напредним подешавањима — одреди прегледач у ком си већ пријављен или увези cookies.txt датотеку."},
 				"openSettingsCta": "Отвори подешавања cookies",
+				"needsCookies": {"heading": "Овај сајт захтева пријаву", "body": "yt-dlp није могао да приступи овом видеу без аутентификације. Подеси cookies у напредним подешавањима — одреди прегледач у ком си већ пријављен или увези cookies.txt датотеку."},
 				"dpapi": {
 					"heading": "Chrome cookies блокиран Windows шифровањем",
 					"explanation": "Chrome 127 и новији шифрују cookies на начин који друге апликације не могу да прочитају на Windows-у. Испробај неко од решења испод.",
@@ -325,8 +333,13 @@
 		"clearTitle": "Обриши завршена преузимања",
 		"pauseAll": "Паузирај све",
 		"pauseAllTitle": "Паузирај сва активна преузимања",
+		"resumeAll": "Возобновить очередь",
+		"resumeAllTitle": "Возобновить приостановленные загрузки и продолжить очередь",
 		"cancelAll": "Откажи све",
 		"cancelAllTitle": "Откажи сва активна и чекајућа преузимања",
+		"limitRate": "Скорость: {{value}}",
+		"limitRateOff": "Скорость: выкл.",
+		"limitRateTitle": "Ограничение пропускной способности для загрузок",
 		"tip": "Твоје преузимање је у реду испод — отвори у свако доба да пратиш напредак.",
 		"item": {
 			"doneAt": "Завршено {{time}}",
@@ -347,12 +360,7 @@
 			"statusDone": "Готово",
 			"statusError": "Ошибка",
 			"statusCancelled": "Отменено"
-		},
-		"resumeAll": "Возобновить очередь",
-		"resumeAllTitle": "Возобновить приостановленные загрузки и продолжить очередь",
-		"limitRate": "Скорость: {{value}}",
-		"limitRateOff": "Скорость: выкл.",
-		"limitRateTitle": "Ограничение пропускной способности для загрузок"
+		}
 	},
 	"update": {
 		"appVersion": "Arroxy {{version}}",
@@ -401,7 +409,7 @@
 			"unavailable": "Овај видео није доступан — можда је приватан, обрисан или ограничен по региону.",
 			"geoBlocked": "Овај видео није доступан у твом региону.",
 			"outOfDiskSpace": "Нема довољно простора на диску. Ослободи простор и покушај поново.",
-			"unsupportedUrl": "Ово не изгледа као URL видеа. Налепи линк за YouTube видео, Short или плејлисту.",
+			"unsupportedUrl": "Тај URL није подржан у yt-dlp. Пробајте други линк са било ког сајта који yt-dlp подржава.",
 			"chunkTransferFailure": "Сервер је стално прекидао преузимање насред потока, а yt-dlp се предао после неколико покушаја. Ово се најчешће дешава са највећим видео форматима (4K HDR / VP9 високог битрејта). Покушај поново, промени мрежу или VPN, или изабери формат нижег квалитета.",
 			"postprocessFailure": "yt-dlp је завршио преузимање, али је накнадна обрада (спајање / mux / конверзија) пропала. Често је ово пролазни проблем са ffmpeg-ом — покушај поново, а ако се настави, испробај другу комбинацију формата.",
 			"parse": "Није било могуће парсирати одговор сајта. yt-dlp екстрактор је можда застарео. Arroxy аутоматски ажурира yt-dlp при покретању — покушај поново за неколико минута када стигне исправка.",
@@ -432,7 +440,14 @@
 	"formatLabel": {"audioFallback": "Звук", "audioOnlyDot": "Само звук · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
 	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Неактивно", "statusActive_one": "1 преузима · {{percent}}%", "statusActive_other": "{{count}} преузима · {{percent}}%", "open": "Отвори Arroxy", "quit": "Затвори Arroxy"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} преузимање у току", "message_other": "{{count}} преузимања у току", "detail": "Затварање ће отказати сва активна преузимања.", "confirm": "Откажи преузимања и Затвори", "keep": "Настави преузимање", "pause": "Поставить загрузки на паузу и выйти"},
+		"quitWithActiveDownloads": {
+			"message_one": "{{count}} преузимање у току",
+			"message_other": "{{count}} преузимања у току",
+			"detail": "Паузирајте да наставите касније или откажите да одбаците напредак.",
+			"confirm": "Откажи преузимања и Затвори",
+			"pause": "Поставить загрузки на паузу и выйти",
+			"keep": "Настави преузимање"
+		},
 		"closeToTray": {"message": "Сакрити Arroxy у системски трај при затварању?", "detail": "Arroxy наставља да ради и завршава активна преузимања. Промени ово касније у Напредним подешавањима.", "hide": "Сакриј у трај", "quit": "Затвори", "remember": "Не питај поново"},
 		"rendererCrashed": {"message": "Arroxy је наишао на проблем", "detail": "Процес приказивача је пао ({{reason}}). Поново учитај да би покушао/ла поново.", "reload": "Поново учитај", "quit": "Затвори"}
 	},

@@ -25,7 +25,7 @@ msgstr "Acerca de Arroxy"
 
 msgctxt "about.tagline"
 msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
-msgstr "Descargador de vídeo y audio rápido y sencillo para escritorio."
+msgstr "Descargador rápido y amigable para YouTube y más de 2000 sitios."
 
 msgctxt "about.thirdPartyNotices"
 msgid "View third-party notices"
@@ -109,7 +109,7 @@ msgstr "Cancelar descargas y salir"
 
 msgctxt "dialogs.quitWithActiveDownloads.detail"
 msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Cerrar cancelará todas las descargas activas."
+msgstr "Pausa para reanudar más tarde, o cancela para descartar el progreso."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -201,7 +201,7 @@ msgstr "La descarga falló. Mira la salida en bruto a continuación."
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "Eso no parece una URL de vídeo. Pega un enlace a un vídeo de YouTube, un Short o una playlist."
+msgstr "Esa URL no es compatible con yt-dlp. Prueba otro enlace de cualquiera de los sitios compatibles con yt-dlp."
 
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
@@ -869,7 +869,7 @@ msgstr "Listas"
 
 msgctxt "wizard.bulk.description"
 msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
-msgstr "Pega URLs individuales de vídeo o audio. Arroxy limpiará duplicados y marcará enlaces de playlist o canal antes de enviarlos a la cola."
+msgstr "Pega URLs de vídeo, playlist, canal, búsqueda o audio. Arroxy limpiará los duplicados antes de enviarlos a la cola."
 
 msgctxt "wizard.bulk.emptyPreview"
 msgid "Paste one or more URLs to preview the batch."
@@ -2059,7 +2059,7 @@ msgstr "Añadido a la cola"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "La descarga rápida es solo para videos individuales. Usa Obtener formatos para playlists y canales."
+msgstr "La descarga rápida puede usar videos individuales, playlists, canales, búsquedas y URLs en lote."
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

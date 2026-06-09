@@ -25,7 +25,7 @@ msgstr "Arroxy အကြောင်း"
 
 msgctxt "about.tagline"
 msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
-msgstr "Desktop အတွက် မြန်ဆန်သော ဗီဒီယို နှင့် အသံ ဒေါင်းလုဒ်တူး။"
+msgstr "YouTube နှင့် အခြား site 2000+ အတွက် မြန်ဆန်ပြီး အသုံးရလွယ်သော downloader။"
 
 msgctxt "about.thirdPartyNotices"
 msgid "View third-party notices"
@@ -109,7 +109,7 @@ msgstr "ဒေါင်းလုဒ်ပယ်ဖျက်ပြီး ထွ�
 
 msgctxt "dialogs.quitWithActiveDownloads.detail"
 msgid "Pause to resume later, or cancel to discard progress."
-msgstr "ပိတ်လျှင် လက်ရှိဒေါင်းလုဒ်အားလုံးကို ပယ်ဖျက်မည်။"
+msgstr "နောက်မှ ပြန်စရန် ခေတ္တရပ်ပါ၊ သို့မဟုတ် တိုးတက်မှုကို စွန့်ပစ်ရန် ပယ်ဖျက်ပါ။"
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -201,7 +201,7 @@ msgstr "ဒေါင်းလုဒ်မအောင်မြင်ပါ။ �
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "ဤ URL သည် ဗီဒီယို URL မဟုတ်ပုံရပါ။ YouTube ဗီဒီယို၊ Short သို့မဟုတ် playlist လင့်ခ်တစ်ခု ထည့်ပါ။"
+msgstr "ထို URL ကို yt-dlp မထောက်ပံ့ပါ။ yt-dlp ထောက်ပံ့သော site များမှ အခြား link တစ်ခုကို စမ်းကြည့်ပါ။"
 
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
@@ -869,7 +869,7 @@ msgstr "အဆင်သင့်"
 
 msgctxt "wizard.bulk.description"
 msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
-msgstr "တစ်ခုချင်းစီသော video သို့မဟုတ် audio URL များကို paste လုပ်ပါ။ Arroxy သည် ထပ်နေသောအရာများကို ဖယ်ရှားပြီး queue မထည့်မီ playlist သို့မဟုတ် channel link များကို ဖော်ပြပါမည်။"
+msgstr "video၊ playlist၊ channel၊ search သို့မဟုတ် audio URL များကို paste လုပ်ပါ။ Arroxy သည် queue ထဲမထည့်မီ duplicate များကို ရှင်းလင်းမည်။"
 
 msgctxt "wizard.bulk.emptyPreview"
 msgid "Paste one or more URLs to preview the batch."
@@ -2059,7 +2059,7 @@ msgstr "တန်းစီစာရင်းထဲ ထည့်ပြီး"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "အမြန်ဒေါင်းလုဒ်သည် ဗီဒီယိုတစ်ခုချင်းအတွက်သာ ဖြစ်သည်။ Playlists နှင့် channels အတွက် ဖော်မတ်များ ရယူရန်ကို သုံးပါ။"
+msgstr "Quick Download သည် single videos၊ playlists၊ channels၊ searches နှင့် Bulk URLs များကို အသုံးပြုနိုင်သည်။"
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

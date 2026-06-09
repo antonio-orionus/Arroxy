@@ -1,7 +1,7 @@
 {
 	"common": {"back": "رجوع", "cancel": "إلغاء", "continue": "متابعة", "retry": "إعادة المحاولة", "startOver": "البدء من جديد"},
 	"app": {"feedback": "ملاحظات", "logs": "السجلات", "feedbackNudge": "هل تستمتع بـ Arroxy؟ يسعدني سماع رأيك! 💬", "debugCopied": "تم النسخ!", "debugCopyTitle": "نسخ معلومات التصحيح (إصدارات Electron والنظام وChrome)", "zoomIn": "تكبير", "zoomOut": "تصغير"},
-	"about": {"button": "حول", "openTitle": "حول Arroxy", "tagline": "محمّل فيديو وصوت سريع وسهل لسطح المكتب.", "websiteLink": "موقع الويب", "githubLink": "GitHub", "licenseLine": "ترخيص MIT · بواسطة Antonio Orionus", "thirdPartyNotices": "عرض إشعارات الطرف الثالث"},
+	"about": {"button": "حول", "openTitle": "حول Arroxy", "tagline": "محمّل سريع وسهل الاستخدام لـ YouTube وأكثر من 2000 موقع آخر.", "websiteLink": "موقع الويب", "githubLink": "GitHub", "licenseLine": "ترخيص MIT · بواسطة Antonio Orionus", "thirdPartyNotices": "عرض إشعارات الطرف الثالث"},
 	"titleBar": {"close": "إغلاق", "minimize": "تصغير", "maximize": "تكبير", "restore": "استعادة"},
 	"splash": {"greeting": "مرحباً، أهلاً بعودتك!", "warmup": "Arroxy يستعد…", "downloading": "جارٍ تنزيل {{binary}}…", "warmupFailedNoDiag": "فشل الإعداد. افتح سجل الإعداد للاطلاع على التفاصيل."},
 	"repair": {
@@ -34,6 +34,7 @@
 	"language": {"label": "اللغة"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "الجودة", "formats": "الصيغة", "subtitles": "الترجمات", "sponsorblock": "SponsorBlock", "output": "الإخراج", "folder": "حفظ", "confirm": "تأكيد"},
+		"playlistPresets": {"heading": "اختر الجودة للدفعة", "subhead": "يحل كل فيديو المستوى المختار بشكل مستقل — قوائم التشغيل غير المتجانسة تعمل بدون مفاجآت.", "itemCount_one": "{{count}} عنصر", "itemCount_other": "{{count}} عناصر"},
 		"playlist": {
 			"heading": "عناصر القائمة",
 			"bulkHeading": "روابط متعددة",
@@ -71,7 +72,7 @@
 		},
 		"bulk": {
 			"title": "روابط متعددة",
-			"description": "الصق روابط فيديو أو صوت منفردة. سيزيل Arroxy التكرارات ويعلّم روابط قوائم التشغيل أو القنوات قبل إضافتها إلى الطابور.",
+			"description": "الصق روابط فيديو أو قائمة تشغيل أو قناة أو بحث أو صوت. سيزيل Arroxy التكرارات قبل إضافتها إلى الطابور.",
 			"textareaLabel": "قائمة الروابط",
 			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "جاهزة",
@@ -80,7 +81,6 @@
 			"needsAtLeastOne": "أضف رابطًا مدعومًا واحدًا على الأقل للمتابعة.",
 			"reject": {"duplicate": "مكرر"}
 		},
-		"playlistPresets": {"heading": "اختر الجودة للدفعة", "subhead": "يحل كل فيديو المستوى المختار بشكل مستقل — قوائم التشغيل غير المتجانسة تعمل بدون مفاجآت.", "itemCount_one": "{{count}} عنصر", "itemCount_other": "{{count}} عناصر"},
 		"mixedPrompt": {
 			"title": "هذا الرابط يحتوي على Playlist",
 			"body": "هل تريد الفيديو الذي اخترته فقط، أم تفضّل الاختيار من الـ Playlist؟ ستختار فيديوهات بعينها أو نطاقاً في الخطوة التالية.",
@@ -99,7 +99,7 @@
 			"quickDownloadTooltip": "يستخدم تفضيلاتك المحفوظة أو الافتراضية ويضيف هذا الفيديو المفرد إلى قائمة الانتظار دون فتح خطوات الإعداد.",
 			"quickPreparing": "جارٍ التحضير",
 			"quickQueued": "تمت الإضافة إلى قائمة الانتظار",
-			"quickSingleOnly": "التنزيل السريع مخصص للفيديوهات المفردة فقط. استخدم جلب الصيغ لقوائم التشغيل والقنوات.",
+			"quickSingleOnly": "يمكن للتنزيل السريع استخدام فيديوهات مفردة وقوائم تشغيل وقنوات وعمليات بحث وروابط مجمّعة.",
 			"quickProbeFailed": "فشل الفحص",
 			"quickPrepareFailed": "تعذر تحضير عنصر قائمة الانتظار",
 			"quickFailed": "تعذرت إضافة هذا العنصر: {{error}}",
@@ -138,6 +138,15 @@
 				"extensionChrome": "احصل على cookies.txt محلياً (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "توجيه حركة البيانات عبر وكيل — مفيد للمحتوى المقيّد جغرافياً.", "placeholder": "http://host:port", "clear": "مسح"},
+			"limitRate": {
+				"label": "حد سرعة التنزيل",
+				"description": "يحد من النطاق الترددي لتنزيلات الوسائط. إيقاع الطلبات أدناه غالبًا هو أداة الحد الأقوى.",
+				"off": "إيقاف",
+				"custom": "مخصص…",
+				"customPlaceholder": "مثل 750K أو 1.5M",
+				"invalid": "استخدم رقمًا متبوعًا بـ K أو M (مثل 500K، 1.5M)",
+				"activeWarning": "التنزيلات النشطة تحتفظ بحدها الحالي. استخدم إيقاف مؤقت + استئناف لتطبيق التغييرات."
+			},
 			"playlistProbeLimit": {
 				"label": "عدد عناصر القائمة للفحص",
 				"description": "الحد الأقصى للإدخالات التي يحمّلها Arroxy عند فتح قائمة تشغيل أو قناة أو نتيجة بحث.",
@@ -156,6 +165,7 @@
 			"networkPacing": {
 				"heading": "تنزيلات هادئة",
 				"description": "يضيف توقفات صغيرة أثناء كل تنزيل حتى لا يضغط Arroxy على الموقع بشكل مفرط. القيم بالثواني ما لم يُذكر غير ذلك.",
+				"presetLabel": "ما مدى حذر Arroxy؟",
 				"tooltip": "تحدث هذه التوقفات داخل كل تنزيل. لا يزال Arroxy يُبقي التنزيلات المتراصة في طابور واحدة تلو الأخرى.",
 				"summary": "انتظار: {{requests}} بين الفحوصات، {{downloads}} قبل بدء الوسائط، {{subtitles}} قبل ملفات الترجمة. الاتصالات: {{fragments}}.",
 				"presets": {"off": "إيقاف", "balanced": "متوازن", "careful": "حذر", "custom": "مخصص"},
@@ -165,21 +175,11 @@
 					"careful": "يضيف توقفات أطول لقوائم التشغيل الكبيرة أو الشبكات التي تصل إلى الحدود بشكل متكرر.",
 					"custom": "اضبط بنفسك عناصر التحكم المتقدمة لكل تنزيل."
 				},
-				"fields": {"sleepRequests": "انتظار بين فحوصات البيانات الوصفية", "sleepInterval": "توقف قبل بدء الوسائط: الحد الأدنى", "maxSleepInterval": "توقف قبل بدء الوسائط: الحد الأقصى", "concurrentFragments": "اتصالات التنزيل", "sleepSubtitles": "انتظار قبل ملفات الترجمة"},
-				"presetLabel": "ما مدى حذر Arroxy؟",
+				"fields": {"sleepRequests": "انتظار بين فحوصات البيانات الوصفية", "sleepInterval": "توقف قبل بدء الوسائط: الحد الأدنى", "maxSleepInterval": "توقف قبل بدء الوسائط: الحد الأقصى", "sleepSubtitles": "انتظار قبل ملفات الترجمة", "concurrentFragments": "اتصالات التنزيل"},
 				"units": {"seconds": "ث", "threads": "مسارات"}
 			},
 			"closeToTray": {"toggle": "الإخفاء في علبة النظام عند الإغلاق", "toggleDescription": "تستمر التنزيلات في الخلفية بعد إغلاق النافذة."},
-			"analytics": {"toggle": "إرسال إحصائيات الاستخدام المجهولة", "toggleDescription": "يحسب فقط مرات تشغيل التطبيق. بدون عناوين URL أو أسماء ملفات أو بيانات شخصية."},
-			"limitRate": {
-				"label": "حد سرعة التنزيل",
-				"description": "يحد من النطاق الترددي لتنزيلات الوسائط. إيقاع الطلبات أدناه غالبًا هو أداة الحد الأقوى.",
-				"off": "إيقاف",
-				"custom": "مخصص…",
-				"customPlaceholder": "مثل 750K أو 1.5M",
-				"invalid": "استخدم رقمًا متبوعًا بـ K أو M (مثل 500K، 1.5M)",
-				"activeWarning": "التنزيلات النشطة تحتفظ بحدها الحالي. استخدم إيقاف مؤقت + استئناف لتطبيق التغييرات."
-			}
+			"analytics": {"toggle": "إرسال إحصائيات الاستخدام المجهولة", "toggleDescription": "يحسب فقط مرات تشغيل التطبيق. بدون عناوين URL أو أسماء ملفات أو بيانات شخصية."}
 		},
 		"subtitles": {
 			"autoBadge": "تلقائي",
@@ -213,6 +213,8 @@
 			"audio": "صوت",
 			"noAudio": "بدون صوت",
 			"videoOnly": "فيديو فقط",
+			"keepAudio": "إبقاؤه كما هو",
+			"keepAudioMeta": "الصوت المضمّن",
 			"audioOnly": "صوت فقط",
 			"audioOnlyOption": "صوت فقط (بدون فيديو)",
 			"mascot": "الأفضل + الأفضل = أقصى جودة. هذا ما كنت سأختاره!",
@@ -223,8 +225,6 @@
 			"total": "الإجمالي",
 			"skipToConfirm": "تخطَّ إلى التأكيد",
 			"skipToConfirmTooltip": "يستخدم تفضيلاتك المحفوظة لجميع الخطوات المتبقية. لتغيير إعداد ما، تابع خطوةً بخطوة — وسيُحفظ اختيارك للمرة القادمة.",
-			"keepAudio": "إبقاؤه كما هو",
-			"keepAudioMeta": "الصوت المضمّن",
 			"convert": {
 				"label": "تحويل",
 				"uncompressed": "تحويل · غير مضغوط",
@@ -325,8 +325,13 @@
 		"clearTitle": "مسح التنزيلات المكتملة",
 		"pauseAll": "إيقاف الكل مؤقتاً",
 		"pauseAllTitle": "إيقاف جميع التنزيلات النشطة مؤقتاً",
+		"resumeAll": "استئناف القائمة",
+		"resumeAllTitle": "استئناف التنزيلات المتوقفة والسماح للقائمة بالمتابعة",
 		"cancelAll": "إلغاء الكل",
 		"cancelAllTitle": "إلغاء جميع التنزيلات النشطة والمعلقة",
+		"limitRate": "السرعة: {{value}}",
+		"limitRateOff": "السرعة: إيقاف",
+		"limitRateTitle": "حد النطاق الترددي للتنزيلات",
 		"tip": "تنزيلك في قائمة الانتظار أدناه — افتح في أي وقت لمتابعة التقدم.",
 		"item": {
 			"doneAt": "اكتمل {{time}}",
@@ -347,12 +352,7 @@
 			"statusDone": "تم",
 			"statusError": "خطأ",
 			"statusCancelled": "أُلغي"
-		},
-		"resumeAll": "استئناف القائمة",
-		"resumeAllTitle": "استئناف التنزيلات المتوقفة والسماح للقائمة بالمتابعة",
-		"limitRate": "السرعة: {{value}}",
-		"limitRateOff": "السرعة: إيقاف",
-		"limitRateTitle": "حد النطاق الترددي للتنزيلات"
+		}
 	},
 	"update": {
 		"appVersion": "Arroxy {{version}}",
@@ -401,7 +401,7 @@
 			"unavailable": "هذا الفيديو غير متاح — قد يكون خاصاً أو محذوفاً أو مقيّداً بالمنطقة.",
 			"geoBlocked": "هذا الفيديو غير متاح في منطقتك.",
 			"outOfDiskSpace": "مساحة القرص غير كافية. أفرغ مساحة وأعد المحاولة.",
-			"unsupportedUrl": "لا يبدو هذا رابط فيديو. الصق رابط فيديو YouTube أو Short أو قائمة تشغيل.",
+			"unsupportedUrl": "هذا الرابط غير مدعوم من yt-dlp. جرّب رابطًا آخر من أي موقع يدعمه yt-dlp.",
 			"chunkTransferFailure": "استمر الخادم في قطع التنزيل في منتصفه وتخلى yt-dlp بعد محاولات متعددة. يحدث هذا عادةً مع أكبر صيغ الفيديو (4K HDR / VP9 عالي معدل البت). أعد المحاولة، أو غيّر الشبكة/VPN، أو اختر صيغة بدقة أقل.",
 			"postprocessFailure": "انتهى yt-dlp من التنزيل لكن المعالجة اللاحقة (دمج / mux / تحويل) فشلت. غالبًا ما تكون مشكلة ffmpeg مؤقتة — أعد المحاولة، وإذا استمرت المشكلة جرّب توليفة صيغ مختلفة.",
 			"parse": "تعذّر تحليل الاستجابة الواردة من الموقع. ربما تكون أداة الاستخراج في yt-dlp قد تأخّرت. يقوم Arroxy بتحديث yt-dlp تلقائيًا عند التشغيل — أعد المحاولة بعد بضع دقائق حالما يصدر الإصلاح.",
@@ -432,7 +432,7 @@
 	"formatLabel": {"audioFallback": "صوت", "audioOnlyDot": "صوت فقط · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
 	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "خامل", "statusActive_one": "1 جارٍ التنزيل · {{percent}}%", "statusActive_other": "{{count}} جارٍ التنزيل · {{percent}}%", "open": "فتح Arroxy", "quit": "الخروج من Arroxy"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} تنزيل قيد التقدم", "message_other": "{{count}} تنزيلات قيد التقدم", "detail": "سيؤدي الإغلاق إلى إلغاء جميع التنزيلات النشطة.", "confirm": "إلغاء التنزيلات والخروج", "keep": "الاستمرار في التنزيل", "pause": "إيقاف التنزيلات مؤقتًا والخروج"},
+		"quitWithActiveDownloads": {"message_one": "{{count}} تنزيل قيد التقدم", "message_other": "{{count}} تنزيلات قيد التقدم", "detail": "يمكنك الإيقاف مؤقتًا للاستئناف لاحقًا، أو الإلغاء للتخلي عن التقدم.", "confirm": "إلغاء التنزيلات والخروج", "pause": "إيقاف التنزيلات مؤقتًا والخروج", "keep": "الاستمرار في التنزيل"},
 		"closeToTray": {"message": "هل تريد إخفاء Arroxy في علبة النظام عند الإغلاق؟", "detail": "يستمر Arroxy في العمل وينهي التنزيلات النشطة. يمكنك تغيير ذلك لاحقاً في الإعدادات المتقدمة.", "hide": "الإخفاء في علبة النظام", "quit": "الخروج", "remember": "لا تسألني مجدداً"},
 		"rendererCrashed": {"message": "واجه Arroxy مشكلة", "detail": "تعطّلت عملية العرض ({{reason}}). أعد التحميل للمحاولة مجدداً.", "reload": "إعادة التحميل", "quit": "الخروج"}
 	},

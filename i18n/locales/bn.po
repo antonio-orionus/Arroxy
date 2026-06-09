@@ -25,7 +25,7 @@ msgstr "Arroxy সম্পর্কে"
 
 msgctxt "about.tagline"
 msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
-msgstr "ডেস্কটপের জন্য দ্রুত ও সহজ ভিডিও ও অডিও ডাউনলোডার।"
+msgstr "YouTube ও 2000+ অন্যান্য সাইটের জন্য দ্রুত ও সহজ ডাউনলোডার।"
 
 msgctxt "about.thirdPartyNotices"
 msgid "View third-party notices"
@@ -109,7 +109,7 @@ msgstr "ডাউনলোড বাতিল করুন ও বন্ধ ক�
 
 msgctxt "dialogs.quitWithActiveDownloads.detail"
 msgid "Pause to resume later, or cancel to discard progress."
-msgstr "বন্ধ করলে সমস্ত সক্রিয় ডাউনলোড বাতিল হয়ে যাবে।"
+msgstr "পরে আবার শুরু করতে বিরতি দিন, অথবা অগ্রগতি বাতিল করতে বাতিল করুন।"
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -201,7 +201,7 @@ msgstr "ডাউনলোড ব্যর্থ। নিচে raw output দ�
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "এটি ভিডিও URL মনে হচ্ছে না। একটি YouTube ভিডিও, Short, বা playlist লিংক পেস্ট করুন।"
+msgstr "এই URL টি yt-dlp সমর্থন করে না। yt-dlp সমর্থিত যেকোনো সাইটের অন্য একটি লিংক চেষ্টা করুন।"
 
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
@@ -869,7 +869,7 @@ msgstr "প্রস্তুত"
 
 msgctxt "wizard.bulk.description"
 msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
-msgstr "আলাদা ভিডিও বা অডিও URL পেস্ট করুন। Arroxy ডুপ্লিকেট সরাবে এবং সারিতে দেওয়ার আগে playlist বা channel লিংক চিহ্নিত করবে।"
+msgstr "ভিডিও, প্লেলিস্ট, চ্যানেল, সার্চ বা অডিও URL পেস্ট করুন। Arroxy সারিতে দেওয়ার আগে ডুপ্লিকেট সরাবে।"
 
 msgctxt "wizard.bulk.emptyPreview"
 msgid "Paste one or more URLs to preview the batch."
@@ -2059,7 +2059,7 @@ msgstr "কিউতে যোগ করা হয়েছে"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "দ্রুত ডাউনলোড শুধু একক ভিডিওর জন্য। প্লেলিস্ট ও চ্যানেলের জন্য ফরম্যাট আনুন ব্যবহার করুন।"
+msgstr "দ্রুত ডাউনলোড একক ভিডিও, প্লেলিস্ট, চ্যানেল, সার্চ এবং বাল্ক URL সমর্থন করে।"
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

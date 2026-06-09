@@ -1,7 +1,7 @@
 {
 	"common": {"back": "شاته", "cancel": "لغوه کړئ", "continue": "دوام ورکړه", "retry": "بیا هڅه وکړه", "startOver": "له سره پیل کړه"},
 	"app": {"feedback": "نظر", "logs": "لاګونه", "feedbackNudge": "ایا Arroxy خوند درکوي؟ ستاسو د اورولو شوق لرم! 💬", "debugCopied": "کاپي شو!", "debugCopyTitle": "د ډیبګ معلومات کاپي کړئ (Electron، OS، Chrome نسخې)", "zoomIn": "لویول", "zoomOut": "کوچنیول"},
-	"about": {"button": "د اړوند", "openTitle": "د Arroxy اړوند", "tagline": "د ډیسکټاپ لپاره چټک او اسانه ویډیو او غږ ډاونلوډر.", "websiteLink": "ویب پاڼه", "githubLink": "GitHub", "licenseLine": "MIT جواز · د Antonio Orionus لخوا", "thirdPartyNotices": "د دریم ډلې خبرتیاوې وګورئ"},
+	"about": {"button": "د اړوند", "openTitle": "د Arroxy اړوند", "tagline": "د YouTube او 2000+ نورو سایټونو لپاره چټک او اسانه ډاونلوډر.", "websiteLink": "ویب پاڼه", "githubLink": "GitHub", "licenseLine": "MIT جواز · د Antonio Orionus لخوا", "thirdPartyNotices": "د دریم ډلې خبرتیاوې وګورئ"},
 	"titleBar": {"close": "تړل", "minimize": "کوچنی کول", "maximize": "لوی کول", "restore": "بیرته راوستل"},
 	"splash": {"greeting": "سلام، ښه راغلاست!", "warmup": "Arroxy چمتو کیږي…", "downloading": "{{binary}} ډاونلوډ کیږي…", "warmupFailedNoDiag": "نصب ناکام شو. د توضیحاتو لپاره د نصب لاګ خلاص کړئ."},
 	"repair": {
@@ -34,6 +34,7 @@
 	"language": {"label": "ژبه"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "کیفیت", "formats": "بڼه", "subtitles": "ژباړلیکونه", "sponsorblock": "SponsorBlock", "output": "محصول", "folder": "خوندي کړه", "confirm": "تایید کړه"},
+		"playlistPresets": {"heading": "د بیچ لپاره کیفیت وټاکئ", "subhead": "هر ویډیو خپلواکه د غوره شوي کچې سره حل کوي — مخلوط Playlist ونه بیا پرته له مشکل کار کوي.", "itemCount_one": "{{count}} توکی", "itemCount_other": "{{count}} توکي"},
 		"playlist": {
 			"heading": "د Playlist توکي",
 			"bulkHeading": "ډېر URLونه",
@@ -71,7 +72,7 @@
 		},
 		"bulk": {
 			"title": "ډېر URLونه",
-			"description": "د ویډیو یا غږ جلا URLونه ونښلوئ. Arroxy به تکراري پاک کړي او د playlist یا channel لینکونه به د کتار مخکې وښيي.",
+			"description": "د ویډیو، playlist، channel، لټون، یا غږ URLونه پیسټ کړئ. Arroxy به تر قطار ته کولو مخکې تکراري لینکونه پاک کړي.",
 			"textareaLabel": "د URL لست",
 			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "چمتو",
@@ -80,7 +81,6 @@
 			"needsAtLeastOne": "د دوام لپاره لږ تر لږه یو ملاتړ شوی URL زیات کړئ.",
 			"reject": {"duplicate": "تکراري"}
 		},
-		"playlistPresets": {"heading": "د بیچ لپاره کیفیت وټاکئ", "subhead": "هر ویډیو خپلواکه د غوره شوي کچې سره حل کوي — مخلوط Playlist ونه بیا پرته له مشکل کار کوي.", "itemCount_one": "{{count}} توکی", "itemCount_other": "{{count}} توکي"},
 		"mixedPrompt": {
 			"title": "دا لینک یو Playlist لري",
 			"body": "یوازې هغه ویډیو چې کلیک مو کاوه، که د Playlist نه غوره کول غواړئ؟ بعد به ځانګړي ویډیوګانې یا سلسله غوره کړئ.",
@@ -99,7 +99,7 @@
 			"quickDownloadTooltip": "ستاسې خوندي شوې یا تلواله خوښې کاروي او دا یو ویډیو د چمتو کولو پړاوونو له پرانیستو پرته قطار ته زیاتوي.",
 			"quickPreparing": "چمتو کېږي",
 			"quickQueued": "قطار ته زیات شو",
-			"quickSingleOnly": "چټک ډاونلوډ یوازې د یوه ویډیو لپاره دی. د پلی‌لېسټونو او چینلونو لپاره بڼې راوړئ وکاروئ.",
+			"quickSingleOnly": "چټک ډاونلوډ کولی شي واحد ویډیوګانې، playlists، channels، لټونونه، او Bulk URLs وکاروي.",
 			"quickProbeFailed": "کتنه ناکامه شوه",
 			"quickPrepareFailed": "د قطار توکی چمتو نه شو",
 			"quickFailed": "دا ونه زیاتېدل: {{error}}",
@@ -138,6 +138,15 @@
 				"extensionChrome": "cookies.txt ځایی ترلاسه کړئ (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "د پراکسي له لارې ترافیک لیږدول — د جغرافیایي محدودیتونو لرونکي مینځپانګې لپاره ګټور.", "placeholder": "http://host:port", "clear": "پاکول"},
+			"limitRate": {
+				"label": "د ډاونلوډ سرعت حد",
+				"description": "د رسنیو د ډاونلوډونو بینډوېډت محدودوي. لاندې د غوښتنو تمپو عموماً پیاوړی محدودوونکی دی.",
+				"off": "بند",
+				"custom": "ځانګړی…",
+				"customPlaceholder": "لکه 750K یا 1.5M",
+				"invalid": "له K یا M سره عدد وکاروئ (لکه 500K، 1.5M)",
+				"activeWarning": "فعال ډاونلوډونه خپل اوسنی حد ساتي. د پلي کولو لپاره ودرول + دوام وکاروئ."
+			},
 			"playlistProbeLimit": {
 				"label": "د سکین لپاره د Playlist توکي",
 				"description": "هغه اعظمي ننوتونه چې Arroxy د یوه playlist، چینل، یا د لټون پایله خلاصیدو پرمهال بارومه.",
@@ -170,16 +179,7 @@
 				"units": {"seconds": "ثا", "threads": "threads"}
 			},
 			"closeToTray": {"toggle": "د تړولو پر وخت ټرې ته پټ کړه", "toggleDescription": "د کړکۍ د تړولو وروسته شاتهپرده ډاونلوډونه دوام کړئ."},
-			"analytics": {"toggle": "د ناپیژندل شوي کارونې احصائیې واستوئ", "toggleDescription": "یوازې د اپلیکیشن پیلونه شمیري. هیڅ URL، د فایل نومونه، یا شخصي معلومات نه شته."},
-			"limitRate": {
-				"label": "د ډاونلوډ سرعت حد",
-				"description": "د رسنیو د ډاونلوډونو بینډوېډت محدودوي. لاندې د غوښتنو تمپو عموماً پیاوړی محدودوونکی دی.",
-				"off": "بند",
-				"custom": "ځانګړی…",
-				"customPlaceholder": "لکه 750K یا 1.5M",
-				"invalid": "له K یا M سره عدد وکاروئ (لکه 500K، 1.5M)",
-				"activeWarning": "فعال ډاونلوډونه خپل اوسنی حد ساتي. د پلي کولو لپاره ودرول + دوام وکاروئ."
-			}
+			"analytics": {"toggle": "د ناپیژندل شوي کارونې احصائیې واستوئ", "toggleDescription": "یوازې د اپلیکیشن پیلونه شمیري. هیڅ URL، د فایل نومونه، یا شخصي معلومات نه شته."}
 		},
 		"subtitles": {
 			"autoBadge": "اتوماتیک",
@@ -213,6 +213,8 @@
 			"audio": "غږ",
 			"noAudio": "غږ نشته",
 			"videoOnly": "یوازې ویډیو",
+			"keepAudio": "لکه چې دی وساتئ",
+			"keepAudioMeta": "ورته غږ",
 			"audioOnly": "یوازې غږ",
 			"audioOnlyOption": "یوازې غږ (ویډیو نشته)",
 			"mascot": "بهترین + بهترین = اعظمي کیفیت. زه به دا غوره کړم!",
@@ -220,11 +222,9 @@
 			"loadingHint": "مهرباني وکړئ انتظار وکړئ تر پلټنه پای ته ورسیږي — Playlistونه او لټونونه ممکن یو څه وخت ونیسي.",
 			"loadingAria": "بڼې بارول",
 			"sizeUnknown": "اندازه نامعلومه",
+			"total": "ټول",
 			"skipToConfirm": "تایید ته پریږدئ",
 			"skipToConfirmTooltip": "ستاسو خوندي کړل شوي غوره توبونه د ټولو پاتې مرحلو لپاره کاروي. د ترتیب بدلولو لپاره، پرځای یې ګام پر ګام دوام وکړئ — ستاسو انتخاب به د راتلونکي ځل لپاره خوندي شي.",
-			"total": "ټول",
-			"keepAudio": "لکه چې دی وساتئ",
-			"keepAudioMeta": "ورته غږ",
 			"convert": {
 				"label": "بدلول",
 				"uncompressed": "بدلول · غیر فشارشوی",
@@ -325,8 +325,13 @@
 		"clearTitle": "بشپړ شوي ډاونلوډونه پاکول",
 		"pauseAll": "ټول ودروئ",
 		"pauseAllTitle": "ټول فعال ډاونلوډونه ودروئ",
+		"resumeAll": "قطار ته دوام ورکړئ",
+		"resumeAllTitle": "درول شوي ډاونلوډونه دوام کړئ او قطار روان پرېږدئ",
 		"cancelAll": "ټول لغوه کړئ",
 		"cancelAllTitle": "ټول فعال او انتظار کې ډاونلوډونه لغوه کړئ",
+		"limitRate": "سرعت: {{value}}",
+		"limitRateOff": "سرعت: بند",
+		"limitRateTitle": "د ډاونلوډونو بینډوېډت حد",
 		"tip": "ستاسو ډاونلوډ لاندې کتار شوی — پرمختګ تعقیبولو لپاره هر وخت پرانیستلی شئ.",
 		"item": {
 			"doneAt": "{{time}} بشپړ شو",
@@ -347,12 +352,7 @@
 			"statusDone": "بشپړ",
 			"statusError": "تېروتنه",
 			"statusCancelled": "لغوه شوی"
-		},
-		"resumeAll": "قطار ته دوام ورکړئ",
-		"resumeAllTitle": "درول شوي ډاونلوډونه دوام کړئ او قطار روان پرېږدئ",
-		"limitRate": "سرعت: {{value}}",
-		"limitRateOff": "سرعت: بند",
-		"limitRateTitle": "د ډاونلوډونو بینډوېډت حد"
+		}
 	},
 	"update": {
 		"appVersion": "Arroxy {{version}}",
@@ -401,7 +401,7 @@
 			"unavailable": "دا ویډیو شتون نلري — ممکن شخصي، حذف شوې، یا سیمه بنده وي.",
 			"geoBlocked": "دا ویډیو ستاسو سیمه کې شتون نلري.",
 			"outOfDiskSpace": "د ډیسک کافي ځای نشته. ځای خالي کړئ او بیا هڅه وکړئ.",
-			"unsupportedUrl": "دا د ویډیو URL نه ښکاري. یو YouTube ویډیو، Short، یا Playlist لینک ولیکئ.",
+			"unsupportedUrl": "دا URL د yt-dlp له خوا نه ملاتړ کېږي. د yt-dlp له ملاتړ شوو سایټونو څخه بل لینک وازمویئ.",
 			"chunkTransferFailure": "سرور د ډاونلوډ پرمهال وصل کول پرې کاوه او yt-dlp د بیا هڅولو وروسته مو پریښود. دا معمولاً د ترټولو لوی ویډیو فارمیټونو (4K HDR / لوړ بیټ ریټ VP9) سره پیښیږي. بیا هڅه وکړئ، شبکه/VPN بدل کړئ، یا ټیټ ریزولوشن فارمیټ غوره کړئ.",
 			"postprocessFailure": "yt-dlp ډاونلوډ بشپړ کړ خو وروستی پروسس (یوځای کول / mux / بدلون) ناکام شو. ډیری وختونه دا د ffmpeg لنډمهاله ستونزه ده — بیا هڅه وکړئ، او که دوام ولري، بل فارمیټ ترکیب وازمویئ.",
 			"parse": "د سایټ ځواب پارس نه شو. د yt-dlp استخراج کوونکی ممکن لرې شوی وي. Arroxy په پیلیدو سره yt-dlp په اتومات ډول تازه کوي — څو دقیقې وروسته بیا هڅه وکړئ کله چې اصلاح راشي.",
@@ -432,7 +432,14 @@
 	"formatLabel": {"audioFallback": "غږ", "audioOnlyDot": "یوازې غږ · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
 	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "بیکار", "statusActive_one": "1 ډاونلوډیږي · {{percent}}%", "statusActive_other": "{{count}} ډاونلوډیږي · {{percent}}%", "open": "Arroxy پرانیستل", "quit": "Arroxy پریښودل"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} ډاونلوډ روان دی", "message_other": "{{count}} ډاونلوډونه روان دي", "detail": "تړول به ټول فعال ډاونلوډونه لغوه کړي.", "confirm": "ډاونلوډونه لغوه کړه او وتلو", "keep": "ډاونلوډ دوام کړه", "pause": "ډاونلوډونه ودرول او وتل"},
+		"quitWithActiveDownloads": {
+			"message_one": "{{count}} ډاونلوډ روان دی",
+			"message_other": "{{count}} ډاونلوډونه روان دي",
+			"detail": "وروسته د بیا پیل لپاره یې وځنډوئ، یا د پرمختګ له منځه وړلو لپاره یې لغوه کړئ.",
+			"confirm": "ډاونلوډونه لغوه کړه او وتلو",
+			"pause": "ډاونلوډونه ودرول او وتل",
+			"keep": "ډاونلوډ دوام کړه"
+		},
 		"closeToTray": {"message": "ایا د تړولو پر وخت Arroxy سیسټم ټرې ته پټ کړو؟", "detail": "Arroxy کار کوي او فعال ډاونلوډونه بشپړوي. دا وروسته د پرمختللو تنظیماتو کې بدل کړئ.", "hide": "ټرې ته پټول", "quit": "وتل", "remember": "بیا مه پوښتئ"},
 		"rendererCrashed": {"message": "Arroxy ستونزې سره مخ شو", "detail": "د رینډرر پروسه کریش شوه ({{reason}}). بیا هڅه کولو لپاره بیا بار کړئ.", "reload": "بیا بار کړئ", "quit": "وتل"}
 	},

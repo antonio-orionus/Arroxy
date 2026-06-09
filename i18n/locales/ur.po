@@ -25,7 +25,7 @@ msgstr "Arroxy کے بارے میں"
 
 msgctxt "about.tagline"
 msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
-msgstr "ڈیسک ٹاپ کے لیے تیز اور آسان ویڈیو اور آڈیو ڈاؤن لوڈر۔"
+msgstr "YouTube اور 2000+ دیگر سائٹس کے لیے تیز اور آسان ڈاؤنلوڈر۔"
 
 msgctxt "about.thirdPartyNotices"
 msgid "View third-party notices"
@@ -109,7 +109,7 @@ msgstr "ڈاؤن لوڈز منسوخ کریں اور بند کریں"
 
 msgctxt "dialogs.quitWithActiveDownloads.detail"
 msgid "Pause to resume later, or cancel to discard progress."
-msgstr "بند کرنے سے تمام ایکٹو ڈاؤن لوڈز منسوخ ہو جائیں گے۔"
+msgstr "بعد میں دوبارہ شروع کرنے کے لیے موقوف کریں، یا پیش رفت ضائع کرنے کے لیے منسوخ کریں۔"
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -201,7 +201,7 @@ msgstr "ڈاؤن لوڈ ناکام ہو گیا۔ نیچے خام آؤٹ پٹ د�
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
-msgstr "یہ ویڈیو URL نہیں لگتا۔ YouTube ویڈیو، Short، یا پلے لسٹ کا لنک پیسٹ کریں۔"
+msgstr "یہ URL yt-dlp کے ذریعے معاون نہیں ہے۔ yt-dlp کی معاون سائٹس میں سے کوئی دوسرا لنک آزمائیں۔"
 
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
@@ -869,7 +869,7 @@ msgstr "تیار"
 
 msgctxt "wizard.bulk.description"
 msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
-msgstr "الگ الگ ویڈیو یا آڈیو URLs پیسٹ کریں۔ Arroxy قطار میں شامل کرنے سے پہلے نقول صاف کرے گا اور playlist یا channel لنکس کو نشان زد کرے گا۔"
+msgstr "ویڈیو، پلے لسٹ، چینل، تلاش، یا آڈیو URLs پیسٹ کریں۔ Arroxy قطار میں شامل کرنے سے پہلے نقلیں صاف کرے گا۔"
 
 msgctxt "wizard.bulk.emptyPreview"
 msgid "Paste one or more URLs to preview the batch."
@@ -2059,7 +2059,7 @@ msgstr "قطار میں شامل ہو گیا"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "فوری ڈاؤن لوڈ صرف ایک ویڈیو کے لیے ہے۔ پلے لسٹس اور چینلز کے لیے فارمیٹس حاصل کریں استعمال کریں۔"
+msgstr "فوری ڈاؤنلوڈ واحد ویڈیوز، پلے لسٹس، چینلز، تلاشوں، اور Bulk URLs استعمال کر سکتا ہے۔"
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

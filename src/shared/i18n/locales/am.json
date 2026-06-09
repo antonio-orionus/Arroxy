@@ -1,7 +1,7 @@
 {
 	"common": {"back": "ተመለስ", "cancel": "ሰርዝ", "continue": "ቀጥል", "retry": "እንደገና ሞክር", "startOver": "ከመጀመሪያ ጀምር"},
 	"app": {"feedback": "አስተያየት", "logs": "ምዝግቦች", "feedbackNudge": "Arroxy ደስ ይለዎታል? አስተያየትዎን ማካፈል ይፈልጋሉ! 💬", "debugCopied": "ተቀድቷል!", "debugCopyTitle": "የሂደት መረጃ ቅዳ (Electron፣ ስርዓተ ክወና፣ Chrome ስሪቶች)", "zoomIn": "አቅርብ", "zoomOut": "አርቅ"},
-	"about": {"button": "ስለ", "openTitle": "ስለ Arroxy", "tagline": "ለዴስክቶፕ ፈጣን እና ቀላል ቪዲዮ እና ኦዲዮ አውርጅ።", "websiteLink": "ድረ-ገጽ", "githubLink": "GitHub", "licenseLine": "MIT ፈቃድ · በ Antonio Orionus", "thirdPartyNotices": "የሦስተኛ ወገን ማስታወቂያዎችን ይመልከቱ"},
+	"about": {"button": "ስለ", "openTitle": "ስለ Arroxy", "tagline": "ለYouTube እና ለ2000+ ሌሎች ጣቢያዎች ፈጣን እና ምቹ አውርጅ።", "websiteLink": "ድረ-ገጽ", "githubLink": "GitHub", "licenseLine": "MIT ፈቃድ · በ Antonio Orionus", "thirdPartyNotices": "የሦስተኛ ወገን ማስታወቂያዎችን ይመልከቱ"},
 	"titleBar": {"close": "ዝጋ", "minimize": "አሳንስ", "maximize": "አሰፋ", "restore": "መልስ"},
 	"splash": {"greeting": "እንኳን ደህና መጡ!", "warmup": "Arroxy እየሞቀ ነው…", "downloading": "{{binary}} እየወረደ ነው…", "warmupFailedNoDiag": "ማዋቀር አልተሳካም። ዝርዝሮችን ለማየት የማዋቀሪያ ምዝግብ ፋይሉን ይክፈቱ።"},
 	"repair": {
@@ -25,6 +25,7 @@
 	"language": {"label": "ቋንቋ"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "ጥራት", "formats": "ቅርጸት", "subtitles": "ንዑስ ርዕሶች", "sponsorblock": "SponsorBlock", "output": "ውፅዓት", "folder": "አስቀምጥ", "confirm": "አረጋግጥ"},
+		"playlistPresets": {"heading": "ለቡድኑ ጥራት ይምረጡ", "subhead": "እያንዳንዱ ቪዲዮ የተመረጠውን ደረጃ ራሱን ችሎ ይፈታል — የተለያዩ playlists ያለ ችግር ይሰራሉ።", "itemCount_one": "{{count}} ንጥል", "itemCount_other": "{{count}} ንጥሎች"},
 		"playlist": {
 			"heading": "የ Playlist ቪዲዮዎች",
 			"bulkHeading": "ብዙ URLዎች",
@@ -62,7 +63,7 @@
 		},
 		"bulk": {
 			"title": "ብዙ URLዎች",
-			"description": "የቪዲዮ ወይም የድምጽ URLዎችን ለብቻ ለብቻ ለጥፍ። Arroxy ተደጋጋሚዎችን ያጸዳል እና የplaylist ወይም channel አገናኞችን ያሳያል።",
+			"description": "የቪዲዮ፣ የplaylist፣ የchannel፣ የፍለጋ፣ ወይም የድምጽ URLዎችን ለጥፍ። Arroxy ወደ ወረፋ ከማከል በፊት ተደጋጋሚዎችን ያጸዳል።",
 			"textareaLabel": "የURL ዝርዝር",
 			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "ዝግጁ",
@@ -71,7 +72,6 @@
 			"needsAtLeastOne": "ለመቀጠል ቢያንስ አንድ የሚደገፍ URL ጨምር።",
 			"reject": {"duplicate": "ተደጋጋሚ"}
 		},
-		"playlistPresets": {"heading": "ለቡድኑ ጥራት ይምረጡ", "subhead": "እያንዳንዱ ቪዲዮ የተመረጠውን ደረጃ ራሱን ችሎ ይፈታል — የተለያዩ playlists ያለ ችግር ይሰራሉ።", "itemCount_one": "{{count}} ንጥል", "itemCount_other": "{{count}} ንጥሎች"},
 		"mixedPrompt": {
 			"title": "ይህ ሊንክ Playlist አለው",
 			"body": "የጠቀሱትን ቪዲዮ ብቻ ይፈልጋሉ፣ ወይስ ከ Playlist ይምረጣሉ? በቀጣዩ ደረጃ የተወሰኑ ቪዲዮዎችን ወይም ክልል ይምረጣሉ።",
@@ -90,7 +90,7 @@
 			"quickDownloadTooltip": "የተቀመጡ ወይም ነባሪ ምርጫዎችዎን ተጠቅሞ ይህን ነጠላ ቪዲዮ የማዘጋጃ ደረጃዎችን ሳይከፍት ወደ ወረፋ ያክላል።",
 			"quickPreparing": "በመዘጋጀት ላይ",
 			"quickQueued": "ወደ ወረፋ ታክሏል",
-			"quickSingleOnly": "ፈጣን አውርድ ለነጠላ ቪዲዮዎች ብቻ ነው። ለፕሌይሊስቶች እና ቻናሎች ቅርጸቶችን አምጣን ይጠቀሙ።",
+			"quickSingleOnly": "ፈጣን አውርድ ነጠላ ቪዲዮዎችን፣ playlists፣ channels፣ ፍለጋዎችን እና Bulk URLsን መጠቀም ይችላል።",
 			"quickProbeFailed": "መፈተሹ አልተሳካም",
 			"quickPrepareFailed": "የወረፋ ንጥል ማዘጋጀት አልተቻለም",
 			"quickFailed": "ይህን ማከል አልተቻለም፦ {{error}}",
@@ -129,6 +129,15 @@
 				"extensionChrome": "cookies.txt በቦታህ ላይ ሰበሰብ (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "ትራፊክን በፕሮክሲ ለማስተላለፍ — በጂኦ-ተከልካይ ይዘት ለሚጠቀሙ ጠቃሚ።", "placeholder": "http://host:port", "clear": "አጽዳ"},
+			"limitRate": {
+				"label": "የማውረድ ፍጥነት ገደብ",
+				"description": "ለሚዲያ ማውረዶች ባንድዊድዝ ይገድቡ። ከታች ያለው የጥያቄ እረፍት ብዙ ጊዜ የበለጠ ጠንካራ መቆጣጠሪያ ነው።",
+				"off": "ጠፍቷል",
+				"custom": "ብጁ…",
+				"customPlaceholder": "ለምሳሌ 750K ወይም 1.5M",
+				"invalid": "K ወይም M የሚከተለውን ቁጥር ይጠቀሙ (ለምሳሌ 500K, 1.5M)",
+				"activeWarning": "ንቁ ማውረዶች አሁን ያላቸውን ገደብ ይይዛሉ። ለማስፈጸም አቁም + ቀጥል።"
+			},
 			"playlistProbeLimit": {
 				"label": "ሊቃኙ የ Playlist ንጥሎች",
 				"description": "Arroxy playlist፣ ቻናል፣ ወይም የፍለጋ ውጤት ሲከፍት የሚጭነው ከፍተኛ ቁጥር።",
@@ -147,25 +156,16 @@
 			"networkPacing": {
 				"heading": "ለዝቅ ያሉ ዳውንሎዶች",
 				"description": "Arroxy ጣቢያን ከልክ ያለፈ ጥያቄ እንዳያደርግ እያንዳንዱ ዳውንሎድ ላይ ትናንሽ መጠበቂያዎችን ያክላል። ዋጋዎች በሰከንድ ነው (ካልተጠቀሰ)።",
+				"presetLabel": "Arroxy ምን ያህል ጥንቃቄ ያድርግ?",
 				"tooltip": "እነዚህ መጠበቂያዎች ማሳወቂያ ዳውንሎዶች ውስጥ ይሆናሉ። Arroxy ተራ የሆኑ ዳውንሎዶችን አሁንም አንድ ባንድ ያስተዳድራል።",
 				"summary": "መጠበቂያ: {{requests}} ምርምሮች መካከል፣ {{downloads}} ሚዲያ ከመጀመሩ በፊት፣ {{subtitles}} ንዑስ ርዕስ ፋይሎች በፊት። ግንኙነቶች: {{fragments}}።",
 				"presets": {"off": "ጠፍ", "balanced": "ሚዛናዊ", "careful": "ጥንቁቅ", "custom": "ብጁ"},
 				"tooltips": {"off": "Arroxy ለሚዲያ እና ንዑስ ርዕሶች የሚያቆየውን ትንሽ መሰረታዊ እረፍት ብቻ ይጠቀማል።", "balanced": "ነባሪ። አጫጭር እረፍቶችን ያክላል እና አንድ የዳውንሎድ ግንኙነት ይጠቀማል።", "careful": "ለትልልቅ playlists ወይም ቶሎ ቶሎ ገደብ ለሚያጋጥማቸው አውታሮች ረዥም እረፍቶችን ያክላል።", "custom": "የከፍተኛ ዳውንሎድ መቆጣጠሪያዎችን እራስዎ ያስተካክሉ።"},
-				"fields": {"sleepRequests": "ምርምሮች መካከል መጠበቂያ", "sleepInterval": "ሚዲያ ከመጀመሩ በፊት እረፍት: ዝቅ.", "maxSleepInterval": "ሚዲያ ከመጀመሩ በፊት እረፍት: ከፍ.", "concurrentFragments": "የዳውንሎድ ግንኙነቶች", "sleepSubtitles": "ከንዑስ ጽሑፍ ፋይሎች በፊት ጠብቅ"},
-				"presetLabel": "Arroxy ምን ያህል ጥንቃቄ ያድርግ?",
+				"fields": {"sleepRequests": "ምርምሮች መካከል መጠበቂያ", "sleepInterval": "ሚዲያ ከመጀመሩ በፊት እረፍት: ዝቅ.", "maxSleepInterval": "ሚዲያ ከመጀመሩ በፊት እረፍት: ከፍ.", "sleepSubtitles": "ከንዑስ ጽሑፍ ፋይሎች በፊት ጠብቅ", "concurrentFragments": "የዳውንሎድ ግንኙነቶች"},
 				"units": {"seconds": "ሰከንድ", "threads": "ክሮች"}
 			},
 			"closeToTray": {"toggle": "ሲዘጋ ወደ ትሬ ደብቅ", "toggleDescription": "መስኮት ሲዘጋ ዳውንሎዶችን ዳራ ቀጥል።"},
-			"analytics": {"toggle": "ስም-አልባ የአጠቃቀም ስታቲስቲክስ ላክ", "toggleDescription": "የመተግበሪያ ማስጀመሪያዎችን ብቻ ይቆጥራል። ምንም URL፣ የፋይል ስሞች ወይም የግል መረጃ የለም።"},
-			"limitRate": {
-				"label": "የማውረድ ፍጥነት ገደብ",
-				"description": "ለሚዲያ ማውረዶች ባንድዊድዝ ይገድቡ። ከታች ያለው የጥያቄ እረፍት ብዙ ጊዜ የበለጠ ጠንካራ መቆጣጠሪያ ነው።",
-				"off": "ጠፍቷል",
-				"custom": "ብጁ…",
-				"customPlaceholder": "ለምሳሌ 750K ወይም 1.5M",
-				"invalid": "K ወይም M የሚከተለውን ቁጥር ይጠቀሙ (ለምሳሌ 500K, 1.5M)",
-				"activeWarning": "ንቁ ማውረዶች አሁን ያላቸውን ገደብ ይይዛሉ። ለማስፈጸም አቁም + ቀጥል።"
-			}
+			"analytics": {"toggle": "ስም-አልባ የአጠቃቀም ስታቲስቲክስ ላክ", "toggleDescription": "የመተግበሪያ ማስጀመሪያዎችን ብቻ ይቆጥራል። ምንም URL፣ የፋይል ስሞች ወይም የግል መረጃ የለም።"}
 		},
 		"subtitles": {
 			"autoBadge": "ራስ-ሰር",
@@ -199,6 +199,8 @@
 			"audio": "ድምጽ",
 			"noAudio": "ምንም ድምጽ የለም",
 			"videoOnly": "ቪዲዮ ብቻ",
+			"keepAudio": "እንዳለ ቀጥል",
+			"keepAudioMeta": "ቀደም ሲል የተካተተ ድምጽ",
 			"audioOnly": "ድምጽ ብቻ",
 			"audioOnlyOption": "ድምጽ ብቻ (ቪዲዮ የለም)",
 			"mascot": "ምርጥ + ምርጥ = ከፍተኛ ጥራት። ያንኑ ይምረጡ!",
@@ -209,8 +211,6 @@
 			"total": "ጠቅላላ",
 			"skipToConfirm": "ወደ ማረጋገጫ ዝለል",
 			"skipToConfirmTooltip": "ለቀሩት ሁሉም ደረጃዎች የተቀመጡ ምርጫዎችዎን ይጠቀማል። አንድ ቅንብር ለመለወጥ ደረጃ በደረጃ ቀጥሉ — ምርጫዎ ለሚቀጥለው ጊዜ ይቀመጣል።",
-			"keepAudio": "እንዳለ ቀጥል",
-			"keepAudioMeta": "ቀደም ሲል የተካተተ ድምጽ",
 			"convert": {"label": "ቀይር", "uncompressed": "ቀይር · ያልተጨመቀ", "bitrate": "ቢትሬት", "wavLabel": "WAV (ያልተጨመቀ)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresAudioOnly": "የድምጽ ቅርጸት ለወጥ ድምጽ-ብቻ ሁነታ ያስፈልጋል (የቪዲዮ ምርጫውን ሰርዝ)።", "requiresLossy": "የቀጥታ ዥረት ተመርጧል — ቢትሬት የሚሰራው ወደ mp3፣ m4a፣ ወይም opus ሲቀይሩ ብቻ ነው።"},
 			"botWall": {
 				"heading": "YouTube ይህን ምርምር ገደበ",
@@ -292,8 +292,13 @@
 		"clearTitle": "የተጠናቀቁ ዳውንሎዶችን አጽዳ",
 		"pauseAll": "ሁሉንም አቁም",
 		"pauseAllTitle": "ሁሉንም ንቁ ዳውንሎዶችን አቁም",
+		"resumeAll": "ወረፋ ቀጥል",
+		"resumeAllTitle": "የቆሙ ማውረዶችን ቀጥል እና ወረፋውን እንዲቀጥል ፍቀድ",
 		"cancelAll": "ሁሉንም ሰርዝ",
 		"cancelAllTitle": "ሁሉንም ንቁ እና በመጠባበቅ ላይ ያሉ ዳውንሎዶችን ሰርዝ",
+		"limitRate": "ፍጥነት፦ {{value}}",
+		"limitRateOff": "ፍጥነት፦ ጠፍቷል",
+		"limitRateTitle": "ለማውረዶች የባንድዊድዝ ገደብ",
 		"tip": "ዳውንሎድዎ ከዚህ በታች ሰልፎ ነው — ሂደቱን ለመከታተል ማንኛውም ጊዜ ክፈት።",
 		"item": {
 			"doneAt": "ተጠናቅቋል {{time}}",
@@ -314,12 +319,7 @@
 			"statusDone": "ተጠናቋል",
 			"statusError": "ስህተት",
 			"statusCancelled": "ተሰርዟል"
-		},
-		"resumeAll": "ወረፋ ቀጥል",
-		"resumeAllTitle": "የቆሙ ማውረዶችን ቀጥል እና ወረፋውን እንዲቀጥል ፍቀድ",
-		"limitRate": "ፍጥነት፦ {{value}}",
-		"limitRateOff": "ፍጥነት፦ ጠፍቷል",
-		"limitRateTitle": "ለማውረዶች የባንድዊድዝ ገደብ"
+		}
 	},
 	"update": {
 		"appVersion": "Arroxy {{version}}",
@@ -368,7 +368,7 @@
 			"unavailable": "ይህ ቪዲዮ አይገኝም — ምናልባት የግል፣ ተሰርዟል ወይም ክልል-ተዘግቷል።",
 			"geoBlocked": "ይህ ቪዲዮ በክልልዎ አይገኝም።",
 			"outOfDiskSpace": "በቂ ዲስክ ቦታ የለም። ቦታ ፍቱ እና እንደገና ሞክሩ።",
-			"unsupportedUrl": "ይህ እንደ ቪዲዮ URL አይመስልም። YouTube ቪዲዮ፣ Short፣ ወይም የዝርዝር አገናኝ ለጥፍ።",
+			"unsupportedUrl": "ያ URL በyt-dlp አይደገፍም። በyt-dlp ከሚደገፉ ጣቢያዎች ሌላ አገናኝ ይሞክሩ።",
 			"chunkTransferFailure": "አገልጋዩ ውርዱን ደጋግሞ ሲያቋርጥ yt-dlp እንደገና ከሞከረ በኋላ ሰጥቷል። ይህ ብዙ ጊዜ ትልቁን የቪዲዮ ቅርጸቶች (4K HDR / ከፍተኛ bitrate VP9) ይነካል። እንደገና ሞክሩ፣ አውታረ መረብ/VPN ይቀይሩ፣ ወይም ዝቅተኛ ጥራት ቅርጸት ይምረጡ።",
 			"postprocessFailure": "yt-dlp ማውረዱን ጨርሷል ነገር ግን ድህረ-ሂደት (merge / mux / convert) አልተሳካም። ብዙውን ጊዜ ይህ ጊዜያዊ የffmpeg ችግር ነው — እንደገና ሞክሩ፣ ችግሩ ከቀጠለ ሌላ የቅርጸት ጥምረት ሞክሩ።",
 			"parse": "ከጣቢያው የተመለሰውን ምላሽ መፈታት አልተቻለም። የyt-dlp extractor ጊዜ ያለፈበት ሊሆን ይችላል። Arroxy በሚነሳበት ጊዜ yt-dlp ን በራስ-ሰር ያዘምነዋል — እርማቱ እንደተለቀቀ በጥቂት ደቂቃዎች ውስጥ እንደገና ሞክሩ።",
@@ -399,7 +399,7 @@
 	"formatLabel": {"audioFallback": "ድምጽ", "audioOnlyDot": "ድምጽ ብቻ · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
 	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "ሥራ አልባ", "statusActive_one": "1 እያወረደ · {{percent}}%", "statusActive_other": "{{count}} እያወረዱ · {{percent}}%", "open": "Arroxy ክፈት", "quit": "Arroxy ዝጋ"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} ዳውንሎድ እየሄደ ነው", "message_other": "{{count}} ዳውንሎዶች እየሄዱ ናቸው", "detail": "መዝጋት ሁሉንም ዳውንሎዶች ይሰርዛል።", "confirm": "ዳውንሎዶችን ሰርዝ እና ዝጋ", "keep": "ዳውንሎዱን ቀጥል", "pause": "ማውረዶችን አቁም እና ውጣ"},
+		"quitWithActiveDownloads": {"message_one": "{{count}} ዳውንሎድ እየሄደ ነው", "message_other": "{{count}} ዳውንሎዶች እየሄዱ ናቸው", "detail": "በኋላ ለመቀጠል ለአፍታ አቁም፣ ወይም እድገቱን ለመጣል ሰርዝ።", "confirm": "ዳውንሎዶችን ሰርዝ እና ዝጋ", "pause": "ማውረዶችን አቁም እና ውጣ", "keep": "ዳውንሎዱን ቀጥል"},
 		"closeToTray": {"message": "Arroxy ሲዘጋ ወደ ትሬ ደብቅ?", "detail": "Arroxy ይሰራ ይቆያል ዳውንሎዶቹንም ያጠናቅቃል። ይህን ወደ ኋላ በከፍተኛ ቅንብሮች ይቀይሩ።", "hide": "ወደ ትሬ ደብቅ", "quit": "ዝጋ", "remember": "እንደገና አትጠይቅ"},
 		"rendererCrashed": {"message": "Arroxy ችግር አጋጥሟል", "detail": "የተቀጣጣሪ ሂደት ተቋርጧል ({{reason}})። ለማደስ ዳግም ጫን።", "reload": "ዳግም ጫን", "quit": "ዝጋ"}
 	},

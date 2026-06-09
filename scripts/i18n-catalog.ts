@@ -77,6 +77,12 @@ function formatJson(value: JsonObject): string {
 	return `${JSON.stringify(value, null, '\t')}\n`
 }
 
+function formatRuntimeLocaleJson(): void {
+	const result = spawnSync(process.execPath, ['x', 'biome', 'format', '--write', ...NON_EN_LANGS.map(localeJsonPath)], {stdio: 'inherit'})
+	if (result.error) throw new Error(`Failed to format runtime locale JSON. (${result.error.message})`)
+	if (result.status !== 0) throw new Error(`Biome format failed for runtime locale JSON with status ${result.status ?? 'unknown'}.`)
+}
+
 function deepEqual(a: unknown, b: unknown): boolean {
 	if (typeof a !== typeof b) return false
 	if (typeof a === 'string' || typeof a === 'number' || typeof a === 'boolean' || a === null || b === null) return a === b
@@ -180,6 +186,7 @@ switch (command) {
 			for (const issue of issues) console.error(formatIssue(issue))
 			process.exit(1)
 		}
+		formatRuntimeLocaleJson()
 		break
 	}
 	case 'check': {

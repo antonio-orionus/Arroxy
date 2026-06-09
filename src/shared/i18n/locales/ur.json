@@ -1,7 +1,7 @@
 {
 	"common": {"back": "واپس", "cancel": "منسوخ کریں", "continue": "جاری رکھیں", "retry": "دوبارہ کوشش کریں", "startOver": "دوبارہ شروع کریں"},
 	"app": {"feedback": "فیڈبیک", "logs": "لاگز", "feedbackNudge": "Arroxy پسند آ رہا ہے؟ آپ سے سن کر خوشی ہو گی! 💬", "debugCopied": "کاپی ہو گیا!", "debugCopyTitle": "ڈیبگ معلومات کاپی کریں (Electron, OS, Chrome ورژنز)", "zoomIn": "زوم اِن", "zoomOut": "زوم آؤٹ"},
-	"about": {"button": "کے بارے میں", "openTitle": "Arroxy کے بارے میں", "tagline": "ڈیسک ٹاپ کے لیے تیز اور آسان ویڈیو اور آڈیو ڈاؤن لوڈر۔", "websiteLink": "ویب سائٹ", "githubLink": "GitHub", "licenseLine": "MIT لائسنس · از Antonio Orionus", "thirdPartyNotices": "فریق ثالث کے نوٹس دیکھیں"},
+	"about": {"button": "کے بارے میں", "openTitle": "Arroxy کے بارے میں", "tagline": "YouTube اور 2000+ دیگر سائٹس کے لیے تیز اور آسان ڈاؤنلوڈر۔", "websiteLink": "ویب سائٹ", "githubLink": "GitHub", "licenseLine": "MIT لائسنس · از Antonio Orionus", "thirdPartyNotices": "فریق ثالث کے نوٹس دیکھیں"},
 	"titleBar": {"close": "بند کریں", "minimize": "چھوٹا کریں", "maximize": "بڑا کریں", "restore": "بحال کریں"},
 	"splash": {"greeting": "ارے، خوش آمدید!", "warmup": "Arroxy تیار ہو رہا ہے…", "downloading": "{{binary}} ڈاؤن لوڈ ہو رہا ہے…", "warmupFailedNoDiag": "سیٹ اپ ناکام ہوا۔ تفصیلات کے لیے سیٹ اپ لاگ کھولیں۔"},
 	"repair": {
@@ -34,6 +34,7 @@
 	"language": {"label": "زبان"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "معیار", "formats": "فارمیٹ", "subtitles": "سب ٹائٹلز", "sponsorblock": "SponsorBlock", "output": "آؤٹ پٹ", "folder": "محفوظ کریں", "confirm": "تصدیق"},
+		"playlistPresets": {"heading": "بیچ کے لیے کوالٹی منتخب کریں", "subhead": "ہر ویڈیو منتخب درجے کو آزادانہ طور پر حل کرتی ہے — مختلف قسم کی playlists بغیر کسی پریشانی کے کام کرتی ہیں۔", "itemCount_one": "{{count}} آئٹم", "itemCount_other": "{{count}} آئٹمز"},
 		"playlist": {
 			"heading": "Playlist آئٹمز",
 			"bulkHeading": "متعدد URLs",
@@ -71,7 +72,7 @@
 		},
 		"bulk": {
 			"title": "متعدد URLs",
-			"description": "الگ الگ ویڈیو یا آڈیو URLs پیسٹ کریں۔ Arroxy قطار میں شامل کرنے سے پہلے نقول صاف کرے گا اور playlist یا channel لنکس کو نشان زد کرے گا۔",
+			"description": "ویڈیو، پلے لسٹ، چینل، تلاش، یا آڈیو URLs پیسٹ کریں۔ Arroxy قطار میں شامل کرنے سے پہلے نقلیں صاف کرے گا۔",
 			"textareaLabel": "URL فہرست",
 			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "تیار",
@@ -80,7 +81,6 @@
 			"needsAtLeastOne": "جاری رکھنے کے لیے کم از کم ایک supported URL شامل کریں۔",
 			"reject": {"duplicate": "نقل"}
 		},
-		"playlistPresets": {"heading": "بیچ کے لیے کوالٹی منتخب کریں", "subhead": "ہر ویڈیو منتخب درجے کو آزادانہ طور پر حل کرتی ہے — مختلف قسم کی playlists بغیر کسی پریشانی کے کام کرتی ہیں۔", "itemCount_one": "{{count}} آئٹم", "itemCount_other": "{{count}} آئٹمز"},
 		"mixedPrompt": {
 			"title": "اس لنک میں Playlist ہے",
 			"body": "کیا آپ صرف وہی ویڈیو چاہتے ہیں جس پر کلک کیا، یا Playlist سے انتخاب کرنا چاہتے ہیں؟ اگلے مرحلے میں آپ مخصوص ویڈیوز یا رینج منتخب کریں گے۔",
@@ -99,7 +99,7 @@
 			"quickDownloadTooltip": "آپ کی محفوظ یا ڈیفالٹ ترجیحات استعمال کرکے سیٹ اپ مراحل کھولے بغیر اس واحد ویڈیو کو قطار میں شامل کرتا ہے۔",
 			"quickPreparing": "تیاری ہو رہی ہے",
 			"quickQueued": "قطار میں شامل ہو گیا",
-			"quickSingleOnly": "فوری ڈاؤن لوڈ صرف ایک ویڈیو کے لیے ہے۔ پلے لسٹس اور چینلز کے لیے فارمیٹس حاصل کریں استعمال کریں۔",
+			"quickSingleOnly": "فوری ڈاؤنلوڈ واحد ویڈیوز، پلے لسٹس، چینلز، تلاشوں، اور Bulk URLs استعمال کر سکتا ہے۔",
 			"quickProbeFailed": "جانچ ناکام ہوگئی",
 			"quickPrepareFailed": "قطار آئٹم تیار نہیں کیا جا سکا",
 			"quickFailed": "یہ شامل نہیں ہو سکا: {{error}}",
@@ -138,6 +138,15 @@
 				"extensionChrome": "cookies.txt مقامی طور پر حاصل کریں (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "پراکسی کے ذریعے ٹریفک روٹ کریں — جغرافیائی پابندی والے مواد کے لیے مفید۔", "placeholder": "http://host:port", "clear": "صاف کریں"},
+			"limitRate": {
+				"label": "ڈاؤن لوڈ رفتار حد",
+				"description": "میڈیا ڈاؤن لوڈز کے لیے بینڈوڈتھ محدود کریں۔ نیچے درخواستوں کی رفتار عام طور پر زیادہ مضبوط حد ہے۔",
+				"off": "بند",
+				"custom": "حسب ضرورت…",
+				"customPlaceholder": "مثلاً 750K یا 1.5M",
+				"invalid": "K یا M کے ساتھ ایک نمبر استعمال کریں (مثلاً 500K، 1.5M)",
+				"activeWarning": "فعال ڈاؤن لوڈز اپنی موجودہ حد رکھتے ہیں۔ لاگو کرنے کے لیے توقف + جاری رکھیں۔"
+			},
 			"playlistProbeLimit": {
 				"label": "اسکین کرنے کے لیے Playlist آئٹمز",
 				"description": "Arroxy کی زیادہ سے زیادہ اندراجات جو playlist، چینل، یا تلاش کا نتیجہ کھولنے پر لوڈ کرتا ہے۔",
@@ -156,6 +165,7 @@
 			"networkPacing": {
 				"heading": "آہستہ ڈاؤن لوڈز",
 				"description": "ہر ڈاؤن لوڈ کے دوران چھوٹے وقفے شامل کرتا ہے تاکہ Arroxy سائٹ پر زیادہ دباؤ نہ ڈالے۔ قدریں سیکنڈ میں ہیں (جب تک الگ نہ بتایا جائے)۔",
+				"presetLabel": "Arroxy کتنی احتیاط کرے؟",
 				"tooltip": "یہ وقفے ہر ڈاؤن لوڈ کے اندر ہوتے ہیں۔ Arroxy پھر بھی قطار میں موجود ڈاؤن لوڈز کو ایک ایک کر کے چلاتا ہے۔",
 				"summary": "انتظار: {{requests}} چیک کرنے کے درمیان، {{downloads}} میڈیا شروع ہونے سے پہلے، {{subtitles}} سب ٹائٹل فائلوں سے پہلے۔ کنکشنز: {{fragments}}۔",
 				"presets": {"off": "بند", "balanced": "متوازن", "careful": "محتاط", "custom": "حسب ضرورت"},
@@ -165,21 +175,11 @@
 					"careful": "بڑی پلے لسٹس یا ان نیٹ ورکس کے لیے زیادہ وقفے شامل کرتا ہے جو اکثر حدود تک پہنچتے ہیں۔",
 					"custom": "فی ڈاؤن لوڈ ایڈوانسڈ کنٹرولز خود ترتیب دیں۔"
 				},
-				"fields": {"sleepRequests": "میٹا ڈیٹا چیکس کے درمیان انتظار", "sleepInterval": "میڈیا شروع ہونے سے پہلے وقفہ: کم از کم", "maxSleepInterval": "میڈیا شروع ہونے سے پہلے وقفہ: زیادہ سے زیادہ", "concurrentFragments": "ڈاؤن لوڈ کنکشنز", "sleepSubtitles": "سب ٹائٹل فائلوں سے پہلے انتظار"},
-				"presetLabel": "Arroxy کتنی احتیاط کرے؟",
+				"fields": {"sleepRequests": "میٹا ڈیٹا چیکس کے درمیان انتظار", "sleepInterval": "میڈیا شروع ہونے سے پہلے وقفہ: کم از کم", "maxSleepInterval": "میڈیا شروع ہونے سے پہلے وقفہ: زیادہ سے زیادہ", "sleepSubtitles": "سب ٹائٹل فائلوں سے پہلے انتظار", "concurrentFragments": "ڈاؤن لوڈ کنکشنز"},
 				"units": {"seconds": "سیکنڈ", "threads": "تھریڈز"}
 			},
 			"closeToTray": {"toggle": "بند کرنے پر ٹرے میں چھپائیں", "toggleDescription": "ونڈو بند ہونے کے بعد بیک گراؤنڈ میں ڈاؤن لوڈز جاری رکھیں۔"},
-			"analytics": {"toggle": "گمنام استعمال کے اعداد و شمار بھیجیں", "toggleDescription": "صرف ایپ لانچز گنتا ہے۔ کوئی URL، فائل نام، یا ذاتی ڈیٹا نہیں۔"},
-			"limitRate": {
-				"label": "ڈاؤن لوڈ رفتار حد",
-				"description": "میڈیا ڈاؤن لوڈز کے لیے بینڈوڈتھ محدود کریں۔ نیچے درخواستوں کی رفتار عام طور پر زیادہ مضبوط حد ہے۔",
-				"off": "بند",
-				"custom": "حسب ضرورت…",
-				"customPlaceholder": "مثلاً 750K یا 1.5M",
-				"invalid": "K یا M کے ساتھ ایک نمبر استعمال کریں (مثلاً 500K، 1.5M)",
-				"activeWarning": "فعال ڈاؤن لوڈز اپنی موجودہ حد رکھتے ہیں۔ لاگو کرنے کے لیے توقف + جاری رکھیں۔"
-			}
+			"analytics": {"toggle": "گمنام استعمال کے اعداد و شمار بھیجیں", "toggleDescription": "صرف ایپ لانچز گنتا ہے۔ کوئی URL، فائل نام، یا ذاتی ڈیٹا نہیں۔"}
 		},
 		"subtitles": {
 			"autoBadge": "آٹو",
@@ -213,6 +213,8 @@
 			"audio": "آڈیو",
 			"noAudio": "کوئی آڈیو نہیں",
 			"videoOnly": "صرف ویڈیو",
+			"keepAudio": "جیسا ہے ویسا رکھیں",
+			"keepAudioMeta": "بلٹ اِن آڈیو",
 			"audioOnly": "صرف آڈیو",
 			"audioOnlyOption": "صرف آڈیو (کوئی ویڈیو نہیں)",
 			"mascot": "بیسٹ + بیسٹ = زیادہ سے زیادہ کوالٹی۔ میں یہی منتخب کروں گا!",
@@ -223,8 +225,6 @@
 			"total": "کل",
 			"skipToConfirm": "تصدیق تک جائیں",
 			"skipToConfirmTooltip": "باقی تمام مراحل کے لیے آپ کی محفوظ ترجیحات استعمال کرتا ہے۔ کوئی ترتیب تبدیل کرنے کے لیے، قدم بہ قدم جاری رکھیں — آپ کا انتخاب اگلی بار کے لیے محفوظ ہو جائے گا۔",
-			"keepAudio": "جیسا ہے ویسا رکھیں",
-			"keepAudioMeta": "بلٹ اِن آڈیو",
 			"convert": {
 				"label": "کنورٹ کریں",
 				"uncompressed": "کنورٹ کریں · غیر کمپریسڈ",
@@ -325,8 +325,13 @@
 		"clearTitle": "مکمل ڈاؤن لوڈز صاف کریں",
 		"pauseAll": "سب کو روکیں",
 		"pauseAllTitle": "تمام فعال ڈاؤن لوڈز کو عارضی طور پر روکیں",
+		"resumeAll": "قطار جاری رکھیں",
+		"resumeAllTitle": "رکے ہوئے ڈاؤن لوڈز جاری رکھیں اور قطار چلنے دیں",
 		"cancelAll": "سب کو منسوخ کریں",
 		"cancelAllTitle": "تمام فعال اور زیر التواء ڈاؤن لوڈز منسوخ کریں",
+		"limitRate": "رفتار: {{value}}",
+		"limitRateOff": "رفتار: بند",
+		"limitRateTitle": "ڈاؤن لوڈز کے لیے بینڈوڈتھ حد",
 		"tip": "آپ کا ڈاؤن لوڈ نیچے قطار میں ہے — پیش رفت دیکھنے کے لیے کبھی بھی کھولیں۔",
 		"item": {
 			"doneAt": "مکمل {{time}}",
@@ -347,12 +352,7 @@
 			"statusDone": "مکمل",
 			"statusError": "خرابی",
 			"statusCancelled": "منسوخ"
-		},
-		"resumeAll": "قطار جاری رکھیں",
-		"resumeAllTitle": "رکے ہوئے ڈاؤن لوڈز جاری رکھیں اور قطار چلنے دیں",
-		"limitRate": "رفتار: {{value}}",
-		"limitRateOff": "رفتار: بند",
-		"limitRateTitle": "ڈاؤن لوڈز کے لیے بینڈوڈتھ حد"
+		}
 	},
 	"update": {
 		"appVersion": "Arroxy {{version}}",
@@ -401,7 +401,7 @@
 			"unavailable": "یہ ویڈیو دستیاب نہیں — ہو سکتا ہے پرائیویٹ، ڈیلیٹ، یا ریجن لاکڈ ہو۔",
 			"geoBlocked": "یہ ویڈیو آپ کے ریجن میں دستیاب نہیں۔",
 			"outOfDiskSpace": "ڈسک میں کافی جگہ نہیں۔ جگہ خالی کر کے دوبارہ کوشش کریں۔",
-			"unsupportedUrl": "یہ ویڈیو URL نہیں لگتا۔ YouTube ویڈیو، Short، یا پلے لسٹ کا لنک پیسٹ کریں۔",
+			"unsupportedUrl": "یہ URL yt-dlp کے ذریعے معاون نہیں ہے۔ yt-dlp کی معاون سائٹس میں سے کوئی دوسرا لنک آزمائیں۔",
 			"chunkTransferFailure": "سرور بار بار ڈاؤن لوڈ درمیان میں کاٹتا رہا اور yt-dlp نے کئی بار کوشش کے بعد ہار مان لی۔ یہ عموماً سب سے بڑے ویڈیو فارمیٹس (4K HDR / زیادہ بٹ ریٹ VP9) میں ہوتا ہے۔ دوبارہ کوشش کریں، نیٹ ورک/VPN تبدیل کریں، یا کم ریزولیوشن فارمیٹ چنیں۔",
 			"postprocessFailure": "yt-dlp نے ڈاؤن لوڈ مکمل کر لیا لیکن پوسٹ پروسیسنگ (مرج / mux / تبدیلی) ناکام رہی۔ اکثر یہ ffmpeg کا عارضی مسئلہ ہوتا ہے — دوبارہ کوشش کریں، اور اگر برقرار رہے تو مختلف فارمیٹ کا مجموعہ آزمائیں۔",
 			"parse": "سائٹ کا جواب پارس نہیں ہو سکا۔ ممکن ہے yt-dlp کا ایکسٹریکٹر پرانا ہو گیا ہو۔ Arroxy لانچ پر yt-dlp کو خودکار اپڈیٹ کرتا ہے — چند منٹ بعد دوبارہ کوشش کریں جب فکس آ جائے۔",
@@ -432,7 +432,14 @@
 	"formatLabel": {"audioFallback": "آڈیو", "audioOnlyDot": "صرف آڈیو · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
 	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "فارغ", "statusActive_one": "1 ڈاؤن لوڈ ہو رہا ہے · {{percent}}%", "statusActive_other": "{{count}} ڈاؤن لوڈ ہو رہے ہیں · {{percent}}%", "open": "Arroxy کھولیں", "quit": "Arroxy بند کریں"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} ڈاؤن لوڈ جاری ہے", "message_other": "{{count}} ڈاؤن لوڈز جاری ہیں", "detail": "بند کرنے سے تمام ایکٹو ڈاؤن لوڈز منسوخ ہو جائیں گے۔", "confirm": "ڈاؤن لوڈز منسوخ کریں اور بند کریں", "keep": "ڈاؤن لوڈ جاری رکھیں", "pause": "ڈاؤن لوڈز روک کر بند کریں"},
+		"quitWithActiveDownloads": {
+			"message_one": "{{count}} ڈاؤن لوڈ جاری ہے",
+			"message_other": "{{count}} ڈاؤن لوڈز جاری ہیں",
+			"detail": "بعد میں دوبارہ شروع کرنے کے لیے موقوف کریں، یا پیش رفت ضائع کرنے کے لیے منسوخ کریں۔",
+			"confirm": "ڈاؤن لوڈز منسوخ کریں اور بند کریں",
+			"pause": "ڈاؤن لوڈز روک کر بند کریں",
+			"keep": "ڈاؤن لوڈ جاری رکھیں"
+		},
 		"closeToTray": {"message": "بند کرتے وقت Arroxy کو سسٹم ٹرے میں چھپائیں؟", "detail": "Arroxy چلتا رہتا ہے اور ایکٹو ڈاؤن لوڈز مکمل کرتا ہے۔ یہ بعد میں ایڈوانسڈ سیٹنگز سے بدلیں۔", "hide": "ٹرے میں چھپائیں", "quit": "بند کریں", "remember": "دوبارہ مت پوچھیں"},
 		"rendererCrashed": {"message": "Arroxy کو ایک مسئلے کا سامنا ہوا", "detail": "رینڈرر پراسیس کریش ہو گیا ({{reason}})۔ دوبارہ کوشش کرنے کے لیے ری لوڈ کریں۔", "reload": "ری لوڈ", "quit": "بند کریں"}
 	},

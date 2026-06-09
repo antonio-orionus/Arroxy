@@ -1,7 +1,7 @@
 {
 	"common": {"back": "နောက်သို့", "cancel": "ပယ်ဖျက်မည်", "continue": "ဆက်လက်သွားမည်", "retry": "ထပ်မံကြိုးစားမည်", "startOver": "အစကနေပြန်စမည်"},
 	"app": {"feedback": "အကြံပြုချက်", "logs": "မှတ်တမ်းများ", "feedbackNudge": "Arroxy ကိုနှစ်သက်ပါသလား? သင့်ထံမှကြားချင်ပါသည်! 💬", "debugCopied": "ကူးယူပြီးပြီ!", "debugCopyTitle": "အမှားရှာဖွေရေးအချက်အလက်ကူးယူမည် (Electron, OS, Chrome ဗားရှင်းများ)", "zoomIn": "ချဲ့မည်", "zoomOut": "ချုံ့မည်"},
-	"about": {"button": "အကြောင်း", "openTitle": "Arroxy အကြောင်း", "tagline": "Desktop အတွက် မြန်ဆန်သော ဗီဒီယို နှင့် အသံ ဒေါင်းလုဒ်တူး။", "websiteLink": "ဝက်ဘ်ဆိုက်", "githubLink": "GitHub", "licenseLine": "MIT လိုင်စင် · Antonio Orionus မှ", "thirdPartyNotices": "တတိယပါတီ သတိပေးချက်များ ကြည့်မည်"},
+	"about": {"button": "အကြောင်း", "openTitle": "Arroxy အကြောင်း", "tagline": "YouTube နှင့် အခြား site 2000+ အတွက် မြန်ဆန်ပြီး အသုံးရလွယ်သော downloader။", "websiteLink": "ဝက်ဘ်ဆိုက်", "githubLink": "GitHub", "licenseLine": "MIT လိုင်စင် · Antonio Orionus မှ", "thirdPartyNotices": "တတိယပါတီ သတိပေးချက်များ ကြည့်မည်"},
 	"titleBar": {"close": "ပိတ်မည်", "minimize": "သေးငယ်အောင်လုပ်မည်", "maximize": "အများဆုံးချဲ့မည်", "restore": "ပြန်ရောက်မည်"},
 	"splash": {"greeting": "ဟေး၊ ကြိုဆိုပါသည်!", "warmup": "Arroxy ပြင်ဆင်နေသည်…", "downloading": "{{binary}} ဒေါင်းလုဒ်လုပ်နေသည်…", "warmupFailedNoDiag": "တပ်ဆင်မှုမအောင်မြင်ပါ။ အသေးစိတ်ကြည့်ရန် setup log ဖွင့်ပါ။"},
 	"repair": {
@@ -25,6 +25,7 @@
 	"language": {"label": "ဘာသာစကား"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "အရည်အသွေး", "formats": "ဖော်မတ်", "subtitles": "စာတန်းထိုး", "sponsorblock": "SponsorBlock", "output": "ထွက်ပေါ်မည့်ဖိုင်", "folder": "သိမ်းမည်", "confirm": "အတည်ပြုမည်"},
+		"playlistPresets": {"heading": "Batch အတွက် အရည်အသွေးရွေးပါ", "subhead": "ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။", "itemCount_one": "{{count}} ခု", "itemCount_other": "{{count}} ခု"},
 		"playlist": {
 			"heading": "Playlist အကြောင်းအရာများ",
 			"bulkHeading": "URL အများအပြား",
@@ -62,7 +63,7 @@
 		},
 		"bulk": {
 			"title": "URL အများအပြား",
-			"description": "တစ်ခုချင်းစီသော video သို့မဟုတ် audio URL များကို paste လုပ်ပါ။ Arroxy သည် ထပ်နေသောအရာများကို ဖယ်ရှားပြီး queue မထည့်မီ playlist သို့မဟုတ် channel link များကို ဖော်ပြပါမည်။",
+			"description": "video၊ playlist၊ channel၊ search သို့မဟုတ် audio URL များကို paste လုပ်ပါ။ Arroxy သည် queue ထဲမထည့်မီ duplicate များကို ရှင်းလင်းမည်။",
 			"textareaLabel": "URL စာရင်း",
 			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "အဆင်သင့်",
@@ -71,7 +72,6 @@
 			"needsAtLeastOne": "ဆက်လက်လုပ်ဆောင်ရန် supported URL အနည်းဆုံးတစ်ခု ထည့်ပါ။",
 			"reject": {"duplicate": "ထပ်နေသည်"}
 		},
-		"playlistPresets": {"heading": "Batch အတွက် အရည်အသွေးရွေးပါ", "subhead": "ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။", "itemCount_one": "{{count}} ခု", "itemCount_other": "{{count}} ခု"},
 		"mixedPrompt": {
 			"title": "ဤလင့်ခ်တွင် Playlist ပါဝင်သည်",
 			"body": "သင်နှိပ်ခဲ့သော ဗီဒီယိုကိုသာ လိုချင်သလော၊ Playlist မှ ရွေးချင်သလော? နောက်တွင် သီးခြားဗီဒီယိုများ သို့မဟုတ် အပိုင်းအခြား ရွေးနိုင်မည်။",
@@ -90,7 +90,7 @@
 			"quickDownloadTooltip": "သိမ်းထားသော သို့မဟုတ် မူရင်းရွေးချယ်မှုများကို အသုံးပြုပြီး ပြင်ဆင်မှုအဆင့်များ မဖွင့်ဘဲ ဤဗီဒီယိုတစ်ခုကို တန်းစီစာရင်းထဲ ထည့်သည်။",
 			"quickPreparing": "ပြင်ဆင်နေသည်",
 			"quickQueued": "တန်းစီစာရင်းထဲ ထည့်ပြီး",
-			"quickSingleOnly": "အမြန်ဒေါင်းလုဒ်သည် ဗီဒီယိုတစ်ခုချင်းအတွက်သာ ဖြစ်သည်။ Playlists နှင့် channels အတွက် ဖော်မတ်များ ရယူရန်ကို သုံးပါ။",
+			"quickSingleOnly": "Quick Download သည် single videos၊ playlists၊ channels၊ searches နှင့် Bulk URLs များကို အသုံးပြုနိုင်သည်။",
 			"quickProbeFailed": "စစ်ဆေးမှု မအောင်မြင်ပါ",
 			"quickPrepareFailed": "တန်းစီအရာကို မပြင်ဆင်နိုင်ပါ",
 			"quickFailed": "ဤအရာကို ထည့်မရပါ: {{error}}",
@@ -129,6 +129,29 @@
 				"extensionChrome": "cookies.txt ကို ဒေသတွင်း ရယူရန် (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Proxy မှတဆင့် traffic လမ်းကြောင်းလွှဲပါ — ဂျီဩဂရပ်ကန့်သတ်ချက်ရှိသော အကြောင်းအရာများအတွက် အသုံးဝင်သည်။", "placeholder": "http://host:port", "clear": "ရှင်းလင်း"},
+			"limitRate": {
+				"label": "ဒေါင်းလုဒ် အမြန်နှုန်း ကန့်သတ်ချက်",
+				"description": "မီဒီယာ ဒေါင်းလုဒ်များအတွက် bandwidth ကို ကန့်သတ်ပါ။ အောက်ပါ request pacing သည် အများအားဖြင့် ပိုအားကောင်းသော ကန့်သတ်ကိရိယာ ဖြစ်သည်။",
+				"off": "ပိတ်",
+				"custom": "စိတ်ကြိုက်…",
+				"customPlaceholder": "ဥပမာ 750K သို့ 1.5M",
+				"invalid": "K သို့ M ဖြင့်လိုက်သော နံပါတ်ကို သုံးပါ (ဥပမာ 500K, 1.5M)",
+				"activeWarning": "လုပ်ဆောင်နေသော ဒေါင်းလုဒ်များသည် လက်ရှိကန့်သတ်ချက်ကို ထိန်းထားသည်။ အသုံးပြုရန် ရပ်နား + ဆက်လုပ်ပါ။"
+			},
+			"playlistProbeLimit": {
+				"label": "Scan လုပ်မည့် playlist အရေအတွက်",
+				"description": "Arroxy သည် playlist၊ channel သို့မဟုတ် ရှာဖွေမှုရလဒ်ကို ဖွင့်သောအခါ အများဆုံး entries မည်မျှ လုဒ်မည်ကို သတ်မှတ်သည်။",
+				"option": "{{count}} ခု",
+				"current": "လက်ရှိ ကန့်သတ်ချက်: {{count}} ခု",
+				"customValue": "စိတ်ကြိုက်: {{count}} ခု",
+				"custom": "စိတ်ကြိုက်…",
+				"customDialogTitle": "စိတ်ကြိုက် playlist scan ကန့်သတ်ချက်",
+				"customDialogDescription": "{{min}} မှ {{max}} အထိ ကိန်းပြည့်တစ်ခု အသုံးပြုပါ။",
+				"customDialogCancel": "မလုပ်တော့",
+				"customDialogSave": "ကန့်သတ်ချက် သိမ်းဆည်းမည်",
+				"invalid": "1 မှ 5000 အထိ ကိန်းပြည့်တစ်ခု အသုံးပြုပါ",
+				"tooltip": "yt-dlp --playlist-end နှင့် map ချိတ်ဆက်သည်: Arroxy သည် picker ဆောက်စဉ် ဤမျှ playlist၊ channel သို့မဟုတ် ရှာဖွေမှု entries များကိုသာ တောင်းဆိုသည်။"
+			},
 			"singleFilenameId": {"toggle": "တစ်ခုချင်း ဖိုင်အမည်များတွင် ဗီဒီယို ID ထည့်ရန်", "toggleDescription": "ခေါင်းစဉ်များ ပြောင်းလဲခြင်း သို့မဟုတ် တူညီခြင်း ဖြစ်သည့်အခါ တစ်ခုချင်း ဒေါင်းလုဒ်များကို မတူညီအောင် ထိန်းထားသည်။"},
 			"networkPacing": {
 				"heading": "ညင်သာသော ဒေါင်းလုဒ်",
@@ -146,31 +169,8 @@
 				"fields": {"sleepRequests": "Metadata စစ်ဆေးမှုများကြား ဆိုင်းငံ့ချိန်", "sleepInterval": "Media မစတင်မီ ခေတ္တရပ်ချိန်: အနိမ့်", "maxSleepInterval": "Media မစတင်မီ ခေတ္တရပ်ချိန်: အမြင့်", "sleepSubtitles": "စာတန်းထိုးဖိုင်များမတိုင်မီ ဆိုင်းငံ့ချိန်", "concurrentFragments": "ဒေါင်းလုဒ်ချိတ်ဆက်မှုများ"},
 				"units": {"seconds": "စက္ကန့်", "threads": "threads"}
 			},
-			"playlistProbeLimit": {
-				"label": "Scan လုပ်မည့် playlist အရေအတွက်",
-				"description": "Arroxy သည် playlist၊ channel သို့မဟုတ် ရှာဖွေမှုရလဒ်ကို ဖွင့်သောအခါ အများဆုံး entries မည်မျှ လုဒ်မည်ကို သတ်မှတ်သည်။",
-				"option": "{{count}} ခု",
-				"current": "လက်ရှိ ကန့်သတ်ချက်: {{count}} ခု",
-				"customValue": "စိတ်ကြိုက်: {{count}} ခု",
-				"custom": "စိတ်ကြိုက်…",
-				"customDialogTitle": "စိတ်ကြိုက် playlist scan ကန့်သတ်ချက်",
-				"customDialogDescription": "{{min}} မှ {{max}} အထိ ကိန်းပြည့်တစ်ခု အသုံးပြုပါ။",
-				"customDialogCancel": "မလုပ်တော့",
-				"customDialogSave": "ကန့်သတ်ချက် သိမ်းဆည်းမည်",
-				"invalid": "1 မှ 5000 အထိ ကိန်းပြည့်တစ်ခု အသုံးပြုပါ",
-				"tooltip": "yt-dlp --playlist-end နှင့် map ချိတ်ဆက်သည်: Arroxy သည် picker ဆောက်စဉ် ဤမျှ playlist၊ channel သို့မဟုတ် ရှာဖွေမှု entries များကိုသာ တောင်းဆိုသည်။"
-			},
 			"closeToTray": {"toggle": "ပိတ်လျှင် tray သို့ ဝှက်မည်", "toggleDescription": "ဝင်းဒိုးပိတ်ပြီးနောက်လည်း နောက်ခံတွင် ဒေါင်းလုဒ်ဆက်လုပ်မည်။"},
-			"analytics": {"toggle": "အမည်မသိ သုံးစွဲမှုစာရင်းအင်းများ ပေးပို့ပါ", "toggleDescription": "အက်ပ် ဖွင့်သည့်အကြိမ်ရေကိုသာ ရေတွက်သည်။ URL၊ ဖိုင်အမည် သို့မဟုတ် ကိုယ်ရေးကိုယ်တာ ဒေတာ မပါဝင်ပါ။"},
-			"limitRate": {
-				"label": "ဒေါင်းလုဒ် အမြန်နှုန်း ကန့်သတ်ချက်",
-				"description": "မီဒီယာ ဒေါင်းလုဒ်များအတွက် bandwidth ကို ကန့်သတ်ပါ။ အောက်ပါ request pacing သည် အများအားဖြင့် ပိုအားကောင်းသော ကန့်သတ်ကိရိယာ ဖြစ်သည်။",
-				"off": "ပိတ်",
-				"custom": "စိတ်ကြိုက်…",
-				"customPlaceholder": "ဥပမာ 750K သို့ 1.5M",
-				"invalid": "K သို့ M ဖြင့်လိုက်သော နံပါတ်ကို သုံးပါ (ဥပမာ 500K, 1.5M)",
-				"activeWarning": "လုပ်ဆောင်နေသော ဒေါင်းလုဒ်များသည် လက်ရှိကန့်သတ်ချက်ကို ထိန်းထားသည်။ အသုံးပြုရန် ရပ်နား + ဆက်လုပ်ပါ။"
-			}
+			"analytics": {"toggle": "အမည်မသိ သုံးစွဲမှုစာရင်းအင်းများ ပေးပို့ပါ", "toggleDescription": "အက်ပ် ဖွင့်သည့်အကြိမ်ရေကိုသာ ရေတွက်သည်။ URL၊ ဖိုင်အမည် သို့မဟုတ် ကိုယ်ရေးကိုယ်တာ ဒေတာ မပါဝင်ပါ။"}
 		},
 		"subtitles": {
 			"autoBadge": "အလိုအလျောက်",
@@ -204,6 +204,8 @@
 			"audio": "အသံ",
 			"noAudio": "အသံမပါ",
 			"videoOnly": "ဗီဒီယိုသာ",
+			"keepAudio": "မပြောင်းဘဲ ထားမည်",
+			"keepAudioMeta": "ပါဝင်သောအသံ",
 			"audioOnly": "အသံသာ",
 			"audioOnlyOption": "အသံသာ (ဗီဒီယိုမပါ)",
 			"mascot": "အကောင်းဆုံး + အကောင်းဆုံး = အမြင့်ဆုံးအရည်အသွေး။ ကျွန်ုပ်ရွေးမည်!",
@@ -211,11 +213,9 @@
 			"loadingHint": "စစ်ဆေးမှုပြီးဆုံးသည်အထိ ကျေးဇူးပြု၍ စောင့်ပါ — playlist များနှင့် ရှာဖွေမှုများ အချိန်ယူနိုင်သည်။",
 			"loadingAria": "ဖော်မတ်များဖွင့်နေသည်",
 			"sizeUnknown": "အရွယ်အစားမသိ",
+			"total": "စုစုပေါင်း",
 			"skipToConfirm": "အတည်ပြုသို့ ကျော်သွားရန်",
 			"skipToConfirmTooltip": "ကျန်ရှိသော အဆင့်များအားလုံးအတွက် သင်၏ သိမ်းဆည်းထားသော နှစ်သက်မှုများကို အသုံးပြုသည်။ ဆက်တင်တစ်ခုကို ပြောင်းလဲရန်၊ ယင်းအစား အဆင့်ဆင့် ဆက်လက်သွားပါ — သင်၏ ရွေးချယ်မှုကို နောက်တစ်ကြိမ်အတွက် သိမ်းဆည်းမည်။",
-			"total": "စုစုပေါင်း",
-			"keepAudio": "မပြောင်းဘဲ ထားမည်",
-			"keepAudioMeta": "ပါဝင်သောအသံ",
 			"convert": {
 				"label": "ပြောင်းရန်",
 				"uncompressed": "ပြောင်းရန် · ချုံ့မထားသော",
@@ -316,8 +316,13 @@
 		"clearTitle": "ပြီးဆုံးသောဒေါင်းလုဒ်များ ရှင်းလင်းမည်",
 		"pauseAll": "အားလုံး ခေတ္တရပ်မည်",
 		"pauseAllTitle": "လုပ်ဆောင်နေသောဒေါင်းလုဒ်အားလုံး ခေတ္တရပ်မည်",
+		"resumeAll": "တန်းစီစာရင်း ဆက်လုပ်",
+		"resumeAllTitle": "ရပ်နားထားသော ဒေါင်းလုဒ်များကို ဆက်လုပ်ပြီး တန်းစီစာရင်းကို ဆက်လက်လည်ပတ်စေသည်",
 		"cancelAll": "အားလုံး ဖျက်သိမ်းမည်",
 		"cancelAllTitle": "လုပ်ဆောင်နေသောနှင့် ဆိုင်းငံ့ထားသောဒေါင်းလုဒ်အားလုံး ဖျက်သိမ်းမည်",
+		"limitRate": "အမြန်နှုန်း: {{value}}",
+		"limitRateOff": "အမြန်နှုန်း: ပိတ်",
+		"limitRateTitle": "ဒေါင်းလုဒ်များအတွက် bandwidth ကန့်သတ်ချက်",
 		"tip": "သင့်ဒေါင်းလုဒ်ကို queue ထည့်ပြီးပြီ — တိုးတက်မှုကြည့်ရှုရန် ဖွင့်နိုင်သည်။",
 		"item": {
 			"doneAt": "{{time}} တွင်ပြီးဆုံး",
@@ -338,12 +343,7 @@
 			"statusDone": "ပြီးပြီ",
 			"statusError": "အမှား",
 			"statusCancelled": "ပယ်ဖျက်ပြီး"
-		},
-		"resumeAll": "တန်းစီစာရင်း ဆက်လုပ်",
-		"resumeAllTitle": "ရပ်နားထားသော ဒေါင်းလုဒ်များကို ဆက်လုပ်ပြီး တန်းစီစာရင်းကို ဆက်လက်လည်ပတ်စေသည်",
-		"limitRate": "အမြန်နှုန်း: {{value}}",
-		"limitRateOff": "အမြန်နှုန်း: ပိတ်",
-		"limitRateTitle": "ဒေါင်းလုဒ်များအတွက် bandwidth ကန့်သတ်ချက်"
+		}
 	},
 	"update": {
 		"appVersion": "Arroxy {{version}}",
@@ -392,7 +392,7 @@
 			"unavailable": "ဤဗီဒီယိုမရနိုင်ပါ — ကိုယ်ပိုင်၊ ဖျက်ထား သို့ ဒေသကန့်သတ်ဖြစ်နိုင်သည်။",
 			"geoBlocked": "ဤဗီဒီယိုသည် သင့်ဒေသတွင် မရနိုင်ပါ။",
 			"outOfDiskSpace": "Disk နေရာမလုံလောက်ပါ။ နေရာလွတ်ပြီး ထပ်ကြိုးစားပါ။",
-			"unsupportedUrl": "ဤ URL သည် ဗီဒီယို URL မဟုတ်ပုံရပါ။ YouTube ဗီဒီယို၊ Short သို့မဟုတ် playlist လင့်ခ်တစ်ခု ထည့်ပါ။",
+			"unsupportedUrl": "ထို URL ကို yt-dlp မထောက်ပံ့ပါ။ yt-dlp ထောက်ပံ့သော site များမှ အခြား link တစ်ခုကို စမ်းကြည့်ပါ။",
 			"chunkTransferFailure": "ဆာဗာသည် ဒေါင်းလုဒ်လုပ်နေစဉ် အကြိမ်ကြိမ် ဖြတ်တောက်နေပြီး yt-dlp သည် ထပ်ကြိုးစားပြီးနောက် လက်လျှော့သွားသည်။ ၎င်းသည် အများအားဖြင့် အကြီးဆုံးဗီဒီယိုဖော်မတ်များ (4K HDR / bitrate မြင့် VP9) တွင် ဖြစ်တတ်သည်။ ထပ်ကြိုးစားပါ၊ network/VPN ပြောင်းပါ၊ သို့မဟုတ် resolution နိမ့်သောဖော်မတ်ကို ရွေးချယ်ပါ။",
 			"postprocessFailure": "yt-dlp ဒေါင်းလုဒ်လုပ်ခြင်းကို ပြီးစီးခဲ့သော်လည်း post-processing (merge / mux / convert) မအောင်မြင်ပါ။ ၎င်းသည် ခဏတာ ffmpeg ပြဿနာဖြစ်တတ်ပါသည် — ထပ်ကြိုးစားကြည့်ပါ၊ ဆက်လက်ဖြစ်နေပါက ဖော်မတ်ပေါင်းစပ်မှု အခြားတစ်ခုကို စမ်းကြည့်ပါ။",
 			"parse": "ဆိုက်မှ တုံ့ပြန်ချက်ကို parse မလုပ်နိုင်ပါ။ yt-dlp ၏ extractor သည် ခေတ်နောက်ကျနေပြီ ဖြစ်နိုင်သည်။ Arroxy သည် launch လုပ်သည့်အခါ yt-dlp ကို အလိုအလျောက် update လုပ်ပါသည် — ပြင်ဆင်မှု ထွက်ရှိပြီးနောက် မိနစ်အနည်းငယ်အကြာတွင် ထပ်ကြိုးစားကြည့်ပါ။",
@@ -423,7 +423,7 @@
 	"formatLabel": {"audioFallback": "အသံ", "audioOnlyDot": "အသံသာ · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
 	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "လုပ်ငန်းမရှိ", "statusActive_one": "1 ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%", "statusActive_other": "{{count}} ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%", "open": "Arroxy ဖွင့်မည်", "quit": "Arroxy ထွက်မည်"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} ဒေါင်းလုဒ် လုပ်ဆောင်နေဆဲ", "message_other": "{{count}} ဒေါင်းလုဒ်များ လုပ်ဆောင်နေဆဲ", "detail": "ပိတ်လျှင် လက်ရှိဒေါင်းလုဒ်အားလုံးကို ပယ်ဖျက်မည်။", "confirm": "ဒေါင်းလုဒ်ပယ်ဖျက်ပြီး ထွက်မည်", "keep": "ဒေါင်းလုဒ်ဆက်လုပ်မည်", "pause": "ဒေါင်းလုဒ်များ ရပ်နားပြီး ထွက်"},
+		"quitWithActiveDownloads": {"message_one": "{{count}} ဒေါင်းလုဒ် လုပ်ဆောင်နေဆဲ", "message_other": "{{count}} ဒေါင်းလုဒ်များ လုပ်ဆောင်နေဆဲ", "detail": "နောက်မှ ပြန်စရန် ခေတ္တရပ်ပါ၊ သို့မဟုတ် တိုးတက်မှုကို စွန့်ပစ်ရန် ပယ်ဖျက်ပါ။", "confirm": "ဒေါင်းလုဒ်ပယ်ဖျက်ပြီး ထွက်မည်", "pause": "ဒေါင်းလုဒ်များ ရပ်နားပြီး ထွက်", "keep": "ဒေါင်းလုဒ်ဆက်လုပ်မည်"},
 		"closeToTray": {"message": "ပိတ်သောအခါ Arroxy ကို system tray သို့ ဝှက်မည်လား?", "detail": "Arroxy ဆက်လည်ပတ်ပြီး လက်ရှိဒေါင်းလုဒ်များ ပြီးဆုံးမည်။ နောက်မှ အဆင့်မြင့်ဆက်တင်တွင် ပြောင်းနိုင်သည်။", "hide": "Tray သို့ ဝှက်မည်", "quit": "ထွက်မည်", "remember": "နောက်ထပ်မမေးတော့ပါ"},
 		"rendererCrashed": {"message": "Arroxy တွင် ပြဿနာတစ်ခုဖြစ်ပေါ်ပါသည်", "detail": "Renderer လုပ်ငန်းစဉ် ပျက်ကွက်သွားပါသည် ({{reason}})။ ထပ်မံကြိုးစားရန် ပြန်ဖွင့်ပါ။", "reload": "ပြန်ဖွင့်မည်", "quit": "ထွက်မည်"}
 	},
