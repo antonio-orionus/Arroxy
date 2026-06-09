@@ -69,8 +69,7 @@ const am = {
 			ignoredCount: 'ተተው',
 			emptyPreview: 'ቡድኑን ለማየት አንድ ወይም ከዚያ በላይ URLዎች ለጥፍ።',
 			needsAtLeastOne: 'ለመቀጠል ቢያንስ አንድ የሚደገፍ URL ጨምር።',
-			confirm: 'እነዚህን URLዎች ተጠቀም',
-			reject: {duplicate: 'ተደጋጋሚ', playlist: 'የplaylist ፍሰት ተጠቀም', channel: 'የchannel ፍሰት ተጠቀም'}
+			reject: {duplicate: 'ተደጋጋሚ'}
 		},
 		playlistPresets: {heading: 'ለቡድኑ ጥራት ይምረጡ', subhead: 'እያንዳንዱ ቪዲዮ የተመረጠውን ደረጃ ራሱን ችሎ ይፈታል — የተለያዩ playlists ያለ ችግር ይሰራሉ።', itemCount_one: '{{count}} ንጥል', itemCount_other: '{{count}} ንጥሎች'},
 		mixedPrompt: {
@@ -79,7 +78,6 @@ const am = {
 			singleVideo: 'ይህን ብቻ',
 			pickFromPlaylist: 'ከ Playlist ምረጥ',
 			playlistLimit: 'የፕሌይሊስት መፈተሻ ገደብ፦ {{count}} ንጥሎች',
-			advancedSettings: 'የላቁ ቅንብሮች',
 			singleTooltip: 'yt-dlp የነጠላ ቪዲዮ ሁነታን ይጠቀማል፣ ከዚህ URL ጋር የተያያዘው playlist ይተዋል።',
 			playlistTooltip: 'yt-dlp የplaylist ሁነታን ተጠቅሞ አስመራጩን ከማሳየቱ በፊት እስከ ገደብዎ ይወስዳል።'
 		},
@@ -87,7 +85,7 @@ const am = {
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'ቅርጸቶችን ጫን',
+			interactiveDownload: 'ቅርጸቶችን ጫን',
 			fetchFormatsTooltip: 'ወደ ወረፋ ከመጨመርዎ በፊት ቅርጸቶችን፣ ንዑስ ጽሑፎችን፣ አቃፊን እና የፕሌይሊስት ንጥሎችን በደረጃ ይምረጡ።',
 			quickDownload: 'ፈጣን አውርድ',
 			quickDownloadTooltip: 'የተቀመጡ ወይም ነባሪ ምርጫዎችዎን ተጠቅሞ ይህን ነጠላ ቪዲዮ የማዘጋጃ ደረጃዎችን ሳይከፍት ወደ ወረፋ ያክላል።',
@@ -109,23 +107,7 @@ const am = {
 			mascotBusy: 'በዳራ ዳውንሎድ እያደረጉ ነው… ብዙ ስራ አሰራ 😎',
 			advanced: 'ከፍተኛ',
 			clearAria: 'URL አጽዳ',
-			clipboard: {
-				toggle: 'ቅጂ ሰሌዳ ተቆጣጠር',
-				toggleDescription: 'YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።',
-				dialog: {
-					title: 'YouTube URL ተገኝቷል',
-					body: 'ይህን አገናኝ ከቅጂ ሰሌዳ ይጠቀሙ?',
-					bulkTitle: 'ብዙ URLዎች ተገኙ',
-					bulkBody: 'እነዚህን የclipboard አገናኞች እንደ ብዙ ዳውንሎድ ትጠቀም?',
-					bulkSummary: '{{count}} URLዎች ዝግጁ',
-					bulkIgnored: '{{count}} ተተው',
-					bulkButton: 'ብዙ አውርድ',
-					useButton: 'URL ጠቀም',
-					disableButton: 'አሰናክል',
-					cancelButton: 'ሰርዝ',
-					disableNote: 'የቅጂ ሰሌዳ ክትትልን በኋላ በከፍተኛ ቅንብሮች ውስጥ ዳግም ማስቻል ይችላሉ።'
-				}
-			},
+			clipboard: {toggle: 'ቅጂ ሰሌዳ ተቆጣጠር', toggleDescription: 'YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።', dialog: {cancelButton: 'ሰርዝ'}},
 			cookies: {
 				sourceLabel: 'የ Cookies ምንጭ',
 				sourceOff: 'ጠፍ',
@@ -411,7 +393,6 @@ const am = {
 		footerTooltip: 'Arroxy አጋራ',
 		footerLabel: 'አጋራ',
 		shareAction: 'Arroxy አጋራ',
-		inlineCard: {body: 'Arroxy ደስ ይለዎታል? ጠቃሚ ሊሆን ከሚችልለት ሰው ጋር ያጋሩት።', dismiss: 'የማጋሪያ ሀሳቡን አትኩረው'},
 		highValueBanner: {body: 'Arroxy ደስ ይለዎታል? ሌሎች እንዲያገኙት ይርዷቸው።', dismiss: 'የማጋሪያ ሀሳቡን አትኩረው'}
 	}
 } as const

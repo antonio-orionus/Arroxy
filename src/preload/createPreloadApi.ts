@@ -45,7 +45,7 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 		},
 		settings: {get: () => ipcRenderer.invoke(IPC_CHANNELS.settingsGet), update: input => ipcRenderer.invoke(IPC_CHANNELS.settingsUpdate, input)},
 		shell: {openFolder: targetPath => ipcRenderer.invoke(IPC_CHANNELS.shellOpenFolder, targetPath), openExternal: url => ipcRenderer.invoke(IPC_CHANNELS.shellOpenExternal, url), openBinariesDir: () => ipcRenderer.invoke(IPC_CHANNELS.shellOpenBinariesDir)},
-		logs: {openDir: () => ipcRenderer.invoke(IPC_CHANNELS.logsOpenDir)},
+		logs: {openDir: () => ipcRenderer.invoke(IPC_CHANNELS.logsOpenDir), uploadFeedbackDiagnostic: input => ipcRenderer.invoke(IPC_CHANNELS.logsUploadFeedbackDiagnostic, input)},
 		dialog: {chooseFolder: (defaultPath?: string) => ipcRenderer.invoke(IPC_CHANNELS.chooseFolder, defaultPath), chooseFile: () => ipcRenderer.invoke(IPC_CHANNELS.chooseFile), chooseExecutable: binary => ipcRenderer.invoke(IPC_CHANNELS.dialogChooseExecutable, binary)},
 		events: {
 			onStatus: listener => {

@@ -5,6 +5,7 @@ import {IPC_CHANNELS} from '@shared/ipc.js'
 import {ok} from '@shared/result.js'
 import {DEPENDENCY_IDS, type DependencyId} from '@shared/types.js'
 import type {BinaryManager} from '@main/services/BinaryManager.js'
+import {uploadFeedbackDiagnostic} from '@main/services/FeedbackDiagnostics.js'
 import {handleRaw, toIpcFailure, toUnknownFailure} from './utils.js'
 
 export function registerFileHandlers(mainWindow: BrowserWindow, binaryManager: BinaryManager): void {
@@ -75,6 +76,18 @@ export function registerFileHandlers(mainWindow: BrowserWindow, binaryManager: B
 		}
 	})
 
+	handleRaw(IPC_CHANNELS.logsUploadFeedbackDiagnostic, async (_, payload: unknown) => {
+		try {
+			const reportId = readReportId(payload)
+			if (!reportId) return toIpcFailure('Invalid feedback report id')
+			const logPath = log.transports.file.getFile().path
+			const upload = await uploadFeedbackDiagnostic({logPath, reportId})
+			return ok(upload)
+		} catch (error) {
+			return toUnknownFailure(error)
+		}
+	})
+
 	handleRaw(IPC_CHANNELS.dialogChooseExecutable, async (_, payload: unknown) => {
 		try {
 			if (!isDependencyId(payload)) return toIpcFailure('Invalid dependency id')
@@ -107,4 +120,10 @@ export function registerFileHandlers(mainWindow: BrowserWindow, binaryManager: B
 
 function isDependencyId(value: unknown): value is DependencyId {
 	return typeof value === 'string' && (DEPENDENCY_IDS as readonly string[]).includes(value)
+}
+
+function readReportId(payload: unknown): string | null {
+	if (typeof payload !== 'object' || payload === null || !('reportId' in payload)) return null
+	const reportId = (payload as {reportId?: unknown}).reportId
+	return typeof reportId === 'string' && reportId.trim().length > 0 ? reportId : null
 }

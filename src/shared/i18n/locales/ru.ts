@@ -78,8 +78,7 @@ const ru = {
 			ignoredCount: 'Пропущено',
 			emptyPreview: 'Вставьте один или несколько URL, чтобы просмотреть пакет.',
 			needsAtLeastOne: 'Добавьте хотя бы один поддерживаемый URL, чтобы продолжить.',
-			confirm: 'Использовать эти URL',
-			reject: {duplicate: 'Дубликат', playlist: 'Использовать сценарий плейлиста', channel: 'Использовать сценарий канала'}
+			reject: {duplicate: 'Дубликат'}
 		},
 		playlistPresets: {heading: 'Выбери качество для пакетной загрузки', subhead: 'Каждое видео независимо подбирает подходящий уровень качества — неоднородные плейлисты работают без сюрпризов.', itemCount_one: '{{count}} элемент', itemCount_other: '{{count}} элементов'},
 		mixedPrompt: {
@@ -88,7 +87,6 @@ const ru = {
 			singleVideo: 'Только это одно',
 			pickFromPlaylist: 'Выбрать из Playlist',
 			playlistLimit: 'Лимит проверки плейлиста: {{count}} элементов',
-			advancedSettings: 'Дополнительные настройки',
 			singleTooltip: 'Использует режим одиночного видео yt-dlp, поэтому плейлист в этой ссылке игнорируется.',
 			playlistTooltip: 'Использует режим плейлиста yt-dlp и загружает элементы до выбранного лимита перед показом выбора.'
 		},
@@ -96,7 +94,7 @@ const ru = {
 		url: {
 			heading: 'Ссылка YouTube',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'Получить форматы',
+			interactiveDownload: 'Получить форматы',
 			fetchFormatsTooltip: 'Выберите форматы, субтитры, папку и элементы плейлиста по шагам перед добавлением в очередь.',
 			quickDownload: 'Быстрая загрузка',
 			quickDownloadTooltip: 'Использует сохранённые или стандартные настройки и добавляет это одиночное видео в очередь без шагов настройки.',
@@ -118,23 +116,7 @@ const ru = {
 			mascotBusy: 'Качаю в фоне… могу делать несколько дел сразу 😎',
 			advanced: 'Дополнительно',
 			clearAria: 'Очистить URL',
-			clipboard: {
-				toggle: 'Следить за буфером обмена',
-				toggleDescription: 'Автоматически подставляет ссылку YouTube в поле URL при копировании.',
-				dialog: {
-					title: 'Найдена ссылка YouTube',
-					body: 'Использовать эту ссылку из буфера обмена?',
-					bulkTitle: 'Обнаружены массовые URL',
-					bulkBody: 'Использовать эти ссылки из буфера как массовую загрузку?',
-					bulkSummary: '{{count}} URL готовы',
-					bulkIgnored: '{{count}} пропущено',
-					bulkButton: 'Массовая загрузка',
-					useButton: 'Использовать URL',
-					disableButton: 'Отключить',
-					cancelButton: 'Отмена',
-					disableNote: 'Слежение за буфером обмена можно снова включить в дополнительных настройках.'
-				}
-			},
+			clipboard: {toggle: 'Следить за буфером обмена', toggleDescription: 'Автоматически подставляет ссылку YouTube в поле URL при копировании.', dialog: {cancelButton: 'Отмена'}},
 			cookies: {
 				sourceLabel: 'Источник cookies',
 				sourceOff: 'Отключено',
@@ -473,7 +455,6 @@ const ru = {
 		footerTooltip: 'Поделиться Arroxy',
 		footerLabel: 'Поделиться',
 		shareAction: 'Поделиться Arroxy',
-		inlineCard: {body: 'Нравится Arroxy? Поделись с тем, кому это может пригодиться.', dismiss: 'Скрыть предложение поделиться'},
 		highValueBanner: {body: 'Нравится Arroxy? Помоги другим его найти.', dismiss: 'Скрыть предложение поделиться'}
 	}
 } as const

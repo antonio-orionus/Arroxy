@@ -24,7 +24,7 @@ test('corrupted settings.json → app still reaches shell', async () => {
 
 	// App must reach the shell despite corrupt settings — falls back to defaults.
 	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 15_000})
-	await expect(page.locator('[data-testid="url-input"]')).toBeVisible()
+	await expect(page.locator('[data-testid="profiles-main-input"]')).toBeVisible()
 
 	await app.close()
 })
@@ -37,7 +37,7 @@ test('corrupted queue.json → app still reaches shell', async () => {
 	const page = await app.firstWindow()
 
 	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 15_000})
-	await expect(page.locator('[data-testid="url-input"]')).toBeVisible()
+	await expect(page.locator('[data-testid="profiles-main-input"]')).toBeVisible()
 
 	await app.close()
 })

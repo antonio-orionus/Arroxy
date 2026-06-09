@@ -4,7 +4,7 @@
 	"plugins": ["eslint", "typescript", "react", "jsx-a11y"],
 	"options": {"typeAware": true, "respectEslintDisableDirectives": true, "reportUnusedDisableDirectives": "warn"},
 	"settings": {"react": {"version": "19.2.6"}},
-	"ignorePatterns": ["dist/**", "out/**", "node_modules/**", "dist-electron/**", "playwright-report/**", "test-results/**", "refs/**", ".ref/**", "readme-src/**", ".electron-user-data/**", ".agents/**", ".claude/**", "build/embedded/**"],
+	"ignorePatterns": ["dist/**", "out/**", "node_modules/**", "dist-electron/**", "playwright-report/**", "test-results/**", "refs/**", ".ref/**", "readme-src/**", ".electron-user-data/**", ".agents/**", ".claude/**", "build/embedded/**", "workers/**/.wrangler/**", "workers/**/src/worker-configuration.d.ts"],
 	"jsPlugins": [{"name": "react-hooks-js", "specifier": "eslint-plugin-react-hooks"}, {"name": "security", "specifier": "eslint-plugin-security"}, {"name": "react-js", "specifier": "eslint-plugin-react"}],
 	"rules": {
 		"no-debugger": "error",

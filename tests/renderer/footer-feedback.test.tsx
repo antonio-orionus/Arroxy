@@ -9,6 +9,8 @@ function ok<T>(data: T) {
 
 const mockOpenExternal = vi.fn().mockResolvedValue(ok({opened: true}))
 const mockOpenLogsDir = vi.fn().mockResolvedValue(ok({opened: true}))
+const mockUploadFeedbackDiagnostic = vi.fn(async ({reportId}: {reportId: string}) => ok({reportId, diagnosticUrl: null, rawBytes: 42, compressedBytes: 31, truncated: false, sha256: 'a'.repeat(64)}))
+const mockTallyOpenPopup = vi.fn()
 
 const mockAppApi = {
 	app: {
@@ -29,7 +31,7 @@ const mockAppApi = {
 	},
 	settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: true})), update: vi.fn()},
 	shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: mockOpenExternal, openBinariesDir: vi.fn().mockResolvedValue(ok({opened: true}))},
-	logs: {openDir: mockOpenLogsDir},
+	logs: {openDir: mockOpenLogsDir, uploadFeedbackDiagnostic: mockUploadFeedbackDiagnostic},
 	dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
 	events: {onStatus: vi.fn().mockReturnValue(() => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined), onWarmupProgress: vi.fn().mockReturnValue(() => undefined)},
 	queue: {
@@ -71,7 +73,8 @@ function resetStore() {
 		wizardOutputDir: '',
 		wizardError: null,
 		wizardErrorOrigin: null,
-		queue: []
+		queue: [],
+		language: 'en'
 	})
 }
 
@@ -79,13 +82,16 @@ describe('Footer feedback controls', () => {
 	beforeEach(() => {
 		resetStore()
 		window.appApi = mockAppApi
+		window.appVersion = '1.2.3'
 		window.platform = 'linux'
+		;(window as unknown as {Tally?: {openPopup: typeof mockTallyOpenPopup}}).Tally = {openPopup: mockTallyOpenPopup}
 		Object.defineProperty(navigator, 'clipboard', {writable: true, configurable: true, value: {writeText: vi.fn().mockResolvedValue(undefined)}})
 		vi.clearAllMocks()
 	})
 
 	afterEach(() => {
 		vi.useRealTimers()
+		delete (window as unknown as {Tally?: unknown}).Tally
 	})
 
 	it('renders all three footer utility buttons', async () => {
@@ -95,10 +101,56 @@ describe('Footer feedback controls', () => {
 		expect(screen.getByTestId('btn-logs')).toBeInTheDocument()
 	})
 
-	it('Feedback button calls openExternal with the GitHub issues URL', async () => {
+	it('Feedback button opens Tally immediately with context and no GitHub navigation', async () => {
 		render(<App />)
 		fireEvent.click(await screen.findByTestId('btn-feedback'))
-		expect(mockOpenExternal).toHaveBeenCalledWith('https://github.com/antonio-orionus/Arroxy/issues/new/choose')
+
+		await waitFor(() => {
+			expect(mockTallyOpenPopup).toHaveBeenCalledOnce()
+		})
+		expect(mockOpenExternal).not.toHaveBeenCalled()
+		expect(mockUploadFeedbackDiagnostic).not.toHaveBeenCalled()
+		expect(mockTallyOpenPopup).toHaveBeenCalledWith(
+			'Ek6M8B',
+			expect.objectContaining({
+				hiddenFields: expect.objectContaining({
+					app_version: '1.2.3',
+					platform: 'linux',
+					app_locale: 'en',
+					extractor: 'none',
+					yt_dlp_error_kind: 'none',
+					error_code: 'none',
+					source: 'app-footer',
+					diagnostic_report_created: 'true',
+					diagnostic_upload_status: 'requested',
+					diagnostic_raw_bytes: 'pending',
+					diagnostic_compressed_bytes: 'pending',
+					diagnostic_truncated: 'pending',
+					diagnostic_sha256: 'pending',
+					report_id: expect.stringMatching(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
+				})
+			})
+		)
+		const hiddenFields = mockTallyOpenPopup.mock.calls[0][1].hiddenFields as Record<string, string>
+		expect(Object.values(hiddenFields)).not.toContain('')
+	})
+
+	it('uploads the diagnostic log after Tally submission using the same report id', async () => {
+		render(<App />)
+		fireEvent.click(await screen.findByTestId('btn-feedback'))
+
+		await waitFor(() => {
+			expect(mockTallyOpenPopup).toHaveBeenCalledOnce()
+		})
+		const options = mockTallyOpenPopup.mock.calls[0][1] as {hiddenFields: Record<string, string>; onSubmit: () => void}
+		const reportId = options.hiddenFields.report_id
+		options.onSubmit()
+
+		await waitFor(() => {
+			expect(mockUploadFeedbackDiagnostic).toHaveBeenCalledWith({reportId})
+		})
+		expect(mockAppApi.analytics.track).toHaveBeenCalledWith('feedback_submitted', {report_id: reportId, diagnostic_report_created: true})
+		expect(mockAppApi.analytics.track).toHaveBeenCalledWith('feedback_diagnostic_uploaded', {report_id: reportId, raw_bytes: 42, compressed_bytes: 31, truncated: false})
 	})
 
 	it('Copy debug info writes platform, Electron, and Chrome fields to clipboard', async () => {

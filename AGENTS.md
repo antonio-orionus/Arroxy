@@ -42,6 +42,7 @@ Format: `**Term** — definition. \`path\``. Add an entry when extracting a new 
 - **WizardDialogs** — renderer slice for transient modal flags: `mixedUrlPromptOpen`, `mixedUrlPending`, `advancedAutoOpen`, `cookiesConfigDialogIssue`. Session-only; reset by `WizardCommands.resetAll`. `src/renderer/src/store/wizard/wizardDialogs.ts`.
 - **WizardCommands** — cross-slice orchestrator helpers — currently `resetAll(set)` (applied via the `reset` action on ProbeOrchestrator). Future deep-link / snapshot replay code lands here. `src/renderer/src/store/wizard/commands.ts`.
 - **FormatPrefsPersistence** — bridge between wizard state and SettingsStore. Reads format/audio/subtitle/output/embed/sponsorblock fields across the four wizard slices, writes the right shape into `common`/`single`/`playlist` Settings buckets via IPC. Lives in the wizard module (not QueueSlice) because inputs are wizard-owned, even though firing point is queue-submit/start/retry. `src/renderer/src/store/wizard/persistFormatPrefs.ts`.
+- **FeedbackDiagnostics** — main-process helper that prepares explicit-consent support diagnostics by tailing the last 1 MiB of the active `main.log`, redacting obvious secrets/user paths, gzip-compressing it, and uploading it to the feedback Worker before Tally opens. `src/main/services/FeedbackDiagnostics.ts`.
 
 ### Glossary conventions
 

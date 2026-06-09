@@ -28,7 +28,7 @@ export type PlaylistAudioFormat = z.infer<typeof playlistAudioFormatSchema>
 
 const downloadProfileAudioFormatSchema = z.enum(['best', 'mp3', 'm4a', 'opus', 'wav'])
 
-export const downloadProfileIconSchema = z.enum(['download', 'video', 'captions', 'audio', 'music', 'podcast', 'classes', 'clip', 'archive'])
+export const downloadProfileIconSchema = z.enum(['controls', 'download', 'video', 'captions', 'audio', 'music', 'podcast', 'classes', 'clip', 'archive'])
 export type DownloadProfileIcon = z.infer<typeof downloadProfileIconSchema>
 export const DOWNLOAD_PROFILE_ICONS = downloadProfileIconSchema.options
 

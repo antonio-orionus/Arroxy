@@ -115,6 +115,26 @@ describe('browser mock scenarios', () => {
 		expect(lastPatch).toMatchObject({wizardStep: 'confirm'})
 	})
 
+	it('applies profile scenario states through the workbench interface', async () => {
+		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
+
+		await applyScenarioWorkbenchState({scenario: getScenario('profiles-home-clipboard-single'), params: readUrlParams(new URL('http://localhost:5173/?scenario=profiles-home-clipboard-single')), store})
+
+		expect(store.reset).toHaveBeenCalledOnce()
+		expect(store.submitUrl).not.toHaveBeenCalled()
+		expect(vi.mocked(store.setState).mock.calls[0]?.[0]).toMatchObject({wizardStep: 'url', wizardUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'})
+
+		vi.mocked(store.reset).mockClear()
+		vi.mocked(store.setState).mockClear()
+
+		await applyScenarioWorkbenchState({scenario: getScenario('profiles-playlist-cap'), params: readUrlParams(new URL('http://localhost:5173/?scenario=profiles-playlist-cap')), store})
+
+		const playlistCapPatch = vi.mocked(store.setState).mock.calls[0]?.[0]
+		expect(store.reset).toHaveBeenCalledOnce()
+		expect(playlistCapPatch).toMatchObject({wizardStep: 'url', wizardMode: 'playlist', playlistTitle: 'Mock Browser Playlist', playlistLikelyCapped: true, quickPlaylistCapDialogOpen: true})
+		expect((playlistCapPatch as {playlistItems?: unknown[]}).playlistItems).toHaveLength(100)
+	})
+
 	it('flags only scoped playlist reloads for the empty-scope scenario', () => {
 		const scenario = getScenario('playlist-scope-empty-reload')
 

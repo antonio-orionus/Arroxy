@@ -19,5 +19,5 @@
 		"types": ["node", "vite/client", "electron"],
 		"paths": {"@main/*": ["./src/main/*"], "@preload/*": ["./src/preload/*"], "@renderer/*": ["./src/renderer/src/*"], "@shared/*": ["./src/shared/*"]}
 	},
-	"include": ["src", "electron.vite.config.ts", "vitest.config.mts", "playwright.config.ts", "playwright.browser.config.ts", "tests", "scripts"]
+	"include": ["src", "electron.vite.config.ts", "vitest.config.mts", "playwright.config.ts", "playwright.browser.config.ts", "tests", "scripts", "workers"]
 }

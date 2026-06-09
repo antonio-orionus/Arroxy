@@ -78,8 +78,7 @@ const fr = {
 			ignoredCount: 'Ignorées',
 			emptyPreview: 'Collez une ou plusieurs URLs pour prévisualiser le lot.',
 			needsAtLeastOne: 'Ajoutez au moins une URL prise en charge pour continuer.',
-			confirm: 'Utiliser ces URLs',
-			reject: {duplicate: 'Doublon', playlist: 'Utiliser le flux playlist', channel: 'Utiliser le flux chaîne'}
+			reject: {duplicate: 'Doublon'}
 		},
 		playlistPresets: {heading: 'Choisir la qualité pour le lot', subhead: 'Chaque vidéo résout le niveau choisi indépendamment — les playlists hétérogènes fonctionnent sans surprise.', itemCount_one: '{{count}} élément', itemCount_other: '{{count}} éléments'},
 		mixedPrompt: {
@@ -88,7 +87,6 @@ const fr = {
 			singleVideo: 'Juste celle-ci',
 			pickFromPlaylist: 'Choisir dans la Playlist',
 			playlistLimit: 'Limite d’analyse de playlist : {{count}} éléments',
-			advancedSettings: 'Paramètres avancés',
 			singleTooltip: 'Utilise le mode vidéo seule de yt-dlp afin d’ignorer la playlist attachée à cette URL.',
 			playlistTooltip: 'Utilise le mode playlist de yt-dlp et récupère jusqu’à votre limite avant d’afficher le sélecteur.'
 		},
@@ -96,7 +94,7 @@ const fr = {
 		url: {
 			heading: 'URL YouTube',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'Récupérer les formats',
+			interactiveDownload: 'Récupérer les formats',
 			fetchFormatsTooltip: 'Choisissez les formats, sous-titres, dossier et éléments de playlist étape par étape avant l’ajout à la file.',
 			quickDownload: 'Téléchargement rapide',
 			quickDownloadTooltip: 'Utilise vos préférences enregistrées ou par défaut et ajoute cette vidéo seule à la file sans ouvrir les étapes de configuration.',
@@ -118,23 +116,7 @@ const fr = {
 			mascotBusy: 'Téléchargement en arrière-plan… je peux faire plusieurs choses à la fois 😎',
 			advanced: 'Avancé',
 			clearAria: "Effacer l'URL",
-			clipboard: {
-				toggle: 'Surveiller le presse-papiers',
-				toggleDescription: 'Remplit automatiquement le champ URL lorsque vous copiez un lien YouTube.',
-				dialog: {
-					title: 'URL YouTube détectée',
-					body: 'Utiliser ce lien depuis votre presse-papiers ?',
-					bulkTitle: 'URLs en lot détectées',
-					bulkBody: 'Utiliser ces liens du presse-papiers comme téléchargement en lot ?',
-					bulkSummary: '{{count}} URLs prêtes',
-					bulkIgnored: '{{count}} ignorées',
-					bulkButton: 'Téléchargement en lot',
-					useButton: "Utiliser l'URL",
-					disableButton: 'Désactiver',
-					cancelButton: 'Annuler',
-					disableNote: 'Vous pouvez réactiver la surveillance du presse-papiers plus tard dans les Réglages avancés.'
-				}
-			},
+			clipboard: {toggle: 'Surveiller le presse-papiers', toggleDescription: 'Remplit automatiquement le champ URL lorsque vous copiez un lien YouTube.', dialog: {cancelButton: 'Annuler'}},
 			cookies: {
 				sourceLabel: 'Source des cookies',
 				sourceOff: 'Désactivé',
@@ -475,7 +457,6 @@ const fr = {
 		footerTooltip: 'Partager Arroxy',
 		footerLabel: 'Partager',
 		shareAction: 'Partager Arroxy',
-		inlineCard: {body: "Tu apprécies Arroxy ? Partage-le avec quelqu'un qui pourrait le trouver utile.", dismiss: 'Fermer la suggestion de partage'},
 		highValueBanner: {body: "Tu apprécies Arroxy ? Aide d'autres personnes à le découvrir.", dismiss: 'Fermer la suggestion de partage'}
 	}
 } as const

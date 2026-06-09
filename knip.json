@@ -19,10 +19,10 @@
     "interface": true,
     "type": true
   },
-	"ignoreDependencies": [
-		"@fontsource/jetbrains-mono",
-		"@fontsource/poppins",
-		"shadcn",
+  "ignoreDependencies": [
+    "@fontsource/jetbrains-mono",
+    "@fontsource/poppins",
+    "shadcn",
 		"tw-animate-css",
 		"tailwindcss",
 		"@types/extract-zip",

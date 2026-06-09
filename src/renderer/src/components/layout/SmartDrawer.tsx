@@ -110,7 +110,7 @@ export function SmartDrawer(): ReactNode {
 	}
 
 	return (
-		<section className="relative shrink-0 border-t border-border bg-background" data-testid="smart-drawer">
+		<section className="chrome-glass relative shrink-0 border-t border-border" data-testid="smart-drawer">
 			<QueueTipNudge visible={showQueueTip} onDismiss={dismissQueueTip} />
 			{/* react-doctor-disable-next-line react-doctor/prefer-tag-over-role */}
 			<div
@@ -124,7 +124,7 @@ export function SmartDrawer(): ReactNode {
 						setDrawerOpen(!drawerOpen)
 					}
 				}}
-				className="relative overflow-hidden w-full flex items-center justify-between px-4 h-9 hover:bg-accent transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+				className="relative flex h-9 w-full cursor-pointer items-center justify-between overflow-hidden px-4 transition-colors hover:bg-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
 				data-testid="drawer-toggle"
 				title={t('queue.toggleTitle')}
 			>

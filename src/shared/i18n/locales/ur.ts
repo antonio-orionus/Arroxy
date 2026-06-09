@@ -78,8 +78,7 @@ const ur = {
 			ignoredCount: 'نظر انداز',
 			emptyPreview: 'بیچ دیکھنے کے لیے ایک یا زیادہ URLs پیسٹ کریں۔',
 			needsAtLeastOne: 'جاری رکھنے کے لیے کم از کم ایک supported URL شامل کریں۔',
-			confirm: 'یہ URLs استعمال کریں',
-			reject: {duplicate: 'نقل', playlist: 'playlist فلو استعمال کریں', channel: 'channel فلو استعمال کریں'}
+			reject: {duplicate: 'نقل'}
 		},
 		playlistPresets: {heading: 'بیچ کے لیے کوالٹی منتخب کریں', subhead: 'ہر ویڈیو منتخب درجے کو آزادانہ طور پر حل کرتی ہے — مختلف قسم کی playlists بغیر کسی پریشانی کے کام کرتی ہیں۔', itemCount_one: '{{count}} آئٹم', itemCount_other: '{{count}} آئٹمز'},
 		mixedPrompt: {
@@ -88,7 +87,6 @@ const ur = {
 			singleVideo: 'صرف یہ ایک',
 			pickFromPlaylist: 'Playlist سے انتخاب',
 			playlistLimit: 'پلے لسٹ جانچ حد: {{count}} آئٹمز',
-			advancedSettings: 'اعلیٰ ترتیبات',
 			singleTooltip: 'yt-dlp کا واحد ویڈیو موڈ استعمال کرتا ہے تاکہ اس URL سے منسلک پلے لسٹ نظر انداز ہو۔',
 			playlistTooltip: 'yt-dlp کا پلے لسٹ موڈ استعمال کرتا ہے اور انتخاب دکھانے سے پہلے آپ کی حد تک آئٹمز لاتا ہے۔'
 		},
@@ -96,7 +94,7 @@ const ur = {
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'فارمیٹس لائیں',
+			interactiveDownload: 'فارمیٹس لائیں',
 			fetchFormatsTooltip: 'قطار میں شامل کرنے سے پہلے فارمیٹس، سب ٹائٹلز، فولڈر اور پلے لسٹ آئٹمز مرحلہ وار منتخب کریں۔',
 			quickDownload: 'فوری ڈاؤن لوڈ',
 			quickDownloadTooltip: 'آپ کی محفوظ یا ڈیفالٹ ترجیحات استعمال کرکے سیٹ اپ مراحل کھولے بغیر اس واحد ویڈیو کو قطار میں شامل کرتا ہے۔',
@@ -118,23 +116,7 @@ const ur = {
 			mascotBusy: 'بیک گراؤنڈ میں ڈاؤن لوڈ ہو رہا ہے… میں ملٹی ٹاسک کر سکتا ہوں 😎',
 			advanced: 'ایڈوانسڈ',
 			clearAria: 'URL صاف کریں',
-			clipboard: {
-				toggle: 'کلپ بورڈ پر نظر رکھیں',
-				toggleDescription: 'جب آپ YouTube لنک کاپی کریں تو URL فیلڈ خود بھر جائے۔',
-				dialog: {
-					title: 'YouTube URL ملا',
-					body: 'کلپ بورڈ سے یہ لنک استعمال کریں؟',
-					bulkTitle: 'متعدد URLs ملے',
-					bulkBody: 'کیا clipboard کے یہ لنکس bulk download کے طور پر استعمال کریں؟',
-					bulkSummary: '{{count}} URLs تیار',
-					bulkIgnored: '{{count}} نظر انداز',
-					bulkButton: 'Bulk download',
-					useButton: 'URL استعمال کریں',
-					disableButton: 'بند کریں',
-					cancelButton: 'منسوخ کریں',
-					disableNote: 'آپ بعد میں ایڈوانسڈ سیٹنگز سے کلپ بورڈ واچنگ دوبارہ آن کر سکتے ہیں۔'
-				}
-			},
+			clipboard: {toggle: 'کلپ بورڈ پر نظر رکھیں', toggleDescription: 'جب آپ YouTube لنک کاپی کریں تو URL فیلڈ خود بھر جائے۔', dialog: {cancelButton: 'منسوخ کریں'}},
 			cookies: {
 				sourceLabel: 'Cookies کا ذریعہ',
 				sourceOff: 'بند',
@@ -454,7 +436,6 @@ const ur = {
 		footerTooltip: 'Arroxy شیئر کریں',
 		footerLabel: 'شیئر کریں',
 		shareAction: 'Arroxy شیئر کریں',
-		inlineCard: {body: 'Arroxy پسند آ رہا ہے؟ کسی ایسے شخص کے ساتھ شیئر کریں جسے یہ مفید لگ سکتا ہو۔', dismiss: 'شیئر کی تجویز برخاست کریں'},
 		highValueBanner: {body: 'Arroxy پسند آ رہا ہے؟ دوسروں کو اسے دریافت کرنے میں مدد کریں۔', dismiss: 'شیئر کی تجویز برخاست کریں'}
 	}
 } as const

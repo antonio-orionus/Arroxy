@@ -78,8 +78,7 @@ const om = {
 			ignoredCount: 'Tuffatame',
 			emptyPreview: 'Garee ilaaluu dura URL tokko yookaan isaa ol maxxansi.',
 			needsAtLeastOne: 'Itti fufuuf URL deeggaraman yoo xiqqaate tokko dabali.',
-			confirm: 'URL kana fayyadami',
-			reject: {duplicate: 'Irra-deebi', playlist: 'Adeemsa playlist fayyadami', channel: 'Adeemsa channel fayyadami'}
+			reject: {duplicate: 'Irra-deebi'}
 		},
 		playlistPresets: {heading: 'Kutaa gurmuu barbaadi', subhead: 'Viidiyoon hundi sadarkaa filatame ofumaan qorata — playlist garagaraa sodaa malee hojjeta.', itemCount_one: '{{count}} wanta', itemCount_other: '{{count}} wantota'},
 		mixedPrompt: {
@@ -88,14 +87,13 @@ const om = {
 			singleVideo: 'Kana qofa',
 			pickFromPlaylist: 'Playlist keessaa filadhu',
 			playlistLimit: 'Daangaa sakatta’iinsa playlist: wantoota {{count}}',
-			advancedSettings: 'Qindaa’inoota sadarkaa olaanaa',
 			singleTooltip: 'Haala viidiyoo tokkoo yt-dlp fayyadama; playlist URL kanaan hidhame ni tuffatama.',
 			playlistTooltip: 'Haala playlist yt-dlp fayyadamee hanga daangaa sakatta’iinsa playlist kee dura filannoo agarsiisa.'
 		},
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'Foormaatii fidi',
+			interactiveDownload: 'Foormaatii fidi',
 			fetchFormatsTooltip: 'Osoo tarree buusuu hin dabaliin dura formatoota, subtaitiloota, galmee fi wantoota playlist tarkaanfiin fili.',
 			quickDownload: 'Buusuu ariifachiisaa',
 			quickDownloadTooltip: 'Filannoowwan kee kuufaman yookiin durtii fayyadamee viidiyoo tokko kana tarree buusutti dabala, tarkaanfii qindaa’inaa osoo hin banu.',
@@ -117,23 +115,7 @@ const om = {
 			mascotBusy: 'Duubaan buusaa jira… rakkoo guguddaa hojjechuuf dandeessa 😎',
 			advanced: 'Ammayyaa',
 			clearAria: 'URL qulqulleessi',
-			clipboard: {
-				toggle: 'Kliipboordii hordofi',
-				toggleDescription: 'Liinkii YouTube koopii gootee booda dirree URL ofumaan guuti.',
-				dialog: {
-					title: 'YouTube URL argame',
-					body: 'Liinkii kana kliipboordii kee irraa fayyadamduu?',
-					bulkTitle: 'URL hedduun argaman',
-					bulkBody: 'Hidhannoowwan clipboard kana buufannaa hedduuf fayyadamuu?',
-					bulkSummary: '{{count}} URL qophaa’e',
-					bulkIgnored: '{{count}} tuffatame',
-					bulkButton: 'Hedduu buusi',
-					useButton: 'URL fayyadami',
-					disableButton: 'Dhaabbi',
-					cancelButton: 'Haqi',
-					disableNote: "Hordoffii kliipboordii booda Qindaa'inoota Ammayyaa keessatti deebi'sitee dandeessa."
-				}
-			},
+			clipboard: {toggle: 'Kliipboordii hordofi', toggleDescription: 'Liinkii YouTube koopii gootee booda dirree URL ofumaan guuti.', dialog: {cancelButton: 'Haqi'}},
 			cookies: {
 				sourceLabel: 'Madda Cookies',
 				sourceOff: 'Dhaabbi',
@@ -472,7 +454,6 @@ const om = {
 		footerTooltip: 'Arroxy qoodi',
 		footerLabel: 'Qoodi',
 		shareAction: 'Arroxy qoodi',
-		inlineCard: {body: "Arroxy si gammachiisaa jiraa? Namaa faayidaa qabu ta'uu danda'u wajjin qoodi.", dismiss: 'Yaada qooduu haqdhaabi'},
 		highValueBanner: {body: 'Arroxy si gammachiisaa jiraa? Namoota biroo argachuu gargaari.', dismiss: 'Yaada qooduu haqdhaabi'}
 	}
 } as const

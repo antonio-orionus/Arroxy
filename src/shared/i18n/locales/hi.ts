@@ -69,8 +69,7 @@ const hi = {
 			ignoredCount: 'नज़रअंदाज़',
 			emptyPreview: 'बैच देखने के लिए एक या अधिक URLs पेस्ट करें।',
 			needsAtLeastOne: 'जारी रखने के लिए कम से कम एक समर्थित URL जोड़ें।',
-			confirm: 'ये URLs इस्तेमाल करें',
-			reject: {duplicate: 'डुप्लिकेट', playlist: 'playlist flow इस्तेमाल करें', channel: 'channel flow इस्तेमाल करें'}
+			reject: {duplicate: 'डुप्लिकेट'}
 		},
 		playlistPresets: {heading: 'बैच के लिए गुणवत्ता चुनें', subhead: 'हर वीडियो चुनी गई श्रेणी के अनुसार स्वतंत्र रूप से रेज़ॉल्व होता है — मिश्रित Playlist बिना किसी परेशानी के काम करती है।', itemCount_one: '{{count}} आइटम', itemCount_other: '{{count}} आइटम'},
 		mixedPrompt: {
@@ -79,7 +78,6 @@ const hi = {
 			singleVideo: 'बस यही एक',
 			pickFromPlaylist: 'Playlist में से चुनें',
 			playlistLimit: 'प्लेलिस्ट जाँच सीमा: {{count}} आइटम',
-			advancedSettings: 'उन्नत सेटिंग्स',
 			singleTooltip: 'yt-dlp का एकल-वीडियो मोड उपयोग करता है ताकि इस URL से जुड़ी प्लेलिस्ट अनदेखी हो।',
 			playlistTooltip: 'yt-dlp का प्लेलिस्ट मोड उपयोग करता है और पिकर दिखाने से पहले आपकी सीमा तक आइटम लाता है।'
 		},
@@ -87,7 +85,7 @@ const hi = {
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'फ़ॉर्मेट लाएँ',
+			interactiveDownload: 'फ़ॉर्मेट लाएँ',
 			fetchFormatsTooltip: 'क्यू में जोड़ने से पहले फॉर्मैट, सबटाइटल, फ़ोल्डर और प्लेलिस्ट आइटम चरण-दर-चरण चुनें।',
 			quickDownload: 'त्वरित डाउनलोड',
 			quickDownloadTooltip: 'आपकी सेव की गई या डिफ़ॉल्ट पसंदों का उपयोग करके सेटअप चरण खोले बिना इस एकल वीडियो को क्यू में जोड़ता है।',
@@ -109,23 +107,7 @@ const hi = {
 			mascotBusy: 'पीछे चुपचाप डाउनलोड कर रहा हूँ… मैं एक साथ कई काम कर सकता हूँ 😎',
 			advanced: 'उन्नत',
 			clearAria: 'URL हटाएँ',
-			clipboard: {
-				toggle: 'क्लिपबोर्ड देखें',
-				toggleDescription: 'YouTube लिंक कॉपी करने पर URL फ़ील्ड स्वतः भर जाता है।',
-				dialog: {
-					title: 'YouTube URL मिला',
-					body: 'क्या आप अपने क्लिपबोर्ड का यह लिंक उपयोग करना चाहते हैं?',
-					bulkTitle: 'बल्क URLs मिले',
-					bulkBody: 'clipboard के इन links को bulk download के रूप में इस्तेमाल करें?',
-					bulkSummary: '{{count}} URLs तैयार',
-					bulkIgnored: '{{count}} नज़रअंदाज़',
-					bulkButton: 'बल्क डाउनलोड',
-					useButton: 'URL उपयोग करें',
-					disableButton: 'बंद करें',
-					cancelButton: 'रद्द करें',
-					disableNote: 'आप बाद में उन्नत सेटिंग्स में क्लिपबोर्ड देखना फिर से चालू कर सकते हैं।'
-				}
-			},
+			clipboard: {toggle: 'क्लिपबोर्ड देखें', toggleDescription: 'YouTube लिंक कॉपी करने पर URL फ़ील्ड स्वतः भर जाता है।', dialog: {cancelButton: 'रद्द करें'}},
 			cookies: {
 				sourceLabel: 'कुकी स्रोत',
 				sourceOff: 'बंद',
@@ -440,7 +422,6 @@ const hi = {
 		footerTooltip: 'Arroxy साझा करें',
 		footerLabel: 'साझा करें',
 		shareAction: 'Arroxy साझा करें',
-		inlineCard: {body: 'Arroxy पसंद आ रहा है? किसी ऐसे व्यक्ति के साथ शेयर करें जिसे यह उपयोगी लग सकता है।', dismiss: 'शेयर सुझाव हटाएँ'},
 		highValueBanner: {body: 'Arroxy पसंद आ रहा है? दूसरों को भी इसे खोजने में मदद करें।', dismiss: 'शेयर सुझाव हटाएँ'}
 	}
 } as const

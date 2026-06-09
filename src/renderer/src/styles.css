@@ -13,11 +13,13 @@
 @theme {
 	--font-sans: "Poppins", sans-serif;
 	--font-mono: "JetBrains Mono", monospace;
-	/* Primary brand color: Arroxi Blue */
+	/* Primary brand color: Arroxi Blue — the One Voice, identical in both skies */
 	--brand: hsl(220, 100%, 56%);
 	--brand-dim: hsl(220 100% 56% / 0.12);
 	--brand-hover: hsl(220, 100%, 65%);
-	--brand-glow: hsl(220 100% 56% / 0.3);
+	--icon-tile-ink: hsl(220 100% 94%);
+	--text-glass-muted: hsl(229 36% 78%);
+	/* --brand-glow and --glow-border are mode-aware; defined per sky in :root / .dark */
 	/* Status colors from Arroxi brand palette */
 	--color-status-done: hsl(153, 74%, 45%);
 	--color-status-done-glow: hsl(153 74% 45% / 0.05);
@@ -40,10 +42,48 @@
 		@apply font-sans;
 	}
 	body {
-		@apply antialiased bg-background text-foreground;
+		@apply antialiased text-foreground;
+		position: relative;
+		background: var(--background);
 		font-family: var(--font-sans);
 		font-size: 18px;
 		line-height: 1.5;
+	}
+	#root {
+		position: relative;
+		z-index: 1;
+		min-height: 100vh;
+	}
+
+	/* ── Aurora: bloom over the void (dark) / pale wash over the field (light).
+	   Fixed, behind all content, never blurred — it is the canvas the glass floats on. */
+	body::before {
+		content: "";
+		position: fixed;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+		background: var(--aurora);
+	}
+
+	/* Aurora ribbon: a soft conic light streak in the top-right — the diagonal
+	   "light behind the glass" sweep. Blurred, pinned behind content. */
+	body::after {
+		content: "";
+		position: fixed;
+		inset: 2.25rem 4rem auto auto;
+		width: min(58rem, 68vw);
+		height: 12rem;
+		z-index: 0;
+		pointer-events: none;
+		background: var(--aurora-ribbon);
+		filter: blur(18px);
+		mask-image: radial-gradient(88% 72% at 62% 50%, black 0 46%, transparent 78%);
+		-webkit-mask-image: radial-gradient(88% 72% at 62% 50%, black 0 46%, transparent 78%);
+		mix-blend-mode: screen;
+		opacity: var(--aurora-ribbon-opacity);
+		transform: rotate(8deg) skewX(-14deg);
+		transform-origin: 82% 28%;
 	}
 
 	::-webkit-scrollbar {
@@ -64,6 +104,172 @@
 	}
 	* {
 		@apply border-border outline-ring/50;
+	}
+}
+
+/* ── Glass surface: frosted panel material that floats above the canvas.
+   Dark sky = translucent navy; light sky = frosted white. Two layers max. */
+@utility glass {
+	background: var(--glass-panel) !important;
+	backdrop-filter: blur(28px) saturate(160%);
+	-webkit-backdrop-filter: blur(28px) saturate(160%);
+}
+@utility glass-raised {
+	background: var(--card);
+	backdrop-filter: blur(18px) saturate(135%);
+	-webkit-backdrop-filter: blur(18px) saturate(135%);
+}
+
+/* ── Glow panel: lit-from-within glass for OUTERMOST / standalone surfaces.
+   The edge is a true GRADIENT border (cyan→blue→violet) painted via border-box,
+   not a uniform ring — that is what reads as neon edge-lighting. Plus a diagonal
+   inner sheen (padding-box), a top highlight, an inset floor bloom, and a soft
+   outer bloom. Owns the backdrop blur. The Aurora Console surface. */
+@utility glow-panel {
+	position: relative;
+	border: 1px solid transparent;
+	background:
+		radial-gradient(90% 120% at 4% 10%, var(--glass-cyan), transparent 48%) padding-box,
+		radial-gradient(100% 120% at 104% 112%, var(--glass-violet), transparent 52%) padding-box,
+		linear-gradient(145deg, hsl(212 100% 56% / 0.18), transparent 58%) padding-box,
+		var(--glass-panel) padding-box,
+		var(--glow-gradient) border-box !important;
+	backdrop-filter: blur(32px) saturate(165%);
+	-webkit-backdrop-filter: blur(32px) saturate(165%);
+	box-shadow:
+		inset 0 1px 0 0 var(--glass-sheen),
+		inset 0 -34px 74px -36px var(--inner-bloom),
+		var(--panel-glow);
+}
+/* ── Glow tile: same lit gradient edge, but NO backdrop blur. For tiles that
+   live INSIDE a glow-panel — the parent already blurred the canvas; re-blurring
+   blurred content only muddies it. Keeps the stack at one blur layer. */
+@utility glow-tile {
+	position: relative;
+	border: 1px solid transparent;
+	background:
+		radial-gradient(120% 150% at 0% 0%, var(--glass-cyan), transparent 44%) padding-box,
+		radial-gradient(120% 150% at 100% 110%, var(--glass-violet), transparent 48%) padding-box,
+		linear-gradient(145deg, hsl(212 100% 56% / 0.17), transparent 58%) padding-box,
+		var(--glass-tile) padding-box,
+		var(--glow-gradient) border-box !important;
+	box-shadow:
+		inset 0 1px 0 0 var(--glass-sheen),
+		inset 0 -28px 60px -34px var(--inner-bloom),
+		var(--panel-glow);
+}
+/* Primary inner tile: hotter gradient edge + real outer bloom (the one signal). */
+@utility glow-tile-primary {
+	position: relative;
+	border: 1.5px solid transparent;
+	background:
+		radial-gradient(105% 130% at 8% 12%, hsl(190 100% 74% / 0.38), transparent 46%) padding-box,
+		radial-gradient(105% 130% at 96% 108%, hsl(283 96% 67% / 0.5), transparent 52%) padding-box,
+		linear-gradient(135deg, hsl(211 100% 62%), hsl(226 96% 48%) 58%, hsl(259 92% 52%)) padding-box,
+		var(--glow-gradient-hot) border-box;
+	box-shadow:
+		inset 0 1px 0 0 hsl(205 100% 88% / 0.5),
+		inset 0 0 0 1px hsl(0 0% 100% / 0.12),
+		inset 0 -34px 76px -34px hsl(274 96% 62% / 0.6),
+		0 0 0 1px hsl(205 100% 80% / 0.26),
+		0 0 72px -5px hsl(212 100% 56% / 0.72),
+		0 18px 58px -14px hsl(222 100% 48% / 0.62);
+}
+
+/* ── Icon tile: small dimensional gradient chip. A diagonal blue fill, a cyan
+   top-left radial sheen, a violet floor, a top highlight, and a soft glow ring.
+   Reads as a lit object, not a flat box. */
+@utility icon-tile {
+	position: relative;
+	overflow: hidden;
+	border: 1px solid var(--glow-border);
+	background:
+		radial-gradient(105% 105% at 28% 18%, hsl(194 100% 78% / 0.46), transparent 44%) padding-box,
+		radial-gradient(110% 125% at 72% 108%, hsl(276 94% 64% / 0.42), transparent 48%) padding-box,
+		linear-gradient(145deg, hsl(214 100% 58% / 0.42), hsl(238 82% 42% / 0.18) 52%, var(--brand-dim)) padding-box !important;
+	box-shadow:
+		inset 0 1px 0 0 hsl(0 0% 100% / 0.42),
+		inset 0 -13px 28px -14px hsl(272 96% 64% / 0.62),
+		0 0 0 1px hsl(208 100% 74% / 0.18),
+		0 0 28px -5px var(--brand-glow);
+	color: var(--icon-tile-ink);
+}
+.icon-tile::before {
+	content: "";
+	position: absolute;
+	inset: 1px;
+	border-radius: inherit;
+	pointer-events: none;
+	background: linear-gradient(160deg, hsl(0 0% 100% / 0.28), transparent 38%);
+}
+.icon-tile > svg {
+	position: relative;
+	z-index: 1;
+	filter: drop-shadow(0 0 8px hsl(213 100% 76% / 0.72));
+	stroke-width: 2.2;
+}
+
+.quick-icon-tile {
+	color: white;
+	background:
+		radial-gradient(105% 105% at 26% 18%, hsl(199 100% 82% / 0.34), transparent 44%) padding-box,
+		radial-gradient(110% 125% at 72% 108%, hsl(302 94% 70% / 0.5), transparent 48%) padding-box,
+		linear-gradient(145deg, hsl(211 100% 66% / 0.48), hsl(239 90% 48% / 0.18) 52%, hsl(278 100% 62% / 0.28)) padding-box !important;
+	box-shadow:
+		inset 0 1px 0 0 hsl(0 0% 100% / 0.48),
+		inset 0 -14px 28px -13px hsl(300 96% 68% / 0.7),
+		0 0 0 1px hsl(205 100% 82% / 0.24),
+		0 0 30px -4px hsl(207 100% 72% / 0.82);
+}
+
+.glass-muted-text {
+	color: var(--text-glass-muted);
+}
+
+.glow-icon-button {
+	color: hsl(225 100% 95%);
+	box-shadow:
+		inset 0 1px 0 var(--glass-sheen),
+		inset 0 -16px 30px -22px var(--inner-bloom),
+		0 0 24px -14px var(--brand-glow);
+}
+
+.chrome-glass {
+	background: linear-gradient(180deg, hsl(214 100% 56% / 0.08), transparent 64%), color-mix(in srgb, var(--background) 68%, transparent);
+	backdrop-filter: blur(20px) saturate(150%);
+	-webkit-backdrop-filter: blur(20px) saturate(150%);
+	box-shadow: inset 0 1px 0 var(--glass-sheen);
+}
+
+.download-home-tabs [data-slot="tabs-trigger"][data-active] {
+	color: var(--foreground);
+	text-shadow: 0 0 18px var(--brand-glow);
+}
+.download-home-tabs [data-slot="tabs-trigger"][data-active]::after {
+	background: linear-gradient(90deg, hsl(194 100% 72%), var(--brand-hover), hsl(268 95% 72%));
+	box-shadow: 0 0 16px var(--brand-glow);
+	opacity: 1;
+}
+
+.glow-chip {
+	border-color: hsl(214 100% 72% / 0.22);
+	background: linear-gradient(180deg, hsl(216 100% 70% / 0.13), hsl(259 92% 62% / 0.08)), color-mix(in srgb, var(--background) 42%, transparent);
+	box-shadow:
+		inset 0 1px 0 hsl(0 0% 100% / 0.12),
+		0 0 16px -8px var(--brand-glow);
+	color: var(--muted-foreground);
+}
+
+/* ── Reduced motion: collapse slide/float/shimmer/pulse to instant.
+   Static glows (box-shadow) are state, not motion, so they survive. */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
 	}
 }
 
@@ -362,6 +568,7 @@
 	--font-heading: var(--font-sans);
 	--font-sans: "Poppins", sans-serif;
 	--color-border-strong: var(--border-strong);
+	--color-glow-border: var(--glow-border);
 	--color-text-subtle: var(--text-subtle);
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
@@ -425,12 +632,33 @@
 	--input: hsl(220, 18%, 88%);
 	--ring: hsl(220, 100%, 56%);
 	--text-subtle: hsl(240, 10%, 64%);
+	--text-glass-muted: hsl(240 15% 38%);
+	--icon-tile-ink: hsl(220 100% 48%);
+	/* Light sky — the field: frosted-white glass, lit blue edges, blue aurora wash */
+	--glass: hsl(0 0% 100% / 0.58);
+	--glass-panel: hsl(0 0% 100% / 0.36);
+	--glass-tile: hsl(0 0% 100% / 0.44);
+	--glass-cyan: hsl(200 100% 60% / 0.14);
+	--glass-violet: hsl(266 85% 62% / 0.1);
+	--glass-sheen: hsl(0 0% 100% / 0.8);
+	--glow-border: hsl(220 100% 56% / 0.3);
+	/* Lighter edge gradient over the field — same hue arc, lower alpha */
+	--glow-gradient: linear-gradient(135deg, hsl(200 100% 60% / 0.5), hsl(220 100% 56% / 0.16) 48%, hsl(266 85% 62% / 0.42));
+	--glow-gradient-hot: linear-gradient(120deg, hsl(198 100% 56% / 0.7), hsl(220 100% 56% / 0.4) 50%, hsl(268 88% 60% / 0.62));
+	--inner-bloom: hsl(220 100% 56% / 0.14);
+	--brand-glow: hsl(220 100% 56% / 0.22);
+	--panel-glow: 0 0 28px -10px hsl(220 100% 56% / 0.22), 0 8px 28px -16px hsl(225 60% 20% / 0.25);
+	--aurora-ribbon: linear-gradient(100deg, transparent 0 15%, hsl(198 100% 62% / 0.12) 31%, hsl(198 100% 62% / 0.3) 47%, hsl(220 100% 58% / 0.24) 57%, hsl(266 85% 64% / 0.28) 69%, transparent 86%);
+	--aurora-ribbon-opacity: 0.86;
+	--aurora:
+		radial-gradient(70% 50% at 78% -4%, hsl(212 100% 60% / 0.26), transparent 58%), linear-gradient(152deg, transparent 0 22%, hsl(198 100% 60% / 0.14) 39%, hsl(220 100% 58% / 0.12) 50%, hsl(266 85% 64% / 0.13) 61%, transparent 80%), radial-gradient(86% 70% at 84% 66%, hsl(220 100% 56% / 0.12), transparent 62%),
+		radial-gradient(86% 78% at 10% 76%, hsl(265 85% 62% / 0.09), transparent 64%), var(--background);
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
 	--chart-3: oklch(0.439 0 0);
 	--chart-4: oklch(0.371 0 0);
 	--chart-5: oklch(0.269 0 0);
-	--radius: 0.625rem;
+	--radius: 1rem;
 	--sidebar: hsl(0, 0%, 100%);
 	--sidebar-foreground: hsl(240, 35%, 12%);
 	--sidebar-primary: hsl(220, 100%, 56%);
@@ -443,37 +671,60 @@
 
 .dark {
 	color-scheme: dark;
-	--background: hsl(240, 20%, 6%);
+	/* Dark sky — the void: near-black navy (225 hue) so the aurora has something to tint */
+	--background: hsl(225, 45%, 5%);
 	--foreground: hsl(240, 40%, 96%);
-	--card: hsl(240, 18%, 10%);
+	--card: hsl(225, 30%, 10%);
 	--card-foreground: hsl(240, 40%, 96%);
-	--popover: hsl(240, 18%, 8%);
+	--popover: hsl(225, 28%, 13%);
 	--popover-foreground: hsl(240, 40%, 96%);
 	--primary: hsl(220, 100%, 56%);
 	--primary-foreground: hsl(240, 40%, 96%);
-	--secondary: hsl(240, 15%, 12%);
+	--secondary: hsl(225, 18%, 13%);
 	--secondary-foreground: hsl(240, 40%, 96%);
-	--muted: hsl(240, 15%, 12%);
-	--muted-foreground: hsl(240, 17%, 60%);
-	--accent: hsl(240, 14%, 15%);
+	--muted: hsl(225, 18%, 13%);
+	--muted-foreground: hsl(228, 24%, 69%);
+	--accent: hsl(225, 16%, 16%);
 	--accent-foreground: hsl(240, 40%, 96%);
 	--destructive: hsl(349, 100%, 61%);
-	--border: hsla(0, 0%, 100%, 0.07);
+	--border: hsla(0, 0%, 100%, 0.08);
 	--border-strong: hsla(0, 0%, 100%, 0.13);
-	--input: hsla(0, 0%, 100%, 0.07);
+	--input: hsla(0, 0%, 100%, 0.08);
 	--ring: hsl(220, 100%, 56%);
-	--text-subtle: hsl(240, 15%, 55%);
+	--text-subtle: hsl(228, 15%, 60%);
+	--text-glass-muted: hsl(229 36% 78%);
+	--icon-tile-ink: hsl(220 100% 94%);
+	/* Dark sky surfaces + signal — lit-from-within glass over a bright nebula */
+	--glass: hsl(223 48% 11% / 0.46);
+	--glass-panel: hsl(224 48% 7% / 0.34);
+	--glass-tile: hsl(222 46% 9% / 0.4);
+	--glass-cyan: hsl(196 100% 64% / 0.18);
+	--glass-violet: hsl(268 95% 64% / 0.15);
+	--glass-sheen: hsl(205 100% 82% / 0.22);
+	--glow-border: hsl(204 100% 68% / 0.68);
+	/* Neon edge gradient: cyan → blue → violet, painted on border-box */
+	--glow-gradient: linear-gradient(135deg, hsl(194 100% 76% / 0.86), hsl(216 100% 64% / 0.38) 46%, hsl(266 95% 72% / 0.76));
+	--glow-gradient-hot: linear-gradient(120deg, hsl(190 100% 82%), hsl(212 100% 70% / 0.86) 48%, hsl(274 98% 76%));
+	--inner-bloom: hsl(212 100% 60% / 0.5);
+	--brand-glow: hsl(218 100% 58% / 0.52);
+	--panel-glow: 0 0 54px -8px hsl(212 100% 56% / 0.52), 0 16px 50px -18px hsl(225 80% 3% / 0.9);
+	--aurora-ribbon: linear-gradient(100deg, transparent 0 14%, hsl(194 100% 66% / 0.2) 31%, hsl(194 100% 66% / 0.86) 47%, hsl(218 100% 60% / 0.72) 57%, hsl(268 95% 66% / 0.82) 69%, transparent 87%);
+	--aurora-ribbon-opacity: 1;
+	--aurora:
+		radial-gradient(66% 46% at 78% -5%, hsl(197 100% 60% / 0.74), transparent 62%), radial-gradient(46% 34% at 73% 0%, hsl(222 100% 62% / 0.42), transparent 58%), radial-gradient(38% 34% at 93% 12%, hsl(276 96% 64% / 0.38), transparent 60%),
+		linear-gradient(152deg, transparent 0 18%, hsl(196 100% 58% / 0.27) 34%, hsl(220 100% 58% / 0.24) 48%, hsl(269 96% 62% / 0.22) 60%, transparent 82%), radial-gradient(92% 74% at 74% 52%, hsl(204 100% 56% / 0.22), transparent 63%), radial-gradient(88% 74% at 96% 82%, hsl(268 96% 58% / 0.18), transparent 66%),
+		radial-gradient(78% 72% at 4% 74%, hsl(260 95% 62% / 0.18), transparent 62%), radial-gradient(120% 90% at 102% 104%, hsl(220 92% 28% / 0.42), transparent 62%), var(--background);
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
 	--chart-3: oklch(0.439 0 0);
 	--chart-4: oklch(0.371 0 0);
 	--chart-5: oklch(0.269 0 0);
-	--sidebar: hsl(240, 18%, 8%);
+	--sidebar: hsl(225, 28%, 13%);
 	--sidebar-foreground: hsl(240, 40%, 96%);
 	--sidebar-primary: hsl(220, 100%, 56%);
 	--sidebar-primary-foreground: hsl(240, 40%, 96%);
-	--sidebar-accent: hsl(240, 14%, 15%);
+	--sidebar-accent: hsl(225, 16%, 16%);
 	--sidebar-accent-foreground: hsl(240, 40%, 96%);
-	--sidebar-border: hsla(0, 0%, 100%, 0.07);
+	--sidebar-border: hsla(0, 0%, 100%, 0.08);
 	--sidebar-ring: hsl(220, 100%, 56%);
 }

@@ -78,8 +78,7 @@ const de = {
 			ignoredCount: 'Ignoriert',
 			emptyPreview: 'Füge eine oder mehrere URLs ein, um den Stapel anzuzeigen.',
 			needsAtLeastOne: 'Füge mindestens eine unterstützte URL hinzu, um fortzufahren.',
-			confirm: 'Diese URLs verwenden',
-			reject: {duplicate: 'Duplikat', playlist: 'Playlist-Ablauf verwenden', channel: 'Kanal-Ablauf verwenden'}
+			reject: {duplicate: 'Duplikat'}
 		},
 		playlistPresets: {heading: 'Qualität für den Stapel wählen', subhead: 'Jedes Video löst die gewählte Stufe unabhängig auf — heterogene Playlists funktionieren ohne Überraschungen.', itemCount_one: '{{count}} Element', itemCount_other: '{{count}} Elemente'},
 		mixedPrompt: {
@@ -88,7 +87,6 @@ const de = {
 			singleVideo: 'Nur dieses eine',
 			pickFromPlaylist: 'Aus Playlist auswählen',
 			playlistLimit: 'Playlist-Prüflimit: {{count}} Einträge',
-			advancedSettings: 'Erweiterte Einstellungen',
 			singleTooltip: 'Verwendet den Einzelvideo-Modus von yt-dlp, sodass die an diese URL angehängte Playlist ignoriert wird.',
 			playlistTooltip: 'Verwendet den Playlist-Modus von yt-dlp und lädt bis zu deinem Playlist-Prüflimit, bevor die Auswahl angezeigt wird.'
 		},
@@ -96,7 +94,7 @@ const de = {
 		url: {
 			heading: 'YouTube-URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'Formate abrufen',
+			interactiveDownload: 'Formate abrufen',
 			fetchFormatsTooltip: 'Formate, Untertitel, Ordner und Playlist-Elemente Schritt für Schritt auswählen, bevor sie zur Warteschlange hinzugefügt werden.',
 			quickDownload: 'Schnelldownload',
 			quickDownloadTooltip: 'Verwendet deine gespeicherten oder Standard-Einstellungen und fügt dieses einzelne Video zur Warteschlange hinzu, ohne die Einrichtungsschritte zu öffnen.',
@@ -118,23 +116,7 @@ const de = {
 			mascotBusy: 'Lade im Hintergrund… ich kann mehrere Dinge gleichzeitig 😎',
 			advanced: 'Erweitert',
 			clearAria: 'URL löschen',
-			clipboard: {
-				toggle: 'Zwischenablage beobachten',
-				toggleDescription: 'Füllt das URL-Feld automatisch aus, wenn ein YouTube-Link kopiert wird.',
-				dialog: {
-					title: 'YouTube-URL erkannt',
-					body: 'Diesen Link aus deiner Zwischenablage verwenden?',
-					bulkTitle: 'Bulk-URLs erkannt',
-					bulkBody: 'Diese Links aus der Zwischenablage als Bulk-Download verwenden?',
-					bulkSummary: '{{count}} URLs bereit',
-					bulkIgnored: '{{count}} ignoriert',
-					bulkButton: 'Bulk-Download',
-					useButton: 'URL verwenden',
-					disableButton: 'Deaktivieren',
-					cancelButton: 'Abbrechen',
-					disableNote: 'Du kannst die Zwischenablage-Beobachtung später in den erweiterten Einstellungen wieder aktivieren.'
-				}
-			},
+			clipboard: {toggle: 'Zwischenablage beobachten', toggleDescription: 'Füllt das URL-Feld automatisch aus, wenn ein YouTube-Link kopiert wird.', dialog: {cancelButton: 'Abbrechen'}},
 			cookies: {
 				sourceLabel: 'Cookies-Quelle',
 				sourceOff: 'Aus',
@@ -474,7 +456,6 @@ const de = {
 		footerTooltip: 'Arroxy teilen',
 		footerLabel: 'Teilen',
 		shareAction: 'Arroxy teilen',
-		inlineCard: {body: 'Gefällt dir Arroxy? Teile es mit jemandem, dem es nützlich sein könnte.', dismiss: 'Teilen-Vorschlag schließen'},
 		highValueBanner: {body: 'Gefällt dir Arroxy? Hilf anderen, es zu entdecken.', dismiss: 'Teilen-Vorschlag schließen'}
 	}
 } as const

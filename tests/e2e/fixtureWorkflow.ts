@@ -77,12 +77,12 @@ export async function launchFixtureApp(ytDlpPath: string, input: {userDataDir: s
 	const app = await electron.launch({args: [path.join(process.cwd(), 'out', 'main', 'index.js')], env: buildFixtureElectronEnv({userDataDir: input.userDataDir, fixtureServer: input.fixtureServer, denyProxy: input.denyProxy, ytDlpPath})})
 	const page = await app.firstWindow()
 	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 60_000})
-	await expect(page.locator('[data-testid="url-input"]')).toBeVisible()
+	await expect(page.locator('[data-testid="profiles-main-input"]')).toBeVisible()
 	return {app, page}
 }
 
 export async function startBulkFromClipboard(page: Page, app: ElectronApplication, rawUrls: string): Promise<void> {
-	await page.locator('[data-testid="btn-bulk-download"]').click()
+	await page.locator('[data-testid="profiles-bulk-urls"]').click()
 	await expect(page.locator('[data-testid="bulk-url-dialog"]')).toBeVisible()
 	await writeClipboard(app, rawUrls)
 	const bulkTextarea = page.locator('[data-testid="bulk-url-textarea"]')
@@ -91,8 +91,8 @@ export async function startBulkFromClipboard(page: Page, app: ElectronApplicatio
 }
 
 export async function prepareSingleConfirm(page: Page, videoId: string, subtitleChoice: 'skip' | 'continue' = 'skip'): Promise<void> {
-	await page.locator('[data-testid="url-input"]').fill(fixtureUrl(videoId))
-	await page.locator('[data-testid="btn-find-formats"]').click()
+	await page.locator('[data-testid="profiles-main-input"]').fill(fixtureUrl(videoId))
+	await page.locator('[data-testid="profiles-interactive-download"]').click()
 	await expect(page.locator('[data-testid="step-formats"]')).toBeVisible({timeout: 60_000})
 	await clickContinue(page)
 
@@ -115,8 +115,8 @@ export async function prepareSingleConfirm(page: Page, videoId: string, subtitle
 }
 
 export async function preparePlaylistConfirm(page: Page, playlistUrl: string): Promise<void> {
-	await page.locator('[data-testid="url-input"]').fill(playlistUrl)
-	await page.locator('[data-testid="btn-find-formats"]').click()
+	await page.locator('[data-testid="profiles-main-input"]').fill(playlistUrl)
+	await page.locator('[data-testid="profiles-interactive-download"]').click()
 	await expect(page.locator('[data-testid="step-playlist-items"]')).toBeVisible({timeout: 60_000})
 	await clickContinue(page)
 	await expect(page.locator('[data-testid="step-playlist-presets"]')).toBeVisible()

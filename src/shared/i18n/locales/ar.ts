@@ -69,8 +69,7 @@ const ar = {
 			ignoredCount: 'متجاهلة',
 			emptyPreview: 'الصق رابطًا واحدًا أو أكثر لمعاينة الدفعة.',
 			needsAtLeastOne: 'أضف رابطًا مدعومًا واحدًا على الأقل للمتابعة.',
-			confirm: 'استخدم هذه الروابط',
-			reject: {duplicate: 'مكرر', playlist: 'استخدم مسار قائمة التشغيل', channel: 'استخدم مسار القناة'}
+			reject: {duplicate: 'مكرر'}
 		},
 		playlistPresets: {heading: 'اختر الجودة للدفعة', subhead: 'يحل كل فيديو المستوى المختار بشكل مستقل — قوائم التشغيل غير المتجانسة تعمل بدون مفاجآت.', itemCount_one: '{{count}} عنصر', itemCount_other: '{{count}} عناصر'},
 		mixedPrompt: {
@@ -79,7 +78,6 @@ const ar = {
 			singleVideo: 'هذا الواحد فقط',
 			pickFromPlaylist: 'اختر من الـ Playlist',
 			playlistLimit: 'حد فحص قائمة التشغيل: {{count}} عنصرًا',
-			advancedSettings: 'إعدادات متقدمة',
 			singleTooltip: 'يستخدم وضع الفيديو المفرد في yt-dlp بحيث يتم تجاهل قائمة التشغيل المرتبطة بهذا الرابط.',
 			playlistTooltip: 'يستخدم وضع قائمة التشغيل في yt-dlp ويجلب العناصر حتى حد الفحص قبل عرض أداة الاختيار.'
 		},
@@ -87,7 +85,7 @@ const ar = {
 		url: {
 			heading: 'رابط YouTube',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'جلب الصيغ',
+			interactiveDownload: 'جلب الصيغ',
 			fetchFormatsTooltip: 'اختر الصيغ والترجمات والمجلد وعناصر قوائم التشغيل خطوة بخطوة قبل الإضافة إلى قائمة الانتظار.',
 			quickDownload: 'تنزيل سريع',
 			quickDownloadTooltip: 'يستخدم تفضيلاتك المحفوظة أو الافتراضية ويضيف هذا الفيديو المفرد إلى قائمة الانتظار دون فتح خطوات الإعداد.',
@@ -109,23 +107,7 @@ const ar = {
 			mascotBusy: 'جارٍ التنزيل في الخلفية… أستطيع تعدد المهام 😎',
 			advanced: 'متقدم',
 			clearAria: 'مسح الرابط',
-			clipboard: {
-				toggle: 'مراقبة الحافظة',
-				toggleDescription: 'يملأ حقل الرابط تلقائياً عند نسخ رابط YouTube.',
-				dialog: {
-					title: 'تم اكتشاف رابط YouTube',
-					body: 'هل تريد استخدام هذا الرابط من الحافظة؟',
-					bulkTitle: 'تم اكتشاف روابط متعددة',
-					bulkBody: 'استخدام روابط الحافظة هذه كتنزيل دفعي؟',
-					bulkSummary: '{{count}} روابط جاهزة',
-					bulkIgnored: '{{count}} متجاهلة',
-					bulkButton: 'تنزيل دفعي',
-					useButton: 'استخدام الرابط',
-					disableButton: 'تعطيل',
-					cancelButton: 'إلغاء',
-					disableNote: 'يمكنك إعادة تفعيل مراقبة الحافظة لاحقاً في الإعدادات المتقدمة.'
-				}
-			},
+			clipboard: {toggle: 'مراقبة الحافظة', toggleDescription: 'يملأ حقل الرابط تلقائياً عند نسخ رابط YouTube.', dialog: {cancelButton: 'إلغاء'}},
 			cookies: {
 				sourceLabel: 'مصدر الكوكيز',
 				sourceOff: 'إيقاف',
@@ -456,7 +438,6 @@ const ar = {
 		footerTooltip: 'مشاركة Arroxy',
 		footerLabel: 'مشاركة',
 		shareAction: 'مشاركة Arroxy',
-		inlineCard: {body: 'هل تستمتع بـ Arroxy؟ شاركه مع شخص قد يجده مفيداً.', dismiss: 'إغلاق اقتراح المشاركة'},
 		highValueBanner: {body: 'هل تستمتع بـ Arroxy؟ ساعد الآخرين على اكتشافه.', dismiss: 'إغلاق اقتراح المشاركة'}
 	}
 } as const

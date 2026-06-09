@@ -78,8 +78,7 @@ const ja = {
 			ignoredCount: '無視',
 			emptyPreview: '一括内容を確認するには、URL を 1 件以上貼り付けてください。',
 			needsAtLeastOne: '続行するには、対応している URL を少なくとも 1 件追加してください。',
-			confirm: 'これらの URL を使う',
-			reject: {duplicate: '重複', playlist: 'playlist フローを使う', channel: 'channel フローを使う'}
+			reject: {duplicate: '重複'}
 		},
 		playlistPresets: {heading: 'バッチの画質を選択', subhead: '各動画が選択した画質ティアを独立して解決します — 異なる動画が混在するPlaylistも問題なく処理できます。', itemCount_one: '{{count}} 件', itemCount_other: '{{count}} 件'},
 		mixedPrompt: {
@@ -88,7 +87,6 @@ const ja = {
 			singleVideo: 'この1本だけ',
 			pickFromPlaylist: 'Playlist から選ぶ',
 			playlistLimit: 'プレイリスト取得上限: {{count}} 件',
-			advancedSettings: '詳細設定',
 			singleTooltip: 'yt-dlp の単一動画モードを使い、この URL に付いたプレイリストを無視します。',
 			playlistTooltip: 'yt-dlp のプレイリストモードを使い、選択画面を出す前に上限まで取得します。'
 		},
@@ -96,7 +94,7 @@ const ja = {
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: '形式を取得',
+			interactiveDownload: '形式を取得',
 			fetchFormatsTooltip: 'キューに追加する前に、形式、字幕、フォルダー、プレイリスト項目を手順ごとに選びます。',
 			quickDownload: 'クイックダウンロード',
 			quickDownloadTooltip: '保存済みまたは既定の設定を使い、設定手順を開かずにこの単一動画をキューへ追加します。',
@@ -118,23 +116,7 @@ const ja = {
 			mascotBusy: 'バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎',
 			advanced: '詳細設定',
 			clearAria: 'URLをクリア',
-			clipboard: {
-				toggle: 'クリップボードを監視',
-				toggleDescription: 'YouTubeのリンクをコピーすると自動的にURLフィールドに入力します。',
-				dialog: {
-					title: 'YouTubeのURLを検出',
-					body: 'クリップボードのこのリンクを使いますか?',
-					bulkTitle: '一括 URL を検出しました',
-					bulkBody: 'クリップボードのこれらのリンクを一括ダウンロードとして使いますか？',
-					bulkSummary: '{{count}} URL が準備完了',
-					bulkIgnored: '{{count}} 件を無視',
-					bulkButton: '一括ダウンロード',
-					useButton: 'URLを使う',
-					disableButton: '無効化',
-					cancelButton: 'キャンセル',
-					disableNote: '詳細設定からクリップボード監視をいつでも再有効化できます。'
-				}
-			},
+			clipboard: {toggle: 'クリップボードを監視', toggleDescription: 'YouTubeのリンクをコピーすると自動的にURLフィールドに入力します。', dialog: {cancelButton: 'キャンセル'}},
 			cookies: {
 				sourceLabel: 'Cookieのソース',
 				sourceOff: 'オフ',
@@ -474,7 +456,6 @@ const ja = {
 		footerTooltip: 'Arroxy を共有',
 		footerLabel: '共有',
 		shareAction: 'Arroxy を共有',
-		inlineCard: {body: 'Arroxyを気に入ってくれてる? 役に立ちそうな人にシェアしてみて。', dismiss: 'シェアの提案を閉じる'},
 		highValueBanner: {body: 'Arroxyを気に入ってくれてる? ほかの人にも見つけてもらおう。', dismiss: 'シェアの提案を閉じる'}
 	}
 } as const

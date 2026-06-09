@@ -7,7 +7,7 @@ import {spawnSync} from 'node:child_process'
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)))
 const requireFromRepo = createRequire(join(repoRoot, 'package.json'))
-const bin = name => join(repoRoot, 'node_modules', '.bin', process.platform === 'win32' ? `${name}.cmd` : name)
+const bunx = process.platform === 'win32' ? 'bunx.cmd' : 'bunx'
 
 const tempDir = mkdtempSync(join(tmpdir(), 'arroxy-tooling-parity-'))
 const oxlintConfigPath = join(repoRoot, '.oxlintrc.json')
@@ -38,6 +38,10 @@ function run(label, command, args) {
 	const result = spawnSync(command, args, {cwd: repoRoot, encoding: 'utf8', env: {...process.env, FORCE_COLOR: '0', NO_COLOR: '1'}})
 	const output = `${result.stdout ?? ''}${result.stderr ?? ''}`
 	return {label, status: result.status, output}
+}
+
+function runPackage(label, name, args) {
+	return run(label, bunx, [name, ...args])
 }
 
 function assertFailsWith(result, needles) {
@@ -75,7 +79,7 @@ try {
 	const biomeConfigPath = join(tempDir, 'biome.jsonc')
 	writeFileSync(biomeConfigPath, JSON.stringify({$schema: join(repoRoot, 'node_modules/@biomejs/biome/configuration_schema.json'), files: {ignoreUnknown: false, includes: ['**/*.js']}, formatter: {enabled: true}, linter: {enabled: false}, assist: {enabled: false}}, null, 2))
 	writeFileSync(biomeSyntaxPath, 'export const octal = 010;\n')
-	assertFailsWith(run('Biome parser parity', bin('biome'), ['check', '--config-path', biomeConfigPath, biomeSyntaxPath]), ['octal'])
+	assertFailsWith(runPackage('Biome parser parity', 'biome', ['check', '--config-path', biomeConfigPath, biomeSyntaxPath]), ['octal'])
 
 	const unsafePath = join(tempDir, 'unsafe.ts')
 	writeFileSync(
@@ -99,7 +103,7 @@ try {
 			'export const unbound = counter.method;'
 		].join('\n')
 	)
-	assertFailsWith(run('Oxlint type-aware parity', bin('oxlint'), ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, unsafePath]), ['no-unsafe-assignment', 'no-unsafe-call', 'no-unsafe-member-access', 'no-unsafe-return', 'restrict-template-expressions', 'unbound-method'])
+	assertFailsWith(runPackage('Oxlint type-aware parity', 'oxlint', ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, unsafePath]), ['no-unsafe-assignment', 'no-unsafe-call', 'no-unsafe-member-access', 'no-unsafe-return', 'restrict-template-expressions', 'unbound-method'])
 
 	const bridgeConfigPath = join(tempDir, '.oxlintrc.parity.json')
 	writeFileSync(
@@ -124,23 +128,23 @@ try {
 
 	const hooksPath = join(tempDir, 'hooks.tsx')
 	writeFileSync(hooksPath, ["import { useState } from 'react';", 'export function BrokenHook({ value }: { value: number }) {', '  if (value > 0) {', '    useState(0);', '  }', '  return <button>{value}</button>;', '}'].join('\n'))
-	assertFailsWith(run('Oxlint React hooks bridge parity', bin('oxlint'), ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, hooksPath]), ['rules-of-hooks'])
+	assertFailsWith(runPackage('Oxlint React hooks bridge parity', 'oxlint', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, hooksPath]), ['rules-of-hooks'])
 
 	const setStatePath = join(tempDir, 'set-state.tsx')
 	writeFileSync(setStatePath, ["import { useState } from 'react';", 'export function BrokenSetState({ value }: { value: number }) {', '  const [count, setCount] = useState(0);', '  setCount(value);', '  return <button>{count}</button>;', '}'].join('\n'))
-	assertFailsWith(run('Oxlint React compiler bridge parity', bin('oxlint'), ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, setStatePath]), ['set-state-in-render'])
+	assertFailsWith(runPackage('Oxlint React compiler bridge parity', 'oxlint', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, setStatePath]), ['set-state-in-render'])
 
 	const staticPath = join(tempDir, 'static.tsx')
 	writeFileSync(staticPath, ['export function Parent({ value }: { value: number }) {', '  function Child() {', '    return <span>{value}</span>;', '  }', '  return <Child />;', '}'].join('\n'))
-	assertFailsWith(run('Oxlint React static-components bridge parity', bin('oxlint'), ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, staticPath]), ['static-components'])
+	assertFailsWith(runPackage('Oxlint React static-components bridge parity', 'oxlint', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, staticPath]), ['static-components'])
 
 	const deprecatedReactPath = join(tempDir, 'deprecated-react.tsx')
 	writeFileSync(deprecatedReactPath, ["import ReactDOM from 'react-dom';", "const root = document.createElement('div');", 'ReactDOM.render(<span />, root);'].join('\n'))
-	assertFailsWith(run('Oxlint React deprecated bridge parity', bin('oxlint'), ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, deprecatedReactPath]), ['no-deprecated'])
+	assertFailsWith(runPackage('Oxlint React deprecated bridge parity', 'oxlint', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, deprecatedReactPath]), ['no-deprecated'])
 
 	const securityPath = join(tempDir, 'security.js')
 	writeFileSync(securityPath, ["const childProcess = require('node:child_process');", 'const command = process.argv[2];', 'const pattern = process.argv[3];', 'childProcess.exec(command);', 'new RegExp(pattern);'].join('\n'))
-	assertFailsWith(run('Oxlint security bridge parity', bin('oxlint'), ['--config', bridgeConfigPath, securityPath]), ['detect-child-process', 'detect-non-literal-regexp'])
+	assertFailsWith(runPackage('Oxlint security bridge parity', 'oxlint', ['--config', bridgeConfigPath, securityPath]), ['detect-child-process', 'detect-non-literal-regexp'])
 
 	console.log('Tooling parity checks passed.')
 } finally {

@@ -1,24 +1,41 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {expect, test} from '@playwright/test'
+import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
 import {FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, preparePlaylistConfirm, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
 test.describe.configure({mode: 'serial'})
 
-test('Electron quick download queues and completes a fixture video', async () => {
+test('Electron quick download applies the active Download Profile to a fixture video', async () => {
 	test.setTimeout(140_000)
 	const videoId = FIXTURE_VIDEO_IDS[7]
 
-	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-quick-user-', outputPrefix: 'arroxy-fixture-quick-out-'}, async ({page, urls, queue, files}) => {
-		await page.locator('[data-testid="url-input"]').fill(urls.video(videoId))
-		await page.locator('[data-testid="btn-quick-download"]').click()
-		await expect(page.locator('[data-testid="quick-download-feedback"]')).toContainText(/queue/i, {timeout: 60_000})
-		await queue.expectStatus('Fixture Video 8', 'done', 120_000)
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-profile-quick-user-',
+			outputPrefix: 'arroxy-fixture-profile-quick-out-',
+			settings: settings => {
+				const smallFileProfile = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'small-file')
+				if (!smallFileProfile) throw new Error('small-file built-in profile missing')
+				settings.profiles.active = {kind: 'builtin', id: 'small-file'}
+				settings.profiles.overrides = [{...smallFileProfile, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}, sponsorBlock: {mode: 'off', categories: []}}]
+			}
+		},
+		async ({page, outputDir, fixtureServer, urls, queue, files}) => {
+			await expect(page.locator('[data-testid="profiles-active-profile-card"]')).toContainText('Small file')
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
+			await page.locator('[data-testid="profiles-quick-download"]').click()
+			await expect(page.locator('[data-testid="profiles-mascot-help"]')).toContainText(/queued/i, {timeout: 60_000})
+			await queue.expectStatus('Fixture Video 8', 'done', 120_000)
 
-		files.expectMp4Count(1)
-	})
+			const profileOutputDir = path.join(outputDir, 'Small file')
+			files.expectMp4Count(1, profileOutputDir)
+			const mediaRequest = fixtureServer.telemetry().requests.find(request => request.kind === 'media' && request.videoId === videoId && request.status === 200)
+			expect(mediaRequest).toMatchObject({kind: 'media', videoId, formatId: '18', status: 200})
+		}
+	)
 })
 
 test('Electron full single-video wizard completes media and sidecar subtitles', async () => {
@@ -80,10 +97,10 @@ test('Electron bulk metadata concurrency and back/next navigation reach complete
 	test.setTimeout(240_000)
 
 	await withFixtureProductApp({behavior: {metadataDelayMs: 2_000}, userDataPrefix: 'arroxy-fixture-electron-user-', outputPrefix: 'arroxy-fixture-electron-out-'}, async ({app, page, fixtureServer, urls, files}) => {
-		const rawBulkText = [...urls.videos(FIXTURE_VIDEO_IDS), urls.video(FIXTURE_VIDEO_IDS[0]), urls.playlist()].join('\n')
+		const rawBulkText = [...urls.videos(FIXTURE_VIDEO_IDS), urls.video(FIXTURE_VIDEO_IDS[0])].join('\n')
 		await startBulkFromClipboard(page, app, rawBulkText)
 		await expect(page.locator('[data-testid="bulk-url-valid-count"]')).toContainText('10')
-		await expect(page.locator('[data-testid="bulk-url-ignored-count"]')).toContainText('2')
+		await expect(page.locator('[data-testid="bulk-url-ignored-count"]')).toContainText('1')
 		await page.locator('[data-testid="bulk-url-confirm"]').click()
 
 		await expect(page.locator('[data-testid="step-playlist-items"]')).toBeVisible()

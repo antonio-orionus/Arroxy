@@ -78,8 +78,7 @@ const sr = {
 			ignoredCount: 'Занемарено',
 			emptyPreview: 'Налепи један или више URL-ова за преглед групе.',
 			needsAtLeastOne: 'Додај најмање један подржан URL за наставак.',
-			confirm: 'Користи ове URL-ове',
-			reject: {duplicate: 'Дупликат', playlist: 'Користи playlist ток', channel: 'Користи channel ток'}
+			reject: {duplicate: 'Дупликат'}
 		},
 		playlistPresets: {heading: 'Изабери квалитет за групно преузимање', subhead: 'Свaki видео самостално проналази одговарајући ниво квалитета — хетерогене плејлисте раде без изненађења.', itemCount_one: '{{count}} ставка', itemCount_other: '{{count}} ставки'},
 		mixedPrompt: {
@@ -88,7 +87,6 @@ const sr = {
 			singleVideo: 'Само овај',
 			pickFromPlaylist: 'Бирај из плејлисте',
 			playlistLimit: 'Limit provere plejliste: {{count}} stavki',
-			advancedSettings: 'Napredna podešavanja',
 			singleTooltip: 'Koristi yt-dlp režim za pojedinačni video, pa se plejlista vezana za ovaj URL ignoriše.',
 			playlistTooltip: 'Koristi yt-dlp režim plejliste i učitava do vašeg limita pre prikaza birača.'
 		},
@@ -96,7 +94,7 @@ const sr = {
 		url: {
 			heading: 'YouTube URL',
 			placeholder: 'https://www.youtube.com/watch?v=...',
-			fetchFormats: 'Учитај формате',
+			interactiveDownload: 'Учитај формате',
 			fetchFormatsTooltip: 'Izaberite formate, titlove, fasciklu i stavke plejliste korak po korak pre dodavanja u red.',
 			quickDownload: 'Brzo preuzimanje',
 			quickDownloadTooltip: 'Koristi sačuvana ili podrazumevana podešavanja i dodaje ovaj pojedinačni video u red bez otvaranja koraka podešavanja.',
@@ -118,23 +116,7 @@ const sr = {
 			mascotBusy: 'Преузимање у позадини… Умем да радим више ствари одједном 😎',
 			advanced: 'Напредно',
 			clearAria: 'Обриши URL',
-			clipboard: {
-				toggle: 'Прати клипборд',
-				toggleDescription: 'Аутоматски попуни поље URL-а када копираш YouTube линк.',
-				dialog: {
-					title: 'Откривен YouTube URL',
-					body: 'Да ли да користиш овај линк из клипборда?',
-					bulkTitle: 'Откривени су групни URL-ови',
-					bulkBody: 'Користити ове линкове из clipboard-а као групно преузимање?',
-					bulkSummary: '{{count}} URL-ова спремно',
-					bulkIgnored: '{{count}} занемарено',
-					bulkButton: 'Групно преузимање',
-					useButton: 'Користи URL',
-					disableButton: 'Онемогући',
-					cancelButton: 'Откажи',
-					disableNote: 'Праћење клипборда можеш поново укључити касније у Напредним подешавањима.'
-				}
-			},
+			clipboard: {toggle: 'Прати клипборд', toggleDescription: 'Аутоматски попуни поље URL-а када копираш YouTube линк.', dialog: {cancelButton: 'Откажи'}},
 			cookies: {
 				sourceLabel: 'Извор cookies',
 				sourceOff: 'Искључено',
@@ -466,7 +448,6 @@ const sr = {
 		footerTooltip: 'Подели Arroxy',
 		footerLabel: 'Подели',
 		shareAction: 'Подели Arroxy',
-		inlineCard: {body: 'Свиђа ти се Arroxy? Подели га с неким коме би могао бити користан.', dismiss: 'Одбаци предлог за дељење'},
 		highValueBanner: {body: 'Свиђа ти се Arroxy? Помози другима да га открију.', dismiss: 'Одбаци предлог за дељење'}
 	}
 } as const
