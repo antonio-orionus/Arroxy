@@ -1,0 +1,2070 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sr\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "О апликацији"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "MIT License · by Antonio Orionus"
+msgstr "Лиценца MIT · by Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "О апликацији Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Брз и пријатан преузимач видеа и звука за рачунар."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Прикажи обавештења о компонентама трећих страна"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Веб-сајт"
+
+msgctxt "app.debugCopied"
+msgid "Copied!"
+msgstr "Копирано!"
+
+msgctxt "app.debugCopyTitle"
+msgid "Copy debug info (Electron, OS, Chrome versions)"
+msgstr "Копирај информације за отклањање грешака (Electron, ОС, верзије Chrome-а)"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Повратна информација"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Свиђа ти се Arroxy? Радо бих чуо твоје мишљење! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Дневници"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Увећај"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Умањи"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Назад"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Откажи"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Настави"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Покушај поново"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Почни испочетка"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy наставља да ради и завршава активна преузимања. Промени ово касније у Напредним подешавањима."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Сакриј у трај"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Сакрити Arroxy у системски трај при затварању?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Затвори"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Не питај поново"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Откажи преузимања и Затвори"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Затварање ће отказати сва активна преузимања."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Настави преузимање"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}} преузимање у току"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} преузимања у току"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Поставить загрузки на паузу и выйти"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Процес приказивача је пао ({{reason}}). Поново учитај да би покушао/ла поново."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy је наишао на проблем"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Затвори"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Поново учитај"
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Овај видео је ограничен по старости и не може се преузети без пријављеног налога."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgstr "Покренута је заштита од ботова. IP адреса коју користиш је највероватније означена (опсег дата центра или прометан VPN излаз). Промени IP адресу или одабери другачији VPN сервер и покушај поново. Ако проблем и даље постоји, можда се ради о привременој промени на страни YouTube-а — Arroxy аутоматски ажурира yt-dlp при покретању, тако да ће исправка стићи аутоматски чим је буде објавио узводни пројекат."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Сервер је стално прекидао преузимање насред потока, а yt-dlp се предао после неколико покушаја. Ово се најчешће дешава са највећим видео форматима (4K HDR / VP9 високог битрејта). Покушај поново, промени мрежу или VPN, или изабери формат нижег квалитета."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgstr "Овај видео је заштићен DRM-ом. yt-dlp не може да уклони DRM, па датотека не може бити преузета."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Овај видео није доступан у твом региону."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Твоја IP адреса је блокирана од стране YouTube-а. Покушај касније или користи VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgstr "Овај видео захтева пријављен налог. Подеси cookies.txt (Подешавања → Cookies) и покушај поново."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Грешка мреже. Провери везу и покушај поново."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Нема довољно простора на диску. Ослободи простор и покушај поново."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgstr "Није било могуће парсирати одговор сајта. yt-dlp екстрактор је можда застарео. Arroxy аутоматски ажурира yt-dlp при покретању — покушај поново за неколико минута када стигне исправка."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "yt-dlp је завршио преузимање, али је накнадна обрада (спајање / mux / конверзија) пропала. Често је ово пролазни проблем са ffmpeg-ом — покушај поново, а ако се настави, испробај другу комбинацију формата."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgstr "YouTube ограничава захтеве. Сачекај минут па покушај поново."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Овај видео није доступан — можда је приватан, обрисан или ограничен по региону."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Преузимање није успело. Погледај сирови излаз испод."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr "Ово не изгледа као URL видеа. Налепи линк за YouTube видео, Short или плејлисту."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Звук"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Само звук · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Језик"
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Audio (best)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Audio ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Najbolji izvorni audio, bez ponovnog kodiranja"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Konvertuj u M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Konvertuj u MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Konvertuj u Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 iznad 1080p nije dostupan na YouTube-u — automatski se ograničava na 1080p"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Do 1080p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Do 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Do 4K"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Do 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Do 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Do 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Best quality"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Ograničeno na 1080p, pada niže po stavci"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Ograničeno na 2K, pada niže po stavci"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Ograničeno na 2160p, pada niže po stavci"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Smallest video"
+msgstr "Smallest video"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Low bandwidth"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Manji fajlovi, široka kompatibilnost"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Najbolji dostupan video + audio po stavci"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Best codec"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "MP4 / Smart TV"
+msgstr "MP4 (H.264)"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Najviši dostupan kodek po stavci"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Prednost H.264 + AAC, MP4 kontejner · najbolji pokušaj"
+
+msgctxt "presets.audio-only.desc"
+msgid "No video, best audio"
+msgstr "Без видеа, најбољи звук"
+
+msgctxt "presets.audio-only.label"
+msgid "Audio only"
+msgstr "Само звук"
+
+msgctxt "presets.balanced.desc"
+msgid "720p max + good audio"
+msgstr "Максимум 720p + добар звук"
+
+msgctxt "presets.balanced.label"
+msgid "Balanced"
+msgstr "Уравнотежено"
+
+msgctxt "presets.best-quality.desc"
+msgid "Highest resolution + best audio"
+msgstr "Највиша резолуција + најбољи звук"
+
+msgctxt "presets.best-quality.label"
+msgid "Best quality"
+msgstr "Најбољи квалитет"
+
+msgctxt "presets.small-file.desc"
+msgid "Lowest resolution + low audio"
+msgstr "Најнижа резолуција + низак квалитет звука"
+
+msgctxt "presets.small-file.label"
+msgid "Small file"
+msgstr "Мала датотека"
+
+msgctxt "presets.subtitle-only.desc"
+msgid "No video, no audio, only subtitles"
+msgstr "Без видеа, без звука, само титлови"
+
+msgctxt "presets.subtitle-only.label"
+msgid "Subtitles only"
+msgstr "Само титлови"
+
+msgctxt "queue.activeCount"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} преузима · {{percent}}%"
+
+msgctxt "queue.cancelAll"
+msgid "Cancel all"
+msgstr "Откажи све"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Откажи сва активна и чекајућа преузимања"
+
+msgctxt "queue.clear"
+msgid "Clear"
+msgstr "Обриши"
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Обриши завршена преузимања"
+
+msgctxt "queue.empty"
+msgid "Downloads you queue will appear here"
+msgstr "Преузимања која додаш у ред ће се овде приказати"
+
+msgctxt "queue.header"
+msgid "Download Queue"
+msgstr "Ред за преузимање"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Откажи"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Преузимање није успело"
+
+msgctxt "queue.item.doneAt"
+msgid "Done {{time}}"
+msgstr "Завршено {{time}}"
+
+msgctxt "queue.item.hold"
+msgid "Hold"
+msgstr "Задржи"
+
+msgctxt "queue.item.openUrl"
+msgid "Open URL"
+msgstr "Отвори URL"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Паузирај"
+
+msgctxt "queue.item.paused"
+msgid "Paused"
+msgstr "Паузирано"
+
+msgctxt "queue.item.priorityBadge"
+msgid "Priority"
+msgstr "Приоритет"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Загрузить сейчас — пропустить очередь"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Уклони"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Настави"
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Отменено"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Готово"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Ошибка"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Удержано"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Пауза"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Ожидание"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Загрузка"
+
+msgctxt "queue.limitRate"
+msgid "Speed: {{value}}"
+msgstr "Скорость: {{value}}"
+
+msgctxt "queue.limitRateOff"
+msgid "Speed: Off"
+msgstr "Скорость: выкл."
+
+msgctxt "queue.limitRateTitle"
+msgid "Bandwidth limit for downloads"
+msgstr "Ограничение пропускной способности для загрузок"
+
+msgctxt "queue.noDownloads"
+msgid "No downloads yet."
+msgstr "Нема преузимања."
+
+msgctxt "queue.pauseAll"
+msgid "Pause queue"
+msgstr "Паузирај све"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Паузирај сва активна преузимања"
+
+msgctxt "queue.resumeAll"
+msgid "Resume queue"
+msgstr "Возобновить очередь"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Возобновить приостановленные загрузки и продолжить очередь"
+
+msgctxt "queue.tip"
+msgid "Your download is queued below — open anytime to track progress."
+msgstr "Твоје преузимање је у реду испод — отвори у свако доба да пратиш напредак."
+
+msgctxt "queue.toggleTitle"
+msgid "Toggle download queue"
+msgstr "Прикажи/сакриј ред за преузимање"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Откажи"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Изабери извршну датотеку"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Инсталирај преко Homebrew-а"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Инсталирај преко WinGet-а"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Отвори фолдер зависности"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Врати на подразумевано"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Retry setup"
+msgstr "Покушај подешавање поново"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Прегледај дневник подешавања"
+
+msgctxt "repair.deps.deno"
+msgid "Deno"
+msgstr "Deno"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.hints.badExitCode"
+msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
+msgstr "Бинарни фајл није одговорио на --version. Можда је оштећен или погрешна верзија."
+
+msgctxt "repair.hints.blockedOrQuarantined"
+msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
+msgstr "Windows је блокирао датотеку (SmartScreen / Defender). Изабери инсталирану копију или додај runtime фолдер на белу листу."
+
+msgctxt "repair.hints.downloadFailed"
+msgid "Download failed. Check your internet connection and retry."
+msgstr "Преузимање није успело. Провери интернет везу и покушај поново."
+
+msgctxt "repair.hints.extractFailed"
+msgid "Archive extraction failed. The download may be corrupt — retry."
+msgstr "Распакивање архиве није успело. Преузимање може бити оштећено — покушај поново."
+
+msgctxt "repair.hints.hashFailed"
+msgid "Checksum mismatch on the downloaded file. Retry the download."
+msgstr "Контролна сума преузете датотеке се не подудара. Поново преузми датотеку."
+
+msgctxt "repair.hints.pairIncomplete"
+msgid "ffmpeg and ffprobe must both be set as a matched pair."
+msgstr "ffmpeg и ffprobe морају бити постављени заједно као усклађени пар."
+
+msgctxt "repair.hints.permissionDenied"
+msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
+msgstr "Систем је одбио да покрене датотеку. Изабери копију којој верујеш или покушај поново као администратор."
+
+msgctxt "repair.hints.spawnFailed"
+msgid "The file is missing or could not be launched. Pick a working copy."
+msgstr "Датотека недостаје или не може да се покрене. Изабери исправну копију."
+
+msgctxt "repair.hints.timeout"
+msgid "The version probe timed out. The file may be hung — retry."
+msgstr "Провера верзије је истекла. Датотека можда виси — покушај поново."
+
+msgctxt "repair.hints.unknown"
+msgid "Could not be verified."
+msgstr "Није могло да се провери."
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Подешавању је потребна твоја помоћ"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Копирано!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Копирај линк"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 1850+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy је бесплатан и отвореног кода. Дељењем помажеш другима да га открију."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Подели"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Подели Arroxy"
+
+msgctxt "share.highValueBanner.body"
+msgid "Enjoying Arroxy? Help others discover it."
+msgstr "Свиђа ти се Arroxy? Помози другима да га открију."
+
+msgctxt "share.highValueBanner.dismiss"
+msgid "Dismiss share suggestion"
+msgstr "Одбаци предлог за дељење"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Подели Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Подели Arroxy"
+
+msgctxt "splash.downloading"
+msgid "Downloading {{binary}}…"
+msgstr "Преузимање {{binary}}…"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Добродошао/ла назад!"
+
+msgctxt "splash.warmup"
+msgid "Arroxy is warming up…"
+msgstr "Arroxy се покреће…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Подешавање није успело. Отвори дневник подешавања за детаље."
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Преузимање је отказано"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Преузимање је завршено"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Конвертовање видеа…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Нема довољно простора на диску — потребно {{required}}, доступно само {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Преузимање {{name}} бинарне датотеке…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Преузимање видеа и звука…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Уградња метаподатака…"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Конвертовање звука…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Успостављање везе са SponsorBlock-ом…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Преузимање титлова…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Спајање звука и видеа…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Генерисање YouTube токена…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Премештање датотека…"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Припрема бинарних датотека…"
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Поновно генерисање токена…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock недоступан, поновни покушај ({{attempt}}/{{total}})…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Чекање {{seconds}}с да би се избегла ограничења брзине…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting yt-dlp process…"
+msgstr "Покретање yt-dlp процеса…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Видео је сачуван — неки титлови нису могли бити преузети"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Непозната грешка при покретању преузимања"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Преузето са опуштеним ektraktором — подеси cookies.txt за поузданија преузимања"
+
+msgctxt "status.ytdlpExitCode"
+msgid "yt-dlp exited with code {{code}}"
+msgstr "yt-dlp је завршио са кодом {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "yt-dlp process error: {{error}}"
+msgstr "Грешка yt-dlp процеса: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Тамна тема"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Светла тема"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Подразумевана системска"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Затвори"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Максимизуј"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Минимизуј"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Врати"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Отвори Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Затвори Arroxy"
+
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 преузима · {{percent}}%"
+
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} преузима · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Неактивно"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.appVersion"
+msgid "Arroxy {{version}}"
+msgstr "Arroxy {{version}}"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Команда је копирана у клипборд"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Копирај команду у клипборд"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Одбаци обавештење о ажурирању"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Download ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Преузимање…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Инсталирај и Поново покрени"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Ажурирање није успело"
+
+msgctxt "update.isAvailable"
+msgid "is available"
+msgstr "је доступно"
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Покушај поново"
+
+msgctxt "update.youHave"
+msgid "— you have {{currentVersion}}"
+msgstr "— тренутно имаш {{currentVersion}}"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Учитавање…"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Спремно"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Налепи појединачне видео или аудио URL-ове. Arroxy ће очистити дупликате и означити playlist или channel линкове пре додавања у ред."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Налепи један или више URL-ова за преглед групе."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Занемарено"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Додај најмање један подржан URL за наставак."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Дупликат"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "Листа URL-ова"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "Групни URL-ови"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Queue"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Покреће се када друга преузимања заврше — добија пун пропусни опсег"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Само звук"
+
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} од {{total}} видеа"
+
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} од {{total}} видеа"
+
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} од {{total}} нумере"
+
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} од {{total}} нумера"
+
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} од {{total}} URL-а"
+
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} од {{total}} URL-ова"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Звук"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Групни URL-ови"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Ставке"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Плејлиста"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Поставка"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Сачувај у"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Величина"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Титлови"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Видео"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Твоја датотека ће бити сачувана у"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Поставка „само титлови\" је активна, али није изабран ниједан језик — ништа неће бити преузето."
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Преузми! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Покреће се одмах — ради упоредо са другим активним преузимањима"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Спремно за преузимање!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Непознато"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Subtitle embed је промењен у sidecar — аудио стазе не подржавају уграђене токове титлова."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Thumbnail embed је прескочен — излазни container то не подржава."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Прилагођено…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Радна површина"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Документи"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Преузимања"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Сачувај у"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Почетна директоријум"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Музика"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Слике"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Назив директоријума садржи неважеће знакове"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "нпр. lo-fi rips"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Сачувај у поддиректоријум"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Филмови"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Звук"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Само звук"
+
+msgctxt "wizard.formats.audioOnlyOption"
+msgid "Audio only (no video)"
+msgstr "Само звук (без видеа)"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Cookies су подешени али искључени. Укључи их и покушај поново за потпун списак, или промени мрежу и покушај поново."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Чак и са cookies, YouTube је ограничио ову проверу. Покушај касније или промени мрежу."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Списак формата можда није потпун. Подеси cookies у напредним подешавањима или промени мрежу и покушај поново."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Укључи cookies и покушај поново"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "YouTube је ограничио ову проверу"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Покушај поново"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Битрејт"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Конвертуј"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.requiresAudioOnly"
+msgid "Audio conversion requires audio-only mode (deselect the video pick)."
+msgstr "Конверзија звука захтева режим само-звука (поништи избор видеа)."
+
+msgctxt "wizard.formats.convert.requiresLossy"
+msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
+msgstr "Изабран је нативни стрим — битрејт се примењује само при конверзији у mp3, m4a или opus."
+
+msgctxt "wizard.formats.convert.uncompressed"
+msgid "Convert · uncompressed"
+msgstr "Конвертуј · некомпресовано"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (uncompressed)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Прегледач"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Датотека"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Извор cookies"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp документација (issue #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 и новији шифрују cookies на начин који друге апликације не могу да прочитају на Windows-у. Испробај неко од решења испод."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Извези cookies из Chrome-а помоћу додатка за прегледач, па пређи у режим Датотека и изабери извезену датотеку."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Извези cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox не користи App-Bound Encryption. Отвори подешавања cookies и изабери Firefox са листе прегледача."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Пређи на Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Додај --disable-features=LockProfileCookieDatabase пречици за покретање Chrome-а. Упозорење: ово поништава претходно шифроване cookies, тако да ћеш бити одјављен са сваке странице и морати поново да се пријавиш."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Покрени Chrome са онемогућеном App-Bound Encryption"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Chrome cookies блокиран Windows шифровањем"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Cookies се читају директно из прегледача. Ако је прегледач тренутно покренут, његова база cookies може бити закључана (Chromium породица). Прегледач такође мора бити пријављен на YouTube. Покушај затворити прегледач, пређи на другачији прегледач, пређи у режим „Датотека\" или искључи cookies."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Твоја датотека cookies можда је празна, истекла или у погрешном формату (yt-dlp очекује Netscape cookies.txt). Покушај поново да извезеш cookies, изабери другу датотеку, пређи у режим „Прегледач\" или искључи cookies."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Cookies могу бити узрок"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "yt-dlp није могао да приступи овом видеу без аутентификације. Подеси cookies у напредним подешавањима — одреди прегледач у ком си већ пријављен или увези cookies.txt датотеку."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Овај сајт захтева пријаву"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Отвори подешавања cookies"
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Задржи као јесте"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Уграђени звук"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Учитавање формата"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Сачекајте да провера заврши — листе за репродукцију и претраге могу потрајати."
+
+msgctxt "wizard.formats.mascot"
+msgid "Best + Best = max quality. I'd pick that!"
+msgstr "Најбоље + Најбоље = максималан квалитет. То бих ја изабрао!"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Без звука"
+
+msgctxt "wizard.formats.quickPresets"
+msgid "Quick presets"
+msgstr "Брзе поставке"
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Величина непозната"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Прескочи до потврде"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Користи твоја сачувана подешавања за све преостале кораке. Да бисте променили поставку, наставите корак по корак — твој избор ће бити сачуван за следећи пут."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Тражим најбоље формате за тебе…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Укупно"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Видео"
+
+msgctxt "wizard.formats.videoOnly"
+msgid "Video only"
+msgstr "Само видео"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Желиш само видео на који си кликнуо, или да бираш из плејлисте? Следећи корак ти омогућава да одабереш одређене видеосе или распон."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Бирај из плејлисте"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Limit provere plejliste: {{count}} stavki"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgstr "Koristi yt-dlp režim plejliste i učitava do vašeg limita pre prikaza birača."
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgstr "Koristi yt-dlp režim za pojedinačni video, pa se plejlista vezana za ovaj URL ignoriše."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Само овај"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Овај линк је из плејлисте"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Маркери поглавља доступни за навигацију у сваком савременом плејеру."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Уграђена поглавља"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Наслов, извођач, опис и датум отпремања уписани у датотеку."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Уграђени метаподаци"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Насловна слика унутар датотеке. WebM видео ће бити поново мултиплексован у MKV; прескаче се када су титлови уграђени."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Уграђена сличица"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Чува опис видеа као .description текстуалну датотеку поред преузимања."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Сачувај опис"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Сохраняет .m3u рядом с видео, чтобы медиаплеер открывал их по порядку."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Создать файл плейлиста .m3u"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Чува сличицу као .jpg датотеку слике поред преузимања."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Сачувај сличицу"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Већ преузето"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "Групни URL-ови"
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Преузимање детаља видеа… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Детаљи нису доступни"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Преузимање детаља"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Чека"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "live"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Ставке плејлисте"
+
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} видео"
+
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} видеа"
+
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} нумера"
+
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} нумера"
+
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL-ова"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Преузимање плејлисте…"
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Изабери барем један видео да би наставио/ла"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Arroxy је пронашао више од {{count}} ставки, па тренутно ограничење скенирања скрива остатак."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Скенирање плејлисте је ограничено"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Примени опсег"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Од"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "До"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Изабери све"
+
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} изабрано"
+
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} изабрано"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Поништи избор"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Примени синхронизацију"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Промени фолдер…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} ових видео снимака је већ у {{dir}}. Синхронизовати да се преузму само нови?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Већ је у фолдеру"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Ниједан видео из ове плејлисте није пронађен у {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Још ништа није преузето"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Провера фолдера…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Сличица видеа"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Изабери квалитет за групно преузимање"
+
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} ставка"
+
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} ставки"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Свaki видео самостално проналази одговарајући ниво квалитета — хетерогене плејлисте раде без изненађења."
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Filler"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Intro"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Music off-topic"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Outro"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Preview"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Self-promo"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Sponsor"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Категорије"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Означи као поглавља"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Искључено"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Уклони сегменте"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Филтрирање спонзора"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Означава спонзорске сегменте као поглавља (неразорно)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Без SponsorBlock-а — видео се пушта онако како је отпремљен."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Исеца спонзорске сегменте из видеа коришћењем FFmpeg-а."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Потврди"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Сачувај"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Формат"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Излаз"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Playlist"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Квалитет"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Титлови"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Аутоматски титлови биће сачувани као SRT уместо ASS — увек се чисте од YouTube-овог rolling-cue дуплирања, које наш ASS конвертер не може да реплицира."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Аутоматски"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Обриши све"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Режим уградње чува излаз као .mkv тако да се титлови поуздано уграђују."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Формат"
+
+msgctxt "wizard.subtitles.mascot"
+msgid "Pick zero, one, or many — totally up to you ✨"
+msgstr "Изабери нула, један или много — потпуно је на теби ✨"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Нема доступних титлова за овај видео"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Нема пронађених језика"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Нема изабраних титлова"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Уграђено у видео"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Сачувај као"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Поред видеа"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "subtitles/ поддиректоријум"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Претражи језике…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Аутоматски генерисано"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Ручно"
+
+msgctxt "wizard.subtitles.selectedNote_one"
+msgid "{{count}} subtitle will be downloaded"
+msgstr "{{count}} титл ће бити преузет"
+
+msgctxt "wizard.subtitles.selectedNote_other"
+msgid "{{count}} subtitles will be downloaded"
+msgstr "{{count}} титлова ће бити преузето"
+
+msgctxt "wizard.subtitles.skip"
+msgid "Skip"
+msgstr "Прескочи"
+
+msgctxt "wizard.subtitles.skipSubs"
+msgid "Skip for this video"
+msgstr "Прескочи за овај видео"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Напредно"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send anonymous usage stats"
+msgstr "Пошаљи анонимне статистике коришћења"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "Counts app launches only. No URLs, filenames, or personal data."
+msgstr "Броји само покретања апликације. Без URL-ова, имена датотека или личних података."
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "Групни URL-ови"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
+msgstr "Налепи листу појединачних URL-ова, прегледај очишћену листу, па их додај у ред са заједничким quality preset-ом."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Обриши URL"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Откажи"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Прати клипборд"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Аутоматски попуни поље URL-а када копираш YouTube линк."
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Сакриј у системски трај при затварању"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Настави преузимања у позадини после затварања прозора."
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgstr "YouTube може да означи — а понекад и забрани — налоге чији cookies користи yt-dlp. Ако је могуће, користи привремени налог."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Чита cookies директно из прегледача. Прегледач мора бити затворен за прегледаче Chromium породице."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Прегледач"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Изабери прегледач…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Изабери…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Обриши"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Изабери прегледач да би користио/ла cookies"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Изабери датотеку да би користио/ла cookies"
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Преузми cookies.txt ЛОКАЛНО (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Датотека Cookies"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Како да извезем cookies?"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Нема изабране датотеке"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Ризик: cookies.txt садржи сваку пријављену сесију за тај прегледач — чувај је приватном."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Прегледач"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Датотека"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Извор cookies"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Искључено"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Помаже са видеима са ограничењем старости, само за чланове и приватним видеима."
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Само звук"
+
+msgctxt "wizard.url.features.always.heading"
+msgid "Always available"
+msgstr "Увек доступно"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Титлови"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ сајтова"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Музичке плејлисте"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Видеа"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Видео плејлисте"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Шта Arroxy може да преузме"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Канали"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Музика"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Плејлисте"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Подкасти"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Видеа"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
+msgstr "Izaberite formate, titlove, fasciklu i stavke plejliste korak po korak pre dodavanja u red."
+
+msgctxt "wizard.url.heading"
+msgid "Video URL"
+msgstr "YouTube URL"
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Учитај формате"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Активные загрузки сохранят текущий лимит. Пауза + Возобновить применит изменения."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Своя…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "например 750K или 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Ограничивает пропускную способность для загрузки медиа. Интервалы запросов ниже обычно сильнее влияют на лимиты."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Введите число с K или M (например 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Ограничение скорости загрузки"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Выкл."
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Преузимање у позадини… Умем да радим више ствари одједном 😎"
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link — YouTube or any of 2000+ sites ✨"
+msgstr "Убаци YouTube линк (видео или Short) — па кликни „Учитај формате\" и крећемо ✨"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
+msgstr "Додаје мале паузе током сваког преузимања тако да Arroxy не приступа сајту превише агресивно. Вредности су у секундама ако није другачије назначено."
+
+msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
+msgid "Download connections"
+msgstr "Везе за преузимање"
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Пауза пре почетка медија: макс"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Пауза пре почетка медија: мин"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Чекање између провера метаподатака"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Чекање пре фајлова титлова"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Пажљива преузимања"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Насколько осторожным должен быть Arroxy?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Уравнотежено"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Пажљиво"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Прилагођено"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Искључено"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
+msgstr "Паузе: {{requests}} између провера, {{downloads}} пре почетка медија, {{subtitles}} пре фајлова титлова. Везе: {{fragments}}."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
+msgstr "Ове паузе се дешавају унутар сваког преузимања. Arroxy и даље обрађује преузимања из реда по једно."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses and uses one download connection."
+msgstr "Подразумевано. Додаје кратке паузе и користи једну везу за преузимање."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Додаје дуже паузе за велике плејлисте или мреже које често достижу ограничења."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Самостално подеси напредне контроле по преузимању."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Користи само мале основне паузе које Arroxy задржава за медије и титлове."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "сек"
+
+msgctxt "wizard.url.networkPacing.units.threads"
+msgid "threads"
+msgstr "нити"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://www.youtube.com/watch?v=..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Тренутно ограничење: {{count}} ставки"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Прилагођено…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Откажи"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Унеси цео број од {{min}} до {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Сачувај ограничење"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Прилагођено ограничење скенирања плејлисте"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Прилагођено: {{count}} ставки"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Максималан број уноса које Arroxy учитава када се отвори плејлиста, канал или резултат претраге."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Унеси цео број од 1 до 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Ставке плејлисте за скенирање"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} ставки"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Одговара yt-dlp опцији --playlist-end: Arroxy тражи само овај број уноса плејлисте, канала или претраге приликом прављења бирача."
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Обриши"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Прусмери саобраћај кроз прокси — корисно за географски ограничен садржај."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Proxy URL"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick download"
+msgstr "Brzo preuzimanje"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
+msgstr "Koristi sačuvana ili podrazumevana podešavanja i dodaje ovaj pojedinačni video u red bez otvaranja koraka podešavanja."
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Nije moguće dodati: {{error}}"
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Stavka reda nije mogla da se pripremi"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Priprema"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Provera nije uspela"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Dodato u red"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
+msgstr "Brzo preuzimanje je samo za pojedinačne video snimke. Za plejliste i kanale koristite Preuzmi formate."
+
+msgctxt "wizard.url.singleFilenameId.toggle"
+msgid "Add video ID to single filenames"
+msgstr "Додај ID видеа у појединачна имена фајлова"
+
+msgctxt "wizard.url.singleFilenameId.toggleDescription"
+msgid "Keeps one-off downloads unique when titles change or collide."
+msgstr "Чува појединачна преузимања јединственим када се наслови промене или поклопе."

@@ -60,9 +60,9 @@ Format: `**Term** — definition. \`path\``. Add an entry when extracting a new 
 
 **TDD for non-trivial changes.** Write failing tests first, implement minimally, then refactor. Skip only for typo fixes and single-line edits.
 
-**Translation gate.** Edit `en` locale only first. Do not dispatch the `translate` skill or per-locale agents until the user explicitly approves the English copy. Plan approval is not translation authority.
+**Translation gate.** Edit `src/shared/i18n/locales/en.json` only first. Do not dispatch translation agents until the user explicitly approves the English copy. Plan approval is not translation authority. After approval, run `bun run i18n:sync` to update `i18n/app.pot` + `i18n/locales/*.po`; agents translate only fuzzy/untranslated PO entries, then run `bun run i18n:compile` to regenerate runtime locale JSON. Do not hand-edit non-English runtime JSON; it is generated from PO catalogs.
 
-**i18n audit means the manual unused-key check too.** When the user asks whether i18n is correct, run `bun run check:app` and `bun run check:app:unused --strict` manually. `check:app` validates locale drift/placeholders; the unused-key check catches UI that stopped calling translation keys and often signals hard-coded English copy.
+**i18n audit means the manual unused-key check too.** When the user asks whether i18n is correct, run `bun run check:app` and `bun run check:app:unused --strict` manually. `check:app` validates locale drift/placeholders and PO catalog freshness; the unused-key check catches UI that stopped calling translation keys and often signals hard-coded English copy.
 
 ---
 

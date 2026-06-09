@@ -1,26 +1,26 @@
 import i18next, {type i18n as I18nInstance} from 'i18next'
 import {initReactI18next} from 'react-i18next'
-import om from './locales/om.js'
-import de from './locales/de.js'
-import en from './locales/en.js'
-import es from './locales/es.js'
-import fr from './locales/fr.js'
-import sw from './locales/sw.js'
-import uz from './locales/uz.js'
-import am from './locales/am.js'
-import ar from './locales/ar.js'
-import ur from './locales/ur.js'
-import ps from './locales/ps.js'
-import bn from './locales/bn.js'
-import hi from './locales/hi.js'
-import my from './locales/my.js'
-import el from './locales/el.js'
-import ru from './locales/ru.js'
-import sr from './locales/sr.js'
-import uk from './locales/uk.js'
-import zh from './locales/zh.js'
-import ja from './locales/ja.js'
-import vi from './locales/vi.js'
+import om from './locales/om.json' with {type: 'json'}
+import de from './locales/de.json' with {type: 'json'}
+import en from './locales/en.json' with {type: 'json'}
+import es from './locales/es.json' with {type: 'json'}
+import fr from './locales/fr.json' with {type: 'json'}
+import sw from './locales/sw.json' with {type: 'json'}
+import uz from './locales/uz.json' with {type: 'json'}
+import am from './locales/am.json' with {type: 'json'}
+import ar from './locales/ar.json' with {type: 'json'}
+import ur from './locales/ur.json' with {type: 'json'}
+import ps from './locales/ps.json' with {type: 'json'}
+import bn from './locales/bn.json' with {type: 'json'}
+import hi from './locales/hi.json' with {type: 'json'}
+import my from './locales/my.json' with {type: 'json'}
+import el from './locales/el.json' with {type: 'json'}
+import ru from './locales/ru.json' with {type: 'json'}
+import sr from './locales/sr.json' with {type: 'json'}
+import uk from './locales/uk.json' with {type: 'json'}
+import zh from './locales/zh.json' with {type: 'json'}
+import ja from './locales/ja.json' with {type: 'json'}
+import vi from './locales/vi.json' with {type: 'json'}
 import {SUPPORTED_LANGS, type SupportedLang, type EnTranslation, type LocaleResource} from './types.js'
 
 export {SUPPORTED_LANGS, LANGUAGE_NATIVE_NAMES} from './types.js'

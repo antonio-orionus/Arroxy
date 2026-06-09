@@ -1,24 +1,24 @@
-import en from '@shared/i18n/locales/en.js'
-import es from '@shared/i18n/locales/es.js'
-import fr from '@shared/i18n/locales/fr.js'
-import de from '@shared/i18n/locales/de.js'
-import ru from '@shared/i18n/locales/ru.js'
-import uk from '@shared/i18n/locales/uk.js'
-import ja from '@shared/i18n/locales/ja.js'
-import zh from '@shared/i18n/locales/zh.js'
-import hi from '@shared/i18n/locales/hi.js'
-import bn from '@shared/i18n/locales/bn.js'
-import ar from '@shared/i18n/locales/ar.js'
-import uz from '@shared/i18n/locales/uz.js'
-import my from '@shared/i18n/locales/my.js'
-import ps from '@shared/i18n/locales/ps.js'
-import sw from '@shared/i18n/locales/sw.js'
-import am from '@shared/i18n/locales/am.js'
-import om from '@shared/i18n/locales/om.js'
-import el from '@shared/i18n/locales/el.js'
-import sr from '@shared/i18n/locales/sr.js'
-import ur from '@shared/i18n/locales/ur.js'
-import vi from '@shared/i18n/locales/vi.js'
+import en from '@shared/i18n/locales/en.json' with {type: 'json'}
+import es from '@shared/i18n/locales/es.json' with {type: 'json'}
+import fr from '@shared/i18n/locales/fr.json' with {type: 'json'}
+import de from '@shared/i18n/locales/de.json' with {type: 'json'}
+import ru from '@shared/i18n/locales/ru.json' with {type: 'json'}
+import uk from '@shared/i18n/locales/uk.json' with {type: 'json'}
+import ja from '@shared/i18n/locales/ja.json' with {type: 'json'}
+import zh from '@shared/i18n/locales/zh.json' with {type: 'json'}
+import hi from '@shared/i18n/locales/hi.json' with {type: 'json'}
+import bn from '@shared/i18n/locales/bn.json' with {type: 'json'}
+import ar from '@shared/i18n/locales/ar.json' with {type: 'json'}
+import uz from '@shared/i18n/locales/uz.json' with {type: 'json'}
+import my from '@shared/i18n/locales/my.json' with {type: 'json'}
+import ps from '@shared/i18n/locales/ps.json' with {type: 'json'}
+import sw from '@shared/i18n/locales/sw.json' with {type: 'json'}
+import am from '@shared/i18n/locales/am.json' with {type: 'json'}
+import om from '@shared/i18n/locales/om.json' with {type: 'json'}
+import el from '@shared/i18n/locales/el.json' with {type: 'json'}
+import sr from '@shared/i18n/locales/sr.json' with {type: 'json'}
+import ur from '@shared/i18n/locales/ur.json' with {type: 'json'}
+import vi from '@shared/i18n/locales/vi.json' with {type: 'json'}
 import type {SupportedLang} from '@shared/i18n/types.js'
 
 const RESOURCES: Record<SupportedLang, unknown> = {en, es, fr, de, ru, uk, ja, zh, hi, bn, ar, uz, my, ps, sw, am, om, el, sr, ur, vi}

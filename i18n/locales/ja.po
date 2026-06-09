@@ -1,0 +1,2070 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "情報"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "MIT License · by Antonio Orionus"
+msgstr "MIT ライセンス · 作者 Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Arroxy について"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "デスクトップ向けの高速で使いやすい動画・音声ダウンローダー。"
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "サードパーティ通知を表示"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "公式サイト"
+
+msgctxt "app.debugCopied"
+msgid "Copied!"
+msgstr "コピーしました!"
+
+msgctxt "app.debugCopyTitle"
+msgid "Copy debug info (Electron, OS, Chrome versions)"
+msgstr "デバッグ情報をコピー (Electron、OS、Chrome のバージョン)"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "フィードバック"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Arroxyを楽しんでくれてる?ぜひ感想を聞かせて! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "ログ"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "拡大"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "縮小"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "戻る"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "続行"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "再試行"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "最初からやり直す"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxyは実行を続け、アクティブなダウンロードを完了します。詳細設定で変更できます。"
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "トレイに格納"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "閉じるときにArroxyをシステムトレイに格納しますか？"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "終了"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "次回から表示しない"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "ダウンロードをキャンセルして終了"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "閉じるとアクティブなダウンロードはすべてキャンセルされます。"
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "ダウンロードを続ける"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "ダウンロード{{count}}件を実行中"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "ダウンロード{{count}}件を実行中"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "ダウンロードを一時停止して終了"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "レンダラープロセスがクラッシュしました ({{reason}})。再読み込みしてもう一度お試しください。"
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxyで問題が発生しました"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "終了"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "再読み込み"
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "この動画は年齢制限があり、ログインアカウントなしではダウンロードできません。"
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgstr "ボット対策が発動しました。使用中のIPはデータセンター範囲またはVPN出口として検出されている可能性があります。IPを変更するか別のVPNエンドポイントを選択して再試行してください。それでも失敗する場合はYouTube側の一時的な変更の可能性があります。ArroxyはYouTube起動時にyt-dlpを自動更新するため、上流が修正をリリースすれば自動的に適用されます。"
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "サーバーがストリームの途中で接続を何度も切断し、yt-dlpは再試行を繰り返した末に断念しました。最も大きなビデオフォーマット（4K HDR / 高ビットレート VP9）で起こりやすい問題です。再試行するか、ネットワークまたは VPN を切り替えるか、解像度の低いフォーマットを選択してください。"
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgstr "この動画はDRM保護されています。yt-dlpはDRMを解除できないため、ファイルをダウンロードできません。"
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "この動画はあなたの地域では視聴できません。"
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "IPアドレスがYouTubeにブロックされているようです。あとで試すか、VPNを使用してください。"
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgstr "この動画にはサインイン済みのアカウントが必要です。cookies.txt を設定して (設定 → Cookies) 再試行してください。"
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "ネットワークエラーです。接続を確認して再試行してください。"
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "ディスク容量が不足しています。空き容量を増やして再試行してください。"
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgstr "サイトからの応答を解析できませんでした。yt-dlp の抽出機能が古くなっている可能性があります。Arroxy は起動時に yt-dlp を自動更新します — 修正版が配信されるまで数分待ってから再試行してください。"
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "yt-dlp はダウンロードを完了しましたが、後処理（マージ / mux / 変換）に失敗しました。多くの場合、これは一時的な ffmpeg の問題です。再試行し、それでも続く場合は別のフォーマットの組み合わせを試してください。"
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgstr "YouTubeがリクエストを制限しています。1分待ってから再試行してください。"
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "この動画は利用できません — 非公開、削除済み、または地域制限の可能性があります。"
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "ダウンロードに失敗しました。下の生の出力を確認してください。"
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr "動画のURLではないようです。YouTube動画、Short、またはプレイリストのリンクを貼り付けてください。"
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "音声"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "音声のみ · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "言語"
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Audio (best)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Audio ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "最高のネイティブ音声、再エンコードなし"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "M4A (AAC) に変換"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "MP3 に変換"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Opus に変換"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "YouTube では 1080p 超の H.264 は利用できません — 自動的に 1080p に制限されます"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "最大 1080p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "最大 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "最大 4K"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "最大 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "最大 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "最大 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Best quality"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "1080p までに制限し、項目ごとに下位へフォールバック"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "2K までに制限し、項目ごとに下位へフォールバック"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "2160p までに制限し、項目ごとに下位へフォールバック"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Smallest video"
+msgstr "Smallest video"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Low bandwidth"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "小さめのファイル、広い互換性"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "各項目で利用可能な最高の動画 + 音声"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Best codec"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "MP4 / Smart TV"
+msgstr "MP4 (H.264)"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "各項目で利用可能な最高のコーデック"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "H.264 + AAC を優先、MP4 コンテナ · 可能な範囲で"
+
+msgctxt "presets.audio-only.desc"
+msgid "No video, best audio"
+msgstr "動画なし、最高音質"
+
+msgctxt "presets.audio-only.label"
+msgid "Audio only"
+msgstr "音声のみ"
+
+msgctxt "presets.balanced.desc"
+msgid "720p max + good audio"
+msgstr "720p最大 + 良好な音質"
+
+msgctxt "presets.balanced.label"
+msgid "Balanced"
+msgstr "バランス"
+
+msgctxt "presets.best-quality.desc"
+msgid "Highest resolution + best audio"
+msgstr "最高解像度 + 最高音質"
+
+msgctxt "presets.best-quality.label"
+msgid "Best quality"
+msgstr "最高画質"
+
+msgctxt "presets.small-file.desc"
+msgid "Lowest resolution + low audio"
+msgstr "最低解像度 + 低音質"
+
+msgctxt "presets.small-file.label"
+msgid "Small file"
+msgstr "小サイズ"
+
+msgctxt "presets.subtitle-only.desc"
+msgid "No video, no audio, only subtitles"
+msgstr "動画・音声なし、字幕のみ"
+
+msgctxt "presets.subtitle-only.label"
+msgid "Subtitles only"
+msgstr "字幕のみ"
+
+msgctxt "queue.activeCount"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} 件ダウンロード中 · {{percent}}%"
+
+msgctxt "queue.cancelAll"
+msgid "Cancel all"
+msgstr "すべてキャンセル"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "すべてのアクティブおよび保留中のダウンロードをキャンセル"
+
+msgctxt "queue.clear"
+msgid "Clear"
+msgstr "クリア"
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "完了したダウンロードをクリア"
+
+msgctxt "queue.empty"
+msgid "Downloads you queue will appear here"
+msgstr "キューに追加したダウンロードはここに表示されます"
+
+msgctxt "queue.header"
+msgid "Download Queue"
+msgstr "ダウンロードキュー"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "ダウンロード失敗"
+
+msgctxt "queue.item.doneAt"
+msgid "Done {{time}}"
+msgstr "{{time}} 完了"
+
+msgctxt "queue.item.hold"
+msgid "Hold"
+msgstr "保留"
+
+msgctxt "queue.item.openUrl"
+msgid "Open URL"
+msgstr "URLを開く"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "一時停止"
+
+msgctxt "queue.item.paused"
+msgid "Paused"
+msgstr "一時停止中"
+
+msgctxt "queue.item.priorityBadge"
+msgid "Priority"
+msgstr "優先"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "今すぐ開始 — キューをスキップ"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "削除"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "再開"
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "キャンセル済み"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "完了"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "エラー"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "保留中"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "一時停止"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "待機中"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "ダウンロード中"
+
+msgctxt "queue.limitRate"
+msgid "Speed: {{value}}"
+msgstr "速度: {{value}}"
+
+msgctxt "queue.limitRateOff"
+msgid "Speed: Off"
+msgstr "速度: オフ"
+
+msgctxt "queue.limitRateTitle"
+msgid "Bandwidth limit for downloads"
+msgstr "ダウンロードの帯域制限"
+
+msgctxt "queue.noDownloads"
+msgid "No downloads yet."
+msgstr "まだダウンロードはありません。"
+
+msgctxt "queue.pauseAll"
+msgid "Pause queue"
+msgstr "すべて一時停止"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "すべてのアクティブなダウンロードを一時停止"
+
+msgctxt "queue.resumeAll"
+msgid "Resume queue"
+msgstr "キューを再開"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "一時停止中のダウンロードを再開し、キューを続行します"
+
+msgctxt "queue.tip"
+msgid "Your download is queued below — open anytime to track progress."
+msgstr "ダウンロードは下のキューに入りました — いつでも開いて進捗を確認できます。"
+
+msgctxt "queue.toggleTitle"
+msgid "Toggle download queue"
+msgstr "ダウンロードキューの表示/非表示"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "実行ファイルを選択"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Homebrew でインストール"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "WinGet でインストール"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "依存関係フォルダーを開く"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "デフォルトにリセット"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Retry setup"
+msgstr "セットアップを再試行"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "セットアップログを表示"
+
+msgctxt "repair.deps.deno"
+msgid "Deno"
+msgstr "Deno"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.hints.badExitCode"
+msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
+msgstr "バイナリが --version に応答しませんでした。破損しているか、誤ったビルドの可能性があります。"
+
+msgctxt "repair.hints.blockedOrQuarantined"
+msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
+msgstr "Windowsがファイルをブロックしました (SmartScreen / Defender)。インストール済みのコピーを選択するか、runtimeフォルダーを許可リストに追加してください。"
+
+msgctxt "repair.hints.downloadFailed"
+msgid "Download failed. Check your internet connection and retry."
+msgstr "ダウンロードに失敗しました。インターネット接続を確認して再試行してください。"
+
+msgctxt "repair.hints.extractFailed"
+msgid "Archive extraction failed. The download may be corrupt — retry."
+msgstr "アーカイブの展開に失敗しました。ダウンロードが破損している可能性があります — 再試行してください。"
+
+msgctxt "repair.hints.hashFailed"
+msgid "Checksum mismatch on the downloaded file. Retry the download."
+msgstr "ダウンロードしたファイルのチェックサムが一致しません。再ダウンロードしてください。"
+
+msgctxt "repair.hints.pairIncomplete"
+msgid "ffmpeg and ffprobe must both be set as a matched pair."
+msgstr "ffmpeg と ffprobe は両方ともペアとして設定する必要があります。"
+
+msgctxt "repair.hints.permissionDenied"
+msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
+msgstr "システムがファイルの実行を拒否しました。信頼できるコピーを選択するか、管理者として再試行してください。"
+
+msgctxt "repair.hints.spawnFailed"
+msgid "The file is missing or could not be launched. Pick a working copy."
+msgstr "ファイルが見つからないか起動できませんでした。正常なコピーを選択してください。"
+
+msgctxt "repair.hints.timeout"
+msgid "The version probe timed out. The file may be hung — retry."
+msgstr "バージョン確認がタイムアウトしました。ファイルがハングしている可能性があります — 再試行してください。"
+
+msgctxt "repair.hints.unknown"
+msgid "Could not be verified."
+msgstr "確認できませんでした。"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "セットアップにサポートが必要です"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "コピーしました！"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "リンクをコピー"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 1850+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxyは無料でオープンソースです。シェアすることでより多くの人に届けることができます。"
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "共有"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Arroxy を共有"
+
+msgctxt "share.highValueBanner.body"
+msgid "Enjoying Arroxy? Help others discover it."
+msgstr "Arroxyを気に入ってくれてる? ほかの人にも見つけてもらおう。"
+
+msgctxt "share.highValueBanner.dismiss"
+msgid "Dismiss share suggestion"
+msgstr "シェアの提案を閉じる"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Arroxy を共有"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Arroxyをシェア"
+
+msgctxt "splash.downloading"
+msgid "Downloading {{binary}}…"
+msgstr "{{binary}} をダウンロード中…"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "やあ、おかえり!"
+
+msgctxt "splash.warmup"
+msgid "Arroxy is warming up…"
+msgstr "Arroxyを起動中…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "セットアップに失敗しました。セットアップログを開いて詳細を確認してください。"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "ダウンロードがキャンセルされました"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "ダウンロード完了"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "動画を変換中…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "ディスク空き容量が不足しています — {{required}} 必要ですが、空きは {{free}} のみです"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "バイナリ {{name}} をダウンロード中…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "ビデオと音声をダウンロード中…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "メタデータを埋め込み中…"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "音声を変換中…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "SponsorBlock に接続中…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "字幕を取得中…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "音声とビデオを結合中…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "YouTubeトークンを生成中…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "ファイルを移動中…"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "バイナリを準備中…"
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "トークンを再生成中…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock が利用できません、再試行中 ({{attempt}}/{{total}})…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "レート制限回避のため{{seconds}}秒待機中…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting yt-dlp process…"
+msgstr "yt-dlpプロセスを開始中…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "ビデオは保存されました — 一部の字幕をダウンロードできませんでした"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "ダウンロード開始時に不明なエラーが発生しました"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "簡易抽出モードでダウンロードしました — より確実にするには cookies.txt の設定をおすすめします"
+
+msgctxt "status.ytdlpExitCode"
+msgid "yt-dlp exited with code {{code}}"
+msgstr "yt-dlpがコード{{code}}で終了しました"
+
+msgctxt "status.ytdlpProcessError"
+msgid "yt-dlp process error: {{error}}"
+msgstr "yt-dlpプロセスエラー: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "ダークモード"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "ライトモード"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "システム設定に従う"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "閉じる"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "最大化"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "最小化"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "元に戻す"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Arroxyを開く"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Arroxyを終了"
+
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1件ダウンロード中 · {{percent}}%"
+
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}}件ダウンロード中 · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "アイドル"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.appVersion"
+msgid "Arroxy {{version}}"
+msgstr "Arroxy {{version}}"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "コマンドをクリップボードにコピーしました"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "コマンドをクリップボードにコピー"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "更新通知を閉じる"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "ダウンロード ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "ダウンロード中…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "インストールして再起動"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "更新に失敗しました"
+
+msgctxt "update.isAvailable"
+msgid "is available"
+msgstr "が利用可能です"
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "再試行"
+
+msgctxt "update.youHave"
+msgid "— you have {{currentVersion}}"
+msgstr "— 現在のバージョン: {{currentVersion}}"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "読み込み中…"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "準備完了"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "個別の動画または音声 URL を貼り付けます。Arroxy は重複を整理し、キューに入れる前に playlist や channel のリンクを示します。"
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "一括内容を確認するには、URL を 1 件以上貼り付けてください。"
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "無視"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "続行するには、対応している URL を少なくとも 1 件追加してください。"
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "重複"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "URL リスト"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "一括 URL"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ キュー"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "他のダウンロードが終わってから開始 — 帯域幅をフル活用"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "音声のみ"
+
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "全{{total}}本中{{count}}本"
+
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "全{{total}}本中{{count}}本"
+
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "全{{total}}曲中{{count}}曲"
+
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "全{{total}}曲中{{count}}曲"
+
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} / {{total}} URL"
+
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} / {{total}} URL"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "音声"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "一括 URL"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "件数"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Playlist"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "プリセット"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "保存先"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "サイズ"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "字幕"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "動画"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "ファイルの保存先:"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "字幕のみプリセットが有効ですが字幕言語が選択されていません — 何もダウンロードされません。"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "取得! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "すぐ開始 — 他のアクティブなダウンロードと並行実行"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "ダウンロード準備完了!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "不明"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Subtitle embed を sidecar に変更しました — 音声トラックには字幕ストリームの埋め込みをサポートしていません。"
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Thumbnail embed をスキップしました — 出力 container がこの機能をサポートしていません。"
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "カスタム…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "デスクトップ"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "ドキュメント"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "ダウンロード"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "保存先"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "ホーム"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "ミュージック"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "ピクチャ"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "フォルダ名に無効な文字が含まれています"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "例: lo-fi rips"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "サブフォルダに保存"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "ムービー"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "音声"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "音声のみ"
+
+msgctxt "wizard.formats.audioOnlyOption"
+msgid "Audio only (no video)"
+msgstr "音声のみ (動画なし)"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Cookieは設定されていますが無効になっています。有効にして再試行すると完全な一覧を取得できます。または、ネットワークを変えて再試行してください。"
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Cookieを使用していても、YouTubeがこの取得を制限しました。しばらくしてから再試行するか、ネットワークを切り替えてください。"
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "フォーマット一覧が不完全な可能性があります。詳細設定でCookieを設定するか、ネットワークを変えて再試行してください。"
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Cookieを有効にして再試行"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "YouTubeがこの取得を制限しました"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "再試行"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "ビットレート"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "変換"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.requiresAudioOnly"
+msgid "Audio conversion requires audio-only mode (deselect the video pick)."
+msgstr "音声変換には音声のみモードが必要です（動画の選択を解除してください）。"
+
+msgctxt "wizard.formats.convert.requiresLossy"
+msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
+msgstr "ネイティブストリームが選択されています — ビットレートは mp3、m4a、または opus に変換する場合にのみ適用されます。"
+
+msgctxt "wizard.formats.convert.uncompressed"
+msgid "Convert · uncompressed"
+msgstr "変換 · 非圧縮"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (uncompressed)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "ブラウザ"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "ファイル"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Cookieのソース"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp ドキュメント (issue #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127以降、Windows上では他のアプリが読み取れない方法でCookieが暗号化されています。以下のいずれかの回避策をお試しください。"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "ブラウザ拡張機能を使ってChromeからCookieをエクスポートし、このアプリをファイルモードに切り替えてエクスポートしたファイルを選択してください。"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "cookies.txtをエクスポート"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "FirefoxはApp-Bound Encryptionを使用しません。Cookie設定を開き、ブラウザ一覧からFirefoxを選択してください。"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Firefoxに切り替える"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Chromeの起動ショートカットに --disable-features=LockProfileCookieDatabase を追加してください。警告: これにより以前に暗号化されたCookieが無効になり、すべてのサイトからサインアウトされるため、再度ログインが必要になります。"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "App-Bound Encryptionを無効にしてChromeを起動"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "ChromeのCookieがWindowsの暗号化によりブロックされています"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Cookieはブラウザから直接読み込まれます。ブラウザが起動中の場合、Cookieデータベースがロックされている可能性があります (Chromiumファミリー)。ブラウザがYouTubeにサインインしている必要もあります。ブラウザを閉じる、別のブラウザに切り替える、ファイルモードに変更する、またはCookieをオフにしてみてください。"
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Cookieファイルが空・期限切れ・または形式が正しくない可能性があります (yt-dlp は Netscape cookies.txt を期待しています)。Cookieを再エクスポートするか、別のファイルを選ぶか、ブラウザモードに切り替えるか、Cookieをオフにしてみてください。"
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Cookieが原因かもしれません"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "yt-dlpは認証なしでこの動画にアクセスできませんでした。詳細設定でCookieを設定してください — すでにサインイン済みのブラウザを指定するか、cookies.txtファイルをインポートしてください。"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "このサイトはサインインが必要です"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Cookie設定を開く"
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "そのまま保持"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "内蔵音声"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "形式を読み込み中"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "解析が完了するまでお待ちください。プレイリストや検索には時間がかかる場合があります。"
+
+msgctxt "wizard.formats.mascot"
+msgid "Best + Best = max quality. I'd pick that!"
+msgstr "最高 + 最高 = 最高画質。これを選ぶよ!"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "音声なし"
+
+msgctxt "wizard.formats.quickPresets"
+msgid "Quick presets"
+msgstr "クイックプリセット"
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "サイズ不明"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "確認へスキップ"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "残りのすべてのステップに保存済みの設定を使用します。設定を変更するには、ステップごとに進んでください — 選択内容は次回のために保存されます。"
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "あなたに最適な形式を探しています…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "合計"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "動画"
+
+msgctxt "wizard.formats.videoOnly"
+msgid "Video only"
+msgstr "動画のみ"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "クリックした動画だけをダウンロードしますか？それとも Playlist から選びますか？次のステップで特定の動画や範囲を選択できます。"
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Playlist から選ぶ"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "プレイリスト取得上限: {{count}} 件"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgstr "yt-dlp のプレイリストモードを使い、選択画面を出す前に上限まで取得します。"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgstr "yt-dlp の単一動画モードを使い、この URL に付いたプレイリストを無視します。"
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "この1本だけ"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "このリンクは Playlist に含まれています"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "現代のプレーヤーでナビゲートできるチャプターマーカー。"
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "チャプターを埋め込む"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "タイトル、アーティスト、説明、アップロード日をファイルに書き込みます。"
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "メタデータを埋め込む"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "ファイル内のカバーアート。WebM動画はMKVに再パッケージされます。字幕を埋め込む場合はスキップ。"
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "サムネイルを埋め込む"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "動画の説明を .description テキストファイルとしてダウンロードの隣に保存します。"
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "説明を保存"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "動画の横に .m3u プレイリストを保存し、メディアプレーヤーで順番に開けるようにします。"
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr ".m3u プレイリストファイルを生成"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "サムネイルを .jpg 画像ファイルとしてダウンロードの隣に保存します。"
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "サムネイルを保存"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "ダウンロード済み"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "一括 URL"
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "動画の詳細を取得中… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "詳細を取得できません"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "詳細を取得中"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "待機中"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "ライブ"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Playlist アイテム"
+
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} 本の動画"
+
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} 本の動画"
+
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} 曲"
+
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} 曲"
+
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Playlist を取得中…"
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "続行するには少なくとも1本の動画を選択してください"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Arroxy は {{count}} 件を超えるアイテムを検出しましたが、現在のスキャン上限により残りは表示されていません。"
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "プレイリストのスキャンが上限に達しました"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "範囲を適用"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "開始"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "終了"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "すべて選択"
+
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} 件選択中"
+
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} 件選択中"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "すべて解除"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "同期を適用"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "フォルダーを変更…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "これらの動画のうち {{n}} 件はすでに {{dir}} にあります。新しいものだけをダウンロードするために同期しますか？"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "すでにフォルダー内にあります"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "このプレイリストの動画は {{dir}} で見つかりませんでした。"
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "まだダウンロードされていません"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "フォルダーを確認中…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "動画サムネイル"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "バッチの画質を選択"
+
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} 件"
+
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} 件"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "各動画が選択した画質ティアを独立して解決します — 異なる動画が混在するPlaylistも問題なく処理できます。"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "フィラー"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "イントロ"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "音楽（無関係）"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "アウトロ"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "プレビュー"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "自己宣伝"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "スポンサー"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "カテゴリ"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "チャプターとしてマーク"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "オフ"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "セグメントを削除"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "スポンサーフィルター"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "スポンサーセグメントをチャプターとしてマークします（非破壊的）。"
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "SponsorBlockなし — 動画はアップロードされた通りに再生されます。"
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "FFmpegを使用してスポンサーセグメントを削除します。"
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "確認"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "保存先"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "形式"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "出力"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Playlist"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "画質"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "字幕"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "自動字幕は ASS ではなく SRT として保存されます — YouTube のローリング・キュー重複を常にクリーンアップしますが、現状 ASS コンバーターではこれを再現できません。"
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "自動"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "すべて削除"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "埋め込みモードでは、字幕トラックを確実に埋め込むため出力は .mkv で保存されます。"
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.subtitles.mascot"
+msgid "Pick zero, one, or many — totally up to you ✨"
+msgstr "ゼロでも、一つでも、複数でも — お好みで ✨"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "この動画には字幕がありません"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "言語が見つかりません"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "字幕が選択されていません"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "動画に埋め込む"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "保存方法"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "動画と同じ場所"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "subtitles/ サブフォルダー"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "言語を検索…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "自動生成"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "手動"
+
+msgctxt "wizard.subtitles.selectedNote_one"
+msgid "{{count}} subtitle will be downloaded"
+msgstr "字幕 {{count}} 件をダウンロードします"
+
+msgctxt "wizard.subtitles.selectedNote_other"
+msgid "{{count}} subtitles will be downloaded"
+msgstr "字幕 {{count}} 件をダウンロードします"
+
+msgctxt "wizard.subtitles.skip"
+msgid "Skip"
+msgstr "スキップ"
+
+msgctxt "wizard.subtitles.skipSubs"
+msgid "Skip for this video"
+msgstr "この動画ではスキップ"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "詳細設定"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send anonymous usage stats"
+msgstr "匿名の使用統計を送信"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "Counts app launches only. No URLs, filenames, or personal data."
+msgstr "アプリの起動回数のみを記録します。URL、ファイル名、個人情報は含まれません。"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "一括 URL"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
+msgstr "個別 URL のリストを貼り付け、整理後の一覧を確認してから、共通の品質プリセットでキューに追加します。"
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "URLをクリア"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "クリップボードを監視"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "YouTubeのリンクをコピーすると自動的にURLフィールドに入力します。"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "閉じるときにトレイに格納"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "ウィンドウを閉じた後もバックグラウンドでダウンロードを続けます。"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgstr "注意: yt-dlpがCookieで使うアカウントは、YouTube側でフラグが立てられたり、稀にBANされることがあります。可能なら使い捨てアカウントを使ってください。"
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "ブラウザから直接Cookieを読み込みます。Chromiumベースのブラウザはブラウザを閉じた状態で使用してください。"
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "ブラウザ"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "ブラウザを選択…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "選択…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "クリア"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Cookieを使うにはブラウザを選択してください"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Cookieを使うにはファイルを選択してください"
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "cookies.txt をローカルで取得 (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Cookieファイル"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Cookieを書き出す方法は?"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "ファイルが選択されていません"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "注意: cookies.txt にはそのブラウザのすべてのログイン情報が含まれます — 取り扱いに注意してください。"
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "ブラウザ"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "ファイル"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Cookieのソース"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "オフ"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "年齢制限・メンバー限定・アカウント非公開の動画で役立ちます。"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "音声のみ"
+
+msgctxt "wizard.url.features.always.heading"
+msgid "Always available"
+msgstr "いつでも利用可能"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "字幕"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000以上のサイト"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "音楽プレイリスト"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "動画"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "動画プレイリスト"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Arroxyで取得できるもの"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "チャンネル"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "音楽"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "プレイリスト"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "ポッドキャスト"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "動画"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
+msgstr "キューに追加する前に、形式、字幕、フォルダー、プレイリスト項目を手順ごとに選びます。"
+
+msgctxt "wizard.url.heading"
+msgid "Video URL"
+msgstr "YouTube URL"
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "形式を取得"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "進行中のダウンロードは現在の制限を保持します。適用するには一時停止して再開してください。"
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "カスタム…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "例: 750K または 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "メディアダウンロードの帯域を制限します。下のリクエスト間隔のほうが強い制限になることが多いです。"
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "K または M を付けた数値を使ってください（例: 500K、1.5M）"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "ダウンロード速度制限"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "オフ"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎"
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link — YouTube or any of 2000+ sites ✨"
+msgstr "YouTubeのリンクを貼ってね (動画でもShortsでもOK) — 「形式を取得」を押せばすぐ取りかかるよ ✨"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
+msgstr "各ダウンロード中に小さな待機を追加して、Arroxy がサイトに過度にアクセスしないようにします。値は特に指定がない限り秒単位です。"
+
+msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
+msgid "Download connections"
+msgstr "ダウンロード接続数"
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "メディア開始前の一時停止：最大"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "メディア開始前の一時停止：最小"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "メタデータチェック間の待機"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "字幕ファイル前の待機"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "やさしいダウンロード"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Arroxy はどのくらい慎重にしますか？"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "バランス"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "慎重"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "カスタム"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "オフ"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
+msgstr "待機：{{requests}} チェック間、{{downloads}} メディア開始前、{{subtitles}} 字幕ファイル前。接続数：{{fragments}}。"
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
+msgstr "これらの待機は各ダウンロードの内部で発生します。Arroxy は通常通りキューのダウンロードを1件ずつ処理します。"
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses and uses one download connection."
+msgstr "デフォルト。短い一時停止を追加し、ダウンロード接続を1つ使用します。"
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "大きなプレイリストや頻繁に制限に引っかかるネットワーク向けに長い一時停止を追加します。"
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "ダウンロードごとの高度なコントロールを自分で調整します。"
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Arroxyがメディアと字幕のために保持している小さなベースライン一時停止のみを使用します。"
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "秒"
+
+msgctxt "wizard.url.networkPacing.units.threads"
+msgid "threads"
+msgstr "スレッド"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://www.youtube.com/watch?v=..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "現在の上限：{{count}} 件"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "カスタム…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "{{min}} から {{max}} の整数を入力してください。"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "上限を保存"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "カスタムプレイリストスキャン上限"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "カスタム：{{count}} 件"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "プレイリスト、チャンネル、または検索結果を開いたときに Arroxy が読み込む最大エントリ数。"
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "1 から 5000 の整数を入力してください"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "スキャンするプレイリストの項目数"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} 件"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "yt-dlp の --playlist-end に対応します：Arroxy はピッカーを構築する際、この件数のプレイリスト・チャンネル・検索エントリのみ取得します。"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "クリア"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "プロキシ経由でトラフィックを転送 — 地域制限コンテンツに有効。"
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Proxy URL"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick download"
+msgstr "クイックダウンロード"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
+msgstr "保存済みまたは既定の設定を使い、設定手順を開かずにこの単一動画をキューへ追加します。"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "追加できませんでした: {{error}}"
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "キュー項目を準備できませんでした"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "準備中"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "解析に失敗しました"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "キューに追加しました"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
+msgstr "クイックダウンロードは単一動画専用です。プレイリストやチャンネルには形式を取得を使ってください。"
+
+msgctxt "wizard.url.singleFilenameId.toggle"
+msgid "Add video ID to single filenames"
+msgstr "単体ファイル名に動画IDを追加"
+
+msgctxt "wizard.url.singleFilenameId.toggleDescription"
+msgid "Keeps one-off downloads unique when titles change or collide."
+msgstr "タイトルが変わったり重複したりしても、単発ダウンロードを一意に保ちます。"

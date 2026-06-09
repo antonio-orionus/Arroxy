@@ -14,7 +14,8 @@ Shipping reference for the in-app **Share** feature: dialog, all entry points, p
 - `src/renderer/src/components/layout/TitleBar.tsx` — title-bar button
 - `src/renderer/src/components/system/AboutDialog.tsx` — about-dialog button
 - `src/renderer/src/components/wizard/StepUrlInput.tsx` — wizard inline card
-- `src/shared/i18n/locales/*.ts` — 21 locales × 12 share keys
+- `src/shared/i18n/locales/*.json` — generated runtime locale resources
+- `i18n/locales/*.po` — agent-edited translation catalogs
 
 ---
 
@@ -217,7 +218,7 @@ Verifying allowlist parity: with `ARROXY_ANALYTICS_DEBUG=1` set, the dev branch 
 
 ## 6. i18n
 
-12 keys under `share.*` in every locale (21 total — see `src/shared/schemas.ts` `supportedLangSchema` for the canonical list). Type system enforces parity via `LocaleResource = WidenStrings<EnTranslation>` in `src/shared/i18n/types.ts`.
+12 keys under `share.*` in every locale (21 total — see `src/shared/schemas.ts` `supportedLangSchema` for the canonical list). `bun run check:app` enforces key parity, placeholder leakage, and gettext catalog freshness; runtime non-English JSON is generated from `i18n/locales/*.po`.
 
 Keys:
 
@@ -245,7 +246,7 @@ Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.
 4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock
 ```
 
-Translated via the `translate` skill across all 20 non-en locales when keys change.
+When keys change, edit English first, run `bun run i18n:sync`, translate the fuzzy/untranslated PO entries across all 20 non-English locales, then run `bun run i18n:compile`.
 
 ---
 

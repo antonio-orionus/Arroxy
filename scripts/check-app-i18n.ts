@@ -6,7 +6,7 @@
 // Placeholder = a non-en value byte-equal to en, signaling unfinished translation.
 // Default: warn on all three (missing, extras, placeholders). --strict: fail on any.
 
-import en from '../src/shared/i18n/locales/en.js'
+import en from '../src/shared/i18n/locales/en.json' with {type: 'json'}
 import {SUPPORTED_LANGS} from '../src/shared/schemas.js'
 
 interface LeafEntry {
@@ -44,7 +44,7 @@ let hadPlaceholders = false
 
 for (const lang of SUPPORTED_LANGS) {
 	if (lang === 'en') continue
-	const mod = (await import(`../src/shared/i18n/locales/${lang}.js`)) as {default: unknown}
+	const mod = (await import(`../src/shared/i18n/locales/${lang}.json`, {with: {type: 'json'}})) as {default: unknown}
 	const localeLeaves = flattenLeaves(mod.default)
 	const localeByPath = new Map(localeLeaves.map(l => [l.path, l.value]))
 	const localeKeys = new Set(localeByPath.keys())

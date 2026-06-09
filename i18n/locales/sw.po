@@ -1,0 +1,2070 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sw\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Kuhusu"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "MIT License · by Antonio Orionus"
+msgstr "Leseni ya MIT · na Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Kuhusu Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Kipakuzi cha video na sauti cha haraka na rahisi kwa kompyuta."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Tazama notisi za wengine"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Tovuti"
+
+msgctxt "app.debugCopied"
+msgid "Copied!"
+msgstr "Imenakiliwa!"
+
+msgctxt "app.debugCopyTitle"
+msgid "Copy debug info (Electron, OS, Chrome versions)"
+msgstr "Nakili maelezo ya utatuzi (matoleo ya Electron, OS, Chrome)"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Maoni"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Unafurahia Arroxy? Ningependa kusikia kutoka kwako! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Kumbukumbu"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Kuza"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Punguza"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Rudi"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Ghairi"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Endelea"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Jaribu tena"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Anza upya"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy inaendelea kufanya kazi na kukamilisha vipakuzi vinavyofanya kazi. Badilisha hii baadaye katika mipangilio ya Hali ya juu."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Ficha kwenye tray"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Ficha Arroxy kwenye tray ya mfumo ukifunga?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Toka"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Usiulize tena"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Ghairi Vipakuzi na Toka"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Kufunga kutafuta vipakuzi vyote vinavyofanya kazi."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Endelea Kupakua"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "Upakuaji {{count}} unaendelea"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "Vipakuzi {{count}} vinavyoendelea"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Sitisha vipakuliwa na uondoke"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Mchakato wa uonyeshaji umeanguka ({{reason}}). Pakia upya ujaribu tena."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy imekutana na tatizo"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Toka"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Pakia upya"
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Video hii ina kikwazo cha umri na haiwezi kupakuliwa bila akaunti iliyoingia."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgstr "Ulinzi wa boti umeanzishwa. IP unayotumia ina uwezekano mkubwa wa kuwa imepigwa alama (anuwai ya kituo cha data au mlango wa VPN wenye msongamano). Badilisha IP yako au chagua seva nyingine ya VPN na ujaribu tena. Ikiwa itaendelea kushindwa, hii inaweza kuwa mabadiliko ya muda ya upande wa YouTube — Arroxy inasasisha yt-dlp kiotomatiki wakati wa uzinduzi, kwa hivyo marekebisho yatafika kiotomatiki mara chanzo kikitoa sasisho."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Seva ilikatiza upakuaji mara kwa mara na yt-dlp ilikata tamaa baada ya kujaribu tena. Hii hutokea zaidi kwa muundo mkubwa wa video (4K HDR / VP9 ya bitrate ya juu). Jaribu tena, badilisha mtandao/VPN, au chagua muundo wa ubora wa chini."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgstr "Video hii inalindwa na DRM. yt-dlp haiwezi kuondoa DRM, kwa hivyo faili haiwezi kupakuliwa."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Video hii haipatikani katika eneo lako."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Anwani yako ya IP inaonekana kuzuiwa na YouTube. Jaribu tena baadaye au tumia VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgstr "Video hii inahitaji akaunti iliyoingia. Sanidi cookies.txt (Mipangilio → Cookies) na ujaribu tena."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Hitilafu ya mtandao. Angalia muunganisho wako na ujaribu tena."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Nafasi ya diski haitoshi. Futa nafasi na ujaribu tena."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgstr "Haikuwezekana kuchanganua jibu kutoka tovuti. Kichanganuzi cha yt-dlp kinaweza kuwa kimepitwa na wakati. Arroxy huboresha yt-dlp kiotomatiki wakati wa uzinduzi — jaribu tena baada ya dakika chache marekebisho yatakapowasili."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "yt-dlp ilimaliza kupakua lakini uchakataji wa baadaye (kuunganisha / mux / kubadilisha) ulishindwa. Mara nyingi hili ni tatizo la muda la ffmpeg — jaribu tena, na ikiendelea, jaribu mchanganyiko tofauti wa muundo."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgstr "YouTube inazuia maombi. Subiri dakika moja kisha ujaribu tena."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Video hii haipatikani — inaweza kuwa ya kibinafsi, imefutwa, au imezuiwa kwa mkoa."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Upakuaji umeshindwa. Tazama matokeo ghafi hapa chini."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr "Hii haionekani kama URL ya video. Bandika kiungo cha video ya YouTube, Short, au playlist."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Sauti"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Sauti peke yake · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Lugha"
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Audio (best)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Audio ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Sauti bora asilia, bila kusimba upya"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Geuza kuwa M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Geuza kuwa MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Geuza kuwa Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 zaidi ya 1080p haipatikani YouTube — hupunguzwa kiotomatiki hadi 1080p"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Hadi 1080p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Hadi 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Hadi 4K"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Hadi 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Hadi 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Hadi 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Best quality"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Imepunguzwa hadi 1080p, hushuka kwa kila kipengee ikihitajika"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Imepunguzwa hadi 2K, hushuka kwa kila kipengee ikihitajika"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Imepunguzwa hadi 2160p, hushuka kwa kila kipengee ikihitajika"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Smallest video"
+msgstr "Smallest video"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Low bandwidth"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Faili ndogo, upatanifu mpana"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Video + sauti bora inayopatikana kwa kila kipengee"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Best codec"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "MP4 / Smart TV"
+msgstr "MP4 (H.264)"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Kodeki bora inayopatikana kwa kila kipengee"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "H.264 + AAC inapendelewa, kontena MP4 · juhudi bora"
+
+msgctxt "presets.audio-only.desc"
+msgid "No video, best audio"
+msgstr "Hakuna video, sauti bora"
+
+msgctxt "presets.audio-only.label"
+msgid "Audio only"
+msgstr "Sauti peke yake"
+
+msgctxt "presets.balanced.desc"
+msgid "720p max + good audio"
+msgstr "720p kiwango cha juu + sauti nzuri"
+
+msgctxt "presets.balanced.label"
+msgid "Balanced"
+msgstr "Uwiano"
+
+msgctxt "presets.best-quality.desc"
+msgid "Highest resolution + best audio"
+msgstr "Azimio la juu zaidi + sauti bora"
+
+msgctxt "presets.best-quality.label"
+msgid "Best quality"
+msgstr "Ubora bora"
+
+msgctxt "presets.small-file.desc"
+msgid "Lowest resolution + low audio"
+msgstr "Azimio la chini + sauti ya chini"
+
+msgctxt "presets.small-file.label"
+msgid "Small file"
+msgstr "Faili ndogo"
+
+msgctxt "presets.subtitle-only.desc"
+msgid "No video, no audio, only subtitles"
+msgstr "Hakuna video, hakuna sauti, manukuu peke yake"
+
+msgctxt "presets.subtitle-only.label"
+msgid "Subtitles only"
+msgstr "Manukuu peke yake"
+
+msgctxt "queue.activeCount"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} inapakua · {{percent}}%"
+
+msgctxt "queue.cancelAll"
+msgid "Cancel all"
+msgstr "Ghairi vyote"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Ghairi vipakuzi vyote vinavyoendelea na vinavyosubiri"
+
+msgctxt "queue.clear"
+msgid "Clear"
+msgstr "Futa"
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Futa vipakuzi vilivyokamilika"
+
+msgctxt "queue.empty"
+msgid "Downloads you queue will appear here"
+msgstr "Vipakuzi unavyoweka kwenye foleni vitaonekana hapa"
+
+msgctxt "queue.header"
+msgid "Download Queue"
+msgstr "Foleni ya Kupakua"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Ghairi"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Upakuaji umeshindwa"
+
+msgctxt "queue.item.doneAt"
+msgid "Done {{time}}"
+msgstr "Imekamilika {{time}}"
+
+msgctxt "queue.item.hold"
+msgid "Hold"
+msgstr "Simama"
+
+msgctxt "queue.item.openUrl"
+msgid "Open URL"
+msgstr "Fungua URL"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Simamisha"
+
+msgctxt "queue.item.paused"
+msgid "Paused"
+msgstr "Imesimamishwa"
+
+msgctxt "queue.item.priorityBadge"
+msgid "Priority"
+msgstr "Kipaumbele"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Pakua sasa — ruka foleni"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Ondoa"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Endelea"
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Imeghairiwa"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Imekamilika"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Hitilafu"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Imeshikiliwa"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Imesitishwa"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Inasubiri"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Inapakua"
+
+msgctxt "queue.limitRate"
+msgid "Speed: {{value}}"
+msgstr "Kasi: {{value}}"
+
+msgctxt "queue.limitRateOff"
+msgid "Speed: Off"
+msgstr "Kasi: Imezimwa"
+
+msgctxt "queue.limitRateTitle"
+msgid "Bandwidth limit for downloads"
+msgstr "Kikomo cha bandwidth kwa vipakuliwa"
+
+msgctxt "queue.noDownloads"
+msgid "No downloads yet."
+msgstr "Hakuna vipakuzi bado."
+
+msgctxt "queue.pauseAll"
+msgid "Pause queue"
+msgstr "Simamisha vyote"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Simamisha vipakuzi vyote vinavyoendelea"
+
+msgctxt "queue.resumeAll"
+msgid "Resume queue"
+msgstr "Endeleza foleni"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Endeleza vipakuliwa vilivyosimamishwa na ruhusu foleni iendelee"
+
+msgctxt "queue.tip"
+msgid "Your download is queued below — open anytime to track progress."
+msgstr "Kipakuliwa chako kimewekwa kwenye foleni hapa chini — fungua wakati wowote kufuatilia maendeleo."
+
+msgctxt "queue.toggleTitle"
+msgid "Toggle download queue"
+msgstr "Geuza foleni ya kupakua"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Ghairi"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Chagua faili inayotekelezwa"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Sakinisha kwa Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Sakinisha kwa WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Fungua saraka ya utegemezi"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Rejesha chaguo-msingi"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Retry setup"
+msgstr "Jaribu usanidi tena"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Angalia kumbukumbu ya usanidi"
+
+msgctxt "repair.deps.deno"
+msgid "Deno"
+msgstr "Deno"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.hints.badExitCode"
+msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
+msgstr "Binary haikujibu --version. Inaweza kuwa imeharibiwa au muundo mbaya."
+
+msgctxt "repair.hints.blockedOrQuarantined"
+msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
+msgstr "Windows ilizuia faili (SmartScreen / Defender). Chagua nakala iliyosakinishwa au weka saraka ya runtime kwenye orodha nyeupe."
+
+msgctxt "repair.hints.downloadFailed"
+msgid "Download failed. Check your internet connection and retry."
+msgstr "Upakuaji umeshindwa. Angalia muunganisho wako wa intaneti na ujaribu tena."
+
+msgctxt "repair.hints.extractFailed"
+msgid "Archive extraction failed. The download may be corrupt — retry."
+msgstr "Ufunguzi wa kumbukumbu umeshindwa. Upakuaji unaweza kuwa umeharibiwa — jaribu tena."
+
+msgctxt "repair.hints.hashFailed"
+msgid "Checksum mismatch on the downloaded file. Retry the download."
+msgstr "Checksum ya faili iliyopakuliwa haifanani. Pakua upya faili."
+
+msgctxt "repair.hints.pairIncomplete"
+msgid "ffmpeg and ffprobe must both be set as a matched pair."
+msgstr "ffmpeg na ffprobe lazima ziwekwe zote kwa pamoja kama jozi inayolingana."
+
+msgctxt "repair.hints.permissionDenied"
+msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
+msgstr "Mfumo ulikataa kuendesha faili. Chagua nakala unayoiamini au jaribu tena kama msimamizi."
+
+msgctxt "repair.hints.spawnFailed"
+msgid "The file is missing or could not be launched. Pick a working copy."
+msgstr "Faili haipo au haiwezi kuzinduliwa. Chagua nakala inayofanya kazi."
+
+msgctxt "repair.hints.timeout"
+msgid "The version probe timed out. The file may be hung — retry."
+msgstr "Uchunguzi wa toleo ulichukua muda mrefu. Faili inaweza kuwa imesimama — jaribu tena."
+
+msgctxt "repair.hints.unknown"
+msgid "Could not be verified."
+msgstr "Haikuweza kuthibitishwa."
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Usanidi unahitaji msaada wako"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Imenakiliwa!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Nakili kiungo"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 1850+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy ni ya bure na chanzo wazi. Kushiriki husaidia watu wengi zaidi kuigundua."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Shiriki"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Shiriki Arroxy"
+
+msgctxt "share.highValueBanner.body"
+msgid "Enjoying Arroxy? Help others discover it."
+msgstr "Unafurahia Arroxy? Saidia wengine kuigundua."
+
+msgctxt "share.highValueBanner.dismiss"
+msgid "Dismiss share suggestion"
+msgstr "Funga pendekezo la kushiriki"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Shiriki Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Shiriki Arroxy"
+
+msgctxt "splash.downloading"
+msgid "Downloading {{binary}}…"
+msgstr "Inapakua {{binary}}…"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Hujambo, karibu tena!"
+
+msgctxt "splash.warmup"
+msgid "Arroxy is warming up…"
+msgstr "Arroxy inajipanga…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi."
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Upakuaji umeghairiwa"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Upakuaji umekamilika"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Inabadilisha video…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Nafasi ya diski haitoshi — inahitajika {{required}}, {{free}} tu inapatikana"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Inapakua binary ya {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Inapakua video na sauti…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Inaingiza metadata…"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Inabadilisha sauti…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Inawasiliana na SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Inapata manukuu…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Inachanganya sauti na video…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Inatengeneza tokeni ya YouTube…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Inahamisha faili…"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Inaandaa faili za binary…"
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Inatengeneza upya tokeni…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock haipatikani, inajaribu tena ({{attempt}}/{{total}})…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Inasubiri sekunde {{seconds}} kuepuka vikwazo vya kiwango…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting yt-dlp process…"
+msgstr "Inaanzisha mchakato wa yt-dlp…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Video imehifadhiwa — baadhi ya manukuu hayakuweza kupakuliwa"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Kushindwa kwa kuanzisha pasijulikane"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Imepakiwa kwa kiboreshaji laini — weka cookies.txt kwa upakuaji wa kuaminika zaidi"
+
+msgctxt "status.ytdlpExitCode"
+msgid "yt-dlp exited with code {{code}}"
+msgstr "yt-dlp ilitoka na msimbo {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "yt-dlp process error: {{error}}"
+msgstr "Hitilafu ya mchakato wa yt-dlp: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Hali ya giza"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Hali ya mwanga"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Chaguo-msingi la mfumo"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Funga"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Panua"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Punguza"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Rejesha"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Fungua Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Funga Arroxy"
+
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 inapakua · {{percent}}%"
+
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} zinapakua · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Tulivu"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.appVersion"
+msgid "Arroxy {{version}}"
+msgstr "Arroxy {{version}}"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Amri imenakiliwa kwenye ubao wa kunakili"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Nakili amri kwenye ubao wa kunakili"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Funga bango la sasisho"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Download ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Inapakua…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Sakinisha na Uanzishe Upya"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Sasisho limeshindwa"
+
+msgctxt "update.isAvailable"
+msgid "is available"
+msgstr "inapatikana"
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Jaribu tena"
+
+msgctxt "update.youHave"
+msgid "— you have {{currentVersion}}"
+msgstr "— una {{currentVersion}}"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Inapakia…"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Tayari"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Bandika URL binafsi za video au sauti. Arroxy itaondoa zilizorudiwa na kuonyesha viungo vya playlist au channel kabla ya kupanga foleni."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Bandika URL moja au zaidi ili kuona kundi."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Zimepuuzwa"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Ongeza angalau URL moja inayotumika ili kuendelea."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Imerudiwa"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "Orodha ya URL"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "URL nyingi"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Queue"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Inaanza vipakuzi vingine vikishamaliza — inapata upanuzi kamili"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Sauti peke yake"
+
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} kati ya {{total}} video"
+
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} kati ya {{total}} video"
+
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} kati ya {{total}} wimbo"
+
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} kati ya {{total}} nyimbo"
+
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} kati ya {{total}} URL"
+
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} kati ya {{total}} URL"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Sauti"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "URL nyingi"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Vipande"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Playlist"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Mpangilio"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Hifadhi kwenye"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Ukubwa"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Manukuu"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Faili yako itawekwa kwenye"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Mpangilio wa manukuu peke yake umewashwa lakini hakuna lugha ya manukuu iliyochaguliwa — hakuna kitakachopakiwa."
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Pakua sasa! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Inaanza mara moja — inafanya kazi pamoja na vipakuzi vingine vinavyofanya kazi"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Iko tayari kupakua!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Haijulikani"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Subtitle embed imebadilishwa kuwa sidecar — nyimbo za sauti hazitumii mtiririko wa manukuu uliowekwa ndani."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Thumbnail embed imerukwa — container ya matokeo hauitumii."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Maalum…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Eneo kazi"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Hati"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Vipakuliwa"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Hifadhi kwenye"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Nyumbani"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Muziki"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Picha"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Jina la saraka lina herufi batili"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "mfano lo-fi rips"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Hifadhi ndani ya saraka ndogo"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Sinema"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Sauti"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Sauti peke yake"
+
+msgctxt "wizard.formats.audioOnlyOption"
+msgid "Audio only (no video)"
+msgstr "Sauti peke yake (bila video)"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Vidakuzi vimesanidiwa lakini vimezimwa. Viwashe na ujaribu tena kupata orodha kamili, au badilisha mtandao na ujaribu tena."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Hata na vidakuzi, YouTube ilipunguza uchunguzi huu. Jaribu tena baadaye au badilisha mtandao."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Orodha ya maumbo inaweza kuwa haikamilika. Sanidi vidakuzi katika mipangilio ya hali ya juu, au badilisha mtandao na ujaribu tena."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Washa vidakuzi na ujaribu tena"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "YouTube ilipunguza uchunguzi huu"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Jaribu tena"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Kiwango cha biti"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Badilisha"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.requiresAudioOnly"
+msgid "Audio conversion requires audio-only mode (deselect the video pick)."
+msgstr "Ubadilishaji wa sauti unahitaji hali ya sauti peke yake (ondoa chaguo la video)."
+
+msgctxt "wizard.formats.convert.requiresLossy"
+msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
+msgstr "Mkondo wa asili umechaguliwa — kiwango cha biti kinatumika tu unapobadilisha kuwa mp3, m4a, au opus."
+
+msgctxt "wizard.formats.convert.uncompressed"
+msgid "Convert · uncompressed"
+msgstr "Badilisha · isiyoshinikizwa"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (uncompressed)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Kivinjari"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Faili"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Chanzo cha vidakuzi"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp nyaraka (issue #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 na toleo jipya zaidi husimba fiche vidakuzi kwa njia ambayo programu nyingine haziwezi kusoma kwenye Windows. Jaribu moja ya masuluhisho yaliyo hapa chini."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Safirisha vidakuzi kutoka Chrome kwa kutumia kiendelezi cha kivinjari, kisha ubadilishe programu hii hadi hali ya Faili na uchague faili iliyosafirishwa."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Safirisha cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox haitumii App-Bound Encryption. Fungua mipangilio ya vidakuzi na uchague Firefox kutoka kwenye orodha ya vivinjari."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Badilisha kwenda Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Ongeza --disable-features=LockProfileCookieDatabase kwenye mkato wa kuzindua Chrome. Onyo: hii inabatilisha vidakuzi vilivyosimbwa fiche hapo awali, kwa hivyo utaondolewa katika kila tovuti na itabidi uingie tena."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Zindua Chrome huku App-Bound Encryption imezimwa"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Vidakuzi vya Chrome vimezuiwa na usimbaji fiche wa Windows"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Vidakuzi vinasomwa moja kwa moja kutoka kwenye kivinjari. Ikiwa kivinjari kinaendesha sasa hivi, hifadhidata yake ya vidakuzi inaweza kufungwa (familia ya Chromium). Kivinjari pia lazima kiingie katika YouTube. Jaribu kufunga kivinjari, ubadilishe hadi kivinjari tofauti, ubadilishe hadi hali ya Faili, au uzime vidakuzi."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Faili yako ya vidakuzi inaweza kuwa tupu, imeisha muda wake, au iko katika umbizo lisilo sahihi (yt-dlp inategemea Netscape cookies.txt). Jaribu kusafirisha vidakuzi tena, chagua faili tofauti, ubadilishe hadi hali ya Kivinjari, au uzime vidakuzi."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Vidakuzi vinaweza kuwa sababu"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "yt-dlp haikuweza kufikia video hii bila uthibitisho. Sanidi vidakuzi katika mipangilio ya hali ya juu — ielekeza kwenye kivinjari unachoingia tayari, au ingiza faili ya cookies.txt."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Tovuti hii inahitaji kuingia"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Fungua mipangilio ya vidakuzi"
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Acha kama ilivyo"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Sauti iliyojengwa ndani"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Inapakia maumbo"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Tafadhali subiri hadi uchunguzi ukamilike — orodha za kuimba na utafutaji vinaweza kuchukua muda."
+
+msgctxt "wizard.formats.mascot"
+msgid "Best + Best = max quality. I'd pick that!"
+msgstr "Bora + Bora = ubora wa juu zaidi. Ningechagua hivyo!"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Hakuna sauti"
+
+msgctxt "wizard.formats.quickPresets"
+msgid "Quick presets"
+msgstr "Mipangilio ya haraka"
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Ukubwa haujulikani"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Ruka hadi uthibitisho"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Inatumia mapendeleo yako yaliyohifadhiwa kwa hatua zote zilizobaki. Ili kubadilisha mipangilio, endelea hatua kwa hatua badala yake — chaguo lako litahifadhiwa kwa wakati ujao."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Natafuta maumbo bora kwako…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Jumla"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.formats.videoOnly"
+msgid "Video only"
+msgstr "Video peke yake"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Unataka video uliyobofya tu, au uchague kutoka Playlist? Hatua inayofuata utachagua video maalum au anuwai."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Chagua kutoka Playlist"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Kikomo cha kuchunguza playlist: vipengee {{count}}"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgstr "Hutumia modi ya playlist ya yt-dlp na kuchukua hadi kikomo chako kabla ya kuonyesha kichaguaji."
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgstr "Hutumia modi ya video moja ya yt-dlp ili kupuuza playlist iliyounganishwa na URL hii."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Hii tu"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Kiungo hiki kina Playlist"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Alama za sura zinazoweza kuabiriwa katika kichezaji chochote cha kisasa."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Ingiza sura"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Kichwa, msanii, maelezo, na tarehe ya kupakia vimeandikwa kwenye faili."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Ingiza metadata"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Sanaa ya jalada ndani ya faili. Video ya WebM itabadilishwa kuwa MKV; hupitishwa wakati manukuu yanaingizwa."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Ingiza picha ndogo"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Inahifadhi maelezo ya video kama faili ya maandishi ya .description karibu na kipakuliwa."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Hifadhi maelezo"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Hifadhi playlist ya .m3u pamoja na video ili zifunguke kwa mpangilio kwenye kicheza media."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Tengeneza faili ya playlist .m3u"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Inahifadhi picha ndogo kama faili ya picha ya .jpg karibu na kipakuliwa."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Hifadhi picha ndogo"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Tayari imepakuliwa"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "URL nyingi"
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Inaleta maelezo ya video… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Maelezo hayapatikani"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Inaleta maelezo"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Inasubiri"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "live"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Vipande vya Playlist"
+
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} video"
+
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} video"
+
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} wimbo"
+
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} nyimbo"
+
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Inapata Playlist…"
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Chagua angalau video moja ili kuendelea"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Arroxy imepata zaidi ya vipande {{count}}, kwa hivyo kikomo cha skani cha sasa kinaficha vilivyobaki."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Skani ya playlist imefungwa"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Tumia masafa"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Kutoka"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Hadi"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Chagua yote"
+
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} imechaguliwa"
+
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} zimechaguliwa"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Futa uchaguzi wote"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Tekeleza usawazishaji"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Badilisha folda…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} kati ya video hizi tayari zipo kwenye {{dir}}. Sawazisha ili kupakua mpya pekee?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Tayari ipo kwenye folda"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Hakuna video kutoka orodha hii ya kucheza zilizopatikana kwenye {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Hakuna kilichopakuliwa bado"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Inakagua folda…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Picha ndogo ya video"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Chagua ubora wa kundi"
+
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} kipande"
+
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} vipande"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Kila video inatatua kiwango kilichochaguliwa kwa kujitegemea — playlists tofauti hufanya kazi bila mshangao."
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Kijazio"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Utangulizi"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Music off-topic"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Mwisho"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Muhtasari"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Kujitangaza"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Mdhamini"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Kategoria"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Weka alama kama sura"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Zima"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Ondoa sehemu"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Uchujaji wa mdhamini"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Inaweka alama sehemu za mdhamini kama sura (bila uharibifu)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Hakuna SponsorBlock — video inacheza kama ilivyopakiwa."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Hukata sehemu za mdhamini kutoka kwenye video kwa kutumia FFmpeg."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Thibitisha"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Hifadhi"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Umbizo"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Matokeo"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Playlist"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Ubora"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Manukuu"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Maandishi ya otomatiki yatahifadhiwa kama SRT badala ya ASS — husafishwa daima kutokana na urudiaji wa kielelezo cha YouTube, ambao kibadilishaji chetu cha ASS bado hakiwezi kunakili."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Otomatiki"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Futa yote"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Hali ya kuingiza inahifadhi matokeo kama .mkv ili nyimbo za manukuu ziingizwe kwa uaminifu."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Umbizo"
+
+msgctxt "wizard.subtitles.mascot"
+msgid "Pick zero, one, or many — totally up to you ✨"
+msgstr "Chagua sufuri, moja, au mengi — inategemea wewe kabisa ✨"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Hakuna manukuu yanayopatikana kwa video hii"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Hakuna lugha zinazolingana"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Hakuna manukuu yaliyochaguliwa"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Ingiza kwenye video"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Hifadhi kama"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Karibu na video"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "subtitles/ saraka ndogo"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Tafuta lugha…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Yaliyoundwa otomatiki"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Ya mkono"
+
+msgctxt "wizard.subtitles.selectedNote_one"
+msgid "{{count}} subtitle will be downloaded"
+msgstr "Manukuu {{count}} yatapakiwa"
+
+msgctxt "wizard.subtitles.selectedNote_other"
+msgid "{{count}} subtitles will be downloaded"
+msgstr "Manukuu {{count}} yatapakiwa"
+
+msgctxt "wizard.subtitles.skip"
+msgid "Skip"
+msgstr "Ruka"
+
+msgctxt "wizard.subtitles.skipSubs"
+msgid "Skip for this video"
+msgstr "Ruka kwa video hii"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Hali ya juu"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send anonymous usage stats"
+msgstr "Tuma takwimu za matumizi zisizo na jina"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "Counts app launches only. No URLs, filenames, or personal data."
+msgstr "Huhesabu tu uzinduzi wa programu. Hakuna URL, majina ya faili, au data za kibinafsi."
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "URL nyingi"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
+msgstr "Bandika orodha ya URL binafsi, hakiki orodha iliyosafishwa, kisha ziweke foleni kwa preset moja ya ubora."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Futa URL"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Ghairi"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Angalia ubao wa kunakili"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube."
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Ficha kwenye tray ukifunga"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Endelea kupakua nyuma ya pazia baada ya kufunga dirisha."
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgstr "YouTube inaweza kufunga — na wakati mwingine kupiga marufuku — akaunti ambazo vidakuzi vyake vinatumiwa na yt-dlp. Tumia akaunti ya majaribio iwezekanavyo."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Inasoma vidakuzi moja kwa moja kutoka kwenye kivinjari. Kivinjari lazima kifungwe kwa vivinjari vya familia ya Chromium."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Kivinjari"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Chagua kivinjari…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Chagua…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Futa"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Chagua kivinjari kutumia vidakuzi"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Chagua faili kutumia vidakuzi"
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Pata cookies.txt NDANI YA KOMPYUTA (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Faili ya vidakuzi"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Ninasafirisha vidakuzi vipi?"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Hakuna faili iliyochaguliwa"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Hatari: cookies.txt ina vikao vyote vilivyoingia kwa kivinjari hicho — weka siri."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Kivinjari"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Faili"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Chanzo cha vidakuzi"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Zima"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Husaidia na video zilizozuiwa kwa umri, za wanachama peke yao, na za akaunti ya kibinafsi."
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Sauti peke yake"
+
+msgctxt "wizard.url.features.always.heading"
+msgid "Always available"
+msgstr "Daima inapatikana"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Manukuu"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "Tovuti 2000+"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Playlists za muziki"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Video"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Playlists za video"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Arroxy inaweza kupakua nini"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Vituo"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Muziki"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Playlists"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcasts"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Video"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
+msgstr "Chagua fomati, manukuu, folda na vipengee vya orodha ya kucheza hatua kwa hatua kabla ya kuongeza kwenye foleni."
+
+msgctxt "wizard.url.heading"
+msgid "Video URL"
+msgstr "YouTube URL"
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Pata maumbo"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Vipakuliwa vinavyoendelea huhifadhi kikomo cha sasa. Sitisha + Endelea ili kutumia mabadiliko."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Maalum…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "mf. 750K au 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Dhibiti bandwidth ya vipakuliwa vya media. Udhibiti wa maombi hapa chini mara nyingi una nguvu zaidi."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Tumia nambari ikifuatiwa na K au M (mf. 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Kikomo cha kasi ya kupakua"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Imezimwa"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Inapakua nyuma ya pazia… Ninaweza kufanya mambo mengi kwa wakati mmoja 😎"
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link — YouTube or any of 2000+ sites ✨"
+msgstr "Nipe kiungo cha YouTube (video au Short) — kisha bonyeza \"Pata maumbo\" nami nitaanza kazi ✨"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
+msgstr "Inaongeza mapumziko madogo wakati wa kila upakuaji ili Arroxy isishambue tovuti. Maadili ni sekunde isipokuwa imetajwa."
+
+msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
+msgid "Download connections"
+msgstr "Miunganisho ya kupakua"
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Pumzika kabla ya media kuanza: kiwango cha juu"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Pumzika kabla ya media kuanza: kiwango cha chini"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Pumzika kati ya ukaguzi wa metadata"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Pumzika kabla ya faili za manukuu"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Upakuaji wa taratibu"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Arroxy iwe makini kiasi gani?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Uwiano"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Uangalifu"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Maalum"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Zima"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
+msgstr "Mapumziko: {{requests}} kati ya ukaguzi, {{downloads}} kabla ya media kuanza, {{subtitles}} kabla ya faili za manukuu. Miunganisho: {{fragments}}."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
+msgstr "Mapumziko haya hutokea ndani ya kila upakuaji. Arroxy bado inashughulikia vipakuzi vya foleni moja kwa moja."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses and uses one download connection."
+msgstr "Chaguo-msingi. Inaongeza mapumziko mafupi na kutumia muunganisho mmoja wa kupakua."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Inaongeza mapumziko marefu kwa playlists kubwa au mitandao inayofikia vikwazo mara kwa mara."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Rekebisha mwenyewe udhibiti wa hali ya juu wa kila upakuaji."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Inatumia mapumziko madogo ya msingi tu ambayo Arroxy inayashikilia kwa media na manukuu."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "sek"
+
+msgctxt "wizard.url.networkPacing.units.threads"
+msgid "threads"
+msgstr "miunganisho"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://www.youtube.com/watch?v=..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Kikomo cha sasa: vipande {{count}}"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Maalum…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Ghairi"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Tumia nambari nzima kutoka {{min}} hadi {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Hifadhi kikomo"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Kikomo maalum cha skani ya playlist"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Maalum: vipande {{count}}"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Idadi ya juu ya maingizo ambayo Arroxy hupakia wakati playlist, kituo, au matokeo ya utafutaji yanafunguliwa."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Tumia nambari nzima kutoka 1 hadi 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Vipande vya playlist vya kuskanisha"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "Vipande {{count}}"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Inalingana na yt-dlp --playlist-end: Arroxy inauliza idadi hii tu ya maingizo ya playlist, kituo, au utafutaji wakati wa kujenga kichaguzi."
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Futa"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Peleka trafiki kupitia proksi — muhimu kwa maudhui yenye vizuizi vya kijiografia."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Proxy URL"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick download"
+msgstr "Pakua haraka"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
+msgstr "Hutumia mapendeleo yako yaliyohifadhiwa au chaguomsingi na kuongeza video hii moja kwenye foleni bila kufungua hatua za usanidi."
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Haikuweza kuongeza hii: {{error}}"
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Kipengee cha foleni hakikuweza kuandaliwa"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Inaandaa"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Uchunguzi umeshindikana"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Imeongezwa kwenye foleni"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
+msgstr "Pakua haraka ni kwa video moja tu. Tumia Leta fomati kwa orodha za kucheza na vituo."
+
+msgctxt "wizard.url.singleFilenameId.toggle"
+msgid "Add video ID to single filenames"
+msgstr "Ongeza ID ya video kwenye majina ya faili moja moja"
+
+msgctxt "wizard.url.singleFilenameId.toggleDescription"
+msgid "Keeps one-off downloads unique when titles change or collide."
+msgstr "Huweka upakuaji wa mara moja kuwa wa kipekee wakati vichwa vinabadilika au kugongana."

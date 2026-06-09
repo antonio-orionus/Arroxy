@@ -1,0 +1,2070 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: my\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "အကြောင်း"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "MIT License · by Antonio Orionus"
+msgstr "MIT လိုင်စင် · Antonio Orionus မှ"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Arroxy အကြောင်း"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Desktop အတွက် မြန်ဆန်သော ဗီဒီယို နှင့် အသံ ဒေါင်းလုဒ်တူး။"
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "တတိယပါတီ သတိပေးချက်များ ကြည့်မည်"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "ဝက်ဘ်ဆိုက်"
+
+msgctxt "app.debugCopied"
+msgid "Copied!"
+msgstr "ကူးယူပြီးပြီ!"
+
+msgctxt "app.debugCopyTitle"
+msgid "Copy debug info (Electron, OS, Chrome versions)"
+msgstr "အမှားရှာဖွေရေးအချက်အလက်ကူးယူမည် (Electron, OS, Chrome ဗားရှင်းများ)"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "အကြံပြုချက်"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Arroxy ကိုနှစ်သက်ပါသလား? သင့်ထံမှကြားချင်ပါသည်! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "မှတ်တမ်းများ"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "ချဲ့မည်"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "ချုံ့မည်"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "နောက်သို့"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "ပယ်ဖျက်မည်"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "ဆက်လက်သွားမည်"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "ထပ်မံကြိုးစားမည်"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "အစကနေပြန်စမည်"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy ဆက်လည်ပတ်ပြီး လက်ရှိဒေါင်းလုဒ်များ ပြီးဆုံးမည်။ နောက်မှ အဆင့်မြင့်ဆက်တင်တွင် ပြောင်းနိုင်သည်။"
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Tray သို့ ဝှက်မည်"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "ပိတ်သောအခါ Arroxy ကို system tray သို့ ဝှက်မည်လား?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "ထွက်မည်"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "နောက်ထပ်မမေးတော့ပါ"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "ဒေါင်းလုဒ်ပယ်ဖျက်ပြီး ထွက်မည်"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "ပိတ်လျှင် လက်ရှိဒေါင်းလုဒ်အားလုံးကို ပယ်ဖျက်မည်။"
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "ဒေါင်းလုဒ်ဆက်လုပ်မည်"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}} ဒေါင်းလုဒ် လုပ်ဆောင်နေဆဲ"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} ဒေါင်းလုဒ်များ လုပ်ဆောင်နေဆဲ"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "ဒေါင်းလုဒ်များ ရပ်နားပြီး ထွက်"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Renderer လုပ်ငန်းစဉ် ပျက်ကွက်သွားပါသည် ({{reason}})။ ထပ်မံကြိုးစားရန် ပြန်ဖွင့်ပါ။"
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy တွင် ပြဿနာတစ်ခုဖြစ်ပေါ်ပါသည်"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "ထွက်မည်"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "ပြန်ဖွင့်မည်"
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "ဤဗီဒီယိုသည် အသက်အကန့်အသတ်ရှိပြီး login ဝင်ထားသော account မပါဘဲ ဒေါင်းလုဒ်မဆင်းနိုင်ပါ။"
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgstr "Bot ကာကွယ်မှု အစပြုပြီ။ သင်သုံးနေသော IP သည် datacenter range သို့မဟုတ် သူများများသုံးသော VPN exit ဖြစ်၍ ပိတ်ဆို့ခံရနိုင်သည်။ သင့် IP ကို ပြောင်းပါ သို့မဟုတ် VPN endpoint အခြားတစ်ခုရွေးပြီး ထပ်ကြိုးစားပါ။ ဆက်မအောင်မြင်ပါက YouTube ၏ ယာယီပြောင်းလဲမှုဖြစ်နိုင်သည် — Arroxy သည် ဖွင့်သည့်အခါ yt-dlp ကို အလိုအလျောက်အပ်ဒိတ်လုပ်သောကြောင့် upstream မှ ပြင်ဆင်မှုရောက်သောအခါ အလိုလိုဖြေရှင်းသွားမည်ဖြစ်သည်။"
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "ဆာဗာသည် ဒေါင်းလုဒ်လုပ်နေစဉ် အကြိမ်ကြိမ် ဖြတ်တောက်နေပြီး yt-dlp သည် ထပ်ကြိုးစားပြီးနောက် လက်လျှော့သွားသည်။ ၎င်းသည် အများအားဖြင့် အကြီးဆုံးဗီဒီယိုဖော်မတ်များ (4K HDR / bitrate မြင့် VP9) တွင် ဖြစ်တတ်သည်။ ထပ်ကြိုးစားပါ၊ network/VPN ပြောင်းပါ၊ သို့မဟုတ် resolution နိမ့်သောဖော်မတ်ကို ရွေးချယ်ပါ။"
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgstr "ဤဗီဒီယိုသည် DRM ကာကွယ်ထားသည်။ yt-dlp သည် DRM ကို ဖြုတ်နိုင်မည်မဟုတ်သောကြောင့် ဖိုင်ကို ဒေါင်းလုဒ်မဆင်းနိုင်ပါ။"
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "ဤဗီဒီယိုသည် သင့်ဒေသတွင် မရနိုင်ပါ။"
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "သင့် IP လိပ်စာကို YouTube မှ ပိတ်ဆို့ထားနိုင်သည်။ နောက်မှပြန်ကြိုးစားပါ သို့ VPN သုံးပါ။"
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgstr "ဤဗီဒီယိုအတွက် login ဝင်ထားသော account လိုအပ်သည်။ cookies.txt တစ်ခု တပ်ဆင်ပါ (ဆက်တင် → Cookies) ပြီးနောက် ထပ်ကြိုးစားပါ။"
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Network အမှား။ သင့်ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ထပ်ကြိုးစားပါ။"
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Disk နေရာမလုံလောက်ပါ။ နေရာလွတ်ပြီး ထပ်ကြိုးစားပါ။"
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgstr "ဆိုက်မှ တုံ့ပြန်ချက်ကို parse မလုပ်နိုင်ပါ။ yt-dlp ၏ extractor သည် ခေတ်နောက်ကျနေပြီ ဖြစ်နိုင်သည်။ Arroxy သည် launch လုပ်သည့်အခါ yt-dlp ကို အလိုအလျောက် update လုပ်ပါသည် — ပြင်ဆင်မှု ထွက်ရှိပြီးနောက် မိနစ်အနည်းငယ်အကြာတွင် ထပ်ကြိုးစားကြည့်ပါ။"
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "yt-dlp ဒေါင်းလုဒ်လုပ်ခြင်းကို ပြီးစီးခဲ့သော်လည်း post-processing (merge / mux / convert) မအောင်မြင်ပါ။ ၎င်းသည် ခဏတာ ffmpeg ပြဿနာဖြစ်တတ်ပါသည် — ထပ်ကြိုးစားကြည့်ပါ၊ ဆက်လက်ဖြစ်နေပါက ဖော်မတ်ပေါင်းစပ်မှု အခြားတစ်ခုကို စမ်းကြည့်ပါ။"
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgstr "YouTube မှ တောင်းဆိုမှုများကို နှုန်းကန့်သတ်နေသည်။ တစ်မိနစ်စောင့်ပြီး ထပ်ကြိုးစားပါ။"
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "ဤဗီဒီယိုမရနိုင်ပါ — ကိုယ်ပိုင်၊ ဖျက်ထား သို့ ဒေသကန့်သတ်ဖြစ်နိုင်သည်။"
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "ဒေါင်းလုဒ်မအောင်မြင်ပါ။ အောက်ပါ raw output ကို ကြည့်ပါ။"
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr "ဤ URL သည် ဗီဒီယို URL မဟုတ်ပုံရပါ။ YouTube ဗီဒီယို၊ Short သို့မဟုတ် playlist လင့်ခ်တစ်ခု ထည့်ပါ။"
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "အသံ"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "အသံသာ · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "ဘာသာစကား"
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Audio (best)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Audio ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "အကောင်းဆုံး မူရင်းအသံ၊ ပြန် encode မလုပ်"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "M4A (AAC) သို့ ပြောင်း"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "MP3 သို့ ပြောင်း"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Opus သို့ ပြောင်း"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "YouTube တွင် 1080p အထက် H.264 မရှိပါ — 1080p သို့ အလိုအလျောက် ကန့်သတ်သည်"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "1080p အထိ"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "1440p အထိ"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "4K အထိ"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "360p အထိ"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "480p အထိ"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "720p အထိ"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Best quality"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "1080p တွင် ကန့်သတ်ပြီး အရာအလိုက် လိုအပ်လျှင် လျော့သည်"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "2K တွင် ကန့်သတ်ပြီး အရာအလိုက် လိုအပ်လျှင် လျော့သည်"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "2160p တွင် ကန့်သတ်ပြီး အရာအလိုက် လိုအပ်လျှင် လျော့သည်"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Smallest video"
+msgstr "Smallest video"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Low bandwidth"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "ဖိုင်သေး၊ ကိုက်ညီမှု ကျယ်ပြန့်"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "အရာတစ်ခုချင်းစီအတွက် အကောင်းဆုံး ဗီဒီယို + အသံ"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Best codec"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "MP4 / Smart TV"
+msgstr "MP4 (H.264)"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "အရာတစ်ခုချင်းစီအတွက် ရနိုင်သော အမြင့်ဆုံး codec"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "H.264 + AAC ကို ဦးစားပေး၊ MP4 container · အကောင်းဆုံးကြိုးစားမှု"
+
+msgctxt "presets.audio-only.desc"
+msgid "No video, best audio"
+msgstr "ဗီဒီယိုမပါ၊ အကောင်းဆုံးအသံ"
+
+msgctxt "presets.audio-only.label"
+msgid "Audio only"
+msgstr "အသံသာ"
+
+msgctxt "presets.balanced.desc"
+msgid "720p max + good audio"
+msgstr "720p အများဆုံး + ကောင်းသောအသံ"
+
+msgctxt "presets.balanced.label"
+msgid "Balanced"
+msgstr "မျှတသော"
+
+msgctxt "presets.best-quality.desc"
+msgid "Highest resolution + best audio"
+msgstr "အမြင့်ဆုံး resolution + အကောင်းဆုံးအသံ"
+
+msgctxt "presets.best-quality.label"
+msgid "Best quality"
+msgstr "အကောင်းဆုံးအရည်အသွေး"
+
+msgctxt "presets.small-file.desc"
+msgid "Lowest resolution + low audio"
+msgstr "အနိမ့်ဆုံး resolution + နိမ့်သောအသံ"
+
+msgctxt "presets.small-file.label"
+msgid "Small file"
+msgstr "ဖိုင်သေးသေး"
+
+msgctxt "presets.subtitle-only.desc"
+msgid "No video, no audio, only subtitles"
+msgstr "ဗီဒီယိုမပါ၊ အသံမပါ၊ စာတန်းထိုးသာ"
+
+msgctxt "presets.subtitle-only.label"
+msgid "Subtitles only"
+msgstr "စာတန်းထိုးသာ"
+
+msgctxt "queue.activeCount"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%"
+
+msgctxt "queue.cancelAll"
+msgid "Cancel all"
+msgstr "အားလုံး ဖျက်သိမ်းမည်"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "လုပ်ဆောင်နေသောနှင့် ဆိုင်းငံ့ထားသောဒေါင်းလုဒ်အားလုံး ဖျက်သိမ်းမည်"
+
+msgctxt "queue.clear"
+msgid "Clear"
+msgstr "ရှင်းလင်းမည်"
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "ပြီးဆုံးသောဒေါင်းလုဒ်များ ရှင်းလင်းမည်"
+
+msgctxt "queue.empty"
+msgid "Downloads you queue will appear here"
+msgstr "Queue ထည့်ထားသောဒေါင်းလုဒ်များ ဤနေရာတွင်ပေါ်မည်"
+
+msgctxt "queue.header"
+msgid "Download Queue"
+msgstr "ဒေါင်းလုဒ် Queue"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "ပယ်ဖျက်မည်"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "ဒေါင်းလုဒ်မအောင်မြင်ပါ"
+
+msgctxt "queue.item.doneAt"
+msgid "Done {{time}}"
+msgstr "{{time}} တွင်ပြီးဆုံး"
+
+msgctxt "queue.item.hold"
+msgid "Hold"
+msgstr "ဆိုင်းငံ့မည်"
+
+msgctxt "queue.item.openUrl"
+msgid "Open URL"
+msgstr "URL ဖွင့်မည်"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "ခေတ္တရပ်မည်"
+
+msgctxt "queue.item.paused"
+msgid "Paused"
+msgstr "ခေတ္တရပ်ထား"
+
+msgctxt "queue.item.priorityBadge"
+msgid "Priority"
+msgstr "ဦးစားပေး"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "ယခု ဒေါင်းလုဒ် — တန်းစီစာရင်း ကျော်"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "ဖျက်မည်"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "ဆက်လုပ်မည်"
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "ပယ်ဖျက်ပြီး"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "ပြီးပြီ"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "အမှား"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "ထိန်းထားသည်"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "ရပ်နားထားသည်"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "စောင့်နေသည်"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "ဒေါင်းလုဒ်လုပ်နေသည်"
+
+msgctxt "queue.limitRate"
+msgid "Speed: {{value}}"
+msgstr "အမြန်နှုန်း: {{value}}"
+
+msgctxt "queue.limitRateOff"
+msgid "Speed: Off"
+msgstr "အမြန်နှုန်း: ပိတ်"
+
+msgctxt "queue.limitRateTitle"
+msgid "Bandwidth limit for downloads"
+msgstr "ဒေါင်းလုဒ်များအတွက် bandwidth ကန့်သတ်ချက်"
+
+msgctxt "queue.noDownloads"
+msgid "No downloads yet."
+msgstr "ဒေါင်းလုဒ်မရှိသေးပါ။"
+
+msgctxt "queue.pauseAll"
+msgid "Pause queue"
+msgstr "အားလုံး ခေတ္တရပ်မည်"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "လုပ်ဆောင်နေသောဒေါင်းလုဒ်အားလုံး ခေတ္တရပ်မည်"
+
+msgctxt "queue.resumeAll"
+msgid "Resume queue"
+msgstr "တန်းစီစာရင်း ဆက်လုပ်"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "ရပ်နားထားသော ဒေါင်းလုဒ်များကို ဆက်လုပ်ပြီး တန်းစီစာရင်းကို ဆက်လက်လည်ပတ်စေသည်"
+
+msgctxt "queue.tip"
+msgid "Your download is queued below — open anytime to track progress."
+msgstr "သင့်ဒေါင်းလုဒ်ကို queue ထည့်ပြီးပြီ — တိုးတက်မှုကြည့်ရှုရန် ဖွင့်နိုင်သည်။"
+
+msgctxt "queue.toggleTitle"
+msgid "Toggle download queue"
+msgstr "ဒေါင်းလုဒ် queue ဖွင့်/ပိတ်မည်"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "ပယ်ဖျက်မည်"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Executable ရွေးမည်"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Homebrew ဖြင့် ထည့်သွင်းမည်"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "WinGet ဖြင့် ထည့်သွင်းမည်"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Dependency ဖိုဒါဖွင့်မည်"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "မူလသို့ပြန်ထားမည်"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Retry setup"
+msgstr "Setup ထပ်ကြိုးစားမည်"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Setup log ကြည့်မည်"
+
+msgctxt "repair.deps.deno"
+msgid "Deno"
+msgstr "Deno"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.hints.badExitCode"
+msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
+msgstr "Binary မှ --version ကိုမတုံ့ပြန်ပါ။ ပျက်စီးနေသော သို့မဟုတ် မှားသောဗားရှင်းဖြစ်နိုင်သည်။"
+
+msgctxt "repair.hints.blockedOrQuarantined"
+msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
+msgstr "Windows မှ ဖိုင်ပိတ်ဆို့သည် (SmartScreen / Defender)။ တပ်ဆင်ထားသောကော်ပီရွေးပါ သို့မဟုတ် runtime ဖိုဒါကို ခွင့်ပြုချက်ထည့်ပါ။"
+
+msgctxt "repair.hints.downloadFailed"
+msgid "Download failed. Check your internet connection and retry."
+msgstr "ဒေါင်းလုဒ်မအောင်မြင်ပါ။ အင်တာနက်ချိတ်ဆက်မှုစစ်ဆေးပြီး ထပ်ကြိုးစားပါ။"
+
+msgctxt "repair.hints.extractFailed"
+msgid "Archive extraction failed. The download may be corrupt — retry."
+msgstr "Archive ဖြေထုတ်မှုမအောင်မြင်ပါ။ ဒေါင်းလုဒ်ပျက်စီးနေနိုင်သည် — ထပ်ကြိုးစားပါ။"
+
+msgctxt "repair.hints.hashFailed"
+msgid "Checksum mismatch on the downloaded file. Retry the download."
+msgstr "ဒေါင်းလုဒ်ဖိုင်၏ checksum မကိုက်ညီပါ။ ဒေါင်းလုဒ်ထပ်ကြိုးစားပါ။"
+
+msgctxt "repair.hints.pairIncomplete"
+msgid "ffmpeg and ffprobe must both be set as a matched pair."
+msgstr "ffmpeg နှင့် ffprobe နှစ်ခုလုံးကို တွဲဖက်အဖြစ် သတ်မှတ်ရမည်။"
+
+msgctxt "repair.hints.permissionDenied"
+msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
+msgstr "စနစ်မှ ဖိုင်မဖွင့်ပေးပါ။ ယုံကြည်ရသောကော်ပီရွေးပါ သို့မဟုတ် admin အဖြစ် ထပ်ကြိုးစားပါ။"
+
+msgctxt "repair.hints.spawnFailed"
+msgid "The file is missing or could not be launched. Pick a working copy."
+msgstr "ဖိုင်မရှိပါ သို့မဟုတ် မဖွင့်နိုင်ပါ။ အလုပ်လုပ်သောကော်ပီတစ်ခုရွေးပါ။"
+
+msgctxt "repair.hints.timeout"
+msgid "The version probe timed out. The file may be hung — retry."
+msgstr "ဗားရှင်းစစ်ဆေးမှု time out ဖြစ်ပြီ။ ဖိုင်ရပ်နေနိုင်သည် — ထပ်ကြိုးစားပါ။"
+
+msgctxt "repair.hints.unknown"
+msgid "Could not be verified."
+msgstr "အတည်မပြုနိုင်ပါ။"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "တပ်ဆင်မှုတွင် သင့်အကူအညီလိုပါသည်"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "ကူးယူပြီး!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "လင့်ကိုကူးယူရန်"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 1850+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy သည် အခမဲ့ နှင့် ဖွင့်ရင်းမြစ်ဖြစ်သည်။ မျှဝေခြင်းသည် လူပိုများ ၎င်းကို ရှာဖွေတွေ့ရှိနိုင်ရန် ကူညီသည်။"
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "မျှဝေရန်"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Arroxy ကိုမျှဝေရန်"
+
+msgctxt "share.highValueBanner.body"
+msgid "Enjoying Arroxy? Help others discover it."
+msgstr "Arroxy ကို နှစ်သက်ပါသလား? အခြားသူများ ရှာဖွေတွေ့ရှိနိုင်ရန် ကူညီပါ။"
+
+msgctxt "share.highValueBanner.dismiss"
+msgid "Dismiss share suggestion"
+msgstr "မျှဝေရန်အကြံပြုချက် ပယ်ဖျက်မည်"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Arroxy ကိုမျှဝေရန်"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Arroxy မျှဝေမည်"
+
+msgctxt "splash.downloading"
+msgid "Downloading {{binary}}…"
+msgstr "{{binary}} ဒေါင်းလုဒ်လုပ်နေသည်…"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "ဟေး၊ ကြိုဆိုပါသည်!"
+
+msgctxt "splash.warmup"
+msgid "Arroxy is warming up…"
+msgstr "Arroxy ပြင်ဆင်နေသည်…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "တပ်ဆင်မှုမအောင်မြင်ပါ။ အသေးစိတ်ကြည့်ရန် setup log ဖွင့်ပါ။"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "ဒေါင်းလုဒ်ပယ်ဖျက်ပြီး"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "ဒေါင်းလုဒ်ပြီးဆုံးပြီ"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "ဗီဒီယိုပြောင်းလဲနေသည်…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "disk နေရာ မလုံလောက်ပါ — {{required}} လိုအပ်သည်၊ {{free}} သာ ရရှိနိုင်သည်"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "{{name}} binary ဒေါင်းလုဒ်လုပ်နေသည်…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "ဗီဒီယိုနှင့်အသံ ဒေါင်းလုဒ်လုပ်နေသည်…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Metadata ထည့်သွင်းနေသည်…"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "အသံပြောင်းလဲနေသည်…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "SponsorBlock သို့ ဆက်သွယ်နေသည်…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "စာတန်းထိုးများ ယူနေသည်…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "အသံနှင့်ဗီဒီယိုပေါင်းစပ်နေသည်…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "YouTube token ထုတ်နေသည်…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "ဖိုင်များရွှေ့နေသည်…"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Binary ဖိုင်များပြင်ဆင်နေသည်…"
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Token ပြန်ထုတ်နေသည်…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock မရရှိနိုင်ပါ၊ ပြန်လည်ကြိုးစားနေသည် ({{attempt}}/{{total}})…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "နှုန်းကန့်သတ်မှုရှောင်ရန် {{seconds}}s စောင့်နေသည်…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting yt-dlp process…"
+msgstr "yt-dlp လုပ်ငန်းစဉ်စတင်နေသည်…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "ဗီဒီယိုသိမ်းပြီးပြီ — အချို့စာတန်းထိုးများ ဒေါင်းလုဒ်မဆင်းနိုင်ပါ"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "မသိသောဒေါင်းလုဒ်စတင်မှုပျက်ကွက်မှု"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Relaxed extractor ဖြင့်ဒေါင်းလုဒ်လုပ်ပြီး — ပိုယုံကြည်ရသောဒေါင်းလုဒ်အတွက် cookies.txt တပ်ဆင်ပါ"
+
+msgctxt "status.ytdlpExitCode"
+msgid "yt-dlp exited with code {{code}}"
+msgstr "yt-dlp သည် code {{code}} ဖြင့်ထွက်သွားသည်"
+
+msgctxt "status.ytdlpProcessError"
+msgid "yt-dlp process error: {{error}}"
+msgstr "yt-dlp လုပ်ငန်းစဉ်အမှား: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "အမှောင်မုဒ်"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "အလင်းမုဒ်"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "စနစ်မူရင်း"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "ပိတ်မည်"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "အများဆုံးချဲ့မည်"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "သေးငယ်အောင်လုပ်မည်"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "ပြန်ရောက်မည်"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Arroxy ဖွင့်မည်"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Arroxy ထွက်မည်"
+
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%"
+
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "လုပ်ငန်းမရှိ"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.appVersion"
+msgid "Arroxy {{version}}"
+msgstr "Arroxy {{version}}"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "command ကို clipboard သို့ကူးပြီးပြီ"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "command ကို clipboard သို့ကူးမည်"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "အပ်ဒိတ်ကြော်ငြာပိတ်မည်"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Download ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "ဒေါင်းလုဒ်လုပ်နေသည်…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "တပ်ဆင်ပြီး ပြန်စမည်"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "အပ်ဒိတ် မအောင်မြင်ပါ"
+
+msgctxt "update.isAvailable"
+msgid "is available"
+msgstr "ရရှိနိုင်ပြီ"
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "ထပ်စမ်းမည်"
+
+msgctxt "update.youHave"
+msgid "— you have {{currentVersion}}"
+msgstr "— သင့်တွင် {{currentVersion}} ရှိသည်"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "ဖွင့်နေသည်…"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "အဆင်သင့်"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "တစ်ခုချင်းစီသော video သို့မဟုတ် audio URL များကို paste လုပ်ပါ။ Arroxy သည် ထပ်နေသောအရာများကို ဖယ်ရှားပြီး queue မထည့်မီ playlist သို့မဟုတ် channel link များကို ဖော်ပြပါမည်။"
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "batch ကိုကြည့်ရန် URL တစ်ခု သို့မဟုတ် ထို့ထက်ပိုပြီး paste လုပ်ပါ။"
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "လျစ်လျူရှုထားသည်"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "ဆက်လက်လုပ်ဆောင်ရန် supported URL အနည်းဆုံးတစ်ခု ထည့်ပါ။"
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "ထပ်နေသည်"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "URL စာရင်း"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "URL အများအပြား"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Queue"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "အခြားဒေါင်းလုဒ်များပြီးဆုံးလျှင်စတင်မည် — အပြည့်အဝ bandwidth ရမည်"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "အသံသာ"
+
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{total}} ခုမှ {{count}} ဗီဒီယို"
+
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{total}} ခုမှ {{count}} ဗီဒီယိုများ"
+
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{total}} ခုမှ {{count}} သီချင်း"
+
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{total}} ခုမှ {{count}} သီချင်းများ"
+
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{total}} URL မှ {{count}}"
+
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{total}} URL မှ {{count}}"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "အသံ"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "URL အများအပြား"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "အကြောင်းအရာ"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Playlist"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Preset"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "ဤနေရာတွင်သိမ်းမည်"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "အရွယ်အစား"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "စာတန်းထိုး"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "ဗီဒီယို"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "သင့်ဖိုင်သည် ဤနေရာတွင် ဆင်းမည်"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "စာတန်းထိုးသာ preset ဖွင့်ထားသော်လည်း စာတန်းထိုးဘာသာစကားမရွေးရသေးပါ — ဘာမျှဒေါင်းလုဒ်မဖြစ်ပါ။"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "ဆွဲထုတ်မည်! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "ချက်ချင်းစတင်မည် — အခြားဒေါင်းလုဒ်များနှင့်အတူ အပြိုင်လုပ်မည်"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "ဆွဲထုတ်ရန်အဆင်သင့်ဖြစ်ပြီ!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "မသိ"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "စာတန်းထိုး embed ကို sidecar သို့ ပြောင်းလဲပြီ — အသံ track များသည် embedded စာတန်းထိုး stream များကို မထောက်ပံ့ပါ။"
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Thumbnail embed ကို ကျော်လိုက်သည် — ထွက်ပေါ်မည့် container မှ ၎င်းကို မထောက်ပံ့ပါ။"
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "စိတ်ကြိုက်…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "ဒက်စတော့"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "စာရွက်စာတမ်းများ"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "ဒေါင်းလုဒ်များ"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "ဤနေရာတွင်သိမ်းမည်"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "ပင်မ"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "တေးဂီတ"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "ဓာတ်ပုံများ"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "ဖိုလ်ဒါနာမည်တွင် မသင့်တော်သောအက္ခရာများပါဝင်သည်"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "ဥပမာ lo-fi rips"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "အောက်ဖိုလ်ဒါထဲတွင်သိမ်းမည်"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "ရုပ်ရှင်များ"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "အသံ"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "အသံသာ"
+
+msgctxt "wizard.formats.audioOnlyOption"
+msgid "Audio only (no video)"
+msgstr "အသံသာ (ဗီဒီယိုမပါ)"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Cookies တပ်ဆင်ထားသော်လည်း ပိတ်ထားသည်။ ပြည့်စုံသောစာရင်းရရှိရန် ဖွင့်ပြီး ထပ်ကြိုးစားပါ၊ သို့မဟုတ် network ပြောင်းပြီး ထပ်ကြိုးစားပါ။"
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Cookies ပါသော်လည်း YouTube မှ ဤစစ်ဆေးမှုကို ကန့်သတ်ပြီ။ နောက်မှ ထပ်ကြိုးစားပါ သို့မဟုတ် network ပြောင်းပါ။"
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "ဖော်မတ်စာရင်း မပြည့်စုံနိုင်ပါ။ အဆင့်မြင့်ဆက်တင်တွင် cookies တပ်ဆင်ပါ၊ သို့မဟုတ် network ပြောင်းပြီး ထပ်ကြိုးစားပါ။"
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Cookies ဖွင့်ပြီး ထပ်ကြိုးစားမည်"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "YouTube မှ ဤစစ်ဆေးမှုကို ကန့်သတ်ပြီ"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "ထပ်ကြိုးစားမည်"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Bitrate"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "ပြောင်းရန်"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.requiresAudioOnly"
+msgid "Audio conversion requires audio-only mode (deselect the video pick)."
+msgstr "အသံပြောင်းလဲမှုအတွက် အသံသာမုဒ် လိုအပ်သည် (ဗီဒီယိုရွေးချယ်မှုကို ဖြုတ်ပါ)။"
+
+msgctxt "wizard.formats.convert.requiresLossy"
+msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
+msgstr "Native stream ရွေးထားသည် — bitrate သည် mp3, m4a, သို့မဟုတ် opus သို့ပြောင်းရန်သာ သက်ဆိုင်သည်။"
+
+msgctxt "wizard.formats.convert.uncompressed"
+msgid "Convert · uncompressed"
+msgstr "ပြောင်းရန် · ချုံ့မထားသော"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (ချုံ့မထားသော)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "ဖိုင်"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "ကွတ်ကီးရင်းမြစ်"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp စာတမ်းများ (ပြဿနာ #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 နှင့် ၎င်းနောက်ပိုင်းဗားရှင်းများသည် Windows တွင် အခြား app များ မဖတ်နိုင်သောနည်းဖြင့် cookies များကို ကုဒ်ဝှက်ထားသည်။ အောက်ပါ ဖြေရှင်းနည်းများထဲမှ တစ်ခုကို ကြိုးစားပါ။"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Chrome မှ browser extension ဖြင့် cookies ထုတ်ယူပြီး ဤ app ကို File မုဒ်သို့ ပြောင်းကာ ထုတ်ယူထားသောဖိုင်ကို ရွေးပါ။"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "cookies.txt ထုတ်ယူမည်"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox သည် App-Bound Encryption မသုံးပါ။ Cookies ဆက်တင် ဖွင့်ပြီး browser စာရင်းမှ Firefox ကို ရွေးပါ။"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Firefox သို့ ပြောင်းမည်"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Chrome ၏ launch shortcut တွင် --disable-features=LockProfileCookieDatabase ထည့်ပါ။ သတိပေးချက်: ဤနည်းသည် ယခင်ကုဒ်ဝှက်ထားသော cookies များကို ပျက်ကွက်စေသောကြောင့် ဝဘ်ဆိုဒ်အားလုံးမှ logout ဖြစ်ပြီး ပြန်လည် login ဝင်ရမည်ဖြစ်သည်။"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "App-Bound Encryption ပိတ်ထား၍ Chrome ဖွင့်မည်"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Windows ကုဒ်ဝှက်မှုကြောင့် Chrome cookies ပိတ်ဆို့ခံရသည်"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Cookies ကို browser မှ တိုက်ရိုက်ဖတ်သည်။ Browser ယခုဖွင့်ထားပါက၊ cookie database ကို ပိတ်ဆို့ထားနိုင်သည် (Chromium မျိုးနွယ်)။ Browser သည် YouTube သို့ login ဝင်ထားရမည်ဖြစ်သည်။ Browser ပိတ်ကြည့်ပါ၊ Browser အခြားတစ်ခုသို့ ပြောင်းကြည့်ပါ၊ ဖိုင်မုဒ်သို့ ပြောင်းကြည့်ပါ သို့မဟုတ် cookies ပိတ်ကြည့်ပါ။"
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Cookies ဖိုင်သည် ဗလာဖြစ်နေ၊ သက်တမ်းကုန်နေ သို့မဟုတ် မှားသောဖော်မတ်ဖြစ်နေနိုင်သည် (yt-dlp သည် Netscape cookies.txt ကိုသာ လက်ခံသည်)။ Cookies ကို ထပ်မံ export လုပ်ကြည့်ပါ၊ ဖိုင်အခြားတစ်ခုရွေးကြည့်ပါ၊ Browser မုဒ်သို့ပြောင်းကြည့်ပါ၊ သို့မဟုတ် cookies ပိတ်ကြည့်ပါ။"
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Cookies သည် အကြောင်းရင်းဖြစ်နိုင်သည်"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "yt-dlp သည် အတည်ပြုမှုမပါဘဲ ဤဗီဒီယိုကို ဖွင့်၍မရပါ။ အဆင့်မြင့်ဆက်တင်တွင် cookies တပ်ဆင်ပါ — သင်အကောင့်ဝင်ထားသော browser တစ်ခုသို့ ညွှန်ပါ၊ သို့မဟုတ် cookies.txt ဖိုင်တင်သွင်းပါ။"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "ဤဝဘ်ဆိုဒ်တွင် အကောင့်ဝင်ရမည်"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Cookies ဆက်တင် ဖွင့်မည်"
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "မပြောင်းဘဲ ထားမည်"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "ပါဝင်သောအသံ"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "ဖော်မတ်များဖွင့်နေသည်"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "စစ်ဆေးမှုပြီးဆုံးသည်အထိ ကျေးဇူးပြု၍ စောင့်ပါ — playlist များနှင့် ရှာဖွေမှုများ အချိန်ယူနိုင်သည်။"
+
+msgctxt "wizard.formats.mascot"
+msgid "Best + Best = max quality. I'd pick that!"
+msgstr "အကောင်းဆုံး + အကောင်းဆုံး = အမြင့်ဆုံးအရည်အသွေး။ ကျွန်ုပ်ရွေးမည်!"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "အသံမပါ"
+
+msgctxt "wizard.formats.quickPresets"
+msgid "Quick presets"
+msgstr "မြန်ဆန်သောကြိုတင်သတ်မှတ်မှုများ"
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "အရွယ်အစားမသိ"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "အတည်ပြုသို့ ကျော်သွားရန်"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "ကျန်ရှိသော အဆင့်များအားလုံးအတွက် သင်၏ သိမ်းဆည်းထားသော နှစ်သက်မှုများကို အသုံးပြုသည်။ ဆက်တင်တစ်ခုကို ပြောင်းလဲရန်၊ ယင်းအစား အဆင့်ဆင့် ဆက်လက်သွားပါ — သင်၏ ရွေးချယ်မှုကို နောက်တစ်ကြိမ်အတွက် သိမ်းဆည်းမည်။"
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "သင့်အတွက် အကောင်းဆုံးဖော်မတ်များ ရှာနေသည်…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "စုစုပေါင်း"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "ဗီဒီယို"
+
+msgctxt "wizard.formats.videoOnly"
+msgid "Video only"
+msgstr "ဗီဒီယိုသာ"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "သင်နှိပ်ခဲ့သော ဗီဒီယိုကိုသာ လိုချင်သလော၊ Playlist မှ ရွေးချင်သလော? နောက်တွင် သီးခြားဗီဒီယိုများ သို့မဟုတ် အပိုင်းအခြား ရွေးနိုင်မည်။"
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Playlist မှ ရွေးမည်"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Playlist စစ်ဆေးမှု ကန့်သတ်ချက်: {{count}} ခု"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgstr "yt-dlp ၏ playlist မုဒ်ကို သုံးပြီး ရွေးချယ်ကိရိယာ မပြမီ သင့်ကန့်သတ်ချက်အထိ ယူသည်။"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgstr "ဤ URL နှင့်တွဲနေသော playlist ကို လျစ်လျူရှုရန် yt-dlp ၏ ဗီဒီယိုတစ်ခုချင်း မုဒ်ကို သုံးသည်။"
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "ဤတစ်ခုသာ"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "ဤလင့်ခ်တွင် Playlist ပါဝင်သည်"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "ခေတ်မီ player မည်သည့်ခုတွင်မဆို navigate လုပ်နိုင်သော chapter marker များ။"
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "အခန်းကန့်များ ထည့်သွင်းမည်"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "ဖိုင်ထဲသို့ ခေါင်းစဉ်၊ အနုပညာရှင်၊ ဖော်ပြချက် နှင့် တင်ထားသောရက်စွဲကို ရေးသွင်းမည်။"
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Metadata ထည့်သွင်းမည်"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "ဖိုင်ထဲတွင် မျက်နှာဖုံး artwork ထည့်မည်။ MP4 / M4A သာ — စာတန်းထိုးများ ထည့်သွင်းထားလျှင် ကျော်မည်။"
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Thumbnail ထည့်သွင်းမည်"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "ဗီဒီယိုဖော်ပြချက်ကို ဒေါင်းလုဒ်နဘေးတွင် .description စာသားဖိုင်အဖြစ် သိမ်းမည်။"
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "ဖော်ပြချက်သိမ်းမည်"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "ဗီဒီယိုများကို media player တွင် အစဉ်လိုက် ဖွင့်ရန် .m3u playlist ကို အတူသိမ်းသည်။"
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr ".m3u playlist ဖိုင် ဖန်တီးပါ"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Thumbnail ကို ဒေါင်းလုဒ်နဘေးတွင် .jpg ဓာတ်ပုံဖိုင်အဖြစ် သိမ်းမည်။"
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Thumbnail သိမ်းမည်"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "ဒေါင်းလုဒ်ပြီးသား"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "URL အများအပြား"
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "ဗီဒီယိုအသေးစိတ် ရယူနေသည်… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "အသေးစိတ် မရနိုင်ပါ"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "အသေးစိတ် ရယူနေသည်"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "စောင့်နေသည်"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "live"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Playlist အကြောင်းအရာများ"
+
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} ဗီဒီယို"
+
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} ဗီဒီယိုများ"
+
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} ခု သီချင်း"
+
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} ခု သီချင်းများ"
+
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Playlist ရယူနေသည်…"
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "ဆက်လက်ရန် ဗီဒီယိုတစ်ခုအနည်းဆုံးရွေးပါ"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Arroxy သည် {{count}} ထက်ပိုသော အကြောင်းအရာများ တွေ့ရှိသောကြောင့် လက်ရှိ scan ကန့်သတ်ချက်ကြောင့် ကျန်သောအရာများ ဖျောက်ထားသည်။"
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Playlist scan ကန့်သတ်ထားသည်"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "အပိုင်းအခြားသတ်မှတ်မည်"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "မှ"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "သို့"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "အားလုံးရွေးမည်"
+
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} ခုရွေးထားသည်"
+
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} ခုရွေးထားသည်"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "အားလုံးဖြုတ်မည်"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Sync ကို အသုံးပြုရန်"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "ဖိုလ်ဒါ ပြောင်းရန်…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "ဤဗီဒီယိုများထဲမှ {{n}} ခုသည် {{dir}} တွင် ရှိပြီးသားဖြစ်သည်။ အသစ်များကိုသာ ဒေါင်းလုဒ်ရန် sync လုပ်မလား။"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "ဖိုလ်ဒါထဲတွင် ရှိပြီးသား"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "ဤ playlist မှ ဗီဒီယိုများကို {{dir}} တွင် မတွေ့ပါ။"
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "ဒေါင်းလုဒ်လုပ်ထားတာ မရှိသေးပါ"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "ဖိုလ်ဒါ စစ်ဆေးနေသည်…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "ဗီဒီယို thumbnail"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Batch အတွက် အရည်အသွေးရွေးပါ"
+
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} ခု"
+
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} ခု"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "အဖြည့်"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "အဝင်"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Music off-topic"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "အထွက်"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "ကြိုတင်ကြည့်ရှုမှု"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "ကိုယ်တိုင်ကြော်ငြာ"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "ပံ့ပိုးသူ"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "အမျိုးအစားများ"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "အခန်းကန့်များအဖြစ် မှတ်သားမည်"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "ပိတ်ထားမည်"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "အပိုင်းများဖယ်ရှားမည်"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "ပံ့ပိုးသူစစ်ထုတ်မှု"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "ပံ့ပိုးသူအပိုင်းများကို အခန်းကန့်များအဖြစ် မှတ်သားသည် (မဖျက်ပါ)။"
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "SponsorBlock မရှိပါ — ဗီဒီယိုကို တင်ထားသည့်အတိုင်း ဖွင့်သည်။"
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "FFmpeg ဖြင့် ပံ့ပိုးသူအပိုင်းများကို ဗီဒီယိုမှ ဖြတ်ထုတ်သည်။"
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "အတည်ပြုမည်"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "သိမ်းမည်"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "ဖော်မတ်"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "ထွက်ပေါ်မည့်ဖိုင်"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Playlist"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "အရည်အသွေး"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "စာတန်းထိုး"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "အလိုအလျောက်စာတန်းများကို ASS အစား SRT အဖြစ်သိမ်းမည် — YouTube ၏ rolling-cue ထပ်ခါထပ်ခါမှုကို အမြဲသန့်ရှင်းပြီး ကျွန်ုပ်တို့၏ ASS converter မှ မကူးနိုင်သေးပါ။"
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "အလိုအလျောက်"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "အားလုံးဖျက်မည်"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Embed မုဒ်တွင် စာတန်းထိုးများ အမှန်ထည့်သွင်းနိုင်ရန် ထွက်ပေါ်မည့်ဖိုင်ကို .mkv အဖြစ်သိမ်းမည်။"
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "ဖော်မတ်"
+
+msgctxt "wizard.subtitles.mascot"
+msgid "Pick zero, one, or many — totally up to you ✨"
+msgstr "သုည၊ တစ်ခု သို့ မည်မျှမဆိုရွေးနိုင်သည် — သင့်ဆန္ဒအတိုင်း ✨"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "ဤဗီဒီယိုအတွက် စာတန်းထိုးမရှိပါ"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "ကိုက်ညီသောဘာသာစကားမရှိပါ"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "စာတန်းထိုးမရွေးရသေးပါ"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "ဗီဒီယိုထဲသို့ ထည့်သွင်းမည်"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "မည်သို့သိမ်းမည်"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "ဗီဒီယိုနဘေးတွင်"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "subtitles/ အောက်ဖိုလ်ဒါ"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "ဘာသာစကားရှာဖွေမည်…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "အလိုအလျောက်ထုတ်လုပ်"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "လက်ဖြင့်"
+
+msgctxt "wizard.subtitles.selectedNote_one"
+msgid "{{count}} subtitle will be downloaded"
+msgstr "{{count}} ခု စာတန်းထိုးကို ဒေါင်းလုဒ်လုပ်မည်"
+
+msgctxt "wizard.subtitles.selectedNote_other"
+msgid "{{count}} subtitles will be downloaded"
+msgstr "{{count}} ခု စာတန်းထိုးများကို ဒေါင်းလုဒ်လုပ်မည်"
+
+msgctxt "wizard.subtitles.skip"
+msgid "Skip"
+msgstr "ကျော်သွားမည်"
+
+msgctxt "wizard.subtitles.skipSubs"
+msgid "Skip for this video"
+msgstr "ဤဗီဒီယိုအတွက် ကျော်သွားမည်"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "အဆင့်မြင့်"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send anonymous usage stats"
+msgstr "အမည်မသိ သုံးစွဲမှုစာရင်းအင်းများ ပေးပို့ပါ"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "Counts app launches only. No URLs, filenames, or personal data."
+msgstr "အက်ပ် ဖွင့်သည့်အကြိမ်ရေကိုသာ ရေတွက်သည်။ URL၊ ဖိုင်အမည် သို့မဟုတ် ကိုယ်ရေးကိုယ်တာ ဒေတာ မပါဝင်ပါ။"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "URL အများအပြား"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
+msgstr "URL တစ်ခုချင်းစီစာရင်းကို paste လုပ်ပါ၊ ရှင်းလင်းပြီးစာရင်းကိုကြည့်ပါ၊ ထို့နောက် quality preset တစ်ခုတည်းဖြင့် queue ထဲထည့်ပါ။"
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "URL ရှင်းလင်းမည်"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "မလုပ်တော့ပါ"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "ကလစ်ဘုတ်ကြည့်မည်"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "YouTube လင့်ခ်ကော်ပီလုပ်လျှင် URL ဖြည့်သွင်းမည်။"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "ပိတ်လျှင် tray သို့ ဝှက်မည်"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "ဝင်းဒိုးပိတ်ပြီးနောက်လည်း နောက်ခံတွင် ဒေါင်းလုဒ်ဆက်လုပ်မည်။"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgstr "yt-dlp မှ cookies သုံးသော account များကို YouTube မှ ပြဿနာတက်စေနိုင်သည် — ဖြစ်နိုင်လျှင် စမ်းသပ် account တစ်ခုသုံးပါ။"
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Browser မှ ကွတ်ကီးများကို တိုက်ရိုက်ဖတ်သည်။ Chromium မျိုးနွယ် browser များအတွက် browser ပိတ်ထားရမည်။"
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Browser ရွေးပါ…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "ရွေးချယ်မည်…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "ရှင်းလင်းမည်"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "ကွတ်ကီးသုံးရန် browser ရွေးပါ"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "ကွတ်ကီးသုံးရန် ဖိုင်ရွေးပါ"
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "cookies.txt ကို ဒေသတွင်း ရယူရန် (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "ကွတ်ကီးဖိုင်"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "ကွတ်ကီးများ ထုတ်ယူနည်းကား?"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "ဖိုင်မရွေးရသေးပါ"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "အန္တရာယ်: cookies.txt တွင် ထို browser ၏ login session အားလုံးပါဝင်သည် — လျှို့ဝှက်ထားပါ။"
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "ဖိုင်"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "ကွတ်ကီးရင်းမြစ်"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "ပိတ်"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "အသက်အကန့်အသတ်ရှိ၊ အဖွဲ့ဝင်သာ နှင့် ကိုယ်ပိုင်ဗီဒီယိုများအတွက် ကူညီသည်။"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "အသံသာများ"
+
+msgctxt "wizard.url.features.always.heading"
+msgid "Always available"
+msgstr "အမြဲ ရရှိနိုင်"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "စာတန်းထိုးများ"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ ဝဘ်ဆိုဒ်"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "တေးဂီတ playlist များ"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "ဗီဒီယိုများ"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "ဗီဒီယို playlist များ"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Arroxy ဆွဲထုတ်နိုင်သည်"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Channel များ"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "တေးဂီတ"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Playlist များ"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcast များ"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "ဗီဒီယိုများ"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
+msgstr "တန်းစီစာရင်းထဲ မထည့်မီ ဖော်မတ်များ၊ စာတန်းထိုးများ၊ ဖိုင်တွဲနှင့် playlist အရာများကို အဆင့်လိုက် ရွေးပါ။"
+
+msgctxt "wizard.url.heading"
+msgid "Video URL"
+msgstr "YouTube URL"
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "ဖော်မတ်များရယူမည်"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "လုပ်ဆောင်နေသော ဒေါင်းလုဒ်များသည် လက်ရှိကန့်သတ်ချက်ကို ထိန်းထားသည်။ အသုံးပြုရန် ရပ်နား + ဆက်လုပ်ပါ။"
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "စိတ်ကြိုက်…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "ဥပမာ 750K သို့ 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "မီဒီယာ ဒေါင်းလုဒ်များအတွက် bandwidth ကို ကန့်သတ်ပါ။ အောက်ပါ request pacing သည် အများအားဖြင့် ပိုအားကောင်းသော ကန့်သတ်ကိရိယာ ဖြစ်သည်။"
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "K သို့ M ဖြင့်လိုက်သော နံပါတ်ကို သုံးပါ (ဥပမာ 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "ဒေါင်းလုဒ် အမြန်နှုန်း ကန့်သတ်ချက်"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "ပိတ်"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "နောက်ခံတွင် ဒေါင်းလုဒ်လုပ်နေသည်… ကျွန်ုပ် တစ်ချိန်တည်းလုပ်နိုင်သည် 😎"
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link — YouTube or any of 2000+ sites ✨"
+msgstr "YouTube လင့်ခ်တစ်ခု (ဗီဒီယို သို့ Short) ထည့်ပြီး \"ဖော်မတ်များရယူမည်\" နှိပ်ပါ — ကျွန်ုပ်စတင်ပြီပဲ ✨"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
+msgstr "ဒေါင်းလုဒ်တိုင်းတွင် ကဆိုင်းငံ့ချိန်များ ထည့်သွင်း၍ Arroxy သည် ဆိုက်ကို အလွန်ကြမ်းတမ်းစွာ မဖိအားပေးစေရန်။ တန်ဖိုးများသည် ဆက်ပြောရင်းမှတ်မှတ်ရမည်ပုံ အပါအဝင် ဒုတိယများဖြစ်သည်။"
+
+msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
+msgid "Download connections"
+msgstr "ဒေါင်းလုဒ်ချိတ်ဆက်မှုများ"
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Media မစတင်မီ ခေတ္တရပ်ချိန်: အမြင့်"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Media မစတင်မီ ခေတ္တရပ်ချိန်: အနိမ့်"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Metadata စစ်ဆေးမှုများကြား ဆိုင်းငံ့ချိန်"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "စာတန်းထိုးဖိုင်များမတိုင်မီ ဆိုင်းငံ့ချိန်"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "ညင်သာသော ဒေါင်းလုဒ်"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Arroxy သည် မည်မျှ သတိကြီးသင့်သနည်း?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "မျှတသော"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "သတိကြီးသော"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "စိတ်ကြိုက်"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "ပိတ်ထားမည်"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
+msgstr "ဆိုင်းငံ့ချိန်: {{requests}} စစ်ဆေးမှုများကြား၊ {{downloads}} media မစတင်မီ၊ {{subtitles}} စာတန်းထိုးဖိုင်များမတိုင်မီ။ ချိတ်ဆက်မှုများ: {{fragments}}."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
+msgstr "ဤဆိုင်းငံ့ချိန်များသည် ဒေါင်းလုဒ်တိုင်း၏ အတွင်းတွင် ဖြစ်သည်။ Arroxy သည် ပုံမှန် queue ဒေါင်းလုဒ်များကို တစ်ခုပြီးတစ်ခု ဆက်ထိန်းသည်။"
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses and uses one download connection."
+msgstr "မူရင်း။ တိုတောင်းသော ခေတ္တရပ်ချိန်များ ထည့်ပြီး ဒေါင်းလုဒ်ချိတ်ဆက်မှု တစ်ခုသုံးသည်။"
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "ကန့်သတ်ချက်များ မကြာခဏ တွေ့ကြုံသော ကြီးသော playlist များ သို့မဟုတ် network များအတွက် ပိုရှည်သော ခေတ္တရပ်ချိန်များ ထည့်သည်။"
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "ဒေါင်းလုဒ်တစ်ခုချင်းစီ၏ အဆင့်မြင့် ထိန်းချုပ်မှုများကို ကိုယ်တိုင် သတ်မှတ်ပါ။"
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Arroxy သည် media နှင့် စာတန်းထိုးများအတွက် ထားသည့် အသေးငယ်သော baseline ခေတ္တရပ်ချိန်များသာ သုံးသည်။"
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "စက္ကန့်"
+
+msgctxt "wizard.url.networkPacing.units.threads"
+msgid "threads"
+msgstr "threads"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://www.youtube.com/watch?v=..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "လက်ရှိ ကန့်သတ်ချက်: {{count}} ခု"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "စိတ်ကြိုက်…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "မလုပ်တော့"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "{{min}} မှ {{max}} အထိ ကိန်းပြည့်တစ်ခု အသုံးပြုပါ။"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "ကန့်သတ်ချက် သိမ်းဆည်းမည်"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "စိတ်ကြိုက် playlist scan ကန့်သတ်ချက်"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "စိတ်ကြိုက်: {{count}} ခု"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Arroxy သည် playlist၊ channel သို့မဟုတ် ရှာဖွေမှုရလဒ်ကို ဖွင့်သောအခါ အများဆုံး entries မည်မျှ လုဒ်မည်ကို သတ်မှတ်သည်။"
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "1 မှ 5000 အထိ ကိန်းပြည့်တစ်ခု အသုံးပြုပါ"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Scan လုပ်မည့် playlist အရေအတွက်"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} ခု"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "yt-dlp --playlist-end နှင့် map ချိတ်ဆက်သည်: Arroxy သည် picker ဆောက်စဉ် ဤမျှ playlist၊ channel သို့မဟုတ် ရှာဖွေမှု entries များကိုသာ တောင်းဆိုသည်။"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "ရှင်းလင်း"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Proxy မှတဆင့် traffic လမ်းကြောင်းလွှဲပါ — ဂျီဩဂရပ်ကန့်သတ်ချက်ရှိသော အကြောင်းအရာများအတွက် အသုံးဝင်သည်။"
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Proxy URL"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick download"
+msgstr "အမြန်ဒေါင်းလုဒ်"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
+msgstr "သိမ်းထားသော သို့မဟုတ် မူရင်းရွေးချယ်မှုများကို အသုံးပြုပြီး ပြင်ဆင်မှုအဆင့်များ မဖွင့်ဘဲ ဤဗီဒီယိုတစ်ခုကို တန်းစီစာရင်းထဲ ထည့်သည်။"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "ဤအရာကို ထည့်မရပါ: {{error}}"
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "တန်းစီအရာကို မပြင်ဆင်နိုင်ပါ"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "ပြင်ဆင်နေသည်"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "စစ်ဆေးမှု မအောင်မြင်ပါ"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "တန်းစီစာရင်းထဲ ထည့်ပြီး"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
+msgstr "အမြန်ဒေါင်းလုဒ်သည် ဗီဒီယိုတစ်ခုချင်းအတွက်သာ ဖြစ်သည်။ Playlists နှင့် channels အတွက် ဖော်မတ်များ ရယူရန်ကို သုံးပါ။"
+
+msgctxt "wizard.url.singleFilenameId.toggle"
+msgid "Add video ID to single filenames"
+msgstr "တစ်ခုချင်း ဖိုင်အမည်များတွင် ဗီဒီယို ID ထည့်ရန်"
+
+msgctxt "wizard.url.singleFilenameId.toggleDescription"
+msgid "Keeps one-off downloads unique when titles change or collide."
+msgstr "ခေါင်းစဉ်များ ပြောင်းလဲခြင်း သို့မဟုတ် တူညီခြင်း ဖြစ်သည့်အခါ တစ်ခုချင်း ဒေါင်းလုဒ်များကို မတူညီအောင် ထိန်းထားသည်။"

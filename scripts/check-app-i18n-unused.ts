@@ -2,7 +2,7 @@
 // Reports en locale keys that are never referenced in the source tree.
 //
 // Strategy:
-//   1. Flatten en.ts to all dot-path leaf keys.
+//   1. Flatten en.json to all dot-path leaf keys.
 //   2. Grep every .ts/.tsx file under src/ for quoted string literals that look
 //      like i18n keys (word chars + dots, no spaces).
 //   3. Keys whose prefix matches a DYNAMIC_PREFIX are always considered "used" —
@@ -14,7 +14,7 @@
 
 import {readdirSync, readFileSync} from 'fs'
 import {join} from 'path'
-import en from '../src/shared/i18n/locales/en.js'
+import en from '../src/shared/i18n/locales/en.json' with {type: 'json'}
 
 // Keys under these prefixes are built at runtime (e.g. `errors.ytdlp.${kind}`)
 // and cannot be detected by static string search. Treat all as used.

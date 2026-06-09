@@ -1,13 +1,13 @@
 import {describe, expect, it} from 'vitest'
-import en from '@shared/i18n/locales/en.js'
-import es from '@shared/i18n/locales/es.js'
-import fr from '@shared/i18n/locales/fr.js'
-import de from '@shared/i18n/locales/de.js'
-import ru from '@shared/i18n/locales/ru.js'
-import uk from '@shared/i18n/locales/uk.js'
-import ja from '@shared/i18n/locales/ja.js'
-import zh from '@shared/i18n/locales/zh.js'
-import hi from '@shared/i18n/locales/hi.js'
+import en from '@shared/i18n/locales/en.json' with {type: 'json'}
+import es from '@shared/i18n/locales/es.json' with {type: 'json'}
+import fr from '@shared/i18n/locales/fr.json' with {type: 'json'}
+import de from '@shared/i18n/locales/de.json' with {type: 'json'}
+import ru from '@shared/i18n/locales/ru.json' with {type: 'json'}
+import uk from '@shared/i18n/locales/uk.json' with {type: 'json'}
+import ja from '@shared/i18n/locales/ja.json' with {type: 'json'}
+import zh from '@shared/i18n/locales/zh.json' with {type: 'json'}
+import hi from '@shared/i18n/locales/hi.json' with {type: 'json'}
 import {STATUS_KEY} from '@shared/schemas.js'
 import {YT_DLP_ERROR_KINDS} from 'ytdlp-errors'
 import type {LocaleResource} from '@shared/i18n/types.js'

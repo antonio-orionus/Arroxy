@@ -1,4 +1,4 @@
-import type en from './locales/en.js'
+import en from './locales/en.json' with {type: 'json'}
 import {SUPPORTED_LANGS as LANGS, type SupportedLang as Lang, type YtDlpErrorKind as YtDlpErrorKindAlias} from '../schemas.js'
 
 // Re-export so existing imports of `@shared/i18n/types` and `@shared/i18n`

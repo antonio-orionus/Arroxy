@@ -1,0 +1,2070 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Giới thiệu"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "MIT License · by Antonio Orionus"
+msgstr "Giấy phép MIT · bởi Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Giới thiệu về Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Phần mềm tải video & âm thanh nhanh, thân thiện dành cho máy tính."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Xem thông báo bên thứ ba"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Trang web"
+
+msgctxt "app.debugCopied"
+msgid "Copied!"
+msgstr "Đã sao chép!"
+
+msgctxt "app.debugCopyTitle"
+msgid "Copy debug info (Electron, OS, Chrome versions)"
+msgstr "Sao chép thông tin gỡ lỗi (phiên bản Electron, OS, Chrome)"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Phản hồi"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Bạn thích Arroxy không? Tôi rất muốn nghe ý kiến của bạn! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Nhật ký"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Phóng to"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Thu nhỏ"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Quay lại"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Hủy"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Tiếp tục"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Thử lại"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Bắt đầu lại"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy vẫn tiếp tục chạy và hoàn thành các tải xuống đang hoạt động. Thay đổi điều này sau trong cài đặt Nâng cao."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Ẩn xuống khay"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Ẩn Arroxy xuống khay hệ thống khi đóng?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Thoát"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Không hỏi lại"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Hủy tải xuống & Thoát"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Đóng ứng dụng sẽ hủy tất cả các tải xuống đang hoạt động."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Tiếp tục tải xuống"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}} tải xuống đang tiến hành"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} tải xuống đang tiến hành"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Tạm dừng tải và thoát"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Tiến trình renderer bị crash ({{reason}}). Tải lại để thử lại."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy đã gặp sự cố"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Thoát"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Tải lại"
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Video này bị giới hạn độ tuổi và không thể tải xuống nếu không có tài khoản đã đăng nhập."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgstr "Đã kích hoạt bảo vệ bot. Địa chỉ IP bạn đang dùng rất có thể đã bị gắn cờ (dải địa chỉ trung tâm dữ liệu hoặc điểm thoát VPN bận). Hãy đổi IP hoặc chọn điểm kết nối VPN khác rồi thử lại. Nếu vẫn thất bại, đây có thể là thay đổi tạm thời từ phía YouTube — Arroxy tự động cập nhật yt-dlp khi khởi động, vì vậy bản sửa lỗi sẽ tự động áp dụng khi upstream phát hành."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Máy chủ liên tục ngắt kết nối giữa chừng và yt-dlp đã bỏ cuộc sau nhiều lần thử lại. Lỗi này thường xảy ra với các định dạng video lớn nhất (4K HDR / VP9 bitrate cao). Hãy thử lại, đổi mạng/VPN, hoặc chọn định dạng độ phân giải thấp hơn."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgstr "Video này được bảo vệ bởi DRM. yt-dlp không thể gỡ DRM, vì vậy tệp không thể được tải xuống."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Video này không có sẵn ở khu vực của bạn."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Địa chỉ IP của bạn dường như bị YouTube chặn. Hãy thử lại sau hoặc dùng VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgstr "Video này yêu cầu tài khoản đã đăng nhập. Hãy thiết lập cookies.txt (Cài đặt → Cookies) và thử lại."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Lỗi mạng. Hãy kiểm tra kết nối và thử lại."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Không đủ dung lượng đĩa. Hãy giải phóng dung lượng rồi thử lại."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgstr "Không thể phân tích phản hồi từ trang web. Bộ trích xuất của yt-dlp có thể đã lỗi thời. Arroxy tự động cập nhật yt-dlp khi khởi chạy — hãy thử lại sau vài phút khi bản sửa lỗi được phát hành."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "yt-dlp đã tải xong nhưng quá trình xử lý hậu kỳ (gộp / mux / chuyển đổi) bị lỗi. Thường đây là sự cố tạm thời của ffmpeg — hãy thử lại, và nếu vẫn lỗi thì thử một tổ hợp định dạng khác."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgstr "YouTube đang giới hạn tốc độ yêu cầu. Hãy đợi một phút rồi thử lại."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Video này không khả dụng — có thể là riêng tư, đã bị xóa hoặc bị chặn theo khu vực."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Tải xuống thất bại. Xem đầu ra thô bên dưới."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr "Đây không giống như URL video. Hãy dán liên kết video YouTube, Short hoặc danh sách phát."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Âm thanh"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Chỉ âm thanh · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Ngôn ngữ"
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Audio (best)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Audio ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Âm thanh gốc tốt nhất, không mã hóa lại"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Chuyển sang M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Chuyển sang MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Chuyển sang Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 trên 1080p không có trên YouTube — tự động giới hạn ở 1080p"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Tối đa 1080p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Tối đa 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Tối đa 4K"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Tối đa 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Tối đa 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Tối đa 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Best quality"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Giới hạn 1080p, hạ xuống theo từng mục nếu cần"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Giới hạn 2K, hạ xuống theo từng mục nếu cần"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Giới hạn 2160p, hạ xuống theo từng mục nếu cần"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Smallest video"
+msgstr "Smallest video"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Low bandwidth"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Tệp nhỏ hơn, tương thích rộng"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Video + âm thanh tốt nhất có sẵn cho từng mục"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Best codec"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "MP4 / Smart TV"
+msgstr "MP4 (H.264)"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Codec cao nhất có sẵn cho từng mục"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Ưu tiên H.264 + AAC, vùng chứa MP4 · cố gắng tốt nhất"
+
+msgctxt "presets.audio-only.desc"
+msgid "No video, best audio"
+msgstr "Không có video, âm thanh tốt nhất"
+
+msgctxt "presets.audio-only.label"
+msgid "Audio only"
+msgstr "Chỉ âm thanh"
+
+msgctxt "presets.balanced.desc"
+msgid "720p max + good audio"
+msgstr "Tối đa 720p + âm thanh tốt"
+
+msgctxt "presets.balanced.label"
+msgid "Balanced"
+msgstr "Cân bằng"
+
+msgctxt "presets.best-quality.desc"
+msgid "Highest resolution + best audio"
+msgstr "Độ phân giải cao nhất + âm thanh tốt nhất"
+
+msgctxt "presets.best-quality.label"
+msgid "Best quality"
+msgstr "Chất lượng tốt nhất"
+
+msgctxt "presets.small-file.desc"
+msgid "Lowest resolution + low audio"
+msgstr "Độ phân giải thấp nhất + âm thanh thấp"
+
+msgctxt "presets.small-file.label"
+msgid "Small file"
+msgstr "Tệp nhỏ"
+
+msgctxt "presets.subtitle-only.desc"
+msgid "No video, no audio, only subtitles"
+msgstr "Không có video, không có âm thanh, chỉ phụ đề"
+
+msgctxt "presets.subtitle-only.label"
+msgid "Subtitles only"
+msgstr "Chỉ phụ đề"
+
+msgctxt "queue.activeCount"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} đang tải · {{percent}}%"
+
+msgctxt "queue.cancelAll"
+msgid "Cancel all"
+msgstr "Hủy tất cả"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Hủy tất cả các tải xuống đang hoạt động và đang chờ"
+
+msgctxt "queue.clear"
+msgid "Clear"
+msgstr "Xóa"
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Xóa các tải xuống đã hoàn tất"
+
+msgctxt "queue.empty"
+msgid "Downloads you queue will appear here"
+msgstr "Các tải xuống bạn thêm vào hàng đợi sẽ xuất hiện ở đây"
+
+msgctxt "queue.header"
+msgid "Download Queue"
+msgstr "Hàng đợi tải xuống"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Hủy"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Tải xuống thất bại"
+
+msgctxt "queue.item.doneAt"
+msgid "Done {{time}}"
+msgstr "Hoàn tất {{time}}"
+
+msgctxt "queue.item.hold"
+msgid "Hold"
+msgstr "Giữ"
+
+msgctxt "queue.item.openUrl"
+msgid "Open URL"
+msgstr "Mở URL"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Tạm dừng"
+
+msgctxt "queue.item.paused"
+msgid "Paused"
+msgstr "Đã tạm dừng"
+
+msgctxt "queue.item.priorityBadge"
+msgid "Priority"
+msgstr "Ưu tiên"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Tải ngay — bỏ qua hàng đợi"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Xóa"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Tiếp tục"
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Đã hủy"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Xong"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Lỗi"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Đang giữ"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Tạm dừng"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Đang chờ"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Đang tải"
+
+msgctxt "queue.limitRate"
+msgid "Speed: {{value}}"
+msgstr "Tốc độ: {{value}}"
+
+msgctxt "queue.limitRateOff"
+msgid "Speed: Off"
+msgstr "Tốc độ: Tắt"
+
+msgctxt "queue.limitRateTitle"
+msgid "Bandwidth limit for downloads"
+msgstr "Giới hạn băng thông cho tải xuống"
+
+msgctxt "queue.noDownloads"
+msgid "No downloads yet."
+msgstr "Chưa có tải xuống nào."
+
+msgctxt "queue.pauseAll"
+msgid "Pause queue"
+msgstr "Tạm dừng tất cả"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Tạm dừng tất cả các tải xuống đang hoạt động"
+
+msgctxt "queue.resumeAll"
+msgid "Resume queue"
+msgstr "Tiếp tục hàng đợi"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Tiếp tục các tải xuống đã tạm dừng và cho hàng đợi chạy tiếp"
+
+msgctxt "queue.tip"
+msgid "Your download is queued below — open anytime to track progress."
+msgstr "Tải xuống của bạn đang trong hàng đợi bên dưới — mở bất cứ lúc nào để theo dõi tiến trình."
+
+msgctxt "queue.toggleTitle"
+msgid "Toggle download queue"
+msgstr "Bật/tắt hàng đợi tải xuống"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Hủy"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Chọn tệp thực thi"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Cài bằng Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Cài bằng WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Mở thư mục phụ thuộc"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Đặt lại về mặc định"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Retry setup"
+msgstr "Thử thiết lập lại"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Xem nhật ký thiết lập"
+
+msgctxt "repair.deps.deno"
+msgid "Deno"
+msgstr "Deno"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.hints.badExitCode"
+msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
+msgstr "Tệp nhị phân không phản hồi --version. Tệp có thể bị hỏng hoặc sai phiên bản."
+
+msgctxt "repair.hints.blockedOrQuarantined"
+msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
+msgstr "Windows đã chặn tệp (SmartScreen / Defender). Hãy chọn bản sao đã cài đặt hoặc thêm thư mục runtime vào danh sách cho phép."
+
+msgctxt "repair.hints.downloadFailed"
+msgid "Download failed. Check your internet connection and retry."
+msgstr "Tải xuống thất bại. Kiểm tra kết nối internet và thử lại."
+
+msgctxt "repair.hints.extractFailed"
+msgid "Archive extraction failed. The download may be corrupt — retry."
+msgstr "Giải nén tệp thất bại. Tệp tải xuống có thể bị hỏng — thử lại."
+
+msgctxt "repair.hints.hashFailed"
+msgid "Checksum mismatch on the downloaded file. Retry the download."
+msgstr "Tổng kiểm tra của tệp tải xuống không khớp. Hãy tải xuống lại."
+
+msgctxt "repair.hints.pairIncomplete"
+msgid "ffmpeg and ffprobe must both be set as a matched pair."
+msgstr "ffmpeg và ffprobe phải được thiết lập cùng nhau như một cặp khớp."
+
+msgctxt "repair.hints.permissionDenied"
+msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
+msgstr "Hệ thống từ chối chạy tệp. Hãy chọn bản sao bạn tin tưởng hoặc thử lại với quyền admin."
+
+msgctxt "repair.hints.spawnFailed"
+msgid "The file is missing or could not be launched. Pick a working copy."
+msgstr "Tệp bị thiếu hoặc không thể khởi chạy. Hãy chọn một bản sao hoạt động được."
+
+msgctxt "repair.hints.timeout"
+msgid "The version probe timed out. The file may be hung — retry."
+msgstr "Kiểm tra phiên bản hết thời gian. Tệp có thể bị treo — thử lại."
+
+msgctxt "repair.hints.unknown"
+msgid "Could not be verified."
+msgstr "Không thể xác minh."
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Thiết lập cần sự giúp đỡ của bạn"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Đã sao chép!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Sao chép liên kết"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 1850+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy miễn phí và mã nguồn mở. Chia sẻ giúp nhiều người hơn khám phá ra nó."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Chia sẻ"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Chia sẻ Arroxy"
+
+msgctxt "share.highValueBanner.body"
+msgid "Enjoying Arroxy? Help others discover it."
+msgstr "Bạn thích Arroxy không? Hãy giúp người khác khám phá nó."
+
+msgctxt "share.highValueBanner.dismiss"
+msgid "Dismiss share suggestion"
+msgstr "Bỏ qua gợi ý chia sẻ"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Chia sẻ Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Chia sẻ Arroxy"
+
+msgctxt "splash.downloading"
+msgid "Downloading {{binary}}…"
+msgstr "Đang tải xuống {{binary}}…"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Xin chào, chào mừng bạn quay lại!"
+
+msgctxt "splash.warmup"
+msgid "Arroxy is warming up…"
+msgstr "Arroxy đang khởi động…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Thiết lập thất bại. Mở nhật ký thiết lập để xem chi tiết."
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Đã hủy tải xuống"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Tải xuống hoàn tất"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Đang chuyển đổi video…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Không đủ dung lượng đĩa — cần {{required}}, chỉ còn {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Đang tải xuống tệp nhị phân {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Đang tải xuống video & âm thanh…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Đang nhúng metadata…"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Đang chuyển đổi âm thanh…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Đang kết nối SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Đang tải phụ đề…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Đang ghép âm thanh và video…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Đang tạo token YouTube…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Đang di chuyển tệp…"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Đang chuẩn bị các tệp nhị phân…"
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Đang tạo lại token…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock không khả dụng, đang thử lại ({{attempt}}/{{total}})…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Đang chờ {{seconds}}s để tránh giới hạn tốc độ…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting yt-dlp process…"
+msgstr "Đang khởi động tiến trình yt-dlp…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Đã lưu video — một số phụ đề không thể tải xuống"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Lỗi khởi động tải xuống không xác định"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Đã tải xuống với trình trích xuất dự phòng — thiết lập cookies.txt để tải xuống đáng tin cậy hơn"
+
+msgctxt "status.ytdlpExitCode"
+msgid "yt-dlp exited with code {{code}}"
+msgstr "yt-dlp thoát với mã {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "yt-dlp process error: {{error}}"
+msgstr "Lỗi tiến trình yt-dlp: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Chế độ tối"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Chế độ sáng"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Mặc định hệ thống"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Đóng"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Phóng to"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Thu nhỏ"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Khôi phục"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Mở Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Thoát Arroxy"
+
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 đang tải · {{percent}}%"
+
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} đang tải · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Đang chờ"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.appVersion"
+msgid "Arroxy {{version}}"
+msgstr "Arroxy {{version}}"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Đã sao chép lệnh vào bộ nhớ tạm"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Sao chép lệnh vào bộ nhớ tạm"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Ẩn thông báo cập nhật"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Tải xuống ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Đang tải xuống…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Cài đặt & Khởi động lại"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Cập nhật thất bại"
+
+msgctxt "update.isAvailable"
+msgid "is available"
+msgstr "đã có sẵn"
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Thử lại"
+
+msgctxt "update.youHave"
+msgid "— you have {{currentVersion}}"
+msgstr "— bạn đang dùng {{currentVersion}}"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Đang tải…"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Sẵn sàng"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Dán từng URL video hoặc âm thanh. Arroxy sẽ lọc trùng và đánh dấu liên kết playlist hoặc kênh trước khi đưa vào hàng đợi."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Dán một hoặc nhiều URL để xem trước lô."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Bị bỏ qua"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Thêm ít nhất một URL được hỗ trợ để tiếp tục."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Trùng lặp"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "Danh sách URL"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "URL hàng loạt"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Hàng đợi"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Bắt đầu khi các tải xuống khác hoàn tất — sử dụng toàn bộ băng thông"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Chỉ âm thanh"
+
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} trong {{total}} video"
+
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} trong {{total}} video"
+
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} trong {{total}} bản nhạc"
+
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} trong {{total}} bản nhạc"
+
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} trên {{total}} URL"
+
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} trên {{total}} URL"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Âm thanh"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "URL hàng loạt"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Mục"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Danh sách phát"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Cài đặt sẵn"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Lưu vào"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Kích thước"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Phụ đề"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Tệp của bạn sẽ được lưu vào"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Cài đặt chỉ phụ đề đang hoạt động nhưng chưa chọn ngôn ngữ phụ đề nào — sẽ không có gì được tải xuống."
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Tải về! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Bắt đầu ngay lập tức — chạy song song với các tải xuống đang hoạt động"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Sẵn sàng tải về!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Không xác định"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Subtitle embed đã chuyển sang sidecar — các track âm thanh không hỗ trợ luồng phụ đề được nhúng."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Thumbnail embed bị bỏ qua — container đầu ra không hỗ trợ tính năng này."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Tùy chỉnh…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Màn hình desktop"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Tài liệu"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Tải xuống"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Lưu vào"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Thư mục gốc"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Nhạc"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Hình ảnh"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Tên thư mục chứa ký tự không hợp lệ"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "vd. lo-fi rips"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Lưu trong thư mục con"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Phim"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Âm thanh"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Chỉ âm thanh"
+
+msgctxt "wizard.formats.audioOnlyOption"
+msgid "Audio only (no video)"
+msgstr "Chỉ âm thanh (không có video)"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Cookies đã được cấu hình nhưng đang tắt. Bật lên và thử lại để có danh sách đầy đủ, hoặc đổi mạng và thử lại."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Ngay cả với cookies, YouTube vẫn giới hạn lần kiểm tra này. Hãy thử lại sau hoặc đổi mạng."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Danh sách định dạng có thể không đầy đủ. Thiết lập cookies trong cài đặt nâng cao, hoặc đổi mạng và thử lại."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Bật cookies và thử lại"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "YouTube đã giới hạn lần kiểm tra này"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Thử lại"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Tốc độ bit"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Chuyển đổi"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.requiresAudioOnly"
+msgid "Audio conversion requires audio-only mode (deselect the video pick)."
+msgstr "Chuyển đổi âm thanh yêu cầu chế độ chỉ âm thanh (bỏ chọn lựa chọn video)."
+
+msgctxt "wizard.formats.convert.requiresLossy"
+msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
+msgstr "Đang chọn luồng gốc — tốc độ bit chỉ áp dụng khi chuyển đổi sang mp3, m4a hoặc opus."
+
+msgctxt "wizard.formats.convert.uncompressed"
+msgid "Convert · uncompressed"
+msgstr "Chuyển đổi · không nén"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (không nén)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Trình duyệt"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Tệp"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Nguồn cookies"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "Tài liệu yt-dlp (issue #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 trở lên mã hóa cookies theo cách mà các ứng dụng khác không thể đọc trên Windows. Hãy thử một trong các cách khắc phục bên dưới."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Xuất cookies từ Chrome bằng tiện ích mở rộng trình duyệt, sau đó chuyển ứng dụng này sang chế độ Tệp và chọn tệp đã xuất."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Xuất cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox không sử dụng App-Bound Encryption. Mở cài đặt cookies và chọn Firefox từ danh sách trình duyệt."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Chuyển sang Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Thêm --disable-features=LockProfileCookieDatabase vào shortcut khởi chạy Chrome. Cảnh báo: điều này sẽ làm mất hiệu lực các cookies đã mã hóa trước đó, khiến bạn bị đăng xuất khỏi mọi trang web và cần đăng nhập lại."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Khởi chạy Chrome với App-Bound Encryption đã tắt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Cookies của Chrome bị chặn bởi mã hóa Windows"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Cookies được đọc trực tiếp từ trình duyệt. Nếu trình duyệt đang mở, cơ sở dữ liệu cookies có thể bị khóa (Chromium-family). Trình duyệt cũng phải đã đăng nhập vào YouTube. Hãy thử đóng trình duyệt, chuyển sang trình duyệt khác, chuyển sang chế độ Tệp hoặc tắt cookies."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Tệp cookies của bạn có thể trống, đã hết hạn hoặc sai định dạng (yt-dlp yêu cầu Netscape cookies.txt). Hãy thử xuất lại cookies, chọn tệp khác, chuyển sang chế độ Trình duyệt hoặc tắt cookies."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Cookies có thể là nguyên nhân"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "yt-dlp không thể truy cập video này mà không xác thực. Hãy cấu hình cookies trong cài đặt nâng cao — trỏ đến trình duyệt bạn đã đăng nhập, hoặc nhập tệp cookies.txt."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Trang web này yêu cầu đăng nhập"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Mở cài đặt cookies"
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Giữ nguyên"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Âm thanh tích hợp"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Đang tải định dạng"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Vui lòng chờ cho đến khi quá trình kiểm tra hoàn tất — playlist và tìm kiếm có thể mất một lúc."
+
+msgctxt "wizard.formats.mascot"
+msgid "Best + Best = max quality. I'd pick that!"
+msgstr "Tốt nhất + Tốt nhất = chất lượng cao nhất. Tôi sẽ chọn cái đó!"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Không có âm thanh"
+
+msgctxt "wizard.formats.quickPresets"
+msgid "Quick presets"
+msgstr "Cài đặt nhanh"
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Không biết kích thước"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Bỏ qua đến xác nhận"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Sử dụng tùy chọn đã lưu của bạn cho tất cả các bước còn lại. Để thay đổi một cài đặt, hãy tiếp tục từng bước — lựa chọn của bạn sẽ được lưu cho lần sau."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Đang tìm định dạng tốt nhất cho bạn…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Tổng cộng"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.formats.videoOnly"
+msgid "Video only"
+msgstr "Chỉ video"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Bạn chỉ muốn video đã chọn, hay muốn chọn từ Playlist? Bạn sẽ chọn các video cụ thể hoặc một đoạn ở bước tiếp theo."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Chọn từ Playlist"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Giới hạn dò playlist: {{count}} mục"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgstr "Dùng chế độ playlist của yt-dlp và lấy đến giới hạn dò playlist trước khi hiện bộ chọn."
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgstr "Dùng chế độ video đơn của yt-dlp để bỏ qua playlist gắn với URL này."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Chỉ cái này thôi"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Liên kết này có Playlist"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Các mốc chương có thể điều hướng trong mọi trình phát hiện đại."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Nhúng chương"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Tiêu đề, nghệ sĩ, mô tả và ngày tải lên được ghi vào tệp."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Nhúng metadata"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Ảnh bìa bên trong tệp. Video WebM sẽ được remux sang MKV; bỏ qua khi có phụ đề được nhúng."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Nhúng hình thu nhỏ"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Lưu mô tả video dưới dạng tệp văn bản .description cạnh tệp tải xuống."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Lưu mô tả"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Lưu playlist .m3u cạnh các video để mở đúng thứ tự trong trình phát."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Tạo tệp playlist .m3u"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Lưu hình thu nhỏ dưới dạng tệp ảnh .jpg cạnh tệp tải xuống."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Lưu hình thu nhỏ"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Đã tải xuống"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "URL hàng loạt"
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Đang lấy chi tiết video… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Không có chi tiết"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Đang lấy chi tiết"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Đang chờ"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "live"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Các mục Playlist"
+
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} video"
+
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} video"
+
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} bản nhạc"
+
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} bản nhạc"
+
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Đang tải Playlist…"
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Chọn ít nhất một video để tiếp tục"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Arroxy tìm thấy nhiều hơn {{count}} mục, vì vậy giới hạn quét hiện tại đang ẩn phần còn lại."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Quét playlist đã bị giới hạn"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Áp dụng phạm vi"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Từ"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Đến"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Chọn tất cả"
+
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} đã chọn"
+
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} đã chọn"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Bỏ chọn tất cả"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Áp dụng đồng bộ"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Đổi thư mục…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} video trong số này đã có trong {{dir}}. Đồng bộ để chỉ tải các video mới?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Đã có trong thư mục"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Không tìm thấy video nào từ danh sách phát này trong {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Chưa có gì được tải xuống"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Đang kiểm tra thư mục…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Hình thu nhỏ video"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Chọn chất lượng cho lô"
+
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} mục"
+
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} mục"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà."
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Nội dung phụ"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Mở đầu"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Nhạc ngoài chủ đề"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Kết thúc"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Xem trước"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Tự quảng cáo"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Nhà tài trợ"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Danh mục"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Đánh dấu là chương"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Tắt"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Xóa đoạn"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Lọc nhà tài trợ"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Đánh dấu các đoạn nhà tài trợ là chương (không phá hủy)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Không dùng SponsorBlock — video phát như khi tải lên."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Cắt các đoạn nhà tài trợ khỏi video bằng FFmpeg."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Xác nhận"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Lưu"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Định dạng"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Đầu ra"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Playlist"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Chất lượng"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Phụ đề"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Phụ đề tự động tạo sẽ được lưu dưới dạng SRT thay vì ASS — chúng luôn được làm sạch dữ liệu lặp rolling-cue của YouTube, điều mà trình chuyển đổi ASS của chúng tôi chưa hỗ trợ."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Tự động"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Xóa tất cả"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Chế độ nhúng lưu đầu ra dưới dạng .mkv để các track phụ đề nhúng được đáng tin cậy."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Định dạng"
+
+msgctxt "wizard.subtitles.mascot"
+msgid "Pick zero, one, or many — totally up to you ✨"
+msgstr "Chọn không, một hay nhiều — hoàn toàn tùy bạn ✨"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Không có phụ đề nào cho video này"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Không tìm thấy ngôn ngữ nào"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Chưa chọn phụ đề nào"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Nhúng vào video"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Lưu dưới dạng"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Cạnh video"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "Thư mục con subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Tìm ngôn ngữ…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Tự động tạo"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Thủ công"
+
+msgctxt "wizard.subtitles.selectedNote_one"
+msgid "{{count}} subtitle will be downloaded"
+msgstr "{{count}} phụ đề sẽ được tải xuống"
+
+msgctxt "wizard.subtitles.selectedNote_other"
+msgid "{{count}} subtitles will be downloaded"
+msgstr "{{count}} phụ đề sẽ được tải xuống"
+
+msgctxt "wizard.subtitles.skip"
+msgid "Skip"
+msgstr "Bỏ qua"
+
+msgctxt "wizard.subtitles.skipSubs"
+msgid "Skip for this video"
+msgstr "Bỏ qua cho video này"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Nâng cao"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send anonymous usage stats"
+msgstr "Gửi thống kê sử dụng ẩn danh"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "Counts app launches only. No URLs, filenames, or personal data."
+msgstr "Chỉ đếm số lần khởi động ứng dụng. Không có URL, tên tệp hay dữ liệu cá nhân."
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "URL hàng loạt"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
+msgstr "Dán danh sách URL riêng lẻ, xem trước danh sách đã làm sạch rồi xếp hàng với một preset chất lượng chung."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Xóa URL"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Hủy"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Theo dõi bộ nhớ tạm"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Tự động điền vào trường URL khi bạn sao chép một liên kết YouTube."
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Ẩn xuống khay khi đóng"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Tiếp tục tải xuống trong nền sau khi đóng cửa sổ."
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgstr "YouTube có thể gắn cờ — và đôi khi cấm — các tài khoản có cookies được yt-dlp sử dụng. Hãy dùng tài khoản phụ khi có thể."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Đọc cookies trực tiếp từ trình duyệt. Trình duyệt phải được đóng đối với các trình duyệt thuộc dòng Chromium."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Trình duyệt"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Chọn trình duyệt…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Chọn…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Xóa"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Chọn một trình duyệt để dùng cookies"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Chọn một tệp để dùng cookies"
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Lấy cookies.txt TRÊN MÁY (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Tệp Cookies"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Cách xuất cookies?"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Chưa chọn tệp"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Rủi ro: một cookies.txt chứa mọi phiên đăng nhập của trình duyệt đó — hãy giữ bí mật."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Trình duyệt"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Tệp"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Nguồn cookies"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Tắt"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Hỗ trợ tải video giới hạn độ tuổi, dành riêng cho thành viên và video riêng tư của tài khoản."
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Chỉ âm thanh"
+
+msgctxt "wizard.url.features.always.heading"
+msgid "Always available"
+msgstr "Luôn có sẵn"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Phụ đề"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ trang web"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Danh sách phát nhạc"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Video"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Danh sách phát video"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Arroxy có thể tải gì"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Kênh"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Nhạc"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Danh sách phát"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcast"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Video"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
+msgstr "Chọn định dạng, phụ đề, thư mục và mục playlist từng bước trước khi thêm vào hàng đợi."
+
+msgctxt "wizard.url.heading"
+msgid "Video URL"
+msgstr "YouTube URL"
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Tải định dạng"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Tải xuống đang chạy giữ giới hạn hiện tại. Tạm dừng + Tiếp tục để áp dụng."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Tùy chỉnh…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "vd. 750K hoặc 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Giới hạn băng thông cho tải media. Nhịp yêu cầu bên dưới thường là đòn bẩy giới hạn mạnh hơn."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Dùng một số theo sau bởi K hoặc M (vd. 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Giới hạn tốc độ tải"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Tắt"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Đang tải xuống trong nền… Tôi có thể làm nhiều việc cùng lúc 😎"
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link — YouTube or any of 2000+ sites ✨"
+msgstr "Dán cho tôi một liên kết YouTube (video hoặc YouTube Shorts) — rồi nhấn \"Tải định dạng\" và tôi sẽ bắt tay vào việc ✨"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
+msgstr "Thêm khoảng dừng nhỏ trong mỗi lần tải xuống để Arroxy không truy cập trang web quá mức. Giá trị tính bằng giây trừ khi có ghi chú."
+
+msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
+msgid "Download connections"
+msgstr "Kết nối tải xuống"
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Dừng trước khi media bắt đầu: tối đa"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Dừng trước khi media bắt đầu: tối thiểu"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Chờ giữa các lần kiểm tra metadata"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Chờ trước tệp phụ đề"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Tải xuống nhẹ nhàng"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Arroxy nên thận trọng mức nào?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Cân bằng"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Cẩn thận"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Tùy chỉnh"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Tắt"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
+msgstr "Chờ: {{requests}} giữa các lần kiểm tra, {{downloads}} trước khi media bắt đầu, {{subtitles}} trước các tệp phụ đề. Kết nối: {{fragments}}."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
+msgstr "Các khoảng dừng này xảy ra bên trong mỗi lần tải xuống. Arroxy vẫn duy trì tải xuống trong hàng đợi theo thứ tự từng cái một."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses and uses one download connection."
+msgstr "Mặc định. Thêm các khoảng dừng ngắn và sử dụng một kết nối tải xuống."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Thêm khoảng dừng dài hơn cho danh sách phát lớn hoặc mạng thường xuyên bị giới hạn."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Tự điều chỉnh các điều khiển tải xuống nâng cao."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Chỉ sử dụng các khoảng dừng cơ bản nhỏ mà Arroxy duy trì cho media và phụ đề."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "giây"
+
+msgctxt "wizard.url.networkPacing.units.threads"
+msgid "threads"
+msgstr "luồng"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://www.youtube.com/watch?v=..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Giới hạn hiện tại: {{count}} mục"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Tùy chỉnh…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Hủy"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Nhập số nguyên từ {{min}} đến {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Lưu giới hạn"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Giới hạn quét playlist tùy chỉnh"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Tùy chỉnh: {{count}} mục"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Số mục tối đa Arroxy tải khi mở một playlist, kênh hoặc kết quả tìm kiếm."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Nhập số nguyên từ 1 đến 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Số mục playlist cần quét"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} mục"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Tương ứng với yt-dlp --playlist-end: Arroxy chỉ yêu cầu số mục này từ playlist, kênh hoặc kết quả tìm kiếm khi tạo bộ chọn."
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Xóa"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Chuyển lưu lượng qua proxy — hữu ích cho nội dung bị chặn theo khu vực."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "URL Proxy"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick download"
+msgstr "Tải nhanh"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
+msgstr "Dùng tùy chọn đã lưu hoặc mặc định của bạn và thêm video đơn này vào hàng đợi mà không mở các bước thiết lập."
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Không thể thêm mục này: {{error}}"
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Không thể chuẩn bị mục hàng đợi"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Đang chuẩn bị"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Thăm dò thất bại"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Đã thêm vào hàng đợi"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
+msgstr "Tải nhanh chỉ dành cho video đơn. Dùng Lấy định dạng cho playlist và kênh."
+
+msgctxt "wizard.url.singleFilenameId.toggle"
+msgid "Add video ID to single filenames"
+msgstr "Thêm ID video vào tên tệp đơn lẻ"
+
+msgctxt "wizard.url.singleFilenameId.toggleDescription"
+msgid "Keeps one-off downloads unique when titles change or collide."
+msgstr "Giữ các lượt tải một lần là duy nhất khi tiêu đề thay đổi hoặc trùng nhau."
