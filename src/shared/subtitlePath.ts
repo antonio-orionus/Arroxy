@@ -25,7 +25,7 @@ function escapeRegExp(s: string): string {
 export function detectSubtitleLang(path: string, requestedLangs: readonly string[]): string | null {
 	const patterns = requestedLangs.map(lang => ({
 		lang,
-		// eslint-disable-next-line security/detect-non-literal-regexp -- lang is from requestedLangs (caller-validated BCP-47); EXTS_ALT is from hardcoded enum
+		// eslint-disable-next-line security/detect-non-literal-regexp -- escapeRegExp(lang) sanitizes requestedLangs, EXTS_ALT is from the hardcoded SUBTITLE_FORMATS enum, and the pattern is end-anchored
 		re: new RegExp(`\\.${escapeRegExp(lang)}\\.(${EXTS_ALT})$`, 'i')
 	}))
 	for (const {lang, re} of patterns) {

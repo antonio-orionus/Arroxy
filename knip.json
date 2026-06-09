@@ -21,7 +21,6 @@
   },
 	"ignoreDependencies": [
 		"@fontsource/jetbrains-mono",
-		"@fontsource/outfit",
 		"@fontsource/poppins",
 		"shadcn",
 		"tw-animate-css",

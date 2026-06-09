@@ -144,7 +144,7 @@ export function StepPlaylistPresets(): ReactNode {
 							{/* Quality / tier grid */}
 							<div>
 								<p className={SECTION_LABEL}>{t('playlistPresets.tier.best')}</p>
-								<ItemGroup className="grid grid-cols-2 gap-2 md:grid-cols-3 md:grid-rows-auto">
+								<ItemGroup className="grid grid-cols-2 gap-2 md:grid-cols-3 md:grid-rows-auto" data-testid="tier-list">
 									{VIDEO_TIERS.map(tier => {
 										const blocked = currentCodec === 'mp4' && MP4_BLOCKED_TIERS.has(tier)
 										const selected = currentTier === tier

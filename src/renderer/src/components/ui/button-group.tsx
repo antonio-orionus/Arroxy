@@ -15,7 +15,8 @@ const buttonGroupVariants = cva("flex w-fit items-stretch *:focus-visible:relati
 })
 
 function ButtonGroup({className, orientation, ...props}: React.ComponentProps<'div'> & VariantProps<typeof buttonGroupVariants>): ReactNode {
-	return <div data-slot="button-group" data-orientation={orientation} className={cn(buttonGroupVariants({orientation}), className)} {...props} />
+	// react-doctor-disable-next-line react-doctor/prefer-tag-over-role -- grouped button controls need ARIA grouping semantics; no native landmark/tag fits this UI primitive
+	return <div role="group" data-slot="button-group" data-orientation={orientation} className={cn(buttonGroupVariants({orientation}), className)} {...props} />
 }
 
 export {ButtonGroup}
