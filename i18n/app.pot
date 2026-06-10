@@ -1872,7 +1872,7 @@ msgid "Downloading in the background… I can multitask 😎"
 msgstr ""
 
 msgctxt "wizard.url.mascotIdle"
-msgid "Drop a link — YouTube or any of 2000+ sites ✨"
+msgid "Drop a link and let Arroxy pull it ✨"
 msgstr ""
 
 msgctxt "wizard.url.networkPacing.description"

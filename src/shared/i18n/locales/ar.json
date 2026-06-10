@@ -111,7 +111,7 @@
 				"anySite": {"heading": "2000+ موقع", "video": "مقاطع فيديو", "videoPlaylist": "قوائم تشغيل الفيديو", "musicPlaylist": "قوائم تشغيل الموسيقى"},
 				"always": {"heading": "دائماً متاح", "audioOnly": "الصوت فقط", "subtitles": "الترجمات"}
 			},
-			"mascotIdle": "أرسل لي رابط YouTube (فيديو أو Short) — ثم اضغط \"جلب الصيغ\" وسأبدأ العمل ✨",
+			"mascotIdle": "أرسل رابطًا ودع Arroxy يسحبه ✨",
 			"mascotBusy": "جارٍ التنزيل في الخلفية… أستطيع تعدد المهام 😎",
 			"advanced": "متقدم",
 			"clearAria": "مسح الرابط",

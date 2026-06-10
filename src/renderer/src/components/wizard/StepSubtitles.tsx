@@ -60,6 +60,7 @@ export function StepSubtitles(): ReactNode {
 				<div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2.5 items-center -mx-1">
 					<span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">{t('wizard.subtitles.saveMode.heading')}</span>
 					<ToggleGroup
+						variant="outline"
 						value={[wizardSubtitleMode]}
 						onValueChange={values => {
 							const next = values[0] as (typeof SUBTITLE_MODES)[number] | undefined
@@ -87,6 +88,7 @@ export function StepSubtitles(): ReactNode {
 						<>
 							<span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">{t('wizard.subtitles.format.heading')}</span>
 							<ToggleGroup
+								variant="outline"
 								value={[wizardSubtitleFormat]}
 								onValueChange={values => {
 									const next = values[0] as (typeof SUBTITLE_FORMATS)[number] | undefined
@@ -248,7 +250,7 @@ function LangSection({label, items, selected, onToggle, autoBadge}: LangSectionP
 					return (
 						<label
 							key={code}
-							className="flex h-7 w-full cursor-pointer items-center gap-2 rounded-md px-2 text-sm font-medium transition-colors hover:bg-accent/60 has-[[data-checked]]:border-s-2 has-[[data-checked]]:border-[var(--brand)] has-[[data-checked]]:bg-[var(--brand-dim)] has-[[data-checked]]:text-[var(--brand)]"
+							className="flex h-8 w-full cursor-pointer items-center gap-2 rounded-md border border-[var(--field-border)] bg-[var(--field-bg)] px-2 text-sm font-medium shadow-[inset_0_1px_0_var(--field-highlight)] transition-colors hover:border-[var(--brand)] hover:bg-[var(--brand-dim)] has-[[data-checked]]:border-[var(--brand)] has-[[data-checked]]:bg-[var(--brand-dim)] has-[[data-checked]]:text-[var(--brand)] has-[[data-checked]]:shadow-[inset_0_0_0_1px_var(--brand-dim)]"
 						>
 							<Checkbox checked={isChecked} onCheckedChange={() => onToggle(code)} className="border-[var(--border-strong)] data-checked:border-[var(--brand)] data-checked:bg-[var(--brand)] data-checked:text-white" />
 							<span className="flex-1 text-start truncate">{displayName}</span>

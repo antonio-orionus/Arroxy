@@ -48,7 +48,7 @@ describe('DownloadMascotHelpCard', () => {
 
 		expect(card).toHaveClass('w-full')
 		expect(card).toHaveClass('xl:w-fit')
-		expect(card).toHaveClass('xl:max-w-[72rem]')
+		expect(card).toHaveClass('xl:max-w-[64rem]')
 		expect(card).toHaveClass('xl:self-start')
 	})
 })

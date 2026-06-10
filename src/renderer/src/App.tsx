@@ -26,6 +26,8 @@ import {cn} from './lib/utils.js'
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
 const ShareDialog = lazy(() => import('./components/system/ShareDialog.js').then(module => ({default: module.ShareDialog})))
 const ScenarioGallery = lazy(() => import('./dev/ScenarioGallery.js').then(module => ({default: module.ScenarioGallery})))
+const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-[13px] text-muted-foreground'
+const FOOTER_VERSION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-[11px] text-muted-foreground/60 tabular-nums'
 
 function isBackdropOnlyStage(): boolean {
 	return (import.meta.env.MODE === 'browser-mock' || import.meta.env.MODE === 'test') && new URLSearchParams(window.location.search).has('backdrop')
@@ -157,28 +159,37 @@ export function App(): ReactNode {
 						<div className="mx-1 h-3 w-px bg-border" aria-hidden />
 						<LanguagePicker />
 					</div>
-					<div className="flex items-center gap-3">
-						<Button type="button" variant="ghost" size="xs" className="h-5 px-0 text-[11px] text-muted-foreground/50 tabular-nums" onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about-version">
+					<div className="flex items-center gap-1">
+						<Button type="button" variant="ghost" size="xs" className={FOOTER_VERSION_BUTTON_CLASS} onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about-version">
 							v{window.appVersion}
 						</Button>
-						<Button type="button" variant="ghost" size="xs" className="h-5 px-0 text-[13px] text-muted-foreground" onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about">
+						<Button type="button" variant="ghost" size="xs" className={FOOTER_ACTION_BUTTON_CLASS} onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about">
 							<Info data-icon="inline-start" aria-hidden />
 							{t('about.button')}
 						</Button>
-						<Button type="button" variant="ghost" size="icon-xs" className="size-5 text-muted-foreground" onClick={copyDebugInfo} title={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')} aria-label={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')} data-testid="btn-debug">
+						<Button
+							type="button"
+							variant="ghost"
+							size="icon-xs"
+							className="footer-action-button size-6 rounded-md text-muted-foreground"
+							onClick={copyDebugInfo}
+							title={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')}
+							aria-label={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')}
+							data-testid="btn-debug"
+						>
 							<Bug aria-hidden />
 						</Button>
-						<Button type="button" variant="ghost" size="xs" className="h-5 px-0 text-[13px] text-muted-foreground" onClick={() => openShareDialog('footer')} title={t('share.footerTooltip')} data-testid="btn-share">
+						<Button type="button" variant="ghost" size="xs" className={FOOTER_ACTION_BUTTON_CLASS} onClick={() => openShareDialog('footer')} title={t('share.footerTooltip')} data-testid="btn-share">
 							<Share2 data-icon="inline-start" aria-hidden />
 							{t('share.footerLabel')}
 						</Button>
-						<div className="relative inline-flex items-center h-5">
+						<div className="relative inline-flex h-6 items-center">
 							<FeedbackNudge visible={showNudge} message={t('app.feedbackNudge')} />
 							<Button
 								type="button"
 								variant="ghost"
 								size="xs"
-								className={cn('h-5 px-0 text-[13px]', showNudge ? 'feedback-btn-nudging' : 'text-muted-foreground')}
+								className={cn(FOOTER_ACTION_BUTTON_CLASS, showNudge && 'feedback-btn-nudging')}
 								onClick={() => {
 									setShowNudge(false)
 									setFeedbackDialogOpen(true)
@@ -188,7 +199,7 @@ export function App(): ReactNode {
 								{t('app.feedback')}
 							</Button>
 						</div>
-						<Button type="button" variant="ghost" size="xs" className="h-5 px-0 text-[13px] text-muted-foreground" onClick={() => void openLogs()} data-testid="btn-logs">
+						<Button type="button" variant="ghost" size="xs" className={FOOTER_ACTION_BUTTON_CLASS} onClick={() => void openLogs()} data-testid="btn-logs">
 							{t('app.logs')}
 						</Button>
 					</div>

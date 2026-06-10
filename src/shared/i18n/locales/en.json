@@ -102,7 +102,7 @@
 				"anySite": {"heading": "2000+ sites", "video": "Videos", "videoPlaylist": "Video playlists", "musicPlaylist": "Music playlists"},
 				"always": {"heading": "Always available", "audioOnly": "Audio only", "subtitles": "Subtitles"}
 			},
-			"mascotIdle": "Drop a link — YouTube or any of 2000+ sites ✨",
+			"mascotIdle": "Drop a link and let Arroxy pull it ✨",
 			"mascotBusy": "Downloading in the background… I can multitask 😎",
 			"advanced": "Advanced",
 			"clearAria": "Clear URL",

@@ -1878,8 +1878,8 @@ msgid "Downloading in the background… I can multitask 😎"
 msgstr "Inapakua nyuma ya pazia… Ninaweza kufanya mambo mengi kwa wakati mmoja 😎"
 
 msgctxt "wizard.url.mascotIdle"
-msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-msgstr "Nipe kiungo cha YouTube (video au Short) — kisha bonyeza \"Pata maumbo\" nami nitaanza kazi ✨"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Weka kiungo, Arroxy aipakue ✨"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
@@ -2080,6 +2080,10 @@ msgstr "Huweka upakuaji wa mara moja kuwa wa kipekee wakati vichwa vinabadilika 
 #~ msgctxt "wizard.url.heading"
 #~ msgid "Video URL"
 #~ msgstr "YouTube URL"
+
+#~ msgctxt "wizard.url.mascotIdle"
+#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
+#~ msgstr "Nipe kiungo cha YouTube (video au Short) — kisha bonyeza \"Pata maumbo\" nami nitaanza kazi ✨"
 
 #~ msgctxt "wizard.url.quickDownloadTooltip"
 #~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."

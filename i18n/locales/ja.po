@@ -1878,8 +1878,8 @@ msgid "Downloading in the background… I can multitask 😎"
 msgstr "バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎"
 
 msgctxt "wizard.url.mascotIdle"
-msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-msgstr "YouTubeのリンクを貼ってね (動画でもShortsでもOK) — 「形式を取得」を押せばすぐ取りかかるよ ✨"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "リンクを入れて、あとは Arroxy に引っぱってもらおう ✨"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
@@ -2080,6 +2080,10 @@ msgstr "タイトルが変わったり重複したりしても、単発ダウン
 #~ msgctxt "wizard.url.heading"
 #~ msgid "Video URL"
 #~ msgstr "YouTube URL"
+
+#~ msgctxt "wizard.url.mascotIdle"
+#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
+#~ msgstr "YouTubeのリンクを貼ってね (動画でもShortsでもOK) — 「形式を取得」を押せばすぐ取りかかるよ ✨"
 
 #~ msgctxt "wizard.url.quickDownloadTooltip"
 #~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."

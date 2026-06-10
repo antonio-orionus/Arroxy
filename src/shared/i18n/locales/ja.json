@@ -111,7 +111,7 @@
 				"anySite": {"heading": "2000以上のサイト", "video": "動画", "videoPlaylist": "動画プレイリスト", "musicPlaylist": "音楽プレイリスト"},
 				"always": {"heading": "いつでも利用可能", "audioOnly": "音声のみ", "subtitles": "字幕"}
 			},
-			"mascotIdle": "YouTubeのリンクを貼ってね (動画でもShortsでもOK) — 「形式を取得」を押せばすぐ取りかかるよ ✨",
+			"mascotIdle": "リンクを入れて、あとは Arroxy に引っぱってもらおう ✨",
 			"mascotBusy": "バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎",
 			"advanced": "詳細設定",
 			"clearAria": "URLをクリア",

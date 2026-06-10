@@ -111,7 +111,7 @@
 				"anySite": {"heading": "2000+ sitios", "video": "Vídeos", "videoPlaylist": "Playlists de vídeo", "musicPlaylist": "Playlists de música"},
 				"always": {"heading": "Siempre disponible", "audioOnly": "Solo audio", "subtitles": "Subtítulos"}
 			},
-			"mascotIdle": "Pásame un enlace de YouTube (vídeo o Short) — luego pulsa \"Obtener formatos\" y me pongo manos a la obra ✨",
+			"mascotIdle": "Suelta un enlace y deja que Arroxy lo traiga ✨",
 			"mascotBusy": "Descargando en segundo plano… puedo hacer varias cosas a la vez 😎",
 			"advanced": "Avanzado",
 			"clearAria": "Borrar URL",

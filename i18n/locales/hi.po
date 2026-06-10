@@ -1878,8 +1878,8 @@ msgid "Downloading in the background… I can multitask 😎"
 msgstr "पीछे चुपचाप डाउनलोड कर रहा हूँ… मैं एक साथ कई काम कर सकता हूँ 😎"
 
 msgctxt "wizard.url.mascotIdle"
-msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-msgstr "एक लिंक डालें — YouTube या 2000+ साइटों में से कोई भी ✨"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "एक लिंक डालें और Arroxy को उसे खींच लाने दें ✨"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
@@ -2080,6 +2080,10 @@ msgstr "शीर्षक बदलने या टकराने पर ए�
 #~ msgctxt "wizard.url.heading"
 #~ msgid "Video URL"
 #~ msgstr "YouTube URL"
+
+#~ msgctxt "wizard.url.mascotIdle"
+#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
+#~ msgstr "एक लिंक डालें — YouTube या 2000+ साइटों में से कोई भी ✨"
 
 #~ msgctxt "wizard.url.quickDownloadTooltip"
 #~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."

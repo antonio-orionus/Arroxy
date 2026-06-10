@@ -324,16 +324,16 @@ export function DownloadProfilesHome(): ReactNode {
 				</TabsList>
 
 				<TabsContent value="download" className="flex flex-col gap-4">
-					<Card className="glow-panel rounded-[1.85rem] border-transparent" data-testid="profiles-download-panel">
-						<CardHeader className="px-6 pt-6 md:px-10 md:pt-7">
+					<Card className="glow-panel rounded-[1.5rem] border-transparent" data-testid="profiles-download-panel">
+						<CardHeader className="px-5 pt-5 md:px-6 md:pt-5">
 							<div className="min-w-0">
-								<CardTitle className="text-2xl font-semibold leading-tight tracking-[-0.01em]">{t('wizard.url.heading')}</CardTitle>
-								<CardDescription className="mt-2 text-[13px] text-[var(--text-subtle)]">{t('wizard.url.quickSingleOnly')}</CardDescription>
-								<InputGroup className="glow-tile mt-5 h-14 rounded-2xl border-transparent px-1">
+								<CardTitle className="text-display">{t('wizard.url.heading')}</CardTitle>
+								<CardDescription className="mt-1.5 text-body text-[var(--text-subtle)]">{t('wizard.url.quickSingleOnly')}</CardDescription>
+								<InputGroup className="glow-tile mt-4 h-11 rounded-xl border-transparent px-1">
 									<InputGroupAddon align="inline-start">
 										<Link2 aria-hidden />
 									</InputGroupAddon>
-									<InputGroupInput ref={inputRef} type="url" value={wizardUrl} onChange={event => setWizardUrl(event.target.value)} onKeyDown={handleKeyDown} onPaste={handlePaste} placeholder={t('wizard.url.placeholder')} spellCheck={false} data-testid="profiles-main-input" className="text-[15px]" />
+									<InputGroupInput ref={inputRef} type="url" value={wizardUrl} onChange={event => setWizardUrl(event.target.value)} onKeyDown={handleKeyDown} onPaste={handlePaste} placeholder={t('wizard.url.placeholder')} spellCheck={false} data-testid="profiles-main-input" className="text-title" />
 									{hasInput ? (
 										<InputGroupAddon align="inline-end">
 											<InputGroupButton type="button" size="icon-sm" aria-label={t('wizard.url.clearAria')} onClick={handleClearUrl} data-testid="url-clear">
@@ -345,7 +345,7 @@ export function DownloadProfilesHome(): ReactNode {
 								{pendingClipboard ? <ClipboardPendingAction candidate={pendingClipboard} onApply={() => consumeClipboardCandidate(pendingClipboard)} onDismiss={() => setPendingClipboard(null)} /> : null}
 							</div>
 						</CardHeader>
-						<CardContent className="px-6 pb-3 md:px-10">
+						<CardContent className="px-5 pb-4 md:px-6">
 							<QuickProfileCard
 								activeProfile={activeProfile}
 								defaultProfileMenuOpen={initialBrowserMockScenario === 'profiles-split-menu'}
@@ -422,12 +422,12 @@ function ClipboardPendingAction({candidate, onApply, onDismiss}: {candidate: Cli
 
 export function DownloadMascotHelpCard({help}: {help: ReturnType<typeof downloadMascotHelp>}): ReactNode {
 	return (
-		<Card className="glow-panel flex w-full max-w-full flex-col gap-5 rounded-[1.5rem] border-transparent !px-7 !py-6 sm:flex-row sm:items-center md:!px-10 md:!py-6 xl:w-fit xl:max-w-[72rem] xl:self-start" data-testid="profiles-mascot-help">
-			<img src={help.image} alt="" aria-hidden className="size-20 shrink-0 object-contain md:size-20 xl:size-24" />
-			<div className="grid min-w-0 flex-1 gap-7 lg:grid-cols-[minmax(18rem,0.9fr)_minmax(27rem,1.1fr)] lg:items-center xl:w-[58rem]">
+		<Card className="glow-panel flex w-full max-w-full flex-col gap-4 rounded-[1.25rem] border-transparent !px-5 !py-4 sm:flex-row sm:items-center md:!px-6 md:!py-5 xl:w-fit xl:max-w-[64rem] xl:self-start" data-testid="profiles-mascot-help">
+			<img src={help.image} alt="" aria-hidden className="size-16 shrink-0 object-contain" />
+			<div className="grid min-w-0 flex-1 gap-5 lg:grid-cols-[minmax(16rem,0.9fr)_minmax(24rem,1.1fr)] lg:items-center xl:w-[52rem]">
 				<div className="min-w-0">
-					<p className="text-base font-semibold text-foreground">{help.title}</p>
-					<p className="mt-1 max-w-xl text-[13px] leading-relaxed text-[var(--text-glass-muted)] md:text-sm">{help.body}</p>
+					<p className="text-title text-foreground">{help.title}</p>
+					<p className="mt-1 max-w-xl text-body text-[var(--text-glass-muted)]">{help.body}</p>
 					<ul className="mt-3 grid gap-1.5 text-[12px] leading-snug text-[var(--text-glass-muted)]">
 						{help.points.map(point => (
 							<li key={point} className="flex min-w-0 items-start gap-2">
@@ -446,9 +446,9 @@ export function DownloadMascotHelpCard({help}: {help: ReturnType<typeof download
 export function MascotCapabilityMatrix(): ReactNode {
 	const {t} = useTranslation()
 	return (
-		<div className="min-w-0 lg:border-l lg:border-[var(--glow-border)] lg:pl-7" data-testid="url-capabilities">
-			<p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.url.features.heading')}</p>
-			<div className="mt-3 grid gap-5 sm:grid-cols-[minmax(8rem,0.55fr)_minmax(14rem,1.45fr)]">
+		<div className="min-w-0 lg:border-l lg:border-[var(--glow-border)] lg:pl-5" data-testid="url-capabilities">
+			<p className="text-label uppercase text-[var(--text-subtle)]">{t('wizard.url.features.heading')}</p>
+			<div className="mt-3 grid gap-3 sm:grid-cols-[minmax(8rem,0.55fr)_minmax(14rem,1.45fr)]">
 				{FEATURE_GROUPS.map(group => {
 					const heading = t(group.heading)
 					const items = group.items.map(item => t(item))
@@ -457,7 +457,7 @@ export function MascotCapabilityMatrix(): ReactNode {
 						<div key={group.id} className="min-w-0">
 							<div className="flex min-w-0 items-center gap-1.5">
 								<CapabilityMark group={group} />
-								<p className="min-w-0 truncate text-[13px] font-semibold text-foreground">{heading}</p>
+								<p className="min-w-0 truncate text-title text-foreground">{heading}</p>
 								<Tooltip>
 									<TooltipTrigger
 										render={props => (
@@ -525,14 +525,14 @@ function QuickProfileCard({
 	const ActiveIcon = ICONS[activeProfile.icon]
 	const activeProfileSummary = quickProfileSummary(activeProfile)
 	return (
-		<div className="quick-profile-cluster flex w-full flex-col overflow-hidden rounded-[1.75rem] md:min-h-[8.75rem] md:flex-row xl:min-h-[10rem]" data-linked-control="quick-profile" data-testid="profiles-quick-preview">
+		<div className="quick-profile-cluster flex w-full flex-col overflow-hidden rounded-[1.25rem] md:min-h-[6.5rem] md:flex-row" data-linked-control="quick-profile" data-testid="profiles-quick-preview">
 			<button
 				type="button"
 				disabled={disabled}
 				aria-busy={preparing}
 				onClick={onDownload}
 				className={cn(
-					'quick-profile-action group/quick relative flex min-h-[8.25rem] min-w-0 flex-1 items-center gap-5 overflow-hidden px-6 py-6 text-left transition-[filter,transform] duration-200 md:min-h-[8.75rem] md:basis-[52%] md:gap-5 md:px-6 lg:gap-6 lg:px-7 xl:min-h-[10rem] xl:gap-8 xl:px-9',
+					'quick-profile-action group/quick relative flex min-h-[6rem] min-w-0 flex-1 items-center gap-4 overflow-hidden px-5 py-4 text-left transition-[filter,transform] duration-200 md:min-h-[6.5rem] md:basis-[52%] lg:px-5 xl:px-6',
 					'hover:brightness-[1.08] active:translate-y-px',
 					'focus-visible:outline-none',
 					disabled && !preparing && 'pointer-events-none opacity-55 saturate-[0.65]',
@@ -541,12 +541,12 @@ function QuickProfileCard({
 				data-testid="profiles-quick-download"
 			>
 				<span aria-hidden className="quick-card-overlay pointer-events-none absolute inset-0" />
-				<span className="icon-tile quick-icon-tile relative grid size-16 shrink-0 place-items-center rounded-2xl md:size-[4.5rem] xl:size-20 xl:rounded-[1.35rem] [&_svg]:size-8 md:[&_svg]:size-9 xl:[&_svg]:size-10">{preparing ? <Loader2 className="animate-spin" aria-hidden /> : <Download aria-hidden />}</span>
+				<span className="icon-tile quick-icon-tile relative grid size-12 shrink-0 place-items-center rounded-xl md:size-14 [&_svg]:size-6 md:[&_svg]:size-7">{preparing ? <Loader2 className="animate-spin" aria-hidden /> : <Download aria-hidden />}</span>
 				<span className="relative flex min-w-0 flex-col">
-					<span className="text-2xl font-semibold leading-tight tracking-[-0.01em] md:text-[1.65rem] xl:text-[2rem]">{preparing ? `${t('wizard.url.quickPreparing')}…` : t('wizard.url.quickDownload')}</span>
-					<span className="mt-2 block truncate text-[13px] font-medium leading-snug text-[var(--quick-card-muted)] md:whitespace-nowrap md:text-[12px] xl:text-base">{t('wizard.url.quickDownloadTooltip', {profileName: activeProfile.name})}</span>
+					<span className="text-headline">{preparing ? `${t('wizard.url.quickPreparing')}…` : t('wizard.url.quickDownload')}</span>
+					<span className="mt-1 block truncate text-sm font-medium leading-snug text-[var(--quick-card-muted)] md:whitespace-nowrap">{t('wizard.url.quickDownloadTooltip', {profileName: activeProfile.name})}</span>
 				</span>
-				<ChevronRight className="relative ms-auto size-7 shrink-0 text-[var(--quick-card-ink)] opacity-85 transition-transform duration-200 group-hover/quick:translate-x-0.5 xl:size-8" aria-hidden />
+				<ChevronRight className="relative ms-auto size-5 shrink-0 text-[var(--quick-card-ink)] opacity-85 transition-transform duration-200 group-hover/quick:translate-x-0.5 md:size-6" aria-hidden />
 			</button>
 
 			<ProfileMenu activeProfile={activeProfile} activeProfileSummary={activeProfileSummary} ActiveIcon={ActiveIcon} defaultOpen={defaultProfileMenuOpen} onEditProfile={onEditProfile} onManageProfiles={onManageProfiles} onNewProfile={onNewProfile} onPickProfile={onPickProfile} profiles={profiles} />
@@ -591,19 +591,19 @@ function ProfileMenu({
 						variant="ghost"
 						aria-label={`Switch download profile: ${activeProfile.name}`}
 						title="Switch download profile"
-						className="quick-profile-selector m-3 h-auto min-h-[7.25rem] w-auto min-w-0 flex-1 justify-start gap-4 whitespace-normal rounded-[1.35rem] px-5 py-5 text-left hover:bg-transparent md:m-3 md:min-h-0 md:basis-[48%] md:self-stretch md:gap-4 md:rounded-[1.35rem] md:px-5 lg:m-4 lg:px-6 xl:m-5 xl:gap-5 xl:rounded-[1.5rem] xl:px-7"
+						className="quick-profile-selector m-2 h-auto min-h-[5.5rem] w-auto min-w-0 flex-1 justify-start gap-3 whitespace-normal rounded-[1rem] px-4 py-4 text-left hover:bg-transparent md:m-2 md:min-h-0 md:basis-[48%] md:self-stretch md:px-4 lg:m-3 lg:px-5"
 						data-testid="profiles-active-profile-card"
 					>
-						<span className="icon-tile grid size-14 shrink-0 place-items-center rounded-2xl md:size-16 xl:size-20">
-							<ActiveIcon aria-hidden className="size-8 md:size-9 xl:size-10" />
+						<span className="icon-tile grid size-12 shrink-0 place-items-center rounded-xl md:size-14">
+							<ActiveIcon aria-hidden className="size-6 md:size-7" />
 						</span>
 						<span className="min-w-0 flex-1">
-							<span className="quick-profile-selector-kicker mb-1 block truncate text-[10px] font-bold uppercase leading-none tracking-[0.12em] md:text-[11px]">Active profile</span>
-							<span className="quick-profile-selector-title block truncate text-lg font-semibold leading-tight md:text-xl xl:text-[1.75rem]">{activeProfile.name}</span>
-							<span className="quick-profile-selector-meta mt-1 block truncate text-[13px] font-normal leading-snug md:text-[13px] xl:text-base">{activeProfileSummary}</span>
+							<span className="quick-profile-selector-kicker mb-1 block truncate text-label uppercase">Active profile</span>
+							<span className="quick-profile-selector-title block truncate text-headline">{activeProfile.name}</span>
+							<span className="quick-profile-selector-meta mt-0.5 block truncate text-sm font-normal leading-snug">{activeProfileSummary}</span>
 						</span>
-						<span className="quick-profile-chevron grid size-12 shrink-0 place-items-center rounded-full md:size-12 xl:size-14">
-							<ChevronDown aria-hidden className="size-5 transition-transform duration-200 group-aria-expanded/button:rotate-180 md:size-6 xl:size-7" />
+						<span className="quick-profile-chevron grid size-10 shrink-0 place-items-center rounded-full">
+							<ChevronDown aria-hidden className="size-5 transition-transform duration-200 group-aria-expanded/button:rotate-180" />
 						</span>
 					</Button>
 				}
@@ -681,14 +681,14 @@ function ActionRow({description, disabled = false, icon: Icon, onClick, testId, 
 			disabled={disabled}
 			onClick={onClick}
 			data-testid={testId}
-			className="glow-tile group/row h-auto min-h-16 justify-start gap-4 whitespace-normal rounded-[1.25rem] border-transparent px-5 py-2.5 text-left transition-[filter,transform] duration-200 hover:bg-transparent hover:brightness-[1.12] active:translate-y-px"
+			className="glow-tile group/row h-auto min-h-14 justify-start gap-3 whitespace-normal rounded-[1rem] border-transparent px-4 py-2 text-left transition-[filter,transform] duration-200 hover:bg-transparent hover:brightness-[1.12] active:translate-y-px"
 		>
-			<span className="icon-tile grid size-12 shrink-0 place-items-center rounded-xl transition-transform duration-200 group-hover/row:scale-[1.05]">
+			<span className="icon-tile grid size-10 shrink-0 place-items-center rounded-lg transition-transform duration-200 group-hover/row:scale-[1.05]">
 				<Icon className="size-5" aria-hidden />
 			</span>
 			<span className="flex min-w-0 flex-1 flex-col items-start">
-				<span className="text-base font-semibold">{title}</span>
-				<span className="glass-muted-text text-[13px] font-normal">{description}</span>
+				<span className="text-title">{title}</span>
+				<span className="glass-muted-text text-xs font-normal">{description}</span>
 			</span>
 			<ChevronRight className="glass-muted-text ms-auto" aria-hidden />
 		</Button>
@@ -731,22 +731,28 @@ function ProfilesTab({
 					const isCustom = origin.kind === 'custom'
 					const canRemove = isCustom || origin.overridden
 					return (
-						<article key={profile.id} className={cn('rounded-lg border bg-background/25 p-3', active ? 'border-[var(--brand)] bg-[var(--brand-dim)]/35' : 'border-border')}>
-							<button type="button" className="flex w-full items-start gap-3 text-left" onClick={() => onPick(profile)}>
+						<article key={profile.id} data-active={active ? 'true' : undefined} className="profile-card rounded-lg p-3" data-testid={`profiles-manage-card-${profile.id}`}>
+							<button type="button" className="flex w-full items-start gap-3 text-left" aria-pressed={active} onClick={() => onPick(profile)} data-testid={`profiles-manage-card-${profile.id}-picker`}>
 								<span className="grid size-10 shrink-0 place-items-center rounded-lg border border-[var(--brand)]/35 bg-[var(--brand-dim)] text-[var(--brand)]">
 									<Icon aria-hidden />
 								</span>
-								<span className="min-w-0 flex-1">
-									<span className="flex items-center gap-2">
-										<span className="truncate text-sm font-semibold">{profile.name}</span>
+								<span className="min-w-0 flex-1" data-testid={`profiles-manage-card-${profile.id}-summary`}>
+									<span className="flex items-center gap-2" data-testid={`profiles-manage-card-${profile.id}-title-row`}>
+										<span className="truncate text-sm font-semibold" data-testid={`profiles-manage-card-${profile.id}-title`}>
+											{profile.name}
+										</span>
 										<Badge variant={isCustom || origin.overridden ? 'outline' : 'secondary'}>{isCustom ? 'custom' : origin.overridden ? 'modified' : 'builtin'}</Badge>
-										{active ? <Check className="ml-auto shrink-0 text-[var(--brand)]" aria-hidden /> : null}
+										<Check className={cn('ml-auto size-4 shrink-0 text-[var(--brand)] transition-opacity duration-150', active ? 'opacity-100' : 'opacity-0')} aria-hidden data-testid={`profiles-manage-card-${profile.id}-check`} />
 									</span>
-									<span className="mt-1 block text-[12px] leading-snug text-[var(--text-subtle)]">{downloadProfileLabel(profile)}</span>
-									<span className="block text-[12px] leading-snug text-[var(--text-subtle)]">{profileDetail(profile, t)}</span>
+									<span className="mt-1 block text-[12px] leading-snug text-[var(--text-subtle)]" data-testid={`profiles-manage-card-${profile.id}-description`}>
+										{downloadProfileLabel(profile)}
+									</span>
+									<span className="block text-[12px] leading-snug text-[var(--text-subtle)]" data-testid={`profiles-manage-card-${profile.id}-detail`}>
+										{profileDetail(profile, t)}
+									</span>
 								</span>
 							</button>
-							<div className="mt-3 grid grid-cols-2 gap-2">
+							<div className="mt-3 grid grid-cols-2 gap-2" data-testid={`profiles-manage-card-${profile.id}-actions`}>
 								<Button type="button" variant="outline" size="sm" onClick={() => onEdit(profile)}>
 									<PenLine data-icon="inline-start" />
 									Edit

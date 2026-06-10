@@ -102,7 +102,7 @@
 				"anySite": {"heading": "2000+ 个网站", "video": "视频", "videoPlaylist": "视频播放列表", "musicPlaylist": "音乐播放列表"},
 				"always": {"heading": "始终可用", "audioOnly": "纯音频", "subtitles": "字幕"}
 			},
-			"mascotIdle": "丢一个 YouTube 链接给我(视频或 Shorts 都行)— 点「获取格式」我就开始干活 ✨",
+			"mascotIdle": "丢个链接，让 Arroxy 来拉取 ✨",
 			"mascotBusy": "正在后台下载… 我可以同时处理多个任务 😎",
 			"advanced": "高级",
 			"clearAria": "清除 URL",

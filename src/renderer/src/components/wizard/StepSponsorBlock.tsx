@@ -28,6 +28,7 @@ export function StepSponsorBlock(): ReactNode {
 			<div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2.5 items-center -mx-1">
 				<span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">{t('wizard.sponsorblock.modeHeading')}</span>
 				<ToggleGroup
+					variant="outline"
 					value={[wizardSponsorBlockMode]}
 					onValueChange={values => {
 						const next = values[0]
@@ -61,7 +62,7 @@ export function StepSponsorBlock(): ReactNode {
 									<label
 										key={cat}
 										data-testid={`sb-cat-${cat}`}
-										className="flex w-full items-center gap-2 h-7 px-2 rounded-md text-sm font-medium transition-colors cursor-pointer hover:bg-accent/60 has-[[data-checked]]:bg-[var(--brand-dim)] has-[[data-checked]]:border-s-2 has-[[data-checked]]:border-[var(--brand)] has-[[data-checked]]:text-[var(--brand)]"
+										className="flex h-8 w-full cursor-pointer items-center gap-2 rounded-md border border-[var(--field-border)] bg-[var(--field-bg)] px-2 text-sm font-medium shadow-[inset_0_1px_0_var(--field-highlight)] transition-colors hover:border-[var(--brand)] hover:bg-[var(--brand-dim)] has-[[data-checked]]:border-[var(--brand)] has-[[data-checked]]:bg-[var(--brand-dim)] has-[[data-checked]]:text-[var(--brand)] has-[[data-checked]]:shadow-[inset_0_0_0_1px_var(--brand-dim)]"
 									>
 										<Checkbox checked={isChecked} onCheckedChange={() => toggleSponsorBlockCategory(cat)} className="border-[var(--border-strong)] data-checked:border-[var(--brand)] data-checked:bg-[var(--brand)] data-checked:text-white" />
 										<span className="flex-1 text-start truncate">{t(`wizard.sponsorblock.cat.${cat}`)}</span>

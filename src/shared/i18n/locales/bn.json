@@ -111,7 +111,7 @@
 				"anySite": {"heading": "2000+ সাইট", "video": "ভিডিও", "videoPlaylist": "ভিডিও playlist", "musicPlaylist": "মিউজিক playlist"},
 				"always": {"heading": "সবসময় উপলব্ধ", "audioOnly": "শুধু অডিও", "subtitles": "সাবটাইটেল"}
 			},
-			"mascotIdle": "একটি YouTube লিংক দিন (ভিডিও বা Short) — তারপর \"ফরম্যাট আনুন\" ক্লিক করুন, আমি কাজ শুরু করব ✨",
+			"mascotIdle": "একটি লিংক দিন, বাকিটা Arroxy টেনে আনুক ✨",
 			"mascotBusy": "ব্যাকগ্রাউন্ডে ডাউনলোড হচ্ছে… আমি একসাথে অনেক কাজ করতে পারি 😎",
 			"advanced": "উন্নত",
 			"clearAria": "URL মুছুন",
