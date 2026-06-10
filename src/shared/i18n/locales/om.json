@@ -3,7 +3,7 @@
 	"app": {"feedback": "Yaada", "logs": "Galmee", "feedbackNudge": "Arroxy si gammachiisaa jiraa? Yaada kee dhaga'uu barbaada! 💬", "debugCopied": "Koopii ta'e!", "debugCopyTitle": "Odeeffannoo dhibdee koopii godhi (Electron, OS, Chrome versiiwwan)", "zoomIn": "Guddisi", "zoomOut": "Xiqqeessi"},
 	"about": {"button": "Waa'ee", "openTitle": "Waa'ee Arroxy", "tagline": "YouTube fi marsariitota 2000+ biroo irraa buusuuf meeshaa ariifataa fi salphaa.", "websiteLink": "Marsariitii", "githubLink": "GitHub", "licenseLine": "Heeyyama MIT · by Antonio Orionus", "thirdPartyNotices": "Beeksisa seera-biroo ilaali"},
 	"titleBar": {"close": "Cufii", "minimize": "Xiqqeessi", "maximize": "Guddisi", "restore": "Deebi'si"},
-	"splash": {"greeting": "Baga nagaan deebitee!", "warmup": "Arroxy qophaa'aa jira…", "downloading": "{{binary}} buufatamaa jira…", "warmupFailedNoDiag": "Qindaa'inni hin milkoofne. Bal'ina argachuuf galmee qindaa'inaa bani."},
+	"splash": {"greeting": "Baga nagaan deebitee!", "warmup": "Buufannoowwan qopheessaa jira…", "downloading": "{{binary}} buufatamaa jira…", "warmupFailedNoDiag": "Qindaa'inni hin milkoofne. Bal'ina argachuuf galmee qindaa'inaa bani."},
 	"repair": {
 		"title": "Qindaa'inni gargaarsa kee gaafata",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -420,7 +420,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "TV smart H.264 MP4"},
 		"videoFormatDesc": {"best": "Codec ol’aanaa argamu tokkoon tokkoon wantaaf", "mp4": "H.264 + AAC filatama, konteenera MP4 · carraa gaarii"},
 		"tier": {"360": "Hanga 360p", "480": "Hanga 480p", "720": "Hanga 720p", "1080": "Hanga 1080p", "1440": "Hanga 1440p", "2160": "Hanga 4K", "best": "Best quality"},
 		"tierDesc": {

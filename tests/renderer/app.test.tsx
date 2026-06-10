@@ -3,6 +3,7 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {App} from '@renderer/App.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
+import {defaultAppSettings} from '@shared/constants.js'
 
 const mockAppApi = buildMockAppApi()
 
@@ -10,8 +11,10 @@ describe('App renderer', () => {
 	beforeEach(() => {
 		useAppStore.setState({
 			initialized: false,
+			initializing: false,
 			splashDismissed: false,
 			settings: null,
+			language: 'en',
 			wizardStep: 'url',
 			formatsLoading: false,
 			wizardUrl: '',
@@ -51,6 +54,50 @@ describe('App renderer', () => {
 
 		expect(await screen.findByTestId('backdrop-stage')).toBeInTheDocument()
 		expect(screen.queryByTestId('title-bar')).not.toBeInTheDocument()
+	})
+
+	it('switches backdrop isolation render paths and explains each mode', async () => {
+		window.history.replaceState(null, '', '/?backdrop=1')
+
+		render(<App />)
+
+		expect(await screen.findByTestId('backdrop-preview-controls')).toBeInTheDocument()
+		expect(screen.getByTestId('backdrop-preview-gpu')).toHaveAttribute('aria-pressed', 'true')
+		expect(screen.getByTestId('backdrop-preview-description')).toHaveTextContent('WebGL shader preview: hardware when available, software allowed in this stage.')
+
+		fireEvent.click(screen.getByTestId('backdrop-preview-canvas2d'))
+		expect(new URL(window.location.href).searchParams.get('backdropForceFallback')).toBe('canvas2d')
+		expect(screen.getByTestId('backdrop-preview-canvas2d')).toHaveAttribute('aria-pressed', 'true')
+		expect(screen.getByTestId('backdrop-preview-description')).toHaveTextContent('Canvas2D fallback: WebGL is bypassed, static canvas plus CSS drift.')
+
+		fireEvent.click(screen.getByTestId('backdrop-preview-css'))
+		expect(new URL(window.location.href).searchParams.get('backdropForceFallback')).toBe('css')
+		expect(screen.getByTestId('backdrop-preview-css')).toHaveAttribute('aria-pressed', 'true')
+		expect(screen.getByTestId('backdrop-preview-description')).toHaveTextContent('CSS emergency: no canvas, body gradients only.')
+
+		fireEvent.click(screen.getByTestId('backdrop-preview-gpu'))
+		expect(new URL(window.location.href).searchParams.get('backdropForceFallback')).toBeNull()
+		expect(screen.getByTestId('backdrop-preview-gpu')).toHaveAttribute('aria-pressed', 'true')
+	})
+
+	it('syncs backdrop isolation theme changes into the URL', async () => {
+		window.history.replaceState(null, '', '/?backdrop=1&backdropForceFallback=canvas2d')
+
+		render(<App />)
+
+		fireEvent.click(await screen.findByRole('button', {name: 'Dark mode'}))
+		let url = new URL(window.location.href)
+		expect(url.searchParams.get('theme')).toBe('dark')
+		expect(url.searchParams.get('backdrop')).toBe('1')
+		expect(url.searchParams.get('backdropForceFallback')).toBe('canvas2d')
+
+		fireEvent.click(screen.getByRole('button', {name: 'Light mode'}))
+		url = new URL(window.location.href)
+		expect(url.searchParams.get('theme')).toBe('light')
+
+		fireEvent.click(screen.getByRole('button', {name: 'System default'}))
+		url = new URL(window.location.href)
+		expect(url.searchParams.get('theme')).toBe('system')
 	})
 
 	it('submits URL probes through the preload API', async () => {
@@ -179,7 +226,22 @@ describe('App renderer', () => {
 		render(<App />)
 
 		expect(await screen.findByTestId('splash-greeting')).toHaveTextContent('Hey, welcome back!')
-		expect(screen.getByTestId('splash-overlay')).toHaveTextContent('Arroxy is warming up')
+		expect(screen.getByTestId('splash-overlay')).toHaveTextContent('Preparing downloads')
 		expect(useAppStore.getState().initialized).toBe(false)
+	})
+
+	it('applies persisted document language and direction during initialization', async () => {
+		const settings = defaultAppSettings('/tmp')
+		const rtlApi = buildMockAppApi({settings: {...settings, common: {...settings.common, language: 'ar'}}})
+		window.appApi = rtlApi
+		document.documentElement.lang = 'en'
+		document.documentElement.dir = 'ltr'
+
+		await useAppStore.getState().initialize()
+
+		expect(useAppStore.getState().language).toBe('ar')
+		expect(document.documentElement.lang).toBe('ar')
+		expect(document.documentElement.dir).toBe('rtl')
+		expect(rtlApi.app.setLanguage).toHaveBeenCalledWith('ar')
 	})
 })

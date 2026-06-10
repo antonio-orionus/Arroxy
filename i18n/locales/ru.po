@@ -328,8 +328,8 @@ msgid "Best native"
 msgstr "Best codec"
 
 msgctxt "playlistPresets.videoFormat.mp4"
-msgid "MP4 / Smart TV"
-msgstr "MP4 (H.264)"
+msgid "Smart TV H.264 MP4"
+msgstr "Смарт-ТВ H.264 MP4"
 
 msgctxt "playlistPresets.videoFormatDesc.best"
 msgid "Best available container and codecs per item"
@@ -664,8 +664,8 @@ msgid "Hey, welcome back!"
 msgstr "Привет, с возвращением!"
 
 msgctxt "splash.warmup"
-msgid "Arroxy is warming up…"
-msgstr "Arroxy запускается…"
+msgid "Preparing downloads…"
+msgstr "Подготовка загрузок…"
 
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."

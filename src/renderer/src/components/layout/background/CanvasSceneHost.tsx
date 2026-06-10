@@ -4,12 +4,26 @@ import type {BackdropMode, BackdropScene} from './types.js'
 import {createWebglProgram, disposeWebglProgram, isSoftwareRenderer, releaseWebglContext, rendererName, WEBGL_CONTEXT_OPTIONS} from './webgl.js'
 
 const FALLBACK_RESIZE_SETTLE_MS = 300
+type ForcedFallbackMode = 'canvas2d' | 'css'
 
 function backdropSoftwareAllowed(): boolean {
 	try {
-		return new URLSearchParams(window.location.search).get('backdropSoftware') === '1'
+		const params = new URLSearchParams(window.location.search)
+		if (params.get('backdropSoftware') === '0') return false
+		if (params.get('backdropSoftware') === '1') return true
+		return (import.meta.env.MODE === 'browser-mock' || import.meta.env.MODE === 'test') && params.has('backdrop') && !params.has('backdropForceFallback')
 	} catch {
 		return false
+	}
+}
+
+function forcedFallbackPreviewMode(): ForcedFallbackMode | null {
+	if (import.meta.env.MODE !== 'browser-mock' && import.meta.env.MODE !== 'test') return null
+	try {
+		const mode = new URLSearchParams(window.location.search).get('backdropForceFallback')
+		return mode === 'canvas2d' || mode === 'css' ? mode : null
+	} catch {
+		return null
 	}
 }
 
@@ -87,6 +101,22 @@ export function CanvasSceneHost({scene}: {scene: BackdropScene}): ReactNode {
 				if (resizeSettledTimer) window.clearTimeout(resizeSettledTimer)
 				window.removeEventListener('resize', scheduleResizeDraw)
 				document.body.classList.remove('backdrop-canvas-fallback')
+				cleanupStatic()
+				cleanupSceneClass()
+			}
+		}
+
+		const forcedFallback = forcedFallbackPreviewMode()
+		if (forcedFallback === 'canvas2d') return activateCanvasFallback('forced-canvas2d-preview')
+		if (forcedFallback === 'css') {
+			logBackdrop('info', scene.id, 'fallback-activate', {mode: 'css', reason: 'forced-css-preview'})
+			const cleanupStatic = activateStaticFallback()
+			let cancelled = false
+			queueMicrotask(() => {
+				if (!cancelled) setMode('css')
+			})
+			return () => {
+				cancelled = true
 				cleanupStatic()
 				cleanupSceneClass()
 			}
@@ -211,7 +241,6 @@ export function CanvasSceneHost({scene}: {scene: BackdropScene}): ReactNode {
 			cleanupSceneClass()
 			disposeWebglProgram(gl, resources)
 			gl.deleteBuffer(buf)
-			releaseWebglContext(gl)
 		}
 	}, [scene])
 

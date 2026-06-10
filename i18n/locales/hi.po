@@ -328,8 +328,8 @@ msgid "Best native"
 msgstr "सर्वश्रेष्ठ मूल (Native)"
 
 msgctxt "playlistPresets.videoFormat.mp4"
-msgid "MP4 / Smart TV"
-msgstr "MP4 / स्मार्ट टीवी (H.264)"
+msgid "Smart TV H.264 MP4"
+msgstr "स्मार्ट TV H.264 MP4"
 
 msgctxt "playlistPresets.videoFormatDesc.best"
 msgid "Best available container and codecs per item"
@@ -664,8 +664,8 @@ msgid "Hey, welcome back!"
 msgstr "अरे, फिर से स्वागत है!"
 
 msgctxt "splash.warmup"
-msgid "Arroxy is warming up…"
-msgstr "Arroxy तैयार हो रहा है…"
+msgid "Preparing downloads…"
+msgstr "डाउनलोड तैयार किए जा रहे हैं…"
 
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."

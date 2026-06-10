@@ -3,7 +3,7 @@
 	"app": {"feedback": "فیڈبیک", "logs": "لاگز", "feedbackNudge": "Arroxy پسند آ رہا ہے؟ آپ سے سن کر خوشی ہو گی! 💬", "debugCopied": "کاپی ہو گیا!", "debugCopyTitle": "ڈیبگ معلومات کاپی کریں (Electron, OS, Chrome ورژنز)", "zoomIn": "زوم اِن", "zoomOut": "زوم آؤٹ"},
 	"about": {"button": "کے بارے میں", "openTitle": "Arroxy کے بارے میں", "tagline": "YouTube اور 2000+ دیگر سائٹس کے لیے تیز اور آسان ڈاؤنلوڈر۔", "websiteLink": "ویب سائٹ", "githubLink": "GitHub", "licenseLine": "MIT لائسنس · از Antonio Orionus", "thirdPartyNotices": "فریق ثالث کے نوٹس دیکھیں"},
 	"titleBar": {"close": "بند کریں", "minimize": "چھوٹا کریں", "maximize": "بڑا کریں", "restore": "بحال کریں"},
-	"splash": {"greeting": "ارے، خوش آمدید!", "warmup": "Arroxy تیار ہو رہا ہے…", "downloading": "{{binary}} ڈاؤن لوڈ ہو رہا ہے…", "warmupFailedNoDiag": "سیٹ اپ ناکام ہوا۔ تفصیلات کے لیے سیٹ اپ لاگ کھولیں۔"},
+	"splash": {"greeting": "ارے، خوش آمدید!", "warmup": "ڈاؤن لوڈز تیار کیے جا رہے ہیں…", "downloading": "{{binary}} ڈاؤن لوڈ ہو رہا ہے…", "warmupFailedNoDiag": "سیٹ اپ ناکام ہوا۔ تفصیلات کے لیے سیٹ اپ لاگ کھولیں۔"},
 	"repair": {
 		"title": "سیٹ اپ کو آپ کی مدد چاہیے",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -420,7 +420,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "سمارٹ TV H.264 MP4"},
 		"videoFormatDesc": {"best": "ہر آئٹم کے لیے سب سے اعلیٰ دستیاب کوڈیک", "mp4": "H.264 + AAC ترجیحی، MP4 کنٹینر · بہترین کوشش"},
 		"tier": {"360": "360p تک", "480": "480p تک", "720": "720p تک", "1080": "1080p تک", "1440": "1440p تک", "2160": "4K تک", "best": "Best quality"},
 		"tierDesc": {"360": "Smallest video", "480": "Low bandwidth", "720": "چھوٹی فائلیں، وسیع مطابقت", "1080": "1080p تک محدود، ہر آئٹم پر ضرورت ہو تو کم", "1440": "2K تک محدود، ہر آئٹم پر ضرورت ہو تو کم", "2160": "2160p تک محدود، ہر آئٹم پر ضرورت ہو تو کم", "best": "ہر آئٹم کے لیے بہترین ویڈیو + آڈیو"},

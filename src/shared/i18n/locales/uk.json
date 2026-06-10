@@ -11,7 +11,7 @@
 		"thirdPartyNotices": "Переглянути повідомлення про сторонні компоненти"
 	},
 	"titleBar": {"close": "Закрити", "minimize": "Згорнути", "maximize": "Розгорнути", "restore": "Відновити"},
-	"splash": {"greeting": "Привіт, з поверненням!", "warmup": "Arroxy розігрівається…", "downloading": "Завантаження {{binary}}…", "warmupFailedNoDiag": "Налаштування не вдалося. Відкрий журнал налаштування для деталей."},
+	"splash": {"greeting": "Привіт, з поверненням!", "warmup": "Підготовка завантажень…", "downloading": "Завантаження {{binary}}…", "warmupFailedNoDiag": "Налаштування не вдалося. Відкрий журнал налаштування для деталей."},
 	"repair": {
 		"title": "Налаштування потребує твоєї допомоги",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -428,7 +428,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "Смарт-ТВ H.264 MP4"},
 		"videoFormatDesc": {"best": "Найвищий доступний кодек для кожного елемента", "mp4": "Перевага H.264 + AAC, контейнер MP4 · наскільки можливо"},
 		"tier": {"360": "До 360p", "480": "До 480p", "720": "До 720p", "1080": "До 1080p", "1440": "До 1440p", "2160": "До 4K", "best": "Best quality"},
 		"tierDesc": {

@@ -3,7 +3,7 @@
 	"app": {"feedback": "አስተያየት", "logs": "ምዝግቦች", "feedbackNudge": "Arroxy ደስ ይለዎታል? አስተያየትዎን ማካፈል ይፈልጋሉ! 💬", "debugCopied": "ተቀድቷል!", "debugCopyTitle": "የሂደት መረጃ ቅዳ (Electron፣ ስርዓተ ክወና፣ Chrome ስሪቶች)", "zoomIn": "አቅርብ", "zoomOut": "አርቅ"},
 	"about": {"button": "ስለ", "openTitle": "ስለ Arroxy", "tagline": "ለYouTube እና ለ2000+ ሌሎች ጣቢያዎች ፈጣን እና ምቹ አውርጅ።", "websiteLink": "ድረ-ገጽ", "githubLink": "GitHub", "licenseLine": "MIT ፈቃድ · በ Antonio Orionus", "thirdPartyNotices": "የሦስተኛ ወገን ማስታወቂያዎችን ይመልከቱ"},
 	"titleBar": {"close": "ዝጋ", "minimize": "አሳንስ", "maximize": "አሰፋ", "restore": "መልስ"},
-	"splash": {"greeting": "እንኳን ደህና መጡ!", "warmup": "Arroxy እየሞቀ ነው…", "downloading": "{{binary}} እየወረደ ነው…", "warmupFailedNoDiag": "ማዋቀር አልተሳካም። ዝርዝሮችን ለማየት የማዋቀሪያ ምዝግብ ፋይሉን ይክፈቱ።"},
+	"splash": {"greeting": "እንኳን ደህና መጡ!", "warmup": "ውርዶችን በማዘጋጀት ላይ…", "downloading": "{{binary}} እየወረደ ነው…", "warmupFailedNoDiag": "ማዋቀር አልተሳካም። ዝርዝሮችን ለማየት የማዋቀሪያ ምዝግብ ፋይሉን ይክፈቱ።"},
 	"repair": {
 		"title": "ማዋቀሩ እርዳታዎን ይፈልጋል",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -387,7 +387,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "ስማርት TV H.264 MP4"},
 		"videoFormatDesc": {"best": "ለእያንዳንዱ ንጥል የሚገኝ ከፍተኛ codec", "mp4": "H.264 + AAC ይመረጣል፣ MP4 ኮንቴነር · በተቻለ መጠን"},
 		"tier": {"360": "እስከ 360p", "480": "እስከ 480p", "720": "እስከ 720p", "1080": "እስከ 1080p", "1440": "እስከ 1440p", "2160": "እስከ 4K", "best": "Best quality"},
 		"tierDesc": {"360": "Smallest video", "480": "Low bandwidth", "720": "ትንሽ ፋይሎች፣ ሰፊ ተኳኋኝነት", "1080": "በ1080p ይገደባል፣ ለእያንዳንዱ ንጥል ዝቅ ይላል", "1440": "በ2K ይገደባል፣ ለእያንዳንዱ ንጥል ዝቅ ይላል", "2160": "በ2160p ይገደባል፣ ለእያንዳንዱ ንጥል ዝቅ ይላል", "best": "ለእያንዳንዱ ንጥል ምርጥ ቪዲዮ + ድምጽ"},

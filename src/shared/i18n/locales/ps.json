@@ -3,7 +3,7 @@
 	"app": {"feedback": "نظر", "logs": "لاګونه", "feedbackNudge": "ایا Arroxy خوند درکوي؟ ستاسو د اورولو شوق لرم! 💬", "debugCopied": "کاپي شو!", "debugCopyTitle": "د ډیبګ معلومات کاپي کړئ (Electron، OS، Chrome نسخې)", "zoomIn": "لویول", "zoomOut": "کوچنیول"},
 	"about": {"button": "د اړوند", "openTitle": "د Arroxy اړوند", "tagline": "د YouTube او 2000+ نورو سایټونو لپاره چټک او اسانه ډاونلوډر.", "websiteLink": "ویب پاڼه", "githubLink": "GitHub", "licenseLine": "MIT جواز · د Antonio Orionus لخوا", "thirdPartyNotices": "د دریم ډلې خبرتیاوې وګورئ"},
 	"titleBar": {"close": "تړل", "minimize": "کوچنی کول", "maximize": "لوی کول", "restore": "بیرته راوستل"},
-	"splash": {"greeting": "سلام، ښه راغلاست!", "warmup": "Arroxy چمتو کیږي…", "downloading": "{{binary}} ډاونلوډ کیږي…", "warmupFailedNoDiag": "نصب ناکام شو. د توضیحاتو لپاره د نصب لاګ خلاص کړئ."},
+	"splash": {"greeting": "سلام، ښه راغلاست!", "warmup": "ډاونلوډونه چمتو کېږي…", "downloading": "{{binary}} ډاونلوډ کیږي…", "warmupFailedNoDiag": "نصب ناکام شو. د توضیحاتو لپاره د نصب لاګ خلاص کړئ."},
 	"repair": {
 		"title": "نصب ستاسو مرستې ته اړتیا لري",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -420,7 +420,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "سمارټ TV H.264 MP4"},
 		"videoFormatDesc": {"best": "د هر توکي لپاره تر ټولو لوړ موجود codec", "mp4": "H.264 + AAC غوره، MP4 کانتینر · تر وسه ښه"},
 		"tier": {"360": "تر 360p پورې", "480": "تر 480p پورې", "720": "تر 720p پورې", "1080": "تر 1080p پورې", "1440": "تر 1440p پورې", "2160": "تر 4K پورې", "best": "Best quality"},
 		"tierDesc": {"360": "Smallest video", "480": "Low bandwidth", "720": "کوچني فایلونه، پراخه سازګاري", "1080": "تر 1080p محدود، د هر توکي لپاره ښکته راځي", "1440": "تر 2K محدود، د هر توکي لپاره ښکته راځي", "2160": "تر 2160p محدود، د هر توکي لپاره ښکته راځي", "best": "د هر توکي لپاره غوره ویډیو + غږ"},

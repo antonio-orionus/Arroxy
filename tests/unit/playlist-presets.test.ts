@@ -17,29 +17,25 @@ describe('mediaIntentSpec', () => {
 			expect(spec.producesVideo).toBe(true)
 		})
 
-		it.each([
-			['2160', 2160],
-			['1440', 1440],
-			['1080', 1080],
-			['720', 720],
-			['480', 480],
-			['360', 360]
-		] as const)('tier=%s caps height correctly, no sort/merge', (tier, h) => {
+		it.each(['2160', '1440', '1080', '720', '480', '360'] as const)('tier=%s uses yt-dlp resolution sort instead of a hard height filter', tier => {
 			const spec = specFor({kind: 'video', tier, codec: 'best'})
-			expect(spec.formatSelector).toContain(`height<=${h}`)
-			expect(spec.formatSort).toBeUndefined()
+			expect(spec.formatSelector).toBe('bestvideo*+bestaudio/best')
+			expect(spec.formatSelector).not.toContain('height<=')
+			expect(spec.formatSort).toBe(`res:${tier},fps`)
 			expect(spec.mergeOutputFormat).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)
 		})
 	})
 
 	describe('video · mp4 codec', () => {
-		it.each(['1080', '720', '480', '360'] as const)('tier=%s → no-fail selector + H.264 sort + mp4 merge', tier => {
+		it.each(['1080', '720', '480', '360'] as const)('tier=%s → no-fail selector + compatibility-first sort + mp4 merge', tier => {
 			const spec = specFor({kind: 'video', tier, codec: 'mp4'})
-			expect(spec.formatSelector).toContain(`height<=${tier}`)
-			// Must have the no-fail fallback tail so mixed-codec playlists never error
-			expect(spec.formatSelector).toContain('bv*+ba/b')
-			expect(spec.formatSort).toContain('vcodec:h264')
+			expect(spec.formatSelector).not.toContain('height<=')
+			// Do not use bv*: on YouTube, old combined 360p MP4 can outrank 1080p
+			// video-only H.264 when compatibility fields sort first.
+			expect(spec.formatSelector).not.toContain('bv*')
+			expect(spec.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
+			expect(spec.formatSort).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,acodec:m4a`)
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)
@@ -51,8 +47,8 @@ describe('mediaIntentSpec', () => {
 			const intent: MediaIntent = {kind: 'video-audio', codec: 'best', tiers: ['1440'], audio: {format: 'm4a'}}
 			const spec = mediaIntentSpec(intent)
 
-			expect(spec.formatSelector).toBe('bestvideo[height<=1440]+bestaudio[ext=m4a]/bestvideo[height<=1440]+bestaudio/best[height<=1440]')
-			expect(spec.formatSort).toBe('acodec:m4a')
+			expect(spec.formatSelector).toBe('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best')
+			expect(spec.formatSort).toBe('res:1440,fps,acodec:m4a')
 			expect(spec.mergeOutputFormat).toBeUndefined()
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)
@@ -63,8 +59,8 @@ describe('mediaIntentSpec', () => {
 			const intent: MediaIntent = {kind: 'video-audio', codec: 'mp4', tiers: ['1080'], audio: {format: 'best'}}
 			const spec = mediaIntentSpec(intent)
 
-			expect(spec.formatSelector).toBe('bv*[height<=1080]+ba/b[height<=1080]/bv*+ba/b')
-			expect(spec.formatSort).toBe('vcodec:h264,ext:mp4')
+			expect(spec.formatSelector).toBe('bestvideo+bestaudio/best[ext=mp4]/best')
+			expect(spec.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps')
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)

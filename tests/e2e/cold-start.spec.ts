@@ -41,7 +41,7 @@ test('packaged exe: downloads binaries, completes warmup, shows wizard', async (
 		const hasApi = await page.evaluate(() => typeof window.appApi === 'object' && window.appApi !== null)
 		expect(hasApi).toBe(true)
 
-		// Wait for splash to leave the DOM. SplashScreen returns null only after:
+		// Wait for splash to leave the DOM. WarmupSplash returns null only after:
 		//   (1) warmup IPC resolves with no blocking failures,
 		//   (2) 3-second minimum display time passes,
 		//   (3) CSS opacity transition completes.

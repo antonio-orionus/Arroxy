@@ -35,7 +35,7 @@ function customProfile(overrides: Partial<DownloadProfile> = {}): DownloadProfil
 
 describe('download profiles', () => {
 	it('built-ins are immutable profile-shaped defaults', () => {
-		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id)).toEqual(['best-quality', 'best-2160', 'best-1440', 'hd-1080', 'balanced', 'small-file', 'mp4-2160', 'mp4-1440', 'mp4-1080', 'audio-only'])
+		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id)).toEqual(['best-quality', 'best-2160', 'best-1440', 'hd-1080', 'balanced', 'small-file', 'mp4-1080', 'audio-only'])
 		for (const profile of BUILTIN_DOWNLOAD_PROFILES) {
 			expect(downloadProfileSchema.safeParse(profile).success).toBe(true)
 			expect(profile.output).toEqual({kind: 'default'})
@@ -47,6 +47,7 @@ describe('download profiles', () => {
 				expect(profile.media.audio.format).toBe('best')
 				expect(profile.media.audio.bitrateKbps).toBeUndefined()
 			} else if (profile.media.kind === 'video-audio' || profile.media.kind === 'video-only') {
+				expect(profile.media.tiers).toHaveLength(1)
 				if (profile.media.kind === 'video-audio') expect(profile.media.audio.format).toBe(profile.media.codec === 'mp4' ? 'm4a' : 'best')
 				if (!profile.id.startsWith('mp4-')) expect(profile.media.codec).toBe('best')
 			}
@@ -57,21 +58,27 @@ describe('download profiles', () => {
 		}
 	})
 
-	it('maps MP4 built-ins to H.264 video with M4A audio preference at 2160p, 1440p, and 1080p', () => {
-		const expected = [
-			['mp4-2160', '2160'],
-			['mp4-1440', '1440'],
-			['mp4-1080', '1080']
-		] as const
+	it('keeps only the 1080p built-in for Smart TV H.264 MP4', () => {
+		expect(BUILTIN_DOWNLOAD_PROFILES.some(profile => profile.id === 'mp4-2160')).toBe(false)
+		expect(BUILTIN_DOWNLOAD_PROFILES.some(profile => profile.id === 'mp4-1440')).toBe(false)
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'mp4-1080')
+		expect(profile?.name).toBe('Smart TV H.264 MP4 1080p')
+		expect(profile?.media).toEqual({kind: 'video-audio', codec: 'mp4', tiers: ['1080'], audio: {format: 'm4a'}})
 
-		for (const [id, tier] of expected) {
-			const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === id)
-			expect(profile?.media).toEqual({kind: 'video-audio', codec: 'mp4', tiers: [tier], audio: {format: 'm4a'}})
-			const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id})
-			expect(resolved.spec?.formatSelector).toContain(`height<=${tier}`)
-			expect(resolved.spec?.formatSort).toBe('vcodec:h264,acodec:m4a,ext:mp4')
-			expect(resolved.spec?.mergeOutputFormat).toBe('mp4')
-		}
+		const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id: 'mp4-1080'})
+		expect(resolved.spec?.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
+		expect(resolved.spec?.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,acodec:m4a')
+		expect(resolved.spec?.mergeOutputFormat).toBe('mp4')
+	})
+
+	it('keeps small-file as a single 480p tier and relies on yt-dlp fallback sorting', () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'small-file')
+		expect(profile?.media).toEqual({kind: 'video-audio', codec: 'best', tiers: ['480'], audio: {format: 'best'}})
+
+		const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id: 'small-file'})
+		expect(resolved.spec?.formatSelector).toBe('bestvideo*+bestaudio/best')
+		expect(resolved.spec?.formatSort).toBe('res:480,fps')
+		expect(resolved.spec?.mergeOutputFormat).toBeUndefined()
 	})
 
 	it('derives a builtin ref when resolving a builtin profile without an explicit ref', () => {
@@ -124,12 +131,12 @@ describe('download profiles', () => {
 		const resolved = resolveDownloadProfile(profile, {kind: 'custom', id: profile.id})
 
 		expect(resolved.intent).toEqual({kind: 'video-audio', codec: 'mp4', tiers: ['1080', '720'], audio: {format: 'm4a'}})
-		expect(resolved.spec?.formatSelector).toContain('height<=1080')
-		expect(resolved.spec?.formatSort).toContain('vcodec:h264')
+		expect(resolved.spec?.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
+		expect(resolved.spec?.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,acodec:m4a')
 		expect(resolved.subtitles).toEqual({languages: ['en', 'uk'], mode: 'sidecar', format: 'srt', writeAuto: true})
 		expect(resolved.sponsorBlock).toEqual({mode: 'remove', categories: ['sponsor']})
 		expect(resolved.embed).toEqual({chapters: true, metadata: true, thumbnail: false, description: true, thumbnailSidecar: true})
-		expect(downloadProfileLabel(profile)).toBe('Video + audio · MP4 / Smart TV · up to 1080p · AAC audio')
+		expect(downloadProfileLabel(profile)).toBe('Video + audio · Smart TV H.264 MP4 · up to 1080p · AAC audio')
 	})
 
 	it('treats subtitles-only profiles as non-media jobs with sanitized embed and SponsorBlock options', () => {

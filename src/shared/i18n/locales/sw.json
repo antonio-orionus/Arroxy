@@ -3,7 +3,7 @@
 	"app": {"feedback": "Maoni", "logs": "Kumbukumbu", "feedbackNudge": "Unafurahia Arroxy? Ningependa kusikia kutoka kwako! 💬", "debugCopied": "Imenakiliwa!", "debugCopyTitle": "Nakili maelezo ya utatuzi (matoleo ya Electron, OS, Chrome)", "zoomIn": "Kuza", "zoomOut": "Punguza"},
 	"about": {"button": "Kuhusu", "openTitle": "Kuhusu Arroxy", "tagline": "Kipakua cha haraka na rahisi kwa YouTube na tovuti nyingine 2000+.", "websiteLink": "Tovuti", "githubLink": "GitHub", "licenseLine": "Leseni ya MIT · na Antonio Orionus", "thirdPartyNotices": "Tazama notisi za wengine"},
 	"titleBar": {"close": "Funga", "minimize": "Punguza", "maximize": "Panua", "restore": "Rejesha"},
-	"splash": {"greeting": "Hujambo, karibu tena!", "warmup": "Arroxy inajipanga…", "downloading": "Inapakua {{binary}}…", "warmupFailedNoDiag": "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi."},
+	"splash": {"greeting": "Hujambo, karibu tena!", "warmup": "Inaandaa vipakuliwa…", "downloading": "Inapakua {{binary}}…", "warmupFailedNoDiag": "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi."},
 	"repair": {
 		"title": "Usanidi unahitaji msaada wako",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -420,7 +420,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "Runinga janja H.264 MP4"},
 		"videoFormatDesc": {"best": "Kodeki bora inayopatikana kwa kila kipengee", "mp4": "H.264 + AAC inapendelewa, kontena MP4 · juhudi bora"},
 		"tier": {"360": "Hadi 360p", "480": "Hadi 480p", "720": "Hadi 720p", "1080": "Hadi 1080p", "1440": "Hadi 1440p", "2160": "Hadi 4K", "best": "Best quality"},
 		"tierDesc": {

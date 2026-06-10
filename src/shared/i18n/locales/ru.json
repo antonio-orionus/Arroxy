@@ -3,7 +3,7 @@
 	"app": {"feedback": "Обратная связь", "logs": "Журналы", "feedbackNudge": "Нравится Arroxy? Я бы хотел услышать твой отзыв! 💬", "debugCopied": "Скопировано!", "debugCopyTitle": "Скопировать отладочную информацию (версии Electron, ОС, Chrome)", "zoomIn": "Увеличить", "zoomOut": "Уменьшить"},
 	"about": {"button": "О программе", "openTitle": "О программе Arroxy", "tagline": "Быстрый и удобный загрузчик для YouTube и ещё 2000+ сайтов.", "websiteLink": "Сайт", "githubLink": "GitHub", "licenseLine": "Лицензия MIT · by Antonio Orionus", "thirdPartyNotices": "Просмотреть уведомления о сторонних компонентах"},
 	"titleBar": {"close": "Закрыть", "minimize": "Свернуть", "maximize": "Развернуть", "restore": "Восстановить"},
-	"splash": {"greeting": "Привет, с возвращением!", "warmup": "Arroxy запускается…", "downloading": "Загрузка {{binary}}…", "warmupFailedNoDiag": "Настройка завершилась ошибкой. Открой журнал настройки для подробностей."},
+	"splash": {"greeting": "Привет, с возвращением!", "warmup": "Подготовка загрузок…", "downloading": "Загрузка {{binary}}…", "warmupFailedNoDiag": "Настройка завершилась ошибкой. Открой журнал настройки для подробностей."},
 	"repair": {
 		"title": "Настройке нужна твоя помощь",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -420,7 +420,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "Смарт-ТВ H.264 MP4"},
 		"videoFormatDesc": {"best": "Самый высокий доступный кодек для каждого элемента", "mp4": "Предпочтительно H.264 + AAC, контейнер MP4 · по возможности"},
 		"tier": {"360": "До 360p", "480": "До 480p", "720": "До 720p", "1080": "До 1080p", "1440": "До 1440p", "2160": "До 4K", "best": "Best quality"},
 		"tierDesc": {

@@ -328,8 +328,8 @@ msgid "Best native"
 msgstr "Best codec"
 
 msgctxt "playlistPresets.videoFormat.mp4"
-msgid "MP4 / Smart TV"
-msgstr "MP4 (H.264)"
+msgid "Smart TV H.264 MP4"
+msgstr "စမတ် TV H.264 MP4"
 
 msgctxt "playlistPresets.videoFormatDesc.best"
 msgid "Best available container and codecs per item"
@@ -664,8 +664,8 @@ msgid "Hey, welcome back!"
 msgstr "ဟေး၊ ကြိုဆိုပါသည်!"
 
 msgctxt "splash.warmup"
-msgid "Arroxy is warming up…"
-msgstr "Arroxy ပြင်ဆင်နေသည်…"
+msgid "Preparing downloads…"
+msgstr "ဒေါင်းလုဒ်များကို ပြင်ဆင်နေသည်…"
 
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."

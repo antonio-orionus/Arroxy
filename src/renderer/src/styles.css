@@ -48,6 +48,11 @@
 	--color-status-error-glow: hsl(349 100% 61% / 0.05);
 }
 
+:root,
+body {
+	background: var(--background);
+}
+
 @layer base {
 	*,
 	*::before,
@@ -109,7 +114,7 @@
 	}
 	body.backdrop-static-fallback::before,
 	body.backdrop-static-fallback::after {
-		animation: none !important;
+		animation: none;
 	}
 	body.backdrop-light-ocean::after {
 		inset: 0;
@@ -123,8 +128,113 @@
 		transform-origin: center;
 	}
 	@media (prefers-reduced-motion: no-preference) {
-		body.backdrop-light-ocean::after {
+		body:not(.backdrop-static-fallback).backdrop-light-ocean::after {
 			animation-name: backdrop-ocean-drift;
+		}
+	}
+
+	body.backdrop-static-fallback.backdrop-dark-aurora:not(.backdrop-canvas-fallback)::before {
+		background:
+			radial-gradient(circle at 8% 14%, hsl(205 100% 92% / 0.5) 0 1px, transparent 2px), radial-gradient(circle at 22% 30%, hsl(205 100% 94% / 0.46) 0 1px, transparent 2px), radial-gradient(circle at 34% 20%, hsl(205 100% 94% / 0.42) 0 1px, transparent 2px),
+			radial-gradient(circle at 49% 28%, hsl(215 100% 95% / 0.5) 0 1px, transparent 2px), radial-gradient(circle at 63% 16%, hsl(220 100% 96% / 0.5) 0 1px, transparent 2px), radial-gradient(circle at 81% 24%, hsl(250 100% 96% / 0.46) 0 1px, transparent 2px),
+			radial-gradient(circle at 88% 44%, hsl(250 100% 96% / 0.42) 0 1px, transparent 2px), radial-gradient(circle at 70% 58%, hsl(220 100% 96% / 0.38) 0 1px, transparent 2px), radial-gradient(circle at 43% 54%, hsl(215 100% 95% / 0.38) 0 1px, transparent 2px),
+			radial-gradient(30% 62% at 18% 14%, hsl(186 100% 54% / 0.16), transparent 72%), radial-gradient(28% 68% at 47% 18%, hsl(216 100% 58% / 0.18), transparent 74%), radial-gradient(30% 72% at 76% 18%, hsl(268 96% 62% / 0.18), transparent 74%),
+			radial-gradient(52% 34% at 52% 59%, hsl(228 88% 2% / 0.88), transparent 72%),
+			linear-gradient(
+				90deg,
+				transparent 0 7%,
+				hsl(188 100% 58% / 0.06) 10%,
+				transparent 14%,
+				hsl(186 100% 58% / 0.045) 22%,
+				transparent 29%,
+				hsl(216 100% 60% / 0.06) 42%,
+				transparent 50%,
+				hsl(226 100% 58% / 0.045) 58%,
+				transparent 66%,
+				hsl(270 96% 64% / 0.06) 78%,
+				transparent 86%,
+				hsl(292 96% 58% / 0.06) 94%,
+				transparent 100%
+			),
+			linear-gradient(180deg, hsl(224 76% 5%) 0%, hsl(220 72% 8%) 34%, hsl(224 82% 5%) 58%, hsl(226 88% 3%) 82%, hsl(226 92% 2%) 100%);
+		filter: saturate(112%);
+		transform-origin: 48% 38%;
+	}
+	body.backdrop-static-fallback.backdrop-dark-aurora:not(.backdrop-canvas-fallback)::after {
+		inset: -4vmax;
+		width: calc(100vw + 8vmax);
+		height: calc(100vh + 8vmax);
+		background:
+			radial-gradient(24% 15% at 17% 75%, hsl(178 100% 54% / 0.42), transparent 72%), radial-gradient(27% 13% at 52% 78%, hsl(222 100% 58% / 0.3), transparent 74%), radial-gradient(28% 16% at 86% 76%, hsl(292 96% 58% / 0.4), transparent 76%),
+			linear-gradient(
+				90deg,
+				transparent 0 5%,
+				hsl(184 100% 58% / 0.14) 7%,
+				transparent 10%,
+				hsl(184 100% 58% / 0.12) 16%,
+				transparent 22%,
+				hsl(214 100% 62% / 0.14) 39%,
+				transparent 46%,
+				hsl(226 100% 62% / 0.13) 55%,
+				transparent 62%,
+				hsl(268 96% 64% / 0.16) 76%,
+				transparent 82%,
+				hsl(294 96% 58% / 0.15) 92%,
+				transparent 100%
+			),
+			linear-gradient(180deg, transparent 0 58%, hsl(188 100% 58% / 0.08) 68%, hsl(224 100% 58% / 0.1) 77%, hsl(292 96% 58% / 0.12) 86%, transparent 100%);
+		filter: blur(8px) saturate(132%);
+		mask-image: none;
+		-webkit-mask-image: none;
+		mix-blend-mode: screen;
+		opacity: 1;
+		transform: translate3d(0, 0, 0) scale(1.02);
+		transform-origin: 50% 80%;
+	}
+
+	body.backdrop-static-fallback.backdrop-light-ocean:not(.backdrop-canvas-fallback)::before {
+		background:
+			var(--backdrop-light-sun), var(--backdrop-light-sun-halo), radial-gradient(34% 18% at 42% 15%, hsl(0 0% 100% / 0.58), transparent 72%), radial-gradient(26% 14% at 18% 22%, hsl(0 0% 100% / 0.42), transparent 72%), radial-gradient(30% 16% at 78% 18%, hsl(206 100% 96% / 0.48), transparent 74%),
+			radial-gradient(16% 8% at 94% 31%, hsl(204 100% 96% / 0.34), transparent 70%), radial-gradient(42% 28% at 64% 47%, hsl(190 100% 82% / 0.34), transparent 70%),
+			linear-gradient(180deg, hsl(207 92% 76%) 0%, hsl(203 100% 89%) 36%, hsl(190 100% 97%) 52%, hsl(184 90% 78%) 53%, hsl(190 74% 60%) 72%, hsl(197 70% 42%) 100%);
+		filter: saturate(106%);
+		transform-origin: 56% 42%;
+	}
+	body.backdrop-static-fallback.backdrop-light-ocean:not(.backdrop-canvas-fallback)::after {
+		inset: -3vmax;
+		width: calc(100vw + 6vmax);
+		height: calc(100vh + 6vmax);
+		background:
+			var(--backdrop-light-sun-reflection), linear-gradient(180deg, transparent 0 52%, hsl(183 100% 94% / 0.58) 54%, transparent 61%, hsl(185 100% 96% / 0.2) 67%, transparent 68%, hsl(189 100% 96% / 0.26) 73%, transparent 74%, hsl(190 100% 96% / 0.2) 80%, transparent 81%, hsl(190 100% 96% / 0.18) 88%, transparent 89%),
+			radial-gradient(18% 22% at 62% 72%, hsl(190 100% 91% / 0.34), transparent 72%), linear-gradient(90deg, transparent 0 6%, hsl(190 100% 96% / 0.16) 13%, transparent 20%, hsl(190 100% 96% / 0.14) 34%, transparent 46%, hsl(190 100% 96% / 0.18) 58%, transparent 69%, hsl(190 100% 96% / 0.16) 84%, transparent 100%);
+		filter: blur(1.6px) saturate(112%);
+		mask-image: none;
+		-webkit-mask-image: none;
+		mix-blend-mode: screen;
+		opacity: 0.82;
+		transform: translate3d(0, 0, 0) scale(1.012);
+		transform-origin: 58% 72%;
+	}
+
+	body.backdrop-canvas-fallback canvas[data-backdrop-mode="canvas2d"] {
+		inset: -3vmax;
+		width: calc(100vw + 6vmax);
+		height: calc(100vh + 6vmax);
+		max-width: none;
+		max-height: none;
+		transform: translate3d(0, 0, 0) scale(1.012);
+		transform-origin: center;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		body.backdrop-canvas-fallback canvas[data-backdrop-mode="canvas2d"] {
+			will-change: transform, filter, opacity;
+		}
+		body.backdrop-dark-aurora.backdrop-canvas-fallback canvas[data-backdrop-scene="dark-aurora"][data-backdrop-mode="canvas2d"] {
+			animation: backdrop-canvas-aurora-drift 34s ease-in-out infinite;
+		}
+		body.backdrop-light-ocean.backdrop-canvas-fallback canvas[data-backdrop-scene="light-ocean"][data-backdrop-mode="canvas2d"] {
+			animation: backdrop-canvas-ocean-drift 42s ease-in-out infinite;
 		}
 	}
 
@@ -132,14 +242,30 @@
 		   Compositor-only transforms (+ a small hue shimmer on the bloom layer). Frozen
 		   under reduced-motion — the static look above is the default, motion enhances it. */
 	@media (prefers-reduced-motion: no-preference) {
-		body::before {
+		body:not(.backdrop-static-fallback)::before {
 			will-change: transform, filter;
 			transform-origin: 68% 0%;
 			animation: backdrop-bloom 34s ease-in-out infinite;
 		}
-		body::after {
+		body:not(.backdrop-static-fallback)::after {
 			will-change: transform, opacity;
 			animation: backdrop-accent-drift 23s ease-in-out infinite;
+		}
+		body.backdrop-static-fallback.backdrop-dark-aurora:not(.backdrop-canvas-fallback)::before {
+			will-change: transform, filter;
+			animation: backdrop-css-aurora-field 46s ease-in-out infinite;
+		}
+		body.backdrop-static-fallback.backdrop-dark-aurora:not(.backdrop-canvas-fallback)::after {
+			will-change: transform, opacity, filter;
+			animation: backdrop-css-aurora-horizon 34s ease-in-out infinite;
+		}
+		body.backdrop-static-fallback.backdrop-light-ocean:not(.backdrop-canvas-fallback)::before {
+			will-change: transform, filter;
+			animation: backdrop-css-ocean-field 48s ease-in-out infinite;
+		}
+		body.backdrop-static-fallback.backdrop-light-ocean:not(.backdrop-canvas-fallback)::after {
+			will-change: transform, opacity;
+			animation: backdrop-css-ocean-ripples 38s ease-in-out infinite;
 		}
 	}
 	@keyframes backdrop-bloom {
@@ -177,6 +303,87 @@
 		50% {
 			transform: translate3d(-1.5%, 0.5%, 0) scale(1.015);
 			opacity: calc(var(--backdrop-accent-opacity) * 0.82);
+		}
+	}
+	@keyframes backdrop-canvas-aurora-drift {
+		0%,
+		100% {
+			transform: translate3d(0, 0, 0) scale(1.012);
+			filter: saturate(1.04) hue-rotate(0deg);
+			opacity: 1;
+		}
+		45% {
+			transform: translate3d(-1.15%, 0.45%, 0) scale(1.026);
+			filter: saturate(1.12) hue-rotate(-3deg);
+			opacity: 0.96;
+		}
+		72% {
+			transform: translate3d(0.8%, 0.25%, 0) scale(1.02);
+			filter: saturate(1.08) hue-rotate(2deg);
+			opacity: 0.99;
+		}
+	}
+	@keyframes backdrop-canvas-ocean-drift {
+		0%,
+		100% {
+			transform: translate3d(0, 0, 0) scale(1.012);
+			filter: saturate(1.02) brightness(1);
+			opacity: 1;
+		}
+		50% {
+			transform: translate3d(-0.95%, 0.35%, 0) scale(1.022);
+			filter: saturate(1.06) brightness(1.015);
+			opacity: 0.98;
+		}
+	}
+	@keyframes backdrop-css-aurora-field {
+		0%,
+		100% {
+			transform: translate3d(0, 0, 0) scale(1);
+			filter: saturate(1.12) hue-rotate(0deg);
+		}
+		48% {
+			transform: translate3d(-1.2%, 0.35%, 0) scale(1.025);
+			filter: saturate(1.18) hue-rotate(-3deg);
+		}
+		76% {
+			transform: translate3d(0.7%, 0.15%, 0) scale(1.016);
+			filter: saturate(1.15) hue-rotate(2deg);
+		}
+	}
+	@keyframes backdrop-css-aurora-horizon {
+		0%,
+		100% {
+			transform: translate3d(0, 0, 0) scale(1.02);
+			filter: blur(8px) saturate(1.32);
+			opacity: 1;
+		}
+		52% {
+			transform: translate3d(-1.4%, 0.2%, 0) scale(1.035);
+			filter: blur(8.5px) saturate(1.42);
+			opacity: 0.92;
+		}
+	}
+	@keyframes backdrop-css-ocean-field {
+		0%,
+		100% {
+			transform: translate3d(0, 0, 0) scale(1);
+			filter: saturate(1.06);
+		}
+		50% {
+			transform: translate3d(-0.9%, 0.25%, 0) scale(1.018);
+			filter: saturate(1.1);
+		}
+	}
+	@keyframes backdrop-css-ocean-ripples {
+		0%,
+		100% {
+			transform: translate3d(0, 0, 0) scale(1.012);
+			opacity: 0.82;
+		}
+		50% {
+			transform: translate3d(-1.1%, 0.28%, 0) scale(1.022);
+			opacity: 0.72;
 		}
 	}
 
@@ -680,7 +887,7 @@
 	animation: spin 0.7s linear infinite;
 }
 
-/* ── Splash screen ─────────────────────────────────────── */
+/* ── Warmup splash ─────────────────────────────────────── */
 @keyframes splash-float {
 	0%,
 	100% {
@@ -751,7 +958,7 @@
 	width: 176px;
 	height: 3px;
 	border-radius: 9999px;
-	background: hsl(0 0% 100% / 0.09);
+	background: var(--splash-progress-track);
 	overflow: hidden;
 	margin-top: 6px;
 }
@@ -931,8 +1138,14 @@
 	--glow-gradient-hot: linear-gradient(120deg, hsl(198 100% 56% / 0.86), hsl(220 100% 56% / 0.52) 50%, hsl(268 88% 60% / 0.72));
 	--inner-bloom: hsl(214 100% 64% / 0.24);
 	--brand-glow: hsl(214 100% 56% / 0.32);
+	--splash-progress-track: hsl(220 18% 58% / 0.24);
 	--panel-glow: 0 0 34px -13px hsl(210 100% 56% / 0.34), 0 10px 30px -18px hsl(225 60% 26% / 0.28);
-	--backdrop-accent: radial-gradient(32% 18% at 18% 25%, hsl(0 0% 100% / 0.74), transparent 72%), radial-gradient(44% 20% at 78% 24%, hsl(206 100% 96% / 0.82), transparent 74%), linear-gradient(180deg, transparent 0 47%, hsl(190 100% 78% / 0.36) 51%, hsl(205 100% 68% / 0.22) 67%, transparent 100%);
+	--backdrop-light-sun: radial-gradient(circle 4.8rem at 67% 30%, hsl(0 0% 100% / 0.98) 0 26%, hsl(202 100% 97% / 0.66) 30% 46%, hsl(202 100% 88% / 0.18) 58%, transparent 100%);
+	--backdrop-light-sun-halo: radial-gradient(34% 38% at 66% 32%, hsl(202 100% 94% / 0.22), hsl(214 100% 95% / 0.12) 38%, transparent 76%), radial-gradient(18% 24% at 62% 46%, hsl(200 100% 96% / 0.09), transparent 78%);
+	--backdrop-light-sun-reflection: radial-gradient(8% 28% at 67% 72%, hsl(198 100% 92% / 0.18), hsl(206 100% 96% / 0.08) 42%, transparent 76%), radial-gradient(13% 7% at 67% 56%, hsl(200 100% 94% / 0.12), transparent 72%);
+	--backdrop-accent:
+		radial-gradient(30% 18% at 20% 23%, hsl(0 0% 100% / 0.72), transparent 72%), radial-gradient(42% 20% at 78% 21%, hsl(206 100% 96% / 0.78), transparent 74%), radial-gradient(38% 22% at 55% 35%, hsl(198 100% 92% / 0.44), transparent 70%),
+		linear-gradient(180deg, transparent 0 47%, hsl(190 100% 82% / 0.44) 51%, hsl(199 100% 70% / 0.24) 68%, transparent 100%);
 	--backdrop-accent-opacity: 0.94;
 	--quick-card-ink: hsl(240 40% 96%);
 	--quick-card-muted: hsl(226 52% 88%);
@@ -974,8 +1187,8 @@
 	--tabs-active-ink: hsl(226 58% 12%);
 	--tabs-active-text-shadow: 0 0 14px hsl(213 100% 72% / 0.18);
 	--backdrop:
-		radial-gradient(42% 28% at 58% 42%, hsl(192 100% 70% / 0.24), transparent 62%), radial-gradient(34% 26% at 92% 6%, hsl(266 86% 74% / 0.18), transparent 66%), radial-gradient(54% 26% at 18% 22%, hsl(0 0% 100% / 0.5), transparent 72%),
-		linear-gradient(180deg, hsl(207 100% 83%) 0%, hsl(199 100% 95%) 39%, hsl(190 100% 97%) 50%, hsl(189 100% 83%) 52%, hsl(196 78% 60%) 72%, hsl(205 64% 45%) 100%);
+		radial-gradient(42% 30% at 64% 44%, hsl(194 100% 72% / 0.3), transparent 62%), radial-gradient(34% 24% at 92% 8%, hsl(266 86% 74% / 0.2), transparent 66%), radial-gradient(54% 26% at 18% 23%, hsl(0 0% 100% / 0.5), transparent 72%),
+		linear-gradient(180deg, hsl(209 94% 75%) 0%, hsl(201 100% 88%) 31%, hsl(195 100% 95%) 47%, hsl(190 100% 97%) 53%, hsl(188 92% 86%) 54%, hsl(191 73% 66%) 72%, hsl(198 70% 41%) 100%);
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
 	--chart-3: oklch(0.439 0 0);
@@ -1042,6 +1255,7 @@
 	--glow-gradient-hot: linear-gradient(120deg, hsl(188 100% 82% / 0.86), hsl(210 100% 70% / 0.62) 48%, hsl(278 98% 76% / 0.78));
 	--inner-bloom: hsl(212 100% 52% / 0.26);
 	--brand-glow: hsl(218 100% 55% / 0.34);
+	--splash-progress-track: hsl(0 0% 100% / 0.09);
 	--panel-glow: 0 0 42px -16px hsl(212 100% 54% / 0.36), 0 18px 54px -20px hsl(228 92% 2% / 0.96);
 	--quick-card-ink: hsl(240 40% 96%);
 	--quick-card-muted: hsl(226 52% 88%);
@@ -1082,13 +1296,13 @@
 	--tabs-hover-ink: hsl(224 48% 88%);
 	--tabs-active-ink: hsl(220 100% 96%);
 	--tabs-active-text-shadow: 0 0 12px hsl(213 100% 72% / 0.22), 0 0 18px hsl(268 95% 70% / 0.14);
-	--backdrop-accent: linear-gradient(100deg, transparent 0 6%, hsl(194 100% 72% / 0.28) 22%, hsl(189 100% 86% / 0.64) 40%, hsl(200 100% 80% / 0.58) 48%, hsl(220 100% 66% / 0.48) 58%, hsl(272 96% 70% / 0.56) 72%, transparent 92%);
+	--backdrop-accent: linear-gradient(100deg, transparent 0 6%, hsl(194 100% 72% / 0.34) 20%, hsl(150 100% 80% / 0.2) 31%, hsl(189 100% 86% / 0.68) 42%, hsl(207 100% 76% / 0.6) 52%, hsl(226 100% 66% / 0.5) 62%, hsl(272 96% 70% / 0.6) 74%, transparent 92%);
 	--backdrop-accent-opacity: 0.74;
 	/* Defined bright bloom across the top-center-right; left + bottom stay near-black
 	   for contrast so the glass panels and the cyan ribbon pop. */
 	--backdrop:
-		radial-gradient(54% 48% at 56% -14%, hsl(190 100% 58% / 0.34), transparent 54%), radial-gradient(48% 46% at 84% -6%, hsl(288 98% 58% / 0.3), transparent 56%), radial-gradient(40% 40% at 70% 4%, hsl(214 100% 54% / 0.22), transparent 58%),
-		radial-gradient(46% 42% at 100% 22%, hsl(300 96% 56% / 0.18), transparent 60%), radial-gradient(34% 34% at 30% -8%, hsl(218 100% 54% / 0.18), transparent 60%), radial-gradient(120% 90% at 102% 104%, hsl(222 92% 20% / 0.36), transparent 60%), var(--background);
+		radial-gradient(54% 48% at 52% -14%, hsl(190 100% 58% / 0.38), transparent 54%), radial-gradient(48% 46% at 82% -6%, hsl(288 98% 58% / 0.34), transparent 56%), radial-gradient(40% 40% at 68% 4%, hsl(214 100% 54% / 0.24), transparent 58%),
+		radial-gradient(34% 34% at 28% -6%, hsl(154 100% 70% / 0.12), transparent 60%), radial-gradient(46% 42% at 100% 22%, hsl(300 96% 56% / 0.2), transparent 60%), radial-gradient(120% 90% at 102% 104%, hsl(222 92% 20% / 0.38), transparent 60%), var(--background);
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
 	--chart-3: oklch(0.439 0 0);
@@ -1102,4 +1316,17 @@
 	--sidebar-accent-foreground: hsl(240, 40%, 96%);
 	--sidebar-border: hsla(0, 0%, 100%, 0.08);
 	--sidebar-ring: hsl(220, 100%, 56%);
+}
+
+@layer utilities {
+	body.backdrop-canvas-fallback canvas[data-backdrop-mode="canvas2d"] {
+		top: -3vmax;
+		right: -3vmax;
+		bottom: -3vmax;
+		left: -3vmax;
+		width: calc(100vw + 6vmax);
+		height: calc(100vh + 6vmax);
+		max-width: none;
+		max-height: none;
+	}
 }

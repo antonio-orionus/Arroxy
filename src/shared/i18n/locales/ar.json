@@ -3,7 +3,7 @@
 	"app": {"feedback": "ملاحظات", "logs": "السجلات", "feedbackNudge": "هل تستمتع بـ Arroxy؟ يسعدني سماع رأيك! 💬", "debugCopied": "تم النسخ!", "debugCopyTitle": "نسخ معلومات التصحيح (إصدارات Electron والنظام وChrome)", "zoomIn": "تكبير", "zoomOut": "تصغير"},
 	"about": {"button": "حول", "openTitle": "حول Arroxy", "tagline": "محمّل سريع وسهل الاستخدام لـ YouTube وأكثر من 2000 موقع آخر.", "websiteLink": "موقع الويب", "githubLink": "GitHub", "licenseLine": "ترخيص MIT · بواسطة Antonio Orionus", "thirdPartyNotices": "عرض إشعارات الطرف الثالث"},
 	"titleBar": {"close": "إغلاق", "minimize": "تصغير", "maximize": "تكبير", "restore": "استعادة"},
-	"splash": {"greeting": "مرحباً، أهلاً بعودتك!", "warmup": "Arroxy يستعد…", "downloading": "جارٍ تنزيل {{binary}}…", "warmupFailedNoDiag": "فشل الإعداد. افتح سجل الإعداد للاطلاع على التفاصيل."},
+	"splash": {"greeting": "مرحباً، أهلاً بعودتك!", "warmup": "جارٍ تحضير التنزيلات…", "downloading": "جارٍ تنزيل {{binary}}…", "warmupFailedNoDiag": "فشل الإعداد. افتح سجل الإعداد للاطلاع على التفاصيل."},
 	"repair": {
 		"title": "الإعداد يحتاج مساعدتك",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -420,7 +420,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "تلفاز ذكي H.264 MP4"},
 		"videoFormatDesc": {"best": "أعلى ترميز متاح لكل عنصر", "mp4": "يفضّل H.264 + AAC، حاوية MP4 · أفضل محاولة"},
 		"tier": {"360": "حتى 360p", "480": "حتى 480p", "720": "حتى 720p", "1080": "حتى 1080p", "1440": "حتى 1440p", "2160": "حتى 4K", "best": "Best quality"},
 		"tierDesc": {"360": "Smallest video", "480": "Low bandwidth", "720": "ملفات أصغر وتوافق واسع", "1080": "محدود عند 1080p ويهبط لكل عنصر عند الحاجة", "1440": "محدود عند 2K ويهبط لكل عنصر عند الحاجة", "2160": "محدود عند 2160p ويهبط لكل عنصر عند الحاجة", "best": "أفضل فيديو + صوت متاح لكل عنصر"},

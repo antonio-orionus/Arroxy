@@ -72,7 +72,7 @@ function createProfileId(): string {
 
 const VIDEO_COMPATIBILITY_OPTIONS: SelectOption<PlaylistVideoCodec>[] = [
 	{value: 'best', label: 'Best native'},
-	{value: 'mp4', label: 'MP4 / Smart TV'}
+	{value: 'mp4', label: 'Smart TV H.264 MP4'}
 ]
 
 const RESOLUTION_OPTIONS: SelectOption<PlaylistVideoTier>[] = [
@@ -84,6 +84,9 @@ const RESOLUTION_OPTIONS: SelectOption<PlaylistVideoTier>[] = [
 	{value: '480', label: 'Up to 480p'},
 	{value: '360', label: 'Up to 360p'}
 ]
+
+const SMART_TV_MP4_BLOCKED_RESOLUTIONS = new Set<PlaylistVideoTier>(['best', '2160', '1440'])
+const SMART_TV_MP4_RESOLUTION_OPTIONS = RESOLUTION_OPTIONS.filter(option => !SMART_TV_MP4_BLOCKED_RESOLUTIONS.has(option.value))
 
 const AUDIO_FORMAT_OPTIONS: SelectOption<DownloadProfileAudioFormat>[] = [
 	{value: 'best', label: 'Best'},
@@ -266,6 +269,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 	const {subfolderInvalid} = validateDownloadProfileDraft(draft)
 	const videoAudioFormat: Extract<DownloadProfileAudioFormat, 'best' | 'm4a'> = audioFormat === 'm4a' ? 'm4a' : 'best'
 	const audioQualityDisabled = audioFormat === 'best' || audioFormat === 'wav'
+	const videoResolutionOptions = codec === 'mp4' ? SMART_TV_MP4_RESOLUTION_OPTIONS : RESOLUTION_OPTIONS
 
 	function updateDraft(action: DownloadProfileDraftAction): void {
 		setDraft(current => updateDownloadProfileDraft(current, action))
@@ -289,6 +293,12 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 
 	function removeSubtitleLanguage(code: string): void {
 		updateDraft({type: 'remove-subtitle-language', code})
+	}
+
+	async function chooseDestinationFolder(): Promise<void> {
+		const result = await window.appApi.dialog.chooseFolder(destination.trim() || undefined)
+		if (!result.ok || !result.data.path) return
+		updateDraft({type: 'set-destination', destination: result.data.path})
 	}
 
 	async function saveProfile(): Promise<void> {
@@ -389,7 +399,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 									<ProfilePanel title="Video">
 										<FieldGroup className="gap-3">
 											<ProfileSelect label="Compatibility" value={codec} options={VIDEO_COMPATIBILITY_OPTIONS} onValueChange={setProfileCodec} testId="profiles-editor-video-codec" />
-											<ProfileSelect label="Resolution" value={resolution} options={RESOLUTION_OPTIONS} onValueChange={next => updateDraft({type: 'set-resolution', resolution: next})} testId="profiles-editor-video-resolution" />
+											<ProfileSelect label="Resolution" value={resolution} options={videoResolutionOptions} onValueChange={next => updateDraft({type: 'set-resolution', resolution: next})} testId="profiles-editor-video-resolution" />
 										</FieldGroup>
 									</ProfilePanel>
 								) : null}
@@ -556,7 +566,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 									<InputGroup aria-label="Destination folder">
 										<InputGroupInput id="profile-destination" value={destination} onChange={event => updateDraft({type: 'set-destination', destination: event.target.value})} placeholder="Default downloads folder" className="font-mono text-[12px]" />
 										<InputGroupAddon align="inline-end">
-											<InputGroupButton type="button" size="icon-xs" aria-label="Choose destination folder">
+											<InputGroupButton type="button" size="icon-xs" aria-label="Choose destination folder" onClick={() => void chooseDestinationFolder()}>
 												<Folder aria-hidden />
 											</InputGroupButton>
 										</InputGroupAddon>

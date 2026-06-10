@@ -79,7 +79,7 @@ function resolvePlaylistFormatLabel(s: PlaylistSelection): string {
 		return i18next.t('playlistPresets.audioFormatBitrate', {format: s.format.toUpperCase(), kbps: s.bitrateKbps ?? 192})
 	}
 	const tierLabel = i18next.t(`playlistPresets.tier.${s.tier}` as const)
-	if (s.codec === 'mp4') return `MP4 / Smart TV · ${tierLabel}`
+	if (s.codec === 'mp4') return `Smart TV H.264 MP4 · ${tierLabel}`
 	return tierLabel
 }
 

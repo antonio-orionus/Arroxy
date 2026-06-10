@@ -76,8 +76,8 @@ describe('prepareJob', () => {
 				extractor: 'youtube',
 				extractorKey: 'Youtube',
 				intent: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
-				formatSelector: 'bestvideo[height<=1080]+bestaudio/best[height<=1080]',
-				formatSort: undefined,
+				formatSelector: 'bestvideo*+bestaudio/best',
+				formatSort: 'res:1080,fps',
 				mergeOutputFormat: undefined,
 				audioConvert: undefined,
 				outputTemplate: '01 - %(title)s.%(ext)s',
@@ -115,8 +115,8 @@ describe('prepareJob', () => {
 			const job = prepareJob({...BASE, mode: 'playlist', mediaIntent: intent, outputTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual(intent)
-			expect(job.formatSelector).toContain('height<=1080')
-			expect(job.formatSort).toContain('vcodec:h264')
+			expect(job.formatSelector).toBe('bestvideo')
+			expect(job.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps')
 		})
 
 		it('throws when ranged mode missing media intent', () => {

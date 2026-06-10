@@ -3,7 +3,7 @@
 	"app": {"feedback": "Feedback", "logs": "Logs", "feedbackNudge": "Enjoying Arroxy? I'd love to hear from you! 💬", "debugCopied": "Copied!", "debugCopyTitle": "Copy debug info (Electron, OS, Chrome versions)", "zoomIn": "Zoom in", "zoomOut": "Zoom out"},
 	"about": {"button": "About", "openTitle": "About Arroxy", "tagline": "Fast, friendly downloader for YouTube and 2000+ other sites.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "MIT License · by Antonio Orionus", "thirdPartyNotices": "View third-party notices"},
 	"titleBar": {"close": "Close", "minimize": "Minimize", "maximize": "Maximize", "restore": "Restore"},
-	"splash": {"greeting": "Hey, welcome back!", "warmup": "Arroxy is warming up…", "downloading": "Downloading {{binary}}…", "warmupFailedNoDiag": "Setup failed. Open the setup log for details."},
+	"splash": {"greeting": "Hey, welcome back!", "warmup": "Preparing downloads…", "downloading": "Downloading {{binary}}…", "warmupFailedNoDiag": "Setup failed. Open the setup log for details."},
 	"repair": {
 		"title": "Setup needs your help",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -411,7 +411,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best native", "mp4": "MP4 / Smart TV"},
+		"videoFormat": {"best": "Best native", "mp4": "Smart TV H.264 MP4"},
 		"videoFormatDesc": {"best": "Best available container and codecs per item", "mp4": "Prefer H.264 video + AAC audio in MP4 when possible"},
 		"tier": {"360": "Up to 360p", "480": "Up to 480p", "720": "Up to 720p", "1080": "Up to 1080p", "1440": "Up to 1440p", "2160": "Up to 4K", "best": "Best quality"},
 		"tierDesc": {

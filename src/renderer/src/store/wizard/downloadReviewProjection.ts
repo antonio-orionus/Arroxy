@@ -68,7 +68,7 @@ function playlistPresetLabel(state: AppState, t: Translate): string {
 		return t('playlistPresets.audioFormatBitrate', {format: playlistSelection.format.toUpperCase(), kbps: playlistSelection.bitrateKbps ?? 192})
 	}
 	const tierLabel = t(`playlistPresets.tier.${playlistSelection.tier}`)
-	return playlistSelection.codec === 'mp4' ? `MP4 / Smart TV · ${tierLabel}` : tierLabel
+	return playlistSelection.codec === 'mp4' ? `Smart TV H.264 MP4 · ${tierLabel}` : tierLabel
 }
 
 function buildSubtitleValue(state: AppState, effectiveSubtitleLanguages: string[], ctx: DownloadReviewLocaleContext): string {

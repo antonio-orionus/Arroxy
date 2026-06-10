@@ -327,7 +327,7 @@ msgid "Best native"
 msgstr ""
 
 msgctxt "playlistPresets.videoFormat.mp4"
-msgid "MP4 / Smart TV"
+msgid "Smart TV H.264 MP4"
 msgstr ""
 
 msgctxt "playlistPresets.videoFormatDesc.best"
@@ -661,7 +661,7 @@ msgid "Hey, welcome back!"
 msgstr ""
 
 msgctxt "splash.warmup"
-msgid "Arroxy is warming up…"
+msgid "Preparing downloads…"
 msgstr ""
 
 msgctxt "splash.warmupFailedNoDiag"

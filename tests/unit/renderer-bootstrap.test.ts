@@ -1,7 +1,28 @@
+import {readFileSync} from 'node:fs'
 import {describe, expect, it, vi} from 'vitest'
+import * as ts from 'typescript'
 
 import {BridgeUnavailableError, ensureAppBridge} from '@renderer/bootstrapBridge.js'
 import {parseBrowserMockLaunchMode} from '@renderer/browserMock.js'
+
+function hasPreMountSettingsRead(sourceText: string): boolean {
+	const sourceFile = ts.createSourceFile('main.tsx', sourceText, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
+	let found = false
+
+	const visit = (node: ts.Node): void => {
+		if (found) return
+		if (ts.isCallExpression(node) && ts.isPropertyAccessExpression(node.expression) && node.expression.name.text === 'get') {
+			const owner = node.expression.expression
+			const appApi = ts.isPropertyAccessExpression(owner) && owner.name.text === 'settings' ? owner.expression : null
+			found = Boolean(appApi && ts.isPropertyAccessExpression(appApi) && appApi.name.text === 'appApi' && ts.isIdentifier(appApi.expression) && appApi.expression.text === 'window')
+			if (found) return
+		}
+		ts.forEachChild(node, visit)
+	}
+
+	visit(sourceFile)
+	return found
+}
 
 describe('renderer app bridge bootstrap', () => {
 	it('uses the existing preload bridge without installing the browser mock', async () => {
@@ -40,6 +61,12 @@ describe('renderer app bridge bootstrap', () => {
 		await expect(ensureAppBridge({mode: 'development', userAgent: 'Mozilla/5.0 Arroxy/0.3.2 Electron/42.0.0', hasAppApi: () => false, installBrowserMock})).rejects.toBeInstanceOf(BridgeUnavailableError)
 
 		expect(installBrowserMock).not.toHaveBeenCalled()
+	})
+
+	it('does not block React mounting on settings reads', () => {
+		const entrypoint = readFileSync(new URL('../../src/renderer/src/main.tsx', import.meta.url), 'utf8')
+
+		expect(hasPreMountSettingsRead(entrypoint)).toBe(false)
 	})
 })
 

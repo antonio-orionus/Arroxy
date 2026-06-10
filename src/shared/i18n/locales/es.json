@@ -3,7 +3,7 @@
 	"app": {"feedback": "Comentarios", "logs": "Registros", "feedbackNudge": "¿Disfrutando Arroxy? ¡Me encantaría saber de ti! 💬", "debugCopied": "¡Copiado!", "debugCopyTitle": "Copiar info de depuración (versiones de Electron, OS, Chrome)", "zoomIn": "Acercar", "zoomOut": "Alejar"},
 	"about": {"button": "Acerca de", "openTitle": "Acerca de Arroxy", "tagline": "Descargador rápido y amigable para YouTube y más de 2000 sitios.", "websiteLink": "Sitio web", "githubLink": "GitHub", "licenseLine": "Licencia MIT · por Antonio Orionus", "thirdPartyNotices": "Ver avisos de terceros"},
 	"titleBar": {"close": "Cerrar", "minimize": "Minimizar", "maximize": "Maximizar", "restore": "Restaurar"},
-	"splash": {"greeting": "¡Hey, bienvenido de vuelta!", "warmup": "Arroxy se está preparando…", "downloading": "Descargando {{binary}}…", "warmupFailedNoDiag": "Error en la configuración. Abre el registro de configuración para más detalles."},
+	"splash": {"greeting": "¡Hey, bienvenido de vuelta!", "warmup": "Preparando descargas…", "downloading": "Descargando {{binary}}…", "warmupFailedNoDiag": "Error en la configuración. Abre el registro de configuración para más detalles."},
 	"repair": {
 		"title": "La configuración necesita tu ayuda",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -420,7 +420,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "TV inteligente H.264 MP4"},
 		"videoFormatDesc": {"best": "Códec más alto disponible por elemento", "mp4": "H.264 + AAC preferido, contenedor MP4 · mejor esfuerzo"},
 		"tier": {"360": "Hasta 360p", "480": "Hasta 480p", "720": "Hasta 720p", "1080": "Hasta 1080p", "1440": "Hasta 1440p", "2160": "Hasta 4K", "best": "Best quality"},
 		"tierDesc": {

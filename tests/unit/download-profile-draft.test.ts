@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
+import type {DownloadProfile} from '@shared/types.js'
 import {createDownloadProfileDraft, downloadProfileFromDraft, updateDownloadProfileDraft, validateDownloadProfileDraft} from '@renderer/store/wizard/downloadProfileDraft.js'
 
 const NOW = '2026-06-10T12:00:00.000Z'
@@ -20,6 +21,35 @@ describe('DownloadProfileDraft', () => {
 
 		draft = updateDownloadProfileDraft(draft, {type: 'set-codec', codec: 'best'})
 		expect(draft.audioFormat).toBe('best')
+	})
+
+	it('caps Smart TV H.264 MP4 profiles at 1080p when codec changes', () => {
+		let draft = createDownloadProfileDraft(null)
+
+		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-audio'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-resolution', resolution: '2160'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-codec', codec: 'mp4'})
+
+		expect(draft.resolution).toBe('1080')
+		expect(draft.audioFormat).toBe('m4a')
+	})
+
+	it('caps newly selected Smart TV H.264 MP4 resolutions above 1080p', () => {
+		let draft = createDownloadProfileDraft(null)
+
+		draft = updateDownloadProfileDraft(draft, {type: 'set-codec', codec: 'mp4'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-resolution', resolution: '1440'})
+
+		expect(draft.resolution).toBe('1080')
+	})
+
+	it('normalizes legacy custom Smart TV H.264 MP4 profiles above 1080p when editing', () => {
+		const legacyProfile: DownloadProfile = {...BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!, id: 'custom-mp4-2160', name: 'Custom MP4 2160p', media: {kind: 'video-audio', codec: 'mp4', tiers: ['2160'], audio: {format: 'm4a'}}}
+
+		const draft = createDownloadProfileDraft(legacyProfile)
+
+		expect(draft.codec).toBe('mp4')
+		expect(draft.resolution).toBe('1080')
 	})
 
 	it('keeps audio-only WAV lossless without bitrate', () => {

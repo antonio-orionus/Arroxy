@@ -3,7 +3,7 @@
 	"app": {"feedback": "प्रतिक्रिया", "logs": "लॉग", "feedbackNudge": "Arroxy पसंद आ रहा है? आपकी राय सुनने को बेताब हूँ! 💬", "debugCopied": "कॉपी हो गया!", "debugCopyTitle": "डिबग जानकारी कॉपी करें (Electron, OS, Chrome वर्शन)", "zoomIn": "ज़ूम इन", "zoomOut": "ज़ूम आउट"},
 	"about": {"button": "जानकारी", "openTitle": "Arroxy के बारे में", "tagline": "YouTube और 2000+ अन्य साइटों के लिए तेज़ और सरल डाउनलोडर।", "websiteLink": "वेबसाइट", "githubLink": "GitHub", "licenseLine": "MIT लाइसेंस · Antonio Orionus द्वारा", "thirdPartyNotices": "तृतीय-पक्ष सूचनाएँ देखें"},
 	"titleBar": {"close": "बंद करें", "minimize": "छोटा करें", "maximize": "बड़ा करें", "restore": "पुनर्स्थापित करें"},
-	"splash": {"greeting": "अरे, फिर से स्वागत है!", "warmup": "Arroxy तैयार हो रहा है…", "downloading": "{{binary}} डाउनलोड हो रहा है…", "warmupFailedNoDiag": "सेटअप विफल हो गया। विवरण के लिए सेटअप लॉग खोलें।"},
+	"splash": {"greeting": "अरे, फिर से स्वागत है!", "warmup": "डाउनलोड तैयार किए जा रहे हैं…", "downloading": "{{binary}} डाउनलोड हो रहा है…", "warmupFailedNoDiag": "सेटअप विफल हो गया। विवरण के लिए सेटअप लॉग खोलें।"},
 	"repair": {
 		"title": "सेटअप को आपकी मदद चाहिए",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -395,7 +395,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "सर्वश्रेष्ठ मूल (Native)", "mp4": "MP4 / स्मार्ट टीवी (H.264)"},
+		"videoFormat": {"best": "सर्वश्रेष्ठ मूल (Native)", "mp4": "स्मार्ट TV H.264 MP4"},
 		"videoFormatDesc": {"best": "हर आइटम के लिए उपलब्ध उच्चतम कोडेक", "mp4": "H.264 + AAC प्राथमिक, MP4 कंटेनर · सर्वोत्तम प्रयास"},
 		"tier": {"360": "360p तक", "480": "480p तक", "720": "720p तक", "1080": "1080p तक", "1440": "1440p तक", "2160": "4K तक", "best": "Best quality"},
 		"tierDesc": {"360": "Smallest video", "480": "Low bandwidth", "720": "छोटी फ़ाइलें, व्यापक संगतता", "1080": "1080p तक सीमित, हर आइटम पर ज़रूरत हो तो कम", "1440": "2K तक सीमित, हर आइटम पर ज़रूरत हो तो कम", "2160": "2160p तक सीमित, हर आइटम पर ज़रूरत हो तो कम", "best": "हर आइटम के लिए सर्वश्रेष्ठ वीडियो + ऑडियो"},

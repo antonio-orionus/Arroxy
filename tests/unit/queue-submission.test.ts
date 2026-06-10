@@ -122,6 +122,13 @@ describe('QueueSubmission', () => {
 		expect(prepared?.items[0]).toMatchObject({url: 'https://www.youtube.com/watch?v=abc', title: 'Video', outputDir: '/profile-downloads/Balanced', formatLabel: 'Video + audio · Best native · up to 720p · best native audio', job: {kind: 'ranged-format'}})
 	})
 
+	it('uses the default downloads folder and profile subfolder with native separators', () => {
+		const settings = defaultAppSettings('C:\\Users\\User\\Downloads')
+		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings, wizardOutputDir: ''}), 'normal')
+
+		expect(prepared?.items[0]?.outputDir).toBe('C:\\Users\\User\\Downloads\\Balanced')
+	})
+
 	it('prepares active-profile playlist items and manifest payload', () => {
 		const prepared = prepareActiveProfileQueueSubmission(PLAYLIST_PROBE, state(), 'normal')
 

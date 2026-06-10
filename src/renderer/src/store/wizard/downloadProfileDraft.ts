@@ -64,8 +64,15 @@ export interface DownloadProfileDraftValidation {
 	subfolderInvalid: boolean
 }
 
+const SMART_TV_MP4_MAX_TIER: PlaylistVideoTier = '1080'
+const SMART_TV_MP4_BLOCKED_TIERS = new Set<PlaylistVideoTier>(['best', '2160', '1440'])
+
 export function defaultProfileSubfolderName(name: string): string {
 	return safeFolderName(name.trim() || 'Download Profile')
+}
+
+function smartTvCompatibleResolution(codec: PlaylistVideoCodec, resolution: PlaylistVideoTier): PlaylistVideoTier {
+	return codec === 'mp4' && SMART_TV_MP4_BLOCKED_TIERS.has(resolution) ? SMART_TV_MP4_MAX_TIER : resolution
 }
 
 function parseLanguageCodes(value: string): string[] {
@@ -109,14 +116,16 @@ function nextVideoAudioFormat(codec: PlaylistVideoCodec): Extract<DownloadProfil
 
 export function createDownloadProfileDraft(initialProfile: DownloadProfile | null): DownloadProfileDraft {
 	const profileName = initialProfile?.name ?? 'Study Captions'
+	const codec = initialCodec(initialProfile)
+	const resolution = smartTvCompatibleResolution(codec, initialResolution(initialProfile))
 	return {
 		profileId: initialProfile?.id ?? null,
 		createdAt: initialProfile?.createdAt ?? null,
 		profileName,
 		profileIcon: initialProfile?.icon ?? 'captions',
 		mediaMode: initialProfile?.media.kind ?? 'video-audio',
-		codec: initialCodec(initialProfile),
-		resolution: initialResolution(initialProfile),
+		codec,
+		resolution,
 		audioFormat: initialAudioFormat(initialProfile),
 		audioQuality: initialProfile?.media.kind === 'audio-only' ? bitrateToQuality(initialProfile.media.audio.bitrateKbps) : '192',
 		subtitleEnabled: initialProfile ? initialProfile.subtitles.enabled || initialProfile.media.kind === 'subtitles-only' : true,
@@ -150,9 +159,9 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 			if (action.mediaMode === 'audio-only') return {...draft, mediaMode: action.mediaMode, audioFormat: 'best', audioQuality: 'best'}
 			return {...draft, mediaMode: action.mediaMode, subtitleEnabled: action.mediaMode === 'subtitles-only' ? true : draft.subtitleEnabled, audioFormat: nextVideoAudioFormat(draft.codec), audioQuality: 'best'}
 		case 'set-codec':
-			return {...draft, codec: action.codec, audioFormat: draft.mediaMode === 'video-audio' ? nextVideoAudioFormat(action.codec) : draft.audioFormat}
+			return {...draft, codec: action.codec, resolution: smartTvCompatibleResolution(action.codec, draft.resolution), audioFormat: draft.mediaMode === 'video-audio' ? nextVideoAudioFormat(action.codec) : draft.audioFormat}
 		case 'set-resolution':
-			return {...draft, resolution: action.resolution}
+			return {...draft, resolution: smartTvCompatibleResolution(draft.codec, action.resolution)}
 		case 'set-audio-format':
 			return {...draft, audioFormat: action.audioFormat}
 		case 'set-audio-quality':

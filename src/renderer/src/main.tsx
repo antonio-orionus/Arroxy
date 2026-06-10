@@ -3,13 +3,21 @@ import React, {Suspense} from 'react'
 import {createRoot} from 'react-dom/client'
 import {App} from './App.js'
 import {initI18n, pickLanguage, isRtl} from '@shared/i18n/index.js'
-import {useAppStore} from './store/useAppStore.js'
 import {ensureAppBridge, renderBridgeFailure} from './bootstrapBridge.js'
+import {readStaticBootSplashPreviewTheme, shouldHoldStaticBootSplash} from './bootstrapPreview.js'
 import './styles.css'
 
 async function bootstrap(): Promise<void> {
 	const mode = import.meta.env.MODE
 	const userAgent = navigator.userAgent
+
+	if (shouldHoldStaticBootSplash({mode, search: window.location.search})) {
+		const html = document.documentElement
+		html.dataset.bootSplashPreview = 'true'
+		const theme = readStaticBootSplashPreviewTheme(window.location.search)
+		if (theme !== null) html.dataset.bootSplashTheme = theme
+		return
+	}
 
 	if (!('appApi' in window) && import.meta.env.MODE === 'browser-mock') {
 		const {installBrowserMock} = await import('./browserMock.js')
@@ -18,15 +26,10 @@ async function bootstrap(): Promise<void> {
 
 	await ensureAppBridge({mode, userAgent, hasAppApi: () => 'appApi' in window, installBrowserMock: () => undefined})
 
-	let lang = pickLanguage(navigator.language)
-	const result = await window.appApi.settings.get()
-	if (result.ok && result.data.common.language) {
-		lang = pickLanguage(result.data.common.language)
-	}
+	const lang = pickLanguage(navigator.language)
 	initI18n(lang)
 	document.documentElement.lang = lang
 	document.documentElement.dir = isRtl(lang) ? 'rtl' : 'ltr'
-	useAppStore.setState({language: lang})
 
 	const rootElement = document.getElementById('root')
 	if (!rootElement) {

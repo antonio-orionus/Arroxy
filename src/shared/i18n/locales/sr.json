@@ -11,7 +11,7 @@
 		"thirdPartyNotices": "Прикажи обавештења о компонентама трећих страна"
 	},
 	"titleBar": {"close": "Затвори", "minimize": "Минимизуј", "maximize": "Максимизуј", "restore": "Врати"},
-	"splash": {"greeting": "Добродошао/ла назад!", "warmup": "Arroxy се покреће…", "downloading": "Преузимање {{binary}}…", "warmupFailedNoDiag": "Подешавање није успело. Отвори дневник подешавања за детаље."},
+	"splash": {"greeting": "Добродошао/ла назад!", "warmup": "Припрема преузимања…", "downloading": "Преузимање {{binary}}…", "warmupFailedNoDiag": "Подешавање није успело. Отвори дневник подешавања за детаље."},
 	"repair": {
 		"title": "Подешавању је потребна твоја помоћ",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -428,7 +428,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "Паметни TV H.264 MP4"},
 		"videoFormatDesc": {"best": "Najviši dostupan kodek po stavci", "mp4": "Prednost H.264 + AAC, MP4 kontejner · najbolji pokušaj"},
 		"tier": {"360": "Do 360p", "480": "Do 480p", "720": "Do 720p", "1080": "Do 1080p", "1440": "Do 1440p", "2160": "Do 4K", "best": "Best quality"},
 		"tierDesc": {"360": "Smallest video", "480": "Low bandwidth", "720": "Manji fajlovi, široka kompatibilnost", "1080": "Ograničeno na 1080p, pada niže po stavci", "1440": "Ograničeno na 2K, pada niže po stavci", "2160": "Ograničeno na 2160p, pada niže po stavci", "best": "Najbolji dostupan video + audio po stavci"},

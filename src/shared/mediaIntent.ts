@@ -12,9 +12,12 @@ export interface MediaIntentSpec {
 	producesAudio: boolean
 }
 
-const heights: Record<Exclude<PlaylistVideoTier, 'best'>, number> = {'2160': 2160, '1440': 1440, '1080': 1080, '720': 720, '480': 480, '360': 360}
-
 type VideoMediaIntent = Extract<MediaIntent, {kind: 'video-audio' | 'video-only'}>
+
+const VIDEO_WITH_AUDIO_SELECTOR = 'bestvideo*+bestaudio/best'
+const VIDEO_WITH_M4A_AUDIO_SELECTOR = 'bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best'
+const MP4_WITH_AUDIO_SELECTOR = 'bestvideo+bestaudio/best[ext=mp4]/best'
+const MP4_WITH_M4A_AUDIO_SELECTOR = 'bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'
 
 export function playlistSelectionToMediaIntent(selection: PlaylistSelection): MediaIntent {
 	if (selection.kind === 'audio') {
@@ -33,8 +36,8 @@ function primaryVideoTier(tiers: readonly PlaylistVideoTier[]): PlaylistVideoTie
 }
 
 // Maps media intent to yt-dlp arguments per URL.
-// Uses -S (sort) rather than hard codec filters for MP4 so no URL is skipped —
-// yt-dlp degrades gracefully to the closest available format.
+// Uses -S (sort) for resolution, codec, and container preferences so yt-dlp can
+// degrade gracefully to the closest available format.
 export function mediaIntentSpec(intent: MediaIntent): MediaIntentSpec {
 	switch (intent.kind) {
 		case 'audio-only':
@@ -58,40 +61,34 @@ function audioOnlyIntentSpec(intent: Extract<MediaIntent, {kind: 'audio-only'}>)
 	return {audioConvert: {target: intent.audio.format, bitrateKbps}, producesVideo: false, producesAudio: true}
 }
 
+function formatSort(...parts: (string | undefined)[]): string | undefined {
+	const value = parts.filter((part): part is string => !!part).join(',')
+	return value || undefined
+}
+
+function resolutionSort(tier: PlaylistVideoTier): string | undefined {
+	return tier === 'best' ? undefined : `res:${tier},fps`
+}
+
 function videoIntentSpec(intent: VideoMediaIntent): MediaIntentSpec {
 	const tier = primaryVideoTier(intent.tiers)
 	const withAudio = intent.kind === 'video-audio'
 	const audioFormat = withAudio ? intent.audio.format : 'best'
 	const preferM4aAudio = withAudio && audioFormat === 'm4a'
-
-	if (tier === 'best') {
-		if (!withAudio) return {formatSelector: 'bestvideo', producesVideo: true, producesAudio: false}
-		if (intent.codec === 'mp4') {
-			return {formatSelector: preferM4aAudio ? 'bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best' : 'bestvideo*+bestaudio/best', formatSort: preferM4aAudio ? 'vcodec:h264,acodec:m4a,ext:mp4' : 'vcodec:h264,ext:mp4', mergeOutputFormat: 'mp4', producesVideo: true, producesAudio: true}
-		}
-		return {formatSelector: preferM4aAudio ? 'bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best' : 'bestvideo*+bestaudio/best', formatSort: preferM4aAudio ? 'acodec:m4a' : undefined, producesVideo: true, producesAudio: true}
-	}
-
-	const h = heights[tier]
+	const resSort = resolutionSort(tier)
 
 	if (intent.codec === 'mp4') {
 		if (!withAudio) {
-			return {formatSelector: `bestvideo[height<=${h}]/bestvideo`, formatSort: 'vcodec:h264,ext:mp4', mergeOutputFormat: 'mp4', producesVideo: true, producesAudio: false}
+			return {formatSelector: 'bestvideo', formatSort: formatSort('vcodec:h264', 'ext:mp4', resSort), mergeOutputFormat: 'mp4', producesVideo: true, producesAudio: false}
 		}
-		return {
-			formatSelector: preferM4aAudio ? `bv*[height<=${h}]+ba[ext=m4a]/bv*[height<=${h}]+ba/b[height<=${h}]/bv*+ba/b` : `bv*[height<=${h}]+ba/b[height<=${h}]/bv*+ba/b`,
-			formatSort: preferM4aAudio ? 'vcodec:h264,acodec:m4a,ext:mp4' : 'vcodec:h264,ext:mp4',
-			mergeOutputFormat: 'mp4',
-			producesVideo: true,
-			producesAudio: true
-		}
+		return {formatSelector: preferM4aAudio ? MP4_WITH_M4A_AUDIO_SELECTOR : MP4_WITH_AUDIO_SELECTOR, formatSort: formatSort('vcodec:h264', 'ext:mp4', resSort, preferM4aAudio ? 'acodec:m4a' : undefined), mergeOutputFormat: 'mp4', producesVideo: true, producesAudio: true}
 	}
 
 	if (!withAudio) {
-		return {formatSelector: `bestvideo[height<=${h}]/bestvideo`, producesVideo: true, producesAudio: false}
+		return {formatSelector: 'bestvideo', formatSort: resSort, producesVideo: true, producesAudio: false}
 	}
 
-	return {formatSelector: preferM4aAudio ? `bestvideo[height<=${h}]+bestaudio[ext=m4a]/bestvideo[height<=${h}]+bestaudio/best[height<=${h}]` : `bestvideo[height<=${h}]+bestaudio/best[height<=${h}]`, formatSort: preferM4aAudio ? 'acodec:m4a' : undefined, producesVideo: true, producesAudio: true}
+	return {formatSelector: preferM4aAudio ? VIDEO_WITH_M4A_AUDIO_SELECTOR : VIDEO_WITH_AUDIO_SELECTOR, formatSort: formatSort(resSort, preferM4aAudio ? 'acodec:m4a' : undefined), producesVideo: true, producesAudio: true}
 }
 
 function unreachableMediaIntent(intent: never): never {

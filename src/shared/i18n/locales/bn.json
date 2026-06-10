@@ -3,7 +3,7 @@
 	"app": {"feedback": "মতামত", "logs": "লগ", "feedbackNudge": "Arroxy পছন্দ হচ্ছে? আপনার মতামত জানাতে চাই! 💬", "debugCopied": "কপি হয়েছে!", "debugCopyTitle": "ডিবাগ তথ্য কপি করুন (Electron, OS, Chrome সংস্করণ)", "zoomIn": "জুম ইন", "zoomOut": "জুম আউট"},
 	"about": {"button": "সম্পর্কে", "openTitle": "Arroxy সম্পর্কে", "tagline": "YouTube ও 2000+ অন্যান্য সাইটের জন্য দ্রুত ও সহজ ডাউনলোডার।", "websiteLink": "ওয়েবসাইট", "githubLink": "GitHub", "licenseLine": "MIT লাইসেন্স · Antonio Orionus দ্বারা", "thirdPartyNotices": "তৃতীয়-পক্ষ নোটিশ দেখুন"},
 	"titleBar": {"close": "বন্ধ করুন", "minimize": "ছোট করুন", "maximize": "বড় করুন", "restore": "পুনরুদ্ধার করুন"},
-	"splash": {"greeting": "স্বাগতম, আবার এলেন!", "warmup": "Arroxy প্রস্তুত হচ্ছে…", "downloading": "{{binary}} ডাউনলোড হচ্ছে…", "warmupFailedNoDiag": "সেটআপ ব্যর্থ হয়েছে। বিস্তারিত জানতে সেটআপ লগ খুলুন।"},
+	"splash": {"greeting": "স্বাগতম, আবার এলেন!", "warmup": "ডাউনলোড প্রস্তুত করা হচ্ছে…", "downloading": "{{binary}} ডাউনলোড হচ্ছে…", "warmupFailedNoDiag": "সেটআপ ব্যর্থ হয়েছে। বিস্তারিত জানতে সেটআপ লগ খুলুন।"},
 	"repair": {
 		"title": "সেটআপে আপনার সাহায্য দরকার",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -404,7 +404,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "স্মার্ট TV H.264 MP4"},
 		"videoFormatDesc": {"best": "প্রতি আইটেমে সর্বোচ্চ উপলব্ধ কোডেক", "mp4": "H.264 + AAC পছন্দ, MP4 কনটেইনার · সর্বোত্তম চেষ্টা"},
 		"tier": {"360": "৩৬০p পর্যন্ত", "480": "৪৮০p পর্যন্ত", "720": "৭২০p পর্যন্ত", "1080": "১০৮০p পর্যন্ত", "1440": "১৪৪০p পর্যন্ত", "2160": "৪K পর্যন্ত", "best": "Best quality"},
 		"tierDesc": {"360": "Smallest video", "480": "Low bandwidth", "720": "ছোট ফাইল, বিস্তৃত সামঞ্জস্য", "1080": "১০৮০p-তে সীমিত, প্রতি আইটেমে প্রয়োজনে কমে", "1440": "২K-তে সীমিত, প্রতি আইটেমে প্রয়োজনে কমে", "2160": "২১৬০p-তে সীমিত, প্রতি আইটেমে প্রয়োজনে কমে", "best": "প্রতি আইটেমে সেরা ভিডিও + অডিও"},

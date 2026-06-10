@@ -3,7 +3,7 @@
 	"app": {"feedback": "Phản hồi", "logs": "Nhật ký", "feedbackNudge": "Bạn thích Arroxy không? Tôi rất muốn nghe ý kiến của bạn! 💬", "debugCopied": "Đã sao chép!", "debugCopyTitle": "Sao chép thông tin gỡ lỗi (phiên bản Electron, OS, Chrome)", "zoomIn": "Phóng to", "zoomOut": "Thu nhỏ"},
 	"about": {"button": "Giới thiệu", "openTitle": "Giới thiệu về Arroxy", "tagline": "Trình tải xuống nhanh, thân thiện cho YouTube và hơn 2000 trang web khác.", "websiteLink": "Trang web", "githubLink": "GitHub", "licenseLine": "Giấy phép MIT · bởi Antonio Orionus", "thirdPartyNotices": "Xem thông báo bên thứ ba"},
 	"titleBar": {"close": "Đóng", "minimize": "Thu nhỏ", "maximize": "Phóng to", "restore": "Khôi phục"},
-	"splash": {"greeting": "Xin chào, chào mừng bạn quay lại!", "warmup": "Arroxy đang khởi động…", "downloading": "Đang tải xuống {{binary}}…", "warmupFailedNoDiag": "Thiết lập thất bại. Mở nhật ký thiết lập để xem chi tiết."},
+	"splash": {"greeting": "Xin chào, chào mừng bạn quay lại!", "warmup": "Đang chuẩn bị tải xuống…", "downloading": "Đang tải xuống {{binary}}…", "warmupFailedNoDiag": "Thiết lập thất bại. Mở nhật ký thiết lập để xem chi tiết."},
 	"repair": {
 		"title": "Thiết lập cần sự giúp đỡ của bạn",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -420,7 +420,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "TV thông minh H.264 MP4"},
 		"videoFormatDesc": {"best": "Codec cao nhất có sẵn cho từng mục", "mp4": "Ưu tiên H.264 + AAC, vùng chứa MP4 · cố gắng tốt nhất"},
 		"tier": {"360": "Tối đa 360p", "480": "Tối đa 480p", "720": "Tối đa 720p", "1080": "Tối đa 1080p", "1440": "Tối đa 1440p", "2160": "Tối đa 4K", "best": "Best quality"},
 		"tierDesc": {

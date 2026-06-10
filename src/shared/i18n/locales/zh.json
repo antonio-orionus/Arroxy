@@ -3,7 +3,7 @@
 	"app": {"feedback": "反馈", "logs": "日志", "feedbackNudge": "喜欢 Arroxy 吗?我很想听听你的想法! 💬", "debugCopied": "已复制!", "debugCopyTitle": "复制调试信息(Electron、操作系统、Chrome 版本)", "zoomIn": "放大", "zoomOut": "缩小"},
 	"about": {"button": "关于", "openTitle": "关于 Arroxy", "tagline": "适用于 YouTube 和其他 2000+ 网站的快速友好下载器。", "websiteLink": "官网", "githubLink": "GitHub", "licenseLine": "MIT 许可证 · 作者 Antonio Orionus", "thirdPartyNotices": "查看第三方声明"},
 	"titleBar": {"close": "关闭", "minimize": "最小化", "maximize": "最大化", "restore": "还原"},
-	"splash": {"greeting": "嘿,欢迎回来!", "warmup": "Arroxy 正在启动…", "downloading": "正在下载 {{binary}}…", "warmupFailedNoDiag": "初始化失败。打开设置日志查看详情。"},
+	"splash": {"greeting": "嘿,欢迎回来!", "warmup": "正在准备下载…", "downloading": "正在下载 {{binary}}…", "warmupFailedNoDiag": "初始化失败。打开设置日志查看详情。"},
 	"repair": {
 		"title": "初始化需要你的帮助",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -387,7 +387,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "智能电视 H.264 MP4"},
 		"videoFormatDesc": {"best": "每个项目可用的最高编解码器", "mp4": "优先 H.264 + AAC，MP4 容器 · 尽力匹配"},
 		"tier": {"360": "最高 360p", "480": "最高 480p", "720": "最高 720p", "1080": "最高 1080p", "1440": "最高 1440p", "2160": "最高 4K", "best": "Best quality"},
 		"tierDesc": {"360": "Smallest video", "480": "Low bandwidth", "720": "文件更小，兼容性广", "1080": "限制为 1080p，每项必要时降级", "1440": "限制为 2K，每项必要时降级", "2160": "限制为 2160p，每项必要时降级", "best": "每个项目可用的最佳视频 + 音频"},

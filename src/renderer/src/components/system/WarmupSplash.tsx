@@ -20,7 +20,7 @@ function formatBytes(bytes: number): string {
 	return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
-export function SplashScreen({initialized, warmupBlocking, warmupDiagnostics, warmupProgress, showGreeting, onDismissed}: Props): JSX.Element | null {
+export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, warmupProgress, showGreeting, onDismissed}: Props): JSX.Element | null {
 	const {t} = useTranslation()
 	const [minPassed, setMinPassed] = useState(false)
 	const [gone, setGone] = useState(false)
@@ -51,7 +51,7 @@ export function SplashScreen({initialized, warmupBlocking, warmupDiagnostics, wa
 		<div
 			className="splash-overlay"
 			data-testid="splash-overlay"
-			data-state={fading ? 'fading' : blocked ? 'blocked' : 'warming'}
+			data-state={fading ? 'fading' : blocked ? 'blocked' : 'preparing'}
 			role={blocked ? undefined : 'status'}
 			aria-live={blocked ? undefined : 'polite'}
 			aria-busy={!initialized && !blocked}

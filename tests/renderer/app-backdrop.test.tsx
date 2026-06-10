@@ -149,6 +149,39 @@ describe('AppBackdrop fallback', () => {
 		expect(document.body).not.toHaveClass('backdrop-dark-aurora')
 	})
 
+	it('forces the Canvas2D fallback preview without probing WebGL', async () => {
+		window.history.replaceState(null, '', '/?backdropForceFallback=canvas2d')
+		const context2d = mockCanvas2d()
+		const scratchGl = mockWebgl()
+		const productionGl = mockWebgl()
+		installCanvasMocks({context2d, productionGl, scratchGl})
+
+		const {container} = render(<AppBackdrop colorScheme="light" />)
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-canvas-fallback'))
+		expect(container.querySelector('canvas[data-backdrop-scene="light-ocean"][data-backdrop-mode="canvas2d"]')).not.toBeNull()
+		expect(scratchGl.createShader).not.toHaveBeenCalled()
+		expect(productionGl.createShader).not.toHaveBeenCalled()
+		expect(context2d.clearRect).toHaveBeenCalled()
+	})
+
+	it('forces the CSS fallback preview without probing WebGL or drawing Canvas2D', async () => {
+		window.history.replaceState(null, '', '/?backdropForceFallback=css')
+		const context2d = mockCanvas2d()
+		const scratchGl = mockWebgl()
+		const productionGl = mockWebgl()
+		installCanvasMocks({context2d, productionGl, scratchGl})
+
+		const {container} = render(<AppBackdrop colorScheme="dark" />)
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-static-fallback'))
+		await waitFor(() => expect(container.querySelector('canvas')).toBeNull())
+		expect(document.body).toHaveClass('backdrop-dark-aurora')
+		expect(context2d.clearRect).not.toHaveBeenCalled()
+		expect(scratchGl.createShader).not.toHaveBeenCalled()
+		expect(productionGl.createShader).not.toHaveBeenCalled()
+	})
+
 	it('rejects software WebGL using masked renderer data when debug renderer info is unavailable', async () => {
 		const context2d = mockCanvas2d()
 		const scratchGl = mockWebgl({debugRenderer: null, maskedRenderer: 'Google SwiftShader', maskedVendor: 'Google Inc.'})
@@ -159,6 +192,23 @@ describe('AppBackdrop fallback', () => {
 		await waitFor(() => expect(document.body).toHaveClass('backdrop-canvas-fallback'))
 		expect(container.querySelector('canvas[data-backdrop-mode="canvas2d"]')).not.toBeNull()
 		expect(scratchGl.loseContext).toHaveBeenCalledOnce()
+	})
+
+	it('allows software WebGL in the backdrop isolation preview', async () => {
+		window.history.replaceState(null, '', '/?backdrop=1')
+		const scratchGl = mockWebgl({debugRenderer: null, maskedRenderer: 'Google SwiftShader', maskedVendor: 'Google Inc.'})
+		const productionGl = mockWebgl({debugRenderer: null, maskedRenderer: 'Google SwiftShader', maskedVendor: 'Google Inc.'})
+		installCanvasMocks({productionGl, scratchGl})
+
+		const {container, unmount} = render(<AppBackdrop colorScheme="dark" />)
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
+		expect(container.querySelector('canvas[data-backdrop-mode="webgl"]')).not.toBeNull()
+		expect(scratchGl.loseContext).toHaveBeenCalledOnce()
+
+		unmount()
+
+		expect(productionGl.loseContext).not.toHaveBeenCalled()
 	})
 
 	it('does not touch the production WebGL canvas when scratch shader validation fails', async () => {
@@ -200,6 +250,8 @@ describe('AppBackdrop fallback', () => {
 		expect(scratchGl.loseContext).toHaveBeenCalledOnce()
 
 		unmount()
+
+		expect(productionGl.loseContext).not.toHaveBeenCalled()
 	})
 
 	it('selects dark aurora for dark mode and light ocean for light mode', async () => {

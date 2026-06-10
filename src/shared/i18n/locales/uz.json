@@ -11,7 +11,7 @@
 		"thirdPartyNotices": "Uchinchi tomon bildirishnomalarini ko'rish"
 	},
 	"titleBar": {"close": "Yopish", "minimize": "Kichraytirish", "maximize": "Kattalashtirish", "restore": "Tiklash"},
-	"splash": {"greeting": "Xush kelibsiz, qayta keldingiz!", "warmup": "Arroxy ishga tayyorlanmoqda…", "downloading": "{{binary}} yuklanmoqda…", "warmupFailedNoDiag": "Sozlash muvaffaqiyatsiz yakunlandi. Tafsilotlar uchun sozlash jurnalini oching."},
+	"splash": {"greeting": "Xush kelibsiz, qayta keldingiz!", "warmup": "Yuklab olishlar tayyorlanmoqda…", "downloading": "{{binary}} yuklanmoqda…", "warmupFailedNoDiag": "Sozlash muvaffaqiyatsiz yakunlandi. Tafsilotlar uchun sozlash jurnalini oching."},
 	"repair": {
 		"title": "Sozlash sizning yordamingizga muhtoj",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -428,7 +428,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "Aqlli TV H.264 MP4"},
 		"videoFormatDesc": {"best": "Har bir element uchun mavjud eng yuqori kodek", "mp4": "H.264 + AAC afzal, MP4 konteyner · imkon qadar"},
 		"tier": {"360": "360p gacha", "480": "480p gacha", "720": "720p gacha", "1080": "1080p gacha", "1440": "1440p gacha", "2160": "4K gacha", "best": "Best quality"},
 		"tierDesc": {

@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
-import {ChevronDown, RotateCcw, Sparkles, TestTube2} from 'lucide-react'
+import {ChevronDown, LoaderCircle, RotateCcw, Sparkles, TestTube2} from 'lucide-react'
 import {SUPPORTED_LANGS, YT_DLP_ERROR_KINDS} from '@shared/schemas.js'
 import type {SupportedLang, YtDlpErrorKind} from '@shared/schemas.js'
 import {applyScenarioWorkbenchState, BROWSER_MOCK_SCENARIOS, getScenario, isScreenPresetScenario, mockStepForScenario, mockStepsForScenario, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario, type BrowserMockScenarioGroup, type BrowserMockStep} from './browserMockScenarios.js'
@@ -84,6 +84,14 @@ function applyBackdropStage(): void {
 	// Keep theme/locale/platform knobs; drop scenario state.
 	for (const p of ['scenario', 'playlist', 'probeError', 'mockStep']) url.searchParams.delete(p)
 	url.searchParams.set('backdrop', '1')
+	window.location.assign(`${url.pathname}${url.search}${url.hash}`)
+}
+
+function applyBootSplashPreview(): void {
+	const url = new URL(window.location.href)
+	// Keep theme/locale/platform knobs; drop app scenario state.
+	for (const p of ['backdrop', 'bootSplash', 'playlist', 'probeError', 'mockStep']) url.searchParams.delete(p)
+	url.searchParams.set('scenario', 'boot-splash')
 	window.location.assign(`${url.pathname}${url.search}${url.hash}`)
 }
 
@@ -192,6 +200,10 @@ export function ScenarioGallery(): ReactNode {
 							<button type="button" onClick={applyBackdropStage} className="inline-flex h-7 items-center gap-1 rounded border border-border px-2 font-medium text-muted-foreground hover:text-foreground" data-testid="scenario-backdrop-only">
 								<Sparkles size={12} />
 								Backdrop only
+							</button>
+							<button type="button" onClick={applyBootSplashPreview} className="inline-flex h-7 items-center gap-1 rounded border border-border px-2 font-medium text-muted-foreground hover:text-foreground" data-testid="scenario-boot-splash">
+								<LoaderCircle size={12} />
+								Boot splash
 							</button>
 							<button type="button" onClick={() => applyScenario('default')} className="inline-flex h-7 items-center gap-1 rounded border border-border px-2 font-medium text-muted-foreground hover:text-foreground" data-testid="scenario-reset">
 								<RotateCcw size={12} />

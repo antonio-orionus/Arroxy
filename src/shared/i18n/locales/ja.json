@@ -3,7 +3,7 @@
 	"app": {"feedback": "フィードバック", "logs": "ログ", "feedbackNudge": "Arroxyを楽しんでくれてる?ぜひ感想を聞かせて! 💬", "debugCopied": "コピーしました!", "debugCopyTitle": "デバッグ情報をコピー (Electron、OS、Chrome のバージョン)", "zoomIn": "拡大", "zoomOut": "縮小"},
 	"about": {"button": "情報", "openTitle": "Arroxy について", "tagline": "YouTube と 2000 以上の他サイトに対応する、高速で使いやすいダウンローダー。", "websiteLink": "公式サイト", "githubLink": "GitHub", "licenseLine": "MIT ライセンス · 作者 Antonio Orionus", "thirdPartyNotices": "サードパーティ通知を表示"},
 	"titleBar": {"close": "閉じる", "minimize": "最小化", "maximize": "最大化", "restore": "元に戻す"},
-	"splash": {"greeting": "やあ、おかえり!", "warmup": "Arroxyを起動中…", "downloading": "{{binary}} をダウンロード中…", "warmupFailedNoDiag": "セットアップに失敗しました。セットアップログを開いて詳細を確認してください。"},
+	"splash": {"greeting": "やあ、おかえり!", "warmup": "ダウンロードを準備中…", "downloading": "{{binary}} をダウンロード中…", "warmupFailedNoDiag": "セットアップに失敗しました。セットアップログを開いて詳細を確認してください。"},
 	"repair": {
 		"title": "セットアップにサポートが必要です",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
@@ -420,7 +420,7 @@
 	},
 	"playlistPresets": {
 		"type": {"video": "Video", "audio": "Audio"},
-		"videoFormat": {"best": "Best codec", "mp4": "MP4 (H.264)"},
+		"videoFormat": {"best": "Best codec", "mp4": "スマートTV H.264 MP4"},
 		"videoFormatDesc": {"best": "各項目で利用可能な最高のコーデック", "mp4": "H.264 + AAC を優先、MP4 コンテナ · 可能な範囲で"},
 		"tier": {"360": "最大 360p", "480": "最大 480p", "720": "最大 720p", "1080": "最大 1080p", "1440": "最大 1440p", "2160": "最大 4K", "best": "Best quality"},
 		"tierDesc": {

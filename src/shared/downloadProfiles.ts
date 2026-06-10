@@ -32,7 +32,7 @@ function baseProfile(id: string, name: string, media: DownloadProfile['media'], 
 }
 
 function videoCompatibilityLabel(codec: 'best' | 'mp4'): string {
-	return codec === 'mp4' ? 'MP4 / Smart TV' : 'Best native'
+	return codec === 'mp4' ? 'Smart TV H.264 MP4' : 'Best native'
 }
 
 function videoTierLabel(tiers: readonly PlaylistVideoTier[]): string {
@@ -50,10 +50,8 @@ export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [
 	baseProfile('best-1440', '1440p', videoAudio('best', ['1440']), 'video'),
 	baseProfile('hd-1080', 'HD 1080p', videoAudio('best', ['1080']), 'video'),
 	baseProfile('balanced', 'Balanced', videoAudio('best', ['720']), 'controls'),
-	baseProfile('small-file', 'Small file', videoAudio('best', ['480', '360']), 'clip'),
-	baseProfile('mp4-2160', 'MP4 2160p', videoAudio('mp4', ['2160']), 'video'),
-	baseProfile('mp4-1440', 'MP4 1440p', videoAudio('mp4', ['1440']), 'video'),
-	baseProfile('mp4-1080', 'MP4 1080p', videoAudio('mp4', ['1080']), 'video'),
+	baseProfile('small-file', 'Small file', videoAudio('best', ['480']), 'clip'),
+	baseProfile('mp4-1080', 'Smart TV H.264 MP4 1080p', videoAudio('mp4', ['1080']), 'video'),
 	baseProfile('audio-only', 'Audio only', {kind: 'audio-only', audio: {format: 'best'}}, 'audio')
 ] as const
 

@@ -143,6 +143,8 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				if (nextLanguage !== i18next.language) {
 					void i18next.changeLanguage(nextLanguage)
 				}
+				document.documentElement.lang = nextLanguage
+				document.documentElement.dir = isRtl(nextLanguage) ? 'rtl' : 'ltr'
 				void window.appApi.app.setLanguage(nextLanguage)
 				set({settings: settingsResult.data, wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, language: nextLanguage, drawerOpen: settingsResult.data.common?.drawerOpen ?? false})
 			}

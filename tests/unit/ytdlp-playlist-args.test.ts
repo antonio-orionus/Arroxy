@@ -41,36 +41,34 @@ describe('Video · Best codec', () => {
 		expect(args).not.toContain('--merge-output-format')
 	})
 
-	it.each([
-		['2160', 2160],
-		['1440', 1440],
-		['1080', 1080],
-		['720', 720],
-		['480', 480],
-		['360', 360]
-	] as const)('tier=%s → height<=%d in -f, no -S', (tier, h) => {
+	it.each(['2160', '1440', '1080', '720', '480', '360'] as const)('tier=%s → stable -f selector + resolution sort', tier => {
 		const args = argsFor({kind: 'video', tier, codec: 'best'})
 		const fIdx = args.indexOf('-f')
-		expect(args[fIdx + 1]).toContain(`height<=${h}`)
-		expect(args).not.toContain('-S')
+		expect(args[fIdx + 1]).toBe('bestvideo*+bestaudio/best')
+		expect(args[fIdx + 1]).not.toContain('height<=')
+		const sIdx = args.indexOf('-S')
+		expect(sIdx).toBeGreaterThan(-1)
+		expect(args[sIdx + 1]).toBe(`res:${tier},fps`)
 		expect(args).not.toContain('--merge-output-format')
 	})
 })
 
 describe('Video · MP4 codec', () => {
-	it.each(['1080', '720', '480', '360'] as const)('tier=%s → -f with height cap + no-fail tail, -S h264 sort, --merge-output-format mp4', tier => {
+	it.each(['1080', '720', '480', '360'] as const)('tier=%s → -f with no-fail tail, -S compatibility-first sort, --merge-output-format mp4', tier => {
 		const args = argsFor({kind: 'video', tier, codec: 'mp4'})
 		const fIdx = args.indexOf('-f')
 		expect(fIdx).toBeGreaterThan(-1)
 		const fVal = args[fIdx + 1]
-		// height cap present
-		expect(fVal).toContain(`height<=${tier}`)
-		// no-fail fallback tail so heterogeneous playlists never error
-		expect(fVal).toContain('bv*+ba/b')
-		// -S with h264 sort
+		expect(fVal).not.toContain('height<=')
+		// Avoid bv*: YouTube's combined 360p MP4 can otherwise beat 1080p
+		// video-only H.264 when compatibility fields sort first.
+		expect(fVal).not.toContain('bv*')
+		expect(fVal).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
+		// MP4 profiles prioritize compatibility first; the selected tier guides
+		// resolution within the compatible candidates.
 		const sIdx = args.indexOf('-S')
 		expect(sIdx).toBeGreaterThan(-1)
-		expect(args[sIdx + 1]).toContain('vcodec:h264')
+		expect(args[sIdx + 1]).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,acodec:m4a`)
 		// container override
 		const mIdx = args.indexOf('--merge-output-format')
 		expect(mIdx).toBeGreaterThan(-1)
