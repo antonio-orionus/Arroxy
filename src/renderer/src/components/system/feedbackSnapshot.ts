@@ -35,7 +35,7 @@ export function buildFeedbackHiddenFields({appMode, appVersion, language, platfo
 		diagnostic_truncated: 'pending',
 		diagnostic_sha256: 'pending',
 		yt_dlp_error_kind: wizardError?.kind === 'ytdlp' ? hiddenValue(wizardError.error.kind, 'unknown') : 'none',
-		error_code: wizardError?.kind === 'other' ? hiddenValue(wizardError.message, 'unknown') : 'none'
+		error_code: wizardError?.kind === 'other' ? hiddenValue(wizardError.code, 'unknown') : 'none'
 	}
 }
 

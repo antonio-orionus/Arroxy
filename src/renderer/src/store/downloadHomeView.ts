@@ -6,7 +6,7 @@ import {allDownloadProfiles, resolveActiveDownloadProfile} from '@shared/downloa
 import type {DownloadProfile, DownloadProfilesPrefs} from '@shared/types.js'
 import {useAppStore} from './useAppStore.js'
 
-export type DownloadInputType = 'Single URL' | 'Playlist URL' | 'Channel URL' | 'Search URL' | 'URL' | 'Unknown URL'
+export type DownloadInputType = 'Single URL' | 'Playlist URL' | 'Channel URL' | 'Search URL' | 'URL' | 'Unsupported URL' | 'Unknown URL'
 
 export interface DownloadHomeView {
 	activeProfile: DownloadProfile
@@ -36,7 +36,9 @@ function detectUrlType(value: string): DownloadInputType | null {
 	if (!trimmed) return null
 	try {
 		const cleaned = cleanUrl(trimmed)
-		new URL(cleaned)
+		const url = new URL(cleaned)
+		if (url.protocol !== 'http:' && url.protocol !== 'https:') return 'Unsupported URL'
+		if (!url.hostname.trim()) return 'Unsupported URL'
 		const kind = classifyBulkUrlKind(cleaned)
 		if (kind === 'single') return 'Single URL'
 		if (kind === 'playlist') return 'Playlist URL'
@@ -73,5 +75,5 @@ export function useDownloadHomeView(): DownloadHomeView {
 	const hasInput = state.wizardUrl.trim().length > 0
 	const quickPreparing = state.quickDownloadStatus === 'preparing'
 
-	return {...state, activeProfile, hasInput, inputType, profiles, quickPreparing, urlReady: inputType !== null && inputType !== 'Unknown URL'}
+	return {...state, activeProfile, hasInput, inputType, profiles, quickPreparing, urlReady: inputType !== null && inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'}
 }

@@ -29,6 +29,17 @@ describe('QueueDrawerView', () => {
 		expect(view.hasPaused).toBe(true)
 	})
 
+	it('shows the high-value share banner only after a successful completion', () => {
+		const highValue = {formatLabel: '2160p 4K HDR'}
+		const notSuccessful = buildQueueDrawerView([makeItem({id: 'cancelled', status: 'cancelled', ...highValue}), makeItem({id: 'failed', status: 'error', ...highValue}), makeItem({id: 'running', status: 'running', ...highValue})], {shareHighValueBannerDismissed: false})
+		const successful = buildQueueDrawerView([makeItem({id: 'done', status: 'done', ...highValue})], {shareHighValueBannerDismissed: false})
+
+		expect(notSuccessful.hasHighValueCompletion).toBe(false)
+		expect(notSuccessful.showShareBanner).toBe(false)
+		expect(successful.hasHighValueCompletion).toBe(true)
+		expect(successful.showShareBanner).toBe(true)
+	})
+
 	it('keeps row-size policy outside the drawer adapter', () => {
 		expect(rowStride(makeItem({id: 'short', status: 'pending'}))).toBe(54)
 		expect(rowStride(makeItem({id: 'running', status: 'running'}))).toBe(82)

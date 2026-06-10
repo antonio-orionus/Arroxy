@@ -105,7 +105,7 @@ describe('ProbeResultProjection', () => {
 	})
 
 	it('projects probe failure into the error step', () => {
-		const error = {kind: 'other' as const, message: 'failed'}
+		const error = {kind: 'other' as const, code: 'unknown' as const, message: 'failed'}
 
 		expect(projectProbeFailure(error)).toMatchObject({wizardStep: 'error', formatsLoading: false, playlistProbeLoading: false, wizardError: error, wizardErrorOrigin: 'formats'})
 	})

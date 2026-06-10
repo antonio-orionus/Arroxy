@@ -12,6 +12,6 @@ describe('renderer startup shell', () => {
 		expect(html).toContain('Arroxy')
 		expect(html).toContain('Arroxy is warming up')
 		expect(html).toContain('id="root"')
-		expect(html.indexOf('id="boot-splash"')).toBeGreaterThan(html.indexOf('id="root"'))
+		expect(html.indexOf('id="boot-splash"')).toBeGreaterThanOrEqual(html.indexOf('id="root"'))
 	})
 })

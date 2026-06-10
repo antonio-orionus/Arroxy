@@ -21,8 +21,8 @@ describe('FeedbackSnapshot', () => {
 	})
 
 	it('falls back for empty queue and non-yt-dlp probe errors', () => {
-		const fields = buildFeedbackHiddenFields({appMode: 'test', appVersion: '', language: 'en', platform: '', queue: [], reportId: 'report-2', settings: null, wizardError: {kind: 'other', message: 'probe unavailable'}, wizardExtractor: '', wizardStep: ''})
+		const fields = buildFeedbackHiddenFields({appMode: 'test', appVersion: '', language: 'en', platform: '', queue: [], reportId: 'report-2', settings: null, wizardError: {kind: 'other', code: 'unknown', message: 'probe unavailable'}, wizardExtractor: '', wizardStep: ''})
 
-		expect(fields).toMatchObject({app_version: 'unknown', platform: 'unknown', queue_status: 'empty', extractor: 'none', wizard_step: 'unknown', yt_dlp_error_kind: 'none', error_code: 'probe unavailable'})
+		expect(fields).toMatchObject({app_version: 'unknown', platform: 'unknown', queue_status: 'empty', extractor: 'none', wizard_step: 'unknown', yt_dlp_error_kind: 'none', error_code: 'unknown'})
 	})
 })

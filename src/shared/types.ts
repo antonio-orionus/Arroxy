@@ -37,6 +37,7 @@ export type {
 	CookiesBrowser,
 	NetworkPacingPreset,
 	QuickDownloadStatus,
+	ProbeOtherErrorCode,
 	WizardMode,
 	BulkMetadataStatus,
 	BulkMetadataItemStatus,
@@ -48,7 +49,7 @@ export type {
 export type {StatusKey} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 
-import type {AudioSelection, Preset, PlaylistScope, SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, StatusKey, CookiesMode, CookiesBrowser, NetworkPacingPreset, DownloadProfilesPrefs} from './schemas.js'
+import type {AudioSelection, Preset, PlaylistScope, SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, StatusKey, CookiesMode, CookiesBrowser, NetworkPacingPreset, DownloadProfilesPrefs, ProbeOtherErrorCode} from './schemas.js'
 
 export type AppErrorCode = 'validation' | 'token' | 'binary' | 'download' | 'ipc' | 'unknown'
 
@@ -62,7 +63,7 @@ export interface AppError {
 // Discriminated error for the probe IPC command. Separates yt-dlp classified
 // failures (carry LocalizedError for i18n + UI gating) from other probe
 // failures (carry a plain message). Replaces the AppError.localizedKey bridge.
-export type ProbeError = {kind: 'ytdlp'; error: LocalizedError} | {kind: 'other'; message: string; details?: string}
+export type ProbeError = {kind: 'ytdlp'; error: LocalizedError} | {kind: 'other'; code: ProbeOtherErrorCode; message: string; details?: string}
 
 // Mode-independent prefs and infrastructure config. Anything that applies
 // regardless of single-vs-playlist flow lives here.

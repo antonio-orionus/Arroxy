@@ -52,6 +52,14 @@ describe('DownloadProfileDraft', () => {
 		expect(validateDownloadProfileDraft(updateDownloadProfileDraft(draft, {type: 'set-save-inside-subfolder', saveInsideSubfolder: false})).subfolderInvalid).toBe(false)
 	})
 
+	it('accepts multi-subtag subtitle language codes in profile drafts', () => {
+		let draft = createDownloadProfileDraft(null)
+		draft = updateDownloadProfileDraft(draft, {type: 'set-subtitle-language-draft', subtitleLanguageDraft: 'zh-Hant-TW es-419 en bad_value'})
+		draft = updateDownloadProfileDraft(draft, {type: 'add-subtitle-languages'})
+
+		expect(draft.subtitleLanguages).toEqual(['en', 'uk', 'zh-hant-tw', 'es-419'])
+	})
+
 	it('serializes the draft into a download profile', () => {
 		let draft = createDownloadProfileDraft(null)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-profile-name', profileName: 'Study Captions'})

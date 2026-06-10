@@ -56,6 +56,20 @@ const PROFILE_ICON_META: Record<DownloadProfileIcon, {label: string; icon: Lucid
 
 const PROFILE_ICON_OPTIONS = DOWNLOAD_PROFILE_ICONS.map(value => ({value, ...PROFILE_ICON_META[value]}))
 
+function createProfileId(): string {
+	if (typeof crypto !== 'undefined') {
+		if (typeof crypto.randomUUID === 'function') return crypto.randomUUID()
+		if (typeof crypto.getRandomValues === 'function') {
+			const bytes = crypto.getRandomValues(new Uint8Array(16))
+			bytes[6] = (bytes[6] & 0x0f) | 0x40
+			bytes[8] = (bytes[8] & 0x3f) | 0x80
+			const hex = [...bytes].map(byte => byte.toString(16).padStart(2, '0'))
+			return `${hex.slice(0, 4).join('')}-${hex.slice(4, 6).join('')}-${hex.slice(6, 8).join('')}-${hex.slice(8, 10).join('')}-${hex.slice(10).join('')}`
+		}
+	}
+	return `profile-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
+}
+
 const VIDEO_COMPATIBILITY_OPTIONS: SelectOption<PlaylistVideoCodec>[] = [
 	{value: 'best', label: 'Best native'},
 	{value: 'mp4', label: 'MP4 / Smart TV'}
@@ -279,7 +293,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 
 	async function saveProfile(): Promise<void> {
 		const now = new Date().toISOString()
-		const profile = downloadProfileFromDraft(draft, now, () => (typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : `profile-${Date.now()}`))
+		const profile = downloadProfileFromDraft(draft, now, createProfileId)
 		await onSave?.(profile)
 		onOpenChange(false)
 	}

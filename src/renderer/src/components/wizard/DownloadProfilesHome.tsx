@@ -211,7 +211,7 @@ export function DownloadProfilesHome(): ReactNode {
 	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
 	const quickErrorText = quickDownloadErrorText(t, quickDownloadError)
 	const mascotHelp = downloadMascotHelp({activeProfileName: activeProfile.name, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
-	const showMascotHelp = inputType !== 'Unknown URL'
+	const showMascotHelp = inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'
 	const activateProfile = (profile: DownloadProfile): void => {
 		void setActiveDownloadProfile(downloadProfileRefFor(profile, profilesPrefs))
 	}
@@ -240,6 +240,7 @@ export function DownloadProfilesHome(): ReactNode {
 	)
 
 	function openManualBulkDialog(): void {
+		setPendingClipboard(null)
 		setBulkInitialRaw('')
 		setBulkOpen(true)
 	}
@@ -301,7 +302,9 @@ export function DownloadProfilesHome(): ReactNode {
 			<Tabs
 				value={activeTab}
 				onValueChange={value => {
-					if (isProfilesTab(value)) selectProfilesTab(value)
+					if (!isProfilesTab(value)) return
+					if (value !== 'download') setPendingClipboard(null)
+					selectProfilesTab(value)
 				}}
 				className="gap-4"
 			>
@@ -381,7 +384,13 @@ export function DownloadProfilesHome(): ReactNode {
 
 			{bulkOpen ? <BulkUrlDialog open={bulkOpen} onOpenChange={handleBulkOpenChange} initialRaw={bulkInitialRaw} /> : null}
 			{editorOpen ? (
-				<Suspense fallback={null}>
+				<Suspense
+					fallback={
+						<div className="fixed inset-0 z-50 grid place-items-center bg-background/35" role="status" aria-label={t('wizard.formats.loadingAria')}>
+							<Loader2 className="size-5 animate-spin text-[var(--brand)]" aria-hidden />
+						</div>
+					}
+				>
 					<DownloadProfileEditor key={editorSessionId} initialProfile={editingProfile} open={editorOpen} onOpenChange={setEditorOpen} onSave={profile => saveDownloadProfile(profile)} />
 				</Suspense>
 			) : null}

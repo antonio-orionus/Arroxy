@@ -286,7 +286,7 @@ export function installBrowserMock(): void {
 			},
 			probe: async input => {
 				if (!looksLikeUrl(input.url)) {
-					return {ok: false, error: {kind: 'other', message: 'Not a valid http(s) URL'}}
+					return {ok: false, error: {kind: 'other', code: 'invalid_url', message: 'Not a valid http(s) URL'}}
 				}
 
 				if (scenarioState.probeError) {
@@ -294,7 +294,7 @@ export function installBrowserMock(): void {
 				}
 
 				if (shouldMockEmptyPlaylistScopeReload(scenarioState.scenario, input.playlistMode, input.playlistScope)) {
-					return {ok: false, error: {kind: 'other', message: 'Playlist returned no entries'}}
+					return {ok: false, error: {kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}}
 				}
 
 				if (shouldMockPlaylistProbe(input)) {

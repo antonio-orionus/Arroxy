@@ -28,7 +28,7 @@ export function registerDownloadHandlers(deps: DownloadHandlerDeps): void {
 	handle<z.infer<typeof probeSchema>, ProbeResult, ProbeError>(IPC_CHANNELS.downloadsProbe, probeSchema, async ({url, playlistMode, playlistScope}) => {
 		const settings = await settingsStore.get()
 		const issue = getIncompleteCookiesConfigIssue(settings.common)
-		if (issue) return fail<ProbeResult, ProbeError>({kind: 'other', message: cookiesConfigIssueMessage(issue)})
+		if (issue) return fail<ProbeResult, ProbeError>({kind: 'other', code: 'cookies_config', message: cookiesConfigIssueMessage(issue)})
 		return probeService.probe(url, settings.common.cookiesMode ?? 'off', playlistMode ?? 'auto', playlistScope)
 	})
 

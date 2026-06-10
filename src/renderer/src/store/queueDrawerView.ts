@@ -57,7 +57,7 @@ export function buildQueueDrawerView(queue: QueueItem[], options: QueueDrawerVie
 		if (status === 'done' || status === 'cancelled' || status === 'error') hasCompleted = true
 		if (status === 'paused-active' || status === 'paused-held') hasPaused = true
 		if (status === 'running' || status === 'paused-active' || status === 'paused-held' || status === 'pending') hasInFlight = true
-		if (isHighValueDownload(item)) hasHighValueCompletion = true
+		if (status === 'done' && isHighValueDownload(item)) hasHighValueCompletion = true
 	}
 
 	const activeCount = running.length

@@ -330,12 +330,12 @@ export class ProbeService {
 					// and any user-facing copy can distinguish the cause.
 					logger.warn('Playlist probe returned no entries', {url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
 					emitFailure('content_unavailable')
-					return fail<ProbeResult, ProbeError>({kind: 'other', message: 'Playlist returned no entries'})
+					return fail<ProbeResult, ProbeError>({kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'})
 				}
 			} else if (isUrlRedirect(info)) {
 				// Hit redirect-depth cap. Surface the URL error rather than guess.
 				emitFailure('redirect_loop')
-				return fail<ProbeResult, ProbeError>({kind: 'other', message: 'Probe redirected too many times'})
+				return fail<ProbeResult, ProbeError>({kind: 'other', code: 'redirect_loop', message: 'Probe redirected too many times'})
 			} else {
 				const video = info
 				const degraded = deriveDegraded(final.degradationSignals)
@@ -345,7 +345,7 @@ export class ProbeService {
 					// auto-captions — geo-block, age-gate, members-only, or live-not-yet.
 					// Not a parse failure; the JSON shape was fine.
 					emitFailure('content_unavailable')
-					return fail<ProbeResult, ProbeError>({kind: 'other', message: 'Probe returned no formats'})
+					return fail<ProbeResult, ProbeError>({kind: 'other', code: 'no_formats', message: 'Probe returned no formats'})
 				}
 			}
 
@@ -356,7 +356,7 @@ export class ProbeService {
 			const message = error instanceof Error ? error.message : 'Unknown probing error'
 			logger.error('Probe failure', {message, url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
 			emitFailure(controller.signal.aborted ? 'cancelled' : classifyProbeFailure(message))
-			return fail<ProbeResult, ProbeError>({kind: 'other', message})
+			return fail<ProbeResult, ProbeError>({kind: 'other', code: controller.signal.aborted ? 'cancelled' : 'unknown', message})
 		} finally {
 			this.inFlight.delete(controller)
 		}
@@ -368,7 +368,7 @@ export class ProbeService {
 	private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal): Promise<ProbeAttemptResult> {
 		let currentUrl = url
 		for (let depth = 0; depth <= 1; depth++) {
-			if (signal.aborted) return {kind: 'failure', error: {kind: 'other', message: 'Probe cancelled'} satisfies ProbeError, errorCategory: 'cancelled'}
+			if (signal.aborted) return {kind: 'failure', error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'} satisfies ProbeError, errorCategory: 'cancelled'}
 			const attempt = await this.runProbeWithDegradationRetry(currentUrl, playlistMode, playlistScope, signal)
 			if (attempt.kind === 'failure') return attempt
 			const info = attempt.data.info
@@ -424,7 +424,7 @@ export class ProbeService {
 			// Distinguish caller-driven cancellation from a genuine yt-dlp failure
 			// so analytics + UI don't treat it as an error.
 			if (signal.aborted || rawError === 'Cancelled') {
-				return {kind: 'failure', error: {kind: 'other', message: 'Probe cancelled'} satisfies ProbeError, errorCategory: 'cancelled'}
+				return {kind: 'failure', error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'} satisfies ProbeError, errorCategory: 'cancelled'}
 			}
 			// yt-dlp's exit-error kind is anchored to its stderr classifier; for
 			// probe-time failures we additionally recognize 'unsupportedUrl' which
@@ -440,14 +440,14 @@ export class ProbeService {
 		} catch (error) {
 			const message = error instanceof Error ? error.message : 'Unknown JSON parse error'
 			logger.error('Probe JSON parse failed', {attempt, message, url})
-			return {kind: 'failure', error: {kind: 'other', message: 'Failed to parse probe output', details: message} satisfies ProbeError, errorCategory: 'parse'}
+			return {kind: 'failure', error: {kind: 'other', code: 'parse', message: 'Failed to parse probe output', details: message} satisfies ProbeError, errorCategory: 'parse'}
 		}
 
 		const parseResult = infoDictSchema.safeParse(raw)
 		if (!parseResult.success) {
 			const message = parseResult.error.issues[0]?.message ?? 'yt-dlp output failed schema validation'
 			logger.error('Probe schema validation failed', {attempt, message, url})
-			return {kind: 'failure', error: {kind: 'other', message: 'Unexpected yt-dlp output shape', details: message} satisfies ProbeError, errorCategory: 'parse'}
+			return {kind: 'failure', error: {kind: 'other', code: 'schema', message: 'Unexpected yt-dlp output shape', details: message} satisfies ProbeError, errorCategory: 'parse'}
 		}
 
 		const info = parseResult.data

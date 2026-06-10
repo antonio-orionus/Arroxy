@@ -72,7 +72,7 @@ function parseLanguageCodes(value: string): string[] {
 	return value
 		.split(/[\s,]+/)
 		.map(code => code.trim().toLowerCase())
-		.filter(code => /^[a-z]{2,3}(?:-[a-z0-9]{2,8})?$/.test(code))
+		.filter(code => /^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$/.test(code))
 }
 
 function bitrateToQuality(bitrateKbps: number | undefined): DownloadProfileAudioQuality {

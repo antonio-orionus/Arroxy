@@ -94,7 +94,7 @@ describe('submitUrl — video probe', () => {
 
 	it('sets wizardStep=error on probe failure', async () => {
 		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', message: 'Bot block'}))
+		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'Bot block'}))
 		window.appApi = api
 
 		useAppStore.setState({wizardUrl: YOUTUBE_URL})
@@ -305,7 +305,7 @@ describe('quickDownload', () => {
 
 	it('keeps the URL and shows an error when probing fails', async () => {
 		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', message: 'Probe failed'}))
+		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'Probe failed'}))
 		window.appApi = api
 
 		useAppStore.setState({wizardUrl: YOUTUBE_URL, wizardOutputDir: '/tmp'})
@@ -477,7 +477,7 @@ describe('submitUrl — playlist probe', () => {
 
 	it('logs scoped playlist reload failures with the restored scope', async () => {
 		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', message: 'Playlist returned no entries'}))
+		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}))
 		window.appApi = api
 
 		useAppStore.setState({wizardStep: 'playlistItems', wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', playlistItems: PLAYLIST_PROBE.entries, selectedPlaylistItemIds: PLAYLIST_PROBE.entries.map(entry => entry.id), playlistScope: {items: {kind: 'app-limit'}}})

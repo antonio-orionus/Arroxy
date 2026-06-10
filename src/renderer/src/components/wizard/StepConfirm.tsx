@@ -2,7 +2,7 @@ import type {ReactNode} from 'react'
 import {AlertTriangle} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
-import {buildDownloadReview} from '../../store/wizard/downloadReviewProjection.js'
+import {buildDownloadReview, conflictLabelKey} from '../../store/wizard/downloadReviewProjection.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {Table, TableBody, TableCell, TableRow} from '../ui/table.js'
@@ -13,10 +13,10 @@ import loveImg from '../../assets/Love.png'
 
 export function StepConfirm(): ReactNode {
 	const {t, i18n} = useTranslation()
-	const CONFLICT_LABELS: Record<string, string> = {thumbnailEmbedNotSupported: t('wizard.confirm.thumbnailEmbedNotSupported'), subtitleEmbedAudioOnly: t('wizard.confirm.subtitleEmbedAudioOnly')}
 	const state = useAppStore()
 	const {addToQueue, addAndDownloadImmediately, back, isSubmittingToQueue} = state
-	const review = buildDownloadReview(state, {t: t as (key: string, params?: Record<string, unknown>) => string, language: i18n.language, commonPaths: state.commonPaths})
+	const translateReview = (key: string, params?: Record<string, unknown>): string => (t as unknown as (key: string, params?: Record<string, unknown>) => string)(key, params)
+	const review = buildDownloadReview(state, {t: translateReview, language: i18n.language, commonPaths: state.commonPaths})
 
 	return (
 		<div className="wizard-step flex flex-col gap-4" data-testid="step-confirm">
@@ -55,7 +55,7 @@ export function StepConfirm(): ReactNode {
 					<AlertDescription>
 						<ul className="flex flex-col gap-1">
 							{review.conflictWarnings.map(c => (
-								<li key={c.code}>{CONFLICT_LABELS[c.code]}</li>
+								<li key={c.code}>{t(conflictLabelKey(c.code))}</li>
 							))}
 						</ul>
 					</AlertDescription>

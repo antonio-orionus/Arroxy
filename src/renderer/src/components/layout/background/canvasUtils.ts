@@ -38,7 +38,7 @@ export function resizeCanvasForFallback(canvas: HTMLCanvasElement, ctx: CanvasRe
 	const pixelWidth = Math.max(1, Math.round(width * dpr))
 	const pixelHeight = Math.max(1, Math.round(height * dpr))
 	const backingStoreResized = canvas.width !== pixelWidth || canvas.height !== pixelHeight
-	if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
+	if (backingStoreResized) {
 		canvas.width = pixelWidth
 		canvas.height = pixelHeight
 	}

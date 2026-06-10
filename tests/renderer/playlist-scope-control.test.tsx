@@ -72,7 +72,7 @@ describe('PlaylistScopeControl', () => {
 	})
 
 	it('keeps the playlist screen visible and shows an inline error when the scoped reload has no entries', async () => {
-		vi.mocked(window.appApi.downloads.probe).mockResolvedValue(fail({kind: 'other', message: 'Playlist returned no entries'}))
+		vi.mocked(window.appApi.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}))
 		render(<StepPlaylistItems />)
 
 		fireEvent.click(screen.getByTestId('playlist-scope-change'))

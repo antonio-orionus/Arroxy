@@ -47,7 +47,11 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 	try {
 		const prepared = prepareManualQueueSubmission(get(), lane)
 		if (!prepared) return
-		await submitPreparedQueueSubmission(prepared)
+		const result = await submitPreparedQueueSubmission(prepared)
+		if (!result.ok) {
+			set({wizardStep: 'error', wizardError: {kind: 'other', code: 'unknown', message: result.error}, wizardErrorOrigin: null})
+			return
+		}
 		maybeShowQueueTip(set)
 		await persistFormatPrefs(set, get)
 		get().reset()

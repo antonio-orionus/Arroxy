@@ -211,6 +211,7 @@ export function CanvasSceneHost({scene}: {scene: BackdropScene}): ReactNode {
 			cleanupSceneClass()
 			disposeWebglProgram(gl, resources)
 			gl.deleteBuffer(buf)
+			releaseWebglContext(gl)
 		}
 	}, [scene])
 

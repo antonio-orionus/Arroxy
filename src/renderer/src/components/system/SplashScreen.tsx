@@ -54,7 +54,7 @@ export function SplashScreen({initialized, warmupBlocking, warmupDiagnostics, wa
 			data-state={fading ? 'fading' : blocked ? 'blocked' : 'warming'}
 			role={blocked ? undefined : 'status'}
 			aria-live={blocked ? undefined : 'polite'}
-			aria-busy={!initialized || blocked}
+			aria-busy={!initialized && !blocked}
 			aria-hidden={fading ? true : undefined}
 			style={{opacity: fading ? 0 : 1, pointerEvents: fading ? 'none' : 'auto'}}
 			onTransitionEnd={event => {

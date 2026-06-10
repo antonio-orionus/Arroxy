@@ -1,6 +1,6 @@
 import {humanSize} from '@shared/format.js'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
-import {sanitizeJobOptions, type SanitizeConflict} from '@shared/sanitizeJobOptions.js'
+import {sanitizeJobOptions, type ConflictCode, type SanitizeConflict} from '@shared/sanitizeJobOptions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
@@ -39,12 +39,26 @@ export interface DownloadReview {
 	playlistPresetLabel: string
 	itemCountLabel: ItemCountLabel | null
 	summaryRows: DownloadReviewRow[]
-	conflictWarnings: SanitizeConflict[]
+	conflictWarnings: UserVisibleConflict[]
 	hasNothingSelected: boolean
 	allowedActions: {addToQueue: boolean; downloadNow: boolean}
 }
 
-const USER_VISIBLE_CONFLICTS: ReadonlySet<string> = new Set(['thumbnailEmbedNotSupported', 'subtitleEmbedAudioOnly'])
+const USER_VISIBLE_CONFLICT_CODES = ['thumbnailEmbedNotSupported', 'subtitleEmbedAudioOnly'] as const satisfies readonly ConflictCode[]
+type UserVisibleConflictCode = (typeof USER_VISIBLE_CONFLICT_CODES)[number]
+type UserVisibleConflict = SanitizeConflict & {code: UserVisibleConflictCode}
+
+const CONFLICT_LABEL_KEYS = {thumbnailEmbedNotSupported: 'wizard.confirm.thumbnailEmbedNotSupported', subtitleEmbedAudioOnly: 'wizard.confirm.subtitleEmbedAudioOnly'} as const satisfies Record<UserVisibleConflictCode, string>
+
+const USER_VISIBLE_CONFLICTS: ReadonlySet<ConflictCode> = new Set(USER_VISIBLE_CONFLICT_CODES)
+
+function isUserVisibleConflict(conflict: SanitizeConflict): conflict is UserVisibleConflict {
+	return USER_VISIBLE_CONFLICTS.has(conflict.code)
+}
+
+export function conflictLabelKey(code: UserVisibleConflictCode): (typeof CONFLICT_LABEL_KEYS)[UserVisibleConflictCode] {
+	return CONFLICT_LABEL_KEYS[code]
+}
 
 function playlistPresetLabel(state: AppState, t: Translate): string {
 	const {playlistSelection} = state
@@ -110,7 +124,7 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 
 	const hasNothingSelected = inBatch ? !state.playlistSelection || state.selectedPlaylistItemIds.length === 0 : state.selectedVideoFormatId === '' && state.audioSelection.kind === 'none' && effectiveSubtitleLanguages.length === 0
 
-	const {conflicts: allConflicts} = !inBatch
+	const allConflicts: SanitizeConflict[] = !inBatch
 		? sanitizeJobOptions({
 				isSubtitleOnly: state.activePreset === 'subtitle-only',
 				hasVideoTrack: state.selectedVideoFormatId !== '',
@@ -119,9 +133,9 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 				subtitleLanguages: effectiveSubtitleLanguages,
 				embed: {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail},
 				sponsorBlockMode: state.wizardSponsorBlockMode
-			})
-		: {conflicts: []}
-	const conflictWarnings = allConflicts.filter(c => USER_VISIBLE_CONFLICTS.has(c.code))
+			}).conflicts
+		: []
+	const conflictWarnings: UserVisibleConflict[] = allConflicts.filter(isUserVisibleConflict)
 
 	return {inPlaylist, inBulk, inBatch, shortPath, videoResolution, videoSummary, subtitleValue, playlistPresetLabel: playlistPreset, itemCountLabel: countLabel, summaryRows, conflictWarnings, hasNothingSelected, allowedActions: {addToQueue: !hasNothingSelected, downloadNow: !inBatch && !hasNothingSelected}}
 }

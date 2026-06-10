@@ -1,4 +1,4 @@
-import {useDeferredValue, useMemo, useRef, useState, type ReactNode} from 'react'
+import {useMemo, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle, Download, Link2, WandSparkles} from 'lucide-react'
 import type {BulkUrlRejectReason} from '@shared/types.js'
@@ -37,8 +37,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderAction
 	const quickDownloadStatus = useAppStore(state => state.quickDownloadStatus)
 	const [raw, setRaw] = useState(initialRaw)
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
-	const deferredRaw = useDeferredValue(raw)
-	const preview = useMemo(() => buildBulkUrlPreview(deferredRaw), [deferredRaw])
+	const preview = useMemo(() => buildBulkUrlPreview(raw), [raw])
 	const quickPreparing = quickDownloadStatus === 'preparing'
 
 	function close(): void {
