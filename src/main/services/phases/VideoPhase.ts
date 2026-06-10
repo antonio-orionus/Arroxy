@@ -4,7 +4,7 @@ import {STATUS_KEY} from '@shared/schemas.js'
 import {siteForExtractor} from '@shared/sites/index.js'
 import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
-import {cleanupPartFiles, cleanupTempDirByPath} from '../download/cleanup.js'
+import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal} from './phaseHelpers.js'
 
@@ -52,12 +52,10 @@ export function VideoPhase(embed: boolean): Phase {
 			const tempDir = await setupTempDir(job.outputDir, job.id, isResume, active.tempDir)
 			if (tempDir) {
 				active.tempDir = tempDir
-				// Register tempDir + .part-files cleanup. Disposables drain on
-				// finalize for completed / soft-failed / hard-failed / cancelled
-				// outcomes; on `paused`, JobLifecycle skips the drain so resume can
-				// pick up the .part files.
-				ctx.register(() => cleanupTempDirByPath(tempDir))
-				ctx.register(() => cleanupPartFiles(job.outputDir))
+				// Disposables drain on finalize for completed / soft-failed /
+				// hard-failed / cancelled outcomes; on `paused`, JobLifecycle skips
+				// the drain so resume can pick up the .part files.
+				QueueResumeLifecycle.registerVideoTempDataCleanup(active, job.outputDir, tempDir, disposable => ctx.register(disposable))
 			}
 			// Resume hardening: if a prior spawn wrote _arroxy.info.json into the
 			// preserved tempDir, feed it to yt-dlp so extraction is skipped on
@@ -144,8 +142,11 @@ export function VideoPhase(embed: boolean): Phase {
 					return {kind: 'continue'}
 				}
 				const {payload, statusKey, params} = await classifyYtDlpFailure(result, job.outputDir, job.id)
-				ctx.emitStatus('error', statusKey, params, payload)
-				return {kind: 'hard-failed', error: payload}
+				const resumeContext = QueueResumeLifecycle.buildResumeContext(active, payload)
+				if (resumeContext) active.resumeContext = resumeContext
+				if (resumeContext) ctx.emitStatus('error', statusKey, params, payload, resumeContext)
+				else ctx.emitStatus('error', statusKey, params, payload)
+				return {kind: 'hard-failed', error: payload, resumeContext}
 			}
 
 			if (result.usedExtractorFallback) active.usedExtractorFallback = true

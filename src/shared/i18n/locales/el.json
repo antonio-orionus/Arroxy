@@ -102,7 +102,10 @@
 			"quickSingleOnly": "Επικόλλησε URL βίντεο, playlist, καναλιού ή αναζήτησης για να ξεκινήσεις.",
 			"quickProbeFailed": "Ο έλεγχος απέτυχε",
 			"quickPrepareFailed": "Δεν ήταν δυνατή η προετοιμασία του στοιχείου ουράς",
+			"quickBulkAllFailed": "Δεν ήταν δυνατή η προετοιμασία κανενός από αυτά τα URL",
 			"quickFailed": "Δεν ήταν δυνατή η προσθήκη: {{error}}",
+			"quickPartialFailed_one": "Μπήκε στην ουρά ό,τι λειτούργησε. {{count}} URL δεν προετοιμάστηκε.",
+			"quickPartialFailed_other": "Μπήκε στην ουρά ό,τι λειτούργησε. {{count}} URL δεν προετοιμάστηκαν.",
 			"bulkButton": "Μαζικά URL",
 			"bulkTooltip": "Πρόσθεσε και βάλε στην ουρά πολλά URL.",
 			"features": {
@@ -180,6 +183,16 @@
 			},
 			"closeToTray": {"toggle": "Απόκρυψη στο δίσκο κατά το κλείσιμο", "toggleDescription": "Συνέχιση λήψεων στο παρασκήνιο μετά το κλείσιμο του παραθύρου."},
 			"analytics": {"toggle": "Αποστολή ανώνυμων στατιστικών χρήσης", "toggleDescription": "Μετράει μόνο εκκινήσεις εφαρμογής. Χωρίς URL, ονόματα αρχείων ή προσωπικά δεδομένα."}
+		},
+		"quickProgress": {
+			"title": "Προετοιμασία γρήγορης λήψης",
+			"description": "Το Arroxy διαβάζει τον σύνδεσμο και εφαρμόζει το {{profileName}}.",
+			"currentFallback": "Τρέχων σύνδεσμος",
+			"waitHint": "Κράτησέ το ανοιχτό όσο το Arroxy προετοιμάζει την ουρά.",
+			"failedCount_one": "{{count}} απέτυχε",
+			"failedCount_other": "{{count}} απέτυχαν",
+			"cancel": "Ακύρωση προετοιμασίας",
+			"phase": {"probing": "Ανάκτηση λεπτομερειών", "queueing": "Προσθήκη στην ουρά"}
 		},
 		"subtitles": {
 			"autoBadge": "Αυτόματο",

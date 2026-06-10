@@ -67,21 +67,21 @@ export function registerQueueHandlers(queueService: QueueService): void {
 		return Promise.resolve(ok(queueService.snapshot()))
 	})
 
-	handleRaw(IPC_CHANNELS.queueCmdClearCompleted, () => {
+	handleRaw(IPC_CHANNELS.queueCmdClearCompleted, async () => {
 		try {
-			const result = queueService.clearCompleted()
-			return Promise.resolve(result.ok ? ok(undefined) : result)
+			const result = await queueService.clearCompleted()
+			return result.ok ? ok(undefined) : result
 		} catch (err) {
-			return Promise.resolve(toUnknownFailure(err))
+			return toUnknownFailure(err)
 		}
 	})
 
-	handle(IPC_CHANNELS.queueCmdRemove, itemIdSchema, ({itemId}) => {
+	handle(IPC_CHANNELS.queueCmdRemove, itemIdSchema, async ({itemId}) => {
 		try {
-			const result = queueService.remove(itemId)
-			return Promise.resolve(result.ok ? ok(undefined) : result)
+			const result = await queueService.remove(itemId)
+			return result.ok ? ok(undefined) : result
 		} catch (err) {
-			return Promise.resolve(toUnknownFailure(err))
+			return toUnknownFailure(err)
 		}
 	})
 

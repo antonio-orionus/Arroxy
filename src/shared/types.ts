@@ -1,4 +1,4 @@
-import type {LocalizedError} from './i18n/types.js'
+import type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 import type {PreparedJob} from './preparedJob.js'
 
 export type {PreparedJob} from './preparedJob.js'
@@ -37,6 +37,7 @@ export type {
 	CookiesBrowser,
 	NetworkPacingPreset,
 	QuickDownloadStatus,
+	QuickDownloadProgressPhase,
 	ProbeOtherErrorCode,
 	WizardMode,
 	BulkMetadataStatus,
@@ -214,7 +215,15 @@ export interface QueueItem {
 	// paused-active}; `tempDir` set iff paused-active mid-download.
 	tempDir?: string
 	lastJobId?: string
+	resumeContext?: QueueResumeContext
 	job: PreparedJob
+}
+
+export interface QueueResumeContext {
+	kind: 'media-retry'
+	tempDir: string
+	reason: 'media-transfer' | 'postprocess'
+	failureKind: YtDlpErrorKind
 }
 
 export interface PlaylistEntry {
@@ -287,6 +296,7 @@ export interface StatusEvent {
 	statusKey: StatusKey
 	params?: Record<string, string | number>
 	error?: LocalizedError
+	resumeContext?: QueueResumeContext
 	at: string
 }
 

@@ -17,7 +17,6 @@
 // caller decides when to schedule; it always happens.
 
 import {EventEmitter} from 'node:events'
-import {stat} from 'node:fs/promises'
 import log from 'electron-log/main.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
@@ -32,6 +31,7 @@ import type {QueueStore} from '@main/stores/QueueStore.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import type {PlaylistManifest} from '@shared/playlistManifest.js'
 import type {DownloadService} from './DownloadService.js'
+import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
 
 const logger = log.scope('queue')
 
@@ -239,16 +239,8 @@ export class QueueService extends EventEmitter {
 			}
 		}
 
-		let tempDir = item.tempDir
-		if (tempDir) {
-			try {
-				const s = await stat(tempDir)
-				if (!s.isDirectory()) tempDir = undefined
-			} catch {
-				logger.debug('resume: persisted tempDir missing — restarting fresh', {itemId, tempDir})
-				tempDir = undefined
-			}
-		}
+		const tempDir = await QueueResumeLifecycle.validateTempDir(item.tempDir)
+		if (item.tempDir && !tempDir) logger.debug('resume: persisted tempDir missing — restarting fresh', {itemId, tempDir: item.tempDir})
 		return this.spawnViaStart(itemId, tempDir)
 	}
 
@@ -269,7 +261,9 @@ export class QueueService extends EventEmitter {
 			this.inBulk = true
 			try {
 				for (const id of ids) {
-					const jobId = this.findItem(id)?.lastJobId
+					const item = this.findItem(id)
+					if (item) await QueueResumeLifecycle.cleanupResumeContext(item)
+					const jobId = item?.lastJobId
 					if (jobId) this.forgetProgressState(jobId)
 					this.commit({kind: 'event', itemId: id, evt: {kind: 'cancelled'}})
 				}
@@ -291,6 +285,7 @@ export class QueueService extends EventEmitter {
 		if (!item) return ok(undefined)
 
 		if (item.status === QUEUE_STATUS.pending || item.status === QUEUE_STATUS.pausedHeld) {
+			await QueueResumeLifecycle.cleanupResumeContext(item)
 			this.commit({kind: 'event', itemId, evt: {kind: 'cancelled'}})
 			return ok(undefined)
 		}
@@ -299,16 +294,20 @@ export class QueueService extends EventEmitter {
 			await this.downloadService.cancel(item.lastJobId)
 			this.forgetProgressState(item.lastJobId)
 		}
+		await QueueResumeLifecycle.cleanupResumeContext(item)
 		this.commit({kind: 'event', itemId, evt: {kind: 'cancelled'}})
 		return ok(undefined)
 	}
 
-	// eslint-disable-next-line @typescript-eslint/require-await -- Result API is async
 	async retry(itemId: string): Promise<Result<void>> {
 		const item = this.findItem(itemId)
 		if (!item) return fail(createAppError('validation', `queue item ${itemId} not found`))
 		if (item.status !== QUEUE_STATUS.error && item.status !== QUEUE_STATUS.cancelled) {
 			return fail(createAppError('validation', `cannot retry item in status ${item.status}`))
+		}
+		const resumeContext = item.status === QUEUE_STATUS.error ? await QueueResumeLifecycle.validResumeContext(item) : undefined
+		if (item.resumeContext && !resumeContext) {
+			this.commit({kind: 'patch', itemId, reason: 'retry:clearMissingResumeContext', patcher: prev => ({...prev, resumeContext: undefined})})
 		}
 		this.commit({kind: 'event', itemId, evt: {kind: 'retry-reset'}})
 		return ok(undefined)
@@ -328,8 +327,12 @@ export class QueueService extends EventEmitter {
 		return ok(undefined)
 	}
 
-	clearCompleted(): Result<void> {
+	async clearCompleted(): Promise<Result<void>> {
 		const idsToRemove = this.items.flatMap(i => (i.status === QUEUE_STATUS.done || i.status === QUEUE_STATUS.cancelled || i.status === QUEUE_STATUS.error ? [i.id] : []))
+		for (const id of idsToRemove) {
+			const item = this.findItem(id)
+			if (item) await QueueResumeLifecycle.cleanupResumeContext(item)
+		}
 		this.inBulk = true
 		try {
 			for (const id of idsToRemove) {
@@ -342,12 +345,13 @@ export class QueueService extends EventEmitter {
 		return ok(undefined)
 	}
 
-	remove(itemId: string): Result<void> {
+	async remove(itemId: string): Promise<Result<void>> {
 		const item = this.findItem(itemId)
 		if (!item) return ok(undefined)
 		if (item.status === QUEUE_STATUS.running) {
 			return fail(createAppError('validation', 'cannot remove a running item — cancel it first'))
 		}
+		await QueueResumeLifecycle.cleanupResumeContext(item)
 		this.commit({kind: 'remove', itemId})
 		return ok(undefined)
 	}
@@ -372,7 +376,7 @@ export class QueueService extends EventEmitter {
 			// the cancel command path. Skip a redundant transition.
 			if (event.statusKey === 'cancelled') return
 			if (item.lane === 'normal') this.armSleepWindow()
-			this.commit({kind: 'event', itemId: item.id, evt: {kind: 'failed', error: event.error ?? {kind: 'unknown', raw: ''}, lastStatusKey: event.statusKey, params: event.params}})
+			this.commit({kind: 'event', itemId: item.id, evt: {kind: 'failed', error: event.error ?? {kind: 'unknown', raw: ''}, resumeContext: event.resumeContext, lastStatusKey: event.statusKey, params: event.params}})
 			return
 		}
 		// Phase transition — non-status update for "Merging…", "Embedding…", etc.
@@ -581,7 +585,7 @@ export class QueueService extends EventEmitter {
 		if (this.spawning.has(itemId)) return
 		this.spawning.add(itemId)
 		const item = this.findItem(itemId)
-		logger.info('beginSpawn', {itemId, lane: item?.lane, hasTempDir: Boolean(item?.tempDir), spawningSize: this.spawning.size})
+		logger.info('beginSpawn', {itemId, lane: item?.lane, hasTempDir: Boolean(item?.tempDir ?? item?.resumeContext?.tempDir), spawningSize: this.spawning.size})
 		void this.spawnViaStart(itemId, undefined).catch(err => {
 			logger.error('Auto-start failed', {itemId, error: err instanceof Error ? err.message : String(err)})
 		})
@@ -594,14 +598,12 @@ export class QueueService extends EventEmitter {
 			this.spawning.delete(itemId)
 			return fail(createAppError('validation', `queue item ${itemId} not found`))
 		}
-		// Fall back to the item's persisted tempDir so a pending item that came
-		// from a paused-active row (via resumeAll's patch) picks up its .part
-		// files instead of starting over.
-		const effectiveTempDir = tempDir ?? item.tempDir
+		const effectiveTempDir = QueueResumeLifecycle.tempDirForQueueStart(item, tempDir)
+		const resumeContextForImmediateFailure = item.resumeContext
 		try {
 			const result = await this.downloadService.start({url: item.url, outputDir: item.outputDir, job: item.job, tempDir: effectiveTempDir})
 			if (!result.ok) {
-				this.commit({kind: 'event', itemId, evt: {kind: 'failed', error: {kind: 'unknown', raw: result.error.message}}})
+				this.commit({kind: 'event', itemId, evt: {kind: 'failed', error: {kind: 'unknown', raw: result.error.message}, resumeContext: resumeContextForImmediateFailure}})
 				return fail(result.error)
 			}
 			const currentItem = this.findItem(itemId)

@@ -102,7 +102,10 @@
 			"quickSingleOnly": "Füge eine Video-, Playlist-, Kanal- oder Such-URL ein, um loszulegen.",
 			"quickProbeFailed": "Prüfung fehlgeschlagen",
 			"quickPrepareFailed": "Warteschlangeneintrag konnte nicht vorbereitet werden",
+			"quickBulkAllFailed": "Keine dieser URLs konnte vorbereitet werden",
 			"quickFailed": "Konnte dieses Element nicht hinzufügen: {{error}}",
+			"quickPartialFailed_one": "Was funktioniert hat, wurde eingereiht. {{count}} URL konnte nicht vorbereitet werden.",
+			"quickPartialFailed_other": "Was funktioniert hat, wurde eingereiht. {{count}} URLs konnten nicht vorbereitet werden.",
 			"bulkButton": "Bulk-URLs",
 			"bulkTooltip": "Mehrere URLs hinzufügen und in die Warteschlange stellen.",
 			"features": {
@@ -180,6 +183,16 @@
 			},
 			"closeToTray": {"toggle": "Beim Schließen in die Taskleiste minimieren", "toggleDescription": "Downloads im Hintergrund fortsetzen, wenn das Fenster geschlossen wird."},
 			"analytics": {"toggle": "Anonyme Nutzungsstatistiken senden", "toggleDescription": "Zählt nur App-Starts. Keine URLs, Dateinamen oder persönliche Daten."}
+		},
+		"quickProgress": {
+			"title": "Schnelldownload wird vorbereitet",
+			"description": "Arroxy liest den Link und wendet {{profileName}} an.",
+			"currentFallback": "Aktueller Link",
+			"waitHint": "Lass dies geöffnet, während Arroxy die Warteschlange vorbereitet.",
+			"failedCount_one": "{{count}} fehlgeschlagen",
+			"failedCount_other": "{{count}} fehlgeschlagen",
+			"cancel": "Vorbereitung abbrechen",
+			"phase": {"probing": "Details werden geladen", "queueing": "Wird zur Warteschlange hinzugefügt"}
 		},
 		"subtitles": {
 			"autoBadge": "Auto",

@@ -2,10 +2,11 @@ import {fireEvent, render, screen} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {BulkUrlDialog} from '@renderer/components/wizard/BulkUrlDialog.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
+import {defaultAppSettings} from '@shared/constants.js'
 
 describe('BulkUrlDialog', () => {
 	beforeEach(() => {
-		useAppStore.setState({quickDownloadStatus: 'idle', startBulkUrls: vi.fn(), quickDownloadUrls: vi.fn().mockResolvedValue(undefined)})
+		useAppStore.setState({settings: defaultAppSettings('/tmp'), quickDownloadStatus: 'idle', startBulkUrls: vi.fn(), quickDownloadUrls: vi.fn().mockResolvedValue(undefined)})
 	})
 
 	it('caps preview rendering and reports omitted rows', () => {
@@ -29,5 +30,18 @@ describe('BulkUrlDialog', () => {
 		fireEvent.click(screen.getByTestId('bulk-url-confirm'))
 
 		expect(startBulkUrls).toHaveBeenCalledWith(['https://example.com/latest'])
+	})
+
+	it('renders a compact profile-aware quick download control', () => {
+		render(<BulkUrlDialog open onOpenChange={vi.fn()} initialRaw="https://example.com/video" />)
+
+		expect(screen.getByTestId('bulk-quick-profile-preview')).toHaveAttribute('data-linked-control', 'quick-profile')
+		expect(screen.getByTestId('bulk-quick-download')).toHaveTextContent('Quick Download')
+		expect(screen.getByTestId('bulk-active-profile-card')).toHaveTextContent('Balanced')
+		expect(screen.getByTestId('bulk-active-profile-card')).toHaveTextContent('720p · best audio')
+
+		fireEvent.click(screen.getByRole('button', {name: 'Switch download profile: Balanced'}))
+		expect(screen.getByTestId('bulk-profile-menu')).toBeInTheDocument()
+		expect(screen.getByTestId('bulk-profile-option-balanced')).toHaveAttribute('aria-pressed', 'true')
 	})
 })

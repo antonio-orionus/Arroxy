@@ -1477,6 +1477,42 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Viidiyoon hundi sadarkaa filatame ofumaan qorata — playlist garagaraa sodaa malee hojjeta."
 
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Qophii haqi"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Hidha ammaa"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy hidhaa dubbisaa jira, {{profileName}} immoo fayyadamaa jira."
+
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} hin milkoofne"
+
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} hin milkoofne"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Ibsa fidaa jira"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Tarreetti dabalaa jira"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Buufata saffisaa qopheessaa jira"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Arroxy tarree qopheessaa jiru kana banaa dhiisi."
+
 msgctxt "wizard.sponsorblock.cat.filler"
 msgid "Filler"
 msgstr "Filler"
@@ -2029,6 +2065,10 @@ msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
 
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "URL kanniin keessaa tokko illee qopheessuun hin danda’amne"
+
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
 msgstr "Buufata saffisaa"
@@ -2040,6 +2080,14 @@ msgstr "{{profileName}} fayyadamuun ni buufata"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Kana dabaluun hin danda’amne: {{error}}"
+
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Kan hojjete tarreetti dabalame. URL {{count}} qopheessuun hin danda’amne."
+
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Kan hojjete tarreetti dabalame. URL {{count}} qopheessuun hin danda’amne."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"

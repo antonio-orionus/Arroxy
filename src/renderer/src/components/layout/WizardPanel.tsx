@@ -6,6 +6,7 @@ import {buildWizardStepGraph, visibleWizardSteps} from '../../store/wizard/wizar
 import {StepError} from '../wizard/StepError.js'
 import {MixedUrlPromptDialog} from '../wizard/MixedUrlPromptDialog.js'
 import {QuickPlaylistCapDialog} from '../wizard/QuickPlaylistCapDialog.js'
+import {QuickDownloadProgressDialog} from '../wizard/QuickDownloadProgressDialog.js'
 import {cn} from '@renderer/lib/utils.js'
 
 function WizardStepFallback(): ReactNode {
@@ -73,6 +74,7 @@ export function WizardPanel(): ReactNode {
 
 			{wizardStep === 'error' ? <StepError /> : activeDescriptor ? <Suspense fallback={<WizardStepFallback />}>{activeDescriptor.render()}</Suspense> : null}
 			<MixedUrlPromptDialog />
+			<QuickDownloadProgressDialog />
 			<QuickPlaylistCapDialog />
 		</section>
 	)

@@ -2,7 +2,10 @@ import type {QueueItem} from '@shared/types.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {reconcileQuickDownloadFeedback, type QuickDownloadFeedbackState} from './wizard/quickDownloadFeedback.js'
 
-type QueueProjectionState = Pick<QuickDownloadFeedbackState, 'quickDownloadStatus' | 'quickDownloadQueueIds'> & {queue: QueueItem[]}
+type QueueProjectionState = Pick<
+	QuickDownloadFeedbackState,
+	'quickDownloadStatus' | 'quickDownloadQueueIds' | 'quickDownloadProgressPhase' | 'quickDownloadProgressTotal' | 'quickDownloadProgressCompleted' | 'quickDownloadProgressFailed' | 'quickDownloadProgressCurrent' | 'quickDownloadProgressTitle' | 'quickDownloadProgressRunId'
+> & {queue: QueueItem[]}
 
 interface QueueProjectionBatch {
 	adds: {items: QueueItem[]; atIdx: number}[]

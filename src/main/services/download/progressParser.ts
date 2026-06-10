@@ -12,13 +12,14 @@ import {splitStderrLines} from '@main/utils/process.js'
 import {parsePercentFromLine} from '@main/utils/progress.js'
 import {isSubtitleFile} from '@shared/subtitlePath.js'
 import {STATUS_KEY} from '@shared/schemas.js'
-import type {LocalizedError, ProgressEvent, StatusEvent, StatusKey} from '@shared/types.js'
+import type {LocalizedError, ProgressEvent, QueueResumeContext, StatusEvent, StatusKey} from '@shared/types.js'
 import type {ActiveDownload} from '../phases/types.js'
 import {nowIso} from '@main/utils/clock.js'
+import {QueueResumeLifecycle} from './QueueResumeLifecycle.js'
 
 const logger = log.scope('downloads')
 
-export type StatusEmit = (jobId: string, stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError) => void
+export type StatusEmit = (jobId: string, stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError, resumeContext?: QueueResumeContext) => void
 export type ProgressEmit = (event: ProgressEvent) => void
 
 export class ProgressParser {
@@ -46,7 +47,7 @@ export class ProgressParser {
 				if (kind === 'subtitle') {
 					active.subtitlePaths.push(path)
 				} else {
-					active.mediaPath = path
+					QueueResumeLifecycle.rememberMediaComponent(active, path)
 				}
 				this.emitStatus(jobId, 'download', kind === 'subtitle' ? STATUS_KEY.fetchingSubtitles : STATUS_KEY.downloadingMedia)
 				continue
@@ -62,7 +63,7 @@ export class ProgressParser {
 			// line will follow, so this is our only chance to record mediaPath.
 			const alreadyMatch = /^\[download\]\s+(.+?)\s+has already been downloaded$/.exec(line)
 			if (alreadyMatch && !isSubtitleFile(alreadyMatch[1])) {
-				active.mediaPath = alreadyMatch[1]
+				QueueResumeLifecycle.rememberMediaComponent(active, alreadyMatch[1])
 				continue
 			}
 
@@ -117,6 +118,7 @@ export class ProgressParser {
 		if (!key) return false
 		const emitted = (active.postProcEmitted ??= {})
 		if (emitted[key]) return true
+		QueueResumeLifecycle.markMediaPostprocessStarted(active)
 		emitted[key] = true
 		this.emitStatus(active.job.id, 'download', STATUS_KEY[key])
 		return true

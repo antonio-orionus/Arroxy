@@ -93,7 +93,10 @@
 			"quickSingleOnly": "शुरू करने के लिए वीडियो, प्लेलिस्ट, चैनल या खोज URL पेस्ट करें।",
 			"quickProbeFailed": "जाँच विफल रही",
 			"quickPrepareFailed": "क्यू आइटम तैयार नहीं किया जा सका",
+			"quickBulkAllFailed": "इनमें से कोई भी URL तैयार नहीं किया जा सका",
 			"quickFailed": "इसे जोड़ा नहीं जा सका: {{error}}",
+			"quickPartialFailed_one": "जो काम किया उसे क्यू में जोड़ दिया गया। {{count}} URL तैयार नहीं किया जा सका।",
+			"quickPartialFailed_other": "जो काम किया उसे क्यू में जोड़ दिया गया। {{count}} URL तैयार नहीं किए जा सके।",
 			"bulkButton": "बल्क URLs",
 			"bulkTooltip": "कई URLs जोड़ें और कतार में डालें।",
 			"features": {
@@ -166,6 +169,16 @@
 			},
 			"closeToTray": {"toggle": "बंद करने पर ट्रे में छिपाएं", "toggleDescription": "विंडो बंद करने के बाद पृष्ठभूमि में डाउनलोड जारी रखें।"},
 			"analytics": {"toggle": "अनाम उपयोग आँकड़े भेजें", "toggleDescription": "केवल ऐप लॉन्च गिनता है। कोई URL, फ़ाइलनाम या व्यक्तिगत डेटा नहीं।"}
+		},
+		"quickProgress": {
+			"title": "क्विक डाउनलोड तैयार हो रहा है",
+			"description": "Arroxy लिंक पढ़ रहा है और {{profileName}} लागू कर रहा है।",
+			"currentFallback": "मौजूदा लिंक",
+			"waitHint": "Arroxy क्यू तैयार करे तब तक इसे खुला रखें।",
+			"failedCount_one": "{{count}} विफल",
+			"failedCount_other": "{{count}} विफल",
+			"cancel": "तैयारी रद्द करें",
+			"phase": {"probing": "विवरण लाए जा रहे हैं", "queueing": "क्यू में जोड़ा जा रहा है"}
 		},
 		"subtitles": {
 			"autoBadge": "स्वतः",

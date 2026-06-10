@@ -1,3 +1,6 @@
+import {readdir, readFile} from 'node:fs/promises'
+import path from 'node:path'
+import {fileURLToPath} from 'node:url'
 import {describe, it, expect, vi, beforeEach} from 'vitest'
 
 const {ctorMock, trackMock, identifyMock, setGlobalPropertiesMock, addHeaderMock} = vi.hoisted(() => {
@@ -14,6 +17,34 @@ const {ctorMock, trackMock, identifyMock, setGlobalPropertiesMock, addHeaderMock
 vi.mock('@openpanel/sdk', () => ({OpenPanel: ctorMock}))
 
 import {setupAnalytics, setAnalyticsEnabled, trackMain, probeDurationBucket, downloadDurationBucket, sizeBucket} from '@main/services/analytics.js'
+
+const SOURCE_ROOT = fileURLToPath(new URL('../../src', import.meta.url))
+const SOURCE_EXTENSIONS = new Set(['.ts', '.tsx'])
+const ANALYTICS_EVENT_CALL = /(?:\btrackMain|\btrack|\.analytics\.track)\(\s*['"]([a-z][a-z0-9_]*)['"]/g
+
+async function listSourceFiles(dir: string = SOURCE_ROOT): Promise<string[]> {
+	const entries = await readdir(dir, {withFileTypes: true})
+	const files = await Promise.all(
+		entries.map(entry => {
+			const fullPath = path.join(dir, entry.name)
+			if (entry.isDirectory()) return listSourceFiles(fullPath)
+			if (entry.isFile() && SOURCE_EXTENSIONS.has(path.extname(entry.name))) return Promise.resolve([fullPath])
+			return Promise.resolve([])
+		})
+	)
+	return files.flat()
+}
+
+async function sourceAnalyticsEventNames(): Promise<string[]> {
+	const eventNames = new Set<string>()
+	for (const file of await listSourceFiles()) {
+		const source = await readFile(file, 'utf8')
+		for (const match of source.matchAll(ANALYTICS_EVENT_CALL)) {
+			eventNames.add(match[1])
+		}
+	}
+	return [...eventNames].sort()
+}
 
 beforeEach(() => {
 	vi.clearAllMocks()
@@ -49,6 +80,30 @@ describe('allowlist validation', () => {
 	it('accepts stable failure code on binary_setup_failed', () => {
 		setupAnalytics(undefined, undefined, true, 'install-id-test')
 		expect(() => trackMain('binary_setup_failed', {binary: 'ffmpeg', phase: 'download_failed', code: 'ARX-001', operation: 'managed-download', setup_step: 'download', source_kind: 'managed', source_channel: 'nightly', elapsed_ms: 123})).not.toThrow()
+	})
+
+	it('allowlists every analytics event literal emitted from source', async () => {
+		setupAnalytics(undefined, undefined, true, 'install-id-test')
+		const names = await sourceAnalyticsEventNames()
+		expect(names.length).toBeGreaterThan(10)
+		const rejected = names.filter(name => {
+			try {
+				trackMain(name)
+				return false
+			} catch {
+				return true
+			}
+		})
+		expect(rejected).toEqual([])
+	})
+
+	it('accepts feedback analytics props emitted by the renderer', () => {
+		setupAnalytics(undefined, undefined, true, 'install-id-test')
+		const reportId = '123e4567-e89b-42d3-a456-426614174000'
+		expect(() => trackMain('feedback_submitted', {report_id: reportId, diagnostic_report_created: true})).not.toThrow()
+		expect(() => trackMain('feedback_diagnostic_uploaded', {report_id: reportId, raw_bytes: 42, compressed_bytes: 31, truncated: false})).not.toThrow()
+		expect(() => trackMain('feedback_open_failed', {report_id: reportId, message: 'x'.repeat(160)})).not.toThrow()
+		expect(() => trackMain('feedback_diagnostic_upload_failed', {report_id: reportId, message: 'x'.repeat(160)})).not.toThrow()
 	})
 })
 

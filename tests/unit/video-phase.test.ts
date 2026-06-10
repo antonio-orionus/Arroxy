@@ -7,7 +7,7 @@ import {VideoPhase} from '@main/services/phases/VideoPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
-import type {DownloadJob, StartDownloadInput} from '@shared/types.js'
+import type {DownloadJob, QueueResumeContext, StartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 import type {YtDlpResult} from '@main/services/YtDlp.js'
 
@@ -53,6 +53,10 @@ function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload
 const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false}
 const SUCCESS_FALLBACK: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: true}
 const EXIT_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'botBlock', rawError: 'bot', stdout: '', stderr: ''}
+const NETWORK_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'network', rawError: 'read reset', stdout: '', stderr: ''}
+const RATE_LIMIT_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'rateLimit', rawError: 'rate limited', stdout: '', stderr: ''}
+const POSTPROCESS_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'postprocessFailure', rawError: 'Postprocessing: Conversion failed!', stdout: '', stderr: ''}
+const DISK_FULL_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'outOfDiskSpace', rawError: 'No space left on device', stdout: '', stderr: ''}
 const SPONSORBLOCK_API_ERROR: YtDlpResult = {
 	kind: 'exit-error',
 	exitCode: 1,
@@ -95,6 +99,53 @@ describe('VideoPhase(embed=false)', () => {
 		expect(outcome.kind).toBe('hard-failed')
 		if (outcome.kind === 'hard-failed') expect(outcome.error.kind).toBe('botBlock')
 		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('error', expect.any(String), expect.any(Object), expect.objectContaining({kind: 'botBlock'}))
+	})
+
+	it('media transfer failure after media starts returns resume context', async () => {
+		const tempDir = '/tmp/arroxy-resume-media'
+		const ctx = makeCtx(NETWORK_ERROR, {tempDir, mediaDownloadStarted: true, mediaComponentPaths: [`${tempDir}/video.f137.webm.part`, `${tempDir}/video.f251.m4a.part`]})
+
+		const outcome = await VideoPhase(false).run(ctx)
+
+		const expected: QueueResumeContext = {kind: 'media-retry', tempDir, reason: 'media-transfer', failureKind: 'network'}
+		expect(outcome.kind).toBe('hard-failed')
+		if (outcome.kind === 'hard-failed') expect(outcome.resumeContext).toEqual(expected)
+		expect(ctx.active.resumeContext).toEqual(expected)
+		expect(ctx.emitStatus).toHaveBeenCalledWith('error', expect.any(String), expect.any(Object), expect.objectContaining({kind: 'network'}), expected)
+	})
+
+	it('rate-limit media failures preserve split component resume context', async () => {
+		const tempDir = '/tmp/arroxy-resume-rate'
+		const ctx = makeCtx(RATE_LIMIT_ERROR, {tempDir, mediaDownloadStarted: true, mediaComponentPaths: [`${tempDir}/video.f137.webm.part`, `${tempDir}/video.f251.m4a.part`]})
+
+		const outcome = await VideoPhase(false).run(ctx)
+
+		expect(outcome.kind).toBe('hard-failed')
+		if (outcome.kind === 'hard-failed') expect(outcome.resumeContext).toMatchObject({kind: 'media-retry', tempDir, reason: 'media-transfer', failureKind: 'rateLimit'})
+	})
+
+	it('postprocess and disk-full failures after media acquisition preserve postprocess resume context', async () => {
+		for (const failure of [POSTPROCESS_ERROR, DISK_FULL_ERROR]) {
+			const tempDir = `/tmp/arroxy-resume-${failure.errorKind}`
+			const ctx = makeCtx(failure, {tempDir, mediaDownloadStarted: true, mediaComponentPaths: [`${tempDir}/video.f137.webm`], mediaPath: `${tempDir}/video.webm`, mediaPostprocessStarted: true})
+
+			const outcome = await VideoPhase(false).run(ctx)
+
+			expect(outcome.kind).toBe('hard-failed')
+			if (outcome.kind === 'hard-failed') expect(outcome.resumeContext).toMatchObject({kind: 'media-retry', tempDir, reason: 'postprocess', failureKind: failure.errorKind})
+		}
+	})
+
+	it('auth/content failures and pre-media network failures do not preserve resume context', async () => {
+		for (const failure of [EXIT_ERROR, NETWORK_ERROR]) {
+			const ctx = makeCtx(failure, {tempDir: '/tmp/arroxy-non-resumable'})
+
+			const outcome = await VideoPhase(false).run(ctx)
+
+			expect(outcome.kind).toBe('hard-failed')
+			if (outcome.kind === 'hard-failed') expect(outcome.resumeContext).toBeUndefined()
+			expect(ctx.active.resumeContext).toBeUndefined()
+		}
 	})
 
 	it('SponsorBlock API failure → continues without failing the downloaded media', async () => {
@@ -243,20 +294,14 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		await rm(outputDir, {recursive: true, force: true})
 	})
 
-	function makeRealCtx(activeOverrides: Partial<ActiveDownload>): PhaseContext & {runMock: ReturnType<typeof vi.fn>} {
+	function makeRealCtx(activeOverrides: Partial<ActiveDownload>, runResult: YtDlpResult = SUCCESS): PhaseContext & {runMock: ReturnType<typeof vi.fn>} {
 		const job = makeJob()
 		job.outputDir = outputDir
 		const input: StartDownloadInput = {...BASE_INPUT, outputDir, job: BASE_JOB}
-		const runMock = vi.fn().mockResolvedValue(SUCCESS)
+		const runMock = vi.fn().mockResolvedValue(runResult)
 		const realController = new AbortController()
-		const ctx: PhaseContext = {
-			active: {job, input, controller: realController, signal: realController.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], disposables: new AsyncStack(), ...activeOverrides},
-			signal: realController.signal,
-			register: () => undefined,
-			ytDlp: {run: runMock} as never,
-			emitStatus: vi.fn(),
-			safeConsume: vi.fn()
-		}
+		const active: ActiveDownload = {job, input, controller: realController, signal: realController.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], disposables: new AsyncStack(), ...activeOverrides}
+		const ctx: PhaseContext = {active, signal: realController.signal, register: disposable => active.disposables.defer(disposable), ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
 		return Object.assign(ctx, {runMock})
 	}
 
@@ -330,6 +375,35 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 
 		expect(outcome.kind).toBe('continue')
 		await expect(access(expectedTempDir)).resolves.toBeUndefined()
+	})
+
+	it('resumable media failure preserves temp dir when disposables drain', async () => {
+		const expectedTempDir = join(outputDir, '.arroxy-temp', 'job-1'.slice(0, 8))
+		await mkdir(expectedTempDir, {recursive: true})
+		const partFile = join(expectedTempDir, 'video.f137.webm.part')
+		await writeFile(partFile, 'partial-bytes')
+
+		const ctx = makeRealCtx({tempDir: expectedTempDir, mediaDownloadStarted: true, mediaComponentPaths: [partFile]}, NETWORK_ERROR)
+		const outcome = await VideoPhase(false).run(ctx)
+		await ctx.active.disposables[Symbol.asyncDispose]()
+
+		expect(outcome.kind).toBe('hard-failed')
+		await expect(access(partFile)).resolves.toBeUndefined()
+		expect(ctx.active.resumeContext?.tempDir).toBe(expectedTempDir)
+	})
+
+	it('non-resumable failure deletes temp dir when disposables drain', async () => {
+		const expectedTempDir = join(outputDir, '.arroxy-temp', 'job-1'.slice(0, 8))
+		await mkdir(expectedTempDir, {recursive: true})
+		const partFile = join(expectedTempDir, 'video.f137.webm.part')
+		await writeFile(partFile, 'partial-bytes')
+
+		const ctx = makeRealCtx({tempDir: expectedTempDir, mediaDownloadStarted: true, mediaComponentPaths: [partFile]}, EXIT_ERROR)
+		const outcome = await VideoPhase(false).run(ctx)
+		await ctx.active.disposables[Symbol.asyncDispose]()
+
+		expect(outcome.kind).toBe('hard-failed')
+		await expect(access(expectedTempDir)).rejects.toThrow()
 	})
 })
 

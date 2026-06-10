@@ -1,23 +1,25 @@
 import {describe, expect, it} from 'vitest'
 import {transition, illegalTransition, type QueueEvent} from '@shared/queueTransition.js'
-import type {QueueItem} from '@shared/types.js'
+import type {QueueItem, QueueResumeContext} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
 const PREPARED: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', preset: 'custom', sponsorBlock: SB_OFF, embed: EMBED_OFF}
+const RESUME_CONTEXT: QueueResumeContext = {kind: 'media-retry', tempDir: '/tmp/.arroxy-temp/resume', reason: 'media-transfer', failureKind: 'network'}
 
 function makeItem(overrides: Partial<QueueItem> = {}): QueueItem {
 	return {id: 'q-1', url: 'https://www.youtube.com/watch?v=test', title: 'Test', thumbnail: '', outputDir: '/tmp', formatLabel: '720p mp4', status: 'pending', lane: 'normal', progressPercent: 0, progressDetail: null, lastStatus: null, error: null, finishedAt: null, writeM3u: true, job: PREPARED, ...overrides}
 }
 
 describe('transition', () => {
-	it('started → status=running + clears error + records lastJobId', () => {
-		const start = makeItem({status: 'pending', error: {kind: 'unknown', raw: 'prev'}})
+	it('started → status=running + clears error/resume context + records lastJobId', () => {
+		const start = makeItem({status: 'pending', error: {kind: 'unknown', raw: 'prev'}, resumeContext: RESUME_CONTEXT})
 		const next = transition(start, {kind: 'started', lastJobId: 'job-9'})
 		expect(next.status).toBe('running')
 		expect(next.lastJobId).toBe('job-9')
 		expect(next.error).toBeNull()
+		expect(next.resumeContext).toBeUndefined()
 	})
 
 	it('progress updates percent + detail without changing status', () => {
@@ -43,48 +45,60 @@ describe('transition', () => {
 		expect(next.progressDetail).toBeNull()
 	})
 
-	it('resumed → status=running + clears error', () => {
-		const start = makeItem({status: 'paused-active', error: {kind: 'network', raw: 'fail'}})
+	it('resumed → status=running + clears error/resume context', () => {
+		const start = makeItem({status: 'paused-active', error: {kind: 'network', raw: 'fail'}, resumeContext: RESUME_CONTEXT})
 		const next = transition(start, {kind: 'resumed'})
 		expect(next.status).toBe('running')
 		expect(next.error).toBeNull()
+		expect(next.resumeContext).toBeUndefined()
 	})
 
-	it('failed → status=error + records error + clears lastJobId/tempDir', () => {
+	it('failed → status=error + records error/resume context + clears lastJobId/tempDir', () => {
 		const start = makeItem({status: 'running', lastJobId: 'job-9', tempDir: '/tmp/x'})
-		const next = transition(start, {kind: 'failed', error: {kind: 'botBlock', raw: 'sign-in'}})
+		const next = transition(start, {kind: 'failed', error: {kind: 'network', raw: 'read reset'}, resumeContext: RESUME_CONTEXT})
 		expect(next.status).toBe('error')
-		expect(next.error?.kind).toBe('botBlock')
+		expect(next.error?.kind).toBe('network')
 		expect(next.lastJobId).toBeUndefined()
 		expect(next.tempDir).toBeUndefined()
+		expect(next.resumeContext).toEqual(RESUME_CONTEXT)
 	})
 
-	it('completed → status=done + percent=100 + finishedAt + clears lastJobId/tempDir', () => {
-		const start = makeItem({status: 'running', progressPercent: 99, lastJobId: 'job-9'})
+	it('failed without resume context clears any stale resume context', () => {
+		const start = makeItem({status: 'running', lastJobId: 'job-9', tempDir: '/tmp/x', resumeContext: RESUME_CONTEXT})
+		const next = transition(start, {kind: 'failed', error: {kind: 'botBlock', raw: 'sign-in'}})
+		expect(next.status).toBe('error')
+		expect(next.resumeContext).toBeUndefined()
+	})
+
+	it('completed → status=done + percent=100 + finishedAt + clears lastJobId/tempDir/resume context', () => {
+		const start = makeItem({status: 'running', progressPercent: 99, lastJobId: 'job-9', resumeContext: RESUME_CONTEXT})
 		const finishedAt = '2026-05-09T12:00:00.000Z'
 		const next = transition(start, {kind: 'completed', finishedAt})
 		expect(next.status).toBe('done')
 		expect(next.progressPercent).toBe(100)
 		expect(next.finishedAt).toBe(finishedAt)
 		expect(next.lastJobId).toBeUndefined()
+		expect(next.resumeContext).toBeUndefined()
 	})
 
-	it('cancelled → status=cancelled + clears lastJobId/tempDir', () => {
-		const start = makeItem({status: 'running', lastJobId: 'job-9', tempDir: '/tmp/x'})
+	it('cancelled → status=cancelled + clears lastJobId/tempDir/resume context', () => {
+		const start = makeItem({status: 'running', lastJobId: 'job-9', tempDir: '/tmp/x', resumeContext: RESUME_CONTEXT})
 		const next = transition(start, {kind: 'cancelled'})
 		expect(next.status).toBe('cancelled')
 		expect(next.lastJobId).toBeUndefined()
 		expect(next.tempDir).toBeUndefined()
+		expect(next.resumeContext).toBeUndefined()
 	})
 
-	it('retry-reset → status=pending + clears error/finishedAt/lastJobId/tempDir', () => {
-		const start = makeItem({status: 'error', error: {kind: 'unknown', raw: 'fail'}, finishedAt: 'before', lastJobId: 'job-old', tempDir: '/tmp/old'})
+	it('retry-reset → status=pending + clears error/finishedAt/lastJobId/tempDir while preserving resume context', () => {
+		const start = makeItem({status: 'error', error: {kind: 'unknown', raw: 'fail'}, finishedAt: 'before', lastJobId: 'job-old', tempDir: '/tmp/old', resumeContext: RESUME_CONTEXT})
 		const next = transition(start, {kind: 'retry-reset'})
 		expect(next.status).toBe('pending')
 		expect(next.error).toBeNull()
 		expect(next.finishedAt).toBeNull()
 		expect(next.lastJobId).toBeUndefined()
 		expect(next.tempDir).toBeUndefined()
+		expect(next.resumeContext).toEqual(RESUME_CONTEXT)
 	})
 })
 

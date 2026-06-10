@@ -4,20 +4,18 @@ import {dedupeSubtitleFiles, muxSubtitlesIntoVideo, logger} from '../subtitlePos
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal} from './phaseHelpers.js'
 
-async function runEmbedMux(ctx: PhaseContext): Promise<void> {
+async function runEmbedMux(ctx: PhaseContext): Promise<boolean> {
 	const {active, ytDlp} = ctx
 	const {job, input} = active
 
 	const ffmpegPath = ytDlp.ffmpegPath
 	if (!ffmpegPath) {
 		logger.warn('embed-mux skipped — ffmpeg not available', {jobId: job.id})
-		ctx.emitStatus('download', STATUS_KEY.subtitlesFailed)
-		return
+		return false
 	}
 	if (!active.mediaPath || active.subtitlePaths.length === 0) {
 		logger.warn('embed-mux: missing video or sub paths', {jobId: job.id, videoPath: active.mediaPath, subCount: active.subtitlePaths.length})
-		ctx.emitStatus('download', STATUS_KEY.subtitlesFailed)
-		return
+		return false
 	}
 
 	ctx.emitStatus('download', STATUS_KEY.mergingFormats)
@@ -25,23 +23,32 @@ async function runEmbedMux(ctx: PhaseContext): Promise<void> {
 	const preparedJob = input.job
 	const subtitleLanguages = preparedJob.kind !== 'subtitle-only' ? (preparedJob.subtitles?.languages ?? []) : []
 
-	const result = await muxSubtitlesIntoVideo({
-		ffmpegPath,
-		videoPath: active.mediaPath,
-		subtitlePaths: active.subtitlePaths,
-		requestedLangs: subtitleLanguages,
-		onSpawn: proc => {
-			active.ffmpegProcess = proc
-			if (active.cancelRequested) proc.kill('SIGKILL')
-			ctx.register(() => {
-				proc.kill('SIGKILL')
-			})
-		},
-		jobId: job.id
-	})
-	active.ffmpegProcess = undefined
+	let result: Awaited<ReturnType<typeof muxSubtitlesIntoVideo>>
+	try {
+		result = await muxSubtitlesIntoVideo({
+			ffmpegPath,
+			videoPath: active.mediaPath,
+			subtitlePaths: active.subtitlePaths,
+			requestedLangs: subtitleLanguages,
+			onSpawn: proc => {
+				active.ffmpegProcess = proc
+				if (active.cancelRequested) proc.kill('SIGKILL')
+				ctx.register(() => {
+					proc.kill('SIGKILL')
+				})
+			},
+			jobId: job.id
+		})
+	} catch (err) {
+		logger.warn('embed-mux failed unexpectedly', {jobId: job.id, message: err instanceof Error ? err.message : String(err)})
+		return false
+	} finally {
+		active.ffmpegProcess = undefined
+	}
 
-	if (result.ok && result.outputPath) active.mediaPath = result.outputPath
+	if (!result.ok || !result.outputPath) return false
+	active.mediaPath = result.outputPath
+	return true
 }
 
 export function SidecarSubsPhase(embedAfter: boolean): Phase {
@@ -82,8 +89,10 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			}
 
 			if (embedAfter) {
-				await runEmbedMux(ctx)
+				const muxOk = await runEmbedMux(ctx)
 				if (active.pauseRequested) return {kind: 'paused'}
+				if (active.cancelRequested) return {kind: 'cancelled'}
+				if (!muxOk) return {kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed}
 			}
 
 			return {kind: 'completed'}

@@ -102,7 +102,10 @@
 			"quickSingleOnly": "Collez une URL de vidéo, playlist, chaîne ou recherche pour commencer.",
 			"quickProbeFailed": "Analyse échouée",
 			"quickPrepareFailed": "Impossible de préparer l’élément de file",
+			"quickBulkAllFailed": "Aucune de ces URL n’a pu être préparée",
 			"quickFailed": "Impossible d’ajouter cet élément : {{error}}",
+			"quickPartialFailed_one": "Ce qui a fonctionné a été ajouté à la file. {{count}} URL n’a pas pu être préparée.",
+			"quickPartialFailed_other": "Ce qui a fonctionné a été ajouté à la file. {{count}} URL n’ont pas pu être préparées.",
 			"bulkButton": "URLs en lot",
 			"bulkTooltip": "Ajoutez plusieurs URLs et placez-les dans la file.",
 			"features": {
@@ -180,6 +183,16 @@
 			},
 			"closeToTray": {"toggle": "Masquer dans la barre des tâches à la fermeture", "toggleDescription": "Continuer les téléchargements en arrière-plan après la fermeture de la fenêtre."},
 			"analytics": {"toggle": "Envoyer des statistiques d'utilisation anonymes", "toggleDescription": "Compte uniquement les lancements de l'application. Aucune URL, nom de fichier ou donnée personnelle."}
+		},
+		"quickProgress": {
+			"title": "Préparation du téléchargement rapide",
+			"description": "Arroxy lit le lien et applique {{profileName}}.",
+			"currentFallback": "Lien actuel",
+			"waitHint": "Garde cette fenêtre ouverte pendant qu’Arroxy prépare la file.",
+			"failedCount_one": "{{count}} échec",
+			"failedCount_other": "{{count}} échecs",
+			"cancel": "Annuler la préparation",
+			"phase": {"probing": "Récupération des détails", "queueing": "Ajout à la file"}
 		},
 		"subtitles": {
 			"autoBadge": "Auto",

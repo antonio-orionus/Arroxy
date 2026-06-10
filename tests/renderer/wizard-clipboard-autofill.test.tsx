@@ -237,7 +237,7 @@ describe('bulk URL dialog', () => {
 		fireEvent.click(screen.getByTestId('profiles-bulk-urls'))
 
 		const confirm = screen.getByTestId('bulk-url-confirm')
-		const quickConfirm = screen.getByTestId('bulk-url-quick-confirm')
+		const quickConfirm = screen.getByTestId('bulk-quick-download')
 		expect(confirm).toBeDisabled()
 		expect(quickConfirm).toBeDisabled()
 

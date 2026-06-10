@@ -1,0 +1,26 @@
+{
+	"playlist": {"id": "PLarroxyfixture", "title": "Fixture Playlist", "videoIds": ["ARX00000001", "ARX00000002", "ARX00000003"]},
+	"videos": [
+		{"id": "ARX00000001", "number": 1, "formatSet": "muxed"},
+		{"id": "ARX00000002", "number": 2, "formatSet": "muxed"},
+		{"id": "ARX00000003", "number": 3, "formatSet": "muxed"},
+		{"id": "ARX00000004", "number": 4, "formatSet": "muxed"},
+		{"id": "ARX00000005", "number": 5, "formatSet": "muxed"},
+		{"id": "ARX00000006", "number": 6, "formatSet": "muxed"},
+		{"id": "ARX00000007", "number": 7, "formatSet": "muxed"},
+		{"id": "ARX00000008", "number": 8, "formatSet": "muxed"},
+		{"id": "ARX00000009", "number": 9, "formatSet": "muxed"},
+		{"id": "ARX00000010", "number": 10, "formatSet": "muxed"},
+		{"id": "ARX00000011", "number": 11, "formatSet": "split"}
+	],
+	"formatSets": {
+		"muxed": [
+			{"id": "18", "note": "360p fixture mp4", "ext": "mp4", "contentType": "video/mp4", "mediaKind": "generated-muxed", "width": 640, "height": 360, "fps": 30, "tbr": 800, "filesize": 262144, "vcodec": "avc1.42001E", "acodec": "mp4a.40.2"},
+			{"id": "22", "note": "720p fixture mp4", "ext": "mp4", "contentType": "video/mp4", "mediaKind": "generated-muxed", "width": 1280, "height": 720, "fps": 30, "tbr": 1500, "filesize": 524288, "vcodec": "avc1.64001F", "acodec": "mp4a.40.2"}
+		],
+		"split": [
+			{"id": "137", "note": "1080p split fixture mp4", "ext": "mp4", "contentType": "video/mp4", "mediaKind": "generated-split-video", "width": 64, "height": 64, "fps": 1, "tbr": 300, "filesize": 2444, "vcodec": "avc1.64000A", "acodec": "none"},
+			{"id": "140", "note": "audio fixture m4a", "ext": "m4a", "contentType": "audio/mp4", "mediaKind": "generated-split-audio", "abr": 64, "filesize": 9393, "vcodec": "none", "acodec": "mp4a.40.2"}
+		]
+	}
+}

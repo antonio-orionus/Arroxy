@@ -1,5 +1,6 @@
 import {expect, test} from '@playwright/test'
-import {FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
+import fs from 'node:fs'
+import {FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, isMediaRequestFor, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
@@ -85,6 +86,46 @@ test('Electron media failure can be retried to a completed output file', async (
 		const mediaRequests = fixtureServer.telemetry().requests.filter(request => isMediaRequestFor(videoId, request))
 		expect(mediaRequests.some(request => request.status === 503)).toBe(true)
 		expect(mediaRequests.length).toBeGreaterThan(1)
+	})
+})
+
+test('Electron split media failure preserves temp artifacts and retries from resume context', async () => {
+	test.setTimeout(180_000)
+	const videoId = SPLIT_MEDIA_VIDEO_ID
+	const title = 'Fixture Video 11'
+
+	await withFixtureProductApp({behavior: {mediaFormatTruncateIds: [`${videoId}:140`]}, userDataPrefix: 'arroxy-fixture-split-resume-user-', outputPrefix: 'arroxy-fixture-split-resume-out-'}, async ({page, fixtureServer, queue, files}) => {
+		await prepareSingleConfirm(page, videoId)
+		await page.locator('[data-testid="btn-download-now"]').click()
+		await queue.expectStatus(title, 'error', 120_000)
+
+		const failedItem = await page.evaluate(async itemTitle => {
+			const result = await window.appApi.queue.cmd.getSnapshot()
+			if (!result.ok) throw new Error(result.error.message)
+			return result.data.find(item => item.title === itemTitle) ?? null
+		}, title)
+		expect(failedItem?.resumeContext).toMatchObject({kind: 'media-retry', reason: 'media-transfer'})
+		const tempDir = failedItem?.resumeContext?.tempDir
+		expect(typeof tempDir).toBe('string')
+		if (!tempDir) throw new Error('expected resumable failed item to expose tempDir')
+		expect(fs.existsSync(tempDir)).toBe(true)
+		expect(files.listRecursive(tempDir).length).toBeGreaterThan(0)
+
+		fixtureServer.setBehavior({})
+		await queue.cardByTitle(title).getByTestId('btn-retry').click()
+		await queue.expectStatus(title, 'done', 120_000)
+
+		expect(fs.existsSync(tempDir)).toBe(false)
+		const outputs = files.mediaFiles('.mp4')
+		expect(outputs).toHaveLength(1)
+		expect(fs.statSync(outputs[0]).size).toBeGreaterThan(8_000)
+		const mediaGets = fixtureServer
+			.telemetry()
+			.requests.filter(request => isMediaRequestFor(videoId, request))
+			.filter(request => request.method === 'GET')
+		expect(mediaGets.filter(request => request.formatId === '137' && request.status === 200)).toHaveLength(1)
+		expect(mediaGets.some(request => request.formatId === '140' && request.status === 599)).toBe(true)
+		expect(mediaGets.some(request => request.formatId === '140' && request.status === 200)).toBe(true)
 	})
 })
 

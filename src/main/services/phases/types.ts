@@ -1,5 +1,5 @@
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
-import type {DownloadJob, LocalizedError, StartDownloadInput, StatusEvent, StatusKey} from '@shared/types.js'
+import type {DownloadJob, LocalizedError, QueueResumeContext, StartDownloadInput, StatusEvent, StatusKey} from '@shared/types.js'
 import type {YtDlp} from '../YtDlp.js'
 
 export type Disposable = () => Promise<void> | void
@@ -45,9 +45,13 @@ export interface ActiveJob {
 	mockTimer?: NodeJS.Timeout
 	currentFileKind?: 'subtitle' | 'media'
 	subtitlePaths: string[]
+	mediaDownloadStarted?: boolean
+	mediaComponentPaths?: string[]
 	mediaPath?: string
+	mediaPostprocessStarted?: boolean
 	usedExtractorFallback?: boolean
 	tempDir?: string
+	resumeContext?: QueueResumeContext
 	postProcEmitted?: Partial<Record<'extractingAudio' | 'convertingVideo' | 'embeddingMetadata' | 'movingFiles', true>>
 }
 
@@ -62,7 +66,7 @@ export interface PausedDownload {
 	tempDir?: string
 }
 
-export type PhaseOutcome = {kind: 'continue'} | {kind: 'completed'} | {kind: 'soft-failed'; status: StatusKey} | {kind: 'hard-failed'; error: LocalizedError} | {kind: 'cancelled'} | {kind: 'paused'}
+export type PhaseOutcome = {kind: 'continue'} | {kind: 'completed'} | {kind: 'soft-failed'; status: StatusKey} | {kind: 'hard-failed'; error: LocalizedError; resumeContext?: QueueResumeContext} | {kind: 'cancelled'} | {kind: 'paused'}
 
 export interface Phase {
 	readonly kind: string
@@ -79,7 +83,7 @@ export interface PhaseContext {
 	active: ActiveJob
 	signal: AbortSignal
 	ytDlp: YtDlp
-	emitStatus(stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError): void
+	emitStatus(stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError, resumeContext?: QueueResumeContext): void
 	register(disposable: Disposable): void
 	safeConsume(text: string): void
 }

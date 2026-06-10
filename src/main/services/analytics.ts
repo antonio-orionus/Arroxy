@@ -38,10 +38,15 @@ const ALLOWED: Record<string, readonly string[]> = {
 	share_destination_clicked: ['destination'],
 	share_link_copied: [],
 	share_inline_card_dismissed: [],
-	share_prompt_dismissed: ['via']
+	share_prompt_dismissed: ['via'],
+	feedback_submitted: ['report_id', 'diagnostic_report_created'],
+	feedback_open_failed: ['report_id', 'message'],
+	feedback_diagnostic_uploaded: ['report_id', 'raw_bytes', 'compressed_bytes', 'truncated'],
+	feedback_diagnostic_upload_failed: ['report_id', 'message']
 }
 
 const MAX_STR = 32
+const MAX_STR_BY_PROP: Record<string, number> = {message: 160, report_id: 64}
 
 function mapOperatingSystem(platform: NodeJS.Platform): string {
 	if (platform === 'darwin') return 'macOS'
@@ -190,8 +195,9 @@ export function trackMain(name: string, props?: Props): boolean {
 				if (_dev) throw new Error(`[analytics] prop "${k}" not allowed on event "${name}"`)
 				return false
 			}
-			if (typeof v === 'string' && v.length > MAX_STR) {
-				if (_dev) throw new Error(`[analytics] prop "${k}" value too long (${v.length} > ${MAX_STR})`)
+			const maxStringLength = MAX_STR_BY_PROP[k] ?? MAX_STR
+			if (typeof v === 'string' && v.length > maxStringLength) {
+				if (_dev) throw new Error(`[analytics] prop "${k}" value too long (${v.length} > ${maxStringLength})`)
 				return false
 			}
 		}

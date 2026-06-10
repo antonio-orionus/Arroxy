@@ -8,7 +8,7 @@ import {EventEmitter} from 'node:events'
 import {QueueService} from '@main/services/QueueService.js'
 import {QueueStore} from '@main/stores/QueueStore.js'
 import type {DownloadService} from '@main/services/DownloadService.js'
-import type {StatusEvent, ProgressEvent} from '@shared/types.js'
+import type {QueueResumeContext, StatusEvent, ProgressEvent} from '@shared/types.js'
 import {ok, fail} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {makeItem} from '../shared/fixtures.js'
@@ -38,6 +38,8 @@ function errorStatus(jobId: string): StatusEvent {
 	return {jobId, stage: 'error', statusKey: 'ytdlpProcessError', at: new Date().toISOString(), error: {kind: 'unknown', raw: 'yt-dlp exited 1'}}
 }
 
+const RESUME_CONTEXT: QueueResumeContext = {kind: 'media-retry', tempDir: '/tmp/.arroxy-temp/resume', reason: 'media-transfer', failureKind: 'network'}
+
 function progressEvent(jobId: string, percent: number): ProgressEvent {
 	return {jobId, percent, line: `${percent}%`, at: new Date().toISOString()}
 }
@@ -63,6 +65,17 @@ describe('QueueService — downloadService listener path', () => {
 		const [item] = qs.snapshot()
 		expect(item.status).toBe('error')
 		expect(item.error).not.toBeNull()
+	})
+
+	it('downloadService emitting resumable media error stores resume context on the failed item', () => {
+		const {qs, ds} = makeService()
+		qs.add([makeItem({id: 'q-resume', status: 'running', lastJobId: 'job-resume'})])
+
+		ds.emit('status', {...errorStatus('job-resume'), error: {kind: 'network', raw: 'read reset'}, resumeContext: RESUME_CONTEXT} satisfies StatusEvent)
+
+		const [item] = qs.snapshot()
+		expect(item.status).toBe('error')
+		expect(item.resumeContext).toEqual(RESUME_CONTEXT)
 	})
 
 	it('downloadService emitting progress → item progressPercent updated', () => {
@@ -330,7 +343,24 @@ describe('QueueService — bulk persist coalescing', () => {
 		expect(qs.snapshot().every(i => i.status === 'cancelled')).toBe(true)
 	})
 
-	it('clearCompleted persists once regardless of item count', () => {
+	it('cancelAll cleans preserved resume temp dirs on pending retried items', async () => {
+		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-resume-cancel-all-'))
+		await fs.writeFile(path.join(tempDir, 'video.part'), 'partial')
+		const pending = makeItem({id: 'pending-resume', status: 'pending', resumeContext: {...RESUME_CONTEXT, tempDir}})
+		const store: QueueStore = {load: vi.fn().mockResolvedValue(ok({items: [pending], schedulerPaused: true})), save: vi.fn().mockResolvedValue(ok(undefined))} as unknown as QueueStore
+		const ds = new FakeDownloadService()
+		ds.cancel.mockResolvedValue(ok({cancelled: false}))
+		const qs = new QueueService(store, ds as unknown as DownloadService)
+		await qs.init()
+
+		const result = await qs.cancel(null)
+
+		expect(result.ok).toBe(true)
+		expect(qs.snapshot()[0].status).toBe('cancelled')
+		await expect(fs.access(tempDir)).rejects.toThrow()
+	})
+
+	it('clearCompleted persists once regardless of item count', async () => {
 		const store = fakeStore()
 		const saveSpy = vi.mocked(store.save)
 		const ds = new FakeDownloadService()
@@ -339,13 +369,13 @@ describe('QueueService — bulk persist coalescing', () => {
 		qs.add(items)
 		const baselineCalls = saveSpy.mock.calls.length
 
-		qs.clearCompleted()
+		await qs.clearCompleted()
 
 		expect(saveSpy.mock.calls.length - baselineCalls).toBe(1)
 		expect(qs.snapshot()).toHaveLength(0)
 	})
 
-	it('clearCompleted with no eligible items does not persist', () => {
+	it('clearCompleted with no eligible items does not persist', async () => {
 		const store = fakeStore()
 		const saveSpy = vi.mocked(store.save)
 		const ds = new FakeDownloadService()
@@ -353,9 +383,34 @@ describe('QueueService — bulk persist coalescing', () => {
 		qs.add([makeItem({id: 'q-1', status: 'pending'})])
 		const baselineCalls = saveSpy.mock.calls.length
 
-		qs.clearCompleted()
+		await qs.clearCompleted()
 
 		expect(saveSpy.mock.calls.length - baselineCalls).toBe(0)
+	})
+
+	it('remove cleans preserved resume temp dir', async () => {
+		const {qs} = makeService()
+		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-resume-remove-'))
+		await fs.writeFile(path.join(tempDir, 'video.part'), 'partial')
+		qs.add([makeItem({id: 'remove-resume', status: 'error', error: {kind: 'network', raw: 'fail'}, resumeContext: {...RESUME_CONTEXT, tempDir}})])
+
+		const result = await qs.remove('remove-resume')
+
+		expect(result.ok).toBe(true)
+		await expect(fs.access(tempDir)).rejects.toThrow()
+	})
+
+	it('clearCompleted cleans preserved resume temp dirs on failed items', async () => {
+		const {qs} = makeService()
+		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-resume-clear-'))
+		await fs.writeFile(path.join(tempDir, 'video.part'), 'partial')
+		qs.add([makeItem({id: 'clear-resume', status: 'error', error: {kind: 'network', raw: 'fail'}, resumeContext: {...RESUME_CONTEXT, tempDir}})])
+
+		const result = await qs.clearCompleted()
+
+		expect(result.ok).toBe(true)
+		expect(qs.snapshot()).toHaveLength(0)
+		await expect(fs.access(tempDir)).rejects.toThrow()
 	})
 })
 

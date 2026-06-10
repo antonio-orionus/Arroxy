@@ -102,7 +102,10 @@
 			"quickSingleOnly": "Jalqabuuf URL viidiyoo, playlist, channel, yookiin barbaacha maxxansi.",
 			"quickProbeFailed": "Sakatta’iinsi hin milkoofne",
 			"quickPrepareFailed": "Wantoota tarree qopheessuu hin dandeenye",
+			"quickBulkAllFailed": "URL kanniin keessaa tokko illee qopheessuun hin danda’amne",
 			"quickFailed": "Kana dabaluun hin danda’amne: {{error}}",
+			"quickPartialFailed_one": "Kan hojjete tarreetti dabalame. URL {{count}} qopheessuun hin danda’amne.",
+			"quickPartialFailed_other": "Kan hojjete tarreetti dabalame. URL {{count}} qopheessuun hin danda’amne.",
 			"bulkButton": "URL hedduu",
 			"bulkTooltip": "URL hedduu dabaliitii tarree buusutti galchi.",
 			"features": {
@@ -180,6 +183,16 @@
 			},
 			"closeToTray": {"toggle": "Cufuun dura tiiree dhoksi", "toggleDescription": "Daawniloodii booda gubbaan cufamuu itti fufi."},
 			"analytics": {"toggle": "Tilastoo faayidaa maqaa-malee ergaa", "toggleDescription": "Jalqabbii app qofa lakkaawa. URL, maqaa faayilii, ykn daataa dhuunfaa hin qabatu."}
+		},
+		"quickProgress": {
+			"title": "Buufata saffisaa qopheessaa jira",
+			"description": "Arroxy hidhaa dubbisaa jira, {{profileName}} immoo fayyadamaa jira.",
+			"currentFallback": "Hidha ammaa",
+			"waitHint": "Arroxy tarree qopheessaa jiru kana banaa dhiisi.",
+			"failedCount_one": "{{count}} hin milkoofne",
+			"failedCount_other": "{{count}} hin milkoofne",
+			"cancel": "Qophii haqi",
+			"phase": {"probing": "Ibsa fidaa jira", "queueing": "Tarreetti dabalaa jira"}
 		},
 		"subtitles": {
 			"autoBadge": "Ofumaa",

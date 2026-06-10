@@ -93,7 +93,10 @@
 			"quickSingleOnly": "Paste a video, playlist, channel, or search URL to get started.",
 			"quickProbeFailed": "Probe failed",
 			"quickPrepareFailed": "Queue item could not be prepared",
+			"quickBulkAllFailed": "None of those URLs could be prepared",
 			"quickFailed": "Couldn't add this one: {{error}}",
+			"quickPartialFailed_one": "Queued what worked. {{count}} URL could not be prepared.",
+			"quickPartialFailed_other": "Queued what worked. {{count}} URLs could not be prepared.",
 			"bulkButton": "Bulk URLs",
 			"bulkTooltip": "Add and queue multiple URLs.",
 			"features": {
@@ -171,6 +174,16 @@
 			},
 			"closeToTray": {"toggle": "Hide to tray on close", "toggleDescription": "Continue downloads in the background after closing the window."},
 			"analytics": {"toggle": "Send anonymous usage stats", "toggleDescription": "Counts app launches only. No URLs, filenames, or personal data."}
+		},
+		"quickProgress": {
+			"title": "Preparing Quick Download",
+			"description": "Arroxy is reading the link and applying {{profileName}}.",
+			"currentFallback": "Current link",
+			"waitHint": "Keep this open while Arroxy prepares the queue.",
+			"failedCount_one": "{{count}} failed",
+			"failedCount_other": "{{count}} failed",
+			"cancel": "Cancel preparation",
+			"phase": {"probing": "Fetching details", "queueing": "Adding to queue"}
 		},
 		"subtitles": {
 			"autoBadge": "Auto",

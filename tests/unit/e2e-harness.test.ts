@@ -34,6 +34,7 @@ describe('resolveE2eHarnessMode', () => {
 		expect(mode.useMockTokenProvider).toBe(false)
 		expect(mode.commandLineSwitches).toEqual([])
 		expect(mode.ytDlpArgs({isProbe: false})).toEqual([])
+		expect(mode.downloadRetryPolicy).toBeUndefined()
 	})
 
 	it('does not enable in packaged builds unless the explicit harness override is set', () => {
@@ -59,6 +60,7 @@ describe('resolveE2eHarnessMode', () => {
 
 		expect(probeArgs).toEqual(['--ignore-config', '--plugin-dirs', path.dirname(root), '--no-cache-dir'])
 		expect(downloadArgs).toEqual(['--ignore-config', '--plugin-dirs', path.dirname(root), '--no-cache-dir', '--newline'])
+		expect(mode.downloadRetryPolicy).toEqual({retries: 1, fragmentRetries: 1, retrySleep: 'fragment:0'})
 	})
 
 	it('centralizes app defaults, network switches, proxy env, and mode policy', () => {

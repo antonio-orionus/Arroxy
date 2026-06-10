@@ -130,6 +130,7 @@ describe('Footer feedback controls', () => {
 		expect(mockTallyOpenPopup).toHaveBeenCalledWith(
 			'Ek6M8B',
 			expect.objectContaining({
+				autoClose: 3000,
 				hiddenFields: expect.objectContaining({
 					app_version: '1.2.3',
 					platform: 'linux',

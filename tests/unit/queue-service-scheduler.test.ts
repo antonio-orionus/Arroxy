@@ -2,6 +2,9 @@
 
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import {EventEmitter} from 'node:events'
+import fs from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
 import {QueueService} from '@main/services/QueueService.js'
 import type {DownloadService} from '@main/services/DownloadService.js'
 import type {QueueStore} from '@main/stores/QueueStore.js'
@@ -540,6 +543,52 @@ describe('QueueService — retry preserves lane', () => {
 		expect(item.lane).toBe('priority')
 		expect(item.status).toBe('running')
 	})
+
+	it('retrying a resumable error item reuses existing resume temp dir and clears context after start', async () => {
+		const {qs, ds} = makeService()
+		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-resume-retry-'))
+		ds.start.mockResolvedValue(jobResult('job-resume'))
+		qs.add([makeItem({id: 'a', status: 'error', error: {kind: 'network', raw: 'read reset'}, resumeContext: {kind: 'media-retry', tempDir, reason: 'media-transfer', failureKind: 'network'}})])
+
+		await qs.retry('a')
+		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledOnce())
+
+		expect(ds.start.mock.calls[0]?.[0]).toMatchObject({tempDir})
+		expect(qs.snapshot()[0].status).toBe('running')
+		expect(qs.snapshot()[0].resumeContext).toBeUndefined()
+	})
+
+	it('retrying with missing resume temp dir clears context and starts fresh', async () => {
+		const {qs, ds} = makeService()
+		const tempDir = path.join(os.tmpdir(), `arroxy-missing-${Date.now()}`)
+		await fs.rm(tempDir, {recursive: true, force: true})
+		ds.start.mockResolvedValue(jobResult('job-fresh'))
+		qs.add([makeItem({id: 'a', status: 'error', error: {kind: 'network', raw: 'read reset'}, resumeContext: {kind: 'media-retry', tempDir, reason: 'media-transfer', failureKind: 'network'}})])
+
+		await qs.retry('a')
+		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledOnce())
+
+		expect(ds.start.mock.calls[0]?.[0].tempDir).toBeUndefined()
+		expect(qs.snapshot()[0].status).toBe('running')
+		expect(qs.snapshot()[0].resumeContext).toBeUndefined()
+	})
+
+	it('preserves resume context when retry start fails before DownloadService takes ownership', async () => {
+		const {qs, ds} = makeService()
+		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-resume-start-fail-'))
+		await fs.writeFile(path.join(tempDir, 'video.part'), 'partial')
+		const resumeContext = {kind: 'media-retry' as const, tempDir, reason: 'media-transfer' as const, failureKind: 'network' as const}
+		ds.start.mockResolvedValueOnce({ok: false, error: {code: 'download', message: 'preflight failed'}})
+		qs.add([makeItem({id: 'a', status: 'error', error: {kind: 'network', raw: 'read reset'}, resumeContext})])
+
+		await qs.retry('a')
+		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('error'))
+
+		expect(ds.start).toHaveBeenCalledOnce()
+		expect(qs.snapshot()[0].resumeContext).toEqual(resumeContext)
+		await expect(fs.access(tempDir)).resolves.toBeUndefined()
+		await fs.rm(tempDir, {recursive: true, force: true})
+	})
 })
 
 describe('QueueService — illegal mutations are skipped without crashing', () => {
@@ -554,7 +603,7 @@ describe('QueueService — illegal mutations are skipped without crashing', () =
 		ds.start.mockResolvedValue(jobResult('job-1'))
 		qs.add([makeItem({id: 'a', status: 'pending'})])
 		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
-		const result = qs.remove('a')
+		const result = await qs.remove('a')
 		expect(result.ok).toBe(false)
 	})
 

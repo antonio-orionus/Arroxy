@@ -8,14 +8,14 @@ import path from 'node:path'
 import {defaultAppSettings} from '../../src/shared/constants.js'
 import {downloadFile, downloadText, parseShaLine, sha256ForFile} from '../../src/main/services/binary/BinaryDownloader.js'
 import type {AppSettings} from '../../src/shared/types.js'
+import {FIXTURE_MEDIA_CATALOG_PATH, FIXTURE_MEDIA_FORMAT_IDS, FIXTURE_PLAYLIST_ID, fixtureMediaContentType, fixtureMediaFileSize, fixtureMediaKind, type FixtureMediaKind} from './fixtureMediaCatalog.js'
+export {FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureMediaCatalog.js'
 
 const execFileAsync = promisify(execFile)
 
-export const FIXTURE_VIDEO_IDS = ['ARX00000001', 'ARX00000002', 'ARX00000003', 'ARX00000004', 'ARX00000005', 'ARX00000006', 'ARX00000007', 'ARX00000008', 'ARX00000009', 'ARX00000010'] as const
-export const FIXTURE_PLAYLIST_ID = 'PLarroxyfixture'
-export const FIXTURE_PLAYLIST_VIDEO_IDS = [FIXTURE_VIDEO_IDS[0], FIXTURE_VIDEO_IDS[1], FIXTURE_VIDEO_IDS[2]] as const
 const FIXTURE_PLUGIN_ROOT = path.join(process.cwd(), 'tests', 'e2e', 'yt-dlp-plugins')
 export const FIXTURE_PLUGIN_DIR_ARG = path.dirname(FIXTURE_PLUGIN_ROOT)
+const FIXTURE_MEDIA_ROUTE = new RegExp(`^/media/([^/]+)/(${FIXTURE_MEDIA_FORMAT_IDS.join('|')})\\.(?:mp4|m4a)$`)
 
 const JPEG_1X1 = Buffer.from(
 	'/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAH/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAEFAqf/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAEDAQE/ASP/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAECAQE/ASP/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAY/Al//xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAE/IV//2gAMAwEAAgADAAAAEP/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QH//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QH//EABQQAQAAAAAAAAAAAAAAAAAAABD/2gAIAQEAAT8QH//Z',
@@ -36,13 +36,15 @@ export interface FixtureServerBehavior {
 	mediaSlowIds?: readonly string[]
 	mediaFailureIds?: readonly string[]
 	mediaFailuresBeforeSuccess?: Record<string, number>
+	mediaFormatFailuresBeforeSuccess?: Record<string, number>
+	mediaFormatTruncateIds?: readonly string[]
 	subtitleFailureIds?: readonly string[]
 }
 
 export type FixtureServerRequest =
 	| {kind: 'probe-start'; videoId: string; at: number; activeProbeCount: number}
 	| {kind: 'probe-end'; videoId: string; at: number; activeProbeCount: number; status: number}
-	| {kind: 'media'; videoId: string; formatId: string; at: number; status: number}
+	| {kind: 'media'; videoId: string; formatId: string; method: string; at: number; status: number}
 	| {kind: 'subtitle'; videoId: string; at: number; status: number}
 	| {kind: 'thumbnail'; videoId: string; at: number; status: number}
 
@@ -59,6 +61,8 @@ interface NormalizedFixtureBehavior {
 	mediaSlowIds: Set<string>
 	mediaFailureIds: Set<string>
 	mediaFailuresBeforeSuccess: Map<string, number>
+	mediaFormatFailuresBeforeSuccess: Map<string, number>
+	mediaFormatTruncateIds: Set<string>
 	subtitleFailureIds: Set<string>
 }
 
@@ -104,7 +108,7 @@ function closeServer(server: http.Server): Promise<void> {
 }
 
 function mediaBuffer(videoId: string, formatId: string): Buffer {
-	const size = formatId === '18' ? 262_144 : formatId === '22' ? 524_288 : 1_048_576
+	const size = fixtureMediaFileSize(formatId)
 	const header = Buffer.from([0x00, 0x00, 0x00, 0x18, 0x66, 0x74, 0x79, 0x70, 0x69, 0x73, 0x6f, 0x6d, 0x00, 0x00, 0x02, 0x00, 0x69, 0x73, 0x6f, 0x6d, 0x69, 0x73, 0x6f, 0x32])
 	const buffer = Buffer.alloc(size)
 	header.copy(buffer)
@@ -112,6 +116,53 @@ function mediaBuffer(videoId: string, formatId: string): Buffer {
 		buffer[i] = (videoId.charCodeAt(i % videoId.length) + formatId.charCodeAt(0) + i) % 251
 	}
 	return buffer
+}
+
+interface SplitMediaBuffers {
+	video: Buffer
+	audio: Buffer
+}
+
+let splitMediaBuffersPromise: Promise<SplitMediaBuffers> | null = null
+
+function bundledFfmpegPath(): string {
+	const ext = process.platform === 'win32' ? '.exe' : ''
+	const arch = process.arch === 'arm64' ? 'arm64' : 'x64'
+	const bundled = path.join(process.cwd(), 'build', 'embedded', `${process.platform}-${arch}`, `ffmpeg${ext}`)
+	if (fs.existsSync(bundled)) return bundled
+	return process.env.ARROXY_FFMPEG_PATH ?? 'ffmpeg'
+}
+
+function ffmpegEnv(ffmpegPath: string): NodeJS.ProcessEnv {
+	const ffmpegDir = path.dirname(ffmpegPath)
+	const env = {...process.env}
+	env.PATH = `${ffmpegDir}${path.delimiter}${env.PATH ?? ''}`
+	if (process.platform === 'linux') env.LD_LIBRARY_PATH = `${ffmpegDir}${path.delimiter}${env.LD_LIBRARY_PATH ?? ''}`
+	if (process.platform === 'darwin') env.DYLD_LIBRARY_PATH = `${ffmpegDir}${path.delimiter}${env.DYLD_LIBRARY_PATH ?? ''}`
+	return env
+}
+
+async function generateSplitMediaBuffers(): Promise<SplitMediaBuffers> {
+	const dir = await fsPromises.mkdtemp(path.join(os.tmpdir(), 'arroxy-fixture-split-media-'))
+	const videoPath = path.join(dir, 'video.mp4')
+	const audioPath = path.join(dir, 'audio.m4a')
+	const ffmpegPath = bundledFfmpegPath()
+	const env = ffmpegEnv(ffmpegPath)
+	try {
+		await execFileAsync(ffmpegPath, ['-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'testsrc=size=64x64:rate=1', '-t', '1', '-an', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', videoPath], {env, timeout: 30_000})
+		await execFileAsync(ffmpegPath, ['-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'sine=frequency=440:sample_rate=44100', '-t', '1', '-vn', '-c:a', 'aac', '-b:a', '64k', '-movflags', '+faststart', audioPath], {env, timeout: 30_000})
+		return {video: await fsPromises.readFile(videoPath), audio: await fsPromises.readFile(audioPath)}
+	} finally {
+		await fsPromises.rm(dir, {recursive: true, force: true})
+	}
+}
+
+function splitMediaBuffers(): Promise<SplitMediaBuffers> {
+	splitMediaBuffersPromise ??= generateSplitMediaBuffers().catch(error => {
+		splitMediaBuffersPromise = null
+		throw error
+	})
+	return splitMediaBuffersPromise
 }
 
 function vtt(videoId: string): Buffer {
@@ -170,6 +221,29 @@ function serveBuffer(req: http.IncomingMessage, res: http.ServerResponse, body: 
 	res.end(chunk)
 }
 
+function serveTruncatedBuffer(req: http.IncomingMessage, res: http.ServerResponse, body: Buffer, contentType: string): void {
+	const range = parseRange(req.headers.range, body.length)
+	const start = range?.start ?? 0
+	const end = range?.end ?? body.length - 1
+	const chunk = body.subarray(start, end + 1)
+	const headers: http.OutgoingHttpHeaders = {'Accept-Ranges': 'bytes', 'Content-Type': contentType, 'Content-Length': chunk.length}
+	if (range) {
+		headers['Content-Range'] = `bytes ${start}-${end}/${body.length}`
+		res.writeHead(206, headers)
+	} else {
+		res.writeHead(200, headers)
+	}
+	if (req.method === 'HEAD') {
+		res.end()
+		return
+	}
+	if (range) {
+		res.destroy()
+		return
+	}
+	res.end(chunk.subarray(0, Math.max(1, Math.floor(chunk.length / 4))))
+}
+
 function normalizeBehavior(input: FixtureServerBehavior = {}): NormalizedFixtureBehavior {
 	return {
 		metadataDelayMs: input.metadataDelayMs ?? 0,
@@ -177,6 +251,8 @@ function normalizeBehavior(input: FixtureServerBehavior = {}): NormalizedFixture
 		mediaSlowIds: new Set(input.mediaSlowIds ?? []),
 		mediaFailureIds: new Set(input.mediaFailureIds ?? []),
 		mediaFailuresBeforeSuccess: new Map(Object.entries(input.mediaFailuresBeforeSuccess ?? {})),
+		mediaFormatFailuresBeforeSuccess: new Map(Object.entries(input.mediaFormatFailuresBeforeSuccess ?? {})),
+		mediaFormatTruncateIds: new Set(input.mediaFormatTruncateIds ?? []),
 		subtitleFailureIds: new Set(input.subtitleFailureIds ?? [])
 	}
 }
@@ -219,6 +295,26 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 		return behavior.mediaFailureIds.has(videoId)
 	}
 
+	function shouldTruncateMedia(videoId: string, formatId: string, method: string | undefined): boolean {
+		if (method === 'HEAD') return false
+		const key = `${videoId}:${formatId}`
+		if (behavior.mediaFormatTruncateIds.has(key)) return true
+		const remaining = behavior.mediaFormatFailuresBeforeSuccess.get(key) ?? 0
+		if (remaining <= 0) return false
+		if (remaining === 1) behavior.mediaFormatFailuresBeforeSuccess.delete(key)
+		else behavior.mediaFormatFailuresBeforeSuccess.set(key, remaining - 1)
+		return true
+	}
+
+	async function bodyForMedia(videoId: string, formatId: string): Promise<{body: Buffer; contentType: string}> {
+		const kind: FixtureMediaKind = fixtureMediaKind(formatId)
+		if (kind === 'generated-split-video' || kind === 'generated-split-audio') {
+			const buffers = await splitMediaBuffers()
+			return kind === 'generated-split-video' ? {body: buffers.video, contentType: fixtureMediaContentType(formatId)} : {body: buffers.audio, contentType: fixtureMediaContentType(formatId)}
+		}
+		return {body: mediaBuffer(videoId, formatId), contentType: fixtureMediaContentType(formatId)}
+	}
+
 	const server = http.createServer((req, res) => {
 		void (async () => {
 			const requestUrl = new URL(req.url ?? '/', 'http://127.0.0.1')
@@ -227,17 +323,24 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 				await handleProbe(probeMatch[1], res)
 				return
 			}
-			const mediaMatch = /^\/media\/([^/]+)\/(18|22|slow)\.mp4$/.exec(requestUrl.pathname)
+			const mediaMatch = FIXTURE_MEDIA_ROUTE.exec(requestUrl.pathname)
 			if (mediaMatch) {
 				const [, videoId, formatId] = mediaMatch
+				const method = req.method ?? 'GET'
 				if (shouldFailMedia(videoId)) {
-					record({kind: 'media', videoId, formatId, status: 503, at: Date.now()})
+					record({kind: 'media', videoId, formatId, method, status: 503, at: Date.now()})
 					res.writeHead(503, {'Content-Type': 'text/plain; charset=utf-8'})
 					res.end(`media failure for ${videoId}`)
 					return
 				}
-				record({kind: 'media', videoId, formatId, status: 200, at: Date.now()})
-				serveBuffer(req, res, mediaBuffer(videoId, formatId), 'video/mp4', formatId === 'slow' || behavior.mediaSlowIds.has(videoId))
+				const {body, contentType} = await bodyForMedia(videoId, formatId)
+				if (shouldTruncateMedia(videoId, formatId, method)) {
+					record({kind: 'media', videoId, formatId, method, status: 599, at: Date.now()})
+					serveTruncatedBuffer(req, res, body, contentType)
+					return
+				}
+				record({kind: 'media', videoId, formatId, method, status: 200, at: Date.now()})
+				serveBuffer(req, res, body, contentType, formatId === 'slow' || behavior.mediaSlowIds.has(videoId))
 				return
 			}
 			const thumbMatch = /^\/thumbnails\/([^/]+)\.jpg$/.exec(requestUrl.pathname)
@@ -402,6 +505,7 @@ export function buildFixtureEnv(input: {userDataDir: string; fixtureServer: Fixt
 	env.ELECTRON_USER_DATA = input.userDataDir
 	env.ARROXY_E2E_YTDLP_PLUGIN_DIR = FIXTURE_PLUGIN_ROOT
 	env.ARROXY_E2E_FIXTURE_BASE_URL = input.fixtureServer.baseUrl
+	env.ARROXY_E2E_FIXTURE_CATALOG_PATH = FIXTURE_MEDIA_CATALOG_PATH
 	env.ARROXY_YT_DLP_PATH = input.ytDlpPath
 	env.ARROXY_E2E_DENY_PROXY_URL = input.denyProxy.proxyUrl
 	env.HTTP_PROXY = input.denyProxy.proxyUrl

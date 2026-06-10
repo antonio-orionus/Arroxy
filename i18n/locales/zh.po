@@ -1477,6 +1477,42 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "每个视频独立匹配所选画质档位——混合内容的播放列表也能正常处理，无意外。"
 
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "取消准备"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "当前链接"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy 正在读取链接并应用 {{profileName}}。"
+
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} 个失败"
+
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} 个失败"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "正在获取详情"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "正在添加到队列"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "正在准备快速下载"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Arroxy 准备队列时请保持此窗口打开。"
+
 msgctxt "wizard.sponsorblock.cat.filler"
 msgid "Filler"
 msgstr "填充内容"
@@ -2029,6 +2065,10 @@ msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
 
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "这些 URL 都无法准备"
+
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
 msgstr "快速下载"
@@ -2040,6 +2080,14 @@ msgstr "将使用以下配置下载：{{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "无法添加此项：{{error}}"
+
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "已将可用项目加入队列。{{count}} 个 URL 无法准备。"
+
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "已将可用项目加入队列。{{count}} 个 URL 无法准备。"
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"

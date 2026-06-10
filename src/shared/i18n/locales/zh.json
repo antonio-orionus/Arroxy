@@ -93,7 +93,10 @@
 			"quickSingleOnly": "粘贴视频、播放列表、频道或搜索 URL 以开始。",
 			"quickProbeFailed": "探测失败",
 			"quickPrepareFailed": "无法准备队列项目",
+			"quickBulkAllFailed": "这些 URL 都无法准备",
 			"quickFailed": "无法添加此项：{{error}}",
+			"quickPartialFailed_one": "已将可用项目加入队列。{{count}} 个 URL 无法准备。",
+			"quickPartialFailed_other": "已将可用项目加入队列。{{count}} 个 URL 无法准备。",
 			"bulkButton": "批量 URL",
 			"bulkTooltip": "添加多个 URL 并加入队列。",
 			"features": {
@@ -166,6 +169,16 @@
 			},
 			"closeToTray": {"toggle": "关闭时最小化到托盘", "toggleDescription": "关闭窗口后继续在后台下载。"},
 			"analytics": {"toggle": "发送匿名使用统计", "toggleDescription": "仅统计应用启动次数，不包含任何URL、文件名或个人数据。"}
+		},
+		"quickProgress": {
+			"title": "正在准备快速下载",
+			"description": "Arroxy 正在读取链接并应用 {{profileName}}。",
+			"currentFallback": "当前链接",
+			"waitHint": "Arroxy 准备队列时请保持此窗口打开。",
+			"failedCount_one": "{{count}} 个失败",
+			"failedCount_other": "{{count}} 个失败",
+			"cancel": "取消准备",
+			"phase": {"probing": "正在获取详情", "queueing": "正在添加到队列"}
 		},
 		"subtitles": {
 			"autoBadge": "自动",

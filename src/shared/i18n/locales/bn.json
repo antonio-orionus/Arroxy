@@ -102,7 +102,10 @@
 			"quickSingleOnly": "শুরু করতে ভিডিও, প্লেলিস্ট, চ্যানেল বা সার্চ URL পেস্ট করুন।",
 			"quickProbeFailed": "প্রোব ব্যর্থ হয়েছে",
 			"quickPrepareFailed": "কিউ আইটেম প্রস্তুত করা যায়নি",
+			"quickBulkAllFailed": "এই URLগুলোর কোনোটি প্রস্তুত করা যায়নি",
 			"quickFailed": "এটি যোগ করা যায়নি: {{error}}",
+			"quickPartialFailed_one": "যা কাজ করেছে তা কিউতে যোগ হয়েছে। {{count}}টি URL প্রস্তুত করা যায়নি।",
+			"quickPartialFailed_other": "যা কাজ করেছে তা কিউতে যোগ হয়েছে। {{count}}টি URL প্রস্তুত করা যায়নি।",
 			"bulkButton": "বাল্ক URL",
 			"bulkTooltip": "একাধিক URL যোগ করে সারিতে দিন।",
 			"features": {
@@ -175,6 +178,16 @@
 			},
 			"closeToTray": {"toggle": "বন্ধে ট্রেতে লুকান", "toggleDescription": "উইন্ডো বন্ধ করার পরেও ব্যাকগ্রাউন্ডে ডাউনলোড চলতে থাকবে।"},
 			"analytics": {"toggle": "বেনামী ব্যবহার পরিসংখ্যান পাঠান", "toggleDescription": "শুধুমাত্র অ্যাপ চালু হওয়ার সংখ্যা গণনা করে। কোনো URL, ফাইলের নাম বা ব্যক্তিগত তথ্য নেই।"}
+		},
+		"quickProgress": {
+			"title": "কুইক ডাউনলোড প্রস্তুত হচ্ছে",
+			"description": "Arroxy লিংকটি পড়ছে এবং {{profileName}} প্রয়োগ করছে।",
+			"currentFallback": "বর্তমান লিংক",
+			"waitHint": "Arroxy কিউ প্রস্তুত করার সময় এটি খোলা রাখুন।",
+			"failedCount_one": "{{count}}টি ব্যর্থ",
+			"failedCount_other": "{{count}}টি ব্যর্থ",
+			"cancel": "প্রস্তুতি বাতিল করুন",
+			"phase": {"probing": "বিস্তারিত আনা হচ্ছে", "queueing": "কিউতে যোগ করা হচ্ছে"}
 		},
 		"subtitles": {
 			"autoBadge": "অটো",

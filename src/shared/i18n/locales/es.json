@@ -102,7 +102,10 @@
 			"quickSingleOnly": "Pega una URL de video, playlist, canal o búsqueda para empezar.",
 			"quickProbeFailed": "Falló el análisis",
 			"quickPrepareFailed": "No se pudo preparar el elemento de la cola",
+			"quickBulkAllFailed": "No se pudo preparar ninguna de esas URL",
 			"quickFailed": "No se pudo añadir: {{error}}",
+			"quickPartialFailed_one": "Se puso en cola lo que funcionó. {{count}} URL no se pudo preparar.",
+			"quickPartialFailed_other": "Se puso en cola lo que funcionó. {{count}} URL no se pudieron preparar.",
 			"bulkButton": "URLs en lote",
 			"bulkTooltip": "Añade y pon en cola varias URLs.",
 			"features": {
@@ -180,6 +183,16 @@
 			},
 			"closeToTray": {"toggle": "Minimizar a la bandeja al cerrar", "toggleDescription": "Continuar descargas en segundo plano al cerrar la ventana."},
 			"analytics": {"toggle": "Enviar estadísticas de uso anónimas", "toggleDescription": "Solo cuenta los inicios de la app. Sin URLs, nombres de archivo ni datos personales."}
+		},
+		"quickProgress": {
+			"title": "Preparando descarga rápida",
+			"description": "Arroxy está leyendo el enlace y aplicando {{profileName}}.",
+			"currentFallback": "Enlace actual",
+			"waitHint": "Mantén esto abierto mientras Arroxy prepara la cola.",
+			"failedCount_one": "{{count}} falló",
+			"failedCount_other": "{{count}} fallaron",
+			"cancel": "Cancelar preparación",
+			"phase": {"probing": "Obteniendo detalles", "queueing": "Añadiendo a la cola"}
 		},
 		"subtitles": {
 			"autoBadge": "Auto",

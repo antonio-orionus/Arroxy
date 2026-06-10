@@ -102,7 +102,10 @@
 			"quickSingleOnly": "شروع کرنے کے لیے ویڈیو، پلے لسٹ، چینل یا تلاش کا URL پیسٹ کریں۔",
 			"quickProbeFailed": "جانچ ناکام ہوگئی",
 			"quickPrepareFailed": "قطار آئٹم تیار نہیں کیا جا سکا",
+			"quickBulkAllFailed": "ان URLs میں سے کوئی بھی تیار نہیں کیا جا سکا",
 			"quickFailed": "یہ شامل نہیں ہو سکا: {{error}}",
+			"quickPartialFailed_one": "جو کام کر گیا اسے قطار میں شامل کر دیا گیا۔ {{count}} URL تیار نہیں ہو سکا۔",
+			"quickPartialFailed_other": "جو کام کر گئے انہیں قطار میں شامل کر دیا گیا۔ {{count}} URLs تیار نہیں ہو سکے۔",
 			"bulkButton": "متعدد URLs",
 			"bulkTooltip": "متعدد URLs شامل کریں اور قطار میں ڈالیں۔",
 			"features": {
@@ -180,6 +183,16 @@
 			},
 			"closeToTray": {"toggle": "بند کرنے پر ٹرے میں چھپائیں", "toggleDescription": "ونڈو بند ہونے کے بعد بیک گراؤنڈ میں ڈاؤن لوڈز جاری رکھیں۔"},
 			"analytics": {"toggle": "گمنام استعمال کے اعداد و شمار بھیجیں", "toggleDescription": "صرف ایپ لانچز گنتا ہے۔ کوئی URL، فائل نام، یا ذاتی ڈیٹا نہیں۔"}
+		},
+		"quickProgress": {
+			"title": "فوری ڈاؤن لوڈ کی تیاری",
+			"description": "Arroxy لنک پڑھ رہا ہے اور {{profileName}} لاگو کر رہا ہے۔",
+			"currentFallback": "موجودہ لنک",
+			"waitHint": "Arroxy قطار تیار کرے تب تک اسے کھلا رکھیں۔",
+			"failedCount_one": "{{count}} ناکام",
+			"failedCount_other": "{{count}} ناکام",
+			"cancel": "تیاری منسوخ کریں",
+			"phase": {"probing": "تفصیلات حاصل کی جا رہی ہیں", "queueing": "قطار میں شامل کیا جا رہا ہے"}
 		},
 		"subtitles": {
 			"autoBadge": "آٹو",

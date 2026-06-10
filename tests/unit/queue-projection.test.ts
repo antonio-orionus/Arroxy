@@ -1,17 +1,18 @@
 import {describe, expect, it, vi} from 'vitest'
 import {applyQueueProjectionBatch, bindQueueProjection, projectQueueSnapshot, type QueueProjectionBindings} from '@renderer/store/queueProjection.js'
+import {QUICK_DOWNLOAD_FEEDBACK_INITIAL, resetQuickDownloadFeedback, type QuickDownloadFeedbackState} from '@renderer/store/wizard/quickDownloadFeedback.js'
 import type {QueueItem} from '@shared/types.js'
 import {makeItem} from '../shared/fixtures.js'
 
-function state(queue: QueueItem[] = []) {
-	return {queue, quickDownloadStatus: 'idle' as const, quickDownloadQueueIds: [] as string[]}
+function state(queue: QueueItem[] = []): QuickDownloadFeedbackState & {queue: QueueItem[]} {
+	return {queue, ...QUICK_DOWNLOAD_FEEDBACK_INITIAL}
 }
 
 describe('QueueProjection', () => {
 	it('projects snapshots and reconciles quick-download feedback', () => {
 		const patch = projectQueueSnapshot({...state(), quickDownloadStatus: 'queued', quickDownloadQueueIds: ['q1']}, [makeItem({id: 'q1', status: 'done'})])
 
-		expect(patch).toEqual({queue: [expect.objectContaining({id: 'q1', status: 'done'})], quickDownloadStatus: 'idle', quickDownloadError: null, quickDownloadQueueIds: []})
+		expect(patch).toEqual({queue: [expect.objectContaining({id: 'q1', status: 'done'})], ...resetQuickDownloadFeedback()})
 	})
 
 	it('applies remove, add, then update in a single batch and counts completed transitions', () => {

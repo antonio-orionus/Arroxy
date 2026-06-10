@@ -153,36 +153,39 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
 		expect(ctx.active.mediaPath).toBe('/tmp/video.mkv')
 	})
 
-	it('ffmpeg=null → skips mux, emits subtitlesFailed, returns completed', async () => {
+	it('ffmpeg=null → skips mux and returns soft-failed subtitlesFailed', async () => {
 		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt']})
 		;(ctx.ytDlp as unknown as Record<string, unknown>).ffmpegPath = null
 		const outcome = await SidecarSubsPhase(true).run(ctx)
 		expect(muxSubtitlesIntoVideo).not.toHaveBeenCalled()
-		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('download', STATUS_KEY.subtitlesFailed)
-		expect(outcome.kind).toBe('completed')
+		expect(outcome.kind).toBe('soft-failed')
+		if (outcome.kind === 'soft-failed') expect(outcome.status).toBe(STATUS_KEY.subtitlesFailed)
 	})
 
-	it('mux returns { ok: false } → leaves mediaPath unchanged, returns completed', async () => {
+	it('mux returns { ok: false } → leaves mediaPath unchanged and returns soft-failed subtitlesFailed', async () => {
 		vi.mocked(muxSubtitlesIntoVideo).mockResolvedValueOnce({ok: false})
 		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt']})
 		const originalPath = ctx.active.mediaPath
 		const outcome = await SidecarSubsPhase(true).run(ctx)
 		expect(ctx.active.mediaPath).toBe(originalPath)
-		expect(outcome.kind).toBe('completed')
+		expect(outcome.kind).toBe('soft-failed')
+		if (outcome.kind === 'soft-failed') expect(outcome.status).toBe(STATUS_KEY.subtitlesFailed)
 	})
 
-	it('no mediaPath → skips mux, returns completed', async () => {
+	it('no mediaPath → skips mux and returns soft-failed subtitlesFailed', async () => {
 		const ctx = makeCtx(SUCCESS, {mediaPath: undefined, subtitlePaths: ['/tmp/video.en.srt']})
 		const outcome = await SidecarSubsPhase(true).run(ctx)
 		expect(muxSubtitlesIntoVideo).not.toHaveBeenCalled()
-		expect(outcome.kind).toBe('completed')
+		expect(outcome.kind).toBe('soft-failed')
+		if (outcome.kind === 'soft-failed') expect(outcome.status).toBe(STATUS_KEY.subtitlesFailed)
 	})
 
-	it('empty subtitlePaths → skips mux, returns completed', async () => {
+	it('empty subtitlePaths → skips mux and returns soft-failed subtitlesFailed', async () => {
 		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: []})
 		const outcome = await SidecarSubsPhase(true).run(ctx)
 		expect(muxSubtitlesIntoVideo).not.toHaveBeenCalled()
-		expect(outcome.kind).toBe('completed')
+		expect(outcome.kind).toBe('soft-failed')
+		if (outcome.kind === 'soft-failed') expect(outcome.status).toBe(STATUS_KEY.subtitlesFailed)
 	})
 
 	it('pauseRequested during embed mux → returns paused (not completed)', async () => {

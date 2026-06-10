@@ -23,6 +23,7 @@ export function FeedbackDialog({open, onOpenChange}: FeedbackDialogProps): null 
 			layout: 'modal',
 			width: 720,
 			overlay: true,
+			autoClose: 3000,
 			hiddenFields: buildFeedbackHiddenFields({
 				appMode: import.meta.env.MODE,
 				appVersion: window.appVersion,

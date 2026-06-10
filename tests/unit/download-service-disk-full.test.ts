@@ -1,4 +1,7 @@
 import {describe, expect, it, vi, beforeEach} from 'vitest'
+import fs from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
 import {DownloadService} from '@main/services/DownloadService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
 import type {YtDlpResult} from '@main/services/YtDlp.js'
@@ -48,6 +51,8 @@ const IP_BLOCK_RESULT: Extract<YtDlpResult, {kind: 'exit-error'}> = {
 	stdout: '',
 	stderr: 'ERROR: [youtube] All player responses are invalid. Your IP is likely being blocked by Youtube'
 }
+
+const NETWORK_RESULT: Extract<YtDlpResult, {kind: 'exit-error'}> = {kind: 'exit-error', exitCode: 1, errorKind: 'network', rawError: 'ERROR: unable to download video data: HTTP Error 503', stdout: '', stderr: 'ERROR: unable to download video data: HTTP Error 503'}
 
 function makeService() {
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd'}), invalidateCache: vi.fn()}
@@ -110,5 +115,44 @@ describe('DownloadService — postprocess ENOSPC reclassification', () => {
 		expect(vi.mocked(checkDiskSpace)).toHaveBeenCalledTimes(1)
 		const finalized = recentJobsStore.push.mock.calls[0]?.[0]
 		expect(finalized?.error?.kind).toBe('ipBlock')
+	})
+})
+
+describe('DownloadService — retry temp dir ownership', () => {
+	it('cleans a supplied retry temp dir when preflight fails before VideoPhase owns it', async () => {
+		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-retry-preflight-'))
+		await fs.writeFile(path.join(tempDir, 'video.part'), 'partial')
+		vi.mocked(checkDiskSpace).mockResolvedValueOnce({ok: false, freeBytes: 50_000_000, requiredBytes: 200 * 1024 * 1024})
+
+		const {service, recentJobsStore, ytDlp} = makeService()
+		const runSpy = vi.spyOn(ytDlp, 'run').mockResolvedValue(NETWORK_RESULT)
+
+		await service.start({url: YOUTUBE_URL, outputDir: '/tmp', job: DEFAULT_JOB, tempDir})
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce(), {timeout: 5000})
+
+		expect(runSpy).not.toHaveBeenCalled()
+		await expect(fs.access(tempDir)).rejects.toThrow()
+	})
+
+	it('preserves a supplied retry temp dir when VideoPhase creates a fresh resume context', async () => {
+		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-retry-video-'))
+		const mediaPart = path.join(tempDir, 'video.f137.mp4.part')
+		await fs.writeFile(mediaPart, 'partial')
+		vi.mocked(checkDiskSpace).mockResolvedValueOnce({ok: true, freeBytes: 50_000_000_000, requiredBytes: 200 * 1024 * 1024})
+
+		const {service, recentJobsStore, ytDlp} = makeService()
+		vi.spyOn(ytDlp, 'run').mockImplementation(async (_req, signal) => {
+			signal?.onStderr?.(`[download] Destination: ${mediaPart}\n`)
+			return NETWORK_RESULT
+		})
+
+		await service.start({url: YOUTUBE_URL, outputDir: '/tmp', job: DEFAULT_JOB, tempDir})
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce(), {timeout: 5000})
+
+		const finalized = recentJobsStore.push.mock.calls[0]?.[0]
+		expect(finalized?.status).toBe('failed')
+		expect(finalized?.error?.kind).toBe('network')
+		await expect(fs.access(tempDir)).resolves.toBeUndefined()
+		await fs.rm(tempDir, {recursive: true, force: true})
 	})
 })

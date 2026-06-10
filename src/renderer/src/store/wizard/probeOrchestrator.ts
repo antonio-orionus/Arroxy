@@ -15,17 +15,14 @@ import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {resolvePlaylistDir} from './playlistDir.js'
 import {WizardCommands, RESET_WIZARD_STATE} from './commands.js'
-import {maybeShowQueueTip} from '../queueSlice.js'
-import {formatProbeError} from '../helpers.js'
 import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep} from '../types.js'
 import {buildWizardStepGraph, nextWizardStep} from './wizardStepGraph.js'
 import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, hydrateBulkMetadata, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
 import {isMixedYouTubeUrl, rewriteYouTubeChannelRoot} from './urlIntake.js'
-import {failedQuickDownloadFeedback, preparingQuickDownloadFeedback, queuedQuickDownloadFeedback, resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
+import {quickDownload, quickDownloadUrls, cancelQuickDownload} from './quickDownloadPreparation.js'
+import {resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
 import {projectBulkStart, projectPlaylistProbeResult, projectProbeFailure, projectProbeStart, projectVideoProbeResult} from './probeResultProjection.js'
-import {prepareActiveProfileQueueSubmission} from './queueSubmission.js'
-import {submitPreparedQueueSubmission} from './queueSubmissionAdapter.js'
 
 function pickWizardSnapshot(state: AppState): Record<string, unknown> {
 	return {
@@ -101,34 +98,6 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
 	} else {
 		applyVideoProbeResult(result.data, set, get, firstProbe)
 	}
-}
-
-async function enqueueActiveProfileProbeResult(probe: ProbeResult, set: SetState, get: GetState): Promise<string[] | null> {
-	let probeForQueue = probe
-	if (probe.kind === 'playlist') {
-		applyPlaylistProbeResult(probe, set, get, true)
-		if (get().playlistLikelyCapped) {
-			set({...resetQuickDownloadFeedback(), quickPlaylistCapDialogOpen: true})
-			return null
-		}
-		if (get().playlistItems.length === 0) {
-			set(failedQuickDownloadFeedback('wizard.url.quickPrepareFailed'))
-			return null
-		}
-		probeForQueue = {...probe, entries: get().playlistItems}
-	}
-
-	const prepared = prepareActiveProfileQueueSubmission(probeForQueue, get(), 'normal')
-	if (!prepared) {
-		set(failedQuickDownloadFeedback('wizard.url.quickPrepareFailed'))
-		return null
-	}
-	const result = await submitPreparedQueueSubmission(prepared)
-	if (!result.ok) {
-		set(failedQuickDownloadFeedback(result.error))
-		return null
-	}
-	return result.ids
 }
 
 async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get: GetState): Promise<void> {
@@ -209,6 +178,13 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		quickDownloadStatus: RESET_WIZARD_STATE.quickDownloadStatus,
 		quickDownloadError: RESET_WIZARD_STATE.quickDownloadError,
 		quickDownloadQueueIds: RESET_WIZARD_STATE.quickDownloadQueueIds,
+		quickDownloadProgressPhase: RESET_WIZARD_STATE.quickDownloadProgressPhase,
+		quickDownloadProgressTotal: RESET_WIZARD_STATE.quickDownloadProgressTotal,
+		quickDownloadProgressCompleted: RESET_WIZARD_STATE.quickDownloadProgressCompleted,
+		quickDownloadProgressFailed: RESET_WIZARD_STATE.quickDownloadProgressFailed,
+		quickDownloadProgressCurrent: RESET_WIZARD_STATE.quickDownloadProgressCurrent,
+		quickDownloadProgressTitle: RESET_WIZARD_STATE.quickDownloadProgressTitle,
+		quickDownloadProgressRunId: RESET_WIZARD_STATE.quickDownloadProgressRunId,
 		syncedDownloadedIds: RESET_WIZARD_STATE.syncedDownloadedIds,
 		syncScanState: RESET_WIZARD_STATE.syncScanState,
 
@@ -227,81 +203,11 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			await runProbe(cleaned, 'auto', set, get)
 		},
 
-		quickDownload: async () => {
-			if (get().quickDownloadStatus === 'preparing') return
-			const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()))
-			if (!cleaned) return
-			if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return
+		quickDownload: () => quickDownload(set, get),
 
-			void window.appApi.downloads.probeCancel()
-			set({wizardUrl: cleaned, ...preparingQuickDownloadFeedback(), wizardError: null, cookiesConfigDialogIssue: null})
+		quickDownloadUrls: urls => quickDownloadUrls(urls, set, get),
 
-			try {
-				const playlistMode: ProbePlaylistMode = isMixedYouTubeUrl(cleaned) ? 'video' : 'auto'
-				const result = await window.appApi.downloads.probe({url: cleaned, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope: get().playlistScope})})
-				if (!result.ok) {
-					set(failedQuickDownloadFeedback(formatProbeError(result.error) || 'wizard.url.quickProbeFailed'))
-					return
-				}
-
-				const currentOutputDir = get().wizardOutputDir
-				const fallbackOutputDir = get().settings?.common?.defaultOutputDir ?? ''
-				set({wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir})
-
-				const queuedIds = await enqueueActiveProfileProbeResult(result.data, set, get)
-				if (!queuedIds) return
-
-				maybeShowQueueTip(set)
-				WizardCommands.resetAll(set)
-				set(queuedQuickDownloadFeedback(queuedIds))
-			} catch (err) {
-				set(failedQuickDownloadFeedback(err instanceof Error ? err.message : String(err)))
-			}
-		},
-
-		quickDownloadUrls: async urls => {
-			if (get().quickDownloadStatus === 'preparing') return
-			const cleanedUrls = urls.flatMap(url => {
-				const cleaned = rewriteYouTubeChannelRoot(cleanUrl(url.trim()))
-				return cleaned.length > 0 ? [cleaned] : []
-			})
-			if (cleanedUrls.length === 0) return
-
-			for (const url of cleanedUrls) {
-				if (maybeBlockIncompleteCookiesConfig(url, set, get)) return
-			}
-
-			void window.appApi.downloads.probeCancel()
-			const currentOutputDir = get().wizardOutputDir
-			const fallbackOutputDir = get().settings?.common?.defaultOutputDir ?? ''
-			set({wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir, ...preparingQuickDownloadFeedback(), wizardError: null, cookiesConfigDialogIssue: null})
-
-			try {
-				const queuedIds: string[] = []
-				const queueNext = async (index: number): Promise<boolean> => {
-					if (index >= cleanedUrls.length) return true
-					const url = cleanedUrls[index]
-					set({wizardUrl: url})
-					const playlistMode: ProbePlaylistMode = isMixedYouTubeUrl(url) ? 'video' : 'auto'
-					const result = await window.appApi.downloads.probe({url, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope: get().playlistScope})})
-					if (!result.ok) {
-						set(failedQuickDownloadFeedback(formatProbeError(result.error) || 'wizard.url.quickProbeFailed'))
-						return false
-					}
-					const ids = await enqueueActiveProfileProbeResult(result.data, set, get)
-					if (!ids) return false
-					queuedIds.push(...ids)
-					return queueNext(index + 1)
-				}
-				if (!(await queueNext(0))) return
-
-				maybeShowQueueTip(set)
-				WizardCommands.resetAll(set)
-				set(queuedQuickDownloadFeedback(queuedIds))
-			} catch (err) {
-				set(failedQuickDownloadFeedback(err instanceof Error ? err.message : String(err)))
-			}
-		},
+		cancelQuickDownload: () => cancelQuickDownload(set, get),
 
 		startBulkUrls: urls => {
 			const previousState = get()

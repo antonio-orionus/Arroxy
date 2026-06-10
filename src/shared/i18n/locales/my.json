@@ -93,7 +93,10 @@
 			"quickSingleOnly": "စတင်ရန် ဗီဒီယို၊ playlist၊ channel သို့မဟုတ် search URL ကို paste လုပ်ပါ။",
 			"quickProbeFailed": "စစ်ဆေးမှု မအောင်မြင်ပါ",
 			"quickPrepareFailed": "တန်းစီအရာကို မပြင်ဆင်နိုင်ပါ",
+			"quickBulkAllFailed": "ဤ URL များထဲမှ မည်သည့်တစ်ခုမျှ မပြင်ဆင်နိုင်ပါ",
 			"quickFailed": "ဤအရာကို ထည့်မရပါ: {{error}}",
+			"quickPartialFailed_one": "အလုပ်ဖြစ်သည့်အရာများကို တန်းစီစာရင်းထဲ ထည့်ပြီးပါပြီ။ {{count}} URL ကို မပြင်ဆင်နိုင်ပါ။",
+			"quickPartialFailed_other": "အလုပ်ဖြစ်သည့်အရာများကို တန်းစီစာရင်းထဲ ထည့်ပြီးပါပြီ။ {{count}} URL များကို မပြင်ဆင်နိုင်ပါ။",
 			"bulkButton": "URL အများအပြား",
 			"bulkTooltip": "URL အများအပြားကို ထည့်ပြီး queue ထဲသို့ ထည့်ပါ။",
 			"features": {
@@ -171,6 +174,16 @@
 			},
 			"closeToTray": {"toggle": "ပိတ်လျှင် tray သို့ ဝှက်မည်", "toggleDescription": "ဝင်းဒိုးပိတ်ပြီးနောက်လည်း နောက်ခံတွင် ဒေါင်းလုဒ်ဆက်လုပ်မည်။"},
 			"analytics": {"toggle": "အမည်မသိ သုံးစွဲမှုစာရင်းအင်းများ ပေးပို့ပါ", "toggleDescription": "အက်ပ် ဖွင့်သည့်အကြိမ်ရေကိုသာ ရေတွက်သည်။ URL၊ ဖိုင်အမည် သို့မဟုတ် ကိုယ်ရေးကိုယ်တာ ဒေတာ မပါဝင်ပါ။"}
+		},
+		"quickProgress": {
+			"title": "အမြန်ဒေါင်းလုဒ် ပြင်ဆင်နေသည်",
+			"description": "Arroxy က လင့်ခ်ကို ဖတ်ပြီး {{profileName}} ကို အသုံးပြုနေသည်။",
+			"currentFallback": "လက်ရှိလင့်ခ်",
+			"waitHint": "Arroxy က တန်းစီစာရင်းကို ပြင်ဆင်နေစဉ် ဤနေရာကို ဖွင့်ထားပါ။",
+			"failedCount_one": "{{count}} ခု မအောင်မြင်ပါ",
+			"failedCount_other": "{{count}} ခု မအောင်မြင်ပါ",
+			"cancel": "ပြင်ဆင်မှုကို ပယ်ဖျက်ပါ",
+			"phase": {"probing": "အသေးစိတ် ရယူနေသည်", "queueing": "တန်းစီစာရင်းထဲ ထည့်နေသည်"}
 		},
 		"subtitles": {
 			"autoBadge": "အလိုအလျောက်",

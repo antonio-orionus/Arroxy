@@ -102,7 +102,10 @@
 			"quickSingleOnly": "د پیل لپاره د ویډیو، پلې‌لېست، چینل یا لټون URL ونښلوئ.",
 			"quickProbeFailed": "کتنه ناکامه شوه",
 			"quickPrepareFailed": "د قطار توکی چمتو نه شو",
+			"quickBulkAllFailed": "له دې URLونو څخه هېڅ یو چمتو نه شو",
 			"quickFailed": "دا ونه زیاتېدل: {{error}}",
+			"quickPartialFailed_one": "هغه څه چې کار یې وکړ قطار ته زیات شول. {{count}} URL چمتو نه شو.",
+			"quickPartialFailed_other": "هغه څه چې کار یې وکړ قطار ته زیات شول. {{count}} URLونه چمتو نه شول.",
 			"bulkButton": "ډېر URLونه",
 			"bulkTooltip": "څو URLونه زیات او کتار ته یې واچوئ.",
 			"features": {
@@ -180,6 +183,16 @@
 			},
 			"closeToTray": {"toggle": "د تړولو پر وخت ټرې ته پټ کړه", "toggleDescription": "د کړکۍ د تړولو وروسته شاتهپرده ډاونلوډونه دوام کړئ."},
 			"analytics": {"toggle": "د ناپیژندل شوي کارونې احصائیې واستوئ", "toggleDescription": "یوازې د اپلیکیشن پیلونه شمیري. هیڅ URL، د فایل نومونه، یا شخصي معلومات نه شته."}
+		},
+		"quickProgress": {
+			"title": "چټک ډاونلوډ چمتو کېږي",
+			"description": "Arroxy لینک لولي او {{profileName}} پلي کوي.",
+			"currentFallback": "اوسنی لینک",
+			"waitHint": "دا پرانیستی وساتئ تر څو Arroxy قطار چمتو کړي.",
+			"failedCount_one": "{{count}} ناکام شو",
+			"failedCount_other": "{{count}} ناکام شول",
+			"cancel": "چمتووالی لغوه کړئ",
+			"phase": {"probing": "جزییات راوړل کېږي", "queueing": "قطار ته زیاتېږي"}
 		},
 		"subtitles": {
 			"autoBadge": "اتوماتیک",

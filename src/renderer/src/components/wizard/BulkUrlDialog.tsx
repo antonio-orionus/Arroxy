@@ -1,7 +1,7 @@
 import {useMemo, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {AlertTriangle, Download, Link2, WandSparkles} from 'lucide-react'
-import type {BulkUrlRejectReason} from '@shared/types.js'
+import {AlertTriangle, Link2, WandSparkles} from 'lucide-react'
+import type {BulkUrlRejectReason, DownloadProfileRef} from '@shared/types.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {cn} from '@renderer/lib/utils.js'
 import {Badge} from '../ui/badge.js'
@@ -13,6 +13,7 @@ import {Item, ItemActions, ItemContent, ItemGroup, ItemMedia, ItemTitle} from '.
 import {Textarea} from '../ui/textarea.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {buildBulkUrlPreview} from './bulkUrlPreview.js'
+import {QuickProfileControl} from './QuickProfileControl.js'
 
 export interface BulkUrlDialogActionState {
 	acceptedUrls: string[]
@@ -25,16 +26,21 @@ interface BulkUrlDialogProps {
 	open: boolean
 	onOpenChange: (open: boolean) => void
 	initialRaw?: string
+	onEditProfile?: () => void
+	onManageProfiles?: () => void
+	onNewProfile?: () => void
 	renderActions?: (state: BulkUrlDialogActionState) => ReactNode
 }
 
 const REJECT_I18N: Record<BulkUrlRejectReason, 'wizard.bulk.reject.duplicate'> = {duplicate: 'wizard.bulk.reject.duplicate'}
 
-export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderActions}: BulkUrlDialogProps): ReactNode {
+export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfile, onManageProfiles, onNewProfile, renderActions}: BulkUrlDialogProps): ReactNode {
 	const {t} = useTranslation()
 	const startBulkUrls = useAppStore(state => state.startBulkUrls)
 	const quickDownloadUrls = useAppStore(state => state.quickDownloadUrls)
 	const quickDownloadStatus = useAppStore(state => state.quickDownloadStatus)
+	const setActiveDownloadProfile = useAppStore(state => state.setActiveDownloadProfile)
+	const profilesPrefs = useAppStore(state => state.settings?.profiles)
 	const [raw, setRaw] = useState(initialRaw)
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
 	const preview = useMemo(() => buildBulkUrlPreview(raw), [raw])
@@ -67,6 +73,15 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderAction
 			setRaw('')
 			onOpenChange(false)
 		}
+	}
+
+	function activateProfile(ref: DownloadProfileRef): void {
+		void setActiveDownloadProfile(ref)
+	}
+
+	function closeAndRun(action: (() => void) | undefined): void {
+		close()
+		action?.()
 	}
 
 	return (
@@ -146,6 +161,21 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderAction
 
 				{!preview.canConfirm ? <p className="text-xs text-muted-foreground">{t('wizard.bulk.needsAtLeastOne')}</p> : null}
 
+				{renderActions ? null : (
+					<QuickProfileControl
+						disabled={!preview.canConfirm || quickPreparing}
+						onDownload={() => void confirmQuick()}
+						onEditProfile={() => closeAndRun(onEditProfile)}
+						onManageProfiles={() => closeAndRun(onManageProfiles)}
+						onNewProfile={() => closeAndRun(onNewProfile)}
+						onPickProfile={activateProfile}
+						preparing={quickPreparing}
+						profilesPrefs={profilesPrefs}
+						size="compact"
+						testIdPrefix="bulk"
+					/>
+				)}
+
 				<DialogFooter className={cn(renderActions ? 'sm:justify-start' : undefined)}>
 					{renderActions ? (
 						renderActions({acceptedUrls: preview.acceptedUrls, canConfirm: preview.canConfirm, raw, close})
@@ -153,10 +183,6 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderAction
 						<>
 							<Button type="button" variant="outline" onClick={close}>
 								{t('common.cancel')}
-							</Button>
-							<Button type="button" onClick={() => void confirmQuick()} disabled={!preview.canConfirm || quickPreparing} data-testid="bulk-url-quick-confirm" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
-								<Download data-icon="inline-start" />
-								{quickPreparing ? t('wizard.url.quickPreparing') : t('wizard.url.quickDownload')}
 							</Button>
 							<Button type="button" variant="outline" onClick={confirm} disabled={!preview.canConfirm} data-testid="bulk-url-confirm">
 								<WandSparkles data-icon="inline-start" />

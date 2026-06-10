@@ -20,6 +20,7 @@ export interface DownloadHomeView {
 	profilesPrefs: DownloadProfilesPrefs | undefined
 	quickDownload: ReturnType<typeof useAppStore.getState>['quickDownload']
 	quickDownloadError: ReturnType<typeof useAppStore.getState>['quickDownloadError']
+	quickDownloadProgressFailed: ReturnType<typeof useAppStore.getState>['quickDownloadProgressFailed']
 	quickDownloadStatus: ReturnType<typeof useAppStore.getState>['quickDownloadStatus']
 	quickPreparing: boolean
 	removeDownloadProfile: ReturnType<typeof useAppStore.getState>['removeDownloadProfile']
@@ -60,6 +61,7 @@ export function useDownloadHomeView(): DownloadHomeView {
 			profilesPrefs: s.settings?.profiles,
 			quickDownload: s.quickDownload,
 			quickDownloadError: s.quickDownloadError,
+			quickDownloadProgressFailed: s.quickDownloadProgressFailed,
 			quickDownloadStatus: s.quickDownloadStatus,
 			removeDownloadProfile: s.removeDownloadProfile,
 			saveDownloadProfile: s.saveDownloadProfile,

@@ -6,23 +6,16 @@
 // from wizard state because the wizard data lives in the renderer; once
 // built, the items are pushed to main via queue.cmd.add.
 
-import type {ProbeResult, QueueLane} from '@shared/types.js'
+import type {QueueLane} from '@shared/types.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import type {GetState, SetState, QueueSlice} from './types.js'
 import {persistFormatPrefs} from './wizard/persistFormatPrefs.js'
-import {WizardCommands} from './wizard/commands.js'
-import {prepareActiveProfileQueueSubmission, prepareManualQueueSubmission} from './wizard/queueSubmission.js'
+import {prepareManualQueueSubmission} from './wizard/queueSubmission.js'
 import {submitPreparedQueueSubmission} from './wizard/queueSubmissionAdapter.js'
-import {failedQuickDownloadFeedback, queuedQuickDownloadFeedback} from './wizard/quickDownloadFeedback.js'
+import {maybeShowQueueTip} from './queueTip.js'
+import {queueLoadedPlaylistWithActiveProfile} from './wizard/quickDownloadPreparation.js'
 
 export {playlistOutputTemplate, singleOutputTemplate} from './wizard/outputTemplates.js'
-
-export function maybeShowQueueTip(set: SetState): void {
-	if (!localStorage.getItem('arroxy_seen_queue_tip')) {
-		localStorage.setItem('arroxy_seen_queue_tip', '1')
-		set({drawerOpen: true, showQueueTip: true})
-	}
-}
 
 async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane): Promise<void> {
 	// Re-entry guard: large playlists (e.g. 290 entries) take a perceptible
@@ -55,43 +48,6 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 		maybeShowQueueTip(set)
 		await persistFormatPrefs(set, get)
 		get().reset()
-	} finally {
-		set({isSubmittingToQueue: false})
-	}
-}
-
-async function queueLoadedPlaylistWithActiveProfile(set: SetState, get: GetState, lane: QueueLane): Promise<void> {
-	if (get().isSubmittingToQueue) return
-	const state = get()
-	if (state.playlistItems.length === 0) return
-
-	set({isSubmittingToQueue: true})
-	try {
-		const probe: Extract<ProbeResult, {kind: 'playlist'}> = {
-			kind: 'playlist',
-			extractor: state.wizardExtractor,
-			extractorKey: state.wizardExtractorKey,
-			webpageUrl: state.wizardWebpageUrl || state.wizardUrl,
-			isAudioOnlySource: false,
-			playlistTitle: state.playlistTitle || 'Playlist',
-			playlistId: state.playlistId,
-			isMultiVideo: state.playlistIsMultiVideo,
-			entries: state.playlistItems
-		}
-		const prepared = prepareActiveProfileQueueSubmission(probe, get(), lane)
-		if (!prepared) {
-			set({...failedQuickDownloadFeedback('wizard.url.quickPrepareFailed'), quickPlaylistCapDialogOpen: false})
-			return
-		}
-		const result = await submitPreparedQueueSubmission(prepared)
-		if (!result.ok) {
-			set({...failedQuickDownloadFeedback(result.error), quickPlaylistCapDialogOpen: false})
-			return
-		}
-
-		maybeShowQueueTip(set)
-		WizardCommands.resetAll(set)
-		set(queuedQuickDownloadFeedback(result.ids))
 	} finally {
 		set({isSubmittingToQueue: false})
 	}

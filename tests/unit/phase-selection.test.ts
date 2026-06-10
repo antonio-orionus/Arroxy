@@ -42,12 +42,13 @@ describe('phasesFor — strategy selection', () => {
 		expect(phases[2].kind).toBe('sidecar-subs')
 	})
 
-	it('formatId + langs + mode=embed + writeAutoSubs=false → preflight + video+embed', () => {
+	it('formatId + langs + mode=embed + writeAutoSubs=false → preflight + video + sidecar-subs mux', () => {
 		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: FORMAT_ID, preset: 'custom', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: LANGS, mode: 'embed', format: 'vtt', writeAuto: false}}
 		const phases = phasesFor(input(job))
-		expect(phases).toHaveLength(2)
+		expect(phases).toHaveLength(3)
 		expect(phases[0].kind).toBe('preflight')
-		expect(phases[1].kind).toBe('video+embed')
+		expect(phases[1].kind).toBe('video')
+		expect(phases[2].kind).toBe('sidecar-subs')
 	})
 
 	it('formatId + langs + mode=embed + writeAutoSubs=true → preflight + video + sidecar-subs', () => {

@@ -6,7 +6,7 @@
 // Lives in `src/shared` (not `src/main`) so QueueService on main and any
 // renderer-side projection can call it identically.
 
-import type {LocalizedError, QueueItem} from './types.js'
+import type {LocalizedError, QueueItem, QueueResumeContext} from './types.js'
 import {QUEUE_STATUS} from './schemas.js'
 
 // Closed union of state-change signals. Mapped 1:1 from DownloadService /
@@ -21,7 +21,7 @@ export type QueueEvent =
 	| {kind: 'paused-active'; tempDir?: string}
 	| {kind: 'paused-held'}
 	| {kind: 'resumed'}
-	| {kind: 'failed'; error: LocalizedError; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>}
+	| {kind: 'failed'; error: LocalizedError; resumeContext?: QueueResumeContext; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>}
 	| {kind: 'completed'; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>; finishedAt: string}
 	| {kind: 'cancelled'}
 	| {kind: 'retry-reset'}
@@ -30,7 +30,7 @@ export type QueueEvent =
 export function transition(item: QueueItem, evt: QueueEvent): QueueItem {
 	switch (evt.kind) {
 		case 'started':
-			return {...item, status: QUEUE_STATUS.running, lastJobId: evt.lastJobId, error: null, progressPercent: 0, progressDetail: null}
+			return {...item, status: QUEUE_STATUS.running, lastJobId: evt.lastJobId, error: null, progressPercent: 0, progressDetail: null, resumeContext: undefined}
 		case 'progress':
 			return {...item, progressPercent: evt.percent, ...(evt.detail !== undefined ? {progressDetail: evt.detail} : {})}
 		case 'paused-active':
@@ -38,13 +38,13 @@ export function transition(item: QueueItem, evt: QueueEvent): QueueItem {
 		case 'paused-held':
 			return {...item, status: QUEUE_STATUS.pausedHeld, progressDetail: null}
 		case 'resumed':
-			return {...item, status: QUEUE_STATUS.running, error: null}
+			return {...item, status: QUEUE_STATUS.running, error: null, resumeContext: undefined}
 		case 'failed':
-			return {...item, status: QUEUE_STATUS.error, error: evt.error, lastJobId: undefined, tempDir: undefined, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
+			return {...item, status: QUEUE_STATUS.error, error: evt.error, lastJobId: undefined, tempDir: undefined, resumeContext: evt.resumeContext, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
 		case 'completed':
-			return {...item, status: QUEUE_STATUS.done, progressPercent: 100, finishedAt: evt.finishedAt, lastJobId: undefined, tempDir: undefined, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
+			return {...item, status: QUEUE_STATUS.done, progressPercent: 100, finishedAt: evt.finishedAt, lastJobId: undefined, tempDir: undefined, resumeContext: undefined, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
 		case 'cancelled':
-			return {...item, status: QUEUE_STATUS.cancelled, lastJobId: undefined, tempDir: undefined}
+			return {...item, status: QUEUE_STATUS.cancelled, lastJobId: undefined, tempDir: undefined, resumeContext: undefined}
 		case 'retry-reset':
 			return {...item, status: QUEUE_STATUS.pending, error: null, progressPercent: 0, progressDetail: null, finishedAt: null, lastJobId: undefined, tempDir: undefined}
 	}

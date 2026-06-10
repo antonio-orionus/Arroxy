@@ -7,6 +7,7 @@ export interface TallyPopupOptions {
 	alignLeft?: boolean
 	hideTitle?: boolean
 	overlay?: boolean
+	autoClose?: number
 	hiddenFields?: Record<string, string | number | boolean | null | undefined>
 	onSubmit?: (payload: unknown) => void
 }

@@ -93,7 +93,10 @@
 			"quickSingleOnly": "ለመጀመር የቪዲዮ፣ playlist፣ channel ወይም ፍለጋ URL ይለጥፉ።",
 			"quickProbeFailed": "መፈተሹ አልተሳካም",
 			"quickPrepareFailed": "የወረፋ ንጥል ማዘጋጀት አልተቻለም",
+			"quickBulkAllFailed": "ከእነዚህ URL ምንም ማዘጋጀት አልተቻለም",
 			"quickFailed": "ይህን ማከል አልተቻለም፦ {{error}}",
+			"quickPartialFailed_one": "የሰራውን ወረፋ ላይ ጨምሯል። {{count}} URL ማዘጋጀት አልተቻለም።",
+			"quickPartialFailed_other": "የሰሩትን ወረፋ ላይ ጨምሯል። {{count}} URL ማዘጋጀት አልተቻለም።",
 			"bulkButton": "ብዙ URLዎች",
 			"bulkTooltip": "ብዙ URLዎችን ያክሉ እና ወረፋ ውስጥ ያስገቡ።",
 			"features": {
@@ -166,6 +169,16 @@
 			},
 			"closeToTray": {"toggle": "ሲዘጋ ወደ ትሬ ደብቅ", "toggleDescription": "መስኮት ሲዘጋ ዳውንሎዶችን ዳራ ቀጥል።"},
 			"analytics": {"toggle": "ስም-አልባ የአጠቃቀም ስታቲስቲክስ ላክ", "toggleDescription": "የመተግበሪያ ማስጀመሪያዎችን ብቻ ይቆጥራል። ምንም URL፣ የፋይል ስሞች ወይም የግል መረጃ የለም።"}
+		},
+		"quickProgress": {
+			"title": "ፈጣን ማውረድን በማዘጋጀት ላይ",
+			"description": "Arroxy አገናኙን እያነበበ እና {{profileName}} እየተጠቀመ ነው።",
+			"currentFallback": "የአሁኑ አገናኝ",
+			"waitHint": "Arroxy ወረፋውን እያዘጋጀ ሳለ ይህን ክፍት ያቆዩ።",
+			"failedCount_one": "{{count}} አልተሳካም",
+			"failedCount_other": "{{count}} አልተሳኩም",
+			"cancel": "ዝግጅቱን ሰርዝ",
+			"phase": {"probing": "ዝርዝሮችን በማምጣት ላይ", "queueing": "ወደ ወረፋ በመጨመር ላይ"}
 		},
 		"subtitles": {
 			"autoBadge": "ራስ-ሰር",

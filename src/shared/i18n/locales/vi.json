@@ -102,7 +102,10 @@
 			"quickSingleOnly": "Dán URL video, danh sách phát, kênh hoặc tìm kiếm để bắt đầu.",
 			"quickProbeFailed": "Thăm dò thất bại",
 			"quickPrepareFailed": "Không thể chuẩn bị mục hàng đợi",
+			"quickBulkAllFailed": "Không thể chuẩn bị URL nào trong số này",
 			"quickFailed": "Không thể thêm mục này: {{error}}",
+			"quickPartialFailed_one": "Đã đưa mục hoạt động vào hàng đợi. Không thể chuẩn bị {{count}} URL.",
+			"quickPartialFailed_other": "Đã đưa các mục hoạt động vào hàng đợi. Không thể chuẩn bị {{count}} URL.",
 			"bulkButton": "URL hàng loạt",
 			"bulkTooltip": "Thêm và xếp hàng nhiều URL.",
 			"features": {
@@ -180,6 +183,16 @@
 			},
 			"closeToTray": {"toggle": "Ẩn xuống khay khi đóng", "toggleDescription": "Tiếp tục tải xuống trong nền sau khi đóng cửa sổ."},
 			"analytics": {"toggle": "Gửi thống kê sử dụng ẩn danh", "toggleDescription": "Chỉ đếm số lần khởi động ứng dụng. Không có URL, tên tệp hay dữ liệu cá nhân."}
+		},
+		"quickProgress": {
+			"title": "Đang chuẩn bị Tải nhanh",
+			"description": "Arroxy đang đọc liên kết và áp dụng {{profileName}}.",
+			"currentFallback": "Liên kết hiện tại",
+			"waitHint": "Giữ cửa sổ này mở trong khi Arroxy chuẩn bị hàng đợi.",
+			"failedCount_one": "{{count}} thất bại",
+			"failedCount_other": "{{count}} thất bại",
+			"cancel": "Hủy chuẩn bị",
+			"phase": {"probing": "Đang lấy chi tiết", "queueing": "Đang thêm vào hàng đợi"}
 		},
 		"subtitles": {
 			"autoBadge": "Tự động",

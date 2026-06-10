@@ -80,6 +80,18 @@ describe('YtDlp — E2E harness args', () => {
 		expect(getArgs().slice(0, 5)).toEqual(['--ignore-config', '--plugin-dirs', path.dirname(pluginRoot), '--no-cache-dir', '--newline'])
 	})
 
+	it('uses harness-only fast media retry args for download runs in gated E2E mode', async () => {
+		const pluginRoot = makePluginRoot()
+		const e2eMode = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: pluginRoot}, {isPackaged: false})
+
+		await makeYtDlp({e2eMode}).run({kind: 'video', url: URL, outputDir: OUTPUT_DIR})
+
+		const args = getArgs()
+		expect(args[args.indexOf('--retries') + 1]).toBe('1')
+		expect(args[args.indexOf('--fragment-retries') + 1]).toBe('1')
+		expect(args[args.indexOf('--retry-sleep') + 1]).toBe('fragment:0')
+	})
+
 	it('prepends deterministic plugin args without --newline for probe runs', async () => {
 		const pluginRoot = makePluginRoot()
 		const e2eMode = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: pluginRoot}, {isPackaged: false})

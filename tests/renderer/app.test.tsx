@@ -154,6 +154,10 @@ describe('App renderer', () => {
 		fireEvent.change(input, {target: {value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}})
 		fireEvent.click(quick)
 
+		expect(await screen.findByTestId('quick-download-progress-dialog')).toHaveTextContent('Preparing Quick Download')
+		expect(screen.getByTestId('quick-download-progress-dialog')).toHaveTextContent('Balanced')
+		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('0 / 1')
+
 		await waitFor(() => {
 			expect(quick).toBeDisabled()
 			expect(fetch).toBeDisabled()
@@ -180,6 +184,27 @@ describe('App renderer', () => {
 		await waitFor(() => {
 			expect(mockAppApi.queue.cmd.add).toHaveBeenCalledTimes(1)
 		})
+		await waitFor(() => {
+			expect(screen.queryByTestId('quick-download-progress-dialog')).not.toBeInTheDocument()
+		})
+	})
+
+	it('cancels quick download preparation from the blocking progress dialog', async () => {
+		vi.mocked(mockAppApi.downloads.probe).mockReturnValue(new Promise(() => undefined))
+		render(<App />)
+
+		const input = await screen.findByTestId('profiles-main-input')
+		fireEvent.change(input, {target: {value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}})
+		fireEvent.click(screen.getByTestId('profiles-quick-download'))
+
+		expect(await screen.findByTestId('quick-download-progress-dialog')).toBeInTheDocument()
+		fireEvent.click(screen.getByTestId('quick-download-progress-cancel'))
+
+		await waitFor(() => {
+			expect(screen.queryByTestId('quick-download-progress-dialog')).not.toBeInTheDocument()
+		})
+		expect(mockAppApi.downloads.probeCancel).toHaveBeenCalled()
+		expect(screen.getByTestId('profiles-main-input')).toHaveValue('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
 	})
 
 	it('closes the profile picker when opening profile editor surfaces', async () => {

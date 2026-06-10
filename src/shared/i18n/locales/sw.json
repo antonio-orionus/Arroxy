@@ -102,7 +102,10 @@
 			"quickSingleOnly": "Bandika URL ya video, orodha ya kucheza, kituo au utafutaji ili kuanza.",
 			"quickProbeFailed": "Uchunguzi umeshindikana",
 			"quickPrepareFailed": "Kipengee cha foleni hakikuweza kuandaliwa",
+			"quickBulkAllFailed": "Hakuna URL kati ya hizi iliyoweza kuandaliwa",
 			"quickFailed": "Haikuweza kuongeza hii: {{error}}",
+			"quickPartialFailed_one": "Kilichofanya kazi kimeongezwa kwenye foleni. URL {{count}} haikuweza kuandaliwa.",
+			"quickPartialFailed_other": "Vilivyofanya kazi vimeongezwa kwenye foleni. URL {{count}} hazikuweza kuandaliwa.",
 			"bulkButton": "URL nyingi",
 			"bulkTooltip": "Ongeza na weka foleni URL nyingi.",
 			"features": {
@@ -180,6 +183,16 @@
 			},
 			"closeToTray": {"toggle": "Ficha kwenye tray ukifunga", "toggleDescription": "Endelea kupakua nyuma ya pazia baada ya kufunga dirisha."},
 			"analytics": {"toggle": "Tuma takwimu za matumizi zisizo na jina", "toggleDescription": "Huhesabu tu uzinduzi wa programu. Hakuna URL, majina ya faili, au data za kibinafsi."}
+		},
+		"quickProgress": {
+			"title": "Inaandaa Upakuaji wa haraka",
+			"description": "Arroxy inasoma kiungo na kutumia {{profileName}}.",
+			"currentFallback": "Kiungo cha sasa",
+			"waitHint": "Acha hii ikiwa wazi wakati Arroxy inaandaa foleni.",
+			"failedCount_one": "{{count}} imeshindwa",
+			"failedCount_other": "{{count}} zimeshindwa",
+			"cancel": "Ghairi maandalizi",
+			"phase": {"probing": "Inaleta maelezo", "queueing": "Inaongeza kwenye foleni"}
 		},
 		"subtitles": {
 			"autoBadge": "Otomatiki",

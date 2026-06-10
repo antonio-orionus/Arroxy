@@ -102,7 +102,10 @@
 			"quickSingleOnly": "Вставьте URL видео, плейлиста, канала или поиска, чтобы начать.",
 			"quickProbeFailed": "Проверка не удалась",
 			"quickPrepareFailed": "Не удалось подготовить элемент очереди",
+			"quickBulkAllFailed": "Ни один из этих URL не удалось подготовить",
 			"quickFailed": "Не удалось добавить: {{error}}",
+			"quickPartialFailed_one": "То, что сработало, добавлено в очередь. {{count}} URL не удалось подготовить.",
+			"quickPartialFailed_other": "То, что сработало, добавлено в очередь. {{count}} URL не удалось подготовить.",
 			"bulkButton": "Массовые URL",
 			"bulkTooltip": "Добавьте несколько URL и поставьте их в очередь.",
 			"features": {
@@ -180,6 +183,16 @@
 			},
 			"closeToTray": {"toggle": "Скрывать в трей при закрытии", "toggleDescription": "Продолжать загрузки в фоне после закрытия окна."},
 			"analytics": {"toggle": "Отправлять анонимную статистику", "toggleDescription": "Только подсчёт запусков приложения. Без URL, имён файлов или личных данных."}
+		},
+		"quickProgress": {
+			"title": "Подготовка быстрой загрузки",
+			"description": "Arroxy читает ссылку и применяет {{profileName}}.",
+			"currentFallback": "Текущая ссылка",
+			"waitHint": "Оставьте это окно открытым, пока Arroxy готовит очередь.",
+			"failedCount_one": "{{count}} не удалось",
+			"failedCount_other": "{{count}} не удалось",
+			"cancel": "Отменить подготовку",
+			"phase": {"probing": "Получение сведений", "queueing": "Добавление в очередь"}
 		},
 		"subtitles": {
 			"autoBadge": "Авто",

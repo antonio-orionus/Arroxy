@@ -303,6 +303,51 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().wizardStep).toBe('url')
 	})
 
+	it('quickDownloadUrls continues after failed bulk probes and reports the failed count', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockImplementation(async ({url}) => {
+			if (url.includes('bad')) return fail({kind: 'other', code: 'unknown', message: 'Probe failed'})
+			return ok({...VIDEO_PROBE, title: url.includes('one') ? 'One' : 'Two'})
+		})
+		window.appApi = api
+
+		useAppStore.setState({wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
+		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', 'https://youtu.be/bad', 'https://youtu.be/two'])
+
+		expect(api.downloads.probe).toHaveBeenCalledTimes(3)
+		expect(api.queue.cmd.add).toHaveBeenCalledTimes(2)
+		const allQueued = vi.mocked(api.queue.cmd.add).mock.calls.flatMap(call => call[0])
+		expect(allQueued.map(item => item.title)).toEqual(['One', 'Two'])
+		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
+		expect(useAppStore.getState().quickDownloadProgressFailed).toBe(1)
+		expect(useAppStore.getState().quickDownloadError).toBeNull()
+	})
+
+	it('cancelQuickDownload stops pending bulk probes and keeps queued items untouched', async () => {
+		const api = buildMockAppApi()
+		let resolveFirst!: (value: Result<ProbeResult, ProbeError>) => void
+		vi.mocked(api.downloads.probe).mockReturnValue(
+			new Promise(resolve => {
+				resolveFirst = resolve
+			})
+		)
+		window.appApi = api
+
+		useAppStore.setState({wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
+		const promise = useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', 'https://youtu.be/two'])
+		expect(useAppStore.getState().quickDownloadStatus).toBe('preparing')
+		expect(useAppStore.getState().quickDownloadProgressTotal).toBe(2)
+
+		useAppStore.getState().cancelQuickDownload()
+		resolveFirst(ok(VIDEO_PROBE))
+		await promise
+
+		expect(api.downloads.probeCancel).toHaveBeenCalled()
+		expect(api.queue.cmd.add).not.toHaveBeenCalled()
+		expect(useAppStore.getState().quickDownloadStatus).toBe('idle')
+		expect(useAppStore.getState().quickDownloadProgressTotal).toBe(0)
+	})
+
 	it('keeps the URL and shows an error when probing fails', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'Probe failed'}))

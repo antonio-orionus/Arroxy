@@ -52,6 +52,31 @@ describe('ProgressParser — subtitle-only progress', () => {
 		expect(emitStatus).toHaveBeenNthCalledWith(2, 'job-1', 'download', STATUS_KEY.downloadingMedia)
 	})
 
+	it('tracks every non-subtitle destination as a media component', () => {
+		const parser = new ProgressParser(vi.fn(), vi.fn())
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, '[download] Destination: /tmp/video.f137.webm')
+		parser.consume(active, '[download] Destination: /tmp/video.f251.m4a')
+		parser.consume(active, '[download] Destination: /tmp/video.en.srt')
+
+		expect(active.mediaDownloadStarted).toBe(true)
+		expect(active.mediaComponentPaths).toEqual(['/tmp/video.f137.webm', '/tmp/video.f251.m4a'])
+		expect(active.mediaPath).toBe('/tmp/video.f251.m4a')
+		expect(active.subtitlePaths).toEqual(['/tmp/video.en.srt'])
+	})
+
+	it('records already-downloaded media as a resumable media component', () => {
+		const parser = new ProgressParser(vi.fn(), vi.fn())
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, '[download] /tmp/video.f137.webm has already been downloaded')
+
+		expect(active.mediaDownloadStarted).toBe(true)
+		expect(active.mediaComponentPaths).toEqual(['/tmp/video.f137.webm'])
+		expect(active.mediaPath).toBe('/tmp/video.f137.webm')
+	})
+
 	it('emits percent for subtitle file when job is subtitle-only', () => {
 		const emitProgress = vi.fn()
 		const parser = new ProgressParser(vi.fn(), emitProgress)
@@ -115,5 +140,16 @@ describe('ProgressParser — subtitle-only progress', () => {
 
 		expect(active.mediaPath).toBe('/tmp/final.mp4')
 		expect(emitStatus).toHaveBeenCalledWith('job-1', 'download', STATUS_KEY.mergingFormats)
+	})
+
+	it('marks media postprocess as started when postprocess statuses appear', () => {
+		const emitStatus = vi.fn()
+		const parser = new ProgressParser(emitStatus, vi.fn())
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, '[ExtractAudio] Destination: /tmp/video.m4a')
+
+		expect(active.mediaPostprocessStarted).toBe(true)
+		expect(emitStatus).toHaveBeenCalledWith('job-1', 'download', STATUS_KEY.extractingAudio)
 	})
 })

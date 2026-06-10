@@ -110,7 +110,10 @@
 			"quickSingleOnly": "Boshlash uchun video, pleylist, kanal yoki qidiruv URL manzilini joylang.",
 			"quickProbeFailed": "Tekshiruv muvaffaqiyatsiz",
 			"quickPrepareFailed": "Navbat elementi tayyorlanmadi",
+			"quickBulkAllFailed": "Bu URLlarning hech birini tayyorlab bo‘lmadi",
 			"quickFailed": "Buni qo‘shib bo‘lmadi: {{error}}",
+			"quickPartialFailed_one": "Ishlagani navbatga qo‘shildi. {{count}} ta URL tayyorlanmadi.",
+			"quickPartialFailed_other": "Ishlaganlari navbatga qo‘shildi. {{count}} ta URL tayyorlanmadi.",
 			"bulkButton": "Ommaviy URLlar",
 			"bulkTooltip": "Bir nechta URLni qo‘shing va navbatga qo‘ying.",
 			"features": {
@@ -188,6 +191,16 @@
 			},
 			"closeToTray": {"toggle": "Yopilganda tizim soatiga yashirish", "toggleDescription": "Oyna yopilgandan keyin yuklamalar fonda davom etadi."},
 			"analytics": {"toggle": "Anonim foydalanish statistikasini yuborish", "toggleDescription": "Faqat ilovani ishga tushirish sonini hisoblaydi. URL, fayl nomlari yoki shaxsiy maʼlumotlar yoʼq."}
+		},
+		"quickProgress": {
+			"title": "Tez yuklab olish tayyorlanmoqda",
+			"description": "Arroxy havolani o‘qiyapti va {{profileName}} profilini qo‘llayapti.",
+			"currentFallback": "Joriy havola",
+			"waitHint": "Arroxy navbatni tayyorlayotganda buni ochiq qoldiring.",
+			"failedCount_one": "{{count}} ta muvaffaqiyatsiz",
+			"failedCount_other": "{{count}} ta muvaffaqiyatsiz",
+			"cancel": "Tayyorlashni bekor qilish",
+			"phase": {"probing": "Tafsilotlar olinmoqda", "queueing": "Navbatga qo‘shilmoqda"}
 		},
 		"subtitles": {
 			"autoBadge": "Avto",

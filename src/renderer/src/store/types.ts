@@ -20,6 +20,7 @@ import type {
 	ProbeDegradationReason,
 	QueueItem,
 	QueueLane,
+	QuickDownloadProgressPhase,
 	QuickDownloadStatus,
 	SubtitleFormat,
 	SubtitleMap,
@@ -89,6 +90,13 @@ export interface ProbeOrchestratorSlice {
 	quickDownloadStatus: QuickDownloadStatus
 	quickDownloadError: string | null
 	quickDownloadQueueIds: string[]
+	quickDownloadProgressPhase: QuickDownloadProgressPhase
+	quickDownloadProgressTotal: number
+	quickDownloadProgressCompleted: number
+	quickDownloadProgressFailed: number
+	quickDownloadProgressCurrent: string | null
+	quickDownloadProgressTitle: string | null
+	quickDownloadProgressRunId: number | null
 
 	// videoIds matched on disk by the last folder scan
 	syncedDownloadedIds: string[]
@@ -100,6 +108,7 @@ export interface ProbeOrchestratorSlice {
 	submitUrl: () => Promise<void>
 	quickDownload: () => Promise<void>
 	quickDownloadUrls: (urls: string[]) => Promise<void>
+	cancelQuickDownload: () => void
 	startBulkUrls: (urls: string[]) => void
 	cancelBulkMetadata: (reason?: BulkMetadataCancelReason) => void
 	dismissMixedPrompt: (choice: 'video' | 'playlist') => Promise<void>

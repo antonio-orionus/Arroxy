@@ -102,7 +102,10 @@
 			"quickSingleOnly": "الصق رابط فيديو أو قائمة تشغيل أو قناة أو بحث للبدء.",
 			"quickProbeFailed": "فشل الفحص",
 			"quickPrepareFailed": "تعذر تحضير عنصر قائمة الانتظار",
+			"quickBulkAllFailed": "تعذّر تحضير أي من عناوين URL هذه",
 			"quickFailed": "تعذرت إضافة هذا العنصر: {{error}}",
+			"quickPartialFailed_one": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير عنوان URL واحد.",
+			"quickPartialFailed_other": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عناوين URL.",
 			"bulkButton": "روابط متعددة",
 			"bulkTooltip": "أضف روابط متعددة وضعها في قائمة الانتظار.",
 			"features": {
@@ -180,6 +183,16 @@
 			},
 			"closeToTray": {"toggle": "الإخفاء في علبة النظام عند الإغلاق", "toggleDescription": "تستمر التنزيلات في الخلفية بعد إغلاق النافذة."},
 			"analytics": {"toggle": "إرسال إحصائيات الاستخدام المجهولة", "toggleDescription": "يحسب فقط مرات تشغيل التطبيق. بدون عناوين URL أو أسماء ملفات أو بيانات شخصية."}
+		},
+		"quickProgress": {
+			"title": "تحضير التنزيل السريع",
+			"description": "يقرأ Arroxy الرابط ويطبّق {{profileName}}.",
+			"currentFallback": "الرابط الحالي",
+			"waitHint": "أبقِ هذا مفتوحًا بينما يجهّز Arroxy قائمة الانتظار.",
+			"failedCount_one": "فشل {{count}}",
+			"failedCount_other": "فشل {{count}}",
+			"cancel": "إلغاء التحضير",
+			"phase": {"probing": "جارٍ جلب التفاصيل", "queueing": "جارٍ الإضافة إلى قائمة الانتظار"}
 		},
 		"subtitles": {
 			"autoBadge": "تلقائي",

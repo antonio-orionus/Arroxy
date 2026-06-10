@@ -10,6 +10,12 @@ interface YtDlpHarnessArgsOptions {
 	isProbe: boolean
 }
 
+export interface DownloadRetryPolicy {
+	retries: number
+	fragmentRetries: number
+	retrySleep: string
+}
+
 export interface E2eHarnessMode {
 	enabled: boolean
 	skipDeno: boolean
@@ -21,6 +27,7 @@ export interface E2eHarnessMode {
 	applyAppSettingsDefaults: (defaults: AppSettings) => AppSettings
 	applySpawnEnv: (env: NodeJS.ProcessEnv) => NodeJS.ProcessEnv
 	ytDlpArgs: (opts: YtDlpHarnessArgsOptions) => string[]
+	downloadRetryPolicy?: DownloadRetryPolicy
 }
 
 const E2E_COMMAND_LINE_SWITCHES = ['disable-background-networking', 'disable-component-update', 'disable-domain-reliability', 'no-pings'] as const
@@ -57,7 +64,7 @@ function validatePluginRoot(pluginRoot: string | undefined): string {
 
 export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate: HarnessGate): E2eHarnessMode {
 	if (!isE2eHarnessEnabled(env, gate)) {
-		return {enabled: false, skipDeno: false, disableAnalytics: false, disableUpdater: false, allowClipboardWatch: true, useMockTokenProvider: false, commandLineSwitches: [], applyAppSettingsDefaults: defaults => defaults, applySpawnEnv: baseEnv => ({...baseEnv}), ytDlpArgs: () => []}
+		return {enabled: false, skipDeno: false, disableAnalytics: false, disableUpdater: false, allowClipboardWatch: true, useMockTokenProvider: false, commandLineSwitches: [], applyAppSettingsDefaults: defaults => defaults, applySpawnEnv: baseEnv => ({...baseEnv}), ytDlpArgs: () => [], downloadRetryPolicy: undefined}
 	}
 
 	const pluginRoot = validatePluginRoot(env.ARROXY_E2E_YTDLP_PLUGIN_DIR)
@@ -81,6 +88,7 @@ export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate
 			const args = ['--ignore-config', '--plugin-dirs', pluginContainer, '--no-cache-dir']
 			if (!isProbe) args.push('--newline')
 			return args
-		}
+		},
+		downloadRetryPolicy: {retries: 1, fragmentRetries: 1, retrySleep: 'fragment:0'}
 	}
 }

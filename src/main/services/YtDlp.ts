@@ -12,7 +12,7 @@ import {resolveEmbedPolicy} from '@shared/embedPolicy.js'
 import {resolveNetworkPacing, resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {describePlaylistScopeForLog, playlistScopeSentinelFields} from '@shared/playlistScope.js'
 import {DEFAULT_PLAYLIST_PROBE_LIMIT, type NetworkPacingArgs} from '@shared/constants.js'
-import type {E2eHarnessMode} from '@main/e2eHarness.js'
+import type {DownloadRetryPolicy, E2eHarnessMode} from '@main/e2eHarness.js'
 import type {BinaryManager} from './BinaryManager.js'
 import type {TokenService} from './TokenService.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
@@ -20,6 +20,7 @@ import type {SettingsStore} from '@main/stores/SettingsStore.js'
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void
 
 const ytDlpLog = log.scope('yt-dlp')
+const DEFAULT_DOWNLOAD_RETRY_POLICY: DownloadRetryPolicy = {retries: 20, fragmentRetries: 20, retrySleep: 'fragment:exp=1:20'}
 
 function redactProxy(url: string | undefined): string | null {
 	if (!url) return null
@@ -396,7 +397,7 @@ function playlistScopeArgs(scope: PlaylistScope | undefined, visibleLimit: numbe
 	return [fields.ytDlpFlag, fields.ytDlpValue]
 }
 
-export function buildVideoArgs(req: Extract<YtDlpRequest, {kind: 'video' | 'video+embed'}>, pacing: NetworkPacingArgs | undefined): string[] {
+export function buildVideoArgs(req: Extract<YtDlpRequest, {kind: 'video' | 'video+embed'}>, pacing: NetworkPacingArgs | undefined, retryPolicy: DownloadRetryPolicy = DEFAULT_DOWNLOAD_RETRY_POLICY): string[] {
 	const skipDownload = req.kind === 'video' && req.skipDownload === true
 	const args: string[] = ['--progress', '--no-playlist']
 	// Resume hardening: feed cached metadata from a prior spawn so yt-dlp
@@ -416,7 +417,7 @@ export function buildVideoArgs(req: Extract<YtDlpRequest, {kind: 'video' | 'vide
 		// ranges sidesteps the truncation. Doubled retry budgets cover the
 		// long tail when YT throttles a chunk hard. Abort unavailable fragments
 		// instead of accepting a "successful" file with missing media.
-		args.push('--continue', '--http-chunk-size', '10M', '--retries', '20', '--fragment-retries', '20', '--retry-sleep', 'fragment:exp=1:20', '--abort-on-unavailable-fragments')
+		args.push('--continue', '--http-chunk-size', '10M', '--retries', String(retryPolicy.retries), '--fragment-retries', String(retryPolicy.fragmentRetries), '--retry-sleep', retryPolicy.retrySleep, '--abort-on-unavailable-fragments')
 	}
 
 	const forcesMkv = req.kind === 'video+embed' && req.subtitleLanguages.length > 0
@@ -492,7 +493,7 @@ export function buildVideoArgs(req: Extract<YtDlpRequest, {kind: 'video' | 'vide
 	return args
 }
 
-export function buildArgs(req: YtDlpRequest, opts: {pacing?: NetworkPacingArgs; playlistProbeLimit?: number} = {}): {args: string[]; subtitleFormat?: SubtitleFormat} {
+export function buildArgs(req: YtDlpRequest, opts: {pacing?: NetworkPacingArgs; playlistProbeLimit?: number; downloadRetryPolicy?: DownloadRetryPolicy} = {}): {args: string[]; subtitleFormat?: SubtitleFormat} {
 	switch (req.kind) {
 		case 'probe': {
 			// --dump-single-json: one JSON document per URL regardless of content type.
@@ -517,7 +518,7 @@ export function buildArgs(req: YtDlpRequest, opts: {pacing?: NetworkPacingArgs; 
 		}
 		case 'video':
 		case 'video+embed': {
-			return {args: buildVideoArgs(req, opts.pacing)}
+			return {args: buildVideoArgs(req, opts.pacing, opts.downloadRetryPolicy)}
 		}
 	}
 }
@@ -558,7 +559,7 @@ export class YtDlp {
 		const proxyUrl = nonEmpty(settings.common?.proxyUrl?.trim())
 		const pacing = resolveNetworkPacing(settings.common)
 		const playlistProbeLimit = resolvePlaylistProbeLimit(settings.common)
-		const {args, subtitleFormat} = buildArgs(req, {pacing, playlistProbeLimit})
+		const {args, subtitleFormat} = buildArgs(req, {pacing, playlistProbeLimit, downloadRetryPolicy: this.opts.e2eMode?.downloadRetryPolicy})
 		const isProbe = req.kind === 'probe'
 		if (isProbe) {
 			ytDlpLog.info('probe request', {url: req.url, playlistMode: req.playlistMode ?? 'auto', playlistScope: req.playlistMode === 'video' ? null : describePlaylistScopeForLog(req.playlistScope, playlistProbeLimit)})

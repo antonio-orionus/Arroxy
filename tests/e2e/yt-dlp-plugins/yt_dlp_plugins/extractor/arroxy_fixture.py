@@ -1,24 +1,61 @@
+import json
 import os
+from pathlib import Path
 import urllib.request
 
 from yt_dlp.extractor.youtube import YoutubeIE, YoutubeTabIE
 from yt_dlp.utils import ExtractorError
 
-FIXTURE_PLAYLIST_ID = 'PLarroxyfixture'
-FIXTURE_PLAYLIST_VIDEO_IDS = ['ARX00000001', 'ARX00000002', 'ARX00000003']
+
+def _fixture_catalog_path():
+    configured = os.environ.get('ARROXY_E2E_FIXTURE_CATALOG_PATH')
+    if configured:
+        return Path(configured)
+    return Path(__file__).resolve().parents[3] / 'fixture-media-catalog.json'
+
+
+def _fixture_catalog():
+    try:
+        with _fixture_catalog_path().open('r', encoding='utf-8') as handle:
+            return json.load(handle)
+    except Exception as err:
+        raise ExtractorError(f'Could not load Arroxy fixture media catalog: {err}')
+
+
+def _fixture_video(catalog, video_id):
+    for video in catalog['videos']:
+        if video['id'] == video_id:
+            return video
+    raise ExtractorError(f'Unknown Arroxy fixture video id: {video_id}')
+
+
+def _fixture_title(catalog, video_id):
+    return f"Fixture Video {_fixture_video(catalog, video_id)['number']}"
+
+
+def _fixture_formats(catalog, base_url, video_id):
+    video = _fixture_video(catalog, video_id)
+    formats = []
+    for descriptor in catalog['formatSets'][video['formatSet']]:
+        entry = {
+            'format_id': descriptor['id'],
+            'format_note': descriptor['note'],
+            'url': f"{base_url}/media/{video_id}/{descriptor['id']}.{descriptor['ext']}",
+            'ext': descriptor['ext'],
+            'protocol': 'http',
+            'filesize': descriptor['filesize'],
+            'vcodec': descriptor['vcodec'],
+            'acodec': descriptor['acodec'],
+        }
+        for key in ('width', 'height', 'fps', 'tbr', 'abr'):
+            if key in descriptor:
+                entry[key] = descriptor[key]
+        formats.append(entry)
+    return formats
 
 
 class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
     _VALID_URL = r'https?://(?:www\.)?youtube\.com/watch\?(?:[^#]+&)?v=(?P<id>ARX[0-9A-Z]{8})(?:[&#].*)?$'
-
-    @staticmethod
-    def _fixture_title(video_id):
-        suffix = video_id[-2:]
-        try:
-            number = int(suffix)
-        except ValueError:
-            number = 0
-        return f'Fixture Video {number}'
 
     def _fixture_base_url(self):
         base_url = os.environ.get('ARROXY_E2E_FIXTURE_BASE_URL')
@@ -36,9 +73,11 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
 
     def _real_extract(self, url):
         video_id = self._match_id(url)
+        catalog = _fixture_catalog()
+        _fixture_video(catalog, video_id)
         base_url = self._fixture_base_url()
         self._notify_fixture_probe(base_url, video_id)
-        title = self._fixture_title(video_id)
+        title = _fixture_title(catalog, video_id)
 
         return {
             'id': video_id,
@@ -67,55 +106,30 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
                 ],
             },
             'automatic_captions': {},
-            'formats': [
-                {
-                    'format_id': '18',
-                    'format_note': '360p fixture mp4',
-                    'url': f'{base_url}/media/{video_id}/18.mp4',
-                    'ext': 'mp4',
-                    'protocol': 'http',
-                    'width': 640,
-                    'height': 360,
-                    'fps': 30,
-                    'tbr': 800,
-                    'filesize': 262144,
-                    'vcodec': 'avc1.42001E',
-                    'acodec': 'mp4a.40.2',
-                },
-                {
-                    'format_id': '22',
-                    'format_note': '720p fixture mp4',
-                    'url': f'{base_url}/media/{video_id}/22.mp4',
-                    'ext': 'mp4',
-                    'protocol': 'http',
-                    'width': 1280,
-                    'height': 720,
-                    'fps': 30,
-                    'tbr': 1500,
-                    'filesize': 524288,
-                    'vcodec': 'avc1.64001F',
-                    'acodec': 'mp4a.40.2',
-                },
-            ],
+            'formats': _fixture_formats(catalog, base_url, video_id),
         }
 
 
 class ArroxyFixtureYoutubeTabIE(YoutubeTabIE, plugin_name='arroxyfixture'):
-    _VALID_URL = r'https?://(?:www\.)?youtube\.com/playlist\?list=(?P<id>PLarroxyfixture)(?:[&#].*)?$'
+    _VALID_URL = r'https?://(?:www\.)?youtube\.com/playlist\?list=(?P<id>PL[0-9A-Za-z_-]+)(?:[&#].*)?$'
 
     def _real_extract(self, url):
         playlist_id = self._match_id(url)
+        catalog = _fixture_catalog()
+        playlist = catalog['playlist']
+        if playlist_id != playlist['id']:
+            raise ExtractorError(f'Unknown Arroxy fixture playlist id: {playlist_id}')
         base_url = os.environ.get('ARROXY_E2E_FIXTURE_BASE_URL', '').rstrip('/')
         if not base_url:
             raise ExtractorError('ARROXY_E2E_FIXTURE_BASE_URL is required for Arroxy fixture extraction')
 
         entries = []
-        for index, video_id in enumerate(FIXTURE_PLAYLIST_VIDEO_IDS, start=1):
+        for index, video_id in enumerate(playlist['videoIds'], start=1):
             entries.append({
                 '_type': 'url',
                 'ie_key': 'Youtube',
                 'id': video_id,
-                'title': ArroxyFixtureYoutubeIE._fixture_title(video_id),
+                'title': _fixture_title(catalog, video_id),
                 'url': f'https://www.youtube.com/watch?v={video_id}',
                 'webpage_url': f'https://www.youtube.com/watch?v={video_id}',
                 'thumbnail': f'{base_url}/thumbnails/{video_id}.jpg',
@@ -126,9 +140,9 @@ class ArroxyFixtureYoutubeTabIE(YoutubeTabIE, plugin_name='arroxyfixture'):
         return {
             '_type': 'playlist',
             'id': playlist_id,
-            'title': 'Fixture Playlist',
+            'title': playlist['title'],
             'playlist_id': playlist_id,
-            'playlist_title': 'Fixture Playlist',
+            'playlist_title': playlist['title'],
             'webpage_url': url,
             'entries': entries,
         }

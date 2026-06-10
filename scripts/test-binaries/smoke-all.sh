@@ -5,8 +5,8 @@
 #   - build-time embedded ffmpeg/ffprobe sources used by fetch-embedded.sh
 #
 # The matrix mirrors src/main/services/BinaryManager.ts plus
-# scripts/build/fetch-embedded.sh. If an asset name or upstream changes, update
-# both the production fetcher and this smoke harness together.
+# scripts/build/fetch-embedded.sh. BtbN asset resolution is shared with the
+# production fetcher so the smoke harness catches resolver drift directly.
 set -u
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -72,27 +72,33 @@ done
 echo
 echo '########## BtbN ffmpeg + ffprobe shared archives ##########'
 
-BTBN_BASE=https://github.com/BtbN/FFmpeg-Builds/releases/download/latest
-btbn_sums="$OUT/btbn/checksums.sha256"
-fetch "$BTBN_BASE/checksums.sha256" "$btbn_sums" || true
+while IFS= read -r combo; do
+  [[ -z "$combo" ]] && continue
+  resolution="$OUT/btbn/$combo/resolution.env"
+  note "resolving BtbN $combo"
+  if ! bun "$ROOT/scripts/build/btbnResolver.ts" --target "$combo" > "$resolution"; then
+    fail "resolve BtbN $combo"
+    continue
+  fi
 
-declare -A BTBN_ASSETS=(
-  [win32-x64]=ffmpeg-master-latest-win64-gpl-shared.zip
-  [win32-arm64]=ffmpeg-master-latest-winarm64-gpl-shared.zip
-  [linux-x64]=ffmpeg-master-latest-linux64-gpl-shared.tar.xz
-  [linux-arm64]=ffmpeg-master-latest-linuxarm64-gpl-shared.tar.xz
-)
-
-for combo in "${!BTBN_ASSETS[@]}"; do
-  asset="${BTBN_ASSETS[$combo]}"
+  # shellcheck source=/dev/null
+  source "$resolution"
+  btbn_arch="${BTBN_ARCH:?}"
+  ext="${BTBN_ARCHIVE_EXT:?}"
+  asset="${BTBN_ASSET_NAME:?}"
+  asset_url="${BTBN_ASSET_URL:?}"
+  checksums_url="${BTBN_CHECKSUMS_URL:?}"
+  release_tag="${BTBN_RESOLVED_RELEASE_TAG:?}"
+  btbn_sums="$OUT/btbn/$combo/checksums.sha256"
   target="$OUT/btbn/$combo/$asset"
-  note "fetching $asset"
-  fetch "$BTBN_BASE/$asset" "$target" || continue
+  note "fetching $asset from $release_tag"
+  fetch "$checksums_url" "$btbn_sums" || continue
+  fetch "$asset_url" "$target" || continue
 
   expected=""
   [[ -f "$btbn_sums" ]] && expected=$(sha_for_asset "$btbn_sums" "$asset")
   if [[ -z "$expected" ]]; then
-    fail "no SHA for $asset in BtbN checksums.sha256"
+    fail "no SHA for $asset in BtbN checksums.sha256 ($release_tag)"
   else
     verify_sha "$target" "$expected" "$asset"
   fi
@@ -132,7 +138,7 @@ for combo in "${!BTBN_ASSETS[@]}"; do
       if (( so_count > 0 )); then ok "Linux shared-library siblings present: $so_count"; else fail "no lib*.so* siblings inside $asset"; fi
       ;;
   esac
-done
+done < <(bun "$ROOT/scripts/build/btbnResolver.ts" --list-targets)
 
 ##########################################################################
 # Martin-Riedl ffmpeg/ffprobe - build-time embedded macOS ZIPs

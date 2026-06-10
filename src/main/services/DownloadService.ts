@@ -1,6 +1,5 @@
 import {EventEmitter} from 'node:events'
 import {randomUUID} from 'node:crypto'
-import {stat} from 'node:fs/promises'
 import log from 'electron-log/main.js'
 import {trackMain} from '@main/services/analytics.js'
 import {phasesFor, PhaseExecutor} from './phases/index.js'
@@ -10,13 +9,14 @@ import {createAppError} from '@main/utils/errorFactory.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {MAX_CONCURRENT_DOWNLOADS} from '@shared/constants.js'
-import type {CancelDownloadOutput, DownloadJob, LocalizedError, PauseDownloadOutput, RecentJob, StartDownloadInput, StartDownloadOutput, StatusEvent, StatusKey} from '@shared/types.js'
+import type {CancelDownloadOutput, DownloadJob, LocalizedError, PauseDownloadOutput, QueueResumeContext, RecentJob, StartDownloadInput, StartDownloadOutput, StatusEvent, StatusKey} from '@shared/types.js'
 import type {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {YtDlp} from './YtDlp.js'
 import {AsyncStack} from './phases/index.js'
 import type {ActiveDownload, PausedDownload} from './phases/index.js'
 import {killActiveProcesses} from './download/processControl.js'
 import {cleanupPartFiles, cleanupTempDirByPath} from './download/cleanup.js'
+import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
 import {ProgressParser} from './download/progressParser.js'
 import {JobLifecycle} from './JobLifecycle.js'
 
@@ -47,7 +47,7 @@ export class DownloadService extends EventEmitter {
 		super()
 		this.maxConcurrent = Math.max(1, maxConcurrent)
 		this.progressParser = new ProgressParser(
-			(jobId, stage, statusKey, params, error) => this.emitStatus(jobId, stage, statusKey, params, error),
+			(jobId, stage, statusKey, params, error, resumeContext) => this.emitStatus(jobId, stage, statusKey, params, error, resumeContext),
 			event => this.emit('progress', event)
 		)
 		this.lifecycle = new JobLifecycle(this.recentJobsStore)
@@ -79,7 +79,8 @@ export class DownloadService extends EventEmitter {
 		const expectedBytes = preparedJob.kind === 'single-format' ? preparedJob.expectedBytes : undefined
 		const job: DownloadJob = {id: randomUUID(), url: input.url, outputDir: input.outputDir, expectedBytes, status: 'running', createdAt: now, updatedAt: now}
 		const controller = new AbortController()
-		const active: ActiveDownload = {job, input, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], tempDir: input.tempDir, disposables: new AsyncStack()}
+		const active: ActiveDownload = {job, input, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], mediaDownloadStarted: false, mediaComponentPaths: [], tempDir: input.tempDir, disposables: new AsyncStack()}
+		this.registerInputTempDirCleanup(active)
 		this.activeJobs.set(job.id, active)
 		logger.info('Download job created', {jobId: job.id, url: job.url, outputDir: job.outputDir, kind: preparedJob.kind})
 		const hasSubs = preparedJob.kind !== 'subtitle-only' ? Boolean(preparedJob.subtitles?.languages.length) : true
@@ -101,24 +102,13 @@ export class DownloadService extends EventEmitter {
 		const {job, input} = paused
 		job.status = 'running'
 		job.updatedAt = nowIso()
-		// Validate the preserved tempDir still exists. OS tmp cleaners, NFS
-		// unmounts, and manual deletes can wipe it between pause and resume.
-		// Setting tempDir to undefined makes VideoPhase's setupTempDir() recreate
-		// it fresh — partial download is lost, but the job runs cleanly instead
-		// of failing with an opaque ENOENT inside yt-dlp.
-		let resumedTempDir = paused.tempDir
-		if (resumedTempDir) {
-			try {
-				const s = await stat(resumedTempDir)
-				if (!s.isDirectory()) resumedTempDir = undefined
-			} catch {
-				logger.info('Resume: preserved tempDir missing — restarting fresh', {jobId: job.id, tempDir: paused.tempDir})
-				resumedTempDir = undefined
-			}
-		}
 		const controller = new AbortController()
-		const active: ActiveDownload = {job, input, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], tempDir: resumedTempDir, disposables: new AsyncStack()}
+		const active: ActiveDownload = {job, input, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], mediaDownloadStarted: false, mediaComponentPaths: [], tempDir: paused.tempDir, disposables: new AsyncStack()}
 		this.activeJobs.set(job.id, active)
+		const resumedTempDir = await QueueResumeLifecycle.validateTempDir(paused.tempDir)
+		if (paused.tempDir && !resumedTempDir) logger.info('Resume: preserved tempDir missing — restarting fresh', {jobId: job.id, tempDir: paused.tempDir})
+		active.tempDir = resumedTempDir
+		this.registerInputTempDirCleanup(active)
 		logger.info('Resuming download', {jobId: job.id})
 
 		const result = await this.runJob(active)
@@ -175,7 +165,7 @@ export class DownloadService extends EventEmitter {
 			active,
 			signal: active.signal,
 			ytDlp: this.ytDlp,
-			emitStatus: (stage, statusKey, params?, error?) => this.emitStatus(job.id, stage, statusKey, params, error),
+			emitStatus: (stage, statusKey, params?, error?, resumeContext?) => this.emitStatus(job.id, stage, statusKey, params, error, resumeContext),
 			register: disposable =>
 				active.disposables.defer(async () => {
 					try {
@@ -198,6 +188,7 @@ export class DownloadService extends EventEmitter {
 				await this.finalize(job, 'completed')
 				return
 			case 'hard-failed':
+				if (outcome.resumeContext) active.resumeContext = outcome.resumeContext
 				await this.finalize(job, 'failed', outcome.error)
 				return
 			case 'cancelled':
@@ -231,6 +222,10 @@ export class DownloadService extends EventEmitter {
 		} catch (err) {
 			logger.warn('consumeProgress threw', {jobId: active.job.id, message: err instanceof Error ? err.message : String(err)})
 		}
+	}
+
+	private registerInputTempDirCleanup(active: ActiveDownload): void {
+		QueueResumeLifecycle.registerInputTempDirCleanup(active)
 	}
 
 	async cancel(jobId?: string): Promise<Result<CancelDownloadOutput>> {
@@ -342,8 +337,8 @@ export class DownloadService extends EventEmitter {
 		this.progressParser.consume(active, text)
 	}
 
-	private emitStatus(jobId: string, stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError): void {
-		const event: StatusEvent = {jobId, stage, statusKey, params, error, at: nowIso()}
+	private emitStatus(jobId: string, stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError, resumeContext?: QueueResumeContext): void {
+		const event: StatusEvent = {jobId, stage, statusKey, params, error, resumeContext, at: nowIso()}
 		this.emit('status', event)
 		if (stage === 'error') logger.error(statusKey, {jobId, stage, params})
 		else logger.info(statusKey, {jobId, stage, params})

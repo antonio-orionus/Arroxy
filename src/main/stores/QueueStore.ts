@@ -2,6 +2,7 @@ import Store from 'electron-store'
 import type {QueueItem} from '@shared/types.js'
 import {queueArraySchema, QUEUE_STATUS} from '@shared/schemas.js'
 import {fail, ok, type Result} from '@shared/result.js'
+import {QueueResumeLifecycle} from '@main/services/download/QueueResumeLifecycle.js'
 
 interface QueueData {
 	items: QueueItem[]
@@ -76,19 +77,8 @@ export class QueueStore {
 	// demoted to pending on save (the process didn't survive — restart it).
 	async save(items: QueueItem[], schedulerPaused = false): Promise<void> {
 		const toStore = items.flatMap((item): QueueItem[] => {
-			if (item.status === QUEUE_STATUS.cancelled) return []
-			const wasRunning = item.status === QUEUE_STATUS.running
-			return [
-				{
-					...item,
-					status: wasRunning ? QUEUE_STATUS.pending : item.status,
-					progressPercent: wasRunning ? 0 : item.progressPercent,
-					progressDetail: wasRunning ? null : item.progressDetail,
-					// Running jobs lose their lastJobId on restart; paused-active keeps it
-					// so resume() can re-spawn under the same id when main still has it.
-					lastJobId: wasRunning ? undefined : item.lastJobId
-				}
-			]
+			const persisted = QueueResumeLifecycle.prepareItemForPersistence(item)
+			return persisted ? [persisted] : []
 		})
 
 		const result = queueArraySchema.safeParse(toStore)

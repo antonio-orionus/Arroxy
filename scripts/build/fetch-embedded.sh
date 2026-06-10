@@ -58,27 +58,31 @@ fi
 # BtbN: single archive contains both ffmpeg + ffprobe (+ DLLs on Windows).
 fetch_btbn() {
   local platform="$1" arch="$2" out="$3"
-  local btbn_arch
-  case "${platform}-${arch}" in
-    win32-x64)   btbn_arch=win64 ;;
-    win32-arm64) btbn_arch=winarm64 ;;
-    linux-x64)   btbn_arch=linux64 ;;
-    linux-arm64) btbn_arch=linuxarm64 ;;
-    *) fail "fetch_btbn: unsupported ${platform}-${arch}"; exit 1 ;;
-  esac
-  local ext=tar.xz
-  [[ "$platform" == "win32" ]] && ext=zip
-  local asset="ffmpeg-master-latest-${btbn_arch}-gpl-shared.${ext}"
-  local base="https://github.com/BtbN/FFmpeg-Builds/releases/download/latest"
+  local resolution="$out/_btbn_resolution.env"
   local sums="$out/_sums"
 
-  note "fetching BtbN $asset"
-  fetch "$base/checksums.sha256" "$sums" || exit 1
-  fetch "$base/$asset" "$out/$asset" || exit 1
+  note "resolving BtbN ${platform}-${arch}"
+  if ! bun "$ROOT/scripts/build/btbnResolver.ts" --target "$platform" "$arch" > "$resolution"; then
+    fail "resolve BtbN ${platform}-${arch}"
+    exit 1
+  fi
+
+  # shellcheck source=/dev/null
+  source "$resolution"
+  local btbn_arch="${BTBN_ARCH:?}"
+  local ext="${BTBN_ARCHIVE_EXT:?}"
+  local asset="${BTBN_ASSET_NAME:?}"
+  local asset_url="${BTBN_ASSET_URL:?}"
+  local checksums_url="${BTBN_CHECKSUMS_URL:?}"
+  local release_tag="${BTBN_RESOLVED_RELEASE_TAG:?}"
+
+  note "fetching BtbN $asset from $release_tag"
+  fetch "$checksums_url" "$sums" || exit 1
+  fetch "$asset_url" "$out/$asset" || exit 1
   local expected
   expected=$(sha_for_asset "$sums" "$asset")
   if [[ -z "$expected" ]]; then
-    fail "no SHA for $asset in BtbN checksums.sha256"
+    fail "no SHA for $asset in BtbN checksums.sha256 ($release_tag)"
     exit 1
   fi
   verify_sha "$out/$asset" "$expected" "$asset" || exit 1
@@ -118,7 +122,7 @@ fetch_btbn() {
 
   chmod +x "$out/ffmpeg${local_exe_ext}" "$out/ffprobe${local_exe_ext}" 2>/dev/null || true
 
-  rm -rf "$out/_ext" "$out/$asset" "$sums"
+  rm -rf "$out/_ext" "$out/$asset" "$sums" "$resolution"
   ok "BtbN ${btbn_arch} → $out"
 }
 

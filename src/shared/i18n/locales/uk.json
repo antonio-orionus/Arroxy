@@ -110,7 +110,10 @@
 			"quickSingleOnly": "Вставте URL відео, плейлиста, каналу або пошуку, щоб почати.",
 			"quickProbeFailed": "Перевірка не вдалася",
 			"quickPrepareFailed": "Не вдалося підготувати елемент черги",
+			"quickBulkAllFailed": "Жоден із цих URL не вдалося підготувати",
 			"quickFailed": "Не вдалося додати: {{error}}",
+			"quickPartialFailed_one": "Те, що спрацювало, додано до черги. {{count}} URL не вдалося підготувати.",
+			"quickPartialFailed_other": "Те, що спрацювало, додано до черги. {{count}} URL не вдалося підготувати.",
 			"bulkButton": "Масові URL",
 			"bulkTooltip": "Додайте кілька URL і поставте їх у чергу.",
 			"features": {
@@ -188,6 +191,16 @@
 			},
 			"closeToTray": {"toggle": "Приховувати в трей при закритті", "toggleDescription": "Продовжувати завантаження у фоні після закриття вікна."},
 			"analytics": {"toggle": "Надсилати анонімну статистику", "toggleDescription": "Лише підрахунок запусків додатку. Без URL, імен файлів чи особистих даних."}
+		},
+		"quickProgress": {
+			"title": "Підготовка швидкого завантаження",
+			"description": "Arroxy читає посилання та застосовує {{profileName}}.",
+			"currentFallback": "Поточне посилання",
+			"waitHint": "Залиште це вікно відкритим, поки Arroxy готує чергу.",
+			"failedCount_one": "{{count}} не вдалося",
+			"failedCount_other": "{{count}} не вдалося",
+			"cancel": "Скасувати підготовку",
+			"phase": {"probing": "Отримання відомостей", "queueing": "Додавання до черги"}
 		},
 		"subtitles": {
 			"autoBadge": "Авто",

@@ -150,6 +150,9 @@ export type UiTheme = z.infer<typeof uiThemeSchema>
 export const quickDownloadStatusSchema = z.enum(['idle', 'preparing', 'queued', 'error'])
 export type QuickDownloadStatus = z.infer<typeof quickDownloadStatusSchema>
 
+export const quickDownloadProgressPhaseSchema = z.enum(['probing', 'queueing'])
+export type QuickDownloadProgressPhase = z.infer<typeof quickDownloadProgressPhaseSchema>
+
 export const wizardModeSchema = z.enum(['single', 'playlist', 'bulk'])
 export type WizardMode = z.infer<typeof wizardModeSchema>
 
@@ -397,6 +400,8 @@ const localizedErrorSchema = z.object({kind: ytDlpErrorKindSchema, raw: z.string
 
 const statusSnapshotSchema = z.object({key: statusKeySchema, params: z.record(z.string(), z.union([z.string(), z.number()])).optional()})
 
+const queueResumeContextSchema = z.object({kind: z.literal('media-retry'), tempDir: z.string().min(1), reason: z.enum(['media-transfer', 'postprocess']), failureKind: ytDlpErrorKindSchema})
+
 export const queueItemSchema = z.object({
 	id: z.string(),
 	url: z.string(),
@@ -424,6 +429,7 @@ export const queueItemSchema = z.object({
 	// paused-held items (they never spawned a job yet).
 	tempDir: z.string().min(1).optional(),
 	lastJobId: z.string().min(1).optional(),
+	resumeContext: queueResumeContextSchema.optional(),
 	job: preparedJobSchema
 })
 

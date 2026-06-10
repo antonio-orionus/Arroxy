@@ -8,7 +8,7 @@ import type {Phase} from './types.js'
 
 export type StrategyKind = 'subtitle-only' | 'video' | 'video+sidecar' | 'video+embed' | 'video+embed+auto'
 
-const PHASES: Record<StrategyKind, Phase[]> = {'subtitle-only': [SubtitleOnlyPhase], video: [VideoPhase(false)], 'video+embed': [VideoPhase(true)], 'video+sidecar': [VideoPhase(false), SidecarSubsPhase(false)], 'video+embed+auto': [VideoPhase(false), SidecarSubsPhase(true)]}
+const PHASES: Record<StrategyKind, Phase[]> = {'subtitle-only': [SubtitleOnlyPhase], video: [VideoPhase(false)], 'video+embed': [VideoPhase(false), SidecarSubsPhase(true)], 'video+sidecar': [VideoPhase(false), SidecarSubsPhase(false)], 'video+embed+auto': [VideoPhase(false), SidecarSubsPhase(true)]}
 
 export function strategyFor(job: PreparedJob): StrategyKind {
 	switch (job.kind) {

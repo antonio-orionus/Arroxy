@@ -55,6 +55,16 @@ describe('QueueStore', () => {
 		expect(loaded[0].error?.raw).toBe('Network error')
 	})
 
+	it('round-trips failed media resume context', async () => {
+		const [store] = await tempStore()
+		const item = makeItem({id: 'resume', status: 'error', error: {kind: 'network', raw: 'read reset'}, resumeContext: {kind: 'media-retry', tempDir: '/tmp/.arroxy-temp/resume', reason: 'media-transfer', failureKind: 'network'}})
+		await store.save([item])
+
+		const loaded = await loadOk(store)
+		expect(loaded[0].status).toBe('error')
+		expect(loaded[0].resumeContext).toEqual({kind: 'media-retry', tempDir: '/tmp/.arroxy-temp/resume', reason: 'media-transfer', failureKind: 'network'})
+	})
+
 	it('demotes running → pending and clears progress + lastJobId on save (process did not survive)', async () => {
 		const [store] = await tempStore()
 		const item = makeItem({id: 'd', status: 'running', progressPercent: 67, progressDetail: '4.5MiB/s ETA 00:10', lastJobId: 'job-xyz'})
