@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import {btbnTargetFor, btbnTargets, floatingLatestAssetName, formatShellEnv, isTimestampedMasterAssetName, selectBtbnAsset, type BtbnRelease} from '../../scripts/build/btbnResolver.js'
+import {btbnTargetFor, btbnTargets, floatingLatestAssetName, formatShellEnv, isCliEntrypoint, isTimestampedMasterAssetName, selectBtbnAsset, type BtbnRelease} from '../../scripts/build/btbnResolver.js'
 
 function release(tagName: string, assetNames: string[], draft = false): BtbnRelease {
 	return {tagName, draft, assets: assetNames.map(name => ({name, browserDownloadUrl: `https://example.invalid/${tagName}/${name}`}))}
@@ -74,5 +74,11 @@ describe('BtbN release resolver', () => {
 		expect(output).toContain("BTBN_TARGET='win32-x64'")
 		expect(output).toContain("BTBN_ARCH='win64'")
 		expect(output).toContain("BTBN_ARCHIVE_EXT='zip'")
+	})
+
+	it('recognizes Bun CLI execution and Windows argv paths', () => {
+		expect(isCliEntrypoint({url: 'file:///not-this-script.ts', main: true}, undefined)).toBe(true)
+		expect(isCliEntrypoint({url: 'file:///D:/a/Arroxy/Arroxy/scripts/build/btbnResolver.ts'}, 'D:\\a\\Arroxy\\Arroxy\\scripts\\build\\btbnResolver.ts')).toBe(true)
+		expect(isCliEntrypoint({url: 'file:///D:/a/Arroxy/Arroxy/scripts/build/btbnResolver.ts'}, 'D:\\a\\Arroxy\\Arroxy\\scripts\\build\\other.ts')).toBe(false)
 	})
 })

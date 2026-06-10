@@ -1,3 +1,5 @@
+import {pathToFileURL} from 'node:url'
+
 const BTBN_API_BASE = 'https://api.github.com/repos/BtbN/FFmpeg-Builds'
 
 type BtbnArchiveExtension = 'tar.xz' | 'zip'
@@ -205,6 +207,28 @@ function shellQuote(value: string): string {
 	return `'${value.replaceAll("'", "'\\''")}'`
 }
 
+function normalizeFileUrlForComparison(href: string): string {
+	return href.replace(/^file:\/\/\/([a-zA-Z]):/, (_match, drive: string) => `file:///${drive.toUpperCase()}:`)
+}
+
+function windowsPathToFileUrl(value: string): string {
+	const normalized = value.replaceAll('\\', '/')
+	const drive = normalized[0].toUpperCase()
+	const rest = normalized.slice(3)
+	return `file:///${drive}:/${rest.split('/').map(encodeURIComponent).join('/')}`
+}
+
+function pathLikeToFileUrl(value: string): string {
+	if (/^[a-zA-Z]:[\\/]/.test(value)) return windowsPathToFileUrl(value)
+	return pathToFileURL(value).href
+}
+
+export function isCliEntrypoint(meta: Pick<ImportMeta, 'url'> & {main?: boolean}, argvPath: string | undefined = process.argv[1]): boolean {
+	if (meta.main === true) return true
+	if (!argvPath) return false
+	return normalizeFileUrlForComparison(meta.url) === normalizeFileUrlForComparison(pathLikeToFileUrl(argvPath))
+}
+
 export function formatShellEnv(resolution: BtbnAssetResolution, target?: BtbnTarget): string {
 	return [
 		...(target ? [`BTBN_TARGET=${shellQuote(target.combo)}`, `BTBN_ARCH=${shellQuote(target.btbnArch)}`, `BTBN_ARCHIVE_EXT=${shellQuote(target.ext)}`] : []),
@@ -253,7 +277,7 @@ async function main(args: string[]): Promise<void> {
 	console.log(formatShellEnv(resolution))
 }
 
-if (process.argv[1] && import.meta.url === new URL(process.argv[1], 'file:').href) {
+if (isCliEntrypoint(import.meta)) {
 	main(process.argv.slice(2)).catch(error => {
 		console.error(error instanceof Error ? error.message : String(error))
 		process.exit(1)
