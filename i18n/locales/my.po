@@ -1671,7 +1671,7 @@ msgstr "URL အများအပြား"
 
 msgctxt "wizard.url.bulkTooltip"
 msgid "Add and queue multiple URLs."
-msgstr ""
+msgstr "URL အများအပြားကို ထည့်ပြီး queue ထဲသို့ ထည့်ပါ။"
 
 msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
@@ -1835,14 +1835,11 @@ msgstr "ဗီဒီယိုများ"
 
 msgctxt "wizard.url.fetchFormatsTooltip"
 msgid "Step-by-step wizard. Choose format, quality, and more."
-msgstr ""
+msgstr "အဆင့်လိုက် wizard။ ဖော်မတ်၊ အရည်အသွေးနှင့် အခြားအရာများကို ရွေးပါ။"
 
-#, fuzzy
-#| msgctxt "status.complete"
-#| msgid "Download complete"
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
-msgstr "ဒေါင်းလုဒ်ပြီးဆုံးပြီ"
+msgstr "URL မှ ဒေါင်းလုဒ်လုပ်ရန်"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
@@ -2032,19 +2029,13 @@ msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
 
-#, fuzzy
-#| msgctxt "wizard.url.quickDownload"
-#| msgid "Quick download"
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
 msgstr "အမြန်ဒေါင်းလုဒ်"
 
-#, fuzzy
-#| msgctxt "tray.menu.statusActive_one"
-#| msgid "1 downloading · {{percent}}%"
 msgctxt "wizard.url.quickDownloadTooltip"
 msgid "Will download using: {{profileName}}"
-msgstr "1 ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%"
+msgstr "{{profileName}} ကို အသုံးပြု၍ ဒေါင်းလုဒ်လုပ်မည်"
 
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
@@ -2066,14 +2057,9 @@ msgctxt "wizard.url.quickQueued"
 msgid "Added to queue"
 msgstr "တန်းစီစာရင်းထဲ ထည့်ပြီး"
 
-#, fuzzy
-#| msgctxt "wizard.bulk.description"
-#| msgid ""
-#| "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean "
-#| "duplicates before queueing."
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
-msgstr "video၊ playlist၊ channel၊ search သို့မဟုတ် audio URL များကို paste လုပ်ပါ။ Arroxy သည် queue ထဲမထည့်မီ duplicate များကို ရှင်းလင်းမည်။"
+msgstr "စတင်ရန် ဗီဒီယို၊ playlist၊ channel သို့မဟုတ် search URL ကို paste လုပ်ပါ။"
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

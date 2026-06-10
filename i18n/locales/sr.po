@@ -1671,7 +1671,7 @@ msgstr "Групни URL-ови"
 
 msgctxt "wizard.url.bulkTooltip"
 msgid "Add and queue multiple URLs."
-msgstr ""
+msgstr "Додај више URL-ова и стави их у ред."
 
 msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
@@ -1835,14 +1835,11 @@ msgstr "Видеа"
 
 msgctxt "wizard.url.fetchFormatsTooltip"
 msgid "Step-by-step wizard. Choose format, quality, and more."
-msgstr ""
+msgstr "Водич корак по корак. Изабери формат, квалитет и још опција."
 
-#, fuzzy
-#| msgctxt "status.complete"
-#| msgid "Download complete"
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
-msgstr "Преузимање је завршено"
+msgstr "Преузми са URL-а"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
@@ -2032,19 +2029,13 @@ msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
 
-#, fuzzy
-#| msgctxt "wizard.url.quickDownload"
-#| msgid "Quick download"
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
-msgstr "Brzo preuzimanje"
+msgstr "Брзо преузимање"
 
-#, fuzzy
-#| msgctxt "tray.menu.statusActive_one"
-#| msgid "1 downloading · {{percent}}%"
 msgctxt "wizard.url.quickDownloadTooltip"
 msgid "Will download using: {{profileName}}"
-msgstr "1 преузима · {{percent}}%"
+msgstr "Преузимаће помоћу: {{profileName}}"
 
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
@@ -2066,14 +2057,9 @@ msgctxt "wizard.url.quickQueued"
 msgid "Added to queue"
 msgstr "Dodato u red"
 
-#, fuzzy
-#| msgctxt "wizard.bulk.description"
-#| msgid ""
-#| "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean "
-#| "duplicates before queueing."
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
-msgstr "Налепите URL-ове видеа, плејлисте, канала, претраге или аудија. Arroxy ће уклонити дупликате пре додавања у ред."
+msgstr "Налепи URL видеа, плејлисте, канала или претраге за почетак."
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

@@ -1671,7 +1671,7 @@ msgstr "URL hàng loạt"
 
 msgctxt "wizard.url.bulkTooltip"
 msgid "Add and queue multiple URLs."
-msgstr ""
+msgstr "Thêm và xếp hàng nhiều URL."
 
 msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
@@ -1835,14 +1835,11 @@ msgstr "Video"
 
 msgctxt "wizard.url.fetchFormatsTooltip"
 msgid "Step-by-step wizard. Choose format, quality, and more."
-msgstr ""
+msgstr "Trình hướng dẫn từng bước. Chọn định dạng, chất lượng và hơn nữa."
 
-#, fuzzy
-#| msgctxt "status.complete"
-#| msgid "Download complete"
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
-msgstr "Tải xuống hoàn tất"
+msgstr "Tải xuống từ URL"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
@@ -2032,19 +2029,13 @@ msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
 
-#, fuzzy
-#| msgctxt "wizard.url.quickDownload"
-#| msgid "Quick download"
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
 msgstr "Tải nhanh"
 
-#, fuzzy
-#| msgctxt "tray.menu.statusActive_one"
-#| msgid "1 downloading · {{percent}}%"
 msgctxt "wizard.url.quickDownloadTooltip"
 msgid "Will download using: {{profileName}}"
-msgstr "1 đang tải · {{percent}}%"
+msgstr "Sẽ tải xuống bằng: {{profileName}}"
 
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
@@ -2066,14 +2057,9 @@ msgctxt "wizard.url.quickQueued"
 msgid "Added to queue"
 msgstr "Đã thêm vào hàng đợi"
 
-#, fuzzy
-#| msgctxt "wizard.bulk.description"
-#| msgid ""
-#| "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean "
-#| "duplicates before queueing."
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
-msgstr "Dán URL video, danh sách phát, kênh, tìm kiếm hoặc âm thanh. Arroxy sẽ loại bỏ trùng lặp trước khi đưa vào hàng đợi."
+msgstr "Dán URL video, danh sách phát, kênh hoặc tìm kiếm để bắt đầu."
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

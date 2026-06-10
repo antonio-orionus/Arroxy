@@ -1671,7 +1671,7 @@ msgstr "Масові URL"
 
 msgctxt "wizard.url.bulkTooltip"
 msgid "Add and queue multiple URLs."
-msgstr ""
+msgstr "Додайте кілька URL і поставте їх у чергу."
 
 msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
@@ -1835,14 +1835,11 @@ msgstr "Відео"
 
 msgctxt "wizard.url.fetchFormatsTooltip"
 msgid "Step-by-step wizard. Choose format, quality, and more."
-msgstr ""
+msgstr "Покроковий майстер. Виберіть формат, якість та інші параметри."
 
-#, fuzzy
-#| msgctxt "status.complete"
-#| msgid "Download complete"
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
-msgstr "Завантаження завершено"
+msgstr "Завантажити з URL"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
@@ -2032,19 +2029,13 @@ msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
 
-#, fuzzy
-#| msgctxt "wizard.url.quickDownload"
-#| msgid "Quick download"
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
 msgstr "Швидке завантаження"
 
-#, fuzzy
-#| msgctxt "tray.menu.statusActive_one"
-#| msgid "1 downloading · {{percent}}%"
 msgctxt "wizard.url.quickDownloadTooltip"
 msgid "Will download using: {{profileName}}"
-msgstr "1 завантажується · {{percent}}%"
+msgstr "Буде завантажено через: {{profileName}}"
 
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
@@ -2066,14 +2057,9 @@ msgctxt "wizard.url.quickQueued"
 msgid "Added to queue"
 msgstr "Додано в чергу"
 
-#, fuzzy
-#| msgctxt "wizard.bulk.description"
-#| msgid ""
-#| "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean "
-#| "duplicates before queueing."
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
-msgstr "Вставте URL відео, плейлиста, каналу, пошуку або аудіо. Arroxy очистить дублікати перед додаванням у чергу."
+msgstr "Вставте URL відео, плейлиста, каналу або пошуку, щоб почати."
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

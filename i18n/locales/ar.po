@@ -1671,7 +1671,7 @@ msgstr "روابط متعددة"
 
 msgctxt "wizard.url.bulkTooltip"
 msgid "Add and queue multiple URLs."
-msgstr ""
+msgstr "أضف روابط متعددة وضعها في قائمة الانتظار."
 
 msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
@@ -1835,14 +1835,11 @@ msgstr "مقاطع فيديو"
 
 msgctxt "wizard.url.fetchFormatsTooltip"
 msgid "Step-by-step wizard. Choose format, quality, and more."
-msgstr ""
+msgstr "معالج خطوة بخطوة. اختر الصيغة والجودة والمزيد."
 
-#, fuzzy
-#| msgctxt "status.complete"
-#| msgid "Download complete"
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
-msgstr "اكتمل التنزيل"
+msgstr "تنزيل من رابط"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
@@ -2032,19 +2029,13 @@ msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
 
-#, fuzzy
-#| msgctxt "wizard.url.quickDownload"
-#| msgid "Quick download"
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
 msgstr "تنزيل سريع"
 
-#, fuzzy
-#| msgctxt "tray.menu.statusActive_one"
-#| msgid "1 downloading · {{percent}}%"
 msgctxt "wizard.url.quickDownloadTooltip"
 msgid "Will download using: {{profileName}}"
-msgstr "1 جارٍ التنزيل · {{percent}}%"
+msgstr "سيتم التنزيل باستخدام: {{profileName}}"
 
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
@@ -2066,14 +2057,9 @@ msgctxt "wizard.url.quickQueued"
 msgid "Added to queue"
 msgstr "تمت الإضافة إلى قائمة الانتظار"
 
-#, fuzzy
-#| msgctxt "wizard.bulk.description"
-#| msgid ""
-#| "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean "
-#| "duplicates before queueing."
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
-msgstr "الصق روابط فيديو أو قائمة تشغيل أو قناة أو بحث أو صوت. سيزيل Arroxy التكرارات قبل إضافتها إلى الطابور."
+msgstr "الصق رابط فيديو أو قائمة تشغيل أو قناة أو بحث للبدء."
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"

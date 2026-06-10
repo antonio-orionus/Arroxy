@@ -1671,7 +1671,7 @@ msgstr "बल्क URLs"
 
 msgctxt "wizard.url.bulkTooltip"
 msgid "Add and queue multiple URLs."
-msgstr ""
+msgstr "कई URLs जोड़ें और कतार में डालें।"
 
 msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
@@ -1835,14 +1835,11 @@ msgstr "वीडियो"
 
 msgctxt "wizard.url.fetchFormatsTooltip"
 msgid "Step-by-step wizard. Choose format, quality, and more."
-msgstr ""
+msgstr "चरण-दर-चरण विज़ार्ड। फ़ॉर्मैट, गुणवत्ता और अन्य विकल्प चुनें।"
 
-#, fuzzy
-#| msgctxt "status.complete"
-#| msgid "Download complete"
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
-msgstr "डाउनलोड पूरा"
+msgstr "URL से डाउनलोड करें"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
@@ -2032,19 +2029,13 @@ msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
 
-#, fuzzy
-#| msgctxt "wizard.url.quickDownload"
-#| msgid "Quick download"
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
-msgstr "त्वरित डाउनलोड"
+msgstr "क्विक डाउनलोड"
 
-#, fuzzy
-#| msgctxt "tray.menu.statusActive_one"
-#| msgid "1 downloading · {{percent}}%"
 msgctxt "wizard.url.quickDownloadTooltip"
 msgid "Will download using: {{profileName}}"
-msgstr "1 डाउनलोड हो रहा है · {{percent}}%"
+msgstr "{{profileName}} का उपयोग करके डाउनलोड होगा"
 
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
@@ -2066,14 +2057,9 @@ msgctxt "wizard.url.quickQueued"
 msgid "Added to queue"
 msgstr "क्यू में जोड़ दिया गया"
 
-#, fuzzy
-#| msgctxt "wizard.bulk.description"
-#| msgid ""
-#| "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean "
-#| "duplicates before queueing."
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
-msgstr "वीडियो, प्लेलिस्ट, चैनल, खोज या ऑडियो URLs पेस्ट करें। Arroxy कतार में जोड़ने से पहले डुप्लिकेट साफ करेगा।"
+msgstr "शुरू करने के लिए वीडियो, प्लेलिस्ट, चैनल या खोज URL पेस्ट करें।"
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"
