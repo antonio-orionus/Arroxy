@@ -30,6 +30,24 @@ test('scenario gallery is available in browser-mock mode', async ({page}) => {
 	await expect(page.getByTestId('scenario-button-queue-running')).toBeVisible()
 })
 
+test('backdrop-only gallery action preserves environment knobs', async ({page}) => {
+	await openWithParams(page, 'theme=light&locale=uk&platform=darwin&scenario=queue-running&playlist=101&mockStep=confirm')
+
+	await page.getByTestId('scenario-gallery-toggle').click()
+	await page.getByTestId('scenario-backdrop-only').click()
+	await page.waitForURL(/backdrop=1/)
+
+	const url = new URL(page.url())
+	expect(url.searchParams.get('backdrop')).toBe('1')
+	expect(url.searchParams.get('theme')).toBe('light')
+	expect(url.searchParams.get('locale')).toBe('uk')
+	expect(url.searchParams.get('platform')).toBe('darwin')
+	expect(url.searchParams.get('scenario')).toBeNull()
+	expect(url.searchParams.get('playlist')).toBeNull()
+	expect(url.searchParams.get('mockStep')).toBeNull()
+	await expect(page.getByTestId('backdrop-stage')).toBeVisible()
+})
+
 test('startup launch modes keep the browser-mock splash available', async ({page}) => {
 	await openWithParams(page, 'mockLaunch=cold-loading')
 

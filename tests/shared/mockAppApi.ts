@@ -1,6 +1,6 @@
 import {vi} from 'vitest'
 import type {AppApi} from '@shared/api.js'
-import type {AppSettings, DependencyDiagnostic, DependencyId, WarmUpOutput} from '@shared/types.js'
+import type {AppSettings, DependencyDiagnostic, DependencyId, QueueItem, WarmUpOutput} from '@shared/types.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import {ok} from '@shared/result.js'
 
@@ -63,7 +63,7 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 		events: {onStatus: vi.fn().mockReturnValue(() => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined), onWarmupProgress: vi.fn().mockReturnValue(() => undefined)},
 		queue: {
 			cmd: {
-				add: vi.fn().mockResolvedValue(ok({ids: [] as string[]})),
+				add: vi.fn((items: QueueItem[]) => Promise.resolve(ok({ids: items.map(item => item.id)}))),
 				getSnapshot: vi.fn().mockResolvedValue(ok([] as import('@shared/types.js').QueueItem[])),
 				start: vi.fn().mockResolvedValue(ok(undefined)),
 				pause: vi.fn().mockResolvedValue(ok(undefined)),

@@ -18,12 +18,14 @@ function PopoverContent({
 	alignOffset = 0,
 	collisionAvoidance,
 	collisionPadding,
+	container,
+	keepMounted,
 	side = 'bottom',
 	sideOffset = 4,
 	...props
-}: PopoverPrimitive.Popup.Props & Pick<PopoverPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'collisionAvoidance' | 'collisionPadding' | 'side' | 'sideOffset'>): ReactNode {
+}: PopoverPrimitive.Popup.Props & Pick<PopoverPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'collisionAvoidance' | 'collisionPadding' | 'side' | 'sideOffset'> & Pick<PopoverPrimitive.Portal.Props, 'container' | 'keepMounted'>): ReactNode {
 	return (
-		<PopoverPrimitive.Portal>
+		<PopoverPrimitive.Portal container={container} keepMounted={keepMounted}>
 			<PopoverPrimitive.Positioner align={align} alignOffset={alignOffset} collisionAvoidance={collisionAvoidance} collisionPadding={collisionPadding} side={side} sideOffset={sideOffset} className="isolate z-50">
 				<PopoverPrimitive.Popup
 					data-slot="popover-content"

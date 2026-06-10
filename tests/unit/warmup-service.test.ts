@@ -20,7 +20,7 @@ function fakeBinaryManager(opts: {ytDlp: 'runnable' | 'failed'; ffmpeg: 'runnabl
 
 const noopToken = {warmUp: vi.fn().mockResolvedValue({ready: true})} as unknown as TokenService
 
-const e2eMode = {enabled: true, skipDeno: true, disableAnalytics: true, disableUpdater: true, useMockTokenProvider: true, commandLineSwitches: [], applyAppSettingsDefaults: settings => settings, applySpawnEnv: env => ({...env}), ytDlpArgs: () => []} satisfies E2eHarnessMode
+const e2eMode = {enabled: true, skipDeno: true, disableAnalytics: true, disableUpdater: true, allowClipboardWatch: false, useMockTokenProvider: true, commandLineSwitches: [], applyAppSettingsDefaults: settings => settings, applySpawnEnv: env => ({...env}), ytDlpArgs: () => []} satisfies E2eHarnessMode
 
 afterEach(() => {
 	vi.restoreAllMocks()

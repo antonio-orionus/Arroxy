@@ -1,10 +1,19 @@
 import {useId, useState, type ReactNode} from 'react'
 import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, Headphones, Info, Music, Plus, Scissors, SlidersHorizontal, X, type LucideIcon} from 'lucide-react'
-import {DEFAULTS} from '@shared/constants.js'
-import {DEFAULT_AUDIO_BITRATE, DOWNLOAD_PROFILE_ICONS} from '@shared/schemas.js'
-import type {DownloadProfile, DownloadProfileIcon} from '@shared/types.js'
-import {isValidSubfolder, safeFolderName} from '@shared/subfolder.js'
+import {DOWNLOAD_PROFILE_ICONS} from '@shared/schemas.js'
+import type {DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
+import {
+	createDownloadProfileDraft,
+	defaultProfileSubfolderName,
+	downloadProfileFromDraft,
+	type DownloadProfileAudioQuality,
+	type DownloadProfileDraftAction,
+	type DownloadProfileMediaMode,
+	type DownloadProfilePlaylistCap,
+	updateDownloadProfileDraft,
+	validateDownloadProfileDraft
+} from '../../store/wizard/downloadProfileDraft.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
@@ -20,23 +29,12 @@ import {Switch} from '../ui/switch.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 
-type ProfileMediaMode = 'video-audio' | 'video-only' | 'audio-only' | 'subtitles-only'
-type ProfileCodec = 'best' | 'mp4'
-type ProfileResolution = 'best' | '2160' | '1440' | '1080' | '720' | '480' | '360'
-type ProfileAudioFormat = 'best' | 'mp3' | 'm4a' | 'opus' | 'wav'
-type ProfileAudioQuality = 'best' | '320' | '192' | '128'
-type ProfileSubtitleDelivery = 'sidecar' | 'embed' | 'subfolder'
-type ProfileSubtitleFormat = 'srt' | 'vtt' | 'ass'
-type ProfileSubtitleSource = 'manual-first' | 'manual-only' | 'auto-only'
-type ProfileSponsorBlockMode = 'off' | 'mark' | 'remove'
-type ProfilePlaylistCap = 'confirm' | '100' | '250' | '500' | '1000'
-
 interface SelectOption<T extends string> {
 	value: T
 	label: string
 }
 
-const MEDIA_MODES: {value: ProfileMediaMode; label: string; description: string; icon: LucideIcon}[] = [
+const MEDIA_MODES: {value: DownloadProfileMediaMode; label: string; description: string; icon: LucideIcon}[] = [
 	{value: 'video-audio', label: 'Video + audio', description: 'Normal video files', icon: Film},
 	{value: 'video-only', label: 'Video, no audio', description: 'Silent video only', icon: Scissors},
 	{value: 'audio-only', label: 'Audio only', description: 'Music or podcasts', icon: FileAudio},
@@ -58,12 +56,12 @@ const PROFILE_ICON_META: Record<DownloadProfileIcon, {label: string; icon: Lucid
 
 const PROFILE_ICON_OPTIONS = DOWNLOAD_PROFILE_ICONS.map(value => ({value, ...PROFILE_ICON_META[value]}))
 
-const VIDEO_COMPATIBILITY_OPTIONS: SelectOption<ProfileCodec>[] = [
+const VIDEO_COMPATIBILITY_OPTIONS: SelectOption<PlaylistVideoCodec>[] = [
 	{value: 'best', label: 'Best native'},
 	{value: 'mp4', label: 'MP4 / Smart TV'}
 ]
 
-const RESOLUTION_OPTIONS: SelectOption<ProfileResolution>[] = [
+const RESOLUTION_OPTIONS: SelectOption<PlaylistVideoTier>[] = [
 	{value: 'best', label: 'Best available'},
 	{value: '2160', label: 'Up to 2160p'},
 	{value: '1440', label: 'Up to 1440p'},
@@ -73,7 +71,7 @@ const RESOLUTION_OPTIONS: SelectOption<ProfileResolution>[] = [
 	{value: '360', label: 'Up to 360p'}
 ]
 
-const AUDIO_FORMAT_OPTIONS: SelectOption<ProfileAudioFormat>[] = [
+const AUDIO_FORMAT_OPTIONS: SelectOption<DownloadProfileAudioFormat>[] = [
 	{value: 'best', label: 'Best'},
 	{value: 'mp3', label: 'MP3'},
 	{value: 'm4a', label: 'M4A'},
@@ -81,31 +79,31 @@ const AUDIO_FORMAT_OPTIONS: SelectOption<ProfileAudioFormat>[] = [
 	{value: 'wav', label: 'WAV'}
 ]
 
-const VIDEO_AUDIO_FORMAT_OPTIONS: SelectOption<Extract<ProfileAudioFormat, 'best' | 'm4a'>>[] = [
+const VIDEO_AUDIO_FORMAT_OPTIONS: SelectOption<Extract<DownloadProfileAudioFormat, 'best' | 'm4a'>>[] = [
 	{value: 'best', label: 'Best native'},
 	{value: 'm4a', label: 'M4A / AAC'}
 ]
 
-const AUDIO_QUALITY_OPTIONS: SelectOption<ProfileAudioQuality>[] = [
+const AUDIO_QUALITY_OPTIONS: SelectOption<DownloadProfileAudioQuality>[] = [
 	{value: 'best', label: 'Best available'},
 	{value: '320', label: 'Up to 320K'},
 	{value: '192', label: 'Up to 192K'},
 	{value: '128', label: 'Up to 128K'}
 ]
 
-const SUBTITLE_DELIVERY_OPTIONS: {value: ProfileSubtitleDelivery; label: string}[] = [
+const SUBTITLE_DELIVERY_OPTIONS: {value: SubtitleMode; label: string}[] = [
 	{value: 'sidecar', label: 'Sidecar'},
 	{value: 'embed', label: 'Embed'},
 	{value: 'subfolder', label: 'Subfolder'}
 ]
 
-const SUBTITLE_FORMAT_OPTIONS: {value: ProfileSubtitleFormat; label: string}[] = [
+const SUBTITLE_FORMAT_OPTIONS: {value: SubtitleFormat; label: string}[] = [
 	{value: 'srt', label: 'SRT'},
 	{value: 'vtt', label: 'VTT'},
 	{value: 'ass', label: 'ASS'}
 ]
 
-const SUBTITLE_SOURCE_OPTIONS: SelectOption<ProfileSubtitleSource>[] = [
+const SUBTITLE_SOURCE_OPTIONS: SelectOption<DownloadProfileSubtitleSource>[] = [
 	{value: 'manual-first', label: 'Manual first, then auto'},
 	{value: 'manual-only', label: 'Manual only'},
 	{value: 'auto-only', label: 'Auto-generated only'}
@@ -118,15 +116,15 @@ const OUTPUT_OPTION_DESCRIPTIONS = {
 	thumbnail: 'Saves the thumbnail as a .jpg image file next to the download.'
 } as const
 
-const SPONSOR_BLOCK_OPTIONS: {value: ProfileSponsorBlockMode; label: string}[] = [
+const SPONSOR_BLOCK_OPTIONS: {value: SponsorBlockMode; label: string}[] = [
 	{value: 'off', label: 'Off'},
 	{value: 'mark', label: 'Mark'},
 	{value: 'remove', label: 'Remove'}
 ]
 
-const SPONSOR_BLOCK_HINTS: Record<ProfileSponsorBlockMode, string> = {off: 'No SponsorBlock — video plays as uploaded.', mark: 'Marks sponsor segments as chapters (non-destructive).', remove: 'Cuts sponsor segments from the video using FFmpeg.'}
+const SPONSOR_BLOCK_HINTS: Record<SponsorBlockMode, string> = {off: 'No SponsorBlock — video plays as uploaded.', mark: 'Marks sponsor segments as chapters (non-destructive).', remove: 'Cuts sponsor segments from the video using FFmpeg.'}
 
-const PLAYLIST_CAP_OPTIONS: SelectOption<ProfilePlaylistCap>[] = [
+const PLAYLIST_CAP_OPTIONS: SelectOption<DownloadProfilePlaylistCap>[] = [
 	{value: 'confirm', label: 'Confirm when capped'},
 	{value: '100', label: 'Load 100 items'},
 	{value: '250', label: 'Load 250 items'},
@@ -142,49 +140,6 @@ function optionLabel<T extends string>(options: readonly SelectOption<T>[], valu
 	const selected = options.find(option => option.value === value)
 	if (selected) return selected.label
 	return typeof value === 'string' ? value : ''
-}
-
-function parseLanguageCodes(value: string): string[] {
-	return value
-		.split(/[\s,]+/)
-		.map(code => code.trim().toLowerCase())
-		.filter(code => /^[a-z]{2,3}(?:-[a-z0-9]{2,8})?$/.test(code))
-}
-
-function bitrateToQuality(bitrateKbps: number | undefined): ProfileAudioQuality {
-	if (bitrateKbps === 320) return '320'
-	if (bitrateKbps === 128) return '128'
-	return bitrateKbps === undefined ? 'best' : '192'
-}
-
-function playlistCapToControlValue(cap: DownloadProfile['playlistProbeCap'] | undefined): ProfilePlaylistCap {
-	if (cap === 100 || cap === 250 || cap === 500 || cap === 1000) return String(cap) as ProfilePlaylistCap
-	return 'confirm'
-}
-
-function initialMediaMode(profile: DownloadProfile | null): ProfileMediaMode {
-	return profile?.media.kind ?? 'video-audio'
-}
-
-function initialCodec(profile: DownloadProfile | null): ProfileCodec {
-	const media = profile?.media
-	return media?.kind === 'video-audio' || media?.kind === 'video-only' ? media.codec : 'mp4'
-}
-
-function initialResolution(profile: DownloadProfile | null): ProfileResolution {
-	const media = profile?.media
-	return media?.kind === 'video-audio' || media?.kind === 'video-only' ? (media.tiers[0] ?? '1080') : '1080'
-}
-
-function initialAudioFormat(profile: DownloadProfile | null): ProfileAudioFormat {
-	const media = profile?.media
-	if (media?.kind === 'audio-only') return media.audio.format
-	if (media?.kind === 'video-audio') return media.audio.format
-	return 'm4a'
-}
-
-function defaultProfileSubfolderName(name: string): string {
-	return safeFolderName(name.trim() || 'Download Profile')
 }
 
 function ProfilePanel({title, description, children, className}: {title: string; description?: string; children: ReactNode; className?: string}): ReactNode {
@@ -262,100 +217,69 @@ function ProfileSwitchRow({id, label, description, checked, onCheckedChange}: {i
 
 // react-doctor-disable-next-line react-doctor/no-giant-component react-doctor/prefer-useReducer -- this dense profile form needs a focused decomposition outside the mechanical React Doctor cleanup
 export function DownloadProfileEditor({initialProfile = null, open, onOpenChange, onSave}: {initialProfile?: DownloadProfile | null; open: boolean; onOpenChange: (open: boolean) => void; onSave?: (profile: DownloadProfile) => void | Promise<void>}): ReactNode {
-	const [profileName, setProfileName] = useState(initialProfile?.name ?? 'Study Captions')
-	const [profileIcon, setProfileIcon] = useState<DownloadProfileIcon>(initialProfile?.icon ?? 'captions')
+	const [draft, setDraft] = useState(() => createDownloadProfileDraft(initialProfile))
 	const [profileIconPickerOpen, setProfileIconPickerOpen] = useState(false)
-	const [mediaMode, setMediaMode] = useState<ProfileMediaMode>(() => initialMediaMode(initialProfile))
-	const [codec, setCodec] = useState<ProfileCodec>(() => initialCodec(initialProfile))
-	const [resolution, setResolution] = useState<ProfileResolution>(() => initialResolution(initialProfile))
-	const [audioFormat, setAudioFormat] = useState<ProfileAudioFormat>(() => initialAudioFormat(initialProfile))
-	const [audioQuality, setAudioQuality] = useState<ProfileAudioQuality>(() => (initialProfile?.media.kind === 'audio-only' ? bitrateToQuality(initialProfile.media.audio.bitrateKbps) : '192'))
-	const [subtitleEnabled, setSubtitleEnabled] = useState(initialProfile ? initialProfile.subtitles.enabled || initialProfile.media.kind === 'subtitles-only' : true)
-	const [subtitleLanguages, setSubtitleLanguages] = useState<string[]>(initialProfile ? initialProfile.subtitles.languages : ['en', 'uk'])
-	const [subtitleLanguageDraft, setSubtitleLanguageDraft] = useState('')
-	const [subtitleSource, setSubtitleSource] = useState<ProfileSubtitleSource>(initialProfile?.subtitles.source ?? 'manual-first')
-	const [subtitleDelivery, setSubtitleDelivery] = useState<ProfileSubtitleDelivery>(initialProfile?.subtitles.mode ?? 'sidecar')
-	const [subtitleFormat, setSubtitleFormat] = useState<ProfileSubtitleFormat>(initialProfile?.subtitles.format ?? 'srt')
-	const [destination, setDestination] = useState(initialProfile?.output.kind === 'fixed' ? initialProfile.output.dir : '')
-	const [saveInsideSubfolder, setSaveInsideSubfolder] = useState(initialProfile?.subfolder.enabled ?? true)
-	const [subfolderName, setSubfolderName] = useState(initialProfile?.subfolder.name ?? defaultProfileSubfolderName(initialProfile?.name ?? 'Study Captions'))
-	const [embedMetadata, setEmbedMetadata] = useState(initialProfile?.embed.metadata ?? true)
-	const [embedChapters, setEmbedChapters] = useState(initialProfile?.embed.chapters ?? true)
-	const [saveDescription, setSaveDescription] = useState(initialProfile?.embed.description ?? true)
-	const [saveThumbnail, setSaveThumbnail] = useState(initialProfile?.embed.thumbnailSidecar ?? true)
-	const [sponsorBlockMode, setSponsorBlockMode] = useState<ProfileSponsorBlockMode>(initialProfile?.sponsorBlock.mode ?? 'off')
-	const [playlistCap, setPlaylistCap] = useState<ProfilePlaylistCap>(() => playlistCapToControlValue(initialProfile?.playlistProbeCap))
+	const {
+		profileName,
+		profileIcon,
+		mediaMode,
+		codec,
+		resolution,
+		audioFormat,
+		audioQuality,
+		subtitleEnabled,
+		subtitleLanguages,
+		subtitleLanguageDraft,
+		subtitleSource,
+		subtitleDelivery,
+		subtitleFormat,
+		destination,
+		saveInsideSubfolder,
+		subfolderName,
+		embedMetadata,
+		embedChapters,
+		saveDescription,
+		saveThumbnail,
+		sponsorBlockMode,
+		playlistCap
+	} = draft
 	const showVideo = mediaMode === 'video-audio' || mediaMode === 'video-only'
 	const showAudio = mediaMode === 'video-audio' || mediaMode === 'audio-only'
 	const subtitlesOnly = mediaMode === 'subtitles-only'
 	const effectiveSubtitleEnabled = subtitlesOnly || subtitleEnabled
 	const outputEnabledCount = [embedMetadata, embedChapters, saveDescription, saveThumbnail].filter(Boolean).length
 	const SelectedProfileIcon = PROFILE_ICON_OPTIONS.find(option => option.value === profileIcon)?.icon ?? Captions
-	const subfolderInvalid = saveInsideSubfolder && subfolderName.trim() !== '' && !isValidSubfolder(subfolderName)
-	const videoAudioFormat: Extract<ProfileAudioFormat, 'best' | 'm4a'> = audioFormat === 'm4a' ? 'm4a' : 'best'
+	const {subfolderInvalid} = validateDownloadProfileDraft(draft)
+	const videoAudioFormat: Extract<DownloadProfileAudioFormat, 'best' | 'm4a'> = audioFormat === 'm4a' ? 'm4a' : 'best'
 	const audioQualityDisabled = audioFormat === 'best' || audioFormat === 'wav'
 
+	function updateDraft(action: DownloadProfileDraftAction): void {
+		setDraft(current => updateDownloadProfileDraft(current, action))
+	}
+
 	function changeProfileName(nextName: string): void {
-		const previousDefaultSubfolder = defaultProfileSubfolderName(profileName)
-		const nextDefaultSubfolder = defaultProfileSubfolderName(nextName)
-		setProfileName(nextName)
-		setSubfolderName(current => (current === previousDefaultSubfolder ? nextDefaultSubfolder : current))
+		updateDraft({type: 'set-profile-name', profileName: nextName})
 	}
 
-	function setProfileMediaMode(nextMode: ProfileMediaMode): void {
-		setMediaMode(nextMode)
-		if (nextMode === 'subtitles-only') setSubtitleEnabled(true)
-		if (nextMode === 'audio-only') {
-			setAudioFormat('best')
-			setAudioQuality('best')
-			return
-		}
-		setAudioFormat(codec === 'mp4' ? 'm4a' : 'best')
-		setAudioQuality('best')
+	function setProfileMediaMode(nextMode: DownloadProfileMediaMode): void {
+		updateDraft({type: 'set-media-mode', mediaMode: nextMode})
 	}
 
-	function setProfileCodec(nextCodec: ProfileCodec): void {
-		setCodec(nextCodec)
-		if (mediaMode === 'video-audio') {
-			setAudioFormat(nextCodec === 'mp4' ? 'm4a' : 'best')
-		}
+	function setProfileCodec(nextCodec: PlaylistVideoCodec): void {
+		updateDraft({type: 'set-codec', codec: nextCodec})
 	}
 
 	function addSubtitleLanguages(): void {
-		const nextCodes = parseLanguageCodes(subtitleLanguageDraft)
-		if (nextCodes.length === 0) return
-		setSubtitleLanguages(current => [...new Set([...current, ...nextCodes])])
-		setSubtitleLanguageDraft('')
+		updateDraft({type: 'add-subtitle-languages'})
 	}
 
 	function removeSubtitleLanguage(code: string): void {
-		setSubtitleLanguages(current => current.filter(item => item !== code))
+		updateDraft({type: 'remove-subtitle-language', code})
 	}
 
 	async function saveProfile(): Promise<void> {
 		const now = new Date().toISOString()
-		const id = initialProfile?.id ?? (typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : `profile-${Date.now()}`)
-		const profile: DownloadProfile = {
-			id,
-			name: profileName.trim() || 'Download Profile',
-			icon: profileIcon,
-			media:
-				mediaMode === 'audio-only'
-					? {kind: 'audio-only', audio: audioFormat === 'best' || audioFormat === 'wav' ? {format: audioFormat} : {format: audioFormat, bitrateKbps: audioQuality === 'best' ? DEFAULT_AUDIO_BITRATE : (Number(audioQuality) as 128 | 192 | 320)}}
-					: mediaMode === 'subtitles-only'
-						? {kind: 'subtitles-only'}
-						: mediaMode === 'video-audio'
-							? {kind: mediaMode, codec, tiers: [resolution], audio: {format: videoAudioFormat}}
-							: {kind: mediaMode, codec, tiers: [resolution]},
-			subtitles: {enabled: effectiveSubtitleEnabled, languages: effectiveSubtitleEnabled ? subtitleLanguages : [], source: subtitleSource, mode: subtitleDelivery, format: subtitleFormat},
-			output: destination.trim() ? {kind: 'fixed', dir: destination.trim()} : {kind: 'default'},
-			subfolder: {enabled: saveInsideSubfolder, name: saveInsideSubfolder ? subfolderName.trim() || defaultProfileSubfolderName(profileName) : ''},
-			sponsorBlock: {mode: showVideo ? sponsorBlockMode : 'off', categories: showVideo && sponsorBlockMode !== 'off' ? [...DEFAULTS.sponsorBlockCategories] : []},
-			embed: {chapters: showVideo && embedChapters, metadata: embedMetadata, thumbnail: false, description: saveDescription, thumbnailSidecar: saveThumbnail},
-			playlistProbeCap: playlistCap === 'confirm' ? 'confirm' : Number(playlistCap),
-			createdAt: initialProfile?.createdAt ?? now,
-			updatedAt: now
-		}
+		const profile = downloadProfileFromDraft(draft, now, () => (typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : `profile-${Date.now()}`))
 		await onSave?.(profile)
 		onOpenChange(false)
 	}
@@ -394,7 +318,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 													onValueChange={value => {
 														const next = value[0] as DownloadProfileIcon | undefined
 														if (!next) return
-														setProfileIcon(next)
+														updateDraft({type: 'set-profile-icon', profileIcon: next})
 														setProfileIconPickerOpen(false)
 													}}
 													spacing={1}
@@ -429,7 +353,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 									variant="outline"
 									value={[mediaMode]}
 									onValueChange={value => {
-										if (value[0]) setProfileMediaMode(value[0] as ProfileMediaMode)
+										if (value[0]) setProfileMediaMode(value[0] as DownloadProfileMediaMode)
 									}}
 									spacing={2}
 									className="grid w-full grid-cols-2 gap-2 sm:grid-cols-4"
@@ -451,7 +375,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 									<ProfilePanel title="Video">
 										<FieldGroup className="gap-3">
 											<ProfileSelect label="Compatibility" value={codec} options={VIDEO_COMPATIBILITY_OPTIONS} onValueChange={setProfileCodec} testId="profiles-editor-video-codec" />
-											<ProfileSelect label="Resolution" value={resolution} options={RESOLUTION_OPTIONS} onValueChange={setResolution} testId="profiles-editor-video-resolution" />
+											<ProfileSelect label="Resolution" value={resolution} options={RESOLUTION_OPTIONS} onValueChange={next => updateDraft({type: 'set-resolution', resolution: next})} testId="profiles-editor-video-resolution" />
 										</FieldGroup>
 									</ProfilePanel>
 								) : null}
@@ -461,11 +385,11 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 										<FieldGroup className="gap-3">
 											{mediaMode === 'audio-only' ? (
 												<>
-													<ProfileSelect label="Format" value={audioFormat} options={AUDIO_FORMAT_OPTIONS} onValueChange={setAudioFormat} testId="profiles-editor-audio-format" />
-													<ProfileSelect label="Quality" value={audioQuality} options={AUDIO_QUALITY_OPTIONS} onValueChange={setAudioQuality} testId="profiles-editor-audio-quality" disabled={audioQualityDisabled} />
+													<ProfileSelect label="Format" value={audioFormat} options={AUDIO_FORMAT_OPTIONS} onValueChange={next => updateDraft({type: 'set-audio-format', audioFormat: next})} testId="profiles-editor-audio-format" />
+													<ProfileSelect label="Quality" value={audioQuality} options={AUDIO_QUALITY_OPTIONS} onValueChange={next => updateDraft({type: 'set-audio-quality', audioQuality: next})} testId="profiles-editor-audio-quality" disabled={audioQualityDisabled} />
 												</>
 											) : (
-												<ProfileSelect label="Format" value={videoAudioFormat} options={VIDEO_AUDIO_FORMAT_OPTIONS} onValueChange={setAudioFormat} testId="profiles-editor-audio-format" />
+												<ProfileSelect label="Format" value={videoAudioFormat} options={VIDEO_AUDIO_FORMAT_OPTIONS} onValueChange={next => updateDraft({type: 'set-audio-format', audioFormat: next})} testId="profiles-editor-audio-format" />
 											)}
 										</FieldGroup>
 									</ProfilePanel>
@@ -493,8 +417,8 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 											value={[effectiveSubtitleEnabled ? 'on' : 'off']}
 											onValueChange={value => {
 												const next = value[0]
-												if (next === 'on') setSubtitleEnabled(true)
-												if (next === 'off' && !subtitlesOnly) setSubtitleEnabled(false)
+												if (next === 'on') updateDraft({type: 'set-subtitle-enabled', subtitleEnabled: true})
+												if (next === 'off' && !subtitlesOnly) updateDraft({type: 'set-subtitle-enabled', subtitleEnabled: false})
 											}}
 											className="grid w-36 shrink-0 grid-cols-2"
 										>
@@ -535,7 +459,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 													<InputGroupInput
 														id="profile-subtitle-language-draft"
 														value={subtitleLanguageDraft}
-														onChange={event => setSubtitleLanguageDraft(event.target.value)}
+														onChange={event => updateDraft({type: 'set-subtitle-language-draft', subtitleLanguageDraft: event.target.value})}
 														onKeyDown={event => {
 															if (event.key !== 'Enter') return
 															event.preventDefault()
@@ -555,7 +479,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 											</Field>
 
 											<FieldGroup className="gap-3">
-												<ProfileSelect label="Source" value={subtitleSource} options={SUBTITLE_SOURCE_OPTIONS} onValueChange={setSubtitleSource} testId="profiles-editor-subtitle-source" />
+												<ProfileSelect label="Source" value={subtitleSource} options={SUBTITLE_SOURCE_OPTIONS} onValueChange={next => updateDraft({type: 'set-subtitle-source', subtitleSource: next})} testId="profiles-editor-subtitle-source" />
 
 												<Field className="gap-1.5">
 													<FieldTitle id="profile-subtitle-delivery" className="text-[12px] font-medium text-[var(--text-subtle)]">
@@ -566,7 +490,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 														aria-labelledby="profile-subtitle-delivery"
 														value={[subtitleDelivery]}
 														onValueChange={value => {
-															if (value[0]) setSubtitleDelivery(value[0] as ProfileSubtitleDelivery)
+															if (value[0]) updateDraft({type: 'set-subtitle-delivery', subtitleDelivery: value[0] as SubtitleMode})
 														}}
 														className="grid w-full grid-cols-3"
 													>
@@ -589,7 +513,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 															aria-labelledby="profile-subtitle-format"
 															value={[subtitleFormat]}
 															onValueChange={value => {
-																if (value[0]) setSubtitleFormat(value[0] as ProfileSubtitleFormat)
+																if (value[0]) updateDraft({type: 'set-subtitle-format', subtitleFormat: value[0] as SubtitleFormat})
 															}}
 															className="grid w-full grid-cols-3"
 														>
@@ -616,7 +540,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 										Destination
 									</FieldLabel>
 									<InputGroup aria-label="Destination folder">
-										<InputGroupInput id="profile-destination" value={destination} onChange={event => setDestination(event.target.value)} placeholder="Default downloads folder" className="font-mono text-[12px]" />
+										<InputGroupInput id="profile-destination" value={destination} onChange={event => updateDraft({type: 'set-destination', destination: event.target.value})} placeholder="Default downloads folder" className="font-mono text-[12px]" />
 										<InputGroupAddon align="inline-end">
 											<InputGroupButton type="button" size="icon-xs" aria-label="Choose destination folder">
 												<Folder aria-hidden />
@@ -626,7 +550,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 								</Field>
 
 								<Field orientation="horizontal" className="items-center gap-2 text-[12px] text-[var(--text-subtle)]">
-									<Checkbox id="profile-subfolder-enabled" checked={saveInsideSubfolder} onCheckedChange={checked => setSaveInsideSubfolder(checked === true)} />
+									<Checkbox id="profile-subfolder-enabled" checked={saveInsideSubfolder} onCheckedChange={checked => updateDraft({type: 'set-save-inside-subfolder', saveInsideSubfolder: checked === true})} />
 									<FieldLabel htmlFor="profile-subfolder-enabled" className="text-[12px] text-[var(--text-subtle)]">
 										Save inside subfolder
 									</FieldLabel>
@@ -639,7 +563,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 										<InputGroupInput
 											id="profile-subfolder-name"
 											value={subfolderName}
-											onChange={event => setSubfolderName(event.target.value)}
+											onChange={event => updateDraft({type: 'set-subfolder-name', subfolderName: event.target.value})}
 											disabled={!saveInsideSubfolder}
 											placeholder={defaultProfileSubfolderName(profileName)}
 											maxLength={64}
@@ -656,10 +580,10 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 										<Badge variant="outline">{outputEnabledCount} enabled</Badge>
 									</div>
 									<div className="grid gap-2">
-										<ProfileSwitchRow id="profile-output-metadata" label="Embed metadata" description={OUTPUT_OPTION_DESCRIPTIONS.metadata} checked={embedMetadata} onCheckedChange={setEmbedMetadata} />
-										<ProfileSwitchRow id="profile-output-chapters" label="Embed chapters" description={OUTPUT_OPTION_DESCRIPTIONS.chapters} checked={embedChapters} onCheckedChange={setEmbedChapters} />
-										<ProfileSwitchRow id="profile-output-description" label="Save description" description={OUTPUT_OPTION_DESCRIPTIONS.description} checked={saveDescription} onCheckedChange={setSaveDescription} />
-										<ProfileSwitchRow id="profile-output-thumbnail" label="Save thumbnail" description={OUTPUT_OPTION_DESCRIPTIONS.thumbnail} checked={saveThumbnail} onCheckedChange={setSaveThumbnail} />
+										<ProfileSwitchRow id="profile-output-metadata" label="Embed metadata" description={OUTPUT_OPTION_DESCRIPTIONS.metadata} checked={embedMetadata} onCheckedChange={next => updateDraft({type: 'set-embed-metadata', embedMetadata: next})} />
+										<ProfileSwitchRow id="profile-output-chapters" label="Embed chapters" description={OUTPUT_OPTION_DESCRIPTIONS.chapters} checked={embedChapters} onCheckedChange={next => updateDraft({type: 'set-embed-chapters', embedChapters: next})} />
+										<ProfileSwitchRow id="profile-output-description" label="Save description" description={OUTPUT_OPTION_DESCRIPTIONS.description} checked={saveDescription} onCheckedChange={next => updateDraft({type: 'set-save-description', saveDescription: next})} />
+										<ProfileSwitchRow id="profile-output-thumbnail" label="Save thumbnail" description={OUTPUT_OPTION_DESCRIPTIONS.thumbnail} checked={saveThumbnail} onCheckedChange={next => updateDraft({type: 'set-save-thumbnail', saveThumbnail: next})} />
 									</div>
 								</Card>
 
@@ -673,7 +597,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 											variant="outline"
 											value={[sponsorBlockMode]}
 											onValueChange={value => {
-												if (value[0]) setSponsorBlockMode(value[0] as ProfileSponsorBlockMode)
+												if (value[0]) updateDraft({type: 'set-sponsor-block-mode', sponsorBlockMode: value[0] as SponsorBlockMode})
 											}}
 											className="grid w-full grid-cols-3"
 										>
@@ -690,7 +614,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 									)}
 								</Card>
 
-								<ProfileSelect label="Playlist probe cap" value={playlistCap} options={PLAYLIST_CAP_OPTIONS} onValueChange={setPlaylistCap} testId="profiles-editor-playlist-cap" />
+								<ProfileSelect label="Playlist probe cap" value={playlistCap} options={PLAYLIST_CAP_OPTIONS} onValueChange={next => updateDraft({type: 'set-playlist-cap', playlistCap: next})} testId="profiles-editor-playlist-cap" />
 							</FieldGroup>
 						</ProfilePanel>
 					</div>

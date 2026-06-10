@@ -1664,7 +1664,7 @@ msgid "Bulk URLs"
 msgstr ""
 
 msgctxt "wizard.url.bulkTooltip"
-msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
+msgid "Add and queue multiple URLs."
 msgstr ""
 
 msgctxt "wizard.url.clearAria"
@@ -1828,11 +1828,11 @@ msgid "Videos"
 msgstr ""
 
 msgctxt "wizard.url.fetchFormatsTooltip"
-msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
+msgid "Step-by-step wizard. Choose format, quality, and more."
 msgstr ""
 
 msgctxt "wizard.url.heading"
-msgid "Video URL"
+msgid "Download from URL"
 msgstr ""
 
 msgctxt "wizard.url.interactiveDownload"
@@ -2024,11 +2024,11 @@ msgid "http://host:port"
 msgstr ""
 
 msgctxt "wizard.url.quickDownload"
-msgid "Quick download"
+msgid "Quick Download"
 msgstr ""
 
 msgctxt "wizard.url.quickDownloadTooltip"
-msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
+msgid "Will download using: {{profileName}}"
 msgstr ""
 
 msgctxt "wizard.url.quickFailed"
@@ -2052,7 +2052,7 @@ msgid "Added to queue"
 msgstr ""
 
 msgctxt "wizard.url.quickSingleOnly"
-msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
+msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr ""
 
 msgctxt "wizard.url.singleFilenameId.toggle"

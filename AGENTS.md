@@ -25,6 +25,7 @@ Format: `**Term** — definition. \`path\``. Add an entry when extracting a new 
 - **JobLifecycle** — single coordinator for end-of-job: drain disposables, emit analytics (`download_finished`/`_cancelled`/`_failed`), persist to `RecentJobsStore`. `src/main/services/JobLifecycle.ts`.
 - **QueueEvent** — closed union of state-change signals over a `QueueItem`: `started`, `progress`, `paused-active`, `paused-held`, `resumed`, `failed`, `completed`, `cancelled`, `retry-reset`. Drives `transition`. `src/shared/queueTransition.ts`.
 - **QueueService** — authoritative queue-of-record on main. Owns the in-memory array, applies cap=1 scheduler (3s inter-job sleep), persists via `QueueStore`, projects to renderer via 4 IPC events: `queue:event:snapshot` (initial hydration), `Added`/`Updated`/`Removed` (incremental diffs). 8 commands flow renderer → main via `queue:cmd:*`: add, start, pause, resume, cancel, retry, clearCompleted, remove. `src/main/services/QueueService.ts`.
+- **QueueDrawerView** — pure renderer projection for drawer display: active-before-completed ordering, aggregate running progress, header flags, share-banner gating, and fixed virtualization row sizing. Keeps high-frequency queue derivation out of `SmartDrawer`. `src/renderer/src/store/queueDrawerView.ts`.
 - **ProgressNormalizer** — pure display-progress policy for running jobs. Accepts yt-dlp progress samples, rejects low-confidence HLS bootstrap `100%` lines like `frag 0/N`, keeps progress monotonic, and caps running display below `100` until `QueueEvent.completed` marks the job done. `src/shared/progressNormalizer.ts`.
 - **QueueStore** — persists the queue to `queue.json` in the user-data dir. On close: `downloading`/`paused-active` → `pending`, `cancelled` excluded. On launch: `initialize()` loads it, auto-opens drawer if non-empty, calls `maybeStartNext()`. `src/main/stores/QueueStore.ts`.
 - **QueueStatus** — 7-value union: `pending` | `running` | `paused-held` | `paused-active` | `done` | `error` | `cancelled`. `paused-held` = in queue, never spawned (resume → pending). `paused-active` = had a running job, user paused (resume → re-spawn, possibly across an app restart via persisted `tempDir` + `lastJobId`). `src/shared/schemas.ts` (`queueItemStatusSchema`).
@@ -35,13 +36,19 @@ Format: `**Term** — definition. \`path\``. Add an entry when extracting a new 
 - **BinaryProbe** — spawns binary with `--version`/`-version`, parses stdout/stderr, classifies spawn failures (ENOENT/EACCES/ETIMEDOUT/SmartScreen). Companion `whereOnPath` discovers candidates via `where`/`which`. No version-comparison policy. `src/main/services/binary/BinaryProbe.ts`.
 - **BinaryManager** — resolver facade orchestrating BinaryDownloader + BinaryProbe behind the strategy chain (manualOverride → envOverride → managed → systemPath). Owns version-comparison policy, accumulates `DependencyAttempt[]`, returns `DependencyDiagnostic` per binary. Public class API preserved for callers (`YtDlp`, `WarmupService`, `diagnosticsHandlers`). `src/main/services/BinaryManager.ts`.
 - **Diagnostic** — `DependencyAttempt[]` + final `DependencyDiagnostic` shape: what attempts ran, which succeeded/failed. Each failure carries a stable `FAILURE_CODE` (ARX-NNN) so users can search the repair UI codes language-independently. `src/shared/types.ts` (`DependencyDiagnostic`, `DependencyAttempt`, `DependencyFailure`, `FAILURE_CODE`).
-- **NavContext** — inputs to `nextStep`: extends `StepContext` (mode, preset, extractor, hasSubtitles) with `wizardSubtitleSkipped` and `retryOrigin` so re-entry from the skip / error step lands on the right destination instead of bouncing back into subtitles. `src/renderer/src/components/wizard/nextStep.ts`.
+- **WizardStepGraph** — pure wizard topology module. Builds visible steps from wizard state, reports active index, and walks forward/backward for `ProbeOrchestrator`; `stepRegistry` stays render-only. `src/renderer/src/store/wizard/wizardStepGraph.ts`.
+- **ProbeResultProjection** — pure URL/probe result projector. Converts probe start, video success, playlist success/failure, playlist sentinel trimming, retry selection preservation, audio-only defaults, scoped preference restore, and bulk URL start state into store patches. `src/renderer/src/store/wizard/probeResultProjection.ts`.
 - **FormatPicker** — pure helpers (`applyPreset`, `restoreFormatSelection`, `restoreSubtitleSelection`) + slice (`createFormatPickerSlice`) owning `wizardFormats`, `selectedVideoFormatId`, `audioSelection`, `lastConvertBitrate`, `activePreset`, plus subtitle pools (`wizardSubtitles`, `wizardAutomaticCaptions`, `wizardSubtitleLanguages`, `wizardSubtitleSkipped`, `wizardSubtitleMode`, `wizardSubtitleFormat`). Probe pipeline writes pools via shared `set()` after probe success. `src/renderer/src/store/wizard/formatPicker.ts`.
 - **ProbeOrchestrator** — renderer slice owning URL → probe → format-step pipeline plus wizard step graph and playlist enumeration. Holds `wizardStep`, `wizardUrl`, `wizardExtractor`, `wizardError`, playlist fields, navigation actions (`advance`/`back`/`skipSubtitles`/`reset`). Cross-slice writes via `set()` are intentional — probe success populates format pools, subtitle pools, output prefs, dialog flags in one transition. `src/renderer/src/store/wizard/probeOrchestrator.ts`.
 - **OutputConfig** — renderer slice owning "where + how the file lands": `wizardOutputDir`, `wizardSubfolderEnabled`/`Name`, SponsorBlock mode + categories, embed / sidecar output flags, and playlist M3U preference. `src/renderer/src/store/wizard/outputConfig.ts`.
 - **WizardDialogs** — renderer slice for transient modal flags: `mixedUrlPromptOpen`, `mixedUrlPending`, `advancedAutoOpen`, `cookiesConfigDialogIssue`. Session-only; reset by `WizardCommands.resetAll`. `src/renderer/src/store/wizard/wizardDialogs.ts`.
 - **WizardCommands** — cross-slice orchestrator helpers — currently `resetAll(set)` (applied via the `reset` action on ProbeOrchestrator). Future deep-link / snapshot replay code lands here. `src/renderer/src/store/wizard/commands.ts`.
 - **FormatPrefsPersistence** — bridge between wizard state and SettingsStore. Reads format/audio/subtitle/output/embed/sponsorblock fields across the four wizard slices, writes the right shape into `common`/`single`/`playlist` Settings buckets via IPC. Lives in the wizard module (not QueueSlice) because inputs are wizard-owned, even though firing point is queue-submit/start/retry. `src/renderer/src/store/wizard/persistFormatPrefs.ts`.
+- **QueueSubmission** — pure queue-preparation module for manual wizard submissions and active-profile Quick Download submissions. Returns queue items plus optional playlist manifest payload; adapters own IPC, preference persistence, queue-tip UI, and reset. `src/renderer/src/store/wizard/queueSubmission.ts`.
+- **DownloadProfileDraft** — pure editor draft state machine for download profiles. Owns initial profile projection, transition coupling, subfolder validation, language edits, and final `DownloadProfile` serialization using schema-derived enum types. `src/renderer/src/store/wizard/downloadProfileDraft.ts`.
+- **DownloadReviewProjection** — pure confirm-step projector. Builds display-ready summary rows, subtitle value, playlist item labels, visible conflict warnings, nothing-selected gating, and allowed CTA state from the same normalized media/subtitle/embed decisions queue submission uses. `src/renderer/src/store/wizard/downloadReviewProjection.ts`.
+- **DownloadHomeView** — renderer selector layer for the main URL/profile home surface. Exposes display-ready input/profile/quick-download state plus existing action handles via narrow Zustand subscriptions; it does not own persistence. `src/renderer/src/store/downloadHomeView.ts`.
+- **FeedbackSnapshot** — pure hidden-field builder for support feedback. Reads queue/status/error/settings inputs at open time and serializes the Tally payload without keeping `App` subscribed to queue or wizard churn. `src/renderer/src/components/system/feedbackSnapshot.ts`.
 - **FeedbackDiagnostics** — main-process helper that prepares explicit-consent support diagnostics by tailing the last 1 MiB of the active `main.log`, redacting obvious secrets/user paths, gzip-compressing it, and uploading it to the feedback Worker before Tally opens. `src/main/services/FeedbackDiagnostics.ts`.
 
 ### Glossary conventions
@@ -89,9 +96,19 @@ Before implementing:
 
 ## Memory storage — project-scoped, not user-scoped
 
-Persistent memory for this repo lives at `./.claude/memory/`, not in the user-scoped (`~/.claude/projects/...`) location. Read `MEMORY.md` in that directory for the index, and write new memories there following the same `name` / `description` / `type` frontmatter convention as the existing files. Do **not** write project facts, conventions, or references into user-scoped memory — they belong with the repo so other clones / collaborators / reset-home agents can see them.
+Persistent memory for this repo lives at `./.agents/memory/`, not in any user-scoped (`~/.claude/projects/...`) or tool-specific (`./.claude/memory/`) location. Read `MEMORY.md` in that directory for the index, and write new memories there following the same `name` / `description` / `type` frontmatter convention as the existing files. Do **not** write project facts, conventions, or references into user-scoped memory — they belong with the repo so other clones / collaborators / reset-home agents can see them.
 
 Rarely-needed deep-dive references that bloat this file (e.g. the YouTube bot-protection research map) live as memory entries instead of inline sections here. Pull them in via memory when the symptom matches.
+
+## Agent skills — light repo, recoverable installs
+
+Keep installable third-party skills out of Git. Their source directories under `./.agents/skills/` are local restored state, and their recovery metadata lives in the tracked `skills-lock.json`. After a fresh clone or accidental local checkout deletion, run:
+
+```bash
+bun run agents:skills:restore
+```
+
+Only tiny project-owned, non-installable skills stay tracked under `./.agents/skills/`. Do not add `.claude/skills/` to Git; that directory is local/generated only. If a new public skill is useful for Arroxy, add it through the Skills CLI so `skills-lock.json` records the source and hash instead of committing the skill's source tree.
 
 ---
 
@@ -147,7 +164,7 @@ Fixture Product E2E is the **acceptance owner for real user workflows**, not the
 
 ### Test layer ownership
 
-- **Fast logic tests** (`tests/unit`, Vitest): use for pure rules and closed interfaces such as `QueueEvent` transition, `ProgressNormalizer`, URL parsing, yt-dlp argument construction, extractor classification, error classification, and wizard `nextStep`. These tests should not pretend to prove a full user workflow.
+- **Fast logic tests** (`tests/unit`, Vitest): use for pure rules and closed interfaces such as `QueueEvent` transition, `ProgressNormalizer`, URL parsing, yt-dlp argument construction, extractor classification, error classification, and `WizardStepGraph`. These tests should not pretend to prove a full user workflow.
 - **Renderer tests** (`tests/renderer`, jsdom): use for renderer-local state and component contracts when the behavior is too small to justify a full app launch. Do not use these as acceptance tests for download, probe, queue, or filesystem workflows.
 - **Scenario Workbench** (`tests/browser`, `bun run dev:mock`): use browser-mock and the scenario gallery for visual inspection, layout stress, screenshots, and fast review of many UI states. This proves how a state looks, not whether the real product workflow works.
 - **Mock Electron smoke tests** (`tests/e2e` with `MOCK_BACKEND=1`): use for app shell, preload bridge, context isolation, startup resilience, and mocked persistence checks. Do not use this layer for normal download acceptance.
@@ -202,9 +219,11 @@ For each risk group, add Fixture Product E2E only for behavior that needs real a
 
 ---
 
-## Visual Debugging with Playwright
+## Visual Debugging with agent-browser
 
-Run the renderer standalone via Vite for fast visual iteration; full Electron via Playwright `_electron.launch()` works but is slow.
+Prefer `agent-browser` for browser automation, screenshots, responsive layout checks, and interactive UI dogfooding. Use Playwright only when `agent-browser` is unavailable or when the task specifically needs Playwright traces/tests or Electron `_electron.launch()`.
+
+Run the renderer standalone via Vite for fast visual iteration; full Electron automation is slower and should be reserved for Electron-specific behavior.
 
 ```bash
 # From project root — uses src/renderer/vite.config.mjs (aliases + Tailwind + React)
@@ -213,7 +232,17 @@ npx vite src/renderer --port 5173 --mode browser-mock
 
 The renderer's `browserMock.ts` stubs `window.appApi` with simulated downloads, formats, settings when Vite runs in explicit `browser-mock` mode — no Electron needed. Electron dev and packaged builds must use the real preload bridge.
 
-### MCP workflow
+### agent-browser workflow
+
+1. `agent-browser skills get core` before the first browser task in a session.
+2. `agent-browser --session arroxy-ui --args "--no-sandbox" open http://127.0.0.1:5173/` when Chromium sandboxing fails in the dev VM.
+3. `agent-browser --session arroxy-ui set viewport 1190 768` to check breakpoint behavior.
+4. `agent-browser --session arroxy-ui snapshot -i` for interactive refs.
+5. `agent-browser --session arroxy-ui screenshot output/playwright/<name>.png` for review artifacts.
+6. `agent-browser --session arroxy-ui console` / `agent-browser --session arroxy-ui errors` for runtime issues.
+7. `agent-browser --session arroxy-ui close` after the visual pass.
+
+### Playwright fallback
 
 1. `browser_navigate` → `http://localhost:5173`, then `browser_take_screenshot`.
 2. Zoom for pixel inspection via `browser_evaluate`:
@@ -261,7 +290,34 @@ async (page) => {
 - Step 3 (Save): radio picker; "Custom…" returns a random mock path
 - Step 4 (Confirm): "Pull it! ↓" triggers simulated download
 - Drawer: click "Download Queue" header to expand; progress updates every 500ms
-- Update banner in `browser-mock` mode: fires after 3s with `{ version: '1.2.0', currentVersion: '0.0.1', installChannel: 'direct' }`. Edit `browserMock.ts` to preview other channel UX (`scoop`/`homebrew` = copy-cmd; `winget` = install button on any platform).
+- Update banner in `browser-mock` mode is scenario-only. Use `?scenario=update-direct` for the default install flow, or `update-scoop` / `update-homebrew` / `update-winget` / `update-portable` / `update-flatpak` to preview channel-specific UX. Normal scenarios emit no update event.
+
+### Electron GPU / Backdrop debugging
+
+`bun run dev:mock` proves renderer visuals in the browser, **not** Electron GPU behavior. Host Chrome can show the WebGL backdrop while `bun run dev` falls back because Electron runs inside the VM / Electron Chromium stack.
+
+When Electron logs `webgl: disabled_off` and `glImplementationParts: '(gl=none,angle=none)'`, the renderer has no usable GL/ANGLE backend. If `bun run gpu:probe:force` still reports the same values, do not keep tweaking `ignore-gpu-blocklist` — the blocker is VM/driver/sandbox level.
+
+Use the probes before changing backdrop code:
+
+```bash
+bun run gpu:probe          # Electron default GPU status
+bun run gpu:probe:force    # adds ignore-gpu-blocklist + enable-gpu-rasterization
+bun run gpu:probe:swiftshader # forces SwiftShader and checks a real hidden WebGL canvas
+bun run profile:backdrop     # browser-side FPS / fallback profiler
+bun run profile:backdrop:weak # forced software + 2 reported cores + 4x CPU throttle
+```
+
+On the Ubuntu VMware dev VM observed on 2026-06-09, Xorg had VMware DRI2/DRI3 direct rendering enabled, but Electron/Chrome still logged `MESA-LOADER: failed to open dri_gbm.so: Permission denied` and `WebGL1 blocklisted`. `gpu:probe:force` stayed `gl=none`, while `gpu:probe:swiftshader` enabled WebGL through `ANGLE ... SwiftShader`. Use `bun run dev:swiftshader` only for VM visual iteration; it is CPU WebGL and intentionally opt-in via `ARROXY_BACKDROP_SOFTWARE=1`.
+
+Backdrop fallback is adaptive, not screenshot-based: `AppBackdrop` chooses the dark aurora or light ocean scene, then `CanvasSceneHost` probes WebGL on a scratch canvas first, rejects software renderers unless `backdropSoftware=1` / `ARROXY_BACKDROP_SOFTWARE=1` opts in, then draws the selected scene's static Canvas2D fallback at the current viewport size. The component keeps separate WebGL and Canvas2D canvases because once a canvas owns a WebGL context it cannot be reused for Canvas2D. In the no-GPU Electron fallback path, do not redraw Canvas2D during live window resize; stretch the existing bitmap and redraw once after resize settles. Use `backdropDebug=1` or `localStorage.backdropDebug = '1'` to log fallback mode decisions, resize scheduling, draw timing, and backing-store sizes. CSS gradients are only the last fallback when Canvas2D is unavailable.
+
+If testing Electron sandbox as the GPU blocker, the local Electron helper may need setuid before `bun run gpu:probe:sandbox` / `bun run dev:sandbox`:
+
+```bash
+sudo chown root:root node_modules/.bun/electron@42.3.0/node_modules/electron/dist/chrome-sandbox
+sudo chmod 4755 node_modules/.bun/electron@42.3.0/node_modules/electron/dist/chrome-sandbox
+```
 
 ---
 
@@ -284,6 +340,12 @@ shadcn/ui is the primary source for renderer UI primitives. Before inventing cus
 **CSS tokens** (`src/renderer/src/styles.css`): `--border-strong` (darker border), `--text-subtle` (muted label), dark mode `--border: hsla(0,0%,100%,0.07)`.
 
 **Glow patterns:** primary buttons `shadow-[0_4px_14px_var(--brand-glow)]`, active radio `shadow-[0_0_0_2px_var(--brand-dim)]`, section labels `text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]`, back/ghost buttons `border-[1.5px] border-[var(--border-strong)]`.
+
+## Layout Breakpoints
+
+Arroxy uses Tailwind v4 default mobile-first breakpoints: `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px. There are no custom Tailwind breakpoint overrides.
+
+The real Electron window has min size `720x680` and default size `900x760`, so production normally starts above `sm` and around `md`; `<640px` is mainly browser-mock/test coverage.
 
 ---
 
@@ -317,7 +379,7 @@ On Linux, electron-updater's default updater is `AppImageUpdater` (no `package-t
 
 ### IPC + types
 
-IPC channel names live in `IPC_CHANNELS` (`@shared/ipc`); payload types (`InstallChannel`, `UpdateAvailablePayload`) live in `@shared/types`. `resolveAction` is the pure helper at `src/renderer/src/components/updateBannerAction.ts` — extracted from `UpdateBanner.tsx` so the component file only exports a component (react-refresh requirement). Renderer `browser-mock` mode at `src/renderer/src/browserMock.ts` simulates an `updater:available` event after 3s.
+IPC channel names live in `IPC_CHANNELS` (`@shared/ipc`); payload types (`InstallChannel`, `UpdateAvailablePayload`) live in `@shared/types`. `resolveAction` is the pure helper at `src/renderer/src/components/updateBannerAction.ts` — extracted from `UpdateBanner.tsx` so the component file only exports a component (react-refresh requirement). Renderer `browser-mock` mode at `src/renderer/src/browserMock.ts` simulates an `updater:available` event only for explicit update scenarios.
 
 ---
 

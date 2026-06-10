@@ -30,6 +30,9 @@
 		"@types/extract-zip",
 		"@svgr/plugin-jsx"
 	],
+  "ignoreBinaries": [
+    "skills"
+  ],
   "ignoreUnresolved": [
     "~icons/.*"
   ]

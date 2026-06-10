@@ -65,26 +65,20 @@ reviews:
   path_filters:
     # Positive filters define the review scope. Keep the normal repo in scope, including dot
     # config/workflow files, then trim generated or noisy paths below.
-    - '*'
-    - '**/*'
-    - '.coderabbit.yaml'
-    - '.github/**'
-    - '!dist/**'
-    - '!out/**'
-    - '!release/**'
-    - '!node_modules/**'
-    - '!coverage/**'
-    - '!playwright-report/**'
-    - '!test-results/**'
-    - '!*.log'
-    - '!.agents/**'
-    - '!.claude/**'
-    - '!dev-docs/**'
-    # Translated/generated locale artifacts — only the en source is reviewed.
-    - '!README*.md'
-    - '!readme-src/template.md'
-    - '!readme-src/locales/!(en).mjs'
-    - '!src/shared/i18n/locales/!(en).ts'
+    - "*"
+    - "**/*"
+    - ".coderabbit.yaml"
+    - ".github/**"
+    - "!dist/**"
+    - "!out/**"
+    - "!release/**"
+    - "!node_modules/**"
+    - "!coverage/**"
+    - "!playwright-report/**"
+    - "!test-results/**"
+    - "!*.log"
+    - "!.agents/**"
+    - "!.claude/**"
   path_instructions:
     - path: .github/workflows/**
       instructions: >-

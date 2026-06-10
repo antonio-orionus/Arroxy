@@ -110,17 +110,9 @@ export function installBrowserMock(): void {
 	}
 
 	function emitScenarioUpdate(listener: (info: UpdateAvailablePayload) => void): void {
-		const update = scenarioState.update ?? {version: '1.2.0', currentVersion: '0.0.1', installChannel: 'direct' as const}
-		listener(update)
+		if (scenarioState.update === null) return
+		listener(scenarioState.update)
 	}
-
-	setTimeout(() => {
-		// Default mock still previews direct updater UX after a delay; update
-		// scenarios emit sooner when listeners subscribe.
-		if (!scenarioState.update) {
-			updateListeners.forEach(emitScenarioUpdate)
-		}
-	}, 3_000)
 
 	function delay(ms: number): Promise<void> {
 		return new Promise(r => setTimeout(r, ms))

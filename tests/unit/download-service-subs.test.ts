@@ -223,9 +223,10 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		const ffmpegCalls: string[][] = []
 		mockSuccessfulMux(ffmpegCalls)
 
-		const {service} = makeService()
+		const {service, recentJobsStore} = makeService()
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {languages: ['en'], mode: 'embed', format: 'srt', writeAuto: true}})})
 		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 
 		const args = ffmpegCalls[0]
 		const inputIdxs = args.reduce<number[]>((acc, v, i) => (v === '-i' ? [...acc, i] : acc), [])

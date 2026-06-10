@@ -37,16 +37,25 @@ runtime-cache/
 # Claude Code / agent metadata
 .playwright-mcp/
 .worktrees/
-skills-lock.json
 docs/my
 .claude/scheduled_tasks.lock
 .claude/*.lock
 .claude/settings.local.json
+.claude/skills/
+
+# Project-owned agent memory is tracked. Third-party skills are restored from
+# skills-lock.json via `bun run agents:skills:restore`; only tiny custom skills
+# stay in Git.
+.agents/skills/*
+!.agents/skills/clarify/
+!.agents/skills/clarify/**
+!.agents/skills/find-test-gaps/
+!.agents/skills/find-test-gaps/**
+!.agents/skills/remember/
+!.agents/skills/remember/**
 
 # Local agent/design artifacts
-.agents/skills/impeccable/
 .backups/
-.claude/skills/impeccable/
 .github/skills/
 .impeccable/
 /output/

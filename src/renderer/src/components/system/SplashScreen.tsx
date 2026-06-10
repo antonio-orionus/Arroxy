@@ -51,13 +51,17 @@ export function SplashScreen({initialized, warmupBlocking, warmupDiagnostics, wa
 		<div
 			className="splash-overlay"
 			data-testid="splash-overlay"
+			data-state={fading ? 'fading' : blocked ? 'blocked' : 'warming'}
+			role={blocked ? undefined : 'status'}
+			aria-live={blocked ? undefined : 'polite'}
+			aria-busy={!initialized || blocked}
+			aria-hidden={fading ? true : undefined}
 			style={{opacity: fading ? 0 : 1, pointerEvents: fading ? 'none' : 'auto'}}
 			onTransitionEnd={event => {
 				if (!fading || event.currentTarget !== event.target) return
 				setGone(true)
 				onDismissed?.()
 			}}
-			aria-hidden={!blocked}
 		>
 			<img src={mainImg} alt="" className="splash-mascot" />
 			<div className="splash-text">
@@ -66,6 +70,7 @@ export function SplashScreen({initialized, warmupBlocking, warmupDiagnostics, wa
 						{t('splash.greeting')}
 					</p>
 				)}
+				<p className="splash-brand">Arroxy</p>
 				{showProgress ? (
 					<>
 						<p className="splash-name">{activeEntry ? t('splash.downloading', {binary: activeEntry.binary}) : t('splash.warmup')}</p>

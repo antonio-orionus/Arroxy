@@ -1,32 +1,28 @@
-import type {AppSettings, DependencyId, DownloadProfile, DownloadProfileRef, QueueItem} from '@shared/types.js'
-import {QUEUE_STATUS} from '@shared/schemas.js'
+import type {AppSettings, DependencyId, DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {DEFAULT_DOWNLOAD_PROFILES_PREFS, normalizeDownloadProfilesPrefs, removeDownloadProfileFromPrefs, saveDownloadProfileToPrefs} from '@shared/downloadProfiles.js'
 import {i18next, pickLanguage, isRtl} from '@shared/i18n/index.js'
 import type {GetState, SetState, ShareTrigger, SystemSlice} from './types.js'
+import {bindQueueProjection, projectQueueSnapshot} from './queueProjection.js'
 import {notify} from '../lib/notify.js'
 import {track} from '../lib/analytics.js'
 
 let unbindWarmupProgress: (() => void) | null = null
-let unbindQueueSnapshot: (() => void) | null = null
-let unbindQueueAdded: (() => void) | null = null
-let unbindQueueUpdated: (() => void) | null = null
-let unbindQueueRemoved: (() => void) | null = null
-
-// RAF-batching for all incoming queue IPC messages (updated/added/removed).
-// Without this each event causes its own state.queue.{map,splice,filter}
-// rebuild + Zustand notify + React commit; with a 290-item playlist the
-// renderer falls multiple seconds behind main. Single set() per frame merges
-// all three streams. Add+remove for the same id in one frame cancel out;
-// remove drops any pending update for the same id (item is gone, no point
-// applying its last progress).
-let pendingQueueUpdates = new Map<string, QueueItem>()
-let pendingQueueAdded: {items: QueueItem[]; atIdx: number}[] = []
-let pendingQueueRemoved = new Set<string>()
-let queueFlushScheduled = false
+let unbindQueueProjection: (() => void) | null = null
 
 const SHARE_MILESTONES: readonly number[] = [3, 25, 100]
 const SHARE_MILESTONE_SET = new Set(SHARE_MILESTONES)
+
+function handleCompletedDownloadMilestones(doneIncrements: number, prevMilestoneCount: number, get: GetState, set: SetState): void {
+	const nextCount = prevMilestoneCount + doneIncrements
+	commonPatch(get, set, {successfulDownloadCount: nextCount})
+	for (let c = prevMilestoneCount + 1; c <= nextCount; c++) {
+		if (SHARE_MILESTONE_SET.has(c)) {
+			openShareDialogInternal(set, 'milestone')
+			break
+		}
+	}
+}
 
 function commonPatch(get: GetState, set: SetState, patch: Partial<AppSettings['common']>): void {
 	const previous = get().settings
@@ -110,102 +106,15 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			if (get().initialized || get().initializing) return
 			set({initializing: true, splashDismissed: false})
 
-			// Detach prior queue projection bindings (defense for a future re-init flow).
-			unbindQueueSnapshot?.()
-			unbindQueueAdded?.()
-			unbindQueueUpdated?.()
-			unbindQueueRemoved?.()
-
-			// Queue projection: hydrate from initial snapshot, then apply diffs.
-			// QueueService on main is the queue-of-record; this slice is a read-only
-			// mirror of `service.snapshot()` + the four diff event streams.
-			unbindQueueSnapshot = window.appApi.queue.events.onSnapshot(items => {
-				set({queue: items})
-			})
-			const scheduleFlush = (): void => {
-				if (queueFlushScheduled) return
-				queueFlushScheduled = true
-				requestAnimationFrame(flushQueueUpdates)
-			}
-			unbindQueueAdded = window.appApi.queue.events.onAdded(evt => {
-				pendingQueueAdded.push(evt)
-				scheduleFlush()
-			})
-			// Single flush merges updated/added/removed streams in one set(). Order:
-			// 1) drop pending updates for ids being removed (no point reviving).
-			// 2) apply removes (filter once).
-			// 3) apply adds (splice in arrival order — main is sole source of truth
-			//    for atIdx so we don't try to reconcile out-of-order add events).
-			// 4) apply updates (map once).
-			const flushQueueUpdates = (): void => {
-				queueFlushScheduled = false
-				const updates = pendingQueueUpdates
-				const adds = pendingQueueAdded
-				const removes = pendingQueueRemoved
-				if (updates.size === 0 && adds.length === 0 && removes.size === 0) return
-				pendingQueueUpdates = new Map()
-				pendingQueueAdded = []
-				pendingQueueRemoved = new Set()
-				for (const id of removes) updates.delete(id)
-				// Count items that crossed pending/running → done in this batch.
-				// Done items are not normally removed in the same frame (clearCompleted
-				// is a separate user action), so checking updates is sufficient.
-				// Build a Map for O(1) prev lookup — naive .find() would be O(n) per
-				// update, blowing up to O(n²) during burst completions (e.g. resumeAll
-				// of many paused-active items finishing in one tick).
-				const prevQueue = get().queue
-				const prevById = new Map<string, QueueItem>()
-				for (const i of prevQueue) prevById.set(i.id, i)
-				// Snapshot the milestone counter BEFORE any set() runs. Defensive — no
-				// set() in this flush touches settings, but hoisting the read makes
-				// the "read prev, compute next, apply next" sequence obviously
-				// race-free if future code adds settings mutations between the queue
-				// set() and the milestone block.
-				const prevMilestoneCount = get().settings?.common?.successfulDownloadCount ?? 0
-				let doneIncrements = 0
-				for (const [id, item] of updates) {
-					const prev = prevById.get(id)
-					if (prev && prev.status !== QUEUE_STATUS.done && item.status === QUEUE_STATUS.done) {
-						doneIncrements++
-					}
-				}
-				set(state => {
-					let next: QueueItem[] = state.queue
-					if (removes.size > 0) next = next.filter(i => !removes.has(i.id))
-					if (adds.length > 0) {
-						// Adds aren't always strictly contiguous with current array length
-						// (could fire while removes also in flight). Splice at the original
-						// atIdx clamped to current length; main computed atIdx against its
-						// own snapshot which may differ from renderer mid-burst. Worst case
-						// is order drift; the next snapshot event would correct it but
-						// none arrives during normal operation.
-						next = [...next]
-						for (const {items, atIdx} of adds) {
-							const idx = Math.min(atIdx, next.length)
-							next.splice(idx, 0, ...items)
-						}
-					}
-					if (updates.size > 0) next = next.map(i => updates.get(i.id) ?? i)
-					return next === state.queue ? {} : {queue: next}
-				})
-				if (doneIncrements > 0) {
-					const nextCount = prevMilestoneCount + doneIncrements
-					commonPatch(get, set, {successfulDownloadCount: nextCount})
-					for (let c = prevMilestoneCount + 1; c <= nextCount; c++) {
-						if (SHARE_MILESTONE_SET.has(c)) {
-							openShareDialogInternal(set, 'milestone')
-							break
-						}
-					}
-				}
-			}
-			unbindQueueUpdated = window.appApi.queue.events.onUpdated(({item}) => {
-				pendingQueueUpdates.set(item.id, item)
-				scheduleFlush()
-			})
-			unbindQueueRemoved = window.appApi.queue.events.onRemoved(({itemId}) => {
-				pendingQueueRemoved.add(itemId)
-				scheduleFlush()
+			// Detach prior queue projection binding (defense for a future re-init flow).
+			unbindQueueProjection?.()
+			unbindQueueProjection = bindQueueProjection({
+				events: window.appApi.queue.events,
+				get,
+				set,
+				schedule: callback => requestAnimationFrame(callback),
+				readSuccessfulDownloadCount: () => get().settings?.common?.successfulDownloadCount ?? 0,
+				onDoneIncrements: (doneIncrements, prevMilestoneCount) => handleCompletedDownloadMilestones(doneIncrements, prevMilestoneCount, get, set)
 			})
 
 			// The warmup-progress listener stays bound for the lifetime of the
@@ -229,6 +138,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				const persistedLang = common.language
 				const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
 				document.documentElement.classList.toggle('dark', isDark)
+				document.documentElement.classList.toggle('light', !isDark)
 				const nextLanguage = persistedLang ?? get().language
 				if (nextLanguage !== i18next.language) {
 					void i18next.changeLanguage(nextLanguage)
@@ -239,7 +149,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 			const snapshotResult = await snapshotPromise
 			if (snapshotResult.ok) {
-				set({queue: snapshotResult.data, ...(snapshotResult.data.length > 0 ? {drawerOpen: true} : {})})
+				set(state => ({...(snapshotResult.data.length > 0 ? {drawerOpen: true} : {}), ...projectQueueSnapshot(state, snapshotResult.data)}))
 			}
 
 			const warmUpResult = await warmUpPromise

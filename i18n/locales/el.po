@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arroxy\n"
 "Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
-"mime-version: 1.0\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 
 msgctxt "about.button"
 msgid "About"
@@ -1670,8 +1670,8 @@ msgid "Bulk URLs"
 msgstr "Μαζικά URL"
 
 msgctxt "wizard.url.bulkTooltip"
-msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-msgstr "Επικολλήστε μια λίστα μεμονωμένων URL, δείτε την καθαρισμένη λίστα και βάλτε τα στην ουρά με κοινή ποιότητα."
+msgid "Add and queue multiple URLs."
+msgstr ""
 
 msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
@@ -1834,12 +1834,15 @@ msgid "Videos"
 msgstr "Βίντεο"
 
 msgctxt "wizard.url.fetchFormatsTooltip"
-msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-msgstr "Επίλεξε μορφές, υπότιτλους, φάκελο και στοιχεία playlist βήμα προς βήμα πριν μπουν στην ουρά."
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr ""
 
+#, fuzzy
+#| msgctxt "status.complete"
+#| msgid "Download complete"
 msgctxt "wizard.url.heading"
-msgid "Video URL"
-msgstr "YouTube URL"
+msgid "Download from URL"
+msgstr "Η λήψη ολοκληρώθηκε"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
@@ -2029,13 +2032,19 @@ msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
 
+#, fuzzy
+#| msgctxt "wizard.url.quickDownload"
+#| msgid "Quick download"
 msgctxt "wizard.url.quickDownload"
-msgid "Quick download"
+msgid "Quick Download"
 msgstr "Γρήγορη λήψη"
 
+#, fuzzy
+#| msgctxt "tray.menu.statusActive_one"
+#| msgid "1 downloading · {{percent}}%"
 msgctxt "wizard.url.quickDownloadTooltip"
-msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-msgstr "Χρησιμοποιεί τις αποθηκευμένες ή προεπιλεγμένες προτιμήσεις σου και προσθέτει αυτό το μεμονωμένο βίντεο στην ουρά χωρίς τα βήματα ρύθμισης."
+msgid "Will download using: {{profileName}}"
+msgstr "1 σε λήψη · {{percent}}%"
 
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
@@ -2057,9 +2066,14 @@ msgctxt "wizard.url.quickQueued"
 msgid "Added to queue"
 msgstr "Προστέθηκε στην ουρά"
 
+#, fuzzy
+#| msgctxt "wizard.bulk.description"
+#| msgid ""
+#| "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean "
+#| "duplicates before queueing."
 msgctxt "wizard.url.quickSingleOnly"
-msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "Η Γρήγορη λήψη μπορεί να χρησιμοποιήσει μεμονωμένα βίντεο, playlist, κανάλια, αναζητήσεις και Bulk URLs."
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Επικόλλησε URL βίντεο, playlist, καναλιού, αναζήτησης ή ήχου. Το Arroxy θα καθαρίσει τα διπλότυπα πριν τα βάλει στην ουρά."
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"
@@ -2068,3 +2082,23 @@ msgstr "Προσθήκη ID βίντεο στα μεμονωμένα ονόμα�
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Κρατά τις μεμονωμένες λήψεις μοναδικές όταν αλλάζουν ή συμπίπτουν οι τίτλοι."
+
+#~ msgctxt "wizard.url.bulkTooltip"
+#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
+#~ msgstr "Επικολλήστε μια λίστα μεμονωμένων URL, δείτε την καθαρισμένη λίστα και βάλτε τα στην ουρά με κοινή ποιότητα."
+
+#~ msgctxt "wizard.url.fetchFormatsTooltip"
+#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
+#~ msgstr "Επίλεξε μορφές, υπότιτλους, φάκελο και στοιχεία playlist βήμα προς βήμα πριν μπουν στην ουρά."
+
+#~ msgctxt "wizard.url.heading"
+#~ msgid "Video URL"
+#~ msgstr "YouTube URL"
+
+#~ msgctxt "wizard.url.quickDownloadTooltip"
+#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
+#~ msgstr "Χρησιμοποιεί τις αποθηκευμένες ή προεπιλεγμένες προτιμήσεις σου και προσθέτει αυτό το μεμονωμένο βίντεο στην ουρά χωρίς τα βήματα ρύθμισης."
+
+#~ msgctxt "wizard.url.quickSingleOnly"
+#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
+#~ msgstr "Η Γρήγορη λήψη μπορεί να χρησιμοποιήσει μεμονωμένα βίντεο, playlist, κανάλια, αναζητήσεις και Bulk URLs."

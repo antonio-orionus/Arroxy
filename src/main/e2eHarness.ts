@@ -15,6 +15,7 @@ export interface E2eHarnessMode {
 	skipDeno: boolean
 	disableAnalytics: boolean
 	disableUpdater: boolean
+	allowClipboardWatch: boolean
 	useMockTokenProvider: boolean
 	commandLineSwitches: readonly string[]
 	applyAppSettingsDefaults: (defaults: AppSettings) => AppSettings
@@ -28,8 +29,8 @@ function isE2eHarnessEnabled(env: NodeJS.ProcessEnv, gate: HarnessGate): boolean
 	return env.ARROXY_E2E === '1' && (!gate.isPackaged || env.ARROXY_ENABLE_E2E_HARNESS === '1')
 }
 
-function applyE2eAppSettingsDefaults(defaults: AppSettings): AppSettings {
-	return {...defaults, common: {...defaults.common, clipboardWatchEnabled: false, analyticsEnabled: false}}
+function applyE2eAppSettingsDefaults(defaults: AppSettings, allowClipboardWatch: boolean): AppSettings {
+	return {...defaults, common: {...defaults.common, clipboardWatchEnabled: allowClipboardWatch ? defaults.common.clipboardWatchEnabled : false, analyticsEnabled: false}}
 }
 
 function applyProxyEnv(env: NodeJS.ProcessEnv, proxyUrl: string | undefined): NodeJS.ProcessEnv {
@@ -56,10 +57,11 @@ function validatePluginRoot(pluginRoot: string | undefined): string {
 
 export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate: HarnessGate): E2eHarnessMode {
 	if (!isE2eHarnessEnabled(env, gate)) {
-		return {enabled: false, skipDeno: false, disableAnalytics: false, disableUpdater: false, useMockTokenProvider: false, commandLineSwitches: [], applyAppSettingsDefaults: defaults => defaults, applySpawnEnv: baseEnv => ({...baseEnv}), ytDlpArgs: () => []}
+		return {enabled: false, skipDeno: false, disableAnalytics: false, disableUpdater: false, allowClipboardWatch: true, useMockTokenProvider: false, commandLineSwitches: [], applyAppSettingsDefaults: defaults => defaults, applySpawnEnv: baseEnv => ({...baseEnv}), ytDlpArgs: () => []}
 	}
 
 	const pluginRoot = validatePluginRoot(env.ARROXY_E2E_YTDLP_PLUGIN_DIR)
+	const allowClipboardWatch = env.ARROXY_E2E_ENABLE_CLIPBOARD_WATCH === '1'
 	// yt-dlp's --plugin-dirs iterates DIR/* and looks for yt_dlp_plugins inside
 	// each child. The env var names the trusted plugin root, so pass its parent.
 	const pluginContainer = path.dirname(pluginRoot)
@@ -70,9 +72,10 @@ export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate
 		skipDeno: true,
 		disableAnalytics: true,
 		disableUpdater: true,
+		allowClipboardWatch,
 		useMockTokenProvider: true,
 		commandLineSwitches: E2E_COMMAND_LINE_SWITCHES,
-		applyAppSettingsDefaults: applyE2eAppSettingsDefaults,
+		applyAppSettingsDefaults: defaults => applyE2eAppSettingsDefaults(defaults, allowClipboardWatch),
 		applySpawnEnv: baseEnv => applyProxyEnv(baseEnv, denyProxyUrl),
 		ytDlpArgs: ({isProbe}) => {
 			const args = ['--ignore-config', '--plugin-dirs', pluginContainer, '--no-cache-dir']

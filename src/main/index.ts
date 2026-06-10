@@ -51,9 +51,35 @@ log.info('boot', {platform: process.platform, arch: process.arch, release: os.re
 
 const isMockBackend = process.env.MOCK_BACKEND === '1'
 const e2eMode = resolveE2eHarnessMode(process.env, {isPackaged: app.isPackaged})
+const gpuMode = process.env.ARROXY_GPU_MODE
+const forceSoftwareBackdrop = process.env.ARROXY_BACKDROP_SOFTWARE === '1'
 
 for (const commandLineSwitch of e2eMode.commandLineSwitches) {
 	app.commandLine.appendSwitch(commandLineSwitch)
+}
+
+function appendChromiumSwitch(rawSwitch: string): void {
+	const [name, ...valueParts] = rawSwitch.split('=')
+	const value = valueParts.join('=')
+	app.commandLine.appendSwitch(name, value || undefined)
+}
+
+if (gpuMode === 'force') {
+	for (const commandLineSwitch of ['ignore-gpu-blocklist', 'enable-gpu-rasterization']) {
+		appendChromiumSwitch(commandLineSwitch)
+	}
+	log.info('gpu mode applied', {mode: gpuMode, switches: ['ignore-gpu-blocklist', 'enable-gpu-rasterization']})
+} else if (gpuMode === 'swiftshader') {
+	const switches = ['ignore-gpu-blocklist', 'enable-unsafe-swiftshader', 'use-angle=swiftshader']
+	for (const commandLineSwitch of switches) {
+		appendChromiumSwitch(commandLineSwitch)
+	}
+	log.info('gpu mode applied', {mode: gpuMode, switches})
+} else if (gpuMode === 'software') {
+	app.disableHardwareAcceleration()
+	log.info('gpu mode applied', {mode: gpuMode})
+} else if (gpuMode && gpuMode !== 'auto') {
+	log.warn('unknown ARROXY_GPU_MODE ignored', {value: gpuMode})
 }
 
 if (process.env.ELECTRON_USER_DATA) {
@@ -69,8 +95,12 @@ try {
 		const raw = fs.readFileSync(argvPath, 'utf8')
 		const cfg = JSON.parse(raw) as {'disable-hardware-acceleration'?: boolean}
 		if (cfg['disable-hardware-acceleration']) {
-			app.disableHardwareAcceleration()
-			log.info('argv.json applied', {'disable-hardware-acceleration': true})
+			if (gpuMode === 'force' || gpuMode === 'swiftshader') {
+				log.info('argv.json hardware acceleration disable ignored because ARROXY_GPU_MODE overrides it', {mode: gpuMode})
+			} else {
+				app.disableHardwareAcceleration()
+				log.info('argv.json applied', {'disable-hardware-acceleration': true})
+			}
 		}
 	}
 } catch (err) {
@@ -120,9 +150,11 @@ function createMainWindow(): BrowserWindow {
 	})
 
 	if (process.env.ELECTRON_RENDERER_URL) {
-		void window.loadURL(process.env.ELECTRON_RENDERER_URL)
+		const rendererUrl = new URL(process.env.ELECTRON_RENDERER_URL)
+		if (forceSoftwareBackdrop) rendererUrl.searchParams.set('backdropSoftware', '1')
+		void window.loadURL(rendererUrl.toString())
 	} else {
-		void window.loadFile(path.join(import.meta.dirname, '../renderer/index.html'))
+		void window.loadFile(path.join(import.meta.dirname, '../renderer/index.html'), forceSoftwareBackdrop ? {query: {backdropSoftware: '1'}} : undefined)
 	}
 
 	return window
@@ -142,8 +174,9 @@ if (hasSingleInstanceLock) {
 		const baseSettings = defaultAppSettings(app.getPath('downloads'))
 		const settingsStore = new SettingsStore(userDataPath, e2eMode.applyAppSettingsDefaults(baseSettings))
 		let initialSettings = await settingsStore.get()
-		if (e2eMode.enabled && (initialSettings.common.clipboardWatchEnabled || initialSettings.common.analyticsEnabled !== false)) {
-			initialSettings = await settingsStore.update({common: {clipboardWatchEnabled: false, analyticsEnabled: false}})
+		const e2eShouldDisableClipboardWatch = e2eMode.enabled && !e2eMode.allowClipboardWatch && initialSettings.common.clipboardWatchEnabled
+		if (e2eMode.enabled && (e2eShouldDisableClipboardWatch || initialSettings.common.analyticsEnabled !== false)) {
+			initialSettings = await settingsStore.update({common: {clipboardWatchEnabled: e2eMode.allowClipboardWatch ? initialSettings.common.clipboardWatchEnabled : false, analyticsEnabled: false}})
 		}
 		// installId is stamped lazily by SettingsStore on first launch — guaranteed
 		// present after `get()`. Empty string fallback keeps TS happy without

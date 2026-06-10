@@ -1,12 +1,16 @@
-import {useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
+import {Suspense, useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
 import {STEP_REGISTRY} from '../wizard/stepRegistry.js'
-import {STEPS, shouldSkip} from '../wizard/stepNavigation.js'
+import {buildWizardStepGraph, visibleWizardSteps} from '../../store/wizard/wizardStepGraph.js'
 import {StepError} from '../wizard/StepError.js'
 import {MixedUrlPromptDialog} from '../wizard/MixedUrlPromptDialog.js'
 import {QuickPlaylistCapDialog} from '../wizard/QuickPlaylistCapDialog.js'
 import {cn} from '@renderer/lib/utils.js'
+
+function WizardStepFallback(): ReactNode {
+	return <div className="wizard-step min-h-32" data-testid="wizard-step-loading" aria-busy="true" />
+}
 
 export function WizardPanel(): ReactNode {
 	const {t} = useTranslation()
@@ -17,13 +21,17 @@ export function WizardPanel(): ReactNode {
 	const wizardExtractor = useAppStore(s => s.wizardExtractor)
 	const wizardSubtitles = useAppStore(s => s.wizardSubtitles)
 	const wizardAutomaticCaptions = useAppStore(s => s.wizardAutomaticCaptions)
-	const hasSubtitles = useMemo(() => Object.keys(wizardSubtitles).length > 0 || Object.keys(wizardAutomaticCaptions).length > 0, [wizardSubtitles, wizardAutomaticCaptions])
+	const wizardSubtitleSkipped = useAppStore(s => s.wizardSubtitleSkipped)
 
-	const visibleSteps = useMemo(() => STEPS.filter(step => !shouldSkip(step, {activePreset, wizardMode, playlistSelection, wizardExtractor, hasSubtitles})), [activePreset, wizardMode, playlistSelection, wizardExtractor, hasSubtitles])
+	const graph = useMemo(
+		() => buildWizardStepGraph({wizardStep, activePreset, wizardMode, playlistSelection, wizardExtractor, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped}),
+		[wizardStep, activePreset, wizardMode, playlistSelection, wizardExtractor, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped]
+	)
 
-	const activeIndex = visibleSteps.indexOf(wizardStep as (typeof STEPS)[number])
+	const visibleSteps = visibleWizardSteps(graph)
+	const activeIndex = graph.activeIndex
 	const activeDescriptor = STEP_REGISTRY.find(d => d.id === wizardStep)
-	const isDownloadHome = wizardStep === 'url'
+	const isDownloadHome = graph.isDownloadHome
 
 	const prevIndexRef = useRef(activeIndex)
 	const [isBackward, setIsBackward] = useState(false)
@@ -63,7 +71,7 @@ export function WizardPanel(): ReactNode {
 				</div>
 			)}
 
-			{wizardStep === 'error' ? <StepError /> : activeDescriptor?.render()}
+			{wizardStep === 'error' ? <StepError /> : activeDescriptor ? <Suspense fallback={<WizardStepFallback />}>{activeDescriptor.render()}</Suspense> : null}
 			<MixedUrlPromptDialog />
 			<QuickPlaylistCapDialog />
 		</section>

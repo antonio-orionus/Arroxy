@@ -21,12 +21,14 @@ export type PlaylistVideoTier = z.infer<typeof playlistVideoTierSchema>
 // reordered by JavaScript property ordering. Keep the intended UI order here.
 export const PLAYLIST_VIDEO_TIERS: readonly PlaylistVideoTier[] = PLAYLIST_VIDEO_TIER_VALUES
 
-const playlistVideoCodecSchema = z.enum(['best', 'mp4'])
+export const playlistVideoCodecSchema = z.enum(['best', 'mp4'])
+export type PlaylistVideoCodec = z.infer<typeof playlistVideoCodecSchema>
 
 export const playlistAudioFormatSchema = z.enum(['best', 'mp3', 'm4a', 'opus'])
 export type PlaylistAudioFormat = z.infer<typeof playlistAudioFormatSchema>
 
-const downloadProfileAudioFormatSchema = z.enum(['best', 'mp3', 'm4a', 'opus', 'wav'])
+export const downloadProfileAudioFormatSchema = z.enum(['best', 'mp3', 'm4a', 'opus', 'wav'])
+export type DownloadProfileAudioFormat = z.infer<typeof downloadProfileAudioFormatSchema>
 
 export const downloadProfileIconSchema = z.enum(['controls', 'download', 'video', 'captions', 'audio', 'music', 'podcast', 'classes', 'clip', 'archive'])
 export type DownloadProfileIcon = z.infer<typeof downloadProfileIconSchema>
@@ -98,7 +100,8 @@ export const mediaIntentSchema = z.discriminatedUnion('kind', [
 ])
 export type MediaIntent = z.infer<typeof mediaIntentSchema>
 
-const downloadProfileSubtitleSourceSchema = z.enum(['manual-first', 'manual-only', 'auto-only'])
+export const downloadProfileSubtitleSourceSchema = z.enum(['manual-first', 'manual-only', 'auto-only'])
+export type DownloadProfileSubtitleSource = z.infer<typeof downloadProfileSubtitleSourceSchema>
 
 const downloadProfileSubtitlesSchema = z.object({enabled: z.boolean(), languages: z.array(z.string()).max(MAX_SUBTITLE_LANGUAGES), source: downloadProfileSubtitleSourceSchema, mode: subtitleModeSchema, format: subtitleFormatSchema})
 

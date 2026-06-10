@@ -88,6 +88,7 @@ export interface ProbeOrchestratorSlice {
 	bulkMetadataById: Record<string, BulkMetadataItemStatus>
 	quickDownloadStatus: QuickDownloadStatus
 	quickDownloadError: string | null
+	quickDownloadQueueIds: string[]
 
 	// videoIds matched on disk by the last folder scan
 	syncedDownloadedIds: string[]

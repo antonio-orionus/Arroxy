@@ -1,23 +1,49 @@
 import {useMemo} from 'react'
 import {i18next} from '@shared/i18n/index.js'
-import type {AudioBitrate, FormatOption} from '@shared/types.js'
+import {humanSize} from '@shared/format.js'
+import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
+import type {AudioBitrate, AudioConvertTarget, FormatOption} from '@shared/types.js'
 import type {Preset} from '@shared/schemas.js'
 import type {AudioSelection} from './types.js'
 import {useAppStore} from './useAppStore.js'
-import {resolveVideoResolution} from './helpers.js'
+import {groupVideoFormats, resolveVideoResolution} from './helpers.js'
 import {presetProducesMedia} from '@shared/presetTraits.js'
 
 export type ConvertTooltipKey = 'wizard.formats.convert.requiresAudioOnly' | 'wizard.formats.convert.requiresLossy'
+
+export interface FormatSelectionFilters {
+	audioExt: string | null
+	dynamicRange: string | null
+	videoExt: string | null
+}
+
+export interface VideoFormatRow {
+	barWidth: number
+	filesize: number | undefined
+	formatId: string
+	isAudioOnly: boolean
+	meta: string
+	resolution: string
+}
+
+export interface NativeAudioRow {
+	ext: string
+	formatId: string
+	label: string
+}
 
 export interface FormatSelectionView {
 	mode: 'video+audio' | 'audio-only' | 'subtitle-only'
 	canContinue: boolean
 	currentResolutionLabel: string
 	selectedFilesize: number | undefined
-	video: {disabled: boolean}
+	video: {disabled: boolean; dynamicRangeOptions: string[]; extOptions: string[]; rows: VideoFormatRow[]}
 	audio: {
+		audioExtOptions: string[]
 		convertDisabled: boolean
+		convertTargets: AudioConvertTarget[]
 		convertTooltipKey: ConvertTooltipKey | null
+		nativeRows: NativeAudioRow[]
 		noAudioDisabled: boolean
 		// The "no audio" row's meaning depends on whether the selected video
 		// format is muxed (audio + video in one stream) or video-only. For muxed
@@ -29,10 +55,13 @@ export interface FormatSelectionView {
 	}
 }
 
+const DEFAULT_FILTERS: FormatSelectionFilters = {audioExt: null, dynamicRange: null, videoExt: null}
+
 // Exported for unit-testing the gating logic (muxed-only sources, audio-only
 // modes, etc.) without spinning up the zustand store.
-export function selectView(state: {selectedVideoFormatId: string; audioSelection: AudioSelection; lastConvertBitrate: AudioBitrate; activePreset: Preset | null; wizardFormats: FormatOption[]}): FormatSelectionView {
+export function selectView(state: {selectedVideoFormatId: string; audioSelection: AudioSelection; lastConvertBitrate: AudioBitrate; activePreset: Preset | null; wizardFormats: FormatOption[]; filters?: Partial<FormatSelectionFilters>}): FormatSelectionView {
 	const {selectedVideoFormatId, audioSelection, lastConvertBitrate, activePreset, wizardFormats} = state
+	const filters = {...DEFAULT_FILTERS, ...state.filters}
 
 	const isAudioOnly = selectedVideoFormatId === ''
 	const isSubtitleOnly = activePreset !== null && !presetProducesMedia(activePreset)
@@ -65,16 +94,40 @@ export function selectView(state: {selectedVideoFormatId: string; audioSelection
 	const noAudioDisabled = isAudioOnly
 	const selectedFormat = wizardFormats.find(f => f.formatId === selectedVideoFormatId)
 	const selectedVideoIsMuxed = !!selectedFormat && !selectedFormat.isVideoOnly && !selectedFormat.isAudioOnly
+	const videoOnlyFormats = wizardFormats.filter(f => f.isVideoOnly)
+	const videoExtOptions = [...new Set(videoOnlyFormats.map(f => f.ext))]
+	const dynamicRangeOptions = [...new Set(videoOnlyFormats.map(f => f.dynamicRange ?? 'SDR'))]
+	const filteredVideoFormats = wizardFormats.filter(f => (!filters.videoExt || f.ext === filters.videoExt) && (!filters.dynamicRange || (filters.dynamicRange === 'SDR' ? !f.dynamicRange : f.dynamicRange === filters.dynamicRange)))
+	const groupedVideo = groupVideoFormats(filteredVideoFormats)
+	const formatById = new Map(filteredVideoFormats.map(format => [format.formatId, format]))
+	const maxFilesize = Math.max(...groupedVideo.flatMap(group => (group.isAudioOnly ? [] : [formatById.get(group.formatId)?.filesize ?? 0])), 1)
+	const videoRows = groupedVideo.map(group => {
+		const rawFormat = formatById.get(group.formatId)
+		const filesize = rawFormat?.filesize
+		const meta = group.isAudioOnly ? '' : [rawFormat?.ext, rawFormat?.fps ? `${rawFormat.fps}fps` : null, rawFormat?.dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' · ')
+		return {barWidth: filesize ? Math.max(2, (filesize / maxFilesize) * 100) : 0, filesize, formatId: group.formatId, isAudioOnly: group.isAudioOnly, meta, resolution: group.resolution}
+	})
+	const nativeAudios = wizardFormats.filter(f => f.isAudioOnly)
+	const nativeExts = [...new Set(nativeAudios.map(f => f.ext))]
+	const convertTargets = AUDIO_CONVERT_TARGETS.map(spec => spec.target)
+	const nativeExtSet = new Set(nativeExts)
+	const audioExtOptions = [...nativeExts, ...convertTargets.filter(ext => !nativeExtSet.has(ext))]
+	const matchesAudioExt = (ext: string): boolean => !filters.audioExt || ext === filters.audioExt
+	const nativeRows = nativeAudios.filter(format => matchesAudioExt(format.ext)).map(format => ({ext: format.ext, formatId: format.formatId, label: format.label}))
+	const filteredConvertTargets = convertTargets.filter(matchesAudioExt)
 
 	return {
 		mode,
 		canContinue,
 		currentResolutionLabel,
 		selectedFilesize,
-		video: {disabled: isSubtitleOnly},
+		video: {disabled: isSubtitleOnly, dynamicRangeOptions, extOptions: videoExtOptions, rows: videoRows},
 		audio: {
+			audioExtOptions,
 			convertDisabled,
+			convertTargets: filteredConvertTargets,
 			convertTooltipKey: convertDisabled ? 'wizard.formats.convert.requiresAudioOnly' : null,
+			nativeRows,
 			noAudioDisabled,
 			selectedVideoIsMuxed,
 			bitrateStrip: {blocked: bitrateBlocked, value: bitrateValue, tooltipKey: convertDisabled ? 'wizard.formats.convert.requiresAudioOnly' : bitrateBlocked ? 'wizard.formats.convert.requiresLossy' : null}
@@ -82,12 +135,12 @@ export function selectView(state: {selectedVideoFormatId: string; audioSelection
 	}
 }
 
-export function useFormatSelectionView(): FormatSelectionView {
+export function useFormatSelectionView(filters?: Partial<FormatSelectionFilters>): FormatSelectionView {
 	const selectedVideoFormatId = useAppStore(s => s.selectedVideoFormatId)
 	const audioSelection = useAppStore(s => s.audioSelection)
 	const lastConvertBitrate = useAppStore(s => s.lastConvertBitrate)
 	const activePreset = useAppStore(s => s.activePreset)
 	const wizardFormats = useAppStore(s => s.wizardFormats)
 
-	return useMemo(() => selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, activePreset, wizardFormats}), [selectedVideoFormatId, audioSelection, lastConvertBitrate, activePreset, wizardFormats])
+	return useMemo(() => selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, activePreset, wizardFormats, filters}), [selectedVideoFormatId, audioSelection, lastConvertBitrate, activePreset, wizardFormats, filters])
 }

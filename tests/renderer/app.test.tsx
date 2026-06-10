@@ -24,11 +24,15 @@ describe('App renderer', () => {
 			wizardOutputDir: '',
 			wizardError: null,
 			wizardErrorOrigin: null,
+			quickDownloadStatus: 'idle',
+			quickDownloadError: null,
+			quickDownloadQueueIds: [],
 			queue: []
 		})
 
 		window.appApi = mockAppApi
 		window.platform = 'linux'
+		window.history.replaceState(null, '', '/')
 
 		vi.clearAllMocks()
 	})
@@ -36,7 +40,17 @@ describe('App renderer', () => {
 	it('renders the app heading and URL input', async () => {
 		render(<App />)
 		expect(await screen.findByTestId('title-bar')).toHaveTextContent('Arroxy')
+		expect(await screen.findByText('Download from URL')).toBeInTheDocument()
 		expect(await screen.findByTestId('profiles-main-input')).toBeInTheDocument()
+	})
+
+	it('renders the backdrop isolation stage from the browser-mock query param', async () => {
+		window.history.replaceState(null, '', '/?backdrop=1')
+
+		render(<App />)
+
+		expect(await screen.findByTestId('backdrop-stage')).toBeInTheDocument()
+		expect(screen.queryByTestId('title-bar')).not.toBeInTheDocument()
 	})
 
 	it('submits URL probes through the preload API', async () => {
@@ -64,15 +78,30 @@ describe('App renderer', () => {
 		const quick = await screen.findByTestId('profiles-quick-download')
 		const fetch = screen.getByTestId('profiles-interactive-download')
 		expect(quick).toHaveTextContent(/Quick download/i)
-		expect(screen.getByTestId('profiles-quick-preview')).toHaveTextContent('Active profile')
-		expect(screen.getByRole('button', {name: 'Edit active profile: Balanced'})).toBeInTheDocument()
-		const profileMenuTrigger = screen.getByRole('button', {name: 'Switch download profile'})
+		expect(quick).toHaveTextContent('Will download using: Balanced')
+		expect(screen.getByTestId('profiles-quick-preview')).toHaveAttribute('data-linked-control', 'quick-profile')
+		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Balanced')
+		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Active profile')
+		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('720p · best audio')
+		expect(screen.queryByRole('button', {name: 'Edit active profile: Balanced'})).not.toBeInTheDocument()
+		const profileMenuTrigger = screen.getByRole('button', {name: 'Switch download profile: Balanced'})
 		expect(profileMenuTrigger).toBeInTheDocument()
 		expect(quick).toBeDisabled()
 
 		fireEvent.click(profileMenuTrigger)
 		expect(await screen.findByText('Switch profile')).toBeInTheDocument()
-		expect(screen.getByTestId('profiles-profile-menu')).toBeInTheDocument()
+		const profileMenu = screen.getByTestId('profiles-profile-menu')
+		expect(profileMenu).toBeInTheDocument()
+		expect(profileMenu).toHaveClass('w-[min(50rem,calc(100vw-2rem))]')
+		const profileGrid = screen.getByTestId('profiles-profile-menu-grid')
+		expect(profileGrid).toHaveClass('grid')
+		expect(profileGrid).toHaveClass('grid-cols-[repeat(auto-fit,minmax(13.5rem,1fr))]')
+		expect(screen.getByTestId('profiles-profile-option-balanced')).toHaveClass('min-h-12')
+		const profileActions = screen.getByTestId('profiles-profile-menu-actions')
+		expect(profileActions).toHaveClass('sm:grid-cols-3')
+		expect(profileActions).toHaveTextContent('Edit active profile')
+		expect(profileActions).toHaveTextContent('New profile')
+		expect(profileActions).toHaveTextContent('Manage profiles')
 
 		const input = await screen.findByTestId('profiles-main-input')
 		fireEvent.change(input, {target: {value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}})
@@ -109,25 +138,29 @@ describe('App renderer', () => {
 	it('closes the profile picker when opening profile editor surfaces', async () => {
 		render(<App />)
 
-		const profileMenuTrigger = await screen.findByRole('button', {name: 'Switch download profile'})
+		const profileMenuTrigger = await screen.findByRole('button', {name: 'Switch download profile: Balanced'})
+		expect(screen.queryByTestId('profiles-editor-dialog')).not.toBeInTheDocument()
 		fireEvent.click(profileMenuTrigger)
 		expect(await screen.findByText('Switch profile')).toBeInTheDocument()
 
 		fireEvent.click(screen.getByRole('button', {name: 'New profile'}))
 
 		await waitFor(() => {
-			expect(screen.queryByText('Switch profile')).not.toBeInTheDocument()
+			expect(screen.getByTestId('profiles-profile-menu')).toHaveAttribute('data-closed')
 		})
 		expect(await screen.findByTestId('profiles-editor-dialog')).toBeInTheDocument()
 
 		fireEvent.click(screen.getByRole('button', {name: 'Cancel'}))
+		await waitFor(() => {
+			expect(screen.queryByTestId('profiles-editor-dialog')).not.toBeInTheDocument()
+		})
 		fireEvent.click(profileMenuTrigger)
 		expect(await screen.findByText('Switch profile')).toBeInTheDocument()
 
 		fireEvent.click(screen.getByRole('button', {name: 'Manage profiles'}))
 
 		await waitFor(() => {
-			expect(screen.queryByText('Switch profile')).not.toBeInTheDocument()
+			expect(screen.queryByTestId('profiles-profile-menu')).not.toBeInTheDocument()
 		})
 		expect(await screen.findByTestId('profiles-manage-tab')).toBeInTheDocument()
 	})

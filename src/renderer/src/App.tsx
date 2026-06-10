@@ -1,8 +1,11 @@
-import {useEffect, useState, type ReactNode} from 'react'
+import {lazy, Suspense, useEffect, useState, type ReactNode} from 'react'
 import {Bug, Info, Share2} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
-import {ZOOM_MIN, ZOOM_MAX, ZOOM_STEP} from '@shared/schemas.js'
+import {useShallow} from 'zustand/react/shallow'
+import {ZOOM_MIN, ZOOM_MAX, ZOOM_STEP, type UiTheme} from '@shared/schemas.js'
 import {useAppStore} from './store/useAppStore.js'
+import {AppBackdrop} from './components/layout/background/AppBackdrop.js'
+import type {BackdropColorScheme} from './components/layout/background/types.js'
 import {TitleBar} from './components/layout/TitleBar.js'
 import {WizardPanel} from './components/layout/WizardPanel.js'
 import {SmartDrawer} from './components/layout/SmartDrawer.js'
@@ -12,17 +15,25 @@ import {UpdateBanner} from './components/system/UpdateBanner.js'
 import {ThemeToggle} from './components/system/ThemeToggle.js'
 import {LanguagePicker} from './components/system/LanguagePicker.js'
 import {AboutDialog} from './components/system/AboutDialog.js'
-import {ShareDialog} from './components/system/ShareDialog.js'
 import {FeedbackDialog} from './components/system/FeedbackDialog.js'
 import {useUpdateChannel} from './components/system/useUpdateChannel.js'
 import {shouldShowSplashGreeting} from './components/system/splashGreeting.js'
 import {Button} from './components/ui/button.js'
 import {ButtonGroup} from './components/ui/button-group.js'
 import {TooltipProvider} from './components/ui/tooltip.js'
-import {ScenarioGallery} from './dev/ScenarioGallery.js'
 import {cn} from './lib/utils.js'
 
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
+const ShareDialog = lazy(() => import('./components/system/ShareDialog.js').then(module => ({default: module.ShareDialog})))
+const ScenarioGallery = lazy(() => import('./dev/ScenarioGallery.js').then(module => ({default: module.ScenarioGallery})))
+
+function isBackdropOnlyStage(): boolean {
+	return (import.meta.env.MODE === 'browser-mock' || import.meta.env.MODE === 'test') && new URLSearchParams(window.location.search).has('backdrop')
+}
+
+function resolveColorScheme(uiTheme: UiTheme, systemPrefersDark: boolean): BackdropColorScheme {
+	return uiTheme === 'dark' || (uiTheme === 'system' && systemPrefersDark) ? 'dark' : 'light'
+}
 
 function shouldRenderStartupSplash(): boolean {
 	if (import.meta.env.MODE !== 'browser-mock') return true
@@ -38,11 +49,17 @@ function buildDebugInfo(): string {
 
 export function App(): ReactNode {
 	const {t} = useTranslation()
-	const {initialized, initialize, openLogs, uiZoom, setUiZoom, uiTheme, language, warmupBlocking, warmupDiagnostics, warmupProgress, settings, wizardStep, wizardExtractor, wizardError, queue, setSplashDismissed, setAboutDialogOpen, openShareDialog} = useAppStore()
+	const {initialized, initialize, openLogs, setSplashDismissed, warmupBlocking, warmupDiagnostics, warmupProgress, settings} = useAppStore(
+		useShallow(state => ({initialized: state.initialized, initialize: state.initialize, openLogs: state.openLogs, setSplashDismissed: state.setSplashDismissed, warmupBlocking: state.warmupBlocking, warmupDiagnostics: state.warmupDiagnostics, warmupProgress: state.warmupProgress, settings: state.settings}))
+	)
+	const {uiZoom, setUiZoom, uiTheme, setAboutDialogOpen, openShareDialog, shareDialogOpen} = useAppStore(
+		useShallow(state => ({uiZoom: state.uiZoom, setUiZoom: state.setUiZoom, uiTheme: state.uiTheme, setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog, shareDialogOpen: state.shareDialogOpen}))
+	)
 	const update = useUpdateChannel()
 	const [debugCopied, setDebugCopied] = useState(false)
 	const [showNudge, setShowNudge] = useState(false)
 	const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false)
+	const [colorScheme, setColorScheme] = useState<BackdropColorScheme>(() => (document.documentElement.classList.contains('dark') ? 'dark' : 'light'))
 	const showStartupSplash = shouldRenderStartupSplash()
 
 	function copyDebugInfo(): void {
@@ -61,7 +78,10 @@ export function App(): ReactNode {
 		const mq = window.matchMedia('(prefers-color-scheme: dark)')
 
 		function apply(): void {
-			html.classList.toggle('dark', uiTheme === 'dark' || (uiTheme === 'system' && mq.matches))
+			const resolved = resolveColorScheme(uiTheme, mq.matches)
+			html.classList.toggle('dark', resolved === 'dark')
+			html.classList.toggle('light', resolved === 'light')
+			setColorScheme(resolved)
 		}
 
 		apply()
@@ -83,9 +103,31 @@ export function App(): ReactNode {
 		return () => clearTimeout(t)
 	}, [showNudge])
 
+	// Backdrop isolation stage (browser-mock only): strips all chrome so the animated
+	// background can be tuned on its own. Reach it via `?backdrop=1` or the gallery button.
+	if (isBackdropOnlyStage()) {
+		const exit = (): void => {
+			const url = new URL(window.location.href)
+			url.searchParams.delete('backdrop')
+			window.location.assign(`${url.pathname}${url.search}${url.hash}`)
+		}
+		return (
+			<div className="relative h-screen w-screen overflow-hidden" data-testid="backdrop-stage">
+				<AppBackdrop colorScheme={colorScheme} />
+				<div className="fixed bottom-4 left-4 z-10 flex items-center gap-2 rounded-md border border-[var(--border-strong)] bg-background/80 px-2 py-1.5 backdrop-blur">
+					<ThemeToggle />
+					<button type="button" onClick={exit} className="text-xs font-medium text-muted-foreground hover:text-foreground" data-testid="backdrop-stage-exit">
+						← exit
+					</button>
+				</div>
+			</div>
+		)
+	}
+
 	return (
 		<TooltipProvider>
 			<div className="relative flex flex-col h-screen w-screen overflow-hidden" data-testid="app-root">
+				<AppBackdrop colorScheme={colorScheme} />
 				<TitleBar />
 
 				{update.info && <UpdateBanner info={update.info} installing={update.installing} installError={update.error} onInstall={update.install} onDownload={update.download} onDismiss={update.dismiss} />}
@@ -154,9 +196,17 @@ export function App(): ReactNode {
 
 				{showStartupSplash && <SplashScreen initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={shouldShowSplashGreeting(settings)} onDismissed={() => setSplashDismissed(true)} />}
 				<AboutDialog />
-				<ShareDialog />
-				<FeedbackDialog open={feedbackDialogOpen} onOpenChange={setFeedbackDialogOpen} settings={settings} language={language} wizardStep={wizardStep} wizardExtractor={wizardExtractor} wizardError={wizardError} queue={queue} />
-				{SHOW_SCENARIO_GALLERY && <ScenarioGallery />}
+				{shareDialogOpen ? (
+					<Suspense fallback={null}>
+						<ShareDialog />
+					</Suspense>
+				) : null}
+				<FeedbackDialog open={feedbackDialogOpen} onOpenChange={setFeedbackDialogOpen} />
+				{SHOW_SCENARIO_GALLERY ? (
+					<Suspense fallback={null}>
+						<ScenarioGallery />
+					</Suspense>
+				) : null}
 			</div>
 		</TooltipProvider>
 	)

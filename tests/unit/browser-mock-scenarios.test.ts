@@ -234,6 +234,8 @@ describe('browser mock scenarios', () => {
 	})
 
 	it('builds new update scenarios', () => {
+		expect(buildScenarioAppApiState(getScenario('default')).update).toBeNull()
+		expect(buildScenarioAppApiState(getScenario('profiles-home-clipboard-single')).update).toBeNull()
 		expect(buildScenarioAppApiState(getScenario('update-winget')).update?.installChannel).toBe('winget')
 		expect(buildScenarioAppApiState(getScenario('update-flatpak')).update?.installChannel).toBe('flatpak')
 		expect(buildScenarioAppApiState(getScenario('update-darwin-dmg')).update?.installChannel).toBe('direct')

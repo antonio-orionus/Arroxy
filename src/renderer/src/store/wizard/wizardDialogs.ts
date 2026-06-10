@@ -5,6 +5,7 @@
 
 import type {GetState, SetState, WizardDialogsSlice} from '../types.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
+import {resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
 
 export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardDialogsSlice {
 	return {
@@ -31,7 +32,7 @@ export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardD
 		},
 
 		dismissQuickPlaylistCapDialog: () => {
-			set({quickPlaylistCapDialogOpen: false, quickDownloadStatus: 'idle', quickDownloadError: null})
+			set({quickPlaylistCapDialogOpen: false, ...resetQuickDownloadFeedback()})
 		}
 	}
 }

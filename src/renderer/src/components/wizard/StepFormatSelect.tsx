@@ -1,7 +1,8 @@
-import type {ReactNode} from 'react'
+import {useMemo, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
+import {useShallow} from 'zustand/react/shallow'
 import {useAppStore} from '../../store/useAppStore.js'
-import {useFormatSelectionView} from '../../store/formatSelectionView.js'
+import {useFormatSelectionView, type FormatSelectionFilters} from '../../store/formatSelectionView.js'
 import {VideoSummaryCard} from '../shared/VideoSummaryCard.js'
 import {Spinner} from '../ui/spinner.js'
 import downloadingImg from '../../assets/Downloading.png'
@@ -13,8 +14,29 @@ import {FormatFooter} from './format/FormatFooter.js'
 
 export function StepFormatSelect(): ReactNode {
 	const {t} = useTranslation()
-	const {wizardFormats, formatsLoading, wizardTitle, wizardThumbnail, wizardDuration, wizardWebpageUrl, selectedVideoFormatId, audioSelection, activePreset, setSelectedVideoFormatId, setAudioSelection, setPreset, advance, back, skipToConfirm} = useAppStore()
-	const view = useFormatSelectionView()
+	const {formatsLoading, wizardTitle, wizardThumbnail, wizardDuration, wizardWebpageUrl, selectedVideoFormatId, audioSelection, activePreset, setSelectedVideoFormatId, setAudioSelection, setPreset, advance, back, skipToConfirm} = useAppStore(
+		useShallow(state => ({
+			formatsLoading: state.formatsLoading,
+			wizardTitle: state.wizardTitle,
+			wizardThumbnail: state.wizardThumbnail,
+			wizardDuration: state.wizardDuration,
+			wizardWebpageUrl: state.wizardWebpageUrl,
+			selectedVideoFormatId: state.selectedVideoFormatId,
+			audioSelection: state.audioSelection,
+			activePreset: state.activePreset,
+			setSelectedVideoFormatId: state.setSelectedVideoFormatId,
+			setAudioSelection: state.setAudioSelection,
+			setPreset: state.setPreset,
+			advance: state.advance,
+			back: state.back,
+			skipToConfirm: state.skipToConfirm
+		}))
+	)
+	const [videoExtFilter, setVideoExtFilter] = useState<string | null>(null)
+	const [dynamicRangeFilter, setDynamicRangeFilter] = useState<string | null>(null)
+	const [audioExtFilter, setAudioExtFilter] = useState<string | null>(null)
+	const filters = useMemo<FormatSelectionFilters>(() => ({audioExt: audioExtFilter, dynamicRange: dynamicRangeFilter, videoExt: videoExtFilter}), [audioExtFilter, dynamicRangeFilter, videoExtFilter])
+	const view = useFormatSelectionView(filters)
 
 	if (formatsLoading) {
 		return (
@@ -44,11 +66,11 @@ export function StepFormatSelect(): ReactNode {
 			<BotWallNotice />
 
 			<div className="grid grid-cols-2 gap-[20px]">
-				<VideoColumn formats={wizardFormats} selectedVideoFormatId={selectedVideoFormatId} onSelect={setSelectedVideoFormatId} />
-				<AudioColumn formats={wizardFormats} audioSelection={audioSelection} onSelect={setAudioSelection} />
+				<VideoColumn view={view.video} selectedVideoFormatId={selectedVideoFormatId} videoExtFilter={videoExtFilter} dynamicRangeFilter={dynamicRangeFilter} onVideoExtFilterChange={setVideoExtFilter} onDynamicRangeFilterChange={setDynamicRangeFilter} onSelect={setSelectedVideoFormatId} />
+				<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} audioExtFilter={audioExtFilter} onAudioExtFilterChange={setAudioExtFilter} onSelect={setAudioSelection} />
 			</div>
 
-			<FormatFooter onBack={back} onContinue={advance} onSkipToConfirm={skipToConfirm} />
+			<FormatFooter view={view} onBack={back} onContinue={advance} onSkipToConfirm={skipToConfirm} />
 		</div>
 	)
 }

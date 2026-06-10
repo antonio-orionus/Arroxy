@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
-import {ChevronDown, RotateCcw, TestTube2} from 'lucide-react'
+import {ChevronDown, RotateCcw, Sparkles, TestTube2} from 'lucide-react'
 import {SUPPORTED_LANGS, YT_DLP_ERROR_KINDS} from '@shared/schemas.js'
 import type {SupportedLang, YtDlpErrorKind} from '@shared/schemas.js'
 import {applyScenarioWorkbenchState, BROWSER_MOCK_SCENARIOS, getScenario, isScreenPresetScenario, mockStepForScenario, mockStepsForScenario, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario, type BrowserMockScenarioGroup, type BrowserMockStep} from './browserMockScenarios.js'
@@ -77,6 +77,14 @@ function mockStepUrl(scenario: BrowserMockScenario, step: BrowserMockStep | null
 
 function applyScenario(id: BrowserMockScenario['id']): void {
 	window.location.assign(scenarioUrl(id))
+}
+
+function applyBackdropStage(): void {
+	const url = new URL(window.location.href)
+	// Keep theme/locale/platform knobs; drop scenario state.
+	for (const p of ['scenario', 'playlist', 'probeError', 'mockStep']) url.searchParams.delete(p)
+	url.searchParams.set('backdrop', '1')
+	window.location.assign(`${url.pathname}${url.search}${url.hash}`)
 }
 
 function applyPlaylistCount(count: number): void {
@@ -180,10 +188,16 @@ export function ScenarioGallery(): ReactNode {
 							<p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">Browser Mock Gallery</p>
 							<p className="truncate text-[11px] text-muted-foreground">{activeDescription()}</p>
 						</div>
-						<button type="button" onClick={() => applyScenario('default')} className="inline-flex h-7 shrink-0 items-center gap-1 rounded border border-border px-2 font-medium text-muted-foreground hover:text-foreground" data-testid="scenario-reset">
-							<RotateCcw size={12} />
-							Reset
-						</button>
+						<div className="flex shrink-0 items-center gap-1.5">
+							<button type="button" onClick={applyBackdropStage} className="inline-flex h-7 items-center gap-1 rounded border border-border px-2 font-medium text-muted-foreground hover:text-foreground" data-testid="scenario-backdrop-only">
+								<Sparkles size={12} />
+								Backdrop only
+							</button>
+							<button type="button" onClick={() => applyScenario('default')} className="inline-flex h-7 items-center gap-1 rounded border border-border px-2 font-medium text-muted-foreground hover:text-foreground" data-testid="scenario-reset">
+								<RotateCcw size={12} />
+								Reset
+							</button>
+						</div>
 					</div>
 
 					<div className="max-h-[min(70vh,620px)] overflow-y-auto p-3">

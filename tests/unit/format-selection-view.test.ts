@@ -58,4 +58,30 @@ describe('selectView — convert gating', () => {
 		expect(view.video.disabled).toBe(true)
 		expect(view.canContinue).toBe(true)
 	})
+
+	it('returns filtered video rows and filter options from one derived view', () => {
+		const formats: FormatOption[] = [
+			{formatId: '137', label: '1080p mp4 video-only', ext: 'mp4', resolution: '1080p', fps: 30, dynamicRange: 'HDR', filesize: 100, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '248', label: '1080p webm video-only', ext: 'webm', resolution: '1080p', fps: 60, filesize: 50, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '140', label: 'm4a audio', ext: 'm4a', resolution: 'audio only', abr: 128, isVideoOnly: false, isAudioOnly: true}
+		]
+
+		const view = selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, activePreset: null, wizardFormats: formats, filters: {videoExt: 'mp4', dynamicRange: 'HDR', audioExt: null}})
+
+		expect(view.video.extOptions).toEqual(['mp4', 'webm'])
+		expect(view.video.dynamicRangeOptions).toEqual(['HDR', 'SDR'])
+		expect(view.video.rows).toEqual(expect.arrayContaining([expect.objectContaining({formatId: '137', resolution: '1080p', meta: 'mp4 · 30fps · HDR · 100 B', barWidth: 100})]))
+		expect(view.video.rows).toEqual(expect.arrayContaining([expect.objectContaining({formatId: '', isAudioOnly: true})]))
+	})
+
+	it('returns filtered audio rows and convert targets from one derived view', () => {
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, lastConvertBitrate: 128, activePreset: 'audio-only', wizardFormats: SEPARATE_FORMATS, filters: {videoExt: null, dynamicRange: null, audioExt: 'webm'}})
+		const unfiltered = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, lastConvertBitrate: 128, activePreset: 'audio-only', wizardFormats: SEPARATE_FORMATS})
+
+		expect(view.audio.audioExtOptions).toContain('webm')
+		expect(unfiltered.audio.convertTargets).toContain('mp3')
+		expect(view.audio.convertTargets).toEqual([])
+		expect(view.audio.nativeRows).toEqual([expect.objectContaining({formatId: '251', ext: 'webm'})])
+		expect(view.audio.bitrateStrip.value).toBe(192)
+	})
 })

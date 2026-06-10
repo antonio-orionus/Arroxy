@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arroxy\n"
 "Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
-"mime-version: 1.0\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
 
 msgctxt "about.button"
 msgid "About"
@@ -1670,8 +1670,8 @@ msgid "Bulk URLs"
 msgstr "روابط متعددة"
 
 msgctxt "wizard.url.bulkTooltip"
-msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-msgstr "الصق قائمة روابط منفردة، راجع القائمة المنظفة، ثم أضفها إلى الطابور بإعداد جودة مشترك."
+msgid "Add and queue multiple URLs."
+msgstr ""
 
 msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
@@ -1834,12 +1834,15 @@ msgid "Videos"
 msgstr "مقاطع فيديو"
 
 msgctxt "wizard.url.fetchFormatsTooltip"
-msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-msgstr "اختر الصيغ والترجمات والمجلد وعناصر قوائم التشغيل خطوة بخطوة قبل الإضافة إلى قائمة الانتظار."
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr ""
 
+#, fuzzy
+#| msgctxt "status.complete"
+#| msgid "Download complete"
 msgctxt "wizard.url.heading"
-msgid "Video URL"
-msgstr "رابط YouTube"
+msgid "Download from URL"
+msgstr "اكتمل التنزيل"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
@@ -2029,13 +2032,19 @@ msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
 
+#, fuzzy
+#| msgctxt "wizard.url.quickDownload"
+#| msgid "Quick download"
 msgctxt "wizard.url.quickDownload"
-msgid "Quick download"
+msgid "Quick Download"
 msgstr "تنزيل سريع"
 
+#, fuzzy
+#| msgctxt "tray.menu.statusActive_one"
+#| msgid "1 downloading · {{percent}}%"
 msgctxt "wizard.url.quickDownloadTooltip"
-msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-msgstr "يستخدم تفضيلاتك المحفوظة أو الافتراضية ويضيف هذا الفيديو المفرد إلى قائمة الانتظار دون فتح خطوات الإعداد."
+msgid "Will download using: {{profileName}}"
+msgstr "1 جارٍ التنزيل · {{percent}}%"
 
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
@@ -2057,9 +2066,14 @@ msgctxt "wizard.url.quickQueued"
 msgid "Added to queue"
 msgstr "تمت الإضافة إلى قائمة الانتظار"
 
+#, fuzzy
+#| msgctxt "wizard.bulk.description"
+#| msgid ""
+#| "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean "
+#| "duplicates before queueing."
 msgctxt "wizard.url.quickSingleOnly"
-msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-msgstr "يمكن للتنزيل السريع استخدام فيديوهات مفردة وقوائم تشغيل وقنوات وعمليات بحث وروابط مجمّعة."
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "الصق روابط فيديو أو قائمة تشغيل أو قناة أو بحث أو صوت. سيزيل Arroxy التكرارات قبل إضافتها إلى الطابور."
 
 msgctxt "wizard.url.singleFilenameId.toggle"
 msgid "Add video ID to single filenames"
@@ -2068,3 +2082,23 @@ msgstr "إضافة معرّف الفيديو إلى أسماء الملفات ا
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "يبقي التنزيلات الفردية فريدة عندما تتغير العناوين أو تتكرر."
+
+#~ msgctxt "wizard.url.bulkTooltip"
+#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
+#~ msgstr "الصق قائمة روابط منفردة، راجع القائمة المنظفة، ثم أضفها إلى الطابور بإعداد جودة مشترك."
+
+#~ msgctxt "wizard.url.fetchFormatsTooltip"
+#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
+#~ msgstr "اختر الصيغ والترجمات والمجلد وعناصر قوائم التشغيل خطوة بخطوة قبل الإضافة إلى قائمة الانتظار."
+
+#~ msgctxt "wizard.url.heading"
+#~ msgid "Video URL"
+#~ msgstr "رابط YouTube"
+
+#~ msgctxt "wizard.url.quickDownloadTooltip"
+#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
+#~ msgstr "يستخدم تفضيلاتك المحفوظة أو الافتراضية ويضيف هذا الفيديو المفرد إلى قائمة الانتظار دون فتح خطوات الإعداد."
+
+#~ msgctxt "wizard.url.quickSingleOnly"
+#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
+#~ msgstr "يمكن للتنزيل السريع استخدام فيديوهات مفردة وقوائم تشغيل وقنوات وعمليات بحث وروابط مجمّعة."

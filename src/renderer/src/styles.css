@@ -55,35 +55,113 @@
 		min-height: 100vh;
 	}
 
-	/* ── Aurora: bloom over the void (dark) / pale wash over the field (light).
-	   Fixed, behind all content, never blurred — it is the canvas the glass floats on. */
+	/* ── Backdrop: dark aurora over the void / cool ocean field in light.
+		   Fixed, behind all content, never blurred — it is the canvas the glass floats on. */
 	body::before {
 		content: "";
 		position: fixed;
 		inset: 0;
 		z-index: 0;
 		pointer-events: none;
-		background: var(--aurora);
+		background: var(--backdrop);
 	}
 
-	/* Aurora ribbon: a soft conic light streak in the top-right — the diagonal
-	   "light behind the glass" sweep. Blurred, pinned behind content. */
+	/* Backdrop accent: dark uses the aurora ribbon; light uses cloud/horizon haze. */
 	body::after {
 		content: "";
 		position: fixed;
-		inset: 2.25rem 4rem auto auto;
-		width: min(58rem, 68vw);
-		height: 12rem;
+		inset: 1rem 1.5rem auto auto;
+		width: min(80rem, 88vw);
+		height: 15rem;
 		z-index: 0;
 		pointer-events: none;
-		background: var(--aurora-ribbon);
-		filter: blur(18px);
-		mask-image: radial-gradient(88% 72% at 62% 50%, black 0 46%, transparent 78%);
-		-webkit-mask-image: radial-gradient(88% 72% at 62% 50%, black 0 46%, transparent 78%);
+		background: var(--backdrop-accent);
+		filter: blur(10px) saturate(135%);
+		mask-image: radial-gradient(120% 150% at 56% 128%, transparent 0 38%, black 56% 84%, transparent 96%);
+		-webkit-mask-image: radial-gradient(120% 150% at 56% 128%, transparent 0 38%, black 56% 84%, transparent 96%);
 		mix-blend-mode: screen;
-		opacity: var(--aurora-ribbon-opacity);
-		transform: rotate(8deg) skewX(-14deg);
-		transform-origin: 82% 28%;
+		opacity: var(--backdrop-accent-opacity);
+		transform: rotate(5deg) skewX(-12deg);
+		transform-origin: 70% 30%;
+	}
+	body.backdrop-webgl-active::before,
+	body.backdrop-webgl-active::after,
+	body.backdrop-canvas-fallback::before,
+	body.backdrop-canvas-fallback::after {
+		content: none;
+		animation: none;
+	}
+	body.backdrop-static-fallback::before,
+	body.backdrop-static-fallback::after {
+		animation: none !important;
+	}
+	body.backdrop-light-ocean::after {
+		inset: 0;
+		width: 100vw;
+		height: 100vh;
+		filter: blur(8px) saturate(118%);
+		mask-image: none;
+		-webkit-mask-image: none;
+		opacity: var(--backdrop-accent-opacity);
+		transform: none;
+		transform-origin: center;
+	}
+	@media (prefers-reduced-motion: no-preference) {
+		body.backdrop-light-ocean::after {
+			animation-name: backdrop-ocean-drift;
+		}
+	}
+
+	/* ── Living fallback: cheap compositor drift while WebGL/Canvas2D are unavailable.
+		   Compositor-only transforms (+ a small hue shimmer on the bloom layer). Frozen
+		   under reduced-motion — the static look above is the default, motion enhances it. */
+	@media (prefers-reduced-motion: no-preference) {
+		body::before {
+			will-change: transform, filter;
+			transform-origin: 68% 0%;
+			animation: backdrop-bloom 34s ease-in-out infinite;
+		}
+		body::after {
+			will-change: transform, opacity;
+			animation: backdrop-accent-drift 23s ease-in-out infinite;
+		}
+	}
+	@keyframes backdrop-bloom {
+		0%,
+		100% {
+			transform: scale(1) translate3d(0, 0, 0);
+			filter: hue-rotate(0deg);
+		}
+		33% {
+			transform: scale(1.07) translate3d(-1.6%, 0.8%, 0);
+			filter: hue-rotate(-10deg);
+		}
+		66% {
+			transform: scale(1.04) translate3d(1.4%, 1.4%, 0);
+			filter: hue-rotate(8deg);
+		}
+	}
+	@keyframes backdrop-accent-drift {
+		0%,
+		100% {
+			transform: rotate(5deg) skewX(-12deg) translate3d(0, 0, 0) scaleX(1);
+			opacity: var(--backdrop-accent-opacity);
+		}
+		50% {
+			transform: rotate(8.5deg) skewX(-17deg) translate3d(-5%, 1.5%, 0) scaleX(1.08);
+			opacity: calc(var(--backdrop-accent-opacity) * 0.66);
+		}
+	}
+	@keyframes backdrop-ocean-drift {
+		0%,
+		100% {
+			transform: translate3d(0, 0, 0);
+			opacity: var(--backdrop-accent-opacity);
+		}
+		50% {
+			transform: translate3d(-1.5%, 0.5%, 0) scale(1.015);
+			opacity: calc(var(--backdrop-accent-opacity) * 0.82);
+		}
 	}
 
 	::-webkit-scrollbar {
@@ -129,10 +207,11 @@
 	position: relative;
 	border: 1px solid transparent;
 	background:
+		linear-gradient(180deg, var(--glass-surface-veil), var(--glass-surface-veil)) padding-box,
 		radial-gradient(90% 120% at 4% 10%, var(--glass-cyan), transparent 48%) padding-box,
 		radial-gradient(100% 120% at 104% 112%, var(--glass-violet), transparent 52%) padding-box,
 		linear-gradient(145deg, hsl(212 100% 56% / 0.18), transparent 58%) padding-box,
-		var(--glass-panel) padding-box,
+		linear-gradient(var(--glass-panel), var(--glass-panel)) padding-box,
 		var(--glow-gradient) border-box !important;
 	backdrop-filter: blur(32px) saturate(165%);
 	-webkit-backdrop-filter: blur(32px) saturate(165%);
@@ -148,10 +227,11 @@
 	position: relative;
 	border: 1px solid transparent;
 	background:
+		linear-gradient(180deg, var(--glass-control-veil), var(--glass-control-veil)) padding-box,
 		radial-gradient(120% 150% at 0% 0%, var(--glass-cyan), transparent 44%) padding-box,
 		radial-gradient(120% 150% at 100% 110%, var(--glass-violet), transparent 48%) padding-box,
 		linear-gradient(145deg, hsl(212 100% 56% / 0.17), transparent 58%) padding-box,
-		var(--glass-tile) padding-box,
+		linear-gradient(var(--glass-tile), var(--glass-tile)) padding-box,
 		var(--glow-gradient) border-box !important;
 	box-shadow:
 		inset 0 1px 0 0 var(--glass-sheen),
@@ -163,17 +243,12 @@
 	position: relative;
 	border: 1.5px solid transparent;
 	background:
-		radial-gradient(105% 130% at 8% 12%, hsl(190 100% 74% / 0.38), transparent 46%) padding-box,
-		radial-gradient(105% 130% at 96% 108%, hsl(283 96% 67% / 0.5), transparent 52%) padding-box,
-		linear-gradient(135deg, hsl(211 100% 62%), hsl(226 96% 48%) 58%, hsl(259 92% 52%)) padding-box,
+		radial-gradient(105% 130% at 8% 12%, var(--quick-card-cyan), transparent 48%) padding-box,
+		radial-gradient(105% 130% at 96% 108%, var(--quick-card-violet), transparent 54%) padding-box,
+		var(--quick-card-fill) padding-box,
 		var(--glow-gradient-hot) border-box;
-	box-shadow:
-		inset 0 1px 0 0 hsl(205 100% 88% / 0.5),
-		inset 0 0 0 1px hsl(0 0% 100% / 0.12),
-		inset 0 -34px 76px -34px hsl(274 96% 62% / 0.6),
-		0 0 0 1px hsl(205 100% 80% / 0.26),
-		0 0 72px -5px hsl(212 100% 56% / 0.72),
-		0 18px 58px -14px hsl(222 100% 48% / 0.62);
+	box-shadow: var(--quick-card-shadow);
+	color: var(--quick-card-ink);
 }
 
 /* ── Icon tile: small dimensional gradient chip. A diagonal blue fill, a cyan
@@ -210,16 +285,90 @@
 }
 
 .quick-icon-tile {
-	color: white;
+	color: var(--quick-icon-ink);
 	background:
-		radial-gradient(105% 105% at 26% 18%, hsl(199 100% 82% / 0.34), transparent 44%) padding-box,
-		radial-gradient(110% 125% at 72% 108%, hsl(302 94% 70% / 0.5), transparent 48%) padding-box,
-		linear-gradient(145deg, hsl(211 100% 66% / 0.48), hsl(239 90% 48% / 0.18) 52%, hsl(278 100% 62% / 0.28)) padding-box !important;
+		radial-gradient(105% 105% at 26% 18%, var(--quick-icon-cyan), transparent 44%) padding-box,
+		radial-gradient(110% 125% at 72% 108%, var(--quick-icon-violet), transparent 48%) padding-box,
+		var(--quick-icon-fill) padding-box !important;
+	box-shadow: var(--quick-icon-shadow);
+}
+
+.quick-card-overlay {
+	background: var(--quick-card-overlay);
+}
+
+.quick-profile-cluster {
+	position: relative;
+	isolation: isolate;
+	border: 1px solid transparent;
+	background:
+		linear-gradient(180deg, var(--quick-cluster-veil), var(--quick-cluster-veil)) padding-box,
+		radial-gradient(95% 130% at 4% 4%, var(--quick-card-cyan), transparent 42%) padding-box,
+		radial-gradient(95% 130% at 96% 104%, var(--quick-card-violet), transparent 50%) padding-box,
+		linear-gradient(var(--quick-cluster-fill), var(--quick-cluster-fill)) padding-box,
+		var(--glow-gradient-hot) border-box;
+	box-shadow: var(--quick-cluster-shadow);
+	color: var(--quick-card-ink);
+}
+.quick-profile-cluster::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background: var(--quick-card-overlay);
+	opacity: 0.72;
+}
+.quick-profile-action {
+	border: 0;
+	border-radius: calc(1.75rem - 1px);
+	background: radial-gradient(120% 140% at 0% 0%, var(--quick-card-cyan), transparent 48%), radial-gradient(105% 130% at 100% 100%, var(--quick-card-violet), transparent 54%), var(--quick-card-fill);
+	color: var(--quick-card-ink);
+	box-shadow: var(--quick-action-shadow);
+}
+.quick-profile-selector {
+	position: relative;
+	border: 0 !important;
+	color: var(--quick-selector-ink);
+	background: linear-gradient(180deg, var(--quick-selector-veil), transparent 82%), linear-gradient(var(--quick-selector-fill), var(--quick-selector-fill)) !important;
+	box-shadow: var(--quick-selector-shadow);
+}
+.quick-profile-selector::before {
+	content: "";
+	position: absolute;
+	inset: 1px;
+	border-radius: inherit;
+	pointer-events: none;
+	background: var(--quick-selector-sheen);
+}
+.quick-profile-selector-title {
+	color: var(--quick-selector-ink);
+}
+.quick-profile-selector-kicker {
+	color: var(--quick-selector-kicker);
+}
+.quick-profile-selector-meta {
+	color: var(--quick-selector-muted);
+}
+.quick-profile-action:focus-visible,
+.quick-profile-selector:focus-visible {
+	z-index: 2;
 	box-shadow:
-		inset 0 1px 0 0 hsl(0 0% 100% / 0.48),
-		inset 0 -14px 28px -13px hsl(300 96% 68% / 0.7),
-		0 0 0 1px hsl(205 100% 82% / 0.24),
-		0 0 30px -4px hsl(207 100% 72% / 0.82);
+		inset 0 0 0 3px var(--quick-card-focus),
+		var(--quick-focus-glow);
+}
+.quick-profile-chevron {
+	border: 1px solid var(--quick-chevron-border);
+	background: var(--quick-chevron-fill);
+	box-shadow: var(--quick-chevron-shadow);
+	color: var(--quick-chevron-ink);
+}
+
+@media (min-width: 768px) {
+	.quick-profile-action {
+		border-start-end-radius: 1.85rem;
+		border-end-end-radius: 1.85rem;
+	}
 }
 
 .glass-muted-text {
@@ -227,7 +376,7 @@
 }
 
 .glow-icon-button {
-	color: hsl(225 100% 95%);
+	color: var(--glow-button-ink);
 	box-shadow:
 		inset 0 1px 0 var(--glass-sheen),
 		inset 0 -16px 30px -22px var(--inner-bloom),
@@ -235,29 +384,92 @@
 }
 
 .chrome-glass {
-	background: linear-gradient(180deg, hsl(214 100% 56% / 0.08), transparent 64%), color-mix(in srgb, var(--background) 68%, transparent);
+	background: linear-gradient(180deg, hsl(214 100% 56% / 0.08), transparent 64%), color-mix(in srgb, var(--background) 82%, transparent);
 	backdrop-filter: blur(20px) saturate(150%);
 	-webkit-backdrop-filter: blur(20px) saturate(150%);
 	box-shadow: inset 0 1px 0 var(--glass-sheen);
 }
 
-.download-home-tabs [data-slot="tabs-trigger"][data-active] {
-	color: var(--foreground);
-	text-shadow: 0 0 18px var(--brand-glow);
+.download-home-tabs {
+	position: relative;
+	width: min(44rem, calc(100vw - 3rem)) !important;
+	height: 4.35rem !important;
+	gap: 0.35rem !important;
+	padding: 0.45rem !important;
+	border: 1px solid transparent !important;
+	border-radius: 999px !important;
+	background:
+		var(--tabs-rail-bg) padding-box,
+		var(--tabs-rail-border) border-box !important;
+	backdrop-filter: blur(22px) saturate(145%);
+	-webkit-backdrop-filter: blur(22px) saturate(145%);
+	box-shadow: var(--tabs-rail-shadow);
 }
-.download-home-tabs [data-slot="tabs-trigger"][data-active]::after {
-	background: linear-gradient(90deg, hsl(194 100% 72%), var(--brand-hover), hsl(268 95% 72%));
-	box-shadow: 0 0 16px var(--brand-glow);
+.download-home-tabs::before {
+	content: "";
+	position: absolute;
+	inset: 0.42rem;
+	border-radius: inherit;
+	pointer-events: none;
+	background: var(--tabs-rail-sheen);
+	opacity: 0.8;
+}
+.download-home-tabs [data-slot="tabs-trigger"] {
+	isolation: isolate;
+	min-width: 0;
+	height: 3.45rem !important;
+	gap: 0.7rem;
+	color: var(--text-glass-muted);
+	font-weight: 500;
+	transition:
+		color 180ms ease,
+		text-shadow 180ms ease,
+		filter 180ms ease,
+		transform 180ms ease;
+}
+.download-home-tabs [data-slot="tabs-trigger"]::before {
+	content: "";
+	position: absolute;
+	inset: 0.08rem;
+	z-index: -1;
+	border-radius: inherit;
+	background: var(--tabs-active-bg);
+	box-shadow: var(--tabs-active-shadow);
+	opacity: 0;
+	transition:
+		opacity 180ms ease,
+		transform 180ms ease;
+	transform: scaleX(0.94);
+}
+.download-home-tabs [data-slot="tabs-trigger"]::after {
+	content: none;
+	display: none;
+}
+.download-home-tabs [data-slot="tabs-trigger"]:hover {
+	color: var(--tabs-hover-ink);
+	transform: translateY(-1px);
+}
+.download-home-tabs [data-slot="tabs-trigger"]:hover::before {
+	opacity: 0.42;
+	transform: scaleX(1);
+}
+.download-home-tabs [data-slot="tabs-trigger"][data-active] {
+	color: var(--tabs-active-ink);
+	font-weight: 600;
+	text-shadow: var(--tabs-active-text-shadow);
+}
+.download-home-tabs [data-slot="tabs-trigger"][data-active]::before {
 	opacity: 1;
+	transform: scaleX(1);
 }
 
 .glow-chip {
-	border-color: hsl(214 100% 72% / 0.22);
-	background: linear-gradient(180deg, hsl(216 100% 70% / 0.13), hsl(259 92% 62% / 0.08)), color-mix(in srgb, var(--background) 42%, transparent);
+	border-color: hsl(206 100% 76% / 0.4);
+	background: linear-gradient(180deg, hsl(210 100% 70% / 0.2), hsl(259 92% 64% / 0.12)), color-mix(in srgb, var(--background) 38%, transparent);
 	box-shadow:
-		inset 0 1px 0 hsl(0 0% 100% / 0.12),
-		0 0 16px -8px var(--brand-glow);
-	color: var(--muted-foreground);
+		inset 0 1px 0 hsl(0 0% 100% / 0.18),
+		0 0 18px -7px var(--brand-glow);
+	color: var(--foreground);
 }
 
 /* ── Reduced motion: collapse slide/float/shimmer/pulse to instant.
@@ -436,40 +648,53 @@
 	}
 }
 .splash-overlay {
-	position: absolute;
+	position: fixed;
 	inset: 0;
-	z-index: 50;
+	z-index: 80;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	gap: 16px;
+	min-height: 100vh;
+	padding: 24px;
 	background: var(--background);
+	color: var(--foreground);
+	isolation: isolate;
 	transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 	pointer-events: none;
 }
 .splash-mascot {
-	width: 140px;
-	height: 140px;
+	width: 132px;
+	height: 132px;
 	object-fit: contain;
 	animation: splash-float 2.4s ease-in-out infinite;
 }
 .splash-text {
 	display: flex;
+	width: min(300px, 100%);
 	flex-direction: column;
 	align-items: center;
 	gap: 4px;
+	text-align: center;
 }
 .splash-greeting {
 	font-size: 18px;
 	font-weight: 700;
 	color: var(--foreground);
-	letter-spacing: -0.3px;
+	letter-spacing: 0;
+}
+.splash-brand {
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1.2;
+	color: var(--foreground);
 }
 .splash-name {
 	font-size: 12px;
 	font-weight: 500;
 	color: var(--muted-foreground);
+	line-height: 1.45;
 }
 .splash-warning {
 	font-size: 11px;
@@ -478,17 +703,18 @@
 	margin-top: 4px;
 }
 .splash-progress {
-	width: 160px;
+	width: 176px;
 	height: 3px;
 	border-radius: 9999px;
-	background: var(--muted);
+	background: hsl(0 0% 100% / 0.09);
 	overflow: hidden;
 	margin-top: 6px;
 }
 .splash-progress-bar {
 	height: 100%;
 	border-radius: 9999px;
-	background: var(--foreground);
+	background: var(--brand);
+	box-shadow: 0 0 12px var(--brand-glow);
 	transition: width 0.3s ease;
 }
 .splash-bytes {
@@ -612,47 +838,88 @@
 
 :root {
 	color-scheme: light;
-	--background: hsl(225, 40%, 96%);
-	--foreground: hsl(240, 35%, 12%);
-	--card: hsl(0, 0%, 100%);
-	--card-foreground: hsl(240, 35%, 12%);
+	--background: hsl(216, 78%, 98%);
+	--foreground: hsl(226, 48%, 11%);
+	--card: hsl(208, 100%, 98%);
+	--card-foreground: hsl(226, 48%, 11%);
 	--popover: hsl(0, 0%, 100%);
-	--popover-foreground: hsl(240, 35%, 12%);
+	--popover-foreground: hsl(226, 48%, 11%);
 	--primary: hsl(220, 100%, 56%);
 	--primary-foreground: hsl(240, 40%, 96%);
 	--secondary: hsl(220, 30%, 97%);
-	--secondary-foreground: hsl(240, 35%, 12%);
+	--secondary-foreground: hsl(226, 48%, 11%);
 	--muted: hsl(220, 30%, 97%);
-	--muted-foreground: hsl(240, 15%, 42%);
+	--muted-foreground: hsl(225, 22%, 38%);
 	--accent: hsl(220, 20%, 92%);
-	--accent-foreground: hsl(240, 35%, 12%);
+	--accent-foreground: hsl(226, 48%, 11%);
 	--destructive: hsl(349, 100%, 55%);
 	--border: hsl(220, 18%, 88%);
 	--border-strong: hsl(220, 18%, 80%);
 	--input: hsl(220, 18%, 88%);
 	--ring: hsl(220, 100%, 56%);
-	--text-subtle: hsl(240, 10%, 64%);
-	--text-glass-muted: hsl(240 15% 38%);
+	--text-subtle: hsl(225, 18%, 46%);
+	--text-glass-muted: hsl(225 30% 34%);
 	--icon-tile-ink: hsl(220 100% 48%);
-	/* Light sky — the field: frosted-white glass, lit blue edges, blue aurora wash */
-	--glass: hsl(0 0% 100% / 0.58);
-	--glass-panel: hsl(0 0% 100% / 0.36);
-	--glass-tile: hsl(0 0% 100% / 0.44);
-	--glass-cyan: hsl(200 100% 60% / 0.14);
-	--glass-violet: hsl(266 85% 62% / 0.1);
-	--glass-sheen: hsl(0 0% 100% / 0.8);
-	--glow-border: hsl(220 100% 56% / 0.3);
+	/* Light sky — cool ocean field: frosted-white glass, lit blue edges, cloud + water wash */
+	--glass: hsl(205 100% 98% / 0.72);
+	--glass-panel: hsl(205 100% 98% / 0.5);
+	--glass-tile: hsl(205 100% 97% / 0.64);
+	--glass-surface-veil: hsl(202 100% 93% / 0.18);
+	--glass-control-veil: hsl(202 100% 92% / 0.16);
+	--glass-cyan: hsl(198 100% 62% / 0.26);
+	--glass-violet: hsl(266 88% 66% / 0.18);
+	--glass-sheen: hsl(0 0% 100% / 0.9);
+	--glow-border: hsl(210 100% 55% / 0.44);
 	/* Lighter edge gradient over the field — same hue arc, lower alpha */
-	--glow-gradient: linear-gradient(135deg, hsl(200 100% 60% / 0.5), hsl(220 100% 56% / 0.16) 48%, hsl(266 85% 62% / 0.42));
-	--glow-gradient-hot: linear-gradient(120deg, hsl(198 100% 56% / 0.7), hsl(220 100% 56% / 0.4) 50%, hsl(268 88% 60% / 0.62));
-	--inner-bloom: hsl(220 100% 56% / 0.14);
-	--brand-glow: hsl(220 100% 56% / 0.22);
-	--panel-glow: 0 0 28px -10px hsl(220 100% 56% / 0.22), 0 8px 28px -16px hsl(225 60% 20% / 0.25);
-	--aurora-ribbon: linear-gradient(100deg, transparent 0 15%, hsl(198 100% 62% / 0.12) 31%, hsl(198 100% 62% / 0.3) 47%, hsl(220 100% 58% / 0.24) 57%, hsl(266 85% 64% / 0.28) 69%, transparent 86%);
-	--aurora-ribbon-opacity: 0.86;
-	--aurora:
-		radial-gradient(70% 50% at 78% -4%, hsl(212 100% 60% / 0.26), transparent 58%), linear-gradient(152deg, transparent 0 22%, hsl(198 100% 60% / 0.14) 39%, hsl(220 100% 58% / 0.12) 50%, hsl(266 85% 64% / 0.13) 61%, transparent 80%), radial-gradient(86% 70% at 84% 66%, hsl(220 100% 56% / 0.12), transparent 62%),
-		radial-gradient(86% 78% at 10% 76%, hsl(265 85% 62% / 0.09), transparent 64%), var(--background);
+	--glow-gradient: linear-gradient(135deg, hsl(198 100% 58% / 0.68), hsl(220 100% 56% / 0.26) 48%, hsl(266 85% 62% / 0.54));
+	--glow-gradient-hot: linear-gradient(120deg, hsl(198 100% 56% / 0.86), hsl(220 100% 56% / 0.52) 50%, hsl(268 88% 60% / 0.72));
+	--inner-bloom: hsl(214 100% 64% / 0.24);
+	--brand-glow: hsl(214 100% 56% / 0.32);
+	--panel-glow: 0 0 34px -13px hsl(210 100% 56% / 0.34), 0 10px 30px -18px hsl(225 60% 26% / 0.28);
+	--backdrop-accent: radial-gradient(32% 18% at 18% 25%, hsl(0 0% 100% / 0.74), transparent 72%), radial-gradient(44% 20% at 78% 24%, hsl(206 100% 96% / 0.82), transparent 74%), linear-gradient(180deg, transparent 0 47%, hsl(190 100% 78% / 0.36) 51%, hsl(205 100% 68% / 0.22) 67%, transparent 100%);
+	--backdrop-accent-opacity: 0.94;
+	--quick-card-ink: hsl(240 40% 96%);
+	--quick-card-muted: hsl(226 52% 88%);
+	--quick-card-focus: hsl(214 100% 45% / 0.42);
+	--quick-card-cyan: hsl(190 100% 70% / 0.34);
+	--quick-card-violet: hsl(287 98% 66% / 0.48);
+	--quick-card-fill: linear-gradient(135deg, hsl(202 100% 49%), hsl(226 100% 41%) 55%, hsl(282 92% 47%));
+	--quick-card-overlay: radial-gradient(130% 90% at 0% 0%, hsl(190 100% 76% / 0.16), transparent 52%), radial-gradient(110% 120% at 100% 120%, hsl(288 96% 62% / 0.2), transparent 50%);
+	--quick-card-shadow: inset 0 1px 0 0 hsl(205 100% 88% / 0.34), inset 0 0 0 1px hsl(0 0% 100% / 0.08), inset 0 -34px 76px -34px hsl(274 96% 46% / 0.48), 0 0 0 1px hsl(205 100% 80% / 0.18), 0 0 48px -18px hsl(212 100% 48% / 0.48), 0 18px 54px -18px hsl(224 100% 3% / 0.35);
+	--quick-cluster-fill: hsl(208 100% 97% / 0.72);
+	--quick-cluster-veil: hsl(0 0% 100% / 0.38);
+	--quick-cluster-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.72), inset 0 0 0 1px hsl(205 100% 64% / 0.12), 0 0 40px -20px hsl(212 100% 52% / 0.34), 0 16px 38px -28px hsl(225 62% 34% / 0.28);
+	--quick-action-shadow: inset 0 1px 0 0 hsl(205 100% 88% / 0.36), inset 0 -34px 76px -34px hsl(274 96% 46% / 0.54), 0 0 44px -17px hsl(210 100% 54% / 0.5);
+	--quick-selector-fill: hsl(212 100% 98% / 0.78);
+	--quick-selector-veil: hsl(216 100% 94% / 0.36);
+	--quick-selector-sheen: linear-gradient(145deg, hsl(198 100% 78% / 0.24), transparent 38%), radial-gradient(120% 90% at 88% 100%, hsl(282 96% 62% / 0.14), transparent 62%);
+	--quick-selector-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.86), inset 0 0 0 1px hsl(207 100% 58% / 0.22), inset 0 -28px 58px -42px hsl(274 96% 58% / 0.26);
+	--quick-selector-ink: hsl(226 48% 13%);
+	--quick-selector-kicker: hsl(220 92% 36%);
+	--quick-selector-muted: hsl(226 24% 38%);
+	--quick-focus-glow: 0 0 30px -10px hsl(212 100% 54% / 0.48);
+	--quick-chevron-border: hsl(210 100% 56% / 0.24);
+	--quick-chevron-fill: linear-gradient(180deg, hsl(214 100% 98% / 0.9), hsl(222 100% 95% / 0.72));
+	--quick-chevron-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.82), 0 0 18px -12px hsl(218 100% 56% / 0.42);
+	--quick-chevron-ink: hsl(226 40% 26%);
+	--quick-icon-ink: hsl(240 40% 96%);
+	--quick-icon-cyan: hsl(199 100% 82% / 0.34);
+	--quick-icon-violet: hsl(302 94% 68% / 0.44);
+	--quick-icon-fill: linear-gradient(145deg, hsl(211 100% 58% / 0.62), hsl(239 90% 44% / 0.36) 52%, hsl(278 100% 52% / 0.34));
+	--quick-icon-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.4), inset 0 -14px 28px -13px hsl(300 96% 58% / 0.5), 0 0 0 1px hsl(205 100% 82% / 0.22), 0 0 28px -8px hsl(207 100% 66% / 0.5);
+	--glow-button-ink: hsl(225 54% 14%);
+	--tabs-rail-bg: linear-gradient(180deg, hsl(205 100% 96% / 0.8), hsl(216 100% 94% / 0.58));
+	--tabs-rail-border: linear-gradient(135deg, hsl(196 100% 58% / 0.34), hsl(222 100% 62% / 0.14) 44%, hsl(268 96% 64% / 0.32));
+	--tabs-rail-sheen: linear-gradient(90deg, hsl(196 100% 70% / 0.18), transparent 36% 62%, hsl(268 96% 72% / 0.14));
+	--tabs-rail-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.52), inset 0 -18px 38px -34px hsl(268 96% 66% / 0.28), 0 14px 34px -28px hsl(207 100% 52% / 0.38), 0 0 34px -26px var(--brand-glow);
+	--tabs-active-bg: linear-gradient(180deg, hsl(205 100% 91% / 0.9), hsl(220 100% 92% / 0.72)), color-mix(in srgb, var(--background) 60%, transparent);
+	--tabs-active-shadow: inset 0 0 0 1px hsl(202 100% 58% / 0.32), inset 0 1px 0 hsl(0 0% 100% / 0.54), 0 0 26px -16px var(--brand-glow);
+	--tabs-hover-ink: hsl(226 56% 16%);
+	--tabs-active-ink: hsl(226 58% 12%);
+	--tabs-active-text-shadow: 0 0 14px hsl(213 100% 72% / 0.18);
+	--backdrop:
+		radial-gradient(42% 28% at 58% 42%, hsl(192 100% 70% / 0.24), transparent 62%), radial-gradient(34% 26% at 92% 6%, hsl(266 86% 74% / 0.18), transparent 66%), radial-gradient(54% 26% at 18% 22%, hsl(0 0% 100% / 0.5), transparent 72%),
+		linear-gradient(180deg, hsl(207 100% 83%) 0%, hsl(199 100% 95%) 39%, hsl(190 100% 97%) 50%, hsl(189 100% 83%) 52%, hsl(196 78% 60%) 72%, hsl(205 64% 45%) 100%);
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
 	--chart-3: oklch(0.439 0 0);
@@ -672,19 +939,19 @@
 .dark {
 	color-scheme: dark;
 	/* Dark sky — the void: near-black navy (225 hue) so the aurora has something to tint */
-	--background: hsl(225, 45%, 5%);
+	--background: hsl(228, 56%, 3%);
 	--foreground: hsl(240, 40%, 96%);
-	--card: hsl(225, 30%, 10%);
+	--card: hsl(226, 44%, 7%);
 	--card-foreground: hsl(240, 40%, 96%);
-	--popover: hsl(225, 28%, 13%);
+	--popover: hsl(226, 38%, 9%);
 	--popover-foreground: hsl(240, 40%, 96%);
 	--primary: hsl(220, 100%, 56%);
 	--primary-foreground: hsl(240, 40%, 96%);
-	--secondary: hsl(225, 18%, 13%);
+	--secondary: hsl(226, 30%, 9%);
 	--secondary-foreground: hsl(240, 40%, 96%);
-	--muted: hsl(225, 18%, 13%);
+	--muted: hsl(226, 30%, 9%);
 	--muted-foreground: hsl(228, 24%, 69%);
-	--accent: hsl(225, 16%, 16%);
+	--accent: hsl(226, 28%, 11%);
 	--accent-foreground: hsl(240, 40%, 96%);
 	--destructive: hsl(349, 100%, 61%);
 	--border: hsla(0, 0%, 100%, 0.08);
@@ -692,28 +959,70 @@
 	--input: hsla(0, 0%, 100%, 0.08);
 	--ring: hsl(220, 100%, 56%);
 	--text-subtle: hsl(228, 15%, 60%);
-	--text-glass-muted: hsl(229 36% 78%);
+	--text-glass-muted: hsl(228 34% 78%);
 	--icon-tile-ink: hsl(220 100% 94%);
 	/* Dark sky surfaces + signal — lit-from-within glass over a bright nebula */
-	--glass: hsl(223 48% 11% / 0.46);
-	--glass-panel: hsl(224 48% 7% / 0.34);
-	--glass-tile: hsl(222 46% 9% / 0.4);
-	--glass-cyan: hsl(196 100% 64% / 0.18);
-	--glass-violet: hsl(268 95% 64% / 0.15);
-	--glass-sheen: hsl(205 100% 82% / 0.22);
-	--glow-border: hsl(204 100% 68% / 0.68);
+	--glass: hsl(226 58% 8% / 0.78);
+	--glass-panel: hsl(228 68% 4% / 0.8);
+	--glass-tile: hsl(226 62% 6% / 0.84);
+	--glass-surface-veil: hsl(228 82% 2% / 0.5);
+	--glass-control-veil: hsl(228 82% 2% / 0.58);
+	--glass-cyan: hsl(196 100% 62% / 0.18);
+	--glass-violet: hsl(270 96% 62% / 0.15);
+	--glass-sheen: hsl(205 100% 84% / 0.2);
+	--glow-border: hsl(200 100% 78% / 0.72);
 	/* Neon edge gradient: cyan → blue → violet, painted on border-box */
-	--glow-gradient: linear-gradient(135deg, hsl(194 100% 76% / 0.86), hsl(216 100% 64% / 0.38) 46%, hsl(266 95% 72% / 0.76));
-	--glow-gradient-hot: linear-gradient(120deg, hsl(190 100% 82%), hsl(212 100% 70% / 0.86) 48%, hsl(274 98% 76%));
-	--inner-bloom: hsl(212 100% 60% / 0.5);
-	--brand-glow: hsl(218 100% 58% / 0.52);
-	--panel-glow: 0 0 54px -8px hsl(212 100% 56% / 0.52), 0 16px 50px -18px hsl(225 80% 3% / 0.9);
-	--aurora-ribbon: linear-gradient(100deg, transparent 0 14%, hsl(194 100% 66% / 0.2) 31%, hsl(194 100% 66% / 0.86) 47%, hsl(218 100% 60% / 0.72) 57%, hsl(268 95% 66% / 0.82) 69%, transparent 87%);
-	--aurora-ribbon-opacity: 1;
-	--aurora:
-		radial-gradient(66% 46% at 78% -5%, hsl(197 100% 60% / 0.74), transparent 62%), radial-gradient(46% 34% at 73% 0%, hsl(222 100% 62% / 0.42), transparent 58%), radial-gradient(38% 34% at 93% 12%, hsl(276 96% 64% / 0.38), transparent 60%),
-		linear-gradient(152deg, transparent 0 18%, hsl(196 100% 58% / 0.27) 34%, hsl(220 100% 58% / 0.24) 48%, hsl(269 96% 62% / 0.22) 60%, transparent 82%), radial-gradient(92% 74% at 74% 52%, hsl(204 100% 56% / 0.22), transparent 63%), radial-gradient(88% 74% at 96% 82%, hsl(268 96% 58% / 0.18), transparent 66%),
-		radial-gradient(78% 72% at 4% 74%, hsl(260 95% 62% / 0.18), transparent 62%), radial-gradient(120% 90% at 102% 104%, hsl(220 92% 28% / 0.42), transparent 62%), var(--background);
+	--glow-gradient: linear-gradient(135deg, hsl(192 100% 82% / 0.76), hsl(214 100% 68% / 0.34) 46%, hsl(268 96% 76% / 0.62));
+	--glow-gradient-hot: linear-gradient(120deg, hsl(188 100% 82% / 0.86), hsl(210 100% 70% / 0.62) 48%, hsl(278 98% 76% / 0.78));
+	--inner-bloom: hsl(212 100% 52% / 0.26);
+	--brand-glow: hsl(218 100% 55% / 0.34);
+	--panel-glow: 0 0 42px -16px hsl(212 100% 54% / 0.36), 0 18px 54px -20px hsl(228 92% 2% / 0.96);
+	--quick-card-ink: hsl(240 40% 96%);
+	--quick-card-muted: hsl(226 52% 88%);
+	--quick-card-focus: hsl(206 100% 86% / 0.58);
+	--quick-card-cyan: hsl(190 100% 70% / 0.28);
+	--quick-card-violet: hsl(287 98% 66% / 0.36);
+	--quick-card-fill: linear-gradient(135deg, hsl(203 100% 43%), hsl(224 100% 34%) 52%, hsl(280 90% 38%));
+	--quick-card-overlay: radial-gradient(130% 90% at 0% 0%, hsl(190 100% 76% / 0.24), transparent 52%), radial-gradient(110% 120% at 100% 120%, hsl(288 96% 62% / 0.28), transparent 50%);
+	--quick-card-shadow: inset 0 1px 0 0 hsl(205 100% 88% / 0.34), inset 0 0 0 1px hsl(0 0% 100% / 0.08), inset 0 -34px 76px -34px hsl(274 96% 46% / 0.48), 0 0 0 1px hsl(205 100% 80% / 0.18), 0 0 48px -18px hsl(212 100% 48% / 0.48), 0 18px 54px -18px hsl(224 100% 3% / 0.78);
+	--quick-cluster-fill: hsl(226 62% 6% / 0.78);
+	--quick-cluster-veil: hsl(228 82% 2% / 0.52);
+	--quick-cluster-shadow: inset 0 1px 0 0 hsl(205 100% 88% / 0.26), inset 0 0 0 1px hsl(0 0% 100% / 0.06), 0 0 50px -18px hsl(212 100% 48% / 0.48), 0 18px 54px -18px hsl(224 100% 3% / 0.78);
+	--quick-action-shadow: inset 0 1px 0 0 hsl(205 100% 88% / 0.34), inset 0 -34px 76px -34px hsl(274 96% 46% / 0.52), 0 0 46px -17px hsl(210 100% 54% / 0.52);
+	--quick-selector-fill: hsl(226 58% 6% / 0.78);
+	--quick-selector-veil: hsl(228 76% 2% / 0.38);
+	--quick-selector-sheen: linear-gradient(145deg, hsl(198 100% 78% / 0.1), transparent 38%), radial-gradient(120% 90% at 88% 100%, hsl(282 96% 52% / 0.18), transparent 62%);
+	--quick-selector-shadow: inset 0 1px 0 0 hsl(205 100% 84% / 0.12), inset 0 -30px 64px -38px hsl(274 96% 46% / 0.32);
+	--quick-selector-ink: hsl(240 40% 96%);
+	--quick-selector-kicker: hsl(210 100% 76%);
+	--quick-selector-muted: hsl(226 38% 76%);
+	--quick-focus-glow: 0 0 34px -10px hsl(210 100% 66% / 0.5);
+	--quick-chevron-border: hsl(205 100% 82% / 0.18);
+	--quick-chevron-fill: linear-gradient(180deg, hsl(220 80% 18% / 0.58), hsl(232 82% 10% / 0.46));
+	--quick-chevron-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.18), 0 0 24px -14px hsl(218 100% 56% / 0.52);
+	--quick-chevron-ink: hsl(226 52% 88%);
+	--quick-icon-ink: hsl(240 40% 96%);
+	--quick-icon-cyan: hsl(199 100% 82% / 0.3);
+	--quick-icon-violet: hsl(302 94% 68% / 0.42);
+	--quick-icon-fill: linear-gradient(145deg, hsl(211 100% 58% / 0.38), hsl(239 90% 38% / 0.2) 52%, hsl(278 100% 50% / 0.24));
+	--quick-icon-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.38), inset 0 -14px 28px -13px hsl(300 96% 58% / 0.56), 0 0 0 1px hsl(205 100% 82% / 0.18), 0 0 28px -8px hsl(207 100% 66% / 0.58);
+	--glow-button-ink: hsl(225 100% 95%);
+	--tabs-rail-bg: linear-gradient(180deg, hsl(224 64% 6% / 0.86), hsl(228 70% 4% / 0.72));
+	--tabs-rail-border: linear-gradient(135deg, hsl(196 100% 76% / 0.22), hsl(222 100% 62% / 0.08) 44%, hsl(268 96% 72% / 0.22));
+	--tabs-rail-sheen: linear-gradient(90deg, hsl(196 100% 78% / 0.08), transparent 36% 62%, hsl(268 96% 74% / 0.08));
+	--tabs-rail-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.2), inset 0 -22px 42px -34px hsl(268 96% 66% / 0.55), 0 18px 44px -34px hsl(225 90% 2% / 0.88), 0 0 36px -27px var(--brand-glow);
+	--tabs-active-bg: linear-gradient(180deg, hsl(214 100% 52% / 0.16), hsl(268 96% 52% / 0.1)), color-mix(in srgb, var(--background) 72%, transparent);
+	--tabs-active-shadow: inset 0 0 0 1px hsl(202 100% 78% / 0.2), inset 0 1px 0 hsl(0 0% 100% / 0.08), 0 0 24px -18px var(--brand-glow);
+	--tabs-hover-ink: hsl(224 48% 88%);
+	--tabs-active-ink: hsl(220 100% 96%);
+	--tabs-active-text-shadow: 0 0 12px hsl(213 100% 72% / 0.22), 0 0 18px hsl(268 95% 70% / 0.14);
+	--backdrop-accent: linear-gradient(100deg, transparent 0 6%, hsl(194 100% 72% / 0.28) 22%, hsl(189 100% 86% / 0.64) 40%, hsl(200 100% 80% / 0.58) 48%, hsl(220 100% 66% / 0.48) 58%, hsl(272 96% 70% / 0.56) 72%, transparent 92%);
+	--backdrop-accent-opacity: 0.74;
+	/* Defined bright bloom across the top-center-right; left + bottom stay near-black
+	   for contrast so the glass panels and the cyan ribbon pop. */
+	--backdrop:
+		radial-gradient(54% 48% at 56% -14%, hsl(190 100% 58% / 0.34), transparent 54%), radial-gradient(48% 46% at 84% -6%, hsl(288 98% 58% / 0.3), transparent 56%), radial-gradient(40% 40% at 70% 4%, hsl(214 100% 54% / 0.22), transparent 58%),
+		radial-gradient(46% 42% at 100% 22%, hsl(300 96% 56% / 0.18), transparent 60%), radial-gradient(34% 34% at 30% -8%, hsl(218 100% 54% / 0.18), transparent 60%), radial-gradient(120% 90% at 102% 104%, hsl(222 92% 20% / 0.36), transparent 60%), var(--background);
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
 	--chart-3: oklch(0.439 0 0);

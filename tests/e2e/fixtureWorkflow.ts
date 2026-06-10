@@ -67,7 +67,7 @@ async function clickStepButtonIfPresent(page: Page, testId: string, buttonName: 
 	return true
 }
 
-async function writeClipboard(app: ElectronApplication, text: string): Promise<void> {
+export async function writeClipboard(app: ElectronApplication, text: string): Promise<void> {
 	await app.evaluate(({clipboard}, value) => {
 		clipboard.writeText(value)
 	}, text)

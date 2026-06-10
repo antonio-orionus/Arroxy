@@ -30,6 +30,7 @@ describe('resolveE2eHarnessMode', () => {
 		expect(mode.skipDeno).toBe(false)
 		expect(mode.disableAnalytics).toBe(false)
 		expect(mode.disableUpdater).toBe(false)
+		expect(mode.allowClipboardWatch).toBe(true)
 		expect(mode.useMockTokenProvider).toBe(false)
 		expect(mode.commandLineSwitches).toEqual([])
 		expect(mode.ytDlpArgs({isProbe: false})).toEqual([])
@@ -70,6 +71,7 @@ describe('resolveE2eHarnessMode', () => {
 		expect(mode.skipDeno).toBe(true)
 		expect(mode.disableAnalytics).toBe(true)
 		expect(mode.disableUpdater).toBe(true)
+		expect(mode.allowClipboardWatch).toBe(false)
 		expect(mode.useMockTokenProvider).toBe(true)
 		expect(mode.commandLineSwitches).toEqual(['disable-background-networking', 'disable-component-update', 'disable-domain-reliability', 'no-pings'])
 		expect(defaults.common.clipboardWatchEnabled).toBe(false)
@@ -77,5 +79,15 @@ describe('resolveE2eHarnessMode', () => {
 		expect(defaults.common.defaultOutputDir).toBe('/downloads')
 		expect(spawnEnv.HTTP_PROXY).toBe('http://127.0.0.1:1234')
 		expect(spawnEnv.NO_PROXY).toBe('127.0.0.1,localhost,::1')
+	})
+
+	it('keeps clipboard watching disabled in E2E unless explicitly opted in', () => {
+		const root = makePluginRoot()
+		const disabled = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: root}, {isPackaged: false})
+		const enabled = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_ENABLE_CLIPBOARD_WATCH: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: root}, {isPackaged: false})
+
+		expect(disabled.applyAppSettingsDefaults(defaultAppSettings('/downloads')).common.clipboardWatchEnabled).toBe(false)
+		expect(enabled.allowClipboardWatch).toBe(true)
+		expect(enabled.applyAppSettingsDefaults(defaultAppSettings('/downloads')).common.clipboardWatchEnabled).toBe(true)
 	})
 })

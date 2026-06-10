@@ -1,7 +1,6 @@
-import {useRef, useState, type ReactNode} from 'react'
+import {useDeferredValue, useMemo, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle, Download, Link2, WandSparkles} from 'lucide-react'
-import {parseBulkUrls} from '@shared/bulkUrls.js'
 import type {BulkUrlRejectReason} from '@shared/types.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {cn} from '@renderer/lib/utils.js'
@@ -13,6 +12,7 @@ import {Field, FieldLabel} from '../ui/field.js'
 import {Item, ItemActions, ItemContent, ItemGroup, ItemMedia, ItemTitle} from '../ui/item.js'
 import {Textarea} from '../ui/textarea.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import {buildBulkUrlPreview} from './bulkUrlPreview.js'
 
 export interface BulkUrlDialogActionState {
 	acceptedUrls: string[]
@@ -37,9 +37,8 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderAction
 	const quickDownloadStatus = useAppStore(state => state.quickDownloadStatus)
 	const [raw, setRaw] = useState(initialRaw)
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
-	const parsed = parseBulkUrls(raw)
-	const acceptedUrls = parsed.accepted.map(item => item.url)
-	const canConfirm = parsed.accepted.length >= 1
+	const deferredRaw = useDeferredValue(raw)
+	const preview = useMemo(() => buildBulkUrlPreview(deferredRaw), [deferredRaw])
 	const quickPreparing = quickDownloadStatus === 'preparing'
 
 	function close(): void {
@@ -52,17 +51,19 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderAction
 	}
 
 	function confirm(): void {
-		if (!canConfirm) return
-		bulkLogger.info('Bulk URL dialog confirmed', {accepted: parsed.accepted.length, rejected: parsed.rejected.length, ignored: parsed.ignoredCount})
-		startBulkUrls(acceptedUrls)
+		const current = buildBulkUrlPreview(raw)
+		if (!current.canConfirm) return
+		bulkLogger.info('Bulk URL dialog confirmed', {accepted: current.accepted.length, rejected: current.rejected.length, ignored: current.ignoredCount})
+		startBulkUrls(current.acceptedUrls)
 		setRaw('')
 		onOpenChange(false)
 	}
 
 	async function confirmQuick(): Promise<void> {
-		if (!canConfirm || quickPreparing) return
-		bulkLogger.info('Bulk URL dialog quick download requested', {accepted: parsed.accepted.length, rejected: parsed.rejected.length, ignored: parsed.ignoredCount})
-		await quickDownloadUrls(acceptedUrls)
+		const current = buildBulkUrlPreview(raw)
+		if (!current.canConfirm || quickPreparing) return
+		bulkLogger.info('Bulk URL dialog quick download requested', {accepted: current.accepted.length, rejected: current.rejected.length, ignored: current.ignoredCount})
+		await quickDownloadUrls(current.acceptedUrls)
 		if (useAppStore.getState().quickDownloadStatus === 'queued') {
 			setRaw('')
 			onOpenChange(false)
@@ -88,18 +89,18 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderAction
 					<span>
 						{t('wizard.bulk.acceptedCount')}{' '}
 						<strong className="text-foreground" data-testid="bulk-url-valid-count">
-							{parsed.accepted.length}
+							{preview.accepted.length}
 						</strong>
 					</span>
-					{parsed.ignoredCount > 0 ? (
+					{preview.ignoredCount > 0 ? (
 						<span data-testid="bulk-url-ignored-count">
-							{t('wizard.bulk.ignoredCount')} <strong className="text-foreground">{parsed.ignoredCount}</strong>
+							{t('wizard.bulk.ignoredCount')} <strong className="text-foreground">{preview.ignoredCount}</strong>
 						</span>
 					) : null}
 				</div>
 
 				<div className="max-h-48 overflow-y-auto rounded-md border border-border bg-secondary/50" data-testid="bulk-url-preview">
-					{parsed.accepted.length === 0 && parsed.rejected.length === 0 ? (
+					{preview.accepted.length === 0 && preview.rejected.length === 0 ? (
 						<Empty className="min-h-28 rounded-none border-0 p-4">
 							<EmptyHeader>
 								<EmptyTitle>{t('wizard.bulk.emptyPreview')}</EmptyTitle>
@@ -108,7 +109,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderAction
 						</Empty>
 					) : (
 						<ItemGroup className="gap-0 divide-y divide-border" data-size="xs">
-							{parsed.accepted.map((item, index) => (
+							{preview.previewAccepted.map((item, index) => (
 								<Item key={item.url} size="xs" className="rounded-none border-0 px-3 py-2">
 									<ItemMedia variant="icon" className="text-[var(--brand)]">
 										<Link2 />
@@ -124,7 +125,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderAction
 									</ItemActions>
 								</Item>
 							))}
-							{parsed.rejected.map(item => (
+							{preview.previewRejected.map(item => (
 								<Item key={item.id} size="xs" className="rounded-none border-0 px-3 py-2 text-[var(--color-status-paused)]">
 									<ItemMedia variant="icon">
 										<AlertTriangle />
@@ -135,25 +136,30 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', renderAction
 									<ItemActions className="text-xs">{t(REJECT_I18N[item.reason])}</ItemActions>
 								</Item>
 							))}
+							{preview.omittedCount > 0 ? (
+								<div className="px-3 py-2 text-center text-xs font-semibold tabular-nums text-muted-foreground" data-testid="bulk-url-preview-omitted">
+									+{preview.omittedCount}
+								</div>
+							) : null}
 						</ItemGroup>
 					)}
 				</div>
 
-				{!canConfirm ? <p className="text-xs text-muted-foreground">{t('wizard.bulk.needsAtLeastOne')}</p> : null}
+				{!preview.canConfirm ? <p className="text-xs text-muted-foreground">{t('wizard.bulk.needsAtLeastOne')}</p> : null}
 
 				<DialogFooter className={cn(renderActions ? 'sm:justify-start' : undefined)}>
 					{renderActions ? (
-						renderActions({acceptedUrls, canConfirm, raw, close})
+						renderActions({acceptedUrls: preview.acceptedUrls, canConfirm: preview.canConfirm, raw, close})
 					) : (
 						<>
 							<Button type="button" variant="outline" onClick={close}>
 								{t('common.cancel')}
 							</Button>
-							<Button type="button" onClick={() => void confirmQuick()} disabled={!canConfirm || quickPreparing} data-testid="bulk-url-quick-confirm" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
+							<Button type="button" onClick={() => void confirmQuick()} disabled={!preview.canConfirm || quickPreparing} data-testid="bulk-url-quick-confirm" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
 								<Download data-icon="inline-start" />
 								{quickPreparing ? t('wizard.url.quickPreparing') : t('wizard.url.quickDownload')}
 							</Button>
-							<Button type="button" variant="outline" onClick={confirm} disabled={!canConfirm} data-testid="bulk-url-confirm">
+							<Button type="button" variant="outline" onClick={confirm} disabled={!preview.canConfirm} data-testid="bulk-url-confirm">
 								<WandSparkles data-icon="inline-start" />
 								{t('wizard.url.interactiveDownload')}
 							</Button>
