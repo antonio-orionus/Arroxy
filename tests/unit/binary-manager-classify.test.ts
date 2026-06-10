@@ -1,7 +1,7 @@
 import {afterEach, describe, expect, it} from 'vitest'
 import {binaryInternals} from '@main/services/BinaryManager.js'
 
-const {classifyProbeError} = binaryInternals
+const {classifyProbeError, probeTimeoutMs} = binaryInternals
 
 const originalPlatformDescriptor = Object.getOwnPropertyDescriptor(process, 'platform')!
 
@@ -80,5 +80,17 @@ describe('classifyProbeError', () => {
 	it('preserves osCode on the failure object', () => {
 		const failure = classifyProbeError(makeErr({code: 'EACCES'}))
 		expect(failure.osCode).toBe('EACCES')
+	})
+})
+
+describe('probeTimeoutMs', () => {
+	it('allows extra first-launch time for Windows yt-dlp probes', () => {
+		expect(probeTimeoutMs('yt-dlp', 'win32')).toBe(30_000)
+	})
+
+	it('keeps the default probe budget for other binaries and platforms', () => {
+		expect(probeTimeoutMs('yt-dlp', 'linux')).toBe(10_000)
+		expect(probeTimeoutMs('deno', 'win32')).toBe(10_000)
+		expect(probeTimeoutMs('ffmpeg', 'darwin')).toBe(10_000)
 	})
 })

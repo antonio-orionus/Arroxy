@@ -13,7 +13,7 @@ const execFileAsync = promisify(execFile)
 
 import {trackMain} from '@main/services/analytics.js'
 import {FAILURE_CODE, type BinaryOverrides, type DependencyAttempt, type DependencyDiagnostic, type DependencyFailure, type DependencyId, type DependencySource, type StatusKey} from '@shared/types.js'
-import {probeArgs, probeBinary, whereOnPath, classifyProbeError, cancelError, fallbackPathCandidates, PROBE_TIMEOUT_MS} from './binary/BinaryProbe.js'
+import {probeArgs, probeBinary, probeTimeoutMs, whereOnPath, classifyProbeError, cancelError, fallbackPathCandidates} from './binary/BinaryProbe.js'
 import {
 	classifyDownloadError,
 	downloadErrorDetails,
@@ -182,8 +182,9 @@ export class BinaryManager {
 	private async probeAndAccept(id: DependencyId, source: DependencySource, candidatePath: string, attempts: DependencyAttempt[], onProgress?: ProgressEmitter, signal?: AbortSignal): Promise<DependencyDiagnostic | null> {
 		onProgress?.({binary: id, phase: 'probing', source})
 		const args = probeArgs(id)
+		const timeoutMs = probeTimeoutMs(id)
 		const startedAt = Date.now()
-		const probe = await probeBinary(candidatePath, args, PROBE_TIMEOUT_MS, signal)
+		const probe = await probeBinary(candidatePath, args, timeoutMs, signal)
 		const elapsedMs = Date.now() - startedAt
 		if (probe.ok) {
 			attempts.push(makeAttempt(source))
@@ -196,7 +197,7 @@ export class BinaryManager {
 		}
 		attempts.push(makeAttempt(source, probe.failure))
 		onProgress?.({binary: id, phase: 'failed', source, failureKind: probe.failure.kind})
-		logger.warn(`${id} probe failed`, {source, path: candidatePath, args, timeoutMs: PROBE_TIMEOUT_MS, elapsedMs, failureKind: probe.failure.kind, message: probe.failure.message})
+		logger.warn(`${id} probe failed`, {source, path: candidatePath, args, timeoutMs, elapsedMs, failureKind: probe.failure.kind, message: probe.failure.message})
 		return null
 	}
 
@@ -676,11 +677,12 @@ export class BinaryManager {
 	}
 
 	private async getLocalYtDlpVersion(binaryPath: string, signal?: AbortSignal): Promise<string | null> {
+		const timeoutMs = probeTimeoutMs('yt-dlp')
 		try {
-			const {stdout} = await execFileAsync(binaryPath, ['--version'], {timeout: PROBE_TIMEOUT_MS, signal})
+			const {stdout} = await execFileAsync(binaryPath, ['--version'], {timeout: timeoutMs, signal})
 			return stdout.trim()
 		} catch (err) {
-			logger.warn('yt-dlp local version check failed', {path: binaryPath, timeoutMs: PROBE_TIMEOUT_MS, error: errorMessage(err)})
+			logger.warn('yt-dlp local version check failed', {path: binaryPath, timeoutMs, error: errorMessage(err)})
 			return null
 		}
 	}
@@ -724,6 +726,7 @@ export const binaryInternals = {
 	sha256ForFile,
 	classifyProbeError,
 	classifyDownloadError,
+	probeTimeoutMs,
 	whereOnPath,
 	fallbackPathCandidates,
 	bundledBinaryPath
