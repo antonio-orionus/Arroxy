@@ -1,4 +1,5 @@
 import {allDownloadProfiles, downloadProfileLabel, downloadProfileRefFor, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
+import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import type {LucideIcon} from 'lucide-react'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
@@ -34,7 +35,7 @@ export function quickProfileSummary(profile: DownloadProfile): string {
 		case 'audio-only':
 			if (profile.media.audio.format === 'best') return 'best audio'
 			if (profile.media.audio.format === 'wav') return 'WAV audio'
-			return `${profile.media.audio.format.toUpperCase()} ${profile.media.audio.bitrateKbps ?? 'default'}K`
+			return `${profile.media.audio.format.toUpperCase()} ${profile.media.audio.bitrateKbps ?? DEFAULT_AUDIO_BITRATE}K`
 		case 'subtitles-only':
 			return 'subtitles only'
 	}

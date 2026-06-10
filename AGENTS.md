@@ -358,7 +358,7 @@ The real Electron window has min size `720x680` and default size `900x760`, so p
 
 ## Subtitle Pipeline
 
-Two-phase download: (1) video + audio with `--no-write-subs --no-write-auto-subs`; (2) subs only if phase 1 exits 0 and `subtitleLanguages` non-empty (`--skip-download --write-subs --sub-langs <langs>`). Phase 2 failure is **soft** — emit `subtitlesFailed`, finalize as `completed`; video is kept. Embed mode is the exception: subs ride phase 1.
+Two-phase download: (1) video + audio with `--no-write-subs --no-write-auto-subs`; (2) subs only if phase 1 exits 0 and `subtitleLanguages` non-empty (`--skip-download --write-subs --sub-langs <langs>`). Phase 2 failure is **soft** — emit `subtitlesFailed`, finalize as `completed`; video is kept. Embed mode still uses phase 2: `SidecarSubsPhase(true)` fetches subtitles, then muxes them into the saved video with ffmpeg.
 
 `FormatProbeService.sanitizeSubtitleMap()` filters `automatic_captions` to `-orig` keys only (actual cached auto-captions). Without this, hundreds of live-translation-request keys appear and hit rate limits.
 

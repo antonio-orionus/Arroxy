@@ -2,12 +2,15 @@ import {type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Download, Link2} from 'lucide-react'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
+import type {QuickDownloadProgressPhase} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {Progress} from '../ui/progress.js'
 import {Spinner} from '../ui/spinner.js'
+
+const PHASE_LABEL_KEYS: Record<QuickDownloadProgressPhase, 'wizard.quickProgress.phase.probing' | 'wizard.quickProgress.phase.queueing'> = {probing: 'wizard.quickProgress.phase.probing', queueing: 'wizard.quickProgress.phase.queueing'}
 
 export function QuickDownloadProgressDialog(): ReactNode {
 	const {t} = useTranslation()
@@ -48,7 +51,7 @@ export function QuickDownloadProgressDialog(): ReactNode {
 						<div className="mt-3 flex items-center justify-between gap-3 text-[12px]">
 							<span className="inline-flex items-center gap-1.5 font-medium text-[var(--brand)]">
 								<Spinner aria-hidden className="size-3.5" />
-								{t(`wizard.quickProgress.phase.${phase}` as const)}
+								{t(PHASE_LABEL_KEYS[phase])}
 							</span>
 							<span className="font-mono tabular-nums text-[var(--text-subtle)]" data-testid="quick-download-progress-count">
 								{completed} / {safeTotal}

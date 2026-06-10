@@ -112,6 +112,7 @@ export async function quickDownload(set: SetState, get: GetState): Promise<void>
 		WizardCommands.resetAll(set)
 		set(queuedQuickDownloadFeedback(queuedIds))
 	} catch (err) {
+		if (!isRunActive(runId)) return
 		set(failedQuickDownloadFeedback(err instanceof Error ? err.message : String(err)))
 	}
 }

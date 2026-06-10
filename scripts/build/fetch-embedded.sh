@@ -66,6 +66,10 @@ fetch_btbn() {
     fail "resolve BtbN ${platform}-${arch}"
     exit 1
   fi
+  if [[ ! -s "$resolution" ]] || ! grep -q '^BTBN_ARCH=' "$resolution" || ! grep -q '^BTBN_ASSET_URL=' "$resolution"; then
+    fail "BtbN resolver returned empty/malformed output for ${platform}-${arch}"
+    exit 1
+  fi
 
   # shellcheck source=/dev/null
   source "$resolution"

@@ -216,6 +216,14 @@ export class QueueService extends EventEmitter {
 		return this.schedulerPaused
 	}
 
+	private async cleanupResumeContextBestEffort(item: QueueItem): Promise<void> {
+		try {
+			await QueueResumeLifecycle.cleanupResumeContext(item)
+		} catch (err) {
+			logger.warn('resume-context cleanup failed', {itemId: item.id, error: err instanceof Error ? err.message : String(err)})
+		}
+	}
+
 	async resume(itemId: string): Promise<Result<void>> {
 		const item = this.findItem(itemId)
 		if (!item) return fail(createAppError('validation', `queue item ${itemId} not found`))
@@ -262,7 +270,7 @@ export class QueueService extends EventEmitter {
 			try {
 				for (const id of ids) {
 					const item = this.findItem(id)
-					if (item) await QueueResumeLifecycle.cleanupResumeContext(item)
+					if (item) await this.cleanupResumeContextBestEffort(item)
 					const jobId = item?.lastJobId
 					if (jobId) this.forgetProgressState(jobId)
 					this.commit({kind: 'event', itemId: id, evt: {kind: 'cancelled'}})
@@ -285,7 +293,7 @@ export class QueueService extends EventEmitter {
 		if (!item) return ok(undefined)
 
 		if (item.status === QUEUE_STATUS.pending || item.status === QUEUE_STATUS.pausedHeld) {
-			await QueueResumeLifecycle.cleanupResumeContext(item)
+			await this.cleanupResumeContextBestEffort(item)
 			this.commit({kind: 'event', itemId, evt: {kind: 'cancelled'}})
 			return ok(undefined)
 		}
@@ -294,7 +302,7 @@ export class QueueService extends EventEmitter {
 			await this.downloadService.cancel(item.lastJobId)
 			this.forgetProgressState(item.lastJobId)
 		}
-		await QueueResumeLifecycle.cleanupResumeContext(item)
+		await this.cleanupResumeContextBestEffort(item)
 		this.commit({kind: 'event', itemId, evt: {kind: 'cancelled'}})
 		return ok(undefined)
 	}
@@ -331,7 +339,7 @@ export class QueueService extends EventEmitter {
 		const idsToRemove = this.items.flatMap(i => (i.status === QUEUE_STATUS.done || i.status === QUEUE_STATUS.cancelled || i.status === QUEUE_STATUS.error ? [i.id] : []))
 		for (const id of idsToRemove) {
 			const item = this.findItem(id)
-			if (item) await QueueResumeLifecycle.cleanupResumeContext(item)
+			if (item) await this.cleanupResumeContextBestEffort(item)
 		}
 		this.inBulk = true
 		try {
@@ -351,7 +359,7 @@ export class QueueService extends EventEmitter {
 		if (item.status === QUEUE_STATUS.running) {
 			return fail(createAppError('validation', 'cannot remove a running item — cancel it first'))
 		}
-		await QueueResumeLifecycle.cleanupResumeContext(item)
+		await this.cleanupResumeContextBestEffort(item)
 		this.commit({kind: 'remove', itemId})
 		return ok(undefined)
 	}

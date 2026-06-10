@@ -29,7 +29,9 @@ function requireFormat(formatId: string): FixtureFormatDescriptor {
 
 export const FIXTURE_MEDIA_CATALOG_PATH = path.join(process.cwd(), 'tests', 'e2e', 'fixture-media-catalog.json')
 export const FIXTURE_VIDEO_IDS = catalog.videos.filter(video => video.formatSet === 'muxed').map(video => video.id)
-export const SPLIT_MEDIA_VIDEO_ID = catalog.videos.find(video => video.formatSet === 'split')?.id ?? ''
+const splitMediaVideo = catalog.videos.find(video => video.formatSet === 'split')
+if (!splitMediaVideo) throw new Error('fixture-media-catalog.json must define a split fixture video')
+export const SPLIT_MEDIA_VIDEO_ID = splitMediaVideo.id
 export const FIXTURE_PLAYLIST_ID = catalog.playlist.id
 export const FIXTURE_PLAYLIST_VIDEO_IDS = catalog.playlist.videoIds
 export const FIXTURE_MEDIA_FORMAT_IDS = Object.values(catalog.formatSets).flatMap(formatSet => formatSet.map(format => format.id))

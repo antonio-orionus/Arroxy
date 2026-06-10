@@ -7,6 +7,7 @@ import path from 'node:path'
 import {EventEmitter} from 'node:events'
 import {QueueService} from '@main/services/QueueService.js'
 import {QueueStore} from '@main/stores/QueueStore.js'
+import {QueueResumeLifecycle} from '@main/services/download/QueueResumeLifecycle.js'
 import type {DownloadService} from '@main/services/DownloadService.js'
 import type {QueueResumeContext, StatusEvent, ProgressEvent} from '@shared/types.js'
 import {ok, fail} from '@shared/result.js'
@@ -398,6 +399,21 @@ describe('QueueService — bulk persist coalescing', () => {
 
 		expect(result.ok).toBe(true)
 		await expect(fs.access(tempDir)).rejects.toThrow()
+	})
+
+	it('remove still completes when resume temp cleanup fails', async () => {
+		const cleanupSpy = vi.spyOn(QueueResumeLifecycle, 'cleanupResumeContext').mockRejectedValueOnce(new Error('cleanup failed'))
+		try {
+			const {qs} = makeService()
+			qs.add([makeItem({id: 'remove-cleanup-fails', status: 'error', error: {kind: 'network', raw: 'fail'}, resumeContext: RESUME_CONTEXT})])
+
+			const result = await qs.remove('remove-cleanup-fails')
+
+			expect(result.ok).toBe(true)
+			expect(qs.snapshot()).toHaveLength(0)
+		} finally {
+			cleanupSpy.mockRestore()
+		}
 	})
 
 	it('clearCompleted cleans preserved resume temp dirs on failed items', async () => {

@@ -152,6 +152,7 @@ export type QuickDownloadStatus = z.infer<typeof quickDownloadStatusSchema>
 
 export const quickDownloadProgressPhaseSchema = z.enum(['probing', 'queueing'])
 export type QuickDownloadProgressPhase = z.infer<typeof quickDownloadProgressPhaseSchema>
+export const QUICK_DOWNLOAD_PROGRESS_PHASES = quickDownloadProgressPhaseSchema.options
 
 export const wizardModeSchema = z.enum(['single', 'playlist', 'bulk'])
 export type WizardMode = z.infer<typeof wizardModeSchema>
@@ -402,36 +403,53 @@ const statusSnapshotSchema = z.object({key: statusKeySchema, params: z.record(z.
 
 const queueResumeContextSchema = z.object({kind: z.literal('media-retry'), tempDir: z.string().min(1), reason: z.enum(['media-transfer', 'postprocess']), failureKind: ytDlpErrorKindSchema})
 
-export const queueItemSchema = z.object({
-	id: z.string(),
-	url: z.string(),
-	title: z.string(),
-	thumbnail: z.string(),
-	outputDir: z.string(),
-	formatLabel: z.string(),
-	status: queueItemStatusSchema,
-	lane: queueLaneSchema.default('normal'),
-	progressPercent: z.number(),
-	progressDetail: z.string().nullable(),
-	lastStatus: statusSnapshotSchema.nullable(),
-	error: localizedErrorSchema.nullable(),
-	finishedAt: z.string().nullable(),
-	playlistGroupId: z.string().min(1).optional(),
-	// Per-item opt-out for the playlist `.m3u` artifact. Defaults true so
-	// pre-existing persisted items (and single-mode items, which ignore it)
-	// keep the historical always-on behavior; only an explicit `false` set by
-	// the wizard suppresses the write. Consulted in playlist mode only.
-	writeM3u: z.boolean().default(true),
-	// Persisted resume context. `lastJobId` is set iff status ∈ {running,
-	// paused-active}; `tempDir` is set iff status === 'paused-active' and the
-	// job was paused mid-download. `tempDir` survives app restart so the
-	// resumed yt-dlp run can target the same .part files. Both undefined for
-	// paused-held items (they never spawned a job yet).
-	tempDir: z.string().min(1).optional(),
-	lastJobId: z.string().min(1).optional(),
-	resumeContext: queueResumeContextSchema.optional(),
-	job: preparedJobSchema
-})
+export const queueItemSchema = z
+	.object({
+		id: z.string(),
+		url: z.string(),
+		title: z.string(),
+		thumbnail: z.string(),
+		outputDir: z.string(),
+		formatLabel: z.string(),
+		status: queueItemStatusSchema,
+		lane: queueLaneSchema.default('normal'),
+		progressPercent: z.number(),
+		progressDetail: z.string().nullable(),
+		lastStatus: statusSnapshotSchema.nullable(),
+		error: localizedErrorSchema.nullable(),
+		finishedAt: z.string().nullable(),
+		playlistGroupId: z.string().min(1).optional(),
+		// Per-item opt-out for the playlist `.m3u` artifact. Defaults true so
+		// pre-existing persisted items (and single-mode items, which ignore it)
+		// keep the historical always-on behavior; only an explicit `false` set by
+		// the wizard suppresses the write. Consulted in playlist mode only.
+		writeM3u: z.boolean().default(true),
+		// Persisted resume context. `lastJobId` is set iff status ∈ {running,
+		// paused-active}; `tempDir` is set iff status === 'paused-active' and the
+		// job was paused mid-download. `tempDir` survives app restart so the
+		// resumed yt-dlp run can target the same .part files. Both undefined for
+		// paused-held items (they never spawned a job yet).
+		tempDir: z.string().min(1).optional(),
+		lastJobId: z.string().min(1).optional(),
+		resumeContext: queueResumeContextSchema.optional(),
+		job: preparedJobSchema
+	})
+	.superRefine((item, ctx) => {
+		if (!item.resumeContext) return
+
+		if (item.status !== QUEUE_STATUS.error && item.status !== QUEUE_STATUS.pending) {
+			ctx.addIssue({code: 'custom', path: ['resumeContext'], message: 'resumeContext is only valid on error or pending queue items'})
+		}
+		if (item.status === QUEUE_STATUS.error && item.error == null) {
+			ctx.addIssue({code: 'custom', path: ['resumeContext'], message: 'resumeContext on an error item requires an error payload'})
+		}
+		if (item.error && item.error.kind !== item.resumeContext.failureKind) {
+			ctx.addIssue({code: 'custom', path: ['resumeContext', 'failureKind'], message: 'resumeContext.failureKind must match error.kind when error is present'})
+		}
+		if (item.tempDir && item.tempDir !== item.resumeContext.tempDir) {
+			ctx.addIssue({code: 'custom', path: ['resumeContext', 'tempDir'], message: 'resumeContext.tempDir must match top-level tempDir when both are present'})
+		}
+	})
 
 export const queueArraySchema = z.array(queueItemSchema)
 

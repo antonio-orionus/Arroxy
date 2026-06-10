@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {startDownloadSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, probeSchema} from '@shared/schemas.js'
+import {startDownloadSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 
 const IDENTITY = {extractor: 'youtube', extractorKey: 'Youtube'}
@@ -35,6 +35,12 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
 describe('playlist video tiers', () => {
 	it('preserves highest-to-lowest presentation order', () => {
 		expect(PLAYLIST_VIDEO_TIERS).toEqual(['best', '2160', '1440', '1080', '720', '480', '360'])
+	})
+})
+
+describe('quick download progress phases', () => {
+	it('exports schema options for downstream exhaustive maps', () => {
+		expect(QUICK_DOWNLOAD_PROGRESS_PHASES).toEqual(['probing', 'queueing'])
 	})
 })
 
@@ -201,6 +207,26 @@ describe('queueArraySchema', () => {
 
 	it('rejects when error.kind is not a known YtDlpErrorKind', () => {
 		expect(queueArraySchema.safeParse([{...valid, status: 'error', error: {kind: 'totallyMadeUp', raw: 'oops'}}]).success).toBe(false)
+	})
+
+	it('accepts a pending resumable retry item without an error payload', () => {
+		const parsed = queueArraySchema.safeParse([{...valid, status: 'pending', resumeContext: {kind: 'media-retry', tempDir: '/tmp/resume', reason: 'media-transfer', failureKind: 'network'}}])
+		expect(parsed.success).toBe(true)
+	})
+
+	it('rejects an error resumeContext without a matching error payload', () => {
+		const parsed = queueArraySchema.safeParse([{...valid, status: 'error', resumeContext: {kind: 'media-retry', tempDir: '/tmp/resume', reason: 'media-transfer', failureKind: 'network'}}])
+		expect(parsed.success).toBe(false)
+	})
+
+	it('rejects resumeContext when failureKind disagrees with error.kind', () => {
+		const parsed = queueArraySchema.safeParse([{...valid, status: 'error', error: {kind: 'network', raw: 'read reset'}, resumeContext: {kind: 'media-retry', tempDir: '/tmp/resume', reason: 'media-transfer', failureKind: 'rateLimit'}}])
+		expect(parsed.success).toBe(false)
+	})
+
+	it('rejects resumeContext when tempDir disagrees with the top-level tempDir', () => {
+		const parsed = queueArraySchema.safeParse([{...valid, status: 'pending', tempDir: '/tmp/other', resumeContext: {kind: 'media-retry', tempDir: '/tmp/resume', reason: 'media-transfer', failureKind: 'network'}}])
+		expect(parsed.success).toBe(false)
 	})
 })
 

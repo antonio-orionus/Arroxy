@@ -24,4 +24,8 @@ describe('download profile action model', () => {
 		expect(quickProfileSummary(balanced)).toBe('720p · best audio')
 		expect(quickProfileSummary(small)).toBe('480p · best audio')
 	})
+
+	it('uses the default bitrate for lossy audio profile summaries with no explicit bitrate', () => {
+		expect(quickProfileSummary({...BUILTIN_DOWNLOAD_PROFILES[0], media: {kind: 'audio-only', audio: {format: 'mp3'}}})).toBe('MP3 192K')
+	})
 })

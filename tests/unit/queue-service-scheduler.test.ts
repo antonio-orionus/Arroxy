@@ -547,15 +547,19 @@ describe('QueueService — retry preserves lane', () => {
 	it('retrying a resumable error item reuses existing resume temp dir and clears context after start', async () => {
 		const {qs, ds} = makeService()
 		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-resume-retry-'))
-		ds.start.mockResolvedValue(jobResult('job-resume'))
-		qs.add([makeItem({id: 'a', status: 'error', error: {kind: 'network', raw: 'read reset'}, resumeContext: {kind: 'media-retry', tempDir, reason: 'media-transfer', failureKind: 'network'}})])
+		try {
+			ds.start.mockResolvedValue(jobResult('job-resume'))
+			qs.add([makeItem({id: 'a', status: 'error', error: {kind: 'network', raw: 'read reset'}, resumeContext: {kind: 'media-retry', tempDir, reason: 'media-transfer', failureKind: 'network'}})])
 
-		await qs.retry('a')
-		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledOnce())
+			await qs.retry('a')
+			await vi.waitFor(() => expect(ds.start).toHaveBeenCalledOnce())
 
-		expect(ds.start.mock.calls[0]?.[0]).toMatchObject({tempDir})
-		expect(qs.snapshot()[0].status).toBe('running')
-		expect(qs.snapshot()[0].resumeContext).toBeUndefined()
+			expect(ds.start.mock.calls[0]?.[0]).toMatchObject({tempDir})
+			expect(qs.snapshot()[0].status).toBe('running')
+			expect(qs.snapshot()[0].resumeContext).toBeUndefined()
+		} finally {
+			await fs.rm(tempDir, {recursive: true, force: true})
+		}
 	})
 
 	it('retrying with missing resume temp dir clears context and starts fresh', async () => {

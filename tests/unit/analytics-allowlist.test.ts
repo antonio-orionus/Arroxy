@@ -20,7 +20,9 @@ import {setupAnalytics, setAnalyticsEnabled, trackMain, probeDurationBucket, dow
 
 const SOURCE_ROOT = fileURLToPath(new URL('../../src', import.meta.url))
 const SOURCE_EXTENSIONS = new Set(['.ts', '.tsx'])
-const ANALYTICS_EVENT_CALL = /(?:\btrackMain|\btrack|\.analytics\.track)\(\s*['"]([a-z][a-z0-9_]*)['"]/g
+const EXPLICIT_ANALYTICS_EVENT_CALL = /(?:\btrackMain|\.analytics\.track)\(\s*['"]([a-z][a-z0-9_]*)['"]/g
+const RENDERER_ANALYTICS_IMPORT = /import\s*\{[^}]*\btrack\b[^}]*\}\s*from\s*['"]@renderer\/lib\/analytics\.js['"]/
+const RENDERER_TRACK_EVENT_CALL = /\btrack\(\s*['"]([a-z][a-z0-9_]*)['"]/g
 
 async function listSourceFiles(dir: string = SOURCE_ROOT): Promise<string[]> {
 	const entries = await readdir(dir, {withFileTypes: true})
@@ -39,8 +41,10 @@ async function sourceAnalyticsEventNames(): Promise<string[]> {
 	const eventNames = new Set<string>()
 	for (const file of await listSourceFiles()) {
 		const source = await readFile(file, 'utf8')
-		for (const match of source.matchAll(ANALYTICS_EVENT_CALL)) {
-			eventNames.add(match[1])
+		for (const pattern of RENDERER_ANALYTICS_IMPORT.test(source) ? [EXPLICIT_ANALYTICS_EVENT_CALL, RENDERER_TRACK_EVENT_CALL] : [EXPLICIT_ANALYTICS_EVENT_CALL]) {
+			for (const match of source.matchAll(pattern)) {
+				eventNames.add(match[1])
+			}
 		}
 	}
 	return [...eventNames].sort()

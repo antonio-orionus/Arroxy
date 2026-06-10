@@ -1,6 +1,7 @@
 import json
 import os
 from pathlib import Path
+import re
 import urllib.request
 
 from yt_dlp.extractor.youtube import YoutubeIE, YoutubeTabIE
@@ -20,6 +21,10 @@ def _fixture_catalog():
             return json.load(handle)
     except Exception as err:
         raise ExtractorError(f'Could not load Arroxy fixture media catalog: {err}')
+
+
+def _fixture_playlist_id_pattern():
+    return re.escape(_fixture_catalog()['playlist']['id'])
 
 
 def _fixture_video(catalog, video_id):
@@ -111,7 +116,7 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
 
 
 class ArroxyFixtureYoutubeTabIE(YoutubeTabIE, plugin_name='arroxyfixture'):
-    _VALID_URL = r'https?://(?:www\.)?youtube\.com/playlist\?list=(?P<id>PL[0-9A-Za-z_-]+)(?:[&#].*)?$'
+    _VALID_URL = rf'https?://(?:www\.)?youtube\.com/playlist\?list=(?P<id>{_fixture_playlist_id_pattern()})(?:[&#].*)?$'
 
     def _real_extract(self, url):
         playlist_id = self._match_id(url)

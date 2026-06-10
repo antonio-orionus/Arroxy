@@ -125,6 +125,7 @@ function ProfileMenu({
 				collisionPadding={{top: 76, right: 16, bottom: 24, left: 16}}
 				finalFocus={closeType => closeType === 'keyboard'}
 				initialFocus={openType => openType === 'keyboard'}
+				// Preserve the measured grid while the menu animates closed.
 				keepMounted
 				sideOffset={10}
 				className="relative max-h-[calc(100vh-6rem)] w-[min(50rem,calc(100vw-2rem))] gap-3 overflow-y-auto border-[var(--border-strong)] p-3 before:absolute before:-top-2 before:right-8 before:size-4 before:rotate-45 before:border-s before:border-t before:border-[var(--border-strong)] before:bg-popover"

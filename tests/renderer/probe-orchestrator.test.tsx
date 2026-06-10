@@ -348,6 +348,28 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().quickDownloadProgressTotal).toBe(0)
 	})
 
+	it('ignores stale quickDownload exceptions after cancellation', async () => {
+		const api = buildMockAppApi()
+		let rejectProbe!: (reason: Error) => void
+		vi.mocked(api.downloads.probe).mockReturnValue(
+			new Promise<Result<ProbeResult, ProbeError>>((_, reject) => {
+				rejectProbe = reject
+			})
+		)
+		window.appApi = api
+
+		useAppStore.setState({wizardUrl: YOUTUBE_URL, wizardOutputDir: '/tmp'})
+		const promise = useAppStore.getState().quickDownload()
+		expect(useAppStore.getState().quickDownloadStatus).toBe('preparing')
+
+		useAppStore.getState().cancelQuickDownload()
+		rejectProbe(new Error('late probe failure'))
+		await promise
+
+		expect(useAppStore.getState().quickDownloadStatus).toBe('idle')
+		expect(useAppStore.getState().quickDownloadError).toBeNull()
+	})
+
 	it('keeps the URL and shows an error when probing fails', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'Probe failed'}))

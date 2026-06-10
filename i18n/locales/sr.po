@@ -1479,39 +1479,39 @@ msgstr "Свaki видео самостално проналази одгова�
 
 msgctxt "wizard.quickProgress.cancel"
 msgid "Cancel preparation"
-msgstr "Otkaži pripremu"
+msgstr "Откажи припрему"
 
 msgctxt "wizard.quickProgress.currentFallback"
 msgid "Current link"
-msgstr "Trenutna veza"
+msgstr "Тренутна веза"
 
 msgctxt "wizard.quickProgress.description"
 msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy čita vezu i primenjuje {{profileName}}."
+msgstr "Arroxy чита везу и примењује {{profileName}}."
 
 msgctxt "wizard.quickProgress.failedCount_one"
 msgid "{{count}} failed"
-msgstr "{{count}} nije uspelo"
+msgstr "{{count}} није успело"
 
 msgctxt "wizard.quickProgress.failedCount_other"
 msgid "{{count}} failed"
-msgstr "{{count}} nije uspelo"
+msgstr "{{count}} није успело"
 
 msgctxt "wizard.quickProgress.phase.probing"
 msgid "Fetching details"
-msgstr "Preuzimanje detalja"
+msgstr "Преузимање детаља"
 
 msgctxt "wizard.quickProgress.phase.queueing"
 msgid "Adding to queue"
-msgstr "Dodavanje u red"
+msgstr "Додавање у ред"
 
 msgctxt "wizard.quickProgress.title"
 msgid "Preparing Quick Download"
-msgstr "Priprema brzog preuzimanja"
+msgstr "Припрема брзог преузимања"
 
 msgctxt "wizard.quickProgress.waitHint"
 msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Ostavi ovo otvoreno dok Arroxy priprema red."
+msgstr "Остави ово отворено док Arroxy припрема ред."
 
 msgctxt "wizard.sponsorblock.cat.filler"
 msgid "Filler"
@@ -2067,7 +2067,7 @@ msgstr "http://host:port"
 
 msgctxt "wizard.url.quickBulkAllFailed"
 msgid "None of those URLs could be prepared"
-msgstr "Nijedan od tih URL-ova nije mogao da se pripremi"
+msgstr "Ниједан од тих URL-ова није могао да се припреми"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -2079,31 +2079,31 @@ msgstr "Преузимаће помоћу: {{profileName}}"
 
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
-msgstr "Nije moguće dodati: {{error}}"
+msgstr "Није могуће додати: {{error}}"
 
 msgctxt "wizard.url.quickPartialFailed_one"
 msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "U red je dodato ono što je uspelo. {{count}} URL nije mogao da se pripremi."
+msgstr "У ред је додато оно што је успело. {{count}} URL није могао да се припреми."
 
 msgctxt "wizard.url.quickPartialFailed_other"
 msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "U red je dodato ono što je uspelo. {{count}} URL-ova nije moglo da se pripremi."
+msgstr "У ред је додато оно што је успело. {{count}} URL-ова није могло да се припреми."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
-msgstr "Stavka reda nije mogla da se pripremi"
+msgstr "Ставка реда није могла да се припреми"
 
 msgctxt "wizard.url.quickPreparing"
 msgid "Preparing"
-msgstr "Priprema"
+msgstr "Припрема"
 
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
-msgstr "Provera nije uspela"
+msgstr "Провера није успела"
 
 msgctxt "wizard.url.quickQueued"
 msgid "Added to queue"
-msgstr "Dodato u red"
+msgstr "Додато у ред"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

@@ -72,12 +72,26 @@ done
 echo
 echo '########## BtbN ffmpeg + ffprobe shared archives ##########'
 
+btbn_dir="$OUT/btbn"
+targets_file="$btbn_dir/targets.txt"
+mkdir -p "$btbn_dir"
+if ! bun "$ROOT/scripts/build/btbnResolver.ts" --list-targets > "$targets_file"; then
+  fail "list BtbN targets"
+  exit 1
+fi
+
 while IFS= read -r combo; do
   [[ -z "$combo" ]] && continue
-  resolution="$OUT/btbn/$combo/resolution.env"
+  combo_dir="$btbn_dir/$combo"
+  mkdir -p "$combo_dir"
+  resolution="$combo_dir/resolution.env"
   note "resolving BtbN $combo"
   if ! bun "$ROOT/scripts/build/btbnResolver.ts" --target "$combo" > "$resolution"; then
     fail "resolve BtbN $combo"
+    continue
+  fi
+  if [[ ! -s "$resolution" ]] || ! grep -q '^BTBN_ARCH=' "$resolution" || ! grep -q '^BTBN_ASSET_URL=' "$resolution"; then
+    fail "BtbN resolver returned empty/malformed output for $combo"
     continue
   fi
 
@@ -89,8 +103,8 @@ while IFS= read -r combo; do
   asset_url="${BTBN_ASSET_URL:?}"
   checksums_url="${BTBN_CHECKSUMS_URL:?}"
   release_tag="${BTBN_RESOLVED_RELEASE_TAG:?}"
-  btbn_sums="$OUT/btbn/$combo/checksums.sha256"
-  target="$OUT/btbn/$combo/$asset"
+  btbn_sums="$combo_dir/checksums.sha256"
+  target="$combo_dir/$asset"
   note "fetching $asset from $release_tag"
   fetch "$checksums_url" "$btbn_sums" || continue
   fetch "$asset_url" "$target" || continue
@@ -103,7 +117,7 @@ while IFS= read -r combo; do
     verify_sha "$target" "$expected" "$asset"
   fi
 
-  extract_dir="$OUT/btbn/$combo/extracted"
+  extract_dir="$combo_dir/extracted"
   rm -rf "$extract_dir"
   if [[ "$asset" == *.zip ]]; then
     extract_zip "$target" "$extract_dir" || { fail "extract failed: $asset"; continue; }
@@ -138,7 +152,7 @@ while IFS= read -r combo; do
       if (( so_count > 0 )); then ok "Linux shared-library siblings present: $so_count"; else fail "no lib*.so* siblings inside $asset"; fi
       ;;
   esac
-done < <(bun "$ROOT/scripts/build/btbnResolver.ts" --list-targets)
+done < "$targets_file"
 
 ##########################################################################
 # Martin-Riedl ffmpeg/ffprobe - build-time embedded macOS ZIPs
