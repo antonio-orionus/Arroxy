@@ -140,4 +140,25 @@ describe('DownloadProfileEditor', () => {
 			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({output: {kind: 'fixed', dir: 'C:\\Users\\User\\Downloads\\Lectures'}}))
 		})
 	})
+
+	it('shows a recoverable error when the native folder dialog fails', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		expect(profile).toBeDefined()
+		const api = buildMockAppApi()
+		vi.mocked(api.dialog.chooseFolder).mockRejectedValue(new Error('dialog unavailable'))
+		window.appApi = api
+		const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+		try {
+			render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+			fireEvent.click(screen.getByRole('button', {name: 'Choose destination folder'}))
+
+			expect(await screen.findByText('Could not open folder picker. Enter a path manually.')).toBeInTheDocument()
+			fireEvent.change(screen.getByLabelText('Destination'), {target: {value: 'D:\\Videos'}})
+			expect(screen.queryByText('Could not open folder picker. Enter a path manually.')).not.toBeInTheDocument()
+		} finally {
+			consoleError.mockRestore()
+		}
+	})
 })

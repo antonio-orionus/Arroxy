@@ -236,6 +236,7 @@ function ProfileSwitchRow({id, label, description, checked, onCheckedChange}: {i
 export function DownloadProfileEditor({initialProfile = null, open, onOpenChange, onSave}: {initialProfile?: DownloadProfile | null; open: boolean; onOpenChange: (open: boolean) => void; onSave?: (profile: DownloadProfile) => void | Promise<void>}): ReactNode {
 	const [draft, setDraft] = useState(() => createDownloadProfileDraft(initialProfile))
 	const [profileIconPickerOpen, setProfileIconPickerOpen] = useState(false)
+	const [destinationPickerError, setDestinationPickerError] = useState<string | null>(null)
 	const {
 		profileName,
 		profileIcon,
@@ -275,6 +276,11 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 		setDraft(current => updateDownloadProfileDraft(current, action))
 	}
 
+	function changeDestination(nextDestination: string): void {
+		setDestinationPickerError(null)
+		updateDraft({type: 'set-destination', destination: nextDestination})
+	}
+
 	function changeProfileName(nextName: string): void {
 		updateDraft({type: 'set-profile-name', profileName: nextName})
 	}
@@ -296,9 +302,15 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 	}
 
 	async function chooseDestinationFolder(): Promise<void> {
-		const result = await window.appApi.dialog.chooseFolder(destination.trim() || undefined)
-		if (!result.ok || !result.data.path) return
-		updateDraft({type: 'set-destination', destination: result.data.path})
+		setDestinationPickerError(null)
+		try {
+			const result = await window.appApi.dialog.chooseFolder(destination.trim() || undefined)
+			if (!result.ok || !result.data.path) return
+			updateDraft({type: 'set-destination', destination: result.data.path})
+		} catch (error) {
+			console.error('Failed to open destination folder picker', error)
+			setDestinationPickerError('Could not open folder picker. Enter a path manually.')
+		}
 	}
 
 	async function saveProfile(): Promise<void> {
@@ -564,13 +576,14 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 										Destination
 									</FieldLabel>
 									<InputGroup aria-label="Destination folder">
-										<InputGroupInput id="profile-destination" value={destination} onChange={event => updateDraft({type: 'set-destination', destination: event.target.value})} placeholder="Default downloads folder" className="font-mono text-[12px]" />
+										<InputGroupInput id="profile-destination" value={destination} onChange={event => changeDestination(event.target.value)} placeholder="Default downloads folder" className="font-mono text-[12px]" />
 										<InputGroupAddon align="inline-end">
 											<InputGroupButton type="button" size="icon-xs" aria-label="Choose destination folder" onClick={() => void chooseDestinationFolder()}>
 												<Folder aria-hidden />
 											</InputGroupButton>
 										</InputGroupAddon>
 									</InputGroup>
+									{destinationPickerError ? <FieldDescription className="text-[12px] text-destructive">{destinationPickerError}</FieldDescription> : null}
 								</Field>
 
 								<Field orientation="horizontal" className="items-center gap-2 text-[12px] text-[var(--text-subtle)]">

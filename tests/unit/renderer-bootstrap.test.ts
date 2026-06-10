@@ -7,20 +7,34 @@ import {parseBrowserMockLaunchMode} from '@renderer/browserMock.js'
 
 function hasPreMountSettingsRead(sourceText: string): boolean {
 	const sourceFile = ts.createSourceFile('main.tsx', sourceText, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
+	let firstRenderStart = Number.POSITIVE_INFINITY
 	let found = false
 
-	const visit = (node: ts.Node): void => {
-		if (found) return
-		if (ts.isCallExpression(node) && ts.isPropertyAccessExpression(node.expression) && node.expression.name.text === 'get') {
-			const owner = node.expression.expression
-			const appApi = ts.isPropertyAccessExpression(owner) && owner.name.text === 'settings' ? owner.expression : null
-			found = Boolean(appApi && ts.isPropertyAccessExpression(appApi) && appApi.name.text === 'appApi' && ts.isIdentifier(appApi.expression) && appApi.expression.text === 'window')
-			if (found) return
-		}
-		ts.forEachChild(node, visit)
+	const isWindowSettingsGet = (node: ts.CallExpression): boolean => {
+		if (!ts.isPropertyAccessExpression(node.expression) || node.expression.name.text !== 'get') return false
+		const owner = node.expression.expression
+		const appApi = ts.isPropertyAccessExpression(owner) && owner.name.text === 'settings' ? owner.expression : null
+		return Boolean(appApi && ts.isPropertyAccessExpression(appApi) && appApi.name.text === 'appApi' && ts.isIdentifier(appApi.expression) && appApi.expression.text === 'window')
 	}
 
-	visit(sourceFile)
+	const findFirstRender = (node: ts.Node): void => {
+		if (ts.isCallExpression(node) && ts.isPropertyAccessExpression(node.expression) && node.expression.name.text === 'render') {
+			firstRenderStart = Math.min(firstRenderStart, node.getStart(sourceFile))
+		}
+		ts.forEachChild(node, findFirstRender)
+	}
+
+	const visitSettingsReads = (node: ts.Node): void => {
+		if (found) return
+		if (ts.isCallExpression(node) && isWindowSettingsGet(node)) {
+			found = node.getStart(sourceFile) < firstRenderStart
+			if (found) return
+		}
+		ts.forEachChild(node, visitSettingsReads)
+	}
+
+	findFirstRender(sourceFile)
+	visitSettingsReads(sourceFile)
 	return found
 }
 
@@ -67,6 +81,23 @@ describe('renderer app bridge bootstrap', () => {
 		const entrypoint = readFileSync(new URL('../../src/renderer/src/main.tsx', import.meta.url), 'utf8')
 
 		expect(hasPreMountSettingsRead(entrypoint)).toBe(false)
+	})
+
+	it('only flags settings reads before the first render call', () => {
+		expect(
+			hasPreMountSettingsRead(`
+				const root = createRoot(element)
+				root.render(<App />)
+				void window.appApi.settings.get()
+			`)
+		).toBe(false)
+		expect(
+			hasPreMountSettingsRead(`
+				await window.appApi.settings.get()
+				const root = createRoot(element)
+				root.render(<App />)
+			`)
+		).toBe(true)
 	})
 })
 

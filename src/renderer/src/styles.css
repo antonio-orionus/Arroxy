@@ -217,11 +217,6 @@ body {
 	}
 
 	body.backdrop-canvas-fallback canvas[data-backdrop-mode="canvas2d"] {
-		inset: -3vmax;
-		width: calc(100vw + 6vmax);
-		height: calc(100vh + 6vmax);
-		max-width: none;
-		max-height: none;
 		transform: translate3d(0, 0, 0) scale(1.012);
 		transform-origin: center;
 	}

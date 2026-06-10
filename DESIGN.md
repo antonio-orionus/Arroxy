@@ -193,6 +193,7 @@ Depth is **glass over an aurora-lit canvas, lit at the edges**. Not flat tonal l
 Glow carries meaning at two intensities: the soft edge gradient says "this is a surface in the Aurora Console"; the bright bloom says "primary / live". Status glow (green/amber/red, very low alpha) tints a completed/paused/failed row.
 
 ### Shadow Vocabulary
+
 - **Panel glow** (`--panel-glow`): the ambient bloom under every glow-panel/tile. Mode-aware.
 - **Primary bloom** (`--quick-action-shadow` / `--quick-cluster-shadow`): only the Quick Download side and its containing split control. The lit-from-within hero.
 - **Edge gradient** (`var(--glow-gradient)` / `var(--glow-gradient-hot)`): the luminous cyan-to-blue-to-violet border on glass surfaces.
@@ -201,6 +202,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 - **Progress glow** (`box-shadow: 0 0 8px var(--brand-glow)` on the indicator): the download bar reads as energy moving.
 
 ### Named Rules
+
 **The Glass-Floats, Background-Recedes Rule.** Only floating/elevated surfaces are glass. The background, void in dark, field in light, is never glass and never blurred; it is the solid canvas the aurora lives in. Glass is frosted white (~60%) in light, translucent navy (~55%) in dark, both lit at the edge.
 
 **The One-Blur Rule.** Exactly one element in any nested stack owns the backdrop blur (the `glow-panel`); tiles inside it use `glow-tile` or quick-profile classes (no blur). Never stack backdrop-blurs, blurring already-blurred glass turns it to mud and costs frames. Edge gradients and glow may nest freely; blur may not.
@@ -210,6 +212,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 ## 5. Components
 
 ### Buttons
+
 - **Shape:** 16px radius (`{rounded.lg}`), compact 32px height. Icon buttons are square at the same height.
 - **Primary:** Electric Blue fill or the `quick-profile-action` gradient, Ink label, soft primary glow beneath (`0 4px 14px var(--brand-glow)` or `--quick-action-shadow`). Used for the single most important action per view (Pull it!, Quick Download). Hover lifts to Blue Lift; active nudges `translate-y-px`.
 - **Hover / Focus:** All buttons transition `all` ~150-200ms. Focus-visible draws the 3px brand ring.
@@ -217,12 +220,14 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 - **Destructive:** Low-alpha Error Red fill (`destructive/10`) with Error Red text, not a solid red block. Hover deepens the alpha.
 
 ### Inputs / Fields
+
 - **Style:** Glass Surface fill, gradient edge, 16px radius. The URL field is the hero input: taller (~44px), generous horizontal padding, and a leading link/clipboard icon. It does **not** show a trailing add button at rest; when text exists, the trailing affordance is clear (`X`) only.
 - **Focus:** Border shifts to brand, 3px brand ring glow. The field lights up when active, reinforcing One Voice.
 - **Placeholder:** Ink Subtle, but must still clear 4.5:1; "Paste a URL…" sits in muted, not faint.
 - **Error / Disabled:** Error draws the destructive border + low-alpha ring; disabled drops to 50% opacity, no pointer.
 
 ### Cards / Panels
+
 - **Corner Style:** Large, 20-28px (`{rounded.xl}`-`{rounded.2xl}`) on hero panels and the split Quick Download/profile cluster; 13-16px on list rows.
 - **Background:** Glass Surface over void; raised glass for the active-profile card so it reads as the live selection.
 - **Border:** Hairline at rest. Glow Border when the panel is the primary/active surface (Quick Download tile, selected profile).
@@ -230,20 +235,25 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 - **Internal Padding:** 20px on hero panels, 12-16px on rows. No nested cards.
 
 ### Navigation
+
 - **Style:** Horizontal top tab bar (URL / Profiles / Settings) with a leading icon per tab, under a slim custom title bar (window controls + share/min/max). Active tab: Ink label + pill highlight + subtle glow; inactive: Ink Muted, no glow. Tabs are the only top-level nav; no left sidebar.
 - **Title bar:** Draggable region, frameless-window controls, app name + mascot lockup at the leading edge.
 
 ### Quick Download / Profile Control (signature)
+
 - **Style:** A single split control with a hot gradient edge. The left half is the primary Quick Download action with the strongest bloom, a lit download icon tile, and a forward chevron. The right half is the active profile selector, raised but quieter, with the profile icon, `ACTIVE PROFILE` label, profile name, summary, and a circular chevron.
 - **Behavior:** Disabled state reduces opacity and saturation when no URL is ready. Preparing state swaps the download icon for a spinner and keeps the profile context visible. The profile half opens a popover for switching, editing, creating, or managing profiles.
 
 ### Radio Options / Profile Picker (signature)
+
 - **Style:** Compact rows (`Item` primitive) and profile menu options. Unselected: transparent or low-alpha muted fill, Ink Muted label, hover tints with `accent`. Selected: `--brand-dim` fill + `0 0 0 1-2px var(--brand-dim)` selection ring + brand-colored, semibold label, and check/radio indicator. This is how "current choice" reads everywhere (download profile, save location, format preset).
 
 ### Tip / Helper card (signature)
+
 - A friendly, low-stakes glass card with the mascot, a short contextual title/body, three checkmarked helper bullets, and a capability matrix. The matrix names YouTube and 2000+ sites, using recognizable site logos and tooltip badges for details. Warm, human, never a modal. It teaches without blocking.
 
 ### Queue card (signature)
+
 - Glass row carrying thumbnail (shimmer placeholder while loading), title, status, and a `progress-glow` bar. Status tint (done/paused/error) applies as a very low-alpha background glow + icon, never a loud fill. Enters with a 0.18s `card-enter` slide.
 
 ## 6. Do's and Don'ts

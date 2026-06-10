@@ -21,6 +21,7 @@ function param(params: Record<string, unknown> | undefined, key: string): string
 
 function t(key: string, params?: Record<string, unknown>): string {
 	if (key === 'wizard.confirm.itemsValue' || key === 'wizard.confirm.itemsValueAudio' || key === 'wizard.confirm.itemsValueBulk') return `${param(params, 'count')}/${param(params, 'total')}`
+	if (key === 'playlistPresets.videoFormat.mp4') return 'Localized MP4'
 	if (key === 'playlistPresets.audioFormatBitrate') return `${param(params, 'format')} ${param(params, 'kbps')}`
 	if (key === 'formatLabel.videoDot') return `${param(params, 'resolution')} · ${param(params, 'audio')}`
 	if (key === 'formatLabel.audioOnlyDot') return `audio · ${param(params, 'audio')}`
@@ -82,6 +83,12 @@ describe('DownloadReviewProjection', () => {
 		expect(playlist.itemCountLabel).toEqual({key: 'wizard.confirm.itemsValue', params: {count: 2, total: '2'}})
 		expect(bulk.summaryRows[0]?.value).toBe('wizard.bulk.title')
 		expect(bulk.itemCountLabel).toEqual({key: 'wizard.confirm.itemsValueBulk', params: {count: 2, total: '2'}})
+	})
+
+	it('localizes the Smart TV MP4 playlist preset label', () => {
+		const review = buildDownloadReview(state({wizardMode: 'playlist', playlistSelection: {kind: 'video', tier: '1080', codec: 'mp4'}}), {t, language: 'en', commonPaths: state().commonPaths})
+
+		expect(review.playlistPresetLabel).toBe('Localized MP4 · playlistPresets.tier.1080')
 	})
 
 	it('reports skipped subtitles as none', () => {
