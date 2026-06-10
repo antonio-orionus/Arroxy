@@ -35,7 +35,7 @@ function customProfile(overrides: Partial<DownloadProfile> = {}): DownloadProfil
 
 describe('download profiles', () => {
 	it('built-ins are immutable profile-shaped defaults', () => {
-		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id)).toEqual(['best-quality', 'best-2160', 'best-1440', 'hd-1080', 'balanced', 'small-file', 'mp4-1080', 'audio-only'])
+		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id)).toEqual(['best-quality', 'best-2160', 'best-1440', 'hd-1080', 'balanced', 'small-file', 'mp4-1080', 'mp4-720', 'mp4-480', 'audio-only'])
 		for (const profile of BUILTIN_DOWNLOAD_PROFILES) {
 			expect(downloadProfileSchema.safeParse(profile).success).toBe(true)
 			expect(profile.output).toEqual({kind: 'default'})
@@ -58,17 +58,23 @@ describe('download profiles', () => {
 		}
 	})
 
-	it('keeps only the 1080p built-in for Smart TV H.264 MP4', () => {
+	it('keeps Smart TV H.264 MP4 built-ins at 1080p and below', () => {
 		expect(BUILTIN_DOWNLOAD_PROFILES.some(profile => profile.id === 'mp4-2160')).toBe(false)
 		expect(BUILTIN_DOWNLOAD_PROFILES.some(profile => profile.id === 'mp4-1440')).toBe(false)
-		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'mp4-1080')
-		expect(profile?.name).toBe('Smart TV H.264 MP4 1080p')
-		expect(profile?.media).toEqual({kind: 'video-audio', codec: 'mp4', tiers: ['1080'], audio: {format: 'm4a'}})
+		for (const [id, tier] of [
+			['mp4-1080', '1080'],
+			['mp4-720', '720'],
+			['mp4-480', '480']
+		] as const) {
+			const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === id)
+			expect(profile?.name).toBe(`Smart TV H.264 MP4 ${tier}p`)
+			expect(profile?.media).toEqual({kind: 'video-audio', codec: 'mp4', tiers: [tier], audio: {format: 'm4a'}})
 
-		const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id: 'mp4-1080'})
-		expect(resolved.spec?.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
-		expect(resolved.spec?.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,acodec:m4a')
-		expect(resolved.spec?.mergeOutputFormat).toBe('mp4')
+			const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id})
+			expect(resolved.spec?.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
+			expect(resolved.spec?.formatSort).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,acodec:m4a`)
+			expect(resolved.spec?.mergeOutputFormat).toBe('mp4')
+		}
 	})
 
 	it('keeps small-file as a single 480p tier and relies on yt-dlp fallback sorting', () => {

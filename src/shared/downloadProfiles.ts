@@ -52,6 +52,8 @@ export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [
 	baseProfile('balanced', 'Balanced', videoAudio('best', ['720']), 'controls'),
 	baseProfile('small-file', 'Small file', videoAudio('best', ['480']), 'clip'),
 	baseProfile('mp4-1080', 'Smart TV H.264 MP4 1080p', videoAudio('mp4', ['1080']), 'video'),
+	baseProfile('mp4-720', 'Smart TV H.264 MP4 720p', videoAudio('mp4', ['720']), 'video'),
+	baseProfile('mp4-480', 'Smart TV H.264 MP4 480p', videoAudio('mp4', ['480']), 'video'),
 	baseProfile('audio-only', 'Audio only', {kind: 'audio-only', audio: {format: 'best'}}, 'audio')
 ] as const
 
