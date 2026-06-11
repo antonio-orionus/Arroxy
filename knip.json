@@ -27,7 +27,6 @@
     "shadcn",
 		"tw-animate-css",
 		"tailwindcss",
-		"@types/extract-zip",
 		"@svgr/plugin-jsx"
 	],
 	"ignoreBinaries": [
