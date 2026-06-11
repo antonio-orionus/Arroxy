@@ -211,7 +211,7 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 	// sidecar pulls (tiny text, throttling adds zero anti-bot value).
 	const limitRateArgs = opts.limitRate ? ['--limit-rate', opts.limitRate] : []
 	// yt-dlp 2026+ requires a JS runtime for nsig/signature decoding on the web
-	// client. With deno bundled, we point yt-dlp at it explicitly so it doesn't
+	// client. With deno runtime-resolved, we point yt-dlp at it explicitly so it doesn't
 	// silently fall back to JS-free clients (where our web.gvs PoT is unused).
 	const jsRuntimeArgs = opts.denoPath ? ['--js-runtimes', `deno:${opts.denoPath}`] : []
 	// Pass ffmpeg's location to yt-dlp explicitly instead of relying on the PATH
@@ -546,6 +546,9 @@ export class YtDlp {
 		// yt-dlp's post-processors discover it via PATH.
 		await this.binaryManager.ensureFFprobe(onStatus)
 		this._denoPath = this.opts.e2eMode?.skipDeno ? null : await this.binaryManager.ensureDeno(onStatus)
+		if (!this.opts.e2eMode?.skipDeno && !this._denoPath) {
+			throw new Error('deno could not be resolved')
+		}
 	}
 
 	get ffmpegPath(): string | null {

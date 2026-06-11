@@ -5,7 +5,7 @@ import {defaultAppSettings} from '@shared/constants.js'
 import {ok} from '@shared/result.js'
 
 function runnableDeps(): Record<DependencyId, DependencyDiagnostic> {
-	const make = (id: DependencyId): DependencyDiagnostic => ({id, state: 'runnable', source: {kind: 'managed', channel: 'default', url: 'mock'}, resolvedPath: `/mock/${id}`, attempts: []})
+	const make = (id: DependencyId): DependencyDiagnostic => ({id, state: 'runnable', source: {kind: 'managed', channel: 'default', provider: 'github', url: 'mock'}, resolvedPath: `/mock/${id}`, attempts: []})
 	return {'yt-dlp': make('yt-dlp'), ffmpeg: make('ffmpeg'), ffprobe: make('ffprobe'), deno: make('deno')}
 }
 

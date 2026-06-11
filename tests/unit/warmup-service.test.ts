@@ -2,11 +2,12 @@ import {afterEach, describe, it, expect, vi} from 'vitest'
 import {WarmupService} from '@main/services/WarmupService.js'
 import type {BinaryManager} from '@main/services/BinaryManager.js'
 import type {TokenService} from '@main/services/TokenService.js'
-import type {DependencyDiagnostic, DependencyId} from '@shared/types.js'
+import {IPC_CHANNELS} from '@shared/ipc.js'
+import type {DependencyDiagnostic, DependencyId, WarmupProgressEvent} from '@shared/types.js'
 import type {E2eHarnessMode} from '@main/e2eHarness.js'
 
 function diag(id: DependencyId, state: DependencyDiagnostic['state']): DependencyDiagnostic {
-	return {id, state, source: {kind: 'managed', channel: 'default', url: 'mock'}, resolvedPath: state === 'runnable' ? `/mock/${id}` : null, failure: state === 'failed' ? {kind: 'spawn_failed', message: 'mock'} : undefined, attempts: []}
+	return {id, state, source: {kind: 'managed', channel: 'default', provider: 'github', url: 'mock'}, resolvedPath: state === 'runnable' ? `/mock/${id}` : null, failure: state === 'failed' ? {kind: 'spawn_failed', message: 'mock'} : undefined, attempts: []}
 }
 
 function fakeBinaryManager(opts: {ytDlp: 'runnable' | 'failed'; ffmpeg: 'runnable' | 'failed'; ffprobe: 'runnable' | 'failed'; deno: 'runnable' | 'failed'}): BinaryManager {
@@ -15,6 +16,44 @@ function fakeBinaryManager(opts: {ytDlp: 'runnable' | 'failed'; ffmpeg: 'runnabl
 		resolveYtDlp: vi.fn().mockResolvedValue(diag('yt-dlp', opts.ytDlp)),
 		resolveFFmpegPair: vi.fn().mockResolvedValue({ffmpeg: diag('ffmpeg', opts.ffmpeg), ffprobe: diag('ffprobe', opts.ffprobe)}),
 		resolveDeno: vi.fn().mockResolvedValue(diag('deno', opts.deno))
+	} as unknown as BinaryManager
+}
+
+function fakeWarmupWindow(): {window: NonNullable<ConstructorParameters<typeof WarmupService>[0]['window']>; send: ReturnType<typeof vi.fn>} {
+	const send = vi.fn()
+	return {window: {isDestroyed: () => false, webContents: {send}} as unknown as NonNullable<ConstructorParameters<typeof WarmupService>[0]['window']>, send}
+}
+
+function progressEvents(send: ReturnType<typeof vi.fn>): WarmupProgressEvent[] {
+	return send.mock.calls.filter(([channel]) => channel === IPC_CHANNELS.warmupProgress).map(([, event]) => event as WarmupProgressEvent)
+}
+
+function progressfulBinaryManager(): BinaryManager {
+	return {
+		invalidateResolved: vi.fn(),
+		resolveYtDlp: vi.fn().mockImplementation(({onProgress}) => {
+			onProgress?.({binary: 'yt-dlp', phase: 'starting'})
+			onProgress?.({binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 5, totalBytes: 10})
+			onProgress?.({binary: 'yt-dlp', phase: 'probing'})
+			onProgress?.({binary: 'yt-dlp', phase: 'done'})
+			return Promise.resolve(diag('yt-dlp', 'runnable'))
+		}),
+		resolveFFmpegPair: vi.fn().mockImplementation(({onProgress}) => {
+			onProgress?.({binary: 'ffmpeg', phase: 'starting'})
+			onProgress?.({binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: 7, totalBytes: 10})
+			onProgress?.({binary: 'ffmpeg', phase: 'extracting'})
+			onProgress?.({binary: 'ffmpeg', phase: 'done'})
+			onProgress?.({binary: 'ffprobe', phase: 'starting'})
+			onProgress?.({binary: 'ffprobe', phase: 'probing'})
+			onProgress?.({binary: 'ffprobe', phase: 'done'})
+			return Promise.resolve({ffmpeg: diag('ffmpeg', 'runnable'), ffprobe: diag('ffprobe', 'runnable')})
+		}),
+		resolveDeno: vi.fn().mockImplementation(({onProgress}) => {
+			onProgress?.({binary: 'deno', phase: 'starting'})
+			onProgress?.({binary: 'deno', phase: 'fallback'})
+			onProgress?.({binary: 'deno', phase: 'failed', failureKind: 'download_failed'})
+			return Promise.resolve(diag('deno', 'failed'))
+		})
 	} as unknown as BinaryManager
 }
 
@@ -27,14 +66,40 @@ afterEach(() => {
 })
 
 describe('WarmupService', () => {
-	it('returns blockingFailures excluding deno', async () => {
+	it('streams progress IPC for every resolver branch so the splash never looks stuck', async () => {
+		const {window, send} = fakeWarmupWindow()
+		const svc = new WarmupService({binaryManager: progressfulBinaryManager(), tokenService: noopToken, window})
+
+		const result = await svc.run()
+
+		if (!result.ok) throw new Error('expected ok')
+		expect(result.data.blockingFailures).toEqual(['deno'])
+		expect(progressEvents(send).map(event => `${event.binary}:${event.phase}`)).toEqual([
+			'yt-dlp:starting',
+			'yt-dlp:downloading',
+			'yt-dlp:probing',
+			'yt-dlp:done',
+			'ffmpeg:starting',
+			'ffmpeg:downloading',
+			'ffmpeg:extracting',
+			'ffmpeg:done',
+			'ffprobe:starting',
+			'ffprobe:probing',
+			'ffprobe:done',
+			'deno:starting',
+			'deno:fallback',
+			'deno:failed'
+		])
+	})
+
+	it('treats deno as a blocking dependency', async () => {
 		const bm = fakeBinaryManager({ytDlp: 'runnable', ffmpeg: 'runnable', ffprobe: 'runnable', deno: 'failed'})
 		const svc = new WarmupService({binaryManager: bm, tokenService: noopToken})
 		const result = await svc.run()
 		expect(result.ok).toBe(true)
 		if (!result.ok) return
-		expect(result.data.completed).toBe(true)
-		expect(result.data.blockingFailures).toEqual([])
+		expect(result.data.completed).toBe(false)
+		expect(result.data.blockingFailures).toEqual(['deno'])
 		expect(result.data.dependencies.deno.state).toBe('failed')
 	})
 
@@ -49,14 +114,18 @@ describe('WarmupService', () => {
 
 	it('skips deno resolution when requested by the E2E harness', async () => {
 		const bm = fakeBinaryManager({ytDlp: 'runnable', ffmpeg: 'runnable', ffprobe: 'runnable', deno: 'runnable'})
-		const svc = new WarmupService({binaryManager: bm, tokenService: noopToken, e2eMode})
+		const {window, send} = fakeWarmupWindow()
+		const svc = new WarmupService({binaryManager: bm, tokenService: noopToken, e2eMode, window})
 
 		const result = await svc.run()
 
 		expect(bm.resolveDeno).not.toHaveBeenCalled()
+		expect(progressEvents(send)).toContainEqual({binary: 'deno', phase: 'skipped'})
 		if (!result.ok) throw new Error('expected ok')
 		expect(result.data.completed).toBe(true)
+		expect(result.data.blockingFailures).toEqual([])
 		expect(result.data.dependencies.deno.state).toBe('failed')
+		expect(result.data.dependencies.deno.source).toBeNull()
 		expect(result.data.dependencies.deno.failure?.message).toMatch(/Skipped/)
 	})
 

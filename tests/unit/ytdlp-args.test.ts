@@ -762,7 +762,7 @@ describe('YtDlp — network pacing', () => {
 })
 
 describe('YtDlp — js-runtimes (deno)', () => {
-	it('passes --js-runtimes deno:<path> when deno is bundled', async () => {
+	it('passes --js-runtimes deno:<path> when deno is runtime-resolved', async () => {
 		const ytDlp = makeYtDlp({denoPath: '/fake/deno'})
 		await ytDlp.run({kind: 'probe', url: URL})
 		const args = getArgs()
@@ -771,8 +771,16 @@ describe('YtDlp — js-runtimes (deno)', () => {
 		expect(args[idx + 1]).toBe('deno:/fake/deno')
 	})
 
-	it('omits --js-runtimes entirely when deno is unavailable', async () => {
+	it('fails instead of silently omitting --js-runtimes when deno is unavailable', async () => {
 		const ytDlp = makeYtDlp({denoPath: null})
+
+		await expect(ytDlp.run({kind: 'probe', url: URL})).rejects.toThrow()
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
+
+	it('omits --js-runtimes only when an explicit harness skip is active', async () => {
+		const e2eMode = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ARROXY_E2E_SKIP_DENO: '1'}, {isPackaged: false})
+		const ytDlp = makeYtDlp({e2eMode})
 		await ytDlp.run({kind: 'probe', url: URL})
 		const args = getArgs()
 		expect(args).not.toContain('--js-runtimes')

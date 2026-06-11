@@ -35,7 +35,7 @@ source "$ROOT/scripts/test-binaries/_lib.sh"
 exe_ext=""
 [[ "$PLATFORM" == "win32" ]] && exe_ext=".exe"
 
-has_required_payload() {
+has_ffmpeg_payload() {
   [[ -f "$OUT/ffmpeg${exe_ext}" && -f "$OUT/ffprobe${exe_ext}" ]] || return 1
   case "$PLATFORM" in
     win32)
@@ -48,6 +48,10 @@ has_required_payload() {
       return 0
       ;;
   esac
+}
+
+has_required_payload() {
+  has_ffmpeg_payload
 }
 
 if has_required_payload; then
@@ -175,15 +179,19 @@ fetch_martin_riedl() {
   ok "Martin-Riedl macos/${mr_arch} → $out"
 }
 
-case "${PLATFORM}-${ARCH}" in
-  win32-x64|win32-arm64|linux-x64|linux-arm64)
-    fetch_btbn "$PLATFORM" "$ARCH" "$OUT" ;;
-  darwin-x64|darwin-arm64)
-    fetch_martin_riedl "$ARCH" "$OUT" ;;
-  *)
-    fail "unsupported target: ${PLATFORM}-${ARCH}"
-    exit 1 ;;
-esac
+if has_ffmpeg_payload; then
+  ok "embedded ffmpeg/ffprobe already present at $OUT, skipping ffmpeg fetch"
+else
+  case "${PLATFORM}-${ARCH}" in
+    win32-x64|win32-arm64|linux-x64|linux-arm64)
+      fetch_btbn "$PLATFORM" "$ARCH" "$OUT" ;;
+    darwin-x64|darwin-arm64)
+      fetch_martin_riedl "$ARCH" "$OUT" ;;
+    *)
+      fail "unsupported target: ${PLATFORM}-${ARCH}"
+      exit 1 ;;
+  esac
+fi
 
 # Sanity: confirm both binaries land + are executable.
 for bin in ffmpeg ffprobe; do

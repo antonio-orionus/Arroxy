@@ -52,7 +52,7 @@ describe('BinaryManager download retry', () => {
 		expect(calls).toBe(2)
 	})
 
-	it('throws after exhausting all 3 attempts on every fallback', async () => {
+	it('throws after exhausting all 3 attempts on every managed yt-dlp source', async () => {
 		const mgr = await makeMgr()
 		stubProbe(mgr, {acceptSystemPath: false})
 
@@ -61,10 +61,11 @@ describe('BinaryManager download retry', () => {
 			calls++
 			throw new Error('HTTP 503')
 		})
+		spyOnPrivate(mgr, 'getSourceForgeLatestYtDlpVersion').mockResolvedValue('2026.06.09')
 
 		await expect(mgr.ensureYtDlp()).rejects.toThrow()
-		// 3 attempts on nightly + 3 on stable.
-		expect(calls).toBe(6)
+		// 3 attempts on nightly GitHub + 3 on stable GitHub + 3 on stable SourceForge.
+		expect(calls).toBe(9)
 	})
 
 	it('does not retry on checksum mismatch — fails fast and falls through', async () => {
@@ -76,11 +77,92 @@ describe('BinaryManager download retry', () => {
 			calls++
 			throw new Error('yt-dlp checksum mismatch. Expected abcd1234..., got deadbeef...')
 		})
+		spyOnPrivate(mgr, 'getSourceForgeLatestYtDlpVersion').mockResolvedValue('2026.06.09')
 
 		await expect(mgr.ensureYtDlp()).rejects.toThrow()
 		// Checksum errors don't retry within ensureBinary, but the resolve chain
-		// still falls through nightly → stable. So 1 call per managed source.
-		expect(calls).toBe(2)
+		// still falls through nightly → stable GitHub → stable SourceForge.
+		expect(calls).toBe(3)
+	})
+
+	it('falls back to the SourceForge stable mirror after GitHub yt-dlp sources fail', async () => {
+		const mgr = await makeMgr()
+		stubProbe(mgr, {acceptSystemPath: false})
+		const urls: string[] = []
+
+		spyOnPrivate(mgr, 'attemptDownload').mockImplementation(async (config: {downloadUrl: string}) => {
+			const downloadUrl = config.downloadUrl
+			urls.push(downloadUrl)
+			if (!downloadUrl.includes('sourceforge.net/projects/yt-dlp.mirror')) {
+				throw new Error('GitHub release asset failed')
+			}
+		})
+		spyOnPrivate(mgr, 'getSourceForgeLatestYtDlpVersion').mockResolvedValue('2026.06.09')
+
+		await expect(mgr.ensureYtDlp()).resolves.toContain('yt-dlp-stable')
+		const firstNightly = urls.findIndex(url => url.includes('yt-dlp-nightly-builds'))
+		const firstStableGithub = urls.findIndex(url => url.includes('github.com/yt-dlp/yt-dlp/releases/latest/download'))
+		const firstSourceForge = urls.findIndex(url => url.includes('sourceforge.net/projects/yt-dlp.mirror/files/'))
+		expect(firstNightly).toBeGreaterThanOrEqual(0)
+		expect(firstStableGithub).toBeGreaterThan(firstNightly)
+		expect(firstSourceForge).toBeGreaterThan(firstStableGithub)
+	})
+
+	it('uses cached deno before managed downloads', async () => {
+		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'bm-deno-cache-'))
+		const mgr = new BinaryManager(tempDir, {retryDelays: [0, 0]})
+		const denoPath = mgr.getDenoPath()
+		await fs.mkdir(path.dirname(denoPath), {recursive: true})
+		await fs.writeFile(denoPath, 'fake-deno')
+		if (process.platform !== 'win32') await fs.chmod(denoPath, 0o755)
+		const acceptedSources: DependencySource[] = []
+		vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<DependencyDiagnostic | null>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
+			acceptedSources.push(source)
+			attempts.push({source})
+			return {id, state: 'runnable', source, resolvedPath: candidatePath, attempts: attempts as never}
+		})
+		const downloadSpy = spyOnPrivate(mgr, 'tryManagedDownload')
+
+		await expect(mgr.ensureDeno()).resolves.toBe(denoPath)
+
+		expect(acceptedSources[0]).toEqual({kind: 'cache', path: denoPath})
+		expect(downloadSpy).not.toHaveBeenCalled()
+	})
+
+	it('does not probe a packaged-resource deno path', async () => {
+		const mgr = await makeMgr()
+		const acceptedSources: DependencySource[] = []
+		vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<DependencyDiagnostic | null>}, 'probeAndAccept').mockImplementation(async (_id, source, _candidatePath, attempts) => {
+			acceptedSources.push(source)
+			attempts.push({source, failure: {kind: 'spawn_failed', message: 'not usable in this test'}})
+			return null
+		})
+		spyOnPrivate(mgr, 'getDenoLandLatestVersion').mockResolvedValue(null)
+		spyOnPrivate(mgr, 'tryManagedDownload').mockResolvedValue(false)
+
+		await expect(mgr.ensureDeno()).rejects.toThrow()
+
+		expect(acceptedSources.some(source => source.kind === 'bundled')).toBe(false)
+	})
+
+	it('resolves deno from managed runtime downloads', async () => {
+		const mgr = await makeMgr()
+		const probeSources: DependencySource[] = []
+		vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<DependencyDiagnostic | null>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
+			probeSources.push(source)
+			if (source.kind !== 'managed') {
+				attempts.push({source, failure: {kind: 'spawn_failed', message: 'not usable in this test'}})
+				return null
+			}
+			attempts.push({source})
+			return {id, state: 'runnable', source, resolvedPath: candidatePath, attempts: attempts as never}
+		})
+		spyOnPrivate(mgr, 'getDenoLandLatestVersion').mockResolvedValue('v2.8.2')
+		spyOnPrivate(mgr, 'tryManagedDownload').mockResolvedValue(true)
+
+		await expect(mgr.ensureDeno()).resolves.toContain('deno')
+
+		expect(probeSources.at(-1)).toMatchObject({kind: 'managed', provider: 'deno-land'})
 	})
 
 	it('skips download when binary exists and version is current', async () => {
@@ -182,5 +264,38 @@ describe('BinaryManager download retry', () => {
 		await mgr.ensureFFmpeg()
 
 		expect(spy).not.toHaveBeenCalled()
+	})
+
+	it('falls back to ffmpeg and ffprobe on PATH when bundled binaries are unusable', async () => {
+		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'bm-path-'))
+		const exeExt = process.platform === 'win32' ? '.exe' : ''
+		const ffmpegPath = path.join(tempDir, `ffmpeg${exeExt}`)
+		const ffprobePath = path.join(tempDir, `ffprobe${exeExt}`)
+		await fs.writeFile(ffmpegPath, 'fake-ffmpeg')
+		await fs.writeFile(ffprobePath, 'fake-ffprobe')
+		if (process.platform !== 'win32') {
+			await fs.chmod(ffmpegPath, 0o755)
+			await fs.chmod(ffprobePath, 0o755)
+		}
+		const originalPath = process.env.PATH
+		process.env.PATH = `${tempDir}${path.delimiter}${originalPath ?? ''}`
+		try {
+			const mgr = await makeMgr()
+			vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<DependencyDiagnostic | null>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
+				if (source.kind !== 'systemPath') {
+					attempts.push({source, failure: {kind: 'spawn_failed', message: 'bundled disabled for test'}})
+					return null
+				}
+				attempts.push({source})
+				return {id, state: 'runnable', source, resolvedPath: candidatePath, attempts: attempts as never}
+			})
+
+			const result = await mgr.resolveFFmpegPair()
+
+			expect(result.ffmpeg.source).toEqual({kind: 'systemPath', path: ffmpegPath})
+			expect(result.ffprobe.source).toEqual({kind: 'systemPath', path: ffprobePath})
+		} finally {
+			process.env.PATH = originalPath
+		}
 	})
 })

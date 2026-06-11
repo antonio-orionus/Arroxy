@@ -312,9 +312,13 @@ export interface ProgressEvent {
 export const DEPENDENCY_IDS = ['yt-dlp', 'ffmpeg', 'ffprobe', 'deno'] as const
 export type DependencyId = (typeof DEPENDENCY_IDS)[number]
 
-export const BLOCKING_DEPENDENCY_IDS: readonly DependencyId[] = ['yt-dlp', 'ffmpeg', 'ffprobe'] as const
-
-export type DependencySource = {kind: 'manualOverride'; path: string} | {kind: 'envOverride'; path: string; envVar: string} | {kind: 'managed'; channel: 'nightly' | 'stable' | 'default'; url: string} | {kind: 'systemPath'; path: string} | {kind: 'cache'; path: string} | {kind: 'bundled'; path: string}
+export type DependencySource =
+	| {kind: 'manualOverride'; path: string}
+	| {kind: 'envOverride'; path: string; envVar: string}
+	| {kind: 'managed'; channel: 'nightly' | 'stable' | 'default'; url: string; provider: 'github' | 'sourceforge' | 'deno-land'}
+	| {kind: 'systemPath'; path: string}
+	| {kind: 'cache'; path: string}
+	| {kind: 'bundled'; path: string}
 
 export type DependencyFailureKind = 'download_failed' | 'extract_failed' | 'hash_failed' | 'spawn_failed' | 'permission_denied' | 'blocked_or_quarantined' | 'bad_exit_code' | 'timeout' | 'pair_incomplete'
 

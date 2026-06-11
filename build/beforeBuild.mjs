@@ -20,13 +20,17 @@ export function resolveBuilderArch(contextArch, hostArch = process.arch) {
   return hostArch === 'arm64' ? 'arm64' : 'x64';
 }
 
-function assertEmbeddedPair(cwd, platform, archName) {
+export function requiredEmbeddedBinaryNames(platform) {
   const ext = platform === 'win32' ? '.exe' : '';
+  return ['ffmpeg', 'ffprobe'].map(bin => `${bin}${ext}`);
+}
+
+function assertEmbeddedPayload(cwd, platform, archName) {
   const base = path.join(cwd, 'build', 'embedded', `${platform}-${archName}`);
-  for (const bin of ['ffmpeg', 'ffprobe']) {
-    const filePath = path.join(base, `${bin}${ext}`);
+  for (const fileName of requiredEmbeddedBinaryNames(platform)) {
+    const filePath = path.join(base, fileName);
     if (!fs.existsSync(filePath)) {
-      throw new Error(`[beforeBuild] missing embedded ${bin} for ${platform}-${archName}: ${filePath}`);
+      throw new Error(`[beforeBuild] missing embedded ${fileName} for ${platform}-${archName}: ${filePath}`);
     }
   }
 }
@@ -39,7 +43,7 @@ export default async function beforeBuild(context) {
   const script = path.join(cwd, 'scripts', 'build', 'fetch-embedded.sh');
   console.log(`[beforeBuild] fetch ffmpeg/ffprobe for ${platform}-${archName} (context.arch=${context.arch}, host=${process.arch})`);
   execFileSync('bash', [script, platform, archName], { stdio: 'inherit', cwd });
-  assertEmbeddedPair(cwd, platform, archName);
+  assertEmbeddedPayload(cwd, platform, archName);
   // Returning falsy here makes electron-builder treat node_modules as
   // "handled externally" and skip the prod-deps install/copy entirely
   // (app-builder-lib/out/packager.js — _nodeModulesHandledExternally),

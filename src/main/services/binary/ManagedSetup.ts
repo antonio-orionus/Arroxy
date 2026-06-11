@@ -1,6 +1,6 @@
 import type {DependencySource} from '@shared/types.js'
 
-export type ManagedSetupStep = 'preflight' | 'download' | 'checksum_lookup' | 'checksum_verify' | 'install' | 'unknown'
+export type ManagedSetupStep = 'preflight' | 'download' | 'checksum_lookup' | 'checksum_verify' | 'extract' | 'install' | 'unknown'
 
 function errorMessage(err: unknown): string {
 	return err instanceof Error ? err.message : String(err)
@@ -33,6 +33,7 @@ export function managedSetupStep(err: unknown): ManagedSetupStep {
 	return err instanceof ManagedSetupError ? err.step : 'unknown'
 }
 
-export function sourceTelemetry(source: DependencySource): {source_kind: string; source_channel?: string} {
-	return source.kind === 'managed' ? {source_kind: source.kind, source_channel: source.channel} : {source_kind: source.kind}
+export function sourceTelemetry(source: DependencySource): {source_kind: string; source_channel?: string; source_provider?: string} {
+	if (source.kind !== 'managed') return {source_kind: source.kind}
+	return {source_kind: source.kind, source_channel: source.channel, source_provider: source.provider}
 }

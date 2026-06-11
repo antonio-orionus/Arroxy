@@ -14,6 +14,15 @@ export type ProgressEmitter = (event: WarmupProgressEvent) => void
 
 type PartialResponseMode = 'fresh' | 'append' | 'discard-and-retry'
 
+const DOWNLOAD_STALL_TIMEOUT_MS = 60_000
+
+export class DownloadStalledError extends Error {
+	constructor(message: string) {
+		super(message)
+		this.name = 'DownloadStalledError'
+	}
+}
+
 // Distinguishable error class so the resume path can tell "stale partial,
 // re-download from byte 0" apart from a network failure.
 class RestartFreshDownloadError extends Error {
@@ -89,6 +98,7 @@ export const HTTP_RETRY = {
 	errorCodes: ['ETIMEDOUT', 'ECONNRESET', 'EADDRINUSE', 'ECONNREFUSED', 'EPIPE', 'ENOTFOUND', 'ENETUNREACH', 'EAI_AGAIN'],
 	calculateDelay: ({computedValue}: {computedValue: number}): number => (computedValue === 0 ? 0 : Math.min(60_000, computedValue) + Math.floor(Math.random() * 500))
 }
+const HTTP_STREAM_RETRY = {...HTTP_RETRY, limit: 0}
 export const HTTP_TIMEOUT = {lookup: 5_000, connect: 10_000, secureConnect: 10_000, socket: 60_000, response: 30_000, send: 60_000, request: 600_000}
 
 export async function downloadText(url: string, signal?: AbortSignal): Promise<string> {
@@ -149,7 +159,27 @@ export async function downloadFile(url: string, destination: string, onProgress?
 	const headers: Record<string, string> = {...HTTP_HEADERS}
 	if (startByte > 0) headers.range = `bytes=${startByte}-`
 
-	const stream = got.stream(url, {headers, retry: HTTP_RETRY, timeout: HTTP_TIMEOUT, followRedirect: true, signal})
+	const stallController = new AbortController()
+	const combinedSignal = signal ? AbortSignal.any([signal, stallController.signal]) : stallController.signal
+	let stalled = false
+	let lastProgressAt = Date.now()
+	let lastDownloaded = startByte
+	let stallTimer: NodeJS.Timeout | null = null
+	const armStallTimer = (): void => {
+		if (stallTimer) clearTimeout(stallTimer)
+		stallTimer = setTimeout(() => {
+			stalled = true
+			stallController.abort()
+		}, DOWNLOAD_STALL_TIMEOUT_MS)
+	}
+	const clearStallTimer = (): void => {
+		if (!stallTimer) return
+		clearTimeout(stallTimer)
+		stallTimer = null
+	}
+
+	armStallTimer()
+	const stream = got.stream(url, {headers, retry: HTTP_STREAM_RETRY, timeout: HTTP_TIMEOUT, followRedirect: true, signal: combinedSignal})
 
 	try {
 		await new Promise<void>((resolve, reject) => {
@@ -163,6 +193,8 @@ export async function downloadFile(url: string, destination: string, onProgress?
 			}
 
 			stream.once('response', (res: {statusCode?: number; headers: Record<string, string | string[] | undefined>}) => {
+				logger.debug('Binary download response', {url, statusCode: res.statusCode, startByte, contentLength: stringifyHeader(res.headers['content-length'])})
+				armStallTimer()
 				const mode = resolvePartialResponseMode(startByte, res.statusCode, res.headers['content-range'])
 				if (mode === 'discard-and-retry') {
 					stream.destroy(new RestartFreshDownloadError(`Discarding stale partial for ${path.basename(destination)}`))
@@ -175,17 +207,30 @@ export async function downloadFile(url: string, destination: string, onProgress?
 				out.on('finish', () => finish())
 			})
 			stream.on('downloadProgress', ({transferred, total}: {transferred: number; total: number}) => {
-				onProgress?.(startByte + transferred, total > 0 ? startByte + total : undefined)
+				const downloaded = startByte + transferred
+				if (downloaded > lastDownloaded) {
+					lastDownloaded = downloaded
+					lastProgressAt = Date.now()
+					armStallTimer()
+				}
+				onProgress?.(downloaded, total > 0 ? startByte + total : undefined)
 			})
 			stream.once('error', (err: Error) => finish(err))
 		})
 	} catch (err) {
+		if (stalled && !signal?.aborted) {
+			const stalledError = new DownloadStalledError(`No download progress for ${DOWNLOAD_STALL_TIMEOUT_MS}ms`)
+			logger.warn('Binary download stalled', {url, destination, startByte, lastDownloaded, lastProgressAgeMs: Date.now() - lastProgressAt})
+			throw stalledError
+		}
 		if (allowPartialRetry && err instanceof RestartFreshDownloadError) {
 			logger.warn('Stale partial detected, retrying binary download from byte 0', {destination, startByte})
 			await fsPromises.rm(partPath, {force: true})
 			return downloadFile(url, destination, onProgress, false, signal)
 		}
 		throw err
+	} finally {
+		clearStallTimer()
 	}
 
 	await fsPromises.rename(partPath, destination)
@@ -205,9 +250,11 @@ export function downloadErrorDetails(err: unknown): {error_code?: string; status
 // Map an arbitrary download-pipeline failure to a `DependencyFailureKind`.
 // Used by `BinaryResolver` to record `attempts[]` entries on its strategy chain.
 export function classifyDownloadError(err: unknown): DependencyFailureKind {
+	if (err instanceof DownloadStalledError) return 'timeout'
 	if (isAbortError(err)) return 'timeout'
 	const msg = err instanceof Error ? err.message.toLowerCase() : ''
 	if (msg.includes('checksum')) return 'hash_failed'
+	if (msg.includes('no download progress') || msg.includes('stalled')) return 'timeout'
 	if (msg.includes('archive') || msg.includes('did not contain') || msg.includes('extract')) return 'extract_failed'
 	return 'download_failed'
 }

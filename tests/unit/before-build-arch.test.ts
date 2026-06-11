@@ -2,6 +2,7 @@ import {describe, expect, it} from 'vitest'
 
 interface BeforeBuildModule {
 	resolveBuilderArch: (contextArch: unknown, hostArch: NodeJS.Architecture) => 'x64' | 'arm64' | 'ia32' | 'armv7l'
+	requiredEmbeddedBinaryNames: (platform: NodeJS.Platform) => string[]
 }
 
 async function loadBeforeBuild(): Promise<BeforeBuildModule> {
@@ -32,5 +33,13 @@ describe('beforeBuild arch resolution', () => {
 		expect(resolveBuilderArch(undefined, 'x64')).toBe('x64')
 		expect(resolveBuilderArch(null, 'arm64')).toBe('arm64')
 		expect(resolveBuilderArch('unsupported', 'arm64')).toBe('arm64')
+	})
+
+	it('requires only ffmpeg and ffprobe in packaged resources', async () => {
+		const {requiredEmbeddedBinaryNames} = await loadBeforeBuild()
+
+		expect(requiredEmbeddedBinaryNames('win32')).toEqual(['ffmpeg.exe', 'ffprobe.exe'])
+		expect(requiredEmbeddedBinaryNames('darwin')).toEqual(['ffmpeg', 'ffprobe'])
+		expect(requiredEmbeddedBinaryNames('linux')).toEqual(['ffmpeg', 'ffprobe'])
 	})
 })

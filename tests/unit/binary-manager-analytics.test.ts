@@ -15,64 +15,64 @@ describe('BinaryManager analytics', () => {
 	it('emits the stable ARX code for classified managed-download failures', async () => {
 		const mgr = new BinaryManager('/tmp/arroxy-binary-analytics')
 		const attempts: DependencyAttempt[] = []
-		const source: DependencySource = {kind: 'managed', channel: 'default', url: 'https://example.com/ffmpeg.zip'}
+		const source: DependencySource = {kind: 'managed', channel: 'default', provider: 'github', url: 'https://example.com/ffmpeg.zip'}
 
 		const ok = await (mgr as unknown as {tryManagedDownload: (id: 'ffmpeg', attempts: DependencyAttempt[], source: DependencySource, onProgress: undefined, run: () => Promise<void>) => Promise<boolean>}).tryManagedDownload('ffmpeg', attempts, source, undefined, async () => {
 			throw new Error('checksum mismatch')
 		})
 
 		expect(ok).toBe(false)
-		expect(trackMain).toHaveBeenCalledWith('binary_setup_failed', {binary: 'ffmpeg', phase: 'hash_failed', code: 'ARX-003', operation: 'managed-download', setup_step: 'unknown', source_kind: 'managed', source_channel: 'default', elapsed_ms: expect.any(Number)})
+		expect(trackMain).toHaveBeenCalledWith('binary_setup_failed', {binary: 'ffmpeg', phase: 'hash_failed', code: 'ARX-003', operation: 'managed-download', setup_step: 'unknown', source_kind: 'managed', source_channel: 'default', source_provider: 'github', elapsed_ms: expect.any(Number)})
 	})
 
 	it('classifies signal-driven managed-download aborts as timeout', async () => {
 		const mgr = new BinaryManager('/tmp/arroxy-binary-analytics')
 		const attempts: DependencyAttempt[] = []
-		const source: DependencySource = {kind: 'managed', channel: 'default', url: 'https://example.com/ffmpeg.zip'}
+		const source: DependencySource = {kind: 'managed', channel: 'default', provider: 'github', url: 'https://example.com/ffmpeg.zip'}
 
 		const ok = await (mgr as unknown as {tryManagedDownload: (id: 'ffmpeg', attempts: DependencyAttempt[], source: DependencySource, onProgress: undefined, run: () => Promise<void>) => Promise<boolean>}).tryManagedDownload('ffmpeg', attempts, source, undefined, async () => {
 			throw new DOMException('Cancelled', 'AbortError')
 		})
 
 		expect(ok).toBe(false)
-		expect(trackMain).toHaveBeenCalledWith('binary_setup_failed', {binary: 'ffmpeg', phase: 'timeout', code: 'ARX-008', operation: 'managed-download', setup_step: 'unknown', source_kind: 'managed', source_channel: 'default', elapsed_ms: expect.any(Number)})
+		expect(trackMain).toHaveBeenCalledWith('binary_setup_failed', {binary: 'ffmpeg', phase: 'timeout', code: 'ARX-008', operation: 'managed-download', setup_step: 'unknown', source_kind: 'managed', source_channel: 'default', source_provider: 'github', elapsed_ms: expect.any(Number)})
 	})
 
 	it('does not treat a benign "aborted by server" message as cancel', async () => {
 		const mgr = new BinaryManager('/tmp/arroxy-binary-analytics')
 		const attempts: DependencyAttempt[] = []
-		const source: DependencySource = {kind: 'managed', channel: 'default', url: 'https://example.com/ffmpeg.zip'}
+		const source: DependencySource = {kind: 'managed', channel: 'default', provider: 'github', url: 'https://example.com/ffmpeg.zip'}
 
 		const ok = await (mgr as unknown as {tryManagedDownload: (id: 'ffmpeg', attempts: DependencyAttempt[], source: DependencySource, onProgress: undefined, run: () => Promise<void>) => Promise<boolean>}).tryManagedDownload('ffmpeg', attempts, source, undefined, async () => {
 			throw new Error('Request aborted by server during redirect')
 		})
 
 		expect(ok).toBe(false)
-		expect(trackMain).toHaveBeenCalledWith('binary_setup_failed', {binary: 'ffmpeg', phase: 'download_failed', code: 'ARX-001', operation: 'managed-download', setup_step: 'unknown', source_kind: 'managed', source_channel: 'default', elapsed_ms: expect.any(Number)})
+		expect(trackMain).toHaveBeenCalledWith('binary_setup_failed', {binary: 'ffmpeg', phase: 'download_failed', code: 'ARX-001', operation: 'managed-download', setup_step: 'unknown', source_kind: 'managed', source_channel: 'default', source_provider: 'github', elapsed_ms: expect.any(Number)})
 	})
 
 	it('emits sanitized telemetry for binary version probe failures', async () => {
 		const mgr = new BinaryManager('/tmp/arroxy-binary-analytics')
 		const attempts: DependencyAttempt[] = []
-		const source: DependencySource = {kind: 'managed', channel: 'nightly', url: 'https://example.com/yt-dlp.exe'}
+		const source: DependencySource = {kind: 'managed', channel: 'nightly', provider: 'github', url: 'https://example.com/yt-dlp.exe'}
 
 		const diag = await (mgr as unknown as {probeAndAccept: (id: 'yt-dlp', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<unknown>}).probeAndAccept('yt-dlp', source, path.join('/tmp', 'arroxy-missing-yt-dlp.exe'), attempts)
 
 		expect(diag).toBeNull()
-		expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'failed', failure_kind: 'spawn_failed', code: 'ARX-004', source_kind: 'managed', source_channel: 'nightly', elapsed_ms: expect.any(Number), timeout_ms: 30_000})
+		expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'failed', failure_kind: 'spawn_failed', code: 'ARX-004', source_kind: 'managed', source_channel: 'nightly', source_provider: 'github', elapsed_ms: expect.any(Number), timeout_ms: 30_000})
 	})
 
 	it('emits sanitized telemetry for slow successful binary version probes', async () => {
 		const mgr = new BinaryManager('/tmp/arroxy-binary-analytics')
 		const attempts: DependencyAttempt[] = []
-		const source: DependencySource = {kind: 'managed', channel: 'default', url: 'https://example.com/deno.zip'}
+		const source: DependencySource = {kind: 'managed', channel: 'default', provider: 'github', url: 'https://example.com/deno.zip'}
 		const now = vi.spyOn(Date, 'now').mockReturnValueOnce(1_000).mockReturnValueOnce(32_500)
 
 		try {
 			const diag = await (mgr as unknown as {probeAndAccept: (id: 'deno', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<unknown>}).probeAndAccept('deno', source, process.execPath, attempts)
 
 			expect(diag).not.toBeNull()
-			expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'deno', outcome: 'slow_success', source_kind: 'managed', source_channel: 'default', elapsed_ms: 31_500, timeout_ms: 30_000})
+			expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'deno', outcome: 'slow_success', source_kind: 'managed', source_channel: 'default', source_provider: 'github', elapsed_ms: 31_500, timeout_ms: 30_000})
 		} finally {
 			now.mockRestore()
 		}

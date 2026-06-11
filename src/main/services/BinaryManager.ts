@@ -1,11 +1,9 @@
 import {execFile} from 'node:child_process'
 import {constants as fsConstants} from 'node:fs'
 import fsPromises from 'node:fs/promises'
-import os from 'node:os'
 import path from 'node:path'
 import {promisify} from 'node:util'
 import {app} from 'electron'
-import extractZip from 'extract-zip'
 import got from 'got'
 import log from 'electron-log/main.js'
 
@@ -36,7 +34,10 @@ import {
 import {installYtDlpWithHomebrew} from './binary/HomebrewRepair.js'
 import {ManagedSetupError, managedSetupCause, managedSetupStep, sourceTelemetry, withManagedSetupStep} from './binary/ManagedSetup.js'
 import {installYtDlpWithWinget} from './binary/WingetRepair.js'
-import {BINARY_SOURCES, denoAssetName, denoAssetTarget, denoExecutableName, ytDlpAssetName} from './binary/BinaryAssets.js'
+import {currentDenoTarget, denoExecutableName, denoManagedSourcePlans, DENO_SOURCES, fetchDenoLandLatestVersion, unsupportedDenoFailure} from './binary/DenoBinarySource.js'
+import {fetchSourceForgeLatestYtDlpVersion, YT_DLP_SOURCES, ytDlpManagedSourcePlans, ytDlpAssetName} from './binary/YtDlpBinarySource.js'
+import type {ManagedSourcePlan, ManagedVersionCheck} from './binary/ManagedSourcePlan.js'
+import {ZippedBinaryInstaller} from './binary/ZippedBinaryInstaller.js'
 
 function stringifyHeader(header: string | string[] | undefined): string | null {
 	if (!header) return null
@@ -120,10 +121,6 @@ function bundledBinaryPath(name: 'ffmpeg' | 'ffprobe'): string {
 // Directory containing the embedded ffmpeg/ffprobe pair. Used by
 // spawnYtDlp + spawnFFmpeg to set LD_LIBRARY_PATH (Linux) so BtbN's
 // shared libav*.so.* siblings resolve.
-// Bound recursion so a malicious archive (deep tree or symlink cycle) cannot
-// stall extraction. Used by deno's zip extractor.
-const ARCHIVE_TREE_MAX_DEPTH = 8
-
 interface EnsureBinaryConfig {
 	name: string
 	destinationPath: string
@@ -142,6 +139,8 @@ export class BinaryManager {
 	private readonly retryDelays: [number, number]
 
 	private readonly inProgress = new Map<string, Promise<void>>()
+
+	private readonly zippedInstaller = new ZippedBinaryInstaller()
 
 	private readonly overridesProvider: () => BinaryOverrides | undefined
 
@@ -219,48 +218,6 @@ export class BinaryManager {
 		return null
 	}
 
-	// Attempt one managed yt-dlp channel (nightly or stable): build path + URL,
-	// call tryManagedDownload, then probe-and-accept. Returns the diagnostic on
-	// success or null to fall through.
-	private async tryManagedYtDlpChannel(
-		id: DependencyId,
-		channel: 'nightly' | 'stable',
-		channelSource: {download: string; latest: string},
-		binaryFilename: string,
-		assetName: string,
-		attempts: DependencyAttempt[],
-		opts: ResolveOptions,
-		onProgress: ProgressEmitter | undefined,
-		signal: AbortSignal | undefined
-	): Promise<DependencyDiagnostic | null> {
-		const destinationPath = path.join(this.cacheDir, binaryFilename)
-		const downloadUrl = `${channelSource.download}/${assetName}`
-		const source: DependencySource = {kind: 'managed', channel, url: downloadUrl}
-		const downloadOk = await this.tryManagedDownload(id, attempts, source, onProgress, () =>
-			this.ensureBinary({
-				name: 'yt-dlp',
-				destinationPath,
-				downloadUrl,
-				expectedSha256: async () => {
-					return parseShaLine(await downloadText(`${channelSource.download}/SHA2-256SUMS`, signal), assetName)
-				},
-				onStatus: opts.onStatus,
-				onDownloadProgress: makeDownloadProgress(id, source, onProgress),
-				requiredChecksum: true,
-				isUpToDate: () => this.isYtDlpUpToDate(destinationPath, channelSource.latest, signal),
-				signal
-			})
-		)
-		if (!downloadOk) {
-			if (await this.isUsableBinary(destinationPath)) {
-				logger.warn('Using existing yt-dlp after managed update failed', {channel, path: destinationPath})
-				return this.probeAndAccept(id, source, destinationPath, attempts, onProgress, signal)
-			}
-			return null
-		}
-		return this.probeAndAccept(id, source, destinationPath, attempts, onProgress, signal)
-	}
-
 	async resolveYtDlp(opts: ResolveOptions = {}): Promise<DependencyDiagnostic> {
 		const id: DependencyId = 'yt-dlp'
 		const attempts: DependencyAttempt[] = []
@@ -282,14 +239,25 @@ export class BinaryManager {
 			if (diag) return diag
 		}
 
-		const assetName = ytDlpAssetName()
-		if (assetName) {
-			const nightlyDiag = await this.tryManagedYtDlpChannel(id, 'nightly', BINARY_SOURCES.ytDlpNightly, process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp', assetName, attempts, opts, onProgress, signal)
-			if (nightlyDiag) return nightlyDiag
+		if (ytDlpAssetName()) {
+			for (const plan of ytDlpManagedSourcePlans(this.cacheDir, {sourceForgeVersion: null})) {
+				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- managed sources are tried in fallback order
+				const diag = await this.tryManagedSourcePlan(plan, attempts, opts, onProgress, signal)
+				if (diag) return diag
+				onProgress?.({binary: id, phase: 'fallback'})
+			}
 
-			onProgress?.({binary: id, phase: 'fallback'})
-			const stableDiag = await this.tryManagedYtDlpChannel(id, 'stable', BINARY_SOURCES.ytDlpStable, process.platform === 'win32' ? 'yt-dlp-stable.exe' : 'yt-dlp-stable', assetName, attempts, opts, onProgress, signal)
-			if (stableDiag) return stableDiag
+			const sourceForgeVersion = await this.getSourceForgeLatestYtDlpVersion(signal)
+			if (sourceForgeVersion) {
+				const sourceForgePlan = ytDlpManagedSourcePlans(this.cacheDir, {sourceForgeVersion}).find(plan => plan.source.provider === 'sourceforge')
+				if (sourceForgePlan) {
+					const diag = await this.tryManagedSourcePlan(sourceForgePlan, attempts, opts, onProgress, signal)
+					if (diag) return diag
+				}
+			} else {
+				const source: DependencySource = {kind: 'managed', channel: 'stable', provider: YT_DLP_SOURCES.stableSourceForge.provider, url: YT_DLP_SOURCES.stableSourceForge.rss}
+				this.recordManagedFailure(id, attempts, source, onProgress, new Error('Could not determine latest yt-dlp SourceForge mirror version'), 0)
+			}
 		}
 
 		// System PATH — last resort. Picks up brew/pipx/distro-package installs
@@ -332,6 +300,68 @@ export class BinaryManager {
 		} catch (err) {
 			this.recordManagedFailure(id, attempts, source, onProgress, err, Date.now() - startedAt)
 			return false
+		}
+	}
+
+	private async tryManagedSourcePlan(plan: ManagedSourcePlan, attempts: DependencyAttempt[], opts: ResolveOptions, onProgress: ProgressEmitter | undefined, signal: AbortSignal | undefined): Promise<DependencyDiagnostic | null> {
+		const downloadOk = await this.tryManagedDownload(plan.id, attempts, plan.source, onProgress, () => this.ensureManagedSourcePlan(plan, opts, onProgress, signal))
+		if (!downloadOk) {
+			if (await this.isUsableBinary(plan.destinationPath)) {
+				logger.warn(`Using existing ${plan.name} after managed update failed`, {source: plan.source, path: plan.destinationPath})
+				return this.probeAndAccept(plan.id, plan.source, plan.destinationPath, attempts, onProgress, signal)
+			}
+			return null
+		}
+		return this.probeAndAccept(plan.id, plan.source, plan.destinationPath, attempts, onProgress, signal)
+	}
+
+	private async ensureManagedSourcePlan(plan: ManagedSourcePlan, opts: ResolveOptions, onProgress: ProgressEmitter | undefined, signal: AbortSignal | undefined): Promise<void> {
+		if (plan.installKind === 'file') {
+			const versionCheck = plan.versionCheck
+			return this.ensureBinary({
+				name: plan.name,
+				destinationPath: plan.destinationPath,
+				downloadUrl: plan.downloadUrl,
+				expectedSha256: async () => plan.parseChecksum(await downloadText(plan.checksumUrl, signal)),
+				onStatus: opts.onStatus,
+				onDownloadProgress: makeDownloadProgress(plan.id, plan.source, onProgress),
+				requiredChecksum: plan.requiredChecksum,
+				isUpToDate: versionCheck ? () => this.isManagedPlanUpToDate(plan.destinationPath, versionCheck, signal) : undefined,
+				signal
+			})
+		}
+
+		const expectedSha256 = await withManagedSetupStep('checksum_lookup', async () => {
+			const checksumText = await downloadText(plan.checksumUrl, signal)
+			return plan.parseChecksum(checksumText)
+		})
+		if (!expectedSha256 && plan.requiredChecksum) {
+			throw new ManagedSetupError('checksum_lookup', new Error(`Checksum source unavailable for ${plan.name}. Refusing to use unverified archive.`))
+		}
+		if (!expectedSha256) {
+			logger.warn(`Checksum unavailable for ${plan.name}, proceeding without verification`)
+			throw new ManagedSetupError('checksum_lookup', new Error(`Checksum source unavailable for ${plan.name}. Refusing to use unverified archive.`))
+		}
+		logger.info(`Downloading ${plan.name}`, {downloadUrl: plan.downloadUrl, destinationPath: plan.destinationPath})
+		return this.zippedInstaller.ensure({
+			name: plan.name,
+			downloadUrl: plan.downloadUrl,
+			archiveFileName: plan.archiveFileName,
+			innerExecutableName: plan.innerExecutableName,
+			destinationPath: plan.destinationPath,
+			expectedSha256,
+			onStatus: opts.onStatus,
+			onDownloadProgress: makeDownloadProgress(plan.id, plan.source, onProgress),
+			signal
+		})
+	}
+
+	private async isManagedPlanUpToDate(binaryPath: string, versionCheck: ManagedVersionCheck, signal?: AbortSignal): Promise<boolean> {
+		switch (versionCheck.kind) {
+			case 'githubLatest':
+				return this.isYtDlpUpToDate(binaryPath, versionCheck.latestUrl, signal)
+			case 'exactTag':
+				return this.isYtDlpUpToDateAgainstTag(binaryPath, versionCheck.tag, signal)
 		}
 	}
 
@@ -391,6 +421,16 @@ export class BinaryManager {
 			const diag = await this.probeAndAccept(id, source, bundled, attempts, onProgress, signal)
 			if (diag) return diag
 
+			onProgress?.({binary: id, phase: 'fallback'})
+			const binaryName = process.platform === 'win32' ? `${id}.exe` : id
+			const pathCandidates = await whereOnPath(binaryName, signal)
+			for (const candidate of pathCandidates) {
+				const pathSource: DependencySource = {kind: 'systemPath', path: candidate}
+				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- PATH candidates are accepted in PATH order
+				const pathDiag = await this.probeAndAccept(id, pathSource, candidate, attempts, onProgress, signal)
+				if (pathDiag) return pathDiag
+			}
+
 			const failed = failedDiagnostic(id, attempts)
 			this.lastDiagnostics[id] = failed
 			return failed
@@ -398,37 +438,6 @@ export class BinaryManager {
 
 		const [ffmpeg, ffprobe] = await Promise.all([resolveOne('ffmpeg', overrides?.ffmpeg, 'ARROXY_FFMPEG_PATH'), resolveOne('ffprobe', overrides?.ffprobe, 'ARROXY_FFPROBE_PATH')])
 		return {ffmpeg, ffprobe}
-	}
-
-	// Single-binary resolve helper: manual override → env override → managed
-	// download. Used by resolveDeno.
-	private async resolveSingleBinary(id: DependencyId, manualPath: string | undefined, envPath: string | undefined, envVar: string, doManaged: (source: DependencySource, attempts: DependencyAttempt[]) => Promise<string | null>, managedSource: DependencySource, opts: ResolveOptions): Promise<DependencyDiagnostic> {
-		const attempts: DependencyAttempt[] = []
-		const onProgress = opts.onProgress
-		const signal = opts.signal
-		onProgress?.({binary: id, phase: 'starting'})
-
-		if (manualPath) {
-			const source: DependencySource = {kind: 'manualOverride', path: manualPath}
-			const diag = await this.probeAndAccept(id, source, manualPath, attempts, onProgress, signal)
-			if (diag) return diag
-		}
-
-		if (envPath) {
-			const source: DependencySource = {kind: 'envOverride', path: envPath, envVar}
-			const diag = await this.probeAndAccept(id, source, envPath, attempts, onProgress, signal)
-			if (diag) return diag
-		}
-
-		const managedPath = await doManaged(managedSource, attempts)
-		if (managedPath) {
-			const diag = await this.probeAndAccept(id, managedSource, managedPath, attempts, onProgress, signal)
-			if (diag) return diag
-		}
-
-		const diag = failedDiagnostic(id, attempts)
-		this.lastDiagnostics[id] = diag
-		return diag
 	}
 
 	async ensureFFmpeg(onStatus?: StatusReporter, onDownloadProgress?: DownloadProgressCallback): Promise<string | null> {
@@ -446,148 +455,72 @@ export class BinaryManager {
 	}
 
 	// Deno is the JS runtime yt-dlp uses for nsig/signature decoding on the web
-	// client. Without it, yt-dlp silently drops every JS-needing client and
-	// falls back to android_vr — which our PoT (bound to web.gvs) can't help.
-	// Returns null when:
-	//   - the platform/arch has no upstream deno build (Windows ARM64), or
-	//   - download/extraction failed for any reason.
-	// The caller (YtDlp) treats null as "skip --js-runtimes" rather than failing
-	// the download. Bot-block fallbacks still cover us.
+	// client. It is a required Arroxy dependency: resolver failures should
+	// surface as blocking diagnostics instead of silently omitting
+	// --js-runtimes.
 	async resolveDeno(opts: ResolveOptions = {}): Promise<DependencyDiagnostic> {
 		const id: DependencyId = 'deno'
 		const overrides = opts.overrides ?? this.overridesProvider()
 		const onProgress = opts.onProgress
 		const signal = opts.signal
+		const attempts: DependencyAttempt[] = []
+		onProgress?.({binary: id, phase: 'starting'})
 
-		const assetName = denoAssetName()
-		if (!assetName) {
-			const diag: DependencyDiagnostic = {id, state: 'failed', source: null, resolvedPath: null, attempts: [], failure: {kind: 'spawn_failed', message: 'No deno build for this platform/arch'}}
+		if (overrides?.deno) {
+			const source: DependencySource = {kind: 'manualOverride', path: overrides.deno}
+			const diag = await this.probeAndAccept(id, source, overrides.deno, attempts, onProgress, signal)
+			if (diag) return diag
+		}
+
+		const envPath = process.env.ARROXY_DENO_PATH
+		if (envPath) {
+			const source: DependencySource = {kind: 'envOverride', path: envPath, envVar: 'ARROXY_DENO_PATH'}
+			const diag = await this.probeAndAccept(id, source, envPath, attempts, onProgress, signal)
+			if (diag) return diag
+		}
+
+		const target = currentDenoTarget()
+		const targetPath = path.join(this.cacheDir, denoExecutableName(target ?? process.platform))
+		if (await this.isUsableBinary(targetPath)) {
+			const cacheSource: DependencySource = {kind: 'cache', path: targetPath}
+			const cacheDiag = await this.probeAndAccept(id, cacheSource, targetPath, attempts, onProgress, signal)
+			if (cacheDiag) return cacheDiag
+		}
+
+		if (!target) {
+			const failure = unsupportedDenoFailure()
+			attempts.push(makeAttempt({kind: 'managed', channel: 'default', provider: DENO_SOURCES.denoGithub.provider, url: DENO_SOURCES.denoGithub.download}, failure))
+			const diag = failedDiagnostic(id, attempts)
 			this.lastDiagnostics[id] = diag
 			onProgress?.({binary: id, phase: 'skipped'})
 			return diag
 		}
 
-		return this.resolveSingleBinary(
-			id,
-			overrides?.deno,
-			process.env.ARROXY_DENO_PATH,
-			'ARROXY_DENO_PATH',
-			async (source, attempts) => {
-				const targetPath = path.join(this.cacheDir, denoExecutableName())
-				if (await this.isUsableBinary(targetPath)) return targetPath
-				const downloadUrl = `${BINARY_SOURCES.deno.download}/${assetName}`
-				const checksumUrl = `${downloadUrl}.sha256sum`
-				const downloadOk = await this.tryManagedDownload(id, attempts, source, onProgress, () =>
-					this.ensureZippedBinary({
-						name: 'deno',
-						downloadUrl,
-						zipFileName: assetName,
-						innerExecutableName: denoExecutableName(),
-						destinationPath: targetPath,
-						onDownloadProgress: makeDownloadProgress(id, source, onProgress),
-						signal,
-						expectedSha256: async () => {
-							try {
-								const checksumText = await downloadText(checksumUrl, signal)
-								return parseShaLine(checksumText, assetName) ?? parseStandaloneSha256(checksumText) ?? parsePowerShellFileHash(checksumText)
-							} catch {
-								return null
-							}
-						},
-						onStatus: opts.onStatus
-					})
-				)
-				return downloadOk ? targetPath : null
-			},
-			{kind: 'managed', channel: 'default', url: `${BINARY_SOURCES.deno.download}/${assetName}`},
-			opts
-		)
+		const denoLandVersion = await this.getDenoLandLatestVersion(signal)
+		if (!denoLandVersion) {
+			const source: DependencySource = {kind: 'managed', channel: 'default', provider: DENO_SOURCES.denoLand.provider, url: DENO_SOURCES.denoLand.latest}
+			this.recordManagedFailure(id, attempts, source, onProgress, new Error('Could not determine latest deno version from dl.deno.land'), 0)
+		}
+		for (const plan of denoManagedSourcePlans(this.cacheDir, target, {denoLandVersion})) {
+			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- managed sources are tried in fallback order
+			const diag = await this.tryManagedSourcePlan(plan, attempts, opts, onProgress, signal)
+			if (diag) return diag
+			onProgress?.({binary: id, phase: 'fallback'})
+		}
+
+		const diag = failedDiagnostic(id, attempts)
+		this.lastDiagnostics[id] = diag
+		return diag
 	}
 
-	async ensureDeno(onStatus?: StatusReporter, onDownloadProgress?: DownloadProgressCallback): Promise<string | null> {
+	async ensureDeno(onStatus?: StatusReporter, onDownloadProgress?: DownloadProgressCallback): Promise<string> {
 		if (this.resolved.deno) return this.resolved.deno
 		const onProgress = wrapDownloadProgressEmitter(onDownloadProgress)
 		const diag = await this.resolveDeno({onStatus, onProgress})
-		return diag.resolvedPath
-	}
-
-	private async ensureZippedBinary(config: {
-		name: string
-		downloadUrl: string
-		zipFileName: string
-		innerExecutableName: string
-		destinationPath: string
-		expectedSha256: () => Promise<string | null>
-		requiredChecksum?: boolean
-		onStatus?: StatusReporter
-		onDownloadProgress?: DownloadProgressCallback
-		signal?: AbortSignal
-	}): Promise<void> {
-		const {destinationPath, name, onStatus, onDownloadProgress, signal} = config
-
-		const existing = this.inProgress.get(destinationPath)
-		if (existing) return existing
-
-		const promise = (async (): Promise<void> => {
-			const tempDir = await fsPromises.mkdtemp(path.join(os.tmpdir(), `arroxy-${name}-`))
-			await using _cleanup = {[Symbol.asyncDispose]: () => fsPromises.rm(tempDir, {recursive: true, force: true})}
-			const zipPath = path.join(tempDir, config.zipFileName)
-
-			onStatus?.('downloadingBinary', {name})
-			logger.info(`Downloading ${name}`, {downloadUrl: config.downloadUrl, destinationPath})
-
-			await downloadFile(config.downloadUrl, zipPath, onDownloadProgress, true, signal)
-
-			const expected = await config.expectedSha256()
-			if (expected) {
-				const actual = await sha256ForFile(zipPath)
-				if (actual !== expected) {
-					throw new Error(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`)
-				}
-			} else if (config.requiredChecksum) {
-				throw new Error(`Checksum source unavailable for ${name}. Refusing to use unverified archive.`)
-			} else {
-				logger.warn(`Checksum unavailable for ${name}, proceeding without verification`)
-			}
-
-			const extractDir = path.join(tempDir, 'unpacked')
-			await fsPromises.mkdir(extractDir, {recursive: true})
-			await extractZip(zipPath, {dir: extractDir})
-
-			const innerPath = await this.findExecutableInTree(extractDir, config.innerExecutableName)
-			if (!innerPath) {
-				throw new Error(`${name} archive did not contain ${config.innerExecutableName}`)
-			}
-
-			await fsPromises.mkdir(path.dirname(destinationPath), {recursive: true})
-			// copyFile (rather than rename) handles cross-device temp dirs.
-			await fsPromises.copyFile(innerPath, destinationPath)
-			if (process.platform !== 'win32') {
-				await fsPromises.chmod(destinationPath, 0o755)
-			}
-		})().finally(() => {
-			this.inProgress.delete(destinationPath)
-		})
-
-		this.inProgress.set(destinationPath, promise)
-		return promise
-	}
-
-	private async findExecutableInTree(root: string, name: string, depth = 0): Promise<string | null> {
-		if (depth > ARCHIVE_TREE_MAX_DEPTH) return null
-		const entries = await fsPromises.readdir(root, {withFileTypes: true})
-		for (const entry of entries) {
-			if (entry.isSymbolicLink()) continue
-			const full = path.join(root, entry.name)
-			if (entry.isDirectory()) {
-				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- deterministic first match wins while walking extracted archives
-				const nested = await this.findExecutableInTree(full, name, depth + 1)
-				if (nested) return nested
-			} else if (entry.isFile() && entry.name === name) {
-				return full
-			}
+		if (diag.state !== 'runnable' || !diag.resolvedPath) {
+			throw new Error(diag.failure?.message ?? 'deno could not be resolved')
 		}
-		return null
+		return diag.resolvedPath
 	}
 
 	private async ensureBinary(config: EnsureBinaryConfig): Promise<void> {
@@ -686,6 +619,20 @@ export class BinaryManager {
 		}
 	}
 
+	private async isYtDlpUpToDateAgainstTag(binaryPath: string, remoteTag: string, signal?: AbortSignal): Promise<boolean> {
+		const local = await this.getLocalYtDlpVersion(binaryPath, signal)
+		if (!local) {
+			logger.warn('yt-dlp local binary unusable, will re-download')
+			return false
+		}
+		if (local !== remoteTag) {
+			logger.info('yt-dlp update available', {local, remote: remoteTag})
+			return false
+		}
+		logger.info('yt-dlp is up to date', {version: local})
+		return true
+	}
+
 	private async checkYtDlpVersion(binaryPath: string, releaseLatestUrl: string, signal?: AbortSignal): Promise<YtDlpVersionCheck> {
 		const [local, remote] = await Promise.all([this.getLocalYtDlpVersion(binaryPath, signal), this.getRemoteYtDlpVersion(releaseLatestUrl, signal)])
 		if (!local) return {state: 'unusable'}
@@ -720,6 +667,14 @@ export class BinaryManager {
 		}
 	}
 
+	private async getSourceForgeLatestYtDlpVersion(signal?: AbortSignal): Promise<string | null> {
+		return fetchSourceForgeLatestYtDlpVersion(downloadText, signal)
+	}
+
+	private async getDenoLandLatestVersion(signal?: AbortSignal): Promise<string | null> {
+		return fetchDenoLandLatestVersion(downloadText, signal)
+	}
+
 	private async isUsableBinary(binaryPath: string): Promise<boolean> {
 		try {
 			const mode = process.platform === 'win32' ? fsConstants.F_OK : fsConstants.X_OK
@@ -731,21 +686,4 @@ export class BinaryManager {
 	}
 }
 
-export const binaryInternals = {
-	parseShaLine,
-	parseStandaloneSha256,
-	parsePowerShellFileHash,
-	parseContentRangeStart,
-	resolvePartialResponseMode,
-	ytDlpAssetName,
-	denoAssetName,
-	denoAssetTarget,
-	denoExecutableName,
-	sha256ForFile,
-	classifyProbeError,
-	classifyDownloadError,
-	probeTimeoutMs,
-	whereOnPath,
-	fallbackPathCandidates,
-	bundledBinaryPath
-}
+export const binaryInternals = {parseShaLine, parseStandaloneSha256, parsePowerShellFileHash, parseContentRangeStart, resolvePartialResponseMode, sha256ForFile, classifyProbeError, classifyDownloadError, probeTimeoutMs, whereOnPath, fallbackPathCandidates, bundledBinaryPath}

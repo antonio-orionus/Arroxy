@@ -8,10 +8,10 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 const failedYtDlpDiagnostic: DependencyDiagnostic = {
 	id: 'yt-dlp',
 	state: 'failed',
-	source: {kind: 'managed', channel: 'nightly', url: 'https://example.test/yt-dlp'},
+	source: {kind: 'managed', channel: 'nightly', provider: 'github', url: 'https://example.test/yt-dlp'},
 	resolvedPath: null,
 	failure: {kind: 'download_failed', message: 'download failed'},
-	attempts: [{source: {kind: 'managed', channel: 'nightly', url: 'https://example.test/yt-dlp'}, failure: {kind: 'download_failed', message: 'download failed'}}]
+	attempts: [{source: {kind: 'managed', channel: 'nightly', provider: 'github', url: 'https://example.test/yt-dlp'}, failure: {kind: 'download_failed', message: 'download failed'}}]
 }
 
 function renderBlockedSplash(): void {

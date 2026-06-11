@@ -73,10 +73,11 @@ export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate
 	// each child. The env var names the trusted plugin root, so pass its parent.
 	const pluginContainer = path.dirname(pluginRoot)
 	const denyProxyUrl = env.ARROXY_E2E_DENY_PROXY_URL
+	const skipDeno = env.ARROXY_E2E_SKIP_DENO === '1'
 
 	return {
 		enabled: true,
-		skipDeno: true,
+		skipDeno,
 		disableAnalytics: true,
 		disableUpdater: true,
 		allowClipboardWatch,

@@ -70,7 +70,7 @@ describe('resolveE2eHarnessMode', () => {
 		const spawnEnv = mode.applySpawnEnv({PATH: '/bin'})
 
 		expect(mode.enabled).toBe(true)
-		expect(mode.skipDeno).toBe(true)
+		expect(mode.skipDeno).toBe(false)
 		expect(mode.disableAnalytics).toBe(true)
 		expect(mode.disableUpdater).toBe(true)
 		expect(mode.allowClipboardWatch).toBe(false)
@@ -81,6 +81,15 @@ describe('resolveE2eHarnessMode', () => {
 		expect(defaults.common.defaultOutputDir).toBe('/downloads')
 		expect(spawnEnv.HTTP_PROXY).toBe('http://127.0.0.1:1234')
 		expect(spawnEnv.NO_PROXY).toBe('127.0.0.1,localhost,::1')
+	})
+
+	it('skips deno only when E2E explicitly opts into that exception', () => {
+		const root = makePluginRoot()
+		const normal = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: root}, {isPackaged: false})
+		const skipped = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: root, ARROXY_E2E_SKIP_DENO: '1'}, {isPackaged: false})
+
+		expect(normal.skipDeno).toBe(false)
+		expect(skipped.skipDeno).toBe(true)
 	})
 
 	it('keeps clipboard watching disabled in E2E unless explicitly opted in', () => {

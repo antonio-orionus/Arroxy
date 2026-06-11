@@ -38,13 +38,13 @@ export function buildWarmUp(scenario: ScenarioLike): WarmUpOutput {
 
 function allRunnableDependencies(): Record<DependencyId, DependencyDiagnostic> {
 	return {
-		'yt-dlp': {id: 'yt-dlp', state: 'runnable', source: {kind: 'managed', channel: 'nightly', url: 'mock'}, resolvedPath: '/mock/yt-dlp', attempts: []},
-		ffmpeg: {id: 'ffmpeg', state: 'runnable', source: {kind: 'managed', channel: 'default', url: 'mock'}, resolvedPath: '/mock/ffmpeg', attempts: []},
-		ffprobe: {id: 'ffprobe', state: 'runnable', source: {kind: 'managed', channel: 'default', url: 'mock'}, resolvedPath: '/mock/ffprobe', attempts: []},
-		deno: {id: 'deno', state: 'runnable', source: {kind: 'managed', channel: 'default', url: 'mock'}, resolvedPath: '/mock/deno', attempts: []}
+		'yt-dlp': {id: 'yt-dlp', state: 'runnable', source: {kind: 'managed', channel: 'nightly', provider: 'github', url: 'mock'}, resolvedPath: '/mock/yt-dlp', attempts: []},
+		ffmpeg: {id: 'ffmpeg', state: 'runnable', source: {kind: 'managed', channel: 'default', provider: 'github', url: 'mock'}, resolvedPath: '/mock/ffmpeg', attempts: []},
+		ffprobe: {id: 'ffprobe', state: 'runnable', source: {kind: 'managed', channel: 'default', provider: 'github', url: 'mock'}, resolvedPath: '/mock/ffprobe', attempts: []},
+		deno: {id: 'deno', state: 'runnable', source: {kind: 'managed', channel: 'default', provider: 'github', url: 'mock'}, resolvedPath: '/mock/deno', attempts: []}
 	}
 }
 
 function failedDependency(id: DependencyId, kind: NonNullable<DependencyDiagnostic['failure']>['kind'], message: string): DependencyDiagnostic {
-	return {id, state: 'failed', source: {kind: 'managed', channel: id === 'yt-dlp' ? 'nightly' : 'default', url: 'mock'}, resolvedPath: null, failure: {kind, message}, attempts: []}
+	return {id, state: 'failed', source: {kind: 'managed', channel: id === 'yt-dlp' ? 'nightly' : 'default', provider: 'github', url: 'mock'}, resolvedPath: null, failure: {kind, message}, attempts: []}
 }

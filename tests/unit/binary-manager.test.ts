@@ -3,6 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {describe, expect, it} from 'vitest'
 import {binaryInternals} from '@main/services/BinaryManager.js'
+import {parseSourceForgeLatestYtDlpVersion} from '@main/services/binary/YtDlpBinarySource.js'
 
 describe('binaryInternals', () => {
 	it('parses SHA lines', () => {
@@ -66,5 +67,12 @@ describe('binaryInternals', () => {
 	it('returns null for sha sources that lack a Hash line', () => {
 		expect(binaryInternals.parsePowerShellFileHash('Algorithm : SHA256\nHash      : nothex\n')).toBeNull()
 		expect(binaryInternals.parsePowerShellFileHash('')).toBeNull()
+	})
+
+	it('parses the latest SourceForge yt-dlp mirror version from file links', () => {
+		const html = '<a href="/projects/yt-dlp.mirror/files/2026.06.09/yt-dlp.exe/download">yt-dlp.exe</a><a href="/projects/yt-dlp.mirror/files/2026.03.17/yt-dlp.exe/download">older</a>'
+
+		expect(parseSourceForgeLatestYtDlpVersion(html)).toBe('2026.06.09')
+		expect(parseSourceForgeLatestYtDlpVersion('no versions')).toBeNull()
 	})
 })
