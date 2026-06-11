@@ -33,20 +33,23 @@ describe('BinaryDownloader', () => {
 		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'binary-downloader-'))
 		const destination = path.join(dir, 'slow.bin')
 
-		await withServer(
-			(_req, res) => {
-				res.writeHead(200, {'content-length': '1048576'})
-				const interval = setInterval(() => {
-					res.write(Buffer.alloc(1))
-				}, 10)
-				res.on('close', () => clearInterval(interval))
-			},
-			async url => {
-				await expect(downloadFile(url, destination, undefined, {maxDurationMs: 50, stallTimeoutMs: 1000})).rejects.toThrow(DownloadStalledError)
-			}
-		)
+		try {
+			await withServer(
+				(_req, res) => {
+					res.writeHead(200, {'content-length': '1048576'})
+					const interval = setInterval(() => {
+						res.write(Buffer.alloc(1))
+					}, 10)
+					res.on('close', () => clearInterval(interval))
+				},
+				async url => {
+					await expect(downloadFile(url, destination, undefined, {maxDurationMs: 50, stallTimeoutMs: 1000})).rejects.toThrow(DownloadStalledError)
+				}
+			)
 
-		await expect(fs.stat(destination)).rejects.toThrow()
-		await fs.rm(dir, {recursive: true, force: true})
+			await expect(fs.stat(destination)).rejects.toThrow()
+		} finally {
+			await fs.rm(dir, {recursive: true, force: true})
+		}
 	})
 })
