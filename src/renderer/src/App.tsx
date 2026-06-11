@@ -3,6 +3,7 @@ import {Bug, Cpu, FileText, Image, Info, MessageCircle, Paintbrush, Share2} from
 import IconDiscord from '~icons/simple-icons/discord'
 import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
+import {DISCORD_URL} from '@shared/constants.js'
 import {ZOOM_MIN, ZOOM_MAX, ZOOM_STEP, type UiTheme} from '@shared/schemas.js'
 import {useAppStore} from './store/useAppStore.js'
 import {AppBackdrop} from './components/layout/background/AppBackdrop.js'
@@ -31,7 +32,6 @@ const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 t
 const FOOTER_VERSION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-[11px] text-muted-foreground/60 tabular-nums max-sm:hidden'
 const FOOTER_COMPACT_LABEL_CLASS = 'max-sm:sr-only'
 const FOOTER_COMPACT_ICON_CLASS = 'hidden size-3.5 max-sm:block'
-const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
 type BackdropPreviewMode = 'gpu' | 'canvas2d' | 'css'
 
 const BACKDROP_PREVIEW_MODES = [

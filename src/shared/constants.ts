@@ -1,6 +1,8 @@
 import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, NetworkPacingPreset} from './schemas.js'
 import type {AppSettings} from './types.js'
 
+export const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
+
 // Defaults — single source. Anywhere that needs a fallback for a missing field
 // (initial state, persistence migration, test fixtures, IPC fallback) must
 // import from here so changes propagate everywhere.

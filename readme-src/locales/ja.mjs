@@ -79,6 +79,8 @@ export const ja = {
   badge_platforms_alt: "プラットフォーム",
   badge_i18n_alt: "対応言語",
   badge_website_alt: "ウェブサイト",
+  discord_badge_text: "Discord コミュニティに参加",
+  discord_badge_encoded: "Discord%20%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E3%81%AB%E5%8F%82%E5%8A%A0",
   hero_desc:
     "**YouTube と 2000 以上の対応サイト**から動画・Shorts・音楽・チャンネル・ポッドキャスト・音声トラックをダウンロード — 最大 4K HDR 60fps、または MP3 / AAC / Opus として。Windows、macOS、Linux でローカル動作。**広告なし、余計なものなし、アップセルなし。**",
   cta_latest: "↓ 最新リリースをダウンロード",

@@ -79,6 +79,8 @@ export const om = {
   badge_platforms_alt: "Platformoota",
   badge_i18n_alt: "Afaanonni",
   badge_website_alt: "Marsariitii",
+  discord_badge_text: "Hawaasa Discord itti makami",
+  discord_badge_encoded: "Hawaasa%20Discord%20itti%20makami",
   hero_desc:
     "Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 4K HDR 60 fps, ykn MP3 / AAC / Opus. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**",
   cta_latest: "↓ Baasii Haaraa Buusi",

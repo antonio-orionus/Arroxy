@@ -79,6 +79,8 @@ export const vi = {
   badge_platforms_alt: "Nền tảng",
   badge_i18n_alt: "Ngôn ngữ",
   badge_website_alt: "Trang web",
+  discord_badge_text: "Tham gia cộng đồng Discord",
+  discord_badge_encoded: "Tham%20gia%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%20Discord",
   hero_desc:
     "Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 4K HDR ở 60 fps, hoặc dưới dạng MP3 / AAC / Opus. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**",
   cta_latest: "↓ Tải phiên bản mới nhất",

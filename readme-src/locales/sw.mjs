@@ -79,6 +79,8 @@ export const sw = {
   badge_platforms_alt: "Majukwaa",
   badge_i18n_alt: "Lugha",
   badge_website_alt: "Tovuti",
+  discord_badge_text: "Jiunge na jumuiya ya Discord",
+  discord_badge_encoded: "Jiunge%20na%20jumuiya%20ya%20Discord",
   hero_desc:
     "Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 4K HDR kwa fps 60, au kama MP3 / AAC / Opus. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**",
   cta_latest: "↓ Pakua Toleo la Hivi Karibuni",

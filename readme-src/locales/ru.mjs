@@ -79,6 +79,8 @@ export const ru = {
   badge_platforms_alt: "Платформы",
   badge_i18n_alt: "Языки",
   badge_website_alt: "Сайт",
+  discord_badge_text: "Присоединиться к Discord-сообществу",
+  discord_badge_encoded: "%D0%9F%D1%80%D0%B8%D1%81%D0%BE%D0%B5%D0%B4%D0%B8%D0%BD%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20Discord%2D%D1%81%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D1%83",
   hero_desc:
     "Скачивайте видео, Shorts, музыку, каналы, подкасты или аудиодорожки с **YouTube и 2000+ поддерживаемых сайтов** — до 4K HDR при 60 fps или в виде MP3 / AAC / Opus. Работает локально на Windows, macOS и Linux. **Без рекламы, без лишнего, без допродаж.**",
   cta_latest: "↓ Скачать последний релиз",

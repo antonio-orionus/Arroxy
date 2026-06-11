@@ -79,6 +79,8 @@ export const bn = {
   badge_platforms_alt: "প্ল্যাটফর্ম",
   badge_i18n_alt: "ভাষাসমূহ",
   badge_website_alt: "ওয়েবসাইট",
+  discord_badge_text: "Discord কমিউনিটিতে যোগ দিন",
+  discord_badge_encoded: "Discord%20%E0%A6%95%E0%A6%AE%E0%A6%BF%E0%A6%89%E0%A6%A8%E0%A6%BF%E0%A6%9F%E0%A6%BF%E0%A6%A4%E0%A7%87%20%E0%A6%AF%E0%A7%8B%E0%A6%97%20%E0%A6%A6%E0%A6%BF%E0%A6%A8",
   hero_desc:
     "**YouTube ও ২০০০+ সমর্থিত সাইট** থেকে ভিডিও, Shorts, সংগীত, চ্যানেল, পডকাস্ট বা অডিও ট্র্যাক ডাউনলোড করুন — 60 fps-এ 4K HDR পর্যন্ত, অথবা MP3 / AAC / Opus হিসেবে। Windows, macOS ও Linux-এ লোকালি চলে। **কোনো বিজ্ঞাপন নেই, কোনো ব্লোট নেই, কোনো আপসেল নেই।**",
   cta_latest: "↓ সর্বশেষ রিলিজ ডাউনলোড করুন",

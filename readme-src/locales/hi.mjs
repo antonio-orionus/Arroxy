@@ -79,6 +79,8 @@ export const hi = {
   badge_platforms_alt: "प्लेटफ़ॉर्म",
   badge_i18n_alt: "भाषाएँ",
   badge_website_alt: "वेबसाइट",
+  discord_badge_text: "Discord समुदाय से जुड़ें",
+  discord_badge_encoded: "Discord%20%E0%A4%B8%E0%A4%AE%E0%A5%81%E0%A4%A6%E0%A4%BE%E0%A4%AF%20%E0%A4%B8%E0%A5%87%20%E0%A4%9C%E0%A5%81%E0%A4%A1%E0%A4%BC%E0%A5%87%E0%A4%82",
   hero_desc:
     "**YouTube और 2000+ समर्थित साइटों** से वीडियो, Shorts, संगीत, चैनल, पॉडकास्ट या ऑडियो ट्रैक डाउनलोड करें — 60 fps पर 4K HDR तक, या MP3 / AAC / Opus के रूप में। Windows, macOS और Linux पर लोकल रन होता है। **कोई विज्ञापन नहीं, कोई ब्लोट नहीं, कोई अपसेल नहीं।**",
   cta_latest: "↓ नवीनतम रिलीज़ डाउनलोड करें",

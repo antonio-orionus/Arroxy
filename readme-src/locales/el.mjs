@@ -79,6 +79,8 @@ export const el = {
   badge_platforms_alt: "Πλατφόρμες",
   badge_i18n_alt: "Γλώσσες",
   badge_website_alt: "Ιστότοπος",
+  discord_badge_text: "Εγγραφείτε στην κοινότητα Discord",
+  discord_badge_encoded: "%CE%95%CE%B3%CE%B3%CF%81%CE%B1%CF%86%CE%B5%CE%AF%CF%84%CE%B5%20%CF%83%CF%84%CE%B7%CE%BD%20%CE%BA%CE%BF%CE%B9%CE%BD%CF%8C%CF%84%CE%B7%CF%84%CE%B1%20Discord",
   hero_desc:
     "Κατεβάστε βίντεο, Shorts, μουσική, κανάλια, podcasts ή ηχητικά κομμάτια από το **YouTube και 2000+ υποστηριζόμενους ιστοτόπους** — έως 4K HDR στα 60 fps, ή ως MP3 / AAC / Opus. Εκτελείται τοπικά σε Windows, macOS και Linux. **Χωρίς διαφημίσεις, χωρίς bloat, χωρίς upsells.**",
   cta_latest: "↓ Λήψη Τελευταίας Έκδοσης",

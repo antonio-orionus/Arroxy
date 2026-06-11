@@ -79,6 +79,8 @@ export const sr = {
   badge_platforms_alt: "Платформе",
   badge_i18n_alt: "Језици",
   badge_website_alt: "Веб-сајт",
+  discord_badge_text: "Придружите се Discord заједници",
+  discord_badge_encoded: "%D0%9F%D1%80%D0%B8%D0%B4%D1%80%D1%83%D0%B6%D0%B8%D1%82%D0%B5%20%D1%81%D0%B5%20Discord%20%D0%B7%D0%B0%D1%98%D0%B5%D0%B4%D0%BD%D0%B8%D1%86%D0%B8",
   hero_desc:
     "Преузимајте видео снимке, Shorts, музику, каналe, подкасте или аудио записе са **YouTube-а и 2000+ подржаних сајтова** — до 4K HDR при 60 fps, или у MP3 / AAC / Opus формату. Ради локално на Windows-у, macOS-у и Linux-у. **Без реклама, без непотребног, без додатне продаје.**",
   cta_latest: "↓ Преузмите најновије издање",

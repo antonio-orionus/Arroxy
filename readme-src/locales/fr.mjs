@@ -79,6 +79,8 @@ export const fr = {
   badge_platforms_alt: "Plateformes",
   badge_i18n_alt: "Langues",
   badge_website_alt: "Site web",
+  discord_badge_text: "Rejoindre la communauté Discord",
+  discord_badge_encoded: "Rejoindre%20la%20communaut%C3%A9%20Discord",
   hero_desc:
     "Télécharge des vidéos, Shorts, musiques, chaînes, podcasts ou pistes audio depuis **YouTube et plus de 2000 sites supportés** — jusqu'à 4K HDR à 60 fps, ou en MP3 / AAC / Opus. Fonctionne en local sur Windows, macOS et Linux. **Pas de pub, pas de superflu, pas d'upsell.**",
   cta_latest: "↓ Télécharger la dernière version",

@@ -79,6 +79,8 @@ export const ar = {
   badge_platforms_alt: "الأنظمة",
   badge_i18n_alt: "اللغات",
   badge_website_alt: "الموقع الإلكتروني",
+  discord_badge_text: "انضم إلى مجتمع Discord",
+  discord_badge_encoded: "%D8%A7%D9%86%D8%B6%D9%85%20%D8%A5%D9%84%D9%89%20%D9%85%D8%AC%D8%AA%D9%85%D8%B9%20Discord",
   hero_desc:
     "نزِّل مقاطع الفيديو وShorts والموسيقى والقنوات والبودكاست والمقاطع الصوتية من **يوتيوب وأكثر من 2000 موقع مدعوم** — حتى 4K HDR بـ 60 إطاراً في الثانية، أو بصيغ MP3 / AAC / Opus. يعمل محلياً على Windows وmacOS وLinux. **لا إعلانات، لا حشو، لا عروض ترويجية.**",
   cta_latest: "↓ تنزيل أحدث إصدار",
