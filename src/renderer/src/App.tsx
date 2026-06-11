@@ -183,9 +183,9 @@ export function App(): ReactNode {
 
 				{update.info && <UpdateBanner info={update.info} installing={update.installing} installError={update.error} onInstall={update.install} onDownload={update.download} onDismiss={update.dismiss} />}
 
-				<div className="flex-1 flex flex-col overflow-hidden" data-testid="app-content">
-					<div className="flex-1 flex flex-col overflow-hidden" style={{zoom: uiZoom}}>
-						<div className="flex-1 overflow-y-auto overflow-x-hidden">
+				<div className="flex min-h-0 flex-1 flex-col overflow-hidden" data-testid="app-content">
+					<div className="flex min-h-0 flex-1 flex-col overflow-hidden" style={{zoom: uiZoom}}>
+						<div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden" data-testid="wizard-scrollport">
 							<WizardPanel />
 						</div>
 						<SmartDrawer />

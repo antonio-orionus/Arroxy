@@ -17,6 +17,7 @@ import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {LimitRatePicker} from '../shared/LimitRatePicker.js'
 import {formatLimitRateLabel} from '../shared/limitRateFormat.js'
 import {NetworkPacingSettings} from './NetworkPacingSettings.js'
+import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 
 const COOKIES_BROWSERS: readonly {value: CookiesBrowser; label: string; macOnly?: boolean}[] = [
 	{value: 'firefox', label: 'Firefox'},
@@ -207,6 +208,16 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 								</InputGroupButton>
 							</InputGroupAddon>
 						</InputGroup>
+					</Field>
+
+					<Field orientation="horizontal" className="items-start justify-between gap-3" data-testid="playlist-probe-limit-section">
+						<FieldContent className="gap-0.5">
+							<FieldTitle id="profiles-settings-playlist-probe-limit" className="text-[13px] font-medium text-foreground">
+								{t('wizard.url.playlistProbeLimit.label')}
+							</FieldTitle>
+							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.playlistProbeLimit.description')}</FieldDescription>
+						</FieldContent>
+						<PlaylistProbeLimitSelector testId="profiles-settings-playlist-probe-limit" className="w-40" showCurrent={false} />
 					</Field>
 				</FieldGroup>
 			</SettingsPanel>

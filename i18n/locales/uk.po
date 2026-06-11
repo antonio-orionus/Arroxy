@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Завантаження Playlist…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Обмежено першими {{count}} елементами"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Знайдено {{count}} сторінку"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Знайдено {{count}} сторінок"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Збирання відео"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Сканування сторінок каналу"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Вибери хоча б одне відео, щоб продовжити"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "Відповідає параметру yt-dlp --playlist-end: Arroxy запитує лише таку кількість записів плейлиста, каналу або пошуку під час побудови вибірки."
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Активний профіль"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Змінити глобальну теку призначення"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Тека призначення"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Редагувати активний профіль"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Керувати профілями"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Змініть активний профіль для Quick Download, масових URL і списків відтворення."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Перемкнути профіль"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Новий профіль"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Перемкнути профіль завантаження: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Перемкнути профіль завантаження"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "Очистити"
@@ -2204,4 +2264,3 @@ msgstr "Зберігає одноразові завантаження унік�
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "Швидке завантаження може використовувати окремі відео, плейлисти, канали, пошук і Bulk URLs."
-

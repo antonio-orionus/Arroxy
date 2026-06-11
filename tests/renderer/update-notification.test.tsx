@@ -22,7 +22,7 @@ function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => (
 		shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: overrides.openExternal ?? vi.fn().mockResolvedValue(ok({opened: true}))},
 		logs: {openDir: vi.fn().mockResolvedValue(ok({opened: true}))},
 		dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'}))},
-		events: {onStatus: vi.fn().mockReturnValue(() => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined), onWarmupProgress: vi.fn().mockReturnValue(() => undefined)},
+		events: {onStatus: vi.fn().mockReturnValue(() => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onProbeProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined), onWarmupProgress: vi.fn().mockReturnValue(() => undefined)},
 		queue: {
 			cmd: {
 				add: vi.fn().mockResolvedValue({ok: true, data: {ids: []}}),

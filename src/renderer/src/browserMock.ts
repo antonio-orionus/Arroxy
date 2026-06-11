@@ -1,5 +1,5 @@
 import type {AppApi} from '@shared/api.js'
-import type {AppSettings, DependencyDiagnostic, DependencyId, ProgressEvent, QueueItem, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
+import type {AppSettings, DependencyDiagnostic, DependencyId, ProbeProgressEvent, ProgressEvent, QueueItem, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
 import {QUEUE_STATUS, STATUS_KEY, YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
 import {BROWSER_MOCK_LAUNCH_MODES, buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, shouldShowBrowserMockStartupSplash, type BrowserMockLaunchMode, type BrowserMockScenario} from './dev/browserMockScenarios.js'
 import {applyThemeLive, readKnobs, RTL_LANGS} from './dev/browserMockKnobs.js'
@@ -101,6 +101,7 @@ export function installBrowserMock(): void {
 
 	const statusListeners = new Set<(e: StatusEvent) => void>()
 	const progressListeners = new Set<(e: ProgressEvent) => void>()
+	const probeProgressListeners = new Set<(e: ProbeProgressEvent) => void>()
 	const updateListeners = new Set<(info: UpdateAvailablePayload) => void>()
 	const warmupProgressListeners = new Set<(e: WarmupProgressEvent) => void>()
 	const clipboardUrlListeners = new Set<(url: string) => void>()
@@ -425,6 +426,10 @@ export function installBrowserMock(): void {
 			onProgress: listener => {
 				progressListeners.add(listener)
 				return () => progressListeners.delete(listener)
+			},
+			onProbeProgress: listener => {
+				probeProgressListeners.add(listener)
+				return () => probeProgressListeners.delete(listener)
 			},
 			onClipboardUrl: listener => {
 				clipboardUrlListeners.add(listener)

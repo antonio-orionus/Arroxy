@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "جارٍ جلب القائمة…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "محدود بأول {{count}} عنصر"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "تم العثور على صفحة واحدة"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "تم العثور على {{count}} صفحات"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "جارٍ جمع الفيديوهات"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "جارٍ فحص صفحات القناة"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "حدد فيديو واحداً على الأقل للمتابعة"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "يُعيَّن إلى yt-dlp --playlist-end: يطلب Arroxy هذا العدد فقط من إدخالات القائمة أو القناة أو البحث عند بناء أداة الاختيار."
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "ملف التعريف النشط"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "تغيير وجهة الحفظ العامة"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "الوجهة"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "تعديل ملف التعريف النشط"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "إدارة ملفات التعريف"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "غيّر ملف التعريف النشط للتنزيل السريع وعناوين URL المتعددة وقوائم التشغيل."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "تبديل ملف التعريف"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "ملف تعريف جديد"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "تبديل ملف تعريف التنزيل: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "تبديل ملف تعريف التنزيل"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "مسح"
@@ -2204,4 +2264,3 @@ msgstr "يبقي التنزيلات الفردية فريدة عندما تتغ�
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "يمكن للتنزيل السريع استخدام فيديوهات مفردة وقوائم تشغيل وقنوات وعمليات بحث وروابط مجمّعة."
-

@@ -157,13 +157,20 @@ function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, in
 
 function quickDownloadFailureText(t: TFunction, message: QuickDownloadFailureMessage | null): string {
 	if (!message) return ''
-	if (message.kind === 'i18n') return t(message.key)
-	if (message.kind === 'text') return message.text
-	if (message.kind === 'bulk-probe') {
-		const probeText = formatProbeError(message.error) || t('wizard.url.quickProbeFailed')
-		return `${t('wizard.url.quickBulkAllFailed')}: ${probeText}`
+	switch (message.kind) {
+		case 'i18n':
+			return t(message.key)
+		case 'text':
+			return message.text
+		case 'bulk-probe': {
+			const probeText = formatProbeError(message.error) || t('wizard.url.quickProbeFailed')
+			return `${t('wizard.url.quickBulkAllFailed')}: ${probeText}`
+		}
+		case 'probe':
+			return formatProbeError(message.error) || t('wizard.url.quickProbeFailed')
 	}
-	return formatProbeError(message.error) || t('wizard.url.quickProbeFailed')
+	const exhaustive: never = message
+	return exhaustive
 }
 
 function QuickDownloadErrorAlert({experience, message, onEnableCookiesAndRetry, onOpenCookiesSettings, onRetry, t}: {experience: ProbeErrorExperience | null; message: string; onEnableCookiesAndRetry: () => void; onOpenCookiesSettings: () => void; onRetry: () => void; t: TFunction}): ReactNode {

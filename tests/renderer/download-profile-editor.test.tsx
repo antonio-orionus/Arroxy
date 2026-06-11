@@ -142,6 +142,24 @@ describe('DownloadProfileEditor', () => {
 		})
 	})
 
+	it('shows a recoverable error when changing the global destination fails', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		expect(profile).toBeDefined()
+		const onChangeGlobalDestination = vi.fn<() => Promise<void>>().mockRejectedValue(new Error('dialog unavailable'))
+		const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+		try {
+			render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} globalDestination="/home/user/Downloads" commonPaths={LINUX_COMMON_PATHS} onChangeGlobalDestination={onChangeGlobalDestination} />)
+
+			fireEvent.click(screen.getByRole('button', {name: 'Change global destination'}))
+
+			expect(await screen.findByText('Could not change global destination.')).toBeInTheDocument()
+			expect(onChangeGlobalDestination).toHaveBeenCalled()
+		} finally {
+			consoleError.mockRestore()
+		}
+	})
+
 	it('chooses and clears a profile-specific destination override', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
 		expect(profile).toBeDefined()
@@ -210,5 +228,22 @@ describe('DownloadProfileEditor', () => {
 			expect(onReset).toHaveBeenCalled()
 			expect(onOpenChange).toHaveBeenCalledWith(false)
 		})
+	})
+
+	it('shows a recoverable error when resetting a profile fails', async () => {
+		const profile = {...BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')!, name: 'Balanced Custom'}
+		const onReset = vi.fn<() => Promise<void>>().mockRejectedValue(new Error('reset unavailable'))
+		const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+		try {
+			render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} resetProfile={{enabled: true, onReset}} />)
+
+			fireEvent.click(screen.getByRole('button', {name: 'Reset profile'}))
+
+			expect(await screen.findByText('Could not reset profile settings.')).toBeInTheDocument()
+			expect(onReset).toHaveBeenCalled()
+		} finally {
+			consoleError.mockRestore()
+		}
 	})
 })

@@ -18,6 +18,7 @@ import type {
 	PlaylistSelection,
 	Preset,
 	ProbeError,
+	ProbeProgressEvent,
 	ProbeDegradationReason,
 	QueueItem,
 	QueueLane,
@@ -82,6 +83,7 @@ export interface ProbeOrchestratorSlice {
 	playlistIsMultiVideo: boolean
 	playlistLikelyCapped: boolean
 	playlistProbeLoading: boolean
+	playlistProbeProgress: ProbeProgressEvent | null
 	playlistScopeReloading: boolean
 	playlistScopeError: string | null
 	playlistScope: PlaylistScope
@@ -112,6 +114,7 @@ export interface ProbeOrchestratorSlice {
 	quickDownload: () => Promise<void>
 	quickDownloadUrls: (urls: string[]) => Promise<void>
 	retryQuickDownloadFailure: () => Promise<void>
+	retryQuickPlaylistCap: () => Promise<void>
 	retryQuickDownloadWithCookies: () => Promise<void>
 	cancelQuickDownload: () => void
 	startBulkUrls: (urls: string[]) => void

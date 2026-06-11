@@ -38,7 +38,7 @@ class FakeDownloadService extends EventEmitter {
 
 function makeDeps() {
 	const downloadService = new FakeDownloadService()
-	const probeService = {probe: vi.fn()}
+	const probeService = Object.assign(new EventEmitter(), {probe: vi.fn(), cancelInFlight: vi.fn()})
 	const mainWindow = {isDestroyed: vi.fn().mockReturnValue(false), webContents: {send: vi.fn()}, minimize: vi.fn(), maximize: vi.fn(), unmaximize: vi.fn(), close: vi.fn(), isMaximized: vi.fn().mockReturnValue(false)}
 	const queueService = Object.assign(new EventEmitter(), {
 		add: vi.fn().mockReturnValue({ok: true, data: {ids: []}}),

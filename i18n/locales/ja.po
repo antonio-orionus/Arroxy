@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Playlist を取得中…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "最初の {{count}} 件に制限"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}} ページが見つかりました"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}} ページが見つかりました"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "動画を収集中"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "チャンネルページをスキャン中"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "続行するには少なくとも1本の動画を選択してください"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp の --playlist-end に対応します：Arroxy はピッカーを構築する際、この件数のプレイリスト・チャンネル・検索エントリのみ取得します。"
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "アクティブなプロファイル"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "グローバル保存先を変更"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "保存先"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "アクティブなプロファイルを編集"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "プロファイルを管理"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "クイックダウンロード、一括 URL、プレイリストで使うアクティブなプロファイルを変更します。"
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "プロファイルを切り替え"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "新しいプロファイル"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "ダウンロードプロファイルを切り替え: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "ダウンロードプロファイルを切り替え"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "クリア"
@@ -2204,4 +2264,3 @@ msgstr "タイトルが変わったり重複したりしても、単発ダウン
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "クイックダウンロードは、単体動画、プレイリスト、チャンネル、検索、Bulk URL を使用できます。"
-

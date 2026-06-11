@@ -103,16 +103,21 @@ export function useDownloadHomeView(): DownloadHomeView {
 	)
 	const profiles = useMemo(() => allDownloadProfiles(state.profilesPrefs), [state.profilesPrefs])
 	const activeProfile = useMemo(() => resolveActiveDownloadProfile(state.profilesPrefs).profile, [state.profilesPrefs])
+	const commonSettings = state.commonSettings
 	const activeProfileDestination = useMemo(() => {
-		const outputDir = resolveDownloadProfileOutputDir(activeProfile, {currentOutputDir: state.wizardOutputDir ?? '', defaultOutputDir: state.commonSettings?.defaultOutputDir ?? ''})
-		return formatHomeRelativePath(outputDir, state.commonSettings?.commonPaths)
-	}, [activeProfile, state.commonSettings?.commonPaths, state.commonSettings?.defaultOutputDir, state.wizardOutputDir])
+		try {
+			const outputDir = resolveDownloadProfileOutputDir(activeProfile, {currentOutputDir: state.wizardOutputDir ?? '', defaultOutputDir: commonSettings?.defaultOutputDir ?? ''})
+			return formatHomeRelativePath(outputDir, commonSettings?.commonPaths)
+		} catch {
+			return ''
+		}
+	}, [activeProfile, commonSettings, state.wizardOutputDir])
 	const currentGlobalDestinationRoot = state.wizardOutputDir?.trim() ?? ''
-	const globalDestinationRoot = currentGlobalDestinationRoot.length > 0 ? currentGlobalDestinationRoot : (state.commonSettings?.defaultOutputDir ?? '')
+	const globalDestinationRoot = currentGlobalDestinationRoot.length > 0 ? currentGlobalDestinationRoot : (commonSettings?.defaultOutputDir ?? '')
 	const inputType = useMemo(() => detectUrlType(state.wizardUrl), [state.wizardUrl])
 	const quickDownloadFailureText = useMemo(() => quickDownloadFailureMessage(state.quickDownloadFailure), [state.quickDownloadFailure])
 	const quickDownloadProbeFailureError = useMemo(() => quickDownloadProbeFailure(state.quickDownloadFailure), [state.quickDownloadFailure])
-	const quickDownloadProbeExperience = useMemo(() => (quickDownloadProbeFailureError ? buildProbeErrorExperience({error: quickDownloadProbeFailureError, commonSettings: state.commonSettings}) : null), [quickDownloadProbeFailureError, state.commonSettings])
+	const quickDownloadProbeExperience = useMemo(() => (quickDownloadProbeFailureError ? buildProbeErrorExperience({error: quickDownloadProbeFailureError, commonSettings}) : null), [quickDownloadProbeFailureError, commonSettings])
 	const hasInput = state.wizardUrl.trim().length > 0
 	const quickPreparing = state.quickDownloadStatus === 'preparing'
 
@@ -121,7 +126,7 @@ export function useDownloadHomeView(): DownloadHomeView {
 		activeProfile,
 		activeProfileDestination,
 		activeProfileDestinationDetail: activeProfileDestinationDetail(activeProfile),
-		commonPaths: state.commonSettings?.commonPaths,
+		commonPaths: commonSettings?.commonPaths,
 		globalDestinationRoot,
 		hasInput,
 		inputType,

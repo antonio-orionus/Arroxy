@@ -10,6 +10,7 @@ import {
 	downloadProfileRefFor,
 	removeDownloadProfileFromPrefs,
 	resolveActiveDownloadProfile,
+	resolveDownloadProfileBaseDir,
 	resolveDownloadProfile,
 	resolveDownloadProfileOutputDir,
 	saveDownloadProfileToPrefs
@@ -126,6 +127,14 @@ describe('download profiles', () => {
 
 		const flat = customProfile({output: {kind: 'default'}, subfolder: {enabled: false, name: 'Ignored'}})
 		expect(resolveDownloadProfileOutputDir(flat, {currentOutputDir: '', defaultOutputDir: '/home/user/Downloads'})).toBe('/home/user/Downloads')
+	})
+
+	it('rejects default profile output when no output root is available', () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		if (!balanced) throw new Error('expected balanced profile')
+
+		expect(() => resolveDownloadProfileBaseDir(balanced, {currentOutputDir: '', defaultOutputDir: ''})).toThrow('Download profile output directory is required')
+		expect(() => resolveDownloadProfileOutputDir(balanced, {currentOutputDir: '', defaultOutputDir: ''})).toThrow('Download profile output directory is required')
 	})
 
 	it('upserts and removes custom profiles while preserving active fallback', () => {

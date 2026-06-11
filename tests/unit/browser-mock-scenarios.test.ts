@@ -115,6 +115,18 @@ describe('browser mock scenarios', () => {
 		expect(lastPatch).toMatchObject({wizardStep: 'confirm'})
 	})
 
+	it('applies the playlist loading scaffold scenario directly', async () => {
+		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
+
+		await applyScenarioWorkbenchState({scenario: getScenario('playlist-loading'), params: readUrlParams(new URL('http://localhost:5173/?scenario=playlist-loading')), store})
+
+		expect(getScenario('playlist-loading')).toMatchObject({title: 'Playlist loading scaffold', kind: 'state'})
+		expect(store.reset).toHaveBeenCalledOnce()
+		expect(store.submitUrl).not.toHaveBeenCalled()
+		const patch = vi.mocked(store.setState).mock.calls[0]?.[0]
+		expect(patch).toMatchObject({wizardStep: 'playlistItems', wizardMode: 'playlist', playlistItems: [], selectedPlaylistItemIds: [], playlistProbeLoading: true, playlistProbeProgress: {phase: 'pages', loaded: 33}})
+	})
+
 	it('applies profile scenario states through the workbench interface', async () => {
 		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
 

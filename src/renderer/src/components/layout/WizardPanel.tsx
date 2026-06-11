@@ -43,7 +43,7 @@ export function WizardPanel(): ReactNode {
 	}, [activeIndex])
 
 	return (
-		<section className={cn('px-6 min-h-full flex flex-col', isDownloadHome ? 'pt-4' : 'pt-3', isBackward ? 'wizard-backward' : 'wizard-forward')} data-testid="wizard-panel">
+		<section className={cn('flex min-h-full min-w-0 flex-col px-6', isDownloadHome ? 'pt-4' : 'pt-3', isBackward ? 'wizard-backward' : 'wizard-forward')} data-testid="wizard-panel">
 			{wizardStep !== 'error' && !isDownloadHome && (
 				<div className="flex items-center mb-4" aria-hidden data-testid="step-indicator">
 					{visibleSteps.map((stepKey, i) => {

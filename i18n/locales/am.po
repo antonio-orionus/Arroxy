@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Playlist እየጫኑ…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "ለመጀመሪያዎቹ {{count}} ንጥሎች ብቻ ተገድቧል"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}} ገጽ ተገኝቷል"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}} ገጾች ተገኝተዋል"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "ቪዲዮዎችን በመሰብሰብ ላይ"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "የቻናል ገጾችን በመፈተሽ ላይ"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "ለመቀጠል ቢያንስ አንድ ቪዲዮ ምረጥ"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp --playlist-end ጋር ይዛመዳል: Arroxy ምርጫ ሲሰራ ከ playlist፣ ቻናል፣ ወይም ፍለጋ ውጤቶች ይህን ያህል ብቻ ይጠይቃል።"
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "ንቁ መገለጫ"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "አጠቃላይ መዳረሻ ቀይር"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "መዳረሻ"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "ንቁ መገለጫ አርትዕ"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "መገለጫዎችን አስተዳድር"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "ለፈጣን ማውረድ፣ ለብዙ URL-ዎች እና ለአጫዋች ዝርዝሮች ንቁውን መገለጫ ቀይር።"
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "መገለጫ ቀይር"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "አዲስ መገለጫ"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "የማውረጃ መገለጫ ቀይር፦ {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "የማውረጃ መገለጫ ቀይር"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "አጽዳ"
@@ -2204,4 +2264,3 @@ msgstr "ርዕሶች ሲቀየሩ ወይም ሲጋጩ ነጠላ ማውረዶች�
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "ፈጣን አውርድ ነጠላ ቪዲዮዎችን፣ playlists፣ channels፣ ፍለጋዎችን እና Bulk URLsን መጠቀም ይችላል።"
-

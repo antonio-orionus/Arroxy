@@ -290,6 +290,15 @@ export interface PlaylistProbeResult extends ProbeCommon {
 
 export type ProbeResult = VideoProbeResult | PlaylistProbeResult
 
+export interface ProbeProgressEvent {
+	url: string
+	playlistMode: ProbePlaylistMode
+	phase: 'pages' | 'items'
+	loaded: number
+	total?: number
+	at: string
+}
+
 export type DownloadStage = 'setup' | 'token' | 'download' | 'done' | 'error'
 
 export interface StatusEvent {

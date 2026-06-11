@@ -1407,6 +1407,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr ""
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr ""
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr ""
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr ""
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr ""
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr ""
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr ""
@@ -2105,6 +2125,46 @@ msgstr ""
 
 msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr ""
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr ""
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr ""
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr ""
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr ""
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr ""
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr ""
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr ""
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr ""
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr ""
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
 msgstr ""
 
 msgctxt "wizard.url.proxy.clear"

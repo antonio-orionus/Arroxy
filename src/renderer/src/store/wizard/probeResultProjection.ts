@@ -59,6 +59,7 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			playlistId: '',
 			playlistIsMultiVideo: false,
 			playlistLikelyCapped: false,
+			playlistProbeProgress: null,
 			playlistScopeReloading: false,
 			bulkMetadataStatus: 'idle',
 			bulkMetadataCompleted: 0,
@@ -74,7 +75,7 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 }
 
 export function projectProbeFailure(error: AppState['wizardError']): Partial<AppState> {
-	return {wizardStep: 'error', formatsLoading: false, playlistProbeLoading: false, wizardError: error, wizardErrorOrigin: 'formats', wizardFormatsDegraded: null}
+	return {wizardStep: 'error', formatsLoading: false, playlistProbeLoading: false, playlistProbeProgress: null, wizardError: error, wizardErrorOrigin: 'formats', wizardFormatsDegraded: null}
 }
 
 export function projectVideoProbeResult(probe: Extract<ProbeResult, {kind: 'video'}>, state: AppState, firstProbe: boolean): Partial<AppState> {
@@ -122,6 +123,7 @@ export function projectVideoProbeResult(probe: Extract<ProbeResult, {kind: 'vide
 			: {}),
 		formatsLoading: false,
 		playlistProbeLoading: false,
+		playlistProbeProgress: null,
 		playlistItems: [],
 		selectedPlaylistItemIds: [],
 		playlistTitle: '',
@@ -160,6 +162,7 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 		playlistLikelyCapped,
 		playlistScopeError: null,
 		playlistProbeLoading: false,
+		playlistProbeProgress: null,
 		formatsLoading: false,
 		wizardFormats: [],
 		wizardFormatsDegraded: null,
@@ -211,6 +214,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState): Bulk
 			playlistId: 'bulk',
 			playlistIsMultiVideo: false,
 			playlistLikelyCapped: false,
+			playlistProbeProgress: null,
 			bulkMetadataStatus: urls.length > 0 ? 'resolving' : 'idle',
 			bulkMetadataCompleted: 0,
 			bulkMetadataTotal: urls.length,

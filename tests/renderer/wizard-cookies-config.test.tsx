@@ -107,13 +107,21 @@ function enterUrlAndStartInteractiveDownload(): void {
 }
 
 describe('advanced network settings', () => {
-	it('renders network pacing settings without playlist scope controls', async () => {
+	it('renders and saves the playlist probe limit control', async () => {
 		render(<StepUrlInput />)
 		openSettingsTab()
 
 		expect(screen.getByTestId('network-pacing-section')).toBeInTheDocument()
-		expect(screen.queryByTestId('playlist-probe-limit-section')).not.toBeInTheDocument()
-		expect(mockApi.settings.update).not.toHaveBeenCalled()
+		const playlistLimitSection = screen.getByTestId('playlist-probe-limit-section')
+		expect(within(playlistLimitSection).getByTestId('profiles-settings-playlist-probe-limit-trigger')).toHaveTextContent('100 items')
+		expect(within(playlistLimitSection).queryByTestId('profiles-settings-playlist-probe-limit-current')).not.toBeInTheDocument()
+
+		fireEvent.click(screen.getByTestId('profiles-settings-playlist-probe-limit-trigger'))
+		fireEvent.click(await screen.findByTestId('profiles-settings-playlist-probe-limit-option-250'))
+
+		await waitFor(() => {
+			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {playlistProbeLimit: 250}})
+		})
 	})
 
 	it('saves the single-filename id suffix switch', async () => {

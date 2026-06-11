@@ -40,6 +40,23 @@ describe('parseBulkUrls', () => {
 
 		expect(result.accepted[0]?.url).toBe('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
 	})
+
+	it('filters obvious non-media file URLs before probing', () => {
+		const result = parseBulkUrls('https://cdn.test/thumb.jpg https://cdn.test/poster.JPEG?size=large https://files.test/report.pdf https://example.com/video https://example.com/video')
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://example.com/video'])
+		expect(result.rejected.map(item => item.reason)).toEqual(['duplicate'])
+		expect(result.duplicateCount).toBe(1)
+		expect(result.nonMediaCount).toBe(3)
+		expect(result.ignoredCount).toBe(4)
+	})
+
+	it('keeps direct audio and video file URLs eligible for yt-dlp', () => {
+		const result = parseBulkUrls('https://cdn.test/clip.mp4 https://cdn.test/song.mp3 https://stream.test/live.m3u8 https://example.com/images/watch')
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://cdn.test/clip.mp4', 'https://cdn.test/song.mp3', 'https://stream.test/live.m3u8', 'https://example.com/images/watch'])
+		expect(result.nonMediaCount).toBe(0)
+	})
 })
 
 describe('isClearlyIndividualYouTubeUrl', () => {

@@ -14,7 +14,7 @@ export interface EnsureZippedBinaryConfig {
 	archiveFileName: string
 	innerExecutableName: string
 	destinationPath: string
-	expectedSha256: string
+	expectedSha256?: string
 	onStatus?: StatusReporter
 	onDownloadProgress?: DownloadProgressCallback
 	signal?: AbortSignal
@@ -56,10 +56,12 @@ export class ZippedBinaryInstaller {
 			onStatus?.('downloadingBinary', {name})
 			await withManagedSetupStep('download', () => downloadFile(config.downloadUrl, zipPath, onDownloadProgress, true, signal))
 
-			const actual = await withManagedSetupStep('checksum_verify', () => sha256ForFile(zipPath))
 			const expected = config.expectedSha256
-			if (actual !== expected) {
-				throw new ManagedSetupError('checksum_verify', new Error(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`))
+			if (expected) {
+				const actual = await withManagedSetupStep('checksum_verify', () => sha256ForFile(zipPath))
+				if (actual !== expected) {
+					throw new ManagedSetupError('checksum_verify', new Error(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`))
+				}
 			}
 
 			const extractDir = path.join(tempDir, 'unpacked')

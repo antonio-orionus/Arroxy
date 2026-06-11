@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Playlist wird geladen…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Auf die ersten {{count}} Einträge begrenzt"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}} Seite gefunden"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}} Seiten gefunden"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Videos werden gesammelt"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Kanalseiten werden geprüft"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Wähle mindestens ein Video aus, um fortzufahren"
@@ -1759,7 +1779,7 @@ msgstr "Hintergrundqualität"
 
 msgctxt "wizard.url.backdrop.panelDescription"
 msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Wählen Sie, wie viel Bewegung Arroxy für den animierten Hintergrund verwendet."
+msgstr "Wähle, wie viel Bewegung Arroxy für den animierten Hintergrund verwendet."
 
 msgctxt "wizard.url.backdrop.panelTitle"
 msgid "Appearance and performance"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "Entspricht yt-dlp --playlist-end: Arroxy fragt nur so viele Playlist-, Kanal- oder Suchergebnisse ab, bevor die Auswahl angezeigt wird."
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Aktives Profil"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Globales Ziel ändern"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Ziel"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Aktives Profil bearbeiten"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Profile verwalten"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Ändere das aktive Profil für Quick Download, Bulk-URLs und Playlists."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Profil wechseln"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Neues Profil"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Download-Profil wechseln: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Download-Profil wechseln"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "Löschen"
@@ -2204,4 +2264,3 @@ msgstr "Hält einzelne Downloads eindeutig, wenn sich Titel ändern oder kollidi
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "Schnelldownload kann einzelne Videos, Playlists, Kanäle, Suchen und Bulk-URLs verwenden."
-

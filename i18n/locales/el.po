@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Φόρτωση playlist…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Περιορισμένο στα πρώτα {{count}} στοιχεία"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Βρέθηκε {{count}} σελίδα"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Βρέθηκαν {{count}} σελίδες"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Συλλογή βίντεο"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Σάρωση σελίδων καναλιού"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Επέλεξε τουλάχιστον ένα βίντεο για να συνεχίσεις"
@@ -1759,7 +1779,7 @@ msgstr "Ποιότητα φόντου"
 
 msgctxt "wizard.url.backdrop.panelDescription"
 msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Επιλέξτε πόση κίνηση χρησιμοποιεί το Arroxy για το κινούμενο φόντο."
+msgstr "Επίλεξε πόση κίνηση χρησιμοποιεί το Arroxy για το κινούμενο φόντο."
 
 msgctxt "wizard.url.backdrop.panelTitle"
 msgid "Appearance and performance"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "Αντιστοιχεί στο yt-dlp --playlist-end: το Arroxy ζητά μόνο τόσες εγγραφές playlist, καναλιού ή αναζήτησης κατά τη δημιουργία του picker."
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Ενεργό προφίλ"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Αλλαγή καθολικού προορισμού"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Προορισμός"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Επεξεργασία ενεργού προφίλ"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Διαχείριση προφίλ"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Άλλαξε το ενεργό προφίλ για Γρήγορη λήψη, μαζικά URL και playlist."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Αλλαγή προφίλ"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Νέο προφίλ"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Αλλαγή προφίλ λήψης: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Αλλαγή προφίλ λήψης"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "Εκκαθάριση"
@@ -2204,4 +2264,3 @@ msgstr "Κρατά τις μεμονωμένες λήψεις μοναδικές
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "Η Γρήγορη λήψη μπορεί να χρησιμοποιήσει μεμονωμένα βίντεο, playlist, κανάλια, αναζητήσεις και Bulk URLs."
-

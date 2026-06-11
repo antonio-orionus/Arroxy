@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Playlist fidaa jira…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Wantoota jalqabaa {{count}} qofatti daangeffame"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Fuulli {{count}} argame"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Fuulonni {{count}} argaman"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Viidiyoowwan walitti qabaa jira"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Fuulota chaanaalii sakattaʼaa jira"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Itti fufuuf viidiyoo tokko yoo xiqqaate filadhu"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp --playlist-end waliin walsimsiisa: Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Profaayilii hojiirra jiru"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Bakki waliigalaa jijjiiri"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Bakki itti olkaa'amu"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Profaayilii hojiirra jiru gulaali"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Profaayilii bulchi"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Quick Download, URL baay'ee fi playlist'f profaayilii hojiirra jiru jijjiiri."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Profaayilii jijjiiri"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Profaayilii haaraa"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Profaayilii bu'uuraa buusaa jijjiiri: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Profaayilii bu'uuraa buusaa jijjiiri"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "Haquu"
@@ -2204,4 +2264,3 @@ msgstr "Mata dureewwan yeroo jijjiiraman ykn walitti bu’an buufata tokko tokko
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "Quick Download viidiyoo tokko, playlist, channel, barbaacha, fi Bulk URLs fayyadamuu ni danda'a."
-

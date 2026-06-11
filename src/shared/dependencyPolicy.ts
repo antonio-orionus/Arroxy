@@ -10,6 +10,6 @@ function requiredDependencyIds(ctx: DependencyRequirementContext = {}): readonly
 	return ctx.skipDeno ? RUNTIME_REQUIRED_DEPENDENCY_IDS.filter(id => id !== 'deno') : RUNTIME_REQUIRED_DEPENDENCY_IDS
 }
 
-export function blockingDependencyFailures(dependencies: Record<DependencyId, DependencyDiagnostic>, ctx: DependencyRequirementContext = {}): DependencyId[] {
-	return requiredDependencyIds(ctx).filter(id => dependencies[id].state !== 'runnable')
+export function blockingDependencyFailures(dependencies: Partial<Record<DependencyId, DependencyDiagnostic>>, ctx: DependencyRequirementContext = {}): DependencyId[] {
+	return requiredDependencyIds(ctx).filter(id => dependencies[id]?.state !== 'runnable')
 }

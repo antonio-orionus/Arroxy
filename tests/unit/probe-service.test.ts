@@ -2,6 +2,7 @@ import {EventEmitter} from 'node:events'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {ProbeService} from '@main/services/ProbeService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
+import type {ProbeProgressEvent} from '@shared/types.js'
 
 vi.mock('@main/utils/process', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
@@ -70,6 +71,50 @@ describe('ProbeService — video probe', () => {
 })
 
 describe('ProbeService — playlist probe', () => {
+	it('parses the final JSON object when yt-dlp emits playlist status before stdout JSON', async () => {
+		const json = JSON.stringify({_type: 'playlist', id: 'PL1', title: 'My Songs', extractor: 'youtube:tab', extractor_key: 'YoutubeTab', webpage_url: 'https://www.youtube.com/playlist?list=PL1', entries: [{_type: 'url', id: 'song-1', title: 'First Song', url: 'https://www.youtube.com/watch?v=song-1'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(`[download] Downloading playlist: My Songs\n[download] Downloading item 1 of 2\n${json}\n`) as never)
+
+		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL1')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'playlist') {
+			expect(r.data.playlistTitle).toBe('My Songs')
+			expect(r.data.entries).toHaveLength(1)
+		}
+	})
+
+	it('emits playlist probe progress from yt-dlp item status lines', async () => {
+		const json = JSON.stringify({_type: 'playlist', id: 'PL1', title: 'My Songs', extractor: 'youtube:tab', extractor_key: 'YoutubeTab', webpage_url: 'https://www.youtube.com/playlist?list=PL1', entries: [{_type: 'url', id: 'song-1', title: 'First Song', url: 'https://www.youtube.com/watch?v=song-1'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(`[download] Downloading item 1 of 3\n[download] Downloading item 2 of 3\n${json}`) as never)
+		const svc = makeProbeService()
+		const events: ProbeProgressEvent[] = []
+		svc.on('progress', event => events.push(event as ProbeProgressEvent))
+
+		await svc.probe('https://www.youtube.com/playlist?list=PL1', 'off', 'playlist')
+
+		expect(events).toMatchObject([
+			{url: 'https://www.youtube.com/playlist?list=PL1', playlistMode: 'playlist', phase: 'items', loaded: 1, total: 3},
+			{url: 'https://www.youtube.com/playlist?list=PL1', playlistMode: 'playlist', phase: 'items', loaded: 2, total: 3}
+		])
+	})
+
+	it('emits page progress before item enumeration for large YouTube tabs', async () => {
+		const json = JSON.stringify({_type: 'playlist', id: 'PL1', title: 'My Songs', extractor: 'youtube:tab', extractor_key: 'YoutubeTab', webpage_url: 'https://www.youtube.com/playlist?list=PL1', entries: [{_type: 'url', id: 'song-1', title: 'First Song', url: 'https://www.youtube.com/watch?v=song-1'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(`[youtube:tab] UCLS06KHRaHWUwUkYnhXsZpQ page 23: Downloading API JSON\n[youtube:tab] UCLS06KHRaHWUwUkYnhXsZpQ page 24: Downloading API JSON\n[download] Downloading item 1 of 3\n${json}`) as never)
+		const svc = makeProbeService()
+		const events: ProbeProgressEvent[] = []
+		svc.on('progress', event => events.push(event as ProbeProgressEvent))
+
+		await svc.probe('https://www.youtube.com/@sunnyboy66/videos', 'off', 'playlist')
+
+		expect(events).toMatchObject([
+			{url: 'https://www.youtube.com/@sunnyboy66/videos', playlistMode: 'playlist', phase: 'pages', loaded: 23},
+			{url: 'https://www.youtube.com/@sunnyboy66/videos', playlistMode: 'playlist', phase: 'pages', loaded: 24},
+			{url: 'https://www.youtube.com/@sunnyboy66/videos', playlistMode: 'playlist', phase: 'items', loaded: 1, total: 3}
+		])
+	})
+
 	it('parses _type:playlist and surfaces entries with isAudioOnlySource', async () => {
 		const json = JSON.stringify({
 			_type: 'playlist',

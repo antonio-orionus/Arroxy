@@ -120,12 +120,17 @@ function ProfileMenu({
 	model: DownloadProfileActionModel
 	testIdPrefix: 'profiles' | 'bulk'
 }): ReactNode {
+	const {t} = useTranslation()
 	const menuTestId = `${testIdPrefix}-profile-menu`
 	const [menuOpen, setMenuOpen] = useState(defaultOpen)
 	const {ActiveIcon, activeSummary, options} = model
 	const destinationLabel = compact ? undefined : destination?.trim()
 	const destinationDetailText = destinationDetail?.trim()
-	const destinationDetailLabel = destinationDetailText === undefined || destinationDetailText.length === 0 ? 'Destination' : destinationDetailText
+	const destinationDetailLabel = destinationDetailText === undefined || destinationDetailText.length === 0 ? t('wizard.url.profile.destinationFallback') : destinationDetailText
+	const activeProfileLabel = t('wizard.url.profile.activeLabel')
+	const changeGlobalDestinationLabel = t('wizard.url.profile.changeGlobalDestination')
+	const editActiveProfileLabel = t('wizard.url.profile.editActive')
+	const switchProfileTitle = t('wizard.url.profile.switchTitle')
 
 	function closeAndRun(action: () => void): void {
 		setMenuOpen(false)
@@ -147,8 +152,8 @@ function ProfileMenu({
 							<Button
 								type="button"
 								variant="ghost"
-								aria-label={`Switch download profile: ${activeProfile.name}`}
-								title="Switch download profile"
+								aria-label={t('wizard.url.profile.switchAria', {profileName: activeProfile.name})}
+								title={switchProfileTitle}
 								className={cn('quick-profile-selector-trigger h-auto min-w-0 flex-1 justify-start whitespace-normal rounded-xl bg-transparent text-left hover:bg-transparent', compact ? 'gap-3 px-1.5 py-1.5' : 'gap-2 px-1.5 py-1.5 md:gap-3')}
 								data-testid={`${testIdPrefix}-active-profile-trigger`}
 							>
@@ -156,7 +161,7 @@ function ProfileMenu({
 									<ActiveIcon aria-hidden />
 								</span>
 								<span className="min-w-0 flex-1">
-									<span className="quick-profile-selector-kicker mb-1 block truncate text-label uppercase">Active profile</span>
+									<span className="quick-profile-selector-kicker mb-1 block truncate text-label uppercase">{activeProfileLabel}</span>
 									<span className={cn('quick-profile-selector-title block truncate', compact ? 'text-title' : 'text-title md:text-headline')}>{activeProfile.name}</span>
 									<span className={cn('quick-profile-selector-meta mt-0.5 block truncate font-normal leading-snug', compact ? 'text-xs' : 'text-xs md:text-sm')}>{activeSummary}</span>
 								</span>
@@ -174,7 +179,7 @@ function ProfileMenu({
 									type="button"
 									variant="ghost"
 									size="icon"
-									aria-label="Edit active profile"
+									aria-label={editActiveProfileLabel}
 									onClick={() => closeAndRun(() => onEditProfile(activeProfile))}
 									className={cn('quick-profile-inline-action shrink-0 rounded-full text-[var(--quick-selector-muted)] hover:text-[var(--quick-selector-ink)]', compact ? 'size-9' : 'size-10')}
 									data-testid={`${testIdPrefix}-edit-active-profile`}
@@ -183,7 +188,7 @@ function ProfileMenu({
 								</Button>
 							)}
 						/>
-						<TooltipContent>Edit active profile</TooltipContent>
+						<TooltipContent>{editActiveProfileLabel}</TooltipContent>
 					</Tooltip>
 				</div>
 				{destinationLabel ? (
@@ -206,7 +211,7 @@ function ProfileMenu({
 											type="button"
 											variant="ghost"
 											size="icon-sm"
-											aria-label="Change global destination"
+											aria-label={changeGlobalDestinationLabel}
 											onClick={() => closeAndRun(onChangeGlobalDestination)}
 											className="quick-profile-inline-action shrink-0 text-[var(--quick-selector-muted)] hover:text-[var(--quick-selector-ink)]"
 											data-testid={`${testIdPrefix}-change-global-destination`}
@@ -215,7 +220,7 @@ function ProfileMenu({
 										</Button>
 									)}
 								/>
-								<TooltipContent>Change global destination</TooltipContent>
+								<TooltipContent>{changeGlobalDestinationLabel}</TooltipContent>
 							</Tooltip>
 						) : null}
 					</div>
@@ -234,8 +239,8 @@ function ProfileMenu({
 				data-testid={menuTestId}
 			>
 				<PopoverHeader>
-					<PopoverTitle className="text-base font-semibold">Switch profile</PopoverTitle>
-					<PopoverDescription className="text-[13px] leading-relaxed">Change the active profile for Quick Download, Bulk URLs, and playlists.</PopoverDescription>
+					<PopoverTitle className="text-base font-semibold">{t('wizard.url.profile.menuTitle')}</PopoverTitle>
+					<PopoverDescription className="text-[13px] leading-relaxed">{t('wizard.url.profile.menuDescription')}</PopoverDescription>
 				</PopoverHeader>
 				<Separator />
 				<div className="grid grid-cols-[repeat(auto-fit,minmax(13.5rem,1fr))] gap-2" data-testid={`${testIdPrefix}-profile-menu-grid`}>
@@ -268,15 +273,15 @@ function ProfileMenu({
 				<div className="grid grid-cols-1 gap-2 sm:grid-cols-3" data-testid={`${testIdPrefix}-profile-menu-actions`}>
 					<Button type="button" variant="outline" size="sm" onClick={() => closeAndRun(() => onEditProfile(activeProfile))}>
 						<PenLine data-icon="inline-start" />
-						Edit active profile
+						{editActiveProfileLabel}
 					</Button>
 					<Button type="button" variant="outline" size="sm" onClick={() => closeAndRun(onNewProfile)}>
 						<Plus data-icon="inline-start" />
-						New profile
+						{t('wizard.url.profile.newProfile')}
 					</Button>
 					<Button type="button" variant="outline" size="sm" onClick={() => closeAndRun(onManageProfiles)}>
 						<Users data-icon="inline-start" />
-						Manage profiles
+						{t('wizard.url.profile.manageProfiles')}
 					</Button>
 				</div>
 			</PopoverContent>

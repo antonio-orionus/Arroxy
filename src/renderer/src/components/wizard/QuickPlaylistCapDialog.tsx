@@ -14,7 +14,7 @@ export function QuickPlaylistCapDialog(): ReactNode {
 	const settings = useAppStore(state => state.settings)
 	const dismissQuickPlaylistCapDialog = useAppStore(state => state.dismissQuickPlaylistCapDialog)
 	const queueLoadedPlaylistWithActiveProfile = useAppStore(state => state.queueLoadedPlaylistWithActiveProfile)
-	const retryFormatProbe = useAppStore(state => state.retryFormatProbe)
+	const retryQuickPlaylistCap = useAppStore(state => state.retryQuickPlaylistCap)
 	const playlistLimit = resolvePlaylistProbeLimit(settings?.common)
 	const itemCount = playlistItems.length
 
@@ -42,8 +42,7 @@ export function QuickPlaylistCapDialog(): ReactNode {
 						testId="quick-playlist-cap-probe-limit"
 						showCurrent={false}
 						onLimitChanged={() => {
-							dismissQuickPlaylistCapDialog()
-							void retryFormatProbe()
+							void retryQuickPlaylistCap()
 						}}
 					/>
 				</div>

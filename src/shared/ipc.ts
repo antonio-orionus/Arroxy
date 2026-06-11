@@ -9,6 +9,7 @@ export const IPC_CHANNELS = {
 	downloadsResume: 'downloads:resume',
 	downloadsProbe: 'downloads:probe',
 	downloadsProbeCancel: 'downloads:probeCancel',
+	downloadsProbeProgress: 'downloads:probeProgress',
 	chooseFolder: 'dialog:chooseFolder',
 	chooseFile: 'dialog:chooseFile',
 	settingsGet: 'settings:get',

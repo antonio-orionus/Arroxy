@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Playlist لائی جا رہی ہے…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "پہلے {{count}} آئٹمز تک محدود"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}} صفحہ ملا"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}} صفحات ملے"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "ویڈیوز جمع ہو رہی ہیں"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "چینل صفحات اسکین ہو رہے ہیں"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "جاری رکھنے کے لیے کم از کم ایک ویڈیو منتخب کریں"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp --playlist-end سے میپ ہوتا ہے: Arroxy پِکر بناتے وقت صرف اتنے playlist، چینل، یا تلاش کے اندراجات مانگتا ہے۔"
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "فعال پروفائل"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "عالمی منزل تبدیل کریں"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "منزل"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "فعال پروفائل میں ترمیم کریں"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "پروفائلز کا نظم کریں"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Quick Download، متعدد URLs اور پلے لسٹس کے لیے فعال پروفائل تبدیل کریں۔"
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "پروفائل تبدیل کریں"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "نیا پروفائل"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "ڈاؤن لوڈ پروفائل تبدیل کریں: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "ڈاؤن لوڈ پروفائل تبدیل کریں"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "صاف کریں"
@@ -2204,4 +2264,3 @@ msgstr "عنوان بدلنے یا ٹکرانے پر ایک بار کی ڈاؤن
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "فوری ڈاؤنلوڈ واحد ویڈیوز، پلے لسٹس، چینلز، تلاشوں، اور Bulk URLs استعمال کر سکتا ہے۔"
-

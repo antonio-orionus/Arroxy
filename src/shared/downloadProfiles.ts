@@ -160,10 +160,16 @@ export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadPr
 }
 
 export function resolveDownloadProfileBaseDir(profile: DownloadProfile, context: DownloadProfileOutputContext): string {
-	if (profile.output.kind === 'fixed') return profile.output.dir
+	if (profile.output.kind === 'fixed') {
+		const fixedOutputDir = profile.output.dir.trim()
+		if (fixedOutputDir) return fixedOutputDir
+		throw new Error('Download profile output directory is required')
+	}
 	const currentOutputDir = context.currentOutputDir?.trim()
 	if (currentOutputDir) return currentOutputDir
-	return context.defaultOutputDir ?? ''
+	const defaultOutputDir = context.defaultOutputDir?.trim()
+	if (defaultOutputDir) return defaultOutputDir
+	throw new Error('Download profile output directory is required')
 }
 
 export function resolveDownloadProfileOutputDir(profile: DownloadProfile, context: DownloadProfileOutputContext): string {

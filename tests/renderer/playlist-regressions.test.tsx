@@ -27,7 +27,13 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
 		shell: {openFolder: vi.fn(), openExternal: vi.fn()},
 		logs: {openDir: vi.fn()},
 		dialog: {chooseFolder: vi.fn()},
-		events: {onStatus: vi.fn().mockImplementation((_cb: (event: StatusEvent) => void) => () => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined), onWarmupProgress: vi.fn().mockReturnValue(() => undefined)},
+		events: {
+			onStatus: vi.fn().mockImplementation((_cb: (event: StatusEvent) => void) => () => undefined),
+			onProgress: vi.fn().mockReturnValue(() => undefined),
+			onProbeProgress: vi.fn().mockReturnValue(() => undefined),
+			onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
+			onWarmupProgress: vi.fn().mockReturnValue(() => undefined)
+		},
 		queue: {
 			cmd: {
 				add: vi.fn().mockResolvedValue(ok({ids: []})),

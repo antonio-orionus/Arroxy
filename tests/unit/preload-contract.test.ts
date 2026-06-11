@@ -153,6 +153,18 @@ describe('event listeners — strip Electron event wrapper', () => {
 		expect(listener).toHaveBeenCalledWith(fakePayload)
 	})
 
+	it('onProbeProgress: listener receives only the payload', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		const listener = vi.fn()
+		api.events.onProbeProgress(listener)
+
+		const [, wrapped] = ipc.on.mock.calls[0] as [string, (e: unknown, payload: unknown) => void]
+		const fakePayload = {url: 'https://www.youtube.com/playlist?list=PL1', playlistMode: 'playlist', phase: 'items', loaded: 12, total: 100, at: new Date().toISOString()}
+		wrapped({}, fakePayload)
+
+		expect(listener).toHaveBeenCalledWith(fakePayload)
+	})
+
 	it('queue.events.onSnapshot: listener receives items array', () => {
 		const api = createPreloadApi(ipc.ipcRenderer)
 		const listener = vi.fn()

@@ -1,4 +1,4 @@
-import {render, screen, fireEvent, waitFor} from '@testing-library/react'
+import {act, render, screen, fireEvent, waitFor} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {App} from '@renderer/App.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
@@ -166,6 +166,20 @@ describe('App renderer', () => {
 		expect(screen.getByTestId('quick-download-progress-current')).toHaveClass('max-w-full', 'min-w-0', 'overflow-hidden')
 		expect(screen.getByTestId('quick-download-progress-current-label')).toHaveClass('flex-1', 'min-w-0', 'truncate')
 		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('0 / 1')
+
+		act(() => {
+			useAppStore.setState({playlistProbeProgress: {url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', playlistMode: 'playlist', phase: 'pages', loaded: 8, at: new Date().toISOString()}} as never)
+		})
+		expect(screen.getByTestId('quick-download-progress-current')).toHaveTextContent('Scanning channel pages')
+		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('8 pages found')
+		expect(screen.queryByRole('progressbar')).not.toBeInTheDocument()
+
+		act(() => {
+			useAppStore.setState({playlistProbeProgress: {url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', playlistMode: 'playlist', phase: 'items', loaded: 48, total: 100, at: new Date().toISOString()}} as never)
+		})
+		expect(screen.getByTestId('quick-download-progress-current')).toHaveTextContent('Collecting videos')
+		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('48 / 100')
+		expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '48')
 
 		await waitFor(() => {
 			expect(quick).toBeDisabled()

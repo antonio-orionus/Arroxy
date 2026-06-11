@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "正在获取 Playlist…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "仅限前 {{count}} 个项目"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "找到 {{count}} 个页面"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "找到 {{count}} 个页面"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "正在收集视频"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "正在扫描频道页面"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "请至少选择一个视频以继续"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "对应 yt-dlp 的 --playlist-end 参数：Arroxy 在构建选择器时仅请求这么多播放列表、频道或搜索条目。"
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "活动配置文件"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "更改全局保存位置"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "保存位置"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "编辑活动配置文件"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "管理配置文件"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "更改用于快速下载、批量 URL 和播放列表的活动配置文件。"
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "切换配置文件"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "新建配置文件"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "切换下载配置文件：{{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "切换下载配置文件"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "清除"
@@ -2204,4 +2264,3 @@ msgstr "当标题变化或重复时，让单次下载保持唯一。"
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "快速下载可以使用单个视频、播放列表、频道、搜索和批量 URL。"
-

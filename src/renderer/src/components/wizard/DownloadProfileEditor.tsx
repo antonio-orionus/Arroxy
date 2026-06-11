@@ -1,5 +1,5 @@
 import {useId, useState, type ReactNode} from 'react'
-import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, FolderCog, Headphones, Info, Music, Plus, RotateCcw, Scissors, SlidersHorizontal, X, type LucideIcon} from 'lucide-react'
+import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, FolderCog, Headphones, Music, Plus, RotateCcw, Scissors, SlidersHorizontal, X, type LucideIcon} from 'lucide-react'
 import {DOWNLOAD_PROFILE_ICONS} from '@shared/schemas.js'
 import type {CommonSettings, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
 import {effectiveOutputDir} from '@shared/subfolder.js'
@@ -26,9 +26,8 @@ import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '..
 import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
 import {ScrollArea} from '../ui/scroll-area.js'
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from '../ui/select.js'
-import {Switch} from '../ui/switch.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
-import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
+import {ProfileSwitchRow} from './DownloadProfileSwitchRow.js'
 
 interface SelectOption<T extends string> {
 	value: T
@@ -220,35 +219,6 @@ function ProfileSelect<T extends string>({label, value, options, onValueChange, 
 	)
 }
 
-function ProfileHelpTooltip({label, children}: {label: string; children: ReactNode}): ReactNode {
-	return (
-		<Tooltip>
-			<TooltipTrigger
-				render={props => (
-					<Button {...props} type="button" variant="ghost" size="icon-xs" aria-label={`${label} help`} className="text-[var(--text-subtle)] hover:text-foreground">
-						<Info aria-hidden />
-					</Button>
-				)}
-			/>
-			<TooltipContent className="max-w-[18rem] leading-snug">{children}</TooltipContent>
-		</Tooltip>
-	)
-}
-
-function ProfileSwitchRow({id, label, description, checked, onCheckedChange}: {id: string; label: string; description?: string; checked: boolean; onCheckedChange: (checked: boolean) => void}): ReactNode {
-	return (
-		<Field orientation="horizontal" className="min-h-10 items-center justify-between gap-3 rounded-md border border-border bg-background/25 px-3 py-2 text-[12px]">
-			<FieldContent className="min-w-0">
-				<FieldTitle id={id} className="flex items-center gap-1.5 text-[12px] font-medium">
-					{label}
-					{description ? <ProfileHelpTooltip label={label}>{description}</ProfileHelpTooltip> : null}
-				</FieldTitle>
-			</FieldContent>
-			<Switch checked={checked} onCheckedChange={onCheckedChange} aria-labelledby={id} />
-		</Field>
-	)
-}
-
 function readablePath(path: string, commonPaths: CommonSettings['commonPaths']): string {
 	const trimmed = path.trim()
 	return trimmed ? formatHomeRelativePath(trimmed, commonPaths) : 'Default downloads folder'
@@ -263,6 +233,7 @@ function fallbackFinalPath(subfolderName: string): string {
 export function DownloadProfileEditor({commonPaths, globalDestination = '', initialProfile = null, onChangeGlobalDestination, onOpenChange, onSave, open, resetProfile}: DownloadProfileEditorProps): ReactNode {
 	const [draft, setDraft] = useState(() => createDownloadProfileDraft(initialProfile))
 	const [profileIconPickerOpen, setProfileIconPickerOpen] = useState(false)
+	const [profileActionError, setProfileActionError] = useState<string | null>(null)
 	const [destinationPickerError, setDestinationPickerError] = useState<string | null>(null)
 	const [destinationOverrideOpen, setDestinationOverrideOpen] = useState(() => initialProfile?.output.kind === 'fixed')
 	const {
@@ -313,12 +284,14 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 	}
 
 	function changeDestination(nextDestination: string): void {
+		setProfileActionError(null)
 		setDestinationPickerError(null)
 		setDestinationOverrideOpen(true)
 		updateDraft({type: 'set-destination', destination: nextDestination})
 	}
 
 	function useGlobalDefaultDestination(): void {
+		setProfileActionError(null)
 		setDestinationPickerError(null)
 		setDestinationOverrideOpen(false)
 		updateDraft({type: 'set-destination', destination: ''})
@@ -345,6 +318,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 	}
 
 	async function chooseDestinationFolder(): Promise<void> {
+		setProfileActionError(null)
 		setDestinationPickerError(null)
 		setDestinationOverrideOpen(true)
 		try {
@@ -358,16 +332,34 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 	}
 
 	async function saveProfile(): Promise<void> {
+		setProfileActionError(null)
 		const now = new Date().toISOString()
 		const profile = downloadProfileFromDraft(draft, now, createProfileId)
 		await onSave?.(profile)
 		onOpenChange(false)
 	}
 
+	async function changeGlobalDestination(): Promise<void> {
+		if (!onChangeGlobalDestination) return
+		setProfileActionError(null)
+		try {
+			await onChangeGlobalDestination()
+		} catch (error) {
+			console.error('Failed to change global destination', error)
+			setProfileActionError('Could not change global destination.')
+		}
+	}
+
 	async function resetProfileOverride(): Promise<void> {
 		if (!resetProfile?.enabled) return
-		await resetProfile.onReset()
-		onOpenChange(false)
+		setProfileActionError(null)
+		try {
+			await resetProfile.onReset()
+			onOpenChange(false)
+		} catch (error) {
+			console.error('Failed to reset profile settings', error)
+			setProfileActionError('Could not reset profile settings.')
+		}
 	}
 
 	return (
@@ -377,6 +369,11 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 					<DialogTitle>Download Profile</DialogTitle>
 					<DialogDescription>One reusable setup for Quick Download, Bulk URLs, and playlists.</DialogDescription>
 				</DialogHeader>
+				{profileActionError ? (
+					<Alert variant="destructive" className="py-2">
+						<AlertDescription className="text-[12px]">{profileActionError}</AlertDescription>
+					</Alert>
+				) : null}
 				<ScrollArea className="max-h-[min(78vh,46rem)]">
 					<div className="grid gap-4 p-1 pr-3 lg:grid-cols-[minmax(0,1fr)_minmax(19rem,0.85fr)]">
 						<div className="flex flex-col gap-3">
@@ -634,7 +631,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 											</p>
 										</div>
 										<div className="mt-2 flex flex-wrap gap-2">
-											<Button type="button" variant="outline" size="sm" aria-label="Change global destination" title="Change global destination" onClick={() => void onChangeGlobalDestination?.()} disabled={!onChangeGlobalDestination} className="shrink-0">
+											<Button type="button" variant="outline" size="sm" aria-label="Change global destination" title="Change global destination" onClick={() => void changeGlobalDestination()} disabled={!onChangeGlobalDestination} className="shrink-0">
 												<FolderCog data-icon="inline-start" aria-hidden />
 												Change global
 											</Button>

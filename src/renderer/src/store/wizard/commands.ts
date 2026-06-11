@@ -34,6 +34,7 @@ export const RESET_WIZARD_STATE = {
 	playlistIsMultiVideo: false,
 	playlistLikelyCapped: false,
 	playlistProbeLoading: false,
+	playlistProbeProgress: null,
 	playlistScopeReloading: false,
 	playlistScopeError: null as string | null,
 	playlistScope: {items: {kind: 'app-limit'}} as PlaylistScope,

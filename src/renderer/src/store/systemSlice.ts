@@ -9,6 +9,7 @@ import {track} from '../lib/analytics.js'
 
 let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
+let unbindProbeProgress: (() => void) | null = null
 
 const SHARE_MILESTONES: readonly number[] = [3, 25, 100]
 const SHARE_MILESTONE_SET = new Set(SHARE_MILESTONES)
@@ -123,6 +124,17 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			unbindWarmupProgress?.()
 			unbindWarmupProgress = window.appApi.events.onWarmupProgress(event => {
 				set(state => ({warmupProgress: {...(state.warmupProgress ?? {}), [event.binary]: event}}))
+			})
+
+			unbindProbeProgress?.()
+			unbindProbeProgress = window.appApi.events.onProbeProgress(event => {
+				set(state => {
+					const playlistProbeActive = state.playlistProbeLoading || state.playlistScopeReloading
+					const quickDownloadProbeActive = state.quickDownloadStatus === 'preparing' && state.quickDownloadProgressPhase === 'probing'
+					const matchesActiveUrl = state.wizardUrl === event.url || state.quickDownloadProgressCurrent === event.url
+					if ((!playlistProbeActive && !quickDownloadProbeActive) || !matchesActiveUrl) return {}
+					return {playlistProbeProgress: event}
+				})
 			})
 
 			set({warmupRunning: true, warmupCancellable: true})

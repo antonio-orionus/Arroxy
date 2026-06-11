@@ -17,6 +17,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'default',
 	'single-normal',
 	'playlist-normal',
+	'playlist-loading',
 	'playlist-scope-empty-reload',
 	'playlist-no-thumbnails',
 	'playlist-long-titles',
@@ -62,7 +63,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 
 export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number]
 export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Profiles' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics'
-type ScenarioKind = 'default' | 'probe' | 'bulk' | 'profile' | 'queue' | 'update' | 'diagnostics' | 'dialog'
+type ScenarioKind = 'default' | 'probe' | 'bulk' | 'profile' | 'queue' | 'update' | 'diagnostics' | 'dialog' | 'state'
 export const PROBE_ERROR_TARGETS = ['wizard', 'quick-download'] as const
 export type ProbeErrorTarget = (typeof PROBE_ERROR_TARGETS)[number]
 
@@ -131,6 +132,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'default', group: 'General', title: 'Default app', description: 'Standard mock video flow and clean queue.', kind: 'default'},
 	{id: 'single-normal', group: 'General', title: 'Single video normal', description: 'Screen preset for a YouTube video with formats, subtitles, and SponsorBlock steps.', kind: 'probe'},
 	{id: 'playlist-normal', group: 'Playlist', title: 'Playlist normal', description: 'Screen preset for a playlist with thumbnails, durations, and default preset selection.', kind: 'probe'},
+	{id: 'playlist-loading', group: 'Playlist', title: 'Playlist loading scaffold', description: 'Playlist loading state with the final controls and full-width row skeletons visible.', kind: 'state'},
 	{id: 'playlist-scope-empty-reload', group: 'Playlist', title: 'Scope reload empty', description: 'Playlist opens normally; applying any non-default scope reload returns no entries and should stay inline.', kind: 'probe'},
 	{id: 'playlist-no-thumbnails', group: 'Playlist', title: 'No thumbnails', description: 'Playlist rows with no thumbnail column.', kind: 'probe'},
 	{id: 'playlist-long-titles', group: 'Playlist', title: 'Long titles', description: 'Playlist rows with intentionally long titles.', kind: 'probe'},
@@ -250,6 +252,25 @@ function profileScenarioPatch(scenario: BrowserMockScenario): Partial<AppState> 
 	return {wizardStep: 'url', wizardUrl: ''}
 }
 
+function playlistLoadingState(): Partial<AppState> {
+	const url = 'https://example.com/mock-loading-playlist'
+	return {
+		wizardStep: 'playlistItems',
+		wizardMode: 'playlist',
+		wizardUrl: url,
+		wizardExtractor: 'youtube:tab',
+		wizardExtractorKey: 'YoutubeTab',
+		playlistItems: [],
+		selectedPlaylistItemIds: [],
+		playlistTitle: '',
+		playlistId: 'PLmock_loading',
+		playlistIsMultiVideo: true,
+		playlistLikelyCapped: false,
+		playlistProbeLoading: true,
+		playlistProbeProgress: {url, playlistMode: 'playlist', phase: 'pages', loaded: 33, at: new Date(0).toISOString()}
+	}
+}
+
 export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockScenario; params: BrowserMockUrlParams; store: ScenarioWorkbenchStore}): Promise<void> {
 	const {scenario, params, store} = input
 	if (params.probeErrorKind !== null) {
@@ -279,6 +300,11 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 	if (scenario.kind === 'profile') {
 		store.reset()
 		store.setState(profileScenarioPatch(scenario))
+		return
+	}
+	if (scenario.kind === 'state') {
+		store.reset()
+		if (scenario.id === 'playlist-loading') store.setState(playlistLoadingState())
 		return
 	}
 	if (scenario.kind === 'dialog') {

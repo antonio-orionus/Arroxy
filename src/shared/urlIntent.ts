@@ -41,7 +41,7 @@ export function classifyUrlIntent(url: string): UrlIntent {
 	if (hasConcreteVideo && hasList) return {kind: 'mixed', url, reason: 'youtube-video-with-list'}
 	if (segments[0] === 'results' && parsed.searchParams.has('search_query')) return {kind: 'obvious-collection', url, collection: 'search'}
 	if (isYouTubeChannelPath(segments)) return {kind: 'obvious-collection', url, collection: 'channel'}
-	if ((segments[0] === 'playlist' && hasList) || hasList) return {kind: 'obvious-collection', url, collection: 'playlist'}
+	if (hasList) return {kind: 'obvious-collection', url, collection: 'playlist'}
 	if (hasConcreteVideo) return {kind: 'obvious-single', url, site: 'youtube'}
 	return {kind: 'unknown', url}
 }

@@ -142,6 +142,20 @@ describe('submitUrl — video probe', () => {
 })
 
 describe('quickDownload', () => {
+	it('records playlist probe progress while quick download is preparing', async () => {
+		const api = buildMockAppApi()
+		window.appApi = api
+
+		await useAppStore.getState().initialize()
+		const progressListener = vi.mocked(api.events.onProbeProgress).mock.calls.at(-1)?.[0]
+		expect(progressListener).toBeDefined()
+		useAppStore.setState({wizardUrl: 'https://www.youtube.com/@sunnyboy66/videos', playlistProbeLoading: false, quickDownloadStatus: 'preparing', quickDownloadProgressPhase: 'probing', quickDownloadProgressCurrent: 'https://www.youtube.com/@sunnyboy66/videos'})
+
+		progressListener?.({url: 'https://www.youtube.com/@sunnyboy66/videos', playlistMode: 'playlist', phase: 'pages', loaded: 8, at: new Date().toISOString()})
+
+		expect(useAppStore.getState().playlistProbeProgress).toMatchObject({phase: 'pages', loaded: 8})
+	})
+
 	it('opens the mixed URL prompt instead of silently forcing a watch/list URL to single-video mode', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
@@ -297,7 +311,7 @@ describe('quickDownload', () => {
 		await useAppStore.getState().quickDownload()
 
 		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState().wizardStep).toBe('playlistItems')
+		expect(useAppStore.getState().wizardStep).toBe('url')
 		expect(useAppStore.getState().playlistLikelyCapped).toBe(true)
 		expect(useAppStore.getState().playlistItems).toHaveLength(100)
 		expect(useAppStore.getState().quickDownloadStatus).toBe('idle')

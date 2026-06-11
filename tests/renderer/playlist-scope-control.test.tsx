@@ -54,6 +54,59 @@ describe('PlaylistScopeControl', () => {
 		expect(screen.getByTestId('playlist-scope-summary')).toHaveTextContent('Load first 100 items')
 	})
 
+	it('uses the shared wizard step and direct footer layout contract', () => {
+		render(<StepPlaylistItems />)
+
+		const step = screen.getByTestId('step-playlist-items')
+		expect(step).toHaveClass('wizard-step')
+		expect(Array.from(step.children).some(child => child.classList.contains('wizard-footer-surface'))).toBe(true)
+	})
+
+	it('shows live playlist probe progress while items are loading', () => {
+		useAppStore.setState({playlistProbeLoading: true, playlistProbeProgress: {url: 'https://www.youtube.com/playlist?list=PLtest', playlistMode: 'playlist', phase: 'items', loaded: 25, total: 100, at: new Date().toISOString()}} as never)
+
+		render(<StepPlaylistItems />)
+
+		expect(screen.getByTestId('playlist-probe-loading')).toHaveTextContent('Fetching playlist…')
+		expect(screen.getByTestId('playlist-probe-loading')).toHaveTextContent('Collecting videos')
+		expect(screen.getByTestId('playlist-probe-progress-count')).toHaveTextContent('25 / 100')
+		expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '25')
+	})
+
+	it('shows page probe progress before item totals are known', () => {
+		useAppStore.setState({playlistProbeLoading: true, playlistProbeProgress: {url: 'https://www.youtube.com/@sunnyboy66/videos', playlistMode: 'playlist', phase: 'pages', loaded: 34, at: new Date().toISOString()}} as never)
+
+		render(<StepPlaylistItems />)
+
+		expect(screen.getByTestId('playlist-probe-loading')).toHaveTextContent('Fetching playlist…')
+		expect(screen.getByTestId('playlist-probe-loading')).toHaveTextContent('Scanning channel pages')
+		expect(screen.getByTestId('playlist-probe-progress-count')).toHaveTextContent('34 pages found')
+		expect(screen.queryByRole('progressbar')).not.toBeInTheDocument()
+	})
+
+	it('keeps the playlist management scaffold visible while items are loading', () => {
+		useAppStore.setState({playlistProbeLoading: true, playlistProbeProgress: {url: 'https://www.youtube.com/@sunnyboy66/videos', playlistMode: 'playlist', phase: 'pages', loaded: 34, at: new Date().toISOString()}} as never)
+
+		render(<StepPlaylistItems />)
+
+		expect(screen.getByTestId('playlist-probe-loading')).toHaveTextContent('Fetching playlist…')
+		expect(screen.getByRole('button', {name: 'Select all'})).toBeDisabled()
+		expect(screen.getByRole('button', {name: 'Select none'})).toBeDisabled()
+		expect(screen.getByRole('button', {name: 'Apply range'})).toBeDisabled()
+		expect(screen.getByTestId('playlist-probe-loading-list')).toBeInTheDocument()
+		expect(screen.getAllByTestId('playlist-probe-skeleton-row')).toHaveLength(10)
+	})
+
+	it('hides the sentinel item when showing capped playlist progress', () => {
+		useAppStore.setState({settings: {common: {playlistProbeLimit: 1000}}, playlistProbeLoading: true, playlistProbeProgress: {url: 'https://www.youtube.com/@sunnyboy66/videos', playlistMode: 'playlist', phase: 'items', loaded: 1001, total: 1001, at: new Date().toISOString()}} as never)
+
+		render(<StepPlaylistItems />)
+
+		expect(screen.getByTestId('playlist-probe-progress-count')).toHaveTextContent('1000 / 1000')
+		expect(screen.getByTestId('playlist-probe-loading')).toHaveTextContent('Limited to first 1000 items')
+		expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '100')
+	})
+
 	it('applies an item range from the playlist step and reloads the probe', async () => {
 		vi.mocked(window.appApi.downloads.probe).mockResolvedValue(ok(playlistProbe()))
 		render(<StepPlaylistItems />)

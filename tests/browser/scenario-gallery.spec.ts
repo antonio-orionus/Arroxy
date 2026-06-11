@@ -21,6 +21,26 @@ async function waitForPlaylist(page: Page): Promise<void> {
 	await page.waitForSelector('[data-testid="step-playlist-items"]', {timeout: 6_000})
 }
 
+async function expectWizardFooterFlush(page: Page): Promise<void> {
+	const readDeltas = async (): Promise<{bottom: number; left: number; right: number}> =>
+		page.evaluate(() => {
+			const footer = document.querySelector<HTMLElement>('.wizard-footer-surface')
+			const drawer = document.querySelector<HTMLElement>('[data-testid="smart-drawer"]')
+			const scrollport = document.querySelector<HTMLElement>('[data-testid="wizard-scrollport"]') ?? document.querySelector<HTMLElement>('[data-testid="wizard-panel"]')?.parentElement
+			if (!footer || !drawer || !scrollport) throw new Error('Expected wizard footer, smart drawer, and wizard scrollport')
+			const bounds = (element: HTMLElement) => {
+				const rect = element.getBoundingClientRect()
+				return {bottom: rect.bottom, left: rect.left, right: rect.right, top: rect.top}
+			}
+			const metrics = {drawer: bounds(drawer), footer: bounds(footer), scrollport: bounds(scrollport)}
+			return {bottom: Math.abs(metrics.footer.bottom - metrics.drawer.top), left: Math.abs(metrics.footer.left - metrics.scrollport.left), right: Math.abs(metrics.footer.right - metrics.scrollport.right)}
+		})
+
+	await expect.poll(async () => (await readDeltas()).bottom).toBeLessThanOrEqual(1)
+	await expect.poll(async () => (await readDeltas()).left).toBeLessThanOrEqual(1)
+	await expect.poll(async () => (await readDeltas()).right).toBeLessThanOrEqual(1)
+}
+
 test('scenario gallery is available in browser-mock mode', async ({page}) => {
 	await openScenario(page, 'default')
 
@@ -28,6 +48,7 @@ test('scenario gallery is available in browser-mock mode', async ({page}) => {
 	await expect(page.getByTestId('splash-overlay')).toHaveCount(0)
 	await page.getByTestId('scenario-gallery-toggle').click()
 	await expect(page.getByTestId('scenario-button-queue-running')).toBeVisible()
+	await expect(page.getByTestId('scenario-button-playlist-loading')).toBeVisible()
 })
 
 test('backdrop-only gallery action preserves environment knobs', async ({page}) => {
@@ -172,6 +193,43 @@ test('queue scenarios hydrate drawer states', async ({page}) => {
 		await openScenario(page, scenario)
 		await expect(page.getByTestId('drawer-body')).toBeVisible()
 		await expect(page.getByTestId('queue-card-scenario-queue-item')).toHaveAttribute('data-status', status)
+	}
+})
+
+test('playlist loading scaffold scenario is available for visual review', async ({page}) => {
+	await openScenario(page, 'playlist-loading')
+	await waitForPlaylist(page)
+
+	await expect(page.getByTestId('scenario-gallery-toggle')).toContainText('Playlist loading scaffold')
+	await expect(page.getByTestId('playlist-probe-loading')).toContainText('Fetching playlist')
+	await expect(page.getByTestId('playlist-probe-loading')).toContainText('Scanning channel pages')
+	await expect(page.getByTestId('playlist-probe-progress-count')).toHaveText('33 pages found')
+	await expect(page.getByRole('button', {name: 'Select all'})).toBeDisabled()
+	await expect(page.getByRole('button', {name: 'Select none'})).toBeDisabled()
+	await expect(page.getByRole('button', {name: 'Apply range'})).toBeDisabled()
+	await expect(page.getByTestId('playlist-probe-loading-list')).toBeVisible()
+	await expect(page.getByTestId('playlist-probe-skeleton-row')).toHaveCount(10)
+})
+
+test('wizard footer stays flush to the scrollport across wizard screens', async ({page}) => {
+	for (const viewport of [
+		{width: 390, height: 844},
+		{width: 882, height: 834}
+	]) {
+		await page.setViewportSize(viewport)
+
+		await openScenario(page, 'playlist-loading')
+		await waitForPlaylist(page)
+		await expect(page.getByTestId('playlist-probe-loading')).toBeVisible()
+		await expectWizardFooterFlush(page)
+
+		await openScenario(page, 'playlist-normal')
+		await waitForPlaylist(page)
+		await expectWizardFooterFlush(page)
+
+		await openWithParams(page, 'scenario=playlist-normal&mockStep=output')
+		await expect(page.getByTestId('step-output')).toBeVisible({timeout: 6_000})
+		await expectWizardFooterFlush(page)
 	}
 })
 

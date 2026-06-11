@@ -82,6 +82,8 @@ Format: `**Term** — definition. \`path\``. Add an entry when extracting a new 
 
 **Translation workflow.** Use the `translate-arroxy-i18n` project skill for app locale changes, PO/POT sync, generated locale JSON, and i18n audits.
 
+**Session scope.** Treat every agent session as scoped to the task context it was given. Other agents may be working in parallel on the same branch, so do not repair, reformat, revert, or restructure files outside your current scope just because you notice a problem there.
+
 ### Agent Skills
 
 - **translate-arroxy-i18n** — manages app locale updates, gettext PO/POT sync, runtime locale JSON generation, and i18n audit commands. Entry point: `.agents/skills/translate-arroxy-i18n/SKILL.md`.
@@ -127,13 +129,15 @@ Only tiny project-owned, non-installable skills stay tracked under `./.agents/sk
 
 ## Post-Task Checks
 
-After completing any implementation task, run this single command and fix all errors before reporting done:
+After completing any implementation task, run this single command and fix all errors caused by your change before reporting done:
 
 ```bash
 bun run check   # lint + typecheck + knip + madge (circular imports)
 ```
 
 Do not skip. A change in one file can break types, introduce dead code, or create circular imports elsewhere.
+
+If `bun run check`, lint, typecheck, or tests report an unexpected failure that is not clearly attributable to your current task, do not try to fix it opportunistically. Capture the relevant failure, state that it appears outside the current session scope, and leave it alone so a parallel agent's in-progress work is not disrupted. Only touch unrelated files when the user explicitly expands the scope or when you can show the failure is a direct consequence of your edits.
 
 ### On-demand hygiene checks
 

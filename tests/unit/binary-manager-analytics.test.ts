@@ -1,3 +1,5 @@
+import fs from 'node:fs/promises'
+import os from 'node:os'
 import path from 'node:path'
 import {describe, expect, it, vi, afterEach} from 'vitest'
 
@@ -10,6 +12,15 @@ import type {DependencyAttempt, DependencySource} from '@shared/types.js'
 afterEach(() => {
 	vi.clearAllMocks()
 })
+
+async function makeDenoVersionStub(): Promise<string> {
+	const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-deno-probe-'))
+	const stubPath = path.join(tempDir, process.platform === 'win32' ? 'deno.cmd' : 'deno')
+	const body = process.platform === 'win32' ? '@echo off\r\necho deno 2.8.2\r\n' : '#!/bin/sh\necho "deno 2.8.2"\n'
+	await fs.writeFile(stubPath, body)
+	if (process.platform !== 'win32') await fs.chmod(stubPath, 0o755)
+	return stubPath
+}
 
 describe('BinaryManager analytics', () => {
 	it('emits the stable ARX code for classified managed-download failures', async () => {
@@ -67,9 +78,10 @@ describe('BinaryManager analytics', () => {
 		const attempts: DependencyAttempt[] = []
 		const source: DependencySource = {kind: 'managed', channel: 'default', provider: 'github', url: 'https://example.com/deno.zip'}
 		const now = vi.spyOn(Date, 'now').mockReturnValueOnce(1_000).mockReturnValueOnce(32_500)
+		const denoStub = await makeDenoVersionStub()
 
 		try {
-			const diag = await (mgr as unknown as {probeAndAccept: (id: 'deno', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<unknown>}).probeAndAccept('deno', source, process.execPath, attempts)
+			const diag = await (mgr as unknown as {probeAndAccept: (id: 'deno', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<unknown>}).probeAndAccept('deno', source, denoStub, attempts)
 
 			expect(diag).not.toBeNull()
 			expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'deno', outcome: 'slow_success', source_kind: 'managed', source_channel: 'default', source_provider: 'github', elapsed_ms: 31_500, timeout_ms: 30_000})

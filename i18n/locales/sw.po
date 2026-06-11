@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Inapata Playlist…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Imewekewa kikomo cha vipengee {{count}} vya kwanza"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Ukurasa {{count}} umepatikana"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Kurasa {{count}} zimepatikana"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Inakusanya video"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Inakagua kurasa za kituo"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Chagua angalau video moja ili kuendelea"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "Inalingana na yt-dlp --playlist-end: Arroxy inauliza idadi hii tu ya maingizo ya playlist, kituo, au utafutaji wakati wa kujenga kichaguzi."
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Wasifu unaotumika"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Badilisha mahali pa kuhifadhi kwa jumla"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Mahali pa kuhifadhi"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Hariri wasifu unaotumika"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Dhibiti wasifu"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Badilisha wasifu unaotumika kwa Quick Download, URL nyingi na orodha za kucheza."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Badilisha wasifu"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Wasifu mpya"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Badilisha wasifu wa kupakua: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Badilisha wasifu wa kupakua"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "Futa"
@@ -2204,4 +2264,3 @@ msgstr "Huweka upakuaji wa mara moja kuwa wa kipekee wakati vichwa vinabadilika 
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "Upakuaji wa Haraka unaweza kutumia video moja, orodha za kucheza, vituo, utafutaji, na URL za Wingi."
-

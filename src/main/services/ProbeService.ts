@@ -1,10 +1,12 @@
+import {EventEmitter} from 'node:events'
 import log from 'electron-log/main.js'
 import {trackMain, probeDurationBucket} from '@main/services/analytics.js'
 import {splitStderrLines} from '@main/utils/process.js'
+import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {sortFormatsByQuality} from '@shared/qualitySorter.js'
 import {humanSize} from '@shared/format.js'
-import type {FormatOption, PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, ProbeDegradationReason, SubtitleMap} from '@shared/types.js'
+import type {FormatOption, PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, SubtitleMap} from '@shared/types.js'
 import {LIVE_CHAT_LANG} from '@shared/constants.js'
 import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpFormat, type YtDlpSubtitleTrack} from '@shared/ytdlp/infoDict.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
@@ -118,6 +120,62 @@ function classifyProbeFailure(rawError: string): YtDlpErrorKind {
 
 function detectProbeDegradationSignals(stderr: string): ProbeSignal[] {
 	return PROBE_DEGRADATION_SIGNALS.flatMap(({pattern, label, category}) => (pattern.test(stderr) ? [{label, category}] : []))
+}
+
+const PLAYLIST_ITEM_PROGRESS_RE = /\[download\]\s+Downloading item\s+(\d+)\s+of\s+(\d+|N\/A)/i
+const YOUTUBE_TAB_PAGE_PROGRESS_RE = /\[youtube:tab\]\s+.+?\spage\s+(\d+):\s+Downloading API JSON/i
+
+function stripAnsiEscapeSequences(line: string): string {
+	let clean = ''
+	for (let index = 0; index < line.length; ) {
+		if (line.charCodeAt(index) === 27 && line[index + 1] === '[') {
+			index += 2
+			while (index < line.length) {
+				const code = line.charCodeAt(index)
+				index += 1
+				if (code >= 0x40 && code <= 0x7e) break
+			}
+			continue
+		}
+		clean += line[index]
+		index += 1
+	}
+	return clean
+}
+
+function parseProbeProgressLine(line: string): Pick<ProbeProgressEvent, 'phase' | 'loaded' | 'total'> | null {
+	const clean = stripAnsiEscapeSequences(line)
+	const pageMatch = YOUTUBE_TAB_PAGE_PROGRESS_RE.exec(clean)
+	if (pageMatch) {
+		const loaded = Number(pageMatch[1])
+		return Number.isFinite(loaded) ? {phase: 'pages', loaded} : null
+	}
+	const itemMatch = PLAYLIST_ITEM_PROGRESS_RE.exec(clean)
+	if (!itemMatch) return null
+	const loaded = Number(itemMatch[1])
+	if (!Number.isFinite(loaded)) return null
+	const rawTotal = itemMatch[2]
+	const total = rawTotal && rawTotal !== 'N/A' ? Number(rawTotal) : undefined
+	return {phase: 'items', loaded, ...(total !== undefined && Number.isFinite(total) ? {total} : {})}
+}
+
+function parseProbeJsonOutput(stdout: string): unknown {
+	let lastJsonError: unknown = null
+	const lines = stdout
+		.split(/\r?\n/)
+		.map(line => line.trim())
+		.filter(Boolean)
+	for (let i = lines.length - 1; i >= 0; i--) {
+		const line = lines[i]
+		if (!line?.startsWith('{')) continue
+		try {
+			return JSON.parse(line)
+		} catch (error) {
+			lastJsonError = error
+		}
+	}
+	if (lastJsonError) throw lastJsonError
+	return JSON.parse(stdout)
 }
 
 function deriveDegraded(signals: ProbeSignal[]): {reasons: ProbeDegradationReason[]} | undefined {
@@ -269,7 +327,7 @@ function buildPlaylistProbeResult(info: PlaylistInfo | MultiVideoInfo, jobUrl: s
 	}
 }
 
-export class ProbeService {
+export class ProbeService extends EventEmitter {
 	// Tracks every in-flight probe's controller so cancelInFlight() can abort
 	// them all at once. probe() registers + deregisters its controller.
 	private inFlight = new Set<AbortController>()
@@ -277,7 +335,9 @@ export class ProbeService {
 	constructor(
 		private readonly ytDlp: YtDlp,
 		private readonly mockMode = false
-	) {}
+	) {
+		super()
+	}
 
 	// Abort every in-flight probe. Renderer calls this when the user changes the
 	// wizard URL, navigates away, or otherwise abandons a slow fetch — without
@@ -406,10 +466,22 @@ export class ProbeService {
 
 	private async runProbeAttempt(url: string, attempt: ProbeAttemptName, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal): Promise<ProbeAttemptResult> {
 		const source = attempt === 'retry' ? 'yt-dlp-probe-retry' : 'yt-dlp-probe'
+		let stdoutRemainder = ''
+		const consumeStdout = (chunk: string): void => {
+			const parts = `${stdoutRemainder}${chunk}`.split(/\r?\n/)
+			stdoutRemainder = parts.pop() ?? ''
+			for (const line of parts) {
+				const progress = parseProbeProgressLine(line)
+				if (progress) {
+					this.emit('progress', {url, playlistMode, ...progress, at: nowIso()} satisfies ProbeProgressEvent)
+				}
+			}
+		}
 		const result = await this.ytDlp.run(
 			{kind: 'probe', url, playlistMode, playlistScope},
 			{
 				abortSignal: signal,
+				onStdout: consumeStdout,
 				onStderr: chunk => {
 					for (const line of splitStderrLines(chunk)) {
 						logger.info(line, {source})
@@ -436,7 +508,7 @@ export class ProbeService {
 
 		let raw: unknown
 		try {
-			raw = JSON.parse(result.stdout)
+			raw = parseProbeJsonOutput(result.stdout)
 		} catch (error) {
 			const message = error instanceof Error ? error.message : 'Unknown JSON parse error'
 			logger.error('Probe JSON parse failed', {attempt, message, url})

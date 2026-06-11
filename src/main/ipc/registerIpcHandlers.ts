@@ -10,6 +10,7 @@ import type {ClipboardWatcher} from '@main/services/ClipboardWatcher.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import {DownloadEventBridge} from '@main/services/DownloadEventBridge.js'
 import {QueueEventBridge} from '@main/services/QueueEventBridge.js'
+import {ProbeEventBridge} from '@main/services/ProbeEventBridge.js'
 import {WarmupService} from '@main/services/WarmupService.js'
 import {registerAppHandlers} from './appHandlers.js'
 import {registerWindowHandlers} from './windowHandlers.js'
@@ -38,6 +39,7 @@ export interface IpcDependencies {
 
 let activeDownloadBridge: DownloadEventBridge | null = null
 let activeQueueBridge: QueueEventBridge | null = null
+let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
 	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, playlistManifestStore, e2eMode} = deps
@@ -56,6 +58,10 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	activeDownloadBridge?.detach()
 	activeDownloadBridge = new DownloadEventBridge(downloadService, mainWindow)
 	activeDownloadBridge.attach()
+
+	activeProbeBridge?.detach()
+	activeProbeBridge = new ProbeEventBridge(probeService, mainWindow)
+	activeProbeBridge.attach()
 
 	activeQueueBridge?.detach()
 	activeQueueBridge = new QueueEventBridge(queueService, mainWindow)

@@ -14,6 +14,7 @@ import type {
 	PlaylistPrefs,
 	ProbeError,
 	ProbeInput,
+	ProbeProgressEvent,
 	ProbeResult,
 	ProgressEvent,
 	QueueItem,
@@ -60,7 +61,13 @@ export interface AppApi {
 	shell: {openFolder(path?: string): Promise<Result<{opened: boolean}>>; openExternal(url: string): Promise<Result<{opened: boolean}>>; openBinariesDir(): Promise<Result<{opened: boolean}>>}
 	logs: {openDir(): Promise<Result<{opened: boolean}>>; uploadFeedbackDiagnostic(input: {reportId: string}): Promise<Result<FeedbackDiagnosticUpload>>}
 	dialog: {chooseFolder(defaultPath?: string): Promise<Result<{path: string | null}>>; chooseFile(): Promise<Result<{path: string | null}>>; chooseExecutable(binary: DependencyId): Promise<Result<{path: string | null}>>}
-	events: {onStatus(listener: (event: StatusEvent) => void): () => void; onProgress(listener: (event: ProgressEvent) => void): () => void; onClipboardUrl(listener: (url: string) => void): () => void; onWarmupProgress(listener: (event: WarmupProgressEvent) => void): () => void}
+	events: {
+		onStatus(listener: (event: StatusEvent) => void): () => void
+		onProgress(listener: (event: ProgressEvent) => void): () => void
+		onProbeProgress(listener: (event: ProbeProgressEvent) => void): () => void
+		onClipboardUrl(listener: (url: string) => void): () => void
+		onWarmupProgress(listener: (event: WarmupProgressEvent) => void): () => void
+	}
 	queue: {
 		cmd: {
 			add(items: QueueItem[]): Promise<Result<{ids: string[]}>>

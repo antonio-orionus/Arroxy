@@ -82,6 +82,7 @@ function makeDownloadProgress(id: DependencyId, source: DependencySource, onProg
 }
 
 const logger = log.scope('binary')
+// Keep slow-probe analytics aligned with BinaryProbe's global probe timeout.
 const SLOW_BINARY_PROBE_ANALYTICS_THRESHOLD_MS = 30_000
 
 function binaryTelemetryId(id: DependencyId): string {
@@ -340,7 +341,6 @@ export class BinaryManager {
 		}
 		if (!expectedSha256) {
 			logger.warn(`Checksum unavailable for ${plan.name}, proceeding without verification`)
-			throw new ManagedSetupError('checksum_lookup', new Error(`Checksum source unavailable for ${plan.name}. Refusing to use unverified archive.`))
 		}
 		logger.info(`Downloading ${plan.name}`, {downloadUrl: plan.downloadUrl, destinationPath: plan.destinationPath})
 		return this.zippedInstaller.ensure({
@@ -349,7 +349,7 @@ export class BinaryManager {
 			archiveFileName: plan.archiveFileName,
 			innerExecutableName: plan.innerExecutableName,
 			destinationPath: plan.destinationPath,
-			expectedSha256,
+			expectedSha256: expectedSha256 ?? undefined,
 			onStatus: opts.onStatus,
 			onDownloadProgress: makeDownloadProgress(plan.id, plan.source, onProgress),
 			signal

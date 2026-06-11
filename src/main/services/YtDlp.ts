@@ -497,6 +497,8 @@ export function buildArgs(req: YtDlpRequest, opts: {pacing?: NetworkPacingArgs; 
 	switch (req.kind) {
 		case 'probe': {
 			// --dump-single-json: one JSON document per URL regardless of content type.
+			// --no-quiet: keep yt-dlp's playlist item status lines visible so the
+			//   probe service can stream enumeration progress before the final JSON.
 			// --flat-playlist: for playlists, returns flat entries (id+title+url) instead
 			//   of expanding each entry. For non-playlist URLs it's a no-op — yt-dlp
 			//   still returns full video info (formats, subs, etc.).
@@ -510,7 +512,7 @@ export function buildArgs(req: YtDlpRequest, opts: {pacing?: NetworkPacingArgs; 
 			const modeFlag = req.playlistMode === 'video' ? ['--no-playlist'] : req.playlistMode === 'playlist' ? ['--yes-playlist'] : []
 			const visibleLimit = opts.playlistProbeLimit ?? DEFAULT_PLAYLIST_PROBE_LIMIT
 			const scopeArgs = req.playlistMode === 'video' ? [] : playlistScopeArgs(req.playlistScope, visibleLimit)
-			const args = ['--dump-single-json', '--flat-playlist', ...modeFlag, ...scopeArgs, ...requestPacingArgs(opts.pacing), req.url]
+			const args = ['--dump-single-json', '--no-quiet', '--flat-playlist', ...modeFlag, ...scopeArgs, ...requestPacingArgs(opts.pacing), req.url]
 			return {args}
 		}
 		case 'subtitle': {

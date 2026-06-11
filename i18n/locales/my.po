@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Playlist ရယူနေသည်…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "ပထမဆုံး {{count}} ခုအထိသာ ကန့်သတ်ထားသည်"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}} စာမျက်နှာ တွေ့ရှိသည်"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}} စာမျက်နှာများ တွေ့ရှိသည်"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "ဗီဒီယိုများ စုဆောင်းနေသည်"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "ချန်နယ် စာမျက်နှာများကို စစ်ဆေးနေသည်"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "ဆက်လက်ရန် ဗီဒီယိုတစ်ခုအနည်းဆုံးရွေးပါ"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp --playlist-end နှင့် map ချိတ်ဆက်သည်: Arroxy သည် picker ဆောက်စဉ် ဤမျှ playlist၊ channel သို့မဟုတ် ရှာဖွေမှု entries များကိုသာ တောင်းဆိုသည်။"
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "လက်ရှိ ပရိုဖိုင်"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "အများသုံး သိမ်းဆည်းရာနေရာ ပြောင်းပါ"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "သိမ်းဆည်းရာနေရာ"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "လက်ရှိ ပရိုဖိုင်ကို ပြင်ဆင်ပါ"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "ပရိုဖိုင်များကို စီမံပါ"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Quick Download၊ URL များစွာ နှင့် playlist များအတွက် လက်ရှိ ပရိုဖိုင်ကို ပြောင်းပါ။"
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "ပရိုဖိုင် ပြောင်းပါ"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "ပရိုဖိုင် အသစ်"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "ဒေါင်းလုဒ် ပရိုဖိုင် ပြောင်းပါ: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "ဒေါင်းလုဒ် ပရိုဖိုင် ပြောင်းပါ"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "ရှင်းလင်း"
@@ -2204,4 +2264,3 @@ msgstr "ခေါင်းစဉ်များ ပြောင်းလဲခ�
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "Quick Download သည် single videos၊ playlists၊ channels၊ searches နှင့် Bulk URLs များကို အသုံးပြုနိုင်သည်။"
-

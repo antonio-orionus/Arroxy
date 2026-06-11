@@ -108,6 +108,7 @@ describe('YtDlp — probe args', () => {
 		await makeYtDlp().run({kind: 'probe', url: URL})
 		const args = getArgs()
 		expect(args).toContain('--dump-single-json')
+		expect(args).toContain('--no-quiet')
 		expect(args).toContain('--flat-playlist')
 		expect(args).not.toContain('--yes-playlist')
 		expect(args).not.toContain('--no-playlist')

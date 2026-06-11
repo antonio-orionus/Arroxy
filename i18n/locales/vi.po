@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Đang tải Playlist…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Giới hạn ở {{count}} mục đầu tiên"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Đã tìm thấy {{count}} trang"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Đã tìm thấy {{count}} trang"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Đang thu thập video"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Đang quét các trang kênh"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Chọn ít nhất một video để tiếp tục"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "Tương ứng với yt-dlp --playlist-end: Arroxy chỉ yêu cầu số mục này từ playlist, kênh hoặc kết quả tìm kiếm khi tạo bộ chọn."
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Hồ sơ đang dùng"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Đổi thư mục lưu chung"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Đích lưu"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Sửa hồ sơ đang dùng"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Quản lý hồ sơ"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Đổi hồ sơ đang dùng cho Tải nhanh, URL hàng loạt và playlist."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Đổi hồ sơ"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Hồ sơ mới"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Đổi hồ sơ tải xuống: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Đổi hồ sơ tải xuống"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "Xóa"
@@ -2204,4 +2264,3 @@ msgstr "Giữ các lượt tải một lần là duy nhất khi tiêu đề thay
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "Tải nhanh có thể dùng video đơn lẻ, danh sách phát, kênh, tìm kiếm và URL hàng loạt."
-

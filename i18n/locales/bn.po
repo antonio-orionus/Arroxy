@@ -1413,6 +1413,26 @@ msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Playlist আনা হচ্ছে…"
 
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "প্রথম {{count}}টি আইটেমে সীমিত"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}}টি পৃষ্ঠা পাওয়া গেছে"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}}টি পৃষ্ঠা পাওয়া গেছে"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "ভিডিও সংগ্রহ করা হচ্ছে"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "চ্যানেল পৃষ্ঠা স্ক্যান করা হচ্ছে"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "চালিয়ে যেতে কমপক্ষে একটি ভিডিও নির্বাচন করুন"
@@ -2113,6 +2133,46 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp --playlist-end-এর সাথে ম্যাপ করে: Arroxy পিকার তৈরির সময় শুধুমাত্র এতটি প্লেলিস্ট, চ্যানেল বা সার্চ এন্ট্রি চায়।"
 
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "সক্রিয় প্রোফাইল"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "গ্লোবাল গন্তব্য পরিবর্তন করুন"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "গন্তব্য"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "সক্রিয় প্রোফাইল সম্পাদনা করুন"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "প্রোফাইল পরিচালনা করুন"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Quick Download, Bulk URLs এবং প্লেলিস্টের জন্য সক্রিয় প্রোফাইল পরিবর্তন করুন।"
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "প্রোফাইল বদলান"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "নতুন প্রোফাইল"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "ডাউনলোড প্রোফাইল বদলান: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "ডাউনলোড প্রোফাইল বদলান"
+
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
 msgstr "মুছুন"
@@ -2204,4 +2264,3 @@ msgstr "শিরোনাম বদলালে বা মিলে গেল�
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "দ্রুত ডাউনলোড একক ভিডিও, প্লেলিস্ট, চ্যানেল, সার্চ এবং বাল্ক URL সমর্থন করে।"
-
