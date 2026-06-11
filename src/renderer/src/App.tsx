@@ -1,9 +1,10 @@
 import {lazy, Suspense, useEffect, useState, type ReactNode} from 'react'
-import {Bug, Cpu, FileText, Image, Info, MessageCircle, Paintbrush, Share2} from 'lucide-react'
+import log from 'electron-log/renderer.js'
+import {Cpu, FileText, Image, Info, MessageCircle, Paintbrush, Share2} from 'lucide-react'
 import IconDiscord from '~icons/simple-icons/discord'
 import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
-import {DISCORD_URL} from '@shared/constants.js'
+import {DEFAULTS, DISCORD_URL} from '@shared/constants.js'
 import {ZOOM_MIN, ZOOM_MAX, ZOOM_STEP, type UiTheme} from '@shared/schemas.js'
 import {useAppStore} from './store/useAppStore.js'
 import {AppBackdrop} from './components/layout/background/AppBackdrop.js'
@@ -31,7 +32,7 @@ const ScenarioGallery = lazy(() => import('./dev/ScenarioGallery.js').then(modul
 const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-[13px] text-muted-foreground max-sm:size-6 max-sm:px-0'
 const FOOTER_VERSION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-[11px] text-muted-foreground/60 tabular-nums max-sm:hidden'
 const FOOTER_COMPACT_LABEL_CLASS = 'max-sm:sr-only'
-const FOOTER_COMPACT_ICON_CLASS = 'hidden size-3.5 max-sm:block'
+const feedbackLogger = log.scope('feedback')
 type BackdropPreviewMode = 'gpu' | 'canvas2d' | 'css'
 
 const BACKDROP_PREVIEW_MODES = [
@@ -57,16 +58,15 @@ function resolveColorScheme(uiTheme: UiTheme, systemPrefersDark: boolean): Backd
 	return uiTheme === 'dark' || (uiTheme === 'system' && systemPrefersDark) ? 'dark' : 'light'
 }
 
+function previewModeToRenderMode(mode: BackdropPreviewMode): 'css-only' | 'fallback' | 'gpu' {
+	if (mode === 'css') return 'css-only'
+	if (mode === 'canvas2d') return 'fallback'
+	return 'gpu'
+}
+
 function shouldRenderStartupSplash(): boolean {
 	if (import.meta.env.MODE !== 'browser-mock') return true
 	return window.__arroxyBrowserMockShowStartupSplash === true
-}
-
-function buildDebugInfo(): string {
-	const ua = navigator.userAgent
-	const electron = /Electron\/([\d.]+)/.exec(ua)?.[1] ?? 'unknown'
-	const chrome = /Chrome\/([\d.]+)/.exec(ua)?.[1] ?? 'unknown'
-	return [`Platform: ${window.platform}`, `Electron: ${electron}`, `Chrome: ${chrome}`].join('\n')
 }
 
 export function App(): ReactNode {
@@ -78,19 +78,12 @@ export function App(): ReactNode {
 		useShallow(state => ({uiZoom: state.uiZoom, setUiZoom: state.setUiZoom, uiTheme: state.uiTheme, setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog, shareDialogOpen: state.shareDialogOpen}))
 	)
 	const update = useUpdateChannel()
-	const [debugCopied, setDebugCopied] = useState(false)
 	const [showNudge, setShowNudge] = useState(false)
 	const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false)
 	const [colorScheme, setColorScheme] = useState<BackdropColorScheme>(() => (document.documentElement.classList.contains('dark') ? 'dark' : 'light'))
 	const [backdropPreviewMode, setBackdropPreviewMode] = useState<BackdropPreviewMode>(() => backdropPreviewModeFromUrl())
 	const showStartupSplash = shouldRenderStartupSplash()
-
-	function copyDebugInfo(): void {
-		void navigator.clipboard.writeText(buildDebugInfo()).then(() => {
-			setDebugCopied(true)
-			setTimeout(() => setDebugCopied(false), 1500)
-		})
-	}
+	const backdropRenderMode = settings?.common?.backdropRenderMode ?? DEFAULTS.backdropRenderMode
 
 	function openDiscord(): void {
 		void window.appApi.shell.openExternal(DISCORD_URL)
@@ -148,7 +141,7 @@ export function App(): ReactNode {
 		}
 		return (
 			<div className="relative h-screen w-screen overflow-hidden" data-testid="backdrop-stage">
-				<AppBackdrop key={`${colorScheme}-${backdropPreviewMode}`} colorScheme={colorScheme} />
+				<AppBackdrop key={`${colorScheme}-${backdropPreviewMode}`} colorScheme={colorScheme} renderMode={previewModeToRenderMode(backdropPreviewMode)} />
 				<div className="fixed bottom-4 left-4 z-10 flex max-w-[calc(100vw-2rem)] flex-wrap items-center gap-2 rounded-md border border-[var(--border-strong)] bg-background/80 px-2 py-1.5 backdrop-blur">
 					<ThemeToggle />
 					<div className="h-5 w-px bg-border" aria-hidden />
@@ -185,7 +178,7 @@ export function App(): ReactNode {
 	return (
 		<TooltipProvider>
 			<div className="relative flex flex-col h-screen w-screen overflow-hidden" data-testid="app-root">
-				<AppBackdrop colorScheme={colorScheme} />
+				<AppBackdrop key={`${colorScheme}-${backdropRenderMode}`} colorScheme={colorScheme} renderMode={backdropRenderMode} />
 				<TitleBar />
 
 				{update.info && <UpdateBanner info={update.info} installing={update.installing} installError={update.error} onInstall={update.install} onDownload={update.download} onDismiss={update.dismiss} />}
@@ -225,18 +218,6 @@ export function App(): ReactNode {
 							<Info data-icon="inline-start" aria-hidden />
 							{t('about.button')}
 						</Button>
-						<Button
-							type="button"
-							variant="ghost"
-							size="icon-xs"
-							className="footer-action-button size-6 rounded-md text-muted-foreground"
-							onClick={copyDebugInfo}
-							title={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')}
-							aria-label={debugCopied ? t('app.debugCopied') : t('app.debugCopyTitle')}
-							data-testid="btn-debug"
-						>
-							<Bug aria-hidden />
-						</Button>
 						<Button type="button" variant="ghost" size="xs" className={FOOTER_ACTION_BUTTON_CLASS} onClick={() => openShareDialog('footer')} title={t('share.footerTooltip')} data-testid="btn-share">
 							<Share2 data-icon="inline-start" aria-hidden />
 							<span className={FOOTER_COMPACT_LABEL_CLASS} data-testid="btn-share-label">
@@ -257,20 +238,21 @@ export function App(): ReactNode {
 								size="xs"
 								className={cn(FOOTER_ACTION_BUTTON_CLASS, showNudge && 'feedback-btn-nudging')}
 								onClick={() => {
+									feedbackLogger.info('Feedback button clicked', {source: 'footer', nudgeVisible: showNudge})
 									setShowNudge(false)
 									setFeedbackDialogOpen(true)
 								}}
 								aria-label={t('app.feedback')}
 								data-testid="btn-feedback"
 							>
-								<MessageCircle className={FOOTER_COMPACT_ICON_CLASS} aria-hidden />
+								<MessageCircle data-icon="inline-start" aria-hidden />
 								<span className={FOOTER_COMPACT_LABEL_CLASS} data-testid="btn-feedback-label">
 									{t('app.feedback')}
 								</span>
 							</Button>
 						</div>
 						<Button type="button" variant="ghost" size="xs" className={FOOTER_ACTION_BUTTON_CLASS} onClick={() => void openLogs()} aria-label={t('app.logs')} data-testid="btn-logs">
-							<FileText className={FOOTER_COMPACT_ICON_CLASS} aria-hidden />
+							<FileText data-icon="inline-start" aria-hidden />
 							<span className={FOOTER_COMPACT_LABEL_CLASS} data-testid="btn-logs-label">
 								{t('app.logs')}
 							</span>

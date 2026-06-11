@@ -11,6 +11,7 @@
 import type {PlaylistScope, ProbePlaylistMode, ProbeResult, WizardTransition} from '@shared/types.js'
 import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
+import {classifyUrlIntent} from '@shared/urlIntent.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {resolvePlaylistDir} from './playlistDir.js'
@@ -19,10 +20,13 @@ import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep} f
 import {buildWizardStepGraph, nextWizardStep} from './wizardStepGraph.js'
 import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, hydrateBulkMetadata, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
-import {isMixedYouTubeUrl, rewriteYouTubeChannelRoot} from './urlIntake.js'
-import {quickDownload, quickDownloadUrls, cancelQuickDownload} from './quickDownloadPreparation.js'
+import {rewriteYouTubeChannelRoot} from './urlIntake.js'
+import {quickDownload as runQuickDownload, quickDownloadUrls, cancelQuickDownload, retryQuickDownloadFailure, retryQuickDownloadWithCookies} from './quickDownloadPreparation.js'
 import {resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
 import {projectBulkStart, projectPlaylistProbeResult, projectProbeFailure, projectProbeStart, projectVideoProbeResult} from './probeResultProjection.js'
+import {mixedUrlPromptPatch} from './mixedUrlPrompt.js'
+import {configuredCookiesRetryMode} from './probeErrorExperience.js'
+import {policyForUrlIntent} from './urlIntentPolicy.js'
 
 function pickWizardSnapshot(state: AppState): Record<string, unknown> {
 	return {
@@ -176,7 +180,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		bulkMetadataTotal: RESET_WIZARD_STATE.bulkMetadataTotal,
 		bulkMetadataById: RESET_WIZARD_STATE.bulkMetadataById,
 		quickDownloadStatus: RESET_WIZARD_STATE.quickDownloadStatus,
-		quickDownloadError: RESET_WIZARD_STATE.quickDownloadError,
+		quickDownloadFailure: RESET_WIZARD_STATE.quickDownloadFailure,
 		quickDownloadQueueIds: RESET_WIZARD_STATE.quickDownloadQueueIds,
 		quickDownloadProgressPhase: RESET_WIZARD_STATE.quickDownloadProgressPhase,
 		quickDownloadProgressTotal: RESET_WIZARD_STATE.quickDownloadProgressTotal,
@@ -193,19 +197,23 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		submitUrl: async () => {
 			const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()))
 			if (!cleaned) return
-			// Mixed YouTube URLs (?v=X&list=Y) — disambiguate before probing so the
-			// user picks intent rather than yt-dlp defaulting to playlist.
-			if (isMixedYouTubeUrl(cleaned)) {
-				set({wizardUrl: cleaned, mixedUrlPromptOpen: true, mixedUrlPending: cleaned, wizardError: null, cookiesConfigDialogIssue: null})
+			const action = policyForUrlIntent(classifyUrlIntent(cleaned), 'interactive-submit')
+			if (action.kind === 'show-mixed-prompt') {
+				set(mixedUrlPromptPatch(cleaned, 'wizard'))
 				return
 			}
+			if (action.kind === 'open-bulk-review' || action.kind === 'show-label') return
 			if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return
-			await runProbe(cleaned, 'auto', set, get)
+			await runProbe(cleaned, action.playlistMode, set, get)
 		},
 
-		quickDownload: () => quickDownload(set, get),
+		quickDownload: () => runQuickDownload(set, get),
 
 		quickDownloadUrls: urls => quickDownloadUrls(urls, set, get),
+
+		retryQuickDownloadFailure: () => retryQuickDownloadFailure(set, get),
+
+		retryQuickDownloadWithCookies: () => retryQuickDownloadWithCookies(set, get),
 
 		cancelQuickDownload: () => cancelQuickDownload(set, get),
 
@@ -233,8 +241,14 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		dismissMixedPrompt: async choice => {
 			const pending = get().mixedUrlPending
-			set({mixedUrlPromptOpen: false, mixedUrlPending: null})
+			const source = get().mixedUrlPromptSource
+			set({mixedUrlPromptOpen: false, mixedUrlPending: null, mixedUrlPromptSource: null})
 			if (!pending) return
+			if (source === 'quick-download') {
+				set({wizardUrl: pending})
+				await runQuickDownload(set, get, choice)
+				return
+			}
 			if (choice === 'video') {
 				if (maybeBlockIncompleteCookiesConfig(pending, set, get)) return
 				await runProbe(pending, 'video', set, get)
@@ -369,10 +383,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		},
 
 		retryProbeWithCookies: async () => {
-			const settings = get().settings
-			const path = settings?.common.cookiesPath?.trim()
-			const browser = settings?.common.cookiesBrowser
-			const targetMode: 'file' | 'browser' | null = path ? 'file' : browser ? 'browser' : null
+			const targetMode = configuredCookiesRetryMode(get().settings?.common)
 			if (!targetMode) return
 			await get().setCookiesMode(targetMode)
 			await get().retryFormatProbe()

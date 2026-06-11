@@ -7,6 +7,8 @@ import type {DownloadProfile} from '@shared/types.js'
 import {ok} from '@shared/result.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 
+const LINUX_COMMON_PATHS = {desktop: '/home/user/Desktop', documents: '/home/user/Documents', downloads: '/home/user/Downloads', home: '/home/user', music: '/home/user/Music', pictures: '/home/user/Pictures', videos: '/home/user/Videos'}
+
 describe('DownloadProfileEditor', () => {
 	it('shows best native audio for best native video profiles', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
@@ -116,28 +118,61 @@ describe('DownloadProfileEditor', () => {
 		})
 	})
 
-	it('chooses a fixed destination folder through the native folder dialog', async () => {
+	it('shows inherited global destination and keeps the profile output on default', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
 		expect(profile).toBeDefined()
-		const api = buildMockAppApi()
-		vi.mocked(api.dialog.chooseFolder).mockResolvedValue(ok({path: 'C:\\Users\\User\\Downloads\\Lectures'}))
-		window.appApi = api
+		const onChangeGlobalDestination = vi.fn()
 		const onSave = vi.fn<(saved: DownloadProfile) => void>()
 
-		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />)
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} globalDestination="/home/user/Downloads" commonPaths={LINUX_COMMON_PATHS} onChangeGlobalDestination={onChangeGlobalDestination} />)
 
-		fireEvent.click(screen.getByRole('button', {name: 'Choose destination folder'}))
+		expect(await screen.findByTestId('profiles-editor-global-destination')).toHaveTextContent('Global destination')
+		expect(screen.getByTestId('profiles-editor-global-destination')).toHaveTextContent('~/Downloads')
+		expect(screen.getByTestId('profiles-editor-global-destination')).toHaveTextContent('Active')
+		expect(screen.getByTestId('profiles-editor-profile-override')).toHaveTextContent('No override set')
+		expect(screen.getByTestId('profiles-editor-final-destination')).toHaveTextContent('~/Downloads/Balanced 720p')
 
-		const destination = await screen.findByLabelText('Destination')
-		await waitFor(() => {
-			expect(destination).toHaveValue('C:\\Users\\User\\Downloads\\Lectures')
-		})
-		expect(api.dialog.chooseFolder).toHaveBeenCalledWith(undefined)
+		fireEvent.click(screen.getByRole('button', {name: 'Change global destination'}))
+		expect(onChangeGlobalDestination).toHaveBeenCalled()
 
 		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
 
 		await waitFor(() => {
-			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({output: {kind: 'fixed', dir: 'C:\\Users\\User\\Downloads\\Lectures'}}))
+			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({output: {kind: 'default'}}))
+		})
+	})
+
+	it('chooses and clears a profile-specific destination override', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		expect(profile).toBeDefined()
+		const api = buildMockAppApi()
+		vi.mocked(api.dialog.chooseFolder).mockResolvedValue(ok({path: '/mnt/archive'}))
+		window.appApi = api
+		const onSave = vi.fn<(saved: DownloadProfile) => void>()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} globalDestination="/home/user/Downloads" commonPaths={LINUX_COMMON_PATHS} />)
+
+		fireEvent.click(screen.getByRole('button', {name: 'Set profile override'}))
+
+		const destination = await screen.findByLabelText('Profile override path')
+		await waitFor(() => {
+			expect(destination).toHaveValue('/mnt/archive')
+		})
+		expect(api.dialog.chooseFolder).toHaveBeenCalledWith(undefined)
+		expect(screen.getByTestId('profiles-editor-profile-override')).toHaveTextContent('Overrides global')
+		expect(screen.getByTestId('profiles-editor-final-destination')).toHaveTextContent('/mnt/archive/Balanced 720p')
+
+		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+		await waitFor(() => {
+			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({output: {kind: 'fixed', dir: '/mnt/archive'}}))
+		})
+
+		fireEvent.click(screen.getByRole('button', {name: 'Use global default'}))
+		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+		await waitFor(() => {
+			expect(onSave).toHaveBeenLastCalledWith(expect.objectContaining({output: {kind: 'default'}}))
 		})
 	})
 
@@ -152,13 +187,28 @@ describe('DownloadProfileEditor', () => {
 		try {
 			render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
 
-			fireEvent.click(screen.getByRole('button', {name: 'Choose destination folder'}))
+			fireEvent.click(screen.getByRole('button', {name: 'Set profile override'}))
 
 			expect(await screen.findByText('Could not open folder picker. Enter a path manually.')).toBeInTheDocument()
-			fireEvent.change(screen.getByLabelText('Destination'), {target: {value: 'D:\\Videos'}})
+			fireEvent.change(screen.getByLabelText('Profile override path'), {target: {value: 'D:\\Videos'}})
 			expect(screen.queryByText('Could not open folder picker. Enter a path manually.')).not.toBeInTheDocument()
 		} finally {
 			consoleError.mockRestore()
 		}
+	})
+
+	it('resets a modified built-in profile through the editor footer', async () => {
+		const profile = {...BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')!, name: 'Balanced Custom'}
+		const onReset = vi.fn<() => Promise<void>>().mockResolvedValue(undefined)
+		const onOpenChange = vi.fn()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={onOpenChange} resetProfile={{enabled: true, onReset}} />)
+
+		fireEvent.click(screen.getByRole('button', {name: 'Reset profile'}))
+
+		await waitFor(() => {
+			expect(onReset).toHaveBeenCalled()
+			expect(onOpenChange).toHaveBeenCalledWith(false)
+		})
 	})
 })

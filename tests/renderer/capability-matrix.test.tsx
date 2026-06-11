@@ -58,7 +58,7 @@ describe('DownloadProfilesHome action rows', () => {
 		window.history.replaceState(null, '', '/')
 		window.appApi = buildMockAppApi()
 		window.platform = 'linux'
-		useAppStore.setState({initialized: true, initializing: false, settings: defaultAppSettings('/tmp'), wizardStep: 'url', wizardUrl: '', formatsLoading: false, quickDownloadStatus: 'idle', quickDownloadError: null, quickDownloadQueueIds: [], queue: []})
+		useAppStore.setState({initialized: true, initializing: false, settings: defaultAppSettings('/tmp'), wizardStep: 'url', wizardUrl: '', formatsLoading: false, quickDownloadStatus: 'idle', quickDownloadFailure: null, quickDownloadQueueIds: [], queue: []})
 		vi.clearAllMocks()
 	})
 

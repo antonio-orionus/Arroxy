@@ -1,6 +1,7 @@
 import {act, cleanup, render, waitFor} from '@testing-library/react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {AppBackdrop} from '@renderer/components/layout/background/AppBackdrop.js'
+import {lightOceanScene} from '@renderer/components/layout/background/lightOcean/scene.js'
 
 function mockGradient(): CanvasGradient {
 	return {addColorStop: vi.fn()} as unknown as CanvasGradient
@@ -165,6 +166,21 @@ describe('AppBackdrop fallback', () => {
 		expect(context2d.clearRect).toHaveBeenCalled()
 	})
 
+	it('uses the persisted fallback mode without probing WebGL', async () => {
+		const context2d = mockCanvas2d()
+		const scratchGl = mockWebgl()
+		const productionGl = mockWebgl()
+		installCanvasMocks({context2d, productionGl, scratchGl})
+
+		const {container} = render(<AppBackdrop colorScheme="light" renderMode="fallback" />)
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-canvas-fallback'))
+		expect(container.querySelector('canvas[data-backdrop-scene="light-ocean"][data-backdrop-mode="canvas2d"]')).not.toBeNull()
+		expect(scratchGl.createShader).not.toHaveBeenCalled()
+		expect(productionGl.createShader).not.toHaveBeenCalled()
+		expect(context2d.clearRect).toHaveBeenCalled()
+	})
+
 	it('forces the CSS fallback preview without probing WebGL or drawing Canvas2D', async () => {
 		window.history.replaceState(null, '', '/?backdropForceFallback=css')
 		const context2d = mockCanvas2d()
@@ -177,6 +193,21 @@ describe('AppBackdrop fallback', () => {
 		await waitFor(() => expect(document.body).toHaveClass('backdrop-static-fallback'))
 		await waitFor(() => expect(container.querySelector('canvas')).toBeNull())
 		expect(document.body).toHaveClass('backdrop-dark-aurora')
+		expect(context2d.clearRect).not.toHaveBeenCalled()
+		expect(scratchGl.createShader).not.toHaveBeenCalled()
+		expect(productionGl.createShader).not.toHaveBeenCalled()
+	})
+
+	it('uses the persisted CSS-only mode without probing WebGL or drawing Canvas2D', async () => {
+		const context2d = mockCanvas2d()
+		const scratchGl = mockWebgl()
+		const productionGl = mockWebgl()
+		installCanvasMocks({context2d, productionGl, scratchGl})
+
+		const {container} = render(<AppBackdrop colorScheme="dark" renderMode="css-only" />)
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-static-fallback'))
+		await waitFor(() => expect(container.querySelector('canvas')).toBeNull())
 		expect(context2d.clearRect).not.toHaveBeenCalled()
 		expect(scratchGl.createShader).not.toHaveBeenCalled()
 		expect(productionGl.createShader).not.toHaveBeenCalled()
@@ -252,6 +283,41 @@ describe('AppBackdrop fallback', () => {
 		unmount()
 
 		expect(productionGl.loseContext).not.toHaveBeenCalled()
+	})
+
+	it('pauses WebGL while the window is blurred and resumes on focus', async () => {
+		const scratchGl = mockWebgl()
+		const productionGl = mockWebgl()
+		installCanvasMocks({productionGl, scratchGl})
+		const hasFocus = vi.spyOn(document, 'hasFocus').mockReturnValue(true)
+		const cancel = vi.spyOn(window, 'cancelAnimationFrame')
+		const request = vi.spyOn(window, 'requestAnimationFrame')
+
+		render(<AppBackdrop colorScheme="dark" renderMode="gpu" />)
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
+		expect(request).toHaveBeenCalled()
+
+		hasFocus.mockReturnValue(false)
+		window.dispatchEvent(new Event('blur'))
+
+		expect(cancel).toHaveBeenCalled()
+
+		const requestCallsAfterBlur = request.mock.calls.length
+		await act(async () => {
+			await new Promise(resolve => setTimeout(resolve, 40))
+		})
+		expect(request.mock.calls.length).toBe(requestCallsAfterBlur)
+
+		hasFocus.mockReturnValue(true)
+		window.dispatchEvent(new Event('focus'))
+		await nextFrame()
+
+		expect(request.mock.calls.length).toBeGreaterThan(requestCallsAfterBlur)
+	})
+
+	it('runs the light ocean WebGL scene at 30 FPS', () => {
+		expect(lightOceanScene.frameIntervalMs).toBe(1000 / 30)
 	})
 
 	it('selects dark aurora for dark mode and light ocean for light mode', async () => {

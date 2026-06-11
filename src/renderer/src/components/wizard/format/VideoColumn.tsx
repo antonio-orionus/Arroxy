@@ -27,7 +27,7 @@ export function VideoColumn({view, selectedVideoFormatId, videoExtFilter, dynami
 					{view.dynamicRangeOptions.length > 1 && (
 						<ToggleGroup value={dynamicRangeFilter ? [dynamicRangeFilter] : []} onValueChange={vals => onDynamicRangeFilterChange(vals[0] ?? null)} spacing={1} className="gap-[3px]">
 							{view.dynamicRangeOptions.map(dr => (
-								<ToggleGroupItem key={dr} value={dr} className="h-5 px-[7px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground">
+								<ToggleGroupItem key={dr} value={dr} className="wizard-filter-chip h-5 rounded-full px-[7px] text-[11px] font-semibold">
 									{dr}
 								</ToggleGroupItem>
 							))}
@@ -36,7 +36,7 @@ export function VideoColumn({view, selectedVideoFormatId, videoExtFilter, dynami
 					{view.extOptions.length > 1 && (
 						<ToggleGroup value={videoExtFilter ? [videoExtFilter] : []} onValueChange={vals => onVideoExtFilterChange(vals[0] ?? null)} spacing={1} className="gap-[3px]">
 							{view.extOptions.map(ext => (
-								<ToggleGroupItem key={ext} value={ext} className="h-5 px-[7px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground">
+								<ToggleGroupItem key={ext} value={ext} className="wizard-filter-chip h-5 rounded-full px-[7px] text-[11px] font-semibold">
 									{ext}
 								</ToggleGroupItem>
 							))}

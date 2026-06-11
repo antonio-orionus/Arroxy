@@ -75,11 +75,17 @@
 		"mixedPrompt": {
 			"title": "此链接包含 Playlist",
 			"body": "只想下载你点击的那个视频，还是从 Playlist 中挑选？下一步可以选择特定视频或指定范围。",
+			"quickBody": "只下载这个视频，或使用当前的快速下载配置将整个播放列表加入队列。",
 			"singleVideo": "就这一个",
+			"quickSingleVideo": "下载此视频",
 			"pickFromPlaylist": "从 Playlist 中挑选",
+			"quickWholePlaylist": "下载整个播放列表",
 			"playlistLimit": "播放列表探测限制：{{count}} 个项目",
+			"quickLimitDescription": "Arroxy 在将播放列表、频道或搜索结果加入队列前最多扫描的条目数。",
 			"singleTooltip": "使用 yt-dlp 单视频模式，因此会忽略此 URL 附带的播放列表。",
-			"playlistTooltip": "使用 yt-dlp 播放列表模式，并在显示选择器前获取到你的探测限制。"
+			"quickSingleTooltip": "将一个下载加入队列，并忽略此 URL 附带的播放列表。",
+			"playlistTooltip": "使用 yt-dlp 播放列表模式，并在显示选择器前获取到你的探测限制。",
+			"quickPlaylistTooltip": "使用当前的快速下载配置，将每个已加载的播放列表条目加入队列。如果扫描达到你的上限，Arroxy 会在加入队列前询问。"
 		},
 		"url": {
 			"heading": "从 URL 下载",
@@ -132,6 +138,18 @@
 				"extensionChrome": "本地获取 cookies.txt (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "通过代理路由流量 — 适用于地区限制内容。", "placeholder": "http://host:port", "clear": "清除"},
+			"backdrop": {
+				"panelTitle": "外观与性能",
+				"panelDescription": "选择 Arroxy 在动画背景中使用多少动态效果。",
+				"modeLabel": "背景质量",
+				"modeDescription": "从最丰富的动画效果切换到最佳性能。",
+				"cssOnlyLabel": "最佳性能",
+				"cssOnlyDescription": "仅使用 CSS，不进行 canvas 渲染。",
+				"fallbackLabel": "平衡",
+				"fallbackDescription": "静态 Canvas2D 背景，不使用 WebGL。",
+				"gpuLabel": "最美观",
+				"gpuDescription": "支持时使用动画 WebGL 背景。"
+			},
 			"limitRate": {
 				"label": "下载速度限制",
 				"description": "限制媒体下载的带宽。下面的请求节奏通常是更强的限速手段。",

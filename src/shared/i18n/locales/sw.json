@@ -84,11 +84,17 @@
 		"mixedPrompt": {
 			"title": "Kiungo hiki kina Playlist",
 			"body": "Unataka video uliyobofya tu, au uchague kutoka Playlist? Hatua inayofuata utachagua video maalum au anuwai.",
+			"quickBody": "Pakua video hii pekee, au ongeza orodha yote ya kucheza kwenye foleni kwa wasifu wako amilifu wa Upakuaji wa haraka.",
 			"singleVideo": "Hii tu",
+			"quickSingleVideo": "Pakua video hii",
 			"pickFromPlaylist": "Chagua kutoka Playlist",
+			"quickWholePlaylist": "Pakua orodha yote ya kucheza",
 			"playlistLimit": "Kikomo cha kuchunguza playlist: vipengee {{count}}",
+			"quickLimitDescription": "Idadi ya juu ya vipengee ambavyo Arroxy hukagua kabla ya kuongeza orodha ya kucheza, kituo au matokeo ya utafutaji kwenye foleni.",
 			"singleTooltip": "Hutumia modi ya video moja ya yt-dlp ili kupuuza playlist iliyounganishwa na URL hii.",
-			"playlistTooltip": "Hutumia modi ya playlist ya yt-dlp na kuchukua hadi kikomo chako kabla ya kuonyesha kichaguaji."
+			"quickSingleTooltip": "Huongeza upakuaji mmoja kwenye foleni na kupuuza orodha ya kucheza iliyoambatishwa kwenye URL hii.",
+			"playlistTooltip": "Hutumia modi ya playlist ya yt-dlp na kuchukua hadi kikomo chako kabla ya kuonyesha kichaguaji.",
+			"quickPlaylistTooltip": "Huongeza kila kipengee cha orodha ya kucheza kilichopakiwa kwenye foleni kwa wasifu amilifu wa Upakuaji wa haraka. Ukaguzi ukifika kikomo chako, Arroxy itauliza kabla ya kuongeza kwenye foleni."
 		},
 		"url": {
 			"heading": "Pakua kutoka URL",
@@ -141,6 +147,18 @@
 				"extensionChrome": "Pata cookies.txt NDANI YA KOMPYUTA (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Peleka trafiki kupitia proksi — muhimu kwa maudhui yenye vizuizi vya kijiografia.", "placeholder": "http://host:port", "clear": "Futa"},
+			"backdrop": {
+				"panelTitle": "Mwonekano na utendaji",
+				"panelDescription": "Chagua kiasi cha mwendo ambacho Arroxy hutumia kwa mandhari yenye mwendo.",
+				"modeLabel": "Ubora wa mandhari",
+				"modeDescription": "Badili kutoka mwonekano wenye mwendo mwingi hadi utendaji bora.",
+				"cssOnlyLabel": "Utendaji bora",
+				"cssOnlyDescription": "CSS pekee, hakuna uchoraji wa canvas.",
+				"fallbackLabel": "Uwiano",
+				"fallbackDescription": "Mandhari tuli ya Canvas2D bila WebGL.",
+				"gpuLabel": "Nzuri zaidi",
+				"gpuDescription": "Mandhari ya WebGL yenye mwendo ikisaidiwa."
+			},
 			"limitRate": {
 				"label": "Kikomo cha kasi ya kupakua",
 				"description": "Dhibiti bandwidth ya vipakuliwa vya media. Udhibiti wa maombi hapa chini mara nyingi una nguvu zaidi.",

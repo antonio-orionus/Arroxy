@@ -92,11 +92,17 @@
 		"mixedPrompt": {
 			"title": "Bu havola Playlist ga tegishli",
 			"body": "Faqat bosilgan videoni olasizmi yoki Playlist dan tanlaysizmi? Keyingi qadamda aniq videolar yoki diapazon tanlanadi.",
+			"quickBody": "Faqat shu videoni yuklab oling yoki butun pleylistni faol Tez yuklab olish profilingiz bilan navbatga qo‘ying.",
 			"singleVideo": "Faqat shu birini",
+			"quickSingleVideo": "Shu videoni yuklab olish",
 			"pickFromPlaylist": "Playlist dan tanlash",
+			"quickWholePlaylist": "Butun pleylistni yuklab olish",
 			"playlistLimit": "Pleylist tekshiruv chegarasi: {{count}} ta element",
+			"quickLimitDescription": "Pleylist, kanal yoki qidiruv natijasini navbatga qo‘yishdan oldin Arroxy skanerlaydigan eng ko‘p elementlar soni.",
 			"singleTooltip": "Bu URLga ulangan pleylist e’tiborsiz qolishi uchun yt-dlp bitta video rejimidan foydalanadi.",
-			"playlistTooltip": "Tanlagichni ko‘rsatishdan oldin yt-dlp pleylist rejimida belgilangan chegaragacha yuklaydi."
+			"quickSingleTooltip": "Bitta yuklab olishni navbatga qo‘yadi va bu URLga biriktirilgan pleylistni e’tiborsiz qoldiradi.",
+			"playlistTooltip": "Tanlagichni ko‘rsatishdan oldin yt-dlp pleylist rejimida belgilangan chegaragacha yuklaydi.",
+			"quickPlaylistTooltip": "Yuklangan har bir pleylist elementini faol Tez yuklab olish profili bilan navbatga qo‘yadi. Skanerlash limitingizga yetsa, Arroxy navbatga qo‘yishdan oldin so‘raydi."
 		},
 		"url": {
 			"heading": "URL orqali yuklab olish",
@@ -149,6 +155,18 @@
 				"extensionChrome": "cookies.txt ni LOKAL olish (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Trafikni proksi orqali yo'naltirish — geo-cheklangan kontent uchun foydali.", "placeholder": "http://host:port", "clear": "Tozalash"},
+			"backdrop": {
+				"panelTitle": "Ko‘rinish va unumdorlik",
+				"panelDescription": "Arroxy animatsiyali fon uchun qancha harakat ishlatishini tanlang.",
+				"modeLabel": "Fon sifati",
+				"modeDescription": "Eng animatsiyali ko‘rinishdan eng yaxshi unumdorlikka o‘ting.",
+				"cssOnlyLabel": "Eng yaxshi unumdorlik",
+				"cssOnlyDescription": "Faqat CSS, canvas render qilinmaydi.",
+				"fallbackLabel": "Muvozanatli",
+				"fallbackDescription": "WebGLsiz statik Canvas2D fon.",
+				"gpuLabel": "Eng chiroyli",
+				"gpuDescription": "Qo‘llab-quvvatlansa, animatsiyali WebGL fon."
+			},
 			"limitRate": {
 				"label": "Yuklab olish tezligi chegarasi",
 				"description": "Media yuklab olishlar uchun tarmoq sarfini cheklang. Quyidagi so‘rov oralig‘i odatda kuchliroq vosita.",

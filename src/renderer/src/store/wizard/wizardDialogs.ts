@@ -11,6 +11,7 @@ export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardD
 	return {
 		mixedUrlPromptOpen: false,
 		mixedUrlPending: null,
+		mixedUrlPromptSource: null,
 		advancedAutoOpen: false,
 		advancedAutoTarget: 'cookies',
 		cookiesConfigDialogIssue: null,
@@ -19,12 +20,12 @@ export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardD
 		setAdvancedAutoOpen: (open, target = 'cookies') => set({advancedAutoOpen: open, advancedAutoTarget: target}),
 
 		cancelMixedPrompt: () => {
-			set({mixedUrlPromptOpen: false, mixedUrlPending: null})
+			set({mixedUrlPromptOpen: false, mixedUrlPending: null, mixedUrlPromptSource: null})
 		},
 
 		openAdvancedSettings: target => {
 			replaceHash('settings')
-			set({wizardStep: 'url', wizardError: null, wizardErrorOrigin: null, mixedUrlPromptOpen: false, mixedUrlPending: null, advancedAutoOpen: true, advancedAutoTarget: target, cookiesConfigDialogIssue: null})
+			set({wizardStep: 'url', wizardError: null, wizardErrorOrigin: null, mixedUrlPromptOpen: false, mixedUrlPending: null, mixedUrlPromptSource: null, advancedAutoOpen: true, advancedAutoTarget: target, cookiesConfigDialogIssue: null})
 		},
 
 		dismissCookiesConfigDialog: () => {

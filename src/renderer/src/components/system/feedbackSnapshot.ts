@@ -28,12 +28,7 @@ export function buildFeedbackHiddenFields({appMode, appVersion, language, platfo
 		app_mode: hiddenValue(appMode, 'unknown'),
 		source: 'app-footer',
 		report_id: reportId,
-		diagnostic_report_created: 'true',
-		diagnostic_upload_status: 'requested',
-		diagnostic_raw_bytes: 'pending',
-		diagnostic_compressed_bytes: 'pending',
-		diagnostic_truncated: 'pending',
-		diagnostic_sha256: 'pending',
+		diagnostic_mode: 'automatic',
 		yt_dlp_error_kind: wizardError?.kind === 'ytdlp' ? hiddenValue(wizardError.error.kind, 'unknown') : 'none',
 		error_code: wizardError?.kind === 'other' ? hiddenValue(wizardError.code, 'unknown') : 'none'
 	}

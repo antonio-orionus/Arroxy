@@ -1269,6 +1269,30 @@ msgctxt "wizard.mixedPrompt.playlistTooltip"
 msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
 msgstr "Использует режим плейлиста yt-dlp и загружает элементы до выбранного лимита перед показом выбора."
 
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Скачать только это видео или поставить весь плейлист в очередь с активным профилем Быстрой загрузки."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Максимальное число записей, которые Arroxy сканирует перед добавлением плейлиста, канала или результата поиска в очередь."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Добавляет в очередь каждый загруженный элемент плейлиста с активным профилем Быстрой загрузки. Если сканирование дойдет до лимита, Arroxy спросит перед добавлением в очередь."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Добавляет в очередь одну загрузку и игнорирует плейлист, прикрепленный к этому URL."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Скачать это видео"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Скачать весь плейлист"
+
 msgctxt "wizard.mixedPrompt.singleTooltip"
 msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
 msgstr "Использует режим одиночного видео yt-dlp, поэтому плейлист в этой ссылке игнорируется."
@@ -1700,6 +1724,46 @@ msgstr "Отправлять анонимную статистику"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "Только подсчёт запусков приложения. Без URL, имён файлов или личных данных."
+
+msgctxt "wizard.url.backdrop.cssOnlyDescription"
+msgid "CSS only, no canvas rendering."
+msgstr "Только CSS, без рендеринга canvas."
+
+msgctxt "wizard.url.backdrop.cssOnlyLabel"
+msgid "Best performance"
+msgstr "Лучшая производительность"
+
+msgctxt "wizard.url.backdrop.fallbackDescription"
+msgid "Static Canvas2D backdrop with no WebGL."
+msgstr "Статичный фон Canvas2D без WebGL."
+
+msgctxt "wizard.url.backdrop.fallbackLabel"
+msgid "Balanced"
+msgstr "Сбалансировано"
+
+msgctxt "wizard.url.backdrop.gpuDescription"
+msgid "Animated WebGL backdrop when supported."
+msgstr "Анимированный фон WebGL, если поддерживается."
+
+msgctxt "wizard.url.backdrop.gpuLabel"
+msgid "Most beautiful"
+msgstr "Самый красивый"
+
+msgctxt "wizard.url.backdrop.modeDescription"
+msgid "Move from the most animated look to best performance."
+msgstr "От самого анимированного вида к лучшей производительности."
+
+msgctxt "wizard.url.backdrop.modeLabel"
+msgid "Backdrop quality"
+msgstr "Качество фона"
+
+msgctxt "wizard.url.backdrop.panelDescription"
+msgid "Choose how much motion Arroxy uses for the animated backdrop."
+msgstr "Выберите, сколько движения Arroxy использует для анимированного фона."
+
+msgctxt "wizard.url.backdrop.panelTitle"
+msgid "Appearance and performance"
+msgstr "Внешний вид и производительность"
 
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
@@ -2140,3 +2204,4 @@ msgstr "Помогает сохранять одиночные загрузки 
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "Быстрая загрузка поддерживает отдельные видео, плейлисты, каналы, поисковые запросы и Bulk URLs."
+

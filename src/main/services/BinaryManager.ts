@@ -81,6 +81,20 @@ function makeDownloadProgress(id: DependencyId, source: DependencySource, onProg
 }
 
 const logger = log.scope('binary')
+const SLOW_BINARY_PROBE_ANALYTICS_THRESHOLD_MS = 30_000
+
+function binaryTelemetryId(id: DependencyId): string {
+	return id === 'yt-dlp' ? 'ytdlp' : id
+}
+
+function trackBinaryProbeAnomaly(id: DependencyId, source: DependencySource, outcome: 'failed' | 'slow_success', elapsedMs: number, timeoutMs: number, failure?: DependencyFailure): void {
+	const props: Record<string, string | number | boolean> = {binary: binaryTelemetryId(id), outcome, ...sourceTelemetry(source), elapsed_ms: elapsedMs, timeout_ms: timeoutMs}
+	if (failure) {
+		props.failure_kind = failure.kind
+		props.code = FAILURE_CODE[failure.kind]
+	}
+	trackMain('binary_probe_anomaly', props)
+}
 
 // Resolve absolute path to a build-time-embedded ffmpeg/ffprobe binary.
 //
@@ -193,11 +207,15 @@ export class BinaryManager {
 			const diag = runnableDiagnostic(id, source, candidatePath, attempts, probe.output)
 			this.lastDiagnostics[id] = diag
 			logger.info(`${id} probe ok`, {source, path: candidatePath, args, elapsedMs, version: probe.output.split('\n')[0]})
+			if (elapsedMs > SLOW_BINARY_PROBE_ANALYTICS_THRESHOLD_MS) {
+				trackBinaryProbeAnomaly(id, source, 'slow_success', elapsedMs, timeoutMs)
+			}
 			return diag
 		}
 		attempts.push(makeAttempt(source, probe.failure))
 		onProgress?.({binary: id, phase: 'failed', source, failureKind: probe.failure.kind})
 		logger.warn(`${id} probe failed`, {source, path: candidatePath, args, timeoutMs, elapsedMs, failureKind: probe.failure.kind, message: probe.failure.message})
+		trackBinaryProbeAnomaly(id, source, 'failed', elapsedMs, timeoutMs, probe.failure)
 		return null
 	}
 

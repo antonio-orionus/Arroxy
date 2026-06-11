@@ -1,8 +1,9 @@
 import {useId, useState, type ReactNode} from 'react'
-import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, Headphones, Info, Music, Plus, Scissors, SlidersHorizontal, X, type LucideIcon} from 'lucide-react'
+import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, FolderCog, Headphones, Info, Music, Plus, RotateCcw, Scissors, SlidersHorizontal, X, type LucideIcon} from 'lucide-react'
 import {DOWNLOAD_PROFILE_ICONS} from '@shared/schemas.js'
-import type {DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
-import {cn} from '@renderer/lib/utils.js'
+import type {CommonSettings, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
+import {effectiveOutputDir} from '@shared/subfolder.js'
+import {cn, formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {
 	createDownloadProfileDraft,
 	defaultProfileSubfolderName,
@@ -32,6 +33,22 @@ import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 interface SelectOption<T extends string> {
 	value: T
 	label: string
+}
+
+interface ResetProfileAction {
+	enabled: boolean
+	onReset: () => Promise<void> | void
+}
+
+interface DownloadProfileEditorProps {
+	commonPaths?: CommonSettings['commonPaths']
+	globalDestination?: string
+	initialProfile?: DownloadProfile | null
+	onChangeGlobalDestination?: () => Promise<void> | void
+	onOpenChange: (open: boolean) => void
+	onSave?: (profile: DownloadProfile) => void | Promise<void>
+	open: boolean
+	resetProfile?: ResetProfileAction
 }
 
 const MEDIA_MODES: {value: DownloadProfileMediaMode; label: string; description: string; icon: LucideIcon}[] = [
@@ -232,11 +249,22 @@ function ProfileSwitchRow({id, label, description, checked, onCheckedChange}: {i
 	)
 }
 
+function readablePath(path: string, commonPaths: CommonSettings['commonPaths']): string {
+	const trimmed = path.trim()
+	return trimmed ? formatHomeRelativePath(trimmed, commonPaths) : 'Default downloads folder'
+}
+
+function fallbackFinalPath(subfolderName: string): string {
+	const trimmed = subfolderName.trim()
+	return trimmed ? `Default downloads folder / ${trimmed}` : 'Default downloads folder'
+}
+
 // react-doctor-disable-next-line react-doctor/no-giant-component react-doctor/prefer-useReducer -- this dense profile form needs a focused decomposition outside the mechanical React Doctor cleanup
-export function DownloadProfileEditor({initialProfile = null, open, onOpenChange, onSave}: {initialProfile?: DownloadProfile | null; open: boolean; onOpenChange: (open: boolean) => void; onSave?: (profile: DownloadProfile) => void | Promise<void>}): ReactNode {
+export function DownloadProfileEditor({commonPaths, globalDestination = '', initialProfile = null, onChangeGlobalDestination, onOpenChange, onSave, open, resetProfile}: DownloadProfileEditorProps): ReactNode {
 	const [draft, setDraft] = useState(() => createDownloadProfileDraft(initialProfile))
 	const [profileIconPickerOpen, setProfileIconPickerOpen] = useState(false)
 	const [destinationPickerError, setDestinationPickerError] = useState<string | null>(null)
+	const [destinationOverrideOpen, setDestinationOverrideOpen] = useState(() => initialProfile?.output.kind === 'fixed')
 	const {
 		profileName,
 		profileIcon,
@@ -271,6 +299,14 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 	const videoAudioFormat: Extract<DownloadProfileAudioFormat, 'best' | 'm4a'> = audioFormat === 'm4a' ? 'm4a' : 'best'
 	const audioQualityDisabled = audioFormat === 'best' || audioFormat === 'wav'
 	const videoResolutionOptions = codec === 'mp4' ? SMART_TV_MP4_RESOLUTION_OPTIONS : RESOLUTION_OPTIONS
+	const destinationOverride = destination.trim()
+	const hasDestinationOverride = destinationOverride.length > 0
+	const showDestinationOverride = destinationOverrideOpen || hasDestinationOverride
+	const globalDestinationRoot = globalDestination.trim()
+	const destinationBase = destinationOverride || globalDestinationRoot
+	const resolvedSubfolderName = saveInsideSubfolder ? subfolderName.trim() || defaultProfileSubfolderName(profileName) : ''
+	const resolvedDestination = destinationBase ? effectiveOutputDir(destinationBase, saveInsideSubfolder, resolvedSubfolderName) : ''
+	const resolvedDestinationLabel = resolvedDestination ? readablePath(resolvedDestination, commonPaths) : fallbackFinalPath(resolvedSubfolderName)
 
 	function updateDraft(action: DownloadProfileDraftAction): void {
 		setDraft(current => updateDownloadProfileDraft(current, action))
@@ -278,7 +314,14 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 
 	function changeDestination(nextDestination: string): void {
 		setDestinationPickerError(null)
+		setDestinationOverrideOpen(true)
 		updateDraft({type: 'set-destination', destination: nextDestination})
+	}
+
+	function useGlobalDefaultDestination(): void {
+		setDestinationPickerError(null)
+		setDestinationOverrideOpen(false)
+		updateDraft({type: 'set-destination', destination: ''})
 	}
 
 	function changeProfileName(nextName: string): void {
@@ -303,6 +346,7 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 
 	async function chooseDestinationFolder(): Promise<void> {
 		setDestinationPickerError(null)
+		setDestinationOverrideOpen(true)
 		try {
 			const result = await window.appApi.dialog.chooseFolder(destination.trim() || undefined)
 			if (!result.ok || !result.data.path) return
@@ -317,6 +361,12 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 		const now = new Date().toISOString()
 		const profile = downloadProfileFromDraft(draft, now, createProfileId)
 		await onSave?.(profile)
+		onOpenChange(false)
+	}
+
+	async function resetProfileOverride(): Promise<void> {
+		if (!resetProfile?.enabled) return
+		await resetProfile.onReset()
 		onOpenChange(false)
 	}
 
@@ -569,22 +619,76 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 							</ProfilePanel>
 						</div>
 
-						<ProfilePanel title="Advanced options" className="lg:self-start">
+						<ProfilePanel title="Advanced options" description="Profiles inherit the global destination unless you set a profile override." className="lg:self-start">
 							<FieldGroup className="gap-3">
-								<Field className="gap-1.5">
-									<FieldLabel htmlFor="profile-destination" className="text-[12px] font-medium text-[var(--text-subtle)]">
-										Destination
-									</FieldLabel>
-									<InputGroup aria-label="Destination folder">
-										<InputGroupInput id="profile-destination" value={destination} onChange={event => changeDestination(event.target.value)} placeholder="Default downloads folder" className="font-mono text-[12px]" />
-										<InputGroupAddon align="inline-end">
-											<InputGroupButton type="button" size="icon-xs" aria-label="Choose destination folder" onClick={() => void chooseDestinationFolder()}>
-												<Folder aria-hidden />
-											</InputGroupButton>
-										</InputGroupAddon>
-									</InputGroup>
-									{destinationPickerError ? <FieldDescription className="text-[12px] text-destructive">{destinationPickerError}</FieldDescription> : null}
-								</Field>
+								<div className="grid gap-2" data-testid="profiles-editor-destination-policy">
+									<div className={cn('rounded-lg border bg-background/25 p-3 transition-colors', hasDestinationOverride ? 'border-border' : 'border-[var(--brand)]/55 bg-[var(--brand-dim)]')} data-testid="profiles-editor-global-destination">
+										<div className="min-w-0">
+											<div className="flex min-w-0 items-center gap-2">
+												<FolderCog className="size-4 shrink-0 text-[var(--brand)]" aria-hidden />
+												<span className="text-[12px] font-semibold">Global destination</span>
+												<Badge variant={hasDestinationOverride ? 'outline' : 'secondary'}>{hasDestinationOverride ? 'Inherited' : 'Active'}</Badge>
+											</div>
+											<p className="mt-1 truncate font-mono text-[12px] text-[var(--text-subtle)]" title={globalDestinationRoot || undefined}>
+												{readablePath(globalDestinationRoot, commonPaths)}
+											</p>
+										</div>
+										<div className="mt-2 flex flex-wrap gap-2">
+											<Button type="button" variant="outline" size="sm" aria-label="Change global destination" title="Change global destination" onClick={() => void onChangeGlobalDestination?.()} disabled={!onChangeGlobalDestination} className="shrink-0">
+												<FolderCog data-icon="inline-start" aria-hidden />
+												Change global
+											</Button>
+										</div>
+									</div>
+
+									<div className={cn('rounded-lg border bg-background/25 p-3 transition-colors', hasDestinationOverride ? 'border-[var(--brand)]/55 bg-[var(--brand-dim)]' : 'border-border')} data-testid="profiles-editor-profile-override">
+										<div className="min-w-0">
+											<div className="flex min-w-0 items-center gap-2">
+												<Folder className="size-4 shrink-0 text-[var(--brand)]" aria-hidden />
+												<span className="text-[12px] font-semibold">Profile override</span>
+												<Badge variant={hasDestinationOverride ? 'secondary' : 'outline'}>{hasDestinationOverride ? 'Overrides global' : showDestinationOverride ? 'Choose folder' : 'No override set'}</Badge>
+											</div>
+											<p className="mt-1 text-[11px] leading-snug text-[var(--text-subtle)]">{hasDestinationOverride ? 'This profile saves to its own root before the subfolder is added.' : 'No override set. This profile uses the global destination above.'}</p>
+										</div>
+										{!showDestinationOverride ? (
+											<div className="mt-2 flex flex-wrap gap-2">
+												<Button type="button" variant="outline" size="sm" aria-label="Set profile override" title="Set profile override" onClick={() => void chooseDestinationFolder()} className="shrink-0">
+													<Folder data-icon="inline-start" aria-hidden />
+													Set override
+												</Button>
+											</div>
+										) : null}
+
+										{showDestinationOverride ? (
+											<Field className="mt-3 gap-1.5">
+												<FieldLabel htmlFor="profile-destination" className="text-[12px] font-medium text-[var(--text-subtle)]">
+													Profile override path
+												</FieldLabel>
+												<InputGroup>
+													<InputGroupInput id="profile-destination" value={destination} onChange={event => changeDestination(event.target.value)} placeholder="Choose a folder for this profile" className="font-mono text-[12px]" />
+													<InputGroupAddon align="inline-end">
+														<InputGroupButton type="button" size="icon-xs" aria-label="Choose destination folder" onClick={() => void chooseDestinationFolder()}>
+															<Folder aria-hidden />
+														</InputGroupButton>
+													</InputGroupAddon>
+												</InputGroup>
+												<div className="flex flex-wrap items-center gap-2">
+													<Button type="button" variant="ghost" size="xs" onClick={useGlobalDefaultDestination}>
+														Use global default
+													</Button>
+													{destinationPickerError ? <FieldDescription className="text-[12px] text-destructive">{destinationPickerError}</FieldDescription> : null}
+												</div>
+											</Field>
+										) : null}
+									</div>
+
+									<div className="rounded-lg border border-[var(--border-strong)] bg-background/35 px-3 py-2" data-testid="profiles-editor-final-destination">
+										<p className="text-[11px] font-medium text-[var(--text-subtle)]">Resolved destination</p>
+										<p className="mt-1 truncate font-mono text-[12px] text-foreground" title={resolvedDestination || resolvedDestinationLabel}>
+											{resolvedDestinationLabel}
+										</p>
+									</div>
+								</div>
 
 								<Field orientation="horizontal" className="items-center gap-2 text-[12px] text-[var(--text-subtle)]">
 									<Checkbox id="profile-subfolder-enabled" checked={saveInsideSubfolder} onCheckedChange={checked => updateDraft({type: 'set-save-inside-subfolder', saveInsideSubfolder: checked === true})} />
@@ -656,13 +760,23 @@ export function DownloadProfileEditor({initialProfile = null, open, onOpenChange
 						</ProfilePanel>
 					</div>
 				</ScrollArea>
-				<DialogFooter>
-					<Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-						Cancel
-					</Button>
-					<Button type="button" onClick={() => void saveProfile()} disabled={subfolderInvalid} className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
-						Save profile
-					</Button>
+				<DialogFooter className="sm:justify-between">
+					<div className="flex min-w-0 flex-1">
+						{resetProfile ? (
+							<Button type="button" variant="ghost" onClick={() => void resetProfileOverride()} disabled={!resetProfile.enabled} title={resetProfile.enabled ? 'Restore the built-in profile settings' : 'This profile already uses built-in settings'}>
+								<RotateCcw data-icon="inline-start" aria-hidden />
+								Reset profile
+							</Button>
+						) : null}
+					</div>
+					<div className="flex flex-col-reverse gap-2 sm:flex-row">
+						<Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+							Cancel
+						</Button>
+						<Button type="button" onClick={() => void saveProfile()} disabled={subfolderInvalid} className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
+							Save profile
+						</Button>
+					</div>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

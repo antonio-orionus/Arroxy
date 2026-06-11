@@ -108,6 +108,7 @@ describe('Feedback nudge', () => {
 
 		expect(screen.getByTestId('feedback-nudge')).toBeInTheDocument()
 		expect(screen.getByText("Enjoying Arroxy? I'd love to hear from you! 💬")).toBeInTheDocument()
+		expect(mockTallyOpenPopup).not.toHaveBeenCalled()
 	})
 
 	it('nudge auto-dismisses after 8 seconds', async () => {
@@ -146,7 +147,7 @@ describe('Feedback nudge', () => {
 		})
 
 		expect(mockOpenExternal).not.toHaveBeenCalled()
-		expect(mockTallyOpenPopup).toHaveBeenCalledWith('Ek6M8B', expect.objectContaining({hiddenFields: expect.objectContaining({source: 'app-footer', diagnostic_upload_status: 'requested'})}))
+		expect(mockTallyOpenPopup).toHaveBeenCalledWith('Ek6M8B', expect.objectContaining({hiddenFields: expect.objectContaining({source: 'app-footer', diagnostic_mode: 'automatic'})}))
 
 		// After exit animation completes
 		act(() => {

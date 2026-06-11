@@ -16,21 +16,22 @@ import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 // through to the probe IPC as `playlistMode: 'video' | 'playlist'`.
 export function MixedUrlPromptDialog(): ReactNode {
 	const {t} = useTranslation()
-	const {mixedUrlPromptOpen, cancelMixedPrompt, dismissMixedPrompt, settings} = useAppStore()
+	const {mixedUrlPromptOpen, mixedUrlPromptSource, cancelMixedPrompt, dismissMixedPrompt, settings} = useAppStore()
 	const playlistButtonRef = useRef<HTMLButtonElement>(null)
 	const playlistLimit = resolvePlaylistProbeLimit(settings?.common)
+	const isQuickDownload = mixedUrlPromptSource === 'quick-download'
 
 	return (
 		<Dialog open={mixedUrlPromptOpen} onOpenChange={open => !open && cancelMixedPrompt()}>
-			{/* Focus "Pick from playlist" on open — the recommended action — instead
-          of the close button / advanced-settings link the trap would pick. */}
+			{/* Focus the playlist action on open, the recommended action, instead
+          of the close button or the nested playlist-limit selector. */}
 			<DialogContent initialFocus={playlistButtonRef}>
 				<DialogTitle>{t('wizard.mixedPrompt.title')}</DialogTitle>
-				<DialogDescription>{t('wizard.mixedPrompt.body')}</DialogDescription>
+				<DialogDescription>{t(isQuickDownload ? 'wizard.mixedPrompt.quickBody' : 'wizard.mixedPrompt.body')}</DialogDescription>
 				<Alert variant="info" className="mt-3 flex items-center gap-3 py-2 text-[12px]" data-testid="mixed-playlist-cap">
 					<Info className="shrink-0" />
 					<AlertDescription className="min-w-0 flex-1 text-[12px]" title={t('wizard.url.playlistProbeLimit.tooltip')}>
-						{t('wizard.mixedPrompt.playlistLimit', {count: playlistLimit})} · {t('wizard.url.playlistProbeLimit.description')}
+						{t('wizard.mixedPrompt.playlistLimit', {count: playlistLimit})} · {t(isQuickDownload ? 'wizard.mixedPrompt.quickLimitDescription' : 'wizard.url.playlistProbeLimit.description')}
 					</AlertDescription>
 					<PlaylistProbeLimitSelector testId="mixed-playlist-probe-limit" showCurrent={false} className="w-36" />
 				</Alert>
@@ -38,25 +39,25 @@ export function MixedUrlPromptDialog(): ReactNode {
 					<Tooltip>
 						<TooltipTrigger
 							render={props => (
-								<Button {...props} type="button" variant="outline" onClick={() => void dismissMixedPrompt('video')}>
-									{t('wizard.mixedPrompt.singleVideo')}
+								<Button {...props} type="button" variant="outline" onClick={() => void dismissMixedPrompt('video')} data-testid="mixed-single-choice">
+									{t(isQuickDownload ? 'wizard.mixedPrompt.quickSingleVideo' : 'wizard.mixedPrompt.singleVideo')}
 								</Button>
 							)}
 						/>
 						<TooltipContent className="max-w-[18rem] leading-snug" data-testid="mixed-single-tooltip">
-							{t('wizard.mixedPrompt.singleTooltip')}
+							{t(isQuickDownload ? 'wizard.mixedPrompt.quickSingleTooltip' : 'wizard.mixedPrompt.singleTooltip')}
 						</TooltipContent>
 					</Tooltip>
 					<Tooltip>
 						<TooltipTrigger
 							render={props => (
-								<Button {...props} ref={playlistButtonRef} type="button" variant="outline" onClick={() => void dismissMixedPrompt('playlist')}>
-									{t('wizard.mixedPrompt.pickFromPlaylist')}
+								<Button {...props} ref={playlistButtonRef} type="button" variant="outline" onClick={() => void dismissMixedPrompt('playlist')} data-testid="mixed-playlist-choice">
+									{t(isQuickDownload ? 'wizard.mixedPrompt.quickWholePlaylist' : 'wizard.mixedPrompt.pickFromPlaylist')}
 								</Button>
 							)}
 						/>
 						<TooltipContent className="max-w-[18rem] leading-snug" data-testid="mixed-playlist-tooltip">
-							{t('wizard.mixedPrompt.playlistTooltip')}
+							{t(isQuickDownload ? 'wizard.mixedPrompt.quickPlaylistTooltip' : 'wizard.mixedPrompt.playlistTooltip')}
 						</TooltipContent>
 					</Tooltip>
 				</DialogFooter>

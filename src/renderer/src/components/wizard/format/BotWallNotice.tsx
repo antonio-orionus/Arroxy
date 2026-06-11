@@ -2,8 +2,12 @@ import type {JSX} from 'react'
 import {AlertTriangle, RefreshCw, ShieldCheck} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '@renderer/store/useAppStore.js'
+import {buildProbeErrorExperience, type BotWallGuidance} from '@renderer/store/wizard/probeErrorExperience.js'
 import {Alert, AlertDescription, AlertTitle} from '@renderer/components/ui/alert.js'
 import {Button} from '@renderer/components/ui/button.js'
+import {cn} from '@renderer/lib/utils.js'
+
+type GuidanceDensity = 'full' | 'compact'
 
 interface Props {
 	// When set, the component renders even if `wizardFormatsDegraded` is null.
@@ -13,39 +17,52 @@ interface Props {
 	forceShow?: boolean
 }
 
-export function BotWallNotice({forceShow = false}: Props): JSX.Element | null {
+interface BotWallGuidanceAlertProps {
+	guidance: BotWallGuidance
+	onEnableCookiesAndRetry: () => void
+	onRetry: () => void
+	density?: GuidanceDensity
+	showRetryAction?: boolean
+	enableTestId?: string
+	retryTestId?: string
+}
+
+export function BotWallGuidanceAlert({guidance, onEnableCookiesAndRetry, onRetry, density = 'full', showRetryAction = true, enableTestId = 'bot-wall-enable-cta', retryTestId = 'bot-wall-retry-cta'}: BotWallGuidanceAlertProps): JSX.Element | null {
 	const {t} = useTranslation()
-	const {wizardFormatsDegraded, settings, retryFormatProbe, retryProbeWithCookies} = useAppStore()
+	if (guidance.variant === 'hidden') return null
+	const compact = density === 'compact'
+	const showEnableAction = guidance.variant === 'disabled'
+	const showActions = showEnableAction || showRetryAction
 
-	const isBotWall = forceShow || (wizardFormatsDegraded?.reasons.includes('botWall') ?? false)
-	if (!isBotWall) return null
-
-	const cookiesMode = settings?.common?.cookiesMode ?? 'off'
-	const hasCookiesPath = Boolean(settings?.common?.cookiesPath?.trim())
-	const hasCookiesBrowser = Boolean(settings?.common?.cookiesBrowser)
-	const cookiesConfigured = hasCookiesPath || hasCookiesBrowser
-
-	const variant: 'unconfigured' | 'disabled' | 'enabled' = cookiesMode !== 'off' ? 'enabled' : cookiesConfigured ? 'disabled' : 'unconfigured'
-
-	const body = variant === 'unconfigured' ? t('wizard.formats.botWall.bodyUnconfigured') : variant === 'disabled' ? t('wizard.formats.botWall.bodyDisabled') : t('wizard.formats.botWall.bodyEnabled')
+	const body = guidance.variant === 'unconfigured' ? t('wizard.formats.botWall.bodyUnconfigured') : guidance.variant === 'disabled' ? t('wizard.formats.botWall.bodyDisabled') : t('wizard.formats.botWall.bodyEnabled')
 
 	return (
-		<Alert role="status" variant="warning" data-testid="bot-wall-notice" data-variant={variant} className="text-[12px]">
-			<AlertTriangle />
-			<AlertTitle className="text-[12px]">{t('wizard.formats.botWall.heading')}</AlertTitle>
-			<AlertDescription className="text-[12px] text-current">{body}</AlertDescription>
-			<div className="col-start-2 flex flex-wrap gap-2">
-				{variant === 'disabled' ? (
-					<Button type="button" size="sm" variant="default" onClick={() => void retryProbeWithCookies()} data-testid="bot-wall-enable-cta">
-						<ShieldCheck data-icon="inline-start" />
-						{t('wizard.formats.botWall.enableRetryCta')}
-					</Button>
-				) : null}
-				<Button type="button" size="sm" variant="outline" onClick={() => void retryFormatProbe()} data-testid="bot-wall-retry-cta">
-					<RefreshCw data-icon="inline-start" />
-					{t('wizard.formats.botWall.retryCta')}
-				</Button>
-			</div>
+		<Alert role="status" variant="warning" data-testid="bot-wall-notice" data-variant={guidance.variant} data-density={density} className={cn('text-[12px]', compact && 'py-2')}>
+			<AlertTriangle className={cn(compact && 'mt-0.5 size-3.5')} />
+			<AlertTitle className={cn('text-[12px]', compact && 'text-[11px]')}>{t('wizard.formats.botWall.heading')}</AlertTitle>
+			<AlertDescription className={cn('text-[12px] text-current', compact && 'text-[11px]')}>{body}</AlertDescription>
+			{showActions ? (
+				<div className="col-start-2 flex flex-wrap gap-2">
+					{showEnableAction ? (
+						<Button type="button" size={compact ? 'xs' : 'sm'} variant="default" onClick={onEnableCookiesAndRetry} data-testid={enableTestId}>
+							<ShieldCheck data-icon="inline-start" />
+							{t('wizard.formats.botWall.enableRetryCta')}
+						</Button>
+					) : null}
+					{showRetryAction ? (
+						<Button type="button" size={compact ? 'xs' : 'sm'} variant="outline" onClick={onRetry} data-testid={retryTestId}>
+							<RefreshCw data-icon="inline-start" />
+							{t('wizard.formats.botWall.retryCta')}
+						</Button>
+					) : null}
+				</div>
+			) : null}
 		</Alert>
 	)
+}
+
+export function BotWallNotice({forceShow = false}: Props): JSX.Element | null {
+	const {wizardFormatsDegraded, settings, retryFormatProbe, retryProbeWithCookies} = useAppStore()
+	const experience = buildProbeErrorExperience({error: null, commonSettings: settings?.common, degradedReasons: forceShow ? ['botWall'] : wizardFormatsDegraded?.reasons})
+	return <BotWallGuidanceAlert guidance={experience.botWall} onEnableCookiesAndRetry={() => void retryProbeWithCookies()} onRetry={() => void retryFormatProbe()} />
 }

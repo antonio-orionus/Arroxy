@@ -46,8 +46,8 @@ describe('rewriteYouTubeChannelRoot — appends /videos to bare channel-root URL
 	})
 })
 
-describe('isMixedYouTubeUrl — detects ?v= AND ?list= on YouTube hosts', () => {
-	it.each(['https://www.youtube.com/watch?v=abc&list=PLxyz', 'https://www.youtube.com/watch?v=abc&list=RDabc', 'https://www.youtube.com/watch?list=PLxyz&v=abc', 'https://m.youtube.com/watch?v=abc&list=PLxyz'])('returns true for mixed URL: %s', url => {
+describe('isMixedYouTubeUrl — delegates to UrlIntent mixed classification', () => {
+	it.each(['https://www.youtube.com/watch?v=abc&list=PLxyz', 'https://www.youtube.com/watch?v=abc&list=RDabc', 'https://www.youtube.com/watch?list=PLxyz&v=abc', 'https://m.youtube.com/watch?v=abc&list=PLxyz', 'https://youtu.be/abc?list=PLxyz'])('returns true for mixed URL: %s', url => {
 		expect(isMixedYouTubeUrl(url)).toBe(true)
 	})
 

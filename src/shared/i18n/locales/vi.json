@@ -84,11 +84,17 @@
 		"mixedPrompt": {
 			"title": "Liên kết này có Playlist",
 			"body": "Bạn chỉ muốn video đã chọn, hay muốn chọn từ Playlist? Bạn sẽ chọn các video cụ thể hoặc một đoạn ở bước tiếp theo.",
+			"quickBody": "Chỉ tải video này, hoặc đưa toàn bộ playlist vào hàng đợi bằng hồ sơ Tải nhanh đang hoạt động.",
 			"singleVideo": "Chỉ cái này thôi",
+			"quickSingleVideo": "Tải video này",
 			"pickFromPlaylist": "Chọn từ Playlist",
+			"quickWholePlaylist": "Tải toàn bộ playlist",
 			"playlistLimit": "Giới hạn dò playlist: {{count}} mục",
+			"quickLimitDescription": "Số mục tối đa Arroxy quét trước khi đưa playlist, kênh hoặc kết quả tìm kiếm vào hàng đợi.",
 			"singleTooltip": "Dùng chế độ video đơn của yt-dlp để bỏ qua playlist gắn với URL này.",
-			"playlistTooltip": "Dùng chế độ playlist của yt-dlp và lấy đến giới hạn dò playlist trước khi hiện bộ chọn."
+			"quickSingleTooltip": "Đưa một lượt tải vào hàng đợi và bỏ qua playlist gắn với URL này.",
+			"playlistTooltip": "Dùng chế độ playlist của yt-dlp và lấy đến giới hạn dò playlist trước khi hiện bộ chọn.",
+			"quickPlaylistTooltip": "Đưa mọi mục playlist đã tải vào hàng đợi bằng hồ sơ Tải nhanh đang hoạt động. Nếu lần quét chạm giới hạn của bạn, Arroxy sẽ hỏi trước khi đưa vào hàng đợi."
 		},
 		"url": {
 			"heading": "Tải xuống từ URL",
@@ -141,6 +147,18 @@
 				"extensionChrome": "Lấy cookies.txt TRÊN MÁY (Chrome)"
 			},
 			"proxy": {"label": "URL Proxy", "description": "Chuyển lưu lượng qua proxy — hữu ích cho nội dung bị chặn theo khu vực.", "placeholder": "http://host:port", "clear": "Xóa"},
+			"backdrop": {
+				"panelTitle": "Giao diện và hiệu năng",
+				"panelDescription": "Chọn mức chuyển động Arroxy dùng cho nền động.",
+				"modeLabel": "Chất lượng nền",
+				"modeDescription": "Chuyển từ giao diện nhiều chuyển động nhất sang hiệu năng tốt nhất.",
+				"cssOnlyLabel": "Hiệu năng tốt nhất",
+				"cssOnlyDescription": "Chỉ dùng CSS, không kết xuất canvas.",
+				"fallbackLabel": "Cân bằng",
+				"fallbackDescription": "Nền Canvas2D tĩnh không dùng WebGL.",
+				"gpuLabel": "Đẹp nhất",
+				"gpuDescription": "Nền WebGL động khi được hỗ trợ."
+			},
 			"limitRate": {
 				"label": "Giới hạn tốc độ tải",
 				"description": "Giới hạn băng thông cho tải media. Nhịp yêu cầu bên dưới thường là đòn bẩy giới hạn mạnh hơn.",

@@ -1269,6 +1269,30 @@ msgctxt "wizard.mixedPrompt.playlistTooltip"
 msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
 msgstr "yt-dlp のプレイリストモードを使い、選択画面を出す前に上限まで取得します。"
 
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "この動画だけをダウンロードするか、有効なクイックダウンロードプロファイルでプレイリスト全体をキューに追加します。"
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "プレイリスト、チャンネル、検索結果をキューに追加する前に Arroxy がスキャンする最大項目数です。"
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "読み込まれた各プレイリスト項目を、有効なクイックダウンロードプロファイルでキューに追加します。スキャンが上限に達した場合、キューに追加する前に Arroxy が確認します。"
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "1 件のダウンロードをキューに追加し、この URL に付いているプレイリストは無視します。"
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "この動画をダウンロード"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "プレイリスト全体をダウンロード"
+
 msgctxt "wizard.mixedPrompt.singleTooltip"
 msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
 msgstr "yt-dlp の単一動画モードを使い、この URL に付いたプレイリストを無視します。"
@@ -1700,6 +1724,46 @@ msgstr "匿名の使用統計を送信"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "アプリの起動回数のみを記録します。URL、ファイル名、個人情報は含まれません。"
+
+msgctxt "wizard.url.backdrop.cssOnlyDescription"
+msgid "CSS only, no canvas rendering."
+msgstr "CSS のみ、canvas レンダリングなし。"
+
+msgctxt "wizard.url.backdrop.cssOnlyLabel"
+msgid "Best performance"
+msgstr "最高のパフォーマンス"
+
+msgctxt "wizard.url.backdrop.fallbackDescription"
+msgid "Static Canvas2D backdrop with no WebGL."
+msgstr "WebGL なしの静的な Canvas2D 背景。"
+
+msgctxt "wizard.url.backdrop.fallbackLabel"
+msgid "Balanced"
+msgstr "バランス"
+
+msgctxt "wizard.url.backdrop.gpuDescription"
+msgid "Animated WebGL backdrop when supported."
+msgstr "対応環境ではアニメーション WebGL 背景を使用します。"
+
+msgctxt "wizard.url.backdrop.gpuLabel"
+msgid "Most beautiful"
+msgstr "最も美しい"
+
+msgctxt "wizard.url.backdrop.modeDescription"
+msgid "Move from the most animated look to best performance."
+msgstr "最も動きのある表示から最高のパフォーマンスへ調整します。"
+
+msgctxt "wizard.url.backdrop.modeLabel"
+msgid "Backdrop quality"
+msgstr "背景の品質"
+
+msgctxt "wizard.url.backdrop.panelDescription"
+msgid "Choose how much motion Arroxy uses for the animated backdrop."
+msgstr "アニメーション背景で Arroxy が使用する動きの量を選びます。"
+
+msgctxt "wizard.url.backdrop.panelTitle"
+msgid "Appearance and performance"
+msgstr "外観とパフォーマンス"
 
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
@@ -2140,3 +2204,4 @@ msgstr "タイトルが変わったり重複したりしても、単発ダウン
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "クイックダウンロードは、単体動画、プレイリスト、チャンネル、検索、Bulk URL を使用できます。"
+

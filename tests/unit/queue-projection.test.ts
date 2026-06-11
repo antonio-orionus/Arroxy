@@ -27,7 +27,7 @@ describe('QueueProjection', () => {
 			['q1', 'done'],
 			['q3', 'pending']
 		])
-		expect(result.patch).toMatchObject({queue: result.queue, quickDownloadStatus: 'idle', quickDownloadError: null, quickDownloadQueueIds: []})
+		expect(result.patch).toMatchObject({queue: result.queue, quickDownloadStatus: 'idle', quickDownloadFailure: null, quickDownloadQueueIds: []})
 	})
 
 	it('binds queue events through the scheduler and reports done increments with the previous milestone count', () => {

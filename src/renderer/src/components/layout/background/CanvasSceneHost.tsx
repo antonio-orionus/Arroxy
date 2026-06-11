@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState, type ReactNode} from 'react'
+import type {BackdropRenderMode} from '@shared/types.js'
 import {logBackdrop} from './backdropLogger.js'
 import type {BackdropMode, BackdropScene} from './types.js'
 import {createWebglProgram, disposeWebglProgram, isSoftwareRenderer, releaseWebglContext, rendererName, WEBGL_CONTEXT_OPTIONS} from './webgl.js'
@@ -27,6 +28,10 @@ function forcedFallbackPreviewMode(): ForcedFallbackMode | null {
 	}
 }
 
+function isBackdropActive(): boolean {
+	return !document.hidden && (typeof document.hasFocus !== 'function' || document.hasFocus())
+}
+
 function addSceneClasses(scene: BackdropScene): () => void {
 	document.body.classList.add(scene.bodyClassName)
 	return () => document.body.classList.remove(scene.bodyClassName)
@@ -37,7 +42,7 @@ function activateStaticFallback(): () => void {
 	return () => document.body.classList.remove('backdrop-static-fallback')
 }
 
-export function CanvasSceneHost({scene}: {scene: BackdropScene}): ReactNode {
+export function CanvasSceneHost({scene, renderMode}: {scene: BackdropScene; renderMode: BackdropRenderMode}): ReactNode {
 	const webglCanvasRef = useRef<HTMLCanvasElement>(null)
 	const fallbackCanvasRef = useRef<HTMLCanvasElement>(null)
 	const [mode, setMode] = useState<BackdropMode>('webgl')
@@ -106,10 +111,8 @@ export function CanvasSceneHost({scene}: {scene: BackdropScene}): ReactNode {
 			}
 		}
 
-		const forcedFallback = forcedFallbackPreviewMode()
-		if (forcedFallback === 'canvas2d') return activateCanvasFallback('forced-canvas2d-preview')
-		if (forcedFallback === 'css') {
-			logBackdrop('info', scene.id, 'fallback-activate', {mode: 'css', reason: 'forced-css-preview'})
+		const activateCssFallback = (reason: string): (() => void) => {
+			logBackdrop('info', scene.id, 'fallback-activate', {mode: 'css', reason})
 			const cleanupStatic = activateStaticFallback()
 			let cancelled = false
 			queueMicrotask(() => {
@@ -121,6 +124,12 @@ export function CanvasSceneHost({scene}: {scene: BackdropScene}): ReactNode {
 				cleanupSceneClass()
 			}
 		}
+
+		const forcedFallback = forcedFallbackPreviewMode()
+		if (forcedFallback === 'canvas2d') return activateCanvasFallback('forced-canvas2d-preview')
+		if (forcedFallback === 'css') return activateCssFallback('forced-css-preview')
+		if (renderMode === 'fallback') return activateCanvasFallback('render-mode-fallback')
+		if (renderMode === 'css-only') return activateCssFallback('render-mode-css-only')
 
 		const softwareRendererAllowed = backdropSoftwareAllowed()
 		const probeCanvas = document.createElement('canvas')
@@ -208,26 +217,37 @@ export function CanvasSceneHost({scene}: {scene: BackdropScene}): ReactNode {
 			raf = 0
 		}
 		const run = (): void => {
-			if (raf || document.hidden) return
+			if (raf || !isBackdropActive()) return
 			if (staticRender()) {
 				draw(performance.now())
 				return
 			}
 			raf = requestAnimationFrame(loop)
 		}
+		const onActivityChange = (): void => {
+			if (isBackdropActive()) run()
+			else stop()
+		}
 		const onVisibility = (): void => {
-			if (document.hidden) stop()
-			else run()
+			onActivityChange()
+		}
+		const onWindowFocus = (): void => {
+			onActivityChange()
+		}
+		const onWindowBlur = (): void => {
+			stop()
 		}
 		const onReduce = (): void => {
 			stop()
 			run()
 		}
 		const onStaticInvalidation = (): void => {
-			if (!document.hidden && staticRender()) draw(performance.now())
+			if (isBackdropActive() && staticRender()) draw(performance.now())
 		}
 
 		document.addEventListener('visibilitychange', onVisibility)
+		window.addEventListener('focus', onWindowFocus)
+		window.addEventListener('blur', onWindowBlur)
 		reduceMotion.addEventListener('change', onReduce)
 		window.addEventListener('resize', onStaticInvalidation)
 		run()
@@ -235,6 +255,8 @@ export function CanvasSceneHost({scene}: {scene: BackdropScene}): ReactNode {
 		return () => {
 			stop()
 			document.removeEventListener('visibilitychange', onVisibility)
+			window.removeEventListener('focus', onWindowFocus)
+			window.removeEventListener('blur', onWindowBlur)
 			reduceMotion.removeEventListener('change', onReduce)
 			window.removeEventListener('resize', onStaticInvalidation)
 			document.body.classList.remove('backdrop-webgl-active')
@@ -242,7 +264,7 @@ export function CanvasSceneHost({scene}: {scene: BackdropScene}): ReactNode {
 			disposeWebglProgram(gl, resources)
 			gl.deleteBuffer(buf)
 		}
-	}, [scene])
+	}, [renderMode, scene])
 
 	if (mode === 'css') return null
 

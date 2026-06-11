@@ -117,6 +117,13 @@ test('profile scenarios render their seeded browser-mock states', async ({page})
 	await openScenario(page, 'profiles-bulk')
 	await expect(page.getByTestId('bulk-url-dialog')).toBeVisible()
 
+	await openWithParams(page, 'probeError=botBlock&probeErrorTarget=quick-download')
+	await expect(page.getByTestId('quick-download-feedback')).toBeVisible()
+	await expect(page.getByTestId('quick-download-retry')).toBeVisible()
+	await expect(page.getByTestId('quick-download-cookies-settings')).toBeVisible()
+	await expect(page.getByTestId('bot-wall-notice')).toContainText('Probe was limited')
+	await expect(page.getByTestId('cookies-error-alert')).toContainText('This site requires sign-in')
+
 	await openScenario(page, 'profiles-playlist-cap')
 	await expect(page.getByTestId('quick-playlist-cap-dialog')).toBeVisible()
 	await expect(page.getByTestId('quick-playlist-cap-dialog')).toContainText('Mock Browser Playlist')
@@ -141,6 +148,7 @@ test('probe error dropdown shows all error kinds', async ({page}) => {
 	await openScenario(page, 'default')
 	await page.getByTestId('scenario-gallery-toggle').click()
 	await expect(page.getByTestId('probe-error-kind-select')).toBeVisible()
+	await expect(page.getByTestId('probe-error-target-select')).toBeVisible()
 })
 
 test('update scenarios render channel-specific actions', async ({page}) => {

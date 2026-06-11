@@ -1,23 +1,18 @@
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {formatProbeError, useAppStore} from '../../store/useAppStore.js'
+import {buildProbeErrorExperience} from '../../store/wizard/probeErrorExperience.js'
 import {Button} from '../ui/button.js'
-import {BotWallNotice} from './format/BotWallNotice.js'
-import {CookiesErrorAlert} from './format/CookiesErrorAlert.js'
-import {isBotWallKind, isCookiesNeededKind} from './format/cookiesGate.js'
+import {BotWallGuidanceAlert} from './format/BotWallNotice.js'
+import {CookiesGuidanceAlert} from './format/CookiesErrorAlert.js'
 
 export function StepError(): ReactNode {
 	const {t} = useTranslation()
-	const {wizardError, settings, retry, reset} = useAppStore()
+	const {wizardError, settings, retry, reset, openCookiesSettings, retryFormatProbe, retryProbeWithCookies} = useAppStore()
 	const message = formatProbeError(wizardError)
-	const errorKind = wizardError?.kind === 'ytdlp' ? wizardError.error.kind : undefined
-	const showBotWallNotice = isBotWallKind(errorKind)
-	const cookiesEnabled = (settings?.common?.cookiesMode ?? 'off') !== 'off'
-	// When cookies are off but the error itself signals "auth required" / "use
-	// --cookies", fire the alert anyway so the user has a one-click route to the
-	// cookies block on the URL step.
-	const errorSuggestsCookies = isCookiesNeededKind(errorKind)
-	const showCookiesAlert = cookiesEnabled || errorSuggestsCookies
+	const experience = buildProbeErrorExperience({error: wizardError, commonSettings: settings?.common})
+	const showBotWallNotice = experience.botWall.variant !== 'hidden'
+	const showCookiesAlert = experience.cookies.variant !== 'hidden'
 
 	return (
 		<div className="wizard-step flex flex-col items-center gap-4 py-4 text-center" data-testid="step-error">
@@ -29,8 +24,8 @@ export function StepError(): ReactNode {
 			</p>
 			{showBotWallNotice || showCookiesAlert ? (
 				<div className="w-full max-w-md text-start flex flex-col gap-2">
-					{showBotWallNotice ? <BotWallNotice forceShow /> : null}
-					{showCookiesAlert ? <CookiesErrorAlert forceShowCookiesOff={errorSuggestsCookies} /> : null}
+					<BotWallGuidanceAlert guidance={experience.botWall} onEnableCookiesAndRetry={() => void retryProbeWithCookies()} onRetry={() => void retryFormatProbe()} />
+					<CookiesGuidanceAlert guidance={experience.cookies} onOpenSettings={openCookiesSettings} />
 				</div>
 			) : null}
 			<div className="flex gap-2">

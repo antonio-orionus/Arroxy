@@ -31,7 +31,7 @@ export function QuickDownloadProgressDialog(): ReactNode {
 
 	return (
 		<Dialog open={open} disablePointerDismissal onOpenChange={() => undefined}>
-			<DialogContent data-testid="quick-download-progress-dialog" className="sm:max-w-md" showCloseButton={false}>
+			<DialogContent data-testid="quick-download-progress-dialog" className="overflow-hidden sm:max-w-md" showCloseButton={false}>
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
 						<span className="icon-tile grid size-9 shrink-0 place-items-center rounded-lg">
@@ -42,11 +42,13 @@ export function QuickDownloadProgressDialog(): ReactNode {
 					<DialogDescription>{t('wizard.quickProgress.description', {profileName: activeProfile.name})}</DialogDescription>
 				</DialogHeader>
 
-				<div className="grid gap-3">
-					<div className="glow-tile rounded-xl border-transparent p-3">
+				<div className="grid min-w-0 gap-3" data-testid="quick-download-progress-body">
+					<div className="glow-tile min-w-0 max-w-full overflow-hidden rounded-xl border-transparent p-3" data-testid="quick-download-progress-current">
 						<div className="flex min-w-0 items-center gap-2">
 							<Link2 className="size-4 shrink-0 text-[var(--brand)]" aria-hidden />
-							<span className="min-w-0 truncate text-[13px] font-medium text-foreground">{currentLabel}</span>
+							<span className="min-w-0 flex-1 truncate text-[13px] font-medium text-foreground" data-testid="quick-download-progress-current-label">
+								{currentLabel}
+							</span>
 						</div>
 						<div className="mt-3 flex items-center justify-between gap-3 text-[12px]">
 							<span className="inline-flex items-center gap-1.5 font-medium text-[var(--brand)]">

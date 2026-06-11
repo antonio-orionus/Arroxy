@@ -69,7 +69,8 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 		if (!current.canConfirm || quickPreparing) return
 		bulkLogger.info('Bulk URL dialog quick download requested', {accepted: current.accepted.length, rejected: current.rejected.length, ignored: current.ignoredCount})
 		await quickDownloadUrls(current.acceptedUrls)
-		if (useAppStore.getState().quickDownloadStatus === 'queued') {
+		const nextState = useAppStore.getState()
+		if (nextState.quickDownloadStatus === 'queued' || nextState.wizardMode === 'bulk') {
 			setRaw('')
 			onOpenChange(false)
 		}
@@ -86,7 +87,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 
 	return (
 		<Dialog open={open} onOpenChange={handleOpenChange}>
-			<DialogContent data-testid="bulk-url-dialog" className={cn(renderActions ? 'sm:max-w-2xl' : 'sm:max-w-xl')} initialFocus={() => textareaRef.current}>
+			<DialogContent data-testid="bulk-url-dialog" className="max-h-[calc(100vh-2rem)] w-[calc(100%-2rem)] overflow-y-auto sm:max-w-2xl md:max-w-3xl" initialFocus={() => textareaRef.current}>
 				<DialogHeader>
 					<DialogTitle>{t('wizard.bulk.title')}</DialogTitle>
 					<DialogDescription>{t('wizard.bulk.description')}</DialogDescription>
@@ -96,7 +97,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 					<FieldLabel htmlFor="bulk-url-textarea" className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
 						{t('wizard.bulk.textareaLabel')}
 					</FieldLabel>
-					<Textarea ref={textareaRef} id="bulk-url-textarea" data-testid="bulk-url-textarea" value={raw} onChange={event => setRaw(event.target.value)} placeholder={t('wizard.bulk.textareaPlaceholder')} spellCheck={false} className="min-h-32 resize-y text-sm" />
+					<Textarea ref={textareaRef} id="bulk-url-textarea" data-testid="bulk-url-textarea" value={raw} onChange={event => setRaw(event.target.value)} placeholder={t('wizard.bulk.textareaPlaceholder')} spellCheck={false} className="min-h-40 resize-y text-sm" />
 				</Field>
 
 				<div className="flex items-center gap-3 text-xs text-muted-foreground">
@@ -113,7 +114,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 					) : null}
 				</div>
 
-				<div className="max-h-48 overflow-y-auto rounded-md border border-border bg-secondary/50" data-testid="bulk-url-preview">
+				<div className="max-h-60 overflow-y-auto rounded-md border border-border bg-secondary/50" data-testid="bulk-url-preview">
 					{preview.accepted.length === 0 && preview.rejected.length === 0 ? (
 						<Empty className="min-h-28 rounded-none border-0 p-4">
 							<EmptyHeader>

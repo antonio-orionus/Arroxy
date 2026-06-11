@@ -1,4 +1,4 @@
-import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, NetworkPacingPreset} from './schemas.js'
+import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, BackdropRenderMode, NetworkPacingPreset} from './schemas.js'
 import type {AppSettings} from './types.js'
 
 export const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
@@ -13,6 +13,7 @@ export const DEFAULTS: {
 	sponsorBlockCategories: SponsorBlockCategory[]
 	uiZoom: number
 	uiTheme: UiTheme
+	backdropRenderMode: BackdropRenderMode
 	embedChapters: boolean
 	embedMetadata: boolean
 	embedThumbnail: boolean
@@ -20,7 +21,22 @@ export const DEFAULTS: {
 	writeThumbnail: boolean
 	writeM3u: boolean
 	includeIdInSingleFilenames: boolean
-} = {subtitleMode: 'sidecar', subtitleFormat: 'srt', sponsorBlockMode: 'off', sponsorBlockCategories: ['sponsor', 'selfpromo'], uiZoom: 1, uiTheme: 'system', embedChapters: true, embedMetadata: true, embedThumbnail: false, writeDescription: false, writeThumbnail: false, writeM3u: true, includeIdInSingleFilenames: true}
+} = {
+	subtitleMode: 'sidecar',
+	subtitleFormat: 'srt',
+	sponsorBlockMode: 'off',
+	sponsorBlockCategories: ['sponsor', 'selfpromo'],
+	uiZoom: 1,
+	uiTheme: 'system',
+	backdropRenderMode: 'gpu',
+	embedChapters: true,
+	embedMetadata: true,
+	embedThumbnail: false,
+	writeDescription: false,
+	writeThumbnail: false,
+	writeM3u: true,
+	includeIdInSingleFilenames: true
+}
 
 // Single factory for the AppSettings shape — main process, tests, and
 // browserMock all build from here. Adding a new field to AppSettings forces
@@ -32,7 +48,7 @@ export const DEFAULTS: {
 // import the defaults helper.
 export function defaultAppSettings(downloadsDir: string): AppSettings {
 	return {
-		common: {defaultOutputDir: downloadsDir, rememberLastOutputDir: true, networkPacingPreset: 'balanced', clipboardWatchEnabled: true, analyticsEnabled: true, includeIdInSingleFilenames: DEFAULTS.includeIdInSingleFilenames},
+		common: {defaultOutputDir: downloadsDir, rememberLastOutputDir: true, networkPacingPreset: 'balanced', clipboardWatchEnabled: true, analyticsEnabled: true, includeIdInSingleFilenames: DEFAULTS.includeIdInSingleFilenames, backdropRenderMode: DEFAULTS.backdropRenderMode},
 		single: {},
 		playlist: {},
 		profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: []}
@@ -40,9 +56,9 @@ export function defaultAppSettings(downloadsDir: string): AppSettings {
 }
 
 export const WINDOW_MIN_WIDTH = 720
-export const WINDOW_MIN_HEIGHT = 680
-export const WINDOW_DEFAULT_WIDTH = 900
-export const WINDOW_DEFAULT_HEIGHT = 760
+export const WINDOW_MIN_HEIGHT = 760
+export const WINDOW_DEFAULT_WIDTH = 1024
+export const WINDOW_DEFAULT_HEIGHT = 860
 
 // YouTube buckets `live_chat` into `subtitles` even though it isn't a caption
 // track. Both probe-side filtering and renderer-side display filter it out.

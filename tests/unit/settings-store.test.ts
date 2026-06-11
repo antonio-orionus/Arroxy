@@ -20,6 +20,19 @@ describe('settings and recent stores', () => {
 		expect(readBack.common.defaultOutputDir).toBe('/home/test/downloads')
 	})
 
+	it('defaults and persists the backdrop render mode', async () => {
+		expect(baseDefaults.common.backdropRenderMode).toBe('gpu')
+
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-backdrop-'))
+		const store = new SettingsStore(userData, baseDefaults)
+
+		const updated = await store.update({common: {backdropRenderMode: 'fallback'}})
+		expect(updated.common.backdropRenderMode).toBe('fallback')
+
+		const readBack = await store.get()
+		expect(readBack.common.backdropRenderMode).toBe('fallback')
+	})
+
 	it('persists subtitle language preferences', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-subs-'))
 		const store = new SettingsStore(userData, baseDefaults)

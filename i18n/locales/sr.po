@@ -1269,6 +1269,30 @@ msgctxt "wizard.mixedPrompt.playlistTooltip"
 msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
 msgstr "Koristi yt-dlp režim plejliste i učitava do vašeg limita pre prikaza birača."
 
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Преузми само овај видео или стави целу плејлисту у ред са активним профилом Брзо преузимање."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Највећи број ставки које Arroxy скенира пре стављања плејлисте, канала или резултата претраге у ред."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Ставља сваку учитану ставку плејлисте у ред са активним профилом Брзо преузимање. Ако скенирање достигне твој лимит, Arroxy ће питати пре стављања у ред."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Ставља једно преузимање у ред и игнорише плејлисту приложену уз овај URL."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Преузми овај видео"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Преузми целу плејлисту"
+
 msgctxt "wizard.mixedPrompt.singleTooltip"
 msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
 msgstr "Koristi yt-dlp režim za pojedinačni video, pa se plejlista vezana za ovaj URL ignoriše."
@@ -1700,6 +1724,46 @@ msgstr "Пошаљи анонимне статистике коришћења"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "Броји само покретања апликације. Без URL-ова, имена датотека или личних података."
+
+msgctxt "wizard.url.backdrop.cssOnlyDescription"
+msgid "CSS only, no canvas rendering."
+msgstr "Само CSS, без canvas рендеровања."
+
+msgctxt "wizard.url.backdrop.cssOnlyLabel"
+msgid "Best performance"
+msgstr "Најбоље перформансе"
+
+msgctxt "wizard.url.backdrop.fallbackDescription"
+msgid "Static Canvas2D backdrop with no WebGL."
+msgstr "Статична Canvas2D позадина без WebGL-а."
+
+msgctxt "wizard.url.backdrop.fallbackLabel"
+msgid "Balanced"
+msgstr "Уравнотежено"
+
+msgctxt "wizard.url.backdrop.gpuDescription"
+msgid "Animated WebGL backdrop when supported."
+msgstr "Анимирана WebGL позадина када је подржана."
+
+msgctxt "wizard.url.backdrop.gpuLabel"
+msgid "Most beautiful"
+msgstr "Најлепше"
+
+msgctxt "wizard.url.backdrop.modeDescription"
+msgid "Move from the most animated look to best performance."
+msgstr "Померите од најанимиранијег изгледа ка најбољим перформансама."
+
+msgctxt "wizard.url.backdrop.modeLabel"
+msgid "Backdrop quality"
+msgstr "Квалитет позадине"
+
+msgctxt "wizard.url.backdrop.panelDescription"
+msgid "Choose how much motion Arroxy uses for the animated backdrop."
+msgstr "Изаберите колико покрета Arroxy користи за анимирану позадину."
+
+msgctxt "wizard.url.backdrop.panelTitle"
+msgid "Appearance and performance"
+msgstr "Изглед и перформансе"
 
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
@@ -2140,3 +2204,4 @@ msgstr "Чува појединачна преузимања јединстве�
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "Брзо преузимање може да користи појединачне видео-снимке, плејлисте, канале, претраге и Bulk URL-ове."
+

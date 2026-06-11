@@ -1269,6 +1269,30 @@ msgctxt "wizard.mixedPrompt.playlistTooltip"
 msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
 msgstr "Dùng chế độ playlist của yt-dlp và lấy đến giới hạn dò playlist trước khi hiện bộ chọn."
 
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Chỉ tải video này, hoặc đưa toàn bộ playlist vào hàng đợi bằng hồ sơ Tải nhanh đang hoạt động."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Số mục tối đa Arroxy quét trước khi đưa playlist, kênh hoặc kết quả tìm kiếm vào hàng đợi."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Đưa mọi mục playlist đã tải vào hàng đợi bằng hồ sơ Tải nhanh đang hoạt động. Nếu lần quét chạm giới hạn của bạn, Arroxy sẽ hỏi trước khi đưa vào hàng đợi."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Đưa một lượt tải vào hàng đợi và bỏ qua playlist gắn với URL này."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Tải video này"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Tải toàn bộ playlist"
+
 msgctxt "wizard.mixedPrompt.singleTooltip"
 msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
 msgstr "Dùng chế độ video đơn của yt-dlp để bỏ qua playlist gắn với URL này."
@@ -1700,6 +1724,46 @@ msgstr "Gửi thống kê sử dụng ẩn danh"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "Chỉ đếm số lần khởi động ứng dụng. Không có URL, tên tệp hay dữ liệu cá nhân."
+
+msgctxt "wizard.url.backdrop.cssOnlyDescription"
+msgid "CSS only, no canvas rendering."
+msgstr "Chỉ dùng CSS, không kết xuất canvas."
+
+msgctxt "wizard.url.backdrop.cssOnlyLabel"
+msgid "Best performance"
+msgstr "Hiệu năng tốt nhất"
+
+msgctxt "wizard.url.backdrop.fallbackDescription"
+msgid "Static Canvas2D backdrop with no WebGL."
+msgstr "Nền Canvas2D tĩnh không dùng WebGL."
+
+msgctxt "wizard.url.backdrop.fallbackLabel"
+msgid "Balanced"
+msgstr "Cân bằng"
+
+msgctxt "wizard.url.backdrop.gpuDescription"
+msgid "Animated WebGL backdrop when supported."
+msgstr "Nền WebGL động khi được hỗ trợ."
+
+msgctxt "wizard.url.backdrop.gpuLabel"
+msgid "Most beautiful"
+msgstr "Đẹp nhất"
+
+msgctxt "wizard.url.backdrop.modeDescription"
+msgid "Move from the most animated look to best performance."
+msgstr "Chuyển từ giao diện nhiều chuyển động nhất sang hiệu năng tốt nhất."
+
+msgctxt "wizard.url.backdrop.modeLabel"
+msgid "Backdrop quality"
+msgstr "Chất lượng nền"
+
+msgctxt "wizard.url.backdrop.panelDescription"
+msgid "Choose how much motion Arroxy uses for the animated backdrop."
+msgstr "Chọn mức chuyển động Arroxy dùng cho nền động."
+
+msgctxt "wizard.url.backdrop.panelTitle"
+msgid "Appearance and performance"
+msgstr "Giao diện và hiệu năng"
 
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
@@ -2140,3 +2204,4 @@ msgstr "Giữ các lượt tải một lần là duy nhất khi tiêu đề thay
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "Tải nhanh có thể dùng video đơn lẻ, danh sách phát, kênh, tìm kiếm và URL hàng loạt."
+

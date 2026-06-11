@@ -75,11 +75,17 @@
 		"mixedPrompt": {
 			"title": "ይህ ሊንክ Playlist አለው",
 			"body": "የጠቀሱትን ቪዲዮ ብቻ ይፈልጋሉ፣ ወይስ ከ Playlist ይምረጣሉ? በቀጣዩ ደረጃ የተወሰኑ ቪዲዮዎችን ወይም ክልል ይምረጣሉ።",
+			"quickBody": "ይህን ቪዲዮ ብቻ አውርድ፣ ወይም ሙሉ ፕሌይሊስቱን በንቁው ፈጣን ማውረድ ፕሮፋይልህ ወደ ወረፋ አክል።",
 			"singleVideo": "ይህን ብቻ",
+			"quickSingleVideo": "ይህን ቪዲዮ አውርድ",
 			"pickFromPlaylist": "ከ Playlist ምረጥ",
+			"quickWholePlaylist": "ሙሉ ፕሌይሊስቱን አውርድ",
 			"playlistLimit": "የፕሌይሊስት መፈተሻ ገደብ፦ {{count}} ንጥሎች",
+			"quickLimitDescription": "Arroxy ፕሌይሊስት፣ ቻናል ወይም የፍለጋ ውጤት ወደ ወረፋ ከማከሉ በፊት የሚቃኘው ከፍተኛ የንጥሎች ብዛት።",
 			"singleTooltip": "yt-dlp የነጠላ ቪዲዮ ሁነታን ይጠቀማል፣ ከዚህ URL ጋር የተያያዘው playlist ይተዋል።",
-			"playlistTooltip": "yt-dlp የplaylist ሁነታን ተጠቅሞ አስመራጩን ከማሳየቱ በፊት እስከ ገደብዎ ይወስዳል።"
+			"quickSingleTooltip": "አንድ ማውረድ ወደ ወረፋ ያክላል እና ከዚህ URL ጋር የተያያዘውን ፕሌይሊስት ይተዋል።",
+			"playlistTooltip": "yt-dlp የplaylist ሁነታን ተጠቅሞ አስመራጩን ከማሳየቱ በፊት እስከ ገደብዎ ይወስዳል።",
+			"quickPlaylistTooltip": "እያንዳንዱን የተጫነ የፕሌይሊስት ንጥል በንቁው ፈጣን ማውረድ ፕሮፋይል ወደ ወረፋ ያክላል። ቅኝቱ ገደብህን ከደረሰ፣ Arroxy ወደ ወረፋ ከማከሉ በፊት ይጠይቃል።"
 		},
 		"url": {
 			"heading": "ከURL አውርድ",
@@ -132,6 +138,18 @@
 				"extensionChrome": "cookies.txt በቦታህ ላይ ሰበሰብ (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "ትራፊክን በፕሮክሲ ለማስተላለፍ — በጂኦ-ተከልካይ ይዘት ለሚጠቀሙ ጠቃሚ።", "placeholder": "http://host:port", "clear": "አጽዳ"},
+			"backdrop": {
+				"panelTitle": "መልክ እና አፈጻጸም",
+				"panelDescription": "Arroxy ለሚንቀሳቀሰው ዳራ ምን ያህል እንቅስቃሴ እንደሚጠቀም ይምረጡ።",
+				"modeLabel": "የዳራ ጥራት",
+				"modeDescription": "ከበጣም እንቅስቃሴ ያለው መልክ ወደ ምርጥ አፈጻጸም ይሂዱ።",
+				"cssOnlyLabel": "ምርጥ አፈጻጸም",
+				"cssOnlyDescription": "CSS ብቻ፣ የcanvas ማቅረብ የለም።",
+				"fallbackLabel": "ሚዛናዊ",
+				"fallbackDescription": "WebGL የሌለው ቋሚ Canvas2D ዳራ።",
+				"gpuLabel": "በጣም ቆንጆ",
+				"gpuDescription": "ሲደገፍ የሚንቀሳቀስ WebGL ዳራ።"
+			},
 			"limitRate": {
 				"label": "የማውረድ ፍጥነት ገደብ",
 				"description": "ለሚዲያ ማውረዶች ባንድዊድዝ ይገድቡ። ከታች ያለው የጥያቄ እረፍት ብዙ ጊዜ የበለጠ ጠንካራ መቆጣጠሪያ ነው።",

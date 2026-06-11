@@ -28,8 +28,10 @@ export function VideoSummaryCard({thumbnail, title, duration, resolution, webpag
 	const meta = [host, duration !== undefined ? formatDuration(duration) : null, resolution ?? null].filter(Boolean).join(' · ')
 
 	return (
-		<div className="flex items-center gap-[10px] px-[12px] py-[9px] rounded-lg border border-border bg-secondary shrink-0">
-			<div className="w-[68px] aspect-video rounded-[5px] overflow-hidden border border-border flex-shrink-0 bg-accent">{thumbnail ? <img src={thumbnail} alt="" aria-hidden referrerPolicy="no-referrer" className="w-full h-full object-cover block" /> : <div className="thumb-shimmer w-full h-full" aria-hidden />}</div>
+		<div data-slot="video-summary-card" className="wizard-summary-surface flex shrink-0 items-center gap-[10px] rounded-lg px-[12px] py-[9px]">
+			<div className="aspect-video w-[68px] flex-shrink-0 overflow-hidden rounded-[5px] border border-[var(--border-strong)] bg-[var(--field-bg)] shadow-[inset_0_1px_0_var(--field-highlight)]">
+				{thumbnail ? <img src={thumbnail} alt="" aria-hidden referrerPolicy="no-referrer" className="block h-full w-full object-cover" /> : <div className="thumb-shimmer h-full w-full" aria-hidden />}
+			</div>
 			<div className="flex flex-col gap-[2px] flex-1 min-w-0">
 				<p className="text-[14px] font-bold text-foreground leading-snug truncate">{title || t('videoCard.titlePlaceholder')}</p>
 				<p className="text-[12px] text-[var(--text-subtle)]">{meta}</p>

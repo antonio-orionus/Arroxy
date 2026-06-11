@@ -92,11 +92,17 @@
 		"mixedPrompt": {
 			"title": "Овај линк је из плејлисте",
 			"body": "Желиш само видео на који си кликнуо, или да бираш из плејлисте? Следећи корак ти омогућава да одабереш одређене видеосе или распон.",
+			"quickBody": "Преузми само овај видео или стави целу плејлисту у ред са активним профилом Брзо преузимање.",
 			"singleVideo": "Само овај",
+			"quickSingleVideo": "Преузми овај видео",
 			"pickFromPlaylist": "Бирај из плејлисте",
+			"quickWholePlaylist": "Преузми целу плејлисту",
 			"playlistLimit": "Limit provere plejliste: {{count}} stavki",
+			"quickLimitDescription": "Највећи број ставки које Arroxy скенира пре стављања плејлисте, канала или резултата претраге у ред.",
 			"singleTooltip": "Koristi yt-dlp režim za pojedinačni video, pa se plejlista vezana za ovaj URL ignoriše.",
-			"playlistTooltip": "Koristi yt-dlp režim plejliste i učitava do vašeg limita pre prikaza birača."
+			"quickSingleTooltip": "Ставља једно преузимање у ред и игнорише плејлисту приложену уз овај URL.",
+			"playlistTooltip": "Koristi yt-dlp režim plejliste i učitava do vašeg limita pre prikaza birača.",
+			"quickPlaylistTooltip": "Ставља сваку учитану ставку плејлисте у ред са активним профилом Брзо преузимање. Ако скенирање достигне твој лимит, Arroxy ће питати пре стављања у ред."
 		},
 		"url": {
 			"heading": "Преузми са URL-а",
@@ -149,6 +155,18 @@
 				"extensionChrome": "Преузми cookies.txt ЛОКАЛНО (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Прусмери саобраћај кроз прокси — корисно за географски ограничен садржај.", "placeholder": "http://host:port", "clear": "Обриши"},
+			"backdrop": {
+				"panelTitle": "Изглед и перформансе",
+				"panelDescription": "Изаберите колико покрета Arroxy користи за анимирану позадину.",
+				"modeLabel": "Квалитет позадине",
+				"modeDescription": "Померите од најанимиранијег изгледа ка најбољим перформансама.",
+				"cssOnlyLabel": "Најбоље перформансе",
+				"cssOnlyDescription": "Само CSS, без canvas рендеровања.",
+				"fallbackLabel": "Уравнотежено",
+				"fallbackDescription": "Статична Canvas2D позадина без WebGL-а.",
+				"gpuLabel": "Најлепше",
+				"gpuDescription": "Анимирана WebGL позадина када је подржана."
+			},
 			"limitRate": {
 				"label": "Ограничение скорости загрузки",
 				"description": "Ограничивает пропускную способность для загрузки медиа. Интервалы запросов ниже обычно сильнее влияют на лимиты.",

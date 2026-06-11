@@ -3,7 +3,7 @@ import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, MediaIntent, PlaylistVideoTier} from './schemas.js'
 import {mediaIntentFromProfileMedia, mediaIntentSpec, type MediaIntentSpec} from './mediaIntent.js'
 import type {EmbedOptions, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
-import {safeFolderName} from './subfolder.js'
+import {effectiveOutputDir, safeFolderName} from './subfolder.js'
 
 const BUILTIN_TIMESTAMP = '2026-06-07T00:00:00.000Z'
 const BUILTIN_PROFILE_EMBED = {chapters: true, metadata: true, thumbnail: false, description: false, thumbnailSidecar: false} as const
@@ -72,6 +72,11 @@ export interface ResolvedDownloadProfile {
 	sponsorBlock: SponsorBlockOptions
 	embed: EmbedOptions
 	isSubtitleOnly: boolean
+}
+
+export interface DownloadProfileOutputContext {
+	currentOutputDir?: string
+	defaultOutputDir?: string
 }
 
 function isBuiltinDownloadProfileId(id: string): boolean {
@@ -152,6 +157,18 @@ export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadPr
 		: {chapters: profile.embed.chapters, metadata: profile.embed.metadata, thumbnail: profile.embed.thumbnail, description: profile.embed.description, thumbnailSidecar: profile.embed.thumbnailSidecar}
 
 	return {profile, ref, intent, spec, subtitles, sponsorBlock, embed, isSubtitleOnly}
+}
+
+export function resolveDownloadProfileBaseDir(profile: DownloadProfile, context: DownloadProfileOutputContext): string {
+	if (profile.output.kind === 'fixed') return profile.output.dir
+	const currentOutputDir = context.currentOutputDir?.trim()
+	if (currentOutputDir) return currentOutputDir
+	return context.defaultOutputDir ?? ''
+}
+
+export function resolveDownloadProfileOutputDir(profile: DownloadProfile, context: DownloadProfileOutputContext): string {
+	const baseDir = resolveDownloadProfileBaseDir(profile, context)
+	return effectiveOutputDir(baseDir, profile.subfolder.enabled, profile.subfolder.name)
 }
 
 export function downloadProfileLabel(profile: DownloadProfile): string {

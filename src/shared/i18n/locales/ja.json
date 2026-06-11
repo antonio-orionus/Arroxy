@@ -84,11 +84,17 @@
 		"mixedPrompt": {
 			"title": "このリンクは Playlist に含まれています",
 			"body": "クリックした動画だけをダウンロードしますか？それとも Playlist から選びますか？次のステップで特定の動画や範囲を選択できます。",
+			"quickBody": "この動画だけをダウンロードするか、有効なクイックダウンロードプロファイルでプレイリスト全体をキューに追加します。",
 			"singleVideo": "この1本だけ",
+			"quickSingleVideo": "この動画をダウンロード",
 			"pickFromPlaylist": "Playlist から選ぶ",
+			"quickWholePlaylist": "プレイリスト全体をダウンロード",
 			"playlistLimit": "プレイリスト取得上限: {{count}} 件",
+			"quickLimitDescription": "プレイリスト、チャンネル、検索結果をキューに追加する前に Arroxy がスキャンする最大項目数です。",
 			"singleTooltip": "yt-dlp の単一動画モードを使い、この URL に付いたプレイリストを無視します。",
-			"playlistTooltip": "yt-dlp のプレイリストモードを使い、選択画面を出す前に上限まで取得します。"
+			"quickSingleTooltip": "1 件のダウンロードをキューに追加し、この URL に付いているプレイリストは無視します。",
+			"playlistTooltip": "yt-dlp のプレイリストモードを使い、選択画面を出す前に上限まで取得します。",
+			"quickPlaylistTooltip": "読み込まれた各プレイリスト項目を、有効なクイックダウンロードプロファイルでキューに追加します。スキャンが上限に達した場合、キューに追加する前に Arroxy が確認します。"
 		},
 		"url": {
 			"heading": "URL からダウンロード",
@@ -141,6 +147,18 @@
 				"extensionChrome": "cookies.txt をローカルで取得 (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "プロキシ経由でトラフィックを転送 — 地域制限コンテンツに有効。", "placeholder": "http://host:port", "clear": "クリア"},
+			"backdrop": {
+				"panelTitle": "外観とパフォーマンス",
+				"panelDescription": "アニメーション背景で Arroxy が使用する動きの量を選びます。",
+				"modeLabel": "背景の品質",
+				"modeDescription": "最も動きのある表示から最高のパフォーマンスへ調整します。",
+				"cssOnlyLabel": "最高のパフォーマンス",
+				"cssOnlyDescription": "CSS のみ、canvas レンダリングなし。",
+				"fallbackLabel": "バランス",
+				"fallbackDescription": "WebGL なしの静的な Canvas2D 背景。",
+				"gpuLabel": "最も美しい",
+				"gpuDescription": "対応環境ではアニメーション WebGL 背景を使用します。"
+			},
 			"limitRate": {
 				"label": "ダウンロード速度制限",
 				"description": "メディアダウンロードの帯域を制限します。下のリクエスト間隔のほうが強い制限になることが多いです。",

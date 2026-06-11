@@ -44,4 +44,10 @@ describe('BulkUrlDialog', () => {
 		expect(screen.getByTestId('bulk-profile-menu')).toBeInTheDocument()
 		expect(screen.getByTestId('bulk-profile-option-balanced')).toHaveAttribute('aria-pressed', 'true')
 	})
+
+	it('uses a wider shell for the profile-aware bulk workflow', () => {
+		render(<BulkUrlDialog open onOpenChange={vi.fn()} initialRaw="https://example.com/video" />)
+
+		expect(screen.getByTestId('bulk-url-dialog')).toHaveClass('w-[calc(100%-2rem)]', 'sm:max-w-2xl', 'md:max-w-3xl')
+	})
 })

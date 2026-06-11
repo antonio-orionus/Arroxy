@@ -59,12 +59,9 @@ const PROBE_ERROR_RAW: Partial<Record<YtDlpErrorKind, string>> = {
 	unknown: 'ERROR: Something went wrong (unknown error)'
 }
 
-export function buildProbeError(_scenario: ScenarioLike, params?: ProbeUrlParams): ProbeError | null {
-	if (params?.probeErrorKind !== null && params?.probeErrorKind !== undefined) {
-		const raw = PROBE_ERROR_RAW[params.probeErrorKind] ?? `ERROR: ${params.probeErrorKind} error (mock)`
-		return {kind: 'ytdlp', error: {kind: params.probeErrorKind, raw}}
-	}
-	return null
+export function buildProbeErrorForKind(kind: YtDlpErrorKind): ProbeError {
+	const raw = PROBE_ERROR_RAW[kind] ?? `ERROR: ${kind} error (mock)`
+	return {kind: 'ytdlp', error: {kind, raw}}
 }
 
 const MOCK_FORMATS = [

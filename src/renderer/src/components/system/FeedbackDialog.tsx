@@ -1,9 +1,11 @@
 import {useEffect, useRef} from 'react'
+import log from 'electron-log/renderer.js'
 import {openTallyPopup} from '../../lib/tallyWidget.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {buildFeedbackHiddenFields} from './feedbackSnapshot.js'
 
 const TALLY_FEEDBACK_FORM_ID = 'Ek6M8B'
+const logger = log.scope('feedback')
 
 interface FeedbackDialogProps {
 	open: boolean
@@ -18,8 +20,10 @@ export function FeedbackDialog({open, onOpenChange}: FeedbackDialogProps): null 
 		openingRef.current = true
 		const reportId = createReportId()
 		const state = useAppStore.getState()
+		logger.info('Opening Tally feedback popup', {reportId, source: 'footer'})
 
 		void openTallyPopup(TALLY_FEEDBACK_FORM_ID, {
+			key: `arroxy-feedback-${reportId}`,
 			layout: 'modal',
 			width: 720,
 			overlay: true,

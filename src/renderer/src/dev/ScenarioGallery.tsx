@@ -2,7 +2,7 @@ import {useCallback, useEffect, useMemo, useRef, useState, type ReactNode} from 
 import {ChevronDown, LoaderCircle, RotateCcw, Sparkles, TestTube2} from 'lucide-react'
 import {SUPPORTED_LANGS, YT_DLP_ERROR_KINDS} from '@shared/schemas.js'
 import type {SupportedLang, YtDlpErrorKind} from '@shared/schemas.js'
-import {applyScenarioWorkbenchState, BROWSER_MOCK_SCENARIOS, getScenario, isScreenPresetScenario, mockStepForScenario, mockStepsForScenario, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario, type BrowserMockScenarioGroup, type BrowserMockStep} from './browserMockScenarios.js'
+import {applyScenarioWorkbenchState, BROWSER_MOCK_SCENARIOS, getScenario, isScreenPresetScenario, mockStepForScenario, mockStepsForScenario, readScenarioIdFromUrl, readUrlParams, type BrowserMockScenario, type BrowserMockScenarioGroup, type BrowserMockStep, type ProbeErrorTarget} from './browserMockScenarios.js'
 import {applyThemeLive, knobUrl, MOCK_PLATFORM_LABELS, MOCK_PLATFORMS, readKnobs, type MockPlatform} from './browserMockKnobs.js'
 import type {UiTheme} from '@shared/schemas.js'
 import {cn} from '../lib/utils.js'
@@ -24,7 +24,7 @@ function activeUrlParams(): ReturnType<typeof readUrlParams> {
 	try {
 		return readUrlParams(window.location)
 	} catch {
-		return {playlistCount: null, probeErrorKind: null, mockStep: null}
+		return {playlistCount: null, probeErrorKind: null, probeErrorTarget: 'wizard', mockStep: null}
 	}
 }
 
@@ -40,6 +40,7 @@ function scenarioUrl(id: BrowserMockScenario['id']): string {
 	const url = new URL(window.location.href)
 	url.searchParams.delete('playlist')
 	url.searchParams.delete('probeError')
+	url.searchParams.delete('probeErrorTarget')
 	url.searchParams.delete('mockStep')
 	if (id === 'default') url.searchParams.delete('scenario')
 	else url.searchParams.set('scenario', id)
@@ -50,18 +51,25 @@ function playlistParamUrl(count: number): string {
 	const url = new URL(window.location.href)
 	url.searchParams.delete('scenario')
 	url.searchParams.delete('probeError')
+	url.searchParams.delete('probeErrorTarget')
 	url.searchParams.delete('mockStep')
 	url.searchParams.set('playlist', String(count))
 	return `${url.pathname}${url.search}${url.hash}`
 }
 
-function probeErrorParamUrl(kind: YtDlpErrorKind | null): string {
+function probeErrorParamUrl(kind: YtDlpErrorKind | null, target: ProbeErrorTarget): string {
 	const url = new URL(window.location.href)
 	url.searchParams.delete('scenario')
 	url.searchParams.delete('playlist')
 	url.searchParams.delete('mockStep')
-	if (kind === null) url.searchParams.delete('probeError')
-	else url.searchParams.set('probeError', kind)
+	if (kind === null) {
+		url.searchParams.delete('probeError')
+		url.searchParams.delete('probeErrorTarget')
+	} else {
+		url.searchParams.set('probeError', kind)
+		if (target === 'wizard') url.searchParams.delete('probeErrorTarget')
+		else url.searchParams.set('probeErrorTarget', target)
+	}
 	return `${url.pathname}${url.search}${url.hash}`
 }
 
@@ -69,6 +77,7 @@ function mockStepUrl(scenario: BrowserMockScenario, step: BrowserMockStep | null
 	const url = new URL(window.location.href)
 	url.searchParams.delete('playlist')
 	url.searchParams.delete('probeError')
+	url.searchParams.delete('probeErrorTarget')
 	url.searchParams.set('scenario', scenario.id)
 	if (step === null) url.searchParams.delete('mockStep')
 	else url.searchParams.set('mockStep', step)
@@ -82,7 +91,7 @@ function applyScenario(id: BrowserMockScenario['id']): void {
 function applyBackdropStage(): void {
 	const url = new URL(window.location.href)
 	// Keep theme/locale/platform knobs; drop scenario state.
-	for (const p of ['scenario', 'playlist', 'probeError', 'mockStep']) url.searchParams.delete(p)
+	for (const p of ['scenario', 'playlist', 'probeError', 'probeErrorTarget', 'mockStep']) url.searchParams.delete(p)
 	url.searchParams.set('backdrop', '1')
 	window.location.assign(`${url.pathname}${url.search}${url.hash}`)
 }
@@ -90,7 +99,7 @@ function applyBackdropStage(): void {
 function applyBootSplashPreview(): void {
 	const url = new URL(window.location.href)
 	// Keep theme/locale/platform knobs; drop app scenario state.
-	for (const p of ['backdrop', 'bootSplash', 'playlist', 'probeError', 'mockStep']) url.searchParams.delete(p)
+	for (const p of ['backdrop', 'bootSplash', 'playlist', 'probeError', 'probeErrorTarget', 'mockStep']) url.searchParams.delete(p)
 	url.searchParams.set('scenario', 'boot-splash')
 	window.location.assign(`${url.pathname}${url.search}${url.hash}`)
 }
@@ -100,7 +109,12 @@ function applyPlaylistCount(count: number): void {
 }
 
 function applyProbeErrorKind(kind: YtDlpErrorKind | null): void {
-	window.location.assign(probeErrorParamUrl(kind))
+	window.location.assign(probeErrorParamUrl(kind, activeUrlParams().probeErrorTarget))
+}
+
+function applyProbeErrorTarget(target: ProbeErrorTarget): void {
+	const params = activeUrlParams()
+	window.location.assign(probeErrorParamUrl(params.probeErrorKind, target))
 }
 
 function applyMockStep(scenario: BrowserMockScenario, step: BrowserMockStep | null): void {
@@ -136,13 +150,17 @@ export function ScenarioGallery(): ReactNode {
 	const grouped = useMemo(() => GROUPS.map(group => ({group, scenarios: BROWSER_MOCK_SCENARIOS.filter(candidate => candidate.group === group)})), [])
 
 	useEffect(() => {
-		const applyKey = `${scenario.id}:${urlParams.playlistCount ?? ''}:${urlParams.probeErrorKind ?? ''}:${urlParams.mockStep ?? ''}`
+		const applyKey = `${scenario.id}:${urlParams.playlistCount ?? ''}:${urlParams.probeErrorKind ?? ''}:${urlParams.probeErrorTarget}:${urlParams.mockStep ?? ''}`
 		if (!initialized || autoAppliedRef.current === applyKey) return
 		autoAppliedRef.current = applyKey
 		const store = useAppStore.getState()
 
-		void applyScenarioWorkbenchState({scenario, params: {playlistCount: urlParams.playlistCount, probeErrorKind: urlParams.probeErrorKind, mockStep: urlParams.mockStep}, store: {reset: store.reset, setWizardUrl: store.setWizardUrl, submitUrl: store.submitUrl, setState: useAppStore.setState}})
-	}, [initialized, scenario, scenario.id, scenario.kind, urlParams.mockStep, urlParams.playlistCount, urlParams.probeErrorKind])
+		void applyScenarioWorkbenchState({
+			scenario,
+			params: {playlistCount: urlParams.playlistCount, probeErrorKind: urlParams.probeErrorKind, probeErrorTarget: urlParams.probeErrorTarget, mockStep: urlParams.mockStep},
+			store: {reset: store.reset, setWizardUrl: store.setWizardUrl, submitUrl: store.submitUrl, quickDownload: store.quickDownload, setState: useAppStore.setState}
+		})
+	}, [initialized, scenario, scenario.id, scenario.kind, urlParams.mockStep, urlParams.playlistCount, urlParams.probeErrorKind, urlParams.probeErrorTarget])
 
 	const isPlaylistParam = urlParams.playlistCount !== null
 	const isProbeErrorParam = urlParams.probeErrorKind !== null
@@ -152,13 +170,13 @@ export function ScenarioGallery(): ReactNode {
 
 	function activeLabel(): string {
 		if (isPlaylistParam) return `Playlist ×${urlParams.playlistCount}`
-		if (isProbeErrorParam) return `Error: ${urlParams.probeErrorKind ?? ''}`
+		if (isProbeErrorParam) return `Error: ${urlParams.probeErrorKind ?? ''} (${urlParams.probeErrorTarget})`
 		return scenario.title
 	}
 
 	function activeDescription(): string {
 		if (isPlaylistParam) return `Playlist probe with ${urlParams.playlistCount} entries.`
-		if (isProbeErrorParam) return `Probe error: ${urlParams.probeErrorKind ?? ''}.`
+		if (isProbeErrorParam) return `Probe error: ${urlParams.probeErrorKind ?? ''} on ${urlParams.probeErrorTarget}.`
 		if (currentMockStep !== null) return `${scenario.description} Opens directly to ${currentMockStep}.`
 		return scenario.description
 	}
@@ -360,6 +378,17 @@ export function ScenarioGallery(): ReactNode {
 													Clear
 												</button>
 											)}
+										</div>
+										<div className="mt-1.5 flex items-center gap-1.5">
+											<Select value={urlParams.probeErrorTarget} onValueChange={v => applyProbeErrorTarget(v!)}>
+												<SelectTrigger size="sm" className={cn('flex-1 text-[11px]', isProbeErrorParam && urlParams.probeErrorTarget === 'quick-download' ? 'border-[var(--brand)]' : '')} data-testid="probe-error-target-select">
+													<SelectValue placeholder="Wizard" />
+												</SelectTrigger>
+												<SelectContent>
+													<SelectItem value="wizard">Wizard</SelectItem>
+													<SelectItem value="quick-download">Quick Download</SelectItem>
+												</SelectContent>
+											</Select>
 										</div>
 									</div>
 								)}

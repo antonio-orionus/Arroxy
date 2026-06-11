@@ -84,11 +84,17 @@
 		"mixedPrompt": {
 			"title": "Este enlace tiene una Playlist",
 			"body": "¿Solo el video en el que hiciste clic o prefieres elegir de la Playlist? En el siguiente paso podrás seleccionar videos concretos o un rango.",
+			"quickBody": "Descarga solo este video o pon toda la lista en cola con tu perfil de Descarga rápida activo.",
 			"singleVideo": "Solo este",
+			"quickSingleVideo": "Descargar este video",
 			"pickFromPlaylist": "Elegir de la Playlist",
+			"quickWholePlaylist": "Descargar toda la lista",
 			"playlistLimit": "Límite de análisis de playlist: {{count}} elementos",
+			"quickLimitDescription": "Cantidad máxima de elementos que Arroxy escanea antes de poner en cola una lista, un canal o un resultado de búsqueda.",
 			"singleTooltip": "Usa el modo de vídeo único de yt-dlp para ignorar la playlist adjunta a esta URL.",
-			"playlistTooltip": "Usa el modo playlist de yt-dlp y carga hasta tu límite de análisis antes de mostrar el selector."
+			"quickSingleTooltip": "Pone en cola una descarga e ignora la lista adjunta a esta URL.",
+			"playlistTooltip": "Usa el modo playlist de yt-dlp y carga hasta tu límite de análisis antes de mostrar el selector.",
+			"quickPlaylistTooltip": "Pone en cola cada elemento cargado de la lista con el perfil de Descarga rápida activo. Si el escaneo alcanza tu límite, Arroxy pregunta antes de ponerlos en cola."
 		},
 		"url": {
 			"heading": "Descargar desde URL",
@@ -141,6 +147,18 @@
 				"extensionChrome": "Obtener cookies.txt LOCALMENTE (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Enruta el tráfico a través de un proxy — útil para contenido con restricciones geográficas.", "placeholder": "http://host:port", "clear": "Borrar"},
+			"backdrop": {
+				"panelTitle": "Apariencia y rendimiento",
+				"panelDescription": "Elige cuánto movimiento usa Arroxy para el fondo animado.",
+				"modeLabel": "Calidad del fondo",
+				"modeDescription": "Pasa del aspecto más animado al mejor rendimiento.",
+				"cssOnlyLabel": "Mejor rendimiento",
+				"cssOnlyDescription": "Solo CSS, sin renderizado de canvas.",
+				"fallbackLabel": "Equilibrado",
+				"fallbackDescription": "Fondo Canvas2D estático sin WebGL.",
+				"gpuLabel": "Más bonito",
+				"gpuDescription": "Fondo WebGL animado cuando es compatible."
+			},
 			"limitRate": {
 				"label": "Límite de velocidad de descarga",
 				"description": "Limita el ancho de banda de las descargas multimedia. El ritmo de solicitudes de abajo suele ser el control más fuerte.",

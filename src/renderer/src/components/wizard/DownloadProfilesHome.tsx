@@ -1,15 +1,16 @@
 import {lazy, Suspense, useCallback, useEffect, useRef, useState, useSyncExternalStore, type ClipboardEvent, type ComponentType, type KeyboardEvent, type ReactNode, type SVGProps} from 'react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
-import {Check, ChevronRight, Globe2, Info, Link2, ListPlus, PenLine, Plus, Settings, Users, Wand2, X, type LucideIcon} from 'lucide-react'
+import {Check, ChevronRight, Globe2, Info, Link2, ListPlus, PenLine, Plus, RefreshCw, Settings, Users, Wand2, X, type LucideIcon} from 'lucide-react'
 import {downloadProfileLabel, downloadProfileOrigin, downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {notify} from '@renderer/lib/notify.js'
 import {cn} from '@renderer/lib/utils.js'
+import {formatProbeError} from '../../store/helpers.js'
 import {useAppStore} from '../../store/useAppStore.js'
-import {useDownloadHomeView, type DownloadInputType} from '../../store/downloadHomeView.js'
+import {useDownloadHomeView, type DownloadInputType, type QuickDownloadFailureMessage} from '../../store/downloadHomeView.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
@@ -24,6 +25,9 @@ import {IncompleteCookiesConfigDialog} from './IncompleteCookiesConfigDialog.js'
 import {QuickProfileControl} from './QuickProfileControl.js'
 import {buildClipboardCandidate, resolveClipboardIntake, type ClipboardCandidate} from './clipboardIntake.js'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
+import {BotWallGuidanceAlert} from './format/BotWallNotice.js'
+import {CookiesGuidanceAlert} from './format/CookiesErrorAlert.js'
+import type {ProbeErrorExperience} from '../../store/wizard/probeErrorExperience.js'
 import hiImg from '../../assets/Hi.png'
 import downloadingImg from '../../assets/Downloading.png'
 import IconYoutube from '~icons/logos/youtube-icon'
@@ -140,6 +144,10 @@ function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, in
 		return {key: `collection-${inputType}`, title: inputType, body: `Quick queues loaded items with ${activeProfileName}. Interactive lets you inspect or select items first.`, points: ['Quick queues loaded items', 'Interactive supports selection', 'Profile rules apply'], image: hiImg}
 	}
 
+	if (inputType === 'Mixed URL') {
+		return {key: 'mixed', title: 'Mixed URL', body: 'This link points at one video inside a collection. Arroxy will ask which one you want before probing.', points: ['Choose video or collection', 'No silent playlist choice'], image: hiImg}
+	}
+
 	if (inputType === 'Single URL') {
 		return {key: 'single', title: 'Single URL', body: `Quick starts one download with ${activeProfileName}. Use Interactive for one-off changes.`, points: ['Quick is fastest', 'Interactive can override options'], image: hiImg}
 	}
@@ -147,19 +155,53 @@ function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, in
 	return {key: 'generic-url', title: 'URL detected', body: t('wizard.url.quickSingleOnly'), points: ['Quick uses the active profile', 'Interactive reviews first'], image: hiImg}
 }
 
-function quickDownloadErrorText(t: TFunction, error: string | null | undefined): string {
-	if (!error) return ''
-	if (error === 'wizard.url.quickProbeFailed' || error === 'wizard.url.quickPrepareFailed' || error === 'wizard.url.quickBulkAllFailed') return t(error)
-	return error
+function quickDownloadFailureText(t: TFunction, message: QuickDownloadFailureMessage | null): string {
+	if (!message) return ''
+	if (message.kind === 'i18n') return t(message.key)
+	if (message.kind === 'text') return message.text
+	if (message.kind === 'bulk-probe') {
+		const probeText = formatProbeError(message.error) || t('wizard.url.quickProbeFailed')
+		return `${t('wizard.url.quickBulkAllFailed')}: ${probeText}`
+	}
+	return formatProbeError(message.error) || t('wizard.url.quickProbeFailed')
+}
+
+function QuickDownloadErrorAlert({experience, message, onEnableCookiesAndRetry, onOpenCookiesSettings, onRetry, t}: {experience: ProbeErrorExperience | null; message: string; onEnableCookiesAndRetry: () => void; onOpenCookiesSettings: () => void; onRetry: () => void; t: TFunction}): ReactNode {
+	const showBotWallGuidance = experience?.botWall.variant !== undefined && experience.botWall.variant !== 'hidden'
+	const showCookiesGuidance = experience?.cookies.variant !== undefined && experience.cookies.variant !== 'hidden'
+	return (
+		<Alert variant="warning" className="mt-2 py-2" data-testid="quick-download-feedback">
+			<AlertDescription className="flex flex-col gap-2 text-[11px] text-current">
+				<span>{t('wizard.url.quickFailed', {error: message})}</span>
+				<div className="flex flex-wrap gap-2">
+					<Button type="button" size="sm" variant="outline" onClick={() => onRetry()} data-testid="quick-download-retry">
+						<RefreshCw data-icon="inline-start" />
+						{t('common.retry')}
+					</Button>
+				</div>
+				{experience && (showBotWallGuidance || showCookiesGuidance) ? (
+					<div className="flex flex-col gap-1.5">
+						<BotWallGuidanceAlert guidance={experience.botWall} density="compact" showRetryAction={false} onEnableCookiesAndRetry={onEnableCookiesAndRetry} onRetry={onRetry} enableTestId="quick-download-enable-cookies-retry" />
+						<CookiesGuidanceAlert guidance={experience.cookies} density="compact" onOpenSettings={onOpenCookiesSettings} openSettingsTestId="quick-download-cookies-settings" />
+					</div>
+				) : null}
+			</AlertDescription>
+		</Alert>
+	)
 }
 
 // react-doctor-disable-next-line react-doctor/prefer-useReducer -- these local UI controls update independently and do not share reducer-style transitions
 export function DownloadProfilesHome(): ReactNode {
 	const {t} = useTranslation()
 	const {
+		activeProfileDestination,
+		activeProfileDestinationDetail,
 		activeProfile,
+		chooseWizardFolder,
+		commonPaths,
 		cookiesConfigDialogIssue,
 		dismissCookiesConfigDialog,
+		globalDestinationRoot,
 		hasActiveDownloads,
 		hasInput,
 		inputType,
@@ -167,11 +209,14 @@ export function DownloadProfilesHome(): ReactNode {
 		profiles,
 		profilesPrefs,
 		quickDownload,
-		quickDownloadError,
+		quickDownloadFailureMessage,
+		quickDownloadProbeExperience,
 		quickDownloadProgressFailed,
 		quickDownloadStatus,
 		quickPreparing,
 		removeDownloadProfile,
+		retryQuickDownloadFailure,
+		retryQuickDownloadWithCookies,
 		saveDownloadProfile,
 		setActiveDownloadProfile,
 		setWizardUrl,
@@ -189,7 +234,7 @@ export function DownloadProfilesHome(): ReactNode {
 	const [editorOpen, setEditorOpen] = useState(() => initialBrowserMockScenario === 'profiles-editor')
 	const [editorSessionId, setEditorSessionId] = useState(0)
 	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
-	const quickErrorText = quickDownloadErrorText(t, quickDownloadError)
+	const quickErrorText = quickDownloadFailureText(t, quickDownloadFailureMessage)
 	const showQuickPartialWarning = quickDownloadStatus === 'queued' && quickDownloadProgressFailed > 0
 	const mascotHelp = downloadMascotHelp({activeProfileName: activeProfile.name, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
 	const showMascotHelp = inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'
@@ -254,6 +299,17 @@ export function DownloadProfilesHome(): ReactNode {
 		setEditorSessionId(value => value + 1)
 		setEditorOpen(true)
 	}
+
+	const editingProfileOrigin = editingProfile ? downloadProfileOrigin(editingProfile, profilesPrefs) : null
+	const editorResetProfile =
+		editingProfile && editingProfileOrigin?.kind === 'builtin'
+			? {
+					enabled: editingProfileOrigin.overridden,
+					onReset: async () => {
+						await removeDownloadProfile(editingProfile.id)
+					}
+				}
+			: undefined
 
 	function handleClearUrl(): void {
 		setWizardUrl('')
@@ -332,8 +388,11 @@ export function DownloadProfilesHome(): ReactNode {
 						<CardContent className="px-5 pb-4 md:px-6">
 							<QuickProfileControl
 								defaultProfileMenuOpen={initialBrowserMockScenario === 'profiles-split-menu'}
+								destination={activeProfileDestination}
+								destinationDetail={activeProfileDestinationDetail}
 								disabled={!urlReady || quickPreparing}
 								preparing={quickPreparing}
+								onChangeGlobalDestination={() => void chooseWizardFolder()}
 								onDownload={() => void quickDownload()}
 								onEditProfile={openEditor}
 								onManageProfiles={() => selectProfilesTab('profiles')}
@@ -342,11 +401,7 @@ export function DownloadProfilesHome(): ReactNode {
 								profilesPrefs={profilesPrefs}
 							/>
 
-							{quickDownloadStatus === 'error' ? (
-								<Alert variant="warning" className="mt-2 py-2" data-testid="quick-download-feedback">
-									<AlertDescription className="text-[11px]">{t('wizard.url.quickFailed', {error: quickErrorText})}</AlertDescription>
-								</Alert>
-							) : null}
+							{quickDownloadStatus === 'error' ? <QuickDownloadErrorAlert experience={quickDownloadProbeExperience} message={quickErrorText} onEnableCookiesAndRetry={() => void retryQuickDownloadWithCookies()} onOpenCookiesSettings={openCookiesSettings} onRetry={() => void retryQuickDownloadFailure()} t={t} /> : null}
 							{showQuickPartialWarning ? (
 								<Alert variant="warning" className="mt-2 py-2" data-testid="quick-download-feedback">
 									<AlertDescription className="text-[11px]">{t('wizard.url.quickPartialFailed', {count: quickDownloadProgressFailed})}</AlertDescription>
@@ -379,7 +434,17 @@ export function DownloadProfilesHome(): ReactNode {
 						</div>
 					}
 				>
-					<DownloadProfileEditor key={editorSessionId} initialProfile={editingProfile} open={editorOpen} onOpenChange={setEditorOpen} onSave={profile => saveDownloadProfile(profile)} />
+					<DownloadProfileEditor
+						key={editorSessionId}
+						commonPaths={commonPaths}
+						globalDestination={globalDestinationRoot}
+						initialProfile={editingProfile}
+						onChangeGlobalDestination={() => chooseWizardFolder()}
+						open={editorOpen}
+						onOpenChange={setEditorOpen}
+						onSave={profile => saveDownloadProfile(profile)}
+						resetProfile={editorResetProfile}
+					/>
 				</Suspense>
 			) : null}
 			<IncompleteCookiesConfigDialog issue={cookiesConfigDialogIssue} onDismiss={dismissCookiesConfigDialog} onOpenSettings={openCookiesSettings} />

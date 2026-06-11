@@ -3,10 +3,10 @@ import {lightOceanScene} from '@renderer/components/layout/background/lightOcean
 import {FRAG} from '@renderer/components/layout/background/lightOcean/shader.js'
 
 describe('light ocean WebGL shader', () => {
-	it('uses the higher-quality GPU render budget', () => {
+	it('uses the light backdrop render budget', () => {
 		expect(lightOceanScene.renderScale).toBe(0.75)
 		expect(lightOceanScene.maxDevicePixelRatio).toBe(1.5)
-		expect(lightOceanScene.frameIntervalMs).toBe(1000 / 24)
+		expect(lightOceanScene.frameIntervalMs).toBe(1000 / 30)
 	})
 
 	it('does not regress to the flat postcard ocean structure', () => {

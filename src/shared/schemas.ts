@@ -147,6 +147,9 @@ export const SUPPORTED_LANGS = supportedLangSchema.options
 export const uiThemeSchema = z.enum(['light', 'dark', 'system'])
 export type UiTheme = z.infer<typeof uiThemeSchema>
 
+export const backdropRenderModeSchema = z.enum(['css-only', 'fallback', 'gpu'])
+export type BackdropRenderMode = z.infer<typeof backdropRenderModeSchema>
+
 export const quickDownloadStatusSchema = z.enum(['idle', 'preparing', 'queued', 'error'])
 export type QuickDownloadStatus = z.infer<typeof quickDownloadStatusSchema>
 
@@ -169,7 +172,7 @@ export type BulkMetadataCancelReason = z.infer<typeof bulkMetadataCancelReasonSc
 export const probeOtherErrorCodeSchema = z.enum(['cancelled', 'cookies_config', 'invalid_url', 'no_formats', 'parse', 'playlist_empty', 'redirect_loop', 'schema', 'unknown'])
 export type ProbeOtherErrorCode = z.infer<typeof probeOtherErrorCodeSchema>
 
-export const bulkUrlKindSchema = z.enum(['single', 'playlist', 'channel', 'search', 'other'])
+export const bulkUrlKindSchema = z.enum(['single', 'playlist', 'channel', 'search', 'mixed', 'unknown'])
 export type BulkUrlKind = z.infer<typeof bulkUrlKindSchema>
 
 export const bulkUrlRejectReasonSchema = z.enum(['duplicate'])
@@ -337,6 +340,7 @@ const commonSettingsPatchSchema = z.object({
 	rememberLastOutputDir: z.boolean().optional(),
 	uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
 	uiTheme: uiThemeSchema.optional(),
+	backdropRenderMode: backdropRenderModeSchema.optional(),
 	language: supportedLangSchema.optional(),
 	cookiesPath: z.string().optional(),
 	cookiesMode: cookiesModeSchema.optional(),

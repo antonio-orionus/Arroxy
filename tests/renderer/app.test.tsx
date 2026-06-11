@@ -4,6 +4,7 @@ import {App} from '@renderer/App.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {defaultAppSettings} from '@shared/constants.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 
 const mockAppApi = buildMockAppApi()
 
@@ -28,7 +29,7 @@ describe('App renderer', () => {
 			wizardError: null,
 			wizardErrorOrigin: null,
 			quickDownloadStatus: 'idle',
-			quickDownloadError: null,
+			quickDownloadFailure: null,
 			quickDownloadQueueIds: [],
 			queue: []
 		})
@@ -130,7 +131,10 @@ describe('App renderer', () => {
 		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Balanced 720p')
 		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Active profile')
 		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('720p · best audio')
-		expect(screen.queryByRole('button', {name: 'Edit active profile: Balanced 720p'})).not.toBeInTheDocument()
+		expect(screen.getByTestId('profiles-profile-destination')).toHaveTextContent('Using global destination + profile subfolder')
+		expect(screen.getByTestId('profiles-profile-destination')).toHaveTextContent('/tmp/Balanced 720p')
+		expect(screen.getByRole('button', {name: 'Edit active profile'})).toBeInTheDocument()
+		expect(screen.getByRole('button', {name: 'Change global destination'})).toBeInTheDocument()
 		const profileMenuTrigger = screen.getByRole('button', {name: 'Switch download profile: Balanced 720p'})
 		expect(profileMenuTrigger).toBeInTheDocument()
 		expect(quick).toBeDisabled()
@@ -154,8 +158,13 @@ describe('App renderer', () => {
 		fireEvent.change(input, {target: {value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}})
 		fireEvent.click(quick)
 
-		expect(await screen.findByTestId('quick-download-progress-dialog')).toHaveTextContent('Preparing Quick Download')
-		expect(screen.getByTestId('quick-download-progress-dialog')).toHaveTextContent('Balanced 720p')
+		const progressDialog = await screen.findByTestId('quick-download-progress-dialog')
+		expect(progressDialog).toHaveTextContent('Preparing Quick Download')
+		expect(progressDialog).toHaveTextContent('Balanced 720p')
+		expect(progressDialog).toHaveClass('overflow-hidden')
+		expect(screen.getByTestId('quick-download-progress-body')).toHaveClass('min-w-0')
+		expect(screen.getByTestId('quick-download-progress-current')).toHaveClass('max-w-full', 'min-w-0', 'overflow-hidden')
+		expect(screen.getByTestId('quick-download-progress-current-label')).toHaveClass('flex-1', 'min-w-0', 'truncate')
 		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('0 / 1')
 
 		await waitFor(() => {
@@ -187,6 +196,18 @@ describe('App renderer', () => {
 		await waitFor(() => {
 			expect(screen.queryByTestId('quick-download-progress-dialog')).not.toBeInTheDocument()
 		})
+	})
+
+	it('explains profile destination overrides on the active profile card', async () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
+		expect(balanced).toBeDefined()
+		window.appApi = buildMockAppApi({settings: {profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: [{...balanced!, output: {kind: 'fixed', dir: '/mnt/archive'}, subfolder: {enabled: true, name: 'Lectures'}}]}}})
+
+		render(<App />)
+
+		const destination = await screen.findByTestId('profiles-profile-destination')
+		expect(destination).toHaveTextContent('Using profile override + profile subfolder')
+		expect(destination).toHaveTextContent('/mnt/archive/Lectures')
 	})
 
 	it('cancels quick download preparation from the blocking progress dialog', async () => {

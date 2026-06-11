@@ -1,40 +1,38 @@
 import type {ReactNode} from 'react'
 import {AlertTriangle, ExternalLink} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
-import {useAppStore} from '@renderer/store/useAppStore.js'
+import type {CookiesGuidance} from '@renderer/store/wizard/probeErrorExperience.js'
 import {Alert, AlertDescription} from '@renderer/components/ui/alert.js'
 import {Button} from '@renderer/components/ui/button.js'
+import {cn} from '@renderer/lib/utils.js'
 
 const DPAPI_DOCS_URL = 'https://github.com/yt-dlp/yt-dlp/issues/10927'
-
-function isDpapiCookieError(text: string | undefined | null): boolean {
-	if (!text) return false
-	return /Failed to decrypt with DPAPI|no encrypted key in Local State/i.test(text)
-}
+type GuidanceDensity = 'full' | 'compact'
 
 interface CookiesAlertShellProps {
 	mode: string
 	variant?: string
 	body: ReactNode
 	footer: ReactNode
+	density: GuidanceDensity
 }
 
-function CookiesAlertShell({mode, variant, body, footer}: CookiesAlertShellProps): ReactNode {
+function CookiesAlertShell({mode, variant, body, footer, density}: CookiesAlertShellProps): ReactNode {
+	const compact = density === 'compact'
 	return (
-		<Alert role="status" variant="warning" data-testid="cookies-error-alert" data-mode={mode} {...(variant ? {'data-variant': variant} : {})} className="text-[12px]">
-			<AlertTriangle />
-			<AlertDescription className="flex flex-col gap-1 text-[12px] text-current">{body}</AlertDescription>
-			<div className="col-start-2 flex flex-col gap-2">{footer}</div>
+		<Alert role="status" variant="warning" data-testid="cookies-error-alert" data-mode={mode} data-density={density} {...(variant ? {'data-variant': variant} : {})} className={cn('text-[12px]', compact && 'py-2')}>
+			<AlertTriangle className={cn(compact && 'mt-0.5 size-3.5')} />
+			<AlertDescription className={cn('flex flex-col gap-1 text-[12px] text-current', compact && 'text-[11px]')}>{body}</AlertDescription>
+			<div className={cn('col-start-2 flex flex-col gap-2', compact && 'gap-1.5')}>{footer}</div>
 		</Alert>
 	)
 }
 
-function OpenCookiesSettingsButton(): ReactNode {
+function OpenCookiesSettingsButton({onOpenSettings, density, testId}: {onOpenSettings: () => void; density: GuidanceDensity; testId: string}): ReactNode {
 	const {t} = useTranslation()
-	const {openCookiesSettings} = useAppStore()
 	return (
 		<div className="flex flex-wrap gap-2">
-			<Button type="button" size="sm" variant="outline" onClick={() => openCookiesSettings()} data-testid="cookies-error-open-settings-cta">
+			<Button type="button" size={density === 'compact' ? 'xs' : 'sm'} variant="outline" onClick={onOpenSettings} data-testid={testId}>
 				<ExternalLink data-icon="inline-start" />
 				{t('wizard.formats.cookiesError.openSettingsCta')}
 			</Button>
@@ -42,44 +40,38 @@ function OpenCookiesSettingsButton(): ReactNode {
 	)
 }
 
-interface CookiesErrorAlertProps {
-	// When true, render even if cookiesMode === 'off'. Used by StepError when
-	// the error message itself signals "needs cookies".
-	forceShowCookiesOff?: boolean
+interface CookiesGuidanceAlertProps {
+	guidance: CookiesGuidance
+	onOpenSettings: () => void
+	density?: GuidanceDensity
+	openSettingsTestId?: string
 }
 
-export function CookiesErrorAlert({forceShowCookiesOff = false}: CookiesErrorAlertProps = {}): ReactNode | null {
+export function CookiesGuidanceAlert({guidance, onOpenSettings, density = 'full', openSettingsTestId = 'cookies-error-open-settings-cta'}: CookiesGuidanceAlertProps): ReactNode | null {
 	const {t} = useTranslation()
-	const {settings, wizardError} = useAppStore()
-	const cookiesMode = settings?.common?.cookiesMode ?? 'off'
-
-	// Cookies-off + error suggests cookies → render the "needs cookies" variant
-	// so the user has a one-click path to the cookies settings.
-	if (cookiesMode === 'off') {
-		if (!forceShowCookiesOff) return null
+	if (guidance.variant === 'hidden') return null
+	if (guidance.variant === 'needs-cookies') {
 		return (
 			<CookiesAlertShell
 				mode="off"
 				variant="needs-cookies"
+				density={density}
 				body={
 					<>
 						<span className="font-semibold">{t('wizard.formats.cookiesError.needsCookies.heading')}</span>
 						<span className="leading-snug">{t('wizard.formats.cookiesError.needsCookies.body')}</span>
 					</>
 				}
-				footer={<OpenCookiesSettingsButton />}
+				footer={<OpenCookiesSettingsButton onOpenSettings={onOpenSettings} density={density} testId={openSettingsTestId} />}
 			/>
 		)
 	}
-
-	const errorRaw = wizardError?.kind === 'ytdlp' ? wizardError.error.raw : wizardError?.kind === 'other' ? wizardError.message + (wizardError.details ? '\n' + wizardError.details : '') : null
-	const dpapiDetected = cookiesMode === 'browser' && isDpapiCookieError(errorRaw)
-
-	if (dpapiDetected) {
+	if (guidance.variant === 'dpapi') {
 		return (
 			<CookiesAlertShell
 				mode="browser"
 				variant="dpapi"
+				density={density}
 				body={
 					<>
 						<span className="font-semibold">{t('wizard.formats.cookiesError.dpapi.heading')}</span>
@@ -88,7 +80,7 @@ export function CookiesErrorAlert({forceShowCookiesOff = false}: CookiesErrorAle
 				}
 				footer={
 					<>
-						<ol className="flex list-decimal flex-col gap-1.5 ps-4 marker:text-amber-700/80 dark:marker:text-amber-200/70">
+						<ol className={cn('flex list-decimal flex-col gap-1.5 ps-4 marker:text-amber-700/80 dark:marker:text-amber-200/70', density === 'compact' && 'gap-1')}>
 							<li>
 								<span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixFirefoxLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixFirefoxBody')}</span>
 							</li>
@@ -97,25 +89,26 @@ export function CookiesErrorAlert({forceShowCookiesOff = false}: CookiesErrorAle
 							</li>
 							<li>
 								<span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixUnsafeLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixUnsafeBody')}</span>{' '}
-								<Button type="button" variant="link" size="xs" className="h-auto px-0 align-baseline text-[12px]" onClick={() => void window.appApi.shell.openExternal(DPAPI_DOCS_URL)} data-testid="cookies-error-dpapi-docs-link">
+								<Button type="button" variant="link" size="xs" className={cn('h-auto px-0 align-baseline text-[12px]', density === 'compact' && 'text-[11px]')} onClick={() => void window.appApi.shell.openExternal(DPAPI_DOCS_URL)} data-testid="cookies-error-dpapi-docs-link">
 									{t('wizard.formats.cookiesError.dpapi.docsLinkLabel')}
 									<ExternalLink data-icon="inline-end" />
 								</Button>
 							</li>
 						</ol>
-						<OpenCookiesSettingsButton />
+						<OpenCookiesSettingsButton onOpenSettings={onOpenSettings} density={density} testId={openSettingsTestId} />
 					</>
 				}
 			/>
 		)
 	}
 
-	const modeLabel = cookiesMode === 'file' ? t('wizard.formats.cookiesError.currentModeFile') : t('wizard.formats.cookiesError.currentModeBrowser')
-	const explanation = cookiesMode === 'file' ? t('wizard.formats.cookiesError.explanationFile') : t('wizard.formats.cookiesError.explanationBrowser')
+	const modeLabel = guidance.mode === 'file' ? t('wizard.formats.cookiesError.currentModeFile') : t('wizard.formats.cookiesError.currentModeBrowser')
+	const explanation = guidance.mode === 'file' ? t('wizard.formats.cookiesError.explanationFile') : t('wizard.formats.cookiesError.explanationBrowser')
 
 	return (
 		<CookiesAlertShell
-			mode={cookiesMode}
+			mode={guidance.mode}
+			density={density}
 			body={
 				<>
 					<span className="font-semibold">{t('wizard.formats.cookiesError.heading')}</span>
@@ -125,7 +118,7 @@ export function CookiesErrorAlert({forceShowCookiesOff = false}: CookiesErrorAle
 					<span className="leading-snug">{explanation}</span>
 				</>
 			}
-			footer={<OpenCookiesSettingsButton />}
+			footer={<OpenCookiesSettingsButton onOpenSettings={onOpenSettings} density={density} testId={openSettingsTestId} />}
 		/>
 	)
 }

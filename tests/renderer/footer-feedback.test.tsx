@@ -1,4 +1,4 @@
-import {render, screen, fireEvent, waitFor, act} from '@testing-library/react'
+import {render, screen, fireEvent, waitFor} from '@testing-library/react'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {App} from '@renderer/App.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
@@ -85,7 +85,6 @@ describe('Footer feedback controls', () => {
 		window.appVersion = '1.2.3'
 		window.platform = 'linux'
 		;(window as unknown as {Tally?: {openPopup: typeof mockTallyOpenPopup}}).Tally = {openPopup: mockTallyOpenPopup}
-		Object.defineProperty(navigator, 'clipboard', {writable: true, configurable: true, value: {writeText: vi.fn().mockResolvedValue(undefined)}})
 		vi.clearAllMocks()
 	})
 
@@ -96,7 +95,8 @@ describe('Footer feedback controls', () => {
 
 	it('renders footer utility buttons', async () => {
 		render(<App />)
-		expect(await screen.findByTestId('btn-debug')).toBeInTheDocument()
+		await screen.findByTestId('app-footer')
+		expect(screen.queryByTestId('btn-debug')).not.toBeInTheDocument()
 		expect(screen.getByTestId('btn-discord')).toBeInTheDocument()
 		expect(screen.getByTestId('btn-feedback')).toBeInTheDocument()
 		expect(screen.getByTestId('btn-logs')).toBeInTheDocument()
@@ -118,6 +118,8 @@ describe('Footer feedback controls', () => {
 		expect(screen.getByTestId('btn-discord-label').className).toContain('max-sm:sr-only')
 		expect(screen.getByTestId('btn-feedback-label').className).toContain('max-sm:sr-only')
 		expect(screen.getByTestId('btn-logs-label').className).toContain('max-sm:sr-only')
+		expect(screen.getByTestId('btn-feedback').querySelector('[data-icon="inline-start"]')).toBeInTheDocument()
+		expect(screen.getByTestId('btn-logs').querySelector('[data-icon="inline-start"]')).toBeInTheDocument()
 	})
 
 	it('Discord footer button opens the community invite', async () => {
@@ -151,6 +153,7 @@ describe('Footer feedback controls', () => {
 		expect(mockTallyOpenPopup).toHaveBeenCalledWith(
 			'Ek6M8B',
 			expect.objectContaining({
+				key: expect.stringMatching(/^arroxy-feedback-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/),
 				autoClose: 3000,
 				hiddenFields: expect.objectContaining({
 					app_version: '1.2.3',
@@ -160,18 +163,15 @@ describe('Footer feedback controls', () => {
 					yt_dlp_error_kind: 'none',
 					error_code: 'none',
 					source: 'app-footer',
-					diagnostic_report_created: 'true',
-					diagnostic_upload_status: 'requested',
-					diagnostic_raw_bytes: 'pending',
-					diagnostic_compressed_bytes: 'pending',
-					diagnostic_truncated: 'pending',
-					diagnostic_sha256: 'pending',
+					diagnostic_mode: 'automatic',
 					report_id: expect.stringMatching(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
 				})
 			})
 		)
 		const hiddenFields = mockTallyOpenPopup.mock.calls[0][1].hiddenFields as Record<string, string>
 		expect(Object.values(hiddenFields)).not.toContain('')
+		expect(hiddenFields).not.toHaveProperty('diagnostic_upload_status')
+		expect(hiddenFields).not.toHaveProperty('diagnostic_raw_bytes')
 	})
 
 	it('uploads the diagnostic log after Tally submission using the same report id', async () => {
@@ -190,57 +190,6 @@ describe('Footer feedback controls', () => {
 		})
 		expect(mockAppApi.analytics.track).toHaveBeenCalledWith('feedback_submitted', {report_id: reportId, diagnostic_report_created: true})
 		expect(mockAppApi.analytics.track).toHaveBeenCalledWith('feedback_diagnostic_uploaded', {report_id: reportId, raw_bytes: 42, compressed_bytes: 31, truncated: false})
-	})
-
-	it('Copy debug info writes platform, Electron, and Chrome fields to clipboard', async () => {
-		Object.defineProperty(navigator, 'userAgent', {configurable: true, value: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Electron/33.2.0 Chrome/130.0.6723.191 Safari/537.36'})
-
-		render(<App />)
-		fireEvent.click(await screen.findByTestId('btn-debug'))
-
-		await waitFor(() => {
-			expect(navigator.clipboard.writeText).toHaveBeenCalledOnce()
-		})
-
-		const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string
-		expect(written).toContain('Platform: linux')
-		expect(written).toContain('Electron: 33.2.0')
-		expect(written).toContain('Chrome: 130.0.6723.191')
-	})
-
-	it('Copy debug info falls back to "unknown" when Electron is absent from userAgent', async () => {
-		Object.defineProperty(navigator, 'userAgent', {configurable: true, value: 'Mozilla/5.0 (jsdom)'})
-
-		render(<App />)
-		fireEvent.click(await screen.findByTestId('btn-debug'))
-
-		await waitFor(() => {
-			expect(navigator.clipboard.writeText).toHaveBeenCalledOnce()
-		})
-
-		const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string
-		expect(written).toContain('Electron: unknown')
-		expect(written).toContain('Chrome: unknown')
-	})
-
-	it('title shows "Copied!" immediately after click then reverts after 1.5 s', async () => {
-		render(<App />)
-
-		// Wait for initialization, then switch to fake timers
-		await act(async () => {})
-		vi.useFakeTimers()
-
-		await act(async () => {
-			fireEvent.click(screen.getByTestId('btn-debug'))
-		})
-
-		expect(screen.getByTestId('btn-debug')).toHaveAttribute('title', 'Copied!')
-
-		act(() => {
-			vi.advanceTimersByTime(1600)
-		})
-
-		expect(screen.getByTestId('btn-debug')).toHaveAttribute('title', 'Copy debug info (Electron, OS, Chrome versions)')
 	})
 
 	it('Logs button opens the log directory', async () => {

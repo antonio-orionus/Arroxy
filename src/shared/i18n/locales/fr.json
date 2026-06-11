@@ -84,11 +84,17 @@
 		"mixedPrompt": {
 			"title": "Ce lien contient une Playlist",
 			"body": "Seulement la vidéo sur laquelle tu as cliqué, ou tu préfères choisir dans la Playlist ? Tu pourras sélectionner des vidéos précises ou une plage à l'étape suivante.",
+			"quickBody": "Télécharge uniquement cette vidéo ou ajoute toute la playlist à la file avec ton profil Téléchargement rapide actif.",
 			"singleVideo": "Juste celle-ci",
+			"quickSingleVideo": "Télécharger cette vidéo",
 			"pickFromPlaylist": "Choisir dans la Playlist",
+			"quickWholePlaylist": "Télécharger toute la playlist",
 			"playlistLimit": "Limite d’analyse de playlist : {{count}} éléments",
+			"quickLimitDescription": "Nombre maximal d’éléments qu’Arroxy analyse avant d’ajouter une playlist, une chaîne ou un résultat de recherche à la file.",
 			"singleTooltip": "Utilise le mode vidéo seule de yt-dlp afin d’ignorer la playlist attachée à cette URL.",
-			"playlistTooltip": "Utilise le mode playlist de yt-dlp et récupère jusqu’à votre limite avant d’afficher le sélecteur."
+			"quickSingleTooltip": "Ajoute un seul téléchargement à la file et ignore la playlist attachée à cette URL.",
+			"playlistTooltip": "Utilise le mode playlist de yt-dlp et récupère jusqu’à votre limite avant d’afficher le sélecteur.",
+			"quickPlaylistTooltip": "Ajoute chaque élément chargé de la playlist à la file avec le profil Téléchargement rapide actif. Si l’analyse atteint ta limite, Arroxy demande confirmation avant d’ajouter à la file."
 		},
 		"url": {
 			"heading": "Télécharger depuis une URL",
@@ -141,6 +147,18 @@
 				"extensionChrome": "Obtenir cookies.txt EN LOCAL (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Acheminer le trafic via un proxy — utile pour les contenus géo-restreints.", "placeholder": "http://host:port", "clear": "Effacer"},
+			"backdrop": {
+				"panelTitle": "Apparence et performances",
+				"panelDescription": "Choisissez la quantité de mouvement utilisée par Arroxy pour l’arrière-plan animé.",
+				"modeLabel": "Qualité de l’arrière-plan",
+				"modeDescription": "Passez de l’apparence la plus animée aux meilleures performances.",
+				"cssOnlyLabel": "Meilleures performances",
+				"cssOnlyDescription": "CSS uniquement, sans rendu canvas.",
+				"fallbackLabel": "Équilibré",
+				"fallbackDescription": "Arrière-plan Canvas2D statique sans WebGL.",
+				"gpuLabel": "Le plus beau",
+				"gpuDescription": "Arrière-plan WebGL animé lorsque pris en charge."
+			},
 			"limitRate": {
 				"label": "Limite de vitesse de téléchargement",
 				"description": "Limite la bande passante des téléchargements média. Le rythme des requêtes ci-dessous est souvent le levier le plus fort.",

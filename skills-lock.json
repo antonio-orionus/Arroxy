@@ -37,6 +37,12 @@
       "skillPath": "skills/react-best-practices/SKILL.md",
       "computedHash": "4f1da6469280a8293e3e46185e9ed5f477e79728bc02028a89ec3f4abf4fa82e"
     },
+    "review-swarm": {
+      "source": "dimillian/skills",
+      "sourceType": "github",
+      "skillPath": "review-swarm/SKILL.md",
+      "computedHash": "bbba1b61ca2817847089ad1cf794b2dde2d2b4215540f441105ac4d186f28d51"
+    },
     "shadcn": {
       "source": "shadcn/ui",
       "sourceType": "github",

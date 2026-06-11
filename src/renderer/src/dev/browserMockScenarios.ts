@@ -1,11 +1,11 @@
 import {defaultAppSettings, DEFAULT_PLAYLIST_PROBE_LIMIT} from '@shared/constants.js'
 import {YT_DLP_ERROR_KINDS} from '@shared/schemas.js'
-import type {AppSettings, ProbeError, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUpOutput} from '@shared/types.js'
+import type {AppSettings, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUpOutput} from '@shared/types.js'
 import type {YtDlpErrorKind} from '@shared/schemas.js'
 import type {BrowserMockKnobs} from './browserMockKnobs.js'
 import type {AppState, SetState} from '../store/types.js'
 import {bulkStressFixture, bulkStressState, type BulkStressFixture} from './scenarios/bulkScenarios.js'
-import {buildProbeError, buildProbeResult, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload} from './scenarios/probeScenarios.js'
+import {buildProbeResult, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload} from './scenarios/probeScenarios.js'
 import {buildQueueItems} from './scenarios/queueScenarios.js'
 import {buildUpdate} from './scenarios/updateScenarios.js'
 import {buildWarmUp} from './scenarios/diagnosticScenarios.js'
@@ -63,6 +63,8 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number]
 export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Profiles' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics'
 type ScenarioKind = 'default' | 'probe' | 'bulk' | 'profile' | 'queue' | 'update' | 'diagnostics' | 'dialog'
+export const PROBE_ERROR_TARGETS = ['wizard', 'quick-download'] as const
+export type ProbeErrorTarget = (typeof PROBE_ERROR_TARGETS)[number]
 
 const SINGLE_NORMAL_MOCK_STEPS = ['formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm'] as const
 const PLAYLIST_NORMAL_MOCK_STEPS = ['playlistItems', 'playlistPresets', 'sponsorblock', 'output', 'folder', 'confirm'] as const
@@ -81,7 +83,6 @@ export interface BrowserMockState {
 	scenario: BrowserMockScenario
 	settings: AppSettings
 	probeResult: ProbeResult | null
-	probeError: ProbeError | null
 	queueItems: QueueItem[]
 	update: UpdateAvailablePayload | null
 	warmUp: WarmUpOutput
@@ -90,6 +91,7 @@ export interface BrowserMockState {
 export interface BrowserMockUrlParams {
 	playlistCount: number | null
 	probeErrorKind: YtDlpErrorKind | null
+	probeErrorTarget: ProbeErrorTarget
 	mockStep: BrowserMockStep | null
 }
 
@@ -97,6 +99,7 @@ export interface ScenarioWorkbenchStore {
 	reset: AppState['reset']
 	setWizardUrl: AppState['setWizardUrl']
 	submitUrl: AppState['submitUrl']
+	quickDownload: AppState['quickDownload']
 	setState: SetState
 }
 
@@ -111,11 +114,13 @@ export function readUrlParams(location: Pick<Location, 'search'> | URL): Browser
 
 	const rawKind = params.get('probeError')
 	const probeErrorKind = rawKind !== null && (YT_DLP_ERROR_KINDS as readonly string[]).includes(rawKind) ? (rawKind as YtDlpErrorKind) : null
+	const rawProbeTarget = params.get('probeErrorTarget')
+	const probeErrorTarget: ProbeErrorTarget = rawProbeTarget === 'quick-download' ? 'quick-download' : 'wizard'
 
 	const rawStep = params.get('mockStep')
 	const mockStep = rawStep !== null && (BROWSER_MOCK_STEPS as readonly string[]).includes(rawStep) ? (rawStep as BrowserMockStep) : null
 
-	return {playlistCount, probeErrorKind, mockStep}
+	return {playlistCount, probeErrorKind, probeErrorTarget, mockStep}
 }
 
 const COMMON_PATHS = {downloads: '/home/user/Downloads', videos: '/home/user/Videos', desktop: '/home/user/Desktop', music: '/home/user/Music', documents: '/home/user/Documents', pictures: '/home/user/Pictures', home: '/home/user'} as const
@@ -208,11 +213,17 @@ export function mockStepsForScenario(scenario: Pick<BrowserMockScenario, 'id'>):
 
 export function buildScenarioAppApiState(scenario: BrowserMockScenario, params?: BrowserMockUrlParams, knobs?: BrowserMockKnobs): BrowserMockState {
 	const settings = buildSettings(scenario, knobs)
-	return {scenario, settings, probeResult: buildProbeResult(scenario, params), probeError: buildProbeError(scenario, params), queueItems: buildQueueItems(scenario), update: buildUpdate(scenario), warmUp: buildWarmUp(scenario)}
+	return {scenario, settings, probeResult: buildProbeResult(scenario, params), queueItems: buildQueueItems(scenario), update: buildUpdate(scenario), warmUp: buildWarmUp(scenario)}
 }
 
 const PROFILE_SINGLE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 const PROFILE_BULK_URLS = ['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://www.youtube.com/watch?v=jNQXAC9IVRw', 'https://www.youtube.com/watch?v=oHg5SJYRHA0'] as const
+
+function withMockProbeError(url: string, kind: YtDlpErrorKind): string {
+	const next = new URL(url)
+	next.searchParams.set('mockProbeError', kind)
+	return next.toString()
+}
 
 function profileScenarioPatch(scenario: BrowserMockScenario): Partial<AppState> {
 	if (scenario.id === 'profiles-home-clipboard-single') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
@@ -241,7 +252,18 @@ function profileScenarioPatch(scenario: BrowserMockScenario): Partial<AppState> 
 
 export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockScenario; params: BrowserMockUrlParams; store: ScenarioWorkbenchStore}): Promise<void> {
 	const {scenario, params, store} = input
-	if (scenario.kind === 'probe' || params.playlistCount !== null || params.probeErrorKind !== null) {
+	if (params.probeErrorKind !== null) {
+		store.reset()
+		if (params.probeErrorTarget === 'quick-download') {
+			store.setWizardUrl(withMockProbeError(PROFILE_SINGLE_URL, params.probeErrorKind))
+			await store.quickDownload()
+			return
+		}
+		store.setWizardUrl(withMockProbeError(`https://example.com/${scenario.id}`, params.probeErrorKind))
+		await store.submitUrl()
+		return
+	}
+	if (scenario.kind === 'probe' || params.playlistCount !== null) {
 		store.reset()
 		store.setWizardUrl(`https://example.com/${scenario.id}`)
 		await store.submitUrl()

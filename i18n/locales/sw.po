@@ -1269,6 +1269,30 @@ msgctxt "wizard.mixedPrompt.playlistTooltip"
 msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
 msgstr "Hutumia modi ya playlist ya yt-dlp na kuchukua hadi kikomo chako kabla ya kuonyesha kichaguaji."
 
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Pakua video hii pekee, au ongeza orodha yote ya kucheza kwenye foleni kwa wasifu wako amilifu wa Upakuaji wa haraka."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Idadi ya juu ya vipengee ambavyo Arroxy hukagua kabla ya kuongeza orodha ya kucheza, kituo au matokeo ya utafutaji kwenye foleni."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Huongeza kila kipengee cha orodha ya kucheza kilichopakiwa kwenye foleni kwa wasifu amilifu wa Upakuaji wa haraka. Ukaguzi ukifika kikomo chako, Arroxy itauliza kabla ya kuongeza kwenye foleni."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Huongeza upakuaji mmoja kwenye foleni na kupuuza orodha ya kucheza iliyoambatishwa kwenye URL hii."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Pakua video hii"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Pakua orodha yote ya kucheza"
+
 msgctxt "wizard.mixedPrompt.singleTooltip"
 msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
 msgstr "Hutumia modi ya video moja ya yt-dlp ili kupuuza playlist iliyounganishwa na URL hii."
@@ -1700,6 +1724,46 @@ msgstr "Tuma takwimu za matumizi zisizo na jina"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "Huhesabu tu uzinduzi wa programu. Hakuna URL, majina ya faili, au data za kibinafsi."
+
+msgctxt "wizard.url.backdrop.cssOnlyDescription"
+msgid "CSS only, no canvas rendering."
+msgstr "CSS pekee, hakuna uchoraji wa canvas."
+
+msgctxt "wizard.url.backdrop.cssOnlyLabel"
+msgid "Best performance"
+msgstr "Utendaji bora"
+
+msgctxt "wizard.url.backdrop.fallbackDescription"
+msgid "Static Canvas2D backdrop with no WebGL."
+msgstr "Mandhari tuli ya Canvas2D bila WebGL."
+
+msgctxt "wizard.url.backdrop.fallbackLabel"
+msgid "Balanced"
+msgstr "Uwiano"
+
+msgctxt "wizard.url.backdrop.gpuDescription"
+msgid "Animated WebGL backdrop when supported."
+msgstr "Mandhari ya WebGL yenye mwendo ikisaidiwa."
+
+msgctxt "wizard.url.backdrop.gpuLabel"
+msgid "Most beautiful"
+msgstr "Nzuri zaidi"
+
+msgctxt "wizard.url.backdrop.modeDescription"
+msgid "Move from the most animated look to best performance."
+msgstr "Badili kutoka mwonekano wenye mwendo mwingi hadi utendaji bora."
+
+msgctxt "wizard.url.backdrop.modeLabel"
+msgid "Backdrop quality"
+msgstr "Ubora wa mandhari"
+
+msgctxt "wizard.url.backdrop.panelDescription"
+msgid "Choose how much motion Arroxy uses for the animated backdrop."
+msgstr "Chagua kiasi cha mwendo ambacho Arroxy hutumia kwa mandhari yenye mwendo."
+
+msgctxt "wizard.url.backdrop.panelTitle"
+msgid "Appearance and performance"
+msgstr "Mwonekano na utendaji"
 
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
@@ -2140,3 +2204,4 @@ msgstr "Huweka upakuaji wa mara moja kuwa wa kipekee wakati vichwa vinabadilika 
 #~ msgctxt "wizard.url.quickSingleOnly"
 #~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
 #~ msgstr "Upakuaji wa Haraka unaweza kutumia video moja, orodha za kucheza, vituo, utafutaji, na URL za Wingi."
+

@@ -1,20 +1,10 @@
 // URL intake helpers used before probing. Kept separate from the probe
 // orchestrator so URL normalization and mixed-URL detection stay testable.
 
-// Detect YouTube URLs that carry both `v=` (single video) and `list=` (playlist).
-// yt-dlp's default for these routes Radio/Mix lists to playlist enumeration;
-// users typically want the single video they clicked, so the wizard prompts.
+import {classifyUrlIntent, isMixedUrlIntent} from '@shared/urlIntent.js'
+
 export function isMixedYouTubeUrl(url: string): boolean {
-	try {
-		const u = new URL(url)
-		const host = u.hostname.toLowerCase()
-		const isYouTube = host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtu.be'
-		if (!isYouTube) return false
-		const hasVideo = !!u.searchParams.get('v') || (host === 'youtu.be' && u.pathname.length > 1)
-		return hasVideo && !!u.searchParams.get('list')
-	} catch {
-		return false
-	}
+	return isMixedUrlIntent(classifyUrlIntent(url))
 }
 
 const YT_CHANNEL_TAB_NAMES = new Set(['videos', 'shorts', 'streams', 'live', 'playlists', 'community', 'about', 'featured', 'channels', 'store', 'releases', 'podcasts'])

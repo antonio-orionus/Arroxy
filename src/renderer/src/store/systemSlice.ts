@@ -319,6 +319,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'playlistProbeLimit', {playlistProbeLimit: value})
 		},
 
+		setBackdropRenderMode: async value => {
+			await applyCommonPatchAsync(get, set, 'backdropRenderMode', {backdropRenderMode: value})
+		},
+
 		setIncludeIdInSingleFilenames: async enabled => {
 			await applyCommonPatchAsync(get, set, 'includeIdInSingleFilenames', {includeIdInSingleFilenames: enabled})
 		},

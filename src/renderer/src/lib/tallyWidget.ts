@@ -2,6 +2,7 @@ const TALLY_WIDGET_SCRIPT = 'https://tally.so/widgets/embed.js'
 const TALLY_SCRIPT_STATE_ATTRIBUTE = 'data-arroxy-tally-state'
 
 export interface TallyPopupOptions {
+	key?: string
 	layout?: 'default' | 'modal'
 	width?: number
 	alignLeft?: boolean

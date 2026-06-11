@@ -69,6 +69,16 @@ function resetStore(settings: AppSettings): void {
 		playlistIsMultiVideo: false,
 		cookiesConfigDialogIssue: null,
 		playlistSelection: null,
+		quickDownloadStatus: 'idle',
+		quickDownloadFailure: null,
+		quickDownloadQueueIds: [],
+		quickDownloadProgressPhase: 'probing',
+		quickDownloadProgressTotal: 0,
+		quickDownloadProgressCompleted: 0,
+		quickDownloadProgressFailed: 0,
+		quickDownloadProgressCurrent: null,
+		quickDownloadProgressTitle: null,
+		quickDownloadProgressRunId: null,
 		queue: [],
 		drawerOpen: false
 	})
@@ -117,9 +127,36 @@ describe('advanced network settings', () => {
 		})
 	})
 
+	it('saves the backdrop performance mode slider', async () => {
+		render(<StepUrlInput />)
+		openSettingsTab()
+
+		expect(screen.getByTestId('profiles-settings-backdrop-mode')).toHaveTextContent('Best performance')
+		expect(screen.getByTestId('profiles-settings-backdrop-mode')).toHaveTextContent('Most beautiful')
+		const options = within(screen.getByTestId('profiles-settings-backdrop-mode')).getAllByRole('button')
+		expect(options[0]).toHaveTextContent('Most beautiful')
+		expect(options[1]).toHaveTextContent('Balanced')
+		expect(options[2]).toHaveTextContent('Best performance')
+
+		fireEvent.click(screen.getByTestId('profiles-settings-backdrop-mode-fallback'))
+		await waitFor(() => {
+			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {backdropRenderMode: 'fallback'}})
+		})
+
+		fireEvent.click(screen.getByTestId('profiles-settings-backdrop-mode-css-only'))
+		await waitFor(() => {
+			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {backdropRenderMode: 'css-only'}})
+		})
+
+		fireEvent.click(screen.getByTestId('profiles-settings-backdrop-mode-gpu'))
+		await waitFor(() => {
+			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {backdropRenderMode: 'gpu'}})
+		})
+	})
+
 	it('mixed URL dialog shows the current playlist cap and changes it inline', async () => {
 		resetStore(buildSettings({playlistProbeLimit: 250}))
-		useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: SINGLE_URL})
+		useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: SINGLE_URL, mixedUrlPromptSource: 'wizard'})
 
 		render(
 			<TooltipProvider>
@@ -137,6 +174,22 @@ describe('advanced network settings', () => {
 		})
 		expect(useAppStore.getState().mixedUrlPromptOpen).toBe(true)
 		expect(useAppStore.getState().advancedAutoOpen).toBe(false)
+	})
+
+	it('mixed URL dialog uses Quick Download labels when opened from Quick Download', () => {
+		resetStore(buildSettings({playlistProbeLimit: 100}))
+		useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: SINGLE_URL, mixedUrlPromptSource: 'quick-download'})
+
+		render(
+			<TooltipProvider>
+				<MixedUrlPromptDialog />
+			</TooltipProvider>
+		)
+
+		expect(screen.getByText('Download only this video, or queue the whole playlist with your active Quick Download profile.')).toBeInTheDocument()
+		expect(screen.getByTestId('mixed-single-choice')).toHaveTextContent('Download this video')
+		expect(screen.getByTestId('mixed-playlist-choice')).toHaveTextContent('Download whole playlist')
+		expect(screen.queryByRole('button', {name: 'Pick from playlist'})).not.toBeInTheDocument()
 	})
 
 	it('keeps the mixed URL dialog close button working after closing the custom limit dialog', async () => {
@@ -169,6 +222,91 @@ describe('advanced network settings', () => {
 })
 
 describe('incomplete cookies config guard', () => {
+	it('opens cookies settings from a quick download bot-block failure', async () => {
+		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}}})
+		render(<StepUrlInput />)
+
+		expect(screen.getByTestId('quick-download-feedback')).toHaveTextContent('Bot protection triggered.')
+		expect(screen.getByTestId('bot-wall-notice')).toHaveTextContent('Probe was limited')
+		expect(screen.getByTestId('bot-wall-notice')).toHaveTextContent('Set up cookies in advanced settings')
+		expect(screen.getByTestId('cookies-error-alert')).toHaveAttribute('data-density', 'compact')
+		expect(screen.getByTestId('cookies-error-alert')).toHaveTextContent('This site requires sign-in')
+		expect(screen.getByTestId('quick-download-retry')).toBeInTheDocument()
+
+		fireEvent.click(screen.getByTestId('quick-download-cookies-settings'))
+
+		await waitFor(() => {
+			expect(screen.getByTestId('profiles-settings-tab')).toBeInTheDocument()
+		})
+		expect(mockApi.downloads.probeCancel).toHaveBeenCalled()
+		expect(screen.getByTestId('cookies-source')).toBeInTheDocument()
+	})
+
+	it('enables configured cookies and retries quick download from a bot-wall failure', async () => {
+		resetStore(buildSettings({cookiesMode: 'off', cookiesPath: '/tmp/cookies.txt'}))
+		useAppStore.setState({wizardUrl: SINGLE_URL, wizardOutputDir: '/tmp', quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}}})
+		render(<StepUrlInput />)
+
+		expect(screen.getByTestId('bot-wall-notice')).toHaveTextContent('Cookies are configured but turned off')
+		fireEvent.click(screen.getByTestId('quick-download-enable-cookies-retry'))
+
+		await waitFor(() => {
+			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {cookiesMode: 'file'}})
+		})
+		await waitFor(() => {
+			expect(mockApi.downloads.probe).toHaveBeenCalled()
+		})
+		expect(useAppStore.getState().settings?.common.cookiesMode).toBe('file')
+	})
+
+	it('shows compact configured-cookies guidance for quick download probe failures while cookies are enabled', async () => {
+		resetStore(buildSettings({cookiesMode: 'file', cookiesPath: '/tmp/cookies.txt'}))
+		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'probe', error: {kind: 'ytdlp', error: {kind: 'network', raw: 'network failed'}}}})
+		render(<StepUrlInput />)
+
+		const cookiesAlert = screen.getByTestId('cookies-error-alert')
+		expect(cookiesAlert).toHaveAttribute('data-density', 'compact')
+		expect(cookiesAlert).toHaveTextContent('Cookies might be the cause')
+		expect(cookiesAlert).toHaveTextContent('Cookies source')
+		expect(cookiesAlert).toHaveTextContent('File')
+		expect(screen.getByTestId('quick-download-cookies-settings')).toBeInTheDocument()
+	})
+
+	it('shows compact DPAPI guidance and docs from quick download browser-cookie failures', async () => {
+		resetStore(buildSettings({cookiesMode: 'browser', cookiesBrowser: 'chrome'}))
+		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'probe', error: {kind: 'ytdlp', error: {kind: 'unknown', raw: 'ERROR: Failed to decrypt with DPAPI'}}}})
+		render(<StepUrlInput />)
+
+		const cookiesAlert = screen.getByTestId('cookies-error-alert')
+		expect(cookiesAlert).toHaveAttribute('data-variant', 'dpapi')
+		expect(cookiesAlert).toHaveAttribute('data-density', 'compact')
+		expect(cookiesAlert).toHaveTextContent('Chrome cookies blocked by Windows encryption')
+		expect(cookiesAlert).toHaveTextContent('Switch to Firefox')
+		expect(screen.getByTestId('cookies-error-dpapi-docs-link')).toBeInTheDocument()
+		expect(screen.getByTestId('quick-download-cookies-settings')).toBeInTheDocument()
+	})
+
+	it('keeps plain quick download probe failures compact without special guidance panels', async () => {
+		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'probe', error: {kind: 'ytdlp', error: {kind: 'network', raw: 'network failed'}}}})
+		render(<StepUrlInput />)
+
+		expect(screen.getByTestId('quick-download-feedback')).toHaveTextContent('Network error')
+		expect(screen.getByTestId('quick-download-retry')).toBeInTheDocument()
+		expect(screen.queryByTestId('bot-wall-notice')).not.toBeInTheDocument()
+		expect(screen.queryByTestId('cookies-error-alert')).not.toBeInTheDocument()
+		expect(screen.queryByTestId('quick-download-cookies-settings')).not.toBeInTheDocument()
+	})
+
+	it('shows representative probe guidance for all-failed bulk quick download', async () => {
+		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}, urls: ['https://youtu.be/one', 'https://youtu.be/two'], failedCount: 2}})
+		render(<StepUrlInput />)
+
+		const alert = screen.getByTestId('quick-download-feedback')
+		expect(alert).toHaveTextContent('None of those URLs could be prepared')
+		expect(alert).toHaveTextContent('Bot protection triggered.')
+		expect(screen.getByTestId('quick-download-cookies-settings')).toBeInTheDocument()
+	})
+
 	it('keeps cookie export help links with the cookies source controls', () => {
 		render(<StepUrlInput />)
 		openSettingsTab()

@@ -577,8 +577,25 @@ body {
 .quick-profile-selector-meta {
 	color: var(--quick-selector-muted);
 }
+.quick-profile-selector-trigger {
+	color: var(--quick-selector-ink);
+}
+.quick-profile-selector-trigger:hover {
+	background: transparent !important;
+}
+.quick-profile-inline-action {
+	border: 1px solid var(--quick-chevron-border);
+	background: var(--quick-chevron-fill);
+	box-shadow: var(--quick-chevron-shadow);
+}
+.quick-profile-destination {
+	border: 1px solid var(--quick-chevron-border);
+	background: color-mix(in oklab, var(--quick-selector-fill) 70%, transparent);
+}
 .quick-profile-action:focus-visible,
-.quick-profile-selector:focus-visible {
+.quick-profile-selector:focus-visible,
+.quick-profile-selector-trigger:focus-visible,
+.quick-profile-inline-action:focus-visible {
 	z-index: 2;
 	box-shadow:
 		inset 0 0 0 3px var(--quick-card-focus),
@@ -715,6 +732,115 @@ body {
 		inset 0 1px 0 hsl(0 0% 100% / 0.18),
 		0 0 18px -7px var(--brand-glow);
 	color: var(--foreground);
+}
+
+/* ── Wizard chrome: quieter than glow-panel, stronger than raw card/background.
+   Used for sticky bars, media summaries, and compact choice controls in the
+   wizard so light and dark skies share one material language. */
+@utility wizard-footer-surface {
+	border-top: 1px solid transparent;
+	background:
+		var(--wizard-footer-fill) padding-box,
+		var(--wizard-footer-edge) border-box !important;
+	backdrop-filter: blur(22px) saturate(145%);
+	-webkit-backdrop-filter: blur(22px) saturate(145%);
+	box-shadow: var(--wizard-footer-shadow);
+}
+
+@utility wizard-footer-divider {
+	background: var(--wizard-divider) !important;
+}
+
+@utility wizard-summary-surface {
+	position: relative;
+	overflow: hidden;
+	border: 1px solid transparent;
+	background:
+		var(--wizard-summary-fill) padding-box,
+		var(--wizard-summary-edge) border-box !important;
+	box-shadow: var(--wizard-summary-shadow);
+	color: var(--foreground);
+}
+.wizard-summary-surface::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: var(--wizard-summary-sheen);
+	opacity: 0.78;
+}
+.wizard-summary-surface > * {
+	position: relative;
+	z-index: 1;
+}
+
+@utility wizard-choice-row {
+	border: 1px solid transparent !important;
+	background:
+		var(--wizard-choice-fill) padding-box,
+		var(--wizard-choice-edge) border-box !important;
+	box-shadow: var(--wizard-choice-shadow);
+}
+.wizard-choice-row:not([aria-disabled="true"]):hover {
+	background:
+		var(--wizard-choice-hover-fill) padding-box,
+		var(--wizard-choice-hover-edge) border-box !important;
+	box-shadow: var(--wizard-choice-hover-shadow);
+}
+.wizard-choice-row[aria-checked="true"],
+.wizard-choice-row-selected {
+	background:
+		var(--wizard-choice-selected-fill) padding-box,
+		var(--glow-gradient) border-box !important;
+	box-shadow: var(--wizard-choice-selected-shadow);
+}
+
+@utility wizard-choice-tile {
+	border: 1px solid transparent !important;
+	background:
+		var(--wizard-choice-tile-fill) padding-box,
+		var(--wizard-choice-edge) border-box !important;
+	box-shadow: var(--wizard-choice-shadow);
+	color: var(--foreground);
+}
+.wizard-choice-tile:not(:disabled):hover {
+	background:
+		var(--wizard-choice-hover-fill) padding-box,
+		var(--wizard-choice-hover-edge) border-box !important;
+	box-shadow: var(--wizard-choice-hover-shadow);
+	transform: translateY(-2px);
+	color: var(--foreground);
+}
+.wizard-choice-tile[aria-pressed="true"],
+.wizard-choice-tile[data-state="on"] {
+	background:
+		var(--wizard-choice-selected-fill) padding-box,
+		var(--glow-gradient) border-box !important;
+	box-shadow: var(--wizard-choice-selected-shadow);
+	color: var(--brand);
+}
+
+@utility wizard-filter-chip {
+	border: 1px solid transparent !important;
+	background:
+		var(--wizard-filter-fill) padding-box,
+		var(--wizard-filter-edge) border-box !important;
+	box-shadow: var(--wizard-filter-shadow);
+	color: var(--text-subtle);
+}
+.wizard-filter-chip:not(:disabled):hover {
+	background:
+		var(--wizard-filter-hover-fill) padding-box,
+		var(--wizard-choice-hover-edge) border-box !important;
+	color: var(--foreground);
+}
+.wizard-filter-chip[aria-pressed="true"],
+.wizard-filter-chip[data-state="on"] {
+	background:
+		var(--wizard-filter-selected-fill) padding-box,
+		var(--glow-gradient) border-box !important;
+	box-shadow: var(--wizard-filter-selected-shadow);
+	color: var(--brand);
 }
 
 /* ── Reduced motion: collapse slide/float/shimmer/pulse to instant.
@@ -1172,6 +1298,29 @@ body {
 	--quick-icon-fill: linear-gradient(145deg, hsl(211 100% 58% / 0.62), hsl(239 90% 44% / 0.36) 52%, hsl(278 100% 52% / 0.34));
 	--quick-icon-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.4), inset 0 -14px 28px -13px hsl(300 96% 58% / 0.5), 0 0 0 1px hsl(205 100% 82% / 0.22), 0 0 28px -8px hsl(207 100% 66% / 0.5);
 	--glow-button-ink: hsl(225 54% 14%);
+	--wizard-divider: linear-gradient(90deg, transparent, hsl(202 100% 58% / 0.32) 18%, hsl(220 100% 56% / 0.24) 52%, hsl(268 96% 64% / 0.28) 82%, transparent);
+	--wizard-footer-fill: linear-gradient(180deg, hsl(205 100% 98% / 0.86), hsl(214 100% 96% / 0.72));
+	--wizard-footer-edge: linear-gradient(90deg, hsl(198 100% 58% / 0.48), hsl(220 100% 56% / 0.2) 52%, hsl(268 96% 64% / 0.44));
+	--wizard-footer-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.72), inset 0 18px 42px -34px hsl(197 100% 60% / 0.28), 0 -18px 38px -34px hsl(218 100% 48% / 0.32);
+	--wizard-summary-fill: linear-gradient(180deg, hsl(206 100% 98% / 0.84), hsl(216 100% 96% / 0.68));
+	--wizard-summary-edge: linear-gradient(135deg, hsl(198 100% 58% / 0.48), hsl(220 100% 56% / 0.2) 48%, hsl(268 92% 64% / 0.4));
+	--wizard-summary-sheen: linear-gradient(110deg, hsl(0 0% 100% / 0.46), transparent 34%), radial-gradient(90% 130% at 100% 120%, hsl(268 96% 66% / 0.12), transparent 58%);
+	--wizard-summary-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.72), inset 0 -18px 42px -30px hsl(266 88% 66% / 0.2), 0 0 28px -20px var(--brand-glow);
+	--wizard-choice-fill: linear-gradient(180deg, hsl(205 100% 99% / 0.72), hsl(215 100% 96% / 0.54));
+	--wizard-choice-tile-fill: linear-gradient(180deg, hsl(205 100% 98% / 0.72), hsl(216 100% 95% / 0.58));
+	--wizard-choice-edge: linear-gradient(135deg, hsl(205 100% 58% / 0.46), hsl(220 100% 56% / 0.16) 48%, hsl(268 88% 64% / 0.32));
+	--wizard-choice-hover-fill: linear-gradient(180deg, hsl(204 100% 98% / 0.9), hsl(216 100% 94% / 0.68));
+	--wizard-choice-hover-edge: linear-gradient(135deg, hsl(198 100% 56% / 0.62), hsl(220 100% 56% / 0.3) 48%, hsl(268 88% 60% / 0.52));
+	--wizard-choice-selected-fill: linear-gradient(180deg, hsl(213 100% 94% / 0.92), hsl(220 100% 92% / 0.72)), var(--brand-dim);
+	--wizard-choice-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.72), inset 0 -14px 34px -30px hsl(268 96% 66% / 0.2);
+	--wizard-choice-hover-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.8), inset 0 -16px 36px -30px hsl(268 96% 64% / 0.24), 0 0 24px -18px var(--brand-glow);
+	--wizard-choice-selected-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.82), inset 0 0 0 1px hsl(210 100% 58% / 0.16), 0 0 28px -18px var(--brand-glow);
+	--wizard-filter-fill: linear-gradient(180deg, hsl(205 100% 98% / 0.44), hsl(216 100% 95% / 0.32));
+	--wizard-filter-edge: linear-gradient(135deg, hsl(205 100% 58% / 0.28), hsl(220 100% 56% / 0.1), hsl(268 88% 64% / 0.24));
+	--wizard-filter-hover-fill: linear-gradient(180deg, hsl(205 100% 98% / 0.74), hsl(216 100% 94% / 0.5));
+	--wizard-filter-selected-fill: linear-gradient(180deg, hsl(213 100% 94% / 0.72), hsl(220 100% 92% / 0.54)), var(--brand-dim);
+	--wizard-filter-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.58);
+	--wizard-filter-selected-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.74), 0 0 20px -15px var(--brand-glow);
 	--tabs-rail-bg: linear-gradient(180deg, hsl(205 100% 96% / 0.8), hsl(216 100% 94% / 0.58));
 	--tabs-rail-border: linear-gradient(135deg, hsl(196 100% 58% / 0.34), hsl(222 100% 62% / 0.14) 44%, hsl(268 96% 64% / 0.32));
 	--tabs-rail-sheen: linear-gradient(90deg, hsl(196 100% 70% / 0.18), transparent 36% 62%, hsl(268 96% 72% / 0.14));
@@ -1282,6 +1431,29 @@ body {
 	--quick-icon-fill: linear-gradient(145deg, hsl(211 100% 58% / 0.38), hsl(239 90% 38% / 0.2) 52%, hsl(278 100% 50% / 0.24));
 	--quick-icon-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.38), inset 0 -14px 28px -13px hsl(300 96% 58% / 0.56), 0 0 0 1px hsl(205 100% 82% / 0.18), 0 0 28px -8px hsl(207 100% 66% / 0.58);
 	--glow-button-ink: hsl(225 100% 95%);
+	--wizard-divider: linear-gradient(90deg, transparent, hsl(196 100% 76% / 0.24) 18%, hsl(220 100% 64% / 0.18) 52%, hsl(268 96% 72% / 0.22) 82%, transparent);
+	--wizard-footer-fill: linear-gradient(180deg, hsl(228 68% 4% / 0.88), hsl(226 68% 3% / 0.78));
+	--wizard-footer-edge: linear-gradient(90deg, hsl(192 100% 82% / 0.44), hsl(214 100% 68% / 0.18) 52%, hsl(268 96% 76% / 0.38));
+	--wizard-footer-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.16), inset 0 18px 42px -34px hsl(196 100% 58% / 0.18), 0 -18px 42px -32px hsl(226 92% 2% / 0.92);
+	--wizard-summary-fill: linear-gradient(180deg, hsl(228 66% 5% / 0.84), hsl(226 62% 4% / 0.74));
+	--wizard-summary-edge: linear-gradient(135deg, hsl(192 100% 82% / 0.52), hsl(214 100% 68% / 0.22) 48%, hsl(268 96% 76% / 0.42));
+	--wizard-summary-sheen: linear-gradient(110deg, hsl(205 100% 84% / 0.12), transparent 34%), radial-gradient(90% 130% at 100% 120%, hsl(268 96% 64% / 0.14), transparent 58%);
+	--wizard-summary-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.16), inset 0 -22px 46px -34px hsl(274 96% 46% / 0.22), 0 0 34px -22px var(--brand-glow);
+	--wizard-choice-fill: linear-gradient(180deg, hsl(226 58% 7% / 0.74), hsl(228 64% 5% / 0.62));
+	--wizard-choice-tile-fill: linear-gradient(180deg, hsl(226 58% 8% / 0.72), hsl(228 64% 5% / 0.6));
+	--wizard-choice-edge: linear-gradient(135deg, hsl(205 100% 82% / 0.26), hsl(220 100% 62% / 0.1) 48%, hsl(268 96% 76% / 0.24));
+	--wizard-choice-hover-fill: linear-gradient(180deg, hsl(226 56% 9% / 0.86), hsl(228 62% 6% / 0.72));
+	--wizard-choice-hover-edge: linear-gradient(135deg, hsl(198 100% 78% / 0.48), hsl(220 100% 64% / 0.2) 48%, hsl(268 96% 72% / 0.42));
+	--wizard-choice-selected-fill: linear-gradient(180deg, hsl(214 100% 52% / 0.18), hsl(268 96% 52% / 0.1)), var(--brand-dim);
+	--wizard-choice-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.12), inset 0 -16px 36px -32px hsl(274 96% 46% / 0.16);
+	--wizard-choice-hover-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.16), inset 0 -18px 40px -32px hsl(274 96% 46% / 0.22), 0 0 24px -18px var(--brand-glow);
+	--wizard-choice-selected-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.18), inset 0 0 0 1px hsl(205 100% 78% / 0.12), 0 0 30px -18px var(--brand-glow);
+	--wizard-filter-fill: linear-gradient(180deg, hsl(226 54% 8% / 0.42), hsl(228 60% 5% / 0.32));
+	--wizard-filter-edge: linear-gradient(135deg, hsl(205 100% 82% / 0.18), hsl(220 100% 62% / 0.08), hsl(268 96% 76% / 0.16));
+	--wizard-filter-hover-fill: linear-gradient(180deg, hsl(226 54% 9% / 0.68), hsl(228 60% 6% / 0.52));
+	--wizard-filter-selected-fill: linear-gradient(180deg, hsl(214 100% 52% / 0.14), hsl(268 96% 52% / 0.08)), var(--brand-dim);
+	--wizard-filter-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.1);
+	--wizard-filter-selected-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.14), 0 0 22px -16px var(--brand-glow);
 	--tabs-rail-bg: linear-gradient(180deg, hsl(224 64% 6% / 0.86), hsl(228 70% 4% / 0.72));
 	--tabs-rail-border: linear-gradient(135deg, hsl(196 100% 76% / 0.22), hsl(222 100% 62% / 0.08) 44%, hsl(268 96% 72% / 0.22));
 	--tabs-rail-sheen: linear-gradient(90deg, hsl(196 100% 78% / 0.08), transparent 36% 62%, hsl(268 96% 74% / 0.08));

@@ -1,8 +1,9 @@
 import type {AppApi} from '@shared/api.js'
 import type {AppSettings, DependencyDiagnostic, DependencyId, ProgressEvent, QueueItem, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
-import {QUEUE_STATUS, STATUS_KEY} from '@shared/schemas.js'
+import {QUEUE_STATUS, STATUS_KEY, YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
 import {BROWSER_MOCK_LAUNCH_MODES, buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, shouldShowBrowserMockStartupSplash, type BrowserMockLaunchMode, type BrowserMockScenario} from './dev/browserMockScenarios.js'
 import {applyThemeLive, readKnobs, RTL_LANGS} from './dev/browserMockKnobs.js'
+import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
 
 const BROWSER_MOCK_LAUNCH_STORAGE_KEY = 'arroxy:browserMockLaunch'
 
@@ -66,6 +67,15 @@ function mockPlaylistItemCount(url: string): number {
 		return Number.isInteger(parsed) && parsed > 0 ? parsed : 12
 	} catch {
 		return 12
+	}
+}
+
+function mockProbeErrorKind(url: string): YtDlpErrorKind | null {
+	try {
+		const raw = new URL(url).searchParams.get('mockProbeError')
+		return raw !== null && (YT_DLP_ERROR_KINDS as readonly string[]).includes(raw) ? (raw as YtDlpErrorKind) : null
+	} catch {
+		return null
 	}
 }
 
@@ -289,8 +299,9 @@ export function installBrowserMock(): void {
 					return {ok: false, error: {kind: 'other', code: 'invalid_url', message: 'Not a valid http(s) URL'}}
 				}
 
-				if (scenarioState.probeError) {
-					return {ok: false, error: scenarioState.probeError}
+				const probeErrorKind = mockProbeErrorKind(input.url)
+				if (probeErrorKind !== null) {
+					return {ok: false, error: buildProbeErrorForKind(probeErrorKind)}
 				}
 
 				if (shouldMockEmptyPlaylistScopeReload(scenarioState.scenario, input.playlistMode, input.playlistScope)) {

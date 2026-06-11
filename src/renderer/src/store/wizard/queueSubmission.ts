@@ -1,5 +1,5 @@
 import {DEFAULTS} from '@shared/constants.js'
-import {downloadProfileLabel, resolveActiveDownloadProfile, resolveDownloadProfile, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
+import {downloadProfileLabel, resolveActiveDownloadProfile, resolveDownloadProfile, resolveDownloadProfileBaseDir, resolveDownloadProfileOutputDir, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfileRef, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
@@ -134,13 +134,6 @@ export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): 
 	return {items, ...(state.wizardMode === 'playlist' ? {manifest: playlistManifestPayload(state, playlistGroupId, baseDir)} : {})}
 }
 
-function profileBaseOutputDir(profile: DownloadProfile, state: AppState): string {
-	if (profile.output.kind === 'fixed') return profile.output.dir
-	const currentOutputDir = state.wizardOutputDir.trim()
-	if (currentOutputDir) return currentOutputDir
-	return state.settings?.common?.defaultOutputDir ?? ''
-}
-
 function downloadProfileRefLabel(ref: DownloadProfileRef): string {
 	return `${ref.kind}:${ref.id}`
 }
@@ -189,12 +182,13 @@ function buildProfileEntryQueueItem(params: {
 export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
 	const {profile, ref} = resolveActiveDownloadProfile(state.settings?.profiles)
 	const resolved = resolveDownloadProfile(profile, ref)
-	const baseDir = profileBaseOutputDir(profile, state)
+	const outputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
+	const baseDir = resolveDownloadProfileBaseDir(profile, outputContext)
+	const singleOutputDir = resolveDownloadProfileOutputDir(profile, outputContext)
 
 	if (probe.kind === 'video') {
-		const outputDir = effectiveOutputDir(baseDir, profile.subfolder.enabled, profile.subfolder.name)
 		const outputTemplate = singleOutputTemplate(state.settings?.common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames)
-		const item = buildProfileEntryQueueItem({entry: {url: state.wizardUrl || probe.webpageUrl, title: probe.title, thumbnail: probe.thumbnail}, outputDir, extractor: probe.extractor, extractorKey: probe.extractorKey, resolved, profile, outputTemplate, writeM3u: false, lane})
+		const item = buildProfileEntryQueueItem({entry: {url: state.wizardUrl || probe.webpageUrl, title: probe.title, thumbnail: probe.thumbnail}, outputDir: singleOutputDir, extractor: probe.extractor, extractorKey: probe.extractorKey, resolved, profile, outputTemplate, writeM3u: false, lane})
 		return {items: [item]}
 	}
 

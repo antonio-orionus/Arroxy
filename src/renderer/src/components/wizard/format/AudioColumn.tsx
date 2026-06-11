@@ -45,7 +45,7 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 				className="gap-[3px]"
 			>
 				{AUDIO_BITRATES.map(rate => (
-					<ToggleGroupItem key={rate} value={String(rate)} className="h-6 px-[10px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground">
+					<ToggleGroupItem key={rate} value={String(rate)} className="wizard-filter-chip h-6 rounded-full px-[10px] text-[11px] font-semibold">
 						{rate}
 					</ToggleGroupItem>
 				))}
@@ -62,7 +62,7 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 				{view.audioExtOptions.length > 1 && (
 					<ToggleGroup value={audioExtFilter ? [audioExtFilter] : []} onValueChange={vals => onAudioExtFilterChange(vals[0] ?? null)} spacing={1} className="gap-[3px]">
 						{view.audioExtOptions.map(ext => (
-							<ToggleGroupItem key={ext} value={ext} className="h-5 px-[7px] rounded-full text-[11px] font-semibold border aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] border-border text-[var(--text-subtle)] hover:border-muted-foreground">
+							<ToggleGroupItem key={ext} value={ext} className="wizard-filter-chip h-5 rounded-full px-[7px] text-[11px] font-semibold">
 								{ext}
 							</ToggleGroupItem>
 						))}

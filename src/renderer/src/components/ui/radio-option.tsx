@@ -31,12 +31,7 @@ export function RadioOption({label, checked, onClick, disabled, adornment, child
 			onClick={disabled ? undefined : onClick}
 			onKeyDown={handleKeyDown}
 			size="xs"
-			className={cn(
-				'flex-nowrap rounded-md border-[var(--field-border)] bg-[var(--field-bg)] px-2 py-[5px] shadow-[inset_0_1px_0_var(--field-highlight)]',
-				disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer hover:border-[var(--brand)] hover:bg-[var(--brand-dim)]',
-				effectiveChecked && 'border-[var(--brand)] bg-[var(--brand-dim)] shadow-[inset_0_0_0_1px_var(--brand-dim),0_0_0_2px_var(--brand-dim)]',
-				className
-			)}
+			className={cn('wizard-choice-row flex-nowrap rounded-md px-2 py-[5px]', disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer', effectiveChecked && 'wizard-choice-row-selected', className)}
 		>
 			<ItemMedia className="gap-[7px]">
 				<RadioDot checked={effectiveChecked} />

@@ -95,7 +95,7 @@ describe('browser mock scenarios', () => {
 	})
 
 	it('applies scenario workbench state through one interface', async () => {
-		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
+		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
 
 		await applyScenarioWorkbenchState({scenario: getScenario('bulk-stress'), params: readUrlParams(new URL('http://localhost:5173/?scenario=bulk-stress')), store})
 
@@ -116,7 +116,7 @@ describe('browser mock scenarios', () => {
 	})
 
 	it('applies profile scenario states through the workbench interface', async () => {
-		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
+		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
 
 		await applyScenarioWorkbenchState({scenario: getScenario('profiles-home-clipboard-single'), params: readUrlParams(new URL('http://localhost:5173/?scenario=profiles-home-clipboard-single')), store})
 
@@ -145,26 +145,46 @@ describe('browser mock scenarios', () => {
 		expect(shouldMockEmptyPlaylistScopeReload(getScenario('playlist-normal'), 'playlist', {items: {kind: 'range', from: 50, to: 60}})).toBe(false)
 	})
 
-	it('builds probe errors via ?probeError=kind param', () => {
+	it('targets wizard probe errors via ?probeError=kind param by default', async () => {
 		const paramsBot = readUrlParams(new URL('http://localhost:5173/?probeError=botBlock'))
 		const paramsRate = readUrlParams(new URL('http://localhost:5173/?probeError=rateLimit'))
 		const paramsInvalid = readUrlParams(new URL('http://localhost:5173/?probeError=notAKind'))
 		const paramsNone = readUrlParams(new URL('http://localhost:5173/'))
+		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
 
 		expect(paramsBot.probeErrorKind).toBe('botBlock')
+		expect(paramsBot.probeErrorTarget).toBe('wizard')
 		expect(paramsRate.probeErrorKind).toBe('rateLimit')
+		expect(paramsRate.probeErrorTarget).toBe('wizard')
 		expect(paramsInvalid.probeErrorKind).toBeNull()
 		expect(paramsNone.probeErrorKind).toBeNull()
 
 		const stateBot = buildScenarioAppApiState(getScenario('default'), paramsBot)
-		expect(stateBot.probeError).not.toBeNull()
-		expect(stateBot.probeError?.kind).toBe('ytdlp')
-		if (stateBot.probeError?.kind === 'ytdlp') {
-			expect(stateBot.probeError.error.kind).toBe('botBlock')
-		}
+		expect('probeError' in stateBot).toBe(false)
+		expect(stateBot.probeResult).toBeNull()
 
-		const stateNone = buildScenarioAppApiState(getScenario('default'), paramsNone)
-		expect(stateNone.probeError).toBeNull()
+		await applyScenarioWorkbenchState({scenario: getScenario('default'), params: paramsBot, store})
+		expect(store.reset).toHaveBeenCalledOnce()
+		expect(store.setWizardUrl).toHaveBeenCalledWith('https://example.com/default?mockProbeError=botBlock')
+		expect(store.submitUrl).toHaveBeenCalledOnce()
+		expect(store.quickDownload).not.toHaveBeenCalled()
+	})
+
+	it('targets quick download probe errors via ?probeErrorTarget=quick-download', async () => {
+		const paramsQuick = readUrlParams(new URL('http://localhost:5173/?probeError=rateLimit&probeErrorTarget=quick-download'))
+		const paramsInvalid = readUrlParams(new URL('http://localhost:5173/?probeError=botBlock&probeErrorTarget=nope'))
+		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
+
+		expect(paramsQuick.probeErrorKind).toBe('rateLimit')
+		expect(paramsQuick.probeErrorTarget).toBe('quick-download')
+		expect(paramsInvalid.probeErrorTarget).toBe('wizard')
+
+		await applyScenarioWorkbenchState({scenario: getScenario('default'), params: paramsQuick, store})
+
+		expect(store.reset).toHaveBeenCalledOnce()
+		expect(store.setWizardUrl).toHaveBeenCalledWith('https://www.youtube.com/watch?v=dQw4w9WgXcQ&mockProbeError=rateLimit')
+		expect(store.quickDownload).toHaveBeenCalledOnce()
+		expect(store.submitUrl).not.toHaveBeenCalled()
 	})
 
 	it('builds update and diagnostics fixtures', () => {

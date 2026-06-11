@@ -6,8 +6,19 @@ describe('QuickDownloadFeedback', () => {
 	it('builds lifecycle patches from a small interface', () => {
 		expect(resetQuickDownloadFeedback()).toEqual(QUICK_DOWNLOAD_FEEDBACK_INITIAL)
 		expect(preparingQuickDownloadFeedback({current: 'https://youtube.com/watch?v=q1', runId: 7, total: 2})).toEqual({...QUICK_DOWNLOAD_FEEDBACK_INITIAL, quickDownloadStatus: 'preparing', quickDownloadProgressCurrent: 'https://youtube.com/watch?v=q1', quickDownloadProgressRunId: 7, quickDownloadProgressTotal: 2})
-		expect(queuedQuickDownloadFeedback(['q1'])).toEqual({quickDownloadStatus: 'queued', quickDownloadError: null, quickDownloadQueueIds: ['q1'], quickDownloadProgressRunId: null, quickDownloadProgressFailed: 0})
-		expect(failedQuickDownloadFeedback('Nope')).toEqual({quickDownloadStatus: 'error', quickDownloadError: 'Nope', quickDownloadQueueIds: [], quickDownloadProgressRunId: null})
+		expect(queuedQuickDownloadFeedback(['q1'])).toEqual({quickDownloadStatus: 'queued', quickDownloadFailure: null, quickDownloadQueueIds: ['q1'], quickDownloadProgressRunId: null, quickDownloadProgressFailed: 0})
+		expect(failedQuickDownloadFeedback({kind: 'probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: 'sign in'}}})).toEqual({
+			quickDownloadStatus: 'error',
+			quickDownloadFailure: {kind: 'probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: 'sign in'}}},
+			quickDownloadQueueIds: [],
+			quickDownloadProgressRunId: null
+		})
+		expect(failedQuickDownloadFeedback({kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: 'sign in'}}, urls: ['https://youtu.be/one', 'https://youtu.be/two'], failedCount: 2})).toEqual({
+			quickDownloadStatus: 'error',
+			quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: 'sign in'}}, urls: ['https://youtu.be/one', 'https://youtu.be/two'], failedCount: 2},
+			quickDownloadQueueIds: [],
+			quickDownloadProgressRunId: null
+		})
 	})
 
 	it('uses QueueService returned ids before falling back to renderer-built item ids', () => {

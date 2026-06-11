@@ -23,4 +23,10 @@ describe('BulkUrlPreview', () => {
 		expect(preview.previewRejected).toHaveLength(1)
 		expect(preview.omittedCount).toBe(0)
 	})
+
+	it('surfaces mixed and unknown intent badges', () => {
+		const preview = buildBulkUrlPreview('https://www.youtube.com/watch?v=abc123&list=PLtest\nhttps://vimeo.com/123')
+
+		expect(preview.previewAccepted.map(item => item.kind)).toEqual(['mixed', 'unknown'])
+	})
 })

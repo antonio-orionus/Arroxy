@@ -1,9 +1,22 @@
-import type {QueueItem, QuickDownloadProgressPhase, QuickDownloadStatus} from '@shared/types.js'
+import type {ProbeError, ProbePlaylistMode, QueueItem, QuickDownloadProgressPhase, QuickDownloadStatus} from '@shared/types.js'
 import {QUEUE_STATUS, type QueueItemStatus} from '@shared/schemas.js'
+
+export type QuickDownloadFailureMessageKey = 'wizard.url.quickProbeFailed' | 'wizard.url.quickPrepareFailed' | 'wizard.url.quickBulkAllFailed'
+export type QuickDownloadRetryPlaylistMode = Extract<ProbePlaylistMode, 'video' | 'playlist'>
+
+interface QuickDownloadRetryContext {
+	retryPlaylistMode?: QuickDownloadRetryPlaylistMode
+}
+
+export type QuickDownloadFailure =
+	| ({kind: 'probe'; error: ProbeError} & QuickDownloadRetryContext)
+	| {kind: 'bulk-probe'; error: ProbeError; urls: string[]; failedCount: number}
+	| ({kind: 'prepare'; messageKey: QuickDownloadFailureMessageKey} & QuickDownloadRetryContext)
+	| ({kind: 'queue' | 'exception'; message: string} & QuickDownloadRetryContext)
 
 export interface QuickDownloadFeedbackState {
 	quickDownloadStatus: QuickDownloadStatus
-	quickDownloadError: string | null
+	quickDownloadFailure: QuickDownloadFailure | null
 	quickDownloadQueueIds: string[]
 	quickDownloadProgressPhase: QuickDownloadProgressPhase
 	quickDownloadProgressTotal: number
@@ -18,7 +31,7 @@ export type QuickDownloadFeedbackPatch = Partial<QuickDownloadFeedbackState>
 
 export const QUICK_DOWNLOAD_FEEDBACK_INITIAL = {
 	quickDownloadStatus: 'idle',
-	quickDownloadError: null,
+	quickDownloadFailure: null,
 	quickDownloadQueueIds: [] as string[],
 	quickDownloadProgressPhase: 'probing',
 	quickDownloadProgressTotal: 0,
@@ -38,7 +51,7 @@ export function resetQuickDownloadFeedback(): QuickDownloadFeedbackPatch {
 export function preparingQuickDownloadFeedback({current, runId, total}: {current: string | null; runId: number; total: number}): QuickDownloadFeedbackPatch {
 	return {
 		quickDownloadStatus: 'preparing',
-		quickDownloadError: null,
+		quickDownloadFailure: null,
 		quickDownloadQueueIds: [],
 		quickDownloadProgressPhase: 'probing',
 		quickDownloadProgressTotal: total,
@@ -55,11 +68,11 @@ export function quickDownloadProgressPatch(patch: Partial<Pick<QuickDownloadFeed
 }
 
 export function queuedQuickDownloadFeedback(queueIds: string[], failedCount = 0): QuickDownloadFeedbackPatch {
-	return {quickDownloadStatus: 'queued', quickDownloadError: null, quickDownloadQueueIds: queueIds, quickDownloadProgressRunId: null, quickDownloadProgressFailed: failedCount}
+	return {quickDownloadStatus: 'queued', quickDownloadFailure: null, quickDownloadQueueIds: queueIds, quickDownloadProgressRunId: null, quickDownloadProgressFailed: failedCount}
 }
 
-export function failedQuickDownloadFeedback(error: string): QuickDownloadFeedbackPatch {
-	return {quickDownloadStatus: 'error', quickDownloadError: error, quickDownloadQueueIds: [], quickDownloadProgressRunId: null}
+export function failedQuickDownloadFeedback(failure: QuickDownloadFailure): QuickDownloadFeedbackPatch {
+	return {quickDownloadStatus: 'error', quickDownloadFailure: failure, quickDownloadQueueIds: [], quickDownloadProgressRunId: null}
 }
 
 export function queueIdsFromAddResult(addResultIds: string[], items: Pick<QueueItem, 'id'>[]): string[] {

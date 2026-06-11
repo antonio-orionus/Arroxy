@@ -31,6 +31,7 @@ const ALLOWED: Record<string, readonly string[]> = {
 	download_failed: ['duration_bucket', 'size_bucket', 'error_category'],
 	tray_close_chosen: ['choice', 'remember'],
 	binary_setup_failed: ['binary', 'phase', 'code', 'error_code', 'status_code', 'operation', 'setup_step', 'source_kind', 'source_channel', 'elapsed_ms'],
+	binary_probe_anomaly: ['binary', 'outcome', 'failure_kind', 'code', 'source_kind', 'source_channel', 'elapsed_ms', 'timeout_ms'],
 	crash_detected: ['type', 'reason'],
 	wizard_started: [],
 	share_dialog_opened: ['via'],

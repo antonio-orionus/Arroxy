@@ -4,7 +4,7 @@ import {reconcileQuickDownloadFeedback, type QuickDownloadFeedbackState} from '.
 
 type QueueProjectionState = Pick<
 	QuickDownloadFeedbackState,
-	'quickDownloadStatus' | 'quickDownloadQueueIds' | 'quickDownloadProgressPhase' | 'quickDownloadProgressTotal' | 'quickDownloadProgressCompleted' | 'quickDownloadProgressFailed' | 'quickDownloadProgressCurrent' | 'quickDownloadProgressTitle' | 'quickDownloadProgressRunId'
+	'quickDownloadStatus' | 'quickDownloadFailure' | 'quickDownloadQueueIds' | 'quickDownloadProgressPhase' | 'quickDownloadProgressTotal' | 'quickDownloadProgressCompleted' | 'quickDownloadProgressFailed' | 'quickDownloadProgressCurrent' | 'quickDownloadProgressTitle' | 'quickDownloadProgressRunId'
 > & {queue: QueueItem[]}
 
 interface QueueProjectionBatch {
@@ -16,10 +16,10 @@ interface QueueProjectionBatch {
 export interface QueueProjectionResult {
 	queue: QueueItem[]
 	doneIncrements: number
-	patch: Partial<QueueProjectionState & Pick<QuickDownloadFeedbackState, 'quickDownloadError'>>
+	patch: Partial<QueueProjectionState>
 }
 
-export function projectQueueSnapshot(state: QueueProjectionState, items: QueueItem[]): Partial<QueueProjectionState & Pick<QuickDownloadFeedbackState, 'quickDownloadError'>> {
+export function projectQueueSnapshot(state: QueueProjectionState, items: QueueItem[]): Partial<QueueProjectionState> {
 	return {queue: items, ...reconcileQuickDownloadFeedback(state, items)}
 }
 
