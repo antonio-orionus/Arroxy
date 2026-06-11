@@ -1,5 +1,6 @@
 import {lazy, Suspense, useEffect, useState, type ReactNode} from 'react'
 import {Bug, Cpu, FileText, Image, Info, MessageCircle, Paintbrush, Share2} from 'lucide-react'
+import IconDiscord from '~icons/simple-icons/discord'
 import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
 import {ZOOM_MIN, ZOOM_MAX, ZOOM_STEP, type UiTheme} from '@shared/schemas.js'
@@ -30,6 +31,7 @@ const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 t
 const FOOTER_VERSION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-[11px] text-muted-foreground/60 tabular-nums max-sm:hidden'
 const FOOTER_COMPACT_LABEL_CLASS = 'max-sm:sr-only'
 const FOOTER_COMPACT_ICON_CLASS = 'hidden size-3.5 max-sm:block'
+const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
 type BackdropPreviewMode = 'gpu' | 'canvas2d' | 'css'
 
 const BACKDROP_PREVIEW_MODES = [
@@ -88,6 +90,10 @@ export function App(): ReactNode {
 			setDebugCopied(true)
 			setTimeout(() => setDebugCopied(false), 1500)
 		})
+	}
+
+	function openDiscord(): void {
+		void window.appApi.shell.openExternal(DISCORD_URL)
 	}
 
 	useEffect(() => {
@@ -235,6 +241,12 @@ export function App(): ReactNode {
 							<Share2 data-icon="inline-start" aria-hidden />
 							<span className={FOOTER_COMPACT_LABEL_CLASS} data-testid="btn-share-label">
 								{t('share.footerLabel')}
+							</span>
+						</Button>
+						<Button type="button" variant="ghost" size="xs" className={FOOTER_ACTION_BUTTON_CLASS} onClick={openDiscord} title="Discord" aria-label="Discord" data-testid="btn-discord">
+							<IconDiscord data-icon="inline-start" aria-hidden />
+							<span className={FOOTER_COMPACT_LABEL_CLASS} data-testid="btn-discord-label">
+								Discord
 							</span>
 						</Button>
 						<div className="relative inline-flex h-6 items-center">

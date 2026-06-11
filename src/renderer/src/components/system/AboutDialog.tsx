@@ -1,6 +1,7 @@
 import {type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {ExternalLink, Share2} from 'lucide-react'
+import IconDiscord from '~icons/simple-icons/discord'
 import {Button} from '../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -8,6 +9,7 @@ import appIcon from '../../assets/App-icon-HQ.png'
 
 const WEBSITE_URL = 'https://arroxy.orionus.dev/'
 const GITHUB_URL = 'https://github.com/antonio-orionus/Arroxy'
+const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
 const NOTICES_URL = 'https://github.com/antonio-orionus/Arroxy/blob/main/THIRD_PARTY_NOTICES.txt'
 
 function openExternalUrl(url: string): void {
@@ -33,7 +35,7 @@ export function AboutDialog(): ReactNode {
 					<DialogDescription className="text-center">{t('about.tagline')}</DialogDescription>
 				</DialogHeader>
 
-				<div className="flex gap-2 justify-center">
+				<div className="flex flex-wrap gap-2 justify-center">
 					<Button type="button" variant="outline" size="sm" onClick={() => openExternalUrl(WEBSITE_URL)} data-testid="about-link-website">
 						{t('about.websiteLink')}
 						<ExternalLink size={12} aria-hidden />
@@ -41,6 +43,10 @@ export function AboutDialog(): ReactNode {
 					<Button type="button" variant="outline" size="sm" onClick={() => openExternalUrl(GITHUB_URL)} data-testid="about-link-github">
 						{t('about.githubLink')}
 						<ExternalLink size={12} aria-hidden />
+					</Button>
+					<Button type="button" variant="outline" size="sm" onClick={() => openExternalUrl(DISCORD_URL)} data-testid="about-link-discord">
+						Discord
+						<IconDiscord className="size-3" aria-hidden />
 					</Button>
 					<Button type="button" variant="outline" size="sm" onClick={handleShare} data-testid="about-link-share">
 						{t('share.shareAction')}

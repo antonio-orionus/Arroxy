@@ -13,6 +13,8 @@ Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi s
 
 [**↓ Baasii Haaraa Buusi**](#install) &nbsp;·&nbsp; [**Marsariitii**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
 
+[![Join the Discord community](https://img.shields.io/badge/Join%20the%20Discord%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 <img src="build/demo.gif" alt="Arroxy demo" width="720" />
 
 Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.

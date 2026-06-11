@@ -94,9 +94,10 @@ describe('Footer feedback controls', () => {
 		delete (window as unknown as {Tally?: unknown}).Tally
 	})
 
-	it('renders all three footer utility buttons', async () => {
+	it('renders footer utility buttons', async () => {
 		render(<App />)
 		expect(await screen.findByTestId('btn-debug')).toBeInTheDocument()
+		expect(screen.getByTestId('btn-discord')).toBeInTheDocument()
 		expect(screen.getByTestId('btn-feedback')).toBeInTheDocument()
 		expect(screen.getByTestId('btn-logs')).toBeInTheDocument()
 	})
@@ -114,8 +115,28 @@ describe('Footer feedback controls', () => {
 		expect(screen.getByTestId('btn-about-version').className).toContain('max-sm:hidden')
 		expect(screen.getByTestId('btn-about').className).toContain('max-sm:hidden')
 		expect(screen.getByTestId('btn-share-label').className).toContain('max-sm:sr-only')
+		expect(screen.getByTestId('btn-discord-label').className).toContain('max-sm:sr-only')
 		expect(screen.getByTestId('btn-feedback-label').className).toContain('max-sm:sr-only')
 		expect(screen.getByTestId('btn-logs-label').className).toContain('max-sm:sr-only')
+	})
+
+	it('Discord footer button opens the community invite', async () => {
+		render(<App />)
+		fireEvent.click(await screen.findByTestId('btn-discord'))
+
+		await waitFor(() => {
+			expect(mockOpenExternal).toHaveBeenCalledWith('https://discord.gg/ueGvXwQH8y')
+		})
+	})
+
+	it('About dialog links to the Discord community', async () => {
+		render(<App />)
+		fireEvent.click(await screen.findByTestId('btn-about'))
+		fireEvent.click(await screen.findByTestId('about-link-discord'))
+
+		await waitFor(() => {
+			expect(mockOpenExternal).toHaveBeenCalledWith('https://discord.gg/ueGvXwQH8y')
+		})
 	})
 
 	it('Feedback button opens Tally immediately with context and no GitHub navigation', async () => {

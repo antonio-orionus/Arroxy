@@ -13,6 +13,8 @@
 
 [**↓ Преузмите најновије издање**](#install) &nbsp;·&nbsp; [**Веб-сајт**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
 
+[![Join the Discord community](https://img.shields.io/badge/Join%20the%20Discord%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 <img src="build/demo.gif" alt="Arroxy демонстрација" width="720" />
 
 Ако вам Arroxy уштеди времена, ⭐ помаже другима да га пронађу.
