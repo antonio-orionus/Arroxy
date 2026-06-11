@@ -169,11 +169,12 @@ export function selectBtbnAsset(releases: BtbnRelease[], btbnArch: string, ext: 
 	return undefined
 }
 
-function githubHeaders(): HeadersInit {
+export function githubHeaders(env: Record<string, string | undefined> = process.env): HeadersInit {
 	const headers: HeadersInit = {Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'}
 
-	if (process.env.GITHUB_TOKEN) {
-		headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`
+	const token = env.BTBN_GITHUB_TOKEN?.trim()
+	if (token) {
+		headers.Authorization = `Bearer ${token}`
 	}
 
 	return headers
@@ -211,7 +212,11 @@ function normalizeFileUrlForComparison(href: string): string {
 	return href.replace(/^file:\/\/\/([a-zA-Z]):/, (_match, drive: string) => `file:///${drive.toUpperCase()}:`)
 }
 
-function windowsPathToFileUrl(value: string): string {
+export function windowsPathToFileUrl(value: string): string {
+	if (!/^[a-zA-Z]:[\\/]/.test(value)) {
+		throw new Error(`Invalid Windows path: ${value}`)
+	}
+
 	const normalized = value.replaceAll('\\', '/')
 	const drive = normalized[0].toUpperCase()
 	const rest = normalized.slice(3)

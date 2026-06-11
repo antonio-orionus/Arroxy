@@ -48,6 +48,18 @@ describe('release asset names', () => {
 		expect(release).toContain('gh release edit "$REF_NAME" --draft=false $EXTRA')
 	})
 
+	it('authenticates electron-builder BtbN resolver calls in CI builds', () => {
+		const release = read('.github/workflows/release.yml')
+		const installer = read('.github/workflows/installer-smoke.yml')
+		const coldStart = read('.github/workflows/e2e-cold-start.yml')
+
+		expect(installer).toContain('BTBN_GITHUB_TOKEN: ${{ github.token }}')
+		expect(coldStart).toContain('BTBN_GITHUB_TOKEN: ${{ github.token }}')
+		expect(release).toContain('BTBN_GITHUB_TOKEN: ${{ github.token }}')
+		expect(installer).not.toMatch(/^\s+GITHUB_TOKEN:\s+\$\{\{\s*github\.token\s*\}\}/m)
+		expect(coldStart).not.toMatch(/^\s+GITHUB_TOKEN:\s+\$\{\{\s*github\.token\s*\}\}/m)
+	})
+
 	it('normalizes electron-builder AppImage arch names before publishing checksums', () => {
 		const release = read('.github/workflows/release.yml')
 

@@ -50,6 +50,7 @@ jobs:
         env:
           OPENPANEL_CLIENT_ID: ${{ secrets.OPENPANEL_CLIENT_ID }}
           OPENPANEL_CLIENT_SECRET: ${{ secrets.OPENPANEL_CLIENT_SECRET }}
+          BTBN_GITHUB_TOKEN: ${{ github.token }}
         run: |
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
             bun run dist:win

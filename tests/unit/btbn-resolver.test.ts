@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import {btbnTargetFor, btbnTargets, floatingLatestAssetName, formatShellEnv, isCliEntrypoint, isTimestampedMasterAssetName, selectBtbnAsset, type BtbnRelease} from '../../scripts/build/btbnResolver.js'
+import {btbnTargetFor, btbnTargets, floatingLatestAssetName, formatShellEnv, githubHeaders, isCliEntrypoint, isTimestampedMasterAssetName, selectBtbnAsset, windowsPathToFileUrl, type BtbnRelease} from '../../scripts/build/btbnResolver.js'
 
 function release(tagName: string, assetNames: string[], draft = false): BtbnRelease {
 	return {tagName, draft, assets: assetNames.map(name => ({name, browserDownloadUrl: `https://example.invalid/${tagName}/${name}`}))}
@@ -80,5 +80,16 @@ describe('BtbN release resolver', () => {
 		expect(isCliEntrypoint({url: 'file:///not-this-script.ts', main: true}, undefined)).toBe(true)
 		expect(isCliEntrypoint({url: 'file:///D:/a/Arroxy/Arroxy/scripts/build/btbnResolver.ts'}, 'D:\\a\\Arroxy\\Arroxy\\scripts\\build\\btbnResolver.ts')).toBe(true)
 		expect(isCliEntrypoint({url: 'file:///D:/a/Arroxy/Arroxy/scripts/build/btbnResolver.ts'}, 'D:\\a\\Arroxy\\Arroxy\\scripts\\build\\other.ts')).toBe(false)
+	})
+
+	it('validates Windows paths before converting them to file URLs', () => {
+		expect(windowsPathToFileUrl('d:\\a\\Arroxy\\some file.ts')).toBe('file:///D:/a/Arroxy/some%20file.ts')
+		expect(() => windowsPathToFileUrl('D:')).toThrow('Invalid Windows path')
+		expect(() => windowsPathToFileUrl('relative\\path.ts')).toThrow('Invalid Windows path')
+	})
+
+	it('authenticates BtbN API calls only with the dedicated token env var', () => {
+		expect(githubHeaders({BTBN_GITHUB_TOKEN: 'btbn-token'})).toMatchObject({Authorization: 'Bearer btbn-token'})
+		expect(githubHeaders({GITHUB_TOKEN: 'generic-token'})).not.toHaveProperty('Authorization')
 	})
 })
