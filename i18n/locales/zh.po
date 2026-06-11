@@ -171,6 +171,10 @@ msgctxt "errors.ytdlp.loginRequired"
 msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
 msgstr "该视频需要已登录的账号。请设置 cookies.txt（设置 → Cookies）后重试。"
 
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp 找不到 ffmpeg 或 ffprobe。请修复内置二进制文件，或设置 FFmpeg 位置，然后重试。"
+
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "网络错误。请检查你的连接并重试。"

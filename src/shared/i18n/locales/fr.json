@@ -451,6 +451,7 @@
 			"outOfDiskSpace": "Espace disque insuffisant. Libère de l'espace et réessaie.",
 			"unsupportedUrl": "Cette URL n'est pas prise en charge par yt-dlp. Essayez un autre lien provenant d'un site pris en charge par yt-dlp.",
 			"chunkTransferFailure": "Le serveur a interrompu le téléchargement en cours de route à plusieurs reprises et yt-dlp a abandonné après plusieurs tentatives. Cela touche généralement les formats vidéo les plus lourds (4K HDR / VP9 haut débit). Réessaie, change de réseau/VPN ou sélectionne un format de résolution inférieure.",
+			"missingDependency": "yt-dlp n'a pas trouvé ffmpeg ni ffprobe. Répare les binaires intégrés ou définis un emplacement FFmpeg, puis réessaie.",
 			"postprocessFailure": "yt-dlp a terminé le téléchargement, mais le post-traitement (fusion / mux / conversion) a échoué. C’est souvent un souci ffmpeg passager — réessaie, et si ça persiste, essaie une autre combinaison de formats.",
 			"parse": "Impossible d’analyser la réponse du site. L’extracteur de yt-dlp est peut-être désynchronisé. Arroxy met yt-dlp à jour automatiquement au démarrage — réessaie dans quelques minutes, le temps que le correctif arrive.",
 			"network": "Erreur réseau. Vérifie ta connexion et réessaie.",

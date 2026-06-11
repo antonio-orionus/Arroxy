@@ -459,6 +459,7 @@
 			"outOfDiskSpace": "Disk xotirasi yetarli emas. Bo'sh joy ajrating va qayta urinib ko'ring.",
 			"unsupportedUrl": "Bu URL yt-dlp tomonidan qo'llab-quvvatlanmaydi. yt-dlp qo'llab-quvvatlaydigan saytlardan boshqa havolani sinab ko'ring.",
 			"chunkTransferFailure": "Server yuklab olishni o'rtasida uzib qo'ydi va yt-dlp qayta urinishlardan so'ng voz kechdi. Bu odatda eng katta video formatlarida (4K HDR / yuqori bitreytli VP9) uchraydi. Qayta urining, tarmoq/VPN almashtiring yoki pastroq ruxsat formatini tanlang.",
+			"missingDependency": "yt-dlp ffmpeg yoki ffprobe ni topa olmadi. Ichki binar fayllarni tuzating yoki FFmpeg joylashuvini belgilang, keyin qayta urinib ko'ring.",
 			"postprocessFailure": "yt-dlp yuklab olishni tugatdi, biroq keyingi qayta ishlash (birlashtirish / mux / o'girish) muvaffaqiyatsiz tugadi. Ko'pincha bu ffmpeg ning vaqtinchalik muammosi — qayta urining, agar davom etsa, boshqa format kombinatsiyasini sinab ko'ring.",
 			"parse": "Saytdan kelgan javobni tahlil qilib bo'lmadi. yt-dlp ekstraktori eskirib qolgan bo'lishi mumkin. Arroxy ishga tushganda yt-dlp ni avtomatik yangilaydi — bir necha daqiqadan so'ng tuzatish kelgach qayta urinib ko'ring.",
 			"network": "Tarmoq xatosi. Aloqangizni tekshiring va qayta urining.",

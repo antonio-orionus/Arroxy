@@ -171,6 +171,10 @@ msgctxt "errors.ytdlp.loginRequired"
 msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
 msgstr "এই ভিডিওর জন্য সাইন-ইন করা অ্যাকাউন্ট প্রয়োজন। cookies.txt সেট আপ করুন (সেটিংস → Cookies) এবং আবার চেষ্টা করুন।"
 
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp ffmpeg বা ffprobe খুঁজে পায়নি। বান্ডেল করা বাইনারিগুলো মেরামত করুন বা একটি FFmpeg অবস্থান সেট করুন, তারপর আবার চেষ্টা করুন।"
+
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "নেটওয়ার্ক ত্রুটি। আপনার সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।"

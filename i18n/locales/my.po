@@ -171,6 +171,10 @@ msgctxt "errors.ytdlp.loginRequired"
 msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
 msgstr "ဤဗီဒီယိုအတွက် login ဝင်ထားသော account လိုအပ်သည်။ cookies.txt တစ်ခု တပ်ဆင်ပါ (ဆက်တင် → Cookies) ပြီးနောက် ထပ်ကြိုးစားပါ။"
 
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp သည် ffmpeg သို့မဟုတ် ffprobe ကို မတွေ့ပါ။ ထည့်သွင်းထားသော binary များကို ပြုပြင်ပါ သို့မဟုတ် FFmpeg တည်နေရာကို သတ်မှတ်ပြီးနောက် ထပ်ကြိုးစားပါ။"
+
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Network အမှား။ သင့်ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ထပ်ကြိုးစားပါ။"

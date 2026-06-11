@@ -171,6 +171,10 @@ msgctxt "errors.ytdlp.loginRequired"
 msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
 msgstr "Video hii inahitaji akaunti iliyoingia. Sanidi cookies.txt (Mipangilio → Cookies) na ujaribu tena."
 
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp haikuweza kupata ffmpeg au ffprobe. Rekebisha binari zilizojumuishwa au weka eneo la FFmpeg, kisha ujaribu tena."
+
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Hitilafu ya mtandao. Angalia muunganisho wako na ujaribu tena."

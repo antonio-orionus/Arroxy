@@ -171,6 +171,10 @@ msgctxt "errors.ytdlp.loginRequired"
 msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
 msgstr "Bu video uchun tizimga kirgan hisob zarur. cookies.txt ni sozlang (Sozlamalar → Cookies) va qayta urinib ko'ring."
 
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp ffmpeg yoki ffprobe ni topa olmadi. Ichki binar fayllarni tuzating yoki FFmpeg joylashuvini belgilang, keyin qayta urinib ko'ring."
+
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Tarmoq xatosi. Aloqangizni tekshiring va qayta urining."

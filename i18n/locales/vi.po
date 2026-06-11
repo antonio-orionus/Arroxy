@@ -171,6 +171,10 @@ msgctxt "errors.ytdlp.loginRequired"
 msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
 msgstr "Video này yêu cầu tài khoản đã đăng nhập. Hãy thiết lập cookies.txt (Cài đặt → Cookies) và thử lại."
 
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp không tìm thấy ffmpeg hoặc ffprobe. Hãy sửa các tệp nhị phân đi kèm hoặc đặt vị trí FFmpeg, rồi thử lại."
+
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Lỗi mạng. Hãy kiểm tra kết nối và thử lại."

@@ -171,6 +171,10 @@ msgctxt "errors.ytdlp.loginRequired"
 msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
 msgstr "Dieses Video erfordert ein angemeldetes Konto. Richte eine cookies.txt ein (Einstellungen → Cookies) und versuche es erneut."
 
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp konnte ffmpeg oder ffprobe nicht finden. Repariere die gebündelten Binärdateien oder lege einen FFmpeg-Speicherort fest und versuche es erneut."
+
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Netzwerkfehler. Überprüfe deine Verbindung und versuche es erneut."
