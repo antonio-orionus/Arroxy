@@ -125,13 +125,13 @@ describe('App renderer', () => {
 		const quick = await screen.findByTestId('profiles-quick-download')
 		const fetch = screen.getByTestId('profiles-interactive-download')
 		expect(quick).toHaveTextContent(/Quick download/i)
-		expect(quick).toHaveTextContent('Will download using: Balanced')
+		expect(quick).toHaveTextContent('Will download using: Balanced 720p')
 		expect(screen.getByTestId('profiles-quick-preview')).toHaveAttribute('data-linked-control', 'quick-profile')
-		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Balanced')
+		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Balanced 720p')
 		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Active profile')
 		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('720p · best audio')
-		expect(screen.queryByRole('button', {name: 'Edit active profile: Balanced'})).not.toBeInTheDocument()
-		const profileMenuTrigger = screen.getByRole('button', {name: 'Switch download profile: Balanced'})
+		expect(screen.queryByRole('button', {name: 'Edit active profile: Balanced 720p'})).not.toBeInTheDocument()
+		const profileMenuTrigger = screen.getByRole('button', {name: 'Switch download profile: Balanced 720p'})
 		expect(profileMenuTrigger).toBeInTheDocument()
 		expect(quick).toBeDisabled()
 
@@ -155,7 +155,7 @@ describe('App renderer', () => {
 		fireEvent.click(quick)
 
 		expect(await screen.findByTestId('quick-download-progress-dialog')).toHaveTextContent('Preparing Quick Download')
-		expect(screen.getByTestId('quick-download-progress-dialog')).toHaveTextContent('Balanced')
+		expect(screen.getByTestId('quick-download-progress-dialog')).toHaveTextContent('Balanced 720p')
 		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('0 / 1')
 
 		await waitFor(() => {
@@ -210,7 +210,7 @@ describe('App renderer', () => {
 	it('closes the profile picker when opening profile editor surfaces', async () => {
 		render(<App />)
 
-		const profileMenuTrigger = await screen.findByRole('button', {name: 'Switch download profile: Balanced'})
+		const profileMenuTrigger = await screen.findByRole('button', {name: 'Switch download profile: Balanced 720p'})
 		expect(screen.queryByTestId('profiles-editor-dialog')).not.toBeInTheDocument()
 		fireEvent.click(profileMenuTrigger)
 		expect(await screen.findByText('Switch profile')).toBeInTheDocument()

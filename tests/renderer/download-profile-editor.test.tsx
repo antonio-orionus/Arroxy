@@ -106,7 +106,7 @@ describe('DownloadProfileEditor', () => {
 		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />)
 
 		const input = await screen.findByTestId('profiles-editor-subfolder-name')
-		expect(input).toHaveValue('Smart TV H.264 MP4 1080p')
+		expect(input).toHaveValue('Smart TV MP4 Full HD')
 
 		fireEvent.change(input, {target: {value: 'MP4 videos'}})
 		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))

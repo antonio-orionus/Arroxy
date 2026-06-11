@@ -9,7 +9,7 @@ describe('DownloadProfileDraft', () => {
 	it('initializes from a built-in profile', () => {
 		const draft = createDownloadProfileDraft(BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!)
 
-		expect(draft).toMatchObject({profileId: 'balanced', profileName: 'Balanced', profileIcon: 'controls', mediaMode: 'video-audio', codec: 'best', resolution: '720', audioFormat: 'best', subfolderName: 'Balanced'})
+		expect(draft).toMatchObject({profileId: 'balanced', profileName: 'Balanced 720p', profileIcon: 'controls', mediaMode: 'video-audio', codec: 'best', resolution: '720', audioFormat: 'best', subfolderName: 'Balanced 720p'})
 	})
 
 	it('keeps codec and video-audio format coupled', () => {

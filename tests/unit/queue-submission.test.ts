@@ -131,22 +131,22 @@ describe('QueueSubmission', () => {
 		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({wizardOutputDir: '/profile-downloads'}), 'normal')
 
 		expect(prepared?.items).toHaveLength(1)
-		expect(prepared?.items[0]).toMatchObject({url: 'https://www.youtube.com/watch?v=abc', title: 'Video', outputDir: '/profile-downloads/Balanced', formatLabel: 'Video + audio · Best native · up to 720p · best native audio', job: {kind: 'ranged-format'}})
+		expect(prepared?.items[0]).toMatchObject({url: 'https://www.youtube.com/watch?v=abc', title: 'Video', outputDir: '/profile-downloads/Balanced 720p', formatLabel: 'Video + audio · Best native · up to 720p · best native audio', job: {kind: 'ranged-format'}})
 	})
 
 	it('uses the default downloads folder and profile subfolder with native separators', () => {
 		const settings = defaultAppSettings('C:\\Users\\User\\Downloads')
 		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings, wizardOutputDir: ''}), 'normal')
 
-		expect(prepared?.items[0]?.outputDir).toBe('C:\\Users\\User\\Downloads\\Balanced')
+		expect(prepared?.items[0]?.outputDir).toBe('C:\\Users\\User\\Downloads\\Balanced 720p')
 	})
 
 	it('prepares active-profile playlist items and manifest payload', () => {
 		const prepared = prepareActiveProfileQueueSubmission(PLAYLIST_PROBE, state(), 'normal')
 
 		expect(prepared?.items).toHaveLength(2)
-		expect(prepared?.items[0]).toMatchObject({playlistGroupId: expect.any(String), outputDir: '/downloads/Balanced', writeM3u: true})
-		expect(prepared?.manifest).toMatchObject({playlistTitle: 'Playlist', outputDir: '/downloads/Balanced', items: PLAYLIST_ITEMS.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))})
+		expect(prepared?.items[0]).toMatchObject({playlistGroupId: expect.any(String), outputDir: '/downloads/Balanced 720p', writeM3u: true})
+		expect(prepared?.manifest).toMatchObject({playlistTitle: 'Playlist', outputDir: '/downloads/Balanced 720p', items: PLAYLIST_ITEMS.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))})
 	})
 
 	it('prepares subtitles-only active profile jobs', () => {

@@ -45,15 +45,15 @@ function videoAudioLabel(format: 'best' | 'm4a'): string {
 }
 
 export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [
-	baseProfile('best-quality', 'Best quality', videoAudio('best', ['best']), 'video'),
-	baseProfile('best-2160', '2160p', videoAudio('best', ['2160']), 'video'),
-	baseProfile('best-1440', '1440p', videoAudio('best', ['1440']), 'video'),
-	baseProfile('hd-1080', 'HD 1080p', videoAudio('best', ['1080']), 'video'),
-	baseProfile('balanced', 'Balanced', videoAudio('best', ['720']), 'controls'),
-	baseProfile('small-file', 'Small file', videoAudio('best', ['480']), 'clip'),
-	baseProfile('mp4-1080', 'Smart TV H.264 MP4 1080p', videoAudio('mp4', ['1080']), 'video'),
-	baseProfile('mp4-720', 'Smart TV H.264 MP4 720p', videoAudio('mp4', ['720']), 'video'),
-	baseProfile('mp4-480', 'Smart TV H.264 MP4 480p', videoAudio('mp4', ['480']), 'video'),
+	baseProfile('best-quality', 'Best available', videoAudio('best', ['best']), 'video'),
+	baseProfile('best-2160', '4K UHD 2160p', videoAudio('best', ['2160']), 'video'),
+	baseProfile('best-1440', 'QHD 1440p', videoAudio('best', ['1440']), 'video'),
+	baseProfile('hd-1080', 'Full HD 1080p', videoAudio('best', ['1080']), 'video'),
+	baseProfile('balanced', 'Balanced 720p', videoAudio('best', ['720']), 'controls'),
+	baseProfile('small-file', 'Small file 480p', videoAudio('best', ['480']), 'clip'),
+	baseProfile('mp4-1080', 'Smart TV MP4 Full HD', videoAudio('mp4', ['1080']), 'video'),
+	baseProfile('mp4-720', 'Smart TV MP4 HD', videoAudio('mp4', ['720']), 'video'),
+	baseProfile('mp4-480', 'Smart TV MP4 SD', videoAudio('mp4', ['480']), 'video'),
 	baseProfile('audio-only', 'Audio only', {kind: 'audio-only', audio: {format: 'best'}}, 'audio')
 ] as const
 

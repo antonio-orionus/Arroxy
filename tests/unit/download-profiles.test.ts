@@ -36,6 +36,18 @@ function customProfile(overrides: Partial<DownloadProfile> = {}): DownloadProfil
 describe('download profiles', () => {
 	it('built-ins are immutable profile-shaped defaults', () => {
 		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id)).toEqual(['best-quality', 'best-2160', 'best-1440', 'hd-1080', 'balanced', 'small-file', 'mp4-1080', 'mp4-720', 'mp4-480', 'audio-only'])
+		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => [profile.id, profile.name])).toEqual([
+			['best-quality', 'Best available'],
+			['best-2160', '4K UHD 2160p'],
+			['best-1440', 'QHD 1440p'],
+			['hd-1080', 'Full HD 1080p'],
+			['balanced', 'Balanced 720p'],
+			['small-file', 'Small file 480p'],
+			['mp4-1080', 'Smart TV MP4 Full HD'],
+			['mp4-720', 'Smart TV MP4 HD'],
+			['mp4-480', 'Smart TV MP4 SD'],
+			['audio-only', 'Audio only']
+		])
 		for (const profile of BUILTIN_DOWNLOAD_PROFILES) {
 			expect(downloadProfileSchema.safeParse(profile).success).toBe(true)
 			expect(profile.output).toEqual({kind: 'default'})
@@ -67,7 +79,6 @@ describe('download profiles', () => {
 			['mp4-480', '480']
 		] as const) {
 			const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === id)
-			expect(profile?.name).toBe(`Smart TV H.264 MP4 ${tier}p`)
 			expect(profile?.media).toEqual({kind: 'video-audio', codec: 'mp4', tiers: [tier], audio: {format: 'm4a'}})
 
 			const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id})
@@ -129,7 +140,7 @@ describe('download profiles', () => {
 		const reset = removeDownloadProfileFromPrefs(overridden, 'balanced')
 		expect(reset.overrides).toHaveLength(0)
 		expect(reset.active).toEqual({kind: 'builtin', id: 'balanced'})
-		expect(resolveActiveDownloadProfile(reset).profile.name).toBe('Balanced')
+		expect(resolveActiveDownloadProfile(reset).profile.name).toBe('Balanced 720p')
 	})
 
 	it('resolves media, subtitles, output artifacts, and SponsorBlock into queue-ready options', () => {
