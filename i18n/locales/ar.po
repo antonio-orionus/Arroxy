@@ -1419,7 +1419,7 @@ msgstr "محدود بأول {{count}} عنصر"
 
 msgctxt "wizard.playlist.loadingPagesFound_one"
 msgid "{{count}} page found"
-msgstr "تم العثور على صفحة واحدة"
+msgstr "تم العثور على {{count}} صفحة"
 
 msgctxt "wizard.playlist.loadingPagesFound_other"
 msgid "{{count}} pages found"

@@ -221,7 +221,8 @@ function ProfileSelect<T extends string>({label, value, options, onValueChange, 
 
 function readablePath(path: string, commonPaths: CommonSettings['commonPaths']): string {
 	const trimmed = path.trim()
-	return trimmed ? formatHomeRelativePath(trimmed, commonPaths) : 'Default downloads folder'
+	if (!trimmed) return 'Default downloads folder'
+	return commonPaths ? formatHomeRelativePath(trimmed, commonPaths) : trimmed
 }
 
 function fallbackFinalPath(subfolderName: string): string {
@@ -335,8 +336,13 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 		setProfileActionError(null)
 		const now = new Date().toISOString()
 		const profile = downloadProfileFromDraft(draft, now, createProfileId)
-		await onSave?.(profile)
-		onOpenChange(false)
+		try {
+			await onSave?.(profile)
+			onOpenChange(false)
+		} catch (error) {
+			console.error('Failed to save profile settings', error)
+			setProfileActionError('Could not save profile settings.')
+		}
 	}
 
 	async function changeGlobalDestination(): Promise<void> {

@@ -59,7 +59,7 @@
 			"loadingItems": "جارٍ جلب القائمة…",
 			"loadingPhasePages": "جارٍ فحص صفحات القناة",
 			"loadingPhaseItems": "جارٍ جمع الفيديوهات",
-			"loadingPagesFound_one": "تم العثور على صفحة واحدة",
+			"loadingPagesFound_one": "تم العثور على {{count}} صفحة",
 			"loadingPagesFound_other": "تم العثور على {{count}} صفحات",
 			"loadingLimitHint": "محدود بأول {{count}} عنصر",
 			"thumbnailAlt": "صورة مصغرة للفيديو",

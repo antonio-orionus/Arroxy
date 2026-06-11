@@ -10,6 +10,8 @@ import {defaultAppSettings} from '@shared/constants.js'
 import type {AppApi, SettingsPatch} from '@shared/api.js'
 import type {AppSettings, PlaylistEntry, ProbeResult} from '@shared/types.js'
 
+vi.mock('@tanstack/react-virtual', () => ({useVirtualizer: ({count}: {count: number}) => ({getTotalSize: () => count * 56, getVirtualItems: () => Array.from({length: count}, (_, index) => ({index, key: index, size: 56, start: index * 56})), measureElement: () => undefined})}))
+
 const PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLcap'
 
 function entries(count: number): PlaylistEntry[] {
@@ -129,6 +131,20 @@ describe('playlist probe limit selector alert', () => {
 		expect(screen.getByTestId('playlist-alert-probe-limit-custom-save')).toBeDisabled()
 		expect(api.settings.update).not.toHaveBeenCalled()
 		expect(api.downloads.probe).not.toHaveBeenCalled()
+	})
+
+	it('prevents Space from scrolling when a keyboard user toggles a playlist row', () => {
+		installApi()
+		resetStore(50, 2)
+		const {container} = render(<StepPlaylistItems />)
+		const row = container.querySelector<HTMLElement>('[role="checkbox"][data-index="0"]')
+		expect(row).toBeTruthy()
+
+		const event = new KeyboardEvent('keydown', {key: ' ', bubbles: true, cancelable: true})
+		row!.dispatchEvent(event)
+
+		expect(event.defaultPrevented).toBe(true)
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['p2'])
 	})
 })
 

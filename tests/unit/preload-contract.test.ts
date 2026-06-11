@@ -158,7 +158,8 @@ describe('event listeners — strip Electron event wrapper', () => {
 		const listener = vi.fn()
 		api.events.onProbeProgress(listener)
 
-		const [, wrapped] = ipc.on.mock.calls[0] as [string, (e: unknown, payload: unknown) => void]
+		expect(ipc.on).toHaveBeenCalledWith(IPC_CHANNELS.downloadsProbeProgress, expect.any(Function))
+		const [, wrapped] = ipc.on.mock.calls.find(([channel]) => channel === IPC_CHANNELS.downloadsProbeProgress) as [string, (e: unknown, payload: unknown) => void]
 		const fakePayload = {url: 'https://www.youtube.com/playlist?list=PL1', playlistMode: 'playlist', phase: 'items', loaded: 12, total: 100, at: new Date().toISOString()}
 		wrapped({}, fakePayload)
 

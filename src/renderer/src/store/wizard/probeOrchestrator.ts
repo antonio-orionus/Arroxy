@@ -113,6 +113,7 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 	}
 	const previousScope = state.playlistScope
 	const previousItemsCount = state.playlistItems.length
+	const previousLikelyCapped = state.playlistLikelyCapped
 
 	void window.appApi.downloads.probeCancel()
 	logStep('playlistScopeReloadStart', state.wizardStep, state.wizardStep, {...pickWizardSnapshot(state), requestedScope: scope, previousScope, previousItemsCount})
@@ -123,21 +124,21 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 		result = await window.appApi.downloads.probe({url, playlistMode: 'playlist', playlistScope: scope})
 	} catch (error) {
 		const message = `Could not reload that playlist scope: ${unknownPlaylistScopeReloadErrorMessage(error)}. Your previous list is still shown.`
-		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message, playlistProbeProgress: null})
+		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message, playlistLikelyCapped: previousLikelyCapped, playlistProbeProgress: null})
 		logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {...pickWizardSnapshot(get()), requestedScope: scope, restoredScope: previousScope, previousItemsCount, errorKind: 'exception', message})
 		return
 	}
 
 	if (!result.ok) {
 		const message = playlistScopeReloadErrorMessage(result.error)
-		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message, playlistProbeProgress: null})
+		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message, playlistLikelyCapped: previousLikelyCapped, playlistProbeProgress: null})
 		logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {...pickWizardSnapshot(get()), requestedScope: scope, restoredScope: previousScope, previousItemsCount, errorKind: result.error.kind, message})
 		return
 	}
 
 	if (result.data.kind !== 'playlist') {
 		const message = 'No videos matched that playlist scope. Your previous list is still shown.'
-		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message, playlistProbeProgress: null})
+		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message, playlistLikelyCapped: previousLikelyCapped, playlistProbeProgress: null})
 		logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {...pickWizardSnapshot(get()), requestedScope: scope, restoredScope: previousScope, previousItemsCount, resultKind: result.data.kind, message})
 		return
 	}

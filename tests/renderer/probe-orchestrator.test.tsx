@@ -156,6 +156,24 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().playlistProbeProgress).toMatchObject({phase: 'pages', loaded: 8})
 	})
 
+	it('ignores unrelated probe progress without notifying store subscribers', async () => {
+		const api = buildMockAppApi()
+		window.appApi = api
+
+		await useAppStore.getState().initialize()
+		const progressListener = vi.mocked(api.events.onProbeProgress).mock.calls.at(-1)?.[0]
+		expect(progressListener).toBeDefined()
+		useAppStore.setState({wizardUrl: 'https://www.youtube.com/playlist?list=active', playlistProbeLoading: true, playlistProbeProgress: null})
+		const subscriber = vi.fn()
+		const unsubscribe = useAppStore.subscribe(subscriber)
+
+		progressListener?.({url: 'https://www.youtube.com/playlist?list=stale', playlistMode: 'playlist', phase: 'pages', loaded: 3, at: new Date().toISOString()})
+
+		expect(subscriber).not.toHaveBeenCalled()
+		expect(useAppStore.getState().playlistProbeProgress).toBeNull()
+		unsubscribe()
+	})
+
 	it('opens the mixed URL prompt instead of silently forcing a watch/list URL to single-video mode', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
@@ -761,11 +779,12 @@ describe('submitUrl — playlist probe', () => {
 		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}))
 		window.appApi = api
 
-		useAppStore.setState({wizardStep: 'playlistItems', wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', playlistItems: PLAYLIST_PROBE.entries, selectedPlaylistItemIds: PLAYLIST_PROBE.entries.map(entry => entry.id), playlistScope: {items: {kind: 'app-limit'}}})
+		useAppStore.setState({wizardStep: 'playlistItems', wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', playlistItems: PLAYLIST_PROBE.entries, selectedPlaylistItemIds: PLAYLIST_PROBE.entries.map(entry => entry.id), playlistScope: {items: {kind: 'app-limit'}}, playlistLikelyCapped: true})
 
 		const requestedScope = {items: {kind: 'range' as const, from: 900, to: 950}}
 		await useAppStore.getState().reloadPlaylistWithScope(requestedScope)
 
+		expect(useAppStore.getState().playlistLikelyCapped).toBe(true)
 		expect(api.diagnostics.logWizardStep).toHaveBeenCalledWith(
 			expect.objectContaining({
 				transition: 'playlistScopeReloadFailure',
@@ -781,12 +800,13 @@ describe('submitUrl — playlist probe', () => {
 		vi.mocked(api.downloads.probe).mockRejectedValue(new Error('IPC bridge crashed'))
 		window.appApi = api
 
-		useAppStore.setState({wizardStep: 'playlistItems', wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', playlistItems: PLAYLIST_PROBE.entries, selectedPlaylistItemIds: PLAYLIST_PROBE.entries.map(entry => entry.id), playlistScope: {items: {kind: 'app-limit'}}})
+		useAppStore.setState({wizardStep: 'playlistItems', wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', playlistItems: PLAYLIST_PROBE.entries, selectedPlaylistItemIds: PLAYLIST_PROBE.entries.map(entry => entry.id), playlistScope: {items: {kind: 'app-limit'}}, playlistLikelyCapped: true})
 
 		const requestedScope = {items: {kind: 'range' as const, from: 900, to: 950}}
 		await useAppStore.getState().reloadPlaylistWithScope(requestedScope)
 
 		expect(useAppStore.getState().playlistScope).toEqual({items: {kind: 'app-limit'}})
+		expect(useAppStore.getState().playlistLikelyCapped).toBe(true)
 		expect(useAppStore.getState().playlistScopeReloading).toBe(false)
 		expect(useAppStore.getState().playlistScopeError).toBe('Could not reload that playlist scope: IPC bridge crashed. Your previous list is still shown.')
 		expect(api.diagnostics.logWizardStep).toHaveBeenCalledWith(

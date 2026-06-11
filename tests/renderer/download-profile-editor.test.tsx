@@ -160,6 +160,26 @@ describe('DownloadProfileEditor', () => {
 		}
 	})
 
+	it('keeps the editor open and shows a recoverable error when saving fails', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		expect(profile).toBeDefined()
+		const onOpenChange = vi.fn()
+		const onSave = vi.fn<() => Promise<void>>().mockRejectedValue(new Error('settings write failed'))
+		const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+		try {
+			render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={onOpenChange} onSave={onSave} />)
+
+			fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+			expect(await screen.findByText('Could not save profile settings.')).toBeInTheDocument()
+			expect(onSave).toHaveBeenCalled()
+			expect(onOpenChange).not.toHaveBeenCalled()
+		} finally {
+			consoleError.mockRestore()
+		}
+	})
+
 	it('chooses and clears a profile-specific destination override', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
 		expect(profile).toBeDefined()

@@ -128,13 +128,12 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 			unbindProbeProgress?.()
 			unbindProbeProgress = window.appApi.events.onProbeProgress(event => {
-				set(state => {
-					const playlistProbeActive = state.playlistProbeLoading || state.playlistScopeReloading
-					const quickDownloadProbeActive = state.quickDownloadStatus === 'preparing' && state.quickDownloadProgressPhase === 'probing'
-					const matchesActiveUrl = state.wizardUrl === event.url || state.quickDownloadProgressCurrent === event.url
-					if ((!playlistProbeActive && !quickDownloadProbeActive) || !matchesActiveUrl) return {}
-					return {playlistProbeProgress: event}
-				})
+				const state = get()
+				const playlistProbeActive = state.playlistProbeLoading || state.playlistScopeReloading
+				const quickDownloadProbeActive = state.quickDownloadStatus === 'preparing' && state.quickDownloadProgressPhase === 'probing'
+				const matchesActiveUrl = state.wizardUrl === event.url || state.quickDownloadProgressCurrent === event.url
+				if ((!playlistProbeActive && !quickDownloadProbeActive) || !matchesActiveUrl) return
+				set({playlistProbeProgress: event})
 			})
 
 			set({warmupRunning: true, warmupCancellable: true})

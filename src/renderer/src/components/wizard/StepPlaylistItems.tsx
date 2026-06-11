@@ -320,7 +320,10 @@ export function StepPlaylistItems(): ReactNode {
 											className="flex items-center gap-2 px-3 py-2 hover:bg-muted/50 cursor-pointer"
 											onClick={() => setPlaylistItemSelected(entry.id, !checked)}
 											onKeyDown={e => {
-												if (e.key === ' ' || e.key === 'Enter') setPlaylistItemSelected(entry.id, !checked)
+												if (e.key === ' ' || e.key === 'Enter') {
+													e.preventDefault()
+													setPlaylistItemSelected(entry.id, !checked)
+												}
 											}}
 										>
 											<Checkbox checked={checked} onCheckedChange={v => setPlaylistItemSelected(entry.id, !!v)} onClick={e => e.stopPropagation()} />
