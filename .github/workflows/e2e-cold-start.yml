@@ -111,6 +111,7 @@ jobs:
         env:
           ARROXY_COLD_TMPDIR: ${{ runner.temp }}
           ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/arroxy-cold-logs
+          ARROXY_BINARY_DOWNLOAD_MAX_MS: '120000'
         run: |
           if [ "$RUNNER_OS" = "Linux" ]; then
             xvfb-run -a bunx playwright test tests/e2e/cold-start.spec.ts --config playwright.config.ts

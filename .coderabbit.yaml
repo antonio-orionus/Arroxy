@@ -1,6 +1,8 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 reviews:
   profile: assertive
+  auto_review:
+    enabled: false
   high_level_summary_instructions: >-
     Write a concise PR summary with:
 

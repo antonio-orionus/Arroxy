@@ -2,6 +2,7 @@ import {createHash} from 'node:crypto'
 import fs from 'node:fs'
 import fsPromises from 'node:fs/promises'
 import path from 'node:path'
+import {pipeline} from 'node:stream/promises'
 import got, {type Method} from 'got'
 import log from 'electron-log/main.js'
 import type {DependencyFailureKind, WarmupProgressEvent} from '@shared/types.js'
@@ -101,6 +102,20 @@ export const HTTP_RETRY = {
 const HTTP_STREAM_RETRY = {...HTTP_RETRY, limit: 0}
 export const HTTP_TIMEOUT = {lookup: 5_000, connect: 10_000, secureConnect: 10_000, socket: 60_000, response: 30_000, send: 60_000, request: 600_000}
 
+interface DownloadFileOptions {
+	allowPartialRetry?: boolean
+	signal?: AbortSignal
+	stallTimeoutMs?: number
+	maxDurationMs?: number
+}
+
+interface NormalizedDownloadFileOptions {
+	allowPartialRetry: boolean
+	signal?: AbortSignal
+	stallTimeoutMs: number
+	maxDurationMs: number
+}
+
 export async function downloadText(url: string, signal?: AbortSignal): Promise<string> {
 	const res = await got(url, {headers: HTTP_HEADERS, retry: HTTP_RETRY, timeout: HTTP_TIMEOUT, followRedirect: true, signal})
 	return res.body
@@ -140,10 +155,31 @@ export function resolvePartialResponseMode(startByte: number, statusCode: number
 	return 'append'
 }
 
+function positiveIntegerEnv(name: string): number | undefined {
+	const raw = process.env[name]
+	if (!raw) return undefined
+	const value = Number.parseInt(raw, 10)
+	return Number.isFinite(value) && value > 0 ? value : undefined
+}
+
+function downloadMaxDurationMs(): number {
+	return positiveIntegerEnv('ARROXY_BINARY_DOWNLOAD_MAX_MS') ?? HTTP_TIMEOUT.request
+}
+
+function normalizeDownloadFileOptions(allowPartialRetryOrOptions: boolean | DownloadFileOptions, signal?: AbortSignal): NormalizedDownloadFileOptions {
+	if (typeof allowPartialRetryOrOptions === 'object') {
+		return {allowPartialRetry: allowPartialRetryOrOptions.allowPartialRetry ?? true, signal: allowPartialRetryOrOptions.signal ?? signal, stallTimeoutMs: allowPartialRetryOrOptions.stallTimeoutMs ?? DOWNLOAD_STALL_TIMEOUT_MS, maxDurationMs: allowPartialRetryOrOptions.maxDurationMs ?? downloadMaxDurationMs()}
+	}
+	return {allowPartialRetry: allowPartialRetryOrOptions, signal, stallTimeoutMs: DOWNLOAD_STALL_TIMEOUT_MS, maxDurationMs: downloadMaxDurationMs()}
+}
+
 // Range-resume: if `${destination}.part` exists from a previous interrupted
 // attempt, resume via `Range: bytes=<size>-`. If the server responds 200
 // (no range support) instead of 206, truncate and start fresh.
-export async function downloadFile(url: string, destination: string, onProgress?: DownloadProgressCallback, allowPartialRetry = true, signal?: AbortSignal): Promise<void> {
+export async function downloadFile(url: string, destination: string, onProgress?: DownloadProgressCallback, allowPartialRetryOrOptions: boolean | DownloadFileOptions = true, signal?: AbortSignal): Promise<void> {
+	const options = normalizeDownloadFileOptions(allowPartialRetryOrOptions, signal)
+	const {allowPartialRetry, stallTimeoutMs, maxDurationMs} = options
+	signal = options.signal
 	if (signal?.aborted) throw cancelError()
 	await fsPromises.mkdir(path.dirname(destination), {recursive: true})
 
@@ -161,21 +197,28 @@ export async function downloadFile(url: string, destination: string, onProgress?
 
 	const stallController = new AbortController()
 	const combinedSignal = signal ? AbortSignal.any([signal, stallController.signal]) : stallController.signal
-	let stalled = false
+	let timeoutReason: 'duration' | 'stall' | null = null
+	const startedAt = Date.now()
 	let lastProgressAt = Date.now()
 	let lastDownloaded = startByte
 	let stallTimer: NodeJS.Timeout | null = null
+	let maxDurationTimer: NodeJS.Timeout | null = null
 	const armStallTimer = (): void => {
 		if (stallTimer) clearTimeout(stallTimer)
 		stallTimer = setTimeout(() => {
-			stalled = true
+			timeoutReason = 'stall'
 			stallController.abort()
-		}, DOWNLOAD_STALL_TIMEOUT_MS)
+		}, stallTimeoutMs)
 	}
 	const clearStallTimer = (): void => {
 		if (!stallTimer) return
 		clearTimeout(stallTimer)
 		stallTimer = null
+	}
+	const clearMaxDurationTimer = (): void => {
+		if (!maxDurationTimer) return
+		clearTimeout(maxDurationTimer)
+		maxDurationTimer = null
 	}
 
 	armStallTimer()
@@ -185,26 +228,34 @@ export async function downloadFile(url: string, destination: string, onProgress?
 		await new Promise<void>((resolve, reject) => {
 			let out: fs.WriteStream | null = null
 			let settled = false
-			const finish = (err?: Error): void => {
+			const finish = (err?: unknown): void => {
 				if (settled) return
 				settled = true
-				if (err) reject(err)
-				else resolve()
+				if (err) {
+					const error = err instanceof Error ? err : new Error(typeof err === 'string' ? err : 'Binary download failed')
+					stream.destroy(error)
+					out?.destroy(error)
+					reject(error)
+				} else resolve()
 			}
+
+			maxDurationTimer = setTimeout(() => {
+				timeoutReason = 'duration'
+				finish(new DownloadStalledError(`Download exceeded ${maxDurationMs}ms`))
+			}, maxDurationMs)
 
 			stream.once('response', (res: {statusCode?: number; headers: Record<string, string | string[] | undefined>}) => {
 				logger.debug('Binary download response', {url, statusCode: res.statusCode, startByte, contentLength: stringifyHeader(res.headers['content-length'])})
 				armStallTimer()
 				const mode = resolvePartialResponseMode(startByte, res.statusCode, res.headers['content-range'])
 				if (mode === 'discard-and-retry') {
-					stream.destroy(new RestartFreshDownloadError(`Discarding stale partial for ${path.basename(destination)}`))
+					finish(new RestartFreshDownloadError(`Discarding stale partial for ${path.basename(destination)}`))
 					return
 				}
 
+				stream.off('error', finish)
 				out = fs.createWriteStream(partPath, {flags: mode === 'append' ? 'a' : 'w'})
-				out.on('error', finish)
-				stream.pipe(out)
-				out.on('finish', () => finish())
+				void pipeline(stream, out).then(() => finish(), finish)
 			})
 			stream.on('downloadProgress', ({transferred, total}: {transferred: number; total: number}) => {
 				const downloaded = startByte + transferred
@@ -215,25 +266,31 @@ export async function downloadFile(url: string, destination: string, onProgress?
 				}
 				onProgress?.(downloaded, total > 0 ? startByte + total : undefined)
 			})
-			stream.once('error', (err: Error) => finish(err))
+			stream.once('error', finish)
 		})
 	} catch (err) {
-		if (stalled && !signal?.aborted) {
-			const stalledError = new DownloadStalledError(`No download progress for ${DOWNLOAD_STALL_TIMEOUT_MS}ms`)
-			logger.warn('Binary download stalled', {url, destination, startByte, lastDownloaded, lastProgressAgeMs: Date.now() - lastProgressAt})
+		if (err instanceof DownloadStalledError && !signal?.aborted) {
+			logger.warn('Binary download timed out', {url, destination, reason: timeoutReason, startByte, lastDownloaded, lastProgressAgeMs: Date.now() - lastProgressAt, stallTimeoutMs, maxDurationMs})
+			throw err
+		}
+		if (timeoutReason === 'stall' && !signal?.aborted) {
+			const stalledError = new DownloadStalledError(`No download progress for ${stallTimeoutMs}ms`)
+			logger.warn('Binary download timed out', {url, destination, reason: timeoutReason, startByte, lastDownloaded, lastProgressAgeMs: Date.now() - lastProgressAt, stallTimeoutMs, maxDurationMs})
 			throw stalledError
 		}
 		if (allowPartialRetry && err instanceof RestartFreshDownloadError) {
 			logger.warn('Stale partial detected, retrying binary download from byte 0', {destination, startByte})
 			await fsPromises.rm(partPath, {force: true})
-			return downloadFile(url, destination, onProgress, false, signal)
+			return downloadFile(url, destination, onProgress, {...options, allowPartialRetry: false})
 		}
 		throw err
 	} finally {
 		clearStallTimer()
+		clearMaxDurationTimer()
 	}
 
 	await fsPromises.rename(partPath, destination)
+	logger.debug('Binary download completed', {url, destination, bytesDownloaded: lastDownloaded, elapsedMs: Date.now() - startedAt})
 }
 
 // Extract structured diagnostic fields from a got/network error for analytics.
