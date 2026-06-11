@@ -1,0 +1,5 @@
+# Generated i18n artifacts.
+i18n/app.pot linguist-generated
+i18n/locales/*.po linguist-generated
+src/shared/i18n/locales/*.json linguist-generated
+src/shared/i18n/locales/en.json -linguist-generated
