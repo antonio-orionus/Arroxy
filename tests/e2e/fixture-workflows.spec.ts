@@ -9,6 +9,8 @@ import {clickContinue, preparePlaylistConfirm, prepareSingleConfirm, startBulkFr
 
 test.describe.configure({mode: 'serial'})
 
+const FIXTURE_M3U_VIDEO_ID_PATTERN = /\[(ARX[0-9A-Z]{8})\]\.mp4/g
+
 function configureSmallFileQuickProfile(settings: AppSettings): void {
 	const smallFileProfile = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'small-file')
 	if (!smallFileProfile) throw new Error('small-file built-in profile missing')
@@ -25,10 +27,7 @@ async function expectOrderedM3u(dir: string, playlistTitle: string, expectedIds:
 	await expect.poll(() => fs.existsSync(m3uPath), {timeout: 20_000}).toBe(true)
 	const m3u = fs.readFileSync(m3uPath, 'utf8')
 	expect(m3u.startsWith('#EXTM3U\n')).toBe(true)
-	for (const videoId of expectedIds) {
-		expect(m3u).toContain(`[${videoId}].mp4`)
-	}
-	const orderedIds = [...m3u.matchAll(/\[(ARX[0-9A-Z]{8})\]\.mp4/g)].map(match => match[1])
+	const orderedIds = [...m3u.matchAll(FIXTURE_M3U_VIDEO_ID_PATTERN)].map(match => match[1])
 	expect(orderedIds).toEqual([...expectedIds])
 }
 
