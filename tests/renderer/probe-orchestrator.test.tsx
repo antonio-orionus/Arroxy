@@ -205,7 +205,7 @@ describe('quickDownload', () => {
 		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'video'})
 		const queued = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0]?.[0]
 		expect(queued).toMatchObject({
-			url: mixedUrl,
+			url: VIDEO_PROBE.webpageUrl,
 			title: 'Test Video',
 			outputDir: '/tmp/downloads/Balanced 720p',
 			status: 'pending',

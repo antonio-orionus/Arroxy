@@ -85,7 +85,6 @@ function subtitleProfile(): DownloadProfile {
 		subfolder: {enabled: true, name: 'Subs'},
 		sponsorBlock: {mode: 'remove', categories: ['sponsor']},
 		embed: {chapters: true, metadata: true, thumbnail: false, description: true, thumbnailSidecar: true},
-		playlistProbeCap: 'confirm',
 		createdAt: '2026-06-07T00:00:00.000Z',
 		updatedAt: '2026-06-07T00:00:00.000Z'
 	}
@@ -132,6 +131,12 @@ describe('QueueSubmission', () => {
 
 		expect(prepared?.items).toHaveLength(1)
 		expect(prepared?.items[0]).toMatchObject({url: 'https://www.youtube.com/watch?v=abc', title: 'Video', outputDir: '/profile-downloads/Balanced 720p', formatLabel: 'Video + audio · Best native · up to 720p · best native audio', job: {kind: 'ranged-format'}})
+	})
+
+	it('uses the probe webpage URL for active-profile video items when wizard state is stale', () => {
+		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({wizardUrl: 'https://www.youtube.com/watch?v=stale'}), 'normal')
+
+		expect(prepared?.items[0]?.url).toBe('https://www.youtube.com/watch?v=abc')
 	})
 
 	it('uses the default downloads folder and profile subfolder with native separators', () => {

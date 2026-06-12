@@ -117,7 +117,6 @@ export const downloadProfileSchema = z.object({
 	subfolder: z.object({enabled: z.boolean(), name: subfolderNameSchema}),
 	sponsorBlock: z.object({mode: sponsorBlockModeSchema, categories: z.array(sponsorBlockCategorySchema)}),
 	embed: z.object({chapters: z.boolean(), metadata: z.boolean(), thumbnail: z.boolean(), description: z.boolean(), thumbnailSidecar: z.boolean()}),
-	playlistProbeCap: z.union([z.literal('confirm'), playlistProbeLimitSchema]),
 	createdAt: z.string(),
 	updatedAt: z.string()
 })

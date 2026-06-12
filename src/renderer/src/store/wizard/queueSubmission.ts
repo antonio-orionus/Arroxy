@@ -188,7 +188,7 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 
 	if (probe.kind === 'video') {
 		const outputTemplate = singleOutputTemplate(state.settings?.common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames)
-		const item = buildProfileEntryQueueItem({entry: {url: state.wizardUrl || probe.webpageUrl, title: probe.title, thumbnail: probe.thumbnail}, outputDir: singleOutputDir, extractor: probe.extractor, extractorKey: probe.extractorKey, resolved, profile, outputTemplate, writeM3u: false, lane})
+		const item = buildProfileEntryQueueItem({entry: {url: probe.webpageUrl || state.wizardUrl, title: probe.title, thumbnail: probe.thumbnail}, outputDir: singleOutputDir, extractor: probe.extractor, extractorKey: probe.extractorKey, resolved, profile, outputTemplate, writeM3u: false, lane})
 		return {items: [item]}
 	}
 

@@ -22,6 +22,17 @@ describe('DownloadProfileEditor', () => {
 		expect(screen.queryByTestId('profiles-editor-audio-quality')).not.toBeInTheDocument()
 	})
 
+	it('does not render profile-specific playlist cap controls', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		expect(profile).toBeDefined()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+		expect(await screen.findByTestId('profiles-editor-video-codec')).toBeInTheDocument()
+		expect(screen.queryByTestId('profiles-editor-playlist-cap')).not.toBeInTheDocument()
+		expect(screen.queryByText('Playlist probe cap')).not.toBeInTheDocument()
+	})
+
 	it('shows M4A/AAC audio preference for Smart TV H.264 MP4 video profiles', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'mp4-1080')
 		expect(profile).toBeDefined()

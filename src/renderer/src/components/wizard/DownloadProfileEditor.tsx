@@ -4,17 +4,7 @@ import {DOWNLOAD_PROFILE_ICONS} from '@shared/schemas.js'
 import type {CommonSettings, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
 import {effectiveOutputDir} from '@shared/subfolder.js'
 import {cn, formatHomeRelativePath} from '@renderer/lib/utils.js'
-import {
-	createDownloadProfileDraft,
-	defaultProfileSubfolderName,
-	downloadProfileFromDraft,
-	type DownloadProfileAudioQuality,
-	type DownloadProfileDraftAction,
-	type DownloadProfileMediaMode,
-	type DownloadProfilePlaylistCap,
-	updateDownloadProfileDraft,
-	validateDownloadProfileDraft
-} from '../../store/wizard/downloadProfileDraft.js'
+import {createDownloadProfileDraft, defaultProfileSubfolderName, downloadProfileFromDraft, type DownloadProfileAudioQuality, type DownloadProfileDraftAction, type DownloadProfileMediaMode, updateDownloadProfileDraft, validateDownloadProfileDraft} from '../../store/wizard/downloadProfileDraft.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
@@ -157,14 +147,6 @@ const SPONSOR_BLOCK_OPTIONS: {value: SponsorBlockMode; label: string}[] = [
 
 const SPONSOR_BLOCK_HINTS: Record<SponsorBlockMode, string> = {off: 'No SponsorBlock — video plays as uploaded.', mark: 'Marks sponsor segments as chapters (non-destructive).', remove: 'Cuts sponsor segments from the video using FFmpeg.'}
 
-const PLAYLIST_CAP_OPTIONS: SelectOption<DownloadProfilePlaylistCap>[] = [
-	{value: 'confirm', label: 'Confirm when capped'},
-	{value: '100', label: 'Load 100 items'},
-	{value: '250', label: 'Load 250 items'},
-	{value: '500', label: 'Load 500 items'},
-	{value: '1000', label: 'Load 1000 items'}
-]
-
 const SELECTABLE_TOGGLE_CLASS = 'flex-1 data-[state=on]:border-[var(--brand)] data-[state=on]:bg-[var(--brand-dim)] data-[state=on]:text-[var(--brand)] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]'
 const OUTPUT_MODE_CARD_CLASS =
 	'h-auto min-h-[4.35rem] flex-col gap-1.5 whitespace-normal rounded-lg border border-[var(--border-strong)] px-2 py-2.5 text-center data-[state=on]:border-[var(--brand)] data-[state=on]:bg-[var(--brand-dim)] data-[state=on]:text-[var(--brand)] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]'
@@ -258,8 +240,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 		embedChapters,
 		saveDescription,
 		saveThumbnail,
-		sponsorBlockMode,
-		playlistCap
+		sponsorBlockMode
 	} = draft
 	const showVideo = mediaMode === 'video-audio' || mediaMode === 'video-only'
 	const showAudio = mediaMode === 'video-audio' || mediaMode === 'audio-only'
@@ -757,8 +738,6 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 										</Alert>
 									)}
 								</Card>
-
-								<ProfileSelect label="Playlist probe cap" value={playlistCap} options={PLAYLIST_CAP_OPTIONS} onValueChange={next => updateDraft({type: 'set-playlist-cap', playlistCap: next})} testId="profiles-editor-playlist-cap" />
 							</FieldGroup>
 						</ProfilePanel>
 					</div>

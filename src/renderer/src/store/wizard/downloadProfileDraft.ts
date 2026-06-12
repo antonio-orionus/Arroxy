@@ -5,7 +5,6 @@ import {isValidSubfolder, safeFolderName} from '@shared/subfolder.js'
 
 export type DownloadProfileMediaMode = DownloadProfile['media']['kind']
 export type DownloadProfileAudioQuality = 'best' | '320' | '192' | '128'
-export type DownloadProfilePlaylistCap = 'confirm' | '100' | '250' | '500' | '1000'
 
 export interface DownloadProfileDraft {
 	profileId: string | null
@@ -31,7 +30,6 @@ export interface DownloadProfileDraft {
 	saveDescription: boolean
 	saveThumbnail: boolean
 	sponsorBlockMode: SponsorBlockMode
-	playlistCap: DownloadProfilePlaylistCap
 }
 
 export type DownloadProfileDraftAction =
@@ -58,7 +56,6 @@ export type DownloadProfileDraftAction =
 	| {type: 'set-save-description'; saveDescription: boolean}
 	| {type: 'set-save-thumbnail'; saveThumbnail: boolean}
 	| {type: 'set-sponsor-block-mode'; sponsorBlockMode: SponsorBlockMode}
-	| {type: 'set-playlist-cap'; playlistCap: DownloadProfilePlaylistCap}
 
 export interface DownloadProfileDraftValidation {
 	subfolderInvalid: boolean
@@ -86,11 +83,6 @@ function bitrateToQuality(bitrateKbps: number | undefined): DownloadProfileAudio
 	if (bitrateKbps === 320) return '320'
 	if (bitrateKbps === 128) return '128'
 	return bitrateKbps === undefined ? 'best' : '192'
-}
-
-function playlistCapToControlValue(cap: DownloadProfile['playlistProbeCap'] | undefined): DownloadProfilePlaylistCap {
-	if (cap === 100 || cap === 250 || cap === 500 || cap === 1000) return String(cap) as DownloadProfilePlaylistCap
-	return 'confirm'
 }
 
 function initialCodec(profile: DownloadProfile | null): PlaylistVideoCodec {
@@ -141,8 +133,7 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		embedChapters: initialProfile?.embed.chapters ?? true,
 		saveDescription: initialProfile?.embed.description ?? true,
 		saveThumbnail: initialProfile?.embed.thumbnailSidecar ?? true,
-		sponsorBlockMode: initialProfile?.sponsorBlock.mode ?? 'off',
-		playlistCap: playlistCapToControlValue(initialProfile?.playlistProbeCap)
+		sponsorBlockMode: initialProfile?.sponsorBlock.mode ?? 'off'
 	}
 }
 
@@ -201,8 +192,6 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 			return {...draft, saveThumbnail: action.saveThumbnail}
 		case 'set-sponsor-block-mode':
 			return {...draft, sponsorBlockMode: action.sponsorBlockMode}
-		case 'set-playlist-cap':
-			return {...draft, playlistCap: action.playlistCap}
 	}
 }
 
@@ -242,7 +231,6 @@ export function downloadProfileFromDraft(draft: DownloadProfileDraft, now: strin
 		subfolder: {enabled: draft.saveInsideSubfolder, name: draft.saveInsideSubfolder ? draft.subfolderName.trim() || defaultProfileSubfolderName(draft.profileName) : ''},
 		sponsorBlock: {mode: showVideo ? draft.sponsorBlockMode : 'off', categories: showVideo && draft.sponsorBlockMode !== 'off' ? [...DEFAULTS.sponsorBlockCategories] : []},
 		embed: {chapters: showVideo && draft.embedChapters, metadata: draft.embedMetadata, thumbnail: false, description: draft.saveDescription, thumbnailSidecar: draft.saveThumbnail},
-		playlistProbeCap: draft.playlistCap === 'confirm' ? 'confirm' : Number(draft.playlistCap),
 		createdAt: draft.createdAt ?? now,
 		updatedAt: now
 	}

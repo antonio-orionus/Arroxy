@@ -100,5 +100,6 @@ describe('DownloadProfileDraft', () => {
 		const profile = downloadProfileFromDraft(draft, NOW, () => 'profile-id')
 
 		expect(profile).toMatchObject({id: 'profile-id', name: 'Study Captions', media: {kind: 'subtitles-only'}, subtitles: {enabled: true, languages: ['en', 'uk']}, output: {kind: 'fixed', dir: '/courses'}, subfolder: {enabled: true, name: 'Study Captions'}, createdAt: NOW, updatedAt: NOW})
+		expect('playlistProbeCap' in profile).toBe(false)
 	})
 })
