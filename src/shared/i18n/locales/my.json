@@ -1,12 +1,12 @@
 {
 	"common": {"back": "နောက်သို့", "cancel": "ပယ်ဖျက်မည်", "continue": "ဆက်လက်သွားမည်", "retry": "ထပ်မံကြိုးစားမည်", "startOver": "အစကနေပြန်စမည်"},
-	"app": {"feedback": "အကြံပြုချက်", "logs": "မှတ်တမ်းများ", "feedbackNudge": "Arroxy ကိုနှစ်သက်ပါသလား? သင့်ထံမှကြားချင်ပါသည်! 💬", "debugCopied": "ကူးယူပြီးပြီ!", "debugCopyTitle": "အမှားရှာဖွေရေးအချက်အလက်ကူးယူမည် (Electron, OS, Chrome ဗားရှင်းများ)", "zoomIn": "ချဲ့မည်", "zoomOut": "ချုံ့မည်"},
+	"app": {"feedback": "အကြံပြုချက်", "logs": "မှတ်တမ်းများ", "feedbackNudge": "Arroxy ကိုနှစ်သက်ပါသလား? သင့်ထံမှကြားချင်ပါသည်! 💬", "zoomIn": "ချဲ့မည်", "zoomOut": "ချုံ့မည်"},
 	"about": {"button": "အကြောင်း", "openTitle": "Arroxy အကြောင်း", "tagline": "YouTube နှင့် အခြား site 2000+ အတွက် မြန်ဆန်ပြီး အသုံးရလွယ်သော downloader။", "websiteLink": "ဝက်ဘ်ဆိုက်", "githubLink": "GitHub", "licenseLine": "MIT လိုင်စင် · Antonio Orionus မှ", "thirdPartyNotices": "တတိယပါတီ သတိပေးချက်များ ကြည့်မည်"},
 	"titleBar": {"close": "ပိတ်မည်", "minimize": "သေးငယ်အောင်လုပ်မည်", "maximize": "အများဆုံးချဲ့မည်", "restore": "ပြန်ရောက်မည်"},
 	"splash": {"greeting": "ဟေး၊ ကြိုဆိုပါသည်!", "warmup": "ဒေါင်းလုဒ်များကို ပြင်ဆင်နေသည်…", "downloading": "{{binary}} ဒေါင်းလုဒ်လုပ်နေသည်…", "warmupFailedNoDiag": "တပ်ဆင်မှုမအောင်မြင်ပါ။ အသေးစိတ်ကြည့်ရန် setup log ဖွင့်ပါ။"},
 	"repair": {
 		"title": "တပ်ဆင်မှုတွင် သင့်အကူအညီလိုပါသည်",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "အတည်မပြုနိုင်ပါ။",
 			"downloadFailed": "ဒေါင်းလုဒ်မအောင်မြင်ပါ။ အင်တာနက်ချိတ်ဆက်မှုစစ်ဆေးပြီး ထပ်ကြိုးစားပါ။",
@@ -126,7 +126,7 @@
 				"heading": "Arroxy ဆွဲထုတ်နိုင်သည်",
 				"youtube": {"heading": "YouTube", "video": "ဗီဒီယိုများ", "channel": "Channel များ", "playlist": "Playlist များ", "short": "Shorts", "music": "တေးဂီတ", "podcast": "Podcast များ"},
 				"anySite": {"heading": "2000+ ဝဘ်ဆိုဒ်", "video": "ဗီဒီယိုများ", "videoPlaylist": "ဗီဒီယို playlist များ", "musicPlaylist": "တေးဂီတ playlist များ"},
-				"always": {"heading": "အမြဲ ရရှိနိုင်", "audioOnly": "အသံသာများ", "subtitles": "စာတန်းထိုးများ"}
+				"always": {"audioOnly": "အသံသာများ", "subtitles": "စာတန်းထိုးများ"}
 			},
 			"mascotIdle": "လင့်ခ်တစ်ခုထည့်ပြီး Arroxy ကို ဆွဲယူခိုင်းလိုက်ပါ ✨",
 			"mascotBusy": "နောက်ခံတွင် ဒေါင်းလုဒ်လုပ်နေသည်… ကျွန်ုပ် တစ်ချိန်တည်းလုပ်နိုင်သည် 😎",

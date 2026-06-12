@@ -1,12 +1,12 @@
 {
 	"common": {"back": "Back", "cancel": "Cancel", "continue": "Continue", "retry": "Retry", "startOver": "Start over"},
-	"app": {"feedback": "Feedback", "logs": "Logs", "feedbackNudge": "Enjoying Arroxy? I'd love to hear from you! 💬", "debugCopied": "Copied!", "debugCopyTitle": "Copy debug info (Electron, OS, Chrome versions)", "zoomIn": "Zoom in", "zoomOut": "Zoom out"},
+	"app": {"feedback": "Feedback", "logs": "Logs", "feedbackNudge": "Enjoying Arroxy? I'd love to hear from you! 💬", "zoomIn": "Zoom in", "zoomOut": "Zoom out"},
 	"about": {"button": "About", "openTitle": "About Arroxy", "tagline": "Fast, friendly downloader for YouTube and 2000+ other sites.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "MIT License · by Antonio Orionus", "thirdPartyNotices": "View third-party notices"},
 	"titleBar": {"close": "Close", "minimize": "Minimize", "maximize": "Maximize", "restore": "Restore"},
 	"splash": {"greeting": "Hey, welcome back!", "warmup": "Preparing downloads…", "downloading": "Downloading {{binary}}…", "warmupFailedNoDiag": "Setup failed. Open the setup log for details."},
 	"repair": {
 		"title": "Setup needs your help",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "Could not be verified.",
 			"downloadFailed": "Download failed. Check your internet connection and retry.",
@@ -126,7 +126,7 @@
 				"heading": "What Arroxy can pull",
 				"youtube": {"heading": "YouTube", "video": "Videos", "channel": "Channels", "playlist": "Playlists", "short": "Shorts", "music": "Music", "podcast": "Podcasts"},
 				"anySite": {"heading": "2000+ sites", "video": "Videos", "videoPlaylist": "Video playlists", "musicPlaylist": "Music playlists"},
-				"always": {"heading": "Always available", "audioOnly": "Audio only", "subtitles": "Subtitles"}
+				"always": {"audioOnly": "Audio only", "subtitles": "Subtitles"}
 			},
 			"mascotIdle": "Drop a link and let Arroxy pull it ✨",
 			"mascotBusy": "Downloading in the background… I can multitask 😎",

@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "公式サイト"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "コピーしました!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "デバッグ情報をコピー (Electron、OS、Chrome のバージョン)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "フィードバック"
@@ -554,10 +546,6 @@ msgstr "セットアップを再試行"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "セットアップログを表示"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "音声のみ"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "いつでも利用可能"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "字幕"
@@ -2244,28 +2228,3 @@ msgstr "単体ファイル名に動画IDを追加"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "タイトルが変わったり重複したりしても、単発ダウンロードを一意に保ちます。"
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "個別 URL のリストを貼り付け、整理後の一覧を確認してから、共通の品質プリセットでキューに追加します。"
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "キューに追加する前に、形式、字幕、フォルダー、プレイリスト項目を手順ごとに選びます。"
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "YouTube URL"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "YouTubeのリンクを貼ってね (動画でもShortsでもOK) — 「形式を取得」を押せばすぐ取りかかるよ ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "保存済みまたは既定の設定を使い、設定手順を開かずにこの単一動画をキューへ追加します。"
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "クイックダウンロードは、単体動画、プレイリスト、チャンネル、検索、Bulk URL を使用できます。"
-

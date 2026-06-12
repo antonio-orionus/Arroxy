@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "官网"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "已复制!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "复制调试信息(Electron、操作系统、Chrome 版本)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "反馈"
@@ -554,10 +546,6 @@ msgstr "重试初始化"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "查看设置日志"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "纯音频"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "始终可用"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "字幕"
@@ -2244,28 +2228,3 @@ msgstr "将视频 ID 添加到单个文件名"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "当标题变化或重复时，让单次下载保持唯一。"
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "粘贴单个 URL 列表，预览清理后的列表，然后使用同一个质量预设加入队列。"
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "加入队列前，逐步选择格式、字幕、文件夹和播放列表项目。"
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "YouTube 链接"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "丢一个 YouTube 链接给我(视频或 Shorts 都行)— 点「获取格式」我就开始干活 ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "使用已保存或默认偏好设置，将此单个视频加入队列，而不打开设置步骤。"
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "快速下载可以使用单个视频、播放列表、频道、搜索和批量 URL。"
-

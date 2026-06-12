@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "वेबसाइट"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "कॉपी हो गया!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "डिबग जानकारी कॉपी करें (Electron, OS, Chrome वर्शन)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "प्रतिक्रिया"
@@ -554,10 +546,6 @@ msgstr "सेटअप पुनः प्रयास करें"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "सेटअप लॉग देखें"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "केवल ऑडियो"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "हमेशा उपलब्ध"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "उपशीर्षक"
@@ -2244,28 +2228,3 @@ msgstr "एकल फ़ाइलनामों में वीडियो ID
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "शीर्षक बदलने या टकराने पर एकबारगी डाउनलोड को अलग रखता है।"
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "अलग URLs की सूची पेस्ट करें, साफ सूची देखें, फिर एक साझा quality preset के साथ कतार में जोड़ें।"
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "क्यू में जोड़ने से पहले फॉर्मैट, सबटाइटल, फ़ोल्डर और प्लेलिस्ट आइटम चरण-दर-चरण चुनें।"
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "YouTube URL"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "एक लिंक डालें — YouTube या 2000+ साइटों में से कोई भी ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "आपकी सेव की गई या डिफ़ॉल्ट पसंदों का उपयोग करके सेटअप चरण खोले बिना इस एकल वीडियो को क्यू में जोड़ता है।"
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "त्वरित डाउनलोड एकल वीडियो, प्लेलिस्ट, चैनल, खोज और बल्क URLs के लिए काम करता है।"
-

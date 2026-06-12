@@ -1,6 +1,6 @@
 {
 	"common": {"back": "Назад", "cancel": "Скасувати", "continue": "Продовжити", "retry": "Повторити", "startOver": "Почати спочатку"},
-	"app": {"feedback": "Зворотний зв'язок", "logs": "Журнали", "feedbackNudge": "Подобається Arroxy? Я б залюбки почув твою думку! 💬", "debugCopied": "Скопійовано!", "debugCopyTitle": "Скопіювати налагоджувальну інформацію (версії Electron, ОС, Chrome)", "zoomIn": "Збільшити", "zoomOut": "Зменшити"},
+	"app": {"feedback": "Зворотний зв'язок", "logs": "Журнали", "feedbackNudge": "Подобається Arroxy? Я б залюбки почув твою думку! 💬", "zoomIn": "Збільшити", "zoomOut": "Зменшити"},
 	"about": {
 		"button": "Про програму",
 		"openTitle": "Про програму Arroxy",
@@ -14,7 +14,7 @@
 	"splash": {"greeting": "Привіт, з поверненням!", "warmup": "Підготовка завантажень…", "downloading": "Завантаження {{binary}}…", "warmupFailedNoDiag": "Налаштування не вдалося. Відкрий журнал налаштування для деталей."},
 	"repair": {
 		"title": "Налаштування потребує твоєї допомоги",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "Не вдалося перевірити.",
 			"downloadFailed": "Завантаження не вдалося. Перевір підключення до інтернету та спробуй ще раз.",
@@ -143,7 +143,7 @@
 				"heading": "Що Arroxy вміє завантажувати",
 				"youtube": {"heading": "YouTube", "video": "Відео", "channel": "Канали", "playlist": "Плейлисти", "short": "Shorts", "music": "Музика", "podcast": "Подкасти"},
 				"anySite": {"heading": "2000+ сайтів", "video": "Відео", "videoPlaylist": "Відеоплейлисти", "musicPlaylist": "Музичні плейлисти"},
-				"always": {"heading": "Завжди доступно", "audioOnly": "Тільки аудіо", "subtitles": "Субтитри"}
+				"always": {"audioOnly": "Тільки аудіо", "subtitles": "Субтитри"}
 			},
 			"mascotIdle": "Кинь посилання, а Arroxy його забере ✨",
 			"mascotBusy": "Завантажую у фоні… можу робити кілька справ одночасно 😎",

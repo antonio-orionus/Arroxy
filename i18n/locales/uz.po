@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Veb-sayt"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "Nusxalandi!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "Debug ma'lumotlarini nusxalash (Electron, OS, Chrome versiyalari)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Fikr-mulohaza"
@@ -554,10 +546,6 @@ msgstr "Sozlashni qayta boshlash"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Sozlash jurnalini ko'rish"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "Faqat audio"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "Har doim mavjud"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "Subtitrlar"
@@ -2244,28 +2228,3 @@ msgstr "Yakka fayl nomlariga video ID qo‘shish"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Sarlavhalar o‘zgarganda yoki mos kelib qolganda yakka yuklab olishlarni noyob saqlaydi."
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "Alohida URLlar ro‘yxatini joylang, tozalangan ro‘yxatni ko‘ring va umumiy sifat presetida navbatga qo‘shing."
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "Navbatga qo‘shishdan oldin formatlar, subtitrlar, jild va pleylist elementlarini bosqichma-bosqich tanlang."
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "YouTube URL"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "Menga YouTube havolasini yuboring (video yoki Short) — keyin \"Formatlarni olish\" tugmasini bosing, ishga tushaman ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "Saqlangan yoki standart sozlamalaringizdan foydalanib, sozlash bosqichlarini ochmasdan bu bitta videoni navbatga qo‘shadi."
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "Tez yuklab olish alohida videolar, pleylistlar, kanallar, qidiruvlar va Bulk URLlardan foydalanishi mumkin."
-

@@ -1,12 +1,12 @@
 {
 	"common": {"back": "واپس", "cancel": "منسوخ کریں", "continue": "جاری رکھیں", "retry": "دوبارہ کوشش کریں", "startOver": "دوبارہ شروع کریں"},
-	"app": {"feedback": "فیڈبیک", "logs": "لاگز", "feedbackNudge": "Arroxy پسند آ رہا ہے؟ آپ سے سن کر خوشی ہو گی! 💬", "debugCopied": "کاپی ہو گیا!", "debugCopyTitle": "ڈیبگ معلومات کاپی کریں (Electron, OS, Chrome ورژنز)", "zoomIn": "زوم اِن", "zoomOut": "زوم آؤٹ"},
+	"app": {"feedback": "فیڈبیک", "logs": "لاگز", "feedbackNudge": "Arroxy پسند آ رہا ہے؟ آپ سے سن کر خوشی ہو گی! 💬", "zoomIn": "زوم اِن", "zoomOut": "زوم آؤٹ"},
 	"about": {"button": "کے بارے میں", "openTitle": "Arroxy کے بارے میں", "tagline": "YouTube اور 2000+ دیگر سائٹس کے لیے تیز اور آسان ڈاؤنلوڈر۔", "websiteLink": "ویب سائٹ", "githubLink": "GitHub", "licenseLine": "MIT لائسنس · از Antonio Orionus", "thirdPartyNotices": "فریق ثالث کے نوٹس دیکھیں"},
 	"titleBar": {"close": "بند کریں", "minimize": "چھوٹا کریں", "maximize": "بڑا کریں", "restore": "بحال کریں"},
 	"splash": {"greeting": "ارے، خوش آمدید!", "warmup": "ڈاؤن لوڈز تیار کیے جا رہے ہیں…", "downloading": "{{binary}} ڈاؤن لوڈ ہو رہا ہے…", "warmupFailedNoDiag": "سیٹ اپ ناکام ہوا۔ تفصیلات کے لیے سیٹ اپ لاگ کھولیں۔"},
 	"repair": {
 		"title": "سیٹ اپ کو آپ کی مدد چاہیے",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "تصدیق نہیں ہو سکی۔",
 			"downloadFailed": "ڈاؤن لوڈ ناکام ہوا۔ اپنا انٹرنیٹ کنکشن چیک کریں اور دوبارہ کوشش کریں۔",
@@ -135,7 +135,7 @@
 				"heading": "Arroxy کیا لا سکتا ہے",
 				"youtube": {"heading": "YouTube", "video": "ویڈیوز", "channel": "چینلز", "playlist": "پلے لسٹس", "short": "Shorts", "music": "موسیقی", "podcast": "پوڈکاسٹ"},
 				"anySite": {"heading": "2000+ سائٹس", "video": "ویڈیوز", "videoPlaylist": "ویڈیو پلے لسٹس", "musicPlaylist": "میوزک پلے لسٹس"},
-				"always": {"heading": "ہمیشہ دستیاب", "audioOnly": "صرف آڈیو", "subtitles": "سب ٹائٹلز"}
+				"always": {"audioOnly": "صرف آڈیو", "subtitles": "سب ٹائٹلز"}
 			},
 			"mascotIdle": "ایک لنک ڈالیں اور Arroxy کو اسے کھینچ لانے دیں ✨",
 			"mascotBusy": "بیک گراؤنڈ میں ڈاؤن لوڈ ہو رہا ہے… میں ملٹی ٹاسک کر سکتا ہوں 😎",

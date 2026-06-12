@@ -1,6 +1,6 @@
 {
 	"common": {"back": "Назад", "cancel": "Откажи", "continue": "Настави", "retry": "Покушај поново", "startOver": "Почни испочетка"},
-	"app": {"feedback": "Повратна информација", "logs": "Дневници", "feedbackNudge": "Свиђа ти се Arroxy? Радо бих чуо твоје мишљење! 💬", "debugCopied": "Копирано!", "debugCopyTitle": "Копирај информације за отклањање грешака (Electron, ОС, верзије Chrome-а)", "zoomIn": "Увећај", "zoomOut": "Умањи"},
+	"app": {"feedback": "Повратна информација", "logs": "Дневници", "feedbackNudge": "Свиђа ти се Arroxy? Радо бих чуо твоје мишљење! 💬", "zoomIn": "Увећај", "zoomOut": "Умањи"},
 	"about": {
 		"button": "О апликацији",
 		"openTitle": "О апликацији Arroxy",
@@ -14,7 +14,7 @@
 	"splash": {"greeting": "Добродошао/ла назад!", "warmup": "Припрема преузимања…", "downloading": "Преузимање {{binary}}…", "warmupFailedNoDiag": "Подешавање није успело. Отвори дневник подешавања за детаље."},
 	"repair": {
 		"title": "Подешавању је потребна твоја помоћ",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "Није могло да се провери.",
 			"downloadFailed": "Преузимање није успело. Провери интернет везу и покушај поново.",
@@ -143,7 +143,7 @@
 				"heading": "Шта Arroxy може да преузме",
 				"youtube": {"heading": "YouTube", "video": "Видеа", "channel": "Канали", "playlist": "Плејлисте", "short": "Shorts", "music": "Музика", "podcast": "Подкасти"},
 				"anySite": {"heading": "2000+ сајтова", "video": "Видеа", "videoPlaylist": "Видео плејлисте", "musicPlaylist": "Музичке плејлисте"},
-				"always": {"heading": "Увек доступно", "audioOnly": "Само звук", "subtitles": "Титлови"}
+				"always": {"audioOnly": "Само звук", "subtitles": "Титлови"}
 			},
 			"mascotIdle": "Убаци линк и пусти Arroxy да га преузме ✨",
 			"mascotBusy": "Преузимање у позадини… Умем да радим више ствари одједном 😎",

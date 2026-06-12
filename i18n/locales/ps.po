@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "ویب پاڼه"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "کاپي شو!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "د ډیبګ معلومات کاپي کړئ (Electron، OS، Chrome نسخې)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "نظر"
@@ -554,10 +546,6 @@ msgstr "نصب بیا وکړئ"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "د نصب لاګ وګورئ"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "یوازې غږونه"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "تل شتون لري"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "ژباړلیکونه"
@@ -2244,28 +2228,3 @@ msgstr "د یوازینو فایل نومونو ته د ویډیو ID ورزیا
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "کله چې سرلیکونه بدل شي یا سره ټکر وکړي، یو ځلني ډاونلوډونه ځانګړي ساتي."
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "د جلا URLونو لست ونښلوئ، پاک شوی لست وګورئ، بیا یې په ګډ quality preset سره کتار ته واچوئ."
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "له قطار ته تر زیاتولو مخکې بڼې، فرعي لیکنې، پوښۍ او د پلی‌لېسټ توکي ګام په ګام وټاکئ."
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "YouTube URL"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "یو YouTube لینک (ویډیو یا Short) راکړئ — بیا \"بڼې ترلاسه کړه\" کلیک وکړئ او زه کار پیل کوم ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "ستاسې خوندي شوې یا تلواله خوښې کاروي او دا یو ویډیو د چمتو کولو پړاوونو له پرانیستو پرته قطار ته زیاتوي."
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "چټک ډاونلوډ کولی شي واحد ویډیوګانې، playlists، channels، لټونونه، او Bulk URLs وکاروي."
-

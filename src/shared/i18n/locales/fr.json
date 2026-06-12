@@ -1,12 +1,12 @@
 {
 	"common": {"back": "Retour", "cancel": "Annuler", "continue": "Continuer", "retry": "Réessayer", "startOver": "Recommencer"},
-	"app": {"feedback": "Commentaires", "logs": "Journaux", "feedbackNudge": "Tu apprécies Arroxy ? J'adorerais avoir ton avis ! 💬", "debugCopied": "Copié !", "debugCopyTitle": "Copier les infos de débogage (versions Electron, OS, Chrome)", "zoomIn": "Zoom avant", "zoomOut": "Zoom arrière"},
+	"app": {"feedback": "Commentaires", "logs": "Journaux", "feedbackNudge": "Tu apprécies Arroxy ? J'adorerais avoir ton avis ! 💬", "zoomIn": "Zoom avant", "zoomOut": "Zoom arrière"},
 	"about": {"button": "À propos", "openTitle": "À propos d'Arroxy", "tagline": "Téléchargeur rapide et convivial pour YouTube et plus de 2000 autres sites.", "websiteLink": "Site web", "githubLink": "GitHub", "licenseLine": "Licence MIT · par Antonio Orionus", "thirdPartyNotices": "Voir les mentions tierces"},
 	"titleBar": {"close": "Fermer", "minimize": "Réduire", "maximize": "Agrandir", "restore": "Restaurer"},
 	"splash": {"greeting": "Salut, content de te revoir !", "warmup": "Préparation des téléchargements…", "downloading": "Téléchargement de {{binary}}…", "warmupFailedNoDiag": "Échec de la configuration. Ouvre le journal de configuration pour plus de détails."},
 	"repair": {
 		"title": "La configuration nécessite votre aide",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "Impossible de vérifier.",
 			"downloadFailed": "Le téléchargement a échoué. Vérifie ta connexion internet et réessaie.",
@@ -135,7 +135,7 @@
 				"heading": "Ce qu'Arroxy peut récupérer",
 				"youtube": {"heading": "YouTube", "video": "Vidéos", "channel": "Chaînes", "playlist": "Playlists", "short": "Shorts", "music": "Musique", "podcast": "Podcasts"},
 				"anySite": {"heading": "2000+ sites", "video": "Vidéos", "videoPlaylist": "Playlists vidéo", "musicPlaylist": "Playlists musicales"},
-				"always": {"heading": "Toujours disponible", "audioOnly": "Audio uniquement", "subtitles": "Sous-titres"}
+				"always": {"audioOnly": "Audio uniquement", "subtitles": "Sous-titres"}
 			},
 			"mascotIdle": "Dépose un lien et laisse Arroxy le récupérer ✨",
 			"mascotBusy": "Téléchargement en arrière-plan… je peux faire plusieurs choses à la fois 😎",

@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "ድረ-ገጽ"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "ተቀድቷል!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "የሂደት መረጃ ቅዳ (Electron፣ ስርዓተ ክወና፣ Chrome ስሪቶች)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "አስተያየት"
@@ -554,10 +546,6 @@ msgstr "ማዋቀሩን እንደገና ሞክር"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "የማዋቀሪያ ምዝግብ ፋይል ተመልከት"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "ድምጽ ብቻ"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "ሁልጊዜ ይኖራል"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "ንዑስ ርዕሶች"
@@ -2244,28 +2228,3 @@ msgstr "የቪዲዮ ID ወደ ነጠላ ፋይል ስሞች ጨምር"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "ርዕሶች ሲቀየሩ ወይም ሲጋጩ ነጠላ ማውረዶችን ልዩ ያደርጋል።"
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "የተለዩ URLዎችን ዝርዝር ለጥፍ፣ የተጸዳውን ዝርዝር ተመልከት፣ ከዚያ በአንድ የጥራት preset ወደ queue አክል።"
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "ወደ ወረፋ ከመጨመርዎ በፊት ቅርጸቶችን፣ ንዑስ ጽሑፎችን፣ አቃፊን እና የፕሌይሊስት ንጥሎችን በደረጃ ይምረጡ።"
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "YouTube URL"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "YouTube አገናኝ ጣል (ቪዲዮ ወይም Short) — ከዚያ \"ቅርጸቶችን ጫን\" ጠቅ አድርግ ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "የተቀመጡ ወይም ነባሪ ምርጫዎችዎን ተጠቅሞ ይህን ነጠላ ቪዲዮ የማዘጋጃ ደረጃዎችን ሳይከፍት ወደ ወረፋ ያክላል።"
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "ፈጣን አውርድ ነጠላ ቪዲዮዎችን፣ playlists፣ channels፣ ፍለጋዎችን እና Bulk URLsን መጠቀም ይችላል።"
-

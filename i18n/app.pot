@@ -34,14 +34,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr ""
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr ""
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr ""
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr ""
@@ -552,10 +544,6 @@ msgstr ""
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
-msgstr ""
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
 msgstr ""
 
 msgctxt "repair.deps.ffmpeg"
@@ -1893,10 +1881,6 @@ msgstr ""
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
-msgstr ""
-
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
 msgstr ""
 
 msgctxt "wizard.url.features.always.subtitles"

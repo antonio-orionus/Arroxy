@@ -1,12 +1,12 @@
 {
 	"common": {"back": "Πίσω", "cancel": "Ακύρωση", "continue": "Συνέχεια", "retry": "Επανάληψη", "startOver": "Επανεκκίνηση"},
-	"app": {"feedback": "Σχόλια", "logs": "Αρχεία καταγραφής", "feedbackNudge": "Σου αρέσει το Arroxy; Θα χαρώ να ακούσω τη γνώμη σου! 💬", "debugCopied": "Αντιγράφηκε!", "debugCopyTitle": "Αντιγραφή πληροφοριών εντοπισμού σφαλμάτων (Electron, ΛΣ, εκδόσεις Chrome)", "zoomIn": "Μεγέθυνση", "zoomOut": "Σμίκρυνση"},
+	"app": {"feedback": "Σχόλια", "logs": "Αρχεία καταγραφής", "feedbackNudge": "Σου αρέσει το Arroxy; Θα χαρώ να ακούσω τη γνώμη σου! 💬", "zoomIn": "Μεγέθυνση", "zoomOut": "Σμίκρυνση"},
 	"about": {"button": "Σχετικά", "openTitle": "Σχετικά με το Arroxy", "tagline": "Γρήγορο και φιλικό πρόγραμμα λήψης για το YouTube και 2000+ άλλους ιστότοπους.", "websiteLink": "Ιστότοπος", "githubLink": "GitHub", "licenseLine": "Άδεια MIT · από Antonio Orionus", "thirdPartyNotices": "Προβολή ανακοινώσεων τρίτων"},
 	"titleBar": {"close": "Κλείσιμο", "minimize": "Ελαχιστοποίηση", "maximize": "Μεγιστοποίηση", "restore": "Επαναφορά"},
 	"splash": {"greeting": "Καλώς ήρθες πάλι!", "warmup": "Προετοιμασία λήψεων…", "downloading": "Λήψη {{binary}}…", "warmupFailedNoDiag": "Η ρύθμιση απέτυχε. Άνοιξε το αρχείο καταγραφής ρύθμισης για λεπτομέρειες."},
 	"repair": {
 		"title": "Η ρύθμιση χρειάζεται τη βοήθειά σου",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "Δεν ήταν δυνατή η επαλήθευση.",
 			"downloadFailed": "Η λήψη απέτυχε. Έλεγξε τη σύνδεσή σου στο διαδίκτυο και δοκίμασε ξανά.",
@@ -135,7 +135,7 @@
 				"heading": "Τι μπορεί να κατεβάσει το Arroxy",
 				"youtube": {"heading": "YouTube", "video": "Βίντεο", "channel": "Κανάλια", "playlist": "Playlist", "short": "Shorts", "music": "Μουσική", "podcast": "Podcast"},
 				"anySite": {"heading": "2000+ ιστότοποι", "video": "Βίντεο", "videoPlaylist": "Playlist βίντεο", "musicPlaylist": "Playlist μουσικής"},
-				"always": {"heading": "Πάντα διαθέσιμο", "audioOnly": "Μόνο ήχοι", "subtitles": "Υπότιτλοι"}
+				"always": {"audioOnly": "Μόνο ήχοι", "subtitles": "Υπότιτλοι"}
 			},
 			"mascotIdle": "Ρίξε έναν σύνδεσμο και άσε το Arroxy να το κατεβάσει ✨",
 			"mascotBusy": "Λήψη στο παρασκήνιο… Ξέρω να κάνω πολλά μαζί 😎",

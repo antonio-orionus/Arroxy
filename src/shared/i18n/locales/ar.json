@@ -1,12 +1,12 @@
 {
 	"common": {"back": "رجوع", "cancel": "إلغاء", "continue": "متابعة", "retry": "إعادة المحاولة", "startOver": "البدء من جديد"},
-	"app": {"feedback": "ملاحظات", "logs": "السجلات", "feedbackNudge": "هل تستمتع بـ Arroxy؟ يسعدني سماع رأيك! 💬", "debugCopied": "تم النسخ!", "debugCopyTitle": "نسخ معلومات التصحيح (إصدارات Electron والنظام وChrome)", "zoomIn": "تكبير", "zoomOut": "تصغير"},
+	"app": {"feedback": "ملاحظات", "logs": "السجلات", "feedbackNudge": "هل تستمتع بـ Arroxy؟ يسعدني سماع رأيك! 💬", "zoomIn": "تكبير", "zoomOut": "تصغير"},
 	"about": {"button": "حول", "openTitle": "حول Arroxy", "tagline": "محمّل سريع وسهل الاستخدام لـ YouTube وأكثر من 2000 موقع آخر.", "websiteLink": "موقع الويب", "githubLink": "GitHub", "licenseLine": "ترخيص MIT · بواسطة Antonio Orionus", "thirdPartyNotices": "عرض إشعارات الطرف الثالث"},
 	"titleBar": {"close": "إغلاق", "minimize": "تصغير", "maximize": "تكبير", "restore": "استعادة"},
 	"splash": {"greeting": "مرحباً، أهلاً بعودتك!", "warmup": "جارٍ تحضير التنزيلات…", "downloading": "جارٍ تنزيل {{binary}}…", "warmupFailedNoDiag": "فشل الإعداد. افتح سجل الإعداد للاطلاع على التفاصيل."},
 	"repair": {
 		"title": "الإعداد يحتاج مساعدتك",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "تعذّر التحقق.",
 			"downloadFailed": "فشل التنزيل. تحقق من اتصالك بالإنترنت وأعد المحاولة.",
@@ -135,7 +135,7 @@
 				"heading": "ما الذي يستطيع Arroxy سحبه",
 				"youtube": {"heading": "YouTube", "video": "مقاطع فيديو", "channel": "القنوات", "playlist": "قوائم التشغيل", "short": "Shorts", "music": "الموسيقى", "podcast": "البودكاست"},
 				"anySite": {"heading": "2000+ موقع", "video": "مقاطع فيديو", "videoPlaylist": "قوائم تشغيل الفيديو", "musicPlaylist": "قوائم تشغيل الموسيقى"},
-				"always": {"heading": "دائماً متاح", "audioOnly": "الصوت فقط", "subtitles": "الترجمات"}
+				"always": {"audioOnly": "الصوت فقط", "subtitles": "الترجمات"}
 			},
 			"mascotIdle": "أرسل رابطًا ودع Arroxy يسحبه ✨",
 			"mascotBusy": "جارٍ التنزيل في الخلفية… أستطيع تعدد المهام 😎",

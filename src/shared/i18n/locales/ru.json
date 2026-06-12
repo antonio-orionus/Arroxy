@@ -1,12 +1,12 @@
 {
 	"common": {"back": "Назад", "cancel": "Отменить", "continue": "Продолжить", "retry": "Повторить", "startOver": "Начать заново"},
-	"app": {"feedback": "Обратная связь", "logs": "Журналы", "feedbackNudge": "Нравится Arroxy? Я бы хотел услышать твой отзыв! 💬", "debugCopied": "Скопировано!", "debugCopyTitle": "Скопировать отладочную информацию (версии Electron, ОС, Chrome)", "zoomIn": "Увеличить", "zoomOut": "Уменьшить"},
+	"app": {"feedback": "Обратная связь", "logs": "Журналы", "feedbackNudge": "Нравится Arroxy? Я бы хотел услышать твой отзыв! 💬", "zoomIn": "Увеличить", "zoomOut": "Уменьшить"},
 	"about": {"button": "О программе", "openTitle": "О программе Arroxy", "tagline": "Быстрый и удобный загрузчик для YouTube и ещё 2000+ сайтов.", "websiteLink": "Сайт", "githubLink": "GitHub", "licenseLine": "Лицензия MIT · by Antonio Orionus", "thirdPartyNotices": "Просмотреть уведомления о сторонних компонентах"},
 	"titleBar": {"close": "Закрыть", "minimize": "Свернуть", "maximize": "Развернуть", "restore": "Восстановить"},
 	"splash": {"greeting": "Привет, с возвращением!", "warmup": "Подготовка загрузок…", "downloading": "Загрузка {{binary}}…", "warmupFailedNoDiag": "Настройка завершилась ошибкой. Открой журнал настройки для подробностей."},
 	"repair": {
 		"title": "Настройке нужна твоя помощь",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "Не удалось проверить.",
 			"downloadFailed": "Загрузка не удалась. Проверь подключение к интернету и повтори.",
@@ -135,7 +135,7 @@
 				"heading": "Что умеет скачивать Arroxy",
 				"youtube": {"heading": "YouTube", "video": "Видео", "channel": "Каналы", "playlist": "Плейлисты", "short": "Shorts", "music": "Музыка", "podcast": "Подкасты"},
 				"anySite": {"heading": "2000+ сайтов", "video": "Видео", "videoPlaylist": "Видеоплейлисты", "musicPlaylist": "Музыкальные плейлисты"},
-				"always": {"heading": "Всегда доступно", "audioOnly": "Только аудио", "subtitles": "Субтитры"}
+				"always": {"audioOnly": "Только аудио", "subtitles": "Субтитры"}
 			},
 			"mascotIdle": "Кинь ссылку, а Arroxy всё заберёт ✨",
 			"mascotBusy": "Качаю в фоне… могу делать несколько дел сразу 😎",

@@ -1,6 +1,6 @@
 {
 	"common": {"back": "Orqaga", "cancel": "Bekor qilish", "continue": "Davom etish", "retry": "Qayta urinish", "startOver": "Qaytadan boshlash"},
-	"app": {"feedback": "Fikr-mulohaza", "logs": "Jurnallar", "feedbackNudge": "Arroxy yoqdimi? Fikringizni bilmoqchiman! 💬", "debugCopied": "Nusxalandi!", "debugCopyTitle": "Debug ma'lumotlarini nusxalash (Electron, OS, Chrome versiyalari)", "zoomIn": "Kattalashtirish", "zoomOut": "Kichraytirish"},
+	"app": {"feedback": "Fikr-mulohaza", "logs": "Jurnallar", "feedbackNudge": "Arroxy yoqdimi? Fikringizni bilmoqchiman! 💬", "zoomIn": "Kattalashtirish", "zoomOut": "Kichraytirish"},
 	"about": {
 		"button": "Dastur haqida",
 		"openTitle": "Arroxy haqida",
@@ -14,7 +14,7 @@
 	"splash": {"greeting": "Xush kelibsiz, qayta keldingiz!", "warmup": "Yuklab olishlar tayyorlanmoqda…", "downloading": "{{binary}} yuklanmoqda…", "warmupFailedNoDiag": "Sozlash muvaffaqiyatsiz yakunlandi. Tafsilotlar uchun sozlash jurnalini oching."},
 	"repair": {
 		"title": "Sozlash sizning yordamingizga muhtoj",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "Tekshirib bo'lmadi.",
 			"downloadFailed": "Yuklash muvaffaqiyatsiz. Internet ulanishingizni tekshiring va qayta urinib ko'ring.",
@@ -143,7 +143,7 @@
 				"heading": "Arroxy nima yuklab olishi mumkin",
 				"youtube": {"heading": "YouTube", "video": "Videolar", "channel": "Kanallar", "playlist": "Pleylistlar", "short": "Shortlar", "music": "Musiqa", "podcast": "Podkastlar"},
 				"anySite": {"heading": "2000+ sayt", "video": "Videolar", "videoPlaylist": "Video pleylistlar", "musicPlaylist": "Musiqa pleylistlar"},
-				"always": {"heading": "Har doim mavjud", "audioOnly": "Faqat audio", "subtitles": "Subtitrlar"}
+				"always": {"audioOnly": "Faqat audio", "subtitles": "Subtitrlar"}
 			},
 			"mascotIdle": "Havolani tashlang, Arroxy uni tortib olsin ✨",
 			"mascotBusy": "Fonda yuklanmoqda… Men bir vaqtda ko'p ish qila olaman 😎",

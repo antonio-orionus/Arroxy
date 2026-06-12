@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Trang web"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "Đã sao chép!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "Sao chép thông tin gỡ lỗi (phiên bản Electron, OS, Chrome)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Phản hồi"
@@ -554,10 +546,6 @@ msgstr "Thử thiết lập lại"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Xem nhật ký thiết lập"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "Chỉ âm thanh"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "Luôn có sẵn"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "Phụ đề"
@@ -2244,28 +2228,3 @@ msgstr "Thêm ID video vào tên tệp đơn lẻ"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Giữ các lượt tải một lần là duy nhất khi tiêu đề thay đổi hoặc trùng nhau."
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "Dán danh sách URL riêng lẻ, xem trước danh sách đã làm sạch rồi xếp hàng với một preset chất lượng chung."
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "Chọn định dạng, phụ đề, thư mục và mục playlist từng bước trước khi thêm vào hàng đợi."
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "YouTube URL"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "Dán cho tôi một liên kết YouTube (video hoặc YouTube Shorts) — rồi nhấn \"Tải định dạng\" và tôi sẽ bắt tay vào việc ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "Dùng tùy chọn đã lưu hoặc mặc định của bạn và thêm video đơn này vào hàng đợi mà không mở các bước thiết lập."
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "Tải nhanh có thể dùng video đơn lẻ, danh sách phát, kênh, tìm kiếm và URL hàng loạt."
-

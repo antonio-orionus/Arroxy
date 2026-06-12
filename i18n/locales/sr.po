@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Веб-сајт"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "Копирано!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "Копирај информације за отклањање грешака (Electron, ОС, верзије Chrome-а)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Повратна информација"
@@ -554,10 +546,6 @@ msgstr "Покушај подешавање поново"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Прегледај дневник подешавања"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "Само звук"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "Увек доступно"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "Титлови"
@@ -2244,28 +2228,3 @@ msgstr "Додај ID видеа у појединачна имена фајло
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Чува појединачна преузимања јединственим када се наслови промене или поклопе."
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "Налепи листу појединачних URL-ова, прегледај очишћену листу, па их додај у ред са заједничким quality preset-ом."
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "Izaberite formate, titlove, fasciklu i stavke plejliste korak po korak pre dodavanja u red."
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "YouTube URL"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "Убаци YouTube линк (видео или Short) — па кликни „Учитај формате\" и крећемо ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "Koristi sačuvana ili podrazumevana podešavanja i dodaje ovaj pojedinačni video u red bez otvaranja koraka podešavanja."
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "Брзо преузимање може да користи појединачне видео-снимке, плејлисте, канале, претраге и Bulk URL-ове."
-

@@ -1,12 +1,12 @@
 {
 	"common": {"back": "Duubatti", "cancel": "Haqi", "continue": "Itti fufi", "retry": "Irra deebi'i", "startOver": "Jalqabbii irra deebi'i"},
-	"app": {"feedback": "Yaada", "logs": "Galmee", "feedbackNudge": "Arroxy si gammachiisaa jiraa? Yaada kee dhaga'uu barbaada! 💬", "debugCopied": "Koopii ta'e!", "debugCopyTitle": "Odeeffannoo dhibdee koopii godhi (Electron, OS, Chrome versiiwwan)", "zoomIn": "Guddisi", "zoomOut": "Xiqqeessi"},
+	"app": {"feedback": "Yaada", "logs": "Galmee", "feedbackNudge": "Arroxy si gammachiisaa jiraa? Yaada kee dhaga'uu barbaada! 💬", "zoomIn": "Guddisi", "zoomOut": "Xiqqeessi"},
 	"about": {"button": "Waa'ee", "openTitle": "Waa'ee Arroxy", "tagline": "YouTube fi marsariitota 2000+ biroo irraa buusuuf meeshaa ariifataa fi salphaa.", "websiteLink": "Marsariitii", "githubLink": "GitHub", "licenseLine": "Heeyyama MIT · by Antonio Orionus", "thirdPartyNotices": "Beeksisa seera-biroo ilaali"},
 	"titleBar": {"close": "Cufii", "minimize": "Xiqqeessi", "maximize": "Guddisi", "restore": "Deebi'si"},
 	"splash": {"greeting": "Baga nagaan deebitee!", "warmup": "Buufannoowwan qopheessaa jira…", "downloading": "{{binary}} buufatamaa jira…", "warmupFailedNoDiag": "Qindaa'inni hin milkoofne. Bal'ina argachuuf galmee qindaa'inaa bani."},
 	"repair": {
 		"title": "Qindaa'inni gargaarsa kee gaafata",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "Mirkaneeffachuu hin danda'amne.",
 			"downloadFailed": "Buufachuun hin milkoofne. Walqunnamtii interneetii kee ilaalii achiin irra deebi'i.",
@@ -135,7 +135,7 @@
 				"heading": "Arroxy maal buufachuu danda'a",
 				"youtube": {"heading": "YouTube", "video": "Viidiyoowwan", "channel": "Channelota", "playlist": "Playlists", "short": "Shorts", "music": "Muuziqaa", "podcast": "Podcastota"},
 				"anySite": {"heading": "Gareewwan 2000+", "video": "Viidiyoowwan", "videoPlaylist": "Playlist viidiyoo", "musicPlaylist": "Playlist muuziqaa"},
-				"always": {"heading": "Yeroo hundaa ni argama", "audioOnly": "Sagalee qofa", "subtitles": "Axxiinni"}
+				"always": {"audioOnly": "Sagalee qofa", "subtitles": "Axxiinni"}
 			},
 			"mascotIdle": "Liinkii galchi; Arroxy haa buusu ✨",
 			"mascotBusy": "Duubaan buusaa jira… rakkoo guguddaa hojjechuuf dandeessa 😎",

@@ -1,12 +1,12 @@
 {
 	"common": {"back": "Zurück", "cancel": "Abbrechen", "continue": "Weiter", "retry": "Erneut versuchen", "startOver": "Von vorn beginnen"},
-	"app": {"feedback": "Feedback", "logs": "Protokolle", "feedbackNudge": "Gefällt dir Arroxy? Ich freue mich über dein Feedback! 💬", "debugCopied": "Kopiert!", "debugCopyTitle": "Debug-Infos kopieren (Electron-, OS-, Chrome-Versionen)", "zoomIn": "Vergrößern", "zoomOut": "Verkleinern"},
+	"app": {"feedback": "Feedback", "logs": "Protokolle", "feedbackNudge": "Gefällt dir Arroxy? Ich freue mich über dein Feedback! 💬", "zoomIn": "Vergrößern", "zoomOut": "Verkleinern"},
 	"about": {"button": "Info", "openTitle": "Über Arroxy", "tagline": "Schneller, freundlicher Downloader für YouTube und über 2000 weitere Seiten.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "MIT-Lizenz · von Antonio Orionus", "thirdPartyNotices": "Drittanbieter-Hinweise anzeigen"},
 	"titleBar": {"close": "Schließen", "minimize": "Minimieren", "maximize": "Maximieren", "restore": "Wiederherstellen"},
 	"splash": {"greeting": "Hey, schön dich wiederzusehen!", "warmup": "Downloads werden vorbereitet…", "downloading": "{{binary}} wird heruntergeladen…", "warmupFailedNoDiag": "Einrichtung fehlgeschlagen. Öffne das Einrichtungsprotokoll für Details."},
 	"repair": {
 		"title": "Einrichtung braucht deine Hilfe",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "Konnte nicht überprüft werden.",
 			"downloadFailed": "Download fehlgeschlagen. Überprüfe deine Internetverbindung und versuche es erneut.",
@@ -135,7 +135,7 @@
 				"heading": "Was Arroxy laden kann",
 				"youtube": {"heading": "YouTube", "video": "Videos", "channel": "Kanäle", "playlist": "Playlists", "short": "Shorts", "music": "Musik", "podcast": "Podcasts"},
 				"anySite": {"heading": "2000+ Seiten", "video": "Videos", "videoPlaylist": "Video-Playlists", "musicPlaylist": "Musik-Playlists"},
-				"always": {"heading": "Immer verfügbar", "audioOnly": "Nur Audio", "subtitles": "Untertitel"}
+				"always": {"audioOnly": "Nur Audio", "subtitles": "Untertitel"}
 			},
 			"mascotIdle": "Wirf einen Link rein und lass Arroxy ihn holen ✨",
 			"mascotBusy": "Lade im Hintergrund… ich kann mehrere Dinge gleichzeitig 😎",

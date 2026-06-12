@@ -1,12 +1,12 @@
 {
 	"common": {"back": "Rudi", "cancel": "Ghairi", "continue": "Endelea", "retry": "Jaribu tena", "startOver": "Anza upya"},
-	"app": {"feedback": "Maoni", "logs": "Kumbukumbu", "feedbackNudge": "Unafurahia Arroxy? Ningependa kusikia kutoka kwako! 💬", "debugCopied": "Imenakiliwa!", "debugCopyTitle": "Nakili maelezo ya utatuzi (matoleo ya Electron, OS, Chrome)", "zoomIn": "Kuza", "zoomOut": "Punguza"},
+	"app": {"feedback": "Maoni", "logs": "Kumbukumbu", "feedbackNudge": "Unafurahia Arroxy? Ningependa kusikia kutoka kwako! 💬", "zoomIn": "Kuza", "zoomOut": "Punguza"},
 	"about": {"button": "Kuhusu", "openTitle": "Kuhusu Arroxy", "tagline": "Kipakua cha haraka na rahisi kwa YouTube na tovuti nyingine 2000+.", "websiteLink": "Tovuti", "githubLink": "GitHub", "licenseLine": "Leseni ya MIT · na Antonio Orionus", "thirdPartyNotices": "Tazama notisi za wengine"},
 	"titleBar": {"close": "Funga", "minimize": "Punguza", "maximize": "Panua", "restore": "Rejesha"},
 	"splash": {"greeting": "Hujambo, karibu tena!", "warmup": "Inaandaa vipakuliwa…", "downloading": "Inapakua {{binary}}…", "warmupFailedNoDiag": "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi."},
 	"repair": {
 		"title": "Usanidi unahitaji msaada wako",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "Haikuweza kuthibitishwa.",
 			"downloadFailed": "Upakuaji umeshindwa. Angalia muunganisho wako wa intaneti na ujaribu tena.",
@@ -135,7 +135,7 @@
 				"heading": "Arroxy inaweza kupakua nini",
 				"youtube": {"heading": "YouTube", "video": "Video", "channel": "Vituo", "playlist": "Playlists", "short": "Shorts", "music": "Muziki", "podcast": "Podcasts"},
 				"anySite": {"heading": "Tovuti 2000+", "video": "Video", "videoPlaylist": "Playlists za video", "musicPlaylist": "Playlists za muziki"},
-				"always": {"heading": "Daima inapatikana", "audioOnly": "Sauti peke yake", "subtitles": "Manukuu"}
+				"always": {"audioOnly": "Sauti peke yake", "subtitles": "Manukuu"}
 			},
 			"mascotIdle": "Weka kiungo, Arroxy aipakue ✨",
 			"mascotBusy": "Inapakua nyuma ya pazia… Ninaweza kufanya mambo mengi kwa wakati mmoja 😎",

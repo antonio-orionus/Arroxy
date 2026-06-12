@@ -1,12 +1,12 @@
 {
 	"common": {"back": "شاته", "cancel": "لغوه کړئ", "continue": "دوام ورکړه", "retry": "بیا هڅه وکړه", "startOver": "له سره پیل کړه"},
-	"app": {"feedback": "نظر", "logs": "لاګونه", "feedbackNudge": "ایا Arroxy خوند درکوي؟ ستاسو د اورولو شوق لرم! 💬", "debugCopied": "کاپي شو!", "debugCopyTitle": "د ډیبګ معلومات کاپي کړئ (Electron، OS، Chrome نسخې)", "zoomIn": "لویول", "zoomOut": "کوچنیول"},
+	"app": {"feedback": "نظر", "logs": "لاګونه", "feedbackNudge": "ایا Arroxy خوند درکوي؟ ستاسو د اورولو شوق لرم! 💬", "zoomIn": "لویول", "zoomOut": "کوچنیول"},
 	"about": {"button": "د اړوند", "openTitle": "د Arroxy اړوند", "tagline": "د YouTube او 2000+ نورو سایټونو لپاره چټک او اسانه ډاونلوډر.", "websiteLink": "ویب پاڼه", "githubLink": "GitHub", "licenseLine": "MIT جواز · د Antonio Orionus لخوا", "thirdPartyNotices": "د دریم ډلې خبرتیاوې وګورئ"},
 	"titleBar": {"close": "تړل", "minimize": "کوچنی کول", "maximize": "لوی کول", "restore": "بیرته راوستل"},
 	"splash": {"greeting": "سلام، ښه راغلاست!", "warmup": "ډاونلوډونه چمتو کېږي…", "downloading": "{{binary}} ډاونلوډ کیږي…", "warmupFailedNoDiag": "نصب ناکام شو. د توضیحاتو لپاره د نصب لاګ خلاص کړئ."},
 	"repair": {
 		"title": "نصب ستاسو مرستې ته اړتیا لري",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "تصدیق نه شو.",
 			"downloadFailed": "ډاونلوډ ناکام شو. خپله د انټرنیټ اتصال وګورئ او بیا هڅه وکړئ.",
@@ -135,7 +135,7 @@
 				"heading": "Arroxy څه ډاونلوډ کولی شي",
 				"youtube": {"heading": "YouTube", "video": "ویډیوګانې", "channel": "چینلونه", "playlist": "Playlistونه", "short": "Shorts", "music": "موسیقي", "podcast": "Podcastونه"},
 				"anySite": {"heading": "2000+ سایټونه", "video": "ویډیوګانې", "videoPlaylist": "د ویډیو Playlistونه", "musicPlaylist": "د موسیقۍ Playlistونه"},
-				"always": {"heading": "تل شتون لري", "audioOnly": "یوازې غږونه", "subtitles": "ژباړلیکونه"}
+				"always": {"audioOnly": "یوازې غږونه", "subtitles": "ژباړلیکونه"}
 			},
 			"mascotIdle": "لینک واچوئ او Arroxy پرېږدئ چې یې راکښته کړي ✨",
 			"mascotBusy": "شاتهپرده ډاونلوډ کیږي… زه کولی شم له ډیرو کارونو سره معامله وکړم 😎",

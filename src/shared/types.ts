@@ -57,7 +57,26 @@ export type {
 export type {StatusKey} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 
-import type {AudioSelection, Preset, PlaylistScope, SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, SupportedLang, UiTheme, BackdropRenderMode, StatusKey, CookiesMode, CookiesBrowser, NetworkPacingPreset, DownloadProfilesPrefs, ProbeOtherErrorCode} from './schemas.js'
+import type {
+	AudioSelection,
+	Preset,
+	PlaylistScope,
+	SubtitleMode,
+	SubtitleFormat,
+	SponsorBlockMode,
+	SponsorBlockCategory,
+	SupportedLang,
+	UiTheme,
+	BackdropRenderMode,
+	StatusKey,
+	CookiesMode,
+	CookiesBrowser,
+	NetworkPacingPreset,
+	DownloadProfilesPrefs,
+	ProbeOtherErrorCode,
+	RuntimeBinaryChannel,
+	RuntimeBinaryProvider
+} from './schemas.js'
 
 export type AppErrorCode = 'validation' | 'token' | 'binary' | 'download' | 'ipc' | 'unknown'
 
@@ -329,8 +348,8 @@ export type DependencyId = (typeof DEPENDENCY_IDS)[number]
 export type DependencySource =
 	| {kind: 'manualOverride'; path: string}
 	| {kind: 'envOverride'; path: string; envVar: string}
-	| {kind: 'managed'; channel: 'nightly' | 'stable' | 'default'; url: string; provider: 'github' | 'sourceforge'}
-	| {kind: 'managedCache'; channel: 'nightly' | 'stable' | 'default'; url: string; provider: 'github' | 'sourceforge'; path: string}
+	| {kind: 'managed'; channel: RuntimeBinaryChannel; url: string; provider: RuntimeBinaryProvider}
+	| {kind: 'managedCache'; channel: RuntimeBinaryChannel; url: string; provider: RuntimeBinaryProvider; path: string}
 	| {kind: 'systemPath'; path: string}
 	| {kind: 'cache'; path: string}
 	| {kind: 'bundled'; path: string}

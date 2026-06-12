@@ -1,12 +1,12 @@
 {
 	"common": {"back": "返回", "cancel": "取消", "continue": "继续", "retry": "重试", "startOver": "重新开始"},
-	"app": {"feedback": "反馈", "logs": "日志", "feedbackNudge": "喜欢 Arroxy 吗?我很想听听你的想法! 💬", "debugCopied": "已复制!", "debugCopyTitle": "复制调试信息(Electron、操作系统、Chrome 版本)", "zoomIn": "放大", "zoomOut": "缩小"},
+	"app": {"feedback": "反馈", "logs": "日志", "feedbackNudge": "喜欢 Arroxy 吗?我很想听听你的想法! 💬", "zoomIn": "放大", "zoomOut": "缩小"},
 	"about": {"button": "关于", "openTitle": "关于 Arroxy", "tagline": "适用于 YouTube 和其他 2000+ 网站的快速友好下载器。", "websiteLink": "官网", "githubLink": "GitHub", "licenseLine": "MIT 许可证 · 作者 Antonio Orionus", "thirdPartyNotices": "查看第三方声明"},
 	"titleBar": {"close": "关闭", "minimize": "最小化", "maximize": "最大化", "restore": "还原"},
 	"splash": {"greeting": "嘿,欢迎回来!", "warmup": "正在准备下载…", "downloading": "正在下载 {{binary}}…", "warmupFailedNoDiag": "初始化失败。打开设置日志查看详情。"},
 	"repair": {
 		"title": "初始化需要你的帮助",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "无法验证。",
 			"downloadFailed": "下载失败。请检查网络连接后重试。",
@@ -126,7 +126,7 @@
 				"heading": "Arroxy 能下载什么",
 				"youtube": {"heading": "YouTube", "video": "视频", "channel": "频道", "playlist": "播放列表", "short": "Shorts", "music": "音乐", "podcast": "播客"},
 				"anySite": {"heading": "2000+ 个网站", "video": "视频", "videoPlaylist": "视频播放列表", "musicPlaylist": "音乐播放列表"},
-				"always": {"heading": "始终可用", "audioOnly": "纯音频", "subtitles": "字幕"}
+				"always": {"audioOnly": "纯音频", "subtitles": "字幕"}
 			},
 			"mascotIdle": "丢个链接，让 Arroxy 来拉取 ✨",
 			"mascotBusy": "正在后台下载… 我可以同时处理多个任务 😎",

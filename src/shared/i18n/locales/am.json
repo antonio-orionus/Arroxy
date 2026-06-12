@@ -1,12 +1,12 @@
 {
 	"common": {"back": "ተመለስ", "cancel": "ሰርዝ", "continue": "ቀጥል", "retry": "እንደገና ሞክር", "startOver": "ከመጀመሪያ ጀምር"},
-	"app": {"feedback": "አስተያየት", "logs": "ምዝግቦች", "feedbackNudge": "Arroxy ደስ ይለዎታል? አስተያየትዎን ማካፈል ይፈልጋሉ! 💬", "debugCopied": "ተቀድቷል!", "debugCopyTitle": "የሂደት መረጃ ቅዳ (Electron፣ ስርዓተ ክወና፣ Chrome ስሪቶች)", "zoomIn": "አቅርብ", "zoomOut": "አርቅ"},
+	"app": {"feedback": "አስተያየት", "logs": "ምዝግቦች", "feedbackNudge": "Arroxy ደስ ይለዎታል? አስተያየትዎን ማካፈል ይፈልጋሉ! 💬", "zoomIn": "አቅርብ", "zoomOut": "አርቅ"},
 	"about": {"button": "ስለ", "openTitle": "ስለ Arroxy", "tagline": "ለYouTube እና ለ2000+ ሌሎች ጣቢያዎች ፈጣን እና ምቹ አውርጅ።", "websiteLink": "ድረ-ገጽ", "githubLink": "GitHub", "licenseLine": "MIT ፈቃድ · በ Antonio Orionus", "thirdPartyNotices": "የሦስተኛ ወገን ማስታወቂያዎችን ይመልከቱ"},
 	"titleBar": {"close": "ዝጋ", "minimize": "አሳንስ", "maximize": "አሰፋ", "restore": "መልስ"},
 	"splash": {"greeting": "እንኳን ደህና መጡ!", "warmup": "ውርዶችን በማዘጋጀት ላይ…", "downloading": "{{binary}} እየወረደ ነው…", "warmupFailedNoDiag": "ማዋቀር አልተሳካም። ዝርዝሮችን ለማየት የማዋቀሪያ ምዝግብ ፋይሉን ይክፈቱ።"},
 	"repair": {
 		"title": "ማዋቀሩ እርዳታዎን ይፈልጋል",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "ማረጋገጥ አልተቻለም።",
 			"downloadFailed": "ማውረድ ወድቋል። የኢንተርኔት ግንኙነትዎን ያረጋግጡ እና እንደገና ይሞክሩ።",
@@ -126,7 +126,7 @@
 				"heading": "Arroxy ምን ሊያወርድ ይችላል",
 				"youtube": {"heading": "YouTube", "video": "ቪዲዮዎች", "channel": "ቻናሎች", "playlist": "Playlists", "short": "Shorts", "music": "ሙዚቃ", "podcast": "Podcasts"},
 				"anySite": {"heading": "2000+ ጣቢያዎች", "video": "ቪዲዮዎች", "videoPlaylist": "የቪዲዮ playlists", "musicPlaylist": "የሙዚቃ playlists"},
-				"always": {"heading": "ሁልጊዜ ይኖራል", "audioOnly": "ድምጽ ብቻ", "subtitles": "ንዑስ ርዕሶች"}
+				"always": {"audioOnly": "ድምጽ ብቻ", "subtitles": "ንዑስ ርዕሶች"}
 			},
 			"mascotIdle": "አገናኝ ጣል፣ Arroxy እንዲያወርደው ተወው ✨",
 			"mascotBusy": "በዳራ ዳውንሎድ እያደረጉ ነው… ብዙ ስራ አሰራ 😎",

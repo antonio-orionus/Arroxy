@@ -1,4 +1,4 @@
-import {po as gettextPo, type GetTextTranslation, type GetTextTranslationRecord, type GetTextTranslations} from 'gettext-parser'
+import {po as gettextPo, type GetTextTranslation, type GetTextTranslations} from 'gettext-parser'
 
 export interface StringLeaf {
 	path: string
@@ -148,16 +148,7 @@ export function compileLocaleTree(sourceLeaves: readonly StringLeaf[], catalog: 
 }
 
 export function normalizeCatalog(catalog: GetTextTranslations): GetTextTranslations {
-	const normalized = parseCatalog(compileCatalog(catalog))
-	if (catalog.obsolete) normalized.obsolete = normalizeObsolete(catalog.obsolete)
-	return normalized
-}
-
-function normalizeObsolete(obsolete: GetTextTranslationRecord): GetTextTranslationRecord {
-	const out: GetTextTranslationRecord = {}
-	for (const [context, entries] of Object.entries(obsolete)) {
-		out[context] = {}
-		for (const [msgid, entry] of Object.entries(entries)) out[context][msgid] = entry
-	}
-	return out
+	const activeCatalog: GetTextTranslations = {...catalog}
+	delete activeCatalog.obsolete
+	return parseCatalog(compileCatalog(activeCatalog))
 }

@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "موقع الويب"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "تم النسخ!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "نسخ معلومات التصحيح (إصدارات Electron والنظام وChrome)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "ملاحظات"
@@ -554,10 +546,6 @@ msgstr "إعادة محاولة الإعداد"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "عرض سجل الإعداد"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "الصوت فقط"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "دائماً متاح"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "الترجمات"
@@ -2244,28 +2228,3 @@ msgstr "إضافة معرّف الفيديو إلى أسماء الملفات ا
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "يبقي التنزيلات الفردية فريدة عندما تتغير العناوين أو تتكرر."
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "الصق قائمة روابط منفردة، راجع القائمة المنظفة، ثم أضفها إلى الطابور بإعداد جودة مشترك."
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "اختر الصيغ والترجمات والمجلد وعناصر قوائم التشغيل خطوة بخطوة قبل الإضافة إلى قائمة الانتظار."
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "رابط YouTube"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "أرسل لي رابط YouTube (فيديو أو Short) — ثم اضغط \"جلب الصيغ\" وسأبدأ العمل ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "يستخدم تفضيلاتك المحفوظة أو الافتراضية ويضيف هذا الفيديو المفرد إلى قائمة الانتظار دون فتح خطوات الإعداد."
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "يمكن للتنزيل السريع استخدام فيديوهات مفردة وقوائم تشغيل وقنوات وعمليات بحث وروابط مجمّعة."
-

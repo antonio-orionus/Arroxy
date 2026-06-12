@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Сайт"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "Скопійовано!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "Скопіювати налагоджувальну інформацію (версії Electron, ОС, Chrome)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Зворотний зв'язок"
@@ -554,10 +546,6 @@ msgstr "Повторити налаштування"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Переглянути журнал налаштування"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "Тільки аудіо"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "Завжди доступно"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "Субтитри"
@@ -2244,28 +2228,3 @@ msgstr "Додавати ID відео до одиночних імен файл
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Зберігає одноразові завантаження унікальними, коли назви змінюються або збігаються."
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "Вставте список окремих URL, перегляньте очищений список і додайте їх у чергу зі спільним пресетом якості."
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "Вибери формати, субтитри, папку й елементи плейлиста крок за кроком перед додаванням у чергу."
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "Посилання YouTube"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "Кинь мені посилання YouTube (відео або Shorts) — натисни «Отримати формати» і я візьмусь за справу ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "Використовує збережені або стандартні налаштування й додає це окреме відео в чергу без кроків налаштування."
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "Швидке завантаження може використовувати окремі відео, плейлисти, канали, пошук і Bulk URLs."
-

@@ -1,12 +1,12 @@
 {
 	"common": {"back": "戻る", "cancel": "キャンセル", "continue": "続行", "retry": "再試行", "startOver": "最初からやり直す"},
-	"app": {"feedback": "フィードバック", "logs": "ログ", "feedbackNudge": "Arroxyを楽しんでくれてる?ぜひ感想を聞かせて! 💬", "debugCopied": "コピーしました!", "debugCopyTitle": "デバッグ情報をコピー (Electron、OS、Chrome のバージョン)", "zoomIn": "拡大", "zoomOut": "縮小"},
+	"app": {"feedback": "フィードバック", "logs": "ログ", "feedbackNudge": "Arroxyを楽しんでくれてる?ぜひ感想を聞かせて! 💬", "zoomIn": "拡大", "zoomOut": "縮小"},
 	"about": {"button": "情報", "openTitle": "Arroxy について", "tagline": "YouTube と 2000 以上の他サイトに対応する、高速で使いやすいダウンローダー。", "websiteLink": "公式サイト", "githubLink": "GitHub", "licenseLine": "MIT ライセンス · 作者 Antonio Orionus", "thirdPartyNotices": "サードパーティ通知を表示"},
 	"titleBar": {"close": "閉じる", "minimize": "最小化", "maximize": "最大化", "restore": "元に戻す"},
 	"splash": {"greeting": "やあ、おかえり!", "warmup": "ダウンロードを準備中…", "downloading": "{{binary}} をダウンロード中…", "warmupFailedNoDiag": "セットアップに失敗しました。セットアップログを開いて詳細を確認してください。"},
 	"repair": {
 		"title": "セットアップにサポートが必要です",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "確認できませんでした。",
 			"downloadFailed": "ダウンロードに失敗しました。インターネット接続を確認して再試行してください。",
@@ -135,7 +135,7 @@
 				"heading": "Arroxyで取得できるもの",
 				"youtube": {"heading": "YouTube", "video": "動画", "channel": "チャンネル", "playlist": "プレイリスト", "short": "Shorts", "music": "音楽", "podcast": "ポッドキャスト"},
 				"anySite": {"heading": "2000以上のサイト", "video": "動画", "videoPlaylist": "動画プレイリスト", "musicPlaylist": "音楽プレイリスト"},
-				"always": {"heading": "いつでも利用可能", "audioOnly": "音声のみ", "subtitles": "字幕"}
+				"always": {"audioOnly": "音声のみ", "subtitles": "字幕"}
 			},
 			"mascotIdle": "リンクを入れて、あとは Arroxy に引っぱってもらおう ✨",
 			"mascotBusy": "バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎",

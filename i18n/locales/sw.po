@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Tovuti"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "Imenakiliwa!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "Nakili maelezo ya utatuzi (matoleo ya Electron, OS, Chrome)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Maoni"
@@ -554,10 +546,6 @@ msgstr "Jaribu usanidi tena"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Angalia kumbukumbu ya usanidi"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "Sauti peke yake"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "Daima inapatikana"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "Manukuu"
@@ -2244,28 +2228,3 @@ msgstr "Ongeza ID ya video kwenye majina ya faili moja moja"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Huweka upakuaji wa mara moja kuwa wa kipekee wakati vichwa vinabadilika au kugongana."
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "Bandika orodha ya URL binafsi, hakiki orodha iliyosafishwa, kisha ziweke foleni kwa preset moja ya ubora."
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "Chagua fomati, manukuu, folda na vipengee vya orodha ya kucheza hatua kwa hatua kabla ya kuongeza kwenye foleni."
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "YouTube URL"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "Nipe kiungo cha YouTube (video au Short) — kisha bonyeza \"Pata maumbo\" nami nitaanza kazi ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "Hutumia mapendeleo yako yaliyohifadhiwa au chaguomsingi na kuongeza video hii moja kwenye foleni bila kufungua hatua za usanidi."
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "Upakuaji wa Haraka unaweza kutumia video moja, orodha za kucheza, vituo, utafutaji, na URL za Wingi."
-

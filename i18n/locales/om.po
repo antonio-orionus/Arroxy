@@ -35,14 +35,6 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Marsariitii"
 
-msgctxt "app.debugCopied"
-msgid "Copied!"
-msgstr "Koopii ta'e!"
-
-msgctxt "app.debugCopyTitle"
-msgid "Copy debug info (Electron, OS, Chrome versions)"
-msgstr "Odeeffannoo dhibdee koopii godhi (Electron, OS, Chrome versiiwwan)"
-
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Yaada"
@@ -554,10 +546,6 @@ msgstr "Qindaa'inaa irra deebi'i yaali"
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Galmee qindaa'inaa ilaali"
-
-msgctxt "repair.deps.deno"
-msgid "Deno"
-msgstr "Deno"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1901,10 +1889,6 @@ msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "Sagalee qofa"
 
-msgctxt "wizard.url.features.always.heading"
-msgid "Always available"
-msgstr "Yeroo hundaa ni argama"
-
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
 msgstr "Axxiinni"
@@ -2244,28 +2228,3 @@ msgstr "Maqaa faayila tokko tokkootti ID viidiyoo dabali"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Mata dureewwan yeroo jijjiiraman ykn walitti bu’an buufata tokko tokko adda taasisa."
-
-#~ msgctxt "wizard.url.bulkTooltip"
-#~ msgid "Paste a list of individual URLs, preview the cleaned list, then queue them with one shared quality preset."
-#~ msgstr "Tarree URL kophaa maxxansi, tarree qulqullaa’e ilaali, sana booda filannoo qulqullina waliinii queue keessa galchi."
-
-#~ msgctxt "wizard.url.fetchFormatsTooltip"
-#~ msgid "Choose formats, subtitles, folder, and playlist items step by step before queueing."
-#~ msgstr "Osoo tarree buusuu hin dabaliin dura formatoota, subtaitiloota, galmee fi wantoota playlist tarkaanfiin fili."
-
-#~ msgctxt "wizard.url.heading"
-#~ msgid "Video URL"
-#~ msgstr "YouTube URL"
-
-#~ msgctxt "wizard.url.mascotIdle"
-#~ msgid "Drop a link — YouTube or any of 2000+ sites ✨"
-#~ msgstr "Liinkii YouTube naaf ergi (viidiyoo ykn Short) — achiin \"Foormaatii fidi\" cuqaasi ✨"
-
-#~ msgctxt "wizard.url.quickDownloadTooltip"
-#~ msgid "Uses the active Download Profile and queues the URL without opening the setup steps."
-#~ msgstr "Filannoowwan kee kuufaman yookiin durtii fayyadamee viidiyoo tokko kana tarree buusutti dabala, tarkaanfii qindaa’inaa osoo hin banu."
-
-#~ msgctxt "wizard.url.quickSingleOnly"
-#~ msgid "Quick Download can use single videos, playlists, channels, searches, and Bulk URLs."
-#~ msgstr "Quick Download viidiyoo tokko, playlist, channel, barbaacha, fi Bulk URLs fayyadamuu ni danda'a."
-

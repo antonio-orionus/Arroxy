@@ -1,12 +1,12 @@
 {
 	"common": {"back": "वापस", "cancel": "रद्द करें", "continue": "जारी रखें", "retry": "फिर से कोशिश करें", "startOver": "फिर से शुरू करें"},
-	"app": {"feedback": "प्रतिक्रिया", "logs": "लॉग", "feedbackNudge": "Arroxy पसंद आ रहा है? आपकी राय सुनने को बेताब हूँ! 💬", "debugCopied": "कॉपी हो गया!", "debugCopyTitle": "डिबग जानकारी कॉपी करें (Electron, OS, Chrome वर्शन)", "zoomIn": "ज़ूम इन", "zoomOut": "ज़ूम आउट"},
+	"app": {"feedback": "प्रतिक्रिया", "logs": "लॉग", "feedbackNudge": "Arroxy पसंद आ रहा है? आपकी राय सुनने को बेताब हूँ! 💬", "zoomIn": "ज़ूम इन", "zoomOut": "ज़ूम आउट"},
 	"about": {"button": "जानकारी", "openTitle": "Arroxy के बारे में", "tagline": "YouTube और 2000+ अन्य साइटों के लिए तेज़ और सरल डाउनलोडर।", "websiteLink": "वेबसाइट", "githubLink": "GitHub", "licenseLine": "MIT लाइसेंस · Antonio Orionus द्वारा", "thirdPartyNotices": "तृतीय-पक्ष सूचनाएँ देखें"},
 	"titleBar": {"close": "बंद करें", "minimize": "छोटा करें", "maximize": "बड़ा करें", "restore": "पुनर्स्थापित करें"},
 	"splash": {"greeting": "अरे, फिर से स्वागत है!", "warmup": "डाउनलोड तैयार किए जा रहे हैं…", "downloading": "{{binary}} डाउनलोड हो रहा है…", "warmupFailedNoDiag": "सेटअप विफल हो गया। विवरण के लिए सेटअप लॉग खोलें।"},
 	"repair": {
 		"title": "सेटअप को आपकी मदद चाहिए",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe", "deno": "Deno"},
+		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
 		"hints": {
 			"unknown": "सत्यापित नहीं किया जा सका।",
 			"downloadFailed": "डाउनलोड विफल रहा। अपना इंटरनेट कनेक्शन जाँचें और पुनः प्रयास करें।",
@@ -126,7 +126,7 @@
 				"heading": "Arroxy क्या डाउनलोड कर सकता है",
 				"youtube": {"heading": "YouTube", "video": "वीडियो", "channel": "चैनल", "playlist": "Playlist", "short": "Shorts", "music": "संगीत", "podcast": "Podcast"},
 				"anySite": {"heading": "2000+ साइटें", "video": "वीडियो", "videoPlaylist": "वीडियो playlist", "musicPlaylist": "संगीत playlist"},
-				"always": {"heading": "हमेशा उपलब्ध", "audioOnly": "केवल ऑडियो", "subtitles": "उपशीर्षक"}
+				"always": {"audioOnly": "केवल ऑडियो", "subtitles": "उपशीर्षक"}
 			},
 			"mascotIdle": "एक लिंक डालें और Arroxy को उसे खींच लाने दें ✨",
 			"mascotBusy": "पीछे चुपचाप डाउनलोड कर रहा हूँ… मैं एक साथ कई काम कर सकता हूँ 😎",
