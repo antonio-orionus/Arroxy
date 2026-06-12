@@ -10,8 +10,8 @@ import {probeArgs, probeBinary, probeTimeoutMs, whereOnPath, classifyProbeError,
 import {classifyDownloadError, downloadErrorDetails, parseShaLine, parseStandaloneSha256, parsePowerShellFileHash, sha256ForFile, wrapDownloadProgressEmitter, parseContentRangeStart, resolvePartialResponseMode, type DownloadProgressCallback, type ProgressEmitter} from './binary/BinaryDownloader.js'
 import {installYtDlpWithHomebrew} from './binary/HomebrewRepair.js'
 import {installYtDlpWithWinget} from './binary/WingetRepair.js'
-import {currentDenoTarget, denoExecutableName, unsupportedDenoFailure} from './binary/DenoBinarySource.js'
-import {ArtifactMaterializeError, artifactErrorToDependencyFailureKind, type ArtifactErrorCode, RuntimeBinaryMaterializer} from './binary/RuntimeBinaryMaterializer.js'
+import {normalizeRuntimeExecutablePath, runtimeBinaryArchFor, runtimeBinaryPlatformFor, validateRuntimeBinaryManifestEntry} from '@shared/runtimeBinaryManifest.js'
+import {ArtifactMaterializeError, artifactErrorToDependencyFailureKind, type ArtifactErrorCode, RuntimeBinaryMaterializer, runtimeBinaryCacheKeyHash, runtimeBinaryManifestHash} from './binary/RuntimeBinaryMaterializer.js'
 import {RuntimeBinaryIndexService, type RuntimeBinaryIndexProvider} from './binary/RuntimeBinaryIndexService.js'
 
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void
@@ -25,6 +25,10 @@ interface ResolveOptions {
 
 function errorMessage(err: unknown): string {
 	return err instanceof Error ? err.message : String(err)
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
 function makeAttempt(source: DependencySource, failure?: DependencyFailure): DependencyAttempt {
@@ -56,7 +60,7 @@ function binaryTelemetryId(id: DependencyId): string {
 }
 
 function sourceTelemetry(source: DependencySource): {source_kind: string; source_channel?: string; source_provider?: string} {
-	if (source.kind !== 'managed') return {source_kind: source.kind}
+	if (source.kind !== 'managed' && source.kind !== 'managedCache') return {source_kind: source.kind}
 	return {source_kind: source.kind, source_channel: source.channel, source_provider: source.provider}
 }
 
@@ -165,10 +169,6 @@ export class BinaryManager {
 		return this.resolved.ffmpeg ?? process.env.ARROXY_FFMPEG_PATH ?? bundledBinaryPath('ffmpeg')
 	}
 
-	getDenoPath(): string {
-		return this.resolved.deno ?? process.env.ARROXY_DENO_PATH ?? path.join(this.cacheDir, denoExecutableName())
-	}
-
 	getFfprobePath(): string {
 		return this.resolved.ffprobe ?? process.env.ARROXY_FFPROBE_PATH ?? bundledBinaryPath('ffprobe')
 	}
@@ -232,6 +232,9 @@ export class BinaryManager {
 			onProgress?.({binary: id, phase: 'fallback'})
 		}
 
+		const cacheDiag = await this.tryManagedArtifactCache(id, attempts, onProgress, signal)
+		if (cacheDiag) return cacheDiag
+
 		// System PATH — last resort. Picks up brew/pipx/distro-package installs
 		// when managed download is unreachable (firewalled, rate-limited, etc.).
 		onProgress?.({binary: id, phase: 'fallback'})
@@ -267,6 +270,10 @@ export class BinaryManager {
 		return {kind: 'managed', channel: entry.channel, provider: entry.provider, url: entry.url}
 	}
 
+	private sourceFromManagedCache(entry: RuntimeBinaryManifestEntry, executablePath: string): Extract<DependencySource, {kind: 'managedCache'}> {
+		return {kind: 'managedCache', channel: entry.channel, provider: entry.provider, url: entry.url, path: executablePath}
+	}
+
 	private async tryRuntimeManifestEntry(entry: RuntimeBinaryManifestEntry, attempts: DependencyAttempt[], opts: ResolveOptions, onProgress: ProgressEmitter | undefined, signal: AbortSignal | undefined): Promise<DependencyDiagnostic | null> {
 		const source = this.sourceFromRuntimeManifest(entry)
 		const startedAt = Date.now()
@@ -277,6 +284,69 @@ export class BinaryManager {
 			return this.probeAndAccept(entry.id, source, result.executablePath, attempts, onProgress, signal)
 		} catch (err) {
 			this.recordManagedFailure(entry.id, attempts, source, onProgress, err, Date.now() - startedAt)
+			return null
+		}
+	}
+
+	private async tryManagedArtifactCache(id: 'yt-dlp', attempts: DependencyAttempt[], onProgress: ProgressEmitter | undefined, signal: AbortSignal | undefined): Promise<DependencyDiagnostic | null> {
+		const cached = await this.validManagedArtifactCacheEntries(id)
+		for (const candidate of cached) {
+			const source = this.sourceFromManagedCache(candidate.manifest, candidate.executablePath)
+			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- managed cache candidates are probed newest-first
+			const diag = await this.probeAndAccept(id, source, candidate.executablePath, attempts, onProgress, signal)
+			if (diag) return diag
+		}
+		return null
+	}
+
+	private async validManagedArtifactCacheEntries(id: 'yt-dlp'): Promise<Array<{manifest: RuntimeBinaryManifestEntry; executablePath: string; installedAt: string}>> {
+		const artifactsDir = path.join(this.artifactCacheDir, 'artifacts')
+		let entries: string[]
+		try {
+			entries = await fsPromises.readdir(artifactsDir)
+		} catch (err) {
+			if ((err as NodeJS.ErrnoException).code === 'ENOENT') return []
+			throw err
+		}
+
+		const currentPlatform = runtimeBinaryPlatformFor()
+		const currentArch = runtimeBinaryArchFor()
+		if (!currentPlatform || !currentArch) return []
+
+		const accepted: Array<{manifest: RuntimeBinaryManifestEntry; executablePath: string; installedAt: string}> = []
+		for (const cacheKey of entries) {
+			const artifactDir = path.join(artifactsDir, cacheKey)
+			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- cache entries are small metadata probes
+			const candidate = await this.readValidManagedArtifactCacheEntry(id, artifactDir, cacheKey, currentPlatform, currentArch)
+			if (candidate) accepted.push(candidate)
+		}
+		return accepted.sort((a, b) => b.installedAt.localeCompare(a.installedAt))
+	}
+
+	private async readValidManagedArtifactCacheEntry(id: 'yt-dlp', artifactDir: string, cacheKey: string, platform: RuntimeBinaryManifestEntry['platform'], arch: RuntimeBinaryManifestEntry['arch']): Promise<{manifest: RuntimeBinaryManifestEntry; executablePath: string; installedAt: string} | null> {
+		try {
+			const stat = await fsPromises.lstat(artifactDir)
+			if (!stat.isDirectory()) return null
+			const raw = await fsPromises.readFile(path.join(artifactDir, 'metadata.json'), 'utf8')
+			const parsed = JSON.parse(raw) as unknown
+			if (!isRecord(parsed)) return null
+			const manifestResult = validateRuntimeBinaryManifestEntry(parsed.manifest)
+			if (!manifestResult.ok) return null
+			const manifest = manifestResult.value
+			if (manifest.id !== id || manifest.platform !== platform || manifest.arch !== arch || manifest.format !== 'raw') return null
+			if (typeof parsed.cacheKey !== 'string' || parsed.cacheKey !== cacheKey || parsed.cacheKey !== runtimeBinaryCacheKeyHash(manifest)) return null
+			if (typeof parsed.manifestHash !== 'string' || parsed.manifestHash !== runtimeBinaryManifestHash(manifest)) return null
+			if (typeof parsed.executablePath !== 'string') return null
+			const executablePath = normalizeRuntimeExecutablePath(parsed.executablePath)
+			if (!executablePath || executablePath !== normalizeRuntimeExecutablePath(manifest.executablePath)) return null
+			const resolvedExecutablePath = path.join(artifactDir, executablePath)
+			const relative = path.relative(artifactDir, resolvedExecutablePath)
+			if (relative.startsWith('..') || path.isAbsolute(relative)) return null
+			const [exeStat, actualSha256] = await Promise.all([fsPromises.lstat(resolvedExecutablePath), sha256ForFile(resolvedExecutablePath)])
+			if (!exeStat.isFile() || exeStat.size !== manifest.size || actualSha256 !== manifest.sha256) return null
+			if (process.platform !== 'win32') await fsPromises.access(resolvedExecutablePath, fsConstants.X_OK)
+			return {manifest, executablePath: resolvedExecutablePath, installedAt: typeof parsed.installedAt === 'string' ? parsed.installedAt : ''}
+		} catch {
 			return null
 		}
 	}
@@ -368,80 +438,6 @@ export class BinaryManager {
 		const onProgress = wrapDownloadProgressEmitter(onDownloadProgress)
 		const pair = await this.resolveFFmpegPair({onStatus, onProgress})
 		return pair.ffprobe.resolvedPath
-	}
-
-	// Deno is the JS runtime yt-dlp uses for nsig/signature decoding on the web
-	// client. It is a required Arroxy dependency: resolver failures should
-	// surface as blocking diagnostics instead of silently omitting
-	// --js-runtimes.
-	async resolveDeno(opts: ResolveOptions = {}): Promise<DependencyDiagnostic> {
-		const id: DependencyId = 'deno'
-		const overrides = opts.overrides ?? this.overridesProvider()
-		const onProgress = opts.onProgress
-		const signal = opts.signal
-		const attempts: DependencyAttempt[] = []
-		onProgress?.({binary: id, phase: 'starting'})
-
-		if (overrides?.deno) {
-			const source: DependencySource = {kind: 'manualOverride', path: overrides.deno}
-			const diag = await this.probeAndAccept(id, source, overrides.deno, attempts, onProgress, signal)
-			if (diag) return diag
-		}
-
-		const envPath = process.env.ARROXY_DENO_PATH
-		if (envPath) {
-			const source: DependencySource = {kind: 'envOverride', path: envPath, envVar: 'ARROXY_DENO_PATH'}
-			const diag = await this.probeAndAccept(id, source, envPath, attempts, onProgress, signal)
-			if (diag) return diag
-		}
-
-		const target = currentDenoTarget()
-		const targetPath = path.join(this.cacheDir, denoExecutableName(target ?? process.platform))
-		if (await this.isUsableBinary(targetPath)) {
-			const cacheSource: DependencySource = {kind: 'cache', path: targetPath}
-			const cacheDiag = await this.probeAndAccept(id, cacheSource, targetPath, attempts, onProgress, signal)
-			if (cacheDiag) return cacheDiag
-		}
-
-		if (!target) {
-			const failure = unsupportedDenoFailure()
-			attempts.push(makeAttempt({kind: 'managed', channel: 'default', provider: 'deno-land', url: 'runtime-index'}, failure))
-			const diag = failedDiagnostic(id, attempts)
-			this.lastDiagnostics[id] = diag
-			onProgress?.({binary: id, phase: 'skipped'})
-			return diag
-		}
-
-		for (const entry of await this.runtimeBinaryIndex.candidatesFor('deno', signal)) {
-			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- manifest candidates are tried in approved fallback order
-			const diag = await this.tryRuntimeManifestEntry(entry, attempts, opts, onProgress, signal)
-			if (diag) return diag
-			onProgress?.({binary: id, phase: 'fallback'})
-		}
-
-		const diag = failedDiagnostic(id, attempts)
-		this.lastDiagnostics[id] = diag
-		return diag
-	}
-
-	async ensureDeno(onStatus?: StatusReporter, onDownloadProgress?: DownloadProgressCallback): Promise<string> {
-		if (this.resolved.deno) return this.resolved.deno
-		const onProgress = wrapDownloadProgressEmitter(onDownloadProgress)
-		const diag = await this.resolveDeno({onStatus, onProgress})
-		if (diag.state !== 'runnable' || !diag.resolvedPath) {
-			throw new Error(diag.failure?.message ?? 'deno could not be resolved')
-		}
-		return diag.resolvedPath
-	}
-
-	private async isUsableBinary(binaryPath: string): Promise<boolean> {
-		try {
-			const mode = process.platform === 'win32' ? fsConstants.F_OK : fsConstants.X_OK
-			await fsPromises.access(binaryPath, mode)
-			return true
-		} catch {
-			return false
-		}
 	}
 }
 

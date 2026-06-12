@@ -10,6 +10,6 @@ describe('blockingDependencyFailures', () => {
 	it('treats missing required dependency diagnostics as blocking failures', () => {
 		const dependencies = {'yt-dlp': diag('yt-dlp', 'runnable')} as Record<DependencyId, DependencyDiagnostic>
 
-		expect(blockingDependencyFailures(dependencies, {skipDeno: true})).toEqual(['ffmpeg', 'ffprobe'])
+		expect(blockingDependencyFailures(dependencies)).toEqual(['ffmpeg', 'ffprobe'])
 	})
 })

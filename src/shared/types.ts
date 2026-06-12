@@ -126,7 +126,6 @@ export interface BinaryOverrides {
 	ytDlp?: string
 	ffmpeg?: string
 	ffprobe?: string
-	deno?: string
 }
 
 // Single-video flow prefs. Restored when the user enters the format-probe path.
@@ -324,13 +323,14 @@ export interface ProgressEvent {
 	percent?: number
 }
 
-export const DEPENDENCY_IDS = ['yt-dlp', 'ffmpeg', 'ffprobe', 'deno'] as const
+export const DEPENDENCY_IDS = ['yt-dlp', 'ffmpeg', 'ffprobe'] as const
 export type DependencyId = (typeof DEPENDENCY_IDS)[number]
 
 export type DependencySource =
 	| {kind: 'manualOverride'; path: string}
 	| {kind: 'envOverride'; path: string; envVar: string}
-	| {kind: 'managed'; channel: 'nightly' | 'stable' | 'default'; url: string; provider: 'github' | 'sourceforge' | 'deno-land'}
+	| {kind: 'managed'; channel: 'nightly' | 'stable' | 'default'; url: string; provider: 'github' | 'sourceforge'}
+	| {kind: 'managedCache'; channel: 'nightly' | 'stable' | 'default'; url: string; provider: 'github' | 'sourceforge'; path: string}
 	| {kind: 'systemPath'; path: string}
 	| {kind: 'cache'; path: string}
 	| {kind: 'bundled'; path: string}

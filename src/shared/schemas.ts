@@ -189,13 +189,13 @@ export type NetworkPacingPreset = z.infer<typeof networkPacingPresetSchema>
 export const pacingSleepSecondsSchema = z.number().min(0).max(120)
 export const pacingConcurrentFragmentsSchema = z.number().int().min(0).max(16)
 
-export const runtimeBinaryIdSchema = z.enum(['yt-dlp', 'deno'])
+export const runtimeBinaryIdSchema = z.enum(['yt-dlp'])
 export type RuntimeBinaryId = z.infer<typeof runtimeBinaryIdSchema>
 
 export const runtimeBinaryChannelSchema = z.enum(['nightly', 'stable', 'default'])
 export type RuntimeBinaryChannel = z.infer<typeof runtimeBinaryChannelSchema>
 
-export const runtimeBinaryProviderSchema = z.enum(['github', 'sourceforge', 'deno-land'])
+export const runtimeBinaryProviderSchema = z.enum(['github', 'sourceforge'])
 export type RuntimeBinaryProvider = z.infer<typeof runtimeBinaryProviderSchema>
 
 export const runtimeBinaryPlatformSchema = z.enum(['win32', 'darwin', 'linux'])
@@ -399,7 +399,7 @@ const commonSettingsPatchSchema = z.object({
 	shareInlineCardDismissed: z.boolean().optional(),
 	shareHighValueBannerDismissed: z.boolean().optional(),
 	binaryOverrides: z
-		.object({ytDlp: z.string().min(1).optional(), ffmpeg: z.string().min(1).optional(), ffprobe: z.string().min(1).optional(), deno: z.string().min(1).optional()})
+		.object({ytDlp: z.string().min(1).optional(), ffmpeg: z.string().min(1).optional(), ffprobe: z.string().min(1).optional()})
 		.partial()
 		.optional(),
 	lastSubfolderEnabled: z.boolean().optional(),

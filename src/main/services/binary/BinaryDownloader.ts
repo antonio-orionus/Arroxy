@@ -85,7 +85,7 @@ export function parseShaLine(content: string, fileName: string): string | null {
 	return null
 }
 
-// Single-line plain-hex SHA used by deno's Linux/Mac sha256sum sibling.
+// Single-line plain-hex SHA used by upstream checksum sidecars.
 // Falls back to any 64-hex token in the body (covers labelled forms).
 export function parseStandaloneSha256(content: string): string | null {
 	const firstToken = content.trim().split(/\s+/)[0] ?? ''
@@ -94,8 +94,8 @@ export function parseStandaloneSha256(content: string): string | null {
 	return labelled ? labelled[1].toLowerCase() : null
 }
 
-// Deno Windows .sha256sum uses multi-line "Hash : <64-hex>" PowerShell
-// format. Linux/Mac use parseStandaloneSha256 instead.
+// Some Windows checksum sidecars use multi-line "Hash : <64-hex>" PowerShell
+// format instead of the usual "<hash>  file" GNU format.
 export function parsePowerShellFileHash(content: string): string | null {
 	const match = /^\s*Hash\s*:\s*([a-fA-F0-9]{64})\s*$/m.exec(content)
 	return match ? match[1].toLowerCase() : null

@@ -23,9 +23,9 @@ const FAILURE_HINT_KEY = {
 	pair_incomplete: 'repair.hints.pairIncomplete'
 } as const satisfies Record<DependencyFailureKind, string>
 
-const DEPENDENCY_LABEL_KEY = {'yt-dlp': 'repair.deps.ytDlp', ffmpeg: 'repair.deps.ffmpeg', ffprobe: 'repair.deps.ffprobe', deno: 'repair.deps.deno'} as const satisfies Record<DependencyId, string>
+const DEPENDENCY_LABEL_KEY = {'yt-dlp': 'repair.deps.ytDlp', ffmpeg: 'repair.deps.ffmpeg', ffprobe: 'repair.deps.ffprobe'} as const satisfies Record<DependencyId, string>
 
-const OVERRIDE_KEY: Record<DependencyId, keyof BinaryOverrides> = {'yt-dlp': 'ytDlp', ffmpeg: 'ffmpeg', ffprobe: 'ffprobe', deno: 'deno'}
+const OVERRIDE_KEY: Record<DependencyId, keyof BinaryOverrides> = {'yt-dlp': 'ytDlp', ffmpeg: 'ffmpeg', ffprobe: 'ffprobe'}
 
 export function RepairPanel({diagnostics, blocking}: Props): ReactNode {
 	const {t} = useTranslation()

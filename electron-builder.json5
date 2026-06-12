@@ -3,6 +3,9 @@
   "productName": "Arroxy",
   "afterPack": "./build/afterPack.mjs",
   "beforeBuild": "./build/beforeBuild.mjs",
+  "electronFuses": {
+    "runAsNode": true
+  },
   "directories": {
     "output": "dist",
     "buildResources": "build"

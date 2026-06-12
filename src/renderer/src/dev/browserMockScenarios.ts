@@ -55,7 +55,6 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'diagnostics-all-ok',
 	'diagnostics-ytdlp-missing',
 	'diagnostics-ffmpeg-broken',
-	'diagnostics-deno-missing',
 	'diagnostics-ffprobe-broken',
 	'diagnostics-all-missing',
 	'diagnostics-warmup-running'
@@ -170,10 +169,9 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'diagnostics-all-ok', group: 'Diagnostics', title: 'All OK', description: 'Runnable dependency diagnostics.', kind: 'diagnostics'},
 	{id: 'diagnostics-ytdlp-missing', group: 'Diagnostics', title: 'yt-dlp missing', description: 'Blocking yt-dlp setup failure.', kind: 'diagnostics'},
 	{id: 'diagnostics-ffmpeg-broken', group: 'Diagnostics', title: 'ffmpeg broken', description: 'Blocking ffmpeg setup failure.', kind: 'diagnostics'},
-	{id: 'diagnostics-deno-missing', group: 'Diagnostics', title: 'deno missing', description: 'Blocking deno download failure.', kind: 'diagnostics'},
 	{id: 'diagnostics-ffprobe-broken', group: 'Diagnostics', title: 'ffprobe broken', description: 'Blocking ffprobe probe failure (bad exit code).', kind: 'diagnostics'},
-	{id: 'diagnostics-all-missing', group: 'Diagnostics', title: 'All missing', description: 'Fresh-install state - all four binaries failed; all are blocking.', kind: 'diagnostics'},
-	{id: 'diagnostics-warmup-running', group: 'Diagnostics', title: 'Non-blocking failure', description: 'Deno failed (download_failed) but not blocking - app proceeds, diagnostics panel shows soft warning.', kind: 'diagnostics'}
+	{id: 'diagnostics-all-missing', group: 'Diagnostics', title: 'All missing', description: 'Fresh-install state - all setup dependencies failed; all are blocking.', kind: 'diagnostics'},
+	{id: 'diagnostics-warmup-running', group: 'Diagnostics', title: 'Warmup running', description: 'Setup is still running without blocking failures.', kind: 'diagnostics'}
 ] as const
 
 const SCENARIOS_BY_ID = new Map<string, BrowserMockScenario>(BROWSER_MOCK_SCENARIOS.map(scenario => [scenario.id, scenario]))

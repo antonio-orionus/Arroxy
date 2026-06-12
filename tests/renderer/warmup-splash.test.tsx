@@ -47,12 +47,12 @@ describe('WarmupSplash', () => {
 	})
 
 	it('does not label post-download extraction as a stuck full download', () => {
-		const warmupProgress = {deno: {binary: 'deno', phase: 'extracting'} satisfies WarmupProgressEvent}
+		const warmupProgress = {ffmpeg: {binary: 'ffmpeg', phase: 'extracting'} satisfies WarmupProgressEvent}
 
 		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
 
 		expect(screen.getByTestId('splash-overlay')).toHaveTextContent('Preparing downloads')
-		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('Downloading deno')
+		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('Downloading ffmpeg')
 		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('MB /')
 		expect(document.querySelector('.splash-progress-bar')).not.toBeInTheDocument()
 	})

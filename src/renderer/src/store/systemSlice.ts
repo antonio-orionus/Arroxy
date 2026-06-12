@@ -78,7 +78,7 @@ function openShareDialogInternal(set: SetState, trigger: ShareTrigger): void {
 	track('share_dialog_opened', {via: trigger})
 }
 
-const OVERRIDE_KEY: Record<DependencyId, 'ytDlp' | 'ffmpeg' | 'ffprobe' | 'deno'> = {'yt-dlp': 'ytDlp', ffmpeg: 'ffmpeg', ffprobe: 'ffprobe', deno: 'deno'}
+const OVERRIDE_KEY: Record<DependencyId, 'ytDlp' | 'ffmpeg' | 'ffprobe'> = {'yt-dlp': 'ytDlp', ffmpeg: 'ffmpeg', ffprobe: 'ffprobe'}
 
 function makeBinaryOverridePatch(id: DependencyId, path: string | undefined): {common: {binaryOverrides: Record<string, string | undefined>}} {
 	return {common: {binaryOverrides: {[OVERRIDE_KEY[id]]: path}}}

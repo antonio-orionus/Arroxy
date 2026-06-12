@@ -10,6 +10,7 @@
 //   bun run smoke:playlist -- --url https://www.youtube.com/watch?v=...
 //   bun run smoke:playlist -- --cookies /path/to/cookies.txt
 //   bun run smoke:playlist -- --cookies-from-browser firefox
+//   bun run smoke:playlist -- --node /path/to/node
 
 import {spawn} from 'node:child_process'
 import {mkdtemp, rm, writeFile} from 'node:fs/promises'
@@ -33,7 +34,7 @@ interface CliArgs {
 	cookies?: string
 	cookiesFromBrowser?: string
 	ytDlpPath?: string
-	denoPath?: string
+	nodePath?: string
 	extractorStrategy: ExtractorStrategy
 	keepTemp: boolean
 }
@@ -71,12 +72,12 @@ function parseArgs(argv: string[]): CliArgs {
 		else if (a === '--cookies') args.cookies = readFlagValue(argv, i++, a)
 		else if (a === '--cookies-from-browser') args.cookiesFromBrowser = readFlagValue(argv, i++, a)
 		else if (a === '--yt-dlp') args.ytDlpPath = readFlagValue(argv, i++, a)
-		else if (a === '--deno') args.denoPath = readFlagValue(argv, i++, a)
+		else if (a === '--node') args.nodePath = readFlagValue(argv, i++, a)
 		else if (a === '--extractor-strategy') args.extractorStrategy = parseExtractorStrategy(readFlagValue(argv, i++, a))
 		else if (a === '--keep-temp') args.keepTemp = true
 		else if (a === '-h' || a === '--help') {
 			console.log('Usage: bun run smoke:playlist [-- --url X --cookies file --cookies-from-browser firefox]')
-			console.log('       [-- --yt-dlp path --deno path --extractor-strategy auto|vanilla|fallback --keep-temp]')
+			console.log('       [-- --yt-dlp path --node path --extractor-strategy auto|vanilla|fallback --keep-temp]')
 			process.exit(0)
 		}
 	}
@@ -96,7 +97,7 @@ function parseExtractorStrategy(value: string | undefined): ExtractorStrategy {
 	throw new Error(`Invalid --extractor-strategy '${value ?? ''}'. Expected auto, vanilla, or fallback.`)
 }
 
-function findBinary(name: 'yt-dlp' | 'deno', override?: string): string {
+function findBinary(name: 'yt-dlp' | 'node', override?: string): string {
 	if (override) {
 		if (!existsSync(override)) throw new Error(`${name} not found at ${override}`)
 		return override
@@ -107,7 +108,7 @@ function findBinary(name: 'yt-dlp' | 'deno', override?: string): string {
 	const userDataMac = join(homedir(), 'Library', 'Application Support', 'Arroxy')
 	const userDataWin = process.env.APPDATA ? join(process.env.APPDATA, 'Arroxy') : ''
 	const candidates = [
-		process.env[name === 'yt-dlp' ? 'YT_DLP_PATH' : 'DENO_PATH'],
+		process.env[name === 'yt-dlp' ? 'YT_DLP_PATH' : 'ARROXY_SMOKE_NODE_PATH'],
 		join(userDataLinux, 'runtime-cache', 'binaries', exeName),
 		join(userDataMac, 'runtime-cache', 'binaries', exeName),
 		userDataWin ? join(userDataWin, 'runtime-cache', 'binaries', exeName) : null,
@@ -162,20 +163,24 @@ function cookiesArgs(args: CliArgs): string[] {
 	return []
 }
 
-function denoArgs(denoPath: string): string[] {
-	return existsSync(denoPath) ? ['--js-runtimes', `deno:${denoPath}`] : []
+function nodeRuntimeValue(nodePath: string): string {
+	return existsSync(nodePath) ? `node:${nodePath}` : 'node'
 }
 
-function probeArgs(url: string, cli: CliArgs, denoPath: string, strategy: Exclude<ExtractorStrategy, 'auto'>): string[] {
-	return ['--dump-single-json', '--skip-download', '--no-playlist', '--no-warnings', ...denoArgs(denoPath), ...(strategy === 'fallback' ? ['--extractor-args', PLAYER_CLIENT_FALLBACK] : []), ...cookiesArgs(cli), url]
+function nodeArgs(nodePath: string): string[] {
+	return ['--remote-components', 'ejs:github', '--no-js-runtimes', '--js-runtimes', nodeRuntimeValue(nodePath)]
 }
 
-async function probeInfoJson(ytDlpPath: string, url: string, cli: CliArgs, denoPath: string): Promise<{json: string; strategy: Exclude<ExtractorStrategy, 'auto'>; durationMs: number}> {
+function probeArgs(url: string, cli: CliArgs, nodePath: string, strategy: Exclude<ExtractorStrategy, 'auto'>): string[] {
+	return ['--dump-single-json', '--skip-download', '--no-playlist', '--no-warnings', ...nodeArgs(nodePath), ...(strategy === 'fallback' ? ['--extractor-args', PLAYER_CLIENT_FALLBACK] : []), ...cookiesArgs(cli), url]
+}
+
+async function probeInfoJson(ytDlpPath: string, url: string, cli: CliArgs, nodePath: string): Promise<{json: string; strategy: Exclude<ExtractorStrategy, 'auto'>; durationMs: number}> {
 	const strategies: Exclude<ExtractorStrategy, 'auto'>[] = cli.extractorStrategy === 'auto' ? ['vanilla', 'fallback'] : [cli.extractorStrategy]
 	let last: RunResult | null = null
 
 	for (const strategy of strategies) {
-		const result = await run(ytDlpPath, probeArgs(url, cli, denoPath, strategy))
+		const result = await run(ytDlpPath, probeArgs(url, cli, nodePath, strategy))
 		if (result.exitCode === 0 && parseSelectedInfo(result.stdout)) {
 			return {json: result.stdout, strategy, durationMs: result.durationMs}
 		}
@@ -299,18 +304,18 @@ async function main(): Promise<void> {
 	const cli = parseArgs(process.argv.slice(2))
 	const url = firstNonEmpty(cli.url, process.env.ARROXY_SMOKE_URL) ?? DEFAULT_URL
 	const ytDlpPath = findBinary('yt-dlp', cli.ytDlpPath)
-	const denoPath = findBinary('deno', cli.denoPath)
+	const nodePath = findBinary('node', cli.nodePath)
 	const tempDir = await mkdtemp(join(tmpdir(), 'arroxy-playlist-smoke-'))
 	const infoJsonPath = join(tempDir, 'info.json')
 
 	console.log('Playlist preset smoke — real YouTube probe, yt-dlp dry-runs')
 	console.log(`  yt-dlp: ${ytDlpPath}`)
-	console.log(`  deno:   ${denoPath}`)
+	console.log(`  node:   ${nodePath}`)
 	console.log(`  url:    ${url}`)
 	console.log('')
 
 	try {
-		const probe = await probeInfoJson(ytDlpPath, url, cli, denoPath)
+		const probe = await probeInfoJson(ytDlpPath, url, cli, nodePath)
 		await writeFile(infoJsonPath, probe.json, 'utf-8')
 		const probedInfo = parseSelectedInfo(probe.json)
 		console.log(`  PASS  initial probe (${probe.strategy}, ${probe.durationMs}ms)  ${probedInfo?.title ?? '(no title)'}`)
@@ -318,7 +323,7 @@ async function main(): Promise<void> {
 		const cases = smokeCases()
 		let failed = 0
 		for (const caseDef of cases) {
-			const args = ['--simulate', '--dump-single-json', '--no-warnings', ...buildVideoArgs(reqFor(caseDef.selection, tempDir, infoJsonPath), undefined)]
+			const args = ['--simulate', '--dump-single-json', '--no-warnings', ...nodeArgs(nodePath), ...buildVideoArgs(reqFor(caseDef.selection, tempDir, infoJsonPath), undefined)]
 			const result = await run(ytDlpPath, args)
 			const info = parseSelectedInfo(result.stdout)
 			const failures = info ? validate(caseDef, args, info) : ['yt-dlp did not return parseable JSON']

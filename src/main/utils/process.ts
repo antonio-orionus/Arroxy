@@ -18,8 +18,9 @@ function envWithFfmpegPaths(ffmpegPath: string | null, opts: {e2eMode?: E2eHarne
 	return env
 }
 
-export function spawnYtDlp(binaryPath: string, args: string[], ffmpegPath: string | null, e2eMode?: E2eHarnessMode): ChildProcessWithoutNullStreams {
-	return spawn(binaryPath, args, {env: envWithFfmpegPaths(ffmpegPath, {e2eMode}), windowsHide: true, detached: process.platform !== 'win32'})
+export function spawnYtDlp(binaryPath: string, args: string[], ffmpegPath: string | null, e2eMode?: E2eHarnessMode, transformEnv?: (env: NodeJS.ProcessEnv) => NodeJS.ProcessEnv): ChildProcessWithoutNullStreams {
+	const env = envWithFfmpegPaths(ffmpegPath, {e2eMode})
+	return spawn(binaryPath, args, {env: transformEnv ? transformEnv(env) : env, shell: false, windowsHide: true, detached: process.platform !== 'win32'})
 }
 
 export function spawnFFmpeg(binaryPath: string, args: string[]): ChildProcessWithoutNullStreams {

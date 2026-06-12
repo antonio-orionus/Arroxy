@@ -22,6 +22,50 @@ describe('release asset names', () => {
 		expect(config).not.toContain('"artifactName": "${productName}-${version}.${ext}"')
 	})
 
+	it('keeps Electron runAsNode enabled for yt-dlp JS runtime smoke', () => {
+		const config = read('electron-builder.json5')
+
+		expect(config).toContain('"electronFuses"')
+		expect(config).toContain('"runAsNode": true')
+		expect(config).not.toContain('"runAsNode": false')
+	})
+
+	it('runs packaged runtime smoke before UI cold-start on every PR platform', () => {
+		const coldStart = read('.github/workflows/e2e-cold-start.yml')
+
+		expect(coldStart).toContain('Run packaged runtime smoke')
+		expect(coldStart).toContain("ARROXY_RUNTIME_SMOKE: '1'")
+		expect(coldStart).toContain('Arroxy Runtime Ω Cold')
+		expect(coldStart).toContain('fake old node')
+		expect(coldStart).toContain('fake deno')
+		expect(coldStart).toContain('fake yt-dlp')
+		expect(coldStart).toContain('runtime-smoke.out')
+		expect(coldStart).toContain('runtime-smoke.err')
+	})
+
+	it('smoke-tests Windows installed and portable artifacts before publish', () => {
+		const installer = read('.github/workflows/installer-smoke.yml')
+
+		expect(installer).toContain('bun run dist:win')
+		expect(installer).toContain('Run installed app runtime smoke')
+		expect(installer).toContain('Run portable app runtime smoke')
+		expect(installer).toContain('ARROXY_RUNTIME_SMOKE')
+		expect(installer).toContain('Arroxy Runtime Ω Installed')
+		expect(installer).toContain('Arroxy Portable Ω Path')
+		expect(installer).toContain('runtime-smoke-logs')
+	})
+
+	it('blocks release on packaged runtime smoke and Linux live canary', () => {
+		const release = read('.github/workflows/release.yml')
+
+		expect(release).toContain('Run packaged runtime smoke')
+		expect(release).toContain("ARROXY_RUNTIME_SMOKE: '1'")
+		expect(release).toContain('Run Linux live YouTube canary')
+		expect(release).toContain('ARROXY_LIVE_CANARY_URL')
+		expect(release).toContain('ARROXY_SMOKE_URL')
+		expect(release).toContain('vars.ARROXY_LIVE_CANARY_URL')
+	})
+
 	it('keeps release workflow consumers on the same stable filenames', () => {
 		const release = read('.github/workflows/release.yml')
 		const installer = read('.github/workflows/installer-smoke.yml')

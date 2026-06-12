@@ -27,6 +27,7 @@ import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowToken
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
 import {defaultAppSettings, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
 import {runSmokeMode, readSmokeUrl, exitWithCode} from '@main/smoke.js'
+import {readRuntimeSmokeEnabled, runRuntimeSmokeMode} from '@main/runtimeSmoke.js'
 import {cancelQueueBeforeExit} from '@main/shutdown.js'
 import {decideCloseAction, decideRendererCrashAction} from '@main/windowLifecycle.js'
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
@@ -182,7 +183,7 @@ if (hasSingleInstanceLock) {
 		// present after `get()`. Empty string fallback keeps TS happy without
 		// weakening the type elsewhere.
 		const installId = initialSettings.common.installId ?? ''
-		const isDev = !!process.env.ELECTRON_RENDERER_URL || isMockBackend || e2eMode.enabled || !!process.env.ARROXY_SMOKE_URL
+		const isDev = !!process.env.ELECTRON_RENDERER_URL || isMockBackend || e2eMode.enabled || !!process.env.ARROXY_SMOKE_URL || readRuntimeSmokeEnabled()
 		const cpuModel = os.cpus()[0]?.model ?? 'unknown'
 		const osLocale = app.getLocale()
 		if (!e2eMode.disableAnalytics) {
@@ -193,6 +194,15 @@ if (hasSingleInstanceLock) {
 		const queueStore = new QueueStore(userDataPath)
 		const playlistManifestStore = new PlaylistManifestStore(userDataPath)
 		const binaryManager = new BinaryManager(userDataPath, {overridesProvider: () => settingsStore.getSync().common.binaryOverrides})
+
+		// Packaged runtime smoke mode — exercises Electron-as-Node and managed
+		// yt-dlp before any renderer window or queue lifecycle can interfere.
+		if (readRuntimeSmokeEnabled()) {
+			const code = await runRuntimeSmokeMode({binaryManager})
+			exitWithCode(code)
+			return
+		}
+
 		const tokenProvider = isMockBackend || e2eMode.useMockTokenProvider ? new MockTokenProvider() : new HiddenWindowTokenProvider()
 		const tokenService = new TokenService(tokenProvider)
 		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode})
@@ -315,7 +325,7 @@ if (hasSingleInstanceLock) {
 		const clipboardWatcher = new ClipboardWatcher(watcherWindowFromBrowserWindow(mainWindow))
 		clipboardWatcher.setEnabled(initialSettings.common.clipboardWatchEnabled)
 
-		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, playlistManifestStore, e2eMode})
+		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, playlistManifestStore})
 
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)
@@ -381,6 +391,6 @@ app.on('window-all-closed', () => {
 	// In smoke mode, the hidden token window is created/destroyed transiently
 	// and we don't want that to trigger a quit mid-probe. The smoke runner
 	// calls app.exit() itself when its async work finishes.
-	if (process.env.ARROXY_SMOKE_URL) return
+	if (process.env.ARROXY_SMOKE_URL || readRuntimeSmokeEnabled()) return
 	app.quit()
 })

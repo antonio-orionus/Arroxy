@@ -2,20 +2,14 @@ import {createHash, generateKeyPairSync, sign as signPayload, verify as verifyPa
 import fsPromises from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {fileURLToPath, pathToFileURL} from 'node:url'
+import {pathToFileURL} from 'node:url'
 import {downloadArtifactToCache, downloadText, parseShaLine} from '../../src/main/services/binary/BinaryDownloader.js'
 import {probeArgs, probeBinary, probeTimeoutMs} from '../../src/main/services/binary/BinaryProbe.js'
-import {denoAssetName, denoChecksumUrl, denoGithubDownloadUrl, denoLandDownloadUrl, denoTargets, parseDenoLatestVersion, parseDenoSha256} from '../../src/main/services/binary/DenoBinarySource.js'
 import {RuntimeBinaryMaterializer} from '../../src/main/services/binary/RuntimeBinaryMaterializer.js'
 import {RUNTIME_BINARY_INDEX_PUBLIC_KEY_PEM} from '../../src/main/services/binary/RuntimeBinaryTrust.js'
 import {githubYtDlpDownloadUrl, parseSourceForgeLatestYtDlpVersion, sourceForgeYtDlpDownloadUrl, YT_DLP_SOURCES, ytDlpTargets, type YtDlpTarget} from '../../src/main/services/binary/YtDlpBinarySource.js'
 import {runtimeBinaryArchFor, runtimeBinaryPlatformFor, validateRuntimeBinaryIndex} from '../../src/shared/runtimeBinaryManifest.js'
 import type {RuntimeBinaryChannel, RuntimeBinaryIndex, RuntimeBinaryManifestEntry, RuntimeBinaryProvider} from '../../src/shared/types.js'
-
-interface RuntimeBinaryManifestConfig {
-	schemaVersion: 1
-	denoVersion: string
-}
 
 interface GithubReleaseAsset {
 	name: string
@@ -36,7 +30,6 @@ interface ArtifactMetadata {
 interface GenerateOptions {
 	outPath: string
 	cacheRoot?: string
-	denoVersion?: string
 	validate: boolean
 }
 
@@ -55,13 +48,11 @@ interface SignOptions {
 interface LocalOptions {
 	outDir: string
 	cacheRoot?: string
-	denoVersion?: string
 	keyPath: string
 	publicKeyPath: string
 	envFile: string
 }
 
-const DEFAULT_CONFIG_URL = new URL('./runtime-binaries.config.json', import.meta.url)
 const MANIFEST_FILE_NAME = 'runtime-index-v1.json'
 const SIGNATURE_FILE_NAME = 'runtime-index-v1.sig'
 const LOCAL_PUBLIC_KEY_FILE_NAME = 'runtime-index-local.public.pem'
@@ -114,17 +105,6 @@ async function fetchGithubRelease(apiBase: string): Promise<GithubRelease> {
 	const response = await fetch(`${apiBase}/releases/latest`, {headers: githubHeaders()})
 	if (!response.ok) throw new Error(`GitHub release request failed (${response.status}): ${apiBase}`)
 	return parseGithubRelease(await response.json())
-}
-
-async function readConfig(): Promise<RuntimeBinaryManifestConfig> {
-	const raw = await fsPromises.readFile(DEFAULT_CONFIG_URL, 'utf8')
-	const parsed = JSON.parse(raw) as unknown
-	if (!isRecord(parsed) || parsed.schemaVersion !== 1 || typeof parsed.denoVersion !== 'string') {
-		throw new Error(`Invalid runtime binary manifest config: ${fileURLToPath(DEFAULT_CONFIG_URL)}`)
-	}
-	const denoVersion = parseDenoLatestVersion(parsed.denoVersion)
-	if (!denoVersion) throw new Error(`Invalid configured Deno version: ${parsed.denoVersion}`)
-	return {schemaVersion: 1, denoVersion}
 }
 
 function hashText(value: string): string {
@@ -189,30 +169,13 @@ async function sourceForgeYtDlpEntries(downloadRoot: string, cache: Map<string, 
 	)
 }
 
-async function denoEntries(version: string, downloadRoot: string, cache: Map<string, Promise<ArtifactMetadata>>): Promise<RuntimeBinaryManifestEntry[]> {
-	const parsedVersion = parseDenoLatestVersion(version)
-	if (!parsedVersion) throw new Error(`Invalid Deno release version: ${version}`)
-	return Promise.all(
-		denoTargets().map(async target => {
-			const assetName = denoAssetName(target)
-			const url = denoLandDownloadUrl(parsedVersion, assetName)
-			const checksum = parseDenoSha256(await downloadText(denoChecksumUrl(url)))
-			if (!checksum) throw new Error(`No Deno checksum for ${assetName} in ${parsedVersion}`)
-			return completeEntry({id: 'deno', channel: 'default', provider: 'deno-land', version: parsedVersion, platform: target.platform, arch: target.arch, url, mirrors: [denoGithubDownloadUrl(parsedVersion, assetName)], format: 'zip', executablePath: target.executableName}, checksum, downloadRoot, cache)
-		})
-	)
-}
-
-export async function generateRuntimeBinaryIndex(options: {cacheRoot?: string; denoVersion?: string} = {}): Promise<RuntimeBinaryIndex> {
-	const config = await readConfig()
+export async function generateRuntimeBinaryIndex(options: {cacheRoot?: string} = {}): Promise<RuntimeBinaryIndex> {
 	const cacheRoot = options.cacheRoot ?? (await fsPromises.mkdtemp(path.join(os.tmpdir(), 'arroxy-runtime-manifest-')))
 	const downloadRoot = path.join(cacheRoot, 'generator-downloads')
 	const cache = new Map<string, Promise<ArtifactMetadata>>()
 	await fsPromises.mkdir(downloadRoot, {recursive: true})
-	const requestedDenoVersion = options.denoVersion ?? process.env.DENO_RELEASE_VERSION?.trim()
-	const denoVersion = requestedDenoVersion && requestedDenoVersion.length > 0 ? requestedDenoVersion : config.denoVersion
-	const [nightlyEntries, stableEntries, sourceForgeEntries, denoManifestEntries] = await Promise.all([githubYtDlpEntries('nightly', downloadRoot, cache), githubYtDlpEntries('stable', downloadRoot, cache), sourceForgeYtDlpEntries(downloadRoot, cache), denoEntries(denoVersion, downloadRoot, cache)])
-	const entries = [...nightlyEntries, ...stableEntries, ...sourceForgeEntries, ...denoManifestEntries]
+	const [nightlyEntries, stableEntries, sourceForgeEntries] = await Promise.all([githubYtDlpEntries('nightly', downloadRoot, cache), githubYtDlpEntries('stable', downloadRoot, cache), sourceForgeYtDlpEntries(downloadRoot, cache)])
+	const entries = [...nightlyEntries, ...stableEntries, ...sourceForgeEntries]
 	const index: RuntimeBinaryIndex = {schemaVersion: 1, generatedAt: new Date().toISOString(), entries}
 	const validation = validateRuntimeBinaryIndex(index)
 	if (!validation.ok) throw new Error(`Generated runtime binary index is invalid: ${validation.issues.join('; ')}`)
@@ -281,7 +244,7 @@ function defaultCacheRoot(): string {
 
 function parseGenerateOptions(args: string[]): GenerateOptions {
 	const outPath = optionValue(args, '--out') ?? path.join('dist', 'runtime-binaries', MANIFEST_FILE_NAME)
-	return {outPath, cacheRoot: optionValue(args, '--cache-root'), denoVersion: optionValue(args, '--deno-version'), validate: hasFlag(args, '--validate')}
+	return {outPath, cacheRoot: optionValue(args, '--cache-root'), validate: hasFlag(args, '--validate')}
 }
 
 function parseValidateOptions(args: string[]): ValidateOptions {
@@ -302,7 +265,7 @@ function parseLocalOptions(args: string[]): LocalOptions {
 	const keyPath = optionValue(args, '--key-path') ?? path.join(outDir, LOCAL_PRIVATE_KEY_FILE_NAME)
 	const publicKeyPath = optionValue(args, '--public-key-path') ?? path.join(outDir, LOCAL_PUBLIC_KEY_FILE_NAME)
 	const envFile = optionValue(args, '--env-file') ?? path.join(outDir, LOCAL_ENV_FILE_NAME)
-	return {outDir, cacheRoot: optionValue(args, '--cache-root'), denoVersion: optionValue(args, '--deno-version'), keyPath, publicKeyPath, envFile}
+	return {outDir, cacheRoot: optionValue(args, '--cache-root'), keyPath, publicKeyPath, envFile}
 }
 
 async function readIndexFile(manifestPath: string): Promise<{raw: string; index: RuntimeBinaryIndex}> {
@@ -316,7 +279,7 @@ async function readIndexFile(manifestPath: string): Promise<{raw: string; index:
 async function generateCommand(args: string[]): Promise<void> {
 	const options = parseGenerateOptions(args)
 	const cacheRoot = options.cacheRoot ?? defaultCacheRoot()
-	const index = await generateRuntimeBinaryIndex({cacheRoot, denoVersion: options.denoVersion})
+	const index = await generateRuntimeBinaryIndex({cacheRoot})
 	const raw = formatIndex(index)
 	await fsPromises.mkdir(path.dirname(options.outPath), {recursive: true})
 	await fsPromises.writeFile(options.outPath, raw)
@@ -363,7 +326,7 @@ async function localCommand(args: string[]): Promise<void> {
 	const signaturePath = path.join(options.outDir, SIGNATURE_FILE_NAME)
 	const cacheRoot = options.cacheRoot ?? defaultCacheRoot()
 	await fsPromises.mkdir(options.outDir, {recursive: true})
-	const index = await generateRuntimeBinaryIndex({cacheRoot, denoVersion: options.denoVersion})
+	const index = await generateRuntimeBinaryIndex({cacheRoot})
 	const raw = formatIndex(index)
 	const {privateKeyPem, publicKeyPem, created} = await readOrCreateLocalSigningKey(options)
 	const signature = signRuntimeIndexPayload(raw, privateKeyPem)

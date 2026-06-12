@@ -87,7 +87,6 @@ describe('probeTimeoutMs', () => {
 	it('keeps binary probes to a 30 second budget', () => {
 		expect(probeTimeoutMs('yt-dlp', 'win32')).toBe(30_000)
 		expect(probeTimeoutMs('yt-dlp', 'linux')).toBe(30_000)
-		expect(probeTimeoutMs('deno', 'win32')).toBe(30_000)
 		expect(probeTimeoutMs('ffmpeg', 'darwin')).toBe(30_000)
 		expect(probeTimeoutMs('ffprobe', 'linux')).toBe(30_000)
 	})

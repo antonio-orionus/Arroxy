@@ -96,8 +96,8 @@ jobs:
     #
     # ffmpeg/ffprobe are embedded at build time via electron-builder's
     # beforeBuild hook (build/beforeBuild.cjs invokes
-    # scripts/build/fetch-embedded.sh). yt-dlp + deno remain runtime-fetched
-    # by BinaryManager.
+    # scripts/build/fetch-embedded.sh). yt-dlp remains runtime-fetched by
+    # BinaryManager; Electron provides the Node runtime for yt-dlp JS challenges.
     needs: prepare-release
     permissions:
       contents: write
@@ -121,6 +121,108 @@ jobs:
           BTBN_GITHUB_TOKEN: ${{ github.token }}
           OPENPANEL_CLIENT_ID: ${{ secrets.OPENPANEL_CLIENT_ID }}
           OPENPANEL_CLIENT_SECRET: ${{ secrets.OPENPANEL_CLIENT_SECRET }}
+      - name: Install Linux smoke dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y xvfb
+      - name: Locate packaged smoke executable
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            arch="$(uname -m)"
+            if [ "$arch" = "arm64" ]; then
+              exe=$(find dist -name "Arroxy" -path "*/mac-arm64/*.app/Contents/MacOS/Arroxy" 2>/dev/null | head -1)
+            else
+              exe=$(find dist -name "Arroxy" -path "*/mac/*.app/Contents/MacOS/Arroxy" 2>/dev/null | head -1)
+            fi
+            if [ -z "${exe:-}" ]; then
+              exe=$(find dist -name "Arroxy" -path "*/Contents/MacOS/Arroxy" 2>/dev/null | head -1)
+            fi
+          else
+            exe=$(find dist -maxdepth 1 \( -name "Arroxy-linux-x64.AppImage" -o -name "Arroxy-linux-x86_64.AppImage" \) -print | head -1)
+            if [ -n "${exe:-}" ]; then
+              chmod +x "$exe"
+            fi
+          fi
+          if [ -z "${exe:-}" ] || [ ! -e "$exe" ]; then
+            echo "::error::Could not locate packaged smoke executable"
+            find dist -maxdepth 4 -type f | sort
+            exit 1
+          fi
+          echo "PACKAGED_EXE=$GITHUB_WORKSPACE/$exe" >> "$GITHUB_ENV"
+      - name: Prepend fake JS runtimes and yt-dlp to PATH
+        shell: bash
+        run: |
+          fake="$RUNNER_TEMP/arroxy fake tools Ω"
+          mkdir -p "$fake"
+          cat > "$fake/node" <<'EOF'
+          #!/usr/bin/env sh
+          echo "fake old node v10.0.0"
+          EOF
+          cat > "$fake/deno" <<'EOF'
+          #!/usr/bin/env sh
+          echo "fake deno 2.0.0"
+          EOF
+          cat > "$fake/yt-dlp" <<'EOF'
+          #!/usr/bin/env sh
+          echo "fake yt-dlp should not be used" >&2
+          exit 1
+          EOF
+          chmod +x "$fake/node" "$fake/deno" "$fake/yt-dlp"
+          echo "$fake" >> "$GITHUB_PATH"
+      - name: Run packaged runtime smoke
+        shell: bash
+        env:
+          ARROXY_RUNTIME_SMOKE: '1'
+          ELECTRON_USER_DATA: ${{ runner.temp }}/Arroxy Runtime Ω Release
+          ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/runtime-smoke-logs
+          ARROXY_BINARY_DOWNLOAD_MAX_MS: '120000'
+        run: |
+          mkdir -p "$ARROXY_LOG_ARCHIVE"
+          unset ELECTRON_RUN_AS_NODE
+          stdout="$ARROXY_LOG_ARCHIVE/runtime-smoke.out"
+          stderr="$ARROXY_LOG_ARCHIVE/runtime-smoke.err"
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            xvfb-run -a "$PACKAGED_EXE" >"$stdout" 2>"$stderr"
+          else
+            "$PACKAGED_EXE" >"$stdout" 2>"$stderr"
+          fi
+          cat "$stdout"
+          if [ -s "$stderr" ]; then
+            cat "$stderr" >&2
+          fi
+      - name: Run Linux live YouTube canary
+        if: runner.os == 'Linux'
+        shell: bash
+        env:
+          ARROXY_SMOKE_URL: ${{ vars.ARROXY_LIVE_CANARY_URL }}
+          ELECTRON_USER_DATA: ${{ runner.temp }}/Arroxy Live Canary Ω
+          ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/runtime-smoke-logs
+          ARROXY_BINARY_DOWNLOAD_MAX_MS: '120000'
+        run: |
+          if [ -z "${ARROXY_SMOKE_URL:-}" ]; then
+            echo "::error::ARROXY_LIVE_CANARY_URL repository variable is required for release canary."
+            exit 1
+          fi
+          mkdir -p "$ARROXY_LOG_ARCHIVE"
+          unset ELECTRON_RUN_AS_NODE
+          stdout="$ARROXY_LOG_ARCHIVE/live-canary.out"
+          stderr="$ARROXY_LOG_ARCHIVE/live-canary.err"
+          xvfb-run -a "$PACKAGED_EXE" >"$stdout" 2>"$stderr"
+          cat "$stdout"
+          if [ -s "$stderr" ]; then
+            cat "$stderr" >&2
+          fi
+      - name: Upload runtime smoke logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: runtime-smoke-logs-${{ matrix.os }}
+          path: |
+            ${{ runner.temp }}/runtime-smoke-logs
+            ${{ runner.temp }}/Arroxy Runtime Ω Release/logs
+            ${{ runner.temp }}/Arroxy Live Canary Ω/logs
+          if-no-files-found: ignore
+          retention-days: 7
 
   publish-release:
     needs: [build, upload-flatpak]

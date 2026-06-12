@@ -1,14 +1,19 @@
+import {createHash} from 'node:crypto'
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {BinaryManager} from '@main/services/BinaryManager.js'
 import type {RuntimeBinaryIndexProvider} from '@main/services/binary/RuntimeBinaryIndexService.js'
-import type {RuntimeBinaryMaterializer} from '@main/services/binary/RuntimeBinaryMaterializer.js'
+import {RuntimeBinaryMaterializer, runtimeBinaryCacheKeyHash, runtimeBinaryManifestHash} from '@main/services/binary/RuntimeBinaryMaterializer.js'
+import {runtimeBinaryArchFor, runtimeBinaryPlatformFor} from '@shared/runtimeBinaryManifest.js'
 import type {DependencyDiagnostic, DependencyId, DependencySource, RuntimeBinaryManifestEntry} from '@shared/types.js'
 
 function entry(patch: Partial<RuntimeBinaryManifestEntry> = {}): RuntimeBinaryManifestEntry {
-	return {id: 'yt-dlp', channel: 'nightly', provider: 'github', version: '2026.06.12', platform: 'linux', arch: 'x64', url: 'https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2026.06.12/yt-dlp_linux', mirrors: [], size: 10, sha256: 'a'.repeat(64), format: 'raw', executablePath: 'yt-dlp', ...patch}
+	const platform = runtimeBinaryPlatformFor()
+	const arch = runtimeBinaryArchFor()
+	if (!platform || !arch) throw new Error('unsupported test platform')
+	return {id: 'yt-dlp', channel: 'nightly', provider: 'github', version: '2026.06.12', platform, arch, url: 'https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2026.06.12/yt-dlp_linux', mirrors: [], size: 10, sha256: 'a'.repeat(64), format: 'raw', executablePath: 'yt-dlp', ...patch}
 }
 
 async function tempDir(prefix = 'bm-manifest-'): Promise<string> {
@@ -43,6 +48,21 @@ function stubProbe(mgr: BinaryManager, options: {acceptSystemPath?: boolean; acc
 		;(mgr as unknown as {resolved: Record<string, string>}).resolved[id] = candidatePath
 		return {id, state: 'runnable', source, resolvedPath: candidatePath, attempts: attempts as never}
 	})
+}
+
+function sha256(body: Buffer): string {
+	return createHash('sha256').update(body).digest('hex')
+}
+
+async function writeManagedCache(userData: string, manifestEntry: RuntimeBinaryManifestEntry, body: Buffer): Promise<string> {
+	const cacheKey = runtimeBinaryCacheKeyHash(manifestEntry)
+	const artifactDir = path.join(userData, 'runtime-cache', 'artifact-cache-v1', 'artifacts', cacheKey)
+	const executablePath = path.join(artifactDir, manifestEntry.executablePath)
+	await fs.mkdir(path.dirname(executablePath), {recursive: true})
+	await fs.writeFile(executablePath, body)
+	if (process.platform !== 'win32') await fs.chmod(executablePath, 0o755)
+	await fs.writeFile(path.join(artifactDir, 'metadata.json'), `${JSON.stringify({cacheKey, manifest: manifestEntry, manifestHash: runtimeBinaryManifestHash(manifestEntry), executablePath: manifestEntry.executablePath, installedAt: new Date().toISOString()}, null, 2)}\n`, 'utf-8')
+	return executablePath
 }
 
 afterEach(() => {
@@ -96,40 +116,34 @@ describe('BinaryManager manifest resolution', () => {
 		await expect(mgr.ensureYtDlp()).resolves.toBe('/managed/previous/yt-dlp')
 	})
 
-	it('uses cached deno before manifest materialization', async () => {
-		const userData = await tempDir('bm-deno-cache-')
-		const denoEntry = entry({id: 'deno', channel: 'default', provider: 'deno-land', url: 'https://dl.deno.land/release/v2.8.3/deno-x86_64-unknown-linux-gnu.zip', format: 'zip', executablePath: 'deno'})
-		const mgr = new BinaryManager(userData, {runtimeBinaryIndex: indexProvider([denoEntry]), runtimeBinaryMaterializer: materializer(async () => '/managed/deno')})
-		const denoPath = mgr.getDenoPath()
-		await fs.mkdir(path.dirname(denoPath), {recursive: true})
-		await fs.writeFile(denoPath, 'fake-deno')
-		if (process.platform !== 'win32') await fs.chmod(denoPath, 0o755)
-		stubProbe(mgr)
-		const materialize = (mgr as unknown as {runtimeBinaryMaterializer: {materialize: ReturnType<typeof vi.fn>}}).runtimeBinaryMaterializer.materialize
+	it('uses a validated managed artifact cache before PATH when no manifest candidate is available', async () => {
+		const userData = await tempDir('bm-ytdlp-managed-cache-')
+		const body = Buffer.from('cached official yt-dlp')
+		const executablePath = await writeManagedCache(userData, entry({size: body.length, sha256: sha256(body)}), body)
+		const mgr = new BinaryManager(userData, {runtimeBinaryIndex: indexProvider([]), runtimeBinaryMaterializer: materializer(async () => '/unused')})
+		stubProbe(mgr, {acceptSystemPath: false})
 
-		await expect(mgr.ensureDeno()).resolves.toBe(denoPath)
-		expect(materialize).not.toHaveBeenCalled()
+		const diag = await mgr.resolveYtDlp()
+
+		expect(diag.resolvedPath).toBe(executablePath)
+		expect(diag.source).toEqual({kind: 'managedCache', channel: 'nightly', provider: 'github', url: expect.any(String), path: executablePath})
 	})
 
-	it('resolves deno from approved manifest entries without upstream latest lookup', async () => {
-		const denoEntry = entry({id: 'deno', channel: 'default', provider: 'deno-land', url: 'https://dl.deno.land/release/v2.8.3/deno-x86_64-unknown-linux-gnu.zip', format: 'zip', executablePath: 'deno'})
-		const mgr = await makeMgr({entries: [denoEntry], materialize: async () => '/managed/deno'})
-		stubProbe(mgr)
-
-		await expect(mgr.ensureDeno()).resolves.toBe('/managed/deno')
-	})
-
-	it('does not probe a packaged-resource deno path', async () => {
-		const mgr = await makeMgr()
+	it('rejects a managed artifact cache whose raw executable no longer matches its manifest hash', async () => {
+		const userData = await tempDir('bm-ytdlp-corrupt-managed-cache-')
+		const body = Buffer.from('cached official yt-dlp')
+		const executablePath = await writeManagedCache(userData, entry({size: body.length, sha256: sha256(body)}), body)
+		await fs.writeFile(executablePath, 'tampered')
+		const mgr = new BinaryManager(userData, {runtimeBinaryIndex: indexProvider([]), runtimeBinaryMaterializer: materializer(async () => '/unused')})
 		const acceptedSources: DependencySource[] = []
 		vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<DependencyDiagnostic | null>}, 'probeAndAccept').mockImplementation(async (_id, source, _candidatePath, attempts) => {
 			acceptedSources.push(source)
-			attempts.push({source, failure: {kind: 'spawn_failed', message: 'not usable in this test'}})
+			attempts.push({source, failure: {kind: 'spawn_failed', message: 'disabled for test'}})
 			return null
 		})
 
-		await expect(mgr.ensureDeno()).rejects.toThrow()
-		expect(acceptedSources.some(source => source.kind === 'bundled')).toBe(false)
+		await expect(mgr.ensureYtDlp()).rejects.toThrow()
+		expect(acceptedSources.some(source => source.kind === 'managedCache')).toBe(false)
 	})
 
 	it('falls back to ffmpeg and ffprobe on PATH when bundled binaries are unusable', async () => {

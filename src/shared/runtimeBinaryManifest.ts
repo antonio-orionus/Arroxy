@@ -1,6 +1,6 @@
 import {runtimeBinaryIndexSchema, runtimeBinaryManifestEntrySchema, type RuntimeBinaryId, type RuntimeBinaryIndex, type RuntimeBinaryManifestEntry, type RuntimeBinaryPlatform} from './schemas.js'
 
-const PROVIDER_HOSTS = {github: new Set(['github.com']), sourceforge: new Set(['sourceforge.net', 'downloads.sourceforge.net']), 'deno-land': new Set(['dl.deno.land', 'github.com'])} as const satisfies Record<RuntimeBinaryManifestEntry['provider'], ReadonlySet<string>>
+const PROVIDER_HOSTS = {github: new Set(['github.com']), sourceforge: new Set(['sourceforge.net', 'downloads.sourceforge.net'])} as const satisfies Record<RuntimeBinaryManifestEntry['provider'], ReadonlySet<string>>
 
 const FLOATING_SEGMENTS = new Set(['latest'])
 

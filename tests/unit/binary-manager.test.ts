@@ -57,8 +57,8 @@ describe('binaryInternals', () => {
 		expect(binaryInternals.parseStandaloneSha256('')).toBeNull()
 	})
 
-	it('parses the PowerShell Get-FileHash format used by deno Windows .sha256sum', () => {
-		const content = '\nAlgorithm : SHA256\nHash      : 25F9871F5C1D9E999D60071F8069767134495FD601D2E2C7CE1E8C641487BDA0\nPath      : C:\\a\\deno\\deno\\target\\release\\deno-x86_64-pc-windows-msvc.zip\n'
+	it('parses the PowerShell Get-FileHash format', () => {
+		const content = '\nAlgorithm : SHA256\nHash      : 25F9871F5C1D9E999D60071F8069767134495FD601D2E2C7CE1E8C641487BDA0\nPath      : C:\\a\\artifact\\release\\binary-x86_64-pc-windows-msvc.zip\n'
 		const sha = binaryInternals.parsePowerShellFileHash(content)
 
 		expect(sha).toBe('25f9871f5c1d9e999d60071f8069767134495fd601d2e2c7ce1e8c641487bda0')

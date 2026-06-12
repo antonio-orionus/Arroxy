@@ -6,7 +6,7 @@ import {ok} from '@shared/result.js'
 
 function runnableDeps(): Record<DependencyId, DependencyDiagnostic> {
 	const make = (id: DependencyId): DependencyDiagnostic => ({id, state: 'runnable', source: {kind: 'managed', channel: 'default', provider: 'github', url: 'mock'}, resolvedPath: `/mock/${id}`, attempts: []})
-	return {'yt-dlp': make('yt-dlp'), ffmpeg: make('ffmpeg'), ffprobe: make('ffprobe'), deno: make('deno')}
+	return {'yt-dlp': make('yt-dlp'), ffmpeg: make('ffmpeg'), ffprobe: make('ffprobe')}
 }
 
 const defaultWarmUp: WarmUpOutput = {completed: true, dependencies: runnableDeps(), blockingFailures: [], cancelled: false}

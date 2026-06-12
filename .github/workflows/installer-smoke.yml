@@ -42,21 +42,16 @@ jobs:
         with:
           bun-version: ${{ env.BUN_VERSION }}
       - run: bun install --frozen-lockfile
-      # On tag push, build both NSIS Setup and Portable (both shipped on the
-      # GitHub Release; portable feeds the scoop bucket). Otherwise, only
-      # build NSIS — that's what smoke tests, and saves ~30s per non-tag run.
+      # Build both NSIS Setup and Portable on PR and release. The no-Deno
+      # runtime migration must prove both installed and portable executables can
+      # use their own Electron runtime before any artifact is published.
       - name: Build Windows artifacts
         shell: bash
         env:
           OPENPANEL_CLIENT_ID: ${{ secrets.OPENPANEL_CLIENT_ID }}
           OPENPANEL_CLIENT_SECRET: ${{ secrets.OPENPANEL_CLIENT_SECRET }}
           BTBN_GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
-            bun run dist:win
-          else
-            bun run dist:win:nsis
-          fi
+        run: bun run dist:win
       - uses: actions/upload-artifact@v7
         with:
           name: installer
@@ -88,7 +83,17 @@ jobs:
           Set-ItemProperty $key DumpCount 10 -Type DWord
           New-Item -Path "$env:LOCALAPPDATA\CrashDumps" -ItemType Directory -Force | Out-Null
 
-      - name: Silent install + uninstall (single cold cycle)
+      - name: Prepend fake JS runtimes and yt-dlp to PATH
+        shell: pwsh
+        run: |
+          $fake = Join-Path $env:RUNNER_TEMP 'arroxy fake tools Ω'
+          New-Item -ItemType Directory -Force -Path $fake | Out-Null
+          Set-Content -Path (Join-Path $fake 'node.cmd') -Value "@echo off`necho fake old node v10.0.0`nexit /b 0`n" -Encoding ascii
+          Set-Content -Path (Join-Path $fake 'deno.cmd') -Value "@echo off`necho fake deno 2.0.0`nexit /b 0`n" -Encoding ascii
+          Set-Content -Path (Join-Path $fake 'yt-dlp.cmd') -Value "@echo off`necho fake yt-dlp should not be used`nexit /b 1`n" -Encoding ascii
+          $fake | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+
+      - name: Silent install (single cold cycle)
         shell: pwsh
         run: |
           $inst = (Get-ChildItem ./installer/Arroxy-win-x64-Setup.exe | Select-Object -First 1).FullName
@@ -104,9 +109,63 @@ jobs:
 
           $appExe = "$env:LOCALAPPDATA\Programs\Arroxy\Arroxy.exe"
           if (-not (Test-Path $appExe)) { throw "Install reported success but $appExe missing" }
+          Write-Host "Cold install passed"
 
+      - name: Run installed app runtime smoke
+        shell: pwsh
+        env:
+          ARROXY_RUNTIME_SMOKE: '1'
+        run: |
+          $appExe = "$env:LOCALAPPDATA\Programs\Arroxy\Arroxy.exe"
+          if (-not (Test-Path $appExe)) { throw "Installed app missing at $appExe" }
+          $logDir = Join-Path $env:RUNNER_TEMP 'runtime-smoke-logs'
+          New-Item -ItemType Directory -Force -Path $logDir | Out-Null
+          $stdout = Join-Path $logDir 'installed-runtime-smoke.out'
+          $stderr = Join-Path $logDir 'installed-runtime-smoke.err'
+          $env:ELECTRON_USER_DATA = Join-Path $env:RUNNER_TEMP 'Arroxy Runtime Ω Installed'
+          Remove-Item Env:ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue
+          & $appExe > $stdout 2> $stderr
+          $exitCode = $LASTEXITCODE
+          Get-Content $stdout -ErrorAction SilentlyContinue
+          if (Test-Path $stderr) { Get-Content $stderr -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_ } }
+          Remove-Item Env:ARROXY_RUNTIME_SMOKE -ErrorAction SilentlyContinue
+          Remove-Item Env:ELECTRON_USER_DATA -ErrorAction SilentlyContinue
+          if ($exitCode -ne 0) { throw "Installed runtime smoke failed: exit $exitCode" }
+
+      - name: Run portable app runtime smoke
+        shell: pwsh
+        env:
+          ARROXY_RUNTIME_SMOKE: '1'
+        run: |
+          $portable = (Get-ChildItem ./installer/Arroxy-win-x64-Portable.exe | Select-Object -First 1).FullName
+          if (-not $portable) { throw "No portable artifact found in ./installer" }
+          $portableDir = Join-Path $env:RUNNER_TEMP 'Arroxy Portable Ω Path [test]'
+          New-Item -ItemType Directory -Force -Path $portableDir | Out-Null
+          $portableExe = Join-Path $portableDir 'Arroxy Portable Ω.exe'
+          Copy-Item $portable $portableExe -Force
+          $logDir = Join-Path $env:RUNNER_TEMP 'runtime-smoke-logs'
+          New-Item -ItemType Directory -Force -Path $logDir | Out-Null
+          $stdout = Join-Path $logDir 'portable-runtime-smoke.out'
+          $stderr = Join-Path $logDir 'portable-runtime-smoke.err'
+          $env:ELECTRON_USER_DATA = Join-Path $env:RUNNER_TEMP 'Arroxy Runtime Ω Portable'
+          Remove-Item Env:ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue
+          & $portableExe > $stdout 2> $stderr
+          $exitCode = $LASTEXITCODE
+          Get-Content $stdout -ErrorAction SilentlyContinue
+          if (Test-Path $stderr) { Get-Content $stderr -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_ } }
+          Remove-Item Env:ARROXY_RUNTIME_SMOKE -ErrorAction SilentlyContinue
+          Remove-Item Env:ELECTRON_USER_DATA -ErrorAction SilentlyContinue
+          if ($exitCode -ne 0) { throw "Portable runtime smoke failed: exit $exitCode" }
+
+      - name: Silent uninstall
+        if: always()
+        shell: pwsh
+        run: |
           $uninst = "$env:LOCALAPPDATA\Programs\Arroxy\Uninstall Arroxy.exe"
-          if (-not (Test-Path $uninst)) { throw "Uninstaller missing at $uninst" }
+          if (-not (Test-Path $uninst)) {
+            Write-Host "Uninstaller missing at $uninst"
+            exit 0
+          }
           $u = Start-Process -FilePath $uninst -ArgumentList '/S' -Wait -PassThru
           Write-Host "Uninstall exit: $($u.ExitCode)"
           if ($u.ExitCode -ne 0) { throw "Silent uninstall failed: exit $($u.ExitCode)" }
@@ -114,7 +173,7 @@ jobs:
           if (Test-Path "$env:LOCALAPPDATA\Programs\Arroxy") {
             throw "Uninstall left files at $env:LOCALAPPDATA\Programs\Arroxy"
           }
-          Write-Host "Cold install + uninstall passed"
+          Write-Host "Cold uninstall passed"
 
       - name: Auto-analyze crash dumps on failure
         if: failure()
@@ -138,6 +197,18 @@ jobs:
           name: crash-dump-cold
           path: ${{ runner.temp }}/../../AppData/Local/CrashDumps/
           if-no-files-found: ignore
+
+      - name: Upload runtime smoke logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: runtime-smoke-logs
+          path: |
+            ${{ runner.temp }}/runtime-smoke-logs
+            ${{ runner.temp }}/Arroxy Runtime Ω Installed/logs
+            ${{ runner.temp }}/Arroxy Runtime Ω Portable/logs
+          if-no-files-found: ignore
+          retention-days: 7
 
   cycle-smoke:
     name: 1x install/uninstall cycle

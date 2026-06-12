@@ -60,14 +60,7 @@ function makeDeps() {
 		probeService: probeService as never,
 		settingsStore: settingsStore as never,
 		queueService: queueService as never,
-		binaryManager: {
-			ensureYtDlp: vi.fn(),
-			ensureFFmpeg: vi.fn(),
-			ensureDeno: vi.fn(),
-			ensureFFprobe: vi.fn(),
-			installYtDlpWithHomebrew: vi.fn().mockResolvedValue('/opt/homebrew/bin/yt-dlp'),
-			installYtDlpWithWinget: vi.fn().mockResolvedValue('C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe')
-		} as never,
+		binaryManager: {ensureYtDlp: vi.fn(), ensureFFmpeg: vi.fn(), ensureFFprobe: vi.fn(), installYtDlpWithHomebrew: vi.fn().mockResolvedValue('/opt/homebrew/bin/yt-dlp'), installYtDlpWithWinget: vi.fn().mockResolvedValue('C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe')} as never,
 		tokenService: {warmUp: vi.fn()} as never,
 		languageRef: languageRef as never,
 		clipboardWatcher: clipboardWatcher as never,

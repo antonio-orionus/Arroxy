@@ -2,11 +2,6 @@ name: Runtime Binary Manifests
 
 on:
   workflow_dispatch:
-    inputs:
-      deno_version:
-        description: 'Pinned Deno release tag, for example v2.8.3. Empty uses scripts/build/runtime-binaries.config.json.'
-        required: false
-        type: string
   schedule:
     - cron: '17 7 * * *'
 
@@ -38,15 +33,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Generate manifest
-        env:
-          DENO_VERSION: ${{ github.event.inputs.deno_version || '' }}
-        run: |
-          set -euo pipefail
-          args=(generate --out dist/runtime-binaries/runtime-index-v1.json --cache-root "$RUNNER_TEMP/arroxy-runtime-binary-manifest" --validate)
-          if [[ -n "$DENO_VERSION" ]]; then
-            args+=(--deno-version "$DENO_VERSION")
-          fi
-          bun scripts/build/runtimeBinaryManifest.ts "${args[@]}"
+        run: bun scripts/build/runtimeBinaryManifest.ts generate --out dist/runtime-binaries/runtime-index-v1.json --cache-root "$RUNNER_TEMP/arroxy-runtime-binary-manifest" --validate
 
       - name: Sign manifest
         env:

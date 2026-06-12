@@ -19,7 +19,7 @@ class FakeProcess extends EventEmitter {
 }
 
 function makeStubs(binaryOverrides: Partial<{ensureYtDlp: () => Promise<string>}> = {}) {
-	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureDeno: vi.fn().mockResolvedValue('/fake/deno'), ensureFFprobe: vi.fn().mockResolvedValue(null), ...binaryOverrides}
+	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), ...binaryOverrides}
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd'}), invalidateCache: vi.fn()}
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}

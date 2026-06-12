@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Smoke test every third-party binary URL source Arroxy currently depends on:
 #   - yt-dlp nightly + stable runtime downloads, including SourceForge fallback
-#   - deno runtime downloads, including GitHub fallback
 #   - build-time embedded ffmpeg/ffprobe sources used by fetch-embedded.sh
 #
 # The matrix mirrors src/main/services/BinaryManager.ts plus
@@ -65,15 +64,13 @@ unique_ytdlp_payload_count() {
 }
 
 expected_payload_count() {
-  local yt_dlp_count btbn_count deno_count martin_riedl_count
+  local yt_dlp_count btbn_count martin_riedl_count
   yt_dlp_count=$(unique_ytdlp_payload_count)
   btbn_count=$(bun "$ROOT/scripts/build/btbnResolver.ts" --list-targets | count_nonempty_lines)
-  deno_count=$(bun "$ROOT/scripts/build/denoResolver.ts" --list-targets | count_nonempty_lines)
   martin_riedl_count=4
 
   # yt-dlp: nightly GitHub + stable GitHub + stable SourceForge.
-  # Deno: dl.deno.land + GitHub fallback.
-  echo $(( yt_dlp_count * 3 + btbn_count + martin_riedl_count + deno_count * 2 ))
+  echo $(( yt_dlp_count * 3 + btbn_count + martin_riedl_count ))
 }
 
 if [[ "${1:-}" == "--expected-payloads" ]]; then
@@ -313,92 +310,6 @@ for arch in amd64 arm64; do
     pass_payload_if_clean "$payload_id" "$failures_before"
   done
 done
-
-##########################################################################
-# deno - runtime JS runtime downloads
-##########################################################################
-echo
-echo '########## deno ##########'
-
-smoke_deno_assets() {
-  local provider="$1"
-  local use_github_fallback="${2:-0}"
-  local targets_file="$OUT/deno/$provider-targets.txt"
-  mkdir -p "$OUT/deno"
-  if ! bun "$ROOT/scripts/build/denoResolver.ts" --list-targets > "$targets_file"; then
-    fail "list Deno targets"
-    return
-  fi
-
-  while IFS= read -r combo; do
-    [[ -z "$combo" ]] && continue
-    combo_dir="$OUT/deno/$provider/$combo"
-    mkdir -p "$combo_dir"
-    resolution="$combo_dir/resolution.env"
-    if ! bun "$ROOT/scripts/build/denoResolver.ts" --target "$combo" > "$resolution"; then
-      fail "resolve Deno $combo"
-      continue
-    fi
-    if [[ ! -s "$resolution" ]] || ! grep -q '^DENO_TRIPLE=' "$resolution" || ! grep -q '^DENO_ASSET_URL=' "$resolution"; then
-      fail "Deno resolver returned empty/malformed output for $combo"
-      continue
-    fi
-
-    # shellcheck source=/dev/null
-    source "$resolution"
-    target_triple="${DENO_TRIPLE:?}"
-    asset="${DENO_ASSET_NAME:?}"
-    asset_url="${DENO_ASSET_URL:?}"
-    checksum_url="${DENO_CHECKSUM_URL:?}"
-    inner_name="${DENO_EXECUTABLE_NAME:?}"
-    if [[ "$use_github_fallback" == "1" ]]; then
-      asset_url="https://github.com/denoland/deno/releases/latest/download/$asset"
-      checksum_url="$asset_url.sha256sum"
-    fi
-
-    target="$combo_dir/$asset"
-    payload_id="deno/$provider/$combo/$asset"
-    plan_payload "$payload_id"
-    failures_before=$FAIL
-    note "fetching $provider/$asset"
-    fetch "$asset_url" "$target" || continue
-
-    shafile="$target.sha256sum"
-    if fetch "$checksum_url" "$shafile"; then
-      expected=$(cd "$ROOT" && bun -e "import {readFileSync} from 'node:fs'; import {parseDenoSha256} from './src/main/services/binary/DenoBinarySource.ts'; const file = process.argv.at(-1); console.log(file ? (parseDenoSha256(readFileSync(file, 'utf8')) ?? '') : '')" "$shafile")
-      if [[ -z "$expected" ]]; then
-        fail "could not parse $provider/$asset.sha256sum"
-      else
-        verify_sha "$target" "$expected" "$provider/deno/$target_triple"
-      fi
-    else
-      fail "no .sha256sum for $provider/$asset"
-    fi
-
-    extract_dir="$OUT/deno/$provider/$target_triple/extracted"
-    rm -rf "$extract_dir"
-    if extract_zip "$target" "$extract_dir"; then
-      ok "extracted $provider/$asset"
-      case "$target_triple" in
-        *-windows-*) pattern='PE32(\+)? executable.*Windows' ;;
-        *-apple-*) pattern='Mach-O' ;;
-        *-linux-*) pattern='ELF.*executable' ;;
-      esac
-      inner=$(find "$extract_dir" -type f -name "$inner_name" | head -1)
-      if [[ -n "$inner" ]]; then
-        check_magic "$inner" "$pattern" "$provider/deno/$target_triple"
-      else
-        fail "no $inner_name inside $provider/$asset"
-      fi
-    else
-      fail "extract failed: $provider/$asset"
-    fi
-    pass_payload_if_clean "$payload_id" "$failures_before"
-  done < "$targets_file"
-}
-
-smoke_deno_assets deno-land
-smoke_deno_assets github 1
 
 EXPECTED_PAYLOADS=""
 if EXPECTED_PAYLOADS=$(expected_payload_count); then

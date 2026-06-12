@@ -1,7 +1,6 @@
 import path from 'node:path'
 import {afterEach, describe, expect, it} from 'vitest'
 import {binaryInternals} from '@main/services/BinaryManager.js'
-import {denoAssetName, denoExecutableName, denoTargetFor} from '@main/services/binary/DenoBinarySource.js'
 import {githubYtDlpDownloadUrl, sourceForgeYtDlpDownloadUrl, ytDlpAssetName, ytDlpTargets} from '@main/services/binary/YtDlpBinarySource.js'
 
 const originalPlatformDescriptor = Object.getOwnPropertyDescriptor(process, 'platform')!
@@ -61,63 +60,6 @@ describe('ytDlpAssetName', () => {
 		expect(githubYtDlpDownloadUrl('nightly', '2026.06.12', 'yt-dlp_linux')).toBe('https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2026.06.12/yt-dlp_linux')
 		expect(githubYtDlpDownloadUrl('stable', '2026.06.10', 'yt-dlp.exe')).toBe('https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.10/yt-dlp.exe')
 		expect(sourceForgeYtDlpDownloadUrl('2026.06.10', 'yt-dlp_linux')).toBe('https://sourceforge.net/projects/yt-dlp.mirror/files/2026.06.10/yt-dlp_linux/download')
-	})
-})
-
-describe('denoAssetName', () => {
-	it('win32 x64 → MSVC zip', () => {
-		expect(denoAssetName(denoTargetFor('win32', 'x64')!)).toBe('deno-x86_64-pc-windows-msvc.zip')
-	})
-
-	it('win32 arm64 → null (no upstream build)', () => {
-		expect(denoTargetFor('win32', 'arm64')).toBeUndefined()
-	})
-
-	it('darwin arm64 → aarch64-apple-darwin zip', () => {
-		expect(denoAssetName(denoTargetFor('darwin', 'arm64')!)).toBe('deno-aarch64-apple-darwin.zip')
-	})
-
-	it('darwin x64 → x86_64-apple-darwin zip', () => {
-		expect(denoAssetName(denoTargetFor('darwin', 'x64')!)).toBe('deno-x86_64-apple-darwin.zip')
-	})
-
-	it('linux x64 → x86_64-unknown-linux-gnu zip', () => {
-		expect(denoAssetName(denoTargetFor('linux', 'x64')!)).toBe('deno-x86_64-unknown-linux-gnu.zip')
-	})
-
-	it('linux arm64 → aarch64-unknown-linux-gnu zip', () => {
-		expect(denoAssetName(denoTargetFor('linux', 'arm64')!)).toBe('deno-aarch64-unknown-linux-gnu.zip')
-	})
-
-	it('unknown platform → null', () => {
-		expect(denoTargetFor('freebsd', 'x64')).toBeUndefined()
-	})
-
-	it('unsupported arch → null', () => {
-		expect(denoTargetFor('linux', 'ia32')).toBeUndefined()
-	})
-})
-
-describe('denoExecutableName', () => {
-	it('win32 → deno.exe', () => {
-		const target = denoTargetFor('win32', 'x64')
-		if (!target) throw new Error('expected win32-x64 deno target')
-
-		expect(denoExecutableName(target)).toBe('deno.exe')
-	})
-
-	it('darwin → deno', () => {
-		const target = denoTargetFor('darwin', 'arm64')
-		if (!target) throw new Error('expected darwin-arm64 deno target')
-
-		expect(denoExecutableName(target)).toBe('deno')
-	})
-
-	it('linux → deno', () => {
-		const target = denoTargetFor('linux', 'x64')
-		if (!target) throw new Error('expected linux-x64 deno target')
-
-		expect(denoExecutableName(target)).toBe('deno')
 	})
 })
 

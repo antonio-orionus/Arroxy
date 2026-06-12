@@ -9,7 +9,7 @@ import log from 'electron-log/main.js'
 import * as yauzl from 'yauzl'
 import {normalizeRuntimeExecutablePath, runtimeBinaryCacheKey} from '@shared/runtimeBinaryManifest.js'
 import type {RuntimeBinaryManifestEntry} from '@shared/types.js'
-import {DownloadIntegrityError, DownloadSizeMismatchError, DownloadStalledError, copyCachedArtifactToFile, downloadArtifactToCache, type CachedArtifactResult, type DownloadProgressCallback} from './BinaryDownloader.js'
+import {DownloadIntegrityError, DownloadSizeMismatchError, DownloadStalledError, copyCachedArtifactToFile, downloadArtifactToCache, sha256ForFile, type CachedArtifactResult, type DownloadProgressCallback} from './BinaryDownloader.js'
 
 export type ArtifactErrorCode = 'UNSUPPORTED_PLATFORM' | 'NETWORK' | 'TIMEOUT' | 'CANCELLED' | 'CHECKSUM' | 'SIZE_MISMATCH' | 'EXTRACTION' | 'ARCHIVE_SECURITY' | 'EXECUTABLE_MISSING' | 'PERMISSION' | 'DISK' | 'LOCK' | 'INTERNAL'
 
@@ -39,7 +39,7 @@ export interface RuntimeBinaryMaterializeResult {
 	manifest: RuntimeBinaryManifestEntry
 }
 
-interface InstallMetadata {
+export interface RuntimeBinaryInstallMetadata {
 	cacheKey: string
 	manifest: RuntimeBinaryManifestEntry
 	manifestHash: string
@@ -67,11 +67,11 @@ interface LockOwner {
 	createdAt?: string
 }
 
-function manifestHash(entry: RuntimeBinaryManifestEntry): string {
+export function runtimeBinaryManifestHash(entry: RuntimeBinaryManifestEntry): string {
 	return createHash('sha256').update(JSON.stringify(entry)).digest('hex')
 }
 
-function cacheKeyHash(entry: RuntimeBinaryManifestEntry): string {
+export function runtimeBinaryCacheKeyHash(entry: RuntimeBinaryManifestEntry): string {
 	return createHash('sha256').update(runtimeBinaryCacheKey(entry)).digest('hex')
 }
 
@@ -253,7 +253,7 @@ export class RuntimeBinaryMaterializer {
 	async materialize(entry: RuntimeBinaryManifestEntry, options: RuntimeBinaryMaterializeOptions): Promise<RuntimeBinaryMaterializeResult> {
 		const executablePath = normalizeRuntimeExecutablePath(entry.executablePath)
 		if (!executablePath) throw new ArtifactMaterializeError('ARCHIVE_SECURITY', `Unsafe executable path: ${entry.executablePath}`)
-		const cacheKey = cacheKeyHash(entry)
+		const cacheKey = runtimeBinaryCacheKeyHash(entry)
 		const finalDir = path.join(options.cacheRoot, 'artifacts', cacheKey)
 		const metadataPath = path.join(finalDir, 'metadata.json')
 		const finalExecutablePath = path.join(finalDir, executablePath)
@@ -281,7 +281,7 @@ export class RuntimeBinaryMaterializer {
 				await assertRegularExecutable(stagedExecutablePath)
 				if (process.platform !== 'win32') await fsPromises.chmod(stagedExecutablePath, 0o755)
 
-				const metadata: InstallMetadata = {cacheKey, manifest: entry, manifestHash: manifestHash(entry), executablePath, installedAt: new Date().toISOString()}
+				const metadata: RuntimeBinaryInstallMetadata = {cacheKey, manifest: entry, manifestHash: runtimeBinaryManifestHash(entry), executablePath, installedAt: new Date().toISOString()}
 				await fsPromises.writeFile(path.join(stageDir, 'metadata.json'), `${JSON.stringify(metadata, null, 2)}\n`)
 				await fsPromises.mkdir(path.dirname(finalDir), {recursive: true})
 				await fsPromises.rm(finalDir, {recursive: true, force: true})
@@ -299,8 +299,11 @@ export class RuntimeBinaryMaterializer {
 	private async existingInstall(entry: RuntimeBinaryManifestEntry, cacheKey: string, metadataPath: string, executablePath: string): Promise<boolean> {
 		try {
 			const [metadataRaw, stat] = await Promise.all([fsPromises.readFile(metadataPath, 'utf8'), fsPromises.lstat(executablePath)])
-			const metadata = JSON.parse(metadataRaw) as Partial<InstallMetadata>
-			return metadata.cacheKey === cacheKey && metadata.manifestHash === manifestHash(entry) && stat.isFile()
+			const metadata = JSON.parse(metadataRaw) as Partial<RuntimeBinaryInstallMetadata>
+			if (metadata.cacheKey !== cacheKey || metadata.manifestHash !== runtimeBinaryManifestHash(entry) || metadata.executablePath !== normalizeRuntimeExecutablePath(entry.executablePath)) return false
+			if (!stat.isFile() || stat.size !== entry.size) return false
+			if (process.platform !== 'win32') await fsPromises.access(executablePath, fs.constants.X_OK)
+			return (await sha256ForFile(executablePath)) === entry.sha256
 		} catch {
 			return false
 		}

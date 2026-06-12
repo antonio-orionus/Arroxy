@@ -9,7 +9,13 @@ vi.mock('@main/utils/process', async importOriginal => {
 	return {...actual, spawnYtDlp: vi.fn()}
 })
 
+vi.mock('@main/services/ytDlpJsRuntime', async importOriginal => {
+	const actual = await importOriginal<typeof import('@main/services/ytDlpJsRuntime.js')>()
+	return {...actual, probeElectronNodeRuntime: vi.fn()}
+})
+
 import {spawnYtDlp} from '@main/utils/process.js'
+import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 
 // Fake child process that emits a canned stdout payload then exits cleanly.
 // Mirrors the pattern in ytdlp-args.test.ts but lets each test inject its own
@@ -25,7 +31,7 @@ function makeFakeProcessEmitting(stdout: string, exitCode = 0): EventEmitter & {
 
 function makeYtDlp(): YtDlp {
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 't', visitorData: 'vd'}), invalidateCache: vi.fn()}
-	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureDeno: vi.fn().mockResolvedValue('/fake/deno'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
+	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: {}, single: {}, playlist: {}})}
 	return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never)
 }
@@ -36,6 +42,7 @@ function makeProbeService(mockMode = false): ProbeService {
 
 beforeEach(() => {
 	vi.clearAllMocks()
+	vi.mocked(probeElectronNodeRuntime).mockResolvedValue({ok: true, runtime: {kind: 'electron-node', executablePath: '/mock/Arroxy', version: '24.16.0'}, output: 'v24.16.0'})
 })
 
 describe('ProbeService — mockMode', () => {

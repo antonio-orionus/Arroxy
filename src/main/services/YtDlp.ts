@@ -7,7 +7,7 @@ import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
 import {nonEmpty} from '@shared/format.js'
 import {EMBED_CONTAINER_EXT} from '@shared/subtitlePath.js'
 import {siteForUrl} from '@shared/sites/index.js'
-import type {PlaylistScope, SubtitleFormat, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, StatusKey, AudioConvert} from '@shared/types.js'
+import type {PlaylistScope, SubtitleFormat, SubtitleMode, SponsorBlockMode, SponsorBlockCategory, StatusKey, AudioConvert, DependencySource} from '@shared/types.js'
 import {resolveEmbedPolicy} from '@shared/embedPolicy.js'
 import {resolveNetworkPacing, resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {describePlaylistScopeForLog, playlistScopeSentinelFields} from '@shared/playlistScope.js'
@@ -16,11 +16,23 @@ import type {DownloadRetryPolicy, E2eHarnessMode} from '@main/e2eHarness.js'
 import type {BinaryManager} from './BinaryManager.js'
 import type {TokenService} from './TokenService.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
+import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, summarizeYtDlpJsRuntimeForLog, type YtDlpJsRuntime} from './ytDlpJsRuntime.js'
 
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void
 
 const ytDlpLog = log.scope('yt-dlp')
 const DEFAULT_DOWNLOAD_RETRY_POLICY: DownloadRetryPolicy = {retries: 20, fragmentRetries: 20, retrySleep: 'fragment:exp=1:20'}
+
+function shouldAllowRemoteEjsComponents(source: DependencySource | null | undefined): boolean {
+	return source !== null && source !== undefined && source.kind !== 'managed' && source.kind !== 'managedCache' && source.kind !== 'bundled'
+}
+
+function summarizeDependencySourceForLog(source: DependencySource | null | undefined): Record<string, string | null> {
+	if (!source) return {ytDlpSource: null}
+	if (source.kind === 'managed') return {ytDlpSource: source.kind, ytDlpProvider: source.provider, ytDlpChannel: source.channel}
+	if (source.kind === 'managedCache') return {ytDlpSource: 'managed-cache', ytDlpProvider: source.provider, ytDlpChannel: source.channel}
+	return {ytDlpSource: source.kind}
+}
 
 function redactProxy(url: string | undefined): string | null {
 	if (!url) return null
@@ -148,7 +160,7 @@ interface InvokeOptions {
 	url: string
 	ytDlpPath: string
 	ffmpegPath: string | null
-	denoPath: string | null
+	jsRuntime: YtDlpJsRuntime | null
 	e2eMode?: E2eHarnessMode
 	args: string[]
 	tokenService: TokenService
@@ -211,9 +223,9 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 	// sidecar pulls (tiny text, throttling adds zero anti-bot value).
 	const limitRateArgs = opts.limitRate ? ['--limit-rate', opts.limitRate] : []
 	// yt-dlp 2026+ requires a JS runtime for nsig/signature decoding on the web
-	// client. With deno runtime-resolved, we point yt-dlp at it explicitly so it doesn't
-	// silently fall back to JS-free clients (where our web.gvs PoT is unused).
-	const jsRuntimeArgs = opts.denoPath ? ['--js-runtimes', `deno:${opts.denoPath}`] : []
+	// client. We point yt-dlp at an explicit runtime so it doesn't silently fall
+	// back to JS-free clients (where our web.gvs PoT is unused).
+	const jsRuntimeArgs = buildYtDlpJsRuntimeArgs(opts.jsRuntime)
 	// Pass ffmpeg's location to yt-dlp explicitly instead of relying on the PATH
 	// injection in spawnYtDlp. That PATH approach is unreliable inside the packaged
 	// Electron portable on Windows: `process.env` can expose the variable as `Path`,
@@ -225,14 +237,15 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 	const e2eArgs = opts.e2eMode?.ytDlpArgs({isProbe: opts.isProbe === true}) ?? []
 	const args = [...e2eArgs, ...ffmpegLocationArgs, ...extractorArgsArr, ...cookiesArgs, ...proxyArgs, ...limitRateArgs, ...jsRuntimeArgs, ...opts.args]
 
-	ytDlpLog.info('spawn', {attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : undefined, binary: opts.ytDlpPath, ffmpeg: opts.ffmpegPath, deno: opts.denoPath, cookies: opts.cookies?.kind ?? null, proxy: redactProxy(opts.proxyUrl), args: redactYtDlpArgsForLog(args)})
+	ytDlpLog.info('spawn', {attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : undefined, binary: opts.ytDlpPath, ffmpeg: opts.ffmpegPath, ...summarizeYtDlpJsRuntimeForLog(opts.jsRuntime), cookies: opts.cookies?.kind ?? null, proxy: redactProxy(opts.proxyUrl), args: redactYtDlpArgsForLog(args)})
 
 	const abortSignal = opts.signal?.abortSignal
 	if (abortSignal?.aborted) {
 		return Promise.resolve({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout: '', stderr: ''})
 	}
+	const runtime = opts.jsRuntime
 	return new Promise<YtDlpResult>(resolve => {
-		const proc = spawnYtDlp(opts.ytDlpPath, args, opts.ffmpegPath, opts.e2eMode)
+		const proc = spawnYtDlp(opts.ytDlpPath, args, opts.ffmpegPath, opts.e2eMode, runtime ? env => applyJsRuntimeEnv(env, runtime) : undefined)
 		let stdout = ''
 		let stderr = ''
 		let settled = false
@@ -528,7 +541,7 @@ export function buildArgs(req: YtDlpRequest, opts: {pacing?: NetworkPacingArgs; 
 export class YtDlp {
 	private _ytDlpPath: string | null = null
 	private _ffmpegPath: string | null = null
-	private _denoPath: string | null = null
+	private _jsRuntime: YtDlpJsRuntime | null = null
 
 	constructor(
 		private readonly binaryManager: BinaryManager,
@@ -547,10 +560,16 @@ export class YtDlp {
 		// injection picks up both. We don't need to track the path separately —
 		// yt-dlp's post-processors discover it via PATH.
 		await this.binaryManager.ensureFFprobe(onStatus)
-		this._denoPath = this.opts.e2eMode?.skipDeno ? null : await this.binaryManager.ensureDeno(onStatus)
-		if (!this.opts.e2eMode?.skipDeno && !this._denoPath) {
-			throw new Error('deno could not be resolved')
+		const electronNode = await probeElectronNodeRuntime()
+		if (electronNode.ok) {
+			const ytDlpSource = this.binaryManager.getLastDiagnostic?.('yt-dlp')?.source
+			this._jsRuntime = {...electronNode.runtime, allowRemoteComponents: shouldAllowRemoteEjsComponents(ytDlpSource)}
+			ytDlpLog.info('JS runtime selected', {...summarizeYtDlpJsRuntimeForLog(this._jsRuntime), ...summarizeDependencySourceForLog(ytDlpSource), env: 'ELECTRON_RUN_AS_NODE child-process only'})
+			return
 		}
+		this._jsRuntime = null
+		ytDlpLog.error('Electron Node runtime unavailable', {reason: electronNode.reason})
+		throw new Error(`Electron Node runtime unavailable: ${electronNode.reason}`)
 	}
 
 	get ffmpegPath(): string | null {
@@ -574,7 +593,7 @@ export class YtDlp {
 		// wouldn't change YouTube's anti-bot signal.
 		const isMediaDownload = req.kind === 'video' || req.kind === 'video+embed'
 		const limitRate = isMediaDownload ? nonEmpty(settings.common?.limitRate?.trim()) : undefined
-		const result = await invokeWithRetry({url: req.url, ytDlpPath: this._ytDlpPath!, ffmpegPath: this._ffmpegPath, denoPath: this._denoPath, e2eMode: this.opts.e2eMode, args, tokenService: this.tokenService, cookies, proxyUrl, limitRate, timeoutMs: isProbe ? PROBE_TIMEOUT_MS : undefined, isProbe, signal})
+		const result = await invokeWithRetry({url: req.url, ytDlpPath: this._ytDlpPath!, ffmpegPath: this._ffmpegPath, jsRuntime: this._jsRuntime, e2eMode: this.opts.e2eMode, args, tokenService: this.tokenService, cookies, proxyUrl, limitRate, timeoutMs: isProbe ? PROBE_TIMEOUT_MS : undefined, isProbe, signal})
 		if (result.kind === 'success' && subtitleFormat) {
 			return {...result, effectiveSubtitleFormat: subtitleFormat}
 		}

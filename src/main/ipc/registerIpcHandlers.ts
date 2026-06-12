@@ -21,7 +21,6 @@ import {registerQueueHandlers} from './queueHandlers.js'
 import {registerAnalyticsHandlers} from './analyticsHandlers.js'
 import {registerDiagnosticsHandlers} from './diagnosticsHandlers.js'
 import {registerPlaylistHandlers} from './playlistHandlers.js'
-import type {E2eHarnessMode} from '@main/e2eHarness.js'
 
 export interface IpcDependencies {
 	mainWindow: BrowserWindow
@@ -34,7 +33,6 @@ export interface IpcDependencies {
 	languageRef: {current: SupportedLang}
 	clipboardWatcher: ClipboardWatcher
 	playlistManifestStore: PlaylistManifestStore
-	e2eMode?: E2eHarnessMode
 }
 
 let activeDownloadBridge: DownloadEventBridge | null = null
@@ -42,9 +40,9 @@ let activeQueueBridge: QueueEventBridge | null = null
 let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, playlistManifestStore, e2eMode} = deps
+	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, playlistManifestStore} = deps
 
-	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow, e2eMode})
+	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow})
 	registerAppHandlers({warmupService, binaryManager, languageRef})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})

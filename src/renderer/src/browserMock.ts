@@ -231,16 +231,14 @@ export function installBrowserMock(): void {
 				const allRunnable: Record<DependencyId, DependencyDiagnostic> = {
 					'yt-dlp': {id: 'yt-dlp', state: 'runnable', source: {kind: 'managed', channel: 'nightly', provider: 'github', url: 'mock'}, resolvedPath: '/mock/yt-dlp', attempts: []},
 					ffmpeg: {id: 'ffmpeg', state: 'runnable', source: {kind: 'managed', channel: 'default', provider: 'github', url: 'mock'}, resolvedPath: '/mock/ffmpeg', attempts: []},
-					ffprobe: {id: 'ffprobe', state: 'runnable', source: {kind: 'managed', channel: 'default', provider: 'github', url: 'mock'}, resolvedPath: '/mock/ffprobe', attempts: []},
-					deno: {id: 'deno', state: 'runnable', source: {kind: 'managed', channel: 'default', provider: 'github', url: 'mock'}, resolvedPath: '/mock/deno', attempts: []}
+					ffprobe: {id: 'ffprobe', state: 'runnable', source: {kind: 'managed', channel: 'default', provider: 'github', url: 'mock'}, resolvedPath: '/mock/ffprobe', attempts: []}
 				}
 
 				if (launchMode !== 'ready') {
 					const binaries: {name: DependencyId; size: number}[] = [
 						{name: 'yt-dlp', size: 12 * 1024 * 1024},
 						{name: 'ffmpeg', size: 80 * 1024 * 1024},
-						{name: 'ffprobe', size: 30 * 1024 * 1024},
-						{name: 'deno', size: 95 * 1024 * 1024}
+						{name: 'ffprobe', size: 30 * 1024 * 1024}
 					]
 					for (const {name, size} of binaries) {
 						const steps = 10

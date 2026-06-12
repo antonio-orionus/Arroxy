@@ -17,7 +17,7 @@ const SB_OFF: SponsorBlockOptions = {mode: 'off'}
 const DEFAULT_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'x', preset: 'custom', sponsorBlock: SB_OFF, embed: EMBED_OFF}
 
 function makeStubs() {
-	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue(null), ensureDeno: vi.fn().mockResolvedValue('/fake/deno'), ensureFFprobe: vi.fn().mockResolvedValue(null)} as unknown as BinaryManager
+	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue(null), ensureFFprobe: vi.fn().mockResolvedValue(null)} as unknown as BinaryManager
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd'}), invalidateCache: vi.fn()} as unknown as TokenService
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)} as unknown as RecentJobsStore
 	const settingsStore = {get: vi.fn().mockResolvedValue({})} as never

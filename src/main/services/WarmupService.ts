@@ -7,7 +7,6 @@ import {blockingDependencyFailures} from '@shared/dependencyPolicy.js'
 import {DEPENDENCY_IDS, type DependencyDiagnostic, type DependencyId, type WarmUpOutput, type WarmupProgressEvent} from '@shared/types.js'
 import type {BinaryManager} from './BinaryManager.js'
 import type {TokenService} from './TokenService.js'
-import type {E2eHarnessMode} from '@main/e2eHarness.js'
 
 const logger = log.scope('warmup')
 
@@ -31,7 +30,6 @@ interface WarmupServiceDeps {
 	tokenService: TokenService
 	window?: BrowserWindow
 	onResolved?: () => void
-	e2eMode?: E2eHarnessMode
 }
 
 export class WarmupService {
@@ -132,19 +130,9 @@ export class WarmupService {
 		// resolves with whichever fires first.
 		const budgetSignal = (): AbortSignal => AbortSignal.any([userSignal, AbortSignal.timeout(PER_BINARY_BUDGET_MS)])
 
-		const skipDeno = this.deps.e2eMode?.skipDeno === true
-		const skippedDenoDiag: DependencyDiagnostic = {id: 'deno', state: 'failed', source: null, resolvedPath: null, failure: {kind: 'spawn_failed', message: 'Skipped in E2E harness'}, attempts: []}
-
-		const resolveDenoWarmup = (): Promise<DependencyDiagnostic> => {
-			if (!skipDeno) return binaryManager.resolveDeno({onProgress: emit, signal: budgetSignal()})
-			emit({binary: 'deno', phase: 'skipped'})
-			return Promise.resolve(skippedDenoDiag)
-		}
-
-		const [ytDlpDiag, ffmpegPair, denoDiag, tokenStatus] = await Promise.all([
+		const [ytDlpDiag, ffmpegPair, tokenStatus] = await Promise.all([
 			binaryManager.resolveYtDlp({onProgress: emit, signal: budgetSignal()}),
 			binaryManager.resolveFFmpegPair({onProgress: emit, signal: budgetSignal()}),
-			resolveDenoWarmup(),
 			// Plumb userSignal so cancel() interrupts the HiddenWindow scrape and
 			// mint round-trip — without this, cancelling a slow probe/scrape leaves
 			// the token warmup running until natural completion.
@@ -161,9 +149,9 @@ export class WarmupService {
 		}
 		flushAll()
 
-		const dependencies: Record<DependencyId, DependencyDiagnostic> = {'yt-dlp': ytDlpDiag, ffmpeg: ffmpegPair.ffmpeg, ffprobe: ffmpegPair.ffprobe, deno: denoDiag}
+		const dependencies: Record<DependencyId, DependencyDiagnostic> = {'yt-dlp': ytDlpDiag, ffmpeg: ffmpegPair.ffmpeg, ffprobe: ffmpegPair.ffprobe}
 
-		const blockingFailures = blockingDependencyFailures(dependencies, {skipDeno})
+		const blockingFailures = blockingDependencyFailures(dependencies)
 		const cancelled = userSignal.aborted
 
 		if (cancelled) {

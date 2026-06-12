@@ -149,24 +149,41 @@ describe('RuntimeBinaryMaterializer', () => {
 		})
 	})
 
+	it('revalidates existing install content before reuse', async () => {
+		const body = Buffer.from('fake ytdlp')
+		await withServer(body, async url => {
+			const root = await cacheRoot()
+			const materializer = new RuntimeBinaryMaterializer()
+			const entry = entryFor(body, {url})
+			const first = await materializer.materialize(entry, {cacheRoot: root})
+			await fs.writeFile(first.executablePath, 'tampered')
+
+			const second = await materializer.materialize(entry, {cacheRoot: root})
+
+			expect(second.executablePath).toBe(first.executablePath)
+			await expect(fs.readFile(second.executablePath, 'utf8')).resolves.toBe('fake ytdlp')
+			await fs.rm(root, {recursive: true, force: true})
+		})
+	})
+
 	it('extracts the requested executable from a verified zip archive', async () => {
-		const zip = buildStoredZip([{name: 'deno', body: Buffer.from('fake deno'), compress: true}])
+		const zip = buildStoredZip([{name: 'bin/yt-dlp', body: Buffer.from('fake zipped ytdlp'), compress: true}])
 		await withServer(zip, async url => {
 			const root = await cacheRoot()
-			const entry = entryFor(zip, {id: 'deno', channel: 'default', provider: 'deno-land', url, format: 'zip', executablePath: 'deno'})
+			const entry = entryFor(zip, {url, format: 'zip', executablePath: 'bin/yt-dlp'})
 			const result = await new RuntimeBinaryMaterializer().materialize(entry, {cacheRoot: root})
 
-			await expect(fs.readFile(result.executablePath, 'utf8')).resolves.toBe('fake deno')
+			await expect(fs.readFile(result.executablePath, 'utf8')).resolves.toBe('fake zipped ytdlp')
 			await fs.rm(root, {recursive: true, force: true})
 		})
 	})
 
 	it('reports extraction before staging a verified artifact', async () => {
-		const zip = buildStoredZip([{name: 'deno', body: Buffer.from('fake deno'), compress: true}])
+		const zip = buildStoredZip([{name: 'bin/yt-dlp', body: Buffer.from('fake zipped ytdlp'), compress: true}])
 		await withServer(zip, async url => {
 			const root = await cacheRoot()
 			const phases: string[] = []
-			const entry = entryFor(zip, {id: 'deno', channel: 'default', provider: 'deno-land', url, format: 'zip', executablePath: 'deno'})
+			const entry = entryFor(zip, {url, format: 'zip', executablePath: 'bin/yt-dlp'})
 
 			await new RuntimeBinaryMaterializer().materialize(entry, {cacheRoot: root, onExtracting: () => phases.push('extracting')})
 
@@ -193,10 +210,10 @@ describe('RuntimeBinaryMaterializer', () => {
 	})
 
 	it('rejects unsafe zip entry names', async () => {
-		const zip = buildStoredZip([{name: '../deno', body: Buffer.from('fake deno')}])
+		const zip = buildStoredZip([{name: '../yt-dlp', body: Buffer.from('fake ytdlp')}])
 		await withServer(zip, async url => {
 			const root = await cacheRoot()
-			const entry = entryFor(zip, {id: 'deno', channel: 'default', provider: 'deno-land', url, format: 'zip', executablePath: 'deno'})
+			const entry = entryFor(zip, {url, format: 'zip', executablePath: 'yt-dlp'})
 			await expect(new RuntimeBinaryMaterializer().materialize(entry, {cacheRoot: root})).rejects.toBeInstanceOf(ArtifactMaterializeError)
 			await expect(fs.readdir(path.join(root, 'artifacts'))).rejects.toThrow()
 			await fs.rm(root, {recursive: true, force: true})

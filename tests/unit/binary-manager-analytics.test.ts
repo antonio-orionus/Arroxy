@@ -14,10 +14,10 @@ afterEach(() => {
 	vi.clearAllMocks()
 })
 
-async function makeDenoVersionStub(): Promise<string> {
-	const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-deno-probe-'))
-	const stubPath = path.join(tempDir, process.platform === 'win32' ? 'deno.cmd' : 'deno')
-	const body = process.platform === 'win32' ? '@echo off\r\necho deno 2.8.2\r\n' : '#!/bin/sh\necho "deno 2.8.2"\n'
+async function makeYtDlpVersionStub(): Promise<string> {
+	const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-ytdlp-probe-'))
+	const stubPath = path.join(tempDir, process.platform === 'win32' ? 'yt-dlp.cmd' : 'yt-dlp')
+	const body = process.platform === 'win32' ? '@echo off\r\necho 2026.06.12\r\n' : '#!/bin/sh\necho "2026.06.12"\n'
 	await fs.writeFile(stubPath, body)
 	if (process.platform !== 'win32') await fs.chmod(stubPath, 0o755)
 	return stubPath
@@ -80,15 +80,15 @@ describe('BinaryManager analytics', () => {
 	it('emits sanitized telemetry for slow successful binary version probes', async () => {
 		const mgr = new BinaryManager('/tmp/arroxy-binary-analytics')
 		const attempts: DependencyAttempt[] = []
-		const source: DependencySource = {kind: 'managed', channel: 'default', provider: 'github', url: 'https://example.com/deno.zip'}
+		const source: DependencySource = {kind: 'managed', channel: 'nightly', provider: 'github', url: 'https://example.com/yt-dlp'}
 		const now = vi.spyOn(Date, 'now').mockReturnValueOnce(1_000).mockReturnValueOnce(32_500)
-		const denoStub = await makeDenoVersionStub()
+		const ytDlpStub = await makeYtDlpVersionStub()
 
 		try {
-			const diag = await (mgr as unknown as {probeAndAccept: (id: 'deno', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<unknown>}).probeAndAccept('deno', source, denoStub, attempts)
+			const diag = await (mgr as unknown as {probeAndAccept: (id: 'yt-dlp', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<unknown>}).probeAndAccept('yt-dlp', source, ytDlpStub, attempts)
 
 			expect(diag).not.toBeNull()
-			expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'deno', outcome: 'slow_success', source_kind: 'managed', source_channel: 'default', source_provider: 'github', elapsed_ms: 31_500, timeout_ms: 30_000})
+			expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'slow_success', source_kind: 'managed', source_channel: 'nightly', source_provider: 'github', elapsed_ms: 31_500, timeout_ms: 30_000})
 		} finally {
 			now.mockRestore()
 		}

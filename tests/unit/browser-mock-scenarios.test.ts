@@ -246,23 +246,17 @@ describe('browser mock scenarios', () => {
 	})
 
 	it('builds new diagnostics scenarios', () => {
-		const denoMissing = buildScenarioAppApiState(getScenario('diagnostics-deno-missing')).warmUp
-		expect(denoMissing.completed).toBe(false)
-		expect(denoMissing.blockingFailures).toEqual(['deno'])
-		expect(denoMissing.dependencies.deno.state).toBe('failed')
-
 		const ffprobeBroken = buildScenarioAppApiState(getScenario('diagnostics-ffprobe-broken')).warmUp
 		expect(ffprobeBroken.blockingFailures).toEqual(['ffprobe'])
 
 		const allMissing = buildScenarioAppApiState(getScenario('diagnostics-all-missing')).warmUp
-		expect(allMissing.blockingFailures).toHaveLength(4)
+		expect(allMissing.blockingFailures).toHaveLength(3)
 		expect(allMissing.dependencies['yt-dlp'].state).toBe('failed')
 		expect(allMissing.dependencies.ffmpeg.state).toBe('failed')
 
 		const warmupRunning = buildScenarioAppApiState(getScenario('diagnostics-warmup-running')).warmUp
 		expect(warmupRunning.completed).toBe(false)
 		expect(warmupRunning.blockingFailures).toHaveLength(0)
-		expect(warmupRunning.dependencies.deno.state).toBe('failed')
 	})
 
 	it('builds new update scenarios', () => {

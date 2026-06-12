@@ -7,7 +7,13 @@ vi.mock('@main/utils/process', async importOriginal => {
 	return {...actual, spawnYtDlp: vi.fn()}
 })
 
+vi.mock('@main/services/ytDlpJsRuntime', async importOriginal => {
+	const actual = await importOriginal<typeof import('@main/services/ytDlpJsRuntime.js')>()
+	return {...actual, probeElectronNodeRuntime: vi.fn()}
+})
+
 import {spawnYtDlp} from '@main/utils/process.js'
+import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/downloads'
@@ -21,7 +27,7 @@ function makeFakeProcess(exitCode = 0) {
 
 function makeYtDlp() {
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd'}), invalidateCache: vi.fn()}
-	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureDeno: vi.fn().mockResolvedValue('/fake/deno'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
+	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
 	return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never)
 }
@@ -32,6 +38,7 @@ function getArgs(callIndex = 0): string[] {
 
 beforeEach(() => {
 	vi.clearAllMocks()
+	vi.mocked(probeElectronNodeRuntime).mockResolvedValue({ok: true, runtime: {kind: 'electron-node', executablePath: '/mock/Arroxy', version: '24.16.0'}, output: 'v24.16.0'})
 	vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(0) as never)
 })
 

@@ -16,13 +16,6 @@ const mockRuntime = vi.hoisted(() => {
 		['yt-dlp_linux', '3'.repeat(64)],
 		['yt-dlp_linux_aarch64', '4'.repeat(64)]
 	])
-	const denoShaByAsset = new Map([
-		['deno-x86_64-pc-windows-msvc.zip', 'a'.repeat(64)],
-		['deno-x86_64-apple-darwin.zip', 'b'.repeat(64)],
-		['deno-aarch64-apple-darwin.zip', 'c'.repeat(64)],
-		['deno-x86_64-unknown-linux-gnu.zip', 'd'.repeat(64)],
-		['deno-aarch64-unknown-linux-gnu.zip', 'e'.repeat(64)]
-	])
 	const ytDlpSums = [...ytDlpShaByAsset.entries()].map(([asset, sha]) => `${sha}  ${asset}`).join('\n')
 
 	return {
@@ -37,12 +30,6 @@ const mockRuntime = vi.hoisted(() => {
 		async downloadText(url: string): Promise<string> {
 			if (url.includes('rss?path=/')) return '<rss><item><link>https://sourceforge.net/projects/yt-dlp.mirror/files/2026.06.09/</link></item></rss>'
 			if (url.endsWith('/SHA2-256SUMS') || url.includes('/SHA2-256SUMS/download')) return ytDlpSums
-			if (url.endsWith('.sha256sum')) {
-				const asset = path.basename(url, '.sha256sum')
-				const sha = denoShaByAsset.get(asset)
-				if (!sha) throw new Error(`Unexpected Deno checksum URL: ${url}`)
-				return `${sha}  ${asset}`
-			}
 			throw new Error(`Unexpected text download URL: ${url}`)
 		},
 		parseShaLine(content: string, filename: string): string | null {
@@ -99,18 +86,13 @@ describe('runtime binary manifest generator parallel downloads', () => {
 
 		try {
 			const {generateRuntimeBinaryIndex} = await import('../../scripts/build/runtimeBinaryManifest.js')
-			const index = await generateRuntimeBinaryIndex({cacheRoot, denoVersion: 'v9.9.9'})
+			const index = await generateRuntimeBinaryIndex({cacheRoot})
 
-			expect(index.entries).toHaveLength(23)
-			expect(new Set(mockRuntime.downloadCalls)).toHaveLength(17)
-			expect(mockRuntime.downloadCalls).toHaveLength(17)
-			expect(mockRuntime.maxActiveDownloads).toBe(17)
-			expect(index.entries.map(entry => `${entry.id}:${entry.provider}:${entry.channel}`)).toEqual([
-				...Array.from({length: 6}, () => 'yt-dlp:github:nightly'),
-				...Array.from({length: 6}, () => 'yt-dlp:github:stable'),
-				...Array.from({length: 6}, () => 'yt-dlp:sourceforge:stable'),
-				...Array.from({length: 5}, () => 'deno:deno-land:default')
-			])
+			expect(index.entries).toHaveLength(18)
+			expect(new Set(mockRuntime.downloadCalls)).toHaveLength(12)
+			expect(mockRuntime.downloadCalls).toHaveLength(12)
+			expect(mockRuntime.maxActiveDownloads).toBe(12)
+			expect(index.entries.map(entry => `${entry.id}:${entry.provider}:${entry.channel}`)).toEqual([...Array.from({length: 6}, () => 'yt-dlp:github:nightly'), ...Array.from({length: 6}, () => 'yt-dlp:github:stable'), ...Array.from({length: 6}, () => 'yt-dlp:sourceforge:stable')])
 		} finally {
 			await fs.rm(cacheRoot, {recursive: true, force: true})
 		}

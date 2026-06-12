@@ -13,7 +13,7 @@ function defaultExePath(): string {
 // On CI this is set by the workflow; locally falls back to the platform's default unpacked path.
 const PACKAGED_EXE = process.env.PACKAGED_EXE ?? defaultExePath()
 
-const WARMUP_TIMEOUT_MS = 12 * 60 * 1000 // yt-dlp + deno cold download
+const WARMUP_TIMEOUT_MS = 12 * 60 * 1000 // yt-dlp cold download plus binary probes
 
 function compactText(text: string): string {
 	return text.replace(/\s+/g, ' ').trim()
@@ -83,8 +83,8 @@ async function waitForWarmupSuccess(page: Page): Promise<void> {
 }
 
 test('packaged exe: downloads binaries, completes warmup, shows wizard', async () => {
-	// Override the timeout for this test only — warmup downloads yt-dlp (~80 MB)
-	// and deno (~120 MB) from GitHub Releases on a cold runner.
+	// Override the timeout for this test only — warmup downloads yt-dlp from
+	// GitHub Releases on a cold runner.
 	test.setTimeout(WARMUP_TIMEOUT_MS + 60_000)
 
 	const tmpBase = process.env.ARROXY_COLD_TMPDIR ?? os.tmpdir()

@@ -18,7 +18,6 @@ export interface DownloadRetryPolicy {
 
 export interface E2eHarnessMode {
 	enabled: boolean
-	skipDeno: boolean
 	disableAnalytics: boolean
 	disableUpdater: boolean
 	allowClipboardWatch: boolean
@@ -64,7 +63,7 @@ function validatePluginRoot(pluginRoot: string | undefined): string {
 
 export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate: HarnessGate): E2eHarnessMode {
 	if (!isE2eHarnessEnabled(env, gate)) {
-		return {enabled: false, skipDeno: false, disableAnalytics: false, disableUpdater: false, allowClipboardWatch: true, useMockTokenProvider: false, commandLineSwitches: [], applyAppSettingsDefaults: defaults => defaults, applySpawnEnv: baseEnv => ({...baseEnv}), ytDlpArgs: () => [], downloadRetryPolicy: undefined}
+		return {enabled: false, disableAnalytics: false, disableUpdater: false, allowClipboardWatch: true, useMockTokenProvider: false, commandLineSwitches: [], applyAppSettingsDefaults: defaults => defaults, applySpawnEnv: baseEnv => ({...baseEnv}), ytDlpArgs: () => [], downloadRetryPolicy: undefined}
 	}
 
 	const pluginRoot = validatePluginRoot(env.ARROXY_E2E_YTDLP_PLUGIN_DIR)
@@ -73,11 +72,9 @@ export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate
 	// each child. The env var names the trusted plugin root, so pass its parent.
 	const pluginContainer = path.dirname(pluginRoot)
 	const denyProxyUrl = env.ARROXY_E2E_DENY_PROXY_URL
-	const skipDeno = env.ARROXY_E2E_SKIP_DENO === '1'
 
 	return {
 		enabled: true,
-		skipDeno,
 		disableAnalytics: true,
 		disableUpdater: true,
 		allowClipboardWatch,

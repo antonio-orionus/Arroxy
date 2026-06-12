@@ -4,7 +4,6 @@ import {join} from 'node:path'
 import {describe, expect, it} from 'vitest'
 
 import {btbnTargets} from '../../scripts/build/btbnResolver.js'
-import {DENO_SOURCES, denoTargets} from '@main/services/binary/DenoBinarySource.js'
 import {YT_DLP_SOURCES, ytDlpTargets} from '@main/services/binary/YtDlpBinarySource.js'
 
 const root = process.cwd()
@@ -28,21 +27,17 @@ function expectedPayloadCountFromSources(): number {
 		if (match) ytDlpAssets.add(match.assetName)
 	}
 
-	return ytDlpAssets.size * 3 + btbnTargets().length + 4 + denoTargets().length * 2
+	return ytDlpAssets.size * 3 + btbnTargets().length + 4
 }
 
 describe('binary source smoke script', () => {
 	it('covers every configured managed binary URL provider', () => {
 		const script = read('scripts/test-binaries/smoke-all.sh')
-		const denoResolver = read('scripts/build/denoResolver.ts')
 
 		expect(script).toContain('https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download')
 		expect(script).toContain('https://github.com/yt-dlp/yt-dlp/releases/latest/download')
 		expect(script).toContain(YT_DLP_SOURCES.stableSourceForge.rss)
 		expect(script).toContain(YT_DLP_SOURCES.stableSourceForge.files)
-		expect(denoResolver).toContain(DENO_SOURCES.denoLand.latest)
-		expect(denoResolver).toContain(DENO_SOURCES.denoLand.release)
-		expect(script).toContain('https://github.com/denoland/deno/releases/latest/download')
 	})
 
 	it('keeps BtbN live smoke resilient without changing production resolver policy', () => {
@@ -57,6 +52,6 @@ describe('binary source smoke script', () => {
 		const output = execFileSync('bash', ['scripts/test-binaries/smoke-all.sh', '--expected-payloads'], {cwd: root, encoding: 'utf8'}).trim()
 
 		expect(Number(output)).toBe(expectedPayloadCountFromSources())
-		expect(Number(output)).toBe(30)
+		expect(Number(output)).toBe(20)
 	})
 })
