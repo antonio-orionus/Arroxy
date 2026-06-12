@@ -445,41 +445,32 @@ export async function downloadArtifactToCache(options: DownloadArtifactToCacheOp
 
 	const partialDir = path.join(options.cacheRoot, 'partials')
 	const downloadPath = path.join(partialDir, `${hashText(options.key)}.bin`)
-	let downloaded = false
 	let lastError: unknown = null
 	for (const url of options.urls) {
 		try {
 			await downloadFile(url, downloadPath, options.onProgress, {allowPartialRetry: true, signal: options.signal, stallTimeoutMs: options.stallTimeoutMs, maxDurationMs: options.maxDurationMs, partialRetryLimit: options.partialRetryLimit})
-			downloaded = true
-			break
+			const stat = await fsPromises.stat(downloadPath)
+			if (options.size !== undefined && stat.size !== options.size) {
+				throw new DownloadSizeMismatchError(`Artifact size mismatch. Expected ${options.size}, got ${stat.size}`, options.size, stat.size)
+			}
+			try {
+				await pipeline(fs.createReadStream(downloadPath), cacache.put.stream(options.cacheRoot, options.key, {integrity, size: options.size ?? stat.size, metadata: options.metadata, memoize: false}))
+			} catch (err) {
+				mapCacheError(err, options.size)
+			}
+			await fsPromises.rm(downloadPath, {force: true})
+			await fsPromises.rm(`${downloadPath}.part`, {force: true})
+			const info = await cacache.get.info(options.cacheRoot, options.key, {memoize: false})
+			return {cacheRoot: options.cacheRoot, key: options.key, integrity, size: info?.size ?? stat.size}
 		} catch (err) {
 			lastError = err
+			await fsPromises.rm(downloadPath, {force: true})
+			await fsPromises.rm(`${downloadPath}.part`, {force: true})
 			if (options.signal?.aborted) throw err
 		}
 	}
-	if (!downloaded) {
-		if (lastError instanceof Error) throw lastError
-		throw new Error(typeof lastError === 'string' ? lastError : 'Artifact download failed')
-	}
-
-	try {
-		const stat = await fsPromises.stat(downloadPath)
-		if (options.size !== undefined && stat.size !== options.size) {
-			await fsPromises.rm(downloadPath, {force: true})
-			throw new DownloadSizeMismatchError(`Artifact size mismatch. Expected ${options.size}, got ${stat.size}`, options.size, stat.size)
-		}
-		try {
-			await pipeline(fs.createReadStream(downloadPath), cacache.put.stream(options.cacheRoot, options.key, {integrity, size: options.size ?? stat.size, metadata: options.metadata, memoize: false}))
-		} catch (err) {
-			await fsPromises.rm(downloadPath, {force: true})
-			mapCacheError(err, options.size)
-		}
-		await fsPromises.rm(downloadPath, {force: true})
-		const info = await cacache.get.info(options.cacheRoot, options.key, {memoize: false})
-		return {cacheRoot: options.cacheRoot, key: options.key, integrity, size: info?.size ?? stat.size}
-	} finally {
-		await fsPromises.rm(`${downloadPath}.part`, {force: true})
-	}
+	if (lastError instanceof Error) throw lastError
+	throw new Error(typeof lastError === 'string' ? lastError : 'Artifact download failed')
 }
 
 export async function copyCachedArtifactToFile(cacheRoot: string, key: string, destination: string, options: CopyCachedArtifactOptions = {}): Promise<void> {

@@ -172,6 +172,34 @@ describe('BinaryDownloader', () => {
 		}
 	})
 
+	it('tries later artifact URLs when an earlier transfer fails validation', async () => {
+		const body = Buffer.from('verified mirror artifact')
+		const wrong = Buffer.from('wrong')
+		const cache = await cacheRoot()
+		const requests: string[] = []
+
+		try {
+			await withServer(
+				(req, res) => {
+					requests.push(req.url ?? '')
+					const response = req.url === '/bad' ? wrong : body
+					res.writeHead(200, {'content-length': String(response.length)})
+					res.end(response)
+				},
+				async url => {
+					const result = await downloadArtifactToCache({urls: [`${url}/bad`, `${url}/good`], cacheRoot: cache, key: 'mirror-fallback', sha256: sha256(body), size: body.length})
+					const copied = path.join(cache, 'mirror.bin')
+					await copyCachedArtifactToFile(cache, 'mirror-fallback', copied, {integrity: result.integrity, size: body.length})
+
+					expect(requests).toEqual(['/bad', '/good'])
+					await expect(fs.readFile(copied)).resolves.toEqual(body)
+				}
+			)
+		} finally {
+			await fs.rm(cache, {recursive: true, force: true})
+		}
+	})
+
 	it('resumes truncated artifact responses before inserting verified bytes into cacache', async () => {
 		const body = Buffer.from('a'.repeat(4096))
 		const cache = await cacheRoot()

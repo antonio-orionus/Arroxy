@@ -37,12 +37,11 @@ Format: `**Term** — definition. \`path\``. Add an entry when extracting a new 
 - **RuntimeBinaryIndex** — signed manifest set for runtime-managed binaries. Remote index is fetched from a fixed URL, verified with Arroxy's Ed25519 public key, cached as last-known-good, and merged with the bundled fallback index in candidate order. Runtime never resolves latest or talks to release feeds. `src/main/services/binary/RuntimeBinaryIndexService.ts`, `src/main/services/binary/RuntimeBinaryTrust.ts`, `src/main/services/binary/BundledRuntimeBinaryIndex.ts`.
 - **RuntimeBinaryMaterializer** — Arroxy-owned artifact materializer. Accepts one immutable manifest entry, downloads all approved URLs in order, verifies size/SHA-256 before extraction, applies hardened ZIP/raw materialization into content-addressed cache dirs, probes only after a real executable path exists, and returns typed artifact failures for Diagnostics. `src/main/services/binary/RuntimeBinaryMaterializer.ts`.
 - **RuntimeBinaryManifest Automation** — CI/build helper that resolves upstream releases, writes concrete URLs plus size/SHA-256, validates entries through RuntimeBinaryMaterializer, smoke-probes host-compatible entries, signs `runtime-index-v1.json`, and publishes it to the fixed runtime manifest release. Local dev can run `bun run dev:runtime-manifest`, which generates a signed local manifest and points RuntimeBinaryIndexService at it through `ARROXY_RUNTIME_INDEX_FILE` / `ARROXY_RUNTIME_INDEX_SIG_FILE` / `ARROXY_RUNTIME_INDEX_PUBLIC_KEY_FILE`. `scripts/build/runtimeBinaryManifest.ts`, `.github/workflows/runtime-binaries.yml`.
-- **Deno binary-source module** — Deno target facts and checksum helpers: supported target triples, asset/executable names, latest-version validation, checksum parsing, dl.deno.land primary URL construction, concrete GitHub release mirror URLs, and shell-env formatting for smoke scripts. Deno is required but not embedded in packaged resources. `src/main/services/binary/DenoBinarySource.ts`, `scripts/build/denoResolver.ts`.
 - **YtDlp binary-source module** — yt-dlp target/source facts: platform asset names, concrete GitHub nightly/stable URL construction, SourceForge stable mirror URL construction, and SourceForge latest-version parsing for CI manifest automation. `src/main/services/binary/YtDlpBinarySource.ts`.
 - **BinaryProbe** — spawns binary with `--version`/`-version`, parses stdout/stderr, classifies spawn failures (ENOENT/EACCES/ETIMEDOUT/SmartScreen). Companion `whereOnPath` discovers candidates via `where`/`which`. No version-comparison policy. `src/main/services/binary/BinaryProbe.ts`.
 - **BinaryManager** — resolver facade orchestrating RuntimeBinaryIndexService + RuntimeBinaryMaterializer + BinaryProbe behind the strategy chain (manualOverride → envOverride → approved manifest candidates → last-known-good/bundled manifest candidates → systemPath where allowed). Accumulates `DependencyAttempt[]`, returns `DependencyDiagnostic` per binary, and never resolves upstream latest at runtime. Public class API preserved for callers (`YtDlp`, `WarmupService`, `diagnosticsHandlers`). `src/main/services/BinaryManager.ts`.
 - **BtbN binary-source module** — build-time resolver for BtbN FFmpeg release selection and the Win/Linux target matrix consumed by embedded-binary fetch and binary-source smoke tests. Shell callers source its emitted env instead of duplicating target facts. `scripts/build/btbnResolver.ts`.
-- **DependencyRequirementPolicy** — shared required-dependency policy. Computes blocking failures from dependency diagnostics with explicit harness exceptions such as `skipDeno`, while keeping the full `DEPENDENCY_IDS` diagnostic set intact. `src/shared/dependencyPolicy.ts`.
+- **DependencyRequirementPolicy** — shared required-dependency policy. Computes blocking failures from dependency diagnostics for the current required set (`yt-dlp`, `ffmpeg`, `ffprobe`) while keeping `DEPENDENCY_IDS` as the diagnostic source of truth. `src/shared/dependencyPolicy.ts`.
 - **Diagnostic** — `DependencyAttempt[]` + final `DependencyDiagnostic` shape: what attempts ran, which succeeded/failed. Each failure carries a stable `FAILURE_CODE` (ARX-NNN) so users can search the repair UI codes language-independently. `src/shared/types.ts` (`DependencyDiagnostic`, `DependencyAttempt`, `DependencyFailure`, `FAILURE_CODE`).
 - **WizardStepGraph** — pure wizard topology module. Builds visible steps from wizard state, reports active index, and walks forward/backward for `ProbeOrchestrator`; `stepRegistry` stays render-only. `src/renderer/src/store/wizard/wizardStepGraph.ts`.
 - **UrlIntent** — pure shared URL-shape classifier for the four user-intent states: obvious single, obvious collection, mixed, and unknown. Renderer policies decide whether each entry point probes, prompts, or opens review from this single model. `src/shared/urlIntent.ts`.
@@ -505,13 +504,12 @@ GitHub Releases ships: NSIS installer, portable `.exe`, arm64 DMG, x64 DMG, AppI
 
 ## Binary distribution strategy
 
-Arroxy ships four third-party binaries. They split into two camps based on update cadence:
+Arroxy ships three third-party binaries. They split into two camps based on update cadence:
 
 | Binary           | Strategy                                        | Source                                                | Why                                                                                            |
 | ---------------- | ----------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | ffmpeg + ffprobe | **Embedded at build time** via `extraResources` | BtbN GPL builds (Win/Linux), Martin-Riedl GPL (macOS) | Static codec semantics; pair coherence solved by construction                                  |
 | yt-dlp           | Runtime-fetched                                 | GitHub `yt-dlp/yt-dlp(-nightly-builds)`               | Ships fixes ~weekly w/ YouTube bot-protection cycle; can't bundle and ship app release per fix |
-| deno             | Runtime-fetched                                 | GitHub `denoland/deno`                                | Used for nsig signature decoding; ~120 MB embed cost too high for AppImage                     |
 
 ### How embed works
 
@@ -523,7 +521,7 @@ Arroxy ships four third-party binaries. They split into two camps based on updat
 
 ### License attribution
 
-`THIRD_PARTY_NOTICES.txt` ships at `<resources>/` via top-level `extraResources`. Covers ffmpeg (GPLv3), yt-dlp (Unlicense), deno (MIT). Arroxy stays MIT — spawn ≠ link, no GPL propagation into our code.
+`THIRD_PARTY_NOTICES.txt` ships at `<resources>/` via top-level `extraResources`. Covers ffmpeg (GPLv3) and yt-dlp (Unlicense). Arroxy stays MIT — spawn ≠ link, no GPL propagation into our code.
 
 ### Smoke parity
 

@@ -35,10 +35,10 @@ jobs:
     name: Build Windows installer
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
         with:
           persist-credentials: false
-      - uses: oven-sh/setup-bun@v2.2.0
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
         with:
           bun-version: ${{ env.BUN_VERSION }}
       - run: bun install --frozen-lockfile
@@ -52,7 +52,7 @@ jobs:
           OPENPANEL_CLIENT_SECRET: ${{ secrets.OPENPANEL_CLIENT_SECRET }}
           BTBN_GITHUB_TOKEN: ${{ github.token }}
         run: bun run dist:win
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: installer
           path: |
@@ -68,7 +68,7 @@ jobs:
     needs: build
     runs-on: windows-latest
     steps:
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
           name: installer
           path: ./installer
@@ -77,11 +77,12 @@ jobs:
         shell: pwsh
         run: |
           $key = "HKLM:\Software\Microsoft\Windows\Windows Error Reporting\LocalDumps"
+          $dumpDir = Join-Path $env:RUNNER_TEMP 'CrashDumps'
           New-Item -Path $key -Force | Out-Null
-          Set-ItemProperty $key DumpFolder "$env:LOCALAPPDATA\CrashDumps"
+          Set-ItemProperty $key DumpFolder $dumpDir
           Set-ItemProperty $key DumpType 2 -Type DWord
           Set-ItemProperty $key DumpCount 10 -Type DWord
-          New-Item -Path "$env:LOCALAPPDATA\CrashDumps" -ItemType Directory -Force | Out-Null
+          New-Item -Path $dumpDir -ItemType Directory -Force | Out-Null
 
       - name: Prepend fake JS runtimes and yt-dlp to PATH
         shell: pwsh
@@ -124,12 +125,13 @@ jobs:
           $stderr = Join-Path $logDir 'installed-runtime-smoke.err'
           $env:ELECTRON_USER_DATA = Join-Path $env:RUNNER_TEMP 'Arroxy Runtime Ω Installed'
           Remove-Item Env:ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue
-          & $appExe > $stdout 2> $stderr
-          $exitCode = $LASTEXITCODE
+          $p = Start-Process -FilePath $appExe -Wait -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
+          $exitCode = $p.ExitCode
           Get-Content $stdout -ErrorAction SilentlyContinue
           if (Test-Path $stderr) { Get-Content $stderr -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_ } }
           Remove-Item Env:ARROXY_RUNTIME_SMOKE -ErrorAction SilentlyContinue
           Remove-Item Env:ELECTRON_USER_DATA -ErrorAction SilentlyContinue
+          if ($null -eq $exitCode) { throw "Installed runtime smoke did not report an exit code" }
           if ($exitCode -ne 0) { throw "Installed runtime smoke failed: exit $exitCode" }
 
       - name: Run portable app runtime smoke
@@ -149,12 +151,13 @@ jobs:
           $stderr = Join-Path $logDir 'portable-runtime-smoke.err'
           $env:ELECTRON_USER_DATA = Join-Path $env:RUNNER_TEMP 'Arroxy Runtime Ω Portable'
           Remove-Item Env:ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue
-          & $portableExe > $stdout 2> $stderr
-          $exitCode = $LASTEXITCODE
+          $p = Start-Process -FilePath $portableExe -Wait -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
+          $exitCode = $p.ExitCode
           Get-Content $stdout -ErrorAction SilentlyContinue
           if (Test-Path $stderr) { Get-Content $stderr -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_ } }
           Remove-Item Env:ARROXY_RUNTIME_SMOKE -ErrorAction SilentlyContinue
           Remove-Item Env:ELECTRON_USER_DATA -ErrorAction SilentlyContinue
+          if ($null -eq $exitCode) { throw "Portable runtime smoke did not report an exit code" }
           if ($exitCode -ne 0) { throw "Portable runtime smoke failed: exit $exitCode" }
 
       - name: Silent uninstall
@@ -180,27 +183,28 @@ jobs:
         shell: pwsh
         continue-on-error: true
         run: |
-          $dumps = Get-ChildItem "$env:LOCALAPPDATA\CrashDumps\*.dmp" -ErrorAction SilentlyContinue
+          $dumpDir = Join-Path $env:RUNNER_TEMP 'CrashDumps'
+          $dumps = Get-ChildItem "$dumpDir\*.dmp" -ErrorAction SilentlyContinue
           if (-not $dumps) { Write-Host "No crash dumps captured."; exit 0 }
           $cdb = Get-ChildItem "C:\Program Files (x86)\Windows Kits\*\Debuggers\*\cdb.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
           if (-not $cdb) { Write-Host "cdb.exe not found on runner."; exit 0 }
           foreach ($d in $dumps) {
-            $out = "$env:LOCALAPPDATA\CrashDumps\$($d.BaseName).analyze.txt"
+            $out = "$dumpDir\$($d.BaseName).analyze.txt"
             Write-Host "=== !analyze -v on $($d.Name) ==="
             & $cdb.FullName -z $d.FullName -c "!analyze -v; q" -lines 2>&1 | Tee-Object -FilePath $out
           }
 
       - name: Upload crash dumps + analysis
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: crash-dump-cold
-          path: ${{ runner.temp }}/../../AppData/Local/CrashDumps/
+          path: ${{ runner.temp }}/CrashDumps/
           if-no-files-found: ignore
 
       - name: Upload runtime smoke logs
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: runtime-smoke-logs
           path: |
@@ -215,7 +219,7 @@ jobs:
     needs: build
     runs-on: windows-latest
     steps:
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
           name: installer
           path: ./installer
@@ -224,9 +228,11 @@ jobs:
         shell: pwsh
         run: |
           $key = "HKLM:\Software\Microsoft\Windows\Windows Error Reporting\LocalDumps"
+          $dumpDir = Join-Path $env:RUNNER_TEMP 'CrashDumps'
           New-Item -Path $key -Force | Out-Null
-          Set-ItemProperty $key DumpFolder "$env:LOCALAPPDATA\CrashDumps"
+          Set-ItemProperty $key DumpFolder $dumpDir
           Set-ItemProperty $key DumpType 2 -Type DWord
+          New-Item -Path $dumpDir -ItemType Directory -Force | Out-Null
 
       - name: 1x install + uninstall
         shell: pwsh
@@ -241,17 +247,17 @@ jobs:
 
       - name: Upload crash dumps on failure
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: crash-dump-cycle
-          path: ${{ runner.temp }}/../../AppData/Local/CrashDumps/
+          path: ${{ runner.temp }}/CrashDumps/
           if-no-files-found: ignore
 
   npm-latest-gate:
     name: electron-builder dist-tag advisory
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
       - name: Compare installed electron-builder vs npm latest
         run: |
           installed=$(jq -r '.devDependencies."electron-builder"' package.json | sed 's/^[~^]//')
@@ -277,7 +283,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
           name: installer
           path: ./dist

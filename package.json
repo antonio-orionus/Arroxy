@@ -27,9 +27,9 @@
 		"runtime-manifest:local": "bun scripts/build/runtimeBinaryManifest.ts local",
 		"with-runtime-manifest": "bash scripts/with-runtime-manifest.sh",
 		"dev:runtime-manifest": "bash scripts/with-runtime-manifest.sh bun run dev",
-		"dev:local-manifest": "bash scripts/with-runtime-manifest.sh bun run dev",
+		"dev:local-manifest": "bun run runtime-manifest:local && bash scripts/with-runtime-manifest.sh bun run dev",
 		"dev:fresh:runtime-manifest": "bash scripts/with-runtime-manifest.sh bun run dev:fresh",
-		"dev:fresh:local-manifest": "bash scripts/with-runtime-manifest.sh bun run dev:fresh",
+		"dev:fresh:local-manifest": "bun run runtime-manifest:local && bash scripts/with-runtime-manifest.sh bun run dev:fresh",
 		"clean": "rm -rf dist out",
 		"build": "bun run typecheck && electron-vite build && bun run check:preload-bundle",
 		"dist": "bun run clean && bun run build && electron-builder --publish never",
@@ -118,7 +118,7 @@
 		"zod": "4.4.3",
 		"zustand": "5.0.14"
 	},
-	"overrides": {"fast-uri": "^3.1.2", "@types/react": "19.2.17", "tmp": "0.2.7"},
+	"overrides": {"fast-uri": "^3.1.2", "@types/react": "19.2.17", "tmp": "0.2.7", "electron-builder-squirrel-windows": "26.15.2", "app-builder-lib": "26.15.2", "builder-util": "26.15.0", "dmg-builder": "26.15.2", "electron-publish": "26.15.1"},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.16",
 		"@iconify-json/logos": "1.2.11",

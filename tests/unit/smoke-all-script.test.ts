@@ -52,6 +52,5 @@ describe('binary source smoke script', () => {
 		const output = execFileSync('bash', ['scripts/test-binaries/smoke-all.sh', '--expected-payloads'], {cwd: root, encoding: 'utf8'}).trim()
 
 		expect(Number(output)).toBe(expectedPayloadCountFromSources())
-		expect(Number(output)).toBe(20)
 	})
 })

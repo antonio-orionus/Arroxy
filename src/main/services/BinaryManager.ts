@@ -54,6 +54,7 @@ function makeDownloadProgress(id: DependencyId, source: DependencySource, onProg
 const logger = log.scope('binary')
 // Keep slow-probe analytics aligned with BinaryProbe's global probe timeout.
 const SLOW_BINARY_PROBE_ANALYTICS_THRESHOLD_MS = 30_000
+export type RuntimeBinaryMaterializerPort = Pick<RuntimeBinaryMaterializer, 'materialize'>
 
 function binaryTelemetryId(id: DependencyId): string {
 	return id === 'yt-dlp' ? 'ytdlp' : id
@@ -128,7 +129,7 @@ export class BinaryManager {
 
 	private readonly runtimeBinaryIndex: RuntimeBinaryIndexProvider
 
-	private readonly runtimeBinaryMaterializer: RuntimeBinaryMaterializer
+	private readonly runtimeBinaryMaterializer: RuntimeBinaryMaterializerPort
 
 	private readonly overridesProvider: () => BinaryOverrides | undefined
 
@@ -136,7 +137,7 @@ export class BinaryManager {
 
 	private lastDiagnostics: Partial<Record<DependencyId, DependencyDiagnostic>> = {}
 
-	constructor(userDataPath: string, options?: {retryDelays?: [number, number]; overridesProvider?: () => BinaryOverrides | undefined; runtimeBinaryIndex?: RuntimeBinaryIndexProvider; runtimeBinaryMaterializer?: RuntimeBinaryMaterializer}) {
+	constructor(userDataPath: string, options?: {retryDelays?: [number, number]; overridesProvider?: () => BinaryOverrides | undefined; runtimeBinaryIndex?: RuntimeBinaryIndexProvider; runtimeBinaryMaterializer?: RuntimeBinaryMaterializerPort}) {
 		this.cacheDir = path.join(userDataPath, 'runtime-cache', 'binaries')
 		this.artifactCacheDir = path.join(userDataPath, 'runtime-cache', 'artifact-cache-v1')
 		this.overridesProvider = options?.overridesProvider ?? ((): BinaryOverrides | undefined => undefined)

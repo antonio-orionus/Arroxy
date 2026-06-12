@@ -107,7 +107,11 @@ export class RuntimeBinaryIndexService implements RuntimeBinaryIndexProvider {
 		if (local) return {primary: local.index, fallbacks: [previous?.index, this.bundledIndex].filter((index): index is RuntimeBinaryIndex => Boolean(index)), source: 'local'}
 		const remote = await this.fetchRemote(signal)
 		if (remote) {
-			await this.writeLastKnownGood(remote.raw, remote.signature)
+			try {
+				await this.writeLastKnownGood(remote.raw, remote.signature)
+			} catch (err) {
+				logger.warn('Failed to persist last-known-good runtime index', {error: err instanceof Error ? err.message : String(err)})
+			}
 			return {primary: remote.index, fallbacks: [previous?.index, this.bundledIndex].filter((index): index is RuntimeBinaryIndex => Boolean(index)), source: 'remote'}
 		}
 		if (previous) return {primary: previous.index, fallbacks: [this.bundledIndex], source: 'last-known-good'}

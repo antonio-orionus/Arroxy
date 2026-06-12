@@ -250,9 +250,10 @@ describe('browser mock scenarios', () => {
 		expect(ffprobeBroken.blockingFailures).toEqual(['ffprobe'])
 
 		const allMissing = buildScenarioAppApiState(getScenario('diagnostics-all-missing')).warmUp
-		expect(allMissing.blockingFailures).toHaveLength(3)
+		expect(new Set(allMissing.blockingFailures)).toEqual(new Set(['yt-dlp', 'ffmpeg', 'ffprobe']))
 		expect(allMissing.dependencies['yt-dlp'].state).toBe('failed')
 		expect(allMissing.dependencies.ffmpeg.state).toBe('failed')
+		expect(allMissing.dependencies.ffprobe.state).toBe('failed')
 
 		const warmupRunning = buildScenarioAppApiState(getScenario('diagnostics-warmup-running')).warmUp
 		expect(warmupRunning.completed).toBe(false)

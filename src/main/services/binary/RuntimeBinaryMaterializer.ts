@@ -44,6 +44,8 @@ export interface RuntimeBinaryInstallMetadata {
 	manifest: RuntimeBinaryManifestEntry
 	manifestHash: string
 	executablePath: string
+	executableSize: number
+	executableSha256: string
 	installedAt: string
 }
 
@@ -280,8 +282,9 @@ export class RuntimeBinaryMaterializer {
 				const stagedExecutablePath = path.join(stageDir, executablePath)
 				await assertRegularExecutable(stagedExecutablePath)
 				if (process.platform !== 'win32') await fsPromises.chmod(stagedExecutablePath, 0o755)
+				const [executableStat, executableSha256] = await Promise.all([fsPromises.stat(stagedExecutablePath), sha256ForFile(stagedExecutablePath)])
 
-				const metadata: RuntimeBinaryInstallMetadata = {cacheKey, manifest: entry, manifestHash: runtimeBinaryManifestHash(entry), executablePath, installedAt: new Date().toISOString()}
+				const metadata: RuntimeBinaryInstallMetadata = {cacheKey, manifest: entry, manifestHash: runtimeBinaryManifestHash(entry), executablePath, executableSize: executableStat.size, executableSha256, installedAt: new Date().toISOString()}
 				await fsPromises.writeFile(path.join(stageDir, 'metadata.json'), `${JSON.stringify(metadata, null, 2)}\n`)
 				await fsPromises.mkdir(path.dirname(finalDir), {recursive: true})
 				await fsPromises.rm(finalDir, {recursive: true, force: true})
@@ -301,9 +304,9 @@ export class RuntimeBinaryMaterializer {
 			const [metadataRaw, stat] = await Promise.all([fsPromises.readFile(metadataPath, 'utf8'), fsPromises.lstat(executablePath)])
 			const metadata = JSON.parse(metadataRaw) as Partial<RuntimeBinaryInstallMetadata>
 			if (metadata.cacheKey !== cacheKey || metadata.manifestHash !== runtimeBinaryManifestHash(entry) || metadata.executablePath !== normalizeRuntimeExecutablePath(entry.executablePath)) return false
-			if (!stat.isFile() || stat.size !== entry.size) return false
+			if (!stat.isFile() || stat.size !== metadata.executableSize || typeof metadata.executableSha256 !== 'string') return false
 			if (process.platform !== 'win32') await fsPromises.access(executablePath, fs.constants.X_OK)
-			return (await sha256ForFile(executablePath)) === entry.sha256
+			return (await sha256ForFile(executablePath)) === metadata.executableSha256
 		} catch {
 			return false
 		}

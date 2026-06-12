@@ -89,8 +89,9 @@ function buildStoredZip(entries: ZipEntryFixture[]): Buffer {
 	return Buffer.concat([...localParts, centralDirectory, end])
 }
 
-async function withServer(body: Buffer, run: (url: string) => Promise<void>): Promise<void> {
+async function withServer(body: Buffer, run: (url: string) => Promise<void>, onRequest?: () => void): Promise<void> {
 	const server = http.createServer((_req, res) => {
+		onRequest?.()
 		res.writeHead(200, {'content-length': String(body.length)})
 		res.end(body)
 	})
@@ -134,6 +135,7 @@ describe('RuntimeBinaryMaterializer', () => {
 
 			await expect(fs.readFile(result.executablePath, 'utf8')).resolves.toBe('fake ytdlp')
 			await expect(fs.readFile(result.metadataPath, 'utf8')).resolves.toContain('"cacheKey"')
+			await expect(fs.readFile(result.metadataPath, 'utf8')).resolves.toContain('"executableSha256"')
 			if (process.platform !== 'win32') expect((await fs.stat(result.executablePath)).mode & 0o111).not.toBe(0)
 			await fs.rm(root, {recursive: true, force: true})
 		})
@@ -176,6 +178,29 @@ describe('RuntimeBinaryMaterializer', () => {
 			await expect(fs.readFile(result.executablePath, 'utf8')).resolves.toBe('fake zipped ytdlp')
 			await fs.rm(root, {recursive: true, force: true})
 		})
+	})
+
+	it('reuses existing zip installs using extracted executable metadata', async () => {
+		const zip = buildStoredZip([{name: 'bin/yt-dlp', body: Buffer.from('fake zipped ytdlp'), compress: true}])
+		let requests = 0
+		await withServer(
+			zip,
+			async url => {
+				const root = await cacheRoot()
+				const materializer = new RuntimeBinaryMaterializer()
+				const entry = entryFor(zip, {url, format: 'zip', executablePath: 'bin/yt-dlp'})
+
+				const first = await materializer.materialize(entry, {cacheRoot: root})
+				const second = await materializer.materialize(entry, {cacheRoot: root})
+
+				expect(second.executablePath).toBe(first.executablePath)
+				expect(requests).toBe(1)
+				await fs.rm(root, {recursive: true, force: true})
+			},
+			() => {
+				requests++
+			}
+		)
 	})
 
 	it('reports extraction before staging a verified artifact', async () => {

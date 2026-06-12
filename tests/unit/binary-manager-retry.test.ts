@@ -3,9 +3,9 @@ import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it, vi} from 'vitest'
-import {BinaryManager} from '@main/services/BinaryManager.js'
+import {BinaryManager, type RuntimeBinaryMaterializerPort} from '@main/services/BinaryManager.js'
 import type {RuntimeBinaryIndexProvider} from '@main/services/binary/RuntimeBinaryIndexService.js'
-import {RuntimeBinaryMaterializer, runtimeBinaryCacheKeyHash, runtimeBinaryManifestHash} from '@main/services/binary/RuntimeBinaryMaterializer.js'
+import {runtimeBinaryCacheKeyHash, runtimeBinaryManifestHash} from '@main/services/binary/RuntimeBinaryMaterializer.js'
 import {runtimeBinaryArchFor, runtimeBinaryPlatformFor} from '@shared/runtimeBinaryManifest.js'
 import type {DependencyDiagnostic, DependencyId, DependencySource, RuntimeBinaryManifestEntry} from '@shared/types.js'
 
@@ -24,8 +24,8 @@ function indexProvider(entries: RuntimeBinaryManifestEntry[]): RuntimeBinaryInde
 	return {candidatesFor: vi.fn(async id => entries.filter(candidate => candidate.id === id))}
 }
 
-function materializer(run: (candidate: RuntimeBinaryManifestEntry) => Promise<string>): RuntimeBinaryMaterializer {
-	return {materialize: vi.fn(async candidate => ({executablePath: await run(candidate), cacheKey: `${candidate.id}-${candidate.channel}-${candidate.provider}`, metadataPath: '/metadata.json', manifest: candidate}))} as unknown as RuntimeBinaryMaterializer
+function materializer(run: (candidate: RuntimeBinaryManifestEntry) => Promise<string>): RuntimeBinaryMaterializerPort {
+	return {materialize: vi.fn(async candidate => ({executablePath: await run(candidate), cacheKey: `${candidate.id}-${candidate.channel}-${candidate.provider}`, metadataPath: '/metadata.json', manifest: candidate}))}
 }
 
 async function makeMgr(options: {entries?: RuntimeBinaryManifestEntry[]; materialize?: (candidate: RuntimeBinaryManifestEntry) => Promise<string>} = {}): Promise<BinaryManager> {
@@ -61,7 +61,11 @@ async function writeManagedCache(userData: string, manifestEntry: RuntimeBinaryM
 	await fs.mkdir(path.dirname(executablePath), {recursive: true})
 	await fs.writeFile(executablePath, body)
 	if (process.platform !== 'win32') await fs.chmod(executablePath, 0o755)
-	await fs.writeFile(path.join(artifactDir, 'metadata.json'), `${JSON.stringify({cacheKey, manifest: manifestEntry, manifestHash: runtimeBinaryManifestHash(manifestEntry), executablePath: manifestEntry.executablePath, installedAt: new Date().toISOString()}, null, 2)}\n`, 'utf-8')
+	await fs.writeFile(
+		path.join(artifactDir, 'metadata.json'),
+		`${JSON.stringify({cacheKey, manifest: manifestEntry, manifestHash: runtimeBinaryManifestHash(manifestEntry), executablePath: manifestEntry.executablePath, executableSize: body.length, executableSha256: sha256(body), installedAt: new Date().toISOString()}, null, 2)}\n`,
+		'utf-8'
+	)
 	return executablePath
 }
 
