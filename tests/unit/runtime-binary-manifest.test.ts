@@ -1,4 +1,5 @@
 import {describe, expect, it} from 'vitest'
+import {BUNDLED_RUNTIME_BINARY_INDEX} from '@main/services/binary/BundledRuntimeBinaryIndex.js'
 import {runtimeBinaryCacheKey, runtimeEntriesForCurrentTarget, validateRuntimeBinaryIndex, validateRuntimeBinaryManifestEntry} from '@shared/runtimeBinaryManifest.js'
 import type {RuntimeBinaryIndex, RuntimeBinaryManifestEntry} from '@shared/types.js'
 
@@ -62,5 +63,15 @@ describe('runtime binary manifest validation', () => {
 	it('validates a full index with semantic entry checks', () => {
 		const result = validateRuntimeBinaryIndex({schemaVersion: 1, generatedAt: '2026-06-12T00:00:00.000Z', entries: [baseEntry]})
 		expect(result.ok).toBe(true)
+	})
+
+	it('ships an immutable bundled yt-dlp fallback index without Deno entries', () => {
+		const result = validateRuntimeBinaryIndex(BUNDLED_RUNTIME_BINARY_INDEX)
+		expect(result.ok ? result.value.entries : result.issues).toHaveLength(6)
+		expect(result.ok).toBe(true)
+		expect(BUNDLED_RUNTIME_BINARY_INDEX.entries.map(entry => `${entry.id}:${entry.platform}:${entry.arch}`)).toEqual(['yt-dlp:win32:x64', 'yt-dlp:win32:arm64', 'yt-dlp:darwin:x64', 'yt-dlp:darwin:arm64', 'yt-dlp:linux:x64', 'yt-dlp:linux:arm64'])
+		expect(BUNDLED_RUNTIME_BINARY_INDEX.entries.every(entry => entry.id === 'yt-dlp' && entry.channel === 'stable')).toBe(true)
+		expect(BUNDLED_RUNTIME_BINARY_INDEX.entries.map(entry => entry.id)).not.toContain('deno')
+		expect(BUNDLED_RUNTIME_BINARY_INDEX.entries.every(entry => !entry.url.includes('/latest/'))).toBe(true)
 	})
 })

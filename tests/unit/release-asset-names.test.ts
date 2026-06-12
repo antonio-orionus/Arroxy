@@ -30,6 +30,15 @@ describe('release asset names', () => {
 		expect(config).not.toContain('"runAsNode": false')
 	})
 
+	it('applies Linux Electron fuses before replacing the executable with the no-sandbox wrapper', () => {
+		const afterPack = read('build/afterPack.mjs')
+
+		expect(afterPack).toContain('context.packager.addElectronFuses(context, fuseConfig)')
+		expect(afterPack).toContain('context.packager.config.electronFuses = null')
+		expect(afterPack.indexOf('context.packager.addElectronFuses(context, fuseConfig)')).toBeLessThan(afterPack.indexOf('fs.renameSync(execPath, realBin)'))
+		expect(afterPack).toContain('--no-sandbox')
+	})
+
 	it('runs packaged runtime smoke before UI cold-start on every PR platform', () => {
 		const coldStart = read('.github/workflows/e2e-cold-start.yml')
 
@@ -41,6 +50,8 @@ describe('release asset names', () => {
 		expect(coldStart).toContain('fake yt-dlp')
 		expect(coldStart).toContain('runtime-smoke.out')
 		expect(coldStart).toContain('runtime-smoke.err')
+		expect(coldStart).toContain('status=$?')
+		expect(coldStart).toContain('exit "$status"')
 	})
 
 	it('smoke-tests Windows installed and portable artifacts before publish', () => {
@@ -64,6 +75,8 @@ describe('release asset names', () => {
 		expect(release).toContain('ARROXY_LIVE_CANARY_URL')
 		expect(release).toContain('ARROXY_SMOKE_URL')
 		expect(release).toContain('vars.ARROXY_LIVE_CANARY_URL')
+		expect(release).toContain('status=$?')
+		expect(release).toContain('exit "$status"')
 	})
 
 	it('keeps release workflow consumers on the same stable filenames', () => {

@@ -181,15 +181,19 @@ jobs:
           unset ELECTRON_RUN_AS_NODE
           stdout="$ARROXY_LOG_ARCHIVE/runtime-smoke.out"
           stderr="$ARROXY_LOG_ARCHIVE/runtime-smoke.err"
+          set +e
           if [ "$RUNNER_OS" = "Linux" ]; then
             xvfb-run -a "$PACKAGED_EXE" >"$stdout" 2>"$stderr"
           else
             "$PACKAGED_EXE" >"$stdout" 2>"$stderr"
           fi
+          status=$?
+          set -e
           cat "$stdout"
           if [ -s "$stderr" ]; then
             cat "$stderr" >&2
           fi
+          exit "$status"
       - name: Run Linux live YouTube canary
         if: runner.os == 'Linux'
         shell: bash
@@ -207,11 +211,15 @@ jobs:
           unset ELECTRON_RUN_AS_NODE
           stdout="$ARROXY_LOG_ARCHIVE/live-canary.out"
           stderr="$ARROXY_LOG_ARCHIVE/live-canary.err"
+          set +e
           xvfb-run -a "$PACKAGED_EXE" >"$stdout" 2>"$stderr"
+          status=$?
+          set -e
           cat "$stdout"
           if [ -s "$stderr" ]; then
             cat "$stderr" >&2
           fi
+          exit "$status"
       - name: Upload runtime smoke logs
         if: always()
         uses: actions/upload-artifact@v7

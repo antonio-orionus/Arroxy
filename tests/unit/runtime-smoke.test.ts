@@ -30,8 +30,9 @@ describe('runtime smoke contract', () => {
 
 	it('summarizes yt-dlp verbose output for Node runtime and bundled EJS', () => {
 		const summary = summarizeYtDlpVerboseRuntime(`
-			[debug] Optional libraries: brotli-1.1.0, yt-dlp-ejs-0.3.0
-			[debug] JS runtimes: node 24.16.0
+			[debug] Optional libraries: brotli-1.1.0, yt_dlp_ejs-0.8.0
+			[debug] JS runtimes: node-24.16.0
+			yt-dlp: error: You must provide at least one URL.
 		`)
 
 		expect(summary.hasNodeRuntime).toBe(true)

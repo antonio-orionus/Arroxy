@@ -13,17 +13,27 @@ import fs from 'node:fs';
 // renderer side is unaffected by this flag — those are renderer-level JS
 // isolation, not OS sandbox.
 export default async function afterPack(context) {
-  if (context.electronPlatformName !== 'linux') return;
+	if (context.electronPlatformName !== 'linux') return;
 
-  const execName = context.packager.executableName;
-  const execPath = path.join(context.appOutDir, execName);
-  const realBin = execPath + '.bin';
+	// electron-builder applies configured fuses after this hook, but this hook
+	// replaces the Linux executable with a shell wrapper. Flip fuses on the real
+	// Electron binary first, then disable the later built-in fuse pass.
+	const configuredFuses = context.packager.config.electronFuses;
+	if (configuredFuses != null) {
+		const fuseConfig = await context.packager.generateFuseConfig(configuredFuses);
+		await context.packager.addElectronFuses(context, fuseConfig);
+		context.packager.config.electronFuses = null;
+	}
 
-  fs.renameSync(execPath, realBin);
+	const execName = context.packager.executableName;
+	const execPath = path.join(context.appOutDir, execName);
+	const realBin = execPath + '.bin';
 
-  fs.writeFileSync(
-    execPath,
-    `#!/bin/sh\nexec "$(dirname "$(readlink -f "$0")")/${path.basename(realBin)}" --no-sandbox "$@"\n`
-  );
-  fs.chmodSync(execPath, 0o755);
+	fs.renameSync(execPath, realBin);
+
+	fs.writeFileSync(
+		execPath,
+		`#!/bin/sh\nexec "$(dirname "$(readlink -f "$0")")/${path.basename(realBin)}" --no-sandbox "$@"\n`
+	);
+	fs.chmodSync(execPath, 0o755);
 }

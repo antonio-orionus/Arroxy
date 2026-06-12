@@ -195,9 +195,10 @@ async function runStdinProbe(runtime: YtDlpJsRuntime): Promise<string> {
 }
 
 async function runYtDlpVerboseProbe(ytDlpPath: string, runtime: YtDlpJsRuntime, args: string[]): Promise<YtDlpVerboseRuntimeSummary> {
-	const result = await spawnText(ytDlpPath, [...args, '--verbose', '--list-extractors'], {env: applyJsRuntimeEnv(process.env, runtime), timeoutMs: RUNTIME_SMOKE_TIMEOUT_MS})
+	const result = await spawnText(ytDlpPath, [...args, '--verbose'], {env: applyJsRuntimeEnv(process.env, runtime), timeoutMs: RUNTIME_SMOKE_TIMEOUT_MS})
 	const output = `${result.stdout}\n${result.stderr}`
-	if (result.code !== 0) {
+	const expectedNoUrlExit = result.code === 2 && /You must provide at least one URL/i.test(output)
+	if (result.code !== 0 && !expectedNoUrlExit) {
 		throw new Error(`exit ${result.code}: ${output.trim().slice(0, 2000)}`)
 	}
 	return summarizeYtDlpVerboseRuntime(output)
