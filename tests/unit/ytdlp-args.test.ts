@@ -12,7 +12,13 @@ vi.mock('@main/utils/process', async importOriginal => {
 	return {...actual, spawnYtDlp: vi.fn()}
 })
 
+vi.mock('@main/services/ytDlpJsRuntime', async importOriginal => {
+	const actual = await importOriginal<typeof import('@main/services/ytDlpJsRuntime.js')>()
+	return {...actual, probeElectronNodeRuntime: vi.fn()}
+})
+
 import {spawnYtDlp} from '@main/utils/process.js'
+import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/downloads'
@@ -38,6 +44,7 @@ function getArgs(callIndex = 0): string[] {
 
 beforeEach(() => {
 	vi.clearAllMocks()
+	vi.mocked(probeElectronNodeRuntime).mockResolvedValue({ok: true, runtime: {kind: 'electron-node', executablePath: '/mock/Arroxy', version: '24.16.0'}, output: 'v24.16.0'})
 	vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(0) as never)
 })
 
@@ -762,28 +769,55 @@ describe('YtDlp — network pacing', () => {
 	})
 })
 
-describe('YtDlp — js-runtimes (deno)', () => {
-	it('passes --js-runtimes deno:<path> when deno is runtime-resolved', async () => {
+describe('YtDlp — js-runtimes', () => {
+	it('prefers Electron Node and clears yt-dlp default runtimes before enabling it', async () => {
+		const ytDlp = makeYtDlp({denoPath: '/fake/deno'})
+		await ytDlp.run({kind: 'probe', url: URL})
+		const args = getArgs()
+		const clearIdx = args.indexOf('--no-js-runtimes')
+		const runtimeIdx = args.indexOf('--js-runtimes')
+		expect(clearIdx).toBeGreaterThan(-1)
+		expect(runtimeIdx).toBeGreaterThan(-1)
+		expect(clearIdx).toBeLessThan(runtimeIdx)
+		expect(args[runtimeIdx + 1]).toBe('node:/mock/Arroxy')
+		expect(args).not.toContain('deno:/fake/deno')
+	})
+
+	it('falls back to --js-runtimes deno:<path> when Electron Node probing fails', async () => {
+		vi.mocked(probeElectronNodeRuntime).mockResolvedValueOnce({ok: false, reason: 'runAsNode unavailable'})
 		const ytDlp = makeYtDlp({denoPath: '/fake/deno'})
 		await ytDlp.run({kind: 'probe', url: URL})
 		const args = getArgs()
 		const idx = args.indexOf('--js-runtimes')
 		expect(idx).toBeGreaterThan(-1)
 		expect(args[idx + 1]).toBe('deno:/fake/deno')
+		expect(args).not.toContain('--no-js-runtimes')
 	})
 
-	it('fails instead of silently omitting --js-runtimes when deno is unavailable', async () => {
+	it('fails instead of silently omitting --js-runtimes when Electron Node and Deno are both unavailable', async () => {
+		vi.mocked(probeElectronNodeRuntime).mockResolvedValueOnce({ok: false, reason: 'runAsNode unavailable'})
 		const ytDlp = makeYtDlp({denoPath: null})
 
 		await expect(ytDlp.run({kind: 'probe', url: URL})).rejects.toThrow()
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 	})
 
-	it('omits --js-runtimes only when an explicit harness skip is active', async () => {
+	it('uses Electron Node even when the E2E harness skips Deno', async () => {
 		const e2eMode = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ARROXY_E2E_SKIP_DENO: '1'}, {isPackaged: false})
 		const ytDlp = makeYtDlp({e2eMode})
 		await ytDlp.run({kind: 'probe', url: URL})
 		const args = getArgs()
-		expect(args).not.toContain('--js-runtimes')
+		const idx = args.indexOf('--js-runtimes')
+		expect(args).toContain('--no-js-runtimes')
+		expect(idx).toBeGreaterThan(-1)
+		expect(args[idx + 1]).toBe('node:/mock/Arroxy')
+	})
+
+	it('omits JS runtime args only when Electron Node fails and an explicit harness Deno skip is active', async () => {
+		vi.mocked(probeElectronNodeRuntime).mockResolvedValueOnce({ok: false, reason: 'runAsNode unavailable'})
+		const e2eMode = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ARROXY_E2E_SKIP_DENO: '1'}, {isPackaged: false})
+		const ytDlp = makeYtDlp({e2eMode})
+		await ytDlp.run({kind: 'probe', url: URL})
+		expect(getArgs()).not.toContain('--js-runtimes')
 	})
 })

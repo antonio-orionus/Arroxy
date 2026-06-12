@@ -3,7 +3,8 @@ import fs from 'node:fs'
 import fsPromises from 'node:fs/promises'
 import path from 'node:path'
 import {pipeline} from 'node:stream/promises'
-import got, {type Method} from 'got'
+import cacache from 'cacache'
+import fetch from 'make-fetch-happen'
 import log from 'electron-log/main.js'
 import type {DependencyFailureKind, WarmupProgressEvent} from '@shared/types.js'
 import {cancelError, isAbortError} from './BinaryProbe.js'
@@ -21,6 +22,28 @@ export class DownloadStalledError extends Error {
 	constructor(message: string) {
 		super(message)
 		this.name = 'DownloadStalledError'
+	}
+}
+
+export class DownloadIntegrityError extends Error {
+	constructor(
+		message: string,
+		readonly cause?: unknown
+	) {
+		super(message)
+		this.name = 'DownloadIntegrityError'
+	}
+}
+
+export class DownloadSizeMismatchError extends Error {
+	constructor(
+		message: string,
+		readonly expectedSize?: number,
+		readonly actualSize?: number,
+		readonly cause?: unknown
+	) {
+		super(message)
+		this.name = 'DownloadSizeMismatchError'
 	}
 }
 
@@ -88,25 +111,25 @@ export async function sha256ForFile(filePath: string): Promise<string> {
 	})
 }
 
-// Network plumbing handled by `got`: per-phase timeouts, jittered exponential
-// backoff, automatic redirect handling with retry on transient HTTP errors
-// (408/429/5xx) and network errors.
-export const HTTP_HEADERS: Record<string, string> = {'user-agent': 'arroxy/1.0'}
-export const HTTP_RETRY = {
-	limit: 5,
-	methods: ['GET'] as Method[],
-	statusCodes: [408, 413, 429, 500, 502, 503, 504],
-	errorCodes: ['ETIMEDOUT', 'ECONNRESET', 'EADDRINUSE', 'ECONNREFUSED', 'EPIPE', 'ENOTFOUND', 'ENETUNREACH', 'EAI_AGAIN'],
-	calculateDelay: ({computedValue}: {computedValue: number}): number => (computedValue === 0 ? 0 : Math.min(60_000, computedValue) + Math.floor(Math.random() * 500))
+export function sha256HexToSri(sha256Hex: string): string {
+	if (!/^[a-fA-F0-9]{64}$/.test(sha256Hex)) throw new DownloadIntegrityError(`Invalid SHA-256 digest: ${sha256Hex}`)
+	return `sha256-${Buffer.from(sha256Hex, 'hex').toString('base64')}`
 }
-const HTTP_STREAM_RETRY = {...HTTP_RETRY, limit: 0}
-export const HTTP_TIMEOUT = {lookup: 5_000, connect: 10_000, secureConnect: 10_000, socket: 60_000, response: 30_000, send: 60_000, request: 600_000}
+
+// Network plumbing handled by `make-fetch-happen`: redirects, proxy support,
+// timeout support, and HTTP-semantics-aware request retry. Stream truncation is
+// still handled by Arroxy because the app owns partial-file and range policy.
+const HTTP_HEADERS: Record<string, string> = {'user-agent': 'arroxy/1.0'}
+const HTTP_RETRY = {retries: 5, factor: 2, minTimeout: 1_000, maxTimeout: 60_000, randomize: true}
+const HTTP_TIMEOUT = {request: 600_000}
 
 interface DownloadFileOptions {
 	allowPartialRetry?: boolean
 	signal?: AbortSignal
 	stallTimeoutMs?: number
 	maxDurationMs?: number
+	partialRetryLimit?: number
+	partialRetryAttempt?: number
 }
 
 interface NormalizedDownloadFileOptions {
@@ -114,25 +137,53 @@ interface NormalizedDownloadFileOptions {
 	signal?: AbortSignal
 	stallTimeoutMs: number
 	maxDurationMs: number
+	partialRetryLimit: number
+	partialRetryAttempt: number
 }
+
+export interface DownloadArtifactToCacheOptions {
+	urls: readonly string[]
+	cacheRoot: string
+	key: string
+	sha256: string
+	size?: number
+	metadata?: Record<string, unknown>
+	onProgress?: DownloadProgressCallback
+	signal?: AbortSignal
+	stallTimeoutMs?: number
+	maxDurationMs?: number
+	partialRetryLimit?: number
+}
+
+export interface CachedArtifactResult {
+	cacheRoot: string
+	key: string
+	integrity: string
+	size: number
+}
+
+export interface CopyCachedArtifactOptions {
+	integrity?: string
+	size?: number
+}
+
+type FetchOptions = fetch.FetchOptions & {signal?: AbortSignal}
 
 export async function downloadText(url: string, signal?: AbortSignal): Promise<string> {
-	const res = await got(url, {headers: HTTP_HEADERS, retry: HTTP_RETRY, timeout: HTTP_TIMEOUT, followRedirect: true, signal})
-	return res.body
+	const res = await fetch(url, {headers: HTTP_HEADERS, retry: HTTP_RETRY, timeout: HTTP_TIMEOUT.request, redirect: 'follow', signal} as FetchOptions)
+	if (!res.ok) throw new Error(`HTTP ${res.status} while downloading ${url}`)
+	return res.text()
 }
 
-function stringifyHeader(header: string | string[] | undefined): string | null {
+function stringifyHeader(header: string | string[] | undefined | null): string | null {
 	if (!header) return null
 	return Array.isArray(header) ? (header[0] ?? null) : header
 }
 
-const RELEASE_TAG_LOCATION = /\/releases\/tag\/([^/?#]+)/
-
-export function parseTagFromLocation(location: string | string[] | undefined): string | null {
-	const value = stringifyHeader(location)
-	if (!value) return null
-	const match = RELEASE_TAG_LOCATION.exec(value)
-	return match ? decodeURIComponent(match[1]) : null
+function numericHeader(header: string | null): number | undefined {
+	if (!header) return undefined
+	const value = Number.parseInt(header, 10)
+	return Number.isFinite(value) && value >= 0 ? value : undefined
 }
 
 export function parseContentRangeStart(header: string | string[] | undefined): number | null {
@@ -148,7 +199,7 @@ export function resolvePartialResponseMode(startByte: number, statusCode: number
 	if (statusCode !== 206) return 'fresh'
 
 	const resumedFrom = parseContentRangeStart(contentRange)
-	if (resumedFrom !== null && resumedFrom !== startByte) {
+	if (resumedFrom !== startByte) {
 		return 'discard-and-retry'
 	}
 
@@ -168,9 +219,112 @@ function downloadMaxDurationMs(): number {
 
 function normalizeDownloadFileOptions(allowPartialRetryOrOptions: boolean | DownloadFileOptions, signal?: AbortSignal): NormalizedDownloadFileOptions {
 	if (typeof allowPartialRetryOrOptions === 'object') {
-		return {allowPartialRetry: allowPartialRetryOrOptions.allowPartialRetry ?? true, signal: allowPartialRetryOrOptions.signal ?? signal, stallTimeoutMs: allowPartialRetryOrOptions.stallTimeoutMs ?? DOWNLOAD_STALL_TIMEOUT_MS, maxDurationMs: allowPartialRetryOrOptions.maxDurationMs ?? downloadMaxDurationMs()}
+		return {
+			allowPartialRetry: allowPartialRetryOrOptions.allowPartialRetry ?? true,
+			signal: allowPartialRetryOrOptions.signal ?? signal,
+			stallTimeoutMs: allowPartialRetryOrOptions.stallTimeoutMs ?? DOWNLOAD_STALL_TIMEOUT_MS,
+			maxDurationMs: allowPartialRetryOrOptions.maxDurationMs ?? downloadMaxDurationMs(),
+			partialRetryLimit: allowPartialRetryOrOptions.partialRetryLimit ?? 5,
+			partialRetryAttempt: allowPartialRetryOrOptions.partialRetryAttempt ?? 0
+		}
 	}
-	return {allowPartialRetry: allowPartialRetryOrOptions, signal, stallTimeoutMs: DOWNLOAD_STALL_TIMEOUT_MS, maxDurationMs: downloadMaxDurationMs()}
+	return {allowPartialRetry: allowPartialRetryOrOptions, signal, stallTimeoutMs: DOWNLOAD_STALL_TIMEOUT_MS, maxDurationMs: downloadMaxDurationMs(), partialRetryLimit: 5, partialRetryAttempt: 0}
+}
+
+async function fileSize(filePath: string): Promise<number> {
+	try {
+		const stat = await fsPromises.stat(filePath)
+		return stat.isFile() ? stat.size : 0
+	} catch {
+		return 0
+	}
+}
+
+function hashText(value: string): string {
+	return createHash('sha256').update(value).digest('hex')
+}
+
+function errorCode(err: unknown): string | undefined {
+	return err instanceof Error ? (err as NodeJS.ErrnoException).code : undefined
+}
+
+function isRetryablePartialDownloadError(err: unknown): boolean {
+	if (err instanceof DownloadStalledError) return true
+	if (!(err instanceof Error)) return false
+	const message = err.message.toLowerCase()
+	const code = errorCode(err)
+	return message.includes('content-length mismatch') || message.includes('premature close') || message.includes('aborted') || code === 'ECONNRESET' || code === 'ETIMEDOUT' || code === 'EPIPE' || code === 'ERR_STREAM_PREMATURE_CLOSE' || code === 'request-timeout'
+}
+
+function mapCacheError(err: unknown, expectedSize?: number): never {
+	const code = errorCode(err)
+	if (code === 'EINTEGRITY') throw new DownloadIntegrityError('Artifact checksum did not match manifest SHA-256', err)
+	if (code === 'EBADSIZE') throw new DownloadSizeMismatchError('Artifact size did not match manifest size', expectedSize, undefined, err)
+	throw err
+}
+
+function bodyStream(response: {body: unknown}): NodeJS.ReadableStream {
+	if (!response.body) throw new Error('HTTP response did not include a body stream')
+	return response.body as NodeJS.ReadableStream
+}
+
+async function waitForDrain(stream: fs.WriteStream): Promise<void> {
+	await new Promise<void>((resolve, reject) => {
+		const cleanup = (): void => {
+			stream.off('drain', onDrain)
+			stream.off('error', onError)
+		}
+		const onDrain = (): void => {
+			cleanup()
+			resolve()
+		}
+		const onError = (err: Error): void => {
+			cleanup()
+			reject(err)
+		}
+		stream.once('drain', onDrain)
+		stream.once('error', onError)
+	})
+}
+
+async function closeWriteStream(stream: fs.WriteStream): Promise<void> {
+	await new Promise<void>((resolve, reject) => {
+		const cleanup = (): void => {
+			stream.off('finish', onFinish)
+			stream.off('error', onError)
+		}
+		const onFinish = (): void => {
+			cleanup()
+			resolve()
+		}
+		const onError = (err: Error): void => {
+			cleanup()
+			reject(err)
+		}
+		stream.once('finish', onFinish)
+		stream.once('error', onError)
+		stream.end()
+	})
+}
+
+async function writeResponseBodyToFile(responseBody: NodeJS.ReadableStream, destination: string, flags: 'a' | 'w', baseByte: number, contentLength: number | undefined, signal: AbortSignal, onProgress: DownloadProgressCallback | undefined, onData: (bytes: number) => void): Promise<number> {
+	let transferred = 0
+	const out = fs.createWriteStream(destination, {flags})
+	try {
+		for await (const rawChunk of responseBody as AsyncIterable<Buffer | Uint8Array | string>) {
+			if (signal.aborted) throw cancelError()
+			const chunk = Buffer.isBuffer(rawChunk) ? rawChunk : Buffer.from(rawChunk)
+			transferred += chunk.length
+			onData(transferred)
+			onProgress?.(baseByte + transferred, contentLength === undefined ? undefined : baseByte + contentLength)
+			if (!out.write(chunk)) await waitForDrain(out)
+		}
+		await closeWriteStream(out)
+		return transferred
+	} catch (err) {
+		await new Promise<void>(resolve => out.end(() => resolve()))
+		throw err
+	}
 }
 
 // Range-resume: if `${destination}.part` exists from a previous interrupted
@@ -178,20 +332,13 @@ function normalizeDownloadFileOptions(allowPartialRetryOrOptions: boolean | Down
 // (no range support) instead of 206, truncate and start fresh.
 export async function downloadFile(url: string, destination: string, onProgress?: DownloadProgressCallback, allowPartialRetryOrOptions: boolean | DownloadFileOptions = true, signal?: AbortSignal): Promise<void> {
 	const options = normalizeDownloadFileOptions(allowPartialRetryOrOptions, signal)
-	const {allowPartialRetry, stallTimeoutMs, maxDurationMs} = options
+	const {allowPartialRetry, stallTimeoutMs, maxDurationMs, partialRetryLimit, partialRetryAttempt} = options
 	signal = options.signal
 	if (signal?.aborted) throw cancelError()
 	await fsPromises.mkdir(path.dirname(destination), {recursive: true})
 
 	const partPath = `${destination}.part`
-	let startByte = 0
-	try {
-		const stat = await fsPromises.stat(partPath)
-		if (stat.isFile() && stat.size > 0) startByte = stat.size
-	} catch {
-		// no partial file
-	}
-
+	const startByte = await fileSize(partPath)
 	const headers: Record<string, string> = {...HTTP_HEADERS}
 	if (startByte > 0) headers.range = `bytes=${startByte}-`
 
@@ -222,67 +369,49 @@ export async function downloadFile(url: string, destination: string, onProgress?
 	}
 
 	armStallTimer()
-	const stream = got.stream(url, {headers, retry: HTTP_STREAM_RETRY, timeout: HTTP_TIMEOUT, followRedirect: true, signal: combinedSignal})
-
 	try {
-		await new Promise<void>((resolve, reject) => {
-			let out: fs.WriteStream | null = null
-			let settled = false
-			const finish = (err?: unknown): void => {
-				if (settled) return
-				settled = true
-				if (err) {
-					const error = err instanceof Error ? err : new Error(typeof err === 'string' ? err : 'Binary download failed')
-					stream.destroy(error)
-					out?.destroy(error)
-					reject(error)
-				} else resolve()
-			}
+		maxDurationTimer = setTimeout(() => {
+			timeoutReason = 'duration'
+			stallController.abort()
+		}, maxDurationMs)
 
-			maxDurationTimer = setTimeout(() => {
-				timeoutReason = 'duration'
-				finish(new DownloadStalledError(`Download exceeded ${maxDurationMs}ms`))
-			}, maxDurationMs)
+		const response = await fetch(url, {headers, retry: HTTP_RETRY, timeout: maxDurationMs, redirect: 'follow', signal: combinedSignal} as FetchOptions)
+		const contentLength = numericHeader(response.headers.get('content-length'))
+		const contentRange = response.headers.get('content-range') ?? undefined
+		logger.debug('Binary download response', {url, statusCode: response.status, startByte, contentLength: stringifyHeader(response.headers.get('content-length'))})
 
-			stream.once('response', (res: {statusCode?: number; headers: Record<string, string | string[] | undefined>}) => {
-				logger.debug('Binary download response', {url, statusCode: res.statusCode, startByte, contentLength: stringifyHeader(res.headers['content-length'])})
-				armStallTimer()
-				const mode = resolvePartialResponseMode(startByte, res.statusCode, res.headers['content-range'])
-				if (mode === 'discard-and-retry') {
-					finish(new RestartFreshDownloadError(`Discarding stale partial for ${path.basename(destination)}`))
-					return
-				}
+		const mode = resolvePartialResponseMode(startByte, response.status, contentRange)
+		if (mode === 'discard-and-retry') throw new RestartFreshDownloadError(`Discarding stale partial for ${path.basename(destination)}`)
+		if (!response.ok) throw new Error(`HTTP ${response.status} while downloading ${url}`)
 
-				stream.off('error', finish)
-				out = fs.createWriteStream(partPath, {flags: mode === 'append' ? 'a' : 'w'})
-				void pipeline(stream, out).then(() => finish(), finish)
-			})
-			stream.on('downloadProgress', ({transferred, total}: {transferred: number; total: number}) => {
-				const downloaded = startByte + transferred
-				if (downloaded > lastDownloaded) {
-					lastDownloaded = downloaded
-					lastProgressAt = Date.now()
-					armStallTimer()
-				}
-				onProgress?.(downloaded, total > 0 ? startByte + total : undefined)
-			})
-			stream.once('error', finish)
+		const baseByte = mode === 'append' ? startByte : 0
+		lastDownloaded = baseByte
+		armStallTimer()
+		const transferred = await writeResponseBodyToFile(bodyStream(response), partPath, mode === 'append' ? 'a' : 'w', baseByte, contentLength, combinedSignal, onProgress, bytes => {
+			lastDownloaded = baseByte + bytes
+			lastProgressAt = Date.now()
+			armStallTimer()
 		})
+		if (contentLength !== undefined && transferred !== contentLength) {
+			throw new Error(`Content-Length mismatch: expected ${contentLength} bytes, received ${transferred} bytes`)
+		}
 	} catch (err) {
-		if (err instanceof DownloadStalledError && !signal?.aborted) {
+		let retryableError = err
+		if ((timeoutReason === 'stall' || timeoutReason === 'duration') && !signal?.aborted) {
+			retryableError = new DownloadStalledError(timeoutReason === 'stall' ? `No download progress for ${stallTimeoutMs}ms` : `Download exceeded ${maxDurationMs}ms`)
 			logger.warn('Binary download timed out', {url, destination, reason: timeoutReason, startByte, lastDownloaded, lastProgressAgeMs: Date.now() - lastProgressAt, stallTimeoutMs, maxDurationMs})
-			throw err
 		}
-		if (timeoutReason === 'stall' && !signal?.aborted) {
-			const stalledError = new DownloadStalledError(`No download progress for ${stallTimeoutMs}ms`)
-			logger.warn('Binary download timed out', {url, destination, reason: timeoutReason, startByte, lastDownloaded, lastProgressAgeMs: Date.now() - lastProgressAt, stallTimeoutMs, maxDurationMs})
-			throw stalledError
-		}
-		if (allowPartialRetry && err instanceof RestartFreshDownloadError) {
+		if (allowPartialRetry && retryableError instanceof RestartFreshDownloadError) {
 			logger.warn('Stale partial detected, retrying binary download from byte 0', {destination, startByte})
 			await fsPromises.rm(partPath, {force: true})
 			return downloadFile(url, destination, onProgress, {...options, allowPartialRetry: false})
 		}
+		const partialSize = await fileSize(partPath)
+		if (allowPartialRetry && !signal?.aborted && partialRetryAttempt < partialRetryLimit && partialSize >= startByte && isRetryablePartialDownloadError(retryableError)) {
+			logger.warn('Partial binary download failed, retrying with range resume', {url, destination, startByte, partialSize, attempt: partialRetryAttempt + 1, limit: partialRetryLimit, error: retryableError instanceof Error ? retryableError.message : String(retryableError)})
+			return downloadFile(url, destination, onProgress, {...options, partialRetryAttempt: partialRetryAttempt + 1})
+		}
+		if (retryableError instanceof DownloadStalledError) throw retryableError
 		throw err
 	} finally {
 		clearStallTimer()
@@ -293,13 +422,82 @@ export async function downloadFile(url: string, destination: string, onProgress?
 	logger.debug('Binary download completed', {url, destination, bytesDownloaded: lastDownloaded, elapsedMs: Date.now() - startedAt})
 }
 
-// Extract structured diagnostic fields from a got/network error for analytics.
+export async function downloadArtifactToCache(options: DownloadArtifactToCacheOptions): Promise<CachedArtifactResult> {
+	if (options.urls.length === 0) throw new Error('No artifact URLs provided')
+	const integrity = sha256HexToSri(options.sha256)
+	await fsPromises.mkdir(options.cacheRoot, {recursive: true})
+
+	const existingEntry = await cacache.get.info(options.cacheRoot, options.key, {memoize: false}).catch(() => null)
+	const existingEntrySize = existingEntry?.size ?? options.size
+	if (existingEntry?.integrity.includes(integrity) && existingEntrySize !== undefined && (options.size === undefined || existingEntrySize === options.size)) {
+		return {cacheRoot: options.cacheRoot, key: options.key, integrity, size: existingEntrySize}
+	}
+
+	const existingContent = await cacache.get.hasContent(options.cacheRoot, integrity).catch(() => false)
+	const existingSize = typeof existingContent === 'object' && existingContent ? existingContent.size : undefined
+	if (existingSize !== undefined && (options.size === undefined || existingSize === options.size)) {
+		await cacache.index.insert(options.cacheRoot, options.key, integrity, {metadata: options.metadata, size: existingSize})
+		return {cacheRoot: options.cacheRoot, key: options.key, integrity, size: existingSize}
+	}
+	if (existingSize !== undefined && options.size !== undefined && existingSize !== options.size) {
+		throw new DownloadSizeMismatchError(`Cached artifact size mismatch. Expected ${options.size}, got ${existingSize}`, options.size, existingSize)
+	}
+
+	const partialDir = path.join(options.cacheRoot, 'partials')
+	const downloadPath = path.join(partialDir, `${hashText(options.key)}.bin`)
+	let downloaded = false
+	let lastError: unknown = null
+	for (const url of options.urls) {
+		try {
+			await downloadFile(url, downloadPath, options.onProgress, {allowPartialRetry: true, signal: options.signal, stallTimeoutMs: options.stallTimeoutMs, maxDurationMs: options.maxDurationMs, partialRetryLimit: options.partialRetryLimit})
+			downloaded = true
+			break
+		} catch (err) {
+			lastError = err
+			if (options.signal?.aborted) throw err
+		}
+	}
+	if (!downloaded) {
+		if (lastError instanceof Error) throw lastError
+		throw new Error(typeof lastError === 'string' ? lastError : 'Artifact download failed')
+	}
+
+	try {
+		const stat = await fsPromises.stat(downloadPath)
+		if (options.size !== undefined && stat.size !== options.size) {
+			await fsPromises.rm(downloadPath, {force: true})
+			throw new DownloadSizeMismatchError(`Artifact size mismatch. Expected ${options.size}, got ${stat.size}`, options.size, stat.size)
+		}
+		try {
+			await pipeline(fs.createReadStream(downloadPath), cacache.put.stream(options.cacheRoot, options.key, {integrity, size: options.size ?? stat.size, metadata: options.metadata, memoize: false}))
+		} catch (err) {
+			await fsPromises.rm(downloadPath, {force: true})
+			mapCacheError(err, options.size)
+		}
+		await fsPromises.rm(downloadPath, {force: true})
+		const info = await cacache.get.info(options.cacheRoot, options.key, {memoize: false})
+		return {cacheRoot: options.cacheRoot, key: options.key, integrity, size: info?.size ?? stat.size}
+	} finally {
+		await fsPromises.rm(`${downloadPath}.part`, {force: true})
+	}
+}
+
+export async function copyCachedArtifactToFile(cacheRoot: string, key: string, destination: string, options: CopyCachedArtifactOptions = {}): Promise<void> {
+	await fsPromises.mkdir(path.dirname(destination), {recursive: true})
+	try {
+		await cacache.get.copy(cacheRoot, key, destination, {integrity: options.integrity, size: options.size, memoize: false})
+	} catch (err) {
+		mapCacheError(err, options.size)
+	}
+}
+
+// Extract structured diagnostic fields from a network/cache error for analytics.
 export function downloadErrorDetails(err: unknown): {error_code?: string; status_code?: number} {
 	if (!(err instanceof Error)) return {}
 	const result: {error_code?: string; status_code?: number} = {}
-	const code = (err as NodeJS.ErrnoException).code
+	const code = errorCode(err)
 	if (typeof code === 'string') result.error_code = code.slice(0, 32)
-	const statusCode = (err as {response?: {statusCode?: unknown}}).response?.statusCode
+	const statusCode = (err as {response?: {statusCode?: unknown}; status?: unknown}).response?.statusCode ?? (err as {status?: unknown}).status
 	if (typeof statusCode === 'number') result.status_code = statusCode
 	return result
 }
@@ -308,9 +506,10 @@ export function downloadErrorDetails(err: unknown): {error_code?: string; status
 // Used by `BinaryResolver` to record `attempts[]` entries on its strategy chain.
 export function classifyDownloadError(err: unknown): DependencyFailureKind {
 	if (err instanceof DownloadStalledError) return 'timeout'
+	if (err instanceof DownloadIntegrityError || err instanceof DownloadSizeMismatchError) return 'hash_failed'
 	if (isAbortError(err)) return 'timeout'
 	const msg = err instanceof Error ? err.message.toLowerCase() : ''
-	if (msg.includes('checksum')) return 'hash_failed'
+	if (msg.includes('checksum') || msg.includes('integrity')) return 'hash_failed'
 	if (msg.includes('no download progress') || msg.includes('stalled')) return 'timeout'
 	if (msg.includes('archive') || msg.includes('did not contain') || msg.includes('extract')) return 'extract_failed'
 	return 'download_failed'

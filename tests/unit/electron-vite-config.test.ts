@@ -11,7 +11,8 @@ describe('electron.vite.config', () => {
 		expect(isExternalMainBuildImport('@shared/types')).toBe(false)
 		expect(isExternalMainBuildImport('./relative-module')).toBe(false)
 		expect(isExternalMainBuildImport('electron-log/main')).toBe(false)
-		expect(isExternalMainBuildImport('got')).toBe(false)
+		expect(isExternalMainBuildImport('make-fetch-happen')).toBe(false)
+		expect(isExternalMainBuildImport('cacache')).toBe(false)
 	})
 
 	it('still externalizes preload npm dependencies', () => {

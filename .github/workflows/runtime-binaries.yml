@@ -1,0 +1,120 @@
+name: Runtime Binary Manifests
+
+on:
+  workflow_dispatch:
+    inputs:
+      deno_version:
+        description: 'Pinned Deno release tag, for example v2.8.3. Empty uses scripts/build/runtime-binaries.config.json.'
+        required: false
+        type: string
+  schedule:
+    - cron: '17 7 * * *'
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  BUN_VERSION: '1.2.23'
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Generate manifest
+        env:
+          DENO_VERSION: ${{ github.event.inputs.deno_version || '' }}
+        run: |
+          set -euo pipefail
+          args=(generate --out dist/runtime-binaries/runtime-index-v1.json --cache-root "$RUNNER_TEMP/arroxy-runtime-binary-manifest" --validate)
+          if [[ -n "$DENO_VERSION" ]]; then
+            args+=(--deno-version "$DENO_VERSION")
+          fi
+          bun scripts/build/runtimeBinaryManifest.ts "${args[@]}"
+
+      - name: Sign manifest
+        env:
+          ARROXY_RUNTIME_INDEX_SIGNING_KEY: ${{ secrets.ARROXY_RUNTIME_INDEX_SIGNING_KEY }}
+        run: bun scripts/build/runtimeBinaryManifest.ts sign --manifest dist/runtime-binaries/runtime-index-v1.json --out dist/runtime-binaries/runtime-index-v1.sig
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runtime-binary-manifest
+          path: |
+            dist/runtime-binaries/runtime-index-v1.json
+            dist/runtime-binaries/runtime-index-v1.sig
+          if-no-files-found: error
+
+  validate:
+    needs: generate
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - uses: actions/download-artifact@v6
+        with:
+          name: runtime-binary-manifest
+          path: dist/runtime-binaries
+
+      - name: Materialize and smoke current host entries
+        shell: bash
+        run: bun scripts/build/runtimeBinaryManifest.ts validate --manifest dist/runtime-binaries/runtime-index-v1.json --cache-root "$RUNNER_TEMP/arroxy-runtime-binary-manifest" --smoke current
+
+  publish:
+    needs: validate
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/download-artifact@v6
+        with:
+          name: runtime-binary-manifest
+          path: dist/runtime-binaries
+
+      - name: Publish signed manifest release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="$GITHUB_REPOSITORY"
+          tag="runtime-binaries"
+          if ! gh release view "$tag" --repo "$repo" >/dev/null 2>&1; then
+            gh release create "$tag" --repo "$repo" --target "$GITHUB_SHA" --title "Runtime binary manifests" --notes "Mutable signed runtime binary manifest. The app verifies runtime-index-v1.sig before trusting runtime-index-v1.json."
+          fi
+          gh release upload "$tag" dist/runtime-binaries/runtime-index-v1.json dist/runtime-binaries/runtime-index-v1.sig --repo "$repo" --clobber

@@ -46,6 +46,17 @@ describe('WarmupSplash', () => {
 		expect(document.querySelector('.splash-progress-bar')).toHaveStyle({width: '25%'})
 	})
 
+	it('does not label post-download extraction as a stuck full download', () => {
+		const warmupProgress = {deno: {binary: 'deno', phase: 'extracting'} satisfies WarmupProgressEvent}
+
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+
+		expect(screen.getByTestId('splash-overlay')).toHaveTextContent('Preparing downloads')
+		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('Downloading deno')
+		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('MB /')
+		expect(document.querySelector('.splash-progress-bar')).not.toBeInTheDocument()
+	})
+
 	it('shows the welcome-back greeting only when requested', () => {
 		const {rerender} = render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} />)
 

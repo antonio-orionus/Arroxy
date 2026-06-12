@@ -45,7 +45,13 @@ export type {
 	BulkMetadataItemStatus,
 	BulkMetadataCancelReason,
 	BulkUrlKind,
-	BulkUrlRejectReason
+	BulkUrlRejectReason,
+	RuntimeBinaryId,
+	RuntimeBinaryChannel,
+	RuntimeBinaryProvider,
+	RuntimeBinaryPlatform,
+	RuntimeBinaryManifestEntry,
+	RuntimeBinaryIndex
 } from './schemas.js'
 
 export type {StatusKey} from './schemas.js'

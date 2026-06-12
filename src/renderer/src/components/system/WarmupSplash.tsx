@@ -31,9 +31,10 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 
 	const {activeEntry, totalDownloaded, totalBytes, percent} = useMemo(() => {
 		const entries = Object.values(warmupProgress ?? {}).filter((e): e is WarmupProgressEvent => e !== undefined)
-		const activeEntry = entries.find(e => e.phase === 'downloading') ?? entries.find(e => e.phase === 'extracting')
-		const totalDownloaded = entries.reduce((sum, e) => sum + (e.bytesDownloaded ?? 0), 0)
-		const totalBytes = entries.reduce((sum, e) => sum + (e.totalBytes ?? 0), 0)
+		const activeEntry = entries.find(e => e.phase === 'downloading')
+		const downloadingEntries = entries.filter(e => e.phase === 'downloading')
+		const totalDownloaded = downloadingEntries.reduce((sum, e) => sum + (e.bytesDownloaded ?? 0), 0)
+		const totalBytes = downloadingEntries.reduce((sum, e) => sum + (e.totalBytes ?? 0), 0)
 		const percent = totalBytes > 0 ? Math.min(100, (totalDownloaded / totalBytes) * 100) : null
 		return {activeEntry, totalDownloaded, totalBytes, percent}
 	}, [warmupProgress])

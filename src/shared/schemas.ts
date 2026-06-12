@@ -189,6 +189,41 @@ export type NetworkPacingPreset = z.infer<typeof networkPacingPresetSchema>
 export const pacingSleepSecondsSchema = z.number().min(0).max(120)
 export const pacingConcurrentFragmentsSchema = z.number().int().min(0).max(16)
 
+export const runtimeBinaryIdSchema = z.enum(['yt-dlp', 'deno'])
+export type RuntimeBinaryId = z.infer<typeof runtimeBinaryIdSchema>
+
+export const runtimeBinaryChannelSchema = z.enum(['nightly', 'stable', 'default'])
+export type RuntimeBinaryChannel = z.infer<typeof runtimeBinaryChannelSchema>
+
+export const runtimeBinaryProviderSchema = z.enum(['github', 'sourceforge', 'deno-land'])
+export type RuntimeBinaryProvider = z.infer<typeof runtimeBinaryProviderSchema>
+
+export const runtimeBinaryPlatformSchema = z.enum(['win32', 'darwin', 'linux'])
+export type RuntimeBinaryPlatform = z.infer<typeof runtimeBinaryPlatformSchema>
+
+const runtimeBinaryArchSchema = z.enum(['x64', 'arm64'])
+
+const runtimeBinaryFormatSchema = z.enum(['raw', 'zip'])
+
+export const runtimeBinaryManifestEntrySchema = z.object({
+	id: runtimeBinaryIdSchema,
+	channel: runtimeBinaryChannelSchema,
+	provider: runtimeBinaryProviderSchema,
+	version: z.string().trim().min(1),
+	platform: runtimeBinaryPlatformSchema,
+	arch: runtimeBinaryArchSchema,
+	url: z.url(),
+	mirrors: z.array(z.url()).default([]),
+	size: z.number().int().positive(),
+	sha256: z.string().regex(/^[a-f0-9]{64}$/),
+	format: runtimeBinaryFormatSchema,
+	executablePath: z.string().trim().min(1)
+})
+export type RuntimeBinaryManifestEntry = z.infer<typeof runtimeBinaryManifestEntrySchema>
+
+export const runtimeBinaryIndexSchema = z.object({schemaVersion: z.literal(1), generatedAt: z.iso.datetime({offset: true}), entries: z.array(runtimeBinaryManifestEntrySchema).min(1)})
+export type RuntimeBinaryIndex = z.infer<typeof runtimeBinaryIndexSchema>
+
 // QueueItemStatus is now a 7-value union with paused split. paused-held is
 // "queued + waiting + never spawned a job" (resume = transition to pending).
 // paused-active is "had a running job, user paused it" (resume = re-spawn,

@@ -1,54 +1,20 @@
-import {execFile} from 'node:child_process'
 import {constants as fsConstants} from 'node:fs'
 import fsPromises from 'node:fs/promises'
 import path from 'node:path'
-import {promisify} from 'node:util'
 import {app} from 'electron'
-import got from 'got'
 import log from 'electron-log/main.js'
 
-const execFileAsync = promisify(execFile)
-
 import {trackMain} from '@main/services/analytics.js'
-import {FAILURE_CODE, type BinaryOverrides, type DependencyAttempt, type DependencyDiagnostic, type DependencyFailure, type DependencyId, type DependencySource, type StatusKey} from '@shared/types.js'
-import {probeArgs, probeBinary, probeTimeoutMs, whereOnPath, classifyProbeError, cancelError, fallbackPathCandidates} from './binary/BinaryProbe.js'
-import {
-	classifyDownloadError,
-	downloadErrorDetails,
-	downloadFile,
-	downloadText,
-	parseShaLine,
-	parseStandaloneSha256,
-	parsePowerShellFileHash,
-	parseTagFromLocation,
-	sha256ForFile,
-	wrapDownloadProgressEmitter,
-	parseContentRangeStart,
-	resolvePartialResponseMode,
-	HTTP_HEADERS,
-	HTTP_RETRY,
-	HTTP_TIMEOUT,
-	type DownloadProgressCallback,
-	type ProgressEmitter
-} from './binary/BinaryDownloader.js'
+import {FAILURE_CODE, type BinaryOverrides, type DependencyAttempt, type DependencyDiagnostic, type DependencyFailure, type DependencyId, type DependencySource, type RuntimeBinaryManifestEntry, type StatusKey} from '@shared/types.js'
+import {probeArgs, probeBinary, probeTimeoutMs, whereOnPath, classifyProbeError, fallbackPathCandidates} from './binary/BinaryProbe.js'
+import {classifyDownloadError, downloadErrorDetails, parseShaLine, parseStandaloneSha256, parsePowerShellFileHash, sha256ForFile, wrapDownloadProgressEmitter, parseContentRangeStart, resolvePartialResponseMode, type DownloadProgressCallback, type ProgressEmitter} from './binary/BinaryDownloader.js'
 import {installYtDlpWithHomebrew} from './binary/HomebrewRepair.js'
-import {ManagedSetupError, managedSetupCause, managedSetupStep, sourceTelemetry, withManagedSetupStep} from './binary/ManagedSetup.js'
 import {installYtDlpWithWinget} from './binary/WingetRepair.js'
-import {currentDenoTarget, denoExecutableName, denoManagedSourcePlans, DENO_SOURCES, fetchDenoLandLatestVersion, unsupportedDenoFailure} from './binary/DenoBinarySource.js'
-import {fetchSourceForgeLatestYtDlpVersion, YT_DLP_SOURCES, ytDlpManagedSourcePlans, ytDlpAssetName} from './binary/YtDlpBinarySource.js'
-import type {ManagedSourcePlan, ManagedVersionCheck} from './binary/ManagedSourcePlan.js'
-import {ZippedBinaryInstaller} from './binary/ZippedBinaryInstaller.js'
-
-function stringifyHeader(header: string | string[] | undefined): string | null {
-	if (!header) return null
-	return Array.isArray(header) ? (header[0] ?? null) : header
-}
+import {currentDenoTarget, denoExecutableName, unsupportedDenoFailure} from './binary/DenoBinarySource.js'
+import {ArtifactMaterializeError, artifactErrorToDependencyFailureKind, type ArtifactErrorCode, RuntimeBinaryMaterializer} from './binary/RuntimeBinaryMaterializer.js'
+import {RuntimeBinaryIndexService, type RuntimeBinaryIndexProvider} from './binary/RuntimeBinaryIndexService.js'
 
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void
-
-type RemoteVersionLookup = {tag: string; reason: null} | {tag: null; reason: string}
-
-type YtDlpVersionCheck = {state: 'up-to-date'; local: string} | {state: 'outdated'; local: string; remote: string} | {state: 'unknown'; local: string; reason: string} | {state: 'unusable'}
 
 interface ResolveOptions {
 	overrides?: BinaryOverrides
@@ -89,6 +55,38 @@ function binaryTelemetryId(id: DependencyId): string {
 	return id === 'yt-dlp' ? 'ytdlp' : id
 }
 
+function sourceTelemetry(source: DependencySource): {source_kind: string; source_channel?: string; source_provider?: string} {
+	if (source.kind !== 'managed') return {source_kind: source.kind}
+	return {source_kind: source.kind, source_channel: source.channel, source_provider: source.provider}
+}
+
+function artifactSetupStep(code: ArtifactErrorCode): 'download' | 'checksum_verify' | 'extract' | 'install' | 'unknown' {
+	switch (code) {
+		case 'NETWORK':
+		case 'TIMEOUT':
+		case 'CANCELLED':
+			return 'download'
+		case 'CHECKSUM':
+		case 'SIZE_MISMATCH':
+			return 'checksum_verify'
+		case 'EXTRACTION':
+		case 'ARCHIVE_SECURITY':
+		case 'EXECUTABLE_MISSING':
+			return 'extract'
+		case 'PERMISSION':
+			return 'install'
+		case 'DISK':
+		case 'LOCK':
+		case 'UNSUPPORTED_PLATFORM':
+		case 'INTERNAL':
+			return 'unknown'
+	}
+}
+
+function managedFailureSetupStep(err: unknown): 'download' | 'checksum_verify' | 'extract' | 'install' | 'unknown' {
+	return err instanceof ArtifactMaterializeError ? artifactSetupStep(err.code) : 'unknown'
+}
+
 function trackBinaryProbeAnomaly(id: DependencyId, source: DependencySource, outcome: 'failed' | 'slow_success', elapsedMs: number, timeoutMs: number, failure?: DependencyFailure): void {
 	const props: Record<string, string | number | boolean> = {binary: binaryTelemetryId(id), outcome, ...sourceTelemetry(source), elapsed_ms: elapsedMs, timeout_ms: timeoutMs}
 	if (failure) {
@@ -119,29 +117,14 @@ function bundledBinaryPath(name: 'ffmpeg' | 'ffprobe'): string {
 	return path.join(import.meta.dirname, '..', '..', 'build', 'embedded', `${process.platform}-${arch}`, fileName)
 }
 
-// Directory containing the embedded ffmpeg/ffprobe pair. Used by
-// spawnYtDlp + spawnFFmpeg to set LD_LIBRARY_PATH (Linux) so BtbN's
-// shared libav*.so.* siblings resolve.
-interface EnsureBinaryConfig {
-	name: string
-	destinationPath: string
-	downloadUrl: string
-	expectedSha256?: () => Promise<string | null>
-	onStatus?: StatusReporter
-	onDownloadProgress?: DownloadProgressCallback
-	requiredChecksum?: boolean
-	isUpToDate?: () => Promise<boolean>
-	signal?: AbortSignal
-}
-
 export class BinaryManager {
 	private readonly cacheDir: string
 
-	private readonly retryDelays: [number, number]
+	private readonly artifactCacheDir: string
 
-	private readonly inProgress = new Map<string, Promise<void>>()
+	private readonly runtimeBinaryIndex: RuntimeBinaryIndexProvider
 
-	private readonly zippedInstaller = new ZippedBinaryInstaller()
+	private readonly runtimeBinaryMaterializer: RuntimeBinaryMaterializer
 
 	private readonly overridesProvider: () => BinaryOverrides | undefined
 
@@ -149,10 +132,12 @@ export class BinaryManager {
 
 	private lastDiagnostics: Partial<Record<DependencyId, DependencyDiagnostic>> = {}
 
-	constructor(userDataPath: string, options?: {retryDelays?: [number, number]; overridesProvider?: () => BinaryOverrides | undefined}) {
+	constructor(userDataPath: string, options?: {retryDelays?: [number, number]; overridesProvider?: () => BinaryOverrides | undefined; runtimeBinaryIndex?: RuntimeBinaryIndexProvider; runtimeBinaryMaterializer?: RuntimeBinaryMaterializer}) {
 		this.cacheDir = path.join(userDataPath, 'runtime-cache', 'binaries')
-		this.retryDelays = options?.retryDelays ?? [2000, 8000]
+		this.artifactCacheDir = path.join(userDataPath, 'runtime-cache', 'artifact-cache-v1')
 		this.overridesProvider = options?.overridesProvider ?? ((): BinaryOverrides | undefined => undefined)
+		this.runtimeBinaryIndex = options?.runtimeBinaryIndex ?? new RuntimeBinaryIndexService(userDataPath)
+		this.runtimeBinaryMaterializer = options?.runtimeBinaryMaterializer ?? new RuntimeBinaryMaterializer()
 	}
 
 	getRuntimeCacheDir(): string {
@@ -240,25 +225,11 @@ export class BinaryManager {
 			if (diag) return diag
 		}
 
-		if (ytDlpAssetName()) {
-			for (const plan of ytDlpManagedSourcePlans(this.cacheDir, {sourceForgeVersion: null})) {
-				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- managed sources are tried in fallback order
-				const diag = await this.tryManagedSourcePlan(plan, attempts, opts, onProgress, signal)
-				if (diag) return diag
-				onProgress?.({binary: id, phase: 'fallback'})
-			}
-
-			const sourceForgeVersion = await this.getSourceForgeLatestYtDlpVersion(signal)
-			if (sourceForgeVersion) {
-				const sourceForgePlan = ytDlpManagedSourcePlans(this.cacheDir, {sourceForgeVersion}).find(plan => plan.source.provider === 'sourceforge')
-				if (sourceForgePlan) {
-					const diag = await this.tryManagedSourcePlan(sourceForgePlan, attempts, opts, onProgress, signal)
-					if (diag) return diag
-				}
-			} else {
-				const source: DependencySource = {kind: 'managed', channel: 'stable', provider: YT_DLP_SOURCES.stableSourceForge.provider, url: YT_DLP_SOURCES.stableSourceForge.rss}
-				this.recordManagedFailure(id, attempts, source, onProgress, new Error('Could not determine latest yt-dlp SourceForge mirror version'), 0)
-			}
+		for (const entry of await this.runtimeBinaryIndex.candidatesFor('yt-dlp', signal)) {
+			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- manifest candidates are tried in approved fallback order
+			const diag = await this.tryRuntimeManifestEntry(entry, attempts, opts, onProgress, signal)
+			if (diag) return diag
+			onProgress?.({binary: id, phase: 'fallback'})
 		}
 
 		// System PATH — last resort. Picks up brew/pipx/distro-package installs
@@ -278,90 +249,35 @@ export class BinaryManager {
 		return diag
 	}
 
-	// Wraps a managed-download attempt, recording download/extract/hash failures
-	// as attempts on the chain. Returns true if the file is on disk after the
-	// call (probe still has to run separately).
+	// Records download/extract/hash failures from an approved manifest
+	// materialization attempt without collapsing the rest of the resolver chain.
 	private recordManagedFailure(id: DependencyId, attempts: DependencyAttempt[], source: DependencySource, onProgress: ProgressEmitter | undefined, err: unknown, elapsedMs: number): void {
-		const cause = managedSetupCause(err)
-		const failure: DependencyFailure = {kind: classifyDownloadError(cause), message: errorMessage(cause)}
+		const cause = err
+		const failureKind = cause instanceof ArtifactMaterializeError ? artifactErrorToDependencyFailureKind(cause) : classifyDownloadError(cause)
+		const failure: DependencyFailure = {kind: failureKind, message: errorMessage(cause)}
+		const setupStep = managedFailureSetupStep(cause)
 		attempts.push(makeAttempt(source, failure))
 		onProgress?.({binary: id, phase: 'failed', source, failureKind: failure.kind})
 		const tracked = id === 'yt-dlp' ? 'ytdlp' : id
-		trackMain('binary_setup_failed', {binary: tracked, phase: failure.kind, code: FAILURE_CODE[failure.kind], operation: 'managed-download', setup_step: managedSetupStep(err), ...sourceTelemetry(source), elapsed_ms: elapsedMs, ...downloadErrorDetails(cause)})
-		logger.warn(`${id} managed download failed`, {source, setupStep: managedSetupStep(err), elapsedMs, error: failure.message})
+		trackMain('binary_setup_failed', {binary: tracked, phase: failure.kind, code: FAILURE_CODE[failure.kind], operation: 'managed-download', setup_step: setupStep, ...sourceTelemetry(source), elapsed_ms: elapsedMs, ...downloadErrorDetails(cause)})
+		logger.warn(`${id} managed download failed`, {source, setupStep, elapsedMs, error: failure.message})
 	}
 
-	private async tryManagedDownload(id: DependencyId, attempts: DependencyAttempt[], source: DependencySource, onProgress: ProgressEmitter | undefined, run: () => Promise<void>): Promise<boolean> {
-		onProgress?.({binary: id, phase: 'downloading', source})
+	private sourceFromRuntimeManifest(entry: RuntimeBinaryManifestEntry): Extract<DependencySource, {kind: 'managed'}> {
+		return {kind: 'managed', channel: entry.channel, provider: entry.provider, url: entry.url}
+	}
+
+	private async tryRuntimeManifestEntry(entry: RuntimeBinaryManifestEntry, attempts: DependencyAttempt[], opts: ResolveOptions, onProgress: ProgressEmitter | undefined, signal: AbortSignal | undefined): Promise<DependencyDiagnostic | null> {
+		const source = this.sourceFromRuntimeManifest(entry)
 		const startedAt = Date.now()
+		onProgress?.({binary: entry.id, phase: 'downloading', source})
+		opts.onStatus?.('downloadingBinary', {name: entry.id})
 		try {
-			await run()
-			onProgress?.({binary: id, phase: 'extracting', source})
-			return true
+			const result = await this.runtimeBinaryMaterializer.materialize(entry, {cacheRoot: this.artifactCacheDir, onDownloadProgress: makeDownloadProgress(entry.id, source, onProgress), onExtracting: () => onProgress?.({binary: entry.id, phase: 'extracting', source}), signal})
+			return this.probeAndAccept(entry.id, source, result.executablePath, attempts, onProgress, signal)
 		} catch (err) {
-			this.recordManagedFailure(id, attempts, source, onProgress, err, Date.now() - startedAt)
-			return false
-		}
-	}
-
-	private async tryManagedSourcePlan(plan: ManagedSourcePlan, attempts: DependencyAttempt[], opts: ResolveOptions, onProgress: ProgressEmitter | undefined, signal: AbortSignal | undefined): Promise<DependencyDiagnostic | null> {
-		const downloadOk = await this.tryManagedDownload(plan.id, attempts, plan.source, onProgress, () => this.ensureManagedSourcePlan(plan, opts, onProgress, signal))
-		if (!downloadOk) {
-			if (await this.isUsableBinary(plan.destinationPath)) {
-				logger.warn(`Using existing ${plan.name} after managed update failed`, {source: plan.source, path: plan.destinationPath})
-				return this.probeAndAccept(plan.id, plan.source, plan.destinationPath, attempts, onProgress, signal)
-			}
+			this.recordManagedFailure(entry.id, attempts, source, onProgress, err, Date.now() - startedAt)
 			return null
-		}
-		return this.probeAndAccept(plan.id, plan.source, plan.destinationPath, attempts, onProgress, signal)
-	}
-
-	private async ensureManagedSourcePlan(plan: ManagedSourcePlan, opts: ResolveOptions, onProgress: ProgressEmitter | undefined, signal: AbortSignal | undefined): Promise<void> {
-		if (plan.installKind === 'file') {
-			const versionCheck = plan.versionCheck
-			return this.ensureBinary({
-				name: plan.name,
-				destinationPath: plan.destinationPath,
-				downloadUrl: plan.downloadUrl,
-				expectedSha256: async () => plan.parseChecksum(await downloadText(plan.checksumUrl, signal)),
-				onStatus: opts.onStatus,
-				onDownloadProgress: makeDownloadProgress(plan.id, plan.source, onProgress),
-				requiredChecksum: plan.requiredChecksum,
-				isUpToDate: versionCheck ? () => this.isManagedPlanUpToDate(plan.destinationPath, versionCheck, signal) : undefined,
-				signal
-			})
-		}
-
-		const expectedSha256 = await withManagedSetupStep('checksum_lookup', async () => {
-			const checksumText = await downloadText(plan.checksumUrl, signal)
-			return plan.parseChecksum(checksumText)
-		})
-		if (!expectedSha256 && plan.requiredChecksum) {
-			throw new ManagedSetupError('checksum_lookup', new Error(`Checksum source unavailable for ${plan.name}. Refusing to use unverified archive.`))
-		}
-		if (!expectedSha256) {
-			logger.warn(`Checksum unavailable for ${plan.name}, proceeding without verification`)
-		}
-		logger.info(`Downloading ${plan.name}`, {downloadUrl: plan.downloadUrl, destinationPath: plan.destinationPath})
-		return this.zippedInstaller.ensure({
-			name: plan.name,
-			downloadUrl: plan.downloadUrl,
-			archiveFileName: plan.archiveFileName,
-			innerExecutableName: plan.innerExecutableName,
-			destinationPath: plan.destinationPath,
-			expectedSha256: expectedSha256 ?? undefined,
-			onStatus: opts.onStatus,
-			onDownloadProgress: makeDownloadProgress(plan.id, plan.source, onProgress),
-			signal
-		})
-	}
-
-	private async isManagedPlanUpToDate(binaryPath: string, versionCheck: ManagedVersionCheck, signal?: AbortSignal): Promise<boolean> {
-		switch (versionCheck.kind) {
-			case 'githubLatest':
-				return this.isYtDlpUpToDate(binaryPath, versionCheck.latestUrl, signal)
-			case 'exactTag':
-				return this.isYtDlpUpToDateAgainstTag(binaryPath, versionCheck.tag, signal)
 		}
 	}
 
@@ -489,21 +405,16 @@ export class BinaryManager {
 
 		if (!target) {
 			const failure = unsupportedDenoFailure()
-			attempts.push(makeAttempt({kind: 'managed', channel: 'default', provider: DENO_SOURCES.denoGithub.provider, url: DENO_SOURCES.denoGithub.download}, failure))
+			attempts.push(makeAttempt({kind: 'managed', channel: 'default', provider: 'deno-land', url: 'runtime-index'}, failure))
 			const diag = failedDiagnostic(id, attempts)
 			this.lastDiagnostics[id] = diag
 			onProgress?.({binary: id, phase: 'skipped'})
 			return diag
 		}
 
-		const denoLandVersion = await this.getDenoLandLatestVersion(signal)
-		if (!denoLandVersion) {
-			const source: DependencySource = {kind: 'managed', channel: 'default', provider: DENO_SOURCES.denoLand.provider, url: DENO_SOURCES.denoLand.latest}
-			this.recordManagedFailure(id, attempts, source, onProgress, new Error('Could not determine latest deno version from dl.deno.land'), 0)
-		}
-		for (const plan of denoManagedSourcePlans(this.cacheDir, target, {denoLandVersion})) {
-			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- managed sources are tried in fallback order
-			const diag = await this.tryManagedSourcePlan(plan, attempts, opts, onProgress, signal)
+		for (const entry of await this.runtimeBinaryIndex.candidatesFor('deno', signal)) {
+			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- manifest candidates are tried in approved fallback order
+			const diag = await this.tryRuntimeManifestEntry(entry, attempts, opts, onProgress, signal)
 			if (diag) return diag
 			onProgress?.({binary: id, phase: 'fallback'})
 		}
@@ -521,158 +432,6 @@ export class BinaryManager {
 			throw new Error(diag.failure?.message ?? 'deno could not be resolved')
 		}
 		return diag.resolvedPath
-	}
-
-	private async ensureBinary(config: EnsureBinaryConfig): Promise<void> {
-		const {destinationPath, name} = config
-
-		if (await this.isUsableBinary(destinationPath)) {
-			const upToDate = !config.isUpToDate || (await config.isUpToDate())
-			if (upToDate) {
-				logger.info(`${name} binary already exists`, {destinationPath})
-				return
-			}
-			logger.info(`${name} binary is outdated, re-downloading`)
-		}
-
-		const existing = this.inProgress.get(destinationPath)
-		if (existing) return existing
-
-		const promise = this.downloadBinary(config).finally(() => {
-			this.inProgress.delete(destinationPath)
-		})
-		this.inProgress.set(destinationPath, promise)
-		return promise
-	}
-
-	private async downloadBinary(config: EnsureBinaryConfig): Promise<void> {
-		const maxAttempts = 3
-		for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-			if (config.signal?.aborted) throw new ManagedSetupError('preflight', cancelError())
-			try {
-				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- retry attempts depend on prior failure and backoff
-				await this.attemptDownload(config)
-				return
-			} catch (err) {
-				if (config.signal?.aborted) throw err
-				const isChecksumError = err instanceof Error && err.message.toLowerCase().includes('checksum')
-				if (isChecksumError || attempt === maxAttempts) throw err
-				const delay = attempt === 1 ? this.retryDelays[0] : this.retryDelays[1]
-				logger.warn(`${config.name} download failed, retrying in ${delay}ms`, {attempt, error: err instanceof Error ? err.message : String(err)})
-				await new Promise(r => setTimeout(r, delay))
-			}
-		}
-	}
-
-	private async attemptDownload(config: EnsureBinaryConfig): Promise<void> {
-		const {destinationPath, name, downloadUrl, expectedSha256, onStatus, onDownloadProgress, requiredChecksum = false, signal} = config
-
-		const tempPath = `${destinationPath}.tmp`
-		onStatus?.('downloadingBinary', {name})
-		logger.info(`Downloading ${name}`, {downloadUrl, destinationPath})
-
-		await withManagedSetupStep('download', () => downloadFile(downloadUrl, tempPath, onDownloadProgress, true, signal))
-
-		if (expectedSha256) {
-			const expected = await withManagedSetupStep('checksum_lookup', () => expectedSha256())
-			if (!expected && requiredChecksum) {
-				await fsPromises.rm(tempPath, {force: true})
-				throw new ManagedSetupError('checksum_lookup', new Error(`Checksum source unavailable for ${name}. Refusing to use unverified binary.`))
-			}
-
-			if (expected) {
-				const actual = await withManagedSetupStep('checksum_verify', () => sha256ForFile(tempPath))
-				if (actual !== expected) {
-					await fsPromises.rm(tempPath, {force: true})
-					throw new ManagedSetupError('checksum_verify', new Error(`${name} checksum mismatch. Expected ${expected.slice(0, 8)}..., got ${actual.slice(0, 8)}...`))
-				}
-			} else {
-				logger.warn(`Checksum unavailable for ${name}, proceeding without verification`)
-			}
-		}
-
-		await withManagedSetupStep('install', async () => {
-			await fsPromises.mkdir(path.dirname(destinationPath), {recursive: true})
-			await fsPromises.rename(tempPath, destinationPath)
-
-			if (process.platform !== 'win32') {
-				await fsPromises.chmod(destinationPath, 0o755)
-			}
-		})
-	}
-
-	private async isYtDlpUpToDate(binaryPath: string, releaseLatestUrl: string, signal?: AbortSignal): Promise<boolean> {
-		const result = await this.checkYtDlpVersion(binaryPath, releaseLatestUrl, signal)
-		switch (result.state) {
-			case 'up-to-date':
-				logger.info('yt-dlp is up to date', {version: result.local})
-				return true
-			case 'outdated':
-				logger.info('yt-dlp update available', {local: result.local, remote: result.remote})
-				return false
-			case 'unknown':
-				logger.warn('yt-dlp version check unknown, keeping existing binary', {reason: result.reason})
-				return true
-			case 'unusable':
-				logger.warn('yt-dlp local binary unusable, will re-download')
-				return false
-		}
-	}
-
-	private async isYtDlpUpToDateAgainstTag(binaryPath: string, remoteTag: string, signal?: AbortSignal): Promise<boolean> {
-		const local = await this.getLocalYtDlpVersion(binaryPath, signal)
-		if (!local) {
-			logger.warn('yt-dlp local binary unusable, will re-download')
-			return false
-		}
-		if (local !== remoteTag) {
-			logger.info('yt-dlp update available', {local, remote: remoteTag})
-			return false
-		}
-		logger.info('yt-dlp is up to date', {version: local})
-		return true
-	}
-
-	private async checkYtDlpVersion(binaryPath: string, releaseLatestUrl: string, signal?: AbortSignal): Promise<YtDlpVersionCheck> {
-		const [local, remote] = await Promise.all([this.getLocalYtDlpVersion(binaryPath, signal), this.getRemoteYtDlpVersion(releaseLatestUrl, signal)])
-		if (!local) return {state: 'unusable'}
-		if (remote.tag === null) return {state: 'unknown', local, reason: remote.reason}
-		if (local !== remote.tag) return {state: 'outdated', local, remote: remote.tag}
-		return {state: 'up-to-date', local}
-	}
-
-	private async getLocalYtDlpVersion(binaryPath: string, signal?: AbortSignal): Promise<string | null> {
-		const timeoutMs = probeTimeoutMs('yt-dlp')
-		try {
-			const {stdout} = await execFileAsync(binaryPath, ['--version'], {timeout: timeoutMs, signal})
-			return stdout.trim()
-		} catch (err) {
-			logger.warn('yt-dlp local version check failed', {path: binaryPath, timeoutMs, error: errorMessage(err)})
-			return null
-		}
-	}
-
-	private async getRemoteYtDlpVersion(releaseLatestUrl: string, signal?: AbortSignal): Promise<RemoteVersionLookup> {
-		try {
-			const res = await got(releaseLatestUrl, {method: 'GET', headers: HTTP_HEADERS, retry: HTTP_RETRY, timeout: HTTP_TIMEOUT, followRedirect: false, throwHttpErrors: false, signal})
-			const tag = parseTagFromLocation(res.headers.location)
-			if (tag) return {tag, reason: null}
-			const reason = `no tag in redirect (status=${res.statusCode}, location=${stringifyHeader(res.headers.location) ?? 'none'})`
-			logger.warn('yt-dlp remote version fetch returned no tag', {url: releaseLatestUrl, statusCode: res.statusCode})
-			return {tag: null, reason}
-		} catch (err) {
-			const reason = err instanceof Error ? err.message : String(err)
-			logger.warn('yt-dlp remote version fetch failed', {url: releaseLatestUrl, err: reason})
-			return {tag: null, reason}
-		}
-	}
-
-	private async getSourceForgeLatestYtDlpVersion(signal?: AbortSignal): Promise<string | null> {
-		return fetchSourceForgeLatestYtDlpVersion(downloadText, signal)
-	}
-
-	private async getDenoLandLatestVersion(signal?: AbortSignal): Promise<string | null> {
-		return fetchDenoLandLatestVersion(downloadText, signal)
 	}
 
 	private async isUsableBinary(binaryPath: string): Promise<boolean> {

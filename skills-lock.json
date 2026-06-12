@@ -17,7 +17,7 @@
       "source": "pbakaus/impeccable",
       "sourceType": "github",
       "skillPath": ".agents/skills/impeccable/SKILL.md",
-      "computedHash": "18f391bcce8556f6b70e36c03ca1f22fd5bbc34633b0cb03aba57fe940d670e6"
+      "computedHash": "d0cf58213e8581548a63a717d69a3b1c1eaed4c68d25887ca7b0698393b0530f"
     },
     "improve-codebase-architecture": {
       "source": "mattpocock/skills",
@@ -35,7 +35,7 @@
       "source": "vercel/vercel-plugin",
       "sourceType": "github",
       "skillPath": "skills/react-best-practices/SKILL.md",
-      "computedHash": "4f1da6469280a8293e3e46185e9ed5f477e79728bc02028a89ec3f4abf4fa82e"
+      "computedHash": "bdb13a3a239c067136b39cf77a34462ccc0dd4645d440362182409dcfd331221"
     },
     "review-swarm": {
       "source": "dimillian/skills",

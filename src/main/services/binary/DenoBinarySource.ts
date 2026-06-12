@@ -1,8 +1,6 @@
-import path from 'node:path'
 import type {DependencyFailure} from '@shared/types.js'
-import type {ManagedArchiveSourcePlan} from './ManagedSourcePlan.js'
 
-export const DENO_SOURCES = {denoLand: {provider: 'deno-land', latest: 'https://dl.deno.land/release-latest.txt', release: 'https://dl.deno.land/release'}, denoGithub: {provider: 'github', download: 'https://github.com/denoland/deno/releases/latest/download'}} as const
+export const DENO_SOURCES = {denoLand: {provider: 'deno-land', latest: 'https://dl.deno.land/release-latest.txt', release: 'https://dl.deno.land/release'}, denoGithub: {provider: 'github', release: 'https://github.com/denoland/deno/releases/download'}} as const
 
 export interface DenoTarget {
 	combo: string
@@ -56,11 +54,11 @@ export function denoLandDownloadUrl(version: string, assetName: string): string 
 	return `${DENO_SOURCES.denoLand.release}/${version}/${assetName}`
 }
 
-export function denoGithubDownloadUrl(assetName: string): string {
-	return `${DENO_SOURCES.denoGithub.download}/${assetName}`
+export function denoGithubDownloadUrl(version: string, assetName: string): string {
+	return `${DENO_SOURCES.denoGithub.release}/${version}/${assetName}`
 }
 
-function denoChecksumUrl(downloadUrl: string): string {
+export function denoChecksumUrl(downloadUrl: string): string {
 	return `${downloadUrl}.sha256sum`
 }
 
@@ -71,56 +69,8 @@ export function parseDenoSha256(content: string): string | null {
 	return labelled ? labelled[1].toLowerCase() : null
 }
 
-export function denoManagedSourcePlans(cacheDir: string, target: DenoTarget, opts: {denoLandVersion: string | null}): ManagedArchiveSourcePlan[] {
-	const assetName = denoAssetName(target)
-	const destinationPath = path.join(cacheDir, target.executableName)
-	const githubUrl = denoGithubDownloadUrl(assetName)
-	const plans: ManagedArchiveSourcePlan[] = []
-
-	if (opts.denoLandVersion) {
-		const downloadUrl = denoLandDownloadUrl(opts.denoLandVersion, assetName)
-		plans.push({
-			id: 'deno',
-			name: 'deno',
-			source: {kind: 'managed', channel: 'default', provider: DENO_SOURCES.denoLand.provider, url: downloadUrl},
-			destinationPath,
-			downloadUrl,
-			checksumUrl: denoChecksumUrl(downloadUrl),
-			requiredChecksum: true,
-			parseChecksum: parseDenoSha256,
-			installKind: 'archive',
-			archiveFileName: assetName,
-			innerExecutableName: target.executableName
-		})
-	}
-
-	plans.push({
-		id: 'deno',
-		name: 'deno',
-		source: {kind: 'managed', channel: 'default', provider: DENO_SOURCES.denoGithub.provider, url: githubUrl},
-		destinationPath,
-		downloadUrl: githubUrl,
-		checksumUrl: denoChecksumUrl(githubUrl),
-		requiredChecksum: true,
-		parseChecksum: parseDenoSha256,
-		installKind: 'archive',
-		archiveFileName: assetName,
-		innerExecutableName: target.executableName
-	})
-
-	return plans
-}
-
 export function unsupportedDenoFailure(platform: string = process.platform, arch: string = process.arch): DependencyFailure {
 	return {kind: 'spawn_failed', message: `No deno build for this platform/arch: ${platform}-${arch}`}
-}
-
-export async function fetchDenoLandLatestVersion(fetchText: (url: string, signal?: AbortSignal) => Promise<string>, signal?: AbortSignal): Promise<string | null> {
-	try {
-		return parseDenoLatestVersion(await fetchText(DENO_SOURCES.denoLand.latest, signal))
-	} catch {
-		return null
-	}
 }
 
 export function formatDenoShellEnv(target: DenoTarget, version: string): string {

@@ -11,14 +11,14 @@ import type {E2eHarnessMode} from '@main/e2eHarness.js'
 
 const logger = log.scope('warmup')
 
-// Cap any single binary resolve at this. Unbounded `got` retries on a slow
+// Cap any single binary resolve at this. Unbounded network retries on a slow
 // CDN can otherwise hang the splash for a very long time — the user has no
 // out without a Cancel button. We allow a long budget because large Windows
 // ffmpeg archives can take several minutes on slow links, and aborting a
 // still-progressing transfer at 90s proved too aggressive in production.
 const PER_BINARY_BUDGET_MS = 30 * 60 * 1000
 
-// `got` fires `downloadProgress` per network chunk — hundreds of events per
+// The binary downloader reports progress per network chunk — hundreds of events per
 // second on a fast pipe. Without throttling, the IPC fire-hose plus per-event
 // Zustand replacement plus React re-render queue overwhelms the renderer, and
 // the splash bar visibly lags real progress for tens of seconds after the

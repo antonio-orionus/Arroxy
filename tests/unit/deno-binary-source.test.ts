@@ -39,7 +39,7 @@ describe('DenoBinarySource', () => {
 		const assetName = denoAssetName(target)
 
 		expect(denoLandDownloadUrl('v2.8.2', assetName)).toBe('https://dl.deno.land/release/v2.8.2/deno-aarch64-apple-darwin.zip')
-		expect(denoGithubDownloadUrl(assetName)).toBe('https://github.com/denoland/deno/releases/latest/download/deno-aarch64-apple-darwin.zip')
+		expect(denoGithubDownloadUrl('v2.8.2', assetName)).toBe('https://github.com/denoland/deno/releases/download/v2.8.2/deno-aarch64-apple-darwin.zip')
 	})
 
 	it('parses Deno checksum formats used across platforms', () => {

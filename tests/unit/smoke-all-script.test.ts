@@ -5,7 +5,7 @@ import {describe, expect, it} from 'vitest'
 
 import {btbnTargets} from '../../scripts/build/btbnResolver.js'
 import {DENO_SOURCES, denoTargets} from '@main/services/binary/DenoBinarySource.js'
-import {YT_DLP_SOURCES, ytDlpManagedSourcePlans} from '@main/services/binary/YtDlpBinarySource.js'
+import {YT_DLP_SOURCES, ytDlpTargets} from '@main/services/binary/YtDlpBinarySource.js'
 
 const root = process.cwd()
 const ytDlpTargetMatrix = [
@@ -22,14 +22,13 @@ function read(path: string): string {
 }
 
 function expectedPayloadCountFromSources(): number {
-	const ytDlpUrls = new Set<string>()
+	const ytDlpAssets = new Set<string>()
 	for (const target of ytDlpTargetMatrix) {
-		for (const plan of ytDlpManagedSourcePlans('/tmp/arroxy-smoke', {...target, sourceForgeVersion: '2099.01.02'})) {
-			ytDlpUrls.add(plan.downloadUrl)
-		}
+		const match = ytDlpTargets().find(candidate => candidate.platform === target.platform && candidate.arch === target.arch)
+		if (match) ytDlpAssets.add(match.assetName)
 	}
 
-	return ytDlpUrls.size + btbnTargets().length + 4 + denoTargets().length * 2
+	return ytDlpAssets.size * 3 + btbnTargets().length + 4 + denoTargets().length * 2
 }
 
 describe('binary source smoke script', () => {
@@ -37,13 +36,13 @@ describe('binary source smoke script', () => {
 		const script = read('scripts/test-binaries/smoke-all.sh')
 		const denoResolver = read('scripts/build/denoResolver.ts')
 
-		expect(script).toContain(YT_DLP_SOURCES.nightlyGithub.download)
-		expect(script).toContain(YT_DLP_SOURCES.stableGithub.download)
+		expect(script).toContain('https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download')
+		expect(script).toContain('https://github.com/yt-dlp/yt-dlp/releases/latest/download')
 		expect(script).toContain(YT_DLP_SOURCES.stableSourceForge.rss)
 		expect(script).toContain(YT_DLP_SOURCES.stableSourceForge.files)
 		expect(denoResolver).toContain(DENO_SOURCES.denoLand.latest)
 		expect(denoResolver).toContain(DENO_SOURCES.denoLand.release)
-		expect(script).toContain(DENO_SOURCES.denoGithub.download)
+		expect(script).toContain('https://github.com/denoland/deno/releases/latest/download')
 	})
 
 	it('keeps BtbN live smoke resilient without changing production resolver policy', () => {

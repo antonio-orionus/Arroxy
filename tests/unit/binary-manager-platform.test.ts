@@ -2,7 +2,7 @@ import path from 'node:path'
 import {afterEach, describe, expect, it} from 'vitest'
 import {binaryInternals} from '@main/services/BinaryManager.js'
 import {denoAssetName, denoExecutableName, denoTargetFor} from '@main/services/binary/DenoBinarySource.js'
-import {ytDlpAssetName} from '@main/services/binary/YtDlpBinarySource.js'
+import {githubYtDlpDownloadUrl, sourceForgeYtDlpDownloadUrl, ytDlpAssetName, ytDlpTargets} from '@main/services/binary/YtDlpBinarySource.js'
 
 const originalPlatformDescriptor = Object.getOwnPropertyDescriptor(process, 'platform')!
 const originalArchDescriptor = Object.getOwnPropertyDescriptor(process, 'arch')!
@@ -18,6 +18,10 @@ afterEach(() => {
 })
 
 describe('ytDlpAssetName', () => {
+	it('lists every runtime-managed yt-dlp target', () => {
+		expect(ytDlpTargets().map(target => target.combo)).toEqual(['win32-x64', 'win32-arm64', 'darwin-x64', 'darwin-arm64', 'linux-x64', 'linux-arm64'])
+	})
+
 	it('win32 → yt-dlp.exe (arch ignored)', () => {
 		setPlatform('win32', 'x64')
 		expect(ytDlpAssetName()).toBe('yt-dlp.exe')
@@ -51,6 +55,12 @@ describe('ytDlpAssetName', () => {
 	it('unsupported arch → null', () => {
 		setPlatform('linux', 'ia32')
 		expect(ytDlpAssetName()).toBeNull()
+	})
+
+	it('builds immutable yt-dlp download URLs from resolved versions', () => {
+		expect(githubYtDlpDownloadUrl('nightly', '2026.06.12', 'yt-dlp_linux')).toBe('https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2026.06.12/yt-dlp_linux')
+		expect(githubYtDlpDownloadUrl('stable', '2026.06.10', 'yt-dlp.exe')).toBe('https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.10/yt-dlp.exe')
+		expect(sourceForgeYtDlpDownloadUrl('2026.06.10', 'yt-dlp_linux')).toBe('https://sourceforge.net/projects/yt-dlp.mirror/files/2026.06.10/yt-dlp_linux/download')
 	})
 })
 
