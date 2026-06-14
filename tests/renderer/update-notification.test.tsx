@@ -10,7 +10,7 @@ type UpdateListener = (info: UpdateAvailablePayload) => void
 
 function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => () => void; install?: () => Promise<{ok: true} | {ok: false; error: string}>; openExternal?: (url: string) => Promise<unknown>} = {}) {
 	return {
-		app: {warmUp: vi.fn().mockResolvedValue(ok({completed: true, dependencies: {}, blockingFailures: []})), setLanguage: vi.fn().mockResolvedValue(undefined)},
+		app: {warmUp: vi.fn().mockResolvedValue(ok({completed: true, dependencies: {}, blockingFailures: []})), getGraphicsPolicy: vi.fn().mockResolvedValue(ok({backdrop: {forceRenderMode: null, softwareWebglAllowed: false}})), setLanguage: vi.fn().mockResolvedValue(undefined)},
 		window: {minimize: vi.fn().mockResolvedValue(undefined), maximize: vi.fn().mockResolvedValue(undefined), close: vi.fn().mockResolvedValue(undefined), isMaximized: vi.fn().mockResolvedValue(false), onMaximizedChange: vi.fn().mockReturnValue(() => undefined)},
 		downloads: {
 			probe: vi.fn().mockResolvedValue(ok({kind: 'video' as const, extractor: 'youtube', extractorKey: 'Youtube', webpageUrl: '', formats: [], title: '', thumbnail: '', subtitles: {}, automaticCaptions: {}, isLive: false, hasDrm: false})),

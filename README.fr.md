@@ -3,7 +3,7 @@
 
 # Arroxy — Téléchargeur YouTube (+ 2000 sites) gratuit et open source pour Windows, macOS & Linux
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **Lire en :** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · **Français** · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
@@ -228,7 +228,7 @@ Arroxy est conçu pour une seule chose : coller une URL et obtenir un fichier lo
 
 - Jusqu'à **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Haut framerate** préservé tel quel — 60 fps, 120 fps, HDR
-- **Audio seul** en MP3, M4A/AAC, Opus ou WAV
+- **Contrôles audio** — exporte l'audio seul en MP3, M4A/AAC, Opus ou WAV ; définis une option globale **Préférer le surround / Dolby** ; et garde les pistes natives Dolby AC-3/EC-3, multicanal, DRC et autres pistes audio avancées sélectionnables dans les téléchargements interactifs quand elles sont disponibles
 - Préréglages rapides : *Meilleure qualité* · *Équilibré* · *Petit fichier*
 
 ### Confidentialité & contrôle
@@ -323,7 +323,11 @@ Toujours prévu — approximativement par ordre de priorité :
 | Fonctionnalité    | Description    |
 | ---------------- | ---------------- |
 | **Filtres de playlists et chaînes** | Filtres par plage de dates lors de l’énumération d’une playlist ou d’une chaîne |
-| **Modèles de noms de fichier personnalisés** | Nomme les fichiers par titre, auteur, date, résolution — avec aperçu en direct |
+| **Préférences de pistes audio YouTube** | Choisir les pistes de langue parlée préférées quand YouTube propose plusieurs pistes audio |
+| **Connexion par navigateur intégré** | Ouvrir des fenêtres de navigateur dans Arroxy pour se connecter et utiliser les cookies du site sans les exporter manuellement |
+| **Téléchargement vidéo en un clic** | Lancer un téléchargement vidéo en un clic depuis une URL détectée ou collée avec le profil actif |
+| **Reprise par nouvel essai renforcée** | Un nouveau chemin de relance pour les téléchargements interrompus par des connexions internet instables ou problématiques |
+| **Tiroir de gestionnaire de téléchargements complet** | Transformer le tiroir de file en gestionnaire plus complet, avec changement de dossier de destination pour les éléments en file |
 | **Téléchargements programmés** | Démarre une file à une heure définie (lancements nocturnes) |
 | **Découpe de clips** | Télécharge uniquement un segment par heure de début/fin |
 

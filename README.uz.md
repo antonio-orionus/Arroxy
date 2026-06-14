@@ -3,7 +3,7 @@
 
 # Arroxy — Windows, macOS va Linux uchun Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **O'qing:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · **O'zbekcha** · [Tiếng Việt](README.vi.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
@@ -226,7 +226,7 @@ Arroxy bir narsa uchun yaratilgan: URL'ni joylashtiring, toza mahalliy fayl olin
 
 - **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p gacha
 - **Yuqori kadr tezligi** o'zgarmagan holda saqlanadi — 60 fps, 120 fps, HDR
-- **Faqat audio** ni MP3, M4A/AAC, Opus yoki WAV ga eksport qilish
+- **Audio boshqaruvlari** — faqat audioni MP3, M4A/AAC, Opus yoki WAV sifatida eksport qilish; global **Surround / Dolbyni afzal ko'rish** sozlamasini tanlash; va interaktiv yuklab olishlarda mavjud bo'lsa, asl Dolby AC-3/EC-3, ko'p kanalli, DRC va boshqa ilg'or audio treklarni tanlash mumkin bo'lishi
 - Tezkor sozlamalar: *Eng yaxshi sifat* · *Muvozanatli* · *Kichik fayl*
 
 ### Maxfiylik va nazorat
@@ -321,7 +321,11 @@ Hali rejalashtirilgan — taxminan ustuvorlik tartibida:
 | Xususiyat    | Tavsif    |
 | ---------------- | ---------------- |
 | **Playlist va kanal filtrlari** | Playlist yoki kanalni ro‘yxatlashda sana oralig‘i filtrlari |
-| **Maxsus fayl nomi shablonlari** | Fayllarni sarlavha, yuklovchi, sana, aniqlik bo'yicha nomlash — jonli ko'rinish bilan |
+| **YouTube audio track afzalliklari** | YouTube bir nechta audio track berganda afzal ko'rilgan og'zaki til tracklarini tanlash |
+| **App ichida browser sign-in** | Arroxy ichida browser windows ochib, sign in qilish va site cookiesni qo'lda export qilmasdan ishlatish |
+| **Bir-click video download** | Active profile bilan detected yoki pasted URLdan video downloadni bir clickda boshlash |
+| **Kuchliroq retry recovery** | Ishonchsiz yoki muammoli internet connection sabab uzilgan yuklab olishlar uchun yangi retry yo'li |
+| **To'liq download manager drawer** | Queue drawerni to'liqroq managerga aylantirish, queued items uchun destination folderlarni o'zgartirish bilan |
 | **Rejalashtirilgan yuklab olishlar** | Navbatni belgilangan vaqtda boshlash (tunda ishlash) |
 | **Klip qirqish** | Boshlash/tugash vaqti bo'yicha faqat bir segmentni yuklab olish |
 

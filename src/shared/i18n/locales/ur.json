@@ -172,7 +172,8 @@
 				"cssOnlyLabel": "بہترین کارکردگی",
 				"cssOnlyDescription": "صرف CSS، کوئی canvas رینڈرنگ نہیں۔",
 				"gpuLabel": "سب سے خوبصورت",
-				"gpuDescription": "سپورٹ ہونے پر متحرک WebGL پس منظر۔"
+				"gpuDescription": "سپورٹ ہونے پر متحرک WebGL پس منظر۔",
+				"runtimeFallbackNotice": "اس ڈیوائس پر ہارڈویئر WebGL دستیاب نہیں ہے، اس لیے Arroxy کارکردگی والا پس منظر استعمال کر رہا ہے۔"
 			},
 			"limitRate": {
 				"label": "ڈاؤن لوڈ رفتار حد",
@@ -197,6 +198,7 @@
 				"invalid": "1 سے 5000 تک پورا عدد استعمال کریں",
 				"tooltip": "yt-dlp --playlist-end سے میپ ہوتا ہے: Arroxy پِکر بناتے وقت صرف اتنے playlist، چینل، یا تلاش کے اندراجات مانگتا ہے۔"
 			},
+			"nativeAudioPreference": {"label": "نیٹو آڈیو ترجیح", "description": "یہ کنٹرول کرتا ہے کہ “Best native” کیا چنتا ہے۔ دستی آڈیو قطاریں اور M4A/AAC واضح انتخاب ہی رہتے ہیں۔", "compatible": "مطابقت پذیر اسٹیریو", "surround": "سراؤنڈ / Dolby کو ترجیح دیں"},
 			"singleFilenameId": {"toggle": "سنگل فائل ناموں میں ویڈیو ID شامل کریں", "toggleDescription": "عنوان بدلنے یا ٹکرانے پر ایک بار کی ڈاؤن لوڈز کو منفرد رکھتا ہے۔"},
 			"networkPacing": {
 				"heading": "آہستہ ڈاؤن لوڈز",
@@ -413,6 +415,7 @@
 		"installFailed": "اپ ڈیٹ ناکام",
 		"retry": "دوبارہ کوشش کریں"
 	},
+	"releaseNotes": {"title": "Arroxy {{version}} میں نیا کیا ہے", "description": "آپ ایک تازہ اپ ڈیٹ استعمال کر رہے ہیں۔ اہم نکات یہ ہیں۔", "fullNotes": "مکمل ریلیز نوٹس ↗", "continue": "جاری رکھیں"},
 	"status": {
 		"preparingBinaries": "بائنریز تیار کی جا رہی ہیں…",
 		"mintingToken": "YouTube ٹوکن بنایا جا رہا ہے…",

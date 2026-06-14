@@ -28,6 +28,7 @@ export type {
 	SupportedLang,
 	UiTheme,
 	BackdropRenderMode,
+	GraphicsPolicyBackdropReason,
 	QueueItemStatus,
 	QueueLane,
 	AudioConvertTarget,
@@ -37,6 +38,7 @@ export type {
 	CookiesMode,
 	CookiesBrowser,
 	NetworkPacingPreset,
+	NativeAudioPreference,
 	QuickDownloadStatus,
 	QuickDownloadProgressPhase,
 	ProbeOtherErrorCode,
@@ -68,10 +70,12 @@ import type {
 	SupportedLang,
 	UiTheme,
 	BackdropRenderMode,
+	GraphicsPolicyBackdropReason,
 	StatusKey,
 	CookiesMode,
 	CookiesBrowser,
 	NetworkPacingPreset,
+	NativeAudioPreference,
 	DownloadProfilesPrefs,
 	ProbeOtherErrorCode,
 	RuntimeBinaryChannel,
@@ -91,6 +95,10 @@ export interface AppError {
 // failures (carry LocalizedError for i18n + UI gating) from other probe
 // failures (carry a plain message). Replaces the AppError.localizedKey bridge.
 export type ProbeError = {kind: 'ytdlp'; error: LocalizedError} | {kind: 'other'; code: ProbeOtherErrorCode; message: string; details?: string}
+
+export interface GraphicsPolicy {
+	backdrop: {forceRenderMode: BackdropRenderMode | null; softwareWebglAllowed: boolean; fallbackReason?: GraphicsPolicyBackdropReason; renderer?: string; devices?: string[]; featureStatus?: Record<string, string>}
+}
 
 // Mode-independent prefs and infrastructure config. Anything that applies
 // regardless of single-vs-playlist flow lives here.
@@ -112,6 +120,7 @@ export interface CommonSettings {
 	cookiesMode?: CookiesMode
 	cookiesBrowser?: CookiesBrowser
 	proxyUrl?: string
+	nativeAudioPreference?: NativeAudioPreference
 	limitRate?: string
 	playlistProbeLimit?: number
 	networkPacingPreset?: NetworkPacingPreset
@@ -134,6 +143,7 @@ export interface CommonSettings {
 	analyticsEnabled?: boolean
 	firstRunCompleted?: boolean
 	launchCount?: number
+	lastReleaseNotesVersionShown?: string
 	drawerOpen?: boolean
 	binaryOverrides?: BinaryOverrides
 	successfulDownloadCount?: number
@@ -185,6 +195,8 @@ export interface FormatOption {
 	resolution: string
 	fps?: number
 	abr?: number
+	audioCodec?: string
+	isDrc?: boolean
 	filesize?: number
 	isVideoOnly: boolean
 	isAudioOnly: boolean
@@ -242,6 +254,7 @@ export interface QueueItem {
 	tempDir?: string
 	lastJobId?: string
 	resumeContext?: QueueResumeContext
+	probeInfoJsonRef?: ProbeInfoJsonRef
 	job: PreparedJob
 }
 
@@ -260,6 +273,7 @@ export interface PlaylistEntry {
 	duration?: number
 	playlistIndex: number
 	videoId: string | null // raw yt-dlp %(id)s; null when extractor yields none
+	probeInfoJsonRef?: ProbeInfoJsonRef
 }
 
 export type ProbePlaylistMode = 'auto' | 'video' | 'playlist'
@@ -291,6 +305,7 @@ interface ProbeCommon {
 export interface VideoProbeResult extends ProbeCommon {
 	kind: 'video'
 	videoId?: string | null
+	probeInfoJsonRef?: ProbeInfoJsonRef
 	formats: FormatOption[]
 	title: string
 	thumbnail: string
@@ -313,6 +328,12 @@ export interface PlaylistProbeResult extends ProbeCommon {
 }
 
 export type ProbeResult = VideoProbeResult | PlaylistProbeResult
+
+export interface ProbeInfoJsonRef {
+	id: string
+	createdAt: string
+	videoId?: string
+}
 
 export interface ProbeProgressEvent {
 	url: string
@@ -428,6 +449,9 @@ export interface StartDownloadInput {
 	cookiesMode?: CookiesMode
 	job: PreparedJob
 	tempDir?: string
+	// Main-process-only resolved path for an opaque QueueItem.probeInfoJsonRef.
+	// The IPC start schema intentionally does not accept this from the renderer.
+	probeInfoJsonPath?: string
 }
 
 export interface StartDownloadOutput {

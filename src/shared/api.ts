@@ -9,6 +9,7 @@ import type {
 	DownloadJob,
 	DownloadProfilesPrefs,
 	FeedbackDiagnosticUpload,
+	GraphicsPolicy,
 	PauseDownloadInput,
 	PauseDownloadOutput,
 	PlaylistPrefs,
@@ -47,7 +48,14 @@ export interface WindowApi {
 }
 
 export interface AppApi {
-	app: {warmUp(input?: {force?: boolean}): Promise<Result<WarmUpOutput>>; cancelWarmup(): Promise<void>; installYtDlpWithHomebrew(): Promise<Result<{installedPath: string}>>; installYtDlpWithWinget(): Promise<Result<{installedPath: string}>>; setLanguage(language: SupportedLang): Promise<void>}
+	app: {
+		warmUp(input?: {force?: boolean}): Promise<Result<WarmUpOutput>>
+		cancelWarmup(): Promise<void>
+		getGraphicsPolicy(): Promise<Result<GraphicsPolicy>>
+		installYtDlpWithHomebrew(): Promise<Result<{installedPath: string}>>
+		installYtDlpWithWinget(): Promise<Result<{installedPath: string}>>
+		setLanguage(language: SupportedLang): Promise<void>
+	}
 	window: WindowApi
 	downloads: {
 		probe(input: ProbeInput): Promise<Result<ProbeResult, ProbeError>>

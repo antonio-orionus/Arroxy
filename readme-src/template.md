@@ -3,7 +3,7 @@
 
 # {{title}}
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **{{read_in_label}}** {{LANG_NAV}}
 
@@ -319,6 +319,10 @@ sha256sum Arroxy-linux-x64.AppImage
 | {{plan_col1}}    | {{plan_col2}}    |
 | ---------------- | ---------------- |
 | {{plan_r1_name}} | {{plan_r1_desc}} |
+| {{plan_r2_name}} | {{plan_r2_desc}} |
+| {{plan_r6_name}} | {{plan_r6_desc}} |
+| {{plan_r8_name}} | {{plan_r8_desc}} |
+| {{plan_r3_name}} | {{plan_r3_desc}} |
 | {{plan_r4_name}} | {{plan_r4_desc}} |
 | {{plan_r5_name}} | {{plan_r5_desc}} |
 | {{plan_r7_name}} | {{plan_r7_desc}} |

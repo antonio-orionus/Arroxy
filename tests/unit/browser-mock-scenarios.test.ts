@@ -268,6 +268,11 @@ describe('browser mock scenarios', () => {
 		expect(buildScenarioAppApiState(getScenario('update-winget')).update?.installChannel).toBe('winget')
 		expect(buildScenarioAppApiState(getScenario('update-flatpak')).update?.installChannel).toBe('flatpak')
 		expect(buildScenarioAppApiState(getScenario('update-darwin-dmg')).update?.installChannel).toBe('direct')
+		const whatsNew = buildScenarioAppApiState(getScenario('update-whats-new'))
+		expect(whatsNew.appVersion).toBe('0.4.0-beta.4')
+		expect(whatsNew.settings.common.launchCount).toBe(3)
+		expect(whatsNew.settings.common.lastReleaseNotesVersionShown).toBe('0.4.0-beta.3')
+		expect(whatsNew.update).toBeNull()
 		expect(buildScenarioAppApiState(getScenario('update-none')).update).toBeNull()
 	})
 

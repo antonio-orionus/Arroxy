@@ -110,7 +110,8 @@ export const fr = {
   feat_quality_h3: "Qualité & formats",
   feat_quality_1: "Jusqu'à **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**Haut framerate** préservé tel quel — 60 fps, 120 fps, HDR",
-  feat_quality_3: "**Audio seul** en MP3, M4A/AAC, Opus ou WAV",
+  feat_quality_3:
+    "**Contrôles audio** — exporte l'audio seul en MP3, M4A/AAC, Opus ou WAV ; définis une option globale **Préférer le surround / Dolby** ; et garde les pistes natives Dolby AC-3/EC-3, multicanal, DRC et autres pistes audio avancées sélectionnables dans les téléchargements interactifs quand elles sont disponibles",
   feat_quality_4: "Préréglages rapides : *Meilleure qualité* · *Équilibré* · *Petit fichier*",
   feat_privacy_h3: "Confidentialité & contrôle",
   feat_privacy_1:
@@ -314,15 +315,23 @@ export const fr = {
   plan_col2: "Description",
   plan_r1_name: "**Filtres de playlists et chaînes**",
   plan_r1_desc: "Filtres par plage de dates lors de l’énumération d’une playlist ou d’une chaîne",
-  plan_r2_name: "**Saisie d'URLs en lot**",
-  plan_r2_desc: "Colle plusieurs URLs d'un coup et lance tout ensemble",
-  plan_r4_name: "**Modèles de noms de fichier personnalisés**",
+  plan_r2_name: "**Préférences de pistes audio YouTube**",
+  plan_r2_desc:
+    "Choisir les pistes de langue parlée préférées quand YouTube propose plusieurs pistes audio",
+  plan_r6_name: "**Connexion par navigateur intégré**",
+  plan_r6_desc:
+    "Ouvrir des fenêtres de navigateur dans Arroxy pour se connecter et utiliser les cookies du site sans les exporter manuellement",
+  plan_r8_name: "**Téléchargement vidéo en un clic**",
+  plan_r8_desc:
+    "Lancer un téléchargement vidéo en un clic depuis une URL détectée ou collée avec le profil actif",
+  plan_r3_name: "**Reprise par nouvel essai renforcée**",
+  plan_r3_desc:
+    "Un nouveau chemin de relance pour les téléchargements interrompus par des connexions internet instables ou problématiques",
+  plan_r4_name: "**Tiroir de gestionnaire de téléchargements complet**",
   plan_r4_desc:
-    "Nomme les fichiers par titre, auteur, date, résolution — avec aperçu en direct",
+    "Transformer le tiroir de file en gestionnaire plus complet, avec changement de dossier de destination pour les éléments en file",
   plan_r5_name: "**Téléchargements programmés**",
   plan_r5_desc: "Démarre une file à une heure définie (lancements nocturnes)",
-  plan_r6_name: "**Limites de vitesse**",
-  plan_r6_desc: "Plafonne la bande passante pour ne pas saturer ta connexion",
   plan_r7_name: "**Découpe de clips**",
   plan_r7_desc: "Télécharge uniquement un segment par heure de début/fin",
   plan_cta:

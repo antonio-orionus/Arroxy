@@ -3,7 +3,7 @@
 
 # Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) kwa Windows, macOS na Linux
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **Soma kwa:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · **Kiswahili** · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
@@ -226,7 +226,7 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
 
 - Hadi **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Kiwango cha juu cha fremu** kimehifadhiwa kama kilivyo — fps 60, fps 120, HDR
-- **Sauti pekee** kama MP3, M4A/AAC, Opus au WAV
+- **Vidhibiti vya sauti** — hamisha sauti pekee kama MP3, M4A/AAC, Opus au WAV; weka chaguo la jumla **Pendelea surround / Dolby**; na acha nyimbo asili za Dolby AC-3/EC-3, multichannel, DRC na sauti nyingine za juu zichagulike kwenye upakuaji wa mwingiliano zinapopatikana
 - Maandiko ya haraka: *Ubora bora* · *Usawa* · *Faili ndogo*
 
 ### Faragha na udhibiti
@@ -321,7 +321,11 @@ Bado imepangwa — takriban kwa mpangilio wa kipaumbele:
 | Kipengele    | Maelezo    |
 | ---------------- | ---------------- |
 | **Vichujio vya orodha za kucheza na vituo** | Vichujio vya muda wa tarehe unapoorodhesha playlist au channel |
-| **Templeti maalum za majina ya faili** | Weka jina la faili kwa kichwa, mpakiaji, tarehe, azimio — na onyesho la moja kwa moja |
+| **Mapendeleo ya track za sauti za YouTube** | Chagua track za lugha ya mazungumzo unazopendelea YouTube inapotoa track nyingi za sauti |
+| **Kuingia kwa browser ndani ya app** | Fungua browser windows ndani ya Arroxy ili uingie na kutumia site cookies bila kuziexport mwenyewe |
+| **Upakuaji wa video kwa click moja** | Anzisha video download kwa click moja kutoka URL iliyotambuliwa au kubandikwa ukitumia active profile |
+| **Urejeshaji imara kwa retry** | Njia mpya ya retry kwa upakuaji uliokatizwa na miunganisho ya internet isiyotegemeka au yenye matatizo |
+| **Drawer kamili ya msimamizi wa upakuaji** | Kubadilisha queue drawer kuwa manager kamili zaidi, ikijumuisha kubadilisha folder za destination kwa vipengee vilivyo kwenye foleni |
 | **Upakuaji uliopangwa** | Anza foleni kwa wakati uliowekwa (uendeshaji wa usiku) |
 | **Kukata sehemu** | Pakua sehemu pekee kwa wakati wa kuanza/kumalizia |
 

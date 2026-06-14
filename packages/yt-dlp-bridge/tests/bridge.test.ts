@@ -77,6 +77,14 @@ describe('argv generation', () => {
 		expect(args).toEqual(['--ignore-config', '--dump-single-json', '--no-quiet', '--flat-playlist', '--no-playlist', '--extractor-args', 'youtube:player_client=web_embedded', 'https://youtu.be/abc'])
 	})
 
+	it('emits requested YouTube player client args for media downloads', () => {
+		const args = planWorkflow({kind: 'media', url: 'https://youtu.be/abc', output: {directory: '/tmp/out'}, selection: {formatId: '337+380'}, extractor: {youtube: {playerClient: ['default', 'web_embedded']}}}, {configFiles: {mode: 'disabled'}}).args
+
+		expect(args).toContain('--extractor-args')
+		expect(args[args.indexOf('--extractor-args') + 1]).toBe('youtube:player_client=default,web_embedded')
+		expect(args.at(-1)).toBe('https://youtu.be/abc')
+	})
+
 	it('builds audio download args with extraction and safe output policy', () => {
 		const config = loadConfig({YTDLP_MCP_OUTPUT_ROOT: path.join(os.tmpdir(), 'yt-dlp-bridge-test')})
 		const args = planWorkflow(makePlanInput({kind: 'audio'}), {config, configFiles: {mode: 'disabled'}}).args

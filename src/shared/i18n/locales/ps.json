@@ -172,7 +172,8 @@
 				"cssOnlyLabel": "غوره کړنه",
 				"cssOnlyDescription": "یوازې CSS، د canvas وړاندې کول نشته.",
 				"gpuLabel": "تر ټولو ښکلی",
-				"gpuDescription": "که ملاتړ ولري، خوځنده WebGL شالید."
+				"gpuDescription": "که ملاتړ ولري، خوځنده WebGL شالید.",
+				"runtimeFallbackNotice": "په دې وسیله کې د هارډویر WebGL شتون نه لري، نو Arroxy د غوره کړنې شالید کاروي."
 			},
 			"limitRate": {
 				"label": "د ډاونلوډ سرعت حد",
@@ -197,6 +198,7 @@
 				"invalid": "د 1 نه تر 5000 پورې بشپړ عدد وکاروئ",
 				"tooltip": "yt-dlp --playlist-end ته د لارښوونې لپاره: Arroxy د انتخاب جوړولو پرمهال یوازې د playlist، چینل، یا لټون له ننوتونو دومره غواړي."
 			},
+			"nativeAudioPreference": {"label": "د اصلي آډیو غوره توب", "description": "دا کنټرولوي چې “Best native” څه ټاکي. لاسي آډیو کرښې او M4A/AAC ښکاره انتخابونه پاتې کېږي.", "compatible": "سازګار سټېریو", "surround": "surround / Dolby ته لومړیتوب ورکړئ"},
 			"singleFilenameId": {"toggle": "د یوازینو فایل نومونو ته د ویډیو ID ورزیات کړه", "toggleDescription": "کله چې سرلیکونه بدل شي یا سره ټکر وکړي، یو ځلني ډاونلوډونه ځانګړي ساتي."},
 			"networkPacing": {
 				"heading": "آرامه ډاونلوډونه",
@@ -413,6 +415,7 @@
 		"installFailed": "تازه کول ناکام شو",
 		"retry": "بیا هڅه وکړئ"
 	},
+	"releaseNotes": {"title": "په Arroxy {{version}} کې څه نوي دي", "description": "تاسو تازه اوسمهال کاروئ. دلته مهم ټکي دي.", "fullNotes": "بشپړ د خپرونې یادښتونه ↗", "continue": "دوام ورکړه"},
 	"status": {
 		"preparingBinaries": "بائنري فایلونه چمتو کیږي…",
 		"mintingToken": "YouTube ټوکن جوړیږي…",

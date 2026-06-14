@@ -1,4 +1,4 @@
-import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, BackdropRenderMode, NetworkPacingPreset} from './schemas.js'
+import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, BackdropRenderMode, NetworkPacingPreset, NativeAudioPreference} from './schemas.js'
 import type {AppSettings} from './types.js'
 
 export const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
@@ -14,6 +14,7 @@ export const DEFAULTS: {
 	uiZoom: number
 	uiTheme: UiTheme
 	backdropRenderMode: BackdropRenderMode
+	nativeAudioPreference: NativeAudioPreference
 	embedChapters: boolean
 	embedMetadata: boolean
 	embedThumbnail: boolean
@@ -29,6 +30,7 @@ export const DEFAULTS: {
 	uiZoom: 1,
 	uiTheme: 'system',
 	backdropRenderMode: 'gpu',
+	nativeAudioPreference: 'compatible',
 	embedChapters: true,
 	embedMetadata: true,
 	embedThumbnail: false,
@@ -48,7 +50,16 @@ export const DEFAULTS: {
 // import the defaults helper.
 export function defaultAppSettings(downloadsDir: string): AppSettings {
 	return {
-		common: {defaultOutputDir: downloadsDir, rememberLastOutputDir: true, networkPacingPreset: 'balanced', clipboardWatchEnabled: true, analyticsEnabled: true, includeIdInSingleFilenames: DEFAULTS.includeIdInSingleFilenames, backdropRenderMode: DEFAULTS.backdropRenderMode},
+		common: {
+			defaultOutputDir: downloadsDir,
+			rememberLastOutputDir: true,
+			networkPacingPreset: 'balanced',
+			clipboardWatchEnabled: true,
+			analyticsEnabled: true,
+			includeIdInSingleFilenames: DEFAULTS.includeIdInSingleFilenames,
+			backdropRenderMode: DEFAULTS.backdropRenderMode,
+			nativeAudioPreference: DEFAULTS.nativeAudioPreference
+		},
 		single: {},
 		playlist: {},
 		profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: []}

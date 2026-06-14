@@ -65,6 +65,7 @@ export interface CallerMediaWorkflowInput {
 	audio?: {convert?: AudioConvert}
 	subtitles?: {embed?: boolean; languages: string[]; writeAuto?: boolean}
 	sponsorBlock?: SponsorBlockPlan
+	extractor?: {youtube?: {playerClient?: string[]}}
 	embed?: {chapters?: boolean; metadata?: boolean; thumbnail?: boolean; description?: boolean; thumbnailSidecar?: boolean}
 	resume?: {loadInfoJsonPath?: string; writeInfoJson?: boolean; infoJsonBaseName?: string}
 }
@@ -259,6 +260,7 @@ function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: Workf
 
 	appendCallerMediaSelectionArgs(args, input, audioConvert, embedSubs, skipDownload)
 	appendCallerOutputArgs(args, input, skipDownload)
+	appendCallerExtractorArgs(args, input)
 	args.push(...downloadPacingArgs(options.pacing))
 	if (!loadInfoJsonPath) args.push(input.url)
 
@@ -578,6 +580,10 @@ function appendCallerSponsorBlockArgs(args: string[], sponsorBlock: SponsorBlock
 	if (!sponsorBlock || sponsorBlock.categories.length === 0) return
 	const categories = sponsorBlock.categories.join(',')
 	args.push(sponsorBlock.mode === 'mark' ? '--sponsorblock-mark' : '--sponsorblock-remove', categories)
+}
+
+function appendCallerExtractorArgs(args: string[], input: CallerMediaWorkflowInput): void {
+	pushJoined(args, 'youtube', 'player_client', input.extractor?.youtube?.playerClient ?? [])
 }
 
 function resolveEffectiveSubtitleFormat(input: {format: SubtitleFormat; writeAuto?: boolean}): SubtitleFormat {

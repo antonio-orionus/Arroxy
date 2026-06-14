@@ -92,7 +92,6 @@
 		"check:i18n": "bun run check:readme && bun run check:app",
 		"smoke": "bun scripts/smoke-youtube.ts",
 		"smoke:playlist": "bun scripts/smoke-playlist-presets.ts",
-		"smoke:pot": "bun scripts/smoke-pot-runner.ts",
 		"release:beta": "bash scripts/release.sh beta",
 		"release:stable": "bash scripts/release.sh stable",
 		"prepare": "husky"

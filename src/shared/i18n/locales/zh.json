@@ -163,7 +163,8 @@
 				"cssOnlyLabel": "最佳性能",
 				"cssOnlyDescription": "仅使用 CSS，不进行 canvas 渲染。",
 				"gpuLabel": "最美观",
-				"gpuDescription": "支持时使用动画 WebGL 背景。"
+				"gpuDescription": "支持时使用动画 WebGL 背景。",
+				"runtimeFallbackNotice": "此设备不支持硬件 WebGL，因此 Arroxy 正在使用性能背景。"
 			},
 			"limitRate": {
 				"label": "下载速度限制",
@@ -188,6 +189,7 @@
 				"invalid": "请输入 1 到 5000 之间的整数",
 				"tooltip": "对应 yt-dlp 的 --playlist-end 参数：Arroxy 在构建选择器时仅请求这么多播放列表、频道或搜索条目。"
 			},
+			"nativeAudioPreference": {"label": "原生音频偏好", "description": "控制“最佳原生”会选择什么。手动音频行和 M4A/AAC 仍保持显式选择。", "compatible": "兼容立体声", "surround": "优先环绕声 / Dolby"},
 			"singleFilenameId": {"toggle": "将视频 ID 添加到单个文件名", "toggleDescription": "当标题变化或重复时，让单次下载保持唯一。"},
 			"networkPacing": {
 				"heading": "温和下载",
@@ -380,6 +382,7 @@
 		"installFailed": "更新失败",
 		"retry": "重试"
 	},
+	"releaseNotes": {"title": "Arroxy {{version}} 新增内容", "description": "你正在运行新的更新。以下是亮点。", "fullNotes": "完整发行说明 ↗", "continue": "继续"},
 	"status": {
 		"preparingBinaries": "正在准备二进制文件…",
 		"mintingToken": "正在生成 YouTube 令牌…",

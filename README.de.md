@@ -3,7 +3,7 @@
 
 # Arroxy — Kostenloser Open-Source YouTube (+ 2000 Seiten) Downloader für Windows, macOS & Linux
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **Sprache:** [Afaan Oromoo](README.om.md) · **Deutsch** · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
@@ -228,7 +228,7 @@ Arroxy ist für eine Sache gebaut: URL einfügen, saubere lokale Datei erhalten.
 
 - Bis zu **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Hohe Bildrate** unverändert erhalten — 60 fps, 120 fps, HDR
-- **Nur Audio** als MP3, M4A/AAC, Opus oder WAV exportieren
+- **Audiosteuerung** — Audio-only als MP3, M4A/AAC, Opus oder WAV exportieren; eine globale Option **Surround / Dolby bevorzugen** setzen; und native Dolby-AC-3/EC-3-, Mehrkanal-, DRC- und andere fortgeschrittene Audiospuren in interaktiven Downloads auswählbar lassen, wenn verfügbar
 - Schnell-Presets: *Beste Qualität* · *Ausgewogen* · *Kleine Datei*
 
 ### Datenschutz & Kontrolle
@@ -323,7 +323,11 @@ Weiter geplant — grob nach Priorität sortiert:
 | Funktion    | Beschreibung    |
 | ---------------- | ---------------- |
 | **Playlist- & Kanal-Filter** | Datumsfilter beim Einlesen einer Playlist oder eines Kanals |
-| **Eigene Dateinamen-Vorlagen** | Dateien nach Titel, Hochlader, Datum, Auflösung benennen — mit Live-Vorschau |
+| **YouTube-Audiospur-Präferenzen** | Bevorzugte Sprachspuren wählen, wenn YouTube mehrere Audiospuren anbietet |
+| **Browser-Anmeldung in der App** | Browserfenster in Arroxy öffnen, damit du dich anmelden und Website-Cookies nutzen kannst, ohne sie manuell zu exportieren |
+| **Video-Download mit einem Klick** | Einen Video-Download mit deinem aktiven Profil per Klick aus einer erkannten oder eingefügten URL starten |
+| **Stärkere Wiederaufnahme nach Fehlern** | Ein neuer Retry-Pfad für Downloads, die durch unzuverlässige oder problematische Internetverbindungen unterbrochen werden |
+| **Vollwertiger Download-Manager-Drawer** | Den Queue-Drawer zu einem volleren Manager ausbauen, inklusive Zielordner-Wechsel für eingereihte Elemente |
 | **Geplante Downloads** | Warteschlange zu einer bestimmten Zeit starten (Nacht-Runs) |
 | **Clip-Trimming** | Nur ein Segment per Start-/Endzeit herunterladen |
 

@@ -95,6 +95,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		warmupCancellable: false,
 		warmupProgress: null,
 		settings: null,
+		graphicsPolicy: null,
 		// Guard `navigator` so vitest's node-env tests (e.g. format-selection-view)
 		// can construct the store at module-load time without DOM globals.
 		// initialize() reassigns from settingsResult.common.language anyway.
@@ -138,9 +139,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 			set({warmupRunning: true, warmupCancellable: true})
 			const settingsPromise = window.appApi.settings.get()
+			const graphicsPolicyPromise = window.appApi.app.getGraphicsPolicy()
 			const warmUpPromise = window.appApi.app.warmUp()
 			const snapshotPromise = window.appApi.queue.cmd.getSnapshot()
-			const settingsResult = await settingsPromise
+			const [settingsResult, graphicsPolicyResult] = await Promise.all([settingsPromise, graphicsPolicyPromise])
 
 			if (settingsResult.ok) {
 				const common = settingsResult.data.common ?? ({} as AppSettings['common'])
@@ -158,6 +160,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				document.documentElement.dir = isRtl(nextLanguage) ? 'rtl' : 'ltr'
 				void window.appApi.app.setLanguage(nextLanguage)
 				set({settings: settingsResult.data, wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, language: nextLanguage, drawerOpen: settingsResult.data.common?.drawerOpen ?? false})
+			}
+
+			if (graphicsPolicyResult.ok) {
+				set({graphicsPolicy: graphicsPolicyResult.data})
 			}
 
 			const snapshotResult = await snapshotPromise
@@ -295,6 +301,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			}
 		},
 
+		markReleaseNotesShown: async version => {
+			await applyCommonPatchAsync(get, set, 'releaseNotes', {lastReleaseNotesVersionShown: version})
+		},
+
 		setLanguage: lang => {
 			set({language: lang})
 			document.documentElement.lang = lang
@@ -332,6 +342,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 		setBackdropRenderMode: async value => {
 			await applyCommonPatchAsync(get, set, 'backdropRenderMode', {backdropRenderMode: value})
+		},
+
+		setNativeAudioPreference: async value => {
+			await applyCommonPatchAsync(get, set, 'nativeAudioPreference', {nativeAudioPreference: value})
 		},
 
 		setIncludeIdInSingleFilenames: async enabled => {

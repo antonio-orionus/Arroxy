@@ -110,7 +110,8 @@ export const de = {
   feat_quality_h3: "Qualität & Formate",
   feat_quality_1: "Bis zu **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**Hohe Bildrate** unverändert erhalten — 60 fps, 120 fps, HDR",
-  feat_quality_3: "**Nur Audio** als MP3, M4A/AAC, Opus oder WAV exportieren",
+  feat_quality_3:
+    "**Audiosteuerung** — Audio-only als MP3, M4A/AAC, Opus oder WAV exportieren; eine globale Option **Surround / Dolby bevorzugen** setzen; und native Dolby-AC-3/EC-3-, Mehrkanal-, DRC- und andere fortgeschrittene Audiospuren in interaktiven Downloads auswählbar lassen, wenn verfügbar",
   feat_quality_4: "Schnell-Presets: *Beste Qualität* · *Ausgewogen* · *Kleine Datei*",
   feat_privacy_h3: "Datenschutz & Kontrolle",
   feat_privacy_1:
@@ -314,16 +315,23 @@ export const de = {
   plan_col2: "Beschreibung",
   plan_r1_name: "**Playlist- & Kanal-Filter**",
   plan_r1_desc: "Datumsfilter beim Einlesen einer Playlist oder eines Kanals",
-  plan_r2_name: "**Mehrere URLs auf einmal eingeben**",
-  plan_r2_desc: "Mehrere URLs einfügen und alle auf einmal starten",
-  plan_r4_name: "**Eigene Dateinamen-Vorlagen**",
+  plan_r2_name: "**YouTube-Audiospur-Präferenzen**",
+  plan_r2_desc:
+    "Bevorzugte Sprachspuren wählen, wenn YouTube mehrere Audiospuren anbietet",
+  plan_r6_name: "**Browser-Anmeldung in der App**",
+  plan_r6_desc:
+    "Browserfenster in Arroxy öffnen, damit du dich anmelden und Website-Cookies nutzen kannst, ohne sie manuell zu exportieren",
+  plan_r8_name: "**Video-Download mit einem Klick**",
+  plan_r8_desc:
+    "Einen Video-Download mit deinem aktiven Profil per Klick aus einer erkannten oder eingefügten URL starten",
+  plan_r3_name: "**Stärkere Wiederaufnahme nach Fehlern**",
+  plan_r3_desc:
+    "Ein neuer Retry-Pfad für Downloads, die durch unzuverlässige oder problematische Internetverbindungen unterbrochen werden",
+  plan_r4_name: "**Vollwertiger Download-Manager-Drawer**",
   plan_r4_desc:
-    "Dateien nach Titel, Hochlader, Datum, Auflösung benennen — mit Live-Vorschau",
+    "Den Queue-Drawer zu einem volleren Manager ausbauen, inklusive Zielordner-Wechsel für eingereihte Elemente",
   plan_r5_name: "**Geplante Downloads**",
   plan_r5_desc: "Warteschlange zu einer bestimmten Zeit starten (Nacht-Runs)",
-  plan_r6_name: "**Geschwindigkeitsbegrenzung**",
-  plan_r6_desc:
-    "Bandbreite deckeln, damit Downloads deine Verbindung nicht auslasten",
   plan_r7_name: "**Clip-Trimming**",
   plan_r7_desc: "Nur ein Segment per Start-/Endzeit herunterladen",
   plan_cta:

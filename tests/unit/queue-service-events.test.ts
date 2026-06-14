@@ -13,6 +13,7 @@ import type {QueueResumeContext, StatusEvent, ProgressEvent} from '@shared/types
 import {ok, fail} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {makeItem} from '../shared/fixtures.js'
+import log from 'electron-log/main.js'
 
 class FakeDownloadService extends EventEmitter {
 	start = vi.fn()
@@ -46,6 +47,22 @@ function progressEvent(jobId: string, percent: number): ProgressEvent {
 }
 
 describe('QueueService — downloadService listener path', () => {
+	it('resolves a persisted probe info-json ref before starting a queued item', async () => {
+		const ds = new FakeDownloadService()
+		ds.start.mockResolvedValue(ok({job: {id: 'job-ref', url: '', outputDir: '/tmp', status: 'running', createdAt: '', updatedAt: ''}}))
+		const cache = {resolve: vi.fn().mockResolvedValue('/cache/probe.info.json'), delete: vi.fn()}
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, 0, 1, undefined, cache as never)
+		const ref = {id: '00000000-0000-4000-8000-000000000001', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'abc'}
+		qs.add([makeItem({id: 'with-ref', status: 'pending', probeInfoJsonRef: ref})])
+		vi.mocked(log.info).mockClear()
+
+		await qs.start('with-ref')
+
+		expect(cache.resolve).toHaveBeenCalledWith(ref)
+		expect(log.info).toHaveBeenCalledWith('probe info-json resolved', {itemId: 'with-ref', probeInfoJsonRef: ref, probeInfoJsonPath: '/cache/probe.info.json'})
+		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({probeInfoJsonPath: '/cache/probe.info.json'}))
+	})
+
 	it('downloadService emitting status done → item status=done, progressPercent=100', () => {
 		const {qs, ds} = makeService()
 		qs.add([makeItem({id: 'q-1', status: 'running', lastJobId: 'job-1'})])
@@ -55,6 +72,20 @@ describe('QueueService — downloadService listener path', () => {
 		const [item] = qs.snapshot()
 		expect(item.status).toBe('done')
 		expect(item.progressPercent).toBe(100)
+	})
+
+	it('completion deletes the probe info-json cache entry and clears the queue ref', async () => {
+		const ds = new FakeDownloadService()
+		const cache = {resolve: vi.fn(), delete: vi.fn().mockResolvedValue(undefined)}
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, 1, 1, undefined, cache as never)
+		const ref = {id: '00000000-0000-4000-8000-000000000001', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'abc'}
+		qs.add([makeItem({id: 'q-complete-ref', status: 'running', lastJobId: 'job-complete-ref', probeInfoJsonRef: ref})])
+
+		ds.emit('status', doneStatus('job-complete-ref'))
+		await Promise.resolve()
+
+		expect(cache.delete).toHaveBeenCalledWith(ref)
+		expect(qs.snapshot()[0].probeInfoJsonRef).toBeUndefined()
 	})
 
 	it('downloadService emitting status error → item status=error', () => {

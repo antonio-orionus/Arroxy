@@ -109,7 +109,8 @@ export const ps = {
   feat_quality_h3: "کیفیت او بڼه",
   feat_quality_1: "تر **4K UHD (2160p)** پورې، 1440p، 1080p، 720p، 480p، 360p",
   feat_quality_2: "**لوړ فریم نرخ** لکه چې دی ساتل کیږي — 60 fps، 120 fps، HDR",
-  feat_quality_3: "**یوازې آډیو** MP3، M4A/AAC، Opus یا WAV ته",
+  feat_quality_3:
+    "**د آډیو کنټرولونه** — یوازې آډیو MP3، M4A/AAC، Opus یا WAV ته صادرول؛ نړیوال **surround / Dolby ته لومړیتوب ورکړئ** اختیار ټاکل؛ او که موجود وي، په تعاملي ډاونلوډونو کې native Dolby AC-3/EC-3، multichannel، DRC او نور پرمختللي آډیو ټرېکونه د ټاکلو وړ ساتل",
   feat_quality_4: "ګړندي مخکینۍ: *ترټولو ښه کیفیت* · *متوازن* · *کوچنی فایل*",
   feat_privacy_h3: "محرمیت او کنټرول",
   feat_privacy_1:
@@ -313,15 +314,23 @@ export const ps = {
   plan_col2: "توضیح",
   plan_r1_name: "**د پلیلیسټ او چینل فیلترونه**",
   plan_r1_desc: "د playlist یا channel د شمېرلو پر مهال date-range filters",
-  plan_r2_name: "**د بیچ URL ننوتل**",
-  plan_r2_desc: "یو وخت ډیری URL پیسټ کړئ او دوی یوه ځل چلوئ",
-  plan_r4_name: "**د دودیز فایل نوم ټیمپلیټونه**",
+  plan_r2_name: "**د YouTube د غږ ټریک غوره توبونه**",
+  plan_r2_desc:
+    "کله چې YouTube څو غږیز ټریکونه وړاندې کوي، د خپلې خوښې د خبرې ژبې ټریکونه وټاکئ",
+  plan_r6_name: "**په app کې دننه browser sign-in**",
+  plan_r6_desc:
+    "د Arroxy دننه browser windows پرانیزئ څو sign in وکړئ او site cookies د لاس له export پرته وکاروئ",
+  plan_r8_name: "**یو-click ویډیو ډاونلوډ**",
+  plan_r8_desc:
+    "د active profile په کارولو detected یا pasted URL څخه ویډیو ډاونلوډ په یو click پیل کړئ",
+  plan_r3_name: "**غښتلی retry recovery**",
+  plan_r3_desc:
+    "د بې ثباته یا ستونزمن internet connection له امله د پرې شویو ډاونلوډونو لپاره نوی retry لاره",
+  plan_r4_name: "**بشپړ download manager drawer**",
   plan_r4_desc:
-    "فایلونه د سرلیک، اپلوډ کوونکي، نیټه، ریزولیوشن له مخې نوم ورکړئ — د ژوندۍ پریویو سره",
+    "د queue drawer بشپړ manager ته اړول، د queued items لپاره destination folder بدلولو په ګډون",
   plan_r5_name: "**مهالویش شوي ډاونلوډونه**",
   plan_r5_desc: "کیو د ټاکلي وخت کې پیل کړئ (شپه اجرا کول)",
-  plan_r6_name: "**د سرعت محدودیتونه**",
-  plan_r6_desc: "بانډویډث محدود کړئ چې ډاونلوډونه ستاسو اتصال نه پوروي",
   plan_r7_name: "**د کلپ کمول**",
   plan_r7_desc: "یوازې د پیل/پای وخت له مخې یو برخه ډاونلوډ کړئ",
   plan_cta:

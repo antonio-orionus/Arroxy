@@ -82,6 +82,70 @@ describe('VideoPhase(embed=false)', () => {
 		expect(req.output.template).toBe('%(title).200B [%(id)s].%(ext)s')
 	})
 
+	it('uses combined YouTube player clients for explicit single-format downloads', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, formatId: '337+380'}}})
+		await VideoPhase(false).run(ctx)
+		const [req] = ctx.runMock.mock.calls[0]
+		expect(req.extractor).toEqual({youtube: {playerClient: ['default', 'web_embedded']}})
+	})
+
+	it('uses combined YouTube player clients for ranged playlist/profile downloads', async () => {
+		const rangedJob: PreparedJob = {
+			kind: 'ranged-format',
+			extractor: 'youtube',
+			extractorKey: 'Youtube',
+			intent: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
+			formatSelector: 'bestvideo*+bestaudio/best',
+			formatSort: 'res:1080,fps',
+			mergeOutputFormat: undefined,
+			audioConvert: undefined,
+			outputTemplate: '%(title).200B [%(id)s].%(ext)s',
+			sponsorBlock: SB_OFF,
+			embed: EMBED_OFF
+		}
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: rangedJob}})
+		await VideoPhase(false).run(ctx)
+		const [req] = ctx.runMock.mock.calls[0]
+		expect(req.extractor).toEqual({youtube: {playerClient: ['default', 'web_embedded']}})
+	})
+
+	it('fresh single-video start with probeInfoJsonPath passes loadInfoJsonPath to yt-dlp', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath: '/cache/probe.info.json'}})
+
+		await VideoPhase(false).run(ctx)
+
+		const [req] = ctx.runMock.mock.calls[0]
+		expect(req.resume?.loadInfoJsonPath).toBe('/cache/probe.info.json')
+	})
+
+	it('pre-media info-json failure retries once without loadInfoJsonPath', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		const outcome = await VideoPhase(false).run(ctx)
+
+		expect(outcome.kind).toBe('continue')
+		expect(runMock).toHaveBeenCalledTimes(2)
+		expect(runMock.mock.calls[0][0].resume?.loadInfoJsonPath).toBe('/cache/stale.info.json')
+		expect(runMock.mock.calls[1][0].resume?.loadInfoJsonPath).toBeUndefined()
+	})
+
+	it('post-media info-json failure does not retry and preserves resume behavior', async () => {
+		const runMock = vi.fn().mockImplementation(async () => {
+			active.mediaDownloadStarted = true
+			return NETWORK_ERROR
+		})
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}, tempDir: '/tmp/arroxy-resume-info-json'})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		const outcome = await VideoPhase(false).run(ctx)
+
+		expect(runMock).toHaveBeenCalledTimes(1)
+		expect(outcome.kind).toBe('hard-failed')
+		if (outcome.kind === 'hard-failed') expect(outcome.resumeContext).toMatchObject({kind: 'media-retry', reason: 'media-transfer', failureKind: 'network'})
+	})
+
 	it('success → returns continue', async () => {
 		const outcome = await VideoPhase(false).run(makeCtx(SUCCESS))
 		expect(outcome.kind).toBe('continue')

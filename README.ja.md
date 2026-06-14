@@ -3,7 +3,7 @@
 
 # Arroxy — Windows・macOS・Linux 向け無料オープンソース YouTube（+ 2000 サイト）ダウンローダー
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **言語：** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · **日本語**
 
@@ -228,7 +228,7 @@ Arroxy はひとつのことのために作られています：URL を貼って
 
 - 最大 **4K UHD（2160p）**、1440p、1080p、720p、480p、360p
 - **ハイフレームレート**をそのまま保存 — 60 fps、120 fps、HDR
-- **音声のみ**を MP3、M4A/AAC、Opus、WAV で書き出し
+- **音声コントロール** — 音声のみを MP3、M4A/AAC、Opus、WAV で書き出し、グローバルな **サラウンド / Dolby を優先** オプションを設定でき、利用可能な場合はインタラクティブなダウンロードでネイティブ Dolby AC-3/EC-3、マルチチャンネル、DRC、その他の高度な音声トラックを選択可能にします
 - クイックプリセット：*最高画質* · *バランス* · *小さいファイル*
 
 ### プライバシー・制御
@@ -323,7 +323,11 @@ yt-dlp は起動時に自動更新され、YouTube に変更があれば Arroxy 
 | 機能    | 説明    |
 | ---------------- | ---------------- |
 | **プレイリスト・チャンネルのフィルター** | プレイリストまたはチャンネルの列挙時の日付範囲フィルター |
-| **カスタムファイル名テンプレート** | タイトル、投稿者、日付、解像度でファイルを命名 — ライブプレビュー付き |
+| **YouTube 音声トラックの優先設定** | YouTube が複数の音声トラックを提供する場合に、優先する話し言葉のトラックを選択 |
+| **アプリ内ブラウザーサインイン** | Arroxy 内でブラウザーウィンドウを開き、手動で cookies をエクスポートせずにサインインしてサイト cookies を使用 |
+| **ワンクリック動画ダウンロード** | 検出または貼り付けた URL から、アクティブなプロファイルで動画ダウンロードをワンクリック開始 |
+| **より強いリトライ復旧** | 不安定または問題のあるインターネット接続で中断されたダウンロード向けの新しいリトライ経路 |
+| **本格的なダウンロードマネージャードロワー** | キュードロワーをより完全なマネージャーへ拡張し、キュー内アイテムの保存先フォルダー変更にも対応 |
 | **スケジュールダウンロード** | 設定した時刻にキューを開始（夜間実行など） |
 | **クリップトリミング** | 開始・終了時刻でセグメントのみをダウンロード |
 

@@ -163,7 +163,8 @@
 				"cssOnlyLabel": "ምርጥ አፈጻጸም",
 				"cssOnlyDescription": "CSS ብቻ፣ የcanvas ማቅረብ የለም።",
 				"gpuLabel": "በጣም ቆንጆ",
-				"gpuDescription": "ሲደገፍ የሚንቀሳቀስ WebGL ዳራ።"
+				"gpuDescription": "ሲደገፍ የሚንቀሳቀስ WebGL ዳራ።",
+				"runtimeFallbackNotice": "የሃርድዌር WebGL በዚህ መሣሪያ ላይ አይገኝም፣ ስለዚህ Arroxy የአፈጻጸም ዳራን እየተጠቀመ ነው።"
 			},
 			"limitRate": {
 				"label": "የማውረድ ፍጥነት ገደብ",
@@ -188,6 +189,7 @@
 				"invalid": "ከ1 እስከ 5000 ሙሉ ቁጥር ይጠቀሙ",
 				"tooltip": "yt-dlp --playlist-end ጋር ይዛመዳል: Arroxy ምርጫ ሲሰራ ከ playlist፣ ቻናል፣ ወይም ፍለጋ ውጤቶች ይህን ያህል ብቻ ይጠይቃል።"
 			},
+			"nativeAudioPreference": {"label": "የተፈጥሯዊ ድምፅ ምርጫ", "description": "“Best native” ምን እንደሚመርጥ ይቆጣጠራል። በእጅ የሚመረጡ የድምፅ ረድፎች እና M4A/AAC ግልጽ ምርጫዎች ሆነው ይቀራሉ።", "compatible": "ተኳኋኝ ስቴሪዮ", "surround": "surround / Dolby ን ይመርጡ"},
 			"singleFilenameId": {"toggle": "የቪዲዮ ID ወደ ነጠላ ፋይል ስሞች ጨምር", "toggleDescription": "ርዕሶች ሲቀየሩ ወይም ሲጋጩ ነጠላ ማውረዶችን ልዩ ያደርጋል።"},
 			"networkPacing": {
 				"heading": "ለዝቅ ያሉ ዳውንሎዶች",
@@ -380,6 +382,7 @@
 		"installFailed": "ዝማኔ አልተሳካም",
 		"retry": "እንደገና ሞክር"
 	},
+	"releaseNotes": {"title": "በArroxy {{version}} ውስጥ ምን አዲስ ነገር አለ", "description": "አዲስ ዝማኔ እያስኬዱ ነው። ዋና ዋና ነጥቦቹ እነሆ።", "fullNotes": "ሙሉ የልቀት ማስታወሻዎች ↗", "continue": "ቀጥል"},
 	"status": {
 		"preparingBinaries": "ሁለዮሽ ፋይሎችን እያዘጋጁ…",
 		"mintingToken": "YouTube ቶከን እያመረቱ…",

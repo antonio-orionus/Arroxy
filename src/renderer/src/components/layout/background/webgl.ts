@@ -1,3 +1,5 @@
+import {isSoftwareOrVirtualRendererName} from '@shared/graphicsPolicy.js'
+
 const VERT = `
 attribute vec2 aPos;
 void main() { gl_Position = vec4(aPos, 0.0, 1.0); }
@@ -30,7 +32,7 @@ export function rendererName(gl: WebGLRenderingContext): string {
 }
 
 export function isSoftwareRenderer(name: string): boolean {
-	return /swiftshader|llvmpipe|software/i.test(name)
+	return isSoftwareOrVirtualRendererName(name)
 }
 
 export function releaseWebglContext(gl: WebGLRenderingContext): void {

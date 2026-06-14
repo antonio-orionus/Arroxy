@@ -26,6 +26,11 @@ export type QueueEvent =
 	| {kind: 'cancelled'}
 	| {kind: 'retry-reset'}
 
+function withoutProbeInfoJsonRef(item: QueueItem): QueueItem {
+	const {probeInfoJsonRef: _probeInfoJsonRef, ...rest} = item
+	return rest
+}
+
 // Pure (item, event) -> item. No I/O, no IPC, no logging.
 export function transition(item: QueueItem, evt: QueueEvent): QueueItem {
 	switch (evt.kind) {
@@ -42,9 +47,9 @@ export function transition(item: QueueItem, evt: QueueEvent): QueueItem {
 		case 'failed':
 			return {...item, status: QUEUE_STATUS.error, error: evt.error, lastJobId: undefined, tempDir: undefined, resumeContext: evt.resumeContext, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
 		case 'completed':
-			return {...item, status: QUEUE_STATUS.done, progressPercent: 100, finishedAt: evt.finishedAt, lastJobId: undefined, tempDir: undefined, resumeContext: undefined, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
+			return {...withoutProbeInfoJsonRef(item), status: QUEUE_STATUS.done, progressPercent: 100, finishedAt: evt.finishedAt, lastJobId: undefined, tempDir: undefined, resumeContext: undefined, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
 		case 'cancelled':
-			return {...item, status: QUEUE_STATUS.cancelled, lastJobId: undefined, tempDir: undefined, resumeContext: undefined}
+			return {...withoutProbeInfoJsonRef(item), status: QUEUE_STATUS.cancelled, lastJobId: undefined, tempDir: undefined, resumeContext: undefined}
 		case 'retry-reset':
 			return {...item, status: QUEUE_STATUS.pending, error: null, progressPercent: 0, progressDetail: null, finishedAt: null, lastJobId: undefined, tempDir: undefined}
 	}
