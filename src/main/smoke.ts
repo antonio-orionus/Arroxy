@@ -8,7 +8,6 @@
 // Triggered by setting ARROXY_SMOKE_URL. Skips creating the main window;
 // reports to stdout; exits cleanly.
 
-import {app} from 'electron'
 import {nonEmpty} from '@shared/format.js'
 import type {ProbeError, ProbeOtherErrorCode, YtDlpErrorKind} from '@shared/types.js'
 import type {BinaryManager} from './services/BinaryManager.js'
@@ -257,8 +256,4 @@ export async function runSmokeMode(deps: SmokeDeps): Promise<number> {
 
 export function readSmokeUrl(): string | null {
 	return nonEmpty(process.env.ARROXY_SMOKE_URL?.trim()) ?? null
-}
-
-export function exitWithCode(code: number): void {
-	app.exit(code)
 }
