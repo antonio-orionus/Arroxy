@@ -515,6 +515,22 @@ msgctxt "queue.toggleTitle"
 msgid "Toggle download queue"
 msgstr "Geuza foleni ya kupakua"
 
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Endelea"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Unatumia sasisho jipya. Haya ndiyo mambo muhimu."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Maelezo kamili ya toleo ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Nini kipya katika Arroxy {{version}}"
+
 msgctxt "repair.actions.cancel"
 msgid "Cancel"
 msgstr "Ghairi"
@@ -1769,6 +1785,10 @@ msgctxt "wizard.url.backdrop.panelTitle"
 msgid "Appearance and performance"
 msgstr "Mwonekano na utendaji"
 
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "WebGL ya maunzi haipatikani kwenye kifaa hiki, kwa hivyo Arroxy inatumia mandharinyuma ya utendaji."
+
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URL nyingi"
@@ -1980,6 +2000,22 @@ msgstr "Inapakua nyuma ya pazia… Ninaweza kufanya mambo mengi kwa wakati mmoja
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Weka kiungo, Arroxy aipakue ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Stereo inayooendana"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "Hudhibiti kile ambacho Best native huchagua. Safu za sauti za mkono na M4A/AAC hubaki chaguo wazi."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Upendeleo wa sauti asili"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Pendelea surround / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."

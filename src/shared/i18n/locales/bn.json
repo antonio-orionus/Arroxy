@@ -172,7 +172,8 @@
 				"cssOnlyLabel": "সেরা পারফরম্যান্স",
 				"cssOnlyDescription": "শুধু CSS, কোনো canvas রেন্ডারিং নয়।",
 				"gpuLabel": "সবচেয়ে সুন্দর",
-				"gpuDescription": "সমর্থিত হলে অ্যানিমেটেড WebGL ব্যাকড্রপ।"
+				"gpuDescription": "সমর্থিত হলে অ্যানিমেটেড WebGL ব্যাকড্রপ।",
+				"runtimeFallbackNotice": "এই ডিভাইসে হার্ডওয়্যার WebGL উপলব্ধ নয়, তাই Arroxy পারফরম্যান্স ব্যাকড্রপ ব্যবহার করছে।"
 			},
 			"limitRate": {
 				"label": "ডাউনলোড গতিসীমা",
@@ -197,6 +198,7 @@
 				"invalid": "১ থেকে ৫০০০ পর্যন্ত একটি পূর্ণ সংখ্যা ব্যবহার করুন",
 				"tooltip": "yt-dlp --playlist-end-এর সাথে ম্যাপ করে: Arroxy পিকার তৈরির সময় শুধুমাত্র এতটি প্লেলিস্ট, চ্যানেল বা সার্চ এন্ট্রি চায়।"
 			},
+			"nativeAudioPreference": {"label": "নেটিভ অডিও পছন্দ", "description": "“Best native” কী বেছে নেবে তা নিয়ন্ত্রণ করে। ম্যানুয়াল অডিও সারি এবং M4A/AAC স্পষ্ট পছন্দ হিসেবেই থাকে।", "compatible": "সামঞ্জস্যপূর্ণ স্টেরিও", "surround": "সারাউন্ড / Dolby অগ্রাধিকার দিন"},
 			"singleFilenameId": {"toggle": "একক ফাইলনামে ভিডিও ID যোগ করুন", "toggleDescription": "শিরোনাম বদলালে বা মিলে গেলে এককালীন ডাউনলোডগুলোকে আলাদা রাখে।"},
 			"networkPacing": {
 				"heading": "মৃদু ডাউনলোড",
@@ -397,6 +399,7 @@
 		"installFailed": "আপডেট ব্যর্থ হয়েছে",
 		"retry": "পুনরায় চেষ্টা"
 	},
+	"releaseNotes": {"title": "Arroxy {{version}}-এ নতুন কী", "description": "আপনি একটি নতুন আপডেট চালাচ্ছেন। এখানে প্রধান পরিবর্তনগুলো আছে।", "fullNotes": "সম্পূর্ণ রিলিজ নোট ↗", "continue": "চালিয়ে যান"},
 	"status": {
 		"preparingBinaries": "বাইনারি প্রস্তুত করা হচ্ছে…",
 		"mintingToken": "YouTube টোকেন তৈরি হচ্ছে…",

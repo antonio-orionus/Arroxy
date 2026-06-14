@@ -515,6 +515,22 @@ msgctxt "queue.toggleTitle"
 msgid "Toggle download queue"
 msgstr "Afficher/masquer la file de téléchargement"
 
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Continuer"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Vous utilisez une mise à jour récente. Voici les points forts."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Notes de version complètes ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Nouveautés d'Arroxy {{version}}"
+
 msgctxt "repair.actions.cancel"
 msgid "Cancel"
 msgstr "Annuler"
@@ -1769,6 +1785,10 @@ msgctxt "wizard.url.backdrop.panelTitle"
 msgid "Appearance and performance"
 msgstr "Apparence et performances"
 
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "WebGL matériel n’est pas disponible sur cet appareil, Arroxy utilise donc l’arrière-plan de performance."
+
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URLs en lot"
@@ -1980,6 +2000,22 @@ msgstr "Téléchargement en arrière-plan… je peux faire plusieurs choses à l
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Dépose un lien et laisse Arroxy le récupérer ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Stéréo compatible"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "Contrôle ce que choisit « Meilleur natif ». Les lignes audio manuelles et M4A/AAC restent explicites."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Préférence audio native"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Préférer le surround / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."

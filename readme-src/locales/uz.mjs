@@ -109,7 +109,8 @@ export const uz = {
   feat_quality_h3: "Sifat va formatlar",
   feat_quality_1: "**4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p gacha",
   feat_quality_2: "**Yuqori kadr tezligi** o'zgarmagan holda saqlanadi — 60 fps, 120 fps, HDR",
-  feat_quality_3: "**Faqat audio** ni MP3, M4A/AAC, Opus yoki WAV ga eksport qilish",
+  feat_quality_3:
+    "**Audio boshqaruvlari** — faqat audioni MP3, M4A/AAC, Opus yoki WAV sifatida eksport qilish; global **Surround / Dolbyni afzal ko'rish** sozlamasini tanlash; va interaktiv yuklab olishlarda mavjud bo'lsa, asl Dolby AC-3/EC-3, ko'p kanalli, DRC va boshqa ilg'or audio treklarni tanlash mumkin bo'lishi",
   feat_quality_4: "Tezkor sozlamalar: *Eng yaxshi sifat* · *Muvozanatli* · *Kichik fayl*",
   feat_privacy_h3: "Maxfiylik va nazorat",
   feat_privacy_1:
@@ -313,15 +314,23 @@ export const uz = {
   plan_col2: "Tavsif",
   plan_r1_name: "**Playlist va kanal filtrlari**",
   plan_r1_desc: "Playlist yoki kanalni ro‘yxatlashda sana oralig‘i filtrlari",
-  plan_r2_name: "**Toplu URL kiritish**",
-  plan_r2_desc: "Bir vaqtning o'zida bir nechta URL'larni joylashtiring va ularni bitta yugurishda bajaring",
-  plan_r4_name: "**Maxsus fayl nomi shablonlari**",
+  plan_r2_name: "**YouTube audio track afzalliklari**",
+  plan_r2_desc:
+    "YouTube bir nechta audio track berganda afzal ko'rilgan og'zaki til tracklarini tanlash",
+  plan_r6_name: "**App ichida browser sign-in**",
+  plan_r6_desc:
+    "Arroxy ichida browser windows ochib, sign in qilish va site cookiesni qo'lda export qilmasdan ishlatish",
+  plan_r8_name: "**Bir-click video download**",
+  plan_r8_desc:
+    "Active profile bilan detected yoki pasted URLdan video downloadni bir clickda boshlash",
+  plan_r3_name: "**Kuchliroq retry recovery**",
+  plan_r3_desc:
+    "Ishonchsiz yoki muammoli internet connection sabab uzilgan yuklab olishlar uchun yangi retry yo'li",
+  plan_r4_name: "**To'liq download manager drawer**",
   plan_r4_desc:
-    "Fayllarni sarlavha, yuklovchi, sana, aniqlik bo'yicha nomlash — jonli ko'rinish bilan",
+    "Queue drawerni to'liqroq managerga aylantirish, queued items uchun destination folderlarni o'zgartirish bilan",
   plan_r5_name: "**Rejalashtirilgan yuklab olishlar**",
   plan_r5_desc: "Navbatni belgilangan vaqtda boshlash (tunda ishlash)",
-  plan_r6_name: "**Tezlik cheklovlari**",
-  plan_r6_desc: "Yuklamalar ulanishingizni to'liq egallab olmasligi uchun o'tkazish qobiliyatini cheklash",
   plan_r7_name: "**Klip qirqish**",
   plan_r7_desc: "Boshlash/tugash vaqti bo'yicha faqat bir segmentni yuklab olish",
   plan_cta:

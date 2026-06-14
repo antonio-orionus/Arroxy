@@ -1,6 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import {prepareJob, type PrepareJobInput} from '@shared/prepareJob.js'
 import {preparedJobSchema, type EmbedOptions} from '@shared/preparedJob.js'
+import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const EMBED_ALL: EmbedOptions = {chapters: true, metadata: true, thumbnail: true, description: true, thumbnailSidecar: true}
@@ -76,7 +77,7 @@ describe('prepareJob', () => {
 				extractor: 'youtube',
 				extractorKey: 'Youtube',
 				intent: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
-				formatSelector: 'bestvideo*+bestaudio/best',
+				formatSelector: COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR,
 				formatSort: 'res:1080,fps',
 				mergeOutputFormat: undefined,
 				audioConvert: undefined,

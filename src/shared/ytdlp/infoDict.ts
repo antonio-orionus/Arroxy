@@ -29,6 +29,8 @@ export const ytDlpFormatSchema = z
 		tbr: optNum,
 		vbr: optNum,
 		abr: optNum,
+		asr: optNum,
+		audio_channels: optNum,
 		filesize: optNum,
 		filesize_approx: optNum,
 		vcodec: optStr,

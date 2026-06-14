@@ -13,12 +13,15 @@ import type {
 	DownloadProfile,
 	DownloadProfileRef,
 	FormatOption,
+	GraphicsPolicy,
+	NativeAudioPreference,
 	PlaylistEntry,
 	PlaylistScope,
 	PlaylistSelection,
 	Preset,
 	ProbeError,
 	ProbeProgressEvent,
+	ProbeInfoJsonRef,
 	ProbeDegradationReason,
 	QueueItem,
 	QueueLane,
@@ -71,6 +74,7 @@ export interface ProbeOrchestratorSlice {
 	// The webpage URL the extractor reports — used to render "Cookies for {host}"
 	// dynamically. Empty pre-probe.
 	wizardWebpageUrl: string
+	wizardProbeInfoJsonRef?: ProbeInfoJsonRef
 	formatsLoading: boolean
 	wizardError: ProbeError | null
 	wizardErrorOrigin: 'formats' | null
@@ -274,6 +278,7 @@ export interface SystemSlice {
 	warmupCancellable: boolean
 	warmupProgress: Partial<Record<DependencyId, import('@shared/types.js').WarmupProgressEvent>> | null
 	settings: AppSettings | null
+	graphicsPolicy: GraphicsPolicy | null
 	language: SupportedLang
 	commonPaths: AppSettings['common']['commonPaths']
 	shareDialogOpen: boolean
@@ -288,6 +293,7 @@ export interface SystemSlice {
 	clearBinaryOverride: (id: DependencyId) => Promise<void>
 	openBinariesDir: () => Promise<void>
 	openLogs: () => Promise<void>
+	markReleaseNotesShown: (version: string) => Promise<void>
 	setLanguage: (lang: SupportedLang) => void
 	setCookiesPath: (path: string) => Promise<void>
 	setCookiesMode: (mode: CookiesMode) => Promise<void>
@@ -296,6 +302,7 @@ export interface SystemSlice {
 	setLimitRate: (value: string | undefined) => Promise<void>
 	setPlaylistProbeLimit: (value: number) => Promise<void>
 	setBackdropRenderMode: (value: BackdropRenderMode) => Promise<void>
+	setNativeAudioPreference: (value: NativeAudioPreference) => Promise<void>
 	setIncludeIdInSingleFilenames: (enabled: boolean) => Promise<void>
 	setNetworkPacingPreset: (value: AppSettings['common']['networkPacingPreset']) => Promise<void>
 	setPacingSleepRequests: (value: number | undefined) => Promise<void>

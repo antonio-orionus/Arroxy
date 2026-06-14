@@ -38,6 +38,12 @@ describe('invoke methods → correct IPC channel', () => {
 		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.appCancelWarmup)
 	})
 
+	it('app.getGraphicsPolicy', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		void api.app.getGraphicsPolicy()
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.appGetGraphicsPolicy)
+	})
+
 	it('app.installYtDlpWithHomebrew', () => {
 		const api = createPreloadApi(ipc.ipcRenderer)
 		void api.app.installYtDlpWithHomebrew()

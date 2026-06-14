@@ -24,6 +24,7 @@ const COMMON_KEYS = new Set([
 	'analyticsEnabled',
 	'firstRunCompleted',
 	'launchCount',
+	'lastReleaseNotesVersionShown',
 	'drawerOpen',
 	'lastSubfolderEnabled',
 	'lastSubfolder',

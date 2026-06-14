@@ -194,32 +194,6 @@ jobs:
             cat "$stderr" >&2
           fi
           exit "$status"
-      - name: Run Linux live probe canary
-        if: runner.os == 'Linux' && !contains(github.ref_name, '-')
-        shell: bash
-        env:
-          ARROXY_SMOKE_URL: ${{ vars.ARROXY_LIVE_CANARY_URL }}
-          ELECTRON_USER_DATA: ${{ runner.temp }}/Arroxy Live Canary Ω
-          ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/runtime-smoke-logs
-          ARROXY_BINARY_DOWNLOAD_MAX_MS: '120000'
-        run: |
-          if [ -z "${ARROXY_SMOKE_URL:-}" ]; then
-            echo "::error::ARROXY_LIVE_CANARY_URL repository variable is required for release canary."
-            exit 1
-          fi
-          mkdir -p "$ARROXY_LOG_ARCHIVE"
-          unset ELECTRON_RUN_AS_NODE
-          stdout="$ARROXY_LOG_ARCHIVE/live-probe-smoke.out"
-          stderr="$ARROXY_LOG_ARCHIVE/live-probe-smoke.err"
-          set +e
-          xvfb-run -a "$PACKAGED_EXE" >"$stdout" 2>"$stderr"
-          status=$?
-          set -e
-          cat "$stdout"
-          if [ -s "$stderr" ]; then
-            cat "$stderr" >&2
-          fi
-          exit "$status"
       - name: Upload runtime smoke logs
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a

@@ -5,6 +5,7 @@ import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {siteForExtractor} from '@shared/sites/index.js'
 import type {AudioConvert} from '@shared/types.js'
+import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
@@ -43,6 +44,10 @@ function bridgeAudioConvert(input: AudioConvert): BridgeAudioConvert {
 	return {...input, lossy: isAudioConvertTargetLossy(input.target)}
 }
 
+function hasMediaTransferStarted(active: PhaseContext['active']): boolean {
+	return active.mediaDownloadStarted === true || (active.mediaComponentPaths?.length ?? 0) > 0 || active.mediaPath !== undefined
+}
+
 export function VideoPhase(embed: boolean): Phase {
 	return {
 		kind: embed ? 'video+embed' : 'video',
@@ -68,7 +73,8 @@ export function VideoPhase(embed: boolean): Phase {
 			// preserved tempDir, feed it to yt-dlp so extraction is skipped on
 			// resume (signed-URL / format-ID / session-cookie drift cause spurious
 			// "Requested format is not available" failures otherwise).
-			const loadInfoJsonPath = await detectCachedInfoJson(isResume ? tempDir : undefined)
+			const resumeInfoJsonPath = await detectCachedInfoJson(isResume ? tempDir : undefined)
+			const loadInfoJsonPath = resumeInfoJsonPath ?? input.probeInfoJsonPath
 
 			// SponsorBlock applicability is owned by the Site adapter — currently
 			// YouTube-only. Passing the flag for non-YouTube extractors is harmless
@@ -85,34 +91,52 @@ export function VideoPhase(embed: boolean): Phase {
 			const bridgeConvert = audioConvert ? bridgeAudioConvert(audioConvert) : undefined
 			const outputTemplate = preparedJob.outputTemplate
 			const {embed: embedOpts} = preparedJob
+			const extractor = site.id === 'youtube' ? {youtube: {playerClient: [...YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS]}} : undefined
 
-			const req: YtDlpRequest = {
-				kind: 'media',
-				url: input.url,
-				output: {directory: job.outputDir, ...(tempDir ? {tempDirectory: tempDir} : {}), ...(outputTemplate ? {template: outputTemplate} : {})},
-				selection: {formatId, formatSelector, formatSort, mergeOutputFormat},
-				...(bridgeConvert ? {audio: {convert: bridgeConvert}} : {}),
-				...(embed && (preparedJob.subtitles?.languages.length ?? 0) > 0 && preparedJob.subtitles ? {subtitles: {embed: true, languages: preparedJob.subtitles.languages, writeAuto: preparedJob.subtitles.writeAuto}} : {}),
-				...(sbConfig ? {sponsorBlock: sbConfig} : {}),
-				embed: {chapters: embedOpts.chapters, metadata: embedOpts.metadata, thumbnail: embedOpts.thumbnail, description: embedOpts.description, thumbnailSidecar: embedOpts.thumbnailSidecar},
-				...(loadInfoJsonPath ? {resume: {loadInfoJsonPath}} : {})
+			const buildRequest = (infoJsonPath: string | undefined): YtDlpRequest => {
+				return {
+					kind: 'media',
+					url: input.url,
+					output: {directory: job.outputDir, ...(tempDir ? {tempDirectory: tempDir} : {}), ...(outputTemplate ? {template: outputTemplate} : {})},
+					selection: {formatId, formatSelector, formatSort, mergeOutputFormat},
+					...(bridgeConvert ? {audio: {convert: bridgeConvert}} : {}),
+					...(embed && (preparedJob.subtitles?.languages.length ?? 0) > 0 && preparedJob.subtitles ? {subtitles: {embed: true, languages: preparedJob.subtitles.languages, writeAuto: preparedJob.subtitles.writeAuto}} : {}),
+					...(sbConfig ? {sponsorBlock: sbConfig} : {}),
+					...(extractor ? {extractor} : {}),
+					embed: {chapters: embedOpts.chapters, metadata: embedOpts.metadata, thumbnail: embedOpts.thumbnail, description: embedOpts.description, thumbnailSidecar: embedOpts.thumbnailSidecar},
+					...(infoJsonPath ? {resume: {loadInfoJsonPath: infoJsonPath}} : {})
+				}
 			}
 
 			// Don't preemptively emit downloadingMedia on spawn — yt-dlp spends
 			// a few seconds on extractor work and thumbnail conversion first.
 			// The first `[download] Destination:` line in consumeProgress emits
 			// the accurate status when the actual data download begins.
-			const result = await ytDlp.run(
-				req,
-				buildYtDlpSignal(ctx, active, {
-					onMinting: attempt => {
-						ctx.emitStatus('token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken)
-					}
-				})
-			)
+			const runMedia = async (infoJsonPath: string | undefined): Promise<{req: YtDlpRequest; result: YtDlpResult}> => {
+				const req = buildRequest(infoJsonPath)
+				const result = await ytDlp.run(
+					req,
+					buildYtDlpSignal(ctx, active, {
+						onMinting: attempt => {
+							ctx.emitStatus('token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken)
+						}
+					})
+				)
+				return {req, result}
+			}
+
+			let {req, result} = await runMedia(loadInfoJsonPath)
 
 			if (active.pauseRequested) return {kind: 'paused'}
 			if (active.cancelRequested) return {kind: 'cancelled'}
+
+			if (loadInfoJsonPath && result.kind !== 'success' && !hasMediaTransferStarted(active) && !isSkippableSponsorBlockApiFailure(result, req)) {
+				const retry = await runMedia(undefined)
+				req = retry.req
+				result = retry.result
+				if (active.pauseRequested) return {kind: 'paused'}
+				if (active.cancelRequested) return {kind: 'cancelled'}
+			}
 
 			if (result.kind !== 'success') {
 				if (isSkippableSponsorBlockApiFailure(result, req)) {

@@ -2,7 +2,8 @@ import {useEffect, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle, Gauge} from 'lucide-react'
 import {DEFAULTS} from '@shared/constants.js'
-import type {BackdropRenderMode, CookiesBrowser, CookiesMode} from '@shared/types.js'
+import {NATIVE_AUDIO_PREFERENCES} from '@shared/schemas.js'
+import type {BackdropRenderMode, CookiesBrowser, CookiesMode, NativeAudioPreference} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
@@ -38,6 +39,8 @@ const BACKDROP_RENDER_OPTIONS = [
 	{value: 'css-only', labelKey: 'wizard.url.backdrop.cssOnlyLabel', descriptionKey: 'wizard.url.backdrop.cssOnlyDescription'}
 ] as const satisfies readonly {value: BackdropRenderMode; labelKey: string; descriptionKey: string}[]
 
+const NATIVE_AUDIO_LABEL_KEYS = {compatible: 'wizard.url.nativeAudioPreference.compatible', surround: 'wizard.url.nativeAudioPreference.surround'} as const satisfies Record<NativeAudioPreference, string>
+
 function SettingsPanel({title, description, children}: {title: string; description?: string; children: ReactNode}): ReactNode {
 	return (
 		<Card size="sm" className="gap-3 rounded-lg border-[var(--border-strong)] bg-card/40 py-3">
@@ -66,7 +69,8 @@ function SettingSwitch({id, label, description, checked, onCheckedChange, testId
 
 export function DownloadProfilesSettingsTab(): ReactNode {
 	const {t} = useTranslation()
-	const {advancedAutoOpen, advancedAutoTarget, settings, setAdvancedAutoOpen, setClipboardWatchEnabled, setCookiesPath, setCookiesMode, setCookiesBrowser, setProxyUrl, setLimitRate, setBackdropRenderMode, setIncludeIdInSingleFilenames, setCloseBehavior, setAnalyticsEnabled} = useAppStore()
+	const {advancedAutoOpen, advancedAutoTarget, settings, graphicsPolicy, setAdvancedAutoOpen, setClipboardWatchEnabled, setCookiesPath, setCookiesMode, setCookiesBrowser, setProxyUrl, setLimitRate, setBackdropRenderMode, setNativeAudioPreference, setIncludeIdInSingleFilenames, setCloseBehavior, setAnalyticsEnabled} =
+		useAppStore()
 	const common = settings?.common
 	const cookiesPath = common?.cookiesPath ?? ''
 	const cookiesMode: CookiesMode = common?.cookiesMode ?? 'off'
@@ -79,6 +83,8 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 	const showMissingBrowserWarning = cookiesMode === 'browser' && !cookiesBrowser
 	const limitRate = common?.limitRate?.trim() ? common.limitRate : undefined
 	const backdropRenderMode = common?.backdropRenderMode ?? DEFAULTS.backdropRenderMode
+	const nativeAudioPreference = common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
+	const showBackdropRuntimeFallback = backdropRenderMode === 'gpu' && graphicsPolicy?.backdrop.forceRenderMode === 'css-only'
 
 	useEffect(() => {
 		if (!advancedAutoOpen) return
@@ -221,6 +227,76 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 				</FieldGroup>
 			</SettingsPanel>
 
+			<SettingsPanel title="Download behavior" description="Global behavior that affects profile-driven downloads too.">
+				<FieldGroup className="gap-4">
+					<Field orientation="horizontal" className="items-center justify-between gap-3">
+						<FieldContent className="gap-0.5">
+							<FieldTitle id="profiles-settings-speed-limit" className="text-[13px] font-medium text-foreground">
+								{t('wizard.url.limitRate.label')}
+							</FieldTitle>
+							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.limitRate.description')}</FieldDescription>
+						</FieldContent>
+						<Popover>
+							<PopoverTrigger
+								render={
+									<Button type="button" variant="outline" size="sm" aria-labelledby="profiles-settings-speed-limit" data-testid="profiles-settings-limit-rate-trigger">
+										<Gauge data-icon="inline-start" aria-hidden />
+										{limitRate ? formatLimitRateLabel(limitRate) : t('wizard.url.limitRate.off')}
+									</Button>
+								}
+							/>
+							<PopoverContent align="end" sideOffset={8} className="w-64">
+								<div className="flex flex-col gap-1">
+									<p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{t('wizard.url.limitRate.label')}</p>
+									<p className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.limitRate.activeWarning')}</p>
+								</div>
+								<LimitRatePicker value={limitRate} onChange={value => void setLimitRate(value)} />
+							</PopoverContent>
+						</Popover>
+					</Field>
+
+					<NetworkPacingSettings />
+
+					<Field className="gap-2" data-testid="native-audio-preference">
+						<FieldContent className="gap-0.5">
+							<FieldTitle id="profiles-settings-native-audio" className="text-[13px] font-medium text-foreground">
+								{t('wizard.url.nativeAudioPreference.label')}
+							</FieldTitle>
+							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.nativeAudioPreference.description')}</FieldDescription>
+						</FieldContent>
+						<ToggleGroup
+							variant="outline"
+							value={[nativeAudioPreference]}
+							onValueChange={value => {
+								if (value[0]) void setNativeAudioPreference(value[0] as NativeAudioPreference)
+							}}
+							spacing={1}
+							className="flex w-full flex-wrap gap-1"
+							aria-labelledby="profiles-settings-native-audio"
+						>
+							{NATIVE_AUDIO_PREFERENCES.map(option => (
+								<ToggleGroupItem key={option} value={option} className="h-7 px-3 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]" data-testid={`native-audio-preference-${option}`}>
+									{t(NATIVE_AUDIO_LABEL_KEYS[option])}
+								</ToggleGroupItem>
+							))}
+						</ToggleGroup>
+					</Field>
+
+					<SettingSwitch
+						id="profiles-settings-filename-id"
+						label={t('wizard.url.singleFilenameId.toggle')}
+						description={t('wizard.url.singleFilenameId.toggleDescription')}
+						checked={common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames}
+						onCheckedChange={checked => void setIncludeIdInSingleFilenames(checked)}
+						testId="single-filename-id-toggle"
+					/>
+
+					{platform !== 'darwin' ? <SettingSwitch id="profiles-settings-close-tray" label={t('wizard.url.closeToTray.toggle')} description={t('wizard.url.closeToTray.toggleDescription')} checked={common?.closeBehavior === 'tray'} onCheckedChange={checked => void setCloseBehavior(checked ? 'tray' : 'quit')} /> : null}
+
+					<SettingSwitch id="profiles-settings-analytics" label={t('wizard.url.analytics.toggle')} description={t('wizard.url.analytics.toggleDescription')} checked={common?.analyticsEnabled ?? true} onCheckedChange={checked => void setAnalyticsEnabled(checked)} />
+				</FieldGroup>
+			</SettingsPanel>
+
 			<SettingsPanel title={t('wizard.url.backdrop.panelTitle')} description={t('wizard.url.backdrop.panelDescription')}>
 				<Field className="gap-2">
 					<FieldContent className="gap-0.5">
@@ -253,52 +329,13 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							))}
 						</ToggleGroup>
 					</div>
+					{showBackdropRuntimeFallback ? (
+						<Alert data-testid="profiles-settings-backdrop-mode-fallback" className="py-2">
+							<AlertTriangle className="size-4" aria-hidden />
+							<AlertDescription className="text-[11px] leading-snug">{t('wizard.url.backdrop.runtimeFallbackNotice')}</AlertDescription>
+						</Alert>
+					) : null}
 				</Field>
-			</SettingsPanel>
-
-			<SettingsPanel title="Download behavior" description="Global behavior that affects profile-driven downloads too.">
-				<FieldGroup className="gap-4">
-					<Field orientation="horizontal" className="items-center justify-between gap-3">
-						<FieldContent className="gap-0.5">
-							<FieldTitle id="profiles-settings-speed-limit" className="text-[13px] font-medium text-foreground">
-								{t('wizard.url.limitRate.label')}
-							</FieldTitle>
-							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.limitRate.description')}</FieldDescription>
-						</FieldContent>
-						<Popover>
-							<PopoverTrigger
-								render={
-									<Button type="button" variant="outline" size="sm" aria-labelledby="profiles-settings-speed-limit" data-testid="profiles-settings-limit-rate-trigger">
-										<Gauge data-icon="inline-start" aria-hidden />
-										{limitRate ? formatLimitRateLabel(limitRate) : t('wizard.url.limitRate.off')}
-									</Button>
-								}
-							/>
-							<PopoverContent align="end" sideOffset={8} className="w-64">
-								<div className="flex flex-col gap-1">
-									<p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{t('wizard.url.limitRate.label')}</p>
-									<p className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.limitRate.activeWarning')}</p>
-								</div>
-								<LimitRatePicker value={limitRate} onChange={value => void setLimitRate(value)} />
-							</PopoverContent>
-						</Popover>
-					</Field>
-
-					<NetworkPacingSettings />
-
-					<SettingSwitch
-						id="profiles-settings-filename-id"
-						label={t('wizard.url.singleFilenameId.toggle')}
-						description={t('wizard.url.singleFilenameId.toggleDescription')}
-						checked={common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames}
-						onCheckedChange={checked => void setIncludeIdInSingleFilenames(checked)}
-						testId="single-filename-id-toggle"
-					/>
-
-					{platform !== 'darwin' ? <SettingSwitch id="profiles-settings-close-tray" label={t('wizard.url.closeToTray.toggle')} description={t('wizard.url.closeToTray.toggleDescription')} checked={common?.closeBehavior === 'tray'} onCheckedChange={checked => void setCloseBehavior(checked ? 'tray' : 'quit')} /> : null}
-
-					<SettingSwitch id="profiles-settings-analytics" label={t('wizard.url.analytics.toggle')} description={t('wizard.url.analytics.toggleDescription')} checked={common?.analyticsEnabled ?? true} onCheckedChange={checked => void setAnalyticsEnabled(checked)} />
-				</FieldGroup>
 			</SettingsPanel>
 		</div>
 	)

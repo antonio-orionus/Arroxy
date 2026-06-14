@@ -172,7 +172,8 @@
 				"cssOnlyLabel": "Hiệu năng tốt nhất",
 				"cssOnlyDescription": "Chỉ dùng CSS, không kết xuất canvas.",
 				"gpuLabel": "Đẹp nhất",
-				"gpuDescription": "Nền WebGL động khi được hỗ trợ."
+				"gpuDescription": "Nền WebGL động khi được hỗ trợ.",
+				"runtimeFallbackNotice": "WebGL phần cứng không khả dụng trên thiết bị này, nên Arroxy đang dùng phông nền hiệu năng."
 			},
 			"limitRate": {
 				"label": "Giới hạn tốc độ tải",
@@ -197,6 +198,7 @@
 				"invalid": "Nhập số nguyên từ 1 đến 5000",
 				"tooltip": "Tương ứng với yt-dlp --playlist-end: Arroxy chỉ yêu cầu số mục này từ playlist, kênh hoặc kết quả tìm kiếm khi tạo bộ chọn."
 			},
+			"nativeAudioPreference": {"label": "Tùy chọn âm thanh gốc", "description": "Kiểm soát lựa chọn của “Best native”. Các hàng âm thanh thủ công và M4A/AAC vẫn là lựa chọn rõ ràng.", "compatible": "Stereo tương thích", "surround": "Ưu tiên surround / Dolby"},
 			"singleFilenameId": {"toggle": "Thêm ID video vào tên tệp đơn lẻ", "toggleDescription": "Giữ các lượt tải một lần là duy nhất khi tiêu đề thay đổi hoặc trùng nhau."},
 			"networkPacing": {
 				"heading": "Tải xuống nhẹ nhàng",
@@ -413,6 +415,7 @@
 		"installFailed": "Cập nhật thất bại",
 		"retry": "Thử lại"
 	},
+	"releaseNotes": {"title": "Có gì mới trong Arroxy {{version}}", "description": "Bạn đang dùng bản cập nhật mới. Đây là các điểm nổi bật.", "fullNotes": "Ghi chú phát hành đầy đủ ↗", "continue": "Tiếp tục"},
 	"status": {
 		"preparingBinaries": "Đang chuẩn bị các tệp nhị phân…",
 		"mintingToken": "Đang tạo token YouTube…",

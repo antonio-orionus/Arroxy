@@ -110,7 +110,8 @@ export const ur = {
   feat_quality_h3: "کوالٹی اور فارمیٹس",
   feat_quality_1: "**4K UHD (2160p)** تک، 1440p، 1080p، 720p، 480p، 360p",
   feat_quality_2: "**ہائی فریم ریٹ** جیسا ہے ویسا ہی محفوظ — 60 fps، 120 fps، HDR",
-  feat_quality_3: "**صرف آڈیو** کو MP3، M4A/AAC، Opus یا WAV میں ایکسپورٹ کریں",
+  feat_quality_3:
+    "**آڈیو کنٹرولز** — صرف آڈیو کو MP3، M4A/AAC، Opus یا WAV میں ایکسپورٹ کریں؛ عالمی **سراؤنڈ / Dolby کو ترجیح دیں** آپشن سیٹ کریں؛ اور دستیاب ہونے پر انٹرایکٹو ڈاؤن لوڈز میں نیٹو Dolby AC-3/EC-3، ملٹی چینل، DRC اور دیگر جدید آڈیو ٹریکس کو منتخب رہنے دیں",
   feat_quality_4: "فوری پری سیٹس: *بہترین کوالٹی* · *متوازن* · *چھوٹی فائل*",
   feat_privacy_h3: "پرائیویسی اور کنٹرول",
   feat_privacy_1:
@@ -314,15 +315,23 @@ export const ur = {
   plan_col2: "تفصیل",
   plan_r1_name: "**پلے لسٹ اور چینل فلٹرز**",
   plan_r1_desc: "پلے لسٹ یا چینل enumerate کرتے وقت date-range filters",
-  plan_r2_name: "**بیچ URL ان پٹ**",
-  plan_r2_desc: "ایک ساتھ کئی URLs پیسٹ کریں اور انہیں ایک ساتھ چلائیں",
-  plan_r4_name: "**کسٹم فائل نام ٹیمپلیٹس**",
+  plan_r2_name: "**YouTube آڈیو ٹریک ترجیحات**",
+  plan_r2_desc:
+    "جب YouTube متعدد آڈیو ٹریک دے تو ترجیحی بولی جانے والی زبان کے ٹریک منتخب کریں",
+  plan_r6_name: "**ایپ کے اندر browser sign-in**",
+  plan_r6_desc:
+    "Arroxy کے اندر browser windows کھولیں تاکہ آپ sign in کر سکیں اور site cookies کو manual export کیے بغیر استعمال کر سکیں",
+  plan_r8_name: "**ایک-click ویڈیو ڈاؤن لوڈ**",
+  plan_r8_desc:
+    "active profile استعمال کرتے ہوئے detected یا pasted URL سے ویڈیو ڈاؤن لوڈ ایک click میں شروع کریں",
+  plan_r3_name: "**مضبوط retry recovery**",
+  plan_r3_desc:
+    "غیر معتبر یا مسئلہ پیدا کرنے والے internet connection سے رکی ہوئی ڈاؤن لوڈز کے لیے نیا retry راستہ",
+  plan_r4_name: "**مکمل download manager drawer**",
   plan_r4_desc:
-    "فائلوں کو ٹائٹل، اپ لوڈر، تاریخ، ریزولیوشن کے حساب سے نام دیں — لائیو پری ویو کے ساتھ",
+    "queue drawer کو زیادہ مکمل manager میں بدلنا، queued items کے لیے destination folder تبدیل کرنے سمیت",
   plan_r5_name: "**شیڈیولڈ ڈاؤن لوڈز**",
   plan_r5_desc: "مقررہ وقت پر قطار شروع کریں (رات بھر کے رنز)",
-  plan_r6_name: "**اسپیڈ کی حدود**",
-  plan_r6_desc: "بینڈ ودتھ کیپ کریں تاکہ ڈاؤن لوڈز آپ کے کنکشن کو بھر نہ دیں",
   plan_r7_name: "**کلپ ٹرمنگ**",
   plan_r7_desc: "شروع/اختتام کے وقت سے صرف ایک سیگمنٹ ڈاؤن لوڈ کریں",
   plan_cta:

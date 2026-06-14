@@ -3,7 +3,7 @@
 
 # Arroxy — ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **አንብብ በ:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · **አማርኛ** · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
@@ -226,7 +226,7 @@ Arroxy ለአንድ ነገር ብቻ ተሠርቷል: URL ይለጥፉ፣ ንጹ
 
 - እስከ **4K UHD (2160p)**፣ 1440p፣ 1080p፣ 720p፣ 480p፣ 360p
 - **ፈጣን የፍሬም ፍጥነት** እንዳለ ተጠብቆ — 60 fps፣ 120 fps፣ HDR
-- **ኦዲዮ ብቻ** ወደ MP3፣ M4A/AAC፣ Opus ወይም WAV ማውጣት
+- **የድምፅ መቆጣጠሪያዎች** — ኦዲዮ ብቻን ወደ MP3፣ M4A/AAC፣ Opus ወይም WAV ማውጣት፤ ዓለም አቀፍ **surround / Dolby ን ይመርጡ** አማራጭ ማቀናበር፤ እና ካሉ native Dolby AC-3/EC-3፣ multichannel፣ DRC እና ሌሎች የላቁ የድምፅ ትራኮች በinteractive downloads ውስጥ እንዲመረጡ ማድረግ
 - ፈጣን ቅድመ ቅንብሮች: *ምርጥ ጥራት* · *ሚዛናዊ* · *ትንሽ ፋይል*
 
 ### ግላዊነት እና ቁጥጥር
@@ -321,7 +321,11 @@ yt-dlp በማስነሻ ላይ ራስ ሰር ይዘመናሉ፣ እናም YouTube
 | ባህሪ    | ዝርዝር    |
 | ---------------- | ---------------- |
 | **የፕሌይሊስት እና ቻናል ማጣሪያዎች** | playlist ወይም channel ሲዘረዝሩ የቀን ክልል ማጣሪያዎች |
-| **ተስማሚ ፋይል ስም ቅጥበቶች** | ፋይሎቹን በርዕስ፣ አሰቃዮ፣ ቀን፣ ጥራት — ቀጥተኛ ቅድዓሙ ጋር ስሟቸው |
+| **የYouTube ድምጽ ትራክ ምርጫዎች** | YouTube ብዙ የድምጽ ትራኮች ሲሰጥ የሚመረጡ የንግግር ቋንቋ ትራኮችን ይምረጡ |
+| **በመተግበሪያው ውስጥ browser sign-in** | በArroxy ውስጥ browser windows ክፈቱ፣ እንዲገቡ እና site cookies በእጅ ሳይexport እንዲጠቀሙ |
+| **አንድ-click ቪዲዮ ማውረድ** | በactive profile የተገኘ ወይም የተለጠፈ URL ቪዲዮ ማውረድን በአንድ click ጀምሩ |
+| **የተጠናከረ ዳግም ሙከራ መልሶ ማገገም** | በማይታመን ወይም ችግኝ ያለው የኢንተርኔት ግንኙነት የተቋረጡ ማውረዶችን ለመቀጠል አዲስ የዳግም ሙከራ መንገድ |
+| **ሙሉ የማውረድ አስተዳዳሪ መሳቢያ** | የqueue መሳቢያውን ወደ ሙሉ አስተዳዳሪ መቀየር፣ ለተሰለፉ ንጥሎች destination folder መቀየርን ጨምሮ |
 | **የቀጠሮ ማውረዶች** | ወረፋ በተወሰነ ሰዓት ጀምሩ (ሌሊት ሂደቶች) |
 | **ቁርጥ ምረጥ** | የጀምር/ማቆሚያ ጊዜ ብቻ ያወርዱ |
 

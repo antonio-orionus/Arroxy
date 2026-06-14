@@ -9,9 +9,18 @@ const VIDEO_FORMATS: FormatOption[] = [
 	{formatId: '251', label: 'opus', ext: 'webm', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true, abr: 160}
 ]
 
+const DOLBY_FIRST_FORMATS: FormatOption[] = [
+	{formatId: '337', label: '2160p HDR', ext: 'webm', resolution: '2160p HDR', fps: 30, isVideoOnly: true, isAudioOnly: false},
+	{formatId: '380', label: 'm4a ac-3 384kbps', ext: 'm4a', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true, abr: 384, audioCodec: 'ac-3'},
+	{formatId: '328', label: 'm4a ec-3 384kbps', ext: 'm4a', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true, abr: 384, audioCodec: 'ec-3'},
+	{formatId: '251', label: 'opus', ext: 'webm', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true, abr: 143, audioCodec: 'opus'},
+	{formatId: '140', label: 'm4a AAC 130kbps', ext: 'm4a', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true, abr: 130, audioCodec: 'mp4a.40.2'}
+]
+
 const VIDEO_PROBE: Extract<ProbeResult, {kind: 'video'}> = {
 	kind: 'video',
 	videoId: 'abc',
+	probeInfoJsonRef: {id: '00000000-0000-4000-8000-000000000001', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'abc'},
 	extractor: 'youtube',
 	extractorKey: 'Youtube',
 	webpageUrl: 'https://www.youtube.com/watch?v=abc',
@@ -63,6 +72,15 @@ describe('ProbeResultProjection', () => {
 		const patch = projectVideoProbeResult(VIDEO_PROBE, appState({settings}), true)
 
 		expect(patch).toMatchObject({wizardStep: 'formats', wizardMode: 'single', wizardTitle: 'Video', wizardExtractor: 'youtube', selectedVideoFormatId: '137', wizardSubtitleLanguages: ['en'], formatsLoading: false})
+		expect(patch.wizardProbeInfoJsonRef).toEqual(VIDEO_PROBE.probeInfoJsonRef)
+	})
+
+	it('does not revive a persisted Dolby audio id when a YouTube probe has Opus available', () => {
+		const settings = defaultAppSettings('/downloads')
+		settings.single = {...settings.single, lastPreset: 'best-quality', lastVideoResolution: '2160p HDR', lastAudioSelection: {kind: 'native', formatId: '328'}}
+		const patch = projectVideoProbeResult({...VIDEO_PROBE, formats: DOLBY_FIRST_FORMATS}, appState({settings}), true)
+
+		expect(patch).toMatchObject({selectedVideoFormatId: '337', audioSelection: {kind: 'native', formatId: '251'}})
 	})
 
 	it('does not leak YouTube format preferences into non-YouTube probes', () => {

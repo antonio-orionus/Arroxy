@@ -110,7 +110,8 @@ export const zh = {
   feat_quality_h3: "画质与格式",
   feat_quality_1: "最高 **4K UHD（2160p）**、1440p、1080p、720p、480p、360p",
   feat_quality_2: "**高帧率**原样保留 — 60 fps、120 fps、HDR",
-  feat_quality_3: "**仅音频**导出为 MP3、M4A/AAC、Opus 或 WAV",
+  feat_quality_3:
+    "**音频控制** — 将仅音频导出为 MP3、M4A/AAC、Opus 或 WAV；设置全局 **优先环绕声 / Dolby** 选项；并在可用时，让交互式下载中的原生 Dolby AC-3/EC-3、多声道、DRC 和其他高级音频轨道保持可选",
   feat_quality_4: "快速预设：*最佳画质* · *平衡* · *小文件*",
   feat_privacy_h3: "隐私与控制",
   feat_privacy_1:
@@ -311,15 +312,23 @@ export const zh = {
   plan_col2: "描述",
   plan_r1_name: "**播放列表与频道筛选**",
   plan_r1_desc: "枚举播放列表或频道时的日期范围筛选",
-  plan_r2_name: "**批量 URL 输入**",
-  plan_r2_desc: "一次粘贴多个链接，全部一起运行",
-  plan_r4_name: "**自定义文件名模板**",
+  plan_r2_name: "**YouTube 音轨偏好**",
+  plan_r2_desc:
+    "当 YouTube 提供多个音轨时，选择偏好的口语语言音轨",
+  plan_r6_name: "**应用内浏览器登录**",
+  plan_r6_desc:
+    "在 Arroxy 内打开浏览器窗口，登录并使用站点 cookies，无需手动导出",
+  plan_r8_name: "**一键视频下载**",
+  plan_r8_desc:
+    "使用当前配置，从检测到或粘贴的 URL 一键开始视频下载",
+  plan_r3_name: "**更强的重试恢复**",
+  plan_r3_desc:
+    "为不稳定或有问题的网络连接中断的下载提供新的重试路径",
+  plan_r4_name: "**完整下载管理器抽屉**",
   plan_r4_desc:
-    "按标题、上传者、日期、分辨率命名文件 — 带实时预览",
+    "将队列抽屉扩展为更完整的管理器，包括为排队项目更改目标文件夹",
   plan_r5_name: "**定时下载**",
   plan_r5_desc: "在设定时间启动队列（适合连夜批量下载）",
-  plan_r6_name: "**速度限制**",
-  plan_r6_desc: "限制带宽，避免下载占满你的网络连接",
   plan_r7_name: "**片段裁剪**",
   plan_r7_desc: "按起止时间只下载视频的某一段",
   plan_cta:

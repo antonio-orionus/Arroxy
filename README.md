@@ -3,7 +3,7 @@
 
 # Arroxy — Free Open-Source YouTube (+ 2000 sites) Downloader for Windows, macOS & Linux
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **Read in:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · **English** · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
@@ -226,7 +226,7 @@ Arroxy is built for one thing: paste a URL, get a clean local file. No accounts,
 
 - Up to **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **High frame rate** preserved as-is — 60 fps, 120 fps, HDR
-- **Audio-only** export to MP3, M4A/AAC, Opus, or WAV
+- **Audio controls** — export audio-only as MP3, M4A/AAC, Opus, or WAV; set a global **Prefer surround / Dolby** option; and keep native Dolby AC-3/EC-3, multichannel, DRC, and other advanced audio tracks selectable in interactive downloads when available
 - Quick presets: *Best quality* · *Balanced* · *Small file*
 
 ### Privacy & control
@@ -321,7 +321,11 @@ Still planned — roughly in priority order:
 | Feature    | Description    |
 | ---------------- | ---------------- |
 | **Playlist & channel filters** | Date-range filters when enumerating a playlist or channel |
-| **Custom filename templates** | Name files by title, uploader, date, resolution — with live preview |
+| **YouTube audio track preferences** | Choose preferred spoken-language tracks when YouTube provides multiple audio tracks |
+| **In-app browser sign-in** | Open browser windows inside Arroxy so you can sign in and use site cookies without exporting them manually |
+| **One-click video download** | Start a video download in one click from a detected or pasted URL using your active profile |
+| **Stronger retry recovery** | A new retry path for downloads interrupted by unreliable or problematic internet connections |
+| **Full download manager drawer** | Turn the queue drawer into a fuller manager, including changing destination folders for queued items |
 | **Scheduled downloads** | Start a queue at a set time (overnight runs) |
 | **Clip trimming** | Download only a segment by start/end time |
 

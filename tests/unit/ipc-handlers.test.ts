@@ -65,6 +65,7 @@ function makeDeps() {
 		languageRef: languageRef as never,
 		clipboardWatcher: clipboardWatcher as never,
 		playlistManifestStore: {save: vi.fn(), get: vi.fn(), remove: vi.fn()} as never,
+		graphicsPolicyProvider: vi.fn().mockResolvedValue({backdrop: {forceRenderMode: null, softwareWebglAllowed: false}}),
 		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher}
 	}
 }
@@ -231,6 +232,16 @@ describe('registerIpcHandlers', () => {
 			const result = (await handler(null, undefined)) as {ok: boolean; data?: {installedPath: string}}
 
 			expect(result).toEqual({ok: true, data: {installedPath: '/opt/homebrew/bin/yt-dlp'}})
+		})
+
+		it('app:getGraphicsPolicy returns the runtime graphics policy', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.appGetGraphicsPolicy)!.fn
+			const result = await handler(null, undefined)
+
+			expect(result).toEqual({ok: true, data: {backdrop: {forceRenderMode: null, softwareWebglAllowed: false}}})
 		})
 
 		it('app:installYtDlpWinget invokes the binary manager repair action', async () => {

@@ -3,6 +3,7 @@ import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {ProbeService} from '@main/services/ProbeService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
 import type {ProbeProgressEvent} from '@shared/types.js'
+import type {ProbeInfoJsonCache} from '@main/services/ProbeInfoJsonCache.js'
 
 vi.mock('@main/utils/process', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
@@ -16,6 +17,7 @@ vi.mock('@main/services/ytDlpJsRuntime', async importOriginal => {
 
 import {spawnYtDlp} from '@main/utils/process.js'
 import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
+import log from 'electron-log/main.js'
 
 // Fake child process that emits a canned stdout payload then exits cleanly.
 // Mirrors the pattern in ytdlp-args.test.ts but lets each test inject its own
@@ -36,8 +38,8 @@ function makeYtDlp(): YtDlp {
 	return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never)
 }
 
-function makeProbeService(mockMode = false): ProbeService {
-	return new ProbeService(makeYtDlp(), mockMode)
+function makeProbeService(mockMode = false, cache?: ProbeInfoJsonCache): ProbeService {
+	return new ProbeService(makeYtDlp(), mockMode, cache)
 }
 
 beforeEach(() => {
@@ -74,6 +76,86 @@ describe('ProbeService — video probe', () => {
 			expect(r.data.title).toBe('Bandcamp Track')
 			expect(r.data.formats.length).toBe(1)
 		}
+		expect(spawnYtDlp).toHaveBeenCalledTimes(1)
+	})
+
+	it('uses one combined-client YouTube probe so Dolby formats are in the same extraction context', async () => {
+		const json = JSON.stringify({
+			_type: 'video',
+			id: 'yt1',
+			title: 'Combined Title',
+			thumbnail: 'https://example.com/combined.jpg',
+			extractor: 'youtube',
+			extractor_key: 'Youtube',
+			webpage_url: 'https://www.youtube.com/watch?v=yt1',
+			formats: [
+				{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2', resolution: '360p'},
+				{format_id: '140', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 128},
+				{format_id: '328', ext: 'm4a', vcodec: 'none', acodec: 'ec-3', abr: 384},
+				{format_id: '380', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', abr: 384}
+			]
+		})
+		vi.mocked(spawnYtDlp).mockImplementationOnce(() => makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=yt1', 'off', 'video')
+
+		expect(spawnYtDlp).toHaveBeenCalledTimes(1)
+		const args: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1]
+		const extractorArgs = args.flatMap((arg, index, allArgs) => (arg === '--extractor-args' ? [allArgs[index + 1]] : []))
+		expect(args).toContain('--no-playlist')
+		expect(extractorArgs).toContain('youtube:player_client=default,web_embedded')
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'video') {
+			expect(r.data.title).toBe('Combined Title')
+			expect(r.data.thumbnail).toBe('https://example.com/combined.jpg')
+			const byId = new Map(r.data.formats.map(format => [format.formatId, format]))
+			expect(byId.get('328')?.label).toContain('ec-3')
+			expect(byId.get('380')?.label).toContain('ac-3')
+			expect(byId.get('140')?.label).toContain('AAC')
+			expect(byId.get('140')?.label).toContain('128 kbps')
+		}
+	})
+
+	it('writes a durable info-json ref for explicit single-video probes', async () => {
+		const json = JSON.stringify({_type: 'video', id: 'yt1', title: 'Ref Title', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=yt1', formats: [{format_id: '251', ext: 'webm', vcodec: 'none', acodec: 'opus', abr: 143}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+		const ref = {id: '00000000-0000-4000-8000-000000000001', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'yt1'}
+		const cache = {write: vi.fn().mockResolvedValue(ref), resolve: vi.fn().mockResolvedValue('/cache/probe-info-cache-v1/00000000-0000-4000-8000-000000000001.info.json')} as unknown as ProbeInfoJsonCache
+		vi.mocked(log.info).mockClear()
+
+		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=yt1', 'off', 'video')
+
+		expect(cache.write).toHaveBeenCalledWith(expect.objectContaining({id: 'yt1', title: 'Ref Title'}), {videoId: 'yt1'})
+		expect(cache.resolve).toHaveBeenCalledWith(ref)
+		expect(log.info).toHaveBeenCalledWith('Probe info-json cached', expect.objectContaining({url: 'https://www.youtube.com/watch?v=yt1', probeInfoJsonRef: ref, probeInfoJsonPath: '/cache/probe-info-cache-v1/00000000-0000-4000-8000-000000000001.info.json'}))
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'video') {
+			expect(r.data.probeInfoJsonRef).toEqual(ref)
+		}
+	})
+
+	it('does not write info-json refs for auto-mode probes even when they resolve to a video', async () => {
+		const json = JSON.stringify({_type: 'video', id: 'auto-video', title: 'Auto Video', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=auto-video', formats: [{format_id: '251', ext: 'webm', vcodec: 'none', acodec: 'opus', abr: 143}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+		const cache = {write: vi.fn()} as unknown as ProbeInfoJsonCache
+
+		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=auto-video', 'off', 'auto')
+
+		expect(cache.write).not.toHaveBeenCalled()
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'video') expect(r.data.probeInfoJsonRef).toBeUndefined()
+	})
+
+	it('does not write info-json refs for explicit video probes that fail content validation', async () => {
+		const json = JSON.stringify({_type: 'video', id: 'empty-video', title: 'Empty Video', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=empty-video', formats: [], subtitles: {}, automatic_captions: {}})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+		const cache = {write: vi.fn()} as unknown as ProbeInfoJsonCache
+
+		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=empty-video', 'off', 'video')
+
+		expect(cache.write).not.toHaveBeenCalled()
+		expect(r.ok).toBe(false)
+		if (!r.ok && r.error.kind === 'other') expect(r.error.code).toBe('no_formats')
 	})
 })
 
@@ -89,6 +171,7 @@ describe('ProbeService — playlist probe', () => {
 			expect(r.data.playlistTitle).toBe('My Songs')
 			expect(r.data.entries).toHaveLength(1)
 		}
+		expect(spawnYtDlp).toHaveBeenCalledTimes(1)
 	})
 
 	it('emits playlist probe progress from yt-dlp item status lines', async () => {
@@ -314,7 +397,7 @@ describe('ProbeService — playlistMode arg threading', () => {
 		['video', '--no-playlist'],
 		['playlist', '--yes-playlist']
 	] as const)("playlistMode='%s' surfaces as %s in spawnYtDlp args", async (mode, expectedFlag) => {
-		const json = JSON.stringify({_type: 'video', id: 'x', title: 't', extractor: 'youtube', formats: [{format_id: 'mp4', ext: 'mp4', vcodec: 'avc1', acodec: 'aac', resolution: '720p'}]})
+		const json = JSON.stringify({_type: 'video', id: 'x', title: 't', extractor: 'generic', formats: [{format_id: 'mp4', ext: 'mp4', vcodec: 'avc1', acodec: 'aac', resolution: '720p'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
 		await makeProbeService().probe('https://www.youtube.com/watch?v=x&list=PLabc', 'off', mode)
@@ -324,7 +407,7 @@ describe('ProbeService — playlistMode arg threading', () => {
 	})
 
 	it("default playlistMode='auto' adds neither --no-playlist nor --yes-playlist", async () => {
-		const json = JSON.stringify({_type: 'video', id: 'x', title: 't', extractor: 'youtube', formats: [{format_id: 'mp4', ext: 'mp4', vcodec: 'avc1', acodec: 'aac'}]})
+		const json = JSON.stringify({_type: 'video', id: 'x', title: 't', extractor: 'generic', formats: [{format_id: 'mp4', ext: 'mp4', vcodec: 'avc1', acodec: 'aac'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
 		await makeProbeService().probe('https://www.youtube.com/watch?v=x')

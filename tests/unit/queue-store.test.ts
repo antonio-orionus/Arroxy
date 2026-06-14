@@ -65,6 +65,16 @@ describe('QueueStore', () => {
 		expect(loaded[0].resumeContext).toEqual({kind: 'media-retry', tempDir: '/tmp/.arroxy-temp/resume', reason: 'media-transfer', failureKind: 'network'})
 	})
 
+	it('round-trips probe info-json refs for restart-bound single-video jobs', async () => {
+		const [store] = await tempStore()
+		const ref = {id: '00000000-0000-4000-8000-000000000001', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'abc'}
+		const item = makeItem({id: 'probe-ref', status: 'pending', probeInfoJsonRef: ref})
+		await store.save([item])
+
+		const loaded = await loadOk(store)
+		expect(loaded[0].probeInfoJsonRef).toEqual(ref)
+	})
+
 	it('demotes running → pending and clears progress + lastJobId on save (process did not survive)', async () => {
 		const [store] = await tempStore()
 		const item = makeItem({id: 'd', status: 'running', progressPercent: 67, progressDetail: '4.5MiB/s ETA 00:10', lastJobId: 'job-xyz'})

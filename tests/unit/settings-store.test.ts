@@ -5,6 +5,7 @@ import {describe, expect, it} from 'vitest'
 import {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {SettingsStore} from '@main/stores/SettingsStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
+import {updateSettingsSchema} from '@shared/schemas.js'
 
 describe('settings and recent stores', () => {
 	const baseDefaults = defaultAppSettings('/tmp')
@@ -31,6 +32,31 @@ describe('settings and recent stores', () => {
 
 		const readBack = await store.get()
 		expect(readBack.common.backdropRenderMode).toBe('css-only')
+	})
+
+	it('defaults, validates, and persists native audio preference', async () => {
+		expect(baseDefaults.common.nativeAudioPreference).toBe('compatible')
+		expect(updateSettingsSchema.safeParse({common: {nativeAudioPreference: 'surround'}}).success).toBe(true)
+		expect(updateSettingsSchema.safeParse({common: {nativeAudioPreference: 'cinema'}}).success).toBe(false)
+
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-native-audio-'))
+		const store = new SettingsStore(userData, baseDefaults)
+
+		const updated = await store.update({common: {nativeAudioPreference: 'surround'}})
+		expect(updated.common.nativeAudioPreference).toBe('surround')
+		expect((await store.get()).common.nativeAudioPreference).toBe('surround')
+	})
+
+	it('validates and persists the last shown release notes version', async () => {
+		expect(updateSettingsSchema.safeParse({common: {lastReleaseNotesVersionShown: '1.2.0'}}).success).toBe(true)
+		expect(updateSettingsSchema.safeParse({common: {lastReleaseNotesVersionShown: ''}}).success).toBe(false)
+
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-release-notes-'))
+		const store = new SettingsStore(userData, baseDefaults)
+
+		const updated = await store.update({common: {lastReleaseNotesVersionShown: '1.2.0'}})
+		expect(updated.common.lastReleaseNotesVersionShown).toBe('1.2.0')
+		expect((await store.get()).common.lastReleaseNotesVersionShown).toBe('1.2.0')
 	})
 
 	it('persists subtitle language preferences', async () => {

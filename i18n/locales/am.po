@@ -515,6 +515,22 @@ msgctxt "queue.toggleTitle"
 msgid "Toggle download queue"
 msgstr "የዳውንሎድ ተሰላፊ ቀያይር"
 
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "ቀጥል"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "አዲስ ዝማኔ እያስኬዱ ነው። ዋና ዋና ነጥቦቹ እነሆ።"
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "ሙሉ የልቀት ማስታወሻዎች ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "በArroxy {{version}} ውስጥ ምን አዲስ ነገር አለ"
+
 msgctxt "repair.actions.cancel"
 msgid "Cancel"
 msgstr "ሰርዝ"
@@ -1769,6 +1785,10 @@ msgctxt "wizard.url.backdrop.panelTitle"
 msgid "Appearance and performance"
 msgstr "መልክ እና አፈጻጸም"
 
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "የሃርድዌር WebGL በዚህ መሣሪያ ላይ አይገኝም፣ ስለዚህ Arroxy የአፈጻጸም ዳራን እየተጠቀመ ነው።"
+
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "ብዙ URLዎች"
@@ -1980,6 +2000,22 @@ msgstr "በዳራ ዳውንሎድ እያደረጉ ነው… ብዙ ስራ አሰ
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "አገናኝ ጣል፣ Arroxy እንዲያወርደው ተወው ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "ተኳኋኝ ስቴሪዮ"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "“Best native” ምን እንደሚመርጥ ይቆጣጠራል። በእጅ የሚመረጡ የድምፅ ረድፎች እና M4A/AAC ግልጽ ምርጫዎች ሆነው ይቀራሉ።"
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "የተፈጥሯዊ ድምፅ ምርጫ"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "surround / Dolby ን ይመርጡ"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."

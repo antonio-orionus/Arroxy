@@ -6,6 +6,7 @@ import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
 import {DEFAULTS, DISCORD_URL} from '@shared/constants.js'
 import {ZOOM_MIN, ZOOM_MAX, ZOOM_STEP, type UiTheme} from '@shared/schemas.js'
+import type {BackdropRenderMode, GraphicsPolicy} from '@shared/types.js'
 import {useAppStore} from './store/useAppStore.js'
 import {AppBackdrop} from './components/layout/background/AppBackdrop.js'
 import type {BackdropColorScheme} from './components/layout/background/types.js'
@@ -20,11 +21,14 @@ import {LanguagePicker} from './components/system/LanguagePicker.js'
 import {AboutDialog} from './components/system/AboutDialog.js'
 import {FeedbackDialog} from './components/system/FeedbackDialog.js'
 import {useUpdateChannel} from './components/system/useUpdateChannel.js'
+import {WhatsNewDialog} from './components/system/WhatsNewDialog.js'
+import {useWhatsNewDialog} from './components/system/useWhatsNewDialog.js'
 import {shouldShowSplashGreeting} from './components/system/splashGreeting.js'
 import {Button} from './components/ui/button.js'
 import {ButtonGroup} from './components/ui/button-group.js'
 import {TooltipProvider} from './components/ui/tooltip.js'
 import {cn} from './lib/utils.js'
+import changelogText from '../../../CHANGELOG.md?raw'
 
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
 const ShareDialog = lazy(() => import('./components/system/ShareDialog.js').then(module => ({default: module.ShareDialog})))
@@ -67,10 +71,26 @@ function shouldRenderStartupSplash(): boolean {
 	return window.__arroxyBrowserMockShowStartupSplash === true
 }
 
+function effectiveBackdropRenderMode(preferredMode: BackdropRenderMode | null, graphicsPolicy: GraphicsPolicy | null): BackdropRenderMode {
+	if (!preferredMode || !graphicsPolicy) return 'css-only'
+	return graphicsPolicy.backdrop.forceRenderMode ?? preferredMode
+}
+
 export function App(): ReactNode {
 	const {t} = useTranslation()
-	const {initialized, initialize, openLogs, setSplashDismissed, warmupBlocking, warmupDiagnostics, warmupProgress, settings} = useAppStore(
-		useShallow(state => ({initialized: state.initialized, initialize: state.initialize, openLogs: state.openLogs, setSplashDismissed: state.setSplashDismissed, warmupBlocking: state.warmupBlocking, warmupDiagnostics: state.warmupDiagnostics, warmupProgress: state.warmupProgress, settings: state.settings}))
+	const {initialized, initialize, openLogs, setSplashDismissed, splashDismissed, warmupBlocking, warmupDiagnostics, warmupProgress, settings, graphicsPolicy} = useAppStore(
+		useShallow(state => ({
+			initialized: state.initialized,
+			initialize: state.initialize,
+			openLogs: state.openLogs,
+			setSplashDismissed: state.setSplashDismissed,
+			splashDismissed: state.splashDismissed,
+			warmupBlocking: state.warmupBlocking,
+			warmupDiagnostics: state.warmupDiagnostics,
+			warmupProgress: state.warmupProgress,
+			settings: state.settings,
+			graphicsPolicy: state.graphicsPolicy
+		}))
 	)
 	const {uiZoom, setUiZoom, uiTheme, setAboutDialogOpen, openShareDialog, shareDialogOpen} = useAppStore(
 		useShallow(state => ({uiZoom: state.uiZoom, setUiZoom: state.setUiZoom, uiTheme: state.uiTheme, setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog, shareDialogOpen: state.shareDialogOpen}))
@@ -81,7 +101,10 @@ export function App(): ReactNode {
 	const [colorScheme, setColorScheme] = useState<BackdropColorScheme>(() => (document.documentElement.classList.contains('dark') ? 'dark' : 'light'))
 	const [backdropPreviewMode, setBackdropPreviewMode] = useState<BackdropPreviewMode>(() => backdropPreviewModeFromUrl())
 	const showStartupSplash = shouldRenderStartupSplash()
-	const backdropRenderMode = settings?.common?.backdropRenderMode ?? DEFAULTS.backdropRenderMode
+	const whatsNew = useWhatsNewDialog(changelogText, {startupReady: !showStartupSplash || splashDismissed})
+	const preferredBackdropRenderMode = settings ? (settings.common?.backdropRenderMode ?? DEFAULTS.backdropRenderMode) : null
+	const backdropRenderMode = effectiveBackdropRenderMode(preferredBackdropRenderMode, graphicsPolicy)
+	const softwareWebglAllowed = graphicsPolicy?.backdrop.softwareWebglAllowed ?? false
 
 	function openDiscord(): void {
 		void window.appApi.shell.openExternal(DISCORD_URL)
@@ -139,7 +162,7 @@ export function App(): ReactNode {
 		}
 		return (
 			<div className="relative h-screen w-screen overflow-hidden" data-testid="backdrop-stage">
-				<AppBackdrop key={`${colorScheme}-${backdropPreviewMode}`} colorScheme={colorScheme} renderMode={previewModeToRenderMode(backdropPreviewMode)} />
+				<AppBackdrop key={`${colorScheme}-${backdropPreviewMode}`} colorScheme={colorScheme} renderMode={previewModeToRenderMode(backdropPreviewMode)} softwareWebglAllowed={backdropPreviewMode === 'gpu'} />
 				<div className="fixed bottom-4 left-4 z-10 flex max-w-[calc(100vw-2rem)] flex-wrap items-center gap-2 rounded-md border border-[var(--border-strong)] bg-background/80 px-2 py-1.5 backdrop-blur">
 					<ThemeToggle />
 					<div className="h-5 w-px bg-border" aria-hidden />
@@ -176,7 +199,7 @@ export function App(): ReactNode {
 	return (
 		<TooltipProvider>
 			<div className="relative flex flex-col h-screen w-screen overflow-hidden" data-testid="app-root">
-				<AppBackdrop key={`${colorScheme}-${backdropRenderMode}`} colorScheme={colorScheme} renderMode={backdropRenderMode} />
+				<AppBackdrop key={`${colorScheme}-${backdropRenderMode}-${softwareWebglAllowed ? 'software' : 'hardware'}`} colorScheme={colorScheme} renderMode={backdropRenderMode} softwareWebglAllowed={softwareWebglAllowed} />
 				<TitleBar />
 
 				{update.info && <UpdateBanner info={update.info} installing={update.installing} installError={update.error} onInstall={update.install} onDownload={update.download} onDismiss={update.dismiss} />}
@@ -266,6 +289,7 @@ export function App(): ReactNode {
 					</Suspense>
 				) : null}
 				<FeedbackDialog open={feedbackDialogOpen} onOpenChange={setFeedbackDialogOpen} />
+				<WhatsNewDialog open={whatsNew.open} notes={whatsNew.notes} onClose={whatsNew.close} onOpenFullNotes={whatsNew.openFullNotes} />
 				{SHOW_SCENARIO_GALLERY ? (
 					<Suspense fallback={null}>
 						<ScenarioGallery />

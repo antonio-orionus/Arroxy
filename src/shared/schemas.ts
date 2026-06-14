@@ -149,6 +149,9 @@ export type UiTheme = z.infer<typeof uiThemeSchema>
 export const backdropRenderModeSchema = z.enum(['css-only', 'gpu'])
 export type BackdropRenderMode = z.infer<typeof backdropRenderModeSchema>
 
+export const graphicsPolicyBackdropReasonSchema = z.enum(['gpu-feature-disabled', 'gpu-feature-software', 'virtual-or-software-renderer', 'gpu-info-unavailable'])
+export type GraphicsPolicyBackdropReason = z.infer<typeof graphicsPolicyBackdropReasonSchema>
+
 export const quickDownloadStatusSchema = z.enum(['idle', 'preparing', 'queued', 'error'])
 export type QuickDownloadStatus = z.infer<typeof quickDownloadStatusSchema>
 
@@ -185,6 +188,10 @@ export type CookiesBrowser = z.infer<typeof cookiesBrowserSchema>
 
 export const networkPacingPresetSchema = z.enum(['off', 'balanced', 'careful', 'custom'])
 export type NetworkPacingPreset = z.infer<typeof networkPacingPresetSchema>
+
+export const nativeAudioPreferenceSchema = z.enum(['compatible', 'surround'])
+export type NativeAudioPreference = z.infer<typeof nativeAudioPreferenceSchema>
+export const NATIVE_AUDIO_PREFERENCES = nativeAudioPreferenceSchema.options
 
 export const pacingSleepSecondsSchema = z.number().min(0).max(120)
 export const pacingConcurrentFragmentsSchema = z.number().int().min(0).max(16)
@@ -380,6 +387,7 @@ const commonSettingsPatchSchema = z.object({
 	cookiesMode: cookiesModeSchema.optional(),
 	cookiesBrowser: cookiesBrowserSchema.optional(),
 	proxyUrl: z.string().optional(),
+	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
 	clipboardWatchEnabled: z.boolean().optional(),
 	includeIdInSingleFilenames: z.boolean().optional(),
 	closeBehavior: z.enum(['ask', 'tray', 'quit']).optional(),
@@ -394,6 +402,7 @@ const commonSettingsPatchSchema = z.object({
 	analyticsEnabled: z.boolean().optional(),
 	firstRunCompleted: z.boolean().optional(),
 	launchCount: z.number().int().nonnegative().optional(),
+	lastReleaseNotesVersionShown: z.string().trim().min(1).optional(),
 	drawerOpen: z.boolean().optional(),
 	successfulDownloadCount: z.number().int().nonnegative().optional(),
 	shareInlineCardDismissed: z.boolean().optional(),
@@ -440,6 +449,7 @@ const localizedErrorSchema = z.object({kind: ytDlpErrorKindSchema, raw: z.string
 const statusSnapshotSchema = z.object({key: statusKeySchema, params: z.record(z.string(), z.union([z.string(), z.number()])).optional()})
 
 const queueResumeContextSchema = z.object({kind: z.literal('media-retry'), tempDir: z.string().min(1), reason: z.enum(['media-transfer', 'postprocess']), failureKind: ytDlpErrorKindSchema})
+const probeInfoJsonRefSchema = z.object({id: z.string().min(1), createdAt: z.string().min(1), videoId: z.string().min(1).optional()})
 
 export const queueItemSchema = z
 	.object({
@@ -470,6 +480,7 @@ export const queueItemSchema = z
 		tempDir: z.string().min(1).optional(),
 		lastJobId: z.string().min(1).optional(),
 		resumeContext: queueResumeContextSchema.optional(),
+		probeInfoJsonRef: probeInfoJsonRefSchema.optional(),
 		job: preparedJobSchema
 	})
 	.superRefine((item, ctx) => {

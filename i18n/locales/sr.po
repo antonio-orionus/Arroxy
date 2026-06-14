@@ -515,6 +515,22 @@ msgctxt "queue.toggleTitle"
 msgid "Toggle download queue"
 msgstr "Прикажи/сакриј ред за преузимање"
 
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Настави"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Користите ново ажурирање. Ево најважнијих измена."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Комплетне белешке о издању ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Шта је ново у Arroxy {{version}}"
+
 msgctxt "repair.actions.cancel"
 msgid "Cancel"
 msgstr "Откажи"
@@ -1769,6 +1785,10 @@ msgctxt "wizard.url.backdrop.panelTitle"
 msgid "Appearance and performance"
 msgstr "Изглед и перформансе"
 
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "Хардверски WebGL није доступан на овом уређају, па Arroxy користи позадину за боље перформансе."
+
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "Групни URL-ови"
@@ -1980,6 +2000,22 @@ msgstr "Преузимање у позадини… Умем да радим в�
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Убаци линк и пусти Arroxy да га преузме ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Kompatibilni stereo"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "Određuje šta bira „Najbolji izvorni“. Ručni audio redovi i M4A/AAC ostaju izričit izbor."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Postavka izvornog zvuka"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Daj prednost surround / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."

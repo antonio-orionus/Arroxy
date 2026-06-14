@@ -6,13 +6,15 @@ import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {sortFormatsByQuality} from '@shared/qualitySorter.js'
 import {humanSize} from '@shared/format.js'
-import type {FormatOption, PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, SubtitleMap} from '@shared/types.js'
+import type {FormatOption, PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, SubtitleMap, ProbeInfoJsonRef} from '@shared/types.js'
 import {LIVE_CHAT_LANG} from '@shared/constants.js'
 import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpFormat, type YtDlpSubtitleTrack} from '@shared/ytdlp/infoDict.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {classifyYtDlpStderr, type YtDlpErrorKind} from 'ytdlp-errors'
-import {siteForExtractor, type Site} from '@shared/sites/index.js'
+import {siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
+import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import {YtDlp} from './YtDlp.js'
+import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
 
 const logger = log.scope('probe')
 
@@ -45,6 +47,7 @@ type PlaylistScopeRequestLog = PlaylistScope['items']
 
 interface ProbeAttemptSuccess {
 	info: InfoDict
+	raw: unknown
 	stderr: string
 	degradationSignals: ProbeSignal[]
 }
@@ -74,6 +77,21 @@ function friendlyCodec(acodec: string): string {
 	return acodec
 }
 
+function isDrcAudio(format: YtDlpFormat): boolean {
+	return /(?:^|[-_\s])drc(?:$|[-_\s])/i.test(format.format_id ?? '') || /\bdrc\b/i.test(format.format_note ?? '')
+}
+
+function channelLabel(channels: number | undefined): string | null {
+	if (!channels || channels === 2) return null
+	return `${Math.round(channels)}ch`
+}
+
+function sampleRateLabel(sampleRateHz: number | undefined): string | null {
+	if (!sampleRateHz || sampleRateHz === 44_100 || sampleRateHz === 48_000) return null
+	const khz = sampleRateHz / 1_000
+	return `${Number.isInteger(khz) ? khz.toFixed(0) : khz.toFixed(2)} kHz`
+}
+
 export function mapFormats(formats: readonly YtDlpFormat[]): FormatOption[] {
 	const mapped = formats.flatMap((item): FormatOption[] => {
 		if (!item.format_id || item.ext === 'mhtml' || (item.vcodec === 'none' && (!item.acodec || item.acodec === 'none'))) return []
@@ -84,9 +102,11 @@ export function mapFormats(formats: readonly YtDlpFormat[]): FormatOption[] {
 
 		if (isAudioOnly) {
 			const abr = item.abr
+			const audioCodec = item.acodec
+			const isDrc = isDrcAudio(item)
 			const codec = friendlyCodec(item.acodec ?? '')
-			const details = [ext, codec, abr ? `${Math.round(abr)} kbps` : null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' · ')
-			return [{formatId, label: details, ext, resolution: 'audio only', abr, filesize, isVideoOnly: false, isAudioOnly: true, dynamicRange: undefined} satisfies FormatOption]
+			const details = [ext, codec, channelLabel(item.audio_channels), isDrc ? 'DRC' : null, sampleRateLabel(item.asr), abr ? `${Math.round(abr)} kbps` : null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' · ')
+			return [{formatId, label: details, ext, resolution: 'audio only', abr, audioCodec, isDrc, filesize, isVideoOnly: false, isAudioOnly: true, dynamicRange: undefined} satisfies FormatOption]
 		}
 
 		const resolution = item.resolution ?? item.format_note ?? 'unknown'
@@ -287,12 +307,13 @@ function mapPlaylistEntriesInner(entries: readonly InfoDict[], jobUrl: string, s
 	return out
 }
 
-function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reasons: ProbeDegradationReason[]} | undefined): ProbeResult {
+function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reasons: ProbeDegradationReason[]} | undefined, probeInfoJsonRef?: ProbeInfoJsonRef): ProbeResult {
 	const extractor = info.extractor ?? ''
 	const site = siteForExtractor(extractor)
 	return {
 		kind: 'video',
 		videoId: typeof info.id === 'string' && info.id.length > 0 ? info.id : null,
+		...(probeInfoJsonRef ? {probeInfoJsonRef} : {}),
 		extractor,
 		extractorKey: info.extractor_key ?? '',
 		webpageUrl: info.webpage_url ?? jobUrl,
@@ -334,7 +355,8 @@ export class ProbeService extends EventEmitter {
 
 	constructor(
 		private readonly ytDlp: YtDlp,
-		private readonly mockMode = false
+		private readonly mockMode = false,
+		private readonly probeInfoJsonCache?: ProbeInfoJsonCache
 	) {
 		super()
 	}
@@ -407,6 +429,12 @@ export class ProbeService extends EventEmitter {
 					emitFailure('content_unavailable')
 					return fail<ProbeResult, ProbeError>({kind: 'other', code: 'no_formats', message: 'Probe returned no formats'})
 				}
+				const probeInfoJsonRef = playlistMode === 'video' ? await this.probeInfoJsonCache?.write(final.raw, {videoId: typeof video.id === 'string' ? video.id : null}) : undefined
+				if (probeInfoJsonRef) {
+					const probeInfoJsonPath = await this.probeInfoJsonCache?.resolve(probeInfoJsonRef)
+					logger.info('Probe info-json cached', {url, videoId: probeInfoJsonRef.videoId ?? null, probeInfoJsonRef, probeInfoJsonPath: probeInfoJsonPath ?? null})
+					if (mapped.kind === 'video') mapped = {...mapped, probeInfoJsonRef}
+				}
 			}
 
 			emitSuccess(mapped)
@@ -466,6 +494,8 @@ export class ProbeService extends EventEmitter {
 
 	private async runProbeAttempt(url: string, attempt: ProbeAttemptName, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal): Promise<ProbeAttemptResult> {
 		const source = attempt === 'retry' ? 'yt-dlp-probe-retry' : 'yt-dlp-probe'
+		const youtubePlayerClient = playlistMode === 'video' && siteForUrl(url).id === 'youtube' ? [...YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS] : undefined
+		const extractor = youtubePlayerClient ? {youtube: {playerClient: youtubePlayerClient}} : undefined
 		let stdoutRemainder = ''
 		const consumeStdout = (chunk: string): void => {
 			const parts = `${stdoutRemainder}${chunk}`.split(/\r?\n/)
@@ -478,7 +508,7 @@ export class ProbeService extends EventEmitter {
 			}
 		}
 		const result = await this.ytDlp.run(
-			{kind: 'probe', url, selection: {playlistMode, ...(playlistScope ? {playlistScope} : {})}},
+			{kind: 'probe', url, selection: {playlistMode, ...(playlistScope ? {playlistScope} : {})}, ...(extractor ? {extractor} : {})},
 			{
 				abortSignal: signal,
 				onStdout: consumeStdout,
@@ -534,7 +564,7 @@ export class ProbeService extends EventEmitter {
 			extractor: (info as VideoInfo).extractor,
 			degradationSignals: degradationSignals.length > 0 ? degradationSignals.map(s => s.label) : undefined
 		})
-		return {kind: 'success', data: {info, stderr: result.stderr, degradationSignals}}
+		return {kind: 'success', data: {info, raw, stderr: result.stderr, degradationSignals}}
 	}
 }
 

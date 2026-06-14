@@ -515,6 +515,22 @@ msgctxt "queue.toggleTitle"
 msgid "Toggle download queue"
 msgstr "Download-Warteschlange ein-/ausblenden"
 
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Weiter"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Du verwendest ein frisches Update. Hier sind die Highlights."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Vollständige Versionshinweise ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Neu in Arroxy {{version}}"
+
 msgctxt "repair.actions.cancel"
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -1769,6 +1785,10 @@ msgctxt "wizard.url.backdrop.panelTitle"
 msgid "Appearance and performance"
 msgstr "Darstellung und Leistung"
 
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "Hardware-WebGL ist auf diesem Gerät nicht verfügbar, daher verwendet Arroxy den Performance-Hintergrund."
+
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "Bulk-URLs"
@@ -1980,6 +2000,22 @@ msgstr "Lade im Hintergrund… ich kann mehrere Dinge gleichzeitig 😎"
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Wirf einen Link rein und lass Arroxy ihn holen ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Kompatibles Stereo"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "Steuert, was „Bestes nativ“ auswählt. Manuelle Audiozeilen und M4A/AAC bleiben explizit."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Native Audioeinstellung"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Surround / Dolby bevorzugen"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."

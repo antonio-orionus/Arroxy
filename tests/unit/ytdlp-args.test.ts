@@ -70,6 +70,7 @@ function mediaRequest(
 		writeDescription?: boolean
 		writeThumbnail?: boolean
 		loadInfoJsonPath?: string
+		playerClient?: string[]
 	} = {}
 ): YtDlpRequest {
 	const outputDir = overrides.outputDir ?? OUTPUT_DIR
@@ -82,7 +83,8 @@ function mediaRequest(
 		...(overrides.subtitleLanguages !== undefined ? {subtitles: {embed: true, languages: overrides.subtitleLanguages, writeAuto: overrides.writeAutoSubs}} : {}),
 		...(overrides.sponsorBlock ? {sponsorBlock: overrides.sponsorBlock} : {}),
 		embed: {chapters: overrides.embedChapters, metadata: overrides.embedMetadata, thumbnail: overrides.embedThumbnail, description: overrides.writeDescription, thumbnailSidecar: overrides.writeThumbnail},
-		...(overrides.loadInfoJsonPath ? {resume: {loadInfoJsonPath: overrides.loadInfoJsonPath}} : {})
+		...(overrides.loadInfoJsonPath ? {resume: {loadInfoJsonPath: overrides.loadInfoJsonPath}} : {}),
+		...(overrides.playerClient ? {extractor: {youtube: {playerClient: overrides.playerClient}}} : {})
 	}
 }
 
@@ -717,6 +719,14 @@ describe('YtDlp — extractor-args shape', () => {
 		const i = args.indexOf('--extractor-args')
 		expect(i).toBeGreaterThanOrEqual(0)
 		expect(args[i + 1]).toBe('youtube:po_token=web.gvs+MYTOKEN;visitor_data=MYVISITOR')
+	})
+
+	it('media with explicit YouTube player_client keeps PoT and client extractor args', async () => {
+		const ytDlp = makeYtDlp({token: 'MYTOKEN', visitorData: 'MYVISITOR'})
+		await ytDlp.run(mediaRequest({formatId: '337+380', playerClient: ['default', 'web_embedded']}))
+		const extractorArgs = getArgs().flatMap((arg, index, args) => (arg === '--extractor-args' ? [args[index + 1]] : []))
+		expect(extractorArgs).toContain('youtube:po_token=web.gvs+MYTOKEN;visitor_data=MYVISITOR')
+		expect(extractorArgs).toContain('youtube:player_client=default,web_embedded')
 	})
 })
 

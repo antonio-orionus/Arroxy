@@ -172,7 +172,8 @@
 				"cssOnlyLabel": "Καλύτερη απόδοση",
 				"cssOnlyDescription": "Μόνο CSS, χωρίς απόδοση canvas.",
 				"gpuLabel": "Πιο όμορφο",
-				"gpuDescription": "Κινούμενο φόντο WebGL όταν υποστηρίζεται."
+				"gpuDescription": "Κινούμενο φόντο WebGL όταν υποστηρίζεται.",
+				"runtimeFallbackNotice": "Το WebGL μέσω υλικού δεν είναι διαθέσιμο σε αυτήν τη συσκευή, οπότε το Arroxy χρησιμοποιεί το φόντο επιδόσεων."
 			},
 			"limitRate": {
 				"label": "Όριο ταχύτητας λήψης",
@@ -197,6 +198,7 @@
 				"invalid": "Χρησιμοποίησε έναν ακέραιο από 1 έως 5000",
 				"tooltip": "Αντιστοιχεί στο yt-dlp --playlist-end: το Arroxy ζητά μόνο τόσες εγγραφές playlist, καναλιού ή αναζήτησης κατά τη δημιουργία του picker."
 			},
+			"nativeAudioPreference": {"label": "Προτίμηση εγγενούς ήχου", "description": "Ελέγχει τι επιλέγει το «Καλύτερο εγγενές». Οι χειροκίνητες γραμμές ήχου και τα M4A/AAC παραμένουν ρητές επιλογές.", "compatible": "Συμβατό στερεοφωνικό", "surround": "Προτίμηση surround / Dolby"},
 			"singleFilenameId": {"toggle": "Προσθήκη ID βίντεο στα μεμονωμένα ονόματα αρχείων", "toggleDescription": "Κρατά τις μεμονωμένες λήψεις μοναδικές όταν αλλάζουν ή συμπίπτουν οι τίτλοι."},
 			"networkPacing": {
 				"heading": "Ήπιες λήψεις",
@@ -413,6 +415,7 @@
 		"installFailed": "Η ενημέρωση απέτυχε",
 		"retry": "Επανάληψη"
 	},
+	"releaseNotes": {"title": "Τι νέο υπάρχει στο Arroxy {{version}}", "description": "Χρησιμοποιείτε μια νέα ενημέρωση. Δείτε τα σημαντικότερα σημεία.", "fullNotes": "Πλήρεις σημειώσεις έκδοσης ↗", "continue": "Συνέχεια"},
 	"status": {
 		"preparingBinaries": "Προετοιμασία δυαδικών…",
 		"mintingToken": "Δημιουργία YouTube token…",

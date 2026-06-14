@@ -31,6 +31,40 @@ describe('mapFormats', () => {
 		expect(audioOnly?.isVideoOnly).toBe(false)
 	})
 
+	it('includes YouTube Dolby audio-only codecs without filtering them out', () => {
+		const mapped = mapFormats([
+			{format_id: '328', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ec-3', abr: 384},
+			{format_id: '380', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', abr: 384},
+			{format_id: '251', resolution: 'audio only', ext: 'webm', vcodec: 'none', acodec: 'opus', abr: 143}
+		])
+
+		expect(mapped.map(format => format.formatId).sort()).toEqual(['251', '328', '380'])
+		expect(mapped.map(format => format.formatId)).toEqual(['328', '380', '251'])
+		expect(mapped.find(format => format.formatId === '328')?.label).toContain('ec-3')
+		expect(mapped.find(format => format.formatId === '328')?.audioCodec).toBe('ec-3')
+		expect(mapped.find(format => format.formatId === '380')?.label).toContain('ac-3')
+		expect(mapped.find(format => format.formatId === '380')?.audioCodec).toBe('ac-3')
+	})
+
+	it('disambiguates DRC variants and non-stereo audio in labels', () => {
+		const mapped = mapFormats([
+			{format_id: '140-drc', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.6, format_note: 'medium, DRC', audio_channels: 2, asr: 44100},
+			{format_id: '140', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.6, format_note: 'medium', audio_channels: 2, asr: 44100},
+			{format_id: '139', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.5', abr: 48.9, format_note: 'low', audio_channels: 2, asr: 22050},
+			{format_id: '380', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', abr: 384.1, format_note: 'high', audio_channels: 6, asr: 48000}
+		])
+
+		expect(mapped.find(format => format.formatId === '140-drc')?.label).toContain('DRC')
+		expect(mapped.find(format => format.formatId === '140-drc')?.isDrc).toBe(true)
+		expect(mapped.find(format => format.formatId === '140')?.label).not.toContain('DRC')
+		expect(mapped.find(format => format.formatId === '140')?.isDrc).toBe(false)
+		expect(mapped.find(format => format.formatId === '140')?.label).not.toContain('2ch')
+		expect(mapped.find(format => format.formatId === '140')?.label).not.toContain('44.1 kHz')
+		expect(mapped.find(format => format.formatId === '139')?.label).toContain('22.05 kHz')
+		expect(mapped.find(format => format.formatId === '380')?.label).toContain('6ch')
+		expect(mapped.find(format => format.formatId === '380')?.label).not.toContain('48 kHz')
+	})
+
 	it('sorts by resolution descending then filesize descending', () => {
 		const mapped = mapFormats([
 			{format_id: '18', resolution: '360p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac', filesize: 10000},

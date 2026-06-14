@@ -4,11 +4,9 @@ import {logBackdrop} from './backdropLogger.js'
 import type {BackdropMode, BackdropScene} from './types.js'
 import {createWebglProgram, disposeWebglProgram, isSoftwareRenderer, releaseWebglContext, rendererName, WEBGL_CONTEXT_OPTIONS} from './webgl.js'
 
-function backdropSoftwareAllowed(): boolean {
+function backdropPreviewSoftwareAllowed(): boolean {
 	try {
 		const params = new URLSearchParams(window.location.search)
-		if (params.get('backdropSoftware') === '0') return false
-		if (params.get('backdropSoftware') === '1') return true
 		return (import.meta.env.MODE === 'browser-mock' || import.meta.env.MODE === 'test') && params.has('backdrop') && !params.has('backdropForceFallback')
 	} catch {
 		return false
@@ -38,14 +36,15 @@ function activateStaticFallback(): () => void {
 	return () => document.body.classList.remove('backdrop-static-fallback')
 }
 
-export function CanvasSceneHost({scene, renderMode}: {scene: BackdropScene; renderMode: BackdropRenderMode}): ReactNode {
+function initialBackdropMode(renderMode: BackdropRenderMode): BackdropMode {
+	return renderMode === 'css-only' || forcedFallbackPreviewMode() === 'css' ? 'css' : 'webgl'
+}
+
+export function CanvasSceneHost({scene, renderMode, softwareWebglAllowed = false}: {scene: BackdropScene; renderMode: BackdropRenderMode; softwareWebglAllowed?: boolean}): ReactNode {
 	const webglCanvasRef = useRef<HTMLCanvasElement>(null)
-	const [mode, setMode] = useState<BackdropMode>('webgl')
+	const [mode, setMode] = useState<BackdropMode>(() => initialBackdropMode(renderMode))
 
 	useEffect(() => {
-		const webglCanvas = webglCanvasRef.current
-		if (!webglCanvas) return
-
 		const cleanupSceneClass = addSceneClasses(scene)
 
 		const activateCssFallback = (reason: string, details: Record<string, unknown> = {}, cleanupSceneOnDispose = true): (() => void) => {
@@ -66,7 +65,13 @@ export function CanvasSceneHost({scene, renderMode}: {scene: BackdropScene; rend
 		if (forcedFallback === 'css') return activateCssFallback('forced-css-preview')
 		if (renderMode === 'css-only') return activateCssFallback('render-mode-css-only')
 
-		const softwareRendererAllowed = backdropSoftwareAllowed()
+		const webglCanvas = webglCanvasRef.current
+		if (!webglCanvas) {
+			cleanupSceneClass()
+			return
+		}
+
+		const softwareRendererAllowed = softwareWebglAllowed || backdropPreviewSoftwareAllowed()
 		const probeCanvas = document.createElement('canvas')
 		const probeGl = probeCanvas.getContext('webgl', WEBGL_CONTEXT_OPTIONS)
 		if (!probeGl) return activateCssFallback('scratch-webgl-unavailable')
@@ -232,7 +237,7 @@ export function CanvasSceneHost({scene, renderMode}: {scene: BackdropScene; rend
 			disposeWebglProgram(gl, resources)
 			gl.deleteBuffer(buf)
 		}
-	}, [renderMode, scene])
+	}, [renderMode, scene, softwareWebglAllowed])
 
 	if (mode === 'css') return null
 

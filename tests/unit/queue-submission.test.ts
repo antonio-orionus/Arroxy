@@ -18,6 +18,7 @@ const PLAYLIST_ITEMS: PlaylistEntry[] = [
 const VIDEO_PROBE: Extract<ProbeResult, {kind: 'video'}> = {
 	kind: 'video',
 	videoId: 'abc',
+	probeInfoJsonRef: {id: '00000000-0000-4000-8000-000000000001', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'abc'},
 	extractor: 'youtube',
 	extractorKey: 'Youtube',
 	webpageUrl: 'https://www.youtube.com/watch?v=abc',
@@ -56,6 +57,7 @@ function state(overrides: Partial<AppState> = {}): AppState {
 		wizardSubtitleFormat: 'srt',
 		wizardExtractor: 'youtube',
 		wizardExtractorKey: 'Youtube',
+		wizardProbeInfoJsonRef: {id: '00000000-0000-4000-8000-000000000001', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'abc'},
 		wizardEmbedChapters: true,
 		wizardEmbedMetadata: true,
 		wizardEmbedThumbnail: false,
@@ -97,6 +99,7 @@ describe('QueueSubmission', () => {
 		expect(prepared?.items).toHaveLength(1)
 		expect(prepared?.manifest).toBeUndefined()
 		expect(prepared?.items[0]).toMatchObject({url: 'https://www.youtube.com/watch?v=abc', title: 'Video', outputDir: '/downloads', lane: 'priority', writeM3u: true, job: {kind: 'single-format', formatId: '137+251', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}})
+		expect(prepared?.items[0]?.probeInfoJsonRef).toEqual({id: '00000000-0000-4000-8000-000000000001', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'abc'})
 	})
 
 	it('prepares playlist manual items and a full manifest payload', () => {
@@ -105,6 +108,16 @@ describe('QueueSubmission', () => {
 		expect(prepared?.items).toHaveLength(1)
 		expect(prepared?.items[0]).toMatchObject({playlistGroupId: expect.any(String), writeM3u: true, job: {kind: 'ranged-format'}})
 		expect(prepared?.manifest).toMatchObject({playlistTitle: 'Playlist', outputDir: '/downloads/Playlist', items: PLAYLIST_ITEMS.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))})
+	})
+
+	it('threads surround preference into playlist best-native selectors', () => {
+		const settings = defaultAppSettings('/downloads')
+		settings.common.nativeAudioPreference = 'surround'
+		const prepared = prepareManualQueueSubmission(state({settings, wizardMode: 'playlist', selectedPlaylistItemIds: ['a']}), 'normal')
+		const job = prepared?.items[0]?.job
+
+		expect(job?.kind).toBe('ranged-format')
+		if (job?.kind === 'ranged-format') expect(job.formatSelector).toContain("bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$']")
 	})
 
 	it('localizes Smart TV MP4 playlist queue labels', async () => {
@@ -126,11 +139,30 @@ describe('QueueSubmission', () => {
 		expect(prepared?.items.every(item => item.writeM3u === false && item.playlistGroupId === undefined)).toBe(true)
 	})
 
+	it('prepares bulk items with per-entry probe info-json refs when metadata hydration found them', () => {
+		const ref = {id: '00000000-0000-4000-8000-0000000000aa', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'a'}
+		const prepared = prepareManualQueueSubmission(state({wizardMode: 'bulk', playlistItems: [{...PLAYLIST_ITEMS[0], probeInfoJsonRef: ref}, PLAYLIST_ITEMS[1]]}), 'normal')
+
+		expect(prepared?.items[0]?.probeInfoJsonRef).toEqual(ref)
+		expect(prepared?.items[1]?.probeInfoJsonRef).toBeUndefined()
+	})
+
 	it('prepares an active-profile video item', () => {
 		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({wizardOutputDir: '/profile-downloads'}), 'normal')
 
 		expect(prepared?.items).toHaveLength(1)
 		expect(prepared?.items[0]).toMatchObject({url: 'https://www.youtube.com/watch?v=abc', title: 'Video', outputDir: '/profile-downloads/Balanced 720p', formatLabel: 'Video + audio · Best native · up to 720p · best native audio', job: {kind: 'ranged-format'}})
+		expect(prepared?.items[0]?.probeInfoJsonRef).toEqual(VIDEO_PROBE.probeInfoJsonRef)
+	})
+
+	it('threads surround preference into active-profile best-native selectors', () => {
+		const settings = defaultAppSettings('/downloads')
+		settings.common.nativeAudioPreference = 'surround'
+		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal')
+		const job = prepared?.items[0]?.job
+
+		expect(job?.kind).toBe('ranged-format')
+		if (job?.kind === 'ranged-format') expect(job.formatSelector).toContain("bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$']")
 	})
 
 	it('uses the probe webpage URL for active-profile video items when wizard state is stale', () => {

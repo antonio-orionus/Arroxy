@@ -10,11 +10,16 @@
 import {DEFAULTS} from '@shared/constants.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {AppSettings, AudioSelection, FormatOption, Preset, SubtitleMap} from '@shared/types.js'
+import {isDolbyNativeAudio, isDrcNativeAudio, preferredNativeAudioId} from '@shared/nativeAudioPreference.js'
 import type {FormatPickerSlice, GetState, SetState} from '../types.js'
 import {groupVideoFormats} from '../helpers.js'
 
 function nativeAudio(formatId: string | null): AudioSelection {
 	return formatId === null ? {kind: 'none'} : {kind: 'native', formatId}
+}
+
+function preferredNativeAudioIdForSettings(audioFormats: FormatOption[], settings: AppSettings | null): string | null {
+	return preferredNativeAudioId(audioFormats, settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference)
 }
 
 // When a video format is itself muxed (audio embedded — e.g. Twitch HLS,
@@ -36,12 +41,12 @@ function audioForVideoPick(videoFormatId: string, formats: FormatOption[], fallb
 
 const RESOLUTION_NUMBER_PATTERN = /(\d+)/
 
-export function applyPreset(preset: Preset, formats: FormatOption[]): {videoFormatId: string; audioSelection: AudioSelection} {
+export function applyPreset(preset: Preset, formats: FormatOption[], nativeAudioPreference = DEFAULTS.nativeAudioPreference): {videoFormatId: string; audioSelection: AudioSelection} {
 	// groupVideoFormats appends an `audio-only` sentinel for the format dropdown;
 	// for preset/restore math we only want real video rows.
 	const grouped = groupVideoFormats(formats).filter(g => !g.isAudioOnly)
 	const audioFormats = formats.filter(f => f.isAudioOnly)
-	const bestAudio = audioFormats[0]?.formatId ?? null
+	const bestAudio = preferredNativeAudioId(audioFormats, nativeAudioPreference)
 	const worstAudio = audioFormats[audioFormats.length - 1]?.formatId ?? bestAudio
 
 	if (preset === 'best-quality') {
@@ -78,24 +83,30 @@ export function applyPreset(preset: Preset, formats: FormatOption[]): {videoForm
 // For native, the formatId can change between videos, so fall back:
 // exact id → same ext → bestAudio.
 // Returns null when nothing is persisted; caller uses its default in that case.
-function reviveAudio(persisted: AudioSelection | undefined, formats: FormatOption[]): AudioSelection | null {
+function reviveAudio(persisted: AudioSelection | undefined, formats: FormatOption[], settings: AppSettings | null): AudioSelection | null {
 	if (!persisted) return null
 	const audioFormats = formats.filter(f => f.isAudioOnly)
 
 	if (persisted.kind === 'none') {
 		if (audioFormats.length === 0) return persisted
-		return nativeAudio(audioFormats[0].formatId)
+		return nativeAudio(preferredNativeAudioIdForSettings(audioFormats, settings))
 	}
 
 	if (persisted.kind !== 'native') return persisted
 
 	if (audioFormats.length === 0) return {kind: 'none'}
-	if (audioFormats.some(f => f.formatId === persisted.formatId)) return persisted
+	const persistedFormat = audioFormats.find(f => f.formatId === persisted.formatId)
+	if (persistedFormat) {
+		const preference = settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
+		const defaultAudioId = preferredNativeAudioId(audioFormats, preference)
+		if (preference === 'compatible' && (isDolbyNativeAudio(persistedFormat) || isDrcNativeAudio(persistedFormat)) && defaultAudioId !== persisted.formatId) return nativeAudio(defaultAudioId)
+		return persisted
+	}
 
 	// The persisted formatId came from an earlier probe and isn't in this list.
 	// Without that earlier probe we can't recover its ext, so just pick the best
 	// native audio for the current video.
-	return nativeAudio(audioFormats[0].formatId)
+	return nativeAudio(preferredNativeAudioIdForSettings(audioFormats, settings))
 }
 
 export function restoreFormatSelection(formats: FormatOption[], settings: AppSettings | null): {videoFormatId: string; audioSelection: AudioSelection; preset: Preset | null} {
@@ -103,12 +114,12 @@ export function restoreFormatSelection(formats: FormatOption[], settings: AppSet
 	// for preset/restore math we only want real video rows.
 	const grouped = groupVideoFormats(formats).filter(g => !g.isAudioOnly)
 	const audioFormats = formats.filter(f => f.isAudioOnly)
-	const bestAudio = audioFormats[0]?.formatId ?? null
+	const bestAudio = preferredNativeAudioIdForSettings(audioFormats, settings)
 	const single = settings?.single
-	const revived = reviveAudio(single?.lastAudioSelection, formats)
+	const revived = reviveAudio(single?.lastAudioSelection, formats, settings)
 
 	if (single?.lastPreset) {
-		const base = applyPreset(single.lastPreset, formats)
+		const base = applyPreset(single.lastPreset, formats, settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference)
 		return {...base, audioSelection: revived ?? base.audioSelection, preset: single.lastPreset}
 	}
 	if (single?.lastVideoResolution === 'audio-only') {
@@ -118,7 +129,7 @@ export function restoreFormatSelection(formats: FormatOption[], settings: AppSet
 		const match = grouped.find(g => g.resolution === single.lastVideoResolution)
 		if (match) return {videoFormatId: match.formatId, audioSelection: revived ?? nativeAudio(bestAudio), preset: null}
 	}
-	const base = applyPreset('best-quality', formats)
+	const base = applyPreset('best-quality', formats, settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference)
 	return {...base, audioSelection: revived ?? base.audioSelection, preset: 'best-quality'}
 }
 
@@ -151,7 +162,10 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 				if (!reconcileAudio) {
 					return {selectedVideoFormatId: id, activePreset: id === '' ? 'audio-only' : null}
 				}
-				const bestAudio = state.wizardFormats.find(f => f.isAudioOnly)?.formatId ?? null
+				const bestAudio = preferredNativeAudioId(
+					state.wizardFormats.filter(f => f.isAudioOnly),
+					state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
+				)
 				return {selectedVideoFormatId: id, activePreset: null, audioSelection: bestAudio === null ? {kind: 'none'} : {kind: 'native', formatId: bestAudio}}
 			}),
 
@@ -172,7 +186,7 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 
 		setPreset: p => {
 			const {wizardFormats} = get()
-			const {videoFormatId, audioSelection} = applyPreset(p, wizardFormats)
+			const {videoFormatId, audioSelection} = applyPreset(p, wizardFormats, get().settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference)
 			set({activePreset: p, selectedVideoFormatId: videoFormatId, audioSelection})
 		},
 

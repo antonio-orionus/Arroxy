@@ -5,8 +5,12 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
+import {ok} from '@shared/result.js'
+import type {GraphicsPolicy} from '@shared/types.js'
 
 const mockAppApi = buildMockAppApi()
+
+const CSS_FORCED_GRAPHICS_POLICY: GraphicsPolicy = {backdrop: {forceRenderMode: 'css-only', softwareWebglAllowed: false, fallbackReason: 'gpu-feature-disabled'}}
 
 async function openProfileMenu(): Promise<void> {
 	const profileMenuTrigger = await screen.findByRole('button', {name: 'Switch download profile: Balanced 720p'})
@@ -46,7 +50,8 @@ describe('App renderer', () => {
 			quickDownloadStatus: 'idle',
 			quickDownloadFailure: null,
 			quickDownloadQueueIds: [],
-			queue: []
+			queue: [],
+			graphicsPolicy: null
 		})
 
 		window.appApi = mockAppApi
@@ -61,6 +66,43 @@ describe('App renderer', () => {
 		expect(await screen.findByTestId('title-bar')).toHaveTextContent('Arroxy')
 		expect(await screen.findByText('Download from URL')).toBeInTheDocument()
 		expect(await screen.findByTestId('profiles-main-input')).toBeInTheDocument()
+	})
+
+	it('does not mount a WebGL canvas before settings and graphics policy resolve', async () => {
+		let resolveSettings!: (value: Awaited<ReturnType<typeof mockAppApi.settings.get>>) => void
+		let resolveGraphicsPolicy!: (value: Awaited<ReturnType<typeof mockAppApi.app.getGraphicsPolicy>>) => void
+		const api = buildMockAppApi()
+		vi.mocked(api.settings.get).mockReturnValue(
+			new Promise(resolve => {
+				resolveSettings = resolve
+			})
+		)
+		vi.mocked(api.app.getGraphicsPolicy).mockReturnValue(
+			new Promise(resolve => {
+				resolveGraphicsPolicy = resolve
+			})
+		)
+		window.appApi = api
+
+		render(<App />)
+
+		expect(document.querySelector('canvas[data-backdrop-layer="webgl"]')).toBeNull()
+
+		await act(async () => {
+			resolveSettings(ok(defaultAppSettings('/tmp')))
+			resolveGraphicsPolicy(ok(CSS_FORCED_GRAPHICS_POLICY))
+		})
+	})
+
+	it('uses the CSS fallback when runtime graphics policy forces it', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.app.getGraphicsPolicy).mockResolvedValue(ok(CSS_FORCED_GRAPHICS_POLICY))
+		window.appApi = api
+
+		render(<App />)
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-static-fallback'))
+		expect(document.querySelector('canvas[data-backdrop-layer="webgl"]')).toBeNull()
 	})
 
 	it('renders the backdrop isolation stage from the browser-mock query param', async () => {

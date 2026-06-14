@@ -4,7 +4,6 @@ import type {FormatSelectionView} from '../../../store/formatSelectionView.js'
 import {ToggleGroup, ToggleGroupItem} from '../../ui/toggle-group.js'
 import {RadioOption} from '../../ui/radio-option.js'
 import {ScrollArea} from '../../ui/scroll-area.js'
-import {cn} from '@renderer/lib/utils.js'
 
 interface VideoColumnProps {
 	view: FormatSelectionView['video']
@@ -52,11 +51,6 @@ export function VideoColumn({view, selectedVideoFormatId, videoExtFilter, dynami
 						<RadioOption key={row.formatId || 'audio-only'} checked={isChecked} disabled={view.disabled} onClick={() => onSelect(row.formatId)} label={row.resolution} labelClassName="min-w-[68px]">
 							{
 								<>
-									{!row.isAudioOnly && (
-										<div className="w-[32px] h-[2px] bg-accent rounded-full flex-shrink-0">
-											<div className={cn('h-full rounded-full bg-[var(--brand)]', isChecked ? 'opacity-100' : 'opacity-25')} style={{width: row.barWidth > 0 ? `${row.barWidth}%` : '0%'}} />
-										</div>
-									)}
 									{row.meta && (
 										<span className="text-[13px] ml-auto whitespace-nowrap" style={{color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)'}}>
 											{row.meta}

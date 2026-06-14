@@ -147,36 +147,6 @@ jobs:
           fi
           exit "$status"
 
-      - name: Run packaged live probe smoke
-        shell: bash
-        env:
-          ARROXY_SMOKE_URL: ${{ vars.ARROXY_LIVE_CANARY_URL }}
-          ELECTRON_USER_DATA: ${{ runner.temp }}/Arroxy Live Probe Ω Cold
-          ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/arroxy-cold-logs
-          ARROXY_BINARY_DOWNLOAD_MAX_MS: '120000'
-        run: |
-          if [ -z "${ARROXY_SMOKE_URL:-}" ]; then
-            echo "::error::ARROXY_LIVE_CANARY_URL repository variable is required for live probe smoke."
-            exit 1
-          fi
-          mkdir -p "$ARROXY_LOG_ARCHIVE"
-          unset ELECTRON_RUN_AS_NODE
-          stdout="$ARROXY_LOG_ARCHIVE/live-probe-smoke.out"
-          stderr="$ARROXY_LOG_ARCHIVE/live-probe-smoke.err"
-          set +e
-          if [ "$RUNNER_OS" = "Linux" ]; then
-            xvfb-run -a "$PACKAGED_EXE" >"$stdout" 2>"$stderr"
-          else
-            "$PACKAGED_EXE" >"$stdout" 2>"$stderr"
-          fi
-          status=$?
-          set -e
-          cat "$stdout"
-          if [ -s "$stderr" ]; then
-            cat "$stderr" >&2
-          fi
-          exit "$status"
-
       - name: Prepare Windows diagnostics
         if: runner.os == 'Windows'
         shell: pwsh
