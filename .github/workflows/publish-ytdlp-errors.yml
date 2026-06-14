@@ -87,7 +87,7 @@ jobs:
           bun pm pack --destination "${GITHUB_WORKSPACE}/npm-artifacts"
 
       - name: Upload registry artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ytdlp-errors-npm-pack
           path: npm-artifacts/*.tgz

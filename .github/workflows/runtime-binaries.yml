@@ -44,7 +44,7 @@ jobs:
           ARROXY_RUNTIME_INDEX_SIGNING_KEY: ${{ secrets.ARROXY_RUNTIME_INDEX_SIGNING_KEY }}
         run: bun scripts/build/runtimeBinaryManifest.ts sign --manifest dist/runtime-binaries/runtime-index-v1.json --out dist/runtime-binaries/runtime-index-v1.sig
 
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: runtime-binary-manifest
           path: |
