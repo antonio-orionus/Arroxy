@@ -29,6 +29,7 @@ import {ClipboardWatcher, watcherWindowFromBrowserWindow} from '@main/services/C
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
 import {defaultAppSettings, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
+import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
 import {readRuntimeSmokeEnabled, runRuntimeSmokeMode, exitWithCode} from '@main/runtimeSmoke.js'
 import {cancelQueueBeforeExit} from '@main/shutdown.js'
 import {decideCloseAction, decideRendererCrashAction} from '@main/windowLifecycle.js'
@@ -220,7 +221,7 @@ if (hasSingleInstanceLock) {
 		// present after `get()`. Empty string fallback keeps TS happy without
 		// weakening the type elsewhere.
 		const installId = initialSettings.common.installId ?? ''
-		const isDev = !!process.env.ELECTRON_RENDERER_URL || isMockBackend || e2eMode.enabled || readRuntimeSmokeEnabled()
+		const isDev = !!process.env.ELECTRON_RENDERER_URL || isMockBackend || e2eMode.enabled || !!process.env.ARROXY_SMOKE_URL || readRuntimeSmokeEnabled()
 		const cpuModel = os.cpus()[0]?.model ?? 'unknown'
 		const osLocale = app.getLocale()
 		if (!e2eMode.disableAnalytics) {
@@ -249,6 +250,16 @@ if (hasSingleInstanceLock) {
 		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache)
 		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache)
 		await queueService.init()
+
+		// Headless smoke mode — exercises PoT scrape + retry ladder against real
+		// YouTube using production services, then exits. No window created.
+		const smokeUrl = readSmokeUrl()
+		if (smokeUrl) {
+			const code = await runSmokeMode({url: smokeUrl, binaryManager, tokenService, probeService, ytDlp})
+			tokenService.dispose()
+			exitWithCode(code)
+			return
+		}
 
 		const launch = await settingsStore.recordLaunch()
 		if (!e2eMode.disableAnalytics) {
@@ -417,8 +428,7 @@ if (hasSingleInstanceLock) {
 }
 
 app.on('window-all-closed', () => {
-	// In runtime smoke mode the smoke runner calls app.exit() itself when its
-	// async work finishes, so window churn must not trigger a quit mid-run.
-	if (readRuntimeSmokeEnabled()) return
+	// In smoke modes, hidden windows can churn before the runner calls app.exit().
+	if (readSmokeUrl() || readRuntimeSmokeEnabled()) return
 	app.quit()
 })
