@@ -172,7 +172,8 @@
 				"cssOnlyLabel": "Utendaji bora",
 				"cssOnlyDescription": "CSS pekee, hakuna uchoraji wa canvas.",
 				"gpuLabel": "Nzuri zaidi",
-				"gpuDescription": "Mandhari ya WebGL yenye mwendo ikisaidiwa."
+				"gpuDescription": "Mandhari ya WebGL yenye mwendo ikisaidiwa.",
+				"runtimeFallbackNotice": "WebGL ya maunzi haipatikani kwenye kifaa hiki, kwa hivyo Arroxy inatumia mandharinyuma ya utendaji."
 			},
 			"limitRate": {
 				"label": "Kikomo cha kasi ya kupakua",
@@ -197,6 +198,7 @@
 				"invalid": "Tumia nambari nzima kutoka 1 hadi 5000",
 				"tooltip": "Inalingana na yt-dlp --playlist-end: Arroxy inauliza idadi hii tu ya maingizo ya playlist, kituo, au utafutaji wakati wa kujenga kichaguzi."
 			},
+			"nativeAudioPreference": {"label": "Upendeleo wa sauti asili", "description": "Hudhibiti kile ambacho Best native huchagua. Safu za sauti za mkono na M4A/AAC hubaki chaguo wazi.", "compatible": "Stereo inayooendana", "surround": "Pendelea surround / Dolby"},
 			"singleFilenameId": {"toggle": "Ongeza ID ya video kwenye majina ya faili moja moja", "toggleDescription": "Huweka upakuaji wa mara moja kuwa wa kipekee wakati vichwa vinabadilika au kugongana."},
 			"networkPacing": {
 				"heading": "Upakuaji wa taratibu",
@@ -413,6 +415,7 @@
 		"installFailed": "Sasisho limeshindwa",
 		"retry": "Jaribu tena"
 	},
+	"releaseNotes": {"title": "Nini kipya katika Arroxy {{version}}", "description": "Unatumia sasisho jipya. Haya ndiyo mambo muhimu.", "fullNotes": "Maelezo kamili ya toleo ↗", "continue": "Endelea"},
 	"status": {
 		"preparingBinaries": "Inaandaa faili za binary…",
 		"mintingToken": "Inatengeneza tokeni ya YouTube…",

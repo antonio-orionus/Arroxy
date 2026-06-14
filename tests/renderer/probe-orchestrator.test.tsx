@@ -844,7 +844,14 @@ describe('bulk URL mode', () => {
 	it('hydrates bulk titles, thumbnails, durations, and video ids from yt-dlp probes', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockImplementation(async ({url}) =>
-			ok({...VIDEO_PROBE, title: url.endsWith('/1') ? 'Resolved One' : 'Resolved Two', thumbnail: url.endsWith('/1') ? 'https://img.example/one.jpg' : 'https://img.example/two.jpg', duration: url.endsWith('/1') ? 11 : 22, videoId: url.endsWith('/1') ? 'one-id' : 'two-id'})
+			ok({
+				...VIDEO_PROBE,
+				title: url.endsWith('/1') ? 'Resolved One' : 'Resolved Two',
+				thumbnail: url.endsWith('/1') ? 'https://img.example/one.jpg' : 'https://img.example/two.jpg',
+				duration: url.endsWith('/1') ? 11 : 22,
+				videoId: url.endsWith('/1') ? 'one-id' : 'two-id',
+				probeInfoJsonRef: {id: url.endsWith('/1') ? '00000000-0000-4000-8000-000000000001' : '00000000-0000-4000-8000-000000000002', createdAt: '2026-06-14T00:00:00.000Z', videoId: url.endsWith('/1') ? 'one-id' : 'two-id'}
+			})
 		)
 		window.appApi = api
 
@@ -856,6 +863,7 @@ describe('bulk URL mode', () => {
 		expect(useAppStore.getState().playlistItems.map(item => item.thumbnail)).toEqual(['https://img.example/one.jpg', 'https://img.example/two.jpg'])
 		expect(useAppStore.getState().playlistItems.map(item => item.duration)).toEqual([11, 22])
 		expect(useAppStore.getState().playlistItems.map(item => item.videoId)).toEqual(['one-id', 'two-id'])
+		expect(useAppStore.getState().playlistItems.map(item => item.probeInfoJsonRef?.videoId)).toEqual(['one-id', 'two-id'])
 		expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
 		expect(useAppStore.getState().bulkMetadataCompleted).toBe(2)
 		expect(useAppStore.getState().bulkMetadataById).toEqual({'bulk-1': 'done', 'bulk-2': 'done'})

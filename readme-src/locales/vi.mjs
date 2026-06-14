@@ -109,7 +109,8 @@ export const vi = {
   feat_quality_h3: "Chất lượng & định dạng",
   feat_quality_1: "Lên tới **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**Tốc độ khung hình cao** được giữ nguyên — 60 fps, 120 fps, HDR",
-  feat_quality_3: "**Chỉ âm thanh** sang MP3, M4A/AAC, Opus hoặc WAV",
+  feat_quality_3:
+    "**Điều khiển âm thanh** — xuất chỉ âm thanh thành MP3, M4A/AAC, Opus hoặc WAV; đặt tùy chọn toàn cục **Ưu tiên surround / Dolby**; và giữ các bản âm thanh gốc Dolby AC-3/EC-3, đa kênh, DRC cùng các định dạng âm thanh nâng cao khác có thể chọn trong tải xuống tương tác khi có sẵn",
   feat_quality_4: "Cài đặt nhanh: *Chất lượng tốt nhất* · *Cân bằng* · *File nhỏ*",
   feat_privacy_h3: "Quyền riêng tư & kiểm soát",
   feat_privacy_1:
@@ -313,15 +314,23 @@ export const vi = {
   plan_col2: "Mô tả",
   plan_r1_name: "**Bộ lọc danh sách phát & kênh**",
   plan_r1_desc: "Bộ lọc khoảng ngày khi liệt kê playlist hoặc kênh",
-  plan_r2_name: "**Nhập URL hàng loạt**",
-  plan_r2_desc: "Dán nhiều URL cùng lúc và chạy tất cả trong một lần",
-  plan_r4_name: "**Mẫu tên file tùy chỉnh**",
+  plan_r2_name: "**Tùy chọn track âm thanh YouTube**",
+  plan_r2_desc:
+    "Chọn track ngôn ngữ nói ưu tiên khi YouTube cung cấp nhiều track âm thanh",
+  plan_r6_name: "**Đăng nhập bằng browser trong app**",
+  plan_r6_desc:
+    "Mở browser windows bên trong Arroxy để đăng nhập và dùng site cookies mà không cần export thủ công",
+  plan_r8_name: "**Tải video bằng một click**",
+  plan_r8_desc:
+    "Bắt đầu video download bằng một click từ URL được phát hiện hoặc đã dán bằng active profile",
+  plan_r3_name: "**Khôi phục retry mạnh hơn**",
+  plan_r3_desc:
+    "Một đường retry mới cho các lượt tải xuống bị gián đoạn bởi kết nối internet không ổn định hoặc có vấn đề",
+  plan_r4_name: "**Drawer quản lý tải xuống đầy đủ**",
   plan_r4_desc:
-    "Đặt tên file theo tiêu đề, người tải lên, ngày, độ phân giải — với xem trước trực tiếp",
+    "Biến queue drawer thành manager đầy đủ hơn, bao gồm đổi thư mục đích cho các mục đang chờ",
   plan_r5_name: "**Tải xuống theo lịch**",
   plan_r5_desc: "Bắt đầu hàng đợi vào thời điểm đặt trước (chạy qua đêm)",
-  plan_r6_name: "**Giới hạn tốc độ**",
-  plan_r6_desc: "Giới hạn băng thông để tải xuống không làm quá tải kết nối",
   plan_r7_name: "**Cắt đoạn clip**",
   plan_r7_desc: "Chỉ tải xuống một đoạn theo thời gian bắt đầu/kết thúc",
   plan_cta:

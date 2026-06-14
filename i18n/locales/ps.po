@@ -515,6 +515,22 @@ msgctxt "queue.toggleTitle"
 msgid "Toggle download queue"
 msgstr "د ډاونلوډ کتار پرانیستل/تړل"
 
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "دوام ورکړه"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "تاسو تازه اوسمهال کاروئ. دلته مهم ټکي دي."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "بشپړ د خپرونې یادښتونه ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "په Arroxy {{version}} کې څه نوي دي"
+
 msgctxt "repair.actions.cancel"
 msgid "Cancel"
 msgstr "لغوه کړئ"
@@ -1769,6 +1785,10 @@ msgctxt "wizard.url.backdrop.panelTitle"
 msgid "Appearance and performance"
 msgstr "بڼه او کړنه"
 
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "په دې وسیله کې د هارډویر WebGL شتون نه لري، نو Arroxy د غوره کړنې شالید کاروي."
+
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "ډېر URLونه"
@@ -1980,6 +2000,22 @@ msgstr "شاتهپرده ډاونلوډ کیږي… زه کولی شم له ډی
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "لینک واچوئ او Arroxy پرېږدئ چې یې راکښته کړي ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "سازګار سټېریو"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "دا کنټرولوي چې “Best native” څه ټاکي. لاسي آډیو کرښې او M4A/AAC ښکاره انتخابونه پاتې کېږي."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "د اصلي آډیو غوره توب"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "surround / Dolby ته لومړیتوب ورکړئ"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."

@@ -515,6 +515,22 @@ msgctxt "queue.toggleTitle"
 msgid "Toggle download queue"
 msgstr "展开/收起下载队列"
 
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "继续"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "你正在运行新的更新。以下是亮点。"
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "完整发行说明 ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Arroxy {{version}} 新增内容"
+
 msgctxt "repair.actions.cancel"
 msgid "Cancel"
 msgstr "取消"
@@ -1769,6 +1785,10 @@ msgctxt "wizard.url.backdrop.panelTitle"
 msgid "Appearance and performance"
 msgstr "外观与性能"
 
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "此设备不支持硬件 WebGL，因此 Arroxy 正在使用性能背景。"
+
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "批量 URL"
@@ -1980,6 +2000,22 @@ msgstr "正在后台下载… 我可以同时处理多个任务 😎"
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "丢个链接，让 Arroxy 来拉取 ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "兼容立体声"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "控制“最佳原生”会选择什么。手动音频行和 M4A/AAC 仍保持显式选择。"
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "原生音频偏好"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "优先环绕声 / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."

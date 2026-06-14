@@ -1,6 +1,6 @@
 import {DEFAULTS} from '@shared/constants.js'
 import {downloadProfileLabel, resolveActiveDownloadProfile, resolveDownloadProfile, resolveDownloadProfileBaseDir, resolveDownloadProfileOutputDir, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
-import type {DownloadProfile, DownloadProfileRef, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
+import type {DownloadProfile, DownloadProfileRef, NativeAudioPreference, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
@@ -70,7 +70,24 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 		embed: overrides.embed
 	})
 
-	return {id: generateId(), url: wizardUrl, title: wizardTitle || wizardUrl, thumbnail: wizardThumbnail, outputDir, formatLabel, status: QUEUE_STATUS.pending, lane, progressPercent: 0, progressDetail: null, lastStatus: null, error: null, finishedAt: null, writeM3u: state.wizardWriteM3u, job}
+	return {
+		id: generateId(),
+		url: wizardUrl,
+		title: wizardTitle || wizardUrl,
+		thumbnail: wizardThumbnail,
+		outputDir,
+		formatLabel,
+		status: QUEUE_STATUS.pending,
+		lane,
+		progressPercent: 0,
+		progressDetail: null,
+		lastStatus: null,
+		error: null,
+		finishedAt: null,
+		writeM3u: state.wizardWriteM3u,
+		...(state.wizardProbeInfoJsonRef ? {probeInfoJsonRef: state.wizardProbeInfoJsonRef} : {}),
+		job
+	}
 }
 
 function resolvePlaylistFormatLabel(s: PlaylistSelection): string {
@@ -94,7 +111,8 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 
 	const embed: EmbedOptions = {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail}
 
-	const job = prepareJob({mode: 'playlist', extractor: state.wizardExtractor, extractorKey: state.wizardExtractorKey, playlistSelection, outputTemplate, sponsorBlockMode: state.wizardSponsorBlockMode, sponsorBlockCategories: state.wizardSponsorBlockCategories, embed})
+	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
+	const job = prepareJob({mode: 'playlist', extractor: state.wizardExtractor, extractorKey: state.wizardExtractorKey, playlistSelection, nativeAudioPreference, outputTemplate, sponsorBlockMode: state.wizardSponsorBlockMode, sponsorBlockCategories: state.wizardSponsorBlockCategories, embed})
 
 	return {
 		id: generateId(),
@@ -111,6 +129,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 		error: null,
 		finishedAt: null,
 		...(state.wizardMode === 'playlist' ? {playlistGroupId} : {}),
+		...(entry.probeInfoJsonRef ? {probeInfoJsonRef: entry.probeInfoJsonRef} : {}),
 		writeM3u: state.wizardMode === 'playlist' ? state.wizardWriteM3u : false,
 		job
 	}
@@ -138,23 +157,36 @@ function downloadProfileRefLabel(ref: DownloadProfileRef): string {
 	return `${ref.kind}:${ref.id}`
 }
 
-function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extractorKey: string, outputTemplate: string): PreparedJob {
+function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extractorKey: string, outputTemplate: string, nativeAudioPreference: NativeAudioPreference): PreparedJob {
 	if (resolved.isSubtitleOnly) {
 		return prepareJob({mode: 'single', extractor, extractorKey, activePreset: 'subtitle-only', outputTemplate, subtitles: resolved.subtitles, sponsorBlockMode: 'off', sponsorBlockCategories: [], embed: resolved.embed})
 	}
 
 	if (!resolved.intent) throw new Error(`download profile media intent missing for ${downloadProfileRefLabel(resolved.ref)}`)
-	return prepareJob({mode: 'playlist', extractor, extractorKey, mediaIntent: resolved.intent, outputTemplate, subtitles: resolved.subtitles, sponsorBlockMode: resolved.sponsorBlock.mode, sponsorBlockCategories: resolved.sponsorBlock.mode === 'off' ? [] : resolved.sponsorBlock.categories, embed: resolved.embed})
+	return prepareJob({
+		mode: 'playlist',
+		extractor,
+		extractorKey,
+		mediaIntent: resolved.intent,
+		nativeAudioPreference,
+		outputTemplate,
+		subtitles: resolved.subtitles,
+		sponsorBlockMode: resolved.sponsorBlock.mode,
+		sponsorBlockCategories: resolved.sponsorBlock.mode === 'off' ? [] : resolved.sponsorBlock.categories,
+		embed: resolved.embed
+	})
 }
 
 function buildProfileEntryQueueItem(params: {
 	entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail'>
+	probeInfoJsonRef?: PlaylistEntry['probeInfoJsonRef']
 	outputDir: string
 	extractor: string
 	extractorKey: string
 	resolved: ResolvedDownloadProfile
 	profile: DownloadProfile
 	outputTemplate: string
+	nativeAudioPreference: NativeAudioPreference
 	playlistGroupId?: string
 	writeM3u: boolean
 	lane: QueueLane
@@ -174,28 +206,42 @@ function buildProfileEntryQueueItem(params: {
 		error: null,
 		finishedAt: null,
 		...(params.playlistGroupId ? {playlistGroupId: params.playlistGroupId} : {}),
+		...(params.probeInfoJsonRef ? {probeInfoJsonRef: params.probeInfoJsonRef} : {}),
 		writeM3u: params.writeM3u,
-		job: profileJob(params.resolved, params.extractor, params.extractorKey, params.outputTemplate)
+		job: profileJob(params.resolved, params.extractor, params.extractorKey, params.outputTemplate, params.nativeAudioPreference)
 	}
 }
 
 export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
 	const {profile, ref} = resolveActiveDownloadProfile(state.settings?.profiles)
-	const resolved = resolveDownloadProfile(profile, ref)
+	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
+	const resolved = resolveDownloadProfile(profile, ref, nativeAudioPreference)
 	const outputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
 	const baseDir = resolveDownloadProfileBaseDir(profile, outputContext)
 	const singleOutputDir = resolveDownloadProfileOutputDir(profile, outputContext)
 
 	if (probe.kind === 'video') {
 		const outputTemplate = singleOutputTemplate(state.settings?.common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames)
-		const item = buildProfileEntryQueueItem({entry: {url: probe.webpageUrl || state.wizardUrl, title: probe.title, thumbnail: probe.thumbnail}, outputDir: singleOutputDir, extractor: probe.extractor, extractorKey: probe.extractorKey, resolved, profile, outputTemplate, writeM3u: false, lane})
+		const item = buildProfileEntryQueueItem({
+			entry: {url: probe.webpageUrl || state.wizardUrl, title: probe.title, thumbnail: probe.thumbnail},
+			probeInfoJsonRef: probe.probeInfoJsonRef,
+			outputDir: singleOutputDir,
+			extractor: probe.extractor,
+			extractorKey: probe.extractorKey,
+			resolved,
+			profile,
+			outputTemplate,
+			nativeAudioPreference,
+			writeM3u: false,
+			lane
+		})
 		return {items: [item]}
 	}
 
 	const playlistGroupId = generateId()
 	const outputDir = playlistBaseDir(baseDir, profile.subfolder.enabled, profile.subfolder.name, probe.playlistTitle)
 	const writeM3u = state.settings?.common?.writeM3u ?? DEFAULTS.writeM3u
-	const items = probe.entries.map(entry => buildProfileEntryQueueItem({entry, outputDir, extractor: probe.extractor, extractorKey: probe.extractorKey, resolved, profile, outputTemplate: playlistOutputTemplate(), playlistGroupId, writeM3u, lane}))
+	const items = probe.entries.map(entry => buildProfileEntryQueueItem({entry, probeInfoJsonRef: entry.probeInfoJsonRef, outputDir, extractor: probe.extractor, extractorKey: probe.extractorKey, resolved, profile, outputTemplate: playlistOutputTemplate(), nativeAudioPreference, playlistGroupId, writeM3u, lane}))
 	if (items.length === 0) return null
 	return {items, manifest: {playlistGroupId, playlistTitle: playlistTitleFallback(probe.playlistTitle, state.playlistTitle), outputDir, items: probe.entries.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))}}
 }

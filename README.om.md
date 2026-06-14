@@ -3,7 +3,7 @@
 
 # Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa Windows, macOS & Linux
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **Afaan:** **Afaan Oromoo** · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
@@ -226,7 +226,7 @@ Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argad
 
 - Hanga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Frame rate ol'aanaa** akka jiru eegama — 60 fps, 120 fps, HDR
-- **Audio qofa** gara MP3, M4A/AAC, Opus yookaan WAV
+- **To'annoo sagalee** — sagalee qofa gara MP3, M4A/AAC, Opus yookaan WAV export godhi; filannoo waliigalaa **Surround / Dolby filadhu** kaa'i; akkasumas yoo jiran buufataalee wal-qunnamtii keessatti Dolby AC-3/EC-3, multichannel, DRC fi sagalee ol'aanaa biroo filatamuu danda'u godhi
 - Preset saffisoo: *Qulqullina gaarii* · *Walirraanfattee* · *Faayila xiqqaa*
 
 ### Icciitii & to'annaa
@@ -321,7 +321,11 @@ Amma iyyuu karoorfame — tilmaamaan tartiiba dursaatiin:
 | Amalli    | Ibsa    |
 | ---------------- | ---------------- |
 | **Playlist & chaanaalii hojjettoota** | Yeroo playlist ykn channel sakatta’an filtraroota guyyaa |
-| **Template maqaa faayilaa dhuunfaa** | Faayiloota mata-duree, olkaa'aa, guyyaa, mookii shan — preview qindoofame wajjin maqaa kaa'i |
+| **Filannoo track sagalee YouTube** | Yoo YouTube track sagalee heddu dhiyeesse, track afaan dubbii filatamaa filadhu |
+| **Browser sign-in app keessa** | Browser windows Arroxy keessa bani, akka sign in gootuu fi site cookies osoo harkaan export hin godhin fayyadamtuuf |
+| **Video click tokkoon buusuu** | Active profile kee fayyadamuun URL argame ykn maxxanfame irraa video download click tokkoon eegali |
+| **Deebisanii yaaluun deebisuu cimaa** | Buufannoowwan walitti hidhamiinsa internetii hin tasgabboofne ykn rakkoo qabuun citeef karaa retry haaraa |
+| **Drawer download manager guutuu** | Queue drawer gara manager guutuutti guddisuu, items queue keessa jiranif destination folder jijjiiruu dabalatee |
 | **Buufannoo yeroo qabamee** | Queue yeroo qindaawaa irratti eegali (halkaniidhumaan hojeti) |
 | **Muraa Clip** | Tokkicha kutaa yeroo eegaluu/dhumu irratti buusi |
 

@@ -1,5 +1,6 @@
 import type {BrowserWindow} from 'electron'
 import type {SupportedLang} from '@shared/i18n/types.js'
+import type {GraphicsPolicy} from '@shared/types.js'
 import type {DownloadService} from '@main/services/DownloadService.js'
 import type {ProbeService} from '@main/services/ProbeService.js'
 import type {BinaryManager} from '@main/services/BinaryManager.js'
@@ -33,6 +34,7 @@ export interface IpcDependencies {
 	languageRef: {current: SupportedLang}
 	clipboardWatcher: ClipboardWatcher
 	playlistManifestStore: PlaylistManifestStore
+	graphicsPolicyProvider: () => Promise<GraphicsPolicy>
 }
 
 let activeDownloadBridge: DownloadEventBridge | null = null
@@ -40,10 +42,10 @@ let activeQueueBridge: QueueEventBridge | null = null
 let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, playlistManifestStore} = deps
+	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, playlistManifestStore, graphicsPolicyProvider} = deps
 
 	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow})
-	registerAppHandlers({warmupService, binaryManager, languageRef})
+	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
 	registerSettingsHandlers({settingsStore, clipboardWatcher})

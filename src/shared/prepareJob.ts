@@ -1,6 +1,6 @@
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from './mediaIntent.js'
 import type {EmbedOptions, ExtractorIdentity, PreparedJob, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
-import type {AudioConvert, MediaIntent, PlaylistSelection, Preset, SponsorBlockCategory, SponsorBlockMode} from './schemas.js'
+import type {AudioConvert, MediaIntent, NativeAudioPreference, PlaylistSelection, Preset, SponsorBlockCategory, SponsorBlockMode} from './schemas.js'
 
 // Pure builder. Lives in `src/shared/` (not renderer) so future QueueStore
 // migrations in main can synthesize jobs without a renderer dependency.
@@ -19,6 +19,7 @@ export interface PrepareJobInput extends ExtractorIdentity {
 	// playlist-mode inputs (set when mode === 'playlist')
 	playlistSelection?: PlaylistSelection | null
 	mediaIntent?: MediaIntent | null
+	nativeAudioPreference?: NativeAudioPreference
 	outputTemplate?: string
 	// shared
 	subtitles?: SubtitleOptions
@@ -37,7 +38,7 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 		const intent = input.mediaIntent ?? (input.playlistSelection ? playlistSelectionToMediaIntent(input.playlistSelection) : null)
 		if (!intent) throw new Error('prepareJob: playlist mode requires mediaIntent')
 		if (!input.outputTemplate) throw new Error('prepareJob: playlist mode requires outputTemplate')
-		const spec = mediaIntentSpec(intent)
+		const spec = mediaIntentSpec(intent, input.nativeAudioPreference ?? 'compatible')
 		return {kind: 'ranged-format', ...identity, intent, formatSelector: spec.formatSelector, formatSort: spec.formatSort, mergeOutputFormat: spec.mergeOutputFormat, audioConvert: spec.audioConvert, outputTemplate: input.outputTemplate, subtitles, sponsorBlock, embed: input.embed}
 	}
 

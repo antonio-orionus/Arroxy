@@ -3,6 +3,7 @@ import {z} from 'zod'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import {supportedLangSchema} from '@shared/schemas.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
+import type {GraphicsPolicy} from '@shared/types.js'
 import type {WarmupService} from '@main/services/WarmupService.js'
 import type {BinaryManager} from '@main/services/BinaryManager.js'
 import {ok} from '@shared/result.js'
@@ -12,12 +13,13 @@ interface AppHandlerDeps {
 	warmupService: WarmupService
 	binaryManager: BinaryManager
 	languageRef: {current: SupportedLang}
+	graphicsPolicyProvider: () => Promise<GraphicsPolicy>
 }
 
 const warmUpInputSchema = z.object({force: z.boolean().optional()}).optional()
 
 export function registerAppHandlers(deps: AppHandlerDeps): void {
-	const {warmupService, binaryManager, languageRef} = deps
+	const {warmupService, binaryManager, languageRef, graphicsPolicyProvider} = deps
 
 	handleRaw(IPC_CHANNELS.appWarmUp, (_, payload: unknown) => {
 		const parsed = warmUpInputSchema.safeParse(payload)
@@ -30,6 +32,14 @@ export function registerAppHandlers(deps: AppHandlerDeps): void {
 
 	handleRaw(IPC_CHANNELS.appCancelWarmup, () => {
 		warmupService.cancel()
+	})
+
+	handleRaw(IPC_CHANNELS.appGetGraphicsPolicy, async () => {
+		try {
+			return ok(await graphicsPolicyProvider())
+		} catch (error) {
+			return toUnknownFailure(error)
+		}
 	})
 
 	handleRaw(IPC_CHANNELS.appInstallYtDlpHomebrew, async () => {

@@ -514,6 +514,22 @@ msgctxt "queue.toggleTitle"
 msgid "Toggle download queue"
 msgstr ""
 
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr ""
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr ""
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr ""
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr ""
+
 msgctxt "repair.actions.cancel"
 msgid "Cancel"
 msgstr ""
@@ -1763,6 +1779,10 @@ msgctxt "wizard.url.backdrop.panelTitle"
 msgid "Appearance and performance"
 msgstr ""
 
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr ""
+
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr ""
@@ -1973,6 +1993,22 @@ msgstr ""
 
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
+msgstr ""
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr ""
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr ""
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr ""
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
 msgstr ""
 
 msgctxt "wizard.url.networkPacing.description"

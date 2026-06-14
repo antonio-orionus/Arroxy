@@ -109,7 +109,8 @@ export const en = {
   feat_quality_h3: "Quality & formats",
   feat_quality_1: "Up to **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**High frame rate** preserved as-is — 60 fps, 120 fps, HDR",
-  feat_quality_3: "**Audio-only** export to MP3, M4A/AAC, Opus, or WAV",
+  feat_quality_3:
+    "**Audio controls** — export audio-only as MP3, M4A/AAC, Opus, or WAV; set a global **Prefer surround / Dolby** option; and keep native Dolby AC-3/EC-3, multichannel, DRC, and other advanced audio tracks selectable in interactive downloads when available",
   feat_quality_4: "Quick presets: *Best quality* · *Balanced* · *Small file*",
   feat_privacy_h3: "Privacy & control",
   feat_privacy_1:
@@ -314,15 +315,23 @@ export const en = {
   plan_r1_name: "**Playlist & channel filters**",
   plan_r1_desc:
     "Date-range filters when enumerating a playlist or channel",
-  plan_r2_name: "**Batch URL input**",
-  plan_r2_desc: "Paste multiple URLs at once and run them in one go",
-  plan_r4_name: "**Custom filename templates**",
+  plan_r2_name: "**YouTube audio track preferences**",
+  plan_r2_desc:
+    "Choose preferred spoken-language tracks when YouTube provides multiple audio tracks",
+  plan_r6_name: "**In-app browser sign-in**",
+  plan_r6_desc:
+    "Open browser windows inside Arroxy so you can sign in and use site cookies without exporting them manually",
+  plan_r8_name: "**One-click video download**",
+  plan_r8_desc:
+    "Start a video download in one click from a detected or pasted URL using your active profile",
+  plan_r3_name: "**Stronger retry recovery**",
+  plan_r3_desc:
+    "A new retry path for downloads interrupted by unreliable or problematic internet connections",
+  plan_r4_name: "**Full download manager drawer**",
   plan_r4_desc:
-    "Name files by title, uploader, date, resolution — with live preview",
+    "Turn the queue drawer into a fuller manager, including changing destination folders for queued items",
   plan_r5_name: "**Scheduled downloads**",
   plan_r5_desc: "Start a queue at a set time (overnight runs)",
-  plan_r6_name: "**Speed limits**",
-  plan_r6_desc: "Cap bandwidth so downloads don't saturate your connection",
   plan_r7_name: "**Clip trimming**",
   plan_r7_desc: "Download only a segment by start/end time",
   plan_cta:

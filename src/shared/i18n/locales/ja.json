@@ -172,7 +172,8 @@
 				"cssOnlyLabel": "最高のパフォーマンス",
 				"cssOnlyDescription": "CSS のみ、canvas レンダリングなし。",
 				"gpuLabel": "最も美しい",
-				"gpuDescription": "対応環境ではアニメーション WebGL 背景を使用します。"
+				"gpuDescription": "対応環境ではアニメーション WebGL 背景を使用します。",
+				"runtimeFallbackNotice": "このデバイスではハードウェア WebGL を利用できないため、Arroxy はパフォーマンス用の背景を使用しています。"
 			},
 			"limitRate": {
 				"label": "ダウンロード速度制限",
@@ -197,6 +198,7 @@
 				"invalid": "1 から 5000 の整数を入力してください",
 				"tooltip": "yt-dlp の --playlist-end に対応します：Arroxy はピッカーを構築する際、この件数のプレイリスト・チャンネル・検索エントリのみ取得します。"
 			},
+			"nativeAudioPreference": {"label": "ネイティブ音声の設定", "description": "「最高のネイティブ」が選ぶ音声を制御します。手動の音声行と M4A/AAC は明示的な選択のままです。", "compatible": "互換性重視のステレオ", "surround": "サラウンド / Dolby を優先"},
 			"singleFilenameId": {"toggle": "単体ファイル名に動画IDを追加", "toggleDescription": "タイトルが変わったり重複したりしても、単発ダウンロードを一意に保ちます。"},
 			"networkPacing": {
 				"heading": "やさしいダウンロード",
@@ -413,6 +415,7 @@
 		"installFailed": "更新に失敗しました",
 		"retry": "再試行"
 	},
+	"releaseNotes": {"title": "Arroxy {{version}} の新機能", "description": "新しいアップデートを実行中です。主な変更点はこちらです。", "fullNotes": "完全なリリースノート ↗", "continue": "続行"},
 	"status": {
 		"preparingBinaries": "バイナリを準備中…",
 		"mintingToken": "YouTubeトークンを生成中…",

@@ -8,12 +8,14 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import type {AppApi, SettingsPatch} from '@shared/api.js'
-import type {AppSettings} from '@shared/types.js'
+import type {AppSettings, GraphicsPolicy} from '@shared/types.js'
 import {ok} from '../shared/fixtures.js'
 
 const SINGLE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
 let mockApi: AppApi
+
+const CSS_FORCED_GRAPHICS_POLICY: GraphicsPolicy = {backdrop: {forceRenderMode: 'css-only', softwareWebglAllowed: false, fallbackReason: 'gpu-feature-disabled'}}
 
 function buildSettings(common: Partial<AppSettings['common']> = {}): AppSettings {
 	const base = defaultAppSettings('/tmp')
@@ -80,7 +82,8 @@ function resetStore(settings: AppSettings): void {
 		quickDownloadProgressTitle: null,
 		quickDownloadProgressRunId: null,
 		queue: [],
-		drawerOpen: false
+		drawerOpen: false,
+		graphicsPolicy: null
 	})
 }
 
@@ -135,6 +138,19 @@ describe('advanced network settings', () => {
 		})
 	})
 
+	it('saves the global native audio preference', async () => {
+		render(<StepUrlInput />)
+		openSettingsTab()
+
+		expect(screen.getByTestId('native-audio-preference')).toHaveTextContent('Compatible stereo')
+		expect(screen.getByTestId('native-audio-preference')).toHaveTextContent('Prefer surround / Dolby')
+		fireEvent.click(screen.getByTestId('native-audio-preference-surround'))
+
+		await waitFor(() => {
+			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {nativeAudioPreference: 'surround'}})
+		})
+	})
+
 	it('saves the backdrop performance mode slider', async () => {
 		render(<StepUrlInput />)
 		openSettingsTab()
@@ -157,6 +173,26 @@ describe('advanced network settings', () => {
 		await waitFor(() => {
 			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {backdropRenderMode: 'gpu'}})
 		})
+	})
+
+	it('shows when runtime graphics policy forces the performance backdrop', async () => {
+		resetStore(buildSettings({backdropRenderMode: 'gpu'}))
+		useAppStore.setState({graphicsPolicy: CSS_FORCED_GRAPHICS_POLICY})
+
+		render(<StepUrlInput />)
+		openSettingsTab()
+
+		expect(screen.getByTestId('profiles-settings-backdrop-mode-fallback')).toHaveTextContent('Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop.')
+	})
+
+	it('does not show a runtime fallback notice when the user selected CSS-only', async () => {
+		resetStore(buildSettings({backdropRenderMode: 'css-only'}))
+		useAppStore.setState({graphicsPolicy: CSS_FORCED_GRAPHICS_POLICY})
+
+		render(<StepUrlInput />)
+		openSettingsTab()
+
+		expect(screen.queryByTestId('profiles-settings-backdrop-mode-fallback')).not.toBeInTheDocument()
 	})
 
 	it('mixed URL dialog shows the current playlist cap and changes it inline', async () => {

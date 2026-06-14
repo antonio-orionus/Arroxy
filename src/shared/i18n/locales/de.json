@@ -172,7 +172,8 @@
 				"cssOnlyLabel": "Beste Leistung",
 				"cssOnlyDescription": "Nur CSS, kein canvas-Rendering.",
 				"gpuLabel": "Am schönsten",
-				"gpuDescription": "Animierter WebGL-Hintergrund, wenn unterstützt."
+				"gpuDescription": "Animierter WebGL-Hintergrund, wenn unterstützt.",
+				"runtimeFallbackNotice": "Hardware-WebGL ist auf diesem Gerät nicht verfügbar, daher verwendet Arroxy den Performance-Hintergrund."
 			},
 			"limitRate": {
 				"label": "Download-Geschwindigkeitslimit",
@@ -197,6 +198,7 @@
 				"invalid": "Verwende eine ganze Zahl von 1 bis 5000",
 				"tooltip": "Entspricht yt-dlp --playlist-end: Arroxy fragt nur so viele Playlist-, Kanal- oder Suchergebnisse ab, bevor die Auswahl angezeigt wird."
 			},
+			"nativeAudioPreference": {"label": "Native Audioeinstellung", "description": "Steuert, was „Bestes nativ“ auswählt. Manuelle Audiozeilen und M4A/AAC bleiben explizit.", "compatible": "Kompatibles Stereo", "surround": "Surround / Dolby bevorzugen"},
 			"singleFilenameId": {"toggle": "Video-ID zu einzelnen Dateinamen hinzufügen", "toggleDescription": "Hält einzelne Downloads eindeutig, wenn sich Titel ändern oder kollidieren."},
 			"networkPacing": {
 				"heading": "Sanftes Herunterladen",
@@ -413,6 +415,7 @@
 		"installFailed": "Update fehlgeschlagen",
 		"retry": "Erneut versuchen"
 	},
+	"releaseNotes": {"title": "Neu in Arroxy {{version}}", "description": "Du verwendest ein frisches Update. Hier sind die Highlights.", "fullNotes": "Vollständige Versionshinweise ↗", "continue": "Weiter"},
 	"status": {
 		"preparingBinaries": "Binärdateien werden vorbereitet…",
 		"mintingToken": "YouTube-Token wird erzeugt…",

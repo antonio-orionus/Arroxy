@@ -3,7 +3,7 @@
 
 # Arroxy — Trình tải YouTube (+ 2000 trang) miễn phí và mã nguồn mở cho Windows, macOS & Linux
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **Đọc bằng:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · **Tiếng Việt** · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
@@ -226,7 +226,7 @@ Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận 
 
 - Lên tới **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Tốc độ khung hình cao** được giữ nguyên — 60 fps, 120 fps, HDR
-- **Chỉ âm thanh** sang MP3, M4A/AAC, Opus hoặc WAV
+- **Điều khiển âm thanh** — xuất chỉ âm thanh thành MP3, M4A/AAC, Opus hoặc WAV; đặt tùy chọn toàn cục **Ưu tiên surround / Dolby**; và giữ các bản âm thanh gốc Dolby AC-3/EC-3, đa kênh, DRC cùng các định dạng âm thanh nâng cao khác có thể chọn trong tải xuống tương tác khi có sẵn
 - Cài đặt nhanh: *Chất lượng tốt nhất* · *Cân bằng* · *File nhỏ*
 
 ### Quyền riêng tư & kiểm soát
@@ -321,7 +321,11 @@ Vẫn được lên kế hoạch — theo thứ tự ưu tiên tương đối:
 | Tính năng    | Mô tả    |
 | ---------------- | ---------------- |
 | **Bộ lọc danh sách phát & kênh** | Bộ lọc khoảng ngày khi liệt kê playlist hoặc kênh |
-| **Mẫu tên file tùy chỉnh** | Đặt tên file theo tiêu đề, người tải lên, ngày, độ phân giải — với xem trước trực tiếp |
+| **Tùy chọn track âm thanh YouTube** | Chọn track ngôn ngữ nói ưu tiên khi YouTube cung cấp nhiều track âm thanh |
+| **Đăng nhập bằng browser trong app** | Mở browser windows bên trong Arroxy để đăng nhập và dùng site cookies mà không cần export thủ công |
+| **Tải video bằng một click** | Bắt đầu video download bằng một click từ URL được phát hiện hoặc đã dán bằng active profile |
+| **Khôi phục retry mạnh hơn** | Một đường retry mới cho các lượt tải xuống bị gián đoạn bởi kết nối internet không ổn định hoặc có vấn đề |
+| **Drawer quản lý tải xuống đầy đủ** | Biến queue drawer thành manager đầy đủ hơn, bao gồm đổi thư mục đích cho các mục đang chờ |
 | **Tải xuống theo lịch** | Bắt đầu hàng đợi vào thời điểm đặt trước (chạy qua đêm) |
 | **Cắt đoạn clip** | Chỉ tải xuống một đoạn theo thời gian bắt đầu/kết thúc |
 

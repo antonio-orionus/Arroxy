@@ -109,7 +109,8 @@ export const sw = {
   feat_quality_h3: "Ubora na fomati",
   feat_quality_1: "Hadi **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**Kiwango cha juu cha fremu** kimehifadhiwa kama kilivyo — fps 60, fps 120, HDR",
-  feat_quality_3: "**Sauti pekee** kama MP3, M4A/AAC, Opus au WAV",
+  feat_quality_3:
+    "**Vidhibiti vya sauti** — hamisha sauti pekee kama MP3, M4A/AAC, Opus au WAV; weka chaguo la jumla **Pendelea surround / Dolby**; na acha nyimbo asili za Dolby AC-3/EC-3, multichannel, DRC na sauti nyingine za juu zichagulike kwenye upakuaji wa mwingiliano zinapopatikana",
   feat_quality_4: "Maandiko ya haraka: *Ubora bora* · *Usawa* · *Faili ndogo*",
   feat_privacy_h3: "Faragha na udhibiti",
   feat_privacy_1:
@@ -313,15 +314,23 @@ export const sw = {
   plan_col2: "Maelezo",
   plan_r1_name: "**Vichujio vya orodha za kucheza na vituo**",
   plan_r1_desc: "Vichujio vya muda wa tarehe unapoorodhesha playlist au channel",
-  plan_r2_name: "**Uingizaji wa URL nyingi**",
-  plan_r2_desc: "Bandika URL nyingi kwa wakati mmoja na uziendeshe mara moja",
-  plan_r4_name: "**Templeti maalum za majina ya faili**",
+  plan_r2_name: "**Mapendeleo ya track za sauti za YouTube**",
+  plan_r2_desc:
+    "Chagua track za lugha ya mazungumzo unazopendelea YouTube inapotoa track nyingi za sauti",
+  plan_r6_name: "**Kuingia kwa browser ndani ya app**",
+  plan_r6_desc:
+    "Fungua browser windows ndani ya Arroxy ili uingie na kutumia site cookies bila kuziexport mwenyewe",
+  plan_r8_name: "**Upakuaji wa video kwa click moja**",
+  plan_r8_desc:
+    "Anzisha video download kwa click moja kutoka URL iliyotambuliwa au kubandikwa ukitumia active profile",
+  plan_r3_name: "**Urejeshaji imara kwa retry**",
+  plan_r3_desc:
+    "Njia mpya ya retry kwa upakuaji uliokatizwa na miunganisho ya internet isiyotegemeka au yenye matatizo",
+  plan_r4_name: "**Drawer kamili ya msimamizi wa upakuaji**",
   plan_r4_desc:
-    "Weka jina la faili kwa kichwa, mpakiaji, tarehe, azimio — na onyesho la moja kwa moja",
+    "Kubadilisha queue drawer kuwa manager kamili zaidi, ikijumuisha kubadilisha folder za destination kwa vipengee vilivyo kwenye foleni",
   plan_r5_name: "**Upakuaji uliopangwa**",
   plan_r5_desc: "Anza foleni kwa wakati uliowekwa (uendeshaji wa usiku)",
-  plan_r6_name: "**Vikwazo vya kasi**",
-  plan_r6_desc: "Punguza kipimo data ili maudhui yasijaze muunganisho wako",
   plan_r7_name: "**Kukata sehemu**",
   plan_r7_desc: "Pakua sehemu pekee kwa wakati wa kuanza/kumalizia",
   plan_cta:

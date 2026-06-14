@@ -32,6 +32,7 @@ import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import type {PlaylistManifest} from '@shared/playlistManifest.js'
 import type {DownloadService} from './DownloadService.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
+import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
 
 const logger = log.scope('queue')
 
@@ -86,7 +87,8 @@ export class QueueService extends EventEmitter {
 		private readonly downloadService: DownloadService,
 		private readonly normalCap = NORMAL_LANE_CAP,
 		private readonly maxConcurrent = MAX_CONCURRENT_DOWNLOADS,
-		private readonly playlist?: {manifestStore: PlaylistManifestStore; writeM3u: (manifest: PlaylistManifest) => Promise<void>}
+		private readonly playlist?: {manifestStore: PlaylistManifestStore; writeM3u: (manifest: PlaylistManifest) => Promise<void>},
+		private readonly probeInfoJsonCache?: ProbeInfoJsonCache
 	) {
 		super()
 		this.downloadService.on('status', (event: StatusEvent) => this.consumeStatusEvent(event))
@@ -224,6 +226,20 @@ export class QueueService extends EventEmitter {
 		}
 	}
 
+	private async cleanupProbeInfoJsonBestEffort(item: QueueItem): Promise<void> {
+		if (!item.probeInfoJsonRef) return
+		try {
+			await this.probeInfoJsonCache?.delete(item.probeInfoJsonRef)
+		} catch (err) {
+			logger.warn('probe info-json cleanup failed', {itemId: item.id, error: err instanceof Error ? err.message : String(err)})
+		}
+	}
+
+	private async cleanupQueueArtifactsBestEffort(item: QueueItem): Promise<void> {
+		await this.cleanupResumeContextBestEffort(item)
+		await this.cleanupProbeInfoJsonBestEffort(item)
+	}
+
 	async resume(itemId: string): Promise<Result<void>> {
 		const item = this.findItem(itemId)
 		if (!item) return fail(createAppError('validation', `queue item ${itemId} not found`))
@@ -270,7 +286,7 @@ export class QueueService extends EventEmitter {
 			try {
 				for (const id of ids) {
 					const item = this.findItem(id)
-					if (item) await this.cleanupResumeContextBestEffort(item)
+					if (item) await this.cleanupQueueArtifactsBestEffort(item)
 					const jobId = item?.lastJobId
 					if (jobId) this.forgetProgressState(jobId)
 					this.commit({kind: 'event', itemId: id, evt: {kind: 'cancelled'}})
@@ -293,7 +309,7 @@ export class QueueService extends EventEmitter {
 		if (!item) return ok(undefined)
 
 		if (item.status === QUEUE_STATUS.pending || item.status === QUEUE_STATUS.pausedHeld) {
-			await this.cleanupResumeContextBestEffort(item)
+			await this.cleanupQueueArtifactsBestEffort(item)
 			this.commit({kind: 'event', itemId, evt: {kind: 'cancelled'}})
 			return ok(undefined)
 		}
@@ -302,7 +318,7 @@ export class QueueService extends EventEmitter {
 			await this.downloadService.cancel(item.lastJobId)
 			this.forgetProgressState(item.lastJobId)
 		}
-		await this.cleanupResumeContextBestEffort(item)
+		await this.cleanupQueueArtifactsBestEffort(item)
 		this.commit({kind: 'event', itemId, evt: {kind: 'cancelled'}})
 		return ok(undefined)
 	}
@@ -339,7 +355,7 @@ export class QueueService extends EventEmitter {
 		const idsToRemove = this.items.flatMap(i => (i.status === QUEUE_STATUS.done || i.status === QUEUE_STATUS.cancelled || i.status === QUEUE_STATUS.error ? [i.id] : []))
 		for (const id of idsToRemove) {
 			const item = this.findItem(id)
-			if (item) await this.cleanupResumeContextBestEffort(item)
+			if (item) await this.cleanupQueueArtifactsBestEffort(item)
 		}
 		this.inBulk = true
 		try {
@@ -359,7 +375,7 @@ export class QueueService extends EventEmitter {
 		if (item.status === QUEUE_STATUS.running) {
 			return fail(createAppError('validation', 'cannot remove a running item — cancel it first'))
 		}
-		await this.cleanupResumeContextBestEffort(item)
+		await this.cleanupQueueArtifactsBestEffort(item)
 		this.commit({kind: 'remove', itemId})
 		return ok(undefined)
 	}
@@ -371,6 +387,7 @@ export class QueueService extends EventEmitter {
 		if (!item) return
 		if (event.stage === 'done') {
 			this.forgetProgressState(event.jobId)
+			void this.cleanupProbeInfoJsonBestEffort(item)
 			// Inter-job cooldown applies only when a normal-lane job finishes —
 			// priority jobs are user-driven bursts, no need to throttle the queue
 			// after they wrap.
@@ -608,8 +625,12 @@ export class QueueService extends EventEmitter {
 		}
 		const effectiveTempDir = QueueResumeLifecycle.tempDirForQueueStart(item, tempDir)
 		const resumeContextForImmediateFailure = item.resumeContext
+		const probeInfoJsonPath = item.probeInfoJsonRef && this.probeInfoJsonCache ? await this.probeInfoJsonCache.resolve(item.probeInfoJsonRef) : undefined
+		if (item.probeInfoJsonRef) {
+			logger.info('probe info-json resolved', {itemId, probeInfoJsonRef: item.probeInfoJsonRef, probeInfoJsonPath: probeInfoJsonPath ?? null})
+		}
 		try {
-			const result = await this.downloadService.start({url: item.url, outputDir: item.outputDir, job: item.job, tempDir: effectiveTempDir})
+			const result = await this.downloadService.start({url: item.url, outputDir: item.outputDir, job: item.job, tempDir: effectiveTempDir, ...(probeInfoJsonPath ? {probeInfoJsonPath} : {})})
 			if (!result.ok) {
 				this.commit({kind: 'event', itemId, evt: {kind: 'failed', error: {kind: 'unknown', raw: result.error.message}, resumeContext: resumeContextForImmediateFailure}})
 				return fail(result.error)

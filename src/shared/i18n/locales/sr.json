@@ -180,7 +180,8 @@
 				"cssOnlyLabel": "Најбоље перформансе",
 				"cssOnlyDescription": "Само CSS, без canvas рендеровања.",
 				"gpuLabel": "Најлепше",
-				"gpuDescription": "Анимирана WebGL позадина када је подржана."
+				"gpuDescription": "Анимирана WebGL позадина када је подржана.",
+				"runtimeFallbackNotice": "Хардверски WebGL није доступан на овом уређају, па Arroxy користи позадину за боље перформансе."
 			},
 			"limitRate": {
 				"label": "Ограничение скорости загрузки",
@@ -205,6 +206,7 @@
 				"invalid": "Унеси цео број од 1 до 5000",
 				"tooltip": "Одговара yt-dlp опцији --playlist-end: Arroxy тражи само овај број уноса плејлисте, канала или претраге приликом прављења бирача."
 			},
+			"nativeAudioPreference": {"label": "Postavka izvornog zvuka", "description": "Određuje šta bira „Najbolji izvorni“. Ručni audio redovi i M4A/AAC ostaju izričit izbor.", "compatible": "Kompatibilni stereo", "surround": "Daj prednost surround / Dolby"},
 			"singleFilenameId": {"toggle": "Додај ID видеа у појединачна имена фајлова", "toggleDescription": "Чува појединачна преузимања јединственим када се наслови промене или поклопе."},
 			"networkPacing": {
 				"heading": "Пажљива преузимања",
@@ -421,6 +423,7 @@
 		"installFailed": "Ажурирање није успело",
 		"retry": "Покушај поново"
 	},
+	"releaseNotes": {"title": "Шта је ново у Arroxy {{version}}", "description": "Користите ново ажурирање. Ево најважнијих измена.", "fullNotes": "Комплетне белешке о издању ↗", "continue": "Настави"},
 	"status": {
 		"preparingBinaries": "Припрема бинарних датотека…",
 		"mintingToken": "Генерисање YouTube токена…",

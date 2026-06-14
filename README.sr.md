@@ -3,7 +3,7 @@
 
 # Arroxy — Бесплатни open-source YouTube (+ 2000 сајтова) преузимач за Windows, macOS и Linux
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **Читај на:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · **Српски** · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
@@ -226,7 +226,7 @@ Arroxy је направљен за једну ствар: налепите URL,
 
 - До **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
 - **Висок број сличица** задржан без измена — 60 fps, 120 fps, HDR
-- **Samo audio** u MP3, M4A/AAC, Opus ili WAV
+- **Kontrole zvuka** — izvezi samo audio kao MP3, M4A/AAC, Opus ili WAV; podesi globalnu opciju **Daj prednost surround / Dolby**; i zadrži izvorne Dolby AC-3/EC-3, višekanalne, DRC i druge napredne audio trake kao izbor u interaktivnim preuzimanjima kada su dostupne
 - Брзи предефинисани избори: *Најбољи квалитет* · *Уравнотежено* · *Мали фајл*
 
 ### Приватност и контрола
@@ -321,7 +321,11 @@ yt-dlp се аутоматски ажурира при покретању, а Ar
 | Функционалност    | Опис    |
 | ---------------- | ---------------- |
 | **Филтери плејлисти и канала** | Date-range filters при набрајању playlist-а или channel-а |
-| **Прилагођени шаблони назива фајлова** | Именујте фајлове по наслову, аутору, датуму, резолуцији — са живим прегледом |
+| **Подешавања YouTube аудио трака** | Изаберите жељене говорне језичке траке када YouTube нуди више аудио трака |
+| **Пријава кроз browser у апликацији** | Отварање browser windows унутар Arroxy-ја за пријаву и коришћење site cookies без ручног export-а |
+| **Видео преузимање једним кликом** | Покрените video download једним кликом из препознатог или налепљеног URL-а користећи активни профил |
+| **Јаче recovery преко retry механизма** | Нова retry путања за преузимања прекинута непоузданом или проблематичном интернет везом |
+| **Пун drawer менаџер преузимања** | Претворити queue drawer у потпунији менаџер, укључујући промену одредишних фасцикли за ставке у реду |
 | **Заказана преузимања** | Покрените ред у одређено доба (ноћна покретања) |
 | **Исецање клипова** | Преузмите само сегмент по времену почетка/краја |
 

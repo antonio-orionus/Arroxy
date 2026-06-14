@@ -69,7 +69,8 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			syncScanState: 'idle',
 			wizardExtractor: '',
 			wizardExtractorKey: '',
-			wizardWebpageUrl: ''
+			wizardWebpageUrl: '',
+			wizardProbeInfoJsonRef: undefined
 		}
 	}
 }
@@ -102,6 +103,7 @@ export function projectVideoProbeResult(probe: Extract<ProbeResult, {kind: 'vide
 		wizardExtractor: probe.extractor,
 		wizardExtractorKey: probe.extractorKey,
 		wizardWebpageUrl: probe.webpageUrl,
+		wizardProbeInfoJsonRef: probe.probeInfoJsonRef,
 		wizardTitle: title,
 		wizardThumbnail: thumbnail,
 		wizardDuration: duration,
@@ -154,6 +156,7 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 		wizardExtractor: probe.extractor,
 		wizardExtractorKey: probe.extractorKey,
 		wizardWebpageUrl: probe.webpageUrl,
+		wizardProbeInfoJsonRef: undefined,
 		playlistItems,
 		selectedPlaylistItemIds: playlistItems.map(e => e.id),
 		playlistTitle: probe.playlistTitle,
@@ -203,6 +206,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState): Bulk
 			wizardExtractor: allYouTubeVideos ? 'youtube' : '',
 			wizardExtractorKey: allYouTubeVideos ? 'Youtube' : '',
 			wizardWebpageUrl: '',
+			wizardProbeInfoJsonRef: undefined,
 			formatsLoading: false,
 			playlistProbeLoading: false,
 			wizardError: null,

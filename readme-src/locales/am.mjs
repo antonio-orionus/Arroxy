@@ -109,7 +109,8 @@ export const am = {
   feat_quality_h3: "ጥራት እና ቅርጸቶች",
   feat_quality_1: "እስከ **4K UHD (2160p)**፣ 1440p፣ 1080p፣ 720p፣ 480p፣ 360p",
   feat_quality_2: "**ፈጣን የፍሬም ፍጥነት** እንዳለ ተጠብቆ — 60 fps፣ 120 fps፣ HDR",
-  feat_quality_3: "**ኦዲዮ ብቻ** ወደ MP3፣ M4A/AAC፣ Opus ወይም WAV ማውጣት",
+  feat_quality_3:
+    "**የድምፅ መቆጣጠሪያዎች** — ኦዲዮ ብቻን ወደ MP3፣ M4A/AAC፣ Opus ወይም WAV ማውጣት፤ ዓለም አቀፍ **surround / Dolby ን ይመርጡ** አማራጭ ማቀናበር፤ እና ካሉ native Dolby AC-3/EC-3፣ multichannel፣ DRC እና ሌሎች የላቁ የድምፅ ትራኮች በinteractive downloads ውስጥ እንዲመረጡ ማድረግ",
   feat_quality_4: "ፈጣን ቅድመ ቅንብሮች: *ምርጥ ጥራት* · *ሚዛናዊ* · *ትንሽ ፋይል*",
   feat_privacy_h3: "ግላዊነት እና ቁጥጥር",
   feat_privacy_1:
@@ -313,15 +314,23 @@ export const am = {
   plan_col2: "ዝርዝር",
   plan_r1_name: "**የፕሌይሊስት እና ቻናል ማጣሪያዎች**",
   plan_r1_desc: "playlist ወይም channel ሲዘረዝሩ የቀን ክልል ማጣሪያዎች",
-  plan_r2_name: "**ቡድን URL ግቤት**",
-  plan_r2_desc: "ብዙ URLs አንድ ጊዜ ይለጥፉ እና አንድ ጊዜ ያሂዱ",
-  plan_r4_name: "**ተስማሚ ፋይል ስም ቅጥበቶች**",
+  plan_r2_name: "**የYouTube ድምጽ ትራክ ምርጫዎች**",
+  plan_r2_desc:
+    "YouTube ብዙ የድምጽ ትራኮች ሲሰጥ የሚመረጡ የንግግር ቋንቋ ትራኮችን ይምረጡ",
+  plan_r6_name: "**በመተግበሪያው ውስጥ browser sign-in**",
+  plan_r6_desc:
+    "በArroxy ውስጥ browser windows ክፈቱ፣ እንዲገቡ እና site cookies በእጅ ሳይexport እንዲጠቀሙ",
+  plan_r8_name: "**አንድ-click ቪዲዮ ማውረድ**",
+  plan_r8_desc:
+    "በactive profile የተገኘ ወይም የተለጠፈ URL ቪዲዮ ማውረድን በአንድ click ጀምሩ",
+  plan_r3_name: "**የተጠናከረ ዳግም ሙከራ መልሶ ማገገም**",
+  plan_r3_desc:
+    "በማይታመን ወይም ችግኝ ያለው የኢንተርኔት ግንኙነት የተቋረጡ ማውረዶችን ለመቀጠል አዲስ የዳግም ሙከራ መንገድ",
+  plan_r4_name: "**ሙሉ የማውረድ አስተዳዳሪ መሳቢያ**",
   plan_r4_desc:
-    "ፋይሎቹን በርዕስ፣ አሰቃዮ፣ ቀን፣ ጥራት — ቀጥተኛ ቅድዓሙ ጋር ስሟቸው",
+    "የqueue መሳቢያውን ወደ ሙሉ አስተዳዳሪ መቀየር፣ ለተሰለፉ ንጥሎች destination folder መቀየርን ጨምሮ",
   plan_r5_name: "**የቀጠሮ ማውረዶች**",
   plan_r5_desc: "ወረፋ በተወሰነ ሰዓት ጀምሩ (ሌሊት ሂደቶች)",
-  plan_r6_name: "**የፍጥነት ወሰን**",
-  plan_r6_desc: "ማውረዶቹ ግንኙነቱን እንዳይሞሉ ኢንተርኔት አቅምን ወሰን ያድርጉ",
   plan_r7_name: "**ቁርጥ ምረጥ**",
   plan_r7_desc: "የጀምር/ማቆሚያ ጊዜ ብቻ ያወርዱ",
   plan_cta:

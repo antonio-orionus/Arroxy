@@ -24,6 +24,7 @@ export const RESET_WIZARD_STATE = {
 	wizardExtractor: '',
 	wizardExtractorKey: '',
 	wizardWebpageUrl: '',
+	wizardProbeInfoJsonRef: undefined,
 	formatsLoading: false,
 	wizardError: null,
 	wizardErrorOrigin: null,

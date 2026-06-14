@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
-import {LIVE_PROBE_SMOKE_RESULT_PREFIX, parseLiveProbeSmokeResultLine, probeSmokeReportIsHealthy, serializeLiveProbeSmokeReport, type LiveProbeSmokeReport} from '@main/smoke.js'
 import {parseRuntimeSmokeResultLine, readRuntimeSmokeEnabled, RUNTIME_SMOKE_RESULT_PREFIX, runtimeSmokeReportIsHealthy, serializeRuntimeSmokeReport, summarizeYtDlpVerboseRuntime, type RuntimeSmokeReport} from '@main/runtimeSmoke.js'
+import {LIVE_PROBE_SMOKE_RESULT_PREFIX, parseLiveProbeSmokeResultLine, probeSmokeReportIsHealthy, serializeLiveProbeSmokeReport, type LiveProbeSmokeReport} from '@main/smoke.js'
 
 const healthyReport: RuntimeSmokeReport = {
 	runtimeSmoke: true,

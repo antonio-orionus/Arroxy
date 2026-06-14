@@ -6,8 +6,8 @@ function video(formatId: string, resolution: string, fps?: number, filesize?: nu
 	return {formatId, label: formatId, ext: 'mp4', resolution, fps, filesize, isVideoOnly: true, isAudioOnly: false}
 }
 
-function audio(formatId: string, abr?: number): FormatOption {
-	return {formatId, label: formatId, ext: 'm4a', resolution: 'audio only', abr, isVideoOnly: false, isAudioOnly: true}
+function audio(formatId: string, abr?: number, audioCodec?: string): FormatOption {
+	return {formatId, label: formatId, ext: 'm4a', resolution: 'audio only', abr, audioCodec, isVideoOnly: false, isAudioOnly: true}
 }
 
 describe('sortFormatsByQuality', () => {
@@ -31,6 +31,11 @@ describe('sortFormatsByQuality', () => {
 	it('sorts audio by abr descending', () => {
 		const sorted = sortFormatsByQuality([audio('low', 64), audio('high', 320), audio('mid', 128)])
 		expect(sorted.map(f => f.abr)).toEqual([320, 128, 64])
+	})
+
+	it('keeps audio ordered by bitrate even when Dolby codecs are present', () => {
+		const sorted = sortFormatsByQuality([audio('ec3', 384, 'ec-3'), audio('opus', 143, 'opus'), audio('aac', 130, 'mp4a.40.2'), audio('ac3', 384, 'ac-3'), audio('aac-low', 49, 'mp4a.40.5')])
+		expect(sorted.map(f => f.formatId)).toEqual(['ec3', 'ac3', 'opus', 'aac', 'aac-low'])
 	})
 
 	it('places all video tracks before all audio tracks', () => {

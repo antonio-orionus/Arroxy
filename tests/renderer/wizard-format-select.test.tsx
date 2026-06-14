@@ -10,6 +10,13 @@ const FORMATS: FormatOption[] = [
 	{formatId: '249', label: 'opus 64kbps', ext: 'opus', resolution: 'audio only', abr: 64, isVideoOnly: false, isAudioOnly: true}
 ]
 
+const DOLBY_FIRST_FORMATS: FormatOption[] = [
+	{formatId: '337', label: '2160p hdr', ext: 'webm', resolution: '2160p HDR', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '380', label: 'm4a ac-3 384kbps', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ac-3', isVideoOnly: false, isAudioOnly: true},
+	{formatId: '328', label: 'm4a ec-3 384kbps', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ec-3', isVideoOnly: false, isAudioOnly: true},
+	{formatId: '251', label: 'opus 143kbps', ext: 'webm', resolution: 'audio only', abr: 143, audioCodec: 'opus', isVideoOnly: false, isAudioOnly: true}
+]
+
 beforeEach(() => {
 	useAppStore.setState({wizardFormats: FORMATS, selectedVideoFormatId: '', audioSelection: {kind: 'none'}, activePreset: null})
 })
@@ -32,6 +39,14 @@ describe('wizard slice — invariant: video + convert audio is unreachable', () 
 		useAppStore.getState().setSelectedVideoFormatId('137')
 
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'native', formatId: '140'})
+	})
+
+	it('switching to video skips Dolby formats when choosing the reset native audio', () => {
+		useAppStore.setState({wizardFormats: DOLBY_FIRST_FORMATS, selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, activePreset: 'audio-only'})
+
+		useAppStore.getState().setSelectedVideoFormatId('337')
+
+		expect(useAppStore.getState().audioSelection).toEqual({kind: 'native', formatId: '251'})
 	})
 
 	it('falls back to {kind: none} when no native audio formats exist', () => {

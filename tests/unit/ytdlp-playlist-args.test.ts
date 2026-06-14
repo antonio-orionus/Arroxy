@@ -15,6 +15,7 @@ import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import {planWorkflow, type AudioConvert as BridgeAudioConvert, type WorkflowInput} from 'yt-dlp-bridge'
 import type {AudioConvert, PlaylistSelection} from '@shared/schemas.js'
+import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/tmp/out'
@@ -40,7 +41,7 @@ describe('Video · Best codec', () => {
 		const args = argsFor({kind: 'video', tier: 'best', codec: 'best'})
 		expect(args).toContain('-f')
 		const fIdx = args.indexOf('-f')
-		expect(args[fIdx + 1]).toBe('bestvideo*+bestaudio/best')
+		expect(args[fIdx + 1]).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)
 		expect(args).not.toContain('-S')
 		expect(args).not.toContain('--merge-output-format')
 	})
@@ -48,7 +49,7 @@ describe('Video · Best codec', () => {
 	it.each(['2160', '1440', '1080', '720', '480', '360'] as const)('tier=%s → stable -f selector + resolution sort', tier => {
 		const args = argsFor({kind: 'video', tier, codec: 'best'})
 		const fIdx = args.indexOf('-f')
-		expect(args[fIdx + 1]).toBe('bestvideo*+bestaudio/best')
+		expect(args[fIdx + 1]).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)
 		expect(args[fIdx + 1]).not.toContain('height<=')
 		const sIdx = args.indexOf('-S')
 		expect(sIdx).toBeGreaterThan(-1)
@@ -100,7 +101,7 @@ describe('Audio · Best (no convert)', () => {
 		const args = argsFor({kind: 'audio', format: 'best'})
 		const fIdx = args.indexOf('-f')
 		expect(fIdx).toBeGreaterThan(-1)
-		expect(args[fIdx + 1]).toBe('bestaudio/best')
+		expect(args[fIdx + 1]).toBe(COMPATIBLE_AUDIO_ONLY_SELECTOR)
 		expect(args).not.toContain('-x')
 		expect(args).not.toContain('--audio-format')
 	})

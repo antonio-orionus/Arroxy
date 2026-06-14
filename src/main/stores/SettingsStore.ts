@@ -17,6 +17,7 @@ const COMMON_FLAT_KEYS = [
 	'cookiesMode',
 	'cookiesBrowser',
 	'proxyUrl',
+	'nativeAudioPreference',
 	'limitRate',
 	'playlistProbeLimit',
 	'networkPacingPreset',

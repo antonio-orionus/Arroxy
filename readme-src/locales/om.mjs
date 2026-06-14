@@ -109,7 +109,8 @@ export const om = {
   feat_quality_h3: "Qulqullina & formatoota",
   feat_quality_1: "Hanga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**Frame rate ol'aanaa** akka jiru eegama — 60 fps, 120 fps, HDR",
-  feat_quality_3: "**Audio qofa** gara MP3, M4A/AAC, Opus yookaan WAV",
+  feat_quality_3:
+    "**To'annoo sagalee** — sagalee qofa gara MP3, M4A/AAC, Opus yookaan WAV export godhi; filannoo waliigalaa **Surround / Dolby filadhu** kaa'i; akkasumas yoo jiran buufataalee wal-qunnamtii keessatti Dolby AC-3/EC-3, multichannel, DRC fi sagalee ol'aanaa biroo filatamuu danda'u godhi",
   feat_quality_4: "Preset saffisoo: *Qulqullina gaarii* · *Walirraanfattee* · *Faayila xiqqaa*",
   feat_privacy_h3: "Icciitii & to'annaa",
   feat_privacy_1:
@@ -313,15 +314,23 @@ export const om = {
   plan_col2: "Ibsa",
   plan_r1_name: "**Playlist & chaanaalii hojjettoota**",
   plan_r1_desc: "Yeroo playlist ykn channel sakatta’an filtraroota guyyaa",
-  plan_r2_name: "**Galchii URL fakkaataa**",
-  plan_r2_desc: "URLs heddu yeroo tokkotti maxxansi fi isaan tokkoon oofii",
-  plan_r4_name: "**Template maqaa faayilaa dhuunfaa**",
+  plan_r2_name: "**Filannoo track sagalee YouTube**",
+  plan_r2_desc:
+    "Yoo YouTube track sagalee heddu dhiyeesse, track afaan dubbii filatamaa filadhu",
+  plan_r6_name: "**Browser sign-in app keessa**",
+  plan_r6_desc:
+    "Browser windows Arroxy keessa bani, akka sign in gootuu fi site cookies osoo harkaan export hin godhin fayyadamtuuf",
+  plan_r8_name: "**Video click tokkoon buusuu**",
+  plan_r8_desc:
+    "Active profile kee fayyadamuun URL argame ykn maxxanfame irraa video download click tokkoon eegali",
+  plan_r3_name: "**Deebisanii yaaluun deebisuu cimaa**",
+  plan_r3_desc:
+    "Buufannoowwan walitti hidhamiinsa internetii hin tasgabboofne ykn rakkoo qabuun citeef karaa retry haaraa",
+  plan_r4_name: "**Drawer download manager guutuu**",
   plan_r4_desc:
-    "Faayiloota mata-duree, olkaa'aa, guyyaa, mookii shan — preview qindoofame wajjin maqaa kaa'i",
+    "Queue drawer gara manager guutuutti guddisuu, items queue keessa jiranif destination folder jijjiiruu dabalatee",
   plan_r5_name: "**Buufannoo yeroo qabamee**",
   plan_r5_desc: "Queue yeroo qindaawaa irratti eegali (halkaniidhumaan hojeti)",
-  plan_r6_name: "**Daangaa saffisaa**",
-  plan_r6_desc: "Bandwidth daangessii buufannoonni walitti hidhamina kee hin guunnee",
   plan_r7_name: "**Muraa Clip**",
   plan_r7_desc: "Tokkicha kutaa yeroo eegaluu/dhumu irratti buusi",
   plan_cta:

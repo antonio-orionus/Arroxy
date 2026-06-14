@@ -110,7 +110,8 @@ export const es = {
   feat_quality_h3: "Calidad y formatos",
   feat_quality_1: "Hasta **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**Alta frecuencia de fotogramas** conservada tal cual — 60 fps, 120 fps, HDR",
-  feat_quality_3: "**Solo audio** a MP3, M4A/AAC, Opus o WAV",
+  feat_quality_3:
+    "**Controles de audio** — exporta solo audio como MP3, M4A/AAC, Opus o WAV; configura una opción global **Preferir surround / Dolby**; y mantén seleccionables las pistas nativas Dolby AC-3/EC-3, multicanal, DRC y otros audios avanzados en las descargas interactivas cuando estén disponibles",
   feat_quality_4: "Presets rápidos: *Mejor calidad* · *Equilibrado* · *Archivo pequeño*",
   feat_privacy_h3: "Privacidad y control",
   feat_privacy_1:
@@ -314,15 +315,23 @@ export const es = {
   plan_col2: "Descripción",
   plan_r1_name: "**Filtros de listas y canales**",
   plan_r1_desc: "Filtros por rango de fechas al enumerar una playlist o un canal",
-  plan_r2_name: "**Entrada de URLs por lotes**",
-  plan_r2_desc: "Pega varias URLs a la vez y lánzalas todas juntas",
-  plan_r4_name: "**Plantillas de nombre de archivo personalizadas**",
+  plan_r2_name: "**Preferencias de pistas de audio de YouTube**",
+  plan_r2_desc:
+    "Elige pistas de idioma hablado preferidas cuando YouTube ofrece varias pistas de audio",
+  plan_r6_name: "**Inicio de sesión con navegador integrado**",
+  plan_r6_desc:
+    "Abrir ventanas de navegador dentro de Arroxy para iniciar sesión y usar cookies del sitio sin exportarlas manualmente",
+  plan_r8_name: "**Descarga de video con un clic**",
+  plan_r8_desc:
+    "Inicia una descarga de video con un clic desde una URL detectada o pegada usando tu perfil activo",
+  plan_r3_name: "**Recuperación de reintentos más fuerte**",
+  plan_r3_desc:
+    "Una nueva ruta de reintento para descargas interrumpidas por conexiones de internet inestables o problemáticas",
+  plan_r4_name: "**Cajón de gestor de descargas completo**",
   plan_r4_desc:
-    "Nombra archivos por título, autor, fecha, resolución — con vista previa en vivo",
+    "Convertir el cajón de cola en un gestor más completo, incluido cambiar carpetas de destino para elementos en cola",
   plan_r5_name: "**Descargas programadas**",
   plan_r5_desc: "Inicia una cola a una hora fijada (ejecuciones nocturnas)",
-  plan_r6_name: "**Límites de velocidad**",
-  plan_r6_desc: "Limita el ancho de banda para que las descargas no saturen tu conexión",
   plan_r7_name: "**Recorte de clips**",
   plan_r7_desc: "Descarga solo un segmento especificando tiempo de inicio y fin",
   plan_cta:

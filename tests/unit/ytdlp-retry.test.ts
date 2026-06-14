@@ -27,8 +27,20 @@ function mediaRequest(): YtDlpRequest {
 	return {kind: 'media', url: URL, output: {directory: '/tmp'}}
 }
 
+function mediaRequestWithInfoJson(): YtDlpRequest {
+	return {kind: 'media', url: URL, output: {directory: '/tmp'}, resume: {loadInfoJsonPath: '/cache/probe.info.json'}}
+}
+
+function mediaRequestWithPlayerClient(playerClient: string[]): YtDlpRequest {
+	return {kind: 'media', url: URL, output: {directory: '/tmp'}, extractor: {youtube: {playerClient}}}
+}
+
 function subtitleRequest(): YtDlpRequest {
 	return {kind: 'subtitles', url: URL, output: {directory: '/tmp'}, subtitles: {languages: ['en'], format: 'ass', writeAuto: true}}
+}
+
+function probeRequestWithPlayerClient(playerClient: string[]): YtDlpRequest {
+	return {kind: 'probe', url: URL, selection: {playlistMode: 'video'}, extractor: {youtube: {playerClient}}}
 }
 
 beforeEach(() => {
@@ -67,6 +79,27 @@ describe('YtDlp — retry ladder', () => {
 		expect(retryArgs[retryArgs.indexOf('--extractor-args') + 1]).toContain('new-tok')
 	})
 
+	it('media with load-info-json still uses PoT and re-mints on bot-block', async () => {
+		vi.mocked(spawnYtDlp)
+			.mockImplementationOnce(() => makeFakeProcess(1, BOT_STDERR) as never)
+			.mockImplementationOnce(() => makeFakeProcess(0) as never)
+
+		const {ytDlp, tokenService} = makeYtDlp()
+		tokenService.mintTokenForUrl.mockResolvedValueOnce({token: 'old-info-tok', visitorData: 'vd', fromCache: false}).mockResolvedValueOnce({token: 'new-info-tok', visitorData: 'vd', fromCache: false})
+
+		const result = await ytDlp.run(mediaRequestWithInfoJson())
+
+		expect(result.kind).toBe('success')
+		expect(tokenService.invalidateCache).toHaveBeenCalledOnce()
+		expect(tokenService.mintTokenForUrl).toHaveBeenCalledTimes(2)
+		const firstArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1]
+		const retryArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[1][1]
+		expect(firstArgs).toContain('--load-info-json')
+		expect(firstArgs[firstArgs.indexOf('--extractor-args') + 1]).toContain('old-info-tok')
+		expect(retryArgs).toContain('--load-info-json')
+		expect(retryArgs[retryArgs.indexOf('--extractor-args') + 1]).toContain('new-info-tok')
+	})
+
 	it('two bot-blocks → attempt 2 uses player_client fallback, usedExtractorFallback=true', async () => {
 		vi.mocked(spawnYtDlp)
 			.mockImplementationOnce(() => makeFakeProcess(1, BOT_STDERR) as never)
@@ -84,6 +117,41 @@ describe('YtDlp — retry ladder', () => {
 
 		const fallbackArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[2][1]
 		expect(fallbackArgs[fallbackArgs.indexOf('--extractor-args') + 1]).toBe('youtube:player_client=default,-web,-web_safari')
+	})
+
+	it('explicit probe player_client survives final fallback without default override', async () => {
+		vi.mocked(spawnYtDlp)
+			.mockImplementationOnce(() => makeFakeProcess(1, BOT_STDERR) as never)
+			.mockImplementationOnce(() => makeFakeProcess(1, BOT_STDERR) as never)
+			.mockImplementationOnce(() => makeFakeProcess(0) as never)
+
+		const {ytDlp} = makeYtDlp()
+
+		const result = await ytDlp.run(probeRequestWithPlayerClient(['web_embedded']))
+
+		expect(result.kind).toBe('success')
+		if (result.kind === 'success') expect(result.usedExtractorFallback).toBe(true)
+		const fallbackArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[2][1]
+		const extractorArgs = fallbackArgs.flatMap((arg, index, args) => (arg === '--extractor-args' ? [args[index + 1]] : []))
+		expect(extractorArgs).toContain('youtube:player_client=web_embedded')
+		expect(extractorArgs).not.toContain('youtube:player_client=default,-web,-web_safari')
+	})
+
+	it('explicit media player_client survives final fallback without default override', async () => {
+		vi.mocked(spawnYtDlp)
+			.mockImplementationOnce(() => makeFakeProcess(1, BOT_STDERR) as never)
+			.mockImplementationOnce(() => makeFakeProcess(1, BOT_STDERR) as never)
+			.mockImplementationOnce(() => makeFakeProcess(0) as never)
+
+		const {ytDlp} = makeYtDlp()
+
+		const result = await ytDlp.run(mediaRequestWithPlayerClient(['default', 'web_embedded']))
+
+		expect(result.kind).toBe('success')
+		const fallbackArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[2][1]
+		const extractorArgs = fallbackArgs.flatMap((arg, index, args) => (arg === '--extractor-args' ? [args[index + 1]] : []))
+		expect(extractorArgs).toContain('youtube:player_client=default,web_embedded')
+		expect(extractorArgs).not.toContain('youtube:player_client=default,-web,-web_safari')
 	})
 
 	it('first mint throws → skips to fallback, usedExtractorFallback=true', async () => {

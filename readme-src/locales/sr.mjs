@@ -109,7 +109,8 @@ export const sr = {
   feat_quality_h3: "Квалитет и формати",
   feat_quality_1: "До **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**Висок број сличица** задржан без измена — 60 fps, 120 fps, HDR",
-  feat_quality_3: "**Samo audio** u MP3, M4A/AAC, Opus ili WAV",
+  feat_quality_3:
+    "**Kontrole zvuka** — izvezi samo audio kao MP3, M4A/AAC, Opus ili WAV; podesi globalnu opciju **Daj prednost surround / Dolby**; i zadrži izvorne Dolby AC-3/EC-3, višekanalne, DRC i druge napredne audio trake kao izbor u interaktivnim preuzimanjima kada su dostupne",
   feat_quality_4: "Брзи предефинисани избори: *Најбољи квалитет* · *Уравнотежено* · *Мали фајл*",
   feat_privacy_h3: "Приватност и контрола",
   feat_privacy_1:
@@ -313,15 +314,23 @@ export const sr = {
   plan_col2: "Опис",
   plan_r1_name: "**Филтери плејлисти и канала**",
   plan_r1_desc: "Date-range filters при набрајању playlist-а или channel-а",
-  plan_r2_name: "**Групни унос URL-ова**",
-  plan_r2_desc: "Налепите више URL-ова одједном и покрените их у једном потезу",
-  plan_r4_name: "**Прилагођени шаблони назива фајлова**",
+  plan_r2_name: "**Подешавања YouTube аудио трака**",
+  plan_r2_desc:
+    "Изаберите жељене говорне језичке траке када YouTube нуди више аудио трака",
+  plan_r6_name: "**Пријава кроз browser у апликацији**",
+  plan_r6_desc:
+    "Отварање browser windows унутар Arroxy-ја за пријаву и коришћење site cookies без ручног export-а",
+  plan_r8_name: "**Видео преузимање једним кликом**",
+  plan_r8_desc:
+    "Покрените video download једним кликом из препознатог или налепљеног URL-а користећи активни профил",
+  plan_r3_name: "**Јаче recovery преко retry механизма**",
+  plan_r3_desc:
+    "Нова retry путања за преузимања прекинута непоузданом или проблематичном интернет везом",
+  plan_r4_name: "**Пун drawer менаџер преузимања**",
   plan_r4_desc:
-    "Именујте фајлове по наслову, аутору, датуму, резолуцији — са живим прегледом",
+    "Претворити queue drawer у потпунији менаџер, укључујући промену одредишних фасцикли за ставке у реду",
   plan_r5_name: "**Заказана преузимања**",
   plan_r5_desc: "Покрените ред у одређено доба (ноћна покретања)",
-  plan_r6_name: "**Ограничења брзине**",
-  plan_r6_desc: "Ограничите пропусни опсег тако да преузимања не засите везу",
   plan_r7_name: "**Исецање клипова**",
   plan_r7_desc: "Преузмите само сегмент по времену почетка/краја",
   plan_cta:

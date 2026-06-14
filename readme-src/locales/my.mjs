@@ -109,7 +109,8 @@ export const my = {
   feat_quality_h3: "အရည်အသွေးနှင့် format များ",
   feat_quality_1: "**4K UHD (2160p)** အထိ၊ 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**High frame rate** ကို မူရင်းအတိုင်း ထိန်းသိမ်း — 60 fps, 120 fps, HDR",
-  feat_quality_3: "**အသံသာ** ကို MP3၊ M4A/AAC၊ Opus သို့မဟုတ် WAV အဖြစ် export လုပ်နိုင်သည်",
+  feat_quality_3:
+    "**အသံထိန်းချုပ်မှုများ** — အသံသာကို MP3၊ M4A/AAC၊ Opus သို့မဟုတ် WAV အဖြစ် export လုပ်နိုင်သည်၊ global **surround / Dolby ကို ဦးစားပေးပါ** option ကို သတ်မှတ်နိုင်သည်၊ ရနိုင်ပါက interactive downloads တွင် native Dolby AC-3/EC-3၊ multichannel၊ DRC နှင့် အခြား advanced audio tracks များကို ရွေးချယ်နိုင်သည်",
   feat_quality_4: "အမြန် presets: *အကောင်းဆုံးအရည်အသွေး* · * မျှတသော* · *ဖိုင်ငယ်*",
   feat_privacy_h3: "ကိုယ်ရေးကိုယ်တာနှင့် ထိန်းချုပ်မှု",
   feat_privacy_1:
@@ -313,15 +314,23 @@ export const my = {
   plan_col2: "ဖော်ပြချက်",
   plan_r1_name: "**Playlist နှင့် channel filters**",
   plan_r1_desc: "playlist သို့မဟုတ် channel ကို enumerate လုပ်သည့်အခါ date-range filters",
-  plan_r2_name: "**Batch URL ထည့်သွင်းမှု**",
-  plan_r2_desc: "URLs များစွာကို တစ်ကြိမ်တည်း paste လုပ်ပြီး တစ်ကြိမ်တည်း run ပါ",
-  plan_r4_name: "**ကိုယ်ပိုင် filename ပုံစံများ**",
+  plan_r2_name: "**YouTube audio track preference များ**",
+  plan_r2_desc:
+    "YouTube တွင် audio tracks များစွာရှိပါက ကြိုက်နှစ်သက်သော spoken-language tracks ကို ရွေးပါ",
+  plan_r6_name: "**App ထဲရှိ browser sign-in**",
+  plan_r6_desc:
+    "Arroxy ထဲတွင် browser windows ဖွင့်ပြီး sign in လုပ်ကာ site cookies ကို manually export မလုပ်ဘဲ အသုံးပြုနိုင်ရန်",
+  plan_r8_name: "**တစ်ချက်နှိပ် video download**",
+  plan_r8_desc:
+    "active profile ဖြင့် detected သို့မဟုတ် pasted URL မှ video download ကို တစ်ချက်နှိပ်၍ စတင်ပါ",
+  plan_r3_name: "**ပိုမိုခိုင်မာသော retry recovery**",
+  plan_r3_desc:
+    "မတည်ငြိမ်သော သို့မဟုတ် ပြဿနာရှိသော internet connection ကြောင့် ပြတ်တောက်သွားသော downloads များအတွက် retry လမ်းကြောင်းအသစ်",
+  plan_r4_name: "**ပြည့်စုံသော download manager drawer**",
   plan_r4_desc:
-    "ဖိုင်များကို ခေါင်းစဉ်၊ uploader, date, resolution ဖြင့် နာမည်ပေးပြီး live preview ဖြင့်",
+    "queue drawer ကို ပိုမိုပြည့်စုံသော manager အဖြစ် ပြောင်းလဲပြီး queued items များအတွက် destination folder ပြောင်းလဲနိုင်ရန်",
   plan_r5_name: "**ဒေါင်းလုဒ်ချိန်သတ်မှတ်ခြင်း**",
   plan_r5_desc: "သတ်မှတ်ချိန်တွင် queue ကို စတင်ပါ (ညဘက် runs)",
-  plan_r6_name: "**အမြန်နှုန်း ကန့်သတ်ချက်**",
-  plan_r6_desc: "ဒေါင်းလုဒ်များသည် သင့် connection ကို မပြည့်လျှံစေရန် bandwidth ကို cap လုပ်ပါ",
   plan_r7_name: "**Clip ဖြတ်တောက်ခြင်း**",
   plan_r7_desc: "start/end time ဖြင့် segment တစ်ခုသာ ဒေါင်းလုဒ်ဆွဲပါ",
   plan_cta:

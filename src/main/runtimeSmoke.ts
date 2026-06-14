@@ -1,4 +1,5 @@
 import {spawn} from 'node:child_process'
+import {app} from 'electron'
 import type {DependencySource} from '@shared/types.js'
 import type {BinaryManager} from './services/BinaryManager.js'
 import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, type YtDlpJsRuntime} from './services/ytDlpJsRuntime.js'
@@ -304,4 +305,8 @@ export async function runRuntimeSmokeMode({binaryManager}: RuntimeSmokeDeps): Pr
 		out(`${RED}${report.failures.length} runtime smoke check${report.failures.length === 1 ? '' : 's'} failed.${RESET}`)
 	}
 	return report.ok ? 0 : 1
+}
+
+export function exitWithCode(code: number): void {
+	app.exit(code)
 }

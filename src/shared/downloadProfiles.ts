@@ -1,6 +1,6 @@
 import {DEFAULTS} from './constants.js'
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
-import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, MediaIntent, PlaylistVideoTier} from './schemas.js'
+import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, MediaIntent, NativeAudioPreference, PlaylistVideoTier} from './schemas.js'
 import {mediaIntentFromProfileMedia, mediaIntentSpec, type MediaIntentSpec} from './mediaIntent.js'
 import type {EmbedOptions, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
 import {effectiveOutputDir, safeFolderName} from './subfolder.js'
@@ -50,9 +50,9 @@ export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [
 	baseProfile('hd-1080', 'Full HD 1080p', videoAudio('best', ['1080']), 'video'),
 	baseProfile('balanced', 'Balanced 720p', videoAudio('best', ['720']), 'controls'),
 	baseProfile('small-file', 'Small file 480p', videoAudio('best', ['480']), 'clip'),
-	baseProfile('mp4-1080', 'Smart TV MP4 Full HD', videoAudio('mp4', ['1080']), 'video'),
-	baseProfile('mp4-720', 'Smart TV MP4 HD', videoAudio('mp4', ['720']), 'video'),
-	baseProfile('mp4-480', 'Smart TV MP4 SD', videoAudio('mp4', ['480']), 'video'),
+	baseProfile('mp4-1080', 'Smart TV MP4 Full HD 1080p', videoAudio('mp4', ['1080']), 'video'),
+	baseProfile('mp4-720', 'Smart TV MP4 HD 720p', videoAudio('mp4', ['720']), 'video'),
+	baseProfile('mp4-480', 'Smart TV MP4 SD 480p', videoAudio('mp4', ['480']), 'video'),
 	baseProfile('audio-only', 'Audio only', {kind: 'audio-only', audio: {format: 'best'}}, 'audio')
 ] as const
 
@@ -143,9 +143,9 @@ export function removeDownloadProfileFromPrefs(prefs: DownloadProfilesPrefs, id:
 	return {...normalized, active: activeRemoved ? DEFAULT_DOWNLOAD_PROFILE_REF : normalized.active, custom}
 }
 
-export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadProfileRef = downloadProfileRefFor(profile, undefined)): ResolvedDownloadProfile {
+export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadProfileRef = downloadProfileRefFor(profile, undefined), nativeAudioPreference: NativeAudioPreference = DEFAULTS.nativeAudioPreference): ResolvedDownloadProfile {
 	const intent = mediaIntentFromProfileMedia(profile.media)
-	const spec = intent ? mediaIntentSpec(intent) : null
+	const spec = intent ? mediaIntentSpec(intent, nativeAudioPreference) : null
 	const isSubtitleOnly = profile.media.kind === 'subtitles-only'
 	const subtitleLanguages = profile.subtitles.enabled || isSubtitleOnly ? profile.subtitles.languages : []
 	const subtitleMode = profile.subtitles.mode === 'embed' && spec?.producesVideo !== true ? 'sidecar' : profile.subtitles.mode

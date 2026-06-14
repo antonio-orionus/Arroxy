@@ -363,7 +363,7 @@ export class YtDlp {
 		const plan = planWorkflow(req, {pacing, playlistProbeLimit, downloadRetryPolicy: this.opts.e2eMode?.downloadRetryPolicy})
 		const isProbe = req.kind === 'probe'
 		const probePlaylistMode = isProbe ? (req.selection?.playlistMode ?? 'auto') : undefined
-		const hasExplicitYoutubePlayerClient = isProbe && (req.extractor?.youtube?.playerClient?.length ?? 0) > 0
+		const hasExplicitYoutubePlayerClient = 'extractor' in req && (req.extractor?.youtube?.playerClient?.length ?? 0) > 0
 		if (isProbe) {
 			ytDlpLog.info('probe request', {url: req.url, playlistMode: probePlaylistMode, playlistScope: plan.facts.playlistScope ?? null})
 		}

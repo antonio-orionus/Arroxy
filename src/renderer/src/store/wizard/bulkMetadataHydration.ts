@@ -67,7 +67,11 @@ export async function hydrateBulkMetadata(urls: string[], set: SetState, runId: 
 				if (state.wizardMode !== 'bulk') return {}
 				const current = state.playlistItems[index]
 				if (current?.id !== id || current.url !== url) return {}
-				return {playlistItems: state.playlistItems.map(entry => (entry.id === id ? {...entry, title: probe.title.trim() || entry.title, thumbnail: probe.thumbnail || entry.thumbnail, duration: probe.duration ?? entry.duration, videoId: probe.videoId ?? entry.videoId} : entry))}
+				return {
+					playlistItems: state.playlistItems.map(entry =>
+						entry.id === id ? {...entry, title: probe.title.trim() || entry.title, thumbnail: probe.thumbnail || entry.thumbnail, duration: probe.duration ?? entry.duration, videoId: probe.videoId ?? entry.videoId, ...(probe.probeInfoJsonRef ? {probeInfoJsonRef: probe.probeInfoJsonRef} : {})} : entry
+					)
+				}
 			})
 		} catch (error) {
 			// Metadata hydration is best-effort; synthetic rows remain usable.

@@ -3,7 +3,7 @@
 
 # Arroxy — Windows, macOS နှင့် Linux အတွက် အခမဲ့ Open-Source YouTube (+ ၂၀၀၀ ဆိုဒ်) Downloader
 
-**4K · 1080p60 · HDR · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
+**4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
 **ဘာသာဖြင့် ဖတ်ရှုရန်:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · **မြန်မာဘာသာ** · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
@@ -226,7 +226,7 @@ Arroxy ကို တစ်ခုတည်းသောရည်ရွယ်ချ
 
 - **4K UHD (2160p)** အထိ၊ 1440p, 1080p, 720p, 480p, 360p
 - **High frame rate** ကို မူရင်းအတိုင်း ထိန်းသိမ်း — 60 fps, 120 fps, HDR
-- **အသံသာ** ကို MP3၊ M4A/AAC၊ Opus သို့မဟုတ် WAV အဖြစ် export လုပ်နိုင်သည်
+- **အသံထိန်းချုပ်မှုများ** — အသံသာကို MP3၊ M4A/AAC၊ Opus သို့မဟုတ် WAV အဖြစ် export လုပ်နိုင်သည်၊ global **surround / Dolby ကို ဦးစားပေးပါ** option ကို သတ်မှတ်နိုင်သည်၊ ရနိုင်ပါက interactive downloads တွင် native Dolby AC-3/EC-3၊ multichannel၊ DRC နှင့် အခြား advanced audio tracks များကို ရွေးချယ်နိုင်သည်
 - အမြန် presets: *အကောင်းဆုံးအရည်အသွေး* · * မျှတသော* · *ဖိုင်ငယ်*
 
 ### ကိုယ်ရေးကိုယ်တာနှင့် ထိန်းချုပ်မှု
@@ -321,7 +321,11 @@ yt-dlp ကို launch တိုင်း အလိုအလျောက် upd
 | လုပ်ဆောင်ချက်    | ဖော်ပြချက်    |
 | ---------------- | ---------------- |
 | **Playlist နှင့် channel filters** | playlist သို့မဟုတ် channel ကို enumerate လုပ်သည့်အခါ date-range filters |
-| **ကိုယ်ပိုင် filename ပုံစံများ** | ဖိုင်များကို ခေါင်းစဉ်၊ uploader, date, resolution ဖြင့် နာမည်ပေးပြီး live preview ဖြင့် |
+| **YouTube audio track preference များ** | YouTube တွင် audio tracks များစွာရှိပါက ကြိုက်နှစ်သက်သော spoken-language tracks ကို ရွေးပါ |
+| **App ထဲရှိ browser sign-in** | Arroxy ထဲတွင် browser windows ဖွင့်ပြီး sign in လုပ်ကာ site cookies ကို manually export မလုပ်ဘဲ အသုံးပြုနိုင်ရန် |
+| **တစ်ချက်နှိပ် video download** | active profile ဖြင့် detected သို့မဟုတ် pasted URL မှ video download ကို တစ်ချက်နှိပ်၍ စတင်ပါ |
+| **ပိုမိုခိုင်မာသော retry recovery** | မတည်ငြိမ်သော သို့မဟုတ် ပြဿနာရှိသော internet connection ကြောင့် ပြတ်တောက်သွားသော downloads များအတွက် retry လမ်းကြောင်းအသစ် |
+| **ပြည့်စုံသော download manager drawer** | queue drawer ကို ပိုမိုပြည့်စုံသော manager အဖြစ် ပြောင်းလဲပြီး queued items များအတွက် destination folder ပြောင်းလဲနိုင်ရန် |
 | **ဒေါင်းလုဒ်ချိန်သတ်မှတ်ခြင်း** | သတ်မှတ်ချိန်တွင် queue ကို စတင်ပါ (ညဘက် runs) |
 | **Clip ဖြတ်တောက်ခြင်း** | start/end time ဖြင့် segment တစ်ခုသာ ဒေါင်းလုဒ်ဆွဲပါ |
 

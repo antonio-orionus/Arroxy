@@ -16,6 +16,7 @@ import {
 	saveDownloadProfileToPrefs
 } from '@shared/downloadProfiles.js'
 import type {DownloadProfile} from '@shared/types.js'
+import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
 
 function customProfile(overrides: Partial<DownloadProfile> = {}): DownloadProfile {
 	return {
@@ -45,9 +46,9 @@ describe('download profiles', () => {
 			['hd-1080', 'Full HD 1080p'],
 			['balanced', 'Balanced 720p'],
 			['small-file', 'Small file 480p'],
-			['mp4-1080', 'Smart TV MP4 Full HD'],
-			['mp4-720', 'Smart TV MP4 HD'],
-			['mp4-480', 'Smart TV MP4 SD'],
+			['mp4-1080', 'Smart TV MP4 Full HD 1080p'],
+			['mp4-720', 'Smart TV MP4 HD 720p'],
+			['mp4-480', 'Smart TV MP4 SD 480p'],
 			['audio-only', 'Audio only']
 		])
 		for (const profile of BUILTIN_DOWNLOAD_PROFILES) {
@@ -95,7 +96,7 @@ describe('download profiles', () => {
 		expect(profile?.media).toEqual({kind: 'video-audio', codec: 'best', tiers: ['480'], audio: {format: 'best'}})
 
 		const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id: 'small-file'})
-		expect(resolved.spec?.formatSelector).toBe('bestvideo*+bestaudio/best')
+		expect(resolved.spec?.formatSelector).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)
 		expect(resolved.spec?.formatSort).toBe('res:480,fps')
 		expect(resolved.spec?.mergeOutputFormat).toBeUndefined()
 	})

@@ -180,7 +180,8 @@
 				"cssOnlyLabel": "Eng yaxshi unumdorlik",
 				"cssOnlyDescription": "Faqat CSS, canvas render qilinmaydi.",
 				"gpuLabel": "Eng chiroyli",
-				"gpuDescription": "Qo‘llab-quvvatlansa, animatsiyali WebGL fon."
+				"gpuDescription": "Qo‘llab-quvvatlansa, animatsiyali WebGL fon.",
+				"runtimeFallbackNotice": "Bu qurilmada apparat WebGL mavjud emas, shuning uchun Arroxy unumdorlik fonidan foydalanmoqda."
 			},
 			"limitRate": {
 				"label": "Yuklab olish tezligi chegarasi",
@@ -205,6 +206,7 @@
 				"invalid": "1 dan 5000 gacha bo'lgan butun son kiriting",
 				"tooltip": "yt-dlp --playlist-end ga to'g'ri keladi: Arroxy tanlagichni qurishdan oldin faqat shu miqdordagi pleylist, kanal yoki qidiruv yozuvlarini so'raydi."
 			},
+			"nativeAudioPreference": {"label": "Asl audio afzalligi", "description": "“Best native” nimani tanlashini boshqaradi. Qo‘lda tanlangan audio qatorlari va M4A/AAC aniq tanlov bo‘lib qoladi.", "compatible": "Mos stereo", "surround": "Surround / Dolbyni afzal ko‘rish"},
 			"singleFilenameId": {"toggle": "Yakka fayl nomlariga video ID qo‘shish", "toggleDescription": "Sarlavhalar o‘zgarganda yoki mos kelib qolganda yakka yuklab olishlarni noyob saqlaydi."},
 			"networkPacing": {
 				"heading": "Yumshoq yuklamalar",
@@ -421,6 +423,7 @@
 		"installFailed": "Yangilanish muvaffaqiyatsiz",
 		"retry": "Qayta urinish"
 	},
+	"releaseNotes": {"title": "Arroxy {{version}} dagi yangiliklar", "description": "Siz yangi yangilanishdan foydalanmoqdasiz. Asosiy yangiliklar quyida.", "fullNotes": "To'liq reliz qaydlari ↗", "continue": "Davom etish"},
 	"status": {
 		"preparingBinaries": "Ikkilik fayllar tayyorlanmoqda…",
 		"mintingToken": "YouTube tokeni yaratilmoqda…",

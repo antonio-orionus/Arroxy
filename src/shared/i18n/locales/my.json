@@ -163,7 +163,8 @@
 				"cssOnlyLabel": "အကောင်းဆုံး စွမ်းဆောင်ရည်",
 				"cssOnlyDescription": "CSS သာအသုံးပြုမည်၊ canvas rendering မရှိပါ။",
 				"gpuLabel": "အလှဆုံး",
-				"gpuDescription": "ထောက်ပံ့ပါက လှုပ်ရှားနေသော WebGL နောက်ခံ။"
+				"gpuDescription": "ထောက်ပံ့ပါက လှုပ်ရှားနေသော WebGL နောက်ခံ။",
+				"runtimeFallbackNotice": "ဤစက်တွင် hardware WebGL မရရှိနိုင်သောကြောင့် Arroxy သည် စွမ်းဆောင်ရည် နောက်ခံကို အသုံးပြုနေသည်။"
 			},
 			"limitRate": {
 				"label": "ဒေါင်းလုဒ် အမြန်နှုန်း ကန့်သတ်ချက်",
@@ -188,6 +189,7 @@
 				"invalid": "1 မှ 5000 အထိ ကိန်းပြည့်တစ်ခု အသုံးပြုပါ",
 				"tooltip": "yt-dlp --playlist-end နှင့် map ချိတ်ဆက်သည်: Arroxy သည် picker ဆောက်စဉ် ဤမျှ playlist၊ channel သို့မဟုတ် ရှာဖွေမှု entries များကိုသာ တောင်းဆိုသည်။"
 			},
+			"nativeAudioPreference": {"label": "မူရင်းအသံ ဦးစားပေးချက်", "description": "“Best native” က ဘာကိုရွေးမလဲဆိုတာ ထိန်းချုပ်သည်။ ကိုယ်တိုင်ရွေးသော အသံအတန်းများနှင့် M4A/AAC တို့သည် သီးသန့်ရွေးချယ်မှုအဖြစ် ဆက်ရှိသည်။", "compatible": "ကိုက်ညီသော စတီရီယို", "surround": "surround / Dolby ကို ဦးစားပေးပါ"},
 			"singleFilenameId": {"toggle": "တစ်ခုချင်း ဖိုင်အမည်များတွင် ဗီဒီယို ID ထည့်ရန်", "toggleDescription": "ခေါင်းစဉ်များ ပြောင်းလဲခြင်း သို့မဟုတ် တူညီခြင်း ဖြစ်သည့်အခါ တစ်ခုချင်း ဒေါင်းလုဒ်များကို မတူညီအောင် ထိန်းထားသည်။"},
 			"networkPacing": {
 				"heading": "ညင်သာသော ဒေါင်းလုဒ်",
@@ -404,6 +406,7 @@
 		"installFailed": "အပ်ဒိတ် မအောင်မြင်ပါ",
 		"retry": "ထပ်စမ်းမည်"
 	},
+	"releaseNotes": {"title": "Arroxy {{version}} တွင် အသစ်များ", "description": "သင်သည် အပ်ဒိတ်အသစ်ကို အသုံးပြုနေပါသည်။ အဓိကအချက်များကို ဖော်ပြထားသည်။", "fullNotes": "ဖြန့်ချိမှတ်တမ်း အပြည့်အစုံ ↗", "continue": "ဆက်လက်သွားမည်"},
 	"status": {
 		"preparingBinaries": "Binary ဖိုင်များပြင်ဆင်နေသည်…",
 		"mintingToken": "YouTube token ထုတ်နေသည်…",

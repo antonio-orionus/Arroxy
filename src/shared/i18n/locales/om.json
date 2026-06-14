@@ -172,7 +172,8 @@
 				"cssOnlyLabel": "Raawwii gaarii",
 				"cssOnlyDescription": "CSS qofa, canvas hin agarsiisu.",
 				"gpuLabel": "Bareedina olaanaa",
-				"gpuDescription": "Duubbee WebGL socho’u yoo deeggarame."
+				"gpuDescription": "Duubbee WebGL socho’u yoo deeggarame.",
+				"runtimeFallbackNotice": "WebGL meeshaa kana irratti haardweerii hin argamu, kanaaf Arroxy duubbee raawwii fayyadamaa jira."
 			},
 			"limitRate": {
 				"label": "Daangaa saffisa buusuu",
@@ -197,6 +198,7 @@
 				"invalid": "Lakkoofsa guutuu 1 hanga 5000 fayyadami",
 				"tooltip": "yt-dlp --playlist-end waliin walsimsiisa: Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
 			},
+			"nativeAudioPreference": {"label": "Filannoo sagalee dhalootaa", "description": "Best native maal akka filatu to’ata. Tarreewwan sagalee harkaan filataman fi M4A/AAC filannoo ifa ta’anii hafu.", "compatible": "Isteeriyoo walsimu", "surround": "Surround / Dolby filadhu"},
 			"singleFilenameId": {"toggle": "Maqaa faayila tokko tokkootti ID viidiyoo dabali", "toggleDescription": "Mata dureewwan yeroo jijjiiraman ykn walitti bu’an buufata tokko tokko adda taasisa."},
 			"networkPacing": {
 				"heading": "Buufata laafaa",
@@ -413,6 +415,7 @@
 		"installFailed": "Haaromsuun hin milkoofne",
 		"retry": "Irra deebi'i yaali"
 	},
+	"releaseNotes": {"title": "Arroxy {{version}} keessatti maaltu haaraa dha", "description": "Fooyya'iinsa haaraa fayyadamaa jirta. Kunoo wantoota ijoo.", "fullNotes": "Yaadannoo gadhiisa guutuu ↗", "continue": "Itti fufi"},
 	"status": {
 		"preparingBinaries": "Faayiloota binaryii qopheessaa jira…",
 		"mintingToken": "Tookenii YouTube uumaa jira…",
