@@ -119,7 +119,7 @@ jobs:
           bun-version: ${{ env.BUN_VERSION }}
 
       - name: Download registry artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: ytdlp-errors-npm-pack
           path: npm-artifacts
