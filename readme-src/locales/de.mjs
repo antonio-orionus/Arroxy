@@ -317,7 +317,7 @@ export const de = {
   plan_r1_desc: "Datumsfilter beim Einlesen einer Playlist oder eines Kanals",
   plan_r2_name: "**YouTube-Audiospur-Präferenzen**",
   plan_r2_desc:
-    "Bevorzugte Sprachspuren wählen, wenn YouTube mehrere Audiospuren anbietet",
+    "App-weite bevorzugte Sprachspur festlegen, mit Überschreibungen pro Profil, wenn YouTube mehrere Audiospuren anbietet",
   plan_r6_name: "**Browser-Anmeldung in der App**",
   plan_r6_desc:
     "Browserfenster in Arroxy öffnen, damit du dich anmelden und Website-Cookies nutzen kannst, ohne sie manuell zu exportieren",

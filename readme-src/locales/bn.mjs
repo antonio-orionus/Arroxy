@@ -316,7 +316,7 @@ export const bn = {
   plan_r1_desc: "playlist বা channel enumerate করার সময় date-range filters",
   plan_r2_name: "**YouTube অডিও ট্র্যাক পছন্দ**",
   plan_r2_desc:
-    "YouTube একাধিক অডিও ট্র্যাক দিলে পছন্দের কথ্য-ভাষার ট্র্যাক বেছে নিন",
+    "YouTube একাধিক অডিও ট্র্যাক দিলে পুরো app-এর জন্য কথ্য-ভাষার track preference সেট করুন, আর প্রতিটি profile-এ override করুন",
   plan_r6_name: "**অ্যাপের ভেতর browser sign-in**",
   plan_r6_desc:
     "Arroxy-র ভেতর browser windows খুলে সাইন ইন করুন এবং site cookies ম্যানুয়ালি export না করেই ব্যবহার করুন",

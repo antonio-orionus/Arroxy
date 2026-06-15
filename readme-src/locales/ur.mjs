@@ -317,7 +317,7 @@ export const ur = {
   plan_r1_desc: "پلے لسٹ یا چینل enumerate کرتے وقت date-range filters",
   plan_r2_name: "**YouTube آڈیو ٹریک ترجیحات**",
   plan_r2_desc:
-    "جب YouTube متعدد آڈیو ٹریک دے تو ترجیحی بولی جانے والی زبان کے ٹریک منتخب کریں",
+    "جب YouTube متعدد آڈیو ٹریک دے تو پوری app کے لیے بولی جانے والی زبان کا audio track preference مقرر کریں، اور ہر profile میں override کریں",
   plan_r6_name: "**ایپ کے اندر browser sign-in**",
   plan_r6_desc:
     "Arroxy کے اندر browser windows کھولیں تاکہ آپ sign in کر سکیں اور site cookies کو manual export کیے بغیر استعمال کر سکیں",

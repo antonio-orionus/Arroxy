@@ -317,7 +317,7 @@ export const en = {
     "Date-range filters when enumerating a playlist or channel",
   plan_r2_name: "**YouTube audio track preferences**",
   plan_r2_desc:
-    "Choose preferred spoken-language tracks when YouTube provides multiple audio tracks",
+    "Set an app-wide spoken-language track preference, with per-profile overrides when YouTube offers multiple audio tracks",
   plan_r6_name: "**In-app browser sign-in**",
   plan_r6_desc:
     "Open browser windows inside Arroxy so you can sign in and use site cookies without exporting them manually",

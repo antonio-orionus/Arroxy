@@ -4,6 +4,8 @@ import {parseYtDlpOutputLine} from '../src/parsers.js'
 import {redactArgs} from '../src/redaction.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
+const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR =
+	"bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best"
 
 function adjacent(args: string[], flag: string, value: string): boolean {
 	for (let index = 0; index < args.length - 1; index += 1) {
@@ -71,7 +73,7 @@ describe('planWorkflow — media', () => {
 	it('plans audio conversion and default music embed policy', () => {
 		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, audio: {convert: {target: 'mp3', lossy: true, bitrateKbps: 192}}})
 
-		expect(adjacent(plan.args, '-f', 'bestaudio/best')).toBe(true)
+		expect(adjacent(plan.args, '-f', SOURCE_PREFERRED_BEST_AUDIO_SELECTOR)).toBe(true)
 		expect(plan.args).toContain('-x')
 		expect(adjacent(plan.args, '--audio-format', 'mp3')).toBe(true)
 		expect(adjacent(plan.args, '--audio-quality', '192K')).toBe(true)

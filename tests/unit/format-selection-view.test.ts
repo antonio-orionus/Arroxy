@@ -84,4 +84,65 @@ describe('selectView — convert gating', () => {
 		expect(view.audio.nativeRows).toEqual([expect.objectContaining({formatId: '251', ext: 'webm'})])
 		expect(view.audio.bitrateStrip.value).toBe(192)
 	})
+
+	it('puts audio track language in the native row title and keeps codec details in meta', () => {
+		const formats: FormatOption[] = [
+			{
+				formatId: '140-drc',
+				label: 'English original (default) · m4a · AAC · DRC · 130 kbps',
+				ext: 'm4a',
+				resolution: 'audio only',
+				abr: 130,
+				audioCodec: 'mp4a.40.2',
+				isDrc: true,
+				audioLanguage: 'en',
+				audioTrackLabel: 'English original (default)',
+				isDefaultAudio: true,
+				isOriginalAudio: true,
+				isVideoOnly: false,
+				isAudioOnly: true
+			},
+			{formatId: '140-0', label: 'Klingon · m4a · AAC · 130 kbps', ext: 'm4a', resolution: 'audio only', abr: 130, audioCodec: 'mp4a.40.2', audioLanguage: 'tlh', audioTrackLabel: 'Klingon', isVideoOnly: false, isAudioOnly: true}
+		]
+
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140-drc'}, lastConvertBitrate: 192, activePreset: 'audio-only', wizardFormats: formats})
+
+		expect(view.audio.nativeRows).toEqual([expect.objectContaining({formatId: '140-drc', title: 'English original (default)', quality: null, meta: 'm4a · AAC · DRC · 130 kbps'}), expect.objectContaining({formatId: '140-0', title: 'Klingon', quality: null, meta: 'm4a · AAC · 130 kbps'})])
+	})
+
+	it('keeps same-container same-bitrate language variants visually distinct', () => {
+		const formats: FormatOption[] = [
+			{formatId: '140-1', label: 'English original (default) · m4a · AAC · 130 kbps', ext: 'm4a', resolution: 'audio only', abr: 130, audioCodec: 'mp4a.40.2', audioLanguage: 'en', audioTrackLabel: 'English original (default)', isDefaultAudio: true, isOriginalAudio: true, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '140-0', label: 'Klingon · m4a · AAC · 130 kbps', ext: 'm4a', resolution: 'audio only', abr: 130, audioCodec: 'mp4a.40.2', audioLanguage: 'tlh', audioTrackLabel: 'Klingon', isVideoOnly: false, isAudioOnly: true}
+		]
+
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140-1'}, lastConvertBitrate: 192, activePreset: 'audio-only', wizardFormats: formats})
+
+		expect(view.audio.nativeRows.map(row => `${row.title} | ${row.meta}`)).toEqual(['English original (default) | m4a · AAC · 130 kbps', 'Klingon | m4a · AAC · 130 kbps'])
+	})
+
+	it('keeps language label, codec metadata, and quality tier separate', () => {
+		const formats: FormatOption[] = [
+			{
+				formatId: '140-1',
+				label: 'English original (default) · m4a · AAC · 130 kbps',
+				ext: 'm4a',
+				resolution: 'audio only',
+				abr: 130,
+				audioCodec: 'mp4a.40.2',
+				audioLanguage: 'en',
+				audioTrackLabel: 'English original (default)',
+				audioTrackQuality: 'medium',
+				isDefaultAudio: true,
+				isOriginalAudio: true,
+				isVideoOnly: false,
+				isAudioOnly: true
+			},
+			{formatId: '251', label: 'webm · Opus · 122 kbps', ext: 'webm', resolution: 'audio only', abr: 122, audioCodec: 'opus', audioTrackQuality: 'low', isVideoOnly: false, isAudioOnly: true}
+		]
+
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140-1'}, lastConvertBitrate: 192, activePreset: 'audio-only', wizardFormats: formats})
+
+		expect(view.audio.nativeRows).toEqual([expect.objectContaining({formatId: '140-1', title: 'English original (default)', quality: 'medium', meta: 'm4a · AAC · 130 kbps'}), expect.objectContaining({formatId: '251', title: '', quality: 'low', meta: 'webm · Opus · 122 kbps'})])
+	})
 })

@@ -19,8 +19,38 @@ const VIDEO_WITH_M4A_AUDIO_SELECTOR = 'bestvideo*+bestaudio[ext=m4a]/bestvideo*+
 const MP4_WITH_AUDIO_SELECTOR = 'bestvideo+bestaudio/best[ext=mp4]/best'
 const MP4_WITH_M4A_AUDIO_SELECTOR = 'bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'
 const NON_DRC_AUDIO_FILTERS = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']"
-const COMPATIBLE_AUDIO_SELECTOR = `bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']${NON_DRC_AUDIO_FILTERS}/bestaudio`
-const SURROUND_AUDIO_SELECTOR = `bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$']${NON_DRC_AUDIO_FILTERS}/bestaudio[acodec~=?'^(?:ac-?3)$']${NON_DRC_AUDIO_FILTERS}/${COMPATIBLE_AUDIO_SELECTOR}`
+const COMPATIBLE_AUDIO_CODEC_FILTER = "[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']"
+const EC3_AUDIO_CODEC_FILTER = "[acodec~=?'^(?:e-?ac-?3|ec-3)$']"
+const AC3_AUDIO_CODEC_FILTER = "[acodec~=?'^(?:ac-?3)$']"
+const SOURCE_DEFAULT_AUDIO_FILTER = '[language_preference>0]'
+const SOURCE_ORIGINAL_AUDIO_FILTER = "[format_note~=?'(?i)\\boriginal\\b']"
+const SOURCE_PREFERRED_AUDIO_FILTERS = [SOURCE_DEFAULT_AUDIO_FILTER, SOURCE_ORIGINAL_AUDIO_FILTER]
+
+function bestAudioWith(...filters: string[]): string {
+	return `bestaudio${filters.join('')}`
+}
+
+function sourcePreferredAudioWith(...filters: string[]): string[] {
+	return SOURCE_PREFERRED_AUDIO_FILTERS.map(sourceFilter => bestAudioWith(sourceFilter, ...filters))
+}
+
+const COMPATIBLE_AUDIO_SELECTOR = [
+	...sourcePreferredAudioWith(COMPATIBLE_AUDIO_CODEC_FILTER, NON_DRC_AUDIO_FILTERS),
+	...sourcePreferredAudioWith(COMPATIBLE_AUDIO_CODEC_FILTER),
+	...sourcePreferredAudioWith(NON_DRC_AUDIO_FILTERS),
+	...sourcePreferredAudioWith(),
+	bestAudioWith(COMPATIBLE_AUDIO_CODEC_FILTER, NON_DRC_AUDIO_FILTERS),
+	bestAudioWith(COMPATIBLE_AUDIO_CODEC_FILTER),
+	bestAudioWith(NON_DRC_AUDIO_FILTERS),
+	'bestaudio'
+].join('/')
+const SURROUND_AUDIO_SELECTOR = [
+	...sourcePreferredAudioWith(EC3_AUDIO_CODEC_FILTER, NON_DRC_AUDIO_FILTERS),
+	...sourcePreferredAudioWith(AC3_AUDIO_CODEC_FILTER, NON_DRC_AUDIO_FILTERS),
+	bestAudioWith(EC3_AUDIO_CODEC_FILTER, NON_DRC_AUDIO_FILTERS),
+	bestAudioWith(AC3_AUDIO_CODEC_FILTER, NON_DRC_AUDIO_FILTERS),
+	COMPATIBLE_AUDIO_SELECTOR
+].join('/')
 
 export function playlistSelectionToMediaIntent(selection: PlaylistSelection): MediaIntent {
 	if (selection.kind === 'audio') {

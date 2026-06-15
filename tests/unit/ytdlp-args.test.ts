@@ -24,6 +24,8 @@ import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/downloads'
+const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR =
+	"bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best"
 const tempRoots: string[] = []
 
 function makeFakeProcess(exitCode = 0) {
@@ -319,10 +321,10 @@ describe('YtDlp — video args', () => {
 })
 
 describe('YtDlp — audio convert args', () => {
-	it('mp3 192K → -f bestaudio/best, -x, --audio-format mp3, --audio-quality 192K', async () => {
+	it('mp3 192K → source-preferred bestaudio selector, -x, --audio-format mp3, --audio-quality 192K', async () => {
 		await makeYtDlp().run(mediaRequest({audioConvert: lossyAudio('mp3', 192)}))
 		const args = getArgs()
-		expect(args[args.indexOf('-f') + 1]).toBe('bestaudio/best')
+		expect(args[args.indexOf('-f') + 1]).toBe(SOURCE_PREFERRED_BEST_AUDIO_SELECTOR)
 		expect(args).toContain('-x')
 		expect(args[args.indexOf('--audio-format') + 1]).toBe('mp3')
 		expect(args[args.indexOf('--audio-quality') + 1]).toBe('192K')
@@ -374,7 +376,7 @@ describe('YtDlp — audio convert args', () => {
 	it('audioConvert overrides any provided formatId', async () => {
 		await makeYtDlp().run(mediaRequest({formatId: 'bv+ba', audioConvert: lossyAudio('mp3', 192)}))
 		const args = getArgs()
-		expect(args[args.indexOf('-f') + 1]).toBe('bestaudio/best')
+		expect(args[args.indexOf('-f') + 1]).toBe(SOURCE_PREFERRED_BEST_AUDIO_SELECTOR)
 		expect(args.filter(a => a === '-f').length).toBe(1)
 	})
 })

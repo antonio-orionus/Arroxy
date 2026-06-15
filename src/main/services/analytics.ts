@@ -46,6 +46,11 @@ const ALLOWED: Record<string, readonly string[]> = {
 	feedback_diagnostic_upload_failed: ['report_id', 'message']
 }
 
+// Events we currently send. Anything in ALLOWED but absent here is validated
+// (prop schema + dev typo guard) but dropped before reaching OpenPanel.
+// New events default OFF — add the name here to start sending it.
+const ENABLED = new Set<string>(['download_failed', 'probe_failed', 'binary_setup_failed', 'binary_probe_anomaly', 'crash_detected', 'feedback_submitted', 'feedback_open_failed', 'feedback_diagnostic_uploaded', 'feedback_diagnostic_upload_failed', 'share_link_copied'])
+
 const MAX_STR = 32
 const MAX_STR_BY_PROP: Record<string, number> = {message: 160, report_id: 64}
 
@@ -203,6 +208,7 @@ export function trackMain(name: string, props?: Props): boolean {
 			}
 		}
 	}
+	if (!ENABLED.has(name)) return false
 	if (!_op || !_on) return false
 	void _op.track(name, props)
 	return true

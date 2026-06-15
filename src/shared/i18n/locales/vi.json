@@ -273,6 +273,7 @@
 			"total": "Tổng cộng",
 			"skipToConfirm": "Bỏ qua đến xác nhận",
 			"skipToConfirmTooltip": "Sử dụng tùy chọn đã lưu của bạn cho tất cả các bước còn lại. Để thay đổi một cài đặt, hãy tiếp tục từng bước — lựa chọn của bạn sẽ được lưu cho lần sau.",
+			"quality": {"high": "Chất lượng cao", "medium": "Chất lượng trung bình", "low": "Chất lượng thấp"},
 			"convert": {
 				"label": "Chuyển đổi",
 				"uncompressed": "Chuyển đổi · không nén",

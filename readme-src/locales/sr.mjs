@@ -316,7 +316,7 @@ export const sr = {
   plan_r1_desc: "Date-range filters при набрајању playlist-а или channel-а",
   plan_r2_name: "**Подешавања YouTube аудио трака**",
   plan_r2_desc:
-    "Изаберите жељене говорне језичке траке када YouTube нуди више аудио трака",
+    "Подесите жељену говорну језичку траку за целу апликацију, уз override по профилу када YouTube нуди више аудио трака",
   plan_r6_name: "**Пријава кроз browser у апликацији**",
   plan_r6_desc:
     "Отварање browser windows унутар Arroxy-ја за пријаву и коришћење site cookies без ручног export-а",

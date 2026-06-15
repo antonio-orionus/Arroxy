@@ -61,6 +61,10 @@ export type AudioBitrate = z.infer<typeof audioBitrateSchema>
 export const AUDIO_BITRATES: readonly AudioBitrate[] = [128, 192, 256, 320]
 export const DEFAULT_AUDIO_BITRATE: AudioBitrate = 192
 
+export const audioTrackQualitySchema = z.enum(['low', 'medium', 'high'])
+export type AudioTrackQuality = z.infer<typeof audioTrackQualitySchema>
+export const AUDIO_TRACK_QUALITIES = audioTrackQualitySchema.options
+
 // Hard cap on subtitle languages per download — protects against argv length blow-up.
 export const MAX_SUBTITLE_LANGUAGES = 50
 

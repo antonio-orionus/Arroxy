@@ -14,6 +14,9 @@ describe('browser mock scenarios', () => {
 		expect(getScenario('playlist-normal').id).toBe('playlist-normal')
 		expect(getScenario('playlist-scope-empty-reload').id).toBe('playlist-scope-empty-reload')
 		expect(getScenario('probe-audio-only').id).toBe('probe-audio-only')
+		expect(getScenario('probe-audio-multilingual').id).toBe('probe-audio-multilingual')
+		expect(getScenario('probe-audio-surround').id).toBe('probe-audio-surround')
+		expect(getScenario('probe-audio-stereo').id).toBe('probe-audio-stereo')
 		expect(getScenario('not-real').id).toBe('default')
 	})
 
@@ -79,6 +82,21 @@ describe('browser mock scenarios', () => {
 		expect(scopeEmptyReload.probeResult?.kind).toBe('playlist')
 		if (scopeEmptyReload.probeResult?.kind !== 'playlist') throw new Error('expected playlist probe')
 		expect(scopeEmptyReload.probeResult.entries).toHaveLength(12)
+	})
+
+	it('builds audio-track visual review fixtures', () => {
+		const multilingual = buildScenarioAppApiState(getScenario('probe-audio-multilingual'))
+		const surround = buildScenarioAppApiState(getScenario('probe-audio-surround'))
+		const stereo = buildScenarioAppApiState(getScenario('probe-audio-stereo'))
+
+		if (multilingual.probeResult?.kind !== 'video' || surround.probeResult?.kind !== 'video' || stereo.probeResult?.kind !== 'video') {
+			throw new Error('expected video probe fixtures')
+		}
+
+		expect(multilingual.probeResult.formats).toEqual(expect.arrayContaining([expect.objectContaining({audioTrackLabel: 'English original (default)', audioTrackQuality: 'medium'}), expect.objectContaining({audioTrackLabel: 'Klingon', audioTrackQuality: 'low'})]))
+		expect(surround.probeResult.formats).toEqual(expect.arrayContaining([expect.objectContaining({audioCodec: 'ac-3', audioTrackQuality: 'high'}), expect.objectContaining({audioCodec: 'ec-3', audioTrackQuality: 'high'}), expect.objectContaining({audioTrackQuality: 'medium'})]))
+		expect(stereo.probeResult.formats).toEqual(expect.arrayContaining([expect.objectContaining({audioTrackQuality: 'medium'}), expect.objectContaining({audioTrackQuality: 'low'})]))
+		expect(stereo.probeResult.formats.some(format => format.isAudioOnly && format.audioTrackLabel !== undefined)).toBe(false)
 	})
 
 	it('builds the bulk stress workbench fixture', () => {

@@ -259,6 +259,7 @@
 			"total": "总计",
 			"skipToConfirm": "跳至确认",
 			"skipToConfirmTooltip": "使用您保存的偏好设置完成所有剩余步骤。若要更改某项设置，请逐步继续操作——您的选择将在下次保存。",
+			"quality": {"high": "高质量", "medium": "中等质量", "low": "低质量"},
 			"convert": {"label": "转换", "uncompressed": "转换 · 无损", "bitrate": "比特率", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresAudioOnly": "音频转换需要仅音频模式（取消选择视频选项）。", "requiresLossy": "已选择原生流——比特率仅在转换为 mp3、m4a 或 opus 时适用。"},
 			"botWall": {
 				"heading": "YouTube 限制了本次探测",

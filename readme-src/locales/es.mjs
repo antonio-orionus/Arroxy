@@ -317,7 +317,7 @@ export const es = {
   plan_r1_desc: "Filtros por rango de fechas al enumerar una playlist o un canal",
   plan_r2_name: "**Preferencias de pistas de audio de YouTube**",
   plan_r2_desc:
-    "Elige pistas de idioma hablado preferidas cuando YouTube ofrece varias pistas de audio",
+    "Define una pista de idioma hablado predeterminada para toda la app, con sobrescrituras por perfil cuando YouTube ofrece varias pistas de audio",
   plan_r6_name: "**Inicio de sesión con navegador integrado**",
   plan_r6_desc:
     "Abrir ventanas de navegador dentro de Arroxy para iniciar sesión y usar cookies del sitio sin exportarlas manualmente",

@@ -314,7 +314,7 @@ export const zh = {
   plan_r1_desc: "枚举播放列表或频道时的日期范围筛选",
   plan_r2_name: "**YouTube 音轨偏好**",
   plan_r2_desc:
-    "当 YouTube 提供多个音轨时，选择偏好的口语语言音轨",
+    "当 YouTube 提供多个音轨时，设置全应用默认口语音轨，并允许每个配置单独覆盖",
   plan_r6_name: "**应用内浏览器登录**",
   plan_r6_desc:
     "在 Arroxy 内打开浏览器窗口，登录并使用站点 cookies，无需手动导出",

@@ -323,7 +323,7 @@ Weiter geplant — grob nach Priorität sortiert:
 | Funktion    | Beschreibung    |
 | ---------------- | ---------------- |
 | **Playlist- & Kanal-Filter** | Datumsfilter beim Einlesen einer Playlist oder eines Kanals |
-| **YouTube-Audiospur-Präferenzen** | Bevorzugte Sprachspuren wählen, wenn YouTube mehrere Audiospuren anbietet |
+| **YouTube-Audiospur-Präferenzen** | App-weite bevorzugte Sprachspur festlegen, mit Überschreibungen pro Profil, wenn YouTube mehrere Audiospuren anbietet |
 | **Browser-Anmeldung in der App** | Browserfenster in Arroxy öffnen, damit du dich anmelden und Website-Cookies nutzen kannst, ohne sie manuell zu exportieren |
 | **Video-Download mit einem Klick** | Einen Video-Download mit deinem aktiven Profil per Klick aus einer erkannten oder eingefügten URL starten |
 | **Stärkere Wiederaufnahme nach Fehlern** | Ein neuer Retry-Pfad für Downloads, die durch unzuverlässige oder problematische Internetverbindungen unterbrochen werden |

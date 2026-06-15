@@ -273,6 +273,7 @@
 			"total": "Jumla",
 			"skipToConfirm": "Ruka hadi uthibitisho",
 			"skipToConfirmTooltip": "Inatumia mapendeleo yako yaliyohifadhiwa kwa hatua zote zilizobaki. Ili kubadilisha mipangilio, endelea hatua kwa hatua badala yake — chaguo lako litahifadhiwa kwa wakati ujao.",
+			"quality": {"high": "Ubora wa juu", "medium": "Ubora wa kati", "low": "Ubora wa chini"},
 			"convert": {
 				"label": "Badilisha",
 				"uncompressed": "Badilisha · isiyoshinikizwa",

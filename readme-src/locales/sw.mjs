@@ -316,7 +316,7 @@ export const sw = {
   plan_r1_desc: "Vichujio vya muda wa tarehe unapoorodhesha playlist au channel",
   plan_r2_name: "**Mapendeleo ya track za sauti za YouTube**",
   plan_r2_desc:
-    "Chagua track za lugha ya mazungumzo unazopendelea YouTube inapotoa track nyingi za sauti",
+    "Weka upendeleo wa track ya lugha ya mazungumzo kwa app nzima, na override kwa kila profile YouTube inapotoa track nyingi za sauti",
   plan_r6_name: "**Kuingia kwa browser ndani ya app**",
   plan_r6_desc:
     "Fungua browser windows ndani ya Arroxy ili uingie na kutumia site cookies bila kuziexport mwenyewe",

@@ -28,13 +28,32 @@ function firstId(formats: readonly FormatOption[], predicate: (format: FormatOpt
 	return formats.find(predicate)?.formatId ?? null
 }
 
+function isSourcePreferredNativeAudio(format: FormatOption): boolean {
+	return format.isDefaultAudio === true || format.isOriginalAudio === true || (format.audioLanguagePreference ?? 0) > 0
+}
+
+function sourcePreferredCompatibleNativeAudioId(audioFormats: readonly FormatOption[]): string | null {
+	return (
+		firstId(audioFormats, format => isSourcePreferredNativeAudio(format) && !isDolbyNativeAudio(format) && !isDrcNativeAudio(format)) ??
+		firstId(audioFormats, format => isSourcePreferredNativeAudio(format) && !isDolbyNativeAudio(format)) ??
+		firstId(audioFormats, format => isSourcePreferredNativeAudio(format) && !isDrcNativeAudio(format)) ??
+		firstId(audioFormats, isSourcePreferredNativeAudio)
+	)
+}
+
 function compatibleNativeAudioId(audioFormats: readonly FormatOption[]): string | null {
-	return firstId(audioFormats, format => !isDolbyNativeAudio(format) && !isDrcNativeAudio(format)) ?? firstId(audioFormats, format => !isDolbyNativeAudio(format)) ?? firstId(audioFormats, format => !isDrcNativeAudio(format)) ?? audioFormats[0]?.formatId ?? null
+	return sourcePreferredCompatibleNativeAudioId(audioFormats) ?? firstId(audioFormats, format => !isDolbyNativeAudio(format) && !isDrcNativeAudio(format)) ?? firstId(audioFormats, format => !isDolbyNativeAudio(format)) ?? firstId(audioFormats, format => !isDrcNativeAudio(format)) ?? audioFormats[0]?.formatId ?? null
 }
 
 export function preferredNativeAudioId(audioFormats: readonly FormatOption[], preference: NativeAudioPreference): string | null {
 	if (preference === 'surround') {
-		return firstId(audioFormats, format => isEc3NativeAudio(format) && !isDrcNativeAudio(format)) ?? firstId(audioFormats, format => isAc3NativeAudio(format) && !isDrcNativeAudio(format)) ?? compatibleNativeAudioId(audioFormats)
+		return (
+			firstId(audioFormats, format => isSourcePreferredNativeAudio(format) && isEc3NativeAudio(format) && !isDrcNativeAudio(format)) ??
+			firstId(audioFormats, format => isSourcePreferredNativeAudio(format) && isAc3NativeAudio(format) && !isDrcNativeAudio(format)) ??
+			firstId(audioFormats, format => isEc3NativeAudio(format) && !isDrcNativeAudio(format)) ??
+			firstId(audioFormats, format => isAc3NativeAudio(format) && !isDrcNativeAudio(format)) ??
+			compatibleNativeAudioId(audioFormats)
+		)
 	}
 	return compatibleNativeAudioId(audioFormats)
 }

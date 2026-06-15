@@ -321,7 +321,7 @@ yt-dlp د لانچ پر مهال اتومات تازه کیږي، او Arroxy ه
 | ځانګړتیا    | توضیح    |
 | ---------------- | ---------------- |
 | **د پلیلیسټ او چینل فیلترونه** | د playlist یا channel د شمېرلو پر مهال date-range filters |
-| **د YouTube د غږ ټریک غوره توبونه** | کله چې YouTube څو غږیز ټریکونه وړاندې کوي، د خپلې خوښې د خبرې ژبې ټریکونه وټاکئ |
+| **د YouTube د غږ ټریک غوره توبونه** | کله چې YouTube څو غږیز ټریکونه وړاندې کوي، د ټول app لپاره د خبرې ژبې track غوره توب وټاکئ او د هر profile لپاره override وکړئ |
 | **په app کې دننه browser sign-in** | د Arroxy دننه browser windows پرانیزئ څو sign in وکړئ او site cookies د لاس له export پرته وکاروئ |
 | **یو-click ویډیو ډاونلوډ** | د active profile په کارولو detected یا pasted URL څخه ویډیو ډاونلوډ په یو click پیل کړئ |
 | **غښتلی retry recovery** | د بې ثباته یا ستونزمن internet connection له امله د پرې شویو ډاونلوډونو لپاره نوی retry لاره |

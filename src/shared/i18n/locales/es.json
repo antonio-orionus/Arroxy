@@ -273,6 +273,7 @@
 			"total": "Total",
 			"skipToConfirm": "Saltar a confirmar",
 			"skipToConfirmTooltip": "Usa tus preferencias guardadas para todos los pasos restantes. Para cambiar una opción, continúa paso a paso — tu elección se guardará para la próxima vez.",
+			"quality": {"high": "Calidad alta", "medium": "Calidad media", "low": "Calidad baja"},
 			"convert": {
 				"label": "Convertir",
 				"uncompressed": "Convertir · sin compresión",

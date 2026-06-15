@@ -92,6 +92,11 @@ function subtitleProfile(): DownloadProfile {
 	}
 }
 
+function expectSourcePreferredSelector(selector: string | undefined): void {
+	expect(selector).toContain('[language_preference>0]')
+	expect(selector).toContain("[format_note~=?'(?i)\\boriginal\\b']")
+}
+
 describe('QueueSubmission', () => {
 	it('prepares a single manual queue item', () => {
 		const prepared = prepareManualQueueSubmission(state(), 'priority')
@@ -117,7 +122,10 @@ describe('QueueSubmission', () => {
 		const job = prepared?.items[0]?.job
 
 		expect(job?.kind).toBe('ranged-format')
-		if (job?.kind === 'ranged-format') expect(job.formatSelector).toContain("bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$']")
+		if (job?.kind === 'ranged-format') {
+			expect(job.formatSelector).toContain("bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$']")
+			expectSourcePreferredSelector(job.formatSelector)
+		}
 	})
 
 	it('localizes Smart TV MP4 playlist queue labels', async () => {
@@ -137,6 +145,14 @@ describe('QueueSubmission', () => {
 		expect(prepared?.items).toHaveLength(2)
 		expect(prepared?.manifest).toBeUndefined()
 		expect(prepared?.items.every(item => item.writeM3u === false && item.playlistGroupId === undefined)).toBe(true)
+	})
+
+	it('threads source-preferred best-native selectors into manual bulk items', () => {
+		const prepared = prepareManualQueueSubmission(state({wizardMode: 'bulk'}), 'normal')
+		const job = prepared?.items[0]?.job
+
+		expect(job?.kind).toBe('ranged-format')
+		if (job?.kind === 'ranged-format') expectSourcePreferredSelector(job.formatSelector)
 	})
 
 	it('prepares bulk items with per-entry probe info-json refs when metadata hydration found them', () => {
@@ -162,7 +178,10 @@ describe('QueueSubmission', () => {
 		const job = prepared?.items[0]?.job
 
 		expect(job?.kind).toBe('ranged-format')
-		if (job?.kind === 'ranged-format') expect(job.formatSelector).toContain("bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$']")
+		if (job?.kind === 'ranged-format') {
+			expect(job.formatSelector).toContain("bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$']")
+			expectSourcePreferredSelector(job.formatSelector)
+		}
 	})
 
 	it('uses the probe webpage URL for active-profile video items when wizard state is stale', () => {

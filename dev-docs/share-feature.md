@@ -200,6 +200,8 @@ SmartDrawer banner Ã— dismiss: `data-testid="share-high-value-banner-dismiss"` â
 
 All events go through `track(name, props)` (`src/renderer/src/lib/analytics.ts`) which forwards over IPC. Main-side `trackMain` enforces the allowlist in `src/main/services/analytics.ts`. All events are gated by the user's `analyticsEnabled` setting (existing global gate in `trackMain`).
 
+> **Currently gated off:** of the share events below, only `share_link_copied` is actually sent. The rest are still validated (prop schema + dev typo guard) but dropped before reaching OpenPanel via the `ENABLED` keep-set in `trackMain`. Add a name to `ENABLED` to start sending it again.
+
 | Event                                | Props                                     | Fired from                                      | Notes                                                                                                                 |
 | ------------------------------------ | ----------------------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `share_dialog_opened`                | `{ via: ShareTrigger }`                   | `openShareDialogInternal()`                     | Every open, regardless of trigger.                                                                                    |

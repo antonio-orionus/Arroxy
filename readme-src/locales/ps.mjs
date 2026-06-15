@@ -316,7 +316,7 @@ export const ps = {
   plan_r1_desc: "د playlist یا channel د شمېرلو پر مهال date-range filters",
   plan_r2_name: "**د YouTube د غږ ټریک غوره توبونه**",
   plan_r2_desc:
-    "کله چې YouTube څو غږیز ټریکونه وړاندې کوي، د خپلې خوښې د خبرې ژبې ټریکونه وټاکئ",
+    "کله چې YouTube څو غږیز ټریکونه وړاندې کوي، د ټول app لپاره د خبرې ژبې track غوره توب وټاکئ او د هر profile لپاره override وکړئ",
   plan_r6_name: "**په app کې دننه browser sign-in**",
   plan_r6_desc:
     "د Arroxy دننه browser windows پرانیزئ څو sign in وکړئ او site cookies د لاس له export پرته وکاروئ",

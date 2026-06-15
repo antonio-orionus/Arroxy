@@ -273,6 +273,7 @@
 			"total": "Gesamt",
 			"skipToConfirm": "Zur Bestätigung überspringen",
 			"skipToConfirmTooltip": "Verwendet deine gespeicherten Einstellungen für alle verbleibenden Schritte. Um eine Einstellung zu ändern, fahre stattdessen Schritt für Schritt fort – deine Wahl wird für das nächste Mal gespeichert.",
+			"quality": {"high": "Hohe Qualität", "medium": "Mittlere Qualität", "low": "Niedrige Qualität"},
 			"convert": {
 				"label": "Konvertieren",
 				"uncompressed": "Konvertieren · unkomprimiert",

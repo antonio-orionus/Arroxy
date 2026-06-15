@@ -316,7 +316,7 @@ export const vi = {
   plan_r1_desc: "Bộ lọc khoảng ngày khi liệt kê playlist hoặc kênh",
   plan_r2_name: "**Tùy chọn track âm thanh YouTube**",
   plan_r2_desc:
-    "Chọn track ngôn ngữ nói ưu tiên khi YouTube cung cấp nhiều track âm thanh",
+    "Đặt tùy chọn track ngôn ngữ nói cho toàn app, với override theo từng profile khi YouTube cung cấp nhiều track âm thanh",
   plan_r6_name: "**Đăng nhập bằng browser trong app**",
   plan_r6_desc:
     "Mở browser windows bên trong Arroxy để đăng nhập và dùng site cookies mà không cần export thủ công",

@@ -316,7 +316,7 @@ export const uz = {
   plan_r1_desc: "Playlist yoki kanalni ro‘yxatlashda sana oralig‘i filtrlari",
   plan_r2_name: "**YouTube audio track afzalliklari**",
   plan_r2_desc:
-    "YouTube bir nechta audio track berganda afzal ko'rilgan og'zaki til tracklarini tanlash",
+    "YouTube bir nechta audio track berganda app bo'ylab og'zaki til track afzalligini sozlash va har bir profile uchun override qilish",
   plan_r6_name: "**App ichida browser sign-in**",
   plan_r6_desc:
     "Arroxy ichida browser windows ochib, sign in qilish va site cookiesni qo'lda export qilmasdan ishlatish",

@@ -316,7 +316,7 @@ export const my = {
   plan_r1_desc: "playlist သို့မဟုတ် channel ကို enumerate လုပ်သည့်အခါ date-range filters",
   plan_r2_name: "**YouTube audio track preference များ**",
   plan_r2_desc:
-    "YouTube တွင် audio tracks များစွာရှိပါက ကြိုက်နှစ်သက်သော spoken-language tracks ကို ရွေးပါ",
+    "YouTube တွင် audio tracks များစွာရှိပါက app တစ်ခုလုံးအတွက် spoken-language track preference သတ်မှတ်ပြီး profile တစ်ခုချင်းစီမှာ override လုပ်ပါ",
   plan_r6_name: "**App ထဲရှိ browser sign-in**",
   plan_r6_desc:
     "Arroxy ထဲတွင် browser windows ဖွင့်ပြီး sign in လုပ်ကာ site cookies ကို manually export မလုပ်ဘဲ အသုံးပြုနိုင်ရန်",

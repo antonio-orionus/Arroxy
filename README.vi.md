@@ -321,7 +321,7 @@ Vẫn được lên kế hoạch — theo thứ tự ưu tiên tương đối:
 | Tính năng    | Mô tả    |
 | ---------------- | ---------------- |
 | **Bộ lọc danh sách phát & kênh** | Bộ lọc khoảng ngày khi liệt kê playlist hoặc kênh |
-| **Tùy chọn track âm thanh YouTube** | Chọn track ngôn ngữ nói ưu tiên khi YouTube cung cấp nhiều track âm thanh |
+| **Tùy chọn track âm thanh YouTube** | Đặt tùy chọn track ngôn ngữ nói cho toàn app, với override theo từng profile khi YouTube cung cấp nhiều track âm thanh |
 | **Đăng nhập bằng browser trong app** | Mở browser windows bên trong Arroxy để đăng nhập và dùng site cookies mà không cần export thủ công |
 | **Tải video bằng một click** | Bắt đầu video download bằng một click từ URL được phát hiện hoặc đã dán bằng active profile |
 | **Khôi phục retry mạnh hơn** | Một đường retry mới cho các lượt tải xuống bị gián đoạn bởi kết nối internet không ổn định hoặc có vấn đề |

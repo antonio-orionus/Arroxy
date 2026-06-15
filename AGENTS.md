@@ -22,7 +22,7 @@ Format: `**Term** — definition. \`path\``. Add an entry when extracting a new 
 - **ActiveJob** — in-flight record holding `job`, `input`, `signal`/`controller`, `disposables`, mutable progress. Aliased as `ActiveDownload`. Phases push disposables onto it as resources are acquired (tempDir, yt-dlp child, ffmpeg child). `src/main/services/phases/types.ts`.
 - **Phase** — pure step in the download pipeline (Preflight → Video → SidecarSubs / SubtitleOnly). Inputs `PhaseContext`, returns `PhaseOutcome` (`continue`/`completed`/`soft-failed`/`hard-failed`/`cancelled`/`paused`). `phasesFor(input)` builds the chain; `PhaseExecutor.run` drives it. `src/main/services/phases/types.ts`.
 - **Disposable** — teardown callback (`() => Promise<void> | void`) registered against ActiveJob, drained LIFO by `JobLifecycle.drain` with try/catch per entry. Phases register via `ctx.register(d)` instead of inline cleanup. `src/main/services/phases/types.ts`.
-- **JobLifecycle** — single coordinator for end-of-job: drain disposables, emit analytics (`download_finished`/`_cancelled`/`_failed`), persist to `RecentJobsStore`. `src/main/services/JobLifecycle.ts`.
+- **JobLifecycle** — single coordinator for end-of-job: drain disposables, call `trackMain` for `download_finished`/`download_cancelled`/`download_failed`, persist to `RecentJobsStore`. OpenPanel delivery is still subject to `analytics.ts` `ENABLED`; currently only `download_failed` is sent from this lifecycle set. `src/main/services/JobLifecycle.ts`, `src/main/services/analytics.ts`.
 - **QueueEvent** — closed union of state-change signals over a `QueueItem`: `started`, `progress`, `paused-active`, `paused-held`, `resumed`, `failed`, `completed`, `cancelled`, `retry-reset`. Drives `transition`. `src/shared/queueTransition.ts`.
 - **QueueService** — authoritative queue-of-record on main. Owns the in-memory array, applies cap=1 scheduler (3s inter-job sleep), persists via `QueueStore`, projects to renderer via 4 IPC events: `queue:event:snapshot` (initial hydration), `Added`/`Updated`/`Removed` (incremental diffs). 8 commands flow renderer → main via `queue:cmd:*`: add, start, pause, resume, cancel, retry, clearCompleted, remove. `src/main/services/QueueService.ts`.
 - **QueueDrawerView** — pure renderer projection for drawer display: active-before-completed ordering, aggregate running progress, header flags, share-banner gating, and fixed virtualization row sizing. Keeps high-frequency queue derivation out of `SmartDrawer`. `src/renderer/src/store/queueDrawerView.ts`.
@@ -107,6 +107,16 @@ Before implementing:
 ## Goal-Driven Execution
 
 **Define success criteria. Loop until verified.** Transform tasks into verifiable goals: "Add validation" → tests for invalid inputs, then make them pass. "Fix the bug" → reproduce-test, then make it pass. "Refactor X" → tests pass before and after. For multi-step tasks, state a brief plan with a `verify:` line per step.
+
+For multi-step tasks, use this shape:
+
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+
+Strong success criteria let you loop independently. Weak criteria like "make it work" require constant clarification.
+
+**Simplify aggressively.** If you write 200 lines and it could be 50, rewrite it. Ask: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
 ---
 
@@ -724,3 +734,14 @@ rtk init --global       # Add RTK to ~/.claude/CLAUDE.md
 Overall average: **60-90% token reduction** on common development operations.
 
 <!-- /rtk-instructions -->
+
+<!-- CODEGRAPH_START -->
+## CodeGraph
+
+In repositories indexed by CodeGraph (a `.codegraph/` directory exists at the repo root), reach for it BEFORE grep/find or reading files when you need to understand or locate code:
+
+- **MCP tools** (when available): `codegraph_explore` answers most code questions in one call — the relevant symbols' verbatim source plus the call paths between them. `codegraph_node` returns one symbol's source + callers, or reads a whole file with line numbers. If the tools are listed but deferred, load them by name via tool search.
+- **Shell** (always works): `codegraph explore "<symbol names or question>"` and `codegraph node <symbol-or-file>` print the same output.
+
+If there is no `.codegraph/` directory, skip CodeGraph entirely — indexing is the user's decision.
+<!-- CODEGRAPH_END -->

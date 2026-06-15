@@ -20,6 +20,8 @@ import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR} fr
 const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/tmp/out'
 const TEMPLATE = '%(title).200B [%(id)s].%(ext)s'
+const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR =
+	"bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best"
 
 // Build a minimal media WorkflowInput from a PlaylistSelection, mirroring VideoPhase logic.
 function reqFor(sel: PlaylistSelection): WorkflowInput {
@@ -123,10 +125,10 @@ describe('Audio · Lossy convert', () => {
 		['opus', 320]
 	] as const)('format=%s bitrate=%d → -x --audio-format <fmt> --audio-quality <kbps>K', (format, kbps) => {
 		const args = argsFor({kind: 'audio', format, bitrateKbps: kbps})
-		// Audio convert path: -f bestaudio/best -x --audio-format <fmt> --audio-quality <kbps>K
+		// Audio convert path: source-preferred bestaudio selector + -x --audio-format <fmt> --audio-quality <kbps>K
 		expect(args).toContain('-f')
 		const fIdx = args.indexOf('-f')
-		expect(args[fIdx + 1]).toBe('bestaudio/best')
+		expect(args[fIdx + 1]).toBe(SOURCE_PREFERRED_BEST_AUDIO_SELECTOR)
 		expect(args).toContain('-x')
 		expect(args).toContain('--audio-format')
 		const afIdx = args.indexOf('--audio-format')

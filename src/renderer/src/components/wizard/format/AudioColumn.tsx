@@ -1,7 +1,7 @@
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {AudioBitrate, AudioConvertTarget} from '@shared/types.js'
-import {AUDIO_BITRATES} from '@shared/schemas.js'
+import {AUDIO_BITRATES, type AudioTrackQuality} from '@shared/schemas.js'
 import type {AudioSelection} from '../../../store/types.js'
 import type {FormatSelectionView} from '../../../store/formatSelectionView.js'
 import {ToggleGroup, ToggleGroupItem} from '../../ui/toggle-group.js'
@@ -19,6 +19,30 @@ interface AudioColumnProps {
 	audioExtFilter: string | null
 	onAudioExtFilterChange: (value: string | null) => void
 	onSelect: (sel: AudioSelection) => void
+}
+
+const QUALITY_ICON_CLASS: Record<AudioTrackQuality, string> = {high: 'text-emerald-500 dark:text-emerald-300', medium: 'text-sky-500 dark:text-sky-300', low: 'text-amber-500 dark:text-amber-300'}
+const QUALITY_BAR_COUNT: Record<AudioTrackQuality, number> = {high: 3, medium: 2, low: 1}
+const QUALITY_LABEL_KEY: Record<AudioTrackQuality, 'wizard.formats.quality.high' | 'wizard.formats.quality.medium' | 'wizard.formats.quality.low'> = {high: 'wizard.formats.quality.high', medium: 'wizard.formats.quality.medium', low: 'wizard.formats.quality.low'}
+
+function QualityBadge({quality, label}: {quality: AudioTrackQuality; label: string}): ReactNode {
+	const activeBars = QUALITY_BAR_COUNT[quality]
+	return (
+		<Tooltip>
+			<TooltipTrigger
+				render={props => (
+					<span {...props} aria-label={label} data-testid={`audio-quality-${quality}`} className={cn('inline-flex size-[17px] shrink-0 items-center justify-center rounded-full border border-[var(--border-strong)] bg-white/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] dark:bg-white/10', QUALITY_ICON_CLASS[quality])}>
+						<span aria-hidden className="flex h-[10px] items-end gap-[1px]">
+							{[1, 2, 3].map(index => (
+								<span key={index} className={cn('w-[2px] rounded-full bg-current transition-opacity', index === 1 && 'h-[4px]', index === 2 && 'h-[7px]', index === 3 && 'h-[10px]', index > activeBars && 'opacity-20')} />
+							))}
+						</span>
+					</span>
+				)}
+			/>
+			<TooltipContent>{label}</TooltipContent>
+		</Tooltip>
+	)
 }
 
 export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudioExtFilterChange, onSelect}: AudioColumnProps): ReactNode {
@@ -83,10 +107,19 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 
 				{view.nativeRows.map(row => {
 					const isChecked = isNativeChecked(row.formatId)
+					const qualityLabel = row.quality ? t(QUALITY_LABEL_KEY[row.quality]) : null
+					const label = row.quality ? (
+						<span className="inline-flex min-w-0 items-center gap-1.5">
+							{qualityLabel ? <QualityBadge quality={row.quality} label={qualityLabel} /> : null}
+							{row.title ? <span className="truncate">{row.title}</span> : null}
+						</span>
+					) : (
+						row.title
+					)
 					return [
-						<RadioOption key={row.formatId} checked={isChecked} disabled={subtitleOnly} onClick={() => onSelect({kind: 'native', formatId: row.formatId})} label={row.ext}>
+						<RadioOption key={row.formatId} checked={isChecked} disabled={subtitleOnly} onClick={() => onSelect({kind: 'native', formatId: row.formatId})} label={label}>
 							<span className="text-[11px] ml-auto whitespace-nowrap" style={{color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)'}}>
-								{row.label}
+								{row.meta}
 							</span>
 						</RadioOption>
 					]

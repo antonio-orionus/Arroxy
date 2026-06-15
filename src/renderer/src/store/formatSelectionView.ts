@@ -3,7 +3,7 @@ import {i18next} from '@shared/i18n/index.js'
 import {humanSize} from '@shared/format.js'
 import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
 import type {AudioBitrate, AudioConvertTarget, FormatOption} from '@shared/types.js'
-import type {Preset} from '@shared/schemas.js'
+import type {AudioTrackQuality, Preset} from '@shared/schemas.js'
 import type {AudioSelection} from './types.js'
 import {useAppStore} from './useAppStore.js'
 import {groupVideoFormats, resolveVideoResolution} from './helpers.js'
@@ -30,6 +30,9 @@ export interface NativeAudioRow {
 	ext: string
 	formatId: string
 	label: string
+	meta: string
+	quality: AudioTrackQuality | null
+	title: string
 }
 
 export interface FormatSelectionView {
@@ -56,6 +59,12 @@ export interface FormatSelectionView {
 }
 
 const DEFAULT_FILTERS: FormatSelectionFilters = {audioExt: null, dynamicRange: null, videoExt: null}
+
+function nativeAudioRow(format: FormatOption): NativeAudioRow {
+	const title = format.audioTrackLabel ?? format.audioLanguage ?? (format.audioTrackQuality ? '' : format.ext)
+	const meta = format.audioTrackLabel ? format.label.replace(`${format.audioTrackLabel} · `, '') : format.label
+	return {ext: format.ext, formatId: format.formatId, label: format.label, meta, quality: format.audioTrackQuality ?? null, title}
+}
 
 // Exported for unit-testing the gating logic (muxed-only sources, audio-only
 // modes, etc.) without spinning up the zustand store.
@@ -113,7 +122,7 @@ export function selectView(state: {selectedVideoFormatId: string; audioSelection
 	const nativeExtSet = new Set(nativeExts)
 	const audioExtOptions = [...nativeExts, ...convertTargets.filter(ext => !nativeExtSet.has(ext))]
 	const matchesAudioExt = (ext: string): boolean => !filters.audioExt || ext === filters.audioExt
-	const nativeRows = nativeAudios.filter(format => matchesAudioExt(format.ext)).map(format => ({ext: format.ext, formatId: format.formatId, label: format.label}))
+	const nativeRows = nativeAudios.filter(format => matchesAudioExt(format.ext)).map(nativeAudioRow)
 	const filteredConvertTargets = convertTargets.filter(matchesAudioExt)
 
 	return {

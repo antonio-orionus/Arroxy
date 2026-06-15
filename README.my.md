@@ -321,7 +321,7 @@ yt-dlp ကို launch တိုင်း အလိုအလျောက် upd
 | လုပ်ဆောင်ချက်    | ဖော်ပြချက်    |
 | ---------------- | ---------------- |
 | **Playlist နှင့် channel filters** | playlist သို့မဟုတ် channel ကို enumerate လုပ်သည့်အခါ date-range filters |
-| **YouTube audio track preference များ** | YouTube တွင် audio tracks များစွာရှိပါက ကြိုက်နှစ်သက်သော spoken-language tracks ကို ရွေးပါ |
+| **YouTube audio track preference များ** | YouTube တွင် audio tracks များစွာရှိပါက app တစ်ခုလုံးအတွက် spoken-language track preference သတ်မှတ်ပြီး profile တစ်ခုချင်းစီမှာ override လုပ်ပါ |
 | **App ထဲရှိ browser sign-in** | Arroxy ထဲတွင် browser windows ဖွင့်ပြီး sign in လုပ်ကာ site cookies ကို manually export မလုပ်ဘဲ အသုံးပြုနိုင်ရန် |
 | **တစ်ချက်နှိပ် video download** | active profile ဖြင့် detected သို့မဟုတ် pasted URL မှ video download ကို တစ်ချက်နှိပ်၍ စတင်ပါ |
 | **ပိုမိုခိုင်မာသော retry recovery** | မတည်ငြိမ်သော သို့မဟုတ် ပြဿနာရှိသော internet connection ကြောင့် ပြတ်တောက်သွားသော downloads များအတွက် retry လမ်းကြောင်းအသစ် |

@@ -321,7 +321,7 @@ Bado imepangwa — takriban kwa mpangilio wa kipaumbele:
 | Kipengele    | Maelezo    |
 | ---------------- | ---------------- |
 | **Vichujio vya orodha za kucheza na vituo** | Vichujio vya muda wa tarehe unapoorodhesha playlist au channel |
-| **Mapendeleo ya track za sauti za YouTube** | Chagua track za lugha ya mazungumzo unazopendelea YouTube inapotoa track nyingi za sauti |
+| **Mapendeleo ya track za sauti za YouTube** | Weka upendeleo wa track ya lugha ya mazungumzo kwa app nzima, na override kwa kila profile YouTube inapotoa track nyingi za sauti |
 | **Kuingia kwa browser ndani ya app** | Fungua browser windows ndani ya Arroxy ili uingie na kutumia site cookies bila kuziexport mwenyewe |
 | **Upakuaji wa video kwa click moja** | Anzisha video download kwa click moja kutoka URL iliyotambuliwa au kubandikwa ukitumia active profile |
 | **Urejeshaji imara kwa retry** | Njia mpya ya retry kwa upakuaji uliokatizwa na miunganisho ya internet isiyotegemeka au yenye matatizo |

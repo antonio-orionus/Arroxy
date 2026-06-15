@@ -321,7 +321,7 @@ Hali rejalashtirilgan — taxminan ustuvorlik tartibida:
 | Xususiyat    | Tavsif    |
 | ---------------- | ---------------- |
 | **Playlist va kanal filtrlari** | Playlist yoki kanalni ro‘yxatlashda sana oralig‘i filtrlari |
-| **YouTube audio track afzalliklari** | YouTube bir nechta audio track berganda afzal ko'rilgan og'zaki til tracklarini tanlash |
+| **YouTube audio track afzalliklari** | YouTube bir nechta audio track berganda app bo'ylab og'zaki til track afzalligini sozlash va har bir profile uchun override qilish |
 | **App ichida browser sign-in** | Arroxy ichida browser windows ochib, sign in qilish va site cookiesni qo'lda export qilmasdan ishlatish |
 | **Bir-click video download** | Active profile bilan detected yoki pasted URLdan video downloadni bir clickda boshlash |
 | **Kuchliroq retry recovery** | Ishonchsiz yoki muammoli internet connection sabab uzilgan yuklab olishlar uchun yangi retry yo'li |

@@ -1229,6 +1229,18 @@ msgctxt "wizard.formats.noAudio"
 msgid "No audio"
 msgstr "অডিও নেই"
 
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "উচ্চ মান"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "নিম্ন মান"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "মাঝারি মান"
+
 msgctxt "wizard.formats.quickPresets"
 msgid "Quick presets"
 msgstr "দ্রুত প্রিসেট"

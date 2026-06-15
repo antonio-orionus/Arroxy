@@ -259,6 +259,7 @@
 			"total": "ጠቅላላ",
 			"skipToConfirm": "ወደ ማረጋገጫ ዝለል",
 			"skipToConfirmTooltip": "ለቀሩት ሁሉም ደረጃዎች የተቀመጡ ምርጫዎችዎን ይጠቀማል። አንድ ቅንብር ለመለወጥ ደረጃ በደረጃ ቀጥሉ — ምርጫዎ ለሚቀጥለው ጊዜ ይቀመጣል።",
+			"quality": {"high": "ከፍተኛ ጥራት", "medium": "መካከለኛ ጥራት", "low": "ዝቅተኛ ጥራት"},
 			"convert": {"label": "ቀይር", "uncompressed": "ቀይር · ያልተጨመቀ", "bitrate": "ቢትሬት", "wavLabel": "WAV (ያልተጨመቀ)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresAudioOnly": "የድምጽ ቅርጸት ለወጥ ድምጽ-ብቻ ሁነታ ያስፈልጋል (የቪዲዮ ምርጫውን ሰርዝ)።", "requiresLossy": "የቀጥታ ዥረት ተመርጧል — ቢትሬት የሚሰራው ወደ mp3፣ m4a፣ ወይም opus ሲቀይሩ ብቻ ነው።"},
 			"botWall": {
 				"heading": "YouTube ይህን ምርምር ገደበ",

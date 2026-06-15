@@ -321,7 +321,7 @@ Still planned — roughly in priority order:
 | Feature    | Description    |
 | ---------------- | ---------------- |
 | **Playlist & channel filters** | Date-range filters when enumerating a playlist or channel |
-| **YouTube audio track preferences** | Choose preferred spoken-language tracks when YouTube provides multiple audio tracks |
+| **YouTube audio track preferences** | Set an app-wide spoken-language track preference, with per-profile overrides when YouTube offers multiple audio tracks |
 | **In-app browser sign-in** | Open browser windows inside Arroxy so you can sign in and use site cookies without exporting them manually |
 | **One-click video download** | Start a video download in one click from a detected or pasted URL using your active profile |
 | **Stronger retry recovery** | A new retry path for downloads interrupted by unreliable or problematic internet connections |

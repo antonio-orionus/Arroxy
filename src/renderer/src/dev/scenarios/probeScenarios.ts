@@ -1,4 +1,4 @@
-import type {PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
+import type {PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, VideoProbeResult} from '@shared/types.js'
 import type {YtDlpErrorKind} from '@shared/schemas.js'
 
 interface ScenarioLike {
@@ -30,6 +30,12 @@ export function buildProbeResult(scenario: ScenarioLike, params?: ProbeUrlParams
 			return playlistProbe(100, {longTitles: true})
 		case 'probe-audio-only':
 			return audioOnlyProbe()
+		case 'probe-audio-multilingual':
+			return audioMultilingualProbe()
+		case 'probe-audio-surround':
+			return audioSurroundProbe()
+		case 'probe-audio-stereo':
+			return audioStereoProbe()
 		case 'probe-with-subtitles':
 			return videoWithSubtitlesProbe()
 		case 'probe-no-formats':
@@ -86,7 +92,7 @@ const NORMAL_VIDEO_FORMATS = [
 	{formatId: '139', label: 'm4a · AAC · 48 kbps · 1.8 MB', ext: 'm4a', resolution: 'audio only', abr: 48, filesize: 1_900_000, isVideoOnly: false, isAudioOnly: true}
 ] as const
 
-export function normalVideoProbe(options: {webpageUrl?: string; degraded?: Extract<ProbeResult, {kind: 'video'}>['degraded']} = {}): ProbeResult {
+export function normalVideoProbe(options: {webpageUrl?: string; degraded?: VideoProbeResult['degraded']} = {}): VideoProbeResult {
 	return {
 		kind: 'video',
 		extractor: 'youtube',
@@ -122,6 +128,94 @@ function audioOnlyProbe(): ProbeResult {
 		formats: [
 			{formatId: 'http_mp3-128', label: 'mp3 · 128 kbps · 3.4 MB', ext: 'mp3', resolution: 'audio only', abr: 128, filesize: 3_500_000, isVideoOnly: false, isAudioOnly: true},
 			{formatId: 'http_opus-64', label: 'opus · 64 kbps · 1.7 MB', ext: 'opus', resolution: 'audio only', abr: 64, filesize: 1_700_000, isVideoOnly: false, isAudioOnly: true}
+		]
+	}
+}
+
+function audioMultilingualProbe(): ProbeResult {
+	return {
+		...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-audio-multilingual'}),
+		title: 'Mock Video - Multilingual Audio Tracks',
+		formats: [
+			{formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, isVideoOnly: true, isAudioOnly: false},
+			{
+				formatId: '140-1',
+				label: 'English original (default) · m4a · AAC · 130 kbps · 1.4 MB',
+				ext: 'm4a',
+				resolution: 'audio only',
+				abr: 130,
+				audioCodec: 'mp4a.40.2',
+				audioLanguage: 'en',
+				audioTrackLabel: 'English original (default)',
+				audioTrackQuality: 'medium',
+				isDefaultAudio: true,
+				isOriginalAudio: true,
+				filesize: 1_400_000,
+				isVideoOnly: false,
+				isAudioOnly: true
+			},
+			{
+				formatId: '140-1-drc',
+				label: 'English original (default) · m4a · AAC · DRC · 130 kbps · 1.4 MB',
+				ext: 'm4a',
+				resolution: 'audio only',
+				abr: 130,
+				audioCodec: 'mp4a.40.2',
+				isDrc: true,
+				audioLanguage: 'en',
+				audioTrackLabel: 'English original (default)',
+				audioTrackQuality: 'medium',
+				isDefaultAudio: true,
+				isOriginalAudio: true,
+				filesize: 1_400_000,
+				isVideoOnly: false,
+				isAudioOnly: true
+			},
+			{formatId: '140-0', label: 'Klingon · m4a · AAC · 130 kbps · 1.4 MB', ext: 'm4a', resolution: 'audio only', abr: 130, audioCodec: 'mp4a.40.2', audioLanguage: 'tlh', audioTrackLabel: 'Klingon', audioTrackQuality: 'medium', filesize: 1_400_000, isVideoOnly: false, isAudioOnly: true},
+			{
+				formatId: '251-1',
+				label: 'English original (default) · webm · Opus · 122 kbps · 1.3 MB',
+				ext: 'webm',
+				resolution: 'audio only',
+				abr: 122,
+				audioCodec: 'opus',
+				audioLanguage: 'en',
+				audioTrackLabel: 'English original (default)',
+				audioTrackQuality: 'medium',
+				isDefaultAudio: true,
+				isOriginalAudio: true,
+				filesize: 1_300_000,
+				isVideoOnly: false,
+				isAudioOnly: true
+			},
+			{formatId: '249-0', label: 'Klingon · webm · Opus · 69 kbps · 760.6 KB', ext: 'webm', resolution: 'audio only', abr: 69, audioCodec: 'opus', audioLanguage: 'tlh', audioTrackLabel: 'Klingon', audioTrackQuality: 'low', filesize: 778_000, isVideoOnly: false, isAudioOnly: true}
+		]
+	}
+}
+
+function audioSurroundProbe(): ProbeResult {
+	return {
+		...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-audio-surround'}),
+		title: 'Mock Video - Surround Audio Available',
+		formats: [
+			{formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '380', label: 'm4a · ac-3 · 6ch · 384 kbps · 49.2 MB', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ac-3', audioTrackQuality: 'high', filesize: 49_200_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '328', label: 'm4a · ec-3 · 6ch · 384 kbps · 49.2 MB', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ec-3', audioTrackQuality: 'high', filesize: 49_200_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '140', label: 'm4a · AAC · DRC · 129 kbps · 16.6 MB', ext: 'm4a', resolution: 'audio only', abr: 129, audioCodec: 'mp4a.40.2', isDrc: true, audioTrackQuality: 'medium', filesize: 16_600_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '251', label: 'webm · Opus · 122 kbps · 15.6 MB', ext: 'webm', resolution: 'audio only', abr: 122, audioCodec: 'opus', audioTrackQuality: 'medium', filesize: 15_600_000, isVideoOnly: false, isAudioOnly: true}
+		]
+	}
+}
+
+function audioStereoProbe(): ProbeResult {
+	return {
+		...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-audio-stereo'}),
+		title: 'Mock Video - Stereo Audio Only',
+		formats: [
+			{formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '140', label: 'm4a · AAC · 129 kbps · 4.8 MB', ext: 'm4a', resolution: 'audio only', abr: 129, audioCodec: 'mp4a.40.2', audioTrackQuality: 'medium', filesize: 5_000_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '251', label: 'webm · Opus · 122 kbps · 4.6 MB', ext: 'webm', resolution: 'audio only', abr: 122, audioCodec: 'opus', audioTrackQuality: 'medium', filesize: 4_800_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '139', label: 'm4a · AAC · 49 kbps · 1.8 MB', ext: 'm4a', resolution: 'audio only', abr: 49, audioCodec: 'mp4a.40.5', audioTrackQuality: 'low', filesize: 1_900_000, isVideoOnly: false, isAudioOnly: true}
 		]
 	}
 }

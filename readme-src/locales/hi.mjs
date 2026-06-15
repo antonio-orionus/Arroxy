@@ -317,7 +317,7 @@ export const hi = {
   plan_r1_desc: "playlist या channel enumerate करते समय date-range filters",
   plan_r2_name: "**YouTube ऑडियो ट्रैक प्राथमिकताएँ**",
   plan_r2_desc:
-    "जब YouTube कई ऑडियो ट्रैक देता है, तो पसंदीदा बोली जाने वाली भाषा के ट्रैक चुनें",
+    "जब YouTube कई ऑडियो ट्रैक देता है, तो पूरी app के लिए बोली जाने वाली भाषा का track preference सेट करें और हर profile में override करें",
   plan_r6_name: "**ऐप के अंदर browser sign-in**",
   plan_r6_desc:
     "Arroxy के अंदर browser windows खोलें ताकि आप sign in कर सकें और site cookies को manual export किए बिना इस्तेमाल कर सकें",

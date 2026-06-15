@@ -1229,6 +1229,18 @@ msgctxt "wizard.formats.noAudio"
 msgid "No audio"
 msgstr "Không có âm thanh"
 
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Chất lượng cao"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Chất lượng thấp"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Chất lượng trung bình"
+
 msgctxt "wizard.formats.quickPresets"
 msgid "Quick presets"
 msgstr "Cài đặt nhanh"

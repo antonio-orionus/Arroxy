@@ -103,6 +103,30 @@ test('screen preset scenarios land on their natural screens', async ({page}) => 
 	await expect(page.getByTestId('step-playlist-items')).toBeVisible({timeout: 6_000})
 })
 
+test('audio track quality scenarios render icon badges and tooltips', async ({page}) => {
+	await openScenario(page, 'probe-audio-multilingual')
+	await expect(page.getByTestId('step-formats')).toBeVisible({timeout: 6_000})
+	await expect(page.getByText('English original (default)').first()).toBeVisible()
+	await expect(page.getByText('Klingon').first()).toBeVisible()
+	await expect(page.getByTestId('audio-quality-medium').first()).toBeVisible()
+	await expect(page.getByTestId('audio-quality-low').first()).toBeVisible()
+	await page.getByTestId('audio-quality-medium').first().hover()
+	await expect(page.locator('[data-slot="tooltip-content"]')).toContainText('Medium quality')
+
+	await openScenario(page, 'probe-audio-surround')
+	await expect(page.getByTestId('step-formats')).toBeVisible({timeout: 6_000})
+	await expect(page.getByText('6ch').first()).toBeVisible()
+	await expect(page.getByTestId('audio-quality-high').first()).toBeVisible()
+	await page.getByTestId('audio-quality-high').first().hover()
+	await expect(page.locator('[data-slot="tooltip-content"]')).toContainText('High quality')
+
+	await openScenario(page, 'probe-audio-stereo')
+	await expect(page.getByTestId('step-formats')).toBeVisible({timeout: 6_000})
+	await expect(page.getByText('Klingon')).toHaveCount(0)
+	await expect(page.getByText('6ch')).toHaveCount(0)
+	await expect(page.getByTestId('audio-quality-low').first()).toBeVisible()
+})
+
 test('mockStep opens screen presets directly to confirm', async ({page}) => {
 	await openWithParams(page, 'scenario=single-normal&mockStep=confirm')
 	await expect(page.getByTestId('step-confirm')).toBeVisible({timeout: 6_000})

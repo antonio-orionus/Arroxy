@@ -1229,6 +1229,18 @@ msgctxt "wizard.formats.noAudio"
 msgid "No audio"
 msgstr "Χωρίς ήχο"
 
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Υψηλή ποιότητα"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Χαμηλή ποιότητα"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Μεσαία ποιότητα"
+
 msgctxt "wizard.formats.quickPresets"
 msgid "Quick presets"
 msgstr "Γρήγορες προεπιλογές"

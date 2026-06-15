@@ -137,6 +137,20 @@ export const DEFAULT_SLEEP_SUBTITLES_SECONDS = 3
 export const EMBED_SUBTITLE_CONTAINER_EXT = 'mkv'
 
 const DEFAULT_CALLER_OUTPUT_TEMPLATE = '%(title).200B.%(ext)s'
+const NON_DRC_AUDIO_FILTERS = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']"
+const SOURCE_DEFAULT_AUDIO_FILTER = '[language_preference>0]'
+const SOURCE_ORIGINAL_AUDIO_FILTER = "[format_note~=?'(?i)\\boriginal\\b']"
+const SOURCE_PREFERRED_AUDIO_FILTERS = [SOURCE_DEFAULT_AUDIO_FILTER, SOURCE_ORIGINAL_AUDIO_FILTER]
+
+function bestAudioWith(...filters: string[]): string {
+	return `bestaudio${filters.join('')}`
+}
+
+function sourcePreferredAudioWith(...filters: string[]): string[] {
+	return SOURCE_PREFERRED_AUDIO_FILTERS.map(sourceFilter => bestAudioWith(sourceFilter, ...filters))
+}
+
+const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR = [...sourcePreferredAudioWith(NON_DRC_AUDIO_FILTERS), ...sourcePreferredAudioWith(), bestAudioWith(NON_DRC_AUDIO_FILTERS), 'bestaudio', 'best'].join('/')
 
 export function planWorkflow(input: WorkflowInput, options: WorkflowPlanOptions = {}): WorkflowPlan {
 	const plan = planWorkflowWithoutRedaction(input, options)
@@ -550,7 +564,7 @@ function appendCallerMediaSelectionArgs(args: string[], input: CallerMediaWorkfl
 		return
 	}
 	if (audioConvert) {
-		args.push('-f', 'bestaudio/best', '-x', '--audio-format', audioConvert.target)
+		args.push('-f', SOURCE_PREFERRED_BEST_AUDIO_SELECTOR, '-x', '--audio-format', audioConvert.target)
 		if (audioConvert.lossy && audioConvert.bitrateKbps !== undefined) args.push('--audio-quality', `${audioConvert.bitrateKbps}K`)
 		return
 	}

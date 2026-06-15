@@ -1229,6 +1229,18 @@ msgctxt "wizard.formats.noAudio"
 msgid "No audio"
 msgstr "အသံမပါ"
 
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "အရည်အသွေး မြင့်"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "အရည်အသွေး နိမ့်"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "အရည်အသွေး အလယ်အလတ်"
+
 msgctxt "wizard.formats.quickPresets"
 msgid "Quick presets"
 msgstr "မြန်ဆန်သောကြိုတင်သတ်မှတ်မှုများ"

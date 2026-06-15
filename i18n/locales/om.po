@@ -1229,6 +1229,18 @@ msgctxt "wizard.formats.noAudio"
 msgid "No audio"
 msgstr "Sagalee hin jiru"
 
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Qulqullina olaanaa"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Qulqullina gadi aanaa"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Qulqullina giddugaleessaa"
+
 msgctxt "wizard.formats.quickPresets"
 msgid "Quick presets"
 msgstr "Qophii ariifatoo"

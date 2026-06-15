@@ -321,7 +321,7 @@ Amma iyyuu karoorfame — tilmaamaan tartiiba dursaatiin:
 | Amalli    | Ibsa    |
 | ---------------- | ---------------- |
 | **Playlist & chaanaalii hojjettoota** | Yeroo playlist ykn channel sakatta’an filtraroota guyyaa |
-| **Filannoo track sagalee YouTube** | Yoo YouTube track sagalee heddu dhiyeesse, track afaan dubbii filatamaa filadhu |
+| **Filannoo track sagalee YouTube** | Yoo YouTube track sagalee heddu dhiyeesse, filannoo track afaan dubbii app guutuu keessatti kaa’i; profile tokkoon tokkoon isaatti override godhi |
 | **Browser sign-in app keessa** | Browser windows Arroxy keessa bani, akka sign in gootuu fi site cookies osoo harkaan export hin godhin fayyadamtuuf |
 | **Video click tokkoon buusuu** | Active profile kee fayyadamuun URL argame ykn maxxanfame irraa video download click tokkoon eegali |
 | **Deebisanii yaaluun deebisuu cimaa** | Buufannoowwan walitti hidhamiinsa internetii hin tasgabboofne ykn rakkoo qabuun citeef karaa retry haaraa |

@@ -1229,6 +1229,18 @@ msgctxt "wizard.formats.noAudio"
 msgid "No audio"
 msgstr "Sans audio"
 
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Haute qualité"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Basse qualité"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Qualité moyenne"
+
 msgctxt "wizard.formats.quickPresets"
 msgid "Quick presets"
 msgstr "Préréglages rapides"

@@ -323,7 +323,7 @@ Todavía planeado — aproximadamente por orden de prioridad:
 | Función    | Descripción    |
 | ---------------- | ---------------- |
 | **Filtros de listas y canales** | Filtros por rango de fechas al enumerar una playlist o un canal |
-| **Preferencias de pistas de audio de YouTube** | Elige pistas de idioma hablado preferidas cuando YouTube ofrece varias pistas de audio |
+| **Preferencias de pistas de audio de YouTube** | Define una pista de idioma hablado predeterminada para toda la app, con sobrescrituras por perfil cuando YouTube ofrece varias pistas de audio |
 | **Inicio de sesión con navegador integrado** | Abrir ventanas de navegador dentro de Arroxy para iniciar sesión y usar cookies del sitio sin exportarlas manualmente |
 | **Descarga de video con un clic** | Inicia una descarga de video con un clic desde una URL detectada o pegada usando tu perfil activo |
 | **Recuperación de reintentos más fuerte** | Una nueva ruta de reintento para descargas interrumpidas por conexiones de internet inestables o problemáticas |

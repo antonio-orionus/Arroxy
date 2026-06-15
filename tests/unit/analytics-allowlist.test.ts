@@ -127,20 +127,14 @@ describe('OpenPanel track delegation', () => {
 		expect(trackMock).toHaveBeenCalledWith('binary_setup_failed', {binary: 'ytdlp', phase: 'download_failed', code: 'ARX-001'})
 	})
 
-	it('emits download_finished for successful downloads', () => {
+	it('does not emit gated-off events even when analytics is enabled', () => {
 		setupAnalytics('client-id', 'client-secret', false, 'install-id-test')
 		setAnalyticsEnabled(true)
-		trackMain('download_finished', {duration_bucket: '<30s', size_bucket: '<50MB'})
-		expect(trackMock).toHaveBeenCalledTimes(1)
-		expect(trackMock).toHaveBeenCalledWith('download_finished', {duration_bucket: '<30s', size_bucket: '<50MB'})
-	})
-
-	it('emits download_cancelled for user-cancelled downloads', () => {
-		setupAnalytics('client-id', 'client-secret', false, 'install-id-test')
-		setAnalyticsEnabled(true)
-		trackMain('download_cancelled', {duration_bucket: '30s-2m'})
-		expect(trackMock).toHaveBeenCalledTimes(1)
-		expect(trackMock).toHaveBeenCalledWith('download_cancelled', {duration_bucket: '30s-2m'})
+		expect(trackMain('download_finished', {duration_bucket: '<30s', size_bucket: '<50MB'})).toBe(false)
+		expect(trackMain('download_cancelled', {duration_bucket: '30s-2m'})).toBe(false)
+		expect(trackMain('format_probed', {duration_bucket: '<2s', result_kind: 'video'})).toBe(false)
+		expect(trackMain('share_dialog_opened', {via: 'footer'})).toBe(false)
+		expect(trackMock).not.toHaveBeenCalled()
 	})
 
 	it('emits download_failed for failed downloads with error_category', () => {
@@ -169,11 +163,11 @@ describe('OpenPanel track delegation', () => {
 		expect(() => trackMain('download_finished', {outcome: 'success'} as any)).toThrow(/prop "outcome" not allowed/)
 	})
 
-	it('emits app_started normally', () => {
+	it('suppresses app_started (gated off) even when analytics is enabled', () => {
 		setupAnalytics('client-id', 'client-secret', false, 'install-id-test')
 		setAnalyticsEnabled(true)
-		trackMain('app_started', {install_channel: 'direct', platform_arch: 'linux-x64', is_first_run: false})
-		expect(trackMock).toHaveBeenCalledTimes(1)
+		expect(trackMain('app_started', {install_channel: 'direct', platform_arch: 'linux-x64', is_first_run: false})).toBe(false)
+		expect(trackMock).not.toHaveBeenCalled()
 	})
 })
 
@@ -224,21 +218,21 @@ describe('analyticsEnabled=false short-circuits', () => {
 	it('does not call track when disabled', () => {
 		setupAnalytics('client-id', 'client-secret', false, 'install-id-test')
 		setAnalyticsEnabled(false)
-		trackMain('app_started', {install_channel: 'direct', platform_arch: 'linux-x64', is_first_run: false})
+		trackMain('download_failed', {duration_bucket: '<30s', error_category: 'disk_full'})
 		expect(trackMock).not.toHaveBeenCalled()
 	})
 
 	it('does not call track when no credentials (not started)', () => {
 		setupAnalytics(undefined, undefined, false, 'install-id-test')
 		setAnalyticsEnabled(true)
-		trackMain('app_started', {install_channel: 'direct', platform_arch: 'linux-x64', is_first_run: false})
+		trackMain('download_failed', {duration_bucket: '<30s', error_category: 'disk_full'})
 		expect(trackMock).not.toHaveBeenCalled()
 	})
 
 	it('does not call track when only clientId is provided (missing secret)', () => {
 		setupAnalytics('client-id', undefined, false, 'install-id-test')
 		setAnalyticsEnabled(true)
-		trackMain('app_started', {install_channel: 'direct', platform_arch: 'linux-x64', is_first_run: false})
+		trackMain('download_failed', {duration_bucket: '<30s', error_category: 'disk_full'})
 		expect(ctorMock).not.toHaveBeenCalled()
 		expect(trackMock).not.toHaveBeenCalled()
 	})

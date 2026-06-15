@@ -38,10 +38,16 @@ runtime-cache/
 .playwright-mcp/
 .worktrees/
 docs/my
+docs/superpowers/
 .claude/scheduled_tasks.lock
 .claude/*.lock
+.claude/CLAUDE.md
+.claude/settings.json
 .claude/settings.local.json
 .claude/skills/
+.codegraph/
+.mcp.json
+opencode.jsonc
 
 # Project-owned agent memory is tracked. Third-party skills are restored from
 # skills-lock.json via `bun run agents:skills:restore`; only tiny custom skills

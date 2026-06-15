@@ -11,7 +11,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@renderer': path.resolve(__dirname, 'src'),
-      '@shared': path.resolve(__dirname, '../../src/shared')
+      '@shared': path.resolve(__dirname, '../../src/shared'),
+      'ytdlp-errors': path.resolve(__dirname, '../../packages/ytdlp-errors/src/index.ts')
     }
   },
   plugins: [react(), tailwindcss(), Icons({ compiler: 'jsx', jsx: 'react' })]

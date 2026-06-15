@@ -33,6 +33,7 @@ export type {
 	QueueLane,
 	AudioConvertTarget,
 	AudioBitrate,
+	AudioTrackQuality,
 	AudioConvert,
 	AudioSelection,
 	CookiesMode,
@@ -61,6 +62,7 @@ export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 
 import type {
 	AudioSelection,
+	AudioTrackQuality,
 	Preset,
 	PlaylistScope,
 	SubtitleMode,
@@ -197,6 +199,12 @@ export interface FormatOption {
 	abr?: number
 	audioCodec?: string
 	isDrc?: boolean
+	audioLanguage?: string
+	audioLanguagePreference?: number
+	audioTrackLabel?: string
+	audioTrackQuality?: AudioTrackQuality
+	isDefaultAudio?: boolean
+	isOriginalAudio?: boolean
 	filesize?: number
 	isVideoOnly: boolean
 	isAudioOnly: boolean

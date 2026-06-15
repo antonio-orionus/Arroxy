@@ -273,6 +273,7 @@
 			"total": "合計",
 			"skipToConfirm": "確認へスキップ",
 			"skipToConfirmTooltip": "残りのすべてのステップに保存済みの設定を使用します。設定を変更するには、ステップごとに進んでください — 選択内容は次回のために保存されます。",
+			"quality": {"high": "高品質", "medium": "中品質", "low": "低品質"},
 			"convert": {
 				"label": "変換",
 				"uncompressed": "変換 · 非圧縮",

@@ -316,7 +316,7 @@ export const om = {
   plan_r1_desc: "Yeroo playlist ykn channel sakatta’an filtraroota guyyaa",
   plan_r2_name: "**Filannoo track sagalee YouTube**",
   plan_r2_desc:
-    "Yoo YouTube track sagalee heddu dhiyeesse, track afaan dubbii filatamaa filadhu",
+    "Yoo YouTube track sagalee heddu dhiyeesse, filannoo track afaan dubbii app guutuu keessatti kaa’i; profile tokkoon tokkoon isaatti override godhi",
   plan_r6_name: "**Browser sign-in app keessa**",
   plan_r6_desc:
     "Browser windows Arroxy keessa bani, akka sign in gootuu fi site cookies osoo harkaan export hin godhin fayyadamtuuf",

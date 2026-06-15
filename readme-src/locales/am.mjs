@@ -316,7 +316,7 @@ export const am = {
   plan_r1_desc: "playlist ወይም channel ሲዘረዝሩ የቀን ክልል ማጣሪያዎች",
   plan_r2_name: "**የYouTube ድምጽ ትራክ ምርጫዎች**",
   plan_r2_desc:
-    "YouTube ብዙ የድምጽ ትራኮች ሲሰጥ የሚመረጡ የንግግር ቋንቋ ትራኮችን ይምረጡ",
+    "YouTube ብዙ የድምጽ ትራኮች ሲሰጥ በapp ሙሉ የንግግር ቋንቋ ትራክ ምርጫ ያዘጋጁ፣ በprofile ደረጃ override ያድርጉ",
   plan_r6_name: "**በመተግበሪያው ውስጥ browser sign-in**",
   plan_r6_desc:
     "በArroxy ውስጥ browser windows ክፈቱ፣ እንዲገቡ እና site cookies በእጅ ሳይexport እንዲጠቀሙ",

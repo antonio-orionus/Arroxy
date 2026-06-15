@@ -273,6 +273,7 @@
 			"total": "Waliigala",
 			"skipToConfirm": "Mirkaneessaatti ce'i",
 			"skipToConfirmTooltip": "Filannoowwan kee kan olkaawaman tarkaanfiiwwan hafan hundaaf fayyadama. Qindaa'ina jijjiiruf, tarkaanfii tarkaanfiin itti fufii — filannoon kee yeroo itti aanuuf olkaawama.",
+			"quality": {"high": "Qulqullina olaanaa", "medium": "Qulqullina giddugaleessaa", "low": "Qulqullina gadi aanaa"},
 			"convert": {
 				"label": "Jijjiiri",
 				"uncompressed": "Jijjiiri · cuqxaa hin taane",
