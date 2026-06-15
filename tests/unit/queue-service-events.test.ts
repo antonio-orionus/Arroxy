@@ -82,10 +82,10 @@ describe('QueueService — downloadService listener path', () => {
 		qs.add([makeItem({id: 'q-complete-ref', status: 'running', lastJobId: 'job-complete-ref', probeInfoJsonRef: ref})])
 
 		ds.emit('status', doneStatus('job-complete-ref'))
-		await Promise.resolve()
+		await expect.poll(() => cache.delete.mock.calls.length).toBe(1)
 
 		expect(cache.delete).toHaveBeenCalledWith(ref)
-		expect(qs.snapshot()[0].probeInfoJsonRef).toBeUndefined()
+		await expect.poll(() => qs.snapshot()[0]?.probeInfoJsonRef).toBeUndefined()
 	})
 
 	it('downloadService emitting status error → item status=error', () => {

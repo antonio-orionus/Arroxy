@@ -22,6 +22,23 @@ describe('graphics policy', () => {
 		expect(policy.backdrop.renderer).toContain('VMware SVGA 3D')
 	})
 
+	it('reports the active software renderer when multiple software devices are present', () => {
+		const policy = buildGraphicsPolicy({
+			isPackaged: true,
+			env: {},
+			featureStatus: HEALTHY_FEATURES,
+			gpuInfo: {
+				gpuDevice: [
+					{active: false, deviceString: 'VMware SVGA 3D'},
+					{active: true, deviceString: 'WARP'}
+				]
+			}
+		})
+
+		expect(policy.backdrop.forceRenderMode).toBe('css-only')
+		expect(policy.backdrop.renderer).toBe('WARP')
+	})
+
 	it('does not force CSS just because Windows reports an inactive Microsoft Basic fallback beside a hardware GPU', () => {
 		const policy = buildGraphicsPolicy({
 			isPackaged: true,

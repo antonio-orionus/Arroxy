@@ -1,7 +1,9 @@
 import type {GraphicsPolicy, GraphicsPolicyBackdropReason} from '@shared/types.js'
 import {GRAPHICS_POLICY_CRITICAL_FEATURES, isSoftwareOrVirtualRendererName} from '@shared/graphicsPolicy.js'
 
-export type GpuFeatureStatusLike = Partial<Record<string, string>>
+export interface GpuFeatureStatusLike {
+	[feature: string]: string | undefined
+}
 
 export interface GraphicsPolicyInput {
 	isPackaged: boolean
@@ -76,7 +78,8 @@ function virtualOrSoftwareRenderer(diagnostics: GpuRendererDiagnostics): string 
 
 	const softwareDevices = diagnostics.devices.filter(device => isSoftwareOrVirtualRendererName(device.name))
 	if (softwareDevices.length === 0) return null
-	if (softwareDevices.some(device => device.active === true)) return softwareDevices[0].name
+	const activeSoftwareDevice = softwareDevices.find(device => device.active === true)
+	if (activeSoftwareDevice) return activeSoftwareDevice.name
 
 	const hardwareDevices = diagnostics.devices.filter(device => !isSoftwareOrVirtualRendererName(device.name))
 	if (hardwareDevices.length > 0) return null

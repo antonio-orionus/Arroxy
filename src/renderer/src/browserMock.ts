@@ -265,7 +265,10 @@ export function installBrowserMock(): void {
 			cancelWarmup: async () => {
 				/* no-op in browser */
 			},
-			getGraphicsPolicy: () => Promise.resolve({ok: true, data: {backdrop: {forceRenderMode: null, softwareWebglAllowed: false}}}),
+			getGraphicsPolicy: async () => {
+				await Promise.resolve()
+				return {ok: true, data: {backdrop: {forceRenderMode: null, softwareWebglAllowed: false}}}
+			},
 			installYtDlpWithHomebrew: async () => {
 				await delay(800)
 				return {ok: true, data: {installedPath: '/opt/homebrew/bin/yt-dlp'}}

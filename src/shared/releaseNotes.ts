@@ -29,7 +29,7 @@ export function extractReleaseNotesMarkdown(changelog: string, version: string):
 			capture = true
 			continue
 		}
-		if (capture && /^##\s+\d/.test(trimmed)) break
+		if (capture && /^##\s+v?\d/i.test(trimmed)) break
 		if (capture) captured.push(line)
 	}
 
@@ -99,7 +99,7 @@ function cleanInlineMarkdown(value: string): string {
 }
 
 function parseVersion(version: string): ParsedVersion | null {
-	const match = /^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?$/.exec(normalizeVersion(version))
+	const match = /^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?(?:\+[0-9A-Za-z.-]+)?$/.exec(normalizeVersion(version))
 	if (!match) return null
 	return {major: Number(match[1]), minor: Number(match[2]), patch: Number(match[3]), pre: match[4]?.split('.') ?? []}
 }
@@ -107,7 +107,7 @@ function parseVersion(version: string): ParsedVersion | null {
 function compareSemver(a: string, b: string): number {
 	const left = parseVersion(a)
 	const right = parseVersion(b)
-	if (!left || !right) return normalizeVersion(a) === normalizeVersion(b) ? 0 : 1
+	if (!left || !right) return normalizeVersion(a) === normalizeVersion(b) ? 0 : -1
 	for (const key of ['major', 'minor', 'patch'] as const) {
 		const delta = left[key] - right[key]
 		if (delta !== 0) return delta

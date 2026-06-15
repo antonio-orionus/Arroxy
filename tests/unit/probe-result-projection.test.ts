@@ -99,6 +99,16 @@ describe('ProbeResultProjection', () => {
 		expect(patch.activePreset).toBe('audio-only')
 	})
 
+	it('uses the saved native-audio preference for audio-only sources', () => {
+		const settings = defaultAppSettings('/downloads')
+		settings.common.nativeAudioPreference = 'surround'
+		const patch = projectVideoProbeResult({...VIDEO_PROBE, formats: DOLBY_FIRST_FORMATS, isAudioOnlySource: true}, appState({settings}), true)
+
+		expect(patch.selectedVideoFormatId).toBe('')
+		expect(patch.audioSelection).toEqual({kind: 'native', formatId: '328'})
+		expect(patch.activePreset).toBe('audio-only')
+	})
+
 	it('trims playlist sentinels and marks app-limit caps', () => {
 		const patch = projectPlaylistProbeResult(PLAYLIST_PROBE, appState({playlistScope: {items: {kind: 'app-limit'}}, settings: {...defaultAppSettings('/downloads'), common: {...defaultAppSettings('/downloads').common, playlistProbeLimit: 2}}}), true)
 

@@ -90,6 +90,10 @@ describe('App renderer', () => {
 
 		await act(async () => {
 			resolveSettings(ok(defaultAppSettings('/tmp')))
+		})
+		expect(document.querySelector('canvas[data-backdrop-layer="webgl"]')).toBeNull()
+
+		await act(async () => {
 			resolveGraphicsPolicy(ok(CSS_FORCED_GRAPHICS_POLICY))
 		})
 	})

@@ -90,7 +90,7 @@ export function projectVideoProbeResult(probe: Extract<ProbeResult, {kind: 'vide
 	let {videoFormatId, audioSelection, preset} = restoreFormatSelection(formats, scopedSettings)
 	const {languages: subtitleLanguages} = restoreSubtitleSelection(subtitles, automaticCaptions, scopedSettings)
 	if (probe.isAudioOnlySource) {
-		const audioOnlyPick = applyPreset('audio-only', formats)
+		const audioOnlyPick = applyPreset('audio-only', formats, scopedSettings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference)
 		videoFormatId = audioOnlyPick.videoFormatId
 		audioSelection = audioOnlyPick.audioSelection
 		preset = 'audio-only'

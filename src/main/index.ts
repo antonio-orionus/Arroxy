@@ -191,18 +191,19 @@ if (hasSingleInstanceLock) {
 		const graphicsPolicyProvider = async (): Promise<GraphicsPolicy> => {
 			graphicsPolicyPromise ??= (async () => {
 				const gpuInfoUpdated = await initialGpuInfoUpdatePromise
-				const gpuFeatureStatus = app.getGPUFeatureStatus() as unknown as Partial<Record<string, string>>
+				const gpuFeatureStatus: Partial<Record<string, string>> = {}
+				for (const [feature, status] of Object.entries(app.getGPUFeatureStatus())) {
+					if (typeof status === 'string') gpuFeatureStatus[feature] = status
+				}
 				log.info('gpu features', {gpuInfoUpdated, status: gpuFeatureStatus})
-				const gpuInfo = await app
-					.getGPUInfo('basic')
-					.then(info => {
-						log.info('gpu info', info)
-						return info
-					})
-					.catch((err: unknown) => {
-						log.warn('gpu info failed', err)
-						return undefined
-					})
+				let gpuInfo: unknown
+				try {
+					gpuInfo = await app.getGPUInfo('basic')
+					log.info('gpu info', gpuInfo)
+				} catch (err: unknown) {
+					log.warn('gpu info failed', err)
+					gpuInfo = undefined
+				}
 				const policy = buildGraphicsPolicy({isPackaged: app.isPackaged, env: process.env, featureStatus: gpuFeatureStatus, featureStatusUsable: gpuInfoUpdated, gpuInfo, gpuInfoUnavailable: gpuInfo === undefined})
 				log.info('graphics policy', policy)
 				return policy
@@ -232,7 +233,7 @@ if (hasSingleInstanceLock) {
 		const queueStore = new QueueStore(userDataPath)
 		const playlistManifestStore = new PlaylistManifestStore(userDataPath)
 		const probeInfoJsonCache = new ProbeInfoJsonCache(userDataPath)
-		void probeInfoJsonCache.sweepExpired()
+		await probeInfoJsonCache.sweepExpired()
 		const binaryManager = new BinaryManager(userDataPath, {overridesProvider: () => settingsStore.getSync().common.binaryOverrides})
 
 		// Packaged runtime smoke mode — exercises Electron-as-Node and managed
