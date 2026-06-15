@@ -1,4 +1,4 @@
-import {mkdtemp, rm, access, writeFile} from 'node:fs/promises'
+import {mkdtemp, rm, access, writeFile, utimes} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {afterEach, beforeEach, describe, expect, it} from 'vitest'
@@ -40,8 +40,10 @@ describe('ProbeInfoJsonCache', () => {
 		const path = await cache.resolve(ref)
 		if (!path) throw new Error('expected cache path')
 		await writeFile(path, '{}')
+		const stale = new Date(Date.now() - 60_000)
+		await utimes(path, stale, stale)
 
-		await cache.sweepExpired(0)
+		await cache.sweepExpired(1)
 
 		await expect(access(path)).rejects.toThrow()
 	})
