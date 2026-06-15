@@ -2,10 +2,9 @@ import {describe, it, expect} from 'vitest'
 import type {AudioConvert, SubtitleFormat, SubtitleMode} from '@shared/types.js'
 import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {planWorkflow, type AudioConvert as BridgeAudioConvert, type WorkflowInput} from 'yt-dlp-bridge'
+import {SOURCE_PREFERRED_BEST_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
 
 const AUDIO_CONVERTS: AudioConvert[] = [{target: 'wav'}, {target: 'mp3', bitrateKbps: 128}, {target: 'mp3', bitrateKbps: 192}, {target: 'mp3', bitrateKbps: 320}, {target: 'm4a', bitrateKbps: 192}, {target: 'opus', bitrateKbps: 128}]
-const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR =
-	"bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best"
 
 const FORMAT_IDS = ['137+251', '251', '22']
 const SUBTITLE_LANGS_SETS: string[][] = [['en'], ['en', 'ja'], ['en-orig', 'en-j3PyPqV-e1s']]

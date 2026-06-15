@@ -6,7 +6,7 @@ import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {sortFormatsByQuality} from '@shared/qualitySorter.js'
 import {humanSize} from '@shared/format.js'
-import {AUDIO_TRACK_QUALITIES, type AudioTrackQuality} from '@shared/schemas.js'
+import {audioTrackLabel, audioTrackQuality, isDefaultAudio, isOriginalAudio} from '@shared/audioTrackMeta.js'
 import type {FormatOption, PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, SubtitleMap, ProbeInfoJsonRef} from '@shared/types.js'
 import {LIVE_CHAT_LANG} from '@shared/constants.js'
 import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpFormat, type YtDlpSubtitleTrack} from '@shared/ytdlp/infoDict.js'
@@ -80,34 +80,6 @@ function friendlyCodec(acodec: string): string {
 
 function isDrcAudio(format: YtDlpFormat): boolean {
 	return /(?:^|[-_\s])drc(?:$|[-_\s])/i.test(format.format_id ?? '') || /\bdrc\b/i.test(format.format_note ?? '')
-}
-
-function isAudioTrackQuality(value: string): value is AudioTrackQuality {
-	return AUDIO_TRACK_QUALITIES.includes(value as AudioTrackQuality)
-}
-
-function audioTrackQuality(format: YtDlpFormat): AudioTrackQuality | undefined {
-	const noteParts = format.format_note
-		?.split(',')
-		.map(part => part.trim().toLowerCase())
-		.filter(Boolean)
-	return noteParts?.find(isAudioTrackQuality)
-}
-
-function audioTrackLabel(format: YtDlpFormat): string | undefined {
-	const note = format.format_note?.trim()
-	if (!note) return format.language
-	const first = note.split(',')[0]?.trim()
-	if (first && isAudioTrackQuality(first.toLowerCase())) return format.language
-	return first || format.language
-}
-
-function isDefaultAudio(format: YtDlpFormat): boolean {
-	return (format.language_preference ?? 0) > 0 || /\bdefault\b/i.test(format.format_note ?? '')
-}
-
-function isOriginalAudio(format: YtDlpFormat): boolean {
-	return /\boriginal\b/i.test(format.format_note ?? '')
 }
 
 function channelLabel(channels: number | undefined): string | null {

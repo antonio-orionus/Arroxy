@@ -8,6 +8,7 @@ import {resolveE2eHarnessMode, type E2eHarnessMode} from '@main/e2eHarness.js'
 import {EMBED_SUBTITLE_CONTAINER_EXT, type AudioConvert, type PlaylistScope, type ProbePlaylistMode, type SponsorBlockPlan, type SubtitleFormat, type SubtitleMode} from 'yt-dlp-bridge'
 import {redactArgs} from 'yt-dlp-bridge/redaction'
 import type {DependencySource} from '@shared/types.js'
+import {SOURCE_PREFERRED_BEST_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
 
 vi.mock('@main/utils/process', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
@@ -24,8 +25,6 @@ import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/downloads'
-const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR =
-	"bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best"
 const tempRoots: string[] = []
 
 function makeFakeProcess(exitCode = 0) {

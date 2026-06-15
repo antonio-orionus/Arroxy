@@ -15,13 +15,11 @@ import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import {planWorkflow, type AudioConvert as BridgeAudioConvert, type WorkflowInput} from 'yt-dlp-bridge'
 import type {AudioConvert, PlaylistSelection} from '@shared/schemas.js'
-import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
+import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, SOURCE_PREFERRED_BEST_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/tmp/out'
 const TEMPLATE = '%(title).200B [%(id)s].%(ext)s'
-const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR =
-	"bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best"
 
 // Build a minimal media WorkflowInput from a PlaylistSelection, mirroring VideoPhase logic.
 function reqFor(sel: PlaylistSelection): WorkflowInput {

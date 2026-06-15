@@ -2,10 +2,9 @@ import {describe, expect, it} from 'vitest'
 import {EMBED_SUBTITLE_CONTAINER_EXT, planWorkflow, type WorkflowInput} from '../src/index.js'
 import {parseYtDlpOutputLine} from '../src/parsers.js'
 import {redactArgs} from '../src/redaction.js'
+import {SOURCE_PREFERRED_BEST_AUDIO_SELECTOR} from '../../../tests/shared/nativeAudioSelectors.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
-const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR =
-	"bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best"
 
 function adjacent(args: string[], flag: string, value: string): boolean {
 	for (let index = 0; index < args.length - 1; index += 1) {
