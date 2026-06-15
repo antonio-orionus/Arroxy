@@ -88,7 +88,6 @@ reviews:
     - "readme-src/locales/ru.mjs"
     - "!i18n/app.pot"
     - "!i18n/locales/*.po"
-    - "i18n/locales/ru.po"
     - "!src/shared/i18n/locales/*.json"
     - "src/shared/i18n/locales/en.json"
     - "src/shared/i18n/locales/ru.json"
