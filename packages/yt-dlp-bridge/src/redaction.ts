@@ -11,11 +11,22 @@ const SECRET_PATTERNS = [
 
 const SECRET_FLAGS = new Set(['--password', '-p', '--twofactor', '-2', '--video-password', '--ap-password', '--client-certificate-password', '--netrc-cmd', '--add-headers', '--cookies', '--cookies-from-browser'])
 
-export function redactText(value: string, replacement = '[REDACTED]'): string {
+interface RedactionEnv {
+	NODE_ENV?: string
+}
+
+function isDevelopment(env: RedactionEnv): boolean {
+	return env.NODE_ENV === 'development'
+}
+
+export function redactText(value: string, replacement = '[REDACTED]', env: RedactionEnv = process.env): string {
+	if (isDevelopment(env)) return value
 	return SECRET_PATTERNS.reduce((text, pattern) => text.replace(pattern, `$1${replacement}`), value)
 }
 
-export function redactArgs(args: string[]): string[] {
+export function redactArgs(args: string[], env: RedactionEnv = process.env): string[] {
+	if (isDevelopment(env)) return [...args]
+
 	const redacted: string[] = []
 	for (let index = 0; index < args.length; index += 1) {
 		const arg = args[index] ?? ''
@@ -58,7 +69,8 @@ function redactProxy(value: string): string {
 	}
 }
 
-export function excerpt(value: string, maxLength = 1200): string {
-	const cleaned = redactText(value.trim())
+export function excerpt(value: string, maxLength = 1200, env: RedactionEnv = process.env): string {
+	const cleaned = redactText(value.trim(), '[REDACTED]', env)
+	if (isDevelopment(env)) return cleaned
 	return cleaned.length <= maxLength ? cleaned : `${cleaned.slice(0, maxLength)}...`
 }

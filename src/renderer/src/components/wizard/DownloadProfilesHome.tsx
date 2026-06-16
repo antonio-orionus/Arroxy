@@ -1,7 +1,7 @@
-import {lazy, Suspense, useCallback, useEffect, useRef, useState, useSyncExternalStore, type ClipboardEvent, type ComponentType, type KeyboardEvent, type ReactNode, type SVGProps} from 'react'
+import {lazy, Suspense, useCallback, useEffect, useRef, useState, useSyncExternalStore, type ClipboardEvent, type KeyboardEvent, type ReactNode} from 'react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
-import {Check, ChevronRight, Globe2, Info, Link2, ListPlus, PenLine, Plus, RefreshCw, Settings, Users, Wand2, X, type LucideIcon} from 'lucide-react'
+import {Check, ChevronRight, Link2, ListPlus, PenLine, Plus, RefreshCw, Settings, Users, Wand2, X, type LucideIcon} from 'lucide-react'
 import {downloadProfileLabel, downloadProfileOrigin, downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
@@ -17,7 +17,6 @@ import {Button} from '../ui/button.js'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
 import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '../ui/input-group.js'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '../ui/tabs.js'
-import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {Spinner} from '../ui/spinner.js'
 import {BulkUrlDialog} from './BulkUrlDialog.js'
 import {DownloadProfilesSettingsTab} from './DownloadProfilesSettingsTab.js'
@@ -30,43 +29,10 @@ import {CookiesGuidanceAlert} from './format/CookiesErrorAlert.js'
 import type {ProbeErrorExperience} from '../../store/wizard/probeErrorExperience.js'
 import hiImg from '../../assets/Hi.png'
 import downloadingImg from '../../assets/Downloading.png'
-import IconYoutube from '~icons/logos/youtube-icon'
-import IconVimeo from '~icons/logos/vimeo-icon'
-import IconTwitch from '~icons/logos/twitch'
-import IconTiktok from '~icons/logos/tiktok-icon'
-import IconSoundcloud from '~icons/logos/soundcloud'
-import IconInstagram from '~icons/logos/instagram-icon'
-import IconFacebook from '~icons/logos/facebook'
-import IconReddit from '~icons/logos/reddit-icon'
-import IconDailymotion from '~icons/simple-icons/dailymotion'
-import IconBilibili from '~icons/simple-icons/bilibili'
 
 type ProfilesTab = 'download' | 'profiles' | 'settings'
 const PROFILE_TABS = ['download', 'profiles', 'settings'] as const satisfies readonly ProfilesTab[]
-type CapabilityId = 'youtube' | 'any-site'
-type CapabilityIcon = ComponentType<SVGProps<SVGSVGElement>>
 const DownloadProfileEditor = lazy(() => import('./DownloadProfileEditor.js').then(module => ({default: module.DownloadProfileEditor})))
-
-const POPULAR_SITE_LOGOS: {id: string; Icon: CapabilityIcon; color?: string}[] = [
-	{id: 'vimeo', Icon: IconVimeo},
-	{id: 'twitch', Icon: IconTwitch},
-	{id: 'tiktok', Icon: IconTiktok},
-	{id: 'soundcloud', Icon: IconSoundcloud},
-	{id: 'instagram', Icon: IconInstagram},
-	{id: 'facebook', Icon: IconFacebook},
-	{id: 'reddit', Icon: IconReddit},
-	{id: 'dailymotion', Icon: IconDailymotion, color: '#00ADEF'},
-	{id: 'bilibili', Icon: IconBilibili, color: '#00A1D6'}
-]
-const FEATURE_GROUPS = [
-	{
-		id: 'youtube',
-		heading: 'wizard.url.features.youtube.heading',
-		icon: IconYoutube,
-		items: ['wizard.url.features.youtube.video', 'wizard.url.features.youtube.channel', 'wizard.url.features.youtube.playlist', 'wizard.url.features.youtube.short', 'wizard.url.features.youtube.music', 'wizard.url.features.youtube.podcast']
-	},
-	{id: 'any-site', heading: 'wizard.url.features.anySite.heading', icon: Globe2, items: ['wizard.url.features.anySite.video', 'wizard.url.features.anySite.videoPlaylist', 'wizard.url.features.anySite.musicPlaylist', 'wizard.url.features.always.audioOnly', 'wizard.url.features.always.subtitles']}
-] as const satisfies readonly {id: CapabilityId; heading: string; icon: CapabilityIcon; items: readonly string[]}[]
 
 function tabFromHash(hash = window.location.hash): ProfilesTab {
 	const value = hash.replace(/^#/, '').toLowerCase()
@@ -276,6 +242,8 @@ export function DownloadProfilesHome(): ReactNode {
 	const showQuickPartialWarning = quickDownloadStatus === 'queued' && quickDownloadProgressFailed > 0
 	const mascotHelp = downloadMascotHelp({activeProfileName: activeProfile.name, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
 	const showMascotHelp = inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'
+	const mascotHeaderBody = showMascotHelp ? mascotHelp.body : t('wizard.url.quickSingleOnly')
+	const mascotHeaderImage = showMascotHelp ? mascotHelp.image : hiImg
 	const activateProfile = (profile: DownloadProfile): void => {
 		void setActiveDownloadProfile(downloadProfileRefFor(profile, profilesPrefs))
 	}
@@ -405,8 +373,15 @@ export function DownloadProfilesHome(): ReactNode {
 					<Card className="glow-panel rounded-[1.5rem] border-transparent" data-testid="profiles-download-panel">
 						<CardHeader className="px-5 pt-5 md:px-6 md:pt-5">
 							<div className="min-w-0">
-								<CardTitle className="text-display">{t('wizard.url.heading')}</CardTitle>
-								<CardDescription className="mt-1.5 text-body text-[var(--text-subtle)]">{t('wizard.url.quickSingleOnly')}</CardDescription>
+								<div className="flex min-w-0 items-start gap-3" data-testid="profiles-mascot-header">
+									<img src={mascotHeaderImage} alt="" aria-hidden className="mt-0.5 size-12 shrink-0 object-contain sm:size-14" draggable={false} />
+									<div className="min-w-0 flex-1">
+										<CardTitle className="text-display">{t('wizard.url.heading')}</CardTitle>
+										<CardDescription className="mt-1.5 text-body text-[var(--text-subtle)]" data-testid="profiles-mascot-copy">
+											{mascotHeaderBody}
+										</CardDescription>
+									</div>
+								</div>
 								<InputGroup className="glow-tile mt-4 h-11 rounded-xl border-transparent px-1">
 									<InputGroupAddon align="inline-start">
 										<Link2 aria-hidden />
@@ -452,7 +427,6 @@ export function DownloadProfilesHome(): ReactNode {
 							</div>
 						</CardContent>
 					</Card>
-					{showMascotHelp ? <DownloadMascotHelpCard help={mascotHelp} /> : null}
 				</TabsContent>
 
 				<TabsContent value="profiles">
@@ -509,84 +483,6 @@ function ClipboardPendingAction({candidate, onApply, onDismiss}: {candidate: Cli
 			</Button>
 		</div>
 	)
-}
-
-export function DownloadMascotHelpCard({help}: {help: ReturnType<typeof downloadMascotHelp>}): ReactNode {
-	return (
-		<Card className="glow-panel flex w-full max-w-full flex-col gap-4 rounded-[1.25rem] border-transparent !px-5 !py-4 sm:flex-row sm:items-center md:!px-6 md:!py-5 xl:w-fit xl:max-w-[64rem] xl:self-start" data-testid="profiles-mascot-help">
-			<img src={help.image} alt="" aria-hidden className="size-16 shrink-0 object-contain" />
-			<div className="grid min-w-0 flex-1 gap-5 lg:grid-cols-[minmax(16rem,0.9fr)_minmax(24rem,1.1fr)] lg:items-center xl:w-[52rem]">
-				<div className="min-w-0">
-					<p className="text-title text-foreground">{help.title}</p>
-					<p className="mt-1 max-w-xl text-body text-[var(--text-glass-muted)]">{help.body}</p>
-					<ul className="mt-3 grid gap-1.5 text-[12px] leading-snug text-[var(--text-glass-muted)]">
-						{help.points.map(point => (
-							<li key={point} className="flex min-w-0 items-start gap-2">
-								<Check className="mt-0.5 size-3.5 shrink-0 text-[var(--brand-hover)]" aria-hidden />
-								<span className="min-w-0">{point}</span>
-							</li>
-						))}
-					</ul>
-				</div>
-				<MascotCapabilityMatrix />
-			</div>
-		</Card>
-	)
-}
-
-export function MascotCapabilityMatrix(): ReactNode {
-	const {t} = useTranslation()
-	return (
-		<div className="min-w-0 lg:border-l lg:border-[var(--glow-border)] lg:pl-5" data-testid="url-capabilities">
-			<p className="text-label uppercase text-[var(--text-subtle)]">{t('wizard.url.features.heading')}</p>
-			<div className="mt-3 grid gap-3 sm:grid-cols-[minmax(8rem,0.55fr)_minmax(14rem,1.45fr)]">
-				{FEATURE_GROUPS.map(group => {
-					const heading = t(group.heading)
-					const items = group.items.map(item => t(item))
-					const detailLabel = `${heading}: ${items.join(', ')}`
-					return (
-						<div key={group.id} className="min-w-0">
-							<div className="flex min-w-0 items-center gap-1.5">
-								<CapabilityMark group={group} />
-								<p className="min-w-0 truncate text-title text-foreground">{heading}</p>
-								<Tooltip>
-									<TooltipTrigger
-										render={props => (
-											<Button {...props} type="button" variant="ghost" size="icon-xs" aria-label={detailLabel} data-testid={`url-capability-${group.id}-tip`} className="-my-1 shrink-0 rounded-full text-[var(--text-subtle)] hover:text-foreground">
-												<Info aria-hidden />
-											</Button>
-										)}
-									/>
-									<TooltipContent data-testid={`url-capability-${group.id}-content`} className="max-w-[15rem] flex-wrap items-start justify-start gap-1.5 border border-border bg-popover text-popover-foreground shadow-lg">
-										{group.items.map(item => (
-											<Badge key={item} variant="outline" className="bg-background/50 px-2 py-0 text-[11px]">
-												{t(item)}
-											</Badge>
-										))}
-									</TooltipContent>
-								</Tooltip>
-							</div>
-						</div>
-					)
-				})}
-			</div>
-		</div>
-	)
-}
-
-function CapabilityMark({group}: {group: (typeof FEATURE_GROUPS)[number]}): ReactNode {
-	if (group.id === 'any-site') {
-		return (
-			<span className="flex shrink-0 items-center gap-1" aria-hidden data-testid="url-capability-any-site-logos">
-				{POPULAR_SITE_LOGOS.map(({id, Icon, color}) => (
-					<Icon key={id} className="size-3.5" style={color ? {color} : undefined} data-testid={`url-capability-site-logo-${id}`} />
-				))}
-			</span>
-		)
-	}
-
-	const Icon = group.icon
-	return <Icon className={cn('shrink-0', group.id === 'youtube' ? 'size-5' : 'size-4 text-[var(--brand-hover)]')} aria-hidden data-testid={`url-capability-${group.id}-mark`} />
 }
 
 function ActionRow({description, disabled = false, icon: Icon, onClick, testId, title}: {description: string; disabled?: boolean; icon: LucideIcon; onClick: () => void; testId: string; title: string}): ReactNode {

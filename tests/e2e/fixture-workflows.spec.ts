@@ -47,7 +47,7 @@ test('Electron quick download applies the active Download Profile to a fixture v
 			await expect(page.locator('[data-testid="profiles-active-profile-card"]')).toContainText('Small file 480p')
 			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
 			await page.locator('[data-testid="profiles-quick-download"]').click()
-			await expect(page.locator('[data-testid="profiles-mascot-help"]')).toContainText(/queued/i, {timeout: 60_000})
+			await expect(page.locator('[data-testid="profiles-mascot-copy"]')).toContainText(/queued/i, {timeout: 60_000})
 			await queue.expectStatus('Fixture Video 8', 'done', 120_000)
 
 			const profileOutputDir = smallFileProfileDir(outputDir)

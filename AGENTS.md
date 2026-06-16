@@ -218,10 +218,18 @@ For each risk group, add Fixture Product E2E only for behavior that needs real a
 
 Prefer `agent-browser` for browser automation, screenshots, responsive layout checks, and interactive UI dogfooding. Use Playwright only when `agent-browser` is unavailable or when the task specifically needs Playwright traces/tests or Electron `_electron.launch()`.
 
-Run the renderer standalone via Vite for fast visual iteration; full Electron automation is slower and should be reserved for Electron-specific behavior.
+For renderer-only visual iteration, **use the project wrapper first**:
 
 ```bash
-# From project root — uses src/renderer/vite.config.mjs (aliases + Tailwind + React)
+bun run dev:mock
+```
+
+This starts the Vite renderer in `browser-mock` mode with the repo-owned defaults. Full Electron automation is slower and should be reserved for Electron-specific behavior.
+
+Only bypass the wrapper when you intentionally need a custom Vite invocation, such as a different port or one-off debugging flags:
+
+```bash
+# Fallback only. From project root — uses src/renderer/vite.config.mjs (aliases + Tailwind + React)
 bunx vite src/renderer --port 5173 --mode browser-mock
 ```
 

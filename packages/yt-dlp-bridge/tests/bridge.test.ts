@@ -8,7 +8,7 @@ import {toStructuredError} from '../src/errors.js'
 import {isPathInsideWith, resolveOutputPolicy} from '../src/filesystem.js'
 import {listLongFlags, UPSTREAM_OPTION_CATALOG} from '../src/option-catalog.js'
 import {parseFinalPaths, parseFormats, parseJsonLines, parseProgress, parseSubtitles, parseThumbnails} from '../src/parsers.js'
-import {redactArgs, redactText} from '../src/redaction.js'
+import {excerpt, redactArgs, redactText} from '../src/redaction.js'
 import {CommandExecutionError, runCommand} from '../src/runner.js'
 import {WorkflowDownloadInputSchema} from '../src/schemas.js'
 
@@ -171,6 +171,25 @@ describe('redaction', () => {
 	it('redacts secret args and signed URL query parameters', () => {
 		expect(redactArgs(['--password', 'secret', '--cookies', '/tmp/cookies.txt'])).toEqual(['--password', '[REDACTED]', '--cookies', '[REDACTED]'])
 		expect(redactText('https://example.com/video?X-Amz-Signature=secret&x=1')).toContain('X-Amz-Signature=[REDACTED]')
+	})
+
+	it('does not truncate or redact excerpts in development mode', () => {
+		const input = `prefix ${'x'.repeat(20)} po_token=web.gvs+SECRET suffix`
+
+		expect(excerpt(input, 12, {NODE_ENV: 'development'})).toBe(input)
+	})
+
+	it('does not redact args in development mode', () => {
+		const previousNodeEnv = process.env.NODE_ENV
+		process.env.NODE_ENV = 'development'
+		try {
+			const args = ['--extractor-args', 'youtube:po_token=web.gvs+SECRET;visitor_data=VISITOR', '--proxy', 'http://user:pass@proxy.example:8080']
+
+			expect(redactArgs(args)).toEqual(args)
+		} finally {
+			if (previousNodeEnv === undefined) delete process.env.NODE_ENV
+			else process.env.NODE_ENV = previousNodeEnv
+		}
 	})
 })
 

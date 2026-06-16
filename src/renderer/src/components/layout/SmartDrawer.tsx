@@ -72,8 +72,8 @@ export function SmartDrawer(): ReactNode {
 				data-testid="drawer-toggle"
 				title={t('queue.toggleTitle')}
 			>
-				<div className="flex items-center gap-2">
-					<span className="inline-flex items-center text-muted-foreground" aria-label={t('queue.header')} title={t('queue.header')}>
+				<div className="flex min-w-0 items-center gap-2 overflow-hidden" data-testid="drawer-header-summary-group">
+					<span className="inline-flex shrink-0 items-center text-muted-foreground" aria-label={t('queue.header')} title={t('queue.header')}>
 						<Inbox size={14} />
 						{totalCount > 0 && (
 							<Badge variant="secondary" className="ms-1 text-[9px] font-mono h-4 px-1">
@@ -82,12 +82,12 @@ export function SmartDrawer(): ReactNode {
 						)}
 					</span>
 					{headerSummary && (
-						<span className={`text-[12px] font-mono ${activeCount > 0 ? 'text-[var(--brand)]' : 'text-muted-foreground'}`} data-testid="drawer-header-summary">
+						<span className={`min-w-0 truncate whitespace-nowrap text-[12px] font-mono ${activeCount > 0 ? 'text-[var(--brand)]' : 'text-muted-foreground'}`} data-testid="drawer-header-summary">
 							{headerSummary}
 						</span>
 					)}
 				</div>
-				<div className="flex items-center gap-1.5">
+				<div className="flex shrink-0 items-center gap-1.5">
 					{hasDownloading && (
 						<button
 							type="button"

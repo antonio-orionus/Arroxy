@@ -3,6 +3,7 @@ import {useTranslation} from 'react-i18next'
 import {ExternalLink, Share2} from 'lucide-react'
 import IconDiscord from '~icons/simple-icons/discord'
 import {DISCORD_URL} from '@shared/constants.js'
+import {SourceCapabilityStrip} from '../shared/SourceCapabilityStrip.js'
 import {Button} from '../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -53,6 +54,8 @@ export function AboutDialog(): ReactNode {
 						<Share2 size={12} aria-hidden />
 					</Button>
 				</div>
+
+				<SourceCapabilityStrip testId="about-capabilities" className="mx-auto w-full" />
 
 				<div className="flex flex-col items-center gap-2 text-xs text-muted-foreground">
 					<span>{t('about.licenseLine')}</span>

@@ -45,6 +45,20 @@ describe('SmartDrawer header summary', () => {
 		expect(screen.getByTestId('drawer-header-summary')).toHaveTextContent('25% · 1.2 MiB/s · ETA 00:30')
 	})
 
+	it('keeps long active status text to one line in the collapsed footer', () => {
+		setQueue([makeItem({id: 'q1', status: 'running', progressPercent: 100, progressDetail: 'Waiting 6s to avoid rate limits...', lastStatus: {key: 'downloadingMedia', params: {}}})])
+		render(<SmartDrawer />)
+
+		const summary = screen.getByTestId('drawer-header-summary')
+		const summaryGroup = screen.getByTestId('drawer-header-summary-group')
+
+		expect(summary).toHaveTextContent('100% · Waiting 6s to avoid rate limits...')
+		expect(summary).toHaveClass('truncate')
+		expect(summary).toHaveClass('whitespace-nowrap')
+		expect(summaryGroup).toHaveClass('min-w-0')
+		expect(summaryGroup).toHaveClass('overflow-hidden')
+	})
+
 	it('shows "N downloading · avg%" with no phase text when 2+ are active', () => {
 		setQueue([makeItem({id: 'q1', status: 'running', progressPercent: 40, lastStatus: {key: 'mergingFormats', params: {}}}), makeItem({id: 'q2', status: 'running', progressPercent: 60, lastStatus: {key: 'downloadingMedia', params: {}}})])
 		render(<SmartDrawer />)
