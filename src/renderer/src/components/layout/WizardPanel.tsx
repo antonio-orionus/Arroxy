@@ -8,6 +8,7 @@ import {MixedUrlPromptDialog} from '../wizard/MixedUrlPromptDialog.js'
 import {QuickPlaylistCapDialog} from '../wizard/QuickPlaylistCapDialog.js'
 import {QuickDownloadProgressDialog} from '../wizard/QuickDownloadProgressDialog.js'
 import {cn} from '@renderer/lib/utils.js'
+import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
 
 function WizardStepFallback(): ReactNode {
 	return <div className="wizard-step min-h-32" data-testid="wizard-step-loading" aria-busy="true" />
@@ -18,6 +19,8 @@ export function WizardPanel(): ReactNode {
 	const wizardStep = useAppStore(s => s.wizardStep)
 	const activePreset = useAppStore(s => s.activePreset)
 	const wizardMode = useAppStore(s => s.wizardMode)
+	const wizardUrl = useAppStore(s => s.wizardUrl)
+	const wizardWebpageUrl = useAppStore(s => s.wizardWebpageUrl)
 	const playlistSelection = useAppStore(s => s.playlistSelection)
 	const wizardExtractor = useAppStore(s => s.wizardExtractor)
 	const wizardSubtitles = useAppStore(s => s.wizardSubtitles)
@@ -33,6 +36,8 @@ export function WizardPanel(): ReactNode {
 	const activeIndex = graph.activeIndex
 	const activeDescriptor = STEP_REGISTRY.find(d => d.id === wizardStep)
 	const isDownloadHome = graph.isDownloadHome
+	const collectionKind = wizardMode === 'playlist' ? collectionKindForWizardUrls(wizardUrl, wizardWebpageUrl) : null
+	const playlistItemsStepLabelKey = collectionKind === 'channel' || collectionKind === 'search' ? 'wizard.steps.playlistItemsGeneric' : 'wizard.steps.playlistItems'
 
 	const prevIndexRef = useRef(activeIndex)
 	const [isBackward, setIsBackward] = useState(false)
@@ -63,7 +68,7 @@ export function WizardPanel(): ReactNode {
 									>
 										{isDone ? '✓' : i + 1}
 									</div>
-									<span className={cn('text-[11px] font-semibold uppercase tracking-[0.07em]', isActive && 'text-[var(--brand)]', (isDone || (!isActive && !isDone)) && 'text-[var(--text-subtle)]')}>{t(`wizard.steps.${stepKey}` as const)}</span>
+									<span className={cn('text-[11px] font-semibold uppercase tracking-[0.07em]', isActive && 'text-[var(--brand)]', (isDone || (!isActive && !isDone)) && 'text-[var(--text-subtle)]')}>{t(stepKey === 'playlistItems' ? playlistItemsStepLabelKey : (`wizard.steps.${stepKey}` as const))}</span>
 								</div>
 								{i < visibleSteps.length - 1 && <div className={cn('h-[2px] flex-1 mb-4 mx-1 transition-all duration-500 rounded-full', isDone ? 'bg-[var(--brand)]' : 'bg-[var(--field-border)]')} style={isDone ? {boxShadow: '0 0 4px var(--brand-glow)'} : undefined} />}
 							</div>

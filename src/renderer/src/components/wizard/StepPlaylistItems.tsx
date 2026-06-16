@@ -16,6 +16,7 @@ import {formatDuration} from '@renderer/lib/formatDuration.js'
 import {notify} from '@renderer/lib/notify.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 import {PlaylistScopeControl} from './PlaylistScopeControl.js'
+import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
 
 // undefined = no duration metadata (common for nested-playlist entries from
 // music search, channel root, etc.) — render an em-dash instead of falsely
@@ -111,6 +112,8 @@ export function StepPlaylistItems(): ReactNode {
 		confirmPlaylistSelection,
 		back,
 		wizardExtractor,
+		wizardUrl,
+		wizardWebpageUrl,
 		scanDownloadedInFolder,
 		applyFolderSync,
 		setPlaylistFolder,
@@ -158,6 +161,12 @@ export function StepPlaylistItems(): ReactNode {
 	const selectedCount = selectedPlaylistItemIds.length
 	const playlistLimit = resolvePlaylistProbeLimit(settings?.common)
 	const playlistBusy = playlistProbeLoading || playlistScopeReloading
+	const collectionKind = wizardMode === 'playlist' ? collectionKindForWizardUrls(wizardUrl, wizardWebpageUrl) : null
+	const useGenericCollectionCopy = collectionKind === 'channel' || collectionKind === 'search'
+	const playlistHeadingKey = useGenericCollectionCopy ? 'wizard.playlist.headingGeneric' : 'wizard.playlist.heading'
+	const playlistLoadingItemsKey = useGenericCollectionCopy ? 'wizard.playlist.loadingItemsGeneric' : 'wizard.playlist.loadingItems'
+	const playlistProbeLimitAlertTitleKey = useGenericCollectionCopy ? 'wizard.playlist.probeLimitAlertTitleGeneric' : 'wizard.playlist.probeLimitAlertTitle'
+	const playlistSyncNoneDescKey = useGenericCollectionCopy ? 'wizard.playlist.syncNoneDescGeneric' : 'wizard.playlist.syncNoneDesc'
 	const showProbeLimitAlert = !isBulk && !playlistBusy && playlistLikelyCapped
 	const probeLimitDescription = t('wizard.playlist.probeLimitAlertDesc', {count: playlistLimit})
 	const itemProgressTotal = playlistProbeProgress?.phase === 'items' && playlistProbeProgress.total ? Math.min(playlistProbeProgress.total, playlistLimit) : null
@@ -186,7 +195,7 @@ export function StepPlaylistItems(): ReactNode {
 		<div className="wizard-step gap-3" data-testid="step-playlist-items">
 			<div className="flex min-h-0 flex-1 flex-col gap-3 py-3">
 				<div className="flex items-baseline justify-between gap-2">
-					<h2 className="text-sm font-semibold truncate">{isBulk ? t('wizard.playlist.bulkHeading') : playlistTitle || t('wizard.playlist.heading')}</h2>
+					<h2 className="text-sm font-semibold truncate">{isBulk ? t('wizard.playlist.bulkHeading') : playlistTitle || t(playlistHeadingKey)}</h2>
 					<span className="shrink-0 text-xs text-muted-foreground">{t(isBulk ? 'wizard.playlist.itemCountBulk' : isAudioOnlySource(wizardExtractor) ? 'wizard.playlist.itemCountAudio' : 'wizard.playlist.itemCount', {count: playlistItems.length})}</span>
 				</div>
 
@@ -208,14 +217,14 @@ export function StepPlaylistItems(): ReactNode {
 					<Alert variant="warning" className="flex items-start gap-3" data-testid="playlist-probe-limit-alert">
 						<Info className="mt-0.5 size-4 shrink-0 text-sky-500" />
 						<div className="min-w-0 flex-1">
-							<AlertTitle>{t('wizard.playlist.probeLimitAlertTitle')}</AlertTitle>
+							<AlertTitle>{t(playlistProbeLimitAlertTitleKey)}</AlertTitle>
 							<AlertDescription className="break-words">{probeLimitDescription}</AlertDescription>
 						</div>
 						<PlaylistProbeLimitSelector testId="playlist-alert-probe-limit" showCurrent={false} onLimitChanged={() => retryFormatProbe()} className="w-40" />
 					</Alert>
 				)}
 
-				{playlistBusy ? <PlaylistProbeLoadingStatus loadingLabel={t('wizard.playlist.loadingItems')} phaseLabel={probePhaseLabel} progressLabel={probeProgressLabel} progressValue={probeProgressValue} limitHint={probeLimitHint} /> : null}
+				{playlistBusy ? <PlaylistProbeLoadingStatus loadingLabel={t(playlistLoadingItemsKey)} phaseLabel={probePhaseLabel} progressLabel={probeProgressLabel} progressValue={probeProgressValue} limitHint={probeLimitHint} /> : null}
 
 				<div className="flex items-center gap-2 flex-wrap">
 					<Button type="button" variant="outline" size="sm" onClick={selectAllPlaylistItems} disabled={playlistBusy}>
@@ -286,7 +295,7 @@ export function StepPlaylistItems(): ReactNode {
 								<Info className="mt-0.5 size-4 shrink-0 text-sky-500" />
 								<div className="min-w-0 flex-1">
 									<AlertTitle>{t('wizard.playlist.syncNoneTitle')}</AlertTitle>
-									<AlertDescription className="break-words">{t('wizard.playlist.syncNoneDesc', {dir: syncDir})}</AlertDescription>
+									<AlertDescription className="break-words">{t(playlistSyncNoneDescKey, {dir: syncDir})}</AlertDescription>
 									<div className="mt-2.5">
 										<Button type="button" variant="outline" size="sm" onClick={changeSyncFolder}>
 											{t('wizard.playlist.syncChange')}

@@ -1399,6 +1399,10 @@ msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
 msgstr ""
 
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr ""
+
 msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr ""
@@ -1425,6 +1429,10 @@ msgstr ""
 
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
+msgstr ""
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
 msgstr ""
 
 msgctxt "wizard.playlist.loadingLimitHint"
@@ -1457,6 +1465,10 @@ msgstr ""
 
 msgctxt "wizard.playlist.probeLimitAlertTitle"
 msgid "Playlist scan is capped"
+msgstr ""
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
 msgstr ""
 
 msgctxt "wizard.playlist.rangeApply"
@@ -1505,6 +1517,10 @@ msgstr ""
 
 msgctxt "wizard.playlist.syncNoneDesc"
 msgid "No videos from this playlist were found in {{dir}}."
+msgstr ""
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
 msgstr ""
 
 msgctxt "wizard.playlist.syncNoneTitle"
@@ -1649,6 +1665,10 @@ msgstr ""
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
+msgstr ""
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
 msgstr ""
 
 msgctxt "wizard.steps.playlistPresets"

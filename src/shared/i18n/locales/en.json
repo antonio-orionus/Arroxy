@@ -24,10 +24,11 @@
 	"theme": {"light": "Light mode", "dark": "Dark mode", "system": "System default"},
 	"language": {"label": "Language"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Quality", "formats": "Format", "subtitles": "Subtitles", "sponsorblock": "SponsorBlock", "output": "Output", "folder": "Save", "confirm": "Confirm"},
+		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistItemsGeneric": "Videos", "playlistPresets": "Quality", "formats": "Format", "subtitles": "Subtitles", "sponsorblock": "SponsorBlock", "output": "Output", "folder": "Save", "confirm": "Confirm"},
 		"playlistPresets": {"heading": "Pick quality for the batch", "subhead": "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises.", "itemCount_one": "{{count}} item", "itemCount_other": "{{count}} items"},
 		"playlist": {
 			"heading": "Playlist items",
+			"headingGeneric": "Videos to download",
 			"bulkHeading": "Bulk URLs",
 			"itemCount_one": "{{count}} video",
 			"itemCount_other": "{{count}} videos",
@@ -48,6 +49,7 @@
 			"selectedCount_other": "{{count}} selected",
 			"noSelection": "Select at least one video to continue",
 			"loadingItems": "Fetching playlist…",
+			"loadingItemsGeneric": "Fetching videos…",
 			"loadingPhasePages": "Scanning channel pages",
 			"loadingPhaseItems": "Collecting videos",
 			"loadingPagesFound_one": "{{count}} page found",
@@ -62,8 +64,10 @@
 			"syncFoundDesc": "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?",
 			"syncNoneTitle": "Nothing downloaded yet",
 			"syncNoneDesc": "No videos from this playlist were found in {{dir}}.",
+			"syncNoneDescGeneric": "No videos from this source were found in {{dir}}.",
 			"alreadyDownloaded": "Already downloaded",
 			"probeLimitAlertTitle": "Playlist scan is capped",
+			"probeLimitAlertTitleGeneric": "Scan is capped",
 			"probeLimitAlertDesc": "Showing first {{count}} items. Increase the load limit to see more."
 		},
 		"bulk": {
