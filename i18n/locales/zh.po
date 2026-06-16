@@ -1405,6 +1405,10 @@ msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
 msgstr "Playlist 视频"
 
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "要下载的视频"
+
 msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} 个视频"
@@ -1432,6 +1436,10 @@ msgstr "{{count}} 个 URL"
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "正在获取 Playlist…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "正在获取视频…"
 
 msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
@@ -1464,6 +1472,10 @@ msgstr "Arroxy 发现超过 {{count}} 个项目，当前扫描上限隐藏了其
 msgctxt "wizard.playlist.probeLimitAlertTitle"
 msgid "Playlist scan is capped"
 msgstr "播放列表扫描已达上限"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "扫描已达上限"
 
 msgctxt "wizard.playlist.rangeApply"
 msgid "Apply range"
@@ -1512,6 +1524,10 @@ msgstr "已在文件夹中"
 msgctxt "wizard.playlist.syncNoneDesc"
 msgid "No videos from this playlist were found in {{dir}}."
 msgstr "在 {{dir}} 中未找到此播放列表的视频。"
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "在 {{dir}} 中未找到来自此来源的视频。"
 
 msgctxt "wizard.playlist.syncNoneTitle"
 msgid "Nothing downloaded yet"
@@ -1655,7 +1671,11 @@ msgstr "输出"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "播放列表"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "视频"
 
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"

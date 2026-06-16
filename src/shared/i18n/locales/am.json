@@ -24,10 +24,11 @@
 	"theme": {"light": "ብርሃን ሁነታ", "dark": "ጨለማ ሁነታ", "system": "የስርዓት ነባሪ"},
 	"language": {"label": "ቋንቋ"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "ጥራት", "formats": "ቅርጸት", "subtitles": "ንዑስ ርዕሶች", "sponsorblock": "SponsorBlock", "output": "ውፅዓት", "folder": "አስቀምጥ", "confirm": "አረጋግጥ"},
+		"steps": {"url": "URL", "playlistItems": "የቪዲዮ ዝርዝር", "playlistItemsGeneric": "ቪዲዮዎች", "playlistPresets": "ጥራት", "formats": "ቅርጸት", "subtitles": "ንዑስ ርዕሶች", "sponsorblock": "SponsorBlock", "output": "ውፅዓት", "folder": "አስቀምጥ", "confirm": "አረጋግጥ"},
 		"playlistPresets": {"heading": "ለቡድኑ ጥራት ይምረጡ", "subhead": "እያንዳንዱ ቪዲዮ የተመረጠውን ደረጃ ራሱን ችሎ ይፈታል — የተለያዩ playlists ያለ ችግር ይሰራሉ።", "itemCount_one": "{{count}} ንጥል", "itemCount_other": "{{count}} ንጥሎች"},
 		"playlist": {
 			"heading": "የ Playlist ቪዲዮዎች",
+			"headingGeneric": "የሚወርዱ ቪዲዮዎች",
 			"bulkHeading": "ብዙ URLዎች",
 			"itemCount_one": "{{count}} ቪዲዮ",
 			"itemCount_other": "{{count}} ቪዲዮዎች",
@@ -48,6 +49,7 @@
 			"selectedCount_other": "{{count}} ተመርጠዋል",
 			"noSelection": "ለመቀጠል ቢያንስ አንድ ቪዲዮ ምረጥ",
 			"loadingItems": "Playlist እየጫኑ…",
+			"loadingItemsGeneric": "ቪዲዮዎችን በማምጣት ላይ…",
 			"loadingPhasePages": "የቻናል ገጾችን በመፈተሽ ላይ",
 			"loadingPhaseItems": "ቪዲዮዎችን በመሰብሰብ ላይ",
 			"loadingPagesFound_one": "{{count}} ገጽ ተገኝቷል",
@@ -62,8 +64,10 @@
 			"syncFoundDesc": "{{n}} ከእነዚህ ቪዲዮዎች በ{{dir}} ውስጥ ቀድሞውኑ አሉ። አዳዲሶቹን ብቻ ለማውረድ ይመሳሰል?",
 			"syncNoneTitle": "እስካሁን ምንም አልወረደም",
 			"syncNoneDesc": "ከዚህ አጫዋች ዝርዝር ውስጥ ምንም ቪዲዮ በ{{dir}} ውስጥ አልተገኘም።",
+			"syncNoneDescGeneric": "ከዚህ ምንጭ የመጡ ቪዲዮዎች በ{{dir}} ውስጥ አልተገኙም።",
 			"alreadyDownloaded": "ቀድሞ ወርዷል",
 			"probeLimitAlertTitle": "የ Playlist ቃኝት ተገድቧል",
+			"probeLimitAlertTitleGeneric": "ፍተሻው ተገድቧል",
 			"probeLimitAlertDesc": "Arroxy ከ {{count}} በላይ ንጥሎችን አግኝቷል፣ ስለዚህ የአሁኑ ቃኝት ገደብ የቀሩትን እየደበቀ ነው።"
 		},
 		"bulk": {
@@ -124,7 +128,7 @@
 			"bulkTooltip": "ብዙ URLዎችን ያክሉ እና ወረፋ ውስጥ ያስገቡ።",
 			"features": {
 				"heading": "Arroxy ምን ሊያወርድ ይችላል",
-				"youtube": {"heading": "YouTube", "video": "ቪዲዮዎች", "channel": "ቻናሎች", "playlist": "Playlists", "short": "Shorts", "music": "ሙዚቃ", "podcast": "Podcasts"},
+				"youtube": {"heading": "YouTube", "video": "ቪዲዮዎች", "channel": "ቻናሎች", "playlist": "የቪዲዮ ዝርዝሮች", "short": "Shorts", "music": "ሙዚቃ", "podcast": "Podcasts"},
 				"anySite": {"heading": "2000+ ጣቢያዎች", "video": "ቪዲዮዎች", "videoPlaylist": "የቪዲዮ playlists", "musicPlaylist": "የሙዚቃ playlists"},
 				"always": {"audioOnly": "ድምጽ ብቻ", "subtitles": "ንዑስ ርዕሶች"}
 			},
@@ -318,7 +322,7 @@
 			"addToQueueTooltip": "ሌሎች ዳውንሎዶች ሲጠናቀቁ ይጀምራል — ሙሉ ባንድዊድዝ ያገኛል",
 			"pullIt": "ሳቡት! ↓",
 			"pullItTooltip": "ወዲያው ይጀምራል — ከሌሎች ዳውንሎዶች ጋር ይሰራል",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "የቪዲዮ ዝርዝር",
 			"labelBulk": "ብዙ URLዎች",
 			"labelPreset": "ቅድመ-ቅንብር",
 			"labelItems": "ቁጥር",

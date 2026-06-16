@@ -41,10 +41,11 @@
 	"theme": {"light": "Світла тема", "dark": "Темна тема", "system": "Системна"},
 	"language": {"label": "Мова"},
 	"wizard": {
-		"steps": {"url": "Посилання", "playlistItems": "Playlist", "playlistPresets": "Якість", "formats": "Формат", "subtitles": "Субтитри", "sponsorblock": "SponsorBlock", "output": "Вивід", "folder": "Зберегти", "confirm": "Підтвердити"},
+		"steps": {"url": "Посилання", "playlistItems": "Плейлист", "playlistItemsGeneric": "Відео", "playlistPresets": "Якість", "formats": "Формат", "subtitles": "Субтитри", "sponsorblock": "SponsorBlock", "output": "Вивід", "folder": "Зберегти", "confirm": "Підтвердити"},
 		"playlistPresets": {"heading": "Вибери якість для пакетного завантаження", "subhead": "Кожне відео самостійно підбирає відповідний рівень якості — неоднорідні плейлисти працюють без сюрпризів.", "itemCount_one": "{{count}} елемент", "itemCount_other": "{{count}} елементів"},
 		"playlist": {
 			"heading": "Елементи Playlist",
+			"headingGeneric": "Відео для завантаження",
 			"bulkHeading": "Масові URL",
 			"itemCount_one": "{{count}} відео",
 			"itemCount_other": "{{count}} відео",
@@ -65,6 +66,7 @@
 			"selectedCount_other": "{{count}} вибрано",
 			"noSelection": "Вибери хоча б одне відео, щоб продовжити",
 			"loadingItems": "Завантаження Playlist…",
+			"loadingItemsGeneric": "Отримуємо відео…",
 			"loadingPhasePages": "Сканування сторінок каналу",
 			"loadingPhaseItems": "Збирання відео",
 			"loadingPagesFound_one": "Знайдено {{count}} сторінку",
@@ -79,8 +81,10 @@
 			"syncFoundDesc": "{{n}} із цих відео вже є в {{dir}}. Синхронізувати, щоб завантажити лише нові?",
 			"syncNoneTitle": "Поки нічого не завантажено",
 			"syncNoneDesc": "Відео з цього плейлиста не знайдено в {{dir}}.",
+			"syncNoneDescGeneric": "У {{dir}} не знайдено відео з цього джерела.",
 			"alreadyDownloaded": "Уже завантажено",
 			"probeLimitAlertTitle": "Сканування плейлиста обмежено",
+			"probeLimitAlertTitleGeneric": "Сканування обмежено",
 			"probeLimitAlertDesc": "Arroxy знайшов більше {{count}} елементів, тому поточний ліміт сканування приховує решту."
 		},
 		"bulk": {

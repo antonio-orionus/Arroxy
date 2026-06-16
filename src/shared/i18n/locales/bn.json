@@ -33,10 +33,11 @@
 	"theme": {"light": "লাইট মোড", "dark": "ডার্ক মোড", "system": "সিস্টেম ডিফল্ট"},
 	"language": {"label": "ভাষা"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "মান", "formats": "ফরম্যাট", "subtitles": "সাবটাইটেল", "sponsorblock": "SponsorBlock", "output": "আউটপুট", "folder": "সেভ", "confirm": "নিশ্চিত করুন"},
+		"steps": {"url": "URL", "playlistItems": "প্লেলিস্ট", "playlistItemsGeneric": "ভিডিও", "playlistPresets": "মান", "formats": "ফরম্যাট", "subtitles": "সাবটাইটেল", "sponsorblock": "SponsorBlock", "output": "আউটপুট", "folder": "সেভ", "confirm": "নিশ্চিত করুন"},
 		"playlistPresets": {"heading": "ব্যাচের জন্য মান বেছে নিন", "subhead": "প্রতিটি ভিডিও স্বাধীনভাবে বেছে নেওয়া স্তর অনুযায়ী রেজোলিউশন করে — বৈচিত্র্যময় playlist অবাক করা ছাড়াই কাজ করে।", "itemCount_one": "{{count}}টি আইটেম", "itemCount_other": "{{count}}টি আইটেম"},
 		"playlist": {
 			"heading": "Playlist আইটেম",
+			"headingGeneric": "ডাউনলোডের ভিডিও",
 			"bulkHeading": "বাল্ক URL",
 			"itemCount_one": "{{count}}টি ভিডিও",
 			"itemCount_other": "{{count}}টি ভিডিও",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}}টি নির্বাচিত",
 			"noSelection": "চালিয়ে যেতে কমপক্ষে একটি ভিডিও নির্বাচন করুন",
 			"loadingItems": "Playlist আনা হচ্ছে…",
+			"loadingItemsGeneric": "ভিডিও আনা হচ্ছে…",
 			"loadingPhasePages": "চ্যানেল পৃষ্ঠা স্ক্যান করা হচ্ছে",
 			"loadingPhaseItems": "ভিডিও সংগ্রহ করা হচ্ছে",
 			"loadingPagesFound_one": "{{count}}টি পৃষ্ঠা পাওয়া গেছে",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "এই ভিডিওগুলোর মধ্যে {{n}}টি ইতিমধ্যেই {{dir}}-এ আছে। শুধু নতুনগুলো ডাউনলোড করতে সিঙ্ক করবেন?",
 			"syncNoneTitle": "এখনও কিছু ডাউনলোড হয়নি",
 			"syncNoneDesc": "এই প্লেলিস্টের কোনো ভিডিও {{dir}}-এ পাওয়া যায়নি।",
+			"syncNoneDescGeneric": "{{dir}}-এ এই উৎসের কোনো ভিডিও পাওয়া যায়নি।",
 			"alreadyDownloaded": "ইতিমধ্যেই ডাউনলোড করা",
 			"probeLimitAlertTitle": "প্লেলিস্ট স্ক্যান সীমাবদ্ধ করা হয়েছে",
+			"probeLimitAlertTitleGeneric": "স্ক্যান সীমিত করা হয়েছে",
 			"probeLimitAlertDesc": "Arroxy {{count}}-এর বেশি আইটেম খুঁজে পেয়েছে, তাই বর্তমান স্ক্যান সীমা বাকিগুলো লুকিয়ে রাখছে।"
 		},
 		"bulk": {
@@ -133,7 +137,7 @@
 			"bulkTooltip": "একাধিক URL যোগ করে সারিতে দিন।",
 			"features": {
 				"heading": "Arroxy যা নামাতে পারে",
-				"youtube": {"heading": "YouTube", "video": "ভিডিও", "channel": "চ্যানেল", "playlist": "Playlist", "short": "Shorts", "music": "মিউজিক", "podcast": "Podcast"},
+				"youtube": {"heading": "YouTube", "video": "ভিডিও", "channel": "চ্যানেল", "playlist": "প্লেলিস্ট", "short": "Shorts", "music": "মিউজিক", "podcast": "Podcast"},
 				"anySite": {"heading": "2000+ সাইট", "video": "ভিডিও", "videoPlaylist": "ভিডিও playlist", "musicPlaylist": "মিউজিক playlist"},
 				"always": {"audioOnly": "শুধু অডিও", "subtitles": "সাবটাইটেল"}
 			},
@@ -335,7 +339,7 @@
 			"addToQueueTooltip": "অন্য ডাউনলোড শেষ হলে শুরু হবে — পুরো ব্যান্ডউইথ পাবে",
 			"pullIt": "নামিয়ে নিন! ↓",
 			"pullItTooltip": "এখনই শুরু হবে — অন্য সক্রিয় ডাউনলোডের সাথে চলবে",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "প্লেলিস্ট",
 			"labelBulk": "বাল্ক URL",
 			"labelPreset": "প্রিসেট",
 			"labelItems": "আইটেম",

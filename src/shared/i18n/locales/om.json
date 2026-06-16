@@ -33,10 +33,11 @@
 	"theme": {"light": "Haala iftoomaa", "dark": "Haala gurraacha", "system": "Sirna durtii"},
 	"language": {"label": "Afaan"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Qulqullina", "formats": "Foormaatii", "subtitles": "Axxiinni", "sponsorblock": "SponsorBlock", "output": "Ba'uu", "folder": "Kuusi", "confirm": "Mirkaneessi"},
+		"steps": {"url": "URL", "playlistItems": "Tarree taphachiisaa", "playlistItemsGeneric": "Viidiyoowwan", "playlistPresets": "Qulqullina", "formats": "Foormaatii", "subtitles": "Axxiinni", "sponsorblock": "SponsorBlock", "output": "Ba'uu", "folder": "Kuusi", "confirm": "Mirkaneessi"},
 		"playlistPresets": {"heading": "Kutaa gurmuu barbaadi", "subhead": "Viidiyoon hundi sadarkaa filatame ofumaan qorata — playlist garagaraa sodaa malee hojjeta.", "itemCount_one": "{{count}} wanta", "itemCount_other": "{{count}} wantota"},
 		"playlist": {
 			"heading": "Wantoota Playlist",
+			"headingGeneric": "Viidiyoowwan buufachuuf",
 			"bulkHeading": "URL hedduu",
 			"itemCount_one": "{{count}} viidiyoo",
 			"itemCount_other": "{{count}} viidiyoowwan",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}} filataman",
 			"noSelection": "Itti fufuuf viidiyoo tokko yoo xiqqaate filadhu",
 			"loadingItems": "Playlist fidaa jira…",
+			"loadingItemsGeneric": "Viidiyoowwan fidamaa jiru…",
 			"loadingPhasePages": "Fuulota chaanaalii sakattaʼaa jira",
 			"loadingPhaseItems": "Viidiyoowwan walitti qabaa jira",
 			"loadingPagesFound_one": "Fuulli {{count}} argame",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "Viidiyoowwan kana keessaa {{n}} duraan {{dir}} keessa jiru. Kan haaraa qofa buufachuuf walsimsiisi?",
 			"syncNoneTitle": "Ammaaf homtuu hin buufamne",
 			"syncNoneDesc": "Viidiyoon playlist kanaa {{dir}} keessatti hin argamne.",
+			"syncNoneDescGeneric": "Viidiyoowwan madda kana irraa {{dir}} keessatti hin argamne.",
 			"alreadyDownloaded": "Duraan buufameera",
 			"probeLimitAlertTitle": "Qorannaan playlist daangeffameera",
+			"probeLimitAlertTitleGeneric": "Sakatta’iinsi daangeffameera",
 			"probeLimitAlertDesc": "Arroxy wantoota {{count}} ol argateera, kanaafuu daangaan qorannaa ammaa kan hafan dhoksaa jira."
 		},
 		"bulk": {
@@ -133,7 +137,7 @@
 			"bulkTooltip": "URL hedduu dabaliitii tarree buusutti galchi.",
 			"features": {
 				"heading": "Arroxy maal buufachuu danda'a",
-				"youtube": {"heading": "YouTube", "video": "Viidiyoowwan", "channel": "Channelota", "playlist": "Playlists", "short": "Shorts", "music": "Muuziqaa", "podcast": "Podcastota"},
+				"youtube": {"heading": "YouTube", "video": "Viidiyoowwan", "channel": "Channelota", "playlist": "Tarreewwan taphachiisaa", "short": "Shorts", "music": "Muuziqaa", "podcast": "Podcastota"},
 				"anySite": {"heading": "Gareewwan 2000+", "video": "Viidiyoowwan", "videoPlaylist": "Playlist viidiyoo", "musicPlaylist": "Playlist muuziqaa"},
 				"always": {"audioOnly": "Sagalee qofa", "subtitles": "Axxiinni"}
 			},
@@ -351,7 +355,7 @@
 			"addToQueueTooltip": "Daawniloodoonni biroo xumuramu booda jalqaba — bandwidth guutuu argata",
 			"pullIt": "Buusi! ↓",
 			"pullItTooltip": "Immediately jalqaba — daawniloodoonni biroo waliin hojjeta",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "Tarree taphachiisaa",
 			"labelBulk": "URL hedduu",
 			"labelPreset": "Preset",
 			"labelItems": "Wantota",

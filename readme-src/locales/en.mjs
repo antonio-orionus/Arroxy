@@ -71,7 +71,8 @@ bun run dist:win     # cross-compile Windows portable exe
 
 export const en = {
   icon_alt: "Arroxy mascot",
-  title: "Arroxy — Free Open-Source YouTube (+ 2000 sites) Downloader for Windows, macOS & Linux",
+  title:
+    "Arroxy — Free Open-Source YouTube (+ 2000 sites) Downloader for Windows, macOS & Linux",
   read_in_label: "Read in:",
   badge_release_alt: "Release",
   badge_build_alt: "Build",
@@ -152,11 +153,18 @@ export const en = {
     "**Audio-only and subtitles** work across every supported site, not just YouTube",
   feat_sites_4:
     "If a site changes, yt-dlp ships fixes weekly and Arroxy auto-updates the binary on launch",
-  shot1_alt: "Paste a URL",
-  shot2_alt: "Pick your quality",
-  shot3_alt: "Choose where to save",
-  shot4_alt: "Download queue in action",
-  shot5_alt: "Subtitle language and format picker",
+  shot1_cap:
+    "<b>Quick Download home</b><br/>Paste a URL and pull it instantly with your active profile",
+  shot2_cap:
+    "<b>Reusable download profiles</b><br/>Save format, quality, and output presets — reuse per download",
+  shot3_cap:
+    "<b>Multi-language audio tracks</b><br/>Pick the exact audio language a video ships",
+  shot4_cap:
+    "<b>Surround / Dolby audio</b><br/>5.1 and Dolby tracks detected and preserved",
+  shot5_cap:
+    "<b>Bulk URL mode</b><br/>Paste a list, auto-dedupe, queue them all at once",
+  shot6_cap:
+    "<b>Parallel download queue</b><br/>Several downloads at once with live progress",
   dl_platform_col: "Platform",
   dl_format_col: "Direct download",
   dl_win_format: "Installer (NSIS) or Portable `.exe`",
@@ -185,7 +193,7 @@ export const en = {
     "**Recommendation:** use the NSIS installer for auto-updates and faster startup. Use the portable `.exe` for a no-install, no-registry option.",
   dl_win_smartscreen_h4: "Windows SmartScreen warning",
   dl_win_smartscreen_intro:
-    "On first launch you may see **\"Windows protected your PC\"** or **\"Unknown publisher.\"** This applies to both `Arroxy-win-x64-Setup.exe` and `Arroxy-win-x64-Portable.exe`. Arroxy is free and open-source and the Windows builds are not code-signed with a paid certificate, which is why SmartScreen flags them. It does **not** automatically mean Arroxy is unsafe. To continue:",
+    'On first launch you may see **"Windows protected your PC"** or **"Unknown publisher."** This applies to both `Arroxy-win-x64-Setup.exe` and `Arroxy-win-x64-Portable.exe`. Arroxy is free and open-source and the Windows builds are not code-signed with a paid certificate, which is why SmartScreen flags them. It does **not** automatically mean Arroxy is unsafe. To continue:',
   dl_win_smartscreen_step1: "Click **More info**.",
   dl_win_smartscreen_step2: "Click **Run anyway**.",
   dl_win_smartscreen_official:
@@ -257,7 +265,7 @@ export const en = {
   dl_macos_damaged_h4:
     '"App is damaged" or persistent Gatekeeper block — Terminal fix',
   dl_macos_damaged_p:
-    'If macOS says *"Arroxy is damaged and can\'t be opened"*, or none of the steps above clear the block, the quarantine attribute on the DMG is the cause (some browsers and macOS\'s own translocation behavior set it). Strip it from the installed app:',
+    "If macOS says *\"Arroxy is damaged and can't be opened\"*, or none of the steps above clear the block, the quarantine attribute on the DMG is the cause (some browsers and macOS's own translocation behavior set it). Strip it from the installed app:",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel:** on an M-series Mac (M1 / M2 / M3 / M4), download the `arm64` DMG. On Intel Macs, download the `x64` DMG. Running the wrong build still works via Rosetta but is noticeably slower.",
 
@@ -287,7 +295,8 @@ export const en = {
   faq_a2:
     "Anything YouTube serves: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio-only. 60 fps, 120 fps, and HDR streams are preserved as-is.",
   faq_q3: "Can I extract just the audio as MP3?",
-  faq_a3: "Yes. Pick *audio-only* in the format menu and choose MP3, M4A/AAC, Opus, or WAV.",
+  faq_a3:
+    "Yes. Pick *audio-only* in the format menu and choose MP3, M4A/AAC, Opus, or WAV.",
   faq_q4: "Do I need a YouTube account or cookies?",
   faq_a4:
     "By default, no — Arroxy works without a YouTube account, login, or cookie export. Optional cookie support is available in Advanced settings (Cookies source: file or browser) for content that requires authentication, such as age-restricted or members-only videos. It is off by default. If you enable it, yt-dlp's wiki notes that [cookie-based automation can flag a Google account](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); a throwaway account is the safer choice in that case.",
@@ -313,8 +322,7 @@ export const en = {
   plan_col1: "Feature",
   plan_col2: "Description",
   plan_r1_name: "**Playlist & channel filters**",
-  plan_r1_desc:
-    "Date-range filters when enumerating a playlist or channel",
+  plan_r1_desc: "Date-range filters when enumerating a playlist or channel",
   plan_r2_name: "**YouTube audio track preferences**",
   plan_r2_desc:
     "Set an app-wide spoken-language track preference, with per-profile overrides when YouTube offers multiple audio tracks",

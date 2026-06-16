@@ -71,7 +71,8 @@ bun run dist:win     # 交叉编译 Windows 便携版 exe
 
 export const zh = {
   icon_alt: "Arroxy 吉祥物",
-  title: "Arroxy — 免费开源 YouTube（+ 2000 个网站）下载器，支持 Windows、macOS 和 Linux",
+  title:
+    "Arroxy — 免费开源 YouTube（+ 2000 个网站）下载器，支持 Windows、macOS 和 Linux",
   read_in_label: "阅读语言：",
   badge_release_alt: "发布",
   badge_build_alt: "构建",
@@ -114,29 +115,28 @@ export const zh = {
     "**音频** — 将仅音频导出为 MP3、M4A/AAC、Opus 或 WAV。在交互式下载中，可用时选择来源的原生环绕声/Dolby 音轨（AC-3、E-AC-3、5.1、DRC），或设置全局默认 **优先环绕声 / Dolby**",
   feat_quality_4: "快速预设：*最佳画质* · *平衡* · *小文件*",
   feat_privacy_h3: "隐私与控制",
-  feat_privacy_1:
-    "100% 本地处理 — 下载直接从 YouTube 到你的硬盘",
+  feat_privacy_1: "100% 本地处理 — 下载直接从 YouTube 到你的硬盘",
   feat_privacy_2: "无登录、无 Cookie、无 Google 账号绑定",
   feat_privacy_3: "文件直接保存到你选择的文件夹",
   feat_workflow_h3: "工作流",
-  feat_workflow_1: "**灵活的开始模式** — 选择引导式单个下载、播放列表/频道选择器、批量粘贴 URL，或使用已保存默认值的 Quick Download",
-  feat_workflow_2: "**中央下载队列** — 单个、播放列表、批量或快速任务都会进入同一个地方，用于查看进度、暂停、继续、取消、重试和控制优先级",
+  feat_workflow_1:
+    "**灵活的开始模式** — 选择引导式单个下载、播放列表/频道选择器、批量粘贴 URL，或使用已保存默认值的 Quick Download",
+  feat_workflow_2:
+    "**中央下载队列** — 单个、播放列表、批量或快速任务都会进入同一个地方，用于查看进度、暂停、继续、取消、重试和控制优先级",
   feat_workflow_3:
     "**剪贴板监控** — 复制 YouTube 链接后切回应用，Arroxy 自动填入 URL（可在高级设置中切换）",
   feat_workflow_4:
     "**自动清理 URL** — 剥除跟踪参数（`si`、`pp`、`utm_*`、`fbclid`、`gclid`）并解包 `youtube.com/redirect` 跳转链接",
-  feat_workflow_5:
-    "**托盘模式** — 关闭窗口后下载在后台继续运行",
-  feat_workflow_6:
-    "**21 种语言** — 自动检测系统语言，随时切换",
+  feat_workflow_5: "**托盘模式** — 关闭窗口后下载在后台继续运行",
+  feat_workflow_6: "**21 种语言** — 自动检测系统语言，随时切换",
   feat_workflow_7:
     "**播放列表同步** — 将播放列表与本地文件夹重新比对，跳过已下载的视频；生成一个 `.m3u` 播放列表文件，并在每个视频下载后更新",
-  feat_workflow_8: "**速度和节奏控制** — 限制下载带宽、添加请求延迟，并用预设调整分片线程（*关闭 · 平衡 · 谨慎 · 自定义*）",
+  feat_workflow_8:
+    "**速度和节奏控制** — 限制下载带宽、添加请求延迟，并用预设调整分片线程（*关闭 · 平衡 · 谨慎 · 自定义*）",
   feat_post_h3: "字幕与后处理",
   feat_post_1:
     "**字幕**以 SRT、VTT 或 ASS 格式下载 — 手动或自动生成，支持任意可用语言",
-  feat_post_2:
-    "保存到视频旁边、嵌入 `.mkv`，或整理到 `Subtitles/` 子文件夹",
+  feat_post_2: "保存到视频旁边、嵌入 `.mkv`，或整理到 `Subtitles/` 子文件夹",
   feat_post_3:
     "**SponsorBlock** — 跳过或章节标记赞助商、片头、片尾、自我推广片段",
   feat_post_4:
@@ -146,15 +146,16 @@ export const zh = {
     "**YouTube，全面支持** — 视频、Shorts、频道、播放列表、YouTube Music 和播客作为一等来源处理",
   feat_sites_2:
     "**通过 yt-dlp 支持 2000+ 个其他网站** — Vimeo、Twitch、Twitter/X、TikTok、SoundCloud、Bandcamp、Bilibili、BBC iPlayer、archive.org 等众多网站",
-  feat_sites_3:
-    "**仅音频和字幕**在所有支持的网站上均可使用，不限于 YouTube",
+  feat_sites_3: "**仅音频和字幕**在所有支持的网站上均可使用，不限于 YouTube",
   feat_sites_4:
     "若某个网站发生变化，yt-dlp 每周发布修复，Arroxy 在启动时自动更新二进制文件",
-  shot1_alt: "粘贴 URL",
-  shot2_alt: "选择画质",
-  shot3_alt: "选择保存位置",
-  shot4_alt: "下载队列运行中",
-  shot5_alt: "选择字幕语言和格式",
+  shot1_cap: "<b>快速下载主页</b><br/>粘贴网址，用当前配置一键下载",
+  shot2_cap:
+    "<b>可复用的下载配置</b><br/>将格式、画质和输出保存为预设——每次下载复用",
+  shot3_cap: "<b>多语言音轨</b><br/>精确选择视频自带的音频语言",
+  shot4_cap: "<b>环绕声 / Dolby 音频</b><br/>识别并保留 5.1 和 Dolby 音轨",
+  shot5_cap: "<b>批量网址模式</b><br/>粘贴列表，自动去重，一次性全部入队",
+  shot6_cap: "<b>并行下载队列</b><br/>多个下载同时进行，实时显示进度",
   dl_platform_col: "平台",
   dl_format_col: "格式",
   dl_win_format: "安装版（NSIS）或便携版 `.exe`",
@@ -193,21 +194,17 @@ export const zh = {
     "Arroxy 尚未代码签名，因此 macOS Gatekeeper 会在首次启动时发出警告。这是预期行为 — 并不表示文件损坏。",
   dl_macos_m1_h4: "系统设置方式（推荐）：",
   dl_macos_step1: "右键点击 Arroxy 应用图标，选择 **打开**。",
-  dl_macos_step2:
-    "出现警告对话框 — 点击 **取消**（不要点击*移到废纸篓*）。",
+  dl_macos_step2: "出现警告对话框 — 点击 **取消**（不要点击*移到废纸篓*）。",
   dl_macos_step3: "打开 **系统设置 → 隐私与安全性**。",
   dl_macos_step4:
     '滚动到 **安全性** 部分。你会看到 *"Arroxy 已被阻止使用，因为它不是由可识别的开发者提供的。"*',
-  dl_macos_step5:
-    "点击 **仍然打开**，然后用密码或 Touch ID 确认。",
-  dl_macos_after:
-    "完成第 5 步后，Arroxy 正常打开，以后不再显示此警告。",
+  dl_macos_step5: "点击 **仍然打开**，然后用密码或 Touch ID 确认。",
+  dl_macos_after: "完成第 5 步后，Arroxy 正常打开，以后不再显示此警告。",
   dl_macos_m2_h4: "终端方式（高级）：",
   dl_macos_note:
     "macOS 构建通过 CI 在 Apple Silicon 和 Intel runner 上生成。如遇问题，请 [提交 issue](../../issues) — macOS 用户的反馈会直接影响 macOS 测试周期。",
   dl_linux_h3: "Linux 首次启动",
-  dl_linux_intro:
-    "AppImage 直接运行 — 无需安装。只需将文件标记为可执行。",
+  dl_linux_intro: "AppImage 直接运行 — 无需安装。只需将文件标记为可执行。",
   dl_linux_m1_text:
     "**文件管理器：** 右键 `.AppImage` → **属性** → **权限** → 启用 **允许作为程序执行**，然后双击运行。",
   dl_linux_m2_h4: "终端：",
@@ -237,8 +234,7 @@ export const zh = {
   dl_macos_sequoia_h4: "macOS Sequoia 15 及更高版本（当前）",
   dl_macos_sequoia_intro:
     "在 Sequoia 15 及更新版本中，右键 → 打开对许多被隔离的应用不再能绕过 Gatekeeper。请改用系统设置面板：",
-  dl_macos_sequoia_step1:
-    "将 `Arroxy.app` 从挂载的 DMG 拖入 `/Applications`。",
+  dl_macos_sequoia_step1: "将 `Arroxy.app` 从挂载的 DMG 拖入 `/Applications`。",
   dl_macos_sequoia_step2:
     "双击 Arroxy，出现阻止对话框 — 点击 **Done**（不要点击 *Move to Trash*）。",
   dl_macos_sequoia_step3:
@@ -246,8 +242,7 @@ export const zh = {
   dl_macos_sequoia_step4:
     "点击 **Open Anyway**，用密码或 Touch ID 确认，然后从 `/Applications` 重新启动 Arroxy。",
   dl_macos_sonoma_h4: "macOS Sonoma 14 及更早版本",
-  dl_macos_sonoma_step1:
-    "将 `Arroxy.app` 从挂载的 DMG 拖入 `/Applications`。",
+  dl_macos_sonoma_step1: "将 `Arroxy.app` 从挂载的 DMG 拖入 `/Applications`。",
   dl_macos_sonoma_step2:
     "在 `/Applications` 中右键（或 Control-单击）`Arroxy.app`，选择 **Open**。",
   dl_macos_sonoma_step3:
@@ -272,8 +267,7 @@ export const zh = {
   dl_verify_vt_text:
     "想要第三方恶意软件扫描？将文件上传到 [VirusTotal](https://www.virustotal.com)。小型引擎给出少量通用启发式标记对于未签名的 Electron 应用来说属于正常；主流引擎大面积检测才是真正值得警惕的情况。",
 
-  dl_pm_intro:
-    "已经在用包管理器？可以跳过手动下载流程。",
+  dl_pm_intro: "已经在用包管理器？可以跳过手动下载流程。",
 
   privacy_p1:
     "下载通过 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 直接从 YouTube 获取到你选择的文件夹 — 不经过任何第三方服务器。观看历史、下载历史、URL 和文件内容均保留在你的设备上。",
@@ -285,7 +279,8 @@ export const zh = {
   faq_a2:
     "YouTube 提供的都行：4K UHD（2160p）、1440p、1080p、720p、480p、360p，以及纯音频。60 fps、120 fps 和 HDR 流原样保留。",
   faq_q3: "能将音频提取为 MP3 吗？",
-  faq_a3: "可以。在格式菜单里选择*仅音频*，然后选择 MP3、M4A/AAC、Opus 或 WAV。",
+  faq_a3:
+    "可以。在格式菜单里选择*仅音频*，然后选择 MP3、M4A/AAC、Opus 或 WAV。",
   faq_q4: "需要 YouTube 账号或 Cookie 吗？",
   faq_a4:
     "默认不需要 — Arroxy 无需 YouTube 账号、登录或导出 Cookie 即可工作。对于需要身份验证的内容（例如年龄限制或仅会员可见的视频），高级设置中提供可选的 Cookie 支持（Cookies source: file or browser）。该选项默认关闭。如果你启用它，yt-dlp 的 wiki 指出[基于 Cookie 的自动化可能会标记 Google 账号](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)；这种情况下使用一次性账号是更安全的选择。",
@@ -319,20 +314,16 @@ export const zh = {
   plan_r6_desc:
     "在 Arroxy 内打开浏览器窗口，登录并使用站点 cookies，无需手动导出",
   plan_r8_name: "**一键视频下载**",
-  plan_r8_desc:
-    "使用当前配置，从检测到或粘贴的 URL 一键开始视频下载",
+  plan_r8_desc: "使用当前配置，从检测到或粘贴的 URL 一键开始视频下载",
   plan_r3_name: "**更强的重试恢复**",
-  plan_r3_desc:
-    "为不稳定或有问题的网络连接中断的下载提供新的重试路径",
+  plan_r3_desc: "为不稳定或有问题的网络连接中断的下载提供新的重试路径",
   plan_r4_name: "**完整下载管理器抽屉**",
-  plan_r4_desc:
-    "将队列抽屉扩展为更完整的管理器，包括为排队项目更改目标文件夹",
+  plan_r4_desc: "将队列抽屉扩展为更完整的管理器，包括为排队项目更改目标文件夹",
   plan_r5_name: "**定时下载**",
   plan_r5_desc: "在设定时间启动队列（适合连夜批量下载）",
   plan_r7_name: "**片段裁剪**",
   plan_r7_desc: "按起止时间只下载视频的某一段",
-  plan_cta:
-    "有想法？[提交请求](../../issues) — 社区意见决定优先级。",
+  plan_cta: "有想法？[提交请求](../../issues) — 社区意见决定优先级。",
   tech_content: TECH_CONTENT,
   tos_h2: "使用条款",
   tos_note:

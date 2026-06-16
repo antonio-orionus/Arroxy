@@ -71,7 +71,8 @@ bun run dist:win     # cross-compile Windows portable exe
 
 export const am = {
   icon_alt: "የ Arroxy መሸፈኛ",
-  title: "Arroxy — ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux",
+  title:
+    "Arroxy — ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux",
   read_in_label: "አንብብ በ:",
   badge_release_alt: "ስሪት",
   badge_build_alt: "ግንባታ",
@@ -80,7 +81,8 @@ export const am = {
   badge_i18n_alt: "ቋንቋዎች",
   badge_website_alt: "ድር ጣቢያ",
   discord_badge_text: "የDiscord ማህበረሰብን ይቀላቀሉ",
-  discord_badge_encoded: "%E1%8B%A8Discord%20%E1%88%9B%E1%88%85%E1%89%A0%E1%88%A8%E1%88%B0%E1%89%A5%E1%8A%95%20%E1%8B%AD%E1%89%80%E1%88%8B%E1%89%80%E1%88%89",
+  discord_badge_encoded:
+    "%E1%8B%A8Discord%20%E1%88%9B%E1%88%85%E1%89%A0%E1%88%A8%E1%88%B0%E1%89%A5%E1%8A%95%20%E1%8B%AD%E1%89%80%E1%88%8B%E1%89%80%E1%88%89",
   hero_desc:
     "ቪዲዮዎች፣ Shorts፣ ሙዚቃ፣ ቻናሎች፣ ፖድካስቶች ወይም የድምፅ ትራኮች ከ**YouTube እና ከ2000+ ተደገፉ ጣቢያዎች** ያውርዱ — እስከ 4K HDR በ60 fps፣ ወይም MP3 / AAC / Opus። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ብዝሃ ሸቀጥ፣ ምንም ተጨማሪ ሽያጭ።**",
   cta_latest: "↓ የቅርብ ጊዜ ስሪት አውርድ",
@@ -113,8 +115,7 @@ export const am = {
     "**ድምፅ** — ኦዲዮ ብቻን ወደ MP3፣ M4A/AAC፣ Opus ወይም WAV ማውጣት። በinteractive downloads ውስጥ ካሉ የምንጩን native surround/Dolby ትራኮች (AC-3፣ E-AC-3፣ 5.1፣ DRC) ይምረጡ፣ ወይም ዓለም አቀፍ **surround / Dolby ን ይመርጡ** ነባሪ ያቀናብሩ",
   feat_quality_4: "ፈጣን ቅድመ ቅንብሮች: *ምርጥ ጥራት* · *ሚዛናዊ* · *ትንሽ ፋይል*",
   feat_privacy_h3: "ግላዊነት እና ቁጥጥር",
-  feat_privacy_1:
-    "100% አካባቢያዊ ሂደት — ማውረዶች ቀጥታ ከ YouTube ወደ ዲስክዎ ይሄዳሉ",
+  feat_privacy_1: "100% አካባቢያዊ ሂደት — ማውረዶች ቀጥታ ከ YouTube ወደ ዲስክዎ ይሄዳሉ",
   feat_privacy_2: "ምንም ግባ፣ ምንም ኩኪ፣ ምንም Google ሒሳብ አልተያያዘም",
   feat_privacy_3: "ፋይሎች ወደ መረጡት አቃፊ ቀጥታ ተቀምጠዋል",
   feat_workflow_h3: "የሥራ ፍሰት",
@@ -126,10 +127,8 @@ export const am = {
     "**ክሊፕቦርድ ክትትል** — YouTube ሊንክ ቅዱ እና Arroxy ወደ አፕ ሲመለሱ URL ን አውቶሜቲክ ይሙላሉ (በ Advanced settings ውስጥ ያብሩ/ያጥፉ)",
   feat_workflow_4:
     "**URL ን ራስ ሰር ያጥሩ** — ትራኪንግ ፓራሜትሮችን (`si`፣ `pp`፣ `utm_*`፣ `fbclid`፣ `gclid`) ያስወግዳሉ እና `youtube.com/redirect` ሊንኮችን ያሰናስሉ",
-  feat_workflow_5:
-    "**ትሬ ሁነታ** — መስኮቱን መዝጋት ማውረዶቹን በጀርባ ያስቀጥላሉ",
-  feat_workflow_6:
-    "**21 ቋንቋዎች** — የሥርዓት ቋንቋ ራስ ሰር ያውቃሉ፣ ሁልጊዜ መቀየር ይቻላሉ",
+  feat_workflow_5: "**ትሬ ሁነታ** — መስኮቱን መዝጋት ማውረዶቹን በጀርባ ያስቀጥላሉ",
+  feat_workflow_6: "**21 ቋንቋዎች** — የሥርዓት ቋንቋ ራስ ሰር ያውቃሉ፣ ሁልጊዜ መቀየር ይቻላሉ",
   feat_workflow_7:
     "**የአጫዋች ዝርዝር ማመሳሰል** — አስቀድሞ የወረዱ ቪዲዮዎችን ለመዝለል አጫዋች ዝርዝርን ከአካባቢያዊ ፎልደር ጋር ዳግም ይፈትሻል፤ እያንዳንዱ ቪዲዮ ሲወርድ የሚዘምን `.m3u` የአጫዋች ዝርዝር ፋይል ይፈጥራል",
   feat_workflow_8:
@@ -137,8 +136,7 @@ export const am = {
   feat_post_h3: "ንዑስ ርዕሶች እና ድህረ-ሂደት",
   feat_post_1:
     "**ንዑስ ርዕሶች** በ SRT፣ VTT፣ ወይም ASS — እጅ ወይም ራስ ሰር የተፈጠሩ፣ በማንኛውም ቋንቋ",
-  feat_post_2:
-    "ከቪዲዮ ጎን ያቆዩ፣ ወደ `.mkv` ያካቱ፣ ወይም ወደ `Subtitles/` ንዑስ አቃፊ ያዘጋጁ",
+  feat_post_2: "ከቪዲዮ ጎን ያቆዩ፣ ወደ `.mkv` ያካቱ፣ ወይም ወደ `Subtitles/` ንዑስ አቃፊ ያዘጋጁ",
   feat_post_3:
     "**SponsorBlock** — ስፖንሰሮችን፣ ምዕራፍ ምልክቶችን፣ ወደፊት ምዕራፎችን፣ ራስ ሰር ማስታወቂያዎችን ዝለሉ ወይም ምዕራፍ ምልክት ያድርጉ",
   feat_post_4:
@@ -152,11 +150,14 @@ export const am = {
     "**ኦዲዮ ብቻ እና ጽሑፍ ርዕሶች** ሁሉም ተደጋፊ ጣቢያዎች ላይ ይሠራሉ፣ YouTube ብቻ ሳይሆን",
   feat_sites_4:
     "ጣቢያ ሲቀይር yt-dlp በሳምንት ውስጥ ማሻሻያዎችን ይልካሉ፣ Arroxy ደግሞ ሲጀምር binary ን ራስ-ሰር ያዘምናሉ",
-  shot1_alt: "URL ይለጥፉ",
-  shot2_alt: "ጥራትዎን ይምረጡ",
-  shot3_alt: "የሚቀምጡበት ቦታ ይምረጡ",
-  shot4_alt: "የማውረድ ወረፋ እርምጃ ላይ",
-  shot5_alt: "የንዑስ ርዕስ ቋንቋ እና ቅርጸት መምረጫ",
+  shot1_cap: "<b>የፈጣን ማውረድ መነሻ</b><br/>URL ይለጥፉ እና በነቃ መገለጫዎ ወዲያውኑ ያውርዱ",
+  shot2_cap:
+    "<b>እንደገና ጥቅም ላይ የሚውሉ የማውረድ መገለጫዎች</b><br/>ቅርጸት፣ ጥራት እና ውጤትን እንደ ቅድመ-ቅንብር ያስቀምጡ — በእያንዳንዱ ማውረድ ይጠቀሙ",
+  shot3_cap: "<b>የብዙ ቋንቋ ድምፅ ትራኮች</b><br/>ቪዲዮ የያዘውን ትክክለኛ የድምፅ ቋንቋ ይምረጡ",
+  shot4_cap: "<b>Surround / Dolby ድምፅ</b><br/>5.1 እና Dolby ትራኮች ተለይተው ይጠበቃሉ",
+  shot5_cap:
+    "<b>የጅምላ URL ሁነታ</b><br/>ዝርዝር ይለጥፉ፣ ድግግሞሾችን በራስ-ሰር ያስወግዱ፣ ሁሉንም በአንድ ጊዜ ያሰልፉ",
+  shot6_cap: "<b>ትይዩ የማውረድ ሰልፍ</b><br/>በቀጥታ እድገት ብዙ ማውረዶች በአንድ ጊዜ",
   dl_platform_col: "ሥርዓተ ክወና",
   dl_format_col: "ቅርጸት",
   dl_win_format: "ጫኝ (NSIS) ወይም ተጓዥ `.exe`",
@@ -185,7 +186,7 @@ export const am = {
     "**ምክር:** ለራስ ሰር ዝማኔዎች እና ፈጣን ጅምር NSIS ጫኝ ይጠቀሙ። ምንም ጫሌ፣ ምንም ሬጂስትሪ ለሌለው አማራጭ ተጓዥ `.exe` ይጠቀሙ።",
   dl_win_smartscreen_h4: "Windows SmartScreen ማስጠንቀቂያ",
   dl_win_smartscreen_intro:
-    "በመጀመሪያ ጊዜ ሲጀምሩ **\"Windows protected your PC\"** ወይም **\"Unknown publisher\"** ሊያዩ ይችላሉ። ይህ ለ `Arroxy-win-x64-Setup.exe` እና `Arroxy-win-x64-Portable.exe` ሁለቱም ይሠራሉ። Arroxy ነፃ እና ምን ኮድ ያለው ሲሆን የ Windows ቅጅዎቹ ባለ ክፍያ የምስክር ወረቀት ተፈርመዋ አይደሉም፣ ስለዚህ SmartScreen ያሳዩዋቸዋል። ይህ Arroxy ደህና ያልሆነ ማለት **አልሆነም**። ለቀጠሉ:",
+    'በመጀመሪያ ጊዜ ሲጀምሩ **"Windows protected your PC"** ወይም **"Unknown publisher"** ሊያዩ ይችላሉ። ይህ ለ `Arroxy-win-x64-Setup.exe` እና `Arroxy-win-x64-Portable.exe` ሁለቱም ይሠራሉ። Arroxy ነፃ እና ምን ኮድ ያለው ሲሆን የ Windows ቅጅዎቹ ባለ ክፍያ የምስክር ወረቀት ተፈርመዋ አይደሉም፣ ስለዚህ SmartScreen ያሳዩዋቸዋል። ይህ Arroxy ደህና ያልሆነ ማለት **አልሆነም**። ለቀጠሉ:',
   dl_win_smartscreen_step1: "**More info** ጠቅ ያድርጉ።",
   dl_win_smartscreen_step2: "**Run anyway** ጠቅ ያድርጉ።",
   dl_win_smartscreen_official:
@@ -199,11 +200,9 @@ export const am = {
     "የማስጠንቀቂያ መልዕክት ሳጥን ይታያሉ — **Cancel** ጠቅ ያድርጉ (*Move to Trash* አይጫኑ)።",
   dl_macos_step3: "**System Settings → Privacy & Security** ይክፈቱ።",
   dl_macos_step4:
-    "ወደ **Security** ክፍል ያሸብልሉ። *\"Arroxy was blocked from use because it is not from an identified developer.\"* ያዩሉ።",
-  dl_macos_step5:
-    "**Open Anyway** ጠቅ ያድርጉ እና በይለፍ ቃልዎ ወይም Touch ID ያረጋግጡ።",
-  dl_macos_after:
-    "ደረጃ 5 ከተከናወነ በኋላ፣ Arroxy በተለምዶ ይከፈቱ እናም ማስጠንቀቂያ ሁሌ አይታዩም።",
+    'ወደ **Security** ክፍል ያሸብልሉ። *"Arroxy was blocked from use because it is not from an identified developer."* ያዩሉ።',
+  dl_macos_step5: "**Open Anyway** ጠቅ ያድርጉ እና በይለፍ ቃልዎ ወይም Touch ID ያረጋግጡ።",
+  dl_macos_after: "ደረጃ 5 ከተከናወነ በኋላ፣ Arroxy በተለምዶ ይከፈቱ እናም ማስጠንቀቂያ ሁሌ አይታዩም።",
   dl_macos_m2_h4: "የቴርሚናል ዘዴ (ተሂሳዊ):",
   dl_macos_note:
     "macOS ሕንጻዎች ከ Apple Silicon እና Intel ሩጫዎች በ CI ላይ ይሠራሉ። ችግር ካጋጠምዎ፣ [ጉዳይ ይክፈቱ](../../issues) — ከ macOS ተጠቃሚዎች ያለው ምላሽ የ macOS ፈተና ዑደቱን ቀጥታ ይቀርፃሉ።",
@@ -254,8 +253,7 @@ export const am = {
     "በ `/Applications` ውስጥ `Arroxy.app` ን ቀኝ-ጠቅ ያድርጉ (ወይም Control-click) እና **Open** ይምረጡ።",
   dl_macos_sonoma_step3:
     "የማስጠንቀቂያ መልዕክት ሳጥን አሁን **Open** ቁልፍ አለው — ጠቅ ያድርጉ እና ያረጋግጡ። Arroxy በተለምዶ ይከፈቱ እናም ማስጠንቀቂያ ሁሌ አይታዩም።",
-  dl_macos_damaged_h4:
-    '"App is damaged" ወይም ቀጣይ Gatekeeper ማገጃ — Terminal ዘዴ',
+  dl_macos_damaged_h4: '"App is damaged" ወይም ቀጣይ Gatekeeper ማገጃ — Terminal ዘዴ',
   dl_macos_damaged_p:
     'macOS *"Arroxy is damaged and can\'t be opened"* ቢል፣ ወይም ከላይ ያሉት ምንም ቃምሶዎች ማገጃውን ባያስወግዱ፣ DMG ላይ ያለው ቆጠቡ ባህሪ ምክንያቱ ነው (አንዳንድ ብሮውዘሮች እና macOS ራሱ የ translocation ባህሪ ያቀናጁ)። ከተጫነው አፕ ያስወግዱ:',
   dl_macos_arch_note:
@@ -274,8 +272,7 @@ export const am = {
   dl_verify_vt_text:
     "የሦስተኛ ወገን ተንኮል-አዘል ሶፍትዌር ቅኝት ይፈልጋሉ? ፋይሉን [VirusTotal](https://www.virustotal.com) ላይ ይጫኑ። ከቀዳሚ ሞተሮቹ ጥቂት ሂዩሪስቲክ ምልክቶቹ ፊርማ ላልተደረገባቸው Electron አፖ ዘወትር ናቸው; ከዋና ሞተሮቹ ሰፊ ምልክቶቹ ሐቀኛ ጉዳይ ሊሆኑ ይችላሉ።",
 
-  dl_pm_intro:
-    "አስቀድሞ የፓኬጅ አስተዳዳሪ ይጠቀማሉ? ሰነዳዊ ማውረዱን መዝለፍ ይቻሉ።",
+  dl_pm_intro: "አስቀድሞ የፓኬጅ አስተዳዳሪ ይጠቀማሉ? ሰነዳዊ ማውረዱን መዝለፍ ይቻሉ።",
 
   privacy_p1:
     "ማውረዶቹ ቀጥታ በ [yt-dlp](https://github.com/yt-dlp/yt-dlp) ከ YouTube ወደ መረጡት አቃፊ ይወርዳሉ — ምንም ሦስተኛ ወገን ሰርቨር አይሆንም። የእይታ ታሪክ፣ የማውረድ ታሪክ፣ URLs፣ እና የፋይሎቹ ይዘቶች በመሳሪያዎ ላይ ይቆያሉ።",
@@ -321,8 +318,7 @@ export const am = {
   plan_r6_desc:
     "በArroxy ውስጥ browser windows ክፈቱ፣ እንዲገቡ እና site cookies በእጅ ሳይexport እንዲጠቀሙ",
   plan_r8_name: "**አንድ-click ቪዲዮ ማውረድ**",
-  plan_r8_desc:
-    "በactive profile የተገኘ ወይም የተለጠፈ URL ቪዲዮ ማውረድን በአንድ click ጀምሩ",
+  plan_r8_desc: "በactive profile የተገኘ ወይም የተለጠፈ URL ቪዲዮ ማውረድን በአንድ click ጀምሩ",
   plan_r3_name: "**የተጠናከረ ዳግም ሙከራ መልሶ ማገገም**",
   plan_r3_desc:
     "በማይታመን ወይም ችግኝ ያለው የኢንተርኔት ግንኙነት የተቋረጡ ማውረዶችን ለመቀጠል አዲስ የዳግም ሙከራ መንገድ",
@@ -333,8 +329,7 @@ export const am = {
   plan_r5_desc: "ወረፋ በተወሰነ ሰዓት ጀምሩ (ሌሊት ሂደቶች)",
   plan_r7_name: "**ቁርጥ ምረጥ**",
   plan_r7_desc: "የጀምር/ማቆሚያ ጊዜ ብቻ ያወርዱ",
-  plan_cta:
-    "ባህሪ ሀሳብ አለዎ? [ጥያቄ ይክፈቱ](../../issues) — ማህበረሰቡ አስተዋጽኦ ቅድሚያ ይወስናሉ።",
+  plan_cta: "ባህሪ ሀሳብ አለዎ? [ጥያቄ ይክፈቱ](../../issues) — ማህበረሰቡ አስተዋጽኦ ቅድሚያ ይወስናሉ።",
   tech_content: TECH_CONTENT,
   tos_h2: "የአጠቃቀም ደንቦች",
   tos_note:

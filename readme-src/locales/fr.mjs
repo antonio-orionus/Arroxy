@@ -71,7 +71,8 @@ bun run dist:win     # compilation croisée exe portable Windows
 
 export const fr = {
   icon_alt: "Mascotte Arroxy",
-  title: "Arroxy — Téléchargeur YouTube (+ 2000 sites) gratuit et open source pour Windows, macOS & Linux",
+  title:
+    "Arroxy — Téléchargeur YouTube (+ 2000 sites) gratuit et open source pour Windows, macOS & Linux",
   read_in_label: "Lire en :",
   badge_release_alt: "Version",
   badge_build_alt: "Build",
@@ -86,7 +87,8 @@ export const fr = {
   cta_latest: "↓ Télécharger la dernière version",
   cta_website: "Site web",
   demo_alt: "Démo Arroxy",
-  star_cta: "Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.",
+  star_cta:
+    "Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.",
   ai_notice:
     "> 🌐 Traduction assistée par IA. Le [README en anglais](README.md) fait foi. Tu vois une erreur ? [Les PRs sont les bienvenues](../../pulls).",
   toc_heading: "Sommaire",
@@ -97,7 +99,8 @@ export const fr = {
   faq_h2: "Questions fréquentes",
   roadmap_h2: "Feuille de route",
   tech_h2: "Construit avec",
-  why_intro: "Une comparaison côte à côte avec les alternatives les plus courantes :",
+  why_intro:
+    "Une comparaison côte à côte avec les alternatives les plus courantes :",
   why_r1: "Gratuit, pas de niveau premium",
   why_r2: "Open source",
   why_r3: "Traitement 100 % local",
@@ -112,12 +115,14 @@ export const fr = {
   feat_quality_2: "**Haut framerate** préservé tel quel — 60 fps, 120 fps, HDR",
   feat_quality_3:
     "**Audio** — exporte l'audio seul en MP3, M4A/AAC, Opus ou WAV. Dans les téléchargements interactifs, choisis les pistes natives surround/Dolby de la source (AC-3, E-AC-3, 5.1, DRC) quand elles sont disponibles, ou définis une valeur par défaut globale **Préférer le surround / Dolby**",
-  feat_quality_4: "Préréglages rapides : *Meilleure qualité* · *Équilibré* · *Petit fichier*",
+  feat_quality_4:
+    "Préréglages rapides : *Meilleure qualité* · *Équilibré* · *Petit fichier*",
   feat_privacy_h3: "Confidentialité & contrôle",
   feat_privacy_1:
     "Traitement 100 % local — les téléchargements vont directement de YouTube à ton disque",
   feat_privacy_2: "Pas de connexion, pas de cookies, pas de compte Google lié",
-  feat_privacy_3: "Fichiers enregistrés directement dans le dossier que tu choisis",
+  feat_privacy_3:
+    "Fichiers enregistrés directement dans le dossier que tu choisis",
   feat_workflow_h3: "Flux de travail",
   feat_workflow_1:
     "**Modes de démarrage flexibles** — choisis un téléchargement unique guidé, un sélecteur de playlist/chaîne, un collage d’URL en lot ou Quick Download avec tes valeurs par défaut enregistrées",
@@ -153,11 +158,18 @@ export const fr = {
     "**L'audio seul et les sous-titres** fonctionnent sur chaque site supporté, pas seulement YouTube",
   feat_sites_4:
     "Si un site change, yt-dlp publie des correctifs chaque semaine et Arroxy met à jour le binaire automatiquement au lancement",
-  shot1_alt: "Coller une URL",
-  shot2_alt: "Choisir la qualité",
-  shot3_alt: "Choisir où enregistrer",
-  shot4_alt: "File de téléchargement en action",
-  shot5_alt: "Sélecteur de langue et de format pour les sous-titres",
+  shot1_cap:
+    "<b>Accueil Téléchargement rapide</b><br/>Collez une URL et lancez-la aussitôt avec votre profil actif",
+  shot2_cap:
+    "<b>Profils de téléchargement réutilisables</b><br/>Enregistrez format, qualité et sortie en préréglages — réutilisés à chaque téléchargement",
+  shot3_cap:
+    "<b>Pistes audio multilingues</b><br/>Choisissez la langue audio exacte fournie par la vidéo",
+  shot4_cap:
+    "<b>Audio Surround / Dolby</b><br/>Pistes 5.1 et Dolby détectées et conservées",
+  shot5_cap:
+    "<b>Mode URL en masse</b><br/>Collez une liste, dédoublonnage auto, tout mettre en file d'un coup",
+  shot6_cap:
+    "<b>File de téléchargement parallèle</b><br/>Plusieurs téléchargements à la fois avec progression en direct",
   dl_platform_col: "Plateforme",
   dl_format_col: "Format",
   dl_win_format: "Installeur (NSIS) ou `.exe` portable",
@@ -186,7 +198,7 @@ export const fr = {
     "**Recommandation :** utilise l'installeur NSIS pour les mises à jour automatiques et un démarrage plus rapide. Utilise le `.exe` portable pour une option sans installation ni registre.",
   dl_win_smartscreen_h4: "Avertissement Windows SmartScreen",
   dl_win_smartscreen_intro:
-    "Au premier lancement, tu peux voir **\"Windows protected your PC\"** ou **\"Unknown publisher.\"** Cela s'applique à la fois à `Arroxy-win-x64-Setup.exe` et à `Arroxy-win-x64-Portable.exe`. Arroxy est gratuit et open source, et les builds Windows ne sont pas signés avec un certificat payant, c'est pourquoi SmartScreen les signale. Cela ne signifie **pas** automatiquement qu'Arroxy est dangereux. Pour continuer :",
+    'Au premier lancement, tu peux voir **"Windows protected your PC"** ou **"Unknown publisher."** Cela s\'applique à la fois à `Arroxy-win-x64-Setup.exe` et à `Arroxy-win-x64-Portable.exe`. Arroxy est gratuit et open source, et les builds Windows ne sont pas signés avec un certificat payant, c\'est pourquoi SmartScreen les signale. Cela ne signifie **pas** automatiquement qu\'Arroxy est dangereux. Pour continuer :',
   dl_win_smartscreen_step1: "Clique sur **More info**.",
   dl_win_smartscreen_step2: "Clique sur **Run anyway**.",
   dl_win_smartscreen_official:
@@ -195,12 +207,13 @@ export const fr = {
   dl_macos_warning:
     "Arroxy n'est pas encore signé, donc macOS Gatekeeper affichera un avertissement au premier lancement. C'est normal — ce n'est pas un signe d'endommagement.",
   dl_macos_m1_h4: "Méthode via Réglages Système (recommandé) :",
-  dl_macos_step1: "Clic droit sur l'icône de l'app Arroxy et sélectionne **Ouvrir**.",
+  dl_macos_step1:
+    "Clic droit sur l'icône de l'app Arroxy et sélectionne **Ouvrir**.",
   dl_macos_step2:
     "La boîte de dialogue d'avertissement apparaît — clique sur **Annuler** (ne clique pas sur *Mettre à la corbeille*).",
   dl_macos_step3: "Ouvre **Réglages Système → Confidentialité et sécurité**.",
   dl_macos_step4:
-    'Descends jusqu\'à la section **Sécurité**. Tu verras *"Arroxy a été bloqué car il ne provient pas d\'un développeur identifié."*',
+    "Descends jusqu'à la section **Sécurité**. Tu verras *\"Arroxy a été bloqué car il ne provient pas d'un développeur identifié.\"*",
   dl_macos_step5:
     "Clique sur **Ouvrir quand même** et confirme avec ton mot de passe ou Touch ID.",
   dl_macos_after:
@@ -214,7 +227,8 @@ export const fr = {
   dl_linux_m1_text:
     "**Gestionnaire de fichiers :** clic droit sur le `.AppImage` → **Propriétés** → **Permissions** → active **Autoriser l'exécution du fichier comme programme**, puis double-clique.",
   dl_linux_m2_h4: "Terminal :",
-  dl_linux_fuse_text: "Si le lancement échoue encore, il te manque peut-être FUSE :",
+  dl_linux_fuse_text:
+    "Si le lancement échoue encore, il te manque peut-être FUSE :",
   dl_linux_flatpak_intro:
     "**Flatpak (alternative en sandbox) :** télécharge `Arroxy-*.flatpak` depuis la même page de release.",
 
@@ -258,7 +272,7 @@ export const fr = {
   dl_macos_damaged_h4:
     '"App is damaged" ou blocage Gatekeeper persistant — correction via Terminal',
   dl_macos_damaged_p:
-    'Si macOS dit *"Arroxy is damaged and can\'t be opened"*, ou qu\'aucune des étapes ci-dessus ne lève le blocage, l\'attribut de quarantaine sur le DMG en est la cause (certains navigateurs et le comportement de translocation propre à macOS le définissent). Supprime-le de l\'app installée :',
+    "Si macOS dit *\"Arroxy is damaged and can't be opened\"*, ou qu'aucune des étapes ci-dessus ne lève le blocage, l'attribut de quarantaine sur le DMG en est la cause (certains navigateurs et le comportement de translocation propre à macOS le définissent). Supprime-le de l'app installée :",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel :** sur un Mac de la série M (M1 / M2 / M3 / M4), télécharge le DMG `arm64`. Sur les Macs Intel, télécharge le DMG `x64`. Le mauvais build fonctionne quand même via Rosetta, mais est notablement plus lent.",
 
@@ -283,12 +297,14 @@ export const fr = {
   privacy_p2:
     "Arroxy envoie une télémétrie anonyme et agrégée via [OpenPanel](https://openpanel.dev) — juste assez pour comprendre les lancements, OS, versions de l’app et crashs. Pas d’URLs, de titres de vidéos, de chemins de fichiers, d’infos de compte, de fingerprinting ni de données personnelles. L’identifiant par installation est aléatoire et non lié à ton identité. Tu peux te désabonner dans les Paramètres.",
   faq_q1: "C'est vraiment gratuit ?",
-  faq_a1: "Oui — licence MIT, pas de niveau premium, pas de fonctions verrouillées.",
+  faq_a1:
+    "Oui — licence MIT, pas de niveau premium, pas de fonctions verrouillées.",
   faq_q2: "Quelles qualités de vidéo puis-je télécharger ?",
   faq_a2:
     "Tout ce que YouTube propose : 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio seul. Les flux 60 fps, 120 fps et HDR sont préservés tels quels.",
   faq_q3: "Puis-je extraire uniquement l'audio en MP3 ?",
-  faq_a3: "Oui. Choisis *audio seul* dans le menu des formats puis MP3, M4A/AAC, Opus ou WAV.",
+  faq_a3:
+    "Oui. Choisis *audio seul* dans le menu des formats puis MP3, M4A/AAC, Opus ou WAV.",
   faq_q4: "Ai-je besoin d'un compte YouTube ou de cookies ?",
   faq_a4:
     "Par défaut, non — Arroxy fonctionne sans compte YouTube, sans connexion et sans export de cookies. Un support de cookies optionnel est disponible dans les paramètres avancés (Source des cookies : fichier ou navigateur) pour le contenu nécessitant une authentification, comme les vidéos à restriction d'âge ou réservées aux membres. C'est désactivé par défaut. Si tu l'actives, le wiki de yt-dlp note que [l'automatisation à base de cookies peut signaler un compte Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) ; un compte jetable est alors le choix le plus sûr.",
@@ -314,7 +330,8 @@ export const fr = {
   plan_col1: "Fonctionnalité",
   plan_col2: "Description",
   plan_r1_name: "**Filtres de playlists et chaînes**",
-  plan_r1_desc: "Filtres par plage de dates lors de l’énumération d’une playlist ou d’une chaîne",
+  plan_r1_desc:
+    "Filtres par plage de dates lors de l’énumération d’une playlist ou d’une chaîne",
   plan_r2_name: "**Préférences de pistes audio YouTube**",
   plan_r2_desc:
     "Définir une piste de langue parlée préférée pour toute l’app, avec des choix différents par profil quand YouTube propose plusieurs pistes audio",

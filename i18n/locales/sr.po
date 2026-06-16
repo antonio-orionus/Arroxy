@@ -1405,6 +1405,10 @@ msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
 msgstr "Ставке плејлисте"
 
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Видео снимци за преузимање"
+
 msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} видео"
@@ -1432,6 +1436,10 @@ msgstr "{{count}} URL-ова"
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Преузимање плејлисте…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Добављање видео снимака…"
 
 msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
@@ -1464,6 +1472,10 @@ msgstr "Arroxy је пронашао више од {{count}} ставки, па 
 msgctxt "wizard.playlist.probeLimitAlertTitle"
 msgid "Playlist scan is capped"
 msgstr "Скенирање плејлисте је ограничено"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Скенирање је ограничено"
 
 msgctxt "wizard.playlist.rangeApply"
 msgid "Apply range"
@@ -1512,6 +1524,10 @@ msgstr "Већ је у фолдеру"
 msgctxt "wizard.playlist.syncNoneDesc"
 msgid "No videos from this playlist were found in {{dir}}."
 msgstr "Ниједан видео из ове плејлисте није пронађен у {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "У {{dir}} нису пронађени видео снимци из овог извора."
 
 msgctxt "wizard.playlist.syncNoneTitle"
 msgid "Nothing downloaded yet"
@@ -1655,7 +1671,11 @@ msgstr "Излаз"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Плејлиста"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Видео"
 
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"

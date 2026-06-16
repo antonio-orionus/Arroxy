@@ -33,10 +33,11 @@
 	"theme": {"light": "Mode clair", "dark": "Mode sombre", "system": "Système par défaut"},
 	"language": {"label": "Langue"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Qualité", "formats": "Format", "subtitles": "Sous-titres", "sponsorblock": "SponsorBlock", "output": "Sortie", "folder": "Enregistrer", "confirm": "Confirmer"},
+		"steps": {"url": "URL", "playlistItems": "Liste de lecture", "playlistItemsGeneric": "Vidéos", "playlistPresets": "Qualité", "formats": "Format", "subtitles": "Sous-titres", "sponsorblock": "SponsorBlock", "output": "Sortie", "folder": "Enregistrer", "confirm": "Confirmer"},
 		"playlistPresets": {"heading": "Choisir la qualité pour le lot", "subhead": "Chaque vidéo résout le niveau choisi indépendamment — les playlists hétérogènes fonctionnent sans surprise.", "itemCount_one": "{{count}} élément", "itemCount_other": "{{count}} éléments"},
 		"playlist": {
 			"heading": "Éléments de la Playlist",
+			"headingGeneric": "Vidéos à télécharger",
 			"bulkHeading": "URLs en lot",
 			"itemCount_one": "{{count}} vidéo",
 			"itemCount_other": "{{count}} vidéos",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}} sélectionnées",
 			"noSelection": "Sélectionnez au moins une vidéo pour continuer",
 			"loadingItems": "Récupération de la Playlist…",
+			"loadingItemsGeneric": "Récupération des vidéos…",
 			"loadingPhasePages": "Analyse des pages de la chaîne",
 			"loadingPhaseItems": "Collecte des vidéos",
 			"loadingPagesFound_one": "{{count}} page trouvée",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "{{n}} de ces vidéos sont déjà dans {{dir}}. Synchroniser pour télécharger uniquement les nouvelles ?",
 			"syncNoneTitle": "Rien de téléchargé pour le moment",
 			"syncNoneDesc": "Aucune vidéo de cette playlist n’a été trouvée dans {{dir}}.",
+			"syncNoneDescGeneric": "Aucune vidéo de cette source n’a été trouvée dans {{dir}}.",
 			"alreadyDownloaded": "Déjà téléchargé",
 			"probeLimitAlertTitle": "Le scan de la playlist est limité",
+			"probeLimitAlertTitleGeneric": "L’analyse est limitée",
 			"probeLimitAlertDesc": "Arroxy a trouvé plus de {{count}} éléments, donc la limite de scan actuelle masque le reste."
 		},
 		"bulk": {
@@ -133,7 +137,7 @@
 			"bulkTooltip": "Ajoutez plusieurs URLs et placez-les dans la file.",
 			"features": {
 				"heading": "Ce qu'Arroxy peut récupérer",
-				"youtube": {"heading": "YouTube", "video": "Vidéos", "channel": "Chaînes", "playlist": "Playlists", "short": "Shorts", "music": "Musique", "podcast": "Podcasts"},
+				"youtube": {"heading": "YouTube", "video": "Vidéos", "channel": "Chaînes", "playlist": "Listes de lecture", "short": "Shorts", "music": "Musique", "podcast": "Podcasts"},
 				"anySite": {"heading": "2000+ sites", "video": "Vidéos", "videoPlaylist": "Playlists vidéo", "musicPlaylist": "Playlists musicales"},
 				"always": {"audioOnly": "Audio uniquement", "subtitles": "Sous-titres"}
 			},
@@ -351,7 +355,7 @@
 			"addToQueueTooltip": "Démarre quand les autres téléchargements terminent — bande passante complète",
 			"pullIt": "Récupère-le ! ↓",
 			"pullItTooltip": "Démarre tout de suite — en parallèle des autres téléchargements actifs",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "Liste de lecture",
 			"labelBulk": "URLs en lot",
 			"labelPreset": "Qualité",
 			"labelItems": "Éléments",

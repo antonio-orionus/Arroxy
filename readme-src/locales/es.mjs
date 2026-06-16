@@ -71,7 +71,8 @@ bun run dist:win     # cross-compile Windows portable exe
 
 export const es = {
   icon_alt: "Mascota de Arroxy",
-  title: "Arroxy — Descargador gratuito de YouTube (+ 2000 sitios) de código abierto para Windows, macOS y Linux",
+  title:
+    "Arroxy — Descargador gratuito de YouTube (+ 2000 sitios) de código abierto para Windows, macOS y Linux",
   read_in_label: "Leer en:",
   badge_release_alt: "Versión",
   badge_build_alt: "Compilación",
@@ -86,7 +87,8 @@ export const es = {
   cta_latest: "↓ Descargar la última versión",
   cta_website: "Sitio web",
   demo_alt: "Demo de Arroxy",
-  star_cta: "Si Arroxy te ahorra tiempo, una ⭐ ayuda a que otros lo encuentren.",
+  star_cta:
+    "Si Arroxy te ahorra tiempo, una ⭐ ayuda a que otros lo encuentren.",
   ai_notice:
     "> 🌐 Esta es una traducción asistida por IA. El [README en inglés](README.md) es la fuente de verdad. ¿Encontraste un error? [Las PRs son bienvenidas](../../pulls).",
   toc_heading: "Contenido",
@@ -109,14 +111,17 @@ export const es = {
     "Arroxy está diseñado para una sola cosa: pega una URL y obtén un archivo local limpio. Sin cuentas, sin ventas adicionales, sin recolección de datos.",
   feat_quality_h3: "Calidad y formatos",
   feat_quality_1: "Hasta **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
-  feat_quality_2: "**Alta frecuencia de fotogramas** conservada tal cual — 60 fps, 120 fps, HDR",
+  feat_quality_2:
+    "**Alta frecuencia de fotogramas** conservada tal cual — 60 fps, 120 fps, HDR",
   feat_quality_3:
     "**Audio** — exporta solo audio como MP3, M4A/AAC, Opus o WAV. En las descargas interactivas, elige las pistas nativas surround/Dolby de la fuente (AC-3, E-AC-3, 5.1, DRC) cuando estén disponibles, o configura un valor global **Preferir surround / Dolby**",
-  feat_quality_4: "Presets rápidos: *Mejor calidad* · *Equilibrado* · *Archivo pequeño*",
+  feat_quality_4:
+    "Presets rápidos: *Mejor calidad* · *Equilibrado* · *Archivo pequeño*",
   feat_privacy_h3: "Privacidad y control",
   feat_privacy_1:
     "Procesamiento 100% local — las descargas van directamente de YouTube a tu disco",
-  feat_privacy_2: "Sin inicio de sesión, sin cookies, sin cuenta de Google vinculada",
+  feat_privacy_2:
+    "Sin inicio de sesión, sin cookies, sin cuenta de Google vinculada",
   feat_privacy_3: "Archivos guardados directamente en la carpeta que elijas",
   feat_workflow_h3: "Flujo de trabajo",
   feat_workflow_1:
@@ -153,11 +158,18 @@ export const es = {
     "**Solo audio y subtítulos** funcionan en todos los sitios compatibles, no solo en YouTube",
   feat_sites_4:
     "Si un sitio cambia, yt-dlp publica correcciones semanalmente y Arroxy actualiza el binario automáticamente al iniciar",
-  shot1_alt: "Pega una URL",
-  shot2_alt: "Elige la calidad",
-  shot3_alt: "Elige dónde guardar",
-  shot4_alt: "Cola de descargas en acción",
-  shot5_alt: "Selector de idioma y formato de subtítulos",
+  shot1_cap:
+    "<b>Inicio de Descarga rápida</b><br/>Pega una URL y descárgala al instante con tu perfil activo",
+  shot2_cap:
+    "<b>Perfiles de descarga reutilizables</b><br/>Guarda formato, calidad y salida como preajustes — reutiliza en cada descarga",
+  shot3_cap:
+    "<b>Pistas de audio multiidioma</b><br/>Elige el idioma de audio exacto que trae el vídeo",
+  shot4_cap:
+    "<b>Audio Surround / Dolby</b><br/>Pistas 5.1 y Dolby detectadas y conservadas",
+  shot5_cap:
+    "<b>Modo de URLs en lote</b><br/>Pega una lista, elimina duplicados y encólalas todas a la vez",
+  shot6_cap:
+    "<b>Cola de descargas en paralelo</b><br/>Varias descargas a la vez con progreso en vivo",
   dl_platform_col: "Plataforma",
   dl_format_col: "Formato",
   dl_win_format: "Instalador (NSIS) o `.exe` portátil",
@@ -186,7 +198,7 @@ export const es = {
     "**Recomendación:** usa el instalador NSIS para obtener auto-actualizaciones y un arranque más rápido. Usa el `.exe` portátil si prefieres no instalar ni tocar el registro.",
   dl_win_smartscreen_h4: "Advertencia de Windows SmartScreen",
   dl_win_smartscreen_intro:
-    "En el primer arranque puede aparecer **\"Windows protected your PC\"** o **\"Unknown publisher.\"** Esto aplica tanto a `Arroxy-win-x64-Setup.exe` como a `Arroxy-win-x64-Portable.exe`. Arroxy es gratuito y de código abierto, y las compilaciones de Windows no están firmadas con un certificado de pago, por lo que SmartScreen las marca. Eso **no** significa automáticamente que Arroxy sea inseguro. Para continuar:",
+    'En el primer arranque puede aparecer **"Windows protected your PC"** o **"Unknown publisher."** Esto aplica tanto a `Arroxy-win-x64-Setup.exe` como a `Arroxy-win-x64-Portable.exe`. Arroxy es gratuito y de código abierto, y las compilaciones de Windows no están firmadas con un certificado de pago, por lo que SmartScreen las marca. Eso **no** significa automáticamente que Arroxy sea inseguro. Para continuar:',
   dl_win_smartscreen_step1: "Haz clic en **More info**.",
   dl_win_smartscreen_step2: "Haz clic en **Run anyway**.",
   dl_win_smartscreen_official:
@@ -195,10 +207,12 @@ export const es = {
   dl_macos_warning:
     "Arroxy aún no está firmado con código, por lo que Gatekeeper de macOS mostrará una advertencia en el primer arranque. Esto es esperado — no indica ningún daño.",
   dl_macos_m1_h4: "Método de Configuración del Sistema (recomendado):",
-  dl_macos_step1: "Haz clic derecho en el ícono de Arroxy y selecciona **Abrir**.",
+  dl_macos_step1:
+    "Haz clic derecho en el ícono de Arroxy y selecciona **Abrir**.",
   dl_macos_step2:
     "Aparecerá el cuadro de advertencia — haz clic en **Cancelar** (no en *Mover a la papelera*).",
-  dl_macos_step3: "Abre **Configuración del Sistema → Privacidad y seguridad**.",
+  dl_macos_step3:
+    "Abre **Configuración del Sistema → Privacidad y seguridad**.",
   dl_macos_step4:
     'Baja hasta la sección **Seguridad**. Verás _"Arroxy fue bloqueado porque no es de un desarrollador identificado."_',
   dl_macos_step5:
@@ -288,7 +302,8 @@ export const es = {
   faq_a2:
     "Cualquiera que sirva YouTube: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, más solo audio. Los streams de 60 fps, 120 fps y HDR se conservan tal cual.",
   faq_q3: "¿Puedo extraer solo el audio como MP3?",
-  faq_a3: "Sí. Elige *solo audio* en el menú de formatos y luego MP3, M4A/AAC, Opus o WAV.",
+  faq_a3:
+    "Sí. Elige *solo audio* en el menú de formatos y luego MP3, M4A/AAC, Opus o WAV.",
   faq_q4: "¿Necesito una cuenta de YouTube o cookies?",
   faq_a4:
     "Por defecto, no — Arroxy funciona sin cuenta de YouTube, sin inicio de sesión y sin exportación de cookies. Hay soporte opcional de cookies disponible en la configuración avanzada (Origen de cookies: archivo o navegador) para contenido que requiere autenticación, como videos con restricción de edad o solo para miembros. Está desactivado por defecto. Si lo activas, la wiki de yt-dlp señala que [la automatización basada en cookies puede marcar una cuenta de Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); en ese caso, una cuenta desechable es la opción más segura.",
@@ -314,7 +329,8 @@ export const es = {
   plan_col1: "Función",
   plan_col2: "Descripción",
   plan_r1_name: "**Filtros de listas y canales**",
-  plan_r1_desc: "Filtros por rango de fechas al enumerar una playlist o un canal",
+  plan_r1_desc:
+    "Filtros por rango de fechas al enumerar una playlist o un canal",
   plan_r2_name: "**Preferencias de pistas de audio de YouTube**",
   plan_r2_desc:
     "Define una pista de idioma hablado predeterminada para toda la app, con sobrescrituras por perfil cuando YouTube ofrece varias pistas de audio",
@@ -333,7 +349,8 @@ export const es = {
   plan_r5_name: "**Descargas programadas**",
   plan_r5_desc: "Inicia una cola a una hora fijada (ejecuciones nocturnas)",
   plan_r7_name: "**Recorte de clips**",
-  plan_r7_desc: "Descarga solo un segmento especificando tiempo de inicio y fin",
+  plan_r7_desc:
+    "Descarga solo un segmento especificando tiempo de inicio y fin",
   plan_cta:
     "¿Tienes alguna función en mente? [Abre una solicitud](../../issues) — la opinión de la comunidad guía la prioridad.",
   tech_content: TECH_CONTENT,

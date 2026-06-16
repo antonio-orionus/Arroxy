@@ -41,10 +41,11 @@
 	"theme": {"light": "Yorug' rejim", "dark": "Qorong'i rejim", "system": "Tizim standart"},
 	"language": {"label": "Til"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Sifat", "formats": "Format", "subtitles": "Subtitrlar", "sponsorblock": "SponsorBlock", "output": "Chiqish", "folder": "Saqlash", "confirm": "Tasdiqlash"},
+		"steps": {"url": "URL", "playlistItems": "Ijro roʻyxati", "playlistItemsGeneric": "Videolar", "playlistPresets": "Sifat", "formats": "Format", "subtitles": "Subtitrlar", "sponsorblock": "SponsorBlock", "output": "Chiqish", "folder": "Saqlash", "confirm": "Tasdiqlash"},
 		"playlistPresets": {"heading": "Paket uchun sifatni tanlang", "subhead": "Har bir video tanlangan darajani mustaqil ravishda hal qiladi — turli xil playlistlar muammosiz ishlaydi.", "itemCount_one": "{{count}} ta element", "itemCount_other": "{{count}} ta element"},
 		"playlist": {
 			"heading": "Playlist elementlari",
+			"headingGeneric": "Yuklab olinadigan videolar",
 			"bulkHeading": "Ommaviy URLlar",
 			"itemCount_one": "{{count}} ta video",
 			"itemCount_other": "{{count}} ta video",
@@ -65,6 +66,7 @@
 			"selectedCount_other": "{{count}} ta tanlangan",
 			"noSelection": "Davom etish uchun kamida bitta videoni tanlang",
 			"loadingItems": "Playlist yuklanmoqda…",
+			"loadingItemsGeneric": "Videolar olinmoqda…",
 			"loadingPhasePages": "Kanal sahifalari skanerlanmoqda",
 			"loadingPhaseItems": "Videolar yig'ilmoqda",
 			"loadingPagesFound_one": "{{count}} sahifa topildi",
@@ -79,8 +81,10 @@
 			"syncFoundDesc": "Bu videolarning {{n}} tasi allaqachon {{dir}} ichida. Faqat yangilarini yuklab olish uchun sinxronlansinmi?",
 			"syncNoneTitle": "Hali hech narsa yuklab olinmagan",
 			"syncNoneDesc": "Bu pleylistdan hech bir video {{dir}} ichida topilmadi.",
+			"syncNoneDescGeneric": "{{dir}} ichida bu manbadan videolar topilmadi.",
 			"alreadyDownloaded": "Allaqachon yuklab olingan",
 			"probeLimitAlertTitle": "Pleylist skaneri cheklangan",
+			"probeLimitAlertTitleGeneric": "Skanlash cheklangan",
 			"probeLimitAlertDesc": "Arroxy {{count}} tadan ortiq element topdi, shuning uchun joriy skaner chekovi qolganlarini yashirmoqda."
 		},
 		"bulk": {
@@ -141,7 +145,7 @@
 			"bulkTooltip": "Bir nechta URLni qo‘shing va navbatga qo‘ying.",
 			"features": {
 				"heading": "Arroxy nima yuklab olishi mumkin",
-				"youtube": {"heading": "YouTube", "video": "Videolar", "channel": "Kanallar", "playlist": "Pleylistlar", "short": "Shortlar", "music": "Musiqa", "podcast": "Podkastlar"},
+				"youtube": {"heading": "YouTube", "video": "Videolar", "channel": "Kanallar", "playlist": "Ijro roʻyxatlari", "short": "Shortlar", "music": "Musiqa", "podcast": "Podkastlar"},
 				"anySite": {"heading": "2000+ sayt", "video": "Videolar", "videoPlaylist": "Video pleylistlar", "musicPlaylist": "Musiqa pleylistlar"},
 				"always": {"audioOnly": "Faqat audio", "subtitles": "Subtitrlar"}
 			},
@@ -359,7 +363,7 @@
 			"addToQueueTooltip": "Boshqa yuklamalar tugaganda boshlanadi — to'liq tarmoq kengligini oladi",
 			"pullIt": "Yuklab ol! ↓",
 			"pullItTooltip": "Darhol boshlanadi — boshqa faol yuklamalar bilan parallel ishlaydi",
-			"labelPlaylist": "Pleylist",
+			"labelPlaylist": "Ijro roʻyxati",
 			"labelBulk": "Ommaviy URLlar",
 			"labelPreset": "Sozlama",
 			"labelItems": "Elementlar",

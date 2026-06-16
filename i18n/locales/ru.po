@@ -1405,6 +1405,10 @@ msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
 msgstr "Элементы Playlist"
 
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Видео для загрузки"
+
 msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} видео"
@@ -1432,6 +1436,10 @@ msgstr "{{count}} URL"
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Загрузка Playlist…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Получаем видео…"
 
 msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
@@ -1464,6 +1472,10 @@ msgstr "Arroxy нашёл более {{count}} элементов, поэтом�
 msgctxt "wizard.playlist.probeLimitAlertTitle"
 msgid "Playlist scan is capped"
 msgstr "Сканирование плейлиста ограничено"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Сканирование ограничено"
 
 msgctxt "wizard.playlist.rangeApply"
 msgid "Apply range"
@@ -1512,6 +1524,10 @@ msgstr "Уже в папке"
 msgctxt "wizard.playlist.syncNoneDesc"
 msgid "No videos from this playlist were found in {{dir}}."
 msgstr "Видео из этого плейлиста не найдены в {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "В {{dir}} не найдены видео из этого источника."
 
 msgctxt "wizard.playlist.syncNoneTitle"
 msgid "Nothing downloaded yet"
@@ -1655,7 +1671,11 @@ msgstr "Вывод"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Плейлист"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Видео"
 
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"

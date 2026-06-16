@@ -24,10 +24,11 @@
 	"theme": {"light": "အလင်းမုဒ်", "dark": "အမှောင်မုဒ်", "system": "စနစ်မူရင်း"},
 	"language": {"label": "ဘာသာစကား"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "အရည်အသွေး", "formats": "ဖော်မတ်", "subtitles": "စာတန်းထိုး", "sponsorblock": "SponsorBlock", "output": "ထွက်ပေါ်မည့်ဖိုင်", "folder": "သိမ်းမည်", "confirm": "အတည်ပြုမည်"},
+		"steps": {"url": "URL", "playlistItems": "ပလေးလစ်", "playlistItemsGeneric": "ဗီဒီယိုများ", "playlistPresets": "အရည်အသွေး", "formats": "ဖော်မတ်", "subtitles": "စာတန်းထိုး", "sponsorblock": "SponsorBlock", "output": "ထွက်ပေါ်မည့်ဖိုင်", "folder": "သိမ်းမည်", "confirm": "အတည်ပြုမည်"},
 		"playlistPresets": {"heading": "Batch အတွက် အရည်အသွေးရွေးပါ", "subhead": "ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။", "itemCount_one": "{{count}} ခု", "itemCount_other": "{{count}} ခု"},
 		"playlist": {
 			"heading": "Playlist အကြောင်းအရာများ",
+			"headingGeneric": "ဒေါင်းလုဒ်ယူမည့် ဗီဒီယိုများ",
 			"bulkHeading": "URL အများအပြား",
 			"itemCount_one": "{{count}} ဗီဒီယို",
 			"itemCount_other": "{{count}} ဗီဒီယိုများ",
@@ -48,6 +49,7 @@
 			"selectedCount_other": "{{count}} ခုရွေးထားသည်",
 			"noSelection": "ဆက်လက်ရန် ဗီဒီယိုတစ်ခုအနည်းဆုံးရွေးပါ",
 			"loadingItems": "Playlist ရယူနေသည်…",
+			"loadingItemsGeneric": "ဗီဒီယိုများ ရယူနေသည်…",
 			"loadingPhasePages": "ချန်နယ် စာမျက်နှာများကို စစ်ဆေးနေသည်",
 			"loadingPhaseItems": "ဗီဒီယိုများ စုဆောင်းနေသည်",
 			"loadingPagesFound_one": "{{count}} စာမျက်နှာ တွေ့ရှိသည်",
@@ -62,8 +64,10 @@
 			"syncFoundDesc": "ဤဗီဒီယိုများထဲမှ {{n}} ခုသည် {{dir}} တွင် ရှိပြီးသားဖြစ်သည်။ အသစ်များကိုသာ ဒေါင်းလုဒ်ရန် sync လုပ်မလား။",
 			"syncNoneTitle": "ဒေါင်းလုဒ်လုပ်ထားတာ မရှိသေးပါ",
 			"syncNoneDesc": "ဤ playlist မှ ဗီဒီယိုများကို {{dir}} တွင် မတွေ့ပါ။",
+			"syncNoneDescGeneric": "{{dir}} တွင် ဤရင်းမြစ်မှ ဗီဒီယိုများ မတွေ့ပါ။",
 			"alreadyDownloaded": "ဒေါင်းလုဒ်ပြီးသား",
 			"probeLimitAlertTitle": "Playlist scan ကန့်သတ်ထားသည်",
+			"probeLimitAlertTitleGeneric": "စကင်န်ကန့်သတ်ထားသည်",
 			"probeLimitAlertDesc": "Arroxy သည် {{count}} ထက်ပိုသော အကြောင်းအရာများ တွေ့ရှိသောကြောင့် လက်ရှိ scan ကန့်သတ်ချက်ကြောင့် ကျန်သောအရာများ ဖျောက်ထားသည်။"
 		},
 		"bulk": {
@@ -124,7 +128,7 @@
 			"bulkTooltip": "URL အများအပြားကို ထည့်ပြီး queue ထဲသို့ ထည့်ပါ။",
 			"features": {
 				"heading": "Arroxy ဆွဲထုတ်နိုင်သည်",
-				"youtube": {"heading": "YouTube", "video": "ဗီဒီယိုများ", "channel": "Channel များ", "playlist": "Playlist များ", "short": "Shorts", "music": "တေးဂီတ", "podcast": "Podcast များ"},
+				"youtube": {"heading": "YouTube", "video": "ဗီဒီယိုများ", "channel": "Channel များ", "playlist": "ပလေးလစ်များ", "short": "Shorts", "music": "တေးဂီတ", "podcast": "Podcast များ"},
 				"anySite": {"heading": "2000+ ဝဘ်ဆိုဒ်", "video": "ဗီဒီယိုများ", "videoPlaylist": "ဗီဒီယို playlist များ", "musicPlaylist": "တေးဂီတ playlist များ"},
 				"always": {"audioOnly": "အသံသာများ", "subtitles": "စာတန်းထိုးများ"}
 			},
@@ -342,7 +346,7 @@
 			"addToQueueTooltip": "အခြားဒေါင်းလုဒ်များပြီးဆုံးလျှင်စတင်မည် — အပြည့်အဝ bandwidth ရမည်",
 			"pullIt": "ဆွဲထုတ်မည်! ↓",
 			"pullItTooltip": "ချက်ချင်းစတင်မည် — အခြားဒေါင်းလုဒ်များနှင့်အတူ အပြိုင်လုပ်မည်",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "ပလေးလစ်",
 			"labelBulk": "URL အများအပြား",
 			"labelPreset": "Preset",
 			"labelItems": "အကြောင်းအရာ",

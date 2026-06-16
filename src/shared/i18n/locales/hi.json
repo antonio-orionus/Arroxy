@@ -24,10 +24,11 @@
 	"theme": {"light": "लाइट मोड", "dark": "डार्क मोड", "system": "सिस्टम डिफ़ॉल्ट"},
 	"language": {"label": "भाषा"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "गुणवत्ता", "formats": "फ़ॉर्मेट", "subtitles": "उपशीर्षक", "sponsorblock": "SponsorBlock", "output": "आउटपुट", "folder": "सेव करें", "confirm": "पुष्टि करें"},
+		"steps": {"url": "URL", "playlistItems": "प्लेलिस्ट", "playlistItemsGeneric": "वीडियो", "playlistPresets": "गुणवत्ता", "formats": "फ़ॉर्मेट", "subtitles": "उपशीर्षक", "sponsorblock": "SponsorBlock", "output": "आउटपुट", "folder": "सेव करें", "confirm": "पुष्टि करें"},
 		"playlistPresets": {"heading": "बैच के लिए गुणवत्ता चुनें", "subhead": "हर वीडियो चुनी गई श्रेणी के अनुसार स्वतंत्र रूप से रेज़ॉल्व होता है — मिश्रित Playlist बिना किसी परेशानी के काम करती है।", "itemCount_one": "{{count}} आइटम", "itemCount_other": "{{count}} आइटम"},
 		"playlist": {
 			"heading": "Playlist आइटम",
+			"headingGeneric": "डाउनलोड करने वाले वीडियो",
 			"bulkHeading": "बल्क URLs",
 			"itemCount_one": "{{count}} वीडियो",
 			"itemCount_other": "{{count}} वीडियो",
@@ -48,6 +49,7 @@
 			"selectedCount_other": "{{count}} चुने गए",
 			"noSelection": "जारी रखने के लिए कम से कम एक वीडियो चुनें",
 			"loadingItems": "Playlist लाया जा रहा है…",
+			"loadingItemsGeneric": "वीडियो लाए जा रहे हैं…",
 			"loadingPhasePages": "चैनल पेज स्कैन किए जा रहे हैं",
 			"loadingPhaseItems": "वीडियो इकट्ठा किए जा रहे हैं",
 			"loadingPagesFound_one": "{{count}} पेज मिला",
@@ -62,8 +64,10 @@
 			"syncFoundDesc": "इन वीडियो में से {{n}} पहले से {{dir}} में हैं। केवल नए वीडियो डाउनलोड करने के लिए सिंक करें?",
 			"syncNoneTitle": "अभी तक कुछ डाउनलोड नहीं हुआ",
 			"syncNoneDesc": "इस प्लेलिस्ट के कोई वीडियो {{dir}} में नहीं मिले।",
+			"syncNoneDescGeneric": "{{dir}} में इस स्रोत के कोई वीडियो नहीं मिले।",
 			"alreadyDownloaded": "पहले से डाउनलोड किया गया",
 			"probeLimitAlertTitle": "प्लेलिस्ट स्कैन सीमित है",
+			"probeLimitAlertTitleGeneric": "स्कैन की सीमा तय है",
 			"probeLimitAlertDesc": "Arroxy को {{count}} से अधिक आइटम मिले, इसलिए वर्तमान स्कैन सीमा बाकी को छुपा रही है।"
 		},
 		"bulk": {
@@ -124,7 +128,7 @@
 			"bulkTooltip": "कई URLs जोड़ें और कतार में डालें।",
 			"features": {
 				"heading": "Arroxy क्या डाउनलोड कर सकता है",
-				"youtube": {"heading": "YouTube", "video": "वीडियो", "channel": "चैनल", "playlist": "Playlist", "short": "Shorts", "music": "संगीत", "podcast": "Podcast"},
+				"youtube": {"heading": "YouTube", "video": "वीडियो", "channel": "चैनल", "playlist": "प्लेलिस्ट", "short": "Shorts", "music": "संगीत", "podcast": "Podcast"},
 				"anySite": {"heading": "2000+ साइटें", "video": "वीडियो", "videoPlaylist": "वीडियो playlist", "musicPlaylist": "संगीत playlist"},
 				"always": {"audioOnly": "केवल ऑडियो", "subtitles": "उपशीर्षक"}
 			},
@@ -326,7 +330,7 @@
 			"addToQueueTooltip": "दूसरी डाउनलोड पूरी होने पर शुरू होगा — पूरी बैंडविड्थ मिलेगी",
 			"pullIt": "खींच लो! ↓",
 			"pullItTooltip": "तुरंत शुरू — बाक़ी सक्रिय डाउनलोड के साथ-साथ चलेगा",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "प्लेलिस्ट",
 			"labelBulk": "बल्क URLs",
 			"labelPreset": "प्रीसेट",
 			"labelItems": "आइटम",

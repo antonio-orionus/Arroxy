@@ -71,7 +71,8 @@ bun run dist:win     # mkusanyiko wa msalaba kwa Windows portable exe
 
 export const sw = {
   icon_alt: "Nembo ya Arroxy",
-  title: "Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) kwa Windows, macOS na Linux",
+  title:
+    "Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) kwa Windows, macOS na Linux",
   read_in_label: "Soma kwa:",
   badge_release_alt: "Toleo",
   badge_build_alt: "Ujenzi",
@@ -108,14 +109,16 @@ export const sw = {
     "Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Hakuna akaunti, hakuna mauzo ya ziada, hakuna ukusanyaji wa data.",
   feat_quality_h3: "Ubora na fomati",
   feat_quality_1: "Hadi **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
-  feat_quality_2: "**Kiwango cha juu cha fremu** kimehifadhiwa kama kilivyo — fps 60, fps 120, HDR",
+  feat_quality_2:
+    "**Kiwango cha juu cha fremu** kimehifadhiwa kama kilivyo — fps 60, fps 120, HDR",
   feat_quality_3:
     "**Sauti** — hamisha sauti pekee kama MP3, M4A/AAC, Opus au WAV. Katika upakuaji wa mwingiliano, chagua nyimbo asili za surround/Dolby za chanzo (AC-3, E-AC-3, 5.1, DRC) zinapopatikana, au weka chaguo-msingi la jumla **Pendelea surround / Dolby**",
   feat_quality_4: "Maandiko ya haraka: *Ubora bora* · *Usawa* · *Faili ndogo*",
   feat_privacy_h3: "Faragha na udhibiti",
   feat_privacy_1:
     "Usindikaji wa mahali hapo 100% — maudhui yanashuka moja kwa moja kutoka YouTube hadi kwenye diski yako",
-  feat_privacy_2: "Hakuna kuingia, hakuna vidakuzi, hakuna akaunti ya Google iliyounganishwa",
+  feat_privacy_2:
+    "Hakuna kuingia, hakuna vidakuzi, hakuna akaunti ya Google iliyounganishwa",
   feat_privacy_3: "Faili zimehifadhiwa moja kwa moja kwenye folda unayochagua",
   feat_workflow_h3: "Mtiririko wa kazi",
   feat_workflow_1:
@@ -152,11 +155,18 @@ export const sw = {
     "**Sauti pekee na manukuu** yanafanya kazi kwenye kila tovuti inayoungwa mkono, si YouTube peke yake",
   feat_sites_4:
     "Tovuti ikibadilika, yt-dlp hutoa marekebisho kila wiki na Arroxy husasisha binary kiotomatiki wakati wa uzinduzi",
-  shot1_alt: "Bandika URL",
-  shot2_alt: "Chagua ubora wako",
-  shot3_alt: "Chagua mahali pa kuhifadhi",
-  shot4_alt: "Foleni ya upakuaji inafanya kazi",
-  shot5_alt: "Kichaguo cha lugha na fomati ya manukuu",
+  shot1_cap:
+    "<b>Ukurasa wa Upakuaji wa haraka</b><br/>Bandika URL na uipakue papo hapo kwa wasifu wako amilifu",
+  shot2_cap:
+    "<b>Wasifu wa upakuaji unaoweza kutumika tena</b><br/>Hifadhi muundo, ubora na matokeo kama mipangilio — tumia tena kwa kila upakuaji",
+  shot3_cap:
+    "<b>Nyimbo za sauti za lugha nyingi</b><br/>Chagua lugha kamili ya sauti inayokuja na video",
+  shot4_cap:
+    "<b>Sauti ya Surround / Dolby</b><br/>Nyimbo za 5.1 na Dolby zinatambuliwa na kuhifadhiwa",
+  shot5_cap:
+    "<b>Hali ya URL nyingi</b><br/>Bandika orodha, ondoa nakala kiotomatiki, panga zote kwa pamoja",
+  shot6_cap:
+    "<b>Foleni ya upakuaji sambamba</b><br/>Upakuaji kadhaa kwa wakati mmoja na maendeleo ya moja kwa moja",
   dl_platform_col: "Jukwaa",
   dl_format_col: "Fomati",
   dl_win_format: "Kisanidi (NSIS) au Inayobebeka `.exe`",
@@ -185,7 +195,7 @@ export const sw = {
     "**Pendekezo:** tumia kisanidi cha NSIS kwa masasisho ya kiotomatiki na uzinduzi wa haraka. Tumia `.exe` inayobebeka kwa chaguo lisilo na usanidi na bila usajili.",
   dl_win_smartscreen_h4: "Onyo la Windows SmartScreen",
   dl_win_smartscreen_intro:
-    "Wakati wa uzinduzi wa kwanza unaweza kuona **\"Windows protected your PC\"** au **\"Unknown publisher.\"** Hii inatumika kwa `Arroxy-win-x64-Setup.exe` na `Arroxy-win-x64-Portable.exe`. Arroxy ni bure na chanzo wazi, na ujenzi wa Windows haujasainiwa kwa cheti cha malipo, ndiyo maana SmartScreen huipiga bendera. Hii **haimaanishi** kiotomatiki kwamba Arroxy si salama. Ili kuendelea:",
+    'Wakati wa uzinduzi wa kwanza unaweza kuona **"Windows protected your PC"** au **"Unknown publisher."** Hii inatumika kwa `Arroxy-win-x64-Setup.exe` na `Arroxy-win-x64-Portable.exe`. Arroxy ni bure na chanzo wazi, na ujenzi wa Windows haujasainiwa kwa cheti cha malipo, ndiyo maana SmartScreen huipiga bendera. Hii **haimaanishi** kiotomatiki kwamba Arroxy si salama. Ili kuendelea:',
   dl_win_smartscreen_step1: "Bonyeza **More info**.",
   dl_win_smartscreen_step2: "Bonyeza **Run anyway**.",
   dl_win_smartscreen_official:
@@ -194,7 +204,8 @@ export const sw = {
   dl_macos_warning:
     "Arroxy bado haijakaguliwa kwa msimbo, kwa hivyo macOS Gatekeeper itakuonya wakati wa uzinduzi wa kwanza. Hii inatarajiwa — si ishara ya uharibifu.",
   dl_macos_m1_h4: "Njia ya Mipangilio ya Mfumo (inayopendekezwa):",
-  dl_macos_step1: "Bonyeza kulia ikoni ya programu ya Arroxy na uchague **Open**.",
+  dl_macos_step1:
+    "Bonyeza kulia ikoni ya programu ya Arroxy na uchague **Open**.",
   dl_macos_step2:
     "Sanduku la onyo linaonekana — bonyeza **Cancel** (usibonyeze *Move to Trash*).",
   dl_macos_step3: "Fungua **System Settings → Privacy & Security**.",
@@ -282,12 +293,14 @@ export const sw = {
   privacy_p2:
     "Arroxy hutuma telemetry isiyo na jina na ya jumla kupitia [OpenPanel](https://openpanel.dev) — ya kutosha kuelewa uzinduzi, OS, matoleo ya programu na ajali. Hakuna URLs, vichwa vya video, njia za faili, taarifa za akaunti, fingerprinting au data binafsi. Kitambulisho cha kila usakinishaji ni cha nasibu na hakihusiani na utambulisho wako. Unaweza kujiondoa katika Mipangilio.",
   faq_q1: "Je, ni bure kweli kweli?",
-  faq_a1: "Ndiyo — leseni ya MIT, hakuna ngazi ya malipo, hakuna kizuizi cha vipengele.",
+  faq_a1:
+    "Ndiyo — leseni ya MIT, hakuna ngazi ya malipo, hakuna kizuizi cha vipengele.",
   faq_q2: "Ninaweza kupakua ubora gani wa video?",
   faq_a2:
     "Chochote YouTube kinatoa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, pamoja na sauti pekee. Mtiririko wa fps 60, fps 120, na HDR huhifadhiwa kama ulivyo.",
   faq_q3: "Je, ninaweza kutoa sauti pekee kama MP3?",
-  faq_a3: "Ndiyo. Chagua *sauti pekee* kwenye menyu ya fomati kisha uchague MP3, M4A/AAC, Opus au WAV.",
+  faq_a3:
+    "Ndiyo. Chagua *sauti pekee* kwenye menyu ya fomati kisha uchague MP3, M4A/AAC, Opus au WAV.",
   faq_q4: "Je, ninahitaji akaunti ya YouTube au vidakuzi?",
   faq_a4:
     "Kwa chaguomsingi, hapana — Arroxy hufanya kazi bila akaunti ya YouTube, kuingia, au kuhamisha vidakuzi. Usaidizi wa hiari wa vidakuzi unapatikana katika Mipangilio ya Kina (Chanzo cha vidakuzi: faili au kivinjari) kwa maudhui yanayohitaji uthibitisho, kama vile video zenye vikwazo vya umri au za wanachama tu. Umezimwa kwa chaguomsingi. Ukiwasha, wiki ya yt-dlp inaeleza kwamba [otomatiki inayotegemea vidakuzi inaweza kuweka alama kwenye akaunti yako ya Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); akaunti ya kutupa ni chaguo salama zaidi katika hali hiyo.",
@@ -313,7 +326,8 @@ export const sw = {
   plan_col1: "Kipengele",
   plan_col2: "Maelezo",
   plan_r1_name: "**Vichujio vya orodha za kucheza na vituo**",
-  plan_r1_desc: "Vichujio vya muda wa tarehe unapoorodhesha playlist au channel",
+  plan_r1_desc:
+    "Vichujio vya muda wa tarehe unapoorodhesha playlist au channel",
   plan_r2_name: "**Mapendeleo ya track za sauti za YouTube**",
   plan_r2_desc:
     "Weka upendeleo wa track ya lugha ya mazungumzo kwa app nzima, na override kwa kila profile YouTube inapotoa track nyingi za sauti",

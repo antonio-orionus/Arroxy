@@ -41,10 +41,11 @@
 	"theme": {"light": "Светла тема", "dark": "Тамна тема", "system": "Подразумевана системска"},
 	"language": {"label": "Језик"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Квалитет", "formats": "Формат", "subtitles": "Титлови", "sponsorblock": "SponsorBlock", "output": "Излаз", "folder": "Сачувај", "confirm": "Потврди"},
+		"steps": {"url": "URL", "playlistItems": "Плејлиста", "playlistItemsGeneric": "Видео", "playlistPresets": "Квалитет", "formats": "Формат", "subtitles": "Титлови", "sponsorblock": "SponsorBlock", "output": "Излаз", "folder": "Сачувај", "confirm": "Потврди"},
 		"playlistPresets": {"heading": "Изабери квалитет за групно преузимање", "subhead": "Свaki видео самостално проналази одговарајући ниво квалитета — хетерогене плејлисте раде без изненађења.", "itemCount_one": "{{count}} ставка", "itemCount_other": "{{count}} ставки"},
 		"playlist": {
 			"heading": "Ставке плејлисте",
+			"headingGeneric": "Видео снимци за преузимање",
 			"bulkHeading": "Групни URL-ови",
 			"itemCount_one": "{{count}} видео",
 			"itemCount_other": "{{count}} видеа",
@@ -65,6 +66,7 @@
 			"selectedCount_other": "{{count}} изабрано",
 			"noSelection": "Изабери барем један видео да би наставио/ла",
 			"loadingItems": "Преузимање плејлисте…",
+			"loadingItemsGeneric": "Добављање видео снимака…",
 			"loadingPhasePages": "Скенирање страница канала",
 			"loadingPhaseItems": "Прикупљање видео снимака",
 			"loadingPagesFound_one": "Пронађена је {{count}} страница",
@@ -79,8 +81,10 @@
 			"syncFoundDesc": "{{n}} ових видео снимака је већ у {{dir}}. Синхронизовати да се преузму само нови?",
 			"syncNoneTitle": "Још ништа није преузето",
 			"syncNoneDesc": "Ниједан видео из ове плејлисте није пронађен у {{dir}}.",
+			"syncNoneDescGeneric": "У {{dir}} нису пронађени видео снимци из овог извора.",
 			"alreadyDownloaded": "Већ преузето",
 			"probeLimitAlertTitle": "Скенирање плејлисте је ограничено",
+			"probeLimitAlertTitleGeneric": "Скенирање је ограничено",
 			"probeLimitAlertDesc": "Arroxy је пронашао више од {{count}} ставки, па тренутно ограничење скенирања скрива остатак."
 		},
 		"bulk": {

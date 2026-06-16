@@ -33,10 +33,11 @@
 	"theme": {"light": "Hali ya mwanga", "dark": "Hali ya giza", "system": "Chaguo-msingi la mfumo"},
 	"language": {"label": "Lugha"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Ubora", "formats": "Umbizo", "subtitles": "Manukuu", "sponsorblock": "SponsorBlock", "output": "Matokeo", "folder": "Hifadhi", "confirm": "Thibitisha"},
+		"steps": {"url": "URL", "playlistItems": "Orodha ya kucheza", "playlistItemsGeneric": "Video", "playlistPresets": "Ubora", "formats": "Umbizo", "subtitles": "Manukuu", "sponsorblock": "SponsorBlock", "output": "Matokeo", "folder": "Hifadhi", "confirm": "Thibitisha"},
 		"playlistPresets": {"heading": "Chagua ubora wa kundi", "subhead": "Kila video inatatua kiwango kilichochaguliwa kwa kujitegemea — playlists tofauti hufanya kazi bila mshangao.", "itemCount_one": "{{count}} kipande", "itemCount_other": "{{count}} vipande"},
 		"playlist": {
 			"heading": "Vipande vya Playlist",
+			"headingGeneric": "Video za kupakua",
 			"bulkHeading": "URL nyingi",
 			"itemCount_one": "{{count}} video",
 			"itemCount_other": "{{count}} video",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}} zimechaguliwa",
 			"noSelection": "Chagua angalau video moja ili kuendelea",
 			"loadingItems": "Inapata Playlist…",
+			"loadingItemsGeneric": "Inaleta video…",
 			"loadingPhasePages": "Inakagua kurasa za kituo",
 			"loadingPhaseItems": "Inakusanya video",
 			"loadingPagesFound_one": "Ukurasa {{count}} umepatikana",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "{{n}} kati ya video hizi tayari zipo kwenye {{dir}}. Sawazisha ili kupakua mpya pekee?",
 			"syncNoneTitle": "Hakuna kilichopakuliwa bado",
 			"syncNoneDesc": "Hakuna video kutoka orodha hii ya kucheza zilizopatikana kwenye {{dir}}.",
+			"syncNoneDescGeneric": "Hakuna video kutoka chanzo hiki zilizopatikana katika {{dir}}.",
 			"alreadyDownloaded": "Tayari imepakuliwa",
 			"probeLimitAlertTitle": "Skani ya playlist imefungwa",
+			"probeLimitAlertTitleGeneric": "Uchanganuzi umewekewa kikomo",
 			"probeLimitAlertDesc": "Arroxy imepata zaidi ya vipande {{count}}, kwa hivyo kikomo cha skani cha sasa kinaficha vilivyobaki."
 		},
 		"bulk": {
@@ -133,7 +137,7 @@
 			"bulkTooltip": "Ongeza na weka foleni URL nyingi.",
 			"features": {
 				"heading": "Arroxy inaweza kupakua nini",
-				"youtube": {"heading": "YouTube", "video": "Video", "channel": "Vituo", "playlist": "Playlists", "short": "Shorts", "music": "Muziki", "podcast": "Podcasts"},
+				"youtube": {"heading": "YouTube", "video": "Video", "channel": "Vituo", "playlist": "Orodha za kucheza", "short": "Shorts", "music": "Muziki", "podcast": "Podcasts"},
 				"anySite": {"heading": "Tovuti 2000+", "video": "Video", "videoPlaylist": "Playlists za video", "musicPlaylist": "Playlists za muziki"},
 				"always": {"audioOnly": "Sauti peke yake", "subtitles": "Manukuu"}
 			},
@@ -351,7 +355,7 @@
 			"addToQueueTooltip": "Inaanza vipakuzi vingine vikishamaliza — inapata upanuzi kamili",
 			"pullIt": "Pakua sasa! ↓",
 			"pullItTooltip": "Inaanza mara moja — inafanya kazi pamoja na vipakuzi vingine vinavyofanya kazi",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "Orodha ya kucheza",
 			"labelBulk": "URL nyingi",
 			"labelPreset": "Mpangilio",
 			"labelItems": "Vipande",

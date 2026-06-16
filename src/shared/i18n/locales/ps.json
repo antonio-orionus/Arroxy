@@ -33,10 +33,11 @@
 	"theme": {"light": "رڼا حالت", "dark": "تیاره حالت", "system": "د سیسټم ډیفالټ"},
 	"language": {"label": "ژبه"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "کیفیت", "formats": "بڼه", "subtitles": "ژباړلیکونه", "sponsorblock": "SponsorBlock", "output": "محصول", "folder": "خوندي کړه", "confirm": "تایید کړه"},
+		"steps": {"url": "URL", "playlistItems": "د غږولو لړليک", "playlistItemsGeneric": "ویډیوګانې", "playlistPresets": "کیفیت", "formats": "بڼه", "subtitles": "ژباړلیکونه", "sponsorblock": "SponsorBlock", "output": "محصول", "folder": "خوندي کړه", "confirm": "تایید کړه"},
 		"playlistPresets": {"heading": "د بیچ لپاره کیفیت وټاکئ", "subhead": "هر ویډیو خپلواکه د غوره شوي کچې سره حل کوي — مخلوط Playlist ونه بیا پرته له مشکل کار کوي.", "itemCount_one": "{{count}} توکی", "itemCount_other": "{{count}} توکي"},
 		"playlist": {
 			"heading": "د Playlist توکي",
+			"headingGeneric": "د ډاونلوډ لپاره ویډیوګانې",
 			"bulkHeading": "ډېر URLونه",
 			"itemCount_one": "{{count}} ویډیو",
 			"itemCount_other": "{{count}} ویډیوګانې",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}} غوره شوي",
 			"noSelection": "دوام کولو لپاره لږترلږه یو ویډیو غوره کړئ",
 			"loadingItems": "Playlist ترلاسه کیږي…",
+			"loadingItemsGeneric": "ویډیوګانې راوړل کېږي…",
 			"loadingPhasePages": "د چینل پاڼې کتل کېږي",
 			"loadingPhaseItems": "ویډیوګانې راټولېږي",
 			"loadingPagesFound_one": "{{count}} پاڼه وموندل شوه",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "له دې ویډیوګانو څخه {{n}} مخکې په {{dir}} کې شته. یوازې نوي ډاونلوډولو لپاره همغږي کوې؟",
 			"syncNoneTitle": "تر اوسه هېڅ نه دي ډاونلوډ شوي",
 			"syncNoneDesc": "د دې پلی‌لېست هېڅ ویډیو په {{dir}} کې ونه موندل شوه.",
+			"syncNoneDescGeneric": "په {{dir}} کې له دې سرچینې څخه ویډیوګانې ونه موندل شوې.",
 			"alreadyDownloaded": "مخکې ډاونلوډ شوی",
 			"probeLimitAlertTitle": "د Playlist سکین محدود دی",
+			"probeLimitAlertTitleGeneric": "سکن محدود دی",
 			"probeLimitAlertDesc": "Arroxy له {{count}} څخه زیات توکي وموندل، نو اوسنی سکین حد پاتې توکي پټوي."
 		},
 		"bulk": {
@@ -133,7 +137,7 @@
 			"bulkTooltip": "څو URLونه زیات او کتار ته یې واچوئ.",
 			"features": {
 				"heading": "Arroxy څه ډاونلوډ کولی شي",
-				"youtube": {"heading": "YouTube", "video": "ویډیوګانې", "channel": "چینلونه", "playlist": "Playlistونه", "short": "Shorts", "music": "موسیقي", "podcast": "Podcastونه"},
+				"youtube": {"heading": "YouTube", "video": "ویډیوګانې", "channel": "چینلونه", "playlist": "د غږولو لړليکونه", "short": "Shorts", "music": "موسیقي", "podcast": "Podcastونه"},
 				"anySite": {"heading": "2000+ سایټونه", "video": "ویډیوګانې", "videoPlaylist": "د ویډیو Playlistونه", "musicPlaylist": "د موسیقۍ Playlistونه"},
 				"always": {"audioOnly": "یوازې غږونه", "subtitles": "ژباړلیکونه"}
 			},
@@ -351,7 +355,7 @@
 			"addToQueueTooltip": "کله چې نور ډاونلوډونه پای ته ورسیږي پیل کیږي — بشپړ بینډوډت ترلاسه کوي",
 			"pullIt": "راکش یې کړه! ↓",
 			"pullItTooltip": "سمدلاسه پیل کیږي — د نورو فعالو ډاونلوډونو سره یوځای چلیږي",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "د غږولو لړليک",
 			"labelBulk": "ډېر URLونه",
 			"labelPreset": "Preset",
 			"labelItems": "توکي",

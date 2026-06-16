@@ -71,7 +71,8 @@ bun run dist:win     # Windows portable exe ni cross-kompilyatsiya qilish
 
 export const uz = {
   icon_alt: "Arroxy maskoti",
-  title: "Arroxy — Windows, macOS va Linux uchun Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi",
+  title:
+    "Arroxy — Windows, macOS va Linux uchun Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi",
   read_in_label: "O'qing:",
   badge_release_alt: "Reliz",
   badge_build_alt: "Qurish",
@@ -86,7 +87,8 @@ export const uz = {
   cta_latest: "↓ Oxirgi Relizni Yuklab Olish",
   cta_website: "Veb-sayt",
   demo_alt: "Arroxy demosi",
-  star_cta: "Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.",
+  star_cta:
+    "Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.",
   ai_notice: "",
   toc_heading: "Mundarija",
   why_h2: "Nima uchun Arroxy",
@@ -108,10 +110,12 @@ export const uz = {
     "Arroxy bir narsa uchun yaratilgan: URL'ni joylashtiring, toza mahalliy fayl oling. Hisoblar yo'q, qo'shimcha takliflar yo'q, ma'lumot to'plash yo'q.",
   feat_quality_h3: "Sifat va formatlar",
   feat_quality_1: "**4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p gacha",
-  feat_quality_2: "**Yuqori kadr tezligi** o'zgarmagan holda saqlanadi — 60 fps, 120 fps, HDR",
+  feat_quality_2:
+    "**Yuqori kadr tezligi** o'zgarmagan holda saqlanadi — 60 fps, 120 fps, HDR",
   feat_quality_3:
     "**Audio** — faqat audioni MP3, M4A/AAC, Opus yoki WAV sifatida eksport qiling. Interaktiv yuklab olishlarda mavjud bo'lganda manbaning asl surround/Dolby treklarini (AC-3, E-AC-3, 5.1, DRC) tanlang yoki global **Surround / Dolbyni afzal ko'rish** standartini o'rnating",
-  feat_quality_4: "Tezkor sozlamalar: *Eng yaxshi sifat* · *Muvozanatli* · *Kichik fayl*",
+  feat_quality_4:
+    "Tezkor sozlamalar: *Eng yaxshi sifat* · *Muvozanatli* · *Kichik fayl*",
   feat_privacy_h3: "Maxfiylik va nazorat",
   feat_privacy_1:
     "100% mahalliy qayta ishlash — yuklamalar YouTube'dan to'g'ridan-to'g'ri diskingizga boradi",
@@ -152,11 +156,18 @@ export const uz = {
     "**Faqat audio va subtitrlar** har qanday qo'llab-quvvatlanadigan saytda ishlaydi, nafaqat YouTube'da",
   feat_sites_4:
     "Sayt o'zgarsa, yt-dlp har hafta tuzatishlar chiqaradi va Arroxy ishga tushganda binarni avtomatik yangilaydi",
-  shot1_alt: "URL'ni joylashtirish",
-  shot2_alt: "Sifatni tanlash",
-  shot3_alt: "Saqlash joyini tanlash",
-  shot4_alt: "Yuklab olish navbati ishda",
-  shot5_alt: "Subtitle tili va format tanlagich",
+  shot1_cap:
+    "<b>Tezkor yuklab olish bosh sahifasi</b><br/>URL joylang va faol profilingiz bilan darhol yuklab oling",
+  shot2_cap:
+    "<b>Qayta ishlatiladigan yuklash profillari</b><br/>Format, sifat va chiqishni shablon sifatida saqlang — har yuklashda qayta ishlating",
+  shot3_cap:
+    "<b>Ko'p tilli audio yo'llari</b><br/>Video taqdim etgan aniq audio tilini tanlang",
+  shot4_cap:
+    "<b>Surround / Dolby audio</b><br/>5.1 va Dolby yo'llari aniqlanadi va saqlanadi",
+  shot5_cap:
+    "<b>Ommaviy URL rejimi</b><br/>Ro'yxat joylang, nusxalarni avtomatik olib tashlang, hammasini birato'la navbatga qo'ying",
+  shot6_cap:
+    "<b>Parallel yuklash navbati</b><br/>Bir vaqtning o'zida bir nechta yuklash, jonli jarayon bilan",
   dl_platform_col: "Platforma",
   dl_format_col: "Format",
   dl_win_format: "O'rnatuvchi (NSIS) yoki Portable `.exe`",
@@ -185,7 +196,7 @@ export const uz = {
     "**Tavsiya:** avtomatik yangilanishlar va tezroq ishga tushish uchun NSIS o'rnatuvchisidan foydalaning. O'rnatishsiz, reyestrg'a ta'sir qilmaydigan variant uchun portable `.exe` dan foydalaning.",
   dl_win_smartscreen_h4: "Windows SmartScreen ogohlantirishи",
   dl_win_smartscreen_intro:
-    "Birinchi ishga tushirishda **\"Windows protected your PC\"** yoki **\"Unknown publisher\"** xabarini ko'rishingiz mumkin. Bu `Arroxy-win-x64-Setup.exe` va `Arroxy-win-x64-Portable.exe` ikkisiga ham tegishli. Arroxy bepul va ochiq manbali dastur bo'lib, Windows qurilmalari pulli sertifikat bilan imzolanmagan, shuning uchun SmartScreen ularni belgilaydi. Bu Arroxy xavfli ekanligini **avtomatik ravishda** anglatmaydi. Davom etish uchun:",
+    'Birinchi ishga tushirishda **"Windows protected your PC"** yoki **"Unknown publisher"** xabarini ko\'rishingiz mumkin. Bu `Arroxy-win-x64-Setup.exe` va `Arroxy-win-x64-Portable.exe` ikkisiga ham tegishli. Arroxy bepul va ochiq manbali dastur bo\'lib, Windows qurilmalari pulli sertifikat bilan imzolanmagan, shuning uchun SmartScreen ularni belgilaydi. Bu Arroxy xavfli ekanligini **avtomatik ravishda** anglatmaydi. Davom etish uchun:',
   dl_win_smartscreen_step1: "**More info** tugmasini bosing.",
   dl_win_smartscreen_step2: "**Run anyway** tugmasini bosing.",
   dl_win_smartscreen_official:
@@ -194,12 +205,13 @@ export const uz = {
   dl_macos_warning:
     "Arroxy hali kod imzosiga ega emas, shuning uchun macOS Gatekeeper birinchi ishga tushirishda ogohlantirish ko'rsatadi. Bu kutilgan holat — bu shikastlanish belgisi emas.",
   dl_macos_m1_h4: "Tizim sozlamalari usuli (tavsiya etiladi):",
-  dl_macos_step1: "Arroxy ilova belgisiga sichqonchaning o'ng tugmasi bilan bosing va **Ochish** ni tanlang.",
+  dl_macos_step1:
+    "Arroxy ilova belgisiga sichqonchaning o'ng tugmasi bilan bosing va **Ochish** ni tanlang.",
   dl_macos_step2:
     "Ogohlantirish dialogi paydo bo'ladi — **Bekor qilish** tugmasini bosing (*Axlat qutisiga o'tkazish* ni bosmang).",
   dl_macos_step3: "**Tizim Sozlamalari → Maxfiylik va Xavfsizlik** ni oching.",
   dl_macos_step4:
-    'Pastga siljib **Xavfsizlik** bo\'limiga o\'ting. Siz *"Arroxy aniqlanmagan dasturchidan bo\'lganligi sababli ishlatish bloklangan."* degan yozuvni ko\'rasiz.',
+    "Pastga siljib **Xavfsizlik** bo'limiga o'ting. Siz *\"Arroxy aniqlanmagan dasturchidan bo'lganligi sababli ishlatish bloklangan.\"* degan yozuvni ko'rasiz.",
   dl_macos_step5:
     "**Baribir ochish** tugmasini bosing va parolingiz yoki Touch ID bilan tasdiqlang.",
   dl_macos_after:
@@ -213,7 +225,8 @@ export const uz = {
   dl_linux_m1_text:
     "**Fayl menejeri:** `.AppImage` ga sichqonchaning o'ng tugmasi bilan bosing → **Xususiyatlar** → **Ruxsatlar** → **Faylni dastur sifatida bajarishga ruxsat** ni yoqing, so'ng ikki marta bosing.",
   dl_linux_m2_h4: "Terminal:",
-  dl_linux_fuse_text: "Agar ishga tushirish hali ham muvaffaqiyatsiz bo'lsa, FUSE etishmayotgan bo'lishi mumkin:",
+  dl_linux_fuse_text:
+    "Agar ishga tushirish hali ham muvaffaqiyatsiz bo'lsa, FUSE etishmayotgan bo'lishi mumkin:",
   dl_linux_flatpak_intro:
     "**Flatpak (qumloq muhitdagi muqobil):** xuddi shu reliz sahifasidan `Arroxy-*.flatpak` ni yuklab oling.",
 
@@ -228,7 +241,7 @@ export const uz = {
   shot_smartscreen_more_alt:
     'SmartScreen "Windows protected your PC" dialogi, "More info" havolasi ta\'kidlangan holda',
   shot_smartscreen_run_alt:
-    'More info kengaytirilgandan so\'ng SmartScreen dialogi, "Run anyway" tugmasi ko\'rsatilgan holda',
+    "More info kengaytirilgandan so'ng SmartScreen dialogi, \"Run anyway\" tugmasi ko'rsatilgan holda",
   dl_win_defender_h4: "Windows Defender fayl ni belgilasa yoki olib tashlasa",
   dl_win_defender_p:
     "Defender evristikasi ba'zida imzalanmagan NSIS o'rnatuvchilari va Electron portableni shubhali deb belgilaydi. Agar Defender `Arroxy-win-x64-Setup.exe` yoki `Arroxy-win-x64-Portable.exe` ni karantinga olsa, uni **Windows Security → Virus & threat protection → Protection history** dan qayta tiklang, so'ng Arroxy bajariladigan faylini **Manage settings → Add or remove exclusions** ostida ruxsat etilgan element sifatida qo'shing. SmartScreen singari, bu ham aniqlanmagan zararli dastur emas, balki etishmayotgan nashriyotchi imzosi sababli yuzaga keladi.",
@@ -244,7 +257,7 @@ export const uz = {
   dl_macos_sequoia_step2:
     "Arroxy ni ikki marta bosing. Bloklash dialogi paydo bo'ladi — **Done** tugmasini bosing (*Move to Trash* ni bosmang).",
   dl_macos_sequoia_step3:
-    '**System Settings → Privacy & Security** ni oching va **Security** bo\'limiga suring. Siz *"Arroxy was blocked to protect your Mac"* (yoki shunga o\'xshash xabar) ko\'rasiz.',
+    "**System Settings → Privacy & Security** ni oching va **Security** bo'limiga suring. Siz *\"Arroxy was blocked to protect your Mac\"* (yoki shunga o'xshash xabar) ko'rasiz.",
   dl_macos_sequoia_step4:
     "**Open Anyway** tugmasini bosing, parolingiz yoki Touch ID bilan tasdiqlang, so'ng Arroxy ni `/Applications` dan qayta ishga tushiring.",
   dl_macos_sonoma_h4: "macOS Sonoma 14 va undan oldingi",
@@ -257,7 +270,7 @@ export const uz = {
   dl_macos_damaged_h4:
     '"App is damaged" yoki doimiy Gatekeeper bloki — Terminal orqali tuzatish',
   dl_macos_damaged_p:
-    'Agar macOS *"Arroxy is damaged and can\'t be opened"* desa, yoki yuqoridagi qadamlarning hech biri blokni bartaraf etmasa, DMG dagi karantin atributi sabab (ba\'zi brauzerlar va macOS ning o\'zining translokatsiya xatti-harakati uni o\'rnatadi). O\'rnatilgan ilovadan uni o\'chirib tashlang:',
+    "Agar macOS *\"Arroxy is damaged and can't be opened\"* desa, yoki yuqoridagi qadamlarning hech biri blokni bartaraf etmasa, DMG dagi karantin atributi sabab (ba'zi brauzerlar va macOS ning o'zining translokatsiya xatti-harakati uni o'rnatadi). O'rnatilgan ilovadan uni o'chirib tashlang:",
   dl_macos_arch_note:
     "**Apple Silicon va Intel:** M seriyali Mac da (M1 / M2 / M3 / M4) `arm64` DMG ni yuklab oling. Intel Mac larda `x64` DMG ni yuklab oling. Noto'g'ri qurilmani ishga tushirish Rosetta orqali ishlaydi, lekin sezilarli darajada sekinroq.",
 
@@ -282,12 +295,14 @@ export const uz = {
   privacy_p2:
     "Arroxy [OpenPanel](https://openpanel.dev) orqali anonim, agregat telemetriya yuboradi — ishga tushirishlar, OS, ilova versiyalari va nosozliklarni tushunish uchun yetarli. URL, video sarlavhasi, fayl yo‘li, hisob ma’lumoti, fingerprinting yoki shaxsiy ma’lumot yo‘q. Har bir o‘rnatish IDsi tasodifiy va shaxsingizga bog‘lanmagan. Sozlamalarda o‘chirib qo‘yishingiz mumkin.",
   faq_q1: "Bu haqiqatan ham bepulmi?",
-  faq_a1: "Ha — MIT litsenziyalangan, premium daraja yo'q, xususiyat cheklash yo'q.",
+  faq_a1:
+    "Ha — MIT litsenziyalangan, premium daraja yo'q, xususiyat cheklash yo'q.",
   faq_q2: "Qanday video sifatlarini yuklab olishim mumkin?",
   faq_a2:
     "YouTube uzatadigan har qanday narsa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p va faqat audio. 60 fps, 120 fps va HDR oqimlari o'zgarmagan holda saqlanadi.",
   faq_q3: "Faqat audioni MP3 sifatida chiqarib olishim mumkinmi?",
-  faq_a3: "Ha. Format menyusidan *faqat audio* ni tanlang va MP3, M4A/AAC, Opus yoki WAV ni belgilang.",
+  faq_a3:
+    "Ha. Format menyusidan *faqat audio* ni tanlang va MP3, M4A/AAC, Opus yoki WAV ni belgilang.",
   faq_q4: "YouTube hisob yoki kukilar kerakmi?",
   faq_a4:
     "Standart holatda — yo'q. Arroxy YouTube hisobi, tizimga kirish yoki kuki eksportisiz ishlaydi. Autentifikatsiya talab qiladigan kontent (masalan, yosh chegarasi qo'yilgan yoki faqat a'zolar uchun videolar) uchun Kengaytirilgan sozlamalarda ixtiyoriy kuki qo'llab-quvvatlash mavjud (Cookies source: file or browser). Standart holatda u o'chirilgan. Agar uni yoqsangiz, yt-dlp wiki sahifasida [kuki asosidagi avtomatlashtirish Google hisobini belgilashi mumkinligi haqida ogohlantirish berilgan](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); bunday holatda bir martalik hisob xavfsizroq tanlovdir.",
@@ -332,7 +347,8 @@ export const uz = {
   plan_r5_name: "**Rejalashtirilgan yuklab olishlar**",
   plan_r5_desc: "Navbatni belgilangan vaqtda boshlash (tunda ishlash)",
   plan_r7_name: "**Klip qirqish**",
-  plan_r7_desc: "Boshlash/tugash vaqti bo'yicha faqat bir segmentni yuklab olish",
+  plan_r7_desc:
+    "Boshlash/tugash vaqti bo'yicha faqat bir segmentni yuklab olish",
   plan_cta:
     "Xayyolizda xususiyat bormi? [So'rov yuboring](../../issues) — jamiyat ishtiroki ustuvorlikni belgilaydi.",
   tech_content: TECH_CONTENT,

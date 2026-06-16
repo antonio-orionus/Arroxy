@@ -33,10 +33,11 @@
 	"theme": {"light": "Светлая тема", "dark": "Тёмная тема", "system": "Системная"},
 	"language": {"label": "Язык"},
 	"wizard": {
-		"steps": {"url": "Ссылка", "playlistItems": "Playlist", "playlistPresets": "Качество", "formats": "Формат", "subtitles": "Субтитры", "sponsorblock": "SponsorBlock", "output": "Вывод", "folder": "Сохранить", "confirm": "Подтвердить"},
+		"steps": {"url": "Ссылка", "playlistItems": "Плейлист", "playlistItemsGeneric": "Видео", "playlistPresets": "Качество", "formats": "Формат", "subtitles": "Субтитры", "sponsorblock": "SponsorBlock", "output": "Вывод", "folder": "Сохранить", "confirm": "Подтвердить"},
 		"playlistPresets": {"heading": "Выбери качество для пакетной загрузки", "subhead": "Каждое видео независимо подбирает подходящий уровень качества — неоднородные плейлисты работают без сюрпризов.", "itemCount_one": "{{count}} элемент", "itemCount_other": "{{count}} элементов"},
 		"playlist": {
 			"heading": "Элементы Playlist",
+			"headingGeneric": "Видео для загрузки",
 			"bulkHeading": "Массовые URL",
 			"itemCount_one": "{{count}} видео",
 			"itemCount_other": "{{count}} видео",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}} выбрано",
 			"noSelection": "Выбери хотя бы одно видео, чтобы продолжить",
 			"loadingItems": "Загрузка Playlist…",
+			"loadingItemsGeneric": "Получаем видео…",
 			"loadingPhasePages": "Сканирование страниц канала",
 			"loadingPhaseItems": "Сбор видео",
 			"loadingPagesFound_one": "Найдена {{count}} страница",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "{{n}} из этих видео уже есть в {{dir}}. Синхронизировать, чтобы скачать только новые?",
 			"syncNoneTitle": "Пока ничего не скачано",
 			"syncNoneDesc": "Видео из этого плейлиста не найдены в {{dir}}.",
+			"syncNoneDescGeneric": "В {{dir}} не найдены видео из этого источника.",
 			"alreadyDownloaded": "Уже скачано",
 			"probeLimitAlertTitle": "Сканирование плейлиста ограничено",
+			"probeLimitAlertTitleGeneric": "Сканирование ограничено",
 			"probeLimitAlertDesc": "Arroxy нашёл более {{count}} элементов, поэтому текущий лимит сканирования скрывает остальные."
 		},
 		"bulk": {

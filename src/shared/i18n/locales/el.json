@@ -33,10 +33,11 @@
 	"theme": {"light": "Ανοιχτόχρωμη εμφάνιση", "dark": "Σκούρα εμφάνιση", "system": "Προεπιλογή συστήματος"},
 	"language": {"label": "Γλώσσα"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Ποιότητα", "formats": "Μορφή", "subtitles": "Υπότιτλοι", "sponsorblock": "SponsorBlock", "output": "Έξοδος", "folder": "Αποθήκευση", "confirm": "Επιβεβαίωση"},
+		"steps": {"url": "URL", "playlistItems": "Λίστα αναπαραγωγής", "playlistItemsGeneric": "Βίντεο", "playlistPresets": "Ποιότητα", "formats": "Μορφή", "subtitles": "Υπότιτλοι", "sponsorblock": "SponsorBlock", "output": "Έξοδος", "folder": "Αποθήκευση", "confirm": "Επιβεβαίωση"},
 		"playlistPresets": {"heading": "Επιλογή ποιότητας για την ομαδική λήψη", "subhead": "Κάθε βίντεο επιλύει το επιλεγμένο επίπεδο ανεξάρτητα — οι ανομοιογενείς playlist λειτουργούν χωρίς εκπλήξεις.", "itemCount_one": "{{count}} στοιχείο", "itemCount_other": "{{count}} στοιχεία"},
 		"playlist": {
 			"heading": "Στοιχεία playlist",
+			"headingGeneric": "Βίντεο για λήψη",
 			"bulkHeading": "Μαζικά URL",
 			"itemCount_one": "{{count}} βίντεο",
 			"itemCount_other": "{{count}} βίντεο",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}} επιλεγμένα",
 			"noSelection": "Επέλεξε τουλάχιστον ένα βίντεο για να συνεχίσεις",
 			"loadingItems": "Φόρτωση playlist…",
+			"loadingItemsGeneric": "Λήψη βίντεο…",
 			"loadingPhasePages": "Σάρωση σελίδων καναλιού",
 			"loadingPhaseItems": "Συλλογή βίντεο",
 			"loadingPagesFound_one": "Βρέθηκε {{count}} σελίδα",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "{{n}} από αυτά τα βίντεο υπάρχουν ήδη στο {{dir}}. Να γίνει συγχρονισμός για να κατεβούν μόνο τα νέα;",
 			"syncNoneTitle": "Δεν έχει κατεβεί τίποτα ακόμη",
 			"syncNoneDesc": "Δεν βρέθηκαν βίντεο από αυτήν την playlist στο {{dir}}.",
+			"syncNoneDescGeneric": "Δεν βρέθηκαν βίντεο από αυτήν την πηγή στο {{dir}}.",
 			"alreadyDownloaded": "Ήδη κατεβασμένο",
 			"probeLimitAlertTitle": "Η σάρωση playlist έχει περιοριστεί",
+			"probeLimitAlertTitleGeneric": "Η σάρωση είναι περιορισμένη",
 			"probeLimitAlertDesc": "Το Arroxy βρήκε περισσότερα από {{count}} στοιχεία, οπότε το τρέχον όριο σάρωσης αποκρύπτει τα υπόλοιπα."
 		},
 		"bulk": {
@@ -133,7 +137,7 @@
 			"bulkTooltip": "Πρόσθεσε και βάλε στην ουρά πολλά URL.",
 			"features": {
 				"heading": "Τι μπορεί να κατεβάσει το Arroxy",
-				"youtube": {"heading": "YouTube", "video": "Βίντεο", "channel": "Κανάλια", "playlist": "Playlist", "short": "Shorts", "music": "Μουσική", "podcast": "Podcast"},
+				"youtube": {"heading": "YouTube", "video": "Βίντεο", "channel": "Κανάλια", "playlist": "Λίστες αναπαραγωγής", "short": "Shorts", "music": "Μουσική", "podcast": "Podcast"},
 				"anySite": {"heading": "2000+ ιστότοποι", "video": "Βίντεο", "videoPlaylist": "Playlist βίντεο", "musicPlaylist": "Playlist μουσικής"},
 				"always": {"audioOnly": "Μόνο ήχοι", "subtitles": "Υπότιτλοι"}
 			},
@@ -351,7 +355,7 @@
 			"addToQueueTooltip": "Ξεκινά όταν ολοκληρωθούν άλλες λήψεις — αποκτά πλήρες εύρος ζώνης",
 			"pullIt": "Κατέβασέ το! ↓",
 			"pullItTooltip": "Ξεκινά αμέσως — εκτελείται παράλληλα με άλλες ενεργές λήψεις",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "Λίστα αναπαραγωγής",
 			"labelBulk": "Μαζικά URL",
 			"labelPreset": "Προεπιλογή",
 			"labelItems": "Στοιχεία",

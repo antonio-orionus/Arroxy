@@ -33,10 +33,11 @@
 	"theme": {"light": "Chế độ sáng", "dark": "Chế độ tối", "system": "Mặc định hệ thống"},
 	"language": {"label": "Ngôn ngữ"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Chất lượng", "formats": "Định dạng", "subtitles": "Phụ đề", "sponsorblock": "SponsorBlock", "output": "Đầu ra", "folder": "Lưu", "confirm": "Xác nhận"},
+		"steps": {"url": "URL", "playlistItems": "Danh sách phát", "playlistItemsGeneric": "Video", "playlistPresets": "Chất lượng", "formats": "Định dạng", "subtitles": "Phụ đề", "sponsorblock": "SponsorBlock", "output": "Đầu ra", "folder": "Lưu", "confirm": "Xác nhận"},
 		"playlistPresets": {"heading": "Chọn chất lượng cho lô", "subhead": "Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà.", "itemCount_one": "{{count}} mục", "itemCount_other": "{{count}} mục"},
 		"playlist": {
 			"heading": "Các mục Playlist",
+			"headingGeneric": "Video để tải xuống",
 			"bulkHeading": "URL hàng loạt",
 			"itemCount_one": "{{count}} video",
 			"itemCount_other": "{{count}} video",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}} đã chọn",
 			"noSelection": "Chọn ít nhất một video để tiếp tục",
 			"loadingItems": "Đang tải Playlist…",
+			"loadingItemsGeneric": "Đang tải video…",
 			"loadingPhasePages": "Đang quét các trang kênh",
 			"loadingPhaseItems": "Đang thu thập video",
 			"loadingPagesFound_one": "Đã tìm thấy {{count}} trang",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "{{n}} video trong số này đã có trong {{dir}}. Đồng bộ để chỉ tải các video mới?",
 			"syncNoneTitle": "Chưa có gì được tải xuống",
 			"syncNoneDesc": "Không tìm thấy video nào từ danh sách phát này trong {{dir}}.",
+			"syncNoneDescGeneric": "Không tìm thấy video nào từ nguồn này trong {{dir}}.",
 			"alreadyDownloaded": "Đã tải xuống",
 			"probeLimitAlertTitle": "Quét playlist đã bị giới hạn",
+			"probeLimitAlertTitleGeneric": "Quét đã bị giới hạn",
 			"probeLimitAlertDesc": "Arroxy tìm thấy nhiều hơn {{count}} mục, vì vậy giới hạn quét hiện tại đang ẩn phần còn lại."
 		},
 		"bulk": {

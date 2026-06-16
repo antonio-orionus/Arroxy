@@ -17,6 +17,8 @@
 
 <img src="build/demo.gif" alt="Arroxy ডেমো" width="720" />
 
+<img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
+
 Arroxy যদি আপনার সময় বাঁচায়, তাহলে একটি ⭐ অন্যদের খুঁজে পেতে সাহায্য করে।
 
 </div>
@@ -41,12 +43,12 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 
 ## <a id="install"></a>ডাউনলোড
 
-| প্ল্যাটফর্ম | ফরম্যাট |
-| ------------------- | ----------------- |
-| Windows             | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |
-| macOS               | [![macOS Apple Silicon](https://img.shields.io/badge/macOS-Apple%20Silicon-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) [![macOS Intel](https://img.shields.io/badge/macOS-Intel-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg) |
+| প্ল্যাটফর্ম | ফরম্যাট                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Windows             | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe)                                                                                                                                                                                                        |
+| macOS               | [![macOS Apple Silicon](https://img.shields.io/badge/macOS-Apple%20Silicon-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) [![macOS Intel](https://img.shields.io/badge/macOS-Intel-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg)                                                                                                                                                                                                                     |
 | Linux               | [![Linux AppImage](https://img.shields.io/badge/Linux-AppImage-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.AppImage) [![Linux Flatpak](https://img.shields.io/badge/Linux-Flatpak-4A90D9?style=for-the-badge&logo=flathub&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.flatpak) [![Linux tar.gz](https://img.shields.io/badge/Linux-tar.gz-6B7280?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.tar.gz) |
-| Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) |
+| Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**সর্বশেষ রিলিজ নিন →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
 
@@ -260,15 +262,20 @@ Arroxy একটি কাজের জন্য তৈরি: URL পেস্�
 - **শুধু অডিও ও সাবটাইটেল** সমস্ত সমর্থিত সাইটে কাজ করে, শুধু YouTube-এ নয়
 - কোনো সাইট পরিবর্তিত হলে, yt-dlp সাপ্তাহিক ফিক্স পাঠায় এবং Arroxy লঞ্চে বাইনারি অটো-আপডেট করে
 
-<div align="center">
-  <img src="build/Main-screenshot.png" width="48%" alt="একটি URL পেস্ট করুন" />
-  <img src="build/Choosing-format-screenshot.png" width="48%" alt="আপনার মান বেছে নিন" />
-  <br/>
-  <img src="build/Choosing-destination-screenshot.png" width="48%" alt="কোথায় সংরক্ষণ করবেন বেছে নিন" />
-  <img src="build/Downloading-in-parallel-screenshot.png" width="48%" alt="ডাউনলোড কিউ সক্রিয়" />
-  <br/>
-  <img src="build/Subtitles-screenshot.png" width="48%" alt="সাবটাইটেল ভাষা ও ফরম্যাট পিকার" />
-</div>
+<table align="center" width="100%">
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>দ্রুত ডাউনলোড হোম</b><br/>একটি URL পেস্ট করুন এবং আপনার সক্রিয় প্রোফাইল দিয়ে সঙ্গে সঙ্গে ডাউনলোড করুন</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>পুনঃব্যবহারযোগ্য ডাউনলোড প্রোফাইল</b><br/>ফরম্যাট, মান ও আউটপুট প্রিসেট হিসেবে সংরক্ষণ করুন — প্রতি ডাউনলোডে পুনরায় ব্যবহার করুন</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>বহুভাষিক অডিও ট্র্যাক</b><br/>ভিডিওতে থাকা সঠিক অডিও ভাষা নির্বাচন করুন</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>সারাউন্ড / Dolby অডিও</b><br/>5.1 এবং Dolby ট্র্যাক শনাক্ত করে সংরক্ষণ করা হয়</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>বাল্ক URL মোড</b><br/>একটি তালিকা পেস্ট করুন, স্বয়ংক্রিয়ভাবে ডুপ্লিকেট সরান, সব একসাথে সারিবদ্ধ করুন</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>সমান্তরাল ডাউনলোড সারি</b><br/>লাইভ অগ্রগতিসহ একসাথে একাধিক ডাউনলোড</sub></td>
+  </tr>
+</table>
 
 ---
 

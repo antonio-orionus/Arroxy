@@ -71,7 +71,8 @@ bun run dist:win     # Windows Portable exe cross-kompilieren
 
 export const de = {
   icon_alt: "Arroxy Maskottchen",
-  title: "Arroxy — Kostenloser Open-Source YouTube (+ 2000 Seiten) Downloader für Windows, macOS & Linux",
+  title:
+    "Arroxy — Kostenloser Open-Source YouTube (+ 2000 Seiten) Downloader für Windows, macOS & Linux",
   read_in_label: "Sprache:",
   badge_release_alt: "Release",
   badge_build_alt: "Build",
@@ -109,10 +110,12 @@ export const de = {
     "Arroxy ist für eine Sache gebaut: URL einfügen, saubere lokale Datei erhalten. Keine Konten, kein Upselling, keine Datensammlung.",
   feat_quality_h3: "Qualität & Formate",
   feat_quality_1: "Bis zu **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
-  feat_quality_2: "**Hohe Bildrate** unverändert erhalten — 60 fps, 120 fps, HDR",
+  feat_quality_2:
+    "**Hohe Bildrate** unverändert erhalten — 60 fps, 120 fps, HDR",
   feat_quality_3:
     "**Audio** — Audio-only als MP3, M4A/AAC, Opus oder WAV exportieren. In interaktiven Downloads die nativen Surround-/Dolby-Spuren der Quelle (AC-3, E-AC-3, 5.1, DRC) auswählen, sofern verfügbar, oder einen globalen Standard **Surround / Dolby bevorzugen** setzen",
-  feat_quality_4: "Schnell-Presets: *Beste Qualität* · *Ausgewogen* · *Kleine Datei*",
+  feat_quality_4:
+    "Schnell-Presets: *Beste Qualität* · *Ausgewogen* · *Kleine Datei*",
   feat_privacy_h3: "Datenschutz & Kontrolle",
   feat_privacy_1:
     "100 % lokale Verarbeitung — Downloads gehen direkt von YouTube auf deine Festplatte",
@@ -153,11 +156,18 @@ export const de = {
     "**Nur Audio und Untertitel** funktionieren auf jeder unterstützten Seite, nicht nur auf YouTube",
   feat_sites_4:
     "Ändert sich eine Seite, liefert yt-dlp wöchentlich Fixes und Arroxy aktualisiert das Binary beim Start automatisch",
-  shot1_alt: "URL einfügen",
-  shot2_alt: "Qualität wählen",
-  shot3_alt: "Speicherort wählen",
-  shot4_alt: "Download-Warteschlange in Aktion",
-  shot5_alt: "Untertitel-Sprachen und Format wählen",
+  shot1_cap:
+    "<b>Quick-Download-Startseite</b><br/>URL einfügen und sofort mit deinem aktiven Profil herunterladen",
+  shot2_cap:
+    "<b>Wiederverwendbare Download-Profile</b><br/>Format, Qualität und Ausgabe als Voreinstellung speichern – pro Download wiederverwenden",
+  shot3_cap:
+    "<b>Mehrsprachige Audiospuren</b><br/>Genau die Audiosprache wählen, die ein Video mitbringt",
+  shot4_cap:
+    "<b>Surround-/Dolby-Audio</b><br/>5.1- und Dolby-Spuren erkannt und erhalten",
+  shot5_cap:
+    "<b>Massen-URL-Modus</b><br/>Liste einfügen, automatisch entdoppeln, alle auf einmal einreihen",
+  shot6_cap:
+    "<b>Paralleler Download-Verlauf</b><br/>Mehrere Downloads gleichzeitig mit Live-Fortschritt",
   dl_platform_col: "Plattform",
   dl_format_col: "Format",
   dl_win_format: "Installer (NSIS) oder Portable `.exe`",
@@ -186,7 +196,7 @@ export const de = {
     "**Empfehlung:** Nimm den NSIS Installer für Auto-Updates und schnelleren Start. Nimm die portable `.exe` für eine Option ohne Installation und ohne Registry-Einträge.",
   dl_win_smartscreen_h4: "Windows SmartScreen-Warnung",
   dl_win_smartscreen_intro:
-    "Beim ersten Start kann **\"Windows protected your PC\"** oder **\"Unknown publisher\"** erscheinen. Das gilt sowohl für `Arroxy-win-x64-Setup.exe` als auch für `Arroxy-win-x64-Portable.exe`. Arroxy ist kostenlos und Open Source, und die Windows-Builds sind nicht mit einem kostenpflichtigen Zertifikat signiert, weshalb SmartScreen sie markiert. Das bedeutet **nicht** automatisch, dass Arroxy unsicher ist. So geht es weiter:",
+    'Beim ersten Start kann **"Windows protected your PC"** oder **"Unknown publisher"** erscheinen. Das gilt sowohl für `Arroxy-win-x64-Setup.exe` als auch für `Arroxy-win-x64-Portable.exe`. Arroxy ist kostenlos und Open Source, und die Windows-Builds sind nicht mit einem kostenpflichtigen Zertifikat signiert, weshalb SmartScreen sie markiert. Das bedeutet **nicht** automatisch, dass Arroxy unsicher ist. So geht es weiter:',
   dl_win_smartscreen_step1: "Klicke auf **More info**.",
   dl_win_smartscreen_step2: "Klicke auf **Run anyway**.",
   dl_win_smartscreen_official:
@@ -195,7 +205,8 @@ export const de = {
   dl_macos_warning:
     "Arroxy ist noch nicht code-signiert, daher warnt macOS Gatekeeper beim ersten Start. Das ist erwartet — kein Zeichen für eine Beschädigung.",
   dl_macos_m1_h4: "Methode über Systemeinstellungen (empfohlen):",
-  dl_macos_step1: "Rechtsklick auf das Arroxy-App-Symbol und **Öffnen** wählen.",
+  dl_macos_step1:
+    "Rechtsklick auf das Arroxy-App-Symbol und **Öffnen** wählen.",
   dl_macos_step2:
     "Der Warndialog erscheint — klicke auf **Abbrechen** (nicht auf *In den Papierkorb*)).",
   dl_macos_step3: "Öffne **Systemeinstellungen → Datenschutz & Sicherheit**.",
@@ -214,7 +225,8 @@ export const de = {
   dl_linux_m1_text:
     "**Dateimanager:** Rechtsklick auf die `.AppImage` → **Eigenschaften** → **Berechtigungen** → **Datei als Programm ausführen erlauben** aktivieren, dann doppelklicken.",
   dl_linux_m2_h4: "Terminal:",
-  dl_linux_fuse_text: "Falls der Start trotzdem fehlschlägt, fehlt möglicherweise FUSE:",
+  dl_linux_fuse_text:
+    "Falls der Start trotzdem fehlschlägt, fehlt möglicherweise FUSE:",
   dl_linux_flatpak_intro:
     "**Flatpak (sandboxed Alternative):** Lade `Arroxy-*.flatpak` von derselben Release-Seite herunter.",
 
@@ -258,7 +270,7 @@ export const de = {
   dl_macos_damaged_h4:
     '"App is damaged" oder anhaltende Gatekeeper-Blockierung — Terminal-Fix',
   dl_macos_damaged_p:
-    'Wenn macOS sagt *"Arroxy is damaged and can\'t be opened"*, oder keiner der obigen Schritte die Blockierung aufhebt, ist das Quarantäne-Attribut auf dem DMG die Ursache (manche Browser und macOS\'s eigenes Translocation-Verhalten setzen es). Entferne es von der installierten App:',
+    "Wenn macOS sagt *\"Arroxy is damaged and can't be opened\"*, oder keiner der obigen Schritte die Blockierung aufhebt, ist das Quarantäne-Attribut auf dem DMG die Ursache (manche Browser und macOS's eigenes Translocation-Verhalten setzen es). Entferne es von der installierten App:",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel:** auf einem Mac der M-Serie (M1 / M2 / M3 / M4) lade das `arm64`-DMG herunter. Auf Intel-Macs lade das `x64`-DMG. Der falsche Build funktioniert auch über Rosetta, ist aber spürbar langsamer.",
 
@@ -288,7 +300,8 @@ export const de = {
   faq_a2:
     "Alles, was YouTube anbietet: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus nur Audio. Hochbildraten-Streams mit 60 fps und 120 fps sowie HDR-Inhalte werden unverändert übernommen.",
   faq_q3: "Kann ich nur den Audio-Track als MP3 extrahieren?",
-  faq_a3: "Ja. Wähle im Formatmenü *nur Audio* und dann MP3, M4A/AAC, Opus oder WAV.",
+  faq_a3:
+    "Ja. Wähle im Formatmenü *nur Audio* und dann MP3, M4A/AAC, Opus oder WAV.",
   faq_q4: "Brauche ich ein YouTube-Konto oder Cookies?",
   faq_a4:
     "Standardmäßig nein — Arroxy funktioniert ohne YouTube-Konto, Login oder Cookie-Export. Optionale Cookie-Unterstützung steht in den erweiterten Einstellungen zur Verfügung (Cookies source: file or browser) für Inhalte, die eine Authentifizierung erfordern, etwa altersbeschränkte oder Mitglieder-only-Videos. Sie ist standardmäßig deaktiviert. Wenn du sie aktivierst, weist das yt-dlp-Wiki darauf hin, dass [Cookie-basierte Automatisierung ein Google-Konto markieren kann](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); ein Wegwerf-Konto ist in dem Fall die sicherere Wahl.",

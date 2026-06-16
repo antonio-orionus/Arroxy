@@ -24,10 +24,11 @@
 	"theme": {"light": "浅色模式", "dark": "深色模式", "system": "跟随系统"},
 	"language": {"label": "语言"},
 	"wizard": {
-		"steps": {"url": "链接", "playlistItems": "Playlist", "playlistPresets": "画质", "formats": "格式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "输出", "folder": "保存", "confirm": "确认"},
+		"steps": {"url": "链接", "playlistItems": "播放列表", "playlistItemsGeneric": "视频", "playlistPresets": "画质", "formats": "格式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "输出", "folder": "保存", "confirm": "确认"},
 		"playlistPresets": {"heading": "选择批量下载画质", "subhead": "每个视频独立匹配所选画质档位——混合内容的播放列表也能正常处理，无意外。", "itemCount_one": "{{count}} 项", "itemCount_other": "{{count}} 项"},
 		"playlist": {
 			"heading": "Playlist 视频",
+			"headingGeneric": "要下载的视频",
 			"bulkHeading": "批量 URL",
 			"itemCount_one": "{{count}} 个视频",
 			"itemCount_other": "{{count}} 个视频",
@@ -48,6 +49,7 @@
 			"selectedCount_other": "已选 {{count}} 个",
 			"noSelection": "请至少选择一个视频以继续",
 			"loadingItems": "正在获取 Playlist…",
+			"loadingItemsGeneric": "正在获取视频…",
 			"loadingPhasePages": "正在扫描频道页面",
 			"loadingPhaseItems": "正在收集视频",
 			"loadingPagesFound_one": "找到 {{count}} 个页面",
@@ -62,8 +64,10 @@
 			"syncFoundDesc": "这些视频中有 {{n}} 个已在 {{dir}} 中。要同步以仅下载新视频吗？",
 			"syncNoneTitle": "尚未下载任何内容",
 			"syncNoneDesc": "在 {{dir}} 中未找到此播放列表的视频。",
+			"syncNoneDescGeneric": "在 {{dir}} 中未找到来自此来源的视频。",
 			"alreadyDownloaded": "已下载",
 			"probeLimitAlertTitle": "播放列表扫描已达上限",
+			"probeLimitAlertTitleGeneric": "扫描已达上限",
 			"probeLimitAlertDesc": "Arroxy 发现超过 {{count}} 个项目，当前扫描上限隐藏了其余内容。"
 		},
 		"bulk": {

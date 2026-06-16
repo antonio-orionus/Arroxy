@@ -71,7 +71,8 @@ bun run dist:win     # biên dịch chéo Windows portable exe
 
 export const vi = {
   icon_alt: "Linh vật Arroxy",
-  title: "Arroxy — Trình tải YouTube (+ 2000 trang) miễn phí và mã nguồn mở cho Windows, macOS & Linux",
+  title:
+    "Arroxy — Trình tải YouTube (+ 2000 trang) miễn phí và mã nguồn mở cho Windows, macOS & Linux",
   read_in_label: "Đọc bằng:",
   badge_release_alt: "Phiên bản",
   badge_build_alt: "Build",
@@ -80,13 +81,15 @@ export const vi = {
   badge_i18n_alt: "Ngôn ngữ",
   badge_website_alt: "Trang web",
   discord_badge_text: "Tham gia cộng đồng Discord",
-  discord_badge_encoded: "Tham%20gia%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%20Discord",
+  discord_badge_encoded:
+    "Tham%20gia%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%20Discord",
   hero_desc:
     "Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 4K HDR ở 60 fps, hoặc dưới dạng MP3 / AAC / Opus. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**",
   cta_latest: "↓ Tải phiên bản mới nhất",
   cta_website: "Trang web",
   demo_alt: "Demo Arroxy",
-  star_cta: "Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp người khác tìm thấy nó.",
+  star_cta:
+    "Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp người khác tìm thấy nó.",
   ai_notice: "",
   toc_heading: "Mục lục",
   why_h2: "Tại sao chọn Arroxy",
@@ -108,14 +111,17 @@ export const vi = {
     "Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận file cục bộ sạch. Không tài khoản, không upsell, không thu thập dữ liệu.",
   feat_quality_h3: "Chất lượng & định dạng",
   feat_quality_1: "Lên tới **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
-  feat_quality_2: "**Tốc độ khung hình cao** được giữ nguyên — 60 fps, 120 fps, HDR",
+  feat_quality_2:
+    "**Tốc độ khung hình cao** được giữ nguyên — 60 fps, 120 fps, HDR",
   feat_quality_3:
     "**Âm thanh** — xuất chỉ âm thanh thành MP3, M4A/AAC, Opus hoặc WAV. Trong tải xuống tương tác, chọn các bản âm thanh surround/Dolby gốc của nguồn (AC-3, E-AC-3, 5.1, DRC) khi có sẵn, hoặc đặt mặc định toàn cục **Ưu tiên surround / Dolby**",
-  feat_quality_4: "Cài đặt nhanh: *Chất lượng tốt nhất* · *Cân bằng* · *File nhỏ*",
+  feat_quality_4:
+    "Cài đặt nhanh: *Chất lượng tốt nhất* · *Cân bằng* · *File nhỏ*",
   feat_privacy_h3: "Quyền riêng tư & kiểm soát",
   feat_privacy_1:
     "Xử lý 100% cục bộ — tải xuống trực tiếp từ YouTube đến ổ đĩa của bạn",
-  feat_privacy_2: "Không đăng nhập, không cookie, không liên kết tài khoản Google",
+  feat_privacy_2:
+    "Không đăng nhập, không cookie, không liên kết tài khoản Google",
   feat_privacy_3: "File được lưu thẳng vào thư mục bạn chọn",
   feat_workflow_h3: "Quy trình làm việc",
   feat_workflow_1:
@@ -152,11 +158,18 @@ export const vi = {
     "**Chỉ âm thanh và phụ đề** hoạt động trên mọi trang được hỗ trợ, không chỉ YouTube",
   feat_sites_4:
     "Nếu một trang thay đổi, yt-dlp phát hành bản sửa lỗi hàng tuần và Arroxy tự động cập nhật nhị phân khi khởi động",
-  shot1_alt: "Dán URL",
-  shot2_alt: "Chọn chất lượng",
-  shot3_alt: "Chọn nơi lưu",
-  shot4_alt: "Hàng đợi tải xuống đang hoạt động",
-  shot5_alt: "Bộ chọn ngôn ngữ và định dạng phụ đề",
+  shot1_cap:
+    "<b>Trang Tải nhanh</b><br/>Dán URL và tải ngay với hồ sơ đang dùng",
+  shot2_cap:
+    "<b>Hồ sơ tải tái sử dụng</b><br/>Lưu định dạng, chất lượng và đầu ra thành cài sẵn — dùng lại cho mỗi lần tải",
+  shot3_cap:
+    "<b>Bản âm thanh đa ngôn ngữ</b><br/>Chọn đúng ngôn ngữ âm thanh video cung cấp",
+  shot4_cap:
+    "<b>Âm thanh Surround / Dolby</b><br/>Nhận diện và giữ nguyên bản 5.1 và Dolby",
+  shot5_cap:
+    "<b>Chế độ URL hàng loạt</b><br/>Dán danh sách, tự loại trùng, xếp hàng tất cả cùng lúc",
+  shot6_cap:
+    "<b>Hàng đợi tải song song</b><br/>Nhiều lượt tải cùng lúc với tiến trình trực tiếp",
   dl_platform_col: "Nền tảng",
   dl_format_col: "Định dạng",
   dl_win_format: "Trình cài đặt (NSIS) hoặc Portable `.exe`",
@@ -185,7 +198,7 @@ export const vi = {
     "**Khuyến nghị:** sử dụng NSIS installer để có tự động cập nhật và khởi động nhanh hơn. Dùng portable `.exe` nếu bạn muốn không cần cài đặt, không ghi registry.",
   dl_win_smartscreen_h4: "Cảnh báo Windows SmartScreen",
   dl_win_smartscreen_intro:
-    "Khi khởi động lần đầu, bạn có thể thấy **\"Windows protected your PC\"** hoặc **\"Unknown publisher.\"** Điều này áp dụng cho cả `Arroxy-win-x64-Setup.exe` và `Arroxy-win-x64-Portable.exe`. Arroxy là phần mềm miễn phí và mã nguồn mở, các bản build trên Windows không được ký mã bằng chứng chỉ có phí, đó là lý do SmartScreen gắn cờ chúng. Điều này **không** tự động có nghĩa là Arroxy không an toàn. Để tiếp tục:",
+    'Khi khởi động lần đầu, bạn có thể thấy **"Windows protected your PC"** hoặc **"Unknown publisher."** Điều này áp dụng cho cả `Arroxy-win-x64-Setup.exe` và `Arroxy-win-x64-Portable.exe`. Arroxy là phần mềm miễn phí và mã nguồn mở, các bản build trên Windows không được ký mã bằng chứng chỉ có phí, đó là lý do SmartScreen gắn cờ chúng. Điều này **không** tự động có nghĩa là Arroxy không an toàn. Để tiếp tục:',
   dl_win_smartscreen_step1: "Nhấp **More info**.",
   dl_win_smartscreen_step2: "Nhấp **Run anyway**.",
   dl_win_smartscreen_official:
@@ -194,7 +207,8 @@ export const vi = {
   dl_macos_warning:
     "Arroxy chưa được ký mã, nên macOS Gatekeeper sẽ cảnh báo khi khởi động lần đầu. Đây là điều bình thường — không phải dấu hiệu file bị hỏng.",
   dl_macos_m1_h4: "Phương pháp System Settings (được khuyến nghị):",
-  dl_macos_step1: "Nhấp chuột phải vào biểu tượng ứng dụng Arroxy và chọn **Open**.",
+  dl_macos_step1:
+    "Nhấp chuột phải vào biểu tượng ứng dụng Arroxy và chọn **Open**.",
   dl_macos_step2:
     "Hộp thoại cảnh báo hiện ra — nhấp **Cancel** (đừng nhấp *Move to Trash*).",
   dl_macos_step3: "Mở **System Settings → Privacy & Security**.",
@@ -239,8 +253,7 @@ export const vi = {
   dl_macos_sequoia_h4: "macOS Sequoia 15 trở lên (hiện tại)",
   dl_macos_sequoia_intro:
     "Trên Sequoia 15 và mới hơn, chuột phải → Open không còn bỏ qua Gatekeeper cho nhiều ứng dụng bị cách ly. Thay vào đó, hãy dùng bảng System Settings:",
-  dl_macos_sequoia_step1:
-    "Kéo `Arroxy.app` từ DMG đã gắn vào `/Applications`.",
+  dl_macos_sequoia_step1: "Kéo `Arroxy.app` từ DMG đã gắn vào `/Applications`.",
   dl_macos_sequoia_step2:
     "Nhấp đúp vào Arroxy. Hộp thoại chặn xuất hiện — nhấp **Done** (đừng nhấp *Move to Trash*).",
   dl_macos_sequoia_step3:
@@ -248,8 +261,7 @@ export const vi = {
   dl_macos_sequoia_step4:
     "Nhấp **Open Anyway**, xác nhận bằng mật khẩu hoặc Touch ID, sau đó khởi động lại Arroxy từ `/Applications`.",
   dl_macos_sonoma_h4: "macOS Sonoma 14 và cũ hơn",
-  dl_macos_sonoma_step1:
-    "Kéo `Arroxy.app` từ DMG đã gắn vào `/Applications`.",
+  dl_macos_sonoma_step1: "Kéo `Arroxy.app` từ DMG đã gắn vào `/Applications`.",
   dl_macos_sonoma_step2:
     "Nhấp chuột phải (hoặc Control-click) vào `Arroxy.app` trong `/Applications` và chọn **Open**.",
   dl_macos_sonoma_step3:
@@ -287,7 +299,8 @@ export const vi = {
   faq_a2:
     "Bất kỳ thứ gì YouTube cung cấp: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, cùng với chỉ âm thanh. Các luồng 60 fps, 120 fps và HDR được giữ nguyên.",
   faq_q3: "Tôi có thể trích xuất chỉ âm thanh dạng MP3 không?",
-  faq_a3: "Có. Chọn *chỉ âm thanh* trong menu định dạng rồi chọn MP3, M4A/AAC, Opus hoặc WAV.",
+  faq_a3:
+    "Có. Chọn *chỉ âm thanh* trong menu định dạng rồi chọn MP3, M4A/AAC, Opus hoặc WAV.",
   faq_q4: "Tôi có cần tài khoản YouTube hay cookie không?",
   faq_a4:
     "Mặc định là không — Arroxy hoạt động mà không cần tài khoản YouTube, đăng nhập hay xuất cookie. Hỗ trợ cookie tùy chọn có sẵn trong Cài đặt nâng cao (Cookies source: file or browser) cho nội dung yêu cầu xác thực, chẳng hạn như video giới hạn độ tuổi hoặc dành riêng cho thành viên. Mặc định tính năng này tắt. Nếu bạn bật nó, wiki của yt-dlp lưu ý rằng [tự động hóa dựa trên cookie có thể gắn cờ tài khoản Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); trong trường hợp đó, tài khoản dùng một lần là lựa chọn an toàn hơn.",

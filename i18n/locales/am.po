@@ -963,7 +963,7 @@ msgstr "ቁጥር"
 
 msgctxt "wizard.confirm.labelPlaylist"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "የቪዲዮ ዝርዝር"
 
 msgctxt "wizard.confirm.labelPreset"
 msgid "Preset"
@@ -1405,6 +1405,10 @@ msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
 msgstr "የ Playlist ቪዲዮዎች"
 
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "የሚወርዱ ቪዲዮዎች"
+
 msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} ቪዲዮ"
@@ -1432,6 +1436,10 @@ msgstr "{{count}} URLዎች"
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Playlist እየጫኑ…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "ቪዲዮዎችን በማምጣት ላይ…"
 
 msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
@@ -1464,6 +1472,10 @@ msgstr "Arroxy ከ {{count}} በላይ ንጥሎችን አግኝቷል፣ ስለ
 msgctxt "wizard.playlist.probeLimitAlertTitle"
 msgid "Playlist scan is capped"
 msgstr "የ Playlist ቃኝት ተገድቧል"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "ፍተሻው ተገድቧል"
 
 msgctxt "wizard.playlist.rangeApply"
 msgid "Apply range"
@@ -1512,6 +1524,10 @@ msgstr "ቀድሞ በፎልደር ውስጥ"
 msgctxt "wizard.playlist.syncNoneDesc"
 msgid "No videos from this playlist were found in {{dir}}."
 msgstr "ከዚህ አጫዋች ዝርዝር ውስጥ ምንም ቪዲዮ በ{{dir}} ውስጥ አልተገኘም።"
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "ከዚህ ምንጭ የመጡ ቪዲዮዎች በ{{dir}} ውስጥ አልተገኙም።"
 
 msgctxt "wizard.playlist.syncNoneTitle"
 msgid "Nothing downloaded yet"
@@ -1655,7 +1671,11 @@ msgstr "ውፅዓት"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "የቪዲዮ ዝርዝር"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "ቪዲዮዎች"
 
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
@@ -1951,7 +1971,7 @@ msgstr "ሙዚቃ"
 
 msgctxt "wizard.url.features.youtube.playlist"
 msgid "Playlists"
-msgstr "Playlists"
+msgstr "የቪዲዮ ዝርዝሮች"
 
 msgctxt "wizard.url.features.youtube.podcast"
 msgid "Podcasts"

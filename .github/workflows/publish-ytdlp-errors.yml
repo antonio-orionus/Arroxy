@@ -113,10 +113,12 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2.2.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
         with:
-          bun-version: ${{ env.BUN_VERSION }}
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
 
       - name: Download registry artifact
         uses: actions/download-artifact@v8
@@ -130,6 +132,4 @@ jobs:
           subject-path: npm-artifacts/*.tgz
 
       - name: Publish
-        env:
-          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: bun publish ./npm-artifacts/*.tgz --access public
+        run: npm publish ./npm-artifacts/*.tgz --access public

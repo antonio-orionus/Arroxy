@@ -32,7 +32,7 @@ Maintainers publish `yt-dlp-bridge` by bumping `packages/yt-dlp-bridge/package.j
 
 Maintainers publish `ytdlp-errors` by bumping `packages/ytdlp-errors/package.json`, merging to `main`, then pushing a tag named `ytdlp-errors-vX.Y.Z`.
 
-Both registry workflows publish with Bun and require a scoped `NPM_TOKEN` secret exposed to `bun publish` as `NPM_CONFIG_TOKEN`. npmjs.com trusted publishing/provenance is intentionally paused for these packages until Bun supports registry OIDC publishing.
+Both registry workflows build tarballs with Bun, then publish through registry trusted publishing. They do not use long-lived registry publish tokens.
 
 ## Reporting bugs / requesting features
 

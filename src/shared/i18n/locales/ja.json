@@ -33,10 +33,11 @@
 	"theme": {"light": "ライトモード", "dark": "ダークモード", "system": "システム設定に従う"},
 	"language": {"label": "言語"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "画質", "formats": "形式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "出力", "folder": "保存先", "confirm": "確認"},
+		"steps": {"url": "URL", "playlistItems": "プレイリスト", "playlistItemsGeneric": "動画", "playlistPresets": "画質", "formats": "形式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "出力", "folder": "保存先", "confirm": "確認"},
 		"playlistPresets": {"heading": "バッチの画質を選択", "subhead": "各動画が選択した画質ティアを独立して解決します — 異なる動画が混在するPlaylistも問題なく処理できます。", "itemCount_one": "{{count}} 件", "itemCount_other": "{{count}} 件"},
 		"playlist": {
 			"heading": "Playlist アイテム",
+			"headingGeneric": "ダウンロードする動画",
 			"bulkHeading": "一括 URL",
 			"itemCount_one": "{{count}} 本の動画",
 			"itemCount_other": "{{count}} 本の動画",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}} 件選択中",
 			"noSelection": "続行するには少なくとも1本の動画を選択してください",
 			"loadingItems": "Playlist を取得中…",
+			"loadingItemsGeneric": "動画を取得中…",
 			"loadingPhasePages": "チャンネルページをスキャン中",
 			"loadingPhaseItems": "動画を収集中",
 			"loadingPagesFound_one": "{{count}} ページが見つかりました",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "これらの動画のうち {{n}} 件はすでに {{dir}} にあります。新しいものだけをダウンロードするために同期しますか？",
 			"syncNoneTitle": "まだダウンロードされていません",
 			"syncNoneDesc": "このプレイリストの動画は {{dir}} で見つかりませんでした。",
+			"syncNoneDescGeneric": "{{dir}} にこのソースの動画は見つかりませんでした。",
 			"alreadyDownloaded": "ダウンロード済み",
 			"probeLimitAlertTitle": "プレイリストのスキャンが上限に達しました",
+			"probeLimitAlertTitleGeneric": "スキャン上限に達しました",
 			"probeLimitAlertDesc": "Arroxy は {{count}} 件を超えるアイテムを検出しましたが、現在のスキャン上限により残りは表示されていません。"
 		},
 		"bulk": {
@@ -351,7 +355,7 @@
 			"addToQueueTooltip": "他のダウンロードが終わってから開始 — 帯域幅をフル活用",
 			"pullIt": "取得! ↓",
 			"pullItTooltip": "すぐ開始 — 他のアクティブなダウンロードと並行実行",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "プレイリスト",
 			"labelBulk": "一括 URL",
 			"labelPreset": "プリセット",
 			"labelItems": "件数",

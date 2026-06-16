@@ -71,7 +71,8 @@ bun run dist:win     # Windows portable exe cross-compile
 
 export const om = {
   icon_alt: "Arroxy mascot",
-  title: "Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa Windows, macOS & Linux",
+  title:
+    "Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa Windows, macOS & Linux",
   read_in_label: "Afaan:",
   badge_release_alt: "Baasii",
   badge_build_alt: "Ijaarsaa",
@@ -86,7 +87,8 @@ export const om = {
   cta_latest: "↓ Baasii Haaraa Buusi",
   cta_website: "Marsariitii",
   demo_alt: "Arroxy demo",
-  star_cta: "Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.",
+  star_cta:
+    "Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.",
   ai_notice: "",
   toc_heading: "Qabiyyee",
   why_h2: "Maaliif Arroxy",
@@ -96,7 +98,8 @@ export const om = {
   faq_h2: "Gaaffilee Deddeebii",
   roadmap_h2: "Karoora",
   tech_h2: "Waan itti Ijaare",
-  why_intro: "Waltajjii maayyii walitti bira qabuu filannoolee beekamoo wajjin:",
+  why_intro:
+    "Waltajjii maayyii walitti bira qabuu filannoolee beekamoo wajjin:",
   why_r1: "Bilisaa, sadarkaa kafaltii hin qabu",
   why_r2: "Madda banaa",
   why_r3: "Naannoo keessatti qofa hojeta",
@@ -108,14 +111,17 @@ export const om = {
     "Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argadhu. Akkaawuntiin hin jiru, gurgurtaa dabalaataa hin jiru, odeeffannoo walitti qabuu hin jiru.",
   feat_quality_h3: "Qulqullina & formatoota",
   feat_quality_1: "Hanga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
-  feat_quality_2: "**Frame rate ol'aanaa** akka jiru eegama — 60 fps, 120 fps, HDR",
+  feat_quality_2:
+    "**Frame rate ol'aanaa** akka jiru eegama — 60 fps, 120 fps, HDR",
   feat_quality_3:
     "**Sagalee** — sagalee qofa gara MP3, M4A/AAC, Opus yookaan WAV export godhi. Buufataalee wal-qunnamtii keessatti, yoo jiran, sirna sagalee surround/Dolby maddaa (AC-3, E-AC-3, 5.1, DRC) filadhu, yookaan durtii waliigalaa **Surround / Dolby filadhu** kaa'i",
-  feat_quality_4: "Preset saffisoo: *Qulqullina gaarii* · *Walirraanfattee* · *Faayila xiqqaa*",
+  feat_quality_4:
+    "Preset saffisoo: *Qulqullina gaarii* · *Walirraanfattee* · *Faayila xiqqaa*",
   feat_privacy_h3: "Icciitii & to'annaa",
   feat_privacy_1:
     "100% naannoo keessatti hojeta — buufannoon kallattiin YouTube irraa disiki kee dhaqa",
-  feat_privacy_2: "Seensuu hin jiru, kuukkii hin jiru, akkaawuntii Google waliin hin hidhu",
+  feat_privacy_2:
+    "Seensuu hin jiru, kuukkii hin jiru, akkaawuntii Google waliin hin hidhu",
   feat_privacy_3: "Faayiloonni kallattiin foldera filatteen seenu",
   feat_workflow_h3: "Hojii hordoffii",
   feat_workflow_1:
@@ -152,11 +158,18 @@ export const om = {
     "**Audio qofa fi subtitle** saayitii deeggara hunda irratti hojjeta, YouTube qofa irratti miti",
   feat_sites_4:
     "Saayitiin yoo jijjiirames, yt-dlp torban hunda sirreessa erga, Arroxy immoo binary-n yeroo eegaluu ofumaan haaromsa",
-  shot1_alt: "URL maxxansi",
-  shot2_alt: "Qulqullina filadhu",
-  shot3_alt: "Bakka olkaa'uu filadhu",
-  shot4_alt: "Queue buufannoo hojii irra jiru",
-  shot5_alt: "Afaan fi format subtitle filuuf",
+  shot1_cap:
+    "<b>Fuula Buufata saffisaa</b><br/>URL maxxansiitii profaayilii kee kan socho'aadhaan battalumatti buufadhu",
+  shot2_cap:
+    "<b>Profaayiloota buufannaa irra deebi'anii fayyadaman</b><br/>Bocaa, qulqullinaa fi bahii akka durtii olkaa'i — buufannaa hundaaf irra deebi'ii fayyadami",
+  shot3_cap:
+    "<b>Sirna sagalee afaan baay'ee</b><br/>Afaan sagalee sirrii viidiyoon qabu filadhu",
+  shot4_cap:
+    "<b>Sagalee Surround / Dolby</b><br/>Sirni 5.1 fi Dolby ni adda baafamu, ni eegamu",
+  shot5_cap:
+    "<b>Haala URL baay'ee</b><br/>Tarree maxxansi, irra deebii ofumaan haqi, hunda yeroo tokkotti tarreessi",
+  shot6_cap:
+    "<b>Tarree buufannaa walqixaa</b><br/>Buufannaa hedduu yeroo tokkotti, guddina kallattiidhaan",
   dl_platform_col: "Platform",
   dl_format_col: "Format",
   dl_win_format: "Fayyadu (NSIS) ykn Portable `.exe`",
@@ -185,7 +198,7 @@ export const om = {
     "**Gorsa:** Of-haaromeessaa fi saffisa eegaluu gaaariif NSIS fayyadu fayyadami. Fayyadu hin barbaachifne, reejistrii hin barbaachifne filannoof portable `.exe` fayyadami.",
   dl_win_smartscreen_h4: "Windows SmartScreen akeekkachiisa",
   dl_win_smartscreen_intro:
-    "Jalqaba banuu irratti **\"Windows protected your PC\"** ykn **\"Unknown publisher\"** arguu dandeessa. Kun `Arroxy-win-x64-Setup.exe` fi `Arroxy-win-x64-Portable.exe` lameeniifuu hojjeta. Arroxy bilisaa fi madda banaa dha, ijaarsonni Windows mallattoo kafaltii hin qabne waliin hin mallatteffamne, kanaafuu SmartScreen mallattoo isaanirratti kaa'a. Kun Arroxy nageenya hin qabu **jechuuf** of-hordofaan miti. Itti fufuuf:",
+    'Jalqaba banuu irratti **"Windows protected your PC"** ykn **"Unknown publisher"** arguu dandeessa. Kun `Arroxy-win-x64-Setup.exe` fi `Arroxy-win-x64-Portable.exe` lameeniifuu hojjeta. Arroxy bilisaa fi madda banaa dha, ijaarsonni Windows mallattoo kafaltii hin qabne waliin hin mallatteffamne, kanaafuu SmartScreen mallattoo isaanirratti kaa\'a. Kun Arroxy nageenya hin qabu **jechuuf** of-hordofaan miti. Itti fufuuf:',
   dl_win_smartscreen_step1: "**More info** cuqaasi.",
   dl_win_smartscreen_step2: "**Run anyway** cuqaasi.",
   dl_win_smartscreen_official:
@@ -229,7 +242,8 @@ export const om = {
     'SmartScreen "Windows protected your PC" dialog with the "More info" link highlighted',
   shot_smartscreen_run_alt:
     'SmartScreen dialog after expanding More info, showing the "Run anyway" button',
-  dl_win_defender_h4: "Windows Defender faayila mallattaa itti kaa'e ykn haqe yoo ta'e",
+  dl_win_defender_h4:
+    "Windows Defender faayila mallattaa itti kaa'e ykn haqe yoo ta'e",
   dl_win_defender_p:
     "Heuristics Defender sometimes flag unsigned NSIS installers fi Electron portables akka shakkisiisoo. Defender `Arroxy-win-x64-Setup.exe` ykn `Arroxy-win-x64-Portable.exe` karantinii keessa kaa'e yoo ta'e, **Windows Security → Virus & threat protection → Protection history** irraa deebi'i, erga Arroxy executable **Manage settings → Add or remove exclusions** jalatti wantoota hayyamamaniitti dabalii. SmartScreen wajjin akkuma, kasaara mallattoo maxxantii dhabuu irraa dhufa, malwaare argamuuurraa miti.",
 
@@ -257,7 +271,7 @@ export const om = {
   dl_macos_damaged_h4:
     '"App is damaged" ykn Gatekeeper dhorku cimaa — Terminal dursaa',
   dl_macos_damaged_p:
-    'macOS *"Arroxy is damaged and can\'t be opened"* jedhe yoo ta\'e, ykn tarkaanfiiwwan armaan olii hanga tokkollee dhorkuu hin baasnee, qabiyyeen quarantine DMG irratti sababii (biraawzarootni muraasaa fi macOS mataa isaa translocation behavior waan qindaa\'aniif). App fayyadu irraa balleessi:',
+    "macOS *\"Arroxy is damaged and can't be opened\"* jedhe yoo ta'e, ykn tarkaanfiiwwan armaan olii hanga tokkollee dhorkuu hin baasnee, qabiyyeen quarantine DMG irratti sababii (biraawzarootni muraasaa fi macOS mataa isaa translocation behavior waan qindaa'aniif). App fayyadu irraa balleessi:",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel:** Mac M-series (M1 / M2 / M3 / M4) irratti, `arm64` DMG buusi. Intel Macs irratti, `x64` DMG buusi. Ijaarsaa dogoggora oofuu Rosetta fayyadamuudhaan hojjeta garuu ifa gadi bu'aa.",
 
@@ -282,12 +296,14 @@ export const om = {
   privacy_p2:
     "Arroxy telemetrii maqaa-dhabduu walitti makamaa [OpenPanel](https://openpanel.dev) fayyadamuudhaan erga — eegaluu, OS, version app fi kufaatii hubachuuf qofa. URL, mata-duree viidiyoo, karaa faayilaa, odeeffannoo account, fingerprinting yookaan data dhuunfaa hin jiru. ID install tokkoon tokkoo tasaa dha, eenyummaa keetti hin hidhamu. Settings keessatti dhaabuu dandeessa.",
   faq_q1: "Dhuguma bilisaa dha?",
-  faq_a1: "Eeyyee — hayyama MIT, sadarkaa kafaltii hin jiru, amaloota dhorkamuun hin jiru.",
+  faq_a1:
+    "Eeyyee — hayyama MIT, sadarkaa kafaltii hin jiru, amaloota dhorkamuun hin jiru.",
   faq_q2: "Qulqullina viidiyoo maal buusuu danda'a?",
   faq_a2:
     "YouTube tajaajiluu danda'u: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, sagalee qofas. 60 fps, 120 fps, fi HDR streams akka jiru eegamu.",
   faq_q3: "Sagalee qofaa MP3 akka ta'uun baasuu danda'aa?",
-  faq_a3: "Eeyyee. Menu format keessaa *audio qofa* filadhu, booda MP3, M4A/AAC, Opus yookaan WAV filadhu.",
+  faq_a3:
+    "Eeyyee. Menu format keessaa *audio qofa* filadhu, booda MP3, M4A/AAC, Opus yookaan WAV filadhu.",
   faq_q4: "Akkaawuntii YouTube ykn kuukkii barbaachisaa?",
   faq_a4:
     "Durtii, lakki — Arroxy akkaawuntii YouTube, seensuu, ykn ergaa kuukkii malee hojeeta. Deeggarsi kuukkii filannoof Qindoomina Olaanaa keessa jira (Madda Kuukkii: faayila ykn biraawzara) qabiyyee mirkaneessuu barbaadu, kan akka viidiyoowwan umurii daangeffaman ykn miseensoota qofaaf, fayyadamuuf. Durtii dhaabbatee jira. Yoo dandeessistee, dookumentii yt-dlp [automatic kuukkii irratti hundaa'u akkaawuntii Google mallatteessisuu danda'a](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) jedha; akkaawuntiin gatamuu danda'u haala kanatti filannoo nageenya qabeessa dha.",

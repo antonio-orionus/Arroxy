@@ -71,7 +71,8 @@ bun run dist:win     # د Windows پورټیبل exe کراس-کمپایل
 
 export const ps = {
   icon_alt: "د Arroxy ماسکوټ",
-  title: "Arroxy — د Windows، macOS او Linux لپاره وړیا خلاصه سرچینه YouTube (+ ۲۰۰۰ سایټونه) ډاونلوډر",
+  title:
+    "Arroxy — د Windows، macOS او Linux لپاره وړیا خلاصه سرچینه YouTube (+ ۲۰۰۰ سایټونه) ډاونلوډر",
   read_in_label: "پدې ژبه ولولئ:",
   badge_release_alt: "خپرونه",
   badge_build_alt: "جوړونه",
@@ -80,7 +81,8 @@ export const ps = {
   badge_i18n_alt: "ژبې",
   badge_website_alt: "ویب پاڼه",
   discord_badge_text: "د Discord ټولنې سره یوځای شئ",
-  discord_badge_encoded: "%D8%AF%20Discord%20%D9%BC%D9%88%D9%84%D9%86%DB%90%20%D8%B3%D8%B1%D9%87%20%DB%8C%D9%88%DA%81%D8%A7%DB%8C%20%D8%B4%D8%A6",
+  discord_badge_encoded:
+    "%D8%AF%20Discord%20%D9%BC%D9%88%D9%84%D9%86%DB%90%20%D8%B3%D8%B1%D9%87%20%DB%8C%D9%88%DA%81%D8%A7%DB%8C%20%D8%B4%D8%A6",
   hero_desc:
     "له **YouTube او ۲۰۰۰+ ملاتړ شویو سایټونو** نه ویډیوګانې، Shorts، موسیقي، چینلونه، پوډکاسټونه، یا اوډیو ټریکونه ډاونلوډ کړئ — تر 4K HDR پورې د 60 fps سره، یا د MP3 / AAC / Opus په توګه. د Windows، macOS، او Linux پر سیستم ځایي چلیږي. **هیڅ اعلانات، هیڅ بلوټ، هیڅ اضافي پلورنه نه ده.**",
   cta_latest: "↓ وروستۍ خپرونه ډاونلوډ کړئ",
@@ -152,11 +154,17 @@ export const ps = {
     "**یوازې اوډیو او ساب ټایټلونه** د هر ملاتړ شوي سایټ پر مهال کار کوي، نه یوازې YouTube",
   feat_sites_4:
     "که یو سایټ بدل شي، yt-dlp اونیزه فکسونه لیږدوي او Arroxy د پیلولو پر مهال بائنري اوتومات تازه کوي",
-  shot1_alt: "یو URL پیسټ کړئ",
-  shot2_alt: "خپل کیفیت غوره کړئ",
-  shot3_alt: "د خوندي کولو ځای غوره کړئ",
-  shot4_alt: "د ډاونلوډ کیو عمل کې",
-  shot5_alt: "د ساب ټایټل ژبه او بڼه انتخاب کوونکی",
+  shot1_cap:
+    "<b>د چټک ښکته کولو کور</b><br/>URL پیسټ کړئ او په خپل فعال پروفایل سره یې سمدلاسه ښکته کړئ",
+  shot2_cap:
+    "<b>د بیا کارونې وړ د ښکته کولو پروفایلونه</b><br/>بڼه، کیفیت او محصول د وړاندیز په توګه خوندي کړئ — په هر ښکته کولو کې یې بیا وکاروئ",
+  shot3_cap: "<b>څو ژبني غږ مزي</b><br/>هغه دقیق غږ ژبه وټاکئ چې ویډیو یې لري",
+  shot4_cap:
+    "<b>Surround / Dolby غږ</b><br/>د 5.1 او Dolby مزي پیژندل کیږي او ساتل کیږي",
+  shot5_cap:
+    "<b>د ډله ییز URL حالت</b><br/>لیست پیسټ کړئ، په اتومات ډول نقلونه لرې کړئ، ټول یې په یوه وخت کې کتار کړئ",
+  shot6_cap:
+    "<b>موازي د ښکته کولو کتار</b><br/>د ژوندۍ پرمختیا سره په یوه وخت کې څو ښکته کول",
   dl_platform_col: "پلیټفارم",
   dl_format_col: "بڼه",
   dl_win_format: "نصب کوونکی (NSIS) یا پورټیبل `.exe`",
@@ -185,7 +193,7 @@ export const ps = {
     "**سپارښتنه:** د اتوماتیک تازه کولو او ګړندي پیل لپاره د NSIS نصب کوونکی وکاروئ. د بې نصبه، بې ریجسټرۍ اختیار لپاره پورټیبل `.exe` وکاروئ.",
   dl_win_smartscreen_h4: "Windows SmartScreen خبرداری",
   dl_win_smartscreen_intro:
-    "د لومړي پیلولو پر مهال ممکن وګورئ **\"Windows protected your PC\"** یا **\"Unknown publisher.\"** دا د دواړو `Arroxy-win-x64-Setup.exe` او `Arroxy-win-x64-Portable.exe` پر لور پلي کیږي. Arroxy وړیا او خلاصه سرچینه ده او د Windows جوړونې د پیسو ورکولو سند سره کوډ لاسلیک شوي نه دي، له همدې امله SmartScreen یې بیرغ کوي. دا **اوتومات** معنی نه لري چې Arroxy خطرناک ده. د دوام لپاره:",
+    'د لومړي پیلولو پر مهال ممکن وګورئ **"Windows protected your PC"** یا **"Unknown publisher."** دا د دواړو `Arroxy-win-x64-Setup.exe` او `Arroxy-win-x64-Portable.exe` پر لور پلي کیږي. Arroxy وړیا او خلاصه سرچینه ده او د Windows جوړونې د پیسو ورکولو سند سره کوډ لاسلیک شوي نه دي، له همدې امله SmartScreen یې بیرغ کوي. دا **اوتومات** معنی نه لري چې Arroxy خطرناک ده. د دوام لپاره:',
   dl_win_smartscreen_step1: "**More info** کلیک کړئ.",
   dl_win_smartscreen_step2: "**Run anyway** کلیک کړئ.",
   dl_win_smartscreen_official:
@@ -287,7 +295,8 @@ export const ps = {
   faq_a2:
     "هر هغه شی چې YouTube وړاندې کوي: 4K UHD (2160p)، 1440p، 1080p، 720p، 480p، 360p، او یوازې اوډیو. 60 fps، 120 fps، او HDR سټریمونه لکه چې دي ساتل کیږي.",
   faq_q3: "ایا کولی شم یوازې اوډیو د MP3 په توګه وباسم؟",
-  faq_a3: "هو. د format menu کې *یوازې آډیو* وټاکئ او بیا MP3، M4A/AAC، Opus یا WAV غوره کړئ.",
+  faq_a3:
+    "هو. د format menu کې *یوازې آډیو* وټاکئ او بیا MP3، M4A/AAC، Opus یا WAV غوره کړئ.",
   faq_q4: "ایا ما ته د YouTube اکاونټ یا کوکیز ته اړتیا ده؟",
   faq_a4:
     "په ډیفالټ کې، نه — Arroxy د YouTube اکاونټ، ننوتلو، یا د کوکیز صادرولو پرته کار کوي. د کوکیز اختیاري ملاتړ په پرمختللو تنظیماتو کې شتون لري (د کوکیز سرچینه: فایل یا براوزر) د هغه منځپانګې لپاره چې اعتبار ته اړتیا لري، لکه د عمر محدودې یا یوازې د غړو ویډیوګانې. دا په ډیفالټ کې غیرفعاله ده. که تاسو یې فعاله کړئ، د yt-dlp ویکي یاد کوي چې [د کوکیز پر بنسټ اتومات کولی شي ستاسو د ګوګل اکاونټ بیرغ کړي](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)؛ په دې حالت کې یو لرې غورځولو وړ اکاونټ خوندي انتخاب دی.",

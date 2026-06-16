@@ -71,7 +71,8 @@ bun run dist:win     # Windows ポータブル exe のクロスコンパイル
 
 export const ja = {
   icon_alt: "Arroxy マスコット",
-  title: "Arroxy — Windows・macOS・Linux 向け無料オープンソース YouTube（+ 2000 サイト）ダウンローダー",
+  title:
+    "Arroxy — Windows・macOS・Linux 向け無料オープンソース YouTube（+ 2000 サイト）ダウンローダー",
   read_in_label: "言語：",
   badge_release_alt: "リリース",
   badge_build_alt: "ビルド",
@@ -80,13 +81,15 @@ export const ja = {
   badge_i18n_alt: "対応言語",
   badge_website_alt: "ウェブサイト",
   discord_badge_text: "Discord コミュニティに参加",
-  discord_badge_encoded: "Discord%20%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E3%81%AB%E5%8F%82%E5%8A%A0",
+  discord_badge_encoded:
+    "Discord%20%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E3%81%AB%E5%8F%82%E5%8A%A0",
   hero_desc:
     "**YouTube と 2000 以上の対応サイト**から動画・Shorts・音楽・チャンネル・ポッドキャスト・音声トラックをダウンロード — 最大 4K HDR 60fps、または MP3 / AAC / Opus として。Windows、macOS、Linux でローカル動作。**広告なし、余計なものなし、アップセルなし。**",
   cta_latest: "↓ 最新リリースをダウンロード",
   cta_website: "ウェブサイト",
   demo_alt: "Arroxy デモ",
-  star_cta: "Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助けてください。",
+  star_cta:
+    "Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助けてください。",
   ai_notice:
     "> 🌐 これは AI 翻訳です。[英語版 README](README.md) が情報のソースです。誤りを見つけたら [PR を歓迎します](../../pulls)。",
   toc_heading: "目次",
@@ -112,15 +115,18 @@ export const ja = {
   feat_quality_2: "**ハイフレームレート**をそのまま保存 — 60 fps、120 fps、HDR",
   feat_quality_3:
     "**音声** — 音声のみを MP3、M4A/AAC、Opus、WAV で書き出します。インタラクティブなダウンロードでは、利用可能な場合にソースのネイティブ サラウンド/Dolby トラック（AC-3、E-AC-3、5.1、DRC）を選択でき、グローバルな既定値 **サラウンド / Dolby を優先** を設定できます",
-  feat_quality_4: "クイックプリセット：*最高画質* · *バランス* · *小さいファイル*",
+  feat_quality_4:
+    "クイックプリセット：*最高画質* · *バランス* · *小さいファイル*",
   feat_privacy_h3: "プライバシー・制御",
   feat_privacy_1:
     "100% ローカル処理 — ダウンロードは YouTube から直接あなたのディスクへ",
   feat_privacy_2: "ログインなし、Cookie なし、Google アカウント連携なし",
   feat_privacy_3: "選択したフォルダに直接ファイルを保存",
   feat_workflow_h3: "ワークフロー",
-  feat_workflow_1: "**柔軟な開始モード** — ガイド付き単体ダウンロード、プレイリスト/チャンネル選択、URL一括貼り付け、保存済み既定値での Quick Download を選べます",
-  feat_workflow_2: "**中央ダウンロードキュー** — 単体、プレイリスト、一括、クイックの各ジョブが一か所に入り、進行状況、一時停止、再開、キャンセル、再試行、優先度を管理できます",
+  feat_workflow_1:
+    "**柔軟な開始モード** — ガイド付き単体ダウンロード、プレイリスト/チャンネル選択、URL一括貼り付け、保存済み既定値での Quick Download を選べます",
+  feat_workflow_2:
+    "**中央ダウンロードキュー** — 単体、プレイリスト、一括、クイックの各ジョブが一か所に入り、進行状況、一時停止、再開、キャンセル、再試行、優先度を管理できます",
   feat_workflow_3:
     "**クリップボード監視** — YouTube リンクをコピーすると、アプリにフォーカスを戻したときに Arroxy が URL を自動入力（詳細設定でトグル切替可能）",
   feat_workflow_4:
@@ -151,11 +157,17 @@ export const ja = {
     "**音声のみと字幕**は YouTube だけでなく、すべての対応サイトで機能します",
   feat_sites_4:
     "サイトが変更されても、yt-dlp は毎週修正をリリースし、Arroxy は起動時にバイナリを自動更新します",
-  shot1_alt: "URL を貼る",
-  shot2_alt: "画質を選ぶ",
-  shot3_alt: "保存先を選ぶ",
-  shot4_alt: "ダウンロードキューが稼働中",
-  shot5_alt: "字幕の言語とフォーマットの選択",
+  shot1_cap:
+    "<b>クイックダウンロードのホーム</b><br/>URLを貼り付け、アクティブなプロファイルですぐにダウンロード",
+  shot2_cap:
+    "<b>再利用できるダウンロードプロファイル</b><br/>形式・画質・出力をプリセットとして保存——ダウンロードごとに再利用",
+  shot3_cap: "<b>多言語の音声トラック</b><br/>動画が持つ音声言語を正確に選択",
+  shot4_cap:
+    "<b>サラウンド / Dolby 音声</b><br/>5.1 と Dolby のトラックを検出して保持",
+  shot5_cap:
+    "<b>一括URLモード</b><br/>リストを貼り付け、自動で重複を除去し、まとめてキューに追加",
+  shot6_cap:
+    "<b>並列ダウンロードキュー</b><br/>複数のダウンロードを同時に、進捗をリアルタイム表示",
   dl_platform_col: "プラットフォーム",
   dl_format_col: "フォーマット",
   dl_win_format: "インストーラ（NSIS）またはポータブル `.exe`",
@@ -212,7 +224,8 @@ export const ja = {
   dl_linux_m1_text:
     "**ファイルマネージャー：** `.AppImage` を右クリック → **プロパティ** → **権限** → **プログラムとして実行を許可** を有効化、ダブルクリックで起動。",
   dl_linux_m2_h4: "ターミナル：",
-  dl_linux_fuse_text: "それでも起動しない場合、FUSE が不足している可能性があります：",
+  dl_linux_fuse_text:
+    "それでも起動しない場合、FUSE が不足している可能性があります：",
   dl_linux_flatpak_intro:
     "**Flatpak（サンドボックス版）：** 同じリリースページから `Arroxy-*.flatpak` をダウンロード。",
 
@@ -286,7 +299,8 @@ export const ja = {
   faq_a2:
     "YouTube が提供するすべて：4K UHD（2160p）、1440p、1080p、720p、480p、360p、音声のみ。60 fps、120 fps、HDR ストリームはそのまま保存されます。",
   faq_q3: "音声を MP3 として抽出できますか？",
-  faq_a3: "はい。形式メニューで*音声のみ*を選び、MP3、M4A/AAC、Opus、WAV を選択できます。",
+  faq_a3:
+    "はい。形式メニューで*音声のみ*を選び、MP3、M4A/AAC、Opus、WAV を選択できます。",
   faq_q4: "YouTube アカウントや Cookie が必要ですか？",
   faq_a4:
     "デフォルトでは不要です — Arroxy は YouTube アカウント、ログイン、Cookie のエクスポートなしで動作します。年齢制限付きやメンバー限定動画など、認証が必要なコンテンツのために、詳細設定にオプションの Cookie サポート（Cookies source: file or browser）が用意されています。デフォルトはオフです。有効化する場合、yt-dlp の wiki は [Cookie ベースの自動化が Google アカウントにフラグを立てる可能性がある](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) と注意しています。その場合は使い捨てアカウントの利用が安全です。",
@@ -302,7 +316,7 @@ export const ja = {
   faq_q8: "プレイリストやチャンネル全体をダウンロードできますか？",
   faq_a8:
     "はい、どちらも対応しています。プレイリストまたはチャンネルのURL（例: `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`）を貼り付け、スキャンする件数を選んでから、リスト全体をキューに入れるか特定の動画を選べます。日付範囲フィルターは近日対応予定です。",
-  faq_q9: 'macOS で「アプリが壊れている」と表示される — どうすれば？',
+  faq_q9: "macOS で「アプリが壊れている」と表示される — どうすれば？",
   faq_a9:
     'それは macOS Gatekeeper が未署名のアプリをブロックしているもので、実際の破損ではありません。["App is damaged" — Terminal による修正](#macos-first-launch) を参照してください — 1 行の `xattr` コマンドで解決できます。',
   faq_q10: "YouTube の動画をダウンロードするのは合法ですか？",

@@ -13,6 +13,7 @@ Source and contributions live in the Arroxy monorepo at [`packages/yt-dlp-bridge
 
 - [Install](#install)
 - [Features](#features)
+- [What changed in 0.2.0](#what-changed-in-020)
 - [Usage](#usage)
 - [API](#api)
 - [Configuration](#configuration)
@@ -33,7 +34,9 @@ Requires Node.js >= 22.13 and ESM.
 
 ## Features
 
-- One canonical `planWorkflow(input, options?)` planner for probe, inspect, media, audio, subtitles, thumbnail, playlist, postprocess, and expert/raw workflows.
+- One canonical `planWorkflow(input, options?)` planner with caller-owned app inputs and managed/server schema inputs.
+- Caller-owned probe/media/subtitle inputs for apps that already resolved output directories, format selection, subtitles, embeds, resume info JSON, and audio conversion policy.
+- Managed schema inputs for inspect, media, audio, subtitles, thumbnail, playlist, postprocess, and expert/raw workflows that need bridge-owned normalization.
 - Workflow facts for media-vs-sidecar behavior, output roots/templates, playlist sentinel scope, subtitle format, dependencies, risks, and side effects.
 - Safe argv arrays instead of shell command strings.
 - Managed output policy for output roots, temp roots, archive files, overwrite behavior, and parent-directory traversal checks.
@@ -43,11 +46,64 @@ Requires Node.js >= 22.13 and ESM.
 - Source-derived option catalog generated from `yt_dlp.options.create_parser`.
 - ESM and TypeScript declarations.
 
+## What changed in 0.2.0
+
+`0.2.0` keeps `planWorkflow` as the single planner, but separates the public input surface into two paths:
+
+- Use caller-owned inputs (`ProbeWorkflowInput`, `CallerMediaWorkflowInput`, `CallerSubtitlesWorkflowInput`) when your app owns job state, output folders, format selectors, subtitle mode, resume metadata, and user-facing workflow policy.
+- Use managed Zod schemas (`WorkflowDownloadInputSchema`, `WorkflowInspectInputSchema`, `WorkflowPostprocessInputSchema`, `WorkflowExpertInputSchema`) when a server integration wants the bridge to normalize config, auth, network, output roots, and yt-dlp workflow options from request-like input.
+
+Migration notes for `0.1.x` consumers:
+
+- If you used managed download schemas only to plan app-owned downloads, map your app job to `CallerMediaWorkflowInput` or `CallerSubtitlesWorkflowInput` instead.
+- `WorkflowInputSchema` validates the managed/server schema family. Caller-owned app inputs are TypeScript interfaces, so validate local job state before mapping it into the bridge.
+- Media planning now includes app-oriented resume hardening, including `--continue`, chunk sizing, temp info JSON output, and `resume.loadInfoJsonPath` planning that omits the original URL.
+- Embedded subtitle planning forces the safe MKV merge container and suppresses thumbnail embedding when needed for subtitle muxing.
+- App runtime decisions still stay outside the package: binary selection, token minting, retries, queue lifecycle, cancellation UI, progress display, and settings persistence remain caller-owned.
+
 ## Usage
 
-### Plan a workflow
+Choose the input style based on ownership. App integrations should usually start with caller-owned inputs. MCP/server-style integrations should usually start with managed schemas.
 
-Use `planWorkflow` when a consumer needs a stable `yt-dlp` argv plus facts before deciding how to run, display, retry, or cancel the command.
+### Plan from a caller-owned app adapter
+
+App adapters should map local state into `WorkflowInput`, then keep app-owned orchestration outside the bridge.
+
+```ts
+import { planWorkflow, type CallerMediaWorkflowInput } from "yt-dlp-bridge";
+
+function toWorkflowInput(job: PreparedJob): CallerMediaWorkflowInput {
+  return {
+    kind: "media",
+    url: job.url,
+    output: { directory: job.outputDir, tempDirectory: job.tempDir },
+    selection: {
+      formatSelector: job.formatSelector,
+      mergeOutputFormat: job.mergeOutputFormat
+    },
+    subtitles: job.embedSubtitles
+      ? { embed: true, languages: job.subtitleLanguages, writeAuto: job.writeAutoSubtitles }
+      : undefined,
+    embed: {
+      metadata: job.embedMetadata,
+      thumbnail: job.embedThumbnail,
+      chapters: job.embedChapters
+    },
+    resume: job.infoJsonPath ? { loadInfoJsonPath: job.infoJsonPath } : undefined
+  };
+}
+
+const plan = planWorkflow(toWorkflowInput(job));
+
+console.log(plan.args);
+console.log(plan.facts.sideEffects);
+```
+
+The bridge owns yt-dlp semantics such as audio conversion arguments, subtitle/embed container rules, playlist sentinel logic, dependency reasons, risk/side-effect facts, output path facts, resume argv, and redaction. The adapter owns local job models, runtime selection, retries, token minting, cancellation, progress policy, and user-facing status.
+
+### Plan a managed workflow
+
+Use managed schemas when a consumer accepts request-like input and wants the bridge to normalize defaults before planning a stable `yt-dlp` argv plus facts.
 
 ```ts
 import { WorkflowDownloadInputSchema, planWorkflow } from "yt-dlp-bridge";
@@ -74,6 +130,15 @@ const plan = planWorkflow(input, {
 console.log(plan.args);
 console.log(plan.redactedArgs);
 console.log(plan.facts.dependencies.required);
+```
+
+Managed schemas are the runtime-validation layer for this path:
+
+```ts
+import { WorkflowInputSchema } from "yt-dlp-bridge";
+
+const input = WorkflowInputSchema.parse(request.body);
+const plan = planWorkflow(input, { config });
 ```
 
 `WorkflowPlan` has this shape:
@@ -106,38 +171,6 @@ console.log(plan.facts.dependencies.required);
   }
 }
 ```
-
-### Use a thin app adapter
-
-App adapters should map local state into `WorkflowInput`, then keep app-owned orchestration outside the bridge.
-
-```ts
-import { planWorkflow, type CallerMediaWorkflowInput } from "yt-dlp-bridge";
-
-function toWorkflowInput(job: PreparedJob): CallerMediaWorkflowInput {
-  return {
-    kind: "media",
-    url: job.url,
-    output: { directory: job.outputDir, tempDirectory: job.tempDir },
-    selection: {
-      formatSelector: job.formatSelector,
-      mergeOutputFormat: job.mergeOutputFormat
-    },
-    subtitles: job.embedSubtitles
-      ? { embed: true, languages: job.subtitleLanguages, writeAuto: job.writeAutoSubtitles }
-      : undefined,
-    embed: {
-      metadata: job.embedMetadata,
-      thumbnail: job.embedThumbnail,
-      chapters: job.embedChapters
-    }
-  };
-}
-
-const plan = planWorkflow(toWorkflowInput(job));
-```
-
-The bridge owns yt-dlp semantics such as audio conversion arguments, subtitle/embed container rules, playlist sentinel logic, dependency reasons, risk/side-effect facts, output path facts, and redaction. The adapter owns local job models, runtime selection, retries, token minting, cancellation, progress policy, and user-facing status.
 
 ### Probe playlists
 

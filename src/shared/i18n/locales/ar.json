@@ -33,10 +33,11 @@
 	"theme": {"light": "الوضع الفاتح", "dark": "الوضع الداكن", "system": "إعداد النظام الافتراضي"},
 	"language": {"label": "اللغة"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "الجودة", "formats": "الصيغة", "subtitles": "الترجمات", "sponsorblock": "SponsorBlock", "output": "الإخراج", "folder": "حفظ", "confirm": "تأكيد"},
+		"steps": {"url": "URL", "playlistItems": "قائمة التشغيل", "playlistItemsGeneric": "فيديوهات", "playlistPresets": "الجودة", "formats": "الصيغة", "subtitles": "الترجمات", "sponsorblock": "SponsorBlock", "output": "الإخراج", "folder": "حفظ", "confirm": "تأكيد"},
 		"playlistPresets": {"heading": "اختر الجودة للدفعة", "subhead": "يحل كل فيديو المستوى المختار بشكل مستقل — قوائم التشغيل غير المتجانسة تعمل بدون مفاجآت.", "itemCount_one": "{{count}} عنصر", "itemCount_other": "{{count}} عناصر"},
 		"playlist": {
 			"heading": "عناصر القائمة",
+			"headingGeneric": "الفيديوهات المراد تنزيلها",
 			"bulkHeading": "روابط متعددة",
 			"itemCount_one": "{{count}} فيديو",
 			"itemCount_other": "{{count}} مقاطع فيديو",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}} محددة",
 			"noSelection": "حدد فيديو واحداً على الأقل للمتابعة",
 			"loadingItems": "جارٍ جلب القائمة…",
+			"loadingItemsGeneric": "جارٍ جلب الفيديوهات…",
 			"loadingPhasePages": "جارٍ فحص صفحات القناة",
 			"loadingPhaseItems": "جارٍ جمع الفيديوهات",
 			"loadingPagesFound_one": "تم العثور على {{count}} صفحة",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "{{n}} من هذه الفيديوهات موجودة بالفعل في {{dir}}. هل تريد المزامنة لتنزيل الجديد فقط؟",
 			"syncNoneTitle": "لم يتم تنزيل شيء بعد",
 			"syncNoneDesc": "لم يتم العثور على أي فيديوهات من قائمة التشغيل هذه في {{dir}}.",
+			"syncNoneDescGeneric": "لم يتم العثور على فيديوهات من هذا المصدر في {{dir}}.",
 			"alreadyDownloaded": "تم تنزيله بالفعل",
 			"probeLimitAlertTitle": "فحص قائمة التشغيل محدود",
+			"probeLimitAlertTitleGeneric": "الفحص محدود",
 			"probeLimitAlertDesc": "عثر Arroxy على أكثر من {{count}} عنصر، لذا يُخفي حد الفحص الحالي بقية العناصر."
 		},
 		"bulk": {

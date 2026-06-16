@@ -13,7 +13,8 @@ const COMMAND_SCAN_FILE_EXTENSIONS = new Set(['.json', '.jsonc', '.md', '.mjs', 
 const NPM_CLI_NAME = 'np' + 'm'
 const NPX_CLI_NAME = 'np' + 'x'
 const NPM_FAMILY_COMMAND_PATTERN = new RegExp(String.raw`\b(?:${NPM_CLI_NAME}|${NPX_CLI_NAME})[ \t]+`)
-const NPM_COMMAND_PATTERN = new RegExp(String.raw`\b${NPM_CLI_NAME}[ \t]+`)
+const TRUSTED_NPM_PUBLISH_COMMAND = `${NPM_CLI_NAME} publish ./npm-artifacts/*.tgz --access public`
+const TRUSTED_NPM_PUBLISH_WORKFLOWS = new Set(['.github/workflows/publish-ytdlp-errors.yml', '.github/workflows/publish-yt-dlp-bridge.yml'])
 
 function rootFromArgs(argv) {
 	const rootIndex = argv.indexOf('--root')
@@ -135,6 +136,10 @@ function shouldScanCommandFile(path) {
 	return COMMAND_SCAN_FILE_EXTENSIONS.has(extensionFor(normalized))
 }
 
+function isAllowedNpmFamilyCommand(path, line) {
+	return TRUSTED_NPM_PUBLISH_WORKFLOWS.has(path) && line.trim() === `run: ${TRUSTED_NPM_PUBLISH_COMMAND}`
+}
+
 function findNpmFamilyCommands() {
 	const matches = []
 	const scan = absPath => {
@@ -154,7 +159,7 @@ function findNpmFamilyCommands() {
 			if (!shouldScanCommandFile(childDisplay)) continue
 			const lines = readFileSync(child, 'utf8').split(/\r?\n/)
 			for (const [index, line] of lines.entries()) {
-				if (NPM_FAMILY_COMMAND_PATTERN.test(line)) matches.push(`${childDisplay}:${index + 1}: ${line.trim()}`)
+				if (NPM_FAMILY_COMMAND_PATTERN.test(line) && !isAllowedNpmFamilyCommand(childDisplay, line)) matches.push(`${childDisplay}:${index + 1}: ${line.trim()}`)
 			}
 		}
 	}
@@ -168,7 +173,7 @@ function findNpmFamilyCommands() {
 		if (entry.isFile() && shouldScanCommandFile(root)) {
 			const lines = readText(root).split(/\r?\n/)
 			for (const [index, line] of lines.entries()) {
-				if (NPM_FAMILY_COMMAND_PATTERN.test(line)) matches.push(`${root}:${index + 1}: ${line.trim()}`)
+				if (NPM_FAMILY_COMMAND_PATTERN.test(line) && !isAllowedNpmFamilyCommand(root, line)) matches.push(`${root}:${index + 1}: ${line.trim()}`)
 			}
 		}
 	}
@@ -225,9 +230,16 @@ for (const workflow of publishWorkflows) {
 	assert(text.includes(`run: ${workflow.command}`), `${workflow.path} must call "${workflow.command}".`)
 	assert(text.includes('bun pm view'), `${workflow.path} must use bun pm view for registry version checks.`)
 	assert(text.includes('bun pm pack --destination'), `${workflow.path} must pack artifacts with bun pm pack.`)
-	assert(text.includes('bun publish ./npm-artifacts/*.tgz --access public'), `${workflow.path} must publish artifacts with bun publish.`)
-	assert(text.includes('NPM_CONFIG_TOKEN'), `${workflow.path} must authenticate bun publish with NPM_CONFIG_TOKEN.`)
-	assert(!NPM_COMMAND_PATTERN.test(text), `${workflow.path} must not run registry CLI commands.`)
+	assert(text.includes('uses: actions/setup-node@v6'), `${workflow.path} must set up Node for registry trusted publishing.`)
+	assert(text.includes('node-version: 24'), `${workflow.path} must use Node 24 for registry trusted publishing.`)
+	assert(text.includes('registry-url: https://registry.npmjs.org'), `${workflow.path} must target the npmjs registry for trusted publishing.`)
+	assert(text.includes('package-manager-cache: false'), `${workflow.path} must keep package-manager caching disabled in publish jobs.`)
+	assert(text.includes('id-token: write'), `${workflow.path} must grant OIDC id-token permission for trusted publishing.`)
+	assert(text.includes(`run: ${TRUSTED_NPM_PUBLISH_COMMAND}`), `${workflow.path} must publish artifacts through registry trusted publishing.`)
+	assert(!text.includes('bun publish'), `${workflow.path} must not use bun publish for registry trusted publishing.`)
+	assert(!text.includes('NPM_CONFIG_TOKEN') && !text.includes('NPM_TOKEN'), `${workflow.path} must not use long-lived registry publish tokens.`)
+	const forbiddenWorkflowNpmCommands = text.split(/\r?\n/).filter(line => NPM_FAMILY_COMMAND_PATTERN.test(line) && !isAllowedNpmFamilyCommand(workflow.path, line))
+	assert(forbiddenWorkflowNpmCommands.length === 0, `${workflow.path} must not run npm-family commands other than the trusted ${NPM_CLI_NAME} publish command.`)
 }
 
 const npmFamilyCommands = findNpmFamilyCommands()

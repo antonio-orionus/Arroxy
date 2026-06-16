@@ -33,10 +33,11 @@
 	"theme": {"light": "Modo claro", "dark": "Modo oscuro", "system": "Predeterminado del sistema"},
 	"language": {"label": "Idioma"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "Calidad", "formats": "Formato", "subtitles": "Subtítulos", "sponsorblock": "SponsorBlock", "output": "Salida", "folder": "Guardar", "confirm": "Confirmar"},
+		"steps": {"url": "URL", "playlistItems": "Lista", "playlistItemsGeneric": "Vídeos", "playlistPresets": "Calidad", "formats": "Formato", "subtitles": "Subtítulos", "sponsorblock": "SponsorBlock", "output": "Salida", "folder": "Guardar", "confirm": "Confirmar"},
 		"playlistPresets": {"heading": "Elige la calidad para el lote", "subhead": "Cada vídeo resuelve el nivel elegido de forma independiente — las playlists heterogéneas funcionan sin sorpresas.", "itemCount_one": "{{count}} elemento", "itemCount_other": "{{count}} elementos"},
 		"playlist": {
 			"heading": "Elementos de la Playlist",
+			"headingGeneric": "Vídeos para descargar",
 			"bulkHeading": "URLs en lote",
 			"itemCount_one": "{{count}} video",
 			"itemCount_other": "{{count}} videos",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}} seleccionados",
 			"noSelection": "Selecciona al menos un video para continuar",
 			"loadingItems": "Obteniendo Playlist…",
+			"loadingItemsGeneric": "Obteniendo vídeos…",
 			"loadingPhasePages": "Escaneando páginas del canal",
 			"loadingPhaseItems": "Recopilando videos",
 			"loadingPagesFound_one": "{{count}} página encontrada",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "{{n}} de estos vídeos ya están en {{dir}}. ¿Sincronizar para descargar solo los nuevos?",
 			"syncNoneTitle": "Aún no hay nada descargado",
 			"syncNoneDesc": "No se encontraron vídeos de esta playlist en {{dir}}.",
+			"syncNoneDescGeneric": "No se encontraron vídeos de esta fuente en {{dir}}.",
 			"alreadyDownloaded": "Ya descargado",
 			"probeLimitAlertTitle": "El escaneo de la playlist está limitado",
+			"probeLimitAlertTitleGeneric": "El escaneo está limitado",
 			"probeLimitAlertDesc": "Arroxy encontró más de {{count}} elementos, por lo que el límite de escaneo actual está ocultando el resto."
 		},
 		"bulk": {
@@ -133,7 +137,7 @@
 			"bulkTooltip": "Añade y pon en cola varias URLs.",
 			"features": {
 				"heading": "Qué puede bajar Arroxy",
-				"youtube": {"heading": "YouTube", "video": "Vídeos", "channel": "Canales", "playlist": "Playlists", "short": "Shorts", "music": "Música", "podcast": "Podcasts"},
+				"youtube": {"heading": "YouTube", "video": "Vídeos", "channel": "Canales", "playlist": "Listas", "short": "Shorts", "music": "Música", "podcast": "Podcasts"},
 				"anySite": {"heading": "2000+ sitios", "video": "Vídeos", "videoPlaylist": "Playlists de vídeo", "musicPlaylist": "Playlists de música"},
 				"always": {"audioOnly": "Solo audio", "subtitles": "Subtítulos"}
 			},
@@ -351,7 +355,7 @@
 			"addToQueueTooltip": "Empieza cuando terminen otras descargas — usa todo el ancho de banda",
 			"pullIt": "¡Bájalo! ↓",
 			"pullItTooltip": "Empieza al instante — corre junto a otras descargas activas",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "Lista",
 			"labelBulk": "URLs en lote",
 			"labelPreset": "Calidad",
 			"labelItems": "Elementos",

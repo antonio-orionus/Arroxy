@@ -33,10 +33,11 @@
 	"theme": {"light": "لائٹ موڈ", "dark": "ڈارک موڈ", "system": "سسٹم ڈیفالٹ"},
 	"language": {"label": "زبان"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistPresets": "معیار", "formats": "فارمیٹ", "subtitles": "سب ٹائٹلز", "sponsorblock": "SponsorBlock", "output": "آؤٹ پٹ", "folder": "محفوظ کریں", "confirm": "تصدیق"},
+		"steps": {"url": "URL", "playlistItems": "پلے لسٹ", "playlistItemsGeneric": "ویڈیوز", "playlistPresets": "معیار", "formats": "فارمیٹ", "subtitles": "سب ٹائٹلز", "sponsorblock": "SponsorBlock", "output": "آؤٹ پٹ", "folder": "محفوظ کریں", "confirm": "تصدیق"},
 		"playlistPresets": {"heading": "بیچ کے لیے کوالٹی منتخب کریں", "subhead": "ہر ویڈیو منتخب درجے کو آزادانہ طور پر حل کرتی ہے — مختلف قسم کی playlists بغیر کسی پریشانی کے کام کرتی ہیں۔", "itemCount_one": "{{count}} آئٹم", "itemCount_other": "{{count}} آئٹمز"},
 		"playlist": {
 			"heading": "Playlist آئٹمز",
+			"headingGeneric": "ڈاؤن لوڈ کے لیے ویڈیوز",
 			"bulkHeading": "متعدد URLs",
 			"itemCount_one": "{{count}} ویڈیو",
 			"itemCount_other": "{{count}} ویڈیوز",
@@ -57,6 +58,7 @@
 			"selectedCount_other": "{{count}} منتخب",
 			"noSelection": "جاری رکھنے کے لیے کم از کم ایک ویڈیو منتخب کریں",
 			"loadingItems": "Playlist لائی جا رہی ہے…",
+			"loadingItemsGeneric": "ویڈیوز حاصل ہو رہی ہیں…",
 			"loadingPhasePages": "چینل صفحات اسکین ہو رہے ہیں",
 			"loadingPhaseItems": "ویڈیوز جمع ہو رہی ہیں",
 			"loadingPagesFound_one": "{{count}} صفحہ ملا",
@@ -71,8 +73,10 @@
 			"syncFoundDesc": "ان ویڈیوز میں سے {{n}} پہلے ہی {{dir}} میں موجود ہیں۔ صرف نئی ویڈیوز ڈاؤن لوڈ کرنے کے لیے سنک کریں؟",
 			"syncNoneTitle": "ابھی تک کچھ ڈاؤن لوڈ نہیں ہوا",
 			"syncNoneDesc": "اس پلے لسٹ کی کوئی ویڈیوز {{dir}} میں نہیں ملیں۔",
+			"syncNoneDescGeneric": "{{dir}} میں اس ماخذ کی کوئی ویڈیو نہیں ملی۔",
 			"alreadyDownloaded": "پہلے سے ڈاؤن لوڈ شدہ",
 			"probeLimitAlertTitle": "Playlist اسکین محدود ہے",
+			"probeLimitAlertTitleGeneric": "اسکین محدود ہے",
 			"probeLimitAlertDesc": "Arroxy نے {{count}} سے زیادہ آئٹمز دریافت کیے، اس لیے موجودہ اسکین لمٹ باقی آئٹمز چھپا رہی ہے۔"
 		},
 		"bulk": {

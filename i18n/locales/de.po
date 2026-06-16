@@ -963,7 +963,7 @@ msgstr "Elemente"
 
 msgctxt "wizard.confirm.labelPlaylist"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Wiedergabeliste"
 
 msgctxt "wizard.confirm.labelPreset"
 msgid "Preset"
@@ -1405,6 +1405,10 @@ msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
 msgstr "Playlist-Elemente"
 
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Videos zum Herunterladen"
+
 msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} video"
@@ -1432,6 +1436,10 @@ msgstr "{{count}} URLs"
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
 msgstr "Playlist wird geladen…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Videos werden abgerufen…"
 
 msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
@@ -1464,6 +1472,10 @@ msgstr "Arroxy hat mehr als {{count}} Einträge gefunden, daher verbirgt das akt
 msgctxt "wizard.playlist.probeLimitAlertTitle"
 msgid "Playlist scan is capped"
 msgstr "Playlist-Scan ist begrenzt"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Scan ist begrenzt"
 
 msgctxt "wizard.playlist.rangeApply"
 msgid "Apply range"
@@ -1512,6 +1524,10 @@ msgstr "Bereits im Ordner"
 msgctxt "wizard.playlist.syncNoneDesc"
 msgid "No videos from this playlist were found in {{dir}}."
 msgstr "Keine Videos aus dieser Playlist wurden in {{dir}} gefunden."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "In {{dir}} wurden keine Videos aus dieser Quelle gefunden."
 
 msgctxt "wizard.playlist.syncNoneTitle"
 msgid "Nothing downloaded yet"
@@ -1655,7 +1671,11 @@ msgstr "Ausgabe"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Wiedergabeliste"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Videos"
 
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
@@ -1951,7 +1971,7 @@ msgstr "Musik"
 
 msgctxt "wizard.url.features.youtube.playlist"
 msgid "Playlists"
-msgstr "Playlists"
+msgstr "Wiedergabelisten"
 
 msgctxt "wizard.url.features.youtube.podcast"
 msgid "Podcasts"
