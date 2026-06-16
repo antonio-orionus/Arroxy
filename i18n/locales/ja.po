@@ -963,7 +963,7 @@ msgstr "件数"
 
 msgctxt "wizard.confirm.labelPlaylist"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "プレイリスト"
 
 msgctxt "wizard.confirm.labelPreset"
 msgid "Preset"
@@ -1671,7 +1671,7 @@ msgstr "出力"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "プレイリスト"
 
 msgctxt "wizard.steps.playlistItemsGeneric"
 msgid "Videos"

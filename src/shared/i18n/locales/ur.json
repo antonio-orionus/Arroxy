@@ -33,7 +33,7 @@
 	"theme": {"light": "لائٹ موڈ", "dark": "ڈارک موڈ", "system": "سسٹم ڈیفالٹ"},
 	"language": {"label": "زبان"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistItemsGeneric": "ویڈیوز", "playlistPresets": "معیار", "formats": "فارمیٹ", "subtitles": "سب ٹائٹلز", "sponsorblock": "SponsorBlock", "output": "آؤٹ پٹ", "folder": "محفوظ کریں", "confirm": "تصدیق"},
+		"steps": {"url": "URL", "playlistItems": "پلے لسٹ", "playlistItemsGeneric": "ویڈیوز", "playlistPresets": "معیار", "formats": "فارمیٹ", "subtitles": "سب ٹائٹلز", "sponsorblock": "SponsorBlock", "output": "آؤٹ پٹ", "folder": "محفوظ کریں", "confirm": "تصدیق"},
 		"playlistPresets": {"heading": "بیچ کے لیے کوالٹی منتخب کریں", "subhead": "ہر ویڈیو منتخب درجے کو آزادانہ طور پر حل کرتی ہے — مختلف قسم کی playlists بغیر کسی پریشانی کے کام کرتی ہیں۔", "itemCount_one": "{{count}} آئٹم", "itemCount_other": "{{count}} آئٹمز"},
 		"playlist": {
 			"heading": "Playlist آئٹمز",

@@ -33,7 +33,7 @@
 	"theme": {"light": "Светлая тема", "dark": "Тёмная тема", "system": "Системная"},
 	"language": {"label": "Язык"},
 	"wizard": {
-		"steps": {"url": "Ссылка", "playlistItems": "Playlist", "playlistItemsGeneric": "Видео", "playlistPresets": "Качество", "formats": "Формат", "subtitles": "Субтитры", "sponsorblock": "SponsorBlock", "output": "Вывод", "folder": "Сохранить", "confirm": "Подтвердить"},
+		"steps": {"url": "Ссылка", "playlistItems": "Плейлист", "playlistItemsGeneric": "Видео", "playlistPresets": "Качество", "formats": "Формат", "subtitles": "Субтитры", "sponsorblock": "SponsorBlock", "output": "Вывод", "folder": "Сохранить", "confirm": "Подтвердить"},
 		"playlistPresets": {"heading": "Выбери качество для пакетной загрузки", "subhead": "Каждое видео независимо подбирает подходящий уровень качества — неоднородные плейлисты работают без сюрпризов.", "itemCount_one": "{{count}} элемент", "itemCount_other": "{{count}} элементов"},
 		"playlist": {
 			"heading": "Элементы Playlist",

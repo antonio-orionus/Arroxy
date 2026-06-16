@@ -1671,7 +1671,7 @@ msgstr "آؤٹ پٹ"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "پلے لسٹ"
 
 msgctxt "wizard.steps.playlistItemsGeneric"
 msgid "Videos"

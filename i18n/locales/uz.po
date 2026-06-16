@@ -963,7 +963,7 @@ msgstr "Elementlar"
 
 msgctxt "wizard.confirm.labelPlaylist"
 msgid "Playlist"
-msgstr "Pleylist"
+msgstr "Ijro roʻyxati"
 
 msgctxt "wizard.confirm.labelPreset"
 msgid "Preset"
@@ -1671,7 +1671,7 @@ msgstr "Chiqish"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Ijro roʻyxati"
 
 msgctxt "wizard.steps.playlistItemsGeneric"
 msgid "Videos"
@@ -1971,7 +1971,7 @@ msgstr "Musiqa"
 
 msgctxt "wizard.url.features.youtube.playlist"
 msgid "Playlists"
-msgstr "Pleylistlar"
+msgstr "Ijro roʻyxatlari"
 
 msgctxt "wizard.url.features.youtube.podcast"
 msgid "Podcasts"

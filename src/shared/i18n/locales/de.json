@@ -33,7 +33,7 @@
 	"theme": {"light": "Heller Modus", "dark": "Dunkler Modus", "system": "Systemstandard"},
 	"language": {"label": "Sprache"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistItemsGeneric": "Videos", "playlistPresets": "Qualität", "formats": "Format", "subtitles": "Untertitel", "sponsorblock": "SponsorBlock", "output": "Ausgabe", "folder": "Speichern", "confirm": "Bestätigen"},
+		"steps": {"url": "URL", "playlistItems": "Wiedergabeliste", "playlistItemsGeneric": "Videos", "playlistPresets": "Qualität", "formats": "Format", "subtitles": "Untertitel", "sponsorblock": "SponsorBlock", "output": "Ausgabe", "folder": "Speichern", "confirm": "Bestätigen"},
 		"playlistPresets": {"heading": "Qualität für den Stapel wählen", "subhead": "Jedes Video löst die gewählte Stufe unabhängig auf — heterogene Playlists funktionieren ohne Überraschungen.", "itemCount_one": "{{count}} Element", "itemCount_other": "{{count}} Elemente"},
 		"playlist": {
 			"heading": "Playlist-Elemente",
@@ -137,7 +137,7 @@
 			"bulkTooltip": "Mehrere URLs hinzufügen und in die Warteschlange stellen.",
 			"features": {
 				"heading": "Was Arroxy laden kann",
-				"youtube": {"heading": "YouTube", "video": "Videos", "channel": "Kanäle", "playlist": "Playlists", "short": "Shorts", "music": "Musik", "podcast": "Podcasts"},
+				"youtube": {"heading": "YouTube", "video": "Videos", "channel": "Kanäle", "playlist": "Wiedergabelisten", "short": "Shorts", "music": "Musik", "podcast": "Podcasts"},
 				"anySite": {"heading": "2000+ Seiten", "video": "Videos", "videoPlaylist": "Video-Playlists", "musicPlaylist": "Musik-Playlists"},
 				"always": {"audioOnly": "Nur Audio", "subtitles": "Untertitel"}
 			},
@@ -355,7 +355,7 @@
 			"addToQueueTooltip": "Startet, wenn andere Downloads fertig sind — volle Bandbreite",
 			"pullIt": "Hol's rein! ↓",
 			"pullItTooltip": "Startet sofort — läuft parallel zu anderen aktiven Downloads",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "Wiedergabeliste",
 			"labelBulk": "Bulk-URLs",
 			"labelPreset": "Voreinstellung",
 			"labelItems": "Elemente",

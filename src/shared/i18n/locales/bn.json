@@ -33,7 +33,7 @@
 	"theme": {"light": "লাইট মোড", "dark": "ডার্ক মোড", "system": "সিস্টেম ডিফল্ট"},
 	"language": {"label": "ভাষা"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistItemsGeneric": "ভিডিও", "playlistPresets": "মান", "formats": "ফরম্যাট", "subtitles": "সাবটাইটেল", "sponsorblock": "SponsorBlock", "output": "আউটপুট", "folder": "সেভ", "confirm": "নিশ্চিত করুন"},
+		"steps": {"url": "URL", "playlistItems": "প্লেলিস্ট", "playlistItemsGeneric": "ভিডিও", "playlistPresets": "মান", "formats": "ফরম্যাট", "subtitles": "সাবটাইটেল", "sponsorblock": "SponsorBlock", "output": "আউটপুট", "folder": "সেভ", "confirm": "নিশ্চিত করুন"},
 		"playlistPresets": {"heading": "ব্যাচের জন্য মান বেছে নিন", "subhead": "প্রতিটি ভিডিও স্বাধীনভাবে বেছে নেওয়া স্তর অনুযায়ী রেজোলিউশন করে — বৈচিত্র্যময় playlist অবাক করা ছাড়াই কাজ করে।", "itemCount_one": "{{count}}টি আইটেম", "itemCount_other": "{{count}}টি আইটেম"},
 		"playlist": {
 			"heading": "Playlist আইটেম",
@@ -137,7 +137,7 @@
 			"bulkTooltip": "একাধিক URL যোগ করে সারিতে দিন।",
 			"features": {
 				"heading": "Arroxy যা নামাতে পারে",
-				"youtube": {"heading": "YouTube", "video": "ভিডিও", "channel": "চ্যানেল", "playlist": "Playlist", "short": "Shorts", "music": "মিউজিক", "podcast": "Podcast"},
+				"youtube": {"heading": "YouTube", "video": "ভিডিও", "channel": "চ্যানেল", "playlist": "প্লেলিস্ট", "short": "Shorts", "music": "মিউজিক", "podcast": "Podcast"},
 				"anySite": {"heading": "2000+ সাইট", "video": "ভিডিও", "videoPlaylist": "ভিডিও playlist", "musicPlaylist": "মিউজিক playlist"},
 				"always": {"audioOnly": "শুধু অডিও", "subtitles": "সাবটাইটেল"}
 			},
@@ -339,7 +339,7 @@
 			"addToQueueTooltip": "অন্য ডাউনলোড শেষ হলে শুরু হবে — পুরো ব্যান্ডউইথ পাবে",
 			"pullIt": "নামিয়ে নিন! ↓",
 			"pullItTooltip": "এখনই শুরু হবে — অন্য সক্রিয় ডাউনলোডের সাথে চলবে",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "প্লেলিস্ট",
 			"labelBulk": "বাল্ক URL",
 			"labelPreset": "প্রিসেট",
 			"labelItems": "আইটেম",

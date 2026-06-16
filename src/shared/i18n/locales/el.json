@@ -33,7 +33,7 @@
 	"theme": {"light": "Ανοιχτόχρωμη εμφάνιση", "dark": "Σκούρα εμφάνιση", "system": "Προεπιλογή συστήματος"},
 	"language": {"label": "Γλώσσα"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistItemsGeneric": "Βίντεο", "playlistPresets": "Ποιότητα", "formats": "Μορφή", "subtitles": "Υπότιτλοι", "sponsorblock": "SponsorBlock", "output": "Έξοδος", "folder": "Αποθήκευση", "confirm": "Επιβεβαίωση"},
+		"steps": {"url": "URL", "playlistItems": "Λίστα αναπαραγωγής", "playlistItemsGeneric": "Βίντεο", "playlistPresets": "Ποιότητα", "formats": "Μορφή", "subtitles": "Υπότιτλοι", "sponsorblock": "SponsorBlock", "output": "Έξοδος", "folder": "Αποθήκευση", "confirm": "Επιβεβαίωση"},
 		"playlistPresets": {"heading": "Επιλογή ποιότητας για την ομαδική λήψη", "subhead": "Κάθε βίντεο επιλύει το επιλεγμένο επίπεδο ανεξάρτητα — οι ανομοιογενείς playlist λειτουργούν χωρίς εκπλήξεις.", "itemCount_one": "{{count}} στοιχείο", "itemCount_other": "{{count}} στοιχεία"},
 		"playlist": {
 			"heading": "Στοιχεία playlist",
@@ -137,7 +137,7 @@
 			"bulkTooltip": "Πρόσθεσε και βάλε στην ουρά πολλά URL.",
 			"features": {
 				"heading": "Τι μπορεί να κατεβάσει το Arroxy",
-				"youtube": {"heading": "YouTube", "video": "Βίντεο", "channel": "Κανάλια", "playlist": "Playlist", "short": "Shorts", "music": "Μουσική", "podcast": "Podcast"},
+				"youtube": {"heading": "YouTube", "video": "Βίντεο", "channel": "Κανάλια", "playlist": "Λίστες αναπαραγωγής", "short": "Shorts", "music": "Μουσική", "podcast": "Podcast"},
 				"anySite": {"heading": "2000+ ιστότοποι", "video": "Βίντεο", "videoPlaylist": "Playlist βίντεο", "musicPlaylist": "Playlist μουσικής"},
 				"always": {"audioOnly": "Μόνο ήχοι", "subtitles": "Υπότιτλοι"}
 			},
@@ -355,7 +355,7 @@
 			"addToQueueTooltip": "Ξεκινά όταν ολοκληρωθούν άλλες λήψεις — αποκτά πλήρες εύρος ζώνης",
 			"pullIt": "Κατέβασέ το! ↓",
 			"pullItTooltip": "Ξεκινά αμέσως — εκτελείται παράλληλα με άλλες ενεργές λήψεις",
-			"labelPlaylist": "Playlist",
+			"labelPlaylist": "Λίστα αναπαραγωγής",
 			"labelBulk": "Μαζικά URL",
 			"labelPreset": "Προεπιλογή",
 			"labelItems": "Στοιχεία",

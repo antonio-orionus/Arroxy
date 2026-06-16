@@ -1671,7 +1671,7 @@ msgstr "الإخراج"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "قائمة التشغيل"
 
 msgctxt "wizard.steps.playlistItemsGeneric"
 msgid "Videos"

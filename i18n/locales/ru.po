@@ -1671,7 +1671,7 @@ msgstr "Вывод"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Плейлист"
 
 msgctxt "wizard.steps.playlistItemsGeneric"
 msgid "Videos"

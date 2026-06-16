@@ -963,7 +963,7 @@ msgstr "Éléments"
 
 msgctxt "wizard.confirm.labelPlaylist"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Liste de lecture"
 
 msgctxt "wizard.confirm.labelPreset"
 msgid "Preset"
@@ -1671,7 +1671,7 @@ msgstr "Sortie"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Liste de lecture"
 
 msgctxt "wizard.steps.playlistItemsGeneric"
 msgid "Videos"
@@ -1971,7 +1971,7 @@ msgstr "Musique"
 
 msgctxt "wizard.url.features.youtube.playlist"
 msgid "Playlists"
-msgstr "Playlists"
+msgstr "Listes de lecture"
 
 msgctxt "wizard.url.features.youtube.podcast"
 msgid "Podcasts"

@@ -41,7 +41,7 @@
 	"theme": {"light": "Світла тема", "dark": "Темна тема", "system": "Системна"},
 	"language": {"label": "Мова"},
 	"wizard": {
-		"steps": {"url": "Посилання", "playlistItems": "Playlist", "playlistItemsGeneric": "Відео", "playlistPresets": "Якість", "formats": "Формат", "subtitles": "Субтитри", "sponsorblock": "SponsorBlock", "output": "Вивід", "folder": "Зберегти", "confirm": "Підтвердити"},
+		"steps": {"url": "Посилання", "playlistItems": "Плейлист", "playlistItemsGeneric": "Відео", "playlistPresets": "Якість", "formats": "Формат", "subtitles": "Субтитри", "sponsorblock": "SponsorBlock", "output": "Вивід", "folder": "Зберегти", "confirm": "Підтвердити"},
 		"playlistPresets": {"heading": "Вибери якість для пакетного завантаження", "subhead": "Кожне відео самостійно підбирає відповідний рівень якості — неоднорідні плейлисти працюють без сюрпризів.", "itemCount_one": "{{count}} елемент", "itemCount_other": "{{count}} елементів"},
 		"playlist": {
 			"heading": "Елементи Playlist",

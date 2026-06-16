@@ -963,7 +963,7 @@ msgstr "Wantota"
 
 msgctxt "wizard.confirm.labelPlaylist"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Tarree taphachiisaa"
 
 msgctxt "wizard.confirm.labelPreset"
 msgid "Preset"
@@ -1671,7 +1671,7 @@ msgstr "Ba'uu"
 
 msgctxt "wizard.steps.playlistItems"
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Tarree taphachiisaa"
 
 msgctxt "wizard.steps.playlistItemsGeneric"
 msgid "Videos"
@@ -1971,7 +1971,7 @@ msgstr "Muuziqaa"
 
 msgctxt "wizard.url.features.youtube.playlist"
 msgid "Playlists"
-msgstr "Playlists"
+msgstr "Tarreewwan taphachiisaa"
 
 msgctxt "wizard.url.features.youtube.podcast"
 msgid "Podcasts"
