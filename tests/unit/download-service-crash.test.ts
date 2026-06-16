@@ -26,6 +26,15 @@ function makeStubs() {
 	return {binaryManager, tokenService, recentJobsStore, settingsStore, ytDlp}
 }
 
+async function waitForSpawn(): Promise<void> {
+	await vi.waitFor(() => expect(spawnYtDlp).toHaveBeenCalled())
+}
+
+async function cancelAndWaitForFinalize(svc: DownloadService, recentJobsStore: RecentJobsStore): Promise<void> {
+	await svc.cancel()
+	await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalled())
+}
+
 afterEach(() => {
 	vi.restoreAllMocks()
 })
@@ -41,12 +50,14 @@ describe('DownloadService stdout/stderr crash safety', () => {
 			throw new Error('disk full')
 		})
 
-		// start() registers handlers synchronously in spawnProcess, then returns
 		await svc.start({url: 'https://youtube.com/watch?v=test', outputDir: '/tmp', job: DEFAULT_JOB})
+		// start() returns before async phases finish, so wait until yt-dlp is spawned.
+		await waitForSpawn()
 
 		expect(() => {
 			fakeProc.stdout.emit('data', Buffer.from('[download] 50% of 10MiB'))
 		}).not.toThrow()
+		await cancelAndWaitForFinalize(svc, stubs.recentJobsStore)
 	})
 
 	it('stderr data handler swallows exceptions from consumeProgress', async () => {
@@ -60,10 +71,12 @@ describe('DownloadService stdout/stderr crash safety', () => {
 		})
 
 		await svc.start({url: 'https://youtube.com/watch?v=test', outputDir: '/tmp', job: DEFAULT_JOB})
+		await waitForSpawn()
 
 		expect(() => {
 			fakeProc.stderr.emit('data', Buffer.from('ERROR: some yt-dlp error line'))
 		}).not.toThrow()
+		await cancelAndWaitForFinalize(svc, stubs.recentJobsStore)
 	})
 
 	it('active job count is still correct after a crash in the stdout handler', async () => {
@@ -77,12 +90,14 @@ describe('DownloadService stdout/stderr crash safety', () => {
 		})
 
 		const result = await svc.start({url: 'https://youtube.com/watch?v=test', outputDir: '/tmp', job: DEFAULT_JOB})
+		await waitForSpawn()
 		expect(result.ok).toBe(true)
 		expect(svc.activeCount).toBe(1)
 
 		// Crash in handler — job should still be tracked
 		fakeProc.stdout.emit('data', Buffer.from('some line'))
 		expect(svc.activeCount).toBe(1)
+		await cancelAndWaitForFinalize(svc, stubs.recentJobsStore)
 	})
 })
 
