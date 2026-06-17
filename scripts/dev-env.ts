@@ -26,12 +26,22 @@ export interface DevEnvPaths {
 	tmpDirSource: 'override' | 'computed'
 }
 
+type ToolName = 'node' | 'bun'
+
 export interface ToolVersionStatus {
-	name: 'node' | 'bun'
+	name: ToolName
 	expected: string
 	actual: string | null
 	ok: boolean
 	message?: string
+}
+
+interface ToolVersionMismatchInput {
+	name: ToolName
+	expected: string
+	actual: string | null
+	hasMiseConfig: boolean
+	miseAvailable: boolean
 }
 
 export interface DoctorCheck {
@@ -131,7 +141,7 @@ function asPackageJson(value: unknown): PackageJson {
 	return {packageManager: typeof value.packageManager === 'string' ? value.packageManager : undefined}
 }
 
-function commandName(name: 'bun' | 'node'): string {
+function commandName(name: 'bun' | 'node' | 'mise'): string {
 	if (process.platform === 'win32') return `${name}.exe`
 	return name
 }
@@ -278,7 +288,7 @@ function normalizeNodeVersion(value: string): string {
 	return value.trim().replace(/^v/, '')
 }
 
-async function actualVersion(name: 'node' | 'bun', repoRoot: string): Promise<string | null> {
+async function actualVersion(name: ToolName, repoRoot: string): Promise<string | null> {
 	try {
 		const raw = await captureCommand(commandName(name), ['--version'], {cwd: repoRoot, env: process.env})
 		return name === 'node' ? normalizeNodeVersion(raw) : raw.trim()
@@ -287,14 +297,35 @@ async function actualVersion(name: 'node' | 'bun', repoRoot: string): Promise<st
 	}
 }
 
-function versionStatus(name: 'node' | 'bun', expected: string, actual: string | null): ToolVersionStatus {
+export function createToolVersionMismatchMessage(input: ToolVersionMismatchInput): string {
+	const base = input.actual ? `expected ${input.expected}, got ${input.actual}` : `expected ${input.expected}, but ${input.name} was not found`
+	if (input.hasMiseConfig && input.miseAvailable) return `${base}. Recommended: run \`mise install\` from the repo root, ensure your shell activates mise, then rerun \`bun run doctor\`.`
+	if (input.hasMiseConfig) return `${base}. Recommended: install mise and run \`mise install\`, or manually activate ${input.name} ${input.expected}, then rerun \`bun run doctor\`.`
+	return `${base}. Activate ${input.name} ${input.expected}, then rerun \`bun run doctor\`.`
+}
+
+function versionStatus(name: ToolName, expected: string, actual: string | null, guidance: {hasMiseConfig: boolean; miseAvailable: boolean}): ToolVersionStatus {
 	const ok = actual === expected
-	return {name, expected, actual, ok, ...(ok ? {} : {message: actual ? `expected ${expected}, got ${actual}` : `expected ${expected}, but ${name} was not found`})}
+	return {name, expected, actual, ok, ...(ok ? {} : {message: createToolVersionMismatchMessage({name, expected, actual, ...guidance})})}
+}
+
+async function hasMiseConfig(repoRoot: string): Promise<boolean> {
+	return (await pathExists(path.join(repoRoot, 'mise.toml'))) || (await pathExists(path.join(repoRoot, '.mise.toml')))
+}
+
+async function miseAvailable(repoRoot: string): Promise<boolean> {
+	try {
+		await captureCommand(commandName('mise'), ['--version'], {cwd: repoRoot, env: process.env})
+		return true
+	} catch {
+		return false
+	}
 }
 
 async function readToolVersionStatuses(repoRoot: string): Promise<{node: ToolVersionStatus; bun: ToolVersionStatus}> {
-	const [expectedNode, expectedBun, actualNode, actualBun] = await Promise.all([readExpectedNodeVersion(repoRoot), readExpectedBunVersion(repoRoot), actualVersion('node', repoRoot), actualVersion('bun', repoRoot)])
-	return {node: versionStatus('node', expectedNode, actualNode), bun: versionStatus('bun', expectedBun, actualBun)}
+	const [expectedNode, expectedBun, actualNode, actualBun, repoHasMiseConfig] = await Promise.all([readExpectedNodeVersion(repoRoot), readExpectedBunVersion(repoRoot), actualVersion('node', repoRoot), actualVersion('bun', repoRoot), hasMiseConfig(repoRoot)])
+	const guidance = {hasMiseConfig: repoHasMiseConfig, miseAvailable: repoHasMiseConfig ? await miseAvailable(repoRoot) : false}
+	return {node: versionStatus('node', expectedNode, actualNode, guidance), bun: versionStatus('bun', expectedBun, actualBun, guidance)}
 }
 
 function assertRequiredToolVersions(tools: {node: ToolVersionStatus; bun: ToolVersionStatus}): void {

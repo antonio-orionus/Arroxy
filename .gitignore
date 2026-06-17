@@ -20,6 +20,11 @@ refs
 .env
 .env.local
 
+# Local tool-version overrides and optional repo-local browser cache
+mise.local.toml
+.mise.local.toml
+.playwright-browsers/
+
 # Runtime binary cache (BinaryManager)
 runtime-cache/
 

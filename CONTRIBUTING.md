@@ -45,7 +45,9 @@ Use the [issue templates](https://github.com/antonio-orionus/Arroxy/issues/new/c
 
 ## Local development
 
-Prerequisites: [Bun](https://bun.sh) and Node.js pinned by `.node-version`.
+Recommended prerequisites: [mise](https://mise.jdx.dev), plus the native OS packages listed below. The shared `mise.toml` pins Node.js and Bun for this repo.
+
+If you do not use mise, install Node.js from `.node-version` and Bun from the root `package.json` `packageManager` field. Bun must already be available before `bun run bootstrap`; bootstrap repairs project-local dependencies and managed binaries, but it does not install Bun itself.
 
 Bun installs JavaScript dependencies, but it does not replace native OS prerequisites.
 
@@ -58,9 +60,13 @@ Run `bun run doctor` after setup. It reports the specific missing tool or artifa
 ```bash
 git clone https://github.com/antonio-orionus/Arroxy.git
 cd Arroxy
+mise install
 bun run bootstrap
+bun run doctor
 bun run dev          # runs the Electron app against the Vite renderer
 ```
+
+Without mise, manually activate the versions from `.node-version` and `package.json`, then run `bun run bootstrap`, `bun run doctor`, and `bun run dev`.
 
 For pure-renderer / UI work without the Electron shell:
 
@@ -71,6 +77,8 @@ bun run dev:mock
 The renderer's `browserMock.ts` stubs `window.appApi` only in explicit `browser-mock` mode so the wizard, queue, and update banner all simulate without a backend. Electron dev and packaged builds use the real preload bridge.
 
 If you use git worktrees, create them with your own tool or harness, then run `bun run bootstrap` inside the new worktree.
+
+Playwright browser downloads use Playwright's normal user cache by default. If you need a strictly repo-local browser cache for a throwaway checkout, run commands with `PLAYWRIGHT_BROWSERS_PATH="$PWD/.playwright-browsers"`; that local cache path is ignored by Git.
 
 ## Required pre-PR checks
 

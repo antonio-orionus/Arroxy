@@ -10,6 +10,7 @@ const ROOT_DEPENDENCY_SECTIONS = ['dependencies', 'devDependencies', 'optionalDe
 const PACKAGE_TOOLING_CONFIG_PATTERNS = [/^\.oxlintrc(?:\..*)?$/, /^oxlint\.config\./, /^eslint\.config\./, /^\.eslintrc(?:\..*)?$/, /^biome\.jsonc?$/, /^\.prettierrc(?:\..*)?$/, /^prettier\.config\./]
 const COMMAND_SCAN_ROOTS = ['package.json', 'AGENTS.md', 'CONTRIBUTING.md', 'dev-docs', 'scripts', '.github', 'packages']
 const COMMAND_SCAN_FILE_EXTENSIONS = new Set(['.json', '.jsonc', '.md', '.mjs', '.js', '.ts', '.tsx', '.mts', '.cts', '.yml', '.yaml', '.sh', '.ps1'])
+const REQUIRED_GITIGNORE_ENTRIES = ['mise.local.toml', '.mise.local.toml', '.playwright-browsers/']
 const NPM_CLI_NAME = 'np' + 'm'
 const NPX_CLI_NAME = 'np' + 'x'
 const NPM_FAMILY_COMMAND_PATTERN = new RegExp(String.raw`\b(?:${NPM_CLI_NAME}|${NPX_CLI_NAME})[ \t]+`)
@@ -122,6 +123,30 @@ function hasWorkspaceProtocol(spec) {
 	return typeof spec === 'string' && spec.startsWith('workspace:')
 }
 
+function parseBunPackageManagerVersion(packageManager) {
+	if (typeof packageManager !== 'string') return null
+	const match = /^bun@(.+)$/.exec(packageManager)
+	return match?.[1] ?? null
+}
+
+function parseMiseTools(text) {
+	const tools = {}
+	for (const line of text.split(/\r?\n/)) {
+		const match = /^\s*(node|bun)\s*=\s*"([^"]+)"\s*$/.exec(line)
+		if (match) tools[match[1]] = match[2]
+	}
+	return tools
+}
+
+function gitignoreEntries(text) {
+	return new Set(
+		text
+			.split(/\r?\n/)
+			.map(line => line.trim())
+			.filter(line => line.length > 0 && !line.startsWith('#'))
+	)
+}
+
 function extensionFor(path) {
 	const name = path.split('/').at(-1) ?? path
 	const index = name.lastIndexOf('.')
@@ -190,6 +215,11 @@ const packageRecords = packageDirs.map(dir => ({dir, packageJson: readJson(`${di
 const workspacePackageNames = new Set(packageRecords.map(({packageJson}) => packageJson.name).filter(Boolean))
 const biome = readJson('biome.jsonc')
 const knip = readJson('knip.json')
+const nodeVersion = readText('.node-version').trim()
+const bunVersion = parseBunPackageManagerVersion(rootPackage.packageManager)
+const miseConfigExists = existsSync(repoPath('mise.toml'))
+const miseTools = miseConfigExists ? parseMiseTools(readText('mise.toml')) : {}
+const ignoredEntries = gitignoreEntries(readText('.gitignore'))
 const ciWorkflow = readText('.github/workflows/ci.yml')
 const publishWorkflows = [
 	{path: '.github/workflows/publish-ytdlp-errors.yml', command: 'bun run errors:check'},
@@ -200,6 +230,13 @@ const knipWorkspaces = knip.workspaces ?? {}
 const madgeScript = posix(rootScripts.madge ?? '')
 
 assert(rootPackage.private === true, 'Root package must stay private so workspace-only dependencies are never published from the app package.')
+assert(miseConfigExists, 'mise.toml must define shared Node and Bun tool versions.')
+assert(miseTools.node === nodeVersion, `mise.toml node must match .node-version (${nodeVersion}).`)
+assert(bunVersion !== null, 'Root packageManager must pin Bun as bun@<version>.')
+assert(miseTools.bun === bunVersion, `mise.toml bun must match packageManager (${bunVersion}).`)
+for (const entry of REQUIRED_GITIGNORE_ENTRIES) {
+	assert(ignoredEntries.has(entry), `.gitignore must ignore ${entry}.`)
+}
 assert(biome.formatter?.enabled !== false, 'Biome formatter must stay enabled.')
 assert(biome.linter?.enabled === false, 'Biome linter must stay disabled; Oxlint is the lint authority.')
 assert(biome.assist?.enabled === false, 'Biome assist must stay disabled unless the tooling contract is updated.')

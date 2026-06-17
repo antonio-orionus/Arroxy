@@ -6,7 +6,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it} from 'vitest'
 
-import {assertLauncherPortAvailable, computeDefaultRendererPort, createDoctorReport, resolveDevEnv, resolveDoctorDevEnv, resolveRuntimeDevEnv} from '../../scripts/dev-env.js'
+import {assertLauncherPortAvailable, computeDefaultRendererPort, createDoctorReport, createToolVersionMismatchMessage, resolveDevEnv, resolveDoctorDevEnv, resolveRuntimeDevEnv} from '../../scripts/dev-env.js'
 
 const servers: net.Server[] = []
 const tempDirs: string[] = []
@@ -156,6 +156,18 @@ describe('dev-env pure helpers', () => {
 
 		expect(report.ok).toBe(true)
 		expect(JSON.parse(JSON.stringify(report))).toEqual(report)
+	})
+
+	it('recommends mise install when a mismatched tool has mise config and mise is available', () => {
+		expect(createToolVersionMismatchMessage({name: 'bun', expected: '1.2.23', actual: '1.2.22', hasMiseConfig: true, miseAvailable: true})).toBe('expected 1.2.23, got 1.2.22. Recommended: run `mise install` from the repo root, ensure your shell activates mise, then rerun `bun run doctor`.')
+	})
+
+	it('recommends installing mise or manually activating the tool when mise config exists but mise is missing', () => {
+		expect(createToolVersionMismatchMessage({name: 'bun', expected: '1.2.23', actual: null, hasMiseConfig: true, miseAvailable: false})).toBe('expected 1.2.23, but bun was not found. Recommended: install mise and run `mise install`, or manually activate bun 1.2.23, then rerun `bun run doctor`.')
+	})
+
+	it('gives generic activation guidance when no tool-manager config exists', () => {
+		expect(createToolVersionMismatchMessage({name: 'node', expected: '24.16.0', actual: '24.15.0', hasMiseConfig: false, miseAvailable: false})).toBe('expected 24.16.0, got 24.15.0. Activate node 24.16.0, then rerun `bun run doctor`.')
 	})
 
 	it('uses the next available renderer port when the computed port is occupied', async () => {
