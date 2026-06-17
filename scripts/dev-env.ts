@@ -120,7 +120,7 @@ interface LauncherEnvOptions {
 	gpu?: 'force' | 'swiftshader'
 }
 
-type LauncherName = 'electron' | 'mock' | 'browser-test'
+type LauncherName = 'electron' | 'mock' | 'browser-test' | 'browser-smoke'
 
 function isRecord(value: unknown): value is Record<string, unknown> {
 	return typeof value === 'object' && value !== null
@@ -510,7 +510,7 @@ export async function assertLauncherPortAvailable(env: DevEnvPaths, launcher: La
 }
 
 function isLauncherName(value: string | undefined): value is LauncherName {
-	return value === 'electron' || value === 'mock' || value === 'browser-test'
+	return value === 'electron' || value === 'mock' || value === 'browser-test' || value === 'browser-smoke'
 }
 
 async function runBootstrapOrRepair(kind: 'bootstrap' | 'repair'): Promise<void> {
@@ -577,7 +577,7 @@ async function clearFreshMainLog(env: DevEnvPaths): Promise<void> {
 
 async function runLauncher(args: string[]): Promise<void> {
 	const [launcher, ...launcherArgs] = args
-	if (!isLauncherName(launcher)) throw new Error('usage: bun scripts/dev-env.ts run <electron|mock|browser-test>')
+	if (!isLauncherName(launcher)) throw new Error('usage: bun scripts/dev-env.ts run <electron|mock|browser-test|browser-smoke>')
 	const repoRoot = await findRepoRoot(process.cwd())
 	const env = await resolveRuntimeDevEnv(repoRoot)
 	await assertLauncherPortAvailable(env, launcher)
@@ -604,7 +604,12 @@ async function runLauncher(args: string[]): Promise<void> {
 		return
 	}
 
-	throw new Error('usage: bun scripts/dev-env.ts run <electron|mock|browser-test>')
+	if (launcher === 'browser-smoke') {
+		await spawnChecked(commandName('bun'), ['run', 'playwright', 'test', 'tests/browser/dev-smoke.spec.ts', '--config', 'playwright.browser.config.ts'], {cwd: repoRoot, env: baseEnv})
+		return
+	}
+
+	throw new Error('usage: bun scripts/dev-env.ts run <electron|mock|browser-test|browser-smoke>')
 }
 
 function normalizeFileUrlForComparison(href: string): string {

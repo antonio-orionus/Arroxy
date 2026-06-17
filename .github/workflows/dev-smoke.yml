@@ -1,0 +1,80 @@
+name: Dev Smoke
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  BUN_VERSION: '1.2.23'
+
+permissions:
+  contents: read
+
+jobs:
+  dev-smoke:
+    name: Dev smoke (${{ matrix.label }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        include:
+          - os: windows-latest
+            label: windows
+          - os: macos-latest
+            label: macos-arm64
+          - os: ubuntu-latest
+            label: linux
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+
+      - uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Cache bun dependencies
+        uses: actions/cache@v5
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ matrix.os }}-bun-${{ hashFiles('bun.lock') }}
+          restore-keys: ${{ matrix.os }}-bun-
+
+      - name: Bootstrap checkout
+        env:
+          BTBN_GITHUB_TOKEN: ${{ github.token }}
+        run: bun run bootstrap
+
+      - name: Inspect checkout readiness
+        run: bun run doctor
+
+      - name: Install Linux browser system dependencies
+        if: runner.os == 'Linux'
+        run: bunx playwright install chromium --with-deps
+
+      - name: Run browser-mock dev smoke
+        run: bun run test:browser:smoke
+
+      - name: Upload browser smoke artifacts
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: dev-smoke-playwright-${{ matrix.label }}
+          path: |
+            test-results
+            tests/browser/screenshots
+          if-no-files-found: ignore
+          retention-days: 7
