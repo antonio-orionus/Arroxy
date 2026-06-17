@@ -16,6 +16,8 @@ describe('Windows bootstrap smoke workflow', () => {
 
 		expect(workflow).toContain('runs-on: windows-latest')
 		expect(workflow).toContain('workflow_dispatch:')
+		expect(workflow).toContain('pull_request:')
+		expect(workflow).toContain('branches: [main]')
 		expect(workflow).toContain('node-version-file: .node-version')
 		expect(workflow).toContain('bun-version: ${{ env.BUN_VERSION }}')
 		expect(workflow).toContain('run: bun run bootstrap')
