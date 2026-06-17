@@ -1,6 +1,8 @@
 name: Windows Bootstrap Smoke
 
 on:
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
