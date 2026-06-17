@@ -6,9 +6,9 @@
 
 ## Base branch
 
-<!-- Normal contributor PRs should target `dev`. Maintainer release-candidate PRs may target `main`. -->
+<!-- Normal contributor PRs should target `main`. -->
 
-- [ ] This PR targets `dev`, or it is a maintainer release-candidate PR targeting `main`.
+- [ ] This PR targets `main`.
 
 ## Type
 

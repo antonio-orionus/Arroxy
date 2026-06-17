@@ -18,6 +18,16 @@ const {version} = require('./package.json') as {version: string}
 // the original failure mode (Arroxy v0.3.2-beta.6 release).
 const WINDOWS_ABS_PATH = /^[a-zA-Z]:[\\/]/
 
+export function readRendererDevServerPort(env: Record<string, string | undefined> = process.env): number {
+	const raw = env.ARROXY_RENDERER_PORT
+	if (!raw) return 5173
+	const port = Number(raw)
+	if (!Number.isInteger(port) || port < 1 || port > 65_535) {
+		throw new Error(`Invalid ARROXY_RENDERER_PORT: ${raw}`)
+	}
+	return port
+}
+
 export function isExternalMainBuildImport(id: string): boolean {
 	if (id === 'electron' || id.startsWith('electron/')) return true
 	if (id.startsWith('node:')) return true
@@ -45,6 +55,7 @@ export default defineConfig(({mode}) => {
 	const openpanelClientId = env.OPENPANEL_CLIENT_ID ?? process.env.OPENPANEL_CLIENT_ID ?? ''
 	const openpanelClientSecret = env.OPENPANEL_CLIENT_SECRET ?? process.env.OPENPANEL_CLIENT_SECRET ?? ''
 	const arroxyAnalyticsDebug = env.ARROXY_ANALYTICS_DEBUG ?? process.env.ARROXY_ANALYTICS_DEBUG ?? ''
+	const rendererDevServerPort = readRendererDevServerPort()
 
 	return {
 		main: {
@@ -97,6 +108,10 @@ export default defineConfig(({mode}) => {
 				}
 			}
 		},
-		renderer: {resolve: {alias: {'@renderer': path.resolve('src/renderer/src'), '@shared': path.resolve('src/shared'), 'ytdlp-errors': path.resolve('packages/ytdlp-errors/src/index.ts')}}, plugins: [react(), tailwindcss(), Icons({compiler: 'jsx', jsx: 'react'}) as PluginOption]}
+		renderer: {
+			server: {host: '127.0.0.1', port: rendererDevServerPort, strictPort: true},
+			resolve: {alias: {'@renderer': path.resolve('src/renderer/src'), '@shared': path.resolve('src/shared'), 'ytdlp-errors': path.resolve('packages/ytdlp-errors/src/index.ts')}},
+			plugins: [react(), tailwindcss(), Icons({compiler: 'jsx', jsx: 'react'}) as PluginOption]
+		}
 	}
 })

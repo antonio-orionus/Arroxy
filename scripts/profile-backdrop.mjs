@@ -3,9 +3,12 @@ import {mkdirSync, writeFileSync} from 'node:fs'
 import {dirname, join, resolve} from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {chromium} from '@playwright/test'
+import {profileBackdropServerCommand, profileBackdropServerEnv, profileBackdropStopCommand} from './profileBackdropServer.mjs'
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)))
-const defaultUrl = 'http://localhost:5173/?theme=dark&platform=linux&backdrop=1'
+const defaultRendererHost = '127.0.0.1'
+const defaultRendererPort = readRendererPort()
+const defaultUrl = `http://${defaultRendererHost}:${defaultRendererPort}/?theme=dark&platform=linux&backdrop=1`
 const defaultOutputDir = join(repoRoot, 'output', 'perf')
 const frameBudgetMs = 1000 / 60
 
@@ -118,6 +121,23 @@ function parseArgs(argv) {
 	return args
 }
 
+function stableHash(value) {
+	let hash = 0x811c9dc5
+	for (let index = 0; index < value.length; index += 1) {
+		hash ^= value.charCodeAt(index)
+		hash = Math.imul(hash, 0x01000193)
+	}
+	return hash >>> 0
+}
+
+function readRendererPort() {
+	const raw = process.env.ARROXY_RENDERER_PORT?.trim()
+	if (!raw) return 20_000 + (stableHash(repoRoot) % 20_000)
+	const port = Number(raw)
+	if (!Number.isInteger(port) || port < 1 || port > 65_535) throw new Error(`Invalid ARROXY_RENDERER_PORT: ${raw}`)
+	return port
+}
+
 function valueAfterEquals(arg) {
 	const index = arg.indexOf('=')
 	if (index === -1 || index === arg.length - 1) throw new Error(`Missing value for ${arg}`)
@@ -145,7 +165,7 @@ function defaultHeadless() {
 
 async function fetchOk(url) {
 	try {
-		const response = await fetch(url, {method: 'GET'})
+		const response = await fetch(url, {method: 'GET', signal: AbortSignal.timeout(1_000)})
 		return response.ok
 	} catch {
 		return false
@@ -157,7 +177,7 @@ async function ensureServer(url, autoServer) {
 	if (await fetchOk(origin)) return null
 	if (!autoServer) throw new Error(`${origin} is not responding. Start bun run dev:mock, or omit --no-server.`)
 
-	const child = spawn(process.platform === 'win32' ? 'bun.cmd' : 'bun', ['run', 'dev:mock'], {cwd: repoRoot, env: process.env, stdio: ['ignore', 'pipe', 'pipe']})
+	const child = spawn(profileBackdropServerCommand(), ['scripts/dev-env.ts', 'run', 'mock'], {cwd: repoRoot, detached: process.platform !== 'win32', env: profileBackdropServerEnv(url, process.env), stdio: ['ignore', 'pipe', 'pipe']})
 
 	let output = ''
 	child.stdout.on('data', chunk => {
@@ -174,8 +194,36 @@ async function ensureServer(url, autoServer) {
 		await sleep(250)
 	}
 
-	child.kill('SIGTERM')
+	await stopServer(child)
 	throw new Error(`Timed out waiting for ${origin}.\n${output.trim()}`)
+}
+
+async function stopServer(child) {
+	if (child.exitCode !== null || child.signalCode !== null) return
+	if (typeof child.pid !== 'number') {
+		child.kill('SIGTERM')
+		return
+	}
+
+	const stopCommand = profileBackdropStopCommand(child.pid)
+	if (stopCommand) {
+		await new Promise(resolve => {
+			const killer = spawn(stopCommand.command, stopCommand.args, {stdio: 'ignore'})
+			killer.once('error', () => {
+				child.kill('SIGTERM')
+				resolve()
+			})
+			killer.once('exit', () => resolve())
+		})
+	} else {
+		try {
+			process.kill(-child.pid, 'SIGTERM')
+		} catch {
+			child.kill('SIGTERM')
+		}
+	}
+
+	await Promise.race([new Promise(resolve => child.once('exit', resolve)), sleep(5_000)])
 }
 
 async function launchBrowser(args) {
@@ -461,7 +509,7 @@ async function main() {
 		if (results.some(item => item.verdict === 'software-webgl')) process.exitCode = 1
 	} finally {
 		if (browser) await browser.close()
-		if (server) server.kill('SIGTERM')
+		if (server) await stopServer(server)
 	}
 }
 

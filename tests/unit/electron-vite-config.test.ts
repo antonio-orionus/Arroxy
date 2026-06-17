@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import {isExternalMainBuildImport, isExternalPreloadBuildImport} from '../../electron.vite.config.js'
+import {isExternalMainBuildImport, isExternalPreloadBuildImport, readRendererDevServerPort} from '../../electron.vite.config.js'
 
 describe('electron.vite.config', () => {
 	it('bundles main-process npm dependencies while keeping electron and node builtins external', () => {
@@ -37,5 +37,12 @@ describe('electron.vite.config', () => {
 		expect(isExternalPreloadBuildImport('C:\\work\\arroxy\\src\\preload\\createPreloadApi.ts')).toBe(false)
 		expect(isExternalMainBuildImport('D:\\a\\Arroxy\\Arroxy\\src\\shared\\types.ts')).toBe(false)
 		expect(isExternalMainBuildImport('C:/work/arroxy/src/main/index.ts')).toBe(false)
+	})
+
+	it('reads the renderer dev-server port from ARROXY_RENDERER_PORT', () => {
+		expect(readRendererDevServerPort({})).toBe(5173)
+		expect(readRendererDevServerPort({ARROXY_RENDERER_PORT: '23456'})).toBe(23_456)
+		expect(() => readRendererDevServerPort({ARROXY_RENDERER_PORT: 'abc'})).toThrow(/ARROXY_RENDERER_PORT/)
+		expect(() => readRendererDevServerPort({ARROXY_RENDERER_PORT: '70000'})).toThrow(/ARROXY_RENDERER_PORT/)
 	})
 })
