@@ -271,10 +271,11 @@ bun run lint && bun run typecheck && bun run knip
 
 All three must exit clean. Currently they do.
 
-Renderer-only Playwright walk-through (per `CLAUDE.md`):
+Renderer-only Playwright walk-through (per `AGENTS.md`):
 
 ```bash
-bunx vite src/renderer --port 5173 --mode browser-mock
+bun run dev:mock
+bun run doctor
 ```
 
 Drive in a browser via the Playwright MCP tools or manually:

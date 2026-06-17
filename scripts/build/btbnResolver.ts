@@ -180,8 +180,8 @@ export function githubHeaders(env: Record<string, string | undefined> = process.
 	return headers
 }
 
-async function fetchJson(url: string): Promise<unknown> {
-	const response = await fetch(url, {headers: githubHeaders()})
+async function fetchJson(url: string, env: Record<string, string | undefined> = process.env): Promise<unknown> {
+	const response = await fetch(url, {headers: githubHeaders(env)})
 	if (!response.ok) {
 		throw new Error(`GitHub API request failed (${response.status}): ${url}`)
 	}
@@ -189,13 +189,13 @@ async function fetchJson(url: string): Promise<unknown> {
 	return response.json()
 }
 
-async function fetchReleaseList(apiBase: string): Promise<BtbnRelease[]> {
-	const payload = await fetchJson(`${apiBase}/releases?per_page=20`)
+async function fetchReleaseList(apiBase: string, env: Record<string, string | undefined> = process.env): Promise<BtbnRelease[]> {
+	const payload = await fetchJson(`${apiBase}/releases?per_page=20`, env)
 	return parseGithubReleaseList(payload)
 }
 
-async function fetchReleaseByTag(apiBase: string, tagName: string): Promise<BtbnRelease> {
-	const payload = await fetchJson(`${apiBase}/releases/tags/${encodeURIComponent(tagName)}`)
+async function fetchReleaseByTag(apiBase: string, tagName: string, env: Record<string, string | undefined> = process.env): Promise<BtbnRelease> {
+	const payload = await fetchJson(`${apiBase}/releases/tags/${encodeURIComponent(tagName)}`, env)
 	const parsed = toGithubRelease(payload)
 	if (!parsed) {
 		throw new Error(`BtbN release ${tagName} API payload was not a release`)
@@ -244,10 +244,10 @@ export function formatShellEnv(resolution: BtbnAssetResolution, target?: BtbnTar
 	].join('\n')
 }
 
-async function resolveFromGithub(btbnArch: string, ext: BtbnArchiveExtension): Promise<BtbnAssetResolution> {
-	const apiBase = process.env.BTBN_API_BASE ?? BTBN_API_BASE
-	const pinnedTag = process.env.BTBN_RELEASE_TAG?.trim()
-	const releases = pinnedTag ? [await fetchReleaseByTag(apiBase, pinnedTag)] : await fetchReleaseList(apiBase)
+export async function resolveBtbnAsset(btbnArch: string, ext: BtbnArchiveExtension, env: Record<string, string | undefined> = process.env): Promise<BtbnAssetResolution> {
+	const apiBase = env.BTBN_API_BASE ?? BTBN_API_BASE
+	const pinnedTag = env.BTBN_RELEASE_TAG?.trim()
+	const releases = pinnedTag ? [await fetchReleaseByTag(apiBase, pinnedTag, env)] : await fetchReleaseList(apiBase, env)
 	const resolution = selectBtbnAsset(releases, btbnArch, ext, {includeFloatingLatest: pinnedTag === 'latest'})
 
 	if (!resolution) {
@@ -256,6 +256,10 @@ async function resolveFromGithub(btbnArch: string, ext: BtbnArchiveExtension): P
 	}
 
 	return resolution
+}
+
+async function resolveFromGithub(btbnArch: string, ext: BtbnArchiveExtension): Promise<BtbnAssetResolution> {
+	return resolveBtbnAsset(btbnArch, ext)
 }
 
 async function main(args: string[]): Promise<void> {

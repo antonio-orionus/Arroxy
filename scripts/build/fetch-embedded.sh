@@ -16,38 +16,36 @@
 #     so we scrape the index page for the current snapshot path.
 set -euo pipefail
 
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+source "$ROOT/scripts/test-binaries/_lib.sh"
+
 PLATFORM="${1:-}"
 ARCH="${2:-}"
+if [[ "$PLATFORM" == "host" ]]; then
+  PLATFORM="$(node -p "process.platform")"
+  ARCH="$(node -p "process.arch")"
+fi
 if [[ -z "$PLATFORM" || -z "$ARCH" ]]; then
-  echo "usage: $0 <platform> <arch>" >&2
+  echo "usage: $0 <platform> <arch> | host" >&2
   echo "  platform: win32 | darwin | linux" >&2
   echo "  arch:     x64 | arm64" >&2
   exit 2
 fi
 
-ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+case "$ARCH" in
+  x64|arm64) ;;
+  *) fail "unsupported host arch: $ARCH"; exit 1 ;;
+esac
+
 OUT="$ROOT/build/embedded/${PLATFORM}-${ARCH}"
 mkdir -p "$OUT"
-
-source "$ROOT/scripts/test-binaries/_lib.sh"
 
 # If both binaries are already present, skip — fetch-embedded is idempotent.
 exe_ext=""
 [[ "$PLATFORM" == "win32" ]] && exe_ext=".exe"
 
 has_ffmpeg_payload() {
-  [[ -f "$OUT/ffmpeg${exe_ext}" && -f "$OUT/ffprobe${exe_ext}" ]] || return 1
-  case "$PLATFORM" in
-    win32)
-      compgen -G "$OUT/*.dll" >/dev/null
-      ;;
-    linux)
-      compgen -G "$OUT/lib*.so*" >/dev/null
-      ;;
-    *)
-      return 0
-      ;;
-  esac
+  bun "$ROOT/scripts/build/embeddedPayload.ts" check "$PLATFORM" "$ARCH" "$OUT" >/dev/null 2>&1
 }
 
 has_required_payload() {
@@ -58,6 +56,11 @@ if has_required_payload; then
   ok "embedded binaries already present at $OUT, skipping fetch"
   exit 0
 fi
+
+clear_ffmpeg_payload() {
+  rm -f "$OUT/ffmpeg${exe_ext}" "$OUT/ffprobe${exe_ext}" "$OUT"/*.dll "$OUT"/lib*.so* 2>/dev/null || true
+  rm -rf "$OUT/_ext" "$OUT/_ext_ffmpeg" "$OUT/_ext_ffprobe"
+}
 
 # BtbN: single archive contains both ffmpeg + ffprobe (+ DLLs on Windows).
 fetch_btbn() {
@@ -182,6 +185,7 @@ fetch_martin_riedl() {
 if has_ffmpeg_payload; then
   ok "embedded ffmpeg/ffprobe already present at $OUT, skipping ffmpeg fetch"
 else
+  clear_ffmpeg_payload
   case "${PLATFORM}-${ARCH}" in
     win32-x64|win32-arm64|linux-x64|linux-arm64)
       fetch_btbn "$PLATFORM" "$ARCH" "$OUT" ;;
@@ -193,14 +197,8 @@ else
   esac
 fi
 
-# Sanity: confirm both binaries land + are executable.
-for bin in ffmpeg ffprobe; do
-  bin_path="$OUT/${bin}${exe_ext}"
-  if [[ ! -f "$bin_path" ]]; then
-    fail "missing $bin_path after fetch"
-    exit 1
-  fi
-done
+# Sanity: confirm binaries and required shared-library siblings land.
+bun "$ROOT/scripts/build/embeddedPayload.ts" assert "$PLATFORM" "$ARCH" "$OUT"
 
 if (( FAIL > 0 )); then
   echo "FAIL: $FAIL"

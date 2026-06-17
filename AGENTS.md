@@ -131,17 +131,22 @@ The root-owned tooling contract lives in `dev-docs/tooling-contract.md`. Do not 
 ```bash
 bun run dev        # normal dev start
 bun run dev:fresh  # clear main.log then start (cross-platform)
+bun run doctor     # inspect checkout readiness and selected dev paths/ports
 ```
 
-### Worktree workflow
+### Fresh checkout / worktree bootstrap
 
-Use the repo bootstrap script instead of raw `git worktree add`:
+Worktree creation is tool-owned. After any fresh clone or worktree created by another harness, run:
 
 ```bash
-bun run worktree codex/my-feature [.worktrees/my-feature]
+bun run bootstrap
 ```
 
-It creates the worktree under `.worktrees/` by default, runs `bun install`, verifies Electron's generated `path.txt` + `dist/electron` payload, repairs it from the source checkout if Bun reports "no changes" but Electron is half-installed, and fetches embedded ffmpeg/ffprobe. Raw worktrees are easy to leave broken because Git does not copy ignored runtime artifacts and `bun install` may skip Electron postinstall repair.
+`bun run bootstrap` prepares the checkout. Dev launchers use per-checkout ports and `ELECTRON_USER_DATA` so multiple checkouts can run in parallel.
+
+Use `bun run doctor` to inspect the selected renderer port, Electron user data path, temp path, and required local artifacts.
+
+Use `bun run repair` for a non-destructive checkout repair when dependencies, Electron payloads, Playwright browsers, or embedded ffmpeg/ffprobe artifacts are missing or stale.
 
 ### Test runner
 
@@ -222,15 +227,19 @@ For renderer-only visual iteration, **use the project wrapper first**:
 
 ```bash
 bun run dev:mock
+bun run doctor
 ```
 
-This starts the Vite renderer in `browser-mock` mode with the repo-owned defaults. Full Electron automation is slower and should be reserved for Electron-specific behavior.
+This starts the Vite renderer in `browser-mock` mode with the repo-owned defaults. `bun run doctor` reports the computed renderer URL. Full Electron automation is slower and should be reserved for Electron-specific behavior.
 
-Only bypass the wrapper when you intentionally need a custom Vite invocation, such as a different port or one-off debugging flags:
+If browser automation needs a fixed URL, pin the port through the wrapper instead of bypassing it:
 
 ```bash
-# Fallback only. From project root — uses src/renderer/vite.config.mjs (aliases + Tailwind + React)
-bunx vite src/renderer --port 5173 --mode browser-mock
+# POSIX shells
+ARROXY_RENDERER_PORT=5173 bun run dev:mock
+
+# PowerShell
+$env:ARROXY_RENDERER_PORT = "5173"; bun run dev:mock
 ```
 
 The renderer's `browserMock.ts` stubs `window.appApi` with simulated downloads, formats, settings when Vite runs in explicit `browser-mock` mode — no Electron needed. Electron dev and packaged builds must use the real preload bridge.
@@ -238,7 +247,7 @@ The renderer's `browserMock.ts` stubs `window.appApi` with simulated downloads, 
 ### agent-browser workflow
 
 1. `agent-browser skills get core` before the first browser task in a session.
-2. `agent-browser --session arroxy-ui --args "--no-sandbox" open http://127.0.0.1:5173/` when Chromium sandboxing fails in the dev VM.
+2. `agent-browser --session arroxy-ui --args "--no-sandbox" open http://127.0.0.1:<doctor-port>/` when Chromium sandboxing fails in the dev VM.
 3. `agent-browser --session arroxy-ui set viewport 1190 768` to check breakpoint behavior.
 4. `agent-browser --session arroxy-ui snapshot -i` for interactive refs.
 5. `agent-browser --session arroxy-ui screenshot output/playwright/<name>.png` for review artifacts.
@@ -247,7 +256,7 @@ The renderer's `browserMock.ts` stubs `window.appApi` with simulated downloads, 
 
 ### Playwright fallback
 
-1. `browser_navigate` → `http://localhost:5173`, then `browser_take_screenshot`.
+1. `browser_navigate` → the `http://127.0.0.1:<doctor-port>` URL from `bun run doctor`, then `browser_take_screenshot`.
 2. Zoom for pixel inspection via `browser_evaluate`:
    ```js
    () => {

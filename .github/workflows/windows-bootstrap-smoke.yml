@@ -1,10 +1,7 @@
-name: CI
+name: Windows Bootstrap Smoke
 
 on:
-  push:
-    branches: ['**']
-    tags-ignore: ['v*']
-  pull_request:
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,8 +15,10 @@ permissions:
   contents: read
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
+  bootstrap:
+    name: Fresh Windows bootstrap
+    runs-on: windows-latest
+    timeout-minutes: 30
 
     steps:
       - uses: actions/checkout@v6
@@ -34,8 +33,10 @@ jobs:
         with:
           bun-version: ${{ env.BUN_VERSION }}
 
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
+      - name: Bootstrap checkout
+        env:
+          BTBN_GITHUB_TOKEN: ${{ github.token }}
+        run: bun run bootstrap
 
-      - name: Check
-        run: bun run check
+      - name: Inspect checkout readiness
+        run: bun run doctor
