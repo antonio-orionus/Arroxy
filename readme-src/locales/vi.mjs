@@ -18,8 +18,11 @@ const TECH_CONTENT = `<details>
 
 | Công cụ | Phiên bản | Cài đặt |
 | -------- | --------- | ------- |
-| Git  | bất kỳ  | [git-scm.com](https://git-scm.com) |
-| Bun  | mới nhất | xem theo từng OS bên dưới |
+| Git     | bất kỳ  | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | \`mise install\` hoặc \`.node-version\` |
+| Bun     | 1.2.23  | \`mise install\` hoặc \`package.json\` \`packageManager\` |
+
+Khuyến nghị: cài \`mise\`, rồi chạy \`mise install\` trong checkout. Nếu không dùng mise, hãy kích hoạt thủ công Node.js từ \`.node-version\` và Bun từ \`package.json\` trước \`bun run bootstrap\`.
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-Không cần công cụ build gốc — dự án không có addon Node gốc.
+Visual Studio Build Tools và Python có thể cần cho các rebuild gốc.
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron runtime deps
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Phụ thuộc build và runtime Electron
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # E2E tests only (Electron needs a display)
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # hot-reload dev build
+cd Arroxy
+mise install           # khuyến nghị; bỏ qua nếu đã kích hoạt thủ công các công cụ đã ghim
+bun run bootstrap
+bun run doctor
+bun run dev            # app Electron với Vite renderer
 \`\`\`
 
 ### Tạo bản phân phối
@@ -62,10 +67,10 @@ bun run dev          # hot-reload dev build
 \`\`\`bash
 bun run build        # kiểm tra kiểu + biên dịch
 bun run dist         # đóng gói cho OS hiện tại
-bun run dist:win     # biên dịch chéo Windows portable exe
+bun run dist:win     # đóng gói mục tiêu Windows trên host được hỗ trợ
 \`\`\`
 
-> yt-dlp được lấy từ GitHub khi khởi động lần đầu và lưu trong thư mục dữ liệu ứng dụng. ffmpeg và ffprobe được đóng gói trong mọi bản phát hành Arroxy.
+> \`bun run bootstrap\` cài dependencies, rebuild dependencies của app Electron, xác minh Electron, chuẩn bị ffmpeg/ffprobe nhúng cho phát triển và cài Playwright Chromium. yt-dlp được quản lý lúc runtime trong thư mục dữ liệu ứng dụng; ffmpeg và ffprobe được đóng gói trong mọi bản phát hành Arroxy.
 
 </details>`;
 

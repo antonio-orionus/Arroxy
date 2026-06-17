@@ -16,10 +16,13 @@ const TECH_CONTENT = `<details>
 
 ### Предуслови — све платформе
 
-| Алат | Верзија | Инсталација |
-| ---- | ------- | ----------- |
-| Git  | било која | [git-scm.com](https://git-scm.com) |
-| Bun  | најновија | погледати по ОС испод |
+| Алат    | Верзија | Инсталација |
+| ------- | ------- | ----------- |
+| Git     | било која | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | \`mise install\` или \`.node-version\` |
+| Bun     | 1.2.23  | \`mise install\` или \`package.json\` \`packageManager\` |
+
+Препоручено: инсталирајте \`mise\`, затим покрените \`mise install\` у checkout-у. Без mise-а, ручно активирајте Node.js из \`.node-version\` и Bun из \`package.json\` пре \`bun run bootstrap\`.
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-Нису потребни нативни алати за изградњу — пројекат нема нативних Node додатака.
+Visual Studio Build Tools и Python могу бити потребни за нативне rebuild-ове.
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron runtime deps
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Зависности за build и Electron runtime
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # E2E tests only (Electron needs a display)
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # hot-reload dev build
+cd Arroxy
+mise install           # препоручено; прескочите ако су pinned алати ручно активирани
+bun run bootstrap
+bun run doctor
+bun run dev            # Electron апликација са Vite renderer-ом
 \`\`\`
 
 ### Изградња дистрибутивне верзије
@@ -62,10 +67,10 @@ bun run dev          # hot-reload dev build
 \`\`\`bash
 bun run build        # typecheck + compile
 bun run dist         # package for current OS
-bun run dist:win     # cross-compile Windows portable exe
+bun run dist:win     # пакетирање Windows циљева на подржаном хосту
 \`\`\`
 
-> yt-dlp се преузима са GitHub-а при првом покретању и кешира у фасцикли података апликације. ffmpeg и ffprobe су укључени у свако Arroxy издање.
+> \`bun run bootstrap\` инсталира зависности, поново гради зависности Electron апликације, проверава Electron, припрема уграђене ffmpeg/ffprobe за развој и инсталира Playwright Chromium. yt-dlp се управља у runtime-у у фасцикли података апликације; ffmpeg и ffprobe су укључени у свако Arroxy издање.
 
 </details>`;
 

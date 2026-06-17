@@ -25,7 +25,7 @@ Si Arroxy te ahorra tiempo, una ⭐ ayuda a que otros lo encuentren.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-05-14._
+> _Last updated: 2026-06-17._
 
 > 🌐 Esta es una traducción asistida por IA. El [README en inglés](README.md) es la fuente de verdad. ¿Encontraste un error? [Las PRs son bienvenidas](../../pulls).
 
@@ -365,7 +365,10 @@ Todavía planeado — aproximadamente por orden de prioridad:
 | Herramienta | Versión  | Instalación |
 | ----------- | -------- | ----------- |
 | Git         | cualquiera | [git-scm.com](https://git-scm.com) |
-| Bun         | latest   | ver por SO a continuación |
+| Node.js     | 24.16.0  | `mise install` o `.node-version` |
+| Bun         | 1.2.23   | `mise install` o `package.json` `packageManager` |
+
+Recomendado: instala `mise` y luego ejecuta `mise install` en el checkout. Sin mise, activa manualmente Node.js desde `.node-version` y Bun desde `package.json` antes de `bun run bootstrap`.
 
 ### Windows
 
@@ -373,7 +376,7 @@ Todavía planeado — aproximadamente por orden de prioridad:
 powershell -c "irm bun.sh/install.ps1 | iex"
 ```
 
-No se requieren herramientas de compilación nativas — el proyecto no tiene addons nativos de Node.
+Visual Studio Build Tools y Python pueden ser necesarios para recompilaciones nativas.
 
 ### macOS
 
@@ -387,8 +390,8 @@ curl -fsSL https://bun.sh/install | bash
 ```bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron runtime deps
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Dependencias de build y runtime de Electron
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # E2E tests only (Electron needs a display)
 sudo apt install -y xvfb
@@ -398,9 +401,11 @@ sudo apt install -y xvfb
 
 ```bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # hot-reload dev build
+cd Arroxy
+mise install           # recomendado; omite si activaste manualmente las herramientas fijadas
+bun run bootstrap
+bun run doctor
+bun run dev            # app Electron contra el renderer de Vite
 ```
 
 ### Crear un distribuible
@@ -408,10 +413,10 @@ bun run dev          # hot-reload dev build
 ```bash
 bun run build        # typecheck + compile
 bun run dist         # package for current OS
-bun run dist:win     # cross-compile Windows portable exe
+bun run dist:win     # empaqueta objetivos Windows en un host compatible
 ```
 
-> yt-dlp se obtiene desde GitHub en el primer arranque y se guarda en la carpeta de datos de la app. ffmpeg y ffprobe vienen incluidos en cada release de Arroxy.
+> `bun run bootstrap` instala dependencias, recompila dependencias de la app Electron, verifica Electron, prepara ffmpeg/ffprobe embebidos para desarrollo e instala Playwright Chromium. yt-dlp se gestiona en runtime dentro de la carpeta de datos de la app; ffmpeg y ffprobe vienen incluidos en cada release de Arroxy.
 
 </details>
 

@@ -16,10 +16,13 @@ const TECH_CONTENT = `<details>
 
 ### 前置要求 — 所有平台
 
-| 工具 | 版本 | 安装 |
-| ---- | ------- | ------- |
-| Git  | 任意     | [git-scm.com](https://git-scm.com) |
-| Bun  | 最新  | 见各平台说明 |
+| 工具    | 版本 | 安装 |
+| ------- | ------- | ------- |
+| Git     | 任意     | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | \`mise install\` 或 \`.node-version\` |
+| Bun     | 1.2.23  | \`mise install\` 或 \`package.json\` \`packageManager\` |
+
+推荐安装 \`mise\`，然后在 checkout 中运行 \`mise install\`。如果不用 mise，请先按 \`.node-version\` 手动启用 Node.js，并按 \`package.json\` 启用 Bun，再运行 \`bun run bootstrap\`。
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-无需本机构建工具 — 本项目没有原生 Node 插件。
+原生 rebuild 可能需要 Visual Studio Build Tools 和 Python。
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron 运行时依赖
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# 构建和 Electron 运行时依赖
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # 仅 E2E 测试（Electron 需要显示器）
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # 热重载开发构建
+cd Arroxy
+mise install           # 推荐；如果已手动启用固定版本工具，可跳过
+bun run bootstrap
+bun run doctor
+bun run dev            # 使用 Vite renderer 运行 Electron 应用
 \`\`\`
 
 ### 打包发行版
@@ -62,10 +67,10 @@ bun run dev          # 热重载开发构建
 \`\`\`bash
 bun run build        # 类型检查 + 编译
 bun run dist         # 为当前系统打包
-bun run dist:win     # 交叉编译 Windows 便携版 exe
+bun run dist:win     # 在受支持的主机上打包 Windows 目标
 \`\`\`
 
-> yt-dlp 会在首次启动时从 GitHub 获取并缓存到你的应用数据目录。ffmpeg 和 ffprobe 随每个 Arroxy 版本一起提供。
+> \`bun run bootstrap\` 会安装依赖、重建 Electron 应用依赖、验证 Electron、为开发准备嵌入式 ffmpeg/ffprobe，并安装 Playwright Chromium。yt-dlp 在运行时由应用数据目录管理；ffmpeg 和 ffprobe 随每个 Arroxy 版本一起提供。
 
 </details>`;
 

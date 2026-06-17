@@ -16,10 +16,13 @@ const TECH_CONTENT = `<details>
 
 ### Voraussetzungen — alle Plattformen
 
-| Tool | Version | Install |
-| ---- | ------- | ------- |
-| Git  | any     | [git-scm.com](https://git-scm.com) |
-| Bun  | latest  | siehe unten je nach OS |
+| Tool    | Version | Install |
+| ------- | ------- | ------- |
+| Git     | any     | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | \`mise install\` oder \`.node-version\` |
+| Bun     | 1.2.23  | \`mise install\` oder \`package.json\` \`packageManager\` |
+
+Empfohlen: \`mise\` installieren und dann im Checkout \`mise install\` ausführen. Ohne mise Node.js aus \`.node-version\` und Bun aus \`package.json\` manuell aktivieren, bevor \`bun run bootstrap\` läuft.
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-Keine nativen Build-Tools erforderlich — das Projekt hat keine nativen Node-Addons.
+Visual Studio Build Tools und Python können für native Rebuilds erforderlich sein.
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron runtime deps
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Build- und Electron-Runtime-Abhängigkeiten
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # E2E tests only (Electron needs a display)
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # hot-reload dev build
+cd Arroxy
+mise install           # empfohlen; überspringen, wenn die gepinnten Tools manuell aktiv sind
+bun run bootstrap
+bun run doctor
+bun run dev            # Electron-App gegen den Vite-Renderer
 \`\`\`
 
 ### Distributables bauen
@@ -62,10 +67,10 @@ bun run dev          # hot-reload dev build
 \`\`\`bash
 bun run build        # typecheck + compile
 bun run dist         # für aktuelles OS paketieren
-bun run dist:win     # Windows Portable exe cross-kompilieren
+bun run dist:win     # Windows-Ziele auf unterstütztem Host paketieren
 \`\`\`
 
-> yt-dlp wird beim ersten Start von GitHub geholt und im App-Datenordner gecacht. ffmpeg und ffprobe sind in jedem Arroxy-Release enthalten.
+> \`bun run bootstrap\` installiert Abhängigkeiten, baut Electron-App-Abhängigkeiten neu, prüft Electron, bereitet eingebettete ffmpeg/ffprobe für die Entwicklung vor und installiert Playwright Chromium. yt-dlp wird zur Laufzeit im App-Datenordner verwaltet; ffmpeg und ffprobe sind in jedem Arroxy-Release enthalten.
 
 </details>`;
 

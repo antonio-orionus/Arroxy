@@ -16,10 +16,13 @@ const TECH_CONTENT = `<details>
 
 ### Talablar — barcha platformalar uchun
 
-| Vosita | Versiya | O'rnatish |
-| ------ | ------- | --------- |
-| Git    | istalgan | [git-scm.com](https://git-scm.com) |
-| Bun    | oxirgi  | quyidagi OT bo'yicha ko'ring |
+| Vosita  | Versiya | O'rnatish |
+| ------- | ------- | --------- |
+| Git     | istalgan | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | \`mise install\` yoki \`.node-version\` |
+| Bun     | 1.2.23  | \`mise install\` yoki \`package.json\` \`packageManager\` |
+
+Tavsiya: \`mise\` ni o'rnating, so'ng checkout ichida \`mise install\` ni ishga tushiring. Mise bo'lmasa, \`bun run bootstrap\` dan oldin Node.js'ni \`.node-version\` dan va Bun'ni \`package.json\` dan qo'lda faollashtiring.
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-Mahalliy qurish vositalari talab qilinmaydi — loyihada mahalliy Node qo'shimchalari yo'q.
+Mahalliy rebuildlar uchun Visual Studio Build Tools va Python kerak bo'lishi mumkin.
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron ish vaqti bog'liqliklari
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Build va Electron ish vaqti bog'liqliklari
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # Faqat E2E testlar uchun (Electron displeyni talab qiladi)
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # issiq qayta yuklash bilan dev qurish
+cd Arroxy
+mise install           # tavsiya; pinned tools qo'lda faollashtirilgan bo'lsa o'tkazib yuboring
+bun run bootstrap
+bun run doctor
+bun run dev            # Vite renderer bilan Electron app
 \`\`\`
 
 ### Tarqatish paketini qurish
@@ -62,10 +67,10 @@ bun run dev          # issiq qayta yuklash bilan dev qurish
 \`\`\`bash
 bun run build        # turni tekshirish + kompilyatsiya
 bun run dist         # joriy OT uchun paketlash
-bun run dist:win     # Windows portable exe ni cross-kompilyatsiya qilish
+bun run dist:win     # supported host'da Windows targets paketlash
 \`\`\`
 
-> yt-dlp birinchi ishga tushirishda GitHub’dan olinadi va ilova ma’lumotlari papkasida keshlanadi. ffmpeg va ffprobe har bir Arroxy relizi bilan birga keladi.
+> \`bun run bootstrap\` bog'liqliklarni o'rnatadi, Electron app bog'liqliklarini rebuild qiladi, Electron'ni tekshiradi, development uchun embedded ffmpeg/ffprobe tayyorlaydi va Playwright Chromium'ni o'rnatadi. yt-dlp runtime'da app data folder ichida manage qilinadi; ffmpeg va ffprobe har bir Arroxy relizi bilan bundled keladi.
 
 </details>`;
 

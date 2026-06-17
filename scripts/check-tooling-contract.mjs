@@ -260,6 +260,9 @@ assert(/&&\s*bun run packages:check\s*$/.test(rootScripts.check ?? ''), 'Root ch
 assert(ciWorkflow.includes('run: bun run check'), 'CI workflow must call the canonical root check.')
 
 const lintStaged = stringMap(rootPackage['lint-staged'])
+const formatLintStagedCommand = lintStaged['*.{ts,tsx,cts,mts,js,mjs,cjs,json,jsonc,css}'] ?? ''
+assert(formatLintStagedCommand.includes('biome format --write'), 'lint-staged format command must run Biome fixes.')
+assert(formatLintStagedCommand.includes('--no-errors-on-unmatched'), 'lint-staged Biome command must tolerate staged files ignored by Biome config.')
 const jsLintStagedCommand = lintStaged['*.{ts,tsx,cts,mts,js,mjs,cjs}'] ?? ''
 assert(jsLintStagedCommand.includes('bun run lint:prepare'), 'lint-staged JS/TS command must run lint:prepare before Oxlint.')
 assert(jsLintStagedCommand.includes('oxlint --fix --deny-warnings'), 'lint-staged JS/TS command must run Oxlint fixes with denied warnings.')

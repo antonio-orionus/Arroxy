@@ -16,10 +16,13 @@ const TECH_CONTENT = `<details>
 
 ### تمام پلیٹ فارمز کے لیے ضروریات
 
-| ٹول | ورژن | انسٹال |
-| ---- | ------- | ------- |
-| Git  | کوئی بھی | [git-scm.com](https://git-scm.com) |
-| Bun  | تازہ ترین | نیچے OS کے حساب سے دیکھیں |
+| ٹول    | ورژن | انسٹال |
+| ------- | ------- | ------- |
+| Git     | کوئی بھی | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | \`mise install\` یا \`.node-version\` |
+| Bun     | 1.2.23  | \`mise install\` یا \`package.json\` \`packageManager\` |
+
+تجویز کردہ: \`mise\` انسٹال کریں، پھر checkout میں \`mise install\` چلائیں۔ mise کے بغیر، \`bun run bootstrap\` سے پہلے \`.node-version\` سے Node.js اور \`package.json\` سے Bun کو دستی طور پر فعال کریں۔
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-کسی نیٹو بلڈ ٹول کی ضرورت نہیں — اس پروجیکٹ میں کوئی نیٹو Node ایڈ آن نہیں ہے۔
+نیٹو rebuilds کے لیے Visual Studio Build Tools اور Python درکار ہو سکتے ہیں۔
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron رن ٹائم ڈپینڈنسیز
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# build اور Electron رن ٹائم ڈپینڈنسیز
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # صرف E2E ٹیسٹ کے لیے (Electron کو ڈسپلے درکار ہوتا ہے)
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # ہاٹ ری لوڈ ڈیو بلڈ
+cd Arroxy
+mise install           # تجویز کردہ؛ اگر pinned tools دستی طور پر فعال ہیں تو چھوڑ دیں
+bun run bootstrap
+bun run doctor
+bun run dev            # Vite renderer کے ساتھ Electron app
 \`\`\`
 
 ### تقسیم کے قابل بلڈ بنائیں
@@ -62,10 +67,10 @@ bun run dev          # ہاٹ ری لوڈ ڈیو بلڈ
 \`\`\`bash
 bun run build        # ٹائپ چیک + کمپائل
 bun run dist         # موجودہ OS کے لیے پیکج
-bun run dist:win     # Windows پورٹیبل exe کراس کمپائل
+bun run dist:win     # supported host پر Windows targets پیکج کریں
 \`\`\`
 
-> yt-dlp پہلی بار لانچ پر GitHub سے حاصل ہو کر آپ کے ایپ ڈیٹا فولڈر میں کیش ہوتا ہے۔ ffmpeg اور ffprobe ہر Arroxy ریلیز کے ساتھ بنڈل ہوتے ہیں۔
+> \`bun run bootstrap\` dependencies انسٹال کرتا ہے، Electron app dependencies کو rebuild کرتا ہے، Electron کی تصدیق کرتا ہے، development کے لیے embedded ffmpeg/ffprobe تیار کرتا ہے، اور Playwright Chromium انسٹال کرتا ہے۔ yt-dlp runtime پر app data folder میں manage ہوتا ہے؛ ffmpeg اور ffprobe ہر Arroxy release کے ساتھ bundled ہوتے ہیں۔
 
 </details>`;
 

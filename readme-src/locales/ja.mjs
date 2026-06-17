@@ -16,10 +16,13 @@ const TECH_CONTENT = `<details>
 
 ### 前提条件 — 全プラットフォーム共通
 
-| ツール | バージョン | インストール |
-| ---- | ------- | ------- |
-| Git  | 任意    | [git-scm.com](https://git-scm.com) |
-| Bun  | 最新    | 各 OS の手順を参照 |
+| ツール  | バージョン | インストール |
+| ------- | ------- | ------- |
+| Git     | 任意    | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | \`mise install\` または \`.node-version\` |
+| Bun     | 1.2.23  | \`mise install\` または \`package.json\` \`packageManager\` |
+
+推奨: \`mise\` をインストールし、checkout 内で \`mise install\` を実行します。mise を使わない場合は、\`bun run bootstrap\` の前に \`.node-version\` の Node.js と \`package.json\` の Bun を手動で有効化してください。
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-ネイティブビルドツールは不要 — このプロジェクトにはネイティブ Node アドオンがありません。
+ネイティブ rebuild には Visual Studio Build Tools と Python が必要になる場合があります。
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron ランタイム依存
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# ビルド + Electron ランタイム依存
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # E2E テストのみ（Electron にはディスプレイが必要）
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # ホットリロード開発ビルド
+cd Arroxy
+mise install           # 推奨。固定バージョンのツールを手動で有効化済みならスキップ
+bun run bootstrap
+bun run doctor
+bun run dev            # Vite renderer に接続した Electron アプリ
 \`\`\`
 
 ### 配布パッケージのビルド
@@ -62,10 +67,10 @@ bun run dev          # ホットリロード開発ビルド
 \`\`\`bash
 bun run build        # 型チェック + コンパイル
 bun run dist         # 現在の OS 向けパッケージ
-bun run dist:win     # Windows ポータブル exe のクロスコンパイル
+bun run dist:win     # 対応ホストで Windows ターゲットをパッケージ
 \`\`\`
 
-> yt-dlp は初回起動時に GitHub から取得され、アプリデータフォルダにキャッシュされます。ffmpeg と ffprobe はすべての Arroxy リリースに同梱されています。
+> \`bun run bootstrap\` は依存関係をインストールし、Electron アプリ依存を rebuild し、Electron を検証し、開発用の埋め込み ffmpeg/ffprobe を準備し、Playwright Chromium をインストールします。yt-dlp は実行時にアプリデータフォルダで管理され、ffmpeg と ffprobe はすべての Arroxy リリースに同梱されています。
 
 </details>`;
 

@@ -16,10 +16,13 @@ const TECH_CONTENT = `<details>
 
 ### المتطلبات الأساسية — جميع الأنظمة
 
-| الأداة | الإصدار | التثبيت |
-| ---- | ------- | ------- |
-| Git  | أي إصدار | [git-scm.com](https://git-scm.com) |
-| Bun  | الأحدث  | انظر الأنظمة أدناه |
+| الأداة  | الإصدار | التثبيت |
+| ------- | ------- | ------- |
+| Git     | أي إصدار | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | \`mise install\` أو \`.node-version\` |
+| Bun     | 1.2.23  | \`mise install\` أو \`package.json\` \`packageManager\` |
+
+الموصى به: ثبّت \`mise\` ثم شغّل \`mise install\` داخل checkout. من دون mise، فعّل Node.js من \`.node-version\` وBun من \`package.json\` يدوياً قبل \`bun run bootstrap\`.
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-لا حاجة لأدوات بناء أصلية — المشروع لا يحتوي على إضافات Node أصلية.
+قد تحتاج إلى Visual Studio Build Tools وPython لإعادة البناء الأصلية.
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# اعتماديات Electron
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# اعتماديات البناء وتشغيل Electron
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # اختبارات E2E فقط (يحتاج Electron إلى شاشة)
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # بناء تطويري مع إعادة التحميل الفوري
+cd Arroxy
+mise install           # موصى به؛ تخطّه إذا فعّلت الأدوات المثبتة يدوياً
+bun run bootstrap
+bun run doctor
+bun run dev            # تطبيق Electron مع عارض Vite
 \`\`\`
 
 ### بناء حزمة قابلة للتوزيع
@@ -62,10 +67,10 @@ bun run dev          # بناء تطويري مع إعادة التحميل ال
 \`\`\`bash
 bun run build        # فحص الأنواع + التجميع
 bun run dist         # حزمة للنظام الحالي
-bun run dist:win     # تجميع متقاطع لـ Windows Portable exe
+bun run dist:win     # حزم أهداف Windows على مضيف مدعوم
 \`\`\`
 
-> يُجلب yt-dlp من GitHub عند أول تشغيل ويُخزَّن في مجلد بيانات التطبيق. يأتي ffmpeg وffprobe مضمنين مع كل إصدار من Arroxy.
+> يثبّت \`bun run bootstrap\` الاعتماديات، ويعيد بناء اعتماديات تطبيق Electron، ويتحقق من Electron، ويجهز ffmpeg/ffprobe المضمنين للتطوير، ويثبّت Playwright Chromium. يُدار yt-dlp وقت التشغيل داخل مجلد بيانات التطبيق؛ ويأتي ffmpeg وffprobe مضمنين مع كل إصدار من Arroxy.
 
 </details>`;
 

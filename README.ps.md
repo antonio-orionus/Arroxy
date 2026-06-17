@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-05-14._
+> _Last updated: 2026-06-17._
 
 ---
 
@@ -360,10 +360,13 @@ yt-dlp د لانچ پر مهال اتومات تازه کیږي، او Arroxy ه
 
 ### مخکینۍ شرطونه — ټولې پلیټفارمونه
 
-| وسیله | نسخه | نصب |
-| ---- | ------- | ------- |
-| Git  | هر     | [git-scm.com](https://git-scm.com) |
-| Bun  | وروستۍ  | لاندې د OS سره سم وګورئ |
+| وسیله  | نسخه | نصب |
+| ------- | ------- | ------- |
+| Git     | هر     | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | `mise install` یا `.node-version` |
+| Bun     | 1.2.23  | `mise install` یا `package.json` `packageManager` |
+
+سپارښتنه: `mise` نصب کړئ، بیا په checkout کې `mise install` وچلوئ. که mise نه کاروئ، د `bun run bootstrap` نه مخکې Node.js له `.node-version` او Bun له `package.json` څخه په لاسي ډول فعال کړئ.
 
 ### Windows
 
@@ -371,7 +374,7 @@ yt-dlp د لانچ پر مهال اتومات تازه کیږي، او Arroxy ه
 powershell -c "irm bun.sh/install.ps1 | iex"
 ```
 
-د اصلي جوړولو وسیلې ته اړتیا نشته — پروژه هیڅ اصلي Node اضافه نه لري.
+د اصلي rebuilds لپاره Visual Studio Build Tools او Python ته اړتیا کېدای شي.
 
 ### macOS
 
@@ -385,8 +388,8 @@ curl -fsSL https://bun.sh/install | bash
 ```bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron د چلولو وابستګۍ
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# د build او Electron د چلولو وابستګۍ
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # یوازې E2E ازموینې (Electron ته ښکاره کیدو ته اړتیا ده)
 sudo apt install -y xvfb
@@ -396,9 +399,11 @@ sudo apt install -y xvfb
 
 ```bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # د ګرم ریلوډ dev جوړونه
+cd Arroxy
+mise install           # سپارښتنه؛ که pinned tools مو لاسي فعال کړي وي پرېږدئ
+bun run bootstrap
+bun run doctor
+bun run dev            # Electron app د Vite renderer سره
 ```
 
 ### د توزیع وړ جوړول
@@ -406,10 +411,10 @@ bun run dev          # د ګرم ریلوډ dev جوړونه
 ```bash
 bun run build        # د ډول ازموینه + کمپایل
 bun run dist         # د اوسني OS لپاره پیکیج کول
-bun run dist:win     # د Windows پورټیبل exe کراس-کمپایل
+bun run dist:win     # په supported host کې د Windows targets پیکیج کول
 ```
 
-> yt-dlp د لومړي پیل پر مهال له GitHub څخه راوړل کېږي او د اپ ډیټا فولډر کې کېچ کېږي. ffmpeg او ffprobe د Arroxy هر release سره بنډل وي.
+> `bun run bootstrap` dependencies نصبوي، د Electron app dependencies بیا جوړوي، Electron تاییدوي، د development لپاره embedded ffmpeg/ffprobe چمتو کوي، او Playwright Chromium نصبوي. yt-dlp په runtime کې د app data folder کې manage کېږي؛ ffmpeg او ffprobe د Arroxy هر release سره bundled وي.
 
 </details>
 

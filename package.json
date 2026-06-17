@@ -173,5 +173,5 @@
 		"vite": "8.0.16",
 		"vitest": "4.1.8"
 	},
-	"lint-staged": {"*.{ts,tsx,cts,mts,js,mjs,cjs,json,jsonc,css}": "biome format --write", "*.{ts,tsx,cts,mts,js,mjs,cjs}": "bash -lc 'bun run lint:prepare && oxlint --fix --deny-warnings \"$@\"' --"}
+	"lint-staged": {"*.{ts,tsx,cts,mts,js,mjs,cjs,json,jsonc,css}": "biome format --write --no-errors-on-unmatched", "*.{ts,tsx,cts,mts,js,mjs,cjs}": "bash -lc 'bun run lint:prepare && oxlint --fix --deny-warnings \"$@\"' --"}
 }

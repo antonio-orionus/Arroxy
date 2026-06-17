@@ -19,7 +19,10 @@ const TECH_CONTENT = `<details>
 | Εργαλείο | Έκδοση  | Εγκατάσταση |
 | -------- | ------- | ----------- |
 | Git      | οποιαδήποτε | [git-scm.com](https://git-scm.com) |
-| Bun      | τελευταία   | δείτε παρακάτω ανά λειτουργικό |
+| Node.js  | 24.16.0 | \`mise install\` ή \`.node-version\` |
+| Bun      | 1.2.23  | \`mise install\` ή \`package.json\` \`packageManager\` |
+
+Προτείνεται: εγκαταστήστε το \`mise\` και μετά τρέξτε \`mise install\` στο checkout. Χωρίς mise, ενεργοποιήστε χειροκίνητα το Node.js από το \`.node-version\` και το Bun από το \`package.json\` πριν από το \`bun run bootstrap\`.
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-Δεν απαιτούνται εγγενή εργαλεία κατασκευής — το έργο δεν έχει εγγενή πρόσθετα Node.
+Visual Studio Build Tools και Python μπορεί να χρειαστούν για native rebuilds.
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron runtime deps
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Εξαρτήσεις build και Electron runtime
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # E2E tests only (Electron needs a display)
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # hot-reload dev build
+cd Arroxy
+mise install           # προτείνεται· παραλείψτε το αν ενεργοποιήσατε χειροκίνητα τα pinned tools
+bun run bootstrap
+bun run doctor
+bun run dev            # Electron app με Vite renderer
 \`\`\`
 
 ### Κατασκευή διανεμήσιμου πακέτου
@@ -62,10 +67,10 @@ bun run dev          # hot-reload dev build
 \`\`\`bash
 bun run build        # typecheck + compile
 bun run dist         # package for current OS
-bun run dist:win     # cross-compile Windows portable exe
+bun run dist:win     # πακετάρισμα Windows targets σε υποστηριζόμενο host
 \`\`\`
 
-> Το yt-dlp λαμβάνεται από το GitHub στην πρώτη εκκίνηση και αποθηκεύεται στον φάκελο δεδομένων της εφαρμογής. Τα ffmpeg και ffprobe περιλαμβάνονται σε κάθε έκδοση του Arroxy.
+> Το \`bun run bootstrap\` εγκαθιστά εξαρτήσεις, ξαναχτίζει τις εξαρτήσεις της Electron εφαρμογής, ελέγχει το Electron, προετοιμάζει τα ενσωματωμένα ffmpeg/ffprobe για ανάπτυξη και εγκαθιστά το Playwright Chromium. Το yt-dlp διαχειρίζεται στο runtime μέσα στον φάκελο δεδομένων της εφαρμογής· τα ffmpeg και ffprobe περιλαμβάνονται σε κάθε έκδοση του Arroxy.
 
 </details>`;
 

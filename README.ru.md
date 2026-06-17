@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-05-14._
+> _Last updated: 2026-06-17._
 
 > 🌐 Это перевод с помощью ИИ. [README на английском](README.md) — основной источник истины. Заметили ошибку? [Pull request приветствуется](../../pulls).
 
@@ -365,7 +365,10 @@ yt-dlp обновляется автоматически при запуске, 
 | Инструмент | Версия  | Установка |
 | ---------- | ------- | --------- |
 | Git        | любая   | [git-scm.com](https://git-scm.com) |
-| Bun        | последняя | см. ниже по платформе |
+| Node.js    | 24.16.0 | `mise install` или `.node-version` |
+| Bun        | 1.2.23  | `mise install` или `package.json` `packageManager` |
+
+Рекомендуется установить `mise`, затем выполнить `mise install` в checkout. Без mise вручную активируйте Node.js из `.node-version` и Bun из `package.json` перед `bun run bootstrap`.
 
 ### Windows
 
@@ -373,7 +376,7 @@ yt-dlp обновляется автоматически при запуске, 
 powershell -c "irm bun.sh/install.ps1 | iex"
 ```
 
-Нативные инструменты сборки не требуются — в проекте нет нативных Node-аддонов.
+Visual Studio Build Tools и Python могут понадобиться для нативных пересборок.
 
 ### macOS
 
@@ -387,8 +390,8 @@ curl -fsSL https://bun.sh/install | bash
 ```bash
 curl -fsSL https://bun.sh/install | bash
 
-# Зависимости рантайма Electron
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Зависимости сборки и рантайма Electron
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # Только для E2E-тестов (Electron требует дисплей)
 sudo apt install -y xvfb
@@ -398,9 +401,11 @@ sudo apt install -y xvfb
 
 ```bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # сборка с горячей перезагрузкой
+cd Arroxy
+mise install           # рекомендуется; пропустите, если закреплённые инструменты активированы вручную
+bun run bootstrap
+bun run doctor
+bun run dev            # Electron-приложение с Vite-рендерером
 ```
 
 ### Сборка дистрибутива
@@ -408,10 +413,10 @@ bun run dev          # сборка с горячей перезагрузкой
 ```bash
 bun run build        # проверка типов + компиляция
 bun run dist         # упаковка для текущей ОС
-bun run dist:win     # кросс-компиляция портативного .exe для Windows
+bun run dist:win     # упаковка Windows-целей на поддерживаемом хосте
 ```
 
-> yt-dlp скачивается с GitHub при первом запуске и кешируется в папке данных приложения. ffmpeg и ffprobe входят в каждый релиз Arroxy.
+> `bun run bootstrap` устанавливает зависимости, пересобирает зависимости Electron-приложения, проверяет Electron, подготавливает встроенные ffmpeg/ffprobe для разработки и устанавливает Playwright Chromium. yt-dlp управляется во время работы в папке данных приложения; ffmpeg и ffprobe входят в каждый релиз Arroxy.
 
 </details>
 

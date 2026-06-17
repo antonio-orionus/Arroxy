@@ -19,7 +19,10 @@ const TECH_CONTENT = `<details>
 | Інструмент | Версія  | Встановлення |
 | ---------- | ------- | ------------ |
 | Git        | будь-яка | [git-scm.com](https://git-scm.com) |
-| Bun        | остання  | див. нижче для кожної ОС |
+| Node.js    | 24.16.0 | \`mise install\` або \`.node-version\` |
+| Bun        | 1.2.23  | \`mise install\` або \`package.json\` \`packageManager\` |
+
+Рекомендовано: встановіть \`mise\`, а потім запустіть \`mise install\` у checkout. Без mise вручну активуйте Node.js з \`.node-version\` і Bun з \`package.json\` перед \`bun run bootstrap\`.
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-Нативні інструменти збірки не потрібні — проєкт не містить нативних Node-аддонів.
+Visual Studio Build Tools і Python можуть знадобитися для нативних перебудов.
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Залежності середовища виконання Electron
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Залежності збірки та середовища виконання Electron
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # Лише для E2E-тестів (Electron потребує дисплея)
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # збірка з гарячим перезавантаженням
+cd Arroxy
+mise install           # рекомендовано; пропустіть, якщо закріплені інструменти активовані вручну
+bun run bootstrap
+bun run doctor
+bun run dev            # Electron-застосунок із Vite-рендерером
 \`\`\`
 
 ### Збірка дистрибутиву
@@ -62,10 +67,10 @@ bun run dev          # збірка з гарячим перезавантаже
 \`\`\`bash
 bun run build        # перевірка типів + компіляція
 bun run dist         # пакування для поточної ОС
-bun run dist:win     # крос-компіляція Windows portable exe
+bun run dist:win     # пакування Windows-цілей на підтримуваному хості
 \`\`\`
 
-> yt-dlp завантажується з GitHub при першому запуску й кешується в папці даних застосунку. ffmpeg і ffprobe входять до кожного релізу Arroxy.
+> \`bun run bootstrap\` встановлює залежності, перебудовує залежності Electron-застосунку, перевіряє Electron, готує вбудовані ffmpeg/ffprobe для розробки та встановлює Playwright Chromium. yt-dlp керується під час роботи в папці даних застосунку; ffmpeg і ffprobe входять до кожного релізу Arroxy.
 
 </details>`;
 

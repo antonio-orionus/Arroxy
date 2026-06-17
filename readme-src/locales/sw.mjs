@@ -16,10 +16,13 @@ const TECH_CONTENT = `<details>
 
 ### Mahitaji ya awali — mifumo yote
 
-| Zana | Toleo   | Usanidi |
-| ---- | ------- | ------- |
-| Git  | yoyote  | [git-scm.com](https://git-scm.com) |
-| Bun  | la hivi karibuni | tazama kwa kila OS hapa chini |
+| Zana    | Toleo   | Usanidi |
+| ------- | ------- | ------- |
+| Git     | yoyote  | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | \`mise install\` au \`.node-version\` |
+| Bun     | 1.2.23  | \`mise install\` au \`package.json\` \`packageManager\` |
+
+Inapendekezwa: sakinisha \`mise\`, kisha endesha \`mise install\` ndani ya checkout. Bila mise, washa Node.js kutoka \`.node-version\` na Bun kutoka \`package.json\` kabla ya \`bun run bootstrap\`.
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-Hakuna zana za ujenzi za asili zinazohitajika — mradi hauna nyongeza za asili za Node.
+Visual Studio Build Tools na Python zinaweza kuhitajika kwa rebuild za asili.
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Utegemezi wa wakati wa utekelezaji wa Electron
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Utegemezi wa build na wakati wa utekelezaji wa Electron
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # Majaribio ya E2E tu (Electron inahitaji skrini)
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # ujenzi wa maendeleo wenye upakiaji moto
+cd Arroxy
+mise install           # inapendekezwa; ruka kama umewezesha zana zilizopiniwa mwenyewe
+bun run bootstrap
+bun run doctor
+bun run dev            # programu ya Electron dhidi ya Vite renderer
 \`\`\`
 
 ### Jenga faili la usambazaji
@@ -62,10 +67,10 @@ bun run dev          # ujenzi wa maendeleo wenye upakiaji moto
 \`\`\`bash
 bun run build        # ukaguzi wa aina + mkusanyiko
 bun run dist         # funga kwa OS ya sasa
-bun run dist:win     # mkusanyiko wa msalaba kwa Windows portable exe
+bun run dist:win     # funga malengo ya Windows kwenye host inayotumika
 \`\`\`
 
-> yt-dlp hupakuliwa kutoka GitHub wakati wa uzinduzi wa kwanza na kuhifadhiwa kwenye folda ya data ya programu. ffmpeg na ffprobe hujumuishwa katika kila toleo la Arroxy.
+> \`bun run bootstrap\` husakinisha utegemezi, hujenga upya utegemezi wa programu ya Electron, huthibitisha Electron, huandaa ffmpeg/ffprobe zilizopachikwa kwa maendeleo, na husakinisha Playwright Chromium. yt-dlp husimamiwa wakati wa runtime kwenye folda ya data ya programu; ffmpeg na ffprobe hujumuishwa katika kila toleo la Arroxy.
 
 </details>`;
 

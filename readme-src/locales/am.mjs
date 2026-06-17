@@ -16,10 +16,13 @@ const TECH_CONTENT = `<details>
 
 ### ቅድመ ሁኔታዎች — ለሁሉም ዓይነት ሥርዓቶች
 
-| መሣሪያ | ስሪት    | ጫን |
-| ---- | ------- | ------- |
-| Git  | any     | [git-scm.com](https://git-scm.com) |
-| Bun  | latest  | ከዚህ በታች ለእያንዳንዱ ሥርዓተ ክወና ይመልከቱ |
+| መሣሪያ  | ስሪት    | ጫን |
+| ------- | ------- | ------- |
+| Git     | any     | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | \`mise install\` ወይም \`.node-version\` |
+| Bun     | 1.2.23  | \`mise install\` ወይም \`package.json\` \`packageManager\` |
+
+የሚመከር: \`mise\` ይጫኑ፣ ከዚያ checkout ውስጥ \`mise install\` ያሂዱ። mise ካልተጠቀሙ፣ \`bun run bootstrap\` ከመሮጡ በፊት Node.jsን ከ\`.node-version\` እና Bunን ከ\`package.json\` በእጅ ያንቁ።
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-ምንም ዓይነት ተወላጅ የግንባታ መሣሪያዎች አያስፈልጉም — ፕሮጀክቱ ምንም ዓይነት ተወላጅ Node ማስጨበጫዎች የለውም።
+ለ native rebuilds Visual Studio Build Tools እና Python ሊያስፈልጉ ይችላሉ።
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron runtime deps
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Build እና Electron runtime deps
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # E2E tests only (Electron needs a display)
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # hot-reload dev build
+cd Arroxy
+mise install           # የሚመከር፤ pinned tools በእጅ ካነቃችሁ ይዝለሉት
+bun run bootstrap
+bun run doctor
+bun run dev            # Electron app ከ Vite renderer ጋር
 \`\`\`
 
 ### ሊሰራጭ የሚችል ፋይል ምንጭ
@@ -62,10 +67,10 @@ bun run dev          # hot-reload dev build
 \`\`\`bash
 bun run build        # typecheck + compile
 bun run dist         # package for current OS
-bun run dist:win     # cross-compile Windows portable exe
+bun run dist:win     # supported host ላይ Windows targets package ማድረግ
 \`\`\`
 
-> yt-dlp በመጀመሪያ አስጀማሪ ከ GitHub ይወርዳል እና በ app data አቃፊ ይቀመጣል። ffmpeg እና ffprobe ከእያንዳንዱ የArroxy ስሪት ጋር ተካትተው ይመጣሉ።
+> \`bun run bootstrap\` dependencies ይጭናል፣ Electron app dependencies rebuild ያደርጋል፣ Electron ያረጋግጣል፣ ለ development embedded ffmpeg/ffprobe ያዘጋጃል፣ እና Playwright Chromium ይጭናል። yt-dlp በ runtime ውስጥ app data folder ይ managed ይሆናል፤ ffmpeg እና ffprobe ከእያንዳንዱ የArroxy release ጋር bundled ይመጣሉ።
 
 </details>`;
 

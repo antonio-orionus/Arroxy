@@ -303,7 +303,8 @@ import { redactArgs } from "yt-dlp-bridge/redaction";
 ```bash
 git clone https://github.com/antonio-orionus/Arroxy.git
 cd Arroxy
-bun install
+mise install           # recommended; skip if you manually activated the pinned tools
+bun run bootstrap
 ```
 
 | Command | Description |

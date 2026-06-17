@@ -25,7 +25,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-05-14._
+> _Last updated: 2026-06-17._
 
 ---
 
@@ -361,9 +361,12 @@ Amala yaaddetee jirtaa? [Gaaffii bani](../../issues) — galchiin hawaasaa dursa
 ### Wantoota barbaachisaa — platformoota hundaaf
 
 | Meeshaa | Verzhiyoonii | Fayyadu |
-| ---- | ------- | ------- |
-| Git  | kamiyyuu | [git-scm.com](https://git-scm.com) |
-| Bun  | haaraa   | armaan gadii OS-tiin ilaali |
+| ------- | ------- | ------- |
+| Git     | kamiyyuu | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | `mise install` yookaan `.node-version` |
+| Bun     | 1.2.23  | `mise install` yookaan `package.json` `packageManager` |
+
+Kan gorfamu: `mise` fe'i, sana booda checkout keessatti `mise install` hojjedhu. Mise malee, `bun run bootstrap` dura Node.js `.node-version` irraa fi Bun `package.json` irraa harkaan hojiirra oolchi.
 
 ### Windows
 
@@ -371,7 +374,7 @@ Amala yaaddetee jirtaa? [Gaaffii bani](../../issues) — galchiin hawaasaa dursa
 powershell -c "irm bun.sh/install.ps1 | iex"
 ```
 
-Meeshaalee ijaarsaa native barbaachisoo miti — pirojektichi Node addon native qaba hin jiru.
+Native rebuilds'f Visual Studio Build Tools fi Python barbaachuu danda'u.
 
 ### macOS
 
@@ -385,8 +388,8 @@ curl -fsSL https://bun.sh/install | bash
 ```bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron runtime deps
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Build fi Electron runtime deps
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # E2E tests only (Electron needs a display)
 sudo apt install -y xvfb
@@ -396,9 +399,11 @@ sudo apt install -y xvfb
 
 ```bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # hot-reload dev build
+cd Arroxy
+mise install           # kan gorfamu; pinned tools harkaan hojiirra oolchan yoo ta'e dhiisi
+bun run bootstrap
+bun run doctor
+bun run dev            # Electron app Vite renderer waliin
 ```
 
 ### Faayila rabsuu ijaari
@@ -406,10 +411,10 @@ bun run dev          # hot-reload dev build
 ```bash
 bun run build        # typecheck + compile
 bun run dist         # OS ammaa kanaaf qindeessi
-bun run dist:win     # Windows portable exe cross-compile
+bun run dist:win     # supported host irratti Windows targets package godhi
 ```
 
-> yt-dlp yeroo jalqabaaf GitHub irraa fudhatamee foldara data app keessatti kuufama. ffmpeg fi ffprobe release Arroxy hunda waliin dhufu.
+> `bun run bootstrap` dependencies fe'a, Electron app dependencies rebuild godha, Electron mirkaneessa, development'f embedded ffmpeg/ffprobe qopheessa, Playwright Chromium fe'a. yt-dlp runtime irratti app data folder keessatti manage ta'a; ffmpeg fi ffprobe release Arroxy hunda waliin bundled ta'u.
 
 </details>
 

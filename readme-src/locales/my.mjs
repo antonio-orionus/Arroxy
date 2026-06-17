@@ -16,10 +16,13 @@ const TECH_CONTENT = `<details>
 
 ### လိုအပ်သောအရာများ — platform အားလုံးအတွက်
 
-| Tool | ဗားရှင်း | ထည့်သွင်းရန် |
-| ---- | ------- | ------- |
-| Git  | မည်သည့်ဗားရှင်းမဆို | [git-scm.com](https://git-scm.com) |
-| Bun  | နောက်ဆုံးထွက်  | အောက်တွင် OS အလိုက်ကြည့်ရှုပါ |
+| Tool    | ဗားရှင်း | ထည့်သွင်းရန် |
+| ------- | ------- | ------- |
+| Git     | မည်သည့်ဗားရှင်းမဆို | [git-scm.com](https://git-scm.com) |
+| Node.js | 24.16.0 | \`mise install\` သို့မဟုတ် \`.node-version\` |
+| Bun     | 1.2.23  | \`mise install\` သို့မဟုတ် \`package.json\` \`packageManager\` |
+
+အကြံပြုချက်: \`mise\` ကို install လုပ်ပြီး checkout အတွင်း \`mise install\` ကို run ပါ။ mise မသုံးပါက \`bun run bootstrap\` မလုပ်ခင် \`.node-version\` မှ Node.js နှင့် \`package.json\` မှ Bun ကို manual activate လုပ်ပါ။
 
 ### Windows
 
@@ -27,7 +30,7 @@ const TECH_CONTENT = `<details>
 powershell -c "irm bun.sh/install.ps1 | iex"
 \`\`\`
 
-Native build tool များမလိုအပ်ပါ — project တွင် native Node addons မပါဝင်ပါ။
+Native rebuilds အတွက် Visual Studio Build Tools နှင့် Python လိုအပ်နိုင်သည်။
 
 ### macOS
 
@@ -41,8 +44,8 @@ curl -fsSL https://bun.sh/install | bash
 \`\`\`bash
 curl -fsSL https://bun.sh/install | bash
 
-# Electron runtime deps
-sudo apt install -y libgtk-3-0 libnss3 libasound2t64
+# Build နှင့် Electron runtime deps
+sudo apt install -y build-essential python3 tar libgtk-3-0 libnss3 libasound2t64
 
 # E2E tests only (Electron needs a display)
 sudo apt install -y xvfb
@@ -52,9 +55,11 @@ sudo apt install -y xvfb
 
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
-cd arroxy
-bun install
-bun run dev          # hot-reload dev build
+cd Arroxy
+mise install           # အကြံပြု; pinned tools ကို manual activate လုပ်ထားလျှင် ကျော်နိုင်သည်
+bun run bootstrap
+bun run doctor
+bun run dev            # Vite renderer ဖြင့် Electron app
 \`\`\`
 
 ### Distributable ကို Build လုပ်ခြင်း
@@ -62,10 +67,10 @@ bun run dev          # hot-reload dev build
 \`\`\`bash
 bun run build        # typecheck + compile
 bun run dist         # လက်ရှိ OS အတွက် package ထုတ်ရန်
-bun run dist:win     # Windows portable exe cross-compile
+bun run dist:win     # supported host တွင် Windows targets package ထုတ်ရန်
 \`\`\`
 
-> yt-dlp ကို ပထမဆုံး launch တွင် GitHub မှ fetch လုပ်ပြီး app data folder တွင် cache သိမ်းထားသည်။ ffmpeg နှင့် ffprobe သည် Arroxy release တိုင်းတွင် bundle ထည့်ထားသည်။
+> \`bun run bootstrap\` သည် dependencies ကို install လုပ်ပြီး Electron app dependencies ကို rebuild လုပ်သည်၊ Electron ကို verify လုပ်သည်၊ development အတွက် embedded ffmpeg/ffprobe ကို ပြင်ဆင်သည်၊ Playwright Chromium ကို install လုပ်သည်။ yt-dlp ကို runtime တွင် app data folder ထဲ၌ manage လုပ်ပြီး ffmpeg နှင့် ffprobe သည် Arroxy release တိုင်းတွင် bundled ဖြစ်သည်။
 
 </details>`;
 
