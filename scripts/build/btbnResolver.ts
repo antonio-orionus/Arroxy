@@ -1,6 +1,7 @@
 import {pathToFileURL} from 'node:url'
 
 const BTBN_API_BASE = 'https://api.github.com/repos/BtbN/FFmpeg-Builds'
+const BTBN_FETCH_TIMEOUT_MS = 30_000
 
 type BtbnArchiveExtension = 'tar.xz' | 'zip'
 
@@ -68,6 +69,12 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function toString(value: unknown): string | undefined {
 	return typeof value === 'string' ? value : undefined
+}
+
+function nonBlank(value: string | undefined): string | undefined {
+	const trimmed = value?.trim()
+	if (!trimmed) return undefined
+	return trimmed
 }
 
 function toGithubRelease(value: unknown): GithubRelease | undefined {
@@ -181,7 +188,7 @@ export function githubHeaders(env: Record<string, string | undefined> = process.
 }
 
 async function fetchJson(url: string, env: Record<string, string | undefined> = process.env): Promise<unknown> {
-	const response = await fetch(url, {headers: githubHeaders(env)})
+	const response = await fetch(url, {headers: githubHeaders(env), signal: AbortSignal.timeout(BTBN_FETCH_TIMEOUT_MS)})
 	if (!response.ok) {
 		throw new Error(`GitHub API request failed (${response.status}): ${url}`)
 	}
@@ -245,7 +252,7 @@ export function formatShellEnv(resolution: BtbnAssetResolution, target?: BtbnTar
 }
 
 export async function resolveBtbnAsset(btbnArch: string, ext: BtbnArchiveExtension, env: Record<string, string | undefined> = process.env): Promise<BtbnAssetResolution> {
-	const apiBase = env.BTBN_API_BASE ?? BTBN_API_BASE
+	const apiBase = nonBlank(env.BTBN_API_BASE) ?? BTBN_API_BASE
 	const pinnedTag = env.BTBN_RELEASE_TAG?.trim()
 	const releases = pinnedTag ? [await fetchReleaseByTag(apiBase, pinnedTag, env)] : await fetchReleaseList(apiBase, env)
 	const resolution = selectBtbnAsset(releases, btbnArch, ext, {includeFloatingLatest: pinnedTag === 'latest'})

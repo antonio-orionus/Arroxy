@@ -15,4 +15,12 @@ describe('dependency vulnerability gate workflow', () => {
 		expect(workflow).toContain('bun scripts/dependencyAuditScope.ts "${BASE_REF}"')
 		expect(workflow).toContain("if: steps.audit-scope.outputs.audit_required == 'true'")
 	})
+
+	it('pins third-party actions to immutable SHAs', async () => {
+		const workflow = await readWorkflow()
+
+		expect(workflow).toMatch(/uses: actions\/checkout@[a-f0-9]{40}/)
+		expect(workflow).toMatch(/uses: oven-sh\/setup-bun@[a-f0-9]{40}/)
+		expect(workflow).not.toMatch(/uses: (?:actions\/checkout|oven-sh\/setup-bun)@v/)
+	})
 })

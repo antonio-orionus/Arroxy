@@ -1,10 +1,14 @@
-import {describe, expect, it} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vitest'
 
-import {btbnTargetFor, btbnTargets, floatingLatestAssetName, formatShellEnv, githubHeaders, isCliEntrypoint, isTimestampedMasterAssetName, selectBtbnAsset, windowsPathToFileUrl, type BtbnRelease} from '../../scripts/build/btbnResolver.js'
+import {btbnTargetFor, btbnTargets, floatingLatestAssetName, formatShellEnv, githubHeaders, isCliEntrypoint, isTimestampedMasterAssetName, resolveBtbnAsset, selectBtbnAsset, windowsPathToFileUrl, type BtbnRelease} from '../../scripts/build/btbnResolver.js'
 
 function release(tagName: string, assetNames: string[], draft = false): BtbnRelease {
 	return {tagName, draft, assets: assetNames.map(name => ({name, browserDownloadUrl: `https://example.invalid/${tagName}/${name}`}))}
 }
+
+afterEach(() => {
+	vi.unstubAllGlobals()
+})
 
 describe('BtbN release resolver', () => {
 	it('recognizes timestamped master gpl-shared assets for the requested platform archive', () => {
@@ -91,5 +95,49 @@ describe('BtbN release resolver', () => {
 	it('authenticates BtbN API calls only with the dedicated token env var', () => {
 		expect(githubHeaders({BTBN_GITHUB_TOKEN: 'btbn-token'})).toMatchObject({Authorization: 'Bearer btbn-token'})
 		expect(githubHeaders({GITHUB_TOKEN: 'generic-token'})).not.toHaveProperty('Authorization')
+	})
+
+	it('treats a blank BTBN_API_BASE override as unset', async () => {
+		const fetchMock = vi.fn<typeof fetch>(
+			async () =>
+				new Response(
+					JSON.stringify([
+						{
+							tag_name: 'autobuild-2026-06-10-14-29',
+							assets: [
+								{name: 'checksums.sha256', browser_download_url: 'https://example.invalid/checksums.sha256'},
+								{name: 'ffmpeg-N-124941-g54749da98a-linux64-gpl-shared.tar.xz', browser_download_url: 'https://example.invalid/archive.tar.xz'}
+							]
+						}
+					])
+				)
+		)
+		vi.stubGlobal('fetch', fetchMock)
+
+		await expect(resolveBtbnAsset('linux64', 'tar.xz', {BTBN_API_BASE: '   '})).resolves.toMatchObject({tagName: 'autobuild-2026-06-10-14-29'})
+
+		expect(fetchMock.mock.calls[0]?.[0]).toBe('https://api.github.com/repos/BtbN/FFmpeg-Builds/releases?per_page=20')
+	})
+
+	it('passes a timeout signal to BtbN GitHub API requests', async () => {
+		const fetchMock = vi.fn<typeof fetch>(
+			async () =>
+				new Response(
+					JSON.stringify([
+						{
+							tag_name: 'autobuild-2026-06-10-14-29',
+							assets: [
+								{name: 'checksums.sha256', browser_download_url: 'https://example.invalid/checksums.sha256'},
+								{name: 'ffmpeg-N-124941-g54749da98a-linux64-gpl-shared.tar.xz', browser_download_url: 'https://example.invalid/archive.tar.xz'}
+							]
+						}
+					])
+				)
+		)
+		vi.stubGlobal('fetch', fetchMock)
+
+		await resolveBtbnAsset('linux64', 'tar.xz', {BTBN_API_BASE: 'https://api.example.invalid/repos/BtbN/FFmpeg-Builds'})
+
+		expect(fetchMock.mock.calls[0]?.[1]).toMatchObject({signal: expect.any(AbortSignal)})
 	})
 })

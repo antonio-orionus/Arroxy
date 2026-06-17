@@ -35,4 +35,14 @@ describe('dev smoke workflow', () => {
 		expect(workflow).toContain('run: bun run test:browser:smoke')
 		expect(workflow).toContain('name: dev-smoke-playwright-${{ matrix.label }}')
 	})
+
+	it('pins third-party actions to immutable SHAs', async () => {
+		const workflow = await readOptionalWorkflow('.github/workflows/dev-smoke.yml')
+
+		expect(workflow).toMatch(/uses: actions\/checkout@[a-f0-9]{40}/)
+		expect(workflow).toMatch(/uses: actions\/setup-node@[a-f0-9]{40}/)
+		expect(workflow).toMatch(/uses: oven-sh\/setup-bun@[a-f0-9]{40}/)
+		expect(workflow).toMatch(/uses: actions\/cache@[a-f0-9]{40}/)
+		expect(workflow).not.toMatch(/uses: (?:actions\/checkout|actions\/setup-node|oven-sh\/setup-bun|actions\/cache)@v/)
+	})
 })

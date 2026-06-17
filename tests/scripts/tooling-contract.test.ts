@@ -71,6 +71,22 @@ function runToolingContract(root: string): {output: string; status: number | nul
 }
 
 describe('tooling contract', () => {
+	it('passes a valid tooling contract fixture', async () => {
+		const root = await createContractFixture()
+
+		const result = runToolingContract(root)
+
+		expect(result.status).toBe(0)
+	})
+
+	it('only accepts Node and Bun pins from the mise tools table', async () => {
+		const root = await createContractFixture({mise: '[tools]\nnode = "24.16.0" # keep in sync with .node-version\nbun = "1.2.23" # keep in sync with packageManager\n\n[env]\nnode = "24.15.0"\nbun = "1.2.22"\n'})
+
+		const result = runToolingContract(root)
+
+		expect(result.status).toBe(0)
+	})
+
 	it('fails when mise tool pins drift from the canonical Node and Bun pins', async () => {
 		const root = await createContractFixture({mise: '[tools]\nnode = "24.15.0"\nbun = "1.2.22"\n'})
 

@@ -9,6 +9,8 @@ import * as yauzl from 'yauzl'
 import {btbnTargetFor, isCliEntrypoint, resolveBtbnAsset} from './btbnResolver.js'
 import {checkEmbeddedPayload, hostEmbeddedTarget, type EmbeddedPlatform} from './embeddedPayload.js'
 
+const NETWORK_FETCH_TIMEOUT_MS = 30_000
+
 interface DownloadedBtbnAsset {
 	assetName: string
 	archivePath: string
@@ -37,14 +39,14 @@ async function spawnChecked(command: string, args: string[], cwd: string): Promi
 	})
 }
 
-async function fetchText(url: string): Promise<string> {
-	const response = await fetch(url)
+export async function fetchText(url: string): Promise<string> {
+	const response = await fetch(url, {signal: AbortSignal.timeout(NETWORK_FETCH_TIMEOUT_MS)})
 	if (!response.ok) throw new Error(`fetch failed (${response.status}): ${url}`)
 	return response.text()
 }
 
-async function downloadFile(url: string, destination: string): Promise<void> {
-	const response = await fetch(url)
+export async function downloadFile(url: string, destination: string): Promise<void> {
+	const response = await fetch(url, {signal: AbortSignal.timeout(NETWORK_FETCH_TIMEOUT_MS)})
 	if (!response.ok) throw new Error(`fetch failed (${response.status}): ${url}`)
 	await fs.mkdir(path.dirname(destination), {recursive: true})
 	await fs.writeFile(destination, Buffer.from(await response.arrayBuffer()))

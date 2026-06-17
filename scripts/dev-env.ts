@@ -239,7 +239,7 @@ function buildChildEnv(env: DevEnvPaths): NodeJS.ProcessEnv {
 	return {...process.env, ARROXY_RENDERER_PORT: String(env.rendererPort), ELECTRON_USER_DATA: env.electronUserData, ARROXY_DEV_TMP: env.tmpDir, TMPDIR: env.tmpDir, TMP: env.tmpDir, TEMP: env.tmpDir}
 }
 
-async function spawnChecked(command: string, args: string[], options: SpawnOptions & {cwd: string; env: NodeJS.ProcessEnv}): Promise<void> {
+export async function spawnChecked(command: string, args: string[], options: SpawnOptions & {cwd: string; env: NodeJS.ProcessEnv}): Promise<void> {
 	await new Promise<void>((resolve, reject) => {
 		const child = spawn(command, args, {...options, shell: false, stdio: 'inherit'})
 		const forwardedSignals: NodeJS.Signals[] = ['SIGINT', 'SIGTERM']
@@ -254,7 +254,10 @@ async function spawnChecked(command: string, args: string[], options: SpawnOptio
 			const handler = handlers[signal]
 			if (handler) process.on(signal, handler)
 		}
-		child.once('error', reject)
+		child.once('error', error => {
+			cleanup()
+			reject(error)
+		})
 		child.once('exit', (code, signal) => {
 			cleanup()
 			if (code === 0) {

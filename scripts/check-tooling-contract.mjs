@@ -131,8 +131,16 @@ function parseBunPackageManagerVersion(packageManager) {
 
 function parseMiseTools(text) {
 	const tools = {}
+	let inToolsSection = false
 	for (const line of text.split(/\r?\n/)) {
-		const match = /^\s*(node|bun)\s*=\s*"([^"]+)"\s*$/.exec(line)
+		const sectionMatch = /^\s*\[([^\]]+)]\s*$/.exec(line)
+		if (sectionMatch) {
+			inToolsSection = sectionMatch[1] === 'tools'
+			continue
+		}
+		if (!inToolsSection) continue
+		const normalized = line.replace(/\s+#.*$/, '').trim()
+		const match = /^(node|bun)\s*=\s*"([^"]+)"$/.exec(normalized)
 		if (match) tools[match[1]] = match[2]
 	}
 	return tools

@@ -220,4 +220,17 @@ describe('dev-env pure helpers', () => {
 		expect(electronPayload).toMatchObject({ok: false})
 		expect(electronPayload?.message).toContain(path.join(child, 'node_modules', 'electron'))
 	})
+
+	it('cleans forwarded signal handlers when spawning a command fails', async () => {
+		const mod = (await import('../../scripts/dev-env.js')) as {spawnChecked?: (command: string, args: string[], options: {cwd: string; env: NodeJS.ProcessEnv}) => Promise<void>}
+		const beforeSigint = process.listenerCount('SIGINT')
+		const beforeSigterm = process.listenerCount('SIGTERM')
+		const missingCommand = path.join(await tempDir(), process.platform === 'win32' ? 'missing-command.exe' : 'missing-command')
+
+		expect(typeof mod.spawnChecked).toBe('function')
+		await expect(mod.spawnChecked?.(missingCommand, [], {cwd: process.cwd(), env: process.env})).rejects.toThrow()
+
+		expect(process.listenerCount('SIGINT')).toBe(beforeSigint)
+		expect(process.listenerCount('SIGTERM')).toBe(beforeSigterm)
+	})
 })
