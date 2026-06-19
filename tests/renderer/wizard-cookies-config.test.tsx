@@ -82,7 +82,6 @@ function resetStore(settings: AppSettings): void {
 		quickDownloadProgressTitle: null,
 		quickDownloadProgressRunId: null,
 		queue: [],
-		drawerOpen: false,
 		graphicsPolicy: null
 	})
 }

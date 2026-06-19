@@ -80,33 +80,33 @@ function phaseForGroup(group: string): OptionRiskMetadata['phase'] {
 
 function dependenciesForFlags(flags: string[]): string[] {
 	const deps = new Set<string>()
+	const audioDependencyFlags = new Set(['--extract-audio', '--audio-format', '--audio-quality'])
+	const ffmpegDependencyFlags = new Set([
+		'--remux-video',
+		'--recode-video',
+		'--embed-subs',
+		'--embed-thumbnail',
+		'--embed-metadata',
+		'--embed-chapters',
+		'--embed-info-json',
+		'--concat-playlist',
+		'--fixup',
+		'--ffmpeg-location',
+		'--convert-subs',
+		'--convert-thumbnails',
+		'--split-chapters',
+		'--remove-chapters',
+		'--force-keyframes-at-cuts',
+		'--sponsorblock-remove',
+		'--merge-output-format',
+		'--download-sections'
+	])
 	for (const flag of flags) {
-		if (['--extract-audio', '--audio-format', '--audio-quality'].includes(flag)) {
+		if (audioDependencyFlags.has(flag)) {
 			deps.add('ffmpeg')
 			deps.add('ffprobe')
 		}
-		if (
-			[
-				'--remux-video',
-				'--recode-video',
-				'--embed-subs',
-				'--embed-thumbnail',
-				'--embed-metadata',
-				'--embed-chapters',
-				'--embed-info-json',
-				'--concat-playlist',
-				'--fixup',
-				'--ffmpeg-location',
-				'--convert-subs',
-				'--convert-thumbnails',
-				'--split-chapters',
-				'--remove-chapters',
-				'--force-keyframes-at-cuts',
-				'--sponsorblock-remove',
-				'--merge-output-format',
-				'--download-sections'
-			].includes(flag)
-		) {
+		if (ffmpegDependencyFlags.has(flag)) {
 			deps.add('ffmpeg')
 		}
 		if (flag === '--js-runtimes') deps.add('deno|node|bun|quickjs')

@@ -25,15 +25,14 @@ async function expectWizardFooterFlush(page: Page): Promise<void> {
 	const readDeltas = async (): Promise<{bottom: number; left: number; right: number}> =>
 		page.evaluate(() => {
 			const footer = document.querySelector<HTMLElement>('.wizard-footer-surface')
-			const drawer = document.querySelector<HTMLElement>('[data-testid="smart-drawer"]')
 			const scrollport = document.querySelector<HTMLElement>('[data-testid="wizard-scrollport"]') ?? document.querySelector<HTMLElement>('[data-testid="wizard-panel"]')?.parentElement
-			if (!footer || !drawer || !scrollport) throw new Error('Expected wizard footer, smart drawer, and wizard scrollport')
+			if (!footer || !scrollport) throw new Error('Expected wizard footer and wizard scrollport')
 			const bounds = (element: HTMLElement) => {
 				const rect = element.getBoundingClientRect()
 				return {bottom: rect.bottom, left: rect.left, right: rect.right, top: rect.top}
 			}
-			const metrics = {drawer: bounds(drawer), footer: bounds(footer), scrollport: bounds(scrollport)}
-			return {bottom: Math.abs(metrics.footer.bottom - metrics.drawer.top), left: Math.abs(metrics.footer.left - metrics.scrollport.left), right: Math.abs(metrics.footer.right - metrics.scrollport.right)}
+			const metrics = {footer: bounds(footer), scrollport: bounds(scrollport)}
+			return {bottom: Math.abs(metrics.footer.bottom - metrics.scrollport.bottom), left: Math.abs(metrics.footer.left - metrics.scrollport.left), right: Math.abs(metrics.footer.right - metrics.scrollport.right)}
 		})
 
 	await expect.poll(async () => (await readDeltas()).bottom).toBeLessThanOrEqual(1)
@@ -47,12 +46,12 @@ test('scenario gallery is available in browser-mock mode', async ({page}) => {
 	await expect(page.getByTestId('scenario-gallery')).toBeVisible()
 	await expect(page.getByTestId('splash-overlay')).toHaveCount(0)
 	await page.getByTestId('scenario-gallery-toggle').click()
-	await expect(page.getByTestId('scenario-button-queue-running')).toBeVisible()
+	await expect(page.getByTestId('scenario-button-queue-active')).toBeVisible()
 	await expect(page.getByTestId('scenario-button-playlist-loading')).toBeVisible()
 })
 
 test('backdrop-only gallery action preserves environment knobs', async ({page}) => {
-	await openWithParams(page, 'theme=light&locale=uk&platform=darwin&scenario=queue-running&playlist=101&mockStep=confirm')
+	await openWithParams(page, 'theme=light&locale=uk&platform=darwin&scenario=queue-active&playlist=101&mockStep=confirm')
 
 	await page.getByTestId('scenario-gallery-toggle').click()
 	await page.getByTestId('scenario-backdrop-only').click()
@@ -207,16 +206,17 @@ test('update scenarios render channel-specific actions', async ({page}) => {
 	await expect(page.getByTestId('update-banner').getByRole('link', {name: 'Download'})).toBeVisible()
 })
 
-test('queue scenarios hydrate drawer states', async ({page}) => {
+test('queue scenarios hydrate manager states', async ({page}) => {
 	for (const [scenario, status] of [
-		['queue-running', 'running'],
-		['queue-paused-active', 'paused-active'],
-		['queue-error', 'error'],
-		['queue-completed', 'done']
+		['queue-active', 'running'],
+		['queue-mixed-selection', 'paused-active'],
+		['queue-errors', 'error'],
+		['queue-artifacts', 'done']
 	] as const) {
 		await openScenario(page, scenario)
-		await expect(page.getByTestId('drawer-body')).toBeVisible()
-		await expect(page.getByTestId('queue-card-scenario-queue-item')).toHaveAttribute('data-status', status)
+		await page.getByRole('tab', {name: /^queue/i}).click()
+		await expect(page.getByTestId('queue-manager-tab')).toBeVisible()
+		await expect(page.locator('[data-testid^="queue-manager-row-"]').first()).toHaveAttribute('data-status', status)
 	}
 })
 

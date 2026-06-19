@@ -31,7 +31,7 @@ import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
 import {defaultAppSettings, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
 import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
 import {readRuntimeSmokeEnabled, runRuntimeSmokeMode, exitWithCode} from '@main/runtimeSmoke.js'
-import {cancelQueueBeforeExit} from '@main/shutdown.js'
+import {cancelQueueBeforeExit, waitForQueueFileMovesBeforeExit} from '@main/shutdown.js'
 import {decideCloseAction, decideRendererCrashAction} from '@main/windowLifecycle.js'
 import {resolveMainWindowBackgroundColor} from '@main/windowPresentation.js'
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
@@ -409,12 +409,24 @@ if (hasSingleInstanceLock) {
 			tray?.destroy()
 			tray = null
 			clipboardWatcher.dispose()
-			if (downloadService.runningJobCount === 0) {
+			if (downloadService.runningJobCount === 0 && !queueService.hasPendingFileMoves()) {
 				tokenService.dispose()
 				log.info('App shutting down')
 				return
 			}
 			event.preventDefault()
+			if (downloadService.runningJobCount === 0) {
+				void waitForQueueFileMovesBeforeExit({
+					queueService,
+					tokenService,
+					logInfo: (message, meta) => {
+						if (meta) log.info(message, meta)
+						else log.info(message)
+					},
+					exit: code => app.exit(code)
+				})
+				return
+			}
 			void cancelQueueBeforeExit({
 				queueService,
 				tokenService,

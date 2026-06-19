@@ -6,10 +6,10 @@ export function isAudioTrackQuality(value: string): value is AudioTrackQuality {
 }
 
 export function audioTrackQuality(format: YtDlpFormat): AudioTrackQuality | undefined {
-	const noteParts = format.format_note
-		?.split(',')
-		.map(part => part.trim().toLowerCase())
-		.filter(Boolean)
+	const noteParts = format.format_note?.split(',').flatMap(part => {
+		const notePart = part.trim().toLowerCase()
+		return notePart ? [notePart] : []
+	})
 	return noteParts?.find(isAudioTrackQuality)
 }
 

@@ -9,7 +9,7 @@ import {QueueService} from '@main/services/QueueService.js'
 import {QueueStore} from '@main/stores/QueueStore.js'
 import {QueueResumeLifecycle} from '@main/services/download/QueueResumeLifecycle.js'
 import type {DownloadService} from '@main/services/DownloadService.js'
-import type {QueueResumeContext, StatusEvent, ProgressEvent} from '@shared/types.js'
+import type {QueueArtifactEvent, QueueResumeContext, StatusEvent, ProgressEvent} from '@shared/types.js'
 import {ok, fail} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {makeItem} from '../shared/fixtures.js'
@@ -46,6 +46,10 @@ function progressEvent(jobId: string, percent: number): ProgressEvent {
 	return {jobId, percent, line: `${percent}%`, at: new Date().toISOString()}
 }
 
+function artifactEvent(jobId: string, path: string, kind: QueueArtifactEvent['kind'] = 'media'): QueueArtifactEvent {
+	return {jobId, path, kind, at: '2026-06-18T10:00:00.000Z'}
+}
+
 describe('QueueService — downloadService listener path', () => {
 	it('resolves a persisted probe info-json ref before starting a queued item', async () => {
 		const ds = new FakeDownloadService()
@@ -72,6 +76,18 @@ describe('QueueService — downloadService listener path', () => {
 		const [item] = qs.snapshot()
 		expect(item.status).toBe('done')
 		expect(item.progressPercent).toBe(100)
+	})
+
+	it('keeps accepting final artifacts for a job after the item reaches done', () => {
+		const {qs, ds} = makeService()
+		qs.add([makeItem({id: 'q-final-artifact', status: 'running', lastJobId: 'job-final-artifact', artifacts: []})])
+
+		ds.emit('status', doneStatus('job-final-artifact'))
+		ds.emit('artifact', artifactEvent('job-final-artifact', '/tmp/final/video.mkv'))
+
+		const [item] = qs.snapshot()
+		expect(item.status).toBe('done')
+		expect(item.artifacts).toEqual([expect.objectContaining({kind: 'media', path: '/tmp/final/video.mkv', fileName: 'video.mkv'})])
 	})
 
 	it('completion deletes the probe info-json cache entry and clears the queue ref', async () => {
@@ -120,6 +136,21 @@ describe('QueueService — downloadService listener path', () => {
 		expect(item.progressPercent).toBe(67)
 	})
 
+	it('downloadService emitting artifact records it on the matching queue item', () => {
+		const {qs, ds} = makeService()
+		qs.add([makeItem({id: 'q-artifact', status: 'running', lastJobId: 'job-artifact'})])
+
+		ds.emit('artifact', artifactEvent('job-artifact', '/tmp/video.mkv', 'media'))
+		ds.emit('artifact', artifactEvent('job-artifact', '/tmp/video.en.vtt', 'subtitle'))
+		ds.emit('artifact', artifactEvent('unknown-job', '/tmp/ignored.mkv', 'media'))
+
+		const [item] = qs.snapshot()
+		expect(item.artifacts).toEqual([
+			{id: 'artifact:/tmp/video.mkv', kind: 'media', path: '/tmp/video.mkv', fileName: 'video.mkv', discoveredAt: '2026-06-18T10:00:00.000Z'},
+			{id: 'artifact:/tmp/video.en.vtt', kind: 'subtitle', path: '/tmp/video.en.vtt', fileName: 'video.en.vtt', discoveredAt: '2026-06-18T10:00:00.000Z'}
+		])
+	})
+
 	it('cancel-all removes a running item from persisted restart state', async () => {
 		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'queue-service-'))
 		const store = new QueueStore(dir)
@@ -136,6 +167,188 @@ describe('QueueService — downloadService listener path', () => {
 		expect(reloaded.ok).toBe(true)
 		if (!reloaded.ok) return
 		expect(reloaded.data.items).toEqual([])
+	})
+})
+
+describe('QueueService — selection-aware actions', () => {
+	it('applies pause only to valid selected queue items and reports skipped statuses', async () => {
+		const {qs, ds} = makeService()
+		qs.add([makeItem({id: 'pending', status: 'pending'}), makeItem({id: 'running', status: 'running', lastJobId: 'job-running'}), makeItem({id: 'done', status: 'done'})])
+		ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/resume'}))
+
+		const result = await qs.applySelectionAction('pause', ['pending', 'running', 'done', 'missing'])
+
+		expect(result.ok).toBe(true)
+		if (!result.ok) return
+		expect(result.data).toEqual({
+			action: 'pause',
+			appliedIds: ['pending', 'running'],
+			skipped: [
+				{itemId: 'done', status: 'done', reason: 'invalid-status'},
+				{itemId: 'missing', reason: 'not-found'}
+			]
+		})
+		expect(qs.snapshot().find(item => item.id === 'pending')?.status).toBe('paused-held')
+		expect(qs.snapshot().find(item => item.id === 'running')?.status).toBe('paused-active')
+		expect(qs.snapshot().find(item => item.id === 'done')?.status).toBe('done')
+	})
+
+	it('applies retry only to error and cancelled selected queue items', async () => {
+		const {qs} = makeService()
+		qs.add([makeItem({id: 'error', status: 'error', error: {kind: 'unknown', raw: 'failed'}}), makeItem({id: 'cancelled', status: 'cancelled'}), makeItem({id: 'pending', status: 'pending'})])
+
+		const result = await qs.applySelectionAction('retry', ['error', 'cancelled', 'pending'])
+
+		expect(result.ok).toBe(true)
+		if (!result.ok) return
+		expect(result.data.appliedIds).toEqual(['error', 'cancelled'])
+		expect(result.data.skipped).toEqual([{itemId: 'pending', status: 'pending', reason: 'invalid-status'}])
+		expect(qs.snapshot().find(item => item.id === 'error')?.status).toBe('pending')
+		expect(qs.snapshot().find(item => item.id === 'cancelled')?.status).toBe('pending')
+	})
+
+	it('does not auto-spawn the next selected item while pausing a selection', async () => {
+		const {qs, ds} = makeService()
+		ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/resume'}))
+		ds.start.mockResolvedValue(ok({job: {id: 'job-pending', url: '', outputDir: '/tmp', status: 'running', createdAt: '', updatedAt: ''}}))
+		qs.add([makeItem({id: 'running', status: 'running', lastJobId: 'job-running'}), makeItem({id: 'pending', status: 'pending'})])
+
+		const result = await qs.applySelectionAction('pause', ['running', 'pending'])
+
+		expect(result.ok).toBe(true)
+		if (!result.ok) return
+		expect(result.data.appliedIds).toEqual(['running', 'pending'])
+		expect(ds.start).not.toHaveBeenCalled()
+		expect(qs.snapshot().map(item => [item.id, item.status])).toEqual([
+			['running', 'paused-active'],
+			['pending', 'paused-held']
+		])
+	})
+})
+
+describe('QueueService — output target changes', () => {
+	it('updates output target for a pending item that never started without moving files', async () => {
+		const root = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-queue-set-location-'))
+		try {
+			const fromDir = path.join(root, 'from')
+			const toDir = path.join(root, 'to')
+			await fs.mkdir(fromDir, {recursive: true})
+			await fs.writeFile(path.join(fromDir, 'video.mkv'), 'media')
+			const {qs} = makeService()
+			qs.add([makeItem({id: 'fresh-pending', status: 'pending', outputDir: fromDir, progressPercent: 0, artifacts: [{id: 'artifact:media', kind: 'media', path: path.join(fromDir, 'video.mkv'), fileName: 'video.mkv', discoveredAt: '2026-06-18T10:00:00.000Z'}]})])
+
+			const result = await qs.changeOutputTarget(['fresh-pending'], toDir)
+
+			expect(result.ok).toBe(true)
+			if (!result.ok) return
+			expect(result.data.items).toEqual([{itemId: 'fresh-pending', moved: [], missing: []}])
+			expect(await fs.readFile(path.join(fromDir, 'video.mkv'), 'utf8')).toBe('media')
+			const [item] = qs.snapshot()
+			expect(item).toMatchObject({status: 'pending', outputDir: toDir})
+			expect(item.artifacts[0]?.path).toBe(path.join(fromDir, 'video.mkv'))
+			expect(qs.hasPendingFileMoves()).toBe(false)
+		} finally {
+			await fs.rm(root, {recursive: true, force: true})
+		}
+	})
+
+	it('skips pending items that already started', async () => {
+		const root = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-queue-started-pending-'))
+		try {
+			const fromDir = path.join(root, 'from')
+			const toDir = path.join(root, 'to')
+			await fs.mkdir(fromDir, {recursive: true})
+			const {qs} = makeService()
+			qs.add([makeItem({id: 'started-pending', status: 'pending', outputDir: fromDir, lastJobId: 'job-old', progressPercent: 0})])
+
+			const result = await qs.changeOutputTarget(['started-pending'], toDir)
+
+			expect(result.ok).toBe(true)
+			if (!result.ok) return
+			expect(result.data.items).toEqual([])
+			expect(result.data.skipped).toEqual([{itemId: 'started-pending', status: 'pending', reason: 'invalid-status'}])
+			expect(qs.snapshot()[0].outputDir).toBe(fromDir)
+		} finally {
+			await fs.rm(root, {recursive: true, force: true})
+		}
+	})
+
+	it('skips retried pending items with resume context', async () => {
+		const root = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-queue-resume-pending-'))
+		try {
+			const fromDir = path.join(root, 'from')
+			const toDir = path.join(root, 'to')
+			const tempDir = path.join(root, '.arroxy-temp', 'resume')
+			await fs.mkdir(tempDir, {recursive: true})
+			const {qs} = makeService()
+			qs.add([makeItem({id: 'resume-pending', status: 'pending', outputDir: fromDir, progressPercent: 0, resumeContext: {...RESUME_CONTEXT, tempDir}})])
+
+			const result = await qs.changeOutputTarget(['resume-pending'], toDir)
+
+			expect(result.ok).toBe(true)
+			if (!result.ok) return
+			expect(result.data.items).toEqual([])
+			expect(result.data.skipped).toEqual([{itemId: 'resume-pending', status: 'pending', reason: 'invalid-status'}])
+			expect(qs.snapshot()[0]).toMatchObject({outputDir: fromDir, resumeContext: {...RESUME_CONTEXT, tempDir}})
+		} finally {
+			await fs.rm(root, {recursive: true, force: true})
+		}
+	})
+
+	it('skips completed items instead of moving artifacts', async () => {
+		const root = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-queue-skip-done-'))
+		try {
+			const fromDir = path.join(root, 'from')
+			const toDir = path.join(root, 'to')
+			await fs.mkdir(fromDir, {recursive: true})
+			await fs.writeFile(path.join(fromDir, 'video.mkv'), 'media')
+			const {qs} = makeService()
+			qs.add([makeItem({id: 'done-skip', status: 'done', outputDir: fromDir, artifacts: [{id: 'artifact:media', kind: 'media', path: path.join(fromDir, 'video.mkv'), fileName: 'video.mkv', discoveredAt: '2026-06-18T10:00:00.000Z'}]})])
+
+			const result = await qs.changeOutputTarget(['done-skip'], toDir)
+
+			expect(result.ok).toBe(true)
+			if (!result.ok) return
+			expect(result.data.items).toEqual([])
+			expect(result.data.skipped).toEqual([{itemId: 'done-skip', status: 'done', reason: 'invalid-status'}])
+			expect(await fs.readFile(path.join(fromDir, 'video.mkv'), 'utf8')).toBe('media')
+			const [item] = qs.snapshot()
+			expect(item.outputDir).toBe(fromDir)
+			expect(item.artifacts[0]?.path).toBe(path.join(fromDir, 'video.mkv'))
+		} finally {
+			await fs.rm(root, {recursive: true, force: true})
+		}
+	})
+
+	it('skips a running item instead of racing an active downloader during output-target change', async () => {
+		const root = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-queue-active-move-'))
+		try {
+			const fromDir = path.join(root, 'from')
+			const toDir = path.join(root, 'to')
+			const tempDir = path.join(fromDir, '.arroxy-temp', 'job-run')
+			await fs.mkdir(tempDir, {recursive: true})
+			await fs.writeFile(path.join(tempDir, 'partial.part'), 'partial')
+			await fs.writeFile(path.join(fromDir, 'video.mkv'), 'media')
+			const {qs, ds} = makeService()
+			qs.add([makeItem({id: 'running-move', status: 'running', lastJobId: 'job-run', outputDir: fromDir, progressPercent: 12, artifacts: [{id: 'artifact:media', kind: 'media', path: path.join(fromDir, 'video.mkv'), fileName: 'video.mkv', discoveredAt: '2026-06-18T10:00:00.000Z'}]})])
+
+			const result = await qs.changeOutputTarget(['running-move'], toDir)
+
+			expect(result.ok).toBe(true)
+			if (!result.ok) return
+			expect(result.data.items).toEqual([])
+			expect(result.data.skipped).toEqual([{itemId: 'running-move', status: 'running', reason: 'invalid-status'}])
+			expect(ds.pause).not.toHaveBeenCalled()
+			expect(ds.resume).not.toHaveBeenCalled()
+			expect(ds.start).not.toHaveBeenCalled()
+			expect(await fs.readFile(path.join(fromDir, 'video.mkv'), 'utf8')).toBe('media')
+			expect(await fs.readFile(path.join(tempDir, 'partial.part'), 'utf8')).toBe('partial')
+			const [item] = qs.snapshot()
+			expect(item).toMatchObject({status: 'running', outputDir: fromDir, lastJobId: 'job-run'})
+			expect(item.artifacts[0]?.path).toBe(path.join(fromDir, 'video.mkv'))
+		} finally {
+			await fs.rm(root, {recursive: true, force: true})
+		}
 	})
 })
 
@@ -430,6 +643,18 @@ describe('QueueService — bulk persist coalescing', () => {
 
 		expect(result.ok).toBe(true)
 		await expect(fs.access(tempDir)).rejects.toThrow()
+	})
+
+	it('remove cancels paused-active download before removing row', async () => {
+		const {qs, ds} = makeService()
+		ds.cancel.mockResolvedValue(ok({cancelled: true}))
+		qs.add([makeItem({id: 'remove-paused-active', status: 'paused-active', lastJobId: 'paused-job-1', tempDir: '/tmp/paused-job-1'})])
+
+		const result = await qs.remove('remove-paused-active')
+
+		expect(result.ok).toBe(true)
+		expect(ds.cancel).toHaveBeenCalledWith('paused-job-1')
+		expect(qs.snapshot()).toHaveLength(0)
 	})
 
 	it('remove still completes when resume temp cleanup fails', async () => {

@@ -642,6 +642,35 @@ body {
 	transform: scaleX(1);
 }
 
+.download-home-tabs .queue-tab-working::before {
+	opacity: 0.58;
+	box-shadow:
+		var(--tabs-active-shadow),
+		0 0 18px -10px var(--brand-glow);
+}
+
+.download-home-tabs .queue-tab-working [data-slot="badge"] {
+	box-shadow: 0 0 12px -6px var(--brand-glow);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.download-home-tabs .queue-tab-working::before {
+		animation: queue-tab-working-pulse 1.9s ease-in-out infinite;
+	}
+}
+
+@keyframes queue-tab-working-pulse {
+	0%,
+	100% {
+		filter: saturate(1);
+		transform: scaleX(0.98);
+	}
+	50% {
+		filter: saturate(1.35);
+		transform: scaleX(1);
+	}
+}
+
 .glow-chip {
 	border-color: hsl(206 100% 76% / 0.4);
 	background: linear-gradient(180deg, hsl(210 100% 70% / 0.2), hsl(259 92% 64% / 0.12)), color-mix(in srgb, var(--background) 38%, transparent);
@@ -758,6 +787,17 @@ body {
 		var(--glow-gradient) border-box !important;
 	box-shadow: var(--wizard-filter-selected-shadow);
 	color: var(--brand);
+}
+
+.queue-manager-row-selected,
+.queue-manager-row-selected:hover {
+	background: var(--queue-row-selected-fill) !important;
+	box-shadow: var(--queue-row-selected-shadow);
+}
+.queue-manager-row-selected:focus-visible {
+	box-shadow:
+		var(--queue-row-selected-shadow),
+		0 0 0 2px var(--ring);
 }
 
 /* ── Reduced motion: collapse slide/float/shimmer/pulse to instant.
@@ -1235,6 +1275,8 @@ body {
 	--wizard-filter-selected-fill: linear-gradient(180deg, hsl(213 100% 94% / 0.72), hsl(220 100% 92% / 0.54)), var(--brand-dim);
 	--wizard-filter-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.58);
 	--wizard-filter-selected-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.74), 0 0 20px -15px var(--brand-glow);
+	--queue-row-selected-fill: linear-gradient(90deg, hsl(213 100% 94% / 0.78), hsl(220 100% 92% / 0.56)), var(--brand-dim);
+	--queue-row-selected-shadow: inset 0 0 0 1px hsl(210 100% 58% / 0.3), inset 0 1px 0 hsl(0 0% 100% / 0.62), 0 0 24px -18px var(--brand-glow);
 	--tabs-rail-bg: linear-gradient(180deg, hsl(205 100% 96% / 0.8), hsl(216 100% 94% / 0.58));
 	--tabs-rail-border: linear-gradient(135deg, hsl(196 100% 58% / 0.34), hsl(222 100% 62% / 0.14) 44%, hsl(268 96% 64% / 0.32));
 	--tabs-rail-sheen: linear-gradient(90deg, hsl(196 100% 70% / 0.18), transparent 36% 62%, hsl(268 96% 72% / 0.14));
@@ -1368,6 +1410,8 @@ body {
 	--wizard-filter-selected-fill: linear-gradient(180deg, hsl(214 100% 52% / 0.14), hsl(268 96% 52% / 0.08)), var(--brand-dim);
 	--wizard-filter-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.1);
 	--wizard-filter-selected-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.14), 0 0 22px -16px var(--brand-glow);
+	--queue-row-selected-fill: linear-gradient(90deg, hsl(214 100% 52% / 0.24), hsl(268 96% 52% / 0.14)), hsl(226 62% 8% / 0.94);
+	--queue-row-selected-shadow: inset 0 0 0 1px hsl(205 100% 78% / 0.34), inset 0 1px 0 hsl(205 100% 84% / 0.14), 0 0 28px -18px var(--brand-glow);
 	--tabs-rail-bg: linear-gradient(180deg, hsl(224 64% 6% / 0.86), hsl(228 70% 4% / 0.72));
 	--tabs-rail-border: linear-gradient(135deg, hsl(196 100% 76% / 0.22), hsl(222 100% 62% / 0.08) 44%, hsl(268 96% 72% / 0.22));
 	--tabs-rail-sheen: linear-gradient(90deg, hsl(196 100% 78% / 0.08), transparent 36% 62%, hsl(268 96% 74% / 0.08));

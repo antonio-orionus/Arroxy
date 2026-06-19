@@ -17,7 +17,7 @@ vi.mock('@main/utils/process', async importOriginal => {
 vi.mock('@main/utils/diskSpace', () => ({checkDiskSpace: vi.fn().mockResolvedValue({ok: true, freeBytes: 1e12, requiredBytes: 0})}))
 
 import {spawnYtDlp, spawnFFmpeg} from '@main/utils/process.js'
-import type {StatusEvent, StatusKey} from '@shared/types.js'
+import type {QueueArtifactEvent, StatusEvent, StatusKey} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 import type {SubtitleFormat, SubtitleMode} from '@shared/schemas.js'
 
@@ -70,6 +70,28 @@ function makeService() {
 }
 
 describe('DownloadService — subtitle soft-fail finalization', () => {
+	it('emits final media and subtitle artifacts when a job completes', async () => {
+		const videoPath = '/tmp/video.mkv'
+		const subPath = '/tmp/video.en.srt'
+		let callIndex = 0
+		vi.mocked(spawnYtDlp).mockImplementation(() => {
+			const stderr = callIndex === 0 ? `[download] Destination: ${videoPath}\n` : `[download] Destination: ${subPath}\n`
+			callIndex++
+			return makeProcess(0, stderr) as never
+		})
+		const {service, recentJobsStore} = makeService()
+		const artifacts: QueueArtifactEvent[] = []
+		service.on('artifact', event => artifacts.push(event))
+
+		await service.start({url: YOUTUBE_URL, outputDir: '/tmp', job: makeJob({formatId: '137+251', subtitles: {languages: ['en']}})})
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+
+		expect(artifacts.map(({path, kind}) => ({path, kind}))).toEqual([
+			{path: videoPath, kind: 'media'},
+			{path: subPath, kind: 'subtitle'}
+		])
+	})
+
 	it('emits subtitlesFailed and records the job as completed when sidecar subtitle fetch fails', async () => {
 		let callIndex = 0
 		vi.mocked(spawnYtDlp).mockImplementation(() => {
@@ -224,6 +246,8 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		mockSuccessfulMux(ffmpegCalls)
 
 		const {service, recentJobsStore} = makeService()
+		const artifacts: QueueArtifactEvent[] = []
+		service.on('artifact', event => artifacts.push(event))
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {languages: ['en'], mode: 'embed', format: 'srt', writeAuto: true}})})
 		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
 		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
@@ -237,6 +261,7 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		expect(readFileSync(finalMkv, 'utf8')).toBe('muxed-bytes')
 		expect(() => readFileSync(videoPath)).toThrow()
 		expect(() => readFileSync(subPath)).toThrow()
+		expect(artifacts.map(({path, kind}) => ({path, kind}))).toEqual([{path: finalMkv, kind: 'media'}])
 	})
 
 	it('emits mergingFormats status when the mux phase starts', async () => {

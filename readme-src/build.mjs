@@ -23,12 +23,14 @@ function checkParity(locales, { strict }) {
   const en = locales.find((l) => l.code === "en");
   if (!en) throw new Error("English locale missing from registry");
   const enKeys = Object.keys(en.strings).sort();
+  const enKeySet = new Set(enKeys);
   let driftCount = 0;
   for (const loc of locales) {
     if (loc.code === "en") continue;
     const keys = Object.keys(loc.strings).sort();
-    const missing = enKeys.filter((k) => !keys.includes(k));
-    const extra = keys.filter((k) => !enKeys.includes(k));
+    const keySet = new Set(keys);
+    const missing = enKeys.filter((k) => !keySet.has(k));
+    const extra = keys.filter((k) => !enKeySet.has(k));
     if (!missing.length && !extra.length) continue;
     driftCount++;
     const parts = [];

@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "Тільки субтитри"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}} завантажуються · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Супровідний файл"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "Скасувати всі"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Опис"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Медіа"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Відсутній"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Субтитр"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Мініатюра"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Файл"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Скасувати всі активні та очікувані завантаження"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "Очистити"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "Очистити завершені завантаження"
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "Тут з'являться завантаження, додані в чергу"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Усе"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Фільтри стану черги"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Усі елементи"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Не вдалося завантажити"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "Готово о {{time}}"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "Утримати"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "Відкрити посилання"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Відкрити папку призначення"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "Пауза"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "На паузі"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "Пріоритет"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Лише очікувані"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "Видалити"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "Продовжити"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Повторити"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Установити розташування"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Виберіть елементи в очікуванні, щоб установити розташування."
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Завантажується"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "Швидкість: {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "Швидкість: вимкнено"
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "Обмеження пропускної здатності для завантажень"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "Завантажень поки немає."
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "Призупинити всі"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Призупинити всі активні завантаження"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "Продовжити чергу"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "Продовжити призупинені завантаження й дати черзі рухатися далі"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "Твоє завантаження в черзі нижче — відкрий її будь-коли, щоб стежити за прогресом."
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Вибрані елементи"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "Показати/сховати чергу завантажень"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} вибрано · усього {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "Черга"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Додано"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Вихідні файли"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Стовпці"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Завершено"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Формат"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Сховати файли для {{title}}"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Папка виводу"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Прогрес"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Показати файли для {{title}}"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Сортувати за {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Стан"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Назва"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "Поділитися"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "Поділитися Arroxy"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "Подобається Arroxy? Допоможи іншим знайти його."
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "Закрити пропозицію поділитися"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

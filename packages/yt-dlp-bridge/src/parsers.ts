@@ -2,10 +2,10 @@ import type {FinalPathResult, FormatSummary, PaginationResult, ParsedJsonLines, 
 export {parseYtDlpOutputLine, type YtDlpOutputEvent, type YtDlpPostprocessPhase} from './output-events.js'
 
 export function parseJsonLines<T = unknown>(output: string): ParsedJsonLines<T> {
-	const rawLines = output
-		.split(/\r?\n/)
-		.map(line => line.trim())
-		.filter(Boolean)
+	const rawLines = output.split(/\r?\n/).flatMap(line => {
+		const rawLine = line.trim()
+		return rawLine ? [rawLine] : []
+	})
 	const items: T[] = []
 	const parseErrors: ParsedJsonLines<T>['parseErrors'] = []
 
@@ -117,10 +117,10 @@ export function parseSubtitles(output: string): SubtitleSummary[] {
 		if (/^(language|[-\s]+$)/i.test(line)) continue
 
 		const alignedColumns = /^[A-Za-z0-9][A-Za-z0-9_-]*(?:-[A-Za-z0-9]+)*\s{2,}/.test(line)
-			? line
-					.split(/\s{2,}|\t+/)
-					.map(part => part.trim())
-					.filter(Boolean)
+			? line.split(/\s{2,}|\t+/).flatMap(part => {
+					const column = part.trim()
+					return column ? [column] : []
+				})
 			: []
 		const fallback = /^([A-Za-z0-9][A-Za-z0-9_-]*(?:-[A-Za-z0-9]+)*)\s+(.+?)\s+((?:vtt|srt|ttml|srv3|srv2|srv1|json3)(?:,\s*(?:vtt|srt|ttml|srv3|srv2|srv1|json3))*)$/i.exec(line)
 		const columns = alignedColumns.length >= 2 ? alignedColumns : fallback ? [fallback[1] ?? '', fallback[2] ?? '', fallback[3] ?? ''] : []
@@ -172,10 +172,10 @@ export function parseProgress(output: string): ProgressEvent[] {
 }
 
 export function parseFinalPaths(stdout: string): FinalPathResult {
-	const stdoutLines = stdout
-		.split(/\r?\n/)
-		.map(line => line.trim())
-		.filter(Boolean)
+	const stdoutLines = stdout.split(/\r?\n/).flatMap(line => {
+		const stdoutLine = line.trim()
+		return stdoutLine ? [stdoutLine] : []
+	})
 	const paths = new Set<string>()
 	for (const line of stdoutLines) {
 		if (!/^\[[^\]]+\]/.test(line) && !/^ERROR:/i.test(line)) {
@@ -205,10 +205,10 @@ function dataLines(output: string): string[] {
 }
 
 function splitFormats(value: string): string[] {
-	return value
-		.split(/,\s*|\s+/)
-		.map(part => part.trim())
-		.filter(Boolean)
+	return value.split(/,\s*|\s+/).flatMap(part => {
+		const format = part.trim()
+		return format ? [format] : []
+	})
 }
 
 function sanitizeFormatSummary(item: unknown): SanitizedFormatSummary {

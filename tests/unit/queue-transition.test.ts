@@ -9,7 +9,26 @@ const PREPARED: PreparedJob = {kind: 'single-format', extractor: 'youtube', extr
 const RESUME_CONTEXT: QueueResumeContext = {kind: 'media-retry', tempDir: '/tmp/.arroxy-temp/resume', reason: 'media-transfer', failureKind: 'network'}
 
 function makeItem(overrides: Partial<QueueItem> = {}): QueueItem {
-	return {id: 'q-1', url: 'https://www.youtube.com/watch?v=test', title: 'Test', thumbnail: '', outputDir: '/tmp', formatLabel: '720p mp4', status: 'pending', lane: 'normal', progressPercent: 0, progressDetail: null, lastStatus: null, error: null, finishedAt: null, writeM3u: true, job: PREPARED, ...overrides}
+	const base: QueueItem = {
+		id: 'q-1',
+		url: 'https://www.youtube.com/watch?v=test',
+		title: 'Test',
+		thumbnail: '',
+		outputDir: '/tmp',
+		formatLabel: '720p mp4',
+		status: 'pending',
+		lane: 'normal',
+		progressPercent: 0,
+		progressDetail: null,
+		lastStatus: null,
+		error: null,
+		addedAt: null,
+		finishedAt: null,
+		artifacts: [],
+		writeM3u: true,
+		job: PREPARED
+	}
+	return {...base, ...overrides, addedAt: overrides.addedAt ?? base.addedAt}
 }
 
 describe('transition', () => {

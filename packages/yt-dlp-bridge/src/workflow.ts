@@ -720,11 +720,12 @@ function normalizePostprocess(input: ManagedPostprocessWorkflowInput): Normalize
 function requiredManagedDependencyReasons(input: NormalizedManagedDownloadInput): Map<string, string[]> {
 	const deps = new Map<string, string[]>()
 	addReason(deps, 'yt-dlp', 'execute yt-dlp workflow')
+	const builtInDownloaders = new Set(['default', 'native'])
 	for (const reason of ffmpegReasons(input)) addReason(deps, 'ffmpeg', reason)
 	if (needsFfprobe(input)) addReason(deps, 'ffprobe', 'inspect media streams for audio extraction or conversion')
 	for (const downloader of input.download.downloader) {
 		const binary = downloader.split(':').pop()?.trim()
-		if (binary && !['default', 'native'].includes(binary)) addReason(deps, binary, 'requested external downloader')
+		if (binary && !builtInDownloaders.has(binary)) addReason(deps, binary, 'requested external downloader')
 	}
 	if (input.network.impersonate) addReason(deps, 'curl_cffi', 'requested browser impersonation target')
 	return deps

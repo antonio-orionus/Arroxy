@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "Faqat subtitrlar"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}} ta yuklanmoqda · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Qo‘shimcha fayl"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "Hammasini bekor qilish"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Tavsif"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Media"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Yo‘q"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Subtitr"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Eskiz"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Fayl"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Barcha faol va kutayotgan yuklamalarni bekor qilish"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "Tozalash"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "Tugallangan yuklamalarni tozalash"
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "Navbatga qo'shgan yuklamalaringiz bu yerda ko'rinadi"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Hammasi"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Navbat holati filtrlari"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Barcha elementlar"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Yuklama muvaffaqiyatsiz"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "{{time}} da tugallandi"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "Ushlab tur"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "URLni ochish"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Manzil papkasini ochish"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "To'xtatish"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "To'xtatilgan"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "Ustuvor"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Faqat kutilayotganlar"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "O'chirish"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "Davom ettirish"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Qayta urinish"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Joylashuvni belgilash"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Joylashuvni belgilash uchun kutilayotgan elementlarni tanlang."
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Yuklanmoqda"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "Tezlik: {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "Tezlik: o‘chiq"
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "Yuklab olishlar uchun tarmoq chegarasi"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "Hali hech qanday yuklama yo'q."
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "Hammasini to'xtatib turish"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Barcha faol yuklamalarni to'xtatib turish"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "Navbatni davom ettirish"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "Pauzadagi yuklab olishlarni davom ettirib, navbatni yurgizish"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "Yuklamangiz quyida navbatda — jarayonni kuzatish uchun istalgan vaqt oching."
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Tanlangan elementlar"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "Yuklash navbatini ko'rsatish/yashirish"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} tanlangan · jami {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "Navbat"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Qo‘shilgan"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Natija fayllari"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Ustunlar"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Tugagan"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "{{title}} uchun fayllarni yashirish"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Natija manzili"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Jarayon"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "{{title}} uchun fayllarni ko‘rsatish"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "{{label}} bo‘yicha saralash"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Holat"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Sarlavha"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "Ulashish"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "Arroxy ulashish"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "Arroxy yoqdimi? Boshqalarga uni topishga yordam bering."
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "Ulashish taklifini yopish"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

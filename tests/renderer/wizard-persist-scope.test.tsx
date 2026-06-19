@@ -77,8 +77,7 @@ function resetStore(): void {
 		playlistIsMultiVideo: false,
 		cookiesConfigDialogIssue: null,
 		playlistSelection: null,
-		queue: [],
-		drawerOpen: false
+		queue: []
 	})
 }
 

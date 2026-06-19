@@ -31,6 +31,9 @@ export type {
 	GraphicsPolicyBackdropReason,
 	QueueItemStatus,
 	QueueLane,
+	QueueArtifactKind,
+	QueueSelectionAction,
+	QueueActionSkippedItem,
 	AudioConvertTarget,
 	AudioBitrate,
 	AudioTrackQuality,
@@ -78,6 +81,9 @@ import type {
 	CookiesBrowser,
 	NetworkPacingPreset,
 	NativeAudioPreference,
+	QueueArtifactKind,
+	QueueSelectionAction,
+	QueueActionSkippedItem as SchemaQueueActionSkippedItem,
 	DownloadProfilesPrefs,
 	ProbeOtherErrorCode,
 	RuntimeBinaryChannel,
@@ -146,7 +152,6 @@ export interface CommonSettings {
 	firstRunCompleted?: boolean
 	launchCount?: number
 	lastReleaseNotesVersionShown?: string
-	drawerOpen?: boolean
 	binaryOverrides?: BinaryOverrides
 	successfulDownloadCount?: number
 	shareInlineCardDismissed?: boolean
@@ -239,6 +244,40 @@ export interface StatusSnapshot {
 	params?: Record<string, string | number>
 }
 
+export interface QueueArtifact {
+	id: string
+	kind: QueueArtifactKind
+	path: string
+	fileName: string
+	sizeBytes?: number
+	discoveredAt: string
+	missing?: boolean
+	internal?: boolean
+}
+
+export interface QueueSelectionCommandResult {
+	action: QueueSelectionAction
+	appliedIds: string[]
+	skipped: SchemaQueueActionSkippedItem[]
+}
+
+export interface QueueOutputTargetMovedArtifact {
+	from: string
+	to: string
+}
+
+export interface QueueOutputTargetChangeItemResult {
+	itemId: string
+	moved: QueueOutputTargetMovedArtifact[]
+	missing: string[]
+}
+
+export interface QueueOutputTargetChangeResult {
+	outputDir: string
+	items: QueueOutputTargetChangeItemResult[]
+	skipped: SchemaQueueActionSkippedItem[]
+}
+
 export interface QueueItem {
 	id: string
 	url: string
@@ -252,6 +291,7 @@ export interface QueueItem {
 	progressDetail: string | null
 	lastStatus: StatusSnapshot | null
 	error: LocalizedError | null
+	addedAt: string | null
 	finishedAt: string | null
 	playlistGroupId?: string
 	// Per-item opt-out for the playlist `.m3u` artifact. Defaults true; only an
@@ -263,6 +303,7 @@ export interface QueueItem {
 	lastJobId?: string
 	resumeContext?: QueueResumeContext
 	probeInfoJsonRef?: ProbeInfoJsonRef
+	artifacts: QueueArtifact[]
 	job: PreparedJob
 }
 
@@ -369,6 +410,15 @@ export interface ProgressEvent {
 	line: string
 	at: string
 	percent?: number
+}
+
+export interface QueueArtifactEvent {
+	jobId: string
+	path: string
+	kind: QueueArtifactKind
+	at: string
+	fromPath?: string
+	internal?: boolean
 }
 
 export const DEPENDENCY_IDS = ['yt-dlp', 'ffmpeg', 'ffprobe'] as const

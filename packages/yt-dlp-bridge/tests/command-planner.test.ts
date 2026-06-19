@@ -159,7 +159,7 @@ describe('parseYtDlpOutputLine', () => {
 		expect(parseYtDlpOutputLine('Sleeping 2.6 seconds')).toEqual({kind: 'sleep', seconds: 3})
 		expect(parseYtDlpOutputLine('[SponsorBlock] Fetching SponsorBlock segments')).toEqual({kind: 'sponsorblock-fetch'})
 		expect(parseYtDlpOutputLine('Unable to communicate with SponsorBlock API: down. Retrying (2/5)')).toEqual({kind: 'sponsorblock-retry', attempt: 2, total: 5})
-		expect(parseYtDlpOutputLine('[ExtractAudio] Destination: /tmp/audio.mp3')).toEqual({kind: 'postprocess', phase: 'extractingAudio'})
+		expect(parseYtDlpOutputLine('[ExtractAudio] Destination: /tmp/audio.mp3')).toEqual({kind: 'postprocess', phase: 'extractingAudio', path: '/tmp/audio.mp3'})
 		expect(parseYtDlpOutputLine('[download]  42.0% of 10.00MiB at 1.00MiB/s ETA 00:05')).toEqual({kind: 'progress', percent: 42, raw: '[download]  42.0% of 10.00MiB at 1.00MiB/s ETA 00:05'})
 	})
 })

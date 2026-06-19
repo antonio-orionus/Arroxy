@@ -18,6 +18,9 @@ import type {
 	ProbeProgressEvent,
 	ProbeResult,
 	ProgressEvent,
+	QueueSelectionAction,
+	QueueSelectionCommandResult,
+	QueueOutputTargetChangeResult,
 	QueueItem,
 	QueueLane,
 	SinglePrefs,
@@ -88,6 +91,8 @@ export interface AppApi {
 			clearCompleted(): Promise<Result<void>>
 			remove(input: {itemId: string}): Promise<Result<void>>
 			setLane(input: {itemId: string; lane: QueueLane}): Promise<Result<void>>
+			applySelectionAction(input: {action: QueueSelectionAction; itemIds: string[]}): Promise<Result<QueueSelectionCommandResult>>
+			changeOutputTarget(input: {itemIds: string[]; outputDir: string}): Promise<Result<QueueOutputTargetChangeResult>>
 			pauseAll(): Promise<Result<void>>
 			resumeAll(): Promise<Result<void>>
 		}

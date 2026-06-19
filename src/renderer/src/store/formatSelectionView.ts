@@ -113,7 +113,7 @@ export function selectView(state: {selectedVideoFormatId: string; audioSelection
 	const videoRows = groupedVideo.map(group => {
 		const rawFormat = formatById.get(group.formatId)
 		const filesize = rawFormat?.filesize
-		const meta = group.isAudioOnly ? '' : [rawFormat?.ext, rawFormat?.fps ? `${rawFormat.fps}fps` : null, rawFormat?.dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' · ')
+		const meta = group.isAudioOnly ? '' : [rawFormat?.ext, rawFormat?.fps ? `${rawFormat.fps}fps` : null, rawFormat?.dynamicRange ?? null, filesize ? humanSize(filesize) : null].flatMap(part => (part ? [part] : [])).join(' · ')
 		return {barWidth: filesize ? Math.max(2, (filesize / maxFilesize) * 100) : 0, filesize, formatId: group.formatId, isAudioOnly: group.isAudioOnly, meta, resolution: group.resolution}
 	})
 	const nativeAudios = wizardFormats.filter(f => f.isAudioOnly)
@@ -122,7 +122,7 @@ export function selectView(state: {selectedVideoFormatId: string; audioSelection
 	const nativeExtSet = new Set(nativeExts)
 	const audioExtOptions = [...nativeExts, ...convertTargets.filter(ext => !nativeExtSet.has(ext))]
 	const matchesAudioExt = (ext: string): boolean => !filters.audioExt || ext === filters.audioExt
-	const nativeRows = nativeAudios.filter(format => matchesAudioExt(format.ext)).map(nativeAudioRow)
+	const nativeRows = nativeAudios.flatMap(format => (matchesAudioExt(format.ext) ? [nativeAudioRow(format)] : []))
 	const filteredConvertTargets = convertTargets.filter(matchesAudioExt)
 
 	return {

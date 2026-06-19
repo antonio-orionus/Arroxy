@@ -52,17 +52,20 @@ export class ProbeInfoJsonCache {
 		}
 		const cutoff = Date.now() - ttlMs
 		await Promise.all(
-			entries
-				.filter(entry => entry.isFile() && entry.name.endsWith('.info.json'))
-				.map(async entry => {
-					const path = join(this.dir, entry.name)
-					try {
-						const s = await stat(path)
-						if (s.mtimeMs <= cutoff) await rm(path, {force: true})
-					} catch {
-						/* best effort */
-					}
-				})
+			entries.flatMap(entry => {
+				if (!entry.isFile() || !entry.name.endsWith('.info.json')) return []
+				return [
+					(async () => {
+						const path = join(this.dir, entry.name)
+						try {
+							const s = await stat(path)
+							if (s.mtimeMs <= cutoff) await rm(path, {force: true})
+						} catch {
+							/* best effort */
+						}
+					})()
+				]
+			})
 		)
 	}
 

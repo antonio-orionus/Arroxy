@@ -246,10 +246,24 @@ export type QueueItemStatus = z.infer<typeof queueItemStatusSchema>
 // single-slot cap and the inter-job sleep window — typical queue flow.
 // `priority` items spawn alongside whatever is running and bypass the sleep
 // window, gated only by the maxConcurrent ceiling. User intent: "skip the
-// queue, pull this now." Set via the wizard's "Pull it!" CTA or the drawer
-// card's Pull-now button.
+// queue, pull this now." Set via the wizard's "Pull it!" CTA or the Queue
+// Manager's Pull-now action.
 export const queueLaneSchema = z.enum(['normal', 'priority'])
 export type QueueLane = z.infer<typeof queueLaneSchema>
+
+export const queueArtifactKindSchema = z.enum(['media', 'subtitle', 'thumbnail', 'description', 'companion', 'unknown'])
+export type QueueArtifactKind = z.infer<typeof queueArtifactKindSchema>
+
+export const queueSelectionActionSchema = z.enum(['pause', 'resume', 'cancel', 'retry', 'remove', 'change-output-target', 'pull-now'])
+export type QueueSelectionAction = z.infer<typeof queueSelectionActionSchema>
+
+const queueActionSkippedFailureReasonSchema = z.enum(['invalid-status', 'failed'])
+const queueActionSkippedItemSchema = z.union([z.object({itemId: z.string().min(1), reason: z.literal('not-found')}), z.object({itemId: z.string().min(1), status: queueItemStatusSchema, reason: queueActionSkippedFailureReasonSchema})])
+export type QueueActionSkippedItem = z.infer<typeof queueActionSkippedItemSchema>
+
+export const queueTableColumnIdSchema = z.enum(['title', 'status', 'progressPercent', 'formatLabel', 'outputDir', 'artifacts', 'addedAt', 'finishedAt'])
+export type QueueTableColumnId = z.infer<typeof queueTableColumnIdSchema>
+export const QUEUE_TABLE_COLUMN_IDS = queueTableColumnIdSchema.options
 
 const ytDlpErrorKindSchema = z.enum(YT_DLP_ERROR_KINDS)
 
@@ -407,7 +421,6 @@ const commonSettingsPatchSchema = z.object({
 	firstRunCompleted: z.boolean().optional(),
 	launchCount: z.number().int().nonnegative().optional(),
 	lastReleaseNotesVersionShown: z.string().trim().min(1).optional(),
-	drawerOpen: z.boolean().optional(),
 	successfulDownloadCount: z.number().int().nonnegative().optional(),
 	shareInlineCardDismissed: z.boolean().optional(),
 	shareHighValueBannerDismissed: z.boolean().optional(),
@@ -454,6 +467,7 @@ const statusSnapshotSchema = z.object({key: statusKeySchema, params: z.record(z.
 
 const queueResumeContextSchema = z.object({kind: z.literal('media-retry'), tempDir: z.string().min(1), reason: z.enum(['media-transfer', 'postprocess']), failureKind: ytDlpErrorKindSchema})
 const probeInfoJsonRefSchema = z.object({id: z.string().min(1), createdAt: z.string().min(1), videoId: z.string().min(1).optional()})
+const queueArtifactSchema = z.object({id: z.string().min(1), kind: queueArtifactKindSchema, path: z.string().min(1), fileName: z.string().min(1), sizeBytes: z.number().int().nonnegative().optional(), discoveredAt: z.string().min(1), missing: z.boolean().optional(), internal: z.boolean().optional()})
 
 export const queueItemSchema = z
 	.object({
@@ -469,6 +483,7 @@ export const queueItemSchema = z
 		progressDetail: z.string().nullable(),
 		lastStatus: statusSnapshotSchema.nullable(),
 		error: localizedErrorSchema.nullable(),
+		addedAt: z.string().nullable().default(null),
 		finishedAt: z.string().nullable(),
 		playlistGroupId: z.string().min(1).optional(),
 		// Per-item opt-out for the playlist `.m3u` artifact. Defaults true so
@@ -485,6 +500,7 @@ export const queueItemSchema = z
 		lastJobId: z.string().min(1).optional(),
 		resumeContext: queueResumeContextSchema.optional(),
 		probeInfoJsonRef: probeInfoJsonRefSchema.optional(),
+		artifacts: z.array(queueArtifactSchema).default([]),
 		job: preparedJobSchema
 	})
 	.superRefine((item, ctx) => {

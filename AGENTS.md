@@ -242,6 +242,13 @@ ARROXY_RENDERER_PORT=5173 bun run dev:mock
 $env:ARROXY_RENDERER_PORT = "5173"; bun run dev:mock
 ```
 
+Only bypass the wrapper when you intentionally need a custom Vite invocation, such as a different port or one-off debugging flags:
+
+```bash
+# Fallback only. From project root — uses src/renderer/vite.config.mjs (aliases + Tailwind + React)
+bunx vite src/renderer --port 5173 --mode browser-mock
+```
+
 The renderer's `browserMock.ts` stubs `window.appApi` with simulated downloads, formats, settings when Vite runs in explicit `browser-mock` mode — no Electron needed. Electron dev and packaged builds must use the real preload bridge.
 
 ### agent-browser workflow
@@ -606,7 +613,7 @@ rtk playwright test     # Playwright failures only (94%)
 rtk pytest              # Python test failures only (90%)
 rtk rake test           # Ruby test failures only (90%)
 rtk rspec               # RSpec test failures only (60%)
-rtk test <cmd>          # Generic test wrapper - failures only
+rtk test <cmd>          # Generic test wrapper - failures only; not POSIX test
 ```
 
 ### Git (59-80% savings)
@@ -655,8 +662,12 @@ rtk prisma              # Prisma without ASCII art (88%)
 rtk ls <path>           # Tree format, compact (65%)
 rtk read <file>         # Code reading with filtering (60%)
 rtk grep <pattern>      # Search grouped by file (75%). Format flags (-c, -l, -L, -o, -Z) run raw.
-rtk find <pattern>      # Find grouped by directory (70%)
+rtk find <pattern>      # Simple find predicates grouped by directory (70%)
 ```
+
+Use `rtk proxy find ...` or raw `find` for compound predicates/actions such as
+`(`, `)`, `-o`, `-a`, `!`, `-not`, `-exec`, `-delete`, or `-print0`. Use
+`rtk run "test -d path"` or raw shell `test` for POSIX file/string checks.
 
 ### Analysis & Debug (70-90% savings)
 

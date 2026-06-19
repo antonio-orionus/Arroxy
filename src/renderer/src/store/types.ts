@@ -25,6 +25,9 @@ import type {
 	ProbeDegradationReason,
 	QueueItem,
 	QueueLane,
+	QueueOutputTargetChangeResult,
+	QueueSelectionAction,
+	QueueSelectionCommandResult,
 	QuickDownloadProgressPhase,
 	QuickDownloadStatus,
 	SubtitleFormat,
@@ -36,6 +39,7 @@ import type {
 	UiTheme,
 	WizardMode
 } from '@shared/types.js'
+import type {Result} from '@shared/result.js'
 import type {AudioSelection} from '@shared/schemas.js'
 import type {IncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import type {QuickDownloadFailure} from './wizard/quickDownloadFeedback.js'
@@ -244,6 +248,8 @@ export interface QueueSlice {
 	resumeItemDownload: (itemId: string) => Promise<void>
 	removeQueueItem: (itemId: string) => Promise<void>
 	retryQueueItem: (itemId: string) => Promise<void>
+	applyQueueSelectionAction: (action: QueueSelectionAction, itemIds: string[]) => Promise<Result<QueueSelectionCommandResult>>
+	changeQueueOutputTarget: (itemIds: string[], outputDir: string) => Promise<Result<QueueOutputTargetChangeResult>>
 	clearCompleted: () => Promise<void>
 	pauseAll: () => Promise<void>
 	resumeAll: () => Promise<void>
@@ -255,12 +261,8 @@ export interface QueueSlice {
 export interface UiSlice {
 	uiZoom: number
 	uiTheme: UiTheme
-	drawerOpen: boolean
-	showQueueTip: boolean
 	aboutDialogOpen: boolean
 
-	setDrawerOpen: (open: boolean) => void
-	dismissQueueTip: () => void
 	setUiZoom: (zoom: number) => void
 	setUiTheme: (theme: UiTheme) => void
 	setAboutDialogOpen: (open: boolean) => void

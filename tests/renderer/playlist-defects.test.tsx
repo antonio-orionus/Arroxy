@@ -87,8 +87,7 @@ function resetStore() {
 		selectedPlaylistItemIds: [],
 		playlistSelection: null,
 		playlistTitle: '',
-		queue: [],
-		drawerOpen: true
+		queue: []
 	} as never)
 }
 

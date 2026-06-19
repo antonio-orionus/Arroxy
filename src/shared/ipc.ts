@@ -39,6 +39,8 @@ export const IPC_CHANNELS = {
 	queueCmdClearCompleted: 'queue:cmd:clearCompleted',
 	queueCmdRemove: 'queue:cmd:remove',
 	queueCmdSetLane: 'queue:cmd:setLane',
+	queueCmdApplySelectionAction: 'queue:cmd:applySelectionAction',
+	queueCmdChangeOutputTarget: 'queue:cmd:changeOutputTarget',
 	queueCmdPauseAll: 'queue:cmd:pauseAll',
 	queueCmdResumeAll: 'queue:cmd:resumeAll',
 	// Queue events — main → renderer. `snapshot` fires once on window create

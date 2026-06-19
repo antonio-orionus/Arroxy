@@ -113,6 +113,20 @@ describe('invoke methods → correct IPC channel', () => {
 		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.queueCmdCancel, {itemId: 'abc'})
 	})
 
+	it('queue.cmd.applySelectionAction', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		const input = {action: 'pause' as const, itemIds: ['a', 'b']}
+		void api.queue.cmd.applySelectionAction(input)
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.queueCmdApplySelectionAction, input)
+	})
+
+	it('queue.cmd.changeOutputTarget', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		const input = {itemIds: ['a', 'b'], outputDir: '/new'}
+		void api.queue.cmd.changeOutputTarget(input)
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.queueCmdChangeOutputTarget, input)
+	})
+
 	it('updater.install', () => {
 		const api = createPreloadApi(ipc.ipcRenderer)
 		void api.updater.install()

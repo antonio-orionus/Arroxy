@@ -206,10 +206,10 @@ function parseProbeProgressLine(line: string): Pick<ProbeProgressEvent, 'phase' 
 
 function parseProbeJsonOutput(stdout: string): unknown {
 	let lastJsonError: unknown = null
-	const lines = stdout
-		.split(/\r?\n/)
-		.map(line => line.trim())
-		.filter(Boolean)
+	const lines = stdout.split(/\r?\n/).flatMap(line => {
+		const trimmedLine = line.trim()
+		return trimmedLine ? [trimmedLine] : []
+	})
 	for (let i = lines.length - 1; i >= 0; i--) {
 		const line = lines[i]
 		if (!line?.startsWith('{')) continue

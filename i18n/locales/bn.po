@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "শুধু সাবটাইটেল"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}}টি ডাউনলোড হচ্ছে · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "সহযোগী ফাইল"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "সব বাতিল করুন"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "বিবরণ"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "মিডিয়া"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "অনুপস্থিত"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "সাবটাইটেল"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "থাম্বনেইল"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "ফাইল"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "সব সক্রিয় ও অপেক্ষমাণ ডাউনলোড বাতিল করুন"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "মুছুন"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "সম্পন্ন ডাউনলোড মুছুন"
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "আপনার কিউ করা ডাউনলোড এখানে দেখা যাবে"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "সব"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "কিউ স্ট্যাটাস ফিল্টার"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "সব আইটেম"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "ডাউনলোড ব্যর্থ"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "{{time}} সম্পন্ন"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "মুলতুবি"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "URL খুলুন"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "গন্তব্য ফোল্ডার খুলুন"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "বিরতি"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "বিরতি দেওয়া"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "অগ্রাধিকার"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "শুধু অপেক্ষমাণ"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "সরান"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "চালিয়ে যান"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "আবার চেষ্টা করুন"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "অবস্থান সেট করুন"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "অবস্থান সেট করতে অপেক্ষমাণ আইটেমগুলো নির্বাচন করুন।"
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "ডাউনলোড হচ্ছে"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "গতি: {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "গতি: বন্ধ"
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "ডাউনলোডের ব্যান্ডউইথ সীমা"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "এখনও কোনো ডাউনলোড নেই।"
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "সব বিরাম করুন"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "সব সক্রিয় ডাউনলোড বিরাম করুন"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "কিউ পুনরায় শুরু করুন"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "বিরত ডাউনলোড চালু করে কিউ চলতে দিন"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "আপনার ডাউনলোড নিচে কিউ করা হয়েছে — যেকোনো সময় খুলে অগ্রগতি দেখুন।"
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "নির্বাচিত আইটেম"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "ডাউনলোড কিউ টগল করুন"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} নির্বাচিত · মোট {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "কিউ"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "যোগ করা হয়েছে"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "আউটপুট ফাইলগুলি"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "কলাম"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "শেষ হয়েছে"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "ফরম্যাট"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "{{title}}-এর ফাইল লুকান"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "আউটপুট গন্তব্য"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "অগ্রগতি"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "{{title}}-এর ফাইল দেখান"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "{{label}} অনুযায়ী সাজান"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "অবস্থা"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "শিরোনাম"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "শেয়ার"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "Arroxy শেয়ার করুন"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "Arroxy পছন্দ হচ্ছে? অন্যদের আবিষ্কার করতে সাহায্য করুন।"
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "শেয়ার পরামর্শ বাতিল করুন"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

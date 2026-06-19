@@ -99,9 +99,7 @@ beforeEach(() => {
 		wizardExtractor: '',
 		wizardExtractorKey: '',
 		wizardWebpageUrl: '',
-		queue: [],
-		drawerOpen: false,
-		showQueueTip: false
+		queue: []
 	} as never)
 })
 

@@ -1,6 +1,6 @@
 import {z} from 'zod'
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {queueArraySchema, queueLaneSchema} from '@shared/schemas.js'
+import {queueArraySchema, queueLaneSchema, queueSelectionActionSchema} from '@shared/schemas.js'
 import {ok} from '@shared/result.js'
 import type {QueueService} from '@main/services/QueueService.js'
 import {handle, handleRaw, toUnknownFailure} from './utils.js'
@@ -8,6 +8,8 @@ import {handle, handleRaw, toUnknownFailure} from './utils.js'
 const itemIdSchema = z.object({itemId: z.string()})
 const cancelInputSchema = z.object({itemId: z.string().nullable()})
 const setLaneInputSchema = z.object({itemId: z.string(), lane: queueLaneSchema})
+const applySelectionActionInputSchema = z.object({action: queueSelectionActionSchema, itemIds: z.array(z.string())})
+const changeOutputTargetInputSchema = z.object({itemIds: z.array(z.string()), outputDir: z.string().trim().min(1)})
 
 export function registerQueueHandlers(queueService: QueueService): void {
 	handle(IPC_CHANNELS.queueCmdAdd, queueArraySchema, items => {
@@ -89,6 +91,22 @@ export function registerQueueHandlers(queueService: QueueService): void {
 		try {
 			const result = await queueService.setLane(itemId, lane)
 			return result.ok ? ok(undefined) : result
+		} catch (err) {
+			return toUnknownFailure(err)
+		}
+	})
+
+	handle(IPC_CHANNELS.queueCmdApplySelectionAction, applySelectionActionInputSchema, async ({action, itemIds}) => {
+		try {
+			return await queueService.applySelectionAction(action, itemIds)
+		} catch (err) {
+			return toUnknownFailure(err)
+		}
+	})
+
+	handle(IPC_CHANNELS.queueCmdChangeOutputTarget, changeOutputTargetInputSchema, async ({itemIds, outputDir}) => {
+		try {
+			return await queueService.changeOutputTarget(itemIds, outputDir)
 		} catch (err) {
 			return toUnknownFailure(err)
 		}

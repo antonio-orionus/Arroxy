@@ -12,7 +12,6 @@ import {AppBackdrop} from './components/layout/background/AppBackdrop.js'
 import type {BackdropColorScheme} from './components/layout/background/types.js'
 import {TitleBar} from './components/layout/TitleBar.js'
 import {WizardPanel} from './components/layout/WizardPanel.js'
-import {SmartDrawer} from './components/layout/SmartDrawer.js'
 import {WarmupSplash} from './components/system/WarmupSplash.js'
 import {FeedbackNudge} from './components/system/FeedbackNudge.js'
 import {UpdateBanner} from './components/system/UpdateBanner.js'
@@ -66,6 +65,16 @@ function previewModeToRenderMode(mode: BackdropPreviewMode): 'css-only' | 'gpu' 
 	return 'gpu'
 }
 
+function openDiscord(): void {
+	void window.appApi.shell.openExternal(DISCORD_URL)
+}
+
+function exitBackdropStage(): void {
+	const url = new URL(window.location.href)
+	url.searchParams.delete('backdrop')
+	window.location.assign(`${url.pathname}${url.search}${url.hash}`)
+}
+
 function shouldRenderStartupSplash(): boolean {
 	if (import.meta.env.MODE !== 'browser-mock') return true
 	return window.__arroxyBrowserMockShowStartupSplash === true
@@ -105,10 +114,6 @@ export function App(): ReactNode {
 	const preferredBackdropRenderMode = settings ? (settings.common?.backdropRenderMode ?? DEFAULTS.backdropRenderMode) : null
 	const backdropRenderMode = effectiveBackdropRenderMode(preferredBackdropRenderMode, graphicsPolicy)
 	const softwareWebglAllowed = graphicsPolicy?.backdrop.softwareWebglAllowed ?? false
-
-	function openDiscord(): void {
-		void window.appApi.shell.openExternal(DISCORD_URL)
-	}
 
 	useEffect(() => {
 		void initialize()
@@ -155,11 +160,6 @@ export function App(): ReactNode {
 			window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`)
 			setBackdropPreviewMode(mode)
 		}
-		const exit = (): void => {
-			const url = new URL(window.location.href)
-			url.searchParams.delete('backdrop')
-			window.location.assign(`${url.pathname}${url.search}${url.hash}`)
-		}
 		return (
 			<div className="relative h-screen w-screen overflow-hidden" data-testid="backdrop-stage">
 				<AppBackdrop key={`${colorScheme}-${backdropPreviewMode}`} colorScheme={colorScheme} renderMode={previewModeToRenderMode(backdropPreviewMode)} softwareWebglAllowed={backdropPreviewMode === 'gpu'} />
@@ -188,7 +188,7 @@ export function App(): ReactNode {
 					<p className="max-w-[min(30rem,calc(100vw-2rem))] text-[11px] leading-4 text-muted-foreground" data-testid="backdrop-preview-description">
 						{activeBackdropPreview.description}
 					</p>
-					<button type="button" onClick={exit} className="text-xs font-medium text-muted-foreground hover:text-foreground" data-testid="backdrop-stage-exit">
+					<button type="button" onClick={exitBackdropStage} className="text-xs font-medium text-muted-foreground hover:text-foreground" data-testid="backdrop-stage-exit">
 						← exit
 					</button>
 				</div>
@@ -209,7 +209,6 @@ export function App(): ReactNode {
 						<div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden" data-testid="wizard-scrollport">
 							<WizardPanel />
 						</div>
-						<SmartDrawer />
 					</div>
 				</div>
 

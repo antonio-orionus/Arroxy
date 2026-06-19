@@ -159,7 +159,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				document.documentElement.lang = nextLanguage
 				document.documentElement.dir = isRtl(nextLanguage) ? 'rtl' : 'ltr'
 				void window.appApi.app.setLanguage(nextLanguage)
-				set({settings: settingsResult.data, wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, language: nextLanguage, drawerOpen: settingsResult.data.common?.drawerOpen ?? false})
+				set({settings: settingsResult.data, wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, language: nextLanguage})
 			}
 
 			if (graphicsPolicyResult.ok) {
@@ -168,7 +168,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 			const snapshotResult = await snapshotPromise
 			if (snapshotResult.ok) {
-				set(state => ({...(snapshotResult.data.length > 0 ? {drawerOpen: true} : {}), ...projectQueueSnapshot(state, snapshotResult.data)}))
+				set(state => projectQueueSnapshot(state, snapshotResult.data))
 			}
 
 			const warmUpResult = await warmUpPromise

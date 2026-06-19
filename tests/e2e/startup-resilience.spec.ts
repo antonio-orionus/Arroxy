@@ -42,12 +42,12 @@ test('corrupted queue.json → app still reaches shell', async () => {
 	await app.close()
 })
 
-test('seeded pending queue → drawer hydrates from persisted store', async () => {
+test('seeded pending queue → Queue Manager hydrates from persisted store', async () => {
 	const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-e2e-seeded-queue-'))
 
 	// Write a queue.json that has one pending item — simulates an unfinished
-	// download from a previous session. The app should re-hydrate it and open
-	// the drawer automatically.
+	// download from a previous session. The app should re-hydrate it in Queue
+	// Manager.
 	const outputDir = os.tmpdir()
 	const queueData = {
 		items: [
@@ -76,9 +76,10 @@ test('seeded pending queue → drawer hydrates from persisted store', async () =
 	const page = await app.firstWindow()
 
 	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 15_000})
-	await expect(page.locator('[data-testid="drawer-body"]')).toBeVisible()
-	await expect(page.locator('[data-testid="queue-card-test-item-1"]')).toHaveAttribute('data-status', 'pending')
-	await expect(page.locator('[data-testid="queue-card-test-item-1"] [data-testid="queue-title"]')).toContainText('Seeded pending item')
+	await page.getByRole('tab', {name: /^queue/i}).click()
+	await expect(page.locator('[data-testid="queue-manager-tab"]')).toBeVisible()
+	await expect(page.locator('[data-testid="queue-manager-row-test-item-1"]')).toHaveAttribute('data-status', 'pending')
+	await expect(page.locator('[data-testid="queue-manager-row-test-item-1"] [data-testid="queue-title"]')).toContainText('Seeded pending item')
 
 	await app.close()
 })

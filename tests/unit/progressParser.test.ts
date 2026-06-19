@@ -77,6 +77,17 @@ describe('ProgressParser — subtitle-only progress', () => {
 		expect(active.mediaPath).toBe('/tmp/video.f137.webm')
 	})
 
+	it('records already-downloaded subtitles as final subtitle paths', () => {
+		const parser = new ProgressParser(vi.fn(), vi.fn())
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, '[download] /tmp/video.en.srt has already been downloaded')
+
+		expect(active.mediaDownloadStarted).toBeUndefined()
+		expect(active.mediaPath).toBeUndefined()
+		expect(active.subtitlePaths).toEqual(['/tmp/video.en.srt'])
+	})
+
 	it('emits percent for subtitle file when job is subtitle-only', () => {
 		const emitProgress = vi.fn()
 		const parser = new ProgressParser(vi.fn(), emitProgress)
@@ -151,5 +162,53 @@ describe('ProgressParser — subtitle-only progress', () => {
 
 		expect(active.mediaPostprocessStarted).toBe(true)
 		expect(emitStatus).toHaveBeenCalledWith('job-1', 'download', STATUS_KEY.extractingAudio)
+	})
+
+	it('records audio extraction destination as the final media path', () => {
+		const parser = new ProgressParser(vi.fn(), vi.fn())
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, '[download] Destination: /tmp/video.webm')
+		parser.consume(active, '[ExtractAudio] Destination: /tmp/video.mp3')
+
+		expect(active.mediaComponentPaths).toEqual(['/tmp/video.webm'])
+		expect(active.mediaPath).toBe('/tmp/video.mp3')
+	})
+
+	it('updates moved subtitle paths and emits artifact move events', () => {
+		const emitArtifact = vi.fn()
+		const parser = new ProgressParser(vi.fn(), vi.fn(), emitArtifact)
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, '[download] Destination: /tmp/.arroxy-temp/job/video.en.srt')
+		parser.consume(active, '[MoveFiles] Moving file "/tmp/.arroxy-temp/job/video.en.srt" to "/tmp/video.en.srt"')
+
+		expect(active.subtitlePaths).toEqual(['/tmp/video.en.srt'])
+		expect(emitArtifact).toHaveBeenCalledWith({jobId: 'job-1', path: '/tmp/video.en.srt', kind: 'subtitle', fromPath: '/tmp/.arroxy-temp/job/video.en.srt', at: '2024-01-01T00:00:00.000Z'})
+	})
+
+	it('emits artifact events for generated sidecar files', () => {
+		const emitArtifact = vi.fn()
+		const parser = new ProgressParser(vi.fn(), vi.fn(), emitArtifact)
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, '[info] Writing video description to: /tmp/video.description')
+		parser.consume(active, '[info] Writing video metadata as JSON to: /tmp/video.info.json')
+		parser.consume(active, '[info] Writing video thumbnail 41 to: /tmp/video.webp')
+
+		expect(emitArtifact).toHaveBeenCalledTimes(3)
+		expect(emitArtifact).toHaveBeenNthCalledWith(1, {jobId: 'job-1', path: '/tmp/video.description', kind: 'description', at: '2024-01-01T00:00:00.000Z'})
+		expect(emitArtifact).toHaveBeenNthCalledWith(2, {jobId: 'job-1', path: '/tmp/video.info.json', kind: 'companion', at: '2024-01-01T00:00:00.000Z'})
+		expect(emitArtifact).toHaveBeenNthCalledWith(3, {jobId: 'job-1', path: '/tmp/video.webp', kind: 'thumbnail', at: '2024-01-01T00:00:00.000Z'})
+	})
+
+	it('marks cached probe info-json artifact events as internal', () => {
+		const emitArtifact = vi.fn()
+		const parser = new ProgressParser(vi.fn(), vi.fn(), emitArtifact)
+		const active = makeActive({...BASE_INPUT_SINGLE_FORMAT, probeInfoJsonPath: '/tmp/.arroxy/probe.info.json'})
+
+		parser.consume(active, '[info] Writing video metadata as JSON to: /tmp/.arroxy/probe.info.json')
+
+		expect(emitArtifact).toHaveBeenCalledWith({jobId: 'job-1', path: '/tmp/.arroxy/probe.info.json', kind: 'companion', at: '2024-01-01T00:00:00.000Z', internal: true})
 	})
 })

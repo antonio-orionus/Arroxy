@@ -64,10 +64,10 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
 		maxOutputBytes: int(env.YTDLP_MCP_MAX_OUTPUT_BYTES, 4 * 1024 * 1024),
 		cookiesFile: firstNonBlank(env.YTDLP_MCP_COOKIES_FILE),
 		cookiesFromBrowser: firstNonBlank(env.YTDLP_MCP_COOKIES_FROM_BROWSER),
-		jsRuntimes: (firstNonBlank(env.YTDLP_MCP_JS_RUNTIMES) ?? 'deno,node,bun,quickjs')
-			.split(',')
-			.map(v => v.trim())
-			.filter(Boolean)
+		jsRuntimes: (firstNonBlank(env.YTDLP_MCP_JS_RUNTIMES) ?? 'deno,node,bun,quickjs').split(',').flatMap(v => {
+			const runtime = v.trim()
+			return runtime ? [runtime] : []
+		})
 	}
 }
 

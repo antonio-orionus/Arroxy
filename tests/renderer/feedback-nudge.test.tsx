@@ -43,6 +43,8 @@ const mockAppApi = {
 			clearCompleted: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 			remove: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 			setLane: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+			applySelectionAction: vi.fn().mockResolvedValue({ok: true, data: {action: 'pause', appliedIds: [], skipped: []}}),
+			changeOutputTarget: vi.fn().mockResolvedValue({ok: true, data: {outputDir: '/tmp', items: [], skipped: []}}),
 			pauseAll: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 			resumeAll: vi.fn().mockResolvedValue({ok: true, data: undefined})
 		},

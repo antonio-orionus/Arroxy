@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "Solo subtítulos"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}} descargando · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Archivo auxiliar"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "Cancelar todo"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Descripción"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Multimedia"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Falta"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Subtítulo"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Archivo"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Cancelar todas las descargas activas y pendientes"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "Limpiar"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "Limpiar descargas completadas"
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "Las descargas que añadas aparecerán aquí"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Todo"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Filtros de estado de la cola"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Todos los elementos"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Falló la descarga"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "Listo {{time}}"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "Retener"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "Abrir URL"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Abrir carpeta de destino"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "Pausar"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "En pausa"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "Prioridad"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Solo pendientes"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "Quitar"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "Reanudar"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Reintentar"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Definir ubicación"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Selecciona elementos pendientes para definir la ubicación."
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Descargando"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "Velocidad: {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "Velocidad: desactivada"
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "Límite de ancho de banda para descargas"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "Aún no hay descargas."
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "Pausar todo"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Pausar todas las descargas activas"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "Reanudar cola"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "Reanudar descargas pausadas y dejar que la cola continúe"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "Tu descarga está en la cola — ábrela cuando quieras para ver el progreso."
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Elementos seleccionados"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "Mostrar/ocultar cola de descargas"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} seleccionados · {{total}} en total"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "Cola"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Añadido"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Archivos generados"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Columnas"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Finalizado"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Formato"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Ocultar archivos de {{title}}"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Destino de salida"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Progreso"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Mostrar archivos de {{title}}"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Ordenar por {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Estado"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Título"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "Compartir"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "Compartir Arroxy"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "¿Disfrutando Arroxy? Ayuda a otros a descubrirlo."
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "Descartar sugerencia de compartir"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

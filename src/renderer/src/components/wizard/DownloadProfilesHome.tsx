@@ -1,7 +1,7 @@
-import {lazy, Suspense, useCallback, useEffect, useRef, useState, useSyncExternalStore, type ClipboardEvent, type KeyboardEvent, type ReactNode} from 'react'
+import {lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ClipboardEvent, type KeyboardEvent, type ReactNode} from 'react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
-import {Check, ChevronRight, Link2, ListPlus, PenLine, Plus, RefreshCw, Settings, Users, Wand2, X, type LucideIcon} from 'lucide-react'
+import {Check, ChevronRight, Inbox, Link2, ListPlus, PenLine, Plus, RefreshCw, Settings, Users, Wand2, X, type LucideIcon} from 'lucide-react'
 import {downloadProfileLabel, downloadProfileOrigin, downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
@@ -22,6 +22,7 @@ import {BulkUrlDialog} from './BulkUrlDialog.js'
 import {DownloadProfilesSettingsTab} from './DownloadProfilesSettingsTab.js'
 import {IncompleteCookiesConfigDialog} from './IncompleteCookiesConfigDialog.js'
 import {QuickProfileControl} from './QuickProfileControl.js'
+import {QueueManagerTab} from '../queue/QueueManagerTab.js'
 import {buildClipboardCandidate, resolveClipboardIntake, type ClipboardCandidate} from './clipboardIntake.js'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import {BotWallGuidanceAlert} from './format/BotWallNotice.js'
@@ -30,13 +31,14 @@ import type {ProbeErrorExperience} from '../../store/wizard/probeErrorExperience
 import hiImg from '../../assets/Hi.png'
 import downloadingImg from '../../assets/Downloading.png'
 
-type ProfilesTab = 'download' | 'profiles' | 'settings'
-const PROFILE_TABS = ['download', 'profiles', 'settings'] as const satisfies readonly ProfilesTab[]
+type ProfilesTab = 'download' | 'queue' | 'profiles' | 'settings'
+const PROFILE_TABS = ['download', 'queue', 'profiles', 'settings'] as const satisfies readonly ProfilesTab[]
 const DownloadProfileEditor = lazy(() => import('./DownloadProfileEditor.js').then(module => ({default: module.DownloadProfileEditor})))
 
 function tabFromHash(hash = window.location.hash): ProfilesTab {
 	const value = hash.replace(/^#/, '').toLowerCase()
 	if (value === 'profile' || value === 'profiles') return 'profiles'
+	if (value === 'queue') return 'queue'
 	if (value === 'setting' || value === 'settings') return 'settings'
 	return 'download'
 }
@@ -96,6 +98,7 @@ function isProfilesTab(value: unknown): value is ProfilesTab {
 
 function tabHash(tab: ProfilesTab): string {
 	if (tab === 'profiles') return '#profiles'
+	if (tab === 'queue') return '#queue'
 	if (tab === 'settings') return '#settings'
 	return '#download'
 }
@@ -238,6 +241,8 @@ export function DownloadProfilesHome(): ReactNode {
 	const [editorOpen, setEditorOpen] = useState(() => initialBrowserMockScenario === 'profiles-editor')
 	const [editorSessionId, setEditorSessionId] = useState(0)
 	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
+	const queueCount = useAppStore(state => state.queue.length)
+	const queueIsActive = useAppStore(state => state.queue.some(item => item.status === 'running' || item.lastStatus?.key === 'movingFiles'))
 	const quickErrorText = quickDownloadFailureText(t, quickDownloadFailureMessage)
 	const showQuickPartialWarning = quickDownloadStatus === 'queued' && quickDownloadProgressFailed > 0
 	const mascotHelp = downloadMascotHelp({activeProfileName: activeProfile.name, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
@@ -307,15 +312,18 @@ export function DownloadProfilesHome(): ReactNode {
 	}
 
 	const editingProfileOrigin = editingProfile ? downloadProfileOrigin(editingProfile, profilesPrefs) : null
-	const editorResetProfile =
-		editingProfile && editingProfileOrigin?.kind === 'builtin'
-			? {
-					enabled: editingProfileOrigin.overridden,
-					onReset: async () => {
-						await removeDownloadProfile(editingProfile.id)
+	const editorResetProfile = useMemo(
+		() =>
+			editingProfile && editingProfileOrigin?.kind === 'builtin'
+				? {
+						enabled: editingProfileOrigin.overridden,
+						onReset: async () => {
+							await removeDownloadProfile(editingProfile.id)
+						}
 					}
-				}
-			: undefined
+				: undefined,
+		[editingProfile, editingProfileOrigin, removeDownloadProfile]
+	)
 
 	function handleClearUrl(): void {
 		setWizardUrl('')
@@ -355,15 +363,24 @@ export function DownloadProfilesHome(): ReactNode {
 				className="gap-4"
 			>
 				<TabsList variant="line" className="download-home-tabs mx-auto flex justify-center" aria-label="Download profile navigation" data-testid="profiles-tabs">
-					<TabsTrigger value="download" className="h-14 flex-1 rounded-full border-0 px-5 text-[16px] data-active:border-transparent">
+					<TabsTrigger value="download" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
 						<Link2 data-icon="inline-start" aria-hidden />
 						{t('wizard.steps.url')}
 					</TabsTrigger>
-					<TabsTrigger value="profiles" className="h-14 flex-1 rounded-full border-0 px-5 text-[16px] data-active:border-transparent">
+					<TabsTrigger value="queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
+						<Inbox data-icon="inline-start" aria-hidden />
+						{t('queue.tabLabel')}
+						{queueCount > 0 ? (
+							<Badge variant="secondary" className="ms-1 h-4 px-1.5 font-mono text-[10px]">
+								{queueCount}
+							</Badge>
+						) : null}
+					</TabsTrigger>
+					<TabsTrigger value="profiles" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
 						<Users data-icon="inline-start" aria-hidden />
 						Profiles
 					</TabsTrigger>
-					<TabsTrigger value="settings" className="h-14 flex-1 rounded-full border-0 px-5 text-[16px] data-active:border-transparent">
+					<TabsTrigger value="settings" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
 						<Settings data-icon="inline-start" aria-hidden />
 						Settings
 					</TabsTrigger>
@@ -429,6 +446,10 @@ export function DownloadProfilesHome(): ReactNode {
 					</Card>
 				</TabsContent>
 
+				<TabsContent value="queue">
+					<QueueManagerTab />
+				</TabsContent>
+
 				<TabsContent value="profiles">
 					<ProfilesTab activeProfile={activeProfile} onEdit={openEditor} onPick={activateProfile} onRemove={profile => void removeDownloadProfile(profile.id)} profiles={profiles} profilesPrefs={profilesPrefs} />
 				</TabsContent>
@@ -441,9 +462,9 @@ export function DownloadProfilesHome(): ReactNode {
 			{editorOpen ? (
 				<Suspense
 					fallback={
-						<div className="fixed inset-0 z-50 grid place-items-center bg-background/35" role="status" aria-label={t('wizard.formats.loadingAria')}>
+						<output className="fixed inset-0 z-50 grid place-items-center bg-background/35" aria-label={t('wizard.formats.loadingAria')}>
 							<Spinner className="size-5 text-[var(--brand)]" aria-hidden />
-						</div>
+						</output>
 					}
 				>
 					<DownloadProfileEditor
@@ -470,7 +491,7 @@ function ClipboardPendingAction({candidate, onApply, onDismiss}: {candidate: Cli
 	const statusLabel = isBulk ? `${candidate.count} copied links ready` : 'Copied link ready'
 	const actionLabel = isBulk ? `Open ${candidate.count} copied links` : 'Use copied link'
 	return (
-		<div className="mt-2 flex max-w-full flex-wrap items-center gap-2 rounded-2xl border border-[var(--glow-border)] bg-[var(--brand-dim)] px-3 py-2 text-[12px] text-foreground" data-testid="clipboard-pending" role="status">
+		<output className="mt-2 flex max-w-full flex-wrap items-center gap-2 rounded-2xl border border-[var(--glow-border)] bg-[var(--brand-dim)] px-3 py-2 text-[12px] text-foreground" data-testid="clipboard-pending">
 			<span className="flex min-w-0 flex-1 items-center gap-2">
 				<Icon className="size-3.5 shrink-0 text-[var(--brand)]" aria-hidden />
 				<span className="min-w-0 truncate">{statusLabel}</span>
@@ -481,7 +502,7 @@ function ClipboardPendingAction({candidate, onApply, onDismiss}: {candidate: Cli
 			<Button type="button" variant="ghost" size="icon-xs" onClick={onDismiss} aria-label="Dismiss copied link" data-testid="clipboard-pending-dismiss" className="-me-1">
 				<X aria-hidden />
 			</Button>
-		</div>
+		</output>
 	)
 }
 

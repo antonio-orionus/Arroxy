@@ -1,10 +1,11 @@
 import {describe, expect, it, vi} from 'vitest'
 
 import {applyScenarioWorkbenchState, buildScenarioAppApiState, bulkStressFixture, getScenario, mockStepForScenario, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, shouldShowBrowserMockStartupSplash, type ScenarioWorkbenchStore} from '@renderer/dev/browserMockScenarios.js'
+import {QUEUE_STATUS, queueItemSchema} from '@shared/schemas.js'
 
 describe('browser mock scenarios', () => {
 	it('reads known scenario ids from URLs', () => {
-		expect(readScenarioIdFromUrl(new URL('http://localhost:5173/?scenario=queue-running'))).toBe('queue-running')
+		expect(readScenarioIdFromUrl(new URL('http://localhost:5173/?scenario=queue-active'))).toBe('queue-active')
 		expect(readScenarioIdFromUrl(new URL('http://localhost:5173/?scenario=nope'))).toBeNull()
 		expect(readScenarioIdFromUrl(new URL('http://localhost:5173/'))).toBeNull()
 	})
@@ -232,7 +233,7 @@ describe('browser mock scenarios', () => {
 		const readyDefault = buildScenarioAppApiState(getScenario('default'))
 		expect(shouldShowBrowserMockStartupSplash({launchMode: 'ready', warmUp: readyDefault.warmUp})).toBe(false)
 
-		const readyQueue = buildScenarioAppApiState(getScenario('queue-running'))
+		const readyQueue = buildScenarioAppApiState(getScenario('queue-active'))
 		expect(shouldShowBrowserMockStartupSplash({launchMode: 'ready', warmUp: readyQueue.warmUp})).toBe(false)
 
 		expect(shouldShowBrowserMockStartupSplash({launchMode: 'cold-loading', warmUp: readyDefault.warmUp})).toBe(true)
@@ -245,16 +246,19 @@ describe('browser mock scenarios', () => {
 		expect(shouldShowBrowserMockStartupSplash({launchMode: 'ready', warmUp: incompleteWarmup})).toBe(true)
 	})
 
-	it('builds new queue scenarios', () => {
-		const pausedHeld = buildScenarioAppApiState(getScenario('queue-paused-held'))
-		expect(pausedHeld.queueItems).toHaveLength(1)
-		expect(pausedHeld.queueItems[0].status).toBe('paused-held')
+	it('builds Queue Manager scenarios without legacy drawer names', () => {
+		for (const id of ['queue-active', 'queue-pending', 'queue-mixed-selection', 'queue-artifacts', 'queue-errors', 'queue-columns'] as const) {
+			expect(getScenario(id).description).not.toMatch(/drawer/i)
+		}
 
-		const cancelled = buildScenarioAppApiState(getScenario('queue-cancelled'))
-		expect(cancelled.queueItems).toHaveLength(1)
-		expect(cancelled.queueItems[0].status).toBe('cancelled')
+		const pending = buildScenarioAppApiState(getScenario('queue-pending'))
+		expect(pending.queueItems).toHaveLength(2)
+		expect(pending.queueItems.every(item => item.status === 'pending' && !item.lastJobId && !item.tempDir && item.progressPercent === 0)).toBe(true)
 
-		const multi = buildScenarioAppApiState(getScenario('queue-multi'))
+		const artifacts = buildScenarioAppApiState(getScenario('queue-artifacts'))
+		expect(artifacts.queueItems[0].artifacts.some(artifact => artifact.internal === true)).toBe(true)
+
+		const multi = buildScenarioAppApiState(getScenario('queue-mixed-selection'))
 		expect(multi.queueItems).toHaveLength(6)
 		const statuses = multi.queueItems.map(item => item.status)
 		expect(statuses).toContain('running')
@@ -263,6 +267,16 @@ describe('browser mock scenarios', () => {
 		expect(statuses).toContain('done')
 		expect(statuses).toContain('error')
 		expect(statuses).toContain('cancelled')
+	})
+
+	it('builds contract-valid large Queue Manager scenario fixtures', () => {
+		const large = buildScenarioAppApiState(getScenario('queue-large')).queueItems
+
+		expect(large).toHaveLength(5000)
+		expect(large.every(item => queueItemSchema.safeParse(item).success)).toBe(true)
+		const pausedActive = large.filter(item => item.status === QUEUE_STATUS.pausedActive)
+		expect(pausedActive.length).toBeGreaterThan(0)
+		expect(pausedActive.every(item => Boolean(item.lastJobId && item.tempDir))).toBe(true)
 	})
 
 	it('builds new diagnostics scenarios', () => {

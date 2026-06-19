@@ -132,10 +132,16 @@ export async function preparePlaylistConfirm(page: Page, playlistUrl: string): P
 }
 
 export function queueCardByTitle(page: Page, title: string): Locator {
-	return page.locator('[data-testid^="queue-card-"]').filter({hasText: title}).first()
+	return page.locator('[data-testid^="queue-manager-row-"]').filter({hasText: title}).first()
+}
+
+export async function openQueueTab(page: Page): Promise<void> {
+	await page.getByRole('tab', {name: /^queue/i}).click()
+	await expect(page.locator('[data-testid="queue-manager-tab"]')).toBeVisible()
 }
 
 export async function expectQueueStatus(page: Page, title: string, status: string, timeout = 60_000): Promise<void> {
+	await openQueueTab(page)
 	await expect(queueCardByTitle(page, title)).toHaveAttribute('data-status', status, {timeout})
 }
 

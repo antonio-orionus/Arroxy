@@ -1,0 +1,28 @@
+{
+  "$schema": "https://react.doctor/schema/config.json",
+  "ignore": {
+    "files": [".worktrees/**"],
+    "overrides": [
+      {
+        "files": [".github/workflows/**"],
+        "rules": ["react-doctor/build-pipeline-secret-boundary", "react-doctor/plugin-update-trust-risk"]
+      },
+      {
+        "files": ["src/renderer/src/components/layout/background/CanvasSceneHost.tsx"],
+        "rules": ["react-doctor/no-aria-hidden-on-focusable"]
+      },
+      {
+        "files": ["src/renderer/src/components/queue/QueueManagerTab.tsx"],
+        "rules": ["react-hooks-js/incompatible-library"]
+      },
+      {
+        "files": ["src/shared/schemas.ts"],
+        "rules": ["deslop/unused-export"]
+      },
+      {
+        "files": ["package.json"],
+        "rules": ["deslop/unused-dev-dependency"]
+      }
+    ]
+  }
+}

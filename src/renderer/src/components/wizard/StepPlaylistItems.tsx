@@ -18,6 +18,19 @@ import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 import {PlaylistScopeControl} from './PlaylistScopeControl.js'
 import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
 
+const PLAYLIST_PROBE_SKELETON_ROWS = [
+	{id: 'first', width: 'w-8/12', metaWide: false},
+	{id: 'second', width: 'w-10/12', metaWide: true},
+	{id: 'third', width: 'w-7/12', metaWide: false},
+	{id: 'fourth', width: 'w-9/12', metaWide: false},
+	{id: 'fifth', width: 'w-6/12', metaWide: true},
+	{id: 'sixth', width: 'w-11/12', metaWide: false},
+	{id: 'seventh', width: 'w-8/12', metaWide: false},
+	{id: 'eighth', width: 'w-7/12', metaWide: true},
+	{id: 'ninth', width: 'w-10/12', metaWide: false},
+	{id: 'tenth', width: 'w-6/12', metaWide: false}
+] as const
+
 // undefined = no duration metadata (common for nested-playlist entries from
 // music search, channel root, etc.) — render an em-dash instead of falsely
 // labeling them "live".
@@ -27,21 +40,9 @@ function formatEntryDuration(seconds: number | undefined, liveLabel: string): st
 }
 
 function PlaylistProbeSkeletonRows({showThumbnail}: {showThumbnail: boolean}): ReactNode {
-	const rows = [
-		{id: 'first', width: 'w-8/12', metaWide: false},
-		{id: 'second', width: 'w-10/12', metaWide: true},
-		{id: 'third', width: 'w-7/12', metaWide: false},
-		{id: 'fourth', width: 'w-9/12', metaWide: false},
-		{id: 'fifth', width: 'w-6/12', metaWide: true},
-		{id: 'sixth', width: 'w-11/12', metaWide: false},
-		{id: 'seventh', width: 'w-8/12', metaWide: false},
-		{id: 'eighth', width: 'w-7/12', metaWide: true},
-		{id: 'ninth', width: 'w-10/12', metaWide: false},
-		{id: 'tenth', width: 'w-6/12', metaWide: false}
-	]
 	return (
 		<div className="min-h-[12rem] flex-1 overflow-hidden rounded-md border border-border" data-testid="playlist-probe-loading-list" aria-hidden>
-			{rows.map(row => (
+			{PLAYLIST_PROBE_SKELETON_ROWS.map(row => (
 				<div key={row.id} className="flex h-14 items-center gap-2 border-b border-border/45 px-3 py-2 last:border-b-0" data-testid="playlist-probe-skeleton-row">
 					<div className="thumb-shimmer size-4 shrink-0 rounded-[4px] opacity-75" />
 					{showThumbnail ? <div className="thumb-shimmer h-8 w-[56px] shrink-0 rounded-sm opacity-75" /> : null}
@@ -76,9 +77,7 @@ function PlaylistProbeLoadingStatus({loadingLabel, phaseLabel, progressLabel, pr
 				) : null}
 			</div>
 			{progressValue !== null ? (
-				<div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-secondary" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progressValue}>
-					<div className="h-full bg-primary transition-[width]" style={{width: `${progressValue}%`}} />
-				</div>
+				<progress className="mt-3 block h-1 w-full overflow-hidden rounded-full bg-secondary [&::-moz-progress-bar]:bg-primary [&::-webkit-progress-bar]:bg-secondary [&::-webkit-progress-value]:bg-primary" value={progressValue} max={100} aria-valuemin={0} aria-valuemax={100} aria-valuenow={progressValue} />
 			) : (
 				<div className="thumb-shimmer mt-3 h-1 w-full overflow-hidden rounded-full bg-secondary" aria-hidden />
 			)}

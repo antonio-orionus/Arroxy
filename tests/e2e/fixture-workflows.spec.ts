@@ -5,7 +5,7 @@ import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
 import type {AppSettings} from '../../src/shared/types.js'
 import {FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
-import {clickContinue, preparePlaylistConfirm, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
+import {clickContinue, openQueueTab, preparePlaylistConfirm, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
 test.describe.configure({mode: 'serial'})
 
@@ -65,8 +65,9 @@ test('Electron Quick Download playlist queues entries and writes an ordered M3U'
 		await page.locator('[data-testid="profiles-main-input"]').fill(urls.playlist())
 		await page.locator('[data-testid="profiles-quick-download"]').click()
 
-		await expect(page.locator('[data-testid^="queue-card-"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 60_000})
-		await expect(page.locator('[data-testid^="queue-card-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 160_000})
+		await openQueueTab(page)
+		await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 60_000})
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 160_000})
 
 		const profileDir = smallFileProfileDir(outputDir)
 		files.expectMp4Count(FIXTURE_PLAYLIST_VIDEO_IDS.length, profileDir)
@@ -98,8 +99,9 @@ test('Electron Quick Download capped playlist can queue the globally loaded slic
 			await page.locator('[data-testid="quick-playlist-cap-queue-loaded"]').click()
 
 			await expect(page.locator('[data-testid="quick-playlist-cap-dialog"]')).toBeHidden({timeout: 20_000})
-			await expect(page.locator('[data-testid^="queue-card-"]')).toHaveCount(expectedIds.length, {timeout: 20_000})
-			await expect(page.locator('[data-testid^="queue-card-"][data-status="done"]')).toHaveCount(expectedIds.length, {timeout: 140_000})
+			await openQueueTab(page)
+			await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(expectedIds.length, {timeout: 20_000})
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(expectedIds.length, {timeout: 140_000})
 
 			const profileDir = smallFileProfileDir(outputDir)
 			files.expectMp4Count(expectedIds.length, profileDir)
@@ -130,8 +132,9 @@ test('Electron Quick Download capped playlist can increase the global cap and re
 			await page.locator('[data-testid="quick-playlist-cap-probe-limit-option-100"]').click()
 
 			await expect(page.locator('[data-testid="quick-playlist-cap-dialog"]')).toBeHidden({timeout: 20_000})
-			await expect(page.locator('[data-testid^="queue-card-"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 60_000})
-			await expect(page.locator('[data-testid^="queue-card-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 160_000})
+			await openQueueTab(page)
+			await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 60_000})
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 160_000})
 
 			const profileDir = smallFileProfileDir(outputDir)
 			files.expectMp4Count(FIXTURE_PLAYLIST_VIDEO_IDS.length, profileDir)
@@ -178,8 +181,9 @@ test('Electron true playlist URL queues entries and writes an ordered M3U', asyn
 		await expect(page.locator('[data-testid="confirm-items"]')).toContainText(String(FIXTURE_PLAYLIST_VIDEO_IDS.length))
 		await page.locator('[data-testid="btn-add-to-queue"]').click()
 
-		await expect(page.locator('[data-testid^="queue-card-"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 20_000})
-		await expect(page.locator('[data-testid^="queue-card-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 160_000})
+		await openQueueTab(page)
+		await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 20_000})
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 160_000})
 
 		const playlistDir = path.join(outputDir, 'Fixture Playlist')
 		files.expectMp4Count(FIXTURE_PLAYLIST_VIDEO_IDS.length, playlistDir)
@@ -220,8 +224,9 @@ test('Electron bulk metadata concurrency and back/next navigation reach complete
 		await expect(page.locator('[data-testid="confirm-items"]')).toContainText('10')
 		await page.locator('[data-testid="btn-add-to-queue"]').click()
 
-		await expect(page.locator('[data-testid^="queue-card-"]')).toHaveCount(10, {timeout: 20_000})
-		await expect(page.locator('[data-testid^="queue-card-"][data-status="done"]')).toHaveCount(10, {timeout: 180_000})
+		await openQueueTab(page)
+		await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(10, {timeout: 20_000})
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(10, {timeout: 180_000})
 
 		files.expectMp4Count(10)
 		expect(files.listRecursive().filter(fileName => fileName.endsWith('.m3u'))).toHaveLength(0)
@@ -252,9 +257,10 @@ test('Electron bulk Quick Download shows preparation progress and queues fixture
 			await expect(page.locator('[data-testid="quick-download-progress-count"]')).toContainText('/ 2')
 			await expect(page.locator('[data-testid="quick-download-progress-dialog"]')).toBeHidden({timeout: 60_000})
 
-			await expect(page.locator('[data-testid^="queue-card-"]')).toHaveCount(2, {timeout: 20_000})
+			await openQueueTab(page)
+			await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(2, {timeout: 20_000})
 			await expect
-				.poll(async () => page.locator('[data-testid^="queue-card-"]').evaluateAll(cards => cards.map(card => ({status: card.getAttribute('data-status'), text: card.textContent?.replace(/\s+/g, ' ').trim()}))), {timeout: 140_000})
+				.poll(async () => page.locator('[data-testid^="queue-manager-row-"]').evaluateAll(cards => cards.map(card => ({status: card.getAttribute('data-status'), text: card.textContent?.replace(/\s+/g, ' ').trim()}))), {timeout: 140_000})
 				.toEqual([expect.objectContaining({status: 'done'}), expect.objectContaining({status: 'done'})])
 			const profileDir = smallFileProfileDir(outputDir)
 			await expect.poll(() => files.mediaFiles('.mp4', profileDir).length, {timeout: 20_000}).toBe(2)

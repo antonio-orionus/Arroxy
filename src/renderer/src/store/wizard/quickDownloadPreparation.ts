@@ -3,7 +3,6 @@ import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import {classifyUrlIntent, type UrlIntent} from '@shared/urlIntent.js'
 import type {GetState, SetState} from '../types.js'
-import {maybeShowQueueTip} from '../queueTip.js'
 import {WizardCommands} from './commands.js'
 import {configuredCookiesRetryMode, selectProbeErrorForGuidance} from './probeErrorExperience.js'
 import {rewriteYouTubeChannelRoot} from './urlIntake.js'
@@ -139,7 +138,6 @@ export async function quickDownload(set: SetState, get: GetState, mixedUrlMode?:
 		if (!isRunActive(runId)) return
 		if (!queuedIds) return
 
-		maybeShowQueueTip(set)
 		WizardCommands.resetAll(set)
 		set(queuedQuickDownloadFeedback(queuedIds))
 	} catch (err) {
@@ -223,7 +221,6 @@ export async function quickDownloadUrls(urls: string[], set: SetState, get: GetS
 			return
 		}
 
-		maybeShowQueueTip(set)
 		WizardCommands.resetAll(set)
 		set(queuedQuickDownloadFeedback(queuedIds, failedCount))
 	} catch (err) {
@@ -290,7 +287,6 @@ export async function queueLoadedPlaylistWithActiveProfile(set: SetState, get: G
 			return
 		}
 
-		maybeShowQueueTip(set)
 		WizardCommands.resetAll(set)
 		set(queuedQuickDownloadFeedback(result.ids))
 	} finally {

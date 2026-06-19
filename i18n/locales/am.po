@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "ንዑስ ርዕሶች ብቻ"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}} እያወረዱ · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "ተጓዳኝ ፋይል"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "ሁሉንም ሰርዝ"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "መግለጫ"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "ሚዲያ"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "ጠፍቷል"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "ንዑስ ርዕስ"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "አነስተኛ ምስል"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "ፋይል"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "ሁሉንም ንቁ እና በመጠባበቅ ላይ ያሉ ዳውንሎዶችን ሰርዝ"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "አጽዳ"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "የተጠናቀቁ ዳውንሎዶችን አጽዳ"
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "የሚሰለፉት ዳውንሎዶች እዚህ ይታያሉ"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "ሁሉም"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "የወረፋ ሁኔታ ማጣሪያዎች"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "ሁሉም ንጥሎች"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "ዳውንሎድ ወድቋል"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "ተጠናቅቋል {{time}}"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "አቆይ"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "URL ክፈት"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "የመድረሻ አቃፊን ክፈት"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "አቋርጥ"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "ታቅፏል"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "ቅድሚያ"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "በመጠባበቅ ላይ ያሉ ብቻ"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "አስወግድ"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "ቀጥል"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "እንደገና ሞክር"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "ቦታ አዘጋጅ"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "ቦታ ለማዘጋጀት በመጠበቅ ላይ ያሉ ንጥሎችን ይምረጡ።"
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "በማውረድ ላይ"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "ፍጥነት፦ {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "ፍጥነት፦ ጠፍቷል"
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "ለማውረዶች የባንድዊድዝ ገደብ"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "ምንም ዳውንሎዶች የሉም።"
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "ሁሉንም አቁም"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "ሁሉንም ንቁ ዳውንሎዶችን አቁም"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "ወረፋ ቀጥል"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "የቆሙ ማውረዶችን ቀጥል እና ወረፋውን እንዲቀጥል ፍቀድ"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "ዳውንሎድዎ ከዚህ በታች ሰልፎ ነው — ሂደቱን ለመከታተል ማንኛውም ጊዜ ክፈት።"
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "የተመረጡ ንጥሎች"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "የዳውንሎድ ተሰላፊ ቀያይር"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} ተመርጧል · {{total}} ጠቅላላ"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "ወረፋ"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "ታክሏል"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "የውጤት ፋይሎች"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "ዓምዶች"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "ተጠናቋል"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "ቅርጸት"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "የ{{title}} ፋይሎችን ደብቅ"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "የውጤት መድረሻ"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "ሂደት"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "የ{{title}} ፋይሎችን አሳይ"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "በ{{label}} ደርድር"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "ሁኔታ"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "ርዕስ"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "አጋራ"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "Arroxy አጋራ"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "Arroxy ደስ ይለዎታል? ሌሎች እንዲያገኙት ይርዷቸው።"
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "የማጋሪያ ሀሳቡን አትኩረው"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

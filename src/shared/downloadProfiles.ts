@@ -31,16 +31,16 @@ function baseProfile(id: string, name: string, media: DownloadProfile['media'], 
 }
 
 function videoCompatibilityLabel(codec: 'best' | 'mp4'): string {
-	return codec === 'mp4' ? 'Smart TV H.264 MP4' : 'Best native'
+	return codec === 'mp4' ? 'MP4/H.264' : 'Native formats'
 }
 
 function videoTierLabel(tiers: readonly PlaylistVideoTier[]): string {
 	const tier = tiers[0] ?? 'best'
-	return tier === 'best' ? 'best available' : `up to ${tier}p`
+	return tier === 'best' ? 'Best available' : `Up to ${tier}p`
 }
 
 function videoAudioLabel(format: 'best' | 'm4a'): string {
-	return format === 'm4a' ? 'AAC audio' : 'best native audio'
+	return format === 'm4a' ? 'AAC audio' : 'Native audio'
 }
 
 export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [
@@ -179,9 +179,9 @@ export function resolveDownloadProfileOutputDir(profile: DownloadProfile, contex
 export function downloadProfileLabel(profile: DownloadProfile): string {
 	switch (profile.media.kind) {
 		case 'video-audio':
-			return `Video + audio · ${videoCompatibilityLabel(profile.media.codec)} · ${videoTierLabel(profile.media.tiers)} · ${videoAudioLabel(profile.media.audio.format)}`
+			return `${videoTierLabel(profile.media.tiers)} · ${videoCompatibilityLabel(profile.media.codec)} · ${videoAudioLabel(profile.media.audio.format)}`
 		case 'video-only':
-			return `Video, no audio · ${videoCompatibilityLabel(profile.media.codec)} · ${videoTierLabel(profile.media.tiers)}`
+			return `${videoTierLabel(profile.media.tiers)} · ${videoCompatibilityLabel(profile.media.codec)} · No audio`
 		case 'audio-only':
 			if (profile.media.audio.format === 'best') return 'Audio only · best'
 			if (profile.media.audio.format === 'wav') return 'Audio only · WAV'

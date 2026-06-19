@@ -48,15 +48,13 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'update-flatpak',
 	'update-whats-new',
 	'update-none',
-	'queue-empty',
-	'queue-running',
-	'queue-paused-active',
-	'queue-paused-held',
-	'queue-cancelled',
-	'queue-error',
-	'queue-completed',
-	'queue-subtitles-failed',
-	'queue-multi',
+	'queue-active',
+	'queue-pending',
+	'queue-mixed-selection',
+	'queue-artifacts',
+	'queue-errors',
+	'queue-columns',
+	'queue-large',
 	'diagnostics-all-ok',
 	'diagnostics-ytdlp-missing',
 	'diagnostics-ffmpeg-broken',
@@ -68,7 +66,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number]
 export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Profiles' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics'
 type ScenarioKind = 'default' | 'probe' | 'bulk' | 'profile' | 'queue' | 'update' | 'diagnostics' | 'dialog' | 'state'
-export const PROBE_ERROR_TARGETS = ['wizard', 'quick-download'] as const
+const PROBE_ERROR_TARGETS = ['wizard', 'quick-download'] as const
 export type ProbeErrorTarget = (typeof PROBE_ERROR_TARGETS)[number]
 
 const SINGLE_NORMAL_MOCK_STEPS = ['formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm'] as const
@@ -168,15 +166,13 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'update-flatpak', group: 'Updates', title: 'Flatpak', description: 'Flatpak channel - copy update command.', kind: 'update'},
 	{id: 'update-whats-new', group: 'Updates', title: "What's New popup", description: 'First launch after an app version bump - opens the release-notes popup.', kind: 'update'},
 	{id: 'update-none', group: 'Updates', title: 'No update', description: 'No update available - banner is hidden.', kind: 'update'},
-	{id: 'queue-empty', group: 'Queue', title: 'Empty queue', description: 'No queue items.', kind: 'queue'},
-	{id: 'queue-running', group: 'Queue', title: 'Running item', description: 'Drawer with an active download.', kind: 'queue'},
-	{id: 'queue-paused-active', group: 'Queue', title: 'Paused active', description: 'Drawer with a resumable active pause (had running job, was paused).', kind: 'queue'},
-	{id: 'queue-paused-held', group: 'Queue', title: 'Paused held', description: 'Drawer with a paused-held item (queued but never started, resume -> pending).', kind: 'queue'},
-	{id: 'queue-cancelled', group: 'Queue', title: 'Cancelled', description: 'Drawer with a cancelled item.', kind: 'queue'},
-	{id: 'queue-error', group: 'Queue', title: 'Failed item', description: 'Drawer with a failed item and error detail.', kind: 'queue'},
-	{id: 'queue-completed', group: 'Queue', title: 'Completed item', description: 'Drawer with completed download controls.', kind: 'queue'},
-	{id: 'queue-subtitles-failed', group: 'Queue', title: 'Subtitles failed', description: 'Done item where subtitle download soft-failed - video was saved, subtitles were not.', kind: 'queue'},
-	{id: 'queue-multi', group: 'Queue', title: 'Multi-item queue', description: 'Mixed statuses (running, pending, paused-held, done, error, cancelled) - exercises scroll and multi-item controls.', kind: 'queue'},
+	{id: 'queue-active', group: 'Queue', title: 'Queue active', description: 'Running work, progress, and Queue tab activity animation.', kind: 'queue'},
+	{id: 'queue-pending', group: 'Queue', title: 'Queue pending', description: 'Pending-only rows where Set location is enabled.', kind: 'queue'},
+	{id: 'queue-mixed-selection', group: 'Queue', title: 'Queue mixed selection', description: 'Mixed statuses for selected-action availability and disabled hints.', kind: 'queue'},
+	{id: 'queue-artifacts', group: 'Queue', title: 'Queue artifacts', description: 'Visible user artifacts plus hidden internal artifacts.', kind: 'queue'},
+	{id: 'queue-errors', group: 'Queue', title: 'Queue errors', description: 'Failed and cancelled rows for retry/remove states.', kind: 'queue'},
+	{id: 'queue-columns', group: 'Queue', title: 'Queue columns', description: 'Rows with varied timestamps for sorting and column visibility review.', kind: 'queue'},
+	{id: 'queue-large', group: 'Queue', title: 'Queue large', description: '5,000 queued rows for virtualization and scroll performance review.', kind: 'queue'},
 	{id: 'diagnostics-all-ok', group: 'Diagnostics', title: 'All OK', description: 'Runnable dependency diagnostics.', kind: 'diagnostics'},
 	{id: 'diagnostics-ytdlp-missing', group: 'Diagnostics', title: 'yt-dlp missing', description: 'Blocking yt-dlp setup failure.', kind: 'diagnostics'},
 	{id: 'diagnostics-ffmpeg-broken', group: 'Diagnostics', title: 'ffmpeg broken', description: 'Blocking ffmpeg setup failure.', kind: 'diagnostics'},
@@ -331,7 +327,6 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 
 function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs): AppSettings {
 	const base = defaultAppSettings('/home/user/Downloads')
-	const queueOpen = scenario.group === 'Queue' && scenario.id !== 'queue-empty'
 	const platform = knobs?.platform ?? null
 	const commonPaths = platform === 'win32' ? WIN_COMMON_PATHS : COMMON_PATHS
 	return {
@@ -345,7 +340,6 @@ function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs):
 			embedMetadata: true,
 			embedThumbnail: false,
 			playlistProbeLimit: DEFAULT_PLAYLIST_PROBE_LIMIT,
-			drawerOpen: queueOpen,
 			commonPaths,
 			...(scenario.id === 'update-whats-new' ? {launchCount: 3, lastReleaseNotesVersionShown: '0.4.0-beta.3'} : {}),
 			...(knobs?.theme !== null && knobs?.theme !== undefined ? {uiTheme: knobs.theme} : {})

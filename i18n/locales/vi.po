@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "Chỉ phụ đề"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}} đang tải · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Tệp đi kèm"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "Hủy tất cả"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Mô tả"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Phương tiện"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Thiếu"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Phụ đề"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Hình thu nhỏ"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Tệp"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Hủy tất cả các tải xuống đang hoạt động và đang chờ"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "Xóa"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "Xóa các tải xuống đã hoàn tất"
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "Các tải xuống bạn thêm vào hàng đợi sẽ xuất hiện ở đây"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Tất cả"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Bộ lọc trạng thái hàng đợi"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Tất cả mục"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Tải xuống thất bại"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "Hoàn tất {{time}}"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "Giữ"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "Mở URL"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Mở thư mục đích"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "Tạm dừng"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "Đã tạm dừng"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "Ưu tiên"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Chỉ mục đang chờ"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "Xóa"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "Tiếp tục"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Thử lại"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Đặt vị trí"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Chọn các mục đang chờ để đặt vị trí."
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Đang tải"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "Tốc độ: {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "Tốc độ: Tắt"
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "Giới hạn băng thông cho tải xuống"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "Chưa có tải xuống nào."
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "Tạm dừng tất cả"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Tạm dừng tất cả các tải xuống đang hoạt động"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "Tiếp tục hàng đợi"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "Tiếp tục các tải xuống đã tạm dừng và cho hàng đợi chạy tiếp"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "Tải xuống của bạn đang trong hàng đợi bên dưới — mở bất cứ lúc nào để theo dõi tiến trình."
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Mục đã chọn"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "Bật/tắt hàng đợi tải xuống"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "Đã chọn {{selected}} · tổng {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "Hàng đợi"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Đã thêm"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Tệp đầu ra"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Cột"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Đã hoàn tất"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Định dạng"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Ẩn tệp của {{title}}"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Đích đầu ra"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Tiến trình"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Hiện tệp của {{title}}"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Sắp xếp theo {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Trạng thái"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Tiêu đề"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "Chia sẻ"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "Chia sẻ Arroxy"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "Bạn thích Arroxy không? Hãy giúp người khác khám phá nó."
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "Bỏ qua gợi ý chia sẻ"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

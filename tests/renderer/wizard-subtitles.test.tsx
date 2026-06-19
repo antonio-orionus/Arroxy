@@ -96,8 +96,7 @@ function resetStore() {
 		wizardSubtitleFormat: 'srt',
 		wizardSponsorBlockMode: 'off' as const,
 		wizardSponsorBlockCategories: ['sponsor', 'selfpromo'] as never[],
-		queue: [],
-		drawerOpen: false
+		queue: []
 	})
 }
 

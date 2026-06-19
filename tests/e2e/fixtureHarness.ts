@@ -544,7 +544,6 @@ export function writeE2eSettings(userDataDir: string, outputDir: string, configu
 	settings.common.writeThumbnail = false
 	settings.common.firstRunCompleted = true
 	settings.common.launchCount = 3
-	settings.common.drawerOpen = true
 	configure?.(settings)
 	fs.writeFileSync(path.join(userDataDir, 'settings.json'), JSON.stringify(settings), 'utf8')
 }

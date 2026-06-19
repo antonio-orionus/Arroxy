@@ -54,8 +54,7 @@ function resetStore(limit: number, itemCount: number, playlistLikelyCapped = fal
 		playlistSelection: {kind: 'video', tier: 'best', codec: 'best'},
 		syncedDownloadedIds: [],
 		syncScanState: 'idle',
-		queue: [],
-		drawerOpen: false
+		queue: []
 	} as never)
 }
 
@@ -203,8 +202,7 @@ describe('bulk playlist item metadata state', () => {
 			bulkMetadataById: {'bulk-1': 'resolving', 'bulk-2': 'pending'},
 			syncedDownloadedIds: [],
 			syncScanState: 'idle',
-			queue: [],
-			drawerOpen: false
+			queue: []
 		} as never)
 
 		render(<StepPlaylistItems />)
@@ -242,8 +240,7 @@ describe('bulk playlist item metadata state', () => {
 			bulkMetadataById: {'bulk-1': 'done'},
 			syncedDownloadedIds: [],
 			syncScanState: 'idle',
-			queue: [],
-			drawerOpen: false
+			queue: []
 		} as never)
 
 		render(<StepPlaylistItems />)

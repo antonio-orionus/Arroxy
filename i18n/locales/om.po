@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "Axxiinni qofa"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}} buufamaa jira · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Faayilii dabalataa"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "Hunda addaan kuti"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Ibsa"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Miidiyaa"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Hin jiru"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Axxiinsa"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Suuraa xiqqaa"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Faayilii"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Daawniloodoonni hunda qabsoo jiran fi eegaa jiran addaan kuti"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "Qulqulleessi"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "Daawniloodoonni xumuraman haquu"
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "Daawniloodoonni si tartiibsiiftan asitti mul'atu"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Hundaa"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Calleeffamtoota haala tarree"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Wantoota hunda"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Daawniloodii kufe"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "Xumurame {{time}}"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "Eegi"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "URL bani"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Galmee itti galu bani"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "Dhaabi"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "Dhaabbe"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "Dursa"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Kan eegaa jiran qofa"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "Balleessi"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "Itti fufi"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Irra deebi'ii yaali"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Iddoo qindeessi"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Iddoo qindeessuuf wantoota eeggachaa jiran filadhu."
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Buusaa jira"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "Saffisa: {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "Saffisa: Dhaamsame"
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "Daangaa baandwiidtii buusuuwwanii"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "Daawniloodii hin jiru."
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "Hunda gidduu dhabi"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Daawniloodoonni hunda qabsoo jiran gidduu dhabi"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "Tarree itti fufi"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "Buusuu dhaabbate itti fufi; tarreenis haa deemuu"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "Daawniloodiin kee tartiiba asii gaditti jira — yeroo kamiyyuu bani irratti hordofi."
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Wantoota filataman"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "Tartiiba daawniloodii jijjiiri"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} filatame · waliigala {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "Tarree"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Dabalame"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Faayiloota bu'aa"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Tarjaalee"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Xumurame"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Foormaatii"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Faayiloota {{title}} dhoksi"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Iddoo bu'aa"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Adeemsa"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Faayiloota {{title}} agarsiisi"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "{{label}} tin tartiibessi"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Haala"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Mata duree"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "Qoodi"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "Arroxy qoodi"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "Arroxy si gammachiisaa jiraa? Namoota biroo argachuu gargaari."
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "Yaada qooduu haqdhaabi"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

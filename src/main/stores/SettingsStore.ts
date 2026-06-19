@@ -39,7 +39,6 @@ const COMMON_FLAT_KEYS = [
 	'analyticsEnabled',
 	'firstRunCompleted',
 	'launchCount',
-	'drawerOpen',
 	'installId',
 	'lastSubfolderEnabled',
 	'lastSubfolder'

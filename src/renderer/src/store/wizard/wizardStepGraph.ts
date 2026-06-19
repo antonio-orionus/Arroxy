@@ -77,10 +77,11 @@ export function nextWizardStep(graph: WizardStepGraph, direction: WizardStepDire
 	const i = WIZARD_STEPS.indexOf(graph.current)
 	if (i < 0) return null
 	const delta = direction === 'forward' ? 1 : -1
+	const visibleSteps = new Set(graph.steps)
 	let cursor = i + delta
 	while (cursor >= 0 && cursor < WIZARD_STEPS.length) {
 		const step = WIZARD_STEPS[cursor]
-		if (graph.steps.includes(step)) return step
+		if (visibleSteps.has(step)) return step
 		cursor += delta
 	}
 	return null

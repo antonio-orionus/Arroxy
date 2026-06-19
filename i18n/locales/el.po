@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "Μόνο υπότιτλοι"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}} σε λήψη · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Συνοδευτικό αρχείο"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "Ακύρωση όλων"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Περιγραφή"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Πολυμέσα"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Λείπει"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Υπότιτλος"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Μικρογραφία"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Αρχείο"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Ακύρωση όλων των ενεργών και εκκρεμών λήψεων"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "Εκκαθάριση"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "Εκκαθάριση ολοκληρωμένων λήψεων"
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "Οι λήψεις που θα προσθέσεις στην ουρά θα εμφανιστούν εδώ"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Όλα"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Φίλτρα κατάστασης ουράς"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Όλα τα στοιχεία"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Αποτυχία λήψης"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "Ολοκληρώθηκε {{time}}"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "Αναμονή"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "Άνοιγμα URL"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Άνοιγμα φακέλου προορισμού"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "Παύση"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "Σε παύση"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "Προτεραιότητα"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Μόνο σε εκκρεμότητα"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "Κατάργηση"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "Συνέχεια"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Επανάληψη"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Ορισμός τοποθεσίας"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Επιλέξτε εκκρεμή στοιχεία για να ορίσετε τοποθεσία."
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Λήψη"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "Ταχύτητα: {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "Ταχύτητα: Ανενεργή"
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "Όριο bandwidth για λήψεις"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "Δεν υπάρχουν ακόμη λήψεις."
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "Παύση όλων"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Παύση όλων των ενεργών λήψεων"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "Συνέχιση ουράς"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "Συνέχισε τις λήψεις σε παύση και άφησε την ουρά να προχωρήσει"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "Η λήψη σου βρίσκεται στην ουρά παρακάτω — άνοιξέ την οποιαδήποτε στιγμή για παρακολούθηση προόδου."
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Επιλεγμένα στοιχεία"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "Εναλλαγή ουράς λήψεων"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} επιλεγμένα · {{total}} σύνολο"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "Ουρά"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Προστέθηκε"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Αρχεία εξόδου"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Στήλες"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Ολοκληρώθηκε"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Μορφή"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Απόκρυψη αρχείων για {{title}}"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Προορισμός εξόδου"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Πρόοδος"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Εμφάνιση αρχείων για {{title}}"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Ταξινόμηση κατά {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Κατάσταση"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Τίτλος"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "Κοινή χρήση"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "Κοινή χρήση Arroxy"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "Σου αρέσει το Arroxy; Βοήθησε άλλους να το ανακαλύψουν."
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "Απόρριψη πρότασης κοινοποίησης"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

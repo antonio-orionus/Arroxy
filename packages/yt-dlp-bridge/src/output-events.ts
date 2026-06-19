@@ -7,10 +7,11 @@ export type YtDlpOutputEvent =
 	| {kind: Extract<YtDlpOutputEventKind, 'merge'>; path?: string}
 	| {kind: Extract<YtDlpOutputEventKind, 'already-downloaded'>; path: string}
 	| {kind: Extract<YtDlpOutputEventKind, 'move'>; from: string; to: string}
+	| {kind: Extract<YtDlpOutputEventKind, 'artifact'>; path: string}
 	| {kind: Extract<YtDlpOutputEventKind, 'sleep'>; seconds: number}
 	| {kind: Extract<YtDlpOutputEventKind, 'sponsorblock-fetch'>}
 	| {kind: Extract<YtDlpOutputEventKind, 'sponsorblock-retry'>; attempt: number; total: number}
-	| {kind: Extract<YtDlpOutputEventKind, 'postprocess'>; phase: YtDlpPostprocessPhase}
+	| {kind: Extract<YtDlpOutputEventKind, 'postprocess'>; phase: YtDlpPostprocessPhase; path?: string}
 	| {kind: Extract<YtDlpOutputEventKind, 'progress'>; percent?: number; raw: string}
 
 export function parseYtDlpOutputLine(line: string): YtDlpOutputEvent | null {
@@ -32,6 +33,9 @@ export function parseYtDlpOutputLine(line: string): YtDlpOutputEvent | null {
 	const move = /^\[MoveFiles\] Moving file "([^"]+)" to "([^"]+)"$/.exec(clean)
 	if (move?.[1] && move[2]) return {kind: 'move', from: move[1], to: move[2]}
 
+	const sidecar = /^\[info\] Writing video (?:description|metadata as JSON|thumbnail \d+) to:\s+(.+)$/.exec(clean)
+	if (sidecar?.[1]) return {kind: 'artifact', path: sidecar[1]}
+
 	const sleep = /Sleeping (\d+(?:\.\d+)?) seconds/.exec(clean)
 	if (sleep?.[1]) return {kind: 'sleep', seconds: Math.round(Number.parseFloat(sleep[1]))}
 
@@ -41,7 +45,10 @@ export function parseYtDlpOutputLine(line: string): YtDlpOutputEvent | null {
 	if (sponsorBlockRetry?.[1] && sponsorBlockRetry[2]) return {kind: 'sponsorblock-retry', attempt: Number(sponsorBlockRetry[1]), total: Number(sponsorBlockRetry[2])}
 
 	const postprocess = postprocessPhase(clean)
-	if (postprocess) return {kind: 'postprocess', phase: postprocess}
+	if (postprocess) {
+		const destination = /^\[(?:ExtractAudio|VideoConvertor|VideoRemuxer)\] Destination:\s+(.+)$/.exec(clean)
+		return {kind: 'postprocess', phase: postprocess, ...(destination?.[1] ? {path: destination[1]} : {})}
+	}
 
 	const percent = parsePercentFromLine(clean)
 	return percent === undefined ? {kind: 'progress', raw: clean} : {kind: 'progress', percent, raw: clean}

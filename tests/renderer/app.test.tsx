@@ -338,10 +338,10 @@ describe('App renderer', () => {
 		expect(await screen.findByTestId('profiles-manage-tab')).toBeInTheDocument()
 	})
 
-	it('shows queue panel below wizard', async () => {
+	it('shows Queue Manager as a top-level tab', async () => {
 		render(<App />)
-		expect(await screen.findByLabelText('Download Queue')).toBeInTheDocument()
-		expect(await screen.findAllByText(/no downloads yet/i)).not.toHaveLength(0)
+		fireEvent.click(await screen.findByRole('tab', {name: /^queue/i}))
+		expect(await screen.findByTestId('queue-manager-tab')).toBeInTheDocument()
 	})
 
 	it('shows the welcome-back greeting while warmup is still running', async () => {

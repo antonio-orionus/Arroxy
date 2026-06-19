@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "စာတန်းထိုးသာ"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}} ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "တွဲဖိုင်"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "အားလုံး ဖျက်သိမ်းမည်"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "ဖော်ပြချက်"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "မီဒီယာ"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "မရှိပါ"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "စာတန်းထိုး"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "ပုံသေး"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "ဖိုင်"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "လုပ်ဆောင်နေသောနှင့် ဆိုင်းငံ့ထားသောဒေါင်းလုဒ်အားလုံး ဖျက်သိမ်းမည်"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "ရှင်းလင်းမည်"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "ပြီးဆုံးသောဒေါင်းလုဒ်မျာ
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "Queue ထည့်ထားသောဒေါင်းလုဒ်များ ဤနေရာတွင်ပေါ်မည်"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "အားလုံး"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "တန်းစီအခြေအနေ စစ်ထုတ်မှုများ"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "အကြောင်းအရာအားလုံး"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "ဒေါင်းလုဒ်မအောင်မြင်ပါ"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "{{time}} တွင်ပြီးဆုံး"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "ဆိုင်းငံ့မည်"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "URL ဖွင့်မည်"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "ဦးတည်ရာ ဖိုလ်ဒါကို ဖွင့်ရန်"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "ခေတ္တရပ်မည်"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "ခေတ္တရပ်ထား"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "ဦးစားပေး"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "ဆိုင်းငံ့နေသည့်အရာများသာ"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "ဖျက်မည်"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "ဆက်လုပ်မည်"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "ထပ်မံကြိုးစားရန်"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "တည်နေရာ သတ်မှတ်ရန်"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "တည်နေရာ သတ်မှတ်ရန် စောင့်ဆိုင်းနေသော အရာများကို ရွေးပါ။"
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "ဒေါင်းလုဒ်လုပ်နေသည်"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "အမြန်နှုန်း: {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "အမြန်နှုန်း: ပိတ်"
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "ဒေါင်းလုဒ်များအတွက် bandwidth ကန့်သတ်ချက်"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "ဒေါင်းလုဒ်မရှိသေးပါ။"
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "အားလုံး ခေတ္တရပ်မည်"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "လုပ်ဆောင်နေသောဒေါင်းလုဒ်အားလုံး ခေတ္တရပ်မည်"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "တန်းစီစာရင်း ဆက်လုပ်"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "ရပ်နားထားသော ဒေါင်းလုဒ်များကို ဆက်လုပ်ပြီး တန်းစီစာရင်းကို ဆက်လက်လည်ပတ်စေသည်"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "သင့်ဒေါင်းလုဒ်ကို queue ထည့်ပြီးပြီ — တိုးတက်မှုကြည့်ရှုရန် ဖွင့်နိုင်သည်။"
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "ရွေးချယ်ထားသည့်အရာများ"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "ဒေါင်းလုဒ် queue ဖွင့်/ပိတ်မည်"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} ခု ရွေးထား · စုစုပေါင်း {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "တန်းစီ"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "ထည့်ခဲ့သည်"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "ထွက်လာသော ဖိုင်များ"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "ကော်လံများ"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "ပြီးဆုံး"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "ဖော်မတ်"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "{{title}} ၏ ဖိုင်များကို ဖျောက်ရန်"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "ထုတ်လွှတ်မည့်နေရာ"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "တိုးတက်မှု"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "{{title}} ၏ ဖိုင်များကို ပြရန်"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "{{label}} ဖြင့် စီရန်"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "အခြေအနေ"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "ခေါင်းစဉ်"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "မျှဝေရန်"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "Arroxy ကိုမျှဝေရန်"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "Arroxy ကို နှစ်သက်ပါသလား? အခြားသူများ ရှာဖွေတွေ့ရှိနိုင်ရန် ကူညီပါ။"
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "မျှဝေရန်အကြံပြုချက် ပယ်ဖျက်မည်"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

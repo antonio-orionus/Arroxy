@@ -43,7 +43,7 @@ runtime-cache/
 .playwright-mcp/
 .worktrees/
 docs/my
-docs/superpowers/
+docs/superpowers/*
 .claude/scheduled_tasks.lock
 .claude/*.lock
 .claude/CLAUDE.md
@@ -66,6 +66,7 @@ opencode.jsonc
 !.agents/skills/remember/**
 
 # Local agent/design artifacts
+.superpowers/
 .backups/
 .github/skills/
 .impeccable/

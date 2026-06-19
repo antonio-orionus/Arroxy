@@ -2,7 +2,7 @@ import {expect, test} from '@playwright/test'
 import fs from 'node:fs'
 import {FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
-import {clickContinue, isMediaRequestFor, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
+import {clickContinue, isMediaRequestFor, openQueueTab, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
 test.describe.configure({mode: 'serial'})
 
@@ -21,7 +21,8 @@ test('Electron queue controls handle hold, priority, cancel, pause queue, and re
 		await page.getByRole('button', {name: /skip to confirm/i}).click()
 		await page.locator('[data-testid="btn-add-to-queue"]').click()
 
-		await expect(page.locator('[data-testid^="queue-card-"]')).toHaveCount(3, {timeout: 20_000})
+		await openQueueTab(page)
+		await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(3, {timeout: 20_000})
 		await queue.expectStatus('Fixture Video 1', 'running')
 		await queue.expectStatus('Fixture Video 2', 'pending')
 		await queue.expectStatus('Fixture Video 3', 'pending')
@@ -41,7 +42,7 @@ test('Electron queue controls handle hold, priority, cancel, pause queue, and re
 		await expect(page.getByTestId('btn-resume-first')).toBeVisible()
 		await page.getByTestId('btn-resume-first').click()
 
-		await expect(page.locator('[data-testid^="queue-card-"][data-status="done"]')).toHaveCount(2, {timeout: 150_000})
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(2, {timeout: 150_000})
 		await queue.expectStatus('Fixture Video 3', 'cancelled')
 		files.expectMp4Count(2)
 		files.expectNoMp4For(thirdId)
@@ -169,7 +170,7 @@ test('Electron paused active fixture download resumes after app relaunch', async
 		await queue.expectStatus('Fixture Video 7', 'paused-active', 60_000)
 
 		const relaunched = await relaunch()
-		await expect(relaunched.page.locator('[data-testid="drawer-body"]')).toBeVisible()
+		await relaunched.queue.open()
 		await relaunched.queue.expectStatus('Fixture Video 7', 'paused-active', 60_000)
 		await relaunched.queue.cardByTitle('Fixture Video 7').getByTestId('btn-resume').click()
 		await relaunched.queue.expectStatus('Fixture Video 7', 'done', 120_000)

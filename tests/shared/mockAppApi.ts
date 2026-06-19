@@ -74,6 +74,8 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 				clearCompleted: vi.fn().mockResolvedValue(ok(undefined)),
 				remove: vi.fn().mockResolvedValue(ok(undefined)),
 				setLane: vi.fn().mockResolvedValue(ok(undefined)),
+				applySelectionAction: vi.fn().mockResolvedValue(ok({action: 'pause', appliedIds: [], skipped: []})),
+				changeOutputTarget: vi.fn().mockResolvedValue(ok({outputDir: '/tmp', items: [], skipped: []})),
 				pauseAll: vi.fn().mockResolvedValue(ok(undefined)),
 				resumeAll: vi.fn().mockResolvedValue(ok(undefined))
 			},

@@ -8,7 +8,7 @@ import type {AppSettings, DownloadProfile} from '@shared/types.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 function resetStore(): void {
-	useAppStore.setState({initialized: false, initializing: false, settings: null, queue: [], drawerOpen: false})
+	useAppStore.setState({initialized: false, initializing: false, settings: null, queue: []})
 }
 
 function customProfile(): DownloadProfile {

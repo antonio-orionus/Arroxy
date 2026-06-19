@@ -25,14 +25,18 @@ import {QUEUE_STATUS, STATUS_KEY, type QueueLane, type StatusKey} from '@shared/
 import {transition, illegalTransition, type QueueEvent} from '@shared/queueTransition.js'
 import {ProgressFormatter} from '@shared/progressFormat.js'
 import {ProgressNormalizer} from '@shared/progressNormalizer.js'
+import {moveQueueArtifactPath, queueArtifactFromPath, upsertQueueArtifact} from '@shared/queueArtifacts.js'
 import {INTER_JOB_SLEEP_MS, MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP} from '@shared/constants.js'
-import type {ProgressEvent, QueueItem, StatusEvent} from '@shared/types.js'
+import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, StatusEvent} from '@shared/types.js'
 import type {QueueStore} from '@main/stores/QueueStore.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import type {PlaylistManifest} from '@shared/playlistManifest.js'
 import type {DownloadService} from './DownloadService.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
+import {FinalArtifactTargets} from './finalArtifactTargets.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
+import {changeQueueOutputTarget} from './queueOutputTargetMove.js'
+import {applyQueueSelectionAction} from './queueSelectionActionApply.js'
 
 const logger = log.scope('queue')
 
@@ -73,11 +77,11 @@ export class QueueService extends EventEmitter {
 	private pendingProgress = new Map<string, QueueItem>()
 	private flushTimer: NodeJS.Timeout | null = null
 	private static readonly PROGRESS_FLUSH_MS = 100
-	// Bulk-mutation guard: when true, per-commit persist() is suppressed so a
-	// bulk operation (cancelAll, clearCompleted) writes queue.json once at the
-	// end instead of N times. JSON.stringify on a 290-item queue is ~5ms each;
-	// 500+ writes back-to-back blocks the main thread for seconds.
+	// Bulk-mutation guard: when true, per-commit persist() and scheduler recompute
+	// are suppressed so a bulk operation writes queue.json once and cannot spawn
+	// replacement downloads midway through a multi-item command.
 	private inBulk = false
+	private readonly finalArtifactTargets = new FinalArtifactTargets()
 
 	// Per-playlist-group serialization for M3U writes. See maybeWritePlaylistM3u.
 	private readonly m3uWriteChains = new Map<string, Promise<void>>()
@@ -93,6 +97,7 @@ export class QueueService extends EventEmitter {
 		super()
 		this.downloadService.on('status', (event: StatusEvent) => this.consumeStatusEvent(event))
 		this.downloadService.on('progress', (event: ProgressEvent) => this.consumeProgressEvent(event))
+		this.downloadService.on('artifact', (event: QueueArtifactEvent) => this.consumeArtifactEvent(event))
 	}
 
 	async init(): Promise<void> {
@@ -216,6 +221,14 @@ export class QueueService extends EventEmitter {
 
 	schedulerIsPaused(): boolean {
 		return this.schedulerPaused
+	}
+
+	hasPendingFileMoves(): boolean {
+		return false
+	}
+
+	whenFileMovesIdle(): Promise<void> {
+		return Promise.resolve()
 	}
 
 	private async cleanupResumeContextBestEffort(item: QueueItem): Promise<void> {
@@ -369,11 +382,39 @@ export class QueueService extends EventEmitter {
 		return ok(undefined)
 	}
 
+	async applySelectionAction(action: QueueSelectionAction, itemIds: string[]): Promise<Result<QueueSelectionCommandResult>> {
+		this.inBulk = true
+		let result: Result<QueueSelectionCommandResult>
+		try {
+			result = await applyQueueSelectionAction(
+				{cancel: itemId => this.cancel(itemId), findItem: itemId => this.findItem(itemId), pause: itemId => this.pause(itemId), remove: itemId => this.remove(itemId), resume: itemId => this.resume(itemId), retry: itemId => this.retry(itemId), setLane: (itemId, lane) => this.setLane(itemId, lane)},
+				action,
+				itemIds
+			)
+		} finally {
+			this.inBulk = false
+		}
+		if (result.ok) {
+			this.recomputeSchedule()
+			if (result.data.appliedIds.length > 0) this.persist()
+		}
+		return result
+	}
+
+	async changeOutputTarget(itemIds: string[], outputDir: string): Promise<Result<QueueOutputTargetChangeResult>> {
+		return changeQueueOutputTarget({findItem: itemId => this.findItem(itemId), patchItem: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher})}, itemIds, outputDir)
+	}
+
 	async remove(itemId: string): Promise<Result<void>> {
 		const item = this.findItem(itemId)
 		if (!item) return ok(undefined)
 		if (item.status === QUEUE_STATUS.running) {
 			return fail(createAppError('validation', 'cannot remove a running item — cancel it first'))
+		}
+		if (item.status === QUEUE_STATUS.pausedActive && item.lastJobId) {
+			const cancelResult = await this.downloadService.cancel(item.lastJobId)
+			if (!cancelResult.ok) return fail(cancelResult.error)
+			this.forgetProgressState(item.lastJobId)
 		}
 		await this.cleanupQueueArtifactsBestEffort(item)
 		this.commit({kind: 'remove', itemId})
@@ -386,6 +427,7 @@ export class QueueService extends EventEmitter {
 		const item = this.findByJobId(event.jobId)
 		if (!item) return
 		if (event.stage === 'done') {
+			this.finalArtifactTargets.remember(event.jobId, item.id)
 			this.forgetProgressState(event.jobId)
 			void this.cleanupProbeInfoJsonBestEffort(item)
 			// Inter-job cooldown applies only when a normal-lane job finishes —
@@ -446,6 +488,25 @@ export class QueueService extends EventEmitter {
 		}
 		const detail = formatter.update(event.line)
 		this.commit({kind: 'event', itemId: item.id, evt: {kind: 'progress', percent: normalizer.nextRunningPercent(item.progressPercent, event), ...(detail !== null ? {detail} : {})}})
+	}
+
+	consumeArtifactEvent(event: QueueArtifactEvent): void {
+		const item = this.findArtifactTargetByJobId(event.jobId)
+		if (!item) return
+		const artifact = queueArtifactFromPath(event.path, {kind: event.kind, discoveredAt: event.at, internal: event.internal})
+		const patcher = (prev: QueueItem): QueueItem => {
+			if (!event.fromPath) return {...prev, artifacts: upsertQueueArtifact(prev.artifacts, artifact)}
+			if (!prev.artifacts.some(existing => existing.path === event.fromPath)) return prev
+			return {...prev, artifacts: upsertQueueArtifact(moveQueueArtifactPath(prev.artifacts, event.fromPath, event.path), artifact)}
+		}
+		this.commit({kind: 'patch', itemId: item.id, reason: `artifact:${event.kind}`, patcher})
+	}
+
+	private findArtifactTargetByJobId(jobId: string): QueueItem | undefined {
+		const activeItem = this.findByJobId(jobId)
+		if (activeItem) return activeItem
+		const itemId = this.finalArtifactTargets.get(jobId)
+		return itemId ? this.findItem(itemId) : undefined
 	}
 
 	// commit pipeline --------------------------------------------------------
@@ -543,7 +604,7 @@ export class QueueService extends EventEmitter {
 				break
 			}
 		}
-		this.recomputeSchedule()
+		if (!this.inBulk) this.recomputeSchedule()
 	}
 
 	// scheduler --------------------------------------------------------------
@@ -636,7 +697,7 @@ export class QueueService extends EventEmitter {
 				return fail(result.error)
 			}
 			const currentItem = this.findItem(itemId)
-			if (!currentItem || currentItem.status === QUEUE_STATUS.cancelled) {
+			if (!currentItem || currentItem.status !== QUEUE_STATUS.pending) {
 				await this.downloadService.cancel(result.data.job.id)
 				return ok(undefined)
 			}

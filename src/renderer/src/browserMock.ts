@@ -1,6 +1,7 @@
 import type {AppApi} from '@shared/api.js'
-import type {AppSettings, DependencyDiagnostic, DependencyId, ProbeProgressEvent, ProgressEvent, QueueItem, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
+import type {AppSettings, DependencyDiagnostic, DependencyId, ProbeProgressEvent, ProgressEvent, QueueActionSkippedItem, QueueItem, QueueOutputTargetChangeItemResult, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
 import {QUEUE_STATUS, STATUS_KEY, YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
+import {canApplyQueueAction, canApplyQueueActionToItem} from '@shared/queueActions.js'
 import {BROWSER_MOCK_LAUNCH_MODES, buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, shouldShowBrowserMockStartupSplash, type BrowserMockLaunchMode, type BrowserMockScenario} from './dev/browserMockScenarios.js'
 import {applyThemeLive, readKnobs, RTL_LANGS} from './dev/browserMockKnobs.js'
 import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
@@ -497,6 +498,56 @@ export function installBrowserMock(): void {
 					if (item) setQueueItem({...item, lane})
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
+				applySelectionAction: ({action, itemIds}) => {
+					const appliedIds: string[] = []
+					const skipped: QueueActionSkippedItem[] = []
+					for (const itemId of itemIds) {
+						const item = queueItemById.get(itemId)
+						if (!item) {
+							skipped.push({itemId, reason: 'not-found'})
+							continue
+						}
+						if (!canApplyQueueAction(action, item.status)) {
+							skipped.push({itemId, status: item.status, reason: 'invalid-status'})
+							continue
+						}
+						if (action === 'pause') {
+							if (item.status === QUEUE_STATUS.running) setQueueItem({...item, status: QUEUE_STATUS.pausedActive})
+							else if (item.status === QUEUE_STATUS.pending) setQueueItem({...item, status: QUEUE_STATUS.pausedHeld})
+						} else if (action === 'resume') {
+							setQueueItem({...item, status: QUEUE_STATUS.pending})
+						} else if (action === 'cancel') {
+							setQueueItem({...item, status: QUEUE_STATUS.cancelled, progressDetail: null, finishedAt: new Date().toISOString()})
+						} else if (action === 'retry') {
+							setQueueItem({...item, status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null, error: null, finishedAt: null})
+						} else if (action === 'remove') {
+							removeQueueItem(item.id)
+						} else if (action === 'pull-now') {
+							setQueueItem({...item, lane: 'priority'})
+						}
+						appliedIds.push(itemId)
+					}
+					maybeStartNextQueueItem()
+					return Promise.resolve({ok: true, data: {action, appliedIds, skipped}} as const)
+				},
+				changeOutputTarget: ({itemIds, outputDir}) => {
+					const items: QueueOutputTargetChangeItemResult[] = []
+					const skipped: QueueActionSkippedItem[] = []
+					for (const itemId of itemIds) {
+						const item = queueItemById.get(itemId)
+						if (!item) {
+							skipped.push({itemId, reason: 'not-found' as const})
+							continue
+						}
+						if (!canApplyQueueActionToItem('change-output-target', item)) {
+							skipped.push({itemId, status: item.status, reason: 'invalid-status'})
+							continue
+						}
+						setQueueItem({...item, outputDir})
+						items.push({itemId, moved: [], missing: []})
+					}
+					return Promise.resolve({ok: true, data: {outputDir, items, skipped}} as const)
+				},
 				pauseAll: () => {
 					for (const item of queueItems) {
 						if (item.status === QUEUE_STATUS.running) setQueueItem({...item, status: QUEUE_STATUS.pausedActive})
@@ -534,10 +585,16 @@ export function installBrowserMock(): void {
 		updater: {
 			onUpdateAvailable: listener => {
 				updateListeners.add(listener)
+				let timer: number | undefined
 				if (scenarioState.update) {
-					window.setTimeout(() => emitScenarioUpdate(listener), 200)
+					timer = window.setTimeout(() => {
+						if (updateListeners.has(listener)) emitScenarioUpdate(listener)
+					}, 200)
 				}
-				return () => updateListeners.delete(listener)
+				return () => {
+					updateListeners.delete(listener)
+					if (timer !== undefined) window.clearTimeout(timer)
+				}
 			},
 			install: async () => {
 				await delay(2_000)

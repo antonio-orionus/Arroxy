@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "ترجمات فقط"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}} جارٍ التنزيل · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "ملف مرافق"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "إلغاء الكل"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "الوصف"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "وسائط"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "مفقود"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "ترجمة"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "صورة مصغرة"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "ملف"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "إلغاء جميع التنزيلات النشطة والمعلقة"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "مسح"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "مسح التنزيلات المكتملة"
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "ستظهر التنزيلات التي تضيفها إلى القائمة هنا"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "الكل"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "مرشحات حالة قائمة الانتظار"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "كل العناصر"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "فشل التنزيل"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "اكتمل {{time}}"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "تأجيل"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "فتح الرابط"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "فتح مجلد الوجهة"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "إيقاف مؤقت"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "موقوف"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "أولوية"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "المعلقة فقط"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "إزالة"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "استئناف"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "إعادة المحاولة"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "تعيين الموقع"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "حدّد العناصر المعلقة لتعيين الموقع."
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "جارٍ التنزيل"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "السرعة: {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "السرعة: إيقاف"
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "حد النطاق الترددي للتنزيلات"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "لا توجد تنزيلات بعد."
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "إيقاف الكل مؤقتاً"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "إيقاف جميع التنزيلات النشطة مؤقتاً"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "استئناف القائمة"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "استئناف التنزيلات المتوقفة والسماح للقائمة بالمتابعة"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "تنزيلك في قائمة الانتظار أدناه — افتح في أي وقت لمتابعة التقدم."
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "العناصر المحددة"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "تبديل قائمة التنزيل"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} محدد · {{total}} إجمالاً"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "قائمة الانتظار"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "أُضيف"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "الملفات الناتجة"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "الأعمدة"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "انتهى"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "التنسيق"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "إخفاء ملفات {{title}}"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "وجهة الإخراج"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "التقدم"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "إظهار ملفات {{title}}"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "فرز حسب {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "الحالة"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "العنوان"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "مشاركة"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "مشاركة Arroxy"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "هل تستمتع بـ Arroxy؟ ساعد الآخرين على اكتشافه."
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "إغلاق اقتراح المشاركة"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

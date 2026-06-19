@@ -133,8 +133,7 @@ export class RuntimeBinaryIndexService implements RuntimeBinaryIndexProvider {
 	}
 
 	private async loadFresh(signal?: AbortSignal): Promise<LoadedIndexes> {
-		const previous = await this.readLastKnownGood()
-		const local = await this.readLocal()
+		const [previous, local] = await Promise.all([this.readLastKnownGood(), this.readLocal()])
 		if (local) return this.selectIndexes({primary: local.index, fallbacks: [previous?.index, this.bundledIndex].filter((index): index is RuntimeBinaryIndex => Boolean(index)), source: 'local'})
 		const remote = await this.fetchRemote(signal)
 		if (remote) {

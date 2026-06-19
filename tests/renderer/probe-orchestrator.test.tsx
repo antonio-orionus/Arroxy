@@ -55,7 +55,7 @@ function playlistProbeWithEntries(count: number): Extract<ProbeResult, {kind: 'p
 }
 
 function resetStore() {
-	useAppStore.setState({...RESET_WIZARD_STATE, initialized: false, initializing: false, settings: null, wizardOutputDir: '', queue: [], drawerOpen: false})
+	useAppStore.setState({...RESET_WIZARD_STATE, initialized: false, initializing: false, settings: null, wizardOutputDir: '', queue: []})
 }
 
 beforeEach(() => {
@@ -246,7 +246,7 @@ describe('quickDownload', () => {
 		await useAppStore.getState().quickDownload()
 
 		const queued = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0]?.[0]
-		expect(queued).toMatchObject({outputDir: '/tmp/first-launch-downloads/Balanced 720p', formatLabel: 'Video + audio · Best native · up to 720p · best native audio', job: expect.objectContaining({kind: 'ranged-format', intent: {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}}})})
+		expect(queued).toMatchObject({outputDir: '/tmp/first-launch-downloads/Balanced 720p', formatLabel: 'Up to 720p · Native formats · Native audio', job: expect.objectContaining({kind: 'ranged-format', intent: {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}}})})
 		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
 		expect(useAppStore.getState().wizardUrl).toBe('')
 		expect(useAppStore.getState().wizardStep).toBe('url')

@@ -12,7 +12,6 @@ import type {GetState, SetState, QueueSlice} from './types.js'
 import {persistFormatPrefs} from './wizard/persistFormatPrefs.js'
 import {prepareManualQueueSubmission} from './wizard/queueSubmission.js'
 import {submitPreparedQueueSubmission} from './wizard/queueSubmissionAdapter.js'
-import {maybeShowQueueTip} from './queueTip.js'
 import {queueLoadedPlaylistWithActiveProfile} from './wizard/quickDownloadPreparation.js'
 
 export {playlistOutputTemplate, singleOutputTemplate} from './wizard/outputTemplates.js'
@@ -45,7 +44,6 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 			set({wizardStep: 'error', wizardError: {kind: 'other', code: 'unknown', message: result.error}, wizardErrorOrigin: null})
 			return
 		}
-		maybeShowQueueTip(set)
 		await persistFormatPrefs(set, get)
 		get().reset()
 	} finally {
@@ -90,6 +88,14 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 
 		retryQueueItem: async itemId => {
 			await window.appApi.queue.cmd.retry({itemId})
+		},
+
+		applyQueueSelectionAction: async (action, itemIds) => {
+			return window.appApi.queue.cmd.applySelectionAction({action, itemIds})
+		},
+
+		changeQueueOutputTarget: async (itemIds, outputDir) => {
+			return window.appApi.queue.cmd.changeOutputTarget({itemIds, outputDir})
 		},
 
 		clearCompleted: async () => {

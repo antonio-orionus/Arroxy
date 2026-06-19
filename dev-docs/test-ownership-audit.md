@@ -20,7 +20,7 @@ Fixture Product E2E should become the acceptance owner for real user workflows, 
 
 Implementation status:
 
-1. Replaced the mocked queue completion flow in `tests/browser/queue-persistence.spec.ts` with `tests/browser/queue-drawer-workbench.spec.ts` plus real Fixture Product E2E queue scenarios.
+1. Replaced the mocked queue completion flow in `tests/browser/queue-persistence.spec.ts` with `tests/browser/queue-manager-workbench.spec.ts` plus real Fixture Product E2E queue scenarios.
 2. Added Fixture Product E2E scenarios for bulk metadata concurrency, back/next while metadata is active, queue controls during active downloads, failure/retry, subtitle soft failure, and restart persistence.
 3. Strengthened weak Electron startup assertions in `tests/e2e/startup-resilience.spec.ts`.
 4. Merged true lower-layer duplicate files: `tests/unit/errorClassification.test.ts` into `tests/unit/error-classification.test.ts`, and `tests/renderer/SmartDrawer.test.tsx` into `tests/renderer/smart-drawer.test.tsx`.
@@ -82,7 +82,7 @@ The tables below list tests that should change. Unlisted tests from the per-test
 | P0 | `tests/renderer/wizard-sponsorblock.test.tsx:267,290,311,322,334,375,393` | Delete | `prepare-job`, `yt-dlp-sponsorblock` or moved `YtDlp` args, `next-step`, `wizard-format-select` | Repeats queued-job, off-collapse, step-graph, and FormatPicker invariants in the SponsorBlock feature suite. |
 | P0 | `tests/browser/scenario-gallery.spec.ts:32,78,99,110` | Delete | Unit scenario fixture tests, renderer component tests, dedicated queue workbench | Scenario Workbench should render/screenshot states, not re-own alert behavior, update action policy, or queue scenario hydration. |
 | P0 | `tests/browser/feedback-nudge.spec.ts:30` | Delete | `tests/renderer/feedback-nudge.test.tsx` | Exact animation class timing is jsdom-owned; browser keeps only visual placement. |
-| P0 | `tests/browser/queue-drawer-workbench.spec.ts:31` | Move/delete | Renderer/QueueService clear-completed tests | Clicking fake scenario state is behavior, not visual workbench ownership. |
+| P0 | `tests/browser/queue-manager-workbench.spec.ts:31` | Move/delete | Renderer/QueueService clear-completed tests | Clicking fake scenario state is behavior, not visual workbench ownership. |
 
 ### Targeted unit cleanup
 
@@ -160,7 +160,7 @@ The tables below list tests that should change. Unlisted tests from the per-test
 
 | Priority | File(s) | Action | Status | Reason |
 | --- | --- | --- | --- | --- |
-| P0 | `tests/browser/queue-persistence.spec.ts` | Replace/narrow | Done — deleted and replaced by `tests/browser/queue-drawer-workbench.spec.ts` | It used browser-mock to walk a fake download workflow, but browser-mock cannot prove real queue/download/filesystem behavior. |
+| P0 | `tests/browser/queue-persistence.spec.ts` | Replace/narrow | Done — deleted and replaced by `tests/browser/queue-manager-workbench.spec.ts` | It used browser-mock to walk a fake download workflow, but browser-mock cannot prove real queue/download/filesystem behavior. |
 | P0 | `tests/e2e/fixture-download.spec.ts`, `tests/e2e/fixtureHarness.ts` | Expand | Done | Added bulk metadata concurrency, early Continue, back/next under active metadata, output assertions, and deny-proxy assertions. |
 | P0 | `tests/e2e/fixture-download.spec.ts`, `tests/e2e/fixtureHarness.ts` | Expand | Done | Added queue control scenario with slow media, pause/prioritize/cancel/pause-all/resume-all, visible milestones, output assertions, and deny-proxy assertions. |
 | P1 | `tests/e2e/startup-resilience.spec.ts` | Expand | Done | Seeded queue startup now asserts drawer/card/status hydration. |
@@ -175,7 +175,7 @@ The tables below list tests that should change. Unlisted tests from the per-test
 | P0 | `tests/unit/download-service-subs.test.ts` | Per-test prune/move | Pending | File-level owner is too broad. Keep only true DownloadService cross-phase/process regressions; move lower-layer parser/arg/phase cases and delete duplicates. |
 | P0 | `tests/unit/yt-dlp-cookies.test.ts`, `tests/unit/yt-dlp-sponsorblock.test.ts`, `tests/unit/download-service-bot.test.ts` | Delete/move duplicate arg tests | Pending | Cookie, SponsorBlock, and bot retry arg behavior should be direct `YtDlp` / retry coverage, not tested through `DownloadService`. |
 | P0 | `tests/renderer/wizard-subtitles.test.tsx`, `tests/renderer/wizard-sponsorblock.test.tsx` | Per-test prune/move | Pending | Delete duplicate pure step graph / restoration / stale start assertions; move missing FormatPicker and `nextStep` cases to owner suites. |
-| P1 | `tests/browser/scenario-gallery.spec.ts`, `tests/browser/feedback-nudge.spec.ts`, `tests/browser/queue-drawer-workbench.spec.ts` | Per-test narrow | Pending | Browser-mock should own visual/workbench states, not component policy or fake workflow behavior. |
+| P1 | `tests/browser/scenario-gallery.spec.ts`, `tests/browser/feedback-nudge.spec.ts`, `tests/browser/queue-manager-workbench.spec.ts` | Per-test narrow | Pending | Browser-mock should own visual/workbench states, not component policy or fake workflow behavior. |
 | P1 | `tests/unit/progress-ui.test.ts`, `tests/unit/queue-service-events.test.ts`, `tests/unit/queue-service-scheduler.test.ts` | Delete/move duplicates | Pending | Consolidate progress formatting and queue scheduler/event assertions under their canonical owners. |
 | P1 | `tests/renderer/update-banner.test.tsx`, `tests/renderer/update-notification.test.tsx`, `tests/unit/ipc-handlers.test.ts`, `tests/unit/updater-handlers.test.ts`, `tests/unit/preload-contract.test.ts` | Per-test prune/move | Pending | Move pure update action policy to unit and delete duplicate/stale IPC/preload/updater rows. |
 | P2 | `tests/renderer/preset-pipeline.test.ts`, `tests/renderer/restore-format-selection.test.ts`, `tests/renderer/splash-greeting.test.tsx` | Move pure tests to `tests/unit/` | Pending | These are pure/helper tests and do not need renderer/jsdom ownership. |
@@ -189,7 +189,7 @@ This appendix is intentionally coarse. The deep per-test findings above override
 | File | Verdict | Action |
 | --- | --- | --- |
 | `tests/browser/feedback-nudge.spec.ts` | Narrowed | Keeps visual/screenshot coverage only; jsdom owns timer/dismiss behavior. |
-| `tests/browser/queue-drawer-workbench.spec.ts` | Replacement added | Owns queue drawer visual/workbench state after deleting `queue-persistence.spec.ts`. |
+| `tests/browser/queue-manager-workbench.spec.ts` | Replacement added | Owns queue manager visual/workbench state after deleting `queue-persistence.spec.ts`. |
 | `tests/browser/scenario-gallery.spec.ts` | Kept/expanded | Keeps workbench scenario health and screenshots; includes `bulk-stress` large bulk state. |
 
 ### Electron E2E

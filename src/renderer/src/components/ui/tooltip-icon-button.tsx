@@ -1,11 +1,11 @@
-import type {ReactNode} from 'react'
+import type {MouseEventHandler, ReactNode} from 'react'
 import {Button} from './button.js'
 import {Tooltip, TooltipTrigger, TooltipContent} from './tooltip.js'
 
 interface TooltipIconButtonProps {
 	icon: ReactNode
 	label: string
-	onClick?: () => void
+	onClick?: MouseEventHandler<HTMLButtonElement>
 	variant?: 'ghost' | 'secondary' | 'outline'
 	size?: 'icon'
 	className?: string

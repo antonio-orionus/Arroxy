@@ -6,17 +6,7 @@ export function createUiSlice(set: SetState, _get: GetState): UiSlice {
 	return {
 		uiZoom: DEFAULTS.uiZoom,
 		uiTheme: DEFAULTS.uiTheme,
-		drawerOpen: false,
-		showQueueTip: false,
 		aboutDialogOpen: false,
-
-		setDrawerOpen: open => {
-			set({drawerOpen: open})
-			void window.appApi.settings.update({common: {drawerOpen: open}}).then(result => {
-				if (!result.ok) console.error('[settings] drawerOpen save failed', result.error)
-			})
-		},
-		dismissQueueTip: () => set({showQueueTip: false}),
 
 		setUiZoom: zoom => {
 			const stepInverse = 1 / ZOOM_STEP

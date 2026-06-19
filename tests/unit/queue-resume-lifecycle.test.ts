@@ -19,7 +19,26 @@ function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
 }
 
 function makeItem(overrides: Partial<QueueItem> = {}): QueueItem {
-	return {id: 'q-1', url: 'https://www.youtube.com/watch?v=test', title: 'Fixture', thumbnail: '', outputDir: '/tmp', formatLabel: '720p', status: 'pending', lane: 'normal', progressPercent: 0, progressDetail: null, lastStatus: null, error: null, finishedAt: null, writeM3u: true, job: PREPARED_JOB, ...overrides}
+	const base: QueueItem = {
+		id: 'q-1',
+		url: 'https://www.youtube.com/watch?v=test',
+		title: 'Fixture',
+		thumbnail: '',
+		outputDir: '/tmp',
+		formatLabel: '720p',
+		status: 'pending',
+		lane: 'normal',
+		progressPercent: 0,
+		progressDetail: null,
+		lastStatus: null,
+		error: null,
+		addedAt: null,
+		finishedAt: null,
+		artifacts: [],
+		writeM3u: true,
+		job: PREPARED_JOB
+	}
+	return {...base, ...overrides, addedAt: overrides.addedAt ?? base.addedAt}
 }
 
 describe('QueueResumeLifecycle', () => {

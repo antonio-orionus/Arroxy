@@ -26,8 +26,10 @@ export function rendererName(gl: WebGLRenderingContext): string {
 	const debugInfo = gl.getExtension('WEBGL_debug_renderer_info') as WebglDebugRendererInfo | null
 	const names = [debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : null, debugInfo ? gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) : null, gl.getParameter(gl.RENDERER), gl.getParameter(gl.VENDOR)]
 	return names
-		.map(name => String(name ?? '').trim())
-		.filter(Boolean)
+		.flatMap(name => {
+			const renderer = String(name ?? '').trim()
+			return renderer ? [renderer] : []
+		})
 		.join(' ')
 }
 

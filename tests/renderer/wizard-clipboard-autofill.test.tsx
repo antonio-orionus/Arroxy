@@ -34,7 +34,6 @@ function resetStore(overrides: Partial<ReturnType<typeof useAppStore.getState>> 
 		wizardErrorOrigin: null,
 		playlistItems: [],
 		queue: [],
-		drawerOpen: false,
 		...overrides
 	})
 }

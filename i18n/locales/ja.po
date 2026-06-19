@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "字幕のみ"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}} 件ダウンロード中 · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "関連ファイル"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "すべてキャンセル"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "説明"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "メディア"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "見つかりません"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "字幕"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "サムネイル"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "ファイル"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "すべてのアクティブおよび保留中のダウンロードをキャンセル"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "クリア"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "完了したダウンロードをクリア"
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "キューに追加したダウンロードはここに表示されます"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "すべて"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "キュー状態フィルター"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "すべての項目"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "ダウンロード失敗"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "{{time}} 完了"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "保留"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "URLを開く"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "保存先フォルダーを開く"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "一時停止"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "一時停止中"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "優先"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "保留中のみ"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "削除"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "再開"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "再試行"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "場所を設定"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "場所を設定するには保留中の項目を選択してください。"
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "ダウンロード中"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "速度: {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "速度: オフ"
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "ダウンロードの帯域制限"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "まだダウンロードはありません。"
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "すべて一時停止"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "すべてのアクティブなダウンロードを一時停止"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "キューを再開"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "一時停止中のダウンロードを再開し、キューを続行します"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "ダウンロードは下のキューに入りました — いつでも開いて進捗を確認できます。"
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "選択した項目"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "ダウンロードキューの表示/非表示"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} 件選択 · 合計 {{total}} 件"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "キュー"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "追加日時"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "生成ファイル"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "列"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "完了"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "形式"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "{{title}} のファイルを非表示"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "出力先"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "進行状況"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "{{title}} のファイルを表示"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "{{label}} で並べ替え"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "状態"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "タイトル"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "共有"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "Arroxy を共有"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "Arroxyを気に入ってくれてる? ほかの人にも見つけてもらおう。"
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "シェアの提案を閉じる"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

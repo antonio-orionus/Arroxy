@@ -374,20 +374,36 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr ""
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
 msgstr ""
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr ""
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr ""
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr ""
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr ""
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr ""
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
 msgstr ""
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
-msgstr ""
-
-msgctxt "queue.clear"
-msgid "Clear"
 msgstr ""
 
 msgctxt "queue.clearTitle"
@@ -396,6 +412,18 @@ msgstr ""
 
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
+msgstr ""
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr ""
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr ""
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
 msgstr ""
 
 msgctxt "queue.header"
@@ -410,28 +438,16 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr ""
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr ""
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr ""
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
 msgstr ""
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr ""
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr ""
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
 msgstr ""
 
 msgctxt "queue.item.pullNow"
@@ -444,6 +460,18 @@ msgstr ""
 
 msgctxt "queue.item.resume"
 msgid "Resume"
+msgstr ""
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr ""
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr ""
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
 msgstr ""
 
 msgctxt "queue.item.statusCancelled"
@@ -474,44 +502,76 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr ""
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr ""
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr ""
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr ""
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr ""
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr ""
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
-msgstr ""
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
 msgstr ""
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr ""
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
 msgstr ""
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr ""
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr ""
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr ""
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr ""
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr ""
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr ""
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr ""
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr ""
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr ""
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr ""
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr ""
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr ""
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr ""
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr ""
+
+msgctxt "queue.table.title"
+msgid "Title"
 msgstr ""
 
 msgctxt "releaseNotes.continue"
@@ -642,14 +702,6 @@ msgstr ""
 
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
-msgstr ""
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr ""
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
 msgstr ""
 
 msgctxt "share.shareAction"

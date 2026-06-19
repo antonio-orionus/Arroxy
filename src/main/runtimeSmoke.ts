@@ -125,10 +125,10 @@ export function readRuntimeSmokeEnabled(env: NodeJS.ProcessEnv = process.env): b
 }
 
 export function summarizeYtDlpVerboseRuntime(text: string): YtDlpVerboseRuntimeSummary {
-	const lines = text
-		.split(/\r?\n/)
-		.map(line => line.trim())
-		.filter(Boolean)
+	const lines = text.split(/\r?\n/).flatMap(line => {
+		const runtimeLine = line.trim()
+		return runtimeLine ? [runtimeLine] : []
+	})
 	const jsRuntimeLines = lines.filter(line => /\bJS runtimes\b/i.test(line))
 	const optionalLibraryLines = lines.filter(line => /\bOptional libraries\b/i.test(line))
 	const nodeSegments = jsRuntimeLines.flatMap(nodeRuntimeSegments)

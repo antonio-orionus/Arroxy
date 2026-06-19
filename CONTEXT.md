@@ -42,6 +42,10 @@ _Avoid_: state
 The live percentage and detail line within the current phase. Distinct from status: status is *which* phase, progress is *how far* through it.
 _Avoid_: percent
 
+**Artifact**:
+A file produced by a queue item, such as media, sidecar subtitles, a thumbnail, a description, or a companion file.
+_Avoid_: payload, attachment
+
 ### Queue
 
 **Queue**:
@@ -51,6 +55,18 @@ _Avoid_: list, batch
 **Queue item**:
 A single job's persistent entry in the queue, including its source, output target, status, and resume state.
 _Avoid_: row, entry, task
+
+**Output target**:
+The folder assigned to a queue item and its artifacts.
+_Avoid_: save path, output path
+
+**Queue view**:
+The management surface where users inspect, filter, select, and act on queue items.
+_Avoid_: drawer, task list
+
+**Queue action**:
+A user command applied to one or more selected queue items. It applies only where valid for each queue item's current status.
+_Avoid_: bulk action, mass action
 
 **Lane**:
 The scheduling tier of a queue item. A normal-lane item respects the simultaneous-download cap and the pacing delay between starts; a priority-lane item skips the pacing delay but still respects the hard cap.

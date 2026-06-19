@@ -49,6 +49,8 @@ function makeDeps() {
 		retry: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 		clearCompleted: vi.fn().mockReturnValue({ok: true, data: undefined}),
 		remove: vi.fn().mockReturnValue({ok: true, data: undefined}),
+		applySelectionAction: vi.fn().mockResolvedValue({ok: true, data: {action: 'pause', appliedIds: ['a'], skipped: []}}),
+		changeOutputTarget: vi.fn().mockResolvedValue({ok: true, data: {outputDir: '/new', items: [], skipped: []}}),
 		snapshot: vi.fn().mockReturnValue([])
 	})
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, single: {}, playlist: {}}), update: vi.fn()}
@@ -287,6 +289,52 @@ describe('registerIpcHandlers', () => {
 			const result = (await handler(null, [validItem])) as {ok: boolean}
 			expect(result.ok).toBe(true)
 			expect(deps._raw.queueService.add).toHaveBeenCalledOnce()
+		})
+
+		it('queue:cmd:applySelectionAction accepts a valid action and selected item ids', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.queueCmdApplySelectionAction)!.fn
+			const input = {action: 'pause', itemIds: ['a', 'b']}
+			const result = (await handler(null, input)) as {ok: boolean; data?: unknown}
+
+			expect(result).toEqual({ok: true, data: {action: 'pause', appliedIds: ['a'], skipped: []}})
+			expect(deps._raw.queueService.applySelectionAction).toHaveBeenCalledWith('pause', ['a', 'b'])
+		})
+
+		it('queue:cmd:applySelectionAction rejects invalid actions before calling QueueService', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.queueCmdApplySelectionAction)!.fn
+			const result = (await handler(null, {action: 'delete-everything', itemIds: ['a']})) as {ok: boolean}
+
+			expect(result.ok).toBe(false)
+			expect(deps._raw.queueService.applySelectionAction).not.toHaveBeenCalled()
+		})
+
+		it('queue:cmd:changeOutputTarget accepts selected item ids and outputDir', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.queueCmdChangeOutputTarget)!.fn
+			const input = {itemIds: ['a', 'b'], outputDir: '/new'}
+			const result = (await handler(null, input)) as {ok: boolean; data?: unknown}
+
+			expect(result).toEqual({ok: true, data: {outputDir: '/new', items: [], skipped: []}})
+			expect(deps._raw.queueService.changeOutputTarget).toHaveBeenCalledWith(['a', 'b'], '/new')
+		})
+
+		it('queue:cmd:changeOutputTarget rejects blank outputDir before calling QueueService', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.queueCmdChangeOutputTarget)!.fn
+			const result = (await handler(null, {itemIds: ['a'], outputDir: '   '})) as {ok: boolean}
+
+			expect(result.ok).toBe(false)
+			expect(deps._raw.queueService.changeOutputTarget).not.toHaveBeenCalled()
 		})
 
 		it('downloads:probe rejects incomplete cookies config before probing', async () => {

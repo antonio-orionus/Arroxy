@@ -375,21 +375,37 @@ msgctxt "presets.subtitle-only.label"
 msgid "Subtitles only"
 msgstr "Само титлови"
 
-msgctxt "queue.activeCount"
-msgid "{{count}} downloading · {{percent}}%"
-msgstr "{{count}} преузима · {{percent}}%"
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Пратећа датотека"
 
-msgctxt "queue.cancelAll"
-msgid "Cancel all"
-msgstr "Откажи све"
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Опис"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Медији"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Недостаје"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Титл"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Сличица"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Датотека"
 
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Откажи сва активна и чекајућа преузимања"
-
-msgctxt "queue.clear"
-msgid "Clear"
-msgstr "Обриши"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -398,6 +414,18 @@ msgstr "Обриши завршена преузимања"
 msgctxt "queue.empty"
 msgid "Downloads you queue will appear here"
 msgstr "Преузимања која додаш у ред ће се овде приказати"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Све"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Филтери стања реда"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Све ставке"
 
 msgctxt "queue.header"
 msgid "Download Queue"
@@ -411,29 +439,17 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Преузимање није успело"
 
-msgctxt "queue.item.doneAt"
-msgid "Done {{time}}"
-msgstr "Завршено {{time}}"
-
-msgctxt "queue.item.hold"
-msgid "Hold"
-msgstr "Задржи"
-
-msgctxt "queue.item.openUrl"
-msgid "Open URL"
-msgstr "Отвори URL"
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Отвори фасциклу одредишта"
 
 msgctxt "queue.item.pause"
 msgid "Pause"
 msgstr "Паузирај"
 
-msgctxt "queue.item.paused"
-msgid "Paused"
-msgstr "Паузирано"
-
-msgctxt "queue.item.priorityBadge"
-msgid "Priority"
-msgstr "Приоритет"
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Само на чекању"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
@@ -446,6 +462,18 @@ msgstr "Уклони"
 msgctxt "queue.item.resume"
 msgid "Resume"
 msgstr "Настави"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Покушај поново"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Подеси локацију"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Изаберите ставке на чекању да подесите локацију."
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
@@ -475,45 +503,77 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Загрузка"
 
-msgctxt "queue.limitRate"
-msgid "Speed: {{value}}"
-msgstr "Скорость: {{value}}"
-
-msgctxt "queue.limitRateOff"
-msgid "Speed: Off"
-msgstr "Скорость: выкл."
-
-msgctxt "queue.limitRateTitle"
-msgid "Bandwidth limit for downloads"
-msgstr "Ограничение пропускной способности для загрузок"
-
-msgctxt "queue.noDownloads"
-msgid "No downloads yet."
-msgstr "Нема преузимања."
-
-msgctxt "queue.pauseAll"
-msgid "Pause queue"
-msgstr "Паузирај све"
-
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Паузирај сва активна преузимања"
-
-msgctxt "queue.resumeAll"
-msgid "Resume queue"
-msgstr "Возобновить очередь"
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "Возобновить приостановленные загрузки и продолжить очередь"
 
-msgctxt "queue.tip"
-msgid "Your download is queued below — open anytime to track progress."
-msgstr "Твоје преузимање је у реду испод — отвори у свако доба да пратиш напредак."
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Изабране ставке"
 
-msgctxt "queue.toggleTitle"
-msgid "Toggle download queue"
-msgstr "Прикажи/сакриј ред за преузимање"
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} изабрано · укупно {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Queue"
+msgstr "Ред"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Додато"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Излазне датотеке"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Колоне"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Завршено"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Формат"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Сакриј датотеке за {{title}}"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Излазно одредиште"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Напредак"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Прикажи датотеке за {{title}}"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Сортирај по {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Статус"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Наслов"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"
@@ -646,14 +706,6 @@ msgstr "Подели"
 msgctxt "share.footerTooltip"
 msgid "Share Arroxy"
 msgstr "Подели Arroxy"
-
-msgctxt "share.highValueBanner.body"
-msgid "Enjoying Arroxy? Help others discover it."
-msgstr "Свиђа ти се Arroxy? Помози другима да га открију."
-
-msgctxt "share.highValueBanner.dismiss"
-msgid "Dismiss share suggestion"
-msgstr "Одбаци предлог за дељење"
 
 msgctxt "share.shareAction"
 msgid "Share Arroxy"

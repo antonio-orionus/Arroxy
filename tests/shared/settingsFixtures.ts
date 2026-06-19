@@ -25,7 +25,6 @@ const COMMON_KEYS = new Set([
 	'firstRunCompleted',
 	'launchCount',
 	'lastReleaseNotesVersionShown',
-	'drawerOpen',
 	'lastSubfolderEnabled',
 	'lastSubfolder',
 	'includeIdInSingleFilenames'

@@ -11,7 +11,8 @@ import log from 'electron-log/main.js'
 import {splitStderrLines} from '@main/utils/process.js'
 import {isSubtitleFile} from '@shared/subtitlePath.js'
 import {STATUS_KEY} from '@shared/schemas.js'
-import type {LocalizedError, ProgressEvent, QueueResumeContext, StatusEvent, StatusKey} from '@shared/types.js'
+import type {LocalizedError, ProgressEvent, QueueArtifactEvent, QueueResumeContext, StatusEvent, StatusKey} from '@shared/types.js'
+import {artifactKindForPath} from '@shared/queueArtifacts.js'
 import type {ActiveDownload} from '../phases/types.js'
 import {nowIso} from '@main/utils/clock.js'
 import {QueueResumeLifecycle} from './QueueResumeLifecycle.js'
@@ -21,11 +22,22 @@ const logger = log.scope('downloads')
 
 export type StatusEmit = (jobId: string, stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError, resumeContext?: QueueResumeContext) => void
 export type ProgressEmit = (event: ProgressEvent) => void
+export type ArtifactEmit = (event: QueueArtifactEvent) => void
+
+function rememberSubtitlePath(active: ActiveDownload, path: string): void {
+	if (!active.subtitlePaths.includes(path)) active.subtitlePaths.push(path)
+}
+
+function replacePath(paths: string[] | undefined, from: string, to: string): string[] | undefined {
+	if (!paths?.includes(from)) return paths
+	return paths.map(path => (path === from ? to : path))
+}
 
 export class ProgressParser {
 	constructor(
 		private readonly emitStatus: StatusEmit,
-		private readonly emitProgress: ProgressEmit
+		private readonly emitProgress: ProgressEmit,
+		private readonly emitArtifact?: ArtifactEmit
 	) {}
 
 	consume(active: ActiveDownload, text: string): void {
@@ -47,7 +59,7 @@ export class ProgressParser {
 				const kind = isSubtitleFile(path) ? 'subtitle' : 'media'
 				active.currentFileKind = kind
 				if (kind === 'subtitle') {
-					active.subtitlePaths.push(path)
+					rememberSubtitlePath(active, path)
 				} else {
 					QueueResumeLifecycle.rememberMediaComponent(active, path)
 				}
@@ -62,13 +74,22 @@ export class ProgressParser {
 			}
 
 			if (event.kind === 'already-downloaded') {
-				if (!isSubtitleFile(event.path)) QueueResumeLifecycle.rememberMediaComponent(active, event.path)
+				if (isSubtitleFile(event.path)) rememberSubtitlePath(active, event.path)
+				else QueueResumeLifecycle.rememberMediaComponent(active, event.path)
 				continue
 			}
 
 			if (event.kind === 'move') {
 				if (active.mediaPath === event.from) active.mediaPath = event.to
+				active.mediaComponentPaths = replacePath(active.mediaComponentPaths, event.from, event.to)
+				active.subtitlePaths = replacePath(active.subtitlePaths, event.from, event.to) ?? active.subtitlePaths
+				this.emitArtifact?.({jobId, path: event.to, kind: artifactKindForPath(event.to), fromPath: event.from, at: nowIso()})
 				this.emitPostProcStatus(active, 'movingFiles')
+				continue
+			}
+
+			if (event.kind === 'artifact') {
+				this.emitArtifact?.({jobId, path: event.path, kind: artifactKindForPath(event.path), at: nowIso(), ...(active.input.probeInfoJsonPath === event.path ? {internal: true} : {})})
 				continue
 			}
 
@@ -88,6 +109,7 @@ export class ProgressParser {
 			}
 
 			if (event.kind === 'postprocess') {
+				if (event.path) active.mediaPath = event.path
 				this.emitPostProcStatus(active, event.phase)
 				continue
 			}

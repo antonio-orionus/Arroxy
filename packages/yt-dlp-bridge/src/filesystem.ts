@@ -77,6 +77,8 @@ export function readArchive(pathname: string): string[] {
 	return fs
 		.readFileSync(pathname, 'utf8')
 		.split(/\r?\n/)
-		.map(line => line.trim())
-		.filter(Boolean)
+		.flatMap(line => {
+			const archiveLine = line.trim()
+			return archiveLine ? [archiveLine] : []
+		})
 }

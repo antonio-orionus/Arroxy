@@ -101,6 +101,13 @@ describe('download profiles', () => {
 		expect(resolved.spec?.mergeOutputFormat).toBeUndefined()
 	})
 
+	it('leads profile labels with the visible format difference', () => {
+		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-quality')!)).toBe('Best available · Native formats · Native audio')
+		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')!)).toBe('Up to 720p · Native formats · Native audio')
+		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'small-file')!)).toBe('Up to 480p · Native formats · Native audio')
+		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'mp4-720')!)).toBe('Up to 720p · MP4/H.264 · AAC audio')
+	})
+
 	it('derives a builtin ref when resolving a builtin profile without an explicit ref', () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
 		expect(profile).toBeDefined()
@@ -178,7 +185,7 @@ describe('download profiles', () => {
 		expect(resolved.subtitles).toEqual({languages: ['en', 'uk'], mode: 'sidecar', format: 'srt', writeAuto: true})
 		expect(resolved.sponsorBlock).toEqual({mode: 'remove', categories: ['sponsor']})
 		expect(resolved.embed).toEqual({chapters: true, metadata: true, thumbnail: false, description: true, thumbnailSidecar: true})
-		expect(downloadProfileLabel(profile)).toBe('Video + audio · Smart TV H.264 MP4 · up to 1080p · AAC audio')
+		expect(downloadProfileLabel(profile)).toBe('Up to 1080p · MP4/H.264 · AAC audio')
 	})
 
 	it('treats subtitles-only profiles as non-media jobs with sanitized embed and SponsorBlock options', () => {

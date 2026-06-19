@@ -35,8 +35,7 @@ function resetStore(): void {
 		selectedPlaylistItemIds: playlistItems.map(entry => entry.id),
 		playlistTitle: 'Playlist',
 		playlistSelection: {kind: 'video', tier: 'best', codec: 'best'},
-		queue: [],
-		drawerOpen: false
+		queue: []
 	} as never)
 }
 

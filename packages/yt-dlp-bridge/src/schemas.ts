@@ -12,7 +12,7 @@ export const OptionRiskPhaseSchema = z.enum(['inspect', 'plan', 'download', 'pos
 export const OptionRiskSchema = z.enum(['low', 'medium', 'high'])
 export const OptionPolicySchema = z.enum(['safe', 'path-gated', 'expert-only', 'blocked-in-expert'])
 export const YtDlpPostprocessPhaseSchema = z.enum(['extractingAudio', 'convertingVideo', 'embeddingMetadata', 'movingFiles'])
-export const YtDlpOutputEventKindSchema = z.enum(['destination', 'merge', 'already-downloaded', 'move', 'sleep', 'sponsorblock-fetch', 'sponsorblock-retry', 'postprocess', 'progress'])
+export const YtDlpOutputEventKindSchema = z.enum(['destination', 'merge', 'already-downloaded', 'move', 'artifact', 'sleep', 'sponsorblock-fetch', 'sponsorblock-retry', 'postprocess', 'progress'])
 
 export type DependencyStatus = z.infer<typeof DependencyStatusSchema>
 export type ProgressEventPhase = z.infer<typeof ProgressEventPhaseSchema>
