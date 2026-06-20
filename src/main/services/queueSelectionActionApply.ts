@@ -1,6 +1,7 @@
-import {ok, type Result} from '@shared/result.js'
+import {fail, ok, type Result} from '@shared/result.js'
 import {canApplyQueueAction} from '@shared/queueActions.js'
 import type {QueueActionSkippedItem, QueueItem, QueueSelectionAction, QueueSelectionCommandResult} from '@shared/types.js'
+import {createAppError} from '@main/utils/errorFactory.js'
 
 export interface QueueSelectionActionHost {
 	cancel(itemId: string): Promise<Result<void>>
@@ -13,6 +14,8 @@ export interface QueueSelectionActionHost {
 }
 
 export async function applyQueueSelectionAction(host: QueueSelectionActionHost, action: QueueSelectionAction, itemIds: string[]): Promise<Result<QueueSelectionCommandResult>> {
+	if ((action as string) === 'change-output-target') return fail(createAppError('validation', 'change-output-target requires outputDir'))
+
 	const appliedIds: string[] = []
 	const skipped: QueueActionSkippedItem[] = []
 

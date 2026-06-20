@@ -157,7 +157,7 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 				}),
 				columnHelper.accessor('addedAt', {header: ({column}) => sortableHeader(t('queue.table.added'), column, t), cell: info => <span className="block truncate text-[11px] text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>}),
 				columnHelper.accessor('finishedAt', {header: ({column}) => sortableHeader(t('queue.table.finished'), column, t), cell: info => <span className="block truncate text-[11px] text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>})
-			] as unknown as QueueManagerColumn[],
+			] as QueueManagerColumn[],
 		[expandedIds, onToggleExpanded, t]
 	)
 }

@@ -9,9 +9,13 @@ import {TableCell, TableRow} from '../ui/table.js'
 
 type QueueArtifactLabelKey = 'queue.artifact.media' | 'queue.artifact.subtitle' | 'queue.artifact.thumbnail' | 'queue.artifact.description' | 'queue.artifact.companion' | 'queue.artifact.unknown'
 
+const ARTIFACT_KIND_LABELS = {media: 'queue.artifact.media', subtitle: 'queue.artifact.subtitle', thumbnail: 'queue.artifact.thumbnail', description: 'queue.artifact.description', companion: 'queue.artifact.companion', unknown: 'queue.artifact.unknown'} as const satisfies Record<
+	QueueArtifact['kind'],
+	QueueArtifactLabelKey
+>
+
 function artifactKindLabel(kind: QueueArtifact['kind'], t: TFunction): string {
-	const labelKeys: Record<QueueArtifact['kind'], QueueArtifactLabelKey> = {media: 'queue.artifact.media', subtitle: 'queue.artifact.subtitle', thumbnail: 'queue.artifact.thumbnail', description: 'queue.artifact.description', companion: 'queue.artifact.companion', unknown: 'queue.artifact.unknown'}
-	return t(labelKeys[kind])
+	return t(ARTIFACT_KIND_LABELS[kind])
 }
 
 function formatArtifactSize(sizeBytes: number | undefined): string | null {
