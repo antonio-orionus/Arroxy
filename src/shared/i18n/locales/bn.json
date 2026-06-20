@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "URL থেকে ডাউনলোড করুন",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "প্রোফাইল", "settings": "সেটিংস"},
 			"interactiveDownload": "ফরম্যাট আনুন",
 			"fetchFormatsTooltip": "ধাপে ধাপে উইজার্ড। ফরম্যাট, মান এবং আরও কিছু বেছে নিন।",
 			"quickDownload": "দ্রুত ডাউনলোড",
@@ -131,7 +132,15 @@
 				"menuTitle": "প্রোফাইল বদলান",
 				"menuDescription": "Quick Download, Bulk URLs এবং প্লেলিস্টের জন্য সক্রিয় প্রোফাইল পরিবর্তন করুন।",
 				"newProfile": "নতুন প্রোফাইল",
-				"manageProfiles": "প্রোফাইল পরিচালনা করুন"
+				"manageProfiles": "প্রোফাইল পরিচালনা করুন",
+				"panelTitle": "ডাউনলোড প্রোফাইল",
+				"panelDescription": "পুনরায় ব্যবহারযোগ্য ডাউনলোড সেটআপ তৈরি, নির্বাচন, সম্পাদনা বা সরান।",
+				"badgeCustom": "কাস্টম",
+				"badgeModified": "পরিবর্তিত",
+				"badgeBuiltIn": "বিল্ট-ইন",
+				"edit": "সম্পাদনা",
+				"remove": "সরান",
+				"reset": "রিসেট"
 			},
 			"bulkButton": "বাল্ক URL",
 			"bulkTooltip": "একাধিক URL যোগ করে সারিতে দিন।",
@@ -145,7 +154,21 @@
 			"mascotBusy": "ব্যাকগ্রাউন্ডে ডাউনলোড হচ্ছে… আমি একসাথে অনেক কাজ করতে পারি 😎",
 			"advanced": "উন্নত",
 			"clearAria": "URL মুছুন",
-			"clipboard": {"toggle": "ক্লিপবোর্ড দেখুন", "toggleDescription": "YouTube লিংক কপি করলে URL ফিল্ড স্বয়ংক্রিয়ভাবে পূরণ হবে।", "dialog": {"cancelButton": "বাতিল"}},
+			"clipboard": {
+				"toggle": "ক্লিপবোর্ড দেখুন",
+				"toggleDescription": "YouTube লিংক কপি করলে URL ফিল্ড স্বয়ংক্রিয়ভাবে পূরণ হবে।",
+				"autofilledLinks_one": "ক্লিপবোর্ড থেকে {{count}}টি লিংক খোলা হয়েছে",
+				"autofilledLinks_other": "ক্লিপবোর্ড থেকে {{count}}টি লিংক খোলা হয়েছে",
+				"autofilledLink": "ক্লিপবোর্ড থেকে লিংক যোগ করা হয়েছে",
+				"pendingLinksReady_one": "{{count}}টি কপি করা লিংক প্রস্তুত",
+				"pendingLinksReady_other": "{{count}}টি কপি করা লিংক প্রস্তুত",
+				"pendingLinkReady": "কপি করা লিংক প্রস্তুত",
+				"openCopiedLinks_one": "{{count}}টি কপি করা লিংক খুলুন",
+				"openCopiedLinks_other": "{{count}}টি কপি করা লিংক খুলুন",
+				"useCopiedLink": "কপি করা লিংক ব্যবহার করুন",
+				"dismissCopiedLink": "কপি করা লিংক বন্ধ করুন",
+				"dialog": {"cancelButton": "বাতিল"}
+			},
 			"cookies": {
 				"sourceLabel": "কুকিজের উৎস",
 				"sourceOff": "বন্ধ",
@@ -355,7 +378,7 @@
 	"queue": {
 		"header": "ডাউনলোড কিউ",
 		"tabLabel": "কিউ",
-		"empty": "আপনার কিউ করা ডাউনলোড এখানে দেখা যাবে",
+		"empty": "সারিতে রাখা ডাউনলোডগুলো এখানে দেখা যাবে",
 		"filtersLabel": "কিউ স্ট্যাটাস ফিল্টার",
 		"filterAll": "সব",
 		"selectedActionsLabel": "নির্বাচিত আইটেম",

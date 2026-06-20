@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "Daawniloodoonni xumuraman haquu"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "Daawniloodoonni si tartiibsiiftan asitti mul'atu"
+msgid "Queued downloads will appear here"
+msgstr "Buusawwan tarreeffaman asitti ni mulʼatu"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "URL qulqulleessi"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Liinki gabatee waraabbii irraa dabalame"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "Liinki {{count}} gabatee waraabbii irraa baname"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "Liinkota {{count}} gabatee waraabbii irraa banaman"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "Haqi"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "Liinki waraabbame cufi"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "Liinki waraabbame {{count}} bani"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "Liinkota waraabbaman {{count}} bani"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "Liinki waraabbame qophaaʼeera"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "Liinki waraabbame {{count}} qophaaʼeera"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "Liinkotni waraabbaman {{count}} qophaaʼaniiru"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "Kliipboordii hordofi"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "Liinkii YouTube koopii gootee booda dirree URL ofumaan guuti."
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "Liinki waraabbame fayyadami"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "Profaayilii hojiirra jiru"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Keessaa jiru"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Mataakee"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Fooyyaʼe"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Bakki waliigalaa jijjiiri"
@@ -2244,6 +2296,10 @@ msgstr "Bakki waliigalaa jijjiiri"
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Bakki itti olkaa'amu"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Gulaali"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "Profaayilii jijjiiri"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Profaayilii haaraa"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Qindaaʼinoota buusuu irra deebiin fayyadamuu dandeessu uumi, filadhu, gulaali, yookiin haqi."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Profaayilota buusuu"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Haqi"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Deebisi"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "Maqaa faayila tokko tokkootti ID viidiyoo dabali"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Mata dureewwan yeroo jijjiiraman ykn walitti bu’an buufata tokko tokko adda taasisa."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profaayilota"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Qindaaʼinoota"

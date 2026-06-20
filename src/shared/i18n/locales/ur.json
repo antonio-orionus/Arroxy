@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "URL سے ڈاؤن لوڈ کریں",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "پروفائلز", "settings": "ترتیبات"},
 			"interactiveDownload": "فارمیٹس لائیں",
 			"fetchFormatsTooltip": "مرحلہ وار وزرڈ۔ فارمیٹ، معیار اور مزید چیزیں منتخب کریں۔",
 			"quickDownload": "فوری ڈاؤن لوڈ",
@@ -131,7 +132,15 @@
 				"menuTitle": "پروفائل تبدیل کریں",
 				"menuDescription": "Quick Download، متعدد URLs اور پلے لسٹس کے لیے فعال پروفائل تبدیل کریں۔",
 				"newProfile": "نیا پروفائل",
-				"manageProfiles": "پروفائلز کا نظم کریں"
+				"manageProfiles": "پروفائلز کا نظم کریں",
+				"panelTitle": "ڈاؤن لوڈ پروفائلز",
+				"panelDescription": "دوبارہ استعمال ہونے والی ڈاؤن لوڈ ترتیبات بنائیں، منتخب کریں، ترمیم کریں، یا ہٹائیں۔",
+				"badgeCustom": "حسب ضرورت",
+				"badgeModified": "ترمیم شدہ",
+				"badgeBuiltIn": "بلٹ اِن",
+				"edit": "ترمیم کریں",
+				"remove": "ہٹائیں",
+				"reset": "ری سیٹ کریں"
 			},
 			"bulkButton": "متعدد URLs",
 			"bulkTooltip": "متعدد URLs شامل کریں اور قطار میں ڈالیں۔",
@@ -145,7 +154,21 @@
 			"mascotBusy": "بیک گراؤنڈ میں ڈاؤن لوڈ ہو رہا ہے… میں ملٹی ٹاسک کر سکتا ہوں 😎",
 			"advanced": "ایڈوانسڈ",
 			"clearAria": "URL صاف کریں",
-			"clipboard": {"toggle": "کلپ بورڈ پر نظر رکھیں", "toggleDescription": "جب آپ YouTube لنک کاپی کریں تو URL فیلڈ خود بھر جائے۔", "dialog": {"cancelButton": "منسوخ کریں"}},
+			"clipboard": {
+				"toggle": "کلپ بورڈ پر نظر رکھیں",
+				"toggleDescription": "جب آپ YouTube لنک کاپی کریں تو URL فیلڈ خود بھر جائے۔",
+				"autofilledLinks_one": "{{count}} لنک کلپ بورڈ سے کھولا گیا",
+				"autofilledLinks_other": "{{count}} لنکس کلپ بورڈ سے کھولے گئے",
+				"autofilledLink": "لنک کلپ بورڈ سے شامل کیا گیا",
+				"pendingLinksReady_one": "{{count}} کاپی شدہ لنک تیار ہے",
+				"pendingLinksReady_other": "{{count}} کاپی شدہ لنکس تیار ہیں",
+				"pendingLinkReady": "کاپی شدہ لنک تیار ہے",
+				"openCopiedLinks_one": "{{count}} کاپی شدہ لنک کھولیں",
+				"openCopiedLinks_other": "{{count}} کاپی شدہ لنکس کھولیں",
+				"useCopiedLink": "کاپی شدہ لنک استعمال کریں",
+				"dismissCopiedLink": "کاپی شدہ لنک بند کریں",
+				"dialog": {"cancelButton": "منسوخ کریں"}
+			},
 			"cookies": {
 				"sourceLabel": "Cookies کا ذریعہ",
 				"sourceOff": "بند",
@@ -371,7 +394,7 @@
 	"queue": {
 		"header": "ڈاؤن لوڈ قطار",
 		"tabLabel": "قطار",
-		"empty": "آپ کی قطار میں رکھے ڈاؤن لوڈز یہاں دکھائی دیں گے",
+		"empty": "قطار میں شامل ڈاؤن لوڈز یہاں ظاہر ہوں گے",
 		"filtersLabel": "قطار کی حالت کے فلٹرز",
 		"filterAll": "سب",
 		"selectedActionsLabel": "منتخب آئٹمز",

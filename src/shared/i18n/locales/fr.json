@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "Télécharger depuis une URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "Profils", "settings": "Réglages"},
 			"interactiveDownload": "Récupérer les formats",
 			"fetchFormatsTooltip": "Assistant pas à pas. Choisissez le format, la qualité et plus encore.",
 			"quickDownload": "Téléchargement rapide",
@@ -131,7 +132,15 @@
 				"menuTitle": "Changer de profil",
 				"menuDescription": "Change le profil actif pour le téléchargement rapide, les URL groupées et les playlists.",
 				"newProfile": "Nouveau profil",
-				"manageProfiles": "Gérer les profils"
+				"manageProfiles": "Gérer les profils",
+				"panelTitle": "Profils de téléchargement",
+				"panelDescription": "Créez, sélectionnez, modifiez ou supprimez des configurations de téléchargement réutilisables.",
+				"badgeCustom": "Personnalisé",
+				"badgeModified": "Modifié",
+				"badgeBuiltIn": "Intégré",
+				"edit": "Modifier",
+				"remove": "Supprimer",
+				"reset": "Réinitialiser"
 			},
 			"bulkButton": "URLs en lot",
 			"bulkTooltip": "Ajoutez plusieurs URLs et placez-les dans la file.",
@@ -145,7 +154,21 @@
 			"mascotBusy": "Téléchargement en arrière-plan… je peux faire plusieurs choses à la fois 😎",
 			"advanced": "Avancé",
 			"clearAria": "Effacer l'URL",
-			"clipboard": {"toggle": "Surveiller le presse-papiers", "toggleDescription": "Remplit automatiquement le champ URL lorsque vous copiez un lien YouTube.", "dialog": {"cancelButton": "Annuler"}},
+			"clipboard": {
+				"toggle": "Surveiller le presse-papiers",
+				"toggleDescription": "Remplit automatiquement le champ URL lorsque vous copiez un lien YouTube.",
+				"autofilledLinks_one": "{{count}} lien ouvert depuis le presse-papiers",
+				"autofilledLinks_other": "{{count}} liens ouverts depuis le presse-papiers",
+				"autofilledLink": "Lien ajouté depuis le presse-papiers",
+				"pendingLinksReady_one": "{{count}} lien copié prêt",
+				"pendingLinksReady_other": "{{count}} liens copiés prêts",
+				"pendingLinkReady": "Lien copié prêt",
+				"openCopiedLinks_one": "Ouvrir {{count}} lien copié",
+				"openCopiedLinks_other": "Ouvrir {{count}} liens copiés",
+				"useCopiedLink": "Utiliser le lien copié",
+				"dismissCopiedLink": "Ignorer le lien copié",
+				"dialog": {"cancelButton": "Annuler"}
+			},
 			"cookies": {
 				"sourceLabel": "Source des cookies",
 				"sourceOff": "Désactivé",
@@ -371,7 +394,7 @@
 	"queue": {
 		"header": "File de téléchargement",
 		"tabLabel": "File",
-		"empty": "Les téléchargements en file s'afficheront ici",
+		"empty": "Les téléchargements en file d’attente apparaîtront ici",
 		"filtersLabel": "Filtres d’état de la file",
 		"filterAll": "Tout",
 		"selectedActionsLabel": "Éléments sélectionnés",

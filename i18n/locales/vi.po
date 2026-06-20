@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "Xóa các tải xuống đã hoàn tất"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "Các tải xuống bạn thêm vào hàng đợi sẽ xuất hiện ở đây"
+msgid "Queued downloads will appear here"
+msgstr "Các lượt tải đã xếp hàng sẽ xuất hiện ở đây"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "Xóa URL"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Đã thêm liên kết từ bảng nhớ tạm"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "Đã mở {{count}} liên kết từ bảng nhớ tạm"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "Đã mở {{count}} liên kết từ bảng nhớ tạm"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "Hủy"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "Bỏ qua liên kết đã sao chép"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "Mở {{count}} liên kết đã sao chép"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "Mở {{count}} liên kết đã sao chép"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "Liên kết đã sao chép sẵn sàng"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "{{count}} liên kết đã sao chép sẵn sàng"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "{{count}} liên kết đã sao chép sẵn sàng"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "Theo dõi bộ nhớ tạm"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "Tự động điền vào trường URL khi bạn sao chép một liên kết YouTube."
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "Dùng liên kết đã sao chép"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "Hồ sơ đang dùng"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Tích hợp"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Tùy chỉnh"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Đã sửa"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Đổi thư mục lưu chung"
@@ -2244,6 +2296,10 @@ msgstr "Đổi thư mục lưu chung"
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Đích lưu"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Sửa"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "Đổi hồ sơ"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Hồ sơ mới"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Tạo, chọn, chỉnh sửa hoặc xóa các thiết lập tải xuống có thể dùng lại."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Hồ sơ tải xuống"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Xóa"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Đặt lại"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "Thêm ID video vào tên tệp đơn lẻ"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Giữ các lượt tải một lần là duy nhất khi tiêu đề thay đổi hoặc trùng nhau."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Hồ sơ"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Cài đặt"

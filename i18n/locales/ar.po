@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "مسح التنزيلات المكتملة"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "ستظهر التنزيلات التي تضيفها إلى القائمة هنا"
+msgid "Queued downloads will appear here"
+msgstr "ستظهر التنزيلات الموضوعة في قائمة الانتظار هنا"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "مسح الرابط"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "تمت إضافة الرابط من الحافظة"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "تم فتح رابط واحد من الحافظة"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "تم فتح {{count}} روابط من الحافظة"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "إلغاء"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "إخفاء الرابط المنسوخ"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "فتح الرابط المنسوخ"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "فتح {{count}} روابط منسوخة"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "الرابط المنسوخ جاهز"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "رابط منسوخ جاهز"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "{{count}} روابط منسوخة جاهزة"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "مراقبة الحافظة"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "يملأ حقل الرابط تلقائياً عند نسخ رابط YouTube."
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "استخدام الرابط المنسوخ"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "ملف التعريف النشط"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "مدمج"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "مخصص"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "معدّل"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "تغيير وجهة الحفظ العامة"
@@ -2244,6 +2296,10 @@ msgstr "تغيير وجهة الحفظ العامة"
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "الوجهة"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "تعديل"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "تبديل ملف التعريف"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "ملف تعريف جديد"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "أنشئ إعدادات تنزيل قابلة لإعادة الاستخدام أو اخترها أو عدّلها أو أزلها."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "ملفات التنزيل الشخصية"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "إزالة"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "إعادة ضبط"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "إضافة معرّف الفيديو إلى أسماء الملفات ا
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "يبقي التنزيلات الفردية فريدة عندما تتغير العناوين أو تتكرر."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "الملفات الشخصية"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "الإعدادات"

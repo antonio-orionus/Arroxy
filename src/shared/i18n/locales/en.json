@@ -99,6 +99,7 @@
 		"url": {
 			"heading": "Download from URL",
 			"placeholder": "https://...",
+			"tabs": {"profiles": "Profiles", "settings": "Settings"},
 			"interactiveDownload": "Interactive Download",
 			"fetchFormatsTooltip": "Step-by-step wizard. Choose format, quality, and more.",
 			"quickDownload": "Quick Download",
@@ -122,7 +123,15 @@
 				"menuTitle": "Switch profile",
 				"menuDescription": "Change the active profile for Quick Download, Bulk URLs, and playlists.",
 				"newProfile": "New profile",
-				"manageProfiles": "Manage profiles"
+				"manageProfiles": "Manage profiles",
+				"panelTitle": "Download Profiles",
+				"panelDescription": "Create, select, edit, or remove reusable download setups.",
+				"badgeCustom": "Custom",
+				"badgeModified": "Modified",
+				"badgeBuiltIn": "Built-in",
+				"edit": "Edit",
+				"remove": "Remove",
+				"reset": "Reset"
 			},
 			"bulkButton": "Bulk URLs",
 			"bulkTooltip": "Add and queue multiple URLs.",
@@ -136,7 +145,21 @@
 			"mascotBusy": "Downloading in the background… I can multitask 😎",
 			"advanced": "Advanced",
 			"clearAria": "Clear URL",
-			"clipboard": {"toggle": "Watch clipboard", "toggleDescription": "Auto-fill the URL field when you copy a video link.", "dialog": {"cancelButton": "Cancel"}},
+			"clipboard": {
+				"toggle": "Watch clipboard",
+				"toggleDescription": "Auto-fill the URL field when you copy a video link.",
+				"autofilledLinks_one": "{{count}} link opened from clipboard",
+				"autofilledLinks_other": "{{count}} links opened from clipboard",
+				"autofilledLink": "Link added from clipboard",
+				"pendingLinksReady_one": "{{count}} copied link ready",
+				"pendingLinksReady_other": "{{count}} copied links ready",
+				"pendingLinkReady": "Copied link ready",
+				"openCopiedLinks_one": "Open {{count}} copied link",
+				"openCopiedLinks_other": "Open {{count}} copied links",
+				"useCopiedLink": "Use copied link",
+				"dismissCopiedLink": "Dismiss copied link",
+				"dialog": {"cancelButton": "Cancel"}
+			},
 			"cookies": {
 				"sourceLabel": "Cookies source",
 				"sourceOff": "Off",
@@ -362,7 +385,7 @@
 	"queue": {
 		"header": "Download Queue",
 		"tabLabel": "Queue",
-		"empty": "Downloads you queue will appear here",
+		"empty": "Queued downloads will appear here",
 		"filtersLabel": "Queue status filters",
 		"filterAll": "All",
 		"selectedActionsLabel": "Selected items",

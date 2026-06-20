@@ -223,13 +223,9 @@ export class QueueService extends EventEmitter {
 		return this.schedulerPaused
 	}
 
-	hasPendingFileMoves(): boolean {
-		return false
-	}
+	hasPendingFileMoves = (): boolean => false
 
-	whenFileMovesIdle(): Promise<void> {
-		return Promise.resolve()
-	}
+	whenFileMovesIdle = (): Promise<void> => Promise.resolve()
 
 	private async cleanupResumeContextBestEffort(item: QueueItem): Promise<void> {
 		try {
@@ -402,7 +398,14 @@ export class QueueService extends EventEmitter {
 	}
 
 	async changeOutputTarget(itemIds: string[], outputDir: string): Promise<Result<QueueOutputTargetChangeResult>> {
-		return changeQueueOutputTarget({findItem: itemId => this.findItem(itemId), patchItem: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher})}, itemIds, outputDir)
+		this.inBulk = true
+		const result = await changeQueueOutputTarget({findItem: itemId => this.findItem(itemId), patchItem: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher})}, itemIds, outputDir).finally(() => {
+			this.inBulk = false
+		})
+		if (!result.ok) return result
+		this.recomputeSchedule()
+		if (result.data.items.length > 0) this.persist()
+		return result
 	}
 
 	async remove(itemId: string): Promise<Result<void>> {
@@ -496,7 +499,7 @@ export class QueueService extends EventEmitter {
 		const artifact = queueArtifactFromPath(event.path, {kind: event.kind, discoveredAt: event.at, internal: event.internal})
 		const patcher = (prev: QueueItem): QueueItem => {
 			if (!event.fromPath) return {...prev, artifacts: upsertQueueArtifact(prev.artifacts, artifact)}
-			if (!prev.artifacts.some(existing => existing.path === event.fromPath)) return prev
+			if (!prev.artifacts.some(existing => existing.path === event.fromPath)) return {...prev, artifacts: upsertQueueArtifact(prev.artifacts, artifact)}
 			return {...prev, artifacts: upsertQueueArtifact(moveQueueArtifactPath(prev.artifacts, event.fromPath, event.path), artifact)}
 		}
 		this.commit({kind: 'patch', itemId: item.id, reason: `artifact:${event.kind}`, patcher})

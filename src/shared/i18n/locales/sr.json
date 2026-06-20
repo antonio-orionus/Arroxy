@@ -116,6 +116,7 @@
 		"url": {
 			"heading": "Преузми са URL-а",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "Профили", "settings": "Подешавања"},
 			"interactiveDownload": "Учитај формате",
 			"fetchFormatsTooltip": "Водич корак по корак. Изабери формат, квалитет и још опција.",
 			"quickDownload": "Брзо преузимање",
@@ -139,7 +140,15 @@
 				"menuTitle": "Промени профил",
 				"menuDescription": "Промени активни профил за Quick Download, групне URL-ове и плејлисте.",
 				"newProfile": "Нови профил",
-				"manageProfiles": "Управљај профилима"
+				"manageProfiles": "Управљај профилима",
+				"panelTitle": "Профили преузимања",
+				"panelDescription": "Креирај, изабери, уреди или уклони подешавања преузимања која можеш поново да користиш.",
+				"badgeCustom": "Прилагођено",
+				"badgeModified": "Измењено",
+				"badgeBuiltIn": "Уграђено",
+				"edit": "Уреди",
+				"remove": "Уклони",
+				"reset": "Ресетуј"
 			},
 			"bulkButton": "Групни URL-ови",
 			"bulkTooltip": "Додај више URL-ова и стави их у ред.",
@@ -153,7 +162,21 @@
 			"mascotBusy": "Преузимање у позадини… Умем да радим више ствари одједном 😎",
 			"advanced": "Напредно",
 			"clearAria": "Обриши URL",
-			"clipboard": {"toggle": "Прати клипборд", "toggleDescription": "Аутоматски попуни поље URL-а када копираш YouTube линк.", "dialog": {"cancelButton": "Откажи"}},
+			"clipboard": {
+				"toggle": "Прати клипборд",
+				"toggleDescription": "Аутоматски попуни поље URL-а када копираш YouTube линк.",
+				"autofilledLinks_one": "{{count}} линк отворен из клипборда",
+				"autofilledLinks_other": "{{count}} линкова отворено из клипборда",
+				"autofilledLink": "Линк је додат из клипборда",
+				"pendingLinksReady_one": "{{count}} копирани линк је спреман",
+				"pendingLinksReady_other": "{{count}} копираних линкова је спремно",
+				"pendingLinkReady": "Копирани линк је спреман",
+				"openCopiedLinks_one": "Отвори {{count}} копирани линк",
+				"openCopiedLinks_other": "Отвори {{count}} копираних линкова",
+				"useCopiedLink": "Користи копирани линк",
+				"dismissCopiedLink": "Сакриј копирани линк",
+				"dialog": {"cancelButton": "Откажи"}
+			},
 			"cookies": {
 				"sourceLabel": "Извор cookies",
 				"sourceOff": "Искључено",
@@ -379,7 +402,7 @@
 	"queue": {
 		"header": "Ред за преузимање",
 		"tabLabel": "Ред",
-		"empty": "Преузимања која додаш у ред ће се овде приказати",
+		"empty": "Преузимања у реду ће се појавити овде",
 		"filtersLabel": "Филтери стања реда",
 		"filterAll": "Све",
 		"selectedActionsLabel": "Изабране ставке",

@@ -52,14 +52,14 @@ export function queueManagerReducer(state: QueueManagerState, action: QueueManag
 		return {...state, selectedIds}
 	}
 	if (action.type === 'set-selection') return {...state, selectedIds: new Set(action.ids)}
-	if (action.type === 'set-expanded') return {...state, expandedIds: action.ids}
+	if (action.type === 'set-expanded') return {...state, expandedIds: new Set(action.ids)}
 	if (action.type === 'toggle-expanded') {
 		const expandedIds = new Set(state.expandedIds)
 		if (expandedIds.has(action.itemId)) expandedIds.delete(action.itemId)
 		else expandedIds.add(action.itemId)
 		return {...state, expandedIds}
 	}
-	if (action.type === 'set-context-ids') return {...state, contextIds: action.ids}
+	if (action.type === 'set-context-ids') return {...state, contextIds: [...action.ids]}
 	if (action.type === 'set-table-preferences') return {...state, tablePreferences: sanitizeQueueTablePreferences(action.preferences)}
 	if (action.type === 'set-viewport-width') return {...state, viewportWidth: action.viewportWidth}
 	if (action.type === 'prune-ids') return {...state, selectedIds: pruneIds(state.selectedIds, action.liveIds), expandedIds: pruneIds(state.expandedIds, action.liveIds)}

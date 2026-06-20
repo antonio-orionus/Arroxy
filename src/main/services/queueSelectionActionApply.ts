@@ -1,6 +1,5 @@
-import {fail, ok, type Result} from '@shared/result.js'
+import {ok, type Result} from '@shared/result.js'
 import {canApplyQueueAction} from '@shared/queueActions.js'
-import {createAppError} from '@main/utils/errorFactory.js'
 import type {QueueActionSkippedItem, QueueItem, QueueSelectionAction, QueueSelectionCommandResult} from '@shared/types.js'
 
 export interface QueueSelectionActionHost {
@@ -47,9 +46,6 @@ export async function applyQueueSelectionAction(host: QueueSelectionActionHost, 
 				break
 			case 'pull-now':
 				result = await host.setLane(itemId, 'priority')
-				break
-			case 'change-output-target':
-				result = fail(createAppError('validation', 'change-output-target requires outputDir'))
 				break
 		}
 

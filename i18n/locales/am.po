@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "የተጠናቀቁ ዳውንሎዶችን አጽዳ"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "የሚሰለፉት ዳውንሎዶች እዚህ ይታያሉ"
+msgid "Queued downloads will appear here"
+msgstr "በወረፋ የተጨመሩ ማውረዶች እዚህ ይታያሉ"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "URL አጽዳ"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "አገናኝ ከቅንጥብ ሰሌዳ ታክሏል"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "{{count}} አገናኝ ከቅንጥብ ሰሌዳ ተከፍቷል"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "{{count}} አገናኞች ከቅንጥብ ሰሌዳ ተከፍተዋል"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "ሰርዝ"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "የተቀዳውን አገናኝ ዝጋ"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "{{count}} የተቀዳ አገናኝ ክፈት"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "{{count}} የተቀዱ አገናኞች ክፈት"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "የተቀዳ አገናኝ ዝግጁ ነው"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "{{count}} የተቀዳ አገናኝ ዝግጁ ነው"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "{{count}} የተቀዱ አገናኞች ዝግጁ ናቸው"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "ቅጂ ሰሌዳ ተቆጣጠር"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።"
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "የተቀዳውን አገናኝ ተጠቀም"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "ንቁ መገለጫ"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "አብሮገነብ"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "ብጁ"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "ተቀይሯል"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "አጠቃላይ መዳረሻ ቀይር"
@@ -2244,6 +2296,10 @@ msgstr "አጠቃላይ መዳረሻ ቀይር"
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "መዳረሻ"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "አርትዕ"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "መገለጫ ቀይር"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "አዲስ መገለጫ"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "እንደገና ሊጠቀሙባቸው የሚችሉ የማውረድ ቅንብሮችን ይፍጠሩ፣ ይምረጡ፣ ያርትዑ ወይም ያስወግዱ።"
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "የማውረድ መገለጫዎች"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "አስወግድ"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "ዳግም አስጀምር"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "የቪዲዮ ID ወደ ነጠላ ፋይል ስሞች ጨምር"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "ርዕሶች ሲቀየሩ ወይም ሲጋጩ ነጠላ ማውረዶችን ልዩ ያደርጋል።"
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "መገለጫዎች"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "ቅንብሮች"

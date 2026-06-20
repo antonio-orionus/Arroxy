@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {planQueueAction} from '@shared/queueActions.js'
+import {canApplyQueueActionToItem, planQueueAction} from '@shared/queueActions.js'
 import {makeItem} from '../shared/fixtures.js'
 
 describe('planQueueAction', () => {
@@ -63,5 +63,9 @@ describe('planQueueAction', () => {
 			{itemId: 'done', status: 'done', reason: 'invalid-status'},
 			{itemId: 'cancelled', status: 'cancelled', reason: 'invalid-status'}
 		])
+	})
+
+	it('keeps output-target planning out of the generic queue command action set', () => {
+		expect(canApplyQueueActionToItem('change-output-target', makeItem({id: 'fresh', status: 'pending', lastJobId: undefined, tempDir: undefined, progressPercent: 0}))).toBe(true)
 	})
 })

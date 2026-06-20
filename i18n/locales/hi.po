@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "पूरी हुई डाउनलोड हटाएँ"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "क़तार में डाली गई डाउनलोड यहाँ दिखेंगी"
+msgid "Queued downloads will appear here"
+msgstr "कतार में जोड़े गए डाउनलोड यहाँ दिखाई देंगे"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "URL हटाएँ"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "क्लिपबोर्ड से लिंक जोड़ा गया"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "क्लिपबोर्ड से {{count}} लिंक खोला गया"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "क्लिपबोर्ड से {{count}} लिंक खोले गए"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "रद्द करें"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "कॉपी किया गया लिंक हटाएँ"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "{{count}} कॉपी किया गया लिंक खोलें"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "{{count}} कॉपी किए गए लिंक खोलें"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "कॉपी किया गया लिंक तैयार है"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "{{count}} कॉपी किया गया लिंक तैयार है"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "{{count}} कॉपी किए गए लिंक तैयार हैं"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "क्लिपबोर्ड देखें"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "YouTube लिंक कॉपी करने पर URL फ़ील्ड स्वतः भर जाता है।"
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "कॉपी किया गया लिंक इस्तेमाल करें"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "सक्रिय प्रोफ़ाइल"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "बिल्ट-इन"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "कस्टम"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "बदला हुआ"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "वैश्विक गंतव्य बदलें"
@@ -2244,6 +2296,10 @@ msgstr "वैश्विक गंतव्य बदलें"
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "गंतव्य"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "संपादित करें"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "प्रोफ़ाइल बदलें"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "नई प्रोफ़ाइल"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "दोबारा इस्तेमाल होने वाले डाउनलोड सेटअप बनाएँ, चुनें, संपादित करें या हटाएँ।"
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "डाउनलोड प्रोफाइल"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "हटाएँ"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "रीसेट करें"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "एकल फ़ाइलनामों में वीडियो ID
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "शीर्षक बदलने या टकराने पर एकबारगी डाउनलोड को अलग रखता है।"
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "प्रोफाइल"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "सेटिंग्स"

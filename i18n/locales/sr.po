@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "Обриши завршена преузимања"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "Преузимања која додаш у ред ће се овде приказати"
+msgid "Queued downloads will appear here"
+msgstr "Преузимања у реду ће се појавити овде"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "Обриши URL"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Линк је додат из клипборда"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "{{count}} линк отворен из клипборда"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "{{count}} линкова отворено из клипборда"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "Откажи"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "Сакриј копирани линк"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "Отвори {{count}} копирани линк"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "Отвори {{count}} копираних линкова"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "Копирани линк је спреман"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "{{count}} копирани линк је спреман"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "{{count}} копираних линкова је спремно"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "Прати клипборд"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "Аутоматски попуни поље URL-а када копираш YouTube линк."
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "Користи копирани линк"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "Активни профил"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Уграђено"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Прилагођено"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Измењено"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Промени глобално одредиште"
@@ -2244,6 +2296,10 @@ msgstr "Промени глобално одредиште"
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Одредиште"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Уреди"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "Промени профил"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Нови профил"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Креирај, изабери, уреди или уклони подешавања преузимања која можеш поново да користиш."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Профили преузимања"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Уклони"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Ресетуј"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "Додај ID видеа у појединачна имена фајло
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Чува појединачна преузимања јединственим када се наслови промене или поклопе."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Профили"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Подешавања"

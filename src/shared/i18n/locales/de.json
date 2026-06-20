@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "Von URL herunterladen",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "Profile", "settings": "Einstellungen"},
 			"interactiveDownload": "Formate abrufen",
 			"fetchFormatsTooltip": "Schritt-für-Schritt-Assistent. Wähle Format, Qualität und mehr.",
 			"quickDownload": "Schnelldownload",
@@ -131,7 +132,15 @@
 				"menuTitle": "Profil wechseln",
 				"menuDescription": "Ändere das aktive Profil für Quick Download, Bulk-URLs und Playlists.",
 				"newProfile": "Neues Profil",
-				"manageProfiles": "Profile verwalten"
+				"manageProfiles": "Profile verwalten",
+				"panelTitle": "Download-Profile",
+				"panelDescription": "Erstelle, wähle, bearbeite oder entferne wiederverwendbare Download-Einstellungen.",
+				"badgeCustom": "Benutzerdefiniert",
+				"badgeModified": "Geändert",
+				"badgeBuiltIn": "Integriert",
+				"edit": "Bearbeiten",
+				"remove": "Entfernen",
+				"reset": "Zurücksetzen"
 			},
 			"bulkButton": "Bulk-URLs",
 			"bulkTooltip": "Mehrere URLs hinzufügen und in die Warteschlange stellen.",
@@ -145,7 +154,21 @@
 			"mascotBusy": "Lade im Hintergrund… ich kann mehrere Dinge gleichzeitig 😎",
 			"advanced": "Erweitert",
 			"clearAria": "URL löschen",
-			"clipboard": {"toggle": "Zwischenablage beobachten", "toggleDescription": "Füllt das URL-Feld automatisch aus, wenn ein YouTube-Link kopiert wird.", "dialog": {"cancelButton": "Abbrechen"}},
+			"clipboard": {
+				"toggle": "Zwischenablage beobachten",
+				"toggleDescription": "Füllt das URL-Feld automatisch aus, wenn ein YouTube-Link kopiert wird.",
+				"autofilledLinks_one": "{{count}} Link aus der Zwischenablage geöffnet",
+				"autofilledLinks_other": "{{count}} Links aus der Zwischenablage geöffnet",
+				"autofilledLink": "Link aus der Zwischenablage hinzugefügt",
+				"pendingLinksReady_one": "{{count}} kopierter Link bereit",
+				"pendingLinksReady_other": "{{count}} kopierte Links bereit",
+				"pendingLinkReady": "Kopierter Link bereit",
+				"openCopiedLinks_one": "{{count}} kopierten Link öffnen",
+				"openCopiedLinks_other": "{{count}} kopierte Links öffnen",
+				"useCopiedLink": "Kopierten Link verwenden",
+				"dismissCopiedLink": "Kopierten Link ausblenden",
+				"dialog": {"cancelButton": "Abbrechen"}
+			},
 			"cookies": {
 				"sourceLabel": "Cookies-Quelle",
 				"sourceOff": "Aus",
@@ -371,7 +394,7 @@
 	"queue": {
 		"header": "Download-Warteschlange",
 		"tabLabel": "Warteschlange",
-		"empty": "Hier erscheinen Downloads, die du in die Warteschlange legst",
+		"empty": "Eingereihte Downloads erscheinen hier",
 		"filtersLabel": "Statusfilter der Warteschlange",
 		"filterAll": "Alle",
 		"selectedActionsLabel": "Ausgewählte Elemente",

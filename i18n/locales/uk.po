@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "Очистити завершені завантаження"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "Тут з'являться завантаження, додані в чергу"
+msgid "Queued downloads will appear here"
+msgstr "Завантаження в черзі з’являться тут"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "Очистити URL"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Посилання додано з буфера обміну"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "{{count}} посилання відкрито з буфера обміну"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "{{count}} посилань відкрито з буфера обміну"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "Скасувати"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "Приховати скопійоване посилання"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "Відкрити {{count}} скопійоване посилання"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "Відкрити {{count}} скопійованих посилань"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "Скопійоване посилання готове"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "{{count}} скопійоване посилання готове"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "{{count}} скопійованих посилань готові"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "Стежити за буфером обміну"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "Автоматично підставляє посилання YouTube у поле URL при копіюванні."
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "Використати скопійоване посилання"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "Активний профіль"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Вбудований"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Власний"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Змінено"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Змінити глобальну теку призначення"
@@ -2244,6 +2296,10 @@ msgstr "Змінити глобальну теку призначення"
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Тека призначення"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Редагувати"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "Перемкнути профіль"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Новий профіль"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Створюйте, вибирайте, редагуйте або видаляйте багаторазові налаштування завантаження."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Профілі завантаження"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Видалити"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Скинути"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "Додавати ID відео до одиночних імен файл
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Зберігає одноразові завантаження унікальними, коли назви змінюються або збігаються."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Профілі"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Налаштування"

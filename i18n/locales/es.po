@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "Limpiar descargas completadas"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "Las descargas que añadas aparecerán aquí"
+msgid "Queued downloads will appear here"
+msgstr "Las descargas en cola aparecerán aquí"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "Borrar URL"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Enlace añadido desde el portapapeles"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "{{count}} enlace abierto desde el portapapeles"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "{{count}} enlaces abiertos desde el portapapeles"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "Cancelar"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "Descartar enlace copiado"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "Abrir {{count}} enlace copiado"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "Abrir {{count}} enlaces copiados"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "Enlace copiado listo"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "{{count}} enlace copiado listo"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "{{count}} enlaces copiados listos"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "Vigilar portapapeles"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "Rellena automáticamente el campo URL al copiar un enlace de YouTube."
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "Usar enlace copiado"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "Perfil activo"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Integrado"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Personalizado"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Modificado"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Cambiar destino global"
@@ -2244,6 +2296,10 @@ msgstr "Cambiar destino global"
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Destino"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Editar"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "Cambiar perfil"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Nuevo perfil"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Crea, selecciona, edita o elimina configuraciones de descarga reutilizables."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Perfiles de descarga"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Eliminar"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Restablecer"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "Añadir ID del vídeo a nombres de archivo individuales"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Mantiene únicas las descargas sueltas cuando los títulos cambian o coinciden."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Perfiles"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Ajustes"

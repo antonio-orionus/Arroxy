@@ -116,6 +116,7 @@
 		"url": {
 			"heading": "URL orqali yuklab olish",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "Profillar", "settings": "Sozlamalar"},
 			"interactiveDownload": "Formatlarni olish",
 			"fetchFormatsTooltip": "Bosqichma-bosqich yordamchi. Format, sifat va boshqalarni tanlang.",
 			"quickDownload": "Tez yuklab olish",
@@ -139,7 +140,15 @@
 				"menuTitle": "Profilni almashtirish",
 				"menuDescription": "Quick Download, ko'p URL va pleylistlar uchun faol profilni o'zgartiring.",
 				"newProfile": "Yangi profil",
-				"manageProfiles": "Profillarni boshqarish"
+				"manageProfiles": "Profillarni boshqarish",
+				"panelTitle": "Yuklab olish profillari",
+				"panelDescription": "Qayta ishlatiladigan yuklab olish sozlamalarini yarating, tanlang, tahrirlang yoki olib tashlang.",
+				"badgeCustom": "Maxsus",
+				"badgeModified": "O‘zgartirilgan",
+				"badgeBuiltIn": "Ichki",
+				"edit": "Tahrirlash",
+				"remove": "Olib tashlash",
+				"reset": "Qayta tiklash"
 			},
 			"bulkButton": "Ommaviy URLlar",
 			"bulkTooltip": "Bir nechta URLni qo‘shing va navbatga qo‘ying.",
@@ -153,7 +162,21 @@
 			"mascotBusy": "Fonda yuklanmoqda… Men bir vaqtda ko'p ish qila olaman 😎",
 			"advanced": "Kengaytirilgan",
 			"clearAria": "URLni tozalash",
-			"clipboard": {"toggle": "Buferga nazar solish", "toggleDescription": "YouTube havolasini nusxalaganda URL maydonini avtomatik to'ldiradi.", "dialog": {"cancelButton": "Bekor qilish"}},
+			"clipboard": {
+				"toggle": "Buferga nazar solish",
+				"toggleDescription": "YouTube havolasini nusxalaganda URL maydonini avtomatik to'ldiradi.",
+				"autofilledLinks_one": "{{count}} ta havola buferdan ochildi",
+				"autofilledLinks_other": "{{count}} ta havola buferdan ochildi",
+				"autofilledLink": "Havola buferdan qo‘shildi",
+				"pendingLinksReady_one": "{{count}} ta nusxalangan havola tayyor",
+				"pendingLinksReady_other": "{{count}} ta nusxalangan havola tayyor",
+				"pendingLinkReady": "Nusxalangan havola tayyor",
+				"openCopiedLinks_one": "{{count}} ta nusxalangan havolani ochish",
+				"openCopiedLinks_other": "{{count}} ta nusxalangan havolani ochish",
+				"useCopiedLink": "Nusxalangan havoladan foydalanish",
+				"dismissCopiedLink": "Nusxalangan havolani yopish",
+				"dialog": {"cancelButton": "Bekor qilish"}
+			},
 			"cookies": {
 				"sourceLabel": "Cookies manbai",
 				"sourceOff": "O'chirilgan",
@@ -379,7 +402,7 @@
 	"queue": {
 		"header": "Yuklash navbati",
 		"tabLabel": "Navbat",
-		"empty": "Navbatga qo'shgan yuklamalaringiz bu yerda ko'rinadi",
+		"empty": "Navbatga qo‘shilgan yuklab olishlar shu yerda ko‘rinadi",
 		"filtersLabel": "Navbat holati filtrlari",
 		"filterAll": "Hammasi",
 		"selectedActionsLabel": "Tanlangan elementlar",

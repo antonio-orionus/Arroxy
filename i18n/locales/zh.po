@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "清除已完成的下载"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "加入队列的下载会显示在这里"
+msgid "Queued downloads will appear here"
+msgstr "排队的下载会显示在这里"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "清除 URL"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "已从剪贴板添加链接"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "已从剪贴板打开 {{count}} 个链接"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "已从剪贴板打开 {{count}} 个链接"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "取消"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "关闭复制的链接"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "打开 {{count}} 个复制的链接"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "打开 {{count}} 个复制的链接"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "复制的链接已准备好"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "{{count}} 个复制的链接已准备好"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "{{count}} 个复制的链接已准备好"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "监听剪贴板"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "复制 YouTube 链接时自动填充 URL 字段。"
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "使用复制的链接"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "活动配置文件"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "内置"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "自定义"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "已修改"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "更改全局保存位置"
@@ -2244,6 +2296,10 @@ msgstr "更改全局保存位置"
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "保存位置"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "编辑"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "切换配置文件"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "新建配置文件"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "创建、选择、编辑或移除可重复使用的下载设置。"
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "下载配置"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "移除"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "重置"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "将视频 ID 添加到单个文件名"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "当标题变化或重复时，让单次下载保持唯一。"
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "配置"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "设置"

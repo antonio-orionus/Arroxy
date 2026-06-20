@@ -254,7 +254,7 @@ export type QueueLane = z.infer<typeof queueLaneSchema>
 export const queueArtifactKindSchema = z.enum(['media', 'subtitle', 'thumbnail', 'description', 'companion', 'unknown'])
 export type QueueArtifactKind = z.infer<typeof queueArtifactKindSchema>
 
-export const queueSelectionActionSchema = z.enum(['pause', 'resume', 'cancel', 'retry', 'remove', 'change-output-target', 'pull-now'])
+export const queueSelectionActionSchema = z.enum(['pause', 'resume', 'cancel', 'retry', 'remove', 'pull-now'])
 export type QueueSelectionAction = z.infer<typeof queueSelectionActionSchema>
 
 const queueActionSkippedFailureReasonSchema = z.enum(['invalid-status', 'failed'])

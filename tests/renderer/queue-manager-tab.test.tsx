@@ -61,6 +61,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
+	Reflect.deleteProperty(navigator, 'clipboard')
 	i18next.removeResourceBundle('en', 'translation')
 	i18next.addResourceBundle('en', 'translation', en, true, true)
 })

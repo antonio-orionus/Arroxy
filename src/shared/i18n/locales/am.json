@@ -99,6 +99,7 @@
 		"url": {
 			"heading": "ከURL አውርድ",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "መገለጫዎች", "settings": "ቅንብሮች"},
 			"interactiveDownload": "ቅርጸቶችን ጫን",
 			"fetchFormatsTooltip": "ደረጃ-በደረጃ አጋዥ። ቅርጸት፣ ጥራት እና ሌሎችን ይምረጡ።",
 			"quickDownload": "ፈጣን ማውረድ",
@@ -122,7 +123,15 @@
 				"menuTitle": "መገለጫ ቀይር",
 				"menuDescription": "ለፈጣን ማውረድ፣ ለብዙ URL-ዎች እና ለአጫዋች ዝርዝሮች ንቁውን መገለጫ ቀይር።",
 				"newProfile": "አዲስ መገለጫ",
-				"manageProfiles": "መገለጫዎችን አስተዳድር"
+				"manageProfiles": "መገለጫዎችን አስተዳድር",
+				"panelTitle": "የማውረድ መገለጫዎች",
+				"panelDescription": "እንደገና ሊጠቀሙባቸው የሚችሉ የማውረድ ቅንብሮችን ይፍጠሩ፣ ይምረጡ፣ ያርትዑ ወይም ያስወግዱ።",
+				"badgeCustom": "ብጁ",
+				"badgeModified": "ተቀይሯል",
+				"badgeBuiltIn": "አብሮገነብ",
+				"edit": "አርትዕ",
+				"remove": "አስወግድ",
+				"reset": "ዳግም አስጀምር"
 			},
 			"bulkButton": "ብዙ URLዎች",
 			"bulkTooltip": "ብዙ URLዎችን ያክሉ እና ወረፋ ውስጥ ያስገቡ።",
@@ -136,7 +145,21 @@
 			"mascotBusy": "በዳራ ዳውንሎድ እያደረጉ ነው… ብዙ ስራ አሰራ 😎",
 			"advanced": "ከፍተኛ",
 			"clearAria": "URL አጽዳ",
-			"clipboard": {"toggle": "ቅጂ ሰሌዳ ተቆጣጠር", "toggleDescription": "YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።", "dialog": {"cancelButton": "ሰርዝ"}},
+			"clipboard": {
+				"toggle": "ቅጂ ሰሌዳ ተቆጣጠር",
+				"toggleDescription": "YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።",
+				"autofilledLinks_one": "{{count}} አገናኝ ከቅንጥብ ሰሌዳ ተከፍቷል",
+				"autofilledLinks_other": "{{count}} አገናኞች ከቅንጥብ ሰሌዳ ተከፍተዋል",
+				"autofilledLink": "አገናኝ ከቅንጥብ ሰሌዳ ታክሏል",
+				"pendingLinksReady_one": "{{count}} የተቀዳ አገናኝ ዝግጁ ነው",
+				"pendingLinksReady_other": "{{count}} የተቀዱ አገናኞች ዝግጁ ናቸው",
+				"pendingLinkReady": "የተቀዳ አገናኝ ዝግጁ ነው",
+				"openCopiedLinks_one": "{{count}} የተቀዳ አገናኝ ክፈት",
+				"openCopiedLinks_other": "{{count}} የተቀዱ አገናኞች ክፈት",
+				"useCopiedLink": "የተቀዳውን አገናኝ ተጠቀም",
+				"dismissCopiedLink": "የተቀዳውን አገናኝ ዝጋ",
+				"dialog": {"cancelButton": "ሰርዝ"}
+			},
 			"cookies": {
 				"sourceLabel": "የ Cookies ምንጭ",
 				"sourceOff": "ጠፍ",
@@ -338,7 +361,7 @@
 	"queue": {
 		"header": "የዳውንሎድ ተሰላፊ",
 		"tabLabel": "ወረፋ",
-		"empty": "የሚሰለፉት ዳውንሎዶች እዚህ ይታያሉ",
+		"empty": "በወረፋ የተጨመሩ ማውረዶች እዚህ ይታያሉ",
 		"filtersLabel": "የወረፋ ሁኔታ ማጣሪያዎች",
 		"filterAll": "ሁሉም",
 		"selectedActionsLabel": "የተመረጡ ንጥሎች",

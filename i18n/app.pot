@@ -411,7 +411,7 @@ msgid "Clear completed downloads"
 msgstr ""
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
+msgid "Queued downloads will appear here"
 msgstr ""
 
 msgctxt "queue.filterAll"
@@ -1879,8 +1879,44 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr ""
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr ""
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr ""
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr ""
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
+msgstr ""
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr ""
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr ""
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr ""
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr ""
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr ""
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
 msgstr ""
 
 msgctxt "wizard.url.clipboard.toggle"
@@ -1889,6 +1925,10 @@ msgstr ""
 
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
+msgstr ""
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
 msgstr ""
 
 msgctxt "wizard.url.closeToTray.toggle"
@@ -2231,12 +2271,28 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr ""
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr ""
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr ""
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr ""
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr ""
 
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
+msgstr ""
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
 msgstr ""
 
 msgctxt "wizard.url.profile.editActive"
@@ -2257,6 +2313,22 @@ msgstr ""
 
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
+msgstr ""
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr ""
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr ""
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr ""
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
 msgstr ""
 
 msgctxt "wizard.url.profile.switchAria"
@@ -2333,4 +2405,12 @@ msgstr ""
 
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
+msgstr ""
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr ""
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
 msgstr ""

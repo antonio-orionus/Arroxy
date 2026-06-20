@@ -41,7 +41,7 @@ export async function changeQueueOutputTarget(host: QueueOutputTargetMoveHost, i
 
 	const items: QueueOutputTargetChangeItemResult[] = []
 	const skipped: QueueActionSkippedItem[] = []
-	const applicableItems: QueueItem[] = []
+	const applicableItemIds: string[] = []
 
 	for (const itemId of itemIds) {
 		const item = host.findItem(itemId)
@@ -53,15 +53,20 @@ export async function changeQueueOutputTarget(host: QueueOutputTargetMoveHost, i
 			skipped.push({itemId: item.id, status: item.status, reason: 'invalid-status'})
 			continue
 		}
-		applicableItems.push(item)
+		applicableItemIds.push(item.id)
 	}
 
-	if (applicableItems.length === 0) return ok({outputDir: nextOutputDir, items, skipped})
+	if (applicableItemIds.length === 0) return ok({outputDir: nextOutputDir, items, skipped})
 
 	const writable = await ensureWritableDirectory(nextOutputDir)
 	if (!writable.ok) return fail(writable.error)
 
-	for (const item of applicableItems) {
+	for (const itemId of applicableItemIds) {
+		const item = host.findItem(itemId)
+		if (!item) {
+			skipped.push({itemId, reason: 'not-found'})
+			continue
+		}
 		const result = changeSingleOutputTarget(host, item, nextOutputDir)
 		if ('skipped' in result) {
 			skipped.push(result.skipped)

@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "له URL څخه ډاونلوډ",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "پروفایلونه", "settings": "امستنې"},
 			"interactiveDownload": "بڼې ترلاسه کړه",
 			"fetchFormatsTooltip": "ګام په ګام لارښود. بڼه، کیفیت او نور وټاکئ.",
 			"quickDownload": "چټک ډاونلوډ",
@@ -131,7 +132,15 @@
 				"menuTitle": "پروفایل بدل کړئ",
 				"menuDescription": "د چټک ډاونلوډ، ګڼو URLونو او پلی‌لیستونو لپاره فعال پروفایل بدل کړئ.",
 				"newProfile": "نوی پروفایل",
-				"manageProfiles": "پروفایلونه اداره کړئ"
+				"manageProfiles": "پروفایلونه اداره کړئ",
+				"panelTitle": "د ډاونلوډ پروفایلونه",
+				"panelDescription": "د بیا کارولو وړ د ډاونلوډ امستنې جوړې، غوره، سمې یا لرې کړئ.",
+				"badgeCustom": "دودیز",
+				"badgeModified": "بدل شوی",
+				"badgeBuiltIn": "دننه جوړ",
+				"edit": "سمول",
+				"remove": "لرې کول",
+				"reset": "بیا تنظیمول"
 			},
 			"bulkButton": "ډېر URLونه",
 			"bulkTooltip": "څو URLونه زیات او کتار ته یې واچوئ.",
@@ -145,7 +154,21 @@
 			"mascotBusy": "شاتهپرده ډاونلوډ کیږي… زه کولی شم له ډیرو کارونو سره معامله وکړم 😎",
 			"advanced": "پرمختللي",
 			"clearAria": "URL پاکول",
-			"clipboard": {"toggle": "کلیپبورډ وګورئ", "toggleDescription": "کله چې تاسو یو YouTube لینک کاپي کړئ، د URL ساحه اتوماتیک ډکه کړئ.", "dialog": {"cancelButton": "لغوه کړه"}},
+			"clipboard": {
+				"toggle": "کلیپبورډ وګورئ",
+				"toggleDescription": "کله چې تاسو یو YouTube لینک کاپي کړئ، د URL ساحه اتوماتیک ډکه کړئ.",
+				"autofilledLinks_one": "{{count}} لینک له کلېپبورډه پرانیستل شو",
+				"autofilledLinks_other": "{{count}} لینکونه له کلېپبورډه پرانیستل شول",
+				"autofilledLink": "لینک له کلېپبورډه زیات شو",
+				"pendingLinksReady_one": "{{count}} کاپي شوی لینک چمتو دی",
+				"pendingLinksReady_other": "{{count}} کاپي شوي لینکونه چمتو دي",
+				"pendingLinkReady": "کاپي شوی لینک چمتو دی",
+				"openCopiedLinks_one": "{{count}} کاپي شوی لینک پرانیزه",
+				"openCopiedLinks_other": "{{count}} کاپي شوي لینکونه پرانیزه",
+				"useCopiedLink": "کاپي شوی لینک وکاروه",
+				"dismissCopiedLink": "کاپي شوی لینک بند کړه",
+				"dialog": {"cancelButton": "لغوه کړه"}
+			},
 			"cookies": {
 				"sourceLabel": "د کوکیزو سرچینه",
 				"sourceOff": "بند",
@@ -371,7 +394,7 @@
 	"queue": {
 		"header": "د ډاونلوډ کتار",
 		"tabLabel": "کتار",
-		"empty": "هغه ډاونلوډونه چې تاسو کتار کې اچوئ دلته ښکاره کیږي",
+		"empty": "په کتار کې ډاونلوډونه به دلته ښکاره شي",
 		"filtersLabel": "د کتار حالت چاڼګرونه",
 		"filterAll": "ټول",
 		"selectedActionsLabel": "ټاکل شوي توکي",

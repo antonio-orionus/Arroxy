@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "Λήψη από URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "Προφίλ", "settings": "Ρυθμίσεις"},
 			"interactiveDownload": "Φόρτωση μορφών",
 			"fetchFormatsTooltip": "Οδηγός βήμα προς βήμα. Επίλεξε μορφή, ποιότητα και περισσότερα.",
 			"quickDownload": "Γρήγορη λήψη",
@@ -131,7 +132,15 @@
 				"menuTitle": "Αλλαγή προφίλ",
 				"menuDescription": "Άλλαξε το ενεργό προφίλ για Γρήγορη λήψη, μαζικά URL και playlist.",
 				"newProfile": "Νέο προφίλ",
-				"manageProfiles": "Διαχείριση προφίλ"
+				"manageProfiles": "Διαχείριση προφίλ",
+				"panelTitle": "Προφίλ λήψης",
+				"panelDescription": "Δημιουργήστε, επιλέξτε, επεξεργαστείτε ή αφαιρέστε επαναχρησιμοποιήσιμες ρυθμίσεις λήψης.",
+				"badgeCustom": "Προσαρμοσμένο",
+				"badgeModified": "Τροποποιημένο",
+				"badgeBuiltIn": "Ενσωματωμένο",
+				"edit": "Επεξεργασία",
+				"remove": "Αφαίρεση",
+				"reset": "Επαναφορά"
 			},
 			"bulkButton": "Μαζικά URL",
 			"bulkTooltip": "Πρόσθεσε και βάλε στην ουρά πολλά URL.",
@@ -145,7 +154,21 @@
 			"mascotBusy": "Λήψη στο παρασκήνιο… Ξέρω να κάνω πολλά μαζί 😎",
 			"advanced": "Για προχωρημένους",
 			"clearAria": "Εκκαθάριση URL",
-			"clipboard": {"toggle": "Παρακολούθηση πρόχειρου", "toggleDescription": "Αυτόματη συμπλήρωση του πεδίου URL όταν αντιγράφεις σύνδεσμο YouTube.", "dialog": {"cancelButton": "Ακύρωση"}},
+			"clipboard": {
+				"toggle": "Παρακολούθηση πρόχειρου",
+				"toggleDescription": "Αυτόματη συμπλήρωση του πεδίου URL όταν αντιγράφεις σύνδεσμο YouTube.",
+				"autofilledLinks_one": "Άνοιξε {{count}} σύνδεσμος από το πρόχειρο",
+				"autofilledLinks_other": "Άνοιξαν {{count}} σύνδεσμοι από το πρόχειρο",
+				"autofilledLink": "Προστέθηκε σύνδεσμος από το πρόχειρο",
+				"pendingLinksReady_one": "{{count}} αντιγραμμένος σύνδεσμος έτοιμος",
+				"pendingLinksReady_other": "{{count}} αντιγραμμένοι σύνδεσμοι έτοιμοι",
+				"pendingLinkReady": "Ο αντιγραμμένος σύνδεσμος είναι έτοιμος",
+				"openCopiedLinks_one": "Άνοιγμα {{count}} αντιγραμμένου συνδέσμου",
+				"openCopiedLinks_other": "Άνοιγμα {{count}} αντιγραμμένων συνδέσμων",
+				"useCopiedLink": "Χρήση αντιγραμμένου συνδέσμου",
+				"dismissCopiedLink": "Απόρριψη αντιγραμμένου συνδέσμου",
+				"dialog": {"cancelButton": "Ακύρωση"}
+			},
 			"cookies": {
 				"sourceLabel": "Πηγή cookies",
 				"sourceOff": "Απενεργοποιημένο",
@@ -371,7 +394,7 @@
 	"queue": {
 		"header": "Ουρά λήψεων",
 		"tabLabel": "Ουρά",
-		"empty": "Οι λήψεις που θα προσθέσεις στην ουρά θα εμφανιστούν εδώ",
+		"empty": "Οι λήψεις στην ουρά θα εμφανιστούν εδώ",
 		"filtersLabel": "Φίλτρα κατάστασης ουράς",
 		"filterAll": "Όλα",
 		"selectedActionsLabel": "Επιλεγμένα στοιχεία",

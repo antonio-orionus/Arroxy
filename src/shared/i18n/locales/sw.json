@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "Pakua kutoka URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "Wasifu", "settings": "Mipangilio"},
 			"interactiveDownload": "Pata maumbo",
 			"fetchFormatsTooltip": "Mchawi wa hatua kwa hatua. Chagua umbizo, ubora na mengine.",
 			"quickDownload": "Upakuaji wa haraka",
@@ -131,7 +132,15 @@
 				"menuTitle": "Badilisha wasifu",
 				"menuDescription": "Badilisha wasifu unaotumika kwa Quick Download, URL nyingi na orodha za kucheza.",
 				"newProfile": "Wasifu mpya",
-				"manageProfiles": "Dhibiti wasifu"
+				"manageProfiles": "Dhibiti wasifu",
+				"panelTitle": "Wasifu wa upakuaji",
+				"panelDescription": "Unda, chagua, hariri, au ondoa mipangilio ya upakuaji inayoweza kutumika tena.",
+				"badgeCustom": "Maalum",
+				"badgeModified": "Imebadilishwa",
+				"badgeBuiltIn": "Imejengwa ndani",
+				"edit": "Hariri",
+				"remove": "Ondoa",
+				"reset": "Weka upya"
 			},
 			"bulkButton": "URL nyingi",
 			"bulkTooltip": "Ongeza na weka foleni URL nyingi.",
@@ -145,7 +154,21 @@
 			"mascotBusy": "Inapakua nyuma ya pazia… Ninaweza kufanya mambo mengi kwa wakati mmoja 😎",
 			"advanced": "Hali ya juu",
 			"clearAria": "Futa URL",
-			"clipboard": {"toggle": "Angalia ubao wa kunakili", "toggleDescription": "Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube.", "dialog": {"cancelButton": "Ghairi"}},
+			"clipboard": {
+				"toggle": "Angalia ubao wa kunakili",
+				"toggleDescription": "Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube.",
+				"autofilledLinks_one": "Kiungo {{count}} kimefunguliwa kutoka ubao wa kunakili",
+				"autofilledLinks_other": "Viungo {{count}} vimefunguliwa kutoka ubao wa kunakili",
+				"autofilledLink": "Kiungo kimeongezwa kutoka ubao wa kunakili",
+				"pendingLinksReady_one": "Kiungo {{count}} kilichonakiliwa kiko tayari",
+				"pendingLinksReady_other": "Viungo {{count}} vilivyonakiliwa viko tayari",
+				"pendingLinkReady": "Kiungo kilichonakiliwa kiko tayari",
+				"openCopiedLinks_one": "Fungua kiungo {{count}} kilichonakiliwa",
+				"openCopiedLinks_other": "Fungua viungo {{count}} vilivyonakiliwa",
+				"useCopiedLink": "Tumia kiungo kilichonakiliwa",
+				"dismissCopiedLink": "Ondoa kiungo kilichonakiliwa",
+				"dialog": {"cancelButton": "Ghairi"}
+			},
 			"cookies": {
 				"sourceLabel": "Chanzo cha vidakuzi",
 				"sourceOff": "Zima",
@@ -371,7 +394,7 @@
 	"queue": {
 		"header": "Foleni ya Kupakua",
 		"tabLabel": "Foleni",
-		"empty": "Vipakuzi unavyoweka kwenye foleni vitaonekana hapa",
+		"empty": "Vipakuliwa vilivyowekwa kwenye foleni vitaonekana hapa",
 		"filtersLabel": "Vichujio vya hali ya foleni",
 		"filterAll": "Zote",
 		"selectedActionsLabel": "Vipengee vilivyochaguliwa",

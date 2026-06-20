@@ -116,6 +116,7 @@
 		"url": {
 			"heading": "Завантажити з URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "Профілі", "settings": "Налаштування"},
 			"interactiveDownload": "Отримати формати",
 			"fetchFormatsTooltip": "Покроковий майстер. Виберіть формат, якість та інші параметри.",
 			"quickDownload": "Швидке завантаження",
@@ -139,7 +140,15 @@
 				"menuTitle": "Перемкнути профіль",
 				"menuDescription": "Змініть активний профіль для Quick Download, масових URL і списків відтворення.",
 				"newProfile": "Новий профіль",
-				"manageProfiles": "Керувати профілями"
+				"manageProfiles": "Керувати профілями",
+				"panelTitle": "Профілі завантаження",
+				"panelDescription": "Створюйте, вибирайте, редагуйте або видаляйте багаторазові налаштування завантаження.",
+				"badgeCustom": "Власний",
+				"badgeModified": "Змінено",
+				"badgeBuiltIn": "Вбудований",
+				"edit": "Редагувати",
+				"remove": "Видалити",
+				"reset": "Скинути"
 			},
 			"bulkButton": "Масові URL",
 			"bulkTooltip": "Додайте кілька URL і поставте їх у чергу.",
@@ -153,7 +162,21 @@
 			"mascotBusy": "Завантажую у фоні… можу робити кілька справ одночасно 😎",
 			"advanced": "Додатково",
 			"clearAria": "Очистити URL",
-			"clipboard": {"toggle": "Стежити за буфером обміну", "toggleDescription": "Автоматично підставляє посилання YouTube у поле URL при копіюванні.", "dialog": {"cancelButton": "Скасувати"}},
+			"clipboard": {
+				"toggle": "Стежити за буфером обміну",
+				"toggleDescription": "Автоматично підставляє посилання YouTube у поле URL при копіюванні.",
+				"autofilledLinks_one": "{{count}} посилання відкрито з буфера обміну",
+				"autofilledLinks_other": "{{count}} посилань відкрито з буфера обміну",
+				"autofilledLink": "Посилання додано з буфера обміну",
+				"pendingLinksReady_one": "{{count}} скопійоване посилання готове",
+				"pendingLinksReady_other": "{{count}} скопійованих посилань готові",
+				"pendingLinkReady": "Скопійоване посилання готове",
+				"openCopiedLinks_one": "Відкрити {{count}} скопійоване посилання",
+				"openCopiedLinks_other": "Відкрити {{count}} скопійованих посилань",
+				"useCopiedLink": "Використати скопійоване посилання",
+				"dismissCopiedLink": "Приховати скопійоване посилання",
+				"dialog": {"cancelButton": "Скасувати"}
+			},
 			"cookies": {
 				"sourceLabel": "Джерело cookies",
 				"sourceOff": "Вимк",
@@ -379,7 +402,7 @@
 	"queue": {
 		"header": "Черга завантажень",
 		"tabLabel": "Черга",
-		"empty": "Тут з'являться завантаження, додані в чергу",
+		"empty": "Завантаження в черзі з’являться тут",
 		"filtersLabel": "Фільтри стану черги",
 		"filterAll": "Усе",
 		"selectedActionsLabel": "Вибрані елементи",

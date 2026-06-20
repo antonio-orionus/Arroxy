@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "ပြီးဆုံးသောဒေါင်းလုဒ်များ ရှင်းလင်းမည်"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "Queue ထည့်ထားသောဒေါင်းလုဒ်များ ဤနေရာတွင်ပေါ်မည်"
+msgid "Queued downloads will appear here"
+msgstr "တန်းစီထားသော ဒေါင်းလုဒ်များကို ဤနေရာတွင် ပြမည်"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "URL ရှင်းလင်းမည်"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "ကလစ်ဘုတ်မှ လင့်ခ် ထည့်ခဲ့သည်"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "ကလစ်ဘုတ်မှ လင့်ခ် {{count}} ခု ဖွင့်ခဲ့သည်"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "ကလစ်ဘုတ်မှ လင့်ခ် {{count}} ခု ဖွင့်ခဲ့သည်"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "မလုပ်တော့ပါ"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "ကူးယူထားသော လင့်ခ် ပိတ်ရန်"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု ဖွင့်ရန်"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု ဖွင့်ရန်"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "ကူးယူထားသော လင့်ခ် အသင့်ဖြစ်သည်"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု အသင့်ဖြစ်သည်"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု အသင့်ဖြစ်သည်"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "ကလစ်ဘုတ်ကြည့်မည်"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "YouTube လင့်ခ်ကော်ပီလုပ်လျှင် URL ဖြည့်သွင်းမည်။"
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "ကူးယူထားသော လင့်ခ် သုံးရန်"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "လက်ရှိ ပရိုဖိုင်"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "မူလပါရှိသည်"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "စိတ်ကြိုက်"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "ပြင်ဆင်ထားသည်"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "အများသုံး သိမ်းဆည်းရာနေရာ ပြောင်းပါ"
@@ -2244,6 +2296,10 @@ msgstr "အများသုံး သိမ်းဆည်းရာနေရ�
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "သိမ်းဆည်းရာနေရာ"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "တည်းဖြတ်"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "ပရိုဖိုင် ပြောင်းပါ"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "ပရိုဖိုင် အသစ်"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "ပြန်သုံးနိုင်သော ဒေါင်းလုဒ် ဆက်တင်များကို ဖန်တီး၊ ရွေးချယ်၊ တည်းဖြတ် သို့မဟုတ် ဖယ်ရှားပါ။"
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "ဒေါင်းလုဒ် ပရိုဖိုင်များ"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "ဖယ်ရှား"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "ပြန်သတ်မှတ်"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "တစ်ခုချင်း ဖိုင်အမည်များ�
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "ခေါင်းစဉ်များ ပြောင်းလဲခြင်း သို့မဟုတ် တူညီခြင်း ဖြစ်သည့်အခါ တစ်ခုချင်း ဒေါင်းလုဒ်များကို မတူညီအောင် ထိန်းထားသည်။"
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "ပရိုဖိုင်များ"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "ဆက်တင်များ"

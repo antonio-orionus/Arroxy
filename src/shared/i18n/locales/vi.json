@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "Tải xuống từ URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "Hồ sơ", "settings": "Cài đặt"},
 			"interactiveDownload": "Tải định dạng",
 			"fetchFormatsTooltip": "Trình hướng dẫn từng bước. Chọn định dạng, chất lượng và hơn nữa.",
 			"quickDownload": "Tải nhanh",
@@ -131,7 +132,15 @@
 				"menuTitle": "Đổi hồ sơ",
 				"menuDescription": "Đổi hồ sơ đang dùng cho Tải nhanh, URL hàng loạt và playlist.",
 				"newProfile": "Hồ sơ mới",
-				"manageProfiles": "Quản lý hồ sơ"
+				"manageProfiles": "Quản lý hồ sơ",
+				"panelTitle": "Hồ sơ tải xuống",
+				"panelDescription": "Tạo, chọn, chỉnh sửa hoặc xóa các thiết lập tải xuống có thể dùng lại.",
+				"badgeCustom": "Tùy chỉnh",
+				"badgeModified": "Đã sửa",
+				"badgeBuiltIn": "Tích hợp",
+				"edit": "Sửa",
+				"remove": "Xóa",
+				"reset": "Đặt lại"
 			},
 			"bulkButton": "URL hàng loạt",
 			"bulkTooltip": "Thêm và xếp hàng nhiều URL.",
@@ -145,7 +154,21 @@
 			"mascotBusy": "Đang tải xuống trong nền… Tôi có thể làm nhiều việc cùng lúc 😎",
 			"advanced": "Nâng cao",
 			"clearAria": "Xóa URL",
-			"clipboard": {"toggle": "Theo dõi bộ nhớ tạm", "toggleDescription": "Tự động điền vào trường URL khi bạn sao chép một liên kết YouTube.", "dialog": {"cancelButton": "Hủy"}},
+			"clipboard": {
+				"toggle": "Theo dõi bộ nhớ tạm",
+				"toggleDescription": "Tự động điền vào trường URL khi bạn sao chép một liên kết YouTube.",
+				"autofilledLinks_one": "Đã mở {{count}} liên kết từ bảng nhớ tạm",
+				"autofilledLinks_other": "Đã mở {{count}} liên kết từ bảng nhớ tạm",
+				"autofilledLink": "Đã thêm liên kết từ bảng nhớ tạm",
+				"pendingLinksReady_one": "{{count}} liên kết đã sao chép sẵn sàng",
+				"pendingLinksReady_other": "{{count}} liên kết đã sao chép sẵn sàng",
+				"pendingLinkReady": "Liên kết đã sao chép sẵn sàng",
+				"openCopiedLinks_one": "Mở {{count}} liên kết đã sao chép",
+				"openCopiedLinks_other": "Mở {{count}} liên kết đã sao chép",
+				"useCopiedLink": "Dùng liên kết đã sao chép",
+				"dismissCopiedLink": "Bỏ qua liên kết đã sao chép",
+				"dialog": {"cancelButton": "Hủy"}
+			},
 			"cookies": {
 				"sourceLabel": "Nguồn cookies",
 				"sourceOff": "Tắt",
@@ -371,7 +394,7 @@
 	"queue": {
 		"header": "Hàng đợi tải xuống",
 		"tabLabel": "Hàng đợi",
-		"empty": "Các tải xuống bạn thêm vào hàng đợi sẽ xuất hiện ở đây",
+		"empty": "Các lượt tải đã xếp hàng sẽ xuất hiện ở đây",
 		"filtersLabel": "Bộ lọc trạng thái hàng đợi",
 		"filterAll": "Tất cả",
 		"selectedActionsLabel": "Mục đã chọn",

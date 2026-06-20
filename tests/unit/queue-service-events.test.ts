@@ -350,6 +350,16 @@ describe('QueueService — output target changes', () => {
 			await fs.rm(root, {recursive: true, force: true})
 		}
 	})
+
+	it('keeps a moved artifact event even when the source artifact was not tracked', () => {
+		const {qs} = makeService()
+		qs.add([makeItem({id: 'running-artifact', status: 'running', lastJobId: 'job-artifact', outputDir: '/downloads', progressPercent: 55, artifacts: []})])
+
+		qs.consumeArtifactEvent({jobId: 'job-artifact', kind: 'media', path: '/downloads/video.mkv', fromPath: '/downloads/.tmp/video.mkv', at: '2026-06-18T10:00:00.000Z'})
+
+		const [item] = qs.snapshot()
+		expect(item.artifacts).toEqual([{id: 'artifact:/downloads/video.mkv', kind: 'media', path: '/downloads/video.mkv', fileName: 'video.mkv', discoveredAt: '2026-06-18T10:00:00.000Z'}])
+	})
 })
 
 describe('resume — cross-restart path', () => {

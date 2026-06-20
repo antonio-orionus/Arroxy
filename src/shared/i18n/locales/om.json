@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "URL irraa buusi",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "Profaayilota", "settings": "Qindaaʼinoota"},
 			"interactiveDownload": "Foormaatii fidi",
 			"fetchFormatsTooltip": "Wizard tarkaanfii-tarkaanfiin. Foormaatii, qulqullina fi kan biroo fili.",
 			"quickDownload": "Buufata saffisaa",
@@ -131,7 +132,15 @@
 				"menuTitle": "Profaayilii jijjiiri",
 				"menuDescription": "Quick Download, URL baay'ee fi playlist'f profaayilii hojiirra jiru jijjiiri.",
 				"newProfile": "Profaayilii haaraa",
-				"manageProfiles": "Profaayilii bulchi"
+				"manageProfiles": "Profaayilii bulchi",
+				"panelTitle": "Profaayilota buusuu",
+				"panelDescription": "Qindaaʼinoota buusuu irra deebiin fayyadamuu dandeessu uumi, filadhu, gulaali, yookiin haqi.",
+				"badgeCustom": "Mataakee",
+				"badgeModified": "Fooyyaʼe",
+				"badgeBuiltIn": "Keessaa jiru",
+				"edit": "Gulaali",
+				"remove": "Haqi",
+				"reset": "Deebisi"
 			},
 			"bulkButton": "URL hedduu",
 			"bulkTooltip": "URL hedduu dabaliitii tarree buusutti galchi.",
@@ -145,7 +154,21 @@
 			"mascotBusy": "Duubaan buusaa jira… rakkoo guguddaa hojjechuuf dandeessa 😎",
 			"advanced": "Ammayyaa",
 			"clearAria": "URL qulqulleessi",
-			"clipboard": {"toggle": "Kliipboordii hordofi", "toggleDescription": "Liinkii YouTube koopii gootee booda dirree URL ofumaan guuti.", "dialog": {"cancelButton": "Haqi"}},
+			"clipboard": {
+				"toggle": "Kliipboordii hordofi",
+				"toggleDescription": "Liinkii YouTube koopii gootee booda dirree URL ofumaan guuti.",
+				"autofilledLinks_one": "Liinki {{count}} gabatee waraabbii irraa baname",
+				"autofilledLinks_other": "Liinkota {{count}} gabatee waraabbii irraa banaman",
+				"autofilledLink": "Liinki gabatee waraabbii irraa dabalame",
+				"pendingLinksReady_one": "Liinki waraabbame {{count}} qophaaʼeera",
+				"pendingLinksReady_other": "Liinkotni waraabbaman {{count}} qophaaʼaniiru",
+				"pendingLinkReady": "Liinki waraabbame qophaaʼeera",
+				"openCopiedLinks_one": "Liinki waraabbame {{count}} bani",
+				"openCopiedLinks_other": "Liinkota waraabbaman {{count}} bani",
+				"useCopiedLink": "Liinki waraabbame fayyadami",
+				"dismissCopiedLink": "Liinki waraabbame cufi",
+				"dialog": {"cancelButton": "Haqi"}
+			},
 			"cookies": {
 				"sourceLabel": "Madda Cookies",
 				"sourceOff": "Dhaabbi",
@@ -371,7 +394,7 @@
 	"queue": {
 		"header": "Tartiiba Daawniloodii",
 		"tabLabel": "Tarree",
-		"empty": "Daawniloodoonni si tartiibsiiftan asitti mul'atu",
+		"empty": "Buusawwan tarreeffaman asitti ni mulʼatu",
 		"filtersLabel": "Calleeffamtoota haala tarree",
 		"filterAll": "Hundaa",
 		"selectedActionsLabel": "Wantoota filataman",

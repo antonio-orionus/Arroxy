@@ -99,6 +99,7 @@
 		"url": {
 			"heading": "URL မှ ဒေါင်းလုဒ်လုပ်ရန်",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "ပရိုဖိုင်များ", "settings": "ဆက်တင်များ"},
 			"interactiveDownload": "ဖော်မတ်များရယူမည်",
 			"fetchFormatsTooltip": "အဆင့်လိုက် wizard။ ဖော်မတ်၊ အရည်အသွေးနှင့် အခြားအရာများကို ရွေးပါ။",
 			"quickDownload": "အမြန်ဒေါင်းလုဒ်",
@@ -122,7 +123,15 @@
 				"menuTitle": "ပရိုဖိုင် ပြောင်းပါ",
 				"menuDescription": "Quick Download၊ URL များစွာ နှင့် playlist များအတွက် လက်ရှိ ပရိုဖိုင်ကို ပြောင်းပါ။",
 				"newProfile": "ပရိုဖိုင် အသစ်",
-				"manageProfiles": "ပရိုဖိုင်များကို စီမံပါ"
+				"manageProfiles": "ပရိုဖိုင်များကို စီမံပါ",
+				"panelTitle": "ဒေါင်းလုဒ် ပရိုဖိုင်များ",
+				"panelDescription": "ပြန်သုံးနိုင်သော ဒေါင်းလုဒ် ဆက်တင်များကို ဖန်တီး၊ ရွေးချယ်၊ တည်းဖြတ် သို့မဟုတ် ဖယ်ရှားပါ။",
+				"badgeCustom": "စိတ်ကြိုက်",
+				"badgeModified": "ပြင်ဆင်ထားသည်",
+				"badgeBuiltIn": "မူလပါရှိသည်",
+				"edit": "တည်းဖြတ်",
+				"remove": "ဖယ်ရှား",
+				"reset": "ပြန်သတ်မှတ်"
 			},
 			"bulkButton": "URL အများအပြား",
 			"bulkTooltip": "URL အများအပြားကို ထည့်ပြီး queue ထဲသို့ ထည့်ပါ။",
@@ -136,7 +145,21 @@
 			"mascotBusy": "နောက်ခံတွင် ဒေါင်းလုဒ်လုပ်နေသည်… ကျွန်ုပ် တစ်ချိန်တည်းလုပ်နိုင်သည် 😎",
 			"advanced": "အဆင့်မြင့်",
 			"clearAria": "URL ရှင်းလင်းမည်",
-			"clipboard": {"toggle": "ကလစ်ဘုတ်ကြည့်မည်", "toggleDescription": "YouTube လင့်ခ်ကော်ပီလုပ်လျှင် URL ဖြည့်သွင်းမည်။", "dialog": {"cancelButton": "မလုပ်တော့ပါ"}},
+			"clipboard": {
+				"toggle": "ကလစ်ဘုတ်ကြည့်မည်",
+				"toggleDescription": "YouTube လင့်ခ်ကော်ပီလုပ်လျှင် URL ဖြည့်သွင်းမည်။",
+				"autofilledLinks_one": "ကလစ်ဘုတ်မှ လင့်ခ် {{count}} ခု ဖွင့်ခဲ့သည်",
+				"autofilledLinks_other": "ကလစ်ဘုတ်မှ လင့်ခ် {{count}} ခု ဖွင့်ခဲ့သည်",
+				"autofilledLink": "ကလစ်ဘုတ်မှ လင့်ခ် ထည့်ခဲ့သည်",
+				"pendingLinksReady_one": "ကူးယူထားသော လင့်ခ် {{count}} ခု အသင့်ဖြစ်သည်",
+				"pendingLinksReady_other": "ကူးယူထားသော လင့်ခ် {{count}} ခု အသင့်ဖြစ်သည်",
+				"pendingLinkReady": "ကူးယူထားသော လင့်ခ် အသင့်ဖြစ်သည်",
+				"openCopiedLinks_one": "ကူးယူထားသော လင့်ခ် {{count}} ခု ဖွင့်ရန်",
+				"openCopiedLinks_other": "ကူးယူထားသော လင့်ခ် {{count}} ခု ဖွင့်ရန်",
+				"useCopiedLink": "ကူးယူထားသော လင့်ခ် သုံးရန်",
+				"dismissCopiedLink": "ကူးယူထားသော လင့်ခ် ပိတ်ရန်",
+				"dialog": {"cancelButton": "မလုပ်တော့ပါ"}
+			},
 			"cookies": {
 				"sourceLabel": "ကွတ်ကီးရင်းမြစ်",
 				"sourceOff": "ပိတ်",
@@ -362,7 +385,7 @@
 	"queue": {
 		"header": "ဒေါင်းလုဒ် Queue",
 		"tabLabel": "တန်းစီ",
-		"empty": "Queue ထည့်ထားသောဒေါင်းလုဒ်များ ဤနေရာတွင်ပေါ်မည်",
+		"empty": "တန်းစီထားသော ဒေါင်းလုဒ်များကို ဤနေရာတွင် ပြမည်",
 		"filtersLabel": "တန်းစီအခြေအနေ စစ်ထုတ်မှုများ",
 		"filterAll": "အားလုံး",
 		"selectedActionsLabel": "ရွေးချယ်ထားသည့်အရာများ",

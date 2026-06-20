@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "Descargar desde URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "Perfiles", "settings": "Ajustes"},
 			"interactiveDownload": "Obtener formatos",
 			"fetchFormatsTooltip": "Asistente paso a paso. Elige formato, calidad y más.",
 			"quickDownload": "Descarga rápida",
@@ -131,7 +132,15 @@
 				"menuTitle": "Cambiar perfil",
 				"menuDescription": "Cambia el perfil activo para Descarga rápida, URLs en lote y listas de reproducción.",
 				"newProfile": "Nuevo perfil",
-				"manageProfiles": "Gestionar perfiles"
+				"manageProfiles": "Gestionar perfiles",
+				"panelTitle": "Perfiles de descarga",
+				"panelDescription": "Crea, selecciona, edita o elimina configuraciones de descarga reutilizables.",
+				"badgeCustom": "Personalizado",
+				"badgeModified": "Modificado",
+				"badgeBuiltIn": "Integrado",
+				"edit": "Editar",
+				"remove": "Eliminar",
+				"reset": "Restablecer"
 			},
 			"bulkButton": "URLs en lote",
 			"bulkTooltip": "Añade y pon en cola varias URLs.",
@@ -145,7 +154,21 @@
 			"mascotBusy": "Descargando en segundo plano… puedo hacer varias cosas a la vez 😎",
 			"advanced": "Avanzado",
 			"clearAria": "Borrar URL",
-			"clipboard": {"toggle": "Vigilar portapapeles", "toggleDescription": "Rellena automáticamente el campo URL al copiar un enlace de YouTube.", "dialog": {"cancelButton": "Cancelar"}},
+			"clipboard": {
+				"toggle": "Vigilar portapapeles",
+				"toggleDescription": "Rellena automáticamente el campo URL al copiar un enlace de YouTube.",
+				"autofilledLinks_one": "{{count}} enlace abierto desde el portapapeles",
+				"autofilledLinks_other": "{{count}} enlaces abiertos desde el portapapeles",
+				"autofilledLink": "Enlace añadido desde el portapapeles",
+				"pendingLinksReady_one": "{{count}} enlace copiado listo",
+				"pendingLinksReady_other": "{{count}} enlaces copiados listos",
+				"pendingLinkReady": "Enlace copiado listo",
+				"openCopiedLinks_one": "Abrir {{count}} enlace copiado",
+				"openCopiedLinks_other": "Abrir {{count}} enlaces copiados",
+				"useCopiedLink": "Usar enlace copiado",
+				"dismissCopiedLink": "Descartar enlace copiado",
+				"dialog": {"cancelButton": "Cancelar"}
+			},
 			"cookies": {
 				"sourceLabel": "Fuente de cookies",
 				"sourceOff": "Desactivado",
@@ -371,7 +394,7 @@
 	"queue": {
 		"header": "Cola de descargas",
 		"tabLabel": "Cola",
-		"empty": "Las descargas que añadas aparecerán aquí",
+		"empty": "Las descargas en cola aparecerán aquí",
 		"filtersLabel": "Filtros de estado de la cola",
 		"filterAll": "Todo",
 		"selectedActionsLabel": "Elementos seleccionados",

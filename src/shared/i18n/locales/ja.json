@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "URL からダウンロード",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "プロファイル", "settings": "設定"},
 			"interactiveDownload": "形式を取得",
 			"fetchFormatsTooltip": "ステップごとのウィザード。形式、品質などを選択します。",
 			"quickDownload": "クイックダウンロード",
@@ -131,7 +132,15 @@
 				"menuTitle": "プロファイルを切り替え",
 				"menuDescription": "クイックダウンロード、一括 URL、プレイリストで使うアクティブなプロファイルを変更します。",
 				"newProfile": "新しいプロファイル",
-				"manageProfiles": "プロファイルを管理"
+				"manageProfiles": "プロファイルを管理",
+				"panelTitle": "ダウンロードプロファイル",
+				"panelDescription": "再利用できるダウンロード設定を作成、選択、編集、削除します。",
+				"badgeCustom": "カスタム",
+				"badgeModified": "変更済み",
+				"badgeBuiltIn": "組み込み",
+				"edit": "編集",
+				"remove": "削除",
+				"reset": "リセット"
 			},
 			"bulkButton": "一括 URL",
 			"bulkTooltip": "複数の URL を追加してキューに入れます。",
@@ -145,7 +154,21 @@
 			"mascotBusy": "バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎",
 			"advanced": "詳細設定",
 			"clearAria": "URLをクリア",
-			"clipboard": {"toggle": "クリップボードを監視", "toggleDescription": "YouTubeのリンクをコピーすると自動的にURLフィールドに入力します。", "dialog": {"cancelButton": "キャンセル"}},
+			"clipboard": {
+				"toggle": "クリップボードを監視",
+				"toggleDescription": "YouTubeのリンクをコピーすると自動的にURLフィールドに入力します。",
+				"autofilledLinks_one": "クリップボードから {{count}} 件のリンクを開きました",
+				"autofilledLinks_other": "クリップボードから {{count}} 件のリンクを開きました",
+				"autofilledLink": "クリップボードからリンクを追加しました",
+				"pendingLinksReady_one": "コピーしたリンク {{count}} 件の準備ができました",
+				"pendingLinksReady_other": "コピーしたリンク {{count}} 件の準備ができました",
+				"pendingLinkReady": "コピーしたリンクの準備ができました",
+				"openCopiedLinks_one": "コピーしたリンク {{count}} 件を開く",
+				"openCopiedLinks_other": "コピーしたリンク {{count}} 件を開く",
+				"useCopiedLink": "コピーしたリンクを使う",
+				"dismissCopiedLink": "コピーしたリンクを閉じる",
+				"dialog": {"cancelButton": "キャンセル"}
+			},
 			"cookies": {
 				"sourceLabel": "Cookieのソース",
 				"sourceOff": "オフ",
@@ -371,7 +394,7 @@
 	"queue": {
 		"header": "ダウンロードキュー",
 		"tabLabel": "キュー",
-		"empty": "キューに追加したダウンロードはここに表示されます",
+		"empty": "キューに入れたダウンロードがここに表示されます",
 		"filtersLabel": "キュー状態フィルター",
 		"filterAll": "すべて",
 		"selectedActionsLabel": "選択した項目",

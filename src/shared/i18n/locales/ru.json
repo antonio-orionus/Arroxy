@@ -108,6 +108,7 @@
 		"url": {
 			"heading": "Скачать по URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "Профили", "settings": "Настройки"},
 			"interactiveDownload": "Получить форматы",
 			"fetchFormatsTooltip": "Пошаговый мастер. Выберите формат, качество и другое.",
 			"quickDownload": "Быстрая загрузка",
@@ -131,7 +132,15 @@
 				"menuTitle": "Переключить профиль",
 				"menuDescription": "Измените активный профиль для Quick Download, массовых URL и плейлистов.",
 				"newProfile": "Новый профиль",
-				"manageProfiles": "Управление профилями"
+				"manageProfiles": "Управление профилями",
+				"panelTitle": "Профили загрузки",
+				"panelDescription": "Создавайте, выбирайте, редактируйте или удаляйте переиспользуемые настройки загрузки.",
+				"badgeCustom": "Пользовательский",
+				"badgeModified": "Изменён",
+				"badgeBuiltIn": "Встроенный",
+				"edit": "Изменить",
+				"remove": "Удалить",
+				"reset": "Сбросить"
 			},
 			"bulkButton": "Массовые URL",
 			"bulkTooltip": "Добавьте несколько URL и поставьте их в очередь.",
@@ -145,7 +154,21 @@
 			"mascotBusy": "Качаю в фоне… могу делать несколько дел сразу 😎",
 			"advanced": "Дополнительно",
 			"clearAria": "Очистить URL",
-			"clipboard": {"toggle": "Следить за буфером обмена", "toggleDescription": "Автоматически подставляет ссылку YouTube в поле URL при копировании.", "dialog": {"cancelButton": "Отмена"}},
+			"clipboard": {
+				"toggle": "Следить за буфером обмена",
+				"toggleDescription": "Автоматически подставляет ссылку YouTube в поле URL при копировании.",
+				"autofilledLinks_one": "{{count}} ссылка открыта из буфера обмена",
+				"autofilledLinks_other": "{{count}} ссылки открыты из буфера обмена",
+				"autofilledLink": "Ссылка добавлена из буфера обмена",
+				"pendingLinksReady_one": "{{count}} скопированная ссылка готова",
+				"pendingLinksReady_other": "{{count}} скопированные ссылки готовы",
+				"pendingLinkReady": "Скопированная ссылка готова",
+				"openCopiedLinks_one": "Открыть {{count}} скопированную ссылку",
+				"openCopiedLinks_other": "Открыть {{count}} скопированные ссылки",
+				"useCopiedLink": "Использовать скопированную ссылку",
+				"dismissCopiedLink": "Скрыть скопированную ссылку",
+				"dialog": {"cancelButton": "Отмена"}
+			},
 			"cookies": {
 				"sourceLabel": "Источник cookies",
 				"sourceOff": "Отключено",
@@ -371,7 +394,7 @@
 	"queue": {
 		"header": "Очередь загрузок",
 		"tabLabel": "Очередь",
-		"empty": "Здесь будут отображаться поставленные в очередь загрузки",
+		"empty": "Загрузки в очереди появятся здесь",
 		"filtersLabel": "Фильтры состояния очереди",
 		"filterAll": "Все",
 		"selectedActionsLabel": "Выбранные элементы",

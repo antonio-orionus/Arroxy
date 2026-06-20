@@ -99,6 +99,7 @@
 		"url": {
 			"heading": "从 URL 下载",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "配置", "settings": "设置"},
 			"interactiveDownload": "获取格式",
 			"fetchFormatsTooltip": "分步向导。选择格式、质量等选项。",
 			"quickDownload": "快速下载",
@@ -122,7 +123,15 @@
 				"menuTitle": "切换配置文件",
 				"menuDescription": "更改用于快速下载、批量 URL 和播放列表的活动配置文件。",
 				"newProfile": "新建配置文件",
-				"manageProfiles": "管理配置文件"
+				"manageProfiles": "管理配置文件",
+				"panelTitle": "下载配置",
+				"panelDescription": "创建、选择、编辑或移除可重复使用的下载设置。",
+				"badgeCustom": "自定义",
+				"badgeModified": "已修改",
+				"badgeBuiltIn": "内置",
+				"edit": "编辑",
+				"remove": "移除",
+				"reset": "重置"
 			},
 			"bulkButton": "批量 URL",
 			"bulkTooltip": "添加多个 URL 并加入队列。",
@@ -136,7 +145,21 @@
 			"mascotBusy": "正在后台下载… 我可以同时处理多个任务 😎",
 			"advanced": "高级",
 			"clearAria": "清除 URL",
-			"clipboard": {"toggle": "监听剪贴板", "toggleDescription": "复制 YouTube 链接时自动填充 URL 字段。", "dialog": {"cancelButton": "取消"}},
+			"clipboard": {
+				"toggle": "监听剪贴板",
+				"toggleDescription": "复制 YouTube 链接时自动填充 URL 字段。",
+				"autofilledLinks_one": "已从剪贴板打开 {{count}} 个链接",
+				"autofilledLinks_other": "已从剪贴板打开 {{count}} 个链接",
+				"autofilledLink": "已从剪贴板添加链接",
+				"pendingLinksReady_one": "{{count}} 个复制的链接已准备好",
+				"pendingLinksReady_other": "{{count}} 个复制的链接已准备好",
+				"pendingLinkReady": "复制的链接已准备好",
+				"openCopiedLinks_one": "打开 {{count}} 个复制的链接",
+				"openCopiedLinks_other": "打开 {{count}} 个复制的链接",
+				"useCopiedLink": "使用复制的链接",
+				"dismissCopiedLink": "关闭复制的链接",
+				"dialog": {"cancelButton": "取消"}
+			},
 			"cookies": {
 				"sourceLabel": "Cookies 来源",
 				"sourceOff": "关闭",
@@ -338,7 +361,7 @@
 	"queue": {
 		"header": "下载队列",
 		"tabLabel": "队列",
-		"empty": "加入队列的下载会显示在这里",
+		"empty": "排队的下载会显示在这里",
 		"filtersLabel": "队列状态筛选",
 		"filterAll": "全部",
 		"selectedActionsLabel": "已选项目",

@@ -2,11 +2,11 @@ import {ChevronsUp, Copy, FolderOpen, MapPin, Pause, Play, RotateCcw, Trash2, X}
 import type {ComponentType} from 'react'
 import type {TFunction} from 'i18next'
 import type {QueueItem, QueueSelectionAction} from '@shared/types.js'
-import {canApplyQueueActionToItem, isNeverStartedPendingItem} from '@shared/queueActions.js'
+import {canApplyQueueActionToItem, isNeverStartedPendingItem, type QueueOutputTargetAction} from '@shared/queueActions.js'
 import type {QueueTableColumnId} from './queueTablePreferences.js'
 import type {QueueStatusFilter} from './queueManagerState.js'
 
-export type QueueSelectedAction = QueueSelectionAction | 'copy-link' | 'open-destination-folder'
+export type QueueSelectedAction = QueueSelectionAction | QueueOutputTargetAction | 'copy-link' | 'open-destination-folder'
 
 export interface QueueActionDefinition {
 	id: QueueSelectedAction

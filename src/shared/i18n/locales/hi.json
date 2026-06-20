@@ -99,6 +99,7 @@
 		"url": {
 			"heading": "URL से डाउनलोड करें",
 			"placeholder": "https://www.youtube.com/watch?v=...",
+			"tabs": {"profiles": "प्रोफाइल", "settings": "सेटिंग्स"},
 			"interactiveDownload": "फ़ॉर्मेट लाएँ",
 			"fetchFormatsTooltip": "चरण-दर-चरण विज़ार्ड। फ़ॉर्मैट, गुणवत्ता और अन्य विकल्प चुनें।",
 			"quickDownload": "क्विक डाउनलोड",
@@ -122,7 +123,15 @@
 				"menuTitle": "प्रोफ़ाइल बदलें",
 				"menuDescription": "Quick Download, Bulk URLs और प्लेलिस्ट के लिए सक्रिय प्रोफ़ाइल बदलें।",
 				"newProfile": "नई प्रोफ़ाइल",
-				"manageProfiles": "प्रोफ़ाइल प्रबंधित करें"
+				"manageProfiles": "प्रोफ़ाइल प्रबंधित करें",
+				"panelTitle": "डाउनलोड प्रोफाइल",
+				"panelDescription": "दोबारा इस्तेमाल होने वाले डाउनलोड सेटअप बनाएँ, चुनें, संपादित करें या हटाएँ।",
+				"badgeCustom": "कस्टम",
+				"badgeModified": "बदला हुआ",
+				"badgeBuiltIn": "बिल्ट-इन",
+				"edit": "संपादित करें",
+				"remove": "हटाएँ",
+				"reset": "रीसेट करें"
 			},
 			"bulkButton": "बल्क URLs",
 			"bulkTooltip": "कई URLs जोड़ें और कतार में डालें।",
@@ -136,7 +145,21 @@
 			"mascotBusy": "पीछे चुपचाप डाउनलोड कर रहा हूँ… मैं एक साथ कई काम कर सकता हूँ 😎",
 			"advanced": "उन्नत",
 			"clearAria": "URL हटाएँ",
-			"clipboard": {"toggle": "क्लिपबोर्ड देखें", "toggleDescription": "YouTube लिंक कॉपी करने पर URL फ़ील्ड स्वतः भर जाता है।", "dialog": {"cancelButton": "रद्द करें"}},
+			"clipboard": {
+				"toggle": "क्लिपबोर्ड देखें",
+				"toggleDescription": "YouTube लिंक कॉपी करने पर URL फ़ील्ड स्वतः भर जाता है।",
+				"autofilledLinks_one": "क्लिपबोर्ड से {{count}} लिंक खोला गया",
+				"autofilledLinks_other": "क्लिपबोर्ड से {{count}} लिंक खोले गए",
+				"autofilledLink": "क्लिपबोर्ड से लिंक जोड़ा गया",
+				"pendingLinksReady_one": "{{count}} कॉपी किया गया लिंक तैयार है",
+				"pendingLinksReady_other": "{{count}} कॉपी किए गए लिंक तैयार हैं",
+				"pendingLinkReady": "कॉपी किया गया लिंक तैयार है",
+				"openCopiedLinks_one": "{{count}} कॉपी किया गया लिंक खोलें",
+				"openCopiedLinks_other": "{{count}} कॉपी किए गए लिंक खोलें",
+				"useCopiedLink": "कॉपी किया गया लिंक इस्तेमाल करें",
+				"dismissCopiedLink": "कॉपी किया गया लिंक हटाएँ",
+				"dialog": {"cancelButton": "रद्द करें"}
+			},
 			"cookies": {
 				"sourceLabel": "कुकी स्रोत",
 				"sourceOff": "बंद",
@@ -346,7 +369,7 @@
 	"queue": {
 		"header": "डाउनलोड क़तार",
 		"tabLabel": "क्यू",
-		"empty": "क़तार में डाली गई डाउनलोड यहाँ दिखेंगी",
+		"empty": "कतार में जोड़े गए डाउनलोड यहाँ दिखाई देंगे",
 		"filtersLabel": "क्यू स्थिति फ़िल्टर",
 		"filterAll": "सभी",
 		"selectedActionsLabel": "चयनित आइटम",

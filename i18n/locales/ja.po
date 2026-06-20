@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "完了したダウンロードをクリア"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "キューに追加したダウンロードはここに表示されます"
+msgid "Queued downloads will appear here"
+msgstr "キューに入れたダウンロードがここに表示されます"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "URLをクリア"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "クリップボードからリンクを追加しました"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "クリップボードから {{count}} 件のリンクを開きました"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "クリップボードから {{count}} 件のリンクを開きました"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "キャンセル"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "コピーしたリンクを閉じる"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "コピーしたリンク {{count}} 件を開く"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "コピーしたリンク {{count}} 件を開く"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "コピーしたリンクの準備ができました"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "コピーしたリンク {{count}} 件の準備ができました"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "コピーしたリンク {{count}} 件の準備ができました"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "クリップボードを監視"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "YouTubeのリンクをコピーすると自動的にURLフィールドに入力します。"
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "コピーしたリンクを使う"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "アクティブなプロファイル"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "組み込み"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "カスタム"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "変更済み"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "グローバル保存先を変更"
@@ -2244,6 +2296,10 @@ msgstr "グローバル保存先を変更"
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "保存先"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "編集"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "プロファイルを切り替え"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "新しいプロファイル"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "再利用できるダウンロード設定を作成、選択、編集、削除します。"
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "ダウンロードプロファイル"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "削除"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "リセット"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "単体ファイル名に動画IDを追加"
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "タイトルが変わったり重複したりしても、単発ダウンロードを一意に保ちます。"
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "プロファイル"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "設定"

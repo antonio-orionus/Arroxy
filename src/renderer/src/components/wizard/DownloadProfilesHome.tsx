@@ -267,16 +267,16 @@ export function DownloadProfilesHome(): ReactNode {
 				setBulkInitialRaw(candidate.raw)
 				setBulkOpen(true)
 				bulkLogger.info('Bulk URLs detected from clipboard', {accepted: candidate.count})
-				notify.clipboardAutofilled(`${candidate.count} links opened from clipboard`)
+				notify.clipboardAutofilled(t('wizard.url.clipboard.autofilledLinks', {count: candidate.count}))
 				return
 			}
 
 			const url = candidate.acceptedUrls[0]
 			if (!url) return
 			setWizardUrl(url)
-			notify.clipboardAutofilled('Link added from clipboard')
+			notify.clipboardAutofilled(t('wizard.url.clipboard.autofilledLink'))
 		},
-		[setWizardUrl]
+		[setWizardUrl, t]
 	)
 
 	function openManualBulkDialog(): void {
@@ -378,11 +378,11 @@ export function DownloadProfilesHome(): ReactNode {
 					</TabsTrigger>
 					<TabsTrigger value="profiles" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
 						<Users data-icon="inline-start" aria-hidden />
-						Profiles
+						{t('wizard.url.tabs.profiles')}
 					</TabsTrigger>
 					<TabsTrigger value="settings" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
 						<Settings data-icon="inline-start" aria-hidden />
-						Settings
+						{t('wizard.url.tabs.settings')}
 					</TabsTrigger>
 				</TabsList>
 
@@ -486,10 +486,11 @@ export function DownloadProfilesHome(): ReactNode {
 }
 
 function ClipboardPendingAction({candidate, onApply, onDismiss}: {candidate: ClipboardCandidate; onApply: () => void; onDismiss: () => void}): ReactNode {
+	const {t} = useTranslation()
 	const isBulk = candidate.kind === 'bulk'
 	const Icon = isBulk ? ListPlus : Link2
-	const statusLabel = isBulk ? `${candidate.count} copied links ready` : 'Copied link ready'
-	const actionLabel = isBulk ? `Open ${candidate.count} copied links` : 'Use copied link'
+	const statusLabel = isBulk ? t('wizard.url.clipboard.pendingLinksReady', {count: candidate.count}) : t('wizard.url.clipboard.pendingLinkReady')
+	const actionLabel = isBulk ? t('wizard.url.clipboard.openCopiedLinks', {count: candidate.count}) : t('wizard.url.clipboard.useCopiedLink')
 	return (
 		<output className="mt-2 flex max-w-full flex-wrap items-center gap-2 rounded-2xl border border-[var(--glow-border)] bg-[var(--brand-dim)] px-3 py-2 text-[12px] text-foreground" data-testid="clipboard-pending">
 			<span className="flex min-w-0 flex-1 items-center gap-2">
@@ -499,7 +500,7 @@ function ClipboardPendingAction({candidate, onApply, onDismiss}: {candidate: Cli
 			<Button type="button" variant="outline" size="xs" onClick={onApply} data-testid="clipboard-pending-action" className="bg-background/50">
 				{actionLabel}
 			</Button>
-			<Button type="button" variant="ghost" size="icon-xs" onClick={onDismiss} aria-label="Dismiss copied link" data-testid="clipboard-pending-dismiss" className="-me-1">
+			<Button type="button" variant="ghost" size="icon-xs" onClick={onDismiss} aria-label={t('wizard.url.clipboard.dismissCopiedLink')} data-testid="clipboard-pending-dismiss" className="-me-1">
 				<X aria-hidden />
 			</Button>
 		</output>
@@ -548,12 +549,12 @@ function ProfilesTab({
 		<Card className="glow-panel rounded-2xl border-transparent" data-testid="profiles-manage-tab">
 			<CardHeader className="flex-row flex-wrap items-center justify-between gap-3">
 				<div>
-					<CardTitle className="text-xl font-semibold leading-tight">Download Profiles</CardTitle>
-					<CardDescription className="mt-1 text-[12px] text-[var(--text-subtle)]">Create, select, edit, or remove reusable download setups.</CardDescription>
+					<CardTitle className="text-xl font-semibold leading-tight">{t('wizard.url.profile.panelTitle')}</CardTitle>
+					<CardDescription className="mt-1 text-[12px] text-[var(--text-subtle)]">{t('wizard.url.profile.panelDescription')}</CardDescription>
 				</div>
 				<Button type="button" onClick={() => onEdit(null)} className="shadow-[0_4px_14px_var(--brand-glow)]">
 					<Plus data-icon="inline-start" />
-					New profile
+					{t('wizard.url.profile.newProfile')}
 				</Button>
 			</CardHeader>
 			<CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -574,7 +575,7 @@ function ProfilesTab({
 										<span className="truncate text-sm font-semibold" data-testid={`profiles-manage-card-${profile.id}-title`}>
 											{profile.name}
 										</span>
-										<Badge variant={isCustom || origin.overridden ? 'outline' : 'secondary'}>{isCustom ? 'custom' : origin.overridden ? 'modified' : 'builtin'}</Badge>
+										<Badge variant={isCustom || origin.overridden ? 'outline' : 'secondary'}>{isCustom ? t('wizard.url.profile.badgeCustom') : origin.overridden ? t('wizard.url.profile.badgeModified') : t('wizard.url.profile.badgeBuiltIn')}</Badge>
 										<Check className={cn('ml-auto size-4 shrink-0 text-[var(--brand)] transition-opacity duration-150', active ? 'opacity-100' : 'opacity-0')} aria-hidden data-testid={`profiles-manage-card-${profile.id}-check`} />
 									</span>
 									<span className="mt-1 block text-[12px] leading-snug text-[var(--text-subtle)]" data-testid={`profiles-manage-card-${profile.id}-description`}>
@@ -588,11 +589,11 @@ function ProfilesTab({
 							<div className="mt-3 grid grid-cols-2 gap-2" data-testid={`profiles-manage-card-${profile.id}-actions`}>
 								<Button type="button" variant="outline" size="sm" onClick={() => onEdit(profile)}>
 									<PenLine data-icon="inline-start" />
-									Edit
+									{t('wizard.url.profile.edit')}
 								</Button>
 								<Button type="button" variant="outline" size="sm" disabled={!canRemove} onClick={() => onRemove(profile)}>
 									<X data-icon="inline-start" />
-									{isCustom ? 'Remove' : 'Reset'}
+									{isCustom ? t('wizard.url.profile.remove') : t('wizard.url.profile.reset')}
 								</Button>
 							</div>
 						</article>

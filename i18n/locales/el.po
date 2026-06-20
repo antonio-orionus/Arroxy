@@ -412,8 +412,8 @@ msgid "Clear completed downloads"
 msgstr "Εκκαθάριση ολοκληρωμένων λήψεων"
 
 msgctxt "queue.empty"
-msgid "Downloads you queue will appear here"
-msgstr "Οι λήψεις που θα προσθέσεις στην ουρά θα εμφανιστούν εδώ"
+msgid "Queued downloads will appear here"
+msgstr "Οι λήψεις στην ουρά θα εμφανιστούν εδώ"
 
 msgctxt "queue.filterAll"
 msgid "All"
@@ -1885,9 +1885,45 @@ msgctxt "wizard.url.clearAria"
 msgid "Clear URL"
 msgstr "Εκκαθάριση URL"
 
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Προστέθηκε σύνδεσμος από το πρόχειρο"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "Άνοιξε {{count}} σύνδεσμος από το πρόχειρο"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "Άνοιξαν {{count}} σύνδεσμοι από το πρόχειρο"
+
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "Ακύρωση"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "Απόρριψη αντιγραμμένου συνδέσμου"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "Άνοιγμα {{count}} αντιγραμμένου συνδέσμου"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "Άνοιγμα {{count}} αντιγραμμένων συνδέσμων"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "Ο αντιγραμμένος σύνδεσμος είναι έτοιμος"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "{{count}} αντιγραμμένος σύνδεσμος έτοιμος"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "{{count}} αντιγραμμένοι σύνδεσμοι έτοιμοι"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -1896,6 +1932,10 @@ msgstr "Παρακολούθηση πρόχειρου"
 msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "Αυτόματη συμπλήρωση του πεδίου URL όταν αντιγράφεις σύνδεσμο YouTube."
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "Χρήση αντιγραμμένου συνδέσμου"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"
@@ -2237,6 +2277,18 @@ msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "Ενεργό προφίλ"
 
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Ενσωματωμένο"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Προσαρμοσμένο"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Τροποποιημένο"
+
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Αλλαγή καθολικού προορισμού"
@@ -2244,6 +2296,10 @@ msgstr "Αλλαγή καθολικού προορισμού"
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Προορισμός"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Επεξεργασία"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
@@ -2264,6 +2320,22 @@ msgstr "Αλλαγή προφίλ"
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Νέο προφίλ"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Δημιουργήστε, επιλέξτε, επεξεργαστείτε ή αφαιρέστε επαναχρησιμοποιήσιμες ρυθμίσεις λήψης."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Προφίλ λήψης"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Επαναφορά"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
@@ -2340,3 +2412,11 @@ msgstr "Προσθήκη ID βίντεο στα μεμονωμένα ονόμα�
 msgctxt "wizard.url.singleFilenameId.toggleDescription"
 msgid "Keeps one-off downloads unique when titles change or collide."
 msgstr "Κρατά τις μεμονωμένες λήψεις μοναδικές όταν αλλάζουν ή συμπίπτουν οι τίτλοι."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Προφίλ"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Ρυθμίσεις"

@@ -76,4 +76,33 @@ describe('changeQueueOutputTarget', () => {
 		expect(fsMock.mkdir).toHaveBeenCalledWith('/mnt/readonly', {recursive: true})
 		expect(fsMock.writeFile).toHaveBeenCalledOnce()
 	})
+
+	it('revalidates item eligibility after the async directory probe', async () => {
+		const {changeQueueOutputTarget} = await import('@main/services/queueOutputTargetMove.js')
+		const pending = makeItem({id: 'fresh', status: 'pending', outputDir: '/mnt/source', progressPercent: 0})
+		const running = makeItem({id: 'fresh', status: 'running', outputDir: '/mnt/source', progressPercent: 12, lastJobId: 'job-1'})
+		let lookupCount = 0
+		const patchItem = vi.fn()
+		fsMock.mkdir.mockResolvedValue(undefined)
+		fsMock.writeFile.mockResolvedValue(undefined)
+		fsMock.unlink.mockResolvedValue(undefined)
+
+		const result = await changeQueueOutputTarget(
+			{
+				findItem: () => {
+					lookupCount += 1
+					return lookupCount === 1 ? pending : running
+				},
+				patchItem
+			},
+			['fresh'],
+			'/mnt/target'
+		)
+
+		expect(result.ok).toBe(true)
+		if (!result.ok) return
+		expect(result.data.items).toEqual([])
+		expect(result.data.skipped).toEqual([{itemId: 'fresh', status: 'running', reason: 'invalid-status'}])
+		expect(patchItem).not.toHaveBeenCalled()
+	})
 })
