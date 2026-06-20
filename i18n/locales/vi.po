@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "Tất cả mục"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "Hàng đợi tải xuống"
+msgid "Downloads"
+msgstr "Tải xuống"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "Đã chọn {{selected}} · tổng {{total}}"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "Hàng đợi"
+msgid "Downloads"
+msgstr "Tải xuống"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "Trạng thái"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "Tiêu đề"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Các lượt tải xuống giờ nằm trong tab Tải xuống — mở bất cứ lúc nào để theo dõi tiến trình."
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

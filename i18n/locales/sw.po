@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "Vipengee vyote"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "Foleni ya Kupakua"
+msgid "Downloads"
+msgstr "Vipakuliwa"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} zimechaguliwa · jumla {{total}}"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "Foleni"
+msgid "Downloads"
+msgstr "Vipakuliwa"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "Hali"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "Kichwa"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Vipakuliwa sasa viko kwenye kichupo cha Vipakuliwa — kifungue wakati wowote kufuatilia maendeleo."
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

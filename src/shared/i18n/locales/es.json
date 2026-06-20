@@ -392,8 +392,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "Cargando…"},
 	"queue": {
-		"header": "Cola de descargas",
-		"tabLabel": "Cola",
+		"header": "Descargas",
+		"tabLabel": "Descargas",
+		"tabTip": "Las descargas ahora viven en la pestaña Descargas — ábrela cuando quieras para seguir el progreso.",
 		"empty": "Las descargas en cola aparecerán aquí",
 		"filtersLabel": "Filtros de estado de la cola",
 		"filterAll": "Todo",

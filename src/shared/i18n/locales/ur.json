@@ -392,8 +392,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "لوڈ ہو رہا ہے…"},
 	"queue": {
-		"header": "ڈاؤن لوڈ قطار",
-		"tabLabel": "قطار",
+		"header": "Downloads",
+		"tabLabel": "Downloads",
+		"tabTip": "ڈاؤن لوڈز اب Downloads ٹیب میں ہیں — پیش رفت دیکھنے کے لیے اسے کسی بھی وقت کھولیں۔",
 		"empty": "قطار میں شامل ڈاؤن لوڈز یہاں ظاہر ہوں گے",
 		"filtersLabel": "قطار کی حالت کے فلٹرز",
 		"filterAll": "سب",

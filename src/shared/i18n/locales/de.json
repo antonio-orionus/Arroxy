@@ -392,8 +392,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "Wird geladen…"},
 	"queue": {
-		"header": "Download-Warteschlange",
-		"tabLabel": "Warteschlange",
+		"header": "Downloads",
+		"tabLabel": "Downloads",
+		"tabTip": "Downloads findest du jetzt im Downloads-Tab — öffne ihn jederzeit, um den Fortschritt zu verfolgen.",
 		"empty": "Eingereihte Downloads erscheinen hier",
 		"filtersLabel": "Statusfilter der Warteschlange",
 		"filterAll": "Alle",

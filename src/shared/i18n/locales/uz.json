@@ -400,8 +400,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "Yuklanmoqda…"},
 	"queue": {
-		"header": "Yuklash navbati",
-		"tabLabel": "Navbat",
+		"header": "Yuklamalar",
+		"tabLabel": "Yuklamalar",
+		"tabTip": "Yuklab olishlar endi Yuklamalar varag‘ida — jarayonni kuzatish uchun uni istalgan vaqtda oching.",
 		"empty": "Navbatga qo‘shilgan yuklab olishlar shu yerda ko‘rinadi",
 		"filtersLabel": "Navbat holati filtrlari",
 		"filterAll": "Hammasi",

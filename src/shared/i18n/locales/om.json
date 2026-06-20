@@ -392,8 +392,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "Fe'amaa jira…"},
 	"queue": {
-		"header": "Tartiiba Daawniloodii",
-		"tabLabel": "Tarree",
+		"header": "Buufata",
+		"tabLabel": "Buufata",
+		"tabTip": "Buusawwan amma caancala Buufata keessa jiru — adeemsa hordofuuf yeroo barbaaddetti bani.",
 		"empty": "Buusawwan tarreeffaman asitti ni mulʼatu",
 		"filtersLabel": "Calleeffamtoota haala tarree",
 		"filterAll": "Hundaa",

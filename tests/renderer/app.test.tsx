@@ -338,9 +338,9 @@ describe('App renderer', () => {
 		expect(await screen.findByTestId('profiles-manage-tab')).toBeInTheDocument()
 	})
 
-	it('shows Queue Manager as a top-level tab', async () => {
+	it('shows Downloads as a top-level tab', async () => {
 		render(<App />)
-		fireEvent.click(await screen.findByRole('tab', {name: /^queue/i}))
+		fireEvent.click(await screen.findByRole('tab', {name: /^downloads/i}))
 		expect(await screen.findByTestId('queue-manager-tab')).toBeInTheDocument()
 	})
 

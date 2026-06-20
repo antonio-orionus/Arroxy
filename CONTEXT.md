@@ -60,9 +60,9 @@ _Avoid_: row, entry, task
 The folder assigned to a queue item and its artifacts.
 _Avoid_: save path, output path
 
-**Queue view**:
-The management surface where users inspect, filter, select, and act on queue items.
-_Avoid_: drawer, task list
+**Downloads view**:
+The user-facing management surface where users inspect, filter, select, and act on queue items.
+_Avoid_: queue view, drawer, task list
 
 **Queue action**:
 A user command applied to one or more selected queue items. It applies only where valid for each queue item's current status.

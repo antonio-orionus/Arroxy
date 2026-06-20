@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "အကြောင်းအရာအားလုံး"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "ဒေါင်းလုဒ် Queue"
+msgid "Downloads"
+msgstr "ဒေါင်းလုဒ်များ"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} ခု ရွေးထား · စုစုပေါင်း {{total}}"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "တန်းစီ"
+msgid "Downloads"
+msgstr "ဒေါင်းလုဒ်များ"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "အခြေအနေ"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "ခေါင်းစဉ်"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "ဒေါင်းလုဒ်များသည် ယခု ဒေါင်းလုဒ်များ တက်ဘ်တွင် ရှိပါသည် — တိုးတက်မှုကိုကြည့်ရန် မည်သည့်အချိန်မဆို ဖွင့်နိုင်သည်။"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "Усі елементи"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "Черга завантажень"
+msgid "Downloads"
+msgstr "Завантаження"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} вибрано · усього {{total}}"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "Черга"
+msgid "Downloads"
+msgstr "Завантаження"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "Стан"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "Назва"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Завантаження тепер у вкладці «Завантаження» — відкривай її будь-коли, щоб стежити за прогресом."
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

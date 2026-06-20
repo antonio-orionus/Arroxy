@@ -34,6 +34,8 @@ import downloadingImg from '../../assets/Downloading.png'
 type ProfilesTab = 'download' | 'queue' | 'profiles' | 'settings'
 const PROFILE_TABS = ['download', 'queue', 'profiles', 'settings'] as const satisfies readonly ProfilesTab[]
 const DownloadProfileEditor = lazy(() => import('./DownloadProfileEditor.js').then(module => ({default: module.DownloadProfileEditor})))
+const QUEUE_TAB_TIP_STORAGE_KEY = 'arroxy_seen_queue_tab_tip'
+const QUEUE_TAB_TIP_VISIBLE_MS = 5_000
 
 function tabFromHash(hash = window.location.hash): ProfilesTab {
 	const value = hash.replace(/^#/, '').toLowerCase()
@@ -44,7 +46,6 @@ function tabFromHash(hash = window.location.hash): ProfilesTab {
 }
 
 function browserMockScenarioId(): string | null {
-	if (import.meta.env.MODE !== 'browser-mock') return null
 	try {
 		return new URLSearchParams(window.location.search).get('scenario')
 	} catch {
@@ -106,6 +107,22 @@ function tabHash(tab: ProfilesTab): string {
 function selectProfilesTab(tab: ProfilesTab): void {
 	window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}${tabHash(tab)}`)
 	window.dispatchEvent(new Event('hashchange'))
+}
+
+function hasSeenQueueTabTip(): boolean {
+	try {
+		return localStorage.getItem(QUEUE_TAB_TIP_STORAGE_KEY) === '1'
+	} catch {
+		return true
+	}
+}
+
+function markQueueTabTipSeen(): void {
+	try {
+		localStorage.setItem(QUEUE_TAB_TIP_STORAGE_KEY, '1')
+	} catch {
+		// Storage may be unavailable in hardened browser contexts; the cue is non-critical.
+	}
 }
 
 function profileDetail(profile: DownloadProfile, t: TFunction): string {
@@ -197,6 +214,28 @@ function QuickDownloadErrorAlert({experience, message, onEnableCookiesAndRetry, 
 	)
 }
 
+function QueueTabFirstRunCue({onDismiss, persistent = false}: {onDismiss: () => void; persistent?: boolean}): ReactNode {
+	const {t} = useTranslation()
+
+	useEffect(() => {
+		if (persistent) return undefined
+		const timeout = window.setTimeout(onDismiss, QUEUE_TAB_TIP_VISIBLE_MS)
+		return () => window.clearTimeout(timeout)
+	}, [onDismiss, persistent])
+
+	return (
+		<div className="pointer-events-none absolute left-1/2 top-full z-20 mt-2 flex -translate-x-1/2 justify-center px-3" data-testid="queue-tab-first-run-cue">
+			<div className="nudge-in pointer-events-auto flex max-w-[min(20rem,calc(100vw-2rem))] items-end gap-2">
+				<img src={downloadingImg} alt="" aria-hidden draggable={false} className="size-10 shrink-0 object-contain" />
+				<div className="relative rounded-xl border border-[var(--border-strong)] bg-secondary px-3 py-2 text-xs leading-relaxed text-foreground/85 shadow-lg">
+					{t('queue.tabTip')}
+					<span aria-hidden className="absolute -top-[6px] start-6 size-0" style={{borderBottom: '6px solid var(--secondary)', borderLeft: '6px solid transparent', borderRight: '6px solid transparent'}} />
+				</div>
+			</div>
+		</div>
+	)
+}
+
 // react-doctor-disable-next-line react-doctor/prefer-useReducer -- these local UI controls update independently and do not share reducer-style transitions
 export function DownloadProfilesHome(): ReactNode {
 	const {t} = useTranslation()
@@ -243,6 +282,8 @@ export function DownloadProfilesHome(): ReactNode {
 	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
 	const queueCount = useAppStore(state => state.queue.length)
 	const queueIsActive = useAppStore(state => state.queue.some(item => item.status === 'running' || item.lastStatus?.key === 'movingFiles'))
+	const previousQueueCountRef = useRef(queueCount)
+	const [showQueueTabTip, setShowQueueTabTip] = useState(() => initialBrowserMockScenario === 'queue-tab-tip' || (queueCount > 0 && !hasSeenQueueTabTip()))
 	const quickErrorText = quickDownloadFailureText(t, quickDownloadFailureMessage)
 	const showQuickPartialWarning = quickDownloadStatus === 'queued' && quickDownloadProgressFailed > 0
 	const mascotHelp = downloadMascotHelp({activeProfileName: activeProfile.name, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
@@ -259,6 +300,18 @@ export function DownloadProfilesHome(): ReactNode {
 	useEffect(() => {
 		bulkOpenRef.current = bulkOpen
 	}, [bulkOpen])
+
+	useEffect(() => {
+		if (!showQueueTabTip || initialBrowserMockScenario === 'queue-tab-tip') return
+		markQueueTabTipSeen()
+	}, [initialBrowserMockScenario, showQueueTabTip])
+
+	useEffect(() => {
+		const previousQueueCount = previousQueueCountRef.current
+		previousQueueCountRef.current = queueCount
+		if (previousQueueCount !== 0 || queueCount === 0 || hasSeenQueueTabTip()) return
+		setShowQueueTabTip(true)
+	}, [queueCount])
 
 	const consumeClipboardCandidate = useCallback(
 		(candidate: ClipboardCandidate): void => {
@@ -362,29 +415,32 @@ export function DownloadProfilesHome(): ReactNode {
 				}}
 				className="gap-4"
 			>
-				<TabsList variant="line" className="download-home-tabs mx-auto flex justify-center" aria-label="Download profile navigation" data-testid="profiles-tabs">
-					<TabsTrigger value="download" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
-						<Link2 data-icon="inline-start" aria-hidden />
-						{t('wizard.steps.url')}
-					</TabsTrigger>
-					<TabsTrigger value="queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
-						<Inbox data-icon="inline-start" aria-hidden />
-						{t('queue.tabLabel')}
-						{queueCount > 0 ? (
-							<Badge variant="secondary" className="ms-1 h-4 px-1.5 font-mono text-[10px]">
-								{queueCount}
-							</Badge>
-						) : null}
-					</TabsTrigger>
-					<TabsTrigger value="profiles" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
-						<Users data-icon="inline-start" aria-hidden />
-						{t('wizard.url.tabs.profiles')}
-					</TabsTrigger>
-					<TabsTrigger value="settings" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
-						<Settings data-icon="inline-start" aria-hidden />
-						{t('wizard.url.tabs.settings')}
-					</TabsTrigger>
-				</TabsList>
+				<div className="relative z-30 mx-auto flex justify-center">
+					<TabsList variant="line" className="download-home-tabs flex justify-center" aria-label="Download profile navigation" data-testid="profiles-tabs">
+						<TabsTrigger value="download" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
+							<Link2 data-icon="inline-start" aria-hidden />
+							{t('wizard.steps.url')}
+						</TabsTrigger>
+						<TabsTrigger value="queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger h-12 flex-[1.22_1_0] rounded-full border-0 px-3 text-[14px] data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
+							<Inbox data-icon="inline-start" aria-hidden />
+							{t('queue.tabLabel')}
+							{queueCount > 0 ? (
+								<Badge variant="secondary" className="download-count-badge ms-0.5 h-4 min-w-4 px-1 font-mono text-[10px]">
+									{queueCount}
+								</Badge>
+							) : null}
+						</TabsTrigger>
+						<TabsTrigger value="profiles" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
+							<Users data-icon="inline-start" aria-hidden />
+							{t('wizard.url.tabs.profiles')}
+						</TabsTrigger>
+						<TabsTrigger value="settings" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
+							<Settings data-icon="inline-start" aria-hidden />
+							{t('wizard.url.tabs.settings')}
+						</TabsTrigger>
+					</TabsList>
+					{showQueueTabTip ? <QueueTabFirstRunCue persistent={initialBrowserMockScenario === 'queue-tab-tip'} onDismiss={() => setShowQueueTabTip(false)} /> : null}
+				</div>
 
 				<TabsContent value="download" className="flex flex-col gap-4">
 					<Card className="glow-panel rounded-[1.5rem] border-transparent" data-testid="profiles-download-panel">

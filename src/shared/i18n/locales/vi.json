@@ -392,8 +392,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "Đang tải…"},
 	"queue": {
-		"header": "Hàng đợi tải xuống",
-		"tabLabel": "Hàng đợi",
+		"header": "Tải xuống",
+		"tabLabel": "Tải xuống",
+		"tabTip": "Các lượt tải xuống giờ nằm trong tab Tải xuống — mở bất cứ lúc nào để theo dõi tiến trình.",
 		"empty": "Các lượt tải đã xếp hàng sẽ xuất hiện ở đây",
 		"filtersLabel": "Bộ lọc trạng thái hàng đợi",
 		"filterAll": "Tất cả",

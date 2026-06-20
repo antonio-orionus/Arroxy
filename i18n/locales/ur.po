@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "تمام آئٹمز"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "ڈاؤن لوڈ قطار"
+msgid "Downloads"
+msgstr "Downloads"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} منتخب · کل {{total}}"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "قطار"
+msgid "Downloads"
+msgstr "Downloads"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "حالت"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "عنوان"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "ڈاؤن لوڈز اب Downloads ٹیب میں ہیں — پیش رفت دیکھنے کے لیے اسے کسی بھی وقت کھولیں۔"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

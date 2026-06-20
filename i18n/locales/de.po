@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "Alle Elemente"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "Download-Warteschlange"
+msgid "Downloads"
+msgstr "Downloads"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} ausgewählt · {{total}} gesamt"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "Warteschlange"
+msgid "Downloads"
+msgstr "Downloads"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "Status"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "Titel"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Downloads findest du jetzt im Downloads-Tab — öffne ihn jederzeit, um den Fortschritt zu verfolgen."
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

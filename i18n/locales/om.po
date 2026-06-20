@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "Wantoota hunda"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "Tartiiba Daawniloodii"
+msgid "Downloads"
+msgstr "Buufata"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} filatame · waliigala {{total}}"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "Tarree"
+msgid "Downloads"
+msgstr "Buufata"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "Haala"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "Mata duree"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Buusawwan amma caancala Buufata keessa jiru — adeemsa hordofuuf yeroo barbaaddetti bani."
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

@@ -383,8 +383,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "Loading…"},
 	"queue": {
-		"header": "Download Queue",
-		"tabLabel": "Queue",
+		"header": "Downloads",
+		"tabLabel": "Downloads",
+		"tabTip": "Downloads live in the Downloads tab now — open it anytime to track progress.",
 		"empty": "Queued downloads will appear here",
 		"filtersLabel": "Queue status filters",
 		"filterAll": "All",

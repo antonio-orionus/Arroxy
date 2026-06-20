@@ -359,8 +359,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "加载中…"},
 	"queue": {
-		"header": "下载队列",
-		"tabLabel": "队列",
+		"header": "下载",
+		"tabLabel": "下载",
+		"tabTip": "下载现在都在下载标签页中 — 随时打开即可查看进度。",
 		"empty": "排队的下载会显示在这里",
 		"filtersLabel": "队列状态筛选",
 		"filterAll": "全部",

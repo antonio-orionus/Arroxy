@@ -251,6 +251,16 @@ bunx vite src/renderer --port 5173 --mode browser-mock
 
 The renderer's `browserMock.ts` stubs `window.appApi` with simulated downloads, formats, settings when Vite runs in explicit `browser-mock` mode — no Electron needed. Electron dev and packaged builds must use the real preload bridge.
 
+For realtime interaction with the real Electron renderer, expose Electron CDP through `electron-vite`:
+
+```bash
+REMOTE_DEBUGGING_PORT=9333 bun run dev
+agent-browser --session arroxy-electron connect 9333
+agent-browser --session arroxy-electron snapshot -i
+```
+
+Use this for live app inspection when behavior depends on the real preload bridge, IPC, native shell, or Electron rendering. In Linux headless shells only, wrap the launch with `xvfb-run -a`; on a desktop session, macOS, or Windows, launch normally without `xvfb-run`. If another dev server is already running, isolate the session with `ARROXY_RENDERER_PORT`, `ELECTRON_USER_DATA`, and `ARROXY_DEV_TMP`. Playwright can attach to the same endpoint with `chromium.connectOverCDP('http://127.0.0.1:9333')`, but prefer it for scripted proofs, traces, or fallback JS rather than first-pass interactive exploration.
+
 ### agent-browser workflow
 
 1. `agent-browser skills get core` before the first browser task in a session.
@@ -308,7 +318,7 @@ async (page) => {
 - Step 2 (Format): auto-loads mock formats with filesizes
 - Step 3 (Save): radio picker; "Custom…" returns a random mock path
 - Step 4 (Confirm): "Pull it! ↓" triggers simulated download
-- Drawer: click "Download Queue" header to expand; progress updates every 500ms
+- Downloads tab: progress updates every 500ms
 - Update banner in `browser-mock` mode is scenario-only. Use `?scenario=update-direct` for the default install flow, or `update-scoop` / `update-homebrew` / `update-winget` / `update-portable` / `update-flatpak` to preview channel-specific UX. Normal scenarios emit no update event.
 
 ### Electron GPU / Backdrop debugging

@@ -606,6 +606,13 @@ body {
 		filter 180ms ease,
 		transform 180ms ease;
 }
+.download-home-tabs .downloads-tab-trigger {
+	gap: 0.45rem;
+}
+.download-home-tabs .download-count-badge {
+	justify-content: center;
+	line-height: 1;
+}
 .download-home-tabs [data-slot="tabs-trigger"]::before {
 	content: "";
 	position: absolute;

@@ -359,8 +359,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "በመጫን ላይ…"},
 	"queue": {
-		"header": "የዳውንሎድ ተሰላፊ",
-		"tabLabel": "ወረፋ",
+		"header": "ዳውንሎዶች",
+		"tabLabel": "ዳውንሎዶች",
+		"tabTip": "ዳውንሎዶች አሁን በዳውንሎዶች ትር ውስጥ ይገኛሉ — ሂደታቸውን ለመከታተል ማንኛውም ጊዜ ይክፈቱት።",
 		"empty": "በወረፋ የተጨመሩ ማውረዶች እዚህ ይታያሉ",
 		"filtersLabel": "የወረፋ ሁኔታ ማጣሪያዎች",
 		"filterAll": "ሁሉም",

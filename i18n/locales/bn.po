@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "সব আইটেম"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "ডাউনলোড কিউ"
+msgid "Downloads"
+msgstr "ডাউনলোড"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} নির্বাচিত · মোট {{total}}"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "কিউ"
+msgid "Downloads"
+msgstr "ডাউনলোড"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "অবস্থা"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "শিরোনাম"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "ডাউনলোডগুলো এখন ডাউনলোড ট্যাবে থাকে — অগ্রগতি দেখতে যেকোনো সময় এটি খুলুন।"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

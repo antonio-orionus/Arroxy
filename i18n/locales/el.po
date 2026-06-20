@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "Όλα τα στοιχεία"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "Ουρά λήψεων"
+msgid "Downloads"
+msgstr "Λήψεις"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} επιλεγμένα · {{total}} σύνολο"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "Ουρά"
+msgid "Downloads"
+msgstr "Λήψεις"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "Κατάσταση"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "Τίτλος"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Οι λήψεις βρίσκονται πλέον στην καρτέλα Λήψεις — άνοιξέ τη όποτε θέλεις για να παρακολουθείς την πρόοδο."
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

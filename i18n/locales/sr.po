@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "Све ставке"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "Ред за преузимање"
+msgid "Downloads"
+msgstr "Преузимања"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} изабрано · укупно {{total}}"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "Ред"
+msgid "Downloads"
+msgstr "Преузимања"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "Статус"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "Наслов"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Преузимања су сада у картици Преузимања — отвори је кад год желиш да пратиш напредак."
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

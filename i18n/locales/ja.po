@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "すべての項目"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "ダウンロードキュー"
+msgid "Downloads"
+msgstr "ダウンロード"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} 件選択 · 合計 {{total}} 件"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "キュー"
+msgid "Downloads"
+msgstr "ダウンロード"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "状態"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "タイトル"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "ダウンロードは ダウンロード タブに移動しました — 進行状況はいつでもここで確認できます。"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

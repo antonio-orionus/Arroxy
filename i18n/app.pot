@@ -427,7 +427,7 @@ msgid "All items"
 msgstr ""
 
 msgctxt "queue.header"
-msgid "Download Queue"
+msgid "Downloads"
 msgstr ""
 
 msgctxt "queue.item.cancel"
@@ -519,7 +519,7 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr ""
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
+msgid "Downloads"
 msgstr ""
 
 msgctxt "queue.table.added"
@@ -572,6 +572,10 @@ msgstr ""
 
 msgctxt "queue.table.title"
 msgid "Title"
+msgstr ""
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
 msgstr ""
 
 msgctxt "releaseNotes.continue"

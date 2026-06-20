@@ -7,6 +7,8 @@ interface ScenarioLike {
 
 export function buildQueueItems(scenario: ScenarioLike): QueueItem[] {
 	switch (scenario.id) {
+		case 'queue-tab-tip':
+			return [queueItem({id: 'queue-tab-tip-1', title: 'First queued download - Downloads tab onboarding', status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null, lastStatus: null})]
 		case 'queue-active':
 			return [queueItem({id: 'queue-active-1', status: QUEUE_STATUS.running, progressPercent: 42, progressDetail: 'Downloading 42%', lastJobId: 'mock-active-job'})]
 		case 'queue-pending':

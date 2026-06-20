@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "Barcha elementlar"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "Yuklash navbati"
+msgid "Downloads"
+msgstr "Yuklamalar"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} tanlangan · jami {{total}}"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "Navbat"
+msgid "Downloads"
+msgstr "Yuklamalar"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "Holat"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "Sarlavha"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Yuklab olishlar endi Yuklamalar varag‘ida — jarayonni kuzatish uchun uni istalgan vaqtda oching."
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

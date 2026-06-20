@@ -392,8 +392,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "読み込み中…"},
 	"queue": {
-		"header": "ダウンロードキュー",
-		"tabLabel": "キュー",
+		"header": "ダウンロード",
+		"tabLabel": "ダウンロード",
+		"tabTip": "ダウンロードは ダウンロード タブに移動しました — 進行状況はいつでもここで確認できます。",
 		"empty": "キューに入れたダウンロードがここに表示されます",
 		"filtersLabel": "キュー状態フィルター",
 		"filterAll": "すべて",

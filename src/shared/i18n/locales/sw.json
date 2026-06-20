@@ -392,8 +392,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "Inapakia…"},
 	"queue": {
-		"header": "Foleni ya Kupakua",
-		"tabLabel": "Foleni",
+		"header": "Vipakuliwa",
+		"tabLabel": "Vipakuliwa",
+		"tabTip": "Vipakuliwa sasa viko kwenye kichupo cha Vipakuliwa — kifungue wakati wowote kufuatilia maendeleo.",
 		"empty": "Vipakuliwa vilivyowekwa kwenye foleni vitaonekana hapa",
 		"filtersLabel": "Vichujio vya hali ya foleni",
 		"filterAll": "Zote",

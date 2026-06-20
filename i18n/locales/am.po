@@ -428,8 +428,8 @@ msgid "All items"
 msgstr "ሁሉም ንጥሎች"
 
 msgctxt "queue.header"
-msgid "Download Queue"
-msgstr "የዳውንሎድ ተሰላፊ"
+msgid "Downloads"
+msgstr "ዳውንሎዶች"
 
 msgctxt "queue.item.cancel"
 msgid "Cancel"
@@ -520,8 +520,8 @@ msgid "{{selected}} selected · {{total}} total"
 msgstr "{{selected}} ተመርጧል · {{total}} ጠቅላላ"
 
 msgctxt "queue.tabLabel"
-msgid "Queue"
-msgstr "ወረፋ"
+msgid "Downloads"
+msgstr "ዳውንሎዶች"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -574,6 +574,10 @@ msgstr "ሁኔታ"
 msgctxt "queue.table.title"
 msgid "Title"
 msgstr "ርዕስ"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "ዳውንሎዶች አሁን በዳውንሎዶች ትር ውስጥ ይገኛሉ — ሂደታቸውን ለመከታተል ማንኛውም ጊዜ ይክፈቱት።"
 
 msgctxt "releaseNotes.continue"
 msgid "Continue"

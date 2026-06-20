@@ -392,8 +392,9 @@
 	},
 	"videoCard": {"titlePlaceholder": "Chargement…"},
 	"queue": {
-		"header": "File de téléchargement",
-		"tabLabel": "File",
+		"header": "Téléchargements",
+		"tabLabel": "Téléchargements",
+		"tabTip": "Les téléchargements sont maintenant dans l’onglet Téléchargements — ouvrez-le à tout moment pour suivre la progression.",
 		"empty": "Les téléchargements en file d’attente apparaîtront ici",
 		"filtersLabel": "Filtres d’état de la file",
 		"filterAll": "Tout",
