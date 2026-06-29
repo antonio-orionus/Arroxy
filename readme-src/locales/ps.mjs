@@ -106,7 +106,7 @@ export const ps = {
   toc_heading: "منځپانګه",
   why_h2: "ولې Arroxy",
   features_h2: "ځانګړتیاوې",
-  dl_h2: "ډاونلوډ",
+  dl_h2: "نصب او لومړی پیل",
   privacy_h2: "محرمیت",
   faq_h2: "مکرر پوښتنې",
   roadmap_h2: "د پرمختیا لار",
@@ -213,19 +213,19 @@ export const ps = {
     "یوازې د رسمي GitHub Releases پاڼې نه Arroxy ډاونلوډ کړئ. که چیرې تاسو فایل د بل ویب پاڼې نه ترلاسه کولو وي یا چا درته لیږلی وي، هغه حذف کړئ او د رسمي سرچینې نه نوي نسخه ډاونلوډ کړئ. سرچینه کوډ عامه ده، نو که چیرې غواړئ کولی شئ پخپله یې وڅیړئ یا Arroxy جوړ کړئ.",
   dl_macos_h3: "د macOS پر لومړي پیل",
   dl_macos_warning:
-    "Arroxy لاهم کوډ نه دی لاسلیک شوی، نو macOS Gatekeeper به تاسو ته د لومړي پیل پر مهال خبرداری درکوي. دا متوقع دی — دا د زیان نښه نه ده.",
-  dl_macos_m1_h4: "د سیستم تنظیماتو طریقه (سپارښتنه شوې):",
-  dl_macos_step1: "د Arroxy اپ آیکون ښي کلیک وکړئ او **Open** غوره کړئ.",
+    "Arroxy لاهم کوډ لاسلیک شوی نه دی، نو macOS Gatekeeper د لومړي پیل پر وخت د app damaged خبرداری ښودلی شي. دا تمه کېدونکې ده — دا مانا نه لري چې فایلونه رښتیا خراب دي.",
+  dl_macos_m1_h4: "د Terminal طریقه:",
+  dl_macos_step1: "`Arroxy.app` له پرانیستل شوي DMG څخه `/Applications` ته کش کړئ.",
   dl_macos_step2:
-    "د خبرداری ډیالوګ ښکاري — **Cancel** کلیک وکړئ (د *Move to Trash* کلیک مه کوئ).",
-  dl_macos_step3: "**System Settings → Privacy & Security** خلاص کړئ.",
+    "Terminal پرانیزئ او `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app` وچلوئ.",
+  dl_macos_step3: "`open /Applications/Arroxy.app` وچلوئ.",
   dl_macos_step4:
-    'د **Security** برخې ته سکرول وکړئ. تاسو به وګورئ *"Arroxy was blocked from use because it is not from an identified developer."*',
+    "که د app لاره بله وي، `/Applications/Arroxy.app` د نصب شوې لارې سره بدله کړئ.",
   dl_macos_step5:
-    "**Open Anyway** کلیک وکړئ او د خپل پاسورډ یا Touch ID سره تایید کړئ.",
+    "که `sudo` وغواړي، د خپل Mac پاسورډ ولیکئ.",
   dl_macos_after:
-    "د ۵مې ګام وروسته، Arroxy نورمال خلاصیږي او خبرداری بیا نه ښکاري.",
-  dl_macos_m2_h4: "د ټرمینل طریقه (پرمختللي):",
+    "کله چې quarantine لرې شي، Arroxy عادي پرانیستل کېږي.",
+  dl_macos_m2_h4: "د Terminal طریقه:",
   dl_macos_note:
     "د macOS جوړونه د Apple Silicon او Intel رنرانو پر CI کیږي. که تاسو ستونزو سره مخ شئ، مهرباني وکړئ [یوه ستونزه خلاصه کړئ](../../issues) — د macOS کارونکو بازخورد فعاله د macOS ازموینې دورې بڼه ورکوي.",
   dl_linux_h3: "د Linux پر لومړي پیل",
@@ -256,29 +256,29 @@ export const ps = {
 
   dl_macos_first_h3: "macOS لومړی پیل",
   dl_macos_intro:
-    "Arroxy لاهم د macOS لپاره کوډ لاسلیک شوی نه دی، نو Gatekeeper به لومړی پیل بند کوي. د مجاز کولو سمه لار ستاسو د macOS نسخې پورې اړه لري — Sequoia 15 د زوړ ښي-کلیک → Open بای‌پاس سخت کړ.",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 او وروسته (اوسني)",
+    "Arroxy لاهم د macOS لپاره کوډ لاسلیک شوی نه دی، نو Gatekeeper ښايي له DMG څخه د نصب وروسته وېرونکی *\"Arroxy.app is damaged and can't be opened\"* ډیالوګ وښيي. دا پیغام مانا لري چې macOS بې لاسلیکه app quarantine کړی؛ دا مانا نه لري چې د app فایلونه رښتیا خراب دي. په اوسني macOS کې باوري حل Terminal دی:",
+  dl_macos_sequoia_h4: "د اوسني macOS لپاره Terminal فکس",
   dl_macos_sequoia_intro:
-    "پر Sequoia 15 او نوو، ښي-کلیک → Open نور د ډیری قرنطین شوو اپلیکیشنونو لپاره Gatekeeper بای‌پاس نه کوي. پرځای یې د System Settings پینل وکاروئ:",
+    "Arroxy Applications ته له کاپي کولو وروسته Terminal وکاروئ:",
   dl_macos_sequoia_step1:
     "د نصب شوي DMG نه `Arroxy.app` د `/Applications` ته ډریګ کړئ.",
   dl_macos_sequoia_step2:
-    "Arroxy دوه ځله کلیک وکړئ. د بند کولو ډیالوګ ښکاري — **Done** کلیک وکړئ (د *Move to Trash* کلیک مه کوئ).",
+    "Terminal پرانیزئ او دا دوه قوماندې وچلوئ:",
   dl_macos_sequoia_step3:
-    '**System Settings → Privacy & Security** خلاص کړئ او د **Security** برخې ته سکرول وکړئ. به وګورئ *"Arroxy was blocked to protect your Mac"* (یا نږدې ورته پیغام).',
+    "د Arroxy د پیل لپاره `open /Applications/Arroxy.app` وچلوئ.",
   dl_macos_sequoia_step4:
-    "**Open Anyway** کلیک وکړئ، د خپل پاسورډ یا Touch ID سره تایید کړئ، بیا Arroxy له `/Applications` بیا پیل کړئ.",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 او مخکې",
+    "که د app لاره بله وي، `/Applications/Arroxy.app` د نصب شوې لارې سره بدله کړئ.",
+  dl_macos_sonoma_h4: "د زاړه macOS لپاره Terminal فکس",
   dl_macos_sonoma_step1:
     "د نصب شوي DMG نه `Arroxy.app` د `/Applications` ته ډریګ کړئ.",
   dl_macos_sonoma_step2:
-    "د `/Applications` کې `Arroxy.app` ښي-کلیک (یا Control-کلیک) وکړئ او **Open** غوره کړئ.",
+    "Terminal پرانیزئ او quarantine له `/Applications/Arroxy.app` څخه لرې کړئ.",
   dl_macos_sonoma_step3:
-    "د خبرداری ډیالوګ اوس د **Open** تڼۍ لري — یې کلیک کړئ او تایید کړئ. Arroxy نورمال خلاصیږي او خبرداری بیا نه ښکاري.",
+    "له quarantine لرې کولو وروسته Arroxy له Terminal یا Finder څخه پیل کړئ.",
   dl_macos_damaged_h4:
-    '"App is damaged" یا دوامداره Gatekeeper بند — د Terminal فکس',
+    "د Gatekeeper quarantine فکس",
   dl_macos_damaged_p:
-    'که macOS ووایي *"Arroxy is damaged and can\'t be opened"*، یا د پورتني ګامونو هیڅ یو بند نه پاکوي، د DMG د قرنطین صفت لامل دی (ځینې براوزران او د macOS خپل د انتقال چلند یې ټاکي). د نصب شوي اپلیکیشن نه یې ووباسئ:',
+    "لومړۍ قومانده ستاسو د نصب شوي Arroxy له نسخې څخه quarantine attribute لرې کوي. دویمه app پیلوي. `sudo` ښايي ستاسو د Mac پاسورډ وغواړي؛ Terminal د لیکلو پر وخت حروف نه ښيي.",
   dl_macos_arch_note:
     "**Apple Silicon د Intel پرتله:** پر M-series Mac (M1 / M2 / M3 / M4)، `arm64` DMG ډاونلوډ کړئ. پر Intel Mac، `x64` DMG ډاونلوډ کړئ. د غلط جوړونې چلول د Rosetta له لارې لاهم کار کوي خو د پام وړ ورو دي.",
 
@@ -327,7 +327,7 @@ export const ps = {
     "هو — دواړه. د playlist یا channel URL پیسټ کړئ (لکه `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`)؛ وټاکئ چې څو entries scan شي، بیا ټول لیست queue کړئ یا ځانګړي ویډیوګانې وټاکئ. د date-range filters ژر راځي.",
   faq_q9: 'macOS وايي "اپ خرابه ده" — څه وکړم؟',
   faq_a9:
-    'دا macOS Gatekeeper دی چې بې لاسلیکه اپ بندوي، واقعي زیان نه دی. ["App is damaged" — Terminal fix](#macos-first-launch) وګورئ چې د یو کرښه `xattr` کمانډ چې یې پاکوي.',
+    "دا macOS Gatekeeper دی چې بې لاسلیکه app بندوي، واقعي زیان نه دی. د quarantine لرې کولو او Arroxy پیلولو لپاره د Terminal قوماندې په [macOS first launch](#macos-first-launch) کې وګورئ.",
   faq_q10: "ایا د YouTube ویډیوز ډاونلوډ کول قانوني دي؟",
   faq_a10:
     "د شخصي، خصوصي کارولو لپاره دا معمولا ډیرو قضایي سیمو کې منل کیږي. تاسو د YouTube د [د کارولو شرایطو](https://www.youtube.com/t/terms) او د خپل ځایني د کاپي رایټ قوانینو سره مطابقت لرل ستاسو مسؤلیت دی.",

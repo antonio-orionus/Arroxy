@@ -105,7 +105,7 @@ export const sw = {
   toc_heading: "Yaliyomo",
   why_h2: "Kwa Nini Arroxy",
   features_h2: "Vipengele",
-  dl_h2: "Pakua",
+  dl_h2: "Sakinisha na uzinduzi wa kwanza",
   privacy_h2: "Faragha",
   faq_h2: "Maswali Yanayoulizwa Mara kwa Mara",
   roadmap_h2: "Ramani ya Barabara",
@@ -215,20 +215,20 @@ export const sw = {
     "Pakua Arroxy tu kutoka ukurasa rasmi wa GitHub Releases. Ukipata faili kutoka tovuti nyingine au mtu akikutumia, ifute na upakue nakala mpya kutoka chanzo rasmi. Msimbo wa chanzo ni wa umma, hivyo unaweza kuukagua au kuijenga Arroxy mwenyewe ukitaka.",
   dl_macos_h3: "Uzinduzi wa kwanza kwenye macOS",
   dl_macos_warning:
-    "Arroxy bado haijakaguliwa kwa msimbo, kwa hivyo macOS Gatekeeper itakuonya wakati wa uzinduzi wa kwanza. Hii inatarajiwa — si ishara ya uharibifu.",
-  dl_macos_m1_h4: "Njia ya Mipangilio ya Mfumo (inayopendekezwa):",
+    "Arroxy bado haijasainiwa kwa nambari, kwa hivyo macOS Gatekeeper inaweza kuonyesha onyo la programu kuonekana imeharibika wakati wa uzinduzi wa kwanza. Hii inatarajiwa — haimaanishi faili zimeharibika kweli.",
+  dl_macos_m1_h4: "Njia ya Terminal:",
   dl_macos_step1:
-    "Bonyeza kulia ikoni ya programu ya Arroxy na uchague **Open**.",
+    "Buruta `Arroxy.app` kutoka DMG iliyofunguliwa hadi `/Applications`.",
   dl_macos_step2:
-    "Sanduku la onyo linaonekana — bonyeza **Cancel** (usibonyeze *Move to Trash*).",
-  dl_macos_step3: "Fungua **System Settings → Privacy & Security**.",
+    "Fungua Terminal na uendeshe `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app`.",
+  dl_macos_step3: "Endesha `open /Applications/Arroxy.app`.",
   dl_macos_step4:
-    'Tembeza hadi sehemu ya **Security**. Utaona *"Arroxy ilizuiwa kutumika kwa sababu haitoki kwa msanidi aliyetambuliwa."*',
+    "Ikiwa njia ya app ni tofauti, badilisha `/Applications/Arroxy.app` na njia uliyoisakinisha.",
   dl_macos_step5:
-    "Bonyeza **Open Anyway** na uthibitisha kwa nenosiri lako au Touch ID.",
+    "Weka nenosiri la Mac yako ikiwa `sudo` italiomba.",
   dl_macos_after:
-    "Baada ya hatua ya 5, Arroxy inafunguka kawaida na onyo halionekani tena.",
-  dl_macos_m2_h4: "Njia ya Terminal (ya juu):",
+    "Baada ya quarantine kuondolewa, Arroxy hufunguka kawaida.",
+  dl_macos_m2_h4: "Njia ya Terminal:",
   dl_macos_note:
     "Ujenzi wa macOS hufanywa kupitia CI kwenye vichakataji vya Apple Silicon na Intel. Ukipata matatizo, tafadhali [fungua tatizo](../../issues) — maoni kutoka kwa watumiaji wa macOS yanaathiri kikamilifu mzunguko wa majaribio ya macOS.",
   dl_linux_h3: "Uzinduzi wa kwanza kwenye Linux",
@@ -259,29 +259,29 @@ export const sw = {
 
   dl_macos_first_h3: "Uzinduzi wa kwanza wa macOS",
   dl_macos_intro:
-    "Arroxy bado haijasainiwa kwa nambari kwa macOS, kwa hivyo Gatekeeper itazuia uzinduzi wa kwanza. Njia halisi ya kuiruhusu inategemea toleo lako la macOS — Sequoia 15 ilifunga njia ya zamani ya kukwepa kwa kubonyeza kulia → Open.",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 na baadaye (ya sasa)",
+    "Arroxy bado haijasainiwa kwa macOS, kwa hivyo Gatekeeper inaweza kuonyesha ujumbe wa kutisha *\"Arroxy.app is damaged and can't be opened\"* baada ya kuisakinisha kutoka DMG. Ujumbe huo unamaanisha macOS imeweka programu isiyosainiwa kwenye quarantine; haumaanishi faili za programu zimeharibika kweli. Kwenye macOS za sasa, suluhisho la kuaminika ni Terminal:",
+  dl_macos_sequoia_h4: "Suluhisho la Terminal kwa macOS ya sasa",
   dl_macos_sequoia_intro:
-    "Kwenye Sequoia 15 na toleo jipya zaidi, kubonyeza kulia → Open haizuii tena Gatekeeper kwa programu nyingi zilizowekwa karantini. Tumia paneli ya Mipangilio ya Mfumo badala yake:",
+    "Tumia Terminal baada ya kunakili Arroxy kwenda Applications:",
   dl_macos_sequoia_step1:
     "Buruta `Arroxy.app` kutoka kwenye DMG iliyopachikwa hadi `/Applications`.",
   dl_macos_sequoia_step2:
-    "Bonyeza mara mbili Arroxy. Sanduku la mazungumzo la kuzuia linaonekana — bonyeza **Done** (usibonyeze *Move to Trash*).",
+    "Fungua Terminal na uendeshe amri hizi mbili:",
   dl_macos_sequoia_step3:
-    'Fungua **System Settings → Privacy & Security** na tembeza hadi sehemu ya **Security**. Utaona *"Arroxy was blocked to protect your Mac"* (au ujumbe unaofanana sana).',
+    "Endesha `open /Applications/Arroxy.app` ili kuzindua Arroxy.",
   dl_macos_sequoia_step4:
-    "Bonyeza **Open Anyway**, thibitisha kwa nenosiri lako au Touch ID, kisha uzindue tena Arroxy kutoka `/Applications`.",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 na mapema zaidi",
+    "Ikiwa njia ya app ni tofauti, badilisha `/Applications/Arroxy.app` na njia uliyoisakinisha.",
+  dl_macos_sonoma_h4: "Suluhisho la Terminal kwa macOS za zamani",
   dl_macos_sonoma_step1:
     "Buruta `Arroxy.app` kutoka kwenye DMG iliyopachikwa hadi `/Applications`.",
   dl_macos_sonoma_step2:
-    "Bonyeza kulia (au Control-bonyeza) `Arroxy.app` katika `/Applications` na uchague **Open**.",
+    "Fungua Terminal na uondoe quarantine kutoka `/Applications/Arroxy.app`.",
   dl_macos_sonoma_step3:
-    "Sanduku la onyo sasa lina kitufe cha **Open** — bonyeza na uthibitishe. Arroxy inafunguka kawaida na onyo halitatokea tena.",
+    "Zindua Arroxy kutoka Terminal au Finder baada ya quarantine kuondolewa.",
   dl_macos_damaged_h4:
-    '"App is damaged" au kizuizi cha Gatekeeper kinachoendelea — suluhisho la Terminal',
+    "Suluhisho la quarantine ya Gatekeeper",
   dl_macos_damaged_p:
-    'Ikiwa macOS inasema *"Arroxy is damaged and can\'t be opened"*, au hakuna hatua zilizo hapo juu zinazoondoa kizuizi, sifa ya karantini kwenye DMG ndiyo sababu (vivinjari vingine na tabia ya translocation ya macOS yenyewe huiweka). Iondoe kutoka kwa programu iliyosanikishwa:',
+    "Amri ya kwanza huondoa sifa ya quarantine kutoka kwenye nakala yako ya Arroxy iliyosakinishwa. Ya pili huzindua programu. `sudo` inaweza kukuuliza nenosiri la Mac yako; Terminal haitaonyesha herufi unapoliandika.",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel:** kwenye Mac ya mfululizo wa M (M1 / M2 / M3 / M4), pakua DMG ya `arm64`. Kwenye Mac za Intel, pakua DMG ya `x64`. Kuendesha build isiyo sahihi bado kunafanya kazi kupitia Rosetta lakini ni polepole zaidi kwa kiasi kinachoonekana.",
 
@@ -331,7 +331,7 @@ export const sw = {
     "Ndiyo — zote mbili. Bandika URL ya playlist au channel (mf. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); chagua idadi ya vipengee vya kuchanganua, kisha weka orodha yote kwenye foleni au chagua video maalum. Vichujio vya tarehe vinakuja hivi karibuni.",
   faq_q9: 'macOS inasema "programu imeharibiwa" — nifanye nini?',
   faq_a9:
-    'Hiyo ni macOS Gatekeeper inayozuia programu isiyosainiwa, si uharibifu wa kweli. Tazama ["App is damaged" — suluhisho la Terminal](#macos-first-launch) kwa amri ya mstari mmoja ya `xattr` inayoondoa kizuizi.',
+    "Hiyo ni macOS Gatekeeper inayozuia programu isiyosainiwa, si uharibifu wa kweli. Tazama [macOS first launch](#macos-first-launch) kwa amri za Terminal zinazoondoa quarantine na kuzindua Arroxy.",
   faq_q10: "Je, ni halali kupakua video za YouTube?",
   faq_a10:
     "Kwa matumizi ya kibinafsi na ya faragha, kwa ujumla inakubaliwa katika mamlaka nyingi. Unawajibika kufuata [Masharti ya Huduma](https://www.youtube.com/t/terms) ya YouTube na sheria za haki miliki za mamlaka yako.",

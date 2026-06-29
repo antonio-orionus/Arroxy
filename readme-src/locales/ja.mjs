@@ -108,7 +108,7 @@ export const ja = {
   toc_heading: "目次",
   why_h2: "なぜ Arroxy？",
   features_h2: "機能",
-  dl_h2: "ダウンロード",
+  dl_h2: "インストールと初回起動",
   privacy_h2: "プライバシー",
   faq_h2: "よくある質問",
   roadmap_h2: "ロードマップ",
@@ -216,19 +216,19 @@ export const ja = {
     "Arroxy は必ず公式の GitHub Releases ページからダウンロードしてください。他のウェブサイトから入手したファイルや、誰かから送られてきたファイルは削除し、公式ソースから新しいコピーをダウンロードしてください。ソースコードは公開されているため、ご自身で確認したり、Arroxy をビルドしたりすることも可能です。",
   dl_macos_h3: "macOS の初回起動",
   dl_macos_warning:
-    "Arroxy はまだコード署名されていないため、初回起動時に macOS Gatekeeper が警告を表示します。これは想定内の動作であり、ファイルが破損しているわけではありません。",
-  dl_macos_m1_h4: "システム設定を使う方法（推奨）：",
-  dl_macos_step1: "Arroxy のアプリアイコンを右クリックして **開く** を選択。",
+    "Arroxy はまだコード署名されていないため、macOS Gatekeeper が初回起動時に damaged app の警告を表示することがあります。これは想定内であり、ファイルが実際に壊れているという意味ではありません。",
+  dl_macos_m1_h4: "Terminal を使う方法:",
+  dl_macos_step1: "マウントした DMG から `Arroxy.app` を `/Applications` にドラッグします。",
   dl_macos_step2:
-    "警告ダイアログが表示されたら **キャンセル** をクリック（*ゴミ箱に入れる* は押さない）。",
-  dl_macos_step3: "**システム設定 → プライバシーとセキュリティ** を開く。",
+    "Terminal を開き、`sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app` を実行します。",
+  dl_macos_step3: "`open /Applications/Arroxy.app` を実行します。",
   dl_macos_step4:
-    '**セキュリティ** セクションまでスクロール。*"Arroxy は確認済みの開発元のものではないためブロックされました"* と表示されています。',
+    "アプリのパスが異なる場合は、`/Applications/Arroxy.app` を実際のインストール先に置き換えてください。",
   dl_macos_step5:
-    "**このまま開く** をクリックし、パスワードまたは Touch ID で確認。",
+    "`sudo` が求めた場合は Mac のパスワードを入力します。",
   dl_macos_after:
-    "手順 5 のあとは Arroxy が通常通り開き、警告は二度と表示されません。",
-  dl_macos_m2_h4: "ターミナルを使う方法（上級者向け）：",
+    "quarantine を削除すると、Arroxy は通常どおり開きます。",
+  dl_macos_m2_h4: "Terminal を使う方法:",
   dl_macos_note:
     "macOS ビルドは Apple Silicon と Intel の CI ランナーで生成されます。問題が発生した場合は [issue を開いて](../../issues) ください — macOS ユーザーからのフィードバックが macOS のテストサイクルを積極的に形成します。",
   dl_linux_h3: "Linux の初回起動",
@@ -260,29 +260,29 @@ export const ja = {
 
   dl_macos_first_h3: "macOS 初回起動",
   dl_macos_intro:
-    "Arroxy はまだ macOS 向けのコード署名が行われていないため、Gatekeeper が初回起動をブロックします。許可する方法は macOS のバージョンによって異なります — Sequoia 15 では旧来の右クリック → 開く による回避策が制限されました。",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 以降（現行）",
+    "Arroxy はまだ macOS 向けにコード署名されていないため、DMG からインストールした後に Gatekeeper が *\"Arroxy.app is damaged and can't be opened\"* という怖いダイアログを表示することがあります。これは macOS が未署名アプリを quarantine したという意味で、アプリのファイルが実際に壊れているわけではありません。現在の macOS では Terminal を使う方法が確実です:",
+  dl_macos_sequoia_h4: "現在の macOS 向け Terminal 修正",
   dl_macos_sequoia_intro:
-    "Sequoia 15 以降では、右クリック → 開く では多くの隔離済みアプリの Gatekeeper をバイパスできなくなりました。代わりにシステム設定パネルを使用してください：",
+    "Arroxy を Applications にコピーしたあと Terminal を使います:",
   dl_macos_sequoia_step1:
     "マウントした DMG から `Arroxy.app` を `/Applications` にドラッグ。",
   dl_macos_sequoia_step2:
-    "Arroxy をダブルクリックするとブロックダイアログが表示されます — **Done** をクリック（*Move to Trash* はクリックしない）。",
+    "Terminal を開き、次の 2 つのコマンドを実行します:",
   dl_macos_sequoia_step3:
-    '**System Settings → Privacy & Security** を開き、**Security** セクションまでスクロール。*"Arroxy was blocked to protect your Mac"*（または同様のメッセージ）が表示されます。',
+    "Arroxy を起動するには `open /Applications/Arroxy.app` を実行します。",
   dl_macos_sequoia_step4:
-    "**Open Anyway** をクリックし、パスワードまたは Touch ID で確認後、`/Applications` から Arroxy を再起動してください。",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 以前",
+    "アプリのパスが異なる場合は、`/Applications/Arroxy.app` を実際のインストール先に置き換えてください。",
+  dl_macos_sonoma_h4: "古い macOS 向け Terminal 修正",
   dl_macos_sonoma_step1:
     "マウントした DMG から `Arroxy.app` を `/Applications` にドラッグ。",
   dl_macos_sonoma_step2:
-    "`/Applications` 内の `Arroxy.app` を右クリック（または Control-クリック）して **Open** を選択。",
+    "Terminal を開き、`/Applications/Arroxy.app` から quarantine を削除します。",
   dl_macos_sonoma_step3:
-    "警告ダイアログに **Open** ボタンが表示されます — クリックして確認。Arroxy が正常に開き、以後警告は表示されません。",
+    "quarantine を削除したら、Terminal または Finder から Arroxy を起動します。",
   dl_macos_damaged_h4:
-    '"App is damaged" または Gatekeeper の継続的なブロック — Terminal による修正',
+    "Gatekeeper quarantine の修正",
   dl_macos_damaged_p:
-    'macOS が *"Arroxy is damaged and can\'t be opened"* と表示する場合、または上記の手順でブロックが解除できない場合、原因は DMG の隔離属性です（一部のブラウザや macOS 自体のトランスロケーション動作が設定します）。インストール済みアプリからその属性を削除してください：',
+    "最初のコマンドは、インストール済みの Arroxy から quarantine 属性を削除します。2 つ目はアプリを起動します。`sudo` は Mac のパスワードを求めることがあります。Terminal は入力中の文字を表示しません。",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel：** M シリーズ Mac（M1 / M2 / M3 / M4）では `arm64` DMG をダウンロード。Intel Mac では `x64` DMG をダウンロード。誤ったビルドも Rosetta 経由で動作しますが、速度は明らかに遅くなります。",
 
@@ -331,7 +331,7 @@ export const ja = {
     "はい、どちらも対応しています。プレイリストまたはチャンネルのURL（例: `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`）を貼り付け、スキャンする件数を選んでから、リスト全体をキューに入れるか特定の動画を選べます。日付範囲フィルターは近日対応予定です。",
   faq_q9: "macOS で「アプリが壊れている」と表示される — どうすれば？",
   faq_a9:
-    'それは macOS Gatekeeper が未署名のアプリをブロックしているもので、実際の破損ではありません。["App is damaged" — Terminal による修正](#macos-first-launch) を参照してください — 1 行の `xattr` コマンドで解決できます。',
+    "これは macOS Gatekeeper が未署名のアプリをブロックしているだけで、実際の破損ではありません。quarantine を削除して Arroxy を起動する Terminal コマンドは [macOS first launch](#macos-first-launch) を参照してください。",
   faq_q10: "YouTube の動画をダウンロードするのは合法ですか？",
   faq_a10:
     "個人的・私的利用については、ほとんどの法域で一般的に容認されています。YouTube の[利用規約](https://www.youtube.com/t/terms)およびあなたの地域の著作権法への準拠はあなた自身の責任です。",

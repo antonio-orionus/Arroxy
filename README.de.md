@@ -11,7 +11,7 @@
 
 Lade Videos, Shorts, Musik, Kanäle, Podcasts oder Audiotracks von **YouTube und 2000+ unterstützten Seiten** herunter — bis zu 4K HDR mit 60 fps, oder als MP3 / AAC / Opus. Läuft lokal auf Windows, macOS und Linux. **Keine Werbung, kein Bloat, kein Upselling.**
 
-[**↓ Neueste Version herunterladen**](#install) &nbsp;·&nbsp; [**Webseite**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ Neueste Version herunterladen**](#install) &nbsp;·&nbsp; [**Webseite**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows-Erststart](#windows-first-launch) · [macOS-Erststart](#macos-first-launch) · [Linux-Erststart](#linux-first-launch)
 
 [![Discord-Community beitreten](https://img.shields.io/badge/Discord%2DCommunity%20beitreten-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -33,7 +33,12 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 
 ## Inhalt
 
-- [Download](#install)
+- [Installieren und erster Start](#install)
+  - [Windows-Erststart](#windows-first-launch)
+  - [macOS-Erststart](#macos-first-launch)
+  - [Warum du möglicherweise eine Warnung siehst](#why-warning)
+  - [Linux-Erststart](#linux-first-launch)
+  - [Download verifizieren (SHA256)](#verify)
 - [Warum Arroxy](#why)
 - [Funktionen](#features)
 - [Datenschutz](#privacy)
@@ -43,7 +48,7 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 
 ---
 
-## <a id="install"></a>Download
+## <a id="install"></a>Installieren und erster Start
 
 | Plattform | Format                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -53,16 +58,6 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**Neuesten Release holen →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>Warum du möglicherweise eine Warnung siehst
-
-Arroxy ist Open Source und MIT-lizenziert. Die Windows- und macOS-Builds sind **nicht code-signiert** — Apple Developer ID und Windows EV Code-Signing-Zertifikate kosten jeweils mehrere Hundert Dollar im Jahr, die ein Indie-Projekt aus eigener Tasche zahlt. Ohne diese Signaturen warnen Windows SmartScreen und macOS Gatekeeper beim ersten Start. Die Warnungen bedeuten *dein Betriebssystem erkennt den Herausgeber nicht* — sie bedeuten nicht, dass Arroxy Malware ist.
-
-Drei Wege, Arroxy selbst zu überprüfen, in aufsteigender Genauigkeit:
-
-- **Quellcode lesen.** Jede Zeile steht auf [GitHub](https://github.com/antonio-orionus/Arroxy) und du kannst [es aus dem Quellcode bauen](#tech).
-- **SHA256 prüfen.** Vergleiche deine Datei mit der veröffentlichten [`SHA256SUMS`](../../releases/latest) — siehe [Download verifizieren](#verify) unten.
-- **Drittanbieter-Scan.** Lade die Datei bei [VirusTotal](https://www.virustotal.com) hoch.
 
 ### <a id="windows-first-launch"></a>Windows-Erststart
 
@@ -84,34 +79,35 @@ Defender-Heuristiken markieren unsignierte NSIS-Installer und Electron-Portables
 
 ### <a id="macos-first-launch"></a>macOS-Erststart
 
-Arroxy ist noch nicht code-signiert für macOS, daher blockiert Gatekeeper den ersten Start. Der genaue Weg, um es zu erlauben, hängt von deiner macOS-Version ab — Sequoia 15 hat die alte Rechtsklick → Öffnen-Umgehung verschärft.
+Arroxy ist noch nicht für macOS code-signiert, daher kann Gatekeeper nach der Installation aus dem DMG den erschreckenden Dialog *"Arroxy.app is damaged and can't be opened"* anzeigen. Diese Meldung bedeutet, dass macOS eine unsignierte App unter Quarantäne gestellt hat; sie bedeutet nicht, dass die App-Dateien wirklich beschädigt sind. Auf aktuellen macOS-Versionen ist Terminal der zuverlässige Weg:
 
-#### macOS Sequoia 15 und neuer (aktuell)
-
-Ab Sequoia 15 umgeht Rechtsklick → Öffnen Gatekeeper für viele unter Quarantäne stehende Apps nicht mehr. Nutze stattdessen die Systemeinstellungen:
-
-1. Ziehe `Arroxy.app` aus dem eingehängten DMG nach `/Applications`.
-2. Doppelklicke auf Arroxy. Der Blockierdialog erscheint — klicke auf **Done** (klicke nicht auf *Move to Trash*).
-3. Öffne **System Settings → Privacy & Security** und scrolle zum Abschnitt **Security**. Du siehst *"Arroxy was blocked to protect your Mac"* (oder eine nahezu identische Meldung).
-4. Klicke auf **Open Anyway**, bestätige mit deinem Passwort oder Touch ID, und starte Arroxy dann aus `/Applications` neu.
-
-#### macOS Sonoma 14 und älter
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. Ziehe `Arroxy.app` aus dem eingehängten DMG nach `/Applications`.
-2. Rechtsklick (oder Control-Klick) auf `Arroxy.app` in `/Applications` und wähle **Open**.
-3. Der Warndialog hat nun einen **Open**-Button — klicke ihn und bestätige. Arroxy öffnet sich normal und die Warnung erscheint nie wieder.
-
-#### "App is damaged" oder anhaltende Gatekeeper-Blockierung — Terminal-Fix
-
-Wenn macOS sagt *"Arroxy is damaged and can't be opened"*, oder keiner der obigen Schritte die Blockierung aufhebt, ist das Quarantäne-Attribut auf dem DMG die Ursache (manche Browser und macOS's eigenes Translocation-Verhalten setzen es). Entferne es von der installierten App:
+2. Öffne Terminal und führe diese zwei Befehle aus:
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+Der erste Befehl entfernt das Quarantäne-Attribut von deiner installierten Arroxy-Kopie. Der zweite startet die App. `sudo` kann nach deinem Mac-Passwort fragen; Terminal zeigt beim Tippen keine Zeichen an.
 
 **Apple Silicon vs Intel:** auf einem Mac der M-Serie (M1 / M2 / M3 / M4) lade das `arm64`-DMG herunter. Auf Intel-Macs lade das `x64`-DMG. Der falsche Build funktioniert auch über Rosetta, ist aber spürbar langsamer.
 
 > macOS-Builds werden per CI auf Apple Silicon- und Intel-Runnern erstellt. Falls Probleme auftreten, bitte [ein Issue öffnen](../../issues) — Feedback von macOS-Nutzern beeinflusst aktiv den macOS-Testzyklus.
+
+### <a id="why-warning"></a>Warum du möglicherweise eine Warnung siehst
+
+Arroxy ist Open Source und MIT-lizenziert. Die Windows- und macOS-Builds sind **nicht code-signiert** — Apple Developer ID und Windows EV Code-Signing-Zertifikate kosten jeweils mehrere Hundert Dollar im Jahr, die ein Indie-Projekt aus eigener Tasche zahlt. Ohne diese Signaturen warnen Windows SmartScreen und macOS Gatekeeper beim ersten Start. Die Warnungen bedeuten *dein Betriebssystem erkennt den Herausgeber nicht* — sie bedeuten nicht, dass Arroxy Malware ist.
+
+Drei Wege, Arroxy selbst zu überprüfen, in aufsteigender Genauigkeit:
+
+- **Quellcode lesen.** Jede Zeile steht auf [GitHub](https://github.com/antonio-orionus/Arroxy) und du kannst [es aus dem Quellcode bauen](#tech).
+- **SHA256 prüfen.** Vergleiche deine Datei mit der veröffentlichten [`SHA256SUMS`](../../releases/latest) — siehe [Download verifizieren](#verify) unten.
+- **Drittanbieter-Scan.** Lade die Datei bei [VirusTotal](https://www.virustotal.com) hoch.
 
 ### <a id="linux-first-launch"></a>Linux-Erststart
 
@@ -316,7 +312,7 @@ Nein. yt-dlp wird beim ersten Start automatisch heruntergeladen und auf deinem R
 Ja — beides. Füge eine Playlist-URL oder Kanal-URL ein (z. B. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); wähle, wie viele Einträge gescannt werden sollen, und stelle dann die ganze Liste in die Warteschlange oder wähle einzelne Videos aus. Datumsfilter kommen bald.
 
 **macOS sagt „die App ist beschädigt" — was tun?**
-Das ist macOS Gatekeeper, der eine unsignierte App blockiert — kein echter Schaden. Siehe ["App is damaged" — Terminal-Fix](#macos-first-launch) für den einzeiligen `xattr`-Befehl, der das behebt.
+Das ist macOS Gatekeeper, der eine unsignierte App blockiert — kein echter Schaden. Siehe [macOS first launch](#macos-first-launch) für die Terminal-Befehle, die die Quarantäne entfernen und Arroxy starten.
 
 **Ist das Herunterladen von YouTube-Videos legal?**
 Für den persönlichen, privaten Gebrauch ist es in den meisten Rechtsordnungen allgemein akzeptiert. Du bist selbst dafür verantwortlich, die [Nutzungsbedingungen](https://www.youtube.com/t/terms) von YouTube und die Urheberrechtsgesetze deines Landes einzuhalten.

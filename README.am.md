@@ -11,7 +11,7 @@
 
 ቪዲዮዎች፣ Shorts፣ ሙዚቃ፣ ቻናሎች፣ ፖድካስቶች ወይም የድምፅ ትራኮች ከ**YouTube እና ከ2000+ ተደገፉ ጣቢያዎች** ያውርዱ — እስከ 4K HDR በ60 fps፣ ወይም MP3 / AAC / Opus። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ብዝሃ ሸቀጥ፣ ምንም ተጨማሪ ሽያጭ።**
 
-[**↓ የቅርብ ጊዜ ስሪት አውርድ**](#install) &nbsp;·&nbsp; [**ድር ጣቢያ**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ የቅርብ ጊዜ ስሪት አውርድ**](#install) &nbsp;·&nbsp; [**ድር ጣቢያ**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows ላይ ለመጀመሪያ ጊዜ አስጀምር](#windows-first-launch) · [macOS ላይ ለመጀመሪያ ጊዜ አስጀምር](#macos-first-launch) · [Linux ላይ ለመጀመሪያ ጊዜ አስጀምር](#linux-first-launch)
 
 [![የDiscord ማህበረሰብን ይቀላቀሉ](https://img.shields.io/badge/%E1%8B%A8Discord%20%E1%88%9B%E1%88%85%E1%89%A0%E1%88%A8%E1%88%B0%E1%89%A5%E1%8A%95%20%E1%8B%AD%E1%89%80%E1%88%8B%E1%89%80%E1%88%89-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -31,7 +31,12 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 
 ## ዝርዝር
 
-- [አውርድ](#install)
+- [መጫን እና የመጀመሪያ ማስነሳት](#install)
+  - [Windows ላይ ለመጀመሪያ ጊዜ አስጀምር](#windows-first-launch)
+  - [macOS ላይ ለመጀመሪያ ጊዜ አስጀምር](#macos-first-launch)
+  - [ለምን ማስጠንቀቂያ ሊታዩዎ ይችላሉ](#why-warning)
+  - [Linux ላይ ለመጀመሪያ ጊዜ አስጀምር](#linux-first-launch)
+  - [ማውረዱን ያረጋግጡ (SHA256)](#verify)
 - [ለምን Arroxy](#why)
 - [ባህሪያት](#features)
 - [ግላዊነት](#privacy)
@@ -41,7 +46,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 
 ---
 
-## <a id="install"></a>አውርድ
+## <a id="install"></a>መጫን እና የመጀመሪያ ማስነሳት
 
 | ሥርዓተ ክወና | ቅርጸት                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,16 +56,6 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**የቅርብ ጊዜ ስሪት ይያዙ →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>ለምን ማስጠንቀቂያ ሊታዩዎ ይችላሉ
-
-Arroxy ምን ኮድ ያለው (open-source) እና MIT ፈቃድ ያለው ነው። የ Windows እና macOS ቅጅዎቹ **ኮድ አልተፈረመባቸውም** — Apple Developer ID እና Windows EV ኮድ-ፊርማ ሰርቲፊኬቶቹ እያንዳንዳቸው በዓመት በመቶዎች ዶላር ያስወጣሉ፣ ይህ ነጻ ፕሮጀክት ከኪሳቸው ይከፍላሉ። ያነዚህ ፊርሞች ሳይኖሩ፣ Windows SmartScreen እና macOS Gatekeeper በመጀመሪያ አስጀማሪ ያስጠነቅቋቸዋል። ማስጠንቀቂያዎቹ *ሥርዓተ ክወናዎ ናሸርን አይለይም* ማለት ናቸው — Arroxy ተንኮል-አዘል ሶፍትዌር ነው ማለት አይደሉም።
-
-Arroxy ን ራስዎ ለማረጋገጥ ሦስት መንገዶች፣ ከፍ እያለ በሚሄድ ጥብቅነት:
-
-- **ምንጩን ያንብቡ።** ሁሉም መስመሮች [GitHub](https://github.com/antonio-orionus/Arroxy) ላይ ናቸው፣ እናም [ከምንጩ ሊሠሩ](#tech) ይችላሉ።
-- **SHA256ን ያረጋግጡ።** ፋይልዎን ከታተሙት [`SHA256SUMS`](../../releases/latest) ጋር ያዛምዱ — ከዚህ በታች [ማውረዱን ያረጋግጡ](#verify) ይመልከቱ።
-- **የሦስተኛ ወገን ቅኝት ያካሂዱ።** ፋይሉን ወደ [VirusTotal](https://www.virustotal.com) ይጫኑ።
 
 ### <a id="windows-first-launch"></a>Windows ላይ ለመጀመሪያ ጊዜ አስጀምር
 
@@ -82,34 +77,35 @@ Defender ሂዩሪስቲክስ አንዳንድ ጊዜ ያልተፈረሙ NSIS �
 
 ### <a id="macos-first-launch"></a>macOS ላይ ለመጀመሪያ ጊዜ አስጀምር
 
-Arroxy ለ macOS ኮድ ሳይፈርም ስለሆነ፣ Gatekeeper ለመጀመሪያ አስጀምሩ ያግዳሉ። እሱን ለመፍቀድ ያለው ትክክለኛ ዘዴ macOS ስሪቶ ላይ ይወሰናሉ — Sequoia 15 ቀድሞ ያለውን ቀኝ-ጠቅ → Open ማለፊያ አጥብቋቸዋሉ።
+Arroxy ለ macOS እስካሁን ኮድ አልተፈረመም፣ ስለዚህ Gatekeeper ከ DMG ከጫኑት በኋላ አስፈሪውን *"Arroxy.app is damaged and can't be opened"* መልዕክት ሊያሳይ ይችላል። ይህ መልዕክት macOS ያልተፈረመ app በquarantine ውስጥ አስገብቶታል ማለት ነው፤ የapp ፋይሎች በእውነት ተጎድተዋል ማለት አይደለም። በአሁኑ macOS ላይ አስተማማኙ መፍትሔ Terminal ነው:
 
-#### macOS Sequoia 15 እና ከዚህ በኋላ (ወቅታዊ)
-
-Sequoia 15 እና አዳዲስ ስሪቶቹ ላይ፣ ቀኝ-ጠቅ → Open ለብዙ ቆጠቡ አፖቹ Gatekeeper ን ያሳልፋቸዋሉ አልሆነም። ምትክ ሥርዓት ቅንብሮች ፓነልን ይጠቀሙ:
-
-1. ከተቀጠለው DMG ውስጥ `Arroxy.app` ን ወደ `/Applications` ጎትቱ።
-2. Arroxy ን ሁለቴ ጠቅ ያድርጉ። የማገጃ መልዕክት ሳጥን ይታያሉ — **Done** ጠቅ ያድርጉ (*Move to Trash* አይጫኑ)።
-3. **System Settings → Privacy & Security** ይክፈቱ እና ወደ **Security** ክፍሉ ያሸብልሉ። *"Arroxy was blocked to protect your Mac"* (ወይም ቅርብ ተመሳሳይ መልዕክት) ያዩሉ።
-4. **Open Anyway** ጠቅ ያድርጉ፣ በይለፍ ቃልዎ ወይም Touch ID ያረጋግጡ፣ ከዛ Arroxy ን ከ `/Applications` ያስጀምሩ።
-
-#### macOS Sonoma 14 እና ከዚህ ቀደም
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. ከተቀጠለው DMG ውስጥ `Arroxy.app` ን ወደ `/Applications` ጎትቱ።
-2. በ `/Applications` ውስጥ `Arroxy.app` ን ቀኝ-ጠቅ ያድርጉ (ወይም Control-click) እና **Open** ይምረጡ።
-3. የማስጠንቀቂያ መልዕክት ሳጥን አሁን **Open** ቁልፍ አለው — ጠቅ ያድርጉ እና ያረጋግጡ። Arroxy በተለምዶ ይከፈቱ እናም ማስጠንቀቂያ ሁሌ አይታዩም።
-
-#### "App is damaged" ወይም ቀጣይ Gatekeeper ማገጃ — Terminal ዘዴ
-
-macOS *"Arroxy is damaged and can't be opened"* ቢል፣ ወይም ከላይ ያሉት ምንም ቃምሶዎች ማገጃውን ባያስወግዱ፣ DMG ላይ ያለው ቆጠቡ ባህሪ ምክንያቱ ነው (አንዳንድ ብሮውዘሮች እና macOS ራሱ የ translocation ባህሪ ያቀናጁ)። ከተጫነው አፕ ያስወግዱ:
+2. Terminal ይክፈቱና እነዚህን ሁለት ትዕዛዞች ያስኪዱ:
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+የመጀመሪያው ትዕዛዝ ከተጫነው የArroxy ቅጂዎ quarantine attribute ያስወግዳል። ሁለተኛው appን ያስነሳል። `sudo` የMac የይለፍ ቃልዎን ሊጠይቅ ይችላል፤ Terminal ሲጻፍ ምልክቶችን አያሳይም።
 
 **Apple Silicon vs Intel:** M-ሰሪ Mac ላይ (M1 / M2 / M3 / M4)፣ `arm64` DMG ያውርዱ። Intel Mac ላይ፣ `x64` DMG ያውርዱ። የተሳሳተ ቅጅ ማሂደት Rosetta በኩል ይሠራሉ ነገር ግን በግልጽ ዘገምተኛ ነው።
 
 > macOS ሕንጻዎች ከ Apple Silicon እና Intel ሩጫዎች በ CI ላይ ይሠራሉ። ችግር ካጋጠምዎ፣ [ጉዳይ ይክፈቱ](../../issues) — ከ macOS ተጠቃሚዎች ያለው ምላሽ የ macOS ፈተና ዑደቱን ቀጥታ ይቀርፃሉ።
+
+### <a id="why-warning"></a>ለምን ማስጠንቀቂያ ሊታዩዎ ይችላሉ
+
+Arroxy ምን ኮድ ያለው (open-source) እና MIT ፈቃድ ያለው ነው። የ Windows እና macOS ቅጅዎቹ **ኮድ አልተፈረመባቸውም** — Apple Developer ID እና Windows EV ኮድ-ፊርማ ሰርቲፊኬቶቹ እያንዳንዳቸው በዓመት በመቶዎች ዶላር ያስወጣሉ፣ ይህ ነጻ ፕሮጀክት ከኪሳቸው ይከፍላሉ። ያነዚህ ፊርሞች ሳይኖሩ፣ Windows SmartScreen እና macOS Gatekeeper በመጀመሪያ አስጀማሪ ያስጠነቅቋቸዋል። ማስጠንቀቂያዎቹ *ሥርዓተ ክወናዎ ናሸርን አይለይም* ማለት ናቸው — Arroxy ተንኮል-አዘል ሶፍትዌር ነው ማለት አይደሉም።
+
+Arroxy ን ራስዎ ለማረጋገጥ ሦስት መንገዶች፣ ከፍ እያለ በሚሄድ ጥብቅነት:
+
+- **ምንጩን ያንብቡ።** ሁሉም መስመሮች [GitHub](https://github.com/antonio-orionus/Arroxy) ላይ ናቸው፣ እናም [ከምንጩ ሊሠሩ](#tech) ይችላሉ።
+- **SHA256ን ያረጋግጡ።** ፋይልዎን ከታተሙት [`SHA256SUMS`](../../releases/latest) ጋር ያዛምዱ — ከዚህ በታች [ማውረዱን ያረጋግጡ](#verify) ይመልከቱ።
+- **የሦስተኛ ወገን ቅኝት ያካሂዱ።** ፋይሉን ወደ [VirusTotal](https://www.virustotal.com) ይጫኑ።
 
 ### <a id="linux-first-launch"></a>Linux ላይ ለመጀመሪያ ጊዜ አስጀምር
 
@@ -314,7 +310,7 @@ yt-dlp በማስነሻ ላይ ራስ ሰር ይዘመናሉ፣ እናም YouTube
 አዎ — ሁለቱም። የplaylist ወይም channel URL ይለጥፉ (ለምሳሌ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); ስንት ግቤቶች እንዲቃኙ ይምረጡ፣ ከዚያም ሙሉውን ዝርዝር ወደ ወረፋ ያክሉ ወይም ቪዲዮዎችን በተናጠል ይምረጡ። የቀን ክልል ማጣሪያዎች በቅርቡ ይመጣሉ።
 
 **macOS "አፕ ተጎድቷል" ይላሉ — ምን ማድረግ አለብኝ?**
-ያ macOS Gatekeeper ያልተፈረመ አፕ እየከለከሉ ናቸው፣ ሐቀኛ ጉዳት አይደሉም። ["App is damaged" — Terminal ዘዴ](#macos-first-launch) ን ለሚያጸዳው አንድ-ሸዊን `xattr` ትዕዛዝ ይመልከቱ።
+ያ macOS Gatekeeper ያልተፈረመ app እየከለከለ ነው፣ እውነተኛ ጉዳት አይደለም። quarantine ለማስወገድ እና Arroxyን ለማስነሳት የTerminal ትዕዛዞችን በ[macOS first launch](#macos-first-launch) ይመልከቱ።
 
 **YouTube ቪዲዮዎች ማውረድ ሕጋዊ ነው?**
 ለግል፣ ሚስጥራዊ አጠቃቀም በአብዛኛዎቹ ዳኝነቶች ተቀባይነት ያለው ነው። የ YouTube [የአገልግሎት ደንቦቹን](https://www.youtube.com/t/terms) እና የቦታዎ የቅጂ መብት ሕጎቹን ማክበር ኃላፊነትዎ ነው።

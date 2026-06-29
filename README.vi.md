@@ -11,7 +11,7 @@
 
 Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 4K HDR ở 60 fps, hoặc dưới dạng MP3 / AAC / Opus. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**
 
-[**↓ Tải phiên bản mới nhất**](#install) &nbsp;·&nbsp; [**Trang web**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ Tải phiên bản mới nhất**](#install) &nbsp;·&nbsp; [**Trang web**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Lần đầu khởi động trên Windows](#windows-first-launch) · [Lần đầu khởi động trên macOS](#macos-first-launch) · [Lần đầu khởi động trên Linux](#linux-first-launch)
 
 [![Tham gia cộng đồng Discord](https://img.shields.io/badge/Tham%20gia%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -31,7 +31,12 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 
 ## Mục lục
 
-- [Tải xuống](#install)
+- [Cài đặt và lần khởi chạy đầu tiên](#install)
+  - [Lần đầu khởi động trên Windows](#windows-first-launch)
+  - [Lần đầu khởi động trên macOS](#macos-first-launch)
+  - [Tại sao bạn có thể thấy cảnh báo](#why-warning)
+  - [Lần đầu khởi động trên Linux](#linux-first-launch)
+  - [Xác minh tải xuống của bạn (SHA256)](#verify)
 - [Tại sao chọn Arroxy](#why)
 - [Tính năng](#features)
 - [Quyền riêng tư](#privacy)
@@ -41,7 +46,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 
 ---
 
-## <a id="install"></a>Tải xuống
+## <a id="install"></a>Cài đặt và lần khởi chạy đầu tiên
 
 | Nền tảng | Định dạng                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,16 +56,6 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**Tải phiên bản mới nhất →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>Tại sao bạn có thể thấy cảnh báo
-
-Arroxy là phần mềm mã nguồn mở theo giấy phép MIT. Các bản build trên Windows và macOS **không được ký mã** — chứng chỉ Apple Developer ID và Windows EV code-signing mỗi loại tốn hàng trăm đô la mỗi năm, một dự án độc lập phải tự chi trả. Không có những chữ ký đó, Windows SmartScreen và macOS Gatekeeper sẽ cảnh báo khi khởi động lần đầu. Các cảnh báo có nghĩa là *hệ điều hành của bạn không nhận ra nhà phát hành* — không có nghĩa là Arroxy là phần mềm độc hại.
-
-Ba cách để tự xác minh Arroxy, theo mức độ nghiêm ngặt tăng dần:
-
-- **Đọc mã nguồn.** Mọi dòng đều có trên [GitHub](https://github.com/antonio-orionus/Arroxy) và bạn có thể [tự build từ nguồn](#tech).
-- **Kiểm tra SHA256.** So sánh file của bạn với [`SHA256SUMS`](../../releases/latest) đã công bố — xem [Xác minh tải xuống](#verify) bên dưới.
-- **Chạy quét của bên thứ ba.** Tải file lên [VirusTotal](https://www.virustotal.com).
 
 ### <a id="windows-first-launch"></a>Lần đầu khởi động trên Windows
 
@@ -82,34 +77,35 @@ Heuristic của Defender đôi khi gắn cờ các trình cài đặt NSIS khôn
 
 ### <a id="macos-first-launch"></a>Lần đầu khởi động trên macOS
 
-Arroxy chưa được ký mã cho macOS, vì vậy Gatekeeper sẽ chặn lần khởi động đầu tiên. Cách cho phép chính xác phụ thuộc vào phiên bản macOS của bạn — Sequoia 15 đã siết chặt cách bỏ qua cũ bằng chuột phải → Open.
+Arroxy chưa được ký mã cho macOS, vì vậy Gatekeeper có thể hiển thị hộp thoại đáng sợ *"Arroxy.app is damaged and can't be opened"* sau khi bạn cài từ DMG. Thông báo này nghĩa là macOS đã đưa một ứng dụng chưa ký vào quarantine; không có nghĩa là tệp ứng dụng thật sự bị hỏng. Trên macOS hiện tại, cách đáng tin cậy là dùng Terminal:
 
-#### macOS Sequoia 15 trở lên (hiện tại)
-
-Trên Sequoia 15 và mới hơn, chuột phải → Open không còn bỏ qua Gatekeeper cho nhiều ứng dụng bị cách ly. Thay vào đó, hãy dùng bảng System Settings:
-
-1. Kéo `Arroxy.app` từ DMG đã gắn vào `/Applications`.
-2. Nhấp đúp vào Arroxy. Hộp thoại chặn xuất hiện — nhấp **Done** (đừng nhấp *Move to Trash*).
-3. Mở **System Settings → Privacy & Security** và cuộn đến phần **Security**. Bạn sẽ thấy *"Arroxy was blocked to protect your Mac"* (hoặc thông báo gần giống).
-4. Nhấp **Open Anyway**, xác nhận bằng mật khẩu hoặc Touch ID, sau đó khởi động lại Arroxy từ `/Applications`.
-
-#### macOS Sonoma 14 và cũ hơn
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. Kéo `Arroxy.app` từ DMG đã gắn vào `/Applications`.
-2. Nhấp chuột phải (hoặc Control-click) vào `Arroxy.app` trong `/Applications` và chọn **Open**.
-3. Hộp thoại cảnh báo bây giờ có nút **Open** — nhấp vào đó và xác nhận. Arroxy mở bình thường và cảnh báo sẽ không xuất hiện lại nữa.
-
-#### "App is damaged" hoặc Gatekeeper chặn liên tục — sửa bằng Terminal
-
-Nếu macOS báo *"Arroxy is damaged and can't be opened"*, hoặc không có bước nào ở trên giải quyết được, thuộc tính cách ly trên DMG là nguyên nhân (một số trình duyệt và hành vi translocation của macOS tự đặt nó). Xóa nó khỏi ứng dụng đã cài đặt:
+2. Mở Terminal và chạy hai lệnh này:
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+Lệnh đầu tiên xóa thuộc tính quarantine khỏi bản Arroxy đã cài. Lệnh thứ hai khởi chạy ứng dụng. `sudo` có thể hỏi mật khẩu Mac; Terminal sẽ không hiển thị ký tự khi bạn nhập.
 
 **Apple Silicon vs Intel:** trên Mac dòng M (M1 / M2 / M3 / M4), hãy tải DMG `arm64`. Trên Mac Intel, tải DMG `x64`. Chạy bản build sai vẫn hoạt động qua Rosetta nhưng sẽ chậm hơn đáng kể.
 
 > Các bản build macOS được tạo qua CI trên máy chủ Apple Silicon và Intel. Nếu gặp sự cố, vui lòng [mở issue](../../issues) — phản hồi từ người dùng macOS ảnh hưởng trực tiếp đến chu kỳ kiểm thử macOS.
+
+### <a id="why-warning"></a>Tại sao bạn có thể thấy cảnh báo
+
+Arroxy là phần mềm mã nguồn mở theo giấy phép MIT. Các bản build trên Windows và macOS **không được ký mã** — chứng chỉ Apple Developer ID và Windows EV code-signing mỗi loại tốn hàng trăm đô la mỗi năm, một dự án độc lập phải tự chi trả. Không có những chữ ký đó, Windows SmartScreen và macOS Gatekeeper sẽ cảnh báo khi khởi động lần đầu. Các cảnh báo có nghĩa là *hệ điều hành của bạn không nhận ra nhà phát hành* — không có nghĩa là Arroxy là phần mềm độc hại.
+
+Ba cách để tự xác minh Arroxy, theo mức độ nghiêm ngặt tăng dần:
+
+- **Đọc mã nguồn.** Mọi dòng đều có trên [GitHub](https://github.com/antonio-orionus/Arroxy) và bạn có thể [tự build từ nguồn](#tech).
+- **Kiểm tra SHA256.** So sánh file của bạn với [`SHA256SUMS`](../../releases/latest) đã công bố — xem [Xác minh tải xuống](#verify) bên dưới.
+- **Chạy quét của bên thứ ba.** Tải file lên [VirusTotal](https://www.virustotal.com).
 
 ### <a id="linux-first-launch"></a>Lần đầu khởi động trên Linux
 
@@ -314,7 +310,7 @@ Không. yt-dlp được tải xuống tự động khi khởi động lần đ�
 Có — cả hai. Dán URL playlist hoặc kênh (ví dụ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); chọn số mục cần quét, rồi đưa cả danh sách vào hàng đợi hoặc chọn từng video. Bộ lọc theo khoảng ngày sẽ có sớm.
 
 **macOS báo "ứng dụng bị hỏng" — tôi phải làm gì?**
-Đó là macOS Gatekeeper chặn ứng dụng chưa được ký, không phải file thực sự bị hỏng. Xem ["App is damaged" — sửa bằng Terminal](#macos-first-launch) để biết lệnh `xattr` một dòng giải quyết vấn đề.
+Đó là macOS Gatekeeper chặn ứng dụng chưa được ký, không phải file thật sự bị hỏng. Xem [macOS first launch](#macos-first-launch) để biết các lệnh Terminal xóa quarantine và khởi chạy Arroxy.
 
 **Tải video YouTube có hợp pháp không?**
 Đối với mục đích sử dụng cá nhân, riêng tư thì nhìn chung được chấp nhận ở hầu hết các khu vực pháp lý. Bạn có trách nhiệm tuân thủ [Điều khoản dịch vụ](https://www.youtube.com/t/terms) của YouTube và luật bản quyền tại địa phương của bạn.

@@ -11,7 +11,7 @@
 
 {{hero_desc}}
 
-[**{{cta_latest}}**](#install) &nbsp;·&nbsp; [**{{cta_website}}**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**{{cta_latest}}**](#install) &nbsp;·&nbsp; [**{{cta_website}}**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [{{dl_win_first_h3}}](#windows-first-launch) · [{{dl_macos_first_h3}}](#macos-first-launch) · [{{dl_linux_first_h3}}](#linux-first-launch)
 
 [![{{discord_badge_text}}](https://img.shields.io/badge/{{discord_badge_encoded}}-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -34,6 +34,11 @@
 ## {{toc_heading}}
 
 - [{{dl_h2}}](#install)
+  - [{{dl_win_first_h3}}](#windows-first-launch)
+  - [{{dl_macos_first_h3}}](#macos-first-launch)
+  - [{{dl_warning_h3}}](#why-warning)
+  - [{{dl_linux_first_h3}}](#linux-first-launch)
+  - [{{dl_verify_h3}}](#verify)
 - [{{why_h2}}](#why)
 - [{{features_h2}}](#features)
 - [{{privacy_h2}}](#privacy)
@@ -53,12 +58,6 @@
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**{{dl_grab}}**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>{{dl_warning_h3}}
-
-{{dl_warning_p1}}
-
-{{dl_warning_p2}}
 
 ### <a id="windows-first-launch"></a>{{dl_win_first_h3}}
 
@@ -82,32 +81,29 @@
 
 {{dl_macos_intro}}
 
-#### {{dl_macos_sequoia_h4}}
-
-{{dl_macos_sequoia_intro}}
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. {{dl_macos_sequoia_step1}}
 2. {{dl_macos_sequoia_step2}}
-3. {{dl_macos_sequoia_step3}}
-4. {{dl_macos_sequoia_step4}}
-
-#### {{dl_macos_sonoma_h4}}
-
-1. {{dl_macos_sonoma_step1}}
-2. {{dl_macos_sonoma_step2}}
-3. {{dl_macos_sonoma_step3}}
-
-#### {{dl_macos_damaged_h4}}
-
-{{dl_macos_damaged_p}}
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+{{dl_macos_damaged_p}}
 
 {{dl_macos_arch_note}}
 
 > {{dl_macos_note}}
+
+### <a id="why-warning"></a>{{dl_warning_h3}}
+
+{{dl_warning_p1}}
+
+{{dl_warning_p2}}
 
 ### <a id="linux-first-launch"></a>{{dl_linux_first_h3}}
 

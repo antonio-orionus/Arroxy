@@ -11,7 +11,7 @@
 
 **YouTube နှင့် ၂၀၀၀+ ထောက်ပံ့သောဆိုဒ်များ** မှ ဗီဒီယိုများ၊ Shorts၊ သီချင်းများ၊ channel များ၊ podcast များ သို့မဟုတ် audio track များကို ဒေါင်းလုဒ်ဆွဲပါ — 60 fps တွင် 4K HDR အထိ၊ သို့မဟုတ် MP3 / AAC / Opus အဖြစ်။ Windows, macOS နှင့် Linux တွင် သင့်ကွန်ပျူတာပေါ်တွင်သာ run ပါသည်။ **ကြော်ငြာမပါ၊ bloat မပါ၊ upsell မပါ။**
 
-[**↓ နောက်ဆုံး Release ကို ဒေါင်းလုဒ်ဆွဲပါ**](#install) &nbsp;·&nbsp; [**ဝဘ်ဆိုက်**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ နောက်ဆုံး Release ကို ဒေါင်းလုဒ်ဆွဲပါ**](#install) &nbsp;·&nbsp; [**ဝဘ်ဆိုက်**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows ပထမဆုံး launch](#windows-first-launch) · [macOS ပထမဆုံး launch](#macos-first-launch) · [Linux ပထမဆုံး launch](#linux-first-launch)
 
 [![Discord အသိုင်းအဝိုင်းတွင် ပါဝင်ပါ](https://img.shields.io/badge/Discord%20%E1%80%A1%E1%80%9E%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%B8%E1%80%A1%E1%80%9D%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%B8%E1%80%90%E1%80%BD%E1%80%84%E1%80%BA%20%E1%80%95%E1%80%AB%E1%80%9D%E1%80%84%E1%80%BA%E1%80%95%E1%80%AB-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -31,7 +31,12 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 
 ## မာတိကာ
 
-- [ဒေါင်းလုဒ်](#install)
+- [ထည့်သွင်းခြင်းနှင့် ပထမဆုံးဖွင့်ခြင်း](#install)
+  - [Windows ပထမဆုံး launch](#windows-first-launch)
+  - [macOS ပထမဆုံး launch](#macos-first-launch)
+  - [သတိပေးချက် ဘာကြောင့်မြင်ရနိုင်သနည်း](#why-warning)
+  - [Linux ပထမဆုံး launch](#linux-first-launch)
+  - [သင့်ဒေါင်းလုဒ်ကို အတည်ပြုပါ (SHA256)](#verify)
 - [Arroxy ဘာကြောင့်](#why)
 - [လုပ်ဆောင်ချက်များ](#features)
 - [ကိုယ်ရေးကိုယ်တာ](#privacy)
@@ -41,7 +46,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 
 ---
 
-## <a id="install"></a>ဒေါင်းလုဒ်
+## <a id="install"></a>ထည့်သွင်းခြင်းနှင့် ပထမဆုံးဖွင့်ခြင်း
 
 | Platform | Format                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,16 +56,6 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**နောက်ဆုံး release ကို ယူပါ →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>သတိပေးချက် ဘာကြောင့်မြင်ရနိုင်သနည်း
-
-Arroxy သည် open-source ဖြစ်ပြီး MIT-licensed ဖြစ်သည်။ Windows နှင့် macOS builds များသည် **code-sign မလုပ်ထားပါ** — Apple Developer ID နှင့် Windows EV code-signing certificates တို့သည် တစ်နှစ်လျှင် ဒေါ်လာ ရာနှင့်ချီ ကုန်ကျပြီး indie project တစ်ခုအတွက် ကိုယ်တိုင်ကျခံရသည်။ ထိုလက်မှတ်များမပါဘဲ Windows SmartScreen နှင့် macOS Gatekeeper တို့သည် ပထမဆုံး launch တွင် သတိပေးလိမ့်မည်။ သတိပေးချက်များ၏ အဓိပ္ပာယ်မှာ *သင့် OS က publisher ကို မသိသောကြောင့်ဖြစ်ပြီး* Arroxy malware ဖြစ်ကြောင်း မဆိုလိုပါ။
-
-Arroxy ကိုယ်တိုင် စစ်ဆေးရန် နည်းလမ်းသုံးမျိုး၊ တဆင့်ပြင်းထန်လာသောစီစဉ်မှုဖြင့်:
-
-- **Source ကိုဖတ်ပါ။** မျဉ်းတိုင်းသည် [GitHub](https://github.com/antonio-orionus/Arroxy) တွင်ရှိပြီး [source မှ build](#tech) လုပ်နိုင်သည်။
-- **SHA256 စစ်ဆေးပါ။** သင့်ဖိုင်ကို ထုတ်ဝေထားသော [`SHA256SUMS`](../../releases/latest) နှင့် ကိုက်ညီမှုစစ်ဆေးပါ — အောက်တွင် [သင့်ဒေါင်းလုဒ်ကို အတည်ပြုပါ](#verify) ကိုကြည့်ပါ။
-- **Third-party scan ပြုလုပ်ပါ။** ဖိုင်ကို [VirusTotal](https://www.virustotal.com) တွင် upload ပြုလုပ်ပါ။
 
 ### <a id="windows-first-launch"></a>Windows ပထမဆုံး launch
 
@@ -82,34 +77,35 @@ Defender heuristics သည် တစ်ခါတစ်ရံ unsigned NSIS insta
 
 ### <a id="macos-first-launch"></a>macOS ပထမဆုံး launch
 
-Arroxy သည် macOS အတွက် code-sign မလုပ်ရသေးသောကြောင့် Gatekeeper သည် ပထမဆုံး launch ကို ပိတ်ဆို့လိမ့်မည်။ ၎င်းကို ခွင့်ပြုရန် တိကျသောနည်းလမ်းသည် သင့် macOS ဗားရှင်းပေါ် မူတည်သည် — Sequoia 15 သည် right-click → Open bypass ဟောင်းကို တင်းကျပ်လာသည်။
+Arroxy သည် macOS အတွက် code-sign မလုပ်ရသေးသောကြောင့် DMG မှ install လုပ်ပြီးနောက် Gatekeeper သည် ကြောက်စရာ *"Arroxy.app is damaged and can't be opened"* dialog ကို ပြသနိုင်သည်။ ထို message သည် macOS က unsigned app ကို quarantine လုပ်ထားသည်ဟု ဆိုလိုပြီး app files တကယ်ပျက်စီးနေသည်ဟု မဆိုလိုပါ။ လက်ရှိ macOS တွင် ယုံကြည်ရသော ဖြေရှင်းနည်းမှာ Terminal ဖြစ်သည်:
 
-#### macOS Sequoia 15 နှင့် နောက်ပိုင်း (လက်ရှိ)
-
-Sequoia 15 နှင့် နောက်ပိုင်းတွင် right-click → Open သည် quarantine ထည့်ထားသော apps များစွာအတွက် Gatekeeper ကို ကျော်ဖြတ်၍မရတော့ပါ။ ယင်းအစား System Settings panel ကို အသုံးပြုပါ:
-
-1. တပ်ဆင်ထားသော DMG မှ `Arroxy.app` ကို `/Applications` သို့ ဆွဲထည့်ပါ။
-2. Arroxy ကို double-click နှိပ်ပါ။ ပိတ်ဆို့မှု dialog ပေါ်လာသည် — **Done** ကိုနှိပ်ပါ (*Move to Trash* ကိုမနှိပ်ပါနှင့်)။
-3. **System Settings → Privacy & Security** ကိုဖွင့်ပြီး **Security** section သို့ scroll ဆင်းပါ။ *"Arroxy was blocked to protect your Mac"* (သို့မဟုတ် ၎င်းနှင့်ဆင်တူသော message) မြင်ရပါမည်။
-4. **Open Anyway** ကိုနှိပ်ပြီး သင့် password သို့မဟုတ် Touch ID ဖြင့် အတည်ပြုကာ `/Applications` မှ Arroxy ကို ပြန်လည်ဖွင့်ပါ။
-
-#### macOS Sonoma 14 နှင့် အစောပိုင်း
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. တပ်ဆင်ထားသော DMG မှ `Arroxy.app` ကို `/Applications` သို့ ဆွဲထည့်ပါ။
-2. `/Applications` ထဲရှိ `Arroxy.app` ကို right-click (သို့မဟုတ် Control-click) နှိပ်ပြီး **Open** ကိုရွေးပါ။
-3. သတိပေးမှု dialog တွင် **Open** ခလုတ်ပေါ်လာသည် — ၎င်းကိုနှိပ်ပြီး အတည်ပြုပါ။ Arroxy ပုံမှန်ဖွင့်ပြီး သတိပေးချက်သည် နောက်ထပ်မပေါ်တော့ပါ။
-
-#### "App is damaged" သို့မဟုတ် ဆက်တိုက် Gatekeeper ပိတ်ဆို့မှု — Terminal ဖြေရှင်းနည်း
-
-macOS က *"Arroxy is damaged and can't be opened"* ဟုဆိုပါက သို့မဟုတ် အထက်ပါ အဆင့်များထဲမှ တစ်ခုမျှ ပိတ်ဆို့မှုကို မဖယ်ရှားနိုင်ပါက DMG ပေါ်ရှိ quarantine attribute ဖြစ်သည် (အချို့သော browsers နှင့် macOS ကိုယ်တိုင်၏ translocation behavior က ၎င်းကို သတ်မှတ်ထားသည်)။ ထည့်သွင်းထားသော app မှ ၎င်းကိုဖယ်ရှားပါ:
+2. Terminal ကိုဖွင့်ပြီး ဤ command နှစ်ခုကို run ပါ:
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+ပထမ command သည် သင်ထည့်သွင်းထားသော Arroxy copy မှ quarantine attribute ကို ဖယ်ရှားသည်။ ဒုတိယ command သည် app ကို ဖွင့်သည်။ `sudo` သည် သင့် Mac password ကို တောင်းနိုင်သည်။ Terminal သည် password ရိုက်နေချိန်တွင် စာလုံးများကို မပြပါ။
 
 **Apple Silicon နှင့် Intel:** M-series Mac (M1 / M2 / M3 / M4) ပေါ်တွင် `arm64` DMG ကိုဒေါင်းလုဒ်ဆွဲပါ။ Intel Mac ပေါ်တွင် `x64` DMG ကိုဒေါင်းလုဒ်ဆွဲပါ။ မမှန်ကန်သော build ကိုဖွင့်ပါက Rosetta မှတစ်ဆင့် အလုပ်လုပ်သော်လည်း သိသာစွာ နှေးကွေးပါမည်။
 
 > macOS builds များကို Apple Silicon နှင့် Intel runners တို့ပေါ်တွင် CI မှတဆင့် ထုတ်လုပ်သည်။ ပြဿနာများကြုံတွေ့ပါက [issue တင်ပါ](../../issues) — macOS သုံးစွဲသူများ၏ feedback သည် macOS testing cycle ကို တက်ကြွစွာ ပုံဖော်ပေသည်။
+
+### <a id="why-warning"></a>သတိပေးချက် ဘာကြောင့်မြင်ရနိုင်သနည်း
+
+Arroxy သည် open-source ဖြစ်ပြီး MIT-licensed ဖြစ်သည်။ Windows နှင့် macOS builds များသည် **code-sign မလုပ်ထားပါ** — Apple Developer ID နှင့် Windows EV code-signing certificates တို့သည် တစ်နှစ်လျှင် ဒေါ်လာ ရာနှင့်ချီ ကုန်ကျပြီး indie project တစ်ခုအတွက် ကိုယ်တိုင်ကျခံရသည်။ ထိုလက်မှတ်များမပါဘဲ Windows SmartScreen နှင့် macOS Gatekeeper တို့သည် ပထမဆုံး launch တွင် သတိပေးလိမ့်မည်။ သတိပေးချက်များ၏ အဓိပ္ပာယ်မှာ *သင့် OS က publisher ကို မသိသောကြောင့်ဖြစ်ပြီး* Arroxy malware ဖြစ်ကြောင်း မဆိုလိုပါ။
+
+Arroxy ကိုယ်တိုင် စစ်ဆေးရန် နည်းလမ်းသုံးမျိုး၊ တဆင့်ပြင်းထန်လာသောစီစဉ်မှုဖြင့်:
+
+- **Source ကိုဖတ်ပါ။** မျဉ်းတိုင်းသည် [GitHub](https://github.com/antonio-orionus/Arroxy) တွင်ရှိပြီး [source မှ build](#tech) လုပ်နိုင်သည်။
+- **SHA256 စစ်ဆေးပါ။** သင့်ဖိုင်ကို ထုတ်ဝေထားသော [`SHA256SUMS`](../../releases/latest) နှင့် ကိုက်ညီမှုစစ်ဆေးပါ — အောက်တွင် [သင့်ဒေါင်းလုဒ်ကို အတည်ပြုပါ](#verify) ကိုကြည့်ပါ။
+- **Third-party scan ပြုလုပ်ပါ။** ဖိုင်ကို [VirusTotal](https://www.virustotal.com) တွင် upload ပြုလုပ်ပါ။
 
 ### <a id="linux-first-launch"></a>Linux ပထမဆုံး launch
 
@@ -314,7 +310,7 @@ yt-dlp ကို launch တိုင်း အလိုအလျောက် upd
 ရပါတယ် — နှစ်မျိုးလုံး။ playlist သို့မဟုတ် channel URL ကို paste လုပ်ပါ (ဥပမာ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); scan လုပ်မည့် entries အရေအတွက်ကိုရွေးပြီး စာရင်းတစ်ခုလုံးကို queue ထဲထည့်ပါ သို့မဟုတ် video များကို သီးသန့်ရွေးပါ။ date-range filters မကြာမီလာပါမည်။
 
 **macOS က "app ပျက်စီးနေသည်" ဟုဆိုသည် — ဘာလုပ်ရမည်နည်း?**
-၎င်းသည် macOS Gatekeeper သည် unsigned app ကို ပိတ်ဆို့ခြင်းဖြစ်ပြီး တကယ်ပျက်စီးမှုမဟုတ်ပါ။ ["App is damaged" — Terminal fix](#macos-first-launch) ကိုကြည့်ပါ၊ ၎င်းကိုဖြေရှင်းသည့် တစ်ကြောင်းတည်းသော `xattr` command ပါဝင်သည်။
+၎င်းသည် macOS Gatekeeper က unsigned app ကို block လုပ်ခြင်းဖြစ်ပြီး တကယ်ပျက်စီးမှုမဟုတ်ပါ။ quarantine ကိုဖယ်ရှားပြီး Arroxy ကိုဖွင့်ရန် Terminal commands များကို [macOS first launch](#macos-first-launch) တွင် ကြည့်ပါ။
 
 **YouTube ဗီဒီယိုများ ဒေါင်းလုဒ်ဆွဲခြင်း တရားဝင်ပါသလား?**
 ကိုယ်ရေးကိုယ်တာ သုံးစွဲမှုအတွက် ကိုယ်ရေးကိုယ်တာ purposes အတွက် နိုင်ငံအများစုတွင် ယေဘုယျအားဖြင့် လက်ခံသည်။ YouTube ၏ [Terms of Service](https://www.youtube.com/t/terms) နှင့် သင့်ဒေသခံ copyright ဥပဒေများနှင့် ကိုက်ညီသည်ကို သင်ကိုယ်တိုင် တာဝန်ယူရသည်။

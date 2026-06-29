@@ -11,7 +11,7 @@
 
 نزِّل مقاطع الفيديو وShorts والموسيقى والقنوات والبودكاست والمقاطع الصوتية من **يوتيوب وأكثر من 2000 موقع مدعوم** — حتى 4K HDR بـ 60 إطاراً في الثانية، أو بصيغ MP3 / AAC / Opus. يعمل محلياً على Windows وmacOS وLinux. **لا إعلانات، لا حشو، لا عروض ترويجية.**
 
-[**↓ تنزيل أحدث إصدار**](#install) &nbsp;·&nbsp; [**الموقع الإلكتروني**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ تنزيل أحدث إصدار**](#install) &nbsp;·&nbsp; [**الموقع الإلكتروني**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [التشغيل الأول على Windows](#windows-first-launch) · [التشغيل الأول على macOS](#macos-first-launch) · [التشغيل الأول على Linux](#linux-first-launch)
 
 [![انضم إلى مجتمع Discord](https://img.shields.io/badge/%D8%A7%D9%86%D8%B6%D9%85%20%D8%A5%D9%84%D9%89%20%D9%85%D8%AC%D8%AA%D9%85%D8%B9%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -31,7 +31,12 @@
 
 ## المحتويات
 
-- [التنزيل](#install)
+- [التثبيت والتشغيل الأول](#install)
+  - [التشغيل الأول على Windows](#windows-first-launch)
+  - [التشغيل الأول على macOS](#macos-first-launch)
+  - [لماذا قد تظهر لك تحذيرات](#why-warning)
+  - [التشغيل الأول على Linux](#linux-first-launch)
+  - [التحقق من تنزيلك (SHA256)](#verify)
 - [لماذا Arroxy](#why)
 - [الميزات](#features)
 - [الخصوصية](#privacy)
@@ -41,7 +46,7 @@
 
 ---
 
-## <a id="install"></a>التنزيل
+## <a id="install"></a>التثبيت والتشغيل الأول
 
 | النظام | الصيغة                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,16 +56,6 @@
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**احصل على أحدث إصدار →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>لماذا قد تظهر لك تحذيرات
-
-Arroxy مفتوح المصدر ومرخَّص بـ MIT. إصدارات Windows وmacOS **غير موقَّعة رمزياً** — شهادات Apple Developer ID وWindows EV للتوقيع الرمزي تكلّف كل منها مئات الدولارات سنوياً، وهو ما يتحمّله المشروع المستقل من جيبه. وبدون تلك التوقيعات، سيحذّرك Windows SmartScreen وmacOS Gatekeeper عند الإطلاق الأول. تعني هذه التحذيرات *أن نظام تشغيلك لا يتعرّف على الناشر* — ولا تعني أن Arroxy برنامج خبيث.
-
-ثلاث طرق للتحقق من Arroxy بنفسك، بترتيب متصاعد من الصرامة:
-
-- **اقرأ الكود المصدري.** كل سطر موجود على [GitHub](https://github.com/antonio-orionus/Arroxy) ويمكنك [بناؤه من المصدر](#tech).
-- **تحقق من SHA256.** طابق ملفك مع [`SHA256SUMS`](../../releases/latest) المنشور — راجع [التحقق من تنزيلك](#verify) أدناه.
-- **أجرِ فحصاً بطرف ثالث.** ارفع الملف إلى [VirusTotal](https://www.virustotal.com).
 
 ### <a id="windows-first-launch"></a>التشغيل الأول على Windows
 
@@ -82,34 +77,35 @@ Arroxy مفتوح المصدر ومرخَّص بـ MIT. إصدارات Windows �
 
 ### <a id="macos-first-launch"></a>التشغيل الأول على macOS
 
-Arroxy غير موقَّع رمزياً لـ macOS بعد، لذا سيحظر Gatekeeper الإطلاق الأول. يعتمد المسار الدقيق للسماح به على إصدار macOS الخاص بك — Sequoia 15 شدّد طريقة التجاوز القديمة عبر النقر الأيمن → Open.
+Arroxy غير موقَّع رمزياً لـ macOS بعد، لذلك قد يعرض Gatekeeper الرسالة المخيفة *"Arroxy.app is damaged and can't be opened"* بعد تثبيته من DMG. تعني هذه الرسالة أن macOS وضع تطبيقاً غير موقَّع في quarantine؛ ولا تعني أن ملفات التطبيق تالفة فعلاً. على macOS الحالي، الإصلاح الموثوق هو Terminal:
 
-#### macOS Sequoia 15 والأحدث (الحالي)
-
-على Sequoia 15 والأحدث، النقر الأيمن → Open لم يعد يتجاوز Gatekeeper للكثير من التطبيقات المحجوزة. استخدم لوحة System Settings بدلاً من ذلك:
-
-1. اسحب `Arroxy.app` من DMG المثبَّت إلى `/Applications`.
-2. انقر مزدوجاً على Arroxy. تظهر نافذة الحظر — انقر **Done** (لا تنقر *Move to Trash*).
-3. افتح **System Settings → Privacy & Security** ومرِّر إلى قسم **Security**. ستجد *"Arroxy was blocked to protect your Mac"* (أو رسالة مشابهة).
-4. انقر **Open Anyway**، أكِّد بكلمة المرور أو Touch ID، ثم أعِد تشغيل Arroxy من `/Applications`.
-
-#### macOS Sonoma 14 وما قبله
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. اسحب `Arroxy.app` من DMG المثبَّت إلى `/Applications`.
-2. انقر بزر الأيمن (أو Control-click) على `Arroxy.app` في `/Applications` واختر **Open**.
-3. نافذة التحذير تحتوي الآن على زر **Open** — انقره وأكِّد. يفتح Arroxy بشكل طبيعي ولن يظهر التحذير مجدداً.
-
-#### "App is damaged" أو حظر Gatekeeper المستمر — إصلاح عبر Terminal
-
-إذا قال macOS *"Arroxy is damaged and can't be opened"*، أو لم تُزِل أيٌّ من الخطوات أعلاه الحظر، فسمة الحجر على DMG هي السبب (بعض المتصفحات وسلوك macOS الخاص بالنقل يُعيِّنانها). احذفها من التطبيق المثبَّت:
+2. افتح Terminal وشغّل هذين الأمرين:
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+الأمر الأول يزيل سمة quarantine من نسخة Arroxy المثبّتة لديك. الأمر الثاني يشغّل التطبيق. قد يطلب `sudo` كلمة مرور Mac؛ ولن يعرض Terminal أي أحرف أثناء كتابتها.
 
 **Apple Silicon مقابل Intel:** على Mac من سلسلة M (M1 / M2 / M3 / M4)، نزِّل DMG الإصدار `arm64`. على أجهزة Intel، نزِّل DMG الإصدار `x64`. تشغيل الإصدار الخاطئ يعمل عبر Rosetta لكنه أبطأ بشكل ملحوظ.
 
 > تُنتَج إصدارات macOS عبر CI على أجهزة Apple Silicon وIntel. إذا واجهت مشاكل، يرجى [فتح تقرير](../../issues) — تعليقات مستخدمي macOS تُشكِّل دورة الاختبار بفاعلية.
+
+### <a id="why-warning"></a>لماذا قد تظهر لك تحذيرات
+
+Arroxy مفتوح المصدر ومرخَّص بـ MIT. إصدارات Windows وmacOS **غير موقَّعة رمزياً** — شهادات Apple Developer ID وWindows EV للتوقيع الرمزي تكلّف كل منها مئات الدولارات سنوياً، وهو ما يتحمّله المشروع المستقل من جيبه. وبدون تلك التوقيعات، سيحذّرك Windows SmartScreen وmacOS Gatekeeper عند الإطلاق الأول. تعني هذه التحذيرات *أن نظام تشغيلك لا يتعرّف على الناشر* — ولا تعني أن Arroxy برنامج خبيث.
+
+ثلاث طرق للتحقق من Arroxy بنفسك، بترتيب متصاعد من الصرامة:
+
+- **اقرأ الكود المصدري.** كل سطر موجود على [GitHub](https://github.com/antonio-orionus/Arroxy) ويمكنك [بناؤه من المصدر](#tech).
+- **تحقق من SHA256.** طابق ملفك مع [`SHA256SUMS`](../../releases/latest) المنشور — راجع [التحقق من تنزيلك](#verify) أدناه.
+- **أجرِ فحصاً بطرف ثالث.** ارفع الملف إلى [VirusTotal](https://www.virustotal.com).
 
 ### <a id="linux-first-launch"></a>التشغيل الأول على Linux
 
@@ -314,7 +310,7 @@ Arroxy مبني لغرض واحد: الصق رابطاً، احصل على مل�
 نعم — كلاهما. الصق رابط قائمة تشغيل أو قناة (مثل `youtube.com/@handle` أو `/channel/UC…` أو `/c/Name` أو `/user/Old`)؛ اختر عدد العناصر التي تريد فحصها، ثم أضف القائمة كلها إلى الطابور أو اختر فيديوهات محددة. ستأتي فلاتر نطاق التاريخ قريبًا.
 
 **يقول macOS إن "التطبيق تالف" — ماذا أفعل؟**
-هذا Gatekeeper في macOS يحظر تطبيقاً غير موقَّع، وليس تلفاً فعلياً. راجع ["App is damaged" — إصلاح عبر Terminal](#macos-first-launch) لأمر `xattr` بسطر واحد يُزيل الحظر.
+هذا Gatekeeper في macOS يحظر تطبيقاً غير موقَّع، وليس تلفاً فعلياً. راجع [macOS first launch](#macos-first-launch) لأوامر Terminal التي تزيل quarantine وتشغّل Arroxy.
 
 **هل تنزيل فيديوهات يوتيوب قانوني؟**
 للاستخدام الشخصي الخاص، يُقبَل هذا عموماً في معظم الولايات القضائية. أنت مسؤول عن الامتثال لـ [شروط خدمة](https://www.youtube.com/t/terms) يوتيوب وقوانين حقوق النشر في بلدك.

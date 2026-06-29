@@ -106,7 +106,7 @@ export const ar = {
   toc_heading: "المحتويات",
   why_h2: "لماذا Arroxy",
   features_h2: "الميزات",
-  dl_h2: "التنزيل",
+  dl_h2: "التثبيت والتشغيل الأول",
   privacy_h2: "الخصوصية",
   faq_h2: "الأسئلة الشائعة",
   roadmap_h2: "خارطة الطريق",
@@ -214,19 +214,19 @@ export const ar = {
     "حمِّل Arroxy من صفحة GitHub Releases الرسمية فقط. إذا حصلت على الملف من موقع آخر أو أرسله إليك أحد، احذفه وحمِّل نسخة جديدة من المصدر الرسمي. الكود المصدري عام ويمكنك مراجعته أو بناء Arroxy بنفسك إن أردت.",
   dl_macos_h3: "التشغيل لأول مرة على macOS",
   dl_macos_warning:
-    "Arroxy غير موقَّع رمزياً بعد، لذا سيحذّرك Gatekeeper في macOS عند التشغيل الأول. هذا متوقع — وليس دليلاً على تلف.",
-  dl_macos_m1_h4: "طريقة إعدادات النظام (مُوصى بها):",
+    "Arroxy غير موقَّع رمزياً بعد، لذلك قد يعرض Gatekeeper في macOS تحذير التطبيق التالف عند التشغيل الأول. هذا متوقع — ولا يعني أن الملفات تالفة فعلاً.",
+  dl_macos_m1_h4: "طريقة Terminal:",
   dl_macos_step1:
-    "انقر بزر الماوس الأيمن على أيقونة تطبيق Arroxy واختر **فتح**.",
+    "اسحب `Arroxy.app` من ملف DMG المفتوح إلى `/Applications`.",
   dl_macos_step2:
-    "تظهر نافذة التحذير — انقر **إلغاء** (لا تنقر *نقل إلى سلة المهملات*).",
-  dl_macos_step3: "افتح **إعدادات النظام ← الخصوصية والأمان**.",
+    "افتح Terminal وشغّل `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app`.",
+  dl_macos_step3: "شغّل `open /Applications/Arroxy.app`.",
   dl_macos_step4:
-    'مرِّر إلى قسم **الأمان**. ستجد *"تم حظر Arroxy لأنه ليس من مطوّر معروف."*',
-  dl_macos_step5: "انقر **فتح على أي حال** وأكِّد بكلمة المرور أو Touch ID.",
+    "إذا كان مسار التطبيق مختلفاً، فاستبدل `/Applications/Arroxy.app` بالمسار الذي ثبّت التطبيق فيه.",
+  dl_macos_step5: "أدخل كلمة مرور Mac إذا طلبها `sudo`.",
   dl_macos_after:
-    "بعد الخطوة 5، يفتح Arroxy بشكل طبيعي ولن يظهر التحذير مجدداً.",
-  dl_macos_m2_h4: "طريقة Terminal (متقدم):",
+    "بعد إزالة quarantine، يفتح Arroxy بشكل طبيعي.",
+  dl_macos_m2_h4: "طريقة Terminal:",
   dl_macos_note:
     "تُنتَج إصدارات macOS عبر CI على أجهزة Apple Silicon وIntel. إذا واجهت مشاكل، يرجى [فتح تقرير](../../issues) — تعليقات مستخدمي macOS تُشكِّل دورة الاختبار بفاعلية.",
   dl_linux_h3: "التشغيل لأول مرة على Linux",
@@ -257,29 +257,29 @@ export const ar = {
 
   dl_macos_first_h3: "التشغيل الأول على macOS",
   dl_macos_intro:
-    "Arroxy غير موقَّع رمزياً لـ macOS بعد، لذا سيحظر Gatekeeper الإطلاق الأول. يعتمد المسار الدقيق للسماح به على إصدار macOS الخاص بك — Sequoia 15 شدّد طريقة التجاوز القديمة عبر النقر الأيمن → Open.",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 والأحدث (الحالي)",
+    "Arroxy غير موقَّع رمزياً لـ macOS بعد، لذلك قد يعرض Gatekeeper الرسالة المخيفة *\"Arroxy.app is damaged and can't be opened\"* بعد تثبيته من DMG. تعني هذه الرسالة أن macOS وضع تطبيقاً غير موقَّع في quarantine؛ ولا تعني أن ملفات التطبيق تالفة فعلاً. على macOS الحالي، الإصلاح الموثوق هو Terminal:",
+  dl_macos_sequoia_h4: "إصلاح Terminal لـ macOS الحالي",
   dl_macos_sequoia_intro:
-    "على Sequoia 15 والأحدث، النقر الأيمن → Open لم يعد يتجاوز Gatekeeper للكثير من التطبيقات المحجوزة. استخدم لوحة System Settings بدلاً من ذلك:",
+    "استخدم Terminal بعد نسخ Arroxy إلى Applications:",
   dl_macos_sequoia_step1:
     "اسحب `Arroxy.app` من DMG المثبَّت إلى `/Applications`.",
   dl_macos_sequoia_step2:
-    "انقر مزدوجاً على Arroxy. تظهر نافذة الحظر — انقر **Done** (لا تنقر *Move to Trash*).",
+    "افتح Terminal وشغّل هذين الأمرين:",
   dl_macos_sequoia_step3:
-    'افتح **System Settings → Privacy & Security** ومرِّر إلى قسم **Security**. ستجد *"Arroxy was blocked to protect your Mac"* (أو رسالة مشابهة).',
+    "شغّل `open /Applications/Arroxy.app` لتشغيل Arroxy.",
   dl_macos_sequoia_step4:
-    "انقر **Open Anyway**، أكِّد بكلمة المرور أو Touch ID، ثم أعِد تشغيل Arroxy من `/Applications`.",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 وما قبله",
+    "إذا كان مسار التطبيق مختلفاً، فاستبدل `/Applications/Arroxy.app` بالمسار الذي ثبّت التطبيق فيه.",
+  dl_macos_sonoma_h4: "إصلاح Terminal لإصدارات macOS الأقدم",
   dl_macos_sonoma_step1:
     "اسحب `Arroxy.app` من DMG المثبَّت إلى `/Applications`.",
   dl_macos_sonoma_step2:
-    "انقر بزر الأيمن (أو Control-click) على `Arroxy.app` في `/Applications` واختر **Open**.",
+    "افتح Terminal وأزل quarantine من `/Applications/Arroxy.app`.",
   dl_macos_sonoma_step3:
-    "نافذة التحذير تحتوي الآن على زر **Open** — انقره وأكِّد. يفتح Arroxy بشكل طبيعي ولن يظهر التحذير مجدداً.",
+    "شغّل Arroxy من Terminal أو Finder بعد إزالة quarantine.",
   dl_macos_damaged_h4:
-    '"App is damaged" أو حظر Gatekeeper المستمر — إصلاح عبر Terminal',
+    "إصلاح quarantine في Gatekeeper",
   dl_macos_damaged_p:
-    'إذا قال macOS *"Arroxy is damaged and can\'t be opened"*، أو لم تُزِل أيٌّ من الخطوات أعلاه الحظر، فسمة الحجر على DMG هي السبب (بعض المتصفحات وسلوك macOS الخاص بالنقل يُعيِّنانها). احذفها من التطبيق المثبَّت:',
+    "الأمر الأول يزيل سمة quarantine من نسخة Arroxy المثبّتة لديك. الأمر الثاني يشغّل التطبيق. قد يطلب `sudo` كلمة مرور Mac؛ ولن يعرض Terminal أي أحرف أثناء كتابتها.",
   dl_macos_arch_note:
     "**Apple Silicon مقابل Intel:** على Mac من سلسلة M (M1 / M2 / M3 / M4)، نزِّل DMG الإصدار `arm64`. على أجهزة Intel، نزِّل DMG الإصدار `x64`. تشغيل الإصدار الخاطئ يعمل عبر Rosetta لكنه أبطأ بشكل ملحوظ.",
 
@@ -327,7 +327,7 @@ export const ar = {
     "نعم — كلاهما. الصق رابط قائمة تشغيل أو قناة (مثل `youtube.com/@handle` أو `/channel/UC…` أو `/c/Name` أو `/user/Old`)؛ اختر عدد العناصر التي تريد فحصها، ثم أضف القائمة كلها إلى الطابور أو اختر فيديوهات محددة. ستأتي فلاتر نطاق التاريخ قريبًا.",
   faq_q9: 'يقول macOS إن "التطبيق تالف" — ماذا أفعل؟',
   faq_a9:
-    'هذا Gatekeeper في macOS يحظر تطبيقاً غير موقَّع، وليس تلفاً فعلياً. راجع ["App is damaged" — إصلاح عبر Terminal](#macos-first-launch) لأمر `xattr` بسطر واحد يُزيل الحظر.',
+    "هذا Gatekeeper في macOS يحظر تطبيقاً غير موقَّع، وليس تلفاً فعلياً. راجع [macOS first launch](#macos-first-launch) لأوامر Terminal التي تزيل quarantine وتشغّل Arroxy.",
   faq_q10: "هل تنزيل فيديوهات يوتيوب قانوني؟",
   faq_a10:
     "للاستخدام الشخصي الخاص، يُقبَل هذا عموماً في معظم الولايات القضائية. أنت مسؤول عن الامتثال لـ [شروط خدمة](https://www.youtube.com/t/terms) يوتيوب وقوانين حقوق النشر في بلدك.",

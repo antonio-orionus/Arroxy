@@ -106,7 +106,7 @@ export const uz = {
   toc_heading: "Mundarija",
   why_h2: "Nima uchun Arroxy",
   features_h2: "Xususiyatlar",
-  dl_h2: "Yuklab olish",
+  dl_h2: "O'rnatish va birinchi ishga tushirish",
   privacy_h2: "Maxfiylik",
   faq_h2: "Ko'p so'raladigan savollar",
   roadmap_h2: "Yo'l xaritasi",
@@ -216,20 +216,20 @@ export const uz = {
     "Arroxy'ni faqat rasmiy GitHub Releases sahifasidan yuklab oling. Agar faylni boshqa saytdan olgan bo'lsangiz yoki kimdir sizga yuborgan bo'lsa, uni o'chirib, rasmiy manbadan yangi nusxa yuklab oling. Manba kodi ommaviy, shuning uchun xohlasangiz o'zingiz tekshirishingiz yoki Arroxy'ni mustaqil qurishingiz mumkin.",
   dl_macos_h3: "macOS da birinchi ishga tushirish",
   dl_macos_warning:
-    "Arroxy hali kod imzosiga ega emas, shuning uchun macOS Gatekeeper birinchi ishga tushirishda ogohlantirish ko'rsatadi. Bu kutilgan holat — bu shikastlanish belgisi emas.",
-  dl_macos_m1_h4: "Tizim sozlamalari usuli (tavsiya etiladi):",
+    "Arroxy hali kod imzosiga ega emas, shuning uchun macOS Gatekeeper birinchi ishga tushirishda app shikastlangandek ogohlantirish ko'rsatishi mumkin. Bu kutilgan holat — fayllar haqiqatan shikastlanganini anglatmaydi.",
+  dl_macos_m1_h4: "Terminal usuli:",
   dl_macos_step1:
-    "Arroxy ilova belgisiga sichqonchaning o'ng tugmasi bilan bosing va **Ochish** ni tanlang.",
+    "Ochilgan DMG ichidagi `Arroxy.app` ni `/Applications` ga sudrab o'tkazing.",
   dl_macos_step2:
-    "Ogohlantirish dialogi paydo bo'ladi — **Bekor qilish** tugmasini bosing (*Axlat qutisiga o'tkazish* ni bosmang).",
-  dl_macos_step3: "**Tizim Sozlamalari → Maxfiylik va Xavfsizlik** ni oching.",
+    "Terminalni ochib `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app` ni ishga tushiring.",
+  dl_macos_step3: "`open /Applications/Arroxy.app` ni ishga tushiring.",
   dl_macos_step4:
-    "Pastga siljib **Xavfsizlik** bo'limiga o'ting. Siz *\"Arroxy aniqlanmagan dasturchidan bo'lganligi sababli ishlatish bloklangan.\"* degan yozuvni ko'rasiz.",
+    "Agar app yo'li boshqacha bo'lsa, `/Applications/Arroxy.app` ni o'zingiz o'rnatgan yo'l bilan almashtiring.",
   dl_macos_step5:
-    "**Baribir ochish** tugmasini bosing va parolingiz yoki Touch ID bilan tasdiqlang.",
+    "`sudo` so'rasa, Mac parolingizni kiriting.",
   dl_macos_after:
-    "5-qadamdan so'ng Arroxy odatda ochiladi va ogohlantirish boshqa ko'rinmaydi.",
-  dl_macos_m2_h4: "Terminal usuli (rivojlangan foydalanuvchilar uchun):",
+    "Quarantine olib tashlangandan keyin Arroxy odatdagidek ochiladi.",
+  dl_macos_m2_h4: "Terminal usuli:",
   dl_macos_note:
     "macOS qurilmalari Apple Silicon va Intel runnerlarida CI orqali ishlab chiqariladi. Muammolarga duch kelsangiz, iltimos [muammo oching](../../issues) — macOS foydalanuvchilaridan qayta aloqa macOS test siklini faol shakllantiradi.",
   dl_linux_h3: "Linuxda birinchi ishga tushirish",
@@ -261,29 +261,29 @@ export const uz = {
 
   dl_macos_first_h3: "macOS da birinchi ishga tushirish",
   dl_macos_intro:
-    "Arroxy hali macOS uchun kod imzolanmagan, shuning uchun Gatekeeper birinchi ishga tushirishni bloklaydi. Uni ruxsat etishning aniq yo'li macOS versiyangizga bog'liq — Sequoia 15 eski sichqonchaning o'ng tugmasi → Open usulini qattiqlashtirib qo'ydi.",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 va undan keyingi (joriy)",
+    "Arroxy hali macOS uchun kod imzolanmagan, shuning uchun Gatekeeper DMG dan o'rnatgandan keyin qo'rqinchli *\"Arroxy.app is damaged and can't be opened\"* dialogini ko'rsatishi mumkin. Bu xabar macOS imzolanmagan appni quarantine qilganini anglatadi; app fayllari haqiqatan shikastlanganini anglatmaydi. Hozirgi macOSlarda ishonchli tuzatish Terminal orqali:",
+  dl_macos_sequoia_h4: "Hozirgi macOS uchun Terminal tuzatishi",
   dl_macos_sequoia_intro:
-    "Sequoia 15 va undan yangi versiyalarda, sichqonchaning o'ng tugmasi → Open ko'plab karantindagi ilovalar uchun Gatekeeper ni chetlab o'tmaydi. Buning o'rniga Tizim Sozlamalari panelidan foydalaning:",
+    "Arroxy ni Applications ga ko'chirgandan keyin Terminaldan foydalaning:",
   dl_macos_sequoia_step1:
     "O'rnatilgan DMG dan `Arroxy.app` ni `/Applications` ga torting.",
   dl_macos_sequoia_step2:
-    "Arroxy ni ikki marta bosing. Bloklash dialogi paydo bo'ladi — **Done** tugmasini bosing (*Move to Trash* ni bosmang).",
+    "Terminalni ochib ushbu ikki buyruqni bajaring:",
   dl_macos_sequoia_step3:
-    "**System Settings → Privacy & Security** ni oching va **Security** bo'limiga suring. Siz *\"Arroxy was blocked to protect your Mac\"* (yoki shunga o'xshash xabar) ko'rasiz.",
+    "Arroxy ni ishga tushirish uchun `open /Applications/Arroxy.app` ni bajaring.",
   dl_macos_sequoia_step4:
-    "**Open Anyway** tugmasini bosing, parolingiz yoki Touch ID bilan tasdiqlang, so'ng Arroxy ni `/Applications` dan qayta ishga tushiring.",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 va undan oldingi",
+    "Agar app yo'li boshqacha bo'lsa, `/Applications/Arroxy.app` ni o'zingiz o'rnatgan yo'l bilan almashtiring.",
+  dl_macos_sonoma_h4: "Eski macOS uchun Terminal tuzatishi",
   dl_macos_sonoma_step1:
     "O'rnatilgan DMG dan `Arroxy.app` ni `/Applications` ga torting.",
   dl_macos_sonoma_step2:
-    "`/Applications` dagi `Arroxy.app` ga sichqonchaning o'ng tugmasi bilan bosing (yoki Control-click) va **Open** ni tanlang.",
+    "Terminalni ochib `/Applications/Arroxy.app` dan quarantine ni olib tashlang.",
   dl_macos_sonoma_step3:
-    "Ogohlantirish dialogida endi **Open** tugmasi bor — uni bosing va tasdiqlang. Arroxy odatda ochiladi va ogohlantirish boshqa ko'rinmaydi.",
+    "Quarantine olib tashlangandan keyin Arroxy ni Terminal yoki Finder orqali ishga tushiring.",
   dl_macos_damaged_h4:
-    '"App is damaged" yoki doimiy Gatekeeper bloki — Terminal orqali tuzatish',
+    "Gatekeeper quarantine tuzatishi",
   dl_macos_damaged_p:
-    "Agar macOS *\"Arroxy is damaged and can't be opened\"* desa, yoki yuqoridagi qadamlarning hech biri blokni bartaraf etmasa, DMG dagi karantin atributi sabab (ba'zi brauzerlar va macOS ning o'zining translokatsiya xatti-harakati uni o'rnatadi). O'rnatilgan ilovadan uni o'chirib tashlang:",
+    "Birinchi buyruq o'rnatilgan Arroxy nusxasidan quarantine atributini olib tashlaydi. Ikkinchisi appni ishga tushiradi. `sudo` Mac parolingizni so'rashi mumkin; Terminal parol yozayotganingizda belgilarni ko'rsatmaydi.",
   dl_macos_arch_note:
     "**Apple Silicon va Intel:** M seriyali Mac da (M1 / M2 / M3 / M4) `arm64` DMG ni yuklab oling. Intel Mac larda `x64` DMG ni yuklab oling. Noto'g'ri qurilmani ishga tushirish Rosetta orqali ishlaydi, lekin sezilarli darajada sekinroq.",
 
@@ -333,7 +333,7 @@ export const uz = {
     "Ha — ikkalasi ham. Playlist yoki kanal URLini joylang (masalan, `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); nechta yozuv skanerlanishini tanlang, keyin butun ro‘yxatni navbatga qo‘ying yoki alohida videolarni tanlang. Sana oralig‘i filtrlari tez orada keladi.",
   faq_q9: 'macOS "ilova shikastlangan" deydi — nima qilaman?',
   faq_a9:
-    'Bu macOS Gatekeeper imzalanmagan ilovani bloklayotgani, haqiqiy shikastlanish emas. Bir qatorli `xattr` buyrug\'i haqida ["App is damaged" — Terminal orqali tuzatish](#macos-first-launch) ga qarang.',
+    "Bu macOS Gatekeeper imzolanmagan appni bloklayotgani, haqiqiy shikastlanish emas. Quarantine ni olib tashlash va Arroxy ni ishga tushirish uchun Terminal buyruqlari [macOS first launch](#macos-first-launch) bo'limida.",
   faq_q10: "YouTube videolarini yuklab olish qonuniyimi?",
   faq_a10:
     "Shaxsiy, xususiy foydalanish uchun bu ko'pchilik yurisdiktsiyalarda umumiy qabul qilingan. Siz YouTube ning [Foydalanish Shartlari](https://www.youtube.com/t/terms) va mahalliy mualliflik huquqi qonunlariga rioya qilish uchun javobgarsiz.",

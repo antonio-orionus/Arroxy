@@ -11,7 +11,7 @@
 
 **YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 4K HDR gacha yoki MP3 / AAC / Opus sifatida. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**
 
-[**↓ Oxirgi Relizni Yuklab Olish**](#install) &nbsp;·&nbsp; [**Veb-sayt**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ Oxirgi Relizni Yuklab Olish**](#install) &nbsp;·&nbsp; [**Veb-sayt**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows da birinchi ishga tushirish](#windows-first-launch) · [macOS da birinchi ishga tushirish](#macos-first-launch) · [Linux da birinchi ishga tushirish](#linux-first-launch)
 
 [![Discord hamjamiyatiga qo'shiling](https://img.shields.io/badge/Discord%20hamjamiyatiga%20qo%27shiling-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -31,7 +31,12 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 
 ## Mundarija
 
-- [Yuklab olish](#install)
+- [O'rnatish va birinchi ishga tushirish](#install)
+  - [Windows da birinchi ishga tushirish](#windows-first-launch)
+  - [macOS da birinchi ishga tushirish](#macos-first-launch)
+  - [Nima uchun ogohlantirish ko'rishingiz mumkin](#why-warning)
+  - [Linux da birinchi ishga tushirish](#linux-first-launch)
+  - [Yuklab olishingizni tekshiring (SHA256)](#verify)
 - [Nima uchun Arroxy](#why)
 - [Xususiyatlar](#features)
 - [Maxfiylik](#privacy)
@@ -41,7 +46,7 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 
 ---
 
-## <a id="install"></a>Yuklab olish
+## <a id="install"></a>O'rnatish va birinchi ishga tushirish
 
 | Platforma | Format                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,16 +56,6 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**Oxirgi relizni oling →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>Nima uchun ogohlantirish ko'rishingiz mumkin
-
-Arroxy ochiq manbali va MIT litsenziyali. Windows va macOS qurilmalari **kod imzolanmagan** — Apple Developer ID va Windows EV kod imzolash sertifikatlari har biri yiliga yuzlab dollarga tushadi, buni mustaqil loyiha o'z hisobidan to'laydi. Bu imzolarsiz, Windows SmartScreen va macOS Gatekeeper birinchi ishga tushirishda ogohlantiradi. Ogohlantirishlar *operatsion tizimingiz nashriyotchini tanib olmasligini* anglatadi — bu Arroxy zararli dastur ekanligini anglatmaydi.
-
-Arroxy ni o'zingiz tekshirishning uch yo'li, ortib boruvchi qat'iylikda:
-
-- **Manbani o'qing.** Har bir satr [GitHub](https://github.com/antonio-orionus/Arroxy) da mavjud va siz [manbadan yaratishingiz](#tech) mumkin.
-- **SHA256 ni tekshiring.** Faylingizni e'lon qilingan [`SHA256SUMS`](../../releases/latest) bilan solishtiring — pastdagi [Yuklab olishingizni tekshiring](#verify) ga qarang.
-- **Uchinchi tomon skanini o'tkazing.** Faylni [VirusTotal](https://www.virustotal.com) ga yuklang.
 
 ### <a id="windows-first-launch"></a>Windows da birinchi ishga tushirish
 
@@ -82,34 +77,35 @@ Defender evristikasi ba'zida imzalanmagan NSIS o'rnatuvchilari va Electron porta
 
 ### <a id="macos-first-launch"></a>macOS da birinchi ishga tushirish
 
-Arroxy hali macOS uchun kod imzolanmagan, shuning uchun Gatekeeper birinchi ishga tushirishni bloklaydi. Uni ruxsat etishning aniq yo'li macOS versiyangizga bog'liq — Sequoia 15 eski sichqonchaning o'ng tugmasi → Open usulini qattiqlashtirib qo'ydi.
+Arroxy hali macOS uchun kod imzolanmagan, shuning uchun Gatekeeper DMG dan o'rnatgandan keyin qo'rqinchli *"Arroxy.app is damaged and can't be opened"* dialogini ko'rsatishi mumkin. Bu xabar macOS imzolanmagan appni quarantine qilganini anglatadi; app fayllari haqiqatan shikastlanganini anglatmaydi. Hozirgi macOSlarda ishonchli tuzatish Terminal orqali:
 
-#### macOS Sequoia 15 va undan keyingi (joriy)
-
-Sequoia 15 va undan yangi versiyalarda, sichqonchaning o'ng tugmasi → Open ko'plab karantindagi ilovalar uchun Gatekeeper ni chetlab o'tmaydi. Buning o'rniga Tizim Sozlamalari panelidan foydalaning:
-
-1. O'rnatilgan DMG dan `Arroxy.app` ni `/Applications` ga torting.
-2. Arroxy ni ikki marta bosing. Bloklash dialogi paydo bo'ladi — **Done** tugmasini bosing (*Move to Trash* ni bosmang).
-3. **System Settings → Privacy & Security** ni oching va **Security** bo'limiga suring. Siz *"Arroxy was blocked to protect your Mac"* (yoki shunga o'xshash xabar) ko'rasiz.
-4. **Open Anyway** tugmasini bosing, parolingiz yoki Touch ID bilan tasdiqlang, so'ng Arroxy ni `/Applications` dan qayta ishga tushiring.
-
-#### macOS Sonoma 14 va undan oldingi
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. O'rnatilgan DMG dan `Arroxy.app` ni `/Applications` ga torting.
-2. `/Applications` dagi `Arroxy.app` ga sichqonchaning o'ng tugmasi bilan bosing (yoki Control-click) va **Open** ni tanlang.
-3. Ogohlantirish dialogida endi **Open** tugmasi bor — uni bosing va tasdiqlang. Arroxy odatda ochiladi va ogohlantirish boshqa ko'rinmaydi.
-
-#### "App is damaged" yoki doimiy Gatekeeper bloki — Terminal orqali tuzatish
-
-Agar macOS *"Arroxy is damaged and can't be opened"* desa, yoki yuqoridagi qadamlarning hech biri blokni bartaraf etmasa, DMG dagi karantin atributi sabab (ba'zi brauzerlar va macOS ning o'zining translokatsiya xatti-harakati uni o'rnatadi). O'rnatilgan ilovadan uni o'chirib tashlang:
+2. Terminalni ochib ushbu ikki buyruqni bajaring:
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+Birinchi buyruq o'rnatilgan Arroxy nusxasidan quarantine atributini olib tashlaydi. Ikkinchisi appni ishga tushiradi. `sudo` Mac parolingizni so'rashi mumkin; Terminal parol yozayotganingizda belgilarni ko'rsatmaydi.
 
 **Apple Silicon va Intel:** M seriyali Mac da (M1 / M2 / M3 / M4) `arm64` DMG ni yuklab oling. Intel Mac larda `x64` DMG ni yuklab oling. Noto'g'ri qurilmani ishga tushirish Rosetta orqali ishlaydi, lekin sezilarli darajada sekinroq.
 
 > macOS qurilmalari Apple Silicon va Intel runnerlarida CI orqali ishlab chiqariladi. Muammolarga duch kelsangiz, iltimos [muammo oching](../../issues) — macOS foydalanuvchilaridan qayta aloqa macOS test siklini faol shakllantiradi.
+
+### <a id="why-warning"></a>Nima uchun ogohlantirish ko'rishingiz mumkin
+
+Arroxy ochiq manbali va MIT litsenziyali. Windows va macOS qurilmalari **kod imzolanmagan** — Apple Developer ID va Windows EV kod imzolash sertifikatlari har biri yiliga yuzlab dollarga tushadi, buni mustaqil loyiha o'z hisobidan to'laydi. Bu imzolarsiz, Windows SmartScreen va macOS Gatekeeper birinchi ishga tushirishda ogohlantiradi. Ogohlantirishlar *operatsion tizimingiz nashriyotchini tanib olmasligini* anglatadi — bu Arroxy zararli dastur ekanligini anglatmaydi.
+
+Arroxy ni o'zingiz tekshirishning uch yo'li, ortib boruvchi qat'iylikda:
+
+- **Manbani o'qing.** Har bir satr [GitHub](https://github.com/antonio-orionus/Arroxy) da mavjud va siz [manbadan yaratishingiz](#tech) mumkin.
+- **SHA256 ni tekshiring.** Faylingizni e'lon qilingan [`SHA256SUMS`](../../releases/latest) bilan solishtiring — pastdagi [Yuklab olishingizni tekshiring](#verify) ga qarang.
+- **Uchinchi tomon skanini o'tkazing.** Faylni [VirusTotal](https://www.virustotal.com) ga yuklang.
 
 ### <a id="linux-first-launch"></a>Linux da birinchi ishga tushirish
 
@@ -314,7 +310,7 @@ Yo‘q. yt-dlp birinchi ishga tushirishda avtomatik yuklab olinadi va kompyuteri
 Ha — ikkalasi ham. Playlist yoki kanal URLini joylang (masalan, `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); nechta yozuv skanerlanishini tanlang, keyin butun ro‘yxatni navbatga qo‘ying yoki alohida videolarni tanlang. Sana oralig‘i filtrlari tez orada keladi.
 
 **macOS "ilova shikastlangan" deydi — nima qilaman?**
-Bu macOS Gatekeeper imzalanmagan ilovani bloklayotgani, haqiqiy shikastlanish emas. Bir qatorli `xattr` buyrug'i haqida ["App is damaged" — Terminal orqali tuzatish](#macos-first-launch) ga qarang.
+Bu macOS Gatekeeper imzolanmagan appni bloklayotgani, haqiqiy shikastlanish emas. Quarantine ni olib tashlash va Arroxy ni ishga tushirish uchun Terminal buyruqlari [macOS first launch](#macos-first-launch) bo'limida.
 
 **YouTube videolarini yuklab olish qonuniyimi?**
 Shaxsiy, xususiy foydalanish uchun bu ko'pchilik yurisdiktsiyalarda umumiy qabul qilingan. Siz YouTube ning [Foydalanish Shartlari](https://www.youtube.com/t/terms) va mahalliy mualliflik huquqi qonunlariga rioya qilish uchun javobgarsiz.

@@ -107,7 +107,7 @@ export const my = {
   toc_heading: "မာတိကာ",
   why_h2: "Arroxy ဘာကြောင့်",
   features_h2: "လုပ်ဆောင်ချက်များ",
-  dl_h2: "ဒေါင်းလုဒ်",
+  dl_h2: "ထည့်သွင်းခြင်းနှင့် ပထမဆုံးဖွင့်ခြင်း",
   privacy_h2: "ကိုယ်ရေးကိုယ်တာ",
   faq_h2: "မေးလေ့ရှိသောမေးခွန်းများ",
   roadmap_h2: "လမ်းပြမြေပုံ",
@@ -218,19 +218,19 @@ export const my = {
     "Arroxy ကို တရားဝင် GitHub Releases စာမျက်နှာမှသာ ဒေါင်းလုဒ်ဆွဲပါ။ ဖိုင်ကို အခြား website မှ ရရှိပါက သို့မဟုတ် တစ်ယောက်ယောက်က ပေးပို့ပါက ၎င်းကို ဖျက်ပြီး တရားဝင် source မှ အသစ် download ဆင်းပါ။ source code ကို public တင်ထားသောကြောင့် သင်ကြိုက်ပါက ကိုယ်တိုင် စစ်ဆေးနိုင်သည် သို့မဟုတ် Arroxy ကိုယ်တိုင် build လုပ်နိုင်သည်။",
   dl_macos_h3: "macOS တွင် ပထမဆုံး launch လုပ်ခြင်း",
   dl_macos_warning:
-    "Arroxy သည် code-sign မလုပ်ရသေးသောကြောင့် macOS Gatekeeper သည် ပထမဆုံး launch လုပ်သည့်အခါ သတိပေးလိမ့်မည်။ ၎င်းသည် မျှော်မှန်းထားသောဖြစ်ရပ်ဖြစ်ပြီး ပျက်စီးမှုသင်္ကေတမဟုတ်ပါ။",
-  dl_macos_m1_h4: "System Settings နည်းလမ်း (အကြံပြု):",
-  dl_macos_step1: "Arroxy app icon ကို right-click ပြီး **Open** ကိုရွေးပါ။",
+    "Arroxy သည် code-sign မလုပ်ရသေးသောကြောင့် macOS Gatekeeper သည် ပထမဆုံးဖွင့်ချိန်တွင် damaged app သတိပေးချက် ပြသနိုင်သည်။ ဤသည်မှာ မျှော်လင့်ထားသည့်အရာဖြစ်ပြီး ဖိုင်များ တကယ်ပျက်စီးနေသည်ဟု မဆိုလိုပါ။",
+  dl_macos_m1_h4: "Terminal နည်းလမ်း:",
+  dl_macos_step1: "ဖွင့်ထားသော DMG မှ `Arroxy.app` ကို `/Applications` သို့ ဆွဲထည့်ပါ။",
   dl_macos_step2:
-    "သတိပေးမှု dialog ပေါ်လာသည် — **Cancel** ကိုနှိပ်ပါ (*Move to Trash* ကိုမနှိပ်ပါနှင့်)။",
-  dl_macos_step3: "**System Settings → Privacy & Security** ကိုဖွင့်ပါ။",
+    "Terminal ကိုဖွင့်ပြီး `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app` ကို run ပါ။",
+  dl_macos_step3: "`open /Applications/Arroxy.app` ကို run ပါ။",
   dl_macos_step4:
-    '**Security** section သို့ scroll ဆင်းပါ။ *"Arroxy was blocked from use because it is not from an identified developer."* ဟုမြင်ရလိမ့်မည်။',
+    "app path မတူပါက `/Applications/Arroxy.app` ကို သင်ထည့်သွင်းထားသော path ဖြင့် အစားထိုးပါ။",
   dl_macos_step5:
-    "**Open Anyway** ကိုနှိပ်ပြီး သင့် password သို့မဟုတ် Touch ID ဖြင့် အတည်ပြုပါ။",
+    "`sudo` က တောင်းပါက သင့် Mac password ကို ထည့်ပါ။",
   dl_macos_after:
-    "အဆင့် ၅ ပြီးနောက် Arroxy သည် ပုံမှန်ဖွင့်ပြီး သတိပေးချက်သည် နောက်ထပ်မပေါ်တော့ပါ။",
-  dl_macos_m2_h4: "Terminal နည်းလမ်း (အဆင့်မြင့်):",
+    "quarantine ဖယ်ရှားပြီးနောက် Arroxy သည် ပုံမှန်ဖွင့်ပါမည်။",
+  dl_macos_m2_h4: "Terminal နည်းလမ်း:",
   dl_macos_note:
     "macOS builds များကို Apple Silicon နှင့် Intel runners တို့ပေါ်တွင် CI မှတဆင့် ထုတ်လုပ်သည်။ ပြဿနာများကြုံတွေ့ပါက [issue တင်ပါ](../../issues) — macOS သုံးစွဲသူများ၏ feedback သည် macOS testing cycle ကို တက်ကြွစွာ ပုံဖော်ပေသည်။",
   dl_linux_h3: "Linux တွင် ပထမဆုံး launch လုပ်ခြင်း",
@@ -262,29 +262,29 @@ export const my = {
 
   dl_macos_first_h3: "macOS ပထမဆုံး launch",
   dl_macos_intro:
-    "Arroxy သည် macOS အတွက် code-sign မလုပ်ရသေးသောကြောင့် Gatekeeper သည် ပထမဆုံး launch ကို ပိတ်ဆို့လိမ့်မည်။ ၎င်းကို ခွင့်ပြုရန် တိကျသောနည်းလမ်းသည် သင့် macOS ဗားရှင်းပေါ် မူတည်သည် — Sequoia 15 သည် right-click → Open bypass ဟောင်းကို တင်းကျပ်လာသည်။",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 နှင့် နောက်ပိုင်း (လက်ရှိ)",
+    "Arroxy သည် macOS အတွက် code-sign မလုပ်ရသေးသောကြောင့် DMG မှ install လုပ်ပြီးနောက် Gatekeeper သည် ကြောက်စရာ *\"Arroxy.app is damaged and can't be opened\"* dialog ကို ပြသနိုင်သည်။ ထို message သည် macOS က unsigned app ကို quarantine လုပ်ထားသည်ဟု ဆိုလိုပြီး app files တကယ်ပျက်စီးနေသည်ဟု မဆိုလိုပါ။ လက်ရှိ macOS တွင် ယုံကြည်ရသော ဖြေရှင်းနည်းမှာ Terminal ဖြစ်သည်:",
+  dl_macos_sequoia_h4: "လက်ရှိ macOS အတွက် Terminal fix",
   dl_macos_sequoia_intro:
-    "Sequoia 15 နှင့် နောက်ပိုင်းတွင် right-click → Open သည် quarantine ထည့်ထားသော apps များစွာအတွက် Gatekeeper ကို ကျော်ဖြတ်၍မရတော့ပါ။ ယင်းအစား System Settings panel ကို အသုံးပြုပါ:",
+    "Arroxy ကို Applications သို့ copy ပြီးနောက် Terminal ကို အသုံးပြုပါ:",
   dl_macos_sequoia_step1:
     "တပ်ဆင်ထားသော DMG မှ `Arroxy.app` ကို `/Applications` သို့ ဆွဲထည့်ပါ။",
   dl_macos_sequoia_step2:
-    "Arroxy ကို double-click နှိပ်ပါ။ ပိတ်ဆို့မှု dialog ပေါ်လာသည် — **Done** ကိုနှိပ်ပါ (*Move to Trash* ကိုမနှိပ်ပါနှင့်)။",
+    "Terminal ကိုဖွင့်ပြီး ဤ command နှစ်ခုကို run ပါ:",
   dl_macos_sequoia_step3:
-    '**System Settings → Privacy & Security** ကိုဖွင့်ပြီး **Security** section သို့ scroll ဆင်းပါ။ *"Arroxy was blocked to protect your Mac"* (သို့မဟုတ် ၎င်းနှင့်ဆင်တူသော message) မြင်ရပါမည်။',
+    "Arroxy ကိုဖွင့်ရန် `open /Applications/Arroxy.app` ကို run ပါ။",
   dl_macos_sequoia_step4:
-    "**Open Anyway** ကိုနှိပ်ပြီး သင့် password သို့မဟုတ် Touch ID ဖြင့် အတည်ပြုကာ `/Applications` မှ Arroxy ကို ပြန်လည်ဖွင့်ပါ။",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 နှင့် အစောပိုင်း",
+    "app path မတူပါက `/Applications/Arroxy.app` ကို သင်ထည့်သွင်းထားသော path ဖြင့် အစားထိုးပါ။",
+  dl_macos_sonoma_h4: "macOS အဟောင်းများအတွက် Terminal fix",
   dl_macos_sonoma_step1:
     "တပ်ဆင်ထားသော DMG မှ `Arroxy.app` ကို `/Applications` သို့ ဆွဲထည့်ပါ။",
   dl_macos_sonoma_step2:
-    "`/Applications` ထဲရှိ `Arroxy.app` ကို right-click (သို့မဟုတ် Control-click) နှိပ်ပြီး **Open** ကိုရွေးပါ။",
+    "Terminal ကိုဖွင့်ပြီး `/Applications/Arroxy.app` မှ quarantine ကို ဖယ်ရှားပါ။",
   dl_macos_sonoma_step3:
-    "သတိပေးမှု dialog တွင် **Open** ခလုတ်ပေါ်လာသည် — ၎င်းကိုနှိပ်ပြီး အတည်ပြုပါ။ Arroxy ပုံမှန်ဖွင့်ပြီး သတိပေးချက်သည် နောက်ထပ်မပေါ်တော့ပါ။",
+    "quarantine ဖယ်ရှားပြီးနောက် Arroxy ကို Terminal သို့မဟုတ် Finder မှ ဖွင့်ပါ။",
   dl_macos_damaged_h4:
-    '"App is damaged" သို့မဟုတ် ဆက်တိုက် Gatekeeper ပိတ်ဆို့မှု — Terminal ဖြေရှင်းနည်း',
+    "Gatekeeper quarantine fix",
   dl_macos_damaged_p:
-    'macOS က *"Arroxy is damaged and can\'t be opened"* ဟုဆိုပါက သို့မဟုတ် အထက်ပါ အဆင့်များထဲမှ တစ်ခုမျှ ပိတ်ဆို့မှုကို မဖယ်ရှားနိုင်ပါက DMG ပေါ်ရှိ quarantine attribute ဖြစ်သည် (အချို့သော browsers နှင့် macOS ကိုယ်တိုင်၏ translocation behavior က ၎င်းကို သတ်မှတ်ထားသည်)။ ထည့်သွင်းထားသော app မှ ၎င်းကိုဖယ်ရှားပါ:',
+    "ပထမ command သည် သင်ထည့်သွင်းထားသော Arroxy copy မှ quarantine attribute ကို ဖယ်ရှားသည်။ ဒုတိယ command သည် app ကို ဖွင့်သည်။ `sudo` သည် သင့် Mac password ကို တောင်းနိုင်သည်။ Terminal သည် password ရိုက်နေချိန်တွင် စာလုံးများကို မပြပါ။",
   dl_macos_arch_note:
     "**Apple Silicon နှင့် Intel:** M-series Mac (M1 / M2 / M3 / M4) ပေါ်တွင် `arm64` DMG ကိုဒေါင်းလုဒ်ဆွဲပါ။ Intel Mac ပေါ်တွင် `x64` DMG ကိုဒေါင်းလုဒ်ဆွဲပါ။ မမှန်ကန်သော build ကိုဖွင့်ပါက Rosetta မှတစ်ဆင့် အလုပ်လုပ်သော်လည်း သိသာစွာ နှေးကွေးပါမည်။",
 
@@ -333,7 +333,7 @@ export const my = {
     "ရပါတယ် — နှစ်မျိုးလုံး။ playlist သို့မဟုတ် channel URL ကို paste လုပ်ပါ (ဥပမာ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); scan လုပ်မည့် entries အရေအတွက်ကိုရွေးပြီး စာရင်းတစ်ခုလုံးကို queue ထဲထည့်ပါ သို့မဟုတ် video များကို သီးသန့်ရွေးပါ။ date-range filters မကြာမီလာပါမည်။",
   faq_q9: 'macOS က "app ပျက်စီးနေသည်" ဟုဆိုသည် — ဘာလုပ်ရမည်နည်း?',
   faq_a9:
-    '၎င်းသည် macOS Gatekeeper သည် unsigned app ကို ပိတ်ဆို့ခြင်းဖြစ်ပြီး တကယ်ပျက်စီးမှုမဟုတ်ပါ။ ["App is damaged" — Terminal fix](#macos-first-launch) ကိုကြည့်ပါ၊ ၎င်းကိုဖြေရှင်းသည့် တစ်ကြောင်းတည်းသော `xattr` command ပါဝင်သည်။',
+    "၎င်းသည် macOS Gatekeeper က unsigned app ကို block လုပ်ခြင်းဖြစ်ပြီး တကယ်ပျက်စီးမှုမဟုတ်ပါ။ quarantine ကိုဖယ်ရှားပြီး Arroxy ကိုဖွင့်ရန် Terminal commands များကို [macOS first launch](#macos-first-launch) တွင် ကြည့်ပါ။",
   faq_q10: "YouTube ဗီဒီယိုများ ဒေါင်းလုဒ်ဆွဲခြင်း တရားဝင်ပါသလား?",
   faq_a10:
     "ကိုယ်ရေးကိုယ်တာ သုံးစွဲမှုအတွက် ကိုယ်ရေးကိုယ်တာ purposes အတွက် နိုင်ငံအများစုတွင် ယေဘုယျအားဖြင့် လက်ခံသည်။ YouTube ၏ [Terms of Service](https://www.youtube.com/t/terms) နှင့် သင့်ဒေသခံ copyright ဥပဒေများနှင့် ကိုက်ညီသည်ကို သင်ကိုယ်တိုင် တာဝန်ယူရသည်။",

@@ -11,7 +11,7 @@
 
 **YouTube और 2000+ समर्थित साइटों** से वीडियो, Shorts, संगीत, चैनल, पॉडकास्ट या ऑडियो ट्रैक डाउनलोड करें — 60 fps पर 4K HDR तक, या MP3 / AAC / Opus के रूप में। Windows, macOS और Linux पर लोकल रन होता है। **कोई विज्ञापन नहीं, कोई ब्लोट नहीं, कोई अपसेल नहीं।**
 
-[**↓ नवीनतम रिलीज़ डाउनलोड करें**](#install) &nbsp;·&nbsp; [**वेबसाइट**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ नवीनतम रिलीज़ डाउनलोड करें**](#install) &nbsp;·&nbsp; [**वेबसाइट**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows पहला लॉन्च](#windows-first-launch) · [macOS पहला लॉन्च](#macos-first-launch) · [Linux पहला लॉन्च](#linux-first-launch)
 
 [![Discord समुदाय से जुड़ें](https://img.shields.io/badge/Discord%20%E0%A4%B8%E0%A4%AE%E0%A5%81%E0%A4%A6%E0%A4%BE%E0%A4%AF%20%E0%A4%B8%E0%A5%87%20%E0%A4%9C%E0%A5%81%E0%A4%A1%E0%A4%BC%E0%A5%87%E0%A4%82-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -33,7 +33,12 @@
 
 ## विषय-सूची
 
-- [डाउनलोड](#install)
+- [इंस्टॉल और पहला लॉन्च](#install)
+  - [Windows पहला लॉन्च](#windows-first-launch)
+  - [macOS पहला लॉन्च](#macos-first-launch)
+  - [चेतावनी क्यों दिख सकती है](#why-warning)
+  - [Linux पहला लॉन्च](#linux-first-launch)
+  - [अपना डाउनलोड वेरीफ़ाई करें (SHA256)](#verify)
 - [Arroxy क्यों?](#why)
 - [फ़ीचर](#features)
 - [प्राइवेसी](#privacy)
@@ -43,7 +48,7 @@
 
 ---
 
-## <a id="install"></a>डाउनलोड
+## <a id="install"></a>इंस्टॉल और पहला लॉन्च
 
 | प्लेटफ़ॉर्म | फ़ॉर्मैट                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -53,16 +58,6 @@
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**नवीनतम रिलीज़ लें →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>चेतावनी क्यों दिख सकती है
-
-Arroxy ओपन-सोर्स और MIT-लाइसेंस्ड है। Windows और macOS बिल्ड **कोड-साइन्ड नहीं हैं** — Apple Developer ID और Windows EV कोड-साइनिंग सर्टिफ़िकेट में हर साल सैकड़ों डॉलर का खर्च होता है, जो एक इंडी प्रोजेक्ट अपनी जेब से भरता है। उन सिग्नेचर के बिना Windows SmartScreen और macOS Gatekeeper पहले लॉन्च पर चेतावनी देंगे। चेतावनी का मतलब है *आपका OS प्रकाशक को नहीं पहचानता* — इसका मतलब यह नहीं कि Arroxy मैलवेयर है।
-
-Arroxy को ख़ुद वेरीफ़ाई करने के तीन तरीक़े, बढ़ती कठोरता के क्रम में:
-
-- **सोर्स पढ़ें।** हर लाइन [GitHub](https://github.com/antonio-orionus/Arroxy) पर है और आप [सोर्स से बिल्ड कर सकते हैं](#tech)।
-- **SHA256 जाँचें।** अपनी फ़ाइल को प्रकाशित [`SHA256SUMS`](../../releases/latest) से मिलाएँ — नीचे [अपना डाउनलोड वेरीफ़ाई करें](#verify) देखें।
-- **थर्ड-पार्टी स्कैन चलाएँ।** फ़ाइल को [VirusTotal](https://www.virustotal.com) पर अपलोड करें।
 
 ### <a id="windows-first-launch"></a>Windows पहला लॉन्च
 
@@ -84,34 +79,35 @@ Defender की heuristics कभी-कभी बिना साइन के 
 
 ### <a id="macos-first-launch"></a>macOS पहला लॉन्च
 
-Arroxy अभी macOS के लिए कोड-साइन्ड नहीं है, इसलिए Gatekeeper पहला लॉन्च ब्लॉक करेगा। इसे अनुमति देने का सटीक तरीक़ा आपके macOS वर्शन पर निर्भर करता है — Sequoia 15 ने पुराना राइट-क्लिक → Open बाईपास कड़ा कर दिया।
+Arroxy अभी macOS के लिए कोड-साइन्ड नहीं है, इसलिए DMG से इंस्टॉल करने के बाद Gatekeeper डराने वाला *"Arroxy.app is damaged and can't be opened"* डायलॉग दिखा सकता है। इस संदेश का मतलब है कि macOS ने unsigned app को quarantine किया है; इसका मतलब यह नहीं कि app files सच में खराब हैं। मौजूदा macOS पर भरोसेमंद तरीका Terminal है:
 
-#### macOS Sequoia 15 और बाद में (मौजूदा)
-
-Sequoia 15 और नए में, राइट-क्लिक → Open अब कई quarantined ऐप के लिए Gatekeeper बाईपास नहीं करता। बजाय इसके System Settings पैनल का इस्तेमाल करें:
-
-1. माउंट किए DMG से `Arroxy.app` को `/Applications` में खींचें।
-2. Arroxy को डबल-क्लिक करें। ब्लॉक डायलॉग आएगा — **Done** क्लिक करें (*Move to Trash* न क्लिक करें)।
-3. **System Settings → Privacy & Security** खोलें और **Security** सेक्शन तक स्क्रॉल करें। दिखेगा *"Arroxy was blocked to protect your Mac"* (या इससे मिलता-जुलता संदेश)।
-4. **Open Anyway** क्लिक करें, अपने पासवर्ड या Touch ID से पुष्टि करें, फिर `/Applications` से Arroxy दोबारा लॉन्च करें।
-
-#### macOS Sonoma 14 और पहले
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. माउंट किए DMG से `Arroxy.app` को `/Applications` में खींचें।
-2. `/Applications` में `Arroxy.app` पर राइट-क्लिक (या Control-क्लिक) करें और **Open** चुनें।
-3. चेतावनी डायलॉग में अब **Open** बटन है — उसे क्लिक करें और पुष्टि करें। Arroxy सामान्य रूप से खुलेगा और चेतावनी फिर कभी नहीं आएगी।
-
-#### "App is damaged" या लगातार Gatekeeper ब्लॉक — Terminal फ़िक्स
-
-अगर macOS कहे *"Arroxy is damaged and can't be opened"*, या ऊपर के किसी भी क़दम से ब्लॉक न हटे, तो DMG पर quarantine attribute कारण है (कुछ ब्राउज़र और macOS का ख़ुद का translocation behavior इसे सेट करता है)। इंस्टॉल की गई ऐप से इसे हटाएँ:
+2. Terminal खोलें और ये दो commands चलाएँ:
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+पहली command आपकी installed Arroxy copy से quarantine attribute हटाती है। दूसरी app लॉन्च करती है। `sudo` आपके Mac का password पूछ सकता है; Terminal typing के दौरान characters नहीं दिखाता।
 
 **Apple Silicon बनाम Intel:** M-series Mac (M1 / M2 / M3 / M4) पर `arm64` DMG डाउनलोड करें। Intel Mac पर `x64` DMG। ग़लत बिल्ड Rosetta से भी काम करेगा लेकिन ध्यान देने योग्य रूप से धीमा होगा।
 
 > macOS बिल्ड CI पर Apple Silicon और Intel रनर्स पर बनाए जाते हैं। अगर कोई समस्या आए, तो [issue खोलें](../../issues) — macOS यूज़र्स का फ़ीडबैक macOS टेस्टिंग साइकिल को सक्रिय रूप से आकार देता है।
+
+### <a id="why-warning"></a>चेतावनी क्यों दिख सकती है
+
+Arroxy ओपन-सोर्स और MIT-लाइसेंस्ड है। Windows और macOS बिल्ड **कोड-साइन्ड नहीं हैं** — Apple Developer ID और Windows EV कोड-साइनिंग सर्टिफ़िकेट में हर साल सैकड़ों डॉलर का खर्च होता है, जो एक इंडी प्रोजेक्ट अपनी जेब से भरता है। उन सिग्नेचर के बिना Windows SmartScreen और macOS Gatekeeper पहले लॉन्च पर चेतावनी देंगे। चेतावनी का मतलब है *आपका OS प्रकाशक को नहीं पहचानता* — इसका मतलब यह नहीं कि Arroxy मैलवेयर है।
+
+Arroxy को ख़ुद वेरीफ़ाई करने के तीन तरीक़े, बढ़ती कठोरता के क्रम में:
+
+- **सोर्स पढ़ें।** हर लाइन [GitHub](https://github.com/antonio-orionus/Arroxy) पर है और आप [सोर्स से बिल्ड कर सकते हैं](#tech)।
+- **SHA256 जाँचें।** अपनी फ़ाइल को प्रकाशित [`SHA256SUMS`](../../releases/latest) से मिलाएँ — नीचे [अपना डाउनलोड वेरीफ़ाई करें](#verify) देखें।
+- **थर्ड-पार्टी स्कैन चलाएँ।** फ़ाइल को [VirusTotal](https://www.virustotal.com) पर अपलोड करें।
 
 ### <a id="linux-first-launch"></a>Linux पहला लॉन्च
 
@@ -316,7 +312,7 @@ yt-dlp लॉन्च पर अपने आप अपडेट हो जा�
 हाँ — दोनों। playlist या channel URL paste करें (जैसे `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); कितनी entries scan करनी हैं चुनें, फिर पूरी list queue करें या specific videos चुनें। date-range filters जल्द आ रहे हैं।
 
 **macOS कहता है "ऐप ख़राब है" — क्या करूँ?**
-यह macOS Gatekeeper बिना साइन की ऐप को ब्लॉक कर रहा है, असली नुकसान नहीं। ["App is damaged" — Terminal fix](#macos-first-launch) देखें जहाँ एक लाइन का `xattr` कमांड इसे ठीक करता है।
+यह macOS Gatekeeper unsigned app को block कर रहा है, असली नुकसान नहीं। quarantine हटाने और Arroxy लॉन्च करने वाली Terminal commands के लिए [macOS first launch](#macos-first-launch) देखें।
 
 **क्या YouTube वीडियो डाउनलोड करना क़ानूनी है?**
 ज़्यादातर अधिकार-क्षेत्रों में पर्सनल, प्राइवेट इस्तेमाल के लिए यह आम तौर पर स्वीकार्य है। YouTube की [Terms of Service](https://www.youtube.com/t/terms) और अपने स्थानीय कॉपीराइट क़ानूनों का पालन करना आपकी ज़िम्मेदारी है।

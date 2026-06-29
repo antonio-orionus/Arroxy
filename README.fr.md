@@ -11,7 +11,7 @@
 
 Télécharge des vidéos, Shorts, musiques, chaînes, podcasts ou pistes audio depuis **YouTube et plus de 2000 sites supportés** — jusqu'à 4K HDR à 60 fps, ou en MP3 / AAC / Opus. Fonctionne en local sur Windows, macOS et Linux. **Pas de pub, pas de superflu, pas d'upsell.**
 
-[**↓ Télécharger la dernière version**](#install) &nbsp;·&nbsp; [**Site web**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ Télécharger la dernière version**](#install) &nbsp;·&nbsp; [**Site web**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Premier lancement sur Windows](#windows-first-launch) · [Premier lancement sur macOS](#macos-first-launch) · [Premier lancement sur Linux](#linux-first-launch)
 
 [![Rejoindre la communauté Discord](https://img.shields.io/badge/Rejoindre%20la%20communaut%C3%A9%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -33,7 +33,12 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 
 ## Sommaire
 
-- [Téléchargement](#install)
+- [Installation et premier lancement](#install)
+  - [Premier lancement sur Windows](#windows-first-launch)
+  - [Premier lancement sur macOS](#macos-first-launch)
+  - [Pourquoi tu peux voir un avertissement](#why-warning)
+  - [Premier lancement sur Linux](#linux-first-launch)
+  - [Vérifier ton téléchargement (SHA256)](#verify)
 - [Pourquoi Arroxy](#why)
 - [Fonctionnalités](#features)
 - [Confidentialité](#privacy)
@@ -43,7 +48,7 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 
 ---
 
-## <a id="install"></a>Téléchargement
+## <a id="install"></a>Installation et premier lancement
 
 | Plateforme | Format                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -53,16 +58,6 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**Récupère la dernière version →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>Pourquoi tu peux voir un avertissement
-
-Arroxy est open source et sous licence MIT. Les builds Windows et macOS **ne sont pas signés numériquement** — les certificats Apple Developer ID et Windows EV coûtent chacun plusieurs centaines de dollars par an, que paye un projet indépendant de sa poche. Sans ces signatures, Windows SmartScreen et macOS Gatekeeper t'avertiront au premier lancement. Ces avertissements signifient *ton OS ne reconnaît pas l'éditeur* — ils ne signifient pas qu'Arroxy est un malware.
-
-Trois façons de vérifier Arroxy toi-même, par ordre de rigueur croissante :
-
-- **Lis le code source.** Chaque ligne est sur [GitHub](https://github.com/antonio-orionus/Arroxy) et tu peux [le compiler depuis les sources](#tech).
-- **Vérifie le SHA256.** Compare ton fichier avec le [`SHA256SUMS`](../../releases/latest) publié — voir [Vérifier ton téléchargement](#verify) ci-dessous.
-- **Lance un scan tiers.** Envoie le fichier sur [VirusTotal](https://www.virustotal.com).
 
 ### <a id="windows-first-launch"></a>Premier lancement sur Windows
 
@@ -84,34 +79,35 @@ L'heuristique de Defender signale parfois les installeurs NSIS non signés et le
 
 ### <a id="macos-first-launch"></a>Premier lancement sur macOS
 
-Arroxy n'est pas encore signé pour macOS, donc Gatekeeper bloquera le premier lancement. Le chemin exact pour l'autoriser dépend de ta version de macOS — Sequoia 15 a durci l'ancienne méthode de contournement via clic droit → Ouvrir.
+Arroxy n'est pas encore signé pour macOS, donc Gatekeeper peut afficher le message inquiétant *"Arroxy.app is damaged and can't be opened"* après l'installation depuis le DMG. Ce message signifie que macOS a mis en quarantaine une app non signée ; il ne veut pas dire que les fichiers de l'app sont réellement endommagés. Sur les versions actuelles de macOS, la méthode fiable est Terminal :
 
-#### macOS Sequoia 15 et ultérieur (actuel)
-
-Sur Sequoia 15 et versions plus récentes, clic droit → Ouvrir ne contourne plus Gatekeeper pour de nombreuses apps en quarantaine. Utilise le panneau Réglages Système à la place :
-
-1. Fais glisser `Arroxy.app` depuis le DMG monté vers `/Applications`.
-2. Double-clique sur Arroxy. La boîte de dialogue de blocage apparaît — clique sur **Done** (ne clique pas sur *Move to Trash*).
-3. Ouvre **System Settings → Privacy & Security** et descends jusqu'à la section **Security**. Tu verras *"Arroxy was blocked to protect your Mac"* (ou un message quasi identique).
-4. Clique sur **Open Anyway**, confirme avec ton mot de passe ou Touch ID, puis relance Arroxy depuis `/Applications`.
-
-#### macOS Sonoma 14 et antérieur
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. Fais glisser `Arroxy.app` depuis le DMG monté vers `/Applications`.
-2. Clic droit (ou Control-clic) sur `Arroxy.app` dans `/Applications` et choisis **Open**.
-3. La boîte de dialogue d'avertissement dispose maintenant d'un bouton **Open** — clique dessus et confirme. Arroxy s'ouvre normalement et l'avertissement ne réapparaît plus jamais.
-
-#### "App is damaged" ou blocage Gatekeeper persistant — correction via Terminal
-
-Si macOS dit *"Arroxy is damaged and can't be opened"*, ou qu'aucune des étapes ci-dessus ne lève le blocage, l'attribut de quarantaine sur le DMG en est la cause (certains navigateurs et le comportement de translocation propre à macOS le définissent). Supprime-le de l'app installée :
+2. Ouvre Terminal et exécute ces deux commandes :
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+La première commande retire l'attribut de quarantaine de ta copie installée d'Arroxy. La seconde lance l'app. `sudo` peut demander le mot de passe de ton Mac ; Terminal n'affiche aucun caractère pendant la saisie.
 
 **Apple Silicon vs Intel :** sur un Mac de la série M (M1 / M2 / M3 / M4), télécharge le DMG `arm64`. Sur les Macs Intel, télécharge le DMG `x64`. Le mauvais build fonctionne quand même via Rosetta, mais est notablement plus lent.
 
 > Les builds macOS sont produits via CI sur des runners Apple Silicon et Intel. Si tu rencontres des problèmes, merci d'[ouvrir un issue](../../issues) — les retours des utilisateurs macOS orientent activement le cycle de test macOS.
+
+### <a id="why-warning"></a>Pourquoi tu peux voir un avertissement
+
+Arroxy est open source et sous licence MIT. Les builds Windows et macOS **ne sont pas signés numériquement** — les certificats Apple Developer ID et Windows EV coûtent chacun plusieurs centaines de dollars par an, que paye un projet indépendant de sa poche. Sans ces signatures, Windows SmartScreen et macOS Gatekeeper t'avertiront au premier lancement. Ces avertissements signifient *ton OS ne reconnaît pas l'éditeur* — ils ne signifient pas qu'Arroxy est un malware.
+
+Trois façons de vérifier Arroxy toi-même, par ordre de rigueur croissante :
+
+- **Lis le code source.** Chaque ligne est sur [GitHub](https://github.com/antonio-orionus/Arroxy) et tu peux [le compiler depuis les sources](#tech).
+- **Vérifie le SHA256.** Compare ton fichier avec le [`SHA256SUMS`](../../releases/latest) publié — voir [Vérifier ton téléchargement](#verify) ci-dessous.
+- **Lance un scan tiers.** Envoie le fichier sur [VirusTotal](https://www.virustotal.com).
 
 ### <a id="linux-first-launch"></a>Premier lancement sur Linux
 
@@ -316,7 +312,7 @@ Non. yt-dlp est téléchargé automatiquement au premier lancement et mis en cac
 Oui — les deux. Colle une URL de playlist ou de chaîne (p. ex. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`) ; choisis combien d’entrées analyser, puis mets toute la liste en file ou sélectionne des vidéos précises. Les filtres par date arrivent bientôt.
 
 **macOS dit "l'application est endommagée" — que faire ?**
-C'est Gatekeeper de macOS qui bloque une app non signée, pas un vrai endommagement. Voir ["App is damaged" — correction via Terminal](#macos-first-launch) pour la commande `xattr` en une ligne qui règle le problème.
+C'est Gatekeeper de macOS qui bloque une app non signée, pas un vrai endommagement. Voir [macOS first launch](#macos-first-launch) pour les commandes Terminal qui retirent la quarantaine et lancent Arroxy.
 
 **Télécharger des vidéos YouTube est-il légal ?**
 Pour un usage personnel et privé, c'est généralement accepté dans la plupart des juridictions. Tu es responsable de respecter les [Conditions d'Utilisation](https://www.youtube.com/t/terms) de YouTube et les lois sur le droit d'auteur de ton pays.

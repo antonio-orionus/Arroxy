@@ -106,7 +106,7 @@ export const om = {
   toc_heading: "Qabiyyee",
   why_h2: "Maaliif Arroxy",
   features_h2: "Amaloota",
-  dl_h2: "Buusi",
+  dl_h2: "Fe'iitii yeroo jalqabaa banuu",
   privacy_h2: "Icciitii",
   faq_h2: "Gaaffilee Deddeebii",
   roadmap_h2: "Karoora",
@@ -218,19 +218,19 @@ export const om = {
     "Arroxy fuula GitHub Releases mirkaneessaatii qofa buufi. Faayila marsariitii biraatii argatte ykn namni tokko si erge yoo ta'e, haqii fi ganda mirkaneessaatii faayila haaraa buufi. Koodii madda ummataadhaan banaa waan ta'eef, of irraadhaa sakatta'uu ykn Arroxy of irraadhaa ijaaru dandeessa.",
   dl_macos_h3: "macOS irratti yeroo jalqabaa eegaluu",
   dl_macos_warning:
-    "Arroxy ammallee mallattoo hin qabdu, kanaaf macOS Gatekeeper yeroo jalqabaa si akeeka. Kun eegamu — midhaan agarsiisu miti.",
-  dl_macos_m1_h4: "Mala System Settings (gorsamaa):",
-  dl_macos_step1: "Akaawuntii app Arroxy mirga-cuqaasi fi **Open** filadhu.",
+    "Arroxy ammallee mallattoo hin qabdu, kanaaf macOS Gatekeeper yeroo jalqabaa banuutti akeekkachiisa app miidhame jedhu agarsiisuu danda'a. Kun kan eegamu dha — faayiliiwwan dhugumaan miidhaman jechuu miti.",
+  dl_macos_m1_h4: "Mala Terminal:",
+  dl_macos_step1: "`Arroxy.app` DMG irraa gara `/Applications` harkisi.",
   dl_macos_step2:
-    "Diyaalogiin akeekkachiisaa ni mul'ata — **Cancel** cuqaasi (*Move to Trash* hin cuqasin).",
-  dl_macos_step3: "**System Settings → Privacy & Security** bani.",
+    "Terminal baniitii `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app` hojjedhu.",
+  dl_macos_step3: "`open /Applications/Arroxy.app` hojjedhu.",
   dl_macos_step4:
-    'Kutaa **Security** hamma gaditti deemi. *"Arroxy meeshaa guddaa hin taanee irraa waan ta\'eef itti fayyadamuun dhorkaame."* ni argita.',
+    "Daandiin app adda yoo ta'e, `/Applications/Arroxy.app` bakka itti feeteen bakka buusi.",
   dl_macos_step5:
-    "**Open Anyway** cuqaasi fi jecha darbii keetin ykn Touch ID waliin mirkaneessi.",
+    "`sudo` yoo gaafate jecha darbii Mac kee galchi.",
   dl_macos_after:
-    "Tarkaanfii 5 boodaa, Arroxy salphaan ni banama fi akeekkachiisni ammas hin mul'atu.",
-  dl_macos_m2_h4: "Mala Terminal (ogeessa):",
+    "Quarantine erga haqamee booda Arroxy akka idileetti ni banama.",
+  dl_macos_m2_h4: "Mala Terminal:",
   dl_macos_note:
     "Ijaarsi macOS CI irratti Apple Silicon fi Intel runners irratti hojjetama. Rakkoo yoo qabaatte, maaloo [gaaffii bani](../../issues) — yaada fayyadamtootaa macOS irraa yeroo hedduu qabxii qormaata macOS murteessa.",
   dl_linux_h3: "Linux irratti yeroo jalqabaa eegaluu",
@@ -262,29 +262,29 @@ export const om = {
 
   dl_macos_first_h3: "macOS yeroo jalqabaa eegaluu",
   dl_macos_intro:
-    "Arroxy ammallee macOS'f mallattoo hin qabdu, kanaafuu Gatekeeper yeroo jalqabaa ni dhorka. Hayyama kennuuf karaan sirrii macOS version keetiin murteeffama — Sequoia 15 mirga-cuqaasuu → banuu darbuu dulloomaa cime.",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 fi booda (ammaa)",
+    "Arroxy ammallee macOS'f mallattoo hin qabdu, kanaaf Gatekeeper erga DMG irraa feete booda diyalogii sodaachisaa *\"Arroxy.app is damaged and can't be opened\"* agarsiisuu danda'a. Ergaan kun macOS app mallattoo hin qabne quarantine keessa kaa'e jechuu dha; faayiliiwwan app dhugumaan miidhaman jechuu miti. macOS ammaa irratti furmaanni amanamaan Terminal dha:",
+  dl_macos_sequoia_h4: "Furmaata Terminal kan macOS ammaa",
   dl_macos_sequoia_intro:
-    "Sequoia 15 fi haaraa irraatti, mirga-cuqaasuu → banuu apps heddu quarantine jiran Gatekeeper hin darbu. System Settings panel fayyadami:",
+    "Arroxy gara Applications erga garagalchitee booda Terminal fayyadami:",
   dl_macos_sequoia_step1:
     "`Arroxy.app` DMG ramadame irraa `/Applications` tti harkisi.",
   dl_macos_sequoia_step2:
-    "Arroxy lama-cuqaasi. Diyaalogiin dhorkaaf ni mul'ata — **Done** cuqaasi (*Move to Trash* hin cuqasin).",
+    "Terminal baniitii ajajoota lamaan kana hojjedhu:",
   dl_macos_sequoia_step3:
-    '**System Settings → Privacy & Security** bani fi kutaa **Security** hamma gaditti deemi. *"Arroxy was blocked to protect your Mac"* (ykn ergaa itti dhiyaatu) ni argita.',
+    "Arroxy banuuf `open /Applications/Arroxy.app` hojjedhu.",
   dl_macos_sequoia_step4:
-    "**Open Anyway** cuqaasi, jecha darbii keetin ykn Touch ID waliin mirkaneessi, erga Arroxy `/Applications` irraa deebi'ii eegali.",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 fi dura",
+    "Daandiin app adda yoo ta'e, `/Applications/Arroxy.app` bakka itti feeteen bakka buusi.",
+  dl_macos_sonoma_h4: "Furmaata Terminal kan macOS durii",
   dl_macos_sonoma_step1:
     "`Arroxy.app` DMG ramadame irraa `/Applications` tti harkisi.",
   dl_macos_sonoma_step2:
-    "`Arroxy.app` `/Applications` keessatti mirga-cuqaasi (ykn Control-cuqaasi) fi **Open** filadhu.",
+    "Terminal baniitii `/Applications/Arroxy.app` irraa quarantine haqi.",
   dl_macos_sonoma_step3:
-    "Diyaalogiin akeekkachiisaa amma **Open** button qaba — cuqaasii mirkaneessi. Arroxy salphaan ni banama fi akeekkachiisni ammas hin mul'atu.",
+    "Quarantine erga haqamee booda Arroxy Terminal ykn Finder irraa bani.",
   dl_macos_damaged_h4:
-    '"App is damaged" ykn Gatekeeper dhorku cimaa — Terminal dursaa',
+    "Furmaata quarantine Gatekeeper",
   dl_macos_damaged_p:
-    "macOS *\"Arroxy is damaged and can't be opened\"* jedhe yoo ta'e, ykn tarkaanfiiwwan armaan olii hanga tokkollee dhorkuu hin baasnee, qabiyyeen quarantine DMG irratti sababii (biraawzarootni muraasaa fi macOS mataa isaa translocation behavior waan qindaa'aniif). App fayyadu irraa balleessi:",
+    "Ajajni jalqabaa kopi Arroxy kan feete irraa amala quarantine haqa. Inni lammaffaa app banuu dha. `sudo` jecha darbii Mac kee gaafachuu danda'a; Terminal yeroo barreessitu mallattoo hin agarsiisu.",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel:** Mac M-series (M1 / M2 / M3 / M4) irratti, `arm64` DMG buusi. Intel Macs irratti, `x64` DMG buusi. Ijaarsaa dogoggora oofuu Rosetta fayyadamuudhaan hojjeta garuu ifa gadi bu'aa.",
 
@@ -334,7 +334,7 @@ export const om = {
     "Eeyyee — lamaan isaaniiyyuu. URL playlist ykn channel maxxansi (fkn. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); galfata meeqa akka sakatta’u filadhu, ergasii tarree guutuu queue godhi ykn viidiyoo addaa filadhu. Filtraroonni guyyaa gara fuulduraatti dhufu.",
   faq_q9: 'macOS "app miidhaameera" jedha — maal godhaa?',
   faq_a9:
-    'Sun macOS Gatekeeper app mallattoo hin qabne dhorku, midhaa dhugaa miti. ["App is damaged" — Terminal dursaa](#macos-first-launch) ilaali, ajaja sarara tokkoo `xattr` kan sirreessuu argachuuf.',
+    "Sun macOS Gatekeeper app mallattoo hin qabne dhorku, miidhaa dhugaa miti. Ajajoota Terminal quarantine haquu fi Arroxy banuuf [macOS first launch](#macos-first-launch) ilaali.",
   faq_q10: "Viidiyoo YouTube buusuu seeraa dha?",
   faq_a10:
     "Fayyadama dhuunfaa, dhoksaa qofaaf yeroo hedduun mootummoota heddu keessatti fudhatama. [Dambii Tajaajilaaf](https://www.youtube.com/t/terms) YouTube fi seeraa mirga-qopheessaa naannoo keetti hordofuuf ati itti gaafatamtummaa qabda.",

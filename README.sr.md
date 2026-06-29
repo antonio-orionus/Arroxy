@@ -11,7 +11,7 @@
 
 Преузимајте видео снимке, Shorts, музику, каналe, подкасте или аудио записе са **YouTube-а и 2000+ подржаних сајтова** — до 4K HDR при 60 fps, или у MP3 / AAC / Opus формату. Ради локално на Windows-у, macOS-у и Linux-у. **Без реклама, без непотребног, без додатне продаје.**
 
-[**↓ Преузмите најновије издање**](#install) &nbsp;·&nbsp; [**Веб-сајт**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ Преузмите најновије издање**](#install) &nbsp;·&nbsp; [**Веб-сајт**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows: прво покретање](#windows-first-launch) · [macOS: прво покретање](#macos-first-launch) · [Linux: прво покретање](#linux-first-launch)
 
 [![Придружите се Discord заједници](https://img.shields.io/badge/%D0%9F%D1%80%D0%B8%D0%B4%D1%80%D1%83%D0%B6%D0%B8%D1%82%D0%B5%20%D1%81%D0%B5%20Discord%20%D0%B7%D0%B0%D1%98%D0%B5%D0%B4%D0%BD%D0%B8%D1%86%D0%B8-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -31,7 +31,12 @@
 
 ## Садржај
 
-- [Преузимање](#install)
+- [Инсталација и прво покретање](#install)
+  - [Windows: прво покретање](#windows-first-launch)
+  - [macOS: прво покретање](#macos-first-launch)
+  - [Зашто можете видети упозорење](#why-warning)
+  - [Linux: прво покретање](#linux-first-launch)
+  - [Верификујте преузимање (SHA256)](#verify)
 - [Зашто Arroxy](#why)
 - [Функционалности](#features)
 - [Приватност](#privacy)
@@ -41,7 +46,7 @@
 
 ---
 
-## <a id="install"></a>Преузимање
+## <a id="install"></a>Инсталација и прво покретање
 
 | Платформа | Формат                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,16 +56,6 @@
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**Преузмите најновије издање →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>Зашто можете видети упозорење
-
-Arroxy је open-source пројекат са MIT лиценцом. Windows и macOS верзије **нису потписане кодом** — сертификати Apple Developer ID и Windows EV за потписивање кода коштају стотине долара годишње, које независни пројекат плаћа из сопственог џепа. Без тих потписа, Windows SmartScreen и macOS Gatekeeper ће вас упозорити при првом покретању. Упозорења значе *да ваш оперативни систем не препознаје издавача* — не значе да је Arroxy малвер.
-
-Три начина да сами проверите Arroxy, по растућој строгости:
-
-- **Прочитајте изворни код.** Свака линија је на [GitHub](https://github.com/antonio-orionus/Arroxy)-у и можете [изградити апликацију из изворног кода](#tech).
-- **Проверите SHA256.** Упоредите свој фајл са објављеним [`SHA256SUMS`](../../releases/latest) — погледајте [Верификујте преузимање](#verify) испод.
-- **Покрените скенирање треће стране.** Отпремите фајл на [VirusTotal](https://www.virustotal.com).
 
 ### <a id="windows-first-launch"></a>Windows: прво покретање
 
@@ -82,34 +77,35 @@ Defender хеуристика понекад означава непотписа
 
 ### <a id="macos-first-launch"></a>macOS: прво покретање
 
-Arroxy још увек није потписан кодом за macOS, па ће Gatekeeper блокирати прво покретање. Тачан начин да га дозволите зависи од верзије macOS-а — Sequoia 15 је затегла стари обилазак преко десног клика → Отвори.
+Arroxy још увек није потписан кодом за macOS, па Gatekeeper након инсталације из DMG-а може приказати застрашујући дијалог *"Arroxy.app is damaged and can't be opened"*. Та порука значи да је macOS ставио непотписану апликацију у quarantine; не значи да су фајлови апликације стварно оштећени. На актуелном macOS-у поуздано решење је Terminal:
 
-#### macOS Sequoia 15 и новије (актуелно)
-
-На Sequoia 15 и новијим верзијама, десни клик → Отвори више не заобилази Gatekeeper за многе апликације у карантину. Уместо тога користите панел Системских подешавања:
-
-1. Превуците `Arroxy.app` са монтираног DMG у `/Applications`.
-2. Двокликните Arroxy. Приказује се дијалог блокирања — кликните **Done** (не кликајте *Move to Trash*).
-3. Отворите **System Settings → Privacy & Security** и скролујте до одељка **Security**. Видећете *"Arroxy was blocked to protect your Mac"* (или сличну поруку).
-4. Кликните **Open Anyway**, потврдите лозинком или Touch ID-ом, а затим поново покрените Arroxy из `/Applications`.
-
-#### macOS Sonoma 14 и старије
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. Превуците `Arroxy.app` са монтираног DMG у `/Applications`.
-2. Десним кликом (или Control-кликом) кликните на `Arroxy.app` у `/Applications` и одаберите **Open**.
-3. Дијалог упозорења сада има дугме **Open** — кликните га и потврдите. Arroxy се отвара нормално и упозорење се никад више не приказује.
-
-#### "App is damaged" или упорна блокада Gatekeeper-а — исправка путем Terminal-а
-
-Ако macOS каже *"Arroxy is damaged and can't be opened"*, или ниједан од горњих корака не уклони блокаду, узрок је атрибут карантина на DMG-у (неки претраживачи и macOS-ово сопствено понашање трансположења га постављају). Уклоните га са инсталиране апликације:
+2. Отворите Terminal и покрените ове две команде:
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+Прва команда уклања quarantine атрибут са ваше инсталиране копије Arroxy. Друга покреће апликацију. `sudo` може затражити лозинку за Mac; Terminal не приказује знакове док је куцате.
 
 **Apple Silicon vs Intel:** на Mac рачунару са процесором серије M (M1 / M2 / M3 / M4), преузмите DMG за `arm64`. На Intel Mac рачунарима, преузмите DMG за `x64`. Покретање погрешне верзије ради преко Rosetta, али је приметно спорије.
 
 > macOS верзије се производе путем CI на Apple Silicon и Intel покретачима. Ако наиђете на проблеме, [отворите пријаву](../../issues) — повратне информације корисника macOS-а активно обликују циклус тестирања.
+
+### <a id="why-warning"></a>Зашто можете видети упозорење
+
+Arroxy је open-source пројекат са MIT лиценцом. Windows и macOS верзије **нису потписане кодом** — сертификати Apple Developer ID и Windows EV за потписивање кода коштају стотине долара годишње, које независни пројекат плаћа из сопственог џепа. Без тих потписа, Windows SmartScreen и macOS Gatekeeper ће вас упозорити при првом покретању. Упозорења значе *да ваш оперативни систем не препознаје издавача* — не значе да је Arroxy малвер.
+
+Три начина да сами проверите Arroxy, по растућој строгости:
+
+- **Прочитајте изворни код.** Свака линија је на [GitHub](https://github.com/antonio-orionus/Arroxy)-у и можете [изградити апликацију из изворног кода](#tech).
+- **Проверите SHA256.** Упоредите свој фајл са објављеним [`SHA256SUMS`](../../releases/latest) — погледајте [Верификујте преузимање](#verify) испод.
+- **Покрените скенирање треће стране.** Отпремите фајл на [VirusTotal](https://www.virustotal.com).
 
 ### <a id="linux-first-launch"></a>Linux: прво покретање
 
@@ -314,7 +310,7 @@ yt-dlp се аутоматски ажурира при покретању, а Ar
 Да — обоје. Налепи playlist или channel URL (нпр. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); изабери колико entries да се скенира, па стави целу листу у queue или изабери појединачне видео снимке. Date-range filters стижу ускоро.
 
 **macOS каже да је "апликација оштећена" — шта да радим?**
-То је macOS Gatekeeper блокира непотписану апликацију, а не стварно оштећење. Погледајте ["App is damaged" — исправка путем Terminal-а](#macos-first-launch) за jednolinijsku `xattr` команду која то решава.
+То је macOS Gatekeeper који блокира непотписану апликацију, а не стварно оштећење. Команде Terminal-а за уклањање quarantine-а и покретање Arroxy погледајте у [macOS first launch](#macos-first-launch).
 
 **Да ли је преузимање YouTube видеа законито?**
 За личну, приватну употребу то је углавном прихватљиво у већини јурисдикција. Ви сте одговорни за усклађеност са [Условима коришћења](https://www.youtube.com/t/terms) YouTube-а и локалним законима о ауторским правима.

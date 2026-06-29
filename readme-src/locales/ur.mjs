@@ -108,7 +108,7 @@ export const ur = {
   toc_heading: "فہرست",
   why_h2: "Arroxy کیوں",
   features_h2: "خصوصیات",
-  dl_h2: "ڈاؤن لوڈ",
+  dl_h2: "انسٹال اور پہلی بار لانچ",
   privacy_h2: "پرائیویسی",
   faq_h2: "اکثر پوچھے گئے سوالات",
   roadmap_h2: "روڈ میپ",
@@ -218,19 +218,19 @@ export const ur = {
     "Arroxy صرف آفیشل GitHub Releases صفحے سے ڈاؤن لوڈ کریں۔ اگر آپ کو فائل کسی دوسری ویب سائٹ سے ملی ہے یا کسی نے بھیجی ہے، تو اسے ڈیلیٹ کریں اور آفیشل ماخذ سے تازہ کاپی ڈاؤن لوڈ کریں۔ سورس کوڈ عوامی ہے، اس لیے آپ خود اسے جانچ یا Arroxy بنا سکتے ہیں۔",
   dl_macos_h3: "macOS پر پہلی بار لانچ",
   dl_macos_warning:
-    "Arroxy ابھی کوڈ سائنڈ نہیں ہے، اس لیے macOS Gatekeeper پہلی بار لانچ پر آپ کو تنبیہ کرے گا۔ یہ متوقع ہے — یہ نقصان کی علامت نہیں۔",
-  dl_macos_m1_h4: "سسٹم سیٹنگز کا طریقہ (تجویز کردہ):",
-  dl_macos_step1: "Arroxy ایپ آئیکن پر دائیں کلک کریں اور **Open** منتخب کریں۔",
+    "Arroxy ابھی کوڈ سائنڈ نہیں ہے، اس لیے macOS Gatekeeper پہلی بار لانچ پر damaged app والی وارننگ دکھا سکتا ہے۔ یہ متوقع ہے — اس کا مطلب یہ نہیں کہ فائلیں واقعی خراب ہیں۔",
+  dl_macos_m1_h4: "Terminal طریقہ:",
+  dl_macos_step1: "mounted DMG سے `Arroxy.app` کو `/Applications` میں drag کریں۔",
   dl_macos_step2:
-    "تنبیہی ڈائیلاگ ظاہر ہوگا — **Cancel** پر کلک کریں (*Move to Trash* پر کلک نہ کریں)۔",
-  dl_macos_step3: "**System Settings → Privacy & Security** کھولیں۔",
+    "Terminal کھولیں اور `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app` چلائیں۔",
+  dl_macos_step3: "`open /Applications/Arroxy.app` چلائیں۔",
   dl_macos_step4:
-    '**Security** سیکشن تک اسکرول کریں۔ آپ کو نظر آئے گا *"Arroxy was blocked from use because it is not from an identified developer."*',
+    "اگر app کا path مختلف ہے، تو `/Applications/Arroxy.app` کو اپنے install path سے بدل دیں۔",
   dl_macos_step5:
-    "**Open Anyway** پر کلک کریں اور اپنے پاس ورڈ یا Touch ID سے تصدیق کریں۔",
+    "اگر `sudo` پوچھے تو اپنے Mac کا password درج کریں۔",
   dl_macos_after:
-    "مرحلہ 5 کے بعد، Arroxy عام طور پر کھلتا ہے اور تنبیہ پھر کبھی ظاہر نہیں ہوتی۔",
-  dl_macos_m2_h4: "ٹرمینل کا طریقہ (ایڈوانسڈ):",
+    "quarantine ہٹنے کے بعد Arroxy عام طور پر کھلتا ہے۔",
+  dl_macos_m2_h4: "Terminal طریقہ:",
   dl_macos_note:
     "macOS بلڈز Apple Silicon اور Intel رنرز پر CI کے ذریعے تیار کیے جاتے ہیں۔ اگر آپ کو مسائل پیش آئیں، تو براہ کرم [ایک issue کھولیں](../../issues) — macOS صارفین سے ملنے والی فیڈ بیک macOS ٹیسٹنگ سائیکل کو فعال طور پر تشکیل دیتی ہے۔",
   dl_linux_h3: "Linux پر پہلی بار لانچ",
@@ -262,29 +262,29 @@ export const ur = {
 
   dl_macos_first_h3: "macOS پر پہلی بار لانچ",
   dl_macos_intro:
-    "Arroxy ابھی macOS کے لیے کوڈ سائنڈ نہیں ہے، اس لیے Gatekeeper پہلی بار لانچ کو بلاک کرے گا۔ اسے اجازت دینے کا عین طریقہ آپ کے macOS ورژن پر منحصر ہے — Sequoia 15 نے پرانے دائیں کلک → Open کو مزید سخت کر دیا ہے۔",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 اور بعد میں (موجودہ)",
+    "Arroxy ابھی macOS کے لیے کوڈ سائنڈ نہیں ہے، اس لیے DMG سے انسٹال کرنے کے بعد Gatekeeper خوفناک *\"Arroxy.app is damaged and can't be opened\"* ڈائیلاگ دکھا سکتا ہے۔ اس پیغام کا مطلب ہے کہ macOS نے ایک unsigned app کو quarantine کیا ہے؛ اس کا مطلب یہ نہیں کہ app files واقعی خراب ہیں۔ موجودہ macOS پر قابل اعتماد حل Terminal ہے:",
+  dl_macos_sequoia_h4: "موجودہ macOS کے لیے Terminal فکس",
   dl_macos_sequoia_intro:
-    "Sequoia 15 اور نئے ورژنز پر، دائیں کلک → Open اب کئی قرنطینہ شدہ ایپس کے لیے Gatekeeper کو bypass نہیں کرتا۔ اس کی بجائے System Settings پینل استعمال کریں:",
+    "Arroxy کو Applications میں copy کرنے کے بعد Terminal استعمال کریں:",
   dl_macos_sequoia_step1:
     "نصب شدہ DMG سے `Arroxy.app` کو `/Applications` میں گھسیٹیں۔",
   dl_macos_sequoia_step2:
-    "Arroxy کو ڈبل کلک کریں۔ بلاک ڈائیلاگ ظاہر ہوگا — **Done** پر کلک کریں (*Move to Trash* پر کلک نہ کریں)۔",
+    "Terminal کھولیں اور یہ دو commands چلائیں:",
   dl_macos_sequoia_step3:
-    '**System Settings → Privacy & Security** کھولیں اور **Security** سیکشن تک اسکرول کریں۔ آپ کو نظر آئے گا *"Arroxy was blocked to protect your Mac"* (یا ایسا ہی پیغام)۔',
+    "Arroxy launch کرنے کے لیے `open /Applications/Arroxy.app` چلائیں۔",
   dl_macos_sequoia_step4:
-    "**Open Anyway** پر کلک کریں، اپنے پاس ورڈ یا Touch ID سے تصدیق کریں، پھر Arroxy کو `/Applications` سے دوبارہ لانچ کریں۔",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 اور اس سے پہلے",
+    "اگر app کا path مختلف ہے، تو `/Applications/Arroxy.app` کو اپنے install path سے بدل دیں۔",
+  dl_macos_sonoma_h4: "پرانے macOS کے لیے Terminal فکس",
   dl_macos_sonoma_step1:
     "نصب شدہ DMG سے `Arroxy.app` کو `/Applications` میں گھسیٹیں۔",
   dl_macos_sonoma_step2:
-    "`/Applications` میں `Arroxy.app` پر دائیں کلک کریں (یا Control-click) اور **Open** منتخب کریں۔",
+    "Terminal کھولیں اور `/Applications/Arroxy.app` سے quarantine ہٹائیں۔",
   dl_macos_sonoma_step3:
-    "اب تنبیہی ڈائیلاگ میں **Open** بٹن موجود ہے — اسے کلک کریں اور تصدیق کریں۔ Arroxy عام طور پر کھلتا ہے اور تنبیہ پھر کبھی ظاہر نہیں ہوتی۔",
+    "quarantine ہٹنے کے بعد Arroxy کو Terminal یا Finder سے launch کریں۔",
   dl_macos_damaged_h4:
-    '"App is damaged" یا مسلسل Gatekeeper بلاک — Terminal فکس',
+    "Gatekeeper quarantine فکس",
   dl_macos_damaged_p:
-    'اگر macOS کہے *"Arroxy is damaged and can\'t be opened"*، یا اوپر کے کسی بھی قدم نے بلاک کو نہ ہٹایا ہو، تو DMG پر quarantine attribute وجہ ہے (کچھ براؤزرز اور macOS کا اپنا translocation رویہ اسے سیٹ کرتا ہے)۔ اسے انسٹال شدہ ایپ سے ہٹائیں:',
+    "پہلی command آپ کی installed Arroxy copy سے quarantine attribute ہٹاتی ہے۔ دوسری app launch کرتی ہے۔ `sudo` آپ کے Mac کا password مانگ سکتا ہے؛ Terminal typing کے دوران characters نہیں دکھاتا۔",
   dl_macos_arch_note:
     "**Apple Silicon بمقابلہ Intel:** M-سیریز Mac پر (M1 / M2 / M3 / M4)، `arm64` DMG ڈاؤن لوڈ کریں۔ Intel Macs پر، `x64` DMG ڈاؤن لوڈ کریں۔ غلط بلڈ چلانا Rosetta کے ذریعے کام کرتا ہے لیکن نمایاں طور پر سست ہے۔",
 
@@ -333,7 +333,7 @@ export const ur = {
     "ہاں — دونوں۔ پلے لسٹ یا چینل URL پیسٹ کریں (مثلاً `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`)؛ منتخب کریں کہ کتنی entries scan کرنی ہیں، پھر پوری فہرست queue کریں یا مخصوص ویڈیوز چنیں۔ date-range filters جلد آ رہے ہیں۔",
   faq_q9: 'macOS کہتا ہے "ایپ خراب ہے" — میں کیا کروں؟',
   faq_a9:
-    'یہ macOS Gatekeeper ایک غیر سائنڈ ایپ کو بلاک کر رہا ہے، اصل نقصان نہیں ہے۔ ایک لائن کے `xattr` کمانڈ کے لیے ["App is damaged" — Terminal فکس](#macos-first-launch) دیکھیں جو اسے صاف کرتا ہے۔',
+    "یہ macOS Gatekeeper ایک unsigned app کو block کر رہا ہے، اصل نقصان نہیں ہے۔ quarantine ہٹانے اور Arroxy launch کرنے والی Terminal commands کے لیے [macOS first launch](#macos-first-launch) دیکھیں۔",
   faq_q10: "کیا YouTube ویڈیوز ڈاؤن لوڈ کرنا قانونی ہے؟",
   faq_a10:
     "ذاتی، نجی استعمال کے لیے، زیادہ تر دائرہ اختیار میں یہ عام طور پر قبول کیا جاتا ہے۔ آپ YouTube کی [Terms of Service](https://www.youtube.com/t/terms) اور اپنے مقامی کاپی رائٹ قوانین کی پابندی کے ذمہ دار ہیں۔",

@@ -11,7 +11,7 @@
 
 له **YouTube او ۲۰۰۰+ ملاتړ شویو سایټونو** نه ویډیوګانې، Shorts، موسیقي، چینلونه، پوډکاسټونه، یا اوډیو ټریکونه ډاونلوډ کړئ — تر 4K HDR پورې د 60 fps سره، یا د MP3 / AAC / Opus په توګه. د Windows، macOS، او Linux پر سیستم ځایي چلیږي. **هیڅ اعلانات، هیڅ بلوټ، هیڅ اضافي پلورنه نه ده.**
 
-[**↓ وروستۍ خپرونه ډاونلوډ کړئ**](#install) &nbsp;·&nbsp; [**ویب پاڼه**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ وروستۍ خپرونه ډاونلوډ کړئ**](#install) &nbsp;·&nbsp; [**ویب پاڼه**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows لومړی پیل](#windows-first-launch) · [macOS لومړی پیل](#macos-first-launch) · [Linux لومړی پیل](#linux-first-launch)
 
 [![د Discord ټولنې سره یوځای شئ](https://img.shields.io/badge/%D8%AF%20Discord%20%D9%BC%D9%88%D9%84%D9%86%DB%90%20%D8%B3%D8%B1%D9%87%20%DB%8C%D9%88%DA%81%D8%A7%DB%8C%20%D8%B4%D8%A6-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -31,7 +31,12 @@
 
 ## منځپانګه
 
-- [ډاونلوډ](#install)
+- [نصب او لومړی پیل](#install)
+  - [Windows لومړی پیل](#windows-first-launch)
+  - [macOS لومړی پیل](#macos-first-launch)
+  - [ولې ممکن خبرداری وګورئ](#why-warning)
+  - [Linux لومړی پیل](#linux-first-launch)
+  - [خپل ډاونلوډ تصدیق کړئ (SHA256)](#verify)
 - [ولې Arroxy](#why)
 - [ځانګړتیاوې](#features)
 - [محرمیت](#privacy)
@@ -41,7 +46,7 @@
 
 ---
 
-## <a id="install"></a>ډاونلوډ
+## <a id="install"></a>نصب او لومړی پیل
 
 | پلیټفارم | بڼه                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,16 +56,6 @@
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**وروستۍ خپرونه واخلئ →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>ولې ممکن خبرداری وګورئ
-
-Arroxy خلاصه سرچینه او MIT-licensed ده. د Windows او macOS جوړونې **د کوډ لاسلیک شوي نه دي** — د Apple Developer ID او د Windows EV د کوډ لاسلیک کولو سندونه هر کال د سلو ډالرو لګښت لري، چې یو خپلواک پروژه له خپل ځان ادا کوي. پرته له هغو لاسلیکونو، د Windows SmartScreen او macOS Gatekeeper به تاسو ته د لومړي پیل پر مهال خبرداری درکوي. خبرداریونه دا معنی لري چې *ستاسو OS خپرنده نه پیژني* — دا معنی نه لري چې Arroxy malware دی.
-
-درې طریقې چې پخپله Arroxy تصدیق کړئ، د لوړیدونکي دقت سره:
-
-- **سرچینه ولولئ.** هره کرښه پر [GitHub](https://github.com/antonio-orionus/Arroxy) ده او تاسو کولی شئ [له سرچینې جوړ کړئ](#tech).
-- **SHA256 وڅیړئ.** ستاسو فایل د خپور شوي [`SHA256SUMS`](../../releases/latest) سره سمول کړئ — لاندې [خپل ډاونلوډ تصدیق کړئ](#verify) وګورئ.
-- **د دریمې ډلې سکن چلوئ.** فایل [VirusTotal](https://www.virustotal.com) ته اپلوډ کړئ.
 
 ### <a id="windows-first-launch"></a>Windows لومړی پیل
 
@@ -82,34 +77,35 @@ Arroxy خلاصه سرچینه او MIT-licensed ده. د Windows او macOS ج�
 
 ### <a id="macos-first-launch"></a>macOS لومړی پیل
 
-Arroxy لاهم د macOS لپاره کوډ لاسلیک شوی نه دی، نو Gatekeeper به لومړی پیل بند کوي. د مجاز کولو سمه لار ستاسو د macOS نسخې پورې اړه لري — Sequoia 15 د زوړ ښي-کلیک → Open بای‌پاس سخت کړ.
+Arroxy لاهم د macOS لپاره کوډ لاسلیک شوی نه دی، نو Gatekeeper ښايي له DMG څخه د نصب وروسته وېرونکی *"Arroxy.app is damaged and can't be opened"* ډیالوګ وښيي. دا پیغام مانا لري چې macOS بې لاسلیکه app quarantine کړی؛ دا مانا نه لري چې د app فایلونه رښتیا خراب دي. په اوسني macOS کې باوري حل Terminal دی:
 
-#### macOS Sequoia 15 او وروسته (اوسني)
-
-پر Sequoia 15 او نوو، ښي-کلیک → Open نور د ډیری قرنطین شوو اپلیکیشنونو لپاره Gatekeeper بای‌پاس نه کوي. پرځای یې د System Settings پینل وکاروئ:
-
-1. د نصب شوي DMG نه `Arroxy.app` د `/Applications` ته ډریګ کړئ.
-2. Arroxy دوه ځله کلیک وکړئ. د بند کولو ډیالوګ ښکاري — **Done** کلیک وکړئ (د *Move to Trash* کلیک مه کوئ).
-3. **System Settings → Privacy & Security** خلاص کړئ او د **Security** برخې ته سکرول وکړئ. به وګورئ *"Arroxy was blocked to protect your Mac"* (یا نږدې ورته پیغام).
-4. **Open Anyway** کلیک وکړئ، د خپل پاسورډ یا Touch ID سره تایید کړئ، بیا Arroxy له `/Applications` بیا پیل کړئ.
-
-#### macOS Sonoma 14 او مخکې
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. د نصب شوي DMG نه `Arroxy.app` د `/Applications` ته ډریګ کړئ.
-2. د `/Applications` کې `Arroxy.app` ښي-کلیک (یا Control-کلیک) وکړئ او **Open** غوره کړئ.
-3. د خبرداری ډیالوګ اوس د **Open** تڼۍ لري — یې کلیک کړئ او تایید کړئ. Arroxy نورمال خلاصیږي او خبرداری بیا نه ښکاري.
-
-#### "App is damaged" یا دوامداره Gatekeeper بند — د Terminal فکس
-
-که macOS ووایي *"Arroxy is damaged and can't be opened"*، یا د پورتني ګامونو هیڅ یو بند نه پاکوي، د DMG د قرنطین صفت لامل دی (ځینې براوزران او د macOS خپل د انتقال چلند یې ټاکي). د نصب شوي اپلیکیشن نه یې ووباسئ:
+2. Terminal پرانیزئ او دا دوه قوماندې وچلوئ:
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+لومړۍ قومانده ستاسو د نصب شوي Arroxy له نسخې څخه quarantine attribute لرې کوي. دویمه app پیلوي. `sudo` ښايي ستاسو د Mac پاسورډ وغواړي؛ Terminal د لیکلو پر وخت حروف نه ښيي.
 
 **Apple Silicon د Intel پرتله:** پر M-series Mac (M1 / M2 / M3 / M4)، `arm64` DMG ډاونلوډ کړئ. پر Intel Mac، `x64` DMG ډاونلوډ کړئ. د غلط جوړونې چلول د Rosetta له لارې لاهم کار کوي خو د پام وړ ورو دي.
 
 > د macOS جوړونه د Apple Silicon او Intel رنرانو پر CI کیږي. که تاسو ستونزو سره مخ شئ، مهرباني وکړئ [یوه ستونزه خلاصه کړئ](../../issues) — د macOS کارونکو بازخورد فعاله د macOS ازموینې دورې بڼه ورکوي.
+
+### <a id="why-warning"></a>ولې ممکن خبرداری وګورئ
+
+Arroxy خلاصه سرچینه او MIT-licensed ده. د Windows او macOS جوړونې **د کوډ لاسلیک شوي نه دي** — د Apple Developer ID او د Windows EV د کوډ لاسلیک کولو سندونه هر کال د سلو ډالرو لګښت لري، چې یو خپلواک پروژه له خپل ځان ادا کوي. پرته له هغو لاسلیکونو، د Windows SmartScreen او macOS Gatekeeper به تاسو ته د لومړي پیل پر مهال خبرداری درکوي. خبرداریونه دا معنی لري چې *ستاسو OS خپرنده نه پیژني* — دا معنی نه لري چې Arroxy malware دی.
+
+درې طریقې چې پخپله Arroxy تصدیق کړئ، د لوړیدونکي دقت سره:
+
+- **سرچینه ولولئ.** هره کرښه پر [GitHub](https://github.com/antonio-orionus/Arroxy) ده او تاسو کولی شئ [له سرچینې جوړ کړئ](#tech).
+- **SHA256 وڅیړئ.** ستاسو فایل د خپور شوي [`SHA256SUMS`](../../releases/latest) سره سمول کړئ — لاندې [خپل ډاونلوډ تصدیق کړئ](#verify) وګورئ.
+- **د دریمې ډلې سکن چلوئ.** فایل [VirusTotal](https://www.virustotal.com) ته اپلوډ کړئ.
 
 ### <a id="linux-first-launch"></a>Linux لومړی پیل
 
@@ -314,7 +310,7 @@ yt-dlp د لانچ پر مهال اتومات تازه کیږي، او Arroxy ه
 هو — دواړه. د playlist یا channel URL پیسټ کړئ (لکه `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`)؛ وټاکئ چې څو entries scan شي، بیا ټول لیست queue کړئ یا ځانګړي ویډیوګانې وټاکئ. د date-range filters ژر راځي.
 
 **macOS وايي "اپ خرابه ده" — څه وکړم؟**
-دا macOS Gatekeeper دی چې بې لاسلیکه اپ بندوي، واقعي زیان نه دی. ["App is damaged" — Terminal fix](#macos-first-launch) وګورئ چې د یو کرښه `xattr` کمانډ چې یې پاکوي.
+دا macOS Gatekeeper دی چې بې لاسلیکه app بندوي، واقعي زیان نه دی. د quarantine لرې کولو او Arroxy پیلولو لپاره د Terminal قوماندې په [macOS first launch](#macos-first-launch) کې وګورئ.
 
 **ایا د YouTube ویډیوز ډاونلوډ کول قانوني دي؟**
 د شخصي، خصوصي کارولو لپاره دا معمولا ډیرو قضایي سیمو کې منل کیږي. تاسو د YouTube د [د کارولو شرایطو](https://www.youtube.com/t/terms) او د خپل ځایني د کاپي رایټ قوانینو سره مطابقت لرل ستاسو مسؤلیت دی.

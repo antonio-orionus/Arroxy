@@ -11,7 +11,7 @@
 
 从 **YouTube 和 2000+ 个支持的网站**下载视频、Shorts、音乐、频道、播客或音轨 — 最高 4K HDR 60 fps，或导出为 MP3 / AAC / Opus。在 Windows、macOS 和 Linux 本地运行。**无广告、无冗余、无追加销售。**
 
-[**↓ 下载最新版本**](#install) &nbsp;·&nbsp; [**官网**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ 下载最新版本**](#install) &nbsp;·&nbsp; [**官网**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows 首次启动](#windows-first-launch) · [macOS 首次启动](#macos-first-launch) · [Linux 首次启动](#linux-first-launch)
 
 [![加入 Discord 社群](https://img.shields.io/badge/%E5%8A%A0%E5%85%A5%20Discord%20%E7%A4%BE%E7%BE%A4-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -33,7 +33,12 @@
 
 ## 目录
 
-- [下载](#install)
+- [安装和首次启动](#install)
+  - [Windows 首次启动](#windows-first-launch)
+  - [macOS 首次启动](#macos-first-launch)
+  - [为什么可能会看到警告](#why-warning)
+  - [Linux 首次启动](#linux-first-launch)
+  - [验证你的下载（SHA256）](#verify)
 - [为什么选 Arroxy](#why)
 - [功能特性](#features)
 - [隐私](#privacy)
@@ -43,7 +48,7 @@
 
 ---
 
-## <a id="install"></a>下载
+## <a id="install"></a>安装和首次启动
 
 | 平台 | 格式                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -53,16 +58,6 @@
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**获取最新版本 →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>为什么可能会看到警告
-
-Arroxy 是开源软件，采用 MIT 许可证。Windows 和 macOS 版本**未经代码签名** — Apple Developer ID 和 Windows EV 代码签名证书每年各需数百美元，对于独立项目来说完全自掏腰包。没有这些签名，Windows SmartScreen 和 macOS Gatekeeper 在首次启动时会向你发出警告。这些警告的意思是*你的系统不认识该发布者* — 并不意味着 Arroxy 是恶意软件。
-
-三种自行验证 Arroxy 的方式，按严格程度递增：
-
-- **查看源码。** 每一行都在 [GitHub](https://github.com/antonio-orionus/Arroxy) 上，你也可以[从源码构建](#tech)。
-- **校验 SHA256。** 将你的文件与发布的 [`SHA256SUMS`](../../releases/latest) 对比 — 见下方[验证你的下载](#verify)。
-- **运行第三方扫描。** 将文件上传至 [VirusTotal](https://www.virustotal.com)。
 
 ### <a id="windows-first-launch"></a>Windows 首次启动
 
@@ -84,34 +79,35 @@ Defender 启发式规则有时会将未签名的 NSIS 安装包和 Electron 便�
 
 ### <a id="macos-first-launch"></a>macOS 首次启动
 
-Arroxy 尚未为 macOS 进行代码签名，因此 Gatekeeper 会阻止首次启动。具体的解除方式取决于你的 macOS 版本 — Sequoia 15 收紧了旧的右键 → 打开绕过方式。
+Arroxy 还没有为 macOS 进行代码签名，所以从 DMG 安装后，Gatekeeper 可能会显示吓人的 *"Arroxy.app is damaged and can't be opened"* 对话框。这个提示表示 macOS 将未签名应用放入了 quarantine；并不表示应用文件真的损坏。当前 macOS 上可靠的修复方式是 Terminal：
 
-#### macOS Sequoia 15 及更高版本（当前）
-
-在 Sequoia 15 及更新版本中，右键 → 打开对许多被隔离的应用不再能绕过 Gatekeeper。请改用系统设置面板：
-
-1. 将 `Arroxy.app` 从挂载的 DMG 拖入 `/Applications`。
-2. 双击 Arroxy，出现阻止对话框 — 点击 **Done**（不要点击 *Move to Trash*）。
-3. 打开 **System Settings → Privacy & Security**，滚动到 **Security** 部分。你会看到 *"Arroxy was blocked to protect your Mac"*（或类似提示）。
-4. 点击 **Open Anyway**，用密码或 Touch ID 确认，然后从 `/Applications` 重新启动 Arroxy。
-
-#### macOS Sonoma 14 及更早版本
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. 将 `Arroxy.app` 从挂载的 DMG 拖入 `/Applications`。
-2. 在 `/Applications` 中右键（或 Control-单击）`Arroxy.app`，选择 **Open**。
-3. 警告对话框现在有 **Open** 按钮 — 点击它并确认。Arroxy 正常打开，此后警告不再出现。
-
-#### "App is damaged" 或持续的 Gatekeeper 拦截 — Terminal 修复方法
-
-如果 macOS 显示 *"Arroxy is damaged and can't be opened"*，或以上步骤均无法解除拦截，原因是 DMG 上的隔离属性（某些浏览器和 macOS 自身的文件位置转换机制会设置该属性）。从已安装的应用中清除该属性：
+2. 打开 Terminal，运行这两条命令：
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+第一条命令会从已安装的 Arroxy 副本中移除 quarantine 属性。第二条命令会启动应用。`sudo` 可能会要求输入你的 Mac 密码；Terminal 在输入时不会显示字符。
 
 **Apple Silicon vs Intel：** 在搭载 M 系列芯片（M1 / M2 / M3 / M4）的 Mac 上，请下载 `arm64` DMG。在 Intel Mac 上，请下载 `x64` DMG。运行错误版本仍可通过 Rosetta 启动，但速度会明显变慢。
 
 > macOS 构建通过 CI 在 Apple Silicon 和 Intel runner 上生成。如遇问题，请 [提交 issue](../../issues) — macOS 用户的反馈会直接影响 macOS 测试周期。
+
+### <a id="why-warning"></a>为什么可能会看到警告
+
+Arroxy 是开源软件，采用 MIT 许可证。Windows 和 macOS 版本**未经代码签名** — Apple Developer ID 和 Windows EV 代码签名证书每年各需数百美元，对于独立项目来说完全自掏腰包。没有这些签名，Windows SmartScreen 和 macOS Gatekeeper 在首次启动时会向你发出警告。这些警告的意思是*你的系统不认识该发布者* — 并不意味着 Arroxy 是恶意软件。
+
+三种自行验证 Arroxy 的方式，按严格程度递增：
+
+- **查看源码。** 每一行都在 [GitHub](https://github.com/antonio-orionus/Arroxy) 上，你也可以[从源码构建](#tech)。
+- **校验 SHA256。** 将你的文件与发布的 [`SHA256SUMS`](../../releases/latest) 对比 — 见下方[验证你的下载](#verify)。
+- **运行第三方扫描。** 将文件上传至 [VirusTotal](https://www.virustotal.com)。
 
 ### <a id="linux-first-launch"></a>Linux 首次启动
 
@@ -316,7 +312,7 @@ yt-dlp 在启动时自动更新，YouTube 一旦发生变化，Arroxy 会及时�
 可以，两者都支持。粘贴播放列表或频道 URL（例如 `youtube.com/@handle`、`/channel/UC…`、`/c/Name`、`/user/Old`）；选择要扫描的条目数量，然后将整个列表加入队列或选择特定视频。日期范围筛选即将推出。
 
 **macOS 提示"应用已损坏" — 怎么处理？**
-这是 macOS Gatekeeper 在拦截未签名应用，并非真正损坏。请参见["App is damaged" — Terminal 修复方法](#macos-first-launch)，其中有一行 `xattr` 命令即可清除该问题。
+这是 macOS Gatekeeper 在拦截未签名应用，并非真正损坏。请查看 [macOS first launch](#macos-first-launch)，其中有移除 quarantine 并启动 Arroxy 的 Terminal 命令。
 
 **下载 YouTube 视频合法吗？**
 在大多数地区，个人私人使用一般被接受。你需要自行负责遵守 YouTube 的[服务条款](https://www.youtube.com/t/terms)及当地版权法律。

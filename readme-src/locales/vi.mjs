@@ -107,7 +107,7 @@ export const vi = {
   toc_heading: "Mục lục",
   why_h2: "Tại sao chọn Arroxy",
   features_h2: "Tính năng",
-  dl_h2: "Tải xuống",
+  dl_h2: "Cài đặt và lần khởi chạy đầu tiên",
   privacy_h2: "Quyền riêng tư",
   faq_h2: "Câu hỏi thường gặp",
   roadmap_h2: "Lộ trình phát triển",
@@ -218,20 +218,20 @@ export const vi = {
     "Chỉ tải Arroxy từ trang GitHub Releases chính thức. Nếu bạn tải file từ trang web khác hoặc ai đó gửi cho bạn, hãy xóa nó và tải bản sao mới từ nguồn chính thức. Mã nguồn là công khai, vì vậy bạn có thể tự kiểm tra hoặc tự build Arroxy nếu muốn.",
   dl_macos_h3: "Lần đầu khởi động trên macOS",
   dl_macos_warning:
-    "Arroxy chưa được ký mã, nên macOS Gatekeeper sẽ cảnh báo khi khởi động lần đầu. Đây là điều bình thường — không phải dấu hiệu file bị hỏng.",
-  dl_macos_m1_h4: "Phương pháp System Settings (được khuyến nghị):",
+    "Arroxy chưa được ký mã, nên macOS Gatekeeper có thể hiển thị cảnh báo ứng dụng bị hỏng trong lần khởi chạy đầu tiên. Đây là điều dự kiến — không có nghĩa là tệp thật sự bị hỏng.",
+  dl_macos_m1_h4: "Cách dùng Terminal:",
   dl_macos_step1:
-    "Nhấp chuột phải vào biểu tượng ứng dụng Arroxy và chọn **Open**.",
+    "Kéo `Arroxy.app` từ DMG đã mở vào `/Applications`.",
   dl_macos_step2:
-    "Hộp thoại cảnh báo hiện ra — nhấp **Cancel** (đừng nhấp *Move to Trash*).",
-  dl_macos_step3: "Mở **System Settings → Privacy & Security**.",
+    "Mở Terminal và chạy `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app`.",
+  dl_macos_step3: "Chạy `open /Applications/Arroxy.app`.",
   dl_macos_step4:
-    'Cuộn xuống phần **Security**. Bạn sẽ thấy *"Arroxy was blocked from use because it is not from an identified developer."*',
+    "Nếu đường dẫn ứng dụng khác, hãy thay `/Applications/Arroxy.app` bằng đường dẫn bạn đã cài đặt.",
   dl_macos_step5:
-    "Nhấp **Open Anyway** và xác nhận bằng mật khẩu hoặc Touch ID.",
+    "Nhập mật khẩu Mac nếu `sudo` yêu cầu.",
   dl_macos_after:
-    "Sau bước 5, Arroxy mở bình thường và cảnh báo sẽ không xuất hiện lại nữa.",
-  dl_macos_m2_h4: "Phương pháp Terminal (nâng cao):",
+    "Sau khi gỡ quarantine, Arroxy sẽ mở bình thường.",
+  dl_macos_m2_h4: "Cách dùng Terminal:",
   dl_macos_note:
     "Các bản build macOS được tạo qua CI trên máy chủ Apple Silicon và Intel. Nếu gặp sự cố, vui lòng [mở issue](../../issues) — phản hồi từ người dùng macOS ảnh hưởng trực tiếp đến chu kỳ kiểm thử macOS.",
   dl_linux_h3: "Lần đầu khởi động trên Linux",
@@ -262,27 +262,27 @@ export const vi = {
 
   dl_macos_first_h3: "Lần đầu khởi động trên macOS",
   dl_macos_intro:
-    "Arroxy chưa được ký mã cho macOS, vì vậy Gatekeeper sẽ chặn lần khởi động đầu tiên. Cách cho phép chính xác phụ thuộc vào phiên bản macOS của bạn — Sequoia 15 đã siết chặt cách bỏ qua cũ bằng chuột phải → Open.",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 trở lên (hiện tại)",
+    "Arroxy chưa được ký mã cho macOS, vì vậy Gatekeeper có thể hiển thị hộp thoại đáng sợ *\"Arroxy.app is damaged and can't be opened\"* sau khi bạn cài từ DMG. Thông báo này nghĩa là macOS đã đưa một ứng dụng chưa ký vào quarantine; không có nghĩa là tệp ứng dụng thật sự bị hỏng. Trên macOS hiện tại, cách đáng tin cậy là dùng Terminal:",
+  dl_macos_sequoia_h4: "Sửa bằng Terminal cho macOS hiện tại",
   dl_macos_sequoia_intro:
-    "Trên Sequoia 15 và mới hơn, chuột phải → Open không còn bỏ qua Gatekeeper cho nhiều ứng dụng bị cách ly. Thay vào đó, hãy dùng bảng System Settings:",
+    "Dùng Terminal sau khi sao chép Arroxy vào Applications:",
   dl_macos_sequoia_step1: "Kéo `Arroxy.app` từ DMG đã gắn vào `/Applications`.",
   dl_macos_sequoia_step2:
-    "Nhấp đúp vào Arroxy. Hộp thoại chặn xuất hiện — nhấp **Done** (đừng nhấp *Move to Trash*).",
+    "Mở Terminal và chạy hai lệnh này:",
   dl_macos_sequoia_step3:
-    'Mở **System Settings → Privacy & Security** và cuộn đến phần **Security**. Bạn sẽ thấy *"Arroxy was blocked to protect your Mac"* (hoặc thông báo gần giống).',
+    "Chạy `open /Applications/Arroxy.app` để khởi chạy Arroxy.",
   dl_macos_sequoia_step4:
-    "Nhấp **Open Anyway**, xác nhận bằng mật khẩu hoặc Touch ID, sau đó khởi động lại Arroxy từ `/Applications`.",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 và cũ hơn",
+    "Nếu đường dẫn ứng dụng khác, hãy thay `/Applications/Arroxy.app` bằng đường dẫn bạn đã cài đặt.",
+  dl_macos_sonoma_h4: "Sửa bằng Terminal cho macOS cũ hơn",
   dl_macos_sonoma_step1: "Kéo `Arroxy.app` từ DMG đã gắn vào `/Applications`.",
   dl_macos_sonoma_step2:
-    "Nhấp chuột phải (hoặc Control-click) vào `Arroxy.app` trong `/Applications` và chọn **Open**.",
+    "Mở Terminal và xóa quarantine khỏi `/Applications/Arroxy.app`.",
   dl_macos_sonoma_step3:
-    "Hộp thoại cảnh báo bây giờ có nút **Open** — nhấp vào đó và xác nhận. Arroxy mở bình thường và cảnh báo sẽ không xuất hiện lại nữa.",
+    "Khởi chạy Arroxy từ Terminal hoặc Finder sau khi quarantine được gỡ bỏ.",
   dl_macos_damaged_h4:
-    '"App is damaged" hoặc Gatekeeper chặn liên tục — sửa bằng Terminal',
+    "Sửa quarantine của Gatekeeper",
   dl_macos_damaged_p:
-    'Nếu macOS báo *"Arroxy is damaged and can\'t be opened"*, hoặc không có bước nào ở trên giải quyết được, thuộc tính cách ly trên DMG là nguyên nhân (một số trình duyệt và hành vi translocation của macOS tự đặt nó). Xóa nó khỏi ứng dụng đã cài đặt:',
+    "Lệnh đầu tiên xóa thuộc tính quarantine khỏi bản Arroxy đã cài. Lệnh thứ hai khởi chạy ứng dụng. `sudo` có thể hỏi mật khẩu Mac; Terminal sẽ không hiển thị ký tự khi bạn nhập.",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel:** trên Mac dòng M (M1 / M2 / M3 / M4), hãy tải DMG `arm64`. Trên Mac Intel, tải DMG `x64`. Chạy bản build sai vẫn hoạt động qua Rosetta nhưng sẽ chậm hơn đáng kể.",
 
@@ -331,7 +331,7 @@ export const vi = {
     "Có — cả hai. Dán URL playlist hoặc kênh (ví dụ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); chọn số mục cần quét, rồi đưa cả danh sách vào hàng đợi hoặc chọn từng video. Bộ lọc theo khoảng ngày sẽ có sớm.",
   faq_q9: 'macOS báo "ứng dụng bị hỏng" — tôi phải làm gì?',
   faq_a9:
-    'Đó là macOS Gatekeeper chặn ứng dụng chưa được ký, không phải file thực sự bị hỏng. Xem ["App is damaged" — sửa bằng Terminal](#macos-first-launch) để biết lệnh `xattr` một dòng giải quyết vấn đề.',
+    "Đó là macOS Gatekeeper chặn ứng dụng chưa được ký, không phải file thật sự bị hỏng. Xem [macOS first launch](#macos-first-launch) để biết các lệnh Terminal xóa quarantine và khởi chạy Arroxy.",
   faq_q10: "Tải video YouTube có hợp pháp không?",
   faq_a10:
     "Đối với mục đích sử dụng cá nhân, riêng tư thì nhìn chung được chấp nhận ở hầu hết các khu vực pháp lý. Bạn có trách nhiệm tuân thủ [Điều khoản dịch vụ](https://www.youtube.com/t/terms) của YouTube và luật bản quyền tại địa phương của bạn.",

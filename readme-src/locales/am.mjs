@@ -106,7 +106,7 @@ export const am = {
   toc_heading: "ዝርዝር",
   why_h2: "ለምን Arroxy",
   features_h2: "ባህሪያት",
-  dl_h2: "አውርድ",
+  dl_h2: "መጫን እና የመጀመሪያ ማስነሳት",
   privacy_h2: "ግላዊነት",
   faq_h2: "ተደጋጋሚ ጥያቄዎች",
   roadmap_h2: "ወደፊት ዕቅድ",
@@ -206,17 +206,17 @@ export const am = {
     "Arroxy'ን ከይፋዊው GitHub Releases ገጽ ብቻ ያውርዱ። ፋይሉን ሌላ ድር ጣቢያ ካወረዱ ወይም ሌሎች ከላኩልዎ፣ ሰርዘው ከይፋዊ ምንጩ አዲስ ቅጅ ያውርዱ። ምንጩ ህዝባዊ ስለሆነ ራስዎ ሊፈትሹ ወይም Arroxy'ን ሊሠሩ ይችላሉ።",
   dl_macos_h3: "በ macOS ላይ ለመጀመሪያ ጊዜ አስጀምር",
   dl_macos_warning:
-    "Arroxy ገና ኮድ አልተፈረመበትም፣ ስለዚህ macOS Gatekeeper በመጀመሪያ አስጀማሪ ሲያስጠነቅቅዎ ይጠብቁ። ይህ ተጠበቀ ነው — የጉዳት ምልክት አይደለም።",
-  dl_macos_m1_h4: "የሥርዓት ቅንብሮች ዘዴ (ምከረ):",
-  dl_macos_step1: "የ Arroxy አፕ አዶ ላይ ቀኝ ጠቅ ያድርጉ እና **Open** ይምረጡ።",
+    "Arroxy እስካሁን ኮድ አልተፈረመም፣ ስለዚህ macOS Gatekeeper በመጀመሪያ ማስነሳት የተጎዳ መተግበሪያ ማስጠንቀቂያ ሊያሳይ ይችላል። ይህ የሚጠበቅ ነው — ፋይሎቹ በእውነት ተጎድተዋል ማለት አይደለም።",
+  dl_macos_m1_h4: "የTerminal ዘዴ:",
+  dl_macos_step1: "ከተከፈተው DMG `Arroxy.app`ን ወደ `/Applications` ይጎትቱ።",
   dl_macos_step2:
-    "የማስጠንቀቂያ መልዕክት ሳጥን ይታያሉ — **Cancel** ጠቅ ያድርጉ (*Move to Trash* አይጫኑ)።",
-  dl_macos_step3: "**System Settings → Privacy & Security** ይክፈቱ።",
+    "Terminal ይክፈቱና `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app` ያስኪዱ።",
+  dl_macos_step3: "`open /Applications/Arroxy.app` ያስኪዱ።",
   dl_macos_step4:
-    'ወደ **Security** ክፍል ያሸብልሉ። *"Arroxy was blocked from use because it is not from an identified developer."* ያዩሉ።',
-  dl_macos_step5: "**Open Anyway** ጠቅ ያድርጉ እና በይለፍ ቃልዎ ወይም Touch ID ያረጋግጡ።",
-  dl_macos_after: "ደረጃ 5 ከተከናወነ በኋላ፣ Arroxy በተለምዶ ይከፈቱ እናም ማስጠንቀቂያ ሁሌ አይታዩም።",
-  dl_macos_m2_h4: "የቴርሚናል ዘዴ (ተሂሳዊ):",
+    "የapp መንገድ ከተለየ፣ `/Applications/Arroxy.app`ን በጫኑበት መንገድ ይተኩ።",
+  dl_macos_step5: "`sudo` ከጠየቀ የMac የይለፍ ቃልዎን ያስገቡ።",
+  dl_macos_after: "quarantine ከተወገደ በኋላ Arroxy በመደበኛ ሁኔታ ይከፈታል።",
+  dl_macos_m2_h4: "የTerminal ዘዴ:",
   dl_macos_note:
     "macOS ሕንጻዎች ከ Apple Silicon እና Intel ሩጫዎች በ CI ላይ ይሠራሉ። ችግር ካጋጠምዎ፣ [ጉዳይ ይክፈቱ](../../issues) — ከ macOS ተጠቃሚዎች ያለው ምላሽ የ macOS ፈተና ዑደቱን ቀጥታ ይቀርፃሉ።",
   dl_linux_h3: "በ Linux ላይ ለመጀመሪያ ጊዜ አስጀምር",
@@ -247,28 +247,28 @@ export const am = {
 
   dl_macos_first_h3: "macOS ላይ ለመጀመሪያ ጊዜ አስጀምር",
   dl_macos_intro:
-    "Arroxy ለ macOS ኮድ ሳይፈርም ስለሆነ፣ Gatekeeper ለመጀመሪያ አስጀምሩ ያግዳሉ። እሱን ለመፍቀድ ያለው ትክክለኛ ዘዴ macOS ስሪቶ ላይ ይወሰናሉ — Sequoia 15 ቀድሞ ያለውን ቀኝ-ጠቅ → Open ማለፊያ አጥብቋቸዋሉ።",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 እና ከዚህ በኋላ (ወቅታዊ)",
+    "Arroxy ለ macOS እስካሁን ኮድ አልተፈረመም፣ ስለዚህ Gatekeeper ከ DMG ከጫኑት በኋላ አስፈሪውን *\"Arroxy.app is damaged and can't be opened\"* መልዕክት ሊያሳይ ይችላል። ይህ መልዕክት macOS ያልተፈረመ app በquarantine ውስጥ አስገብቶታል ማለት ነው፤ የapp ፋይሎች በእውነት ተጎድተዋል ማለት አይደለም። በአሁኑ macOS ላይ አስተማማኙ መፍትሔ Terminal ነው:",
+  dl_macos_sequoia_h4: "ለአሁኑ macOS የTerminal መፍትሔ",
   dl_macos_sequoia_intro:
-    "Sequoia 15 እና አዳዲስ ስሪቶቹ ላይ፣ ቀኝ-ጠቅ → Open ለብዙ ቆጠቡ አፖቹ Gatekeeper ን ያሳልፋቸዋሉ አልሆነም። ምትክ ሥርዓት ቅንብሮች ፓነልን ይጠቀሙ:",
+    "Arroxyን ወደ Applications ከገለበጡ በኋላ Terminal ይጠቀሙ:",
   dl_macos_sequoia_step1:
     "ከተቀጠለው DMG ውስጥ `Arroxy.app` ን ወደ `/Applications` ጎትቱ።",
   dl_macos_sequoia_step2:
-    "Arroxy ን ሁለቴ ጠቅ ያድርጉ። የማገጃ መልዕክት ሳጥን ይታያሉ — **Done** ጠቅ ያድርጉ (*Move to Trash* አይጫኑ)።",
+    "Terminal ይክፈቱና እነዚህን ሁለት ትዕዛዞች ያስኪዱ:",
   dl_macos_sequoia_step3:
-    '**System Settings → Privacy & Security** ይክፈቱ እና ወደ **Security** ክፍሉ ያሸብልሉ። *"Arroxy was blocked to protect your Mac"* (ወይም ቅርብ ተመሳሳይ መልዕክት) ያዩሉ።',
+    "Arroxyን ለማስነሳት `open /Applications/Arroxy.app` ያስኪዱ።",
   dl_macos_sequoia_step4:
-    "**Open Anyway** ጠቅ ያድርጉ፣ በይለፍ ቃልዎ ወይም Touch ID ያረጋግጡ፣ ከዛ Arroxy ን ከ `/Applications` ያስጀምሩ።",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 እና ከዚህ ቀደም",
+    "የapp መንገድ ከተለየ፣ `/Applications/Arroxy.app`ን በጫኑበት መንገድ ይተኩ።",
+  dl_macos_sonoma_h4: "ለአሮጌ macOS የTerminal መፍትሔ",
   dl_macos_sonoma_step1:
     "ከተቀጠለው DMG ውስጥ `Arroxy.app` ን ወደ `/Applications` ጎትቱ።",
   dl_macos_sonoma_step2:
-    "በ `/Applications` ውስጥ `Arroxy.app` ን ቀኝ-ጠቅ ያድርጉ (ወይም Control-click) እና **Open** ይምረጡ።",
+    "Terminal ይክፈቱና quarantine ከ `/Applications/Arroxy.app` ያስወግዱ።",
   dl_macos_sonoma_step3:
-    "የማስጠንቀቂያ መልዕክት ሳጥን አሁን **Open** ቁልፍ አለው — ጠቅ ያድርጉ እና ያረጋግጡ። Arroxy በተለምዶ ይከፈቱ እናም ማስጠንቀቂያ ሁሌ አይታዩም።",
-  dl_macos_damaged_h4: '"App is damaged" ወይም ቀጣይ Gatekeeper ማገጃ — Terminal ዘዴ',
+    "quarantine ከተወገደ በኋላ Arroxyን ከTerminal ወይም Finder ያስነሱ።",
+  dl_macos_damaged_h4: "የGatekeeper quarantine መፍትሔ",
   dl_macos_damaged_p:
-    'macOS *"Arroxy is damaged and can\'t be opened"* ቢል፣ ወይም ከላይ ያሉት ምንም ቃምሶዎች ማገጃውን ባያስወግዱ፣ DMG ላይ ያለው ቆጠቡ ባህሪ ምክንያቱ ነው (አንዳንድ ብሮውዘሮች እና macOS ራሱ የ translocation ባህሪ ያቀናጁ)። ከተጫነው አፕ ያስወግዱ:',
+    "የመጀመሪያው ትዕዛዝ ከተጫነው የArroxy ቅጂዎ quarantine attribute ያስወግዳል። ሁለተኛው appን ያስነሳል። `sudo` የMac የይለፍ ቃልዎን ሊጠይቅ ይችላል፤ Terminal ሲጻፍ ምልክቶችን አያሳይም።",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel:** M-ሰሪ Mac ላይ (M1 / M2 / M3 / M4)፣ `arm64` DMG ያውርዱ። Intel Mac ላይ፣ `x64` DMG ያውርዱ። የተሳሳተ ቅጅ ማሂደት Rosetta በኩል ይሠራሉ ነገር ግን በግልጽ ዘገምተኛ ነው።",
 
@@ -315,7 +315,7 @@ export const am = {
     "አዎ — ሁለቱም። የplaylist ወይም channel URL ይለጥፉ (ለምሳሌ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); ስንት ግቤቶች እንዲቃኙ ይምረጡ፣ ከዚያም ሙሉውን ዝርዝር ወደ ወረፋ ያክሉ ወይም ቪዲዮዎችን በተናጠል ይምረጡ። የቀን ክልል ማጣሪያዎች በቅርቡ ይመጣሉ።",
   faq_q9: 'macOS "አፕ ተጎድቷል" ይላሉ — ምን ማድረግ አለብኝ?',
   faq_a9:
-    'ያ macOS Gatekeeper ያልተፈረመ አፕ እየከለከሉ ናቸው፣ ሐቀኛ ጉዳት አይደሉም። [\"App is damaged\" — Terminal ዘዴ](#macos-first-launch) ን ለሚያጸዳው አንድ-ሸዊን `xattr` ትዕዛዝ ይመልከቱ።',
+    "ያ macOS Gatekeeper ያልተፈረመ app እየከለከለ ነው፣ እውነተኛ ጉዳት አይደለም። quarantine ለማስወገድ እና Arroxyን ለማስነሳት የTerminal ትዕዛዞችን በ[macOS first launch](#macos-first-launch) ይመልከቱ።",
   faq_q10: "YouTube ቪዲዮዎች ማውረድ ሕጋዊ ነው?",
   faq_a10:
     "ለግል፣ ሚስጥራዊ አጠቃቀም በአብዛኛዎቹ ዳኝነቶች ተቀባይነት ያለው ነው። የ YouTube [የአገልግሎት ደንቦቹን](https://www.youtube.com/t/terms) እና የቦታዎ የቅጂ መብት ሕጎቹን ማክበር ኃላፊነትዎ ነው።",

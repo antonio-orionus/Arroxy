@@ -106,7 +106,7 @@ export const zh = {
   toc_heading: "目录",
   why_h2: "为什么选 Arroxy",
   features_h2: "功能特性",
-  dl_h2: "下载",
+  dl_h2: "安装和首次启动",
   privacy_h2: "隐私",
   faq_h2: "常见问题",
   roadmap_h2: "路线图",
@@ -204,16 +204,16 @@ export const zh = {
     "请仅从官方 GitHub Releases 页面下载 Arroxy。如果您从其他网站获取了该文件，或有人发送给您，请删除它并从官方来源重新下载。源代码是公开的，如果您愿意，可以自行审查或编译 Arroxy。",
   dl_macos_h3: "macOS 首次启动",
   dl_macos_warning:
-    "Arroxy 尚未代码签名，因此 macOS Gatekeeper 会在首次启动时发出警告。这是预期行为 — 并不表示文件损坏。",
-  dl_macos_m1_h4: "系统设置方式（推荐）：",
-  dl_macos_step1: "右键点击 Arroxy 应用图标，选择 **打开**。",
-  dl_macos_step2: "出现警告对话框 — 点击 **取消**（不要点击*移到废纸篓*）。",
-  dl_macos_step3: "打开 **系统设置 → 隐私与安全性**。",
+    "Arroxy 还没有代码签名，所以 macOS Gatekeeper 首次启动时可能会显示应用已损坏警告。这是预期行为，并不表示文件真的损坏了。",
+  dl_macos_m1_h4: "Terminal 方法：",
+  dl_macos_step1: "将已挂载 DMG 中的 `Arroxy.app` 拖到 `/Applications`。",
+  dl_macos_step2: "打开 Terminal，运行 `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app`。",
+  dl_macos_step3: "运行 `open /Applications/Arroxy.app`。",
   dl_macos_step4:
-    '滚动到 **安全性** 部分。你会看到 *"Arroxy 已被阻止使用，因为它不是由可识别的开发者提供的。"*',
-  dl_macos_step5: "点击 **仍然打开**，然后用密码或 Touch ID 确认。",
-  dl_macos_after: "完成第 5 步后，Arroxy 正常打开，以后不再显示此警告。",
-  dl_macos_m2_h4: "终端方式（高级）：",
+    "如果应用路径不同，请把 `/Applications/Arroxy.app` 替换为你的安装路径。",
+  dl_macos_step5: "如果 `sudo` 要求输入密码，请输入你的 Mac 密码。",
+  dl_macos_after: "移除 quarantine 后，Arroxy 会正常打开。",
+  dl_macos_m2_h4: "Terminal 方法：",
   dl_macos_note:
     "macOS 构建通过 CI 在 Apple Silicon 和 Intel runner 上生成。如遇问题，请 [提交 issue](../../issues) — macOS 用户的反馈会直接影响 macOS 测试周期。",
   dl_linux_h3: "Linux 首次启动",
@@ -243,27 +243,27 @@ export const zh = {
 
   dl_macos_first_h3: "macOS 首次启动",
   dl_macos_intro:
-    "Arroxy 尚未为 macOS 进行代码签名，因此 Gatekeeper 会阻止首次启动。具体的解除方式取决于你的 macOS 版本 — Sequoia 15 收紧了旧的右键 → 打开绕过方式。",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 及更高版本（当前）",
+    "Arroxy 还没有为 macOS 进行代码签名，所以从 DMG 安装后，Gatekeeper 可能会显示吓人的 *\"Arroxy.app is damaged and can't be opened\"* 对话框。这个提示表示 macOS 将未签名应用放入了 quarantine；并不表示应用文件真的损坏。当前 macOS 上可靠的修复方式是 Terminal：",
+  dl_macos_sequoia_h4: "当前 macOS 的 Terminal 修复方法",
   dl_macos_sequoia_intro:
-    "在 Sequoia 15 及更新版本中，右键 → 打开对许多被隔离的应用不再能绕过 Gatekeeper。请改用系统设置面板：",
+    "将 Arroxy 复制到 Applications 后使用 Terminal：",
   dl_macos_sequoia_step1: "将 `Arroxy.app` 从挂载的 DMG 拖入 `/Applications`。",
   dl_macos_sequoia_step2:
-    "双击 Arroxy，出现阻止对话框 — 点击 **Done**（不要点击 *Move to Trash*）。",
+    "打开 Terminal，运行这两条命令：",
   dl_macos_sequoia_step3:
-    '打开 **System Settings → Privacy & Security**，滚动到 **Security** 部分。你会看到 *"Arroxy was blocked to protect your Mac"*（或类似提示）。',
+    "运行 `open /Applications/Arroxy.app` 来启动 Arroxy。",
   dl_macos_sequoia_step4:
-    "点击 **Open Anyway**，用密码或 Touch ID 确认，然后从 `/Applications` 重新启动 Arroxy。",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 及更早版本",
+    "如果应用路径不同，请把 `/Applications/Arroxy.app` 替换为你的安装路径。",
+  dl_macos_sonoma_h4: "旧版 macOS 的 Terminal 修复方法",
   dl_macos_sonoma_step1: "将 `Arroxy.app` 从挂载的 DMG 拖入 `/Applications`。",
   dl_macos_sonoma_step2:
-    "在 `/Applications` 中右键（或 Control-单击）`Arroxy.app`，选择 **Open**。",
+    "打开 Terminal，从 `/Applications/Arroxy.app` 移除 quarantine。",
   dl_macos_sonoma_step3:
-    "警告对话框现在有 **Open** 按钮 — 点击它并确认。Arroxy 正常打开，此后警告不再出现。",
+    "移除 quarantine 后，从 Terminal 或 Finder 启动 Arroxy。",
   dl_macos_damaged_h4:
-    '"App is damaged" 或持续的 Gatekeeper 拦截 — Terminal 修复方法',
+    "Gatekeeper quarantine 修复",
   dl_macos_damaged_p:
-    '如果 macOS 显示 *"Arroxy is damaged and can\'t be opened"*，或以上步骤均无法解除拦截，原因是 DMG 上的隔离属性（某些浏览器和 macOS 自身的文件位置转换机制会设置该属性）。从已安装的应用中清除该属性：',
+    "第一条命令会从已安装的 Arroxy 副本中移除 quarantine 属性。第二条命令会启动应用。`sudo` 可能会要求输入你的 Mac 密码；Terminal 在输入时不会显示字符。",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel：** 在搭载 M 系列芯片（M1 / M2 / M3 / M4）的 Mac 上，请下载 `arm64` DMG。在 Intel Mac 上，请下载 `x64` DMG。运行错误版本仍可通过 Rosetta 启动，但速度会明显变慢。",
 
@@ -311,7 +311,7 @@ export const zh = {
     "可以，两者都支持。粘贴播放列表或频道 URL（例如 `youtube.com/@handle`、`/channel/UC…`、`/c/Name`、`/user/Old`）；选择要扫描的条目数量，然后将整个列表加入队列或选择特定视频。日期范围筛选即将推出。",
   faq_q9: 'macOS 提示"应用已损坏" — 怎么处理？',
   faq_a9:
-    '这是 macOS Gatekeeper 在拦截未签名应用，并非真正损坏。请参见["App is damaged" — Terminal 修复方法](#macos-first-launch)，其中有一行 `xattr` 命令即可清除该问题。',
+    "这是 macOS Gatekeeper 在拦截未签名应用，并非真正损坏。请查看 [macOS first launch](#macos-first-launch)，其中有移除 quarantine 并启动 Arroxy 的 Terminal 命令。",
   faq_q10: "下载 YouTube 视频合法吗？",
   faq_a10:
     "在大多数地区，个人私人使用一般被接受。你需要自行负责遵守 YouTube 的[服务条款](https://www.youtube.com/t/terms)及当地版权法律。",

@@ -106,7 +106,7 @@ export const sr = {
   toc_heading: "Садржај",
   why_h2: "Зашто Arroxy",
   features_h2: "Функционалности",
-  dl_h2: "Преузимање",
+  dl_h2: "Инсталација и прво покретање",
   privacy_h2: "Приватност",
   faq_h2: "ЧПП",
   roadmap_h2: "Планови",
@@ -216,21 +216,21 @@ export const sr = {
     "Преузимајте Arroxy искључиво са званичне GitHub Releases странице. Ако сте добили фајл са другог сајта или вам је неко послао, обришите га и преузмите свежу копију из званичног извора. Изворни код је јаван, тако да га можете сами прегледати или компајлирати ако желите.",
   dl_macos_h3: "Прво покретање на macOS-у",
   dl_macos_warning:
-    "Arroxy још увек није потписан кодом, па ће macOS Gatekeeper упозорити вас при првом покретању. То је очекивано — није знак оштећења.",
-  dl_macos_m1_h4: "Метода системских подешавања (препоручено):",
+    "Arroxy још увек није потписан кодом, па macOS Gatekeeper при првом покретању може приказати упозорење о оштећеној апликацији. То је очекивано — не значи да су фајлови стварно оштећени.",
+  dl_macos_m1_h4: "Terminal метод:",
   dl_macos_step1:
-    "Кликните десним тастером на иконицу Arroxy апликације и изаберите **Отвори**.",
+    "Превуците `Arroxy.app` из монтираног DMG-а у `/Applications`.",
   dl_macos_step2:
-    "Приказује се дијалог упозорења — кликните **Откажи** (немојте кликнути *Премести у смеће*).",
+    "Отворите Terminal и покрените `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app`.",
   dl_macos_step3:
-    "Отворите **Системска подешавања → Приватност и безбедност**.",
+    "Покрените `open /Applications/Arroxy.app`.",
   dl_macos_step4:
-    'Скролујте до одељка **Безбедност**. Видећете *"Arroxy је блокиран јер није од идентификованог програмера."*',
+    "Ако је путања апликације другачија, замените `/Applications/Arroxy.app` путањом где сте је инсталирали.",
   dl_macos_step5:
-    "Кликните **Свеједно отвори** и потврдите лозинком или Touch ID-ом.",
+    "Унесите лозинку за Mac ако је `sudo` затражи.",
   dl_macos_after:
-    "Након корака 5, Arroxy се отвара нормално и упозорење се више никад не приказује.",
-  dl_macos_m2_h4: "Метода терминала (напредно):",
+    "Када се quarantine уклони, Arroxy се отвара нормално.",
+  dl_macos_m2_h4: "Terminal метод:",
   dl_macos_note:
     "macOS верзије се производе путем CI на Apple Silicon и Intel покретачима. Ако наиђете на проблеме, [отворите пријаву](../../issues) — повратне информације корисника macOS-а активно обликују циклус тестирања.",
   dl_linux_h3: "Прво покретање на Linux-у",
@@ -261,29 +261,29 @@ export const sr = {
 
   dl_macos_first_h3: "macOS: прво покретање",
   dl_macos_intro:
-    "Arroxy још увек није потписан кодом за macOS, па ће Gatekeeper блокирати прво покретање. Тачан начин да га дозволите зависи од верзије macOS-а — Sequoia 15 је затегла стари обилазак преко десног клика → Отвори.",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 и новије (актуелно)",
+    "Arroxy још увек није потписан кодом за macOS, па Gatekeeper након инсталације из DMG-а може приказати застрашујући дијалог *\"Arroxy.app is damaged and can't be opened\"*. Та порука значи да је macOS ставио непотписану апликацију у quarantine; не значи да су фајлови апликације стварно оштећени. На актуелном macOS-у поуздано решење је Terminal:",
+  dl_macos_sequoia_h4: "Terminal исправка за актуелни macOS",
   dl_macos_sequoia_intro:
-    "На Sequoia 15 и новијим верзијама, десни клик → Отвори више не заобилази Gatekeeper за многе апликације у карантину. Уместо тога користите панел Системских подешавања:",
+    "Користите Terminal након копирања Arroxy у Applications:",
   dl_macos_sequoia_step1:
     "Превуците `Arroxy.app` са монтираног DMG у `/Applications`.",
   dl_macos_sequoia_step2:
-    "Двокликните Arroxy. Приказује се дијалог блокирања — кликните **Done** (не кликајте *Move to Trash*).",
+    "Отворите Terminal и покрените ове две команде:",
   dl_macos_sequoia_step3:
-    'Отворите **System Settings → Privacy & Security** и скролујте до одељка **Security**. Видећете *"Arroxy was blocked to protect your Mac"* (или сличну поруку).',
+    "Покрените `open /Applications/Arroxy.app` да бисте стартовали Arroxy.",
   dl_macos_sequoia_step4:
-    "Кликните **Open Anyway**, потврдите лозинком или Touch ID-ом, а затим поново покрените Arroxy из `/Applications`.",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 и старије",
+    "Ако је путања апликације другачија, замените `/Applications/Arroxy.app` путањом где сте је инсталирали.",
+  dl_macos_sonoma_h4: "Terminal исправка за старије macOS верзије",
   dl_macos_sonoma_step1:
     "Превуците `Arroxy.app` са монтираног DMG у `/Applications`.",
   dl_macos_sonoma_step2:
-    "Десним кликом (или Control-кликом) кликните на `Arroxy.app` у `/Applications` и одаберите **Open**.",
+    "Отворите Terminal и уклоните quarantine са `/Applications/Arroxy.app`.",
   dl_macos_sonoma_step3:
-    "Дијалог упозорења сада има дугме **Open** — кликните га и потврдите. Arroxy се отвара нормално и упозорење се никад више не приказује.",
+    "Покрените Arroxy из Terminal-а или Finder-а након уклањања quarantine-а.",
   dl_macos_damaged_h4:
-    '"App is damaged" или упорна блокада Gatekeeper-а — исправка путем Terminal-а',
+    "Gatekeeper quarantine исправка",
   dl_macos_damaged_p:
-    'Ако macOS каже *"Arroxy is damaged and can\'t be opened"*, или ниједан од горњих корака не уклони блокаду, узрок је атрибут карантина на DMG-у (неки претраживачи и macOS-ово сопствено понашање трансположења га постављају). Уклоните га са инсталиране апликације:',
+    "Прва команда уклања quarantine атрибут са ваше инсталиране копије Arroxy. Друга покреће апликацију. `sudo` може затражити лозинку за Mac; Terminal не приказује знакове док је куцате.",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel:** на Mac рачунару са процесором серије M (M1 / M2 / M3 / M4), преузмите DMG за `arm64`. На Intel Mac рачунарима, преузмите DMG за `x64`. Покретање погрешне верзије ради преко Rosetta, али је приметно спорије.",
 
@@ -332,7 +332,7 @@ export const sr = {
     "Да — обоје. Налепи playlist или channel URL (нпр. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); изабери колико entries да се скенира, па стави целу листу у queue или изабери појединачне видео снимке. Date-range filters стижу ускоро.",
   faq_q9: 'macOS каже да је "апликација оштећена" — шта да радим?',
   faq_a9:
-    'То је macOS Gatekeeper блокира непотписану апликацију, а не стварно оштећење. Погледајте ["App is damaged" — исправка путем Terminal-а](#macos-first-launch) за jednolinijsku `xattr` команду која то решава.',
+    "То је macOS Gatekeeper који блокира непотписану апликацију, а не стварно оштећење. Команде Terminal-а за уклањање quarantine-а и покретање Arroxy погледајте у [macOS first launch](#macos-first-launch).",
   faq_q10: "Да ли је преузимање YouTube видеа законито?",
   faq_a10:
     "За личну, приватну употребу то је углавном прихватљиво у већини јурисдикција. Ви сте одговорни за усклађеност са [Условима коришћења](https://www.youtube.com/t/terms) YouTube-а и локалним законима о ауторским правима.",

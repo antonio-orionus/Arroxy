@@ -11,7 +11,7 @@
 
 Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 4K HDR at 60 fps, or as MP3 / AAC / Opus. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**
 
-[**↓ Install Latest Release**](#install) &nbsp;·&nbsp; [**Website**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows](#install) · [macOS](#install) · [Linux](#install)
+[**↓ Install Latest Release**](#install) &nbsp;·&nbsp; [**Website**](https://arroxy.orionus.dev/) &nbsp;·&nbsp; [Windows first launch](#windows-first-launch) · [macOS first launch](#macos-first-launch) · [Linux first launch](#linux-first-launch)
 
 [![Join the Discord Community](https://img.shields.io/badge/Join%20the%20Discord%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
@@ -31,7 +31,12 @@ If Arroxy saves you time, a ⭐ helps others find it.
 
 ## Contents
 
-- [Install](#install)
+- [Install and first launch](#install)
+  - [Windows first launch](#windows-first-launch)
+  - [macOS first launch](#macos-first-launch)
+  - [Why you may see a warning](#why-warning)
+  - [Linux first launch](#linux-first-launch)
+  - [Verify your download (SHA256)](#verify)
 - [Why Arroxy](#why)
 - [Features](#features)
 - [Privacy](#privacy)
@@ -41,7 +46,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 
 ---
 
-## <a id="install"></a>Install
+## <a id="install"></a>Install and first launch
 
 | Platform | Direct download                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,16 +56,6 @@ If Arroxy saves you time, a ⭐ helps others find it.
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**All release assets →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="why-warning"></a>Why you may see a warning
-
-Arroxy is open-source and MIT-licensed. The Windows and macOS builds are **not code-signed** — Apple Developer ID and Windows EV code-signing certificates each cost hundreds of dollars per year, which an indie project pays out of pocket. Without those signatures, Windows SmartScreen and macOS Gatekeeper will warn you on first launch. The warnings mean *your OS doesn't recognize the publisher* — they don't mean Arroxy is malware.
-
-Three ways to verify Arroxy yourself, in increasing rigor:
-
-- **Read the source.** Every line is on [GitHub](https://github.com/antonio-orionus/Arroxy) and you can [build it from source](#tech).
-- **Check the SHA256.** Match your file against the published [`SHA256SUMS`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) — see [Verify your download](#verify) below.
-- **Run a third-party scan.** Upload the file to [VirusTotal](https://www.virustotal.com).
 
 ### <a id="windows-first-launch"></a>Windows first launch
 
@@ -82,34 +77,35 @@ Defender heuristics sometimes flag unsigned NSIS installers and Electron portabl
 
 ### <a id="macos-first-launch"></a>macOS first launch
 
-Arroxy is not yet code-signed for macOS, so Gatekeeper will block the first launch. The exact path to allow it depends on your macOS version — Sequoia 15 tightened the old right-click → Open bypass.
+Arroxy is not yet code-signed for macOS, so Gatekeeper can show the scary *"Arroxy.app is damaged and can't be opened"* dialog after you install it from the DMG. That message means macOS quarantined an unsigned app; it does not mean the app files are actually damaged. On current macOS, the reliable fix is Terminal:
 
-#### macOS Sequoia 15 and later (current)
-
-On Sequoia 15 and newer, right-click → Open no longer bypasses Gatekeeper for many quarantined apps. Use the System Settings panel instead:
-
-1. Drag `Arroxy.app` from the mounted DMG into `/Applications`.
-2. Double-click Arroxy. The block dialog appears — click **Done** (don't click *Move to Trash*).
-3. Open **System Settings → Privacy & Security** and scroll to the **Security** section. You'll see *"Arroxy was blocked to protect your Mac"* (or a near-identical message).
-4. Click **Open Anyway**, confirm with your password or Touch ID, then re-launch Arroxy from `/Applications`.
-
-#### macOS Sonoma 14 and earlier
+<div align="center">
+  <img src="build/macOS-warning-Arroxy-is-damaged.png" width="42%" alt="macOS dialog saying Arroxy.app is damaged and cannot be opened" />
+</div>
 
 1. Drag `Arroxy.app` from the mounted DMG into `/Applications`.
-2. Right-click (or Control-click) `Arroxy.app` in `/Applications` and choose **Open**.
-3. The warning dialog now has an **Open** button — click it and confirm. Arroxy opens normally and the warning never appears again.
-
-#### "App is damaged" or persistent Gatekeeper block — Terminal fix
-
-If macOS says *"Arroxy is damaged and can't be opened"*, or none of the steps above clear the block, the quarantine attribute on the DMG is the cause (some browsers and macOS's own translocation behavior set it). Strip it from the installed app:
+2. Open Terminal and run these two commands:
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Arroxy.app
+sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+open /Applications/Arroxy.app
 ```
+
+The first command removes the quarantine attribute from your installed copy of Arroxy. The second launches the app. `sudo` may ask for your Mac password; Terminal will not show characters while you type it.
 
 **Apple Silicon vs Intel:** on an M-series Mac (M1 / M2 / M3 / M4), download the `arm64` DMG. On Intel Macs, download the `x64` DMG. Running the wrong build still works via Rosetta but is noticeably slower.
 
 > macOS builds are produced via CI on Apple Silicon and Intel runners. If you hit issues, please [open an issue](../../issues) — feedback from macOS users actively shapes the macOS testing cycle.
+
+### <a id="why-warning"></a>Why you may see a warning
+
+Arroxy is open-source and MIT-licensed. The Windows and macOS builds are **not code-signed** — Apple Developer ID and Windows EV code-signing certificates each cost hundreds of dollars per year, which an indie project pays out of pocket. Without those signatures, Windows SmartScreen and macOS Gatekeeper will warn you on first launch. The warnings mean *your OS doesn't recognize the publisher* — they don't mean Arroxy is malware.
+
+Three ways to verify Arroxy yourself, in increasing rigor:
+
+- **Read the source.** Every line is on [GitHub](https://github.com/antonio-orionus/Arroxy) and you can [build it from source](#tech).
+- **Check the SHA256.** Match your file against the published [`SHA256SUMS`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) — see [Verify your download](#verify) below.
+- **Run a third-party scan.** Upload the file to [VirusTotal](https://www.virustotal.com).
 
 ### <a id="linux-first-launch"></a>Linux first launch
 
@@ -314,7 +310,7 @@ No. yt-dlp is downloaded automatically on first launch and cached on your machin
 Yes — both. Paste a playlist URL or a channel URL (e.g. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); choose how many entries to scan, then queue the whole list or pick specific videos. Date-range filters are coming soon.
 
 **macOS says "the app is damaged" — what do I do?**
-That's macOS Gatekeeper blocking an unsigned app, not actual damage. See ["App is damaged" — Terminal fix](#macos-first-launch) for the one-line `xattr` command that clears it.
+That's macOS Gatekeeper blocking an unsigned app, not actual damage. See [macOS first launch](#macos-first-launch) for the Terminal commands that clear quarantine and launch Arroxy.
 
 **Is downloading YouTube videos legal?**
 For personal, private use it is generally accepted in most jurisdictions. You are responsible for complying with YouTube's [Terms of Service](https://www.youtube.com/t/terms) and your local copyright laws.

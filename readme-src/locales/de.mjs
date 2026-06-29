@@ -106,7 +106,7 @@ export const de = {
   toc_heading: "Inhalt",
   why_h2: "Warum Arroxy",
   features_h2: "Funktionen",
-  dl_h2: "Download",
+  dl_h2: "Installieren und erster Start",
   privacy_h2: "Datenschutz",
   faq_h2: "Häufig gestellte Fragen",
   roadmap_h2: "Roadmap",
@@ -216,20 +216,20 @@ export const de = {
     "Lade Arroxy nur von der offiziellen GitHub Releases-Seite herunter. Wenn du die Datei von einer anderen Website bekommen hast oder jemand sie dir geschickt hat, lösche sie und lade eine frische Kopie von der offiziellen Quelle herunter. Der Quellcode ist öffentlich, du kannst ihn also selbst prüfen oder Arroxy selbst kompilieren.",
   dl_macos_h3: "Erststart unter macOS",
   dl_macos_warning:
-    "Arroxy ist noch nicht code-signiert, daher warnt macOS Gatekeeper beim ersten Start. Das ist erwartet — kein Zeichen für eine Beschädigung.",
-  dl_macos_m1_h4: "Methode über Systemeinstellungen (empfohlen):",
+    "Arroxy ist noch nicht code-signiert, daher kann macOS Gatekeeper beim ersten Start die beschädigte-App-Warnung anzeigen. Das ist erwartet — es bedeutet nicht, dass die Dateien wirklich beschädigt sind.",
+  dl_macos_m1_h4: "Terminal-Methode:",
   dl_macos_step1:
-    "Rechtsklick auf das Arroxy-App-Symbol und **Öffnen** wählen.",
+    "Ziehe `Arroxy.app` aus dem gemounteten DMG nach `/Applications`.",
   dl_macos_step2:
-    "Der Warndialog erscheint — klicke auf **Abbrechen** (nicht auf *In den Papierkorb*)).",
-  dl_macos_step3: "Öffne **Systemeinstellungen → Datenschutz & Sicherheit**.",
+    "Öffne Terminal und führe `sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app` aus.",
+  dl_macos_step3: "Führe `open /Applications/Arroxy.app` aus.",
   dl_macos_step4:
-    'Scroll runter zum Abschnitt **Sicherheit**. Dort steht _„Arroxy wurde blockiert, weil es nicht von einem identifizierten Entwickler stammt."_',
+    "Wenn der App-Pfad anders ist, ersetze `/Applications/Arroxy.app` durch deinen Installationspfad.",
   dl_macos_step5:
-    "Klicke auf **Trotzdem öffnen** und bestätige mit deinem Passwort oder Touch ID.",
+    "Gib dein Mac-Passwort ein, falls `sudo` danach fragt.",
   dl_macos_after:
-    "Nach Schritt 5 öffnet sich Arroxy normal und die Warnung erscheint nie wieder.",
-  dl_macos_m2_h4: "Terminal-Methode (fortgeschritten):",
+    "Nachdem die Quarantäne entfernt wurde, öffnet Arroxy normal.",
+  dl_macos_m2_h4: "Terminal-Methode:",
   dl_macos_note:
     "macOS-Builds werden per CI auf Apple Silicon- und Intel-Runnern erstellt. Falls Probleme auftreten, bitte [ein Issue öffnen](../../issues) — Feedback von macOS-Nutzern beeinflusst aktiv den macOS-Testzyklus.",
   dl_linux_h3: "Erststart unter Linux",
@@ -261,29 +261,29 @@ export const de = {
 
   dl_macos_first_h3: "macOS-Erststart",
   dl_macos_intro:
-    "Arroxy ist noch nicht code-signiert für macOS, daher blockiert Gatekeeper den ersten Start. Der genaue Weg, um es zu erlauben, hängt von deiner macOS-Version ab — Sequoia 15 hat die alte Rechtsklick → Öffnen-Umgehung verschärft.",
-  dl_macos_sequoia_h4: "macOS Sequoia 15 und neuer (aktuell)",
+    "Arroxy ist noch nicht für macOS code-signiert, daher kann Gatekeeper nach der Installation aus dem DMG den erschreckenden Dialog *\"Arroxy.app is damaged and can't be opened\"* anzeigen. Diese Meldung bedeutet, dass macOS eine unsignierte App unter Quarantäne gestellt hat; sie bedeutet nicht, dass die App-Dateien wirklich beschädigt sind. Auf aktuellen macOS-Versionen ist Terminal der zuverlässige Weg:",
+  dl_macos_sequoia_h4: "Terminal-Fix für aktuelles macOS",
   dl_macos_sequoia_intro:
-    "Ab Sequoia 15 umgeht Rechtsklick → Öffnen Gatekeeper für viele unter Quarantäne stehende Apps nicht mehr. Nutze stattdessen die Systemeinstellungen:",
+    "Nutze Terminal, nachdem du Arroxy nach Applications kopiert hast:",
   dl_macos_sequoia_step1:
     "Ziehe `Arroxy.app` aus dem eingehängten DMG nach `/Applications`.",
   dl_macos_sequoia_step2:
-    "Doppelklicke auf Arroxy. Der Blockierdialog erscheint — klicke auf **Done** (klicke nicht auf *Move to Trash*).",
+    "Öffne Terminal und führe diese zwei Befehle aus:",
   dl_macos_sequoia_step3:
-    'Öffne **System Settings → Privacy & Security** und scrolle zum Abschnitt **Security**. Du siehst *"Arroxy was blocked to protect your Mac"* (oder eine nahezu identische Meldung).',
+    "Führe `open /Applications/Arroxy.app` aus, um Arroxy zu starten.",
   dl_macos_sequoia_step4:
-    "Klicke auf **Open Anyway**, bestätige mit deinem Passwort oder Touch ID, und starte Arroxy dann aus `/Applications` neu.",
-  dl_macos_sonoma_h4: "macOS Sonoma 14 und älter",
+    "Wenn der App-Pfad anders ist, ersetze `/Applications/Arroxy.app` durch deinen Installationspfad.",
+  dl_macos_sonoma_h4: "Terminal-Fix für ältere macOS-Versionen",
   dl_macos_sonoma_step1:
     "Ziehe `Arroxy.app` aus dem eingehängten DMG nach `/Applications`.",
   dl_macos_sonoma_step2:
-    "Rechtsklick (oder Control-Klick) auf `Arroxy.app` in `/Applications` und wähle **Open**.",
+    "Öffne Terminal und entferne die Quarantäne von `/Applications/Arroxy.app`.",
   dl_macos_sonoma_step3:
-    "Der Warndialog hat nun einen **Open**-Button — klicke ihn und bestätige. Arroxy öffnet sich normal und die Warnung erscheint nie wieder.",
+    "Starte Arroxy über Terminal oder Finder, nachdem die Quarantäne entfernt wurde.",
   dl_macos_damaged_h4:
-    '"App is damaged" oder anhaltende Gatekeeper-Blockierung — Terminal-Fix',
+    "Gatekeeper-Quarantäne beheben",
   dl_macos_damaged_p:
-    "Wenn macOS sagt *\"Arroxy is damaged and can't be opened\"*, oder keiner der obigen Schritte die Blockierung aufhebt, ist das Quarantäne-Attribut auf dem DMG die Ursache (manche Browser und macOS's eigenes Translocation-Verhalten setzen es). Entferne es von der installierten App:",
+    "Der erste Befehl entfernt das Quarantäne-Attribut von deiner installierten Arroxy-Kopie. Der zweite startet die App. `sudo` kann nach deinem Mac-Passwort fragen; Terminal zeigt beim Tippen keine Zeichen an.",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel:** auf einem Mac der M-Serie (M1 / M2 / M3 / M4) lade das `arm64`-DMG herunter. Auf Intel-Macs lade das `x64`-DMG. Der falsche Build funktioniert auch über Rosetta, ist aber spürbar langsamer.",
 
@@ -332,7 +332,7 @@ export const de = {
     "Ja — beides. Füge eine Playlist-URL oder Kanal-URL ein (z. B. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); wähle, wie viele Einträge gescannt werden sollen, und stelle dann die ganze Liste in die Warteschlange oder wähle einzelne Videos aus. Datumsfilter kommen bald.",
   faq_q9: 'macOS sagt „die App ist beschädigt" — was tun?',
   faq_a9:
-    'Das ist macOS Gatekeeper, der eine unsignierte App blockiert — kein echter Schaden. Siehe ["App is damaged" — Terminal-Fix](#macos-first-launch) für den einzeiligen `xattr`-Befehl, der das behebt.',
+    "Das ist macOS Gatekeeper, der eine unsignierte App blockiert — kein echter Schaden. Siehe [macOS first launch](#macos-first-launch) für die Terminal-Befehle, die die Quarantäne entfernen und Arroxy starten.",
   faq_q10: "Ist das Herunterladen von YouTube-Videos legal?",
   faq_a10:
     "Für den persönlichen, privaten Gebrauch ist es in den meisten Rechtsordnungen allgemein akzeptiert. Du bist selbst dafür verantwortlich, die [Nutzungsbedingungen](https://www.youtube.com/t/terms) von YouTube und die Urheberrechtsgesetze deines Landes einzuhalten.",
