@@ -35,8 +35,15 @@ powershell -c "irm bun.sh/install.ps1 | iex"
 ### macOS
 
 \`\`\`bash
+brew install mise
 xcode-select --install
-curl -fsSL https://bun.sh/install | bash
+\`\`\`
+
+کلون کرنے کے بعد checkout میں \`mise trust && mise install\` چلائیں۔ اگر آپ کا shell پہلے ہی \`fnm\`، \`nvm\`، یا Homebrew Bun استعمال کرتا ہے، تو \`~/.zshrc\` میں mise فعال کریں تاکہ Arroxy کو Node.js 24.16.0 اور Bun 1.2.23 ملیں:
+
+\`\`\`bash
+printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc
+exec zsh
 \`\`\`
 
 ### Linux (Ubuntu / Debian)
@@ -56,6 +63,7 @@ sudo apt install -y xvfb
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
 cd Arroxy
+mise trust
 mise install           # تجویز کردہ؛ اگر pinned tools دستی طور پر فعال ہیں تو چھوڑ دیں
 bun run bootstrap
 bun run doctor

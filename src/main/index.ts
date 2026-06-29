@@ -36,6 +36,7 @@ import {decideCloseAction, decideRendererCrashAction} from '@main/windowLifecycl
 import {resolveMainWindowBackgroundColor} from '@main/windowPresentation.js'
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
 import {resolveE2eHarnessMode} from '@main/e2eHarness.js'
+import {applyChromiumSwitches, applyChromiumSwitchesFromEnv, chromiumSwitchesForRuntime} from '@main/chromiumSwitches.js'
 import contextMenu from 'electron-context-menu'
 import windowStateKeeper from 'electron-window-state'
 
@@ -60,6 +61,16 @@ const gpuMode = process.env.ARROXY_GPU_MODE
 
 for (const commandLineSwitch of e2eMode.commandLineSwitches) {
 	app.commandLine.appendSwitch(commandLineSwitch)
+}
+
+const runtimeChromiumSwitches = applyChromiumSwitches(chromiumSwitchesForRuntime({platform: process.platform, release: os.release()}), app.commandLine)
+if (runtimeChromiumSwitches.length > 0) {
+	log.info('runtime Chromium switches applied', {switches: runtimeChromiumSwitches})
+}
+
+const envChromiumSwitches = applyChromiumSwitchesFromEnv(process.env, app.commandLine)
+if (envChromiumSwitches.length > 0) {
+	log.info('env Chromium switches applied', {switches: envChromiumSwitches})
 }
 
 function appendChromiumSwitch(rawSwitch: string): void {

@@ -35,8 +35,15 @@ Native rebuilds'f Visual Studio Build Tools fi Python barbaachuu danda'u.
 ### macOS
 
 \`\`\`bash
+brew install mise
 xcode-select --install
-curl -fsSL https://bun.sh/install | bash
+\`\`\`
+
+Erga clone gootee booda checkout keessatti \`mise trust && mise install\` hojjedhu. Yoo shell kee duraan \`fnm\`, \`nvm\`, ykn Homebrew Bun fayyadama ta'e, Arroxy Node.js 24.16.0 fi Bun 1.2.23 akka fayyadamuuf \`~/.zshrc\` keessatti mise kakaasi:
+
+\`\`\`bash
+printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc
+exec zsh
 \`\`\`
 
 ### Linux (Ubuntu / Debian)
@@ -56,6 +63,7 @@ sudo apt install -y xvfb
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
 cd Arroxy
+mise trust
 mise install           # kan gorfamu; pinned tools harkaan hojiirra oolchan yoo ta'e dhiisi
 bun run bootstrap
 bun run doctor

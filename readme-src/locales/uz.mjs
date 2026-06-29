@@ -35,8 +35,15 @@ Mahalliy rebuildlar uchun Visual Studio Build Tools va Python kerak bo'lishi mum
 ### macOS
 
 \`\`\`bash
+brew install mise
 xcode-select --install
-curl -fsSL https://bun.sh/install | bash
+\`\`\`
+
+Klon qilgandan so'ng checkout ichida \`mise trust && mise install\` ni ishga tushiring. Agar shellingiz allaqachon \`fnm\`, \`nvm\` yoki Homebrew orqali o'rnatilgan Bun ishlatsa, Arroxy Node.js 24.16.0 va Bun 1.2.23 ni olishi uchun \`~/.zshrc\` da mise ni faollashtiring:
+
+\`\`\`bash
+printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc
+exec zsh
 \`\`\`
 
 ### Linux (Ubuntu / Debian)
@@ -56,6 +63,7 @@ sudo apt install -y xvfb
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
 cd Arroxy
+mise trust
 mise install           # tavsiya; pinned tools qo'lda faollashtirilgan bo'lsa o'tkazib yuboring
 bun run bootstrap
 bun run doctor

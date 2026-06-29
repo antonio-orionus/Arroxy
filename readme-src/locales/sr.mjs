@@ -35,8 +35,15 @@ Visual Studio Build Tools и Python могу бити потребни за на
 ### macOS
 
 \`\`\`bash
+brew install mise
 xcode-select --install
-curl -fsSL https://bun.sh/install | bash
+\`\`\`
+
+После клонирања, покрените \`mise trust && mise install\` у checkout-у. Ако ваш shell већ користи \`fnm\`, \`nvm\` или Bun из Homebrew-а, активирајте mise у \`~/.zshrc\` како би Arroxy користио Node.js 24.16.0 и Bun 1.2.23:
+
+\`\`\`bash
+printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc
+exec zsh
 \`\`\`
 
 ### Linux (Ubuntu / Debian)
@@ -56,6 +63,7 @@ sudo apt install -y xvfb
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
 cd Arroxy
+mise trust
 mise install           # препоручено; прескочите ако су pinned алати ручно активирани
 bun run bootstrap
 bun run doctor

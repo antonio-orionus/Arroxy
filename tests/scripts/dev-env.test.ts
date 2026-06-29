@@ -6,7 +6,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it} from 'vitest'
 
-import {assertLauncherPortAvailable, computeDefaultRendererPort, createDoctorReport, createToolVersionMismatchMessage, resolveDevEnv, resolveDoctorDevEnv, resolveRuntimeDevEnv} from '../../scripts/dev-env.js'
+import {applyElectronLauncherEnv, assertLauncherPortAvailable, computeDefaultRendererPort, createDoctorReport, createToolVersionMismatchMessage, resolveDevEnv, resolveDoctorDevEnv, resolveRuntimeDevEnv} from '../../scripts/dev-env.js'
 
 const servers: net.Server[] = []
 const tempDirs: string[] = []
@@ -195,6 +195,13 @@ describe('dev-env pure helpers', () => {
 
 		await expect(assertLauncherPortAvailable(env, 'browser-test')).resolves.toBeUndefined()
 		await expect(assertLauncherPortAvailable(env, 'mock')).rejects.toThrow()
+	})
+
+	it('forwards dev-only Chromium switches to Electron', () => {
+		const env = applyElectronLauncherEnv({ELECTRON_DISABLE_SANDBOX: '0', ARROXY_CHROMIUM_SWITCHES: 'disable-features=AudioServiceOutOfProcess,AutoplayIgnoreWebAudio'}, {})
+
+		expect(env.ELECTRON_DISABLE_SANDBOX).toBe('1')
+		expect(env.ARROXY_CHROMIUM_SWITCHES).toBe('disable-features=AudioServiceOutOfProcess,AutoplayIgnoreWebAudio')
 	})
 
 	it('doctor does not accept an Electron payload from a parent checkout', async () => {

@@ -41,6 +41,18 @@
   "portable": {
     "artifactName": "${productName}-win-${arch}-Portable.${ext}"
   },
+  "dmg": {
+    "background": "build/dmg-background.png",
+    "icon": null,
+    "title": "${productName} Installer",
+    "iconSize": 108,
+    "iconTextSize": 13,
+    "window": {"width": 600, "height": 360},
+    "contents": [
+      {"x": 170, "y": 222, "type": "file"},
+      {"x": 430, "y": 222, "type": "link", "path": "/Applications"}
+    ]
+  },
   "mac": {
     "identity": null,
     "extraResources": [

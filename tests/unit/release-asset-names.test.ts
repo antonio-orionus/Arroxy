@@ -1,4 +1,4 @@
-import {readdirSync, readFileSync} from 'node:fs'
+import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {describe, expect, it} from 'vitest'
 
@@ -25,6 +25,24 @@ describe('release asset names', () => {
 		expect(config).toContain('"artifactName": "${productName}-linux-${arch}.${ext}"')
 		expect(config).not.toContain('"artifactName": "${productName}-Setup-${version}.${ext}"')
 		expect(config).not.toContain('"artifactName": "${productName}-${version}.${ext}"')
+	})
+
+	it('configures a branded drag-to-Applications DMG window', () => {
+		const config = read('electron-builder.json5')
+
+		expect(existsSync(join(root, 'build', 'dmg-background.png'))).toBe(true)
+		expect(config).toContain('"background": "build/dmg-background.png"')
+		expect(config).toContain('"icon": null')
+		expect(config).toContain('"title": "${productName} Installer"')
+		expect(config).toContain('"iconSize": 108')
+		expect(config).toContain('"iconTextSize": 13')
+		expect(config).toContain('"window": {"width": 600, "height": 360}')
+		expect(config).toContain('{"x": 170, "y": 222, "type": "file"}')
+		expect(config).toContain('{"x": 430, "y": 222, "type": "link", "path": "/Applications"}')
+		expect(config).not.toContain('"backgroundColor": "#f3f8fb"')
+		expect(config).not.toContain('"path": "Arroxy.app"')
+		expect(config).not.toContain('"x": 130, "y": 220')
+		expect(config).not.toContain('"x": 410, "y": 220')
 	})
 
 	it('keeps Electron runAsNode enabled for yt-dlp JS runtime smoke', () => {

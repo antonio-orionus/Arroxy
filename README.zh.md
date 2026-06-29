@@ -381,8 +381,20 @@ powershell -c "irm bun.sh/install.ps1 | iex"
 ### macOS
 
 ```bash
+brew install mise
 xcode-select --install
-curl -fsSL https://bun.sh/install | bash
+```
+
+克隆后，在 checkout 中运行 `mise trust && mise install`。如果你的 shell 已经使用 `fnm`、`nvm` 或 Homebrew Bun，请在 `~/.zshrc` 中启用 mise，让 Arroxy 使用 Node.js 24.16.0 和 Bun 1.2.23：
+
+```bash
+printf '
+# mise
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+' >> ~/.zshrc
+exec zsh
 ```
 
 ### Linux（Ubuntu / Debian）
@@ -402,6 +414,7 @@ sudo apt install -y xvfb
 ```bash
 git clone https://github.com/antonio-orionus/Arroxy
 cd Arroxy
+mise trust
 mise install           # 推荐；如果已手动启用固定版本工具，可跳过
 bun run bootstrap
 bun run doctor

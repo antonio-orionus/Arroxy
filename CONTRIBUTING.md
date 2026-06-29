@@ -57,9 +57,50 @@ Bun installs JavaScript dependencies, but it does not replace native OS prerequi
 
 Run `bun run doctor` after setup. It reports the specific missing tool or artifact when possible.
 
+### Quick start on macOS
+
+```bash
+brew install mise
+xcode-select --install
+
+git clone https://github.com/antonio-orionus/Arroxy.git
+cd Arroxy
+mise trust
+mise install
+bun run bootstrap
+bun run doctor
+bun run dev          # runs the Electron app against the Vite renderer
+```
+
+Make mise active in new zsh tabs so the repo-pinned Node.js and Bun versions win over global installs:
+
+```bash
+printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc
+exec zsh
+```
+
+If `bun run doctor` reports a newer Node.js from `fnm` or a newer Bun from Homebrew, mise is installed but not active for the shell. Confirm from the repo root:
+
+```bash
+which node
+which bun
+node --version       # expected: v24.16.0
+bun --version        # expected: 1.2.23
+```
+
+As a one-off workaround before fixing shell activation, run commands through mise:
+
+```bash
+mise exec -- bun run doctor
+mise exec -- bun run dev
+```
+
+### Cross-platform quick start
+
 ```bash
 git clone https://github.com/antonio-orionus/Arroxy.git
 cd Arroxy
+mise trust
 mise install
 bun run bootstrap
 bun run doctor
