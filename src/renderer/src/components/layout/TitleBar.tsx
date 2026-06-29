@@ -28,23 +28,6 @@ function ShareButton(): ReactNode {
 	)
 }
 
-function MacControls({isMaximized}: {isMaximized: boolean}): ReactNode {
-	const {t} = useTranslation()
-	return (
-		<div className="flex items-center gap-1.5" style={noDrag} data-testid="window-controls-mac">
-			<button type="button" aria-label={t('titleBar.close')} data-testid="wc-close" onClick={() => void window.appApi.window.close()} className="group w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#e0443e] transition-colors flex items-center justify-center">
-				<span className="opacity-0 group-hover:opacity-100 text-[8px] font-bold text-[#820005] leading-none">✕</span>
-			</button>
-			<button type="button" aria-label={t('titleBar.minimize')} data-testid="wc-minimize" onClick={() => void window.appApi.window.minimize()} className="group w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#d4a000] transition-colors flex items-center justify-center">
-				<span className="opacity-0 group-hover:opacity-100 text-[8px] font-bold text-[#985700] leading-none">−</span>
-			</button>
-			<button type="button" aria-label={isMaximized ? t('titleBar.restore') : t('titleBar.maximize')} data-testid="wc-maximize" onClick={() => void window.appApi.window.maximize()} className="group w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#1aaa2f] transition-colors flex items-center justify-center">
-				<span className="opacity-0 group-hover:opacity-100 text-[8px] font-bold text-[#006500] leading-none">{isMaximized ? '⊟' : '+'}</span>
-			</button>
-		</div>
-	)
-}
-
 function WinLinuxControls({isMaximized}: {isMaximized: boolean}): ReactNode {
 	const {t} = useTranslation()
 	return (
@@ -71,8 +54,8 @@ export function TitleBar(): ReactNode {
 	}, [])
 
 	return (
-		<div className={cn('chrome-glass flex h-9 shrink-0 select-none items-center border-b border-border', isMac ? 'pl-3 pr-2' : 'pl-4 pr-0')} style={drag} data-testid="title-bar">
-			{isMac && <MacControls isMaximized={isMaximized} />}
+		<div className={cn('chrome-glass flex h-9 shrink-0 select-none items-center border-b border-border', isMac ? 'pl-0 pr-2' : 'pl-4 pr-0')} style={drag} data-testid="title-bar">
+			{isMac && <div aria-hidden="true" className="w-20 shrink-0" data-testid="native-window-controls-spacer" />}
 
 			<span className={cn('flex-1 flex items-center gap-1.5 text-xs font-medium text-muted-foreground tracking-wide', isMac ? 'justify-center' : 'pl-1')}>
 				<img src={appIcon} alt="" width={14} height={14} className="opacity-70" draggable={false} />

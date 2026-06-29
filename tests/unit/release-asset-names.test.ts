@@ -1,8 +1,22 @@
-import {readdirSync, readFileSync} from 'node:fs'
+import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {describe, expect, it} from 'vitest'
 
 const root = process.cwd()
+
+interface ElectronBuilderDmgConfig {
+	background?: string
+	icon?: null
+	title?: string
+	iconSize?: number
+	iconTextSize?: number
+	window?: {width: number; height: number}
+	contents?: Array<{x: number; y: number; type: string; path?: string}>
+}
+
+interface ElectronBuilderConfig {
+	dmg?: ElectronBuilderDmgConfig
+}
 
 function read(path: string): string {
 	return readFileSync(join(root, path), 'utf8')
@@ -25,6 +39,17 @@ describe('release asset names', () => {
 		expect(config).toContain('"artifactName": "${productName}-linux-${arch}.${ext}"')
 		expect(config).not.toContain('"artifactName": "${productName}-Setup-${version}.${ext}"')
 		expect(config).not.toContain('"artifactName": "${productName}-${version}.${ext}"')
+	})
+
+	it('configures a branded drag-to-Applications DMG window', () => {
+		const config = JSON.parse(read('electron-builder.json5')) as ElectronBuilderConfig
+
+		expect(existsSync(join(root, 'build', 'dmg-background.png'))).toBe(true)
+		expect(config.dmg).toMatchObject({background: 'build/dmg-background.png', icon: null, title: '${productName} Installer', iconSize: 108, iconTextSize: 13, window: {width: 600, height: 360}})
+		expect(config.dmg?.contents).toEqual([
+			{x: 170, y: 222, type: 'file'},
+			{x: 430, y: 222, type: 'link', path: '/Applications'}
+		])
 	})
 
 	it('keeps Electron runAsNode enabled for yt-dlp JS runtime smoke', () => {

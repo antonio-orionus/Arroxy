@@ -55,6 +55,7 @@
 		"dist:release:mac": "bun run clean && bun run build && electron-builder --mac --publish always",
 		"dist:release:linux": "bun run clean && bun run build && ELECTRON_BUILDER_COMPRESSION_LEVEL=5 electron-builder --linux --publish always",
 		"preview": "electron-vite preview",
+		"preview:installer": "electron-builder --mac dmg --arm64 --prepackaged dist/mac-arm64/Arroxy.app --publish never && node -e \"require('node:child_process').execFileSync('open', ['dist/Arroxy-mac-arm64.dmg'])\"",
 		"typecheck": "tsc --noEmit",
 		"lint:prepare": "bun run errors:build",
 		"lint": "bun run lint:prepare && oxlint --type-aware .",

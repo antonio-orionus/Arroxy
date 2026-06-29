@@ -379,8 +379,20 @@ Visual Studio Build Tools na Python zinaweza kuhitajika kwa rebuild za asili.
 ### macOS
 
 ```bash
+brew install mise
 xcode-select --install
-curl -fsSL https://bun.sh/install | bash
+```
+
+Baada ya ku-clone, endesha `mise trust && mise install` ndani ya checkout. Ikiwa shell yako tayari inatumia `fnm`, `nvm`, au Bun ya Homebrew, wezesha mise katika `~/.zshrc` ili Arroxy itumie Node.js 24.16.0 na Bun 1.2.23:
+
+```bash
+printf '
+# mise
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+' >> ~/.zshrc
+exec zsh
 ```
 
 ### Linux (Ubuntu / Debian)
@@ -400,6 +412,7 @@ sudo apt install -y xvfb
 ```bash
 git clone https://github.com/antonio-orionus/Arroxy
 cd Arroxy
+mise trust
 mise install           # inapendekezwa; ruka kama umewezesha zana zilizopiniwa mwenyewe
 bun run bootstrap
 bun run doctor

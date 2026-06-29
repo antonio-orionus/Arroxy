@@ -35,8 +35,15 @@ Native rebuilds အတွက် Visual Studio Build Tools နှင့် Python
 ### macOS
 
 \`\`\`bash
+brew install mise
 xcode-select --install
-curl -fsSL https://bun.sh/install | bash
+\`\`\`
+
+clone ပြီးနောက် checkout ထဲတွင် \`mise trust && mise install\` ကို run လုပ်ပါ။ သင့် shell က \`fnm\`, \`nvm\`, သို့မဟုတ် Homebrew Bun ကို အသုံးပြုနေပြီးသားဖြစ်ပါက Arroxy သည် Node.js 24.16.0 နှင့် Bun 1.2.23 ကို သုံးနိုင်ရန် \`~/.zshrc\` တွင် mise ကို activate လုပ်ပါ:
+
+\`\`\`bash
+printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc
+exec zsh
 \`\`\`
 
 ### Linux (Ubuntu / Debian)
@@ -56,6 +63,7 @@ sudo apt install -y xvfb
 \`\`\`bash
 git clone https://github.com/antonio-orionus/Arroxy
 cd Arroxy
+mise trust
 mise install           # အကြံပြု; pinned tools ကို manual activate လုပ်ထားလျှင် ကျော်နိုင်သည်
 bun run bootstrap
 bun run doctor

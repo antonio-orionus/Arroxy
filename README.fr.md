@@ -381,8 +381,20 @@ Visual Studio Build Tools et Python peuvent être nécessaires pour les recompil
 ### macOS
 
 ```bash
+brew install mise
 xcode-select --install
-curl -fsSL https://bun.sh/install | bash
+```
+
+Après le clonage, lance `mise trust && mise install` depuis le checkout. Si ton shell utilise déjà `fnm`, `nvm` ou un Bun installé via Homebrew, active mise dans `~/.zshrc` pour qu'Arroxy utilise Node.js 24.16.0 et Bun 1.2.23 :
+
+```bash
+printf '
+# mise
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+' >> ~/.zshrc
+exec zsh
 ```
 
 ### Linux (Ubuntu / Debian)
@@ -402,6 +414,7 @@ sudo apt install -y xvfb
 ```bash
 git clone https://github.com/antonio-orionus/Arroxy
 cd Arroxy
+mise trust
 mise install           # recommandé ; saute cette étape si tu as activé les outils épinglés manuellement
 bun run bootstrap
 bun run doctor

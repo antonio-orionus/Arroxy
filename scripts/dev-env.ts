@@ -591,7 +591,7 @@ function parseElectronLauncherOptions(args: string[]): LauncherEnvOptions & {fre
 	return options
 }
 
-function applyElectronLauncherEnv(env: NodeJS.ProcessEnv, options: LauncherEnvOptions): NodeJS.ProcessEnv {
+export function applyElectronLauncherEnv(env: NodeJS.ProcessEnv, options: LauncherEnvOptions): NodeJS.ProcessEnv {
 	const childEnv = {...env}
 	if (options.sandbox) delete childEnv.ELECTRON_DISABLE_SANDBOX
 	else childEnv.ELECTRON_DISABLE_SANDBOX = '1'
