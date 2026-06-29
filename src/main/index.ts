@@ -36,7 +36,7 @@ import {decideCloseAction, decideRendererCrashAction} from '@main/windowLifecycl
 import {resolveMainWindowBackgroundColor} from '@main/windowPresentation.js'
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
 import {resolveE2eHarnessMode} from '@main/e2eHarness.js'
-import {applyChromiumSwitches, applyChromiumSwitchesFromEnv, chromiumSwitchesForRuntime} from '@main/chromiumSwitches.js'
+import {applyChromiumSwitches, applyChromiumSwitchesFromEnv, chromiumSwitchesForRuntime, chromiumSwitchLogSummary} from '@main/chromiumSwitches.js'
 import contextMenu from 'electron-context-menu'
 import windowStateKeeper from 'electron-window-state'
 
@@ -70,7 +70,7 @@ if (runtimeChromiumSwitches.length > 0) {
 
 const envChromiumSwitches = applyChromiumSwitchesFromEnv(process.env, app.commandLine)
 if (envChromiumSwitches.length > 0) {
-	log.info('env Chromium switches applied', {switches: envChromiumSwitches})
+	log.info('env Chromium switches applied', chromiumSwitchLogSummary(envChromiumSwitches))
 }
 
 function appendChromiumSwitch(rawSwitch: string): void {

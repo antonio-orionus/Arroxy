@@ -4,6 +4,20 @@ import {describe, expect, it} from 'vitest'
 
 const root = process.cwd()
 
+interface ElectronBuilderDmgConfig {
+	background?: string
+	icon?: null
+	title?: string
+	iconSize?: number
+	iconTextSize?: number
+	window?: {width: number; height: number}
+	contents?: Array<{x: number; y: number; type: string; path?: string}>
+}
+
+interface ElectronBuilderConfig {
+	dmg?: ElectronBuilderDmgConfig
+}
+
 function read(path: string): string {
 	return readFileSync(join(root, path), 'utf8')
 }
@@ -28,21 +42,14 @@ describe('release asset names', () => {
 	})
 
 	it('configures a branded drag-to-Applications DMG window', () => {
-		const config = read('electron-builder.json5')
+		const config = JSON.parse(read('electron-builder.json5')) as ElectronBuilderConfig
 
 		expect(existsSync(join(root, 'build', 'dmg-background.png'))).toBe(true)
-		expect(config).toContain('"background": "build/dmg-background.png"')
-		expect(config).toContain('"icon": null')
-		expect(config).toContain('"title": "${productName} Installer"')
-		expect(config).toContain('"iconSize": 108')
-		expect(config).toContain('"iconTextSize": 13')
-		expect(config).toContain('"window": {"width": 600, "height": 360}')
-		expect(config).toContain('{"x": 170, "y": 222, "type": "file"}')
-		expect(config).toContain('{"x": 430, "y": 222, "type": "link", "path": "/Applications"}')
-		expect(config).not.toContain('"backgroundColor": "#f3f8fb"')
-		expect(config).not.toContain('"path": "Arroxy.app"')
-		expect(config).not.toContain('"x": 130, "y": 220')
-		expect(config).not.toContain('"x": 410, "y": 220')
+		expect(config.dmg).toMatchObject({background: 'build/dmg-background.png', icon: null, title: '${productName} Installer', iconSize: 108, iconTextSize: 13, window: {width: 600, height: 360}})
+		expect(config.dmg?.contents).toEqual([
+			{x: 170, y: 222, type: 'file'},
+			{x: 430, y: 222, type: 'link', path: '/Applications'}
+		])
 	})
 
 	it('keeps Electron runAsNode enabled for yt-dlp JS runtime smoke', () => {

@@ -7,6 +7,15 @@ export interface RuntimeIdentity {
 	release: string
 }
 
+export interface ChromiumSwitchLogSummary {
+	switchNames: string[]
+	count: number
+}
+
+export function chromiumSwitchLogSummary(rawSwitches: readonly string[]): ChromiumSwitchLogSummary {
+	return {switchNames: rawSwitches.map(rawSwitch => rawSwitch.split('=')[0]).filter(Boolean), count: rawSwitches.length}
+}
+
 export function applyChromiumSwitches(rawSwitches: readonly string[], commandLine: ChromiumCommandLine): string[] {
 	const applied: string[] = []
 	for (const rawSwitch of rawSwitches) {

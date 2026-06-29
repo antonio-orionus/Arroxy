@@ -1,10 +1,11 @@
 import {render, screen} from '@testing-library/react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
-import type {AppApi} from '@shared/api.js'
+import type {WindowApi} from '@shared/api.js'
 
 function installWindowApi(platform: NodeJS.Platform): void {
 	window.platform = platform
-	window.appApi = {window: {close: vi.fn().mockResolvedValue(undefined), isMaximized: vi.fn().mockResolvedValue(false), maximize: vi.fn().mockResolvedValue(undefined), minimize: vi.fn().mockResolvedValue(undefined), onMaximizedChange: vi.fn().mockReturnValue(() => undefined)}} as unknown as AppApi
+	const windowApi = {close: vi.fn().mockResolvedValue(undefined), isMaximized: vi.fn().mockResolvedValue(false), maximize: vi.fn().mockResolvedValue(undefined), minimize: vi.fn().mockResolvedValue(undefined), onMaximizedChange: vi.fn().mockReturnValue(() => undefined)} satisfies WindowApi
+	Object.defineProperty(window, 'appApi', {configurable: true, value: {window: windowApi}})
 }
 
 async function renderTitleBar(platform: NodeJS.Platform): Promise<void> {
