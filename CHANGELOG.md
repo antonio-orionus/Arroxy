@@ -14,6 +14,31 @@ _Nothing yet._
 
 ---
 
+## 0.4.2
+
+This patch release smooths out macOS setup and installation, improves startup reliability on newer macOS versions, and keeps the release pipeline current.
+
+## Highlights
+
+### macOS Setup And Installer Polish
+
+- Added a branded drag-to-Applications DMG layout so macOS installs feel clearer and more native.
+- Expanded macOS setup docs around mise, pinned Node.js/Bun versions, shell activation, and first-run checkout commands.
+- Added an installer preview command for checking the packaged macOS DMG before publishing.
+
+### Startup Reliability
+
+- Automatically applies the Chromium audio-service workaround on macOS 26 / Darwin 25+ to avoid Electron startup crash loops.
+- Added an environment escape hatch for extra Chromium switches when diagnosing platform-specific Electron behavior.
+- Let native macOS window controls own the traffic-light area while keeping the title centered.
+
+### Release Reliability
+
+- Updated GitHub Actions checkout usage across CI and release workflows.
+- Added coverage for the DMG layout and macOS title-bar behavior so packaging polish stays guarded.
+
+---
+
 ## 0.4.1
 
 This patch release polishes the 0.4 line with a denser queue manager, clearer diagnostics, stronger checkout tooling, and refreshed user-facing docs.

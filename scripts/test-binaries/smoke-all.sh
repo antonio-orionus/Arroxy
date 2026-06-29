@@ -16,8 +16,6 @@ source "$(dirname "$0")/_lib.sh"
 
 PAYLOAD_PLAN=0
 PAYLOAD_PASS=0
-declare -A PLANNED_PAYLOADS=()
-declare -A PASSED_PAYLOADS=()
 
 plan_payload() {
   local id="$1"
@@ -47,20 +45,15 @@ count_nonempty_lines() {
   awk 'NF {count++} END {print count+0}'
 }
 
-##########################################################################
-# yt-dlp - nightly + stable runtime downloads
-##########################################################################
-declare -A YTDLP_ASSETS=(
-  [win32-x64]=yt-dlp.exe
-  [win32-arm64]=yt-dlp.exe
-  [darwin-x64]=yt-dlp_macos
-  [darwin-arm64]=yt-dlp_macos
-  [linux-x64]=yt-dlp_linux
-  [linux-arm64]=yt-dlp_linux_aarch64
-)
-
 unique_ytdlp_payload_count() {
-  printf '%s\n' "${YTDLP_ASSETS[@]}" | sort -u | count_nonempty_lines
+  printf '%s\n' \
+    yt-dlp.exe \
+    yt-dlp.exe \
+    yt-dlp_macos \
+    yt-dlp_macos \
+    yt-dlp_linux \
+    yt-dlp_linux_aarch64 \
+    | sort -u | count_nonempty_lines
 }
 
 expected_payload_count() {
@@ -77,6 +70,21 @@ if [[ "${1:-}" == "--expected-payloads" ]]; then
   expected_payload_count
   exit 0
 fi
+
+declare -A PLANNED_PAYLOADS=()
+declare -A PASSED_PAYLOADS=()
+
+##########################################################################
+# yt-dlp - nightly + stable runtime downloads
+##########################################################################
+declare -A YTDLP_ASSETS=(
+  [win32-x64]=yt-dlp.exe
+  [win32-arm64]=yt-dlp.exe
+  [darwin-x64]=yt-dlp_macos
+  [darwin-arm64]=yt-dlp_macos
+  [linux-x64]=yt-dlp_linux
+  [linux-arm64]=yt-dlp_linux_aarch64
+)
 
 echo
 echo '########## yt-dlp ##########'

@@ -4,15 +4,20 @@ import os from 'node:os'
 import path from 'node:path'
 import {describe, expect, it, vi} from 'vitest'
 import {RuntimeBinaryIndexService, verifyRuntimeBinaryIndexSignature} from '@main/services/binary/RuntimeBinaryIndexService.js'
+import {runtimeBinaryArchFor, runtimeBinaryPlatformFor} from '@shared/runtimeBinaryManifest.js'
 import type {RuntimeBinaryIndex, RuntimeBinaryManifestEntry} from '@shared/types.js'
+
+const currentPlatform = runtimeBinaryPlatformFor()
+const currentArch = runtimeBinaryArchFor()
+if (!currentPlatform || !currentArch) throw new Error(`Unsupported runtime binary test target: ${process.platform}/${process.arch}`)
 
 const entry: RuntimeBinaryManifestEntry = {
 	id: 'yt-dlp',
 	channel: 'nightly',
 	provider: 'github',
 	version: '2026.06.12',
-	platform: 'linux',
-	arch: 'x64',
+	platform: currentPlatform,
+	arch: currentArch,
 	url: 'https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2026.06.12/yt-dlp_linux',
 	mirrors: [],
 	size: 10,
@@ -69,7 +74,7 @@ describe('RuntimeBinaryIndexService', () => {
 			indexUrl: remoteIndexUrl,
 			sourceRepo: 'antonio-orionus/arroxy-runtime-binaries',
 			count: 1,
-			candidates: [{channel: 'nightly', provider: 'github', version: '2026.06.12', platform: 'linux', arch: 'x64', format: 'raw'}]
+			candidates: [{channel: 'nightly', provider: 'github', version: '2026.06.12', platform: entry.platform, arch: entry.arch, format: 'raw'}]
 		})
 	})
 
