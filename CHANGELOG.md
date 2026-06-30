@@ -14,6 +14,20 @@ _Nothing yet._
 
 ---
 
+## 0.4.3
+
+This patch release adds Bahasa Indonesia across Arroxy's app and docs so more users can move through setup and downloads in their preferred language.
+
+## Highlights
+
+### Bahasa Indonesia Locale
+
+- Added Bahasa Indonesia as a supported app locale, including runtime locale data, language detection wiring, and coverage for the supported-language registry.
+- Added a full Bahasa Indonesia README generated from the localized docs source.
+- Refreshed localized language lists across the README set so Bahasa Indonesia appears consistently wherever users choose documentation language.
+
+---
+
 ## 0.4.2
 
 This patch release smooths out macOS setup and installation, improves startup reliability on newer macOS versions, and keeps the release pipeline current.

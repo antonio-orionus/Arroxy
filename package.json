@@ -1,6 +1,6 @@
 {
 	"name": "arroxy",
-	"version": "0.4.2",
+	"version": "0.4.3",
 	"private": true,
 	"description": "Arroxy - YouTube downloader app",
 	"type": "module",
