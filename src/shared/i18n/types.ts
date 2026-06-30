@@ -12,6 +12,7 @@ export type YtDlpErrorKind = YtDlpErrorKindAlias
 // then non-Latin scripts in Unicode order). Drives the language picker UI.
 export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
 	om: 'Afaan Oromoo',
+	id: 'Bahasa Indonesia',
 	de: 'Deutsch',
 	en: 'English',
 	es: 'Español',

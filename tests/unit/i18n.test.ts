@@ -16,6 +16,7 @@ describe('pickLanguage', () => {
 	})
 
 	it('strips region tag and matches the prefix', () => {
+		expect(pickLanguage('id-ID')).toBe('id')
 		expect(pickLanguage('zh-TW')).toBe('zh')
 		expect(pickLanguage('zh-CN')).toBe('zh')
 		expect(pickLanguage('en-US')).toBe('en')

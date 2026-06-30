@@ -10,6 +10,7 @@
 // Unicode-collation order). Same convention as the renderer language picker.
 
 import { om } from "./locales/om.mjs";
+import { id } from "./locales/id.mjs";
 import { de } from "./locales/de.mjs";
 import { en } from "./locales/en.mjs";
 import { es } from "./locales/es.mjs";
@@ -33,6 +34,7 @@ import { ja } from "./locales/ja.mjs";
 
 export const LOCALES = [
   { code: "om", filename: "README.om.md", name: "Afaan Oromoo", strings: om },
+  { code: "id", filename: "README.id.md", name: "Bahasa Indonesia", strings: id },
   { code: "de", filename: "README.de.md", name: "Deutsch", strings: de },
   { code: "en", filename: "README.md", name: "English", strings: en },
   { code: "es", filename: "README.es.md", name: "Español", strings: es },

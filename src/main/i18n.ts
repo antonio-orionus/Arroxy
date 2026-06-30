@@ -1,4 +1,5 @@
 import en from '@shared/i18n/locales/en.json' with {type: 'json'}
+import id from '@shared/i18n/locales/id.json' with {type: 'json'}
 import es from '@shared/i18n/locales/es.json' with {type: 'json'}
 import fr from '@shared/i18n/locales/fr.json' with {type: 'json'}
 import de from '@shared/i18n/locales/de.json' with {type: 'json'}
@@ -21,7 +22,7 @@ import ur from '@shared/i18n/locales/ur.json' with {type: 'json'}
 import vi from '@shared/i18n/locales/vi.json' with {type: 'json'}
 import type {SupportedLang} from '@shared/i18n/types.js'
 
-const RESOURCES: Record<SupportedLang, unknown> = {en, es, fr, de, ru, uk, ja, zh, hi, bn, ar, uz, my, ps, sw, am, om, el, sr, ur, vi}
+const RESOURCES: Record<SupportedLang, unknown> = {en, id, es, fr, de, ru, uk, ja, zh, hi, bn, ar, uz, my, ps, sw, am, om, el, sr, ur, vi}
 
 function lookup(tree: unknown, dottedKey: string): string | undefined {
 	const parts = dottedKey.split('.')

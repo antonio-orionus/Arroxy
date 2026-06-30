@@ -141,7 +141,7 @@ export const am = {
   feat_workflow_4:
     "**URL ን ራስ ሰር ያጥሩ** — ትራኪንግ ፓራሜትሮችን (`si`፣ `pp`፣ `utm_*`፣ `fbclid`፣ `gclid`) ያስወግዳሉ እና `youtube.com/redirect` ሊንኮችን ያሰናስሉ",
   feat_workflow_5: "**ትሬ ሁነታ** — መስኮቱን መዝጋት ማውረዶቹን በጀርባ ያስቀጥላሉ",
-  feat_workflow_6: "**21 ቋንቋዎች** — የሥርዓት ቋንቋ ራስ ሰር ያውቃሉ፣ ሁልጊዜ መቀየር ይቻላሉ",
+  feat_workflow_6: "**22 ቋንቋዎች** — የስርዓት አካባቢን በራስ-ያገኛል፣ በማንኛውም ጊዜ መቀየር የሚችል",
   feat_workflow_7:
     "**የአጫዋች ዝርዝር ማመሳሰል** — አስቀድሞ የወረዱ ቪዲዮዎችን ለመዝለል አጫዋች ዝርዝርን ከአካባቢያዊ ፎልደር ጋር ዳግም ይፈትሻል፤ እያንዳንዱ ቪዲዮ ሲወርድ የሚዘምን `.m3u` የአጫዋች ዝርዝር ፋይል ይፈጥራል",
   feat_workflow_8:
@@ -306,7 +306,7 @@ export const am = {
     "yt-dlp በማስነሻ ላይ ራስ ሰር ይዘመናሉ፣ እናም YouTube አንድ ነገር ሲቀይር Arroxy እርማቶችን በፍጥነት ያደርሳሉ። ችግር ካጋጠምዎ፣ በተራቀቁ ቅንብሮች ውስጥ እንደ ዳግም መመለሻ ተመራጭ የኩኪ ድጋፍ አለ።",
   faq_q6: "Arroxy በምን ቋንቋዎች ይገኛሉ?",
   faq_a6:
-    "ሃያ አንድ፣ ከሳጥን ውጭ: English, Español (Spanish), Deutsch (German), Français (French), 日本語 (Japanese), 中文 (Chinese), Русский (Russian), Українська (Ukrainian), हिन्दी (Hindi), Afaan Oromoo, Kiswahili, O'zbekcha (Uzbek), Tiếng Việt (Vietnamese), አማርኛ (Amharic), العربية (Arabic), اردو (Urdu), پښتو (Pashto), বাংলা (Bengali), မြန်မာဘာသာ (Burmese), Ελληνικά (Greek) እና Српски (Serbian)። Arroxy በመጀመሪያ ጊዜ ሲጀምሩ የስርዓተ ምOS ቋንቋዎን ራስ-ሰር ያወቃል፣ ከመሳሪያ አሞሌ የቋንቋ ምርጫ ማንኛውም ጊዜ መቀየር ይችላሉ። የruntime locale JSON ፋይሎች በ src/shared/i18n/locales/ ውስጥ ናቸው፣ ለተርጓሚዎች የሆኑ PO catalogs ደግሞ በ i18n/locales/ ውስጥ ናቸው — ለማዋጮ GitHub ላይ PR ይክፈቱ።",
+    "ሃያ ሁለት፣ ከሳጥኑ ውጪ፡ English፣ Bahasa Indonesia (ኢንዶኔዥያ)፣ Español (ስፓኒሽ)፣ Deutsch (ጀርመንኛ)፣ Français (ፈረንሣይኛ)፣ 日本語 (ጃፓንኛ)፣ 中文 (ቻይንኛ) (ሩሲኛ)፣ ሩሲያኛ Українська (ዩክሬንኛ)፣ ሃዲኒግ (ሂንዲ)፣ Afaan Oromoo፣ Kiswahili፣ O'zbekcha (ኡዝቤክ)፣ Tiếng Việt (ቬትናምኛ)፣ አማርኛ (አማርኛ)፣ العربية (አረብኛ)፣ ዩ (ኡርዱ)፣ ፓሽዎ (ፓሽ) ሃሃሃሃ (ቤንጋሊ)፣ မြန်မာဘာသာ (በርማ)፣ Ελλλνικά (ግሪክ) እና ሳርፕስኪ (ሰርቢያን)። Arroxy በመጀመሪያ ሲጀመር የእርስዎን የስርዓተ ክወና ቋንቋ በራስ-ሰር ያውቀዋል እና በማንኛውም ጊዜ በመሳሪያ አሞሌው ውስጥ ካለው ቋንቋ መራጭ መቀየር ይችላሉ። Runtime አካባቢ JSON በ src/የተጋራ/i18n/locales/ ውስጥ ይኖራል፣ እና ተርጓሚ ትይዩ PO ካታሎጎች በ i18n/locales/ ውስጥ ይኖራሉ - አስተዋፅዖ ለማድረግ PR በGitHub ላይ ይክፈቱ።",
   faq_q7: "ሌላ ነገር ጫን ያስፈልጋሉ?",
   faq_a7:
     "አይ። yt-dlp በመጀመሪያ አስጀማሪ ራስ-ሰር ይወርዳል እና በማሽንዎ ላይ ይቀመጣል፤ ffmpeg እና ffprobe ከአፑ ጋር ይመጣሉ። ከዚያ ተጨማሪ setup አያስፈልግም።",
