@@ -257,7 +257,7 @@
 			"phase": {"probing": "Mengambil detail", "queueing": "Menambah antrian"}
 		},
 		"subtitles": {
-			"autoBadge": "Mobil",
+			"autoBadge": "Otomatis",
 			"noLanguages": "Tidak ada subtitle yang tersedia untuk video ini",
 			"skip": "Melewati",
 			"skipSubs": "Lewati untuk video ini",
@@ -268,7 +268,7 @@
 			"noSelected": "Tidak ada subtitle yang dipilih",
 			"selectedNote_one": "Subtitle {{count}} akan diunduh",
 			"selectedNote_other": "Subtitle {{count}} akan diunduh",
-			"sectionManual": "petunjuk",
+			"sectionManual": "Manual",
 			"sectionAuto": "Dibuat secara otomatis",
 			"saveMode": {"heading": "Simpan sebagai", "sidecar": "Di sebelah video", "embed": "Sematkan ke dalam video", "subfolder": "subtitle/subfolder"},
 			"format": {"heading": "Format"},
@@ -321,7 +321,7 @@
 			"cookiesError": {
 				"heading": "Cookie mungkin menjadi penyebabnya",
 				"currentModeLabel": "Sumber cookie",
-				"currentModeFile": "Mengajukan",
+				"currentModeFile": "Berkas",
 				"currentModeBrowser": "Peramban",
 				"explanationFile": "File cookie Anda mungkin kosong, kedaluwarsa, atau dalam format yang salah (yt-dlp mengharapkan Netscape cookies.txt). Coba ekspor ulang cookie, pilih file lain, alihkan ke mode Browser, atau matikan cookie.",
 				"explanationBrowser": "Cookie dibaca langsung dari browser. Jika browser sedang berjalan, database cookie-nya mungkin terkunci (keluarga Chromium). Browser juga harus masuk ke YouTube. Coba tutup browser, beralih ke browser lain, beralih ke mode File, atau matikan cookie.",
@@ -485,7 +485,7 @@
 		"ytdlp": {
 			"botBlock": "Perlindungan bot dipicu. IP yang Anda gunakan kemungkinan besar ditandai (rentang pusat data atau pintu keluar VPN yang sibuk). Ubah IP Anda atau pilih titik akhir VPN lain dan coba lagi. Jika terus gagal, ini mungkin merupakan perubahan sementara di sisi situs — Arroxy memperbarui yt-dlp secara otomatis saat peluncuran, sehingga perbaikan dilakukan secara otomatis setelah upstream mengirimkannya.",
 			"ipBlock": "Alamat IP Anda tampaknya diblokir. Coba lagi nanti atau gunakan VPN.",
-			"rateLimit": "Situs adalah permintaan yang membatasi tarif. Tunggu sebentar lalu coba lagi.",
+			"rateLimit": "Situs membatasi permintaan. Tunggu sebentar, lalu coba lagi.",
 			"ageRestricted": "Video ini dikenai pembatasan usia dan tidak dapat diunduh tanpa akun yang masuk.",
 			"unavailable": "Video ini tidak tersedia — mungkin bersifat pribadi, dihapus, atau dikunci wilayahnya.",
 			"geoBlocked": "Video ini tidak tersedia di wilayah Anda.",

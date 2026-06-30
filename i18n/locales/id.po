@@ -185,7 +185,7 @@ msgstr "yt-dlp selesai diunduh tetapi pasca pemrosesan (penggabungan/mux/konvers
 
 msgctxt "errors.ytdlp.rateLimit"
 msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "Situs adalah permintaan yang membatasi tarif. Tunggu sebentar lalu coba lagi."
+msgstr "Situs membatasi permintaan. Tunggu sebentar, lalu coba lagi."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -1195,7 +1195,7 @@ msgstr "Peramban"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
-msgstr "Mengajukan"
+msgstr "Berkas"
 
 msgctxt "wizard.formats.cookiesError.currentModeLabel"
 msgid "Cookies source"
@@ -1755,7 +1755,7 @@ msgstr "Teks otomatis akan disimpan sebagai SRT, bukan ASS — untuk video YouTu
 
 msgctxt "wizard.subtitles.autoBadge"
 msgid "Auto"
-msgstr "Mobil"
+msgstr "Otomatis"
 
 msgctxt "wizard.subtitles.clearAll"
 msgid "Clear all"
@@ -1811,7 +1811,7 @@ msgstr "Dibuat secara otomatis"
 
 msgctxt "wizard.subtitles.sectionManual"
 msgid "Manual"
-msgstr "petunjuk"
+msgstr "Manual"
 
 msgctxt "wizard.subtitles.selectedNote_one"
 msgid "{{count}} subtitle will be downloaded"
