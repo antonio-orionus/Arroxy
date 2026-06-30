@@ -67,7 +67,7 @@ Package manager တစ်ခုကို သုံးနေပြီလား? �
 | Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
 | Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
 | Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
+| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>Windows ပထမဆုံး launch
 
@@ -150,7 +150,7 @@ sudo pacman -S fuse2
 **Flatpak (sandboxed alternative):** တူညီသော release page မှ `Arroxy-*.flatpak` ကို download ဆင်းပါ။
 
 ```bash
-flatpak install --user Arroxy-linux-x64.flatpak
+flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 

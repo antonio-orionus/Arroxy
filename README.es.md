@@ -69,7 +69,7 @@ Si Arroxy te ahorra tiempo, una ⭐ ayuda a que otros lo encuentren.
 | Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
 | Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
 | Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
+| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>Primer arranque en Windows
 
@@ -152,7 +152,7 @@ sudo pacman -S fuse2
 **Flatpak (alternativa con sandbox):** descarga `Arroxy-*.flatpak` desde la misma página de release.
 
 ```bash
-flatpak install --user Arroxy-linux-x64.flatpak
+flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 

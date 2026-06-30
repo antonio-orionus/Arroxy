@@ -69,7 +69,7 @@ Tu utilises déjà un gestionnaire de paquets ? Tu peux passer la voie de télé
 | Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
 | Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
 | Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
+| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>Premier lancement sur Windows
 
@@ -152,7 +152,7 @@ sudo pacman -S fuse2
 **Flatpak (alternative en sandbox) :** télécharge `Arroxy-*.flatpak` depuis la même page de release.
 
 ```bash
-flatpak install --user Arroxy-linux-x64.flatpak
+flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 

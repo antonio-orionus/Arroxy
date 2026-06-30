@@ -921,7 +921,7 @@ msgstr "tersedia"
 
 msgctxt "update.message.generic"
 msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
-msgstr "Arroxy {{version}} tersedia — versi kamu {{currentVersion}}."
+msgstr "Arroxy {{version}} tersedia — Anda memiliki {{currentVersion}}."
 
 msgctxt "update.message.homebrew"
 msgid "Arroxy {{version}} is available — update with Homebrew."

@@ -69,7 +69,7 @@ Sudah menggunakan manajer paket? Anda dapat melewati jalur pengunduhan manual.
 | Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
 | Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
 | Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
+| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>Windows peluncuran pertama
 
@@ -152,7 +152,7 @@ sudo pacman -S fuse2
 **Flatpak (alternatif sandbox):** unduh `Arroxy-linux-x64.flatpak` dari halaman rilis yang sama.
 
 ```bash
-flatpak install --user Arroxy-linux-x64.flatpak
+flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 

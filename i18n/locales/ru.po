@@ -941,7 +941,7 @@ msgstr "Повторить"
 
 msgctxt "update.youHave"
 msgid "— you have {{currentVersion}}"
-msgstr "— у тебя {{currentVersion}}"
+msgstr "— у вас {{currentVersion}}"
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
