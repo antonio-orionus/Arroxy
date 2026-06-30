@@ -55,8 +55,7 @@ describe('UpdateBanner', () => {
 
 	it('renders both version numbers', () => {
 		render(<UpdateBanner info={makeInfo()} installing={false} installError={null} onInstall={vi.fn()} onDownload={vi.fn()} onDismiss={vi.fn()} />)
-		expect(screen.getByText('Arroxy 1.2.0')).toBeInTheDocument()
-		expect(screen.getByText(/you have 0\.0\.1/)).toBeInTheDocument()
+		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('Arroxy 1.2.0 is available — you have 0.0.1.')
 	})
 
 	it('shows Install & Restart for direct channel on linux', () => {
@@ -66,9 +65,18 @@ describe('UpdateBanner', () => {
 		expect(screen.queryByText('Download ↗')).not.toBeInTheDocument()
 	})
 
-	it('shows Download ↗ for direct channel on darwin', () => {
+	it('shows manual DMG copy and Download DMG for direct channel on darwin', () => {
 		window.platform = 'darwin'
 		render(<UpdateBanner info={makeInfo({installChannel: 'direct'})} installing={false} installError={null} onInstall={vi.fn()} onDownload={vi.fn()} onDismiss={vi.fn()} />)
+		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('Arroxy 1.2.0 is available — download the new DMG.')
+		expect(screen.getByRole('button', {name: 'Download DMG ↗'})).toBeInTheDocument()
+		expect(screen.queryByRole('button', {name: 'Install & Restart'})).not.toBeInTheDocument()
+	})
+
+	it('shows manual build copy for portable channel', () => {
+		window.platform = 'win32'
+		render(<UpdateBanner info={makeInfo({installChannel: 'portable'})} installing={false} installError={null} onInstall={vi.fn()} onDownload={vi.fn()} onDismiss={vi.fn()} />)
+		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('Arroxy 1.2.0 is available — download the new build.')
 		expect(screen.getByRole('button', {name: 'Download ↗'})).toBeInTheDocument()
 		expect(screen.queryByRole('button', {name: 'Install & Restart'})).not.toBeInTheDocument()
 	})
@@ -97,6 +105,7 @@ describe('UpdateBanner', () => {
 	it('renders homebrew command + copy button; clipboard receives the command', async () => {
 		window.platform = 'darwin'
 		render(<UpdateBanner info={makeInfo({installChannel: 'homebrew'})} installing={false} installError={null} onInstall={vi.fn()} onDownload={vi.fn()} onDismiss={vi.fn()} />)
+		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('Arroxy 1.2.0 is available — update with Homebrew.')
 		expect(screen.getByTestId('update-command')).toHaveTextContent('brew upgrade --cask arroxy')
 
 		await act(async () => {
@@ -145,7 +154,7 @@ describe('UpdateBanner', () => {
 		window.platform = 'darwin'
 		const onDownload = vi.fn()
 		render(<UpdateBanner info={makeInfo({installChannel: 'direct'})} installing={false} installError={null} onInstall={vi.fn()} onDownload={onDownload} onDismiss={vi.fn()} />)
-		fireEvent.click(screen.getByRole('button', {name: 'Download ↗'}))
+		fireEvent.click(screen.getByRole('button', {name: 'Download DMG ↗'}))
 		expect(onDownload).toHaveBeenCalledOnce()
 	})
 

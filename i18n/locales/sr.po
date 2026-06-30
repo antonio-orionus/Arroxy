@@ -899,6 +899,10 @@ msgctxt "update.download"
 msgid "Download ↗"
 msgstr "Download ↗"
 
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Преузми DMG ↗"
+
 msgctxt "update.downloading"
 msgid "Downloading…"
 msgstr "Преузимање…"
@@ -914,6 +918,22 @@ msgstr "Ажурирање није успело"
 msgctxt "update.isAvailable"
 msgid "is available"
 msgstr "је доступно"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} је доступан — имате {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} је доступан — ажурирајте преко Homebrew-а."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} је доступан — преузмите нови DMG."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} је доступан — преузмите нову верзију."
 
 msgctxt "update.retry"
 msgid "Retry"

@@ -899,6 +899,10 @@ msgctxt "update.download"
 msgid "Download ↗"
 msgstr "Download ↗"
 
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "DMG yuklab olish ↗"
+
 msgctxt "update.downloading"
 msgid "Downloading…"
 msgstr "Yuklanmoqda…"
@@ -914,6 +918,22 @@ msgstr "Yangilanish muvaffaqiyatsiz"
 msgctxt "update.isAvailable"
 msgid "is available"
 msgstr "mavjud"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} mavjud — sizda {{currentVersion}} bor."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} mavjud — Homebrew orqali yangilang."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} mavjud — yangi DMG ni yuklab oling."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} mavjud — yangi build ni yuklab oling."
 
 msgctxt "update.retry"
 msgid "Retry"

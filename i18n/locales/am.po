@@ -899,6 +899,10 @@ msgctxt "update.download"
 msgid "Download ↗"
 msgstr "Download ↗"
 
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "DMG ያውርዱ ↗"
+
 msgctxt "update.downloading"
 msgid "Downloading…"
 msgstr "እያወረዱ…"
@@ -914,6 +918,22 @@ msgstr "ዝማኔ አልተሳካም"
 msgctxt "update.isAvailable"
 msgid "is available"
 msgstr "ተገኝቷል"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} ይገኛል — {{currentVersion}} አለዎት።"
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} ይገኛል — በHomebrew ያዘምኑ።"
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} ይገኛል — አዲሱን DMG ያውርዱ።"
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} ይገኛል — አዲሱን build ያውርዱ።"
 
 msgctxt "update.retry"
 msgid "Retry"

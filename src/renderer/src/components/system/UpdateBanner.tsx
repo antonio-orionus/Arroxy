@@ -5,7 +5,7 @@ import type {UpdateAvailablePayload} from '@shared/types.js'
 import {Button} from '../ui/button.js'
 import {ButtonGroup} from '../ui/button-group.js'
 import {Spinner} from '../ui/spinner.js'
-import {resolveAction} from './updateBannerAction.js'
+import {resolveAction, resolveBannerCopy} from './updateBannerAction.js'
 
 interface Props {
 	info: UpdateAvailablePayload
@@ -19,6 +19,7 @@ interface Props {
 export function UpdateBanner({info, installing, installError, onInstall, onDownload, onDismiss}: Props): ReactNode {
 	const {t} = useTranslation()
 	const action = resolveAction(info.installChannel, window.platform)
+	const copy = resolveBannerCopy(info, window.platform)
 	const [copied, setCopied] = useState(false)
 
 	async function handleCopy(cmd: string): Promise<void> {
@@ -35,9 +36,7 @@ export function UpdateBanner({info, installing, installError, onInstall, onDownl
 						{t('update.installFailed')}: {installError}
 					</span>
 				) : (
-					<>
-						<span className="font-semibold text-[var(--brand)]">{t('update.appVersion', {version: info.version})}</span> {t('update.isAvailable')} <span className="text-muted-foreground">{t('update.youHave', {currentVersion: info.currentVersion})}</span>
-					</>
+					t(copy.messageKey, {version: info.version, currentVersion: info.currentVersion})
 				)}
 			</span>
 
@@ -51,7 +50,7 @@ export function UpdateBanner({info, installing, installError, onInstall, onDownl
 
 				{action.kind === 'download' && (
 					<Button type="button" onClick={onDownload} size="sm" className="bg-[var(--brand)] text-white hover:bg-[var(--brand)]/90">
-						{t('update.download')}
+						{t(copy.buttonKey ?? 'update.download')}
 					</Button>
 				)}
 
