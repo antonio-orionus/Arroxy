@@ -34,6 +34,7 @@
 ## Зміст
 
 - [Встановлення та перший запуск](#install)
+  - [Установлення через менеджер пакетів](#package-manager)
   - [Windows: перший запуск](#windows-first-launch)
   - [macOS: перший запуск](#macos-first-launch)
   - [Чому ви можете побачити попередження](#why-warning)
@@ -58,6 +59,17 @@
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**Завантажити останній реліз →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>Установлення через менеджер пакетів
+
+Вже використовуєте менеджер пакетів? Можна обійтися без ручного завантаження.
+
+| Канал | Команда                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 ### <a id="windows-first-launch"></a>Windows: перший запуск
 
@@ -168,20 +180,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 Хочете стороннє сканування на шкідливе ПЗ? Завантажте файл на [VirusTotal](https://www.virustotal.com). Кілька спрацьовувань узагальненої евристики у другорядних рушіях — норма для непідписаних Electron-застосунків; масові виявлення у великих рушіях були б справжнім приводом для занепокоєння.
-
-</details>
-
-<details>
-<summary><strong>Установлення через менеджер пакетів</strong></summary>
-
-Вже використовуєте менеджер пакетів? Можна обійтися без ручного завантаження.
-
-| Канал | Команда                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 

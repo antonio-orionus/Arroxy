@@ -34,6 +34,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 ## Isi
 
 - [Instalasi dan peluncuran pertama](#install)
+  - [Instal melalui manajer paket](#package-manager)
   - [Windows peluncuran pertama](#windows-first-launch)
   - [macOS peluncuran pertama](#macos-first-launch)
   - [Mengapa Anda mungkin melihat peringatan](#why-warning)
@@ -58,6 +59,17 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**Semua aset rilis →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>Instal melalui manajer paket
+
+Sudah menggunakan manajer paket? Anda dapat melewati jalur pengunduhan manual.
+
+| Saluran | Perintah                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 ### <a id="windows-first-launch"></a>Windows peluncuran pertama
 
@@ -168,20 +180,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 Ingin pemindaian malware pihak ketiga? Unggah file di [VirusTotal](https://www.virustotal.com). Sejumlah tanda heuristik generik dari mesin kecil adalah hal yang normal untuk aplikasi Electron yang tidak ditandatangani; deteksi luas dari mesin-mesin besar akan menjadi perhatian nyata.
-
-</details>
-
-<details>
-<summary><strong>Instal melalui manajer paket</strong></summary>
-
-Sudah menggunakan manajer paket? Anda dapat melewati jalur pengunduhan manual.
-
-| Saluran | Perintah                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 

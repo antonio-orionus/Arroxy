@@ -34,6 +34,7 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 ## Inhalt
 
 - [Installieren und erster Start](#install)
+  - [Per Paketmanager installieren](#package-manager)
   - [Windows-Erststart](#windows-first-launch)
   - [macOS-Erststart](#macos-first-launch)
   - [Warum du möglicherweise eine Warnung siehst](#why-warning)
@@ -58,6 +59,17 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**Neuesten Release holen →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>Per Paketmanager installieren
+
+Verwendest du bereits einen Paketmanager? Du kannst den manuellen Download-Weg überspringen.
+
+| Kanal | Befehl                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 ### <a id="windows-first-launch"></a>Windows-Erststart
 
@@ -168,20 +180,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 Möchtest du einen Drittanbieter-Malware-Scan? Lade die Datei bei [VirusTotal](https://www.virustotal.com) hoch. Eine Handvoll generischer Heuristik-Flags von kleineren Engines ist bei unsignierten Electron-Apps normal; weit verbreitete Erkennungen durch große Engines wären ein echter Anlass zur Sorge.
-
-</details>
-
-<details>
-<summary><strong>Per Paketmanager installieren</strong></summary>
-
-Verwendest du bereits einen Paketmanager? Du kannst den manuellen Download-Weg überspringen.
-
-| Kanal | Befehl                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 

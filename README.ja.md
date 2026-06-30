@@ -34,6 +34,7 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 ## 目次
 
 - [インストールと初回起動](#install)
+  - [パッケージマネージャー経由でインストール](#package-manager)
   - [Windows 初回起動](#windows-first-launch)
   - [macOS 初回起動](#macos-first-launch)
   - [警告が表示される理由](#why-warning)
@@ -58,6 +59,17 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**最新リリースを入手 →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>パッケージマネージャー経由でインストール
+
+パッケージマネージャーを使っている場合は、手動ダウンロードのステップを省略できます。
+
+| チャンネル | コマンド                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 ### <a id="windows-first-launch"></a>Windows 初回起動
 
@@ -168,20 +180,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 サードパーティのマルウェアスキャンを希望する場合は、[VirusTotal](https://www.virustotal.com) にファイルをアップロードしてください。マイナーなエンジンによる汎用ヒューリスティックの数件の検出は、署名されていない Electron アプリでは通常の範囲内です。主要エンジンによる広範な検出があれば、それは本物の懸念事項です。
-
-</details>
-
-<details>
-<summary><strong>パッケージマネージャー経由でインストール</strong></summary>
-
-パッケージマネージャーを使っている場合は、手動ダウンロードのステップを省略できます。
-
-| チャンネル | コマンド                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 

@@ -32,6 +32,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 ## Qabiyyee
 
 - [Fe'iitii yeroo jalqabaa banuu](#install)
+  - [Package manager fayyadamuun fayyadu](#package-manager)
   - [Windows yeroo jalqabaa eegaluu](#windows-first-launch)
   - [macOS yeroo jalqabaa eegaluu](#macos-first-launch)
   - [Maaliif akeekkachiisa arguu dandeessa](#why-warning)
@@ -56,6 +57,17 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**Baasii haaraa fudhachuu →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>Package manager fayyadamuun fayyadu
+
+Durumaa package manager fayyadamtaa? Karaa buufannoo harkaa darbuu dandeessa.
+
+| Chaanaalii | Ajajaa                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 ### <a id="windows-first-launch"></a>Windows yeroo jalqabaa eegaluu
 
@@ -166,20 +178,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 Sakattaa malwaare miilaafi baasii barbaaddaa? Faayila [VirusTotal](https://www.virustotal.com) irratti fe'i. Mallattoo heuristic yeroo muraasaa injinii xiqqaa irraa arguu Electron apps mallattoo hin qabne bira darbaa; injinii gurguddoo irraa arguu bal'aa rakkoo dhugaa ta'a.
-
-</details>
-
-<details>
-<summary><strong>Package manager fayyadamuun fayyadu</strong></summary>
-
-Durumaa package manager fayyadamtaa? Karaa buufannoo harkaa darbuu dandeessa.
-
-| Chaanaalii | Ajajaa                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 

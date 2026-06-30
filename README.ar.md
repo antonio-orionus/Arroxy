@@ -32,6 +32,7 @@
 ## المحتويات
 
 - [التثبيت والتشغيل الأول](#install)
+  - [التثبيت عبر مدير الحزم](#package-manager)
   - [التشغيل الأول على Windows](#windows-first-launch)
   - [التشغيل الأول على macOS](#macos-first-launch)
   - [لماذا قد تظهر لك تحذيرات](#why-warning)
@@ -56,6 +57,17 @@
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**احصل على أحدث إصدار →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>التثبيت عبر مدير الحزم
+
+تستخدم مدير حزم بالفعل؟ يمكنك تجاوز مسار التنزيل اليدوي.
+
+| القناة | الأمر                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 ### <a id="windows-first-launch"></a>التشغيل الأول على Windows
 
@@ -166,20 +178,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 تريد فحصاً لبرامج الخبيثة من طرف ثالث؟ ارفع الملف على [VirusTotal](https://www.virustotal.com). بضع إشارات هيوريستية عامة من محركات صغيرة أمر طبيعي لتطبيقات Electron غير الموقَّعة؛ أما الكشف الواسع من محركات رئيسية فيكون مدعاة قلق حقيقية.
-
-</details>
-
-<details>
-<summary><strong>التثبيت عبر مدير الحزم</strong></summary>
-
-تستخدم مدير حزم بالفعل؟ يمكنك تجاوز مسار التنزيل اليدوي.
-
-| القناة | الأمر                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 
