@@ -899,6 +899,10 @@ msgctxt "update.download"
 msgid "Download ↗"
 msgstr "下载 ↗"
 
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "下载 DMG ↗"
+
 msgctxt "update.downloading"
 msgid "Downloading…"
 msgstr "下载中…"
@@ -914,6 +918,22 @@ msgstr "更新失败"
 msgctxt "update.isAvailable"
 msgid "is available"
 msgstr "已发布"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} 可用 — 当前为 {{currentVersion}}。"
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} 可用 — 请用 Homebrew 更新。"
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} 可用 — 下载新的 DMG。"
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} 可用 — 下载新的构建。"
 
 msgctxt "update.retry"
 msgid "Retry"

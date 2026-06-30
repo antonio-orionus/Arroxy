@@ -32,6 +32,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 ## Yaliyomo
 
 - [Sakinisha na uzinduzi wa kwanza](#install)
+  - [Sanidi kupitia meneja wa pakiti](#package-manager)
   - [Uzinduzi wa kwanza wa Windows](#windows-first-launch)
   - [Uzinduzi wa kwanza wa macOS](#macos-first-launch)
   - [Kwa nini unaweza kuona onyo](#why-warning)
@@ -56,6 +57,17 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**Pata toleo la hivi karibuni →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>Sanidi kupitia meneja wa pakiti
+
+Tayari unatumia meneja wa pakiti? Unaweza kuruka njia ya upakuaji wa mkono.
+
+| Njia | Amri                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>Uzinduzi wa kwanza wa Windows
 
@@ -138,7 +150,7 @@ sudo pacman -S fuse2
 **Flatpak (mbadala wenye sanduku):** pakua `Arroxy-*.flatpak` kutoka ukurasa huo huo wa toleo.
 
 ```bash
-flatpak install --user Arroxy-linux-x64.flatpak
+flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
@@ -166,20 +178,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 Unataka ukaguzi wa programu hasidi wa mtu wa tatu? Pakia faili kwenye [VirusTotal](https://www.virustotal.com). Bendera chache za heuristic za jumla kutoka kwa injini ndogo ni za kawaida kwa programu za Electron zisizosainiwa; ugunduzi ulioenea kutoka kwa injini kubwa ungekuwa wasiwasi wa kweli.
-
-</details>
-
-<details>
-<summary><strong>Sanidi kupitia meneja wa pakiti</strong></summary>
-
-Tayari unatumia meneja wa pakiti? Unaweza kuruka njia ya upakuaji wa mkono.
-
-| Njia | Amri                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 

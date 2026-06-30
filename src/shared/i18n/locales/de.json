@@ -446,9 +446,16 @@
 		"appVersion": "Arroxy {{version}}",
 		"isAvailable": "ist verfügbar",
 		"youHave": "— du hast {{currentVersion}}",
+		"message": {
+			"generic": "Arroxy {{version}} ist verfügbar — du hast {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} ist verfügbar — mit Homebrew aktualisieren.",
+			"macosDirect": "Arroxy {{version}} ist verfügbar — lade die neue DMG herunter.",
+			"portable": "Arroxy {{version}} ist verfügbar — lade den neuen Build herunter."
+		},
 		"install": "Installieren & neu starten",
 		"downloading": "Wird heruntergeladen…",
 		"download": "Herunterladen ↗",
+		"downloadDmg": "DMG herunterladen ↗",
 		"dismiss": "Update-Banner schließen",
 		"copy": "Befehl in die Zwischenablage kopieren",
 		"copied": "Befehl in die Zwischenablage kopiert",

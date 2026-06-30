@@ -446,9 +446,16 @@
 		"appVersion": "Arroxy {{version}}",
 		"isAvailable": "είναι διαθέσιμο",
 		"youHave": "— έχεις {{currentVersion}}",
+		"message": {
+			"generic": "Το Arroxy {{version}} είναι διαθέσιμο — έχεις την {{currentVersion}}.",
+			"homebrew": "Το Arroxy {{version}} είναι διαθέσιμο — ενημέρωσε μέσω Homebrew.",
+			"macosDirect": "Το Arroxy {{version}} είναι διαθέσιμο — κατέβασε το νέο DMG.",
+			"portable": "Το Arroxy {{version}} είναι διαθέσιμο — κατέβασε τη νέα έκδοση."
+		},
 		"install": "Εγκατάσταση & Επανεκκίνηση",
 		"downloading": "Λήψη…",
 		"download": "Download ↗",
+		"downloadDmg": "Λήψη DMG ↗",
 		"dismiss": "Απόρριψη ειδοποίησης ενημέρωσης",
 		"copy": "Αντιγραφή εντολής στο πρόχειρο",
 		"copied": "Η εντολή αντιγράφηκε στο πρόχειρο",

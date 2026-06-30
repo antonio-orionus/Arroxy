@@ -899,6 +899,10 @@ msgctxt "update.download"
 msgid "Download ↗"
 msgstr "Download ↗"
 
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Λήψη DMG ↗"
+
 msgctxt "update.downloading"
 msgid "Downloading…"
 msgstr "Λήψη…"
@@ -914,6 +918,22 @@ msgstr "Η ενημέρωση απέτυχε"
 msgctxt "update.isAvailable"
 msgid "is available"
 msgstr "είναι διαθέσιμο"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Το Arroxy {{version}} είναι διαθέσιμο — έχεις την {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Το Arroxy {{version}} είναι διαθέσιμο — ενημέρωσε μέσω Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Το Arroxy {{version}} είναι διαθέσιμο — κατέβασε το νέο DMG."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Το Arroxy {{version}} είναι διαθέσιμο — κατέβασε τη νέα έκδοση."
 
 msgctxt "update.retry"
 msgid "Retry"

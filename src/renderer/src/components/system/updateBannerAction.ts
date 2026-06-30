@@ -1,6 +1,13 @@
-import type {InstallChannel} from '@shared/types.js'
+import type {InstallChannel, UpdateAvailablePayload} from '@shared/types.js'
 
 export type Action = {kind: 'install'} | {kind: 'download'} | {kind: 'command'; cmd: string}
+type BannerMessageKey = 'update.message.generic' | 'update.message.homebrew' | 'update.message.macosDirect' | 'update.message.portable'
+type BannerButtonKey = 'update.downloadDmg'
+
+export interface BannerCopy {
+	messageKey: BannerMessageKey
+	buttonKey?: BannerButtonKey
+}
 
 export function resolveAction(channel: InstallChannel, platform: NodeJS.Platform): Action {
 	switch (channel) {
@@ -25,4 +32,11 @@ export function resolveAction(channel: InstallChannel, platform: NodeJS.Platform
 			return {kind: 'download'}
 		}
 	}
+}
+
+export function resolveBannerCopy(info: UpdateAvailablePayload, platform: NodeJS.Platform): BannerCopy {
+	if (info.installChannel === 'homebrew') return {messageKey: 'update.message.homebrew'}
+	if (info.installChannel === 'portable') return {messageKey: 'update.message.portable'}
+	if (info.installChannel === 'direct' && platform === 'darwin') return {messageKey: 'update.message.macosDirect', buttonKey: 'update.downloadDmg'}
+	return {messageKey: 'update.message.generic'}
 }

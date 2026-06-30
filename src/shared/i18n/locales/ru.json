@@ -445,10 +445,12 @@
 	"update": {
 		"appVersion": "Arroxy {{version}}",
 		"isAvailable": "доступна",
-		"youHave": "— у тебя {{currentVersion}}",
+		"youHave": "— у вас {{currentVersion}}",
+		"message": {"generic": "Arroxy {{version}} доступна — у вас {{currentVersion}}.", "homebrew": "Arroxy {{version}} доступна — обновите через Homebrew.", "macosDirect": "Arroxy {{version}} доступна — скачайте новый DMG.", "portable": "Arroxy {{version}} доступна — скачайте новую сборку."},
 		"install": "Установить и перезапустить",
 		"downloading": "Загрузка…",
 		"download": "Скачать ↗",
+		"downloadDmg": "Скачать DMG ↗",
 		"dismiss": "Закрыть уведомление об обновлении",
 		"copy": "Скопировать команду в буфер обмена",
 		"copied": "Команда скопирована в буфер обмена",

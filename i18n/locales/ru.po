@@ -899,6 +899,10 @@ msgctxt "update.download"
 msgid "Download ↗"
 msgstr "Скачать ↗"
 
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Скачать DMG ↗"
+
 msgctxt "update.downloading"
 msgid "Downloading…"
 msgstr "Загрузка…"
@@ -915,13 +919,29 @@ msgctxt "update.isAvailable"
 msgid "is available"
 msgstr "доступна"
 
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} доступна — у вас {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} доступна — обновите через Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} доступна — скачайте новый DMG."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} доступна — скачайте новую сборку."
+
 msgctxt "update.retry"
 msgid "Retry"
 msgstr "Повторить"
 
 msgctxt "update.youHave"
 msgid "— you have {{currentVersion}}"
-msgstr "— у тебя {{currentVersion}}"
+msgstr "— у вас {{currentVersion}}"
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"

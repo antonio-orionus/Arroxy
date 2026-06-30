@@ -899,6 +899,10 @@ msgctxt "update.download"
 msgid "Download ↗"
 msgstr "Download ↗"
 
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "DMG ဒေါင်းလုဒ် ↗"
+
 msgctxt "update.downloading"
 msgid "Downloading…"
 msgstr "ဒေါင်းလုဒ်လုပ်နေသည်…"
@@ -914,6 +918,22 @@ msgstr "အပ်ဒိတ် မအောင်မြင်ပါ"
 msgctxt "update.isAvailable"
 msgid "is available"
 msgstr "ရရှိနိုင်ပြီ"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} ရနိုင်ပါပြီ — သင့်တွင် {{currentVersion}} ရှိသည်။"
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} ရနိုင်ပါပြီ — Homebrew ဖြင့် အပ်ဒိတ်လုပ်ပါ။"
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} ရနိုင်ပါပြီ — DMG အသစ်ကို ဒေါင်းလုဒ်လုပ်ပါ။"
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} ရနိုင်ပါပြီ — build အသစ်ကို ဒေါင်းလုဒ်လုပ်ပါ။"
 
 msgctxt "update.retry"
 msgid "Retry"

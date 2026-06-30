@@ -34,6 +34,7 @@
 ## {{toc_heading}}
 
 - [{{dl_h2}}](#install)
+  - [{{dl_pkg_h3}}](#package-manager)
   - [{{dl_win_first_h3}}](#windows-first-launch)
   - [{{dl_macos_first_h3}}](#macos-first-launch)
   - [{{dl_warning_h3}}](#why-warning)
@@ -58,6 +59,17 @@
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**{{dl_grab}}**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>{{dl_pkg_h3}}
+
+{{dl_pm_intro}}
+
+| {{dl_channel_col}} | {{dl_command_col}}                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>{{dl_win_first_h3}}
 
@@ -136,7 +148,7 @@ sudo pacman -S fuse2
 {{dl_linux_flatpak_intro}}
 
 ```bash
-flatpak install --user Arroxy-linux-x64.flatpak
+flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
@@ -164,20 +176,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 {{dl_verify_vt_text}}
-
-</details>
-
-<details>
-<summary><strong>{{dl_pkg_h3}}</strong></summary>
-
-{{dl_pm_intro}}
-
-| {{dl_channel_col}} | {{dl_command_col}}                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 

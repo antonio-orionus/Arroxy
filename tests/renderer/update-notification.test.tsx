@@ -115,8 +115,7 @@ describe('UpdateBanner integration in App', () => {
 			capturedListener!({version: '3.1.0', currentVersion: '2.5.1', installChannel: 'direct'})
 		})
 
-		expect(screen.getByText('Arroxy 3.1.0')).toBeInTheDocument()
-		expect(screen.getByText(/you have 2\.5\.1/)).toBeInTheDocument()
+		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('Arroxy 3.1.0 is available — you have 2.5.1.')
 	})
 
 	it('dismiss button hides the banner', async () => {
@@ -164,7 +163,7 @@ describe('UpdateBanner integration in App', () => {
 		expect(installMock).toHaveBeenCalledOnce()
 	})
 
-	it('Download ↗ calls shell.openExternal with GitHub releases URL', async () => {
+	it('Download DMG ↗ calls shell.openExternal with GitHub releases URL', async () => {
 		let capturedListener: UpdateListener | null = null
 		const onUpdateAvailable = (listener: UpdateListener) => {
 			capturedListener = listener
@@ -182,13 +181,13 @@ describe('UpdateBanner integration in App', () => {
 		})
 
 		await act(async () => {
-			fireEvent.click(screen.getByText('Download ↗'))
+			fireEvent.click(screen.getByRole('button', {name: 'Download DMG ↗'}))
 		})
 
 		expect(openExternal).toHaveBeenCalledWith('https://arroxy.orionus.dev/')
 	})
 
-	it('Download ↗ dismisses the banner after clicking', async () => {
+	it('Download DMG ↗ dismisses the banner after clicking', async () => {
 		let capturedListener: UpdateListener | null = null
 		const onUpdateAvailable = (listener: UpdateListener) => {
 			capturedListener = listener
@@ -206,12 +205,12 @@ describe('UpdateBanner integration in App', () => {
 		expect(screen.getByTestId('update-banner')).toBeInTheDocument()
 
 		await act(async () => {
-			fireEvent.click(screen.getByText('Download ↗'))
+			fireEvent.click(screen.getByRole('button', {name: 'Download DMG ↗'}))
 		})
 		expect(screen.queryByTestId('update-banner')).not.toBeInTheDocument()
 	})
 
-	it('shows Download ↗ (not Install & Restart) on macOS', async () => {
+	it('shows Download DMG ↗ (not Install & Restart) on macOS', async () => {
 		let capturedListener: UpdateListener | null = null
 		const onUpdateAvailable = (listener: UpdateListener) => {
 			capturedListener = listener
@@ -227,7 +226,8 @@ describe('UpdateBanner integration in App', () => {
 			capturedListener!({version: '2.0.0', currentVersion: '1.0.0', installChannel: 'direct'})
 		})
 
-		expect(screen.getByText('Download ↗')).toBeInTheDocument()
+		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('Arroxy 2.0.0 is available — download the new DMG.')
+		expect(screen.getByRole('button', {name: 'Download DMG ↗'})).toBeInTheDocument()
 		expect(screen.queryByRole('button', {name: /Install/i})).not.toBeInTheDocument()
 	})
 

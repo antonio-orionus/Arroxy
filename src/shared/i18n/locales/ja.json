@@ -446,9 +446,16 @@
 		"appVersion": "Arroxy {{version}}",
 		"isAvailable": "が利用可能です",
 		"youHave": "— 現在のバージョン: {{currentVersion}}",
+		"message": {
+			"generic": "Arroxy {{version}} が利用可能です — 現在は {{currentVersion}} です。",
+			"homebrew": "Arroxy {{version}} が利用可能です — Homebrew で更新してください。",
+			"macosDirect": "Arroxy {{version}} が利用可能です — 新しい DMG をダウンロードしてください。",
+			"portable": "Arroxy {{version}} が利用可能です — 新しいビルドをダウンロードしてください。"
+		},
 		"install": "インストールして再起動",
 		"downloading": "ダウンロード中…",
 		"download": "ダウンロード ↗",
+		"downloadDmg": "DMG をダウンロード ↗",
 		"dismiss": "更新通知を閉じる",
 		"copy": "コマンドをクリップボードにコピー",
 		"copied": "コマンドをクリップボードにコピーしました",

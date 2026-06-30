@@ -896,6 +896,10 @@ msgctxt "update.download"
 msgid "Download ↗"
 msgstr ""
 
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr ""
+
 msgctxt "update.downloading"
 msgid "Downloading…"
 msgstr ""
@@ -910,6 +914,22 @@ msgstr ""
 
 msgctxt "update.isAvailable"
 msgid "is available"
+msgstr ""
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr ""
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr ""
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr ""
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
 msgstr ""
 
 msgctxt "update.retry"

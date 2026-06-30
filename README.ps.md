@@ -32,6 +32,7 @@
 ## منځپانګه
 
 - [نصب او لومړی پیل](#install)
+  - [د پیکیج مدیر له لارې نصب کول](#package-manager)
   - [Windows لومړی پیل](#windows-first-launch)
   - [macOS لومړی پیل](#macos-first-launch)
   - [ولې ممکن خبرداری وګورئ](#why-warning)
@@ -56,6 +57,17 @@
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**وروستۍ خپرونه واخلئ →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>د پیکیج مدیر له لارې نصب کول
+
+ایا لا مخکې پیکیج مدیر کاروئ؟ تاسو کولی شئ لاسي ډاونلوډ لار پریږدئ.
+
+| چینل | کمانډ                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>Windows لومړی پیل
 
@@ -138,7 +150,7 @@ sudo pacman -S fuse2
 **Flatpak (sandboxed بدیل):** د ورته خپرونې پاڼې څخه `Arroxy-*.flatpak` ډاونلوډ کړئ.
 
 ```bash
-flatpak install --user Arroxy-linux-x64.flatpak
+flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
@@ -166,20 +178,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 د دریمې ډلې malware سکن غواړئ؟ فایل [VirusTotal](https://www.virustotal.com) کې اپلوډ کړئ. د کوچنیو انجنونو لخوا د عمومي اټکل کولو بیرغونه لږ شمیر د بې لاسلیکه Electron اپلیکیشنونو لپاره نورمال دي؛ د لوی انجنونو لخوا پراخه کشف کول به واقعي اندیښنه وي.
-
-</details>
-
-<details>
-<summary><strong>د پیکیج مدیر له لارې نصب کول</strong></summary>
-
-ایا لا مخکې پیکیج مدیر کاروئ؟ تاسو کولی شئ لاسي ډاونلوډ لار پریږدئ.
-
-| چینل | کمانډ                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 

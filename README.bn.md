@@ -32,6 +32,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 ## বিষয়বস্তু
 
 - [ইনস্টল ও প্রথম চালু](#install)
+  - [প্যাকেজ ম্যানেজারের মাধ্যমে ইনস্টল করুন](#package-manager)
   - [Windows প্রথম লঞ্চ](#windows-first-launch)
   - [macOS প্রথম লঞ্চ](#macos-first-launch)
   - [কেন আপনি সতর্কবার্তা দেখতে পাচ্ছেন](#why-warning)
@@ -56,6 +57,17 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**সর্বশেষ রিলিজ নিন →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>প্যাকেজ ম্যানেজারের মাধ্যমে ইনস্টল করুন
+
+ইতোমধ্যে একটি প্যাকেজ ম্যানেজার ব্যবহার করছেন? আপনি ম্যানুয়াল ডাউনলোডের পথ এড়িয়ে যেতে পারেন।
+
+| চ্যানেল | কমান্ড                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>Windows প্রথম লঞ্চ
 
@@ -138,7 +150,7 @@ sudo pacman -S fuse2
 **Flatpak (স্যান্ডবক্সড বিকল্প):** একই রিলিজ পেজ থেকে `Arroxy-*.flatpak` ডাউনলোড করুন।
 
 ```bash
-flatpak install --user Arroxy-linux-x64.flatpak
+flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
@@ -166,20 +178,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 তৃতীয়-পক্ষ ম্যালওয়্যার স্ক্যান চান? [VirusTotal](https://www.virustotal.com)-এ ফাইলটি আপলোড করুন। ছোট ইঞ্জিনগুলো থেকে কিছু জেনেরিক-হিউরিস্টিক ফ্ল্যাগ আনসাইনড Electron অ্যাপের জন্য স্বাভাবিক; প্রধান ইঞ্জিনগুলো থেকে ব্যাপক শনাক্তি সত্যিকারের উদ্বেগের কারণ হবে।
-
-</details>
-
-<details>
-<summary><strong>প্যাকেজ ম্যানেজারের মাধ্যমে ইনস্টল করুন</strong></summary>
-
-ইতোমধ্যে একটি প্যাকেজ ম্যানেজার ব্যবহার করছেন? আপনি ম্যানুয়াল ডাউনলোডের পথ এড়িয়ে যেতে পারেন।
-
-| চ্যানেল | কমান্ড                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 

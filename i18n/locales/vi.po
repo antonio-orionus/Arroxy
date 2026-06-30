@@ -899,6 +899,10 @@ msgctxt "update.download"
 msgid "Download ↗"
 msgstr "Tải xuống ↗"
 
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Tải DMG ↗"
+
 msgctxt "update.downloading"
 msgid "Downloading…"
 msgstr "Đang tải xuống…"
@@ -914,6 +918,22 @@ msgstr "Cập nhật thất bại"
 msgctxt "update.isAvailable"
 msgid "is available"
 msgstr "đã có sẵn"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} đã có — bạn đang dùng {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} đã có — cập nhật bằng Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} đã có — tải DMG mới."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} đã có — tải bản dựng mới."
 
 msgctxt "update.retry"
 msgid "Retry"

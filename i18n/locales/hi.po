@@ -899,6 +899,10 @@ msgctxt "update.download"
 msgid "Download ↗"
 msgstr "डाउनलोड ↗"
 
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "DMG डाउनलोड करें ↗"
+
 msgctxt "update.downloading"
 msgid "Downloading…"
 msgstr "डाउनलोड हो रहा है…"
@@ -914,6 +918,22 @@ msgstr "अपडेट विफल"
 msgctxt "update.isAvailable"
 msgid "is available"
 msgstr "उपलब्ध है"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} उपलब्ध है — आपके पास {{currentVersion}} है।"
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} उपलब्ध है — Homebrew से अपडेट करें।"
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} उपलब्ध है — नया DMG डाउनलोड करें।"
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} उपलब्ध है — नया build डाउनलोड करें।"
 
 msgctxt "update.retry"
 msgid "Retry"

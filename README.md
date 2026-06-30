@@ -32,6 +32,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 ## Contents
 
 - [Install and first launch](#install)
+  - [Install via package manager](#package-manager)
   - [Windows first launch](#windows-first-launch)
   - [macOS first launch](#macos-first-launch)
   - [Why you may see a warning](#why-warning)
@@ -56,6 +57,17 @@ If Arroxy saves you time, a ⭐ helps others find it.
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**All release assets →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>Install via package manager
+
+Already use a package manager? You can skip the manual download path.
+
+| Channel | Command                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>Windows first launch
 
@@ -138,7 +150,7 @@ sudo pacman -S fuse2
 **Flatpak (sandboxed alternative):** download `Arroxy-linux-x64.flatpak` from the same release page.
 
 ```bash
-flatpak install --user Arroxy-linux-x64.flatpak
+flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
@@ -166,20 +178,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 Want a third-party malware scan? Upload the file at [VirusTotal](https://www.virustotal.com). A handful of generic-heuristic flags from minor engines is normal for unsigned Electron apps; widespread detections from major engines would be a real concern.
-
-</details>
-
-<details>
-<summary><strong>Install via package manager</strong></summary>
-
-Already use a package manager? You can skip the manual download path.
-
-| Channel | Command                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 

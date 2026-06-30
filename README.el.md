@@ -32,6 +32,7 @@
 ## Περιεχόμενα
 
 - [Εγκατάσταση και πρώτη εκκίνηση](#install)
+  - [Εγκατάσταση μέσω διαχειριστή πακέτων](#package-manager)
   - [Windows — πρώτη εκκίνηση](#windows-first-launch)
   - [macOS — πρώτη εκκίνηση](#macos-first-launch)
   - [Γιατί μπορεί να δείτε προειδοποίηση](#why-warning)
@@ -56,6 +57,17 @@
 | Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 [**Αποκτήστε την τελευταία έκδοση →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
+
+### <a id="package-manager"></a>Εγκατάσταση μέσω διαχειριστή πακέτων
+
+Χρησιμοποιείτε ήδη διαχειριστή πακέτων; Μπορείτε να παραλείψετε τη χειροκίνητη λήψη.
+
+| Κανάλι | Εντολή                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
+| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
+| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
+| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>Windows — πρώτη εκκίνηση
 
@@ -138,7 +150,7 @@ sudo pacman -S fuse2
 **Flatpak (εναλλακτικό σε sandbox):** κατεβάστε το `Arroxy-*.flatpak` από την ίδια σελίδα έκδοσης.
 
 ```bash
-flatpak install --user Arroxy-linux-x64.flatpak
+flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
@@ -166,20 +178,6 @@ sha256sum Arroxy-linux-x64.AppImage
 ```
 
 Θέλετε σάρωση κακόβουλου λογισμικού από τρίτο; Ανεβάστε το αρχείο στο [VirusTotal](https://www.virustotal.com). Μερικές ευρετικές σημαίες από μικρές μηχανές είναι φυσιολογικές για ανυπόγραφες εφαρμογές Electron· εκτεταμένες εντοπίσεις από μεγάλες μηχανές θα ήταν πραγματική ανησυχία.
-
-</details>
-
-<details>
-<summary><strong>Εγκατάσταση μέσω διαχειριστή πακέτων</strong></summary>
-
-Χρησιμοποιείτε ήδη διαχειριστή πακέτων; Μπορείτε να παραλείψετε τη χειροκίνητη λήψη.
-
-| Κανάλι | Εντολή                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak            | `flatpak install --user Arroxy-linux-x64.flatpak`                                                 |
 
 </details>
 

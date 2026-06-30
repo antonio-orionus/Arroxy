@@ -899,6 +899,10 @@ msgctxt "update.download"
 msgid "Download ↗"
 msgstr "Download ↗"
 
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "DMG buusi ↗"
+
 msgctxt "update.downloading"
 msgid "Downloading…"
 msgstr "Buufamaa jira…"
@@ -914,6 +918,22 @@ msgstr "Haaromsuun hin milkoofne"
 msgctxt "update.isAvailable"
 msgid "is available"
 msgstr "ni argama"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} ni jira — ati {{currentVersion}} qabda."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} ni jira — Homebrew-n haaromsi."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} ni jira — DMG haaraa buusi."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} ni jira — build haaraa buusi."
 
 msgctxt "update.retry"
 msgid "Retry"
