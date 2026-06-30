@@ -146,7 +146,7 @@ export const uz = {
   feat_workflow_5:
     "**Tray rejimi** — oynani yopish yuklamalarni fon rejimida davom ettiradi",
   feat_workflow_6:
-    "**21 til** — tizim tilini avtomatik aniqlaydi, istalgan vaqt almashtirish mumkin",
+    "**22 til** — tizim tilini avtomatik aniqlaydi, istalgan vaqtda almashtirilishi mumkin",
   feat_workflow_7:
     "**Pleylist sinxronlashuvi** — allaqachon yuklab olingan videolarni o'tkazib yuborish uchun pleylistni mahalliy jild bilan qayta tekshiradi; har bir video yuklanganda yangilanadigan `.m3u` pleylist faylini yaratadi",
   feat_workflow_8:
@@ -324,7 +324,7 @@ export const uz = {
     "yt-dlp ishga tushirishda avtomatik yangilanadi, va YouTube biror narsani o'zgartirganda Arroxy tezlik bilan tuzatishlarni chiqaradi. Agar siz biron muammoga duch kelsangiz, Kengaytirilgan sozlamalarda ixtiyoriy kuki qo'llab-quvvatlash zaxira variant sifatida mavjud.",
   faq_q6: "Arroxy qanday tillarda mavjud?",
   faq_a6:
-    "Yigirma bir, darhol tayyor: English, Español (ispan), Deutsch (nemis), Français (frantsuz), 日本語 (yapon), 中文 (xitoy), Русский (rus), Українська (ukrain), हिन्दी (hind), Afaan Oromoo, Kiswahili, O'zbekcha (o'zbek), Tiếng Việt (vyetnam), አማርኛ (amxar), العربية (arab), اردو (urdu), پښتو (pushtu), বাংলা (bengal), မြန်မာဘာသာ (birma), Ελληνικά (grek) va Српски (serb). Arroxy birinchi ishga tushirishda operatsion tizimingiz tilini avtomatik aniqlaydi va siz istalgan vaqtda asboblar panelindagi til tanlagichidan o'zgartirishingiz mumkin. Runtime locale JSON fayllari src/shared/i18n/locales/ ichida, tarjimonlarga mo'ljallangan PO kataloglari esa i18n/locales/ ichida — hissa qo'shish uchun GitHub'da PR oching.",
+    "Yigirma ikkita, qutidan tashqarida: English, Bahasa Indonesia (Indoneziya), Español (ispancha), Deutsch (nemischa), Français (frantsuz), 日本語 (Yaponcha), yēžić (Xitoy), Russkiy (Russian), Russkiy (Russian), हማርኛ (Amhar), Afaan Oromoo, Kiswahili, O'zbekcha (oʻzbek), Tiếng Việt (Vetnam), አማርኛ (amhar), አማርኛ (Amhar), ạlʿrbyማạ (arabcha), (Pushtu), বြန်မာဘာသာ (Birma), lēlinĬ (yunon) va srpski (serb) မြန်မာဘာသာ. Arroxy birinchi ishga tushirilganda operatsion tizimingiz tilini avtomatik tarzda aniqlaydi va siz istalgan vaqtda asboblar panelidagi til tanlash vositasidan o‘tishingiz mumkin. Runtime mahalliy tili JSON src/shared/i18n/locales/da, tarjimonga moʻljallangan PO kataloglari esa i18n/locales/da yashaydi — hissa qoʻshish uchun PRni GitHub da oching.",
   faq_q7: "Boshqa narsalarni o'rnatishim kerakmi?",
   faq_a7:
     "Yo‘q. yt-dlp birinchi ishga tushirishda avtomatik yuklab olinadi va kompyuteringizda keshlanadi; ffmpeg va ffprobe ilova bilan birga keladi. Undan keyin qo‘shimcha sozlash shart emas.",

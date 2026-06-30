@@ -1,0 +1,2426 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Tentang"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "MIT License · by Antonio Orionus"
+msgstr "Lisensi MIT · oleh Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Tentang Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Pengunduh yang cepat dan ramah untuk YouTube dan 2000+ situs lainnya."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Lihat pemberitahuan pihak ketiga"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Situs web"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Masukan"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Menikmati Arroxy? Saya ingin mendengar pendapat Anda! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Log"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Perbesar"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Perkecil"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Kembali"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Membatalkan"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Melanjutkan"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Mencoba kembali"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Mulai dari awal"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy terus berjalan dan menyelesaikan pengunduhan aktif. Ubah ini nanti di Pengaturan lanjutan."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Sembunyikan ke baki"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Sembunyikan Arroxy ke baki sistem saat menutup?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Berhenti"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Jangan bertanya lagi"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Batalkan Unduhan & Keluar"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Jeda untuk melanjutkan nanti, atau batalkan untuk membuang kemajuan."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Terus Mengunduh"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "Pengunduhan {{count}} sedang berlangsung"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "Pengunduhan {{count}} sedang berlangsung"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Jeda Unduhan & Keluar"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Proses penyaji macet ({{reason}}). Muat ulang untuk mencoba lagi."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy mengalami masalah"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Berhenti"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Muat ulang"
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Video ini dikenai pembatasan usia dan tidak dapat diunduh tanpa akun yang masuk."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgstr "Perlindungan bot dipicu. IP yang Anda gunakan kemungkinan besar ditandai (rentang pusat data atau pintu keluar VPN yang sibuk). Ubah IP Anda atau pilih titik akhir VPN lain dan coba lagi. Jika terus gagal, ini mungkin merupakan perubahan sementara di sisi situs — Arroxy memperbarui yt-dlp secara otomatis saat peluncuran, sehingga perbaikan dilakukan secara otomatis setelah upstream mengirimkannya."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Server terus memotong unduhan di tengah-tengah streaming dan yt-dlp menyerah setelah mencoba lagi. Ini biasanya mengenai format video terbesar (4K HDR / VP9 dengan kecepatan bit tinggi). Coba lagi, ganti jaringan/VPN, atau pilih format resolusi lebih rendah."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgstr "Video ini dilindungi DRM. yt-dlp tidak dapat menghapus DRM, sehingga file tidak dapat diunduh."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Video ini tidak tersedia di wilayah Anda."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Alamat IP Anda tampaknya diblokir. Coba lagi nanti atau gunakan VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgstr "Video ini memerlukan akun masuk. Siapkan cookies.txt (Pengaturan → Cookies) dan coba lagi."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp tidak dapat menemukan ffmpeg atau ffprobe. Perbaiki biner yang dibundel atau atur lokasi FFmpeg, lalu coba lagi."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Kesalahan jaringan. Periksa koneksi Anda dan coba lagi."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Ruang disk tidak cukup. Kosongkan ruang dan coba lagi."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgstr "Tidak dapat menguraikan respons dari situs. Ekstraktor yt-dlp mungkin melayang. Arroxy memperbarui secara otomatis yt-dlp saat peluncuran — coba lagi dalam beberapa menit setelah perbaikan dikirimkan."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "yt-dlp selesai diunduh tetapi pasca pemrosesan (penggabungan/mux/konversi) gagal. Seringkali ini merupakan masalah ffmpeg yang bersifat sementara — coba lagi, dan jika masalah terus berlanjut, coba kombinasi format lain."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgstr "Situs membatasi permintaan. Tunggu sebentar, lalu coba lagi."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Video ini tidak tersedia — mungkin bersifat pribadi, dihapus, atau dikunci wilayahnya."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Pengunduhan gagal. Lihat keluaran mentahnya di bawah."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr "URL tersebut tidak didukung oleh yt-dlp. Coba tautan lain dari situs mana pun yang didukung yt-dlp."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Audio saja · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Bahasa"
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Audio (terbaik)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Audio ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Audio asli terbaik, tanpa pengkodean ulang"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Konversikan ke M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Konversikan ke MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Konversikan ke Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 di atas 1080p tidak tersedia di YouTube — dibatasi hingga 1080p secara otomatis"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Hingga 1080p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Hingga 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Hingga 4K"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Hingga 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Hingga 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Hingga 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Kualitas terbaik"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Dibatasi pada 1080p, turun kembali ke lebih rendah per item"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Dibatasi pada 2K, turun kembali ke lebih rendah per item"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Dibatasi pada 2160p, turun kembali ke lebih rendah per item"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Smallest video"
+msgstr "Video terkecil"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Bandwidth rendah"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "File lebih kecil, kompatibilitas luas"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Video + audio tertinggi yang tersedia per item"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Asli terbaik"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "TV Pintar H.264 MP4"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Wadah dan codec terbaik yang tersedia per item"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Lebih suka video H.264 + audio AAC dalam MP4 jika memungkinkan"
+
+msgctxt "presets.audio-only.desc"
+msgid "No video, best audio"
+msgstr "Tidak ada video, audio terbaik"
+
+msgctxt "presets.audio-only.label"
+msgid "Audio only"
+msgstr "Hanya audio"
+
+msgctxt "presets.balanced.desc"
+msgid "720p max + good audio"
+msgstr "Maks 720p + audio bagus"
+
+msgctxt "presets.balanced.label"
+msgid "Balanced"
+msgstr "Seimbang"
+
+msgctxt "presets.best-quality.desc"
+msgid "Highest resolution + best audio"
+msgstr "Resolusi tertinggi + audio terbaik"
+
+msgctxt "presets.best-quality.label"
+msgid "Best quality"
+msgstr "Kualitas terbaik"
+
+msgctxt "presets.small-file.desc"
+msgid "Lowest resolution + low audio"
+msgstr "Resolusi terendah + audio rendah"
+
+msgctxt "presets.small-file.label"
+msgid "Small file"
+msgstr "Berkas kecil"
+
+msgctxt "presets.subtitle-only.desc"
+msgid "No video, no audio, only subtitles"
+msgstr "Tidak ada video, tidak ada audio, hanya subtitle"
+
+msgctxt "presets.subtitle-only.label"
+msgid "Subtitles only"
+msgstr "Hanya subtitle"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Pendamping"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Keterangan"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Media"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Hilang"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Subjudul"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "gambar kecil"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Artefak"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Batalkan semua unduhan yang aktif dan tertunda"
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Hapus unduhan yang sudah selesai"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Unduhan yang antri akan muncul di sini"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Semua"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Filter status antrian"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Semua item"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Unduhan"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Membatalkan"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Pengunduhan gagal"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Buka folder tujuan"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Berhenti sebentar"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Hanya menunggu keputusan"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Tarik sekarang — lewati antrian"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Menghapus"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Melanjutkan"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Mencoba kembali"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Tetapkan lokasi"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Pilih item yang tertunda untuk mengatur lokasi."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Dibatalkan"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Selesai"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Kesalahan"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Dipegang"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Dijeda"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Menunggu"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Mengunduh"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Jeda setiap pengunduhan aktif dan hentikan pengunduhan baru"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Lanjutkan unduhan yang dijeda dan biarkan antrean terus berjalan"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Item yang dipilih"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} dipilih · {{total}} total"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Unduhan"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Ditambahkan"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Artefak"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Kolom"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Selesai"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Sembunyikan artefak untuk {{title}}"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Sasaran keluaran"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Kemajuan"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Tampilkan artefak untuk {{title}}"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Urutkan berdasarkan {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Status"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Judul"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Unduhan langsung ada di tab Unduhan sekarang — buka kapan saja untuk melacak kemajuan."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Melanjutkan"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Anda menjalankan pembaruan baru. Berikut adalah hal-hal penting."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Catatan rilis lengkap ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Apa yang baru di Arroxy {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Membatalkan"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Pilih yang dapat dieksekusi"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Instal dengan Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Instal dengan WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Buka folder ketergantungan"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Atur ulang ke default"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Retry setup"
+msgstr "Coba lagi penyiapan"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Lihat log pengaturan"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "penyelidikan FF"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.hints.badExitCode"
+msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
+msgstr "Biner tidak merespons --version. Mungkin rusak atau buildnya salah."
+
+msgctxt "repair.hints.blockedOrQuarantined"
+msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
+msgstr "Windows memblokir file (SmartScreen / Defender). Pilih salinan yang diinstal atau masukkan folder runtime ke daftar putih."
+
+msgctxt "repair.hints.downloadFailed"
+msgid "Download failed. Check your internet connection and retry."
+msgstr "Pengunduhan gagal. Periksa koneksi internet Anda dan coba lagi."
+
+msgctxt "repair.hints.extractFailed"
+msgid "Archive extraction failed. The download may be corrupt — retry."
+msgstr "Ekstraksi arsip gagal. Unduhan mungkin rusak — coba lagi."
+
+msgctxt "repair.hints.hashFailed"
+msgid "Checksum mismatch on the downloaded file. Retry the download."
+msgstr "Ketidakcocokan checksum pada file yang diunduh. Coba unduh lagi."
+
+msgctxt "repair.hints.pairIncomplete"
+msgid "ffmpeg and ffprobe must both be set as a matched pair."
+msgstr "ffmpeg dan ffprobe keduanya harus ditetapkan sebagai pasangan yang cocok."
+
+msgctxt "repair.hints.permissionDenied"
+msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
+msgstr "Sistem menolak menjalankan file tersebut. Pilih salinan yang Anda percayai atau coba lagi sebagai admin."
+
+msgctxt "repair.hints.spawnFailed"
+msgid "The file is missing or could not be launched. Pick a working copy."
+msgstr "File hilang atau tidak dapat diluncurkan. Pilih copy pekerjaan."
+
+msgctxt "repair.hints.timeout"
+msgid "The version probe timed out. The file may be hung — retry."
+msgstr "Waktu pemeriksaan versi telah habis. File mungkin macet — coba lagi."
+
+msgctxt "repair.hints.unknown"
+msgid "Could not be verified."
+msgstr "Tidak dapat diverifikasi."
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Penyiapan membutuhkan bantuan Anda"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Disalin!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Salin tautan"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 1850+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — pengunduh video sumber terbuka gratis untuk Windows, macOS & Linux. Bekerja dengan situs YouTube, Vimeo, Twitch, dan 1850+.\n"
+"4K · HDR · MP3 · Shorts · Terjemahan · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy gratis dan bersumber terbuka. Berbagi membantu lebih banyak orang menemukannya."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Membagikan"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Bagikan Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Bagikan Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Bagikan Arroxy"
+
+msgctxt "splash.downloading"
+msgid "Downloading {{binary}}…"
+msgstr "Mengunduh {{binary}}…"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Hei, selamat datang kembali!"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Mempersiapkan unduhan…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Penyiapan gagal. Buka log pengaturan untuk mengetahui detailnya."
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Pengunduhan dibatalkan"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Pengunduhan selesai"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Mengonversi video…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Ruang disk tidak cukup — memerlukan {{required}}, hanya tersedia {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Mengunduh biner {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Mengunduh video & audio…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Menyematkan metadata…"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Mengonversi audio…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Menghubungi SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Mengambil subtitle…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Menggabungkan audio dan video…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Mencetak token YouTube…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Memindahkan file…"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Mempersiapkan biner…"
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Mencetak ulang token…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock tidak tersedia, coba lagi ({{attempt}}/{{total}})…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Menunggu {{seconds}} untuk menghindari batas kecepatan…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting yt-dlp process…"
+msgstr "Memulai proses yt-dlp…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Video disimpan — beberapa subtitle tidak dapat diunduh"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Kegagalan startup pengunduhan yang tidak diketahui"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Diunduh dengan ekstraktor santai — siapkan cookies.txt untuk pengunduhan yang lebih andal"
+
+msgctxt "status.ytdlpExitCode"
+msgid "yt-dlp exited with code {{code}}"
+msgstr "yt-dlp keluar dengan kode {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "yt-dlp process error: {{error}}"
+msgstr "Kesalahan proses yt-dlp: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Mode gelap"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Modus ringan"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Bawaan sistem"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Menutup"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Maksimalkan"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Memperkecil"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Memulihkan"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Buka Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Keluar dari Arroxy"
+
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 pengunduhan · {{percent}}%"
+
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Pengunduhan {{count}} · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Menganggur"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.appVersion"
+msgid "Arroxy {{version}}"
+msgstr "Arroxy {{version}}"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Perintah disalin ke clipboard"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Salin perintah ke clipboard"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Tutup spanduk pembaruan"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Unduh ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Mengunduh…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Instal & Mulai Ulang"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Pembaruan gagal"
+
+msgctxt "update.isAvailable"
+msgid "is available"
+msgstr "tersedia"
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Mencoba kembali"
+
+msgctxt "update.youHave"
+msgid "— you have {{currentVersion}}"
+msgstr "— Anda memiliki {{currentVersion}}"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Memuat…"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Siap"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Tempelkan URL video, daftar putar, saluran, penelusuran, atau audio. Arroxy akan membersihkan duplikat sebelum mengantri."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Tempelkan satu atau lebih URL untuk melihat pratinjau kumpulan."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Diabaikan"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Tambahkan setidaknya satu URL yang didukung untuk melanjutkan."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Duplikat"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "Daftar URL"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://contoh.id/video-1\n"
+"https://contoh.id/video-2\n"
+"https://contoh.id/video-3"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "URL massal"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Antrian"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Menambah antrian — dimulai saat pengunduhan aktif selesai"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Hanya audio"
+
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} dari video {{total}}"
+
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} dari video {{total}}"
+
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} dari trek {{total}}"
+
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} dari trek {{total}}"
+
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} dari URL {{total}}"
+
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} dari URL {{total}}"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Kelompok"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Barang"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Daftar putar"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Prasetel"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Simpan ke"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Ukuran"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Subtitle"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "File Anda akan masuk"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Prasetel khusus subtitle aktif tetapi tidak ada bahasa subtitle yang dipilih — tidak ada yang akan diunduh."
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Tarik! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Melewati antrean — dimulai sekarang, berjalan bersama unduhan aktif lainnya"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Siap untuk menariknya!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Tidak dikenal"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Penyematan subtitle diubah menjadi sidecar — trek audio tidak mendukung aliran subtitle yang disematkan."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Penyematan gambar mini dilewati — wadah keluaran tidak mendukungnya."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Kebiasaan…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Desktop"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Dokumen"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Unduhan"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Simpan ke"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Rumah"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Musik"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Gambar"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Nama folder memiliki karakter yang tidak valid"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "misalnya robekan lo-fi"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Simpan di dalam subfolder"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Film"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Hanya audio"
+
+msgctxt "wizard.formats.audioOnlyOption"
+msgid "Audio only (no video)"
+msgstr "Hanya audio (tidak ada video)"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Cookie dikonfigurasikan tetapi dimatikan. Aktifkan dan coba lagi untuk mendapatkan daftar lengkap, atau ubah jaringan dan coba lagi."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Bahkan dengan cookie, YouTube membatasi penyelidikan ini. Coba lagi nanti atau ganti jaringan."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Daftar format mungkin tidak lengkap. Siapkan cookie di pengaturan lanjutan, atau ubah jaringan dan coba lagi."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Aktifkan cookie dan coba lagi"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Penyelidikan terbatas"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Mencoba kembali"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Kecepatan bit"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Mengubah"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.requiresAudioOnly"
+msgid "Audio conversion requires audio-only mode (deselect the video pick)."
+msgstr "Konversi audio memerlukan mode audio saja (batalkan pilihan video)."
+
+msgctxt "wizard.formats.convert.requiresLossy"
+msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
+msgstr "Aliran asli dipilih — kecepatan bit hanya berlaku saat mengonversi ke mp3, m4a, atau karya."
+
+msgctxt "wizard.formats.convert.uncompressed"
+msgid "Convert · uncompressed"
+msgstr "Konversi · tidak terkompresi"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (tidak terkompresi)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Peramban"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Berkas"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Sumber cookie"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "Dokumen yt-dlp (terbitan #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 dan yang lebih baru mengenkripsi cookie dengan cara yang tidak dapat dibaca oleh aplikasi lain di Windows. Cobalah salah satu solusi di bawah ini."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Ekspor cookie dari Chrome dengan ekstensi browser, lalu alihkan aplikasi ini ke mode File dan pilih file yang diekspor."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Ekspor cookie.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox tidak menggunakan Enkripsi Terikat Aplikasi. Buka pengaturan cookie dan pilih Firefox dari daftar browser."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Beralih ke Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Tambahkan --disable-features=LockProfileCookieDatabase ke pintasan peluncuran Chrome. Peringatan: ini akan membatalkan cookie yang dienkripsi sebelumnya, jadi Anda akan keluar dari setiap situs dan harus masuk lagi."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Luncurkan Chrome dengan Enkripsi Terikat Aplikasi dinonaktifkan"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Cookie Chrome diblokir oleh enkripsi Windows"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Cookie dibaca langsung dari browser. Jika browser sedang berjalan, database cookie-nya mungkin terkunci (keluarga Chromium). Browser juga harus masuk ke YouTube. Coba tutup browser, beralih ke browser lain, beralih ke mode File, atau matikan cookie."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "File cookie Anda mungkin kosong, kedaluwarsa, atau dalam format yang salah (yt-dlp mengharapkan Netscape cookies.txt). Coba ekspor ulang cookie, pilih file lain, alihkan ke mode Browser, atau matikan cookie."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Cookie mungkin menjadi penyebabnya"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "yt-dlp tidak dapat mengakses video ini tanpa autentikasi. Konfigurasikan cookie dalam pengaturan lanjutan — arahkan cookie ke browser yang sudah Anda masuki, atau impor file cookies.txt."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Situs ini memerlukan proses masuk"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Buka pengaturan cookie"
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Tetap apa adanya"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Audio bawaan"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Memuat format"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Harap tunggu hingga pemeriksaan selesai — daftar putar dan penelusuran dapat memakan waktu cukup lama."
+
+msgctxt "wizard.formats.mascot"
+msgid "Best + Best = max quality. I'd pick that!"
+msgstr "Terbaik + Terbaik = kualitas maksimal. Saya akan memilih itu!"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Tidak ada audio"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Kualitas tinggi"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Kualitas rendah"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Kualitas sedang"
+
+msgctxt "wizard.formats.quickPresets"
+msgid "Quick presets"
+msgstr "Preset cepat"
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Ukuran tidak diketahui"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Lewati untuk mengonfirmasi"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Menggunakan preferensi tersimpan Anda untuk semua langkah selanjutnya. Untuk mengubah pengaturan, lanjutkan langkah demi langkah — pilihan Anda akan disimpan untuk waktu berikutnya."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Menemukan format terbaik untuk Anda…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.formats.videoOnly"
+msgid "Video only"
+msgstr "Hanya video"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Ingin hanya video yang Anda klik, atau pilih dari playlist? Selanjutnya Anda akan memilih video atau rentang tertentu."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Pilih dari daftar putar"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Batas pemeriksaan daftar putar: item {{count}}"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgstr "Menggunakan mode daftar putar yt-dlp dan mengambil hingga batas pemeriksaan daftar putar Anda sebelum menampilkan alat pilih."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Unduh video ini saja, atau masukkan seluruh daftar putar ke dalam antrean dengan profil Unduh Cepat Anda yang aktif."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Entri maksimum yang dipindai Arroxy sebelum mengantri daftar putar, saluran, atau hasil pencarian."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Mengantrekan setiap item daftar putar yang dimuat dengan profil Unduhan Cepat yang aktif. Jika pemindaian mencapai batas Anda, Arroxy bertanya sebelum mengantri."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Mengantri satu unduhan dan mengabaikan daftar putar yang terlampir pada URL ini."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Unduh video ini"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Unduh seluruh daftar putar"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgstr "Menggunakan mode video tunggal yt-dlp sehingga playlist yang dilampirkan ke URL ini diabaikan."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Hanya yang ini"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Tautan ini memiliki daftar putar"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Penanda bab dapat dinavigasi di pemain modern mana pun."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Sematkan bab"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Judul, artis, deskripsi, dan tanggal upload ditulis ke dalam file."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Sematkan metadata"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Sampul seni di dalam file. Video WebM akan di-remix ke MKV; dilewati ketika subtitle tertanam."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Sematkan gambar mini"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Menyimpan deskripsi video sebagai file teks .description di sebelah unduhan."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Simpan deskripsi"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Simpan daftar putar .m3u di samping video agar dapat dibuka secara berurutan di pemutar media Anda."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Hasilkan file daftar putar .m3u"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Menyimpan thumbnail sebagai file gambar .jpg di sebelah unduhan."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Simpan gambar kecil"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Sudah diunduh"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "URL massal"
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Mengambil detail video… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Detail tidak tersedia"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Mengambil detail"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Menunggu"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "hidup"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Item daftar putar"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Video untuk diunduh"
+
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "Video {{count}}"
+
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "video {{count}}"
+
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "jalur {{count}}"
+
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "trek {{count}}"
+
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "URL {{count}}"
+
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "URL {{count}}"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Mengambil daftar putar…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Mengambil video…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Terbatas untuk item {{count}} pertama"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Halaman {{count}} ditemukan"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}} halaman ditemukan"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Mengumpulkan video"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Memindai halaman saluran"
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Pilih setidaknya satu video untuk melanjutkan"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Menampilkan item {{count}} pertama. Tingkatkan batas muatan untuk melihat lebih banyak."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Pemindaian daftar putar dibatasi"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Pemindaian dibatasi"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Terapkan rentang"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Dari"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Ke"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Pilih semua"
+
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} dipilih"
+
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} dipilih"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Pilih tidak ada"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Terapkan sinkronisasi"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Ganti map…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} dari video ini sudah ada di {{dir}}. Sinkronkan untuk hanya mengunduh yang baru?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Sudah ada di folder"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Tidak ada video dari daftar putar ini yang ditemukan di {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "Tidak ada video dari sumber ini yang ditemukan di {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Belum ada yang diunduh"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Memeriksa folder…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Gambar kecil video"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Pilih kualitas untuk batch tersebut"
+
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "barang {{count}}"
+
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "item {{count}}"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan."
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Batalkan persiapan"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Tautan saat ini"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy sedang membaca tautan dan menerapkan {{profileName}}."
+
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} gagal"
+
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} gagal"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Mengambil detail"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Menambah antrian"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Mempersiapkan Unduhan Cepat"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Biarkan ini tetap terbuka sementara Arroxy menyiapkan antrian."
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Pengisi"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Pendahuluan"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Musik di luar topik"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "luar"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Pratinjau"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Promosi diri"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Sponsor"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Kategori"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Tandai sebagai bab"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Mati"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Hapus segmen"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Penyaringan sponsor"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Menandai segmen sponsor sebagai bab (tidak merusak)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Tidak ada SponsorBlock — video diputar saat diunggah."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Memotong segmen sponsor dari video menggunakan FFmpeg."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Mengonfirmasi"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Menyimpan"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Keluaran"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Daftar putar"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Video"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Kualitas"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Subtitle"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Teks otomatis akan disimpan sebagai SRT, bukan ASS — untuk video YouTube, teks tersebut dibersihkan dari duplikasi isyarat, yang belum dapat ditiru oleh konverter ASS kami."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Otomatis"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Hapus semuanya"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Mode penyematan menyimpan keluaran sebagai .mkv sehingga trek subtitle dapat disematkan dengan andal."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.subtitles.mascot"
+msgid "Pick zero, one, or many — totally up to you ✨"
+msgstr "Pilih nol, satu, atau banyak — terserah Anda ✨"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Tidak ada subtitle yang tersedia untuk video ini"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Tidak ada bahasa yang cocok"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Tidak ada subtitle yang dipilih"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Sematkan ke dalam video"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Simpan sebagai"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Di sebelah video"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "subtitle/subfolder"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Cari bahasa…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Dibuat secara otomatis"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Manual"
+
+msgctxt "wizard.subtitles.selectedNote_one"
+msgid "{{count}} subtitle will be downloaded"
+msgstr "Subtitle {{count}} akan diunduh"
+
+msgctxt "wizard.subtitles.selectedNote_other"
+msgid "{{count}} subtitles will be downloaded"
+msgstr "Subtitle {{count}} akan diunduh"
+
+msgctxt "wizard.subtitles.skip"
+msgid "Skip"
+msgstr "Melewati"
+
+msgctxt "wizard.subtitles.skipSubs"
+msgid "Skip for this video"
+msgstr "Lewati untuk video ini"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Canggih"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send anonymous usage stats"
+msgstr "Kirim statistik penggunaan anonim"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "Counts app launches only. No URLs, filenames, or personal data."
+msgstr "Hanya menghitung peluncuran aplikasi. Tidak ada URL, nama file, atau data pribadi."
+
+msgctxt "wizard.url.backdrop.cssOnlyDescription"
+msgid "CSS only, no canvas rendering."
+msgstr "Hanya CSS, tidak ada rendering kanvas."
+
+msgctxt "wizard.url.backdrop.cssOnlyLabel"
+msgid "Best performance"
+msgstr "Performa terbaik"
+
+msgctxt "wizard.url.backdrop.gpuDescription"
+msgid "Animated WebGL backdrop when supported."
+msgstr "Latar belakang WebGL animasi bila didukung."
+
+msgctxt "wizard.url.backdrop.gpuLabel"
+msgid "Most beautiful"
+msgstr "Paling indah"
+
+msgctxt "wizard.url.backdrop.modeDescription"
+msgid "Move from the most animated look to best performance."
+msgstr "Beralih dari tampilan paling beranimasi ke performa terbaik."
+
+msgctxt "wizard.url.backdrop.modeLabel"
+msgid "Backdrop quality"
+msgstr "Kualitas latar belakang"
+
+msgctxt "wizard.url.backdrop.panelDescription"
+msgid "Choose how much motion Arroxy uses for the animated backdrop."
+msgstr "Pilih seberapa banyak gerakan yang digunakan Arroxy untuk latar belakang animasi."
+
+msgctxt "wizard.url.backdrop.panelTitle"
+msgid "Appearance and performance"
+msgstr "Penampilan dan kinerja"
+
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "WebGL perangkat keras tidak tersedia di perangkat ini, jadi Arroxy menggunakan latar belakang kinerja."
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "URL massal"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Tambahkan dan antri beberapa URL."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Hapus URL"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Tautan ditambahkan dari clipboard"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "Tautan {{count}} dibuka dari clipboard"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "Tautan {{count}} dibuka dari clipboard"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Membatalkan"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "Tolak tautan yang disalin"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "Buka tautan yang disalin {{count}}"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "Buka tautan yang disalin {{count}}"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "Tautan yang disalin sudah siap"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "{{count}} menyalin tautan siap"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "{{count}} tautan yang disalin sudah siap"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Tonton papan klip"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Isi otomatis bidang URL saat Anda menyalin tautan video."
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "Gunakan tautan yang disalin"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Sembunyikan ke baki saat ditutup"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Lanjutkan pengunduhan di latar belakang setelah menutup jendela."
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgstr "Situs seperti YouTube mungkin menandai — dan terkadang melarang — akun yang cookie-nya digunakan oleh yt-dlp. Gunakan akun sekali pakai jika memungkinkan."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Membaca cookie langsung dari browser. Browser harus ditutup untuk browser keluarga Chromium."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Peramban"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Pilih peramban…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Memilih…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Jernih"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Pilih browser untuk menggunakan cookie"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Pilih file untuk menggunakan cookie"
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Dapatkan cookies.txt SECARA LOKAL (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookie.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "File cookie"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Bagaimana cara mengekspor cookie?"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Tidak ada berkas yang dipilih"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Risiko: cookies.txt berisi setiap sesi login untuk browser tersebut — jaga kerahasiaannya."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Peramban"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Mengajukan"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Sumber cookie"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Mati"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Membantu dengan video dengan batasan usia, khusus anggota, dan akun pribadi."
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Hanya audio"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Subtitle"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ situs"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Daftar putar musik"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Video"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Daftar putar video"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Apa yang bisa ditarik Arroxy"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Saluran"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Musik"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Daftar Putar"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcast"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Video"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Panduan langkah demi langkah. Pilih format, kualitas, dan lainnya."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Unduh dari URL"
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Unduhan Interaktif"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Unduhan aktif mempertahankan batasnya saat ini. Jeda + Lanjutkan untuk menerapkan perubahan."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Kebiasaan…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "misalnya 750K atau 1,5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Batasi bandwidth untuk pengunduhan media. Kecepatan permintaan di bawah biasanya merupakan tuas batas tarif yang lebih kuat."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Gunakan angka yang diikuti K atau M (misalnya 500K, 1,5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Batas kecepatan unduh"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Mati"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Mengunduh di latar belakang… Saya bisa melakukan banyak tugas 😎"
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Letakkan tautan dan biarkan Arroxy menariknya ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Stereo yang kompatibel"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "Mengontrol apa yang dipilih oleh penduduk asli Terbaik. Baris audio manual dan M4A/AAC tetap eksplisit."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Preferensi audio asli"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Lebih suka surround / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
+msgstr "Tambahkan sedikit waktu tunggu setiap kali mengunduh sehingga Arroxy tidak masuk ke situs terlalu agresif. Nilainya adalah detik, kecuali jika disebutkan."
+
+msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
+msgid "Download connections"
+msgstr "Unduh koneksi"
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Jeda sebelum media dimulai: maks"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Jeda sebelum media dimulai: min"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Tunggu di antara pemeriksaan metadata"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Tunggu sebelum file subtitle"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Unduhan yang lembut"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Seberapa hati-hati Arroxy?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Seimbang"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Hati-hati"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Kebiasaan"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Mati"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
+msgstr "Menunggu: {{requests}} di antara pemeriksaan, {{downloads}} sebelum media dimulai, {{subtitles}} sebelum file subtitle. Koneksi: {{fragments}}."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
+msgstr "Penantian ini terjadi di dalam setiap unduhan. Arroxy masih menyimpan antrian unduhan normal satu per satu."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses and uses one download connection."
+msgstr "Bawaan. Menambahkan jeda singkat dan menggunakan satu koneksi unduhan."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Menambahkan jeda lebih lama untuk daftar putar besar atau jaringan yang sering mencapai batas."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Sesuaikan sendiri kontrol per-unduhan tingkat lanjut."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Hanya menggunakan jeda dasar kecil yang disimpan Arroxy untuk media dan subtitle."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "detik"
+
+msgctxt "wizard.url.networkPacing.units.threads"
+msgid "threads"
+msgstr "benang"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Batas saat ini: item {{count}}"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Kebiasaan…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Membatalkan"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Gunakan bilangan bulat dari {{min}} hingga {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Simpan batas"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Batas pemindaian daftar putar khusus"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Kustom: item {{count}}"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Entri maksimum Arroxy dimuat saat daftar putar, saluran, atau hasil pencarian dibuka."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Gunakan bilangan bulat dari 1 hingga 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Item daftar putar untuk dipindai"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "item {{count}}"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Memetakan ke yt-dlp --playlist-end: Arroxy hanya meminta entri daftar putar, saluran, atau pencarian sebanyak ini saat membuat alat pilih."
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Profil aktif"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Bawaan"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Kebiasaan"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Dimodifikasi"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Ubah tujuan global"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Tujuan"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Sunting"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Edit profil aktif"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Kelola profil"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Ubah profil aktif untuk Unduhan Cepat, URL Massal, dan daftar putar."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Ganti profil"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Profil baru"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Buat, pilih, edit, atau hapus pengaturan unduhan yang dapat digunakan kembali."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Unduh Profil"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Menghapus"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Mengatur ulang"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Ganti profil unduhan: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Ganti profil unduhan"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Jernih"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Rutekan lalu lintas melalui proxy — berguna untuk konten yang dibatasi secara geografis."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "URL proksi"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "Tak satu pun dari URL tersebut dapat disiapkan"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Unduh Cepat"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Akan diunduh menggunakan: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Tidak dapat menambahkan yang ini: {{error}}"
+
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Mengantri apa yang berhasil. URL {{count}} tidak dapat disiapkan."
+
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Mengantri apa yang berhasil. URL {{count}} tidak dapat disiapkan."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Item antrean tidak dapat disiapkan"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Mempersiapkan"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Penyelidikan gagal"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Ditambahkan ke antrean"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Tempelkan video, daftar putar, saluran, atau URL pencarian untuk memulai."
+
+msgctxt "wizard.url.singleFilenameId.toggle"
+msgid "Add video ID to single filenames"
+msgstr "Tambahkan ID video ke satu nama file"
+
+msgctxt "wizard.url.singleFilenameId.toggleDescription"
+msgid "Keeps one-off downloads unique when titles change or collide."
+msgstr "Membuat unduhan satu kali tetap unik ketika judul berubah atau bertabrakan."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profil"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Pengaturan"

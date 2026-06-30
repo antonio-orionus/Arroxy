@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
-**زبان:** [Afaan Oromoo](README.om.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · **اردو** · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
+**زبان:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · **اردو** · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![ریلیز](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![بلڈ](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ویب سائٹ](https://img.shields.io/badge/website-arroxy.orionus.dev-blueviolet)](https://arroxy.orionus.dev/) ![لائسنس](https://img.shields.io/badge/license-MIT-green) ![پلیٹ فارمز](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![زبانیں](https://img.shields.io/badge/i18n-21_languages-blue)
+[![ریلیز](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![بلڈ](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ویب سائٹ](https://img.shields.io/badge/website-arroxy.orionus.dev-blueviolet)](https://arroxy.orionus.dev/) ![لائسنس](https://img.shields.io/badge/license-MIT-green) ![پلیٹ فارمز](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![زبانیں](https://img.shields.io/badge/i18n-22_languages-blue)
 
 **YouTube اور 2000+ معاون سائٹس** سے ویڈیوز، Shorts، موسیقی، چینلز، پوڈکاسٹ یا آڈیو ٹریک ڈاؤن لوڈ کریں — 60 fps پر 4K HDR تک، یا MP3 / AAC / Opus کے طور پر۔ Windows، macOS اور Linux پر مقامی طور پر چلتا ہے۔ **کوئی اشتہارات نہیں، کوئی بلوٹ نہیں، کوئی اپ سیلز نہیں۔**
 
@@ -242,7 +242,7 @@ Arroxy ایک ہی کام کے لیے بنایا گیا ہے: URL پیسٹ کر�
 - **کلپ بورڈ واچ** — YouTube لنک کاپی کریں اور جب آپ ایپ پر واپس آئیں تو Arroxy خود بخود URL بھر دیتا ہے (ایڈوانسڈ سیٹنگز میں ٹوگل کریں)
 - **خودکار صاف URLs** — ٹریکنگ پیرامیٹرز (`si`، `pp`، `utm_*`، `fbclid`، `gclid`) کو ہٹاتا ہے اور `youtube.com/redirect` لنکس کو کھولتا ہے
 - **ٹرے موڈ** — ونڈو بند کرنے سے ڈاؤن لوڈز پس منظر میں چلتے رہتے ہیں
-- **21 زبانیں** — سسٹم لوکیل کو خود بخود پہچانتا ہے، کسی بھی وقت تبدیل کیا جا سکتا ہے
+- **22 زبانیں** — سسٹم لوکیل کا خود بخود پتہ لگاتا ہے، کسی بھی وقت تبدیل کیا جا سکتا ہے۔
 - **پلے لسٹ سنک** — پہلے سے ڈاؤن لوڈ شدہ ویڈیوز چھوڑنے کے لیے پلے لسٹ کو مقامی فولڈر کے مقابل دوبارہ اسکین کرتا ہے؛ ہر ویڈیو ڈاؤن لوڈ ہونے پر اپ ڈیٹ ہونے والی `.m3u` پلے لسٹ فائل بناتا ہے
 - **رفتار اور pacing کنٹرولز** — ڈاؤن لوڈ bandwidth محدود کریں، requests کے درمیان delays شامل کریں، اور presets (*Off · Balanced · Careful · Custom*) سے fragment threads کو tune کریں
 
@@ -303,7 +303,7 @@ Arroxy [OpenPanel](https://openpanel.dev) کے ذریعے گمنام، مجمو�
 yt-dlp لانچ پر خود بخود اپ ڈیٹ ہو جاتا ہے، اور جب YouTube کچھ تبدیل کرتا ہے تو Arroxy فوری طور پر فکس فراہم کرتا ہے۔ اگر آپ کو کبھی کوئی مسئلہ پیش آئے، تو ایڈوانسڈ سیٹنگز میں اختیاری کوکی سپورٹ ایک متبادل کے طور پر دستیاب ہے۔
 
 **Arroxy کن زبانوں میں دستیاب ہے؟**
-اکیس، باکس سے باہر: English، Español (ہسپانوی)، Deutsch (جرمن)، Français (فرانسیسی)، 日本語 (جاپانی)، 中文 (چینی)، Русский (روسی)، Українська (یوکرینی)، हिन्दी (ہندی)، Afaan Oromoo، Kiswahili، O'zbekcha (ازبک)، Tiếng Việt (ویتنامی)، አማርኛ (امہاری)، العربية (عربی)، اردو، پښتو (پشتو)، বাংলা (بنگالی)، မြန်မာဘာသာ (برمی)، Ελληνικά (یونانی)، اور Српски (صربی)۔ Arroxy پہلی بار لانچ پر آپ کے آپریٹنگ سسٹم کی زبان خود بخود پہچان لیتا ہے اور آپ ٹول بار میں زبان منتخب کرنے والے سے کسی بھی وقت تبدیل کر سکتے ہیں۔ رن ٹائم لوکیل JSON src/shared/i18n/locales/ میں ہیں، اور مترجمین کے لیے PO کیٹلاگ i18n/locales/ میں ہیں — حصہ ڈالنے کے لیے GitHub پر PR کھولیں۔
+بائیس، باکس سے باہر: English، Bahasa Indonesia (انڈونیشیائی)، Español (ہسپانوی)، Deutsch (جرمن)، Français (فرانسیسی)، 日本語 (جاپانی)، 中文 (چینی)، روسی (روسی)، روسی (یوکرینی)، ہندی (ہندی)، Afaan Oromoo، Kiswahili، O'zbekcha (ازبک)، Tiếng Việt (ویت نامی)، አማርኛ (امہاری)، العربية (عربی)، اردو (اردو)، انگریزی (پشتو)، (بنگالی)، မြန်မာဘာသာ (برمی)، Ελληνικά (یونانی)، اور Српски (سربیائی)۔ Arroxy پہلی لانچ پر آپ کے آپریٹنگ سسٹم کی زبان کا خود بخود پتہ لگاتا ہے اور آپ ٹول بار میں لینگویج چننے والے سے کسی بھی وقت سوئچ کر سکتے ہیں۔ Runtime لوکل JSON src/shared/i18n/locales/ میں رہتا ہے، اور مترجم کا سامنا کرنے والے PO کیٹلاگ i18n/locales/ میں رہتے ہیں — تعاون کرنے کے لیے GitHub پر PR کھولیں۔
 
 **کیا مجھے کچھ اور انسٹال کرنا ہوگا؟**
 نہیں۔ yt-dlp پہلی بار لانچ پر خود بخود ڈاؤن لوڈ ہو کر آپ کی مشین پر کیش ہو جاتا ہے؛ ffmpeg اور ffprobe ایپ کے ساتھ آتے ہیں۔ اس کے بعد کسی اضافی سیٹ اپ کی ضرورت نہیں۔

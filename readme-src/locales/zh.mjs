@@ -141,7 +141,7 @@ export const zh = {
   feat_workflow_4:
     "**自动清理 URL** — 剥除跟踪参数（`si`、`pp`、`utm_*`、`fbclid`、`gclid`）并解包 `youtube.com/redirect` 跳转链接",
   feat_workflow_5: "**托盘模式** — 关闭窗口后下载在后台继续运行",
-  feat_workflow_6: "**21 种语言** — 自动检测系统语言，随时切换",
+  feat_workflow_6: "**22 种语言** — 自动检测系统区域设置，可随时切换",
   feat_workflow_7:
     "**播放列表同步** — 将播放列表与本地文件夹重新比对，跳过已下载的视频；生成一个 `.m3u` 播放列表文件，并在每个视频下载后更新",
   feat_workflow_8:
@@ -302,7 +302,7 @@ export const zh = {
     "yt-dlp 在启动时自动更新，YouTube 一旦发生变化，Arroxy 会及时发布修复。如果你确实遇到问题，高级设置中提供可选的 Cookie 支持作为后备方案。",
   faq_q6: "Arroxy 支持哪些语言？",
   faq_a6:
-    "开箱即用支持二十一种：English、Español（西班牙语）、Deutsch（德语）、Français（法语）、日本語（日语）、中文、Русский（俄语）、Українська（乌克兰语）、हिन्दी（印地语）、Afaan Oromoo、Kiswahili、O'zbekcha（乌兹别克语）、Tiếng Việt（越南语）、አማርኛ（阿姆哈拉语）、العربية（阿拉伯语）、اردو（乌尔都语）、پښتو（普什图语）、বাংলা（孟加拉语）、မြန်မာဘာသာ（缅甸语）、Ελληνικά（希腊语）和 Српски（塞尔维亚语）。Arroxy 在首次启动时自动检测系统语言，随时可在工具栏的语言选择器中切换。运行时语言 JSON 位于 src/shared/i18n/locales/，面向译者的 PO 目录位于 i18n/locales/ — 可在 GitHub 上发 PR 贡献。",
+    "二十二、开箱即用：English、Bahasa Indonesia（印尼语）、Español（西班牙语）、Deutsch（德语）、Français（法语）、日本语（日语）、中文（中文）、Русский（俄语）、Українська（乌克兰语）、 हिन्दी（印地语）、Afaan Oromoo、Kiswahili、O'zbekcha（乌兹别克语）、Tiếng Việt（越南语）、አማርኛ（阿姆哈拉语）、??????（阿拉伯语）、?????（乌尔都语）、????? （普什图语）、বাংলা（孟加拉语）、မြန်မာဘာသာ（缅甸语）、Ελληνικά（希腊语）和 Српски（塞尔维亚语）。 Arroxy 会在首次启动时自动检测您的操作系统语言，您可以随时从工具栏中的语言选择器进行切换。 Runtime 语言环境 JSON 位于 src/shared/i18n/locales/ 中，面向翻译者的 PO 目录位于 i18n/locales/ 中 — 在 GitHub 上打开 PR 进行贡献。",
   faq_q7: "需要额外安装其他软件吗？",
   faq_a7:
     "不需要。yt-dlp 会在首次启动时自动下载并缓存到你的机器上；ffmpeg 和 ffprobe 随应用一起提供。之后无需任何额外配置。",

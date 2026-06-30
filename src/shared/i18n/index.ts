@@ -1,6 +1,7 @@
 import i18next, {type i18n as I18nInstance} from 'i18next'
 import {initReactI18next} from 'react-i18next'
 import om from './locales/om.json' with {type: 'json'}
+import id from './locales/id.json' with {type: 'json'}
 import de from './locales/de.json' with {type: 'json'}
 import en from './locales/en.json' with {type: 'json'}
 import es from './locales/es.json' with {type: 'json'}
@@ -27,7 +28,7 @@ export {SUPPORTED_LANGS, LANGUAGE_NATIVE_NAMES} from './types.js'
 export type {SupportedLang, YtDlpErrorKind, LocalizedError} from './types.js'
 export {isRtl} from './rtl.js'
 
-const RESOURCES: Record<SupportedLang, LocaleResource> = {om, de, en, es, fr, sw, uz, vi, am, ar, ur, ps, bn, hi, my, el, ru, sr, uk, zh, ja}
+const RESOURCES: Record<SupportedLang, LocaleResource> = {om, id, de, en, es, fr, sw, uz, vi, am, ar, ur, ps, bn, hi, my, el, ru, sr, uk, zh, ja}
 
 export function pickLanguage(raw: string | undefined | null): SupportedLang {
 	if (!raw) return 'en'

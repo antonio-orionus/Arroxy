@@ -143,7 +143,7 @@ export const audioSelectionSchema = z.discriminatedUnion('kind', [
 ])
 export type AudioSelection = z.infer<typeof audioSelectionSchema>
 
-export const supportedLangSchema = z.enum(['om', 'de', 'en', 'es', 'fr', 'sw', 'uz', 'vi', 'am', 'ar', 'ur', 'ps', 'bn', 'hi', 'my', 'el', 'ru', 'sr', 'uk', 'zh', 'ja'])
+export const supportedLangSchema = z.enum(['om', 'id', 'de', 'en', 'es', 'fr', 'sw', 'uz', 'vi', 'am', 'ar', 'ur', 'ps', 'bn', 'hi', 'my', 'el', 'ru', 'sr', 'uk', 'zh', 'ja'])
 export type SupportedLang = z.infer<typeof supportedLangSchema>
 export const SUPPORTED_LANGS = supportedLangSchema.options
 
