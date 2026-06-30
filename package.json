@@ -123,7 +123,7 @@
 		"electron-window-state": "5.0.3",
 		"i18next": "26.3.1",
 		"lucide-react": "1.21.0",
-		"make-fetch-happen": "15.0.6",
+		"make-fetch-happen": "16.0.1",
 		"react": "19.2.7",
 		"react-dom": "19.2.7",
 		"react-i18next": "17.0.8",
