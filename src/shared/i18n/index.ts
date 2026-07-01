@@ -22,13 +22,14 @@ import uk from './locales/uk.json' with {type: 'json'}
 import zh from './locales/zh.json' with {type: 'json'}
 import ja from './locales/ja.json' with {type: 'json'}
 import vi from './locales/vi.json' with {type: 'json'}
+import tr from './locales/tr.json' with {type: 'json'}
 import {SUPPORTED_LANGS, type SupportedLang, type EnTranslation, type LocaleResource} from './types.js'
 
 export {SUPPORTED_LANGS, LANGUAGE_NATIVE_NAMES} from './types.js'
 export type {SupportedLang, YtDlpErrorKind, LocalizedError} from './types.js'
 export {isRtl} from './rtl.js'
 
-const RESOURCES: Record<SupportedLang, LocaleResource> = {om, id, de, en, es, fr, sw, uz, vi, am, ar, ur, ps, bn, hi, my, el, ru, sr, uk, zh, ja}
+const RESOURCES: Record<SupportedLang, LocaleResource> = {om, id, de, en, es, fr, sw, uz, vi, tr, am, ar, ur, ps, bn, hi, my, el, ru, sr, uk, zh, ja}
 
 export function pickLanguage(raw: string | undefined | null): SupportedLang {
 	if (!raw) return 'en'

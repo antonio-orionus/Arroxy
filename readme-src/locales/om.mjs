@@ -148,7 +148,7 @@ export const om = {
   feat_workflow_5:
     "**Haala tray** — window cufuu buufannoo duubatti itti fufsisee hojechisisa",
   feat_workflow_6:
-    "**Afaanota 22** — naannoo sirnaa ofumaan adda baasee, yeroo kamiyyuu jijjiiramuu danda'a",
+    "**Afaanota 23** — naannoo sirnaa ofumaan adda baasee, yeroo kamiyyuu jijjiiramuu danda'a",
   feat_workflow_7:
     "**Walsimsiisa playlist** — viidiyoowwan duraan buufaman akka darbaman playlist galmee naannoo waliin irra deebi'ee sakatta'a; faayila playlist `.m3u` viidiyoon tokko tokko buufamu hunda irratti haaromsamu uuma",
   feat_workflow_8:
@@ -325,7 +325,7 @@ export const om = {
     "yt-dlp yeroo eegaluu irratti ofumaan haaromfama, fi Arroxy yeroo YouTube waan tokko jijjiirtu ariitiidhaan sirreessa erga. Yoo rakkoo argattan, deeggarsi kuukkii filannoof Qindoomina Olaanaa keessa akka filannoo deebii argama.",
   faq_q6: "Arroxy afaan meeqa keessatti argamu?",
   faq_a6:
-    "Digdamii lama, saanduqa keessaa ba’e: English, Bahasa Indonesia (Indooneezhiyaa), Español (Ispeen), Deutsch (Jarmanii), Français (Faransaay), 日本語 (Jaappaan), 中文 (Chaayinaa), Русский (Raashiyaa), Українська (Afa Yukireen), हिन्दी (Hindi), Afaan Oromoo, Kiswahili, O'zbekcha (Uzbek), Tiếng Việt (Veetname), አማርኛ (Amaaraa), العربية (Arabic), اردو (Urdu), پښتو (Pashto), Bangal (Bengali), မြန်မာဘာသာ (Barmaa), Ελληνικά (Giriik), fi Српски (Sarbiyaa). Arroxy afaan sirna hojii keetii yeroo jalqaba eegaluu ofumaan adda baasee yeroo barbaaddetti afaan filattuu barruu meeshaa keessaa jijjiiruu dandeessa. Runtime naannoo JSON src/shared/i18n/locales/ keessa jiraata, fi kataloogoonni PO hiikaa fuuldura jiran i18n/locales/ keessa jiraatu — gumaachuuf PR GitHub irratti banaa.",
+    "Digdamii sadii, saanduqa keessaa ba’e: English, Bahasa Indonesia (Indooneezhiyaa), Español (Ispeen), Deutsch (Jarmanii), Français (Faransaay), 日本語 (Jaappaan), 中文 (Chaayinaa), Русский (Raashiyaa), Українська (Afa Yukireen), हिन्दी (Hindi), Afaan Oromoo, Kiswahili, O'zbekcha (Uzbek), Tiếng Việt (Veetname), Türkçe, አማርኛ (Amaaraa), العربية (Arabic), اردو (Urdu), پښتو (Pashto), Bangal (Bengali), မြန်မာဘာသာ (Barmaa), Ελληνικά (Giriik), fi Српски (Sarbiyaa). Arroxy afaan sirna hojii keetii yeroo jalqaba eegaluu ofumaan adda baasee yeroo barbaaddetti afaan filattuu barruu meeshaa keessaa jijjiiruu dandeessa. Runtime naannoo JSON src/shared/i18n/locales/ keessa jiraata, fi kataloogoonni PO hiikaa fuuldura jiran i18n/locales/ keessa jiraatu — gumaachuuf PR GitHub irratti banaa.",
   faq_q7: "Waan biraa fayyadu barbaachisaa?",
   faq_a7:
     "Lakki. yt-dlp jalqaba banuu irratti ofumaan buufamee meeshaa kee irratti kuufama; ffmpeg fi ffprobe app waliin dhufu. Sana booda qindaaʼinni dabalataa hin barbaachisu.",

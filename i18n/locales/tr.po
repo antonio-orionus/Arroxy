@@ -1,0 +1,2446 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Hakkında"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "MIT License · by Antonio Orionus"
+msgstr "MIT Lisansı · Antonio Orionus tarafından"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Arroxy Hakkında"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "YouTube ve 2000+ diğer site için hızlı, dost canlısı indirici."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Üçüncü taraf bildirimlerini görüntüle"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Web sitesi"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Geri bildirim"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Arroxy hoşuna gidiyor mu? Senden haber almak isterim! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Günlükler"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Yakınlaştır"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Uzaklaştır"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Geri"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "İptal"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Devam et"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Tekrar dene"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Baştan başla"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy çalışmaya devam eder ve etkin indirmeleri bitirir. Bunu daha sonra Gelişmiş ayarlardan değiştirebilirsin."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Tepsiye gizle"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Kapatırken Arroxy sistem tepsisine gizlensin mi?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Çık"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Bir daha sorma"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "İndirmeleri İptal Et ve Çık"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Daha sonra sürdürmek için duraklat veya ilerlemeyi silmek için iptal et."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "İndirmeye Devam Et"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}} indirme sürüyor"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} indirme sürüyor"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "İndirmeleri Duraklat ve Çık"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Renderer süreci çöktü ({{reason}}). Tekrar denemek için yeniden yükle."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy bir sorunla karşılaştı"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Çık"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Yeniden yükle"
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Bu video yaş kısıtlamalı ve oturum açılmış hesap olmadan indirilemez."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgstr "Bot koruması tetiklendi. Kullandığın IP büyük olasılıkla işaretlenmiş (veri merkezi aralığı veya yoğun VPN çıkışı). IP’ni değiştir veya farklı bir VPN uç noktası seçip tekrar dene. Sorun sürerse bu geçici bir site tarafı değişikliği olabilir — Arroxy açılışta yt-dlp’yi otomatik günceller, bu yüzden üst kaynak düzeltmeyi yayınladığında çözüm otomatik gelir."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Sunucu indirmeyi akış ortasında kesmeye devam etti ve yt-dlp tekrar denemelerden sonra vazgeçti. Bu genelde en büyük video biçimlerinde görülür (4K HDR / yüksek bit hızlı VP9). Tekrar dene, ağı/VPN’i değiştir veya daha düşük çözünürlük seç."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgstr "Bu video DRM korumalı. yt-dlp DRM’i kaldıramaz, bu yüzden dosya indirilemez."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Bu video bölgenizde kullanılamıyor."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "IP adresin engellenmiş görünüyor. Daha sonra tekrar dene veya VPN kullan."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgstr "Bu video oturum açılmış hesap gerektiriyor. Bir cookies.txt ayarla (Ayarlar → Çerezler) ve tekrar dene."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp ffmpeg veya ffprobe bulamadı. Paketlenen ikili dosyaları onar veya bir FFmpeg konumu ayarla, sonra tekrar dene."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Ağ hatası. Bağlantını kontrol edip tekrar dene."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Yeterli disk alanı yok. Yer açıp tekrar dene."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgstr "Siteden gelen yanıt ayrıştırılamadı. yt-dlp çıkarıcısı değişmiş olabilir. Arroxy açılışta yt-dlp’yi otomatik günceller — düzeltme yayınlandıktan birkaç dakika sonra tekrar dene."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "yt-dlp indirmeyi bitirdi ama son işleme (birleştirme / mux / dönüştürme) başarısız oldu. Çoğu zaman geçici bir ffmpeg sorunudur — tekrar dene; sürerse farklı bir biçim kombinasyonu dene."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgstr "Site istekleri hız sınırlıyor. Bir dakika bekleyip tekrar dene."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Bu video kullanılamıyor — özel, silinmiş veya bölge kilitli olabilir."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "İndirme başarısız oldu. Aşağıdaki ham çıktıya bak."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr "Bu URL yt-dlp tarafından desteklenmiyor. yt-dlp’nin desteklediği sitelerden farklı bir bağlantı dene."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Ses"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Yalnızca ses · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Dil"
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Ses (en iyi)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Ses ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Yerel en iyi ses, yeniden kodlama yok"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "M4A’ya (AAC) dönüştür"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "MP3’e dönüştür"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Opus’a dönüştür"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "YouTube’da 1080p üzeri H.264 kullanılamaz — otomatik olarak 1080p ile sınırlanır"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "1080p’ye kadar"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "1440p’ye kadar"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "4K’ya kadar"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "360p’ye kadar"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "480p’ye kadar"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "720p’ye kadar"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "En iyi kalite"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "1080p ile sınırlı, her öğede daha düşüğe düşebilir"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "2K ile sınırlı, her öğede daha düşüğe düşebilir"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "2160p ile sınırlı, her öğede daha düşüğe düşebilir"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Smallest video"
+msgstr "En küçük video"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Düşük bant genişliği"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Daha küçük dosyalar, geniş uyumluluk"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Her öğe için en yüksek kullanılabilir video + ses"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Ses"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "En iyi yerel"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "Akıllı TV H.264 MP4"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Her öğe için en iyi kullanılabilir kapsayıcı ve kodekler"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Mümkün olduğunda MP4 içinde H.264 video + AAC ses tercih et"
+
+msgctxt "presets.audio-only.desc"
+msgid "No video, best audio"
+msgstr "Video yok, en iyi ses"
+
+msgctxt "presets.audio-only.label"
+msgid "Audio only"
+msgstr "Yalnızca ses"
+
+msgctxt "presets.balanced.desc"
+msgid "720p max + good audio"
+msgstr "En fazla 720p + iyi ses"
+
+msgctxt "presets.balanced.label"
+msgid "Balanced"
+msgstr "Dengeli"
+
+msgctxt "presets.best-quality.desc"
+msgid "Highest resolution + best audio"
+msgstr "En yüksek çözünürlük + en iyi ses"
+
+msgctxt "presets.best-quality.label"
+msgid "Best quality"
+msgstr "En iyi kalite"
+
+msgctxt "presets.small-file.desc"
+msgid "Lowest resolution + low audio"
+msgstr "En düşük çözünürlük + düşük ses"
+
+msgctxt "presets.small-file.label"
+msgid "Small file"
+msgstr "Küçük dosya"
+
+msgctxt "presets.subtitle-only.desc"
+msgid "No video, no audio, only subtitles"
+msgstr "Video yok, ses yok, yalnızca altyazılar"
+
+msgctxt "presets.subtitle-only.label"
+msgid "Subtitles only"
+msgstr "Yalnızca altyazılar"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Eşlikçi"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Açıklama"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Medya"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Eksik"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Altyazı"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Küçük resim"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Çıktı"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Tüm etkin ve bekleyen indirmeleri iptal et"
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Tamamlanan indirmeleri temizle"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Kuyruktaki indirmeler burada görünecek"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Tümü"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Kuyruk durumu filtreleri"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Tüm öğeler"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "İndirmeler"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "İptal"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "İndirme başarısız oldu"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Hedef klasörü aç"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Duraklat"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Yalnızca bekleyenler"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Şimdi çek — kuyruğu atla"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Kaldır"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Sürdür"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Tekrar dene"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Konum ayarla"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Konum ayarlamak için bekleyen öğeleri seç."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "İptal edildi"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Tamamlandı"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Hata"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Bekletildi"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Duraklatıldı"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Bekliyor"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "İndiriliyor"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Tüm etkin indirmeleri duraklat ve yenilerinin başlamasını durdur"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Duraklatılan indirmeleri sürdür ve kuyruğun devam etmesine izin ver"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Seçili öğeler"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} seçili · {{total}} toplam"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "İndirmeler"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Eklendi"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Çıktılar"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Sütunlar"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Bitti"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Biçim"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "{{title}} için çıktıları gizle"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Çıktı hedefi"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "İlerleme"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "{{title}} için çıktıları göster"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "{{label}} ile sırala"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Durum"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Başlık"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "İndirmeler artık İndirmeler sekmesinde — ilerlemeyi izlemek için istediğin zaman aç."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Devam et"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Yeni bir güncelleme kullanıyorsun. Öne çıkanlar burada."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Tam sürüm notları ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Arroxy {{version}} sürümündeki yenilikler"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "İptal"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Yürütülebilir dosya seç"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Homebrew ile yükle"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "WinGet ile yükle"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Bağımlılık klasörünü aç"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Varsayılana sıfırla"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Retry setup"
+msgstr "Kurulumu tekrar dene"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Kurulum günlüğünü görüntüle"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.hints.badExitCode"
+msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
+msgstr "İkili dosya --version komutuna yanıt vermedi. Bozuk ya da yanlış derleme olabilir."
+
+msgctxt "repair.hints.blockedOrQuarantined"
+msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
+msgstr "Windows dosyayı engelledi (SmartScreen / Defender). Yüklü bir kopya seç veya çalışma zamanı klasörünü izin listesine al."
+
+msgctxt "repair.hints.downloadFailed"
+msgid "Download failed. Check your internet connection and retry."
+msgstr "İndirme başarısız oldu. İnternet bağlantını kontrol edip tekrar dene."
+
+msgctxt "repair.hints.extractFailed"
+msgid "Archive extraction failed. The download may be corrupt — retry."
+msgstr "Arşiv çıkarma başarısız oldu. İndirme bozuk olabilir — tekrar dene."
+
+msgctxt "repair.hints.hashFailed"
+msgid "Checksum mismatch on the downloaded file. Retry the download."
+msgstr "İndirilen dosyada sağlama toplamı uyuşmazlığı var. İndirmeyi tekrar dene."
+
+msgctxt "repair.hints.pairIncomplete"
+msgid "ffmpeg and ffprobe must both be set as a matched pair."
+msgstr "ffmpeg ve ffprobe eşleşen bir çift olarak birlikte ayarlanmalıdır."
+
+msgctxt "repair.hints.permissionDenied"
+msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
+msgstr "Sistem dosyayı çalıştırmayı reddetti. Güvendiğin bir kopya seç veya yönetici olarak tekrar dene."
+
+msgctxt "repair.hints.spawnFailed"
+msgid "The file is missing or could not be launched. Pick a working copy."
+msgstr "Dosya eksik veya başlatılamadı. Çalışan bir kopya seç."
+
+msgctxt "repair.hints.timeout"
+msgid "The version probe timed out. The file may be hung — retry."
+msgstr "Sürüm denetimi zaman aşımına uğradı. Dosya takılmış olabilir — tekrar dene."
+
+msgctxt "repair.hints.unknown"
+msgid "Could not be verified."
+msgstr "Doğrulanamadı."
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Kurulum yardımına ihtiyaç duyuyor"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Kopyalandı!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Bağlantıyı kopyala"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 1850+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — Windows, macOS ve Linux için ücretsiz, açık kaynaklı video indirici. YouTube, Vimeo, Twitch ve 1850+ siteyle çalışır.\n"
+"4K · HDR · MP3 · Shorts · Altyazılar · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy ücretsiz ve açık kaynaklıdır. Paylaşmak daha fazla kişinin keşfetmesine yardımcı olur."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Paylaş"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Arroxy’yi paylaş"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Arroxy’yi paylaş"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Arroxy’yi paylaş"
+
+msgctxt "splash.downloading"
+msgid "Downloading {{binary}}…"
+msgstr "{{binary}} indiriliyor…"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Selam, tekrar hoş geldin!"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "İndirmeler hazırlanıyor…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Kurulum başarısız oldu. Ayrıntılar için kurulum günlüğünü aç."
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "İndirme iptal edildi"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "İndirme tamamlandı"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Video dönüştürülüyor…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Yeterli disk alanı yok — {{required}} gerekiyor, yalnızca {{free}} kullanılabilir"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "{{name}} ikili dosyası indiriliyor…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Video ve ses indiriliyor…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Meta veriler gömülüyor…"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Ses dönüştürülüyor…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "SponsorBlock ile iletişim kuruluyor…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Altyazılar alınıyor…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Ses ve video birleştiriliyor…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "YouTube jetonu oluşturuluyor…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Dosyalar taşınıyor…"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "İkili dosyalar hazırlanıyor…"
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Jeton yeniden oluşturuluyor…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock kullanılamıyor, tekrar deneniyor ({{attempt}}/{{total}})…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Hız sınırlarından kaçınmak için {{seconds}} sn bekleniyor…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting yt-dlp process…"
+msgstr "yt-dlp süreci başlatılıyor…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Video kaydedildi — bazı altyazılar indirilemedi"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Bilinmeyen indirme başlatma hatası"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Gevşetilmiş çıkarıcıyla indirildi — daha güvenilir indirmeler için cookies.txt kur"
+
+msgctxt "status.ytdlpExitCode"
+msgid "yt-dlp exited with code {{code}}"
+msgstr "yt-dlp {{code}} koduyla çıktı"
+
+msgctxt "status.ytdlpProcessError"
+msgid "yt-dlp process error: {{error}}"
+msgstr "yt-dlp süreç hatası: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Koyu mod"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Açık mod"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Sistem varsayılanı"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Kapat"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Büyüt"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Simge durumuna küçült"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Geri yükle"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Arroxy’yi aç"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Arroxy’den çık"
+
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 indiriliyor · {{percent}}%"
+
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} indiriliyor · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Boşta"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.appVersion"
+msgid "Arroxy {{version}}"
+msgstr "Arroxy {{version}}"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Komut panoya kopyalandı"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Komutu panoya kopyala"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Güncelleme bandını kapat"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "İndir ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "DMG indir ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "İndiriliyor…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Yükle ve Yeniden Başlat"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Güncelleme başarısız oldu"
+
+msgctxt "update.isAvailable"
+msgid "is available"
+msgstr "kullanılabilir"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} kullanılabilir — sende {{currentVersion}} var."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} kullanılabilir — Homebrew ile güncelle."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} kullanılabilir — yeni DMG’yi indir."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} kullanılabilir — yeni derlemeyi indir."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Tekrar dene"
+
+msgctxt "update.youHave"
+msgid "— you have {{currentVersion}}"
+msgstr "— sende {{currentVersion}} var"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Yükleniyor…"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Hazır"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Video, oynatma listesi, kanal, arama veya ses URL’leri yapıştır. Arroxy kuyruğa almadan önce yinelenenleri temizler."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Toplu listeyi önizlemek için bir veya daha fazla URL yapıştır."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Yoksayıldı"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Devam etmek için en az bir desteklenen URL ekle."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Yinelenen"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "URL listesi"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://ornek.com/video-1\n"
+"https://ornek.com/video-2\n"
+"https://ornek.com/video-3"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "Toplu URL’ler"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Kuyruk"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Kuyruğa ekler — etkin indirme bittiğinde başlar"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Yalnızca ses"
+
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{total}} videodan {{count}} tanesi"
+
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{total}} videodan {{count}} tanesi"
+
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{total}} parçadan {{count}} tanesi"
+
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{total}} parçadan {{count}} tanesi"
+
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{total}} URL’den {{count}} tanesi"
+
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{total}} URL’den {{count}} tanesi"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Ses"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Toplu"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Öğeler"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Oynatma listesi"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Ön ayar"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Şuraya kaydet"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Boyut"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Altyazılar"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Dosyan şuraya düşecek"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Yalnızca altyazı ön ayarı etkin ama altyazı dili seçilmedi — indirilecek bir şey yok."
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Çek! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Kuyruğu atlar — şimdi başlar, diğer etkin indirmelerle birlikte çalışır"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Çekmeye hazır!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Bilinmiyor"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Altyazı gömme yan dosyaya çevrildi — ses parçaları gömülü altyazı akışlarını desteklemez."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Küçük resim gömme atlandı — çıktı kapsayıcısı bunu desteklemiyor."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Özel…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Masaüstü"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Belgeler"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "İndirilenler"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Şuraya kaydet"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Ev"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Müzik"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Resimler"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Klasör adında geçersiz karakterler var"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "örn. lo-fi kayıtları"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Alt klasör içine kaydet"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Filmler"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Ses"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Yalnızca ses"
+
+msgctxt "wizard.formats.audioOnlyOption"
+msgid "Audio only (no video)"
+msgstr "Yalnızca ses (video yok)"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Çerezler yapılandırılmış ama kapalı. Tam listeyi almak için etkinleştirip tekrar dene ya da ağı değiştirip tekrar dene."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Çerezlerle bile YouTube bu denetimi sınırladı. Daha sonra tekrar dene veya ağı değiştir."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Biçim listesi eksik olabilir. Gelişmiş ayarlarda çerezleri kur veya ağı değiştirip tekrar dene."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Çerezleri etkinleştir ve tekrar dene"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Denetim sınırlandı"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Tekrar dene"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Bit hızı"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Dönüştür"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kb/sn"
+
+msgctxt "wizard.formats.convert.requiresAudioOnly"
+msgid "Audio conversion requires audio-only mode (deselect the video pick)."
+msgstr "Ses dönüştürme için yalnızca ses modu gerekir (video seçimini kaldır)."
+
+msgctxt "wizard.formats.convert.requiresLossy"
+msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
+msgstr "Yerel bir akış seçili — bit hızı yalnızca mp3, m4a veya opus’a dönüştürürken uygulanır."
+
+msgctxt "wizard.formats.convert.uncompressed"
+msgid "Convert · uncompressed"
+msgstr "Dönüştür · sıkıştırılmamış"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (sıkıştırılmamış)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Tarayıcı"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Dosya"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Çerez kaynağı"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp belgeleri (issue #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 ve daha yenisi çerezleri Windows’ta diğer uygulamaların okuyamayacağı şekilde şifreler. Aşağıdaki geçici çözümlerden birini dene."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Chrome’dan bir tarayıcı uzantısıyla çerezleri dışa aktar, sonra bu uygulamayı Dosya moduna geçirip dışa aktarılan dosyayı seç."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "cookies.txt dışa aktar"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox App-Bound Encryption kullanmaz. Çerez ayarlarını aç ve tarayıcı listesinden Firefox’u seç."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Firefox’a geç"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Chrome başlatma kısayoluna --disable-features=LockProfileCookieDatabase ekle. Uyarı: bu, daha önce şifrelenmiş çerezleri geçersiz kılar; tüm sitelerden çıkış yapılır ve yeniden giriş yapman gerekir."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Chrome’u App-Bound Encryption devre dışı başlat"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Chrome çerezleri Windows şifrelemesi tarafından engellendi"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Çerezler doğrudan tarayıcıdan okunur. Tarayıcı şu anda çalışıyorsa çerez veritabanı kilitli olabilir (Chromium ailesi). Tarayıcıda YouTube oturumu da açık olmalıdır. Tarayıcıyı kapatmayı, farklı bir tarayıcıya geçmeyi, Dosya moduna geçmeyi veya çerezleri kapatmayı dene."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Çerez dosyan boş, süresi dolmuş veya yanlış biçimde olabilir (yt-dlp Netscape cookies.txt bekler). Çerezleri yeniden dışa aktarmayı, farklı bir dosya seçmeyi, Tarayıcı moduna geçmeyi veya çerezleri kapatmayı dene."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Neden çerezler olabilir"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "yt-dlp bu videoya kimlik doğrulaması olmadan erişemedi. Gelişmiş ayarlarda çerezleri yapılandır — zaten oturum açtığın bir tarayıcıyı göster veya bir cookies.txt dosyası içe aktar."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Bu site oturum açmayı gerektiriyor"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Çerez ayarlarını aç"
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Olduğu gibi tut"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Yerleşik ses"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Biçimler yükleniyor"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Lütfen denetim bitene kadar bekle — oynatma listeleri ve aramalar biraz sürebilir."
+
+msgctxt "wizard.formats.mascot"
+msgid "Best + Best = max quality. I'd pick that!"
+msgstr "En iyi + En iyi = en yüksek kalite. Ben bunu seçerdim!"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Ses yok"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Yüksek kalite"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Düşük kalite"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Orta kalite"
+
+msgctxt "wizard.formats.quickPresets"
+msgid "Quick presets"
+msgstr "Hızlı ön ayarlar"
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Boyut bilinmiyor"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Onaya atla"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Kalan tüm adımlar için kayıtlı tercihlerini kullanır. Bir ayarı değiştirmek için adım adım devam et — seçimin bir sonraki sefer için kaydedilir."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Senin için en iyi biçimler aranıyor…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Toplam"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.formats.videoOnly"
+msgid "Video only"
+msgstr "Yalnızca video"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Yalnızca tıkladığın videoyu mu, yoksa oynatma listesinden seçim yapmayı mı istersin? Sonraki adımda belirli videoları veya bir aralığı seçeceksin."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Oynatma listesinden seç"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Oynatma listesi denetim sınırı: {{count}} öğe"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgstr "yt-dlp oynatma listesi modunu kullanır ve seçiciyi göstermeden önce oynatma listesi denetim sınırına kadar öğe alır."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Yalnızca bu videoyu indir veya etkin Hızlı İndirme profilinle tüm oynatma listesini kuyruğa al."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Arroxy’nin bir oynatma listesini, kanalı veya arama sonucunu kuyruğa almadan önce taradığı en fazla kayıt sayısı."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Yüklenen her oynatma listesi öğesini etkin Hızlı İndirme profiliyle kuyruğa alır. Tarama sınırına ulaşırsa Arroxy kuyruğa almadan önce sorar."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Bir indirme kuyruğa alır ve bu URL’ye bağlı oynatma listesini yoksayar."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Bu videoyu indir"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Tüm oynatma listesini indir"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgstr "yt-dlp tek video modunu kullanır, böylece bu URL’ye bağlı oynatma listesi yoksayılır."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Sadece bu"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Bu bağlantıda bir oynatma listesi var"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Her modern oynatıcıda gezilebilir bölüm işaretleri."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Bölümleri göm"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Başlık, sanatçı, açıklama ve yükleme tarihi dosyaya yazılır."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Meta verileri göm"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Dosyanın içinde kapak görseli. WebM video MKV’ye yeniden paketlenir; altyazılar gömülüyse atlanır."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Küçük resmi göm"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Video açıklamasını indirmenin yanına .description metin dosyası olarak kaydeder."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Açıklamayı kaydet"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Videoların medya oynatıcında sırayla açılması için yanlarına bir .m3u oynatma listesi kaydet."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr ".m3u oynatma listesi dosyası oluştur"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Küçük resmi indirmenin yanına .jpg görüntü dosyası olarak kaydeder."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Küçük resmi kaydet"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Zaten indirildi"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "Toplu URL’ler"
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Video ayrıntıları alınıyor… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Ayrıntılar kullanılamıyor"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Ayrıntılar alınıyor"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Bekliyor"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "canlı"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Oynatma listesi öğeleri"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "İndirilecek videolar"
+
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} video"
+
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} video"
+
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} parça"
+
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} parça"
+
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Oynatma listesi alınıyor…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Videolar alınıyor…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "İlk {{count}} öğeyle sınırlandı"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}} sayfa bulundu"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}} sayfa bulundu"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Videolar toplanıyor"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Kanal sayfaları taranıyor"
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Devam etmek için en az bir video seç"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "İlk {{count}} öğe gösteriliyor. Daha fazlasını görmek için yükleme sınırını artır."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Oynatma listesi taraması sınırlandı"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Tarama sınırlandı"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Aralığı uygula"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Başlangıç"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Bitiş"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Tümünü seç"
+
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} seçildi"
+
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} seçildi"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Hiçbirini seçme"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Eşitlemeyi uygula"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Klasörü değiştir…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "Bu videolardan {{n}} tanesi zaten {{dir}} içinde. Yalnızca yenileri indirmek için eşitlensin mi?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Zaten klasörde"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "{{dir}} içinde bu oynatma listesinden video bulunamadı."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "{{dir}} içinde bu kaynaktan video bulunamadı."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Henüz indirilmiş bir şey yok"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Klasör kontrol ediliyor…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Video küçük resmi"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Toplu indirme için kalite seç"
+
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} öğe"
+
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} öğe"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Her video seçilen kalite düzeyini bağımsız çözer — karışık oynatma listeleri sorunsuz çalışır."
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Hazırlığı iptal et"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Geçerli bağlantı"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy bağlantıyı okuyor ve {{profileName}} profilini uyguluyor."
+
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} başarısız"
+
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} başarısız"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Ayrıntılar alınıyor"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Kuyruğa ekleniyor"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Hızlı İndirme hazırlanıyor"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Arroxy kuyruğu hazırlarken bunu açık tut."
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Dolgu"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Giriş"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Konu dışı müzik"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Çıkış"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Önizleme"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Öz tanıtım"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Sponsor"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Kategoriler"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Bölüm olarak işaretle"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Kapalı"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Segmentleri kaldır"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Sponsor filtreleme"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Sponsor segmentlerini bölüm olarak işaretler (yıkıcı değildir)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "SponsorBlock yok — video yüklendiği gibi oynar."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "FFmpeg kullanarak sponsor segmentlerini videodan keser."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Onayla"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Kaydet"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Biçim"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Çıktı"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Oynatma listesi"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Videolar"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Kalite"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Altyazılar"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Otomatik altyazılar ASS yerine SRT olarak kaydedilecek — YouTube videolarında kayan ipucu yinelemeleri temizlenir; ASS dönüştürücümüz bunu henüz aynı şekilde yapamıyor."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Otomatik"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Tümünü temizle"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Gömme modu çıktıyı .mkv olarak kaydeder, böylece altyazı parçaları güvenilir şekilde gömülür."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Biçim"
+
+msgctxt "wizard.subtitles.mascot"
+msgid "Pick zero, one, or many — totally up to you ✨"
+msgstr "Sıfır, bir veya çok seç — tamamen sana kalmış ✨"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Bu video için altyazı yok"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Eşleşen dil yok"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Altyazı seçilmedi"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Videoya göm"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Kaydetme biçimi"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Videonun yanına"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "subtitles/ alt klasörü"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Dillerde ara…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Otomatik oluşturulan"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Manuel"
+
+msgctxt "wizard.subtitles.selectedNote_one"
+msgid "{{count}} subtitle will be downloaded"
+msgstr "{{count}} altyazı indirilecek"
+
+msgctxt "wizard.subtitles.selectedNote_other"
+msgid "{{count}} subtitles will be downloaded"
+msgstr "{{count}} altyazı indirilecek"
+
+msgctxt "wizard.subtitles.skip"
+msgid "Skip"
+msgstr "Atla"
+
+msgctxt "wizard.subtitles.skipSubs"
+msgid "Skip for this video"
+msgstr "Bu video için atla"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Gelişmiş"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send anonymous usage stats"
+msgstr "Anonim kullanım istatistikleri gönder"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "Counts app launches only. No URLs, filenames, or personal data."
+msgstr "Yalnızca uygulama açılışlarını sayar. URL, dosya adı veya kişisel veri yok."
+
+msgctxt "wizard.url.backdrop.cssOnlyDescription"
+msgid "CSS only, no canvas rendering."
+msgstr "Yalnızca CSS, canvas çizimi yok."
+
+msgctxt "wizard.url.backdrop.cssOnlyLabel"
+msgid "Best performance"
+msgstr "En iyi performans"
+
+msgctxt "wizard.url.backdrop.gpuDescription"
+msgid "Animated WebGL backdrop when supported."
+msgstr "Destekleniyorsa animasyonlu WebGL arka planı."
+
+msgctxt "wizard.url.backdrop.gpuLabel"
+msgid "Most beautiful"
+msgstr "En güzel görünüm"
+
+msgctxt "wizard.url.backdrop.modeDescription"
+msgid "Move from the most animated look to best performance."
+msgstr "En animasyonlu görünümden en iyi performansa geç."
+
+msgctxt "wizard.url.backdrop.modeLabel"
+msgid "Backdrop quality"
+msgstr "Arka plan kalitesi"
+
+msgctxt "wizard.url.backdrop.panelDescription"
+msgid "Choose how much motion Arroxy uses for the animated backdrop."
+msgstr "Arroxy’nin animasyonlu arka plan için ne kadar hareket kullanacağını seç."
+
+msgctxt "wizard.url.backdrop.panelTitle"
+msgid "Appearance and performance"
+msgstr "Görünüm ve performans"
+
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "Bu cihazda donanımsal WebGL kullanılamıyor, bu yüzden Arroxy performans arka planını kullanıyor."
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "Toplu URL’ler"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Birden fazla URL ekle ve kuyruğa al."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "URL’yi temizle"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Bağlantı panodan eklendi"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_one"
+msgid "{{count}} link opened from clipboard"
+msgstr "{{count}} bağlantı panodan açıldı"
+
+msgctxt "wizard.url.clipboard.autofilledLinks_other"
+msgid "{{count}} links opened from clipboard"
+msgstr "{{count}} bağlantı panodan açıldı"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "İptal"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "Kopyalanan bağlantıyı kapat"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_one"
+msgid "Open {{count}} copied link"
+msgstr "{{count}} kopyalanmış bağlantıyı aç"
+
+msgctxt "wizard.url.clipboard.openCopiedLinks_other"
+msgid "Open {{count}} copied links"
+msgstr "{{count}} kopyalanmış bağlantıyı aç"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "Kopyalanmış bağlantı hazır"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_one"
+msgid "{{count}} copied link ready"
+msgstr "{{count}} kopyalanmış bağlantı hazır"
+
+msgctxt "wizard.url.clipboard.pendingLinksReady_other"
+msgid "{{count}} copied links ready"
+msgstr "{{count}} kopyalanmış bağlantı hazır"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Panoyu izle"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Bir video bağlantısı kopyaladığında URL alanını otomatik doldur."
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "Kopyalanan bağlantıyı kullan"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Kapatınca tepsiye gizle"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Pencere kapandıktan sonra indirmeleri arka planda sürdür."
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgstr "YouTube gibi siteler, çerezleri yt-dlp tarafından kullanılan hesapları işaretleyebilir ve bazen yasaklayabilir. Mümkünse geçici bir hesap kullan."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Çerezleri doğrudan tarayıcıdan okur. Chromium ailesi tarayıcılar için tarayıcı kapalı olmalıdır."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Tarayıcı"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Bir tarayıcı seç…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Seç…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Temizle"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Çerezleri kullanmak için bir tarayıcı seç"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Çerezleri kullanmak için bir dosya seç"
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "cookies.txt dosyasını YEREL olarak al (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Çerez dosyası"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Çerezleri nasıl dışa aktarırım?"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Dosya seçilmedi"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Risk: cookies.txt, o tarayıcıdaki tüm oturum açmış oturumları içerir — gizli tut."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Tarayıcı"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Dosya"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Çerez kaynağı"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Kapalı"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Yaş kısıtlamalı, üyelere özel ve hesaba özel videolarda yardımcı olur."
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Yalnızca ses"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Altyazılar"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ site"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Müzik oynatma listeleri"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Videolar"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Video oynatma listeleri"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Arroxy neleri çekebilir"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Kanallar"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Music"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Oynatma listeleri"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcast’ler"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Videolar"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Adım adım sihirbaz. Biçimi, kaliteyi ve daha fazlasını seç."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "URL’den indir"
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Etkileşimli İndirme"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Etkin indirmeler mevcut sınırını korur. Değişiklikleri uygulamak için Duraklat + Sürdür."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Özel…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "örn. 750K veya 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Medya indirmeleri için bant genişliğini sınırla. Aşağıdaki istek aralığı genelde daha güçlü hız sınırlama aracıdır."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "K veya M ile biten bir sayı kullan (örn. 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "İndirme hızı sınırı"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Kapalı"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Arka planda indiriliyor… Aynı anda birkaç işi halledebilirim 😎"
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Bir bağlantı bırak, Arroxy onu çeksin ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Uyumlu stereo"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "En iyi yerel seçeneğinin neyi seçeceğini belirler. Manuel ses satırları ve M4A/AAC açık seçim olarak kalır."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Yerel ses tercihi"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Surround / Dolby tercih et"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
+msgstr "Arroxy’nin siteye fazla agresif davranmaması için her indirme sırasında küçük beklemeler ekle. Aksi belirtilmedikçe değerler saniyedir."
+
+msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
+msgid "Download connections"
+msgstr "İndirme bağlantıları"
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Medya başlamadan önce duraklama: maks"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Medya başlamadan önce duraklama: min"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Meta veri kontrolleri arasında bekle"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Altyazı dosyalarından önce bekle"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Nazik indirmeler"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Arroxy ne kadar temkinli olsun?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Dengeli"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Temkinli"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Özel"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Kapalı"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
+msgstr "Beklemeler: kontroller arasında {{requests}}, medya başlamadan önce {{downloads}}, altyazı dosyalarından önce {{subtitles}}. Bağlantılar: {{fragments}}."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
+msgstr "Bu beklemeler her indirmenin içinde gerçekleşir. Arroxy normal kuyruk indirmelerini yine tek tek yürütür."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses and uses one download connection."
+msgstr "Varsayılan. Kısa duraklamalar ekler ve tek indirme bağlantısı kullanır."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Büyük oynatma listeleri veya sık sınırla karşılaşan ağlar için daha uzun duraklamalar ekler."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Gelişmiş indirme başına kontrolleri kendin ayarla."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Arroxy’nin medya ve altyazılar için tuttuğu küçük temel duraklamaları kullanır."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "sn"
+
+msgctxt "wizard.url.networkPacing.units.threads"
+msgid "threads"
+msgstr "iş parçacığı"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Geçerli sınır: {{count}} öğe"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Özel…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "İptal"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "{{min}} ile {{max}} arasında bir tam sayı kullan."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Sınırı kaydet"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Özel oynatma listesi tarama sınırı"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Özel: {{count}} öğe"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Bir oynatma listesi, kanal veya arama sonucu açıldığında Arroxy’nin yükleyeceği en fazla kayıt sayısı."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "1 ile 5000 arasında bir tam sayı kullan"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Taranacak oynatma listesi öğeleri"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} öğe"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "yt-dlp --playlist-end seçeneğine karşılık gelir: Arroxy seçiciyi oluştururken yalnızca bu kadar oynatma listesi, kanal veya arama kaydı ister."
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Etkin profil"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Yerleşik"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Özel"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Değiştirildi"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Genel hedefi değiştir"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Hedef"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Düzenle"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Etkin profili düzenle"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Profilleri yönet"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Hızlı İndirme, Toplu URL’ler ve oynatma listeleri için etkin profili değiştir."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Profili değiştir"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Yeni profil"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Yeniden kullanılabilir indirme kurulumları oluştur, seç, düzenle veya kaldır."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "İndirme Profilleri"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Kaldır"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Sıfırla"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "İndirme profilini değiştir: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "İndirme profilini değiştir"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Temizle"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Trafiği bir proxy üzerinden yönlendir — coğrafi kısıtlı içerikler için kullanışlıdır."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Proxy URL’si"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "Bu URL’lerin hiçbiri hazırlanamadı"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Hızlı İndirme"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Şununla indirilecek: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Bu öğe eklenemedi: {{error}}"
+
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Çalışanlar kuyruğa alındı. {{count}} URL hazırlanamadı."
+
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Çalışanlar kuyruğa alındı. {{count}} URL hazırlanamadı."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Kuyruk öğesi hazırlanamadı"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Hazırlanıyor"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Denetim başarısız oldu"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Kuyruğa eklendi"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Başlamak için bir video, oynatma listesi, kanal veya arama URL’si yapıştır."
+
+msgctxt "wizard.url.singleFilenameId.toggle"
+msgid "Add video ID to single filenames"
+msgstr "Tekil dosya adlarına video kimliği ekle"
+
+msgctxt "wizard.url.singleFilenameId.toggleDescription"
+msgid "Keeps one-off downloads unique when titles change or collide."
+msgstr "Başlıklar değiştiğinde veya çakıştığında tek seferlik indirmeleri benzersiz tutar."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profiller"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Ayarlar"

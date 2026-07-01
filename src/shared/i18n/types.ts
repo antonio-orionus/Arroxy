@@ -20,6 +20,7 @@ export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
 	sw: 'Kiswahili',
 	uz: "O'zbekcha",
 	vi: 'Tiếng Việt',
+	tr: 'Türkçe',
 	am: 'አማርኛ',
 	ar: 'العربية',
 	ur: 'اردو',

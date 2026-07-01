@@ -20,9 +20,10 @@ import el from '@shared/i18n/locales/el.json' with {type: 'json'}
 import sr from '@shared/i18n/locales/sr.json' with {type: 'json'}
 import ur from '@shared/i18n/locales/ur.json' with {type: 'json'}
 import vi from '@shared/i18n/locales/vi.json' with {type: 'json'}
+import tr from '@shared/i18n/locales/tr.json' with {type: 'json'}
 import type {SupportedLang} from '@shared/i18n/types.js'
 
-const RESOURCES: Record<SupportedLang, unknown> = {en, id, es, fr, de, ru, uk, ja, zh, hi, bn, ar, uz, my, ps, sw, am, om, el, sr, ur, vi}
+const RESOURCES: Record<SupportedLang, unknown> = {en, id, es, fr, de, ru, uk, ja, zh, hi, bn, ar, uz, my, ps, sw, am, om, el, sr, ur, vi, tr}
 
 function lookup(tree: unknown, dottedKey: string): string | undefined {
 	const parts = dottedKey.split('.')

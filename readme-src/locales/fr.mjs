@@ -148,7 +148,7 @@ export const fr = {
   feat_workflow_5:
     "**Mode tray** — fermer la fenêtre garde les téléchargements en cours en arrière-plan",
   feat_workflow_6:
-    "**22 langues** — détecte automatiquement les paramètres régionaux du système, commutable à tout moment",
+    "**23 langues** — détecte automatiquement les paramètres régionaux du système, commutable à tout moment",
   feat_workflow_7:
     "**Synchronisation de playlist** — rescane une playlist par rapport à un dossier local pour ignorer les vidéos déjà téléchargées ; génère un fichier de playlist `.m3u` mis à jour à chaque vidéo téléchargée",
   feat_workflow_8:
@@ -326,7 +326,7 @@ export const fr = {
     "yt-dlp est mis à jour automatiquement au lancement, et Arroxy publie des correctifs rapidement quand YouTube change quelque chose. Si jamais tu rencontres un problème, un support de cookies optionnel est disponible dans les paramètres avancés en solution de repli.",
   faq_q6: "Dans quelles langues Arroxy est-il disponible ?",
   faq_a6:
-    "Vingt-deux, prêts à l'emploi : English, Bahasa Indonesia (indonésien), Español (espagnol), Deutsch (allemand), Français (français), 日本語 (japonais), 中文 (chinois), Русский (russe), Українська (ukrainien), हिन्दी (hindi), Afaan Oromoo, Kiswahili, O'zbekcha (ouzbek), Tiếng Việt (vietnamien), አማርኛ (amharique), العربية (arabe), اردو (ourdou), پښتو (pachto), বাংলা (bengali), မြန်မာဘာသာ (birman), Ελληνικά (grec) et Српски (serbe). Arroxy détecte automatiquement la langue de votre système d'exploitation au premier lancement et vous pouvez changer à tout moment depuis le sélecteur de langue dans la barre d'outils. Paramètres régionaux Runtime JSON se trouve dans src/shared/i18n/locales/, et les catalogues PO destinés au traducteur se trouvent dans i18n/locales/ — ouvrez un PR sur GitHub pour contribuer.",
+    "Vingt-trois, prêts à l'emploi : English, Bahasa Indonesia (indonésien), Español (espagnol), Deutsch (allemand), Français (français), 日本語 (japonais), 中文 (chinois), Русский (russe), Українська (ukrainien), हिन्दी (hindi), Afaan Oromoo, Kiswahili, O'zbekcha (ouzbek), Tiếng Việt (vietnamien), Türkçe, አማርኛ (amharique), العربية (arabe), اردو (ourdou), پښتو (pachto), বাংলা (bengali), မြန်မာဘာသာ (birman), Ελληνικά (grec) et Српски (serbe). Arroxy détecte automatiquement la langue de votre système d'exploitation au premier lancement et vous pouvez changer à tout moment depuis le sélecteur de langue dans la barre d'outils. Paramètres régionaux Runtime JSON se trouve dans src/shared/i18n/locales/, et les catalogues PO destinés au traducteur se trouvent dans i18n/locales/ — ouvrez un PR sur GitHub pour contribuer.",
   faq_q7: "Dois-je installer autre chose ?",
   faq_a7:
     "Non. yt-dlp est téléchargé automatiquement au premier lancement et mis en cache sur ta machine ; ffmpeg et ffprobe sont inclus dans l’app. Après ça, aucune configuration supplémentaire.",

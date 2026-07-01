@@ -8,13 +8,18 @@ import uk from '@shared/i18n/locales/uk.json' with {type: 'json'}
 import ja from '@shared/i18n/locales/ja.json' with {type: 'json'}
 import zh from '@shared/i18n/locales/zh.json' with {type: 'json'}
 import hi from '@shared/i18n/locales/hi.json' with {type: 'json'}
+import tr from '@shared/i18n/locales/tr.json' with {type: 'json'}
 import {STATUS_KEY} from '@shared/schemas.js'
 import {YT_DLP_ERROR_KINDS} from 'ytdlp-errors'
 import type {LocaleResource} from '@shared/i18n/types.js'
 
-const LOCALES: Record<string, LocaleResource> = {en, es, fr, de, ru, uk, ja, zh, hi}
+const LOCALES: Record<string, LocaleResource> = {en, es, fr, de, ru, uk, ja, zh, hi, tr}
 
 describe('i18n contract', () => {
+	it('includes Turkish in the checked locale set', () => {
+		expect(Object.keys(LOCALES)).toContain('tr')
+	})
+
 	it('every locale has a string for every YtDlpErrorKind', () => {
 		for (const [name, resource] of Object.entries(LOCALES)) {
 			const ytdlp = (resource as LocaleResource & {errors?: {ytdlp?: Record<string, string>}}).errors?.ytdlp ?? {}
