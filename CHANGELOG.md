@@ -14,6 +14,25 @@ _Nothing yet._
 
 ---
 
+## 0.4.4
+
+This patch release adds Turkish across Arroxy's app and documentation, and keeps the localized README language metadata easier to maintain for future translations.
+
+## Highlights
+
+### Turkish Locale
+
+- Added Turkish as a supported app locale, including system-language detection for `tr` and region tags like `tr-TR`.
+- Added a full Turkish README generated from the localized docs source.
+- Refreshed localized README navigation so Turkish appears consistently across every README language.
+
+### README Language Metadata
+
+- Derived the README language count and language-name list from the README locale registry so future locale additions do not leave stale numbers behind.
+- Polished the Russian README language-count wording so dynamic counts avoid numeral-agreement errors.
+
+---
+
 ## 0.4.3
 
 This patch release adds Bahasa Indonesia across Arroxy's app and docs so more users can move through setup and downloads in their preferred language.
