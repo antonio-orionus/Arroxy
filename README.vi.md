@@ -238,7 +238,7 @@ Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận 
 - **Theo dõi clipboard** — sao chép liên kết YouTube và Arroxy tự điền URL khi bạn chuyển lại ứng dụng (bật/tắt trong Cài đặt nâng cao)
 - **Tự làm sạch URL** — loại bỏ các tham số theo dõi (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) và mở gói các liên kết `youtube.com/redirect`
 - **Chế độ khay hệ thống** — đóng cửa sổ vẫn tiếp tục tải xuống ở nền
-- **23 ngôn ngữ** — tự động phát hiện ngôn ngữ hệ thống, có thể chuyển đổi bất kỳ lúc nào
+- **23 ngôn ngữ** — tự động phát hiện ngôn ngữ hệ thống, có thể đổi bất cứ lúc nào
 - **Đồng bộ danh sách phát** — quét lại danh sách phát với một thư mục cục bộ để bỏ qua các video đã tải; tạo tệp danh sách phát `.m3u` được cập nhật sau mỗi video tải xuống
 - **Điều khiển tốc độ và nhịp tải** — giới hạn băng thông tải xuống, thêm độ trễ giữa các yêu cầu và tinh chỉnh fragment threads bằng preset (*Tắt · Cân bằng · Cẩn thận · Tùy chỉnh*)
 
@@ -299,7 +299,7 @@ Mặc định là không — Arroxy hoạt động mà không cần tài khoản
 yt-dlp được cập nhật tự động khi khởi động, và Arroxy nhanh chóng phát hành các bản sửa lỗi khi YouTube thay đổi điều gì đó. Nếu bạn vẫn gặp sự cố, hỗ trợ cookie tùy chọn có sẵn trong Cài đặt nâng cao như một phương án dự phòng.
 
 **Arroxy có sẵn bằng những ngôn ngữ nào?**
-Hai mươi ba, có sẵn: English, Bahasa Indonesia (tiếng Indonesia), Español (tiếng Tây Ban Nha), Deutsch (tiếng Đức), Français (tiếng Pháp), 日本語 (tiếng Nhật), 中文 (tiếng Trung), Русский (tiếng Nga), Українська (tiếng Ukraina), हिन्दी (Hindi), Afaan Oromoo, Kiswahili, O'zbekcha (Uzbek), Tiếng Việt (tiếng Việt), Türkçe, አማርኛ (Amharic), العربية (tiếng Ả Rập), اردو (Urdu), پښتو (Pashto), বাংলা (tiếng Bengali), မြန်မာဘာသာ (tiếng Miến Điện), Ελληνικά (tiếng Hy Lạp) và Српски (tiếng Serbia). Arroxy tự động phát hiện ngôn ngữ hệ điều hành của bạn trong lần khởi chạy đầu tiên và bạn có thể chuyển đổi bất kỳ lúc nào từ bộ chọn ngôn ngữ trên thanh công cụ. Ngôn ngữ Runtime JSON tồn tại trong src/shared/i18n/locales/ và các danh mục PO dành cho người dịch nằm trong i18n/locales/ — mở PR trên GitHub để đóng góp.
+23 ngôn ngữ có sẵn ngay: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Kiswahili · O'zbekcha · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · বাংলা · हिन्दी · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語. Arroxy tự động phát hiện ngôn ngữ hệ điều hành của bạn trong lần khởi chạy đầu tiên, và bạn có thể đổi bất cứ lúc nào từ bộ chọn ngôn ngữ trên thanh công cụ. Runtime locale JSON nằm trong src/shared/i18n/locales/, còn catalog PO dành cho người dịch nằm trong i18n/locales/ — hãy mở PR trên GitHub để đóng góp.
 
 **Tôi có cần cài đặt thêm gì không?**
 Không. yt-dlp được tải xuống tự động khi khởi động lần đầu và được lưu vào bộ nhớ đệm trên máy của bạn; ffmpeg và ffprobe đi kèm với ứng dụng. Sau đó, không cần thiết lập thêm gì.

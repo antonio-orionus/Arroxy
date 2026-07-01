@@ -240,7 +240,7 @@ Arroxy est conçu pour une seule chose : coller une URL et obtenir un fichier lo
 - **Surveillance du presse-papiers** — copie un lien YouTube et Arroxy remplit automatiquement l'URL quand tu reviens sur l'app (désactivable dans les Paramètres avancés)
 - **Nettoyage auto des URLs** — supprime les paramètres de tracking (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) et dénoue les liens `youtube.com/redirect`
 - **Mode tray** — fermer la fenêtre garde les téléchargements en cours en arrière-plan
-- **23 langues** — détecte automatiquement les paramètres régionaux du système, commutable à tout moment
+- **23 langues** — détecte automatiquement les paramètres régionaux du système, modifiable à tout moment
 - **Synchronisation de playlist** — rescane une playlist par rapport à un dossier local pour ignorer les vidéos déjà téléchargées ; génère un fichier de playlist `.m3u` mis à jour à chaque vidéo téléchargée
 - **Contrôles de vitesse et de rythme** — limite la bande passante, ajoute des pauses entre les requêtes et règle les threads de fragments avec des préréglages (*Désactivé · Équilibré · Prudent · Personnalisé*)
 
@@ -301,7 +301,7 @@ Par défaut, non — Arroxy fonctionne sans compte YouTube, sans connexion et sa
 yt-dlp est mis à jour automatiquement au lancement, et Arroxy publie des correctifs rapidement quand YouTube change quelque chose. Si jamais tu rencontres un problème, un support de cookies optionnel est disponible dans les paramètres avancés en solution de repli.
 
 **Dans quelles langues Arroxy est-il disponible ?**
-Vingt-trois, prêts à l'emploi : English, Bahasa Indonesia (indonésien), Español (espagnol), Deutsch (allemand), Français (français), 日本語 (japonais), 中文 (chinois), Русский (russe), Українська (ukrainien), हिन्दी (hindi), Afaan Oromoo, Kiswahili, O'zbekcha (ouzbek), Tiếng Việt (vietnamien), Türkçe, አማርኛ (amharique), العربية (arabe), اردو (ourdou), پښتو (pachto), বাংলা (bengali), မြန်မာဘာသာ (birman), Ελληνικά (grec) et Српски (serbe). Arroxy détecte automatiquement la langue de votre système d'exploitation au premier lancement et vous pouvez changer à tout moment depuis le sélecteur de langue dans la barre d'outils. Paramètres régionaux Runtime JSON se trouve dans src/shared/i18n/locales/, et les catalogues PO destinés au traducteur se trouvent dans i18n/locales/ — ouvrez un PR sur GitHub pour contribuer.
+23 langues prêtes à l’emploi : Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Kiswahili · O'zbekcha · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · বাংলা · हिन्दी · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語. Arroxy détecte automatiquement la langue de ton système d’exploitation au premier lancement, et tu peux changer à tout moment depuis le sélecteur de langue dans la barre d’outils. Les JSON de locale Runtime se trouvent dans src/shared/i18n/locales/, et les catalogues PO destinés aux traducteurs se trouvent dans i18n/locales/ — ouvre une PR sur GitHub pour contribuer.
 
 **Dois-je installer autre chose ?**
 Non. yt-dlp est téléchargé automatiquement au premier lancement et mis en cache sur ta machine ; ffmpeg et ffprobe sont inclus dans l’app. Après ça, aucune configuration supplémentaire.
