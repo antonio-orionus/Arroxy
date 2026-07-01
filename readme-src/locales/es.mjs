@@ -148,7 +148,7 @@ export const es = {
   feat_workflow_5:
     "**Modo bandeja** — cerrar la ventana mantiene las descargas en segundo plano",
   feat_workflow_6:
-    "**22 idiomas**: detecta automáticamente la configuración regional del sistema y se puede cambiar en cualquier momento",
+    "**23 idiomas**: detecta automáticamente la configuración regional del sistema y se puede cambiar en cualquier momento",
   feat_workflow_7:
     "**Sincronización de playlists** — vuelve a escanear una playlist contra una carpeta local para omitir vídeos ya descargados; genera un archivo de playlist `.m3u` que se actualiza con cada vídeo descargado",
   feat_workflow_8:
@@ -325,7 +325,7 @@ export const es = {
     "yt-dlp se actualiza automáticamente al iniciar, y Arroxy publica correcciones rápidamente cuando YouTube cambia algo. Si alguna vez tienes algún problema, hay soporte opcional de cookies disponible en la configuración avanzada como alternativa.",
   faq_q6: "¿En qué idiomas está disponible Arroxy?",
   faq_a6:
-    "Veintidós, listos para usar: English, Bahasa Indonesia (indonesio), Español (español), Deutsch (alemán), Français (francés), 日本語 (japonés), 中文 (chino), Русский (ruso), Українська (ucraniano), हिन्दी (hindi), Afaan Oromoo, Kiswahili, O'zbekcha (uzbeko), Tiếng Việt (vietnamita), አማርኛ (amárico), العربية (árabe), اردو (urdu), پښتو (pashto), বাংলা (bengalí), မြန်မာဘာသာ (birmano), Ελληνικά (griego) y Српски (serbio). Arroxy detecta automáticamente el idioma de su sistema operativo en el primer inicio y puede cambiar en cualquier momento desde el selector de idioma en la barra de herramientas. La configuración regional de Runtime, JSON se encuentra en src/shared/i18n/locales/, y los catálogos de PO orientados al traductor se encuentran en i18n/locales/: abra un PR en GitHub para contribuir.",
+    "Veintitrés, listos para usar: English, Bahasa Indonesia (indonesio), Español (español), Deutsch (alemán), Français (francés), 日本語 (japonés), 中文 (chino), Русский (ruso), Українська (ucraniano), हिन्दी (hindi), Afaan Oromoo, Kiswahili, O'zbekcha (uzbeko), Tiếng Việt (vietnamita), Türkçe, አማርኛ (amárico), العربية (árabe), اردو (urdu), پښتو (pashto), বাংলা (bengalí), မြန်မာဘာသာ (birmano), Ελληνικά (griego) y Српски (serbio). Arroxy detecta automáticamente el idioma de su sistema operativo en el primer inicio y puede cambiar en cualquier momento desde el selector de idioma en la barra de herramientas. La configuración regional de Runtime, JSON se encuentra en src/shared/i18n/locales/, y los catálogos de PO orientados al traductor se encuentran en i18n/locales/: abra un PR en GitHub para contribuir.",
   faq_q7: "¿Necesito instalar algo más?",
   faq_a7:
     "No. yt-dlp se descarga automáticamente en el primer arranque y se guarda en caché en tu máquina; ffmpeg y ffprobe vienen incluidos con la app. Después de eso, no se necesita configuración adicional.",

@@ -13,6 +13,7 @@ describe('pickLanguage', () => {
 		expect(pickLanguage('en')).toBe('en')
 		expect(pickLanguage('es')).toBe('es')
 		expect(pickLanguage('hi')).toBe('hi')
+		expect(pickLanguage('tr')).toBe('tr')
 	})
 
 	it('strips region tag and matches the prefix', () => {
@@ -21,6 +22,7 @@ describe('pickLanguage', () => {
 		expect(pickLanguage('zh-CN')).toBe('zh')
 		expect(pickLanguage('en-US')).toBe('en')
 		expect(pickLanguage('de_AT')).toBe('de')
+		expect(pickLanguage('tr-TR')).toBe('tr')
 	})
 
 	it('falls back to en when language is unsupported', () => {
@@ -38,6 +40,7 @@ describe('mainT', () => {
 	it('translates a known key', () => {
 		expect(mainT('en', 'dialogs.quitWithActiveDownloads.confirm')).toBe('Cancel Downloads & Quit')
 		expect(mainT('es', 'dialogs.quitWithActiveDownloads.confirm')).toBe('Cancelar descargas y salir')
+		expect(mainT('tr', 'dialogs.quitWithActiveDownloads.confirm')).toBe('İndirmeleri İptal Et ve Çık')
 	})
 
 	it('falls back to English when a key is missing in target language', () => {
