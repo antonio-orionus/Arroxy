@@ -301,7 +301,7 @@ YouTube 提供的都行：4K UHD（2160p）、1440p、1080p、720p、480p、360p
 yt-dlp 在启动时自动更新，YouTube 一旦发生变化，Arroxy 会及时发布修复。如果你确实遇到问题，高级设置中提供可选的 Cookie 支持作为后备方案。
 
 **Arroxy 支持哪些语言？**
-二十三、开箱即用：English、Bahasa Indonesia（印尼语）、Español（西班牙语）、Deutsch（德语）、Français（法语）、日本语（日语）、中文（中文）、Русский（俄语）、Українська（乌克兰语）、 हिन्दी（印地语）、Afaan Oromoo、Kiswahili、O'zbekcha（乌兹别克语）、Tiếng Việt（越南语）、 Türkçe、አማርኛ（阿姆哈拉语）、??????（阿拉伯语）、?????（乌尔都语）、????? （普什图语）、বাংলা（孟加拉语）、မြန်မာဘာသာ（缅甸语）、Ελληνικά（希腊语）和 Српски（塞尔维亚语）。 Arroxy 会在首次启动时自动检测您的操作系统语言，您可以随时从工具栏中的语言选择器进行切换。 Runtime 语言环境 JSON 位于 src/shared/i18n/locales/ 中，面向翻译者的 PO 目录位于 i18n/locales/ 中 — 在 GitHub 上打开 PR 进行贡献。
+开箱即用的 23 种语言：Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Kiswahili · O'zbekcha · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · বাংলা · हिन्दी · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語。 Arroxy 会在首次启动时自动检测操作系统语言，你也可以随时从工具栏的语言选择器切换。Runtime locale JSON 位于 src/shared/i18n/locales/，面向译者的 PO catalog 位于 i18n/locales/ — 欢迎在 GitHub 上打开 PR 贡献。
 
 **需要额外安装其他软件吗？**
 不需要。yt-dlp 会在首次启动时自动下载并缓存到你的机器上；ffmpeg 和 ffprobe 随应用一起提供。之后无需任何额外配置。

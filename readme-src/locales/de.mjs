@@ -146,7 +146,7 @@ export const de = {
   feat_workflow_5:
     "**Tray-Modus** — das Schließen des Fensters lässt Downloads im Hintergrund weiterlaufen",
   feat_workflow_6:
-    "**23 Sprachen** – erkennt automatisch das Systemgebietsschema und kann jederzeit umgeschaltet werden",
+    "**{{LANG_COUNT}} Sprachen** – erkennt automatisch das Systemgebietsschema und kann jederzeit umgeschaltet werden",
   feat_workflow_7:
     "**Playlist-Sync** — scannt eine Playlist erneut gegen einen lokalen Ordner, um bereits heruntergeladene Videos zu überspringen; erzeugt eine `.m3u`-Playlistdatei, die nach jedem Video aktualisiert wird",
   feat_workflow_8:
@@ -323,7 +323,7 @@ export const de = {
     "yt-dlp wird beim Start automatisch aktualisiert, und Arroxy liefert zügig Fixes, sobald YouTube etwas ändert. Falls du doch einmal auf ein Problem stößt, steht in den erweiterten Einstellungen optionale Cookie-Unterstützung als Fallback bereit.",
   faq_q6: "In welchen Sprachen ist Arroxy verfügbar?",
   faq_a6:
-    "Dreiundzwanzig, sofort einsatzbereit: English, Bahasa Indonesia (Indonesisch), Español (Spanisch), Deutsch (Deutsch), Français (Französisch), 日本語 (Japanisch), 中文 (Chinesisch), Русский (Russisch), Українська (Ukrainisch), हिन्दी (Hindi), Afaan Oromoo, Kiswahili, O'zbekcha (Usbekisch), Tiếng Việt (Vietnamesisch), Türkçe, አማርኛ (Amharisch), العربية (Arabisch), اردو (Urdu), پښتو (Paschtu), বাংলা (Bengali), မြန်မာဘာသာ (Burmesisch), Ελληνικά (Griechisch) und Српски (Serbisch). Arroxy erkennt beim ersten Start automatisch die Sprache Ihres Betriebssystems und Sie können jederzeit über die Sprachauswahl in der Symbolleiste wechseln. Runtime-Gebietsschema JSON befindet sich in src/shared/i18n/locales/, und für Übersetzer verfügbare PO-Kataloge befinden sich in i18n/locales/ – öffnen Sie ein PR auf GitHub, um einen Beitrag zu leisten.",
+    "{{LANG_COUNT}} Sprachen sind sofort verfügbar: {{LANG_NAME_LIST}}. Arroxy erkennt beim ersten Start automatisch die Sprache deines Betriebssystems, und du kannst jederzeit über die Sprachauswahl in der Symbolleiste wechseln. Runtime-Locale-JSON liegt in src/shared/i18n/locales/, die PO-Kataloge für Übersetzer liegen in i18n/locales/ — öffne einen PR auf GitHub, um beizutragen.",
   faq_q7: "Muss ich etwas zusätzlich installieren?",
   faq_a7:
     "Nein. yt-dlp wird beim ersten Start automatisch heruntergeladen und auf deinem Rechner gecacht; ffmpeg und ffprobe werden mit der App geliefert. Danach ist keine weitere Einrichtung nötig.",
