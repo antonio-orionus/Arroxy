@@ -59,6 +59,10 @@ function buildLangNav(currentLoc, locales) {
     .join(" · ");
 }
 
+function buildLangNameList(locales) {
+  return locales.map((l) => l.name).join(" · ");
+}
+
 function applyStrings(template, strings, fallback = {}) {
   return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
     if (key in strings) return strings[key];
@@ -86,6 +90,8 @@ async function main() {
     let md = applyStrings(template, loc.strings, enStrings);
     md = applyMacros(md, {
       LANG_NAV: buildLangNav(loc, LOCALES),
+      LANG_COUNT: String(LOCALES.length),
+      LANG_NAME_LIST: buildLangNameList(LOCALES),
     });
     md = md.replace(/\n{3,}/g, "\n\n");
 

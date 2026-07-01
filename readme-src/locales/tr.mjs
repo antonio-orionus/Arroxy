@@ -147,7 +147,7 @@ export const tr = {
   feat_workflow_5:
     "**Tepsi modu** — pencere kapansa bile indirmeler arka planda sürer",
   feat_workflow_6:
-    "**23 dil** — sistem dilini otomatik algılar, istediğin zaman değiştirilebilir",
+    "**{{LANG_COUNT}} dil** — sistem dilini otomatik algılar, istediğin zaman değiştirilebilir",
   feat_workflow_7:
     "**Oynatma listesi eşitleme** — zaten indirilmiş videoları atlamak için bir oynatma listesini yerel klasöre karşı yeniden tara; her indirilen videoyla güncellenen bir `.m3u` oynatma listesi dosyası oluşturur",
   feat_workflow_8:
@@ -321,7 +321,7 @@ export const tr = {
     "yt-dlp açılışta otomatik güncellenir ve YouTube bir şey değiştirdiğinde Arroxy hızlıca düzeltme yayımlar. Yine de sorun yaşarsan Gelişmiş ayarlarda isteğe bağlı çerez desteği yedek yol olarak kullanılabilir.",
   faq_q6: "Arroxy hangi dillerde mevcut?",
   faq_a6:
-    "Kutudan çıktığı gibi yirmi üç dil: English, Bahasa Indonesia (Endonezce), Español (İspanyolca), Deutsch (Almanca), Français (Fransızca), 日本語 (Japonca), 中文 (Çince), Русский (Rusça), Українська (Ukraynaca), हिन्दी (Hintçe), Afaan Oromoo, Kiswahili, O'zbekcha (Özbekçe), Tiếng Việt (Vietnamca), Türkçe, አማርኛ (Amharca), العربية (Arapça), اردو (Urduca), پښتو (Peştuca), বাংলা (Bengalce), မြန်မာဘာသာ (Birmanca), Ελληνικά (Yunanca) ve Српски (Sırpça). Arroxy ilk açılışta işletim sisteminin dilini otomatik algılar ve araç çubuğundaki dil seçiciden istediğin zaman değiştirebilirsin. Çalışma zamanı locale JSON dosyaları src/shared/i18n/locales/ içinde, çevirmenlere yönelik PO katalogları i18n/locales/ içinde bulunur — katkı için GitHub'da PR aç.",
+    "Kutudan çıktığı gibi {{LANG_COUNT}} dil: {{LANG_NAME_LIST}}. Arroxy ilk açılışta işletim sisteminin dilini otomatik algılar ve araç çubuğundaki dil seçiciden istediğin zaman değiştirebilirsin. Çalışma zamanı locale JSON dosyaları src/shared/i18n/locales/ içinde, çevirmenlere yönelik PO katalogları i18n/locales/ içinde bulunur — katkı için GitHub'da PR aç.",
   faq_q7: "Başka bir şey kurmam gerekir mi?",
   faq_a7:
     "Hayır. yt-dlp ilk açılışta otomatik indirilir ve makinede önbelleğe alınır; ffmpeg ve ffprobe uygulamayla gelir. Bundan sonra ek kurulum gerekmez.",

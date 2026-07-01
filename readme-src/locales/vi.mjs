@@ -148,7 +148,7 @@ export const vi = {
   feat_workflow_5:
     "**Chế độ khay hệ thống** — đóng cửa sổ vẫn tiếp tục tải xuống ở nền",
   feat_workflow_6:
-    "**23 ngôn ngữ** — tự động phát hiện ngôn ngữ hệ thống, có thể chuyển đổi bất kỳ lúc nào",
+    "**{{LANG_COUNT}} ngôn ngữ** — tự động phát hiện ngôn ngữ hệ thống, có thể đổi bất cứ lúc nào",
   feat_workflow_7:
     "**Đồng bộ danh sách phát** — quét lại danh sách phát với một thư mục cục bộ để bỏ qua các video đã tải; tạo tệp danh sách phát `.m3u` được cập nhật sau mỗi video tải xuống",
   feat_workflow_8:
@@ -322,7 +322,7 @@ export const vi = {
     "yt-dlp được cập nhật tự động khi khởi động, và Arroxy nhanh chóng phát hành các bản sửa lỗi khi YouTube thay đổi điều gì đó. Nếu bạn vẫn gặp sự cố, hỗ trợ cookie tùy chọn có sẵn trong Cài đặt nâng cao như một phương án dự phòng.",
   faq_q6: "Arroxy có sẵn bằng những ngôn ngữ nào?",
   faq_a6:
-    "Hai mươi ba, có sẵn: English, Bahasa Indonesia (tiếng Indonesia), Español (tiếng Tây Ban Nha), Deutsch (tiếng Đức), Français (tiếng Pháp), 日本語 (tiếng Nhật), 中文 (tiếng Trung), Русский (tiếng Nga), Українська (tiếng Ukraina), हिन्दी (Hindi), Afaan Oromoo, Kiswahili, O'zbekcha (Uzbek), Tiếng Việt (tiếng Việt), Türkçe, አማርኛ (Amharic), العربية (tiếng Ả Rập), اردو (Urdu), پښتو (Pashto), বাংলা (tiếng Bengali), မြန်မာဘာသာ (tiếng Miến Điện), Ελληνικά (tiếng Hy Lạp) và Српски (tiếng Serbia). Arroxy tự động phát hiện ngôn ngữ hệ điều hành của bạn trong lần khởi chạy đầu tiên và bạn có thể chuyển đổi bất kỳ lúc nào từ bộ chọn ngôn ngữ trên thanh công cụ. Ngôn ngữ Runtime JSON tồn tại trong src/shared/i18n/locales/ và các danh mục PO dành cho người dịch nằm trong i18n/locales/ — mở PR trên GitHub để đóng góp.",
+    "{{LANG_COUNT}} ngôn ngữ có sẵn ngay: {{LANG_NAME_LIST}}. Arroxy tự động phát hiện ngôn ngữ hệ điều hành của bạn trong lần khởi chạy đầu tiên, và bạn có thể đổi bất cứ lúc nào từ bộ chọn ngôn ngữ trên thanh công cụ. Runtime locale JSON nằm trong src/shared/i18n/locales/, còn catalog PO dành cho người dịch nằm trong i18n/locales/ — hãy mở PR trên GitHub để đóng góp.",
   faq_q7: "Tôi có cần cài đặt thêm gì không?",
   faq_a7:
     "Không. yt-dlp được tải xuống tự động khi khởi động lần đầu và được lưu vào bộ nhớ đệm trên máy của bạn; ffmpeg và ffprobe đi kèm với ứng dụng. Sau đó, không cần thiết lập thêm gì.",

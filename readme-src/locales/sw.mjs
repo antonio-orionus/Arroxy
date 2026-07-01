@@ -145,7 +145,7 @@ export const sw = {
   feat_workflow_5:
     "**Hali ya tray** — kufunga dirisha kunaacha maudhui kuendelea kupakuliwa nyuma ya skrini",
   feat_workflow_6:
-    "**Lugha 23** — hutambua kiotomati lugha ya mfumo, inaweza kubadilishwa wakati wowote",
+    "**Lugha {{LANG_COUNT}}** — hutambua locale ya mfumo kiotomatiki, unaweza kubadilisha wakati wowote",
   feat_workflow_7:
     "**Usawazishaji wa orodha ya kucheza** — hukagua tena orodha ya kucheza dhidi ya folda ya ndani ili kuruka video zilizopakuliwa tayari; hutengeneza faili ya orodha ya kucheza `.m3u` inayosasishwa kila video inapopakuliwa",
   feat_workflow_8:
@@ -322,7 +322,7 @@ export const sw = {
     "yt-dlp husasishwa kiotomatiki wakati wa uzinduzi, na Arroxy hutuma marekebisho haraka YouTube inapobadilisha kitu. Iwapo utakutana na tatizo, usaidizi wa hiari wa vidakuzi unapatikana katika Mipangilio ya Kina kama suluhisho la akiba.",
   faq_q6: "Arroxy inapatikana katika lugha zipi?",
   faq_a6:
-    "Ishirini na tatu, nje ya boksi: English, Bahasa Indonesia (Kiindonesia), Español (Kihispania), Deutsch (Kijerumani), Français (Kifaransa), (Kijapani), 中文 (Kichina), Русский (Kirusi), Українська (Kiukreni), हिन्दी বাংলা, தமிழ் Kiswahili, O'zbekcha (Uzbek), Tiếng Việt (Kivietinamu), Türkçe, አማርኛ (Amharic), العربية (Kiarabu), اردو (Kiurdu), پښتو (Pashto), বাংলা (Kibengali), မြန်မမာင်မို Ελληνικά (Kigiriki), na Српски (Kiserbia). Arroxy hutambua kiotomatiki lugha ya mfumo wako wa uendeshaji unapozinduliwa mara ya kwanza na unaweza kubadilisha wakati wowote kutoka kwa kiteua lugha kwenye upau wa vidhibiti. Lugha ya Runtime JSON inaishi katika src/shared/i18n/locales/, na katalogi za PO zinazowakabili watafsiri zinaishi katika i18n/locales/ — fungua PR kwenye GitHub ili kuchangia.",
+    "Lugha {{LANG_COUNT}} zipo tayari: {{LANG_NAME_LIST}}. Arroxy hutambua lugha ya mfumo wako wa uendeshaji kiotomatiki inapofunguliwa mara ya kwanza, na unaweza kubadilisha wakati wowote kupitia kiteuzi cha lugha kwenye upau wa zana. Runtime locale JSON ziko src/shared/i18n/locales/, na catalog za PO kwa watafsiri ziko i18n/locales/ — fungua PR kwenye GitHub ili kuchangia.",
   faq_q7: "Je, ninahitaji kusakinisha kitu kingine chochote?",
   faq_a7:
     "Hapana. yt-dlp hupakuliwa kiotomatiki wakati wa uzinduzi wa kwanza na kuhifadhiwa kwenye kifaa chako; ffmpeg na ffprobe huja pamoja na programu. Baada ya hapo, hakuna usanidi wa ziada unaohitajika.",

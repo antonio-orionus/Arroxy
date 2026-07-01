@@ -238,7 +238,7 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
 - **Ufuatiliaji wa ubao wa kunakili** — nakili kiungo cha YouTube na Arroxy itajaza URL kiotomatiki ukirejesha umakini kwenye programu (washa/zima katika mipangilio ya Kina)
 - **Usafi wa URL kiotomatiki** — huondoa vigezo vya ufuatiliaji (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) na kufungua viungo vya `youtube.com/redirect`
 - **Hali ya tray** — kufunga dirisha kunaacha maudhui kuendelea kupakuliwa nyuma ya skrini
-- **Lugha 23** — hutambua kiotomati lugha ya mfumo, inaweza kubadilishwa wakati wowote
+- **Lugha 23** — hutambua locale ya mfumo kiotomatiki, unaweza kubadilisha wakati wowote
 - **Usawazishaji wa orodha ya kucheza** — hukagua tena orodha ya kucheza dhidi ya folda ya ndani ili kuruka video zilizopakuliwa tayari; hutengeneza faili ya orodha ya kucheza `.m3u` inayosasishwa kila video inapopakuliwa
 - **Udhibiti wa kasi na pacing** — weka kikomo cha bandwidth ya upakuaji, ongeza ucheleweshaji wa maombi, na rekebisha fragment threads kwa presets (*Off · Balanced · Careful · Custom*)
 
@@ -299,7 +299,7 @@ Kwa chaguomsingi, hapana — Arroxy hufanya kazi bila akaunti ya YouTube, kuingi
 yt-dlp husasishwa kiotomatiki wakati wa uzinduzi, na Arroxy hutuma marekebisho haraka YouTube inapobadilisha kitu. Iwapo utakutana na tatizo, usaidizi wa hiari wa vidakuzi unapatikana katika Mipangilio ya Kina kama suluhisho la akiba.
 
 **Arroxy inapatikana katika lugha zipi?**
-Ishirini na tatu, nje ya boksi: English, Bahasa Indonesia (Kiindonesia), Español (Kihispania), Deutsch (Kijerumani), Français (Kifaransa), (Kijapani), 中文 (Kichina), Русский (Kirusi), Українська (Kiukreni), हिन्दी বাংলা, தமிழ் Kiswahili, O'zbekcha (Uzbek), Tiếng Việt (Kivietinamu), Türkçe, አማርኛ (Amharic), العربية (Kiarabu), اردو (Kiurdu), پښتو (Pashto), বাংলা (Kibengali), မြန်မမာင်မို Ελληνικά (Kigiriki), na Српски (Kiserbia). Arroxy hutambua kiotomatiki lugha ya mfumo wako wa uendeshaji unapozinduliwa mara ya kwanza na unaweza kubadilisha wakati wowote kutoka kwa kiteua lugha kwenye upau wa vidhibiti. Lugha ya Runtime JSON inaishi katika src/shared/i18n/locales/, na katalogi za PO zinazowakabili watafsiri zinaishi katika i18n/locales/ — fungua PR kwenye GitHub ili kuchangia.
+Lugha 23 zipo tayari: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Kiswahili · O'zbekcha · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · বাংলা · हिन्दी · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語. Arroxy hutambua lugha ya mfumo wako wa uendeshaji kiotomatiki inapofunguliwa mara ya kwanza, na unaweza kubadilisha wakati wowote kupitia kiteuzi cha lugha kwenye upau wa zana. Runtime locale JSON ziko src/shared/i18n/locales/, na catalog za PO kwa watafsiri ziko i18n/locales/ — fungua PR kwenye GitHub ili kuchangia.
 
 **Je, ninahitaji kusakinisha kitu kingine chochote?**
 Hapana. yt-dlp hupakuliwa kiotomatiki wakati wa uzinduzi wa kwanza na kuhifadhiwa kwenye kifaa chako; ffmpeg na ffprobe huja pamoja na programu. Baada ya hapo, hakuna usanidi wa ziada unaohitajika.
