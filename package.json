@@ -163,7 +163,7 @@
 		"@types/cacache": "20.0.1",
 		"@types/gettext-parser": "9.0.0",
 		"@types/make-fetch-happen": "10.0.4",
-		"@types/node": "25.9.3",
+		"@types/node": "26.0.1",
 		"@types/react": "19.2.17",
 		"@types/react-dom": "19.2.3",
 		"@types/yauzl": "3.4.0",
