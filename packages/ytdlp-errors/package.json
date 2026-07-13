@@ -18,6 +18,6 @@
 	"sideEffects": false,
 	"engines": {"node": ">=18"},
 	"scripts": {"typecheck": "tsc --noEmit", "test": "vitest run --config vitest.config.ts", "build": "tsup", "prepack": "bun run typecheck && bun run test && bun run build", "pack:dry-run": "bun pm pack --dry-run", "scan-upstream": "node scripts/scan-yt-dlp-source.mjs"},
-	"devDependencies": {"@types/node": "25.9.3", "tsup": "8.5.1", "typescript": "6.0.3", "vitest": "4.1.9"},
+	"devDependencies": {"@types/node": "25.9.3", "tsup": "8.5.1", "typescript": "6.0.3", "vitest": "4.1.10"},
 	"publishConfig": {"access": "public"}
 }
