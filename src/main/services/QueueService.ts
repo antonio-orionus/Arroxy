@@ -699,8 +699,8 @@ export class QueueService extends EventEmitter {
 				this.commit({kind: 'event', itemId, evt: {kind: 'failed', error: {kind: 'unknown', raw: result.error.message}, resumeContext: resumeContextForImmediateFailure}})
 				return fail(result.error)
 			}
-			const currentItem = this.findItem(itemId)
-			if (!currentItem || currentItem.status !== QUEUE_STATUS.pending) {
+			const currentItem = this.findItem(itemId) // `item` predates the await and commit replaces slots rather than mutating, so `item.status` is the pre-start snapshot. Requiring `pending` here silently cancelled every cross-restart resume, where the item is legitimately still `paused-active`.
+			if (!currentItem || currentItem.status !== item.status) {
 				await this.downloadService.cancel(result.data.job.id)
 				return ok(undefined)
 			}
