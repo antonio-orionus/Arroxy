@@ -511,6 +511,13 @@
 		"profileOverrideDescription": "留空则沿用全局模板。",
 		"idWarning": "缺少 {id} 时，Arroxy 无法检测已下载的播放列表项，也无法生成 .m3u 播放列表。",
 		"m3uDisabled": "不可用，因为你的文件名模板不包含 {id}。",
-		"error": {"empty": "请输入文件名模板。", "too-long": "模板过长。", "forbidden-char": "请删除文件名中不允许的字符：/  : * ? \" < > |", "stray-brace": "{ 或 } 未配对 — 标记请写成 {title} 这样的形式。", "no-unique-token": "请添加 {title} 或 {id}，让每个下载拥有各自的文件名。", "unknown-token": "未知标记 {{token}}。"}
+		"error": {
+			"empty": "请输入文件名模板。",
+			"too-long": "模板过长。",
+			"forbidden-char": "请删除文件名中不允许的字符：/ \\ : * ? \" < > |",
+			"stray-brace": "{ 或 } 未配对 — 标记请写成 {title} 这样的形式。",
+			"no-unique-token": "请添加 {title} 或 {id}，让每个下载拥有各自的文件名。",
+			"unknown-token": "未知标记 {{token}}。"
+		}
 	}
 }

@@ -209,7 +209,7 @@ msgstr "ファイル名テンプレートを入力してください。"
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "ファイル名に使用できない文字を削除してください: / \ : * ? \" < > |"
+msgstr "ファイル名に使用できない文字を削除してください: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

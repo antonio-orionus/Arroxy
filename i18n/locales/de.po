@@ -209,7 +209,7 @@ msgstr "Gib eine Dateinamenvorlage ein."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "Entferne Zeichen, die in Dateinamen nicht erlaubt sind: / \ : * ? \" < > |"
+msgstr "Entferne Zeichen, die in Dateinamen nicht erlaubt sind: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

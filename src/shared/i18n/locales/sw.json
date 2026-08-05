@@ -555,7 +555,7 @@
 		"error": {
 			"empty": "Weka kiolezo cha jina la faili.",
 			"too-long": "Kiolezo ni kirefu mno.",
-			"forbidden-char": "Ondoa herufi zisizoruhusiwa katika majina ya faili: /  : * ? \" < > |",
+			"forbidden-char": "Ondoa herufi zisizoruhusiwa katika majina ya faili: / \\ : * ? \" < > |",
 			"stray-brace": "{ au } isiyofungwa — andika tokeni kama {title}.",
 			"no-unique-token": "Ongeza {title} au {id} ili kila upakuaji uwe na jina lake la faili.",
 			"unknown-token": "Tokeni isiyojulikana {{token}}."

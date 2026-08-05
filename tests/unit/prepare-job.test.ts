@@ -71,7 +71,7 @@ describe('prepareJob', () => {
 	describe('ranged-format kind', () => {
 		it('builds video intent with formatSelector', () => {
 			const sel = {kind: 'video' as const, tier: '1080' as const, codec: 'best' as const}
-			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: sel, filenameTemplate: '01 - %(title)s.%(ext)s', embed: EMBED_ALL})
+			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: sel, filenameTemplate: '01 - {title}', embed: EMBED_ALL})
 			expect(job).toEqual({
 				kind: 'ranged-format',
 				extractor: 'youtube',
@@ -81,7 +81,7 @@ describe('prepareJob', () => {
 				formatSort: 'res:1080,fps',
 				mergeOutputFormat: undefined,
 				audioConvert: undefined,
-				filenameTemplate: '01 - %(title)s.%(ext)s',
+				filenameTemplate: '01 - {title}',
 				subtitles: undefined,
 				sponsorBlock: {mode: 'off'},
 				embed: EMBED_ALL
@@ -90,7 +90,7 @@ describe('prepareJob', () => {
 		})
 
 		it('builds audio lossy preset with audioConvert', () => {
-			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: {kind: 'audio', format: 'mp3', bitrateKbps: 192}, filenameTemplate: '01 - %(title)s.%(ext)s'})
+			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: {kind: 'audio', format: 'mp3', bitrateKbps: 192}, filenameTemplate: '01 - {title}'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual({kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 192}})
 			expect(job.audioConvert).toEqual({target: 'mp3', bitrateKbps: 192})

@@ -209,7 +209,7 @@ msgstr "Bocquu maqaa faayilii galchi."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "Arfiilee maqaa faayilii keessatti hin hayyamamne haqi: / \ : * ? \" < > |"
+msgstr "Arfiilee maqaa faayilii keessatti hin hayyamamne haqi: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

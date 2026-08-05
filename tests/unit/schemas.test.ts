@@ -249,6 +249,13 @@ describe('updateSettingsSchema — common.filenameTemplate', () => {
 		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: '   '}}).success).toBe(false)
 	})
 
+	it('accepts a filenameTemplate exactly at the length cap', () => {
+		// Pairs with the rejection below to pin the cap as inclusive.
+		const atCap = `{title}${'x'.repeat(113)}`
+		expect(atCap).toHaveLength(120)
+		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: atCap}}).success).toBe(true)
+	})
+
 	it('rejects a filenameTemplate past the length cap', () => {
 		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: 'x'.repeat(121)}}).success).toBe(false)
 	})

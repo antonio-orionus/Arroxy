@@ -209,7 +209,7 @@ msgstr "请输入文件名模板。"
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "请删除文件名中不允许的字符：/ \ : * ? \" < > |"
+msgstr "请删除文件名中不允许的字符：/ \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

@@ -21,10 +21,45 @@ export const DEFAULT_FILENAME_TEMPLATE = '{title} [{id}]'
 // on several extractors Arroxy supports; the chain degrades to a real value
 // instead of printing "NA".
 //
-// Byte caps keep the rendered name under the 255-byte filesystem component
-// limit. `{title}` carried `.200B` before templates existed — the cap is
-// parity, not new behavior.
-const TOKEN_FIELDS: Record<FilenameToken, string> = {title: '%(title).150B', uploader: '%(uploader,channel,creator,uploader_id).60B', id: '%(id)s', date: '%(upload_date>%Y-%m-%d|)s', resolution: '%(height&{}p|)s', playlist_index: '%(playlist_index|)03d'}
+// `{title}` takes a byte cap computed per template rather than a fixed one —
+// see titleCapFor(). Capping fields individually is not enough: the limit
+// applies to the whole rendered component, and literals are counted in UTF-8
+// bytes, so 120 multibyte characters plus a 150-byte title reaches 390 bytes
+// against a 255-byte limit.
+const TOKEN_FIELDS: Record<Exclude<FilenameToken, 'title'>, string> = {uploader: '%(uploader,channel,creator,uploader_id).60B', id: '%(id)s', date: '%(upload_date>%Y-%m-%d|)s', resolution: '%(height&{}p|)s', playlist_index: '%(playlist_index|)03d'}
+
+// Worst-case bytes each token can contribute. `uploader` matches its own `.60B`
+// cap; `id` is an allowance rather than a cap because playlist dedupe matches
+// the full video id — truncating it would silently break that.
+const TOKEN_MAX_BYTES: Record<FilenameToken, number> = {title: 150, uploader: 60, id: 64, date: 10, resolution: 6, playlist_index: 6}
+
+// 255 is the usual filesystem limit for one path component; the margin leaves
+// room for the suffixes yt-dlp appends while working (`.part`, `.f137`).
+const COMPONENT_BUDGET_BYTES = 240
+const EXTENSION_BYTES = 6
+const TITLE_MIN_BYTES = 40
+
+function utf8Length(value: string): number {
+	return new TextEncoder().encode(value).length
+}
+
+/**
+ * Bytes left for `{title}` once literals, the extension, and every other token's
+ * worst case are accounted for. Split evenly when `{title}` appears more than
+ * once. Negative or below TITLE_MIN_BYTES means the template cannot fit.
+ */
+function titleCapFor(segments: Segment[]): number {
+	let fixed = EXTENSION_BYTES
+	let titleCount = 0
+	for (const segment of segments) {
+		if (segment.kind === 'literal') fixed += utf8Length(segment.text)
+		else if (segment.token === 'title') titleCount++
+		else fixed += TOKEN_MAX_BYTES[segment.token]
+	}
+	const remaining = COMPONENT_BUDGET_BYTES - fixed
+	if (titleCount === 0) return remaining
+	return Math.min(TOKEN_MAX_BYTES.title, Math.floor(remaining / titleCount))
+}
 
 // Values a single 1080p video download would produce, used to render the live
 // preview without spawning yt-dlp. `playlist_index` is empty because the sample
@@ -51,7 +86,7 @@ function isFilenameToken(value: string): value is FilenameToken {
 	return (FILENAME_TOKENS as readonly string[]).includes(value)
 }
 
-function parse(raw: string): {ok: true; segments: Segment[]} | FilenameTemplateFailure {
+function parse(raw: string): {ok: true; segments: Segment[]; titleCap: number} | FilenameTemplateFailure {
 	const template = raw.trim()
 	if (!template) return {ok: false, code: 'empty'}
 	if (template.length > FILENAME_TEMPLATE_MAX) return {ok: false, code: 'too-long'}
@@ -88,7 +123,13 @@ function parse(raw: string): {ok: true; segments: Segment[]} | FilenameTemplateF
 	const distinguishing = segments.some(segment => segment.kind === 'token' && (segment.token === 'title' || segment.token === 'id'))
 	if (!distinguishing) return {ok: false, code: 'no-unique-token'}
 
-	return {ok: true, segments}
+	// The 120-character cap bounds what the user types; this bounds what yt-dlp
+	// actually writes, which is what the filesystem limits.
+	const titleCap = titleCapFor(segments)
+	const hasTitle = segments.some(segment => segment.kind === 'token' && segment.token === 'title')
+	if (titleCap < (hasTitle ? TITLE_MIN_BYTES : 0)) return {ok: false, code: 'too-long'}
+
+	return {ok: true, segments, titleCap}
 }
 
 export function validateFilenameTemplate(template: string): FilenameTemplateValidation {
@@ -100,7 +141,7 @@ export function compileFilenameTemplate(template: string): FilenameTemplateCompi
 	const parsed = parse(template)
 	if (!parsed.ok) return parsed
 	// Literal `%` must survive yt-dlp's own expansion pass.
-	const body = parsed.segments.map(segment => (segment.kind === 'token' ? TOKEN_FIELDS[segment.token] : segment.text.replaceAll('%', '%%'))).join('')
+	const body = parsed.segments.map(segment => (segment.kind === 'token' ? (segment.token === 'title' ? `%(title).${parsed.titleCap}B` : TOKEN_FIELDS[segment.token]) : segment.text.replaceAll('%', '%%'))).join('')
 	return {ok: true, template: `${body}.%(ext)s`}
 }
 

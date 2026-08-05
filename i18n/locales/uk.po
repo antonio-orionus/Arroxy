@@ -209,7 +209,7 @@ msgstr "Введіть шаблон імені файлу."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "Приберіть символи, які заборонені в іменах файлів: / \ : * ? \" < > |"
+msgstr "Приберіть символи, які заборонені в іменах файлів: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

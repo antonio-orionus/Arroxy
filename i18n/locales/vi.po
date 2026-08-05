@@ -209,7 +209,7 @@ msgstr "Hãy nhập mẫu tên tệp."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "Hãy bỏ các ký tự không được phép trong tên tệp: / \ : * ? \" < > |"
+msgstr "Hãy bỏ các ký tự không được phép trong tên tệp: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

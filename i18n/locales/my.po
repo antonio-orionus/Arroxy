@@ -209,7 +209,7 @@ msgstr "ဖိုင်အမည် ပုံစံခွက်ကို ထည�
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "ဖိုင်အမည်များတွင် ခွင့်မပြုသော စာလုံးများကို ဖယ်ရှားပါ- / \ : * ? \" < > |"
+msgstr "ဖိုင်အမည်များတွင် ခွင့်မပြုသော စာလုံးများကို ဖယ်ရှားပါ- / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

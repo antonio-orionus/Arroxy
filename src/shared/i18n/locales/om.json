@@ -562,7 +562,7 @@
 		"error": {
 			"empty": "Bocquu maqaa faayilii galchi.",
 			"too-long": "Bocquun baay'ee dheeraa dha.",
-			"forbidden-char": "Arfiilee maqaa faayilii keessatti hin hayyamamne haqi: /  : * ? \" < > |",
+			"forbidden-char": "Arfiilee maqaa faayilii keessatti hin hayyamamne haqi: / \\ : * ? \" < > |",
 			"stray-brace": "{ ykn } hin cufamne — mallattoo akka {title} barreessi.",
 			"no-unique-token": "Buufamni tokkoon tokkoon maqaa faayilii mataa isaa akka qabaatuuf {title} ykn {id} dabali.",
 			"unknown-token": "Mallattoo hin beekamne {{token}}."

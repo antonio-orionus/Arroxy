@@ -209,7 +209,7 @@ msgstr "Унесите шаблон назива датотеке."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "Уклоните знакове који нису дозвољени у називима датотека: / \ : * ? \" < > |"
+msgstr "Уклоните знакове који нису дозвољени у називима датотека: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

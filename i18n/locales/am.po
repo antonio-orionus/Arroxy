@@ -209,7 +209,7 @@ msgstr "የፋይል ስም አብነት ያስገቡ።"
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "በፋይል ስሞች ውስጥ የማይፈቀዱ ቁምፊዎችን ያስወግዱ፦ / \ : * ? \" < > |"
+msgstr "በፋይል ስሞች ውስጥ የማይፈቀዱ ቁምፊዎችን ያስወግዱ፦ / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

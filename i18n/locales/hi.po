@@ -209,7 +209,7 @@ msgstr "फ़ाइल नाम टेम्पलेट दर्ज कर�
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "फ़ाइल नामों में अमान्य वर्ण हटाएँ: / \ : * ? \" < > |"
+msgstr "फ़ाइल नामों में अमान्य वर्ण हटाएँ: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

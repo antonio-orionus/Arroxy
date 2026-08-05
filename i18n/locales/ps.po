@@ -209,7 +209,7 @@ msgstr "د دوتنې نوم بېلګه ولیکئ."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "هغه توري لرې کړئ چې د دوتنو په نومونو کې اجازه نلري: / \ : * ? \" < > |"
+msgstr "هغه توري لرې کړئ چې د دوتنو په نومونو کې اجازه نلري: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

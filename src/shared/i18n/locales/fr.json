@@ -567,7 +567,7 @@
 		"error": {
 			"empty": "Saisissez un modèle de nom de fichier.",
 			"too-long": "Le modèle est trop long.",
-			"forbidden-char": "Supprimez les caractères interdits dans les noms de fichiers : /  : * ? \" < > |",
+			"forbidden-char": "Supprimez les caractères interdits dans les noms de fichiers : / \\ : * ? \" < > |",
 			"stray-brace": "{ ou } non fermée — écrivez les éléments comme {title}.",
 			"no-unique-token": "Ajoutez {title} ou {id} pour que chaque téléchargement ait son propre nom de fichier.",
 			"unknown-token": "Élément inconnu {{token}}."

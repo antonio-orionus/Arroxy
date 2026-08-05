@@ -209,7 +209,7 @@ msgstr "Bir dosya adı şablonu girin."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "Dosya adlarında izin verilmeyen karakterleri kaldırın: / \ : * ? \" < > |"
+msgstr "Dosya adlarında izin verilmeyen karakterleri kaldırın: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

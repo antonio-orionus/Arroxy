@@ -209,7 +209,7 @@ msgstr "Εισαγάγετε ένα πρότυπο ονόματος αρχείο
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "Αφαιρέστε χαρακτήρες που δεν επιτρέπονται σε ονόματα αρχείων: / \ : * ? \" < > |"
+msgstr "Αφαιρέστε χαρακτήρες που δεν επιτρέπονται σε ονόματα αρχείων: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

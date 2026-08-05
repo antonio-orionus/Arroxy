@@ -555,7 +555,7 @@
 		"error": {
 			"empty": "Bir dosya adı şablonu girin.",
 			"too-long": "Şablon çok uzun.",
-			"forbidden-char": "Dosya adlarında izin verilmeyen karakterleri kaldırın: /  : * ? \" < > |",
+			"forbidden-char": "Dosya adlarında izin verilmeyen karakterleri kaldırın: / \\ : * ? \" < > |",
 			"stray-brace": "Eşleşmeyen { veya } — belirteçleri {title} gibi yazın.",
 			"no-unique-token": "Her indirmenin kendi dosya adı olması için {title} veya {id} ekleyin.",
 			"unknown-token": "Bilinmeyen belirteç {{token}}."

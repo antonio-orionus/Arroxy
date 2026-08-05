@@ -555,7 +555,7 @@
 		"error": {
 			"empty": "Hãy nhập mẫu tên tệp.",
 			"too-long": "Mẫu quá dài.",
-			"forbidden-char": "Hãy bỏ các ký tự không được phép trong tên tệp: /  : * ? \" < > |",
+			"forbidden-char": "Hãy bỏ các ký tự không được phép trong tên tệp: / \\ : * ? \" < > |",
 			"stray-brace": "{ hoặc } chưa đóng — hãy viết thẻ như {title}.",
 			"no-unique-token": "Hãy thêm {title} hoặc {id} để mỗi lượt tải có tên tệp riêng.",
 			"unknown-token": "Thẻ không xác định {{token}}."

@@ -209,7 +209,7 @@ msgstr "Fayl nomi shablonini kiriting."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "Fayl nomlarida ruxsat etilmagan belgilarni olib tashlang: / \ : * ? \" < > |"
+msgstr "Fayl nomlarida ruxsat etilmagan belgilarni olib tashlang: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

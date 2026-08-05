@@ -209,7 +209,7 @@ msgstr "Introduce una plantilla de nombre de archivo."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "Quita los caracteres que no se permiten en nombres de archivo: / \ : * ? \" < > |"
+msgstr "Quita los caracteres que no se permiten en nombres de archivo: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

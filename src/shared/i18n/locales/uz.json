@@ -570,7 +570,7 @@
 		"error": {
 			"empty": "Fayl nomi shablonini kiriting.",
 			"too-long": "Shablon juda uzun.",
-			"forbidden-char": "Fayl nomlarida ruxsat etilmagan belgilarni olib tashlang: /  : * ? \" < > |",
+			"forbidden-char": "Fayl nomlarida ruxsat etilmagan belgilarni olib tashlang: / \\ : * ? \" < > |",
 			"stray-brace": "Yopilmagan { yoki } — tokenlarni {title} kabi yozing.",
 			"no-unique-token": "Har bir yuklab olish o'z fayl nomiga ega bo'lishi uchun {title} yoki {id} qo'shing.",
 			"unknown-token": "Noma'lum token {{token}}."

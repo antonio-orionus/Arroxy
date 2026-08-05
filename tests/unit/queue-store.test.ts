@@ -232,3 +232,42 @@ describe('QueueStore — beta migration', () => {
 		expect(loaded[0].error).toEqual({kind: 'botBlock', raw: 'sign in to confirm'})
 	})
 })
+
+describe('QueueStore — filename template migration', () => {
+	function legacyRow(id: string, job: Record<string, unknown>): Record<string, unknown> {
+		return {id, url: `https://yt/${id}`, title: id, thumbnail: '', outputDir: '/tmp', formatLabel: 'Best', status: 'pending', progressPercent: 0, progressDetail: null, lastStatus: null, error: null, finishedAt: null, job}
+	}
+
+	const RANGED = {kind: 'ranged-format', extractor: 'youtube', extractorKey: 'Youtube', intent: {kind: 'video-audio', codec: 'best', tiers: ['best'], audio: {format: 'best'}}, sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+
+	it('maps a legacy compiled outputTemplate back to the equivalent app template', async () => {
+		const [store, dir] = await tempStore()
+		const items = [legacyRow('with-id', {...RANGED, outputTemplate: '%(title).200B [%(id)s].%(ext)s'}), legacyRow('no-id', {...RANGED, outputTemplate: '%(title).200B.%(ext)s'})]
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items}), 'utf-8')
+
+		const loaded = await loadOk(store)
+		// A ranged-format job *requires* filenameTemplate and load() validates the
+		// whole array at once, so without this migration one legacy playlist item
+		// would fail the parse and wipe the entire queue on upgrade.
+		expect(loaded).toHaveLength(2)
+		expect(loaded[0].job).toMatchObject({filenameTemplate: '{title} [{id}]'})
+		expect(loaded[1].job).toMatchObject({filenameTemplate: '{title}'})
+		expect(loaded[0].job).not.toHaveProperty('outputTemplate')
+	})
+
+	it('falls back to the default rather than trusting an unknown legacy template as app syntax', async () => {
+		const [store, dir] = await tempStore()
+		const items = [legacyRow('odd', {...RANGED, outputTemplate: '%(uploader)s/%(title)s.%(ext)s'})]
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items}), 'utf-8')
+
+		expect((await loadOk(store))[0].job).toMatchObject({filenameTemplate: '{title} [{id}]'})
+	})
+
+	it('keeps an existing filenameTemplate untouched', async () => {
+		const [store, dir] = await tempStore()
+		const items = [legacyRow('new', {...RANGED, filenameTemplate: '{uploader} - {title}', outputTemplate: '%(title).200B.%(ext)s'})]
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items}), 'utf-8')
+
+		expect((await loadOk(store))[0].job).toMatchObject({filenameTemplate: '{uploader} - {title}'})
+	})
+})

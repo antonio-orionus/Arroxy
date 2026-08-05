@@ -560,7 +560,7 @@
 		"error": {
 			"empty": "Introduce una plantilla de nombre de archivo.",
 			"too-long": "La plantilla es demasiado larga.",
-			"forbidden-char": "Quita los caracteres que no se permiten en nombres de archivo: /  : * ? \" < > |",
+			"forbidden-char": "Quita los caracteres que no se permiten en nombres de archivo: / \\ : * ? \" < > |",
 			"stray-brace": "{ o } sin cerrar: escribe los elementos como {title}.",
 			"no-unique-token": "Añade {title} o {id} para que cada descarga tenga su propio nombre de archivo.",
 			"unknown-token": "Elemento desconocido {{token}}."

@@ -567,7 +567,7 @@
 		"error": {
 			"empty": "Gib eine Dateinamenvorlage ein.",
 			"too-long": "Die Vorlage ist zu lang.",
-			"forbidden-char": "Entferne Zeichen, die in Dateinamen nicht erlaubt sind: /  : * ? \" < > |",
+			"forbidden-char": "Entferne Zeichen, die in Dateinamen nicht erlaubt sind: / \\ : * ? \" < > |",
 			"stray-brace": "Nicht geschlossene { oder } — schreibe Platzhalter wie {title}.",
 			"no-unique-token": "Füge {title} oder {id} hinzu, damit jeder Download einen eigenen Dateinamen erhält.",
 			"unknown-token": "Unbekannter Platzhalter {{token}}."

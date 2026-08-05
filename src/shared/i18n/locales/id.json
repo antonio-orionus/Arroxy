@@ -562,7 +562,7 @@
 		"error": {
 			"empty": "Masukkan templat nama berkas.",
 			"too-long": "Templat terlalu panjang.",
-			"forbidden-char": "Hapus karakter yang tidak diizinkan dalam nama berkas: /  : * ? \" < > |",
+			"forbidden-char": "Hapus karakter yang tidak diizinkan dalam nama berkas: / \\ : * ? \" < > |",
 			"stray-brace": "{ atau } tidak berpasangan — tulis token seperti {title}.",
 			"no-unique-token": "Tambahkan {title} atau {id} agar setiap unduhan punya nama berkas sendiri.",
 			"unknown-token": "Token tidak dikenal {{token}}."

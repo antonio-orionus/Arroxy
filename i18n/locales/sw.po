@@ -209,7 +209,7 @@ msgstr "Weka kiolezo cha jina la faili."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "Ondoa herufi zisizoruhusiwa katika majina ya faili: / \ : * ? \" < > |"
+msgstr "Ondoa herufi zisizoruhusiwa katika majina ya faili: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

@@ -209,7 +209,7 @@ msgstr "أدخل قالب اسم ملف."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "أزل الأحرف غير المسموح بها في أسماء الملفات: / \ : * ? \" < > |"
+msgstr "أزل الأحرف غير المسموح بها في أسماء الملفات: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

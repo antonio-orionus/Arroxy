@@ -39,7 +39,7 @@ jobs:
           bun-version: ${{ env.BUN_VERSION }}
 
       - name: Cache bun dependencies
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: ~/.bun/install/cache
           key: ubuntu-latest-bun-${{ hashFiles('bun.lock') }}

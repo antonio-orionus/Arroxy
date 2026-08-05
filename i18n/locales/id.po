@@ -209,7 +209,7 @@ msgstr "Masukkan templat nama berkas."
 
 msgctxt "filenameTemplate.error.forbidden-char"
 msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
-msgstr "Hapus karakter yang tidak diizinkan dalam nama berkas: / \ : * ? \" < > |"
+msgstr "Hapus karakter yang tidak diizinkan dalam nama berkas: / \\ : * ? \" < > |"
 
 msgctxt "filenameTemplate.error.no-unique-token"
 msgid "Add {title} or {id} so each download gets its own filename."

@@ -139,3 +139,31 @@ describe('injection resistance', () => {
 		}
 	})
 })
+
+describe('rendered-component byte budget', () => {
+	it('keeps the default templates on the full title cap', () => {
+		// Capping shrinks only when the rest of the template needs the room, so
+		// everyday templates are unaffected.
+		expect(compiled('{title} [{id}]')).toContain('%(title).150B')
+		expect(compiled('{uploader} - {title}')).toContain('%(title).150B')
+	})
+
+	it('shrinks the title cap when other tokens claim the budget', () => {
+		const template = compiled('{uploader} - {title} [{id}] {date} {resolution}')
+		const cap = Number(/%\(title\)\.(\d+)B/.exec(template)?.[1])
+		expect(cap).toBeLessThan(150)
+		expect(cap).toBeGreaterThanOrEqual(40)
+	})
+
+	it('splits the budget when title repeats', () => {
+		const once = Number(/%\(title\)\.(\d+)B/.exec(compiled('{title} [{id}]'))?.[1])
+		const twice = Number(/%\(title\)\.(\d+)B/.exec(compiled('{title} {title} [{id}]'))?.[1])
+		expect(twice).toBeLessThan(once)
+	})
+
+	it('rejects a template whose literals alone overflow the component limit', () => {
+		// 120 multibyte characters is within the 120-character cap but is 240
+		// UTF-8 bytes on disk — the character cap cannot catch this.
+		expect(validateFilenameTemplate(`${'х'.repeat(113)}{title}`)).toEqual({ok: false, code: 'too-long'})
+	})
+})
