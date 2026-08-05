@@ -81,7 +81,7 @@
 		"test:e2e": "bun run build && xvfb-run -a playwright test",
 		"test:e2e:cold": "bunx playwright test tests/e2e/cold-start.spec.ts --config playwright.config.ts",
 		"test:e2e:fixtures:dev": "playwright test tests/e2e/fixture-*.spec.ts --config playwright.config.ts --workers=1",
-		"test:e2e:fixtures:headless": "ARROXY_E2E_HEADLESS=1 playwright test tests/e2e/fixture-*.spec.ts --config playwright.config.ts --workers=1",
+		"test:e2e:fixtures:headless": "bun run build && ARROXY_E2E_HEADLESS=1 playwright test tests/e2e/fixture-*.spec.ts --config playwright.config.ts --workers=1",
 		"test:e2e:fixtures:ci": "bun run embed:fetch:host && bun run build && xvfb-run -a playwright test tests/e2e/fixture-*.spec.ts --config playwright.config.ts --workers=1",
 		"test:browser": "bun scripts/dev-env.ts run browser-test",
 		"test:browser:smoke": "bun scripts/dev-env.ts run browser-smoke",

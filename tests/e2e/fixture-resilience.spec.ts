@@ -1,6 +1,7 @@
 import {expect, test} from '@playwright/test'
 import fs from 'node:fs'
 import {FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureHarness.js'
+import {fixtureMediaFileSize} from './fixtureMediaCatalog.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, isMediaRequestFor, openQueueTab, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
@@ -119,7 +120,12 @@ test('Electron split media failure preserves temp artifacts and retries from res
 		expect(fs.existsSync(tempDir)).toBe(false)
 		const outputs = files.mediaFiles('.mp4')
 		expect(outputs).toHaveLength(1)
-		expect(fs.statSync(outputs[0]).size).toBeGreaterThan(8_000)
+		// Derived rather than a magic number: the merged file must exceed the
+		// video-only stream, which is what proves audio was actually muxed in.
+		// A hardcoded floor is platform-dependent — the BtbN (Linux) and
+		// Martin-Riedl (macOS) ffmpeg builds emit different container overhead
+		// for identical input, so 8_000 passed on macOS and failed at 7_586 on CI.
+		expect(fs.statSync(outputs[0]).size).toBeGreaterThan(fixtureMediaFileSize('137'))
 		const mediaGets = fixtureServer
 			.telemetry()
 			.requests.filter(request => isMediaRequestFor(videoId, request))
