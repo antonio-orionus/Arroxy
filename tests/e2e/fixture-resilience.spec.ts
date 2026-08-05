@@ -27,14 +27,14 @@ test('Electron queue controls handle hold, priority, cancel, pause queue, and re
 		await queue.expectStatus('Fixture Video 2', 'pending')
 		await queue.expectStatus('Fixture Video 3', 'pending')
 
-		const secondCard = queue.cardByTitle('Fixture Video 2')
-		await secondCard.getByTestId('btn-hold').click()
+		// Holding a pending item keeps it out of the running lane.
+		await queue.action('Fixture Video 2', 'pause')
 		await queue.expectStatus('Fixture Video 2', 'paused-held')
 
-		const thirdCard = queue.cardByTitle('Fixture Video 3')
-		await thirdCard.getByTestId('btn-pull-now').click()
+		// Priority lane spawns alongside the running normal-lane item.
+		await queue.action('Fixture Video 3', 'pull-now')
 		await queue.expectStatus('Fixture Video 3', 'running')
-		await thirdCard.getByTestId('btn-cancel').click()
+		await queue.action('Fixture Video 3', 'cancel')
 		await queue.expectStatus('Fixture Video 3', 'cancelled')
 
 		await page.getByTestId('btn-pause-all').click()
@@ -80,7 +80,7 @@ test('Electron media failure can be retried to a completed output file', async (
 		await expect(queue.cardByTitle('Fixture Video 5').getByTestId('queue-error-msg')).toBeVisible()
 
 		fixtureServer.setBehavior({})
-		await queue.cardByTitle('Fixture Video 5').getByTestId('btn-retry').click()
+		await queue.action('Fixture Video 5', 'retry')
 		await queue.expectStatus('Fixture Video 5', 'done', 120_000)
 
 		files.expectMp4Count(1)
@@ -113,7 +113,7 @@ test('Electron split media failure preserves temp artifacts and retries from res
 		expect(files.listRecursive(tempDir).length).toBeGreaterThan(0)
 
 		fixtureServer.setBehavior({})
-		await queue.cardByTitle(title).getByTestId('btn-retry').click()
+		await queue.action(title, 'retry')
 		await queue.expectStatus(title, 'done', 120_000)
 
 		expect(fs.existsSync(tempDir)).toBe(false)
@@ -166,13 +166,13 @@ test('Electron paused active fixture download resumes after app relaunch', async
 		await prepareSingleConfirm(page, videoId)
 		await page.locator('[data-testid="btn-download-now"]').click()
 		await queue.expectStatus('Fixture Video 7', 'running', 60_000)
-		await queue.cardByTitle('Fixture Video 7').getByTestId('btn-pause').click()
+		await queue.action('Fixture Video 7', 'pause')
 		await queue.expectStatus('Fixture Video 7', 'paused-active', 60_000)
 
 		const relaunched = await relaunch()
 		await relaunched.queue.open()
 		await relaunched.queue.expectStatus('Fixture Video 7', 'paused-active', 60_000)
-		await relaunched.queue.cardByTitle('Fixture Video 7').getByTestId('btn-resume').click()
+		await relaunched.queue.action('Fixture Video 7', 'resume')
 		await relaunched.queue.expectStatus('Fixture Video 7', 'done', 120_000)
 
 		files.expectMp4Count(1)

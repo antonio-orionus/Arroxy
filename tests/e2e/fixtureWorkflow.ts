@@ -152,6 +152,25 @@ export async function expectQueueStatus(page: Page, title: string, status: strin
 	await expect(queueCardByTitle(page, title)).toHaveAttribute('data-status', status, {timeout})
 }
 
+export type QueueRowAction = 'pause' | 'resume' | 'pull-now' | 'cancel' | 'retry' | 'remove'
+
+/**
+ * Queue item actions live in the selection toolbar, not on the row: select the
+ * item, then apply the action to the selection. A plain row click replaces the
+ * selection outright, so this is idempotent and safe to repeat.
+ *
+ * Asserting the button is enabled first is a real oracle — the toolbar disables
+ * actions that don't apply to the selected item's status, so a passing click
+ * also proves the item was in a state where the action was legal.
+ */
+export async function applyQueueAction(page: Page, title: string, action: QueueRowAction): Promise<void> {
+	await openQueueTab(page)
+	await queueCardByTitle(page, title).click()
+	const button = page.getByTestId(`queue-action-${action}`)
+	await expect(button).toBeEnabled()
+	await button.click()
+}
+
 export function mediaFiles(outputDir: string, extension: string): string[] {
 	return listFilesRecursive(outputDir).filter(name => name.endsWith(extension))
 }

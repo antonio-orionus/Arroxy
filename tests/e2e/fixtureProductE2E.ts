@@ -4,7 +4,7 @@ import path from 'node:path'
 import type {ElectronApplication, Page} from '@playwright/test'
 import type {AppSettings} from '../../src/shared/types.js'
 import {assertNoExternalRequests, buildFixtureEnv, fixturePlaylistUrl, fixtureUrl, runProcess, startDenyProxy, startFixtureServer, writeE2eSettings, type FixtureServer, type FixtureServerBehavior, type ProcessResult} from './fixtureHarness.js'
-import {expectMp4Count, expectNoMp4For, expectQueueStatus, launchFixtureApp, listFilesRecursive, mediaFiles, openQueueTab, prepareFixtureRuntime, queueCardByTitle} from './fixtureWorkflow.js'
+import {applyQueueAction, expectMp4Count, expectNoMp4For, expectQueueStatus, launchFixtureApp, listFilesRecursive, mediaFiles, openQueueTab, prepareFixtureRuntime, queueCardByTitle, type QueueRowAction} from './fixtureWorkflow.js'
 
 interface FixtureProductOptions {
 	behavior?: FixtureServerBehavior
@@ -29,6 +29,7 @@ interface QueueHelpers {
 	open: () => Promise<void>
 	cardByTitle: (title: string) => ReturnType<typeof queueCardByTitle>
 	expectStatus: (title: string, status: string, timeout?: number) => Promise<void>
+	action: (title: string, action: QueueRowAction) => Promise<void>
 }
 
 interface FileHelpers {
@@ -65,7 +66,7 @@ function urls(): UrlHelpers {
 }
 
 function queue(page: Page): QueueHelpers {
-	return {open: () => openQueueTab(page), cardByTitle: title => queueCardByTitle(page, title), expectStatus: (title, status, timeout) => expectQueueStatus(page, title, status, timeout)}
+	return {open: () => openQueueTab(page), cardByTitle: title => queueCardByTitle(page, title), expectStatus: (title, status, timeout) => expectQueueStatus(page, title, status, timeout), action: (title, action) => applyQueueAction(page, title, action)}
 }
 
 function files(outputDir: string): FileHelpers {
