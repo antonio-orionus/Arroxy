@@ -277,4 +277,17 @@ describe('DownloadProfileEditor', () => {
 			consoleError.mockRestore()
 		}
 	})
+
+	it('renders translated copy rather than raw i18n keys', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+		// A missing catalog entry renders the key itself, which still satisfies a
+		// testid-based assertion — so check the resolved text and that no
+		// `wizard.profileEditor.*` key leaked into the DOM.
+		expect(await screen.findByText('Profile identity')).toBeInTheDocument()
+		expect(screen.getByText('Download type')).toBeInTheDocument()
+		expect(screen.getByText('Advanced options')).toBeInTheDocument()
+		expect(document.body.textContent).not.toMatch(/wizard\.profileEditor\./)
+	})
 })

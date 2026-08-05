@@ -387,6 +387,57 @@
 			"itemsValueAudio_other": "{{count}} trong {{total}} bản nhạc",
 			"itemsValueBulk_one": "{{count}} trên {{total}} URL",
 			"itemsValueBulk_other": "{{count}} trên {{total}} URL"
+		},
+		"profileEditor": {
+			"dialogTitle": "Hồ sơ tải xuống",
+			"dialogDescription": "Một thiết lập dùng lại được cho Tải nhanh, URL hàng loạt và danh sách phát.",
+			"skipped": "Đã bỏ qua",
+			"panel": {
+				"identity": {"title": "Danh tính hồ sơ", "description": "Tên và biểu tượng hiển thị trong Tải nhanh, URL hàng loạt và danh sách hồ sơ."},
+				"downloadType": {"title": "Kiểu tải xuống", "description": "Chọn cách tải xuống chính mà bạn muốn."},
+				"advanced": {"title": "Tùy chọn nâng cao", "description": "Hồ sơ kế thừa đích chung trừ khi bạn đặt ghi đè hồ sơ."},
+				"output": {"title": "Tùy chọn đầu ra"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Tên và biểu tượng hồ sơ",
+				"icon": "Biểu tượng hồ sơ",
+				"compatibility": "Tương thích",
+				"resolution": "Độ phân giải",
+				"quality": "Chất lượng",
+				"source": "Nguồn",
+				"languageCodes": "Mã ngôn ngữ phụ đề",
+				"subfolderName": "Tên thư mục con",
+				"name": "Tên hồ sơ",
+				"subtitleDownloads": "Tải phụ đề",
+				"languages": "Ngôn ngữ",
+				"delivery": "Cách lưu",
+				"overridePath": "Đường dẫn ghi đè hồ sơ"
+			},
+			"action": {"chooseIcon": "Chọn biểu tượng hồ sơ", "setOverride": "Đặt ghi đè hồ sơ", "chooseFolder": "Chọn thư mục đích", "addLanguage": "Thêm", "changeGlobalShort": "Đổi mặc định chung", "setOverrideShort": "Đặt ghi đè", "useGlobalDefault": "Dùng mặc định chung", "reset": "Đặt lại hồ sơ", "save": "Lưu hồ sơ"},
+			"placeholder": {"folder": "Chọn một thư mục cho hồ sơ này"},
+			"destination": {"global": "Đích chung", "override": "Ghi đè hồ sơ", "resolved": "Đích cuối cùng"},
+			"note": {
+				"subtitlesOnly": "Hồ sơ này chỉ đưa tệp phụ đề vào hàng đợi. Video, âm thanh, SponsorBlock và chuyển đổi phương tiện đều bị bỏ qua.",
+				"noSubtitles": "Hồ sơ này sẽ không yêu cầu tệp phụ đề hay bản phụ đề nhúng nào.",
+				"noLanguages": "Chưa chọn ngôn ngữ nào",
+				"autoCaptionsSrt": "Phụ đề tự động sẽ được lưu dưới dạng SRT thay vì ASS.",
+				"skippedForOutputType": "Đã bỏ qua với loại đầu ra này."
+			},
+			"error": {"save": "Không thể lưu cài đặt hồ sơ.", "changeGlobalDestination": "Không thể đổi đích chung.", "reset": "Không thể đặt lại cài đặt hồ sơ."},
+			"mediaMode": {
+				"videoAudio": {"label": "Video + âm thanh", "description": "Tệp video thông thường"},
+				"videoOnly": {"label": "Video, không âm thanh", "description": "Chỉ video không tiếng"},
+				"audioOnly": {"label": "Chỉ âm thanh", "description": "Nhạc hoặc podcast"},
+				"subtitlesOnly": {"label": "Chỉ phụ đề", "description": "Chỉ tệp phụ đề"}
+			},
+			"icon": {"controls": "Điều khiển", "download": "Tải xuống", "video": "Video", "captions": "Phụ đề", "audio": "Âm thanh", "music": "Nhạc", "podcast": "Podcast", "classes": "Lớp học", "clip": "Đoạn phim", "archive": "Lưu trữ"},
+			"audioFormat": {"best": "Tốt nhất", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "Tối đa 128K", "192": "Tối đa 192K", "320": "Tối đa 320K", "best": "Chất lượng tốt nhất"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Thủ công trước, rồi tự động", "manualOnly": "Chỉ thủ công", "autoOnly": "Chỉ tự động tạo"},
+			"sponsorBlockHint": {"off": "Không dùng SponsorBlock — video phát nguyên như khi tải lên.", "mark": "Đánh dấu đoạn tài trợ thành chương (không sửa tệp).", "remove": "Cắt các đoạn tài trợ khỏi video bằng FFmpeg."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Đang tải…"},

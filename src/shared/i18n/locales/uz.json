@@ -395,6 +395,67 @@
 			"itemsValueAudio_other": "{{total}} ta trekning {{count}} tasi",
 			"itemsValueBulk_one": "{{total}} URLdan {{count}} tasi",
 			"itemsValueBulk_other": "{{total}} URLdan {{count}} tasi"
+		},
+		"profileEditor": {
+			"dialogTitle": "Yuklab olish profili",
+			"dialogDescription": "Tez yuklab olish, Ommaviy URL va pleylistlar uchun qayta ishlatiladigan bitta sozlama.",
+			"skipped": "O'tkazib yuborildi",
+			"panel": {
+				"identity": {"title": "Profil identifikatori", "description": "Tez yuklab olish, Ommaviy URL va profil ro'yxatlarida ko'rinadigan nom va belgi."},
+				"downloadType": {"title": "Yuklab olish turi", "description": "Asosan qanday yuklab olishni xohlashingizni tanlang."},
+				"advanced": {"title": "Kengaytirilgan sozlamalar", "description": "Agar profil almashtirishini belgilamasangiz, profillar umumiy manzilni meros qilib oladi."},
+				"output": {"title": "Chiqish sozlamalari"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Profil nomi va belgisi",
+				"icon": "Profil belgisi",
+				"compatibility": "Moslik",
+				"resolution": "Ruxsat",
+				"quality": "Sifat",
+				"source": "Manba",
+				"languageCodes": "Subtitr til kodlari",
+				"subfolderName": "Ichki jild nomi",
+				"name": "Profil nomi",
+				"subtitleDownloads": "Subtitr yuklamalari",
+				"languages": "Tillar",
+				"delivery": "Saqlash usuli",
+				"overridePath": "Profil almashtirish yo'li"
+			},
+			"action": {
+				"chooseIcon": "Profil belgisini tanlang",
+				"setOverride": "Profil almashtirishini belgilash",
+				"chooseFolder": "Manzil jildini tanlang",
+				"addLanguage": "Qo'shish",
+				"changeGlobalShort": "Umumiyni o'zgartirish",
+				"setOverrideShort": "Almashtirishni belgilash",
+				"useGlobalDefault": "Umumiy standartdan foydalanish",
+				"reset": "Profilni tiklash",
+				"save": "Profilni saqlash"
+			},
+			"placeholder": {"folder": "Bu profil uchun jild tanlang"},
+			"destination": {"global": "Umumiy manzil", "override": "Profil almashtirishi", "resolved": "Yakuniy manzil"},
+			"note": {
+				"subtitlesOnly": "Bu profil faqat subtitr fayllarini navbatga qo'yadi. Video, audio, SponsorBlock va media konvertatsiyasi o'tkazib yuboriladi.",
+				"noSubtitles": "Bu profil uchun na subtitr fayllari, na ichki subtitr yo'llari so'ralmaydi.",
+				"noLanguages": "Til tanlanmagan",
+				"autoCaptionsSrt": "Avtomatik taglavhalar ASS o'rniga SRT sifatida saqlanadi.",
+				"skippedForOutputType": "Bu chiqish turi uchun o'tkazib yuborildi."
+			},
+			"error": {"save": "Profil sozlamalarini saqlab bo'lmadi.", "changeGlobalDestination": "Umumiy manzilni o'zgartirib bo'lmadi.", "reset": "Profil sozlamalarini tiklab bo'lmadi."},
+			"mediaMode": {
+				"videoAudio": {"label": "Video + audio", "description": "Oddiy video fayllar"},
+				"videoOnly": {"label": "Video, audiosiz", "description": "Faqat ovozsiz video"},
+				"audioOnly": {"label": "Faqat audio", "description": "Musiqa yoki podkast"},
+				"subtitlesOnly": {"label": "Faqat subtitrlar", "description": "Faqat taglavha fayllari"}
+			},
+			"icon": {"controls": "Boshqaruvlar", "download": "Yuklab olish", "video": "Video", "captions": "Taglavhalar", "audio": "Audio", "music": "Musiqa", "podcast": "Podkast", "classes": "Darslar", "clip": "Klip", "archive": "Arxiv"},
+			"audioFormat": {"best": "Eng yaxshi", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "128K gacha", "192": "192K gacha", "320": "320K gacha", "best": "Eng yaxshi sifat"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Avval qo'lda, keyin avtomatik", "manualOnly": "Faqat qo'lda", "autoOnly": "Faqat avtomatik yaratilgan"},
+			"sponsorBlockHint": {"off": "SponsorBlock yo'q — video yuklangan holicha ijro etiladi.", "mark": "Homiy qismlarini boblar sifatida belgilaydi (faylni o'zgartirmaydi).", "remove": "FFmpeg yordamida homiy qismlarini videodan kesib tashlaydi."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Yuklanmoqda…"},

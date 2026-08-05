@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "{{count}} από {{total}} κομμάτια",
 			"itemsValueBulk_one": "{{count}} από {{total}} URL",
 			"itemsValueBulk_other": "{{count}} από {{total}} URL"
+		},
+		"profileEditor": {
+			"dialogTitle": "Προφίλ λήψης",
+			"dialogDescription": "Μία επαναχρησιμοποιήσιμη ρύθμιση για Γρήγορη λήψη, Μαζικά URL και λίστες αναπαραγωγής.",
+			"skipped": "Παραλείφθηκε",
+			"panel": {
+				"identity": {"title": "Ταυτότητα προφίλ", "description": "Όνομα και εικονίδιο που εμφανίζονται στη Γρήγορη λήψη, στα Μαζικά URL και στις λίστες προφίλ."},
+				"downloadType": {"title": "Τύπος λήψης", "description": "Επιλέξτε τον κύριο τρόπο με τον οποίο θέλετε να κατεβάζετε."},
+				"advanced": {"title": "Σύνθετες επιλογές", "description": "Τα προφίλ κληρονομούν τον γενικό προορισμό εκτός αν ορίσετε παράκαμψη προφίλ."},
+				"output": {"title": "Επιλογές εξόδου"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Όνομα και εικονίδιο προφίλ",
+				"icon": "Εικονίδιο προφίλ",
+				"compatibility": "Συμβατότητα",
+				"resolution": "Ανάλυση",
+				"quality": "Ποιότητα",
+				"source": "Πηγή",
+				"languageCodes": "Κωδικοί γλωσσών υποτίτλων",
+				"subfolderName": "Όνομα υποφακέλου",
+				"name": "Όνομα προφίλ",
+				"subtitleDownloads": "Λήψεις υποτίτλων",
+				"languages": "Γλώσσες",
+				"delivery": "Τρόπος αποθήκευσης",
+				"overridePath": "Διαδρομή παράκαμψης προφίλ"
+			},
+			"action": {
+				"chooseIcon": "Επιλογή εικονιδίου προφίλ",
+				"setOverride": "Ορισμός παράκαμψης προφίλ",
+				"chooseFolder": "Επιλογή φακέλου προορισμού",
+				"addLanguage": "Προσθήκη",
+				"changeGlobalShort": "Αλλαγή γενικού",
+				"setOverrideShort": "Ορισμός παράκαμψης",
+				"useGlobalDefault": "Χρήση γενικής προεπιλογής",
+				"reset": "Επαναφορά προφίλ",
+				"save": "Αποθήκευση προφίλ"
+			},
+			"placeholder": {"folder": "Επιλέξτε φάκελο για αυτό το προφίλ"},
+			"destination": {"global": "Γενικός προορισμός", "override": "Παράκαμψη προφίλ", "resolved": "Τελικός προορισμός"},
+			"note": {
+				"subtitlesOnly": "Αυτό το προφίλ βάζει στην ουρά μόνο αρχεία υποτίτλων. Το βίντεο, ο ήχος, το SponsorBlock και η μετατροπή μέσων παραλείπονται.",
+				"noSubtitles": "Για αυτό το προφίλ δεν θα ζητηθούν αρχεία υποτίτλων ούτε ενσωματωμένα κομμάτια υποτίτλων.",
+				"noLanguages": "Δεν επιλέχθηκαν γλώσσες",
+				"autoCaptionsSrt": "Οι αυτόματοι υπότιτλοι θα αποθηκευτούν ως SRT αντί για ASS.",
+				"skippedForOutputType": "Παραλείπεται για αυτόν τον τύπο εξόδου."
+			},
+			"error": {"save": "Δεν ήταν δυνατή η αποθήκευση των ρυθμίσεων προφίλ.", "changeGlobalDestination": "Δεν ήταν δυνατή η αλλαγή του γενικού προορισμού.", "reset": "Δεν ήταν δυνατή η επαναφορά των ρυθμίσεων προφίλ."},
+			"mediaMode": {
+				"videoAudio": {"label": "Βίντεο + ήχος", "description": "Κανονικά αρχεία βίντεο"},
+				"videoOnly": {"label": "Βίντεο, χωρίς ήχο", "description": "Μόνο βίντεο χωρίς ήχο"},
+				"audioOnly": {"label": "Μόνο ήχος", "description": "Μουσική ή podcast"},
+				"subtitlesOnly": {"label": "Μόνο υπότιτλοι", "description": "Μόνο αρχεία υποτίτλων"}
+			},
+			"icon": {"controls": "Χειριστήρια", "download": "Λήψη", "video": "Βίντεο", "captions": "Υπότιτλοι", "audio": "Ήχος", "music": "Μουσική", "podcast": "Podcast", "classes": "Μαθήματα", "clip": "Απόσπασμα", "archive": "Αρχείο"},
+			"audioFormat": {"best": "Καλύτερο", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "Έως 128K", "192": "Έως 192K", "320": "Έως 320K", "best": "Καλύτερη ποιότητα"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Πρώτα χειροκίνητα, μετά αυτόματα", "manualOnly": "Μόνο χειροκίνητα", "autoOnly": "Μόνο αυτόματα"},
+			"sponsorBlockHint": {"off": "Χωρίς SponsorBlock — το βίντεο παίζει όπως ανέβηκε.", "mark": "Επισημαίνει τα χορηγούμενα τμήματα ως κεφάλαια (χωρίς αλλοίωση).", "remove": "Κόβει τα χορηγούμενα τμήματα από το βίντεο με FFmpeg."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Φόρτωση…"},

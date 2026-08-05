@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "{{count}} из {{total}} треков",
 			"itemsValueBulk_one": "{{count}} из {{total}} URL",
 			"itemsValueBulk_other": "{{count}} из {{total}} URL"
+		},
+		"profileEditor": {
+			"dialogTitle": "Профиль загрузки",
+			"dialogDescription": "Одна многоразовая настройка для быстрой загрузки, списков ссылок и плейлистов.",
+			"skipped": "Пропущено",
+			"panel": {
+				"identity": {"title": "Идентификация профиля", "description": "Название и значок, отображаемые в быстрой загрузке, списках ссылок и списках профилей."},
+				"downloadType": {"title": "Тип загрузки", "description": "Выберите основной способ загрузки."},
+				"advanced": {"title": "Дополнительные параметры", "description": "Профили наследуют общее место сохранения, если вы не зададите переопределение профиля."},
+				"output": {"title": "Параметры вывода"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Название и значок профиля",
+				"icon": "Значок профиля",
+				"compatibility": "Совместимость",
+				"resolution": "Разрешение",
+				"quality": "Качество",
+				"source": "Источник",
+				"languageCodes": "Коды языков субтитров",
+				"subfolderName": "Имя подпапки",
+				"name": "Название профиля",
+				"subtitleDownloads": "Загрузка субтитров",
+				"languages": "Языки",
+				"delivery": "Способ сохранения",
+				"overridePath": "Путь переопределения профиля"
+			},
+			"action": {
+				"chooseIcon": "Выбрать значок профиля",
+				"setOverride": "Задать переопределение профиля",
+				"chooseFolder": "Выбрать папку назначения",
+				"addLanguage": "Добавить",
+				"changeGlobalShort": "Изменить общий",
+				"setOverrideShort": "Задать переопределение",
+				"useGlobalDefault": "Использовать общее значение",
+				"reset": "Сбросить профиль",
+				"save": "Сохранить профиль"
+			},
+			"placeholder": {"folder": "Выберите папку для этого профиля"},
+			"destination": {"global": "Общее место сохранения", "override": "Переопределение профиля", "resolved": "Итоговое место сохранения"},
+			"note": {
+				"subtitlesOnly": "Этот профиль ставит в очередь только файлы субтитров. Видео, аудио, SponsorBlock и конвертация медиа пропускаются.",
+				"noSubtitles": "Для этого профиля не будут запрашиваться ни файлы субтитров, ни встроенные дорожки субтитров.",
+				"noLanguages": "Языки не выбраны",
+				"autoCaptionsSrt": "Автоматические субтитры будут сохранены в SRT вместо ASS.",
+				"skippedForOutputType": "Пропущено для этого типа вывода."
+			},
+			"error": {"save": "Не удалось сохранить настройки профиля.", "changeGlobalDestination": "Не удалось изменить общее место сохранения.", "reset": "Не удалось сбросить настройки профиля."},
+			"mediaMode": {
+				"videoAudio": {"label": "Видео + аудио", "description": "Обычные видеофайлы"},
+				"videoOnly": {"label": "Видео, без аудио", "description": "Только видео без звука"},
+				"audioOnly": {"label": "Только аудио", "description": "Музыка или подкасты"},
+				"subtitlesOnly": {"label": "Только субтитры", "description": "Только файлы субтитров"}
+			},
+			"icon": {"controls": "Регуляторы", "download": "Загрузка", "video": "Видео", "captions": "Субтитры", "audio": "Аудио", "music": "Музыка", "podcast": "Подкаст", "classes": "Занятия", "clip": "Клип", "archive": "Архив"},
+			"audioFormat": {"best": "Лучшее", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "До 128K", "192": "До 192K", "320": "До 320K", "best": "Лучшее качество"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Сначала ручные, затем автоматические", "manualOnly": "Только ручные", "autoOnly": "Только автоматические"},
+			"sponsorBlockHint": {"off": "Без SponsorBlock — видео воспроизводится как загружено.", "mark": "Отмечает спонсорские сегменты как главы (без изменения файла).", "remove": "Вырезает спонсорские сегменты из видео с помощью FFmpeg."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Загрузка…"},

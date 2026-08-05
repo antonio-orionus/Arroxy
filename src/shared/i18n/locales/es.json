@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "{{count}} de {{total}} pistas",
 			"itemsValueBulk_one": "{{count}} de {{total}} URL",
 			"itemsValueBulk_other": "{{count}} de {{total}} URLs"
+		},
+		"profileEditor": {
+			"dialogTitle": "Perfil de descarga",
+			"dialogDescription": "Una configuración reutilizable para Descarga rápida, URLs en lote y listas de reproducción.",
+			"skipped": "Omitido",
+			"panel": {
+				"identity": {"title": "Identidad del perfil", "description": "Nombre e icono que se muestran en Descarga rápida, URLs en lote y listas de perfiles."},
+				"downloadType": {"title": "Tipo de descarga", "description": "Elige la forma principal en que quieres descargar."},
+				"advanced": {"title": "Opciones avanzadas", "description": "Los perfiles heredan el destino global salvo que definas una anulación del perfil."},
+				"output": {"title": "Opciones de salida"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Nombre e icono del perfil",
+				"icon": "Icono del perfil",
+				"compatibility": "Compatibilidad",
+				"resolution": "Resolución",
+				"quality": "Calidad",
+				"source": "Origen",
+				"languageCodes": "Códigos de idioma de subtítulos",
+				"subfolderName": "Nombre de la subcarpeta",
+				"name": "Nombre del perfil",
+				"subtitleDownloads": "Descargas de subtítulos",
+				"languages": "Idiomas",
+				"delivery": "Entrega",
+				"overridePath": "Ruta de anulación del perfil"
+			},
+			"action": {
+				"chooseIcon": "Elegir icono del perfil",
+				"setOverride": "Definir anulación del perfil",
+				"chooseFolder": "Elegir carpeta de destino",
+				"addLanguage": "Añadir",
+				"changeGlobalShort": "Cambiar global",
+				"setOverrideShort": "Definir anulación",
+				"useGlobalDefault": "Usar el valor global",
+				"reset": "Restablecer perfil",
+				"save": "Guardar perfil"
+			},
+			"placeholder": {"folder": "Elegir una carpeta para este perfil"},
+			"destination": {"global": "Destino global", "override": "Anulación del perfil", "resolved": "Destino resuelto"},
+			"note": {
+				"subtitlesOnly": "Este perfil solo pone en cola archivos de subtítulos. Se omiten el vídeo, el audio, SponsorBlock y la conversión de medios.",
+				"noSubtitles": "Este perfil no solicitará archivos de subtítulos ni pistas de subtítulos incrustadas.",
+				"noLanguages": "Ningún idioma seleccionado",
+				"autoCaptionsSrt": "Los subtítulos automáticos se guardarán como SRT en lugar de ASS.",
+				"skippedForOutputType": "Omitido para este tipo de salida."
+			},
+			"error": {"save": "No se pudieron guardar los ajustes del perfil.", "changeGlobalDestination": "No se pudo cambiar el destino global.", "reset": "No se pudieron restablecer los ajustes del perfil."},
+			"mediaMode": {
+				"videoAudio": {"label": "Vídeo + audio", "description": "Archivos de vídeo normales"},
+				"videoOnly": {"label": "Vídeo, sin audio", "description": "Solo vídeo sin sonido"},
+				"audioOnly": {"label": "Solo audio", "description": "Música o pódcasts"},
+				"subtitlesOnly": {"label": "Solo subtítulos", "description": "Solo archivos de subtítulos"}
+			},
+			"icon": {"controls": "Controles", "download": "Descarga", "video": "Vídeo", "captions": "Subtítulos", "audio": "Audio", "music": "Música", "podcast": "Pódcast", "classes": "Clases", "clip": "Clip", "archive": "Archivo"},
+			"audioFormat": {"best": "Mejor", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "Hasta 128K", "192": "Hasta 192K", "320": "Hasta 320K", "best": "Mejor calidad"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Manual primero, luego automático", "manualOnly": "Solo manual", "autoOnly": "Solo generados automáticamente"},
+			"sponsorBlockHint": {"off": "Sin SponsorBlock: el vídeo se reproduce tal como se subió.", "mark": "Marca los segmentos patrocinados como capítulos (no destructivo).", "remove": "Corta los segmentos patrocinados del vídeo con FFmpeg."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Cargando…"},

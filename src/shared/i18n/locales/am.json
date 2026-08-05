@@ -354,6 +354,52 @@
 			"itemsValueAudio_other": "{{count}} ከ {{total}} ዘፈኖች",
 			"itemsValueBulk_one": "{{count}} ከ{{total}} URL",
 			"itemsValueBulk_other": "{{count}} ከ{{total}} URLዎች"
+		},
+		"profileEditor": {
+			"dialogTitle": "የማውረድ መገለጫ",
+			"dialogDescription": "ለፈጣን ማውረድ፣ ለጅምላ አድራሻዎች እና ለዝርዝሮች የሚያገለግል አንድ ተደጋጋሚ ቅንብር።",
+			"skipped": "ተዘሏል",
+			"panel": {
+				"identity": {"title": "የመገለጫ ማንነት", "description": "በፈጣን ማውረድ፣ በጅምላ አድራሻዎች እና በመገለጫ ዝርዝሮች ውስጥ የሚታዩ ስም እና አዶ።"},
+				"downloadType": {"title": "የማውረድ ዓይነት", "description": "በዋናነት እንዴት ማውረድ እንደሚፈልጉ ይምረጡ።"},
+				"advanced": {"title": "የላቁ አማራጮች", "description": "የመገለጫ ተሻሪ ካላዘጋጁ በስተቀር መገለጫዎች አጠቃላይ መድረሻውን ይወርሳሉ።"},
+				"output": {"title": "የውጤት አማራጮች"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "የመገለጫ ስም እና አዶ",
+				"icon": "የመገለጫ አዶ",
+				"compatibility": "ተኳኋኝነት",
+				"resolution": "ጥራት መጠን",
+				"quality": "ጥራት",
+				"source": "ምንጭ",
+				"languageCodes": "የትርጉም ጽሑፍ ቋንቋ ኮዶች",
+				"subfolderName": "የንዑስ አቃፊ ስም",
+				"name": "የመገለጫ ስም",
+				"subtitleDownloads": "የትርጉም ጽሑፍ ማውረዶች",
+				"languages": "ቋንቋዎች",
+				"delivery": "የማስቀመጫ መንገድ",
+				"overridePath": "የመገለጫ ተሻሪ መንገድ"
+			},
+			"action": {"chooseIcon": "የመገለጫ አዶ ይምረጡ", "setOverride": "የመገለጫ ተሻሪ አዘጋጅ", "chooseFolder": "የመድረሻ አቃፊ ይምረጡ", "addLanguage": "አክል", "changeGlobalShort": "አጠቃላይን ቀይር", "setOverrideShort": "ተሻሪ አዘጋጅ", "useGlobalDefault": "አጠቃላይ ነባሪን ተጠቀም", "reset": "መገለጫ ዳግም አስጀምር", "save": "መገለጫ አስቀምጥ"},
+			"placeholder": {"folder": "ለዚህ መገለጫ አቃፊ ይምረጡ"},
+			"destination": {"global": "አጠቃላይ መድረሻ", "override": "የመገለጫ ተሻሪ", "resolved": "የመጨረሻ መድረሻ"},
+			"note": {
+				"subtitlesOnly": "ይህ መገለጫ የትርጉም ጽሑፍ ፋይሎችን ብቻ ወደ ወረፋ ያስገባል። ቪዲዮ፣ ድምፅ፣ SponsorBlock እና የሚዲያ ልወጣ ይዘለላሉ።",
+				"noSubtitles": "ለዚህ መገለጫ ምንም የትርጉም ጽሑፍ ፋይል ወይም የተካተተ የትርጉም ትራክ አይጠየቅም።",
+				"noLanguages": "ምንም ቋንቋ አልተመረጠም",
+				"autoCaptionsSrt": "ራስ-ሰር መግለጫ ጽሑፎች በASS ፋንታ በSRT ይቀመጣሉ።",
+				"skippedForOutputType": "ለዚህ የውጤት ዓይነት ተዘሏል።"
+			},
+			"error": {"save": "የመገለጫ ቅንብሮችን ማስቀመጥ አልተቻለም።", "changeGlobalDestination": "አጠቃላይ መድረሻን መቀየር አልተቻለም።", "reset": "የመገለጫ ቅንብሮችን ዳግም ማስጀመር አልተቻለም።"},
+			"mediaMode": {"videoAudio": {"label": "ቪዲዮ + ድምፅ", "description": "መደበኛ የቪዲዮ ፋይሎች"}, "videoOnly": {"label": "ቪዲዮ፣ ያለ ድምፅ", "description": "ድምፅ የሌለው ቪዲዮ ብቻ"}, "audioOnly": {"label": "ድምፅ ብቻ", "description": "ሙዚቃ ወይም ፖድካስት"}, "subtitlesOnly": {"label": "ትርጉም ጽሑፎች ብቻ", "description": "የመግለጫ ጽሑፍ ፋይሎች ብቻ"}},
+			"icon": {"controls": "መቆጣጠሪያዎች", "download": "ማውረድ", "video": "ቪዲዮ", "captions": "መግለጫ ጽሑፎች", "audio": "ድምፅ", "music": "ሙዚቃ", "podcast": "ፖድካስት", "classes": "ትምህርቶች", "clip": "ቁራጭ", "archive": "መዝገብ"},
+			"audioFormat": {"best": "ምርጥ", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "እስከ 128K", "192": "እስከ 192K", "320": "እስከ 320K", "best": "ምርጥ ጥራት"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "መጀመሪያ በእጅ፣ ከዚያ ራስ-ሰር", "manualOnly": "በእጅ ብቻ", "autoOnly": "ራስ-ሰር የተፈጠሩ ብቻ"},
+			"sponsorBlockHint": {"off": "SponsorBlock የለም — ቪዲዮው እንደተጫነ ይጫወታል።", "mark": "የስፖንሰር ክፍሎችን እንደ ምዕራፎች ምልክት ያደርጋል (ፋይሉን አይለውጥም)።", "remove": "በFFmpeg የስፖንሰር ክፍሎችን ከቪዲዮው ይቆርጣል።"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "በመጫን ላይ…"},

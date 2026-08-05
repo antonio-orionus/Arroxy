@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "{{count}} kati ya {{total}} nyimbo",
 			"itemsValueBulk_one": "{{count}} kati ya {{total}} URL",
 			"itemsValueBulk_other": "{{count}} kati ya {{total}} URL"
+		},
+		"profileEditor": {
+			"dialogTitle": "Wasifu wa upakuaji",
+			"dialogDescription": "Mpangilio mmoja unaoweza kutumika tena kwa Upakuaji wa Haraka, URL za Wingi na orodha za kucheza.",
+			"skipped": "Imerukwa",
+			"panel": {
+				"identity": {"title": "Utambulisho wa wasifu", "description": "Jina na aikoni zinazoonyeshwa katika Upakuaji wa Haraka, URL za Wingi na orodha za wasifu."},
+				"downloadType": {"title": "Aina ya upakuaji", "description": "Chagua njia kuu unayotaka kupakua."},
+				"advanced": {"title": "Chaguo za kina", "description": "Wasifu hurithi lengo la jumla isipokuwa uweke ubatilishaji wa wasifu."},
+				"output": {"title": "Chaguo za matokeo"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Jina na aikoni ya wasifu",
+				"icon": "Aikoni ya wasifu",
+				"compatibility": "Uoanifu",
+				"resolution": "Azimio",
+				"quality": "Ubora",
+				"source": "Chanzo",
+				"languageCodes": "Misimbo ya lugha za manukuu",
+				"subfolderName": "Jina la folda ndogo",
+				"name": "Jina la wasifu",
+				"subtitleDownloads": "Upakuaji wa manukuu",
+				"languages": "Lugha",
+				"delivery": "Njia ya kuhifadhi",
+				"overridePath": "Njia ya ubatilishaji wa wasifu"
+			},
+			"action": {
+				"chooseIcon": "Chagua aikoni ya wasifu",
+				"setOverride": "Weka ubatilishaji wa wasifu",
+				"chooseFolder": "Chagua folda lengwa",
+				"addLanguage": "Ongeza",
+				"changeGlobalShort": "Badilisha ya jumla",
+				"setOverrideShort": "Weka ubatilishaji",
+				"useGlobalDefault": "Tumia chaguo-msingi la jumla",
+				"reset": "Weka upya wasifu",
+				"save": "Hifadhi wasifu"
+			},
+			"placeholder": {"folder": "Chagua folda kwa wasifu huu"},
+			"destination": {"global": "Lengo la jumla", "override": "Ubatilishaji wa wasifu", "resolved": "Lengo la mwisho"},
+			"note": {
+				"subtitlesOnly": "Wasifu huu huweka foleni faili za manukuu pekee. Video, sauti, SponsorBlock na ubadilishaji wa media hurukwa.",
+				"noSubtitles": "Wasifu huu hautaomba faili za manukuu wala nyimbo za manukuu zilizopachikwa.",
+				"noLanguages": "Hakuna lugha iliyochaguliwa",
+				"autoCaptionsSrt": "Manukuu ya kiotomatiki yatahifadhiwa kama SRT badala ya ASS.",
+				"skippedForOutputType": "Imerukwa kwa aina hii ya matokeo."
+			},
+			"error": {"save": "Imeshindwa kuhifadhi mipangilio ya wasifu.", "changeGlobalDestination": "Imeshindwa kubadilisha lengo la jumla.", "reset": "Imeshindwa kuweka upya mipangilio ya wasifu."},
+			"mediaMode": {
+				"videoAudio": {"label": "Video + sauti", "description": "Faili za kawaida za video"},
+				"videoOnly": {"label": "Video, bila sauti", "description": "Video isiyo na sauti pekee"},
+				"audioOnly": {"label": "Sauti pekee", "description": "Muziki au podikasti"},
+				"subtitlesOnly": {"label": "Manukuu pekee", "description": "Faili za manukuu pekee"}
+			},
+			"icon": {"controls": "Vidhibiti", "download": "Pakua", "video": "Video", "captions": "Manukuu", "audio": "Sauti", "music": "Muziki", "podcast": "Podikasti", "classes": "Masomo", "clip": "Kipande", "archive": "Kumbukumbu"},
+			"audioFormat": {"best": "Bora", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "Hadi 128K", "192": "Hadi 192K", "320": "Hadi 320K", "best": "Ubora bora"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Kwanza kwa mkono, kisha kiotomatiki", "manualOnly": "Kwa mkono pekee", "autoOnly": "Zilizotengenezwa kiotomatiki pekee"},
+			"sponsorBlockHint": {"off": "Hakuna SponsorBlock — video hucheza kama ilivyopakiwa.", "mark": "Huweka alama sehemu za wadhamini kama sura (bila kubadilisha faili).", "remove": "Hukata sehemu za wadhamini kutoka kwa video kwa kutumia FFmpeg."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Inapakia…"},

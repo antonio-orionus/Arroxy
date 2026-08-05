@@ -395,6 +395,67 @@
 			"itemsValueAudio_other": "{{count}} з {{total}} треків",
 			"itemsValueBulk_one": "{{count}} з {{total}} URL",
 			"itemsValueBulk_other": "{{count}} з {{total}} URL"
+		},
+		"profileEditor": {
+			"dialogTitle": "Профіль завантаження",
+			"dialogDescription": "Одне багаторазове налаштування для швидкого завантаження, списків посилань і плейлистів.",
+			"skipped": "Пропущено",
+			"panel": {
+				"identity": {"title": "Ідентифікація профілю", "description": "Назва та значок, що показуються у швидкому завантаженні, списках посилань і списках профілів."},
+				"downloadType": {"title": "Тип завантаження", "description": "Виберіть основний спосіб завантаження."},
+				"advanced": {"title": "Додаткові параметри", "description": "Профілі успадковують загальне місце збереження, якщо ви не задасте перевизначення профілю."},
+				"output": {"title": "Параметри виводу"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Назва та значок профілю",
+				"icon": "Значок профілю",
+				"compatibility": "Сумісність",
+				"resolution": "Роздільність",
+				"quality": "Якість",
+				"source": "Джерело",
+				"languageCodes": "Коди мов субтитрів",
+				"subfolderName": "Назва підтеки",
+				"name": "Назва профілю",
+				"subtitleDownloads": "Завантаження субтитрів",
+				"languages": "Мови",
+				"delivery": "Спосіб збереження",
+				"overridePath": "Шлях перевизначення профілю"
+			},
+			"action": {
+				"chooseIcon": "Вибрати значок профілю",
+				"setOverride": "Задати перевизначення профілю",
+				"chooseFolder": "Вибрати теку призначення",
+				"addLanguage": "Додати",
+				"changeGlobalShort": "Змінити загальний",
+				"setOverrideShort": "Задати перевизначення",
+				"useGlobalDefault": "Використовувати загальне значення",
+				"reset": "Скинути профіль",
+				"save": "Зберегти профіль"
+			},
+			"placeholder": {"folder": "Виберіть теку для цього профілю"},
+			"destination": {"global": "Загальне місце збереження", "override": "Перевизначення профілю", "resolved": "Підсумкове місце збереження"},
+			"note": {
+				"subtitlesOnly": "Цей профіль ставить у чергу лише файли субтитрів. Відео, аудіо, SponsorBlock і конвертація медіа пропускаються.",
+				"noSubtitles": "Для цього профілю не запитуватимуться ні файли субтитрів, ні вбудовані доріжки субтитрів.",
+				"noLanguages": "Мови не вибрано",
+				"autoCaptionsSrt": "Автоматичні субтитри буде збережено у SRT замість ASS.",
+				"skippedForOutputType": "Пропущено для цього типу виводу."
+			},
+			"error": {"save": "Не вдалося зберегти налаштування профілю.", "changeGlobalDestination": "Не вдалося змінити загальне місце збереження.", "reset": "Не вдалося скинути налаштування профілю."},
+			"mediaMode": {
+				"videoAudio": {"label": "Відео + аудіо", "description": "Звичайні відеофайли"},
+				"videoOnly": {"label": "Відео, без аудіо", "description": "Лише відео без звуку"},
+				"audioOnly": {"label": "Лише аудіо", "description": "Музика або подкасти"},
+				"subtitlesOnly": {"label": "Лише субтитри", "description": "Лише файли субтитрів"}
+			},
+			"icon": {"controls": "Регулятори", "download": "Завантаження", "video": "Відео", "captions": "Субтитри", "audio": "Аудіо", "music": "Музика", "podcast": "Подкаст", "classes": "Заняття", "clip": "Кліп", "archive": "Архів"},
+			"audioFormat": {"best": "Найкраще", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "До 128K", "192": "До 192K", "320": "До 320K", "best": "Найкраща якість"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Спершу ручні, потім автоматичні", "manualOnly": "Лише ручні", "autoOnly": "Лише автоматичні"},
+			"sponsorBlockHint": {"off": "Без SponsorBlock — відео відтворюється як завантажено.", "mark": "Позначає спонсорські сегменти як розділи (без зміни файлу).", "remove": "Вирізає спонсорські сегменти з відео за допомогою FFmpeg."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Завантаження…"},

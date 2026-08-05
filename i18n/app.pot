@@ -1675,6 +1675,322 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr ""
 
+msgctxt "wizard.profileEditor.action.addLanguage"
+msgid "Add"
+msgstr ""
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr ""
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr ""
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr ""
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr ""
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr ""
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr ""
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr ""
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr ""
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr ""
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr ""
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr ""
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr ""
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr ""
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr ""
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr ""
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr ""
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr ""
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr ""
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr ""
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr ""
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr ""
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.compatibility"
+msgid "Compatibility"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.languageCodes"
+msgid "Subtitle language codes"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr ""
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr ""
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr ""
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr ""
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr ""
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr ""
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr ""
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr ""
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr ""
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr ""
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr ""
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr ""
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr ""
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr ""
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr ""
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subs only"
+msgstr ""
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr ""
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr ""
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr ""
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr ""
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr ""
+
+msgctxt "wizard.profileEditor.note.noLanguages"
+msgid "No languages selected"
+msgstr ""
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr ""
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr ""
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr ""
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr ""
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr ""
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr ""
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr ""
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr ""
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr ""
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr ""
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr ""
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr ""
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr ""
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr ""
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr ""
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr ""
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr ""
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr ""
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr ""
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr ""
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr ""
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr ""
+
+msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
+msgid "M4A / AAC"
+msgstr ""
+
 msgctxt "wizard.quickProgress.cancel"
 msgid "Cancel preparation"
 msgstr ""

@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "{{total}} parçadan {{count}} tanesi",
 			"itemsValueBulk_one": "{{total}} URL’den {{count}} tanesi",
 			"itemsValueBulk_other": "{{total}} URL’den {{count}} tanesi"
+		},
+		"profileEditor": {
+			"dialogTitle": "İndirme profili",
+			"dialogDescription": "Hızlı İndirme, Toplu URL ve oynatma listeleri için yeniden kullanılabilir tek bir yapılandırma.",
+			"skipped": "Atlandı",
+			"panel": {
+				"identity": {"title": "Profil kimliği", "description": "Hızlı İndirme, Toplu URL ve profil listelerinde görünen ad ve simge."},
+				"downloadType": {"title": "İndirme türü", "description": "Öncelikli olarak nasıl indirmek istediğinizi seçin."},
+				"advanced": {"title": "Gelişmiş seçenekler", "description": "Profil geçersiz kılması ayarlamadıkça profiller genel hedefi devralır."},
+				"output": {"title": "Çıktı seçenekleri"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Profil adı ve simgesi",
+				"icon": "Profil simgesi",
+				"compatibility": "Uyumluluk",
+				"resolution": "Çözünürlük",
+				"quality": "Kalite",
+				"source": "Kaynak",
+				"languageCodes": "Altyazı dil kodları",
+				"subfolderName": "Alt klasör adı",
+				"name": "Profil adı",
+				"subtitleDownloads": "Altyazı indirmeleri",
+				"languages": "Diller",
+				"delivery": "Kaydetme biçimi",
+				"overridePath": "Profil geçersiz kılma yolu"
+			},
+			"action": {
+				"chooseIcon": "Profil simgesini seç",
+				"setOverride": "Profil geçersiz kılmasını ayarla",
+				"chooseFolder": "Hedef klasörü seç",
+				"addLanguage": "Ekle",
+				"changeGlobalShort": "Geneli değiştir",
+				"setOverrideShort": "Geçersiz kılmayı ayarla",
+				"useGlobalDefault": "Genel varsayılanı kullan",
+				"reset": "Profili sıfırla",
+				"save": "Profili kaydet"
+			},
+			"placeholder": {"folder": "Bu profil için bir klasör seçin"},
+			"destination": {"global": "Genel hedef", "override": "Profil geçersiz kılma", "resolved": "Sonuçlanan hedef"},
+			"note": {
+				"subtitlesOnly": "Bu profil yalnızca altyazı dosyalarını kuyruğa alır. Video, ses, SponsorBlock ve medya dönüştürme atlanır.",
+				"noSubtitles": "Bu profil için altyazı dosyası veya gömülü altyazı izi istenmeyecek.",
+				"noLanguages": "Dil seçilmedi",
+				"autoCaptionsSrt": "Otomatik altyazılar ASS yerine SRT olarak kaydedilecek.",
+				"skippedForOutputType": "Bu çıktı türü için atlandı."
+			},
+			"error": {"save": "Profil ayarları kaydedilemedi.", "changeGlobalDestination": "Genel hedef değiştirilemedi.", "reset": "Profil ayarları sıfırlanamadı."},
+			"mediaMode": {
+				"videoAudio": {"label": "Video + ses", "description": "Normal video dosyaları"},
+				"videoOnly": {"label": "Video, sessiz", "description": "Yalnızca sessiz video"},
+				"audioOnly": {"label": "Yalnızca ses", "description": "Müzik veya podcast"},
+				"subtitlesOnly": {"label": "Yalnızca altyazı", "description": "Yalnızca altyazı dosyaları"}
+			},
+			"icon": {"controls": "Denetimler", "download": "İndirme", "video": "Video", "captions": "Altyazı", "audio": "Ses", "music": "Müzik", "podcast": "Podcast", "classes": "Dersler", "clip": "Klip", "archive": "Arşiv"},
+			"audioFormat": {"best": "En iyi", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "128K'ya kadar", "192": "192K'ya kadar", "320": "320K'ya kadar", "best": "En iyi kalite"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Önce elle, sonra otomatik", "manualOnly": "Yalnızca elle", "autoOnly": "Yalnızca otomatik oluşturulan"},
+			"sponsorBlockHint": {"off": "SponsorBlock yok — video yüklendiği gibi oynatılır.", "mark": "Sponsor bölümlerini bölüm olarak işaretler (dosyayı değiştirmez).", "remove": "Sponsor bölümlerini FFmpeg ile videodan keser."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Yükleniyor…"},
