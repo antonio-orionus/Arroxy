@@ -136,13 +136,39 @@ export function queueCardByTitle(page: Page, title: string): Locator {
 }
 
 export async function openQueueTab(page: Page): Promise<void> {
-	await page.getByRole('tab', {name: /^queue/i}).click()
+	// Anchored on the trigger's own class, not its label: the tab reads
+	// "Downloads" (queue.tabLabel), so a /^queue/i name match never resolves and
+	// every caller of this helper times out.
+	//
+	// Quick Download opens a progress dialog whose portal overlay covers the tab
+	// strip, so wait for any modal to detach before clicking rather than racing it.
+	await expect(page.locator('[data-slot="dialog-overlay"]')).toHaveCount(0, {timeout: 120_000})
+	await page.locator('.downloads-tab-trigger').click()
 	await expect(page.locator('[data-testid="queue-manager-tab"]')).toBeVisible()
 }
 
 export async function expectQueueStatus(page: Page, title: string, status: string, timeout = 60_000): Promise<void> {
 	await openQueueTab(page)
 	await expect(queueCardByTitle(page, title)).toHaveAttribute('data-status', status, {timeout})
+}
+
+export type QueueRowAction = 'pause' | 'resume' | 'pull-now' | 'cancel' | 'retry' | 'remove'
+
+/**
+ * Queue item actions live in the selection toolbar, not on the row: select the
+ * item, then apply the action to the selection. A plain row click replaces the
+ * selection outright, so this is idempotent and safe to repeat.
+ *
+ * Asserting the button is enabled first is a real oracle — the toolbar disables
+ * actions that don't apply to the selected item's status, so a passing click
+ * also proves the item was in a state where the action was legal.
+ */
+export async function applyQueueAction(page: Page, title: string, action: QueueRowAction): Promise<void> {
+	await openQueueTab(page)
+	await queueCardByTitle(page, title).click()
+	const button = page.getByTestId(`queue-action-${action}`)
+	await expect(button).toBeEnabled()
+	await button.click()
 }
 
 export function mediaFiles(outputDir: string, extension: string): string[] {

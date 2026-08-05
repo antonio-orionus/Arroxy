@@ -47,7 +47,10 @@ test('Electron quick download applies the active Download Profile to a fixture v
 			await expect(page.locator('[data-testid="profiles-active-profile-card"]')).toContainText('Small file 480p')
 			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
 			await page.locator('[data-testid="profiles-quick-download"]').click()
-			await expect(page.locator('[data-testid="profiles-mascot-copy"]')).toContainText(/queued/i, {timeout: 60_000})
+			// No intermediate mascot-copy assertion: the queued-state body reads
+			// "The queue is handling this download" (never "queued") and it reverts
+			// to idle within the poll window, so it's both wrong and racy. The queue
+			// status below is the real oracle.
 			await queue.expectStatus('Fixture Video 8', 'done', 120_000)
 
 			const profileOutputDir = smallFileProfileDir(outputDir)
@@ -265,6 +268,65 @@ test('Electron bulk Quick Download shows preparation progress and queues fixture
 			const profileDir = smallFileProfileDir(outputDir)
 			await expect.poll(() => files.mediaFiles('.mp4', profileDir).length, {timeout: 20_000}).toBe(2)
 			files.expectMp4Count(2, profileDir)
+		}
+	)
+})
+
+// Filename templates are the acceptance case for "file output" — unit tests
+// prove the compiler emits the right -o string, but only a real download proves
+// yt-dlp then writes the file we expected under that name.
+test('Electron custom filename template names the downloaded file and never writes NA', async () => {
+	test.setTimeout(140_000)
+	const videoId = FIXTURE_VIDEO_IDS[7]
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-filename-template-user-',
+			outputPrefix: 'arroxy-fixture-filename-template-out-',
+			settings: settings => {
+				configureSmallFileQuickProfile(settings)
+				// {date} is deliberately included: the fixture extractor supplies no
+				// upload_date, so this asserts the compiled `|` empty-default rather
+				// than yt-dlp writing the literal string "NA" into the filename.
+				settings.common.filenameTemplate = '{uploader} - {title}{date}'
+			}
+		},
+		async ({page, outputDir, urls, queue, files}) => {
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
+			await page.locator('[data-testid="profiles-quick-download"]').click()
+			await queue.expectStatus('Fixture Video 8', 'done', 120_000)
+
+			const profileOutputDir = smallFileProfileDir(outputDir)
+			const produced = files.mediaFiles('mp4', profileOutputDir).map(file => path.basename(file))
+			expect(produced).toEqual(['Arroxy Fixtures - Fixture Video 8.mp4'])
+		}
+	)
+})
+
+test('Electron filename template without {id} skips the M3U it could never match', async () => {
+	test.setTimeout(220_000)
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-no-id-template-user-',
+			outputPrefix: 'arroxy-fixture-no-id-template-out-',
+			settings: settings => {
+				settings.common.filenameTemplate = '{title}'
+			}
+		},
+		async ({page, outputDir, urls, files}) => {
+			await preparePlaylistConfirm(page, urls.playlist())
+			await page.locator('[data-testid="btn-add-to-queue"]').click()
+
+			await openQueueTab(page)
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 160_000})
+
+			const playlistDir = path.join(outputDir, 'Fixture Playlist')
+			files.expectMp4Count(FIXTURE_PLAYLIST_VIDEO_IDS.length, playlistDir)
+			// M3U locates entries by `[videoId]`; without {id} it would list names
+			// that never appear on disk, so it must not be written at all.
+			expect(fs.existsSync(path.join(playlistDir, 'Fixture Playlist.m3u'))).toBe(false)
+			expect(files.mediaFiles('mp4', playlistDir).every(file => !path.basename(file).includes('['))).toBe(true)
 		}
 	)
 })

@@ -234,7 +234,6 @@
 				"tooltip": "yt-dlp --playlist-end ga to'g'ri keladi: Arroxy tanlagichni qurishdan oldin faqat shu miqdordagi pleylist, kanal yoki qidiruv yozuvlarini so'raydi."
 			},
 			"nativeAudioPreference": {"label": "Asl audio afzalligi", "description": "“Best native” nimani tanlashini boshqaradi. Qo‘lda tanlangan audio qatorlari va M4A/AAC aniq tanlov bo‘lib qoladi.", "compatible": "Mos stereo", "surround": "Surround / Dolbyni afzal ko‘rish"},
-			"singleFilenameId": {"toggle": "Yakka fayl nomlariga video ID qo‘shish", "toggleDescription": "Sarlavhalar o‘zgarganda yoki mos kelib qolganda yakka yuklab olishlarni noyob saqlaydi."},
 			"networkPacing": {
 				"heading": "Yumshoq yuklamalar",
 				"description": "Arroxy saytga haddan tashqari agressiv murojaat qilmasligi uchun har bir yuklab olish paytida kichik kutish vaqtlarini qo'shadi. Qiymatlar soniyalarda (boshqacha ko'rsatilmagan holda).",
@@ -560,5 +559,21 @@
 		"footerTooltip": "Arroxy ulashish",
 		"footerLabel": "Ulashish",
 		"shareAction": "Arroxy ulashish"
+	},
+	"filenameTemplate": {
+		"label": "Fayl nomi shabloni",
+		"description": "Yuklab olingan fayllar qanday nomlanishini tanlang. Qo'shish uchun tokenni bosing.",
+		"profileOverrideLabel": "Fayl nomi shabloni",
+		"profileOverrideDescription": "Umumiy shablondan foydalanish uchun bo'sh qoldiring.",
+		"idWarning": "{id} bo'lmasa, Arroxy allaqachon yuklab olingan pleylist elementlarini aniqlay olmaydi va .m3u pleylistlar yarata olmaydi.",
+		"m3uDisabled": "Fayl nomi shabloningizda {id} yo'qligi uchun mavjud emas.",
+		"error": {
+			"empty": "Fayl nomi shablonini kiriting.",
+			"too-long": "Shablon juda uzun.",
+			"forbidden-char": "Fayl nomlarida ruxsat etilmagan belgilarni olib tashlang: / \\ : * ? \" < > |",
+			"stray-brace": "Yopilmagan { yoki } — tokenlarni {title} kabi yozing.",
+			"no-unique-token": "Har bir yuklab olish o'z fayl nomiga ega bo'lishi uchun {title} yoki {id} qo'shing.",
+			"unknown-token": "Noma'lum token {{token}}."
+		}
 	}
 }

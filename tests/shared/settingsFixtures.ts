@@ -27,7 +27,7 @@ const COMMON_KEYS = new Set([
 	'lastReleaseNotesVersionShown',
 	'lastSubfolderEnabled',
 	'lastSubfolder',
-	'includeIdInSingleFilenames'
+	'filenameTemplate'
 ])
 
 const SINGLE_KEYS = new Set(['lastPreset', 'lastVideoResolution', 'lastSubtitleLanguages', 'lastSubtitleMode', 'lastSubtitleFormat'])

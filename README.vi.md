@@ -241,6 +241,7 @@ Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận 
 - **23 ngôn ngữ** — tự động phát hiện ngôn ngữ hệ thống, có thể đổi bất cứ lúc nào
 - **Đồng bộ danh sách phát** — quét lại danh sách phát với một thư mục cục bộ để bỏ qua các video đã tải; tạo tệp danh sách phát `.m3u` được cập nhật sau mỗi video tải xuống
 - **Điều khiển tốc độ và nhịp tải** — giới hạn băng thông tải xuống, thêm độ trễ giữa các yêu cầu và tinh chỉnh fragment threads bằng preset (*Tắt · Cân bằng · Cẩn thận · Tùy chỉnh*)
+- **Mẫu tên tệp** — đặt tên tệp tải về theo ý bạn với `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` và `{playlist_index}`, áp dụng chung hoặc theo từng hồ sơ tải xuống
 
 ### Phụ đề & hậu xử lý
 

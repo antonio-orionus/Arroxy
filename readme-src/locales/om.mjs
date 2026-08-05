@@ -153,6 +153,8 @@ export const om = {
     "**Walsimsiisa playlist** — viidiyoowwan duraan buufaman akka darbaman playlist galmee naannoo waliin irra deebi'ee sakatta'a; faayila playlist `.m3u` viidiyoon tokko tokko buufamu hunda irratti haaromsamu uuma",
   feat_workflow_8:
     "**To’annoo saffisaa fi pacing** — bandwidth buusuu daangessi, turtii gaaffii dabali, fi thread fragment presets (*Off · Balanced · Careful · Custom*) waliin sirreessi",
+  feat_workflow_9:
+    "**Bocquuwwan maqaa faayilii** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` fi `{playlist_index}` fayyadamuun buufamawwan kee akka feetetti moggaasi, waliigalaan ykn tokkoon tokkoon piroofaayilii buufamaatiif",
   feat_post_h3: "Subtitle & seensuu boodaa",
   feat_post_1:
     "**Subtitles** SRT, VTT, ykn ASS keessatti — harka ykn of-hojeetee, afaan kamiyyuu argamu keessatti",

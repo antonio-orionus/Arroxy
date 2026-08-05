@@ -104,7 +104,7 @@ beforeEach(() => {
 })
 
 describe('playlist regressions', () => {
-	it('single outputTemplate includes the id suffix by default', async () => {
+	it('single downloads carry the default filename template', async () => {
 		window.appApi = buildMockApi() as never
 
 		useAppStore.setState({
@@ -130,15 +130,15 @@ describe('playlist regressions', () => {
 		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0]?.[0]
 		expect(item?.job.kind).toBe('single-format')
 		if (item?.job.kind !== 'single-format') throw new Error('single-format job expected')
-		expect(item.job.outputTemplate).toBe('%(title).200B [%(id)s].%(ext)s')
+		expect(item.job.filenameTemplate).toBe('{title} [{id}]')
 	})
 
-	it('single outputTemplate can omit the id suffix when the advanced setting is off', async () => {
-		window.appApi = buildMockApi({includeIdInSingleFilenames: false}) as never
+	it('single downloads carry a custom global filename template', async () => {
+		window.appApi = buildMockApi({filenameTemplate: '{title}'}) as never
 
 		useAppStore.setState({
 			initialized: true,
-			settings: buildAppSettings({includeIdInSingleFilenames: false}),
+			settings: buildAppSettings({filenameTemplate: '{title}'}),
 			wizardMode: 'single',
 			wizardUrl: 'https://youtube.com/watch?v=abc123',
 			wizardTitle: 'Single Video',
@@ -159,23 +159,23 @@ describe('playlist regressions', () => {
 		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0]?.[0]
 		expect(item?.job.kind).toBe('single-format')
 		if (item?.job.kind !== 'single-format') throw new Error('single-format job expected')
-		expect(item.job.outputTemplate).toBe('%(title).200B.%(ext)s')
+		expect(item.job.filenameTemplate).toBe('{title}')
 	})
 
-	it('active profile single downloads honor the single filename id setting', async () => {
-		const api = buildMockApi({includeIdInSingleFilenames: false})
+	it('active profile single downloads honor the global filename template', async () => {
+		const api = buildMockApi({filenameTemplate: '{title}'})
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok({kind: 'video', extractor: 'youtube', extractorKey: 'Youtube', webpageUrl: 'https://youtube.com/watch?v=abc123', isAudioOnlySource: false, formats: [], title: 'Single Video', thumbnail: '', subtitles: {}, automaticCaptions: {}, isLive: false, hasDrm: false}))
 		window.appApi = api as never
 
 		await useAppStore.getState().initialize()
-		useAppStore.setState({wizardUrl: 'https://youtube.com/watch?v=abc123', settings: buildAppSettings({includeIdInSingleFilenames: false})} as never)
+		useAppStore.setState({wizardUrl: 'https://youtube.com/watch?v=abc123', settings: buildAppSettings({filenameTemplate: '{title}'})} as never)
 
 		await useAppStore.getState().quickDownload()
 
 		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0]?.[0]
 		expect(item?.job.kind).toBe('ranged-format')
 		if (item?.job.kind !== 'ranged-format') throw new Error('ranged-format job expected')
-		expect(item.job.outputTemplate).toBe('%(title).200B.%(ext)s')
+		expect(item.job.filenameTemplate).toBe('{title}')
 	})
 
 	it('playlist probe restores persisted common prefs before the first playlist save', async () => {
@@ -225,7 +225,7 @@ describe('playlist regressions', () => {
 		expect(useAppStore.getState().playlistSelection).toEqual(sel1080)
 	})
 
-	it('playlist outputTemplate is position-independent with id-suffix and byte-safe title', async () => {
+	it('playlist items carry the same filename template as single downloads', async () => {
 		window.appApi = buildMockApi() as never
 
 		useAppStore.setState({
@@ -247,9 +247,9 @@ describe('playlist regressions', () => {
 			await useAppStore.getState().addToQueue()
 		})
 
-		const templates = (vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []).map(item => (item.job.kind === 'ranged-format' ? item.job.outputTemplate : null))
+		const templates = (vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []).map(item => (item.job.kind === 'ranged-format' ? item.job.filenameTemplate : null))
 
-		expect(templates).toEqual(['%(title).200B [%(id)s].%(ext)s', '%(title).200B [%(id)s].%(ext)s', '%(title).200B [%(id)s].%(ext)s'])
+		expect(templates).toEqual(['{title} [{id}]', '{title} [{id}]', '{title} [{id}]'])
 	})
 
 	it('built playlist items carry writeM3u from wizard state (opt-out propagates)', async () => {

@@ -2,6 +2,7 @@ import Store from 'electron-store'
 import type {QueueItem} from '@shared/types.js'
 import {queueArraySchema, QUEUE_STATUS} from '@shared/schemas.js'
 import {fail, ok, type Result} from '@shared/result.js'
+import {DEFAULT_FILENAME_TEMPLATE} from '@shared/filenameTemplate.js'
 import {QueueResumeLifecycle} from '@main/services/download/QueueResumeLifecycle.js'
 
 interface QueueData {
@@ -56,11 +57,33 @@ function migrateLegacyStatus(raw: Record<string, unknown>): Record<string, unkno
 	return out
 }
 
+// Queue items persisted before filename templates carry a compiled yt-dlp
+// output template under `job.outputTemplate`. `ranged-format` jobs *require* a
+// template, and load() validates the whole array at once — so a single legacy
+// playlist item would fail the parse and wipe the user's entire queue on
+// upgrade. Only two shapes were ever emitted, so map them back exactly;
+// anything else falls through to the default rather than being trusted as
+// Arroxy syntax.
+const LEGACY_OUTPUT_TEMPLATES: Record<string, string> = {'%(title).200B [%(id)s].%(ext)s': '{title} [{id}]', '%(title).200B.%(ext)s': '{title}'}
+
+function migrateLegacyOutputTemplate(row: Record<string, unknown>): Record<string, unknown> {
+	const job = row.job
+	if (typeof job !== 'object' || job === null) return row
+	const jobRecord = job as Record<string, unknown>
+	if (!('outputTemplate' in jobRecord)) return row
+
+	const {outputTemplate, ...rest} = jobRecord
+	if (typeof rest.filenameTemplate === 'string') return {...row, job: rest}
+	const legacy = typeof outputTemplate === 'string' ? (LEGACY_OUTPUT_TEMPLATES[outputTemplate] ?? DEFAULT_FILENAME_TEMPLATE) : DEFAULT_FILENAME_TEMPLATE
+	return {...row, job: {...rest, filenameTemplate: legacy}}
+}
+
 function migrateRow(raw: unknown): unknown {
 	if (typeof raw !== 'object' || raw === null) return raw
 	let out = raw as Record<string, unknown>
 	out = migrateLegacyError(out)
 	out = migrateLegacyStatus(out)
+	out = migrateLegacyOutputTemplate(out)
 	return out
 }
 

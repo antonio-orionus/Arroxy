@@ -199,6 +199,54 @@ msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "その URL は yt-dlp でサポートされていません。yt-dlp がサポートするサイトの別のリンクを試してください。"
 
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it."
+msgstr "ダウンロードしたファイルの名前の付け方を選びます。トークンをクリックすると挿入されます。"
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "ファイル名テンプレートを入力してください。"
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
+msgstr "ファイル名に使用できない文字を削除してください: / \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} so each download gets its own filename."
+msgstr "{title} または {id} を追加して、ダウンロードごとに異なるファイル名にしてください。"
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "{ または } が閉じられていません — トークンは {title} のように書きます。"
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "テンプレートが長すぎます。"
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "不明なトークン {{token}} です。"
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "{id} がないと、Arroxy はダウンロード済みのプレイリスト項目を検出できず、.m3u プレイリストも作成できません。"
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "ファイル名テンプレート"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template doesn't include {id}."
+msgstr "ファイル名テンプレートに {id} が含まれていないため利用できません。"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "空欄のままにすると全体のテンプレートを引き継ぎます。"
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "ファイル名テンプレート"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "音声"
@@ -2428,14 +2476,6 @@ msgstr "キューに追加しました"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "開始するには、動画、プレイリスト、チャンネル、検索の URL を貼り付けてください。"
-
-msgctxt "wizard.url.singleFilenameId.toggle"
-msgid "Add video ID to single filenames"
-msgstr "単体ファイル名に動画IDを追加"
-
-msgctxt "wizard.url.singleFilenameId.toggleDescription"
-msgid "Keeps one-off downloads unique when titles change or collide."
-msgstr "タイトルが変わったり重複したりしても、単発ダウンロードを一意に保ちます。"
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

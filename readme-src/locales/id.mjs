@@ -50,6 +50,7 @@ export const id = {
   "feat_workflow_6": "**{{LANG_COUNT}} bahasa** — mendeteksi lokal sistem secara otomatis, dapat dialihkan kapan saja",
   "feat_workflow_7": "**Sinkronisasi daftar putar** — memindai ulang daftar putar ke folder lokal untuk melewati video yang sudah diunduh; menghasilkan file daftar putar `.m3u` yang diperbarui saat setiap video diunduh",
   "feat_workflow_8": "**Kontrol kecepatan dan tempo** — membatasi bandwidth pengunduhan, menambahkan penundaan permintaan, dan menyetel rangkaian fragmen dengan preset (*Mati · Seimbang · Hati-hati · Kustom*)",
+  "feat_workflow_9": "**Templat nama berkas** — beri nama unduhan sesuai keinginan Anda dengan `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, dan `{playlist_index}`, secara global atau per profil unduhan",
   "feat_post_h3": "Subtitle & pasca-pemrosesan",
   "feat_post_1": "**Subtitel** dalam SRT, VTT, atau ASS — dibuat secara manual atau otomatis, dalam bahasa apa pun yang tersedia",
   "feat_post_2": "Simpan di samping video, sematkan ke `.mkv`, atau atur ke dalam subfolder `Subtitles/`",

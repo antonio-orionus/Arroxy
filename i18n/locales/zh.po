@@ -199,6 +199,54 @@ msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "yt-dlp 不支持该 URL。请尝试 yt-dlp 支持的任意网站上的其他链接。"
 
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it."
+msgstr "选择下载文件的命名方式。点击标记即可插入。"
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "请输入文件名模板。"
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
+msgstr "请删除文件名中不允许的字符：/ \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} so each download gets its own filename."
+msgstr "请添加 {title} 或 {id}，让每个下载拥有各自的文件名。"
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "{ 或 } 未配对 — 标记请写成 {title} 这样的形式。"
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "模板过长。"
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "未知标记 {{token}}。"
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "缺少 {id} 时，Arroxy 无法检测已下载的播放列表项，也无法生成 .m3u 播放列表。"
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "文件名模板"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template doesn't include {id}."
+msgstr "不可用，因为你的文件名模板不包含 {id}。"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "留空则沿用全局模板。"
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "文件名模板"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "音频"
@@ -2428,14 +2476,6 @@ msgstr "已加入队列"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "粘贴视频、播放列表、频道或搜索 URL 以开始。"
-
-msgctxt "wizard.url.singleFilenameId.toggle"
-msgid "Add video ID to single filenames"
-msgstr "将视频 ID 添加到单个文件名"
-
-msgctxt "wizard.url.singleFilenameId.toggleDescription"
-msgid "Keeps one-off downloads unique when titles change or collide."
-msgstr "当标题变化或重复时，让单次下载保持唯一。"
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

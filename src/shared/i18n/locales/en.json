@@ -217,7 +217,6 @@
 				"tooltip": "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 			},
 			"nativeAudioPreference": {"label": "Native audio preference", "description": "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit.", "compatible": "Compatible stereo", "surround": "Prefer surround / Dolby"},
-			"singleFilenameId": {"toggle": "Add video ID to single filenames", "toggleDescription": "Keeps one-off downloads unique when titles change or collide."},
 			"networkPacing": {
 				"heading": "Gentle downloads",
 				"description": "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted.",
@@ -536,5 +535,21 @@
 		"footerTooltip": "Share Arroxy",
 		"footerLabel": "Share",
 		"shareAction": "Share Arroxy"
+	},
+	"filenameTemplate": {
+		"label": "Filename template",
+		"description": "Choose how downloaded files are named. Click a token to insert it.",
+		"profileOverrideLabel": "Filename template",
+		"profileOverrideDescription": "Leave empty to inherit the global template.",
+		"idWarning": "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists.",
+		"m3uDisabled": "Unavailable because your filename template doesn't include {id}.",
+		"error": {
+			"empty": "Enter a filename template.",
+			"too-long": "Template is too long.",
+			"forbidden-char": "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |",
+			"stray-brace": "Unmatched { or } — wrap tokens like {title}.",
+			"no-unique-token": "Add {title} or {id} so each download gets its own filename.",
+			"unknown-token": "Unknown token {{token}}."
+		}
 	}
 }

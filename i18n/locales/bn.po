@@ -199,6 +199,54 @@ msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "এই URL টি yt-dlp সমর্থন করে না। yt-dlp সমর্থিত যেকোনো সাইটের অন্য একটি লিংক চেষ্টা করুন।"
 
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it."
+msgstr "ডাউনলোড করা ফাইলের নাম কীভাবে হবে তা বেছে নিন। যোগ করতে টোকেনে ক্লিক করুন।"
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "একটি ফাইলের নামের টেমপ্লেট লিখুন।"
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
+msgstr "ফাইলের নামে অনুমোদিত নয় এমন অক্ষর সরান: / \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} so each download gets its own filename."
+msgstr "{title} বা {id} যোগ করুন যাতে প্রতিটি ডাউনলোডের আলাদা নাম হয়।"
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "জোড়াহীন { বা } — টোকেন {title} এর মতো লিখুন।"
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "টেমপ্লেটটি অনেক দীর্ঘ।"
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "অজানা টোকেন {{token}}।"
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "{id} ছাড়া Arroxy আগে ডাউনলোড করা প্লেলিস্ট আইটেম শনাক্ত করতে বা .m3u প্লেলিস্ট তৈরি করতে পারে না।"
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "ফাইলের নামের টেমপ্লেট"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template doesn't include {id}."
+msgstr "উপলব্ধ নয়, কারণ আপনার ফাইলের নামের টেমপ্লেটে {id} নেই।"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "সাধারণ টেমপ্লেট ব্যবহার করতে ফাঁকা রাখুন।"
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "ফাইলের নামের টেমপ্লেট"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "অডিও"
@@ -2428,14 +2476,6 @@ msgstr "কিউতে যোগ করা হয়েছে"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "শুরু করতে ভিডিও, প্লেলিস্ট, চ্যানেল বা সার্চ URL পেস্ট করুন।"
-
-msgctxt "wizard.url.singleFilenameId.toggle"
-msgid "Add video ID to single filenames"
-msgstr "একক ফাইলনামে ভিডিও ID যোগ করুন"
-
-msgctxt "wizard.url.singleFilenameId.toggleDescription"
-msgid "Keeps one-off downloads unique when titles change or collide."
-msgstr "শিরোনাম বদলালে বা মিলে গেলে এককালীন ডাউনলোডগুলোকে আলাদা রাখে।"
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

@@ -217,7 +217,6 @@
 				"tooltip": "对应 yt-dlp 的 --playlist-end 参数：Arroxy 在构建选择器时仅请求这么多播放列表、频道或搜索条目。"
 			},
 			"nativeAudioPreference": {"label": "原生音频偏好", "description": "控制“最佳原生”会选择什么。手动音频行和 M4A/AAC 仍保持显式选择。", "compatible": "兼容立体声", "surround": "优先环绕声 / Dolby"},
-			"singleFilenameId": {"toggle": "将视频 ID 添加到单个文件名", "toggleDescription": "当标题变化或重复时，让单次下载保持唯一。"},
 			"networkPacing": {
 				"heading": "温和下载",
 				"description": "在每次下载时添加小等待，使 Arroxy 不会过于频繁地访问网站。除非另有说明，值的单位为秒。",
@@ -504,5 +503,21 @@
 		"footerTooltip": "分享 Arroxy",
 		"footerLabel": "分享",
 		"shareAction": "分享 Arroxy"
+	},
+	"filenameTemplate": {
+		"label": "文件名模板",
+		"description": "选择下载文件的命名方式。点击标记即可插入。",
+		"profileOverrideLabel": "文件名模板",
+		"profileOverrideDescription": "留空则沿用全局模板。",
+		"idWarning": "缺少 {id} 时，Arroxy 无法检测已下载的播放列表项，也无法生成 .m3u 播放列表。",
+		"m3uDisabled": "不可用，因为你的文件名模板不包含 {id}。",
+		"error": {
+			"empty": "请输入文件名模板。",
+			"too-long": "模板过长。",
+			"forbidden-char": "请删除文件名中不允许的字符：/ \\ : * ? \" < > |",
+			"stray-brace": "{ 或 } 未配对 — 标记请写成 {title} 这样的形式。",
+			"no-unique-token": "请添加 {title} 或 {id}，让每个下载拥有各自的文件名。",
+			"unknown-token": "未知标记 {{token}}。"
+		}
 	}
 }

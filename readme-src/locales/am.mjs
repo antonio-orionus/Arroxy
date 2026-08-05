@@ -146,6 +146,8 @@ export const am = {
     "**የአጫዋች ዝርዝር ማመሳሰል** — አስቀድሞ የወረዱ ቪዲዮዎችን ለመዝለል አጫዋች ዝርዝርን ከአካባቢያዊ ፎልደር ጋር ዳግም ይፈትሻል፤ እያንዳንዱ ቪዲዮ ሲወርድ የሚዘምን `.m3u` የአጫዋች ዝርዝር ፋይል ይፈጥራል",
   feat_workflow_8:
     "**የፍጥነት እና pacing መቆጣጠሪያዎች** — የማውረድ bandwidth ይገድቡ፣ በጥያቄዎች መካከል መዘግየት ያክሉ፣ እና fragment threadsን በpresets (*Off · Balanced · Careful · Custom*) ያስተካክሉ",
+  feat_workflow_9:
+    "**የፋይል ስም አብነቶች** — `{title}`፣ `{uploader}`፣ `{id}`፣ `{date}`፣ `{resolution}` እና `{playlist_index}` በመጠቀም ውርዶችዎን በፈለጉት መንገድ ይሰይሙ፤ በአጠቃላይ ወይም በእያንዳንዱ የማውረድ መገለጫ",
   feat_post_h3: "ንዑስ ርዕሶች እና ድህረ-ሂደት",
   feat_post_1:
     "**ንዑስ ርዕሶች** በ SRT፣ VTT፣ ወይም ASS — እጅ ወይም ራስ ሰር የተፈጠሩ፣ በማንኛውም ቋንቋ",

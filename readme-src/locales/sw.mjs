@@ -150,6 +150,8 @@ export const sw = {
     "**Usawazishaji wa orodha ya kucheza** — hukagua tena orodha ya kucheza dhidi ya folda ya ndani ili kuruka video zilizopakuliwa tayari; hutengeneza faili ya orodha ya kucheza `.m3u` inayosasishwa kila video inapopakuliwa",
   feat_workflow_8:
     "**Udhibiti wa kasi na pacing** — weka kikomo cha bandwidth ya upakuaji, ongeza ucheleweshaji wa maombi, na rekebisha fragment threads kwa presets (*Off · Balanced · Careful · Custom*)",
+  feat_workflow_9:
+    "**Violezo vya majina ya faili** — taja upakuaji jinsi unavyotaka kwa `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` na `{playlist_index}`, kwa jumla au kwa kila wasifu wa upakuaji",
   feat_post_h3: "Manukuu na usindikaji wa baada ya kupakua",
   feat_post_1:
     "**Manukuu** katika SRT, VTT, au ASS — ya mkono au yaliyozalishwa kiotomatiki, katika lugha yoyote inayopatikana",

@@ -226,7 +226,6 @@
 				"tooltip": "Se corresponde con yt-dlp --playlist-end: Arroxy solo solicita este número de entradas de playlist, canal o búsqueda al construir el selector."
 			},
 			"nativeAudioPreference": {"label": "Preferencia de audio nativo", "description": "Controla lo que elige «Mejor nativo». Las filas de audio manuales y M4A/AAC siguen siendo explícitas.", "compatible": "Estéreo compatible", "surround": "Preferir surround / Dolby"},
-			"singleFilenameId": {"toggle": "Añadir ID del vídeo a nombres de archivo individuales", "toggleDescription": "Mantiene únicas las descargas sueltas cuando los títulos cambian o coinciden."},
 			"networkPacing": {
 				"heading": "Descargas suaves",
 				"description": "Añade pequeñas pausas durante cada descarga para que Arroxy no sobrecargue el sitio. Los valores son segundos salvo que se indique lo contrario.",
@@ -550,5 +549,21 @@
 		"footerTooltip": "Compartir Arroxy",
 		"footerLabel": "Compartir",
 		"shareAction": "Compartir Arroxy"
+	},
+	"filenameTemplate": {
+		"label": "Plantilla de nombre de archivo",
+		"description": "Elige cómo se nombran los archivos descargados. Haz clic en un elemento para insertarlo.",
+		"profileOverrideLabel": "Plantilla de nombre de archivo",
+		"profileOverrideDescription": "Déjalo vacío para heredar la plantilla global.",
+		"idWarning": "Sin {id}, Arroxy no puede detectar elementos de la lista ya descargados ni generar listas .m3u.",
+		"m3uDisabled": "No disponible porque tu plantilla de nombre de archivo no incluye {id}.",
+		"error": {
+			"empty": "Introduce una plantilla de nombre de archivo.",
+			"too-long": "La plantilla es demasiado larga.",
+			"forbidden-char": "Quita los caracteres que no se permiten en nombres de archivo: / \\ : * ? \" < > |",
+			"stray-brace": "{ o } sin cerrar: escribe los elementos como {title}.",
+			"no-unique-token": "Añade {title} o {id} para que cada descarga tenga su propio nombre de archivo.",
+			"unknown-token": "Elemento desconocido {{token}}."
+		}
 	}
 }

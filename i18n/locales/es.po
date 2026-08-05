@@ -199,6 +199,54 @@ msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "Esa URL no es compatible con yt-dlp. Prueba otro enlace de cualquiera de los sitios compatibles con yt-dlp."
 
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it."
+msgstr "Elige cómo se nombran los archivos descargados. Haz clic en un elemento para insertarlo."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Introduce una plantilla de nombre de archivo."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
+msgstr "Quita los caracteres que no se permiten en nombres de archivo: / \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} so each download gets its own filename."
+msgstr "Añade {title} o {id} para que cada descarga tenga su propio nombre de archivo."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "{ o } sin cerrar: escribe los elementos como {title}."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "La plantilla es demasiado larga."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Elemento desconocido {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Sin {id}, Arroxy no puede detectar elementos de la lista ya descargados ni generar listas .m3u."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Plantilla de nombre de archivo"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template doesn't include {id}."
+msgstr "No disponible porque tu plantilla de nombre de archivo no incluye {id}."
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Déjalo vacío para heredar la plantilla global."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Plantilla de nombre de archivo"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "Audio"
@@ -2428,14 +2476,6 @@ msgstr "Añadido a la cola"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Pega una URL de video, playlist, canal o búsqueda para empezar."
-
-msgctxt "wizard.url.singleFilenameId.toggle"
-msgid "Add video ID to single filenames"
-msgstr "Añadir ID del vídeo a nombres de archivo individuales"
-
-msgctxt "wizard.url.singleFilenameId.toggleDescription"
-msgid "Keeps one-off downloads unique when titles change or collide."
-msgstr "Mantiene únicas las descargas sueltas cuando los títulos cambian o coinciden."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

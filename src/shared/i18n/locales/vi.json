@@ -226,7 +226,6 @@
 				"tooltip": "Tương ứng với yt-dlp --playlist-end: Arroxy chỉ yêu cầu số mục này từ playlist, kênh hoặc kết quả tìm kiếm khi tạo bộ chọn."
 			},
 			"nativeAudioPreference": {"label": "Tùy chọn âm thanh gốc", "description": "Kiểm soát lựa chọn của “Best native”. Các hàng âm thanh thủ công và M4A/AAC vẫn là lựa chọn rõ ràng.", "compatible": "Stereo tương thích", "surround": "Ưu tiên surround / Dolby"},
-			"singleFilenameId": {"toggle": "Thêm ID video vào tên tệp đơn lẻ", "toggleDescription": "Giữ các lượt tải một lần là duy nhất khi tiêu đề thay đổi hoặc trùng nhau."},
 			"networkPacing": {
 				"heading": "Tải xuống nhẹ nhàng",
 				"description": "Thêm khoảng dừng nhỏ trong mỗi lần tải xuống để Arroxy không truy cập trang web quá mức. Giá trị tính bằng giây trừ khi có ghi chú.",
@@ -545,5 +544,21 @@
 		"footerTooltip": "Chia sẻ Arroxy",
 		"footerLabel": "Chia sẻ",
 		"shareAction": "Chia sẻ Arroxy"
+	},
+	"filenameTemplate": {
+		"label": "Mẫu tên tệp",
+		"description": "Chọn cách đặt tên cho tệp đã tải. Nhấp vào một thẻ để chèn.",
+		"profileOverrideLabel": "Mẫu tên tệp",
+		"profileOverrideDescription": "Để trống để dùng mẫu chung.",
+		"idWarning": "Nếu không có {id}, Arroxy không thể phát hiện mục danh sách phát đã tải hoặc tạo danh sách phát .m3u.",
+		"m3uDisabled": "Không khả dụng vì mẫu tên tệp của bạn không chứa {id}.",
+		"error": {
+			"empty": "Hãy nhập mẫu tên tệp.",
+			"too-long": "Mẫu quá dài.",
+			"forbidden-char": "Hãy bỏ các ký tự không được phép trong tên tệp: / \\ : * ? \" < > |",
+			"stray-brace": "{ hoặc } chưa đóng — hãy viết thẻ như {title}.",
+			"no-unique-token": "Hãy thêm {title} hoặc {id} để mỗi lượt tải có tên tệp riêng.",
+			"unknown-token": "Thẻ không xác định {{token}}."
+		}
 	}
 }

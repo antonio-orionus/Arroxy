@@ -241,6 +241,7 @@ Arroxy is built for one thing: paste a URL, get a clean local file. No accounts,
 - **23 languages** — auto-detects system locale, switchable any time
 - **Playlist sync** — re-scan a playlist against a local folder to skip already-downloaded videos; generates an `.m3u` playlist file updated as each video downloads
 - **Speed and pacing controls** — cap download bandwidth, add request delays, and tune fragment threads with presets (*Off · Balanced · Careful · Custom*)
+- **Filename templates** — name downloads your way with `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, and `{playlist_index}`, globally or per download profile
 
 ### Subtitles & post-processing
 

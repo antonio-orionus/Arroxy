@@ -4,7 +4,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it} from 'vitest'
 import {defaultAppSettings} from '@shared/constants.js'
-import {resolveE2eHarnessMode} from '@main/e2eHarness.js'
+import {isHeadlessWindowRequested, resolveE2eHarnessMode} from '@main/e2eHarness.js'
 
 const tempRoots: string[] = []
 
@@ -89,5 +89,22 @@ describe('resolveE2eHarnessMode', () => {
 		expect(disabled.applyAppSettingsDefaults(defaultAppSettings('/downloads')).common.clipboardWatchEnabled).toBe(false)
 		expect(enabled.allowClipboardWatch).toBe(true)
 		expect(enabled.applyAppSettingsDefaults(defaultAppSettings('/downloads')).common.clipboardWatchEnabled).toBe(true)
+	})
+})
+
+describe('isHeadlessWindowRequested', () => {
+	it('enables the hidden window only when both E2E flags are set', () => {
+		expect(isHeadlessWindowRequested({ARROXY_E2E: '1', ARROXY_E2E_HEADLESS: '1'})).toBe(true)
+	})
+
+	it('ignores ARROXY_E2E_HEADLESS outside an E2E run', () => {
+		// A stray export in a developer's shell must never launch the real app
+		// with an invisible window.
+		expect(isHeadlessWindowRequested({ARROXY_E2E_HEADLESS: '1'})).toBe(false)
+		expect(isHeadlessWindowRequested({ARROXY_E2E: '0', ARROXY_E2E_HEADLESS: '1'})).toBe(false)
+	})
+
+	it('keeps E2E runs visible by default', () => {
+		expect(isHeadlessWindowRequested({ARROXY_E2E: '1'})).toBe(false)
 	})
 })

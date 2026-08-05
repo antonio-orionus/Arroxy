@@ -199,6 +199,54 @@ msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "ያ URL በyt-dlp አይደገፍም። በyt-dlp ከሚደገፉ ጣቢያዎች ሌላ አገናኝ ይሞክሩ።"
 
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it."
+msgstr "የወረዱ ፋይሎች እንዴት እንደሚሰየሙ ይምረጡ። ለማስገባት ምልክቱን ይጫኑ።"
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "የፋይል ስም አብነት ያስገቡ።"
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
+msgstr "በፋይል ስሞች ውስጥ የማይፈቀዱ ቁምፊዎችን ያስወግዱ፦ / \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} so each download gets its own filename."
+msgstr "እያንዳንዱ ማውረድ የራሱ የፋይል ስም እንዲኖረው {title} ወይም {id} ያክሉ።"
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "ያልተዘጋ { ወይም } — ምልክቶችን እንደ {title} ይጻፉ።"
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "አብነቱ በጣም ረጅም ነው።"
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "ያልታወቀ ምልክት {{token}}።"
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "{id} ከሌለ Arroxy አስቀድሞ የወረዱ የዝርዝር ንጥሎችን መለየት ወይም .m3u ዝርዝሮችን መፍጠር አይችልም።"
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "የፋይል ስም አብነት"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template doesn't include {id}."
+msgstr "የፋይል ስም አብነትዎ {id} ስለሌለው አይገኝም።"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "አጠቃላይ አብነቱን ለመጠቀም ባዶ ይተውት።"
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "የፋይል ስም አብነት"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "ድምጽ"
@@ -2428,14 +2476,6 @@ msgstr "ወደ ወረፋ ታክሏል"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "ለመጀመር የቪዲዮ፣ playlist፣ channel ወይም ፍለጋ URL ይለጥፉ።"
-
-msgctxt "wizard.url.singleFilenameId.toggle"
-msgid "Add video ID to single filenames"
-msgstr "የቪዲዮ ID ወደ ነጠላ ፋይል ስሞች ጨምር"
-
-msgctxt "wizard.url.singleFilenameId.toggleDescription"
-msgid "Keeps one-off downloads unique when titles change or collide."
-msgstr "ርዕሶች ሲቀየሩ ወይም ሲጋጩ ነጠላ ማውረዶችን ልዩ ያደርጋል።"
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

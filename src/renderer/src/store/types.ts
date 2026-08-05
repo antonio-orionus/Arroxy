@@ -305,7 +305,7 @@ export interface SystemSlice {
 	setPlaylistProbeLimit: (value: number) => Promise<void>
 	setBackdropRenderMode: (value: BackdropRenderMode) => Promise<void>
 	setNativeAudioPreference: (value: NativeAudioPreference) => Promise<void>
-	setIncludeIdInSingleFilenames: (enabled: boolean) => Promise<void>
+	setFilenameTemplate: (template: string) => Promise<void>
 	setNetworkPacingPreset: (value: AppSettings['common']['networkPacingPreset']) => Promise<void>
 	setPacingSleepRequests: (value: number | undefined) => Promise<void>
 	setPacingSleepInterval: (value: number | undefined) => Promise<void>

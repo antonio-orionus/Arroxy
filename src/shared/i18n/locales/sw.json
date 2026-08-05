@@ -226,7 +226,6 @@
 				"tooltip": "Inalingana na yt-dlp --playlist-end: Arroxy inauliza idadi hii tu ya maingizo ya playlist, kituo, au utafutaji wakati wa kujenga kichaguzi."
 			},
 			"nativeAudioPreference": {"label": "Upendeleo wa sauti asili", "description": "Hudhibiti kile ambacho Best native huchagua. Safu za sauti za mkono na M4A/AAC hubaki chaguo wazi.", "compatible": "Stereo inayooendana", "surround": "Pendelea surround / Dolby"},
-			"singleFilenameId": {"toggle": "Ongeza ID ya video kwenye majina ya faili moja moja", "toggleDescription": "Huweka upakuaji wa mara moja kuwa wa kipekee wakati vichwa vinabadilika au kugongana."},
 			"networkPacing": {
 				"heading": "Upakuaji wa taratibu",
 				"description": "Inaongeza mapumziko madogo wakati wa kila upakuaji ili Arroxy isishambue tovuti. Maadili ni sekunde isipokuwa imetajwa.",
@@ -545,5 +544,21 @@
 		"footerTooltip": "Shiriki Arroxy",
 		"footerLabel": "Shiriki",
 		"shareAction": "Shiriki Arroxy"
+	},
+	"filenameTemplate": {
+		"label": "Kiolezo cha jina la faili",
+		"description": "Chagua jinsi faili zilizopakuliwa zinavyopewa majina. Bofya tokeni ili kuiingiza.",
+		"profileOverrideLabel": "Kiolezo cha jina la faili",
+		"profileOverrideDescription": "Acha wazi ili kutumia kiolezo cha jumla.",
+		"idWarning": "Bila {id}, Arroxy haiwezi kutambua vipengee vya orodha vilivyopakuliwa tayari wala kutengeneza orodha za .m3u.",
+		"m3uDisabled": "Haipatikani kwa sababu kiolezo chako cha jina la faili hakina {id}.",
+		"error": {
+			"empty": "Weka kiolezo cha jina la faili.",
+			"too-long": "Kiolezo ni kirefu mno.",
+			"forbidden-char": "Ondoa herufi zisizoruhusiwa katika majina ya faili: / \\ : * ? \" < > |",
+			"stray-brace": "{ au } isiyofungwa — andika tokeni kama {title}.",
+			"no-unique-token": "Ongeza {title} au {id} ili kila upakuaji uwe na jina lake la faili.",
+			"unknown-token": "Tokeni isiyojulikana {{token}}."
+		}
 	}
 }

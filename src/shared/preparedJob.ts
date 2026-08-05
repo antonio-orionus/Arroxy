@@ -36,10 +36,10 @@ export type PresetOrCustom = Preset | 'custom'
 // Discriminated on `kind`. Adding a new mode = new arm + new switch arm in
 // every consumer (compiler-enforced exhaustiveness).
 export type PreparedJob =
-	| (ExtractorIdentity & {kind: 'single-format'; formatId: string; preset: PresetOrCustom; outputTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions; expectedBytes?: number})
-	| (ExtractorIdentity & {kind: 'audio-convert'; audioConvert: AudioConvert; preset: PresetOrCustom; outputTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions})
-	| (ExtractorIdentity & {kind: 'ranged-format'; intent: MediaIntent; formatSelector?: string; formatSort?: string; mergeOutputFormat?: string; audioConvert?: AudioConvert; outputTemplate: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions})
-	| (ExtractorIdentity & {kind: 'subtitle-only'; outputTemplate?: string; subtitles: SubtitleOptions})
+	| (ExtractorIdentity & {kind: 'single-format'; formatId: string; preset: PresetOrCustom; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions; expectedBytes?: number})
+	| (ExtractorIdentity & {kind: 'audio-convert'; audioConvert: AudioConvert; preset: PresetOrCustom; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions})
+	| (ExtractorIdentity & {kind: 'ranged-format'; intent: MediaIntent; formatSelector?: string; formatSort?: string; mergeOutputFormat?: string; audioConvert?: AudioConvert; filenameTemplate: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions})
+	| (ExtractorIdentity & {kind: 'subtitle-only'; filenameTemplate?: string; subtitles: SubtitleOptions})
 
 // Schema re-exported here so `@shared/preparedJob` is the canonical path for
 // both type and runtime validator.

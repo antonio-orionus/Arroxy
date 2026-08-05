@@ -243,6 +243,7 @@ Arroxy est conçu pour une seule chose : coller une URL et obtenir un fichier lo
 - **23 langues** — détecte automatiquement les paramètres régionaux du système, modifiable à tout moment
 - **Synchronisation de playlist** — rescane une playlist par rapport à un dossier local pour ignorer les vidéos déjà téléchargées ; génère un fichier de playlist `.m3u` mis à jour à chaque vidéo téléchargée
 - **Contrôles de vitesse et de rythme** — limite la bande passante, ajoute des pauses entre les requêtes et règle les threads de fragments avec des préréglages (*Désactivé · Équilibré · Prudent · Personnalisé*)
+- **Modèles de nom de fichier** — nommez vos téléchargements comme vous voulez avec `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` et `{playlist_index}`, globalement ou par profil de téléchargement
 
 ### Sous-titres & post-traitement
 

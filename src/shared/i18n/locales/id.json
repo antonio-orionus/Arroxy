@@ -226,7 +226,6 @@
 				"tooltip": "Memetakan ke yt-dlp --playlist-end: Arroxy hanya meminta entri daftar putar, saluran, atau pencarian sebanyak ini saat membuat alat pilih."
 			},
 			"nativeAudioPreference": {"label": "Preferensi audio asli", "description": "Mengontrol apa yang dipilih oleh penduduk asli Terbaik. Baris audio manual dan M4A/AAC tetap eksplisit.", "compatible": "Stereo yang kompatibel", "surround": "Lebih suka surround / Dolby"},
-			"singleFilenameId": {"toggle": "Tambahkan ID video ke satu nama file", "toggleDescription": "Membuat unduhan satu kali tetap unik ketika judul berubah atau bertabrakan."},
 			"networkPacing": {
 				"heading": "Unduhan yang lembut",
 				"description": "Tambahkan sedikit waktu tunggu setiap kali mengunduh sehingga Arroxy tidak masuk ke situs terlalu agresif. Nilainya adalah detik, kecuali jika disebutkan.",
@@ -552,5 +551,21 @@
 		"footerTooltip": "Bagikan Arroxy",
 		"footerLabel": "Membagikan",
 		"shareAction": "Bagikan Arroxy"
+	},
+	"filenameTemplate": {
+		"label": "Templat nama berkas",
+		"description": "Pilih cara penamaan berkas yang diunduh. Klik token untuk menyisipkannya.",
+		"profileOverrideLabel": "Templat nama berkas",
+		"profileOverrideDescription": "Biarkan kosong untuk mengikuti templat global.",
+		"idWarning": "Tanpa {id}, Arroxy tidak dapat mendeteksi item playlist yang sudah diunduh atau membuat playlist .m3u.",
+		"m3uDisabled": "Tidak tersedia karena templat nama berkas Anda tidak memuat {id}.",
+		"error": {
+			"empty": "Masukkan templat nama berkas.",
+			"too-long": "Templat terlalu panjang.",
+			"forbidden-char": "Hapus karakter yang tidak diizinkan dalam nama berkas: / \\ : * ? \" < > |",
+			"stray-brace": "{ atau } tidak berpasangan — tulis token seperti {title}.",
+			"no-unique-token": "Tambahkan {title} atau {id} agar setiap unduhan punya nama berkas sendiri.",
+			"unknown-token": "Token tidak dikenal {{token}}."
+		}
 	}
 }

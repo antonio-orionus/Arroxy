@@ -26,6 +26,7 @@ function baseProfile(id: string, name: string, media: DownloadProfile['media'], 
 		createdAt: BUILTIN_TIMESTAMP,
 		updatedAt: BUILTIN_TIMESTAMP,
 		output: {kind: 'default'},
+		filename: {kind: 'default'},
 		subfolder: {enabled: true, name: safeFolderName(name)}
 	}
 }
@@ -174,6 +175,19 @@ export function resolveDownloadProfileBaseDir(profile: DownloadProfile, context:
 export function resolveDownloadProfileOutputDir(profile: DownloadProfile, context: DownloadProfileOutputContext): string {
 	const baseDir = resolveDownloadProfileBaseDir(profile, context)
 	return effectiveOutputDir(baseDir, profile.subfolder.enabled, profile.subfolder.name)
+}
+
+/**
+ * Profile override wins, else the global setting, else the built-in default.
+ * The result is an Arroxy template (`{title} [{id}]`), not a yt-dlp one —
+ * compilation happens at queue-submission time.
+ */
+export function resolveFilenameTemplate(profile: DownloadProfile | undefined, globalTemplate: string | undefined): string {
+	if (profile?.filename.kind === 'custom') return profile.filename.template
+	// An empty or whitespace-only stored value must fall through to the default,
+	// which `??` would not do — hence the explicit length check.
+	const trimmed = globalTemplate?.trim() ?? ''
+	return trimmed.length > 0 ? trimmed : DEFAULTS.filenameTemplate
 }
 
 export function downloadProfileLabel(profile: DownloadProfile): string {

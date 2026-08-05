@@ -197,7 +197,7 @@ describe('quickDownload', () => {
 
 		const settings = defaultAppSettings('/tmp/downloads')
 		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
-		useAppStore.setState({wizardUrl: mixedUrl, wizardOutputDir: '/tmp/downloads', settings: {...settings, common: {...settings.common, rememberLastOutputDir: false, clipboardWatchEnabled: false, includeIdInSingleFilenames: true}}})
+		useAppStore.setState({wizardUrl: mixedUrl, wizardOutputDir: '/tmp/downloads', settings: {...settings, common: {...settings.common, rememberLastOutputDir: false, clipboardWatchEnabled: false, filenameTemplate: '{title} [{id}]'}}})
 
 		await useAppStore.getState().quickDownload()
 		await useAppStore.getState().dismissMixedPrompt('video')
@@ -210,7 +210,7 @@ describe('quickDownload', () => {
 			outputDir: '/tmp/downloads/Balanced 720p',
 			status: 'pending',
 			lane: 'normal',
-			job: expect.objectContaining({kind: 'ranged-format', extractor: 'youtube', extractorKey: 'Youtube', intent: {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}}, outputTemplate: '%(title).200B [%(id)s].%(ext)s'})
+			job: expect.objectContaining({kind: 'ranged-format', extractor: 'youtube', extractorKey: 'Youtube', intent: {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}}, filenameTemplate: '{title} [{id}]'})
 		})
 		expect(useAppStore.getState().wizardUrl).toBe('')
 		expect(useAppStore.getState().wizardStep).toBe('url')

@@ -234,7 +234,6 @@
 				"tooltip": "Одговара yt-dlp опцији --playlist-end: Arroxy тражи само овај број уноса плејлисте, канала или претраге приликом прављења бирача."
 			},
 			"nativeAudioPreference": {"label": "Postavka izvornog zvuka", "description": "Određuje šta bira „Najbolji izvorni“. Ručni audio redovi i M4A/AAC ostaju izričit izbor.", "compatible": "Kompatibilni stereo", "surround": "Daj prednost surround / Dolby"},
-			"singleFilenameId": {"toggle": "Додај ID видеа у појединачна имена фајлова", "toggleDescription": "Чува појединачна преузимања јединственим када се наслови промене или поклопе."},
 			"networkPacing": {
 				"heading": "Пажљива преузимања",
 				"description": "Додаје мале паузе током сваког преузимања тако да Arroxy не приступа сајту превише агресивно. Вредности су у секундама ако није другачије назначено.",
@@ -552,5 +551,21 @@
 		"footerTooltip": "Подели Arroxy",
 		"footerLabel": "Подели",
 		"shareAction": "Подели Arroxy"
+	},
+	"filenameTemplate": {
+		"label": "Шаблон назива датотеке",
+		"description": "Изаберите како се именују преузете датотеке. Кликните на ознаку да бисте је уметнули.",
+		"profileOverrideLabel": "Шаблон назива датотеке",
+		"profileOverrideDescription": "Оставите празно да се користи општи шаблон.",
+		"idWarning": "Без {id} Arroxy не може да препозна већ преузете ставке плејлисте нити да направи .m3u плејлисте.",
+		"m3uDisabled": "Није доступно јер ваш шаблон назива датотеке не садржи {id}.",
+		"error": {
+			"empty": "Унесите шаблон назива датотеке.",
+			"too-long": "Шаблон је предугачак.",
+			"forbidden-char": "Уклоните знакове који нису дозвољени у називима датотека: / \\ : * ? \" < > |",
+			"stray-brace": "Незатворена { или } — ознаке пишите као {title}.",
+			"no-unique-token": "Додајте {title} или {id} да свако преузимање има свој назив датотеке.",
+			"unknown-token": "Непозната ознака {{token}}."
+		}
 	}
 }

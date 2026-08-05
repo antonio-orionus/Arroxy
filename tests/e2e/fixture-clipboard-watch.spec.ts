@@ -18,6 +18,11 @@ async function withClipboardWatchEnabled(run: () => Promise<void>): Promise<void
 
 test('Electron clipboard watcher fills single links, opens bulk links, and preserves pending candidates', async () => {
 	test.setTimeout(90_000)
+	// ClipboardWatcher only polls while the window is focused AND visible, so the
+	// behavior under test cannot exist in a hidden window. This is a real product
+	// guarantee, not a test limitation — Arroxy reads the clipboard only when the
+	// user is looking at it. CI runs visible (xvfb) and still covers this.
+	test.skip(process.env.ARROXY_E2E_HEADLESS === '1', 'clipboard watching is focus-gated and needs a visible window')
 
 	await withClipboardWatchEnabled(async () => {
 		await withFixtureProductApp(

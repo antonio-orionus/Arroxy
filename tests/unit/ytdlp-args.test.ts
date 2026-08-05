@@ -55,7 +55,7 @@ function mediaRequest(
 		url?: string
 		outputDir?: string
 		tempDir?: string
-		outputTemplate?: string
+		filenameTemplate?: string
 		formatId?: string
 		formatSelector?: string
 		formatSort?: string
@@ -78,7 +78,7 @@ function mediaRequest(
 	return {
 		kind: 'media',
 		url: overrides.url ?? URL,
-		output: {directory: outputDir, ...(overrides.tempDir ? {tempDirectory: overrides.tempDir} : {}), ...(overrides.outputTemplate ? {template: overrides.outputTemplate} : {})},
+		output: {directory: outputDir, ...(overrides.tempDir ? {tempDirectory: overrides.tempDir} : {}), ...(overrides.filenameTemplate ? {template: overrides.filenameTemplate} : {})},
 		selection: {formatId: overrides.formatId, formatSelector: overrides.formatSelector, formatSort: overrides.formatSort, mergeOutputFormat: overrides.mergeOutputFormat, skipDownload: overrides.skipDownload},
 		...(overrides.audioConvert ? {audio: {convert: overrides.audioConvert}} : {}),
 		...(overrides.subtitleLanguages !== undefined ? {subtitles: {embed: true, languages: overrides.subtitleLanguages, writeAuto: overrides.writeAutoSubs}} : {}),
@@ -89,11 +89,11 @@ function mediaRequest(
 	}
 }
 
-function subtitleRequest(overrides: {outputDir?: string; outputTemplate?: string; subtitleLanguages?: string[]; subtitleMode?: SubtitleMode; subtitleFormat?: SubtitleFormat; writeAutoSubs?: boolean} = {}): YtDlpRequest {
+function subtitleRequest(overrides: {outputDir?: string; filenameTemplate?: string; subtitleLanguages?: string[]; subtitleMode?: SubtitleMode; subtitleFormat?: SubtitleFormat; writeAutoSubs?: boolean} = {}): YtDlpRequest {
 	return {
 		kind: 'subtitles',
 		url: URL,
-		output: {directory: overrides.outputDir ?? OUTPUT_DIR, ...(overrides.outputTemplate ? {template: overrides.outputTemplate} : {}), ...(overrides.subtitleMode ? {subtitleMode: overrides.subtitleMode} : {})},
+		output: {directory: overrides.outputDir ?? OUTPUT_DIR, ...(overrides.filenameTemplate ? {template: overrides.filenameTemplate} : {}), ...(overrides.subtitleMode ? {subtitleMode: overrides.subtitleMode} : {})},
 		subtitles: {languages: overrides.subtitleLanguages ?? ['en'], format: overrides.subtitleFormat ?? 'srt', writeAuto: overrides.writeAutoSubs}
 	}
 }
@@ -237,29 +237,29 @@ describe('YtDlp — probe args', () => {
 	})
 })
 
-describe('YtDlp — outputTemplate', () => {
-	it('video kind: outputTemplate replaces default %(title)s.%(ext)s', async () => {
-		await makeYtDlp().run(mediaRequest({outputTemplate: '01 - %(title)s.%(ext)s'}))
+describe('YtDlp — filenameTemplate', () => {
+	it('video kind: filenameTemplate replaces default %(title)s.%(ext)s', async () => {
+		await makeYtDlp().run(mediaRequest({filenameTemplate: '01 - %(title)s.%(ext)s'}))
 		const args = getArgs()
 		const oArg = args[args.indexOf('-o') + 1]
 		expect(oArg).toBe(`${OUTPUT_DIR}/01 - %(title)s.%(ext)s`)
 	})
 
-	it('subtitle kind: outputTemplate honored', async () => {
-		await makeYtDlp().run(subtitleRequest({subtitleLanguages: ['en'], subtitleFormat: 'srt', outputTemplate: '07 - %(title)s.%(ext)s'}))
+	it('subtitle kind: filenameTemplate honored', async () => {
+		await makeYtDlp().run(subtitleRequest({subtitleLanguages: ['en'], subtitleFormat: 'srt', filenameTemplate: '07 - %(title)s.%(ext)s'}))
 		const args = getArgs()
 		const oArg = args[args.indexOf('-o') + 1]
 		expect(oArg).toBe(`${OUTPUT_DIR}/07 - %(title)s.%(ext)s`)
 	})
 
-	it('video kind: tempDir + outputTemplate keeps -o template-only', async () => {
-		await makeYtDlp().run(mediaRequest({tempDir: '/tmp/dl', outputTemplate: '02 - %(title)s.%(ext)s'}))
+	it('video kind: tempDir + filenameTemplate keeps -o template-only', async () => {
+		await makeYtDlp().run(mediaRequest({tempDir: '/tmp/dl', filenameTemplate: '02 - %(title)s.%(ext)s'}))
 		const args = getArgs()
 		expect(args[args.indexOf('-o') + 1]).toBe('02 - %(title)s.%(ext)s')
 		expect(args).toContain('--paths')
 	})
 
-	it('video kind: omitting outputTemplate keeps default %(title).200B.%(ext)s', async () => {
+	it('video kind: omitting filenameTemplate keeps default %(title).200B.%(ext)s', async () => {
 		await makeYtDlp().run(mediaRequest())
 		const args = getArgs()
 		expect(args[args.indexOf('-o') + 1]).toBe(`${OUTPUT_DIR}/%(title).200B.%(ext)s`)

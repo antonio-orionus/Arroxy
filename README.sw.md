@@ -241,6 +241,7 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
 - **Lugha 23** — hutambua locale ya mfumo kiotomatiki, unaweza kubadilisha wakati wowote
 - **Usawazishaji wa orodha ya kucheza** — hukagua tena orodha ya kucheza dhidi ya folda ya ndani ili kuruka video zilizopakuliwa tayari; hutengeneza faili ya orodha ya kucheza `.m3u` inayosasishwa kila video inapopakuliwa
 - **Udhibiti wa kasi na pacing** — weka kikomo cha bandwidth ya upakuaji, ongeza ucheleweshaji wa maombi, na rekebisha fragment threads kwa presets (*Off · Balanced · Careful · Custom*)
+- **Violezo vya majina ya faili** — taja upakuaji jinsi unavyotaka kwa `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` na `{playlist_index}`, kwa jumla au kwa kila wasifu wa upakuaji
 
 ### Manukuu na usindikaji wa baada ya kupakua
 

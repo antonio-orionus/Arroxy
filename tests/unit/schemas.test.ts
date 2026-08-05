@@ -23,7 +23,7 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
 	})
 
 	it('accepts single-format job', () => {
-		const result = startDownloadSchema.safeParse({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', job: {kind: 'single-format', ...IDENTITY, formatId: '137+251', preset: 'custom', outputTemplate: '%(title).200B [%(id)s].%(ext)s', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}})
+		const result = startDownloadSchema.safeParse({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', job: {kind: 'single-format', ...IDENTITY, formatId: '137+251', preset: 'custom', filenameTemplate: '{title} [{id}]', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}})
 		expect(result.success).toBe(true)
 	})
 
@@ -240,9 +240,24 @@ describe('updateSettingsSchema — common.limitRate', () => {
 	})
 })
 
-describe('updateSettingsSchema — common.includeIdInSingleFilenames', () => {
-	it.each([true, false])('accepts includeIdInSingleFilenames=%s', value => {
-		expect(updateSettingsSchema.safeParse({common: {includeIdInSingleFilenames: value}}).success).toBe(true)
+describe('updateSettingsSchema — common.filenameTemplate', () => {
+	it.each(['{title} [{id}]', '{uploader} - {title}'])('accepts filenameTemplate=%s', value => {
+		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: value}}).success).toBe(true)
+	})
+
+	it('rejects an empty filenameTemplate', () => {
+		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: '   '}}).success).toBe(false)
+	})
+
+	it('accepts a filenameTemplate exactly at the length cap', () => {
+		// Pairs with the rejection below to pin the cap as inclusive.
+		const atCap = `{title}${'x'.repeat(113)}`
+		expect(atCap).toHaveLength(120)
+		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: atCap}}).success).toBe(true)
+	})
+
+	it('rejects a filenameTemplate past the length cap', () => {
+		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: 'x'.repeat(121)}}).success).toBe(false)
 	})
 })
 

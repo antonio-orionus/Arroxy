@@ -543,6 +543,12 @@ export function writeE2eSettings(userDataDir: string, outputDir: string, configu
 	settings.common.writeDescription = false
 	settings.common.writeThumbnail = false
 	settings.common.firstRunCompleted = true
+	// Suppress the "What's new in Arroxy <version>" dialog. shouldShowWhatsNew()
+	// fires whenever lastReleaseNotesVersionShown is unset and launchCount > 1,
+	// and its modal overlay covers the tab strip — which blocks every workflow
+	// test that clicks a tab. A sentinel above any real version keeps this from
+	// silently re-breaking on the next release.
+	settings.common.lastReleaseNotesVersionShown = '999.0.0'
 	settings.common.launchCount = 3
 	configure?.(settings)
 	fs.writeFileSync(path.join(userDataDir, 'settings.json'), JSON.stringify(settings), 'utf8')

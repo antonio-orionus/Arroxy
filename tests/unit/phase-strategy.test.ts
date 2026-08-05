@@ -24,7 +24,7 @@ describe('strategyFor — kind routing', () => {
 	})
 
 	it('ranged-format with no subtitles → video', () => {
-		const job: PreparedJob = {kind: 'ranged-format', extractor: 'youtube', extractorKey: 'Youtube', intent: {kind: 'video-audio', codec: 'best', tiers: ['best'], audio: {format: 'best'}}, outputTemplate: '%(title)s.%(ext)s', sponsorBlock: SB_OFF, embed: EMBED_OFF}
+		const job: PreparedJob = {kind: 'ranged-format', extractor: 'youtube', extractorKey: 'Youtube', intent: {kind: 'video-audio', codec: 'best', tiers: ['best'], audio: {format: 'best'}}, filenameTemplate: '{title}', sponsorBlock: SB_OFF, embed: EMBED_OFF}
 		expect(strategyFor(job)).toBe<StrategyKind>('video')
 	})
 
