@@ -35,7 +35,7 @@ import {cancelQueueBeforeExit, waitForQueueFileMovesBeforeExit} from '@main/shut
 import {decideCloseAction, decideRendererCrashAction} from '@main/windowLifecycle.js'
 import {resolveMainWindowBackgroundColor} from '@main/windowPresentation.js'
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
-import {resolveE2eHarnessMode} from '@main/e2eHarness.js'
+import {isHeadlessWindowRequested, resolveE2eHarnessMode} from '@main/e2eHarness.js'
 import {applyChromiumSwitches, applyChromiumSwitchesFromEnv, chromiumSwitchesForRuntime, chromiumSwitchLogSummary} from '@main/chromiumSwitches.js'
 import contextMenu from 'electron-context-menu'
 import windowStateKeeper from 'electron-window-state'
@@ -157,6 +157,14 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 	const winState = windowStateKeeper({defaultWidth: WINDOW_DEFAULT_WIDTH, defaultHeight: WINDOW_DEFAULT_HEIGHT})
 	const preloadPath = resolveMainWindowPreloadPath(import.meta.dirname)
 
+	// Electron has no Chrome-style `--headless`, and xvfb only helps on Linux —
+	// on macOS every E2E launch otherwise pops a real window and steals focus.
+	// An unshown window still loads, renders, and accepts CDP input, so Playwright
+	// drives it exactly the same; it just never appears or activates.
+	// Background throttling has to be off or a hidden window's timers stall and
+	// progress-driven waits time out.
+	const headless = isHeadlessWindowRequested(process.env)
+
 	const window = new BrowserWindow({
 		x: winState.x,
 		y: winState.y,
@@ -169,7 +177,8 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 		titleBarStyle: 'hidden',
 		autoHideMenuBar: true,
 		backgroundColor,
-		webPreferences: {preload: preloadPath, contextIsolation: true, nodeIntegration: false}
+		show: !headless,
+		webPreferences: {preload: preloadPath, contextIsolation: true, nodeIntegration: false, backgroundThrottling: !headless}
 	})
 
 	registerPreloadDiagnostics(window, preloadPath)
@@ -194,6 +203,13 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 }
 
 if (hasSingleInstanceLock) {
+	// macOS keeps a hidden window's app in the dock and lets it steal focus on
+	// activate. 'accessory' makes the process background-only, so an E2E run
+	// cannot pull focus away from whatever the developer is doing.
+	if (isHeadlessWindowRequested(process.env) && process.platform === 'darwin') {
+		app.setActivationPolicy('accessory')
+	}
+
 	void app.whenReady().then(async () => {
 		const userDataPath = app.getPath('userData')
 		log.transports.file.resolvePathFn = () => path.join(userDataPath, 'logs', 'main.log')

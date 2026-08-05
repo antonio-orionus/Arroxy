@@ -136,7 +136,14 @@ export function queueCardByTitle(page: Page, title: string): Locator {
 }
 
 export async function openQueueTab(page: Page): Promise<void> {
-	await page.getByRole('tab', {name: /^queue/i}).click()
+	// Anchored on the trigger's own class, not its label: the tab reads
+	// "Downloads" (queue.tabLabel), so a /^queue/i name match never resolves and
+	// every caller of this helper times out.
+	//
+	// Quick Download opens a progress dialog whose portal overlay covers the tab
+	// strip, so wait for any modal to detach before clicking rather than racing it.
+	await expect(page.locator('[data-slot="dialog-overlay"]')).toHaveCount(0, {timeout: 120_000})
+	await page.locator('.downloads-tab-trigger').click()
 	await expect(page.locator('[data-testid="queue-manager-tab"]')).toBeVisible()
 }
 
