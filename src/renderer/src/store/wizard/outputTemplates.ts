@@ -1,22 +1,17 @@
 import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
-import {compileFilenameTemplate, DEFAULT_FILENAME_TEMPLATE, templateHasId} from '@shared/filenameTemplate.js'
+import {templateHasId} from '@shared/filenameTemplate.js'
 import type {DownloadProfile} from '@shared/schemas.js'
 
 /**
- * Resolve the effective Arroxy filename template (profile override > global >
- * built-in) and compile it to the yt-dlp output template that reaches `-o`.
+ * Effective Arroxy filename template for a job: profile override > global >
+ * built-in default.
+ *
+ * This deliberately stays in Arroxy token syntax. Compiling to a yt-dlp output
+ * template happens in the main process, so a compromised renderer cannot hand
+ * yt-dlp an arbitrary `-o` containing absolute paths or `../`.
  */
-export function resolveOutputTemplate(profile: DownloadProfile | undefined, globalTemplate: string | undefined): string {
-	const compiled = compileFilenameTemplate(resolveFilenameTemplate(profile, globalTemplate))
-	if (compiled.ok) return compiled.template
-
-	// A template that fails to compile must never reach `-o`. Persisted settings
-	// can go stale — hand-edited config, or a token removed in a later release —
-	// so fall back to the built-in default rather than emitting a broken argument
-	// or failing the download outright.
-	const fallback = compileFilenameTemplate(DEFAULT_FILENAME_TEMPLATE)
-	if (!fallback.ok) throw new Error('invariant: the default filename template must compile')
-	return fallback.template
+export function resolveJobFilenameTemplate(profile: DownloadProfile | undefined, globalTemplate: string | undefined): string {
+	return resolveFilenameTemplate(profile, globalTemplate)
 }
 
 /**

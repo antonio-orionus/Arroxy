@@ -151,6 +151,8 @@ export const bn = {
     "**প্লেলিস্ট সিঙ্ক** — আগে ডাউনলোড করা ভিডিও এড়াতে একটি স্থানীয় ফোল্ডারের সঙ্গে প্লেলিস্ট আবার স্ক্যান করে; প্রতিটি ভিডিও ডাউনলোড হওয়ার সঙ্গে সঙ্গে আপডেট হওয়া একটি `.m3u` প্লেলিস্ট ফাইল তৈরি করে",
   feat_workflow_8:
     "**Speed ও pacing controls** — download bandwidth সীমিত করুন, request delay যোগ করুন, এবং presets (*Off · Balanced · Careful · Custom*) দিয়ে fragment threads tune করুন",
+  feat_workflow_9:
+    "**ফাইলের নামের টেমপ্লেট** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ও `{playlist_index}` দিয়ে ডাউনলোডের নাম নিজের মতো দিন, সব ক্ষেত্রে বা প্রতিটি ডাউনলোড প্রোফাইলের জন্য আলাদা",
   feat_post_h3: "সাবটাইটেল ও পোস্ট-প্রসেসিং",
   feat_post_1:
     "**সাবটাইটেল** SRT, VTT বা ASS-এ — ম্যানুয়াল বা অটো-জেনারেটেড, যেকোনো উপলব্ধ ভাষায়",

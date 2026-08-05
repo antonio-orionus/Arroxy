@@ -129,3 +129,13 @@ describe('previewFilenameTemplate', () => {
 		expect(previewFilenameTemplate('{bogus}')).toBeNull()
 	})
 })
+
+describe('injection resistance', () => {
+	it('refuses anything that could redirect yt-dlp -o outside the output directory', () => {
+		// The main process compiles templates precisely so a compromised renderer
+		// cannot hand yt-dlp a raw `-o`. These are the shapes that would matter.
+		for (const evil of ['/etc/cron.d/{title}', '../../{title}', '{title}/../../evil', 'C:\\Windows\\{title}', '%(title)s']) {
+			expect(compileFilenameTemplate(evil).ok).toBe(false)
+		}
+	})
+})

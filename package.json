@@ -74,7 +74,7 @@
 		"bridge:check": "bun run errors:build && bun run --filter yt-dlp-bridge typecheck && bun run --filter yt-dlp-bridge test && bun run --filter yt-dlp-bridge build && bun run --filter yt-dlp-bridge pack:dry-run",
 		"packages:verify-metadata": "node scripts/check-package-publish-metadata.mjs",
 		"packages:check": "bun run errors:check && bun run bridge:check && bun run packages:verify-metadata",
-		"check": "concurrently -c auto --kill-others-on-fail -n format,lint,tooling-parity,tooling-contract,types,knip,madge,loc,pins,i18n,test \"bun run format:check\" \"bun run lint\" \"bun run check:tooling-parity\" \"bun run check:tooling-contract\" \"bun run typecheck\" \"bun run knip\" \"bun run madge\" \"bun run check:loc\" \"bun run check:pins\" \"bun run check:app\" \"bun run test\" && bun run packages:check",
+		"check": "concurrently -c auto --kill-others-on-fail -n format,lint,tooling-parity,tooling-contract,types,knip,madge,loc,pins,i18n,test \"bun run format:check\" \"bun run lint\" \"bun run check:tooling-parity\" \"bun run check:tooling-contract\" \"bun run typecheck\" \"bun run knip\" \"bun run madge\" \"bun run check:loc\" \"bun run check:pins\" \"bun run check:i18n\" \"bun run test\" && bun run packages:check",
 		"madge": "madge --circular --extensions ts,tsx src/ packages/yt-dlp-bridge/src/ packages/ytdlp-errors/src/",
 		"test": "vitest run",
 		"test:watch": "vitest",

@@ -10,7 +10,21 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ## Unreleased
 
-_Nothing yet._
+## Highlights
+
+### Filename Templates
+
+- You can now decide how downloaded files are named. Build a template from `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, and `{playlist_index}` — for example `{uploader} - {title}` — and Arroxy names every download that way.
+- Click a token to insert it, and see a live preview of the resulting filename before you save.
+- Set one template globally, or override it for a single download profile, so an audio-only profile can name files differently from your video profiles.
+- The file extension is always added for you, and long titles are still trimmed so paths stay valid on every platform.
+- Tokens that don't apply simply disappear instead of leaving `NA` in the name — an audio download won't pick up a resolution, and a one-off video won't pick up a playlist number.
+- Replaces the old "Add video ID to single filenames" switch, which is now just the `{id}` token.
+- Heads-up: playlist "skip already downloaded" detection and `.m3u` playlist files both find your files by their video ID. If you remove `{id}` from your template, Arroxy tells you inline and turns those two features off rather than letting them quietly misbehave.
+
+### Fixes
+
+- Fixed resuming a paused download after restarting Arroxy. Previously, pausing a download, closing the app, reopening it, and pressing Resume did nothing at all — no error, no progress — and the only way forward was to cancel and add the link again.
 
 ---
 

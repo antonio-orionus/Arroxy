@@ -152,6 +152,8 @@ export const tr = {
     "**Oynatma listesi eşitleme** — zaten indirilmiş videoları atlamak için bir oynatma listesini yerel klasöre karşı yeniden tara; her indirilen videoyla güncellenen bir `.m3u` oynatma listesi dosyası oluşturur",
   feat_workflow_8:
     "**Hız ve tempo kontrolleri** — indirme bant genişliğini sınırla, istek gecikmeleri ekle ve parça iş parçacıklarını ön ayarlarla ayarla (*Kapalı · Dengeli · Temkinli · Özel*)",
+  feat_workflow_9:
+    "**Dosya adı şablonları** — indirmelerinizi `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ve `{playlist_index}` ile dilediğiniz gibi adlandırın; genel olarak veya indirme profili başına",
   feat_post_h3: "Altyazılar ve son işleme",
   feat_post_1:
     "**Altyazılar** SRT, VTT veya ASS olarak — manuel ya da otomatik oluşturulmuş, mevcut herhangi bir dilde",

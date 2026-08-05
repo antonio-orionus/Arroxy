@@ -10,7 +10,7 @@ import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
-import {buildYtDlpSignal} from './phaseHelpers.js'
+import {buildYtDlpSignal, compiledOutputTemplate} from './phaseHelpers.js'
 
 async function setupTempDir(outputDir: string, jobId: string, preserve: boolean, overridePath?: string): Promise<string | undefined> {
 	const tempDir = overridePath ?? join(outputDir, '.arroxy-temp', jobId.slice(0, 8))
@@ -89,7 +89,7 @@ export function VideoPhase(embed: boolean): Phase {
 			const mergeOutputFormat = preparedJob.kind === 'ranged-format' ? preparedJob.mergeOutputFormat : undefined
 			const audioConvert = preparedJob.kind === 'audio-convert' ? preparedJob.audioConvert : preparedJob.kind === 'ranged-format' ? preparedJob.audioConvert : undefined
 			const bridgeConvert = audioConvert ? bridgeAudioConvert(audioConvert) : undefined
-			const outputTemplate = preparedJob.outputTemplate
+			const outputTemplate = compiledOutputTemplate(preparedJob.filenameTemplate)
 			const {embed: embedOpts} = preparedJob
 			const extractor = site.id === 'youtube' ? {youtube: {playerClient: [...YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS]}} : undefined
 

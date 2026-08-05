@@ -210,7 +210,7 @@ describe('quickDownload', () => {
 			outputDir: '/tmp/downloads/Balanced 720p',
 			status: 'pending',
 			lane: 'normal',
-			job: expect.objectContaining({kind: 'ranged-format', extractor: 'youtube', extractorKey: 'Youtube', intent: {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}}, outputTemplate: '%(title).150B [%(id)s].%(ext)s'})
+			job: expect.objectContaining({kind: 'ranged-format', extractor: 'youtube', extractorKey: 'Youtube', intent: {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}}, filenameTemplate: '{title} [{id}]'})
 		})
 		expect(useAppStore.getState().wizardUrl).toBe('')
 		expect(useAppStore.getState().wizardStep).toBe('url')

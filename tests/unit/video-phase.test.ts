@@ -75,11 +75,11 @@ describe('VideoPhase(embed=false)', () => {
 		expect(req.kind).toBe('media')
 	})
 
-	it('forwards a single-mode outputTemplate to yt-dlp', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, outputTemplate: '%(title).200B [%(id)s].%(ext)s'}}})
+	it('forwards a single-mode filenameTemplate to yt-dlp', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, filenameTemplate: '{title} [{id}]'}}})
 		await VideoPhase(false).run(ctx)
 		const [req] = ctx.runMock.mock.calls[0]
-		expect(req.output.template).toBe('%(title).200B [%(id)s].%(ext)s')
+		expect(req.output.template).toBe('%(title).150B [%(id)s].%(ext)s')
 	})
 
 	it('uses combined YouTube player clients for explicit single-format downloads', async () => {
@@ -99,7 +99,7 @@ describe('VideoPhase(embed=false)', () => {
 			formatSort: 'res:1080,fps',
 			mergeOutputFormat: undefined,
 			audioConvert: undefined,
-			outputTemplate: '%(title).200B [%(id)s].%(ext)s',
+			filenameTemplate: '{title} [{id}]',
 			sponsorBlock: SB_OFF,
 			embed: EMBED_OFF
 		}

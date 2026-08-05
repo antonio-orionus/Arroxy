@@ -362,13 +362,13 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
 		...extractorIdentitySchema,
 		formatId: z.string().min(1),
 		preset: presetOrCustomSchema,
-		outputTemplate: z.string().min(1).optional(),
+		filenameTemplate: z.string().min(1).optional(),
 		subtitles: subtitleOptionsSchema.optional(),
 		sponsorBlock: sponsorBlockOptionsSchema,
 		embed: embedOptionsSchema,
 		expectedBytes: z.number().positive().optional()
 	}),
-	z.object({kind: z.literal('audio-convert'), ...extractorIdentitySchema, audioConvert: audioConvertSchema, preset: presetOrCustomSchema, outputTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema.optional(), sponsorBlock: sponsorBlockOptionsSchema, embed: embedOptionsSchema}),
+	z.object({kind: z.literal('audio-convert'), ...extractorIdentitySchema, audioConvert: audioConvertSchema, preset: presetOrCustomSchema, filenameTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema.optional(), sponsorBlock: sponsorBlockOptionsSchema, embed: embedOptionsSchema}),
 	z.object({
 		kind: z.literal('ranged-format'),
 		...extractorIdentitySchema,
@@ -377,12 +377,12 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
 		formatSort: z.string().min(1).optional(),
 		mergeOutputFormat: z.string().min(1).optional(),
 		audioConvert: audioConvertSchema.optional(),
-		outputTemplate: z.string().min(1),
+		filenameTemplate: z.string().min(1),
 		subtitles: subtitleOptionsSchema.optional(),
 		sponsorBlock: sponsorBlockOptionsSchema,
 		embed: embedOptionsSchema
 	}),
-	z.object({kind: z.literal('subtitle-only'), ...extractorIdentitySchema, outputTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema})
+	z.object({kind: z.literal('subtitle-only'), ...extractorIdentitySchema, filenameTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema})
 ])
 
 export const startDownloadSchema = z.object({url: webUrlSchema, outputDir: z.string().min(1).optional(), cookiesMode: cookiesModeSchema.optional(), job: preparedJobSchema})

@@ -23,7 +23,7 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
 	})
 
 	it('accepts single-format job', () => {
-		const result = startDownloadSchema.safeParse({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', job: {kind: 'single-format', ...IDENTITY, formatId: '137+251', preset: 'custom', outputTemplate: '%(title).200B [%(id)s].%(ext)s', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}})
+		const result = startDownloadSchema.safeParse({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', job: {kind: 'single-format', ...IDENTITY, formatId: '137+251', preset: 'custom', filenameTemplate: '{title} [{id}]', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}})
 		expect(result.success).toBe(true)
 	})
 

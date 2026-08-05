@@ -104,7 +104,7 @@ beforeEach(() => {
 })
 
 describe('playlist regressions', () => {
-	it('single downloads compile the default filename template', async () => {
+	it('single downloads carry the default filename template', async () => {
 		window.appApi = buildMockApi() as never
 
 		useAppStore.setState({
@@ -130,10 +130,10 @@ describe('playlist regressions', () => {
 		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0]?.[0]
 		expect(item?.job.kind).toBe('single-format')
 		if (item?.job.kind !== 'single-format') throw new Error('single-format job expected')
-		expect(item.job.outputTemplate).toBe('%(title).150B [%(id)s].%(ext)s')
+		expect(item.job.filenameTemplate).toBe('{title} [{id}]')
 	})
 
-	it('single downloads compile a custom global filename template', async () => {
+	it('single downloads carry a custom global filename template', async () => {
 		window.appApi = buildMockApi({filenameTemplate: '{title}'}) as never
 
 		useAppStore.setState({
@@ -159,7 +159,7 @@ describe('playlist regressions', () => {
 		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0]?.[0]
 		expect(item?.job.kind).toBe('single-format')
 		if (item?.job.kind !== 'single-format') throw new Error('single-format job expected')
-		expect(item.job.outputTemplate).toBe('%(title).150B.%(ext)s')
+		expect(item.job.filenameTemplate).toBe('{title}')
 	})
 
 	it('active profile single downloads honor the global filename template', async () => {
@@ -175,7 +175,7 @@ describe('playlist regressions', () => {
 		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0]?.[0]
 		expect(item?.job.kind).toBe('ranged-format')
 		if (item?.job.kind !== 'ranged-format') throw new Error('ranged-format job expected')
-		expect(item.job.outputTemplate).toBe('%(title).150B.%(ext)s')
+		expect(item.job.filenameTemplate).toBe('{title}')
 	})
 
 	it('playlist probe restores persisted common prefs before the first playlist save', async () => {
@@ -225,7 +225,7 @@ describe('playlist regressions', () => {
 		expect(useAppStore.getState().playlistSelection).toEqual(sel1080)
 	})
 
-	it('playlist items compile the same filename template, position-independent and byte-safe', async () => {
+	it('playlist items carry the same filename template as single downloads', async () => {
 		window.appApi = buildMockApi() as never
 
 		useAppStore.setState({
@@ -247,9 +247,9 @@ describe('playlist regressions', () => {
 			await useAppStore.getState().addToQueue()
 		})
 
-		const templates = (vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []).map(item => (item.job.kind === 'ranged-format' ? item.job.outputTemplate : null))
+		const templates = (vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []).map(item => (item.job.kind === 'ranged-format' ? item.job.filenameTemplate : null))
 
-		expect(templates).toEqual(['%(title).150B [%(id)s].%(ext)s', '%(title).150B [%(id)s].%(ext)s', '%(title).150B [%(id)s].%(ext)s'])
+		expect(templates).toEqual(['{title} [{id}]', '{title} [{id}]', '{title} [{id}]'])
 	})
 
 	it('built playlist items carry writeM3u from wizard state (opt-out propagates)', async () => {

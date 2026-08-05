@@ -2,7 +2,7 @@ import {STATUS_KEY} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {dedupeSubtitleFiles, muxSubtitlesIntoVideo, logger} from '../subtitlePostProcess.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
-import {buildYtDlpSignal} from './phaseHelpers.js'
+import {buildYtDlpSignal, compiledOutputTemplate} from './phaseHelpers.js'
 
 async function runEmbedMux(ctx: PhaseContext): Promise<boolean> {
 	const {active, ytDlp} = ctx
@@ -71,7 +71,12 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			ctx.emitStatus('download', STATUS_KEY.fetchingSubtitles)
 
 			const subResult = await ytDlp.run(
-				{kind: 'subtitles', url: input.url, output: {directory: input.outputDir!, subtitleMode: subs.mode, ...(preparedJob.outputTemplate ? {template: preparedJob.outputTemplate} : {})}, subtitles: {languages: subs.languages, format: subs.format ?? DEFAULTS.subtitleFormat, writeAuto: subs.writeAuto}},
+				{
+					kind: 'subtitles',
+					url: input.url,
+					output: {directory: input.outputDir!, subtitleMode: subs.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
+					subtitles: {languages: subs.languages, format: subs.format ?? DEFAULTS.subtitleFormat, writeAuto: subs.writeAuto}
+				},
 				buildYtDlpSignal(ctx, active)
 			)
 

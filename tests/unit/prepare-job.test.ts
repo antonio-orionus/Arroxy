@@ -11,8 +11,8 @@ const BASE: Pick<PrepareJobInput, 'extractor' | 'extractorKey' | 'sponsorBlockMo
 describe('prepareJob', () => {
 	describe('single-format kind', () => {
 		it('builds with formatId + custom preset', () => {
-			const job = prepareJob({...BASE, mode: 'single', formatId: '137+140', activePreset: null, outputTemplate: '%(title).200B [%(id)s].%(ext)s'})
-			expect(job).toEqual({kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+140', preset: 'custom', outputTemplate: '%(title).200B [%(id)s].%(ext)s', subtitles: undefined, sponsorBlock: {mode: 'off'}, embed: EMBED_OFF, expectedBytes: undefined})
+			const job = prepareJob({...BASE, mode: 'single', formatId: '137+140', activePreset: null, filenameTemplate: '{title} [{id}]'})
+			expect(job).toEqual({kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+140', preset: 'custom', filenameTemplate: '{title} [{id}]', subtitles: undefined, sponsorBlock: {mode: 'off'}, embed: EMBED_OFF, expectedBytes: undefined})
 			expect(preparedJobSchema.safeParse(job).success).toBe(true)
 		})
 
@@ -39,8 +39,8 @@ describe('prepareJob', () => {
 
 	describe('audio-convert kind', () => {
 		it('builds when audioConvert present and formatId absent', () => {
-			const job = prepareJob({...BASE, mode: 'single', audioConvert: {target: 'mp3', bitrateKbps: 192}, activePreset: 'audio-only', outputTemplate: '%(title).200B [%(id)s].%(ext)s'})
-			expect(job).toEqual({kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'mp3', bitrateKbps: 192}, preset: 'audio-only', outputTemplate: '%(title).200B [%(id)s].%(ext)s', subtitles: undefined, sponsorBlock: {mode: 'off'}, embed: EMBED_OFF})
+			const job = prepareJob({...BASE, mode: 'single', audioConvert: {target: 'mp3', bitrateKbps: 192}, activePreset: 'audio-only', filenameTemplate: '{title} [{id}]'})
+			expect(job).toEqual({kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'mp3', bitrateKbps: 192}, preset: 'audio-only', filenameTemplate: '{title} [{id}]', subtitles: undefined, sponsorBlock: {mode: 'off'}, embed: EMBED_OFF})
 			expect(preparedJobSchema.safeParse(job).success).toBe(true)
 		})
 
@@ -53,8 +53,8 @@ describe('prepareJob', () => {
 
 	describe('subtitle-only kind', () => {
 		it('triggers via activePreset', () => {
-			const job = prepareJob({...BASE, mode: 'single', activePreset: 'subtitle-only', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}, outputTemplate: '%(title).200B [%(id)s].%(ext)s'})
-			expect(job).toEqual({kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', outputTemplate: '%(title).200B [%(id)s].%(ext)s', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}})
+			const job = prepareJob({...BASE, mode: 'single', activePreset: 'subtitle-only', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}, filenameTemplate: '{title} [{id}]'})
+			expect(job).toEqual({kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', filenameTemplate: '{title} [{id}]', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}})
 			expect(preparedJobSchema.safeParse(job).success).toBe(true)
 		})
 
@@ -71,7 +71,7 @@ describe('prepareJob', () => {
 	describe('ranged-format kind', () => {
 		it('builds video intent with formatSelector', () => {
 			const sel = {kind: 'video' as const, tier: '1080' as const, codec: 'best' as const}
-			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: sel, outputTemplate: '01 - %(title)s.%(ext)s', embed: EMBED_ALL})
+			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: sel, filenameTemplate: '01 - %(title)s.%(ext)s', embed: EMBED_ALL})
 			expect(job).toEqual({
 				kind: 'ranged-format',
 				extractor: 'youtube',
@@ -81,7 +81,7 @@ describe('prepareJob', () => {
 				formatSort: 'res:1080,fps',
 				mergeOutputFormat: undefined,
 				audioConvert: undefined,
-				outputTemplate: '01 - %(title)s.%(ext)s',
+				filenameTemplate: '01 - %(title)s.%(ext)s',
 				subtitles: undefined,
 				sponsorBlock: {mode: 'off'},
 				embed: EMBED_ALL
@@ -90,7 +90,7 @@ describe('prepareJob', () => {
 		})
 
 		it('builds audio lossy preset with audioConvert', () => {
-			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: {kind: 'audio', format: 'mp3', bitrateKbps: 192}, outputTemplate: '01 - %(title)s.%(ext)s'})
+			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: {kind: 'audio', format: 'mp3', bitrateKbps: 192}, filenameTemplate: '01 - %(title)s.%(ext)s'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual({kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 192}})
 			expect(job.audioConvert).toEqual({target: 'mp3', bitrateKbps: 192})
@@ -98,7 +98,7 @@ describe('prepareJob', () => {
 		})
 
 		it('mp4 codec emits formatSort + mergeOutputFormat', () => {
-			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: {kind: 'video', tier: '720', codec: 'mp4'}, outputTemplate: 't.ext'})
+			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: {kind: 'video', tier: '720', codec: 'mp4'}, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.formatSort).toContain('vcodec:h264')
 			expect(job.mergeOutputFormat).toBe('mp4')
@@ -106,14 +106,14 @@ describe('prepareJob', () => {
 
 		it('preserves media intent (regression: was lost as "custom")', () => {
 			const sel = {kind: 'video' as const, tier: '720' as const, codec: 'best' as const}
-			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: sel, outputTemplate: 't.ext'})
+			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: sel, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual({kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}})
 		})
 
 		it('accepts profile media intent directly', () => {
 			const intent = {kind: 'video-only' as const, codec: 'mp4' as const, tiers: ['1080' as const, '720' as const]}
-			const job = prepareJob({...BASE, mode: 'playlist', mediaIntent: intent, outputTemplate: 't.ext'})
+			const job = prepareJob({...BASE, mode: 'playlist', mediaIntent: intent, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual(intent)
 			expect(job.formatSelector).toBe('bestvideo')
@@ -121,11 +121,11 @@ describe('prepareJob', () => {
 		})
 
 		it('throws when ranged mode missing media intent', () => {
-			expect(() => prepareJob({...BASE, mode: 'playlist', outputTemplate: 't.ext'})).toThrow(/mediaIntent/)
+			expect(() => prepareJob({...BASE, mode: 'playlist', filenameTemplate: 't.ext'})).toThrow(/mediaIntent/)
 		})
 
-		it('throws when playlist mode missing outputTemplate', () => {
-			expect(() => prepareJob({...BASE, mode: 'playlist', playlistSelection: {kind: 'video', tier: '1080', codec: 'best'}})).toThrow(/outputTemplate/)
+		it('throws when playlist mode missing filenameTemplate', () => {
+			expect(() => prepareJob({...BASE, mode: 'playlist', playlistSelection: {kind: 'video', tier: '1080', codec: 'best'}})).toThrow(/filenameTemplate/)
 		})
 	})
 

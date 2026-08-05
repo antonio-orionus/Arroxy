@@ -153,6 +153,8 @@ export const vi = {
     "**Đồng bộ danh sách phát** — quét lại danh sách phát với một thư mục cục bộ để bỏ qua các video đã tải; tạo tệp danh sách phát `.m3u` được cập nhật sau mỗi video tải xuống",
   feat_workflow_8:
     "**Điều khiển tốc độ và nhịp tải** — giới hạn băng thông tải xuống, thêm độ trễ giữa các yêu cầu và tinh chỉnh fragment threads bằng preset (*Tắt · Cân bằng · Cẩn thận · Tùy chỉnh*)",
+  feat_workflow_9:
+    "**Mẫu tên tệp** — đặt tên tệp tải về theo ý bạn với `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` và `{playlist_index}`, áp dụng chung hoặc theo từng hồ sơ tải xuống",
   feat_post_h3: "Phụ đề & hậu xử lý",
   feat_post_1:
     "**Phụ đề** dạng SRT, VTT hoặc ASS — thủ công hoặc tự tạo, trong bất kỳ ngôn ngữ nào có sẵn",

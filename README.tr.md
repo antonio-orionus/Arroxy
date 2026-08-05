@@ -243,6 +243,7 @@ Arroxy tek bir şey için yapılmıştır: URL yapıştır, temiz bir yerel dosy
 - **23 dil** — sistem dilini otomatik algılar, istediğin zaman değiştirilebilir
 - **Oynatma listesi eşitleme** — zaten indirilmiş videoları atlamak için bir oynatma listesini yerel klasöre karşı yeniden tara; her indirilen videoyla güncellenen bir `.m3u` oynatma listesi dosyası oluşturur
 - **Hız ve tempo kontrolleri** — indirme bant genişliğini sınırla, istek gecikmeleri ekle ve parça iş parçacıklarını ön ayarlarla ayarla (*Kapalı · Dengeli · Temkinli · Özel*)
+- **Dosya adı şablonları** — indirmelerinizi `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ve `{playlist_index}` ile dilediğiniz gibi adlandırın; genel olarak veya indirme profili başına
 
 ### Altyazılar ve son işleme
 

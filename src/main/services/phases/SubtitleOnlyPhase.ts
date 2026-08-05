@@ -3,7 +3,7 @@ import {DEFAULTS} from '@shared/constants.js'
 import {dedupeSubtitleFiles, logger} from '../subtitlePostProcess.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
-import {buildYtDlpSignal} from './phaseHelpers.js'
+import {buildYtDlpSignal, compiledOutputTemplate} from './phaseHelpers.js'
 
 export const SubtitleOnlyPhase: Phase = {
 	kind: 'subtitle-only',
@@ -19,7 +19,12 @@ export const SubtitleOnlyPhase: Phase = {
 		const {subtitles} = preparedJob
 
 		const result = await ytDlp.run(
-			{kind: 'subtitles', url: input.url, output: {directory: input.outputDir!, subtitleMode: subtitles.mode, ...(preparedJob.outputTemplate ? {template: preparedJob.outputTemplate} : {})}, subtitles: {languages: subtitles.languages, format: subtitles.format ?? DEFAULTS.subtitleFormat, writeAuto: subtitles.writeAuto}},
+			{
+				kind: 'subtitles',
+				url: input.url,
+				output: {directory: input.outputDir!, subtitleMode: subtitles.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
+				subtitles: {languages: subtitles.languages, format: subtitles.format ?? DEFAULTS.subtitleFormat, writeAuto: subtitles.writeAuto}
+			},
 			buildYtDlpSignal(ctx, active, {
 				onMinting: attempt => {
 					ctx.emitStatus('token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken)

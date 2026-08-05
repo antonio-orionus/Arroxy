@@ -21,7 +21,7 @@ export interface PrepareJobInput extends ExtractorIdentity {
 	playlistSelection?: PlaylistSelection | null
 	mediaIntent?: MediaIntent | null
 	nativeAudioPreference?: NativeAudioPreference
-	outputTemplate?: string
+	filenameTemplate?: string
 	// shared
 	subtitles?: SubtitleOptions
 	sponsorBlockMode: SponsorBlockMode
@@ -33,14 +33,14 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 	const sponsorBlock = toSponsorBlockOptions(input.sponsorBlockMode, input.sponsorBlockCategories)
 	const subtitles = input.subtitles && input.subtitles.languages.length > 0 ? input.subtitles : undefined
 	const identity: ExtractorIdentity = {extractor: input.extractor, extractorKey: input.extractorKey}
-	const outputTemplate = input.outputTemplate ? {outputTemplate: input.outputTemplate} : {}
+	const filenameTemplate = input.filenameTemplate ? {filenameTemplate: input.filenameTemplate} : {}
 
 	if (input.mode === 'playlist') {
 		const intent = input.mediaIntent ?? (input.playlistSelection ? playlistSelectionToMediaIntent(input.playlistSelection) : null)
 		if (!intent) throw new Error('prepareJob: playlist mode requires mediaIntent')
-		if (!input.outputTemplate) throw new Error('prepareJob: playlist mode requires outputTemplate')
+		if (!input.filenameTemplate) throw new Error('prepareJob: playlist mode requires filenameTemplate')
 		const spec = mediaIntentSpec(intent, input.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference)
-		return {kind: 'ranged-format', ...identity, intent, formatSelector: spec.formatSelector, formatSort: spec.formatSort, mergeOutputFormat: spec.mergeOutputFormat, audioConvert: spec.audioConvert, outputTemplate: input.outputTemplate, subtitles, sponsorBlock, embed: input.embed}
+		return {kind: 'ranged-format', ...identity, intent, formatSelector: spec.formatSelector, formatSort: spec.formatSort, mergeOutputFormat: spec.mergeOutputFormat, audioConvert: spec.audioConvert, filenameTemplate: input.filenameTemplate, subtitles, sponsorBlock, embed: input.embed}
 	}
 
 	const hasMedia = !!input.formatId || !!input.audioConvert || (!!input.activePreset && input.activePreset !== 'subtitle-only')
@@ -48,15 +48,15 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 
 	if (input.activePreset === 'subtitle-only' || (!hasMedia && hasSubs)) {
 		if (!subtitles) throw new Error('prepareJob: subtitle-only requires non-empty subtitle languages')
-		return {kind: 'subtitle-only', ...identity, ...outputTemplate, subtitles}
+		return {kind: 'subtitle-only', ...identity, ...filenameTemplate, subtitles}
 	}
 
 	if (input.audioConvert) {
-		return {kind: 'audio-convert', ...identity, audioConvert: input.audioConvert, preset: input.activePreset ?? 'custom', ...outputTemplate, subtitles, sponsorBlock, embed: input.embed}
+		return {kind: 'audio-convert', ...identity, audioConvert: input.audioConvert, preset: input.activePreset ?? 'custom', ...filenameTemplate, subtitles, sponsorBlock, embed: input.embed}
 	}
 
 	if (!input.formatId) throw new Error('prepareJob: single-format requires formatId')
-	return {kind: 'single-format', ...identity, formatId: input.formatId, preset: input.activePreset ?? 'custom', ...outputTemplate, subtitles, sponsorBlock, embed: input.embed, expectedBytes: input.expectedBytes}
+	return {kind: 'single-format', ...identity, formatId: input.formatId, preset: input.activePreset ?? 'custom', ...filenameTemplate, subtitles, sponsorBlock, embed: input.embed, expectedBytes: input.expectedBytes}
 }
 
 function toSponsorBlockOptions(mode: SponsorBlockMode, categories: SponsorBlockCategory[]): SponsorBlockOptions {
