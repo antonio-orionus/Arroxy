@@ -1,0 +1,73 @@
+name: E2E Fixtures
+
+# Acceptance layer for real product workflows: real Electron, real IPC, real
+# yt-dlp, real filesystem output, with only the video platform made
+# deterministic by the fixture extractor plugin, local media server, and deny
+# proxy. This suite existed for a long time without ever running in CI, which is
+# how a batch of stale selectors and a silent resume-after-restart bug survived.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  BUN_VERSION: '1.2.23'
+
+permissions:
+  contents: read
+
+jobs:
+  fixtures:
+    name: Fixture product E2E
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Cache bun dependencies
+        uses: actions/cache@v6
+        with:
+          path: ~/.bun/install/cache
+          key: ubuntu-latest-bun-${{ hashFiles('bun.lock') }}
+          restore-keys: ubuntu-latest-bun-
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # Electron needs the browser system libraries; xvfb provides the display
+      # the suite runs against.
+      - name: Install Playwright system dependencies
+        run: bunx playwright install chromium --with-deps
+
+      - name: Install xvfb
+        run: sudo apt-get update && sudo apt-get install -y xvfb
+
+      # Fetches embedded ffmpeg/ffprobe for the host, builds, then runs every
+      # fixture spec serially under a virtual display.
+      - name: Run fixture product E2E
+        env:
+          BTBN_GITHUB_TOKEN: ${{ github.token }}
+        run: bun run test:e2e:fixtures:ci
+
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: fixture-e2e-playwright
+          path: test-results
+          if-no-files-found: ignore
+          retention-days: 7
