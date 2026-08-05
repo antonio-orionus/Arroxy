@@ -199,6 +199,54 @@ msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "هذا الرابط غير مدعوم من yt-dlp. جرّب رابطًا آخر من أي موقع يدعمه yt-dlp."
 
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it."
+msgstr "اختر طريقة تسمية الملفات التي تنزّلها. انقر على رمز لإدراجه."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "أدخل قالب اسم ملف."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
+msgstr "أزل الأحرف غير المسموح بها في أسماء الملفات: / \ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} so each download gets its own filename."
+msgstr "أضف {title} أو {id} ليحصل كل تنزيل على اسم ملف خاص به."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "{ أو } غير مغلقة — اكتب الرموز مثل {title}."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "القالب طويل جدًا."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "رمز غير معروف {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "بدون {id} لا يستطيع Arroxy اكتشاف عناصر قائمة التشغيل التي جرى تنزيلها ولا إنشاء قوائم .m3u."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "قالب اسم الملف"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template doesn't include {id}."
+msgstr "غير متاح لأن قالب اسم الملف لا يتضمّن {id}."
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "اتركه فارغًا لاستخدام القالب العام."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "قالب اسم الملف"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "صوت"
@@ -2428,14 +2476,6 @@ msgstr "تمت الإضافة إلى قائمة الانتظار"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "الصق رابط فيديو أو قائمة تشغيل أو قناة أو بحث للبدء."
-
-msgctxt "wizard.url.singleFilenameId.toggle"
-msgid "Add video ID to single filenames"
-msgstr "إضافة معرّف الفيديو إلى أسماء الملفات الفردية"
-
-msgctxt "wizard.url.singleFilenameId.toggleDescription"
-msgid "Keeps one-off downloads unique when titles change or collide."
-msgstr "يبقي التنزيلات الفردية فريدة عندما تتغير العناوين أو تتكرر."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

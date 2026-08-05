@@ -3,6 +3,7 @@ import {useTranslation} from 'react-i18next'
 import {AlertTriangle, FileText, Gauge} from 'lucide-react'
 import {DEFAULTS} from '@shared/constants.js'
 import {NATIVE_AUDIO_PREFERENCES} from '@shared/schemas.js'
+import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
 import type {BackdropRenderMode, CookiesBrowser, CookiesMode, NativeAudioPreference} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -19,6 +20,7 @@ import {LimitRatePicker} from '../shared/LimitRatePicker.js'
 import {formatLimitRateLabel} from '../shared/limitRateFormat.js'
 import {NetworkPacingSettings} from './NetworkPacingSettings.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
+import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
 
 const COOKIES_BROWSERS: readonly {value: CookiesBrowser; label: string; macOnly?: boolean}[] = [
 	{value: 'firefox', label: 'Firefox'},
@@ -69,26 +71,12 @@ function SettingSwitch({id, label, description, checked, onCheckedChange, testId
 
 export function DownloadProfilesSettingsTab(): ReactNode {
 	const {t} = useTranslation()
-	const {
-		advancedAutoOpen,
-		advancedAutoTarget,
-		settings,
-		graphicsPolicy,
-		openLogs,
-		setAdvancedAutoOpen,
-		setClipboardWatchEnabled,
-		setCookiesPath,
-		setCookiesMode,
-		setCookiesBrowser,
-		setProxyUrl,
-		setLimitRate,
-		setBackdropRenderMode,
-		setNativeAudioPreference,
-		setIncludeIdInSingleFilenames,
-		setCloseBehavior,
-		setAnalyticsEnabled
-	} = useAppStore()
+	const {advancedAutoOpen, advancedAutoTarget, settings, graphicsPolicy, openLogs, setAdvancedAutoOpen, setClipboardWatchEnabled, setCookiesPath, setCookiesMode, setCookiesBrowser, setProxyUrl, setLimitRate, setBackdropRenderMode, setNativeAudioPreference, setFilenameTemplate, setCloseBehavior, setAnalyticsEnabled} =
+		useAppStore()
 	const common = settings?.common
+	const filenameTemplate = common?.filenameTemplate ?? DEFAULTS.filenameTemplate
+	const filenameTemplateValidation = validateFilenameTemplate(filenameTemplate)
+	const filenameTemplateError = filenameTemplateValidation.ok ? null : filenameTemplateValidation
 	const cookiesPath = common?.cookiesPath ?? ''
 	const cookiesMode: CookiesMode = common?.cookiesMode ?? 'off'
 	const cookiesBrowser = common?.cookiesBrowser
@@ -299,14 +287,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 						</ToggleGroup>
 					</Field>
 
-					<SettingSwitch
-						id="profiles-settings-filename-id"
-						label={t('wizard.url.singleFilenameId.toggle')}
-						description={t('wizard.url.singleFilenameId.toggleDescription')}
-						checked={common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames}
-						onCheckedChange={checked => void setIncludeIdInSingleFilenames(checked)}
-						testId="single-filename-id-toggle"
-					/>
+					<FilenameTemplateField value={filenameTemplate} onChange={value => void setFilenameTemplate(value)} error={filenameTemplateError} label={t('filenameTemplate.label')} description={t('filenameTemplate.description')} placeholder={DEFAULTS.filenameTemplate} testId="filename-template-input" />
 
 					{platform !== 'darwin' ? <SettingSwitch id="profiles-settings-close-tray" label={t('wizard.url.closeToTray.toggle')} description={t('wizard.url.closeToTray.toggleDescription')} checked={common?.closeBehavior === 'tray'} onCheckedChange={checked => void setCloseBehavior(checked ? 'tray' : 'quit')} /> : null}
 

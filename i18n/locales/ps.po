@@ -199,6 +199,54 @@ msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "دا URL د yt-dlp له خوا نه ملاتړ کېږي. د yt-dlp له ملاتړ شوو سایټونو څخه بل لینک وازمویئ."
 
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it."
+msgstr "وټاکئ چې ښکته شوې دوتنې څنګه نومول کېږي. د ننوتلو لپاره پر يوه نښه کلیک وکړئ."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "د دوتنې نوم بېلګه ولیکئ."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
+msgstr "هغه توري لرې کړئ چې د دوتنو په نومونو کې اجازه نلري: / \ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} so each download gets its own filename."
+msgstr "{title} یا {id} ورزیات کړئ چې هر ښکته کول خپل نوم ولري."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "نه تړل شوې { یا } — نښې لکه {title} ولیکئ."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "بېلګه ډېره اوږده ده."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "ناڅرګنده نښه {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "پرته له {id} څخه، Arroxy نشي کولی مخکې ښکته شوي د لړ توکي وپېژني یا د .m3u لړونه جوړ کړي."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "د دوتنې نوم بېلګه"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template doesn't include {id}."
+msgstr "شتون نلري ځکه ستاسو د دوتنې نوم بېلګه {id} نه لري."
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "خالي یې پرېږدئ چې ټولیزه بېلګه وکارول شي."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "د دوتنې نوم بېلګه"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "غږ"
@@ -2428,14 +2476,6 @@ msgstr "قطار ته زیات شو"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "د پیل لپاره د ویډیو، پلې‌لېست، چینل یا لټون URL ونښلوئ."
-
-msgctxt "wizard.url.singleFilenameId.toggle"
-msgid "Add video ID to single filenames"
-msgstr "د یوازینو فایل نومونو ته د ویډیو ID ورزیات کړه"
-
-msgctxt "wizard.url.singleFilenameId.toggleDescription"
-msgid "Keeps one-off downloads unique when titles change or collide."
-msgstr "کله چې سرلیکونه بدل شي یا سره ټکر وکړي، یو ځلني ډاونلوډونه ځانګړي ساتي."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

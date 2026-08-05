@@ -27,6 +27,7 @@ import {projectBulkStart, projectPlaylistProbeResult, projectProbeFailure, proje
 import {mixedUrlPromptPatch} from './mixedUrlPrompt.js'
 import {configuredCookiesRetryMode} from './probeErrorExperience.js'
 import {policyForUrlIntent} from './urlIntentPolicy.js'
+import {canMatchDownloadsById} from './outputTemplates.js'
 
 function pickWizardSnapshot(state: AppState): Record<string, unknown> {
 	return {
@@ -300,6 +301,13 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			// Scan the resolved playlist dir (override or base+subfolder) — the exact
 			// folder the files land in — via the shared resolver, so scan == download.
 			const outputDir = resolvePlaylistDir(state)
+			// The scan matches files by `[videoId]` before the extension. If the
+			// user's filename template omits {id} it cannot match anything, so
+			// report "nothing found" rather than scanning and reporting wrongly.
+			if (!canMatchDownloadsById(undefined, state.settings?.common?.filenameTemplate)) {
+				set({syncedDownloadedIds: [], syncScanState: 'done'})
+				return
+			}
 			set({syncScanState: 'scanning'})
 			const res = await window.appApi.playlist.scanFolder({outputDir, videoIds})
 			if (!res.ok) {

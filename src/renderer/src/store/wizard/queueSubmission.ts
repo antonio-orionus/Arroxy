@@ -13,7 +13,7 @@ import type {AppState} from '../types.js'
 import {buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution} from '../helpers.js'
 import {resolveOutputContainer} from './resolveContainer.js'
 import {resolvePlaylistDir} from './playlistDir.js'
-import {playlistOutputTemplate, singleOutputTemplate} from './outputTemplates.js'
+import {canMatchDownloadsById, resolveOutputTemplate} from './outputTemplates.js'
 import {playlistTitleFallback} from './playlistTitle.js'
 
 export interface PlaylistManifestPayload {
@@ -63,7 +63,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 		audioConvert,
 		activePreset,
 		expectedBytes,
-		outputTemplate: singleOutputTemplate(state.settings?.common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames),
+		outputTemplate: resolveOutputTemplate(undefined, state.settings?.common?.filenameTemplate),
 		subtitles,
 		sponsorBlockMode: overrides.sponsorBlockMode,
 		sponsorBlockCategories: state.wizardSponsorBlockCategories,
@@ -86,7 +86,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 		addedAt: new Date().toISOString(),
 		finishedAt: null,
 		artifacts: [],
-		writeM3u: state.wizardWriteM3u,
+		writeM3u: state.wizardWriteM3u && canMatchDownloadsById(undefined, state.settings?.common?.filenameTemplate),
 		...(state.wizardProbeInfoJsonRef ? {probeInfoJsonRef: state.wizardProbeInfoJsonRef} : {}),
 		job
 	}
@@ -109,7 +109,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 	const baseDir = resolvePlaylistDir(state)
 
 	const formatLabel = resolvePlaylistFormatLabel(playlistSelection)
-	const outputTemplate = playlistOutputTemplate()
+	const outputTemplate = resolveOutputTemplate(undefined, state.settings?.common?.filenameTemplate)
 
 	const embed: EmbedOptions = {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail}
 
@@ -134,7 +134,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 		artifacts: [],
 		...(state.wizardMode === 'playlist' ? {playlistGroupId} : {}),
 		...(entry.probeInfoJsonRef ? {probeInfoJsonRef: entry.probeInfoJsonRef} : {}),
-		writeM3u: state.wizardMode === 'playlist' ? state.wizardWriteM3u : false,
+		writeM3u: state.wizardMode === 'playlist' && state.wizardWriteM3u && canMatchDownloadsById(undefined, state.settings?.common?.filenameTemplate),
 		job
 	}
 }
@@ -227,7 +227,7 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 	const singleOutputDir = resolveDownloadProfileOutputDir(profile, outputContext)
 
 	if (probe.kind === 'video') {
-		const outputTemplate = singleOutputTemplate(state.settings?.common?.includeIdInSingleFilenames ?? DEFAULTS.includeIdInSingleFilenames)
+		const outputTemplate = resolveOutputTemplate(profile, state.settings?.common?.filenameTemplate)
 		const item = buildProfileEntryQueueItem({
 			entry: {url: probe.webpageUrl || state.wizardUrl, title: probe.title, thumbnail: probe.thumbnail},
 			probeInfoJsonRef: probe.probeInfoJsonRef,
@@ -246,8 +246,10 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 
 	const playlistGroupId = generateId()
 	const outputDir = playlistBaseDir(baseDir, profile.subfolder.enabled, profile.subfolder.name, probe.playlistTitle)
-	const writeM3u = state.settings?.common?.writeM3u ?? DEFAULTS.writeM3u
-	const items = probe.entries.map(entry => buildProfileEntryQueueItem({entry, probeInfoJsonRef: entry.probeInfoJsonRef, outputDir, extractor: probe.extractor, extractorKey: probe.extractorKey, resolved, profile, outputTemplate: playlistOutputTemplate(), nativeAudioPreference, playlistGroupId, writeM3u, lane}))
+	const writeM3u = (state.settings?.common?.writeM3u ?? DEFAULTS.writeM3u) && canMatchDownloadsById(profile, state.settings?.common?.filenameTemplate)
+	const items = probe.entries.map(entry =>
+		buildProfileEntryQueueItem({entry, probeInfoJsonRef: entry.probeInfoJsonRef, outputDir, extractor: probe.extractor, extractorKey: probe.extractorKey, resolved, profile, outputTemplate: resolveOutputTemplate(profile, state.settings?.common?.filenameTemplate), nativeAudioPreference, playlistGroupId, writeM3u, lane})
+	)
 	if (items.length === 0) return null
 	return {items, manifest: {playlistGroupId, playlistTitle: playlistTitleFallback(probe.playlistTitle, state.playlistTitle), outputDir, items: probe.entries.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))}}
 }

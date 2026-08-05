@@ -84,6 +84,7 @@ function subtitleProfile(): DownloadProfile {
 		media: {kind: 'subtitles-only'},
 		subtitles: {enabled: true, languages: ['en'], source: 'manual-only', mode: 'embed', format: 'vtt'},
 		output: {kind: 'default'},
+		filename: {kind: 'default'},
 		subfolder: {enabled: true, name: 'Subs'},
 		sponsorBlock: {mode: 'remove', categories: ['sponsor']},
 		embed: {chapters: true, metadata: true, thumbnail: false, description: true, thumbnailSidecar: true},

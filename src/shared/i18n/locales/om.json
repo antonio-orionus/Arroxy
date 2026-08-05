@@ -226,7 +226,6 @@
 				"tooltip": "yt-dlp --playlist-end waliin walsimsiisa: Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
 			},
 			"nativeAudioPreference": {"label": "Filannoo sagalee dhalootaa", "description": "Best native maal akka filatu to’ata. Tarreewwan sagalee harkaan filataman fi M4A/AAC filannoo ifa ta’anii hafu.", "compatible": "Isteeriyoo walsimu", "surround": "Surround / Dolby filadhu"},
-			"singleFilenameId": {"toggle": "Maqaa faayila tokko tokkootti ID viidiyoo dabali", "toggleDescription": "Mata dureewwan yeroo jijjiiraman ykn walitti bu’an buufata tokko tokko adda taasisa."},
 			"networkPacing": {
 				"heading": "Buufata laafaa",
 				"description": "Buufata tokko tokkotti yeroo gabaabaaf eegaa jira, kanaafuu Arroxy gara saayitichatti garmalee hin dhiibu. Gatiin daqiiqaa malee sekooondii dha.",
@@ -552,5 +551,21 @@
 		"footerTooltip": "Arroxy qoodi",
 		"footerLabel": "Qoodi",
 		"shareAction": "Arroxy qoodi"
+	},
+	"filenameTemplate": {
+		"label": "Bocquu maqaa faayilii",
+		"description": "Faayiloonni buufaman akkamitti akka maqaa argatan filadhu. Galchuuf mallattoo tuqi.",
+		"profileOverrideLabel": "Bocquu maqaa faayilii",
+		"profileOverrideDescription": "Bocquu waliigalaa fayyadamuuf duwwaa dhiisi.",
+		"idWarning": "{id} malee, Arroxy wantoota tarree taphaa duraan buufaman adda baasuu ykn tarree .m3u uumuu hin danda'u.",
+		"m3uDisabled": "Hin argamu sababii bocquun maqaa faayilii kee {id} hin qabneef.",
+		"error": {
+			"empty": "Bocquu maqaa faayilii galchi.",
+			"too-long": "Bocquun baay'ee dheeraa dha.",
+			"forbidden-char": "Arfiilee maqaa faayilii keessatti hin hayyamamne haqi: /  : * ? \" < > |",
+			"stray-brace": "{ ykn } hin cufamne — mallattoo akka {title} barreessi.",
+			"no-unique-token": "Buufamni tokkoon tokkoon maqaa faayilii mataa isaa akka qabaatuuf {title} ykn {id} dabali.",
+			"unknown-token": "Mallattoo hin beekamne {{token}}."
+		}
 	}
 }

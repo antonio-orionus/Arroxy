@@ -1,6 +1,7 @@
 import {useId, useState, type ReactNode} from 'react'
 import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, FolderCog, Headphones, Music, Plus, RotateCcw, Scissors, SlidersHorizontal, X, type LucideIcon} from 'lucide-react'
 import {DOWNLOAD_PROFILE_ICONS} from '@shared/schemas.js'
+import {DEFAULTS} from '@shared/constants.js'
 import type {CommonSettings, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
 import {effectiveOutputDir} from '@shared/subfolder.js'
 import {cn, formatHomeRelativePath} from '@renderer/lib/utils.js'
@@ -18,6 +19,7 @@ import {ScrollArea} from '../ui/scroll-area.js'
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from '../ui/select.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {ProfileSwitchRow} from './DownloadProfileSwitchRow.js'
+import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
 
 interface SelectOption<T extends string> {
 	value: T
@@ -32,6 +34,7 @@ interface ResetProfileAction {
 interface DownloadProfileEditorProps {
 	commonPaths?: CommonSettings['commonPaths']
 	globalDestination?: string
+	globalFilenameTemplate?: string
 	initialProfile?: DownloadProfile | null
 	onChangeGlobalDestination?: () => Promise<void> | void
 	onOpenChange: (open: boolean) => void
@@ -213,7 +216,7 @@ function fallbackFinalPath(subfolderName: string): string {
 }
 
 // react-doctor-disable-next-line react-doctor/no-giant-component react-doctor/prefer-useReducer -- this dense profile form needs a focused decomposition outside the mechanical React Doctor cleanup
-export function DownloadProfileEditor({commonPaths, globalDestination = '', initialProfile = null, onChangeGlobalDestination, onOpenChange, onSave, open, resetProfile}: DownloadProfileEditorProps): ReactNode {
+export function DownloadProfileEditor({commonPaths, globalDestination = '', globalFilenameTemplate = DEFAULTS.filenameTemplate, initialProfile = null, onChangeGlobalDestination, onOpenChange, onSave, open, resetProfile}: DownloadProfileEditorProps): ReactNode {
 	const [draft, setDraft] = useState(() => createDownloadProfileDraft(initialProfile))
 	const [profileIconPickerOpen, setProfileIconPickerOpen] = useState(false)
 	const [profileActionError, setProfileActionError] = useState<string | null>(null)
@@ -234,6 +237,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 		subtitleDelivery,
 		subtitleFormat,
 		destination,
+		filenameTemplate,
 		saveInsideSubfolder,
 		subfolderName,
 		embedMetadata,
@@ -248,7 +252,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 	const effectiveSubtitleEnabled = subtitlesOnly || subtitleEnabled
 	const outputEnabledCount = [embedMetadata, embedChapters, saveDescription, saveThumbnail].filter(Boolean).length
 	const SelectedProfileIcon = PROFILE_ICON_OPTIONS.find(option => option.value === profileIcon)?.icon ?? Captions
-	const {subfolderInvalid} = validateDownloadProfileDraft(draft)
+	const {subfolderInvalid, filenameTemplateError} = validateDownloadProfileDraft(draft)
 	const videoAudioFormat: Extract<DownloadProfileAudioFormat, 'best' | 'm4a'> = audioFormat === 'm4a' ? 'm4a' : 'best'
 	const audioQualityDisabled = audioFormat === 'best' || audioFormat === 'wav'
 	const videoResolutionOptions = codec === 'mp4' ? SMART_TV_MP4_RESOLUTION_OPTIONS : RESOLUTION_OPTIONS
@@ -699,6 +703,16 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 									{subfolderInvalid ? <FieldDescription className="text-[12px] text-destructive">Use a valid folder name without / \ : * ? &quot; &lt; &gt; |.</FieldDescription> : null}
 								</Field>
 
+								<FilenameTemplateField
+									value={filenameTemplate}
+									onChange={value => updateDraft({type: 'set-filename-template', filenameTemplate: value})}
+									error={filenameTemplateError}
+									label="Filename template"
+									description="Leave empty to inherit the global template."
+									placeholder={globalFilenameTemplate}
+									testId="profiles-editor-filename-template"
+								/>
+
 								<Card size="sm" className="rounded-lg bg-background/25 px-3 py-3">
 									<div className="mb-2 flex items-center justify-between gap-3">
 										<h4 className="text-sm font-semibold">Output options</h4>
@@ -755,7 +769,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', init
 						<Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
 							Cancel
 						</Button>
-						<Button type="button" onClick={() => void saveProfile()} disabled={subfolderInvalid} className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
+						<Button type="button" onClick={() => void saveProfile()} disabled={subfolderInvalid || filenameTemplateError !== null} className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
 							Save profile
 						</Button>
 					</div>

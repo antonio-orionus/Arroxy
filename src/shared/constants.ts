@@ -1,5 +1,6 @@
 import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, BackdropRenderMode, NetworkPacingPreset, NativeAudioPreference} from './schemas.js'
 import type {AppSettings} from './types.js'
+import {DEFAULT_FILENAME_TEMPLATE} from './filenameTemplate.js'
 
 export const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
 
@@ -21,7 +22,7 @@ export const DEFAULTS: {
 	writeDescription: boolean
 	writeThumbnail: boolean
 	writeM3u: boolean
-	includeIdInSingleFilenames: boolean
+	filenameTemplate: string
 } = {
 	subtitleMode: 'sidecar',
 	subtitleFormat: 'srt',
@@ -37,7 +38,7 @@ export const DEFAULTS: {
 	writeDescription: false,
 	writeThumbnail: false,
 	writeM3u: true,
-	includeIdInSingleFilenames: true
+	filenameTemplate: DEFAULT_FILENAME_TEMPLATE
 }
 
 // Single factory for the AppSettings shape — main process, tests, and
@@ -50,16 +51,7 @@ export const DEFAULTS: {
 // import the defaults helper.
 export function defaultAppSettings(downloadsDir: string): AppSettings {
 	return {
-		common: {
-			defaultOutputDir: downloadsDir,
-			rememberLastOutputDir: true,
-			networkPacingPreset: 'balanced',
-			clipboardWatchEnabled: true,
-			analyticsEnabled: true,
-			includeIdInSingleFilenames: DEFAULTS.includeIdInSingleFilenames,
-			backdropRenderMode: DEFAULTS.backdropRenderMode,
-			nativeAudioPreference: DEFAULTS.nativeAudioPreference
-		},
+		common: {defaultOutputDir: downloadsDir, rememberLastOutputDir: true, networkPacingPreset: 'balanced', clipboardWatchEnabled: true, analyticsEnabled: true, filenameTemplate: DEFAULTS.filenameTemplate, backdropRenderMode: DEFAULTS.backdropRenderMode, nativeAudioPreference: DEFAULTS.nativeAudioPreference},
 		single: {},
 		playlist: {},
 		profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: []}

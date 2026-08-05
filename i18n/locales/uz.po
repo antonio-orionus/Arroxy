@@ -199,6 +199,54 @@ msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "Bu URL yt-dlp tomonidan qo'llab-quvvatlanmaydi. yt-dlp qo'llab-quvvatlaydigan saytlardan boshqa havolani sinab ko'ring."
 
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it."
+msgstr "Yuklab olingan fayllar qanday nomlanishini tanlang. Qo'shish uchun tokenni bosing."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Fayl nomi shablonini kiriting."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
+msgstr "Fayl nomlarida ruxsat etilmagan belgilarni olib tashlang: / \ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} so each download gets its own filename."
+msgstr "Har bir yuklab olish o'z fayl nomiga ega bo'lishi uchun {title} yoki {id} qo'shing."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "Yopilmagan { yoki } — tokenlarni {title} kabi yozing."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Shablon juda uzun."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Noma'lum token {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "{id} bo'lmasa, Arroxy allaqachon yuklab olingan pleylist elementlarini aniqlay olmaydi va .m3u pleylistlar yarata olmaydi."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Fayl nomi shabloni"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template doesn't include {id}."
+msgstr "Fayl nomi shabloningizda {id} yo'qligi uchun mavjud emas."
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Umumiy shablondan foydalanish uchun bo'sh qoldiring."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Fayl nomi shabloni"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "Audio"
@@ -2428,14 +2476,6 @@ msgstr "Navbatga qo‘shildi"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Boshlash uchun video, pleylist, kanal yoki qidiruv URL manzilini joylang."
-
-msgctxt "wizard.url.singleFilenameId.toggle"
-msgid "Add video ID to single filenames"
-msgstr "Yakka fayl nomlariga video ID qo‘shish"
-
-msgctxt "wizard.url.singleFilenameId.toggleDescription"
-msgid "Keeps one-off downloads unique when titles change or collide."
-msgstr "Sarlavhalar o‘zgarganda yoki mos kelib qolganda yakka yuklab olishlarni noyob saqlaydi."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

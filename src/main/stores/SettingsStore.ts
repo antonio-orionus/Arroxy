@@ -27,7 +27,7 @@ const COMMON_FLAT_KEYS = [
 	'pacingSleepSubtitles',
 	'pacingConcurrentFragments',
 	'clipboardWatchEnabled',
-	'includeIdInSingleFilenames',
+	'filenameTemplate',
 	'closeBehavior',
 	'embedChapters',
 	'embedMetadata',

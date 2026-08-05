@@ -199,6 +199,54 @@ msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "Тај URL није подржан у yt-dlp. Пробајте други линк са било ког сајта који yt-dlp подржава."
 
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it."
+msgstr "Изаберите како се именују преузете датотеке. Кликните на ознаку да бисте је уметнули."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Унесите шаблон назива датотеке."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
+msgstr "Уклоните знакове који нису дозвољени у називима датотека: / \ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} so each download gets its own filename."
+msgstr "Додајте {title} или {id} да свако преузимање има свој назив датотеке."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "Незатворена { или } — ознаке пишите као {title}."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Шаблон је предугачак."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Непозната ознака {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Без {id} Arroxy не може да препозна већ преузете ставке плејлисте нити да направи .m3u плејлисте."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Шаблон назива датотеке"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template doesn't include {id}."
+msgstr "Није доступно јер ваш шаблон назива датотеке не садржи {id}."
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Оставите празно да се користи општи шаблон."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Шаблон назива датотеке"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "Звук"
@@ -2428,14 +2476,6 @@ msgstr "Додато у ред"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Налепи URL видеа, плејлисте, канала или претраге за почетак."
-
-msgctxt "wizard.url.singleFilenameId.toggle"
-msgid "Add video ID to single filenames"
-msgstr "Додај ID видеа у појединачна имена фајлова"
-
-msgctxt "wizard.url.singleFilenameId.toggleDescription"
-msgid "Keeps one-off downloads unique when titles change or collide."
-msgstr "Чува појединачна преузимања јединственим када се наслови промене или поклопе."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

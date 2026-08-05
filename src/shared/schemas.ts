@@ -111,6 +111,18 @@ const downloadProfileSubtitlesSchema = z.object({enabled: z.boolean(), languages
 
 const downloadProfileOutputSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('default')}), z.object({kind: z.literal('fixed'), dir: z.string().min(1)})])
 
+// Tokens a user may type in a filename template. The token -> yt-dlp field
+// mapping lives in filenameTemplate.ts; only the names are enumerated here.
+// `ext` is deliberately absent — the extension is always appended, never typed.
+export const filenameTokenSchema = z.enum(['title', 'uploader', 'id', 'date', 'resolution', 'playlist_index'])
+export type FilenameToken = z.infer<typeof filenameTokenSchema>
+export const FILENAME_TOKENS = filenameTokenSchema.options
+export const FILENAME_TEMPLATE_MAX = 120
+
+// Mirrors downloadProfileOutputSchema: `default` inherits the global filename
+// template, `custom` overrides it for this profile only.
+const downloadProfileFilenameSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('default')}), z.object({kind: z.literal('custom'), template: z.string().trim().min(1).max(FILENAME_TEMPLATE_MAX)})])
+
 export const downloadProfileSchema = z.object({
 	id: z.string().min(1),
 	name: z.string().trim().min(1).max(80),
@@ -118,6 +130,9 @@ export const downloadProfileSchema = z.object({
 	media: downloadProfileMediaSchema,
 	subtitles: downloadProfileSubtitlesSchema,
 	output: downloadProfileOutputSchema,
+	// `.default` so profiles persisted before templates existed keep parsing
+	// instead of being dropped as invalid on upgrade.
+	filename: downloadProfileFilenameSchema.default({kind: 'default'}),
 	subfolder: z.object({enabled: z.boolean(), name: subfolderNameSchema}),
 	sponsorBlock: z.object({mode: sponsorBlockModeSchema, categories: z.array(sponsorBlockCategorySchema)}),
 	embed: z.object({chapters: z.boolean(), metadata: z.boolean(), thumbnail: z.boolean(), description: z.boolean(), thumbnailSidecar: z.boolean()}),
@@ -407,7 +422,7 @@ const commonSettingsPatchSchema = z.object({
 	proxyUrl: z.string().optional(),
 	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
 	clipboardWatchEnabled: z.boolean().optional(),
-	includeIdInSingleFilenames: z.boolean().optional(),
+	filenameTemplate: z.string().trim().min(1).max(FILENAME_TEMPLATE_MAX).optional(),
 	closeBehavior: z.enum(['ask', 'tray', 'quit']).optional(),
 	embedChapters: z.boolean().optional(),
 	embedMetadata: z.boolean().optional(),

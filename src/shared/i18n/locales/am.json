@@ -217,7 +217,6 @@
 				"tooltip": "yt-dlp --playlist-end ጋር ይዛመዳል: Arroxy ምርጫ ሲሰራ ከ playlist፣ ቻናል፣ ወይም ፍለጋ ውጤቶች ይህን ያህል ብቻ ይጠይቃል።"
 			},
 			"nativeAudioPreference": {"label": "የተፈጥሯዊ ድምፅ ምርጫ", "description": "“Best native” ምን እንደሚመርጥ ይቆጣጠራል። በእጅ የሚመረጡ የድምፅ ረድፎች እና M4A/AAC ግልጽ ምርጫዎች ሆነው ይቀራሉ።", "compatible": "ተኳኋኝ ስቴሪዮ", "surround": "surround / Dolby ን ይመርጡ"},
-			"singleFilenameId": {"toggle": "የቪዲዮ ID ወደ ነጠላ ፋይል ስሞች ጨምር", "toggleDescription": "ርዕሶች ሲቀየሩ ወይም ሲጋጩ ነጠላ ማውረዶችን ልዩ ያደርጋል።"},
 			"networkPacing": {
 				"heading": "ለዝቅ ያሉ ዳውንሎዶች",
 				"description": "Arroxy ጣቢያን ከልክ ያለፈ ጥያቄ እንዳያደርግ እያንዳንዱ ዳውንሎድ ላይ ትናንሽ መጠበቂያዎችን ያክላል። ዋጋዎች በሰከንድ ነው (ካልተጠቀሰ)።",
@@ -504,5 +503,21 @@
 		"footerTooltip": "Arroxy አጋራ",
 		"footerLabel": "አጋራ",
 		"shareAction": "Arroxy አጋራ"
+	},
+	"filenameTemplate": {
+		"label": "የፋይል ስም አብነት",
+		"description": "የወረዱ ፋይሎች እንዴት እንደሚሰየሙ ይምረጡ። ለማስገባት ምልክቱን ይጫኑ።",
+		"profileOverrideLabel": "የፋይል ስም አብነት",
+		"profileOverrideDescription": "አጠቃላይ አብነቱን ለመጠቀም ባዶ ይተውት።",
+		"idWarning": "{id} ከሌለ Arroxy አስቀድሞ የወረዱ የዝርዝር ንጥሎችን መለየት ወይም .m3u ዝርዝሮችን መፍጠር አይችልም።",
+		"m3uDisabled": "የፋይል ስም አብነትዎ {id} ስለሌለው አይገኝም።",
+		"error": {
+			"empty": "የፋይል ስም አብነት ያስገቡ።",
+			"too-long": "አብነቱ በጣም ረጅም ነው።",
+			"forbidden-char": "በፋይል ስሞች ውስጥ የማይፈቀዱ ቁምፊዎችን ያስወግዱ፦ /  : * ? \" < > |",
+			"stray-brace": "ያልተዘጋ { ወይም } — ምልክቶችን እንደ {title} ይጻፉ።",
+			"no-unique-token": "እያንዳንዱ ማውረድ የራሱ የፋይል ስም እንዲኖረው {title} ወይም {id} ያክሉ።",
+			"unknown-token": "ያልታወቀ ምልክት {{token}}።"
+		}
 	}
 }

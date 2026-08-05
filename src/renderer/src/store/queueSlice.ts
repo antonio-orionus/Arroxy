@@ -14,8 +14,6 @@ import {prepareManualQueueSubmission} from './wizard/queueSubmission.js'
 import {submitPreparedQueueSubmission} from './wizard/queueSubmissionAdapter.js'
 import {queueLoadedPlaylistWithActiveProfile} from './wizard/quickDownloadPreparation.js'
 
-export {playlistOutputTemplate, singleOutputTemplate} from './wizard/outputTemplates.js'
-
 async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane): Promise<void> {
 	// Re-entry guard: large playlists (e.g. 290 entries) take a perceptible
 	// moment to enumerate, serialize over IPC, and commit on the main process.

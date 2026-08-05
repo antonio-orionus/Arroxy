@@ -226,7 +226,6 @@
 				"tooltip": "yt-dlp の --playlist-end に対応します：Arroxy はピッカーを構築する際、この件数のプレイリスト・チャンネル・検索エントリのみ取得します。"
 			},
 			"nativeAudioPreference": {"label": "ネイティブ音声の設定", "description": "「最高のネイティブ」が選ぶ音声を制御します。手動の音声行と M4A/AAC は明示的な選択のままです。", "compatible": "互換性重視のステレオ", "surround": "サラウンド / Dolby を優先"},
-			"singleFilenameId": {"toggle": "単体ファイル名に動画IDを追加", "toggleDescription": "タイトルが変わったり重複したりしても、単発ダウンロードを一意に保ちます。"},
 			"networkPacing": {
 				"heading": "やさしいダウンロード",
 				"description": "各ダウンロード中に小さな待機を追加して、Arroxy がサイトに過度にアクセスしないようにします。値は特に指定がない限り秒単位です。",
@@ -557,5 +556,21 @@
 		"footerTooltip": "Arroxy を共有",
 		"footerLabel": "共有",
 		"shareAction": "Arroxy を共有"
+	},
+	"filenameTemplate": {
+		"label": "ファイル名テンプレート",
+		"description": "ダウンロードしたファイルの名前の付け方を選びます。トークンをクリックすると挿入されます。",
+		"profileOverrideLabel": "ファイル名テンプレート",
+		"profileOverrideDescription": "空欄のままにすると全体のテンプレートを引き継ぎます。",
+		"idWarning": "{id} がないと、Arroxy はダウンロード済みのプレイリスト項目を検出できず、.m3u プレイリストも作成できません。",
+		"m3uDisabled": "ファイル名テンプレートに {id} が含まれていないため利用できません。",
+		"error": {
+			"empty": "ファイル名テンプレートを入力してください。",
+			"too-long": "テンプレートが長すぎます。",
+			"forbidden-char": "ファイル名に使用できない文字を削除してください: /  : * ? \" < > |",
+			"stray-brace": "{ または } が閉じられていません — トークンは {title} のように書きます。",
+			"no-unique-token": "{title} または {id} を追加して、ダウンロードごとに異なるファイル名にしてください。",
+			"unknown-token": "不明なトークン {{token}} です。"
+		}
 	}
 }

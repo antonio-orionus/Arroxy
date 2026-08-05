@@ -1,13 +1,17 @@
 import {type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
+import {canMatchDownloadsById} from '../../store/wizard/outputTemplates.js'
 import {Separator} from '../ui/separator.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {Switch} from '../ui/switch.js'
 
 export function StepOutput(): ReactNode {
 	const {t} = useTranslation()
-	const {wizardMode, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardWriteM3u, setEmbedChapters, setEmbedMetadata, setEmbedThumbnail, setWriteDescription, setWriteThumbnail, setWriteM3u, advance, back} = useAppStore()
+	const {wizardMode, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardWriteM3u, setEmbedChapters, setEmbedMetadata, setEmbedThumbnail, setWriteDescription, setWriteThumbnail, setWriteM3u, advance, back, settings} = useAppStore()
+	// Playlist files are located by matching `[videoId]`; without {id} in the
+	// filename template an M3U would list names that never appear on disk.
+	const canMatchById = canMatchDownloadsById(undefined, settings?.common?.filenameTemplate)
 	const isPlaylist = wizardMode === 'playlist'
 
 	return (
@@ -66,9 +70,9 @@ export function StepOutput(): ReactNode {
 						<div className="flex items-center justify-between gap-3">
 							<div className="flex flex-col gap-0.5">
 								<span className="text-[13px] font-medium text-foreground">{t('wizard.output.writeM3u.label')}</span>
-								<span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.output.writeM3u.description')}</span>
+								<span className="text-[11px] text-[var(--text-subtle)]">{canMatchById ? t('wizard.output.writeM3u.description') : t('filenameTemplate.m3uDisabled')}</span>
 							</div>
-							<Switch checked={wizardWriteM3u} onCheckedChange={setWriteM3u} aria-label={t('wizard.output.writeM3u.label')} data-testid="write-m3u-toggle" />
+							<Switch checked={wizardWriteM3u && canMatchById} disabled={!canMatchById} onCheckedChange={setWriteM3u} aria-label={t('wizard.output.writeM3u.label')} data-testid="write-m3u-toggle" />
 						</div>
 					</div>
 				</>

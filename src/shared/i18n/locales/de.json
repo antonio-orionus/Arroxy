@@ -226,7 +226,6 @@
 				"tooltip": "Entspricht yt-dlp --playlist-end: Arroxy fragt nur so viele Playlist-, Kanal- oder Suchergebnisse ab, bevor die Auswahl angezeigt wird."
 			},
 			"nativeAudioPreference": {"label": "Native Audioeinstellung", "description": "Steuert, was „Bestes nativ“ auswählt. Manuelle Audiozeilen und M4A/AAC bleiben explizit.", "compatible": "Kompatibles Stereo", "surround": "Surround / Dolby bevorzugen"},
-			"singleFilenameId": {"toggle": "Video-ID zu einzelnen Dateinamen hinzufügen", "toggleDescription": "Hält einzelne Downloads eindeutig, wenn sich Titel ändern oder kollidieren."},
 			"networkPacing": {
 				"heading": "Sanftes Herunterladen",
 				"description": "Fügt bei jedem Download kleine Pausen ein, damit Arroxy die Seite nicht zu aggressiv belastet. Werte sind Sekunden, sofern nicht anders angegeben.",
@@ -557,5 +556,21 @@
 		"footerTooltip": "Arroxy teilen",
 		"footerLabel": "Teilen",
 		"shareAction": "Arroxy teilen"
+	},
+	"filenameTemplate": {
+		"label": "Dateinamenvorlage",
+		"description": "Lege fest, wie heruntergeladene Dateien benannt werden. Klicke auf einen Platzhalter, um ihn einzufügen.",
+		"profileOverrideLabel": "Dateinamenvorlage",
+		"profileOverrideDescription": "Leer lassen, um die globale Vorlage zu übernehmen.",
+		"idWarning": "Ohne {id} kann Arroxy bereits heruntergeladene Playlist-Einträge nicht erkennen und keine .m3u-Playlists erstellen.",
+		"m3uDisabled": "Nicht verfügbar, weil deine Dateinamenvorlage {id} nicht enthält.",
+		"error": {
+			"empty": "Gib eine Dateinamenvorlage ein.",
+			"too-long": "Die Vorlage ist zu lang.",
+			"forbidden-char": "Entferne Zeichen, die in Dateinamen nicht erlaubt sind: /  : * ? \" < > |",
+			"stray-brace": "Nicht geschlossene { oder } — schreibe Platzhalter wie {title}.",
+			"no-unique-token": "Füge {title} oder {id} hinzu, damit jeder Download einen eigenen Dateinamen erhält.",
+			"unknown-token": "Unbekannter Platzhalter {{token}}."
+		}
 	}
 }

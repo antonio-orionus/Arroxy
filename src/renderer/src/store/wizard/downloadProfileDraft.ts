@@ -2,6 +2,7 @@ import {DEFAULTS} from '@shared/constants.js'
 import type {AudioBitrate, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import {isValidSubfolder, safeFolderName} from '@shared/subfolder.js'
+import {type FilenameTemplateFailure, validateFilenameTemplate} from '@shared/filenameTemplate.js'
 
 export type DownloadProfileMediaMode = DownloadProfile['media']['kind']
 export type DownloadProfileAudioQuality = 'best' | '320' | '192' | '128'
@@ -23,6 +24,8 @@ export interface DownloadProfileDraft {
 	subtitleDelivery: SubtitleMode
 	subtitleFormat: SubtitleFormat
 	destination: string
+	// Empty string means "inherit the global filename template".
+	filenameTemplate: string
 	saveInsideSubfolder: boolean
 	subfolderName: string
 	embedMetadata: boolean
@@ -49,6 +52,7 @@ export type DownloadProfileDraftAction =
 	| {type: 'set-subtitle-delivery'; subtitleDelivery: SubtitleMode}
 	| {type: 'set-subtitle-format'; subtitleFormat: SubtitleFormat}
 	| {type: 'set-destination'; destination: string}
+	| {type: 'set-filename-template'; filenameTemplate: string}
 	| {type: 'set-save-inside-subfolder'; saveInsideSubfolder: boolean}
 	| {type: 'set-subfolder-name'; subfolderName: string}
 	| {type: 'set-embed-metadata'; embedMetadata: boolean}
@@ -59,6 +63,7 @@ export type DownloadProfileDraftAction =
 
 export interface DownloadProfileDraftValidation {
 	subfolderInvalid: boolean
+	filenameTemplateError: FilenameTemplateFailure | null
 }
 
 const SMART_TV_MP4_MAX_TIER: PlaylistVideoTier = '1080'
@@ -127,6 +132,7 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		subtitleDelivery: initialProfile?.subtitles.mode ?? 'sidecar',
 		subtitleFormat: initialProfile?.subtitles.format ?? 'srt',
 		destination: initialProfile?.output.kind === 'fixed' ? initialProfile.output.dir : '',
+		filenameTemplate: initialProfile?.filename.kind === 'custom' ? initialProfile.filename.template : '',
 		saveInsideSubfolder: initialProfile?.subfolder.enabled ?? true,
 		subfolderName: initialProfile?.subfolder.name ?? defaultProfileSubfolderName(profileName),
 		embedMetadata: initialProfile?.embed.metadata ?? true,
@@ -178,6 +184,8 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 			return {...draft, subtitleFormat: action.subtitleFormat}
 		case 'set-destination':
 			return {...draft, destination: action.destination}
+		case 'set-filename-template':
+			return {...draft, filenameTemplate: action.filenameTemplate}
 		case 'set-save-inside-subfolder':
 			return {...draft, saveInsideSubfolder: action.saveInsideSubfolder}
 		case 'set-subfolder-name':
@@ -196,7 +204,10 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 }
 
 export function validateDownloadProfileDraft(draft: DownloadProfileDraft): DownloadProfileDraftValidation {
-	return {subfolderInvalid: draft.saveInsideSubfolder && draft.subfolderName.trim() !== '' && !isValidSubfolder(draft.subfolderName)}
+	// An empty template is not an error — it means "inherit the global one".
+	const template = draft.filenameTemplate.trim()
+	const validation = template ? validateFilenameTemplate(template) : {ok: true as const}
+	return {subfolderInvalid: draft.saveInsideSubfolder && draft.subfolderName.trim() !== '' && !isValidSubfolder(draft.subfolderName), filenameTemplateError: validation.ok ? null : validation}
 }
 
 function audioBitrateFromQuality(audioQuality: DownloadProfileAudioQuality): AudioBitrate {
@@ -228,6 +239,7 @@ export function downloadProfileFromDraft(draft: DownloadProfileDraft, now: strin
 						: {kind: draft.mediaMode, codec: draft.codec, tiers: [draft.resolution]},
 		subtitles: {enabled: subtitlesEnabled, languages: subtitlesEnabled ? draft.subtitleLanguages : [], source: draft.subtitleSource, mode: draft.subtitleDelivery, format: draft.subtitleFormat},
 		output: draft.destination.trim() ? {kind: 'fixed', dir: draft.destination.trim()} : {kind: 'default'},
+		filename: draft.filenameTemplate.trim() ? {kind: 'custom', template: draft.filenameTemplate.trim()} : {kind: 'default'},
 		subfolder: {enabled: draft.saveInsideSubfolder, name: draft.saveInsideSubfolder ? draft.subfolderName.trim() || defaultProfileSubfolderName(draft.profileName) : ''},
 		sponsorBlock: {mode: showVideo ? draft.sponsorBlockMode : 'off', categories: showVideo && draft.sponsorBlockMode !== 'off' ? [...DEFAULTS.sponsorBlockCategories] : []},
 		embed: {chapters: showVideo && draft.embedChapters, metadata: draft.embedMetadata, thumbnail: false, description: draft.saveDescription, thumbnailSidecar: draft.saveThumbnail},

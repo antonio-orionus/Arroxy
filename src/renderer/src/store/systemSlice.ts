@@ -348,8 +348,8 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'nativeAudioPreference', {nativeAudioPreference: value})
 		},
 
-		setIncludeIdInSingleFilenames: async enabled => {
-			await applyCommonPatchAsync(get, set, 'includeIdInSingleFilenames', {includeIdInSingleFilenames: enabled})
+		setFilenameTemplate: async template => {
+			await applyCommonPatchAsync(get, set, 'filenameTemplate', {filenameTemplate: template})
 		},
 
 		setNetworkPacingPreset: async value => {

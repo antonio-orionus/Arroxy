@@ -226,7 +226,6 @@
 				"tooltip": "yt-dlp --playlist-end seçeneğine karşılık gelir: Arroxy seçiciyi oluştururken yalnızca bu kadar oynatma listesi, kanal veya arama kaydı ister."
 			},
 			"nativeAudioPreference": {"label": "Yerel ses tercihi", "description": "En iyi yerel seçeneğinin neyi seçeceğini belirler. Manuel ses satırları ve M4A/AAC açık seçim olarak kalır.", "compatible": "Uyumlu stereo", "surround": "Surround / Dolby tercih et"},
-			"singleFilenameId": {"toggle": "Tekil dosya adlarına video kimliği ekle", "toggleDescription": "Başlıklar değiştiğinde veya çakıştığında tek seferlik indirmeleri benzersiz tutar."},
 			"networkPacing": {
 				"heading": "Nazik indirmeler",
 				"description": "Arroxy’nin siteye fazla agresif davranmaması için her indirme sırasında küçük beklemeler ekle. Aksi belirtilmedikçe değerler saniyedir.",
@@ -545,5 +544,21 @@
 		"footerTooltip": "Arroxy’yi paylaş",
 		"footerLabel": "Paylaş",
 		"shareAction": "Arroxy’yi paylaş"
+	},
+	"filenameTemplate": {
+		"label": "Dosya adı şablonu",
+		"description": "İndirilen dosyaların nasıl adlandırılacağını seçin. Eklemek için bir belirtece tıklayın.",
+		"profileOverrideLabel": "Dosya adı şablonu",
+		"profileOverrideDescription": "Genel şablonu kullanmak için boş bırakın.",
+		"idWarning": "{id} olmadan Arroxy, daha önce indirilmiş oynatma listesi öğelerini algılayamaz ve .m3u oynatma listeleri oluşturamaz.",
+		"m3uDisabled": "Dosya adı şablonunuz {id} içermediği için kullanılamıyor.",
+		"error": {
+			"empty": "Bir dosya adı şablonu girin.",
+			"too-long": "Şablon çok uzun.",
+			"forbidden-char": "Dosya adlarında izin verilmeyen karakterleri kaldırın: /  : * ? \" < > |",
+			"stray-brace": "Eşleşmeyen { veya } — belirteçleri {title} gibi yazın.",
+			"no-unique-token": "Her indirmenin kendi dosya adı olması için {title} veya {id} ekleyin.",
+			"unknown-token": "Bilinmeyen belirteç {{token}}."
+		}
 	}
 }

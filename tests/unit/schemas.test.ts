@@ -240,9 +240,17 @@ describe('updateSettingsSchema — common.limitRate', () => {
 	})
 })
 
-describe('updateSettingsSchema — common.includeIdInSingleFilenames', () => {
-	it.each([true, false])('accepts includeIdInSingleFilenames=%s', value => {
-		expect(updateSettingsSchema.safeParse({common: {includeIdInSingleFilenames: value}}).success).toBe(true)
+describe('updateSettingsSchema — common.filenameTemplate', () => {
+	it.each(['{title} [{id}]', '{uploader} - {title}'])('accepts filenameTemplate=%s', value => {
+		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: value}}).success).toBe(true)
+	})
+
+	it('rejects an empty filenameTemplate', () => {
+		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: '   '}}).success).toBe(false)
+	})
+
+	it('rejects a filenameTemplate past the length cap', () => {
+		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: 'x'.repeat(121)}}).success).toBe(false)
 	})
 })
 

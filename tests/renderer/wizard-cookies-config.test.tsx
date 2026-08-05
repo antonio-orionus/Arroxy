@@ -126,14 +126,26 @@ describe('advanced network settings', () => {
 		})
 	})
 
-	it('saves the single-filename id suffix switch', async () => {
+	it('saves an edited filename template', async () => {
 		render(<StepUrlInput />)
 		openSettingsTab()
 
-		fireEvent.click(screen.getByTestId('single-filename-id-toggle'))
+		fireEvent.change(screen.getByTestId('filename-template-input'), {target: {value: '{uploader} - {title}'}})
 
 		await waitFor(() => {
-			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {includeIdInSingleFilenames: false}})
+			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {filenameTemplate: '{uploader} - {title}'}})
+		})
+	})
+
+	it('inserts a token when its chip is clicked', async () => {
+		render(<StepUrlInput />)
+		openSettingsTab()
+
+		fireEvent.change(screen.getByTestId('filename-template-input'), {target: {value: ''}})
+		fireEvent.click(screen.getByTestId('filename-token-uploader'))
+
+		await waitFor(() => {
+			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {filenameTemplate: '{uploader}'}})
 		})
 	})
 

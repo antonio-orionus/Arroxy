@@ -199,6 +199,54 @@ msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "URL đó không được yt-dlp hỗ trợ. Hãy thử một liên kết khác từ bất kỳ trang web nào được yt-dlp hỗ trợ."
 
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it."
+msgstr "Chọn cách đặt tên cho tệp đã tải. Nhấp vào một thẻ để chèn."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Hãy nhập mẫu tên tệp."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
+msgstr "Hãy bỏ các ký tự không được phép trong tên tệp: / \ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} so each download gets its own filename."
+msgstr "Hãy thêm {title} hoặc {id} để mỗi lượt tải có tên tệp riêng."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "{ hoặc } chưa đóng — hãy viết thẻ như {title}."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Mẫu quá dài."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Thẻ không xác định {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Nếu không có {id}, Arroxy không thể phát hiện mục danh sách phát đã tải hoặc tạo danh sách phát .m3u."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Mẫu tên tệp"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template doesn't include {id}."
+msgstr "Không khả dụng vì mẫu tên tệp của bạn không chứa {id}."
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Để trống để dùng mẫu chung."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Mẫu tên tệp"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "Âm thanh"
@@ -2428,14 +2476,6 @@ msgstr "Đã thêm vào hàng đợi"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Dán URL video, danh sách phát, kênh hoặc tìm kiếm để bắt đầu."
-
-msgctxt "wizard.url.singleFilenameId.toggle"
-msgid "Add video ID to single filenames"
-msgstr "Thêm ID video vào tên tệp đơn lẻ"
-
-msgctxt "wizard.url.singleFilenameId.toggleDescription"
-msgid "Keeps one-off downloads unique when titles change or collide."
-msgstr "Giữ các lượt tải một lần là duy nhất khi tiêu đề thay đổi hoặc trùng nhau."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"
