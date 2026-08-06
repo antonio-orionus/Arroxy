@@ -56,7 +56,12 @@ if (!displayAvailable && !hasXvfbRun()) {
 
 const command = displayAvailable ? 'bunx' : 'xvfb-run'
 const args = displayAvailable ? PLAYWRIGHT_ARGS : ['-a', 'bunx', ...PLAYWRIGHT_ARGS]
-const env = {...process.env, ...(displayAvailable ? {ARROXY_E2E_HEADLESS: '1'} : {})}
+const env = {...process.env}
+if (displayAvailable) env.ARROXY_E2E_HEADLESS = '1'
+// Cleared, not merely unset: inheriting ARROXY_E2E_HEADLESS=1 from the caller
+// would keep the xvfb run headless, and the clipboard spec skips itself in that
+// mode — silently dropping the coverage this branch exists to preserve.
+else delete env.ARROXY_E2E_HEADLESS
 
 console.log(displayAvailable ? 'Running fixture E2E with a hidden window (no focus stealing).' : 'Running fixture E2E under xvfb (no display detected).')
 
