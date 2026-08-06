@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "{{count}} dari trek {{total}}",
 			"itemsValueBulk_one": "{{count}} dari URL {{total}}",
 			"itemsValueBulk_other": "{{count}} dari URL {{total}}"
+		},
+		"profileEditor": {
+			"dialogTitle": "Profil unduhan",
+			"dialogDescription": "Satu pengaturan yang dapat dipakai ulang untuk Unduh Cepat, URL Massal, dan playlist.",
+			"skipped": "Dilewati",
+			"panel": {
+				"identity": {"title": "Identitas profil", "description": "Nama dan ikon yang tampil di Unduh Cepat, URL Massal, dan daftar profil."},
+				"downloadType": {"title": "Jenis unduhan", "description": "Pilih cara utama Anda ingin mengunduh."},
+				"advanced": {"title": "Opsi lanjutan", "description": "Profil mewarisi tujuan global kecuali Anda mengatur penggantian profil."},
+				"output": {"title": "Opsi keluaran"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Nama dan ikon profil",
+				"icon": "Ikon profil",
+				"compatibility": "Kompatibilitas",
+				"resolution": "Resolusi",
+				"quality": "Kualitas",
+				"source": "Sumber",
+				"languageCodes": "Kode bahasa subtitel",
+				"subfolderName": "Nama subfolder",
+				"name": "Nama profil",
+				"subtitleDownloads": "Unduhan subtitel",
+				"languages": "Bahasa",
+				"delivery": "Cara penyimpanan",
+				"overridePath": "Jalur penggantian profil"
+			},
+			"action": {
+				"chooseIcon": "Pilih ikon profil",
+				"setOverride": "Atur penggantian profil",
+				"chooseFolder": "Pilih folder tujuan",
+				"addLanguage": "Tambah",
+				"changeGlobalShort": "Ubah global",
+				"setOverrideShort": "Atur penggantian",
+				"useGlobalDefault": "Gunakan default global",
+				"reset": "Setel ulang profil",
+				"save": "Simpan profil"
+			},
+			"placeholder": {"folder": "Pilih folder untuk profil ini"},
+			"destination": {"global": "Tujuan global", "override": "Penggantian profil", "resolved": "Tujuan akhir"},
+			"note": {
+				"subtitlesOnly": "Profil ini hanya mengantrekan berkas subtitel. Video, audio, SponsorBlock, dan konversi media dilewati.",
+				"noSubtitles": "Profil ini tidak akan meminta berkas subtitel maupun trek subtitel tersemat.",
+				"noLanguages": "Tidak ada bahasa yang dipilih",
+				"autoCaptionsSrt": "Teks otomatis akan disimpan sebagai SRT, bukan ASS.",
+				"skippedForOutputType": "Dilewati untuk jenis keluaran ini."
+			},
+			"error": {"save": "Tidak dapat menyimpan pengaturan profil.", "changeGlobalDestination": "Tidak dapat mengubah tujuan global.", "reset": "Tidak dapat menyetel ulang pengaturan profil."},
+			"mediaMode": {
+				"videoAudio": {"label": "Video + audio", "description": "Berkas video biasa"},
+				"videoOnly": {"label": "Video, tanpa audio", "description": "Hanya video tanpa suara"},
+				"audioOnly": {"label": "Hanya audio", "description": "Musik atau podcast"},
+				"subtitlesOnly": {"label": "Hanya subtitel", "description": "Hanya berkas teks"}
+			},
+			"icon": {"controls": "Kontrol", "download": "Unduh", "video": "Video", "captions": "Teks", "audio": "Audio", "music": "Musik", "podcast": "Podcast", "classes": "Kelas", "clip": "Klip", "archive": "Arsip"},
+			"audioFormat": {"best": "Terbaik", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "Hingga 128K", "192": "Hingga 192K", "320": "Hingga 320K", "best": "Kualitas terbaik"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Manual dulu, lalu otomatis", "manualOnly": "Hanya manual", "autoOnly": "Hanya hasil otomatis"},
+			"sponsorBlockHint": {"off": "Tanpa SponsorBlock — video diputar apa adanya.", "mark": "Menandai segmen sponsor sebagai bab (tanpa mengubah berkas).", "remove": "Memotong segmen sponsor dari video menggunakan FFmpeg."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Memuat…"},

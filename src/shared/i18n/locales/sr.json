@@ -395,6 +395,67 @@
 			"itemsValueAudio_other": "{{count}} од {{total}} нумера",
 			"itemsValueBulk_one": "{{count}} од {{total}} URL-а",
 			"itemsValueBulk_other": "{{count}} од {{total}} URL-ова"
+		},
+		"profileEditor": {
+			"dialogTitle": "Профил преузимања",
+			"dialogDescription": "Једно подешавање за вишекратну употребу за Брзо преузимање, Групне URL-ове и плејлисте.",
+			"skipped": "Прескочено",
+			"panel": {
+				"identity": {"title": "Идентитет профила", "description": "Назив и икона приказани у Брзом преузимању, Групним URL-овима и листама профила."},
+				"downloadType": {"title": "Тип преузимања", "description": "Изаберите основни начин на који желите да преузимате."},
+				"advanced": {"title": "Напредне опције", "description": "Профили наслеђују опште одредиште осим ако не поставите замену профила."},
+				"output": {"title": "Опције излаза"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Назив и икона профила",
+				"icon": "Икона профила",
+				"compatibility": "Компатибилност",
+				"resolution": "Резолуција",
+				"quality": "Квалитет",
+				"source": "Извор",
+				"languageCodes": "Кодови језика титлова",
+				"subfolderName": "Назив подфасцикле",
+				"name": "Назив профила",
+				"subtitleDownloads": "Преузимања титлова",
+				"languages": "Језици",
+				"delivery": "Начин чувања",
+				"overridePath": "Путања замене профила"
+			},
+			"action": {
+				"chooseIcon": "Изабери икону профила",
+				"setOverride": "Постави замену профила",
+				"chooseFolder": "Изабери одредишну фасциклу",
+				"addLanguage": "Додај",
+				"changeGlobalShort": "Промени опште",
+				"setOverrideShort": "Постави замену",
+				"useGlobalDefault": "Користи општу подразумевану вредност",
+				"reset": "Ресетуј профил",
+				"save": "Сачувај профил"
+			},
+			"placeholder": {"folder": "Изаберите фасциклу за овај профил"},
+			"destination": {"global": "Опште одредиште", "override": "Замена профила", "resolved": "Коначно одредиште"},
+			"note": {
+				"subtitlesOnly": "Овај профил ставља у ред само датотеке титлова. Видео, аудио, SponsorBlock и конверзија медија се прескачу.",
+				"noSubtitles": "За овај профил неће бити затражене ни датотеке титлова ни уграђене титл траке.",
+				"noLanguages": "Ниједан језик није изабран",
+				"autoCaptionsSrt": "Аутоматски титлови биће сачувани као SRT уместо ASS.",
+				"skippedForOutputType": "Прескочено за овај тип излаза."
+			},
+			"error": {"save": "Није могуће сачувати подешавања профила.", "changeGlobalDestination": "Није могуће променити опште одредиште.", "reset": "Није могуће ресетовати подешавања профила."},
+			"mediaMode": {
+				"videoAudio": {"label": "Видео + аудио", "description": "Обичне видео датотеке"},
+				"videoOnly": {"label": "Видео, без аудија", "description": "Само видео без звука"},
+				"audioOnly": {"label": "Само аудио", "description": "Музика или подкасти"},
+				"subtitlesOnly": {"label": "Само титлови", "description": "Само датотеке титлова"}
+			},
+			"icon": {"controls": "Контроле", "download": "Преузимање", "video": "Видео", "captions": "Титлови", "audio": "Аудио", "music": "Музика", "podcast": "Подкаст", "classes": "Часови", "clip": "Исечак", "archive": "Архива"},
+			"audioFormat": {"best": "Најбоље", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "До 128K", "192": "До 192K", "320": "До 320K", "best": "Најбољи квалитет"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Прво ручни, затим аутоматски", "manualOnly": "Само ручни", "autoOnly": "Само аутоматски генерисани"},
+			"sponsorBlockHint": {"off": "Без SponsorBlock-а — видео се пушта како је отпремљен.", "mark": "Означава спонзорисане сегменте као поглавља (без измене датотеке).", "remove": "Исеца спонзорисане сегменте из видеа помоћу FFmpeg-а."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Учитавање…"},

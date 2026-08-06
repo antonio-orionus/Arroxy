@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "{{count}} von {{total}} Titeln",
 			"itemsValueBulk_one": "{{count}} von {{total}} URL",
 			"itemsValueBulk_other": "{{count}} von {{total}} URLs"
+		},
+		"profileEditor": {
+			"dialogTitle": "Download-Profil",
+			"dialogDescription": "Eine wiederverwendbare Konfiguration für Schnell-Download, Massen-URLs und Playlists.",
+			"skipped": "Übersprungen",
+			"panel": {
+				"identity": {"title": "Profilidentität", "description": "Name und Symbol, die in Schnell-Download, Massen-URLs und Profillisten angezeigt werden."},
+				"downloadType": {"title": "Download-Typ", "description": "Wähle die primäre Art, wie du herunterladen möchtest."},
+				"advanced": {"title": "Erweiterte Optionen", "description": "Profile übernehmen das globale Ziel, sofern du keine Profil-Überschreibung festlegst."},
+				"output": {"title": "Ausgabeoptionen"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Profilname und -symbol",
+				"icon": "Profilsymbol",
+				"compatibility": "Kompatibilität",
+				"resolution": "Auflösung",
+				"quality": "Qualität",
+				"source": "Quelle",
+				"languageCodes": "Untertitel-Sprachcodes",
+				"subfolderName": "Unterordnername",
+				"name": "Profilname",
+				"subtitleDownloads": "Untertitel-Downloads",
+				"languages": "Sprachen",
+				"delivery": "Ablage",
+				"overridePath": "Pfad der Profil-Überschreibung"
+			},
+			"action": {
+				"chooseIcon": "Profilsymbol wählen",
+				"setOverride": "Profil-Überschreibung festlegen",
+				"chooseFolder": "Zielordner wählen",
+				"addLanguage": "Hinzufügen",
+				"changeGlobalShort": "Global ändern",
+				"setOverrideShort": "Überschreibung festlegen",
+				"useGlobalDefault": "Globalen Standard verwenden",
+				"reset": "Profil zurücksetzen",
+				"save": "Profil speichern"
+			},
+			"placeholder": {"folder": "Ordner für dieses Profil wählen"},
+			"destination": {"global": "Globales Ziel", "override": "Profil-Überschreibung", "resolved": "Aufgelöstes Ziel"},
+			"note": {
+				"subtitlesOnly": "Dieses Profil stellt nur Untertiteldateien in die Warteschlange. Video, Audio, SponsorBlock und Medienkonvertierung werden übersprungen.",
+				"noSubtitles": "Für dieses Profil werden keine Untertiteldateien oder eingebetteten Untertitelspuren angefordert.",
+				"noLanguages": "Keine Sprachen ausgewählt",
+				"autoCaptionsSrt": "Automatische Untertitel werden als SRT statt ASS gespeichert.",
+				"skippedForOutputType": "Für diesen Ausgabetyp übersprungen."
+			},
+			"error": {"save": "Profileinstellungen konnten nicht gespeichert werden.", "changeGlobalDestination": "Globales Ziel konnte nicht geändert werden.", "reset": "Profileinstellungen konnten nicht zurückgesetzt werden."},
+			"mediaMode": {
+				"videoAudio": {"label": "Video + Audio", "description": "Normale Videodateien"},
+				"videoOnly": {"label": "Video, ohne Audio", "description": "Nur Video ohne Ton"},
+				"audioOnly": {"label": "Nur Audio", "description": "Musik oder Podcasts"},
+				"subtitlesOnly": {"label": "Nur Untertitel", "description": "Nur Untertiteldateien"}
+			},
+			"icon": {"controls": "Regler", "download": "Download", "video": "Video", "captions": "Untertitel", "audio": "Audio", "music": "Musik", "podcast": "Podcast", "classes": "Kurse", "clip": "Clip", "archive": "Archiv"},
+			"audioFormat": {"best": "Beste", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "Bis zu 128K", "192": "Bis zu 192K", "320": "Bis zu 320K", "best": "Beste Qualität"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Zuerst manuell, dann automatisch", "manualOnly": "Nur manuell", "autoOnly": "Nur automatisch erzeugte"},
+			"sponsorBlockHint": {"off": "Kein SponsorBlock — Video wird wie hochgeladen abgespielt.", "mark": "Markiert Sponsor-Segmente als Kapitel (nicht zerstörend).", "remove": "Schneidet Sponsor-Segmente mit FFmpeg aus dem Video."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Wird geladen…"},

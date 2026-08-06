@@ -5,6 +5,7 @@ import {DownloadProfileEditor} from '@renderer/components/wizard/DownloadProfile
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import type {DownloadProfile} from '@shared/types.js'
 import {ok} from '@shared/result.js'
+import {i18next} from '@shared/i18n/index.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 const LINUX_COMMON_PATHS = {desktop: '/home/user/Desktop', documents: '/home/user/Documents', downloads: '/home/user/Downloads', home: '/home/user', music: '/home/user/Music', pictures: '/home/user/Pictures', videos: '/home/user/Videos'}
@@ -275,6 +276,27 @@ describe('DownloadProfileEditor', () => {
 			expect(onReset).toHaveBeenCalled()
 		} finally {
 			consoleError.mockRestore()
+		}
+	})
+
+	it('renders translated copy rather than raw i18n keys', async () => {
+		// Asserting English would pass even if the copy were still hardcoded —
+		// exactly the failure this test exists to catch. Rendering a cataloged
+		// non-English locale proves the strings actually route through i18n.
+		const previousLanguage = i18next.language
+		await i18next.changeLanguage('de')
+		try {
+			const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+			render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+			expect(await screen.findByText('Profilidentität')).toBeInTheDocument()
+			expect(screen.getByText('Download-Typ')).toBeInTheDocument()
+			expect(screen.getByLabelText('Profilsymbol wählen')).toBeInTheDocument()
+			// A missing catalog entry renders the key itself, which still satisfies
+			// a testid-based assertion.
+			expect(document.body.textContent).not.toMatch(/wizard\.profileEditor\./)
+		} finally {
+			await i18next.changeLanguage(previousLanguage)
 		}
 	})
 })

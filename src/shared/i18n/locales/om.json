@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "{{count}} fi {{total}} keessaa weellaalee",
 			"itemsValueBulk_one": "{{count}} URL keessaa {{total}}",
 			"itemsValueBulk_other": "{{count}} URL keessaa {{total}}"
+		},
+		"profileEditor": {
+			"dialogTitle": "Piroofaayilii buufataa",
+			"dialogDescription": "Buufata Saffisaa, URL Baay'ee fi tarree taphaatiif qindaa'ina irra deebi'anii fayyadamuu danda'an tokko.",
+			"skipped": "Darbameera",
+			"panel": {
+				"identity": {"title": "Eenyummaa piroofaayilii", "description": "Maqaa fi mallattoo Buufata Saffisaa, URL Baay'ee fi tarree piroofaayilii keessatti mul'atu."},
+				"downloadType": {"title": "Gosa buufataa", "description": "Karaa ijoo ittiin buufachuu barbaaddu filadhu."},
+				"advanced": {"title": "Filannoo olaanaa", "description": "Bakka bu'iinsa piroofaayilii yoo hin qindeessine, piroofaayiliin ga'umsa waliigalaa dhaala."},
+				"output": {"title": "Filannoo bahaa"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Maqaa fi mallattoo piroofaayilii",
+				"icon": "Mallattoo piroofaayilii",
+				"compatibility": "Waliisimuu",
+				"resolution": "Ifa bal'ina",
+				"quality": "Qulqullina",
+				"source": "Madda",
+				"languageCodes": "Koodii afaan ergaa gadii",
+				"subfolderName": "Maqaa gale xiqqaa",
+				"name": "Maqaa piroofaayilii",
+				"subtitleDownloads": "Buufata ergaa gadii",
+				"languages": "Afaanota",
+				"delivery": "Karaa olkaa'uu",
+				"overridePath": "Daandii bakka bu'iinsa piroofaayilii"
+			},
+			"action": {
+				"chooseIcon": "Mallattoo piroofaayilii filadhu",
+				"setOverride": "Bakka bu'iinsa piroofaayilii qindeessi",
+				"chooseFolder": "Galee ga'umsaa filadhu",
+				"addLanguage": "Dabali",
+				"changeGlobalShort": "Waliigalaa jijjiiri",
+				"setOverrideShort": "Bakka bu'iinsa qindeessi",
+				"useGlobalDefault": "Durtii waliigalaa fayyadami",
+				"reset": "Piroofaayilii haaromsi",
+				"save": "Piroofaayilii olkaa'i"
+			},
+			"placeholder": {"folder": "Piroofaayilii kanaaf galee filadhu"},
+			"destination": {"global": "Ga'umsa waliigalaa", "override": "Bakka bu'iinsa piroofaayilii", "resolved": "Ga'umsa dhumaa"},
+			"note": {
+				"subtitlesOnly": "Piroofaayiliin kun faayilii ergaa gadii qofa tarree keessa kaa'a. Viidiyoon, sagaleen, SponsorBlock fi jijjiirraan miidiyaa ni darbatamu.",
+				"noSubtitles": "Piroofaayilii kanaaf faayiliin ergaa gadii ykn sararri ergaa gadii keessatti galfame hin gaafatamu.",
+				"noLanguages": "Afaan hin filatamne",
+				"autoCaptionsSrt": "Ergaan gadii ofumaan uumame bakka ASS SRT ta'ee ni olkaa'ama.",
+				"skippedForOutputType": "Gosa bahaa kanaaf darbameera."
+			},
+			"error": {"save": "Qindaa'inni piroofaayilii olkaa'uun hin danda'amne.", "changeGlobalDestination": "Ga'umsa waliigalaa jijjiiruun hin danda'amne.", "reset": "Qindaa'inni piroofaayilii haaromsuun hin danda'amne."},
+			"mediaMode": {
+				"videoAudio": {"label": "Viidiyoo + sagalee", "description": "Faayilii viidiyoo idilee"},
+				"videoOnly": {"label": "Viidiyoo, sagalee malee", "description": "Viidiyoo sagalee hin qabne qofa"},
+				"audioOnly": {"label": "Sagalee qofa", "description": "Muuziqaa ykn poodkaastii"},
+				"subtitlesOnly": {"label": "Ergaa gadii qofa", "description": "Faayilii ergaa gadii qofa"}
+			},
+			"icon": {"controls": "To'annoo", "download": "Buufata", "video": "Viidiyoo", "captions": "Ergaa gadii", "audio": "Sagalee", "music": "Muuziqaa", "podcast": "Poodkaastii", "classes": "Barnoota", "clip": "Muraa", "archive": "Kuusaa"},
+			"audioFormat": {"best": "Gaarii", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "Hanga 128K", "192": "Hanga 192K", "320": "Hanga 320K", "best": "Qulqullina gaarii"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Duraa harkaan, sana booda ofumaan", "manualOnly": "Harkaan qofa", "autoOnly": "Kan ofumaan uumaman qofa"},
+			"sponsorBlockHint": {"off": "SponsorBlock hin jiru — viidiyoon akkuma olkaa'ametti taphata.", "mark": "Kutaa ispoonsarii akka boqonnaatti mallatteessa (faayilii hin jijjiiru).", "remove": "FFmpeg fayyadamuun kutaa ispoonsarii viidiyoo irraa muura."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Fe'amaa jira…"},

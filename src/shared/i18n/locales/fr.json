@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "{{count}} sur {{total}} pistes",
 			"itemsValueBulk_one": "{{count}} URL sur {{total}}",
 			"itemsValueBulk_other": "{{count}} URLs sur {{total}}"
+		},
+		"profileEditor": {
+			"dialogTitle": "Profil de téléchargement",
+			"dialogDescription": "Une configuration réutilisable pour le téléchargement rapide, les URL en lot et les playlists.",
+			"skipped": "Ignoré",
+			"panel": {
+				"identity": {"title": "Identité du profil", "description": "Nom et icône affichés dans le téléchargement rapide, les URL en lot et les listes de profils."},
+				"downloadType": {"title": "Type de téléchargement", "description": "Choisissez la façon principale dont vous voulez télécharger."},
+				"advanced": {"title": "Options avancées", "description": "Les profils héritent de la destination globale sauf si vous définissez une dérogation de profil."},
+				"output": {"title": "Options de sortie"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Nom et icône du profil",
+				"icon": "Icône du profil",
+				"compatibility": "Compatibilité",
+				"resolution": "Résolution",
+				"quality": "Qualité",
+				"source": "Source",
+				"languageCodes": "Codes de langue des sous-titres",
+				"subfolderName": "Nom du sous-dossier",
+				"name": "Nom du profil",
+				"subtitleDownloads": "Téléchargements de sous-titres",
+				"languages": "Langues",
+				"delivery": "Livraison",
+				"overridePath": "Chemin de la dérogation de profil"
+			},
+			"action": {
+				"chooseIcon": "Choisir l'icône du profil",
+				"setOverride": "Définir une dérogation de profil",
+				"chooseFolder": "Choisir le dossier de destination",
+				"addLanguage": "Ajouter",
+				"changeGlobalShort": "Modifier le global",
+				"setOverrideShort": "Définir une dérogation",
+				"useGlobalDefault": "Utiliser la valeur globale",
+				"reset": "Réinitialiser le profil",
+				"save": "Enregistrer le profil"
+			},
+			"placeholder": {"folder": "Choisir un dossier pour ce profil"},
+			"destination": {"global": "Destination globale", "override": "Dérogation de profil", "resolved": "Destination résolue"},
+			"note": {
+				"subtitlesOnly": "Ce profil ne met en file d'attente que des fichiers de sous-titres. La vidéo, l'audio, SponsorBlock et la conversion média sont ignorés.",
+				"noSubtitles": "Aucun fichier de sous-titres ni piste intégrée ne sera demandé pour ce profil.",
+				"noLanguages": "Aucune langue sélectionnée",
+				"autoCaptionsSrt": "Les sous-titres automatiques seront enregistrés en SRT plutôt qu'en ASS.",
+				"skippedForOutputType": "Ignoré pour ce type de sortie."
+			},
+			"error": {"save": "Impossible d'enregistrer les paramètres du profil.", "changeGlobalDestination": "Impossible de modifier la destination globale.", "reset": "Impossible de réinitialiser les paramètres du profil."},
+			"mediaMode": {
+				"videoAudio": {"label": "Vidéo + audio", "description": "Fichiers vidéo normaux"},
+				"videoOnly": {"label": "Vidéo, sans audio", "description": "Vidéo muette uniquement"},
+				"audioOnly": {"label": "Audio uniquement", "description": "Musique ou podcasts"},
+				"subtitlesOnly": {"label": "Sous-titres uniquement", "description": "Fichiers de sous-titres uniquement"}
+			},
+			"icon": {"controls": "Réglages", "download": "Téléchargement", "video": "Vidéo", "captions": "Sous-titres", "audio": "Audio", "music": "Musique", "podcast": "Podcast", "classes": "Cours", "clip": "Clip", "archive": "Archive"},
+			"audioFormat": {"best": "Meilleur", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "Jusqu'à 128K", "192": "Jusqu'à 192K", "320": "Jusqu'à 320K", "best": "Meilleure qualité"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Manuel d'abord, puis automatique", "manualOnly": "Manuel uniquement", "autoOnly": "Générés automatiquement uniquement"},
+			"sponsorBlockHint": {"off": "Pas de SponsorBlock — la vidéo est lue telle qu'elle a été mise en ligne.", "mark": "Marque les segments sponsorisés comme chapitres (non destructif).", "remove": "Coupe les segments sponsorisés de la vidéo avec FFmpeg."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Chargement…"},

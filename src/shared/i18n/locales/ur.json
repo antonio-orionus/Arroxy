@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "{{total}} میں سے {{count}} ٹریکس",
 			"itemsValueBulk_one": "{{total}} میں سے {{count}} URL",
 			"itemsValueBulk_other": "{{total}} میں سے {{count}} URLs"
+		},
+		"profileEditor": {
+			"dialogTitle": "ڈاؤن لوڈ پروفائل",
+			"dialogDescription": "کوئیک ڈاؤن لوڈ، بلک URLs اور پلے لسٹس کے لیے ایک دوبارہ قابلِ استعمال سیٹ اپ۔",
+			"skipped": "چھوڑ دیا گیا",
+			"panel": {
+				"identity": {"title": "پروفائل شناخت", "description": "کوئیک ڈاؤن لوڈ، بلک URLs اور پروفائل فہرستوں میں دکھایا جانے والا نام اور آئیکن۔"},
+				"downloadType": {"title": "ڈاؤن لوڈ کی قسم", "description": "منتخب کریں کہ آپ بنیادی طور پر کس طرح ڈاؤن لوڈ کرنا چاہتے ہیں۔"},
+				"advanced": {"title": "اعلیٰ اختیارات", "description": "جب تک آپ پروفائل اووررائیڈ مقرر نہ کریں، پروفائلز عالمی منزل ہی اپناتے ہیں۔"},
+				"output": {"title": "آؤٹ پٹ اختیارات"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "پروفائل کا نام اور آئیکن",
+				"icon": "پروفائل آئیکن",
+				"compatibility": "مطابقت",
+				"resolution": "ریزولوشن",
+				"quality": "معیار",
+				"source": "ماخذ",
+				"languageCodes": "سب ٹائٹل زبان کوڈز",
+				"subfolderName": "ذیلی فولڈر کا نام",
+				"name": "پروفائل کا نام",
+				"subtitleDownloads": "سب ٹائٹل ڈاؤن لوڈز",
+				"languages": "زبانیں",
+				"delivery": "محفوظ کرنے کا طریقہ",
+				"overridePath": "پروفائل اووررائیڈ راستہ"
+			},
+			"action": {
+				"chooseIcon": "پروفائل آئیکن منتخب کریں",
+				"setOverride": "پروفائل اووررائیڈ مقرر کریں",
+				"chooseFolder": "منزل فولڈر منتخب کریں",
+				"addLanguage": "شامل کریں",
+				"changeGlobalShort": "عالمی تبدیل کریں",
+				"setOverrideShort": "اووررائیڈ مقرر کریں",
+				"useGlobalDefault": "عالمی ڈیفالٹ استعمال کریں",
+				"reset": "پروفائل ری سیٹ کریں",
+				"save": "پروفائل محفوظ کریں"
+			},
+			"placeholder": {"folder": "اس پروفائل کے لیے ایک فولڈر منتخب کریں"},
+			"destination": {"global": "عالمی منزل", "override": "پروفائل اووررائیڈ", "resolved": "حتمی منزل"},
+			"note": {
+				"subtitlesOnly": "یہ پروفائل صرف سب ٹائٹل فائلیں قطار میں شامل کرتا ہے۔ ویڈیو، آڈیو، SponsorBlock اور میڈیا کنورژن چھوڑ دیے جاتے ہیں۔",
+				"noSubtitles": "اس پروفائل کے لیے نہ سب ٹائٹل فائلیں اور نہ ایمبیڈڈ سب ٹائٹل ٹریکس طلب کیے جائیں گے۔",
+				"noLanguages": "کوئی زبان منتخب نہیں",
+				"autoCaptionsSrt": "خودکار کیپشنز ASS کے بجائے SRT کے طور پر محفوظ ہوں گے۔",
+				"skippedForOutputType": "اس آؤٹ پٹ قسم کے لیے چھوڑ دیا گیا۔"
+			},
+			"error": {"save": "پروفائل کی ترتیبات محفوظ نہیں ہو سکیں۔", "changeGlobalDestination": "عالمی منزل تبدیل نہیں کی جا سکی۔", "reset": "پروفائل کی ترتیبات ری سیٹ نہیں ہو سکیں۔"},
+			"mediaMode": {
+				"videoAudio": {"label": "ویڈیو + آڈیو", "description": "عام ویڈیو فائلیں"},
+				"videoOnly": {"label": "ویڈیو، بغیر آڈیو", "description": "صرف بغیر آواز ویڈیو"},
+				"audioOnly": {"label": "صرف آڈیو", "description": "موسیقی یا پوڈکاسٹ"},
+				"subtitlesOnly": {"label": "صرف سب ٹائٹلز", "description": "صرف کیپشن فائلیں"}
+			},
+			"icon": {"controls": "کنٹرولز", "download": "ڈاؤن لوڈ", "video": "ویڈیو", "captions": "کیپشنز", "audio": "آڈیو", "music": "موسیقی", "podcast": "پوڈکاسٹ", "classes": "کلاسز", "clip": "کلپ", "archive": "آرکائیو"},
+			"audioFormat": {"best": "بہترین", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "128K تک", "192": "192K تک", "320": "320K تک", "best": "بہترین معیار"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "پہلے دستی، پھر خودکار", "manualOnly": "صرف دستی", "autoOnly": "صرف خودکار تیار کردہ"},
+			"sponsorBlockHint": {"off": "SponsorBlock نہیں — ویڈیو جیسے اپ لوڈ ہوئی ویسے ہی چلے گی۔", "mark": "سپانسر حصوں کو ابواب کے طور پر نشان زد کرتا ہے (فائل تبدیل نہیں ہوتی)۔", "remove": "FFmpeg کے ذریعے ویڈیو سے سپانسر حصے کاٹ دیتا ہے۔"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "لوڈ ہو رہا ہے…"},

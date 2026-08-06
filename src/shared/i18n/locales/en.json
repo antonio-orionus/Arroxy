@@ -378,6 +378,67 @@
 			"itemsValueAudio_other": "{{count}} of {{total}} tracks",
 			"itemsValueBulk_one": "{{count}} of {{total}} URL",
 			"itemsValueBulk_other": "{{count}} of {{total}} URLs"
+		},
+		"profileEditor": {
+			"dialogTitle": "Download Profile",
+			"dialogDescription": "One reusable setup for Quick Download, Bulk URLs, and playlists.",
+			"skipped": "Skipped",
+			"panel": {
+				"identity": {"title": "Profile identity", "description": "Name and icon shown in Quick Download, Bulk URLs, and profile lists."},
+				"downloadType": {"title": "Download type", "description": "Choose the primary way you want to download."},
+				"advanced": {"title": "Advanced options", "description": "Profiles inherit the global destination unless you set a profile override."},
+				"output": {"title": "Output options"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "Profile name and icon",
+				"icon": "Profile icon",
+				"compatibility": "Compatibility",
+				"resolution": "Resolution",
+				"quality": "Quality",
+				"source": "Source",
+				"languageCodes": "Subtitle language codes",
+				"subfolderName": "Subfolder name",
+				"name": "Profile name",
+				"subtitleDownloads": "Subtitle downloads",
+				"languages": "Languages",
+				"delivery": "Delivery",
+				"overridePath": "Profile override path"
+			},
+			"action": {
+				"chooseIcon": "Choose profile icon",
+				"setOverride": "Set profile override",
+				"chooseFolder": "Choose destination folder",
+				"addLanguage": "Add",
+				"changeGlobalShort": "Change global",
+				"setOverrideShort": "Set override",
+				"useGlobalDefault": "Use global default",
+				"reset": "Reset profile",
+				"save": "Save profile"
+			},
+			"placeholder": {"folder": "Choose a folder for this profile"},
+			"destination": {"global": "Global destination", "override": "Profile override", "resolved": "Resolved destination"},
+			"note": {
+				"subtitlesOnly": "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped.",
+				"noSubtitles": "No subtitle files or embedded subtitle tracks will be requested for this profile.",
+				"noLanguages": "No languages selected",
+				"autoCaptionsSrt": "Auto-captions will be saved as SRT instead of ASS.",
+				"skippedForOutputType": "Skipped for this output type."
+			},
+			"error": {"save": "Could not save profile settings.", "changeGlobalDestination": "Could not change global destination.", "reset": "Could not reset profile settings."},
+			"mediaMode": {
+				"videoAudio": {"label": "Video + audio", "description": "Normal video files"},
+				"videoOnly": {"label": "Video, no audio", "description": "Silent video only"},
+				"audioOnly": {"label": "Audio only", "description": "Music or podcasts"},
+				"subtitlesOnly": {"label": "Subs only", "description": "Caption files only"}
+			},
+			"icon": {"controls": "Controls", "download": "Download", "video": "Video", "captions": "Captions", "audio": "Audio", "music": "Music", "podcast": "Podcast", "classes": "Classes", "clip": "Clip", "archive": "Archive"},
+			"audioFormat": {"best": "Best", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"best": "Best quality", "320": "Up to 320K", "192": "Up to 192K", "128": "Up to 128K"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "Manual first, then auto", "manualOnly": "Manual only", "autoOnly": "Auto-generated only"},
+			"sponsorBlockHint": {"off": "No SponsorBlock — video plays as uploaded.", "mark": "Marks sponsor segments as chapters (non-destructive).", "remove": "Cuts sponsor segments from the video using FFmpeg."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Loading…"},

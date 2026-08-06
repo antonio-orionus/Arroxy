@@ -387,6 +387,52 @@
 			"itemsValueAudio_other": "{{count}} من {{total}} مقاطع صوتية",
 			"itemsValueBulk_one": "{{count}} من {{total}} رابط",
 			"itemsValueBulk_other": "{{count}} من {{total}} روابط"
+		},
+		"profileEditor": {
+			"dialogTitle": "ملف التنزيل",
+			"dialogDescription": "إعداد واحد قابل لإعادة الاستخدام للتنزيل السريع وروابط الدُفعات وقوائم التشغيل.",
+			"skipped": "تم التخطّي",
+			"panel": {
+				"identity": {"title": "هوية الملف", "description": "الاسم والأيقونة الظاهران في التنزيل السريع وروابط الدُفعات وقوائم الملفات."},
+				"downloadType": {"title": "نوع التنزيل", "description": "اختر الطريقة الأساسية التي تريد التنزيل بها."},
+				"advanced": {"title": "خيارات متقدمة", "description": "ترث الملفات الوجهة العامة ما لم تُعيّن تجاوزًا للملف."},
+				"output": {"title": "خيارات الإخراج"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "اسم الملف وأيقونته",
+				"icon": "أيقونة الملف",
+				"compatibility": "التوافق",
+				"resolution": "الدقة",
+				"quality": "الجودة",
+				"source": "المصدر",
+				"languageCodes": "رموز لغات الترجمة",
+				"subfolderName": "اسم المجلد الفرعي",
+				"name": "اسم الملف",
+				"subtitleDownloads": "تنزيل الترجمات",
+				"languages": "اللغات",
+				"delivery": "طريقة الحفظ",
+				"overridePath": "مسار تجاوز الملف"
+			},
+			"action": {"chooseIcon": "اختيار أيقونة الملف", "setOverride": "تعيين تجاوز الملف", "chooseFolder": "اختيار مجلد الوجهة", "addLanguage": "إضافة", "changeGlobalShort": "تغيير العام", "setOverrideShort": "تعيين تجاوز", "useGlobalDefault": "استخدام الإعداد العام", "reset": "إعادة تعيين الملف", "save": "حفظ الملف"},
+			"placeholder": {"folder": "اختر مجلدًا لهذا الملف"},
+			"destination": {"global": "الوجهة العامة", "override": "تجاوز الملف", "resolved": "الوجهة النهائية"},
+			"note": {
+				"subtitlesOnly": "يضيف هذا الملف ملفات الترجمة فقط إلى القائمة. ويتم تخطّي الفيديو والصوت وSponsorBlock وتحويل الوسائط.",
+				"noSubtitles": "لن يُطلب لهذا الملف أي ملفات ترجمة أو مسارات ترجمة مضمّنة.",
+				"noLanguages": "لم يتم اختيار أي لغة",
+				"autoCaptionsSrt": "ستُحفظ الترجمات التلقائية بصيغة SRT بدلاً من ASS.",
+				"skippedForOutputType": "تم تخطّيه لنوع الإخراج هذا."
+			},
+			"error": {"save": "تعذّر حفظ إعدادات الملف.", "changeGlobalDestination": "تعذّر تغيير الوجهة العامة.", "reset": "تعذّر إعادة تعيين إعدادات الملف."},
+			"mediaMode": {"videoAudio": {"label": "فيديو + صوت", "description": "ملفات فيديو عادية"}, "videoOnly": {"label": "فيديو، بدون صوت", "description": "فيديو صامت فقط"}, "audioOnly": {"label": "صوت فقط", "description": "موسيقى أو بودكاست"}, "subtitlesOnly": {"label": "ترجمات فقط", "description": "ملفات ترجمة فقط"}},
+			"icon": {"controls": "أدوات التحكم", "download": "تنزيل", "video": "فيديو", "captions": "ترجمات", "audio": "صوت", "music": "موسيقى", "podcast": "بودكاست", "classes": "دروس", "clip": "مقطع", "archive": "أرشيف"},
+			"audioFormat": {"best": "الأفضل", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "حتى 128K", "192": "حتى 192K", "320": "حتى 320K", "best": "أفضل جودة"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "يدوية أولاً ثم تلقائية", "manualOnly": "يدوية فقط", "autoOnly": "تلقائية فقط"},
+			"sponsorBlockHint": {"off": "بدون SponsorBlock — يُشغَّل الفيديو كما رُفع.", "mark": "يضع علامات على المقاطع الإعلانية كفصول (دون تعديل الملف).", "remove": "يقصّ المقاطع الإعلانية من الفيديو باستخدام FFmpeg."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "جارٍ التحميل…"},

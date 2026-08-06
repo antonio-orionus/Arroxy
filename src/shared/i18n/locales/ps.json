@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "{{count}} له {{total}} ټریکونه",
 			"itemsValueBulk_one": "{{count}} له {{total}} URL",
 			"itemsValueBulk_other": "{{count}} له {{total}} URLونو"
+		},
+		"profileEditor": {
+			"dialogTitle": "د ښکته کولو پروفایل",
+			"dialogDescription": "د چټک ښکته کولو، ډله ییزو پتو او لړونو لپاره یو بیا کارېدونکی تنظیم.",
+			"skipped": "پرېښودل شوی",
+			"panel": {
+				"identity": {"title": "د پروفایل پېژندنه", "description": "هغه نوم او نښه چې په چټک ښکته کولو، ډله ییزو پتو او د پروفایلونو لیستونو کې ښکاري."},
+				"downloadType": {"title": "د ښکته کولو ډول", "description": "وټاکئ چې تاسو په اصل کې څنګه ښکته کول غواړئ."},
+				"advanced": {"title": "پرمختللي انتخابونه", "description": "پروفایلونه ټولیزه موخه په میراث وړي، پرته له دې چې تاسو د پروفایل بدیل وټاکئ."},
+				"output": {"title": "د وتنې انتخابونه"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "د پروفایل نوم او نښه",
+				"icon": "د پروفایل نښه",
+				"compatibility": "برابروالی",
+				"resolution": "ریزولوشن",
+				"quality": "کیفیت",
+				"source": "سرچینه",
+				"languageCodes": "د سرلیکونو د ژبې کوډونه",
+				"subfolderName": "د فرعي پوښۍ نوم",
+				"name": "د پروفایل نوم",
+				"subtitleDownloads": "د سرلیکونو ښکته کول",
+				"languages": "ژبې",
+				"delivery": "د خوندي کولو لاره",
+				"overridePath": "د پروفایل د بدیل لاره"
+			},
+			"action": {
+				"chooseIcon": "د پروفایل نښه وټاکئ",
+				"setOverride": "د پروفایل بدیل وټاکئ",
+				"chooseFolder": "د موخې پوښۍ وټاکئ",
+				"addLanguage": "زیاتول",
+				"changeGlobalShort": "ټولیز بدلول",
+				"setOverrideShort": "بدیل وټاکئ",
+				"useGlobalDefault": "ټولیزه اصلي ارزښت وکاروئ",
+				"reset": "پروفایل بیا تنظیمول",
+				"save": "پروفایل خوندي کول"
+			},
+			"placeholder": {"folder": "د دې پروفایل لپاره یوه پوښۍ وټاکئ"},
+			"destination": {"global": "ټولیزه موخه", "override": "د پروفایل بدیل", "resolved": "وروستۍ موخه"},
+			"note": {
+				"subtitlesOnly": "دا پروفایل یوازې د سرلیکونو دوتنې په کتار کې اچوي. ویډیو، غږ، SponsorBlock او د رسنیو اړول پرېښودل کېږي.",
+				"noSubtitles": "د دې پروفایل لپاره به نه د سرلیکونو دوتنې او نه ځای پر ځای شوي سرلیک لارې وغوښتل شي.",
+				"noLanguages": "هیڅ ژبه نه ده ټاکل شوې",
+				"autoCaptionsSrt": "خودکار سرلیکونه به د ASS پر ځای د SRT په توګه خوندي شي.",
+				"skippedForOutputType": "د دې وتنې ډول لپاره پرېښودل شوی."
+			},
+			"error": {"save": "د پروفایل تنظیمات خوندي نه شول.", "changeGlobalDestination": "ټولیزه موخه بدله نه شوه.", "reset": "د پروفایل تنظیمات بیا تنظیم نه شول."},
+			"mediaMode": {
+				"videoAudio": {"label": "ویډیو + غږ", "description": "عادي ویډیو دوتنې"},
+				"videoOnly": {"label": "ویډیو، پرته له غږه", "description": "یوازې بې غږه ویډیو"},
+				"audioOnly": {"label": "یوازې غږ", "description": "موسیقي یا پډکاست"},
+				"subtitlesOnly": {"label": "یوازې سرلیکونه", "description": "یوازې د سرلیکونو دوتنې"}
+			},
+			"icon": {"controls": "کنټرولونه", "download": "ښکته کول", "video": "ویډیو", "captions": "سرلیکونه", "audio": "غږ", "music": "موسیقي", "podcast": "پډکاست", "classes": "ټولګي", "clip": "ټوټه", "archive": "آرشیف"},
+			"audioFormat": {"best": "غوره", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "تر ۱۲۸K پورې", "192": "تر ۱۹۲K پورې", "320": "تر ۳۲۰K پورې", "best": "غوره کیفیت"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "لومړی لاسي، بیا خودکار", "manualOnly": "یوازې لاسي", "autoOnly": "یوازې په خودکار ډول جوړ شوي"},
+			"sponsorBlockHint": {"off": "SponsorBlock نشته — ویډیو لکه څنګه چې پورته شوې همداسې غږېږي.", "mark": "سپانسر برخې د څپرکو په توګه په نښه کوي (دوتنه نه بدلوي).", "remove": "د FFmpeg په مرسته سپانسر برخې له ویډیو څخه پرې کوي."}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "بارول…"},

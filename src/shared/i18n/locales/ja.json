@@ -387,6 +387,67 @@
 			"itemsValueAudio_other": "全{{total}}曲中{{count}}曲",
 			"itemsValueBulk_one": "{{count}} / {{total}} URL",
 			"itemsValueBulk_other": "{{count}} / {{total}} URL"
+		},
+		"profileEditor": {
+			"dialogTitle": "ダウンロードプロフィール",
+			"dialogDescription": "クイックダウンロード、一括URL、プレイリストで使い回せる設定です。",
+			"skipped": "スキップ",
+			"panel": {
+				"identity": {"title": "プロフィール情報", "description": "クイックダウンロード、一括URL、プロフィール一覧に表示される名前とアイコンです。"},
+				"downloadType": {"title": "ダウンロードの種類", "description": "主にどの方法でダウンロードするかを選びます。"},
+				"advanced": {"title": "詳細オプション", "description": "プロフィール個別設定を指定しない限り、全体の保存先が引き継がれます。"},
+				"output": {"title": "出力オプション"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "プロフィール名とアイコン",
+				"icon": "プロフィールアイコン",
+				"compatibility": "互換性",
+				"resolution": "解像度",
+				"quality": "品質",
+				"source": "ソース",
+				"languageCodes": "字幕の言語コード",
+				"subfolderName": "サブフォルダー名",
+				"name": "プロフィール名",
+				"subtitleDownloads": "字幕のダウンロード",
+				"languages": "言語",
+				"delivery": "保存方法",
+				"overridePath": "プロフィール個別設定のパス"
+			},
+			"action": {
+				"chooseIcon": "プロフィールアイコンを選択",
+				"setOverride": "プロフィール個別設定を指定",
+				"chooseFolder": "保存先フォルダーを選択",
+				"addLanguage": "追加",
+				"changeGlobalShort": "全体設定を変更",
+				"setOverrideShort": "個別設定を指定",
+				"useGlobalDefault": "全体の既定値を使う",
+				"reset": "プロフィールをリセット",
+				"save": "プロフィールを保存"
+			},
+			"placeholder": {"folder": "このプロフィール用のフォルダーを選択"},
+			"destination": {"global": "全体の保存先", "override": "プロフィール個別設定", "resolved": "最終的な保存先"},
+			"note": {
+				"subtitlesOnly": "このプロフィールは字幕ファイルのみをキューに追加します。動画、音声、SponsorBlock、メディア変換はスキップされます。",
+				"noSubtitles": "このプロフィールでは字幕ファイルも埋め込み字幕トラックも取得しません。",
+				"noLanguages": "言語が選択されていません",
+				"autoCaptionsSrt": "自動字幕は ASS ではなく SRT として保存されます。",
+				"skippedForOutputType": "この出力形式ではスキップされます。"
+			},
+			"error": {"save": "プロフィール設定を保存できませんでした。", "changeGlobalDestination": "全体の保存先を変更できませんでした。", "reset": "プロフィール設定をリセットできませんでした。"},
+			"mediaMode": {
+				"videoAudio": {"label": "動画 + 音声", "description": "通常の動画ファイル"},
+				"videoOnly": {"label": "動画、音声なし", "description": "音声なしの動画のみ"},
+				"audioOnly": {"label": "音声のみ", "description": "音楽やポッドキャスト"},
+				"subtitlesOnly": {"label": "字幕のみ", "description": "字幕ファイルのみ"}
+			},
+			"icon": {"controls": "コントロール", "download": "ダウンロード", "video": "動画", "captions": "字幕", "audio": "音声", "music": "音楽", "podcast": "ポッドキャスト", "classes": "講座", "clip": "クリップ", "archive": "アーカイブ"},
+			"audioFormat": {"best": "最高", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "最大 128K", "192": "最大 192K", "320": "最大 320K", "best": "最高品質"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "まず手動、次に自動", "manualOnly": "手動のみ", "autoOnly": "自動生成のみ"},
+			"sponsorBlockHint": {"off": "SponsorBlock なし — 動画はアップロードされたまま再生されます。", "mark": "スポンサー区間をチャプターとして記録します（ファイルは変更しません）。", "remove": "FFmpeg でスポンサー区間を動画から切り取ります。"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "読み込み中…"},

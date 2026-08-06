@@ -362,6 +362,57 @@
 			"itemsValueAudio_other": "{{total}} में से {{count}} ट्रैक",
 			"itemsValueBulk_one": "{{total}} URL में से {{count}}",
 			"itemsValueBulk_other": "{{total}} URLs में से {{count}}"
+		},
+		"profileEditor": {
+			"dialogTitle": "डाउनलोड प्रोफ़ाइल",
+			"dialogDescription": "क्विक डाउनलोड, बल्क URL और प्लेलिस्ट के लिए एक पुन: प्रयोज्य सेटअप।",
+			"skipped": "छोड़ा गया",
+			"panel": {
+				"identity": {"title": "प्रोफ़ाइल पहचान", "description": "क्विक डाउनलोड, बल्क URL और प्रोफ़ाइल सूचियों में दिखने वाला नाम और आइकन।"},
+				"downloadType": {"title": "डाउनलोड प्रकार", "description": "चुनें कि आप मुख्य रूप से किस तरह डाउनलोड करना चाहते हैं।"},
+				"advanced": {"title": "उन्नत विकल्प", "description": "जब तक आप प्रोफ़ाइल ओवरराइड सेट नहीं करते, प्रोफ़ाइलें वैश्विक गंतव्य ही अपनाती हैं।"},
+				"output": {"title": "आउटपुट विकल्प"},
+				"sponsorBlock": {"title": "SponsorBlock"}
+			},
+			"field": {
+				"nameAndIcon": "प्रोफ़ाइल नाम और आइकन",
+				"icon": "प्रोफ़ाइल आइकन",
+				"compatibility": "संगतता",
+				"resolution": "रिज़ॉल्यूशन",
+				"quality": "गुणवत्ता",
+				"source": "स्रोत",
+				"languageCodes": "उपशीर्षक भाषा कोड",
+				"subfolderName": "सबफ़ोल्डर नाम",
+				"name": "प्रोफ़ाइल नाम",
+				"subtitleDownloads": "उपशीर्षक डाउनलोड",
+				"languages": "भाषाएँ",
+				"delivery": "सहेजने का तरीका",
+				"overridePath": "प्रोफ़ाइल ओवरराइड पथ"
+			},
+			"action": {"chooseIcon": "प्रोफ़ाइल आइकन चुनें", "setOverride": "प्रोफ़ाइल ओवरराइड सेट करें", "chooseFolder": "गंतव्य फ़ोल्डर चुनें", "addLanguage": "जोड़ें", "changeGlobalShort": "वैश्विक बदलें", "setOverrideShort": "ओवरराइड सेट करें", "useGlobalDefault": "वैश्विक डिफ़ॉल्ट उपयोग करें", "reset": "प्रोफ़ाइल रीसेट करें", "save": "प्रोफ़ाइल सहेजें"},
+			"placeholder": {"folder": "इस प्रोफ़ाइल के लिए फ़ोल्डर चुनें"},
+			"destination": {"global": "वैश्विक गंतव्य", "override": "प्रोफ़ाइल ओवरराइड", "resolved": "अंतिम गंतव्य"},
+			"note": {
+				"subtitlesOnly": "यह प्रोफ़ाइल केवल उपशीर्षक फ़ाइलें कतार में जोड़ती है। वीडियो, ऑडियो, SponsorBlock और मीडिया रूपांतरण छोड़ दिए जाते हैं।",
+				"noSubtitles": "इस प्रोफ़ाइल के लिए कोई उपशीर्षक फ़ाइल या एम्बेडेड उपशीर्षक ट्रैक नहीं माँगा जाएगा।",
+				"noLanguages": "कोई भाषा चयनित नहीं",
+				"autoCaptionsSrt": "स्वतः कैप्शन ASS के बजाय SRT के रूप में सहेजे जाएँगे।",
+				"skippedForOutputType": "इस आउटपुट प्रकार के लिए छोड़ा गया।"
+			},
+			"error": {"save": "प्रोफ़ाइल सेटिंग्स सहेजी नहीं जा सकीं।", "changeGlobalDestination": "वैश्विक गंतव्य नहीं बदला जा सका।", "reset": "प्रोफ़ाइल सेटिंग्स रीसेट नहीं हो सकीं।"},
+			"mediaMode": {
+				"videoAudio": {"label": "वीडियो + ऑडियो", "description": "सामान्य वीडियो फ़ाइलें"},
+				"videoOnly": {"label": "वीडियो, बिना ऑडियो", "description": "केवल मूक वीडियो"},
+				"audioOnly": {"label": "केवल ऑडियो", "description": "संगीत या पॉडकास्ट"},
+				"subtitlesOnly": {"label": "केवल उपशीर्षक", "description": "केवल कैप्शन फ़ाइलें"}
+			},
+			"icon": {"controls": "नियंत्रण", "download": "डाउनलोड", "video": "वीडियो", "captions": "कैप्शन", "audio": "ऑडियो", "music": "संगीत", "podcast": "पॉडकास्ट", "classes": "कक्षाएँ", "clip": "क्लिप", "archive": "संग्रह"},
+			"audioFormat": {"best": "सर्वोत्तम", "wav": "WAV"},
+			"videoAudioFormat": {"m4a": "M4A / AAC"},
+			"audioQuality": {"128": "128K तक", "192": "192K तक", "320": "320K तक", "best": "सर्वोत्तम गुणवत्ता"},
+			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
+			"subtitleSource": {"manualFirst": "पहले मैनुअल, फिर स्वतः", "manualOnly": "केवल मैनुअल", "autoOnly": "केवल स्वतः निर्मित"},
+			"sponsorBlockHint": {"off": "SponsorBlock नहीं — वीडियो जैसा अपलोड हुआ वैसा ही चलेगा।", "mark": "प्रायोजित खंडों को अध्यायों के रूप में चिह्नित करता है (फ़ाइल नहीं बदलती)।", "remove": "FFmpeg से वीडियो में से प्रायोजित खंड काट देता है।"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "लोड हो रहा है…"},
