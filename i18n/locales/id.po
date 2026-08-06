@@ -1984,7 +1984,7 @@ msgstr "Teks otomatis akan disimpan sebagai SRT, bukan ASS."
 #| msgid "No file selected"
 msgctxt "wizard.profileEditor.note.noLanguages"
 msgid "No languages selected"
-msgstr "Tidak ada bahasa dipilih"
+msgstr "Tidak ada bahasa yang dipilih"
 
 msgctxt "wizard.profileEditor.note.noSubtitles"
 msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."

@@ -395,7 +395,7 @@
 			"panel": {
 				"identity": {"title": "Profil kimliği", "description": "Hızlı İndirme, Toplu URL ve profil listelerinde görünen ad ve simge."},
 				"downloadType": {"title": "İndirme türü", "description": "Öncelikli olarak nasıl indirmek istediğinizi seçin."},
-				"advanced": {"title": "Gelişmiş seçenekler", "description": "Profil geçersiz kılması ayarlamadıkça profiller genel hedefi devralır."},
+				"advanced": {"title": "Gelişmiş seçenekler", "description": "Profil için bir geçersiz kılma ayarlamadığınız sürece profiller genel hedefi devralır."},
 				"output": {"title": "Çıktı seçenekleri"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},

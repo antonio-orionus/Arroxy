@@ -430,7 +430,7 @@
 			"note": {
 				"subtitlesOnly": "Profil ini hanya mengantrekan berkas subtitel. Video, audio, SponsorBlock, dan konversi media dilewati.",
 				"noSubtitles": "Profil ini tidak akan meminta berkas subtitel maupun trek subtitel tersemat.",
-				"noLanguages": "Tidak ada bahasa dipilih",
+				"noLanguages": "Tidak ada bahasa yang dipilih",
 				"autoCaptionsSrt": "Teks otomatis akan disimpan sebagai SRT, bukan ASS.",
 				"skippedForOutputType": "Dilewati untuk jenis keluaran ini."
 			},

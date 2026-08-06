@@ -1691,7 +1691,7 @@ msgstr "Добавить"
 #| msgid "Change global destination"
 msgctxt "wizard.profileEditor.action.changeGlobalShort"
 msgid "Change global"
-msgstr "Изменить общий"
+msgstr "Изменить общую папку"
 
 #| msgctxt "queue.item.openDestinationFolder"
 #| msgid "Open destination folder"

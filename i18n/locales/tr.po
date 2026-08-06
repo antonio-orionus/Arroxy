@@ -2002,7 +2002,7 @@ msgstr "Bu profil yalnızca altyazı dosyalarını kuyruğa alır. Video, ses, S
 
 msgctxt "wizard.profileEditor.panel.advanced.description"
 msgid "Profiles inherit the global destination unless you set a profile override."
-msgstr "Profil geçersiz kılması ayarlamadıkça profiller genel hedefi devralır."
+msgstr "Profil için bir geçersiz kılma ayarlamadığınız sürece profiller genel hedefi devralır."
 
 #| msgctxt "wizard.url.advanced"
 #| msgid "Advanced"
