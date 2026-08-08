@@ -281,7 +281,7 @@ for (const workflow of publishWorkflows) {
 	// Version-agnostic on purpose: the contract cares that Node is set up for
 	// trusted publishing, not which release of the action does it. Pinning the
 	// major here meant every setup-node bump failed the gate.
-	assert(/uses: actions\/setup-node@/.test(text), `${workflow.path} must set up Node for registry trusted publishing.`)
+	assert(text.includes('uses: actions/setup-node@'), `${workflow.path} must set up Node for registry trusted publishing.`)
 	assert(text.includes('node-version: 24'), `${workflow.path} must use Node 24 for registry trusted publishing.`)
 	assert(text.includes('registry-url: https://registry.npmjs.org'), `${workflow.path} must target the npmjs registry for trusted publishing.`)
 	assert(text.includes('package-manager-cache: false'), `${workflow.path} must keep package-manager caching disabled in publish jobs.`)
