@@ -26,7 +26,7 @@ import tr from './locales/tr.json' with {type: 'json'}
 import {SUPPORTED_LANGS, type SupportedLang, type EnTranslation, type LocaleResource} from './types.js'
 
 export {SUPPORTED_LANGS, LANGUAGE_NATIVE_NAMES} from './types.js'
-export type {SupportedLang, YtDlpErrorKind, LocalizedError} from './types.js'
+export type {SupportedLang} from './types.js'
 export {isRtl} from './rtl.js'
 
 const RESOURCES: Record<SupportedLang, LocaleResource> = {om, id, de, en, es, fr, sw, uz, vi, tr, am, ar, ur, ps, bn, hi, my, el, ru, sr, uk, zh, ja}

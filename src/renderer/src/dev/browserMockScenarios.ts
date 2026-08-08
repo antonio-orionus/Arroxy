@@ -4,7 +4,7 @@ import type {AppSettings, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUp
 import type {YtDlpErrorKind} from '@shared/schemas.js'
 import type {BrowserMockKnobs} from './browserMockKnobs.js'
 import type {AppState, SetState} from '../store/types.js'
-import {bulkStressFixture, bulkStressState, type BulkStressFixture} from './scenarios/bulkScenarios.js'
+import {bulkStressFixture, bulkStressState} from './scenarios/bulkScenarios.js'
 import {buildProbeResult, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload} from './scenarios/probeScenarios.js'
 import {buildQueueItems} from './scenarios/queueScenarios.js'
 import {buildUpdate} from './scenarios/updateScenarios.js'
@@ -109,7 +109,6 @@ export interface ScenarioWorkbenchStore {
 }
 
 export {bulkStressFixture, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload}
-export type {BulkStressFixture}
 
 export function readUrlParams(location: Pick<Location, 'search'> | URL): BrowserMockUrlParams {
 	const params = new URLSearchParams(location.search.replace(/^\?/, ''))

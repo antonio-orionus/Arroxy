@@ -1,8 +1,7 @@
 import type {AudioConvert, FormatOption, LocalizedError, ProbeError, Preset, StatusSnapshot} from '@shared/types.js'
 import {PRESETS} from '@shared/schemas.js'
 import {i18next} from '@shared/i18n/index.js'
-import type {AudioSelection, WizardStep} from './types.js'
-export type {WizardStep}
+import type {AudioSelection} from './types.js'
 
 export interface GroupedVideoFormat {
 	resolution: string

@@ -44,7 +44,6 @@ function redactProxy(url: string | undefined): string | null {
 }
 
 export type YtDlpRequest = ProbeWorkflowInput | CallerMediaWorkflowInput | CallerSubtitlesWorkflowInput
-export type {ProbePlaylistMode} from 'yt-dlp-bridge'
 
 export interface YtDlpSignal {
 	onMinting?: (attempt: 0 | 1) => void
