@@ -26,7 +26,7 @@ jobs:
             });
             core.setOutput("tag", latest.data.tag_name);
 
-      - uses: vedantmgoyal9/winget-releaser@7bd472be23763def6e16bd06cc8b1cdfab0e2fd5
+      - uses: vedantmgoyal9/winget-releaser@b3a5dae0047c6180023acba3f548c55fdf6b7193
         with:
           identifier: AntonioOrionus.Arroxy
           installers-regex: '^Arroxy-win-x64-Setup\.exe$'
