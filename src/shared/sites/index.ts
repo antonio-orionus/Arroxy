@@ -10,7 +10,7 @@ import {genericSite} from './generic.js'
 import {youtubeSite} from './youtube.js'
 import type {Site} from './types.js'
 
-export type {Site, SiteId, PlaylistEntryHint} from './types.js'
+export type {Site} from './types.js'
 
 function isYouTubeHost(url: string): boolean {
 	try {

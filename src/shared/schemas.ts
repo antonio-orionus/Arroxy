@@ -544,4 +544,4 @@ export const playlistManifestSchema = z.object({playlistGroupId: z.string().min(
 // yt-dlp info_dict shape lives in `./ytdlp/infoDict.ts` — the spec port that
 // validates `--dump-single-json` output. Schemas here are app-internal contracts
 // (settings, prefs, queue items); yt-dlp's contract is its own thing.
-export {infoDictSchema, type YtDlpFormat, type YtDlpSubtitleTrack, type InfoDict} from './ytdlp/infoDict.js'
+export {infoDictSchema, type InfoDict} from './ytdlp/infoDict.js'
