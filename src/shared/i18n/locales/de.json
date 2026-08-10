@@ -620,18 +620,23 @@
 	},
 	"filenameTemplate": {
 		"label": "Dateinamenvorlage",
-		"description": "Lege fest, wie heruntergeladene Dateien benannt werden. Klicke auf einen Platzhalter, um ihn einzufügen.",
+		"description": "Lege fest, wie heruntergeladene Dateien benannt werden. Klicke auf einen Platzhalter, um ihn einzufügen. Nutze /, um Downloads in Ordner zu sortieren.",
 		"profileOverrideLabel": "Dateinamenvorlage",
 		"profileOverrideDescription": "Leer lassen, um die globale Vorlage zu übernehmen.",
 		"idWarning": "Ohne {id} kann Arroxy bereits heruntergeladene Playlist-Einträge nicht erkennen und keine .m3u-Playlists erstellen.",
-		"m3uDisabled": "Nicht verfügbar, weil deine Dateinamenvorlage {id} nicht enthält.",
+		"m3uDisabled": "Nicht verfügbar, weil deine Dateinamenvorlage entweder {id} nicht enthält oder Downloads in Ordner sortiert.",
+		"previewSingle": "Einzelnes Video",
+		"previewPlaylist": "In einer Wiedergabeliste",
 		"error": {
 			"empty": "Gib eine Dateinamenvorlage ein.",
 			"too-long": "Die Vorlage ist zu lang.",
-			"forbidden-char": "Entferne Zeichen, die in Dateinamen nicht erlaubt sind: / \\ : * ? \" < > |",
+			"forbidden-char": "Entferne Zeichen, die in Dateinamen nicht erlaubt sind: \\ : * ? \" < > |",
 			"stray-brace": "Nicht geschlossene { oder } — schreibe Platzhalter wie {title}.",
-			"no-unique-token": "Füge {title} oder {id} hinzu, damit jeder Download einen eigenen Dateinamen erhält.",
-			"unknown-token": "Unbekannter Platzhalter {{token}}."
+			"no-unique-token": "Füge {title} oder {id} zum Dateinamen hinzu, damit jeder Download einen eigenen Namen erhält.",
+			"unknown-token": "Unbekannter Platzhalter {{token}}.",
+			"empty-segment": "Entferne das überzählige / — jeder Ordner braucht einen Namen.",
+			"invalid-segment": "Dieser Ordnername ist nicht erlaubt. Vermeide . und .. sowie reservierte Namen wie CON.",
+			"resolution-in-dir": "{resolution} kann keinen Ordner benennen — die Qualität steht erst beim Start des Downloads fest."
 		}
 	}
 }

@@ -598,18 +598,23 @@
 	},
 	"filenameTemplate": {
 		"label": "Mẫu tên tệp",
-		"description": "Chọn cách đặt tên cho tệp đã tải. Nhấp vào một thẻ để chèn.",
+		"description": "Chọn cách đặt tên tệp đã tải. Nhấp vào một token để chèn. Dùng / để sắp xếp tệp tải về vào các thư mục.",
 		"profileOverrideLabel": "Mẫu tên tệp",
 		"profileOverrideDescription": "Để trống để dùng mẫu chung.",
 		"idWarning": "Nếu không có {id}, Arroxy không thể phát hiện mục danh sách phát đã tải hoặc tạo danh sách phát .m3u.",
-		"m3uDisabled": "Không khả dụng vì mẫu tên tệp của bạn không chứa {id}.",
+		"m3uDisabled": "Không khả dụng vì mẫu tên tệp của bạn không có {id} hoặc sắp xếp tệp tải về vào thư mục.",
+		"previewSingle": "Video đơn",
+		"previewPlaylist": "Trong danh sách phát",
 		"error": {
 			"empty": "Hãy nhập mẫu tên tệp.",
 			"too-long": "Mẫu quá dài.",
-			"forbidden-char": "Hãy bỏ các ký tự không được phép trong tên tệp: / \\ : * ? \" < > |",
+			"forbidden-char": "Bỏ các ký tự không được phép trong tên tệp: \\ : * ? \" < > |",
 			"stray-brace": "{ hoặc } chưa đóng — hãy viết thẻ như {title}.",
-			"no-unique-token": "Hãy thêm {title} hoặc {id} để mỗi lượt tải có tên tệp riêng.",
-			"unknown-token": "Thẻ không xác định {{token}}."
+			"no-unique-token": "Thêm {title} hoặc {id} vào tên tệp để mỗi lần tải có tên riêng.",
+			"unknown-token": "Thẻ không xác định {{token}}.",
+			"empty-segment": "Bỏ dấu / thừa — mỗi thư mục đều cần một tên.",
+			"invalid-segment": "Tên thư mục đó không được phép. Tránh . và .. cùng các tên dành riêng như CON.",
+			"resolution-in-dir": "{resolution} không thể đặt tên thư mục — chỉ biết chất lượng khi bắt đầu tải."
 		}
 	}
 }

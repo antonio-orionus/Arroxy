@@ -154,6 +154,19 @@ Use `bun run test` (vitest), **not** `bun test` (Bun's built-in runner ignores v
 
 When adding idempotent IPC registration (`ipcMain.removeHandler()`, `autoUpdater.removeAllListeners()`), add the method as `vi.fn()` to the matching `vi.mock('electron')` / `vi.mock('electron-updater')` blocks — otherwise tests fail at module-load with `TypeError: X is not a function`.
 
+### Run Electron E2E without stealing focus
+
+Electron E2E launches a real app window, which steals focus and interrupts whoever is at the keyboard. **Always set `ARROXY_E2E_HEADLESS=1`** when running these locally:
+
+```bash
+ARROXY_E2E_HEADLESS=1 bunx playwright test tests/e2e/fixture-workflows.spec.ts --config playwright.config.ts --workers=1
+ARROXY_E2E_HEADLESS=1 bunx playwright test tests/e2e/fixture-workflows.spec.ts --config playwright.config.ts --workers=1 -g "<test name>"
+```
+
+The flag only takes effect together with `ARROXY_E2E=1` (which the fixture harness already sets) — see `isHeadlessWindowRequested()` in `src/main/e2eHarness.ts`. It maps to `show: false` on the `BrowserWindow`, so the app runs and is fully driveable, just never paints on screen. Electron has no Chrome-style `--headless`, and `xvfb-run` only helps on Linux, so this is the portable option on macOS and Windows.
+
+Rebuild first (`bun run build`) — the E2E suites launch `out/main/index.js`, not the dev server.
+
 ---
 
 ## Arroxy Testing Architecture

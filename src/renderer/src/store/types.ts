@@ -69,6 +69,13 @@ export interface ProbeOrchestratorSlice {
 	wizardTitle: string
 	wizardThumbnail: string
 	wizardDuration?: number
+	// Fields a filename template may name a *directory* after. Arroxy renders
+	// directory segments itself (it needs the path before the download starts),
+	// so these must be in state rather than left to yt-dlp. Empty when the
+	// extractor did not supply one — the segment then collapses.
+	wizardVideoId: string
+	wizardUploader: string
+	wizardUploadDate: string
 	wizardFormatsDegraded: {reasons: ProbeDegradationReason[]} | null
 	// yt-dlp's IE_NAME for the URL just probed (e.g. 'youtube', 'vimeo'). Used to
 	// gate YT-only UI (SponsorBlock step, ban warning) and threaded into PreparedJob

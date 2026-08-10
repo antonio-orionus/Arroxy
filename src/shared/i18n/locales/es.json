@@ -613,18 +613,23 @@
 	},
 	"filenameTemplate": {
 		"label": "Plantilla de nombre de archivo",
-		"description": "Elige cómo se nombran los archivos descargados. Haz clic en un elemento para insertarlo.",
+		"description": "Elige cómo se nombran los archivos descargados. Haz clic en un token para insertarlo. Usa / para ordenar las descargas en carpetas.",
 		"profileOverrideLabel": "Plantilla de nombre de archivo",
 		"profileOverrideDescription": "Déjalo vacío para heredar la plantilla global.",
 		"idWarning": "Sin {id}, Arroxy no puede detectar elementos de la lista ya descargados ni generar listas .m3u.",
-		"m3uDisabled": "No disponible porque tu plantilla de nombre de archivo no incluye {id}.",
+		"m3uDisabled": "No disponible porque tu plantilla de nombre no incluye {id} o clasifica las descargas en carpetas.",
+		"previewSingle": "Vídeo único",
+		"previewPlaylist": "En una lista de reproducción",
 		"error": {
 			"empty": "Introduce una plantilla de nombre de archivo.",
 			"too-long": "La plantilla es demasiado larga.",
-			"forbidden-char": "Quita los caracteres que no se permiten en nombres de archivo: / \\ : * ? \" < > |",
+			"forbidden-char": "Quita los caracteres que no se permiten en nombres de archivo: \\ : * ? \" < > |",
 			"stray-brace": "{ o } sin cerrar: escribe los elementos como {title}.",
-			"no-unique-token": "Añade {title} o {id} para que cada descarga tenga su propio nombre de archivo.",
-			"unknown-token": "Elemento desconocido {{token}}."
+			"no-unique-token": "Añade {title} o {id} al nombre de archivo para que cada descarga tenga el suyo.",
+			"unknown-token": "Elemento desconocido {{token}}.",
+			"empty-segment": "Quita la / de más: cada carpeta necesita un nombre.",
+			"invalid-segment": "Ese nombre de carpeta no está permitido. Evita . y .. y nombres reservados como CON.",
+			"resolution-in-dir": "{resolution} no puede dar nombre a una carpeta: la calidad no se conoce hasta que empieza la descarga."
 		}
 	}
 }

@@ -599,18 +599,23 @@
 	},
 	"filenameTemplate": {
 		"label": "Filename template",
-		"description": "Choose how downloaded files are named. Click a token to insert it.",
+		"description": "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders.",
 		"profileOverrideLabel": "Filename template",
 		"profileOverrideDescription": "Leave empty to inherit the global template.",
 		"idWarning": "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists.",
-		"m3uDisabled": "Unavailable because your filename template doesn't include {id}.",
+		"m3uDisabled": "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders.",
+		"previewSingle": "Single video",
+		"previewPlaylist": "In a playlist",
 		"error": {
 			"empty": "Enter a filename template.",
 			"too-long": "Template is too long.",
-			"forbidden-char": "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |",
+			"forbidden-char": "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |",
 			"stray-brace": "Unmatched { or } — wrap tokens like {title}.",
-			"no-unique-token": "Add {title} or {id} so each download gets its own filename.",
-			"unknown-token": "Unknown token {{token}}."
+			"no-unique-token": "Add {title} or {id} to the filename so each download gets its own name.",
+			"unknown-token": "Unknown token {{token}}.",
+			"empty-segment": "Remove the extra / — every folder needs a name.",
+			"invalid-segment": "That folder name isn't allowed. Avoid . and .. and reserved names like CON.",
+			"resolution-in-dir": "{resolution} can't name a folder — the quality isn't known until the download starts."
 		}
 	}
 }

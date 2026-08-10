@@ -97,7 +97,16 @@ const videoFieldsSchema = z.object({
 	// playable_in_embed is True/False/None/string per spec — we don't read it,
 	// and the loose schema lets it pass through unchecked. Removed from the
 	// typed surface so a string value (e.g. 'whitelist') doesn't fail validation.
-	age_limit: optNum
+	age_limit: optNum,
+	// Attribution fields. Typed rather than left to the loose passthrough
+	// because filename templates can name a *directory* after {uploader} /
+	// {date}, and Arroxy renders those itself. The four-field chain mirrors the
+	// compiled `%(uploader,channel,creator,uploader_id)` output template.
+	uploader: optStr,
+	channel: optStr,
+	creator: optStr,
+	uploader_id: optStr,
+	upload_date: optStr
 })
 
 const playlistFieldsSchema = z.object({id: optStr, title: optStr, thumbnail: optStr, thumbnails: z.preprocess(nullToUndef, z.array(thumbnailObjectSchema).optional()), webpage_url: optStr, extractor: optStr, extractor_key: optStr, playlist_id: optStr, playlist_title: optStr, playlist_count: optNum})

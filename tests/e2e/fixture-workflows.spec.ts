@@ -330,3 +330,99 @@ test('Electron filename template without {id} skips the M3U it could never match
 		}
 	)
 })
+
+test('Electron nesting filename template sorts a playlist into folders without duplicating the playlist folder', async () => {
+	test.setTimeout(220_000)
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-nested-template-user-',
+			outputPrefix: 'arroxy-fixture-nested-template-out-',
+			settings: settings => {
+				// The exact shape the feature request asked for, in Arroxy token syntax.
+				settings.common.filenameTemplate = '{playlist_title}/{playlist_index} - {title} [{id}]'
+			}
+		},
+		async ({page, outputDir, urls, files}) => {
+			await preparePlaylistConfirm(page, urls.playlist())
+			await page.locator('[data-testid="btn-add-to-queue"]').click()
+
+			await openQueueTab(page)
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 160_000})
+
+			const playlistDir = path.join(outputDir, 'Fixture Playlist')
+			files.expectMp4Count(FIXTURE_PLAYLIST_VIDEO_IDS.length, playlistDir)
+
+			// The template renders the playlist folder, so the auto-folder must step
+			// aside — otherwise every file lands in 'Fixture Playlist/Fixture Playlist'.
+			expect(fs.existsSync(path.join(playlistDir, 'Fixture Playlist'))).toBe(false)
+
+			// Zero-padded index prefix, in playlist order.
+			const produced = files
+				.mediaFiles('mp4', playlistDir)
+				.map(file => path.basename(file))
+				.sort()
+			expect(produced.map(name => name.slice(0, 5))).toEqual(FIXTURE_PLAYLIST_VIDEO_IDS.map((_, index) => `${String(index + 1).padStart(3, '0')} - `.slice(0, 5)))
+			expect(produced.every(name => /^\d{3} - Fixture Video \d+ \[ARX[0-9A-Z]{8}\]\.mp4$/.test(name))).toBe(true)
+
+			// A nesting template can scatter entries across folders, so the playlist
+			// file that would point at one directory is not written.
+			expect(fs.existsSync(path.join(playlistDir, 'Fixture Playlist.m3u'))).toBe(false)
+		}
+	)
+})
+
+test('Electron filename template names a folder after the uploader for a single video', async () => {
+	test.setTimeout(140_000)
+	const videoId = FIXTURE_VIDEO_IDS[7]
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-uploader-dir-user-',
+			outputPrefix: 'arroxy-fixture-uploader-dir-out-',
+			settings: settings => {
+				configureSmallFileQuickProfile(settings)
+				// {uploader} is resolved by Arroxy here, not yt-dlp, because it names a
+				// directory the app must know before the download starts.
+				settings.common.filenameTemplate = '{uploader}/{title}'
+			}
+		},
+		async ({page, outputDir, urls, queue, files}) => {
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
+			await page.locator('[data-testid="profiles-quick-download"]').click()
+			await queue.expectStatus('Fixture Video 8', 'done', 120_000)
+
+			const uploaderDir = path.join(smallFileProfileDir(outputDir), 'Arroxy Fixtures')
+			const produced = files.mediaFiles('mp4', uploaderDir).map(file => path.basename(file))
+			expect(produced).toEqual(['Fixture Video 8.mp4'])
+		}
+	)
+})
+
+test('Electron nesting template collapses the folder when the flat playlist probe has no uploader', async () => {
+	test.setTimeout(220_000)
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-collapse-user-',
+			outputPrefix: 'arroxy-fixture-collapse-out-',
+			settings: settings => {
+				// The fixture playlist supplies no per-entry uploader — the real sparse
+				// case. The folder must collapse rather than become 'NA' or empty.
+				settings.common.filenameTemplate = '{uploader}/{title} [{id}]'
+			}
+		},
+		async ({page, outputDir, urls, files}) => {
+			await preparePlaylistConfirm(page, urls.playlist())
+			await page.locator('[data-testid="btn-add-to-queue"]').click()
+
+			await openQueueTab(page)
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 160_000})
+
+			files.expectMp4Count(FIXTURE_PLAYLIST_VIDEO_IDS.length, outputDir)
+			for (const stray of ['NA', 'Arroxy Fixtures', 'Playlist']) {
+				expect(fs.existsSync(path.join(outputDir, stray))).toBe(false)
+			}
+		}
+	)
+})

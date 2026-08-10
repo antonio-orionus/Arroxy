@@ -620,18 +620,23 @@
 	},
 	"filenameTemplate": {
 		"label": "Modèle de nom de fichier",
-		"description": "Choisissez comment les fichiers téléchargés sont nommés. Cliquez sur un élément pour l'insérer.",
+		"description": "Choisis comment les fichiers téléchargés sont nommés. Clique sur un jeton pour l'insérer. Utilise / pour trier les téléchargements dans des dossiers.",
 		"profileOverrideLabel": "Modèle de nom de fichier",
 		"profileOverrideDescription": "Laissez vide pour hériter du modèle global.",
 		"idWarning": "Sans {id}, Arroxy ne peut pas détecter les éléments de playlist déjà téléchargés ni générer de playlists .m3u.",
-		"m3uDisabled": "Indisponible car votre modèle de nom de fichier ne contient pas {id}.",
+		"m3uDisabled": "Indisponible car ton modèle de nom de fichier n'inclut pas {id} ou trie les téléchargements dans des dossiers.",
+		"previewSingle": "Vidéo seule",
+		"previewPlaylist": "Dans une playlist",
 		"error": {
 			"empty": "Saisissez un modèle de nom de fichier.",
 			"too-long": "Le modèle est trop long.",
-			"forbidden-char": "Supprimez les caractères interdits dans les noms de fichiers : / \\ : * ? \" < > |",
+			"forbidden-char": "Supprime les caractères interdits dans les noms de fichiers : \\ : * ? \" < > |",
 			"stray-brace": "{ ou } non fermée — écrivez les éléments comme {title}.",
-			"no-unique-token": "Ajoutez {title} ou {id} pour que chaque téléchargement ait son propre nom de fichier.",
-			"unknown-token": "Élément inconnu {{token}}."
+			"no-unique-token": "Ajoute {title} ou {id} au nom de fichier pour que chaque téléchargement ait le sien.",
+			"unknown-token": "Élément inconnu {{token}}.",
+			"empty-segment": "Supprime le / en trop — chaque dossier doit avoir un nom.",
+			"invalid-segment": "Ce nom de dossier n'est pas autorisé. Évite . et .. ainsi que les noms réservés comme CON.",
+			"resolution-in-dir": "{resolution} ne peut pas nommer un dossier — la qualité n'est connue qu'au démarrage du téléchargement."
 		}
 	}
 }

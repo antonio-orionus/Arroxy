@@ -318,6 +318,11 @@ export interface PlaylistEntry {
 	playlistIndex: number
 	videoId: string | null // raw yt-dlp %(id)s; null when extractor yields none
 	probeInfoJsonRef?: ProbeInfoJsonRef
+	// Filename templates can name directories after {uploader} / {date}, and
+	// Arroxy renders those itself because it needs the path before downloading.
+	// Sparse on flat playlist probes — an absent value collapses the folder.
+	uploader?: string // uploader → channel → creator → uploader_id, resolved at probe time
+	uploadDate?: string // raw yt-dlp upload_date (YYYYMMDD)
 }
 
 export type ProbePlaylistMode = 'auto' | 'video' | 'playlist'
@@ -361,6 +366,9 @@ export interface VideoProbeResult extends ProbeCommon {
 	availability?: string
 	ageLimit?: number
 	degraded?: {reasons: ProbeDegradationReason[]}
+	// See PlaylistEntry for why these exist and how absence is handled.
+	uploader?: string // uploader → channel → creator → uploader_id, resolved at probe time
+	uploadDate?: string // raw yt-dlp upload_date (YYYYMMDD)
 }
 
 export interface PlaylistProbeResult extends ProbeCommon {

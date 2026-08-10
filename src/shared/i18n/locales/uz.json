@@ -623,18 +623,23 @@
 	},
 	"filenameTemplate": {
 		"label": "Fayl nomi shabloni",
-		"description": "Yuklab olingan fayllar qanday nomlanishini tanlang. Qo'shish uchun tokenni bosing.",
+		"description": "Yuklab olingan fayllar qanday nomlanishini tanlang. Qo'shish uchun tokenni bosing. Yuklamalarni papkalarga ajratish uchun / dan foydalaning.",
 		"profileOverrideLabel": "Fayl nomi shabloni",
 		"profileOverrideDescription": "Umumiy shablondan foydalanish uchun bo'sh qoldiring.",
 		"idWarning": "{id} bo'lmasa, Arroxy allaqachon yuklab olingan pleylist elementlarini aniqlay olmaydi va .m3u pleylistlar yarata olmaydi.",
-		"m3uDisabled": "Fayl nomi shabloningizda {id} yo'qligi uchun mavjud emas.",
+		"m3uDisabled": "Mavjud emas, chunki fayl nomi shabloningizda {id} yo'q yoki u yuklamalarni papkalarga ajratadi.",
+		"previewSingle": "Yakka video",
+		"previewPlaylist": "Pleylistda",
 		"error": {
 			"empty": "Fayl nomi shablonini kiriting.",
 			"too-long": "Shablon juda uzun.",
-			"forbidden-char": "Fayl nomlarida ruxsat etilmagan belgilarni olib tashlang: / \\ : * ? \" < > |",
+			"forbidden-char": "Fayl nomlarida ruxsat etilmagan belgilarni olib tashlang: \\ : * ? \" < > |",
 			"stray-brace": "Yopilmagan { yoki } — tokenlarni {title} kabi yozing.",
-			"no-unique-token": "Har bir yuklab olish o'z fayl nomiga ega bo'lishi uchun {title} yoki {id} qo'shing.",
-			"unknown-token": "Noma'lum token {{token}}."
+			"no-unique-token": "Har bir yuklama o'z nomiga ega bo'lishi uchun fayl nomiga {title} yoki {id} qo'shing.",
+			"unknown-token": "Noma'lum token {{token}}.",
+			"empty-segment": "Ortiqcha / ni olib tashlang — har bir papkaga nom kerak.",
+			"invalid-segment": "Bu papka nomiga ruxsat berilmaydi. . va .. hamda CON kabi band nomlardan saqlaning.",
+			"resolution-in-dir": "{resolution} papkaga nom bo'la olmaydi — sifat yuklash boshlangunga qadar noma'lum."
 		}
 	}
 }

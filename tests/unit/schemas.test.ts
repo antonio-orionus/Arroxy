@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {startDownloadSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema} from '@shared/schemas.js'
+import {startDownloadSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema, FILENAME_TEMPLATE_MAX} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 
 const IDENTITY = {extractor: 'youtube', extractorKey: 'Youtube'}
@@ -250,14 +250,16 @@ describe('updateSettingsSchema — common.filenameTemplate', () => {
 	})
 
 	it('accepts a filenameTemplate exactly at the length cap', () => {
-		// Pairs with the rejection below to pin the cap as inclusive.
-		const atCap = `{title}${'x'.repeat(113)}`
-		expect(atCap).toHaveLength(120)
+		// Pairs with the rejection below to pin the cap as inclusive. Derived from
+		// the constant rather than hardcoded so raising the cap does not require
+		// editing an assertion that was never about a specific number.
+		const atCap = `{title}${'x'.repeat(FILENAME_TEMPLATE_MAX - '{title}'.length)}`
+		expect(atCap).toHaveLength(FILENAME_TEMPLATE_MAX)
 		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: atCap}}).success).toBe(true)
 	})
 
 	it('rejects a filenameTemplate past the length cap', () => {
-		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: 'x'.repeat(121)}}).success).toBe(false)
+		expect(updateSettingsSchema.safeParse({common: {filenameTemplate: 'x'.repeat(FILENAME_TEMPLATE_MAX + 1)}}).success).toBe(false)
 	})
 })
 

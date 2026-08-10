@@ -546,18 +546,23 @@
 	},
 	"filenameTemplate": {
 		"label": "文件名模板",
-		"description": "选择下载文件的命名方式。点击标记即可插入。",
+		"description": "选择下载文件的命名方式。点击标记即可插入。使用 / 可将下载内容分类到文件夹。",
 		"profileOverrideLabel": "文件名模板",
 		"profileOverrideDescription": "留空则沿用全局模板。",
 		"idWarning": "缺少 {id} 时，Arroxy 无法检测已下载的播放列表项，也无法生成 .m3u 播放列表。",
-		"m3uDisabled": "不可用，因为你的文件名模板不包含 {id}。",
+		"m3uDisabled": "不可用，因为你的文件名模板未包含 {id}，或将下载内容分类到了文件夹。",
+		"previewSingle": "单个视频",
+		"previewPlaylist": "在播放列表中",
 		"error": {
 			"empty": "请输入文件名模板。",
 			"too-long": "模板过长。",
-			"forbidden-char": "请删除文件名中不允许的字符：/ \\ : * ? \" < > |",
+			"forbidden-char": "请删除文件名中不允许的字符: \\ : * ? \" < > |",
 			"stray-brace": "{ 或 } 未配对 — 标记请写成 {title} 这样的形式。",
-			"no-unique-token": "请添加 {title} 或 {id}，让每个下载拥有各自的文件名。",
-			"unknown-token": "未知标记 {{token}}。"
+			"no-unique-token": "请在文件名中加入 {title} 或 {id}，让每个下载都有自己的名称。",
+			"unknown-token": "未知标记 {{token}}。",
+			"empty-segment": "请删除多余的 / — 每个文件夹都需要名称。",
+			"invalid-segment": "该文件夹名称不被允许。请避免 . 和 .. 以及 CON 之类的保留名称。",
+			"resolution-in-dir": "{resolution} 不能用作文件夹名称 — 画质要到下载开始后才能确定。"
 		}
 	}
 }
