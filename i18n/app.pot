@@ -199,19 +199,31 @@ msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-d
 msgstr ""
 
 msgctxt "filenameTemplate.description"
-msgid "Choose how downloaded files are named. Click a token to insert it."
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
 msgstr ""
 
 msgctxt "filenameTemplate.error.empty"
 msgid "Enter a filename template."
 msgstr ""
 
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr ""
+
 msgctxt "filenameTemplate.error.forbidden-char"
-msgid "Remove characters that aren't allowed in filenames: / \\ : * ? \" < > |"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr ""
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
 msgstr ""
 
 msgctxt "filenameTemplate.error.no-unique-token"
-msgid "Add {title} or {id} so each download gets its own filename."
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr ""
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
 msgstr ""
 
 msgctxt "filenameTemplate.error.stray-brace"
@@ -235,7 +247,15 @@ msgid "Filename template"
 msgstr ""
 
 msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template doesn't include {id}."
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr ""
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr ""
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
 msgstr ""
 
 msgctxt "filenameTemplate.profileOverrideDescription"

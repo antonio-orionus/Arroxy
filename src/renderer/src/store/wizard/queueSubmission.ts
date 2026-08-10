@@ -7,13 +7,14 @@ import {prepareJob} from '@shared/prepareJob.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {sanitizeJobOptions} from '@shared/sanitizeJobOptions.js'
 import {playlistBaseDir} from '@shared/subfolder.js'
+import {bindFilenameTemplate, templateOutputDir} from '@shared/filenameTemplate.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
 import i18next from 'i18next'
 import type {AppState} from '../types.js'
 import {buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution} from '../helpers.js'
 import {resolveOutputContainer} from './resolveContainer.js'
 import {resolvePlaylistDir} from './playlistDir.js'
-import {canMatchDownloadsById, resolveJobFilenameTemplate} from './outputTemplates.js'
+import {canWriteM3u, playlistEntryTemplateMeta, resolveJobFilenameTemplate, singleTemplateMeta, templateOwnsDirs} from './outputTemplates.js'
 import {playlistTitleFallback} from './playlistTitle.js'
 
 export interface PlaylistManifestPayload {
@@ -32,7 +33,13 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	const {wizardUrl, wizardTitle, wizardThumbnail, wizardOutputDir} = state
 	const {wizardSubfolderEnabled, wizardSubfolderName} = state
 	const {selectedVideoFormatId, audioSelection, activePreset, wizardFormats} = state
-	const outputDir = effectiveOutputDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName)
+	const template = resolveJobFilenameTemplate(undefined, state.settings?.common?.filenameTemplate)
+	const templateMeta = singleTemplateMeta(state)
+	// A nesting template renders its directories below the subfolder root; a flat
+	// one leaves the root as-is. The job then carries the filename segment alone,
+	// with the tokens yt-dlp cannot know already bound.
+	const outputDir = templateOutputDir(effectiveOutputDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName), template, templateMeta)
+	const filenameTemplate = bindFilenameTemplate(template, templateMeta)
 
 	const audioFormats = wizardFormats.filter(f => f.isAudioOnly)
 	const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, 'audio-only')
@@ -63,7 +70,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 		audioConvert,
 		activePreset,
 		expectedBytes,
-		filenameTemplate: resolveJobFilenameTemplate(undefined, state.settings?.common?.filenameTemplate),
+		filenameTemplate,
 		subtitles,
 		sponsorBlockMode: overrides.sponsorBlockMode,
 		sponsorBlockCategories: state.wizardSponsorBlockCategories,
@@ -86,7 +93,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 		addedAt: new Date().toISOString(),
 		finishedAt: null,
 		artifacts: [],
-		writeM3u: state.wizardWriteM3u && canMatchDownloadsById(undefined, state.settings?.common?.filenameTemplate),
+		writeM3u: state.wizardWriteM3u && canWriteM3u(undefined, state.settings?.common?.filenameTemplate),
 		...(state.wizardProbeInfoJsonRef ? {probeInfoJsonRef: state.wizardProbeInfoJsonRef} : {}),
 		job
 	}
@@ -106,10 +113,13 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 	const {playlistSelection} = state
 	if (!playlistSelection) throw new Error('playlist selection missing')
 
-	const baseDir = resolvePlaylistDir(state)
-
 	const formatLabel = resolvePlaylistFormatLabel(playlistSelection)
-	const filenameTemplate = resolveJobFilenameTemplate(undefined, state.settings?.common?.filenameTemplate)
+	const template = resolveJobFilenameTemplate(undefined, state.settings?.common?.filenameTemplate)
+	const templateMeta = playlistEntryTemplateMeta(entry, state.playlistTitle, state.playlistId)
+	// Per entry, not per playlist: a nesting template may sort entries into
+	// different folders (by uploader, by date) within the same playlist.
+	const baseDir = templateOwnsDirs(undefined, state.settings?.common?.filenameTemplate) ? templateOutputDir(effectiveOutputDir(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName), template, templateMeta) : resolvePlaylistDir(state)
+	const filenameTemplate = bindFilenameTemplate(template, templateMeta)
 
 	const embed: EmbedOptions = {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail}
 
@@ -134,7 +144,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 		artifacts: [],
 		...(state.wizardMode === 'playlist' ? {playlistGroupId} : {}),
 		...(entry.probeInfoJsonRef ? {probeInfoJsonRef: entry.probeInfoJsonRef} : {}),
-		writeM3u: state.wizardMode === 'playlist' && state.wizardWriteM3u && canMatchDownloadsById(undefined, state.settings?.common?.filenameTemplate),
+		writeM3u: state.wizardMode === 'playlist' && state.wizardWriteM3u && canWriteM3u(undefined, state.settings?.common?.filenameTemplate),
 		job
 	}
 }
@@ -153,7 +163,9 @@ export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): 
 	const selected = state.playlistItems.filter(e => state.selectedPlaylistItemIds.includes(e.id))
 	if (selected.length === 0) return null
 	const items = selected.map(e => buildPlaylistQueueItem(e, state, playlistGroupId, lane))
-	const baseDir = items[0]?.outputDir ?? state.wizardOutputDir
+	// The playlist root, not the first item's folder — a nesting template can put
+	// item 0 in an uploader-specific subfolder that does not represent the set.
+	const baseDir = resolvePlaylistDir(state)
 	return {items, ...(state.wizardMode === 'playlist' ? {manifest: playlistManifestPayload(state, playlistGroupId, baseDir)} : {})}
 }
 
@@ -227,16 +239,17 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 	const singleOutputDir = resolveDownloadProfileOutputDir(profile, outputContext)
 
 	if (probe.kind === 'video') {
-		const filenameTemplate = resolveJobFilenameTemplate(profile, state.settings?.common?.filenameTemplate)
+		const template = resolveJobFilenameTemplate(profile, state.settings?.common?.filenameTemplate)
+		const templateMeta = {title: probe.title, id: probe.videoId, uploader: probe.uploader, uploadDate: probe.uploadDate}
 		const item = buildProfileEntryQueueItem({
 			entry: {url: probe.webpageUrl || state.wizardUrl, title: probe.title, thumbnail: probe.thumbnail},
 			probeInfoJsonRef: probe.probeInfoJsonRef,
-			outputDir: singleOutputDir,
+			outputDir: templateOutputDir(singleOutputDir, template, templateMeta),
 			extractor: probe.extractor,
 			extractorKey: probe.extractorKey,
 			resolved,
 			profile,
-			filenameTemplate,
+			filenameTemplate: bindFilenameTemplate(template, templateMeta),
 			nativeAudioPreference,
 			writeM3u: false,
 			lane
@@ -245,24 +258,29 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 	}
 
 	const playlistGroupId = generateId()
-	const outputDir = playlistBaseDir(baseDir, profile.subfolder.enabled, profile.subfolder.name, probe.playlistTitle)
-	const writeM3u = (state.settings?.common?.writeM3u ?? DEFAULTS.writeM3u) && canMatchDownloadsById(profile, state.settings?.common?.filenameTemplate)
-	const items = probe.entries.map(entry =>
-		buildProfileEntryQueueItem({
+	const profileTemplate = resolveJobFilenameTemplate(profile, state.settings?.common?.filenameTemplate)
+	const ownsDirs = templateOwnsDirs(profile, state.settings?.common?.filenameTemplate)
+	// When the template owns layout the auto-folder steps aside, otherwise a
+	// `{playlist_title}/…` template would nest the playlist title twice.
+	const playlistRoot = ownsDirs ? resolveDownloadProfileOutputDir(profile, outputContext) : playlistBaseDir(baseDir, profile.subfolder.enabled, profile.subfolder.name, probe.playlistTitle)
+	const writeM3u = (state.settings?.common?.writeM3u ?? DEFAULTS.writeM3u) && canWriteM3u(profile, state.settings?.common?.filenameTemplate)
+	const items = probe.entries.map(entry => {
+		const entryMeta = playlistEntryTemplateMeta(entry, probe.playlistTitle, probe.playlistId)
+		return buildProfileEntryQueueItem({
 			entry,
 			probeInfoJsonRef: entry.probeInfoJsonRef,
-			outputDir,
+			outputDir: ownsDirs ? templateOutputDir(playlistRoot, profileTemplate, entryMeta) : playlistRoot,
 			extractor: probe.extractor,
 			extractorKey: probe.extractorKey,
 			resolved,
 			profile,
-			filenameTemplate: resolveJobFilenameTemplate(profile, state.settings?.common?.filenameTemplate),
+			filenameTemplate: bindFilenameTemplate(profileTemplate, entryMeta),
 			nativeAudioPreference,
 			playlistGroupId,
 			writeM3u,
 			lane
 		})
-	)
+	})
 	if (items.length === 0) return null
-	return {items, manifest: {playlistGroupId, playlistTitle: playlistTitleFallback(probe.playlistTitle, state.playlistTitle), outputDir, items: probe.entries.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))}}
+	return {items, manifest: {playlistGroupId, playlistTitle: playlistTitleFallback(probe.playlistTitle, state.playlistTitle), outputDir: playlistRoot, items: probe.entries.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))}}
 }

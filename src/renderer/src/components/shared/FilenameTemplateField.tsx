@@ -15,7 +15,10 @@ const ERROR_KEYS = {
 	'forbidden-char': 'filenameTemplate.error.forbidden-char',
 	'stray-brace': 'filenameTemplate.error.stray-brace',
 	'no-unique-token': 'filenameTemplate.error.no-unique-token',
-	'unknown-token': 'filenameTemplate.error.unknown-token'
+	'unknown-token': 'filenameTemplate.error.unknown-token',
+	'empty-segment': 'filenameTemplate.error.empty-segment',
+	'invalid-segment': 'filenameTemplate.error.invalid-segment',
+	'resolution-in-dir': 'filenameTemplate.error.resolution-in-dir'
 } as const satisfies Record<FilenameTemplateFailure['code'], string>
 
 export interface FilenameTemplateFieldProps {
@@ -60,7 +63,12 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 		[onChange, value]
 	)
 
-	const preview = error ? null : previewFilenameTemplate(value)
+	const preview = error ? null : previewFilenameTemplate(value, 'video')
+	const playlistPreview = error ? null : previewFilenameTemplate(value, 'playlist')
+	// A template can resolve differently in the two cases — folders built from
+	// playlist metadata collapse for a single video. Showing both is the only way
+	// the user sees that before downloading, so label them only when they differ.
+	const previewsDiffer = preview !== null && playlistPreview !== null && preview !== playlistPreview
 	// Only warn once the template is otherwise valid — an error message plus a
 	// warning about the same input is noise.
 	const showIdWarning = !error && value.trim() !== '' && !templateHasId(value)
@@ -89,9 +97,18 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 					{t(ERROR_KEYS[error.code], {token: error.code === 'unknown-token' ? error.token : ''})}
 				</p>
 			) : preview ? (
-				<p className="font-mono text-[11px] text-[var(--text-subtle)]" data-testid="filename-template-preview">
-					{preview}
-				</p>
+				<div className="flex flex-col gap-0.5">
+					<p className="font-mono text-[11px] text-[var(--text-subtle)]" data-testid="filename-template-preview">
+						{previewsDiffer ? `${t('filenameTemplate.previewSingle')}: ` : ''}
+						{preview}
+					</p>
+					{previewsDiffer ? (
+						<p className="font-mono text-[11px] text-[var(--text-subtle)]" data-testid="filename-template-preview-playlist">
+							{`${t('filenameTemplate.previewPlaylist')}: `}
+							{playlistPreview}
+						</p>
+					) : null}
+				</div>
 			) : null}
 
 			{showIdWarning ? (

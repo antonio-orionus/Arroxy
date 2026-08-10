@@ -1,7 +1,7 @@
 import {type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
-import {canMatchDownloadsById} from '../../store/wizard/outputTemplates.js'
+import {canWriteM3u} from '../../store/wizard/outputTemplates.js'
 import {Separator} from '../ui/separator.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {Switch} from '../ui/switch.js'
@@ -11,7 +11,9 @@ export function StepOutput(): ReactNode {
 	const {wizardMode, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardWriteM3u, setEmbedChapters, setEmbedMetadata, setEmbedThumbnail, setWriteDescription, setWriteThumbnail, setWriteM3u, advance, back, settings} = useAppStore()
 	// Playlist files are located by matching `[videoId]`; without {id} in the
 	// filename template an M3U would list names that never appear on disk.
-	const canMatchById = canMatchDownloadsById(undefined, settings?.common?.filenameTemplate)
+	// Gated on both reasons M3U can be impossible: no {id} to match files by, and
+	// a nesting template that scatters entries across folders.
+	const canMatchById = canWriteM3u(undefined, settings?.common?.filenameTemplate)
 	const isPlaylist = wizardMode === 'playlist'
 
 	return (

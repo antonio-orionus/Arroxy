@@ -323,13 +323,31 @@ function mapPlaylistEntriesInner(entries: readonly InfoDict[], jobUrl: string, s
 		// selection would produce two queue items. Index-prefixing guarantees
 		// 1 row = 1 stable id even when the underlying yt-dlp id collides.
 		const videoIdPart = typeof v.id === 'string' && v.id.length > 0 ? v.id : url
-		out.push({id: `${playlistIndex}::${videoIdPart}`, url, title, thumbnail: pickEntryThumbnail(entry), duration: typeof v.duration === 'number' ? Math.round(v.duration) : undefined, playlistIndex, videoId: idStr.length > 0 ? idStr : null})
+		out.push({id: `${playlistIndex}::${videoIdPart}`, url, title, thumbnail: pickEntryThumbnail(entry), duration: typeof v.duration === 'number' ? Math.round(v.duration) : undefined, playlistIndex, videoId: idStr.length > 0 ? idStr : null, uploader: resolveUploader(v), uploadDate: resolveUploadDate(v)})
 		fallbackIndex++
 	}
 	if (droppedContainerCount > 0) {
 		logger.info('Playlist entries filtered: dropped nested containers', {jobUrl, droppedContainerCount, keptCount: out.length})
 	}
 	return out
+}
+
+/**
+ * Resolve the uploader the same way the compiled `{uploader}` output template
+ * does (`%(uploader,channel,creator,uploader_id)`). Arroxy renders `{uploader}`
+ * itself in directory position, so drifting from that chain would put a video
+ * in a folder named differently from the file yt-dlp writes inside it.
+ */
+function resolveUploader(source: {uploader?: string; channel?: string; creator?: string; uploader_id?: string}): string | undefined {
+	for (const candidate of [source.uploader, source.channel, source.creator, source.uploader_id]) {
+		if (typeof candidate === 'string' && candidate.trim().length > 0) return candidate.trim()
+	}
+	return undefined
+}
+
+function resolveUploadDate(source: {upload_date?: string}): string | undefined {
+	// Anything not YYYYMMDD would render a nonsense folder name, so drop it.
+	return source.upload_date !== undefined && /^\d{8}$/.test(source.upload_date) ? source.upload_date : undefined
 }
 
 function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reasons: ProbeDegradationReason[]} | undefined, probeInfoJsonRef?: ProbeInfoJsonRef): ProbeResult {
@@ -353,6 +371,8 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reaso
 		hasDrm: info.has_drm === true,
 		availability: typeof info.availability === 'string' ? info.availability : undefined,
 		ageLimit: typeof info.age_limit === 'number' && info.age_limit > 0 ? info.age_limit : undefined,
+		uploader: resolveUploader(info),
+		uploadDate: resolveUploadDate(info),
 		...(degraded ? {degraded} : {})
 	}
 }

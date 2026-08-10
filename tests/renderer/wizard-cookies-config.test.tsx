@@ -149,6 +149,57 @@ describe('advanced network settings', () => {
 		})
 	})
 
+	it('shows one preview when a template resolves identically for a single video and a playlist', async () => {
+		render(<StepUrlInput />)
+		openSettingsTab()
+
+		fireEvent.change(screen.getByTestId('filename-template-input'), {target: {value: '{title} [{id}]'}})
+
+		await waitFor(() => {
+			expect(screen.getByTestId('filename-template-preview')).toHaveTextContent('Big Buck Bunny [YE7VzlLtp-4].mp4')
+		})
+		expect(screen.queryByTestId('filename-template-preview-playlist')).toBeNull()
+	})
+
+	it('shows both previews when a folder collapses for a single video', async () => {
+		// The whole point of the second preview: `{playlist_title}/` builds a folder
+		// for playlist items and none at all for a standalone video, and the user
+		// should see that before downloading rather than after.
+		render(<StepUrlInput />)
+		openSettingsTab()
+
+		fireEvent.change(screen.getByTestId('filename-template-input'), {target: {value: '{playlist_title}/{title} [{id}]'}})
+
+		await waitFor(() => {
+			expect(screen.getByTestId('filename-template-preview')).toHaveTextContent('Big Buck Bunny [YE7VzlLtp-4].mp4')
+		})
+		expect(screen.getByTestId('filename-template-preview-playlist')).toHaveTextContent('Nature Docs/Big Buck Bunny [YE7VzlLtp-4].mp4')
+	})
+
+	it('rejects {resolution} as a folder and explains why', async () => {
+		render(<StepUrlInput />)
+		openSettingsTab()
+
+		fireEvent.change(screen.getByTestId('filename-template-input'), {target: {value: '{resolution}/{title}'}})
+
+		await waitFor(() => {
+			expect(screen.getByTestId('filename-template-error')).toHaveTextContent(/quality isn't known/i)
+		})
+		expect(screen.queryByTestId('filename-template-preview')).toBeNull()
+	})
+
+	it('offers the playlist folder token as a chip', async () => {
+		render(<StepUrlInput />)
+		openSettingsTab()
+
+		fireEvent.change(screen.getByTestId('filename-template-input'), {target: {value: ''}})
+		fireEvent.click(screen.getByTestId('filename-token-playlist_title'))
+
+		await waitFor(() => {
+			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {filenameTemplate: '{playlist_title}'}})
+		})
+	})
+
 	it('saves the global native audio preference', async () => {
 		render(<StepUrlInput />)
 		openSettingsTab()

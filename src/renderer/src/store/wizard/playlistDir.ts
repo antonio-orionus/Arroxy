@@ -1,11 +1,32 @@
-import {playlistBaseDir} from '@shared/subfolder.js'
+import {templateOutputDir} from '@shared/filenameTemplate.js'
+import {effectiveOutputDir, playlistBaseDir} from '@shared/subfolder.js'
 import type {AppState} from '../types.js'
+import {resolveJobFilenameTemplate, templateOwnsDirs} from './outputTemplates.js'
+
+type PlaylistDirState = Pick<AppState, 'wizardOutputDir' | 'wizardSubfolderEnabled' | 'wizardSubfolderName' | 'playlistTitle' | 'playlistId' | 'settings'>
 
 // Single source of truth for where a playlist's files land — used by the queue
 // builder (download target), the folder scan, and the sync alert (display).
-// Derived from the output base + explicit/auto (playlist-title) subfolder; the
-// sync "Change folder" action keeps this in sync by writing back base+subfolder
-// (see setPlaylistFolder), so there is exactly one representation.
-export function resolvePlaylistDir(s: Pick<AppState, 'wizardOutputDir' | 'wizardSubfolderEnabled' | 'wizardSubfolderName' | 'playlistTitle'>): string {
+//
+// Two regimes:
+//   - Flat template: output base + explicit/auto (playlist-title) subfolder. The
+//     sync "Change folder" action keeps this in sync by writing back
+//     base+subfolder (see setPlaylistFolder), so there is exactly one
+//     representation.
+//   - Nesting template: the template owns layout, so the auto-folder steps
+//     aside (otherwise `{playlist_title}/…` would nest the title twice) and the
+//     directory is rendered from playlist-level metadata instead.
+//
+// Only playlist-level fields are rendered here, so this is the playlist root
+// rather than any individual item's folder. A template that also nests by a
+// per-entry field ({uploader}) puts items deeper than this path — scanning here
+// would report nothing downloaded and invite a full re-download, so
+// canScanPlaylistFolder() turns the scan off for those templates instead.
+export function resolvePlaylistDir(s: PlaylistDirState): string {
+	const template = resolveJobFilenameTemplate(undefined, s.settings?.common?.filenameTemplate)
+	if (templateOwnsDirs(undefined, s.settings?.common?.filenameTemplate)) {
+		const root = effectiveOutputDir(s.wizardOutputDir, s.wizardSubfolderEnabled, s.wizardSubfolderName)
+		return templateOutputDir(root, template, {playlistTitle: s.playlistTitle, playlistId: s.playlistId})
+	}
 	return playlistBaseDir(s.wizardOutputDir, s.wizardSubfolderEnabled, s.wizardSubfolderName, s.playlistTitle)
 }

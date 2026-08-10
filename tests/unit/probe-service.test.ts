@@ -441,3 +441,82 @@ describe('ProbeService — _type: url redirect', () => {
 		}
 	})
 })
+
+describe('ProbeService — uploader and upload date for filename templates', () => {
+	// Filename templates can name directories after {uploader} and {date}, and
+	// Arroxy renders those itself (it needs the path before the download starts).
+	// That only works if the probe carries the fields through.
+	it('carries uploader and uploadDate on a video probe', async () => {
+		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Clip', uploader: 'Blender Foundation', upload_date: '20260803', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=v1', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'video') {
+			expect(r.data.uploader).toBe('Blender Foundation')
+			expect(r.data.uploadDate).toBe('20260803')
+		}
+	})
+
+	it('resolves uploader through the same fallback chain the compiled token uses', async () => {
+		// Compiled token is %(uploader,channel,creator,uploader_id) — resolving the
+		// chain once here keeps a directory name identical to the filename yt-dlp
+		// would have written.
+		const json = JSON.stringify({_type: 'video', id: 'v2', title: 'Clip', channel: 'Fallback Channel', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=v2', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v2')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'video') expect(r.data.uploader).toBe('Fallback Channel')
+	})
+
+	it('leaves uploader undefined when no field in the chain is present', async () => {
+		const json = JSON.stringify({_type: 'video', id: 'v3', title: 'Clip', extractor: 'generic', extractor_key: 'Generic', webpage_url: 'https://example.com/v3', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://example.com/v3')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'video') {
+			expect(r.data.uploader).toBeUndefined()
+			expect(r.data.uploadDate).toBeUndefined()
+		}
+	})
+
+	it('carries uploader and uploadDate onto each playlist entry', async () => {
+		// Playlist items are queued from flat-probe entries, so a per-entry
+		// {uploader} folder depends on the entry itself carrying the field.
+		const json = JSON.stringify({
+			_type: 'playlist',
+			id: 'PL1',
+			title: 'Nature Docs',
+			extractor: 'youtube:tab',
+			extractor_key: 'YoutubeTab',
+			webpage_url: 'https://www.youtube.com/playlist?list=PL1',
+			entries: [{_type: 'url', id: 'e1', title: 'First', url: 'https://www.youtube.com/watch?v=e1', uploader: 'Blender Foundation', upload_date: '20260803'}]
+		})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL1')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'playlist') {
+			expect(r.data.entries[0]?.uploader).toBe('Blender Foundation')
+			expect(r.data.entries[0]?.uploadDate).toBe('20260803')
+		}
+	})
+
+	it('leaves playlist entry uploader undefined when the flat probe omits it', async () => {
+		// Flat playlist entries are sparse on many extractors. The template must
+		// then collapse the folder, not create one named after a blank.
+		const json = JSON.stringify({_type: 'playlist', id: 'PL2', title: 'Sparse', extractor: 'youtube:tab', extractor_key: 'YoutubeTab', webpage_url: 'https://www.youtube.com/playlist?list=PL2', entries: [{_type: 'url', id: 'e1', title: 'First', url: 'https://www.youtube.com/watch?v=e1'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL2')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'playlist') expect(r.data.entries[0]?.uploader).toBeUndefined()
+	})
+})

@@ -46,6 +46,31 @@ export function safeFolderName(title: string): string {
 	)
 }
 
+/**
+ * Sanitize one rendered path component from a filename template into something
+ * safe to create on every supported OS, or null when nothing usable remains.
+ *
+ * Distinct from safeFolderName(): that one substitutes 'Playlist' for an empty
+ * result, which is right for a playlist folder but wrong here — an empty
+ * segment must collapse so `{playlist_title}/{title}` on a single video writes
+ * no folder at all rather than one named 'Playlist'. Returning null is what
+ * lets the caller drop the segment.
+ */
+export function sanitizeDirSegment(raw: string): string | null {
+	const cleaned = raw
+		.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_') // eslint-disable-line no-control-regex
+		.replace(/\s+/g, ' ')
+		.trim()
+		.replace(/[. ]+$/, '')
+		.slice(0, SUBFOLDER_NAME_MAX)
+		// Slicing can re-expose a trailing dot or space that Windows drops.
+		.replace(/[. ]+$/, '')
+	if (cleaned === '' || cleaned === '.' || cleaned === '..') return null
+	// A reserved device name is escaped rather than dropped: the user asked for
+	// a folder here, and 'CON_' honors that without breaking Windows.
+	return RESERVED_NAMES.test(cleaned) ? `${cleaned}_` : cleaned
+}
+
 export function effectiveOutputDir(base: string, enabled: boolean, subfolder: string): string {
 	const t = subfolder.trim()
 	if (!enabled || !t || !isValidSubfolder(t)) return base

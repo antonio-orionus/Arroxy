@@ -608,18 +608,23 @@
 	},
 	"filenameTemplate": {
 		"label": "Kiolezo cha jina la faili",
-		"description": "Chagua jinsi faili zilizopakuliwa zinavyopewa majina. Bofya tokeni ili kuiingiza.",
+		"description": "Chagua jinsi faili zilizopakuliwa zinavyopewa majina. Bofya tokeni ili kuiingiza. Tumia / kupanga vipakuliwa katika folda.",
 		"profileOverrideLabel": "Kiolezo cha jina la faili",
 		"profileOverrideDescription": "Acha wazi ili kutumia kiolezo cha jumla.",
 		"idWarning": "Bila {id}, Arroxy haiwezi kutambua vipengee vya orodha vilivyopakuliwa tayari wala kutengeneza orodha za .m3u.",
-		"m3uDisabled": "Haipatikani kwa sababu kiolezo chako cha jina la faili hakina {id}.",
+		"m3uDisabled": "Haipatikani kwa sababu kiolezo chako cha jina la faili hakina {id} au kinapanga vipakuliwa katika folda.",
+		"previewSingle": "Video moja",
+		"previewPlaylist": "Katika orodha ya kucheza",
 		"error": {
 			"empty": "Weka kiolezo cha jina la faili.",
 			"too-long": "Kiolezo ni kirefu mno.",
-			"forbidden-char": "Ondoa herufi zisizoruhusiwa katika majina ya faili: / \\ : * ? \" < > |",
+			"forbidden-char": "Ondoa herufi zisizoruhusiwa katika majina ya faili: \\ : * ? \" < > |",
 			"stray-brace": "{ au } isiyofungwa — andika tokeni kama {title}.",
-			"no-unique-token": "Ongeza {title} au {id} ili kila upakuaji uwe na jina lake la faili.",
-			"unknown-token": "Tokeni isiyojulikana {{token}}."
+			"no-unique-token": "Ongeza {title} au {id} kwenye jina la faili ili kila upakuaji upate jina lake.",
+			"unknown-token": "Tokeni isiyojulikana {{token}}.",
+			"empty-segment": "Ondoa / ya ziada — kila folda inahitaji jina.",
+			"invalid-segment": "Jina hilo la folda haliruhusiwi. Epuka . na .. na majina yaliyohifadhiwa kama CON.",
+			"resolution-in-dir": "{resolution} haiwezi kutaja folda — ubora haujulikani hadi upakuaji uanze."
 		}
 	}
 }
