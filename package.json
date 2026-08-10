@@ -170,7 +170,7 @@
 		"@types/yauzl": "3.4.0",
 		"@vitejs/plugin-react": "6.0.5",
 		"concurrently": "10.0.4",
-		"electron": "42.4.1",
+		"electron": "43.2.0",
 		"electron-builder": "26.15.3",
 		"electron-vite": "5.0.0",
 		"eslint-plugin-react": "7.37.5",
