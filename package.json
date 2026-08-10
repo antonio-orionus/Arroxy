@@ -178,7 +178,7 @@
 		"eslint-plugin-security": "4.0.1",
 		"gettext-parser": "9.1.1",
 		"husky": "9.1.7",
-		"jsdom": "29.1.1",
+		"jsdom": "30.0.1",
 		"knip": "6.31.0",
 		"lint-staged": "17.3.0",
 		"madge": "8.0.0",
