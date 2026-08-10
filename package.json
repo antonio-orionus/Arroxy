@@ -159,7 +159,7 @@
 		"@svgr/core": "8.1.0",
 		"@svgr/plugin-jsx": "8.1.0",
 		"@tailwindcss/vite": "4.3.3",
-		"@testing-library/jest-dom": "6.9.1",
+		"@testing-library/jest-dom": "7.0.0",
 		"@testing-library/react": "16.3.2",
 		"@types/cacache": "20.0.1",
 		"@types/gettext-parser": "9.0.0",
