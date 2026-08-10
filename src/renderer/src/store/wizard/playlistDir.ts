@@ -17,10 +17,11 @@ type PlaylistDirState = Pick<AppState, 'wizardOutputDir' | 'wizardSubfolderEnabl
 //     aside (otherwise `{playlist_title}/…` would nest the title twice) and the
 //     directory is rendered from playlist-level metadata instead.
 //
-// Only playlist-level fields are rendered here. A template that also nests by a
-// per-entry field ({uploader}) puts individual items deeper than this path; the
-// folder scan then finds nothing and dedupe degrades, which is the same
-// graceful degrade used when {id} is missing.
+// Only playlist-level fields are rendered here, so this is the playlist root
+// rather than any individual item's folder. A template that also nests by a
+// per-entry field ({uploader}) puts items deeper than this path — scanning here
+// would report nothing downloaded and invite a full re-download, so
+// canScanPlaylistFolder() turns the scan off for those templates instead.
 export function resolvePlaylistDir(s: PlaylistDirState): string {
 	const template = resolveJobFilenameTemplate(undefined, s.settings?.common?.filenameTemplate)
 	if (templateOwnsDirs(undefined, s.settings?.common?.filenameTemplate)) {

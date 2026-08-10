@@ -306,19 +306,44 @@ export function renderTemplateDirs(template: string, meta: TemplateMetadata): st
 // token: yt-dlp knows per-video fields and truncates them correctly.
 const PLAYLIST_BOUND_TOKENS: readonly FilenameToken[] = ['playlist_index', 'playlist_title', 'playlist_id']
 
+/**
+ * Truncate to a UTF-8 byte budget without splitting a character.
+ *
+ * Iterating with for..of walks code points, so a surrogate pair is either kept
+ * whole or dropped whole — slicing by UTF-16 code units instead would leave a
+ * lone surrogate in the filename.
+ */
+function truncateToBytes(value: string, maxBytes: number): string {
+	if (utf8Length(value) <= maxBytes) return value
+	let out = ''
+	let used = 0
+	for (const char of value) {
+		const size = utf8Length(char)
+		if (used + size > maxBytes) break
+		out += char
+		used += size
+	}
+	return out
+}
+
 // A bound value becomes literal template text, so anything that would change
 // the template's meaning has to go: separators would invent a folder, braces
 // would invent a token, and the rest are illegal in filenames anyway. `%` is
 // left alone — compileFilenameTemplate escapes literals on the way out.
-function sanitizeBoundLiteral(value: string): string {
-	return (
-		value
-			// eslint-disable-next-line no-control-regex -- control bytes are intentionally matched here
-			.replace(/[<>:"/\\|?*{}\x00-\x1F]/g, '_')
-			.replace(/\s+/g, ' ')
-			.trim()
-			.slice(0, TOKEN_MAX_BYTES.playlist_title)
-	)
+//
+// The budget is the token's own byte allowance, and it is counted in bytes
+// rather than characters: once bound, the value is a literal that titleCapFor
+// measures with utf8Length, so a character-counted cap let a CJK title overrun
+// the component budget, fail to compile, and silently fall back to the default
+// template — losing the user's naming scheme entirely.
+function sanitizeBoundLiteral(value: string, maxBytes: number): string {
+	const cleaned = value
+		// eslint-disable-next-line no-control-regex -- control bytes are intentionally matched here
+		.replace(/[<>:"/\\|?*{}\x00-\x1F]/g, '_')
+		.replace(/\s+/g, ' ')
+		.trim()
+	// Truncation can expose a trailing space, so trim again after cutting.
+	return truncateToBytes(cleaned, maxBytes).trim()
 }
 
 /**
@@ -335,7 +360,7 @@ export function bindFilenameTemplate(template: string, meta: TemplateMetadata): 
 		.map(segment => {
 			if (segment.kind === 'literal') return segment.text
 			if (!PLAYLIST_BOUND_TOKENS.includes(segment.token)) return `{${segment.token}}`
-			return sanitizeBoundLiteral(renderToken(segment.token, meta))
+			return sanitizeBoundLiteral(renderToken(segment.token, meta), TOKEN_MAX_BYTES[segment.token])
 		})
 		.join('')
 }
@@ -349,6 +374,29 @@ export function bindFilenameTemplate(template: string, meta: TemplateMetadata): 
  */
 export function templateOutputDir(baseDir: string, template: string, meta: TemplateMetadata): string {
 	return renderTemplateDirs(template, meta).reduce((dir, segment) => joinSubfolder(dir, segment), baseDir)
+}
+
+// Tokens whose value is the same for every entry in a playlist. Anything else
+// ({uploader}, {date}, {title}, {id}, {playlist_index}) differs per entry.
+const PLAYLIST_LEVEL_TOKENS: readonly FilenameToken[] = ['playlist_title', 'playlist_id']
+
+/**
+ * Whether a template's *directories* differ between entries of one playlist.
+ *
+ * Folder sync resolves a single directory for the whole playlist and scans it
+ * for already-downloaded files. That only holds while every directory segment
+ * is playlist-level; a per-entry field scatters items across folders, so the
+ * scan would look in the wrong place and report nothing downloaded — prompting
+ * the user to re-download everything. Callers degrade instead, the same way
+ * they already do when `{id}` is missing.
+ *
+ * Per-entry tokens in the *filename* are irrelevant here; only directories
+ * decide where the scan looks.
+ */
+export function templateDirsVaryPerEntry(template: string): boolean {
+	const parsed = parse(template)
+	if (!parsed.ok) return false
+	return parsed.dirs.some(dir => dir.some(segment => segment.kind === 'token' && !PLAYLIST_LEVEL_TOKENS.includes(segment.token)))
 }
 
 /** Whether a template takes over directory layout from the playlist auto-folder. */

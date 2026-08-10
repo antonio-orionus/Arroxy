@@ -1,5 +1,5 @@
 import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
-import {templateHasDirs, templateHasId, type TemplateMetadata} from '@shared/filenameTemplate.js'
+import {templateDirsVaryPerEntry, templateHasDirs, templateHasId, type TemplateMetadata} from '@shared/filenameTemplate.js'
 import type {DownloadProfile, PlaylistEntry} from '@shared/types.js'
 import type {AppState} from '../types.js'
 
@@ -32,6 +32,19 @@ export function canMatchDownloadsById(profile: DownloadProfile | undefined, glob
  */
 export function templateOwnsDirs(profile: DownloadProfile | undefined, globalTemplate: string | undefined): boolean {
 	return templateHasDirs(resolveFilenameTemplate(profile, globalTemplate))
+}
+
+/**
+ * Whether folder sync can trust a single directory for the whole playlist.
+ *
+ * A template that names directories after per-entry fields ({uploader}, {date})
+ * puts items in different folders, so scanning one directory would report
+ * nothing downloaded and invite a full re-download. Degrade instead — the same
+ * response as a template with no `{id}` to match on.
+ */
+export function canScanPlaylistFolder(profile: DownloadProfile | undefined, globalTemplate: string | undefined): boolean {
+	const template = resolveFilenameTemplate(profile, globalTemplate)
+	return templateHasId(template) && !templateDirsVaryPerEntry(template)
 }
 
 /**

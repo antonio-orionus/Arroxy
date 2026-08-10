@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {canMatchDownloadsById, canWriteM3u, playlistEntryTemplateMeta, singleTemplateMeta, templateOwnsDirs} from '@renderer/store/wizard/outputTemplates.js'
+import {canMatchDownloadsById, canScanPlaylistFolder, canWriteM3u, playlistEntryTemplateMeta, singleTemplateMeta, templateOwnsDirs} from '@renderer/store/wizard/outputTemplates.js'
 import type {PlaylistEntry} from '@shared/types.js'
 
 const ENTRY: PlaylistEntry = {id: '7::e1', url: 'https://example.com/e1', title: 'First', thumbnail: '', playlistIndex: 7, videoId: 'e1', uploader: 'Blender Foundation', uploadDate: '20260803'}
@@ -65,5 +65,26 @@ describe('playlistEntryTemplateMeta', () => {
 
 	it('uses the entry playlist index so folders and filenames agree on numbering', () => {
 		expect(playlistEntryTemplateMeta(ENTRY, 'Nature Docs', 'PL1').playlistIndex).toBe(7)
+	})
+})
+
+describe('canScanPlaylistFolder', () => {
+	it('allows the scan for a flat template with {id}', () => {
+		expect(canScanPlaylistFolder(undefined, '{title} [{id}]')).toBe(true)
+	})
+
+	it('allows the scan when directories are playlist-level, since every entry shares them', () => {
+		expect(canScanPlaylistFolder(undefined, '{playlist_title}/{title} [{id}]')).toBe(true)
+	})
+
+	it('blocks the scan when directories depend on per-entry fields', () => {
+		// Scanning one folder here reports nothing downloaded and invites the user
+		// to re-download an entire playlist they already have.
+		expect(canScanPlaylistFolder(undefined, '{uploader}/{title} [{id}]')).toBe(false)
+		expect(canScanPlaylistFolder(undefined, '{date}/{title} [{id}]')).toBe(false)
+	})
+
+	it('still blocks the scan when {id} is missing, as before', () => {
+		expect(canScanPlaylistFolder(undefined, '{title}')).toBe(false)
 	})
 })

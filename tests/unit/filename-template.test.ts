@@ -1,6 +1,10 @@
 import {describe, expect, it} from 'vitest'
-import {DEFAULT_FILENAME_TEMPLATE, compileFilenameTemplate, previewFilenameTemplate, renderTemplateDirs, templateHasDirs, templateHasId, templateOutputDir, validateFilenameTemplate, bindFilenameTemplate, type TemplateMetadata} from '@shared/filenameTemplate.js'
+import {DEFAULT_FILENAME_TEMPLATE, compileFilenameTemplate, previewFilenameTemplate, renderTemplateDirs, templateHasDirs, templateDirsVaryPerEntry, templateHasId, templateOutputDir, validateFilenameTemplate, bindFilenameTemplate, type TemplateMetadata} from '@shared/filenameTemplate.js'
 import {FILENAME_TOKENS} from '@shared/schemas.js'
+
+function utf8Bytes(value: string): number {
+	return new TextEncoder().encode(value).length
+}
 
 function compiled(template: string): string {
 	const result = compileFilenameTemplate(template)
@@ -323,6 +327,66 @@ describe('bindFilenameTemplate', () => {
 
 	it('returns the template unchanged when it is invalid, leaving errors to the validator', () => {
 		expect(bindFilenameTemplate('{bogus}', PLAYLIST_META)).toBe('{bogus}')
+	})
+
+	// A bound value stops being a token and becomes literal template text, which
+	// the byte budget then counts in full. Truncating by characters let a CJK
+	// title blow the budget, fail to compile, and silently fall back to the
+	// built-in default — losing the user's whole naming scheme.
+	it('truncates a bound value by UTF-8 bytes, not characters', () => {
+		const bound = bindFilenameTemplate('{playlist_title} - {title} [{id}]', {...PLAYLIST_META, playlistTitle: '龍'.repeat(60)})
+		expect(utf8Bytes(bound)).toBeLessThanOrEqual(60 + ' - {title} [{id}]'.length)
+	})
+
+	it('still compiles for a multibyte playlist title instead of falling back to the default', () => {
+		for (const title of ['я'.repeat(60), '龍'.repeat(60), '😀'.repeat(40)]) {
+			const bound = bindFilenameTemplate('{playlist_title} - {title} [{id}]', {...PLAYLIST_META, playlistTitle: title})
+			const compiledResult = compileFilenameTemplate(bound)
+			expect(compiledResult.ok).toBe(true)
+			if (compiledResult.ok) expect(utf8Bytes(compiledResult.template)).toBeLessThanOrEqual(240)
+		}
+	})
+
+	it('never splits a surrogate pair when truncating', () => {
+		// Slicing by UTF-16 code units at a boundary that lands mid-emoji leaves a
+		// lone surrogate, which is not a valid character in a filename.
+		const bound = bindFilenameTemplate('{playlist_title} {title}', {...PLAYLIST_META, playlistTitle: `${'a'.repeat(59)}😀${'b'.repeat(20)}`})
+		expect(bound).not.toMatch(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/)
+	})
+
+	it('gives each bound token its own byte allowance', () => {
+		// playlist_id is allowed more bytes than a 6-byte index; neither should
+		// borrow the playlist_title budget.
+		const bound = bindFilenameTemplate('{playlist_index}-{playlist_id} {title}', {...PLAYLIST_META, playlistId: 'P'.repeat(80)})
+		expect(bound.startsWith('007-')).toBe(true)
+		expect(bound).toContain('{title}')
+	})
+})
+
+describe('templateDirsVaryPerEntry', () => {
+	// Folder sync resolves one directory for the whole playlist. That only holds
+	// when every directory segment is playlist-level; a per-entry field puts each
+	// item somewhere else, so the scan must degrade rather than look in the wrong
+	// place and report nothing downloaded.
+	it('is true when a directory names a per-entry field', () => {
+		expect(templateDirsVaryPerEntry('{uploader}/{title} [{id}]')).toBe(true)
+		expect(templateDirsVaryPerEntry('{date}/{title} [{id}]')).toBe(true)
+		expect(templateDirsVaryPerEntry('{playlist_index}/{title} [{id}]')).toBe(true)
+		expect(templateDirsVaryPerEntry('{playlist_title}/{uploader}/{title} [{id}]')).toBe(true)
+	})
+
+	it('is false when every directory is playlist-level', () => {
+		expect(templateDirsVaryPerEntry('{playlist_title}/{title} [{id}]')).toBe(false)
+		expect(templateDirsVaryPerEntry('{playlist_title}/{playlist_id}/{title} [{id}]')).toBe(false)
+	})
+
+	it('is false for a flat template and for an invalid one', () => {
+		expect(templateDirsVaryPerEntry('{title} [{id}]')).toBe(false)
+		expect(templateDirsVaryPerEntry('{title}/')).toBe(false)
+	})
+
+	it('ignores per-entry tokens in the filename, which do not affect the directory', () => {
+		expect(templateDirsVaryPerEntry('{playlist_title}/{uploader} - {title} [{id}]')).toBe(false)
 	})
 })
 
