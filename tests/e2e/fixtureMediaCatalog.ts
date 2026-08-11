@@ -27,9 +27,16 @@ function requireFormat(formatId: string): FixtureFormatDescriptor {
 	throw new Error(`Unknown fixture format id: ${formatId}`)
 }
 
-/** A catalog entry that overrides its generated title. */
+/**
+ * A catalog entry that overrides its generated title.
+ *
+ * An empty string counts as no override, matching the extractor's
+ * `video.get('title') or <generated>` — otherwise the two sides would disagree
+ * about which videos are ordinary.
+ */
 function titleOverride(video: (typeof catalog.videos)[number]): string | undefined {
-	return (video as {title?: string}).title
+	const title = (video as {title?: string}).title
+	return title === undefined || title === '' ? undefined : title
 }
 
 export const FIXTURE_MEDIA_CATALOG_PATH = path.join(process.cwd(), 'tests', 'e2e', 'fixture-media-catalog.json')

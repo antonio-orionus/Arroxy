@@ -15,7 +15,7 @@
 import {fitName, renderName, type BudgetFailure, type BudgetPiece} from './nameBudget.js'
 import {limitsFor} from './pathLimits.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS, type FilenameToken} from './schemas.js'
-import {isValidSubfolder, joinSubfolder, sanitizeDirSegment} from './subfolder.js'
+import {escapeReservedName, isValidSubfolder, joinSubfolder, sanitizeDirSegment} from './subfolder.js'
 
 export const DEFAULT_FILENAME_TEMPLATE = '{title} [{id}]'
 
@@ -324,10 +324,12 @@ function sanitizeBoundLiteral(value: string): string {
 	)
 }
 
-// Windows rejects a name ending in a dot or a space, and truncation can expose
-// either. Applied to the assembled name because that is where the end is.
-function trimNameEnd(value: string): string {
-	return value.replace(/[\s.]+$/, '')
+// Applied to the assembled name, because both hazards are properties of the
+// whole name rather than of any one token: Windows rejects a name ending in a
+// dot or a space (which truncation can expose), and treats a reserved device
+// name as a device with any extension, so `NUL.mp4` is still the null device.
+function finalizeName(value: string): string {
+	return escapeReservedName(value.replace(/[\s.]+$/, ''))
 }
 
 export interface BindContext {
@@ -372,7 +374,7 @@ export function bindFilenameTemplate(template: string, meta: TemplateMetadata, c
 	const fitted = fitName({pieces, outputDir: ctx.outputDir, limits: limitsFor(ctx.platform)})
 	if (!fitted.ok) return fitted
 
-	return {ok: true, template: trimNameEnd(renderName(fitted.pieces)), truncated: fitted.truncated}
+	return {ok: true, template: finalizeName(renderName(fitted.pieces)), truncated: fitted.truncated}
 }
 
 /**

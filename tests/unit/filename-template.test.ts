@@ -295,7 +295,7 @@ describe('templateOutputDir', () => {
 
 describe('bindFilenameTemplate', () => {
 	// Every token but {resolution} becomes literal text here. yt-dlp cannot be
-	// trusted to cap what it expands: `%(title).120B` truncates to 150 bytes and
+	// trusted to cap what it expands: `%(title).120B` truncates to 120 bytes and
 	// *then* sanitizes, and sanitizing grows the string — ':' becomes ' -', and
 	// '|', '*', '<', '>' become 3-byte full-width forms. A cap it applies before
 	// that pass is advisory, so Arroxy resolves the name itself.
@@ -329,6 +329,20 @@ describe('bindFilenameTemplate', () => {
 
 	it('trims a trailing dot or space, which Windows rejects', () => {
 		expect(bound('{title}', {...PLAYLIST_META, title: 'Episode 1.'})).toBe('Episode 1')
+	})
+
+	it('escapes a Windows reserved device name, extension or not', () => {
+		// `NUL.mp4` addresses the null device, not a file, so writing there
+		// silently discards the download. Escaped the same way directory segments
+		// already are, rather than dropped — the user asked for this name.
+		for (const reserved of ['NUL', 'CON', 'PRN', 'AUX', 'COM1', 'LPT1', 'nul']) {
+			expect(bound('{title}', {...PLAYLIST_META, title: reserved})).toBe(`${reserved}_`)
+		}
+	})
+
+	it('leaves a name that merely starts with a reserved word alone', () => {
+		expect(bound('{title}', {...PLAYLIST_META, title: 'CONcert'})).toBe('CONcert')
+		expect(bound('{title} [{id}]', {...PLAYLIST_META, title: 'NUL'})).toBe('NUL [YE7VzlLtp-4]')
 	})
 
 	it('still compiles to a valid output template after binding', () => {

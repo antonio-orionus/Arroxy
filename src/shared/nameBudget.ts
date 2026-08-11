@@ -111,23 +111,37 @@ export function fitName(request: BudgetRequest): BudgetResult {
 	const truncated: FilenameToken[] = []
 
 	for (const token of SHRINK_ORDER) {
-		const index = working.findIndex(piece => piece.kind === 'token' && piece.token === token)
-		if (index === -1) continue
-		const original = working[index]
+		// Every occurrence, not just the first. A template may repeat a token
+		// (`{title} - {title}`), and shrinking one copy while the other stays at
+		// full length wastes most of the available saving — enough to report
+		// `template-cannot-fit` for a name that shortening both fits comfortably.
+		const indices = working.flatMap((piece, index) => (piece.kind === 'token' && piece.token === token ? [index] : []))
+		const firstIndex = indices[0]
+		if (firstIndex === undefined) continue
+		const original = working[firstIndex]
 		if (original === undefined || original.kind !== 'token') continue
 
 		// Grapheme boundaries, so a cut never lands inside an emoji sequence.
 		const chars = graphemes(original.text)
+		// The floor is per occurrence: two copies of a token each keep enough to
+		// stay recognisable, rather than sharing one copy's worth between them.
 		const floorLength = graphemes(truncateTo(original.text, TOKEN_FLOOR[token], limits.componentUnit)).length
 
-		// `fits` is monotonic in the prefix length, so binary search finds the
-		// longest prefix that still fits without walking every character.
+		// One shared length across every occurrence — they hold the same value, so
+		// shortening them evenly is both simpler and fairer than draining one
+		// first. `fits` is monotonic in that length, so binary search finds the
+		// longest one that still fits without walking every character.
+		const applyLength = (length: number): void => {
+			const text = chars.slice(0, length).join('')
+			for (const index of indices) working[index] = {...original, text}
+		}
+
 		let low = floorLength
 		let high = chars.length
 		let best = floorLength
 		while (low <= high) {
 			const mid = (low + high) >> 1
-			working[index] = {...original, text: chars.slice(0, mid).join('')}
+			applyLength(mid)
 			if (fits(working)) {
 				best = mid
 				low = mid + 1
@@ -136,7 +150,7 @@ export function fitName(request: BudgetRequest): BudgetResult {
 			}
 		}
 
-		working[index] = {...original, text: chars.slice(0, best).join('')}
+		applyLength(best)
 		if (best < chars.length) truncated.push(token)
 		if (fits(working)) return {ok: true, pieces: working, truncated}
 	}

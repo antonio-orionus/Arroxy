@@ -66,9 +66,19 @@ export function sanitizeDirSegment(raw: string): string | null {
 		// Slicing can re-expose a trailing dot or space that Windows drops.
 		.replace(/[. ]+$/, '')
 	if (cleaned === '' || cleaned === '.' || cleaned === '..') return null
-	// A reserved device name is escaped rather than dropped: the user asked for
-	// a folder here, and 'CON_' honors that without breaking Windows.
-	return RESERVED_NAMES.test(cleaned) ? `${cleaned}_` : cleaned
+	return escapeReservedName(cleaned)
+}
+
+/**
+ * Escape a Windows reserved device name rather than dropping it.
+ *
+ * `CON`, `NUL`, `COM1` and friends address devices, not files, and the rule
+ * applies with any extension — `NUL.mp4` is still the null device. The user
+ * asked for this name, so `CON_` honors that without breaking Windows. Shared
+ * by directory segments and filenames so both escape identically.
+ */
+export function escapeReservedName(name: string): string {
+	return RESERVED_NAMES.test(name) ? `${name}_` : name
 }
 
 export function effectiveOutputDir(base: string, enabled: boolean, subfolder: string): string {

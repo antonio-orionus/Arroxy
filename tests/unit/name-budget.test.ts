@@ -91,6 +91,19 @@ describe('fitName — the shrink ladder', () => {
 		expect(keptPlaylistTitle).toBeGreaterThanOrEqual(TOKEN_FLOOR.playlist_title)
 	})
 
+	it('shrinks every occurrence of a repeated token, not just the first', () => {
+		// Shortening one copy and leaving the other whole throws away most of the
+		// available saving, and reported template-cannot-fit for a name that
+		// shortening both fits with room to spare.
+		const pieces: BudgetPiece[] = [tok('title', 'A'.repeat(200)), lit(' - '), tok('title', 'A'.repeat(200))]
+		const result = fitName({pieces, outputDir: '/home/antonio/Videos', limits: limitsFor('linux')})
+		expect(result.ok).toBe(true)
+		expect(measure(nameOf(result), 'utf8-bytes')).toBeLessThanOrEqual(255 - SUFFIX_RESERVE)
+		// Evenly, since both hold the same value.
+		const [first, second] = nameOf(result).split(' - ')
+		expect(first).toBe(second)
+	})
+
 	it('never shrinks {id} — playlist dedupe and M3U writing match [videoId]', () => {
 		// Everything else is maximal, so a naive shrinker would reach for the id.
 		const pieces: BudgetPiece[] = [tok('title', 'T'.repeat(400)), lit(' ['), tok('id', 'YE7VzlLtp-4'), lit(']')]
@@ -156,6 +169,9 @@ describe('fitName — the invariant the whole design exists to hold', () => {
 		const titles = ['', 'Big Buck Bunny', 'T'.repeat(500), '日'.repeat(300), '🎬'.repeat(200), 'e\u0301'.repeat(300), 'Song | Official: Video']
 		const uploaders = ['', 'Blender Foundation', 'U'.repeat(200), '日'.repeat(100)]
 		const dirs = ['/v', '/home/antonio/Videos', 'C:\\Users\\antonio\\Videos\\Arroxy']
+		// Counted so the invariant cannot pass vacuously: every case skipping on a
+		// failed fit would otherwise assert nothing at all.
+		let fitted = 0
 
 		for (const platform of ['darwin', 'win32', 'linux'] as const) {
 			const limits = limitsFor(platform)
@@ -165,6 +181,7 @@ describe('fitName — the invariant the whole design exists to hold', () => {
 						const pieces: BudgetPiece[] = [tok('title', title), lit(' '), tok('uploader', uploader), lit(' '), late('resolution', 6), lit(' ['), tok('id', 'YE7VzlLtp-4'), lit(']')]
 						const result = fitName({pieces, outputDir, limits})
 						if (!result.ok) continue
+						fitted++
 						// Placeholders are excluded here for the same reason the budget
 						// excludes them: what lands on disk is what they expand to, which
 						// the reserve already covers.
@@ -178,5 +195,7 @@ describe('fitName — the invariant the whole design exists to hold', () => {
 				}
 			}
 		}
+
+		expect(fitted).toBeGreaterThan(0)
 	})
 })
