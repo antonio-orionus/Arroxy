@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
-import {DEFAULT_FILENAME_TEMPLATE, compileFilenameTemplate, previewFilenameTemplate, renderTemplateDirs, templateHasDirs, templateDirsVaryPerEntry, templateHasId, templateOutputDir, validateFilenameTemplate, bindFilenameTemplate, type TemplateMetadata} from '@shared/filenameTemplate.js'
-import {FILENAME_TOKENS} from '@shared/schemas.js'
+import {DEFAULT_FILENAME_TEMPLATE, compileFilenameTemplate, previewFilenameTemplate, renderTemplateDirs, templateHasDirs, templateDirsVaryPerEntry, templateHasId, templateOutputDir, validateFilenameTemplate, bindFilenameTemplate, type BindContext, type TemplateMetadata} from '@shared/filenameTemplate.js'
+import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS} from '@shared/schemas.js'
 
 function utf8Bytes(value: string): number {
 	return new TextEncoder().encode(value).length
@@ -9,6 +9,16 @@ function utf8Bytes(value: string): number {
 function compiled(template: string): string {
 	const result = compileFilenameTemplate(template)
 	if (!result.ok) throw new Error(`expected compile to succeed: ${result.code}`)
+	return result.template
+}
+
+// A roomy Linux directory, so these cases exercise binding rather than the
+// budget. The per-platform limits have their own tests in name-budget.test.ts.
+const LINUX: BindContext = {outputDir: '/home/antonio/Videos', platform: 'linux'}
+
+function bound(template: string, meta: TemplateMetadata, ctx: BindContext = LINUX): string {
+	const result = bindFilenameTemplate(template, meta, ctx)
+	if (!result.ok) throw new Error(`expected bind to succeed: ${result.reason}`)
 	return result.template
 }
 
@@ -136,7 +146,7 @@ describe('templateHasDirs', () => {
 
 describe('compileFilenameTemplate', () => {
 	it('appends the extension and never asks the user to type it', () => {
-		expect(compiled('{title}')).toBe('%(title).150B.%(ext)s')
+		expect(compiled('{title}')).toBe('%(title).120B.%(ext)s')
 	})
 
 	it('resolves uploader through a fallback chain so absent fields do not print NA', () => {
@@ -154,11 +164,11 @@ describe('compileFilenameTemplate', () => {
 	})
 
 	it('compiles the default template', () => {
-		expect(compiled(DEFAULT_FILENAME_TEMPLATE)).toBe('%(title).150B [%(id)s].%(ext)s')
+		expect(compiled(DEFAULT_FILENAME_TEMPLATE)).toBe('%(title).120B [%(id)s].%(ext)s')
 	})
 
 	it('escapes literal percent signs so they survive yt-dlp expansion', () => {
-		expect(compiled('100% {title}')).toBe('100%% %(title).150B.%(ext)s')
+		expect(compiled('100% {title}')).toBe('100%% %(title).120B.%(ext)s')
 	})
 
 	it('propagates validation failures instead of emitting a broken -o string', () => {
@@ -166,11 +176,11 @@ describe('compileFilenameTemplate', () => {
 	})
 
 	it('trims surrounding whitespace', () => {
-		expect(compiled('  {title}  ')).toBe('%(title).150B.%(ext)s')
+		expect(compiled('  {title}  ')).toBe('%(title).120B.%(ext)s')
 	})
 
 	it('compiles only the filename segment — directories are Arroxy-rendered', () => {
-		expect(compiled('{playlist_title}/{playlist_index} - {title}')).toBe('%(playlist_index|)03d - %(title).150B.%(ext)s')
+		expect(compiled('{playlist_title}/{playlist_index} - {title}')).toBe('%(playlist_index|)03d - %(title).120B.%(ext)s')
 	})
 
 	it('never emits a separator into -o, whatever the template nesting', () => {
@@ -284,82 +294,111 @@ describe('templateOutputDir', () => {
 })
 
 describe('bindFilenameTemplate', () => {
-	// Arroxy queues each playlist entry as its own single-video download, so
-	// yt-dlp expands the filename with no playlist context at all: %(playlist_index)s
-	// and friends come back empty. Arroxy knows those values and bakes them in.
+	// Every token but {resolution} becomes literal text here. yt-dlp cannot be
+	// trusted to cap what it expands: `%(title).120B` truncates to 120 bytes and
+	// *then* sanitizes, and sanitizing grows the string — ':' becomes ' -', and
+	// '|', '*', '<', '>' become 3-byte full-width forms. A cap it applies before
+	// that pass is advisory, so Arroxy resolves the name itself.
+	it('binds every token it knows, leaving only {resolution} for yt-dlp', () => {
+		expect(bound('{uploader} - {title} [{id}] {date} {resolution}', PLAYLIST_META)).toBe('Blender Foundation - Big Buck Bunny [YE7VzlLtp-4] 2026-08-03 {resolution}')
+	})
+
 	it('bakes the playlist index in as a zero-padded literal', () => {
-		expect(bindFilenameTemplate('{playlist_index} - {title}', PLAYLIST_META)).toBe('007 - {title}')
+		expect(bound('{playlist_index} - {title}', PLAYLIST_META)).toBe('007 - Big Buck Bunny')
 	})
 
 	it('bakes the playlist title and id in', () => {
-		expect(bindFilenameTemplate('{playlist_title} {playlist_id} {title}', PLAYLIST_META)).toBe('Nature Docs PL123 {title}')
-	})
-
-	it('leaves per-video tokens for yt-dlp, which knows them and truncates properly', () => {
-		expect(bindFilenameTemplate('{uploader} - {title} [{id}] {date} {resolution}', PLAYLIST_META)).toBe('{uploader} - {title} [{id}] {date} {resolution}')
+		expect(bound('{playlist_title} {playlist_id} {title}', PLAYLIST_META)).toBe('Nature Docs PL123 Big Buck Bunny')
 	})
 
 	it('drops directory segments — the caller has already folded those into the output dir', () => {
-		expect(bindFilenameTemplate('{playlist_title}/{playlist_index} - {title}', PLAYLIST_META)).toBe('007 - {title}')
+		expect(bound('{playlist_title}/{playlist_index} - {title}', PLAYLIST_META)).toBe('007 - Big Buck Bunny')
 	})
 
 	it('binds playlist tokens to empty for a single video, leaving no NA behind', () => {
-		expect(bindFilenameTemplate('{playlist_index}{title}', SINGLE_META)).toBe('{title}')
+		expect(bound('{playlist_index}{title}', SINGLE_META)).toBe('Big Buck Bunny')
 	})
 
 	it('neutralizes a separator inside a bound value so it cannot invent a folder', () => {
-		expect(bindFilenameTemplate('{playlist_title} - {title}', {...PLAYLIST_META, playlistTitle: 'AC/DC: Live'})).toBe('AC_DC_ Live - {title}')
+		expect(bound('{playlist_title} - {title}', {...PLAYLIST_META, playlistTitle: 'AC/DC: Live'})).toBe('AC_DC_ Live - Big Buck Bunny')
 	})
 
 	it('neutralizes braces inside a bound value so it cannot invent a token', () => {
-		expect(bindFilenameTemplate('{playlist_title} {title}', {...PLAYLIST_META, playlistTitle: '{title}'})).toBe('_title_ {title}')
+		expect(bound('{playlist_title} {title}', {...PLAYLIST_META, playlistTitle: '{title}'})).toBe('_title_ Big Buck Bunny')
 	})
 
-	it('still compiles to a valid output template after binding', () => {
-		const bound = bindFilenameTemplate('{playlist_title}/{playlist_index} - {title} [{id}]', PLAYLIST_META)
-		expect(compiled(bound)).toBe('007 - %(title).150B [%(id)s].%(ext)s')
+	it('trims a trailing dot or space, which Windows rejects', () => {
+		expect(bound('{title}', {...PLAYLIST_META, title: 'Episode 1.'})).toBe('Episode 1')
 	})
 
-	it('escapes a percent sign in a bound value so yt-dlp does not expand it', () => {
-		const bound = bindFilenameTemplate('{playlist_title} {title}', {...PLAYLIST_META, playlistTitle: '100% Hits'})
-		expect(compiled(bound)).toBe('100%% Hits %(title).150B.%(ext)s')
-	})
-
-	it('returns the template unchanged when it is invalid, leaving errors to the validator', () => {
-		expect(bindFilenameTemplate('{bogus}', PLAYLIST_META)).toBe('{bogus}')
-	})
-
-	// A bound value stops being a token and becomes literal template text, which
-	// the byte budget then counts in full. Truncating by characters let a CJK
-	// title blow the budget, fail to compile, and silently fall back to the
-	// built-in default — losing the user's whole naming scheme.
-	it('truncates a bound value by UTF-8 bytes, not characters', () => {
-		const bound = bindFilenameTemplate('{playlist_title} - {title} [{id}]', {...PLAYLIST_META, playlistTitle: '龍'.repeat(60)})
-		expect(utf8Bytes(bound)).toBeLessThanOrEqual(60 + ' - {title} [{id}]'.length)
-	})
-
-	it('still compiles for a multibyte playlist title instead of falling back to the default', () => {
-		for (const title of ['я'.repeat(60), '龍'.repeat(60), '😀'.repeat(40)]) {
-			const bound = bindFilenameTemplate('{playlist_title} - {title} [{id}]', {...PLAYLIST_META, playlistTitle: title})
-			const compiledResult = compileFilenameTemplate(bound)
-			expect(compiledResult.ok).toBe(true)
-			if (compiledResult.ok) expect(utf8Bytes(compiledResult.template)).toBeLessThanOrEqual(240)
+	it('escapes a Windows reserved device name, extension or not', () => {
+		// `NUL.mp4` addresses the null device, not a file, so writing there
+		// silently discards the download. Escaped the same way directory segments
+		// already are, rather than dropped — the user asked for this name.
+		for (const reserved of ['NUL', 'CON', 'PRN', 'AUX', 'COM1', 'LPT1', 'nul']) {
+			expect(bound('{title}', {...PLAYLIST_META, title: reserved})).toBe(`${reserved}_`)
 		}
 	})
 
-	it('never splits a surrogate pair when truncating', () => {
-		// Slicing by UTF-16 code units at a boundary that lands mid-emoji leaves a
-		// lone surrogate, which is not a valid character in a filename.
-		const bound = bindFilenameTemplate('{playlist_title} {title}', {...PLAYLIST_META, playlistTitle: `${'a'.repeat(59)}😀${'b'.repeat(20)}`})
-		expect(bound).not.toMatch(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/)
+	it('leaves a name that merely starts with a reserved word alone', () => {
+		expect(bound('{title}', {...PLAYLIST_META, title: 'CONcert'})).toBe('CONcert')
+		expect(bound('{title} [{id}]', {...PLAYLIST_META, title: 'NUL'})).toBe('NUL [YE7VzlLtp-4]')
 	})
 
-	it('gives each bound token its own byte allowance', () => {
-		// playlist_id is allowed more bytes than a 6-byte index; neither should
-		// borrow the playlist_title budget.
-		const bound = bindFilenameTemplate('{playlist_index}-{playlist_id} {title}', {...PLAYLIST_META, playlistId: 'P'.repeat(80)})
-		expect(bound.startsWith('007-')).toBe(true)
-		expect(bound).toContain('{title}')
+	it('still compiles to a valid output template after binding', () => {
+		expect(compiled(bound('{playlist_title}/{playlist_index} - {title} [{id}]', PLAYLIST_META))).toBe('007 - Big Buck Bunny [YE7VzlLtp-4].%(ext)s')
+	})
+
+	it('escapes a percent sign in a bound value so yt-dlp does not expand it', () => {
+		expect(compiled(bound('{playlist_title} {title}', {...PLAYLIST_META, playlistTitle: '100% Hits'}))).toBe('100%% Hits Big Buck Bunny.%(ext)s')
+	})
+
+	it('compiles a bound template even though no token survives the binding', () => {
+		// The distinguishing-token rule is about what a user may type, enforced once
+		// at typing time. A bound template has literal text where {title} and {id}
+		// were, so re-applying the rule here would reject every bound name.
+		expect(compileFilenameTemplate(bound('{title} [{id}]', PLAYLIST_META)).ok).toBe(true)
+	})
+
+	it('returns the template unchanged when it is invalid, leaving errors to the validator', () => {
+		expect(bound('{bogus}', PLAYLIST_META)).toBe('{bogus}')
+	})
+
+	// The template from the bug report. The old worst-case budget rejected it as
+	// "too long" at 84 characters, because it assumed all seven tokens hit their
+	// ceiling at once — a name no real download produces.
+	it('accepts a seven-token template that the worst-case budget rejected', () => {
+		expect(bound('{title} {id} {uploader} {resolution} {playlist_id} {playlist_title} {playlist_index}', PLAYLIST_META)).toBe('Big Buck Bunny YE7VzlLtp-4 Blender Foundation {resolution} PL123 Nature Docs 007')
+	})
+
+	it('shortens an oversized value instead of rejecting the template', () => {
+		const result = bindFilenameTemplate('{playlist_title} - {title} [{id}]', {...PLAYLIST_META, playlistTitle: 'P'.repeat(300)}, LINUX)
+		expect(result.ok && result.truncated).toEqual(['playlist_title'])
+		if (result.ok) expect(utf8Bytes(result.template)).toBeLessThanOrEqual(255)
+	})
+
+	it('never splits a surrogate pair when shortening', () => {
+		// A cut landing mid-emoji would leave a lone surrogate, which is not a valid
+		// character in a filename on any platform.
+		const text = bound('{playlist_title} {title}', {...PLAYLIST_META, playlistTitle: `${'a'.repeat(200)}😀${'b'.repeat(80)}`})
+		expect(text).not.toMatch(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/)
+	})
+
+	it('keeps a CJK title whole on macOS, where the limit counts code units', () => {
+		// 200 CJK characters is 600 bytes but only 200 UTF-16 code units, and APFS
+		// counts the latter — measured directly on APFS.
+		const result = bindFilenameTemplate('{title} [{id}]', {...PLAYLIST_META, title: '龍'.repeat(200)}, {outputDir: '/Users/antonio/Videos', platform: 'darwin'})
+		expect(result.ok && result.truncated).toEqual([])
+	})
+
+	it('shortens that same title on Linux, where the limit counts bytes', () => {
+		const result = bindFilenameTemplate('{title} [{id}]', {...PLAYLIST_META, title: '龍'.repeat(200)}, LINUX)
+		expect(result.ok && result.truncated).toEqual(['title'])
+	})
+
+	it('reports path-too-deep rather than shortening forever', () => {
+		const result = bindFilenameTemplate('{title} [{id}]', PLAYLIST_META, {outputDir: `C:\\${'verylongfolder\\'.repeat(16)}`, platform: 'win32'})
+		expect(result).toEqual({ok: false, reason: 'path-too-deep'})
 	})
 })
 
@@ -459,42 +498,54 @@ describe('injection resistance', () => {
 	it('refuses anything that could redirect yt-dlp -o outside the output directory', () => {
 		// The main process compiles templates precisely so a compromised renderer
 		// cannot hand yt-dlp a raw `-o`. These are the shapes that would matter.
-		for (const evil of ['/etc/cron.d/{title}', '../../{title}', '{title}/../../evil', 'C:\\Windows\\{title}', '%(title)s']) {
+		for (const evil of ['/etc/cron.d/{title}', '../../{title}', '{title}/../../evil', 'C:\\Windows\\{title}']) {
 			expect(compileFilenameTemplate(evil).ok).toBe(false)
+		}
+	})
+
+	it('renders a raw yt-dlp field as literal text rather than expanding it', () => {
+		// This used to be refused, but only as a side effect of the
+		// distinguishing-token rule, which a bound template cannot satisfy. The
+		// guarantee that actually matters is escaping: `%%` makes yt-dlp write the
+		// characters instead of substituting a field.
+		expect(compiled('%(title)s')).toBe('%%(title)s.%(ext)s')
+	})
+
+	it('never emits a path separator, whatever it is given', () => {
+		// This is the real invariant behind `-o` safety and it holds independently
+		// of any token rule: only the *filename* segment is compiled, so the result
+		// addresses exactly one path component.
+		const inputs = ['{title} [{id}]', '{uploader}/{title}', 'a/b/c/{title}', '%(title)s', '..{title}', '{playlist_title}/{title} [{id}]']
+		for (const input of inputs) {
+			const result = compileFilenameTemplate(input)
+			if (!result.ok) continue
+			expect(result.template).not.toMatch(/[/\\]/)
 		}
 	})
 })
 
-describe('rendered-component byte budget', () => {
-	it('keeps the default templates on the full title cap', () => {
-		// Capping shrinks only when the rest of the template needs the room, so
-		// everyday templates are unaffected.
-		expect(compiled('{title} [{id}]')).toContain('%(title).150B')
-		expect(compiled('{uploader} - {title}')).toContain('%(title).150B')
+describe('unbound fallback title cap', () => {
+	// Length is no longer decided here. bindFilenameTemplate measures real values
+	// against the real filesystem limit — see name-budget.test.ts. What survives
+	// in the compiler is one conservative cap for the *unbound* path, which in
+	// practice means main falling back to the built-in template after a persisted
+	// template failed to parse. There is no metadata to measure there, so the cap
+	// must hold on Linux (the strictest unit) and survive yt-dlp sanitizing after
+	// it is applied, which can turn one byte into three.
+	it('applies one fixed cap regardless of what else the template contains', () => {
+		expect(compiled('{title} [{id}]')).toContain('%(title).120B')
+		expect(compiled('{uploader} - {title} [{id}] {date} {resolution}')).toContain('%(title).120B')
 	})
 
-	it('shrinks the title cap when other tokens claim the budget', () => {
-		const template = compiled('{uploader} - {title} [{id}] {date} {resolution}')
-		const cap = Number(/%\(title\)\.(\d+)B/.exec(template)?.[1])
-		expect(cap).toBeLessThan(150)
-		expect(cap).toBeGreaterThanOrEqual(40)
+	it('no longer rejects a template on a rendered-length guess', () => {
+		// 113 two-byte characters is 226 UTF-8 bytes, which the old worst-case
+		// budget refused outright. Whether it actually fits depends on the platform
+		// and the real title, so it is decided at bind time now.
+		expect(validateFilenameTemplate(`${'х'.repeat(113)}{title}`)).toEqual({ok: true})
 	})
 
-	it('splits the budget when title repeats', () => {
-		const once = Number(/%\(title\)\.(\d+)B/.exec(compiled('{title} [{id}]'))?.[1])
-		const twice = Number(/%\(title\)\.(\d+)B/.exec(compiled('{title} {title} [{id}]'))?.[1])
-		expect(twice).toBeLessThan(once)
-	})
-
-	it('rejects a template whose literals alone overflow the component limit', () => {
-		// 120 multibyte characters is within the character cap but is 240
-		// UTF-8 bytes on disk — the character cap cannot catch this.
-		expect(validateFilenameTemplate(`${'х'.repeat(113)}{title}`)).toEqual({ok: false, code: 'too-long'})
-	})
-
-	it('budgets each path segment independently, so directories do not starve the filename', () => {
-		// The whole point of per-segment budgets: a long folder name is its own
-		// path component and must not shrink the title cap in the filename.
-		expect(compiled(`${'d'.repeat(60)}/{title} [{id}]`)).toContain('%(title).150B')
+	it('still rejects a template longer than the field accepts', () => {
+		// The one thing `too-long` means now: more characters than FILENAME_TEMPLATE_MAX.
+		expect(validateFilenameTemplate(`${'a'.repeat(FILENAME_TEMPLATE_MAX)}{title}`)).toEqual({ok: false, code: 'too-long'})
 	})
 })

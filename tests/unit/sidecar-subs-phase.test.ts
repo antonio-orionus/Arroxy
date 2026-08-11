@@ -72,7 +72,7 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, filenameTemplate: '{title} [{id}]'}}})
 		await SidecarSubsPhase(false).run(ctx)
 		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect(req.output.template).toBe('%(title).150B [%(id)s].%(ext)s')
+		expect(req.output.template).toBe('%(title).120B [%(id)s].%(ext)s')
 	})
 
 	it('emits fetchingSubtitles status before run', async () => {

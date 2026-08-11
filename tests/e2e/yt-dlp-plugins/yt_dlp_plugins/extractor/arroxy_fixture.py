@@ -35,7 +35,11 @@ def _fixture_video(catalog, video_id):
 
 
 def _fixture_title(catalog, video_id):
-    return f"Fixture Video {_fixture_video(catalog, video_id)['number']}"
+    # A catalog entry may override its title to exercise names the filesystem
+    # makes hard: characters yt-dlp's sanitizer rewrites, multibyte text whose
+    # byte and UTF-16 lengths differ, and lengths that force truncation.
+    video = _fixture_video(catalog, video_id)
+    return video.get('title') or f"Fixture Video {video['number']}"
 
 
 def _fixture_formats(catalog, base_url, video_id):
