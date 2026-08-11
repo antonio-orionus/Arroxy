@@ -79,7 +79,7 @@ describe('VideoPhase(embed=false)', () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, filenameTemplate: '{title} [{id}]'}}})
 		await VideoPhase(false).run(ctx)
 		const [req] = ctx.runMock.mock.calls[0]
-		expect(req.output.template).toBe('%(title).150B [%(id)s].%(ext)s')
+		expect(req.output.template).toBe('%(title).120B [%(id)s].%(ext)s')
 	})
 
 	it('uses combined YouTube player clients for explicit single-format downloads', async () => {

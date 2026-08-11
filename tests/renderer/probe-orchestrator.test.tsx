@@ -210,7 +210,9 @@ describe('quickDownload', () => {
 			outputDir: '/tmp/downloads/Balanced 720p',
 			status: 'pending',
 			lane: 'normal',
-			job: expect.objectContaining({kind: 'ranged-format', extractor: 'youtube', extractorKey: 'Youtube', intent: {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}}, filenameTemplate: '{title} [{id}]'})
+			// Bound, not the token form: the probe supplied both title and id, so
+			// the job carries the name that will actually be written.
+			job: expect.objectContaining({kind: 'ranged-format', extractor: 'youtube', extractorKey: 'Youtube', intent: {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}}, filenameTemplate: 'Test Video [dQw4w9WgXcQ]'})
 		})
 		expect(useAppStore.getState().wizardUrl).toBe('')
 		expect(useAppStore.getState().wizardStep).toBe('url')

@@ -12,6 +12,8 @@
 // Token names are enumerated in schemas.ts (enum SSOT); the field mapping below
 // is the implementation detail that belongs here.
 
+import {fitName, renderName, type BudgetFailure, type BudgetPiece} from './nameBudget.js'
+import {limitsFor} from './pathLimits.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS, type FilenameToken} from './schemas.js'
 import {isValidSubfolder, joinSubfolder, sanitizeDirSegment} from './subfolder.js'
 
@@ -28,11 +30,13 @@ export const DEFAULT_FILENAME_TEMPLATE = '{title} [{id}]'
 // on several extractors Arroxy supports; the chain degrades to a real value
 // instead of printing "NA".
 //
-// `{title}` takes a byte cap computed per template rather than a fixed one —
-// see titleCapFor(). Capping fields individually is not enough: the limit
-// applies to the whole rendered component, and literals are counted in UTF-8
-// bytes, so 120 multibyte characters plus a 150-byte title reaches 390 bytes
-// against a 255-byte limit.
+// These mappings are only reached on the *unbound* path — a template that was
+// never run through bindFilenameTemplate, which in practice means main's
+// fallback to DEFAULT_FILENAME_TEMPLATE after a persisted template failed to
+// parse. A bound template carries literal text for every token but
+// `{resolution}`, because yt-dlp's own truncation cannot be trusted to respect
+// a budget: `.NB` truncates before sanitization, and sanitization grows the
+// string (`:` to " -", `|` to a 3-byte full-width form). See nameBudget.ts.
 const TOKEN_FIELDS: Record<Exclude<FilenameToken, 'title'>, string> = {
 	uploader: '%(uploader,channel,creator,uploader_id).60B',
 	id: '%(id)s',
@@ -43,40 +47,12 @@ const TOKEN_FIELDS: Record<Exclude<FilenameToken, 'title'>, string> = {
 	playlist_id: '%(playlist_id|)s'
 }
 
-// Worst-case bytes each token can contribute. `uploader` matches its own `.60B`
-// cap; `id` is an allowance rather than a cap because playlist dedupe matches
-// the full video id — truncating it would silently break that.
-const TOKEN_MAX_BYTES: Record<FilenameToken, number> = {title: 150, uploader: 60, id: 64, date: 10, resolution: 6, playlist_index: 6, playlist_title: 60, playlist_id: 40}
-
-// 255 is the usual filesystem limit for one path component; the margin leaves
-// room for the suffixes yt-dlp appends while working (`.part`, `.f137`). The
-// budget applies per path component, so a long folder name never shrinks the
-// title cap in the filename.
-const COMPONENT_BUDGET_BYTES = 240
-const EXTENSION_BYTES = 6
-const TITLE_MIN_BYTES = 40
-
-function utf8Length(value: string): number {
-	return new TextEncoder().encode(value).length
-}
-
-/**
- * Bytes left for `{title}` once literals, the extension, and every other token's
- * worst case are accounted for. Split evenly when `{title}` appears more than
- * once. Negative or below TITLE_MIN_BYTES means the template cannot fit.
- */
-function titleCapFor(segments: Segment[]): number {
-	let fixed = EXTENSION_BYTES
-	let titleCount = 0
-	for (const segment of segments) {
-		if (segment.kind === 'literal') fixed += utf8Length(segment.text)
-		else if (segment.token === 'title') titleCount++
-		else fixed += TOKEN_MAX_BYTES[segment.token]
-	}
-	const remaining = COMPONENT_BUDGET_BYTES - fixed
-	if (titleCount === 0) return remaining
-	return Math.min(TOKEN_MAX_BYTES.title, Math.floor(remaining / titleCount))
-}
+// Byte cap for `{title}` on the unbound fallback path only, where there is no
+// metadata to measure and no output directory to budget against. Deliberately
+// pessimistic: it must hold on Linux (the strictest unit, 255 bytes) and
+// survive yt-dlp sanitizing *after* this cap is applied, which can turn one
+// byte into three. The bound path does not use this — it measures real values.
+const FALLBACK_TITLE_BYTES = 120
 
 /**
  * Metadata Arroxy renders directory segments from. Every field is optional
@@ -132,7 +108,24 @@ interface ParsedTemplate {
 	ok: true
 	dirs: Segment[][]
 	file: Segment[]
-	titleCap: number
+}
+
+/**
+ * Two kinds of string reach this parser and they obey different rules.
+ *
+ * `typed` is what the user entered, and carries the constraints that exist to
+ * keep the field usable: a character cap, and at least one distinguishing token.
+ *
+ * `bound` is Arroxy's own generated output, where both constraints are wrong.
+ * A bound name contains literal text where `{title}` and `{id}` used to be, so
+ * it has no tokens to require — and it is routinely *longer* than the typed cap,
+ * because a 200-character cap on a template says nothing about the length of a
+ * name rendered from it. Applying either rule here silently rejected the bound
+ * template and sent main to its default-template fallback, throwing away the
+ * whole budget for exactly the long titles it exists to handle.
+ */
+interface ParseOptions {
+	source: 'typed' | 'bound'
 }
 
 function isFilenameToken(value: string): value is FilenameToken {
@@ -175,10 +168,15 @@ function hasToken(segments: Segment[], token: FilenameToken): boolean {
 	return segments.some(segment => segment.kind === 'token' && segment.token === token)
 }
 
-function parse(raw: string): ParsedTemplate | FilenameTemplateFailure {
+function parse(raw: string, options: ParseOptions = {source: 'typed'}): ParsedTemplate | FilenameTemplateFailure {
 	const template = raw.trim()
 	if (!template) return {ok: false, code: 'empty'}
-	if (template.length > FILENAME_TEMPLATE_MAX) return {ok: false, code: 'too-long'}
+	// `too-long` means exactly this and nothing else: the user typed more
+	// characters than the field accepts. It used to double as the report for a
+	// blown byte budget, which told someone with an 84-character template that
+	// their template was too long. Length-of-output failures now live in
+	// nameBudget.ts and carry their own reasons.
+	if (options.source === 'typed' && template.length > FILENAME_TEMPLATE_MAX) return {ok: false, code: 'too-long'}
 
 	const rawSegments = template.split('/')
 	const parsed: Segment[][] = []
@@ -214,14 +212,9 @@ function parse(raw: string): ParsedTemplate | FilenameTemplateFailure {
 	// resolves to the same name and silently overwrites the last one. A
 	// distinguishing token in a directory does not help — it only moves the
 	// collision into that directory.
-	if (!hasToken(file, 'title') && !hasToken(file, 'id')) return {ok: false, code: 'no-unique-token'}
+	if (options.source === 'typed' && !hasToken(file, 'title') && !hasToken(file, 'id')) return {ok: false, code: 'no-unique-token'}
 
-	// The character cap bounds what the user types; this bounds what yt-dlp
-	// actually writes, which is what the filesystem limits.
-	const titleCap = titleCapFor(file)
-	if (titleCap < (hasToken(file, 'title') ? TITLE_MIN_BYTES : 0)) return {ok: false, code: 'too-long'}
-
-	return {ok: true, dirs, file, titleCap}
+	return {ok: true, dirs, file}
 }
 
 export function validateFilenameTemplate(template: string): FilenameTemplateValidation {
@@ -235,10 +228,11 @@ export function validateFilenameTemplate(template: string): FilenameTemplateVali
  * the result names exactly one path component.
  */
 export function compileFilenameTemplate(template: string): FilenameTemplateCompilation {
-	const parsed = parse(template)
+	// Parsed as generated output, not as something a user typed — see ParseOptions.
+	const parsed = parse(template, {source: 'bound'})
 	if (!parsed.ok) return parsed
 	// Literal `%` must survive yt-dlp's own expansion pass.
-	const body = parsed.file.map(segment => (segment.kind === 'token' ? (segment.token === 'title' ? `%(title).${parsed.titleCap}B` : TOKEN_FIELDS[segment.token]) : segment.text.replaceAll('%', '%%'))).join('')
+	const body = parsed.file.map(segment => (segment.kind === 'token' ? (segment.token === 'title' ? `%(title).${FALLBACK_TITLE_BYTES}B` : TOKEN_FIELDS[segment.token]) : segment.text.replaceAll('%', '%%'))).join('')
 	return {ok: true, template: `${body}.%(ext)s`}
 }
 
@@ -298,71 +292,87 @@ export function renderTemplateDirs(template: string, meta: TemplateMetadata): st
 	return dirs
 }
 
-// Tokens yt-dlp cannot expand for an Arroxy download. Arroxy queues each
-// playlist entry as its own single-video job (`watch?v=…`), so by the time
-// yt-dlp runs there is no playlist context and `%(playlist_index)s` and friends
-// resolve empty. Arroxy holds those values from the probe, so it binds them
-// into the template as literals before handing it over. Everything else stays a
-// token: yt-dlp knows per-video fields and truncates them correctly.
-const PLAYLIST_BOUND_TOKENS: readonly FilenameToken[] = ['playlist_index', 'playlist_title', 'playlist_id']
+// Tokens Arroxy is authoritative for. Arroxy queues each playlist entry as its
+// own single-video job (`watch?v=…`), so by the time yt-dlp runs there is no
+// playlist context at all and `%(playlist_index)s` and friends resolve empty.
+// These bind to whatever Arroxy holds — including nothing, which is the correct
+// answer for a single video and is why no "NA" reaches the disk.
+const ARROXY_OWNED_TOKENS: readonly FilenameToken[] = ['playlist_index', 'playlist_title', 'playlist_id']
 
-/**
- * Truncate to a UTF-8 byte budget without splitting a character.
- *
- * Iterating with for..of walks code points, so a surrogate pair is either kept
- * whole or dropped whole — slicing by UTF-16 code units instead would leave a
- * lone surrogate in the filename.
- */
-function truncateToBytes(value: string, maxBytes: number): string {
-	if (utf8Length(value) <= maxBytes) return value
-	let out = ''
-	let used = 0
-	for (const char of value) {
-		const size = utf8Length(char)
-		if (used + size > maxBytes) break
-		out += char
-		used += size
-	}
-	return out
-}
+// Worst-case width of each token yt-dlp expands itself, charged only when the
+// token actually stays unbound. `uploader` matches the `.60B` cap in
+// TOKEN_FIELDS; `resolution` is exact, since `%(height&{}p|)s` renders at most
+// "4320p"; `id` is an allowance rather than a cap, because playlist dedupe
+// matches the full video id and truncating it would silently break that.
+const LATE_TOKEN_RESERVE: Record<FilenameToken, number> = {title: FALLBACK_TITLE_BYTES, uploader: 60, id: 24, date: 10, resolution: 6, playlist_index: 6, playlist_title: 60, playlist_id: 40}
 
 // A bound value becomes literal template text, so anything that would change
 // the template's meaning has to go: separators would invent a folder, braces
 // would invent a token, and the rest are illegal in filenames anyway. `%` is
 // left alone — compileFilenameTemplate escapes literals on the way out.
 //
-// The budget is the token's own byte allowance, and it is counted in bytes
-// rather than characters: once bound, the value is a literal that titleCapFor
-// measures with utf8Length, so a character-counted cap let a CJK title overrun
-// the component budget, fail to compile, and silently fall back to the default
-// template — losing the user's naming scheme entirely.
-function sanitizeBoundLiteral(value: string, maxBytes: number): string {
-	const cleaned = value
-		// eslint-disable-next-line no-control-regex -- control bytes are intentionally matched here
-		.replace(/[<>:"/\\|?*{}\x00-\x1F]/g, '_')
-		.replace(/\s+/g, ' ')
-		.trim()
-	// Truncation can expose a trailing space, so trim again after cutting.
-	return truncateToBytes(cleaned, maxBytes).trim()
+// Length is deliberately not handled here. Trimming each value against its own
+// allowance cannot see the whole name, which is what the filesystem measures;
+// fitName does that once, against the assembled result.
+function sanitizeBoundLiteral(value: string): string {
+	return (
+		value
+			// eslint-disable-next-line no-control-regex -- control bytes are intentionally matched here
+			.replace(/[<>:"/\\|?*{}\x00-\x1F]/g, '_')
+			.replace(/\s+/g, ' ')
+			.trim()
+	)
 }
 
+// Windows rejects a name ending in a dot or a space, and truncation can expose
+// either. Applied to the assembled name because that is where the end is.
+function trimNameEnd(value: string): string {
+	return value.replace(/[\s.]+$/, '')
+}
+
+export interface BindContext {
+	/** Absolute directory the file lands in, template directories included. */
+	outputDir: string
+	/** Whose filesystem limits apply. Injected so this stays testable per-OS. */
+	platform: NodeJS.Platform
+}
+
+export type BoundFilename = {ok: true; template: string; truncated: FilenameToken[]} | {ok: false; reason: BudgetFailure}
+
 /**
- * Resolve the tokens yt-dlp cannot know into literals and return the filename
- * segment alone. Directory segments are dropped because the caller has already
- * folded them into the output directory.
+ * Resolve a template into the filename segment yt-dlp will write, with every
+ * token but `{resolution}` replaced by sanitized literal text sized to fit the
+ * user's filesystem. Directory segments are dropped because the caller has
+ * already folded them into `outputDir`.
  *
- * An invalid template is returned untouched so the validator owns the error.
+ * Binding rather than delegating to yt-dlp is what makes the budget binding:
+ * `%(title).NB` truncates before yt-dlp sanitizes, and sanitizing grows the
+ * string, so any cap handed to yt-dlp can be overrun after the fact.
  */
-export function bindFilenameTemplate(template: string, meta: TemplateMetadata): string {
+export function bindFilenameTemplate(template: string, meta: TemplateMetadata, ctx: BindContext): BoundFilename {
 	const parsed = parse(template)
-	if (!parsed.ok) return template
-	return parsed.file
-		.map(segment => {
-			if (segment.kind === 'literal') return segment.text
-			if (!PLAYLIST_BOUND_TOKENS.includes(segment.token)) return `{${segment.token}}`
-			return sanitizeBoundLiteral(renderToken(segment.token, meta), TOKEN_MAX_BYTES[segment.token])
-		})
-		.join('')
+	// An unparseable template is not this function's error to report — the
+	// validator owns that — so hand it back and let the caller fall back.
+	if (!parsed.ok) return {ok: true, template, truncated: []}
+
+	const pieces: BudgetPiece[] = parsed.file.map(segment => {
+		if (segment.kind === 'literal') return {kind: 'literal' as const, text: segment.text}
+		const value = sanitizeBoundLiteral(renderToken(segment.token, meta))
+		// Arroxy's metadata is not always richer than yt-dlp's. Where Arroxy has
+		// no value and yt-dlp might — an extractor that omits `uploader`, a probe
+		// that never filled in the id — binding to empty would throw away a field
+		// yt-dlp could still resolve, turning `{title} [{id}]` into "Title []".
+		// Leave those as tokens and pay a reserve for them instead. Playlist
+		// fields are exempt: yt-dlp genuinely cannot know them, so empty is right.
+		const arroxyOwned = ARROXY_OWNED_TOKENS.includes(segment.token)
+		if (value === '' && !arroxyOwned) return {kind: 'placeholder' as const, text: `{${segment.token}}`, reserve: LATE_TOKEN_RESERVE[segment.token]}
+		return {kind: 'token' as const, token: segment.token, text: value}
+	})
+
+	const fitted = fitName({pieces, outputDir: ctx.outputDir, limits: limitsFor(ctx.platform)})
+	if (!fitted.ok) return fitted
+
+	return {ok: true, template: trimNameEnd(renderName(fitted.pieces)), truncated: fitted.truncated}
 }
 
 /**

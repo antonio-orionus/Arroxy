@@ -1,6 +1,8 @@
 import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
-import {templateDirsVaryPerEntry, templateHasDirs, templateHasId, type TemplateMetadata} from '@shared/filenameTemplate.js'
+import {bindFilenameTemplate, DEFAULT_FILENAME_TEMPLATE, templateDirsVaryPerEntry, templateHasDirs, templateHasId, type TemplateMetadata} from '@shared/filenameTemplate.js'
 import type {DownloadProfile, PlaylistEntry} from '@shared/types.js'
+import {notify} from '@renderer/lib/notify.js'
+import {hostPlatform} from '@renderer/lib/platform.js'
 import type {AppState} from '../types.js'
 
 /**
@@ -55,6 +57,32 @@ export function canScanPlaylistFolder(profile: DownloadProfile | undefined, glob
  */
 export function canWriteM3u(profile: DownloadProfile | undefined, globalTemplate: string | undefined): boolean {
 	return canMatchDownloadsById(profile, globalTemplate) && !templateOwnsDirs(profile, globalTemplate)
+}
+
+/**
+ * Bind a template into the filename segment the job will carry, sized to the
+ * user's filesystem.
+ *
+ * The budget needs the real output directory and the real platform, so it can
+ * only run here — `outputDir` is already resolved by this point. Compiling to a
+ * yt-dlp `-o` still happens in main; this only decides how long the name may be.
+ *
+ * A template that cannot fit falls back to the built-in default rather than
+ * failing the download, matching how main already degrades an unparseable
+ * template. `path-too-deep` is reported the same way even though no name can
+ * rescue it — the write will fail with yt-dlp's own error, and the notify line
+ * says why.
+ */
+export function bindJobFilenameTemplate(template: string, meta: TemplateMetadata, outputDir: string): string {
+	const ctx = {outputDir, platform: hostPlatform()}
+	const bound = bindFilenameTemplate(template, meta, ctx)
+	if (bound.ok) {
+		if (bound.truncated.length > 0) notify.filenameShortened(meta.title ?? '', bound.truncated)
+		return bound.template
+	}
+	notify.filenameBudgetFailed(bound.reason, outputDir)
+	const fallback = bindFilenameTemplate(DEFAULT_FILENAME_TEMPLATE, meta, ctx)
+	return fallback.ok ? fallback.template : DEFAULT_FILENAME_TEMPLATE
 }
 
 /** Drop blanks so an absent field collapses its folder rather than emptying it. */

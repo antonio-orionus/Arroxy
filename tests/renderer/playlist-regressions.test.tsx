@@ -130,7 +130,10 @@ describe('playlist regressions', () => {
 		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0]?.[0]
 		expect(item?.job.kind).toBe('single-format')
 		if (item?.job.kind !== 'single-format') throw new Error('single-format job expected')
-		expect(item.job.filenameTemplate).toBe('{title} [{id}]')
+		// The job carries the *bound* filename: tokens Arroxy knows are resolved to
+		// literals sized to the filesystem, and only what Arroxy cannot know — here
+		// the id, absent from this state — is left for yt-dlp.
+		expect(item.job.filenameTemplate).toBe('Single Video [{id}]')
 	})
 
 	it('single downloads carry a custom global filename template', async () => {
@@ -159,7 +162,7 @@ describe('playlist regressions', () => {
 		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0]?.[0]
 		expect(item?.job.kind).toBe('single-format')
 		if (item?.job.kind !== 'single-format') throw new Error('single-format job expected')
-		expect(item.job.filenameTemplate).toBe('{title}')
+		expect(item.job.filenameTemplate).toBe('Single Video')
 	})
 
 	it('active profile single downloads honor the global filename template', async () => {
@@ -175,7 +178,7 @@ describe('playlist regressions', () => {
 		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0]?.[0]
 		expect(item?.job.kind).toBe('ranged-format')
 		if (item?.job.kind !== 'ranged-format') throw new Error('ranged-format job expected')
-		expect(item.job.filenameTemplate).toBe('{title}')
+		expect(item.job.filenameTemplate).toBe('Single Video')
 	})
 
 	it('playlist probe restores persisted common prefs before the first playlist save', async () => {
@@ -249,7 +252,9 @@ describe('playlist regressions', () => {
 
 		const templates = (vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []).map(item => (item.job.kind === 'ranged-format' ? item.job.filenameTemplate : null))
 
-		expect(templates).toEqual(['{title} [{id}]', '{title} [{id}]', '{title} [{id}]'])
+		// Bound per entry, so each carries its own title and id rather than the
+		// shared token form — which is what makes them land on distinct filenames.
+		expect(templates).toEqual(['Vid 9 [p9]', 'Vid 10 [p10]', 'Vid 100 [p100]'])
 	})
 
 	it('built playlist items carry writeM3u from wizard state (opt-out propagates)', async () => {

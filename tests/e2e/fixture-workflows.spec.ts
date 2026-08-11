@@ -3,7 +3,7 @@ import path from 'node:path'
 import {expect, test} from '@playwright/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
 import type {AppSettings} from '../../src/shared/types.js'
-import {FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
+import {AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, openQueueTab, preparePlaylistConfirm, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
@@ -299,6 +299,69 @@ test('Electron custom filename template names the downloaded file and never writ
 			const profileOutputDir = smallFileProfileDir(outputDir)
 			const produced = files.mediaFiles('mp4', profileOutputDir).map(file => path.basename(file))
 			expect(produced).toEqual(['Arroxy Fixtures - Fixture Video 8.mp4'])
+		}
+	)
+})
+
+test('Electron writes a filesystem-legal name for a title the filesystem cannot take whole', async () => {
+	// Risk: a real title that no filesystem accepts verbatim. This one carries
+	// ':' and '|' (which yt-dlp's sanitizer *grows* — ':' to two characters, '|'
+	// to a 3-byte full-width form, both applied *after* any cap yt-dlp is given),
+	// CJK text whose byte and UTF-16 lengths differ threefold, an emoji that a
+	// careless cut would split into a lone surrogate, and enough length to
+	// overrun 255 in either unit.
+	//
+	// Only this layer can prove the outcome: the oracle is a real file on disk,
+	// written by real yt-dlp through real IPC. Unit tests own the arithmetic.
+	test.setTimeout(140_000)
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-awkward-title-user-',
+			outputPrefix: 'arroxy-fixture-awkward-title-out-',
+			settings: settings => {
+				configureSmallFileQuickProfile(settings)
+				settings.common.filenameTemplate = '{title} [{id}]'
+			}
+		},
+		async ({page, outputDir, urls, files}) => {
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(AWKWARD_TITLE_VIDEO_ID))
+			await page.locator('[data-testid="profiles-quick-download"]').click()
+
+			await openQueueTab(page)
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(1, {timeout: 120_000})
+
+			const produced = files.mediaFiles('mp4', smallFileProfileDir(outputDir)).map(file => path.basename(file))
+			expect(produced).toHaveLength(1)
+			const name = produced[0] ?? ''
+
+			// The file existing is itself the strongest oracle: the OS accepted the
+			// name, which is the thing the budget exists to guarantee.
+			//
+			// Asserting the length has to use the *host's* unit. Demanding 255 bytes
+			// everywhere would re-impose the Linux rule on macOS and Windows and
+			// contradict the whole design — this very name is ~650 bytes and writes
+			// fine on APFS, which counts UTF-16 code units and caps at 255.
+			const countsCodeUnits = process.platform === 'darwin' || process.platform === 'win32'
+			const measured = countsCodeUnits ? name.length : new TextEncoder().encode(name).length
+			expect(measured).toBeLessThanOrEqual(255)
+
+			// Identity survives the shortening. Playlist dedupe and M3U writing
+			// match `[videoId]` before the extension, so losing it would break both
+			// silently — the shrink ladder must spend the title, never the id.
+			expect(name).toContain(`[${AWKWARD_TITLE_VIDEO_ID}]`)
+
+			// Arroxy sanitized these before yt-dlp ever saw them, so the growing
+			// substitutions never ran. Neither the raw characters nor the
+			// full-width forms yt-dlp would have produced appear on disk.
+			expect(name).not.toMatch(/[:|]/)
+			expect(name).not.toMatch(/[：｜]/)
+
+			// A cut that split the emoji would leave an unpaired surrogate.
+			expect(name).not.toMatch(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/)
+
+			// Shortened, not gutted: enough of the title survives to recognise it.
+			expect(name.length).toBeGreaterThan(40)
 		}
 	)
 })

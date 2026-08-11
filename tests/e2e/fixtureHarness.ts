@@ -9,7 +9,7 @@ import {defaultAppSettings} from '../../src/shared/constants.js'
 import {downloadFile, downloadText, parseShaLine, sha256ForFile} from '../../src/main/services/binary/BinaryDownloader.js'
 import type {AppSettings} from '../../src/shared/types.js'
 import {FIXTURE_MEDIA_CATALOG_PATH, FIXTURE_MEDIA_FORMAT_IDS, FIXTURE_PLAYLIST_ID, fixtureMediaContentType, fixtureMediaFileSize, fixtureMediaKind, type FixtureMediaKind} from './fixtureMediaCatalog.js'
-export {FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureMediaCatalog.js'
+export {AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureMediaCatalog.js'
 
 const execFileAsync = promisify(execFile)
 
