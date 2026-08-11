@@ -15,6 +15,8 @@ import {WizardPanel} from './components/layout/WizardPanel.js'
 import {WarmupSplash} from './components/system/WarmupSplash.js'
 import {FeedbackNudge} from './components/system/FeedbackNudge.js'
 import {UpdateBanner} from './components/system/UpdateBanner.js'
+import {Toaster} from './components/ui/sonner.js'
+import {useToastSink} from './lib/toastSink.js'
 import {ThemeToggle} from './components/system/ThemeToggle.js'
 import {LanguagePicker} from './components/system/LanguagePicker.js'
 import {AboutDialog} from './components/system/AboutDialog.js'
@@ -103,6 +105,8 @@ export function App(): ReactNode {
 		useShallow(state => ({uiZoom: state.uiZoom, setUiZoom: state.setUiZoom, uiTheme: state.uiTheme, setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog, shareDialogOpen: state.shareDialogOpen}))
 	)
 	const update = useUpdateChannel()
+	// Routes notify.ts to the toast surface for as long as the app is mounted.
+	useToastSink()
 	const [showNudge, setShowNudge] = useState(false)
 	const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false)
 	const [colorScheme, setColorScheme] = useState<BackdropColorScheme>(() => (document.documentElement.classList.contains('dark') ? 'dark' : 'light'))
@@ -283,6 +287,7 @@ export function App(): ReactNode {
 						<ScenarioGallery />
 					</Suspense>
 				) : null}
+				<Toaster theme={colorScheme} />
 			</div>
 		</TooltipProvider>
 	)
