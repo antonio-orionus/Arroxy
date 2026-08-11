@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "语言"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "此文件夹层级对你的系统来说太深。下载仍可能失败 — 请选择更短的文件夹。"
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "此视频的名称无法容纳模板的每个部分，因此使用了默认名称。"
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "无法打开文件夹选择器。"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "该文件夹无法用于此播放列表。"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "无法保存你的设置。"
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "无法打开该项目。"
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "初始化未完成。在完成之前，部分下载可能会失败。"
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (best)"

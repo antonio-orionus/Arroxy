@@ -543,6 +543,15 @@
 		"fetchingSponsorBlock": "SponsorBlock waliin qunnamtii godhamaa jira…",
 		"retryingSponsorBlock": "SponsorBlock hin argamne, irra deebi'ii yaalamuutti jira ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "Qindaa'ina kee olkaa'uun hin danda'amne.",
+		"warmupFailed": "Qophiin hin xumuramne. Hanga xumuramutti buufannoowwan tokko tokko kufuu danda'u.",
+		"shellActionFailed": "Sana banuun hin danda'amne.",
+		"folderSelectFailed": "Filannoo galee banuun hin danda'amne.",
+		"playlistFolderRejected": "Galeen sun tarree taphannaa kanaaf itti fayyadamuun hin danda'amu.",
+		"filenameFolderTooDeep": "Galeen kun sirna keetiif baay'ee gadi fagoo dha. Buufannaan ammas kufuu danda'a — galee gabaabaa filadhu.",
+		"filenameTemplateCannotFit": "Maqaan viidiyoo kanaa kutaa fakkeenya keetii hunda keessa hin galu, kanaaf maqaan durtii fayyadameera."
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "Eegumsa bot ka'eera. IP fayyadamaa jirtu naannoo datacenter ykn VPN baay'ee fayyadamame irraa ta'uu mala — IP kee jijjiiri ykn VPN endpoint biraa filadhu achiin irra deebi'i. Yoo itti fufe dhabamsiisuu baate, jijjiirra yeroo gabaabaadhaaf YouTube gama ta'uu danda'a — Arroxy jalqabbii irratti yt-dlp ofumaan haaromsa, kanaaf fooyyessaan olka'iinsa irra ga'ee booda ofumaan ni dhufaa.",

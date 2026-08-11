@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "ቋንቋ"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "ይህ አቃፊ ለስርዓትዎ በጣም ጥልቅ ነው። ማውረዱ አሁንም ሊሳካ ይችላል — አጭር አቃፊ ይምረጡ።"
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "የዚህ ቪዲዮ ስም የአብነትዎን እያንዳንዱን ክፍል አይይዝም፣ ስለዚህ ነባሪው ስም ጥቅም ላይ ውሏል።"
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "የአቃፊ መምረጫን መክፈት አልተቻለም።"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "ያ አቃፊ ለዚህ የአጫዋች ዝርዝር መጠቀም አይቻልም።"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "ቅንብሮችዎን ማስቀመጥ አልተቻለም።"
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "ያንን መክፈት አልተቻለም።"
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "ማዋቀር አልተጠናቀቀም። እስኪጠናቀቅ ድረስ አንዳንድ ማውረዶች ሊሳኩ ይችላሉ።"
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (best)"

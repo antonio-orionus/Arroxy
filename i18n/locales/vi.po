@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Ngôn ngữ"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Thư mục này quá sâu đối với hệ thống của bạn. Việc tải xuống vẫn có thể thất bại — hãy chọn thư mục ngắn hơn."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Tên video này không vừa với mọi phần trong mẫu của bạn, nên tên mặc định đã được dùng."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Không thể mở trình chọn thư mục."
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Không thể dùng thư mục đó cho danh sách phát này."
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Không thể lưu cài đặt của bạn."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Không thể mở mục đó."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Thiết lập chưa hoàn tất. Một số lượt tải xuống có thể thất bại cho đến khi hoàn tất."
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (best)"

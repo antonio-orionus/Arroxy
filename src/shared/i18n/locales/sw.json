@@ -543,6 +543,15 @@
 		"fetchingSponsorBlock": "Inawasiliana na SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock haipatikani, inajaribu tena ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "Haikuweza kuhifadhi mipangilio yako.",
+		"warmupFailed": "Usanidi haukukamilika. Baadhi ya upakuaji unaweza kushindwa hadi ukamilike.",
+		"shellActionFailed": "Haikuweza kufungua hiyo.",
+		"folderSelectFailed": "Haikuweza kufungua kichagua folda.",
+		"playlistFolderRejected": "Folda hiyo haiwezi kutumika kwa orodha hii ya kucheza.",
+		"filenameFolderTooDeep": "Folda hii ina kina kirefu mno kwa mfumo wako. Upakuaji bado unaweza kushindwa — chagua folda fupi zaidi.",
+		"filenameTemplateCannotFit": "Jina la video hii haliwezi kutoshea kila sehemu ya kiolezo chako, kwa hivyo jina chaguo-msingi limetumika."
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "Ulinzi wa boti umeanzishwa. IP unayotumia ina uwezekano mkubwa wa kuwa imepigwa alama (anuwai ya kituo cha data au mlango wa VPN wenye msongamano). Badilisha IP yako au chagua seva nyingine ya VPN na ujaribu tena. Ikiwa itaendelea kushindwa, hii inaweza kuwa mabadiliko ya muda ya upande wa YouTube — Arroxy inasasisha yt-dlp kiotomatiki wakati wa uzinduzi, kwa hivyo marekebisho yatafika kiotomatiki mara chanzo kikitoa sasisho.",

@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Til"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Bu jild tizimingiz uchun juda chuqur. Yuklab olish baribir muvaffaqiyatsiz bo'lishi mumkin — qisqaroq jild tanlang."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Bu videoning nomi shablonningizning har bir qismiga sig'maydi, shuning uchun standart nom ishlatildi."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Jild tanlagichni ochib bo'lmadi."
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Bu jildni ushbu pleylist uchun ishlatib bo'lmaydi."
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Sozlamalaringizni saqlab bo'lmadi."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Buni ochib bo'lmadi."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Sozlash tugallanmadi. Tugallanmaguncha ba'zi yuklab olishlar muvaffaqiyatsiz bo'lishi mumkin."
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (best)"

@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Afaan"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Galeen kun sirna keetiif baay'ee gadi fagoo dha. Buufannaan ammas kufuu danda'a — galee gabaabaa filadhu."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Maqaan viidiyoo kanaa kutaa fakkeenya keetii hunda keessa hin galu, kanaaf maqaan durtii fayyadameera."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Filannoo galee banuun hin danda'amne."
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Galeen sun tarree taphannaa kanaaf itti fayyadamuun hin danda'amu."
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Qindaa'ina kee olkaa'uun hin danda'amne."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Sana banuun hin danda'amne."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Qophiin hin xumuramne. Hanga xumuramutti buufannoowwan tokko tokko kufuu danda'u."
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (best)"

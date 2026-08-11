@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "ဘာသာစကား"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "ဤဖိုင်တွဲသည် သင့်စနစ်အတွက် အလွန်နက်ရှိုင်းလွန်းသည်။ ဒေါင်းလုဒ် မအောင်မြင်နိုင်သေးပါ — ပိုတိုသောဖိုင်တွဲကို ရွေးပါ။"
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "ဤဗီဒီယို၏ အမည်သည် သင့်ပုံစံခွက်၏ အစိတ်အပိုင်းတိုင်းတွင် မဆံ့ပါ၊ ထို့ကြောင့် မူရင်းအမည်ကို အသုံးပြုခဲ့သည်။"
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "ဖိုင်တွဲရွေးချယ်စနစ်ကို ဖွင့်၍မရပါ။"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "ထိုဖိုင်တွဲကို ဤဖွင့်စာရင်းအတွက် အသုံးမပြုနိုင်ပါ။"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "သင့်ဆက်တင်များကို သိမ်း၍မရပါ။"
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "ထိုအရာကို ဖွင့်၍မရပါ။"
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "စနစ်ထည့်သွင်းမှု မပြီးဆုံးသေးပါ။ ပြီးဆုံးသည်အထိ အချို့ဒေါင်းလုဒ်များ မအောင်မြင်နိုင်ပါ။"
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (best)"

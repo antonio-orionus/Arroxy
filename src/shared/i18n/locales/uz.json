@@ -551,6 +551,15 @@
 		"fetchingSponsorBlock": "SponsorBlock bilan bog'lanilmoqda…",
 		"retryingSponsorBlock": "SponsorBlock mavjud emas, qayta urinilmoqda ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "Sozlamalaringizni saqlab bo'lmadi.",
+		"warmupFailed": "Sozlash tugallanmadi. Tugallanmaguncha ba'zi yuklab olishlar muvaffaqiyatsiz bo'lishi mumkin.",
+		"shellActionFailed": "Buni ochib bo'lmadi.",
+		"folderSelectFailed": "Jild tanlagichni ochib bo'lmadi.",
+		"playlistFolderRejected": "Bu jildni ushbu pleylist uchun ishlatib bo'lmaydi.",
+		"filenameFolderTooDeep": "Bu jild tizimingiz uchun juda chuqur. Yuklab olish baribir muvaffaqiyatsiz bo'lishi mumkin — qisqaroq jild tanlang.",
+		"filenameTemplateCannotFit": "Bu videoning nomi shablonningizning har bir qismiga sig'maydi, shuning uchun standart nom ishlatildi."
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "Bot himoyasi ishga tushdi. Siz foydalanayotgan IP manzil, ehtimol, bloklangan (ma'lumot markazi diapazoni yoki band VPN chiqish nuqtasi). IP manzilingizni o'zgartiring yoki boshqa VPN nuqtasini tanlang va qayta urinib ko'ring. Muammo davom etsa, bu YouTube tomonidan vaqtinchalik o'zgarish bo'lishi mumkin — Arroxy ishga tushganda yt-dlp ni avtomatik yangilaydi, shuning uchun tuzatish yuqori oqim chiqarilishi bilan avtomatik amalga oshiriladi.",

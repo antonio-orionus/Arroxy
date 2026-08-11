@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Lugha"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Folda hii ina kina kirefu mno kwa mfumo wako. Upakuaji bado unaweza kushindwa — chagua folda fupi zaidi."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Jina la video hii haliwezi kutoshea kila sehemu ya kiolezo chako, kwa hivyo jina chaguo-msingi limetumika."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Haikuweza kufungua kichagua folda."
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Folda hiyo haiwezi kutumika kwa orodha hii ya kucheza."
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Haikuweza kuhifadhi mipangilio yako."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Haikuweza kufungua hiyo."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Usanidi haukukamilika. Baadhi ya upakuaji unaweza kushindwa hadi ukamilike."
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (best)"

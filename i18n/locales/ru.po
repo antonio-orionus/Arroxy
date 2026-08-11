@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Язык"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Эта папка вложена слишком глубоко для вашей системы. Загрузка всё равно может не удаться — выберите папку короче."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Название этого видео не помещается во все части шаблона, поэтому использовано имя по умолчанию."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Не удалось открыть выбор папки."
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Эту папку нельзя использовать для этого плейлиста."
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Не удалось сохранить настройки."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Не удалось это открыть."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Настройка не завершена. Некоторые загрузки могут не работать, пока она не завершится."
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (best)"

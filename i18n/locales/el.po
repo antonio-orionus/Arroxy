@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Γλώσσα"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Αυτός ο φάκελος είναι πολύ βαθύς για το σύστημά σας. Η λήψη μπορεί να αποτύχει παρ' όλα αυτά — επιλέξτε συντομότερο φάκελο."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Το όνομα αυτού του βίντεο δεν χωράει σε κάθε μέρος του προτύπου σας, γι' αυτό χρησιμοποιήθηκε το προεπιλεγμένο όνομα."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Δεν ήταν δυνατό το άνοιγμα του επιλογέα φακέλων."
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Αυτός ο φάκελος δεν μπορεί να χρησιμοποιηθεί για αυτήν τη λίστα αναπαραγωγής."
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Δεν ήταν δυνατή η αποθήκευση των ρυθμίσεών σας."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Δεν ήταν δυνατό το άνοιγμα."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Η εγκατάσταση δεν ολοκληρώθηκε. Ορισμένες λήψεις ενδέχεται να αποτύχουν μέχρι να ολοκληρωθεί."
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (best)"
