@@ -16,6 +16,7 @@ export interface WizardStepGraphInput {
 	wizardSubtitles: SubtitleMap
 	wizardAutomaticCaptions: SubtitleMap
 	wizardSubtitleSkipped: boolean
+	multiProfileMode: boolean
 }
 
 export interface WizardStepGraph {
@@ -27,7 +28,7 @@ export interface WizardStepGraph {
 	state: WizardStepGraphInput
 }
 
-export const WIZARD_STEPS: readonly VisibleWizardStep[] = ['url', 'playlistItems', 'playlistPresets', 'formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm']
+export const WIZARD_STEPS: readonly VisibleWizardStep[] = ['url', 'playlistItems', 'playlistPresets', 'playlistProfiles', 'formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm']
 
 function isBatchMode(mode: WizardMode): boolean {
 	return mode === 'playlist' || mode === 'bulk'
@@ -37,9 +38,17 @@ function hasSubtitleTracks(state: Pick<WizardStepGraphInput, 'wizardSubtitles' |
 	return Object.keys(state.wizardSubtitles).length > 0 || Object.keys(state.wizardAutomaticCaptions).length > 0
 }
 
+function isMultiProfile(state: WizardStepGraphInput): boolean {
+	return state.multiProfileMode && isBatchMode(state.wizardMode)
+}
+
 function stepApplies(step: VisibleWizardStep, state: WizardStepGraphInput, hasSubtitles: boolean): boolean {
 	if (step === 'url') return true
 	if (step === 'playlistItems') return isBatchMode(state.wizardMode)
+	if (step === 'playlistProfiles') return isMultiProfile(state)
+	// A profile carries media, subtitles, SponsorBlock, output and filename, so
+	// every step that would collect them again is redundant in this mode.
+	if (isMultiProfile(state) && step !== 'confirm') return false
 	if (step === 'playlistPresets') return isBatchMode(state.wizardMode)
 	if (step === 'formats') return !isBatchMode(state.wizardMode)
 	if (step === 'subtitles') {

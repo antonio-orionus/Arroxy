@@ -4,7 +4,7 @@ import {buildWizardStepGraph, nextWizardStep, type WizardStepGraphInput, type Vi
 type NavTestContext = Omit<WizardStepGraphInput, 'wizardStep' | 'wizardSubtitles' | 'wizardAutomaticCaptions'> & {hasSubtitles: boolean}
 
 function ctx(overrides: Partial<NavTestContext> = {}): NavTestContext {
-	return {activePreset: null, wizardMode: 'single', playlistSelection: null, wizardExtractor: 'youtube', hasSubtitles: true, wizardSubtitleSkipped: false, ...overrides}
+	return {activePreset: null, wizardMode: 'single', playlistSelection: null, wizardExtractor: 'youtube', hasSubtitles: true, wizardSubtitleSkipped: false, multiProfileMode: false, ...overrides}
 }
 
 function walkStep(current: VisibleWizardStep, context: NavTestContext, dir: 'forward' | 'backward'): VisibleWizardStep | null {

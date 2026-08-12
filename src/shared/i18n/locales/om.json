@@ -33,7 +33,19 @@
 	"theme": {"light": "Haala iftoomaa", "dark": "Haala gurraacha", "system": "Sirna durtii"},
 	"language": {"label": "Afaan"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Tarree taphachiisaa", "playlistItemsGeneric": "Viidiyoowwan", "playlistPresets": "Qulqullina", "formats": "Foormaatii", "subtitles": "Axxiinni", "sponsorblock": "SponsorBlock", "output": "Ba'uu", "folder": "Kuusi", "confirm": "Mirkaneessi"},
+		"steps": {
+			"url": "URL",
+			"playlistItems": "Tarree taphachiisaa",
+			"playlistItemsGeneric": "Viidiyoowwan",
+			"playlistPresets": "Qulqullina",
+			"playlistProfiles": "Profaayilota",
+			"formats": "Foormaatii",
+			"subtitles": "Axxiinni",
+			"sponsorblock": "SponsorBlock",
+			"output": "Ba'uu",
+			"folder": "Kuusi",
+			"confirm": "Mirkaneessi"
+		},
 		"playlistPresets": {"heading": "Kutaa gurmuu barbaadi", "subhead": "Viidiyoon hundi sadarkaa filatame ofumaan qorata — playlist garagaraa sodaa malee hojjeta.", "itemCount_one": "{{count}} wanta", "itemCount_other": "{{count}} wantota"},
 		"playlist": {
 			"heading": "Wantoota Playlist",

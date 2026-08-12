@@ -7,7 +7,7 @@ import {buildWizardStepGraph, nextWizardStep, visibleWizardSteps, WIZARD_STEPS, 
 
 type TestContext = Omit<WizardStepGraphInput, 'wizardStep' | 'wizardSubtitles' | 'wizardAutomaticCaptions' | 'wizardSubtitleSkipped'> & {hasSubtitles: boolean; wizardSubtitleSkipped?: boolean}
 
-const baseCtx: TestContext = {activePreset: null, wizardMode: 'single', playlistSelection: null, wizardExtractor: '', hasSubtitles: false}
+const baseCtx: TestContext = {activePreset: null, wizardMode: 'single', playlistSelection: null, wizardExtractor: '', hasSubtitles: false, multiProfileMode: false}
 
 function graph(ctx: TestContext, wizardStep: VisibleWizardStep = 'url') {
 	return buildWizardStepGraph({
@@ -16,6 +16,7 @@ function graph(ctx: TestContext, wizardStep: VisibleWizardStep = 'url') {
 		playlistSelection: ctx.playlistSelection,
 		wizardExtractor: ctx.wizardExtractor,
 		wizardSubtitleSkipped: ctx.wizardSubtitleSkipped ?? false,
+		multiProfileMode: ctx.multiProfileMode,
 		wizardStep,
 		wizardSubtitles: ctx.hasSubtitles ? {en: [{ext: 'vtt'}]} : {},
 		wizardAutomaticCaptions: {}
@@ -62,7 +63,7 @@ describe('sponsorblock step gating — YouTube-only', () => {
 	})
 })
 
-const baseNavCtx: Required<TestContext> = {activePreset: null, wizardMode: 'single', playlistSelection: null, wizardExtractor: '', hasSubtitles: false, wizardSubtitleSkipped: false}
+const baseNavCtx: Required<TestContext> = {activePreset: null, wizardMode: 'single', playlistSelection: null, wizardExtractor: '', hasSubtitles: false, wizardSubtitleSkipped: false, multiProfileMode: false}
 
 function walkStep(current: VisibleWizardStep, ctx: TestContext, dir: 'forward' | 'backward'): VisibleWizardStep | null {
 	return nextWizardStep(graph(ctx, current), dir)
@@ -103,8 +104,8 @@ describe('WizardStepGraph traversal', () => {
 })
 
 describe('WizardStepGraph coverage', () => {
-	it('STEPS sequence is the 9-step ordered list', () => {
-		expect(WIZARD_STEPS).toEqual(['url', 'playlistItems', 'playlistPresets', 'formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm'])
+	it('STEPS sequence is the 10-step ordered list', () => {
+		expect(WIZARD_STEPS).toEqual(['url', 'playlistItems', 'playlistPresets', 'playlistProfiles', 'formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm'])
 	})
 
 	it('every entry in WIZARD_STEPS can be considered by the graph', () => {

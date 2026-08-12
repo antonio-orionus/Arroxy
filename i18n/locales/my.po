@@ -2169,6 +2169,10 @@ msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
 msgstr "အရည်အသွေး"
 
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "ပရိုဖိုင်များ"
+
 msgctxt "wizard.steps.sponsorblock"
 msgid "SponsorBlock"
 msgstr "SponsorBlock"

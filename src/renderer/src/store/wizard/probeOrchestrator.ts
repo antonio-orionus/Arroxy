@@ -181,6 +181,9 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		playlistScopeError: RESET_WIZARD_STATE.playlistScopeError,
 		playlistScope: RESET_WIZARD_STATE.playlistScope,
 		playlistSelection: RESET_WIZARD_STATE.playlistSelection,
+		multiProfileMode: RESET_WIZARD_STATE.multiProfileMode,
+		playlistProfileAssignments: RESET_WIZARD_STATE.playlistProfileAssignments,
+		removedPlaylistItemIds: RESET_WIZARD_STATE.removedPlaylistItemIds,
 		bulkMetadataStatus: RESET_WIZARD_STATE.bulkMetadataStatus,
 		bulkMetadataCompleted: RESET_WIZARD_STATE.bulkMetadataCompleted,
 		bulkMetadataTotal: RESET_WIZARD_STATE.bulkMetadataTotal,
@@ -293,6 +296,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		},
 
 		setPlaylistSelection: s => set({playlistSelection: s, wizardSubtitleSkipped: false}),
+
+		enterMultiProfileMode: () => WizardCommands.enterMultiProfileMode(set),
+
+		exitMultiProfileMode: () => WizardCommands.exitMultiProfileMode(set),
 
 		// Scan the destination folder for already-downloaded items. Populates
 		// syncedDownloadedIds (drives the "already downloaded" badges + the sync

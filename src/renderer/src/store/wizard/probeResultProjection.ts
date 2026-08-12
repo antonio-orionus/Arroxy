@@ -70,7 +70,10 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			wizardExtractor: '',
 			wizardExtractorKey: '',
 			wizardWebpageUrl: '',
-			wizardProbeInfoJsonRef: undefined
+			wizardProbeInfoJsonRef: undefined,
+			multiProfileMode: false,
+			playlistProfileAssignments: {},
+			removedPlaylistItemIds: []
 		}
 	}
 }
@@ -235,7 +238,10 @@ export function projectBulkStart(urls: readonly string[], state: AppState): Bulk
 			wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false,
 			wizardSubfolderName: settings?.common?.lastSubfolder ?? '',
 			wizardWriteM3u: false,
-			playlistSelection
+			playlistSelection,
+			multiProfileMode: false,
+			playlistProfileAssignments: {},
+			removedPlaylistItemIds: []
 		}
 	}
 }

@@ -33,7 +33,7 @@
 	"theme": {"light": "ライトモード", "dark": "ダークモード", "system": "システム設定に従う"},
 	"language": {"label": "言語"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "プレイリスト", "playlistItemsGeneric": "動画", "playlistPresets": "画質", "formats": "形式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "出力", "folder": "保存先", "confirm": "確認"},
+		"steps": {"url": "URL", "playlistItems": "プレイリスト", "playlistItemsGeneric": "動画", "playlistPresets": "画質", "playlistProfiles": "プロファイル", "formats": "形式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "出力", "folder": "保存先", "confirm": "確認"},
 		"playlistPresets": {"heading": "バッチの画質を選択", "subhead": "各動画が選択した画質ティアを独立して解決します — 異なる動画が混在するPlaylistも問題なく処理できます。", "itemCount_one": "{{count}} 件", "itemCount_other": "{{count}} 件"},
 		"playlist": {
 			"heading": "Playlist アイテム",

@@ -26,10 +26,11 @@ export function WizardPanel(): ReactNode {
 	const wizardSubtitles = useAppStore(s => s.wizardSubtitles)
 	const wizardAutomaticCaptions = useAppStore(s => s.wizardAutomaticCaptions)
 	const wizardSubtitleSkipped = useAppStore(s => s.wizardSubtitleSkipped)
+	const multiProfileMode = useAppStore(s => s.multiProfileMode)
 
 	const graph = useMemo(
-		() => buildWizardStepGraph({wizardStep, activePreset, wizardMode, playlistSelection, wizardExtractor, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped}),
-		[wizardStep, activePreset, wizardMode, playlistSelection, wizardExtractor, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped]
+		() => buildWizardStepGraph({wizardStep, activePreset, wizardMode, playlistSelection, wizardExtractor, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped, multiProfileMode}),
+		[wizardStep, activePreset, wizardMode, playlistSelection, wizardExtractor, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleSkipped, multiProfileMode]
 	)
 
 	const visibleSteps = visibleWizardSteps(graph)

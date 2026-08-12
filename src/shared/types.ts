@@ -552,7 +552,7 @@ export interface UpdateAvailablePayload {
 
 export type UpdateInstallResult = {ok: true} | {ok: false; error: string}
 
-export type WizardStepName = 'url' | 'playlistItems' | 'playlistPresets' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error'
+export type WizardStepName = 'url' | 'playlistItems' | 'playlistPresets' | 'playlistProfiles' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error'
 
 export type WizardTransition = 'submitUrl' | 'advance' | 'back' | 'skipSubtitles' | 'skipToConfirm' | 'retry' | 'reset' | 'playlistScopeReloadStart' | 'playlistScopeReloadSuccess' | 'playlistScopeReloadFailure' | 'playlistScopeReloadIgnored'
 

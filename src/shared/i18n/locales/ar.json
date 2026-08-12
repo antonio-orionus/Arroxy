@@ -33,7 +33,7 @@
 	"theme": {"light": "الوضع الفاتح", "dark": "الوضع الداكن", "system": "إعداد النظام الافتراضي"},
 	"language": {"label": "اللغة"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "قائمة التشغيل", "playlistItemsGeneric": "فيديوهات", "playlistPresets": "الجودة", "formats": "الصيغة", "subtitles": "الترجمات", "sponsorblock": "SponsorBlock", "output": "الإخراج", "folder": "حفظ", "confirm": "تأكيد"},
+		"steps": {"url": "URL", "playlistItems": "قائمة التشغيل", "playlistItemsGeneric": "فيديوهات", "playlistPresets": "الجودة", "playlistProfiles": "الملفات الشخصية", "formats": "الصيغة", "subtitles": "الترجمات", "sponsorblock": "SponsorBlock", "output": "الإخراج", "folder": "حفظ", "confirm": "تأكيد"},
 		"playlistPresets": {"heading": "اختر الجودة للدفعة", "subhead": "يحل كل فيديو المستوى المختار بشكل مستقل — قوائم التشغيل غير المتجانسة تعمل بدون مفاجآت.", "itemCount_one": "{{count}} عنصر", "itemCount_other": "{{count}} عناصر"},
 		"playlist": {
 			"heading": "عناصر القائمة",

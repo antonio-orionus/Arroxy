@@ -33,7 +33,7 @@
 	"theme": {"light": "Açık mod", "dark": "Koyu mod", "system": "Sistem varsayılanı"},
 	"language": {"label": "Dil"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Oynatma listesi", "playlistItemsGeneric": "Videolar", "playlistPresets": "Kalite", "formats": "Biçim", "subtitles": "Altyazılar", "sponsorblock": "SponsorBlock", "output": "Çıktı", "folder": "Kaydet", "confirm": "Onayla"},
+		"steps": {"url": "URL", "playlistItems": "Oynatma listesi", "playlistItemsGeneric": "Videolar", "playlistPresets": "Kalite", "playlistProfiles": "Profiller", "formats": "Biçim", "subtitles": "Altyazılar", "sponsorblock": "SponsorBlock", "output": "Çıktı", "folder": "Kaydet", "confirm": "Onayla"},
 		"playlistPresets": {"heading": "Toplu indirme için kalite seç", "subhead": "Her video seçilen kalite düzeyini bağımsız çözer — karışık oynatma listeleri sorunsuz çalışır.", "itemCount_one": "{{count}} öğe", "itemCount_other": "{{count}} öğe"},
 		"playlist": {
 			"heading": "Oynatma listesi öğeleri",

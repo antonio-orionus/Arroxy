@@ -41,7 +41,7 @@
 	"theme": {"light": "Yorug' rejim", "dark": "Qorong'i rejim", "system": "Tizim standart"},
 	"language": {"label": "Til"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Ijro roʻyxati", "playlistItemsGeneric": "Videolar", "playlistPresets": "Sifat", "formats": "Format", "subtitles": "Subtitrlar", "sponsorblock": "SponsorBlock", "output": "Chiqish", "folder": "Saqlash", "confirm": "Tasdiqlash"},
+		"steps": {"url": "URL", "playlistItems": "Ijro roʻyxati", "playlistItemsGeneric": "Videolar", "playlistPresets": "Sifat", "playlistProfiles": "Profillar", "formats": "Format", "subtitles": "Subtitrlar", "sponsorblock": "SponsorBlock", "output": "Chiqish", "folder": "Saqlash", "confirm": "Tasdiqlash"},
 		"playlistPresets": {"heading": "Paket uchun sifatni tanlang", "subhead": "Har bir video tanlangan darajani mustaqil ravishda hal qiladi — turli xil playlistlar muammosiz ishlaydi.", "itemCount_one": "{{count}} ta element", "itemCount_other": "{{count}} ta element"},
 		"playlist": {
 			"heading": "Playlist elementlari",

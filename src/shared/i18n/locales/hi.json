@@ -24,7 +24,7 @@
 	"theme": {"light": "लाइट मोड", "dark": "डार्क मोड", "system": "सिस्टम डिफ़ॉल्ट"},
 	"language": {"label": "भाषा"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "प्लेलिस्ट", "playlistItemsGeneric": "वीडियो", "playlistPresets": "गुणवत्ता", "formats": "फ़ॉर्मेट", "subtitles": "उपशीर्षक", "sponsorblock": "SponsorBlock", "output": "आउटपुट", "folder": "सेव करें", "confirm": "पुष्टि करें"},
+		"steps": {"url": "URL", "playlistItems": "प्लेलिस्ट", "playlistItemsGeneric": "वीडियो", "playlistPresets": "गुणवत्ता", "playlistProfiles": "प्रोफाइल", "formats": "फ़ॉर्मेट", "subtitles": "उपशीर्षक", "sponsorblock": "SponsorBlock", "output": "आउटपुट", "folder": "सेव करें", "confirm": "पुष्टि करें"},
 		"playlistPresets": {"heading": "बैच के लिए गुणवत्ता चुनें", "subhead": "हर वीडियो चुनी गई श्रेणी के अनुसार स्वतंत्र रूप से रेज़ॉल्व होता है — मिश्रित Playlist बिना किसी परेशानी के काम करती है।", "itemCount_one": "{{count}} आइटम", "itemCount_other": "{{count}} आइटम"},
 		"playlist": {
 			"heading": "Playlist आइटम",

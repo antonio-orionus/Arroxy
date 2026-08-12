@@ -33,7 +33,7 @@
 	"theme": {"light": "Mode clair", "dark": "Mode sombre", "system": "Système par défaut"},
 	"language": {"label": "Langue"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Liste de lecture", "playlistItemsGeneric": "Vidéos", "playlistPresets": "Qualité", "formats": "Format", "subtitles": "Sous-titres", "sponsorblock": "SponsorBlock", "output": "Sortie", "folder": "Enregistrer", "confirm": "Confirmer"},
+		"steps": {"url": "URL", "playlistItems": "Liste de lecture", "playlistItemsGeneric": "Vidéos", "playlistPresets": "Qualité", "playlistProfiles": "Profils", "formats": "Format", "subtitles": "Sous-titres", "sponsorblock": "SponsorBlock", "output": "Sortie", "folder": "Enregistrer", "confirm": "Confirmer"},
 		"playlistPresets": {"heading": "Choisir la qualité pour le lot", "subhead": "Chaque vidéo résout le niveau choisi indépendamment — les playlists hétérogènes fonctionnent sans surprise.", "itemCount_one": "{{count}} élément", "itemCount_other": "{{count}} éléments"},
 		"playlist": {
 			"heading": "Éléments de la Playlist",

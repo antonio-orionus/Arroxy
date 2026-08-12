@@ -33,7 +33,7 @@
 	"theme": {"light": "Modus ringan", "dark": "Mode gelap", "system": "Bawaan sistem"},
 	"language": {"label": "Bahasa"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Daftar putar", "playlistItemsGeneric": "Video", "playlistPresets": "Kualitas", "formats": "Format", "subtitles": "Subtitle", "sponsorblock": "SponsorBlock", "output": "Keluaran", "folder": "Menyimpan", "confirm": "Mengonfirmasi"},
+		"steps": {"url": "URL", "playlistItems": "Daftar putar", "playlistItemsGeneric": "Video", "playlistPresets": "Kualitas", "playlistProfiles": "Profil", "formats": "Format", "subtitles": "Subtitle", "sponsorblock": "SponsorBlock", "output": "Keluaran", "folder": "Menyimpan", "confirm": "Mengonfirmasi"},
 		"playlistPresets": {"heading": "Pilih kualitas untuk batch tersebut", "subhead": "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan.", "itemCount_one": "barang {{count}}", "itemCount_other": "item {{count}}"},
 		"playlist": {
 			"heading": "Item daftar putar",

@@ -33,7 +33,7 @@
 	"theme": {"light": "Heller Modus", "dark": "Dunkler Modus", "system": "Systemstandard"},
 	"language": {"label": "Sprache"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Wiedergabeliste", "playlistItemsGeneric": "Videos", "playlistPresets": "Qualität", "formats": "Format", "subtitles": "Untertitel", "sponsorblock": "SponsorBlock", "output": "Ausgabe", "folder": "Speichern", "confirm": "Bestätigen"},
+		"steps": {"url": "URL", "playlistItems": "Wiedergabeliste", "playlistItemsGeneric": "Videos", "playlistPresets": "Qualität", "playlistProfiles": "Profile", "formats": "Format", "subtitles": "Untertitel", "sponsorblock": "SponsorBlock", "output": "Ausgabe", "folder": "Speichern", "confirm": "Bestätigen"},
 		"playlistPresets": {"heading": "Qualität für den Stapel wählen", "subhead": "Jedes Video löst die gewählte Stufe unabhängig auf — heterogene Playlists funktionieren ohne Überraschungen.", "itemCount_one": "{{count}} Element", "itemCount_other": "{{count}} Elemente"},
 		"playlist": {
 			"heading": "Playlist-Elemente",

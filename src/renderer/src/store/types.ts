@@ -45,7 +45,7 @@ import type {IncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import type {QuickDownloadFailure} from './wizard/quickDownloadFeedback.js'
 export type {AudioSelection}
 export type {BulkMetadataCancelReason, BulkMetadataItemStatus, BulkMetadataStatus, WizardMode} from '@shared/types.js'
-export type WizardStep = 'url' | 'playlistItems' | 'playlistPresets' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error'
+export type WizardStep = 'url' | 'playlistItems' | 'playlistPresets' | 'playlistProfiles' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error'
 export type AdvancedSettingsTarget = 'cookies' | 'network'
 export type MixedUrlPromptSource = 'wizard' | 'quick-download'
 
@@ -103,6 +103,9 @@ export interface ProbeOrchestratorSlice {
 	playlistScopeError: string | null
 	playlistScope: PlaylistScope
 	playlistSelection: PlaylistSelection | null
+	multiProfileMode: boolean
+	playlistProfileAssignments: Record<string, DownloadProfileRef>
+	removedPlaylistItemIds: string[]
 	bulkMetadataStatus: BulkMetadataStatus
 	bulkMetadataCompleted: number
 	bulkMetadataTotal: number
@@ -143,6 +146,8 @@ export interface ProbeOrchestratorSlice {
 	selectPlaylistRange: (from: number, to: number) => void
 	confirmPlaylistSelection: () => void
 	setPlaylistSelection: (s: PlaylistSelection) => void
+	enterMultiProfileMode: () => void
+	exitMultiProfileMode: () => void
 	scanDownloadedInFolder: () => Promise<void>
 	applyFolderSync: () => void
 	advance: () => void

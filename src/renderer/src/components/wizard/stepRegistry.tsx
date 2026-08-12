@@ -22,6 +22,8 @@ const RENDER_BY_STEP: Record<VisibleWizardStep, () => ReactNode> = {
 	url: () => <StepUrlInput />,
 	playlistItems: () => createElement(lazySteps.playlistItems),
 	playlistPresets: () => createElement(lazySteps.playlistPresets),
+	// Placeholder — the real step component lands in a follow-up task.
+	playlistProfiles: () => null,
 	formats: () => createElement(lazySteps.formats),
 	subtitles: () => createElement(lazySteps.subtitles),
 	sponsorblock: () => createElement(lazySteps.sponsorblock),

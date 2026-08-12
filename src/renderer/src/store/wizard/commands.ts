@@ -5,7 +5,7 @@
 
 import {DEFAULTS} from '@shared/constants.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
-import type {BulkMetadataItemStatus, BulkMetadataStatus, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
+import type {BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfileRef, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
 import type {SetState, WizardStep} from '../types.js'
 import {QUICK_DOWNLOAD_FEEDBACK_INITIAL} from './quickDownloadFeedback.js'
 
@@ -43,6 +43,9 @@ export const RESET_WIZARD_STATE = {
 	playlistScopeError: null as string | null,
 	playlistScope: {items: {kind: 'app-limit'}} as PlaylistScope,
 	playlistSelection: null as PlaylistSelection | null,
+	multiProfileMode: false,
+	playlistProfileAssignments: {} as Record<string, DownloadProfileRef>,
+	removedPlaylistItemIds: [] as string[],
 	bulkMetadataStatus: 'idle' as BulkMetadataStatus,
 	bulkMetadataCompleted: 0,
 	bulkMetadataTotal: 0,
@@ -87,5 +90,13 @@ export const RESET_WIZARD_STATE = {
 export const WizardCommands = {
 	resetAll(set: SetState): void {
 		set(RESET_WIZARD_STATE)
+	},
+
+	enterMultiProfileMode(set: SetState): void {
+		set({multiProfileMode: true, wizardStep: 'playlistProfiles'})
+	},
+
+	exitMultiProfileMode(set: SetState): void {
+		set({multiProfileMode: false, playlistProfileAssignments: {}, wizardStep: 'playlistItems'})
 	}
 }
