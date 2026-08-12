@@ -319,6 +319,8 @@ export interface SystemSlice {
 	setPacingMaxSleepInterval: (value: number | undefined) => Promise<void>
 	setPacingSleepSubtitles: (value: number | undefined) => Promise<void>
 	setDownloadConnections: (value: number) => Promise<void>
+	setConcurrentDownloads: (value: number) => Promise<void>
+	setAutoRetryAttempts: (value: number) => Promise<void>
 	setClipboardWatchEnabled: (enabled: boolean) => Promise<void>
 	setCloseBehavior: (value: 'tray' | 'quit') => Promise<void>
 	setAnalyticsEnabled: (enabled: boolean) => Promise<void>

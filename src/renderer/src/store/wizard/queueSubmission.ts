@@ -79,6 +79,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 
 	return {
 		id: generateId(),
+		retryCount: 0,
 		url: wizardUrl,
 		title: wizardTitle || wizardUrl,
 		thumbnail: wizardThumbnail,
@@ -128,6 +129,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 
 	return {
 		id: generateId(),
+		retryCount: 0,
 		url: entry.url,
 		title: entry.title || entry.url,
 		thumbnail: entry.thumbnail,
@@ -226,6 +228,7 @@ function buildProfileEntryQueueItem(params: {
 		...(params.playlistGroupId ? {playlistGroupId: params.playlistGroupId} : {}),
 		...(params.probeInfoJsonRef ? {probeInfoJsonRef: params.probeInfoJsonRef} : {}),
 		writeM3u: params.writeM3u,
+		retryCount: 0,
 		job: profileJob(params.resolved, params.extractor, params.extractorKey, params.filenameTemplate, params.nativeAudioPreference)
 	}
 }

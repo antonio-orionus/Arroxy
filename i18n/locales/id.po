@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "Mencoba kembali"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "mencoba lagi otomatis (percobaan {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "Tetapkan lokasi"
@@ -2273,6 +2277,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "Hanya menghitung peluncuran aplikasi. Tidak ada URL, nama file, atau data pribadi."
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Otomatis mencoba lagi setelah gangguan jaringan atau server, menunggu lebih lama sebelum tiap percobaan. Unduhan yang diblokir situs tidak pernah dicoba ulang otomatis."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Coba lagi unduhan yang gagal"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "kali"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "Hanya CSS, tidak ada rendering kanvas."
@@ -2380,6 +2396,18 @@ msgstr "Sembunyikan ke baki saat ditutup"
 msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "Lanjutkan pengunduhan di latar belakang setelah menutup jendela."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Berapa banyak item antrean yang diunduh bersamaan. Lebih banyak sekaligus menyelesaikan antrean panjang lebih cepat, tetapi meningkatkan kemungkinan situs membatasi Anda."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Unduhan sekaligus"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "unduhan"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."

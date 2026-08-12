@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "ထပ်မံကြိုးစားရန်"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "အလိုအလျောက် ပြန်ကြိုးစားနေသည် (ကြိုးစားမှု {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "တည်နေရာ သတ်မှတ်ရန်"
@@ -2273,6 +2277,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "အက်ပ် ဖွင့်သည့်အကြိမ်ရေကိုသာ ရေတွက်သည်။ URL၊ ဖိုင်အမည် သို့မဟုတ် ကိုယ်ရေးကိုယ်တာ ဒေတာ မပါဝင်ပါ။"
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "ကွန်ရက် သို့မဟုတ် ဆာဗာ ပြဿနာအပြီး အလိုအလျောက် ပြန်ကြိုးစားသည်၊ ကြိုးစားမှုတိုင်းကြား ပိုကြာစွာ စောင့်သည်။ ဆိုက်မှ ပိတ်ဆို့ထားသော ဒေါင်းလုဒ်များကို အလိုအလျောက် ပြန်မကြိုးစားပါ။"
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "မအောင်မြင်သော ဒေါင်းလုဒ်များ ပြန်ကြိုးစားရန်"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "ကြိမ်"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "CSS သာအသုံးပြုမည်၊ canvas rendering မရှိပါ။"
@@ -2380,6 +2396,18 @@ msgstr "ပိတ်လျှင် tray သို့ ဝှက်မည်"
 msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "ဝင်းဒိုးပိတ်ပြီးနောက်လည်း နောက်ခံတွင် ဒေါင်းလုဒ်ဆက်လုပ်မည်။"
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "တန်းစီထားသော အရာမည်မျှကို တစ်ပြိုင်နက် ဒေါင်းလုဒ်လုပ်မည်။ တစ်ပြိုင်နက် ပိုများလျှင် စာရင်းရှည်ကို ပိုမြန်ပြီးစီးသည်၊ သို့သော် ဆိုက်မှ ကန့်သတ်ခံရနိုင်ခြေ ပိုများသည်။"
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "တစ်ပြိုင်နက် ဒေါင်းလုဒ်များ"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "ခု"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."

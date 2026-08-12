@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "Irra deebi'ii yaali"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "ofumaan irra deebi'ee yaalaa jira (yaalii {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "Iddoo qindeessi"
@@ -2273,6 +2277,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "Jalqabbii app qofa lakkaawa. URL, maqaa faayilii, ykn daataa dhuunfaa hin qabatu."
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Rakkoo networkii yookaan saarvarii booda ofumaan irra deebi'ee yaala, yaalii tokkoo fi kan biraa gidduutti dheeraa eega. Buufanni marsariitiin ugguramee ofumaan hin yaalamu."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Buufata kufe irra deebi'ii yaali"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "yeroo"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "CSS qofa, canvas hin agarsiisu."
@@ -2380,6 +2396,18 @@ msgstr "Cufuun dura tiiree dhoksi"
 msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "Daawniloodii booda gubbaan cufamuu itti fufi."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Wantoota tarree keessaa meeqa yeroo tokkotti akka buufaman. Yeroo tokkotti baay'achuun tarree dheeraa dafee xumura, garuu carraa marsariitiin si daangessu dabala."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Buufata yeroo tokkotti"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "buufata"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."

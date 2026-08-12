@@ -226,6 +226,8 @@
 				"tooltip": "Se corresponde con yt-dlp --playlist-end: Arroxy solo solicita este número de entradas de playlist, canal o búsqueda al construir el selector."
 			},
 			"nativeAudioPreference": {"label": "Preferencia de audio nativo", "description": "Controla lo que elige «Mejor nativo». Las filas de audio manuales y M4A/AAC siguen siendo explícitas.", "compatible": "Estéreo compatible", "surround": "Preferir surround / Dolby"},
+			"autoRetry": {"label": "Reintentar descargas fallidas", "description": "Vuelve a intentarlo automáticamente tras un fallo de red o del servidor, esperando más entre cada intento. Las descargas bloqueadas por el sitio nunca se reintentan automáticamente.", "unit": "veces"},
+			"concurrentDownloads": {"label": "Descargas a la vez", "description": "Cuántos elementos de la cola se descargan al mismo tiempo. Más a la vez termina antes una cola larga, pero aumenta la probabilidad de que el sitio te limite.", "unit": "descargas"},
 			"downloadConnections": {"label": "Conexiones de descarga", "description": "Acelera las descargas grandes obteniendo varias partes de un vídeo a la vez. Los valores altos aumentan la probabilidad de que el sitio te limite.", "unit": "conexiones"},
 			"networkPacing": {
 				"heading": "Descargas suaves",
@@ -484,6 +486,7 @@
 		"artifact": {"media": "Multimedia", "subtitle": "Subtítulo", "thumbnail": "Miniatura", "description": "Descripción", "companion": "Archivo auxiliar", "unknown": "Archivo", "missing": "Falta"},
 		"item": {
 			"defaultError": "Falló la descarga",
+			"retryingSoon": "reintentando automáticamente (intento {{attempt}})",
 			"pause": "Pausar",
 			"resume": "Reanudar",
 			"cancel": "Cancelar",

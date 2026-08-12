@@ -226,6 +226,8 @@
 				"tooltip": "Tương ứng với yt-dlp --playlist-end: Arroxy chỉ yêu cầu số mục này từ playlist, kênh hoặc kết quả tìm kiếm khi tạo bộ chọn."
 			},
 			"nativeAudioPreference": {"label": "Tùy chọn âm thanh gốc", "description": "Kiểm soát lựa chọn của “Best native”. Các hàng âm thanh thủ công và M4A/AAC vẫn là lựa chọn rõ ràng.", "compatible": "Stereo tương thích", "surround": "Ưu tiên surround / Dolby"},
+			"autoRetry": {"label": "Thử lại các mục tải thất bại", "description": "Tự động thử lại sau sự cố mạng hoặc máy chủ, chờ lâu hơn trước mỗi lần thử. Các mục bị trang web chặn sẽ không bao giờ được tự động thử lại.", "unit": "lần"},
+			"concurrentDownloads": {"label": "Tải cùng lúc", "description": "Bao nhiêu mục trong hàng đợi được tải cùng lúc. Nhiều hơn giúp hàng đợi dài xong sớm hơn, nhưng làm tăng khả năng trang web giới hạn bạn.", "unit": "mục"},
 			"downloadConnections": {"label": "Kết nối tải xuống", "description": "Tăng tốc các tệp tải lớn bằng cách lấy nhiều phần của video cùng lúc. Giá trị cao hơn làm tăng khả năng trang web giới hạn bạn.", "unit": "kết nối"},
 			"networkPacing": {
 				"heading": "Tải xuống nhẹ nhàng",
@@ -474,6 +476,7 @@
 		"artifact": {"media": "Phương tiện", "subtitle": "Phụ đề", "thumbnail": "Hình thu nhỏ", "description": "Mô tả", "companion": "Tệp đi kèm", "unknown": "Tệp", "missing": "Thiếu"},
 		"item": {
 			"defaultError": "Tải xuống thất bại",
+			"retryingSoon": "đang tự động thử lại (lần {{attempt}})",
 			"pause": "Tạm dừng",
 			"resume": "Tiếp tục",
 			"cancel": "Hủy",

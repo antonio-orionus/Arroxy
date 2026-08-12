@@ -36,6 +36,7 @@ function makeItem(overrides: Partial<QueueItem> = {}): QueueItem {
 		finishedAt: null,
 		artifacts: [],
 		writeM3u: true,
+		retryCount: 0,
 		job: PREPARED_JOB
 	}
 	return {...base, ...overrides, addedAt: overrides.addedAt ?? base.addedAt}

@@ -234,6 +234,8 @@
 				"tooltip": "yt-dlp --playlist-end ga to'g'ri keladi: Arroxy tanlagichni qurishdan oldin faqat shu miqdordagi pleylist, kanal yoki qidiruv yozuvlarini so'raydi."
 			},
 			"nativeAudioPreference": {"label": "Asl audio afzalligi", "description": "“Best native” nimani tanlashini boshqaradi. Qo‘lda tanlangan audio qatorlari va M4A/AAC aniq tanlov bo‘lib qoladi.", "compatible": "Mos stereo", "surround": "Surround / Dolbyni afzal ko‘rish"},
+			"autoRetry": {"label": "Muvaffaqiyatsiz yuklamalarni qayta urinish", "description": "Tarmoq yoki server nosozligidan so'ng avtomatik qayta urinadi va har urinishdan oldin uzoqroq kutadi. Sayt tomonidan bloklangan yuklamalar hech qachon avtomatik qayta urinilmaydi.", "unit": "marta"},
+			"concurrentDownloads": {"label": "Bir vaqtda yuklamalar", "description": "Navbatdagi nechta element bir vaqtda yuklab olinadi. Bir vaqtda ko'proq bo'lsa uzun navbat tezroq tugaydi, lekin sayt sizni cheklash ehtimoli ortadi.", "unit": "yuklama"},
 			"downloadConnections": {"label": "Yuklab olish ulanishlari", "description": "Videoning bir nechta qismini bir vaqtda olib, katta yuklamalarni tezlashtiradi. Yuqori qiymatlar sayt sizni cheklash ehtimolini oshiradi.", "unit": "ulanish"},
 			"networkPacing": {
 				"heading": "Yumshoq yuklamalar",
@@ -492,6 +494,7 @@
 		"artifact": {"media": "Media", "subtitle": "Subtitr", "thumbnail": "Eskiz", "description": "Tavsif", "companion": "Qo‘shimcha fayl", "unknown": "Fayl", "missing": "Yo‘q"},
 		"item": {
 			"defaultError": "Yuklama muvaffaqiyatsiz",
+			"retryingSoon": "avtomatik qayta urinilmoqda ({{attempt}}-urinish)",
 			"pause": "To'xtatish",
 			"resume": "Davom ettirish",
 			"cancel": "Bekor qilish",

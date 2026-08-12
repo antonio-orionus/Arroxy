@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "إعادة المحاولة"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "تتم إعادة المحاولة تلقائيًا (المحاولة {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "تعيين الموقع"
@@ -2273,6 +2277,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "يحسب فقط مرات تشغيل التطبيق. بدون عناوين URL أو أسماء ملفات أو بيانات شخصية."
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "يحاول تلقائيًا مرة أخرى بعد عطل في الشبكة أو الخادم، مع انتظار أطول بين كل محاولة. التنزيلات التي يحظرها الموقع لا يُعاد محاولتها تلقائيًا أبدًا."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "إعادة محاولة التنزيلات الفاشلة"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "مرات"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "CSS فقط، بلا عرض canvas."
@@ -2380,6 +2396,18 @@ msgstr "الإخفاء في علبة النظام عند الإغلاق"
 msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "تستمر التنزيلات في الخلفية بعد إغلاق النافذة."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "كم عدد العناصر في قائمة الانتظار التي تُنزَّل في الوقت نفسه. المزيد دفعة واحدة ينهي قائمة طويلة أسرع، لكنه يزيد احتمال أن يقيّدك الموقع."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "التنزيلات في وقت واحد"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "تنزيلات"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."

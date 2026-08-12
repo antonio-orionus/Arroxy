@@ -217,6 +217,8 @@
 				"tooltip": "yt-dlp --playlist-end ጋር ይዛመዳል: Arroxy ምርጫ ሲሰራ ከ playlist፣ ቻናል፣ ወይም ፍለጋ ውጤቶች ይህን ያህል ብቻ ይጠይቃል።"
 			},
 			"nativeAudioPreference": {"label": "የተፈጥሯዊ ድምፅ ምርጫ", "description": "“Best native” ምን እንደሚመርጥ ይቆጣጠራል። በእጅ የሚመረጡ የድምፅ ረድፎች እና M4A/AAC ግልጽ ምርጫዎች ሆነው ይቀራሉ።", "compatible": "ተኳኋኝ ስቴሪዮ", "surround": "surround / Dolby ን ይመርጡ"},
+			"autoRetry": {"label": "ያልተሳኩ ዳውንሎዶችን እንደገና ሞክር", "description": "ከኔትወርክ ወይም ከሰርቨር ችግር በኋላ በራስ-ሰር እንደገና ይሞክራል፣ በእያንዳንዱ ሙከራ መካከል ረዘም ብሎ ይጠብቃል። በጣቢያው የታገዱ ዳውንሎዶች በራስ-ሰር አይሞከሩም።", "unit": "ጊዜ"},
+			"concurrentDownloads": {"label": "በአንድ ጊዜ ዳውንሎዶች", "description": "በተመሳሳይ ጊዜ ስንት የተሰለፉ ንጥሎች እንደሚወርዱ። ብዙ በአንድ ጊዜ ረጅም ሰልፍን ቶሎ ይጨርሳል፣ ነገር ግን ጣቢያው እንዲገድብዎ ዕድሉን ይጨምራል።", "unit": "ዳውንሎዶች"},
 			"downloadConnections": {"label": "የዳውንሎድ ግንኙነቶች", "description": "የቪዲዮን በርካታ ክፍሎች በአንድ ጊዜ በማውረድ ትላልቅ ዳውንሎዶችን ያፋጥናል። ከፍ ያለ ዋጋ ጣቢያው እንዲገድብዎ ዕድሉን ይጨምራል።", "unit": "ግንኙነቶች"},
 			"networkPacing": {
 				"heading": "ለዝቅ ያሉ ዳውንሎዶች",
@@ -436,6 +438,7 @@
 		"artifact": {"media": "ሚዲያ", "subtitle": "ንዑስ ርዕስ", "thumbnail": "አነስተኛ ምስል", "description": "መግለጫ", "companion": "ተጓዳኝ ፋይል", "unknown": "ፋይል", "missing": "ጠፍቷል"},
 		"item": {
 			"defaultError": "ዳውንሎድ ወድቋል",
+			"retryingSoon": "በራስ-ሰር እየሞከረ ነው (ሙከራ {{attempt}})",
 			"pause": "አቋርጥ",
 			"resume": "ቀጥል",
 			"cancel": "ሰርዝ",

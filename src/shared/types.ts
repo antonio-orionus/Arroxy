@@ -132,6 +132,8 @@ export interface CommonSettings {
 	pacingMaxSleepInterval?: number
 	pacingSleepSubtitles?: number
 	downloadConnections?: number
+	concurrentDownloads?: number
+	autoRetryAttempts?: number
 	clipboardWatchEnabled: boolean
 	filenameTemplate?: string
 	closeBehavior?: 'ask' | 'tray' | 'quit'
@@ -297,6 +299,10 @@ export interface QueueItem {
 	tempDir?: string
 	lastJobId?: string
 	resumeContext?: QueueResumeContext
+	// Automatic-retry bookkeeping. `retryAt` is present only while a retry is
+	// pending, and drives the countdown the queue row shows.
+	retryCount: number
+	retryAt?: string
 	probeInfoJsonRef?: ProbeInfoJsonRef
 	artifacts: QueueArtifact[]
 	job: PreparedJob

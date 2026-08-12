@@ -226,6 +226,8 @@
 				"tooltip": "yt-dlp の --playlist-end に対応します：Arroxy はピッカーを構築する際、この件数のプレイリスト・チャンネル・検索エントリのみ取得します。"
 			},
 			"nativeAudioPreference": {"label": "ネイティブ音声の設定", "description": "「最高のネイティブ」が選ぶ音声を制御します。手動の音声行と M4A/AAC は明示的な選択のままです。", "compatible": "互換性重視のステレオ", "surround": "サラウンド / Dolby を優先"},
+			"autoRetry": {"label": "失敗したダウンロードを再試行", "description": "ネットワークやサーバーの一時的な問題のあと、自動的に再試行します。試行ごとに待ち時間が長くなります。サイトにブロックされたダウンロードは自動再試行されません。", "unit": "回"},
+			"concurrentDownloads": {"label": "同時ダウンロード数", "description": "キュー内の項目を同時にいくつダウンロードするか。同時数を増やすと長いキューが早く終わりますが、サイトから制限される可能性が高まります。", "unit": "件"},
 			"downloadConnections": {"label": "ダウンロード接続数", "description": "動画の複数の部分を同時に取得して、大きなダウンロードを高速化します。値を大きくすると、サイトから制限される可能性が高まります。", "unit": "接続"},
 			"networkPacing": {
 				"heading": "やさしいダウンロード",
@@ -484,6 +486,7 @@
 		"artifact": {"media": "メディア", "subtitle": "字幕", "thumbnail": "サムネイル", "description": "説明", "companion": "関連ファイル", "unknown": "ファイル", "missing": "見つかりません"},
 		"item": {
 			"defaultError": "ダウンロード失敗",
+			"retryingSoon": "自動的に再試行中（{{attempt}} 回目）",
 			"pause": "一時停止",
 			"resume": "再開",
 			"cancel": "キャンセル",

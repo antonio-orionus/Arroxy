@@ -222,6 +222,20 @@ export const pacingSleepSecondsSchema = z.number().min(0).max(120)
 export const DOWNLOAD_CONNECTIONS_MAX = 16
 export const downloadConnectionsSchema = z.number().int().min(0).max(DOWNLOAD_CONNECTIONS_MAX)
 
+// How many queue items download simultaneously. Distinct from download
+// connections, which widens a single item's transfer. Capped well below the
+// point where parallel jobs stop helping and start reading as scripted
+// traffic to the sites being downloaded from.
+export const CONCURRENT_DOWNLOADS_MAX = 8
+export const concurrentDownloadsSchema = z.number().int().min(1).max(CONCURRENT_DOWNLOADS_MAX)
+
+// Automatic retries per queue item after a transient failure. 0 means off —
+// failures wait for the user, which is the historical behavior. Bounded
+// because an unbounded loop against a site that keeps refusing is
+// indistinguishable from hammering it.
+export const AUTO_RETRY_ATTEMPTS_MAX = 10
+export const autoRetryAttemptsSchema = z.number().int().min(0).max(AUTO_RETRY_ATTEMPTS_MAX)
+
 export const runtimeBinaryIdSchema = z.enum(['yt-dlp'])
 export type RuntimeBinaryId = z.infer<typeof runtimeBinaryIdSchema>
 
@@ -418,6 +432,8 @@ const commonSettingsPatchSchema = z.object({
 	pacingMaxSleepInterval: pacingSleepSecondsSchema.optional(),
 	pacingSleepSubtitles: pacingSleepSecondsSchema.optional(),
 	downloadConnections: downloadConnectionsSchema.optional(),
+	concurrentDownloads: concurrentDownloadsSchema.optional(),
+	autoRetryAttempts: autoRetryAttemptsSchema.optional(),
 	rememberLastOutputDir: z.boolean().optional(),
 	uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
 	uiTheme: uiThemeSchema.optional(),
@@ -521,6 +537,12 @@ export const queueItemSchema = z
 		tempDir: z.string().min(1).optional(),
 		lastJobId: z.string().min(1).optional(),
 		resumeContext: queueResumeContextSchema.optional(),
+		// Automatic-retry bookkeeping. `retryCount` is how many automatic
+		// retries this item has already consumed; `retryAt` is set only while
+		// one is scheduled, so a restart can re-arm the timer instead of
+		// stranding the item in error.
+		retryCount: z.number().int().min(0).default(0),
+		retryAt: z.string().optional(),
 		probeInfoJsonRef: probeInfoJsonRefSchema.optional(),
 		artifacts: z.array(queueArtifactSchema).default([]),
 		job: preparedJobSchema

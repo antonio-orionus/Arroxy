@@ -72,6 +72,30 @@ describe('download connections setting', () => {
 		await waitFor(() => expect(input).toHaveValue(4))
 	})
 
+	it('shows the default as a placeholder for downloads at once', () => {
+		mount()
+		const input = screen.getByTestId('concurrent-downloads-input')
+		expect(input).toHaveValue(null)
+		expect(input).toHaveAttribute('placeholder', '1')
+	})
+
+	it('persists a raised concurrent-downloads limit', async () => {
+		mount()
+		const input = screen.getByTestId('concurrent-downloads-input')
+		fireEvent.change(input, {target: {value: '3'}})
+		fireEvent.blur(input)
+		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {concurrentDownloads: 3}}))
+	})
+
+	it('rejects a concurrent-downloads value above the maximum', async () => {
+		mount({concurrentDownloads: 2})
+		const input = screen.getByTestId('concurrent-downloads-input')
+		fireEvent.change(input, {target: {value: '50'}})
+		fireEvent.blur(input)
+		expect(mockApi.settings.update).not.toHaveBeenCalled()
+		await waitFor(() => expect(input).toHaveValue(2))
+	})
+
 	it('no longer offers a connections field inside the custom pacing grid', () => {
 		mount({networkPacingPreset: 'custom'})
 		expect(screen.getByTestId('network-pacing-custom')).toBeInTheDocument()

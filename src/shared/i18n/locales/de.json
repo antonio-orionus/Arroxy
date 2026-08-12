@@ -226,6 +226,8 @@
 				"tooltip": "Entspricht yt-dlp --playlist-end: Arroxy fragt nur so viele Playlist-, Kanal- oder Suchergebnisse ab, bevor die Auswahl angezeigt wird."
 			},
 			"nativeAudioPreference": {"label": "Native Audioeinstellung", "description": "Steuert, was „Bestes nativ“ auswählt. Manuelle Audiozeilen und M4A/AAC bleiben explizit.", "compatible": "Kompatibles Stereo", "surround": "Surround / Dolby bevorzugen"},
+			"autoRetry": {"label": "Fehlgeschlagene Downloads wiederholen", "description": "Versucht es nach einem Netzwerk- oder Serverproblem automatisch erneut und wartet vor jedem Versuch länger. Von der Seite blockierte Downloads werden nie automatisch wiederholt.", "unit": "mal"},
+			"concurrentDownloads": {"label": "Gleichzeitige Downloads", "description": "Wie viele Einträge der Warteschlange gleichzeitig geladen werden. Mehr auf einmal leert eine lange Warteschlange schneller, erhöht aber die Wahrscheinlichkeit, dass eine Seite dich drosselt.", "unit": "Downloads"},
 			"downloadConnections": {"label": "Download-Verbindungen", "description": "Beschleunigt große Downloads, indem mehrere Teile eines Videos gleichzeitig geladen werden. Höhere Werte erhöhen die Wahrscheinlichkeit, dass eine Seite dich drosselt.", "unit": "Verbindungen"},
 			"networkPacing": {
 				"heading": "Sanftes Herunterladen",
@@ -484,6 +486,7 @@
 		"artifact": {"media": "Medien", "subtitle": "Untertitel", "thumbnail": "Thumbnail", "description": "Beschreibung", "companion": "Begleitdatei", "unknown": "Datei", "missing": "Fehlt"},
 		"item": {
 			"defaultError": "Download fehlgeschlagen",
+			"retryingSoon": "wird automatisch wiederholt (Versuch {{attempt}})",
 			"pause": "Pause",
 			"resume": "Fortsetzen",
 			"cancel": "Abbrechen",

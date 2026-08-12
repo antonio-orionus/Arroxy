@@ -376,6 +376,14 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'downloadConnections', {downloadConnections: value})
 		},
 
+		setConcurrentDownloads: async value => {
+			await applyCommonPatchAsync(get, set, 'concurrentDownloads', {concurrentDownloads: value})
+		},
+
+		setAutoRetryAttempts: async value => {
+			await applyCommonPatchAsync(get, set, 'autoRetryAttempts', {autoRetryAttempts: value})
+		},
+
 		setClipboardWatchEnabled: async enabled => {
 			await applyCommonPatchAsync(get, set, 'clipboardWatchEnabled', {clipboardWatchEnabled: enabled})
 		},

@@ -226,6 +226,8 @@
 				"tooltip": "Correspond à yt-dlp --playlist-end : Arroxy ne demande que ce nombre d'entrées de playlist, chaîne ou recherche lors de la construction du sélecteur."
 			},
 			"nativeAudioPreference": {"label": "Préférence audio native", "description": "Contrôle ce que choisit « Meilleur natif ». Les lignes audio manuelles et M4A/AAC restent explicites.", "compatible": "Stéréo compatible", "surround": "Préférer le surround / Dolby"},
+			"autoRetry": {"label": "Réessayer les téléchargements échoués", "description": "Réessaie automatiquement après un incident réseau ou serveur, en attendant plus longtemps avant chaque tentative. Les téléchargements bloqués par le site ne sont jamais réessayés automatiquement.", "unit": "fois"},
+			"concurrentDownloads": {"label": "Téléchargements simultanés", "description": "Combien d'éléments de la file se téléchargent en même temps. Plus à la fois termine une longue file plus vite, mais augmente le risque que le site vous limite.", "unit": "téléchargements"},
 			"downloadConnections": {"label": "Connexions de téléchargement", "description": "Accélère les gros téléchargements en récupérant plusieurs parties d'une vidéo à la fois. Des valeurs élevées augmentent le risque que le site vous limite.", "unit": "connexions"},
 			"networkPacing": {
 				"heading": "Téléchargements en douceur",
@@ -484,6 +486,7 @@
 		"artifact": {"media": "Média", "subtitle": "Sous-titre", "thumbnail": "Miniature", "description": "Description", "companion": "Fichier associé", "unknown": "Fichier", "missing": "Manquant"},
 		"item": {
 			"defaultError": "Échec du téléchargement",
+			"retryingSoon": "nouvelle tentative automatique (tentative {{attempt}})",
 			"pause": "Pause",
 			"resume": "Reprendre",
 			"cancel": "Annuler",

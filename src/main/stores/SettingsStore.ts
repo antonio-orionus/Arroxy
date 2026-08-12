@@ -26,6 +26,8 @@ const COMMON_FLAT_KEYS = [
 	'pacingMaxSleepInterval',
 	'pacingSleepSubtitles',
 	'downloadConnections',
+	'concurrentDownloads',
+	'autoRetryAttempts',
 	'clipboardWatchEnabled',
 	'filenameTemplate',
 	'closeBehavior',

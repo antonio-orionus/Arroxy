@@ -217,6 +217,8 @@
 				"tooltip": "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 			},
 			"nativeAudioPreference": {"label": "Native audio preference", "description": "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit.", "compatible": "Compatible stereo", "surround": "Prefer surround / Dolby"},
+			"autoRetry": {"label": "Retry failed downloads", "description": "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically.", "unit": "times"},
+			"concurrentDownloads": {"label": "Downloads at once", "description": "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you.", "unit": "downloads"},
 			"downloadConnections": {"label": "Download connections", "description": "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you.", "unit": "connections"},
 			"networkPacing": {
 				"heading": "Gentle downloads",
@@ -475,6 +477,7 @@
 		"artifact": {"media": "Media", "subtitle": "Subtitle", "thumbnail": "Thumbnail", "description": "Description", "companion": "Companion", "unknown": "Artifact", "missing": "Missing"},
 		"item": {
 			"defaultError": "Download failed",
+			"retryingSoon": "retrying automatically (attempt {{attempt}})",
 			"pause": "Pause",
 			"resume": "Resume",
 			"cancel": "Cancel",

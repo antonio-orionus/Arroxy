@@ -226,6 +226,8 @@
 				"tooltip": "yt-dlp --playlist-end waliin walsimsiisa: Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
 			},
 			"nativeAudioPreference": {"label": "Filannoo sagalee dhalootaa", "description": "Best native maal akka filatu to’ata. Tarreewwan sagalee harkaan filataman fi M4A/AAC filannoo ifa ta’anii hafu.", "compatible": "Isteeriyoo walsimu", "surround": "Surround / Dolby filadhu"},
+			"autoRetry": {"label": "Buufata kufe irra deebi'ii yaali", "description": "Rakkoo networkii yookaan saarvarii booda ofumaan irra deebi'ee yaala, yaalii tokkoo fi kan biraa gidduutti dheeraa eega. Buufanni marsariitiin ugguramee ofumaan hin yaalamu.", "unit": "yeroo"},
+			"concurrentDownloads": {"label": "Buufata yeroo tokkotti", "description": "Wantoota tarree keessaa meeqa yeroo tokkotti akka buufaman. Yeroo tokkotti baay'achuun tarree dheeraa dafee xumura, garuu carraa marsariitiin si daangessu dabala.", "unit": "buufata"},
 			"downloadConnections": {"label": "Walqunnamtii buufataa", "description": "Kutaalee viidiyoo hedduu yeroo tokkotti fiduun buufata gurguddaa saffisiisa. Gatiin ol'aanaan carraa marsariitiin si daangessu dabala.", "unit": "walqunnamtii"},
 			"networkPacing": {
 				"heading": "Buufata laafaa",
@@ -484,6 +486,7 @@
 		"artifact": {"media": "Miidiyaa", "subtitle": "Axxiinsa", "thumbnail": "Suuraa xiqqaa", "description": "Ibsa", "companion": "Faayilii dabalataa", "unknown": "Faayilii", "missing": "Hin jiru"},
 		"item": {
 			"defaultError": "Daawniloodii kufe",
+			"retryingSoon": "ofumaan irra deebi'ee yaalaa jira (yaalii {{attempt}})",
 			"pause": "Dhaabi",
 			"resume": "Itti fufi",
 			"cancel": "Haqi",

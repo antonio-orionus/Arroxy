@@ -226,6 +226,8 @@
 				"tooltip": "yt-dlp --playlist-end seçeneğine karşılık gelir: Arroxy seçiciyi oluştururken yalnızca bu kadar oynatma listesi, kanal veya arama kaydı ister."
 			},
 			"nativeAudioPreference": {"label": "Yerel ses tercihi", "description": "En iyi yerel seçeneğinin neyi seçeceğini belirler. Manuel ses satırları ve M4A/AAC açık seçim olarak kalır.", "compatible": "Uyumlu stereo", "surround": "Surround / Dolby tercih et"},
+			"autoRetry": {"label": "Başarısız indirmeleri yeniden dene", "description": "Ağ veya sunucu kaynaklı bir aksaklıktan sonra otomatik olarak yeniden dener ve her denemeden önce daha uzun bekler. Sitenin engellediği indirmeler asla otomatik olarak yeniden denenmez.", "unit": "kez"},
+			"concurrentDownloads": {"label": "Aynı anda indirme", "description": "Kuyruktaki kaç öğenin aynı anda indirileceği. Aynı anda daha fazlası uzun bir kuyruğu daha çabuk bitirir, ancak sitenin sizi sınırlama ihtimalini artırır.", "unit": "indirme"},
 			"downloadConnections": {"label": "İndirme bağlantıları", "description": "Bir videonun birkaç parçasını aynı anda alarak büyük indirmeleri hızlandırır. Yüksek değerler sitenin sizi sınırlama ihtimalini artırır.", "unit": "bağlantı"},
 			"networkPacing": {
 				"heading": "Nazik indirmeler",
@@ -484,6 +486,7 @@
 		"artifact": {"media": "Medya", "subtitle": "Altyazı", "thumbnail": "Küçük resim", "description": "Açıklama", "companion": "Eşlikçi", "unknown": "Çıktı", "missing": "Eksik"},
 		"item": {
 			"defaultError": "İndirme başarısız oldu",
+			"retryingSoon": "otomatik yeniden deneniyor (deneme {{attempt}})",
 			"pause": "Duraklat",
 			"resume": "Sürdür",
 			"cancel": "İptal",

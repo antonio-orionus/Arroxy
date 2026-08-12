@@ -4,13 +4,19 @@
 // @shared/queueTransition.
 //
 // Concurrency policy (lane-aware):
-//   - lane='normal' items respect NORMAL_LANE_CAP (1) and the inter-job
-//     sleep window, so back-to-back normal jobs give YouTube's rate-limit
-//     window a chance to roll over.
+//   - lane='normal' items respect the normal-lane cap and the inter-job sleep
+//     window, so back-to-back normal jobs give YouTube's rate-limit window a
+//     chance to roll over. The cap defaults to NORMAL_LANE_CAP (1) and is
+//     user-configurable via setConcurrentDownloads().
 //   - lane='priority' items bypass the cap and the sleep window — user
 //     intent is "skip the queue, pull now alongside the active job".
-//     Priority spawns are still gated by MAX_CONCURRENT_DOWNLOADS to
-//     protect the machine and avoid bot-detection escalation.
+//     Priority spawns are still gated by the ceiling, which keeps
+//     PRIORITY_LANE_HEADROOM slots above the normal cap so "pull now" works
+//     even with the normal lane saturated.
+//
+// Adjacent concerns live in ./download: InterJobSleep (the pacing window),
+// QueueAutoRetry (automatic retry budget + timers), QueuePlaylistM3u
+// (serialized .m3u writes).
 //
 // Mutation pipeline: every state change flows through commit() — one
 // internal seam that runs apply → persist → emit → recomputeSchedule. No
@@ -26,7 +32,10 @@ import {transition, illegalTransition, type QueueEvent} from '@shared/queueTrans
 import {ProgressFormatter} from '@shared/progressFormat.js'
 import {ProgressNormalizer} from '@shared/progressNormalizer.js'
 import {moveQueueArtifactPath, queueArtifactFromPath, upsertQueueArtifact} from '@shared/queueArtifacts.js'
-import {INTER_JOB_SLEEP_MS, MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP} from '@shared/constants.js'
+import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from '@shared/constants.js'
+import {InterJobSleep} from './download/InterJobSleep.js'
+import {QueueAutoRetry} from './download/QueueAutoRetry.js'
+import {QueuePlaylistM3u} from './download/QueuePlaylistM3u.js'
 import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, StatusEvent} from '@shared/types.js'
 import type {QueueStore} from '@main/stores/QueueStore.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
@@ -53,8 +62,7 @@ export class QueueService extends EventEmitter {
 	private readonly spawning = new Set<string>()
 	// Earliest time the next normal-lane spawn is allowed. Cleared on cancel-all
 	// or when no normal job remains. Priority spawns ignore this.
-	private sleepUntil = 0
-	private sleepTimer: NodeJS.Timeout | null = null
+	private readonly sleep = new InterJobSleep()
 	// Global "queue paused" flag — qBittorrent-style. When true, the auto-
 	// scheduler is fully suspended: no pending items spawn, no priority items
 	// spawn, no sleep timer fires anything new. Per-item explicit actions
@@ -82,19 +90,24 @@ export class QueueService extends EventEmitter {
 	// replacement downloads midway through a multi-item command.
 	private inBulk = false
 	private readonly finalArtifactTargets = new FinalArtifactTargets()
+	// Owns the automatic-retry budget and timers. Writes only through commit().
+	private readonly autoRetry = new QueueAutoRetry({findItem: itemId => this.findItem(itemId), patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}), retryReset: itemId => this.commit({kind: 'event', itemId, evt: {kind: 'retry-reset'}})})
 
-	// Per-playlist-group serialization for M3U writes. See maybeWritePlaylistM3u.
-	private readonly m3uWriteChains = new Map<string, Promise<void>>()
+	// Assigned in the constructor, not here: a field initializer cannot safely
+	// read `this.playlist`, whose assignment order relative to field
+	// initializers depends on the parameter-property emit.
+	private readonly playlistM3u: QueuePlaylistM3u
 
 	constructor(
 		private readonly queueStore: QueueStore,
 		private readonly downloadService: DownloadService,
-		private readonly normalCap = NORMAL_LANE_CAP,
-		private readonly maxConcurrent = MAX_CONCURRENT_DOWNLOADS,
+		private normalCap = NORMAL_LANE_CAP,
+		private maxConcurrent = MAX_CONCURRENT_DOWNLOADS,
 		private readonly playlist?: {manifestStore: PlaylistManifestStore; writeM3u: (manifest: PlaylistManifest) => Promise<void>},
 		private readonly probeInfoJsonCache?: ProbeInfoJsonCache
 	) {
 		super()
+		this.playlistM3u = new QueuePlaylistM3u(this.playlist)
 		this.downloadService.on('status', (event: StatusEvent) => this.consumeStatusEvent(event))
 		this.downloadService.on('progress', (event: ProgressEvent) => this.consumeProgressEvent(event))
 		this.downloadService.on('artifact', (event: QueueArtifactEvent) => this.consumeArtifactEvent(event))
@@ -110,6 +123,7 @@ export class QueueService extends EventEmitter {
 		this.items = result.data.items
 		this.schedulerPaused = result.data.schedulerPaused
 		logger.info('Queue loaded', {count: this.items.length, schedulerPaused: this.schedulerPaused})
+		this.autoRetry.rearmPersisted(this.items)
 		// Boot-time spawn pass: respects maxConcurrent so persisted priority
 		// items never trigger a storm. Anything beyond the ceiling stays pending.
 		// Skipped if the user quit with the queue paused (flag persisted).
@@ -168,7 +182,7 @@ export class QueueService extends EventEmitter {
 		// can't re-trigger an auto-spawn of the next pending item (the original
 		// "pause all → next one starts" bug).
 		this.schedulerPaused = true
-		this.clearSleep()
+		this.sleep.clear()
 		const running = this.items.filter(i => i.status === QUEUE_STATUS.running)
 		logger.info('pauseAll', {runningCount: running.length, total: this.items.length, snapshot: this.statusSummary()})
 		for (const item of running) {
@@ -217,6 +231,25 @@ export class QueueService extends EventEmitter {
 		this.recomputeSchedule()
 		this.persist()
 		logger.info('resumeAll done', {snapshot: this.statusSummary()})
+	}
+
+	// Live-applied from the settings IPC handler, so a change takes effect on
+	// the running queue without a restart. Raising it spawns waiting items
+	// immediately; lowering it only stops future spawns — running downloads are
+	// never killed, because the user asked for a smaller lane, not for work to
+	// be thrown away. The download service's own ceiling moves in lockstep or
+	// it would reject the very spawns this scheduler just authorized.
+	setConcurrentDownloads(value: number): void {
+		const cap = Math.max(1, Math.trunc(value))
+		this.normalCap = cap
+		this.maxConcurrent = cap + PRIORITY_LANE_HEADROOM
+		this.downloadService.setMaxConcurrent(this.maxConcurrent)
+		logger.info('Concurrency changed', {normalCap: this.normalCap, ceiling: this.maxConcurrent, snapshot: this.statusSummary()})
+		this.recomputeSchedule()
+	}
+
+	setAutoRetryAttempts(value: number): void {
+		this.autoRetry.setAttempts(value)
 	}
 
 	schedulerIsPaused(): boolean {
@@ -289,7 +322,8 @@ export class QueueService extends EventEmitter {
 			// yt-dlp child process is already alive (downloadService.cancel ran
 			// BEFORE the new spawn) and keeps downloading to disk. End state: UI
 			// says "cancelled", yt-dlp says "still running".
-			this.clearSleep()
+			this.sleep.clear()
+			this.autoRetry.clearAll()
 			this.schedulerPaused = true
 			this.inBulk = true
 			try {
@@ -316,6 +350,7 @@ export class QueueService extends EventEmitter {
 
 		const item = this.findItem(itemId)
 		if (!item) return ok(undefined)
+		this.autoRetry.clear(itemId)
 
 		if (item.status === QUEUE_STATUS.pending || item.status === QUEUE_STATUS.pausedHeld) {
 			await this.cleanupQueueArtifactsBestEffort(item)
@@ -338,6 +373,10 @@ export class QueueService extends EventEmitter {
 		if (item.status !== QUEUE_STATUS.error && item.status !== QUEUE_STATUS.cancelled) {
 			return fail(createAppError('validation', `cannot retry item in status ${item.status}`))
 		}
+		// A manual retry supersedes any scheduled automatic one and resets the
+		// budget: the user intervened, so the item gets a fresh set of attempts
+		// rather than inheriting an exhausted count.
+		this.autoRetry.reset(itemId)
 		const resumeContext = item.status === QUEUE_STATUS.error ? await QueueResumeLifecycle.validResumeContext(item) : undefined
 		if (item.resumeContext && !resumeContext) {
 			this.commit({kind: 'patch', itemId, reason: 'retry:clearMissingResumeContext', patcher: prev => ({...prev, resumeContext: undefined})})
@@ -419,6 +458,7 @@ export class QueueService extends EventEmitter {
 			if (!cancelResult.ok) return fail(cancelResult.error)
 			this.forgetProgressState(item.lastJobId)
 		}
+		this.autoRetry.clear(itemId)
 		await this.cleanupQueueArtifactsBestEffort(item)
 		this.commit({kind: 'remove', itemId})
 		return ok(undefined)
@@ -436,7 +476,7 @@ export class QueueService extends EventEmitter {
 			// Inter-job cooldown applies only when a normal-lane job finishes —
 			// priority jobs are user-driven bursts, no need to throttle the queue
 			// after they wrap.
-			if (item.lane === 'normal') this.armSleepWindow()
+			if (item.lane === 'normal') this.sleep.arm()
 			this.commit({kind: 'event', itemId: item.id, evt: {kind: 'completed', finishedAt: nowIso(), lastStatusKey: event.statusKey, params: event.params}})
 			return
 		}
@@ -445,8 +485,13 @@ export class QueueService extends EventEmitter {
 			// Cancellation arrives as STATUS_KEY.cancelled — already projected via
 			// the cancel command path. Skip a redundant transition.
 			if (event.statusKey === 'cancelled') return
-			if (item.lane === 'normal') this.armSleepWindow()
-			this.commit({kind: 'event', itemId: item.id, evt: {kind: 'failed', error: event.error ?? {kind: 'unknown', raw: ''}, resumeContext: event.resumeContext, lastStatusKey: event.statusKey, params: event.params}})
+			if (item.lane === 'normal') this.sleep.arm()
+			const error = event.error ?? {kind: 'unknown' as const, raw: ''}
+			this.commit({kind: 'event', itemId: item.id, evt: {kind: 'failed', error, resumeContext: event.resumeContext, lastStatusKey: event.statusKey, params: event.params}})
+			// Read the post-commit slot: `item` predates the transition, so its
+			// retryCount is the pre-failure snapshot.
+			const failedItem = this.findItem(item.id)
+			if (failedItem) this.autoRetry.schedule(failedItem, error)
 			return
 		}
 		// Phase transition — non-status update for "Merging…", "Embedding…", etc.
@@ -580,7 +625,7 @@ export class QueueService extends EventEmitter {
 				// cancelled group never triggers one, so no header-only file.
 				if (next.status === QUEUE_STATUS.done && next.playlistGroupId && next.writeM3u !== false) {
 					const groupId = next.playlistGroupId
-					void this.maybeWritePlaylistM3u(groupId).catch(err => {
+					void this.playlistM3u.write(groupId).catch(err => {
 						logger.error('Failed to write playlist M3U', {playlistGroupId: groupId, error: err instanceof Error ? err.message : String(err)})
 					})
 				}
@@ -641,7 +686,7 @@ export class QueueService extends EventEmitter {
 			}
 			// Normal lane.
 			if (normalRunning >= this.normalCap) continue
-			if (now < this.sleepUntil) {
+			if (this.sleep.blocksAt(now)) {
 				armSleep = true
 				continue
 			}
@@ -651,23 +696,10 @@ export class QueueService extends EventEmitter {
 			normalRunning++
 		}
 		if (spawned.length > 0 || armSleep) {
-			logger.info('recomputeSchedule', {spawned, activeCount, normalRunning, normalCap: this.normalCap, ceiling: this.maxConcurrent, sleepUntil: this.sleepUntil, armSleep, snapshot: this.statusSummary()})
+			logger.info('recomputeSchedule', {spawned, activeCount, normalRunning, normalCap: this.normalCap, ceiling: this.maxConcurrent, sleepUntil: this.sleep.deadline, armSleep, snapshot: this.statusSummary()})
 		}
 
-		// Arm/clear the sleep timer based on whether anything is waiting on it.
-		if (armSleep && !this.sleepTimer) {
-			const delay = Math.max(0, this.sleepUntil - now)
-			this.sleepTimer = setTimeout(() => {
-				this.sleepTimer = null
-				this.sleepUntil = 0
-				this.recomputeSchedule()
-			}, delay)
-		} else if (!armSleep && this.sleepTimer && this.sleepUntil <= now) {
-			// Sleep window expired and nothing's waiting — drop the timer if it
-			// somehow outlived its purpose.
-			clearTimeout(this.sleepTimer)
-			this.sleepTimer = null
-		}
+		this.sleep.sync(armSleep, now, () => this.recomputeSchedule())
 	}
 
 	private beginSpawn(itemId: string): void {
@@ -711,20 +743,6 @@ export class QueueService extends EventEmitter {
 		}
 	}
 
-	private armSleepWindow(): void {
-		this.sleepUntil = Date.now() + INTER_JOB_SLEEP_MS
-		// Don't pre-arm the timer here — recomputeSchedule decides whether one
-		// is actually needed (no pending items ⇒ no timer).
-	}
-
-	private clearSleep(): void {
-		this.sleepUntil = 0
-		if (this.sleepTimer) {
-			clearTimeout(this.sleepTimer)
-			this.sleepTimer = null
-		}
-	}
-
 	// helpers ----------------------------------------------------------------
 
 	private findItem(itemId: string): QueueItem | undefined {
@@ -733,29 +751,6 @@ export class QueueService extends EventEmitter {
 
 	private findByJobId(jobId: string): QueueItem | undefined {
 		return this.items.find(i => i.lastJobId === jobId)
-	}
-
-	private maybeWritePlaylistM3u(playlistGroupId: string): Promise<void> {
-		// Serialize per group: two items in the same playlist can complete in the
-		// same tick, so overlapping writeFile() calls would race on one .m3u path.
-		// Chaining keeps them sequential (writes are idempotent — file rebuilt from disk).
-		const prev = this.m3uWriteChains.get(playlistGroupId) ?? Promise.resolve()
-		const next = prev.then(() => this.writePlaylistM3u(playlistGroupId))
-		const stored = next.catch(() => {})
-		this.m3uWriteChains.set(playlistGroupId, stored)
-		// Drop the entry once it settles, unless a newer write already replaced it
-		// — otherwise the map retains one promise per group for the app's lifetime.
-		void stored.finally(() => {
-			if (this.m3uWriteChains.get(playlistGroupId) === stored) this.m3uWriteChains.delete(playlistGroupId)
-		})
-		return next
-	}
-
-	private async writePlaylistM3u(playlistGroupId: string): Promise<void> {
-		if (!this.playlist) return
-		const manifest = this.playlist.manifestStore.get(playlistGroupId)
-		if (!manifest) return
-		await this.playlist.writeM3u(manifest)
 	}
 
 	// Persist gate: short-circuits when a bulk op (cancelAll, clearCompleted)
