@@ -10,7 +10,7 @@ import type {QueueLane} from '@shared/types.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import type {GetState, SetState, QueueSlice} from './types.js'
 import {persistFormatPrefs} from './wizard/persistFormatPrefs.js'
-import {prepareManualQueueSubmission} from './wizard/queueSubmission.js'
+import {prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from './wizard/queueSubmission.js'
 import {submitPreparedQueueSubmission} from './wizard/queueSubmissionAdapter.js'
 import {queueLoadedPlaylistWithActiveProfile} from './wizard/quickDownloadPreparation.js'
 
@@ -35,7 +35,7 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 	}
 	set({isSubmittingToQueue: true})
 	try {
-		const prepared = prepareManualQueueSubmission(get(), lane)
+		const prepared = stateBeforeSubmit.multiProfileMode ? prepareMultiProfileQueueSubmission(get(), lane) : prepareManualQueueSubmission(get(), lane)
 		if (!prepared) return
 		const result = await submitPreparedQueueSubmission(prepared)
 		if (!result.ok) {

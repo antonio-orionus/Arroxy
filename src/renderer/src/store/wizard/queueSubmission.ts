@@ -1,5 +1,5 @@
 import {DEFAULTS} from '@shared/constants.js'
-import {downloadProfileLabel, resolveActiveDownloadProfile, resolveDownloadProfile, resolveDownloadProfileBaseDir, resolveDownloadProfileOutputDir, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
+import {allDownloadProfiles, downloadProfileLabel, downloadProfileRefFor, resolveActiveDownloadProfile, resolveDownloadProfile, resolveDownloadProfileBaseDir, resolveDownloadProfileOutputDir, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfileRef, NativeAudioPreference, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
@@ -9,6 +9,7 @@ import {sanitizeJobOptions} from '@shared/sanitizeJobOptions.js'
 import {playlistBaseDir} from '@shared/subfolder.js'
 import {templateOutputDir} from '@shared/filenameTemplate.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
+import {resolveAssignedProfile} from '@renderer/components/wizard/playlistProfileAssignments.js'
 import i18next from 'i18next'
 import type {AppState} from '../types.js'
 import {buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution} from '../helpers.js'
@@ -167,6 +168,43 @@ export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): 
 	// item 0 in an uploader-specific subfolder that does not represent the set.
 	const baseDir = resolvePlaylistDir(state)
 	return {items, ...(state.wizardMode === 'playlist' ? {manifest: playlistManifestPayload(state, playlistGroupId, baseDir)} : {})}
+}
+
+export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
+	const removed = new Set(state.removedPlaylistItemIds)
+	const selected = state.playlistItems.filter(entry => state.selectedPlaylistItemIds.includes(entry.id) && !removed.has(entry.id))
+	if (selected.length === 0) return null
+
+	const profiles = allDownloadProfiles(state.settings?.profiles)
+	const {profile: baseline} = resolveActiveDownloadProfile(state.settings?.profiles)
+	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
+	const outputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
+
+	const items = selected.map(entry => {
+		const profile = resolveAssignedProfile(entry.id, state.playlistProfileAssignments, profiles, baseline)
+		const ref = downloadProfileRefFor(profile, state.settings?.profiles)
+		const resolved = resolveDownloadProfile(profile, ref, nativeAudioPreference)
+		const template = resolveJobFilenameTemplate(profile, state.settings?.common?.filenameTemplate)
+		const templateMeta = playlistEntryTemplateMeta(entry, state.playlistTitle, state.playlistId)
+		const outputDir = templateOutputDir(resolveDownloadProfileOutputDir(profile, outputContext), template, templateMeta)
+		return buildProfileEntryQueueItem({
+			entry: {url: entry.url, title: entry.title, thumbnail: entry.thumbnail},
+			...(entry.probeInfoJsonRef ? {probeInfoJsonRef: entry.probeInfoJsonRef} : {}),
+			outputDir,
+			extractor: state.wizardExtractor,
+			extractorKey: state.wizardExtractorKey,
+			resolved,
+			profile,
+			filenameTemplate: bindJobFilenameTemplate(template, templateMeta, outputDir),
+			nativeAudioPreference,
+			// No playlistGroupId: QueueService only writes an .m3u for grouped items,
+			// and a playlist file cannot describe videos spread across profile dirs.
+			writeM3u: false,
+			lane
+		})
+	})
+
+	return {items}
 }
 
 function downloadProfileRefLabel(ref: DownloadProfileRef): string {

@@ -3,7 +3,7 @@ import {defaultAppSettings} from '@shared/constants.js'
 import {i18next} from '@shared/i18n/index.js'
 import type {DownloadProfile, FormatOption, PlaylistEntry, ProbeResult} from '@shared/types.js'
 import type {AppState} from '@renderer/store/types.js'
-import {prepareActiveProfileQueueSubmission, prepareManualQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
+import {prepareActiveProfileQueueSubmission, prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
 
 const FORMATS: FormatOption[] = [
 	{formatId: '137', label: '1080p', ext: 'mp4', resolution: '1080p', fps: 30, isVideoOnly: true, isAudioOnly: false, filesize: 1000},
@@ -91,6 +91,48 @@ function subtitleProfile(): DownloadProfile {
 		createdAt: '2026-06-07T00:00:00.000Z',
 		updatedAt: '2026-06-07T00:00:00.000Z'
 	}
+}
+
+function multiProfileVideoProfile(): DownloadProfile {
+	return {
+		id: 'video-first',
+		name: 'Video first',
+		icon: 'video',
+		media: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
+		subtitles: {enabled: false, languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'},
+		output: {kind: 'fixed', dir: '/multi/video'},
+		filename: {kind: 'default'},
+		subfolder: {enabled: false, name: ''},
+		sponsorBlock: {mode: 'off', categories: []},
+		embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false},
+		createdAt: '2026-06-07T00:00:00.000Z',
+		updatedAt: '2026-06-07T00:00:00.000Z'
+	}
+}
+
+function multiProfilePodcastProfile(): DownloadProfile {
+	return {
+		id: 'podcast',
+		name: 'Podcast',
+		icon: 'audio',
+		media: {kind: 'audio-only', audio: {format: 'best'}},
+		subtitles: {enabled: false, languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'},
+		output: {kind: 'fixed', dir: '/multi/podcast'},
+		filename: {kind: 'default'},
+		subfolder: {enabled: false, name: ''},
+		sponsorBlock: {mode: 'off', categories: []},
+		embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false},
+		createdAt: '2026-06-07T00:00:00.000Z',
+		updatedAt: '2026-06-07T00:00:00.000Z'
+	}
+}
+
+function multiProfileState(overrides: Partial<AppState> = {}): AppState {
+	const settings = defaultAppSettings('/downloads')
+	const first = multiProfileVideoProfile()
+	const podcast = multiProfilePodcastProfile()
+	settings.profiles = {active: {kind: 'custom', id: first.id}, custom: [first, podcast], overrides: []}
+	return state({wizardMode: 'playlist', settings, multiProfileMode: true, playlistProfileAssignments: {}, removedPlaylistItemIds: [], ...overrides})
 }
 
 function expectSourcePreferredSelector(selector: string | undefined): void {
@@ -213,5 +255,38 @@ describe('QueueSubmission', () => {
 		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal')
 
 		expect(prepared?.items[0]).toMatchObject({outputDir: '/downloads/Subs', job: {kind: 'subtitle-only', subtitles: {languages: ['en'], mode: 'sidecar', format: 'vtt', writeAuto: false}}})
+	})
+})
+
+describe('prepareMultiProfileQueueSubmission', () => {
+	it('gives each item its assigned profile output dir and emits no playlist group', () => {
+		const state = multiProfileState({playlistItems: PLAYLIST_ITEMS, selectedPlaylistItemIds: ['a', 'b'], playlistProfileAssignments: {b: {kind: 'custom', id: 'podcast'}}})
+
+		const prepared = prepareMultiProfileQueueSubmission(state, 'normal')
+
+		expect(prepared).not.toBeNull()
+		expect(prepared?.items).toHaveLength(2)
+		expect(prepared?.manifest).toBeUndefined()
+		expect(prepared?.items.every(item => item.playlistGroupId === undefined)).toBe(true)
+		expect(prepared?.items.every(item => item.writeM3u === false)).toBe(true)
+		expect(prepared?.items[0].outputDir).not.toBe(prepared?.items[1].outputDir)
+	})
+
+	it('labels each item with its own profile', () => {
+		const state = multiProfileState({playlistItems: PLAYLIST_ITEMS, selectedPlaylistItemIds: ['a', 'b'], playlistProfileAssignments: {b: {kind: 'custom', id: 'podcast'}}})
+
+		const labels = prepareMultiProfileQueueSubmission(state, 'normal')?.items.map(item => item.formatLabel)
+
+		expect(new Set(labels).size).toBe(2)
+	})
+
+	it('returns null when nothing is selected', () => {
+		expect(prepareMultiProfileQueueSubmission(multiProfileState({playlistItems: PLAYLIST_ITEMS, selectedPlaylistItemIds: []}), 'normal')).toBeNull()
+	})
+
+	it('excludes removed items even when they are still selected', () => {
+		const state = multiProfileState({playlistItems: PLAYLIST_ITEMS, selectedPlaylistItemIds: ['a', 'b'], removedPlaylistItemIds: ['b']})
+
+		expect(prepareMultiProfileQueueSubmission(state, 'normal')?.items).toHaveLength(1)
 	})
 })
