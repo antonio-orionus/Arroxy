@@ -1,4 +1,5 @@
 import {spawn, execFile} from 'node:child_process'
+import {randomUUID} from 'node:crypto'
 import {promisify} from 'node:util'
 import fs from 'node:fs'
 import fsPromises from 'node:fs/promises'
@@ -475,6 +476,32 @@ async function downloadYtDlp(destination: string): Promise<void> {
 	}
 }
 
+/**
+ * Produce a file at `destination` without ever exposing a partial one.
+ *
+ * The runtime cache lives at a fixed path shared by every Playwright worker,
+ * and workers are separate processes — so the per-process memo in
+ * prepareFixtureRuntime does not serialize them. On a cold cache several
+ * workers reach this path at once. Writing in place lets one worker read a
+ * half-written binary, or delete the file another is still verifying.
+ *
+ * Each caller writes to a private staging path and renames into place. Rename
+ * is atomic within a directory, so a concurrent reader sees either no file or
+ * the whole file. Last writer wins, and every candidate is byte-identical.
+ */
+export async function installAtomically(destination: string, produce: (staging: string) => Promise<void>): Promise<void> {
+	await fsPromises.mkdir(path.dirname(destination), {recursive: true})
+	const staging = `${destination}.${process.pid}.${randomUUID()}.part`
+	try {
+		await produce(staging)
+		await fsPromises.rename(staging, destination)
+	} catch (error) {
+		// Debris here would be mistaken for a cached binary by a later run.
+		await fsPromises.rm(staging, {force: true})
+		throw error
+	}
+}
+
 export async function ensureYtDlpPath(): Promise<string> {
 	const envCandidates = [process.env.ARROXY_YT_DLP_PATH, process.env.YT_DLP_PATH].filter((value): value is string => !!value)
 	const pathFromPath = await pathCandidate()
@@ -486,7 +513,13 @@ export async function ensureYtDlpPath(): Promise<string> {
 	const exe = process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp'
 	const destination = path.join(os.tmpdir(), 'arroxy-e2e-runtime-cache', exe)
 	if (await canRunYtDlp(destination)) return destination
-	await downloadYtDlp(destination)
+	try {
+		await installAtomically(destination, staging => downloadYtDlp(staging))
+	} catch (error) {
+		// A worker that lost the race still wins if the winner's file is good.
+		if (await canRunYtDlp(destination)) return destination
+		throw error
+	}
 	if (await canRunYtDlp(destination)) return destination
 	throw new Error(`Downloaded yt-dlp is not runnable: ${destination}`)
 }

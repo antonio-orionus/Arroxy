@@ -6,7 +6,9 @@ import {withFixtureYtDlp} from './fixtureProductE2E.js'
 import {isRecord, parseInfoJson, recordArrayField, stringField} from './fixtureWorkflow.js'
 import {isYouTubeExtractor} from '../../src/shared/ytdlp/extractorPredicates.js'
 
-test.describe.configure({mode: 'serial'})
+// Parallel-safe: every test allocates its own temp dirs and ephemeral ports,
+// the shared runtime cache is warmed once in globalSetup, and clipboard
+// access is serialized by withClipboardLock.
 
 test('fixture plugin metadata smoke returns YouTube-shaped local info', async () => {
 	test.setTimeout(90_000)
