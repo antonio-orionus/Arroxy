@@ -35,6 +35,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Λίστα αναπαραγωγής", "playlistItemsGeneric": "Βίντεο", "playlistPresets": "Ποιότητα", "playlistProfiles": "Προφίλ", "formats": "Μορφή", "subtitles": "Υπότιτλοι", "sponsorblock": "SponsorBlock", "output": "Έξοδος", "folder": "Αποθήκευση", "confirm": "Επιβεβαίωση"},
 		"playlistPresets": {"heading": "Επιλογή ποιότητας για την ομαδική λήψη", "subhead": "Κάθε βίντεο επιλύει το επιλεγμένο επίπεδο ανεξάρτητα — οι ανομοιογενείς playlist λειτουργούν χωρίς εκπλήξεις.", "itemCount_one": "{{count}} στοιχείο", "itemCount_other": "{{count}} στοιχεία"},
+		"playlistProfiles": {
+			"heading": "Εκχώρηση προφίλ λήψης",
+			"selectedSummary": "Επιλέχθηκαν {{selected}} από {{total}}",
+			"assignAria": "Εκχώρηση {{profileName}}",
+			"more": "Περισσότερα…",
+			"filtersLabel": "Φίλτρα προφίλ",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Προφίλ",
+			"columnDuration": "Διάρκεια",
+			"empty": "Κανένα στοιχείο δεν ταιριάζει με αυτό το φίλτρο"
+		},
 		"playlist": {
 			"heading": "Στοιχεία playlist",
 			"headingGeneric": "Βίντεο για λήψη",

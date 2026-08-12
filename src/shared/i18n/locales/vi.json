@@ -35,6 +35,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Danh sách phát", "playlistItemsGeneric": "Video", "playlistPresets": "Chất lượng", "playlistProfiles": "Hồ sơ", "formats": "Định dạng", "subtitles": "Phụ đề", "sponsorblock": "SponsorBlock", "output": "Đầu ra", "folder": "Lưu", "confirm": "Xác nhận"},
 		"playlistPresets": {"heading": "Chọn chất lượng cho lô", "subhead": "Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà.", "itemCount_one": "{{count}} mục", "itemCount_other": "{{count}} mục"},
+		"playlistProfiles": {
+			"heading": "Gán hồ sơ tải xuống",
+			"selectedSummary": "Đã chọn {{selected}}/{{total}}",
+			"assignAria": "Gán {{profileName}}",
+			"more": "Thêm…",
+			"filtersLabel": "Bộ lọc hồ sơ",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Hồ sơ",
+			"columnDuration": "Thời lượng",
+			"empty": "Không có mục nào khớp với bộ lọc này"
+		},
 		"playlist": {
 			"heading": "Các mục Playlist",
 			"headingGeneric": "Video để tải xuống",

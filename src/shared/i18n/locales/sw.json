@@ -35,6 +35,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Orodha ya kucheza", "playlistItemsGeneric": "Video", "playlistPresets": "Ubora", "playlistProfiles": "Wasifu", "formats": "Umbizo", "subtitles": "Manukuu", "sponsorblock": "SponsorBlock", "output": "Matokeo", "folder": "Hifadhi", "confirm": "Thibitisha"},
 		"playlistPresets": {"heading": "Chagua ubora wa kundi", "subhead": "Kila video inatatua kiwango kilichochaguliwa kwa kujitegemea — playlists tofauti hufanya kazi bila mshangao.", "itemCount_one": "{{count}} kipande", "itemCount_other": "{{count}} vipande"},
+		"playlistProfiles": {
+			"heading": "Weka wasifu wa upakuaji",
+			"selectedSummary": "{{selected}} kati ya {{total}} zimechaguliwa",
+			"assignAria": "Weka {{profileName}}",
+			"more": "Zaidi…",
+			"filtersLabel": "Vichujio vya wasifu",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Wasifu",
+			"columnDuration": "Muda",
+			"empty": "Hakuna vipengele vinavyolingana na kichujio hiki"
+		},
 		"playlist": {
 			"heading": "Vipande vya Playlist",
 			"headingGeneric": "Video za kupakua",

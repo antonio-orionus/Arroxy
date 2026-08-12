@@ -12,7 +12,7 @@ import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {resolvePlaylistDir} from '../../store/wizard/playlistDir.js'
-import {formatDuration} from '@renderer/lib/formatDuration.js'
+import {formatEntryDuration} from '@renderer/lib/formatDuration.js'
 import {notify} from '@renderer/lib/notify.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 import {PlaylistScopeControl} from './PlaylistScopeControl.js'
@@ -30,14 +30,6 @@ const PLAYLIST_PROBE_SKELETON_ROWS = [
 	{id: 'ninth', width: 'w-10/12', metaWide: false},
 	{id: 'tenth', width: 'w-6/12', metaWide: false}
 ] as const
-
-// undefined = no duration metadata (common for nested-playlist entries from
-// music search, channel root, etc.) — render an em-dash instead of falsely
-// labeling them "live".
-function formatEntryDuration(seconds: number | undefined, liveLabel: string): string {
-	if (seconds === undefined) return '—'
-	return formatDuration(seconds, liveLabel)
-}
 
 function PlaylistProbeSkeletonRows({showThumbnail}: {showThumbnail: boolean}): ReactNode {
 	return (

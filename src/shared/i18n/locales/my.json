@@ -26,6 +26,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "ပလေးလစ်", "playlistItemsGeneric": "ဗီဒီယိုများ", "playlistPresets": "အရည်အသွေး", "playlistProfiles": "ပရိုဖိုင်များ", "formats": "ဖော်မတ်", "subtitles": "စာတန်းထိုး", "sponsorblock": "SponsorBlock", "output": "ထွက်ပေါ်မည့်ဖိုင်", "folder": "သိမ်းမည်", "confirm": "အတည်ပြုမည်"},
 		"playlistPresets": {"heading": "Batch အတွက် အရည်အသွေးရွေးပါ", "subhead": "ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။", "itemCount_one": "{{count}} ခု", "itemCount_other": "{{count}} ခု"},
+		"playlistProfiles": {
+			"heading": "ဒေါင်းလုဒ်ပရိုဖိုင်များကို သတ်မှတ်ပါ",
+			"selectedSummary": "{{total}} အနက် {{selected}} ခုကို ရွေးထားသည်",
+			"assignAria": "{{profileName}} ကို သတ်မှတ်ပါ",
+			"more": "နောက်ထပ်…",
+			"filtersLabel": "ပရိုဖိုင်စစ်ထုတ်ကိရိယာများ",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "ပရိုဖိုင်",
+			"columnDuration": "ကြာချိန်",
+			"empty": "ဤစစ်ထုတ်ကိရိယာနှင့် ကိုက်ညီသော အရာမရှိပါ"
+		},
 		"playlist": {
 			"heading": "Playlist အကြောင်းအရာများ",
 			"headingGeneric": "ဒေါင်းလုဒ်ယူမည့် ဗီဒီယိုများ",

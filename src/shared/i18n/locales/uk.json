@@ -43,6 +43,17 @@
 	"wizard": {
 		"steps": {"url": "Посилання", "playlistItems": "Плейлист", "playlistItemsGeneric": "Відео", "playlistPresets": "Якість", "playlistProfiles": "Профілі", "formats": "Формат", "subtitles": "Субтитри", "sponsorblock": "SponsorBlock", "output": "Вивід", "folder": "Зберегти", "confirm": "Підтвердити"},
 		"playlistPresets": {"heading": "Вибери якість для пакетного завантаження", "subhead": "Кожне відео самостійно підбирає відповідний рівень якості — неоднорідні плейлисти працюють без сюрпризів.", "itemCount_one": "{{count}} елемент", "itemCount_other": "{{count}} елементів"},
+		"playlistProfiles": {
+			"heading": "Призначити профілі завантаження",
+			"selectedSummary": "Вибрано {{selected}} з {{total}}",
+			"assignAria": "Призначити {{profileName}}",
+			"more": "Ще…",
+			"filtersLabel": "Фільтри профілів",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Профіль",
+			"columnDuration": "Тривалість",
+			"empty": "Немає елементів, що відповідають цьому фільтру"
+		},
 		"playlist": {
 			"heading": "Елементи Playlist",
 			"headingGeneric": "Відео для завантаження",

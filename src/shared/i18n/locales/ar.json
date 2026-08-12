@@ -35,6 +35,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "قائمة التشغيل", "playlistItemsGeneric": "فيديوهات", "playlistPresets": "الجودة", "playlistProfiles": "الملفات الشخصية", "formats": "الصيغة", "subtitles": "الترجمات", "sponsorblock": "SponsorBlock", "output": "الإخراج", "folder": "حفظ", "confirm": "تأكيد"},
 		"playlistPresets": {"heading": "اختر الجودة للدفعة", "subhead": "يحل كل فيديو المستوى المختار بشكل مستقل — قوائم التشغيل غير المتجانسة تعمل بدون مفاجآت.", "itemCount_one": "{{count}} عنصر", "itemCount_other": "{{count}} عناصر"},
+		"playlistProfiles": {
+			"heading": "تعيين ملفات تنزيل",
+			"selectedSummary": "تم تحديد {{selected}} من {{total}}",
+			"assignAria": "تعيين {{profileName}}",
+			"more": "المزيد…",
+			"filtersLabel": "عوامل تصفية الملف الشخصي",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "الملف الشخصي",
+			"columnDuration": "المدة",
+			"empty": "لا توجد عناصر تطابق هذا الفلتر"
+		},
 		"playlist": {
 			"heading": "عناصر القائمة",
 			"headingGeneric": "الفيديوهات المراد تنزيلها",

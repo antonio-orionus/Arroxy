@@ -35,6 +35,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Daftar putar", "playlistItemsGeneric": "Video", "playlistPresets": "Kualitas", "playlistProfiles": "Profil", "formats": "Format", "subtitles": "Subtitle", "sponsorblock": "SponsorBlock", "output": "Keluaran", "folder": "Menyimpan", "confirm": "Mengonfirmasi"},
 		"playlistPresets": {"heading": "Pilih kualitas untuk batch tersebut", "subhead": "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan.", "itemCount_one": "barang {{count}}", "itemCount_other": "item {{count}}"},
+		"playlistProfiles": {
+			"heading": "Tetapkan profil unduhan",
+			"selectedSummary": "{{selected}} dari {{total}} dipilih",
+			"assignAria": "Tetapkan {{profileName}}",
+			"more": "Lainnya…",
+			"filtersLabel": "Filter profil",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Profil",
+			"columnDuration": "Durasi",
+			"empty": "Tidak ada item yang cocok dengan filter ini"
+		},
 		"playlist": {
 			"heading": "Item daftar putar",
 			"headingGeneric": "Video untuk diunduh",

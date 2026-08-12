@@ -35,6 +35,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Liste de lecture", "playlistItemsGeneric": "Vidéos", "playlistPresets": "Qualité", "playlistProfiles": "Profils", "formats": "Format", "subtitles": "Sous-titres", "sponsorblock": "SponsorBlock", "output": "Sortie", "folder": "Enregistrer", "confirm": "Confirmer"},
 		"playlistPresets": {"heading": "Choisir la qualité pour le lot", "subhead": "Chaque vidéo résout le niveau choisi indépendamment — les playlists hétérogènes fonctionnent sans surprise.", "itemCount_one": "{{count}} élément", "itemCount_other": "{{count}} éléments"},
+		"playlistProfiles": {
+			"heading": "Attribuer des profils de téléchargement",
+			"selectedSummary": "{{selected}} sur {{total}} sélectionné(s)",
+			"assignAria": "Attribuer {{profileName}}",
+			"more": "Plus…",
+			"filtersLabel": "Filtres de profil",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Profil",
+			"columnDuration": "Durée",
+			"empty": "Aucun élément ne correspond à ce filtre"
+		},
 		"playlist": {
 			"heading": "Éléments de la Playlist",
 			"headingGeneric": "Vidéos à télécharger",

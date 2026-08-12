@@ -35,6 +35,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "د غږولو لړليک", "playlistItemsGeneric": "ویډیوګانې", "playlistPresets": "کیفیت", "playlistProfiles": "پروفایلونه", "formats": "بڼه", "subtitles": "ژباړلیکونه", "sponsorblock": "SponsorBlock", "output": "محصول", "folder": "خوندي کړه", "confirm": "تایید کړه"},
 		"playlistPresets": {"heading": "د بیچ لپاره کیفیت وټاکئ", "subhead": "هر ویډیو خپلواکه د غوره شوي کچې سره حل کوي — مخلوط Playlist ونه بیا پرته له مشکل کار کوي.", "itemCount_one": "{{count}} توکی", "itemCount_other": "{{count}} توکي"},
+		"playlistProfiles": {
+			"heading": "د ډاونلوډ پروفایلونه وټاکئ",
+			"selectedSummary": "{{selected}} د {{total}} څخه غوره شوي",
+			"assignAria": "{{profileName}} وټاکئ",
+			"more": "نور…",
+			"filtersLabel": "د پروفایل فلټرونه",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "پروفایل",
+			"columnDuration": "موده",
+			"empty": "هیڅ توکی له دې فلټر سره سمون نه خوري"
+		},
 		"playlist": {
 			"heading": "د Playlist توکي",
 			"headingGeneric": "د ډاونلوډ لپاره ویډیوګانې",

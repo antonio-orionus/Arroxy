@@ -4,9 +4,11 @@
 // links) land here so individual slice files stay focused on their domain.
 
 import {DEFAULTS} from '@shared/constants.js'
+import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfileRef, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
-import type {SetState, WizardStep} from '../types.js'
+import {assignProfileToItems, clearAssignmentsForItems} from '@renderer/components/wizard/playlistProfileAssignments.js'
+import type {GetState, SetState, WizardStep} from '../types.js'
 import {QUICK_DOWNLOAD_FEEDBACK_INITIAL} from './quickDownloadFeedback.js'
 
 // Full wizard reset state — owned conceptually by the four slices but applied
@@ -98,5 +100,15 @@ export const WizardCommands = {
 
 	exitMultiProfileMode(set: SetState): void {
 		set({multiProfileMode: false, playlistProfileAssignments: {}, wizardStep: 'playlistItems'})
+	},
+
+	assignPlaylistProfile(itemIds: string[], ref: DownloadProfileRef, set: SetState, get: GetState): void {
+		const state = get()
+		const {ref: baselineRef} = resolveActiveDownloadProfile(state.settings?.profiles)
+		set({playlistProfileAssignments: assignProfileToItems(state.playlistProfileAssignments, itemIds, ref, baselineRef)})
+	},
+
+	resetPlaylistProfile(itemIds: string[], set: SetState, get: GetState): void {
+		set({playlistProfileAssignments: clearAssignmentsForItems(get().playlistProfileAssignments, itemIds)})
 	}
 }

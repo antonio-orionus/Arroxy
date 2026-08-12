@@ -26,6 +26,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistItemsGeneric": "Videos", "playlistPresets": "Quality", "playlistProfiles": "Profiles", "formats": "Format", "subtitles": "Subtitles", "sponsorblock": "SponsorBlock", "output": "Output", "folder": "Save", "confirm": "Confirm"},
 		"playlistPresets": {"heading": "Pick quality for the batch", "subhead": "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises.", "itemCount_one": "{{count}} item", "itemCount_other": "{{count}} items"},
+		"playlistProfiles": {
+			"heading": "Assign download profiles",
+			"selectedSummary": "{{selected}} of {{total}} selected",
+			"assignAria": "Assign {{profileName}}",
+			"more": "More…",
+			"filtersLabel": "Profile filters",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Profile",
+			"columnDuration": "Duration",
+			"empty": "No items match this filter"
+		},
 		"playlist": {
 			"heading": "Playlist items",
 			"headingGeneric": "Videos to download",

@@ -35,6 +35,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Oynatma listesi", "playlistItemsGeneric": "Videolar", "playlistPresets": "Kalite", "playlistProfiles": "Profiller", "formats": "Biçim", "subtitles": "Altyazılar", "sponsorblock": "SponsorBlock", "output": "Çıktı", "folder": "Kaydet", "confirm": "Onayla"},
 		"playlistPresets": {"heading": "Toplu indirme için kalite seç", "subhead": "Her video seçilen kalite düzeyini bağımsız çözer — karışık oynatma listeleri sorunsuz çalışır.", "itemCount_one": "{{count}} öğe", "itemCount_other": "{{count}} öğe"},
+		"playlistProfiles": {
+			"heading": "İndirme profillerini ata",
+			"selectedSummary": "{{total}} öğeden {{selected}} tanesi seçildi",
+			"assignAria": "{{profileName}} ata",
+			"more": "Daha fazla…",
+			"filtersLabel": "Profil filtreleri",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Profil",
+			"columnDuration": "Süre",
+			"empty": "Bu filtreyle eşleşen öğe yok"
+		},
 		"playlist": {
 			"heading": "Oynatma listesi öğeleri",
 			"headingGeneric": "İndirilecek videolar",

@@ -35,6 +35,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "প্লেলিস্ট", "playlistItemsGeneric": "ভিডিও", "playlistPresets": "মান", "playlistProfiles": "প্রোফাইল", "formats": "ফরম্যাট", "subtitles": "সাবটাইটেল", "sponsorblock": "SponsorBlock", "output": "আউটপুট", "folder": "সেভ", "confirm": "নিশ্চিত করুন"},
 		"playlistPresets": {"heading": "ব্যাচের জন্য মান বেছে নিন", "subhead": "প্রতিটি ভিডিও স্বাধীনভাবে বেছে নেওয়া স্তর অনুযায়ী রেজোলিউশন করে — বৈচিত্র্যময় playlist অবাক করা ছাড়াই কাজ করে।", "itemCount_one": "{{count}}টি আইটেম", "itemCount_other": "{{count}}টি আইটেম"},
+		"playlistProfiles": {
+			"heading": "ডাউনলোড প্রোফাইল নির্ধারণ করুন",
+			"selectedSummary": "{{total}} এর মধ্যে {{selected}} নির্বাচিত",
+			"assignAria": "{{profileName}} নির্ধারণ করুন",
+			"more": "আরও…",
+			"filtersLabel": "প্রোফাইল ফিল্টার",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "প্রোফাইল",
+			"columnDuration": "সময়কাল",
+			"empty": "এই ফিল্টারের সাথে কোনো আইটেম মেলে না"
+		},
 		"playlist": {
 			"heading": "Playlist আইটেম",
 			"headingGeneric": "ডাউনলোডের ভিডিও",

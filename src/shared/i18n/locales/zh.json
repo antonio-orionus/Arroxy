@@ -26,6 +26,17 @@
 	"wizard": {
 		"steps": {"url": "链接", "playlistItems": "播放列表", "playlistItemsGeneric": "视频", "playlistPresets": "画质", "playlistProfiles": "配置", "formats": "格式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "输出", "folder": "保存", "confirm": "确认"},
 		"playlistPresets": {"heading": "选择批量下载画质", "subhead": "每个视频独立匹配所选画质档位——混合内容的播放列表也能正常处理，无意外。", "itemCount_one": "{{count}} 项", "itemCount_other": "{{count}} 项"},
+		"playlistProfiles": {
+			"heading": "分配下载配置",
+			"selectedSummary": "已选择 {{total}} 项中的 {{selected}} 项",
+			"assignAria": "分配{{profileName}}",
+			"more": "更多…",
+			"filtersLabel": "配置筛选",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "配置",
+			"columnDuration": "时长",
+			"empty": "没有符合此筛选条件的项目"
+		},
 		"playlist": {
 			"heading": "Playlist 视频",
 			"headingGeneric": "要下载的视频",

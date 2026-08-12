@@ -35,6 +35,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Wiedergabeliste", "playlistItemsGeneric": "Videos", "playlistPresets": "Qualität", "playlistProfiles": "Profile", "formats": "Format", "subtitles": "Untertitel", "sponsorblock": "SponsorBlock", "output": "Ausgabe", "folder": "Speichern", "confirm": "Bestätigen"},
 		"playlistPresets": {"heading": "Qualität für den Stapel wählen", "subhead": "Jedes Video löst die gewählte Stufe unabhängig auf — heterogene Playlists funktionieren ohne Überraschungen.", "itemCount_one": "{{count}} Element", "itemCount_other": "{{count}} Elemente"},
+		"playlistProfiles": {
+			"heading": "Download-Profile zuweisen",
+			"selectedSummary": "{{selected}} von {{total}} ausgewählt",
+			"assignAria": "{{profileName}} zuweisen",
+			"more": "Mehr…",
+			"filtersLabel": "Profilfilter",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Profil",
+			"columnDuration": "Dauer",
+			"empty": "Keine Einträge entsprechen diesem Filter"
+		},
 		"playlist": {
 			"heading": "Playlist-Elemente",
 			"headingGeneric": "Videos zum Herunterladen",

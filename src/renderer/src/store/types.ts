@@ -148,6 +148,8 @@ export interface ProbeOrchestratorSlice {
 	setPlaylistSelection: (s: PlaylistSelection) => void
 	enterMultiProfileMode: () => void
 	exitMultiProfileMode: () => void
+	assignPlaylistProfile: (itemIds: string[], ref: DownloadProfileRef) => void
+	resetPlaylistProfile: (itemIds: string[]) => void
 	scanDownloadedInFolder: () => Promise<void>
 	applyFolderSync: () => void
 	advance: () => void

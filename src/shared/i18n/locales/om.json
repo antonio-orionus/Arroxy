@@ -47,6 +47,17 @@
 			"confirm": "Mirkaneessi"
 		},
 		"playlistPresets": {"heading": "Kutaa gurmuu barbaadi", "subhead": "Viidiyoon hundi sadarkaa filatame ofumaan qorata — playlist garagaraa sodaa malee hojjeta.", "itemCount_one": "{{count}} wanta", "itemCount_other": "{{count}} wantota"},
+		"playlistProfiles": {
+			"heading": "Piroofaayilii buufannaa ramaduu",
+			"selectedSummary": "{{total}} keessaa {{selected}} filatameera",
+			"assignAria": "{{profileName}} ramaduu",
+			"more": "Dabalata…",
+			"filtersLabel": "Calaltuu piroofaayilii",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Piroofaayilii",
+			"columnDuration": "Turtii",
+			"empty": "Calaltuu kanaan wal simu hin jiru"
+		},
 		"playlist": {
 			"heading": "Wantoota Playlist",
 			"headingGeneric": "Viidiyoowwan buufachuuf",

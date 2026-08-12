@@ -43,6 +43,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Ijro roʻyxati", "playlistItemsGeneric": "Videolar", "playlistPresets": "Sifat", "playlistProfiles": "Profillar", "formats": "Format", "subtitles": "Subtitrlar", "sponsorblock": "SponsorBlock", "output": "Chiqish", "folder": "Saqlash", "confirm": "Tasdiqlash"},
 		"playlistPresets": {"heading": "Paket uchun sifatni tanlang", "subhead": "Har bir video tanlangan darajani mustaqil ravishda hal qiladi — turli xil playlistlar muammosiz ishlaydi.", "itemCount_one": "{{count}} ta element", "itemCount_other": "{{count}} ta element"},
+		"playlistProfiles": {
+			"heading": "Yuklab olish profillarini belgilash",
+			"selectedSummary": "{{total}} tadan {{selected}} tasi tanlandi",
+			"assignAria": "{{profileName}} belgilash",
+			"more": "Yana…",
+			"filtersLabel": "Profil filtrlari",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Profil",
+			"columnDuration": "Davomiylik",
+			"empty": "Ushbu filtrga mos keluvchi element yo'q"
+		},
 		"playlist": {
 			"heading": "Playlist elementlari",
 			"headingGeneric": "Yuklab olinadigan videolar",

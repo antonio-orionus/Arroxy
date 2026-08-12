@@ -1723,6 +1723,42 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr ""
 
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.more"
+msgid "More…"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr ""
+
 msgctxt "wizard.profileEditor.action.addLanguage"
 msgid "Add"
 msgstr ""

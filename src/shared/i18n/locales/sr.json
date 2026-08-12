@@ -43,6 +43,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Плејлиста", "playlistItemsGeneric": "Видео", "playlistPresets": "Квалитет", "playlistProfiles": "Профили", "formats": "Формат", "subtitles": "Титлови", "sponsorblock": "SponsorBlock", "output": "Излаз", "folder": "Сачувај", "confirm": "Потврди"},
 		"playlistPresets": {"heading": "Изабери квалитет за групно преузимање", "subhead": "Свaki видео самостално проналази одговарајући ниво квалитета — хетерогене плејлисте раде без изненађења.", "itemCount_one": "{{count}} ставка", "itemCount_other": "{{count}} ставки"},
+		"playlistProfiles": {
+			"heading": "Додели профиле преузимања",
+			"selectedSummary": "Изабрано {{selected}} од {{total}}",
+			"assignAria": "Додели {{profileName}}",
+			"more": "Више…",
+			"filtersLabel": "Филтери профила",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Профил",
+			"columnDuration": "Трајање",
+			"empty": "Ниједна ставка не одговара овом филтеру"
+		},
 		"playlist": {
 			"heading": "Ставке плејлисте",
 			"headingGeneric": "Видео снимци за преузимање",

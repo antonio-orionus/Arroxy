@@ -26,6 +26,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "प्लेलिस्ट", "playlistItemsGeneric": "वीडियो", "playlistPresets": "गुणवत्ता", "playlistProfiles": "प्रोफाइल", "formats": "फ़ॉर्मेट", "subtitles": "उपशीर्षक", "sponsorblock": "SponsorBlock", "output": "आउटपुट", "folder": "सेव करें", "confirm": "पुष्टि करें"},
 		"playlistPresets": {"heading": "बैच के लिए गुणवत्ता चुनें", "subhead": "हर वीडियो चुनी गई श्रेणी के अनुसार स्वतंत्र रूप से रेज़ॉल्व होता है — मिश्रित Playlist बिना किसी परेशानी के काम करती है।", "itemCount_one": "{{count}} आइटम", "itemCount_other": "{{count}} आइटम"},
+		"playlistProfiles": {
+			"heading": "डाउनलोड प्रोफ़ाइल असाइन करें",
+			"selectedSummary": "{{total}} में से {{selected}} चयनित",
+			"assignAria": "{{profileName}} असाइन करें",
+			"more": "अधिक…",
+			"filtersLabel": "प्रोफ़ाइल फ़िल्टर",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "प्रोफ़ाइल",
+			"columnDuration": "अवधि",
+			"empty": "इस फ़िल्टर से कोई आइटम मेल नहीं खाता"
+		},
 		"playlist": {
 			"heading": "Playlist आइटम",
 			"headingGeneric": "डाउनलोड करने वाले वीडियो",

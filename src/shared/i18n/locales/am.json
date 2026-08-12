@@ -26,6 +26,17 @@
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "የቪዲዮ ዝርዝር", "playlistItemsGeneric": "ቪዲዮዎች", "playlistPresets": "ጥራት", "playlistProfiles": "መገለጫዎች", "formats": "ቅርጸት", "subtitles": "ንዑስ ርዕሶች", "sponsorblock": "SponsorBlock", "output": "ውፅዓት", "folder": "አስቀምጥ", "confirm": "አረጋግጥ"},
 		"playlistPresets": {"heading": "ለቡድኑ ጥራት ይምረጡ", "subhead": "እያንዳንዱ ቪዲዮ የተመረጠውን ደረጃ ራሱን ችሎ ይፈታል — የተለያዩ playlists ያለ ችግር ይሰራሉ።", "itemCount_one": "{{count}} ንጥል", "itemCount_other": "{{count}} ንጥሎች"},
+		"playlistProfiles": {
+			"heading": "የማውረድ መገለጫዎችን መድብ",
+			"selectedSummary": "ከ{{total}} ውስጥ {{selected}} ተመርጠዋል",
+			"assignAria": "{{profileName}}ን መድብ",
+			"more": "ተጨማሪ…",
+			"filtersLabel": "የመገለጫ ማጣሪያዎች",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "መገለጫ",
+			"columnDuration": "ቆይታ",
+			"empty": "ከዚህ ማጣሪያ ጋር የሚዛመድ ንጥል የለም"
+		},
 		"playlist": {
 			"heading": "የ Playlist ቪዲዮዎች",
 			"headingGeneric": "የሚወርዱ ቪዲዮዎች",
