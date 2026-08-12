@@ -174,7 +174,7 @@ export function QueueManagerTab(): ReactNode {
 	})
 	const rows = table.getRowModel().rows
 	const orderedRowIds = useMemo(() => rows.map(row => row.original.id), [rows])
-	const {onRowClick, onRowPointerDown, onRowPointerEnter, onKeyboardToggle, openContextMenuForRow} = useRowSelectionInteractions({orderedIds: orderedRowIds, selection, dispatch: dispatchSelection})
+	const interactions = useRowSelectionInteractions({orderedIds: orderedRowIds, selection, dispatch: dispatchSelection})
 	const rowVirtualizer = useVirtualizer({count: rows.length, getScrollElement: () => scrollRef.current, estimateSize: () => 62, overscan: 8})
 	const virtualRows = rowVirtualizer.getVirtualItems()
 	const firstVirtualRow = virtualRows[0]
@@ -214,12 +214,8 @@ export function QueueManagerTab(): ReactNode {
 				contextItems={contextItems}
 				expandedIds={expandedIds}
 				selectedIds={selectedIds}
+				interactions={interactions}
 				onContextAction={runSelectedAction}
-				onContextMenu={openContextMenuForRow}
-				onKeyboardToggle={onKeyboardToggle}
-				onRowClick={onRowClick}
-				onRowPointerDown={onRowPointerDown}
-				onRowPointerEnter={onRowPointerEnter}
 			/>
 		</section>
 	)
