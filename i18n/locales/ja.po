@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "言語"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "このフォルダーはシステムに対して階層が深すぎます。ダウンロードは失敗する可能性があります — もっと短いフォルダーを選んでください。"
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "この動画の名前はテンプレートのすべての部分に収まらないため、既定の名前を使用しました。"
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "フォルダー選択を開けませんでした。"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "このフォルダーはこのプレイリストには使用できません。"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "設定を保存できませんでした。"
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "開けませんでした。"
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "セットアップが完了していません。完了するまで一部のダウンロードが失敗する場合があります。"
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (best)"

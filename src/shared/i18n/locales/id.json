@@ -543,6 +543,15 @@
 		"fetchingSponsorBlock": "Menghubungi SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock tidak tersedia, coba lagi ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "Tidak dapat menyimpan pengaturan Anda.",
+		"warmupFailed": "Penyiapan belum selesai. Beberapa unduhan mungkin gagal sampai selesai.",
+		"shellActionFailed": "Tidak dapat membuka itu.",
+		"folderSelectFailed": "Tidak dapat membuka pemilih folder.",
+		"playlistFolderRejected": "Folder itu tidak dapat digunakan untuk playlist ini.",
+		"filenameFolderTooDeep": "Folder ini terlalu dalam untuk sistem Anda. Unduhan mungkin tetap gagal — pilih folder yang lebih pendek.",
+		"filenameTemplateCannotFit": "Nama video ini tidak muat di setiap bagian templat Anda, jadi nama bawaan digunakan."
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "Perlindungan bot dipicu. IP yang Anda gunakan kemungkinan besar ditandai (rentang pusat data atau pintu keluar VPN yang sibuk). Ubah IP Anda atau pilih titik akhir VPN lain dan coba lagi. Jika terus gagal, ini mungkin merupakan perubahan sementara di sisi situs — Arroxy memperbarui yt-dlp secara otomatis saat peluncuran, sehingga perbaikan dilakukan secara otomatis setelah upstream mengirimkannya.",

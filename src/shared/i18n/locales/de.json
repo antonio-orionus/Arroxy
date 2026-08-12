@@ -548,6 +548,15 @@
 		"fetchingSponsorBlock": "SponsorBlock wird kontaktiert…",
 		"retryingSponsorBlock": "SponsorBlock nicht verfügbar, erneuter Versuch ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "Deine Einstellungen konnten nicht gespeichert werden.",
+		"warmupFailed": "Die Einrichtung wurde nicht abgeschlossen. Einige Downloads können bis dahin fehlschlagen.",
+		"shellActionFailed": "Das konnte nicht geöffnet werden.",
+		"folderSelectFailed": "Die Ordnerauswahl konnte nicht geöffnet werden.",
+		"playlistFolderRejected": "Dieser Ordner kann für diese Playlist nicht verwendet werden.",
+		"filenameFolderTooDeep": "Dieser Ordner ist zu tief verschachtelt für dein System. Der Download kann trotzdem fehlschlagen — wähle einen kürzeren Ordner.",
+		"filenameTemplateCannotFit": "Der Name dieses Videos passt nicht in jeden Teil deiner Vorlage, daher wurde der Standardname verwendet."
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "Bot-Schutz ausgelöst. Die verwendete IP ist höchstwahrscheinlich als verdächtig markiert (Rechenzentrumsbereich oder stark genutzter VPN-Ausgangsknoten). Wechsle deine IP oder wähle einen anderen VPN-Endpunkt und versuche es erneut. Falls das Problem weiterhin besteht, könnte es sich um eine vorübergehende Änderung seitens YouTube handeln – Arroxy aktualisiert yt-dlp beim Start automatisch, sodass der Fix automatisch angewendet wird, sobald er upstream verfügbar ist.",

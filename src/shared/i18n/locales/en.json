@@ -534,6 +534,15 @@
 		"fetchingSponsorBlock": "Contacting SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "Could not save your settings.",
+		"warmupFailed": "Setup did not finish. Some downloads may fail until it does.",
+		"shellActionFailed": "Could not open that.",
+		"folderSelectFailed": "Could not open the folder picker.",
+		"playlistFolderRejected": "That folder can't be used for this playlist.",
+		"filenameFolderTooDeep": "This folder is too deep for your system. The download may still fail — pick a shorter folder.",
+		"filenameTemplateCannotFit": "This video's name can't fit every part of your template, so the default name was used."
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it.",

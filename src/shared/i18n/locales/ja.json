@@ -548,6 +548,15 @@
 		"fetchingSponsorBlock": "SponsorBlock に接続中…",
 		"retryingSponsorBlock": "SponsorBlock が利用できません、再試行中 ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "設定を保存できませんでした。",
+		"warmupFailed": "セットアップが完了していません。完了するまで一部のダウンロードが失敗する場合があります。",
+		"shellActionFailed": "開けませんでした。",
+		"folderSelectFailed": "フォルダー選択を開けませんでした。",
+		"playlistFolderRejected": "このフォルダーはこのプレイリストには使用できません。",
+		"filenameFolderTooDeep": "このフォルダーはシステムに対して階層が深すぎます。ダウンロードは失敗する可能性があります — もっと短いフォルダーを選んでください。",
+		"filenameTemplateCannotFit": "この動画の名前はテンプレートのすべての部分に収まらないため、既定の名前を使用しました。"
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "ボット対策が発動しました。使用中のIPはデータセンター範囲またはVPN出口として検出されている可能性があります。IPを変更するか別のVPNエンドポイントを選択して再試行してください。それでも失敗する場合はYouTube側の一時的な変更の可能性があります。ArroxyはYouTube起動時にyt-dlpを自動更新するため、上流が修正をリリースすれば自動的に適用されます。",

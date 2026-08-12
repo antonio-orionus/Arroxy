@@ -548,6 +548,15 @@
 		"fetchingSponsorBlock": "Contactando SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock no disponible, reintentando ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "No se pudo guardar tu configuración.",
+		"warmupFailed": "La configuración inicial no terminó. Algunas descargas pueden fallar hasta que lo haga.",
+		"shellActionFailed": "No se pudo abrir eso.",
+		"folderSelectFailed": "No se pudo abrir el selector de carpetas.",
+		"playlistFolderRejected": "Esa carpeta no se puede usar para esta lista de reproducción.",
+		"filenameFolderTooDeep": "Esta carpeta es demasiado profunda para tu sistema. La descarga aún podría fallar — elige una carpeta más corta.",
+		"filenameTemplateCannotFit": "El nombre de este vídeo no cabe en todas las partes de tu plantilla, así que se usó el nombre predeterminado."
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "La protección contra bots se activó. La IP que estás usando probablemente está marcada (rango de datacenter o salida de VPN con mucho tráfico). Cambia tu IP o elige un punto de salida de VPN diferente y vuelve a intentarlo. Si sigue fallando, puede ser un cambio temporal de YouTube — Arroxy actualiza yt-dlp automáticamente al iniciar, por lo que la corrección llegará sola en cuanto esté disponible en el repositorio.",

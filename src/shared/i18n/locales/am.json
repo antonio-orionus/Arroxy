@@ -495,6 +495,15 @@
 		"fetchingSponsorBlock": "SponsorBlock እያነጋገሩ…",
 		"retryingSponsorBlock": "SponsorBlock አይገኝም፣ እንደገና እየሞከሩ ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "ቅንብሮችዎን ማስቀመጥ አልተቻለም።",
+		"warmupFailed": "ማዋቀር አልተጠናቀቀም። እስኪጠናቀቅ ድረስ አንዳንድ ማውረዶች ሊሳኩ ይችላሉ።",
+		"shellActionFailed": "ያንን መክፈት አልተቻለም።",
+		"folderSelectFailed": "የአቃፊ መምረጫን መክፈት አልተቻለም።",
+		"playlistFolderRejected": "ያ አቃፊ ለዚህ የአጫዋች ዝርዝር መጠቀም አይቻልም።",
+		"filenameFolderTooDeep": "ይህ አቃፊ ለስርዓትዎ በጣም ጥልቅ ነው። ማውረዱ አሁንም ሊሳካ ይችላል — አጭር አቃፊ ይምረጡ።",
+		"filenameTemplateCannotFit": "የዚህ ቪዲዮ ስም የአብነትዎን እያንዳንዱን ክፍል አይይዝም፣ ስለዚህ ነባሪው ስም ጥቅም ላይ ውሏል።"
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "የቦት መከላከያ ተነሳ። የሚጠቀሙበት IP አድራሻ (የዳታ ሴንተር ክልል ወይም ተጨናንቆ VPN መውጫ) ምናልባት ምልክት ተደርጎበት ሊሆን ይችላል። IP አድራሻዎን ይቀይሩ ወይም ሌላ VPN ነጥብ ይምረጡ ከዚያ እንደገና ሞክሩ። አሁንም ካልሰራ፣ ይህ ጊዜያዊ የYouTube ወገን ለውጥ ሊሆን ይችላል — Arroxy በጅምር yt-dlp ራሱን ያዘምናል፣ ስለዚህ upstream ሲያስተካክለው ማስተካከያው ራሱ ይደርሳል።",

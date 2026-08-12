@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Dil"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Bu klasör sisteminiz için çok derin. İndirme yine de başarısız olabilir — daha kısa bir klasör seçin."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Bu videonun adı şablonunuzun her parçasına sığmıyor, bu yüzden varsayılan ad kullanıldı."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Klasör seçici açılamadı."
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Bu klasör bu oynatma listesi için kullanılamaz."
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Ayarların kaydedilemedi."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Bu açılamadı."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Kurulum tamamlanmadı. Tamamlanana kadar bazı indirmeler başarısız olabilir."
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Ses (en iyi)"

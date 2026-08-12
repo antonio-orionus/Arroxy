@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Bahasa"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Folder ini terlalu dalam untuk sistem Anda. Unduhan mungkin tetap gagal — pilih folder yang lebih pendek."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Nama video ini tidak muat di setiap bagian templat Anda, jadi nama bawaan digunakan."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Tidak dapat membuka pemilih folder."
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Folder itu tidak dapat digunakan untuk playlist ini."
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Tidak dapat menyimpan pengaturan Anda."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Tidak dapat membuka itu."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Penyiapan belum selesai. Beberapa unduhan mungkin gagal sampai selesai."
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (terbaik)"

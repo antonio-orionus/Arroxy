@@ -489,6 +489,15 @@
 		"fetchingSponsorBlock": "正在连接 SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock 暂时不可用，正在重试 ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "无法保存你的设置。",
+		"warmupFailed": "初始化未完成。在完成之前，部分下载可能会失败。",
+		"shellActionFailed": "无法打开该项目。",
+		"folderSelectFailed": "无法打开文件夹选择器。",
+		"playlistFolderRejected": "该文件夹无法用于此播放列表。",
+		"filenameFolderTooDeep": "此文件夹层级对你的系统来说太深。下载仍可能失败 — 请选择更短的文件夹。",
+		"filenameTemplateCannotFit": "此视频的名称无法容纳模板的每个部分，因此使用了默认名称。"
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "触发了机器人保护。你所使用的 IP 很可能已被标记（数据中心地址段或繁忙的 VPN 出口）。请更换 IP 或选择其他 VPN 节点后重试。如果持续失败，这可能是 YouTube 临时性的变动——Arroxy 会在启动时自动更新 yt-dlp，一旦上游发布修复，会自动生效。",

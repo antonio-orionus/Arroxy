@@ -543,6 +543,15 @@
 		"fetchingSponsorBlock": "SponsorBlock ile iletişim kuruluyor…",
 		"retryingSponsorBlock": "SponsorBlock kullanılamıyor, tekrar deneniyor ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "Ayarların kaydedilemedi.",
+		"warmupFailed": "Kurulum tamamlanmadı. Tamamlanana kadar bazı indirmeler başarısız olabilir.",
+		"shellActionFailed": "Bu açılamadı.",
+		"folderSelectFailed": "Klasör seçici açılamadı.",
+		"playlistFolderRejected": "Bu klasör bu oynatma listesi için kullanılamaz.",
+		"filenameFolderTooDeep": "Bu klasör sisteminiz için çok derin. İndirme yine de başarısız olabilir — daha kısa bir klasör seçin.",
+		"filenameTemplateCannotFit": "Bu videonun adı şablonunuzun her parçasına sığmıyor, bu yüzden varsayılan ad kullanıldı."
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "Bot koruması tetiklendi. Kullandığın IP büyük olasılıkla işaretlenmiş (veri merkezi aralığı veya yoğun VPN çıkışı). IP’ni değiştir veya farklı bir VPN uç noktası seçip tekrar dene. Sorun sürerse bu geçici bir site tarafı değişikliği olabilir — Arroxy açılışta yt-dlp’yi otomatik günceller, bu yüzden üst kaynak düzeltmeyi yayınladığında çözüm otomatik gelir.",

@@ -283,6 +283,34 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Језик"
 
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Ова фасцикла је предубока за ваш систем. Преузимање и даље може да не успе — изаберите краћу фасциклу."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Име овог видеа не стаје у сваки део вашег шаблона, па је коришћено подразумевано име."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Није могуће отворити бирач фасцикли."
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Та фасцикла не може да се користи за ову плејлисту."
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Није могуће сачувати ваша подешавања."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Није могуће отворити то."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Подешавање није завршено. Нека преузимања могу да не успеју док се не заврши."
+
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
 msgstr "Audio (best)"

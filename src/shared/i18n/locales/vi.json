@@ -533,6 +533,15 @@
 		"fetchingSponsorBlock": "Đang kết nối SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock không khả dụng, đang thử lại ({{attempt}}/{{total}})…"
 	},
+	"notifications": {
+		"settingsSaveFailed": "Không thể lưu cài đặt của bạn.",
+		"warmupFailed": "Thiết lập chưa hoàn tất. Một số lượt tải xuống có thể thất bại cho đến khi hoàn tất.",
+		"shellActionFailed": "Không thể mở mục đó.",
+		"folderSelectFailed": "Không thể mở trình chọn thư mục.",
+		"playlistFolderRejected": "Không thể dùng thư mục đó cho danh sách phát này.",
+		"filenameFolderTooDeep": "Thư mục này quá sâu đối với hệ thống của bạn. Việc tải xuống vẫn có thể thất bại — hãy chọn thư mục ngắn hơn.",
+		"filenameTemplateCannotFit": "Tên video này không vừa với mọi phần trong mẫu của bạn, nên tên mặc định đã được dùng."
+	},
 	"errors": {
 		"ytdlp": {
 			"botBlock": "Đã kích hoạt bảo vệ bot. Địa chỉ IP bạn đang dùng rất có thể đã bị gắn cờ (dải địa chỉ trung tâm dữ liệu hoặc điểm thoát VPN bận). Hãy đổi IP hoặc chọn điểm kết nối VPN khác rồi thử lại. Nếu vẫn thất bại, đây có thể là thay đổi tạm thời từ phía YouTube — Arroxy tự động cập nhật yt-dlp khi khởi động, vì vậy bản sửa lỗi sẽ tự động áp dụng khi upstream phát hành.",

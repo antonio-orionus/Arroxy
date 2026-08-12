@@ -21,6 +21,15 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - Tokens that don't apply simply disappear instead of leaving `NA` in the name — an audio download won't pick up a resolution, and a one-off video won't pick up a playlist number.
 - Replaces the old "Add video ID to single filenames" switch, which is now just the `{id}` token.
 - Heads-up: playlist "skip already downloaded" detection and `.m3u` playlist files both find your files by their video ID. If you remove `{id}` from your template, Arroxy tells you inline and turns those two features off rather than letting them quietly misbehave.
+- Templates that used several tokens at once are no longer rejected. A template like `{title} {id} {uploader} {resolution} {playlist_title}` used to be refused as "too long" even though the names it produced were nowhere near any limit.
+- Filenames are now measured the way your own system measures them. macOS and Windows count characters, Linux counts bytes — so a Japanese or Chinese title keeps roughly three times more of its length on macOS and Windows than it used to.
+- Names that genuinely cannot fit are shortened instead of failing, and the video ID is never the part that gets cut, so playlist detection and `.m3u` files keep working.
+- On Windows, Arroxy now accounts for the full path length when naming files, so downloading into a deeply nested folder no longer fails with an unhelpful error from the downloader.
+
+### Notifications
+
+- Failures that used to happen silently now tell you. If your settings can't be saved, a folder can't be opened, or a chosen folder can't be used for a playlist, Arroxy shows a message instead of leaving you to guess.
+- Messages appear in your language and follow your light or dark theme.
 
 ### Fixes
 
