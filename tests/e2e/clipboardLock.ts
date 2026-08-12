@@ -1,3 +1,4 @@
+import {randomUUID} from 'node:crypto'
 import fsPromises from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
@@ -11,19 +12,26 @@ import path from 'node:path'
 // already exists, so exactly one holder wins. A plain file plus an existence
 // check would not be atomic.
 const LOCK_DIR = path.join(os.tmpdir(), 'arroxy-e2e-clipboard.lock')
-
-// Long enough to cover a paste round-trip, short enough that a worker killed
-// mid-test cannot wedge the suite.
-const STALE_AFTER_MS = 60_000
+const OWNER_FILE = path.join(LOCK_DIR, 'owner')
 const POLL_MS = 50
 
-async function lockAgeMs(): Promise<number | null> {
-	try {
-		const stat = await fsPromises.stat(LOCK_DIR)
-		return Date.now() - stat.mtimeMs
-	} catch {
-		return null
-	}
+/**
+ * Drop a lock left behind by a previous run.
+ *
+ * Call this only from globalSetup. It is the one moment when removing the lock
+ * is provably safe, because no worker exists yet and therefore no live holder
+ * can be destroyed.
+ *
+ * There is deliberately no age-based reclamation inside `withClipboardLock`:
+ * a legitimate holder can run for a long time — the clipboard-watch test holds
+ * this across a full Electron launch and workflow under a 90s timeout — so any
+ * "the lock looks old, take it" rule eventually evicts a live holder and puts
+ * two tests in the critical section, which is the exact failure the lock
+ * exists to prevent. A worker killed mid-body wedges only the remainder of
+ * that run, which is already failing.
+ */
+export async function resetClipboardLock(): Promise<void> {
+	await fsPromises.rm(LOCK_DIR, {recursive: true, force: true})
 }
 
 /**
@@ -33,24 +41,38 @@ async function lockAgeMs(): Promise<number | null> {
  * the other workers.
  */
 export async function withClipboardLock<T>(body: () => Promise<T>): Promise<T> {
+	// Identifies this holder so release can never remove someone else's lock.
+	const token = `${process.pid}.${randomUUID()}`
 	for (;;) {
 		try {
 			await fsPromises.mkdir(LOCK_DIR)
-			break
-		} catch {
-			// A worker that crashed without releasing would otherwise block the
-			// suite forever, so an old lock is reclaimed rather than waited on.
-			const age = await lockAgeMs()
-			if (age !== null && age > STALE_AFTER_MS) {
-				await fsPromises.rm(LOCK_DIR, {recursive: true, force: true})
-				continue
-			}
+		} catch (error) {
+			// Only EEXIST means contention. EACCES, ENOSPC and EROFS are real
+			// filesystem failures, and polling on them would hang the suite
+			// instead of reporting the problem.
+			if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error
 			await new Promise(resolve => setTimeout(resolve, POLL_MS))
+			continue
 		}
+		try {
+			await fsPromises.writeFile(OWNER_FILE, token)
+		} catch (error) {
+			// Holding a lock nobody can prove ownership of would wedge the run.
+			await fsPromises.rm(LOCK_DIR, {recursive: true, force: true})
+			throw error
+		}
+		break
 	}
+
 	try {
 		return await body()
 	} finally {
-		await fsPromises.rm(LOCK_DIR, {recursive: true, force: true})
+		let owner: string | null = null
+		try {
+			owner = await fsPromises.readFile(OWNER_FILE, 'utf8')
+		} catch {
+			owner = null
+		}
+		if (owner === token) await fsPromises.rm(LOCK_DIR, {recursive: true, force: true})
 	}
 }

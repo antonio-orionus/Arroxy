@@ -44,29 +44,47 @@ describe('installAtomically', () => {
 	})
 
 	it('never exposes a partial file to a concurrent reader', async () => {
-		// Eight writers race on one destination while a reader polls it. Every
-		// observation must be the whole payload — never a prefix.
+		// Deterministic rather than timing-based: the producer is held open at the
+		// exact moment its staging file is half-written, so the observation below
+		// happens at the only instant a partial file could leak. A polling reader
+		// racing a fixed delay could miss that window entirely under load and
+		// report success without having checked anything.
 		const destination = path.join(tempDir(), 'yt-dlp')
 		const payload = 'A'.repeat(4096)
-		const seen: string[] = []
-		let polling = true
-		const reader = (async () => {
-			while (polling) {
-				try {
-					seen.push(fs.readFileSync(destination, 'utf8'))
-				} catch {
-					// Absent is fine; partial is not.
-				}
-				await new Promise(resolve => setTimeout(resolve, 1))
-			}
-		})()
 
+		let releaseProducer: () => void = () => {}
+		const producerHeld = new Promise<void>(resolve => {
+			releaseProducer = resolve
+		})
+		let reachedHalfWay: () => void = () => {}
+		const halfWritten = new Promise<void>(resolve => {
+			reachedHalfWay = resolve
+		})
+
+		const install = installAtomically(destination, async staging => {
+			await fs.promises.writeFile(staging, payload.slice(0, payload.length / 2))
+			reachedHalfWay()
+			await producerHeld
+			await fs.promises.appendFile(staging, payload.slice(payload.length / 2))
+		})
+
+		await halfWritten
+		// Half the payload exists on disk right now, and the destination must not
+		// show any of it.
+		expect(fs.existsSync(destination)).toBe(false)
+
+		releaseProducer()
+		await install
+		expect(fs.readFileSync(destination, 'utf8')).toBe(payload)
+	})
+
+	it('leaves the destination whole when many writers race', async () => {
+		// Concurrency still gets coverage, but the assertion is on the settled
+		// result rather than on catching a moment.
+		const destination = path.join(tempDir(), 'yt-dlp')
+		const payload = 'B'.repeat(2048)
 		await Promise.all(Array.from({length: 8}, () => installAtomically(destination, staging => writeSlowly(staging, payload))))
-		polling = false
-		await reader
-
-		expect(seen.length).toBeGreaterThan(0)
-		expect(seen.every(content => content === payload)).toBe(true)
+		expect(fs.readFileSync(destination, 'utf8')).toBe(payload)
 	})
 
 	it('leaves no staging files behind', async () => {
