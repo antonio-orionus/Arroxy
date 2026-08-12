@@ -8,7 +8,9 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## Unreleased
+## 0.4.5
+
+This release reworks how Arroxy names downloaded files, so filenames may look different from previous versions — templates that were previously refused now work, and non-Latin titles keep much more of their length on macOS and Windows. It also gives failures that used to happen silently a visible message.
 
 ## Highlights
 
