@@ -86,7 +86,7 @@ export function QueueManagerTable({t, table, rows, virtualRows, scrollRef, topVi
 			emptyLabel={t('queue.empty')}
 			scrollTestId="queue-manager-scroll"
 			rowTestId={rowId => `queue-manager-row-${rowId}`}
-			rowDataAttributes={row => ({status: row.original.status})}
+			rowDataAttributes={row => ({'data-status': row.original.status})}
 			columnClassName={columnClassName}
 			renderContextMenu={() => <QueueContextMenuItems items={contextItems} onAction={onContextAction} />}
 			renderExtraRows={row => (expandedIds.has(row.original.id) ? <QueueArtifactsRow columnsLength={renderedColumnCount} item={row.original} /> : null)}

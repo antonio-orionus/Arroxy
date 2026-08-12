@@ -87,6 +87,8 @@ describe('QueueManagerTab', () => {
 		expect(screen.queryByRole('columnheader', {name: /actions/i})).not.toBeInTheDocument()
 		expect(screen.getByTestId('queue-manager-row-pending')).toHaveTextContent('Waiting video')
 		expect(screen.getByTestId('queue-manager-row-running')).toHaveTextContent('42%')
+		expect(screen.getByTestId('queue-manager-row-pending')).toHaveAttribute('data-status', 'pending')
+		expect(screen.getByTestId('queue-manager-row-running')).toHaveAttribute('data-status', 'running')
 	})
 
 	it('virtualizes large queues instead of rendering every row', () => {
