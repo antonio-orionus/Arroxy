@@ -3,8 +3,8 @@ import {createListSelectionState, listSelectionReducer, rangeIds, type ListSelec
 
 const ORDER = ['a', 'b', 'c', 'd', 'e']
 
-function stateWith(ids: string[], anchorId: string | null = null): ListSelectionState {
-	return {selectedIds: new Set(ids), anchorId, contextIds: []}
+function stateWith(ids: string[], anchorId: string | null = null, contextIds: string[] = []): ListSelectionState {
+	return {selectedIds: new Set(ids), anchorId, contextIds}
 }
 
 describe('listSelection', () => {
@@ -45,6 +45,27 @@ describe('listSelection', () => {
 		const before = stateWith(['a', 'b'], 'a')
 		const after = listSelectionReducer(before, {type: 'prune', liveIds: new Set(['a', 'b'])})
 		expect(after).toBe(before)
+	})
+
+	it('context replaces contextIds with a copy, leaving selection untouched', () => {
+		const ids = ['b', 'c']
+		const before = stateWith(['a'])
+		const next = listSelectionReducer(before, {type: 'context', ids})
+
+		expect(next.contextIds).toEqual(['b', 'c'])
+		expect(next.contextIds).not.toBe(ids)
+
+		ids.push('z')
+		expect(next.contextIds).toEqual(['b', 'c'])
+		expect([...next.selectedIds]).toEqual(['a'])
+	})
+
+	it('prune filters dead ids out of contextIds while keeping live ones', () => {
+		const before = stateWith(['a', 'b'], 'a', ['a', 'b', 'zz'])
+		const next = listSelectionReducer(before, {type: 'prune', liveIds: new Set(['a', 'b'])})
+
+		expect(next).not.toBe(before)
+		expect(next.contextIds).toEqual(['a', 'b'])
 	})
 
 	it('clear empties selection, anchor and context', () => {
