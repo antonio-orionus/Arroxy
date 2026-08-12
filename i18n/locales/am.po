@@ -2457,6 +2457,18 @@ msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "ዕድሜ-ተገደበ፣ አባላት-ብቻ እና የግል ቪዲዮዎችን ያግዛል።"
 
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "የቪዲዮን በርካታ ክፍሎች በአንድ ጊዜ በማውረድ ትላልቅ ዳውንሎዶችን ያፋጥናል። ከፍ ያለ ዋጋ ጣቢያው እንዲገድብዎ ዕድሉን ይጨምራል።"
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "የዳውንሎድ ግንኙነቶች"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "ግንኙነቶች"
+
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "ድምጽ ብቻ"
@@ -2578,12 +2590,8 @@ msgid "Prefer surround / Dolby"
 msgstr "surround / Dolby ን ይመርጡ"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "Arroxy ጣቢያን ከልክ ያለፈ ጥያቄ እንዳያደርግ እያንዳንዱ ዳውንሎድ ላይ ትናንሽ መጠበቂያዎችን ያክላል። ዋጋዎች በሰከንድ ነው (ካልተጠቀሰ)።"
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "የዳውንሎድ ግንኙነቶች"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Arroxy ጣቢያን ከልክ ያለፈ ጥያቄ እንዳያደርግ እያንዳንዱ ዳውንሎድ ላይ ትናንሽ መጠበቂያዎችን ያክላል። ዋጋዎች በሰከንድ ናቸው።"
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2626,16 +2634,16 @@ msgid "Off"
 msgstr "ጠፍ"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "መጠበቂያ: {{requests}} ምርምሮች መካከል፣ {{downloads}} ሚዲያ ከመጀመሩ በፊት፣ {{subtitles}} ንዑስ ርዕስ ፋይሎች በፊት። ግንኙነቶች: {{fragments}}።"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "መጠበቂያ: {{requests}} ምርምሮች መካከል፣ {{downloads}} ሚዲያ ከመጀመሩ በፊት፣ {{subtitles}} ንዑስ ርዕስ ፋይሎች በፊት።"
 
 msgctxt "wizard.url.networkPacing.tooltip"
 msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
 msgstr "እነዚህ መጠበቂያዎች ማሳወቂያ ዳውንሎዶች ውስጥ ይሆናሉ። Arroxy ተራ የሆኑ ዳውንሎዶችን አሁንም አንድ ባንድ ያስተዳድራል።"
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "ነባሪ። አጫጭር እረፍቶችን ያክላል እና አንድ የዳውንሎድ ግንኙነት ይጠቀማል።"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "ነባሪ። በጥያቄዎች መካከል እና ሚዲያ ከመጀመሩ በፊት አጫጭር እረፍቶችን ያክላል።"
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2652,10 +2660,6 @@ msgstr "Arroxy ለሚዲያ እና ንዑስ ርዕሶች የሚያቆየውን 
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "ሰከንድ"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "ክሮች"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

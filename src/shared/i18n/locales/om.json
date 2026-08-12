@@ -226,21 +226,22 @@
 				"tooltip": "yt-dlp --playlist-end waliin walsimsiisa: Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
 			},
 			"nativeAudioPreference": {"label": "Filannoo sagalee dhalootaa", "description": "Best native maal akka filatu to’ata. Tarreewwan sagalee harkaan filataman fi M4A/AAC filannoo ifa ta’anii hafu.", "compatible": "Isteeriyoo walsimu", "surround": "Surround / Dolby filadhu"},
+			"downloadConnections": {"label": "Walqunnamtii buufataa", "description": "Kutaalee viidiyoo hedduu yeroo tokkotti fiduun buufata gurguddaa saffisiisa. Gatiin ol'aanaan carraa marsariitiin si daangessu dabala.", "unit": "walqunnamtii"},
 			"networkPacing": {
 				"heading": "Buufata laafaa",
-				"description": "Buufata tokko tokkotti yeroo gabaabaaf eegaa jira, kanaafuu Arroxy gara saayitichatti garmalee hin dhiibu. Gatiin daqiiqaa malee sekooondii dha.",
+				"description": "Buufata tokko tokkotti yeroo gabaabaaf eegaa jira, kanaafuu Arroxy gara saayitichatti garmalee hin dhiibu. Gatiiwwan sekondiidhaan.",
 				"presetLabel": "Arroxy hangam of-eeggachuu qaba?",
 				"tooltip": "Eegumsa kun buufata tokko tokko keessa ta'a. Arroxy buufata tartiibsifame tokkotti itti fufa.",
-				"summary": "Eegumsa: {{requests}} qorannoo gidduutti, {{downloads}} miidiyaa jalqabuuf, {{subtitles}} axxiinni faayiloota dura. Walqunnamtii: {{fragments}}.",
+				"summary": "Eegumsa: {{requests}} qorannoo gidduutti, {{downloads}} miidiyaa jalqabuuf, {{subtitles}} axxiinni faayiloota dura.",
 				"presets": {"off": "Dhaabbi", "balanced": "Walsimu", "careful": "Of-eeggannaa", "custom": "Ofiin qindi'i"},
 				"tooltips": {
 					"off": "Arroxy miidiyaa fi axxiinni qofaaf eegaa xiqaa qabaatutu fayyadama.",
-					"balanced": "Durtii. Eegaa gabaabaa dabalaa fi walqunnamtii buufata tokko fayyadama.",
+					"balanced": "Durtii. Gaaffiiwwan gidduuttii fi miidiyaan hin jalqabin dura eegaa gabaabaa dabala.",
 					"careful": "Eegaa dheeraaf playlist guddoo ykn network yeroo yeroon daangaa gahu dabalaa.",
 					"custom": "Too'annoo ammayyaa buufata tokko tokkoos ofiin sirreessi."
 				},
-				"fields": {"sleepRequests": "Qorannoo metadata gidduutti eegii", "sleepInterval": "Miidiyaan jalqabuuf dura gidduu dhabi: isa xiqqaa", "maxSleepInterval": "Miidiyaan jalqabuuf dura gidduu dhabi: isa ol'aanaa", "sleepSubtitles": "Axxiinni faayiloota dura eegii", "concurrentFragments": "Walqunnamtii buufata"},
-				"units": {"seconds": "sec", "threads": "threads"}
+				"fields": {"sleepRequests": "Qorannoo metadata gidduutti eegii", "sleepInterval": "Miidiyaan jalqabuuf dura gidduu dhabi: isa xiqqaa", "maxSleepInterval": "Miidiyaan jalqabuuf dura gidduu dhabi: isa ol'aanaa", "sleepSubtitles": "Axxiinni faayiloota dura eegii"},
+				"units": {"seconds": "sec"}
 			},
 			"closeToTray": {"toggle": "Cufuun dura tiiree dhoksi", "toggleDescription": "Daawniloodii booda gubbaan cufamuu itti fufi."},
 			"analytics": {"toggle": "Tilastoo faayidaa maqaa-malee ergaa", "toggleDescription": "Jalqabbii app qofa lakkaawa. URL, maqaa faayilii, ykn daataa dhuunfaa hin qabatu."}

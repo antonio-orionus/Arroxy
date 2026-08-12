@@ -2457,6 +2457,18 @@ msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "Husaidia na video zilizozuiwa kwa umri, za wanachama peke yao, na za akaunti ya kibinafsi."
 
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Huharakisha upakuaji mkubwa kwa kupakua sehemu kadhaa za video kwa wakati mmoja. Thamani kubwa huongeza uwezekano wa tovuti kukuwekea mipaka."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Miunganisho ya upakuaji"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "miunganisho"
+
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "Sauti peke yake"
@@ -2578,12 +2590,8 @@ msgid "Prefer surround / Dolby"
 msgstr "Pendelea surround / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "Inaongeza mapumziko madogo wakati wa kila upakuaji ili Arroxy isishambue tovuti. Maadili ni sekunde isipokuwa imetajwa."
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "Miunganisho ya kupakua"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Inaongeza mapumziko madogo wakati wa kila upakuaji ili Arroxy isishambue tovuti. Maadili ni sekunde."
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2626,16 +2634,16 @@ msgid "Off"
 msgstr "Zima"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "Mapumziko: {{requests}} kati ya ukaguzi, {{downloads}} kabla ya media kuanza, {{subtitles}} kabla ya faili za manukuu. Miunganisho: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Mapumziko: {{requests}} kati ya ukaguzi, {{downloads}} kabla ya media kuanza, {{subtitles}} kabla ya faili za manukuu."
 
 msgctxt "wizard.url.networkPacing.tooltip"
 msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
 msgstr "Mapumziko haya hutokea ndani ya kila upakuaji. Arroxy bado inashughulikia vipakuzi vya foleni moja kwa moja."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "Chaguo-msingi. Inaongeza mapumziko mafupi na kutumia muunganisho mmoja wa kupakua."
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Chaguo-msingi. Inaongeza mapumziko mafupi kati ya maombi na kabla ya media kuanza."
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2652,10 +2660,6 @@ msgstr "Inatumia mapumziko madogo ya msingi tu ambayo Arroxy inayashikilia kwa m
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "sek"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "miunganisho"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

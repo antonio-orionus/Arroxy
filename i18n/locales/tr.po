@@ -2457,6 +2457,18 @@ msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "Yaş kısıtlamalı, üyelere özel ve hesaba özel videolarda yardımcı olur."
 
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Bir videonun birkaç parçasını aynı anda alarak büyük indirmeleri hızlandırır. Yüksek değerler sitenin sizi sınırlama ihtimalini artırır."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "İndirme bağlantıları"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "bağlantı"
+
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "Yalnızca ses"
@@ -2578,12 +2590,8 @@ msgid "Prefer surround / Dolby"
 msgstr "Surround / Dolby tercih et"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "Arroxy’nin siteye fazla agresif davranmaması için her indirme sırasında küçük beklemeler ekle. Aksi belirtilmedikçe değerler saniyedir."
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "İndirme bağlantıları"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Arroxy’nin siteye fazla agresif davranmaması için her indirme sırasında küçük beklemeler ekle. Değerler saniye cinsindendir."
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2626,16 +2634,16 @@ msgid "Off"
 msgstr "Kapalı"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "Beklemeler: kontroller arasında {{requests}}, medya başlamadan önce {{downloads}}, altyazı dosyalarından önce {{subtitles}}. Bağlantılar: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Beklemeler: kontroller arasında {{requests}}, medya başlamadan önce {{downloads}}, altyazı dosyalarından önce {{subtitles}}."
 
 msgctxt "wizard.url.networkPacing.tooltip"
 msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
 msgstr "Bu beklemeler her indirmenin içinde gerçekleşir. Arroxy normal kuyruk indirmelerini yine tek tek yürütür."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "Varsayılan. Kısa duraklamalar ekler ve tek indirme bağlantısı kullanır."
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Varsayılan. İstekler arasında ve medya başlamadan önce kısa duraklamalar ekler."
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2652,10 +2660,6 @@ msgstr "Arroxy’nin medya ve altyazılar için tuttuğu küçük temel duraklam
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "sn"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "iş parçacığı"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

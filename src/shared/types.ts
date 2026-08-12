@@ -131,7 +131,7 @@ export interface CommonSettings {
 	pacingSleepInterval?: number
 	pacingMaxSleepInterval?: number
 	pacingSleepSubtitles?: number
-	pacingConcurrentFragments?: number
+	downloadConnections?: number
 	clipboardWatchEnabled: boolean
 	filenameTemplate?: string
 	closeBehavior?: 'ask' | 'tray' | 'quit'

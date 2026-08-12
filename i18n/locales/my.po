@@ -2457,6 +2457,18 @@ msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "အသက်အကန့်အသတ်ရှိ၊ အဖွဲ့ဝင်သာ နှင့် ကိုယ်ပိုင်ဗီဒီယိုများအတွက် ကူညီသည်။"
 
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "ဗီဒီယို၏ အပိုင်းများစွာကို တစ်ပြိုင်နက် ရယူခြင်းဖြင့် ဖိုင်ကြီးများ ဒေါင်းလုဒ်ကို မြန်ဆန်စေသည်။ တန်ဖိုးမြင့်လျှင် ဆိုက်မှ ကန့်သတ်ခံရနိုင်ခြေ ပိုများသည်။"
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "ဒေါင်းလုဒ် ချိတ်ဆက်မှုများ"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "ချိတ်ဆက်မှု"
+
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "အသံသာများ"
@@ -2578,12 +2590,8 @@ msgid "Prefer surround / Dolby"
 msgstr "surround / Dolby ကို ဦးစားပေးပါ"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "ဒေါင်းလုဒ်တိုင်းတွင် ကဆိုင်းငံ့ချိန်များ ထည့်သွင်း၍ Arroxy သည် ဆိုက်ကို အလွန်ကြမ်းတမ်းစွာ မဖိအားပေးစေရန်။ တန်ဖိုးများသည် ဆက်ပြောရင်းမှတ်မှတ်ရမည်ပုံ အပါအဝင် ဒုတိယများဖြစ်သည်။"
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "ဒေါင်းလုဒ်ချိတ်ဆက်မှုများ"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "ဒေါင်းလုဒ်တိုင်းတွင် ကဆိုင်းငံ့ချိန်များ ထည့်သွင်း၍ Arroxy သည် ဆိုက်ကို အလွန်ကြမ်းတမ်းစွာ မဖိအားပေးစေရန်။ တန်ဖိုးများသည် စက္ကန့်ဖြင့် ဖြစ်သည်။"
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2626,16 +2634,16 @@ msgid "Off"
 msgstr "ပိတ်ထားမည်"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "ဆိုင်းငံ့ချိန်: {{requests}} စစ်ဆေးမှုများကြား၊ {{downloads}} media မစတင်မီ၊ {{subtitles}} စာတန်းထိုးဖိုင်များမတိုင်မီ။ ချိတ်ဆက်မှုများ: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "ဆိုင်းငံ့ချိန်: {{requests}} စစ်ဆေးမှုများကြား၊ {{downloads}} media မစတင်မီ၊ {{subtitles}} စာတန်းထိုးဖိုင်များမတိုင်မီ။"
 
 msgctxt "wizard.url.networkPacing.tooltip"
 msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
 msgstr "ဤဆိုင်းငံ့ချိန်များသည် ဒေါင်းလုဒ်တိုင်း၏ အတွင်းတွင် ဖြစ်သည်။ Arroxy သည် ပုံမှန် queue ဒေါင်းလုဒ်များကို တစ်ခုပြီးတစ်ခု ဆက်ထိန်းသည်။"
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "မူရင်း။ တိုတောင်းသော ခေတ္တရပ်ချိန်များ ထည့်ပြီး ဒေါင်းလုဒ်ချိတ်ဆက်မှု တစ်ခုသုံးသည်။"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "မူရင်း။ တောင်းဆိုမှုများကြားနှင့် media မစတင်မီ တိုတောင်းသော ခေတ္တရပ်ချိန်များ ထည့်သည်။"
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2652,10 +2660,6 @@ msgstr "Arroxy သည် media နှင့် စာတန်းထိုးမ
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "စက္ကန့်"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "threads"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

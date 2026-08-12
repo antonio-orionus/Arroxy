@@ -2457,6 +2457,18 @@ msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "Viidiyoowwan umuriin-daangeffame, miseensota-qofaaf, fi dhuunfaa ta'e ni gargaara."
 
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Kutaalee viidiyoo hedduu yeroo tokkotti fiduun buufata gurguddaa saffisiisa. Gatiin ol'aanaan carraa marsariitiin si daangessu dabala."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Walqunnamtii buufataa"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "walqunnamtii"
+
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "Sagalee qofa"
@@ -2578,12 +2590,8 @@ msgid "Prefer surround / Dolby"
 msgstr "Surround / Dolby filadhu"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "Buufata tokko tokkotti yeroo gabaabaaf eegaa jira, kanaafuu Arroxy gara saayitichatti garmalee hin dhiibu. Gatiin daqiiqaa malee sekooondii dha."
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "Walqunnamtii buufata"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Buufata tokko tokkotti yeroo gabaabaaf eegaa jira, kanaafuu Arroxy gara saayitichatti garmalee hin dhiibu. Gatiiwwan sekondiidhaan."
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2626,16 +2634,16 @@ msgid "Off"
 msgstr "Dhaabbi"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "Eegumsa: {{requests}} qorannoo gidduutti, {{downloads}} miidiyaa jalqabuuf, {{subtitles}} axxiinni faayiloota dura. Walqunnamtii: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Eegumsa: {{requests}} qorannoo gidduutti, {{downloads}} miidiyaa jalqabuuf, {{subtitles}} axxiinni faayiloota dura."
 
 msgctxt "wizard.url.networkPacing.tooltip"
 msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
 msgstr "Eegumsa kun buufata tokko tokko keessa ta'a. Arroxy buufata tartiibsifame tokkotti itti fufa."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "Durtii. Eegaa gabaabaa dabalaa fi walqunnamtii buufata tokko fayyadama."
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Durtii. Gaaffiiwwan gidduuttii fi miidiyaan hin jalqabin dura eegaa gabaabaa dabala."
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2652,10 +2660,6 @@ msgstr "Arroxy miidiyaa fi axxiinni qofaaf eegaa xiqaa qabaatutu fayyadama."
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "sec"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "threads"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

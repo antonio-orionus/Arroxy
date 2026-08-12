@@ -217,16 +217,17 @@
 				"tooltip": "yt-dlp --playlist-end ጋር ይዛመዳል: Arroxy ምርጫ ሲሰራ ከ playlist፣ ቻናል፣ ወይም ፍለጋ ውጤቶች ይህን ያህል ብቻ ይጠይቃል።"
 			},
 			"nativeAudioPreference": {"label": "የተፈጥሯዊ ድምፅ ምርጫ", "description": "“Best native” ምን እንደሚመርጥ ይቆጣጠራል። በእጅ የሚመረጡ የድምፅ ረድፎች እና M4A/AAC ግልጽ ምርጫዎች ሆነው ይቀራሉ።", "compatible": "ተኳኋኝ ስቴሪዮ", "surround": "surround / Dolby ን ይመርጡ"},
+			"downloadConnections": {"label": "የዳውንሎድ ግንኙነቶች", "description": "የቪዲዮን በርካታ ክፍሎች በአንድ ጊዜ በማውረድ ትላልቅ ዳውንሎዶችን ያፋጥናል። ከፍ ያለ ዋጋ ጣቢያው እንዲገድብዎ ዕድሉን ይጨምራል።", "unit": "ግንኙነቶች"},
 			"networkPacing": {
 				"heading": "ለዝቅ ያሉ ዳውንሎዶች",
-				"description": "Arroxy ጣቢያን ከልክ ያለፈ ጥያቄ እንዳያደርግ እያንዳንዱ ዳውንሎድ ላይ ትናንሽ መጠበቂያዎችን ያክላል። ዋጋዎች በሰከንድ ነው (ካልተጠቀሰ)።",
+				"description": "Arroxy ጣቢያን ከልክ ያለፈ ጥያቄ እንዳያደርግ እያንዳንዱ ዳውንሎድ ላይ ትናንሽ መጠበቂያዎችን ያክላል። ዋጋዎች በሰከንድ ናቸው።",
 				"presetLabel": "Arroxy ምን ያህል ጥንቃቄ ያድርግ?",
 				"tooltip": "እነዚህ መጠበቂያዎች ማሳወቂያ ዳውንሎዶች ውስጥ ይሆናሉ። Arroxy ተራ የሆኑ ዳውንሎዶችን አሁንም አንድ ባንድ ያስተዳድራል።",
-				"summary": "መጠበቂያ: {{requests}} ምርምሮች መካከል፣ {{downloads}} ሚዲያ ከመጀመሩ በፊት፣ {{subtitles}} ንዑስ ርዕስ ፋይሎች በፊት። ግንኙነቶች: {{fragments}}።",
+				"summary": "መጠበቂያ: {{requests}} ምርምሮች መካከል፣ {{downloads}} ሚዲያ ከመጀመሩ በፊት፣ {{subtitles}} ንዑስ ርዕስ ፋይሎች በፊት።",
 				"presets": {"off": "ጠፍ", "balanced": "ሚዛናዊ", "careful": "ጥንቁቅ", "custom": "ብጁ"},
-				"tooltips": {"off": "Arroxy ለሚዲያ እና ንዑስ ርዕሶች የሚያቆየውን ትንሽ መሰረታዊ እረፍት ብቻ ይጠቀማል።", "balanced": "ነባሪ። አጫጭር እረፍቶችን ያክላል እና አንድ የዳውንሎድ ግንኙነት ይጠቀማል።", "careful": "ለትልልቅ playlists ወይም ቶሎ ቶሎ ገደብ ለሚያጋጥማቸው አውታሮች ረዥም እረፍቶችን ያክላል።", "custom": "የከፍተኛ ዳውንሎድ መቆጣጠሪያዎችን እራስዎ ያስተካክሉ።"},
-				"fields": {"sleepRequests": "ምርምሮች መካከል መጠበቂያ", "sleepInterval": "ሚዲያ ከመጀመሩ በፊት እረፍት: ዝቅ.", "maxSleepInterval": "ሚዲያ ከመጀመሩ በፊት እረፍት: ከፍ.", "sleepSubtitles": "ከንዑስ ጽሑፍ ፋይሎች በፊት ጠብቅ", "concurrentFragments": "የዳውንሎድ ግንኙነቶች"},
-				"units": {"seconds": "ሰከንድ", "threads": "ክሮች"}
+				"tooltips": {"off": "Arroxy ለሚዲያ እና ንዑስ ርዕሶች የሚያቆየውን ትንሽ መሰረታዊ እረፍት ብቻ ይጠቀማል።", "balanced": "ነባሪ። በጥያቄዎች መካከል እና ሚዲያ ከመጀመሩ በፊት አጫጭር እረፍቶችን ያክላል።", "careful": "ለትልልቅ playlists ወይም ቶሎ ቶሎ ገደብ ለሚያጋጥማቸው አውታሮች ረዥም እረፍቶችን ያክላል።", "custom": "የከፍተኛ ዳውንሎድ መቆጣጠሪያዎችን እራስዎ ያስተካክሉ።"},
+				"fields": {"sleepRequests": "ምርምሮች መካከል መጠበቂያ", "sleepInterval": "ሚዲያ ከመጀመሩ በፊት እረፍት: ዝቅ.", "maxSleepInterval": "ሚዲያ ከመጀመሩ በፊት እረፍት: ከፍ.", "sleepSubtitles": "ከንዑስ ጽሑፍ ፋይሎች በፊት ጠብቅ"},
+				"units": {"seconds": "ሰከንድ"}
 			},
 			"closeToTray": {"toggle": "ሲዘጋ ወደ ትሬ ደብቅ", "toggleDescription": "መስኮት ሲዘጋ ዳውንሎዶችን ዳራ ቀጥል።"},
 			"analytics": {"toggle": "ስም-አልባ የአጠቃቀም ስታቲስቲክስ ላክ", "toggleDescription": "የመተግበሪያ ማስጀመሪያዎችን ብቻ ይቆጥራል። ምንም URL፣ የፋይል ስሞች ወይም የግል መረጃ የለም።"}

@@ -22,6 +22,10 @@ _Avoid_: task, download, pull, attempt
 One step inside a running job — fetching the media, merging audio and video, embedding subtitles or metadata.
 _Avoid_: stage, step
 
+**Download connections**:
+How many parts of one video Arroxy fetches in parallel. Off means a single connection. Independent of pacing, which spaces requests out in time rather than widening them. Distinct from how many queue items run at once.
+_Avoid_: fragments, threads, parallel downloads, concurrent fragments
+
 **Soft failure**:
 A non-fatal miss that still leaves a usable result, so the job finishes as complete. Subtitles that could not be fetched are the typical case — the video is kept.
 _Avoid_: warning, partial failure

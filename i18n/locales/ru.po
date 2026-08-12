@@ -2457,6 +2457,18 @@ msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "Помогает с возрастными ограничениями, видео для участников и приватными видео в твоём аккаунте."
 
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Ускоряет большие загрузки, получая несколько частей видео одновременно. Высокие значения повышают вероятность ограничений со стороны сайта."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Соединения для загрузки"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "соединений"
+
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "Только аудио"
@@ -2578,12 +2590,8 @@ msgid "Prefer surround / Dolby"
 msgstr "Предпочитать surround / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "Добавляет небольшие паузы во время каждой загрузки, чтобы Arroxy не обращался к сайту слишком агрессивно. Значения в секундах, если не указано иное."
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "Соединений для загрузки"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Добавляет небольшие паузы во время каждой загрузки, чтобы Arroxy не обращался к сайту слишком агрессивно. Значения в секундах."
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2626,16 +2634,16 @@ msgid "Off"
 msgstr "Выкл"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "Паузы: {{requests}} между проверками, {{downloads}} перед началом медиа, {{subtitles}} перед файлами субтитров. Соединения: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Паузы: {{requests}} между проверками, {{downloads}} перед началом медиа, {{subtitles}} перед файлами субтитров."
 
 msgctxt "wizard.url.networkPacing.tooltip"
 msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
 msgstr "Паузы происходят внутри каждой загрузки. Arroxy по-прежнему обрабатывает очередные загрузки по одной."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "По умолчанию. Добавляет короткие паузы и использует одно соединение для загрузки."
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "По умолчанию. Добавляет короткие паузы между запросами и перед началом медиа."
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2652,10 +2660,6 @@ msgstr "Использует только небольшие базовые па
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "сек"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "потоков"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

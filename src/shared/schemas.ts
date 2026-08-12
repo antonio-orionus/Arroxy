@@ -215,7 +215,12 @@ export type NativeAudioPreference = z.infer<typeof nativeAudioPreferenceSchema>
 export const NATIVE_AUDIO_PREFERENCES = nativeAudioPreferenceSchema.options
 
 export const pacingSleepSecondsSchema = z.number().min(0).max(120)
-export const pacingConcurrentFragmentsSchema = z.number().int().min(0).max(16)
+// Parallel connections for one video's media transfer (yt-dlp
+// `--concurrent-fragments`). 0 means off — a single connection, yt-dlp's own
+// default. Capped because throughput saturates on the user's bandwidth well
+// before this ceiling, while higher values only add rate-limit risk.
+export const DOWNLOAD_CONNECTIONS_MAX = 16
+export const downloadConnectionsSchema = z.number().int().min(0).max(DOWNLOAD_CONNECTIONS_MAX)
 
 export const runtimeBinaryIdSchema = z.enum(['yt-dlp'])
 export type RuntimeBinaryId = z.infer<typeof runtimeBinaryIdSchema>
@@ -412,7 +417,7 @@ const commonSettingsPatchSchema = z.object({
 	pacingSleepInterval: pacingSleepSecondsSchema.optional(),
 	pacingMaxSleepInterval: pacingSleepSecondsSchema.optional(),
 	pacingSleepSubtitles: pacingSleepSecondsSchema.optional(),
-	pacingConcurrentFragments: pacingConcurrentFragmentsSchema.optional(),
+	downloadConnections: downloadConnectionsSchema.optional(),
 	rememberLastOutputDir: z.boolean().optional(),
 	uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
 	uiTheme: uiThemeSchema.optional(),

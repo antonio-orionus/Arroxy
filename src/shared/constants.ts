@@ -87,8 +87,15 @@ export interface NetworkPacingArgs {
 	concurrentFragments?: number
 }
 
+// Recommended value surfaced as the input placeholder. Not a default — the
+// setting ships off, so behavior is unchanged until a user opts in.
+export const RECOMMENDED_DOWNLOAD_CONNECTIONS = 4
+
+// Pacing presets cover the sleep knobs only. Connection count is a throughput
+// choice, not a politeness choice, so it lives in its own setting and applies
+// under every preset.
 export const NETWORK_PACING_PRESET_VALUES: Record<Exclude<NetworkPacingPreset, 'custom'>, NetworkPacingArgs> = {
 	off: {sleepInterval: 1, maxSleepInterval: 3},
-	balanced: {sleepRequests: 1, sleepInterval: 5, maxSleepInterval: 10, sleepSubtitles: 3, concurrentFragments: 1},
-	careful: {sleepRequests: 2, sleepInterval: 15, maxSleepInterval: 45, sleepSubtitles: 5, concurrentFragments: 1}
+	balanced: {sleepRequests: 1, sleepInterval: 5, maxSleepInterval: 10, sleepSubtitles: 3},
+	careful: {sleepRequests: 2, sleepInterval: 15, maxSleepInterval: 45, sleepSubtitles: 5}
 }

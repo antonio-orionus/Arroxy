@@ -217,21 +217,22 @@
 				"tooltip": "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 			},
 			"nativeAudioPreference": {"label": "Native audio preference", "description": "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit.", "compatible": "Compatible stereo", "surround": "Prefer surround / Dolby"},
+			"downloadConnections": {"label": "Download connections", "description": "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you.", "unit": "connections"},
 			"networkPacing": {
 				"heading": "Gentle downloads",
-				"description": "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted.",
+				"description": "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds.",
 				"presetLabel": "How cautious should Arroxy be?",
 				"tooltip": "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time.",
-				"summary": "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}.",
+				"summary": "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files.",
 				"presets": {"off": "Off", "balanced": "Balanced", "careful": "Careful", "custom": "Custom"},
 				"tooltips": {
 					"off": "Uses only the small baseline pauses Arroxy keeps for media and subtitles.",
-					"balanced": "Default. Adds short pauses and uses one download connection.",
+					"balanced": "Default. Adds short pauses between requests and before media starts.",
 					"careful": "Adds longer pauses for large playlists or networks that frequently hit limits.",
 					"custom": "Tune the advanced per-download controls yourself."
 				},
-				"fields": {"sleepRequests": "Wait between metadata checks", "sleepInterval": "Pause before media starts: min", "maxSleepInterval": "Pause before media starts: max", "sleepSubtitles": "Wait before subtitle files", "concurrentFragments": "Download connections"},
-				"units": {"seconds": "sec", "threads": "threads"}
+				"fields": {"sleepRequests": "Wait between metadata checks", "sleepInterval": "Pause before media starts: min", "maxSleepInterval": "Pause before media starts: max", "sleepSubtitles": "Wait before subtitle files"},
+				"units": {"seconds": "sec"}
 			},
 			"closeToTray": {"toggle": "Hide to tray on close", "toggleDescription": "Continue downloads in the background after closing the window."},
 			"analytics": {"toggle": "Send anonymous usage stats", "toggleDescription": "Counts app launches only. No URLs, filenames, or personal data."}

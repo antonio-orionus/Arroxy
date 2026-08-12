@@ -298,6 +298,6 @@ describe('updateSettingsSchema — network pacing', () => {
 	})
 
 	it('accepts pacing preset and custom fields', () => {
-		expect(updateSettingsSchema.safeParse({common: {networkPacingPreset: 'custom', pacingSleepRequests: 1, pacingSleepInterval: 10, pacingMaxSleepInterval: 20, pacingSleepSubtitles: 5, pacingConcurrentFragments: 1}}).success).toBe(true)
+		expect(updateSettingsSchema.safeParse({common: {networkPacingPreset: 'custom', pacingSleepRequests: 1, pacingSleepInterval: 10, pacingMaxSleepInterval: 20, pacingSleepSubtitles: 5}}).success).toBe(true)
 	})
 })

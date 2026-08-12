@@ -2457,6 +2457,18 @@ msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "可帮助下载年龄限制、会员专属和账户私享的视频。"
 
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "同时获取视频的多个部分，加快大文件下载。数值越高，被网站限制的可能性越大。"
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "下载连接数"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "个连接"
+
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
 msgstr "纯音频"
@@ -2578,12 +2590,8 @@ msgid "Prefer surround / Dolby"
 msgstr "优先环绕声 / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "在每次下载时添加小等待，使 Arroxy 不会过于频繁地访问网站。除非另有说明，值的单位为秒。"
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "下载连接数"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "在每次下载时添加小等待，使 Arroxy 不会过于频繁地访问网站。数值单位为秒。"
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2626,16 +2634,16 @@ msgid "Off"
 msgstr "关闭"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "等待：{{requests}} 次检查间隔，{{downloads}} 媒体开始前，{{subtitles}} 字幕文件前。连接数：{{fragments}}。"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "等待：{{requests}} 次检查间隔，{{downloads}} 媒体开始前，{{subtitles}} 字幕文件前。"
 
 msgctxt "wizard.url.networkPacing.tooltip"
 msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
 msgstr "这些等待发生在每次下载内部。Arroxy 仍然按顺序逐个处理队列中的下载任务。"
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "默认。添加短暂停并使用一个下载连接。"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "默认。在请求之间和媒体开始前添加短暂停顿。"
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2652,10 +2660,6 @@ msgstr "仅使用 Arroxy 为媒体和字幕保留的小基准暂停。"
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "秒"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "线程"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

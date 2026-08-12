@@ -372,8 +372,8 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'pacingSleepSubtitles', {pacingSleepSubtitles: value})
 		},
 
-		setPacingConcurrentFragments: async value => {
-			await applyCommonPatchAsync(get, set, 'pacingConcurrentFragments', {pacingConcurrentFragments: value})
+		setDownloadConnections: async value => {
+			await applyCommonPatchAsync(get, set, 'downloadConnections', {downloadConnections: value})
 		},
 
 		setClipboardWatchEnabled: async enabled => {

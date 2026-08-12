@@ -234,21 +234,22 @@
 				"tooltip": "yt-dlp --playlist-end ga to'g'ri keladi: Arroxy tanlagichni qurishdan oldin faqat shu miqdordagi pleylist, kanal yoki qidiruv yozuvlarini so'raydi."
 			},
 			"nativeAudioPreference": {"label": "Asl audio afzalligi", "description": "“Best native” nimani tanlashini boshqaradi. Qo‘lda tanlangan audio qatorlari va M4A/AAC aniq tanlov bo‘lib qoladi.", "compatible": "Mos stereo", "surround": "Surround / Dolbyni afzal ko‘rish"},
+			"downloadConnections": {"label": "Yuklab olish ulanishlari", "description": "Videoning bir nechta qismini bir vaqtda olib, katta yuklamalarni tezlashtiradi. Yuqori qiymatlar sayt sizni cheklash ehtimolini oshiradi.", "unit": "ulanish"},
 			"networkPacing": {
 				"heading": "Yumshoq yuklamalar",
-				"description": "Arroxy saytga haddan tashqari agressiv murojaat qilmasligi uchun har bir yuklab olish paytida kichik kutish vaqtlarini qo'shadi. Qiymatlar soniyalarda (boshqacha ko'rsatilmagan holda).",
+				"description": "Arroxy saytga haddan tashqari agressiv murojaat qilmasligi uchun har bir yuklab olish paytida kichik kutish vaqtlari qo'shadi. Qiymatlar soniyalarda.",
 				"presetLabel": "Arroxy qanchalik ehtiyotkor bo‘lsin?",
 				"tooltip": "Bu kutish vaqtlari har bir yuklab olish ichida sodir bo'ladi. Arroxy oddiy navbatdagi yuklamalarni baribir ketma-ket bajaradi.",
-				"summary": "Kutish: {{requests}} tekshiruvlar orasida, {{downloads}} media boshlanishidan oldin, {{subtitles}} subtitrl fayllaridan oldin. Ulanishlar: {{fragments}}.",
+				"summary": "Kutish: {{requests}} tekshiruvlar orasida, {{downloads}} media boshlanishidan oldin, {{subtitles}} subtitrl fayllaridan oldin.",
 				"presets": {"off": "O'chiriq", "balanced": "Muvozanatli", "careful": "Ehtiyotkor", "custom": "Maxsus"},
 				"tooltips": {
 					"off": "Arroxy media va subtitrlar uchun saqlaydigan kichik asosiy tanaffuslarnigina ishlatadi.",
-					"balanced": "Standart. Qisqa tanaffuslar qo'shadi va bitta yuklab olish ulanishidan foydalanadi.",
+					"balanced": "Standart. So'rovlar orasida va media boshlanishidan oldin qisqa tanaffuslar qo'shadi.",
 					"careful": "Katta pleylistlar yoki tez-tez cheklovlarga duch keladigan tarmoqlar uchun uzunroq tanaffuslar qo'shadi.",
 					"custom": "Yuklab olish boshqaruvlarini o'zingiz sozlang."
 				},
-				"fields": {"sleepRequests": "Metadata tekshiruvlari orasidagi kutish", "sleepInterval": "Media boshlanishidan oldingi pauza: min", "maxSleepInterval": "Media boshlanishidan oldingi pauza: maks", "sleepSubtitles": "Subtitr fayllaridan oldin kutish", "concurrentFragments": "Yuklab olish ulanishlari"},
-				"units": {"seconds": "soniya", "threads": "oqim"}
+				"fields": {"sleepRequests": "Metadata tekshiruvlari orasidagi kutish", "sleepInterval": "Media boshlanishidan oldingi pauza: min", "maxSleepInterval": "Media boshlanishidan oldingi pauza: maks", "sleepSubtitles": "Subtitr fayllaridan oldin kutish"},
+				"units": {"seconds": "soniya"}
 			},
 			"closeToTray": {"toggle": "Yopilganda tizim soatiga yashirish", "toggleDescription": "Oyna yopilgandan keyin yuklamalar fonda davom etadi."},
 			"analytics": {"toggle": "Anonim foydalanish statistikasini yuborish", "toggleDescription": "Faqat ilovani ishga tushirish sonini hisoblaydi. URL, fayl nomlari yoki shaxsiy maʼlumotlar yoʼq."}
