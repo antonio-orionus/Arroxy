@@ -27,9 +27,25 @@ export class QueueAutoRetry {
 
 	constructor(private readonly deps: QueueAutoRetryDeps) {}
 
-	setAttempts(value: number): void {
+	// Lowering the budget — including to 0 — must cancel schedules it no longer
+	// covers. Without this a timer armed under the old budget still fires and
+	// restarts an item after the user turned automatic retries off.
+	setAttempts(value: number, items: readonly QueueItem[] = []): void {
 		this.attempts = Math.max(0, Math.trunc(value))
 		logger.info('Auto-retry attempts changed', {autoRetryAttempts: this.attempts})
+		for (const item of items) {
+			if (!item.retryAt) continue
+			if (this.stillEligible(item)) continue
+			logger.info('Auto-retry schedule dropped — no longer within budget', {itemId: item.id, retryCount: item.retryCount, budget: this.attempts})
+			this.clear(item.id)
+			this.deps.patch(item.id, 'autoRetry:budgetShrank', prev => ({...prev, retryAt: undefined}))
+		}
+	}
+
+	// An item already holds a consumed count, so it stays eligible only while
+	// the budget still reaches it.
+	private stillEligible(item: QueueItem): boolean {
+		return this.attempts > 0 && (item.retryCount ?? 0) <= this.attempts
 	}
 
 	// Returns true when a retry was scheduled, so the caller can tell an
@@ -94,6 +110,14 @@ export class QueueAutoRetry {
 		// The user may have cancelled, removed, or manually retried in the
 		// meantime — only an item still sitting in error is ours to resume.
 		if (!item || item.status !== QUEUE_STATUS.error) return
+		// Final guard: the budget may have shrunk between arming and firing.
+		// setAttempts() cancels known schedules, but re-checking here means a
+		// missed cancellation cannot resurrect a disabled retry.
+		if (!this.stillEligible(item)) {
+			logger.info('Auto-retry firing skipped — outside budget', {itemId, retryCount: item.retryCount, budget: this.attempts})
+			this.deps.patch(itemId, 'autoRetry:outsideBudget', prev => ({...prev, retryAt: undefined}))
+			return
+		}
 		logger.info('Auto-retry firing', {itemId, attempt: item.retryCount})
 		// retry-reset preserves resumeContext, so the respawn picks up existing
 		// .part files instead of starting the transfer over.

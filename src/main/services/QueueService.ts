@@ -249,7 +249,7 @@ export class QueueService extends EventEmitter {
 	}
 
 	setAutoRetryAttempts(value: number): void {
-		this.autoRetry.setAttempts(value)
+		this.autoRetry.setAttempts(value, this.items)
 	}
 
 	schedulerIsPaused(): boolean {

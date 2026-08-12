@@ -155,7 +155,7 @@ export const tr = {
   feat_workflow_9:
     "**Dosya adı şablonları** — indirmelerinizi `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ve `{playlist_index}` ile dilediğiniz gibi adlandırın; genel olarak veya indirme profili başına",
   feat_workflow_10:
-    "**Paralel indirmeler ve otomatik yeniden deneme** — kuyruktaki birkaç öğeyi aynı anda indir ve geçici hataları artan beklemelerle otomatik olarak yeniden dene",
+    "**Aynı anda indirme ve otomatik yeniden deneme** — kuyruktaki kaç indirmenin aynı anda çalışacağını seç ve geçici hataların artan beklemelerle kendini yeniden denemesine izin ver",
   feat_post_h3: "Altyazılar ve son işleme",
   feat_post_1:
     "**Altyazılar** SRT, VTT veya ASS olarak — manuel ya da otomatik oluşturulmuş, mevcut herhangi bir dilde",

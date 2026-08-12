@@ -244,7 +244,7 @@ Arroxy está diseñado para una sola cosa: pega una URL y obtén un archivo loca
 - **Sincronización de playlists** — vuelve a escanear una playlist contra una carpeta local para omitir vídeos ya descargados; genera un archivo de playlist `.m3u` que se actualiza con cada vídeo descargado
 - **Controles de velocidad y ritmo** — limita el ancho de banda de descarga, define cuántas partes de un vídeo se descargan a la vez y añade pausas entre solicitudes con ajustes (*Desactivado · Equilibrado · Cuidadoso · Personalizado*)
 - **Plantillas de nombre de archivo** — nombra las descargas a tu manera con `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` y `{playlist_index}`, de forma global o por perfil de descarga
-- **Descargas paralelas y reintento automático** — descarga varios elementos de la cola a la vez y reintenta los fallos transitorios automáticamente con esperas crecientes
+- **Descargas a la vez y reintento automático** — elige cuántas descargas de la cola se ejecutan al mismo tiempo y deja que los fallos transitorios se reintenten solos con esperas crecientes
 
 ### Subtítulos y posprocesamiento
 

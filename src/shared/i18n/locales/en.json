@@ -224,7 +224,7 @@
 				"heading": "Gentle downloads",
 				"description": "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds.",
 				"presetLabel": "How cautious should Arroxy be?",
-				"tooltip": "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time.",
+				"tooltip": "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once.",
 				"summary": "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files.",
 				"presets": {"off": "Off", "balanced": "Balanced", "careful": "Careful", "custom": "Custom"},
 				"tooltips": {

@@ -233,7 +233,7 @@
 				"heading": "Tải xuống nhẹ nhàng",
 				"description": "Thêm khoảng dừng nhỏ trong mỗi lần tải xuống để Arroxy không truy cập trang web quá mức. Giá trị tính bằng giây.",
 				"presetLabel": "Arroxy nên thận trọng mức nào?",
-				"tooltip": "Các khoảng dừng này xảy ra bên trong mỗi lần tải xuống. Arroxy vẫn duy trì tải xuống trong hàng đợi theo thứ tự từng cái một.",
+				"tooltip": "Các khoảng chờ này diễn ra bên trong mỗi lần tải. Số lượng tải chạy cùng lúc được đặt riêng, ở «Tải cùng lúc».",
 				"summary": "Chờ: {{requests}} giữa các lần kiểm tra, {{downloads}} trước khi media bắt đầu, {{subtitles}} trước các tệp phụ đề.",
 				"presets": {"off": "Tắt", "balanced": "Cân bằng", "careful": "Cẩn thận", "custom": "Tùy chỉnh"},
 				"tooltips": {

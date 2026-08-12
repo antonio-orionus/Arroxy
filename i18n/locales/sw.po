@@ -2666,8 +2666,8 @@ msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{
 msgstr "Mapumziko: {{requests}} kati ya ukaguzi, {{downloads}} kabla ya media kuanza, {{subtitles}} kabla ya faili za manukuu."
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "Mapumziko haya hutokea ndani ya kila upakuaji. Arroxy bado inashughulikia vipakuzi vya foleni moja kwa moja."
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Vipindi hivi vya kusubiri hutokea ndani ya kila upakuaji. Upakuaji mangapi unaendelea kwa wakati mmoja huwekwa kando, katika «Upakuaji kwa wakati mmoja»."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
 msgid "Default. Adds short pauses between requests and before media starts."

@@ -233,7 +233,7 @@
 				"heading": "Sanftes Herunterladen",
 				"description": "Fügt bei jedem Download kleine Pausen ein, damit Arroxy die Seite nicht zu aggressiv belastet. Werte in Sekunden.",
 				"presetLabel": "Wie vorsichtig soll Arroxy sein?",
-				"tooltip": "Diese Pausen passieren innerhalb jedes Downloads. Arroxy lädt weiterhin normale Downloads der Reihe nach herunter.",
+				"tooltip": "Diese Pausen liegen innerhalb jedes Downloads. Wie viele Downloads gleichzeitig laufen, wird separat unter „Gleichzeitige Downloads“ eingestellt.",
 				"summary": "Pausen: {{requests}} zwischen Abfragen, {{downloads}} vor Medienbeginn, {{subtitles}} vor Untertiteldateien.",
 				"presets": {"off": "Aus", "balanced": "Ausgewogen", "careful": "Vorsichtig", "custom": "Benutzerdefiniert"},
 				"tooltips": {

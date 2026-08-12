@@ -233,7 +233,7 @@
 				"heading": "Unduhan yang lembut",
 				"description": "Tambahkan sedikit waktu tunggu setiap kali mengunduh sehingga Arroxy tidak masuk ke situs terlalu agresif. Nilai dalam detik.",
 				"presetLabel": "Seberapa hati-hati Arroxy?",
-				"tooltip": "Penantian ini terjadi di dalam setiap unduhan. Arroxy masih menyimpan antrian unduhan normal satu per satu.",
+				"tooltip": "Waktu tunggu ini terjadi di dalam setiap unduhan. Berapa banyak unduhan yang berjalan bersamaan diatur terpisah, di «Unduhan sekaligus».",
 				"summary": "Menunggu: {{requests}} di antara pemeriksaan, {{downloads}} sebelum media dimulai, {{subtitles}} sebelum file subtitle.",
 				"presets": {"off": "Mati", "balanced": "Seimbang", "careful": "Hati-hati", "custom": "Kebiasaan"},
 				"tooltips": {

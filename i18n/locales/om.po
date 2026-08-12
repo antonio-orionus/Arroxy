@@ -2666,8 +2666,8 @@ msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{
 msgstr "Eegumsa: {{requests}} qorannoo gidduutti, {{downloads}} miidiyaa jalqabuuf, {{subtitles}} axxiinni faayiloota dura."
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "Eegumsa kun buufata tokko tokko keessa ta'a. Arroxy buufata tartiibsifame tokkotti itti fufa."
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Turtiiwwan kunneen buufata tokko tokko keessatti raawwatamu. Buufanni meeqa yeroo tokkotti akka deemu «Buufata yeroo tokkotti» jalatti adda qindeeffama."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
 msgid "Default. Adds short pauses between requests and before media starts."

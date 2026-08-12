@@ -151,7 +151,7 @@ export const en = {
   feat_workflow_9:
     "**Filename templates** — name downloads your way with `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, and `{playlist_index}`, globally or per download profile",
   feat_workflow_10:
-    "**Parallel downloads and auto-retry** — run several queued downloads at once, and retry transient failures automatically with growing backoff",
+    "**Downloads at once and automatic retry** — choose how many queued downloads run at the same time, and let transient failures retry themselves with growing backoff",
   feat_post_h3: "Subtitles & post-processing",
   feat_post_1:
     "**Subtitles** in SRT, VTT, or ASS — manual or auto-generated, in any available language",

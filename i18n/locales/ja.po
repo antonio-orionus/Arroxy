@@ -2666,8 +2666,8 @@ msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{
 msgstr "待機：{{requests}} チェック間、{{downloads}} メディア開始前、{{subtitles}} 字幕ファイル前。"
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "これらの待機は各ダウンロードの内部で発生します。Arroxy は通常通りキューのダウンロードを1件ずつ処理します。"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "これらの待機は各ダウンロードの内部で発生します。同時に実行するダウンロード数は「同時ダウンロード数」で別に設定します。"
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
 msgid "Default. Adds short pauses between requests and before media starts."

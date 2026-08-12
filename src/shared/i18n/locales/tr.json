@@ -233,7 +233,7 @@
 				"heading": "Nazik indirmeler",
 				"description": "Arroxy’nin siteye fazla agresif davranmaması için her indirme sırasında küçük beklemeler ekle. Değerler saniye cinsindendir.",
 				"presetLabel": "Arroxy ne kadar temkinli olsun?",
-				"tooltip": "Bu beklemeler her indirmenin içinde gerçekleşir. Arroxy normal kuyruk indirmelerini yine tek tek yürütür.",
+				"tooltip": "Bu beklemeler her indirmenin içinde gerçekleşir. Aynı anda kaç indirmenin çalışacağı ayrı olarak «Aynı anda indirme» altında ayarlanır.",
 				"summary": "Beklemeler: kontroller arasında {{requests}}, medya başlamadan önce {{downloads}}, altyazı dosyalarından önce {{subtitles}}.",
 				"presets": {"off": "Kapalı", "balanced": "Dengeli", "careful": "Temkinli", "custom": "Özel"},
 				"tooltips": {

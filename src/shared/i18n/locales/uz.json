@@ -241,7 +241,7 @@
 				"heading": "Yumshoq yuklamalar",
 				"description": "Arroxy saytga haddan tashqari agressiv murojaat qilmasligi uchun har bir yuklab olish paytida kichik kutish vaqtlari qo'shadi. Qiymatlar soniyalarda.",
 				"presetLabel": "Arroxy qanchalik ehtiyotkor bo‘lsin?",
-				"tooltip": "Bu kutish vaqtlari har bir yuklab olish ichida sodir bo'ladi. Arroxy oddiy navbatdagi yuklamalarni baribir ketma-ket bajaradi.",
+				"tooltip": "Bu kutishlar har bir yuklama ichida sodir bo'ladi. Bir vaqtda qancha yuklama ishlashi «Bir vaqtda yuklamalar» bo'limida alohida belgilanadi.",
 				"summary": "Kutish: {{requests}} tekshiruvlar orasida, {{downloads}} media boshlanishidan oldin, {{subtitles}} subtitrl fayllaridan oldin.",
 				"presets": {"off": "O'chiriq", "balanced": "Muvozanatli", "careful": "Ehtiyotkor", "custom": "Maxsus"},
 				"tooltips": {

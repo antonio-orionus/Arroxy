@@ -19,8 +19,19 @@ export class InterJobSleep {
 	//
 	// Deliberately does not pre-arm the timer: the scheduler decides whether
 	// one is actually needed (no pending items ⇒ no timer).
+	//
+	// Drops any live timer, because it was scheduled against the previous, now
+	// shorter deadline. Leaving it would let it fire early, zero `until`, and
+	// release a waiting item before the new window elapsed. With the normal
+	// lane capped at 1 this was unreachable — only one job could settle at a
+	// time — but a user-raised concurrency limit makes staggered completions
+	// routine. `sync()` arms a replacement on the next scheduler pass.
 	arm(): void {
 		this.until = Date.now() + INTER_JOB_SLEEP_MS
+		if (this.timer) {
+			clearTimeout(this.timer)
+			this.timer = null
+		}
 	}
 
 	clear(): void {

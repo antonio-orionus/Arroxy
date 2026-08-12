@@ -8,7 +8,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## 0.4.6
+## Unreleased
 
 This release puts download speed and resilience in your hands. Three settings that were previously fixed — or buried — are now yours to set in **Settings → Download behavior**. All three ship at their current values, so nothing changes until you decide it should.
 
@@ -29,7 +29,7 @@ This release puts download speed and resilience in your hands. Three settings th
 ### Retry Failed Downloads
 
 - Arroxy can now retry a failed download on its own, waiting a little longer before each attempt. Set how many times, or leave it empty to keep deciding by hand.
-- Retries pick up where the download stopped rather than starting the file over, and a retry that was waiting when you quit is still waiting when you reopen Arroxy.
+- When the failure happened after the transfer had started, a retry picks up from the partial file rather than starting over. A retry that was waiting when you quit is still waiting when you reopen Arroxy.
 - Only failures worth retrying are retried — a dropped connection, a server hiccup, a rate limit. Downloads blocked by the site are never retried automatically, because repeatedly asking is what turns a soft block into a hard one. Videos that are unavailable, region-locked, or DRM-protected are left alone too, since another attempt cannot help.
 - The queue row tells you a retry is coming, so a waiting download no longer looks like a dead one.
 

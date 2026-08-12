@@ -154,7 +154,7 @@ export const de = {
   feat_workflow_9:
     "**Dateinamenvorlagen** — benenne Downloads nach deinen Regeln mit `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` und `{playlist_index}`, global oder pro Download-Profil",
   feat_workflow_10:
-    "**Parallele Downloads und Auto-Wiederholung** — lade mehrere Einträge der Warteschlange gleichzeitig und wiederhole vorübergehende Fehler automatisch mit wachsender Wartezeit",
+    "**Gleichzeitige Downloads und automatische Wiederholung** — wähle, wie viele Einträge der Warteschlange gleichzeitig laufen, und lass vorübergehende Fehler sich mit wachsender Wartezeit selbst wiederholen",
   feat_post_h3: "Untertitel & Nachbearbeitung",
   feat_post_1:
     "**Untertitel** in SRT, VTT oder ASS — manuell oder automatisch generiert, in jeder verfügbaren Sprache",

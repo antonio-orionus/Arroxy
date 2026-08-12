@@ -233,7 +233,7 @@
 				"heading": "Téléchargements en douceur",
 				"description": "Ajoute de petites pauses pendant chaque téléchargement afin qu'Arroxy ne sollicite pas le site de manière trop agressive. Les valeurs sont en secondes.",
 				"presetLabel": "Jusqu'à quel point Arroxy doit-il être prudent ?",
-				"tooltip": "Ces pauses se produisent à l'intérieur de chaque téléchargement. Arroxy continue à traiter les téléchargements en file un par un.",
+				"tooltip": "Ces pauses se produisent à l'intérieur de chaque téléchargement. Le nombre de téléchargements simultanés se règle séparément, sous « Téléchargements simultanés ».",
 				"summary": "Pauses : {{requests}} entre vérifications, {{downloads}} avant le début du média, {{subtitles}} avant les fichiers de sous-titres.",
 				"presets": {"off": "Désactivé", "balanced": "Équilibré", "careful": "Prudent", "custom": "Personnalisé"},
 				"tooltips": {

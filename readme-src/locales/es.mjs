@@ -156,7 +156,7 @@ export const es = {
   feat_workflow_9:
     "**Plantillas de nombre de archivo** — nombra las descargas a tu manera con `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` y `{playlist_index}`, de forma global o por perfil de descarga",
   feat_workflow_10:
-    "**Descargas paralelas y reintento automático** — descarga varios elementos de la cola a la vez y reintenta los fallos transitorios automáticamente con esperas crecientes",
+    "**Descargas a la vez y reintento automático** — elige cuántas descargas de la cola se ejecutan al mismo tiempo y deja que los fallos transitorios se reintenten solos con esperas crecientes",
   feat_post_h3: "Subtítulos y posprocesamiento",
   feat_post_1:
     "**Subtítulos** en SRT, VTT o ASS — manuales o generados automáticamente, en cualquier idioma disponible",

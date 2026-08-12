@@ -224,7 +224,7 @@
 				"heading": "温和下载",
 				"description": "在每次下载时添加小等待，使 Arroxy 不会过于频繁地访问网站。数值单位为秒。",
 				"presetLabel": "Arroxy 应该多谨慎？",
-				"tooltip": "这些等待发生在每次下载内部。Arroxy 仍然按顺序逐个处理队列中的下载任务。",
+				"tooltip": "这些等待发生在每次下载内部。同时进行的下载数量在「同时下载数」中单独设置。",
 				"summary": "等待：{{requests}} 次检查间隔，{{downloads}} 媒体开始前，{{subtitles}} 字幕文件前。",
 				"presets": {"off": "关闭", "balanced": "均衡", "careful": "谨慎", "custom": "自定义"},
 				"tooltips": {"off": "仅使用 Arroxy 为媒体和字幕保留的小基准暂停。", "balanced": "默认。在请求之间和媒体开始前添加短暂停顿。", "careful": "为大型播放列表或经常触达限制的网络添加更长的暂停。", "custom": "自行调整每次下载的高级控制参数。"},

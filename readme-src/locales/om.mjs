@@ -156,7 +156,7 @@ export const om = {
   feat_workflow_9:
     "**Bocquuwwan maqaa faayilii** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` fi `{playlist_index}` fayyadamuun buufamawwan kee akka feetetti moggaasi, waliigalaan ykn tokkoon tokkoon piroofaayilii buufamaatiif",
   feat_workflow_10:
-    "**Buufata walqixxee fi ofumaan irra deebi'uu** — wantoota tarree hedduu yeroo tokkotti buusi, kufaatii yeroo gabaabaa immoo turtii dabalaa waliin ofumaan irra deebi'ii yaali",
+    "**Buufata yeroo tokkotti fi ofumaan irra deebi'uu** — buufanni tarree meeqa yeroo tokkotti akka deemu filadhu, kufaatiin yeroo gabaabaas turtii dabalaa waliin ofumaan irra deebi'ee haa yaalu",
   feat_post_h3: "Subtitle & seensuu boodaa",
   feat_post_1:
     "**Subtitles** SRT, VTT, ykn ASS keessatti — harka ykn of-hojeetee, afaan kamiyyuu argamu keessatti",

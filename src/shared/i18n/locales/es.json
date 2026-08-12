@@ -233,7 +233,7 @@
 				"heading": "Descargas suaves",
 				"description": "Añade pequeñas pausas durante cada descarga para que Arroxy no sobrecargue el sitio. Los valores están en segundos.",
 				"presetLabel": "¿Qué tan cauteloso debe ser Arroxy?",
-				"tooltip": "Estas pausas ocurren dentro de cada descarga. Arroxy sigue descargando en cola de una en una.",
+				"tooltip": "Estas pausas ocurren dentro de cada descarga. Cuántas descargas se ejecutan a la vez se configura por separado, en «Descargas a la vez».",
 				"summary": "Pausas: {{requests}} entre comprobaciones, {{downloads}} antes de iniciar el medio, {{subtitles}} antes de archivos de subtítulos.",
 				"presets": {"off": "Desactivado", "balanced": "Equilibrado", "careful": "Cuidadoso", "custom": "Personalizado"},
 				"tooltips": {

@@ -244,7 +244,7 @@ Arroxy dibuat untuk satu hal: tempelkan URL, dapatkan file lokal yang bersih. Ti
 - **Sinkronisasi daftar putar** — memindai ulang daftar putar ke folder lokal untuk melewati video yang sudah diunduh; menghasilkan file daftar putar `.m3u` yang diperbarui saat setiap video diunduh
 - **Kontrol kecepatan dan tempo** — membatasi bandwidth pengunduhan, mengatur berapa banyak bagian video yang diunduh sekaligus, dan menambahkan penundaan permintaan dengan preset (*Mati · Seimbang · Hati-hati · Kustom*)
 - **Templat nama berkas** — beri nama unduhan sesuai keinginan Anda dengan `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, dan `{playlist_index}`, secara global atau per profil unduhan
-- **Unduhan paralel dan coba ulang otomatis** — mengunduh beberapa item antrean sekaligus, dan mencoba ulang kegagalan sementara secara otomatis dengan jeda yang meningkat
+- **Unduhan sekaligus dan coba ulang otomatis** — pilih berapa banyak unduhan antrean yang berjalan bersamaan, dan biarkan kegagalan sementara mencoba ulang sendiri dengan jeda yang meningkat
 
 ### Subtitle & pasca-pemrosesan
 

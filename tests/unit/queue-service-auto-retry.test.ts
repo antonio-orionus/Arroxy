@@ -155,3 +155,55 @@ describe('QueueService — automatic retry', () => {
 		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledOnce())
 	})
 })
+
+describe('QueueService — auto-retry budget changes', () => {
+	beforeEach(() => {
+		vi.useFakeTimers()
+	})
+
+	afterEach(() => {
+		vi.useRealTimers()
+	})
+
+	async function scheduledRetry() {
+		const ds = new FakeDownloadService()
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
+		qs.setAutoRetryAttempts(3)
+		ds.start.mockResolvedValue(jobResult())
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledOnce())
+		ds.emit('status', failEvent('job-1', 'network'))
+		await flush()
+		expect(qs.snapshot()[0].retryAt).toBeTruthy()
+		return {qs, ds}
+	}
+
+	it('turning auto-retry off cancels a scheduled retry', async () => {
+		const {qs, ds} = await scheduledRetry()
+
+		qs.setAutoRetryAttempts(0)
+		await flush()
+		expect(qs.snapshot()[0].retryAt).toBeUndefined()
+
+		await vi.advanceTimersByTimeAsync(AUTO_RETRY_BACKOFF_MS[0] * 2)
+		await flush()
+
+		// Still the single original spawn — the disabled retry never fired.
+		expect(ds.start).toHaveBeenCalledOnce()
+		expect(qs.snapshot()[0].status).toBe('error')
+	})
+
+	it('lowering the budget to exactly the consumed count keeps the schedule', async () => {
+		const {qs, ds} = await scheduledRetry()
+		expect(qs.snapshot()[0].retryCount).toBe(1)
+
+		// Budget of 1 still covers a first retry, so this one survives.
+		qs.setAutoRetryAttempts(1)
+		await flush()
+		expect(qs.snapshot()[0].retryAt).toBeTruthy()
+
+		await vi.advanceTimersByTimeAsync(AUTO_RETRY_BACKOFF_MS[0])
+		await flush()
+		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledTimes(2))
+	})
+})

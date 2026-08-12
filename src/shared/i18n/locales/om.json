@@ -233,7 +233,7 @@
 				"heading": "Buufata laafaa",
 				"description": "Buufata tokko tokkotti yeroo gabaabaaf eegaa jira, kanaafuu Arroxy gara saayitichatti garmalee hin dhiibu. Gatiiwwan sekondiidhaan.",
 				"presetLabel": "Arroxy hangam of-eeggachuu qaba?",
-				"tooltip": "Eegumsa kun buufata tokko tokko keessa ta'a. Arroxy buufata tartiibsifame tokkotti itti fufa.",
+				"tooltip": "Turtiiwwan kunneen buufata tokko tokko keessatti raawwatamu. Buufanni meeqa yeroo tokkotti akka deemu «Buufata yeroo tokkotti» jalatti adda qindeeffama.",
 				"summary": "Eegumsa: {{requests}} qorannoo gidduutti, {{downloads}} miidiyaa jalqabuuf, {{subtitles}} axxiinni faayiloota dura.",
 				"presets": {"off": "Dhaabbi", "balanced": "Walsimu", "careful": "Of-eeggannaa", "custom": "Ofiin qindi'i"},
 				"tooltips": {
