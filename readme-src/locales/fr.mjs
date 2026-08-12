@@ -156,7 +156,7 @@ export const fr = {
   feat_workflow_9:
     "**Modèles de nom de fichier** — nommez vos téléchargements comme vous voulez avec `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` et `{playlist_index}`, globalement ou par profil de téléchargement",
   feat_workflow_10:
-    "**Téléchargements simultanés et réessai automatique** — choisis combien de téléchargements de la file s'exécutent en même temps et laisse les échecs passagers se réessayer seuls avec des délais croissants",
+    "**Téléchargements simultanés et réessai automatique** — choisis combien de téléchargements de la file s'exécutent en même temps et laisse Arroxy réessayer un téléchargement ayant rencontré un problème réseau ou serveur, en attendant plus longtemps avant chaque tentative",
   feat_post_h3: "Sous-titres & post-traitement",
   feat_post_1:
     "**Sous-titres** en SRT, VTT ou ASS — manuels ou auto-générés, dans toute langue disponible",

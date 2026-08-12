@@ -96,6 +96,38 @@ describe('download connections setting', () => {
 		await waitFor(() => expect(input).toHaveValue(2))
 	})
 
+	it('shows the recommended attempt count as a placeholder for automatic retry', () => {
+		mount()
+		const input = screen.getByTestId('auto-retry-input')
+		expect(input).toHaveValue(null)
+		expect(input).toHaveAttribute('placeholder', '3')
+	})
+
+	it('persists an automatic retry budget', async () => {
+		mount()
+		const input = screen.getByTestId('auto-retry-input')
+		fireEvent.change(input, {target: {value: '5'}})
+		fireEvent.blur(input)
+		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {autoRetryAttempts: 5}}))
+	})
+
+	it('clearing the automatic retry field turns retries off', async () => {
+		mount({autoRetryAttempts: 5})
+		const input = screen.getByTestId('auto-retry-input')
+		fireEvent.change(input, {target: {value: ''}})
+		fireEvent.blur(input)
+		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {autoRetryAttempts: 0}}))
+	})
+
+	it('rejects an automatic retry budget above the maximum', async () => {
+		mount({autoRetryAttempts: 3})
+		const input = screen.getByTestId('auto-retry-input')
+		fireEvent.change(input, {target: {value: '99'}})
+		fireEvent.blur(input)
+		expect(mockApi.settings.update).not.toHaveBeenCalled()
+		await waitFor(() => expect(input).toHaveValue(3))
+	})
+
 	it('no longer offers a connections field inside the custom pacing grid', () => {
 		mount({networkPacingPreset: 'custom'})
 		expect(screen.getByTestId('network-pacing-custom')).toBeInTheDocument()

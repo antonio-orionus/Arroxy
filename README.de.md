@@ -244,7 +244,7 @@ Arroxy ist für eine Sache gebaut: URL einfügen, saubere lokale Datei erhalten.
 - **Playlist-Sync** — scannt eine Playlist erneut gegen einen lokalen Ordner, um bereits heruntergeladene Videos zu überspringen; erzeugt eine `.m3u`-Playlistdatei, die nach jedem Video aktualisiert wird
 - **Geschwindigkeits- und Pacing-Kontrollen** — begrenze die Download-Bandbreite, lege fest, wie viele Teile eines Videos gleichzeitig geladen werden, und füge Anfragepausen mit Presets hinzu (*Aus · Ausgewogen · Vorsichtig · Benutzerdefiniert*)
 - **Dateinamenvorlagen** — benenne Downloads nach deinen Regeln mit `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` und `{playlist_index}`, global oder pro Download-Profil
-- **Gleichzeitige Downloads und automatische Wiederholung** — wähle, wie viele Einträge der Warteschlange gleichzeitig laufen, und lass vorübergehende Fehler sich mit wachsender Wartezeit selbst wiederholen
+- **Gleichzeitige Downloads und automatische Wiederholung** — wähle, wie viele Einträge der Warteschlange gleichzeitig laufen, und lass Arroxy einen Download nach einem Netzwerk- oder Serverproblem erneut versuchen, mit längerer Wartezeit vor jedem Versuch
 
 ### Untertitel & Nachbearbeitung
 

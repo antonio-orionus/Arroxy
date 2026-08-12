@@ -153,7 +153,7 @@ export const sw = {
   feat_workflow_9:
     "**Violezo vya majina ya faili** — taja upakuaji jinsi unavyotaka kwa `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` na `{playlist_index}`, kwa jumla au kwa kila wasifu wa upakuaji",
   feat_workflow_10:
-    "**Upakuaji kwa wakati mmoja na kujaribu tena kiotomatiki** — chagua upakuaji mangapi wa foleni unaendelea kwa wakati mmoja, na acha hitilafu za muda zijaribu tena zenyewe kwa kusubiri kunakoongezeka",
+    "**Upakuaji kwa wakati mmoja na kujaribu tena kiotomatiki** — chagua upakuaji mangapi wa foleni unaendelea kwa wakati mmoja, na acha Arroxy ajaribu tena upakuaji uliokumbwa na hitilafu ya mtandao au seva, akisubiri muda mrefu zaidi kabla ya kila jaribio",
   feat_post_h3: "Manukuu na usindikaji wa baada ya kupakua",
   feat_post_1:
     "**Manukuu** katika SRT, VTT, au ASS — ya mkono au yaliyozalishwa kiotomatiki, katika lugha yoyote inayopatikana",

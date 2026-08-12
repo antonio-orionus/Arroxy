@@ -154,7 +154,7 @@ export const de = {
   feat_workflow_9:
     "**Dateinamenvorlagen** — benenne Downloads nach deinen Regeln mit `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` und `{playlist_index}`, global oder pro Download-Profil",
   feat_workflow_10:
-    "**Gleichzeitige Downloads und automatische Wiederholung** — wähle, wie viele Einträge der Warteschlange gleichzeitig laufen, und lass vorübergehende Fehler sich mit wachsender Wartezeit selbst wiederholen",
+    "**Gleichzeitige Downloads und automatische Wiederholung** — wähle, wie viele Einträge der Warteschlange gleichzeitig laufen, und lass Arroxy einen Download nach einem Netzwerk- oder Serverproblem erneut versuchen, mit längerer Wartezeit vor jedem Versuch",
   feat_post_h3: "Untertitel & Nachbearbeitung",
   feat_post_1:
     "**Untertitel** in SRT, VTT oder ASS — manuell oder automatisch generiert, in jeder verfügbaren Sprache",

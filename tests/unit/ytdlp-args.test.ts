@@ -921,6 +921,15 @@ describe('download connections', () => {
 		expect(getArgs()).not.toContain('--concurrent-fragments')
 	})
 
+	it('omits the flag for an explicit 0 rather than passing --concurrent-fragments 0', async () => {
+		// 0 is how the UI spells "off", and it is persisted as 0 rather than
+		// removed — so the resolver keeps it and the arg builder must drop it.
+		// Passing 0 through would be an invalid yt-dlp invocation.
+		const ytDlp = makeYtDlp({settings: {networkPacingPreset: 'balanced', downloadConnections: 0}})
+		await ytDlp.run(mediaRequest())
+		expect(getArgs()).not.toContain('--concurrent-fragments')
+	})
+
 	it('never widens a probe — connections apply to media transfer only', async () => {
 		const ytDlp = makeYtDlp({settings: {downloadConnections: 8}})
 		await ytDlp.run({kind: 'probe', url: URL})

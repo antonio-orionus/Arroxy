@@ -2667,7 +2667,7 @@ msgstr "Паузи: {{requests}} між перевірками, {{downloads}} п
 
 msgctxt "wizard.url.networkPacing.tooltip"
 msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
-msgstr "Ці паузи відбуваються всередині кожного завантаження. Скільки завантажень іде одночасно, налаштовується окремо — у «Завантажень одночасно»."
+msgstr "Ці паузи відбуваються всередині кожного завантаження. Скільки завантажень іде одночасно, налаштовується окремо — у налаштуванні «Завантажень одночасно»."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
 msgid "Default. Adds short pauses between requests and before media starts."

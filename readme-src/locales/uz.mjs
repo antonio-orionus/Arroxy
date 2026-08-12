@@ -154,7 +154,7 @@ export const uz = {
   feat_workflow_9:
     "**Fayl nomi shablonlari** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` va `{playlist_index}` yordamida yuklamalarni o‘zingiz xohlagancha nomlang, umumiy yoki har bir yuklab olish profili uchun alohida",
   feat_workflow_10:
-    "**Bir vaqtda yuklamalar va avtomatik qayta urinish** — navbatdagi nechta yuklama bir vaqtda ishlashini tanlang va vaqtinchalik nosozliklar ortib boruvchi kutish bilan o'zini qayta urinib ko'rsin",
+    "**Bir vaqtda yuklamalar va avtomatik qayta urinish** — navbatdagi nechta yuklama bir vaqtda ishlashini tanlang va tarmoq yoki server nosozligiga uchragan yuklamani Arroxy har urinishdan oldin uzoqroq kutib qayta urinib ko'rsin",
   feat_post_h3: "Subtitrlar va keyingi qayta ishlash",
   feat_post_1:
     "**Subtitrlar** SRT, VTT yoki ASS formatida — qo'lda yoki avtomatik yaratilgan, istalgan mavjud tilda",

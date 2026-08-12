@@ -242,7 +242,7 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
 - **Usawazishaji wa orodha ya kucheza** — hukagua tena orodha ya kucheza dhidi ya folda ya ndani ili kuruka video zilizopakuliwa tayari; hutengeneza faili ya orodha ya kucheza `.m3u` inayosasishwa kila video inapopakuliwa
 - **Udhibiti wa kasi na pacing** — weka kikomo cha bandwidth ya upakuaji, weka ni sehemu ngapi za video zinapakuliwa kwa wakati mmoja, na ongeza ucheleweshaji wa maombi kwa mipangilio (*Zima · Uwiano · Tahadhari · Maalum*)
 - **Violezo vya majina ya faili** — taja upakuaji jinsi unavyotaka kwa `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` na `{playlist_index}`, kwa jumla au kwa kila wasifu wa upakuaji
-- **Upakuaji kwa wakati mmoja na kujaribu tena kiotomatiki** — chagua upakuaji mangapi wa foleni unaendelea kwa wakati mmoja, na acha hitilafu za muda zijaribu tena zenyewe kwa kusubiri kunakoongezeka
+- **Upakuaji kwa wakati mmoja na kujaribu tena kiotomatiki** — chagua upakuaji mangapi wa foleni unaendelea kwa wakati mmoja, na acha Arroxy ajaribu tena upakuaji uliokumbwa na hitilafu ya mtandao au seva, akisubiri muda mrefu zaidi kabla ya kila jaribio
 
 ### Manukuu na usindikaji wa baada ya kupakua
 
