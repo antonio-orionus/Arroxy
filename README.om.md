@@ -240,8 +240,9 @@ Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argad
 - **Haala tray** — window cufuu buufannoo duubatti itti fufsisee hojechisisa
 - **Afaanota 23** — locale sirnaa ofumaan adda baasa, yeroo kamiyyuu jijjiiramuu danda’a
 - **Walsimsiisa playlist** — viidiyoowwan duraan buufaman akka darbaman playlist galmee naannoo waliin irra deebi'ee sakatta'a; faayila playlist `.m3u` viidiyoon tokko tokko buufamu hunda irratti haaromsamu uuma
-- **To’annoo saffisaa fi pacing** — bandwidth buusuu daangessi, turtii gaaffii dabali, fi thread fragment presets (*Off · Balanced · Careful · Custom*) waliin sirreessi
+- **To'annoo saffisaa fi pacing** — bandwidth buusuu daangessi, kutaaleen viidiyoo meeqa yeroo tokkotti akka buufaman qindeessi, fi turtii gaaffii durtii (*Cufaa · Walsimaa · Of eeggannoo · Kan mataa*) waliin dabali
 - **Bocquuwwan maqaa faayilii** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` fi `{playlist_index}` fayyadamuun buufamawwan kee akka feetetti moggaasi, waliigalaan ykn tokkoon tokkoon piroofaayilii buufamaatiif
+- **Buufata walqixxee fi ofumaan irra deebi'uu** — wantoota tarree hedduu yeroo tokkotti buusi, kufaatii yeroo gabaabaa immoo turtii dabalaa waliin ofumaan irra deebi'ii yaali
 
 ### Subtitle & seensuu boodaa
 

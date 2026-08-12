@@ -150,9 +150,11 @@ export const de = {
   feat_workflow_7:
     "**Playlist-Sync** — scannt eine Playlist erneut gegen einen lokalen Ordner, um bereits heruntergeladene Videos zu überspringen; erzeugt eine `.m3u`-Playlistdatei, die nach jedem Video aktualisiert wird",
   feat_workflow_8:
-    "**Geschwindigkeits- und Pacing-Kontrollen** — begrenze die Download-Bandbreite, füge Anfragepausen hinzu und passe Fragment-Threads mit Presets an (*Aus · Ausgewogen · Vorsichtig · Benutzerdefiniert*)",
+    "**Geschwindigkeits- und Pacing-Kontrollen** — begrenze die Download-Bandbreite, lege fest, wie viele Teile eines Videos gleichzeitig geladen werden, und füge Anfragepausen mit Presets hinzu (*Aus · Ausgewogen · Vorsichtig · Benutzerdefiniert*)",
   feat_workflow_9:
     "**Dateinamenvorlagen** — benenne Downloads nach deinen Regeln mit `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` und `{playlist_index}`, global oder pro Download-Profil",
+  feat_workflow_10:
+    "**Parallele Downloads und Auto-Wiederholung** — lade mehrere Einträge der Warteschlange gleichzeitig und wiederhole vorübergehende Fehler automatisch mit wachsender Wartezeit",
   feat_post_h3: "Untertitel & Nachbearbeitung",
   feat_post_1:
     "**Untertitel** in SRT, VTT oder ASS — manuell oder automatisch generiert, in jeder verfügbaren Sprache",

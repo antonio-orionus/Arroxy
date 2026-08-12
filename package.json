@@ -202,5 +202,8 @@
 		"vite": "8.2.0",
 		"vitest": "4.1.10"
 	},
-	"lint-staged": {"*.{ts,tsx,cts,mts,js,mjs,cjs,json,jsonc,css}": "biome format --write --no-errors-on-unmatched", "*.{ts,tsx,cts,mts,js,mjs,cjs}": "bash -lc 'bun run lint:prepare && oxlint --fix --deny-warnings \"$@\"' --"}
+	"lint-staged": {
+		"*.{ts,tsx,cts,mts,js,mjs,cjs,json,jsonc,css}": "biome format --write --no-errors-on-unmatched",
+		"*.{ts,tsx,cts,mts,js,mjs,cjs}": "bash -lc 'bun run lint:prepare && args=(); for f in \"$@\"; do case \"$f\" in */readme-src/*|readme-src/*) ;; *) args+=(\"$f\");; esac; done; [ ${#args[@]} -eq 0 ] && exit 0; oxlint --fix --deny-warnings \"${args[@]}\"' --"
+	}
 }

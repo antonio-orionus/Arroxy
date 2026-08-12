@@ -152,9 +152,11 @@ export const fr = {
   feat_workflow_7:
     "**Synchronisation de playlist** — rescane une playlist par rapport à un dossier local pour ignorer les vidéos déjà téléchargées ; génère un fichier de playlist `.m3u` mis à jour à chaque vidéo téléchargée",
   feat_workflow_8:
-    "**Contrôles de vitesse et de rythme** — limite la bande passante, ajoute des pauses entre les requêtes et règle les threads de fragments avec des préréglages (*Désactivé · Équilibré · Prudent · Personnalisé*)",
+    "**Contrôles de vitesse et de rythme** — limite la bande passante, définis combien de parties d'une vidéo se téléchargent à la fois et ajoute des pauses entre les requêtes avec des préréglages (*Désactivé · Équilibré · Prudent · Personnalisé*)",
   feat_workflow_9:
     "**Modèles de nom de fichier** — nommez vos téléchargements comme vous voulez avec `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` et `{playlist_index}`, globalement ou par profil de téléchargement",
+  feat_workflow_10:
+    "**Téléchargements parallèles et réessai automatique** — télécharge plusieurs éléments de la file à la fois et réessaie automatiquement les échecs passagers avec des délais croissants",
   feat_post_h3: "Sous-titres & post-traitement",
   feat_post_1:
     "**Sous-titres** en SRT, VTT ou ASS — manuels ou auto-générés, dans toute langue disponible",

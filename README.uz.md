@@ -240,8 +240,9 @@ Arroxy bir narsa uchun yaratilgan: URL'ni joylashtiring, toza mahalliy fayl olin
 - **Tray rejimi** — oynani yopish yuklamalarni fon rejimida davom ettiradi
 - **23 til** — tizim tilini avtomatik aniqlaydi, istalgan vaqtda almashtirilishi mumkin
 - **Pleylist sinxronlashuvi** — allaqachon yuklab olingan videolarni o'tkazib yuborish uchun pleylistni mahalliy jild bilan qayta tekshiradi; har bir video yuklanganda yangilanadigan `.m3u` pleylist faylini yaratadi
-- **Tezlik va pacing boshqaruvlari** — yuklab olish bandwidthini cheklang, so‘rovlar orasiga kutish qo‘shing va fragment threadlarini presetlar bilan sozlang (*Off · Balanced · Careful · Custom*)
+- **Tezlik va pacing boshqaruvlari** — yuklab olish bandwidthini cheklang, videoning nechta qismi bir vaqtda yuklanishini belgilang va oldindan tayyor sozlamalar (*O'chiq · Muvozanatli · Ehtiyotkor · Maxsus*) bilan so'rovlar orasiga kutish qo'shing
 - **Fayl nomi shablonlari** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` va `{playlist_index}` yordamida yuklamalarni o‘zingiz xohlagancha nomlang, umumiy yoki har bir yuklab olish profili uchun alohida
+- **Parallel yuklamalar va avtomatik qayta urinish** — navbatdagi bir nechta elementni bir vaqtda yuklab oling va vaqtinchalik nosozliklarni ortib boruvchi kutish bilan avtomatik qayta urinib ko'ring
 
 ### Subtitrlar va keyingi qayta ishlash
 

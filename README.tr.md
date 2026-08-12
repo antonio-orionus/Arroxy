@@ -242,8 +242,9 @@ Arroxy tek bir şey için yapılmıştır: URL yapıştır, temiz bir yerel dosy
 - **Tepsi modu** — pencere kapansa bile indirmeler arka planda sürer
 - **23 dil** — sistem dilini otomatik algılar, istediğin zaman değiştirilebilir
 - **Oynatma listesi eşitleme** — zaten indirilmiş videoları atlamak için bir oynatma listesini yerel klasöre karşı yeniden tara; her indirilen videoyla güncellenen bir `.m3u` oynatma listesi dosyası oluşturur
-- **Hız ve tempo kontrolleri** — indirme bant genişliğini sınırla, istek gecikmeleri ekle ve parça iş parçacıklarını ön ayarlarla ayarla (*Kapalı · Dengeli · Temkinli · Özel*)
+- **Hız ve tempo kontrolleri** — indirme bant genişliğini sınırla, bir videonun aynı anda kaç parçasının indirileceğini ayarla ve ön ayarlarla istek gecikmeleri ekle (*Kapalı · Dengeli · Dikkatli · Özel*)
 - **Dosya adı şablonları** — indirmelerinizi `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ve `{playlist_index}` ile dilediğiniz gibi adlandırın; genel olarak veya indirme profili başına
+- **Paralel indirmeler ve otomatik yeniden deneme** — kuyruktaki birkaç öğeyi aynı anda indir ve geçici hataları artan beklemelerle otomatik olarak yeniden dene
 
 ### Altyazılar ve son işleme
 

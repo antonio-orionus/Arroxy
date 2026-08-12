@@ -242,8 +242,9 @@ Arroxy एक काम के लिए बना है: URL पेस्ट �
 - **ट्रे मोड** — विंडो बंद करने पर डाउनलोड बैकग्राउंड में चलते रहते हैं
 - **23 भाषाएँ** - सिस्टम लोकेल का स्वतः पता लगाता है, किसी भी समय बदला जा सकता है
 - **प्लेलिस्ट सिंक** — पहले से डाउनलोड किए गए वीडियो छोड़ने के लिए प्लेलिस्ट को स्थानीय फ़ोल्डर के विरुद्ध फिर से स्कैन करता है; हर वीडियो डाउनलोड होते ही अपडेट होने वाली `.m3u` प्लेलिस्ट फ़ाइल बनाता है
-- **Speed और pacing controls** — download bandwidth cap करें, request delays जोड़ें, और presets (*Off · Balanced · Careful · Custom*) से fragment threads tune करें
+- **Speed और pacing controls** — download bandwidth cap करें, एक साथ वीडियो के कितने हिस्से download हों यह सेट करें, और presets (*Off · Balanced · Careful · Custom*) के साथ request delays जोड़ें
 - **फ़ाइल नाम टेम्पलेट** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` और `{playlist_index}` से डाउनलोड के नाम अपने अनुसार रखें, वैश्विक रूप से या हर डाउनलोड प्रोफ़ाइल के लिए
+- **Parallel downloads और auto-retry** — कतार के कई items एक साथ download करें, और अस्थायी विफलताओं को बढ़ते इंतज़ार के साथ अपने आप दोबारा आज़माएँ
 
 ### सबटाइटल और पोस्ट-प्रोसेसिंग
 
