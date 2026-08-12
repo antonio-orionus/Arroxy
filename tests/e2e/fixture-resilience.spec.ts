@@ -5,7 +5,9 @@ import {fixtureMediaFileSize} from './fixtureMediaCatalog.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, isMediaRequestFor, openQueueTab, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
-test.describe.configure({mode: 'serial'})
+// Parallel-safe: every test allocates its own temp dirs and ephemeral ports,
+// the shared runtime cache is warmed once in globalSetup, and clipboard
+// access is serialized by withClipboardLock.
 
 test('Electron queue controls handle hold, priority, cancel, pause queue, and resume queue', async () => {
 	test.setTimeout(180_000)

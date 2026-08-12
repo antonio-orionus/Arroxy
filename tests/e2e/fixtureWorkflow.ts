@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {expect, _electron as electron, type ElectronApplication, type Page, type Locator} from '@playwright/test'
 import {buildFixtureElectronEnv, ensureHostEmbeddedBinaries, ensureYtDlpPath, fixtureUrl, type DenyProxy, type FixtureServer, type FixtureServerRequest} from './fixtureHarness.js'
+import {withClipboardLock} from './clipboardLock.js'
 
 let fixtureRuntimePromise: Promise<string> | null = null
 
@@ -43,7 +44,18 @@ export function recordArrayField(record: Record<string, unknown>, key: string): 
 }
 
 export function listFilesRecursive(dir: string): string[] {
-	const entries = fs.readdirSync(dir, {withFileTypes: true})
+	// The output directory is live while this walks it: Arroxy creates and
+	// removes `.arroxy-temp/<id>` scratch directories during a download, so a
+	// directory listed one moment can be gone the next. Reading a snapshot and
+	// then descending into it is inherently racy, and the failure surfaces as
+	// ENOENT from a deeper scandir rather than from this call.
+	let entries: fs.Dirent[]
+	try {
+		entries = fs.readdirSync(dir, {withFileTypes: true})
+	} catch (error) {
+		if ((error as NodeJS.ErrnoException).code === 'ENOENT') return []
+		throw error
+	}
 	return entries.flatMap(entry => {
 		const absolutePath = path.join(dir, entry.name)
 		if (entry.isDirectory()) return listFilesRecursive(absolutePath)
@@ -84,10 +96,15 @@ export async function launchFixtureApp(ytDlpPath: string, input: {userDataDir: s
 export async function startBulkFromClipboard(page: Page, app: ElectronApplication, rawUrls: string): Promise<void> {
 	await page.locator('[data-testid="profiles-bulk-urls"]').click()
 	await expect(page.locator('[data-testid="bulk-url-dialog"]')).toBeVisible()
-	await writeClipboard(app, rawUrls)
-	const bulkTextarea = page.locator('[data-testid="bulk-url-textarea"]')
-	await bulkTextarea.click()
-	await page.keyboard.press(process.platform === 'darwin' ? 'Meta+V' : 'Control+V')
+	// Write-then-paste is not atomic, and the clipboard is one machine-wide
+	// resource. Held across both steps so a parallel worker cannot substitute its
+	// own text between them.
+	await withClipboardLock(async () => {
+		await writeClipboard(app, rawUrls)
+		const bulkTextarea = page.locator('[data-testid="bulk-url-textarea"]')
+		await bulkTextarea.click()
+		await page.keyboard.press(process.platform === 'darwin' ? 'Meta+V' : 'Control+V')
+	})
 }
 
 export async function prepareSingleConfirm(page: Page, videoId: string, subtitleChoice: 'skip' | 'continue' = 'skip'): Promise<void> {

@@ -7,7 +7,9 @@ import {AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} f
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, openQueueTab, preparePlaylistConfirm, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
-test.describe.configure({mode: 'serial'})
+// Parallel-safe: every test allocates its own temp dirs and ephemeral ports,
+// the shared runtime cache is warmed once in globalSetup, and clipboard
+// access is serialized by withClipboardLock.
 
 const FIXTURE_M3U_VIDEO_ID_PATTERN = /\[(ARX[0-9A-Z]{8})\]\.mp4/g
 
