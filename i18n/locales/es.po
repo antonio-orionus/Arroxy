@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "Reintentar"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "reintentando automáticamente (intento {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "Definir ubicación"
@@ -2369,6 +2373,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "Solo cuenta los inicios de la app. Sin URLs, nombres de archivo ni datos personales."
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Vuelve a intentarlo automáticamente tras un fallo de red o del servidor, esperando más entre cada intento. Las descargas bloqueadas por el sitio nunca se reintentan automáticamente."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Reintentar descargas fallidas"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "veces"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "Solo CSS, sin renderizado de canvas."
@@ -2477,6 +2493,18 @@ msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "Continuar descargas en segundo plano al cerrar la ventana."
 
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Cuántos elementos de la cola se descargan al mismo tiempo. Más a la vez termina antes una cola larga, pero aumenta la probabilidad de que el sitio te limite."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Descargas a la vez"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "descargas"
+
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
 msgstr "YouTube puede marcar — y a veces banear — cuentas cuyas cookies usa yt-dlp. Usa una cuenta desechable cuando puedas."
@@ -2552,6 +2580,18 @@ msgstr "Desactivado"
 msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "Ayuda con vídeos restringidos por edad, solo para miembros y privados de tu cuenta."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Acelera las descargas grandes obteniendo varias partes de un vídeo a la vez. Los valores altos aumentan la probabilidad de que el sitio te limite."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Conexiones de descarga"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "conexiones"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -2674,12 +2714,8 @@ msgid "Prefer surround / Dolby"
 msgstr "Preferir surround / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "Añade pequeñas pausas durante cada descarga para que Arroxy no sobrecargue el sitio. Los valores son segundos salvo que se indique lo contrario."
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "Conexiones de descarga"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Añade pequeñas pausas durante cada descarga para que Arroxy no sobrecargue el sitio. Los valores están en segundos."
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2722,16 +2758,16 @@ msgid "Off"
 msgstr "Desactivado"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "Pausas: {{requests}} entre comprobaciones, {{downloads}} antes de iniciar el medio, {{subtitles}} antes de archivos de subtítulos. Conexiones: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Pausas: {{requests}} entre comprobaciones, {{downloads}} antes de iniciar el medio, {{subtitles}} antes de archivos de subtítulos."
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "Estas pausas ocurren dentro de cada descarga. Arroxy sigue descargando en cola de una en una."
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Estas pausas ocurren dentro de cada descarga. Cuántas descargas se ejecutan a la vez se configura por separado, en «Descargas a la vez»."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "Por defecto. Añade pausas cortas y usa una conexión de descarga."
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Por defecto. Añade pausas cortas entre peticiones y antes de iniciar el medio."
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2748,10 +2784,6 @@ msgstr "Usa solo las pequeñas pausas base que Arroxy mantiene para medios y sub
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "seg"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "hilos"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

@@ -248,21 +248,24 @@
 				"tooltip": "Inalingana na yt-dlp --playlist-end: Arroxy inauliza idadi hii tu ya maingizo ya playlist, kituo, au utafutaji wakati wa kujenga kichaguzi."
 			},
 			"nativeAudioPreference": {"label": "Upendeleo wa sauti asili", "description": "Hudhibiti kile ambacho Best native huchagua. Safu za sauti za mkono na M4A/AAC hubaki chaguo wazi.", "compatible": "Stereo inayooendana", "surround": "Pendelea surround / Dolby"},
+			"autoRetry": {"label": "Jaribu tena upakuaji ulioshindwa", "description": "Hujaribu tena kiotomatiki baada ya hitilafu ya mtandao au seva, ikisubiri muda mrefu zaidi kabla ya kila jaribio. Upakuaji uliozuiwa na tovuti haujaribiwi tena kiotomatiki.", "unit": "mara"},
+			"concurrentDownloads": {"label": "Upakuaji kwa wakati mmoja", "description": "Ni vipengee vingapi vya foleni vinapakuliwa kwa wakati mmoja. Vingi kwa wakati mmoja humaliza foleni ndefu haraka, lakini huongeza uwezekano wa tovuti kukuwekea mipaka.", "unit": "upakuaji"},
+			"downloadConnections": {"label": "Miunganisho ya upakuaji", "description": "Huharakisha upakuaji mkubwa kwa kupakua sehemu kadhaa za video kwa wakati mmoja. Thamani kubwa huongeza uwezekano wa tovuti kukuwekea mipaka.", "unit": "miunganisho"},
 			"networkPacing": {
 				"heading": "Upakuaji wa taratibu",
-				"description": "Inaongeza mapumziko madogo wakati wa kila upakuaji ili Arroxy isishambue tovuti. Maadili ni sekunde isipokuwa imetajwa.",
+				"description": "Inaongeza mapumziko madogo wakati wa kila upakuaji ili Arroxy isishambue tovuti. Maadili ni sekunde.",
 				"presetLabel": "Arroxy iwe makini kiasi gani?",
-				"tooltip": "Mapumziko haya hutokea ndani ya kila upakuaji. Arroxy bado inashughulikia vipakuzi vya foleni moja kwa moja.",
-				"summary": "Mapumziko: {{requests}} kati ya ukaguzi, {{downloads}} kabla ya media kuanza, {{subtitles}} kabla ya faili za manukuu. Miunganisho: {{fragments}}.",
+				"tooltip": "Vipindi hivi vya kusubiri hutokea ndani ya kila upakuaji. Upakuaji mangapi unaendelea kwa wakati mmoja huwekwa kando, katika «Upakuaji kwa wakati mmoja».",
+				"summary": "Mapumziko: {{requests}} kati ya ukaguzi, {{downloads}} kabla ya media kuanza, {{subtitles}} kabla ya faili za manukuu.",
 				"presets": {"off": "Zima", "balanced": "Uwiano", "careful": "Uangalifu", "custom": "Maalum"},
 				"tooltips": {
 					"off": "Inatumia mapumziko madogo ya msingi tu ambayo Arroxy inayashikilia kwa media na manukuu.",
-					"balanced": "Chaguo-msingi. Inaongeza mapumziko mafupi na kutumia muunganisho mmoja wa kupakua.",
+					"balanced": "Chaguo-msingi. Inaongeza mapumziko mafupi kati ya maombi na kabla ya media kuanza.",
 					"careful": "Inaongeza mapumziko marefu kwa playlists kubwa au mitandao inayofikia vikwazo mara kwa mara.",
 					"custom": "Rekebisha mwenyewe udhibiti wa hali ya juu wa kila upakuaji."
 				},
-				"fields": {"sleepRequests": "Pumzika kati ya ukaguzi wa metadata", "sleepInterval": "Pumzika kabla ya media kuanza: kiwango cha chini", "maxSleepInterval": "Pumzika kabla ya media kuanza: kiwango cha juu", "sleepSubtitles": "Pumzika kabla ya faili za manukuu", "concurrentFragments": "Miunganisho ya kupakua"},
-				"units": {"seconds": "sek", "threads": "miunganisho"}
+				"fields": {"sleepRequests": "Pumzika kati ya ukaguzi wa metadata", "sleepInterval": "Pumzika kabla ya media kuanza: kiwango cha chini", "maxSleepInterval": "Pumzika kabla ya media kuanza: kiwango cha juu", "sleepSubtitles": "Pumzika kabla ya faili za manukuu"},
+				"units": {"seconds": "sek"}
 			},
 			"closeToTray": {"toggle": "Ficha kwenye tray ukifunga", "toggleDescription": "Endelea kupakua nyuma ya pazia baada ya kufunga dirisha."},
 			"analytics": {"toggle": "Tuma takwimu za matumizi zisizo na jina", "toggleDescription": "Huhesabu tu uzinduzi wa programu. Hakuna URL, majina ya faili, au data za kibinafsi."}
@@ -508,6 +511,7 @@
 		"artifact": {"media": "Midia", "subtitle": "Manukuu", "thumbnail": "Kijipicha", "description": "Maelezo", "companion": "Faili saidizi", "unknown": "Faili", "missing": "Haipo"},
 		"item": {
 			"defaultError": "Upakuaji umeshindwa",
+			"retryingSoon": "inajaribu tena kiotomatiki (jaribio {{attempt}})",
 			"pause": "Simamisha",
 			"resume": "Endelea",
 			"cancel": "Ghairi",

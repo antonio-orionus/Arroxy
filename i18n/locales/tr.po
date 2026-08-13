@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "Tekrar dene"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "otomatik yeniden deneniyor (deneme {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "Konum ayarla"
@@ -2369,6 +2373,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "Yalnızca uygulama açılışlarını sayar. URL, dosya adı veya kişisel veri yok."
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Ağ veya sunucu kaynaklı bir aksaklıktan sonra otomatik olarak yeniden dener ve her denemeden önce daha uzun bekler. Sitenin engellediği indirmeler asla otomatik olarak yeniden denenmez."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Başarısız indirmeleri yeniden dene"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "kez"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "Yalnızca CSS, canvas çizimi yok."
@@ -2477,6 +2493,18 @@ msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "Pencere kapandıktan sonra indirmeleri arka planda sürdür."
 
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Kuyruktaki kaç öğenin aynı anda indirileceği. Aynı anda daha fazlası uzun bir kuyruğu daha çabuk bitirir, ancak sitenin sizi sınırlama ihtimalini artırır."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Aynı anda indirme"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "indirme"
+
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
 msgstr "YouTube gibi siteler, çerezleri yt-dlp tarafından kullanılan hesapları işaretleyebilir ve bazen yasaklayabilir. Mümkünse geçici bir hesap kullan."
@@ -2552,6 +2580,18 @@ msgstr "Kapalı"
 msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "Yaş kısıtlamalı, üyelere özel ve hesaba özel videolarda yardımcı olur."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Bir videonun birkaç parçasını aynı anda alarak büyük indirmeleri hızlandırır. Yüksek değerler sitenin sizi sınırlama ihtimalini artırır."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "İndirme bağlantıları"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "bağlantı"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -2674,12 +2714,8 @@ msgid "Prefer surround / Dolby"
 msgstr "Surround / Dolby tercih et"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "Arroxy’nin siteye fazla agresif davranmaması için her indirme sırasında küçük beklemeler ekle. Aksi belirtilmedikçe değerler saniyedir."
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "İndirme bağlantıları"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Arroxy’nin siteye fazla agresif davranmaması için her indirme sırasında küçük beklemeler ekle. Değerler saniye cinsindendir."
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2722,16 +2758,16 @@ msgid "Off"
 msgstr "Kapalı"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "Beklemeler: kontroller arasında {{requests}}, medya başlamadan önce {{downloads}}, altyazı dosyalarından önce {{subtitles}}. Bağlantılar: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Beklemeler: kontroller arasında {{requests}}, medya başlamadan önce {{downloads}}, altyazı dosyalarından önce {{subtitles}}."
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "Bu beklemeler her indirmenin içinde gerçekleşir. Arroxy normal kuyruk indirmelerini yine tek tek yürütür."
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Bu beklemeler her indirmenin içinde gerçekleşir. Aynı anda kaç indirmenin çalışacağı ayrı olarak «Aynı anda indirme» altında ayarlanır."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "Varsayılan. Kısa duraklamalar ekler ve tek indirme bağlantısı kullanır."
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Varsayılan. İstekler arasında ve medya başlamadan önce kısa duraklamalar ekler."
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2748,10 +2784,6 @@ msgstr "Arroxy’nin medya ve altyazılar için tuttuğu küçük temel duraklam
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "sn"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "iş parçacığı"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

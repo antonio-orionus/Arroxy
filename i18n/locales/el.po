@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "Επανάληψη"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "γίνεται αυτόματη επανάληψη (προσπάθεια {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "Ορισμός τοποθεσίας"
@@ -2369,6 +2373,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "Μετράει μόνο εκκινήσεις εφαρμογής. Χωρίς URL, ονόματα αρχείων ή προσωπικά δεδομένα."
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Προσπαθεί ξανά αυτόματα μετά από πρόβλημα δικτύου ή διακομιστή, περιμένοντας περισσότερο πριν από κάθε προσπάθεια. Οι λήψεις που μπλοκάρει ο ιστότοπος δεν επαναλαμβάνονται ποτέ αυτόματα."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Επανάληψη αποτυχημένων λήψεων"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "φορές"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "Μόνο CSS, χωρίς απόδοση canvas."
@@ -2477,6 +2493,18 @@ msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "Συνέχιση λήψεων στο παρασκήνιο μετά το κλείσιμο του παραθύρου."
 
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Πόσα στοιχεία της ουράς κατεβαίνουν ταυτόχρονα. Περισσότερα μαζί ολοκληρώνουν μια μεγάλη ουρά πιο γρήγορα, αλλά αυξάνουν την πιθανότητα να σας περιορίσει ο ιστότοπος."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Ταυτόχρονες λήψεις"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "λήψεις"
+
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
 msgstr "Το YouTube μπορεί να επισημάνει — και μερικές φορές να αποκλείσει — λογαριασμούς των οποίων τα cookies χρησιμοποιούνται από το yt-dlp. Χρησιμοποίησε έναν εφεδρικό λογαριασμό αν είναι δυνατόν."
@@ -2552,6 +2580,18 @@ msgstr "Απενεργοποιημένο"
 msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "Βοηθά με βίντεο με περιορισμό ηλικίας, μόνο για μέλη και ιδιωτικά."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Επιταχύνει τις μεγάλες λήψεις κατεβάζοντας πολλά μέρη ενός βίντεο ταυτόχρονα. Οι υψηλότερες τιμές αυξάνουν την πιθανότητα να σας περιορίσει ο ιστότοπος."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Συνδέσεις λήψης"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "συνδέσεις"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -2674,12 +2714,8 @@ msgid "Prefer surround / Dolby"
 msgstr "Προτίμηση surround / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "Προσθέτει μικρές παύσεις κατά τη διάρκεια κάθε λήψης ώστε το Arroxy να μην πιέζει υπερβολικά τον ιστότοπο. Οι τιμές είναι σε δευτερόλεπτα εκτός αν αναφέρεται διαφορετικά."
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "Συνδέσεις λήψης"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Προσθέτει μικρές παύσεις κατά τη διάρκεια κάθε λήψης ώστε το Arroxy να μην πιέζει υπερβολικά τον ιστότοπο. Οι τιμές είναι σε δευτερόλεπτα."
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2722,16 +2758,16 @@ msgid "Off"
 msgstr "Απενεργοποιημένο"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "Παύσεις: {{requests}} μεταξύ ελέγχων, {{downloads}} πριν ξεκινήσει το μέσο, {{subtitles}} πριν τα αρχεία υποτίτλων. Συνδέσεις: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Παύσεις: {{requests}} μεταξύ ελέγχων, {{downloads}} πριν ξεκινήσει το μέσο, {{subtitles}} πριν τα αρχεία υποτίτλων."
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "Αυτές οι παύσεις γίνονται μέσα σε κάθε λήψη. Το Arroxy εξακολουθεί να κρατά τις κανονικές λήψεις σε ουρά μία τη φορά."
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Αυτές οι παύσεις συμβαίνουν μέσα σε κάθε λήψη. Πόσες λήψεις τρέχουν ταυτόχρονα ρυθμίζεται ξεχωριστά, στις «Ταυτόχρονες λήψεις»."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "Προεπιλογή. Προσθέτει σύντομες παύσεις και χρησιμοποιεί μία σύνδεση λήψης."
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Προεπιλογή. Προσθέτει σύντομες παύσεις μεταξύ αιτημάτων και πριν ξεκινήσει το μέσο."
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2748,10 +2784,6 @@ msgstr "Χρησιμοποιεί μόνο τις μικρές βασικές π�
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "δευτ."
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "νήματα"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

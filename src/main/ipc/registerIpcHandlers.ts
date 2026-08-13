@@ -48,7 +48,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
-	registerSettingsHandlers({settingsStore, clipboardWatcher})
+	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService})
 	registerFileHandlers(mainWindow, binaryManager)
 	registerQueueHandlers(queueService)
 	registerAnalyticsHandlers()

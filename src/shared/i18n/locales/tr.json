@@ -248,21 +248,24 @@
 				"tooltip": "yt-dlp --playlist-end seçeneğine karşılık gelir: Arroxy seçiciyi oluştururken yalnızca bu kadar oynatma listesi, kanal veya arama kaydı ister."
 			},
 			"nativeAudioPreference": {"label": "Yerel ses tercihi", "description": "En iyi yerel seçeneğinin neyi seçeceğini belirler. Manuel ses satırları ve M4A/AAC açık seçim olarak kalır.", "compatible": "Uyumlu stereo", "surround": "Surround / Dolby tercih et"},
+			"autoRetry": {"label": "Başarısız indirmeleri yeniden dene", "description": "Ağ veya sunucu kaynaklı bir aksaklıktan sonra otomatik olarak yeniden dener ve her denemeden önce daha uzun bekler. Sitenin engellediği indirmeler asla otomatik olarak yeniden denenmez.", "unit": "kez"},
+			"concurrentDownloads": {"label": "Aynı anda indirme", "description": "Kuyruktaki kaç öğenin aynı anda indirileceği. Aynı anda daha fazlası uzun bir kuyruğu daha çabuk bitirir, ancak sitenin sizi sınırlama ihtimalini artırır.", "unit": "indirme"},
+			"downloadConnections": {"label": "İndirme bağlantıları", "description": "Bir videonun birkaç parçasını aynı anda alarak büyük indirmeleri hızlandırır. Yüksek değerler sitenin sizi sınırlama ihtimalini artırır.", "unit": "bağlantı"},
 			"networkPacing": {
 				"heading": "Nazik indirmeler",
-				"description": "Arroxy’nin siteye fazla agresif davranmaması için her indirme sırasında küçük beklemeler ekle. Aksi belirtilmedikçe değerler saniyedir.",
+				"description": "Arroxy’nin siteye fazla agresif davranmaması için her indirme sırasında küçük beklemeler ekle. Değerler saniye cinsindendir.",
 				"presetLabel": "Arroxy ne kadar temkinli olsun?",
-				"tooltip": "Bu beklemeler her indirmenin içinde gerçekleşir. Arroxy normal kuyruk indirmelerini yine tek tek yürütür.",
-				"summary": "Beklemeler: kontroller arasında {{requests}}, medya başlamadan önce {{downloads}}, altyazı dosyalarından önce {{subtitles}}. Bağlantılar: {{fragments}}.",
+				"tooltip": "Bu beklemeler her indirmenin içinde gerçekleşir. Aynı anda kaç indirmenin çalışacağı ayrı olarak «Aynı anda indirme» altında ayarlanır.",
+				"summary": "Beklemeler: kontroller arasında {{requests}}, medya başlamadan önce {{downloads}}, altyazı dosyalarından önce {{subtitles}}.",
 				"presets": {"off": "Kapalı", "balanced": "Dengeli", "careful": "Temkinli", "custom": "Özel"},
 				"tooltips": {
 					"off": "Arroxy’nin medya ve altyazılar için tuttuğu küçük temel duraklamaları kullanır.",
-					"balanced": "Varsayılan. Kısa duraklamalar ekler ve tek indirme bağlantısı kullanır.",
+					"balanced": "Varsayılan. İstekler arasında ve medya başlamadan önce kısa duraklamalar ekler.",
 					"careful": "Büyük oynatma listeleri veya sık sınırla karşılaşan ağlar için daha uzun duraklamalar ekler.",
 					"custom": "Gelişmiş indirme başına kontrolleri kendin ayarla."
 				},
-				"fields": {"sleepRequests": "Meta veri kontrolleri arasında bekle", "sleepInterval": "Medya başlamadan önce duraklama: min", "maxSleepInterval": "Medya başlamadan önce duraklama: maks", "sleepSubtitles": "Altyazı dosyalarından önce bekle", "concurrentFragments": "İndirme bağlantıları"},
-				"units": {"seconds": "sn", "threads": "iş parçacığı"}
+				"fields": {"sleepRequests": "Meta veri kontrolleri arasında bekle", "sleepInterval": "Medya başlamadan önce duraklama: min", "maxSleepInterval": "Medya başlamadan önce duraklama: maks", "sleepSubtitles": "Altyazı dosyalarından önce bekle"},
+				"units": {"seconds": "sn"}
 			},
 			"closeToTray": {"toggle": "Kapatınca tepsiye gizle", "toggleDescription": "Pencere kapandıktan sonra indirmeleri arka planda sürdür."},
 			"analytics": {"toggle": "Anonim kullanım istatistikleri gönder", "toggleDescription": "Yalnızca uygulama açılışlarını sayar. URL, dosya adı veya kişisel veri yok."}
@@ -508,6 +511,7 @@
 		"artifact": {"media": "Medya", "subtitle": "Altyazı", "thumbnail": "Küçük resim", "description": "Açıklama", "companion": "Eşlikçi", "unknown": "Çıktı", "missing": "Eksik"},
 		"item": {
 			"defaultError": "İndirme başarısız oldu",
+			"retryingSoon": "otomatik yeniden deneniyor (deneme {{attempt}})",
 			"pause": "Duraklat",
 			"resume": "Sürdür",
 			"cancel": "İptal",

@@ -49,6 +49,7 @@ function makeItem(overrides: {id?: string; status: QueueItemStatus; progressPerc
 		finishedAt: overrides.finishedAt ?? null,
 		artifacts: [],
 		writeM3u: true,
+		retryCount: 0,
 		job: {} as PreparedJob
 	}
 }

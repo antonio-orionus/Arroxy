@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "እንደገና ሞክር"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "በራስ-ሰር እየሞከረ ነው (ሙከራ {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "ቦታ አዘጋጅ"
@@ -2369,6 +2373,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "የመተግበሪያ ማስጀመሪያዎችን ብቻ ይቆጥራል። ምንም URL፣ የፋይል ስሞች ወይም የግል መረጃ የለም።"
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "ከኔትወርክ ወይም ከሰርቨር ችግር በኋላ በራስ-ሰር እንደገና ይሞክራል፣ በእያንዳንዱ ሙከራ መካከል ረዘም ብሎ ይጠብቃል። በጣቢያው የታገዱ ዳውንሎዶች በራስ-ሰር አይሞከሩም።"
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "ያልተሳኩ ዳውንሎዶችን እንደገና ሞክር"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "ጊዜ"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "CSS ብቻ፣ የcanvas ማቅረብ የለም።"
@@ -2477,6 +2493,18 @@ msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "መስኮት ሲዘጋ ዳውንሎዶችን ዳራ ቀጥል።"
 
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "በተመሳሳይ ጊዜ ስንት የተሰለፉ ንጥሎች እንደሚወርዱ። ብዙ በአንድ ጊዜ ረጅም ሰልፍን ቶሎ ይጨርሳል፣ ነገር ግን ጣቢያው እንዲገድብዎ ዕድሉን ይጨምራል።"
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "በአንድ ጊዜ ዳውንሎዶች"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "ዳውንሎዶች"
+
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
 msgstr "YouTube cookies ያለ yt-dlp ጥቅም ላይ ሲውሉ መለያዎችን ሊያግድ ይችላል። የሚጥሉ መለያ ይጠቀሙ።"
@@ -2552,6 +2580,18 @@ msgstr "ጠፍ"
 msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "ዕድሜ-ተገደበ፣ አባላት-ብቻ እና የግል ቪዲዮዎችን ያግዛል።"
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "የቪዲዮን በርካታ ክፍሎች በአንድ ጊዜ በማውረድ ትላልቅ ዳውንሎዶችን ያፋጥናል። ከፍ ያለ ዋጋ ጣቢያው እንዲገድብዎ ዕድሉን ይጨምራል።"
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "የዳውንሎድ ግንኙነቶች"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "ግንኙነቶች"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -2674,12 +2714,8 @@ msgid "Prefer surround / Dolby"
 msgstr "surround / Dolby ን ይመርጡ"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "Arroxy ጣቢያን ከልክ ያለፈ ጥያቄ እንዳያደርግ እያንዳንዱ ዳውንሎድ ላይ ትናንሽ መጠበቂያዎችን ያክላል። ዋጋዎች በሰከንድ ነው (ካልተጠቀሰ)።"
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "የዳውንሎድ ግንኙነቶች"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Arroxy ጣቢያን ከልክ ያለፈ ጥያቄ እንዳያደርግ እያንዳንዱ ዳውንሎድ ላይ ትናንሽ መጠበቂያዎችን ያክላል። ዋጋዎች በሰከንድ ናቸው።"
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2722,16 +2758,16 @@ msgid "Off"
 msgstr "ጠፍ"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "መጠበቂያ: {{requests}} ምርምሮች መካከል፣ {{downloads}} ሚዲያ ከመጀመሩ በፊት፣ {{subtitles}} ንዑስ ርዕስ ፋይሎች በፊት። ግንኙነቶች: {{fragments}}።"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "መጠበቂያ: {{requests}} ምርምሮች መካከል፣ {{downloads}} ሚዲያ ከመጀመሩ በፊት፣ {{subtitles}} ንዑስ ርዕስ ፋይሎች በፊት።"
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "እነዚህ መጠበቂያዎች ማሳወቂያ ዳውንሎዶች ውስጥ ይሆናሉ። Arroxy ተራ የሆኑ ዳውንሎዶችን አሁንም አንድ ባንድ ያስተዳድራል።"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "እነዚህ ጥበቃዎች በእያንዳንዱ ዳውንሎድ ውስጥ ይከሰታሉ። በአንድ ጊዜ ስንት ዳውንሎዶች እንደሚሄዱ በ«በአንድ ጊዜ ዳውንሎዶች» ስር ለየብቻ ይዘጋጃል።"
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "ነባሪ። አጫጭር እረፍቶችን ያክላል እና አንድ የዳውንሎድ ግንኙነት ይጠቀማል።"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "ነባሪ። በጥያቄዎች መካከል እና ሚዲያ ከመጀመሩ በፊት አጫጭር እረፍቶችን ያክላል።"
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2748,10 +2784,6 @@ msgstr "Arroxy ለሚዲያ እና ንዑስ ርዕሶች የሚያቆየውን 
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "ሰከንድ"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "ክሮች"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

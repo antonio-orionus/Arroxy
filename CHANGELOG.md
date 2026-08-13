@@ -12,6 +12,35 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 This release reworks how Arroxy names downloaded files, so filenames may look different from previous versions — templates that were previously refused now work, and non-Latin titles keep much more of their length on macOS and Windows. It also gives failures that used to happen silently a visible message.
 
+This release puts download speed and resilience in your hands. Three settings that were previously fixed — or buried — are now yours to set in **Settings → Download behavior**. All three ship at their current values, so nothing changes until you decide it should.
+
+## Highlights
+
+### Download Connections
+
+- Arroxy can now fetch several parts of a video at once, which noticeably speeds up large downloads on a fast connection. Type a number, or leave the field empty for a single connection.
+- The field suggests 4 as a good starting point. Higher values raise the chance a site rate-limits you, so it is deliberately yours to choose rather than on by default.
+- This control existed before but was only reachable by switching "Gentle downloads" to Custom and editing a grid of five fields — almost nobody found it. It is now a setting in its own right, and it applies whichever pacing preset you use.
+
+### Downloads At Once
+
+- You can now choose how many queued items download at the same time, instead of Arroxy always running one at a time. A long queue finishes considerably sooner.
+- Changes apply immediately to a running queue — no restart, and nothing you have already started is interrupted. Lowering the limit simply stops new downloads from starting until there is room.
+- "Pull it now" keeps working even when the queue is running at your full limit.
+
+### Retry Failed Downloads
+
+- Arroxy can now retry a failed download on its own, waiting a little longer before each attempt. Set how many times, or leave it empty to keep deciding by hand.
+- When the failure happened after the transfer had started, a retry picks up from the partial file rather than starting over. A retry that was waiting when you quit is still waiting when you reopen Arroxy.
+- Only failures worth retrying are retried — a dropped connection, a server hiccup, a rate limit. Downloads blocked by the site are never retried automatically, because repeatedly asking is what turns a soft block into a hard one. Videos that are unavailable, region-locked, or DRM-protected are left alone too, since another attempt cannot help.
+- The queue row tells you a retry is coming, so a waiting download no longer looks like a dead one.
+
+---
+
+## 0.4.5
+
+This release reworks how Arroxy names downloaded files, so filenames may look different from previous versions — templates that were previously refused now work, and non-Latin titles keep much more of their length on macOS and Windows. It also gives failures that used to happen silently a visible message.
+
 ## Highlights
 
 ### Filename Templates

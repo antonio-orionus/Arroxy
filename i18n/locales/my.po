@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "ထပ်မံကြိုးစားရန်"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "အလိုအလျောက် ပြန်ကြိုးစားနေသည် (ကြိုးစားမှု {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "တည်နေရာ သတ်မှတ်ရန်"
@@ -2369,6 +2373,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "အက်ပ် ဖွင့်သည့်အကြိမ်ရေကိုသာ ရေတွက်သည်။ URL၊ ဖိုင်အမည် သို့မဟုတ် ကိုယ်ရေးကိုယ်တာ ဒေတာ မပါဝင်ပါ။"
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "ကွန်ရက် သို့မဟုတ် ဆာဗာ ပြဿနာအပြီး အလိုအလျောက် ပြန်ကြိုးစားသည်၊ ကြိုးစားမှုတိုင်းကြား ပိုကြာစွာ စောင့်သည်။ ဆိုက်မှ ပိတ်ဆို့ထားသော ဒေါင်းလုဒ်များကို အလိုအလျောက် ပြန်မကြိုးစားပါ။"
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "မအောင်မြင်သော ဒေါင်းလုဒ်များ ပြန်ကြိုးစားရန်"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "ကြိမ်"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "CSS သာအသုံးပြုမည်၊ canvas rendering မရှိပါ။"
@@ -2477,6 +2493,18 @@ msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "ဝင်းဒိုးပိတ်ပြီးနောက်လည်း နောက်ခံတွင် ဒေါင်းလုဒ်ဆက်လုပ်မည်။"
 
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "တန်းစီထားသော အရာမည်မျှကို တစ်ပြိုင်နက် ဒေါင်းလုဒ်လုပ်မည်။ တစ်ပြိုင်နက် ပိုများလျှင် စာရင်းရှည်ကို ပိုမြန်ပြီးစီးသည်၊ သို့သော် ဆိုက်မှ ကန့်သတ်ခံရနိုင်ခြေ ပိုများသည်။"
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "တစ်ပြိုင်နက် ဒေါင်းလုဒ်များ"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "ခု"
+
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
 msgstr "yt-dlp မှ cookies သုံးသော account များကို YouTube မှ ပြဿနာတက်စေနိုင်သည် — ဖြစ်နိုင်လျှင် စမ်းသပ် account တစ်ခုသုံးပါ။"
@@ -2552,6 +2580,18 @@ msgstr "ပိတ်"
 msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "အသက်အကန့်အသတ်ရှိ၊ အဖွဲ့ဝင်သာ နှင့် ကိုယ်ပိုင်ဗီဒီယိုများအတွက် ကူညီသည်။"
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "ဗီဒီယို၏ အပိုင်းများစွာကို တစ်ပြိုင်နက် ရယူခြင်းဖြင့် ဖိုင်ကြီးများ ဒေါင်းလုဒ်ကို မြန်ဆန်စေသည်။ တန်ဖိုးမြင့်လျှင် ဆိုက်မှ ကန့်သတ်ခံရနိုင်ခြေ ပိုများသည်။"
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "ဒေါင်းလုဒ် ချိတ်ဆက်မှုများ"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "ချိတ်ဆက်မှု"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -2674,12 +2714,8 @@ msgid "Prefer surround / Dolby"
 msgstr "surround / Dolby ကို ဦးစားပေးပါ"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "ဒေါင်းလုဒ်တိုင်းတွင် ကဆိုင်းငံ့ချိန်များ ထည့်သွင်း၍ Arroxy သည် ဆိုက်ကို အလွန်ကြမ်းတမ်းစွာ မဖိအားပေးစေရန်။ တန်ဖိုးများသည် ဆက်ပြောရင်းမှတ်မှတ်ရမည်ပုံ အပါအဝင် ဒုတိယများဖြစ်သည်။"
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "ဒေါင်းလုဒ်ချိတ်ဆက်မှုများ"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "ဒေါင်းလုဒ်တိုင်းတွင် ကဆိုင်းငံ့ချိန်များ ထည့်သွင်း၍ Arroxy သည် ဆိုက်ကို အလွန်ကြမ်းတမ်းစွာ မဖိအားပေးစေရန်။ တန်ဖိုးများသည် စက္ကန့်ဖြင့် ဖြစ်သည်။"
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2722,16 +2758,16 @@ msgid "Off"
 msgstr "ပိတ်ထားမည်"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "ဆိုင်းငံ့ချိန်: {{requests}} စစ်ဆေးမှုများကြား၊ {{downloads}} media မစတင်မီ၊ {{subtitles}} စာတန်းထိုးဖိုင်များမတိုင်မီ။ ချိတ်ဆက်မှုများ: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "ဆိုင်းငံ့ချိန်: {{requests}} စစ်ဆေးမှုများကြား၊ {{downloads}} media မစတင်မီ၊ {{subtitles}} စာတန်းထိုးဖိုင်များမတိုင်မီ။"
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "ဤဆိုင်းငံ့ချိန်များသည် ဒေါင်းလုဒ်တိုင်း၏ အတွင်းတွင် ဖြစ်သည်။ Arroxy သည် ပုံမှန် queue ဒေါင်းလုဒ်များကို တစ်ခုပြီးတစ်ခု ဆက်ထိန်းသည်။"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "ဤစောင့်ချိန်များသည် ဒေါင်းလုဒ်တစ်ခုချင်းအတွင်း ဖြစ်ပေါ်သည်။ တစ်ပြိုင်နက် ဒေါင်းလုဒ်မည်မျှ လုပ်မည်ကို «တစ်ပြိုင်နက် ဒေါင်းလုဒ်များ» တွင် သီးသန့် သတ်မှတ်သည်။"
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "မူရင်း။ တိုတောင်းသော ခေတ္တရပ်ချိန်များ ထည့်ပြီး ဒေါင်းလုဒ်ချိတ်ဆက်မှု တစ်ခုသုံးသည်။"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "မူရင်း။ တောင်းဆိုမှုများကြားနှင့် media မစတင်မီ တိုတောင်းသော ခေတ္တရပ်ချိန်များ ထည့်သည်။"
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2748,10 +2784,6 @@ msgstr "Arroxy သည် media နှင့် စာတန်းထိုးမ
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "စက္ကန့်"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "threads"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "Покушај поново"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "аутоматско понављање (покушај {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "Подеси локацију"
@@ -2369,6 +2373,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "Броји само покретања апликације. Без URL-ова, имена датотека или личних података."
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Аутоматски покушава поново након проблема са мрежом или сервером, чекајући дуже пре сваког покушаја. Преузимања која сајт блокира никада се не понављају аутоматски."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Понови неуспела преузимања"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "пута"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "Само CSS, без canvas рендеровања."
@@ -2477,6 +2493,18 @@ msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "Настави преузимања у позадини после затварања прозора."
 
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Колико ставки из реда се преузима истовремено. Више одједном брже завршава дугачак ред, али повећава шансу да вас сајт ограничи."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Истовремена преузимања"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "преузимања"
+
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
 msgstr "YouTube може да означи — а понекад и забрани — налоге чији cookies користи yt-dlp. Ако је могуће, користи привремени налог."
@@ -2552,6 +2580,18 @@ msgstr "Искључено"
 msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "Помаже са видеима са ограничењем старости, само за чланове и приватним видеима."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Убрзава велика преузимања преузимањем више делова видеа истовремено. Више вредности повећавају шансу да вас сајт ограничи."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Везе за преузимање"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "везе"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -2674,12 +2714,8 @@ msgid "Prefer surround / Dolby"
 msgstr "Daj prednost surround / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "Додаје мале паузе током сваког преузимања тако да Arroxy не приступа сајту превише агресивно. Вредности су у секундама ако није другачије назначено."
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "Везе за преузимање"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Додаје мале паузе током сваког преузимања тако да Arroxy не приступа сајту превише агресивно. Вредности су у секундама."
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2722,16 +2758,16 @@ msgid "Off"
 msgstr "Искључено"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "Паузе: {{requests}} између провера, {{downloads}} пре почетка медија, {{subtitles}} пре фајлова титлова. Везе: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Паузе: {{requests}} између провера, {{downloads}} пре почетка медија, {{subtitles}} пре фајлова титлова."
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "Ове паузе се дешавају унутар сваког преузимања. Arroxy и даље обрађује преузимања из реда по једно."
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Ове паузе се дешавају унутар сваког преузимања. Колико преузимања се одвија истовремено подешава се одвојено, у «Истовремена преузимања»."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "Подразумевано. Додаје кратке паузе и користи једну везу за преузимање."
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Подразумевано. Додаје кратке паузе између захтева и пре почетка медија."
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2748,10 +2784,6 @@ msgstr "Користи само мале основне паузе које Arro
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "сек"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "нити"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "بیا هڅه وکړئ"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "په اتوماتيک ډول بیا هڅه کیږي (هڅه {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "ځای وټاکئ"
@@ -2369,6 +2373,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "یوازې د اپلیکیشن پیلونه شمیري. هیڅ URL، د فایل نومونه، یا شخصي معلومات نه شته."
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "د شبکې یا سرور ستونزې وروسته په اتوماتيک ډول بیا هڅه کوي، د هرې هڅې تر منځ اوږد انتظار کوي. هغه ډاونلوډونه چې سایټ یې بندوي هیڅکله په اتوماتيک ډول بیا نه هڅول کیږي."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "ناکام ډاونلوډونه بیا هڅه کړئ"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "ځله"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "یوازې CSS، د canvas وړاندې کول نشته."
@@ -2477,6 +2493,18 @@ msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "د کړکۍ د تړولو وروسته شاتهپرده ډاونلوډونه دوام کړئ."
 
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "د کتار څو توکي په یو وخت کې ډاونلوډ شي. په یو وخت کې ډیر د اوږد کتار ژر پای ته رسوي، خو دا چانس زیاتوي چې سایټ مو محدود کړي."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "یو ځای ډاونلوډونه"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "ډاونلوډونه"
+
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
 msgstr "YouTube ممکن هغه حسابونه چې د yt-dlp لخوا د کوکیزو لپاره کارول کیږي بنده کړي — کله چې ممکنه وي یو لنډمهاله حساب وکاروئ."
@@ -2552,6 +2580,18 @@ msgstr "بند"
 msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "د عمر محدودیت لرونکو، یوازې غړو، او شخصي ویډیوګانو سره مرسته کوي."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "د ویډیو څو برخې په یو وخت کې راښکته کوي او لوی ډاونلوډونه ګړندي کوي. لوړ ارزښتونه دا چانس زیاتوي چې سایټ مو محدود کړي."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "د ډاونلوډ اتصالونه"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "اتصالونه"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -2674,12 +2714,8 @@ msgid "Prefer surround / Dolby"
 msgstr "surround / Dolby ته لومړیتوب ورکړئ"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "د هر ډاونلوډ پرمهال کوچني انتظارونه اضافه کړئ ترڅو Arroxy سایټ ته ډیره زیاته فشار ونه وري. ارزښتونه ثانیې دي که نور ذکر نه وي."
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "د ډاونلوډ اتصالونه"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "د هر ډاونلوډ پرمهال کوچني انتظارونه اضافه کړئ ترڅو Arroxy سایټ ته ډیره زیاته فشار ونه وري. ارزښتونه په ثانیو کې دي."
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2722,16 +2758,16 @@ msgid "Off"
 msgstr "بند"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "انتظارونه: {{requests}} د چکونو تر مینځ، {{downloads}} د میډیا د پیلیدو دمخه، {{subtitles}} د ژباړلیک فایلونو دمخه. اتصالونه: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "انتظارونه: {{requests}} د چکونو تر مینځ، {{downloads}} د میډیا د پیلیدو دمخه، {{subtitles}} د ژباړلیک فایلونو دمخه."
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "دا انتظارونه د هر ډاونلوډ دننه کیږي. Arroxy بیا هم معمولي کتار شوي ډاونلوډونه یو پر یو ساتي."
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "دا انتظارونه د هر ډاونلوډ دننه پیښیږي. دا چې څو ډاونلوډونه په یو وخت کې روان وي، په «یو ځای ډاونلوډونه» کې جلا ټاکل کیږي."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "ډیفالټ. لنډ وقفې اضافه کوي او یو ډاونلوډ اتصال کاروي."
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "ډیفالټ. د غوښتنو ترمنځ او د میډیا له پیل دمخه لنډې وقفې اضافه کوي."
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2748,10 +2784,6 @@ msgstr "یوازې هغه کوچني اساسي وقفې کاروي چې Arroxy 
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "ثا"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "threads"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

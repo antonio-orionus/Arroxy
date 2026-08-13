@@ -147,9 +147,11 @@ export const en = {
   feat_workflow_7:
     "**Playlist sync** — re-scan a playlist against a local folder to skip already-downloaded videos; generates an `.m3u` playlist file updated as each video downloads",
   feat_workflow_8:
-    "**Speed and pacing controls** — cap download bandwidth, add request delays, and tune fragment threads with presets (*Off · Balanced · Careful · Custom*)",
+    "**Speed and pacing controls** — cap download bandwidth, set how many parts of a video download at once, and add request delays with presets (*Off · Balanced · Careful · Custom*)",
   feat_workflow_9:
     "**Filename templates** — name downloads your way with `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, and `{playlist_index}`, globally or per download profile",
+  feat_workflow_10:
+    "**Downloads at once and automatic retry** — choose how many queued downloads run at the same time, and let Arroxy retry a download that hit a network or server problem, waiting longer before each attempt",
   feat_post_h3: "Subtitles & post-processing",
   feat_post_1:
     "**Subtitles** in SRT, VTT, or ASS — manual or auto-generated, in any available language",

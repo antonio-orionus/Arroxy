@@ -14,13 +14,9 @@ export function resolvePlaylistProbeLimit(settings: Pick<CommonSettings, 'playli
 
 export function resolveNetworkPacing(settings: CommonSettings | null | undefined): NetworkPacingArgs {
 	const preset = settings?.networkPacingPreset ?? 'balanced'
-	if (preset !== 'custom') return NETWORK_PACING_PRESET_VALUES[preset]
-	if (!settings) return {}
-	return {
-		sleepRequests: finitePositive(settings.pacingSleepRequests),
-		sleepInterval: finitePositive(settings.pacingSleepInterval),
-		maxSleepInterval: finitePositive(settings.pacingMaxSleepInterval),
-		sleepSubtitles: finitePositive(settings.pacingSleepSubtitles),
-		concurrentFragments: finitePositive(settings.pacingConcurrentFragments)
-	}
+	const sleeps =
+		preset === 'custom'
+			? {sleepRequests: finitePositive(settings?.pacingSleepRequests), sleepInterval: finitePositive(settings?.pacingSleepInterval), maxSleepInterval: finitePositive(settings?.pacingMaxSleepInterval), sleepSubtitles: finitePositive(settings?.pacingSleepSubtitles)}
+			: NETWORK_PACING_PRESET_VALUES[preset]
+	return {...sleeps, concurrentFragments: finitePositive(settings?.downloadConnections)}
 }

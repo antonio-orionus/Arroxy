@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "আবার চেষ্টা করুন"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "স্বয়ংক্রিয়ভাবে আবার চেষ্টা হচ্ছে (চেষ্টা {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "অবস্থান সেট করুন"
@@ -2369,6 +2373,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "শুধুমাত্র অ্যাপ চালু হওয়ার সংখ্যা গণনা করে। কোনো URL, ফাইলের নাম বা ব্যক্তিগত তথ্য নেই।"
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "নেটওয়ার্ক বা সার্ভারে সমস্যা হলে স্বয়ংক্রিয়ভাবে আবার চেষ্টা করে, প্রতিটি চেষ্টার মাঝে আরও বেশি অপেক্ষা করে। সাইট দ্বারা ব্লক করা ডাউনলোড কখনোই স্বয়ংক্রিয়ভাবে আবার চেষ্টা করা হয় না।"
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "ব্যর্থ ডাউনলোড আবার চেষ্টা করুন"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "বার"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "শুধু CSS, কোনো canvas রেন্ডারিং নয়।"
@@ -2477,6 +2493,18 @@ msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "উইন্ডো বন্ধ করার পরেও ব্যাকগ্রাউন্ডে ডাউনলোড চলতে থাকবে।"
 
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "সারিতে থাকা কতগুলো আইটেম একসাথে ডাউনলোড হবে। বেশি একসাথে দিলে লম্বা সারি দ্রুত শেষ হয়, তবে সাইট সীমা আরোপ করার সম্ভাবনা বাড়ে।"
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "একসাথে ডাউনলোড"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "ডাউনলোড"
+
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
 msgstr "YouTube অ্যাকাউন্ট ফ্ল্যাগ — এমনকি ব্যান — করতে পারে যদি সেই অ্যাকাউন্টের কুকিজ yt-dlp ব্যবহার করে। সম্ভব হলে অস্থায়ী অ্যাকাউন্ট ব্যবহার করুন।"
@@ -2552,6 +2580,18 @@ msgstr "বন্ধ"
 msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "বয়স-সীমাবদ্ধ, সদস্য-শুধু এবং ব্যক্তিগত অ্যাকাউন্টের ভিডিওর জন্য সাহায্য করে।"
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "একসাথে ভিডিওর কয়েকটি অংশ ডাউনলোড করে বড় ফাইলের গতি বাড়ায়। বেশি মান দিলে সাইট সীমা আরোপ করার সম্ভাবনা বাড়ে।"
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "ডাউনলোড সংযোগ"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "সংযোগ"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -2674,12 +2714,8 @@ msgid "Prefer surround / Dolby"
 msgstr "সারাউন্ড / Dolby অগ্রাধিকার দিন"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "প্রতিটি ডাউনলোডের সময় ছোট বিরতি যোগ করুন যাতে Arroxy সাইটে অতিরিক্ত চাপ না দেয়। মান সেকেন্ডে, অন্যথায় উল্লেখ না থাকলে।"
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "ডাউনলোড সংযোগ"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "প্রতিটি ডাউনলোডের সময় ছোট বিরতি যোগ করুন যাতে Arroxy সাইটে অতিরিক্ত চাপ না দেয়। মান সেকেন্ডে।"
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2722,16 +2758,16 @@ msgid "Off"
 msgstr "বন্ধ"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "বিরতি: {{requests}} চেকের মাঝে, {{downloads}} মিডিয়া শুরুর আগে, {{subtitles}} সাবটাইটেল ফাইলের আগে। সংযোগ: {{fragments}}।"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "বিরতি: {{requests}} চেকের মাঝে, {{downloads}} মিডিয়া শুরুর আগে, {{subtitles}} সাবটাইটেল ফাইলের আগে।"
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "এই বিরতিগুলো প্রতিটি ডাউনলোডের ভেতরে হয়। Arroxy তবুও সাধারণ কিউ করা ডাউনলোড একটি একটি করে রাখে।"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "এই বিরতিগুলো প্রতিটি ডাউনলোডের ভিতরে ঘটে। একসাথে কতগুলো ডাউনলোড চলবে তা «একসাথে ডাউনলোড» এ আলাদাভাবে সেট করা হয়।"
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "ডিফল্ট। ছোট বিরতি যোগ করে এবং একটি ডাউনলোড সংযোগ ব্যবহার করে।"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "ডিফল্ট। অনুরোধের মাঝে এবং মিডিয়া শুরুর আগে ছোট বিরতি যোগ করে।"
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2748,10 +2784,6 @@ msgstr "শুধুমাত্র Arroxy যে ছোট বেসলাই�
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "সে"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "থ্রেড"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

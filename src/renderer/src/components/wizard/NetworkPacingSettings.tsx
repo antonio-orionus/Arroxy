@@ -2,7 +2,7 @@ import {useState, type ReactNode} from 'react'
 import {Info} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {NETWORK_PACING_PRESET_VALUES} from '@shared/constants.js'
-import {pacingConcurrentFragmentsSchema, pacingSleepSecondsSchema} from '@shared/schemas.js'
+import {pacingSleepSecondsSchema} from '@shared/schemas.js'
 import type {NetworkPacingPreset} from '@shared/types.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
@@ -15,8 +15,7 @@ const CUSTOM_FIELDS = [
 	{key: 'pacingSleepRequests', labelKey: 'sleepRequests', unitKey: 'seconds', testId: 'pacing-sleep-requests'},
 	{key: 'pacingSleepInterval', labelKey: 'sleepInterval', unitKey: 'seconds', testId: 'pacing-sleep-interval'},
 	{key: 'pacingMaxSleepInterval', labelKey: 'maxSleepInterval', unitKey: 'seconds', testId: 'pacing-max-sleep-interval'},
-	{key: 'pacingSleepSubtitles', labelKey: 'sleepSubtitles', unitKey: 'seconds', testId: 'pacing-sleep-subtitles'},
-	{key: 'pacingConcurrentFragments', labelKey: 'concurrentFragments', unitKey: 'threads', testId: 'pacing-concurrent-fragments'}
+	{key: 'pacingSleepSubtitles', labelKey: 'sleepSubtitles', unitKey: 'seconds', testId: 'pacing-sleep-subtitles'}
 ] as const
 
 const OFF_SUBTITLE_SLEEP_SECONDS = 3
@@ -45,20 +44,20 @@ function formatSeconds(value: number | undefined): string {
 	return `${value}s`
 }
 
-function presetSummaryValues(preset: Exclude<NetworkPacingPreset, 'custom'>): {requests: string; downloads: string; subtitles: string; fragments: number} {
+function presetSummaryValues(preset: Exclude<NetworkPacingPreset, 'custom'>): {requests: string; downloads: string; subtitles: string} {
 	const values = NETWORK_PACING_PRESET_VALUES[preset]
 	const subtitleSleep = preset === 'off' ? OFF_SUBTITLE_SLEEP_SECONDS : values.sleepSubtitles
-	return {requests: formatSeconds(values.sleepRequests), downloads: values.sleepInterval !== undefined && values.maxSleepInterval !== undefined ? `${values.sleepInterval}-${values.maxSleepInterval}s` : '0s', subtitles: formatSeconds(subtitleSleep), fragments: values.concurrentFragments ?? 1}
+	return {requests: formatSeconds(values.sleepRequests), downloads: values.sleepInterval !== undefined && values.maxSleepInterval !== undefined ? `${values.sleepInterval}-${values.maxSleepInterval}s` : '0s', subtitles: formatSeconds(subtitleSleep)}
 }
 
 export function NetworkPacingSettings(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setNetworkPacingPreset, setPacingSleepRequests, setPacingSleepInterval, setPacingMaxSleepInterval, setPacingSleepSubtitles, setPacingConcurrentFragments} = useAppStore()
+	const {settings, setNetworkPacingPreset, setPacingSleepRequests, setPacingSleepInterval, setPacingMaxSleepInterval, setPacingSleepSubtitles} = useAppStore()
 	const common = settings?.common
 	const pacingPreset: NetworkPacingPreset = common?.networkPacingPreset ?? 'balanced'
 	const [fieldDrafts, setFieldDrafts] = useState<Partial<Record<(typeof CUSTOM_FIELDS)[number]['key'], string>>>({})
 
-	const FIELD_SETTERS = {pacingSleepRequests: setPacingSleepRequests, pacingSleepInterval: setPacingSleepInterval, pacingMaxSleepInterval: setPacingMaxSleepInterval, pacingSleepSubtitles: setPacingSleepSubtitles, pacingConcurrentFragments: setPacingConcurrentFragments} as const
+	const FIELD_SETTERS = {pacingSleepRequests: setPacingSleepRequests, pacingSleepInterval: setPacingSleepInterval, pacingMaxSleepInterval: setPacingMaxSleepInterval, pacingSleepSubtitles: setPacingSleepSubtitles} as const
 
 	function onFieldChange(key: (typeof CUSTOM_FIELDS)[number]['key'], value: string): void {
 		setFieldDrafts(prev => ({...prev, [key]: value}))
@@ -68,8 +67,7 @@ export function NetworkPacingSettings(): ReactNode {
 		const draft = fieldDrafts[key]
 		if (draft === undefined) return
 		const parsed = draft === '' ? 0 : Number(draft)
-		const schema = key === 'pacingConcurrentFragments' ? pacingConcurrentFragmentsSchema : pacingSleepSecondsSchema
-		if (!schema.safeParse(parsed).success) return
+		if (!pacingSleepSecondsSchema.safeParse(parsed).success) return
 		setFieldDrafts(prev => {
 			const next = {...prev}
 			delete next[key]
