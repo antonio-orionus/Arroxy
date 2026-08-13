@@ -15,6 +15,7 @@ import type {ListSelectionAction} from '../shared/listSelection.js'
 import {useRowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
 import {buildDownloadProfileActionModel} from './downloadProfileActions.js'
 import {profileAssignmentCounts, resolveAssignedProfile} from './playlistProfileAssignments.js'
+import {orderProfileOptionsForAssignment} from './playlistProfileOrder.js'
 import {createPlaylistProfileTableState, playlistProfileTableReducer} from './playlistProfileTableState.js'
 import {usePlaylistProfileColumns} from './usePlaylistProfileColumns.js'
 import {PlaylistProfileActionBar} from './PlaylistProfileActionBar.js'
@@ -40,7 +41,11 @@ export function StepPlaylistProfiles(): ReactNode {
 	const liveLabel = t('wizard.playlist.durationUnknown')
 
 	const model = useMemo(() => buildDownloadProfileActionModel(settings?.profiles), [settings?.profiles])
-	const profiles = useMemo(() => model.options.map(option => option.profile), [model.options])
+	// Baseline first, then the user's custom profiles, then builtins — local to
+	// this screen. See playlistProfileOrder.ts for why the catalog order (used
+	// as-is by the home-screen picker) doesn't work here.
+	const orderedOptions = useMemo(() => orderProfileOptionsForAssignment(model.options, model.activeRef), [model.options, model.activeRef])
+	const profiles = useMemo(() => orderedOptions.map(option => option.profile), [orderedOptions])
 	const resolveProfile = useCallback((entry: PlaylistEntry): DownloadProfile => resolveAssignedProfile(entry.id, playlistProfileAssignments, profiles, model.activeProfile), [playlistProfileAssignments, profiles, model.activeProfile])
 
 	const [state, dispatch] = useReducer(playlistProfileTableReducer, undefined, createPlaylistProfileTableState)
@@ -118,14 +123,14 @@ export function StepPlaylistProfiles(): ReactNode {
 			if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return
 			const digitIndex = DIGIT_CODES.indexOf(event.code)
 			if (digitIndex === -1) return
-			const option = model.options[digitIndex]
+			const option = orderedOptions[digitIndex]
 			if (!option || selectedItemIds.length === 0) return
 			event.preventDefault()
 			assign(selectedItemIds, option.ref)
 		}
 		window.addEventListener('keydown', onKeyDown)
 		return () => window.removeEventListener('keydown', onKeyDown)
-	}, [assign, model.options, orderedRowIds, selectedItemIds])
+	}, [assign, orderedOptions, orderedRowIds, selectedItemIds])
 
 	const renderedColumnCount = table.getAllLeafColumns().length
 
@@ -139,9 +144,9 @@ export function StepPlaylistProfiles(): ReactNode {
 					</span>
 				</div>
 
-				<PlaylistProfileActionBar options={model.options} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onReset={() => reset(selectedItemIds)} />
+				<PlaylistProfileActionBar options={orderedOptions} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onReset={() => reset(selectedItemIds)} />
 
-				<PlaylistProfileFilterChips options={model.options} counts={counts} totalCount={items.length} filter={filter} onFilterChange={next => dispatch({type: 'set-filter', filter: next})} />
+				<PlaylistProfileFilterChips options={orderedOptions} counts={counts} totalCount={items.length} filter={filter} onFilterChange={next => dispatch({type: 'set-filter', filter: next})} />
 
 				<PlaylistProfileTable
 					table={table}
@@ -151,7 +156,7 @@ export function StepPlaylistProfiles(): ReactNode {
 					topVirtualPadding={topVirtualPadding}
 					bottomVirtualPadding={bottomVirtualPadding}
 					renderedColumnCount={renderedColumnCount}
-					options={model.options}
+					options={orderedOptions}
 					contextItemIds={contextItemIds}
 					selectedIds={selectedIds}
 					interactions={interactions}

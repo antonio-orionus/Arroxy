@@ -3,7 +3,6 @@ import {fireEvent, render, screen, within} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {StepPlaylistProfiles} from '@renderer/components/wizard/StepPlaylistProfiles.js'
-import {PROFILE_ICONS} from '@renderer/components/wizard/downloadProfileVisuals.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 
 function profile(id: string, name: string, icon: DownloadProfile['icon']): DownloadProfile {
@@ -26,7 +25,6 @@ function profile(id: string, name: string, icon: DownloadProfile['icon']): Downl
 const ARCHIVE = profile('archive', 'Archive 4K', 'archive')
 const PODCAST = profile('podcast', 'Podcast MP3', 'podcast')
 const ARCHIVE_REF: DownloadProfileRef = {kind: 'custom', id: 'archive'}
-const PODCAST_REF: DownloadProfileRef = {kind: 'custom', id: 'podcast'}
 
 // jsdom reports a zero-height scroll container, so the real virtualizer only
 // windows in a single row. Stub it to always render every row — same fix
@@ -38,24 +36,13 @@ vi.mock('@tanstack/react-virtual', () => ({
 	}
 }))
 
-// The action-bar / "More…" split (Task 7 spec: first eight `options`) is
-// exercised by download-profile-actions.test.ts against the real builtin
-// catalog. Mocking the model here keeps this suite about StepPlaylistProfiles'
-// own wiring — selection, assignment, filtering — independent of how many
-// builtin profiles exist.
-vi.mock('@renderer/components/wizard/downloadProfileActions.js', () => ({
-	buildDownloadProfileActionModel: () => ({
-		activeProfile: ARCHIVE,
-		activeRef: ARCHIVE_REF,
-		ActiveIcon: PROFILE_ICONS.archive,
-		activeSummary: 'best video · best audio',
-		options: [
-			{profile: ARCHIVE, ref: ARCHIVE_REF, Icon: PROFILE_ICONS.archive, label: 'Archive 4K', active: true},
-			{profile: PODCAST, ref: PODCAST_REF, Icon: PROFILE_ICONS.podcast, label: 'Podcast MP3', active: false}
-		]
-	})
-}))
-
+// The real catalog + downloadProfileActions model is used everywhere below —
+// no mock. With the screen's baseline-then-custom-then-builtin ordering
+// (playlistProfileOrder.ts), the two custom fixture profiles below sort to
+// the front of the action bar, so the click-based tests reach them directly
+// without needing to open "More…". The one test that specifically covers the
+// overflow branch (further down) forces a builtin id, 'audio-only', past the
+// eight visible slots and asserts it's reachable through the popover.
 function renderStep(): ReturnType<typeof render> {
 	return render(<StepPlaylistProfiles />)
 }
@@ -104,5 +91,66 @@ describe('StepPlaylistProfiles', () => {
 		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
 		fireEvent.click(screen.getByTestId('filter-profile-podcast'))
 		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(1)
+	})
+
+	it('puts the baseline and custom profiles ahead of builtins in the visible action bar', () => {
+		renderStep()
+		// The action bar is disabled with nothing selected; select a row so the
+		// buttons (including "More…") are interactive.
+		fireEvent.click(screen.getByText('One Last Breath'))
+
+		// `allDownloadProfiles` (and so the unordered catalog model) returns all
+		// 10 builtins before either custom profile — under that order "archive"
+		// and "podcast" would sit at slots 10-11, past the action bar's 8 visible
+		// slots, and these testids would only exist once "More…" is opened. This
+		// asserts they're reachable directly, proving the screen re-sorts to
+		// baseline-then-custom-then-builtin instead of using catalog order as-is.
+		const bar = within(screen.getByTestId('playlist-profile-actions'))
+		expect(bar.getByTestId('assign-profile-archive')).toBeInTheDocument()
+		expect(bar.getByTestId('assign-profile-podcast')).toBeInTheDocument()
+
+		// And a builtin — 'audio-only', the likeliest pick this reordering exists
+		// to surface — is pushed out to the overflow instead, since the two
+		// customs now occupy two of the eight visible slots.
+		expect(screen.queryByTestId('assign-profile-audio-only')).not.toBeInTheDocument()
+		fireEvent.click(screen.getByTestId('playlist-profile-more'))
+		expect(screen.getByTestId('assign-profile-audio-only')).toBeInTheDocument()
+	})
+
+	it('assigns a builtin profile reached through the "More…" overflow popover', () => {
+		renderStep()
+		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-more'))
+		fireEvent.click(screen.getByTestId('assign-profile-audio-only'))
+
+		expect(within(screen.getByTestId('profile-row-b')).getByText('Audio only')).toBeInTheDocument()
+		// Untouched rows keep the baseline profile.
+		expect(within(screen.getByTestId('profile-row-a')).getByText('Archive 4K')).toBeInTheDocument()
+		expect(within(screen.getByTestId('profile-row-c')).getByText('Archive 4K')).toBeInTheDocument()
+	})
+
+	it('Ctrl/Cmd+A selects only the currently filtered rows, not every item', () => {
+		renderStep()
+		// Move 'b' onto Podcast first so the "archive" filter chip narrows to just
+		// 'a' and 'c' — and so 'b' ends up on a *third*, distinct profile from the
+		// one the filtered bulk-assign below applies. If Ctrl+A incorrectly
+		// selected every row instead of only the filtered ones, 'b' would also
+		// flip to that third profile and the final assertion on 'b' would fail.
+		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
+		fireEvent.click(screen.getByTestId('filter-profile-archive'))
+		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(2)
+
+		fireEvent.keyDown(window, {key: 'a', code: 'KeyA', ctrlKey: true})
+		fireEvent.click(screen.getByTestId('assign-profile-best-quality'))
+
+		// Switch back to the unfiltered view to inspect every row: 'a' and 'c'
+		// were selected by Ctrl+A (visible under the "archive" filter) and should
+		// have moved to "Best available"; 'b' was filtered out of view and must
+		// keep "Podcast MP3" untouched.
+		fireEvent.click(screen.getByTestId('filter-profile-all'))
+		expect(within(screen.getByTestId('profile-row-a')).getByText('Best available')).toBeInTheDocument()
+		expect(within(screen.getByTestId('profile-row-c')).getByText('Best available')).toBeInTheDocument()
+		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
 	})
 })
