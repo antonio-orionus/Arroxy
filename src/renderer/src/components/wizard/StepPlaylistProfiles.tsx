@@ -37,7 +37,7 @@ function isTypingTarget(target: EventTarget | null): boolean {
 
 export function StepPlaylistProfiles(): ReactNode {
 	const {t} = useTranslation()
-	const {playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds, playlistProfileAssignments, settings, wizardOutputDir, assignPlaylistProfile, resetPlaylistProfile, saveDownloadProfile, exitMultiProfileMode, advance, dismissMultiProfileHint} = useAppStore()
+	const {playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds, playlistProfileAssignments, settings, wizardOutputDir, assignPlaylistProfile, resetPlaylistProfile, saveDownloadProfile, chooseWizardFolder, exitMultiProfileMode, advance, dismissMultiProfileHint} = useAppStore()
 	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
 
 	// The set the user narrowed to on the items step, minus anything removed
@@ -196,6 +196,7 @@ export function StepPlaylistProfiles(): ReactNode {
 					commonPaths={settings?.common?.commonPaths}
 					globalDestination={globalDestinationRoot}
 					initialProfile={editingProfile}
+					onChangeGlobalDestination={() => chooseWizardFolder()}
 					onOpenChange={open => {
 						if (!open) setEditingProfile(null)
 					}}

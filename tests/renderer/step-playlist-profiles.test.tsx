@@ -229,6 +229,18 @@ describe('StepPlaylistProfiles', () => {
 		expect(await screen.findByTestId('profiles-editor-dialog')).toBeInTheDocument()
 	})
 
+	it('wires the global-destination handler so the editor never shows a dead "Change" button', async () => {
+		// DownloadProfileEditor always renders the "Change global destination"
+		// button and only `disabled`s it when `onChangeGlobalDestination` is
+		// missing — unlike `resetProfile`, which is conditionally rendered. This
+		// step is the first call site in the app to open the editor at all, so
+		// nothing previously exercised the case of that prop being left out.
+		renderStep()
+		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
+		await screen.findByTestId('profiles-editor-dialog')
+		expect(screen.getByRole('button', {name: 'Change global destination'})).toBeEnabled()
+	})
+
 	it('does not reassign the selection when the pencil is clicked', () => {
 		renderStep()
 		// Select a row first so the action bar's assign buttons are live — this is
