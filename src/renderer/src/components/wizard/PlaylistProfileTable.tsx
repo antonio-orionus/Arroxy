@@ -55,7 +55,7 @@ function PlaylistProfileContextMenuItems({itemIds, options, onAssign, onReset, o
 			<ContextMenuSeparator />
 			<ContextMenuItem variant="destructive" onClick={() => onRemove(itemIds)}>
 				<Trash2 size={14} aria-hidden />
-				{t('wizard.playlist.removeFromList')}
+				{t('wizard.playlist.removeFromListCount', {count: itemIds.length})}
 			</ContextMenuItem>
 		</ContextMenuContent>
 	)

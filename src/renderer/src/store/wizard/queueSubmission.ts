@@ -158,6 +158,16 @@ function playlistManifestPayload(state: AppState, playlistGroupId: string, outpu
 	return {playlistGroupId, playlistTitle: state.playlistTitle || 'Playlist', outputDir, items: items.map(e => ({videoId: e.videoId, title: e.title, duration: e.duration}))}
 }
 
+// Hoists Sets once per call instead of `.includes` inside the filter — at the
+// design's 1000-item target, `.includes` against a selection that can itself
+// be 1000 ids long turns each of the two call sites below into ~10^6
+// comparisons; a Set lookup is O(1) regardless of playlist size.
+function selectedPlaylistEntries(state: AppState): PlaylistEntry[] {
+	const selected = new Set(state.selectedPlaylistItemIds)
+	const removed = new Set(state.removedPlaylistItemIds)
+	return state.playlistItems.filter(entry => selected.has(entry.id) && !removed.has(entry.id))
+}
+
 export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
 	if (state.wizardMode === 'single') {
 		const item = buildSingleQueueItemFromState(state, lane)
@@ -165,8 +175,7 @@ export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): 
 	}
 
 	const playlistGroupId = generateId()
-	const removed = new Set(state.removedPlaylistItemIds)
-	const selected = state.playlistItems.filter(entry => state.selectedPlaylistItemIds.includes(entry.id) && !removed.has(entry.id))
+	const selected = selectedPlaylistEntries(state)
 	if (selected.length === 0) return null
 	const items = selected.map(e => buildPlaylistQueueItem(e, state, playlistGroupId, lane))
 	// The playlist root, not the first item's folder — a nesting template can put
@@ -176,8 +185,7 @@ export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): 
 }
 
 export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
-	const removed = new Set(state.removedPlaylistItemIds)
-	const selected = state.playlistItems.filter(entry => state.selectedPlaylistItemIds.includes(entry.id) && !removed.has(entry.id))
+	const selected = selectedPlaylistEntries(state)
 	if (selected.length === 0) return null
 
 	const profiles = allDownloadProfiles(state.settings?.profiles)

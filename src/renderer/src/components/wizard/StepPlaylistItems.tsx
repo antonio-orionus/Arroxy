@@ -159,21 +159,30 @@ export function StepPlaylistItems(): ReactNode {
 	const removedSet = useMemo(() => new Set(removedPlaylistItemIds), [removedPlaylistItemIds])
 	const visibleItems = useMemo(() => playlistItems.filter(entry => !removedSet.has(entry.id)), [playlistItems, removedSet])
 	const allRemoved = removedPlaylistItemIds.length > 0 && visibleItems.length === 0
+	// Hoisted once per render instead of `.includes` inside the per-row render
+	// loop / removalTargets — at the design's 1000-item target, an `.includes`
+	// call per visible row against a selection that can itself be 1000 ids long
+	// adds up fast; a Set lookup is O(1) regardless.
+	const selectedIdSet = useMemo(() => new Set(selectedPlaylistItemIds), [selectedPlaylistItemIds])
 
 	function removalTargets(entryId: string): string[] {
 		// A right-click on a checked row acts on the whole checked set — this
 		// step has no separate highlight-selection, so "the selection" is
 		// whatever is currently included for download. A right-click on an
 		// unchecked row acts on just that row.
-		return selectedPlaylistItemIds.includes(entryId) ? selectedPlaylistItemIds : [entryId]
+		return selectedIdSet.has(entryId) ? selectedPlaylistItemIds : [entryId]
 	}
 
-	// Window-scoped so Delete/Backspace works no matter which row or control
-	// currently holds focus, matching the profiles step's shortcut listener.
+	// Window-scoped so Delete works no matter which row or control currently
+	// holds focus, matching the profiles step's shortcut listener. Backspace is
+	// deliberately NOT bound here: it's a common "go back" reflex, and this
+	// listener has no visible affordance warning the user it deletes rows
+	// instead (unlike the context-menu item below, whose label now states the
+	// count).
 	useEffect(() => {
 		function onKeyDown(event: KeyboardEvent): void {
 			if (isTypingTarget(event.target)) return
-			if (event.key !== 'Delete' && event.key !== 'Backspace') return
+			if (event.key !== 'Delete') return
 			if (selectedPlaylistItemIds.length === 0) return
 			event.preventDefault()
 			removePlaylistItems(selectedPlaylistItemIds)
@@ -366,7 +375,7 @@ export function StepPlaylistItems(): ReactNode {
 									<div style={{height: virtualizer.getTotalSize(), position: 'relative'}}>
 										{virtualizer.getVirtualItems().map(virtualRow => {
 											const entry = visibleItems[virtualRow.index]
-											const checked = selectedPlaylistItemIds.includes(entry.id)
+											const checked = selectedIdSet.has(entry.id)
 											const isAlreadyDownloaded = !!(entry.videoId && syncedDownloadedIds.includes(entry.videoId))
 											const bulkRowStatus = isBulk ? bulkMetadataById[entry.id] : undefined
 											const bulkRowStatusKey = bulkRowStatus === 'pending' ? 'wizard.playlist.bulkRowWaiting' : bulkRowStatus === 'resolving' ? 'wizard.playlist.bulkRowResolving' : bulkRowStatus === 'failed' ? 'wizard.playlist.bulkRowFailed' : null
@@ -411,7 +420,7 @@ export function StepPlaylistItems(): ReactNode {
 													<ContextMenuContent className="min-w-48">
 														<ContextMenuItem variant="destructive" onClick={() => removePlaylistItems(removalTargets(entry.id))}>
 															<Trash2 size={14} aria-hidden />
-															{t('wizard.playlist.removeFromList')}
+															{t('wizard.playlist.removeFromListCount', {count: removalTargets(entry.id).length})}
 														</ContextMenuItem>
 													</ContextMenuContent>
 												</ContextMenu>
