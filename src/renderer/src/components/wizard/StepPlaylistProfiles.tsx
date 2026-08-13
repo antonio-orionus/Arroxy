@@ -53,9 +53,15 @@ export function StepPlaylistProfiles(): ReactNode {
 	} = useAppStore()
 	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
 
+	// Hoisted once instead of `.includes` inside the filter below — at the
+	// design's 1000-item target, `.includes` against two arrays that can each
+	// be up to 1000 ids long turns this into ~10^6 comparisons per render; a
+	// Set lookup is O(1) regardless of playlist size.
+	const selectedIdSet = useMemo(() => new Set(selectedPlaylistItemIds), [selectedPlaylistItemIds])
+	const removedIdSet = useMemo(() => new Set(removedPlaylistItemIds), [removedPlaylistItemIds])
 	// The set the user narrowed to on the items step, minus anything removed
 	// later in this flow (Task 11) — not the full flat-probe playlist.
-	const items = useMemo(() => playlistItems.filter(entry => selectedPlaylistItemIds.includes(entry.id) && !removedPlaylistItemIds.includes(entry.id)), [playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds])
+	const items = useMemo(() => playlistItems.filter(entry => selectedIdSet.has(entry.id) && !removedIdSet.has(entry.id)), [playlistItems, selectedIdSet, removedIdSet])
 	// Tied to removedPlaylistItemIds (not just "items is empty") so it only
 	// covers "removal emptied the step" — distinct from the filter chip
 	// narrowing to zero matches, which the table's own empty row already
@@ -100,6 +106,15 @@ export function StepPlaylistProfiles(): ReactNode {
 			),
 		[items, playlistProfileAssignments, profiles, model.activeRef]
 	)
+	// If everything gets reassigned away from the filtered-to profile, its
+	// chip vanishes (PlaylistProfileFilterChips only renders chips with
+	// count > 0) but `filter` itself doesn't reset — the table would sit
+	// empty with no highlighted chip and no way back except clicking "All".
+	// Reset automatically so the screen never reads as broken.
+	useEffect(() => {
+		if (filter !== 'all' && (counts.get(filter) ?? 0) === 0) dispatch({type: 'set-filter', filter: 'all'})
+	}, [filter, counts])
+
 	const filteredItems = useMemo(() => (filter === 'all' ? items : items.filter(entry => resolveProfile(entry).id === filter)), [filter, items, resolveProfile])
 
 	const columns = usePlaylistProfileColumns({t, hasAnyThumbnail, liveLabel, resolveProfile})
@@ -148,6 +163,12 @@ export function StepPlaylistProfiles(): ReactNode {
 	// matches "while this screen is visible".
 	useEffect(() => {
 		function onKeyDown(event: KeyboardEvent): void {
+			// isTypingTarget only catches literal text-entry fields. The profile
+			// editor dialog is full of buttons, toggles and selects that aren't text
+			// fields at all, so without this the shortcuts below reassign/delete the
+			// selection *behind* the open dialog whenever a non-text control has
+			// focus — the user sees nothing happen until they close it.
+			if (editingProfile) return
 			if (isTypingTarget(event.target)) return
 			const bareCtrlOrMeta = (event.ctrlKey || event.metaKey) && !event.altKey && !event.shiftKey
 			if (bareCtrlOrMeta && event.key.toLowerCase() === 'a') {
@@ -173,7 +194,7 @@ export function StepPlaylistProfiles(): ReactNode {
 		}
 		window.addEventListener('keydown', onKeyDown)
 		return () => window.removeEventListener('keydown', onKeyDown)
-	}, [assign, remove, orderedOptions, orderedRowIds, selectedItemIds])
+	}, [assign, remove, orderedOptions, orderedRowIds, selectedItemIds, editingProfile])
 
 	const renderedColumnCount = table.getAllLeafColumns().length
 
