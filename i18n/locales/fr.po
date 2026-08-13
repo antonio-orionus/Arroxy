@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Enregistrer la miniature"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "Restaurez-les pour continuer, ou revenez en arrière et recommencez."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Tous les éléments ont été supprimés"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Déjà téléchargé"
@@ -1680,6 +1688,22 @@ msgstr "De"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "À"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} supprimé(s)"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} supprimé(s)"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "Supprimer de la liste"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Restaurer"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

@@ -1551,6 +1551,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr ""
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr ""
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr ""
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr ""
@@ -1673,6 +1681,22 @@ msgstr ""
 
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
+msgstr ""
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr ""
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr ""
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr ""
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
 msgstr ""
 
 msgctxt "wizard.playlist.selectAll"

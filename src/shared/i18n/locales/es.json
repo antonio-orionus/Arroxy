@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "El escaneo está limitado",
 			"probeLimitAlertDesc": "Arroxy encontró más de {{count}} elementos, por lo que el límite de escaneo actual está ocultando el resto.",
 			"multiProfileEntry": "Asignar perfiles por elemento",
-			"multiProfileEntryTooltip": "Omite Calidad, SponsorBlock, Salida y Guardar — asigna en su lugar un perfil de descarga por elemento"
+			"multiProfileEntryTooltip": "Omite Calidad, SponsorBlock, Salida y Guardar — asigna en su lugar un perfil de descarga por elemento",
+			"removeFromList": "Quitar de la lista",
+			"restore": "Restaurar",
+			"removedCount_one": "{{count}} quitados",
+			"removedCount_other": "{{count}} quitados",
+			"allRemovedTitle": "Se quitaron todos los elementos",
+			"allRemovedDescription": "Restáuralos para continuar, o vuelve atrás y empieza de nuevo."
 		},
 		"bulk": {
 			"title": "URLs en lote",

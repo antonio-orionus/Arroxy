@@ -15,8 +15,10 @@ import {useAppStore} from '../../store/useAppStore.js'
 import {selectionModifierLabel} from '../../lib/platform.js'
 import type {ListSelectionAction} from '../shared/listSelection.js'
 import {useRowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
+import {isTypingTarget} from '../shared/isTypingTarget.js'
 import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
+import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {buildDownloadProfileActionModel} from './downloadProfileActions.js'
 import {DownloadProfileEditor} from './DownloadProfileEditor.js'
 import {profileAssignmentCounts, resolveAssignedProfile} from './playlistProfileAssignments.js'
@@ -30,19 +32,37 @@ import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 
 const DIGIT_CODES = ['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9']
 
-function isTypingTarget(target: EventTarget | null): boolean {
-	if (!(target instanceof HTMLElement)) return false
-	return target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable
-}
-
 export function StepPlaylistProfiles(): ReactNode {
 	const {t} = useTranslation()
-	const {playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds, playlistProfileAssignments, settings, wizardOutputDir, assignPlaylistProfile, resetPlaylistProfile, saveDownloadProfile, chooseWizardFolder, exitMultiProfileMode, advance, dismissMultiProfileHint} = useAppStore()
+	const {
+		playlistItems,
+		selectedPlaylistItemIds,
+		removedPlaylistItemIds,
+		playlistProfileAssignments,
+		settings,
+		wizardOutputDir,
+		assignPlaylistProfile,
+		resetPlaylistProfile,
+		removePlaylistItems,
+		restoreRemovedPlaylistItems,
+		saveDownloadProfile,
+		chooseWizardFolder,
+		exitMultiProfileMode,
+		advance,
+		dismissMultiProfileHint
+	} = useAppStore()
 	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
 
 	// The set the user narrowed to on the items step, minus anything removed
 	// later in this flow (Task 11) — not the full flat-probe playlist.
 	const items = useMemo(() => playlistItems.filter(entry => selectedPlaylistItemIds.includes(entry.id) && !removedPlaylistItemIds.includes(entry.id)), [playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds])
+	// Tied to removedPlaylistItemIds (not just "items is empty") so it only
+	// covers "removal emptied the step" — distinct from the filter chip
+	// narrowing to zero matches (the table's own empty row already covers
+	// that) — and so Restore, which always clears removedPlaylistItemIds,
+	// reliably clears this too even though a row removed from this step can't
+	// rejoin `items` without a trip back to the items step to re-check it.
+	const allRemoved = removedPlaylistItemIds.length > 0 && items.length === 0
 	const hasAnyThumbnail = useMemo(() => items.some(entry => !!entry.thumbnail), [items])
 	const liveLabel = t('wizard.playlist.durationUnknown')
 
@@ -113,6 +133,13 @@ export function StepPlaylistProfiles(): ReactNode {
 		},
 		[resetPlaylistProfile]
 	)
+	const remove = useCallback(
+		(itemIds: string[]): void => {
+			if (itemIds.length === 0) return
+			removePlaylistItems(itemIds)
+		},
+		[removePlaylistItems]
+	)
 
 	// Window-scoped rather than a JSX onKeyDown on the step container — the
 	// shortcuts (Digit1-9, Ctrl/Cmd+A) must fire no matter which row or button
@@ -131,6 +158,12 @@ export function StepPlaylistProfiles(): ReactNode {
 				return
 			}
 			if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return
+			if (event.key === 'Delete' || event.key === 'Backspace') {
+				if (selectedItemIds.length === 0) return
+				event.preventDefault()
+				remove(selectedItemIds)
+				return
+			}
 			const digitIndex = DIGIT_CODES.indexOf(event.code)
 			if (digitIndex === -1) return
 			const option = orderedOptions[digitIndex]
@@ -140,7 +173,7 @@ export function StepPlaylistProfiles(): ReactNode {
 		}
 		window.addEventListener('keydown', onKeyDown)
 		return () => window.removeEventListener('keydown', onKeyDown)
-	}, [assign, orderedOptions, orderedRowIds, selectedItemIds])
+	}, [assign, remove, orderedOptions, orderedRowIds, selectedItemIds])
 
 	const renderedColumnCount = table.getAllLeafColumns().length
 
@@ -153,6 +186,17 @@ export function StepPlaylistProfiles(): ReactNode {
 						{t('wizard.playlistProfiles.selectedSummary', {selected: selectedItemIds.length, total: items.length})}
 					</span>
 				</div>
+
+				{removedPlaylistItemIds.length > 0 ? (
+					<div className="flex items-center gap-2">
+						<span className="text-xs text-muted-foreground" data-testid="removed-playlist-items-count">
+							{t('wizard.playlist.removedCount', {count: removedPlaylistItemIds.length})}
+						</span>
+						<Button type="button" variant="outline" size="sm" onClick={restoreRemovedPlaylistItems} data-testid="restore-removed-playlist-items">
+							{t('wizard.playlist.restore')}
+						</Button>
+					</div>
+				) : null}
 
 				<PlaylistProfileActionBar options={orderedOptions} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onEditProfile={setEditingProfile} onReset={() => reset(selectedItemIds)} />
 
@@ -171,24 +215,34 @@ export function StepPlaylistProfiles(): ReactNode {
 
 				<PlaylistProfileFilterChips options={orderedOptions} counts={counts} totalCount={items.length} filter={filter} onFilterChange={next => dispatch({type: 'set-filter', filter: next})} />
 
-				<PlaylistProfileTable
-					table={table}
-					rows={rows}
-					virtualRows={virtualRows}
-					scrollRef={scrollRef}
-					topVirtualPadding={topVirtualPadding}
-					bottomVirtualPadding={bottomVirtualPadding}
-					renderedColumnCount={renderedColumnCount}
-					options={orderedOptions}
-					contextItemIds={contextItemIds}
-					selectedIds={selectedIds}
-					interactions={interactions}
-					onAssign={assign}
-					onReset={reset}
-				/>
+				{allRemoved ? (
+					<Empty className="flex-1 py-10" data-testid="playlist-profile-empty">
+						<EmptyHeader>
+							<EmptyTitle>{t('wizard.playlist.allRemovedTitle')}</EmptyTitle>
+							<EmptyDescription>{t('wizard.playlist.allRemovedDescription')}</EmptyDescription>
+						</EmptyHeader>
+					</Empty>
+				) : (
+					<PlaylistProfileTable
+						table={table}
+						rows={rows}
+						virtualRows={virtualRows}
+						scrollRef={scrollRef}
+						topVirtualPadding={topVirtualPadding}
+						bottomVirtualPadding={bottomVirtualPadding}
+						renderedColumnCount={renderedColumnCount}
+						options={orderedOptions}
+						contextItemIds={contextItemIds}
+						selectedIds={selectedIds}
+						interactions={interactions}
+						onAssign={assign}
+						onReset={reset}
+						onRemove={remove}
+					/>
+				)}
 			</div>
 
-			<WizardStepFooterActions onBack={exitMultiProfileMode} onContinue={advance} />
+			<WizardStepFooterActions onBack={exitMultiProfileMode} onContinue={advance} continueDisabled={allRemoved} />
 
 			{editingProfile ? (
 				<DownloadProfileEditor

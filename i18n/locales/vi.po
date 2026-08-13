@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Lưu hình thu nhỏ"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "Khôi phục để tiếp tục, hoặc quay lại và bắt đầu lại."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Tất cả mục đã bị xóa"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Đã tải xuống"
@@ -1680,6 +1688,22 @@ msgstr "Từ"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Đến"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} đã xóa"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} đã xóa"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "Xóa khỏi danh sách"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Khôi phục"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

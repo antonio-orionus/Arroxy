@@ -101,7 +101,13 @@
 			"probeLimitAlertTitleGeneric": "Скенирање је ограничено",
 			"probeLimitAlertDesc": "Arroxy је пронашао више од {{count}} ставки, па тренутно ограничење скенирања скрива остатак.",
 			"multiProfileEntry": "Додели профиле по ставци",
-			"multiProfileEntryTooltip": "Прескаче Квалитет, SponsorBlock, Излаз и Сачувај — уместо тога додељује профил преузимања по ставци"
+			"multiProfileEntryTooltip": "Прескаче Квалитет, SponsorBlock, Излаз и Сачувај — уместо тога додељује профил преузимања по ставци",
+			"removeFromList": "Уклони са листе",
+			"restore": "Врати",
+			"removedCount_one": "{{count}} уклоњено",
+			"removedCount_other": "{{count}} уклоњено",
+			"allRemovedTitle": "Све ставке су уклоњене",
+			"allRemovedDescription": "Врати их да наставиш, или се врати назад и почни изнова."
 		},
 		"bulk": {
 			"title": "Групни URL-ови",

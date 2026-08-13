@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "サムネイルを保存"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "続行するには復元するか、戻ってやり直してください。"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "すべてのアイテムが削除されました"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "ダウンロード済み"
@@ -1680,6 +1688,22 @@ msgstr "開始"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "終了"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} 件削除済み"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} 件削除済み"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "リストから削除"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "元に戻す"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

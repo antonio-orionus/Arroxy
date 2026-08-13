@@ -305,6 +305,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		resetPlaylistProfile: itemIds => WizardCommands.resetPlaylistProfile(itemIds, set, get),
 
+		removePlaylistItems: itemIds => WizardCommands.removePlaylistItems(itemIds, set, get),
+
+		restoreRemovedPlaylistItems: () => WizardCommands.restoreRemovedPlaylistItems(set),
+
 		// Scan the destination folder for already-downloaded items. Populates
 		// syncedDownloadedIds (drives the "already downloaded" badges + the sync
 		// alert) but does NOT change the selection — that's applyFolderSync's job.

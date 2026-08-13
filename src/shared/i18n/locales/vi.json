@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "Quét đã bị giới hạn",
 			"probeLimitAlertDesc": "Arroxy tìm thấy nhiều hơn {{count}} mục, vì vậy giới hạn quét hiện tại đang ẩn phần còn lại.",
 			"multiProfileEntry": "Gán hồ sơ cho từng mục",
-			"multiProfileEntryTooltip": "Bỏ qua Chất lượng, SponsorBlock, Đầu ra và Lưu — thay vào đó gán hồ sơ tải xuống cho từng mục"
+			"multiProfileEntryTooltip": "Bỏ qua Chất lượng, SponsorBlock, Đầu ra và Lưu — thay vào đó gán hồ sơ tải xuống cho từng mục",
+			"removeFromList": "Xóa khỏi danh sách",
+			"restore": "Khôi phục",
+			"removedCount_one": "{{count}} đã xóa",
+			"removedCount_other": "{{count}} đã xóa",
+			"allRemovedTitle": "Tất cả mục đã bị xóa",
+			"allRemovedDescription": "Khôi phục để tiếp tục, hoặc quay lại và bắt đầu lại."
 		},
 		"bulk": {
 			"title": "URL hàng loạt",

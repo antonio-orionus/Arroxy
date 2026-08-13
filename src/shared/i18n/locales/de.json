@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "Scan ist begrenzt",
 			"probeLimitAlertDesc": "Arroxy hat mehr als {{count}} Einträge gefunden, daher verbirgt das aktuelle Scan-Limit den Rest.",
 			"multiProfileEntry": "Profile pro Element zuweisen",
-			"multiProfileEntryTooltip": "Überspringt Qualität, SponsorBlock, Ausgabe und Speichern — weist stattdessen jedem Element ein Download-Profil zu"
+			"multiProfileEntryTooltip": "Überspringt Qualität, SponsorBlock, Ausgabe und Speichern — weist stattdessen jedem Element ein Download-Profil zu",
+			"removeFromList": "Aus der Liste entfernen",
+			"restore": "Wiederherstellen",
+			"removedCount_one": "{{count}} entfernt",
+			"removedCount_other": "{{count}} entfernt",
+			"allRemovedTitle": "Alle Elemente wurden entfernt",
+			"allRemovedDescription": "Stelle sie wieder her, um fortzufahren, oder gehe zurück und beginne erneut."
 		},
 		"bulk": {
 			"title": "Bulk-URLs",

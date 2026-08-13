@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Simpan gambar kecil"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "Pulihkan untuk melanjutkan, atau kembali dan mulai lagi."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Semua item telah dihapus"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Sudah diunduh"
@@ -1680,6 +1688,22 @@ msgstr "Dari"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Ke"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} dihapus"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} dihapus"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "Hapus dari daftar"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Memulihkan"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

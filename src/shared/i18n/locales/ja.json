@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "スキャン上限に達しました",
 			"probeLimitAlertDesc": "Arroxy は {{count}} 件を超えるアイテムを検出しましたが、現在のスキャン上限により残りは表示されていません。",
 			"multiProfileEntry": "アイテムごとにプロファイルを割り当て",
-			"multiProfileEntryTooltip": "画質、SponsorBlock、出力、保存先をスキップ — 代わりにアイテムごとにダウンロードプロファイルを割り当てます"
+			"multiProfileEntryTooltip": "画質、SponsorBlock、出力、保存先をスキップ — 代わりにアイテムごとにダウンロードプロファイルを割り当てます",
+			"removeFromList": "リストから削除",
+			"restore": "元に戻す",
+			"removedCount_one": "{{count}} 件削除済み",
+			"removedCount_other": "{{count}} 件削除済み",
+			"allRemovedTitle": "すべてのアイテムが削除されました",
+			"allRemovedDescription": "続行するには復元するか、戻ってやり直してください。"
 		},
 		"bulk": {
 			"title": "一括 URL",

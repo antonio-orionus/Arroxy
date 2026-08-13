@@ -7,7 +7,7 @@ import type {ReactNode, RefObject} from 'react'
 import type {Row, Table as ReactTable} from '@tanstack/react-table'
 import type {VirtualItem} from '@tanstack/react-virtual'
 import {useTranslation} from 'react-i18next'
-import {RotateCcw} from 'lucide-react'
+import {RotateCcw, Trash2} from 'lucide-react'
 import type {DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 import {ContextMenuContent, ContextMenuItem, ContextMenuSeparator} from '../ui/context-menu.js'
 import {SelectableVirtualTable} from '../shared/SelectableVirtualTable.js'
@@ -28,6 +28,7 @@ interface PlaylistProfileTableProps {
 	interactions: RowSelectionInteractions
 	onAssign: (itemIds: string[], ref: DownloadProfileRef) => void
 	onReset: (itemIds: string[]) => void
+	onRemove: (itemIds: string[]) => void
 }
 
 function columnClassName(columnId: string): string {
@@ -36,7 +37,7 @@ function columnClassName(columnId: string): string {
 	return 'w-[15%]'
 }
 
-function PlaylistProfileContextMenuItems({itemIds, options, onAssign, onReset}: {itemIds: string[]; options: DownloadProfileActionOption[]; onAssign: (itemIds: string[], ref: DownloadProfileRef) => void; onReset: (itemIds: string[]) => void}): ReactNode {
+function PlaylistProfileContextMenuItems({itemIds, options, onAssign, onReset, onRemove}: {itemIds: string[]; options: DownloadProfileActionOption[]; onAssign: (itemIds: string[], ref: DownloadProfileRef) => void; onReset: (itemIds: string[]) => void; onRemove: (itemIds: string[]) => void}): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<ContextMenuContent className="min-w-56">
@@ -51,11 +52,16 @@ function PlaylistProfileContextMenuItems({itemIds, options, onAssign, onReset}: 
 				<RotateCcw size={14} aria-hidden />
 				{t('wizard.url.profile.reset')}
 			</ContextMenuItem>
+			<ContextMenuSeparator />
+			<ContextMenuItem variant="destructive" onClick={() => onRemove(itemIds)}>
+				<Trash2 size={14} aria-hidden />
+				{t('wizard.playlist.removeFromList')}
+			</ContextMenuItem>
 		</ContextMenuContent>
 	)
 }
 
-export function PlaylistProfileTable({table, rows, virtualRows, scrollRef, topVirtualPadding, bottomVirtualPadding, renderedColumnCount, options, contextItemIds, selectedIds, interactions, onAssign, onReset}: PlaylistProfileTableProps): ReactNode {
+export function PlaylistProfileTable({table, rows, virtualRows, scrollRef, topVirtualPadding, bottomVirtualPadding, renderedColumnCount, options, contextItemIds, selectedIds, interactions, onAssign, onReset, onRemove}: PlaylistProfileTableProps): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<SelectableVirtualTable
@@ -73,7 +79,7 @@ export function PlaylistProfileTable({table, rows, virtualRows, scrollRef, topVi
 			scrollTestId="playlist-profile-scroll"
 			rowTestId={rowId => `profile-row-${rowId}`}
 			columnClassName={columnClassName}
-			renderContextMenu={() => <PlaylistProfileContextMenuItems itemIds={contextItemIds} options={options} onAssign={onAssign} onReset={onReset} />}
+			renderContextMenu={() => <PlaylistProfileContextMenuItems itemIds={contextItemIds} options={options} onAssign={onAssign} onReset={onReset} onRemove={onRemove} />}
 		/>
 	)
 }

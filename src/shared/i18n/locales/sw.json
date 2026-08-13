@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "Uchanganuzi umewekewa kikomo",
 			"probeLimitAlertDesc": "Arroxy imepata zaidi ya vipande {{count}}, kwa hivyo kikomo cha skani cha sasa kinaficha vilivyobaki.",
 			"multiProfileEntry": "Weka wasifu kwa kila kipengele",
-			"multiProfileEntryTooltip": "Inaruka Ubora, SponsorBlock, Matokeo, na Hifadhi — badala yake weka wasifu wa upakuaji kwa kila kipengele"
+			"multiProfileEntryTooltip": "Inaruka Ubora, SponsorBlock, Matokeo, na Hifadhi — badala yake weka wasifu wa upakuaji kwa kila kipengele",
+			"removeFromList": "Ondoa kwenye orodha",
+			"restore": "Rejesha",
+			"removedCount_one": "{{count}} zimeondolewa",
+			"removedCount_other": "{{count}} zimeondolewa",
+			"allRemovedTitle": "Vipengee vyote vimeondolewa",
+			"allRemovedDescription": "Virejeshe ili kuendelea, au rudi nyuma uanze upya."
 		},
 		"bulk": {
 			"title": "URL nyingi",

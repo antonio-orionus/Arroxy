@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Сохранить превью"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "Восстановите их, чтобы продолжить, или вернитесь назад и начните заново."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Все элементы удалены"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Уже скачано"
@@ -1680,6 +1688,22 @@ msgstr "С"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "По"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} удалено"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} удалено"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "Удалить из списка"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Восстановить"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

@@ -84,7 +84,13 @@
 			"probeLimitAlertTitleGeneric": "扫描已达上限",
 			"probeLimitAlertDesc": "Arroxy 发现超过 {{count}} 个项目，当前扫描上限隐藏了其余内容。",
 			"multiProfileEntry": "为每一项分配配置",
-			"multiProfileEntryTooltip": "跳过画质、SponsorBlock、输出和保存 — 改为为每一项分配下载配置"
+			"multiProfileEntryTooltip": "跳过画质、SponsorBlock、输出和保存 — 改为为每一项分配下载配置",
+			"removeFromList": "从列表中移除",
+			"restore": "还原",
+			"removedCount_one": "已移除 {{count}} 项",
+			"removedCount_other": "已移除 {{count}} 项",
+			"allRemovedTitle": "所有项目均已移除",
+			"allRemovedDescription": "恢复它们以继续，或返回重新开始。"
 		},
 		"bulk": {
 			"title": "批量 URL",

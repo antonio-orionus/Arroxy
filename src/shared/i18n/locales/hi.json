@@ -84,7 +84,13 @@
 			"probeLimitAlertTitleGeneric": "स्कैन की सीमा तय है",
 			"probeLimitAlertDesc": "Arroxy को {{count}} से अधिक आइटम मिले, इसलिए वर्तमान स्कैन सीमा बाकी को छुपा रही है।",
 			"multiProfileEntry": "प्रति आइटम प्रोफ़ाइल असाइन करें",
-			"multiProfileEntryTooltip": "गुणवत्ता, SponsorBlock, आउटपुट और सेव को छोड़ देता है — इसके बजाय प्रति आइटम एक डाउनलोड प्रोफ़ाइल असाइन करें"
+			"multiProfileEntryTooltip": "गुणवत्ता, SponsorBlock, आउटपुट और सेव को छोड़ देता है — इसके बजाय प्रति आइटम एक डाउनलोड प्रोफ़ाइल असाइन करें",
+			"removeFromList": "सूची से हटाएँ",
+			"restore": "पुनर्स्थापित करें",
+			"removedCount_one": "{{count}} हटाए गए",
+			"removedCount_other": "{{count}} हटाए गए",
+			"allRemovedTitle": "सभी आइटम हटा दिए गए",
+			"allRemovedDescription": "जारी रखने के लिए उन्हें पुनर्स्थापित करें, या वापस जाकर फिर से शुरू करें।"
 		},
 		"bulk": {
 			"title": "बल्क URLs",

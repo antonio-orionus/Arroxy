@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "Tarama sınırlandı",
 			"probeLimitAlertDesc": "İlk {{count}} öğe gösteriliyor. Daha fazlasını görmek için yükleme sınırını artır.",
 			"multiProfileEntry": "Öğe başına profil ata",
-			"multiProfileEntryTooltip": "Kalite, SponsorBlock, Çıktı ve Kaydet adımlarını atlar — bunun yerine öğe başına bir indirme profili atar"
+			"multiProfileEntryTooltip": "Kalite, SponsorBlock, Çıktı ve Kaydet adımlarını atlar — bunun yerine öğe başına bir indirme profili atar",
+			"removeFromList": "Listeden kaldır",
+			"restore": "Geri yükle",
+			"removedCount_one": "{{count}} kaldırıldı",
+			"removedCount_other": "{{count}} kaldırıldı",
+			"allRemovedTitle": "Tüm öğeler kaldırıldı",
+			"allRemovedDescription": "Devam etmek için onları geri yükleyin ya da geri dönüp yeniden başlayın."
 		},
 		"bulk": {
 			"title": "Toplu URL’ler",

@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Thumbnail kuusi"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "Itti fufuudhaaf isaan deebisi, ykn duubatti deebi'iitii irra deebi'ii jalqabi."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Wanti hundinuu balleeffameera"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Duraan buufameera"
@@ -1680,6 +1688,22 @@ msgstr "Irraa"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Gara"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} balleeffame"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} balleeffame"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "Tarreefaa keessaa balleessi"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Deebi'si"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

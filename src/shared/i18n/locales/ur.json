@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "اسکین محدود ہے",
 			"probeLimitAlertDesc": "Arroxy نے {{count}} سے زیادہ آئٹمز دریافت کیے، اس لیے موجودہ اسکین لمٹ باقی آئٹمز چھپا رہی ہے۔",
 			"multiProfileEntry": "فی آئٹم پروفائلز تفویض کریں",
-			"multiProfileEntryTooltip": "معیار, SponsorBlock, آؤٹ پٹ اور محفوظ کرنے کو نظرانداز کرتا ہے — اس کے بجائے فی آئٹم ڈاؤن لوڈ پروفائل تفویض کریں"
+			"multiProfileEntryTooltip": "معیار, SponsorBlock, آؤٹ پٹ اور محفوظ کرنے کو نظرانداز کرتا ہے — اس کے بجائے فی آئٹم ڈاؤن لوڈ پروفائل تفویض کریں",
+			"removeFromList": "فہرست سے ہٹائیں",
+			"restore": "بحال کریں",
+			"removedCount_one": "{{count}} ہٹا دیے گئے",
+			"removedCount_other": "{{count}} ہٹا دیے گئے",
+			"allRemovedTitle": "تمام آئٹمز ہٹا دیے گئے",
+			"allRemovedDescription": "جاری رکھنے کے لیے انہیں بحال کریں، یا واپس جا کر دوبارہ شروع کریں۔"
 		},
 		"bulk": {
 			"title": "متعدد URLs",

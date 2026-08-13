@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "Pemindaian dibatasi",
 			"probeLimitAlertDesc": "Menampilkan item {{count}} pertama. Tingkatkan batas muatan untuk melihat lebih banyak.",
 			"multiProfileEntry": "Tetapkan profil per item",
-			"multiProfileEntryTooltip": "Melewati Kualitas, SponsorBlock, Keluaran, dan Simpan — tetapkan profil unduhan per item sebagai gantinya"
+			"multiProfileEntryTooltip": "Melewati Kualitas, SponsorBlock, Keluaran, dan Simpan — tetapkan profil unduhan per item sebagai gantinya",
+			"removeFromList": "Hapus dari daftar",
+			"restore": "Memulihkan",
+			"removedCount_one": "{{count}} dihapus",
+			"removedCount_other": "{{count}} dihapus",
+			"allRemovedTitle": "Semua item telah dihapus",
+			"allRemovedDescription": "Pulihkan untuk melanjutkan, atau kembali dan mulai lagi."
 		},
 		"bulk": {
 			"title": "URL massal",

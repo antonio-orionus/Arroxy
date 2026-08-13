@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "保存缩略图"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "恢复它们以继续，或返回重新开始。"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "所有项目均已移除"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "已下载"
@@ -1680,6 +1688,22 @@ msgstr "从"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "到"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "已移除 {{count}} 项"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "已移除 {{count}} 项"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "从列表中移除"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "还原"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

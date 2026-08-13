@@ -151,7 +151,9 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 }
 
 function playlistManifestPayload(state: AppState, playlistGroupId: string, outputDir: string): PlaylistManifestPayload {
-	return {playlistGroupId, playlistTitle: state.playlistTitle || 'Playlist', outputDir, items: state.playlistItems.map(e => ({videoId: e.videoId, title: e.title, duration: e.duration}))}
+	const removed = new Set(state.removedPlaylistItemIds)
+	const items = state.playlistItems.filter(entry => !removed.has(entry.id))
+	return {playlistGroupId, playlistTitle: state.playlistTitle || 'Playlist', outputDir, items: items.map(e => ({videoId: e.videoId, title: e.title, duration: e.duration}))}
 }
 
 export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
@@ -161,7 +163,8 @@ export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): 
 	}
 
 	const playlistGroupId = generateId()
-	const selected = state.playlistItems.filter(e => state.selectedPlaylistItemIds.includes(e.id))
+	const removed = new Set(state.removedPlaylistItemIds)
+	const selected = state.playlistItems.filter(entry => state.selectedPlaylistItemIds.includes(entry.id) && !removed.has(entry.id))
 	if (selected.length === 0) return null
 	const items = selected.map(e => buildPlaylistQueueItem(e, state, playlistGroupId, lane))
 	// The playlist root, not the first item's folder — a nesting template can put

@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "L’analyse est limitée",
 			"probeLimitAlertDesc": "Arroxy a trouvé plus de {{count}} éléments, donc la limite de scan actuelle masque le reste.",
 			"multiProfileEntry": "Attribuer des profils par élément",
-			"multiProfileEntryTooltip": "Ignore Qualité, SponsorBlock, Sortie et Enregistrer — attribue à la place un profil de téléchargement par élément"
+			"multiProfileEntryTooltip": "Ignore Qualité, SponsorBlock, Sortie et Enregistrer — attribue à la place un profil de téléchargement par élément",
+			"removeFromList": "Supprimer de la liste",
+			"restore": "Restaurer",
+			"removedCount_one": "{{count}} supprimé(s)",
+			"removedCount_other": "{{count}} supprimé(s)",
+			"allRemovedTitle": "Tous les éléments ont été supprimés",
+			"allRemovedDescription": "Restaurez-les pour continuer, ou revenez en arrière et recommencez."
 		},
 		"bulk": {
 			"title": "URLs en lot",

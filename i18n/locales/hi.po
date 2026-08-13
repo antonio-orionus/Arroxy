@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "थंबनेल सहेजें"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "जारी रखने के लिए उन्हें पुनर्स्थापित करें, या वापस जाकर फिर से शुरू करें।"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "सभी आइटम हटा दिए गए"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "पहले से डाउनलोड किया गया"
@@ -1680,6 +1688,22 @@ msgstr "से"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "तक"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} हटाए गए"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} हटाए गए"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "सूची से हटाएँ"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "पुनर्स्थापित करें"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

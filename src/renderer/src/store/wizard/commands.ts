@@ -110,5 +110,14 @@ export const WizardCommands = {
 
 	resetPlaylistProfile(itemIds: string[], set: SetState, get: GetState): void {
 		set({playlistProfileAssignments: clearAssignmentsForItems(get().playlistProfileAssignments, itemIds)})
+	},
+
+	removePlaylistItems(itemIds: string[], set: SetState, get: GetState): void {
+		const removed = new Set([...get().removedPlaylistItemIds, ...itemIds])
+		set({removedPlaylistItemIds: [...removed], selectedPlaylistItemIds: get().selectedPlaylistItemIds.filter(id => !removed.has(id)), playlistProfileAssignments: clearAssignmentsForItems(get().playlistProfileAssignments, itemIds)})
+	},
+
+	restoreRemovedPlaylistItems(set: SetState): void {
+		set({removedPlaylistItemIds: []})
 	}
 }

@@ -261,6 +261,71 @@ describe('StepPlaylistProfiles', () => {
 		renameProfile('podcast', 'Podcast 320')
 		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast 320')).toBeInTheDocument()
 	})
+
+	it('removes the row from the context menu, prunes its profile assignment, and shows a restore control', async () => {
+		renderStep()
+		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
+		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
+
+		fireEvent.contextMenu(screen.getByTestId('profile-row-b'))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+
+		expect(screen.queryByTestId('profile-row-b')).not.toBeInTheDocument()
+		// Pruned everywhere, not just dropped from the visible rows — an orphaned
+		// assignment would silently resurrect on restore.
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual(['b'])
+		expect(useAppStore.getState().playlistProfileAssignments).toEqual({})
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['a', 'c'])
+		expect(screen.getByTestId('removed-playlist-items-count')).toHaveTextContent('1 removed')
+	})
+
+	it('removes the highlighted rows with the Delete key', () => {
+		renderStep()
+		fireEvent.click(screen.getByText('One Last Breath'))
+
+		fireEvent.keyDown(window, {key: 'Delete'})
+
+		expect(screen.queryByTestId('profile-row-b')).not.toBeInTheDocument()
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual(['b'])
+	})
+
+	it('clears removedPlaylistItemIds and hides the restore control, though the row only rejoins this step via the items step', async () => {
+		// This step has no checkbox — removePlaylistItems also prunes
+		// selectedPlaylistItemIds (Task 11 requirement), and restore only
+		// resets removedPlaylistItemIds, so a row removed here can't rejoin
+		// `items` (which requires selectedPlaylistItemIds membership) without a
+		// trip back to the items step to re-check it. Restore's job here is
+		// only to stop counting it as "removed" and retire the toolbar control.
+		renderStep()
+		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.contextMenu(screen.getByTestId('profile-row-b'))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+		expect(screen.queryByTestId('profile-row-b')).not.toBeInTheDocument()
+
+		fireEvent.click(screen.getByTestId('restore-removed-playlist-items'))
+
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['a', 'c'])
+		expect(screen.queryByTestId('profile-row-b')).not.toBeInTheDocument()
+		expect(screen.queryByTestId('removed-playlist-items-count')).not.toBeInTheDocument()
+	})
+
+	it('shows the empty state and disables Continue once every item is removed', async () => {
+		renderStep()
+		// Ctrl+A highlights every row, so the right-click below acts on all three
+		// (openContextMenuForRow keeps a selection it right-clicks into), not just 'a'.
+		fireEvent.keyDown(window, {key: 'a', code: 'KeyA', ctrlKey: true})
+		fireEvent.contextMenu(screen.getByTestId('profile-row-a'))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+
+		expect(screen.queryByTestId(/^profile-row-/)).not.toBeInTheDocument()
+		expect(useAppStore.getState().removedPlaylistItemIds.sort()).toEqual(['a', 'b', 'c'])
+		expect(screen.getByTestId('playlist-profile-empty')).toBeInTheDocument()
+		expect(screen.getByRole('button', {name: 'Continue'})).toBeDisabled()
+		// Restore stays reachable even though the table itself is gone.
+		expect(screen.getByTestId('restore-removed-playlist-items')).toBeInTheDocument()
+	})
 })
 
 const ITEMS_PLAYLIST_ENTRIES: PlaylistEntry[] = [
@@ -332,6 +397,72 @@ describe('StepPlaylistItems multi-profile entry', () => {
 		expect(screen.getByTestId('enter-multi-profile')).toBeInTheDocument()
 		fireEvent.click(screen.getByTestId('enter-multi-profile'))
 		expect(useAppStore.getState().multiProfileMode).toBe(true)
+	})
+})
+
+describe('StepPlaylistItems remove and restore', () => {
+	beforeEach(() => {
+		vi.clearAllMocks()
+		window.platform = 'linux'
+		window.appApi = buildMockAppApi()
+	})
+
+	it('removes an unchecked row via the context menu without touching the rest of the selection', async () => {
+		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
+		fireEvent.click(screen.getByTestId('playlist-item-row-y'))
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['x'])
+
+		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-y'))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+
+		expect(screen.queryByTestId('playlist-item-row-y')).not.toBeInTheDocument()
+		expect(screen.getByTestId('playlist-item-row-x')).toBeInTheDocument()
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual(['y'])
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['x'])
+		expect(screen.getByTestId('removed-playlist-items-count')).toHaveTextContent('1 removed')
+	})
+
+	it('removes the whole checked set when right-clicking a checked row', async () => {
+		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
+
+		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-x'))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+
+		expect(screen.queryByTestId(/^playlist-item-row-/)).not.toBeInTheDocument()
+		expect(useAppStore.getState().removedPlaylistItemIds.slice().sort()).toEqual(['x', 'y'])
+	})
+
+	it('removes the checked items with the Delete key, but not while typing in the range inputs', () => {
+		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
+
+		fireEvent.keyDown(screen.getByPlaceholderText('1'), {key: 'Delete'})
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
+
+		fireEvent.keyDown(window, {key: 'Delete'})
+		expect(useAppStore.getState().removedPlaylistItemIds.slice().sort()).toEqual(['x', 'y'])
+	})
+
+	it('restores removed items via the Restore button', async () => {
+		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
+		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-x'))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+		expect(screen.queryByTestId(/^playlist-item-row-/)).not.toBeInTheDocument()
+
+		fireEvent.click(screen.getByTestId('restore-removed-playlist-items'))
+
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
+		expect(screen.getByTestId('playlist-item-row-x')).toBeInTheDocument()
+		expect(screen.getByTestId('playlist-item-row-y')).toBeInTheDocument()
+	})
+
+	it('shows the empty state and disables Continue once every item is removed', async () => {
+		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
+		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-x'))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+
+		expect(screen.getByTestId('playlist-items-empty')).toBeInTheDocument()
+		expect(screen.getByRole('button', {name: 'Continue'})).toBeDisabled()
+		expect(screen.getByTestId('restore-removed-playlist-items')).toBeInTheDocument()
 	})
 })
 

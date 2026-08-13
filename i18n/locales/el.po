@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Αποθήκευση μικρογραφίας"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "Επαναφέρετέ τα για να συνεχίσετε, ή επιστρέψτε και ξεκινήστε από την αρχή."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Όλα τα στοιχεία καταργήθηκαν"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Ήδη κατεβασμένο"
@@ -1680,6 +1688,22 @@ msgstr "Από"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Έως"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} καταργήθηκαν"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} καταργήθηκαν"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "Κατάργηση από τη λίστα"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Επαναφορά"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

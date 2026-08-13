@@ -101,7 +101,13 @@
 			"probeLimitAlertTitleGeneric": "Skanlash cheklangan",
 			"probeLimitAlertDesc": "Arroxy {{count}} tadan ortiq element topdi, shuning uchun joriy skaner chekovi qolganlarini yashirmoqda.",
 			"multiProfileEntry": "Har bir element uchun profil belgilash",
-			"multiProfileEntryTooltip": "Sifat, SponsorBlock, Chiqish va Saqlashni oʻtkazib yuboradi — buning oʻrniga har bir element uchun yuklab olish profilini belgilaydi"
+			"multiProfileEntryTooltip": "Sifat, SponsorBlock, Chiqish va Saqlashni oʻtkazib yuboradi — buning oʻrniga har bir element uchun yuklab olish profilini belgilaydi",
+			"removeFromList": "Ro'yxatdan o'chirish",
+			"restore": "Tiklash",
+			"removedCount_one": "{{count}} ta o'chirildi",
+			"removedCount_other": "{{count}} ta o'chirildi",
+			"allRemovedTitle": "Barcha elementlar o'chirildi",
+			"allRemovedDescription": "Davom etish uchun ularni tiklang yoki orqaga qaytib qaytadan boshlang."
 		},
 		"bulk": {
 			"title": "Ommaviy URLlar",

@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Сачувај сличицу"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "Врати их да наставиш, или се врати назад и почни изнова."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Све ставке су уклоњене"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Већ преузето"
@@ -1680,6 +1688,22 @@ msgstr "Од"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "До"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} уклоњено"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} уклоњено"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "Уклони са листе"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Врати"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

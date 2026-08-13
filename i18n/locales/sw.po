@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Hifadhi picha ndogo"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "Virejeshe ili kuendelea, au rudi nyuma uanze upya."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Vipengee vyote vimeondolewa"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Tayari imepakuliwa"
@@ -1680,6 +1688,22 @@ msgstr "Kutoka"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Hadi"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} zimeondolewa"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} zimeondolewa"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "Ondoa kwenye orodha"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Rejesha"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

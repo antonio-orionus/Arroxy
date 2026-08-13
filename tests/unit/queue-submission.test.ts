@@ -76,6 +76,10 @@ function state(overrides: Partial<AppState> = {}): AppState {
 	} as AppState
 }
 
+function manualPlaylistState(overrides: Partial<AppState> = {}): AppState {
+	return state({wizardMode: 'playlist', ...overrides})
+}
+
 function subtitleProfile(): DownloadProfile {
 	return {
 		id: 'subs',
@@ -255,6 +259,15 @@ describe('QueueSubmission', () => {
 		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal')
 
 		expect(prepared?.items[0]).toMatchObject({outputDir: '/downloads/Subs', job: {kind: 'subtitle-only', subtitles: {languages: ['en'], mode: 'sidecar', format: 'vtt', writeAuto: false}}})
+	})
+
+	it('keeps removed items out of the manual playlist submission and its manifest', () => {
+		const state = manualPlaylistState({playlistItems: PLAYLIST_ITEMS, selectedPlaylistItemIds: ['a', 'b'], removedPlaylistItemIds: ['b']})
+
+		const prepared = prepareManualQueueSubmission(state, 'normal')
+
+		expect(prepared?.items).toHaveLength(1)
+		expect(prepared?.manifest?.items.map(item => item.videoId)).toEqual(['a'])
 	})
 })
 

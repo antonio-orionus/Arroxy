@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "থাম্বনেইল সেভ করুন"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "চালিয়ে যেতে সেগুলি পুনরুদ্ধার করুন, অথবা ফিরে গিয়ে আবার শুরু করুন।"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "সব আইটেম সরানো হয়েছে"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "ইতিমধ্যেই ডাউনলোড করা"
@@ -1680,6 +1688,22 @@ msgstr "থেকে"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "পর্যন্ত"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}}টি সরানো হয়েছে"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}}টি সরানো হয়েছে"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "তালিকা থেকে সরান"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "পুনরুদ্ধার করুন"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

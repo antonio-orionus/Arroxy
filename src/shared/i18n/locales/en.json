@@ -84,7 +84,13 @@
 			"probeLimitAlertTitleGeneric": "Scan is capped",
 			"probeLimitAlertDesc": "Showing first {{count}} items. Increase the load limit to see more.",
 			"multiProfileEntry": "Assign profiles per item",
-			"multiProfileEntryTooltip": "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+			"multiProfileEntryTooltip": "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead",
+			"removeFromList": "Remove from list",
+			"restore": "Restore",
+			"removedCount_one": "{{count}} removed",
+			"removedCount_other": "{{count}} removed",
+			"allRemovedTitle": "Every item was removed",
+			"allRemovedDescription": "Restore them to continue, or go back and start over."
 		},
 		"bulk": {
 			"title": "Bulk URLs",

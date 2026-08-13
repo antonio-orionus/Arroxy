@@ -52,6 +52,10 @@ describe('playlistProfileAssignments', () => {
 		expect(clearAssignmentsForItems({a: PODCAST_REF, b: PODCAST_REF}, ['a'])).toEqual({b: PODCAST_REF})
 	})
 
+	it('drops assignments for removed items', () => {
+		expect(clearAssignmentsForItems({a: PODCAST_REF, b: PODCAST_REF}, ['b'])).toEqual({a: PODCAST_REF})
+	})
+
 	it('counts every item against its effective profile', () => {
 		const counts = profileAssignmentCounts(['a', 'b', 'c'], {c: PODCAST_REF}, PROFILES, ARCHIVE_REF)
 		expect(counts.get('archive')).toBe(2)

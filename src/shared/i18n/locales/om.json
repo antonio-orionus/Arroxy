@@ -105,7 +105,13 @@
 			"probeLimitAlertTitleGeneric": "Sakatta’iinsi daangeffameera",
 			"probeLimitAlertDesc": "Arroxy wantoota {{count}} ol argateera, kanaafuu daangaan qorannaa ammaa kan hafan dhoksaa jira.",
 			"multiProfileEntry": "Meeshaa tokkoon tokkoon Piroofaayilii ramaduu",
-			"multiProfileEntryTooltip": "Qulqullina, SponsorBlock, Ba'uu, fi Kuusi ni dabarsa — qooda kanaa meeshaa tokkoon tokkoon Piroofaayilii buufannaa ramadi"
+			"multiProfileEntryTooltip": "Qulqullina, SponsorBlock, Ba'uu, fi Kuusi ni dabarsa — qooda kanaa meeshaa tokkoon tokkoon Piroofaayilii buufannaa ramadi",
+			"removeFromList": "Tarreefaa keessaa balleessi",
+			"restore": "Deebi'si",
+			"removedCount_one": "{{count}} balleeffame",
+			"removedCount_other": "{{count}} balleeffame",
+			"allRemovedTitle": "Wanti hundinuu balleeffameera",
+			"allRemovedDescription": "Itti fufuudhaaf isaan deebisi, ykn duubatti deebi'iitii irra deebi'ii jalqabi."
 		},
 		"bulk": {
 			"title": "URL hedduu",

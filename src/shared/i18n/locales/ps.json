@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "سکن محدود دی",
 			"probeLimitAlertDesc": "Arroxy له {{count}} څخه زیات توکي وموندل، نو اوسنی سکین حد پاتې توکي پټوي.",
 			"multiProfileEntry": "د هرې توکي لپاره پروفایلونه وټاکئ",
-			"multiProfileEntryTooltip": "کیفیت, SponsorBlock, محصول، او خوندي کول پریږدي — پرځای یې د هرې توکي لپاره د ډاونلوډ پروفایل وټاکئ"
+			"multiProfileEntryTooltip": "کیفیت, SponsorBlock, محصول، او خوندي کول پریږدي — پرځای یې د هرې توکي لپاره د ډاونلوډ پروفایل وټاکئ",
+			"removeFromList": "له لیستې لیرې کړئ",
+			"restore": "بیرته راوستل",
+			"removedCount_one": "{{count}} لرې شوي",
+			"removedCount_other": "{{count}} لرې شوي",
+			"allRemovedTitle": "ټول توکي لرې شوي",
+			"allRemovedDescription": "د دوام لپاره یې بیرته راولئ، یا بیرته لاړ شئ او له سره پیل کړئ."
 		},
 		"bulk": {
 			"title": "ډېر URLونه",

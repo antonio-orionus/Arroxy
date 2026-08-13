@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "Η σάρωση είναι περιορισμένη",
 			"probeLimitAlertDesc": "Το Arroxy βρήκε περισσότερα από {{count}} στοιχεία, οπότε το τρέχον όριο σάρωσης αποκρύπτει τα υπόλοιπα.",
 			"multiProfileEntry": "Εκχώρηση προφίλ ανά στοιχείο",
-			"multiProfileEntryTooltip": "Παρακάμπτει την Ποιότητα, το SponsorBlock, την Έξοδο και την Αποθήκευση — εκχωρεί αντ' αυτού ένα προφίλ λήψης ανά στοιχείο"
+			"multiProfileEntryTooltip": "Παρακάμπτει την Ποιότητα, το SponsorBlock, την Έξοδο και την Αποθήκευση — εκχωρεί αντ' αυτού ένα προφίλ λήψης ανά στοιχείο",
+			"removeFromList": "Κατάργηση από τη λίστα",
+			"restore": "Επαναφορά",
+			"removedCount_one": "{{count}} καταργήθηκαν",
+			"removedCount_other": "{{count}} καταργήθηκαν",
+			"allRemovedTitle": "Όλα τα στοιχεία καταργήθηκαν",
+			"allRemovedDescription": "Επαναφέρετέ τα για να συνεχίσετε, ή επιστρέψτε και ξεκινήστε από την αρχή."
 		},
 		"bulk": {
 			"title": "Μαζικά URL",

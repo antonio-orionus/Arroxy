@@ -93,7 +93,13 @@
 			"probeLimitAlertTitleGeneric": "الفحص محدود",
 			"probeLimitAlertDesc": "عثر Arroxy على أكثر من {{count}} عنصر، لذا يُخفي حد الفحص الحالي بقية العناصر.",
 			"multiProfileEntry": "تعيين ملفات تنزيل لكل عنصر",
-			"multiProfileEntryTooltip": "يتخطى الجودة وSponsorBlock والإخراج والحفظ — ويُعيّن بدلاً من ذلك ملف تنزيل لكل عنصر"
+			"multiProfileEntryTooltip": "يتخطى الجودة وSponsorBlock والإخراج والحفظ — ويُعيّن بدلاً من ذلك ملف تنزيل لكل عنصر",
+			"removeFromList": "إزالة من القائمة",
+			"restore": "استعادة",
+			"removedCount_one": "تمت إزالة {{count}}",
+			"removedCount_other": "تمت إزالة {{count}}",
+			"allRemovedTitle": "تمت إزالة جميع العناصر",
+			"allRemovedDescription": "استعدها للمتابعة، أو ارجع وابدأ من جديد."
 		},
 		"bulk": {
 			"title": "روابط متعددة",

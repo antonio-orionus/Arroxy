@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Зберегти мініатюру"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "Відновіть їх, щоб продовжити, або поверніться назад і почніть спочатку."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Усі елементи видалено"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Уже завантажено"
@@ -1680,6 +1688,22 @@ msgstr "Від"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "До"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} видалено"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} видалено"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "Видалити зі списку"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Відновити"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

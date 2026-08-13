@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "ድንክ ምስል አስቀምጥ"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "ለመቀጠል መልሳቸው ወይም ተመለስ እና እንደገና ጀምር።"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "ሁሉም ንጥሎች ተወግደዋል"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "ቀድሞ ወርዷል"
@@ -1680,6 +1688,22 @@ msgstr "ከ"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "እስከ"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} ተወግደዋል"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} ተወግደዋል"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "ከዝርዝሩ አስወግድ"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "መልስ"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

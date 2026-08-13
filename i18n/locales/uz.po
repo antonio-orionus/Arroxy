@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Muqovani saqlash"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "Davom etish uchun ularni tiklang yoki orqaga qaytib qaytadan boshlang."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Barcha elementlar o'chirildi"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Allaqachon yuklab olingan"
@@ -1680,6 +1688,22 @@ msgstr "Dan"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Gacha"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} ta o'chirildi"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} ta o'chirildi"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "Ro'yxatdan o'chirish"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Tiklash"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

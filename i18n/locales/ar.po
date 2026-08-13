@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "حفظ الصورة المصغرة"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "استعدها للمتابعة، أو ارجع وابدأ من جديد."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "تمت إزالة جميع العناصر"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "تم تنزيله بالفعل"
@@ -1680,6 +1688,22 @@ msgstr "من"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "إلى"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "تمت إزالة {{count}}"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "تمت إزالة {{count}}"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "إزالة من القائمة"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "استعادة"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

@@ -1557,6 +1557,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "تھمب نیل محفوظ کریں"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue, or go back and start over."
+msgstr "جاری رکھنے کے لیے انہیں بحال کریں، یا واپس جا کر دوبارہ شروع کریں۔"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "تمام آئٹمز ہٹا دیے گئے"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "پہلے سے ڈاؤن لوڈ شدہ"
@@ -1680,6 +1688,22 @@ msgstr "سے"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "تک"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} ہٹا دیے گئے"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} ہٹا دیے گئے"
+
+msgctxt "wizard.playlist.removeFromList"
+msgid "Remove from list"
+msgstr "فہرست سے ہٹائیں"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "بحال کریں"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"

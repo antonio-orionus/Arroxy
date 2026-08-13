@@ -101,7 +101,13 @@
 			"probeLimitAlertTitleGeneric": "Сканування обмежено",
 			"probeLimitAlertDesc": "Arroxy знайшов більше {{count}} елементів, тому поточний ліміт сканування приховує решту.",
 			"multiProfileEntry": "Призначити профілі для кожного елемента",
-			"multiProfileEntryTooltip": "Пропускає Якість, SponsorBlock, Вивід і Зберегти — натомість призначає профіль завантаження для кожного елемента"
+			"multiProfileEntryTooltip": "Пропускає Якість, SponsorBlock, Вивід і Зберегти — натомість призначає профіль завантаження для кожного елемента",
+			"removeFromList": "Видалити зі списку",
+			"restore": "Відновити",
+			"removedCount_one": "{{count}} видалено",
+			"removedCount_other": "{{count}} видалено",
+			"allRemovedTitle": "Усі елементи видалено",
+			"allRemovedDescription": "Відновіть їх, щоб продовжити, або поверніться назад і почніть спочатку."
 		},
 		"bulk": {
 			"title": "Масові URL",
