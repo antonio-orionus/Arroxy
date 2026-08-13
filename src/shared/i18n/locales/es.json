@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "Ya descargado",
 			"probeLimitAlertTitle": "El escaneo de la playlist está limitado",
 			"probeLimitAlertTitleGeneric": "El escaneo está limitado",
-			"probeLimitAlertDesc": "Arroxy encontró más de {{count}} elementos, por lo que el límite de escaneo actual está ocultando el resto."
+			"probeLimitAlertDesc": "Arroxy encontró más de {{count}} elementos, por lo que el límite de escaneo actual está ocultando el resto.",
+			"multiProfileEntry": "Asignar perfiles por elemento",
+			"multiProfileEntryTooltip": "Omite Calidad, SponsorBlock, Salida y Guardar — asigna en su lugar un perfil de descarga por elemento"
 		},
 		"bulk": {
 			"title": "URLs en lote",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "{{count}} de {{total}} pista",
 			"itemsValueAudio_other": "{{count}} de {{total}} pistas",
 			"itemsValueBulk_one": "{{count}} de {{total}} URL",
-			"itemsValueBulk_other": "{{count}} de {{total}} URLs"
+			"itemsValueBulk_other": "{{count}} de {{total}} URLs",
+			"profileBreakdownHeading": "Perfiles en este lote",
+			"profileBreakdownCount_one": "{{count}} elemento",
+			"profileBreakdownCount_other": "{{count}} elementos"
 		},
 		"profileEditor": {
 			"dialogTitle": "Perfil de descarga",

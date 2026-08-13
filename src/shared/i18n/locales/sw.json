@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "Tayari imepakuliwa",
 			"probeLimitAlertTitle": "Skani ya playlist imefungwa",
 			"probeLimitAlertTitleGeneric": "Uchanganuzi umewekewa kikomo",
-			"probeLimitAlertDesc": "Arroxy imepata zaidi ya vipande {{count}}, kwa hivyo kikomo cha skani cha sasa kinaficha vilivyobaki."
+			"probeLimitAlertDesc": "Arroxy imepata zaidi ya vipande {{count}}, kwa hivyo kikomo cha skani cha sasa kinaficha vilivyobaki.",
+			"multiProfileEntry": "Weka wasifu kwa kila kipengele",
+			"multiProfileEntryTooltip": "Inaruka Ubora, SponsorBlock, Matokeo, na Hifadhi — badala yake weka wasifu wa upakuaji kwa kila kipengele"
 		},
 		"bulk": {
 			"title": "URL nyingi",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "{{count}} kati ya {{total}} wimbo",
 			"itemsValueAudio_other": "{{count}} kati ya {{total}} nyimbo",
 			"itemsValueBulk_one": "{{count}} kati ya {{total}} URL",
-			"itemsValueBulk_other": "{{count}} kati ya {{total}} URL"
+			"itemsValueBulk_other": "{{count}} kati ya {{total}} URL",
+			"profileBreakdownHeading": "Wasifu katika kundi hili",
+			"profileBreakdownCount_one": "{{count}} kipande",
+			"profileBreakdownCount_other": "{{count}} vipande"
 		},
 		"profileEditor": {
 			"dialogTitle": "Wasifu wa upakuaji",

@@ -1165,6 +1165,18 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Пресет «Только субтитры» активен, но язык субтитров не выбран — ничего не будет скачано."
 
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} элемент"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} элементов"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Профили в этой партии"
+
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
 msgstr "Качаем! ↓"
@@ -1632,6 +1644,14 @@ msgstr "Сбор видео"
 msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "Сканирование страниц канала"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Назначить профили по элементам"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Пропускает Качество, SponsorBlock, Вывод и Сохранить — вместо этого назначает профиль загрузки для каждого элемента"
 
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"

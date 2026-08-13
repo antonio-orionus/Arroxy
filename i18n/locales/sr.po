@@ -1165,6 +1165,18 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Поставка „само титлови\" је активна, али није изабран ниједан језик — ништа неће бити преузето."
 
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} ставка"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} ставки"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Профили у овој серији"
+
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
 msgstr "Преузми! ↓"
@@ -1632,6 +1644,14 @@ msgstr "Прикупљање видео снимака"
 msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "Скенирање страница канала"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Додели профиле по ставци"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Прескаче Квалитет, SponsorBlock, Излаз и Сачувај — уместо тога додељује профил преузимања по ставци"
 
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"

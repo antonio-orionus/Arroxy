@@ -100,7 +100,9 @@
 			"alreadyDownloaded": "Duraan buufameera",
 			"probeLimitAlertTitle": "Qorannaan playlist daangeffameera",
 			"probeLimitAlertTitleGeneric": "Sakatta’iinsi daangeffameera",
-			"probeLimitAlertDesc": "Arroxy wantoota {{count}} ol argateera, kanaafuu daangaan qorannaa ammaa kan hafan dhoksaa jira."
+			"probeLimitAlertDesc": "Arroxy wantoota {{count}} ol argateera, kanaafuu daangaan qorannaa ammaa kan hafan dhoksaa jira.",
+			"multiProfileEntry": "Meeshaa tokkoon tokkoon Piroofaayilii ramaduu",
+			"multiProfileEntryTooltip": "Qulqullina, SponsorBlock, Ba'uu, fi Kuusi ni dabarsa — qooda kanaa meeshaa tokkoon tokkoon Piroofaayilii buufannaa ramadi"
 		},
 		"bulk": {
 			"title": "URL hedduu",
@@ -409,7 +411,10 @@
 			"itemsValueAudio_one": "{{count}} fi {{total}} keessaa weellaa",
 			"itemsValueAudio_other": "{{count}} fi {{total}} keessaa weellaalee",
 			"itemsValueBulk_one": "{{count}} URL keessaa {{total}}",
-			"itemsValueBulk_other": "{{count}} URL keessaa {{total}}"
+			"itemsValueBulk_other": "{{count}} URL keessaa {{total}}",
+			"profileBreakdownHeading": "Piroofaayiloota kuma kana keessatti",
+			"profileBreakdownCount_one": "{{count}} wanta",
+			"profileBreakdownCount_other": "{{count}} wantota"
 		},
 		"profileEditor": {
 			"dialogTitle": "Piroofaayilii buufataa",

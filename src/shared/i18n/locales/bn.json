@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "ইতিমধ্যেই ডাউনলোড করা",
 			"probeLimitAlertTitle": "প্লেলিস্ট স্ক্যান সীমাবদ্ধ করা হয়েছে",
 			"probeLimitAlertTitleGeneric": "স্ক্যান সীমিত করা হয়েছে",
-			"probeLimitAlertDesc": "Arroxy {{count}}-এর বেশি আইটেম খুঁজে পেয়েছে, তাই বর্তমান স্ক্যান সীমা বাকিগুলো লুকিয়ে রাখছে।"
+			"probeLimitAlertDesc": "Arroxy {{count}}-এর বেশি আইটেম খুঁজে পেয়েছে, তাই বর্তমান স্ক্যান সীমা বাকিগুলো লুকিয়ে রাখছে।",
+			"multiProfileEntry": "প্রতিটি আইটেমে প্রোফাইল নির্ধারণ করুন",
+			"multiProfileEntryTooltip": "মান, SponsorBlock, আউটপুট এবং সেভ এড়িয়ে যায় — পরিবর্তে প্রতিটি আইটেমে একটি ডাউনলোড প্রোফাইল নির্ধারণ করুন"
 		},
 		"bulk": {
 			"title": "বাল্ক URL",
@@ -381,7 +383,10 @@
 			"itemsValueAudio_one": "{{total}}-এর মধ্যে {{count}}টি ট্র্যাক",
 			"itemsValueAudio_other": "{{total}}-এর মধ্যে {{count}}টি ট্র্যাক",
 			"itemsValueBulk_one": "{{total}} URL-এর মধ্যে {{count}}",
-			"itemsValueBulk_other": "{{total}} URL-এর মধ্যে {{count}}"
+			"itemsValueBulk_other": "{{total}} URL-এর মধ্যে {{count}}",
+			"profileBreakdownHeading": "এই ব্যাচের প্রোফাইলগুলি",
+			"profileBreakdownCount_one": "{{count}}টি আইটেম",
+			"profileBreakdownCount_other": "{{count}}টি আইটেম"
 		},
 		"profileEditor": {
 			"dialogTitle": "ডাউনলোড প্রোফাইল",

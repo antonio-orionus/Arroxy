@@ -96,7 +96,9 @@
 			"alreadyDownloaded": "Већ преузето",
 			"probeLimitAlertTitle": "Скенирање плејлисте је ограничено",
 			"probeLimitAlertTitleGeneric": "Скенирање је ограничено",
-			"probeLimitAlertDesc": "Arroxy је пронашао више од {{count}} ставки, па тренутно ограничење скенирања скрива остатак."
+			"probeLimitAlertDesc": "Arroxy је пронашао више од {{count}} ставки, па тренутно ограничење скенирања скрива остатак.",
+			"multiProfileEntry": "Додели профиле по ставци",
+			"multiProfileEntryTooltip": "Прескаче Квалитет, SponsorBlock, Излаз и Сачувај — уместо тога додељује профил преузимања по ставци"
 		},
 		"bulk": {
 			"title": "Групни URL-ови",
@@ -405,7 +407,10 @@
 			"itemsValueAudio_one": "{{count}} од {{total}} нумере",
 			"itemsValueAudio_other": "{{count}} од {{total}} нумера",
 			"itemsValueBulk_one": "{{count}} од {{total}} URL-а",
-			"itemsValueBulk_other": "{{count}} од {{total}} URL-ова"
+			"itemsValueBulk_other": "{{count}} од {{total}} URL-ова",
+			"profileBreakdownHeading": "Профили у овој серији",
+			"profileBreakdownCount_one": "{{count}} ставка",
+			"profileBreakdownCount_other": "{{count}} ставки"
 		},
 		"profileEditor": {
 			"dialogTitle": "Профил преузимања",

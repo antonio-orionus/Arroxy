@@ -79,7 +79,9 @@
 			"alreadyDownloaded": "ဒေါင်းလုဒ်ပြီးသား",
 			"probeLimitAlertTitle": "Playlist scan ကန့်သတ်ထားသည်",
 			"probeLimitAlertTitleGeneric": "စကင်န်ကန့်သတ်ထားသည်",
-			"probeLimitAlertDesc": "Arroxy သည် {{count}} ထက်ပိုသော အကြောင်းအရာများ တွေ့ရှိသောကြောင့် လက်ရှိ scan ကန့်သတ်ချက်ကြောင့် ကျန်သောအရာများ ဖျောက်ထားသည်။"
+			"probeLimitAlertDesc": "Arroxy သည် {{count}} ထက်ပိုသော အကြောင်းအရာများ တွေ့ရှိသောကြောင့် လက်ရှိ scan ကန့်သတ်ချက်ကြောင့် ကျန်သောအရာများ ဖျောက်ထားသည်။",
+			"multiProfileEntry": "အရာတစ်ခုချင်းစီအတွက် ပရိုဖိုင်များ သတ်မှတ်ပါ",
+			"multiProfileEntryTooltip": "အရည်အသွေး၊ SponsorBlock၊ ထွက်ပေါ်မည့်ဖိုင် နှင့် သိမ်းမည် တို့ကို ကျော်ပြီး — အစား အရာတစ်ခုချင်းစီအတွက် ဒေါင်းလုဒ်ပရိုဖိုင် သတ်မှတ်ပါ"
 		},
 		"bulk": {
 			"title": "URL အများအပြား",
@@ -388,7 +390,10 @@
 			"itemsValueAudio_one": "{{total}} ခုမှ {{count}} သီချင်း",
 			"itemsValueAudio_other": "{{total}} ခုမှ {{count}} သီချင်းများ",
 			"itemsValueBulk_one": "{{total}} URL မှ {{count}}",
-			"itemsValueBulk_other": "{{total}} URL မှ {{count}}"
+			"itemsValueBulk_other": "{{total}} URL မှ {{count}}",
+			"profileBreakdownHeading": "ဤအစုအတွက် ပရိုဖိုင်များ",
+			"profileBreakdownCount_one": "{{count}} ခု",
+			"profileBreakdownCount_other": "{{count}} ခု"
 		},
 		"profileEditor": {
 			"dialogTitle": "ဒေါင်းလုဒ် ပရိုဖိုင်",

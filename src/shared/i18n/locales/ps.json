@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "مخکې ډاونلوډ شوی",
 			"probeLimitAlertTitle": "د Playlist سکین محدود دی",
 			"probeLimitAlertTitleGeneric": "سکن محدود دی",
-			"probeLimitAlertDesc": "Arroxy له {{count}} څخه زیات توکي وموندل، نو اوسنی سکین حد پاتې توکي پټوي."
+			"probeLimitAlertDesc": "Arroxy له {{count}} څخه زیات توکي وموندل، نو اوسنی سکین حد پاتې توکي پټوي.",
+			"multiProfileEntry": "د هرې توکي لپاره پروفایلونه وټاکئ",
+			"multiProfileEntryTooltip": "کیفیت, SponsorBlock, محصول، او خوندي کول پریږدي — پرځای یې د هرې توکي لپاره د ډاونلوډ پروفایل وټاکئ"
 		},
 		"bulk": {
 			"title": "ډېر URLونه",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "{{count}} له {{total}} ټریک",
 			"itemsValueAudio_other": "{{count}} له {{total}} ټریکونه",
 			"itemsValueBulk_one": "{{count}} له {{total}} URL",
-			"itemsValueBulk_other": "{{count}} له {{total}} URLونو"
+			"itemsValueBulk_other": "{{count}} له {{total}} URLونو",
+			"profileBreakdownHeading": "په دې ډله کې پروفایلونه",
+			"profileBreakdownCount_one": "{{count}} توکی",
+			"profileBreakdownCount_other": "{{count}} توکي"
 		},
 		"profileEditor": {
 			"dialogTitle": "د ښکته کولو پروفایل",

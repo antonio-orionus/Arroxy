@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "ダウンロード済み",
 			"probeLimitAlertTitle": "プレイリストのスキャンが上限に達しました",
 			"probeLimitAlertTitleGeneric": "スキャン上限に達しました",
-			"probeLimitAlertDesc": "Arroxy は {{count}} 件を超えるアイテムを検出しましたが、現在のスキャン上限により残りは表示されていません。"
+			"probeLimitAlertDesc": "Arroxy は {{count}} 件を超えるアイテムを検出しましたが、現在のスキャン上限により残りは表示されていません。",
+			"multiProfileEntry": "アイテムごとにプロファイルを割り当て",
+			"multiProfileEntryTooltip": "画質、SponsorBlock、出力、保存先をスキップ — 代わりにアイテムごとにダウンロードプロファイルを割り当てます"
 		},
 		"bulk": {
 			"title": "一括 URL",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "全{{total}}曲中{{count}}曲",
 			"itemsValueAudio_other": "全{{total}}曲中{{count}}曲",
 			"itemsValueBulk_one": "{{count}} / {{total}} URL",
-			"itemsValueBulk_other": "{{count}} / {{total}} URL"
+			"itemsValueBulk_other": "{{count}} / {{total}} URL",
+			"profileBreakdownHeading": "このバッチのプロファイル",
+			"profileBreakdownCount_one": "{{count}} 件",
+			"profileBreakdownCount_other": "{{count}} 件"
 		},
 		"profileEditor": {
 			"dialogTitle": "ダウンロードプロフィール",

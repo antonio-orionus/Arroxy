@@ -79,7 +79,9 @@
 			"alreadyDownloaded": "ቀድሞ ወርዷል",
 			"probeLimitAlertTitle": "የ Playlist ቃኝት ተገድቧል",
 			"probeLimitAlertTitleGeneric": "ፍተሻው ተገድቧል",
-			"probeLimitAlertDesc": "Arroxy ከ {{count}} በላይ ንጥሎችን አግኝቷል፣ ስለዚህ የአሁኑ ቃኝት ገደብ የቀሩትን እየደበቀ ነው።"
+			"probeLimitAlertDesc": "Arroxy ከ {{count}} በላይ ንጥሎችን አግኝቷል፣ ስለዚህ የአሁኑ ቃኝት ገደብ የቀሩትን እየደበቀ ነው።",
+			"multiProfileEntry": "ለእያንዳንዱ ንጥል መገለጫ መድብ",
+			"multiProfileEntryTooltip": "ጥራት፣ SponsorBlock፣ ውፅዓት እና አስቀምጥን ይዘላል — በምትኩ ለእያንዳንዱ ንጥል የማውረድ መገለጫ ይመድቡ"
 		},
 		"bulk": {
 			"title": "ብዙ URLዎች",
@@ -364,7 +366,10 @@
 			"itemsValueAudio_one": "{{count}} ከ {{total}} ዘፈን",
 			"itemsValueAudio_other": "{{count}} ከ {{total}} ዘፈኖች",
 			"itemsValueBulk_one": "{{count}} ከ{{total}} URL",
-			"itemsValueBulk_other": "{{count}} ከ{{total}} URLዎች"
+			"itemsValueBulk_other": "{{count}} ከ{{total}} URLዎች",
+			"profileBreakdownHeading": "በዚህ ስብስብ ውስጥ ያሉ መገለጫዎች",
+			"profileBreakdownCount_one": "{{count}} ንጥል",
+			"profileBreakdownCount_other": "{{count}} ንጥሎች"
 		},
 		"profileEditor": {
 			"dialogTitle": "የማውረድ መገለጫ",

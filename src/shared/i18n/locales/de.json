@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "Bereits heruntergeladen",
 			"probeLimitAlertTitle": "Playlist-Scan ist begrenzt",
 			"probeLimitAlertTitleGeneric": "Scan ist begrenzt",
-			"probeLimitAlertDesc": "Arroxy hat mehr als {{count}} Einträge gefunden, daher verbirgt das aktuelle Scan-Limit den Rest."
+			"probeLimitAlertDesc": "Arroxy hat mehr als {{count}} Einträge gefunden, daher verbirgt das aktuelle Scan-Limit den Rest.",
+			"multiProfileEntry": "Profile pro Element zuweisen",
+			"multiProfileEntryTooltip": "Überspringt Qualität, SponsorBlock, Ausgabe und Speichern — weist stattdessen jedem Element ein Download-Profil zu"
 		},
 		"bulk": {
 			"title": "Bulk-URLs",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "{{count}} von {{total}} Titel",
 			"itemsValueAudio_other": "{{count}} von {{total}} Titeln",
 			"itemsValueBulk_one": "{{count}} von {{total}} URL",
-			"itemsValueBulk_other": "{{count}} von {{total}} URLs"
+			"itemsValueBulk_other": "{{count}} von {{total}} URLs",
+			"profileBreakdownHeading": "Profile in diesem Stapel",
+			"profileBreakdownCount_one": "{{count}} Element",
+			"profileBreakdownCount_other": "{{count}} Elemente"
 		},
 		"profileEditor": {
 			"dialogTitle": "Download-Profil",

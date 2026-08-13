@@ -1,9 +1,27 @@
 // @vitest-environment jsdom
-import {fireEvent, render, screen, within} from '@testing-library/react'
+import {cleanup, fireEvent, render, screen, within} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
+import type {DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
+import * as downloadProfilesModule from '@shared/downloadProfiles.js'
+import {defaultAppSettings} from '@shared/constants.js'
+import type {AppState} from '@renderer/store/types.js'
+import {StepPlaylistItems} from '@renderer/components/wizard/StepPlaylistItems.js'
 import {StepPlaylistProfiles} from '@renderer/components/wizard/StepPlaylistProfiles.js'
+import {multiProfileBreakdown} from '@renderer/store/wizard/downloadReviewProjection.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
+import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
+import {buildMockAppApi} from '../shared/mockAppApi.js'
+
+// Entry-button gating uses the real `allDownloadProfiles` in production, but
+// that helper always prepends the 10 real builtins — so the catalog it
+// returns can never actually drop below 2. Wrapping it in a passthrough spy
+// lets the gating-boundary test below control exactly what the component
+// sees (1 vs 2 profiles) without touching how `StepPlaylistProfiles`'s tests
+// further down exercise the real, unmodified catalog.
+vi.mock('@shared/downloadProfiles.js', async importOriginal => {
+	const actual = await importOriginal<typeof import('@shared/downloadProfiles.js')>()
+	return {...actual, allDownloadProfiles: vi.fn(actual.allDownloadProfiles)}
+})
 
 function profile(id: string, name: string, icon: DownloadProfile['icon']): DownloadProfile {
 	return {
@@ -25,6 +43,7 @@ function profile(id: string, name: string, icon: DownloadProfile['icon']): Downl
 const ARCHIVE = profile('archive', 'Archive 4K', 'archive')
 const PODCAST = profile('podcast', 'Podcast MP3', 'podcast')
 const ARCHIVE_REF: DownloadProfileRef = {kind: 'custom', id: 'archive'}
+const PODCAST_REF: DownloadProfileRef = {kind: 'custom', id: 'podcast'}
 
 // jsdom reports a zero-height scroll container, so the real virtualizer only
 // windows in a single row. Stub it to always render every row — same fix
@@ -152,5 +171,125 @@ describe('StepPlaylistProfiles', () => {
 		expect(within(screen.getByTestId('profile-row-a')).getByText('Best available')).toBeInTheDocument()
 		expect(within(screen.getByTestId('profile-row-c')).getByText('Best available')).toBeInTheDocument()
 		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
+	})
+})
+
+const ITEMS_PLAYLIST_ENTRIES: PlaylistEntry[] = [
+	{id: 'x', url: 'https://example.com/x', title: 'First video', thumbnail: '', duration: 120, playlistIndex: 0, videoId: 'x'},
+	{id: 'y', url: 'https://example.com/y', title: 'Second video', thumbnail: '', duration: 130, playlistIndex: 1, videoId: 'y'}
+]
+
+function renderItemsStep({profiles, wizardMode = 'playlist'}: {profiles: DownloadProfile[]; wizardMode?: 'playlist' | 'bulk'}): ReturnType<typeof render> {
+	useAppStore.setState({
+		...RESET_WIZARD_STATE,
+		initialized: true,
+		initializing: false,
+		settings: {...defaultAppSettings('/downloads'), profiles: {active: ARCHIVE_REF, custom: profiles.filter(p => p.id !== 'balanced'), overrides: []}},
+		wizardOutputDir: '/downloads',
+		wizardStep: 'playlistItems',
+		wizardMode,
+		wizardExtractor: 'youtube:playlist',
+		playlistItems: ITEMS_PLAYLIST_ENTRIES,
+		selectedPlaylistItemIds: ITEMS_PLAYLIST_ENTRIES.map(entry => entry.id),
+		playlistTitle: 'Playlist',
+		playlistSelection: {kind: 'video', tier: 'best', codec: 'best'},
+		queue: []
+	} as never)
+	// Controls the exact catalog size the gating check under test sees — see
+	// the module-level `vi.mock` comment above for why this can't be done by
+	// shaping `settings.profiles` alone.
+	vi.mocked(downloadProfilesModule.allDownloadProfiles).mockReturnValueOnce(profiles)
+	return render(<StepPlaylistItems />)
+}
+
+describe('StepPlaylistItems multi-profile entry', () => {
+	beforeEach(() => {
+		vi.clearAllMocks()
+		window.platform = 'linux'
+		window.appApi = buildMockAppApi()
+	})
+
+	it('offers the entry button only when two or more profiles exist', () => {
+		renderItemsStep({profiles: [ARCHIVE]})
+		expect(screen.queryByTestId('enter-multi-profile')).not.toBeInTheDocument()
+		cleanup()
+
+		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
+		expect(screen.getByTestId('enter-multi-profile')).toBeInTheDocument()
+	})
+
+	it('enters multi-profile mode when clicked', () => {
+		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
+
+		fireEvent.click(screen.getByTestId('enter-multi-profile'))
+
+		expect(useAppStore.getState().multiProfileMode).toBe(true)
+		expect(useAppStore.getState().wizardStep).toBe('playlistProfiles')
+	})
+
+	it('disables the entry button when nothing is selected, matching Continue', () => {
+		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
+		fireEvent.click(screen.getByText('Select none'))
+
+		expect(screen.getByTestId('enter-multi-profile')).toBeDisabled()
+	})
+
+	it('is also reachable in bulk-URL wizard mode, not just playlist mode', () => {
+		// The footer button isn't gated on wizardMode at all — bulk mode populates
+		// the same playlistItems/selectedPlaylistItemIds shape a playlist probe
+		// does, and the playlistProfiles step doesn't care which mode got it there.
+		renderItemsStep({profiles: [ARCHIVE, PODCAST], wizardMode: 'bulk'})
+
+		expect(screen.getByTestId('enter-multi-profile')).toBeInTheDocument()
+		fireEvent.click(screen.getByTestId('enter-multi-profile'))
+		expect(useAppStore.getState().multiProfileMode).toBe(true)
+	})
+})
+
+function multiProfileState(overrides: Partial<AppState> = {}): AppState {
+	return {wizardOutputDir: '/downloads', playlistItems: [], selectedPlaylistItemIds: [], removedPlaylistItemIds: [], playlistProfileAssignments: {}, settings: {...defaultAppSettings('/downloads'), profiles: {active: ARCHIVE_REF, custom: [ARCHIVE, PODCAST], overrides: []}}, ...overrides} as AppState
+}
+
+describe('multiProfileBreakdown', () => {
+	it('groups the confirm summary by profile, ordered baseline-then-custom-then-builtin', () => {
+		const rows = multiProfileBreakdown(multiProfileState({playlistItems: ITEMS_PLAYLIST_ENTRIES, selectedPlaylistItemIds: ['x', 'y'], playlistProfileAssignments: {y: PODCAST_REF}}))
+
+		// Pinned order AND both names+counts: under raw catalog order (10
+		// builtins first, customs last) this would come back empty for the
+		// custom profiles used here, or in the wrong order — proving the
+		// breakdown reuses playlistProfileOrder.ts rather than catalog order.
+		expect(rows.map(row => [row.name, row.count])).toEqual([
+			['Archive 4K', 1],
+			['Podcast MP3', 1]
+		])
+	})
+
+	it('excludes profiles nothing was assigned to', () => {
+		const rows = multiProfileBreakdown(multiProfileState({playlistItems: ITEMS_PLAYLIST_ENTRIES, selectedPlaylistItemIds: ['x', 'y'], playlistProfileAssignments: {}}))
+
+		expect(rows).toHaveLength(1)
+		expect(rows[0]?.name).toBe('Archive 4K')
+		expect(rows[0]?.count).toBe(2)
+	})
+
+	it('excludes removed items from the counts', () => {
+		const rows = multiProfileBreakdown(multiProfileState({playlistItems: ITEMS_PLAYLIST_ENTRIES, selectedPlaylistItemIds: ['x', 'y'], removedPlaylistItemIds: ['y'], playlistProfileAssignments: {y: PODCAST_REF}}))
+
+		expect(rows.map(row => [row.name, row.count])).toEqual([['Archive 4K', 1]])
+	})
+
+	it("resolves each row destination from that profile's own fixed output dir, not the wizard default", () => {
+		// ARCHIVE/PODCAST as defined above both use output.kind 'default', which
+		// would collapse to the same shared dir and make this assertion trivially
+		// true. Give each a distinct fixed dir so the test actually proves
+		// per-profile resolution rather than both rows echoing wizardOutputDir.
+		const archiveFixed: DownloadProfile = {...ARCHIVE, output: {kind: 'fixed', dir: '/downloads/archive'}}
+		const podcastFixed: DownloadProfile = {...PODCAST, output: {kind: 'fixed', dir: '/downloads/podcast'}}
+		const rows = multiProfileBreakdown(multiProfileState({playlistItems: ITEMS_PLAYLIST_ENTRIES, selectedPlaylistItemIds: ['x', 'y'], playlistProfileAssignments: {y: PODCAST_REF}, settings: {...defaultAppSettings('/downloads'), profiles: {active: ARCHIVE_REF, custom: [archiveFixed, podcastFixed], overrides: []}}}))
+
+		const archiveRow = rows.find(row => row.profileId === 'archive')
+		const podcastRow = rows.find(row => row.profileId === 'podcast')
+		expect(archiveRow?.outputDir).toBe('/downloads/archive')
+		expect(podcastRow?.outputDir).toBe('/downloads/podcast')
 	})
 })

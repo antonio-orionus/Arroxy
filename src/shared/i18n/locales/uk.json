@@ -96,7 +96,9 @@
 			"alreadyDownloaded": "Уже завантажено",
 			"probeLimitAlertTitle": "Сканування плейлиста обмежено",
 			"probeLimitAlertTitleGeneric": "Сканування обмежено",
-			"probeLimitAlertDesc": "Arroxy знайшов більше {{count}} елементів, тому поточний ліміт сканування приховує решту."
+			"probeLimitAlertDesc": "Arroxy знайшов більше {{count}} елементів, тому поточний ліміт сканування приховує решту.",
+			"multiProfileEntry": "Призначити профілі для кожного елемента",
+			"multiProfileEntryTooltip": "Пропускає Якість, SponsorBlock, Вивід і Зберегти — натомість призначає профіль завантаження для кожного елемента"
 		},
 		"bulk": {
 			"title": "Масові URL",
@@ -405,7 +407,10 @@
 			"itemsValueAudio_one": "{{count}} з {{total}} треку",
 			"itemsValueAudio_other": "{{count}} з {{total}} треків",
 			"itemsValueBulk_one": "{{count}} з {{total}} URL",
-			"itemsValueBulk_other": "{{count}} з {{total}} URL"
+			"itemsValueBulk_other": "{{count}} з {{total}} URL",
+			"profileBreakdownHeading": "Профілі в цій партії",
+			"profileBreakdownCount_one": "{{count}} елемент",
+			"profileBreakdownCount_other": "{{count}} елементів"
 		},
 		"profileEditor": {
 			"dialogTitle": "Профіль завантаження",

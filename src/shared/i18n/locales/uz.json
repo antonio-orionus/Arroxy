@@ -96,7 +96,9 @@
 			"alreadyDownloaded": "Allaqachon yuklab olingan",
 			"probeLimitAlertTitle": "Pleylist skaneri cheklangan",
 			"probeLimitAlertTitleGeneric": "Skanlash cheklangan",
-			"probeLimitAlertDesc": "Arroxy {{count}} tadan ortiq element topdi, shuning uchun joriy skaner chekovi qolganlarini yashirmoqda."
+			"probeLimitAlertDesc": "Arroxy {{count}} tadan ortiq element topdi, shuning uchun joriy skaner chekovi qolganlarini yashirmoqda.",
+			"multiProfileEntry": "Har bir element uchun profil belgilash",
+			"multiProfileEntryTooltip": "Sifat, SponsorBlock, Chiqish va Saqlashni oʻtkazib yuboradi — buning oʻrniga har bir element uchun yuklab olish profilini belgilaydi"
 		},
 		"bulk": {
 			"title": "Ommaviy URLlar",
@@ -405,7 +407,10 @@
 			"itemsValueAudio_one": "{{total}} ta trekning {{count}} tasi",
 			"itemsValueAudio_other": "{{total}} ta trekning {{count}} tasi",
 			"itemsValueBulk_one": "{{total}} URLdan {{count}} tasi",
-			"itemsValueBulk_other": "{{total}} URLdan {{count}} tasi"
+			"itemsValueBulk_other": "{{total}} URLdan {{count}} tasi",
+			"profileBreakdownHeading": "Ushbu partiyadagi profillar",
+			"profileBreakdownCount_one": "{{count}} ta element",
+			"profileBreakdownCount_other": "{{count}} ta element"
 		},
 		"profileEditor": {
 			"dialogTitle": "Yuklab olish profili",

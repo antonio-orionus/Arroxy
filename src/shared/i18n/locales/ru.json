@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "Уже скачано",
 			"probeLimitAlertTitle": "Сканирование плейлиста ограничено",
 			"probeLimitAlertTitleGeneric": "Сканирование ограничено",
-			"probeLimitAlertDesc": "Arroxy нашёл более {{count}} элементов, поэтому текущий лимит сканирования скрывает остальные."
+			"probeLimitAlertDesc": "Arroxy нашёл более {{count}} элементов, поэтому текущий лимит сканирования скрывает остальные.",
+			"multiProfileEntry": "Назначить профили по элементам",
+			"multiProfileEntryTooltip": "Пропускает Качество, SponsorBlock, Вывод и Сохранить — вместо этого назначает профиль загрузки для каждого элемента"
 		},
 		"bulk": {
 			"title": "Массовые URL",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "{{count}} из {{total}} трека",
 			"itemsValueAudio_other": "{{count}} из {{total}} треков",
 			"itemsValueBulk_one": "{{count}} из {{total}} URL",
-			"itemsValueBulk_other": "{{count}} из {{total}} URL"
+			"itemsValueBulk_other": "{{count}} из {{total}} URL",
+			"profileBreakdownHeading": "Профили в этой партии",
+			"profileBreakdownCount_one": "{{count}} элемент",
+			"profileBreakdownCount_other": "{{count}} элементов"
 		},
 		"profileEditor": {
 			"dialogTitle": "Профиль загрузки",

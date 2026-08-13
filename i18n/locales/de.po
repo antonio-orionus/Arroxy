@@ -1165,6 +1165,18 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Das Voreinstellung „Nur Untertitel\" ist aktiv, aber keine Untertitelsprache ausgewählt – es wird nichts heruntergeladen."
 
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} Element"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} Elemente"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Profile in diesem Stapel"
+
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
 msgstr "Hol's rein! ↓"
@@ -1632,6 +1644,14 @@ msgstr "Videos werden gesammelt"
 msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "Kanalseiten werden geprüft"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Profile pro Element zuweisen"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Überspringt Qualität, SponsorBlock, Ausgabe und Speichern — weist stattdessen jedem Element ein Download-Profil zu"
 
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"

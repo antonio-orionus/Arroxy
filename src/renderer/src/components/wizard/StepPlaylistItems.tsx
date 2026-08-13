@@ -1,15 +1,17 @@
 import {useMemo, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useVirtualizer} from '@tanstack/react-virtual'
-import {FolderCheck, FolderSearch, Info, X} from 'lucide-react'
+import {FolderCheck, FolderSearch, Info, Layers, X} from 'lucide-react'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Checkbox} from '../ui/checkbox.js'
 import {Input} from '../ui/input.js'
 import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
+import {Tooltip, TooltipTrigger, TooltipContent} from '../ui/tooltip.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
+import {allDownloadProfiles} from '@shared/downloadProfiles.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {resolvePlaylistDir} from '../../store/wizard/playlistDir.js'
 import {formatEntryDuration} from '@renderer/lib/formatDuration.js'
@@ -101,6 +103,7 @@ export function StepPlaylistItems(): ReactNode {
 		selectNonePlaylistItems,
 		selectPlaylistRange,
 		confirmPlaylistSelection,
+		enterMultiProfileMode,
 		back,
 		wizardExtractor,
 		wizardUrl,
@@ -173,6 +176,10 @@ export function StepPlaylistItems(): ReactNode {
 	// compactly instead of showing 500 empty boxes.
 	const hasAnyThumbnail = useMemo(() => playlistItems.some(e => !!e.thumbnail), [playlistItems])
 	const canContinue = selectedCount > 0 && !playlistBusy
+	// The mode is meaningless with a single profile — nothing to route items
+	// between. Builtins alone already clear this bar, so in practice the
+	// button is offered whenever any playlist item is selected.
+	const canOfferMultiProfile = allDownloadProfiles(settings?.profiles).length >= 2
 
 	function applyRange(): void {
 		const from = parseInt(rangeFrom, 10)
@@ -350,7 +357,21 @@ export function StepPlaylistItems(): ReactNode {
 				)}
 			</div>
 
-			<WizardStepFooterActions onBack={back} onContinue={() => void confirmPlaylistSelection()} continueDisabled={!canContinue} />
+			<WizardStepFooterActions onBack={back} onContinue={() => void confirmPlaylistSelection()} continueDisabled={!canContinue}>
+				{canOfferMultiProfile ? (
+					<Tooltip>
+						<TooltipTrigger
+							render={props => (
+								<Button {...props} type="button" variant="outline" size="sm" className="border-[1.5px] border-[var(--border-strong)]" disabled={!canContinue} onClick={enterMultiProfileMode} data-testid="enter-multi-profile">
+									<Layers size={14} aria-hidden />
+									{t('wizard.playlist.multiProfileEntry')}
+								</Button>
+							)}
+						/>
+						<TooltipContent>{t('wizard.playlist.multiProfileEntryTooltip')}</TooltipContent>
+					</Tooltip>
+				) : null}
+			</WizardStepFooterActions>
 		</div>
 	)
 }

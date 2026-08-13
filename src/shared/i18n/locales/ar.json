@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "تم تنزيله بالفعل",
 			"probeLimitAlertTitle": "فحص قائمة التشغيل محدود",
 			"probeLimitAlertTitleGeneric": "الفحص محدود",
-			"probeLimitAlertDesc": "عثر Arroxy على أكثر من {{count}} عنصر، لذا يُخفي حد الفحص الحالي بقية العناصر."
+			"probeLimitAlertDesc": "عثر Arroxy على أكثر من {{count}} عنصر، لذا يُخفي حد الفحص الحالي بقية العناصر.",
+			"multiProfileEntry": "تعيين ملفات تنزيل لكل عنصر",
+			"multiProfileEntryTooltip": "يتخطى الجودة وSponsorBlock والإخراج والحفظ — ويُعيّن بدلاً من ذلك ملف تنزيل لكل عنصر"
 		},
 		"bulk": {
 			"title": "روابط متعددة",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "{{count}} من {{total}} مقطع صوتي",
 			"itemsValueAudio_other": "{{count}} من {{total}} مقاطع صوتية",
 			"itemsValueBulk_one": "{{count}} من {{total}} رابط",
-			"itemsValueBulk_other": "{{count}} من {{total}} روابط"
+			"itemsValueBulk_other": "{{count}} من {{total}} روابط",
+			"profileBreakdownHeading": "ملفات التنزيل في هذه الدفعة",
+			"profileBreakdownCount_one": "{{count}} عنصر",
+			"profileBreakdownCount_other": "{{count}} عناصر"
 		},
 		"profileEditor": {
 			"dialogTitle": "ملف التنزيل",

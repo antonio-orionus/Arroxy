@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "Sudah diunduh",
 			"probeLimitAlertTitle": "Pemindaian daftar putar dibatasi",
 			"probeLimitAlertTitleGeneric": "Pemindaian dibatasi",
-			"probeLimitAlertDesc": "Menampilkan item {{count}} pertama. Tingkatkan batas muatan untuk melihat lebih banyak."
+			"probeLimitAlertDesc": "Menampilkan item {{count}} pertama. Tingkatkan batas muatan untuk melihat lebih banyak.",
+			"multiProfileEntry": "Tetapkan profil per item",
+			"multiProfileEntryTooltip": "Melewati Kualitas, SponsorBlock, Keluaran, dan Simpan — tetapkan profil unduhan per item sebagai gantinya"
 		},
 		"bulk": {
 			"title": "URL massal",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "{{count}} dari trek {{total}}",
 			"itemsValueAudio_other": "{{count}} dari trek {{total}}",
 			"itemsValueBulk_one": "{{count}} dari URL {{total}}",
-			"itemsValueBulk_other": "{{count}} dari URL {{total}}"
+			"itemsValueBulk_other": "{{count}} dari URL {{total}}",
+			"profileBreakdownHeading": "Profil dalam batch ini",
+			"profileBreakdownCount_one": "barang {{count}}",
+			"profileBreakdownCount_other": "item {{count}}"
 		},
 		"profileEditor": {
 			"dialogTitle": "Profil unduhan",

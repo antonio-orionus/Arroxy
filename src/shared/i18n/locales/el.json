@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "Ήδη κατεβασμένο",
 			"probeLimitAlertTitle": "Η σάρωση playlist έχει περιοριστεί",
 			"probeLimitAlertTitleGeneric": "Η σάρωση είναι περιορισμένη",
-			"probeLimitAlertDesc": "Το Arroxy βρήκε περισσότερα από {{count}} στοιχεία, οπότε το τρέχον όριο σάρωσης αποκρύπτει τα υπόλοιπα."
+			"probeLimitAlertDesc": "Το Arroxy βρήκε περισσότερα από {{count}} στοιχεία, οπότε το τρέχον όριο σάρωσης αποκρύπτει τα υπόλοιπα.",
+			"multiProfileEntry": "Εκχώρηση προφίλ ανά στοιχείο",
+			"multiProfileEntryTooltip": "Παρακάμπτει την Ποιότητα, το SponsorBlock, την Έξοδο και την Αποθήκευση — εκχωρεί αντ' αυτού ένα προφίλ λήψης ανά στοιχείο"
 		},
 		"bulk": {
 			"title": "Μαζικά URL",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "{{count}} από {{total}} κομμάτι",
 			"itemsValueAudio_other": "{{count}} από {{total}} κομμάτια",
 			"itemsValueBulk_one": "{{count}} από {{total}} URL",
-			"itemsValueBulk_other": "{{count}} από {{total}} URL"
+			"itemsValueBulk_other": "{{count}} από {{total}} URL",
+			"profileBreakdownHeading": "Προφίλ σε αυτήν την παρτίδα",
+			"profileBreakdownCount_one": "{{count}} στοιχείο",
+			"profileBreakdownCount_other": "{{count}} στοιχεία"
 		},
 		"profileEditor": {
 			"dialogTitle": "Προφίλ λήψης",

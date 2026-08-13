@@ -79,7 +79,9 @@
 			"alreadyDownloaded": "पहले से डाउनलोड किया गया",
 			"probeLimitAlertTitle": "प्लेलिस्ट स्कैन सीमित है",
 			"probeLimitAlertTitleGeneric": "स्कैन की सीमा तय है",
-			"probeLimitAlertDesc": "Arroxy को {{count}} से अधिक आइटम मिले, इसलिए वर्तमान स्कैन सीमा बाकी को छुपा रही है।"
+			"probeLimitAlertDesc": "Arroxy को {{count}} से अधिक आइटम मिले, इसलिए वर्तमान स्कैन सीमा बाकी को छुपा रही है।",
+			"multiProfileEntry": "प्रति आइटम प्रोफ़ाइल असाइन करें",
+			"multiProfileEntryTooltip": "गुणवत्ता, SponsorBlock, आउटपुट और सेव को छोड़ देता है — इसके बजाय प्रति आइटम एक डाउनलोड प्रोफ़ाइल असाइन करें"
 		},
 		"bulk": {
 			"title": "बल्क URLs",
@@ -372,7 +374,10 @@
 			"itemsValueAudio_one": "{{total}} में से {{count}} ट्रैक",
 			"itemsValueAudio_other": "{{total}} में से {{count}} ट्रैक",
 			"itemsValueBulk_one": "{{total}} URL में से {{count}}",
-			"itemsValueBulk_other": "{{total}} URLs में से {{count}}"
+			"itemsValueBulk_other": "{{total}} URLs में से {{count}}",
+			"profileBreakdownHeading": "इस बैच में प्रोफ़ाइलें",
+			"profileBreakdownCount_one": "{{count}} आइटम",
+			"profileBreakdownCount_other": "{{count}} आइटम"
 		},
 		"profileEditor": {
 			"dialogTitle": "डाउनलोड प्रोफ़ाइल",

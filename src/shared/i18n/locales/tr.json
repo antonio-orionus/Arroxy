@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "Zaten indirildi",
 			"probeLimitAlertTitle": "Oynatma listesi taraması sınırlandı",
 			"probeLimitAlertTitleGeneric": "Tarama sınırlandı",
-			"probeLimitAlertDesc": "İlk {{count}} öğe gösteriliyor. Daha fazlasını görmek için yükleme sınırını artır."
+			"probeLimitAlertDesc": "İlk {{count}} öğe gösteriliyor. Daha fazlasını görmek için yükleme sınırını artır.",
+			"multiProfileEntry": "Öğe başına profil ata",
+			"multiProfileEntryTooltip": "Kalite, SponsorBlock, Çıktı ve Kaydet adımlarını atlar — bunun yerine öğe başına bir indirme profili atar"
 		},
 		"bulk": {
 			"title": "Toplu URL’ler",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "{{total}} parçadan {{count}} tanesi",
 			"itemsValueAudio_other": "{{total}} parçadan {{count}} tanesi",
 			"itemsValueBulk_one": "{{total}} URL’den {{count}} tanesi",
-			"itemsValueBulk_other": "{{total}} URL’den {{count}} tanesi"
+			"itemsValueBulk_other": "{{total}} URL’den {{count}} tanesi",
+			"profileBreakdownHeading": "Bu gruptaki profiller",
+			"profileBreakdownCount_one": "{{count}} öğe",
+			"profileBreakdownCount_other": "{{count}} öğe"
 		},
 		"profileEditor": {
 			"dialogTitle": "İndirme profili",

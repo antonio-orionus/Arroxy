@@ -1165,6 +1165,18 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "စာတန်းထိုးသာ preset ဖွင့်ထားသော်လည်း စာတန်းထိုးဘာသာစကားမရွေးရသေးပါ — ဘာမျှဒေါင်းလုဒ်မဖြစ်ပါ။"
 
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} ခု"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} ခု"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "ဤအစုအတွက် ပရိုဖိုင်များ"
+
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
 msgstr "ဆွဲထုတ်မည်! ↓"
@@ -1632,6 +1644,14 @@ msgstr "ဗီဒီယိုများ စုဆောင်းနေသည�
 msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "ချန်နယ် စာမျက်နှာများကို စစ်ဆေးနေသည်"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "အရာတစ်ခုချင်းစီအတွက် ပရိုဖိုင်များ သတ်မှတ်ပါ"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "အရည်အသွေး၊ SponsorBlock၊ ထွက်ပေါ်မည့်ဖိုင် နှင့် သိမ်းမည် တို့ကို ကျော်ပြီး — အစား အရာတစ်ခုချင်းစီအတွက် ဒေါင်းလုဒ်ပရိုဖိုင် သတ်မှတ်ပါ"
 
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"

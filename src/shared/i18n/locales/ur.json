@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "پہلے سے ڈاؤن لوڈ شدہ",
 			"probeLimitAlertTitle": "Playlist اسکین محدود ہے",
 			"probeLimitAlertTitleGeneric": "اسکین محدود ہے",
-			"probeLimitAlertDesc": "Arroxy نے {{count}} سے زیادہ آئٹمز دریافت کیے، اس لیے موجودہ اسکین لمٹ باقی آئٹمز چھپا رہی ہے۔"
+			"probeLimitAlertDesc": "Arroxy نے {{count}} سے زیادہ آئٹمز دریافت کیے، اس لیے موجودہ اسکین لمٹ باقی آئٹمز چھپا رہی ہے۔",
+			"multiProfileEntry": "فی آئٹم پروفائلز تفویض کریں",
+			"multiProfileEntryTooltip": "معیار, SponsorBlock, آؤٹ پٹ اور محفوظ کرنے کو نظرانداز کرتا ہے — اس کے بجائے فی آئٹم ڈاؤن لوڈ پروفائل تفویض کریں"
 		},
 		"bulk": {
 			"title": "متعدد URLs",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "{{total}} میں سے {{count}} ٹریک",
 			"itemsValueAudio_other": "{{total}} میں سے {{count}} ٹریکس",
 			"itemsValueBulk_one": "{{total}} میں سے {{count}} URL",
-			"itemsValueBulk_other": "{{total}} میں سے {{count}} URLs"
+			"itemsValueBulk_other": "{{total}} میں سے {{count}} URLs",
+			"profileBreakdownHeading": "اس بیچ میں پروفائلز",
+			"profileBreakdownCount_one": "{{count}} آئٹم",
+			"profileBreakdownCount_other": "{{count}} آئٹمز"
 		},
 		"profileEditor": {
 			"dialogTitle": "ڈاؤن لوڈ پروفائل",

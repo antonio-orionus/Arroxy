@@ -88,7 +88,9 @@
 			"alreadyDownloaded": "Đã tải xuống",
 			"probeLimitAlertTitle": "Quét playlist đã bị giới hạn",
 			"probeLimitAlertTitleGeneric": "Quét đã bị giới hạn",
-			"probeLimitAlertDesc": "Arroxy tìm thấy nhiều hơn {{count}} mục, vì vậy giới hạn quét hiện tại đang ẩn phần còn lại."
+			"probeLimitAlertDesc": "Arroxy tìm thấy nhiều hơn {{count}} mục, vì vậy giới hạn quét hiện tại đang ẩn phần còn lại.",
+			"multiProfileEntry": "Gán hồ sơ cho từng mục",
+			"multiProfileEntryTooltip": "Bỏ qua Chất lượng, SponsorBlock, Đầu ra và Lưu — thay vào đó gán hồ sơ tải xuống cho từng mục"
 		},
 		"bulk": {
 			"title": "URL hàng loạt",
@@ -397,7 +399,10 @@
 			"itemsValueAudio_one": "{{count}} trong {{total}} bản nhạc",
 			"itemsValueAudio_other": "{{count}} trong {{total}} bản nhạc",
 			"itemsValueBulk_one": "{{count}} trên {{total}} URL",
-			"itemsValueBulk_other": "{{count}} trên {{total}} URL"
+			"itemsValueBulk_other": "{{count}} trên {{total}} URL",
+			"profileBreakdownHeading": "Hồ sơ trong lô này",
+			"profileBreakdownCount_one": "{{count}} mục",
+			"profileBreakdownCount_other": "{{count}} mục"
 		},
 		"profileEditor": {
 			"dialogTitle": "Hồ sơ tải xuống",

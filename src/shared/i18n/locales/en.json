@@ -79,7 +79,9 @@
 			"alreadyDownloaded": "Already downloaded",
 			"probeLimitAlertTitle": "Playlist scan is capped",
 			"probeLimitAlertTitleGeneric": "Scan is capped",
-			"probeLimitAlertDesc": "Showing first {{count}} items. Increase the load limit to see more."
+			"probeLimitAlertDesc": "Showing first {{count}} items. Increase the load limit to see more.",
+			"multiProfileEntry": "Assign profiles per item",
+			"multiProfileEntryTooltip": "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
 		},
 		"bulk": {
 			"title": "Bulk URLs",
@@ -388,7 +390,10 @@
 			"itemsValueAudio_one": "{{count}} of {{total}} track",
 			"itemsValueAudio_other": "{{count}} of {{total}} tracks",
 			"itemsValueBulk_one": "{{count}} of {{total}} URL",
-			"itemsValueBulk_other": "{{count}} of {{total}} URLs"
+			"itemsValueBulk_other": "{{count}} of {{total}} URLs",
+			"profileBreakdownHeading": "Profiles in this batch",
+			"profileBreakdownCount_one": "{{count}} item",
+			"profileBreakdownCount_other": "{{count}} items"
 		},
 		"profileEditor": {
 			"dialogTitle": "Download Profile",

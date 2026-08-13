@@ -2,13 +2,14 @@ import type {ReactNode} from 'react'
 import {AlertTriangle} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
-import {buildDownloadReview, conflictLabelKey} from '../../store/wizard/downloadReviewProjection.js'
+import {buildDownloadReview, conflictLabelKey, multiProfileBreakdown} from '../../store/wizard/downloadReviewProjection.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {Table, TableBody, TableCell, TableRow} from '../ui/table.js'
 import {Tooltip, TooltipTrigger, TooltipContent} from '../ui/tooltip.js'
 import {WizardFooter} from './WizardFooter.js'
 import {VideoSummaryCard} from '../shared/VideoSummaryCard.js'
+import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import loveImg from '../../assets/Love.png'
 
 export function StepConfirm(): ReactNode {
@@ -17,6 +18,9 @@ export function StepConfirm(): ReactNode {
 	const {addToQueue, addAndDownloadImmediately, back, isSubmittingToQueue} = state
 	const translateReview = (key: string, params?: Record<string, unknown>): string => (t as unknown as (key: string, params?: Record<string, unknown>) => string)(key, params)
 	const review = buildDownloadReview(state, {t: translateReview, language: i18n.language, commonPaths: state.commonPaths})
+	// A single preset row can't represent a batch where every item may carry a
+	// different DownloadProfile — this replaces it with a per-profile grouping.
+	const profileBreakdown = state.multiProfileMode ? multiProfileBreakdown(state) : []
 
 	return (
 		<div className="wizard-step flex flex-col gap-4" data-testid="step-confirm">
@@ -48,6 +52,31 @@ export function StepConfirm(): ReactNode {
 					</TableBody>
 				</Table>
 			</div>
+
+			{profileBreakdown.length > 0 && (
+				<div className="overflow-hidden rounded-lg border border-border bg-secondary" data-testid="confirm-profile-breakdown">
+					<p className="px-4 pt-3 text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.confirm.profileBreakdownHeading')}</p>
+					<Table>
+						<TableBody>
+							{profileBreakdown.map(row => {
+								const Icon = PROFILE_ICONS[row.icon]
+								return (
+									<TableRow key={row.profileId} className="hover:bg-transparent" data-testid={`confirm-profile-row-${row.profileId}`}>
+										<TableCell className="w-8 px-4 py-2">
+											<Icon size={14} className="text-muted-foreground" aria-hidden />
+										</TableCell>
+										<TableCell className="px-0 py-2 text-xs text-foreground/90">{row.name}</TableCell>
+										<TableCell className="px-2 py-2 text-xs text-muted-foreground tabular-nums">{t('wizard.confirm.profileBreakdownCount', {count: row.count})}</TableCell>
+										<TableCell className="max-w-xs px-4 py-2 font-mono text-xs text-foreground/80">
+											<span className="block truncate">{row.outputDir}</span>
+										</TableCell>
+									</TableRow>
+								)
+							})}
+						</TableBody>
+					</Table>
+				</div>
+			)}
 
 			{review.conflictWarnings.length > 0 && (
 				<Alert variant="warning" data-testid="confirm-conflicts">

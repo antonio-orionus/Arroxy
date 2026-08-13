@@ -1165,6 +1165,18 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "শুধু সাবটাইটেল প্রিসেট চালু আছে কিন্তু কোনো সাবটাইটেল ভাষা নির্বাচিত হয়নি — কিছু ডাউনলোড হবে না।"
 
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}}টি আইটেম"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}}টি আইটেম"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "এই ব্যাচের প্রোফাইলগুলি"
+
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
 msgstr "নামিয়ে নিন! ↓"
@@ -1632,6 +1644,14 @@ msgstr "ভিডিও সংগ্রহ করা হচ্ছে"
 msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "চ্যানেল পৃষ্ঠা স্ক্যান করা হচ্ছে"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "প্রতিটি আইটেমে প্রোফাইল নির্ধারণ করুন"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "মান, SponsorBlock, আউটপুট এবং সেভ এড়িয়ে যায় — পরিবর্তে প্রতিটি আইটেমে একটি ডাউনলোড প্রোফাইল নির্ধারণ করুন"
 
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"

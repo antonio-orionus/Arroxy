@@ -2,8 +2,13 @@ import {humanSize} from '@shared/format.js'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import {sanitizeJobOptions, type ConflictCode, type SanitizeConflict} from '@shared/sanitizeJobOptions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
+import {resolveDownloadProfileOutputDir, type DownloadProfileOutputContext} from '@shared/downloadProfiles.js'
+import type {DownloadProfileIcon} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
+import {buildDownloadProfileActionModel} from '@renderer/components/wizard/downloadProfileActions.js'
+import {profileAssignmentCounts} from '@renderer/components/wizard/playlistProfileAssignments.js'
+import {orderProfileOptionsForAssignment} from '@renderer/components/wizard/playlistProfileOrder.js'
 import {resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import {presetLabel, resolveAudioLabel, resolveVideoResolution} from '../helpers.js'
 import type {AppState} from '../types.js'
@@ -83,10 +88,40 @@ function itemCountLabel(state: AppState, inBulk: boolean, itemsAreAudio: boolean
 	return {key: inBulk ? 'wizard.confirm.itemsValueBulk' : itemsAreAudio ? 'wizard.confirm.itemsValueAudio' : 'wizard.confirm.itemsValue', params: {count: state.selectedPlaylistItemIds.length, total: String(state.playlistItems.length)}}
 }
 
+export interface MultiProfileBreakdownRow {
+	profileId: string
+	name: string
+	icon: DownloadProfileIcon
+	count: number
+	outputDir: string
+}
+
+// Per-profile grouping for the confirm screen in multi-profile mode, where a
+// single formatLabel/preset can't represent the batch — each item may carry
+// a different DownloadProfile. Ordered the same way the playlistProfiles
+// assignment screen orders its action bar (baseline, then custom, then
+// builtin) so the summary matches what the user just saw while assigning.
+export function multiProfileBreakdown(state: AppState): MultiProfileBreakdownRow[] {
+	const removed = new Set(state.removedPlaylistItemIds)
+	const selectedItemIds = state.playlistItems.filter(entry => state.selectedPlaylistItemIds.includes(entry.id) && !removed.has(entry.id)).map(entry => entry.id)
+
+	const model = buildDownloadProfileActionModel(state.settings?.profiles)
+	const orderedProfiles = orderProfileOptionsForAssignment(model.options, model.activeRef).map(option => option.profile)
+	const counts = profileAssignmentCounts(selectedItemIds, state.playlistProfileAssignments, orderedProfiles, model.activeRef)
+	const outputContext: DownloadProfileOutputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
+
+	return orderedProfiles.filter(profile => (counts.get(profile.id) ?? 0) > 0).map(profile => ({profileId: profile.id, name: profile.name, icon: profile.icon, count: counts.get(profile.id) ?? 0, outputDir: formatHomeRelativePath(resolveDownloadProfileOutputDir(profile, outputContext), state.commonPaths)}))
+}
+
 export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleContext): DownloadReview {
 	const inPlaylist = state.wizardMode === 'playlist'
 	const inBulk = state.wizardMode === 'bulk'
 	const inBatch = inPlaylist || inBulk
+	// Multi-profile mode skips the format-selection steps, so `playlistSelection`
+	// (if present at all) is stale — it describes whatever the wizard last set,
+	// not the heterogeneous per-item profiles this batch actually carries.
+	// Computing a single preset label from it would misrepresent the batch.
+	const inMultiProfile = inBatch && state.multiProfileMode
 	const effectiveSubtitleLanguages = state.wizardSubtitleSkipped ? [] : state.wizardSubtitleLanguages
 
 	const audioFormats = state.wizardFormats.filter(f => f.isAudioOnly)
@@ -100,9 +135,9 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 	const finalDir = effectiveOutputDir(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName)
 	const shortPath = formatHomeRelativePath(finalDir, ctx.commonPaths)
 	const subtitleValue = buildSubtitleValue(state, effectiveSubtitleLanguages, ctx)
-	const playlistPreset = playlistPresetLabel(state, ctx.t)
+	const playlistPreset = inMultiProfile ? '' : playlistPresetLabel(state, ctx.t)
 
-	const isAudioPlaylistPreset = !!state.playlistSelection && !mediaIntentSpec(playlistSelectionToMediaIntent(state.playlistSelection)).producesVideo
+	const isAudioPlaylistPreset = !inMultiProfile && !!state.playlistSelection && !mediaIntentSpec(playlistSelectionToMediaIntent(state.playlistSelection)).producesVideo
 	const itemsAreAudio = isAudioOnlySource(state.wizardExtractor) || isAudioPlaylistPreset
 	const countLabel = inBatch ? itemCountLabel(state, inBulk, itemsAreAudio) : null
 	const itemsValue = countLabel ? ctx.t(countLabel.key, countLabel.params) : ''
@@ -110,7 +145,9 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 	const summaryRows: DownloadReviewRow[] = inBatch
 		? [
 				{key: 'playlist', label: ctx.t(inBulk ? 'wizard.confirm.labelBulk' : 'wizard.confirm.labelPlaylist'), value: inBulk ? ctx.t('wizard.bulk.title') : state.playlistTitle || '—'},
-				{key: 'preset', label: ctx.t('wizard.confirm.labelPreset'), value: playlistPreset || '—'},
+				// No single preset represents a heterogeneous per-item-profile batch —
+				// StepConfirm renders the per-profile breakdown instead of this row.
+				...(inMultiProfile ? [] : [{key: 'preset', label: ctx.t('wizard.confirm.labelPreset'), value: playlistPreset || '—'}]),
 				{key: 'items', label: ctx.t('wizard.confirm.labelItems'), value: itemsValue},
 				{key: 'saveTo', label: ctx.t('wizard.confirm.labelSaveTo'), value: shortPath}
 			]
