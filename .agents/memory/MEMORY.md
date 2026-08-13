@@ -7,3 +7,4 @@
 - [No AI attribution](no-ai-attribution.md) — never add Co-Authored-By or "Generated with" lines to commits or PRs.
 - [LOC limits are architecture signals](loc-limits-are-architecture-signals.md) — never raise the LOC cap to land a change; extract a cohesive concern instead.
 - [CodeRabbit review workflow](coderabbit-review-workflow.md) — trigger `@coderabbitai review` once per PR at open and never again; the quota is limited and refusals are silent.
+- [Renderer test & UI API gotchas](renderer-test-and-ui-api-gotchas.md) — base-nova takes a `render` prop, never Radix `asChild`; `@testing-library/user-event` is not installed, use `fireEvent`.
