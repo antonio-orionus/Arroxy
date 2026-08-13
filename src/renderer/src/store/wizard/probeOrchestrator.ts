@@ -277,7 +277,14 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			await reloadPlaylistWithScope(scope, set, get)
 		},
 
-		selectAllPlaylistItems: () => set(state => ({selectedPlaylistItemIds: state.playlistItems.map(e => e.id)})),
+		// Both filter against removedPlaylistItemIds so a removed row can never
+		// reappear in the count — with no visible row to uncheck, the user would
+		// have no way to correct an over-count.
+		selectAllPlaylistItems: () =>
+			set(state => {
+				const removed = new Set(state.removedPlaylistItemIds)
+				return {selectedPlaylistItemIds: state.playlistItems.filter(e => !removed.has(e.id)).map(e => e.id)}
+			}),
 
 		selectNonePlaylistItems: () => set({selectedPlaylistItemIds: []}),
 
@@ -285,7 +292,8 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			set(state => {
 				const lo = Math.min(from, to)
 				const hi = Math.max(from, to)
-				const ids = state.playlistItems.flatMap(e => (e.playlistIndex >= lo && e.playlistIndex <= hi ? [e.id] : []))
+				const removed = new Set(state.removedPlaylistItemIds)
+				const ids = state.playlistItems.flatMap(e => (e.playlistIndex >= lo && e.playlistIndex <= hi && !removed.has(e.id) ? [e.id] : []))
 				return {selectedPlaylistItemIds: ids}
 			}),
 

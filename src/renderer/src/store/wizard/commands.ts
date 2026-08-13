@@ -100,7 +100,15 @@ export const WizardCommands = {
 	},
 
 	exitMultiProfileMode(set: SetState): void {
-		set({multiProfileMode: false, playlistProfileAssignments: {}, wizardStep: 'playlistItems'})
+		// Deliberately keeps playlistProfileAssignments rather than clearing them —
+		// they're keyed by item id, pruned on removal, and reset on every new
+		// probe (probeResultProjection.ts, probeOrchestrator.ts), so re-entering
+		// the mode restores the user's work instead of silently discarding it with
+		// no confirm and no undo. Nothing reads this map while multiProfileMode is
+		// false (StepPlaylistProfiles, multiProfileBreakdown, and
+		// prepareMultiProfileQueueSubmission are all gated on that flag), so a
+		// stale-but-unused map is harmless in single/normal-playlist mode.
+		set({multiProfileMode: false, wizardStep: 'playlistItems'})
 	},
 
 	assignPlaylistProfile(itemIds: string[], ref: DownloadProfileRef, set: SetState, get: GetState): void {
@@ -118,8 +126,11 @@ export const WizardCommands = {
 		const removed = new Set([...state.removedPlaylistItemIds, ...itemIds])
 		// Record which of these ids were checked *before* removal — restore
 		// re-checks only those, not every removed id (an unchecked row must come
-		// back unchecked).
-		const newlyRemovedSelected = itemIds.filter(id => state.selectedPlaylistItemIds.includes(id))
+		// back unchecked). Set hoisted for the same reason as elsewhere (see
+		// queueSubmission.ts's selectedPlaylistEntries): itemIds and
+		// selectedPlaylistItemIds can both be up to playlist-size long.
+		const selectedIdSet = new Set(state.selectedPlaylistItemIds)
+		const newlyRemovedSelected = itemIds.filter(id => selectedIdSet.has(id))
 		const removedSelectionIds = new Set([...state.removedSelectionIds, ...newlyRemovedSelected])
 		set({removedPlaylistItemIds: [...removed], removedSelectionIds: [...removedSelectionIds], selectedPlaylistItemIds: state.selectedPlaylistItemIds.filter(id => !removed.has(id)), playlistProfileAssignments: clearAssignmentsForItems(state.playlistProfileAssignments, itemIds)})
 	},
