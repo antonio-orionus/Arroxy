@@ -34,7 +34,7 @@ const DEFAULT_MAX_CONCURRENT_DOWNLOADS = MAX_CONCURRENT_DOWNLOADS
 export class DownloadService extends EventEmitter {
 	private activeJobs = new Map<string, ActiveDownload>()
 	private pausedJobs = new Map<string, PausedDownload>()
-	private readonly maxConcurrent: number
+	private maxConcurrent: number
 	private readonly progressParser: ProgressParser
 	private readonly lifecycle: JobLifecycle
 
@@ -52,6 +52,14 @@ export class DownloadService extends EventEmitter {
 			event => this.emit('artifact', event)
 		)
 		this.lifecycle = new JobLifecycle(this.recentJobsStore)
+	}
+
+	// Raised/lowered in lockstep with the queue scheduler's ceiling when the
+	// user changes the concurrent-downloads setting. Lowering never touches
+	// running jobs — it only refuses the next spawn past the new ceiling.
+	setMaxConcurrent(value: number): void {
+		this.maxConcurrent = Math.max(1, value)
+		logger.info('Max concurrent downloads changed', {maxConcurrent: this.maxConcurrent})
 	}
 
 	get activeCount(): number {

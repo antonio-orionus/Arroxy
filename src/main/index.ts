@@ -28,7 +28,7 @@ import {writePlaylistM3u} from '@main/services/playlistM3u.js'
 import {ClipboardWatcher, watcherWindowFromBrowserWindow} from '@main/services/ClipboardWatcher.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
-import {defaultAppSettings, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
+import {defaultAppSettings, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
 import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
 import {readRuntimeSmokeEnabled, runRuntimeSmokeMode, exitWithCode} from '@main/runtimeSmoke.js'
 import {cancelQueueBeforeExit, waitForQueueFileMovesBeforeExit} from '@main/shutdown.js'
@@ -277,6 +277,13 @@ if (hasSingleInstanceLock) {
 		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend)
 		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache)
 		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache)
+		// Apply the persisted concurrency before init() runs its boot-time spawn
+		// pass, so a restart honors the user's limit instead of falling back to
+		// the built-in cap for the first batch.
+		queueService.setConcurrentDownloads(initialSettings.common.concurrentDownloads ?? NORMAL_LANE_CAP)
+		// Must precede init() too — init re-arms retries persisted across the
+		// restart, and does nothing unless auto-retry is already configured.
+		queueService.setAutoRetryAttempts(initialSettings.common.autoRetryAttempts ?? 0)
 		await queueService.init()
 
 		// Headless smoke mode — exercises PoT scrape + retry ladder against real

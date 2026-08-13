@@ -217,16 +217,19 @@
 				"tooltip": "对应 yt-dlp 的 --playlist-end 参数：Arroxy 在构建选择器时仅请求这么多播放列表、频道或搜索条目。"
 			},
 			"nativeAudioPreference": {"label": "原生音频偏好", "description": "控制“最佳原生”会选择什么。手动音频行和 M4A/AAC 仍保持显式选择。", "compatible": "兼容立体声", "surround": "优先环绕声 / Dolby"},
+			"autoRetry": {"label": "重试失败的下载", "description": "在网络或服务器故障后自动重试，每次尝试之间等待更久。被网站拦截的下载永远不会自动重试。", "unit": "次"},
+			"concurrentDownloads": {"label": "同时下载数", "description": "队列中同时下载的项目数量。同时越多，长队列完成越快，但被网站限制的可能性越大。", "unit": "个"},
+			"downloadConnections": {"label": "下载连接数", "description": "同时获取视频的多个部分，加快大文件下载。数值越高，被网站限制的可能性越大。", "unit": "个连接"},
 			"networkPacing": {
 				"heading": "温和下载",
-				"description": "在每次下载时添加小等待，使 Arroxy 不会过于频繁地访问网站。除非另有说明，值的单位为秒。",
+				"description": "在每次下载时添加小等待，使 Arroxy 不会过于频繁地访问网站。数值单位为秒。",
 				"presetLabel": "Arroxy 应该多谨慎？",
-				"tooltip": "这些等待发生在每次下载内部。Arroxy 仍然按顺序逐个处理队列中的下载任务。",
-				"summary": "等待：{{requests}} 次检查间隔，{{downloads}} 媒体开始前，{{subtitles}} 字幕文件前。连接数：{{fragments}}。",
+				"tooltip": "这些等待发生在每次下载内部。同时进行的下载数量在「同时下载数」中单独设置。",
+				"summary": "等待：{{requests}} 次检查间隔，{{downloads}} 媒体开始前，{{subtitles}} 字幕文件前。",
 				"presets": {"off": "关闭", "balanced": "均衡", "careful": "谨慎", "custom": "自定义"},
-				"tooltips": {"off": "仅使用 Arroxy 为媒体和字幕保留的小基准暂停。", "balanced": "默认。添加短暂停并使用一个下载连接。", "careful": "为大型播放列表或经常触达限制的网络添加更长的暂停。", "custom": "自行调整每次下载的高级控制参数。"},
-				"fields": {"sleepRequests": "元数据检查之间的等待", "sleepInterval": "媒体开始前暂停：最小值", "maxSleepInterval": "媒体开始前暂停：最大值", "sleepSubtitles": "字幕文件前等待", "concurrentFragments": "下载连接数"},
-				"units": {"seconds": "秒", "threads": "线程"}
+				"tooltips": {"off": "仅使用 Arroxy 为媒体和字幕保留的小基准暂停。", "balanced": "默认。在请求之间和媒体开始前添加短暂停顿。", "careful": "为大型播放列表或经常触达限制的网络添加更长的暂停。", "custom": "自行调整每次下载的高级控制参数。"},
+				"fields": {"sleepRequests": "元数据检查之间的等待", "sleepInterval": "媒体开始前暂停：最小值", "maxSleepInterval": "媒体开始前暂停：最大值", "sleepSubtitles": "字幕文件前等待"},
+				"units": {"seconds": "秒"}
 			},
 			"closeToTray": {"toggle": "关闭时最小化到托盘", "toggleDescription": "关闭窗口后继续在后台下载。"},
 			"analytics": {"toggle": "发送匿名使用统计", "toggleDescription": "仅统计应用启动次数，不包含任何URL、文件名或个人数据。"}
@@ -429,6 +432,7 @@
 		"artifact": {"media": "媒体", "subtitle": "字幕", "thumbnail": "缩略图", "description": "描述", "companion": "伴随文件", "unknown": "文件", "missing": "缺失"},
 		"item": {
 			"defaultError": "下载失败",
+			"retryingSoon": "正在自动重试（第 {{attempt}} 次）",
 			"pause": "暂停",
 			"resume": "继续",
 			"cancel": "取消",

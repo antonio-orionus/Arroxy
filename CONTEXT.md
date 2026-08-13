@@ -22,6 +22,18 @@ _Avoid_: task, download, pull, attempt
 One step inside a running job — fetching the media, merging audio and video, embedding subtitles or metadata.
 _Avoid_: stage, step
 
+**Download connections**:
+How many parts of one video Arroxy fetches in parallel. Off means a single connection. Independent of pacing, which spaces requests out in time rather than widening them. Distinct from **downloads at once**, which is about queue items.
+_Avoid_: fragments, threads, parallel downloads, concurrent fragments
+
+**Downloads at once**:
+How many queue items download simultaneously. Sets the normal-lane cap; the priority lane keeps reserved headroom above it so "pull now" still starts.
+_Avoid_: concurrency, parallel jobs, simultaneous downloads
+
+**Automatic retry**:
+Arroxy restarting a failed item on its own, after a growing delay, for transient transport failures only. Blocked and permanently-failed downloads always wait for the user. Distinct from **resume context**, which is what makes a retry pick up partial files instead of starting over.
+_Avoid_: auto-resume, self-heal, backoff retry
+
 **Soft failure**:
 A non-fatal miss that still leaves a usable result, so the job finishes as complete. Subtitles that could not be fetched are the typical case — the video is kept.
 _Avoid_: warning, partial failure

@@ -240,8 +240,9 @@ Arroxy is built for one thing: paste a URL, get a clean local file. No accounts,
 - **Tray mode** — closing the window keeps downloads running in the background
 - **23 languages** — auto-detects system locale, switchable any time
 - **Playlist sync** — re-scan a playlist against a local folder to skip already-downloaded videos; generates an `.m3u` playlist file updated as each video downloads
-- **Speed and pacing controls** — cap download bandwidth, add request delays, and tune fragment threads with presets (*Off · Balanced · Careful · Custom*)
+- **Speed and pacing controls** — cap download bandwidth, set how many parts of a video download at once, and add request delays with presets (*Off · Balanced · Careful · Custom*)
 - **Filename templates** — name downloads your way with `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, and `{playlist_index}`, globally or per download profile
+- **Downloads at once and automatic retry** — choose how many queued downloads run at the same time, and let Arroxy retry a download that hit a network or server problem, waiting longer before each attempt
 
 ### Subtitles & post-processing
 

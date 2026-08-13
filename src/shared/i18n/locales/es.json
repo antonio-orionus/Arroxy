@@ -226,21 +226,24 @@
 				"tooltip": "Se corresponde con yt-dlp --playlist-end: Arroxy solo solicita este número de entradas de playlist, canal o búsqueda al construir el selector."
 			},
 			"nativeAudioPreference": {"label": "Preferencia de audio nativo", "description": "Controla lo que elige «Mejor nativo». Las filas de audio manuales y M4A/AAC siguen siendo explícitas.", "compatible": "Estéreo compatible", "surround": "Preferir surround / Dolby"},
+			"autoRetry": {"label": "Reintentar descargas fallidas", "description": "Vuelve a intentarlo automáticamente tras un fallo de red o del servidor, esperando más entre cada intento. Las descargas bloqueadas por el sitio nunca se reintentan automáticamente.", "unit": "veces"},
+			"concurrentDownloads": {"label": "Descargas a la vez", "description": "Cuántos elementos de la cola se descargan al mismo tiempo. Más a la vez termina antes una cola larga, pero aumenta la probabilidad de que el sitio te limite.", "unit": "descargas"},
+			"downloadConnections": {"label": "Conexiones de descarga", "description": "Acelera las descargas grandes obteniendo varias partes de un vídeo a la vez. Los valores altos aumentan la probabilidad de que el sitio te limite.", "unit": "conexiones"},
 			"networkPacing": {
 				"heading": "Descargas suaves",
-				"description": "Añade pequeñas pausas durante cada descarga para que Arroxy no sobrecargue el sitio. Los valores son segundos salvo que se indique lo contrario.",
+				"description": "Añade pequeñas pausas durante cada descarga para que Arroxy no sobrecargue el sitio. Los valores están en segundos.",
 				"presetLabel": "¿Qué tan cauteloso debe ser Arroxy?",
-				"tooltip": "Estas pausas ocurren dentro de cada descarga. Arroxy sigue descargando en cola de una en una.",
-				"summary": "Pausas: {{requests}} entre comprobaciones, {{downloads}} antes de iniciar el medio, {{subtitles}} antes de archivos de subtítulos. Conexiones: {{fragments}}.",
+				"tooltip": "Estas pausas ocurren dentro de cada descarga. Cuántas descargas se ejecutan a la vez se configura por separado, en «Descargas a la vez».",
+				"summary": "Pausas: {{requests}} entre comprobaciones, {{downloads}} antes de iniciar el medio, {{subtitles}} antes de archivos de subtítulos.",
 				"presets": {"off": "Desactivado", "balanced": "Equilibrado", "careful": "Cuidadoso", "custom": "Personalizado"},
 				"tooltips": {
 					"off": "Usa solo las pequeñas pausas base que Arroxy mantiene para medios y subtítulos.",
-					"balanced": "Por defecto. Añade pausas cortas y usa una conexión de descarga.",
+					"balanced": "Por defecto. Añade pausas cortas entre peticiones y antes de iniciar el medio.",
 					"careful": "Añade pausas más largas para playlists grandes o redes que frecuentemente alcanzan límites.",
 					"custom": "Ajusta tú mismo los controles avanzados por descarga."
 				},
-				"fields": {"sleepRequests": "Pausa entre comprobaciones de metadatos", "sleepInterval": "Pausa antes de iniciar el medio: mín", "maxSleepInterval": "Pausa antes de iniciar el medio: máx", "sleepSubtitles": "Pausa antes de archivos de subtítulos", "concurrentFragments": "Conexiones de descarga"},
-				"units": {"seconds": "seg", "threads": "hilos"}
+				"fields": {"sleepRequests": "Pausa entre comprobaciones de metadatos", "sleepInterval": "Pausa antes de iniciar el medio: mín", "maxSleepInterval": "Pausa antes de iniciar el medio: máx", "sleepSubtitles": "Pausa antes de archivos de subtítulos"},
+				"units": {"seconds": "seg"}
 			},
 			"closeToTray": {"toggle": "Minimizar a la bandeja al cerrar", "toggleDescription": "Continuar descargas en segundo plano al cerrar la ventana."},
 			"analytics": {"toggle": "Enviar estadísticas de uso anónimas", "toggleDescription": "Solo cuenta los inicios de la app. Sin URLs, nombres de archivo ni datos personales."}
@@ -483,6 +486,7 @@
 		"artifact": {"media": "Multimedia", "subtitle": "Subtítulo", "thumbnail": "Miniatura", "description": "Descripción", "companion": "Archivo auxiliar", "unknown": "Archivo", "missing": "Falta"},
 		"item": {
 			"defaultError": "Falló la descarga",
+			"retryingSoon": "reintentando automáticamente (intento {{attempt}})",
 			"pause": "Pausar",
 			"resume": "Reanudar",
 			"cancel": "Cancelar",

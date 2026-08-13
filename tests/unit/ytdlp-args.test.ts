@@ -794,7 +794,9 @@ describe('YtDlp — network pacing', () => {
 		expect(getArgValue(args, '--sleep-requests')).toBe('1')
 		expect(getArgValue(args, '--sleep-interval')).toBe('5')
 		expect(getArgValue(args, '--max-sleep-interval')).toBe('10')
-		expect(getArgValue(args, '--concurrent-fragments')).toBe('1')
+		// Connection count is no longer preset-derived — see the 'download
+		// connections' block for the setting that owns it.
+		expect(args).not.toContain('--concurrent-fragments')
 	})
 
 	it('balanced preset applies download pacing to video downloads', async () => {
@@ -803,7 +805,7 @@ describe('YtDlp — network pacing', () => {
 		expect(getArgValue(args, '--sleep-requests')).toBe('1')
 		expect(getArgValue(args, '--sleep-interval')).toBe('5')
 		expect(getArgValue(args, '--max-sleep-interval')).toBe('10')
-		expect(getArgValue(args, '--concurrent-fragments')).toBe('1')
+		expect(args).not.toContain('--concurrent-fragments')
 	})
 
 	it('balanced preset applies 3s subtitle pacing to subtitle requests', async () => {
@@ -901,5 +903,36 @@ describe('YtDlp — js-runtimes', () => {
 		expect(args).toContain('--no-js-runtimes')
 		expect(idx).toBeGreaterThan(-1)
 		expect(args[idx + 1]).toBe(`node:${process.execPath}`)
+	})
+})
+
+describe('download connections', () => {
+	it('emits --concurrent-fragments from the setting under a non-custom preset', async () => {
+		const ytDlp = makeYtDlp({settings: {networkPacingPreset: 'balanced', downloadConnections: 8}})
+		await ytDlp.run(mediaRequest())
+		const args = getArgs()
+		expect(args).toContain('--concurrent-fragments')
+		expect(args[args.indexOf('--concurrent-fragments') + 1]).toBe('8')
+	})
+
+	it('omits the flag when the setting is off', async () => {
+		const ytDlp = makeYtDlp({settings: {networkPacingPreset: 'balanced'}})
+		await ytDlp.run(mediaRequest())
+		expect(getArgs()).not.toContain('--concurrent-fragments')
+	})
+
+	it('omits the flag for an explicit 0 rather than passing --concurrent-fragments 0', async () => {
+		// 0 is how the UI spells "off", and it is persisted as 0 rather than
+		// removed — so the resolver keeps it and the arg builder must drop it.
+		// Passing 0 through would be an invalid yt-dlp invocation.
+		const ytDlp = makeYtDlp({settings: {networkPacingPreset: 'balanced', downloadConnections: 0}})
+		await ytDlp.run(mediaRequest())
+		expect(getArgs()).not.toContain('--concurrent-fragments')
+	})
+
+	it('never widens a probe — connections apply to media transfer only', async () => {
+		const ytDlp = makeYtDlp({settings: {downloadConnections: 8}})
+		await ytDlp.run({kind: 'probe', url: URL})
+		expect(getArgs()).not.toContain('--concurrent-fragments')
 	})
 })

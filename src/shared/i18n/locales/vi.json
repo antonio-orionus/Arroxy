@@ -226,21 +226,24 @@
 				"tooltip": "Tương ứng với yt-dlp --playlist-end: Arroxy chỉ yêu cầu số mục này từ playlist, kênh hoặc kết quả tìm kiếm khi tạo bộ chọn."
 			},
 			"nativeAudioPreference": {"label": "Tùy chọn âm thanh gốc", "description": "Kiểm soát lựa chọn của “Best native”. Các hàng âm thanh thủ công và M4A/AAC vẫn là lựa chọn rõ ràng.", "compatible": "Stereo tương thích", "surround": "Ưu tiên surround / Dolby"},
+			"autoRetry": {"label": "Thử lại các mục tải thất bại", "description": "Tự động thử lại sau sự cố mạng hoặc máy chủ, chờ lâu hơn trước mỗi lần thử. Các mục bị trang web chặn sẽ không bao giờ được tự động thử lại.", "unit": "lần"},
+			"concurrentDownloads": {"label": "Tải cùng lúc", "description": "Bao nhiêu mục trong hàng đợi được tải cùng lúc. Nhiều hơn giúp hàng đợi dài xong sớm hơn, nhưng làm tăng khả năng trang web giới hạn bạn.", "unit": "mục"},
+			"downloadConnections": {"label": "Kết nối tải xuống", "description": "Tăng tốc các tệp tải lớn bằng cách lấy nhiều phần của video cùng lúc. Giá trị cao hơn làm tăng khả năng trang web giới hạn bạn.", "unit": "kết nối"},
 			"networkPacing": {
 				"heading": "Tải xuống nhẹ nhàng",
-				"description": "Thêm khoảng dừng nhỏ trong mỗi lần tải xuống để Arroxy không truy cập trang web quá mức. Giá trị tính bằng giây trừ khi có ghi chú.",
+				"description": "Thêm khoảng dừng nhỏ trong mỗi lần tải xuống để Arroxy không truy cập trang web quá mức. Giá trị tính bằng giây.",
 				"presetLabel": "Arroxy nên thận trọng mức nào?",
-				"tooltip": "Các khoảng dừng này xảy ra bên trong mỗi lần tải xuống. Arroxy vẫn duy trì tải xuống trong hàng đợi theo thứ tự từng cái một.",
-				"summary": "Chờ: {{requests}} giữa các lần kiểm tra, {{downloads}} trước khi media bắt đầu, {{subtitles}} trước các tệp phụ đề. Kết nối: {{fragments}}.",
+				"tooltip": "Các khoảng chờ này diễn ra bên trong mỗi lần tải. Số lượng tải chạy cùng lúc được đặt riêng, ở «Tải cùng lúc».",
+				"summary": "Chờ: {{requests}} giữa các lần kiểm tra, {{downloads}} trước khi media bắt đầu, {{subtitles}} trước các tệp phụ đề.",
 				"presets": {"off": "Tắt", "balanced": "Cân bằng", "careful": "Cẩn thận", "custom": "Tùy chỉnh"},
 				"tooltips": {
 					"off": "Chỉ sử dụng các khoảng dừng cơ bản nhỏ mà Arroxy duy trì cho media và phụ đề.",
-					"balanced": "Mặc định. Thêm các khoảng dừng ngắn và sử dụng một kết nối tải xuống.",
+					"balanced": "Mặc định. Thêm các khoảng dừng ngắn giữa các yêu cầu và trước khi media bắt đầu.",
 					"careful": "Thêm khoảng dừng dài hơn cho danh sách phát lớn hoặc mạng thường xuyên bị giới hạn.",
 					"custom": "Tự điều chỉnh các điều khiển tải xuống nâng cao."
 				},
-				"fields": {"sleepRequests": "Chờ giữa các lần kiểm tra metadata", "sleepInterval": "Dừng trước khi media bắt đầu: tối thiểu", "maxSleepInterval": "Dừng trước khi media bắt đầu: tối đa", "sleepSubtitles": "Chờ trước tệp phụ đề", "concurrentFragments": "Kết nối tải xuống"},
-				"units": {"seconds": "giây", "threads": "luồng"}
+				"fields": {"sleepRequests": "Chờ giữa các lần kiểm tra metadata", "sleepInterval": "Dừng trước khi media bắt đầu: tối thiểu", "maxSleepInterval": "Dừng trước khi media bắt đầu: tối đa", "sleepSubtitles": "Chờ trước tệp phụ đề"},
+				"units": {"seconds": "giây"}
 			},
 			"closeToTray": {"toggle": "Ẩn xuống khay khi đóng", "toggleDescription": "Tiếp tục tải xuống trong nền sau khi đóng cửa sổ."},
 			"analytics": {"toggle": "Gửi thống kê sử dụng ẩn danh", "toggleDescription": "Chỉ đếm số lần khởi động ứng dụng. Không có URL, tên tệp hay dữ liệu cá nhân."}
@@ -473,6 +476,7 @@
 		"artifact": {"media": "Phương tiện", "subtitle": "Phụ đề", "thumbnail": "Hình thu nhỏ", "description": "Mô tả", "companion": "Tệp đi kèm", "unknown": "Tệp", "missing": "Thiếu"},
 		"item": {
 			"defaultError": "Tải xuống thất bại",
+			"retryingSoon": "đang tự động thử lại (lần {{attempt}})",
 			"pause": "Tạm dừng",
 			"resume": "Tiếp tục",
 			"cancel": "Hủy",

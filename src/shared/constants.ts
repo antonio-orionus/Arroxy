@@ -76,6 +76,13 @@ export const NORMAL_LANE_CAP = 1
 export const MAX_CONCURRENT_DOWNLOADS = 4
 export const INTER_JOB_SLEEP_MS = 500
 
+// How many spawn slots stay reserved above the normal-lane cap so a "pull now"
+// priority item can still start while the normal lane is saturated. Derived
+// from the historical fixed pair (cap 1, ceiling 4) so the default behaves
+// exactly as before, and scales with a user-raised cap instead of squeezing
+// the priority lane out.
+export const PRIORITY_LANE_HEADROOM = MAX_CONCURRENT_DOWNLOADS - NORMAL_LANE_CAP
+
 export const DEFAULT_PLAYLIST_PROBE_LIMIT = 100
 export const PLAYLIST_PROBE_LIMIT_PRESETS = [50, 100, 250, 500, 1000] as const
 
@@ -87,8 +94,20 @@ export interface NetworkPacingArgs {
 	concurrentFragments?: number
 }
 
+// Recommended value surfaced as the input placeholder. Not a default — the
+// setting ships off, so behavior is unchanged until a user opts in.
+export const RECOMMENDED_DOWNLOAD_CONNECTIONS = 4
+
+// Placeholder shown in the auto-retry field. Like the connections
+// recommendation, this is a suggestion the user opts into — the setting
+// itself ships at 0 (off).
+export const RECOMMENDED_AUTO_RETRY_ATTEMPTS = 3
+
+// Pacing presets cover the sleep knobs only. Connection count is a throughput
+// choice, not a politeness choice, so it lives in its own setting and applies
+// under every preset.
 export const NETWORK_PACING_PRESET_VALUES: Record<Exclude<NetworkPacingPreset, 'custom'>, NetworkPacingArgs> = {
 	off: {sleepInterval: 1, maxSleepInterval: 3},
-	balanced: {sleepRequests: 1, sleepInterval: 5, maxSleepInterval: 10, sleepSubtitles: 3, concurrentFragments: 1},
-	careful: {sleepRequests: 2, sleepInterval: 15, maxSleepInterval: 45, sleepSubtitles: 5, concurrentFragments: 1}
+	balanced: {sleepRequests: 1, sleepInterval: 5, maxSleepInterval: 10, sleepSubtitles: 3},
+	careful: {sleepRequests: 2, sleepInterval: 15, maxSleepInterval: 45, sleepSubtitles: 5}
 }

@@ -226,21 +226,24 @@
 				"tooltip": "Memetakan ke yt-dlp --playlist-end: Arroxy hanya meminta entri daftar putar, saluran, atau pencarian sebanyak ini saat membuat alat pilih."
 			},
 			"nativeAudioPreference": {"label": "Preferensi audio asli", "description": "Mengontrol apa yang dipilih oleh penduduk asli Terbaik. Baris audio manual dan M4A/AAC tetap eksplisit.", "compatible": "Stereo yang kompatibel", "surround": "Lebih suka surround / Dolby"},
+			"autoRetry": {"label": "Coba lagi unduhan yang gagal", "description": "Otomatis mencoba lagi setelah gangguan jaringan atau server, menunggu lebih lama sebelum tiap percobaan. Unduhan yang diblokir situs tidak pernah dicoba ulang otomatis.", "unit": "kali"},
+			"concurrentDownloads": {"label": "Unduhan sekaligus", "description": "Berapa banyak item antrean yang diunduh bersamaan. Lebih banyak sekaligus menyelesaikan antrean panjang lebih cepat, tetapi meningkatkan kemungkinan situs membatasi Anda.", "unit": "unduhan"},
+			"downloadConnections": {"label": "Koneksi unduhan", "description": "Mempercepat unduhan besar dengan mengambil beberapa bagian video sekaligus. Nilai lebih tinggi meningkatkan kemungkinan situs membatasi Anda.", "unit": "koneksi"},
 			"networkPacing": {
 				"heading": "Unduhan yang lembut",
-				"description": "Tambahkan sedikit waktu tunggu setiap kali mengunduh sehingga Arroxy tidak masuk ke situs terlalu agresif. Nilainya adalah detik, kecuali jika disebutkan.",
+				"description": "Tambahkan sedikit waktu tunggu setiap kali mengunduh sehingga Arroxy tidak masuk ke situs terlalu agresif. Nilai dalam detik.",
 				"presetLabel": "Seberapa hati-hati Arroxy?",
-				"tooltip": "Penantian ini terjadi di dalam setiap unduhan. Arroxy masih menyimpan antrian unduhan normal satu per satu.",
-				"summary": "Menunggu: {{requests}} di antara pemeriksaan, {{downloads}} sebelum media dimulai, {{subtitles}} sebelum file subtitle. Koneksi: {{fragments}}.",
+				"tooltip": "Waktu tunggu ini terjadi di dalam setiap unduhan. Berapa banyak unduhan yang berjalan bersamaan diatur terpisah, di «Unduhan sekaligus».",
+				"summary": "Menunggu: {{requests}} di antara pemeriksaan, {{downloads}} sebelum media dimulai, {{subtitles}} sebelum file subtitle.",
 				"presets": {"off": "Mati", "balanced": "Seimbang", "careful": "Hati-hati", "custom": "Kebiasaan"},
 				"tooltips": {
 					"off": "Hanya menggunakan jeda dasar kecil yang disimpan Arroxy untuk media dan subtitle.",
-					"balanced": "Bawaan. Menambahkan jeda singkat dan menggunakan satu koneksi unduhan.",
+					"balanced": "Bawaan. Menambahkan jeda singkat antar permintaan dan sebelum media dimulai.",
 					"careful": "Menambahkan jeda lebih lama untuk daftar putar besar atau jaringan yang sering mencapai batas.",
 					"custom": "Sesuaikan sendiri kontrol per-unduhan tingkat lanjut."
 				},
-				"fields": {"sleepRequests": "Tunggu di antara pemeriksaan metadata", "sleepInterval": "Jeda sebelum media dimulai: min", "maxSleepInterval": "Jeda sebelum media dimulai: maks", "sleepSubtitles": "Tunggu sebelum file subtitle", "concurrentFragments": "Unduh koneksi"},
-				"units": {"seconds": "detik", "threads": "benang"}
+				"fields": {"sleepRequests": "Tunggu di antara pemeriksaan metadata", "sleepInterval": "Jeda sebelum media dimulai: min", "maxSleepInterval": "Jeda sebelum media dimulai: maks", "sleepSubtitles": "Tunggu sebelum file subtitle"},
+				"units": {"seconds": "detik"}
 			},
 			"closeToTray": {"toggle": "Sembunyikan ke baki saat ditutup", "toggleDescription": "Lanjutkan pengunduhan di latar belakang setelah menutup jendela."},
 			"analytics": {"toggle": "Kirim statistik penggunaan anonim", "toggleDescription": "Hanya menghitung peluncuran aplikasi. Tidak ada URL, nama file, atau data pribadi."}
@@ -483,6 +486,7 @@
 		"artifact": {"media": "Media", "subtitle": "Subjudul", "thumbnail": "gambar kecil", "description": "Keterangan", "companion": "Pendamping", "unknown": "Artefak", "missing": "Hilang"},
 		"item": {
 			"defaultError": "Pengunduhan gagal",
+			"retryingSoon": "mencoba lagi otomatis (percobaan {{attempt}})",
 			"pause": "Berhenti sebentar",
 			"resume": "Melanjutkan",
 			"cancel": "Membatalkan",

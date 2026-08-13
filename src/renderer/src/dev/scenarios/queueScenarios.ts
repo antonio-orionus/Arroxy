@@ -99,6 +99,7 @@ function queueItem(overrides: Partial<QueueItem> & {id?: string}): QueueItem {
 		artifacts: [],
 		finishedAt: null,
 		writeM3u: true,
+		retryCount: 0,
 		job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}},
 		...overrides
 	}

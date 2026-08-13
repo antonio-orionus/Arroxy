@@ -1,8 +1,8 @@
-import {useEffect, type ReactNode} from 'react'
+import {useEffect, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle, FileText, Gauge} from 'lucide-react'
-import {DEFAULTS} from '@shared/constants.js'
-import {NATIVE_AUDIO_PREFERENCES} from '@shared/schemas.js'
+import {DEFAULTS, NORMAL_LANE_CAP, RECOMMENDED_AUTO_RETRY_ATTEMPTS, RECOMMENDED_DOWNLOAD_CONNECTIONS} from '@shared/constants.js'
+import {AUTO_RETRY_ATTEMPTS_MAX, autoRetryAttemptsSchema, CONCURRENT_DOWNLOADS_MAX, concurrentDownloadsSchema, DOWNLOAD_CONNECTIONS_MAX, downloadConnectionsSchema, NATIVE_AUDIO_PREFERENCES} from '@shared/schemas.js'
 import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
 import type {BackdropRenderMode, CookiesBrowser, CookiesMode, NativeAudioPreference} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
@@ -11,7 +11,7 @@ import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
 import {Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle} from '../ui/field.js'
-import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '../ui/input-group.js'
+import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText} from '../ui/input-group.js'
 import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from '../ui/select.js'
 import {Switch} from '../ui/switch.js'
@@ -69,10 +69,88 @@ function SettingSwitch({id, label, description, checked, onCheckedChange, testId
 	)
 }
 
+// Shared shape for the two numeric transport settings. Keeps its own draft so
+// typing is not fought by the persisted value; on blur an out-of-range entry
+// reverts to what is stored rather than lingering as invalid text. An empty
+// field commits `emptyValue`, which is how each setting spells "off"/default.
+function NumericSettingRow({
+	id,
+	label,
+	description,
+	unit,
+	value,
+	emptyValue,
+	placeholder,
+	max,
+	schema,
+	onCommit,
+	testId
+}: {
+	id: string
+	label: string
+	description: string
+	unit: string
+	value: number | undefined
+	emptyValue: number
+	placeholder: number
+	max: number
+	schema: {safeParse: (input: unknown) => {success: boolean}}
+	onCommit: (value: number) => void
+	testId: string
+}): ReactNode {
+	const [draft, setDraft] = useState<string | undefined>(undefined)
+
+	function commit(): void {
+		if (draft === undefined) return
+		const parsed = draft.trim() === '' ? emptyValue : Number(draft)
+		setDraft(undefined)
+		if (!schema.safeParse(parsed).success) return
+		if (parsed === (value ?? emptyValue)) return
+		onCommit(parsed)
+	}
+
+	return (
+		<Field orientation="horizontal" className="items-center justify-between gap-3" data-testid={`${testId}-row`}>
+			<FieldContent className="gap-0.5">
+				<FieldTitle id={id} className="text-[13px] font-medium text-foreground">
+					{label}
+				</FieldTitle>
+				<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{description}</FieldDescription>
+			</FieldContent>
+			<InputGroup className="w-40 shrink-0">
+				<InputGroupInput type="number" min={0} max={max} value={draft ?? (value ? String(value) : '')} onChange={event => setDraft(event.target.value)} onBlur={() => commit()} placeholder={String(placeholder)} aria-labelledby={id} className="text-[12px] font-mono" data-testid={testId} />
+				<InputGroupAddon align="inline-end">
+					<InputGroupText className="text-[11px]">{unit}</InputGroupText>
+				</InputGroupAddon>
+			</InputGroup>
+		</Field>
+	)
+}
+
 export function DownloadProfilesSettingsTab(): ReactNode {
 	const {t} = useTranslation()
-	const {advancedAutoOpen, advancedAutoTarget, settings, graphicsPolicy, openLogs, setAdvancedAutoOpen, setClipboardWatchEnabled, setCookiesPath, setCookiesMode, setCookiesBrowser, setProxyUrl, setLimitRate, setBackdropRenderMode, setNativeAudioPreference, setFilenameTemplate, setCloseBehavior, setAnalyticsEnabled} =
-		useAppStore()
+	const {
+		advancedAutoOpen,
+		advancedAutoTarget,
+		settings,
+		graphicsPolicy,
+		openLogs,
+		setAdvancedAutoOpen,
+		setClipboardWatchEnabled,
+		setCookiesPath,
+		setCookiesMode,
+		setCookiesBrowser,
+		setProxyUrl,
+		setLimitRate,
+		setDownloadConnections,
+		setConcurrentDownloads,
+		setAutoRetryAttempts,
+		setBackdropRenderMode,
+		setNativeAudioPreference,
+		setFilenameTemplate,
+		setCloseBehavior,
+		setAnalyticsEnabled
+	} = useAppStore()
 	const common = settings?.common
 	const filenameTemplate = common?.filenameTemplate ?? DEFAULTS.filenameTemplate
 	const filenameTemplateValidation = validateFilenameTemplate(filenameTemplate)
@@ -259,6 +337,48 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							</PopoverContent>
 						</Popover>
 					</Field>
+
+					<NumericSettingRow
+						id="profiles-settings-concurrent-downloads"
+						label={t('wizard.url.concurrentDownloads.label')}
+						description={t('wizard.url.concurrentDownloads.description')}
+						unit={t('wizard.url.concurrentDownloads.unit')}
+						value={common?.concurrentDownloads}
+						emptyValue={NORMAL_LANE_CAP}
+						placeholder={NORMAL_LANE_CAP}
+						max={CONCURRENT_DOWNLOADS_MAX}
+						schema={concurrentDownloadsSchema}
+						onCommit={value => void setConcurrentDownloads(value)}
+						testId="concurrent-downloads-input"
+					/>
+
+					<NumericSettingRow
+						id="profiles-settings-auto-retry"
+						label={t('wizard.url.autoRetry.label')}
+						description={t('wizard.url.autoRetry.description')}
+						unit={t('wizard.url.autoRetry.unit')}
+						value={common?.autoRetryAttempts}
+						emptyValue={0}
+						placeholder={RECOMMENDED_AUTO_RETRY_ATTEMPTS}
+						max={AUTO_RETRY_ATTEMPTS_MAX}
+						schema={autoRetryAttemptsSchema}
+						onCommit={value => void setAutoRetryAttempts(value)}
+						testId="auto-retry-input"
+					/>
+
+					<NumericSettingRow
+						id="profiles-settings-download-connections"
+						label={t('wizard.url.downloadConnections.label')}
+						description={t('wizard.url.downloadConnections.description')}
+						unit={t('wizard.url.downloadConnections.unit')}
+						value={common?.downloadConnections}
+						emptyValue={0}
+						placeholder={RECOMMENDED_DOWNLOAD_CONNECTIONS}
+						max={DOWNLOAD_CONNECTIONS_MAX}
+						schema={downloadConnectionsSchema}
+						onCommit={value => void setDownloadConnections(value)}
+						testId="download-connections-input"
+					/>
 
 					<NetworkPacingSettings />
 

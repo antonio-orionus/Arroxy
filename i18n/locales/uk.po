@@ -563,6 +563,10 @@ msgctxt "queue.item.retry"
 msgid "Retry"
 msgstr "Повторити"
 
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "автоматичний повтор (спроба {{attempt}})"
+
 msgctxt "queue.item.setLocation"
 msgid "Set location"
 msgstr "Установити розташування"
@@ -2273,6 +2277,18 @@ msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
 msgstr "Лише підрахунок запусків додатку. Без URL, імен файлів чи особистих даних."
 
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Автоматично повторює спробу після збою мережі або сервера, чекаючи довше перед кожною наступною. Завантаження, заблоковані сайтом, автоматично не повторюються."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Повторювати невдалі завантаження"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "разів"
+
 msgctxt "wizard.url.backdrop.cssOnlyDescription"
 msgid "CSS only, no canvas rendering."
 msgstr "Лише CSS, без рендерингу canvas."
@@ -2381,6 +2397,18 @@ msgctxt "wizard.url.closeToTray.toggleDescription"
 msgid "Continue downloads in the background after closing the window."
 msgstr "Продовжувати завантаження у фоні після закриття вікна."
 
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Скільки елементів черги завантажується одночасно. Більше за раз — довга черга завершиться швидше, але зростає ймовірність обмежень з боку сайту."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Завантажень одночасно"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "завантажень"
+
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
 msgstr "YouTube може позначити — і іноді забанити — акаунти, чиї cookies використовує yt-dlp. По можливості використовуй одноразовий акаунт."
@@ -2456,6 +2484,18 @@ msgstr "Вимк"
 msgctxt "wizard.url.cookies.toggleDescription"
 msgid "Helps with age-restricted, members-only, and account-private videos."
 msgstr "Допомагає з відео з віковим обмеженням, лише для учасників і приватними у твоєму акаунті."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Прискорює великі завантаження, отримуючи кілька частин відео одночасно. Вищі значення підвищують імовірність обмежень з боку сайту."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "З'єднання для завантаження"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "з'єднань"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -2578,12 +2618,8 @@ msgid "Prefer surround / Dolby"
 msgstr "Надавати перевагу surround / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
-msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are seconds unless noted."
-msgstr "Додає невеликі паузи під час кожного завантаження, щоб Arroxy не звертався до сайту надто агресивно. Значення в секундах, якщо не зазначено інше."
-
-msgctxt "wizard.url.networkPacing.fields.concurrentFragments"
-msgid "Download connections"
-msgstr "З'єднань для завантаження"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Додає невеликі паузи під час кожного завантаження, щоб Arroxy не звертався до сайту надто агресивно. Значення в секундах."
 
 msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
 msgid "Pause before media starts: max"
@@ -2626,16 +2662,16 @@ msgid "Off"
 msgstr "Вимк"
 
 msgctxt "wizard.url.networkPacing.summary"
-msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files. Connections: {{fragments}}."
-msgstr "Паузи: {{requests}} між перевірками, {{downloads}} перед початком медіа, {{subtitles}} перед файлами субтитрів. З'єднання: {{fragments}}."
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Паузи: {{requests}} між перевірками, {{downloads}} перед початком медіа, {{subtitles}} перед файлами субтитрів."
 
 msgctxt "wizard.url.networkPacing.tooltip"
-msgid "These waits happen inside each download. Arroxy still keeps normal queued downloads one-at-a-time."
-msgstr "Паузи відбуваються всередині кожного завантаження. Arroxy як і раніше обробляє чергові завантаження по одному."
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Ці паузи відбуваються всередині кожного завантаження. Скільки завантажень іде одночасно, налаштовується окремо — у налаштуванні «Завантажень одночасно»."
 
 msgctxt "wizard.url.networkPacing.tooltips.balanced"
-msgid "Default. Adds short pauses and uses one download connection."
-msgstr "За замовчуванням. Додає короткі паузи та використовує одне з'єднання для завантаження."
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "За замовчуванням. Додає короткі паузи між запитами та перед початком медіа."
 
 msgctxt "wizard.url.networkPacing.tooltips.careful"
 msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
@@ -2652,10 +2688,6 @@ msgstr "Використовує лише невеликі базові пауз
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "сек"
-
-msgctxt "wizard.url.networkPacing.units.threads"
-msgid "threads"
-msgstr "потоків"
 
 msgctxt "wizard.url.placeholder"
 msgid "https://..."

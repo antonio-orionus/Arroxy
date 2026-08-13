@@ -226,21 +226,24 @@
 				"tooltip": "Entspricht yt-dlp --playlist-end: Arroxy fragt nur so viele Playlist-, Kanal- oder Suchergebnisse ab, bevor die Auswahl angezeigt wird."
 			},
 			"nativeAudioPreference": {"label": "Native Audioeinstellung", "description": "Steuert, was „Bestes nativ“ auswählt. Manuelle Audiozeilen und M4A/AAC bleiben explizit.", "compatible": "Kompatibles Stereo", "surround": "Surround / Dolby bevorzugen"},
+			"autoRetry": {"label": "Fehlgeschlagene Downloads wiederholen", "description": "Versucht es nach einem Netzwerk- oder Serverproblem automatisch erneut und wartet vor jedem Versuch länger. Von der Seite blockierte Downloads werden nie automatisch wiederholt.", "unit": "mal"},
+			"concurrentDownloads": {"label": "Gleichzeitige Downloads", "description": "Wie viele Einträge der Warteschlange gleichzeitig geladen werden. Mehr auf einmal leert eine lange Warteschlange schneller, erhöht aber die Wahrscheinlichkeit, dass eine Seite dich drosselt.", "unit": "Downloads"},
+			"downloadConnections": {"label": "Download-Verbindungen", "description": "Beschleunigt große Downloads, indem mehrere Teile eines Videos gleichzeitig geladen werden. Höhere Werte erhöhen die Wahrscheinlichkeit, dass eine Seite dich drosselt.", "unit": "Verbindungen"},
 			"networkPacing": {
 				"heading": "Sanftes Herunterladen",
-				"description": "Fügt bei jedem Download kleine Pausen ein, damit Arroxy die Seite nicht zu aggressiv belastet. Werte sind Sekunden, sofern nicht anders angegeben.",
+				"description": "Fügt bei jedem Download kleine Pausen ein, damit Arroxy die Seite nicht zu aggressiv belastet. Werte in Sekunden.",
 				"presetLabel": "Wie vorsichtig soll Arroxy sein?",
-				"tooltip": "Diese Pausen passieren innerhalb jedes Downloads. Arroxy lädt weiterhin normale Downloads der Reihe nach herunter.",
-				"summary": "Pausen: {{requests}} zwischen Abfragen, {{downloads}} vor Medienbeginn, {{subtitles}} vor Untertiteldateien. Verbindungen: {{fragments}}.",
+				"tooltip": "Diese Pausen liegen innerhalb jedes Downloads. Wie viele Downloads gleichzeitig laufen, wird separat unter „Gleichzeitige Downloads“ eingestellt.",
+				"summary": "Pausen: {{requests}} zwischen Abfragen, {{downloads}} vor Medienbeginn, {{subtitles}} vor Untertiteldateien.",
 				"presets": {"off": "Aus", "balanced": "Ausgewogen", "careful": "Vorsichtig", "custom": "Benutzerdefiniert"},
 				"tooltips": {
 					"off": "Nutzt nur die kleinen Basispausen, die Arroxy für Medien und Untertitel beibehält.",
-					"balanced": "Standard. Fügt kurze Pausen hinzu und verwendet eine Download-Verbindung.",
+					"balanced": "Standard. Fügt kurze Pausen zwischen Abfragen und vor Medienbeginn hinzu.",
 					"careful": "Fügt längere Pausen für große Playlists oder Netzwerke ein, die häufig an Limits stoßen.",
 					"custom": "Passe die erweiterten Download-Steuerungen selbst an."
 				},
-				"fields": {"sleepRequests": "Pause zwischen Metadaten-Abfragen", "sleepInterval": "Pause vor Medienbeginn: Min", "maxSleepInterval": "Pause vor Medienbeginn: Max", "sleepSubtitles": "Pause vor Untertiteldateien", "concurrentFragments": "Download-Verbindungen"},
-				"units": {"seconds": "Sek", "threads": "Threads"}
+				"fields": {"sleepRequests": "Pause zwischen Metadaten-Abfragen", "sleepInterval": "Pause vor Medienbeginn: Min", "maxSleepInterval": "Pause vor Medienbeginn: Max", "sleepSubtitles": "Pause vor Untertiteldateien"},
+				"units": {"seconds": "Sek"}
 			},
 			"closeToTray": {"toggle": "Beim Schließen in die Taskleiste minimieren", "toggleDescription": "Downloads im Hintergrund fortsetzen, wenn das Fenster geschlossen wird."},
 			"analytics": {"toggle": "Anonyme Nutzungsstatistiken senden", "toggleDescription": "Zählt nur App-Starts. Keine URLs, Dateinamen oder persönliche Daten."}
@@ -483,6 +486,7 @@
 		"artifact": {"media": "Medien", "subtitle": "Untertitel", "thumbnail": "Thumbnail", "description": "Beschreibung", "companion": "Begleitdatei", "unknown": "Datei", "missing": "Fehlt"},
 		"item": {
 			"defaultError": "Download fehlgeschlagen",
+			"retryingSoon": "wird automatisch wiederholt (Versuch {{attempt}})",
 			"pause": "Pause",
 			"resume": "Fortsetzen",
 			"cancel": "Abbrechen",
