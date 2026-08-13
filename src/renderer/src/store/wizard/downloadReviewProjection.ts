@@ -103,8 +103,9 @@ export interface MultiProfileBreakdownRow {
 // assignment screen orders its action bar (baseline, then custom, then
 // builtin) so the summary matches what the user just saw while assigning.
 export function multiProfileBreakdown(state: AppState): MultiProfileBreakdownRow[] {
-	const removed = new Set(state.removedPlaylistItemIds)
-	const selectedItemIds = state.playlistItems.filter(entry => state.selectedPlaylistItemIds.includes(entry.id) && !removed.has(entry.id)).map(entry => entry.id)
+	const selectedIdSet = new Set(state.selectedPlaylistItemIds)
+	const removedIdSet = new Set(state.removedPlaylistItemIds)
+	const selectedItemIds = state.playlistItems.filter(entry => selectedIdSet.has(entry.id) && !removedIdSet.has(entry.id)).map(entry => entry.id)
 
 	const model = buildDownloadProfileActionModel(state.settings?.profiles)
 	const orderedProfiles = orderProfileOptionsForAssignment(model.options, model.activeRef).map(option => option.profile)
