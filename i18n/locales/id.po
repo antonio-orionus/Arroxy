@@ -1761,6 +1761,10 @@ msgctxt "wizard.playlistProfiles.columnProfile"
 msgid "Profile"
 msgstr "Profil"
 
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Edit {{name}}"
+
 msgctxt "wizard.playlistProfiles.empty"
 msgid "No items match this filter"
 msgstr "Tidak ada item yang cocok dengan filter ini"

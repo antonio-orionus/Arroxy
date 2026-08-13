@@ -1761,6 +1761,10 @@ msgctxt "wizard.playlistProfiles.columnProfile"
 msgid "Profile"
 msgstr "Профил"
 
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Измени {{name}}"
+
 msgctxt "wizard.playlistProfiles.empty"
 msgid "No items match this filter"
 msgstr "Ниједна ставка не одговара овом филтеру"

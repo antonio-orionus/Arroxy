@@ -1761,6 +1761,10 @@ msgctxt "wizard.playlistProfiles.columnProfile"
 msgid "Profile"
 msgstr "Profil"
 
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "{{name}} tahrirlash"
+
 msgctxt "wizard.playlistProfiles.empty"
 msgid "No items match this filter"
 msgstr "Ushbu filtrga mos keluvchi element yo'q"

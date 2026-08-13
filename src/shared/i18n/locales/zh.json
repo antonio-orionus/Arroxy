@@ -30,6 +30,7 @@
 			"heading": "分配下载配置",
 			"selectedSummary": "已选择 {{total}} 项中的 {{selected}} 项",
 			"assignAria": "分配{{profileName}}",
+			"editProfile": "编辑{{name}}",
 			"more": "更多…",
 			"filtersLabel": "配置筛选",
 			"filterChip": "{{name}} · {{count}}",

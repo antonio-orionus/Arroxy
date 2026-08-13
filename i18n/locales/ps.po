@@ -1761,6 +1761,10 @@ msgctxt "wizard.playlistProfiles.columnProfile"
 msgid "Profile"
 msgstr "پروفایل"
 
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "{{name}} سمول"
+
 msgctxt "wizard.playlistProfiles.empty"
 msgid "No items match this filter"
 msgstr "هیڅ توکی له دې فلټر سره سمون نه خوري"

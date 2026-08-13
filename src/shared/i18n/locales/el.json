@@ -39,6 +39,7 @@
 			"heading": "Εκχώρηση προφίλ λήψης",
 			"selectedSummary": "Επιλέχθηκαν {{selected}} από {{total}}",
 			"assignAria": "Εκχώρηση {{profileName}}",
+			"editProfile": "Επεξεργασία {{name}}",
 			"more": "Περισσότερα…",
 			"filtersLabel": "Φίλτρα προφίλ",
 			"filterChip": "{{name}} · {{count}}",

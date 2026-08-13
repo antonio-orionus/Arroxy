@@ -47,6 +47,7 @@
 			"heading": "Призначити профілі завантаження",
 			"selectedSummary": "Вибрано {{selected}} з {{total}}",
 			"assignAria": "Призначити {{profileName}}",
+			"editProfile": "Редагувати {{name}}",
 			"more": "Ще…",
 			"filtersLabel": "Фільтри профілів",
 			"filterChip": "{{name}} · {{count}}",

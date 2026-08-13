@@ -39,6 +39,7 @@
 			"heading": "Weka wasifu wa upakuaji",
 			"selectedSummary": "{{selected}} kati ya {{total}} zimechaguliwa",
 			"assignAria": "Weka {{profileName}}",
+			"editProfile": "Hariri {{name}}",
 			"more": "Zaidi…",
 			"filtersLabel": "Vichujio vya wasifu",
 			"filterChip": "{{name}} · {{count}}",

@@ -39,6 +39,7 @@
 			"heading": "Asignar perfiles de descarga",
 			"selectedSummary": "{{selected}} de {{total}} seleccionados",
 			"assignAria": "Asignar {{profileName}}",
+			"editProfile": "Editar {{name}}",
 			"more": "Más…",
 			"filtersLabel": "Filtros de perfil",
 			"filterChip": "{{name}} · {{count}}",

@@ -30,6 +30,7 @@
 			"heading": "डाउनलोड प्रोफ़ाइल असाइन करें",
 			"selectedSummary": "{{total}} में से {{selected}} चयनित",
 			"assignAria": "{{profileName}} असाइन करें",
+			"editProfile": "{{name}} संपादित करें",
 			"more": "अधिक…",
 			"filtersLabel": "प्रोफ़ाइल फ़िल्टर",
 			"filterChip": "{{name}} · {{count}}",

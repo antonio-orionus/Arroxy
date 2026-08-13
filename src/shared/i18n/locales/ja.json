@@ -39,6 +39,7 @@
 			"heading": "ダウンロードプロファイルを割り当て",
 			"selectedSummary": "{{total}} 件中 {{selected}} 件を選択",
 			"assignAria": "{{profileName}} を割り当て",
+			"editProfile": "{{name}} を編集",
 			"more": "その他…",
 			"filtersLabel": "プロファイルフィルター",
 			"filterChip": "{{name}} · {{count}}",

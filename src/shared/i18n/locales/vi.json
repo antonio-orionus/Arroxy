@@ -39,6 +39,7 @@
 			"heading": "Gán hồ sơ tải xuống",
 			"selectedSummary": "Đã chọn {{selected}}/{{total}}",
 			"assignAria": "Gán {{profileName}}",
+			"editProfile": "Sửa {{name}}",
 			"more": "Thêm…",
 			"filtersLabel": "Bộ lọc hồ sơ",
 			"filterChip": "{{name}} · {{count}}",

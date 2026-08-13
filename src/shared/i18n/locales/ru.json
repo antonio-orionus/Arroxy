@@ -39,6 +39,7 @@
 			"heading": "Назначить профили загрузки",
 			"selectedSummary": "Выбрано {{selected}} из {{total}}",
 			"assignAria": "Назначить {{profileName}}",
+			"editProfile": "Изменить {{name}}",
 			"more": "Ещё…",
 			"filtersLabel": "Фильтры профилей",
 			"filterChip": "{{name}} · {{count}}",

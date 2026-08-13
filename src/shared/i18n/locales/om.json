@@ -51,6 +51,7 @@
 			"heading": "Piroofaayilii buufannaa ramaduu",
 			"selectedSummary": "{{total}} keessaa {{selected}} filatameera",
 			"assignAria": "{{profileName}} ramaduu",
+			"editProfile": "{{name}} gulaali",
 			"more": "Dabalata…",
 			"filtersLabel": "Calaltuu piroofaayilii",
 			"filterChip": "{{name}} · {{count}}",

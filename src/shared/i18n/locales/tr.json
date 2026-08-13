@@ -39,6 +39,7 @@
 			"heading": "İndirme profillerini ata",
 			"selectedSummary": "{{total}} öğeden {{selected}} tanesi seçildi",
 			"assignAria": "{{profileName}} ata",
+			"editProfile": "{{name}} düzenle",
 			"more": "Daha fazla…",
 			"filtersLabel": "Profil filtreleri",
 			"filterChip": "{{name}} · {{count}}",

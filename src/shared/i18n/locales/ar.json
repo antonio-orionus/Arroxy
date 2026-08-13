@@ -39,6 +39,7 @@
 			"heading": "تعيين ملفات تنزيل",
 			"selectedSummary": "تم تحديد {{selected}} من {{total}}",
 			"assignAria": "تعيين {{profileName}}",
+			"editProfile": "تعديل {{name}}",
 			"more": "المزيد…",
 			"filtersLabel": "عوامل تصفية الملف الشخصي",
 			"filterChip": "{{name}} · {{count}}",

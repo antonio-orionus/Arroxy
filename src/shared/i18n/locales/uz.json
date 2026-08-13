@@ -47,6 +47,7 @@
 			"heading": "Yuklab olish profillarini belgilash",
 			"selectedSummary": "{{total}} tadan {{selected}} tasi tanlandi",
 			"assignAria": "{{profileName}} belgilash",
+			"editProfile": "{{name}} tahrirlash",
 			"more": "Yana…",
 			"filtersLabel": "Profil filtrlari",
 			"filterChip": "{{name}} · {{count}}",

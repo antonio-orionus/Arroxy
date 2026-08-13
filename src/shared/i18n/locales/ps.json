@@ -39,6 +39,7 @@
 			"heading": "د ډاونلوډ پروفایلونه وټاکئ",
 			"selectedSummary": "{{selected}} د {{total}} څخه غوره شوي",
 			"assignAria": "{{profileName}} وټاکئ",
+			"editProfile": "{{name}} سمول",
 			"more": "نور…",
 			"filtersLabel": "د پروفایل فلټرونه",
 			"filterChip": "{{name}} · {{count}}",

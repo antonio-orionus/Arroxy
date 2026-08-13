@@ -39,6 +39,7 @@
 			"heading": "Download-Profile zuweisen",
 			"selectedSummary": "{{selected}} von {{total}} ausgewählt",
 			"assignAria": "{{profileName}} zuweisen",
+			"editProfile": "{{name}} bearbeiten",
 			"more": "Mehr…",
 			"filtersLabel": "Profilfilter",
 			"filterChip": "{{name}} · {{count}}",

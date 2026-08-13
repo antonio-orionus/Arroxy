@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import {cleanup, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
+import {act, cleanup, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import type {AppSettings, DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 import * as downloadProfilesModule from '@shared/downloadProfiles.js'
@@ -45,6 +45,20 @@ const ARCHIVE = profile('archive', 'Archive 4K', 'archive')
 const PODCAST = profile('podcast', 'Podcast MP3', 'podcast')
 const ARCHIVE_REF: DownloadProfileRef = {kind: 'custom', id: 'archive'}
 const PODCAST_REF: DownloadProfileRef = {kind: 'custom', id: 'podcast'}
+
+// Simulates a profile coming back renamed from the editor, without driving the
+// editor's own save plumbing (already covered where that plumbing lives) —
+// this only exercises whether the step re-derives row labels from the
+// settings it's handed, per `resolveAssignedProfile`.
+function renameProfile(id: string, name: string): void {
+	act(() => {
+		useAppStore.setState(state => {
+			const profiles = state.settings?.profiles
+			if (!profiles) return state
+			return {settings: {...state.settings, profiles: {...profiles, custom: profiles.custom.map(candidate => (candidate.id === id ? {...candidate, name} : candidate))}}} as never
+		})
+	})
+}
 
 // jsdom reports a zero-height scroll container, so the real virtualizer only
 // windows in a single row. Stub it to always render every row — same fix
@@ -207,6 +221,33 @@ describe('StepPlaylistProfiles', () => {
 	it('stays hidden when already dismissed in settings', () => {
 		renderStep({common: {multiProfileHintDismissed: true}})
 		expect(screen.queryByTestId('multi-profile-hint')).not.toBeInTheDocument()
+	})
+
+	it('opens the profile editor from the action bar', async () => {
+		renderStep()
+		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
+		expect(await screen.findByTestId('profiles-editor-dialog')).toBeInTheDocument()
+	})
+
+	it('does not reassign the selection when the pencil is clicked', () => {
+		renderStep()
+		// Select a row first so the action bar's assign buttons are live — this is
+		// the exact state in which a bubbled click would silently reassign 'b'.
+		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
+
+		// The editor opened (proven by the previous test); the point here is what
+		// did NOT happen: the selected row must still be on the baseline profile,
+		// not the one whose pencil was clicked.
+		expect(within(screen.getByTestId('profile-row-b')).getByText('Archive 4K')).toBeInTheDocument()
+	})
+
+	it('re-labels assigned rows when the profile is edited', () => {
+		renderStep()
+		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
+		renameProfile('podcast', 'Podcast 320')
+		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast 320')).toBeInTheDocument()
 	})
 })
 

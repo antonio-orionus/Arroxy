@@ -39,6 +39,7 @@
 			"heading": "Attribuer des profils de téléchargement",
 			"selectedSummary": "{{selected}} sur {{total}} sélectionné(s)",
 			"assignAria": "Attribuer {{profileName}}",
+			"editProfile": "Modifier {{name}}",
 			"more": "Plus…",
 			"filtersLabel": "Filtres de profil",
 			"filterChip": "{{name}} · {{count}}",

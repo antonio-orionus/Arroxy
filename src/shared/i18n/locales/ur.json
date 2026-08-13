@@ -39,6 +39,7 @@
 			"heading": "ڈاؤن لوڈ پروفائلز تفویض کریں",
 			"selectedSummary": "{{total}} میں سے {{selected}} منتخب",
 			"assignAria": "{{profileName}} تفویض کریں",
+			"editProfile": "{{name}} میں ترمیم کریں",
 			"more": "مزید…",
 			"filtersLabel": "پروفائل فلٹرز",
 			"filterChip": "{{name}} · {{count}}",

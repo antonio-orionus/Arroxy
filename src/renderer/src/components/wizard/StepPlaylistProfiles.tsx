@@ -5,7 +5,7 @@
 // already know from the Downloads tab. Chips filter; the action bar, the
 // row context menu, and number keys 1-9 assign.
 
-import {useCallback, useEffect, useMemo, useReducer, useRef, type ReactNode} from 'react'
+import {useCallback, useEffect, useMemo, useReducer, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {getCoreRowModel, useReactTable} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
@@ -18,6 +18,7 @@ import {useRowSelectionInteractions} from '../shared/useRowSelectionInteractions
 import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {buildDownloadProfileActionModel} from './downloadProfileActions.js'
+import {DownloadProfileEditor} from './DownloadProfileEditor.js'
 import {profileAssignmentCounts, resolveAssignedProfile} from './playlistProfileAssignments.js'
 import {orderProfileOptionsForAssignment} from './playlistProfileOrder.js'
 import {createPlaylistProfileTableState, playlistProfileTableReducer} from './playlistProfileTableState.js'
@@ -36,7 +37,8 @@ function isTypingTarget(target: EventTarget | null): boolean {
 
 export function StepPlaylistProfiles(): ReactNode {
 	const {t} = useTranslation()
-	const {playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds, playlistProfileAssignments, settings, assignPlaylistProfile, resetPlaylistProfile, exitMultiProfileMode, advance, dismissMultiProfileHint} = useAppStore()
+	const {playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds, playlistProfileAssignments, settings, wizardOutputDir, assignPlaylistProfile, resetPlaylistProfile, saveDownloadProfile, exitMultiProfileMode, advance, dismissMultiProfileHint} = useAppStore()
+	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
 
 	// The set the user narrowed to on the items step, minus anything removed
 	// later in this flow (Task 11) — not the full flat-probe playlist.
@@ -51,6 +53,10 @@ export function StepPlaylistProfiles(): ReactNode {
 	const orderedOptions = useMemo(() => orderProfileOptionsForAssignment(model.options, model.activeRef), [model.options, model.activeRef])
 	const profiles = useMemo(() => orderedOptions.map(option => option.profile), [orderedOptions])
 	const resolveProfile = useCallback((entry: PlaylistEntry): DownloadProfile => resolveAssignedProfile(entry.id, playlistProfileAssignments, profiles, model.activeProfile), [playlistProfileAssignments, profiles, model.activeProfile])
+	// Mirrors useDownloadHomeView's globalDestinationRoot so the quick-edit
+	// dialog previews the same resolved path DownloadProfilesHome would show.
+	const trimmedWizardOutputDir = wizardOutputDir?.trim() ?? ''
+	const globalDestinationRoot = trimmedWizardOutputDir.length > 0 ? trimmedWizardOutputDir : (settings?.common?.defaultOutputDir ?? '')
 
 	const [state, dispatch] = useReducer(playlistProfileTableReducer, undefined, createPlaylistProfileTableState)
 	const {filter, selection} = state
@@ -148,7 +154,7 @@ export function StepPlaylistProfiles(): ReactNode {
 					</span>
 				</div>
 
-				<PlaylistProfileActionBar options={orderedOptions} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onReset={() => reset(selectedItemIds)} />
+				<PlaylistProfileActionBar options={orderedOptions} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onEditProfile={setEditingProfile} onReset={() => reset(selectedItemIds)} />
 
 				{!settings?.common?.multiProfileHintDismissed ? (
 					<Alert variant="info" className="flex items-start gap-3" data-testid="multi-profile-hint">
@@ -183,6 +189,20 @@ export function StepPlaylistProfiles(): ReactNode {
 			</div>
 
 			<WizardStepFooterActions onBack={exitMultiProfileMode} onContinue={advance} />
+
+			{editingProfile ? (
+				<DownloadProfileEditor
+					key={editingProfile.id}
+					commonPaths={settings?.common?.commonPaths}
+					globalDestination={globalDestinationRoot}
+					initialProfile={editingProfile}
+					onOpenChange={open => {
+						if (!open) setEditingProfile(null)
+					}}
+					onSave={profile => saveDownloadProfile(profile)}
+					open
+				/>
+			) : null}
 		</div>
 	)
 }

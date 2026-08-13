@@ -1761,6 +1761,10 @@ msgctxt "wizard.playlistProfiles.columnProfile"
 msgid "Profile"
 msgstr "ပရိုဖိုင်"
 
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "{{name}} ကို ပြင်ဆင်ပါ"
+
 msgctxt "wizard.playlistProfiles.empty"
 msgid "No items match this filter"
 msgstr "ဤစစ်ထုတ်ကိရိယာနှင့် ကိုက်ညီသော အရာမရှိပါ"
