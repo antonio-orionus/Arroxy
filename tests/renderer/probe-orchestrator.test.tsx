@@ -701,6 +701,37 @@ describe('submitUrl — playlist probe', () => {
 		expect(api.downloads.probe).not.toHaveBeenCalled()
 	})
 
+	it('selectAllPlaylistItems excludes removed rows (I3)', async () => {
+		// Without filtering against removedPlaylistItemIds, "Select all" would
+		// over-count: the removed row isn't rendered, so there's no checkbox left
+		// to uncheck and correct the count.
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+
+		useAppStore.setState({wizardUrl: 'https://www.youtube.com/playlist?list=PLtest'})
+		await useAppStore.getState().submitUrl()
+
+		useAppStore.getState().removePlaylistItems(['e1'])
+		useAppStore.getState().selectAllPlaylistItems()
+
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['e2'])
+	})
+
+	it('selectPlaylistRange excludes removed rows within the range (I3)', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+
+		useAppStore.setState({wizardUrl: 'https://www.youtube.com/playlist?list=PLtest'})
+		await useAppStore.getState().submitUrl()
+
+		useAppStore.getState().removePlaylistItems(['e1'])
+		useAppStore.getState().selectPlaylistRange(1, 2)
+
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['e2'])
+	})
+
 	it('trims the sentinel entry and marks the playlist as likely capped', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(playlistProbeWithEntries(101)))

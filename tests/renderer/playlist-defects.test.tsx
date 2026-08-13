@@ -4,13 +4,35 @@ import {render, screen} from '@testing-library/react'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {StepConfirm} from '@renderer/components/wizard/StepConfirm.js'
 import {ok} from '../shared/fixtures.js'
-import type {PlaylistEntry} from '@shared/types.js'
+import type {DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 
 const PLAYLIST_ENTRIES: PlaylistEntry[] = [
 	{id: 'p1', url: 'https://youtube.com/watch?v=p1', title: 'Vid 1', thumbnail: '', playlistIndex: 1, videoId: 'p1'},
 	{id: 'p2', url: 'https://youtube.com/watch?v=p2', title: 'Vid 2', thumbnail: '', playlistIndex: 2, videoId: 'p2'},
 	{id: 'p3', url: 'https://youtube.com/watch?v=p3', title: 'Vid 3', thumbnail: '', playlistIndex: 3, videoId: 'p3'}
 ]
+
+function multiProfileFixture(id: string, name: string, dir: string): DownloadProfile {
+	return {
+		id,
+		name,
+		icon: 'video',
+		media: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
+		subtitles: {enabled: false, languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'},
+		output: {kind: 'fixed', dir},
+		filename: {kind: 'default'},
+		subfolder: {enabled: false, name: ''},
+		sponsorBlock: {mode: 'off', categories: []},
+		embed: {chapters: true, metadata: true, thumbnail: false, description: false, thumbnailSidecar: false},
+		createdAt: '2026-08-12T00:00:00.000Z',
+		updatedAt: '2026-08-12T00:00:00.000Z'
+	} as DownloadProfile
+}
+
+const MP_ARCHIVE = multiProfileFixture('archive', 'Archive 4K', '/downloads/archive')
+const MP_PODCAST = multiProfileFixture('podcast', 'Podcast MP3', '/downloads/podcast')
+const MP_ARCHIVE_REF: DownloadProfileRef = {kind: 'custom', id: 'archive'}
+const MP_PODCAST_REF: DownloadProfileRef = {kind: 'custom', id: 'podcast'}
 
 function buildMockApi(settingsUpdateMock?: ReturnType<typeof vi.fn>) {
 	return {
@@ -87,6 +109,11 @@ function resetStore() {
 		selectedPlaylistItemIds: [],
 		playlistSelection: null,
 		playlistTitle: '',
+		// Explicit false/{} so a multi-profile test earlier in the file can't leak
+		// state into an unrelated test that never sets these itself.
+		multiProfileMode: false,
+		playlistProfileAssignments: {},
+		removedPlaylistItemIds: [],
 		queue: []
 	} as never)
 }
@@ -142,6 +169,75 @@ describe('D1/D3 — StepConfirm playlist-mode rendering', () => {
 		render(<StepConfirm />)
 		expect(screen.queryByTestId('btn-download-now')).toBeNull()
 		expect(screen.getByTestId('btn-add-to-queue')).toBeDisabled()
+	})
+})
+
+describe('I1 — multi-profile confirm does not claim a single destination', () => {
+	function setMultiProfileConfirmState() {
+		useAppStore.setState({
+			wizardMode: 'playlist',
+			wizardStep: 'confirm',
+			wizardExtractor: 'youtube',
+			playlistTitle: 'My Playlist',
+			playlistItems: PLAYLIST_ENTRIES,
+			selectedPlaylistItemIds: ['p1', 'p2'],
+			multiProfileMode: true,
+			playlistProfileAssignments: {p2: MP_PODCAST_REF},
+			settings: {profiles: {active: MP_ARCHIVE_REF, custom: [MP_ARCHIVE, MP_PODCAST], overrides: []}},
+			wizardOutputDir: '/tmp/playlists'
+		} as never)
+	}
+
+	it('omits the single saveTo row and the per-item breakdown carries destinations instead', () => {
+		window.appApi = buildMockApi() as never
+		setMultiProfileConfirmState()
+		render(<StepConfirm />)
+
+		// The old behavior rendered this row with wizardOutputDir — not where
+		// anything is written in this mode, since each item lands in its own
+		// assigned profile's directory.
+		expect(screen.queryByTestId('confirm-saveTo')).not.toBeInTheDocument()
+		expect(screen.getByTestId('confirm-profile-breakdown')).toBeInTheDocument()
+		expect(screen.getByTestId('confirm-profile-row-archive')).toHaveTextContent('/downloads/archive')
+		expect(screen.getByTestId('confirm-profile-row-podcast')).toHaveTextContent('/downloads/podcast')
+	})
+
+	it('does not state the single-destination banner text or the wrong shared path', () => {
+		window.appApi = buildMockApi() as never
+		setMultiProfileConfirmState()
+		render(<StepConfirm />)
+
+		// "Your file will land in" + wizardOutputDir is what the single/normal
+		// path renders — asserting its absence here is what would catch a
+		// regression back to always rendering it regardless of mode.
+		expect(screen.queryByText('Your file will land in')).not.toBeInTheDocument()
+		expect(screen.queryByText('/tmp/playlists')).not.toBeInTheDocument()
+		expect(screen.getByText(/destinations below/i)).toBeInTheDocument()
+	})
+})
+
+describe('M1 — multi-profile breakdown never throws when a profile has no resolvable output dir', () => {
+	it('renders an empty destination for that row instead of white-screening', () => {
+		window.appApi = buildMockApi() as never
+		// A 'fixed' output kind with a blank dir makes
+		// resolveDownloadProfileOutputDir throw (downloadProfiles.ts) — the exact
+		// condition the unguarded call in multiProfileBreakdown used to crash on.
+		const brokenProfile = multiProfileFixture('broken', 'Broken Profile', '')
+		useAppStore.setState({
+			wizardMode: 'playlist',
+			wizardStep: 'confirm',
+			wizardExtractor: 'youtube',
+			playlistTitle: 'My Playlist',
+			playlistItems: PLAYLIST_ENTRIES,
+			selectedPlaylistItemIds: ['p1'],
+			multiProfileMode: true,
+			playlistProfileAssignments: {},
+			settings: {profiles: {active: {kind: 'custom', id: 'broken'}, custom: [brokenProfile], overrides: []}},
+			wizardOutputDir: ''
+		} as never)
+
+		expect(() => render(<StepConfirm />)).not.toThrow()
+		expect(screen.getByTestId('confirm-profile-row-broken')).toBeInTheDocument()
 	})
 })
 

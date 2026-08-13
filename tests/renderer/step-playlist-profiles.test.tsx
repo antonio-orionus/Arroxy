@@ -108,6 +108,13 @@ describe('StepPlaylistProfiles', () => {
 		expect(screen.getAllByText('Archive 4K')).toHaveLength(3)
 	})
 
+	it('shows the number-key digit on each of the first nine action-bar buttons (M3)', () => {
+		renderStep()
+		fireEvent.click(screen.getByText('One Last Breath'))
+		expect(screen.getByTestId('assign-profile-archive')).toHaveTextContent('1')
+		expect(screen.getByTestId('assign-profile-podcast')).toHaveTextContent('2')
+	})
+
 	it('assigns the clicked profile to the selected rows', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
@@ -129,6 +136,26 @@ describe('StepPlaylistProfiles', () => {
 		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
 		fireEvent.click(screen.getByTestId('filter-profile-podcast'))
 		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(1)
+	})
+
+	it('resets the filter to "All" once the filtered profile\'s count drops to zero (M2)', () => {
+		renderStep()
+		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
+		fireEvent.click(screen.getByTestId('filter-profile-podcast'))
+		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(1)
+
+		// Reassign the only podcast-filtered row back to the baseline — the
+		// podcast chip's count drops to zero and (per PlaylistProfileFilterChips)
+		// the chip itself disappears since it only renders chips with count > 0.
+		// Without the fix, `filter` stays stuck on 'podcast' with no chip left to
+		// click back to "All" and the table sits empty.
+		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-reset'))
+
+		expect(screen.queryByTestId('filter-profile-podcast')).not.toBeInTheDocument()
+		expect(screen.getByTestId('filter-profile-all')).toHaveAttribute('aria-pressed', 'true')
+		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(3)
 	})
 
 	it('puts the baseline and custom profiles ahead of builtins in the visible action bar', () => {
@@ -241,6 +268,26 @@ describe('StepPlaylistProfiles', () => {
 		expect(screen.getByRole('button', {name: 'Change global destination'})).toBeEnabled()
 	})
 
+	it('ignores Delete and digit shortcuts while the profile editor dialog is open (I2)', async () => {
+		// The profile editor is a Dialog full of buttons/toggles/selects, none of
+		// which isTypingTarget recognizes as a text field — so without an explicit
+		// `editingProfile` guard, these window-scoped shortcuts fire straight
+		// through the open modal and silently mutate the selection behind it.
+		renderStep()
+		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
+		await screen.findByTestId('profiles-editor-dialog')
+
+		// Digit2 is 'podcast' (orderedOptions[1] — baseline 'archive' is index 0).
+		// If the guard were missing this would reassign row 'b' to Podcast MP3.
+		fireEvent.keyDown(window, {key: '2', code: 'Digit2'})
+		expect(within(screen.getByTestId('profile-row-b')).getByText('Archive 4K')).toBeInTheDocument()
+
+		fireEvent.keyDown(window, {key: 'Delete'})
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
+		expect(screen.getByTestId('profile-row-b')).toBeInTheDocument()
+	})
+
 	it('does not reassign the selection when the pencil is clicked', () => {
 		renderStep()
 		// Select a row first so the action bar's assign buttons are live — this is
@@ -269,7 +316,7 @@ describe('StepPlaylistProfiles', () => {
 		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
 
 		fireEvent.contextMenu(screen.getByTestId('profile-row-b'))
-		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
 
 		expect(screen.queryByTestId('profile-row-b')).not.toBeInTheDocument()
 		// Pruned everywhere, not just dropped from the visible rows — an orphaned
@@ -298,7 +345,7 @@ describe('StepPlaylistProfiles', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
 		fireEvent.contextMenu(screen.getByTestId('profile-row-b'))
-		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
 		expect(screen.queryByTestId('profile-row-b')).not.toBeInTheDocument()
 
 		fireEvent.click(screen.getByTestId('restore-removed-playlist-items'))
@@ -315,7 +362,7 @@ describe('StepPlaylistProfiles', () => {
 		// (openContextMenuForRow keeps a selection it right-clicks into), not just 'a'.
 		fireEvent.keyDown(window, {key: 'a', code: 'KeyA', ctrlKey: true})
 		fireEvent.contextMenu(screen.getByTestId('profile-row-a'))
-		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
 
 		expect(screen.queryByTestId(/^profile-row-/)).not.toBeInTheDocument()
 		expect(useAppStore.getState().removedPlaylistItemIds.sort()).toEqual(['a', 'b', 'c'])
@@ -323,6 +370,21 @@ describe('StepPlaylistProfiles', () => {
 		expect(screen.getByRole('button', {name: 'Continue'})).toBeDisabled()
 		// Restore stays reachable even though the table itself is gone.
 		expect(screen.getByTestId('restore-removed-playlist-items')).toBeInTheDocument()
+	})
+
+	it('keeps assignments when leaving via Back, so re-entering the mode restores them (I4)', () => {
+		// Removing one row earns a persistent Restore control with exact undo —
+		// discarding every assignment on Back must not get a worse deal: no
+		// confirm, no undo, and (unlike removal) no visible sign it happened.
+		renderStep()
+		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
+		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
+
+		fireEvent.click(screen.getByRole('button', {name: 'Back'}))
+
+		expect(useAppStore.getState().multiProfileMode).toBe(false)
+		expect(useAppStore.getState().playlistProfileAssignments).toEqual({b: PODCAST_REF})
 	})
 })
 
@@ -411,7 +473,7 @@ describe('StepPlaylistItems remove and restore', () => {
 		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['x'])
 
 		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-y'))
-		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
 
 		expect(screen.queryByTestId('playlist-item-row-y')).not.toBeInTheDocument()
 		expect(screen.getByTestId('playlist-item-row-x')).toBeInTheDocument()
@@ -424,7 +486,7 @@ describe('StepPlaylistItems remove and restore', () => {
 		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
 
 		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-x'))
-		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
 
 		expect(screen.queryByTestId(/^playlist-item-row-/)).not.toBeInTheDocument()
 		expect(useAppStore.getState().removedPlaylistItemIds.slice().sort()).toEqual(['x', 'y'])
@@ -440,10 +502,32 @@ describe('StepPlaylistItems remove and restore', () => {
 		expect(useAppStore.getState().removedPlaylistItemIds.slice().sort()).toEqual(['x', 'y'])
 	})
 
+	it('does not remove items on Backspace — only Delete (I5)', () => {
+		// Backspace is a common "go back" reflex with no visible affordance
+		// warning it deletes rows on this screen; only Delete is bound.
+		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
+
+		fireEvent.keyDown(window, {key: 'Backspace'})
+
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
+		expect(screen.getByTestId('playlist-item-row-x')).toBeInTheDocument()
+		expect(screen.getByTestId('playlist-item-row-y')).toBeInTheDocument()
+	})
+
+	it('states the count being removed in the context-menu label (I5)', async () => {
+		// Both x and y are checked by default, so right-clicking the checked row
+		// x acts on the whole checked set (2), not just the row clicked — the
+		// label must say so instead of a bare "Remove from list".
+		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
+
+		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-x'))
+		expect(await screen.findByRole('menuitem', {name: 'Remove 2 from list'})).toBeInTheDocument()
+	})
+
 	it('restores removed items via the Restore button, re-checked', async () => {
 		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
 		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-x'))
-		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
 		expect(screen.queryByTestId(/^playlist-item-row-/)).not.toBeInTheDocument()
 
 		fireEvent.click(screen.getByTestId('restore-removed-playlist-items'))
@@ -463,7 +547,7 @@ describe('StepPlaylistItems remove and restore', () => {
 		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['x'])
 
 		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-y'))
-		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
 		expect(screen.queryByTestId('playlist-item-row-y')).not.toBeInTheDocument()
 
 		fireEvent.click(screen.getByTestId('restore-removed-playlist-items'))
@@ -477,7 +561,7 @@ describe('StepPlaylistItems remove and restore', () => {
 	it('shows the empty state and disables Continue once every item is removed', async () => {
 		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
 		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-x'))
-		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
 
 		expect(screen.getByTestId('playlist-items-empty')).toBeInTheDocument()
 		expect(screen.getByRole('button', {name: 'Continue'})).toBeDisabled()
