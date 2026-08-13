@@ -5,6 +5,12 @@
 // also carries a hover/focus-revealed pencil that reaches the same profile
 // editor QuickProfileControl opens (see StepPlaylistProfiles), so a hasty
 // profile pick can be corrected without leaving the assignment step.
+//
+// The first nine (StepPlaylistProfiles's DIGIT_CODES) also carry a small
+// digit in the corner teaching the number-key shortcut — the dismissible hint
+// alert is the only other place that's taught, so once it's dismissed once
+// this is the sole remaining discovery path. Kept quiet (low-contrast,
+// tabular-nums, no border) per the dense-screen glow policy.
 
 import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
@@ -14,10 +20,20 @@ import {Button} from '../ui/button.js'
 import {ButtonGroup} from '../ui/button-group.js'
 import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
-import {TooltipIconButton} from '../ui/tooltip-icon-button.js'
 import type {DownloadProfileActionOption} from './downloadProfileActions.js'
 
 const ACTION_BAR_VISIBLE_LIMIT = 8
+// Matches DIGIT_CODES.length in StepPlaylistProfiles.tsx — number keys 1-9
+// only ever address the first nine ordered profiles, visible or not.
+const DIGIT_HINT_LIMIT = 9
+
+function DigitHint({digit}: {digit: number}): ReactNode {
+	return (
+		<span className="pointer-events-none absolute right-0.5 bottom-0 leading-none font-semibold text-[8px] text-muted-foreground/55 tabular-nums" aria-hidden>
+			{digit}
+		</span>
+	)
+}
 
 interface PlaylistProfileActionBarProps {
 	options: DownloadProfileActionOption[]
@@ -51,9 +67,19 @@ export function PlaylistProfileActionBar({options, selectedCount, onAssign, onEd
 	return (
 		<div className="flex flex-wrap items-center gap-1.5" data-testid="playlist-profile-actions">
 			<ButtonGroup className="flex-wrap" aria-label={t('queue.selectedActionsLabel')}>
-				{visible.map(option => (
+				{visible.map((option, index) => (
 					<ButtonGroup key={option.profile.id} className="group/profile">
-						<TooltipIconButton icon={<option.Icon size={13} aria-hidden />} label={t('wizard.playlistProfiles.assignAria', {profileName: option.profile.name})} data-testid={`assign-profile-${option.profile.id}`} className="h-7 w-7" disabled={disabled} onClick={() => assign(option.ref)} />
+						<Tooltip>
+							<TooltipTrigger
+								render={props => (
+									<Button {...props} type="button" variant="ghost" size="icon" aria-label={t('wizard.playlistProfiles.assignAria', {profileName: option.profile.name})} data-testid={`assign-profile-${option.profile.id}`} className="relative h-7 w-7" disabled={disabled} onClick={() => assign(option.ref)}>
+										<option.Icon size={13} aria-hidden />
+										{index < DIGIT_HINT_LIMIT ? <DigitHint digit={index + 1} /> : null}
+									</Button>
+								)}
+							/>
+							<TooltipContent>{t('wizard.playlistProfiles.assignAria', {profileName: option.profile.name})}</TooltipContent>
+						</Tooltip>
 						<Tooltip>
 							<TooltipTrigger
 								render={props => (
@@ -91,25 +117,33 @@ export function PlaylistProfileActionBar({options, selectedCount, onAssign, onEd
 						}
 					/>
 					<PopoverContent align="start" className="w-56 gap-1 p-1.5">
-						{overflow.map(option => (
-							<div key={option.profile.id} className="group/profile flex items-center gap-1">
-								<Button type="button" variant="ghost" size="sm" className="h-8 min-w-0 flex-1 justify-start gap-2 px-2 text-xs" data-testid={`assign-profile-${option.profile.id}`} onClick={() => assign(option.ref)}>
-									<option.Icon size={13} className="shrink-0 text-[var(--brand)]" aria-hidden />
-									<span className="min-w-0 flex-1 truncate text-left">{option.profile.name}</span>
-								</Button>
-								<Button
-									type="button"
-									variant="ghost"
-									size="icon"
-									aria-label={t('wizard.playlistProfiles.editProfile', {name: option.profile.name})}
-									data-testid={`edit-profile-${option.profile.id}`}
-									className="h-8 w-8 shrink-0 opacity-0 transition-opacity duration-150 group-hover/profile:opacity-100 focus-visible:opacity-100"
-									onClick={event => editProfile(event, option.profile)}
-								>
-									<PenLine size={12} aria-hidden />
-								</Button>
-							</div>
-						))}
+						{overflow.map((option, overflowIndex) => {
+							const digitIndex = ACTION_BAR_VISIBLE_LIMIT + overflowIndex
+							return (
+								<div key={option.profile.id} className="group/profile flex items-center gap-1">
+									<Button type="button" variant="ghost" size="sm" className="h-8 min-w-0 flex-1 justify-start gap-2 px-2 text-xs" data-testid={`assign-profile-${option.profile.id}`} onClick={() => assign(option.ref)}>
+										<option.Icon size={13} className="shrink-0 text-[var(--brand)]" aria-hidden />
+										<span className="min-w-0 flex-1 truncate text-left">{option.profile.name}</span>
+										{digitIndex < DIGIT_HINT_LIMIT ? (
+											<span className="shrink-0 text-[10px] text-muted-foreground/55 tabular-nums" aria-hidden>
+												{digitIndex + 1}
+											</span>
+										) : null}
+									</Button>
+									<Button
+										type="button"
+										variant="ghost"
+										size="icon"
+										aria-label={t('wizard.playlistProfiles.editProfile', {name: option.profile.name})}
+										data-testid={`edit-profile-${option.profile.id}`}
+										className="h-8 w-8 shrink-0 opacity-0 transition-opacity duration-150 group-hover/profile:opacity-100 focus-visible:opacity-100"
+										onClick={event => editProfile(event, option.profile)}
+									>
+										<PenLine size={12} aria-hidden />
+									</Button>
+								</div>
+							)
+						})}
 					</PopoverContent>
 				</Popover>
 			) : null}
