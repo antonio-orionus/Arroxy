@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "Arroxy imepata zaidi ya vipande {{count}}, kwa hivyo kikomo cha skani cha sasa kinaficha vilivyobaki.",
 			"multiProfileEntry": "Weka wasifu kwa kila kipengele",
 			"multiProfileEntryTooltip": "Inaruka Ubora, SponsorBlock, Matokeo, na Hifadhi — badala yake weka wasifu wa upakuaji kwa kila kipengele",
-			"removeFromList": "Ondoa kwenye orodha",
+			"removeFromListCount_one": "Ondoa {{count}} kwenye orodha",
+			"removeFromListCount_other": "Ondoa {{count}} kwenye orodha",
 			"restore": "Rejesha",
 			"removedCount_one": "{{count}} zimeondolewa",
 			"removedCount_other": "{{count}} zimeondolewa",
@@ -387,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Iko tayari kupakua!",
 			"landIn": "Faili yako itawekwa kwenye",
+			"landInMultiProfile_one": "Itafika kwenye lengwa lililo hapa chini",
+			"landInMultiProfile_other": "Zitafika kwenye malengwa {{count}} yaliyo hapa chini",
 			"labelVideo": "Video",
 			"labelAudio": "Sauti",
 			"labelSubtitles": "Manukuu",

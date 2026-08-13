@@ -85,7 +85,8 @@
 			"probeLimitAlertDesc": "Arroxy ከ {{count}} በላይ ንጥሎችን አግኝቷል፣ ስለዚህ የአሁኑ ቃኝት ገደብ የቀሩትን እየደበቀ ነው።",
 			"multiProfileEntry": "ለእያንዳንዱ ንጥል መገለጫ መድብ",
 			"multiProfileEntryTooltip": "ጥራት፣ SponsorBlock፣ ውፅዓት እና አስቀምጥን ይዘላል — በምትኩ ለእያንዳንዱ ንጥል የማውረድ መገለጫ ይመድቡ",
-			"removeFromList": "ከዝርዝሩ አስወግድ",
+			"removeFromListCount_one": "{{count}} ከዝርዝሩ አስወግድ",
+			"removeFromListCount_other": "{{count}} ከዝርዝሩ አስወግድ",
 			"restore": "መልስ",
 			"removedCount_one": "{{count}} ተወግደዋል",
 			"removedCount_other": "{{count}} ተወግደዋል",
@@ -354,6 +355,8 @@
 		"confirm": {
 			"readyHeadline": "ለመሳብ ዝግጁ!",
 			"landIn": "ፋይልዎ እዚህ ይወርዳል",
+			"landInMultiProfile_one": "ከታች ወዳለው መድረሻ ይወርዳል",
+			"landInMultiProfile_other": "{{count}} መድረሻዎች ከታች ይወርዳሉ",
 			"labelVideo": "ቪዲዮ",
 			"labelAudio": "ድምጽ",
 			"labelSubtitles": "ንዑስ ርዕሶች",

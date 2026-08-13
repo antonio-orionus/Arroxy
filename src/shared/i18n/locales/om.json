@@ -106,7 +106,8 @@
 			"probeLimitAlertDesc": "Arroxy wantoota {{count}} ol argateera, kanaafuu daangaan qorannaa ammaa kan hafan dhoksaa jira.",
 			"multiProfileEntry": "Meeshaa tokkoon tokkoon Piroofaayilii ramaduu",
 			"multiProfileEntryTooltip": "Qulqullina, SponsorBlock, Ba'uu, fi Kuusi ni dabarsa — qooda kanaa meeshaa tokkoon tokkoon Piroofaayilii buufannaa ramadi",
-			"removeFromList": "Tarreefaa keessaa balleessi",
+			"removeFromListCount_one": "{{count}} tarreefaa keessaa balleessi",
+			"removeFromListCount_other": "{{count}} tarreefaa keessaa balleessi",
 			"restore": "Deebi'si",
 			"removedCount_one": "{{count}} balleeffame",
 			"removedCount_other": "{{count}} balleeffame",
@@ -399,6 +400,8 @@
 		"confirm": {
 			"readyHeadline": "Buusuuf qophii dha!",
 			"landIn": "Faayilin kee bakka kanatti bu'a",
+			"landInMultiProfile_one": "Gara bakka armaan gadiitti bu'a",
+			"landInMultiProfile_other": "Gara bakkoota {{count}} armaan gadiitti ni bu'u",
 			"labelVideo": "Viidiyoo",
 			"labelAudio": "Sagalee",
 			"labelSubtitles": "Axxiinni",

@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "Arroxy tìm thấy nhiều hơn {{count}} mục, vì vậy giới hạn quét hiện tại đang ẩn phần còn lại.",
 			"multiProfileEntry": "Gán hồ sơ cho từng mục",
 			"multiProfileEntryTooltip": "Bỏ qua Chất lượng, SponsorBlock, Đầu ra và Lưu — thay vào đó gán hồ sơ tải xuống cho từng mục",
-			"removeFromList": "Xóa khỏi danh sách",
+			"removeFromListCount_one": "Xóa {{count}} mục khỏi danh sách",
+			"removeFromListCount_other": "Xóa {{count}} mục khỏi danh sách",
 			"restore": "Khôi phục",
 			"removedCount_one": "{{count}} đã xóa",
 			"removedCount_other": "{{count}} đã xóa",
@@ -387,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Sẵn sàng tải về!",
 			"landIn": "Tệp của bạn sẽ được lưu vào",
+			"landInMultiProfile_one": "Sẽ được lưu vào điểm đến bên dưới",
+			"landInMultiProfile_other": "Sẽ được lưu vào {{count}} điểm đến bên dưới",
 			"labelVideo": "Video",
 			"labelAudio": "Âm thanh",
 			"labelSubtitles": "Phụ đề",

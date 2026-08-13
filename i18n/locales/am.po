@@ -1165,6 +1165,14 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "ፋይልዎ እዚህ ይወርዳል"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "ከታች ወዳለው መድረሻ ይወርዳል"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "{{count}} መድረሻዎች ከታች ይወርዳሉ"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "ንዑስ ርዕስ ብቻ ቅድመ-ቅንብር ነቅቷል ነገር ግን ምንም ቋንቋ አልተመረጠም — ምንም አይዳውንሎድም።"
@@ -1701,9 +1709,13 @@ msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} ተወግደዋል"
 
-msgctxt "wizard.playlist.removeFromList"
-msgid "Remove from list"
-msgstr "ከዝርዝሩ አስወግድ"
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "{{count}} ከዝርዝሩ አስወግድ"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "{{count}} ከዝርዝሩ አስወግድ"
 
 msgctxt "wizard.playlist.restore"
 msgid "Restore"

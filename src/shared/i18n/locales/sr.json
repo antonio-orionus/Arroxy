@@ -102,7 +102,8 @@
 			"probeLimitAlertDesc": "Arroxy је пронашао више од {{count}} ставки, па тренутно ограничење скенирања скрива остатак.",
 			"multiProfileEntry": "Додели профиле по ставци",
 			"multiProfileEntryTooltip": "Прескаче Квалитет, SponsorBlock, Излаз и Сачувај — уместо тога додељује профил преузимања по ставци",
-			"removeFromList": "Уклони са листе",
+			"removeFromListCount_one": "Уклони {{count}} са листе",
+			"removeFromListCount_other": "Уклони {{count}} са листе",
 			"restore": "Врати",
 			"removedCount_one": "{{count}} уклоњено",
 			"removedCount_other": "{{count}} уклоњено",
@@ -395,6 +396,8 @@
 		"confirm": {
 			"readyHeadline": "Спремно за преузимање!",
 			"landIn": "Твоја датотека ће бити сачувана у",
+			"landInMultiProfile_one": "Стићи ће на одредиште испод",
+			"landInMultiProfile_other": "Стићи ће на {{count}} одредишта испод",
 			"labelVideo": "Видео",
 			"labelAudio": "Звук",
 			"labelSubtitles": "Титлови",

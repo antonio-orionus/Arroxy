@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "Arroxy {{count}}-এর বেশি আইটেম খুঁজে পেয়েছে, তাই বর্তমান স্ক্যান সীমা বাকিগুলো লুকিয়ে রাখছে।",
 			"multiProfileEntry": "প্রতিটি আইটেমে প্রোফাইল নির্ধারণ করুন",
 			"multiProfileEntryTooltip": "মান, SponsorBlock, আউটপুট এবং সেভ এড়িয়ে যায় — পরিবর্তে প্রতিটি আইটেমে একটি ডাউনলোড প্রোফাইল নির্ধারণ করুন",
-			"removeFromList": "তালিকা থেকে সরান",
+			"removeFromListCount_one": "তালিকা থেকে {{count}}টি সরান",
+			"removeFromListCount_other": "তালিকা থেকে {{count}}টি সরান",
 			"restore": "পুনরুদ্ধার করুন",
 			"removedCount_one": "{{count}}টি সরানো হয়েছে",
 			"removedCount_other": "{{count}}টি সরানো হয়েছে",
@@ -371,6 +372,8 @@
 		"confirm": {
 			"readyHeadline": "ডাউনলোড করতে প্রস্তুত!",
 			"landIn": "আপনার ফাইল যাবে",
+			"landInMultiProfile_one": "এটি নিচের গন্তব্যে যাবে",
+			"landInMultiProfile_other": "এগুলো নিচের {{count}}টি গন্তব্যে যাবে",
 			"labelVideo": "ভিডিও",
 			"labelAudio": "অডিও",
 			"labelSubtitles": "সাবটাইটেল",

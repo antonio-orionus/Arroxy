@@ -85,7 +85,8 @@
 			"probeLimitAlertDesc": "Arroxy 发现超过 {{count}} 个项目，当前扫描上限隐藏了其余内容。",
 			"multiProfileEntry": "为每一项分配配置",
 			"multiProfileEntryTooltip": "跳过画质、SponsorBlock、输出和保存 — 改为为每一项分配下载配置",
-			"removeFromList": "从列表中移除",
+			"removeFromListCount_one": "从列表中移除 {{count}} 项",
+			"removeFromListCount_other": "从列表中移除 {{count}} 项",
 			"restore": "还原",
 			"removedCount_one": "已移除 {{count}} 项",
 			"removedCount_other": "已移除 {{count}} 项",
@@ -354,6 +355,8 @@
 		"confirm": {
 			"readyHeadline": "已经准备好下载!",
 			"landIn": "文件将保存至",
+			"landInMultiProfile_one": "将保存到下方的目标位置",
+			"landInMultiProfile_other": "将保存到下方的 {{count}} 个目标位置",
 			"labelVideo": "视频",
 			"labelAudio": "音频",
 			"labelSubtitles": "字幕",

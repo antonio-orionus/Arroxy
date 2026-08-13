@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "Arroxy hat mehr als {{count}} Einträge gefunden, daher verbirgt das aktuelle Scan-Limit den Rest.",
 			"multiProfileEntry": "Profile pro Element zuweisen",
 			"multiProfileEntryTooltip": "Überspringt Qualität, SponsorBlock, Ausgabe und Speichern — weist stattdessen jedem Element ein Download-Profil zu",
-			"removeFromList": "Aus der Liste entfernen",
+			"removeFromListCount_one": "{{count}} aus der Liste entfernen",
+			"removeFromListCount_other": "{{count}} aus der Liste entfernen",
 			"restore": "Wiederherstellen",
 			"removedCount_one": "{{count}} entfernt",
 			"removedCount_other": "{{count}} entfernt",
@@ -387,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Bereit zum Herunterladen!",
 			"landIn": "Deine Datei landet in",
+			"landInMultiProfile_one": "Es landet im Ziel unten",
+			"landInMultiProfile_other": "Sie landen in den {{count}} Zielen unten",
 			"labelVideo": "Video",
 			"labelAudio": "Audio",
 			"labelSubtitles": "Untertitel",

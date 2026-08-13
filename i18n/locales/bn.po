@@ -1165,6 +1165,14 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "আপনার ফাইল যাবে"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "এটি নিচের গন্তব্যে যাবে"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "এগুলো নিচের {{count}}টি গন্তব্যে যাবে"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "শুধু সাবটাইটেল প্রিসেট চালু আছে কিন্তু কোনো সাবটাইটেল ভাষা নির্বাচিত হয়নি — কিছু ডাউনলোড হবে না।"
@@ -1701,9 +1709,13 @@ msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}}টি সরানো হয়েছে"
 
-msgctxt "wizard.playlist.removeFromList"
-msgid "Remove from list"
-msgstr "তালিকা থেকে সরান"
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "তালিকা থেকে {{count}}টি সরান"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "তালিকা থেকে {{count}}টি সরান"
 
 msgctxt "wizard.playlist.restore"
 msgid "Restore"

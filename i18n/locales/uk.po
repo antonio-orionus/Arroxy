@@ -1165,6 +1165,14 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "Файл потрапить у"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Він потрапить у місце призначення нижче"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Вони потраплять у {{count}} місця призначення нижче"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Пресет «Тільки субтитри» активний, але мову субтитрів не вибрано — нічого не буде завантажено."
@@ -1701,9 +1709,13 @@ msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} видалено"
 
-msgctxt "wizard.playlist.removeFromList"
-msgid "Remove from list"
-msgstr "Видалити зі списку"
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Видалити {{count}} зі списку"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Видалити {{count}} зі списку"
 
 msgctxt "wizard.playlist.restore"
 msgid "Restore"

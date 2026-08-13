@@ -1165,6 +1165,14 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "سيُحفظ ملفك في"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "سيُحفظ في الوجهة أدناه"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "سيُحفظ في {{count}} وجهات أدناه"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "الإعداد المسبق \"ترجمات فقط\" مفعّل ولكن لم يتم اختيار أي لغة ترجمة — لن يتم تنزيل أي شيء."
@@ -1701,9 +1709,13 @@ msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "تمت إزالة {{count}}"
 
-msgctxt "wizard.playlist.removeFromList"
-msgid "Remove from list"
-msgstr "إزالة من القائمة"
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "إزالة {{count}} من القائمة"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "إزالة {{count}} من القائمة"
 
 msgctxt "wizard.playlist.restore"
 msgid "Restore"

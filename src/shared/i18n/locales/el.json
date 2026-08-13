@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "Το Arroxy βρήκε περισσότερα από {{count}} στοιχεία, οπότε το τρέχον όριο σάρωσης αποκρύπτει τα υπόλοιπα.",
 			"multiProfileEntry": "Εκχώρηση προφίλ ανά στοιχείο",
 			"multiProfileEntryTooltip": "Παρακάμπτει την Ποιότητα, το SponsorBlock, την Έξοδο και την Αποθήκευση — εκχωρεί αντ' αυτού ένα προφίλ λήψης ανά στοιχείο",
-			"removeFromList": "Κατάργηση από τη λίστα",
+			"removeFromListCount_one": "Κατάργηση {{count}} από τη λίστα",
+			"removeFromListCount_other": "Κατάργηση {{count}} από τη λίστα",
 			"restore": "Επαναφορά",
 			"removedCount_one": "{{count}} καταργήθηκαν",
 			"removedCount_other": "{{count}} καταργήθηκαν",
@@ -387,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Έτοιμο για λήψη!",
 			"landIn": "Το αρχείο σου θα αποθηκευτεί στο",
+			"landInMultiProfile_one": "Θα αποθηκευτεί στον παρακάτω προορισμό",
+			"landInMultiProfile_other": "Θα αποθηκευτούν στους {{count}} παρακάτω προορισμούς",
 			"labelVideo": "Βίντεο",
 			"labelAudio": "Ήχος",
 			"labelSubtitles": "Υπότιτλοι",

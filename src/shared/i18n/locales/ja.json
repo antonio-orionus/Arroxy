@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "Arroxy は {{count}} 件を超えるアイテムを検出しましたが、現在のスキャン上限により残りは表示されていません。",
 			"multiProfileEntry": "アイテムごとにプロファイルを割り当て",
 			"multiProfileEntryTooltip": "画質、SponsorBlock、出力、保存先をスキップ — 代わりにアイテムごとにダウンロードプロファイルを割り当てます",
-			"removeFromList": "リストから削除",
+			"removeFromListCount_one": "リストから{{count}}件削除",
+			"removeFromListCount_other": "リストから{{count}}件削除",
 			"restore": "元に戻す",
 			"removedCount_one": "{{count}} 件削除済み",
 			"removedCount_other": "{{count}} 件削除済み",
@@ -387,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "ダウンロード準備完了!",
 			"landIn": "ファイルの保存先:",
+			"landInMultiProfile_one": "下の保存先に保存されます",
+			"landInMultiProfile_other": "下の{{count}}件の保存先に保存されます",
 			"labelVideo": "動画",
 			"labelAudio": "音声",
 			"labelSubtitles": "字幕",

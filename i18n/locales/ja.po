@@ -1165,6 +1165,14 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "ファイルの保存先:"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "下の保存先に保存されます"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "下の{{count}}件の保存先に保存されます"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "字幕のみプリセットが有効ですが字幕言語が選択されていません — 何もダウンロードされません。"
@@ -1701,9 +1709,13 @@ msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} 件削除済み"
 
-msgctxt "wizard.playlist.removeFromList"
-msgid "Remove from list"
-msgstr "リストから削除"
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "リストから{{count}}件削除"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "リストから{{count}}件削除"
 
 msgctxt "wizard.playlist.restore"
 msgid "Restore"

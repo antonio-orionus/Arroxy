@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "Menampilkan item {{count}} pertama. Tingkatkan batas muatan untuk melihat lebih banyak.",
 			"multiProfileEntry": "Tetapkan profil per item",
 			"multiProfileEntryTooltip": "Melewati Kualitas, SponsorBlock, Keluaran, dan Simpan — tetapkan profil unduhan per item sebagai gantinya",
-			"removeFromList": "Hapus dari daftar",
+			"removeFromListCount_one": "Hapus {{count}} dari daftar",
+			"removeFromListCount_other": "Hapus {{count}} dari daftar",
 			"restore": "Memulihkan",
 			"removedCount_one": "{{count}} dihapus",
 			"removedCount_other": "{{count}} dihapus",
@@ -387,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Siap untuk menariknya!",
 			"landIn": "File Anda akan masuk",
+			"landInMultiProfile_one": "Akan masuk ke tujuan di bawah",
+			"landInMultiProfile_other": "Akan masuk ke {{count}} tujuan di bawah",
 			"labelVideo": "Video",
 			"labelAudio": "Audio",
 			"labelSubtitles": "Subtitle",

@@ -1165,6 +1165,14 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "သင့်ဖိုင်သည် ဤနေရာတွင် ဆင်းမည်"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "အောက်ပါနေရာသို့ ရောက်ရှိမည်"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "အောက်ပါနေရာ {{count}} ခုသို့ ရောက်ရှိမည်"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "စာတန်းထိုးသာ preset ဖွင့်ထားသော်လည်း စာတန်းထိုးဘာသာစကားမရွေးရသေးပါ — ဘာမျှဒေါင်းလုဒ်မဖြစ်ပါ။"
@@ -1701,9 +1709,13 @@ msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} ခု ဖယ်ရှားပြီး"
 
-msgctxt "wizard.playlist.removeFromList"
-msgid "Remove from list"
-msgstr "စာရင်းမှ ဖယ်ရှားမည်"
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "စာရင်းမှ {{count}} ခု ဖယ်ရှားမည်"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "စာရင်းမှ {{count}} ခု ဖယ်ရှားမည်"
 
 msgctxt "wizard.playlist.restore"
 msgid "Restore"

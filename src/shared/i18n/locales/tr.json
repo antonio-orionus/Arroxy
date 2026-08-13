@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "İlk {{count}} öğe gösteriliyor. Daha fazlasını görmek için yükleme sınırını artır.",
 			"multiProfileEntry": "Öğe başına profil ata",
 			"multiProfileEntryTooltip": "Kalite, SponsorBlock, Çıktı ve Kaydet adımlarını atlar — bunun yerine öğe başına bir indirme profili atar",
-			"removeFromList": "Listeden kaldır",
+			"removeFromListCount_one": "Listeden {{count}} öğe kaldır",
+			"removeFromListCount_other": "Listeden {{count}} öğe kaldır",
 			"restore": "Geri yükle",
 			"removedCount_one": "{{count}} kaldırıldı",
 			"removedCount_other": "{{count}} kaldırıldı",
@@ -387,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Çekmeye hazır!",
 			"landIn": "Dosyan şuraya düşecek",
+			"landInMultiProfile_one": "Aşağıdaki hedefe inecek",
+			"landInMultiProfile_other": "Aşağıdaki {{count}} hedefe inecek",
 			"labelVideo": "Video",
 			"labelAudio": "Ses",
 			"labelSubtitles": "Altyazılar",

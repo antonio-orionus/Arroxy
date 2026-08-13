@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "عثر Arroxy على أكثر من {{count}} عنصر، لذا يُخفي حد الفحص الحالي بقية العناصر.",
 			"multiProfileEntry": "تعيين ملفات تنزيل لكل عنصر",
 			"multiProfileEntryTooltip": "يتخطى الجودة وSponsorBlock والإخراج والحفظ — ويُعيّن بدلاً من ذلك ملف تنزيل لكل عنصر",
-			"removeFromList": "إزالة من القائمة",
+			"removeFromListCount_one": "إزالة {{count}} من القائمة",
+			"removeFromListCount_other": "إزالة {{count}} من القائمة",
 			"restore": "استعادة",
 			"removedCount_one": "تمت إزالة {{count}}",
 			"removedCount_other": "تمت إزالة {{count}}",
@@ -387,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "جاهز للتنزيل!",
 			"landIn": "سيُحفظ ملفك في",
+			"landInMultiProfile_one": "سيُحفظ في الوجهة أدناه",
+			"landInMultiProfile_other": "سيُحفظ في {{count}} وجهات أدناه",
 			"labelVideo": "فيديو",
 			"labelAudio": "صوت",
 			"labelSubtitles": "الترجمات",

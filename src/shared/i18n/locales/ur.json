@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "Arroxy نے {{count}} سے زیادہ آئٹمز دریافت کیے، اس لیے موجودہ اسکین لمٹ باقی آئٹمز چھپا رہی ہے۔",
 			"multiProfileEntry": "فی آئٹم پروفائلز تفویض کریں",
 			"multiProfileEntryTooltip": "معیار, SponsorBlock, آؤٹ پٹ اور محفوظ کرنے کو نظرانداز کرتا ہے — اس کے بجائے فی آئٹم ڈاؤن لوڈ پروفائل تفویض کریں",
-			"removeFromList": "فہرست سے ہٹائیں",
+			"removeFromListCount_one": "فہرست سے {{count}} ہٹائیں",
+			"removeFromListCount_other": "فہرست سے {{count}} ہٹائیں",
 			"restore": "بحال کریں",
 			"removedCount_one": "{{count}} ہٹا دیے گئے",
 			"removedCount_other": "{{count}} ہٹا دیے گئے",
@@ -387,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "لانے کے لیے تیار!",
 			"landIn": "آپ کی فائل یہاں پہنچے گی",
+			"landInMultiProfile_one": "یہ نیچے دی گئی منزل میں پہنچے گی",
+			"landInMultiProfile_other": "یہ نیچے دی گئی {{count}} منزلوں میں پہنچیں گی",
 			"labelVideo": "ویڈیو",
 			"labelAudio": "آڈیو",
 			"labelSubtitles": "سب ٹائٹلز",

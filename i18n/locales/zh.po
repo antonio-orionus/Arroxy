@@ -1165,6 +1165,14 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "文件将保存至"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "将保存到下方的目标位置"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "将保存到下方的 {{count}} 个目标位置"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "「仅字幕」预设已启用，但未选择任何字幕语言 — 不会下载任何内容。"
@@ -1701,9 +1709,13 @@ msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "已移除 {{count}} 项"
 
-msgctxt "wizard.playlist.removeFromList"
-msgid "Remove from list"
-msgstr "从列表中移除"
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "从列表中移除 {{count}} 项"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "从列表中移除 {{count}} 项"
 
 msgctxt "wizard.playlist.restore"
 msgid "Restore"

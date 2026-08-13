@@ -1165,6 +1165,14 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "Faayilin kee bakka kanatti bu'a"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Gara bakka armaan gadiitti bu'a"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Gara bakkoota {{count}} armaan gadiitti ni bu'u"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Qophiin axxiinni qofa hojjechaa jira garuu afaan hin filamine — waan buufamu hin jiru."
@@ -1701,9 +1709,13 @@ msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} balleeffame"
 
-msgctxt "wizard.playlist.removeFromList"
-msgid "Remove from list"
-msgstr "Tarreefaa keessaa balleessi"
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "{{count}} tarreefaa keessaa balleessi"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "{{count}} tarreefaa keessaa balleessi"
 
 msgctxt "wizard.playlist.restore"
 msgid "Restore"

@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "Arroxy нашёл более {{count}} элементов, поэтому текущий лимит сканирования скрывает остальные.",
 			"multiProfileEntry": "Назначить профили по элементам",
 			"multiProfileEntryTooltip": "Пропускает Качество, SponsorBlock, Вывод и Сохранить — вместо этого назначает профиль загрузки для каждого элемента",
-			"removeFromList": "Удалить из списка",
+			"removeFromListCount_one": "Удалить {{count}} из списка",
+			"removeFromListCount_other": "Удалить {{count}} из списка",
 			"restore": "Восстановить",
 			"removedCount_one": "{{count}} удалено",
 			"removedCount_other": "{{count}} удалено",
@@ -387,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Готово к загрузке!",
 			"landIn": "Файл будет сохранён в",
+			"landInMultiProfile_one": "Он попадёт в место назначения ниже",
+			"landInMultiProfile_other": "Они попадут в {{count}} места назначения ниже",
 			"labelVideo": "Видео",
 			"labelAudio": "Аудио",
 			"labelSubtitles": "Субтитры",

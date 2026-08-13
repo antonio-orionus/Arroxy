@@ -94,7 +94,8 @@
 			"probeLimitAlertDesc": "Arroxy encontró más de {{count}} elementos, por lo que el límite de escaneo actual está ocultando el resto.",
 			"multiProfileEntry": "Asignar perfiles por elemento",
 			"multiProfileEntryTooltip": "Omite Calidad, SponsorBlock, Salida y Guardar — asigna en su lugar un perfil de descarga por elemento",
-			"removeFromList": "Quitar de la lista",
+			"removeFromListCount_one": "Quitar {{count}} de la lista",
+			"removeFromListCount_other": "Quitar {{count}} de la lista",
 			"restore": "Restaurar",
 			"removedCount_one": "{{count}} quitados",
 			"removedCount_other": "{{count}} quitados",
@@ -387,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "¡Listo para descargar!",
 			"landIn": "Tu archivo se guardará en",
+			"landInMultiProfile_one": "Se guardará en el destino de abajo",
+			"landInMultiProfile_other": "Se guardarán en los {{count}} destinos de abajo",
 			"labelVideo": "Vídeo",
 			"labelAudio": "Audio",
 			"labelSubtitles": "Subtítulos",

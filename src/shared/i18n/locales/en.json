@@ -85,7 +85,8 @@
 			"probeLimitAlertDesc": "Showing first {{count}} items. Increase the load limit to see more.",
 			"multiProfileEntry": "Assign profiles per item",
 			"multiProfileEntryTooltip": "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead",
-			"removeFromList": "Remove from list",
+			"removeFromListCount_one": "Remove {{count}} from list",
+			"removeFromListCount_other": "Remove {{count}} from list",
 			"restore": "Restore",
 			"removedCount_one": "{{count}} removed",
 			"removedCount_other": "{{count}} removed",
@@ -378,6 +379,8 @@
 		"confirm": {
 			"readyHeadline": "Ready to pull it in!",
 			"landIn": "Your file will land in",
+			"landInMultiProfile_one": "It'll land in the destination below",
+			"landInMultiProfile_other": "They'll land in the {{count}} destinations below",
 			"labelVideo": "Video",
 			"labelAudio": "Audio",
 			"labelSubtitles": "Subtitles",
