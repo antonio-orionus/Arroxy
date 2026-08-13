@@ -20,7 +20,7 @@ export function StepConfirm(): ReactNode {
 	const review = buildDownloadReview(state, {t: translateReview, language: i18n.language, commonPaths: state.commonPaths})
 	// A single preset row can't represent a batch where every item may carry a
 	// different DownloadProfile — this replaces it with a per-profile grouping.
-	const profileBreakdown = state.multiProfileMode ? multiProfileBreakdown(state) : []
+	const profileBreakdown = review.inMultiProfile ? multiProfileBreakdown(state) : []
 
 	return (
 		<div className="wizard-step flex flex-col gap-4" data-testid="step-confirm">
@@ -32,7 +32,13 @@ export function StepConfirm(): ReactNode {
 				<div>
 					<p className="text-sm font-semibold text-foreground">{t('wizard.confirm.readyHeadline')}</p>
 					<p className="text-xs text-muted-foreground mt-1">
-						{t('wizard.confirm.landIn')} <code className="font-mono text-foreground/80">{review.shortPath}</code>
+						{review.inMultiProfile ? (
+							t('wizard.confirm.landInMultiProfile', {count: profileBreakdown.length})
+						) : (
+							<>
+								{t('wizard.confirm.landIn')} <code className="font-mono text-foreground/80">{review.shortPath}</code>
+							</>
+						)}
 					</p>
 				</div>
 			</div>

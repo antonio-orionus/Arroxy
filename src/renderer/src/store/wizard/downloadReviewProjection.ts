@@ -3,7 +3,7 @@ import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaInte
 import {sanitizeJobOptions, type ConflictCode, type SanitizeConflict} from '@shared/sanitizeJobOptions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {resolveDownloadProfileOutputDir, type DownloadProfileOutputContext} from '@shared/downloadProfiles.js'
-import type {DownloadProfileIcon} from '@shared/types.js'
+import type {DownloadProfile, DownloadProfileIcon} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
 import {buildDownloadProfileActionModel} from '@renderer/components/wizard/downloadProfileActions.js'
@@ -37,6 +37,7 @@ export interface DownloadReview {
 	inPlaylist: boolean
 	inBulk: boolean
 	inBatch: boolean
+	inMultiProfile: boolean
 	shortPath: string
 	videoResolution: string
 	videoSummary: string
@@ -110,7 +111,20 @@ export function multiProfileBreakdown(state: AppState): MultiProfileBreakdownRow
 	const counts = profileAssignmentCounts(selectedItemIds, state.playlistProfileAssignments, orderedProfiles, model.activeRef)
 	const outputContext: DownloadProfileOutputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
 
-	return orderedProfiles.filter(profile => (counts.get(profile.id) ?? 0) > 0).map(profile => ({profileId: profile.id, name: profile.name, icon: profile.icon, count: counts.get(profile.id) ?? 0, outputDir: formatHomeRelativePath(resolveDownloadProfileOutputDir(profile, outputContext), state.commonPaths)}))
+	return orderedProfiles.filter(profile => (counts.get(profile.id) ?? 0) > 0).map(profile => ({profileId: profile.id, name: profile.name, icon: profile.icon, count: counts.get(profile.id) ?? 0, outputDir: safeProfileOutputDir(profile, outputContext, state.commonPaths)}))
+}
+
+// Mirrors the try/catch at store/downloadHomeView.ts:107-111 — the only other
+// renderer call site. resolveDownloadProfileOutputDir throws when a profile
+// has no resolvable output dir (downloadProfiles.ts:166,:172), and this runs
+// unguarded during React render, so an unhandled throw would white-screen
+// StepConfirm instead of just leaving one row's destination blank.
+function safeProfileOutputDir(profile: DownloadProfile, outputContext: DownloadProfileOutputContext, commonPaths: AppState['commonPaths']): string {
+	try {
+		return formatHomeRelativePath(resolveDownloadProfileOutputDir(profile, outputContext), commonPaths)
+	} catch {
+		return ''
+	}
 }
 
 export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleContext): DownloadReview {
@@ -149,7 +163,10 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 				// StepConfirm renders the per-profile breakdown instead of this row.
 				...(inMultiProfile ? [] : [{key: 'preset', label: ctx.t('wizard.confirm.labelPreset'), value: playlistPreset || '—'}]),
 				{key: 'items', label: ctx.t('wizard.confirm.labelItems'), value: itemsValue},
-				{key: 'saveTo', label: ctx.t('wizard.confirm.labelSaveTo'), value: shortPath}
+				// Multi-profile mode has no single save-to directory — each item lands
+				// in its own assigned profile's output dir. The per-profile breakdown
+				// carries that instead of this row misstating one shared destination.
+				...(inMultiProfile ? [] : [{key: 'saveTo', label: ctx.t('wizard.confirm.labelSaveTo'), value: shortPath}])
 			]
 		: [
 				{key: 'video', label: ctx.t('wizard.confirm.labelVideo'), value: videoSummary},
@@ -174,5 +191,20 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 		: []
 	const conflictWarnings: UserVisibleConflict[] = allConflicts.filter(isUserVisibleConflict)
 
-	return {inPlaylist, inBulk, inBatch, shortPath, videoResolution, videoSummary, subtitleValue, playlistPresetLabel: playlistPreset, itemCountLabel: countLabel, summaryRows, conflictWarnings, hasNothingSelected, allowedActions: {addToQueue: !hasNothingSelected, downloadNow: !inBatch && !hasNothingSelected}}
+	return {
+		inPlaylist,
+		inBulk,
+		inBatch,
+		inMultiProfile,
+		shortPath,
+		videoResolution,
+		videoSummary,
+		subtitleValue,
+		playlistPresetLabel: playlistPreset,
+		itemCountLabel: countLabel,
+		summaryRows,
+		conflictWarnings,
+		hasNothingSelected,
+		allowedActions: {addToQueue: !hasNothingSelected, downloadNow: !inBatch && !hasNothingSelected}
+	}
 }
