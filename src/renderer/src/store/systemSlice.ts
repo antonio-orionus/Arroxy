@@ -420,6 +420,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		setShareHighValueBannerDismissed: async () => {
 			track('share_prompt_dismissed', {via: 'high-value-inline'})
 			await applyCommonPatchAsync(get, set, 'shareHighValueBannerDismissed', {shareHighValueBannerDismissed: true})
+		},
+
+		dismissMultiProfileHint: async () => {
+			await applyCommonPatchAsync(get, set, 'multiProfileHintDismissed', {multiProfileHintDismissed: true})
 		}
 	}
 }

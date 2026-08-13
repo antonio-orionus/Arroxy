@@ -44,7 +44,9 @@
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profil",
 			"columnDuration": "Dauer",
-			"empty": "Keine Einträge entsprechen diesem Filter"
+			"empty": "Keine Einträge entsprechen diesem Filter",
+			"hintTitle": "Profile für mehrere Videos auf einmal zuweisen",
+			"hintBody": "Shift-Klick für einen Bereich, {{modifier}}-Klick zum einzelnen Hinzufügen, oder über Zeilen ziehen. Dann oben ein Profil wählen, mit Rechtsklick auf die Auswahl klicken, oder 1–9 drücken."
 		},
 		"playlist": {
 			"heading": "Playlist-Elemente",

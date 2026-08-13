@@ -151,6 +151,7 @@ export interface CommonSettings {
 	successfulDownloadCount?: number
 	shareInlineCardDismissed?: boolean
 	shareHighValueBannerDismissed?: boolean
+	multiProfileHintDismissed?: boolean
 }
 
 export interface BinaryOverrides {

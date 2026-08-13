@@ -52,7 +52,9 @@
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profil",
 			"columnDuration": "Davomiylik",
-			"empty": "Ushbu filtrga mos keluvchi element yo'q"
+			"empty": "Ushbu filtrga mos keluvchi element yo'q",
+			"hintTitle": "Bir vaqtning o'zida bir nechta videoga profil belgilash",
+			"hintBody": "Diapazon uchun Shift-bosing, bittasini qo'shish uchun {{modifier}}-bosing yoki qatorlar bo'ylab suring. Keyin yuqoridagi profilni tanlang, tanlovga o'ng tugma bilan bosing yoki 1–9 tugmalarini bosing."
 		},
 		"playlist": {
 			"heading": "Playlist elementlari",

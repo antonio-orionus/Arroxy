@@ -44,7 +44,9 @@
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Hồ sơ",
 			"columnDuration": "Thời lượng",
-			"empty": "Không có mục nào khớp với bộ lọc này"
+			"empty": "Không có mục nào khớp với bộ lọc này",
+			"hintTitle": "Gán hồ sơ cho nhiều video cùng lúc",
+			"hintBody": "Shift-nhấp để chọn một dải, {{modifier}}-nhấp để thêm từng mục, hoặc kéo qua các hàng. Sau đó chọn hồ sơ ở trên, nhấp chuột phải vào vùng đã chọn, hoặc nhấn 1–9."
 		},
 		"playlist": {
 			"heading": "Các mục Playlist",

@@ -35,7 +35,9 @@
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "መገለጫ",
 			"columnDuration": "ቆይታ",
-			"empty": "ከዚህ ማጣሪያ ጋር የሚዛመድ ንጥል የለም"
+			"empty": "ከዚህ ማጣሪያ ጋር የሚዛመድ ንጥል የለም",
+			"hintTitle": "ለብዙ ቪዲዮዎች በአንድ ጊዜ መገለጫ መድብ",
+			"hintBody": "ለክልል Shift-ጠቅ ያድርጉ፣ አንድ ለመጨመር {{modifier}}-ጠቅ ያድርጉ፣ ወይም በረድፎች ላይ ይጎትቱ። ከዚያ ከላይ መገለጫ ይምረጡ፣ በተመረጠው ላይ በቀኝ-ጠቅ ያድርጉ፣ ወይም 1–9ን ይጫኑ።"
 		},
 		"playlist": {
 			"heading": "የ Playlist ቪዲዮዎች",

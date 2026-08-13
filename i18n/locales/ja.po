@@ -1777,6 +1777,14 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "ダウンロードプロファイルを割り当て"
 
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
+msgstr "Shiftクリックで範囲選択、{{modifier}}クリックで1件追加、または行をドラッグします。上のプロファイルを選ぶか、選択範囲を右クリックするか、1〜9キーを押してください。"
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "複数の動画にまとめてプロファイルを割り当て"
+
 msgctxt "wizard.playlistProfiles.more"
 msgid "More…"
 msgstr "その他…"

@@ -441,6 +441,7 @@ const commonSettingsPatchSchema = z.object({
 	successfulDownloadCount: z.number().int().nonnegative().optional(),
 	shareInlineCardDismissed: z.boolean().optional(),
 	shareHighValueBannerDismissed: z.boolean().optional(),
+	multiProfileHintDismissed: z.boolean().optional(),
 	binaryOverrides: z
 		.object({ytDlp: z.string().min(1).optional(), ffmpeg: z.string().min(1).optional(), ffprobe: z.string().min(1).optional()})
 		.partial()

@@ -35,7 +35,9 @@
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profile",
 			"columnDuration": "Duration",
-			"empty": "No items match this filter"
+			"empty": "No items match this filter",
+			"hintTitle": "Assign profiles to several videos at once",
+			"hintBody": "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
 		},
 		"playlist": {
 			"heading": "Playlist items",

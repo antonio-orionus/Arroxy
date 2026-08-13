@@ -1777,6 +1777,14 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Εκχώρηση προφίλ λήψης"
 
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
+msgstr "Shift-κλικ για εύρος, {{modifier}}-κλικ για προσθήκη ενός, ή σύρετε στις γραμμές. Έπειτα επιλέξτε προφίλ παραπάνω, δεξί κλικ στην επιλογή, ή πατήστε 1–9."
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "Ανάθεση προφίλ σε πολλά βίντεο ταυτόχρονα"
+
 msgctxt "wizard.playlistProfiles.more"
 msgid "More…"
 msgstr "Περισσότερα…"

@@ -1777,6 +1777,14 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Yuklab olish profillarini belgilash"
 
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
+msgstr "Diapazon uchun Shift-bosing, bittasini qo'shish uchun {{modifier}}-bosing yoki qatorlar bo'ylab suring. Keyin yuqoridagi profilni tanlang, tanlovga o'ng tugma bilan bosing yoki 1–9 tugmalarini bosing."
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "Bir vaqtning o'zida bir nechta videoga profil belgilash"
+
 msgctxt "wizard.playlistProfiles.more"
 msgid "More…"
 msgstr "Yana…"

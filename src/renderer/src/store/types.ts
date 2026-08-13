@@ -336,6 +336,7 @@ export interface SystemSlice {
 	closeShareDialog: () => void
 	setShareInlineCardDismissed: () => Promise<void>
 	setShareHighValueBannerDismissed: () => Promise<void>
+	dismissMultiProfileHint: () => Promise<void>
 }
 
 export type AppState = ProbeOrchestratorSlice & FormatPickerSlice & OutputConfigSlice & WizardDialogsSlice & QueueSlice & UiSlice & SystemSlice

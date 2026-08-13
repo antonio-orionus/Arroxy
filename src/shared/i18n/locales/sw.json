@@ -44,7 +44,9 @@
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Wasifu",
 			"columnDuration": "Muda",
-			"empty": "Hakuna vipengele vinavyolingana na kichujio hiki"
+			"empty": "Hakuna vipengele vinavyolingana na kichujio hiki",
+			"hintTitle": "Weka wasifu kwa video kadhaa kwa wakati mmoja",
+			"hintBody": "Bofya ukiwa umeshikilia Shift kwa masafa, bofya ukiwa umeshikilia {{modifier}} kuongeza moja, au buruta kwenye safu mlalo. Kisha chagua wasifu hapo juu, bofya kulia kwenye uteuzi, au bonyeza 1–9."
 		},
 		"playlist": {
 			"heading": "Vipande vya Playlist",

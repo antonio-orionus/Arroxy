@@ -1777,6 +1777,14 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "डाउनलोड प्रोफ़ाइल असाइन करें"
 
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
+msgstr "श्रेणी के लिए Shift-क्लिक करें, एक जोड़ने के लिए {{modifier}}-क्लिक करें, या पंक्तियों पर खींचें। फिर ऊपर से एक प्रोफ़ाइल चुनें, चयन पर राइट-क्लिक करें, या 1–9 दबाएं।"
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "एक साथ कई वीडियो में प्रोफ़ाइल असाइन करें"
+
 msgctxt "wizard.playlistProfiles.more"
 msgid "More…"
 msgstr "अधिक…"

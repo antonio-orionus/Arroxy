@@ -1777,6 +1777,14 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Tetapkan profil unduhan"
 
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
+msgstr "Shift-klik untuk rentang, {{modifier}}-klik untuk menambah satu, atau seret pada baris. Lalu pilih profil di atas, klik kanan pada seleksi, atau tekan 1–9."
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "Tetapkan profil ke beberapa video sekaligus"
+
 msgctxt "wizard.playlistProfiles.more"
 msgid "More…"
 msgstr "Lainnya…"

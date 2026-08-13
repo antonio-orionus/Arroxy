@@ -9,10 +9,14 @@ import {useCallback, useEffect, useMemo, useReducer, useRef, type ReactNode} fro
 import {useTranslation} from 'react-i18next'
 import {getCoreRowModel, useReactTable} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
+import {Info, X} from 'lucide-react'
 import type {DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import {selectionModifierLabel} from '../../lib/platform.js'
 import type {ListSelectionAction} from '../shared/listSelection.js'
 import {useRowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
+import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
+import {Button} from '../ui/button.js'
 import {buildDownloadProfileActionModel} from './downloadProfileActions.js'
 import {profileAssignmentCounts, resolveAssignedProfile} from './playlistProfileAssignments.js'
 import {orderProfileOptionsForAssignment} from './playlistProfileOrder.js'
@@ -32,7 +36,7 @@ function isTypingTarget(target: EventTarget | null): boolean {
 
 export function StepPlaylistProfiles(): ReactNode {
 	const {t} = useTranslation()
-	const {playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds, playlistProfileAssignments, settings, assignPlaylistProfile, resetPlaylistProfile, exitMultiProfileMode, advance} = useAppStore()
+	const {playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds, playlistProfileAssignments, settings, assignPlaylistProfile, resetPlaylistProfile, exitMultiProfileMode, advance, dismissMultiProfileHint} = useAppStore()
 
 	// The set the user narrowed to on the items step, minus anything removed
 	// later in this flow (Task 11) — not the full flat-probe playlist.
@@ -145,6 +149,19 @@ export function StepPlaylistProfiles(): ReactNode {
 				</div>
 
 				<PlaylistProfileActionBar options={orderedOptions} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onReset={() => reset(selectedItemIds)} />
+
+				{!settings?.common?.multiProfileHintDismissed ? (
+					<Alert variant="info" className="flex items-start gap-3" data-testid="multi-profile-hint">
+						<Info className="mt-0.5 size-4 shrink-0 text-sky-500" />
+						<div className="min-w-0 flex-1">
+							<AlertTitle>{t('wizard.playlistProfiles.hintTitle')}</AlertTitle>
+							<AlertDescription className="break-words">{t('wizard.playlistProfiles.hintBody', {modifier: selectionModifierLabel()})}</AlertDescription>
+						</div>
+						<Button type="button" variant="ghost" size="icon-sm" className="-mt-1 -me-1 shrink-0" aria-label={t('titleBar.close')} onClick={() => void dismissMultiProfileHint()}>
+							<X />
+						</Button>
+					</Alert>
+				) : null}
 
 				<PlaylistProfileFilterChips options={orderedOptions} counts={counts} totalCount={items.length} filter={filter} onFilterChange={next => dispatch({type: 'set-filter', filter: next})} />
 

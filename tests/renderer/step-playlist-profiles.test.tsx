@@ -1,9 +1,10 @@
 // @vitest-environment jsdom
-import {cleanup, fireEvent, render, screen, within} from '@testing-library/react'
+import {cleanup, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import type {DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
+import type {AppSettings, DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 import * as downloadProfilesModule from '@shared/downloadProfiles.js'
 import {defaultAppSettings} from '@shared/constants.js'
+import {ok} from '@shared/result.js'
 import type {AppState} from '@renderer/store/types.js'
 import {StepPlaylistItems} from '@renderer/components/wizard/StepPlaylistItems.js'
 import {StepPlaylistProfiles} from '@renderer/components/wizard/StepPlaylistProfiles.js'
@@ -62,11 +63,15 @@ vi.mock('@tanstack/react-virtual', () => ({
 // without needing to open "More…". The one test that specifically covers the
 // overflow branch (further down) forces a builtin id, 'audio-only', past the
 // eight visible slots and asserts it's reachable through the popover.
-function renderStep(): ReturnType<typeof render> {
+function renderStep(overrides: {common?: Partial<AppSettings['common']>} = {}): ReturnType<typeof render> {
+	if (overrides.common) {
+		useAppStore.setState(state => ({settings: {...state.settings, common: {...state.settings?.common, ...overrides.common}}}) as never)
+	}
 	return render(<StepPlaylistProfiles />)
 }
 
 beforeEach(() => {
+	window.appApi = buildMockAppApi()
 	useAppStore.setState({
 		wizardMode: 'playlist',
 		wizardStep: 'playlistProfiles',
@@ -171,6 +176,37 @@ describe('StepPlaylistProfiles', () => {
 		expect(within(screen.getByTestId('profile-row-a')).getByText('Best available')).toBeInTheDocument()
 		expect(within(screen.getByTestId('profile-row-c')).getByText('Best available')).toBeInTheDocument()
 		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
+	})
+
+	it('shows the hint until it is dismissed, and persists the dismissal', async () => {
+		renderStep()
+		expect(screen.getByTestId('multi-profile-hint')).toBeInTheDocument()
+
+		// The default mock echoes back a fixed settings snapshot regardless of
+		// what was patched in. Make it merge the patch instead, the way the real
+		// main-process settings store does — otherwise the final `set({settings:
+		// result.data})` in applyCommonPatchAsync would clobber the optimistic
+		// dismissal and the alert would reappear once the promise resolves.
+		vi.mocked(window.appApi.settings.update).mockImplementation(async patch => {
+			const current = useAppStore.getState().settings
+			return ok({...current, common: {...current?.common, ...patch.common}} as AppSettings)
+		})
+
+		fireEvent.click(within(screen.getByTestId('multi-profile-hint')).getByRole('button', {name: /close/i}))
+		// The dismiss action is async (settings.update round-trip) — flush it
+		// before asserting so the eventual unmount has actually happened.
+		await waitFor(() => expect(screen.queryByTestId('multi-profile-hint')).not.toBeInTheDocument())
+
+		// Not just a local dismiss — this must survive app restarts (see task
+		// brief), so assert the persisted store action actually fired rather than
+		// only that the alert unmounted, which a plain useState toggle would also
+		// satisfy.
+		expect(window.appApi.settings.update).toHaveBeenCalledWith(expect.objectContaining({common: expect.objectContaining({multiProfileHintDismissed: true})}))
+	})
+
+	it('stays hidden when already dismissed in settings', () => {
+		renderStep({common: {multiProfileHintDismissed: true}})
+		expect(screen.queryByTestId('multi-profile-hint')).not.toBeInTheDocument()
 	})
 })
 

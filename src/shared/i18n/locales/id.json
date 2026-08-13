@@ -44,7 +44,9 @@
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profil",
 			"columnDuration": "Durasi",
-			"empty": "Tidak ada item yang cocok dengan filter ini"
+			"empty": "Tidak ada item yang cocok dengan filter ini",
+			"hintTitle": "Tetapkan profil ke beberapa video sekaligus",
+			"hintBody": "Shift-klik untuk rentang, {{modifier}}-klik untuk menambah satu, atau seret pada baris. Lalu pilih profil di atas, klik kanan pada seleksi, atau tekan 1–9."
 		},
 		"playlist": {
 			"heading": "Item daftar putar",

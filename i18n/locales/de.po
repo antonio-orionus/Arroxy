@@ -1777,6 +1777,14 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Download-Profile zuweisen"
 
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
+msgstr "Shift-Klick für einen Bereich, {{modifier}}-Klick zum einzelnen Hinzufügen, oder über Zeilen ziehen. Dann oben ein Profil wählen, mit Rechtsklick auf die Auswahl klicken, oder 1–9 drücken."
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "Profile für mehrere Videos auf einmal zuweisen"
+
 msgctxt "wizard.playlistProfiles.more"
 msgid "More…"
 msgstr "Mehr…"

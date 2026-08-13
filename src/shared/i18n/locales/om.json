@@ -56,7 +56,9 @@
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Piroofaayilii",
 			"columnDuration": "Turtii",
-			"empty": "Calaltuu kanaan wal simu hin jiru"
+			"empty": "Calaltuu kanaan wal simu hin jiru",
+			"hintTitle": "Piroofaayilii yeroo tokkotti viidiyoo hedduuf ramaduu",
+			"hintBody": "Daangaa tokkoof Shift-cuqaasi, tokko dabaluuf {{modifier}}-cuqaasi, ykn sarara irratti harkisi. Ergasii piroofaayilii armaan olii filadhu, filannoo irratti mirga-cuqaasi, yookaan 1–9 tuqi."
 		},
 		"playlist": {
 			"heading": "Wantoota Playlist",

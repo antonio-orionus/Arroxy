@@ -44,7 +44,9 @@
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profil",
 			"columnDuration": "Durée",
-			"empty": "Aucun élément ne correspond à ce filtre"
+			"empty": "Aucun élément ne correspond à ce filtre",
+			"hintTitle": "Attribuer des profils à plusieurs vidéos à la fois",
+			"hintBody": "Shift-clic pour une plage, {{modifier}}-clic pour en ajouter une, ou faites glisser sur les lignes. Choisissez ensuite un profil ci-dessus, clic droit sur la sélection, ou appuyez sur 1–9."
 		},
 		"playlist": {
 			"heading": "Éléments de la Playlist",
