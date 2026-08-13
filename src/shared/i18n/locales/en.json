@@ -90,7 +90,7 @@
 			"removedCount_one": "{{count}} removed",
 			"removedCount_other": "{{count}} removed",
 			"allRemovedTitle": "Every item was removed",
-			"allRemovedDescription": "Restore them to continue, or go back and start over."
+			"allRemovedDescription": "Restore them to continue."
 		},
 		"bulk": {
 			"title": "Bulk URLs",

@@ -111,7 +111,7 @@
 			"removedCount_one": "{{count}} balleeffame",
 			"removedCount_other": "{{count}} balleeffame",
 			"allRemovedTitle": "Wanti hundinuu balleeffameera",
-			"allRemovedDescription": "Itti fufuudhaaf isaan deebisi, ykn duubatti deebi'iitii irra deebi'ii jalqabi."
+			"allRemovedDescription": "Itti fufuudhaaf isaan deebisi."
 		},
 		"bulk": {
 			"title": "URL hedduu",

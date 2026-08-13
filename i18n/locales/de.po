@@ -1558,8 +1558,8 @@ msgid "Save thumbnail"
 msgstr "Thumbnail speichern"
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
-msgstr "Stelle sie wieder her, um fortzufahren, oder gehe zurück und beginne erneut."
+msgid "Restore them to continue."
+msgstr "Stelle sie wieder her, um fortzufahren."
 
 msgctxt "wizard.playlist.allRemovedTitle"
 msgid "Every item was removed"

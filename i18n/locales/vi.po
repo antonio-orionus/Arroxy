@@ -1558,8 +1558,8 @@ msgid "Save thumbnail"
 msgstr "Lưu hình thu nhỏ"
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
-msgstr "Khôi phục để tiếp tục, hoặc quay lại và bắt đầu lại."
+msgid "Restore them to continue."
+msgstr "Khôi phục để tiếp tục."
 
 msgctxt "wizard.playlist.allRemovedTitle"
 msgid "Every item was removed"

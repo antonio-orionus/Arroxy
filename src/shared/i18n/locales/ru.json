@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}} удалено",
 			"removedCount_other": "{{count}} удалено",
 			"allRemovedTitle": "Все элементы удалены",
-			"allRemovedDescription": "Восстановите их, чтобы продолжить, или вернитесь назад и начните заново."
+			"allRemovedDescription": "Восстановите их, чтобы продолжить."
 		},
 		"bulk": {
 			"title": "Массовые URL",

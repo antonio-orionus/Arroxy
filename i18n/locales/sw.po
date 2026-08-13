@@ -1558,8 +1558,8 @@ msgid "Save thumbnail"
 msgstr "Hifadhi picha ndogo"
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
-msgstr "Virejeshe ili kuendelea, au rudi nyuma uanze upya."
+msgid "Restore them to continue."
+msgstr "Virejeshe ili kuendelea."
 
 msgctxt "wizard.playlist.allRemovedTitle"
 msgid "Every item was removed"

@@ -1558,8 +1558,8 @@ msgid "Save thumbnail"
 msgstr "サムネイルを保存"
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
-msgstr "続行するには復元するか、戻ってやり直してください。"
+msgid "Restore them to continue."
+msgstr "続行するには復元してください。"
 
 msgctxt "wizard.playlist.allRemovedTitle"
 msgid "Every item was removed"

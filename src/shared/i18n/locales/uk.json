@@ -107,7 +107,7 @@
 			"removedCount_one": "{{count}} видалено",
 			"removedCount_other": "{{count}} видалено",
 			"allRemovedTitle": "Усі елементи видалено",
-			"allRemovedDescription": "Відновіть їх, щоб продовжити, або поверніться назад і почніть спочатку."
+			"allRemovedDescription": "Відновіть їх, щоб продовжити."
 		},
 		"bulk": {
 			"title": "Масові URL",

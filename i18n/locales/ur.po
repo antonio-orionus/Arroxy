@@ -1558,8 +1558,8 @@ msgid "Save thumbnail"
 msgstr "تھمب نیل محفوظ کریں"
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
-msgstr "جاری رکھنے کے لیے انہیں بحال کریں، یا واپس جا کر دوبارہ شروع کریں۔"
+msgid "Restore them to continue."
+msgstr "جاری رکھنے کے لیے انہیں بحال کریں۔"
 
 msgctxt "wizard.playlist.allRemovedTitle"
 msgid "Every item was removed"

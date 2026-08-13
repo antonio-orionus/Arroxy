@@ -90,7 +90,7 @@
 			"removedCount_one": "{{count}} ခု ဖယ်ရှားပြီး",
 			"removedCount_other": "{{count}} ခု ဖယ်ရှားပြီး",
 			"allRemovedTitle": "အားလုံးကို ဖယ်ရှားပြီးပါပြီ",
-			"allRemovedDescription": "ဆက်လက်လုပ်ဆောင်ရန် ၎င်းတို့ကို ပြန်ရောက်ပါ၊ သို့မဟုတ် နောက်သို့သွား၍ အစမှပြန်စတင်ပါ။"
+			"allRemovedDescription": "ဆက်လက်လုပ်ဆောင်ရန် ၎င်းတို့ကို ပြန်ရောက်ပါ။"
 		},
 		"bulk": {
 			"title": "URL အများအပြား",

@@ -90,7 +90,7 @@
 			"removedCount_one": "已移除 {{count}} 项",
 			"removedCount_other": "已移除 {{count}} 项",
 			"allRemovedTitle": "所有项目均已移除",
-			"allRemovedDescription": "恢复它们以继续，或返回重新开始。"
+			"allRemovedDescription": "恢复它们以继续。"
 		},
 		"bulk": {
 			"title": "批量 URL",

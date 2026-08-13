@@ -1552,7 +1552,7 @@ msgid "Save thumbnail"
 msgstr ""
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
+msgid "Restore them to continue."
 msgstr ""
 
 msgctxt "wizard.playlist.allRemovedTitle"

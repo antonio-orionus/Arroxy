@@ -107,7 +107,7 @@
 			"removedCount_one": "{{count}} уклоњено",
 			"removedCount_other": "{{count}} уклоњено",
 			"allRemovedTitle": "Све ставке су уклоњене",
-			"allRemovedDescription": "Врати их да наставиш, или се врати назад и почни изнова."
+			"allRemovedDescription": "Врати их да наставиш."
 		},
 		"bulk": {
 			"title": "Групни URL-ови",

@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}} καταργήθηκαν",
 			"removedCount_other": "{{count}} καταργήθηκαν",
 			"allRemovedTitle": "Όλα τα στοιχεία καταργήθηκαν",
-			"allRemovedDescription": "Επαναφέρετέ τα για να συνεχίσετε, ή επιστρέψτε και ξεκινήστε από την αρχή."
+			"allRemovedDescription": "Επαναφέρετέ τα για να συνεχίσετε."
 		},
 		"bulk": {
 			"title": "Μαζικά URL",

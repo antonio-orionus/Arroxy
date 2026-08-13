@@ -48,6 +48,7 @@ export const RESET_WIZARD_STATE = {
 	multiProfileMode: false,
 	playlistProfileAssignments: {} as Record<string, DownloadProfileRef>,
 	removedPlaylistItemIds: [] as string[],
+	removedSelectionIds: [] as string[],
 	bulkMetadataStatus: 'idle' as BulkMetadataStatus,
 	bulkMetadataCompleted: 0,
 	bulkMetadataTotal: 0,
@@ -113,11 +114,19 @@ export const WizardCommands = {
 	},
 
 	removePlaylistItems(itemIds: string[], set: SetState, get: GetState): void {
-		const removed = new Set([...get().removedPlaylistItemIds, ...itemIds])
-		set({removedPlaylistItemIds: [...removed], selectedPlaylistItemIds: get().selectedPlaylistItemIds.filter(id => !removed.has(id)), playlistProfileAssignments: clearAssignmentsForItems(get().playlistProfileAssignments, itemIds)})
+		const state = get()
+		const removed = new Set([...state.removedPlaylistItemIds, ...itemIds])
+		// Record which of these ids were checked *before* removal — restore
+		// re-checks only those, not every removed id (an unchecked row must come
+		// back unchecked).
+		const newlyRemovedSelected = itemIds.filter(id => state.selectedPlaylistItemIds.includes(id))
+		const removedSelectionIds = new Set([...state.removedSelectionIds, ...newlyRemovedSelected])
+		set({removedPlaylistItemIds: [...removed], removedSelectionIds: [...removedSelectionIds], selectedPlaylistItemIds: state.selectedPlaylistItemIds.filter(id => !removed.has(id)), playlistProfileAssignments: clearAssignmentsForItems(state.playlistProfileAssignments, itemIds)})
 	},
 
-	restoreRemovedPlaylistItems(set: SetState): void {
-		set({removedPlaylistItemIds: []})
+	restoreRemovedPlaylistItems(set: SetState, get: GetState): void {
+		const state = get()
+		const restoredSelection = new Set([...state.selectedPlaylistItemIds, ...state.removedSelectionIds])
+		set({selectedPlaylistItemIds: [...restoredSelection], removedPlaylistItemIds: [], removedSelectionIds: []})
 	}
 }

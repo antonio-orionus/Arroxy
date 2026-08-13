@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}}টি সরানো হয়েছে",
 			"removedCount_other": "{{count}}টি সরানো হয়েছে",
 			"allRemovedTitle": "সব আইটেম সরানো হয়েছে",
-			"allRemovedDescription": "চালিয়ে যেতে সেগুলি পুনরুদ্ধার করুন, অথবা ফিরে গিয়ে আবার শুরু করুন।"
+			"allRemovedDescription": "চালিয়ে যেতে সেগুলি পুনরুদ্ধার করুন।"
 		},
 		"bulk": {
 			"title": "বাল্ক URL",

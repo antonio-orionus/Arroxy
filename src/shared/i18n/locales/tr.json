@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}} kaldırıldı",
 			"removedCount_other": "{{count}} kaldırıldı",
 			"allRemovedTitle": "Tüm öğeler kaldırıldı",
-			"allRemovedDescription": "Devam etmek için onları geri yükleyin ya da geri dönüp yeniden başlayın."
+			"allRemovedDescription": "Devam etmek için onları geri yükleyin."
 		},
 		"bulk": {
 			"title": "Toplu URL’ler",

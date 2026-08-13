@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}} quitados",
 			"removedCount_other": "{{count}} quitados",
 			"allRemovedTitle": "Se quitaron todos los elementos",
-			"allRemovedDescription": "Restáuralos para continuar, o vuelve atrás y empieza de nuevo."
+			"allRemovedDescription": "Restáuralos para continuar."
 		},
 		"bulk": {
 			"title": "URLs en lote",

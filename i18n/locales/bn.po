@@ -1558,8 +1558,8 @@ msgid "Save thumbnail"
 msgstr "থাম্বনেইল সেভ করুন"
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
-msgstr "চালিয়ে যেতে সেগুলি পুনরুদ্ধার করুন, অথবা ফিরে গিয়ে আবার শুরু করুন।"
+msgid "Restore them to continue."
+msgstr "চালিয়ে যেতে সেগুলি পুনরুদ্ধার করুন।"
 
 msgctxt "wizard.playlist.allRemovedTitle"
 msgid "Every item was removed"

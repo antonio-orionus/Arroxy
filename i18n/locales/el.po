@@ -1558,8 +1558,8 @@ msgid "Save thumbnail"
 msgstr "Αποθήκευση μικρογραφίας"
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
-msgstr "Επαναφέρετέ τα για να συνεχίσετε, ή επιστρέψτε και ξεκινήστε από την αρχή."
+msgid "Restore them to continue."
+msgstr "Επαναφέρετέ τα για να συνεχίσετε."
 
 msgctxt "wizard.playlist.allRemovedTitle"
 msgid "Every item was removed"

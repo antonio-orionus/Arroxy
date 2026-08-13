@@ -99,7 +99,7 @@
 			"removedCount_one": "تمت إزالة {{count}}",
 			"removedCount_other": "تمت إزالة {{count}}",
 			"allRemovedTitle": "تمت إزالة جميع العناصر",
-			"allRemovedDescription": "استعدها للمتابعة، أو ارجع وابدأ من جديد."
+			"allRemovedDescription": "استعدها للمتابعة."
 		},
 		"bulk": {
 			"title": "روابط متعددة",

@@ -90,7 +90,7 @@
 			"removedCount_one": "{{count}} हटाए गए",
 			"removedCount_other": "{{count}} हटाए गए",
 			"allRemovedTitle": "सभी आइटम हटा दिए गए",
-			"allRemovedDescription": "जारी रखने के लिए उन्हें पुनर्स्थापित करें, या वापस जाकर फिर से शुरू करें।"
+			"allRemovedDescription": "जारी रखने के लिए उन्हें पुनर्स्थापित करें।"
 		},
 		"bulk": {
 			"title": "बल्क URLs",

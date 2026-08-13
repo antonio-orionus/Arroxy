@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}} entfernt",
 			"removedCount_other": "{{count}} entfernt",
 			"allRemovedTitle": "Alle Elemente wurden entfernt",
-			"allRemovedDescription": "Stelle sie wieder her, um fortzufahren, oder gehe zurück und beginne erneut."
+			"allRemovedDescription": "Stelle sie wieder her, um fortzufahren."
 		},
 		"bulk": {
 			"title": "Bulk-URLs",

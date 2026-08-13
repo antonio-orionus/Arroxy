@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}} ہٹا دیے گئے",
 			"removedCount_other": "{{count}} ہٹا دیے گئے",
 			"allRemovedTitle": "تمام آئٹمز ہٹا دیے گئے",
-			"allRemovedDescription": "جاری رکھنے کے لیے انہیں بحال کریں، یا واپس جا کر دوبارہ شروع کریں۔"
+			"allRemovedDescription": "جاری رکھنے کے لیے انہیں بحال کریں۔"
 		},
 		"bulk": {
 			"title": "متعدد URLs",

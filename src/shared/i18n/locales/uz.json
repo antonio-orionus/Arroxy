@@ -107,7 +107,7 @@
 			"removedCount_one": "{{count}} ta o'chirildi",
 			"removedCount_other": "{{count}} ta o'chirildi",
 			"allRemovedTitle": "Barcha elementlar o'chirildi",
-			"allRemovedDescription": "Davom etish uchun ularni tiklang yoki orqaga qaytib qaytadan boshlang."
+			"allRemovedDescription": "Davom etish uchun ularni tiklang."
 		},
 		"bulk": {
 			"title": "Ommaviy URLlar",

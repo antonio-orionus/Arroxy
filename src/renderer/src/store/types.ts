@@ -106,6 +106,13 @@ export interface ProbeOrchestratorSlice {
 	multiProfileMode: boolean
 	playlistProfileAssignments: Record<string, DownloadProfileRef>
 	removedPlaylistItemIds: string[]
+	// The subset of removedPlaylistItemIds that was checked (in
+	// selectedPlaylistItemIds) at the moment it was removed. removePlaylistItems
+	// unconditionally strips removed ids out of selectedPlaylistItemIds, so
+	// restoreRemovedPlaylistItems needs this to know which ones to re-check —
+	// without it, Restore would either do nothing (never re-selects) or
+	// re-check rows the user had deliberately left unchecked.
+	removedSelectionIds: string[]
 	bulkMetadataStatus: BulkMetadataStatus
 	bulkMetadataCompleted: number
 	bulkMetadataTotal: number

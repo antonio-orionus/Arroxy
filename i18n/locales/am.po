@@ -1558,8 +1558,8 @@ msgid "Save thumbnail"
 msgstr "ድንክ ምስል አስቀምጥ"
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
-msgstr "ለመቀጠል መልሳቸው ወይም ተመለስ እና እንደገና ጀምር።"
+msgid "Restore them to continue."
+msgstr "ለመቀጠል መልሳቸው።"
 
 msgctxt "wizard.playlist.allRemovedTitle"
 msgid "Every item was removed"

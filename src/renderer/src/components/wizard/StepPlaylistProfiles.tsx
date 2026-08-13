@@ -58,10 +58,10 @@ export function StepPlaylistProfiles(): ReactNode {
 	const items = useMemo(() => playlistItems.filter(entry => selectedPlaylistItemIds.includes(entry.id) && !removedPlaylistItemIds.includes(entry.id)), [playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds])
 	// Tied to removedPlaylistItemIds (not just "items is empty") so it only
 	// covers "removal emptied the step" — distinct from the filter chip
-	// narrowing to zero matches (the table's own empty row already covers
-	// that) — and so Restore, which always clears removedPlaylistItemIds,
-	// reliably clears this too even though a row removed from this step can't
-	// rejoin `items` without a trip back to the items step to re-check it.
+	// narrowing to zero matches, which the table's own empty row already
+	// covers. Restore always clears removedPlaylistItemIds (and re-checks
+	// whatever it removed via removedSelectionIds — see commands.ts), so this
+	// reliably clears too.
 	const allRemoved = removedPlaylistItemIds.length > 0 && items.length === 0
 	const hasAnyThumbnail = useMemo(() => items.some(entry => !!entry.thumbnail), [items])
 	const liveLabel = t('wizard.playlist.durationUnknown')

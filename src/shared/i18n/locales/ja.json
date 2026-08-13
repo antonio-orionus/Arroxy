@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}} 件削除済み",
 			"removedCount_other": "{{count}} 件削除済み",
 			"allRemovedTitle": "すべてのアイテムが削除されました",
-			"allRemovedDescription": "続行するには復元するか、戻ってやり直してください。"
+			"allRemovedDescription": "続行するには復元してください。"
 		},
 		"bulk": {
 			"title": "一括 URL",

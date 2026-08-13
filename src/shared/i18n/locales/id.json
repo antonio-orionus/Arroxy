@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}} dihapus",
 			"removedCount_other": "{{count}} dihapus",
 			"allRemovedTitle": "Semua item telah dihapus",
-			"allRemovedDescription": "Pulihkan untuk melanjutkan, atau kembali dan mulai lagi."
+			"allRemovedDescription": "Pulihkan untuk melanjutkan."
 		},
 		"bulk": {
 			"title": "URL massal",

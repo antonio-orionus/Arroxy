@@ -1558,8 +1558,8 @@ msgid "Save thumbnail"
 msgstr "Сачувај сличицу"
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
-msgstr "Врати их да наставиш, или се врати назад и почни изнова."
+msgid "Restore them to continue."
+msgstr "Врати их да наставиш."
 
 msgctxt "wizard.playlist.allRemovedTitle"
 msgid "Every item was removed"

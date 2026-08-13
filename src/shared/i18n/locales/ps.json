@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}} لرې شوي",
 			"removedCount_other": "{{count}} لرې شوي",
 			"allRemovedTitle": "ټول توکي لرې شوي",
-			"allRemovedDescription": "د دوام لپاره یې بیرته راولئ، یا بیرته لاړ شئ او له سره پیل کړئ."
+			"allRemovedDescription": "د دوام لپاره یې بیرته راولئ."
 		},
 		"bulk": {
 			"title": "ډېر URLونه",

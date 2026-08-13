@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}} đã xóa",
 			"removedCount_other": "{{count}} đã xóa",
 			"allRemovedTitle": "Tất cả mục đã bị xóa",
-			"allRemovedDescription": "Khôi phục để tiếp tục, hoặc quay lại và bắt đầu lại."
+			"allRemovedDescription": "Khôi phục để tiếp tục."
 		},
 		"bulk": {
 			"title": "URL hàng loạt",

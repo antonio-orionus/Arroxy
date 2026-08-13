@@ -290,13 +290,11 @@ describe('StepPlaylistProfiles', () => {
 		expect(useAppStore.getState().removedPlaylistItemIds).toEqual(['b'])
 	})
 
-	it('clears removedPlaylistItemIds and hides the restore control, though the row only rejoins this step via the items step', async () => {
-		// This step has no checkbox — removePlaylistItems also prunes
-		// selectedPlaylistItemIds (Task 11 requirement), and restore only
-		// resets removedPlaylistItemIds, so a row removed here can't rejoin
-		// `items` (which requires selectedPlaylistItemIds membership) without a
-		// trip back to the items step to re-check it. Restore's job here is
-		// only to stop counting it as "removed" and retire the toolbar control.
+	it('restores the row to this step, re-checked, through the Restore button', async () => {
+		// This step has no checkbox — removePlaylistItems prunes
+		// selectedPlaylistItemIds, and restoreRemovedPlaylistItems must undo
+		// that (via removedSelectionIds) or the row can never rejoin `items`
+		// (which requires selectedPlaylistItemIds membership) again.
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
 		fireEvent.contextMenu(screen.getByTestId('profile-row-b'))
@@ -306,8 +304,8 @@ describe('StepPlaylistProfiles', () => {
 		fireEvent.click(screen.getByTestId('restore-removed-playlist-items'))
 
 		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
-		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['a', 'c'])
-		expect(screen.queryByTestId('profile-row-b')).not.toBeInTheDocument()
+		expect(useAppStore.getState().selectedPlaylistItemIds.slice().sort()).toEqual(['a', 'b', 'c'])
+		expect(screen.getByTestId('profile-row-b')).toBeInTheDocument()
 		expect(screen.queryByTestId('removed-playlist-items-count')).not.toBeInTheDocument()
 	})
 
@@ -442,7 +440,7 @@ describe('StepPlaylistItems remove and restore', () => {
 		expect(useAppStore.getState().removedPlaylistItemIds.slice().sort()).toEqual(['x', 'y'])
 	})
 
-	it('restores removed items via the Restore button', async () => {
+	it('restores removed items via the Restore button, re-checked', async () => {
 		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
 		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-x'))
 		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
@@ -451,8 +449,29 @@ describe('StepPlaylistItems remove and restore', () => {
 		fireEvent.click(screen.getByTestId('restore-removed-playlist-items'))
 
 		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
-		expect(screen.getByTestId('playlist-item-row-x')).toBeInTheDocument()
+		expect(useAppStore.getState().selectedPlaylistItemIds.slice().sort()).toEqual(['x', 'y'])
+		expect(screen.getByTestId('playlist-item-row-x')).toHaveAttribute('aria-checked', 'true')
+		expect(screen.getByTestId('playlist-item-row-y')).toHaveAttribute('aria-checked', 'true')
+	})
+
+	it('restores a removed row unchecked when it was unchecked at the moment it was removed', async () => {
+		// This is the regression option (b) exists to prevent: re-adding *every*
+		// removed id to the selection would silently check a row the user had
+		// deliberately left unchecked before removing it.
+		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
+		fireEvent.click(screen.getByTestId('playlist-item-row-y'))
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['x'])
+
+		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-y'))
+		fireEvent.click(await screen.findByRole('menuitem', {name: /remove from list/i}))
+		expect(screen.queryByTestId('playlist-item-row-y')).not.toBeInTheDocument()
+
+		fireEvent.click(screen.getByTestId('restore-removed-playlist-items'))
+
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['x'])
 		expect(screen.getByTestId('playlist-item-row-y')).toBeInTheDocument()
+		expect(screen.getByTestId('playlist-item-row-y')).toHaveAttribute('aria-checked', 'false')
 	})
 
 	it('shows the empty state and disables Continue once every item is removed', async () => {

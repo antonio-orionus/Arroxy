@@ -73,7 +73,8 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			wizardProbeInfoJsonRef: undefined,
 			multiProfileMode: false,
 			playlistProfileAssignments: {},
-			removedPlaylistItemIds: []
+			removedPlaylistItemIds: [],
+			removedSelectionIds: []
 		}
 	}
 }
@@ -241,7 +242,8 @@ export function projectBulkStart(urls: readonly string[], state: AppState): Bulk
 			playlistSelection,
 			multiProfileMode: false,
 			playlistProfileAssignments: {},
-			removedPlaylistItemIds: []
+			removedPlaylistItemIds: [],
+			removedSelectionIds: []
 		}
 	}
 }

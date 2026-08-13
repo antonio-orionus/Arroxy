@@ -99,7 +99,7 @@
 			"removedCount_one": "{{count}} zimeondolewa",
 			"removedCount_other": "{{count}} zimeondolewa",
 			"allRemovedTitle": "Vipengee vyote vimeondolewa",
-			"allRemovedDescription": "Virejeshe ili kuendelea, au rudi nyuma uanze upya."
+			"allRemovedDescription": "Virejeshe ili kuendelea."
 		},
 		"bulk": {
 			"title": "URL nyingi",

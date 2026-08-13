@@ -1558,8 +1558,8 @@ msgid "Save thumbnail"
 msgstr "Thumbnail kuusi"
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
-msgstr "Itti fufuudhaaf isaan deebisi, ykn duubatti deebi'iitii irra deebi'ii jalqabi."
+msgid "Restore them to continue."
+msgstr "Itti fufuudhaaf isaan deebisi."
 
 msgctxt "wizard.playlist.allRemovedTitle"
 msgid "Every item was removed"

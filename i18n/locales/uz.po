@@ -1558,8 +1558,8 @@ msgid "Save thumbnail"
 msgstr "Muqovani saqlash"
 
 msgctxt "wizard.playlist.allRemovedDescription"
-msgid "Restore them to continue, or go back and start over."
-msgstr "Davom etish uchun ularni tiklang yoki orqaga qaytib qaytadan boshlang."
+msgid "Restore them to continue."
+msgstr "Davom etish uchun ularni tiklang."
 
 msgctxt "wizard.playlist.allRemovedTitle"
 msgid "Every item was removed"
