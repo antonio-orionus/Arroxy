@@ -1183,7 +1183,7 @@ msgstr "{{count}} ставка"
 
 msgctxt "wizard.confirm.profileBreakdownCount_other"
 msgid "{{count}} items"
-msgstr "{{count}} ставки"
+msgstr "{{count}} ставке"
 
 msgctxt "wizard.confirm.profileBreakdownHeading"
 msgid "Profiles in this batch"

@@ -425,7 +425,7 @@
 			"itemsValueBulk_other": "{{count}} од {{total}} URL-ова",
 			"profileBreakdownHeading": "Профили у овој серији",
 			"profileBreakdownCount_one": "{{count}} ставка",
-			"profileBreakdownCount_other": "{{count}} ставки"
+			"profileBreakdownCount_other": "{{count}} ставке"
 		},
 		"profileEditor": {
 			"dialogTitle": "Профил преузимања",
