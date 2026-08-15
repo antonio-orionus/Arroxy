@@ -560,11 +560,13 @@ Arroxy ships three third-party binaries. They split into two camps based on upda
 
 ## Updating Public-Facing Content (READMEs)
 
-README files (English + 20 locales) are **generated** — never edit them directly. Source-of-truth:
+README files (English + every other supported locale) are **generated** — never edit them directly. Source-of-truth:
 
-| Source                                              | Generates                        | Command                     |
-| --------------------------------------------------- | -------------------------------- | --------------------------- |
-| `readme-src/strings.mjs` + `readme-src/template.md` | `README.md` + `README.{lang}.md` | `node readme-src/build.mjs` |
+| Source                                                     | Generates                        | Command                     |
+| ---------------------------------------------------------- | -------------------------------- | --------------------------- |
+| `readme-src/locales/{lang}.mjs` + `readme-src/template.md` | `README.md` + `README.{lang}.md` | `node readme-src/build.mjs` |
+
+Each locale is its own file under `readme-src/locales/`. `readme-src/strings.mjs` only imports those and exports the ordered `LOCALES` array — edit the per-locale files, not the aggregator.
 
 The build script validates **key parity** — if any locale is missing a key that `en` has (or has an extra key), the build fails loudly. Every new string must be translated into every supported language.
 
@@ -572,7 +574,7 @@ The landing site (`arroxy.orionus.dev`) lives in a separate repo: [antonio-orion
 
 ### Adding a new feature
 
-1. Add `what_N` (next in sequence) to every locale object in `readme-src/strings.mjs`, then add `- {{what_N}}` to `readme-src/template.md`.
+1. Keys are grouped as `feat_<group>_<n>` (e.g. `feat_workflow_11`, `feat_quality_3`, `feat_privacy_2`). Pick the group the feature belongs to, add the next number in that group to `readme-src/locales/en.mjs` first, then to every other `readme-src/locales/*.mjs`, then add `- {{feat_<group>_<n>}}` to `readme-src/template.md` in the matching section.
 2. Run `node readme-src/build.mjs` and confirm `✓` for every locale.
 3. Commit the source files **and** the regenerated `README*.md` files together.
 
