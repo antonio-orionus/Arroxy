@@ -69,7 +69,12 @@ export function PlaylistProfileActionBar({options, selectedCount, onAssign, onEd
 						</Button>
 					}
 				/>
-				<PopoverContent align="start" className="w-64 max-h-72 gap-1 overflow-y-auto p-1.5">
+				{/* Sized to content (mirrors ContextMenuContent) so the longest builtin
+				name — "Smart TV MP4 Full HD 1080p" — never truncates; max-w caps it
+				against both the viewport (--available-width, set by the positioner)
+				and a hard ceiling so a pathologically long custom name can't blow out
+				the layout. */}
+				<PopoverContent align="start" className="w-max max-w-[min(24rem,var(--available-width))] max-h-72 gap-1 overflow-y-auto p-1.5">
 					{options.map((option, index) => (
 						<div key={option.profile.id} className="group/profile flex items-center gap-1">
 							<Button type="button" variant="ghost" size="sm" disabled={disabled} className="h-8 min-w-0 flex-1 justify-start gap-2 px-2 text-xs" data-testid={`assign-profile-${option.profile.id}`} onClick={() => assign(option.ref)}>
