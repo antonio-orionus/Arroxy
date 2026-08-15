@@ -203,18 +203,18 @@ test('update scenarios render channel-specific actions', async ({page}) => {
 	await expect(page.getByTestId('update-command')).toHaveText('scoop update arroxy')
 
 	await openScenario(page, 'update-portable')
-	await expect(page.getByTestId('update-banner').getByRole('link', {name: 'Download'})).toBeVisible()
+	await expect(page.getByTestId('update-banner').getByRole('button', {name: 'Download'})).toBeVisible()
 })
 
 test('queue scenarios hydrate manager states', async ({page}) => {
 	for (const [scenario, status] of [
 		['queue-active', 'running'],
-		['queue-mixed-selection', 'paused-active'],
+		['queue-mixed-selection', 'running'],
 		['queue-errors', 'error'],
 		['queue-artifacts', 'done']
 	] as const) {
 		await openScenario(page, scenario)
-		await page.getByRole('tab', {name: /^queue/i}).click()
+		await page.getByRole('tab', {name: /^downloads/i}).click()
 		await expect(page.getByTestId('queue-manager-tab')).toBeVisible()
 		await expect(page.locator('[data-testid^="queue-manager-row-"]').first()).toHaveAttribute('data-status', status)
 	}

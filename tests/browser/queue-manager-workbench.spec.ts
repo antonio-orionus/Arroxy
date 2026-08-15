@@ -8,7 +8,7 @@ async function openScenario(page: Page, scenario: string): Promise<void> {
 
 async function openQueueScenario(page: Page, scenario: string): Promise<void> {
 	await openScenario(page, scenario)
-	await page.getByRole('tab', {name: /^queue/i}).click()
+	await page.getByRole('tab', {name: /^downloads/i}).click()
 	await expect(page.getByTestId('queue-manager-tab')).toBeVisible()
 }
 
@@ -16,7 +16,7 @@ test('queue manager scenario states hydrate without walking a fake download', as
 	for (const [scenario, status] of [
 		['queue-active', 'running'],
 		['queue-pending', 'pending'],
-		['queue-mixed-selection', 'paused-active'],
+		['queue-mixed-selection', 'running'],
 		['queue-errors', 'error'],
 		['queue-artifacts', 'done']
 	] as const) {
@@ -39,7 +39,7 @@ test('"Clear completed" removes terminal scenario items and keeps queue manager 
 
 	await expect(page.getByTestId('queue-manager-tab')).toBeVisible()
 	await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(0)
-	await expect(page.getByTestId('queue-manager-tab')).toContainText('Downloads you queue')
+	await expect(page.getByTestId('queue-manager-tab')).toContainText('Queued downloads will appear here')
 })
 
 test('screenshot - Clear button in queue manager toolbar for completed scenario', async ({page}) => {
