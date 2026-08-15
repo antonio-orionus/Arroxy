@@ -1826,8 +1826,8 @@ msgid "Assign download profiles"
 msgstr "ডাউনলোড প্রোফাইল নির্ধারণ করুন"
 
 msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
-msgstr "একটি পরিসরের জন্য Shift-ক্লিক করুন, একটি যোগ করতে {{modifier}}-ক্লিক করুন, অথবা সারিগুলির উপর দিয়ে টেনে আনুন। তারপর উপরে একটি প্রোফাইল বেছে নিন, নির্বাচনে ডান-ক্লিক করুন, অথবা 1–9 চাপুন।"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "একটি পরিসরের জন্য Shift-ক্লিক করুন, একটি যোগ করতে {{modifier}}-ক্লিক করুন, অথবা সারিগুলির উপর দিয়ে টেনে আনুন। তারপর উপরে একটি প্রোফাইল বেছে নিন, অথবা নির্বাচনে ডান-ক্লিক করুন।"
 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"

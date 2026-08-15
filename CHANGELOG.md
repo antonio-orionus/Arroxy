@@ -37,7 +37,7 @@ This release puts download speed and resilience in your hands. Three settings th
 
 - A playlist no longer has to download as one setting for everything. On the playlist step, "Assign profiles per item" opens a screen where you can give individual videos their own download profile — archive three talks at full quality and take the rest as MP3, in one pass.
 - Because a profile already carries quality, subtitles, destination and the rest, this mode skips the Quality, SponsorBlock, Output and Save steps entirely rather than asking twice. Each video lands in its own profile's folder.
-- Selecting is built for long playlists: click, Shift-click a range, ⌘/Ctrl-click to add one, or drag across rows. Filter by profile, select everything the filter shows, and press a number key to assign it. Right-click works on the whole selection.
+- Selecting is built for long playlists: click, Shift-click a range, ⌘/Ctrl-click to add one, or drag across rows. Filter by profile, select everything the filter shows, and pick a profile from the dropdown or right-click the selection.
 - You can edit a profile without leaving the screen — change Podcast MP3 to 320k and every video already assigned to it updates.
 - Videos can also be removed from the list outright instead of just unchecked, which matters when a playlist runs to hundreds of rows. Removal is undoable until you start the download.
 - Nothing changes if you do not use it: a playlist you queue the usual way behaves exactly as before.

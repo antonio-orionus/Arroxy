@@ -1826,8 +1826,8 @@ msgid "Assign download profiles"
 msgstr "İndirme profillerini ata"
 
 msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
-msgstr "Bir aralık için Shift-tıkla, birini eklemek için {{modifier}}-tıkla ya da satırların üzerine sürükle. Ardından yukarıdan bir profil seç, seçime sağ tıkla ya da 1–9 tuşlarına bas."
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Bir aralık için Shift-tıkla, birini eklemek için {{modifier}}-tıkla ya da satırların üzerine sürükle. Ardından yukarıdan bir profil seç ya da seçime sağ tıkla."
 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"

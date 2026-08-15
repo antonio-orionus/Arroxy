@@ -1,8 +1,7 @@
 // Screen-local profile ordering for the playlist-profiles step. The catalog
 // order from `allDownloadProfiles` (and therefore `buildDownloadProfileActionModel`)
-// is builtins-then-custom, which buries a user's own profiles — and the
-// single-tap `audio-only` builtin — past the action bar's visible slots and
-// off the digit-key shortcuts. This re-sorts to baseline-first, then the
+// is builtins-then-custom, which buries a user's own profiles near the bottom
+// of the action bar's dropdown. This re-sorts to baseline-first, then the
 // user's custom profiles, then builtins, without touching the shared model
 // builder (the home-screen picker still wants catalog order).
 

@@ -47,7 +47,7 @@
 			"columnDuration": "Duración",
 			"empty": "Ningún elemento coincide con este filtro",
 			"hintTitle": "Asignar perfiles a varios vídeos a la vez",
-			"hintBody": "Shift-clic para un rango, {{modifier}}-clic para añadir uno, o arrastra sobre las filas. Luego elige un perfil arriba, haz clic derecho en la selección, o pulsa 1–9."
+			"hintBody": "Shift-clic para un rango, {{modifier}}-clic para añadir uno, o arrastra sobre las filas. Luego elige un perfil arriba, o haz clic derecho en la selección."
 		},
 		"playlist": {
 			"heading": "Elementos de la Playlist",

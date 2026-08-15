@@ -108,14 +108,6 @@ describe('StepPlaylistProfiles', () => {
 		expect(screen.getAllByText('Archive 4K')).toHaveLength(3)
 	})
 
-	it('shows the number-key digit on each of the first nine dropdown rows (M3)', () => {
-		renderStep()
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		expect(screen.getByTestId('assign-profile-archive')).toHaveTextContent('1')
-		expect(screen.getByTestId('assign-profile-podcast')).toHaveTextContent('2')
-	})
-
 	it('assigns the clicked profile to the selected rows', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
@@ -174,23 +166,19 @@ describe('StepPlaylistProfiles', () => {
 		// 10 builtins before either custom profile — under that order "archive"
 		// and "podcast" would sit at slots 10-11, after every builtin. This
 		// asserts the screen re-sorts to baseline-then-custom-then-builtin
-		// instead of using catalog order as-is: both customs carry single-digit
-		// hints (slots 1-2) and a builtin — 'audio-only', the likeliest pick this
-		// reordering exists to surface — sorts behind every other builtin, past
-		// the digit-hint cutoff entirely.
-		expect(screen.getByTestId('assign-profile-archive')).toHaveTextContent('1')
-		expect(screen.getByTestId('assign-profile-podcast')).toHaveTextContent('2')
+		// instead of using catalog order as-is: both customs sort to the front
+		// (slots 1-2) and a builtin — 'audio-only', the likeliest pick this
+		// reordering exists to surface — sorts behind every other builtin, last
+		// of all.
 		const rowIds = screen.getAllByTestId(/^assign-profile-/).map(button => button.dataset.testid?.replace('assign-profile-', ''))
+		expect(rowIds.slice(0, 2)).toEqual(['archive', 'podcast'])
 		expect(rowIds.at(-1)).toBe('audio-only')
 	})
 
-	it('assigns a builtin profile reached far down the dropdown list, past the digit-hint cutoff', () => {
+	it('assigns a builtin profile reached far down the dropdown list', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
 		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		// 'audio-only' sorts last (12th of 12 profiles) — well past DIGIT_HINT_LIMIT
-		// (9), so it must carry no digit hint at all, not a two-digit "12".
-		expect(screen.getByTestId('assign-profile-audio-only')).not.toHaveTextContent(/\d/)
 		fireEvent.click(screen.getByTestId('assign-profile-audio-only'))
 
 		expect(within(screen.getByTestId('profile-row-b')).getByText('Audio only')).toBeInTheDocument()
@@ -280,21 +268,16 @@ describe('StepPlaylistProfiles', () => {
 		expect(screen.getByRole('button', {name: 'Change global destination'})).toBeEnabled()
 	})
 
-	it('ignores Delete and digit shortcuts while the profile editor dialog is open (I2)', async () => {
+	it('ignores the Delete shortcut while the profile editor dialog is open (I2)', async () => {
 		// The profile editor is a Dialog full of buttons/toggles/selects, none of
 		// which isTypingTarget recognizes as a text field — so without an explicit
-		// `editingProfile` guard, these window-scoped shortcuts fire straight
-		// through the open modal and silently mutate the selection behind it.
+		// `editingProfile` guard, this window-scoped shortcut fires straight
+		// through the open modal and silently mutates the selection behind it.
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
 		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
 		await screen.findByTestId('profiles-editor-dialog')
-
-		// Digit2 is 'podcast' (orderedOptions[1] — baseline 'archive' is index 0).
-		// If the guard were missing this would reassign row 'b' to Podcast MP3.
-		fireEvent.keyDown(window, {key: '2', code: 'Digit2'})
-		expect(within(screen.getByTestId('profile-row-b')).getByText('Archive 4K')).toBeInTheDocument()
 
 		fireEvent.keyDown(window, {key: 'Delete'})
 		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])

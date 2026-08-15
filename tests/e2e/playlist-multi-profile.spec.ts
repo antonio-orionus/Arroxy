@@ -22,12 +22,9 @@
 //    "Per-item profiles" (routes to the playlistProfiles step); click the
 //    first row, then shift-click the second row (real range selection, not
 //    select-all — one item must stay on the baseline profile or there is only
-//    one output directory and the whole point of the test is gone); press the
-//    `2` digit key to assign the second profile in assignment order (baseline
-//    is always digit 1 per `playlistProfileOrder.ts`, so the next builtin
-//    after baseline, "Best available", is digit 2 — verified against
-//    `BUILTIN_DOWNLOAD_PROFILES` order, not assumed); click Continue; click
-//    "Add to Queue".
+//    one output directory and the whole point of the test is gone); open the
+//    "Assign to selection" dropdown and click the second profile; click
+//    Continue; click "Add to Queue".
 //
 // 4. Milestones: playlist rows visible; stepper collapses to 4 dots (url,
 //    playlist, profiles, confirm — Quality/SponsorBlock/Output/Save never
@@ -134,12 +131,10 @@ test('Electron playlist multi-profile assigns a second profile to a selection an
 		await rows.nth(1).click({modifiers: ['Shift']})
 		await expect(page.locator('[data-testid="playlist-profile-summary"]')).toContainText('2 of 3 selected')
 
-		// Digit-key assignment. Baseline is always assignment-order slot 1
-		// (playlistProfileOrder.ts puts the active/baseline profile first), so
-		// the next builtin after it in BUILTIN_DOWNLOAD_PROFILES catalog order —
-		// "Best available" — is slot 2. Verified against the source ordering
-		// rather than assumed, since catalog order and assignment order differ.
-		await page.keyboard.press('2')
+		// Dropdown assignment: open "Assign to selection" and click the second
+		// profile by id, rather than relying on its position in the list.
+		await page.locator('[data-testid="playlist-profile-assign-trigger"]').click()
+		await page.locator(`[data-testid="assign-profile-${SECOND_PROFILE_ID}"]`).click()
 
 		await expect(rows.nth(0)).toContainText(SECOND_PROFILE_NAME)
 		await expect(rows.nth(1)).toContainText(SECOND_PROFILE_NAME)

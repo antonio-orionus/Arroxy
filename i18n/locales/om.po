@@ -1826,8 +1826,8 @@ msgid "Assign download profiles"
 msgstr "Piroofaayilii buufannaa ramaduu"
 
 msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
-msgstr "Daangaa tokkoof Shift-cuqaasi, tokko dabaluuf {{modifier}}-cuqaasi, ykn sarara irratti harkisi. Ergasii piroofaayilii armaan olii filadhu, filannoo irratti mirga-cuqaasi, yookaan 1–9 tuqi."
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Daangaa tokkoof Shift-cuqaasi, tokko dabaluuf {{modifier}}-cuqaasi, ykn sarara irratti harkisi. Ergasii piroofaayilii armaan olii filadhu, ykn filannoo irratti mirga-cuqaasi."
 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"

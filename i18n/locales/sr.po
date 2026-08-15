@@ -1826,8 +1826,8 @@ msgid "Assign download profiles"
 msgstr "Додели профиле преузимања"
 
 msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
-msgstr "Shift-клик за опсег, {{modifier}}-клик да додате један, или превуците преко редова. Затим изаберите профил изнад, кликните десним тастером миша на избор, или притисните 1–9."
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Shift-клик за опсег, {{modifier}}-клик да додате један, или превуците преко редова. Затим изаберите профил изнад, или кликните десним тастером миша на избор."
 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"

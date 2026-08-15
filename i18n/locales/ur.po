@@ -1826,8 +1826,8 @@ msgid "Assign download profiles"
 msgstr "ڈاؤن لوڈ پروفائلز تفویض کریں"
 
 msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
-msgstr "حد کے لیے Shift کے ساتھ کلک کریں، ایک شامل کرنے کے لیے {{modifier}} کے ساتھ کلک کریں، یا قطاروں پر گھسیٹیں۔ پھر اوپر سے ایک پروفائل منتخب کریں، انتخاب پر دائیں کلک کریں، یا 1–9 دبائیں۔"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "حد کے لیے Shift کے ساتھ کلک کریں، ایک شامل کرنے کے لیے {{modifier}} کے ساتھ کلک کریں، یا قطاروں پر گھسیٹیں۔ پھر اوپر سے ایک پروفائل منتخب کریں، یا انتخاب پر دائیں کلک کریں۔"
 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"

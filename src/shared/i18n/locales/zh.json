@@ -38,7 +38,7 @@
 			"columnDuration": "时长",
 			"empty": "没有符合此筛选条件的项目",
 			"hintTitle": "一次为多个视频分配配置",
-			"hintBody": "按住 Shift 单击可选择一个范围，按住 {{modifier}} 单击可添加单项，或在行上拖动。然后在上方选择配置，右键单击所选内容，或按 1–9。"
+			"hintBody": "按住 Shift 单击可选择一个范围，按住 {{modifier}} 单击可添加单项，或在行上拖动。 然后在上方选择配置，或右键单击所选内容。"
 		},
 		"playlist": {
 			"heading": "Playlist 视频",

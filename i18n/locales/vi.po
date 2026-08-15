@@ -1826,8 +1826,8 @@ msgid "Assign download profiles"
 msgstr "Gán hồ sơ tải xuống"
 
 msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
-msgstr "Shift-nhấp để chọn một dải, {{modifier}}-nhấp để thêm từng mục, hoặc kéo qua các hàng. Sau đó chọn hồ sơ ở trên, nhấp chuột phải vào vùng đã chọn, hoặc nhấn 1–9."
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Shift-nhấp để chọn một dải, {{modifier}}-nhấp để thêm từng mục, hoặc kéo qua các hàng. Sau đó chọn hồ sơ ở trên, hoặc nhấp chuột phải vào vùng đã chọn."
 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"

@@ -2,8 +2,8 @@
 // playlist items instead of downloading the batch as one homogeneous run.
 // Deliberately mirrors QueueManagerTab's three zones — action bar, filter
 // chips, virtualized table — so a user reaches for the same gestures they
-// already know from the Downloads tab. Chips filter; the action bar, the
-// row context menu, and number keys 1-9 assign.
+// already know from the Downloads tab. Chips filter; the action bar and the
+// row context menu assign.
 
 import {useCallback, useEffect, useMemo, useReducer, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
@@ -29,8 +29,6 @@ import {PlaylistProfileActionBar} from './PlaylistProfileActionBar.js'
 import {PlaylistProfileFilterChips} from './PlaylistProfileFilterChips.js'
 import {PlaylistProfileTable} from './PlaylistProfileTable.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
-
-const DIGIT_CODES = ['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9']
 
 export function StepPlaylistProfiles(): ReactNode {
 	const {t} = useTranslation()
@@ -157,7 +155,7 @@ export function StepPlaylistProfiles(): ReactNode {
 	)
 
 	// Window-scoped rather than a JSX onKeyDown on the step container — the
-	// shortcuts (Digit1-9, Ctrl/Cmd+A) must fire no matter which row or button
+	// shortcuts (Delete, Ctrl/Cmd+A) must fire no matter which row or button
 	// inside the step currently holds focus, and this step is only mounted
 	// while it's the active wizard step, so the listener's lifetime already
 	// matches "while this screen is visible".
@@ -183,18 +181,11 @@ export function StepPlaylistProfiles(): ReactNode {
 				if (selectedItemIds.length === 0) return
 				event.preventDefault()
 				remove(selectedItemIds)
-				return
 			}
-			const digitIndex = DIGIT_CODES.indexOf(event.code)
-			if (digitIndex === -1) return
-			const option = orderedOptions[digitIndex]
-			if (!option || selectedItemIds.length === 0) return
-			event.preventDefault()
-			assign(selectedItemIds, option.ref)
 		}
 		window.addEventListener('keydown', onKeyDown)
 		return () => window.removeEventListener('keydown', onKeyDown)
-	}, [assign, remove, orderedOptions, orderedRowIds, selectedItemIds, editingProfile])
+	}, [remove, orderedRowIds, selectedItemIds, editingProfile])
 
 	const renderedColumnCount = table.getAllLeafColumns().length
 

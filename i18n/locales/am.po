@@ -1826,8 +1826,8 @@ msgid "Assign download profiles"
 msgstr "የማውረድ መገለጫዎችን መድብ"
 
 msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, right-click the selection, or press 1–9."
-msgstr "ለክልል Shift-ጠቅ ያድርጉ፣ አንድ ለመጨመር {{modifier}}-ጠቅ ያድርጉ፣ ወይም በረድፎች ላይ ይጎትቱ። ከዚያ ከላይ መገለጫ ይምረጡ፣ በተመረጠው ላይ በቀኝ-ጠቅ ያድርጉ፣ ወይም 1–9ን ይጫኑ።"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "ለክልል Shift-ጠቅ ያድርጉ፣ አንድ ለመጨመር {{modifier}}-ጠቅ ያድርጉ፣ ወይም በረድፎች ላይ ይጎትቱ። ከዚያ ከላይ መገለጫ ይምረጡ፣ ወይም በተመረጠው ላይ በቀኝ-ጠቅ ያድርጉ።"
 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"

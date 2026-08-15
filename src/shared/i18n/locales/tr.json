@@ -47,7 +47,7 @@
 			"columnDuration": "Süre",
 			"empty": "Bu filtreyle eşleşen öğe yok",
 			"hintTitle": "Birden çok videoya aynı anda profil ata",
-			"hintBody": "Bir aralık için Shift-tıkla, birini eklemek için {{modifier}}-tıkla ya da satırların üzerine sürükle. Ardından yukarıdan bir profil seç, seçime sağ tıkla ya da 1–9 tuşlarına bas."
+			"hintBody": "Bir aralık için Shift-tıkla, birini eklemek için {{modifier}}-tıkla ya da satırların üzerine sürükle. Ardından yukarıdan bir profil seç ya da seçime sağ tıkla."
 		},
 		"playlist": {
 			"heading": "Oynatma listesi öğeleri",
