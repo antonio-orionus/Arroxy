@@ -146,6 +146,46 @@ describe('browser mock scenarios', () => {
 		expect(patch).toMatchObject({wizardStep: 'playlistItems', wizardMode: 'playlist', playlistItems: [], selectedPlaylistItemIds: [], playlistProbeLoading: true, playlistProbeProgress: {phase: 'pages', loaded: 33}})
 	})
 
+	it('applies the playlist multi-profile scenario directly, with deviations only for non-baseline items', async () => {
+		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
+
+		await applyScenarioWorkbenchState({scenario: getScenario('playlist-multi-profile'), params: readUrlParams(new URL('http://localhost:5173/?scenario=playlist-multi-profile')), store})
+
+		expect(store.reset).toHaveBeenCalledOnce()
+		expect(store.submitUrl).not.toHaveBeenCalled()
+		const patch = vi.mocked(store.setState).mock.calls[0]?.[0] as {playlistItems?: {id: string}[]; selectedPlaylistItemIds?: string[]; playlistProfileAssignments?: Record<string, {kind: string; id: string}>}
+		expect(patch).toMatchObject({wizardStep: 'playlistProfiles', wizardMode: 'playlist', multiProfileMode: true})
+		expect(patch.playlistItems).toHaveLength(17)
+		expect(patch.selectedPlaylistItemIds).toHaveLength(17)
+
+		const assignments = patch.playlistProfileAssignments ?? {}
+		expect(assignments.mock2).toEqual({kind: 'builtin', id: 'audio-only'})
+		expect(assignments.mock4).toEqual({kind: 'builtin', id: 'hd-1080'})
+		// Baseline items must have no entry at all — a redundant entry equal to
+		// the baseline would violate the deviations-only invariant.
+		expect(assignments.mock1).toBeUndefined()
+		expect(assignments.mock17).toBeUndefined()
+		expect(Object.keys(assignments)).toHaveLength(8)
+	})
+
+	it('applies the playlist multi-profile scale scenario with 500 mixed-assignment items', async () => {
+		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
+
+		await applyScenarioWorkbenchState({scenario: getScenario('playlist-multi-profile-scale'), params: readUrlParams(new URL('http://localhost:5173/?scenario=playlist-multi-profile-scale')), store})
+
+		expect(store.reset).toHaveBeenCalledOnce()
+		const patch = vi.mocked(store.setState).mock.calls[0]?.[0] as {playlistItems?: {id: string}[]; playlistProfileAssignments?: Record<string, {kind: string; id: string}>}
+		expect(patch).toMatchObject({wizardStep: 'playlistProfiles', wizardMode: 'playlist', multiProfileMode: true})
+		expect(patch.playlistItems).toHaveLength(500)
+
+		const assignments = patch.playlistProfileAssignments ?? {}
+		expect(assignments.mock5).toEqual({kind: 'builtin', id: 'audio-only'})
+		expect(assignments.mock8).toEqual({kind: 'builtin', id: 'hd-1080'})
+		expect(assignments.mock1).toBeUndefined()
+		expect(Object.keys(assignments).length).toBeGreaterThan(0)
+		expect(Object.keys(assignments).length).toBeLessThan(500)
+	})
+
 	it('applies profile scenario states through the workbench interface', async () => {
 		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
 
