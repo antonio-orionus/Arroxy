@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Weka {{profileName}}"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Weka kwenye uteuzi"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "Muda"
@@ -1828,10 +1832,6 @@ msgstr "Bofya ukiwa umeshikilia Shift kwa masafa, bofya ukiwa umeshikilia {{modi
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "Weka wasifu kwa video kadhaa kwa wakati mmoja"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "Zaidi…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

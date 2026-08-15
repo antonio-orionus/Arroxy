@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Призначити {{profileName}}"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Призначити вибраним"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "Тривалість"
@@ -1828,10 +1832,6 @@ msgstr "Shift-клік для діапазону, {{modifier}}-клік, щоб 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "Призначити профілі декільком відео одразу"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "Ще…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

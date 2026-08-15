@@ -38,9 +38,9 @@
 		"playlistProfiles": {
 			"heading": "ডাউনলোড প্রোফাইল নির্ধারণ করুন",
 			"selectedSummary": "{{total}} এর মধ্যে {{selected}} নির্বাচিত",
+			"assignTrigger": "নির্বাচনে নির্ধারণ করুন",
 			"assignAria": "{{profileName}} নির্ধারণ করুন",
 			"editProfile": "{{name}} সম্পাদনা করুন",
-			"more": "আরও…",
 			"filtersLabel": "প্রোফাইল ফিল্টার",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "প্রোফাইল",

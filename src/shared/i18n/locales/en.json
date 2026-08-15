@@ -29,9 +29,9 @@
 		"playlistProfiles": {
 			"heading": "Assign download profiles",
 			"selectedSummary": "{{selected}} of {{total}} selected",
+			"assignTrigger": "Assign to selection",
 			"assignAria": "Assign {{profileName}}",
 			"editProfile": "Edit {{name}}",
-			"more": "More…",
 			"filtersLabel": "Profile filters",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profile",

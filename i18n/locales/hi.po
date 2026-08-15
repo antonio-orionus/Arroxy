@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "{{profileName}} असाइन करें"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "चयन को असाइन करें"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "अवधि"
@@ -1828,10 +1832,6 @@ msgstr "श्रेणी के लिए Shift-क्लिक करें, 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "एक साथ कई वीडियो में प्रोफ़ाइल असाइन करें"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "अधिक…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

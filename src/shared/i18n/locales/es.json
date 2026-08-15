@@ -38,9 +38,9 @@
 		"playlistProfiles": {
 			"heading": "Asignar perfiles de descarga",
 			"selectedSummary": "{{selected}} de {{total}} seleccionados",
+			"assignTrigger": "Asignar a la selección",
 			"assignAria": "Asignar {{profileName}}",
 			"editProfile": "Editar {{name}}",
-			"more": "Más…",
 			"filtersLabel": "Filtros de perfil",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Perfil",

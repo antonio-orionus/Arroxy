@@ -108,9 +108,10 @@ describe('StepPlaylistProfiles', () => {
 		expect(screen.getAllByText('Archive 4K')).toHaveLength(3)
 	})
 
-	it('shows the number-key digit on each of the first nine action-bar buttons (M3)', () => {
+	it('shows the number-key digit on each of the first nine dropdown rows (M3)', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		expect(screen.getByTestId('assign-profile-archive')).toHaveTextContent('1')
 		expect(screen.getByTestId('assign-profile-podcast')).toHaveTextContent('2')
 	})
@@ -118,6 +119,7 @@ describe('StepPlaylistProfiles', () => {
 	it('assigns the clicked profile to the selected rows', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
 		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
 	})
@@ -126,6 +128,7 @@ describe('StepPlaylistProfiles', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('Under my Spell'))
 		fireEvent.click(screen.getByText('Burn the Witch'), {shiftKey: true})
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
 		expect(screen.getAllByText('Podcast MP3')).toHaveLength(3)
 	})
@@ -133,6 +136,7 @@ describe('StepPlaylistProfiles', () => {
 	it('filters rows by profile without changing assignments', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
 		fireEvent.click(screen.getByTestId('filter-profile-podcast'))
 		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(1)
@@ -141,6 +145,7 @@ describe('StepPlaylistProfiles', () => {
 	it('resets the filter to "All" once the filtered profile\'s count drops to zero (M2)', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
 		fireEvent.click(screen.getByTestId('filter-profile-podcast'))
 		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(1)
@@ -158,34 +163,34 @@ describe('StepPlaylistProfiles', () => {
 		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(3)
 	})
 
-	it('puts the baseline and custom profiles ahead of builtins in the visible action bar', () => {
+	it('puts the baseline and custom profiles ahead of builtins in the dropdown order', () => {
 		renderStep()
-		// The action bar is disabled with nothing selected; select a row so the
-		// buttons (including "More…") are interactive.
+		// The trigger is disabled with nothing selected; select a row so it's
+		// interactive.
 		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 
 		// `allDownloadProfiles` (and so the unordered catalog model) returns all
 		// 10 builtins before either custom profile — under that order "archive"
-		// and "podcast" would sit at slots 10-11, past the action bar's 8 visible
-		// slots, and these testids would only exist once "More…" is opened. This
-		// asserts they're reachable directly, proving the screen re-sorts to
-		// baseline-then-custom-then-builtin instead of using catalog order as-is.
-		const bar = within(screen.getByTestId('playlist-profile-actions'))
-		expect(bar.getByTestId('assign-profile-archive')).toBeInTheDocument()
-		expect(bar.getByTestId('assign-profile-podcast')).toBeInTheDocument()
-
-		// And a builtin — 'audio-only', the likeliest pick this reordering exists
-		// to surface — is pushed out to the overflow instead, since the two
-		// customs now occupy two of the eight visible slots.
-		expect(screen.queryByTestId('assign-profile-audio-only')).not.toBeInTheDocument()
-		fireEvent.click(screen.getByTestId('playlist-profile-more'))
-		expect(screen.getByTestId('assign-profile-audio-only')).toBeInTheDocument()
+		// and "podcast" would sit at slots 10-11, after every builtin. This
+		// asserts the screen re-sorts to baseline-then-custom-then-builtin
+		// instead of using catalog order as-is: both customs carry single-digit
+		// hints (slots 1-2) and a builtin — 'audio-only', the likeliest pick this
+		// reordering exists to surface — sorts behind every other builtin, past
+		// the digit-hint cutoff entirely.
+		expect(screen.getByTestId('assign-profile-archive')).toHaveTextContent('1')
+		expect(screen.getByTestId('assign-profile-podcast')).toHaveTextContent('2')
+		const rowIds = screen.getAllByTestId(/^assign-profile-/).map(button => button.dataset.testid?.replace('assign-profile-', ''))
+		expect(rowIds.at(-1)).toBe('audio-only')
 	})
 
-	it('assigns a builtin profile reached through the "More…" overflow popover', () => {
+	it('assigns a builtin profile reached far down the dropdown list, past the digit-hint cutoff', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-more'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
+		// 'audio-only' sorts last (12th of 12 profiles) — well past DIGIT_HINT_LIMIT
+		// (9), so it must carry no digit hint at all, not a two-digit "12".
+		expect(screen.getByTestId('assign-profile-audio-only')).not.toHaveTextContent(/\d/)
 		fireEvent.click(screen.getByTestId('assign-profile-audio-only'))
 
 		expect(within(screen.getByTestId('profile-row-b')).getByText('Audio only')).toBeInTheDocument()
@@ -202,11 +207,13 @@ describe('StepPlaylistProfiles', () => {
 		// selected every row instead of only the filtered ones, 'b' would also
 		// flip to that third profile and the final assertion on 'b' would fail.
 		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
 		fireEvent.click(screen.getByTestId('filter-profile-archive'))
 		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(2)
 
 		fireEvent.keyDown(window, {key: 'a', code: 'KeyA', ctrlKey: true})
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('assign-profile-best-quality'))
 
 		// Switch back to the unfiltered view to inspect every row: 'a' and 'c'
@@ -250,8 +257,12 @@ describe('StepPlaylistProfiles', () => {
 		expect(screen.queryByTestId('multi-profile-hint')).not.toBeInTheDocument()
 	})
 
-	it('opens the profile editor from the action bar', async () => {
+	it('opens the profile editor from the profile dropdown, even with nothing selected', async () => {
+		// No row selected — the trigger stays enabled regardless of selection so
+		// the pencil (independent of "assign to selection") is always reachable,
+		// unlike the assign buttons and Reset, which do need a selection.
 		renderStep()
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
 		expect(await screen.findByTestId('profiles-editor-dialog')).toBeInTheDocument()
 	})
@@ -263,6 +274,7 @@ describe('StepPlaylistProfiles', () => {
 		// step is the first call site in the app to open the editor at all, so
 		// nothing previously exercised the case of that prop being left out.
 		renderStep()
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
 		await screen.findByTestId('profiles-editor-dialog')
 		expect(screen.getByRole('button', {name: 'Change global destination'})).toBeEnabled()
@@ -275,6 +287,7 @@ describe('StepPlaylistProfiles', () => {
 		// through the open modal and silently mutate the selection behind it.
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
 		await screen.findByTestId('profiles-editor-dialog')
 
@@ -290,9 +303,10 @@ describe('StepPlaylistProfiles', () => {
 
 	it('does not reassign the selection when the pencil is clicked', () => {
 		renderStep()
-		// Select a row first so the action bar's assign buttons are live — this is
-		// the exact state in which a bubbled click would silently reassign 'b'.
+		// Select a row first so the assign buttons in the dropdown are live — this
+		// is the exact state in which a bubbled click would silently reassign 'b'.
 		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
 
 		// The editor opened (proven by the previous test); the point here is what
@@ -304,6 +318,7 @@ describe('StepPlaylistProfiles', () => {
 	it('re-labels assigned rows when the profile is edited', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
 		renameProfile('podcast', 'Podcast 320')
 		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast 320')).toBeInTheDocument()
@@ -312,6 +327,7 @@ describe('StepPlaylistProfiles', () => {
 	it('removes the row from the context menu, prunes its profile assignment, and shows a restore control', async () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
 		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
 
@@ -378,6 +394,7 @@ describe('StepPlaylistProfiles', () => {
 		// confirm, no undo, and (unlike removal) no visible sign it happened.
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
+		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
 		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
 

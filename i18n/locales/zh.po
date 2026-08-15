@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "分配{{profileName}}"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "分配至所选"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "时长"
@@ -1828,10 +1832,6 @@ msgstr "按住 Shift 单击可选择一个范围，按住 {{modifier}} 单击可
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "一次为多个视频分配配置"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "更多…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

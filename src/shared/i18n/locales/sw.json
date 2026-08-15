@@ -38,9 +38,9 @@
 		"playlistProfiles": {
 			"heading": "Weka wasifu wa upakuaji",
 			"selectedSummary": "{{selected}} kati ya {{total}} zimechaguliwa",
+			"assignTrigger": "Weka kwenye uteuzi",
 			"assignAria": "Weka {{profileName}}",
 			"editProfile": "Hariri {{name}}",
-			"more": "Zaidi…",
 			"filtersLabel": "Vichujio vya wasifu",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Wasifu",

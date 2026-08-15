@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Εκχώρηση {{profileName}}"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Εκχώρηση στην επιλογή"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "Διάρκεια"
@@ -1828,10 +1832,6 @@ msgstr "Shift-κλικ για εύρος, {{modifier}}-κλικ για προσ�
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "Ανάθεση προφίλ σε πολλά βίντεο ταυτόχρονα"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "Περισσότερα…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

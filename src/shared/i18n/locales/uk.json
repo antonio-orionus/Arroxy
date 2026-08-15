@@ -46,9 +46,9 @@
 		"playlistProfiles": {
 			"heading": "Призначити профілі завантаження",
 			"selectedSummary": "Вибрано {{selected}} з {{total}}",
+			"assignTrigger": "Призначити вибраним",
 			"assignAria": "Призначити {{profileName}}",
 			"editProfile": "Редагувати {{name}}",
-			"more": "Ще…",
 			"filtersLabel": "Фільтри профілів",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Профіль",

@@ -38,9 +38,9 @@
 		"playlistProfiles": {
 			"heading": "Назначить профили загрузки",
 			"selectedSummary": "Выбрано {{selected}} из {{total}}",
+			"assignTrigger": "Назначить выбранным",
 			"assignAria": "Назначить {{profileName}}",
 			"editProfile": "Изменить {{name}}",
-			"more": "Ещё…",
 			"filtersLabel": "Фильтры профилей",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Профиль",

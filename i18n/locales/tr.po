@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "{{profileName}} ata"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Seçime ata"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "Süre"
@@ -1828,10 +1832,6 @@ msgstr "Bir aralık için Shift-tıkla, birini eklemek için {{modifier}}-tıkla
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "Birden çok videoya aynı anda profil ata"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "Daha fazla…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

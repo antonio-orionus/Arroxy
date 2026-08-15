@@ -38,9 +38,9 @@
 		"playlistProfiles": {
 			"heading": "تعيين ملفات تنزيل",
 			"selectedSummary": "تم تحديد {{selected}} من {{total}}",
+			"assignTrigger": "تعيين إلى التحديد",
 			"assignAria": "تعيين {{profileName}}",
 			"editProfile": "تعديل {{name}}",
-			"more": "المزيد…",
 			"filtersLabel": "عوامل تصفية الملف الشخصي",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "الملف الشخصي",

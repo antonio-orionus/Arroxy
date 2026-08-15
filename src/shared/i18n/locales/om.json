@@ -50,9 +50,9 @@
 		"playlistProfiles": {
 			"heading": "Piroofaayilii buufannaa ramaduu",
 			"selectedSummary": "{{total}} keessaa {{selected}} filatameera",
+			"assignTrigger": "Filannoo ramaduu",
 			"assignAria": "{{profileName}} ramaduu",
 			"editProfile": "{{name}} gulaali",
-			"more": "Dabalata…",
 			"filtersLabel": "Calaltuu piroofaayilii",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Piroofaayilii",

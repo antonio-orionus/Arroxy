@@ -29,9 +29,9 @@
 		"playlistProfiles": {
 			"heading": "ဒေါင်းလုဒ်ပရိုဖိုင်များကို သတ်မှတ်ပါ",
 			"selectedSummary": "{{total}} အနက် {{selected}} ခုကို ရွေးထားသည်",
+			"assignTrigger": "ရွေးချယ်မှုသို့ သတ်မှတ်ပါ",
 			"assignAria": "{{profileName}} ကို သတ်မှတ်ပါ",
 			"editProfile": "{{name}} ကို ပြင်ဆင်ပါ",
-			"more": "နောက်ထပ်…",
 			"filtersLabel": "ပရိုဖိုင်စစ်ထုတ်ကိရိယာများ",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "ပရိုဖိုင်",

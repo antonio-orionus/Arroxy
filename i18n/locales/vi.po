@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Gán {{profileName}}"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Gán cho lựa chọn"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "Thời lượng"
@@ -1828,10 +1832,6 @@ msgstr "Shift-nhấp để chọn một dải, {{modifier}}-nhấp để thêm t
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "Gán hồ sơ cho nhiều video cùng lúc"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "Thêm…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

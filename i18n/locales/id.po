@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Tetapkan {{profileName}}"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Tetapkan ke pilihan"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "Durasi"
@@ -1828,10 +1832,6 @@ msgstr "Shift-klik untuk rentang, {{modifier}}-klik untuk menambah satu, atau se
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "Tetapkan profil ke beberapa video sekaligus"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "Lainnya…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

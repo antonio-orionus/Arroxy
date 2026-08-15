@@ -38,9 +38,9 @@
 		"playlistProfiles": {
 			"heading": "Gán hồ sơ tải xuống",
 			"selectedSummary": "Đã chọn {{selected}}/{{total}}",
+			"assignTrigger": "Gán cho lựa chọn",
 			"assignAria": "Gán {{profileName}}",
 			"editProfile": "Sửa {{name}}",
-			"more": "Thêm…",
 			"filtersLabel": "Bộ lọc hồ sơ",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Hồ sơ",

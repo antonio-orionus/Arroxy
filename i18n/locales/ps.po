@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "{{profileName}} وټاکئ"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "ټاکنې ته وګمارئ"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "موده"
@@ -1828,10 +1832,6 @@ msgstr "د ساحې لپاره Shift-کلیک وکړئ، د یو زیاتولو 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "پروفایلونه یوځل ډیرو ویډیوګانو ته وټاکئ"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "نور…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

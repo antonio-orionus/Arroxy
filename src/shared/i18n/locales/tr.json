@@ -38,9 +38,9 @@
 		"playlistProfiles": {
 			"heading": "İndirme profillerini ata",
 			"selectedSummary": "{{total}} öğeden {{selected}} tanesi seçildi",
+			"assignTrigger": "Seçime ata",
 			"assignAria": "{{profileName}} ata",
 			"editProfile": "{{name}} düzenle",
-			"more": "Daha fazla…",
 			"filtersLabel": "Profil filtreleri",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profil",

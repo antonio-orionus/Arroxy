@@ -38,9 +38,9 @@
 		"playlistProfiles": {
 			"heading": "Εκχώρηση προφίλ λήψης",
 			"selectedSummary": "Επιλέχθηκαν {{selected}} από {{total}}",
+			"assignTrigger": "Εκχώρηση στην επιλογή",
 			"assignAria": "Εκχώρηση {{profileName}}",
 			"editProfile": "Επεξεργασία {{name}}",
-			"more": "Περισσότερα…",
 			"filtersLabel": "Φίλτρα προφίλ",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Προφίλ",

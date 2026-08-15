@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "{{profileName}} ramaduu"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Filannoo ramaduu"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "Turtii"
@@ -1828,10 +1832,6 @@ msgstr "Daangaa tokkoof Shift-cuqaasi, tokko dabaluuf {{modifier}}-cuqaasi, ykn 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "Piroofaayilii yeroo tokkotti viidiyoo hedduuf ramaduu"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "Dabalata…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

@@ -46,9 +46,9 @@
 		"playlistProfiles": {
 			"heading": "Yuklab olish profillarini belgilash",
 			"selectedSummary": "{{total}} tadan {{selected}} tasi tanlandi",
+			"assignTrigger": "Tanlovga belgilash",
 			"assignAria": "{{profileName}} belgilash",
 			"editProfile": "{{name}} tahrirlash",
-			"more": "Yana…",
 			"filtersLabel": "Profil filtrlari",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profil",

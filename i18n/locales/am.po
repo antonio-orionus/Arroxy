@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "{{profileName}}ን መድብ"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "ለተመረጡት መድብ"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "ቆይታ"
@@ -1828,10 +1832,6 @@ msgstr "ለክልል Shift-ጠቅ ያድርጉ፣ አንድ ለመጨመር {{mo
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "ለብዙ ቪዲዮዎች በአንድ ጊዜ መገለጫ መድብ"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "ተጨማሪ…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

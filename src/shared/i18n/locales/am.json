@@ -29,9 +29,9 @@
 		"playlistProfiles": {
 			"heading": "የማውረድ መገለጫዎችን መድብ",
 			"selectedSummary": "ከ{{total}} ውስጥ {{selected}} ተመርጠዋል",
+			"assignTrigger": "ለተመረጡት መድብ",
 			"assignAria": "{{profileName}}ን መድብ",
 			"editProfile": "{{name}}ን አርትዕ",
-			"more": "ተጨማሪ…",
 			"filtersLabel": "የመገለጫ ማጣሪያዎች",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "መገለጫ",

@@ -38,9 +38,9 @@
 		"playlistProfiles": {
 			"heading": "Tetapkan profil unduhan",
 			"selectedSummary": "{{selected}} dari {{total}} dipilih",
+			"assignTrigger": "Tetapkan ke pilihan",
 			"assignAria": "Tetapkan {{profileName}}",
 			"editProfile": "Edit {{name}}",
-			"more": "Lainnya…",
 			"filtersLabel": "Filter profil",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profil",

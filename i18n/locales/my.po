@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "{{profileName}} ကို သတ်မှတ်ပါ"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "ရွေးချယ်မှုသို့ သတ်မှတ်ပါ"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "ကြာချိန်"
@@ -1828,10 +1832,6 @@ msgstr "အပိုင်းအခြားတစ်ခုအတွက် Shift
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "ဗီဒီယိုများစွာအား တစ်ပြိုင်နက် ပရိုဖိုင်များ သတ်မှတ်ပါ"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "နောက်ထပ်…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

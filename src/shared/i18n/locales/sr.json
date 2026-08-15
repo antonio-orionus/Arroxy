@@ -46,9 +46,9 @@
 		"playlistProfiles": {
 			"heading": "Додели профиле преузимања",
 			"selectedSummary": "Изабрано {{selected}} од {{total}}",
+			"assignTrigger": "Додели избору",
 			"assignAria": "Додели {{profileName}}",
 			"editProfile": "Измени {{name}}",
-			"more": "Више…",
 			"filtersLabel": "Филтери профила",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Профил",

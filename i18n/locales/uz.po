@@ -1793,6 +1793,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "{{profileName}} belgilash"
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Tanlovga belgilash"
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr "Davomiylik"
@@ -1828,10 +1832,6 @@ msgstr "Diapazon uchun Shift-bosing, bittasini qo'shish uchun {{modifier}}-bosin
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
 msgstr "Bir vaqtning o'zida bir nechta videoga profil belgilash"
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
-msgstr "Yana…"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"

@@ -1787,6 +1787,10 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr ""
 
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr ""
+
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
 msgstr ""
@@ -1821,10 +1825,6 @@ msgstr ""
 
 msgctxt "wizard.playlistProfiles.hintTitle"
 msgid "Assign profiles to several videos at once"
-msgstr ""
-
-msgctxt "wizard.playlistProfiles.more"
-msgid "More…"
 msgstr ""
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
