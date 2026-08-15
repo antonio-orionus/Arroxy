@@ -241,6 +241,7 @@ sha256sum Arroxy-linux-x64.AppImage
 - {{feat_workflow_8}}
 - {{feat_workflow_9}}
 - {{feat_workflow_10}}
+- {{feat_workflow_11}}
 
 ### {{feat_post_h3}}
 
