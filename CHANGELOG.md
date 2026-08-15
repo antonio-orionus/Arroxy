@@ -8,9 +8,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## 0.4.5
-
-This release reworks how Arroxy names downloaded files, so filenames may look different from previous versions — templates that were previously refused now work, and non-Latin titles keep much more of their length on macOS and Windows. It also gives failures that used to happen silently a visible message.
+## Unreleased
 
 This release puts download speed and resilience in your hands. Three settings that were previously fixed — or buried — are now yours to set in **Settings → Download behavior**. All three ship at their current values, so nothing changes until you decide it should.
 
