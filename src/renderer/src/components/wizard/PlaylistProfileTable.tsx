@@ -31,9 +31,12 @@ interface PlaylistProfileTableProps {
 	onRemove: (itemIds: string[]) => void
 }
 
+// The profile column is sized to its content rather than the widest possible
+// name: the edit pencil right-aligns inside it, so a wide column strands the
+// pencil next to Duration instead of beside the profile it edits.
 function columnClassName(columnId: string): string {
-	if (columnId === 'title') return 'w-[55%] min-w-0'
-	if (columnId === 'profile') return 'w-[30%]'
+	if (columnId === 'title') return 'w-[62%] min-w-0'
+	if (columnId === 'profile') return 'w-[23%]'
 	return 'w-[15%]'
 }
 

@@ -54,7 +54,10 @@ export function usePlaylistProfileColumns({t, hasAnyThumbnail, liveLabel, resolv
 					return (
 						<div className="flex min-w-0 items-center gap-1.5" data-testid={`profile-cell-${entry.id}`}>
 							<Icon size={13} className="shrink-0 text-[var(--brand)]" aria-hidden />
-							<span className="min-w-0 flex-1 truncate text-[12px] text-foreground">{profile.name}</span>
+							{/* Not `flex-1`: the name box must shrink to its text so the edit
+							pencil sits beside the profile it edits rather than being pushed
+							to the far edge of the column, next to Duration. */}
+							<span className="min-w-0 shrink truncate text-[12px] text-foreground">{profile.name}</span>
 							{/* Hidden by default, revealed on row hover or when tabbed to
 							directly — a hover-only control would be unreachable by
 							keyboard. Width is always reserved (opacity, not display) so
