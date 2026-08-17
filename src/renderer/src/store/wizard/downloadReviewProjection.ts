@@ -7,12 +7,12 @@ import type {DownloadProfile, DownloadProfileIcon} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
 import {buildDownloadProfileActionModel} from '@renderer/components/wizard/downloadProfileActions.js'
-import {profileAssignmentCounts} from '@renderer/components/wizard/playlistProfileAssignments.js'
 import {orderProfileOptionsForAssignment} from '@renderer/components/wizard/playlistProfileOrder.js'
 import {resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import {presetLabel, resolveAudioLabel, resolveVideoResolution} from '../helpers.js'
 import type {AppState} from '../types.js'
 import {resolveOutputContainer} from './resolveContainer.js'
+import {profileAssignmentCounts} from './playlistProfileAssignments.js'
 
 type Translate = (key: string, params?: Record<string, unknown>) => string
 

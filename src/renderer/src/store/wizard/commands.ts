@@ -7,8 +7,8 @@ import {DEFAULTS} from '@shared/constants.js'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfileRef, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
-import {assignProfileToItems, clearAssignmentsForItems} from '@renderer/components/wizard/playlistProfileAssignments.js'
 import type {GetState, SetState, WizardStep} from '../types.js'
+import {assignProfileToItems, clearAssignmentsForItems} from './playlistProfileAssignments.js'
 import {QUICK_DOWNLOAD_FEEDBACK_INITIAL} from './quickDownloadFeedback.js'
 
 // Full wizard reset state — owned conceptually by the four slices but applied

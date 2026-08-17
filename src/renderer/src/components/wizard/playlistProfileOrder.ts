@@ -6,7 +6,7 @@
 // builder (the home-screen picker still wants catalog order).
 
 import type {DownloadProfileRef} from '@shared/types.js'
-import {sameProfileRef} from './playlistProfileAssignments.js'
+import {sameProfileRef} from '../../store/wizard/playlistProfileAssignments.js'
 import type {DownloadProfileActionOption} from './downloadProfileActions.js'
 
 export function orderProfileOptionsForAssignment(options: readonly DownloadProfileActionOption[], baselineRef: DownloadProfileRef): DownloadProfileActionOption[] {

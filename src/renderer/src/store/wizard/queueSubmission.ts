@@ -9,7 +9,6 @@ import {sanitizeJobOptions} from '@shared/sanitizeJobOptions.js'
 import {playlistBaseDir} from '@shared/subfolder.js'
 import {templateOutputDir} from '@shared/filenameTemplate.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
-import {resolveAssignedProfile} from '@renderer/components/wizard/playlistProfileAssignments.js'
 import i18next from 'i18next'
 import type {AppState} from '../types.js'
 import {buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution} from '../helpers.js'
@@ -17,6 +16,7 @@ import {resolveOutputContainer} from './resolveContainer.js'
 import {resolvePlaylistDir} from './playlistDir.js'
 import {bindJobFilenameTemplate, canWriteM3u, playlistEntryTemplateMeta, resolveJobFilenameTemplate, singleTemplateMeta, templateOwnsDirs} from './outputTemplates.js'
 import {playlistTitleFallback} from './playlistTitle.js'
+import {resolveAssignedProfile} from './playlistProfileAssignments.js'
 
 export interface PlaylistManifestPayload {
 	playlistGroupId: string
