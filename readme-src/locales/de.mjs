@@ -187,6 +187,7 @@ export const de = {
     "<b>Massen-URL-Modus</b><br/>Liste einfügen, automatisch entdoppeln, alle auf einmal einreihen",
   shot6_cap:
     "<b>Paralleler Download-Verlauf</b><br/>Mehrere Downloads gleichzeitig mit Live-Fortschritt",
+  shot7_cap: "<b>Profile pro Playlist-Eintrag</b><br/>Jedem Video ein eigenes Profil geben – manche in 4K archivieren, den Rest als MP3 holen",
   dl_platform_col: "Plattform",
   dl_format_col: "Format",
   dl_win_format: "Installer (NSIS) oder Portable `.exe`",

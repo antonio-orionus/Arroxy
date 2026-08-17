@@ -263,6 +263,9 @@ Arroxy создан для одного: вставьте URL — получит
 
 <table align="center" width="100%">
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Профили для каждого видео плейлиста</b><br/>Своя настройка для каждого видео — часть в 4K, остальные как MP3</sub></td>
+  </tr>
+  <tr>
     <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Главная быстрой загрузки</b><br/>Вставьте URL и сразу скачайте с активным профилем</sub></td>
     <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Многоразовые профили загрузки</b><br/>Сохраняйте формат, качество и вывод как пресеты — используйте при каждой загрузке</sub></td>
   </tr>

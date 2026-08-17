@@ -263,6 +263,9 @@ Arroxy एक काम के लिए बना है: URL पेस्ट �
 
 <table align="center" width="100%">
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>प्लेलिस्ट के हर आइटम के लिए प्रोफ़ाइल</b><br/>हर वीडियो को उसकी अपनी प्रोफ़ाइल दें — कुछ को 4K में सहेजें, बाकी को MP3 के रूप में लें</sub></td>
+  </tr>
+  <tr>
     <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>क्विक डाउनलोड होम</b><br/>एक URL पेस्ट करें और अपनी सक्रिय प्रोफ़ाइल से तुरंत डाउनलोड करें</sub></td>
     <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>पुन: प्रयोज्य डाउनलोड प्रोफ़ाइल</b><br/>फ़ॉर्मेट, गुणवत्ता और आउटपुट को प्रीसेट के रूप में सहेजें — हर डाउनलोड पर दोबारा उपयोग करें</sub></td>
   </tr>

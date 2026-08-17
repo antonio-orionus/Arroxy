@@ -188,6 +188,7 @@ export const tr = {
     "<b>Toplu URL modu</b><br/>Bir liste yapıştır, otomatik tekilleştir, hepsini tek seferde kuyruğa al",
   shot6_cap:
     "<b>Paralel indirme kuyruğu</b><br/>Canlı ilerlemeyle aynı anda birden fazla indirme",
+  shot7_cap: "<b>Oynatma listesinde öğe başına profil</b><br/>Her videoya kendi profilini ver — bazılarını 4K arşivle, kalanını MP3 olarak al",
   dl_platform_col: "Platform",
   dl_format_col: "Doğrudan indirme",
   dl_win_format: "Kurucu (NSIS) veya Taşınabilir `.exe`",

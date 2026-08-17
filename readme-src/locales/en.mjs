@@ -184,6 +184,7 @@ export const en = {
     "<b>Bulk URL mode</b><br/>Paste a list, auto-dedupe, queue them all at once",
   shot6_cap:
     "<b>Parallel download queue</b><br/>Several downloads at once with live progress",
+  shot7_cap: "<b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, grab the rest as MP3",
   dl_platform_col: "Platform",
   dl_format_col: "Direct download",
   dl_win_format: "Installer (NSIS) or Portable `.exe`",

@@ -186,6 +186,7 @@ export const sw = {
     "<b>Hali ya URL nyingi</b><br/>Bandika orodha, ondoa nakala kiotomatiki, panga zote kwa pamoja",
   shot6_cap:
     "<b>Foleni ya upakuaji sambamba</b><br/>Upakuaji kadhaa kwa wakati mmoja na maendeleo ya moja kwa moja",
+  shot7_cap: "<b>Wasifu kwa kila kipengele cha orodha ya kucheza</b><br/>Mpe kila video wasifu wake — hifadhi baadhi kwa 4K, chukua zilizobaki kama MP3",
   dl_platform_col: "Jukwaa",
   dl_format_col: "Fomati",
   dl_win_format: "Kisanidi (NSIS) au Inayobebeka `.exe`",

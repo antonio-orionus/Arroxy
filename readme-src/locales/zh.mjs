@@ -175,6 +175,7 @@ export const zh = {
   shot4_cap: "<b>环绕声 / Dolby 音频</b><br/>识别并保留 5.1 和 Dolby 音轨",
   shot5_cap: "<b>批量网址模式</b><br/>粘贴列表，自动去重，一次性全部入队",
   shot6_cap: "<b>并行下载队列</b><br/>多个下载同时进行，实时显示进度",
+  shot7_cap: "<b>播放列表逐条配置</b><br/>为每个视频指定各自的配置——部分存为 4K，其余转成 MP3",
   dl_platform_col: "平台",
   dl_format_col: "格式",
   dl_win_format: "安装版（NSIS）或便携版 `.exe`",

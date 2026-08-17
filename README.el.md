@@ -261,6 +261,9 @@ sha256sum Arroxy-linux-x64.AppImage
 
 <table align="center" width="100%">
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Προφίλ ανά βίντεο σε playlist</b><br/>Δώστε σε κάθε βίντεο το δικό του προφίλ — άλλα σε 4K, τα υπόλοιπα ως MP3</sub></td>
+  </tr>
+  <tr>
     <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Αρχική Γρήγορης λήψης</b><br/>Επικολλήστε ένα URL και κατεβάστε το αμέσως με το ενεργό προφίλ σας</sub></td>
     <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Επαναχρησιμοποιήσιμα προφίλ λήψης</b><br/>Αποθηκεύστε μορφή, ποιότητα και έξοδο ως προεπιλογές — επαναχρησιμοποιήστε σε κάθε λήψη</sub></td>
   </tr>

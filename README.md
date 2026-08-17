@@ -261,6 +261,9 @@ Arroxy is built for one thing: paste a URL, get a clean local file. No accounts,
 
 <table align="center" width="100%">
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, grab the rest as MP3</sub></td>
+  </tr>
+  <tr>
     <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Quick Download home</b><br/>Paste a URL and pull it instantly with your active profile</sub></td>
     <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Reusable download profiles</b><br/>Save format, quality, and output presets — reuse per download</sub></td>
   </tr>

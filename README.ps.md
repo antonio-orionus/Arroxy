@@ -261,6 +261,9 @@ Arroxy د یوه کار لپاره جوړ شوی: URL پیسټ کړئ، پاک �
 
 <table align="center" width="100%">
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>د پلی‌لېست د هر توکي پروفایل</b><br/>هر ویډیو ته خپل پروفایل ورکړئ — ځینې په 4K کې خوندي کړئ، پاتې یې د MP3 په توګه واخلئ</sub></td>
+  </tr>
+  <tr>
     <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>د چټک ښکته کولو کور</b><br/>URL پیسټ کړئ او په خپل فعال پروفایل سره یې سمدلاسه ښکته کړئ</sub></td>
     <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>د بیا کارونې وړ د ښکته کولو پروفایلونه</b><br/>بڼه، کیفیت او محصول د وړاندیز په توګه خوندي کړئ — په هر ښکته کولو کې یې بیا وکاروئ</sub></td>
   </tr>

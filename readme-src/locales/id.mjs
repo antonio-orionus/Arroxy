@@ -69,6 +69,7 @@ export const id = {
   "shot4_cap": "<b>Audio surround / Dolby</b><br/>5.1 dan trek Dolby terdeteksi dan disimpan",
   "shot5_cap": "<b>Mode URL massal</b><br/>Tempelkan daftar, hapus duplikat otomatis, masukkan semuanya ke dalam antrean sekaligus",
   "shot6_cap": "<b>Antrean unduhan paralel</b><br/>Beberapa unduhan sekaligus dengan progres langsung",
+  "shot7_cap": "<b>Profil per item playlist</b><br/>Beri tiap video profilnya sendiri — simpan sebagian dalam 4K, ambil sisanya sebagai MP3",
   "dl_platform_col": "Platform",
   "dl_format_col": "Unduh langsung",
   "dl_win_format": "Pemasang (NSIS) atau `.exe` Portabel",

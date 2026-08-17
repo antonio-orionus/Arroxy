@@ -261,6 +261,9 @@ Arroxy је направљен за једну ствар: налепите URL,
 
 <table align="center" width="100%">
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Профили по ставци плејлисте</b><br/>Дајте сваком видеу сопствени профил — неке у 4K, остале као MP3</sub></td>
+  </tr>
+  <tr>
     <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Почетна брзог преузимања</b><br/>Налепите URL и одмах преузмите са активним профилом</sub></td>
     <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Поново употребљиви профили преузимања</b><br/>Сачувајте формат, квалитет и излаз као поставке — користите за свако преузимање</sub></td>
   </tr>

@@ -189,6 +189,7 @@ export const om = {
     "<b>Haala URL baay'ee</b><br/>Tarree maxxansi, irra deebii ofumaan haqi, hunda yeroo tokkotti tarreessi",
   shot6_cap:
     "<b>Tarree buufannaa walqixaa</b><br/>Buufannaa hedduu yeroo tokkotti, guddina kallattiidhaan",
+  shot7_cap: "<b>Profaayilii viidiyoo playlist tokkoon tokkoon</b><br/>Viidiyoo hundaaf profaayilii mataa isaa kenni — garii 4K'n kuusi, hafan MP3'n fudhu",
   dl_platform_col: "Platform",
   dl_format_col: "Format",
   dl_win_format: "Fayyadu (NSIS) ykn Portable `.exe`",

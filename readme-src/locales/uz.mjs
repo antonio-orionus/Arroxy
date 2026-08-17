@@ -187,6 +187,7 @@ export const uz = {
     "<b>Ommaviy URL rejimi</b><br/>Ro'yxat joylang, nusxalarni avtomatik olib tashlang, hammasini birato'la navbatga qo'ying",
   shot6_cap:
     "<b>Parallel yuklash navbati</b><br/>Bir vaqtning o'zida bir nechta yuklash, jonli jarayon bilan",
+  shot7_cap: "<b>Har bir video uchun pleylist profillari</b><br/>Har bir videoga o'z profilini bering — ba'zilarini 4K'da saqlang, qolganini MP3 sifatida oling",
   dl_platform_col: "Platforma",
   dl_format_col: "Format",
   dl_win_format: "O'rnatuvchi (NSIS) yoki Portable `.exe`",

@@ -189,6 +189,7 @@ export const vi = {
     "<b>Chế độ URL hàng loạt</b><br/>Dán danh sách, tự loại trùng, xếp hàng tất cả cùng lúc",
   shot6_cap:
     "<b>Hàng đợi tải song song</b><br/>Nhiều lượt tải cùng lúc với tiến trình trực tiếp",
+  shot7_cap: "<b>Hồ sơ theo từng video trong danh sách phát</b><br/>Cho mỗi video một hồ sơ riêng — lưu một số ở 4K, lấy phần còn lại dạng MP3",
   dl_platform_col: "Nền tảng",
   dl_format_col: "Định dạng",
   dl_win_format: "Trình cài đặt (NSIS) hoặc Portable `.exe`",

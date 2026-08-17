@@ -189,6 +189,7 @@ export const fr = {
     "<b>Mode URL en masse</b><br/>Collez une liste, dédoublonnage auto, tout mettre en file d'un coup",
   shot6_cap:
     "<b>File de téléchargement parallèle</b><br/>Plusieurs téléchargements à la fois avec progression en direct",
+  shot7_cap: "<b>Profils par élément de playlist</b><br/>Donnez à chaque vidéo son propre profil — certaines en 4K, le reste en MP3",
   dl_platform_col: "Plateforme",
   dl_format_col: "Format",
   dl_win_format: "Installeur (NSIS) ou `.exe` portable",
