@@ -18,7 +18,7 @@ import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {resolvePlaylistDir} from '../../store/wizard/playlistDir.js'
 import {formatEntryDuration} from '@renderer/lib/formatDuration.js'
 import {notify} from '@renderer/lib/notify.js'
-import {isTypingTarget} from '../shared/isTypingTarget.js'
+import {hasOpenOverlay, isTypingTarget} from '../shared/isTypingTarget.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 import {PlaylistScopeControl} from './PlaylistScopeControl.js'
 import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
@@ -164,6 +164,7 @@ export function StepPlaylistItems(): ReactNode {
 	// call per visible row against a selection that can itself be 1000 ids long
 	// adds up fast; a Set lookup is O(1) regardless.
 	const selectedIdSet = useMemo(() => new Set(selectedPlaylistItemIds), [selectedPlaylistItemIds])
+	const syncedIdSet = useMemo(() => new Set(syncedDownloadedIds), [syncedDownloadedIds])
 
 	function removalTargets(entryId: string): string[] {
 		// A right-click on a checked row acts on the whole checked set — this
@@ -178,10 +179,16 @@ export function StepPlaylistItems(): ReactNode {
 	// deliberately NOT bound here: it's a common "go back" reflex, and this
 	// listener has no visible affordance warning the user it deletes rows
 	// instead (unlike the context-menu item below, whose label now states the
-	// count).
+	// count). hasOpenOverlay() guards the playlist-scope and probe-limit
+	// dialogs/selects this step can open on top of itself — without it, Delete
+	// pressed while one of those owns focus silently removes the selected rows
+	// behind it (isTypingTarget alone doesn't see a dialog's buttons or a
+	// select's listbox as "typing").
 	useEffect(() => {
 		function onKeyDown(event: KeyboardEvent): void {
 			if (isTypingTarget(event.target)) return
+			if (hasOpenOverlay()) return
+			if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return
 			if (event.key !== 'Delete') return
 			if (selectedPlaylistItemIds.length === 0) return
 			event.preventDefault()
@@ -376,9 +383,13 @@ export function StepPlaylistItems(): ReactNode {
 										{virtualizer.getVirtualItems().map(virtualRow => {
 											const entry = visibleItems[virtualRow.index]
 											const checked = selectedIdSet.has(entry.id)
-											const isAlreadyDownloaded = !!(entry.videoId && syncedDownloadedIds.includes(entry.videoId))
+											const isAlreadyDownloaded = !!(entry.videoId && syncedIdSet.has(entry.videoId))
 											const bulkRowStatus = isBulk ? bulkMetadataById[entry.id] : undefined
 											const bulkRowStatusKey = bulkRowStatus === 'pending' ? 'wizard.playlist.bulkRowWaiting' : bulkRowStatus === 'resolving' ? 'wizard.playlist.bulkRowResolving' : bulkRowStatus === 'failed' ? 'wizard.playlist.bulkRowFailed' : null
+											// Bound once per row instead of calling removalTargets(entry.id) twice
+											// below — both the click handler and the count label must agree on
+											// exactly the same set.
+											const targets = removalTargets(entry.id)
 											return (
 												<ContextMenu key={entry.id}>
 													<ContextMenuTrigger
@@ -418,9 +429,9 @@ export function StepPlaylistItems(): ReactNode {
 														}
 													/>
 													<ContextMenuContent className="min-w-48">
-														<ContextMenuItem variant="destructive" onClick={() => removePlaylistItems(removalTargets(entry.id))}>
+														<ContextMenuItem variant="destructive" onClick={() => removePlaylistItems(targets)}>
 															<Trash2 size={14} aria-hidden />
-															{t('wizard.playlist.removeFromListCount', {count: removalTargets(entry.id).length})}
+															{t('wizard.playlist.removeFromListCount', {count: targets.length})}
 														</ContextMenuItem>
 													</ContextMenuContent>
 												</ContextMenu>
@@ -429,7 +440,7 @@ export function StepPlaylistItems(): ReactNode {
 									</div>
 								</div>
 
-								{selectedCount > 0 ? <p className="text-xs text-muted-foreground">{t('wizard.playlist.selectedCount_other', {count: selectedCount})}</p> : <p className="text-xs text-destructive">{t('wizard.playlist.noSelection')}</p>}
+								{selectedCount > 0 ? <p className="text-xs text-muted-foreground">{t('wizard.playlist.selectedCount', {count: selectedCount})}</p> : <p className="text-xs text-destructive">{t('wizard.playlist.noSelection')}</p>}
 							</>
 						)}
 					</>
