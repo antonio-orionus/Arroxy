@@ -51,7 +51,11 @@ export function QueueManagerTab(): ReactNode {
 	const filteredQueue = useMemo(() => (filter === 'all' ? queue : queue.filter(item => item.status === filter)), [filter, queue])
 	const selectedItems = useMemo(() => queue.filter(item => selectedIds.has(item.id)), [queue, selectedIds])
 	const selectedIdList = useMemo(() => selectedItems.map(item => item.id), [selectedItems])
-	const contextItems = useMemo(() => queue.filter(item => contextIds.includes(item.id)), [contextIds, queue])
+	// Set lookup instead of `.includes` — contextIds can be the whole
+	// selection, and queue can be large, so this scans per rendered item
+	// otherwise (same concern as the playlist-profiles table's contextIdSet).
+	const contextIdSet = useMemo(() => new Set(contextIds), [contextIds])
+	const contextItems = useMemo(() => queue.filter(item => contextIdSet.has(item.id)), [contextIdSet, queue])
 	useEffect(() => {
 		dispatch({type: 'prune-ids', liveIds: new Set(queue.map(item => item.id))})
 	}, [queue])

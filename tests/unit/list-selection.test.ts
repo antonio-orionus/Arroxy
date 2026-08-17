@@ -35,6 +35,11 @@ describe('listSelection', () => {
 		expect(next.anchorId).toBe('b')
 	})
 
+	it('set keeps the previous anchor when no anchorId is given', () => {
+		const next = listSelectionReducer(stateWith(['a'], 'a'), {type: 'set', ids: ['b', 'c']})
+		expect(next.anchorId).toBe('a')
+	})
+
 	it('prune drops ids that are no longer live, including the anchor', () => {
 		const next = listSelectionReducer(stateWith(['a', 'b'], 'b'), {type: 'prune', liveIds: new Set(['a'])})
 		expect([...next.selectedIds]).toEqual(['a'])

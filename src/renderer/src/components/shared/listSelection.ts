@@ -17,7 +17,7 @@ export function createListSelectionState(): ListSelectionState {
 	return {selectedIds: new Set(), anchorId: null, contextIds: []}
 }
 
-function pruneSet(ids: Set<string>, liveIds: ReadonlySet<string>): {ids: Set<string>; changed: boolean} {
+export function pruneSet(ids: Set<string>, liveIds: ReadonlySet<string>): {ids: Set<string>; changed: boolean} {
 	let changed = false
 	const next = new Set<string>()
 	for (const id of ids) {
@@ -46,7 +46,8 @@ export function listSelectionReducer(state: ListSelectionState, action: ListSele
 		if (!selected.changed && !contextChanged && !anchorDropped) return state
 		return {...state, selectedIds: selected.ids, anchorId: anchorDropped ? null : state.anchorId, contextIds: contextChanged ? state.contextIds.filter(id => action.liveIds.has(id)) : state.contextIds}
 	}
-	return createListSelectionState()
+	if (action.type === 'clear') return createListSelectionState()
+	return state
 }
 
 export function rangeIds(orderedIds: readonly string[], anchorId: string, targetId: string): string[] {
