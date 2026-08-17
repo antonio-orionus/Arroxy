@@ -37,7 +37,8 @@ import type {
 	SponsorBlockCategory,
 	SupportedLang,
 	UiTheme,
-	WizardMode
+	WizardMode,
+	WizardStepName
 } from '@shared/types.js'
 import type {Result} from '@shared/result.js'
 import type {AudioSelection} from '@shared/schemas.js'
@@ -45,7 +46,10 @@ import type {IncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import type {QuickDownloadFailure} from './wizard/quickDownloadFeedback.js'
 export type {AudioSelection}
 export type {BulkMetadataCancelReason, BulkMetadataItemStatus, BulkMetadataStatus, WizardMode} from '@shared/types.js'
-export type WizardStep = 'url' | 'playlistItems' | 'playlistPresets' | 'playlistProfiles' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error'
+// WizardStep is a plain alias of the shared WizardStepName (schemas.ts is the
+// single source of truth for the step list) — kept under its own name here
+// since every renderer file already imports it as WizardStep.
+export type WizardStep = WizardStepName
 export type AdvancedSettingsTarget = 'cookies' | 'network'
 export type MixedUrlPromptSource = 'wizard' | 'quick-download'
 

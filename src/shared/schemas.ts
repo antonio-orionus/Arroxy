@@ -14,6 +14,12 @@ export const presetSchema = z.enum(['best-quality', 'balanced', 'small-file', 'a
 export type Preset = z.infer<typeof presetSchema>
 export const PRESETS = presetSchema.options
 
+// Single source for the wizard step list — previously duplicated by hand as
+// `WizardStep` (renderer store/types.ts), `WizardStepName` (shared/types.ts,
+// crosses the logStep IPC boundary) and `WIZARD_STEPS` (wizardStepGraph.ts).
+export const wizardStepNameSchema = z.enum(['url', 'playlistItems', 'playlistPresets', 'playlistProfiles', 'formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm', 'error'])
+export type WizardStepName = z.infer<typeof wizardStepNameSchema>
+
 const PLAYLIST_VIDEO_TIER_VALUES = ['best', '2160', '1440', '1080', '720', '480', '360'] as const
 export const playlistVideoTierSchema = z.enum(PLAYLIST_VIDEO_TIER_VALUES)
 export type PlaylistVideoTier = z.infer<typeof playlistVideoTierSchema>

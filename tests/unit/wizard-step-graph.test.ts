@@ -64,6 +64,14 @@ describe('WizardStepGraph', () => {
 		expect(nextWizardStep(graph, 'backward')).toBe('playlistItems')
 	})
 
+	it('routes multi-profile bulk URLs the same way as multi-profile playlists', () => {
+		const graph = buildWizardStepGraph(state({wizardMode: 'bulk', multiProfileMode: true, wizardStep: 'playlistProfiles'}))
+
+		expect(visibleWizardSteps(graph)).toEqual(['url', 'playlistItems', 'playlistProfiles', 'confirm'])
+		expect(nextWizardStep(graph, 'forward')).toBe('confirm')
+		expect(nextWizardStep(graph, 'backward')).toBe('playlistItems')
+	})
+
 	it('hides the profiles step unless multi-profile mode is on', () => {
 		const graph = buildWizardStepGraph(state({wizardMode: 'playlist', playlistSelection: {kind: 'video', tier: '1080', codec: 'best'}, wizardStep: 'playlistItems'}))
 

@@ -2,6 +2,7 @@ import type {PlaylistSelection, Preset, SubtitleMap} from '@shared/types.js'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import {presetProducesMedia, presetProducesVideo} from '@shared/presetTraits.js'
 import {isYouTubeExtractor} from '@shared/ytdlp/extractorPredicates.js'
+import {wizardStepNameSchema} from '@shared/schemas.js'
 import type {WizardMode, WizardStep} from '../types.js'
 
 export type VisibleWizardStep = Exclude<WizardStep, 'error'>
@@ -28,7 +29,10 @@ export interface WizardStepGraph {
 	state: WizardStepGraphInput
 }
 
-export const WIZARD_STEPS: readonly VisibleWizardStep[] = ['url', 'playlistItems', 'playlistPresets', 'playlistProfiles', 'formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm']
+// Derived from the shared step schema rather than hand-typed, so this list
+// can't drift from WizardStep/WizardStepName. 'error' is the one step this
+// graph never routes through (it has its own screen outside the graph).
+export const WIZARD_STEPS: readonly VisibleWizardStep[] = wizardStepNameSchema.options.filter((step): step is VisibleWizardStep => step !== 'error')
 
 function isBatchMode(mode: WizardMode): boolean {
 	return mode === 'playlist' || mode === 'bulk'
