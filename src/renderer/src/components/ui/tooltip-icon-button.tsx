@@ -18,7 +18,7 @@ export function TooltipIconButton({icon, label, onClick, variant = 'ghost', size
 		<Tooltip>
 			<TooltipTrigger
 				render={props => (
-					<Button {...props} variant={variant} size={size} type="button" aria-label={label} data-testid={dataTestId} className={className} disabled={disabled} onClick={onClick}>
+					<Button {...props} variant={variant} size={size} type="button" aria-label={label} data-testid={dataTestId} className={className} disabled={disabled} focusableWhenDisabled={disabled} onClick={onClick}>
 						{icon}
 					</Button>
 				)}

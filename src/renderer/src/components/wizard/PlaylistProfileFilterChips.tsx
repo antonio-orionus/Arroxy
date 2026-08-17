@@ -37,7 +37,7 @@ export function PlaylistProfileFilterChips({options, counts, totalCount, filter,
 	const {t} = useTranslation()
 	const assignedOptions = options.filter(option => (counts.get(option.profile.id) ?? 0) > 0)
 	return (
-		<div className="flex max-w-full gap-1 overflow-x-auto" aria-label={t('wizard.playlistProfiles.filtersLabel')} data-testid="playlist-profile-filters">
+		<div role="group" className="flex max-w-full gap-1 overflow-x-auto" aria-label={t('wizard.playlistProfiles.filtersLabel')} data-testid="playlist-profile-filters">
 			<FilterChip active={filter === 'all'} text={t('wizard.playlistProfiles.filterChip', {name: t('queue.filterAll'), count: totalCount})} testId="filter-profile-all" onClick={() => onFilterChange('all')} />
 			{assignedOptions.map(option => (
 				<FilterChip key={option.profile.id} active={filter === option.profile.id} text={t('wizard.playlistProfiles.filterChip', {name: option.profile.name, count: counts.get(option.profile.id) ?? 0})} testId={`filter-profile-${option.profile.id}`} onClick={() => onFilterChange(option.profile.id)} />
