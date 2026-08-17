@@ -3,6 +3,11 @@
 // virtual padding rows and the per-row context menu wrapper. It knows nothing
 // about what a row means — columns, menu contents and any expansion row come
 // from the caller.
+//
+// The row carries a named `group/row` class so a caller's cell markup (e.g.
+// the playlist-profiles PROFILE cell's quick-edit pencil) can reveal a
+// hover/focus-only control with `group-hover/row:` without this component
+// knowing anything about that control.
 
 import {flexRender, type Row, type Table as TanstackTable} from '@tanstack/react-table'
 import type {VirtualItem} from '@tanstack/react-virtual'
@@ -112,7 +117,7 @@ export function SelectableVirtualTable<T>({
 														onKeyDown={event => runRowKeyboardToggle(event, () => interactions.onKeyboardToggle(rowId))}
 														onPointerDown={event => interactions.onRowPointerDown(rowId, event)}
 														onPointerEnter={event => interactions.onRowPointerEnter(rowId, event)}
-														className={cn('cursor-pointer border-border/60 hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring', selected && 'queue-manager-row-selected')}
+														className={cn('group/row cursor-pointer border-border/60 hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring', selected && 'queue-manager-row-selected')}
 													>
 														{row.getVisibleCells().map(cell => (
 															<TableCell key={cell.id} className={cn('min-w-0 overflow-hidden px-3 py-2', columnClass(cell.column.id))}>

@@ -115,7 +115,7 @@ export function StepPlaylistProfiles(): ReactNode {
 
 	const filteredItems = useMemo(() => (filter === 'all' ? items : items.filter(entry => resolveProfile(entry).id === filter)), [filter, items, resolveProfile])
 
-	const columns = usePlaylistProfileColumns({t, hasAnyThumbnail, liveLabel, resolveProfile})
+	const columns = usePlaylistProfileColumns({t, hasAnyThumbnail, liveLabel, resolveProfile, onEditProfile: setEditingProfile})
 	// TanStack Table returns function-bearing objects that React Compiler cannot safely memoize.
 	// oxlint-disable-next-line react-hooks-js/incompatible-library
 	const table = useReactTable<PlaylistEntry>({data: filteredItems, columns, getCoreRowModel: getCoreRowModel(), getRowId: entry => entry.id})

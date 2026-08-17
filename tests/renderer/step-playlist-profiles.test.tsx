@@ -304,6 +304,29 @@ describe('StepPlaylistProfiles', () => {
 		expect(within(screen.getByTestId('profile-row-b')).getByText('Archive 4K')).toBeInTheDocument()
 	})
 
+	it('opens the profile editor from a row pencil without collapsing a multi-row selection', async () => {
+		// Select all three rows via shift-click before touching the pencil — this
+		// is the exact state in which a bubbled click (missing stopPropagation)
+		// would collapse the selection down to just the clicked row, since
+		// SelectableVirtualTable's plain-click handler replaces the selection with
+		// whatever row the click landed on.
+		renderStep()
+		fireEvent.click(screen.getByText('Under my Spell'))
+		fireEvent.click(screen.getByText('Burn the Witch'), {shiftKey: true})
+		expect(screen.getByTestId('profile-row-a')).toHaveAttribute('aria-selected', 'true')
+		expect(screen.getByTestId('profile-row-b')).toHaveAttribute('aria-selected', 'true')
+		expect(screen.getByTestId('profile-row-c')).toHaveAttribute('aria-selected', 'true')
+
+		fireEvent.click(screen.getByTestId('edit-row-profile-b'))
+
+		expect(await screen.findByTestId('profiles-editor-dialog')).toBeInTheDocument()
+		// The click must not have reached the row's own click handler: all three
+		// rows must still read as selected, not just row 'b'.
+		expect(screen.getByTestId('profile-row-a')).toHaveAttribute('aria-selected', 'true')
+		expect(screen.getByTestId('profile-row-b')).toHaveAttribute('aria-selected', 'true')
+		expect(screen.getByTestId('profile-row-c')).toHaveAttribute('aria-selected', 'true')
+	})
+
 	it('re-labels assigned rows when the profile is edited', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))

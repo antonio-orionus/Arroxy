@@ -3,11 +3,13 @@
 // the caller), and duration. Kept separate from StepPlaylistProfiles so the
 // step component stays about wiring, not cell markup.
 
-import {useMemo, type ReactNode} from 'react'
+import {useMemo, type MouseEvent, type ReactNode} from 'react'
 import {createColumnHelper, type ColumnDef} from '@tanstack/react-table'
 import type {TFunction} from 'i18next'
+import {PenLine} from 'lucide-react'
 import type {DownloadProfile, PlaylistEntry} from '@shared/types.js'
 import {formatEntryDuration} from '@renderer/lib/formatDuration.js'
+import {Button} from '../ui/button.js'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 
 const columnHelper = createColumnHelper<PlaylistEntry>()
@@ -17,9 +19,10 @@ export interface UsePlaylistProfileColumnsParams {
 	hasAnyThumbnail: boolean
 	liveLabel: string
 	resolveProfile: (entry: PlaylistEntry) => DownloadProfile
+	onEditProfile: (profile: DownloadProfile) => void
 }
 
-export function usePlaylistProfileColumns({t, hasAnyThumbnail, liveLabel, resolveProfile}: UsePlaylistProfileColumnsParams): ColumnDef<PlaylistEntry>[] {
+export function usePlaylistProfileColumns({t, hasAnyThumbnail, liveLabel, resolveProfile, onEditProfile}: UsePlaylistProfileColumnsParams): ColumnDef<PlaylistEntry>[] {
 	return useMemo(
 		() => [
 			columnHelper.accessor('title', {
@@ -41,16 +44,38 @@ export function usePlaylistProfileColumns({t, hasAnyThumbnail, liveLabel, resolv
 					const entry = info.row.original
 					const profile = resolveProfile(entry)
 					const Icon = PROFILE_ICONS[profile.icon]
+					// Never toggles row selection — stopPropagation runs first so the
+					// row's onClick (SelectableVirtualTable) can never also fire from
+					// the same click. Mirrors PlaylistProfileActionBar's row pencil.
+					function editProfile(event: MouseEvent<HTMLButtonElement>): void {
+						event.stopPropagation()
+						onEditProfile(profile)
+					}
 					return (
 						<div className="flex min-w-0 items-center gap-1.5" data-testid={`profile-cell-${entry.id}`}>
 							<Icon size={13} className="shrink-0 text-[var(--brand)]" aria-hidden />
-							<span className="min-w-0 truncate text-[12px] text-foreground">{profile.name}</span>
+							<span className="min-w-0 flex-1 truncate text-[12px] text-foreground">{profile.name}</span>
+							{/* Hidden by default, revealed on row hover or when tabbed to
+							directly — a hover-only control would be unreachable by
+							keyboard. Width is always reserved (opacity, not display) so
+							hover never shifts the row layout. */}
+							<Button
+								type="button"
+								variant="ghost"
+								size="icon-xs"
+								aria-label={t('wizard.playlistProfiles.editProfile', {name: profile.name})}
+								data-testid={`edit-row-profile-${entry.id}`}
+								className="shrink-0 opacity-0 transition-opacity duration-150 group-hover/row:opacity-100 focus-visible:opacity-100"
+								onClick={editProfile}
+							>
+								<PenLine size={11} aria-hidden />
+							</Button>
 						</div>
 					)
 				}
 			}),
 			columnHelper.accessor('duration', {header: () => t('wizard.playlistProfiles.columnDuration'), cell: info => <span className="block truncate text-xs text-muted-foreground">{formatEntryDuration(info.getValue(), liveLabel)}</span>})
 		],
-		[hasAnyThumbnail, liveLabel, resolveProfile, t]
+		[hasAnyThumbnail, liveLabel, onEditProfile, resolveProfile, t]
 	)
 }
