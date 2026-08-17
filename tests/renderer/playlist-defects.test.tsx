@@ -241,6 +241,37 @@ describe('M1 — multi-profile breakdown never throws when a profile has no reso
 	})
 })
 
+describe('M-submit — addToQueue surfaces a wizard error for the same unresolved profile output dir', () => {
+	it('sets wizardStep to error instead of leaving Add to Queue silently rejected', async () => {
+		window.appApi = buildMockApi() as never
+		// Same broken-profile condition as M1 above, but exercised through queue
+		// submission (queueSlice.ts's submitWizardToQueue -> queueSubmission.ts's
+		// prepareMultiProfileQueueSubmission) rather than the confirm screen's
+		// breakdown render. That render path is guarded (downloadReviewProjection.ts's
+		// safeProfileOutputDir); this call site previously was not, and
+		// submitWizardToQueue had no catch at all, so the thrown error surfaced
+		// as an unhandled promise rejection with nothing shown to the user.
+		const brokenProfile = multiProfileFixture('broken', 'Broken Profile', '')
+		useAppStore.setState({
+			wizardMode: 'playlist',
+			wizardStep: 'confirm',
+			wizardExtractor: 'youtube',
+			playlistTitle: 'My Playlist',
+			playlistItems: PLAYLIST_ENTRIES,
+			selectedPlaylistItemIds: ['p1'],
+			multiProfileMode: true,
+			playlistProfileAssignments: {},
+			settings: {profiles: {active: {kind: 'custom', id: 'broken'}, custom: [brokenProfile], overrides: []}},
+			wizardOutputDir: ''
+		} as never)
+
+		await useAppStore.getState().addToQueue()
+
+		expect(useAppStore.getState().wizardStep).toBe('error')
+		expect(useAppStore.getState().wizardError).toMatchObject({kind: 'other', code: 'unknown'})
+	})
+})
+
 describe('D2 — persistFormatPrefs mode-keyed', () => {
 	it('playlist mode writes lastPlaylist* keys, NOT lastPreset/lastSubfolder', async () => {
 		const update = vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false}))
