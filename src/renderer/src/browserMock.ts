@@ -312,6 +312,7 @@ export function installBrowserMock(): void {
 				}
 
 				if (shouldMockEmptyPlaylistScopeReload(scenarioState.scenario, input.playlistMode, input.playlistScope)) {
+					await delay(1400)
 					return {ok: false, error: {kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}}
 				}
 

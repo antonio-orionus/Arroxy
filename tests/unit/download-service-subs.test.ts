@@ -155,7 +155,7 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 			})
 		}) as never)
 
-		const {service} = makeService()
+		const {service, recentJobsStore} = makeService()
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '330+251', subtitles: {languages: ['en-orig'], mode: 'embed', format: 'srt', writeAuto: true}})})
 		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
 
@@ -163,6 +163,11 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 		const firstInputIdx = args.indexOf('-i')
 		expect(args[firstInputIdx + 1]).toBe(finalVideoPath)
 		expect(args[firstInputIdx + 1]).not.toBe(tempVideoPath)
+
+		// Wait for finalize() to fully drain tempDir/mux disposables before the
+		// outer afterEach() rmSync()s workDir — otherwise still-running cleanup
+		// races the synchronous rmSync and intermittently throws ENOTEMPTY.
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 	})
 
 	it('passes the post-"already been downloaded" path to ffmpeg when the merged file pre-exists', async () => {
@@ -191,12 +196,16 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 			})
 		}) as never)
 
-		const {service} = makeService()
+		const {service, recentJobsStore} = makeService()
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '330+251', subtitles: {languages: ['en-orig'], mode: 'embed', format: 'srt', writeAuto: true}})})
 		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
 
 		const args = ffmpegCalls[0]
 		expect(args[args.indexOf('-i') + 1]).toBe(finalVideoPath)
+
+		// See the comment in the previous test — wait for the job to fully
+		// settle before the outer afterEach() rmSync()s workDir.
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 	})
 })
 
@@ -271,7 +280,7 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		vi.mocked(spawnYtDlp).mockImplementation(makeTwoPhaseSpawn(videoPath, subPath, rolling) as never)
 		mockSuccessfulMux()
 
-		const {service} = makeService()
+		const {service, recentJobsStore} = makeService()
 		const events = captureStatuses(service)
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {languages: ['en'], mode: 'embed', format: 'srt', writeAuto: true}})})
 		await vi.waitFor(() => expect(statusKeys(events)).toContain('mergingFormats'))
@@ -280,6 +289,13 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		const fetchIdx = keys.lastIndexOf('fetchingSubtitles')
 		const mergeIdx = keys.lastIndexOf('mergingFormats')
 		expect(mergeIdx).toBeGreaterThan(fetchIdx)
+
+		// Let the mux phase finish and finalize() drain its tempDir disposables
+		// before the outer afterEach() rmSync()s workDir — otherwise the
+		// still-running mux/cleanup work races the synchronous rmSync and
+		// intermittently throws ENOTEMPTY (only reproduces under load, since it
+		// needs the background chain to still be in flight at teardown time).
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 	})
 
 	it('cancel during ffmpeg mux kills the ffmpeg process and removes the .muxing.mkv temp file', async () => {
@@ -296,7 +312,7 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 			return proc
 		}) as never)
 
-		const {service} = makeService()
+		const {service, recentJobsStore} = makeService()
 		const startResult = await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {languages: ['en'], mode: 'embed', format: 'srt', writeAuto: true}})})
 		expect(startResult.ok).toBe(true)
 		if (!startResult.ok) return
@@ -307,5 +323,9 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 
 		const tempPath = join(workDir, 'Title.muxing.mkv')
 		await vi.waitFor(() => expect(() => readFileSync(tempPath)).toThrow())
+
+		// See the comment above — wait for the job to fully settle before the
+		// outer afterEach() rmSync()s workDir.
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 	})
 })
