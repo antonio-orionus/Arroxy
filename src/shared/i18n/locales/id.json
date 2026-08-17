@@ -34,7 +34,7 @@
 	"language": {"label": "Bahasa"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Daftar putar", "playlistItemsGeneric": "Video", "playlistPresets": "Kualitas", "playlistProfiles": "Profil", "formats": "Format", "subtitles": "Subtitle", "sponsorblock": "SponsorBlock", "output": "Keluaran", "folder": "Menyimpan", "confirm": "Mengonfirmasi"},
-		"playlistPresets": {"heading": "Pilih kualitas untuk batch tersebut", "subhead": "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan.", "itemCount_one": "barang {{count}}", "itemCount_other": "item {{count}}"},
+		"playlistPresets": {"heading": "Pilih kualitas untuk batch tersebut", "subhead": "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan.", "itemCount_one": "item {{count}}", "itemCount_other": "item {{count}}"},
 		"playlistProfiles": {
 			"heading": "Tetapkan profil unduhan",
 			"selectedSummary": "{{selected}} dari {{total}} dipilih",
@@ -96,7 +96,7 @@
 			"multiProfileEntryTooltip": "Melewati Kualitas, SponsorBlock, Keluaran, dan Simpan — tetapkan profil unduhan per item sebagai gantinya",
 			"removeFromListCount_one": "Hapus {{count}} dari daftar",
 			"removeFromListCount_other": "Hapus {{count}} dari daftar",
-			"restore": "Memulihkan",
+			"restore": "Pulihkan",
 			"removedCount_one": "{{count}} dihapus",
 			"removedCount_other": "{{count}} dihapus",
 			"allRemovedTitle": "Semua item telah dihapus",
@@ -416,7 +416,7 @@
 			"itemsValueBulk_one": "{{count}} dari URL {{total}}",
 			"itemsValueBulk_other": "{{count}} dari URL {{total}}",
 			"profileBreakdownHeading": "Profil dalam batch ini",
-			"profileBreakdownCount_one": "barang {{count}}",
+			"profileBreakdownCount_one": "item {{count}}",
 			"profileBreakdownCount_other": "item {{count}}"
 		},
 		"profileEditor": {

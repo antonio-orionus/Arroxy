@@ -1179,7 +1179,7 @@ msgstr "Prasetel khusus subtitle aktif tetapi tidak ada bahasa subtitle yang dip
 
 msgctxt "wizard.confirm.profileBreakdownCount_one"
 msgid "{{count}} item"
-msgstr "barang {{count}}"
+msgstr "item {{count}}"
 
 msgctxt "wizard.confirm.profileBreakdownCount_other"
 msgid "{{count}} items"
@@ -1719,7 +1719,7 @@ msgstr "Hapus {{count}} dari daftar"
 
 msgctxt "wizard.playlist.restore"
 msgid "Restore"
-msgstr "Memulihkan"
+msgstr "Pulihkan"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
@@ -1779,7 +1779,7 @@ msgstr "Pilih kualitas untuk batch tersebut"
 
 msgctxt "wizard.playlistPresets.itemCount_one"
 msgid "{{count}} item"
-msgstr "barang {{count}}"
+msgstr "item {{count}}"
 
 msgctxt "wizard.playlistPresets.itemCount_other"
 msgid "{{count}} items"
