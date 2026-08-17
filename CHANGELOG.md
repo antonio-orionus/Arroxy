@@ -8,11 +8,25 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## Unreleased
+## 0.4.5
 
-This release puts download speed and resilience in your hands. Three settings that were previously fixed — or buried — are now yours to set in **Settings → Download behavior**. All three ship at their current values, so nothing changes until you decide it should.
+This release hands you three things Arroxy used to decide for you: how downloaded files are named, how much of your connection a download uses, and whether every video in a playlist has to share one setting. Heads-up on the first — filenames may look different from previous versions, because templates that were previously refused now work and non-Latin titles keep much more of their length on macOS and Windows. Failures that used to happen silently now tell you.
 
 ## Highlights
+
+### Filename Templates
+
+- You can now decide how downloaded files are named. Build a template from `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, and `{playlist_index}` — for example `{uploader} - {title}` — and Arroxy names every download that way.
+- Click a token to insert it, and see a live preview of the resulting filename before you save.
+- Set one template globally, or override it for a single download profile, so an audio-only profile can name files differently from your video profiles.
+- The file extension is always added for you, and long titles are still trimmed so paths stay valid on every platform.
+- Tokens that don't apply simply disappear instead of leaving `NA` in the name — an audio download won't pick up a resolution, and a one-off video won't pick up a playlist number.
+- Replaces the old "Add video ID to single filenames" switch, which is now just the `{id}` token.
+- Heads-up: playlist "skip already downloaded" detection and `.m3u` playlist files both find your files by their video ID. If you remove `{id}` from your template, Arroxy tells you inline and turns those two features off rather than letting them quietly misbehave.
+- Templates that used several tokens at once are no longer rejected. A template like `{title} {id} {uploader} {resolution} {playlist_title}` used to be refused as "too long" even though the names it produced were nowhere near any limit.
+- Filenames are now measured the way your own system measures them. macOS and Windows count characters, Linux counts bytes — so a Japanese or Chinese title keeps roughly three times more of its length on macOS and Windows than it used to.
+- Names that genuinely cannot fit are shortened instead of failing, and the video ID is never the part that gets cut, so playlist detection and `.m3u` files keep working.
+- On Windows, Arroxy now accounts for the full path length when naming files, so downloading into a deeply nested folder no longer fails with an unhelpful error from the downloader.
 
 ### Download Connections
 
@@ -41,28 +55,6 @@ This release puts download speed and resilience in your hands. Three settings th
 - You can edit a profile without leaving the screen — change Podcast MP3 to 320k and every video already assigned to it updates.
 - Videos can also be removed from the list outright instead of just unchecked, which matters when a playlist runs to hundreds of rows. Removal is undoable until you start the download.
 - Nothing changes if you do not use it: a playlist you queue the usual way behaves exactly as before.
-
----
-
-## 0.4.5
-
-This release reworks how Arroxy names downloaded files, so filenames may look different from previous versions — templates that were previously refused now work, and non-Latin titles keep much more of their length on macOS and Windows. It also gives failures that used to happen silently a visible message.
-
-## Highlights
-
-### Filename Templates
-
-- You can now decide how downloaded files are named. Build a template from `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, and `{playlist_index}` — for example `{uploader} - {title}` — and Arroxy names every download that way.
-- Click a token to insert it, and see a live preview of the resulting filename before you save.
-- Set one template globally, or override it for a single download profile, so an audio-only profile can name files differently from your video profiles.
-- The file extension is always added for you, and long titles are still trimmed so paths stay valid on every platform.
-- Tokens that don't apply simply disappear instead of leaving `NA` in the name — an audio download won't pick up a resolution, and a one-off video won't pick up a playlist number.
-- Replaces the old "Add video ID to single filenames" switch, which is now just the `{id}` token.
-- Heads-up: playlist "skip already downloaded" detection and `.m3u` playlist files both find your files by their video ID. If you remove `{id}` from your template, Arroxy tells you inline and turns those two features off rather than letting them quietly misbehave.
-- Templates that used several tokens at once are no longer rejected. A template like `{title} {id} {uploader} {resolution} {playlist_title}` used to be refused as "too long" even though the names it produced were nowhere near any limit.
-- Filenames are now measured the way your own system measures them. macOS and Windows count characters, Linux counts bytes — so a Japanese or Chinese title keeps roughly three times more of its length on macOS and Windows than it used to.
-- Names that genuinely cannot fit are shortened instead of failing, and the video ID is never the part that gets cut, so playlist detection and `.m3u` files keep working.
-- On Windows, Arroxy now accounts for the full path length when naming files, so downloading into a deeply nested folder no longer fails with an unhelpful error from the downloader.
 
 ### Notifications
 
