@@ -52,10 +52,10 @@ const PODCAST_REF: DownloadProfileRef = {kind: 'custom', id: 'podcast'}
 // settings it's handed, per `resolveAssignedProfile`.
 function renameProfile(id: string, name: string): void {
 	act(() => {
-		useAppStore.setState(state => {
-			const profiles = state.settings?.profiles
-			if (!profiles) return state
-			return {settings: {...state.settings, profiles: {...profiles, custom: profiles.custom.map(candidate => (candidate.id === id ? {...candidate, name} : candidate))}}} as never
+		useAppStore.setState((state): Partial<AppState> => {
+			const settings = state.settings
+			if (!settings) return state
+			return {settings: {...settings, profiles: {...settings.profiles, custom: settings.profiles.custom.map(candidate => (candidate.id === id ? {...candidate, name} : candidate))}}}
 		})
 	})
 }
@@ -79,7 +79,11 @@ vi.mock('@tanstack/react-virtual', () => ({
 // eight visible slots and asserts it's reachable through the popover.
 function renderStep(overrides: {common?: Partial<AppSettings['common']>} = {}): ReturnType<typeof render> {
 	if (overrides.common) {
-		useAppStore.setState(state => ({settings: {...state.settings, common: {...state.settings?.common, ...overrides.common}}}) as never)
+		useAppStore.setState((state): Partial<AppState> => {
+			const settings = state.settings
+			if (!settings) return state
+			return {settings: {...settings, common: {...settings.common, ...overrides.common}}}
+		})
 	}
 	return render(<StepPlaylistProfiles />)
 }
@@ -98,8 +102,10 @@ beforeEach(() => {
 		selectedPlaylistItemIds: ['a', 'b', 'c'],
 		removedPlaylistItemIds: [],
 		playlistProfileAssignments: {},
-		settings: {profiles: {active: ARCHIVE_REF, custom: [ARCHIVE, PODCAST], overrides: []}}
-	} as never)
+		// Narrow cast on just this nested object — it's genuinely incomplete
+		// (no common/single/playlist), unlike the rest of this patch.
+		settings: {profiles: {active: ARCHIVE_REF, custom: [ARCHIVE, PODCAST], overrides: []}} as unknown as AppSettings
+	} satisfies Partial<AppState>)
 })
 
 describe('StepPlaylistProfiles', () => {
@@ -336,6 +342,19 @@ describe('StepPlaylistProfiles', () => {
 		expect(useAppStore.getState().removedPlaylistItemIds).toEqual(['b'])
 	})
 
+	it('does not remove items on Backspace — only Delete', () => {
+		// Backspace is a common "go back" reflex with no visible affordance
+		// warning it deletes rows on this screen; only Delete is bound, matching
+		// StepPlaylistItems.
+		renderStep()
+		fireEvent.click(screen.getByText('One Last Breath'))
+
+		fireEvent.keyDown(window, {key: 'Backspace'})
+
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
+		expect(screen.getByTestId('profile-row-b')).toBeInTheDocument()
+	})
+
 	it('restores the row to this step, re-checked, through the Restore button', async () => {
 		// This step has no checkbox — removePlaylistItems prunes
 		// selectedPlaylistItemIds, and restoreRemovedPlaylistItems must undo
@@ -363,7 +382,7 @@ describe('StepPlaylistProfiles', () => {
 		fireEvent.contextMenu(screen.getByTestId('profile-row-a'))
 		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
 
-		expect(screen.queryByTestId(/^profile-row-/)).not.toBeInTheDocument()
+		expect(screen.queryAllByTestId(/^profile-row-/)).toHaveLength(0)
 		expect(useAppStore.getState().removedPlaylistItemIds.sort()).toEqual(['a', 'b', 'c'])
 		expect(screen.getByTestId('playlist-profile-empty')).toBeInTheDocument()
 		expect(screen.getByRole('button', {name: 'Continue'})).toBeDisabled()
@@ -408,10 +427,16 @@ function renderItemsStep({profiles, wizardMode = 'playlist'}: {profiles: Downloa
 		playlistTitle: 'Playlist',
 		playlistSelection: {kind: 'video', tier: 'best', codec: 'best'},
 		queue: []
-	} as never)
+	} satisfies Partial<AppState>)
 	// Controls the exact catalog size the gating check under test sees — see
 	// the module-level `vi.mock` comment above for why this can't be done by
-	// shaping `settings.profiles` alone.
+	// shaping `settings.profiles` alone. Deliberately mockReturnValueOnce, not
+	// mockReturnValue: this file's beforeEach blocks only call
+	// vi.clearAllMocks(), which clears call history but NOT a configured
+	// mockReturnValue — a persistent stub here would leak into every later
+	// test in the file (proven by running the suite: multiProfileBreakdown's
+	// "resolves each row destination..." test starts failing once this is a
+	// standing mockReturnValue, since it relies on the real, unmocked catalog).
 	vi.mocked(downloadProfilesModule.allDownloadProfiles).mockReturnValueOnce(profiles)
 	return render(<StepPlaylistItems />)
 }
@@ -488,7 +513,7 @@ describe('StepPlaylistItems remove and restore', () => {
 		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-x'))
 		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
 
-		expect(screen.queryByTestId(/^playlist-item-row-/)).not.toBeInTheDocument()
+		expect(screen.queryAllByTestId(/^playlist-item-row-/)).toHaveLength(0)
 		expect(useAppStore.getState().removedPlaylistItemIds.slice().sort()).toEqual(['x', 'y'])
 	})
 
@@ -528,7 +553,7 @@ describe('StepPlaylistItems remove and restore', () => {
 		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
 		fireEvent.contextMenu(screen.getByTestId('playlist-item-row-x'))
 		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
-		expect(screen.queryByTestId(/^playlist-item-row-/)).not.toBeInTheDocument()
+		expect(screen.queryAllByTestId(/^playlist-item-row-/)).toHaveLength(0)
 
 		fireEvent.click(screen.getByTestId('restore-removed-playlist-items'))
 

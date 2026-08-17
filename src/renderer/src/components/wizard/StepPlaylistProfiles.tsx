@@ -21,7 +21,7 @@ import {Button} from '../ui/button.js'
 import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {buildDownloadProfileActionModel} from './downloadProfileActions.js'
 import {DownloadProfileEditor} from './DownloadProfileEditor.js'
-import {profileAssignmentCounts, resolveAssignedProfile} from './playlistProfileAssignments.js'
+import {profileAssignmentCounts, resolveAssignedProfile} from '../../store/wizard/playlistProfileAssignments.js'
 import {orderProfileOptionsForAssignment} from './playlistProfileOrder.js'
 import {createPlaylistProfileTableState, playlistProfileTableReducer} from './playlistProfileTableState.js'
 import {usePlaylistProfileColumns} from './usePlaylistProfileColumns.js'
@@ -130,7 +130,11 @@ export function StepPlaylistProfiles(): ReactNode {
 	const bottomVirtualPadding = Math.max(0, virtualizer.getTotalSize() - (lastVirtualRow?.start ?? 0) - (lastVirtualRow?.size ?? 0))
 
 	const selectedItemIds = useMemo(() => items.filter(entry => selectedIds.has(entry.id)).map(entry => entry.id), [items, selectedIds])
-	const contextItemIds = useMemo(() => items.filter(entry => contextIds.includes(entry.id)).map(entry => entry.id), [items, contextIds])
+	// Set lookup instead of `.includes` — contextIds can be the whole selection
+	// (see openContextMenuForRow), so this is the same 1000-item-scale concern
+	// as selectedIdSet elsewhere on this screen.
+	const contextIdSet = useMemo(() => new Set(contextIds), [contextIds])
+	const contextItemIds = useMemo(() => items.filter(entry => contextIdSet.has(entry.id)).map(entry => entry.id), [items, contextIdSet])
 
 	const assign = useCallback(
 		(itemIds: string[], ref: DownloadProfileRef): void => {
@@ -177,7 +181,10 @@ export function StepPlaylistProfiles(): ReactNode {
 				return
 			}
 			if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return
-			if (event.key === 'Delete' || event.key === 'Backspace') {
+			// Delete only — Backspace is a common "go back" reflex and this
+			// window-scoped listener has no visible affordance warning the user it
+			// deletes rows instead, same reasoning as StepPlaylistItems.
+			if (event.key === 'Delete') {
 				if (selectedItemIds.length === 0) return
 				event.preventDefault()
 				remove(selectedItemIds)

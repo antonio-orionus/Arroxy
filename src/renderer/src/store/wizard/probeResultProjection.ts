@@ -177,7 +177,15 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 		wizardFormats: [],
 		wizardFormatsDegraded: null,
 		...(firstProbe ? {...restoreCommonWizardPrefs(settings), wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false, wizardSubfolderName: settings?.common?.lastSubfolder ?? ''} : {}),
-		playlistSelection
+		playlistSelection,
+		// This projection also lands `reloadPlaylistWithScope`'s result, which
+		// does not go through projectProbeStart's reset. Without resetting these
+		// here too, restoreRemovedPlaylistItems after a scope reload can re-add
+		// ids from the previous scope's playlist that no longer exist in this
+		// one. On a first probe these are already [] (projectProbeStart), so this
+		// is a no-op there.
+		removedPlaylistItemIds: [],
+		removedSelectionIds: []
 	}
 }
 

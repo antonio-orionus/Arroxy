@@ -124,6 +124,18 @@ describe('ProbeResultProjection', () => {
 		expect(patch.playlistSelection).toEqual(existingSelection)
 	})
 
+	it('resets removal state on a scope reload result, so restore cannot re-add stale ids from the previous scope', () => {
+		// reloadPlaylistWithScope calls this same projection but does not go
+		// through projectProbeStart's reset — without resetting these fields
+		// here too, an id removed from the previous scope's playlist would
+		// still be sitting in removedSelectionIds and get re-added by
+		// restoreRemovedPlaylistItems even though it no longer exists.
+		const patch = projectPlaylistProbeResult(PLAYLIST_PROBE, appState({removedPlaylistItemIds: ['old-a'], removedSelectionIds: ['old-a']}), false)
+
+		expect(patch.removedPlaylistItemIds).toEqual([])
+		expect(patch.removedSelectionIds).toEqual([])
+	})
+
 	it('projects bulk start state without M3U and with YouTube extractor gating', () => {
 		const projection = projectBulkStart(['https://www.youtube.com/watch?v=abc', 'https://youtu.be/def'], appState())
 
