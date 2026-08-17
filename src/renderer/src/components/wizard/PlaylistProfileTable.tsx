@@ -1,7 +1,7 @@
 // Wraps SelectableVirtualTable with the playlist-profiles column widths and
-// the right-click menu — one of the three ways to assign a profile (action
-// bar, context menu, number keys). Mirrors QueueManagerTable's split so the
-// step component only wires state, never table markup.
+// the right-click menu — one of the two ways to assign a profile (action bar,
+// context menu). Mirrors QueueManagerTable's split so the step component only
+// wires state, never table markup.
 
 import type {ReactNode, RefObject} from 'react'
 import type {Row, Table as ReactTable} from '@tanstack/react-table'

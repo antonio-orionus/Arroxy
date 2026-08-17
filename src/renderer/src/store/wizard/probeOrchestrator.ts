@@ -306,9 +306,21 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		setPlaylistSelection: s => set({playlistSelection: s, wizardSubtitleSkipped: false}),
 
-		enterMultiProfileMode: () => WizardCommands.enterMultiProfileMode(set),
+		// Logged here (not inside WizardCommands) so every other transition in
+		// this file keeps calling logStep the same way, right after the set() —
+		// without it the diagnostics stream shows no record of entry into or
+		// exit from playlistProfiles at all.
+		enterMultiProfileMode: () => {
+			const fromStep = get().wizardStep
+			WizardCommands.enterMultiProfileMode(set)
+			logStep('advance', fromStep, get().wizardStep, pickWizardSnapshot(get()))
+		},
 
-		exitMultiProfileMode: () => WizardCommands.exitMultiProfileMode(set),
+		exitMultiProfileMode: () => {
+			const fromStep = get().wizardStep
+			WizardCommands.exitMultiProfileMode(set)
+			logStep('back', fromStep, get().wizardStep, pickWizardSnapshot(get()))
+		},
 
 		assignPlaylistProfile: (itemIds, ref) => WizardCommands.assignPlaylistProfile(itemIds, ref, set, get),
 

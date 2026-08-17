@@ -13,7 +13,7 @@
 // opens (see StepPlaylistProfiles), so a hasty pick can be corrected without
 // leaving the assignment step.
 
-import {useState, type ReactNode} from 'react'
+import {useState, type MouseEvent, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {ChevronDown, PenLine, RotateCcw} from 'lucide-react'
 import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
@@ -41,7 +41,7 @@ export function PlaylistProfileActionBar({options, selectedCount, onAssign, onEd
 
 	// Never assigns — stopPropagation runs first so the row button beneath the
 	// pencil can never also fire from the same click.
-	function editProfile(event: {stopPropagation: () => void}, profile: DownloadProfile): void {
+	function editProfile(event: MouseEvent<HTMLButtonElement>, profile: DownloadProfile): void {
 		event.stopPropagation()
 		onEditProfile(profile)
 	}
