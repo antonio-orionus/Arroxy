@@ -24,8 +24,22 @@
 	"theme": {"light": "Light mode", "dark": "Dark mode", "system": "System default"},
 	"language": {"label": "Language"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistItemsGeneric": "Videos", "playlistPresets": "Quality", "formats": "Format", "subtitles": "Subtitles", "sponsorblock": "SponsorBlock", "output": "Output", "folder": "Save", "confirm": "Confirm"},
+		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistItemsGeneric": "Videos", "playlistPresets": "Quality", "playlistProfiles": "Profiles", "formats": "Format", "subtitles": "Subtitles", "sponsorblock": "SponsorBlock", "output": "Output", "folder": "Save", "confirm": "Confirm"},
 		"playlistPresets": {"heading": "Pick quality for the batch", "subhead": "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises.", "itemCount_one": "{{count}} item", "itemCount_other": "{{count}} items"},
+		"playlistProfiles": {
+			"heading": "Assign download profiles",
+			"selectedSummary": "{{selected}} of {{total}} selected",
+			"assignTrigger": "Assign to selection",
+			"assignAria": "Assign {{profileName}}",
+			"editProfile": "Edit {{name}}",
+			"filtersLabel": "Profile filters",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Profile",
+			"columnDuration": "Duration",
+			"empty": "No items match this filter",
+			"hintTitle": "Assign profiles to several videos at once",
+			"hintBody": "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+		},
 		"playlist": {
 			"heading": "Playlist items",
 			"headingGeneric": "Videos to download",
@@ -68,7 +82,16 @@
 			"alreadyDownloaded": "Already downloaded",
 			"probeLimitAlertTitle": "Playlist scan is capped",
 			"probeLimitAlertTitleGeneric": "Scan is capped",
-			"probeLimitAlertDesc": "Showing first {{count}} items. Increase the load limit to see more."
+			"probeLimitAlertDesc": "Showing first {{count}} items. Increase the load limit to see more.",
+			"multiProfileEntry": "Assign profiles per item",
+			"multiProfileEntryTooltip": "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead",
+			"removeFromListCount_one": "Remove {{count}} from list",
+			"removeFromListCount_other": "Remove {{count}} from list",
+			"restore": "Restore",
+			"removedCount_one": "{{count}} removed",
+			"removedCount_other": "{{count}} removed",
+			"allRemovedTitle": "Every item was removed",
+			"allRemovedDescription": "Restore them to continue."
 		},
 		"bulk": {
 			"title": "Bulk URLs",
@@ -356,6 +379,8 @@
 		"confirm": {
 			"readyHeadline": "Ready to pull it in!",
 			"landIn": "Your file will land in",
+			"landInMultiProfile_one": "It'll land in the destination below",
+			"landInMultiProfile_other": "They'll land in the {{count}} destinations below",
 			"labelVideo": "Video",
 			"labelAudio": "Audio",
 			"labelSubtitles": "Subtitles",
@@ -380,7 +405,10 @@
 			"itemsValueAudio_one": "{{count}} of {{total}} track",
 			"itemsValueAudio_other": "{{count}} of {{total}} tracks",
 			"itemsValueBulk_one": "{{count}} of {{total}} URL",
-			"itemsValueBulk_other": "{{count}} of {{total}} URLs"
+			"itemsValueBulk_other": "{{count}} of {{total}} URLs",
+			"profileBreakdownHeading": "Profiles in this batch",
+			"profileBreakdownCount_one": "{{count}} item",
+			"profileBreakdownCount_other": "{{count}} items"
 		},
 		"profileEditor": {
 			"dialogTitle": "Download Profile",

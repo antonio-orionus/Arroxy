@@ -33,8 +33,22 @@
 	"theme": {"light": "Ανοιχτόχρωμη εμφάνιση", "dark": "Σκούρα εμφάνιση", "system": "Προεπιλογή συστήματος"},
 	"language": {"label": "Γλώσσα"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Λίστα αναπαραγωγής", "playlistItemsGeneric": "Βίντεο", "playlistPresets": "Ποιότητα", "formats": "Μορφή", "subtitles": "Υπότιτλοι", "sponsorblock": "SponsorBlock", "output": "Έξοδος", "folder": "Αποθήκευση", "confirm": "Επιβεβαίωση"},
+		"steps": {"url": "URL", "playlistItems": "Λίστα αναπαραγωγής", "playlistItemsGeneric": "Βίντεο", "playlistPresets": "Ποιότητα", "playlistProfiles": "Προφίλ", "formats": "Μορφή", "subtitles": "Υπότιτλοι", "sponsorblock": "SponsorBlock", "output": "Έξοδος", "folder": "Αποθήκευση", "confirm": "Επιβεβαίωση"},
 		"playlistPresets": {"heading": "Επιλογή ποιότητας για την ομαδική λήψη", "subhead": "Κάθε βίντεο επιλύει το επιλεγμένο επίπεδο ανεξάρτητα — οι ανομοιογενείς playlist λειτουργούν χωρίς εκπλήξεις.", "itemCount_one": "{{count}} στοιχείο", "itemCount_other": "{{count}} στοιχεία"},
+		"playlistProfiles": {
+			"heading": "Εκχώρηση προφίλ λήψης",
+			"selectedSummary": "Επιλέχθηκαν {{selected}} από {{total}}",
+			"assignTrigger": "Εκχώρηση στην επιλογή",
+			"assignAria": "Εκχώρηση {{profileName}}",
+			"editProfile": "Επεξεργασία {{name}}",
+			"filtersLabel": "Φίλτρα προφίλ",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Προφίλ",
+			"columnDuration": "Διάρκεια",
+			"empty": "Κανένα στοιχείο δεν ταιριάζει με αυτό το φίλτρο",
+			"hintTitle": "Ανάθεση προφίλ σε πολλά βίντεο ταυτόχρονα",
+			"hintBody": "Shift-κλικ για εύρος, {{modifier}}-κλικ για προσθήκη ενός, ή σύρετε στις γραμμές. Έπειτα επιλέξτε προφίλ παραπάνω, ή κάντε δεξί κλικ στην επιλογή."
+		},
 		"playlist": {
 			"heading": "Στοιχεία playlist",
 			"headingGeneric": "Βίντεο για λήψη",
@@ -77,7 +91,16 @@
 			"alreadyDownloaded": "Ήδη κατεβασμένο",
 			"probeLimitAlertTitle": "Η σάρωση playlist έχει περιοριστεί",
 			"probeLimitAlertTitleGeneric": "Η σάρωση είναι περιορισμένη",
-			"probeLimitAlertDesc": "Το Arroxy βρήκε περισσότερα από {{count}} στοιχεία, οπότε το τρέχον όριο σάρωσης αποκρύπτει τα υπόλοιπα."
+			"probeLimitAlertDesc": "Το Arroxy βρήκε περισσότερα από {{count}} στοιχεία, οπότε το τρέχον όριο σάρωσης αποκρύπτει τα υπόλοιπα.",
+			"multiProfileEntry": "Εκχώρηση προφίλ ανά στοιχείο",
+			"multiProfileEntryTooltip": "Παρακάμπτει την Ποιότητα, το SponsorBlock, την Έξοδο και την Αποθήκευση — εκχωρεί αντ' αυτού ένα προφίλ λήψης ανά στοιχείο",
+			"removeFromListCount_one": "Κατάργηση {{count}} από τη λίστα",
+			"removeFromListCount_other": "Κατάργηση {{count}} από τη λίστα",
+			"restore": "Επαναφορά",
+			"removedCount_one": "{{count}} καταργήθηκαν",
+			"removedCount_other": "{{count}} καταργήθηκαν",
+			"allRemovedTitle": "Όλα τα στοιχεία καταργήθηκαν",
+			"allRemovedDescription": "Επαναφέρετέ τα για να συνεχίσετε."
 		},
 		"bulk": {
 			"title": "Μαζικά URL",
@@ -365,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Έτοιμο για λήψη!",
 			"landIn": "Το αρχείο σου θα αποθηκευτεί στο",
+			"landInMultiProfile_one": "Θα αποθηκευτεί στον παρακάτω προορισμό",
+			"landInMultiProfile_other": "Θα αποθηκευτούν στους {{count}} παρακάτω προορισμούς",
 			"labelVideo": "Βίντεο",
 			"labelAudio": "Ήχος",
 			"labelSubtitles": "Υπότιτλοι",
@@ -389,7 +414,10 @@
 			"itemsValueAudio_one": "{{count}} από {{total}} κομμάτι",
 			"itemsValueAudio_other": "{{count}} από {{total}} κομμάτια",
 			"itemsValueBulk_one": "{{count}} από {{total}} URL",
-			"itemsValueBulk_other": "{{count}} από {{total}} URL"
+			"itemsValueBulk_other": "{{count}} από {{total}} URL",
+			"profileBreakdownHeading": "Προφίλ σε αυτήν την παρτίδα",
+			"profileBreakdownCount_one": "{{count}} στοιχείο",
+			"profileBreakdownCount_other": "{{count}} στοιχεία"
 		},
 		"profileEditor": {
 			"dialogTitle": "Προφίλ λήψης",

@@ -9,6 +9,7 @@ const lazySteps = {
 	output: lazy(() => import('./StepOutput.js').then(module => ({default: module.StepOutput}))),
 	playlistItems: lazy(() => import('./StepPlaylistItems.js').then(module => ({default: module.StepPlaylistItems}))),
 	playlistPresets: lazy(() => import('./StepPlaylistPresets.js').then(module => ({default: module.StepPlaylistPresets}))),
+	playlistProfiles: lazy(() => import('./StepPlaylistProfiles.js').then(module => ({default: module.StepPlaylistProfiles}))),
 	sponsorblock: lazy(() => import('./StepSponsorBlock.js').then(module => ({default: module.StepSponsorBlock}))),
 	subtitles: lazy(() => import('./StepSubtitles.js').then(module => ({default: module.StepSubtitles})))
 }
@@ -22,6 +23,7 @@ const RENDER_BY_STEP: Record<VisibleWizardStep, () => ReactNode> = {
 	url: () => <StepUrlInput />,
 	playlistItems: () => createElement(lazySteps.playlistItems),
 	playlistPresets: () => createElement(lazySteps.playlistPresets),
+	playlistProfiles: () => createElement(lazySteps.playlistProfiles),
 	formats: () => createElement(lazySteps.formats),
 	subtitles: () => createElement(lazySteps.subtitles),
 	sponsorblock: () => createElement(lazySteps.sponsorblock),

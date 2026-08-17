@@ -33,8 +33,22 @@
 	"theme": {"light": "Светлая тема", "dark": "Тёмная тема", "system": "Системная"},
 	"language": {"label": "Язык"},
 	"wizard": {
-		"steps": {"url": "Ссылка", "playlistItems": "Плейлист", "playlistItemsGeneric": "Видео", "playlistPresets": "Качество", "formats": "Формат", "subtitles": "Субтитры", "sponsorblock": "SponsorBlock", "output": "Вывод", "folder": "Сохранить", "confirm": "Подтвердить"},
+		"steps": {"url": "Ссылка", "playlistItems": "Плейлист", "playlistItemsGeneric": "Видео", "playlistPresets": "Качество", "playlistProfiles": "Профили", "formats": "Формат", "subtitles": "Субтитры", "sponsorblock": "SponsorBlock", "output": "Вывод", "folder": "Сохранить", "confirm": "Подтвердить"},
 		"playlistPresets": {"heading": "Выбери качество для пакетной загрузки", "subhead": "Каждое видео независимо подбирает подходящий уровень качества — неоднородные плейлисты работают без сюрпризов.", "itemCount_one": "{{count}} элемент", "itemCount_other": "{{count}} элементов"},
+		"playlistProfiles": {
+			"heading": "Назначить профили загрузки",
+			"selectedSummary": "Выбрано {{selected}} из {{total}}",
+			"assignTrigger": "Назначить выбранным",
+			"assignAria": "Назначить {{profileName}}",
+			"editProfile": "Изменить {{name}}",
+			"filtersLabel": "Фильтры профилей",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Профиль",
+			"columnDuration": "Длительность",
+			"empty": "Нет элементов, соответствующих этому фильтру",
+			"hintTitle": "Назначить профили нескольким видео сразу",
+			"hintBody": "Shift-клик для диапазона, {{modifier}}-клик, чтобы добавить одно, или перетаскивание по строкам. Затем выберите профиль выше или щёлкните правой кнопкой мыши по выделению."
+		},
 		"playlist": {
 			"heading": "Элементы Playlist",
 			"headingGeneric": "Видео для загрузки",
@@ -77,7 +91,16 @@
 			"alreadyDownloaded": "Уже скачано",
 			"probeLimitAlertTitle": "Сканирование плейлиста ограничено",
 			"probeLimitAlertTitleGeneric": "Сканирование ограничено",
-			"probeLimitAlertDesc": "Arroxy нашёл более {{count}} элементов, поэтому текущий лимит сканирования скрывает остальные."
+			"probeLimitAlertDesc": "Arroxy нашёл более {{count}} элементов, поэтому текущий лимит сканирования скрывает остальные.",
+			"multiProfileEntry": "Назначить профили по элементам",
+			"multiProfileEntryTooltip": "Пропускает Качество, SponsorBlock, Вывод и Сохранить — вместо этого назначает профиль загрузки для каждого элемента",
+			"removeFromListCount_one": "Удалить {{count}} из списка",
+			"removeFromListCount_other": "Удалить {{count}} из списка",
+			"restore": "Восстановить",
+			"removedCount_one": "{{count}} удалено",
+			"removedCount_other": "{{count}} удалено",
+			"allRemovedTitle": "Все элементы удалены",
+			"allRemovedDescription": "Восстановите их, чтобы продолжить."
 		},
 		"bulk": {
 			"title": "Массовые URL",
@@ -365,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Готово к загрузке!",
 			"landIn": "Файл будет сохранён в",
+			"landInMultiProfile_one": "Он попадёт в место назначения ниже",
+			"landInMultiProfile_other": "Они попадут в {{count}} места назначения ниже",
 			"labelVideo": "Видео",
 			"labelAudio": "Аудио",
 			"labelSubtitles": "Субтитры",
@@ -389,7 +414,10 @@
 			"itemsValueAudio_one": "{{count}} из {{total}} трека",
 			"itemsValueAudio_other": "{{count}} из {{total}} треков",
 			"itemsValueBulk_one": "{{count}} из {{total}} URL",
-			"itemsValueBulk_other": "{{count}} из {{total}} URL"
+			"itemsValueBulk_other": "{{count}} из {{total}} URL",
+			"profileBreakdownHeading": "Профили в этой партии",
+			"profileBreakdownCount_one": "{{count}} элемент",
+			"profileBreakdownCount_other": "{{count}} элементов"
 		},
 		"profileEditor": {
 			"dialogTitle": "Профиль загрузки",

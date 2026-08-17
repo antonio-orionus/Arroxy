@@ -1165,9 +1165,29 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "ファイルの保存先:"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "下の保存先に保存されます"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "下の{{count}}件の保存先に保存されます"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "字幕のみプリセットが有効ですが字幕言語が選択されていません — 何もダウンロードされません。"
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} 件"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} 件"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "このバッチのプロファイル"
 
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
@@ -1549,6 +1569,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "サムネイルを保存"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "続行するには復元してください。"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "すべてのアイテムが削除されました"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "ダウンロード済み"
@@ -1637,6 +1665,14 @@ msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "チャンネルページをスキャン中"
 
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "アイテムごとにプロファイルを割り当て"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "画質、SponsorBlock、出力、保存先をスキップ — 代わりにアイテムごとにダウンロードプロファイルを割り当てます"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "続行するには少なくとも1本の動画を選択してください"
@@ -1664,6 +1700,26 @@ msgstr "開始"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "終了"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} 件削除済み"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} 件削除済み"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "リストから{{count}}件削除"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "リストから{{count}}件削除"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "元に戻す"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
@@ -1732,6 +1788,54 @@ msgstr "{{count}} 件"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "各動画が選択した画質ティアを独立して解決します — 異なる動画が混在するPlaylistも問題なく処理できます。"
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "{{profileName}} を割り当て"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "選択項目に割り当て"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "再生時間"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "プロファイル"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "{{name}} を編集"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "このフィルターに一致する項目はありません"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "プロファイルフィルター"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "ダウンロードプロファイルを割り当て"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Shiftクリックで範囲選択、{{modifier}}クリックで1件追加、または行をドラッグします。 上のプロファイルを選ぶか、選択範囲を右クリックしてください。"
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "複数の動画にまとめてプロファイルを割り当て"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{total}} 件中 {{selected}} 件を選択"
 
 msgctxt "wizard.profileEditor.action.addLanguage"
 msgid "Add"
@@ -2172,6 +2276,10 @@ msgstr "動画"
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
 msgstr "画質"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "プロファイル"
 
 msgctxt "wizard.steps.sponsorblock"
 msgid "SponsorBlock"

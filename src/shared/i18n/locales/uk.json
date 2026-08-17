@@ -41,8 +41,22 @@
 	"theme": {"light": "Світла тема", "dark": "Темна тема", "system": "Системна"},
 	"language": {"label": "Мова"},
 	"wizard": {
-		"steps": {"url": "Посилання", "playlistItems": "Плейлист", "playlistItemsGeneric": "Відео", "playlistPresets": "Якість", "formats": "Формат", "subtitles": "Субтитри", "sponsorblock": "SponsorBlock", "output": "Вивід", "folder": "Зберегти", "confirm": "Підтвердити"},
+		"steps": {"url": "Посилання", "playlistItems": "Плейлист", "playlistItemsGeneric": "Відео", "playlistPresets": "Якість", "playlistProfiles": "Профілі", "formats": "Формат", "subtitles": "Субтитри", "sponsorblock": "SponsorBlock", "output": "Вивід", "folder": "Зберегти", "confirm": "Підтвердити"},
 		"playlistPresets": {"heading": "Вибери якість для пакетного завантаження", "subhead": "Кожне відео самостійно підбирає відповідний рівень якості — неоднорідні плейлисти працюють без сюрпризів.", "itemCount_one": "{{count}} елемент", "itemCount_other": "{{count}} елементів"},
+		"playlistProfiles": {
+			"heading": "Призначити профілі завантаження",
+			"selectedSummary": "Вибрано {{selected}} з {{total}}",
+			"assignTrigger": "Призначити вибраним",
+			"assignAria": "Призначити {{profileName}}",
+			"editProfile": "Редагувати {{name}}",
+			"filtersLabel": "Фільтри профілів",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Профіль",
+			"columnDuration": "Тривалість",
+			"empty": "Немає елементів, що відповідають цьому фільтру",
+			"hintTitle": "Призначити профілі декільком відео одразу",
+			"hintBody": "Shift-клік для діапазону, {{modifier}}-клік, щоб додати один, або перетягніть по рядках. Потім виберіть профіль вище або клацніть правою кнопкою миші на виділенні."
+		},
 		"playlist": {
 			"heading": "Елементи Playlist",
 			"headingGeneric": "Відео для завантаження",
@@ -85,7 +99,16 @@
 			"alreadyDownloaded": "Уже завантажено",
 			"probeLimitAlertTitle": "Сканування плейлиста обмежено",
 			"probeLimitAlertTitleGeneric": "Сканування обмежено",
-			"probeLimitAlertDesc": "Arroxy знайшов більше {{count}} елементів, тому поточний ліміт сканування приховує решту."
+			"probeLimitAlertDesc": "Arroxy знайшов більше {{count}} елементів, тому поточний ліміт сканування приховує решту.",
+			"multiProfileEntry": "Призначити профілі для кожного елемента",
+			"multiProfileEntryTooltip": "Пропускає Якість, SponsorBlock, Вивід і Зберегти — натомість призначає профіль завантаження для кожного елемента",
+			"removeFromListCount_one": "Видалити {{count}} зі списку",
+			"removeFromListCount_other": "Видалити {{count}} зі списку",
+			"restore": "Відновити",
+			"removedCount_one": "{{count}} видалено",
+			"removedCount_other": "{{count}} видалено",
+			"allRemovedTitle": "Усі елементи видалено",
+			"allRemovedDescription": "Відновіть їх, щоб продовжити."
 		},
 		"bulk": {
 			"title": "Масові URL",
@@ -373,6 +396,8 @@
 		"confirm": {
 			"readyHeadline": "Готово до завантаження!",
 			"landIn": "Файл потрапить у",
+			"landInMultiProfile_one": "Він потрапить у місце призначення нижче",
+			"landInMultiProfile_other": "Вони потраплять у {{count}} місця призначення нижче",
 			"labelVideo": "Відео",
 			"labelAudio": "Аудіо",
 			"labelSubtitles": "Субтитри",
@@ -397,7 +422,10 @@
 			"itemsValueAudio_one": "{{count}} з {{total}} треку",
 			"itemsValueAudio_other": "{{count}} з {{total}} треків",
 			"itemsValueBulk_one": "{{count}} з {{total}} URL",
-			"itemsValueBulk_other": "{{count}} з {{total}} URL"
+			"itemsValueBulk_other": "{{count}} з {{total}} URL",
+			"profileBreakdownHeading": "Профілі в цій партії",
+			"profileBreakdownCount_one": "{{count}} елемент",
+			"profileBreakdownCount_other": "{{count}} елементів"
 		},
 		"profileEditor": {
 			"dialogTitle": "Профіль завантаження",

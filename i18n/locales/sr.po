@@ -1165,9 +1165,29 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "Твоја датотека ће бити сачувана у"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Стићи ће на одредиште испод"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Стићи ће на {{count}} одредишта испод"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Поставка „само титлови\" је активна, али није изабран ниједан језик — ништа неће бити преузето."
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} ставка"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} ставке"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Профили у овој серији"
 
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
@@ -1549,6 +1569,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Сачувај сличицу"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Врати их да наставиш."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Све ставке су уклоњене"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Већ преузето"
@@ -1637,6 +1665,14 @@ msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "Скенирање страница канала"
 
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Додели профиле по ставци"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Прескаче Квалитет, SponsorBlock, Излаз и Сачувај — уместо тога додељује профил преузимања по ставци"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Изабери барем један видео да би наставио/ла"
@@ -1664,6 +1700,26 @@ msgstr "Од"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "До"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} уклоњено"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} уклоњено"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Уклони {{count}} са листе"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Уклони {{count}} са листе"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Врати"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
@@ -1732,6 +1788,54 @@ msgstr "{{count}} ставки"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Свaki видео самостално проналази одговарајући ниво квалитета — хетерогене плејлисте раде без изненађења."
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "Додели {{profileName}}"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Додели избору"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Трајање"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Профил"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Измени {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Ниједна ставка не одговара овом филтеру"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Филтери профила"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Додели профиле преузимања"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Shift-клик за опсег, {{modifier}}-клик да додате један, или превуците преко редова. Затим изаберите профил изнад, или кликните десним тастером миша на избор."
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "Додели профиле за неколико видео снимака одједном"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "Изабрано {{selected}} од {{total}}"
 
 msgctxt "wizard.profileEditor.action.addLanguage"
 msgid "Add"
@@ -2172,6 +2276,10 @@ msgstr "Видео"
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
 msgstr "Квалитет"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Профили"
 
 msgctxt "wizard.steps.sponsorblock"
 msgid "SponsorBlock"

@@ -24,8 +24,22 @@
 	"theme": {"light": "အလင်းမုဒ်", "dark": "အမှောင်မုဒ်", "system": "စနစ်မူရင်း"},
 	"language": {"label": "ဘာသာစကား"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "ပလေးလစ်", "playlistItemsGeneric": "ဗီဒီယိုများ", "playlistPresets": "အရည်အသွေး", "formats": "ဖော်မတ်", "subtitles": "စာတန်းထိုး", "sponsorblock": "SponsorBlock", "output": "ထွက်ပေါ်မည့်ဖိုင်", "folder": "သိမ်းမည်", "confirm": "အတည်ပြုမည်"},
+		"steps": {"url": "URL", "playlistItems": "ပလေးလစ်", "playlistItemsGeneric": "ဗီဒီယိုများ", "playlistPresets": "အရည်အသွေး", "playlistProfiles": "ပရိုဖိုင်များ", "formats": "ဖော်မတ်", "subtitles": "စာတန်းထိုး", "sponsorblock": "SponsorBlock", "output": "ထွက်ပေါ်မည့်ဖိုင်", "folder": "သိမ်းမည်", "confirm": "အတည်ပြုမည်"},
 		"playlistPresets": {"heading": "Batch အတွက် အရည်အသွေးရွေးပါ", "subhead": "ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။", "itemCount_one": "{{count}} ခု", "itemCount_other": "{{count}} ခု"},
+		"playlistProfiles": {
+			"heading": "ဒေါင်းလုဒ်ပရိုဖိုင်များကို သတ်မှတ်ပါ",
+			"selectedSummary": "{{total}} အနက် {{selected}} ခုကို ရွေးထားသည်",
+			"assignTrigger": "ရွေးချယ်မှုသို့ သတ်မှတ်ပါ",
+			"assignAria": "{{profileName}} ကို သတ်မှတ်ပါ",
+			"editProfile": "{{name}} ကို ပြင်ဆင်ပါ",
+			"filtersLabel": "ပရိုဖိုင်စစ်ထုတ်ကိရိယာများ",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "ပရိုဖိုင်",
+			"columnDuration": "ကြာချိန်",
+			"empty": "ဤစစ်ထုတ်ကိရိယာနှင့် ကိုက်ညီသော အရာမရှိပါ",
+			"hintTitle": "ဗီဒီယိုများစွာအား တစ်ပြိုင်နက် ပရိုဖိုင်များ သတ်မှတ်ပါ",
+			"hintBody": "အပိုင်းအခြားတစ်ခုအတွက် Shift-နှိပ်ပါ၊ တစ်ခုထည့်ရန် {{modifier}}-နှိပ်ပါ၊ သို့မဟုတ် အတန်းများပေါ်တွင် ဆွဲယူပါ။ ထို့နောက် အထက်မှ ပရိုဖိုင်တစ်ခုရွေးပါ၊ သို့မဟုတ် ရွေးချယ်ထားသည်ကို right-click နှိပ်ပါ။"
+		},
 		"playlist": {
 			"heading": "Playlist အကြောင်းအရာများ",
 			"headingGeneric": "ဒေါင်းလုဒ်ယူမည့် ဗီဒီယိုများ",
@@ -68,7 +82,16 @@
 			"alreadyDownloaded": "ဒေါင်းလုဒ်ပြီးသား",
 			"probeLimitAlertTitle": "Playlist scan ကန့်သတ်ထားသည်",
 			"probeLimitAlertTitleGeneric": "စကင်န်ကန့်သတ်ထားသည်",
-			"probeLimitAlertDesc": "Arroxy သည် {{count}} ထက်ပိုသော အကြောင်းအရာများ တွေ့ရှိသောကြောင့် လက်ရှိ scan ကန့်သတ်ချက်ကြောင့် ကျန်သောအရာများ ဖျောက်ထားသည်။"
+			"probeLimitAlertDesc": "Arroxy သည် {{count}} ထက်ပိုသော အကြောင်းအရာများ တွေ့ရှိသောကြောင့် လက်ရှိ scan ကန့်သတ်ချက်ကြောင့် ကျန်သောအရာများ ဖျောက်ထားသည်။",
+			"multiProfileEntry": "အရာတစ်ခုချင်းစီအတွက် ပရိုဖိုင်များ သတ်မှတ်ပါ",
+			"multiProfileEntryTooltip": "အရည်အသွေး၊ SponsorBlock၊ ထွက်ပေါ်မည့်ဖိုင် နှင့် သိမ်းမည် တို့ကို ကျော်ပြီး — အစား အရာတစ်ခုချင်းစီအတွက် ဒေါင်းလုဒ်ပရိုဖိုင် သတ်မှတ်ပါ",
+			"removeFromListCount_one": "စာရင်းမှ {{count}} ခု ဖယ်ရှားမည်",
+			"removeFromListCount_other": "စာရင်းမှ {{count}} ခု ဖယ်ရှားမည်",
+			"restore": "ပြန်ရောက်မည်",
+			"removedCount_one": "{{count}} ခု ဖယ်ရှားပြီး",
+			"removedCount_other": "{{count}} ခု ဖယ်ရှားပြီး",
+			"allRemovedTitle": "အားလုံးကို ဖယ်ရှားပြီးပါပြီ",
+			"allRemovedDescription": "ဆက်လက်လုပ်ဆောင်ရန် ၎င်းတို့ကို ပြန်ရောက်ပါ။"
 		},
 		"bulk": {
 			"title": "URL အများအပြား",
@@ -356,6 +379,8 @@
 		"confirm": {
 			"readyHeadline": "ဆွဲထုတ်ရန်အဆင်သင့်ဖြစ်ပြီ!",
 			"landIn": "သင့်ဖိုင်သည် ဤနေရာတွင် ဆင်းမည်",
+			"landInMultiProfile_one": "အောက်ပါနေရာသို့ ရောက်ရှိမည်",
+			"landInMultiProfile_other": "အောက်ပါနေရာ {{count}} ခုသို့ ရောက်ရှိမည်",
 			"labelVideo": "ဗီဒီယို",
 			"labelAudio": "အသံ",
 			"labelSubtitles": "စာတန်းထိုး",
@@ -380,7 +405,10 @@
 			"itemsValueAudio_one": "{{total}} ခုမှ {{count}} သီချင်း",
 			"itemsValueAudio_other": "{{total}} ခုမှ {{count}} သီချင်းများ",
 			"itemsValueBulk_one": "{{total}} URL မှ {{count}}",
-			"itemsValueBulk_other": "{{total}} URL မှ {{count}}"
+			"itemsValueBulk_other": "{{total}} URL မှ {{count}}",
+			"profileBreakdownHeading": "ဤအစုအတွက် ပရိုဖိုင်များ",
+			"profileBreakdownCount_one": "{{count}} ခု",
+			"profileBreakdownCount_other": "{{count}} ခု"
 		},
 		"profileEditor": {
 			"dialogTitle": "ဒေါင်းလုဒ် ပရိုဖိုင်",

@@ -243,6 +243,7 @@ Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argad
 - **To'annoo saffisaa fi pacing** — bandwidth buusuu daangessi, kutaaleen viidiyoo meeqa yeroo tokkotti akka buufaman qindeessi, fi turtii gaaffii durtii (*Cufaa · Walsimaa · Of eeggannoo · Kan mataa*) waliin dabali
 - **Bocquuwwan maqaa faayilii** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` fi `{playlist_index}` fayyadamuun buufamawwan kee akka feetetti moggaasi, waliigalaan ykn tokkoon tokkoon piroofaayilii buufamaatiif
 - **Buufata yeroo tokkotti fi ofumaan irra deebi'uu** — buufanni tarree meeqa yeroo tokkotti akka deemu filadhu, buufata rakkoo networkii yookaan saarvarii qunname immoo Arroxy yaalii tokkoo dura dheeraa eegee irra deebi'ee haa yaalu
+- **Profaayiloota buufannaa viidiyoo playlist keessaa tokkoon tokkoon** — sirna tokko guutummaa tarreef fayyadamuu mannaa, viidiyoo playlist keessa jiru hundaaf piroofaayilii buufannaa addaa kennuu dandeessa; kanaanis dabarsa tokkoon garii qulqullina guutuun kuufamee, hafan immoo akka MP3tti fudhatamuu danda'a
 
 ### Subtitle & seensuu boodaa
 

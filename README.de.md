@@ -245,6 +245,7 @@ Arroxy ist für eine Sache gebaut: URL einfügen, saubere lokale Datei erhalten.
 - **Geschwindigkeits- und Pacing-Kontrollen** — begrenze die Download-Bandbreite, lege fest, wie viele Teile eines Videos gleichzeitig geladen werden, und füge Anfragepausen mit Presets hinzu (*Aus · Ausgewogen · Vorsichtig · Benutzerdefiniert*)
 - **Dateinamenvorlagen** — benenne Downloads nach deinen Regeln mit `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` und `{playlist_index}`, global oder pro Download-Profil
 - **Gleichzeitige Downloads und automatische Wiederholung** — wähle, wie viele Einträge der Warteschlange gleichzeitig laufen, und lass Arroxy einen Download nach einem Netzwerk- oder Serverproblem erneut versuchen, mit längerer Wartezeit vor jedem Versuch
+- **Profile pro Playlist-Eintrag** — weisen Sie jedem Video in einer Playlist ein eigenes Download-Profil zu statt einer Einstellung für die ganze Liste, sodass ein Durchlauf manche in voller Qualität archivieren und den Rest als MP3 holen kann
 
 ### Untertitel & Nachbearbeitung
 

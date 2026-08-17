@@ -10,3 +10,11 @@ export function formatDuration(seconds: number, liveLabel?: string): string {
 	if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
 	return `${m}:${String(s).padStart(2, '0')}`
 }
+
+// undefined = no duration metadata (common for nested-playlist entries from
+// music search, channel root, etc.) — render an em-dash instead of falsely
+// labeling them "live".
+export function formatEntryDuration(seconds: number | undefined, liveLabel: string): string {
+	if (seconds === undefined) return '—'
+	return formatDuration(seconds, liveLabel)
+}

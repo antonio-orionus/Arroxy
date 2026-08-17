@@ -33,8 +33,22 @@
 	"theme": {"light": "رڼا حالت", "dark": "تیاره حالت", "system": "د سیسټم ډیفالټ"},
 	"language": {"label": "ژبه"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "د غږولو لړليک", "playlistItemsGeneric": "ویډیوګانې", "playlistPresets": "کیفیت", "formats": "بڼه", "subtitles": "ژباړلیکونه", "sponsorblock": "SponsorBlock", "output": "محصول", "folder": "خوندي کړه", "confirm": "تایید کړه"},
+		"steps": {"url": "URL", "playlistItems": "د غږولو لړليک", "playlistItemsGeneric": "ویډیوګانې", "playlistPresets": "کیفیت", "playlistProfiles": "پروفایلونه", "formats": "بڼه", "subtitles": "ژباړلیکونه", "sponsorblock": "SponsorBlock", "output": "محصول", "folder": "خوندي کړه", "confirm": "تایید کړه"},
 		"playlistPresets": {"heading": "د بیچ لپاره کیفیت وټاکئ", "subhead": "هر ویډیو خپلواکه د غوره شوي کچې سره حل کوي — مخلوط Playlist ونه بیا پرته له مشکل کار کوي.", "itemCount_one": "{{count}} توکی", "itemCount_other": "{{count}} توکي"},
+		"playlistProfiles": {
+			"heading": "د ډاونلوډ پروفایلونه وټاکئ",
+			"selectedSummary": "{{selected}} د {{total}} څخه غوره شوي",
+			"assignTrigger": "ټاکنې ته وګمارئ",
+			"assignAria": "{{profileName}} وټاکئ",
+			"editProfile": "{{name}} سمول",
+			"filtersLabel": "د پروفایل فلټرونه",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "پروفایل",
+			"columnDuration": "موده",
+			"empty": "هیڅ توکی له دې فلټر سره سمون نه خوري",
+			"hintTitle": "پروفایلونه یوځل ډیرو ویډیوګانو ته وټاکئ",
+			"hintBody": "د ساحې لپاره Shift-کلیک وکړئ، د یو زیاتولو لپاره {{modifier}}-کلیک وکړئ، یا د قطارونو په اوږدو کې کش کړئ. بیا پورته یو پروفایل وټاکئ، یا په ټاکنه کې ښي کلیک وکړئ."
+		},
 		"playlist": {
 			"heading": "د Playlist توکي",
 			"headingGeneric": "د ډاونلوډ لپاره ویډیوګانې",
@@ -77,7 +91,16 @@
 			"alreadyDownloaded": "مخکې ډاونلوډ شوی",
 			"probeLimitAlertTitle": "د Playlist سکین محدود دی",
 			"probeLimitAlertTitleGeneric": "سکن محدود دی",
-			"probeLimitAlertDesc": "Arroxy له {{count}} څخه زیات توکي وموندل، نو اوسنی سکین حد پاتې توکي پټوي."
+			"probeLimitAlertDesc": "Arroxy له {{count}} څخه زیات توکي وموندل، نو اوسنی سکین حد پاتې توکي پټوي.",
+			"multiProfileEntry": "د هرې توکي لپاره پروفایلونه وټاکئ",
+			"multiProfileEntryTooltip": "کیفیت, SponsorBlock, محصول، او خوندي کول پریږدي — پرځای یې د هرې توکي لپاره د ډاونلوډ پروفایل وټاکئ",
+			"removeFromListCount_one": "{{count}} له لیستې لیرې کړئ",
+			"removeFromListCount_other": "{{count}} له لیستې لیرې کړئ",
+			"restore": "بیرته راوستل",
+			"removedCount_one": "{{count}} لرې شوي",
+			"removedCount_other": "{{count}} لرې شوي",
+			"allRemovedTitle": "ټول توکي لرې شوي",
+			"allRemovedDescription": "د دوام لپاره یې بیرته راولئ."
 		},
 		"bulk": {
 			"title": "ډېر URLونه",
@@ -365,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "د راکشولو لپاره چمتو!",
 			"landIn": "ستاسو فایل به دلته ځای پر ځای شي",
+			"landInMultiProfile_one": "دا به لاندې ځای ته ورسیږي",
+			"landInMultiProfile_other": "دا به لاندې {{count}} ځایونو ته ورسیږي",
 			"labelVideo": "ویډیو",
 			"labelAudio": "غږ",
 			"labelSubtitles": "ژباړلیکونه",
@@ -389,7 +414,10 @@
 			"itemsValueAudio_one": "{{count}} له {{total}} ټریک",
 			"itemsValueAudio_other": "{{count}} له {{total}} ټریکونه",
 			"itemsValueBulk_one": "{{count}} له {{total}} URL",
-			"itemsValueBulk_other": "{{count}} له {{total}} URLونو"
+			"itemsValueBulk_other": "{{count}} له {{total}} URLونو",
+			"profileBreakdownHeading": "په دې ډله کې پروفایلونه",
+			"profileBreakdownCount_one": "{{count}} توکی",
+			"profileBreakdownCount_other": "{{count}} توکي"
 		},
 		"profileEditor": {
 			"dialogTitle": "د ښکته کولو پروفایل",

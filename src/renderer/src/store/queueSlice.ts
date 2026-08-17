@@ -10,9 +10,13 @@ import type {QueueLane} from '@shared/types.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import type {GetState, SetState, QueueSlice} from './types.js'
 import {persistFormatPrefs} from './wizard/persistFormatPrefs.js'
-import {prepareManualQueueSubmission} from './wizard/queueSubmission.js'
+import {prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from './wizard/queueSubmission.js'
 import {submitPreparedQueueSubmission} from './wizard/queueSubmissionAdapter.js'
 import {queueLoadedPlaylistWithActiveProfile} from './wizard/quickDownloadPreparation.js'
+
+function errorMessage(error: unknown): string {
+	return error instanceof Error ? error.message : String(error)
+}
 
 async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane): Promise<void> {
 	// Re-entry guard: large playlists (e.g. 290 entries) take a perceptible
@@ -35,7 +39,7 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 	}
 	set({isSubmittingToQueue: true})
 	try {
-		const prepared = prepareManualQueueSubmission(get(), lane)
+		const prepared = stateBeforeSubmit.multiProfileMode ? prepareMultiProfileQueueSubmission(get(), lane) : prepareManualQueueSubmission(get(), lane)
 		if (!prepared) return
 		const result = await submitPreparedQueueSubmission(prepared)
 		if (!result.ok) {
@@ -44,6 +48,15 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 		}
 		await persistFormatPrefs(set, get)
 		get().reset()
+	} catch (error) {
+		// prepareMultiProfileQueueSubmission can throw synchronously —
+		// resolveDownloadProfileOutputDir throws for an assigned profile with no
+		// resolvable output dir (e.g. a fixed dir left blank). The confirm
+		// screen's breakdown guards the same call (downloadReviewProjection.ts's
+		// safeProfileOutputDir) so it can render a blank row instead of
+		// crashing; this call site has no such guard upstream, so left
+		// uncaught, Add to Queue silently rejected with no wizard error shown.
+		set({wizardStep: 'error', wizardError: {kind: 'other', code: 'unknown', message: errorMessage(error)}, wizardErrorOrigin: null})
 	} finally {
 		set({isSubmittingToQueue: false})
 	}

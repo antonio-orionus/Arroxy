@@ -24,8 +24,22 @@
 	"theme": {"light": "ብርሃን ሁነታ", "dark": "ጨለማ ሁነታ", "system": "የስርዓት ነባሪ"},
 	"language": {"label": "ቋንቋ"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "የቪዲዮ ዝርዝር", "playlistItemsGeneric": "ቪዲዮዎች", "playlistPresets": "ጥራት", "formats": "ቅርጸት", "subtitles": "ንዑስ ርዕሶች", "sponsorblock": "SponsorBlock", "output": "ውፅዓት", "folder": "አስቀምጥ", "confirm": "አረጋግጥ"},
+		"steps": {"url": "URL", "playlistItems": "የቪዲዮ ዝርዝር", "playlistItemsGeneric": "ቪዲዮዎች", "playlistPresets": "ጥራት", "playlistProfiles": "መገለጫዎች", "formats": "ቅርጸት", "subtitles": "ንዑስ ርዕሶች", "sponsorblock": "SponsorBlock", "output": "ውፅዓት", "folder": "አስቀምጥ", "confirm": "አረጋግጥ"},
 		"playlistPresets": {"heading": "ለቡድኑ ጥራት ይምረጡ", "subhead": "እያንዳንዱ ቪዲዮ የተመረጠውን ደረጃ ራሱን ችሎ ይፈታል — የተለያዩ playlists ያለ ችግር ይሰራሉ።", "itemCount_one": "{{count}} ንጥል", "itemCount_other": "{{count}} ንጥሎች"},
+		"playlistProfiles": {
+			"heading": "የማውረድ መገለጫዎችን መድብ",
+			"selectedSummary": "ከ{{total}} ውስጥ {{selected}} ተመርጠዋል",
+			"assignTrigger": "ለተመረጡት መድብ",
+			"assignAria": "{{profileName}}ን መድብ",
+			"editProfile": "{{name}}ን አርትዕ",
+			"filtersLabel": "የመገለጫ ማጣሪያዎች",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "መገለጫ",
+			"columnDuration": "ቆይታ",
+			"empty": "ከዚህ ማጣሪያ ጋር የሚዛመድ ንጥል የለም",
+			"hintTitle": "ለብዙ ቪዲዮዎች በአንድ ጊዜ መገለጫ መድብ",
+			"hintBody": "ለክልል Shift-ጠቅ ያድርጉ፣ አንድ ለመጨመር {{modifier}}-ጠቅ ያድርጉ፣ ወይም በረድፎች ላይ ይጎትቱ። ከዚያ ከላይ መገለጫ ይምረጡ፣ ወይም በተመረጠው ላይ በቀኝ-ጠቅ ያድርጉ።"
+		},
 		"playlist": {
 			"heading": "የ Playlist ቪዲዮዎች",
 			"headingGeneric": "የሚወርዱ ቪዲዮዎች",
@@ -68,7 +82,16 @@
 			"alreadyDownloaded": "ቀድሞ ወርዷል",
 			"probeLimitAlertTitle": "የ Playlist ቃኝት ተገድቧል",
 			"probeLimitAlertTitleGeneric": "ፍተሻው ተገድቧል",
-			"probeLimitAlertDesc": "Arroxy ከ {{count}} በላይ ንጥሎችን አግኝቷል፣ ስለዚህ የአሁኑ ቃኝት ገደብ የቀሩትን እየደበቀ ነው።"
+			"probeLimitAlertDesc": "Arroxy ከ {{count}} በላይ ንጥሎችን አግኝቷል፣ ስለዚህ የአሁኑ ቃኝት ገደብ የቀሩትን እየደበቀ ነው።",
+			"multiProfileEntry": "ለእያንዳንዱ ንጥል መገለጫ መድብ",
+			"multiProfileEntryTooltip": "ጥራት፣ SponsorBlock፣ ውፅዓት እና አስቀምጥን ይዘላል — በምትኩ ለእያንዳንዱ ንጥል የማውረድ መገለጫ ይመድቡ",
+			"removeFromListCount_one": "{{count}} ከዝርዝሩ አስወግድ",
+			"removeFromListCount_other": "{{count}} ከዝርዝሩ አስወግድ",
+			"restore": "መልስ",
+			"removedCount_one": "{{count}} ተወግደዋል",
+			"removedCount_other": "{{count}} ተወግደዋል",
+			"allRemovedTitle": "ሁሉም ንጥሎች ተወግደዋል",
+			"allRemovedDescription": "ለመቀጠል መልሳቸው።"
 		},
 		"bulk": {
 			"title": "ብዙ URLዎች",
@@ -332,6 +355,8 @@
 		"confirm": {
 			"readyHeadline": "ለመሳብ ዝግጁ!",
 			"landIn": "ፋይልዎ እዚህ ይወርዳል",
+			"landInMultiProfile_one": "ከታች ወዳለው መድረሻ ይወርዳል",
+			"landInMultiProfile_other": "{{count}} መድረሻዎች ከታች ይወርዳሉ",
 			"labelVideo": "ቪዲዮ",
 			"labelAudio": "ድምጽ",
 			"labelSubtitles": "ንዑስ ርዕሶች",
@@ -356,7 +381,10 @@
 			"itemsValueAudio_one": "{{count}} ከ {{total}} ዘፈን",
 			"itemsValueAudio_other": "{{count}} ከ {{total}} ዘፈኖች",
 			"itemsValueBulk_one": "{{count}} ከ{{total}} URL",
-			"itemsValueBulk_other": "{{count}} ከ{{total}} URLዎች"
+			"itemsValueBulk_other": "{{count}} ከ{{total}} URLዎች",
+			"profileBreakdownHeading": "በዚህ ስብስብ ውስጥ ያሉ መገለጫዎች",
+			"profileBreakdownCount_one": "{{count}} ንጥል",
+			"profileBreakdownCount_other": "{{count}} ንጥሎች"
 		},
 		"profileEditor": {
 			"dialogTitle": "የማውረድ መገለጫ",

@@ -1165,9 +1165,29 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "Tệp của bạn sẽ được lưu vào"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Sẽ được lưu vào điểm đến bên dưới"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Sẽ được lưu vào {{count}} điểm đến bên dưới"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Cài đặt chỉ phụ đề đang hoạt động nhưng chưa chọn ngôn ngữ phụ đề nào — sẽ không có gì được tải xuống."
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} mục"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} mục"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Hồ sơ trong lô này"
 
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
@@ -1549,6 +1569,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Lưu hình thu nhỏ"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Khôi phục để tiếp tục."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Tất cả mục đã bị xóa"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Đã tải xuống"
@@ -1637,6 +1665,14 @@ msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "Đang quét các trang kênh"
 
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Gán hồ sơ cho từng mục"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Bỏ qua Chất lượng, SponsorBlock, Đầu ra và Lưu — thay vào đó gán hồ sơ tải xuống cho từng mục"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Chọn ít nhất một video để tiếp tục"
@@ -1664,6 +1700,26 @@ msgstr "Từ"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Đến"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} đã xóa"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} đã xóa"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Xóa {{count}} mục khỏi danh sách"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Xóa {{count}} mục khỏi danh sách"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Khôi phục"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
@@ -1732,6 +1788,54 @@ msgstr "{{count}} mục"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà."
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "Gán {{profileName}}"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Gán cho lựa chọn"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Thời lượng"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Hồ sơ"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Sửa {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Không có mục nào khớp với bộ lọc này"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Bộ lọc hồ sơ"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Gán hồ sơ tải xuống"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Shift-nhấp để chọn một dải, {{modifier}}-nhấp để thêm từng mục, hoặc kéo qua các hàng. Sau đó chọn hồ sơ ở trên, hoặc nhấp chuột phải vào vùng đã chọn."
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "Gán hồ sơ cho nhiều video cùng lúc"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "Đã chọn {{selected}}/{{total}}"
 
 msgctxt "wizard.profileEditor.action.addLanguage"
 msgid "Add"
@@ -2172,6 +2276,10 @@ msgstr "Video"
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
 msgstr "Chất lượng"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Hồ sơ"
 
 msgctxt "wizard.steps.sponsorblock"
 msgid "SponsorBlock"

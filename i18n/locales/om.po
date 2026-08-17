@@ -1165,9 +1165,29 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "Faayilin kee bakka kanatti bu'a"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Gara bakka armaan gadiitti bu'a"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Gara bakkoota {{count}} armaan gadiitti ni bu'u"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Qophiin axxiinni qofa hojjechaa jira garuu afaan hin filamine — waan buufamu hin jiru."
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} wanta"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} wantota"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Piroofaayiloota kuma kana keessatti"
 
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
@@ -1549,6 +1569,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Thumbnail kuusi"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Itti fufuudhaaf isaan deebisi."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Wanti hundinuu balleeffameera"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Duraan buufameera"
@@ -1637,6 +1665,14 @@ msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "Fuulota chaanaalii sakattaʼaa jira"
 
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Meeshaa tokkoon tokkoon Piroofaayilii ramaduu"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Qulqullina, SponsorBlock, Ba'uu, fi Kuusi ni dabarsa — qooda kanaa meeshaa tokkoon tokkoon Piroofaayilii buufannaa ramadi"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Itti fufuuf viidiyoo tokko yoo xiqqaate filadhu"
@@ -1664,6 +1700,26 @@ msgstr "Irraa"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Gara"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} balleeffame"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} balleeffame"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "{{count}} tarreefaa keessaa balleessi"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "{{count}} tarreefaa keessaa balleessi"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Deebi'si"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
@@ -1732,6 +1788,54 @@ msgstr "{{count}} wantota"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Viidiyoon hundi sadarkaa filatame ofumaan qorata — playlist garagaraa sodaa malee hojjeta."
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "{{profileName}} ramaduu"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Filannoo ramaduu"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Turtii"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Piroofaayilii"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "{{name}} gulaali"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Calaltuu kanaan wal simu hin jiru"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Calaltuu piroofaayilii"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Piroofaayilii buufannaa ramaduu"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Daangaa tokkoof Shift-cuqaasi, tokko dabaluuf {{modifier}}-cuqaasi, ykn sarara irratti harkisi. Ergasii piroofaayilii armaan olii filadhu, ykn filannoo irratti mirga-cuqaasi."
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "Piroofaayilii yeroo tokkotti viidiyoo hedduuf ramaduu"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{total}} keessaa {{selected}} filatameera"
 
 msgctxt "wizard.profileEditor.action.addLanguage"
 msgid "Add"
@@ -2172,6 +2276,10 @@ msgstr "Viidiyoowwan"
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
 msgstr "Qulqullina"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Profaayilota"
 
 msgctxt "wizard.steps.sponsorblock"
 msgid "SponsorBlock"

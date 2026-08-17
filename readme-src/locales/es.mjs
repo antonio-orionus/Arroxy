@@ -157,6 +157,8 @@ export const es = {
     "**Plantillas de nombre de archivo** — nombra las descargas a tu manera con `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` y `{playlist_index}`, de forma global o por perfil de descarga",
   feat_workflow_10:
     "**Descargas a la vez y reintento automático** — elige cuántas descargas de la cola se ejecutan al mismo tiempo y deja que Arroxy reintente una descarga que sufrió un problema de red o del servidor, esperando más antes de cada intento",
+  feat_workflow_11:
+    "**Perfiles por elemento de playlist** — asigna a cada vídeo de una playlist su propio perfil de descarga en lugar de un único ajuste para toda la lista, para archivar algunos en calidad máxima y sacar el resto como MP3 en una sola pasada",
   feat_post_h3: "Subtítulos y posprocesamiento",
   feat_post_1:
     "**Subtítulos** en SRT, VTT o ASS — manuales o generados automáticamente, en cualquier idioma disponible",

@@ -21,6 +21,10 @@ async function waitForPlaylist(page: Page): Promise<void> {
 	await page.waitForSelector('[data-testid="step-playlist-items"]', {timeout: 6_000})
 }
 
+async function waitForPlaylistProfiles(page: Page): Promise<void> {
+	await page.waitForSelector('[data-testid="step-playlist-profiles"]', {timeout: 6_000})
+}
+
 async function expectWizardFooterFlush(page: Page): Promise<void> {
 	const readDeltas = async (): Promise<{bottom: number; left: number; right: number}> =>
 		page.evaluate(() => {
@@ -48,6 +52,8 @@ test('scenario gallery is available in browser-mock mode', async ({page}) => {
 	await page.getByTestId('scenario-gallery-toggle').click()
 	await expect(page.getByTestId('scenario-button-queue-active')).toBeVisible()
 	await expect(page.getByTestId('scenario-button-playlist-loading')).toBeVisible()
+	await expect(page.getByTestId('scenario-button-playlist-multi-profile')).toBeVisible()
+	await expect(page.getByTestId('scenario-button-playlist-multi-profile-scale')).toBeVisible()
 })
 
 test('backdrop-only gallery action preserves environment knobs', async ({page}) => {
@@ -233,6 +239,29 @@ test('playlist loading scaffold scenario is available for visual review', async 
 	await expect(page.getByRole('button', {name: 'Apply range'})).toBeDisabled()
 	await expect(page.getByTestId('playlist-probe-loading-list')).toBeVisible()
 	await expect(page.getByTestId('playlist-probe-skeleton-row')).toHaveCount(10)
+})
+
+test('playlist multi-profile scenario lands directly on the profiles step with mixed assignments', async ({page}) => {
+	await openScenario(page, 'playlist-multi-profile')
+	await waitForPlaylistProfiles(page)
+
+	await expect(page.getByTestId('scenario-gallery-toggle')).toContainText('Playlist multi-profile')
+	await expect(page.getByTestId('playlist-profile-summary')).toContainText('17')
+	await expect(page.getByTestId('filter-profile-all')).toBeVisible()
+	await expect(page.getByTestId('filter-profile-balanced')).toBeVisible()
+	await expect(page.getByTestId('filter-profile-audio-only')).toBeVisible()
+	await expect(page.getByTestId('filter-profile-hd-1080')).toBeVisible()
+	await expect(page.getByTestId('profile-cell-mock2')).toContainText('Audio only')
+	await expect(page.getByTestId('profile-cell-mock1')).toContainText('Balanced')
+})
+
+test('playlist multi-profile scale scenario renders 500 items for scroll and virtualization review', async ({page}) => {
+	await openScenario(page, 'playlist-multi-profile-scale')
+	await waitForPlaylistProfiles(page)
+
+	await expect(page.getByTestId('playlist-profile-summary')).toContainText('500')
+	await expect(page.getByTestId('filter-profile-audio-only')).toBeVisible()
+	await expect(page.getByTestId('filter-profile-hd-1080')).toBeVisible()
 })
 
 test('wizard footer stays flush to the scrollport across wizard screens', async ({page}) => {

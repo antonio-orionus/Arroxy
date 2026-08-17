@@ -52,7 +52,8 @@ export type {
 	RuntimeBinaryChannel,
 	RuntimeBinaryProvider,
 	RuntimeBinaryManifestEntry,
-	RuntimeBinaryIndex
+	RuntimeBinaryIndex,
+	WizardStepName
 } from './schemas.js'
 
 export type {StatusKey} from './schemas.js'
@@ -82,7 +83,8 @@ import type {
 	DownloadProfilesPrefs,
 	ProbeOtherErrorCode,
 	RuntimeBinaryChannel,
-	RuntimeBinaryProvider
+	RuntimeBinaryProvider,
+	WizardStepName
 } from './schemas.js'
 
 export type AppErrorCode = 'validation' | 'token' | 'binary' | 'download' | 'ipc' | 'unknown'
@@ -153,6 +155,7 @@ export interface CommonSettings {
 	successfulDownloadCount?: number
 	shareInlineCardDismissed?: boolean
 	shareHighValueBannerDismissed?: boolean
+	multiProfileHintDismissed?: boolean
 }
 
 export interface BinaryOverrides {
@@ -557,8 +560,6 @@ export interface UpdateAvailablePayload {
 }
 
 export type UpdateInstallResult = {ok: true} | {ok: false; error: string}
-
-export type WizardStepName = 'url' | 'playlistItems' | 'playlistPresets' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error'
 
 export type WizardTransition = 'submitUrl' | 'advance' | 'back' | 'skipSubtitles' | 'skipToConfirm' | 'retry' | 'reset' | 'playlistScopeReloadStart' | 'playlistScopeReloadSuccess' | 'playlistScopeReloadFailure' | 'playlistScopeReloadIgnored'
 

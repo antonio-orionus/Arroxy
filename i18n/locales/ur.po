@@ -1165,9 +1165,29 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "آپ کی فائل یہاں پہنچے گی"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "یہ نیچے دی گئی منزل میں پہنچے گی"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "یہ نیچے دی گئی {{count}} منزلوں میں پہنچیں گی"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "صرف سب ٹائٹلز پری سیٹ ایکٹیو ہے لیکن کوئی سب ٹائٹل زبان منتخب نہیں — کچھ ڈاؤن لوڈ نہیں ہو گا۔"
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} آئٹم"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} آئٹمز"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "اس بیچ میں پروفائلز"
 
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
@@ -1549,6 +1569,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "تھمب نیل محفوظ کریں"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "جاری رکھنے کے لیے انہیں بحال کریں۔"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "تمام آئٹمز ہٹا دیے گئے"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "پہلے سے ڈاؤن لوڈ شدہ"
@@ -1637,6 +1665,14 @@ msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "چینل صفحات اسکین ہو رہے ہیں"
 
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "فی آئٹم پروفائلز تفویض کریں"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "معیار, SponsorBlock, آؤٹ پٹ اور محفوظ کرنے کو نظرانداز کرتا ہے — اس کے بجائے فی آئٹم ڈاؤن لوڈ پروفائل تفویض کریں"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "جاری رکھنے کے لیے کم از کم ایک ویڈیو منتخب کریں"
@@ -1664,6 +1700,26 @@ msgstr "سے"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "تک"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} ہٹا دیے گئے"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} ہٹا دیے گئے"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "فہرست سے {{count}} ہٹائیں"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "فہرست سے {{count}} ہٹائیں"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "بحال کریں"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
@@ -1732,6 +1788,54 @@ msgstr "{{count}} آئٹمز"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "ہر ویڈیو منتخب درجے کو آزادانہ طور پر حل کرتی ہے — مختلف قسم کی playlists بغیر کسی پریشانی کے کام کرتی ہیں۔"
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "{{profileName}} تفویض کریں"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "انتخاب کو تفویض کریں"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "دورانیہ"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "پروفائل"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "{{name}} میں ترمیم کریں"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "کوئی آئٹم اس فلٹر سے مماثل نہیں"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "پروفائل فلٹرز"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "ڈاؤن لوڈ پروفائلز تفویض کریں"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "حد کے لیے Shift کے ساتھ کلک کریں، ایک شامل کرنے کے لیے {{modifier}} کے ساتھ کلک کریں، یا قطاروں پر گھسیٹیں۔ پھر اوپر سے ایک پروفائل منتخب کریں، یا انتخاب پر دائیں کلک کریں۔"
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "بیک وقت متعدد ویڈیوز کو پروفائل تفویض کریں"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{total}} میں سے {{selected}} منتخب"
 
 msgctxt "wizard.profileEditor.action.addLanguage"
 msgid "Add"
@@ -2172,6 +2276,10 @@ msgstr "ویڈیوز"
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
 msgstr "معیار"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "پروفائلز"
 
 msgctxt "wizard.steps.sponsorblock"
 msgid "SponsorBlock"

@@ -33,8 +33,22 @@
 	"theme": {"light": "Chế độ sáng", "dark": "Chế độ tối", "system": "Mặc định hệ thống"},
 	"language": {"label": "Ngôn ngữ"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Danh sách phát", "playlistItemsGeneric": "Video", "playlistPresets": "Chất lượng", "formats": "Định dạng", "subtitles": "Phụ đề", "sponsorblock": "SponsorBlock", "output": "Đầu ra", "folder": "Lưu", "confirm": "Xác nhận"},
+		"steps": {"url": "URL", "playlistItems": "Danh sách phát", "playlistItemsGeneric": "Video", "playlistPresets": "Chất lượng", "playlistProfiles": "Hồ sơ", "formats": "Định dạng", "subtitles": "Phụ đề", "sponsorblock": "SponsorBlock", "output": "Đầu ra", "folder": "Lưu", "confirm": "Xác nhận"},
 		"playlistPresets": {"heading": "Chọn chất lượng cho lô", "subhead": "Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà.", "itemCount_one": "{{count}} mục", "itemCount_other": "{{count}} mục"},
+		"playlistProfiles": {
+			"heading": "Gán hồ sơ tải xuống",
+			"selectedSummary": "Đã chọn {{selected}}/{{total}}",
+			"assignTrigger": "Gán cho lựa chọn",
+			"assignAria": "Gán {{profileName}}",
+			"editProfile": "Sửa {{name}}",
+			"filtersLabel": "Bộ lọc hồ sơ",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Hồ sơ",
+			"columnDuration": "Thời lượng",
+			"empty": "Không có mục nào khớp với bộ lọc này",
+			"hintTitle": "Gán hồ sơ cho nhiều video cùng lúc",
+			"hintBody": "Shift-nhấp để chọn một dải, {{modifier}}-nhấp để thêm từng mục, hoặc kéo qua các hàng. Sau đó chọn hồ sơ ở trên, hoặc nhấp chuột phải vào vùng đã chọn."
+		},
 		"playlist": {
 			"heading": "Các mục Playlist",
 			"headingGeneric": "Video để tải xuống",
@@ -77,7 +91,16 @@
 			"alreadyDownloaded": "Đã tải xuống",
 			"probeLimitAlertTitle": "Quét playlist đã bị giới hạn",
 			"probeLimitAlertTitleGeneric": "Quét đã bị giới hạn",
-			"probeLimitAlertDesc": "Arroxy tìm thấy nhiều hơn {{count}} mục, vì vậy giới hạn quét hiện tại đang ẩn phần còn lại."
+			"probeLimitAlertDesc": "Arroxy tìm thấy nhiều hơn {{count}} mục, vì vậy giới hạn quét hiện tại đang ẩn phần còn lại.",
+			"multiProfileEntry": "Gán hồ sơ cho từng mục",
+			"multiProfileEntryTooltip": "Bỏ qua Chất lượng, SponsorBlock, Đầu ra và Lưu — thay vào đó gán hồ sơ tải xuống cho từng mục",
+			"removeFromListCount_one": "Xóa {{count}} mục khỏi danh sách",
+			"removeFromListCount_other": "Xóa {{count}} mục khỏi danh sách",
+			"restore": "Khôi phục",
+			"removedCount_one": "{{count}} đã xóa",
+			"removedCount_other": "{{count}} đã xóa",
+			"allRemovedTitle": "Tất cả mục đã bị xóa",
+			"allRemovedDescription": "Khôi phục để tiếp tục."
 		},
 		"bulk": {
 			"title": "URL hàng loạt",
@@ -365,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Sẵn sàng tải về!",
 			"landIn": "Tệp của bạn sẽ được lưu vào",
+			"landInMultiProfile_one": "Sẽ được lưu vào điểm đến bên dưới",
+			"landInMultiProfile_other": "Sẽ được lưu vào {{count}} điểm đến bên dưới",
 			"labelVideo": "Video",
 			"labelAudio": "Âm thanh",
 			"labelSubtitles": "Phụ đề",
@@ -389,7 +414,10 @@
 			"itemsValueAudio_one": "{{count}} trong {{total}} bản nhạc",
 			"itemsValueAudio_other": "{{count}} trong {{total}} bản nhạc",
 			"itemsValueBulk_one": "{{count}} trên {{total}} URL",
-			"itemsValueBulk_other": "{{count}} trên {{total}} URL"
+			"itemsValueBulk_other": "{{count}} trên {{total}} URL",
+			"profileBreakdownHeading": "Hồ sơ trong lô này",
+			"profileBreakdownCount_one": "{{count}} mục",
+			"profileBreakdownCount_other": "{{count}} mục"
 		},
 		"profileEditor": {
 			"dialogTitle": "Hồ sơ tải xuống",

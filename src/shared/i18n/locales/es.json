@@ -33,8 +33,22 @@
 	"theme": {"light": "Modo claro", "dark": "Modo oscuro", "system": "Predeterminado del sistema"},
 	"language": {"label": "Idioma"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Lista", "playlistItemsGeneric": "Vídeos", "playlistPresets": "Calidad", "formats": "Formato", "subtitles": "Subtítulos", "sponsorblock": "SponsorBlock", "output": "Salida", "folder": "Guardar", "confirm": "Confirmar"},
+		"steps": {"url": "URL", "playlistItems": "Lista", "playlistItemsGeneric": "Vídeos", "playlistPresets": "Calidad", "playlistProfiles": "Perfiles", "formats": "Formato", "subtitles": "Subtítulos", "sponsorblock": "SponsorBlock", "output": "Salida", "folder": "Guardar", "confirm": "Confirmar"},
 		"playlistPresets": {"heading": "Elige la calidad para el lote", "subhead": "Cada vídeo resuelve el nivel elegido de forma independiente — las playlists heterogéneas funcionan sin sorpresas.", "itemCount_one": "{{count}} elemento", "itemCount_other": "{{count}} elementos"},
+		"playlistProfiles": {
+			"heading": "Asignar perfiles de descarga",
+			"selectedSummary": "{{selected}} de {{total}} seleccionados",
+			"assignTrigger": "Asignar a la selección",
+			"assignAria": "Asignar {{profileName}}",
+			"editProfile": "Editar {{name}}",
+			"filtersLabel": "Filtros de perfil",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Perfil",
+			"columnDuration": "Duración",
+			"empty": "Ningún elemento coincide con este filtro",
+			"hintTitle": "Asignar perfiles a varios vídeos a la vez",
+			"hintBody": "Shift-clic para un rango, {{modifier}}-clic para añadir uno, o arrastra sobre las filas. Luego elige un perfil arriba, o haz clic derecho en la selección."
+		},
 		"playlist": {
 			"heading": "Elementos de la Playlist",
 			"headingGeneric": "Vídeos para descargar",
@@ -77,7 +91,16 @@
 			"alreadyDownloaded": "Ya descargado",
 			"probeLimitAlertTitle": "El escaneo de la playlist está limitado",
 			"probeLimitAlertTitleGeneric": "El escaneo está limitado",
-			"probeLimitAlertDesc": "Arroxy encontró más de {{count}} elementos, por lo que el límite de escaneo actual está ocultando el resto."
+			"probeLimitAlertDesc": "Arroxy encontró más de {{count}} elementos, por lo que el límite de escaneo actual está ocultando el resto.",
+			"multiProfileEntry": "Asignar perfiles por elemento",
+			"multiProfileEntryTooltip": "Omite Calidad, SponsorBlock, Salida y Guardar — asigna en su lugar un perfil de descarga por elemento",
+			"removeFromListCount_one": "Quitar {{count}} de la lista",
+			"removeFromListCount_other": "Quitar {{count}} de la lista",
+			"restore": "Restaurar",
+			"removedCount_one": "{{count}} quitados",
+			"removedCount_other": "{{count}} quitados",
+			"allRemovedTitle": "Se quitaron todos los elementos",
+			"allRemovedDescription": "Restáuralos para continuar."
 		},
 		"bulk": {
 			"title": "URLs en lote",
@@ -365,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "¡Listo para descargar!",
 			"landIn": "Tu archivo se guardará en",
+			"landInMultiProfile_one": "Se guardará en el destino de abajo",
+			"landInMultiProfile_other": "Se guardarán en los {{count}} destinos de abajo",
 			"labelVideo": "Vídeo",
 			"labelAudio": "Audio",
 			"labelSubtitles": "Subtítulos",
@@ -389,7 +414,10 @@
 			"itemsValueAudio_one": "{{count}} de {{total}} pista",
 			"itemsValueAudio_other": "{{count}} de {{total}} pistas",
 			"itemsValueBulk_one": "{{count}} de {{total}} URL",
-			"itemsValueBulk_other": "{{count}} de {{total}} URLs"
+			"itemsValueBulk_other": "{{count}} de {{total}} URLs",
+			"profileBreakdownHeading": "Perfiles en este lote",
+			"profileBreakdownCount_one": "{{count}} elemento",
+			"profileBreakdownCount_other": "{{count}} elementos"
 		},
 		"profileEditor": {
 			"dialogTitle": "Perfil de descarga",

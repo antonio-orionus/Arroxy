@@ -41,8 +41,22 @@
 	"theme": {"light": "Светла тема", "dark": "Тамна тема", "system": "Подразумевана системска"},
 	"language": {"label": "Језик"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Плејлиста", "playlistItemsGeneric": "Видео", "playlistPresets": "Квалитет", "formats": "Формат", "subtitles": "Титлови", "sponsorblock": "SponsorBlock", "output": "Излаз", "folder": "Сачувај", "confirm": "Потврди"},
+		"steps": {"url": "URL", "playlistItems": "Плејлиста", "playlistItemsGeneric": "Видео", "playlistPresets": "Квалитет", "playlistProfiles": "Профили", "formats": "Формат", "subtitles": "Титлови", "sponsorblock": "SponsorBlock", "output": "Излаз", "folder": "Сачувај", "confirm": "Потврди"},
 		"playlistPresets": {"heading": "Изабери квалитет за групно преузимање", "subhead": "Свaki видео самостално проналази одговарајући ниво квалитета — хетерогене плејлисте раде без изненађења.", "itemCount_one": "{{count}} ставка", "itemCount_other": "{{count}} ставки"},
+		"playlistProfiles": {
+			"heading": "Додели профиле преузимања",
+			"selectedSummary": "Изабрано {{selected}} од {{total}}",
+			"assignTrigger": "Додели избору",
+			"assignAria": "Додели {{profileName}}",
+			"editProfile": "Измени {{name}}",
+			"filtersLabel": "Филтери профила",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Профил",
+			"columnDuration": "Трајање",
+			"empty": "Ниједна ставка не одговара овом филтеру",
+			"hintTitle": "Додели профиле за неколико видео снимака одједном",
+			"hintBody": "Shift-клик за опсег, {{modifier}}-клик да додате један, или превуците преко редова. Затим изаберите профил изнад, или кликните десним тастером миша на избор."
+		},
 		"playlist": {
 			"heading": "Ставке плејлисте",
 			"headingGeneric": "Видео снимци за преузимање",
@@ -85,7 +99,16 @@
 			"alreadyDownloaded": "Већ преузето",
 			"probeLimitAlertTitle": "Скенирање плејлисте је ограничено",
 			"probeLimitAlertTitleGeneric": "Скенирање је ограничено",
-			"probeLimitAlertDesc": "Arroxy је пронашао више од {{count}} ставки, па тренутно ограничење скенирања скрива остатак."
+			"probeLimitAlertDesc": "Arroxy је пронашао више од {{count}} ставки, па тренутно ограничење скенирања скрива остатак.",
+			"multiProfileEntry": "Додели профиле по ставци",
+			"multiProfileEntryTooltip": "Прескаче Квалитет, SponsorBlock, Излаз и Сачувај — уместо тога додељује профил преузимања по ставци",
+			"removeFromListCount_one": "Уклони {{count}} са листе",
+			"removeFromListCount_other": "Уклони {{count}} са листе",
+			"restore": "Врати",
+			"removedCount_one": "{{count}} уклоњено",
+			"removedCount_other": "{{count}} уклоњено",
+			"allRemovedTitle": "Све ставке су уклоњене",
+			"allRemovedDescription": "Врати их да наставиш."
 		},
 		"bulk": {
 			"title": "Групни URL-ови",
@@ -373,6 +396,8 @@
 		"confirm": {
 			"readyHeadline": "Спремно за преузимање!",
 			"landIn": "Твоја датотека ће бити сачувана у",
+			"landInMultiProfile_one": "Стићи ће на одредиште испод",
+			"landInMultiProfile_other": "Стићи ће на {{count}} одредишта испод",
 			"labelVideo": "Видео",
 			"labelAudio": "Звук",
 			"labelSubtitles": "Титлови",
@@ -397,7 +422,10 @@
 			"itemsValueAudio_one": "{{count}} од {{total}} нумере",
 			"itemsValueAudio_other": "{{count}} од {{total}} нумера",
 			"itemsValueBulk_one": "{{count}} од {{total}} URL-а",
-			"itemsValueBulk_other": "{{count}} од {{total}} URL-ова"
+			"itemsValueBulk_other": "{{count}} од {{total}} URL-ова",
+			"profileBreakdownHeading": "Профили у овој серији",
+			"profileBreakdownCount_one": "{{count}} ставка",
+			"profileBreakdownCount_other": "{{count}} ставке"
 		},
 		"profileEditor": {
 			"dialogTitle": "Профил преузимања",

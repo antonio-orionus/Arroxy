@@ -1165,9 +1165,29 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "File Anda akan masuk"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Akan masuk ke tujuan di bawah"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Akan masuk ke {{count}} tujuan di bawah"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Prasetel khusus subtitle aktif tetapi tidak ada bahasa subtitle yang dipilih — tidak ada yang akan diunduh."
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "item {{count}}"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "item {{count}}"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Profil dalam batch ini"
 
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
@@ -1549,6 +1569,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Simpan gambar kecil"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Pulihkan untuk melanjutkan."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Semua item telah dihapus"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Sudah diunduh"
@@ -1637,6 +1665,14 @@ msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "Memindai halaman saluran"
 
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Tetapkan profil per item"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Melewati Kualitas, SponsorBlock, Keluaran, dan Simpan — tetapkan profil unduhan per item sebagai gantinya"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Pilih setidaknya satu video untuk melanjutkan"
@@ -1664,6 +1700,26 @@ msgstr "Dari"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Ke"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} dihapus"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} dihapus"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Hapus {{count}} dari daftar"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Hapus {{count}} dari daftar"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Pulihkan"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
@@ -1723,7 +1779,7 @@ msgstr "Pilih kualitas untuk batch tersebut"
 
 msgctxt "wizard.playlistPresets.itemCount_one"
 msgid "{{count}} item"
-msgstr "barang {{count}}"
+msgstr "item {{count}}"
 
 msgctxt "wizard.playlistPresets.itemCount_other"
 msgid "{{count}} items"
@@ -1732,6 +1788,54 @@ msgstr "item {{count}}"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan."
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "Tetapkan {{profileName}}"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Tetapkan ke pilihan"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Durasi"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Edit {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Tidak ada item yang cocok dengan filter ini"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Filter profil"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Tetapkan profil unduhan"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Shift-klik untuk rentang, {{modifier}}-klik untuk menambah satu, atau seret pada baris. Lalu pilih profil di atas, atau klik kanan pada seleksi."
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "Tetapkan profil ke beberapa video sekaligus"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{selected}} dari {{total}} dipilih"
 
 msgctxt "wizard.profileEditor.action.addLanguage"
 msgid "Add"
@@ -2172,6 +2276,10 @@ msgstr "Video"
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
 msgstr "Kualitas"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Profil"
 
 msgctxt "wizard.steps.sponsorblock"
 msgid "SponsorBlock"

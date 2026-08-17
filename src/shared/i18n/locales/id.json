@@ -33,8 +33,22 @@
 	"theme": {"light": "Modus ringan", "dark": "Mode gelap", "system": "Bawaan sistem"},
 	"language": {"label": "Bahasa"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Daftar putar", "playlistItemsGeneric": "Video", "playlistPresets": "Kualitas", "formats": "Format", "subtitles": "Subtitle", "sponsorblock": "SponsorBlock", "output": "Keluaran", "folder": "Menyimpan", "confirm": "Mengonfirmasi"},
-		"playlistPresets": {"heading": "Pilih kualitas untuk batch tersebut", "subhead": "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan.", "itemCount_one": "barang {{count}}", "itemCount_other": "item {{count}}"},
+		"steps": {"url": "URL", "playlistItems": "Daftar putar", "playlistItemsGeneric": "Video", "playlistPresets": "Kualitas", "playlistProfiles": "Profil", "formats": "Format", "subtitles": "Subtitle", "sponsorblock": "SponsorBlock", "output": "Keluaran", "folder": "Menyimpan", "confirm": "Mengonfirmasi"},
+		"playlistPresets": {"heading": "Pilih kualitas untuk batch tersebut", "subhead": "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan.", "itemCount_one": "item {{count}}", "itemCount_other": "item {{count}}"},
+		"playlistProfiles": {
+			"heading": "Tetapkan profil unduhan",
+			"selectedSummary": "{{selected}} dari {{total}} dipilih",
+			"assignTrigger": "Tetapkan ke pilihan",
+			"assignAria": "Tetapkan {{profileName}}",
+			"editProfile": "Edit {{name}}",
+			"filtersLabel": "Filter profil",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Profil",
+			"columnDuration": "Durasi",
+			"empty": "Tidak ada item yang cocok dengan filter ini",
+			"hintTitle": "Tetapkan profil ke beberapa video sekaligus",
+			"hintBody": "Shift-klik untuk rentang, {{modifier}}-klik untuk menambah satu, atau seret pada baris. Lalu pilih profil di atas, atau klik kanan pada seleksi."
+		},
 		"playlist": {
 			"heading": "Item daftar putar",
 			"headingGeneric": "Video untuk diunduh",
@@ -77,7 +91,16 @@
 			"alreadyDownloaded": "Sudah diunduh",
 			"probeLimitAlertTitle": "Pemindaian daftar putar dibatasi",
 			"probeLimitAlertTitleGeneric": "Pemindaian dibatasi",
-			"probeLimitAlertDesc": "Menampilkan item {{count}} pertama. Tingkatkan batas muatan untuk melihat lebih banyak."
+			"probeLimitAlertDesc": "Menampilkan item {{count}} pertama. Tingkatkan batas muatan untuk melihat lebih banyak.",
+			"multiProfileEntry": "Tetapkan profil per item",
+			"multiProfileEntryTooltip": "Melewati Kualitas, SponsorBlock, Keluaran, dan Simpan — tetapkan profil unduhan per item sebagai gantinya",
+			"removeFromListCount_one": "Hapus {{count}} dari daftar",
+			"removeFromListCount_other": "Hapus {{count}} dari daftar",
+			"restore": "Pulihkan",
+			"removedCount_one": "{{count}} dihapus",
+			"removedCount_other": "{{count}} dihapus",
+			"allRemovedTitle": "Semua item telah dihapus",
+			"allRemovedDescription": "Pulihkan untuk melanjutkan."
 		},
 		"bulk": {
 			"title": "URL massal",
@@ -365,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Siap untuk menariknya!",
 			"landIn": "File Anda akan masuk",
+			"landInMultiProfile_one": "Akan masuk ke tujuan di bawah",
+			"landInMultiProfile_other": "Akan masuk ke {{count}} tujuan di bawah",
 			"labelVideo": "Video",
 			"labelAudio": "Audio",
 			"labelSubtitles": "Subtitle",
@@ -389,7 +414,10 @@
 			"itemsValueAudio_one": "{{count}} dari trek {{total}}",
 			"itemsValueAudio_other": "{{count}} dari trek {{total}}",
 			"itemsValueBulk_one": "{{count}} dari URL {{total}}",
-			"itemsValueBulk_other": "{{count}} dari URL {{total}}"
+			"itemsValueBulk_other": "{{count}} dari URL {{total}}",
+			"profileBreakdownHeading": "Profil dalam batch ini",
+			"profileBreakdownCount_one": "item {{count}}",
+			"profileBreakdownCount_other": "item {{count}}"
 		},
 		"profileEditor": {
 			"dialogTitle": "Profil unduhan",

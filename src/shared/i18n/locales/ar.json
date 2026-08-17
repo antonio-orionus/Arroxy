@@ -33,8 +33,22 @@
 	"theme": {"light": "الوضع الفاتح", "dark": "الوضع الداكن", "system": "إعداد النظام الافتراضي"},
 	"language": {"label": "اللغة"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "قائمة التشغيل", "playlistItemsGeneric": "فيديوهات", "playlistPresets": "الجودة", "formats": "الصيغة", "subtitles": "الترجمات", "sponsorblock": "SponsorBlock", "output": "الإخراج", "folder": "حفظ", "confirm": "تأكيد"},
+		"steps": {"url": "URL", "playlistItems": "قائمة التشغيل", "playlistItemsGeneric": "فيديوهات", "playlistPresets": "الجودة", "playlistProfiles": "الملفات الشخصية", "formats": "الصيغة", "subtitles": "الترجمات", "sponsorblock": "SponsorBlock", "output": "الإخراج", "folder": "حفظ", "confirm": "تأكيد"},
 		"playlistPresets": {"heading": "اختر الجودة للدفعة", "subhead": "يحل كل فيديو المستوى المختار بشكل مستقل — قوائم التشغيل غير المتجانسة تعمل بدون مفاجآت.", "itemCount_one": "{{count}} عنصر", "itemCount_other": "{{count}} عناصر"},
+		"playlistProfiles": {
+			"heading": "تعيين ملفات تنزيل",
+			"selectedSummary": "تم تحديد {{selected}} من {{total}}",
+			"assignTrigger": "تعيين إلى التحديد",
+			"assignAria": "تعيين {{profileName}}",
+			"editProfile": "تعديل {{name}}",
+			"filtersLabel": "عوامل تصفية الملف الشخصي",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "الملف الشخصي",
+			"columnDuration": "المدة",
+			"empty": "لا توجد عناصر تطابق هذا الفلتر",
+			"hintTitle": "عيِّن ملفات تنزيل لعدة مقاطع فيديو دفعة واحدة",
+			"hintBody": "انقر مع Shift لتحديد نطاق، أو انقر مع {{modifier}} لإضافة عنصر واحد، أو اسحب عبر الصفوف. ثم اختر ملفًا من الأعلى، أو انقر بزر الماوس الأيمن على التحديد."
+		},
 		"playlist": {
 			"heading": "عناصر القائمة",
 			"headingGeneric": "الفيديوهات المراد تنزيلها",
@@ -77,7 +91,16 @@
 			"alreadyDownloaded": "تم تنزيله بالفعل",
 			"probeLimitAlertTitle": "فحص قائمة التشغيل محدود",
 			"probeLimitAlertTitleGeneric": "الفحص محدود",
-			"probeLimitAlertDesc": "عثر Arroxy على أكثر من {{count}} عنصر، لذا يُخفي حد الفحص الحالي بقية العناصر."
+			"probeLimitAlertDesc": "عثر Arroxy على أكثر من {{count}} عنصر، لذا يُخفي حد الفحص الحالي بقية العناصر.",
+			"multiProfileEntry": "تعيين ملفات تنزيل لكل عنصر",
+			"multiProfileEntryTooltip": "يتخطى الجودة وSponsorBlock والإخراج والحفظ — ويُعيّن بدلاً من ذلك ملف تنزيل لكل عنصر",
+			"removeFromListCount_one": "إزالة {{count}} من القائمة",
+			"removeFromListCount_other": "إزالة {{count}} من القائمة",
+			"restore": "استعادة",
+			"removedCount_one": "تمت إزالة {{count}}",
+			"removedCount_other": "تمت إزالة {{count}}",
+			"allRemovedTitle": "تمت إزالة جميع العناصر",
+			"allRemovedDescription": "استعدها للمتابعة."
 		},
 		"bulk": {
 			"title": "روابط متعددة",
@@ -365,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "جاهز للتنزيل!",
 			"landIn": "سيُحفظ ملفك في",
+			"landInMultiProfile_one": "سيُحفظ في الوجهة أدناه",
+			"landInMultiProfile_other": "سيُحفظ في {{count}} وجهات أدناه",
 			"labelVideo": "فيديو",
 			"labelAudio": "صوت",
 			"labelSubtitles": "الترجمات",
@@ -389,7 +414,10 @@
 			"itemsValueAudio_one": "{{count}} من {{total}} مقطع صوتي",
 			"itemsValueAudio_other": "{{count}} من {{total}} مقاطع صوتية",
 			"itemsValueBulk_one": "{{count}} من {{total}} رابط",
-			"itemsValueBulk_other": "{{count}} من {{total}} روابط"
+			"itemsValueBulk_other": "{{count}} من {{total}} روابط",
+			"profileBreakdownHeading": "ملفات التنزيل في هذه الدفعة",
+			"profileBreakdownCount_one": "{{count}} عنصر",
+			"profileBreakdownCount_other": "{{count}} عناصر"
 		},
 		"profileEditor": {
 			"dialogTitle": "ملف التنزيل",

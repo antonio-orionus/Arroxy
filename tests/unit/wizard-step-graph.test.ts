@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vitest'
 import {buildWizardStepGraph, nextWizardStep, visibleWizardSteps, type WizardStepGraphInput} from '@renderer/store/wizard/wizardStepGraph.js'
 
 function state(overrides: Partial<WizardStepGraphInput> = {}): WizardStepGraphInput {
-	return {wizardStep: 'url', activePreset: null, wizardMode: 'single', playlistSelection: null, wizardExtractor: 'youtube', wizardSubtitles: {en: [{ext: 'vtt'}]}, wizardAutomaticCaptions: {}, wizardSubtitleSkipped: false, ...overrides}
+	return {wizardStep: 'url', activePreset: null, wizardMode: 'single', playlistSelection: null, wizardExtractor: 'youtube', wizardSubtitles: {en: [{ext: 'vtt'}]}, wizardAutomaticCaptions: {}, wizardSubtitleSkipped: false, multiProfileMode: false, ...overrides}
 }
 
 describe('WizardStepGraph', () => {
@@ -54,5 +54,34 @@ describe('WizardStepGraph', () => {
 
 		expect(visibleWizardSteps(graph)).toEqual(['url', 'formats', 'subtitles', 'output', 'folder', 'confirm'])
 		expect(nextWizardStep(graph, 'backward')).toBe('output')
+	})
+
+	it('routes multi-profile playlists straight from items to confirm', () => {
+		const graph = buildWizardStepGraph(state({wizardMode: 'playlist', multiProfileMode: true, wizardStep: 'playlistProfiles'}))
+
+		expect(visibleWizardSteps(graph)).toEqual(['url', 'playlistItems', 'playlistProfiles', 'confirm'])
+		expect(nextWizardStep(graph, 'forward')).toBe('confirm')
+		expect(nextWizardStep(graph, 'backward')).toBe('playlistItems')
+	})
+
+	it('routes multi-profile bulk URLs the same way as multi-profile playlists', () => {
+		const graph = buildWizardStepGraph(state({wizardMode: 'bulk', multiProfileMode: true, wizardStep: 'playlistProfiles'}))
+
+		expect(visibleWizardSteps(graph)).toEqual(['url', 'playlistItems', 'playlistProfiles', 'confirm'])
+		expect(nextWizardStep(graph, 'forward')).toBe('confirm')
+		expect(nextWizardStep(graph, 'backward')).toBe('playlistItems')
+	})
+
+	it('hides the profiles step unless multi-profile mode is on', () => {
+		const graph = buildWizardStepGraph(state({wizardMode: 'playlist', playlistSelection: {kind: 'video', tier: '1080', codec: 'best'}, wizardStep: 'playlistItems'}))
+
+		expect(visibleWizardSteps(graph)).not.toContain('playlistProfiles')
+	})
+
+	it('keeps multi-profile mode out of the single-video path', () => {
+		const graph = buildWizardStepGraph(state({wizardMode: 'single', multiProfileMode: true, wizardStep: 'url'}))
+
+		expect(visibleWizardSteps(graph)).not.toContain('playlistProfiles')
+		expect(nextWizardStep(graph, 'forward')).toBe('formats')
 	})
 })

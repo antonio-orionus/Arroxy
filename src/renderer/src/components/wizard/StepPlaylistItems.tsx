@@ -1,19 +1,24 @@
-import {useMemo, useRef, useState, type ReactNode} from 'react'
+import {useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useVirtualizer} from '@tanstack/react-virtual'
-import {FolderCheck, FolderSearch, Info, X} from 'lucide-react'
+import {FolderCheck, FolderSearch, Info, Layers, Trash2, X} from 'lucide-react'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Checkbox} from '../ui/checkbox.js'
 import {Input} from '../ui/input.js'
 import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
+import {ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger} from '../ui/context-menu.js'
+import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
+import {Tooltip, TooltipTrigger, TooltipContent} from '../ui/tooltip.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
+import {allDownloadProfiles} from '@shared/downloadProfiles.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {resolvePlaylistDir} from '../../store/wizard/playlistDir.js'
-import {formatDuration} from '@renderer/lib/formatDuration.js'
+import {formatEntryDuration} from '@renderer/lib/formatDuration.js'
 import {notify} from '@renderer/lib/notify.js'
+import {hasOpenOverlay, isTypingTarget} from '../shared/isTypingTarget.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 import {PlaylistScopeControl} from './PlaylistScopeControl.js'
 import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
@@ -30,14 +35,6 @@ const PLAYLIST_PROBE_SKELETON_ROWS = [
 	{id: 'ninth', width: 'w-10/12', metaWide: false},
 	{id: 'tenth', width: 'w-6/12', metaWide: false}
 ] as const
-
-// undefined = no duration metadata (common for nested-playlist entries from
-// music search, channel root, etc.) — render an em-dash instead of falsely
-// labeling them "live".
-function formatEntryDuration(seconds: number | undefined, liveLabel: string): string {
-	if (seconds === undefined) return '—'
-	return formatDuration(seconds, liveLabel)
-}
 
 function PlaylistProbeSkeletonRows({showThumbnail}: {showThumbnail: boolean}): ReactNode {
 	return (
@@ -92,6 +89,7 @@ export function StepPlaylistItems(): ReactNode {
 	const {
 		playlistItems,
 		selectedPlaylistItemIds,
+		removedPlaylistItemIds,
 		playlistTitle,
 		playlistProbeLoading,
 		playlistProbeProgress,
@@ -109,6 +107,9 @@ export function StepPlaylistItems(): ReactNode {
 		selectNonePlaylistItems,
 		selectPlaylistRange,
 		confirmPlaylistSelection,
+		enterMultiProfileMode,
+		removePlaylistItems,
+		restoreRemovedPlaylistItems,
 		back,
 		wizardExtractor,
 		wizardUrl,
@@ -153,9 +154,53 @@ export function StepPlaylistItems(): ReactNode {
 		})()
 	}
 
+	// Removed rows (Task 11) drop out of the rendered list entirely — unlike an
+	// unchecked row, which stays visible but excluded from the download.
+	const removedSet = useMemo(() => new Set(removedPlaylistItemIds), [removedPlaylistItemIds])
+	const visibleItems = useMemo(() => playlistItems.filter(entry => !removedSet.has(entry.id)), [playlistItems, removedSet])
+	const allRemoved = removedPlaylistItemIds.length > 0 && visibleItems.length === 0
+	// Hoisted once per render instead of `.includes` inside the per-row render
+	// loop / removalTargets — at the design's 1000-item target, an `.includes`
+	// call per visible row against a selection that can itself be 1000 ids long
+	// adds up fast; a Set lookup is O(1) regardless.
+	const selectedIdSet = useMemo(() => new Set(selectedPlaylistItemIds), [selectedPlaylistItemIds])
+	const syncedIdSet = useMemo(() => new Set(syncedDownloadedIds), [syncedDownloadedIds])
+
+	function removalTargets(entryId: string): string[] {
+		// A right-click on a checked row acts on the whole checked set — this
+		// step has no separate highlight-selection, so "the selection" is
+		// whatever is currently included for download. A right-click on an
+		// unchecked row acts on just that row.
+		return selectedIdSet.has(entryId) ? selectedPlaylistItemIds : [entryId]
+	}
+
+	// Window-scoped so Delete works no matter which row or control currently
+	// holds focus, matching the profiles step's shortcut listener. Backspace is
+	// deliberately NOT bound here: it's a common "go back" reflex, and this
+	// listener has no visible affordance warning the user it deletes rows
+	// instead (unlike the context-menu item below, whose label now states the
+	// count). hasOpenOverlay() guards the playlist-scope and probe-limit
+	// dialogs/selects this step can open on top of itself — without it, Delete
+	// pressed while one of those owns focus silently removes the selected rows
+	// behind it (isTypingTarget alone doesn't see a dialog's buttons or a
+	// select's listbox as "typing").
+	useEffect(() => {
+		function onKeyDown(event: KeyboardEvent): void {
+			if (isTypingTarget(event.target)) return
+			if (hasOpenOverlay()) return
+			if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return
+			if (event.key !== 'Delete') return
+			if (selectedPlaylistItemIds.length === 0) return
+			event.preventDefault()
+			removePlaylistItems(selectedPlaylistItemIds)
+		}
+		window.addEventListener('keydown', onKeyDown)
+		return () => window.removeEventListener('keydown', onKeyDown)
+	}, [selectedPlaylistItemIds, removePlaylistItems])
+
 	const parentRef = useRef<HTMLDivElement>(null)
 	// oxlint-disable-next-line react-hooks-js/incompatible-library
-	const virtualizer = useVirtualizer({count: playlistItems.length, getScrollElement: () => parentRef.current, estimateSize: () => 56, overscan: 5})
+	const virtualizer = useVirtualizer({count: visibleItems.length, getScrollElement: () => parentRef.current, estimateSize: () => 56, overscan: 5})
 
 	const selectedCount = selectedPlaylistItemIds.length
 	const playlistLimit = resolvePlaylistProbeLimit(settings?.common)
@@ -180,7 +225,14 @@ export function StepPlaylistItems(): ReactNode {
 	// entry has one, hide the thumbnail slot entirely so the list renders
 	// compactly instead of showing 500 empty boxes.
 	const hasAnyThumbnail = useMemo(() => playlistItems.some(e => !!e.thumbnail), [playlistItems])
-	const canContinue = selectedCount > 0 && !playlistBusy
+	// selectedCount is already 0 once every item is removed — removePlaylistItems
+	// prunes the selection — but allRemoved is spelled out here too so Continue's
+	// disabled state doesn't depend on that pruning detail holding forever.
+	const canContinue = selectedCount > 0 && !playlistBusy && !allRemoved
+	// The mode is meaningless with a single profile — nothing to route items
+	// between. Builtins alone already clear this bar, so in practice the
+	// button is offered whenever any playlist item is selected.
+	const canOfferMultiProfile = allDownloadProfiles(settings?.profiles).length >= 2
 
 	function applyRange(): void {
 		const from = parseInt(rangeFrom, 10)
@@ -232,6 +284,16 @@ export function StepPlaylistItems(): ReactNode {
 					<Button type="button" variant="outline" size="sm" onClick={selectNonePlaylistItems} disabled={playlistBusy}>
 						{t('wizard.playlist.selectNone')}
 					</Button>
+					{removedPlaylistItemIds.length > 0 ? (
+						<div className="flex items-center gap-2">
+							<span className="text-xs text-muted-foreground" data-testid="removed-playlist-items-count">
+								{t('wizard.playlist.removedCount', {count: removedPlaylistItemIds.length})}
+							</span>
+							<Button type="button" variant="outline" size="sm" onClick={restoreRemovedPlaylistItems} data-testid="restore-removed-playlist-items">
+								{t('wizard.playlist.restore')}
+							</Button>
+						</div>
+					) : null}
 					<div className="ml-auto flex items-center gap-1">
 						<span className="text-xs text-muted-foreground">{t('wizard.playlist.rangeFrom')}</span>
 						<Input className="h-7 w-14 px-2 text-xs" value={rangeFrom} onChange={e => setRangeFrom(e.target.value)} placeholder="1" disabled={playlistBusy} />
@@ -307,58 +369,99 @@ export function StepPlaylistItems(): ReactNode {
 							</Alert>
 						)}
 
-						<div ref={parentRef} className="min-h-[12rem] flex-1 overflow-y-auto rounded-md border border-border">
-							<div style={{height: virtualizer.getTotalSize(), position: 'relative'}}>
-								{virtualizer.getVirtualItems().map(virtualRow => {
-									const entry = playlistItems[virtualRow.index]
-									const checked = selectedPlaylistItemIds.includes(entry.id)
-									const isAlreadyDownloaded = !!(entry.videoId && syncedDownloadedIds.includes(entry.videoId))
-									const bulkRowStatus = isBulk ? bulkMetadataById[entry.id] : undefined
-									const bulkRowStatusKey = bulkRowStatus === 'pending' ? 'wizard.playlist.bulkRowWaiting' : bulkRowStatus === 'resolving' ? 'wizard.playlist.bulkRowResolving' : bulkRowStatus === 'failed' ? 'wizard.playlist.bulkRowFailed' : null
-									return (
-										// react-doctor-disable-next-line react-doctor/prefer-tag-over-role
-										<div
-											key={entry.id}
-											role="checkbox"
-											aria-checked={checked}
-											tabIndex={0}
-											data-index={virtualRow.index}
-											ref={virtualizer.measureElement}
-											style={{position: 'absolute', top: virtualRow.start, left: 0, right: 0}}
-											className="flex items-center gap-2 px-3 py-2 hover:bg-muted/50 cursor-pointer"
-											onClick={() => setPlaylistItemSelected(entry.id, !checked)}
-											onKeyDown={e => {
-												if (e.key === ' ' || e.key === 'Enter') {
-													e.preventDefault()
-													setPlaylistItemSelected(entry.id, !checked)
-												}
-											}}
-										>
-											<Checkbox checked={checked} onCheckedChange={v => setPlaylistItemSelected(entry.id, !!v)} onClick={e => e.stopPropagation()} />
-											{hasAnyThumbnail ? entry.thumbnail ? <img src={entry.thumbnail} alt={t('wizard.playlist.thumbnailAlt')} referrerPolicy="no-referrer" className="h-8 w-[56px] shrink-0 rounded-sm object-cover" loading="lazy" /> : <div className="h-8 w-[56px] shrink-0 rounded-sm bg-muted" /> : null}
-											<span className="min-w-0 flex-1">
-												<span className="block truncate text-sm">{entry.title}</span>
-												{isBulk ? (
-													<span className="block truncate font-mono text-[11px] text-muted-foreground" data-testid={`bulk-row-url-${entry.id}`}>
-														{bulkRowStatusKey ? <span className="font-sans">{t(bulkRowStatusKey)} · </span> : null}
-														{entry.url}
-													</span>
-												) : null}
-											</span>
-											{isAlreadyDownloaded && <span className="shrink-0 rounded-sm bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{t('wizard.playlist.alreadyDownloaded')}</span>}
-											<span className="shrink-0 text-xs text-muted-foreground">{formatEntryDuration(entry.duration, liveLabel)}</span>
-										</div>
-									)
-								})}
-							</div>
-						</div>
+						{allRemoved ? (
+							<Empty className="flex-1 py-10" data-testid="playlist-items-empty">
+								<EmptyHeader>
+									<EmptyTitle>{t('wizard.playlist.allRemovedTitle')}</EmptyTitle>
+									<EmptyDescription>{t('wizard.playlist.allRemovedDescription')}</EmptyDescription>
+								</EmptyHeader>
+							</Empty>
+						) : (
+							<>
+								<div ref={parentRef} className="min-h-[12rem] flex-1 overflow-y-auto rounded-md border border-border">
+									<div style={{height: virtualizer.getTotalSize(), position: 'relative'}}>
+										{virtualizer.getVirtualItems().map(virtualRow => {
+											const entry = visibleItems[virtualRow.index]
+											const checked = selectedIdSet.has(entry.id)
+											const isAlreadyDownloaded = !!(entry.videoId && syncedIdSet.has(entry.videoId))
+											const bulkRowStatus = isBulk ? bulkMetadataById[entry.id] : undefined
+											const bulkRowStatusKey = bulkRowStatus === 'pending' ? 'wizard.playlist.bulkRowWaiting' : bulkRowStatus === 'resolving' ? 'wizard.playlist.bulkRowResolving' : bulkRowStatus === 'failed' ? 'wizard.playlist.bulkRowFailed' : null
+											// Bound once per row instead of calling removalTargets(entry.id) twice
+											// below — both the click handler and the count label must agree on
+											// exactly the same set.
+											const targets = removalTargets(entry.id)
+											return (
+												<ContextMenu key={entry.id}>
+													<ContextMenuTrigger
+														render={
+															// react-doctor-disable-next-line react-doctor/prefer-tag-over-role
+															<div
+																role="checkbox"
+																aria-checked={checked}
+																tabIndex={0}
+																data-index={virtualRow.index}
+																data-testid={`playlist-item-row-${entry.id}`}
+																ref={virtualizer.measureElement}
+																style={{position: 'absolute', top: virtualRow.start, left: 0, right: 0}}
+																className="flex items-center gap-2 px-3 py-2 hover:bg-muted/50 cursor-pointer"
+																onClick={() => setPlaylistItemSelected(entry.id, !checked)}
+																onKeyDown={e => {
+																	if (e.key === ' ' || e.key === 'Enter') {
+																		e.preventDefault()
+																		setPlaylistItemSelected(entry.id, !checked)
+																	}
+																}}
+															>
+																<Checkbox checked={checked} onCheckedChange={v => setPlaylistItemSelected(entry.id, !!v)} onClick={e => e.stopPropagation()} />
+																{hasAnyThumbnail ? entry.thumbnail ? <img src={entry.thumbnail} alt={t('wizard.playlist.thumbnailAlt')} referrerPolicy="no-referrer" className="h-8 w-[56px] shrink-0 rounded-sm object-cover" loading="lazy" /> : <div className="h-8 w-[56px] shrink-0 rounded-sm bg-muted" /> : null}
+																<span className="min-w-0 flex-1">
+																	<span className="block truncate text-sm">{entry.title}</span>
+																	{isBulk ? (
+																		<span className="block truncate font-mono text-[11px] text-muted-foreground" data-testid={`bulk-row-url-${entry.id}`}>
+																			{bulkRowStatusKey ? <span className="font-sans">{t(bulkRowStatusKey)} · </span> : null}
+																			{entry.url}
+																		</span>
+																	) : null}
+																</span>
+																{isAlreadyDownloaded && <span className="shrink-0 rounded-sm bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{t('wizard.playlist.alreadyDownloaded')}</span>}
+																<span className="shrink-0 text-xs text-muted-foreground">{formatEntryDuration(entry.duration, liveLabel)}</span>
+															</div>
+														}
+													/>
+													<ContextMenuContent className="min-w-48">
+														<ContextMenuItem variant="destructive" onClick={() => removePlaylistItems(targets)}>
+															<Trash2 size={14} aria-hidden />
+															{t('wizard.playlist.removeFromListCount', {count: targets.length})}
+														</ContextMenuItem>
+													</ContextMenuContent>
+												</ContextMenu>
+											)
+										})}
+									</div>
+								</div>
 
-						{selectedCount > 0 ? <p className="text-xs text-muted-foreground">{t('wizard.playlist.selectedCount_other', {count: selectedCount})}</p> : <p className="text-xs text-destructive">{t('wizard.playlist.noSelection')}</p>}
+								{selectedCount > 0 ? <p className="text-xs text-muted-foreground">{t('wizard.playlist.selectedCount', {count: selectedCount})}</p> : <p className="text-xs text-destructive">{t('wizard.playlist.noSelection')}</p>}
+							</>
+						)}
 					</>
 				)}
 			</div>
 
-			<WizardStepFooterActions onBack={back} onContinue={() => void confirmPlaylistSelection()} continueDisabled={!canContinue} />
+			<WizardStepFooterActions onBack={back} onContinue={() => void confirmPlaylistSelection()} continueDisabled={!canContinue}>
+				{canOfferMultiProfile ? (
+					<Tooltip>
+						<TooltipTrigger
+							render={props => (
+								<Button {...props} type="button" variant="outline" size="sm" className="border-[1.5px] border-[var(--border-strong)]" disabled={!canContinue} onClick={enterMultiProfileMode} data-testid="enter-multi-profile">
+									<Layers size={14} aria-hidden />
+									{t('wizard.playlist.multiProfileEntry')}
+								</Button>
+							)}
+						/>
+						<TooltipContent>{t('wizard.playlist.multiProfileEntryTooltip')}</TooltipContent>
+					</Tooltip>
+				) : null}
+			</WizardStepFooterActions>
 		</div>
 	)
 }

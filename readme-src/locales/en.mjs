@@ -152,6 +152,8 @@ export const en = {
     "**Filename templates** — name downloads your way with `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, and `{playlist_index}`, globally or per download profile",
   feat_workflow_10:
     "**Downloads at once and automatic retry** — choose how many queued downloads run at the same time, and let Arroxy retry a download that hit a network or server problem, waiting longer before each attempt",
+  feat_workflow_11:
+    "**Per-item playlist profiles** — assign each video in a playlist its own download profile instead of one setting for the whole list, so a single pass can archive some at full quality and grab the rest as MP3",
   feat_post_h3: "Subtitles & post-processing",
   feat_post_1:
     "**Subtitles** in SRT, VTT, or ASS — manual or auto-generated, in any available language",

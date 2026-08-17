@@ -1,0 +1,282 @@
+// The playlist-profiles step: assign a different DownloadProfile to individual
+// playlist items instead of downloading the batch as one homogeneous run.
+// Deliberately mirrors QueueManagerTab's three zones — action bar, filter
+// chips, virtualized table — so a user reaches for the same gestures they
+// already know from the Downloads tab. Chips filter; the action bar and the
+// row context menu assign.
+
+import {useCallback, useEffect, useMemo, useReducer, useRef, useState, type ReactNode} from 'react'
+import {useTranslation} from 'react-i18next'
+import {getCoreRowModel, useReactTable} from '@tanstack/react-table'
+import {useVirtualizer} from '@tanstack/react-virtual'
+import {Info, X} from 'lucide-react'
+import type {DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
+import {useAppStore} from '../../store/useAppStore.js'
+import {selectionModifierLabel} from '../../lib/platform.js'
+import type {ListSelectionAction} from '../shared/listSelection.js'
+import {useRowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
+import {isTypingTarget} from '../shared/isTypingTarget.js'
+import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
+import {Button} from '../ui/button.js'
+import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
+import {buildDownloadProfileActionModel} from './downloadProfileActions.js'
+import {DownloadProfileEditor} from './DownloadProfileEditor.js'
+import {profileAssignmentCounts, resolveAssignedProfile} from '../../store/wizard/playlistProfileAssignments.js'
+import {orderProfileOptionsForAssignment} from './playlistProfileOrder.js'
+import {createPlaylistProfileTableState, playlistProfileTableReducer} from './playlistProfileTableState.js'
+import {usePlaylistProfileColumns} from './usePlaylistProfileColumns.js'
+import {PlaylistProfileActionBar} from './PlaylistProfileActionBar.js'
+import {PlaylistProfileFilterChips} from './PlaylistProfileFilterChips.js'
+import {PlaylistProfileTable} from './PlaylistProfileTable.js'
+import {WizardStepFooterActions} from './WizardStepFooterActions.js'
+
+export function StepPlaylistProfiles(): ReactNode {
+	const {t} = useTranslation()
+	const {
+		playlistItems,
+		selectedPlaylistItemIds,
+		removedPlaylistItemIds,
+		playlistProfileAssignments,
+		settings,
+		wizardOutputDir,
+		assignPlaylistProfile,
+		resetPlaylistProfile,
+		removePlaylistItems,
+		restoreRemovedPlaylistItems,
+		saveDownloadProfile,
+		chooseWizardFolder,
+		exitMultiProfileMode,
+		advance,
+		dismissMultiProfileHint
+	} = useAppStore()
+	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
+
+	// Hoisted once instead of `.includes` inside the filter below — at the
+	// design's 1000-item target, `.includes` against two arrays that can each
+	// be up to 1000 ids long turns this into ~10^6 comparisons per render; a
+	// Set lookup is O(1) regardless of playlist size.
+	const selectedIdSet = useMemo(() => new Set(selectedPlaylistItemIds), [selectedPlaylistItemIds])
+	const removedIdSet = useMemo(() => new Set(removedPlaylistItemIds), [removedPlaylistItemIds])
+	// The set the user narrowed to on the items step, minus anything removed
+	// later in this flow (Task 11) — not the full flat-probe playlist.
+	const items = useMemo(() => playlistItems.filter(entry => selectedIdSet.has(entry.id) && !removedIdSet.has(entry.id)), [playlistItems, selectedIdSet, removedIdSet])
+	// Tied to removedPlaylistItemIds (not just "items is empty") so it only
+	// covers "removal emptied the step" — distinct from the filter chip
+	// narrowing to zero matches, which the table's own empty row already
+	// covers. Restore always clears removedPlaylistItemIds (and re-checks
+	// whatever it removed via removedSelectionIds — see commands.ts), so this
+	// reliably clears too.
+	const allRemoved = removedPlaylistItemIds.length > 0 && items.length === 0
+	const hasAnyThumbnail = useMemo(() => items.some(entry => !!entry.thumbnail), [items])
+	const liveLabel = t('wizard.playlist.durationUnknown')
+
+	const model = useMemo(() => buildDownloadProfileActionModel(settings?.profiles), [settings?.profiles])
+	// Baseline first, then the user's custom profiles, then builtins — local to
+	// this screen. See playlistProfileOrder.ts for why the catalog order (used
+	// as-is by the home-screen picker) doesn't work here.
+	const orderedOptions = useMemo(() => orderProfileOptionsForAssignment(model.options, model.activeRef), [model.options, model.activeRef])
+	const profiles = useMemo(() => orderedOptions.map(option => option.profile), [orderedOptions])
+	const resolveProfile = useCallback((entry: PlaylistEntry): DownloadProfile => resolveAssignedProfile(entry.id, playlistProfileAssignments, profiles, model.activeProfile), [playlistProfileAssignments, profiles, model.activeProfile])
+	// Mirrors useDownloadHomeView's globalDestinationRoot so the quick-edit
+	// dialog previews the same resolved path DownloadProfilesHome would show.
+	const trimmedWizardOutputDir = wizardOutputDir?.trim() ?? ''
+	const globalDestinationRoot = trimmedWizardOutputDir.length > 0 ? trimmedWizardOutputDir : (settings?.common?.defaultOutputDir ?? '')
+
+	const [state, dispatch] = useReducer(playlistProfileTableReducer, undefined, createPlaylistProfileTableState)
+	const {filter, selection} = state
+	const {selectedIds, contextIds} = selection
+	const dispatchSelection = useCallback((action: ListSelectionAction): void => {
+		dispatch({type: 'selection', action})
+	}, [])
+	const scrollRef = useRef<HTMLDivElement>(null)
+
+	useEffect(() => {
+		dispatch({type: 'prune-ids', liveIds: new Set(items.map(entry => entry.id))})
+	}, [items])
+
+	const counts = useMemo(
+		() =>
+			profileAssignmentCounts(
+				items.map(entry => entry.id),
+				playlistProfileAssignments,
+				profiles,
+				model.activeRef
+			),
+		[items, playlistProfileAssignments, profiles, model.activeRef]
+	)
+	// If everything gets reassigned away from the filtered-to profile, its
+	// chip vanishes (PlaylistProfileFilterChips only renders chips with
+	// count > 0) but `filter` itself doesn't reset — the table would sit
+	// empty with no highlighted chip and no way back except clicking "All".
+	// Reset automatically so the screen never reads as broken.
+	useEffect(() => {
+		if (filter !== 'all' && (counts.get(filter) ?? 0) === 0) dispatch({type: 'set-filter', filter: 'all'})
+	}, [filter, counts])
+
+	const filteredItems = useMemo(() => (filter === 'all' ? items : items.filter(entry => resolveProfile(entry).id === filter)), [filter, items, resolveProfile])
+
+	const columns = usePlaylistProfileColumns({t, hasAnyThumbnail, liveLabel, resolveProfile})
+	// TanStack Table returns function-bearing objects that React Compiler cannot safely memoize.
+	// oxlint-disable-next-line react-hooks-js/incompatible-library
+	const table = useReactTable<PlaylistEntry>({data: filteredItems, columns, getCoreRowModel: getCoreRowModel(), getRowId: entry => entry.id})
+	const rows = table.getRowModel().rows
+	const orderedRowIds = useMemo(() => rows.map(row => row.original.id), [rows])
+	const interactions = useRowSelectionInteractions({orderedIds: orderedRowIds, selection, dispatch: dispatchSelection})
+	const virtualizer = useVirtualizer({count: rows.length, getScrollElement: () => scrollRef.current, estimateSize: () => 48, overscan: 8})
+	const virtualRows = virtualizer.getVirtualItems()
+	const firstVirtualRow = virtualRows[0]
+	const lastVirtualRow = virtualRows.at(-1)
+	const topVirtualPadding = firstVirtualRow?.start ?? 0
+	const bottomVirtualPadding = Math.max(0, virtualizer.getTotalSize() - (lastVirtualRow?.start ?? 0) - (lastVirtualRow?.size ?? 0))
+
+	const selectedItemIds = useMemo(() => items.filter(entry => selectedIds.has(entry.id)).map(entry => entry.id), [items, selectedIds])
+	// Set lookup instead of `.includes` — contextIds can be the whole selection
+	// (see openContextMenuForRow), so this is the same 1000-item-scale concern
+	// as selectedIdSet elsewhere on this screen.
+	const contextIdSet = useMemo(() => new Set(contextIds), [contextIds])
+	const contextItemIds = useMemo(() => items.filter(entry => contextIdSet.has(entry.id)).map(entry => entry.id), [items, contextIdSet])
+
+	const assign = useCallback(
+		(itemIds: string[], ref: DownloadProfileRef): void => {
+			if (itemIds.length === 0) return
+			assignPlaylistProfile(itemIds, ref)
+		},
+		[assignPlaylistProfile]
+	)
+	const reset = useCallback(
+		(itemIds: string[]): void => {
+			if (itemIds.length === 0) return
+			resetPlaylistProfile(itemIds)
+		},
+		[resetPlaylistProfile]
+	)
+	const remove = useCallback(
+		(itemIds: string[]): void => {
+			if (itemIds.length === 0) return
+			removePlaylistItems(itemIds)
+		},
+		[removePlaylistItems]
+	)
+
+	// Window-scoped rather than a JSX onKeyDown on the step container — the
+	// shortcuts (Delete, Ctrl/Cmd+A) must fire no matter which row or button
+	// inside the step currently holds focus, and this step is only mounted
+	// while it's the active wizard step, so the listener's lifetime already
+	// matches "while this screen is visible".
+	useEffect(() => {
+		function onKeyDown(event: KeyboardEvent): void {
+			// isTypingTarget only catches literal text-entry fields. The profile
+			// editor dialog is full of buttons, toggles and selects that aren't text
+			// fields at all, so without this the shortcuts below reassign/delete the
+			// selection *behind* the open dialog whenever a non-text control has
+			// focus — the user sees nothing happen until they close it.
+			if (editingProfile) return
+			if (isTypingTarget(event.target)) return
+			const bareCtrlOrMeta = (event.ctrlKey || event.metaKey) && !event.altKey && !event.shiftKey
+			if (bareCtrlOrMeta && event.key.toLowerCase() === 'a') {
+				// Selects the currently filtered rows, not every item in the step —
+				// large playlists usually get narrowed to one profile first.
+				event.preventDefault()
+				dispatch({type: 'selection', action: {type: 'set', ids: orderedRowIds}})
+				return
+			}
+			if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return
+			// Delete only — Backspace is a common "go back" reflex and this
+			// window-scoped listener has no visible affordance warning the user it
+			// deletes rows instead, same reasoning as StepPlaylistItems.
+			if (event.key === 'Delete') {
+				if (selectedItemIds.length === 0) return
+				event.preventDefault()
+				remove(selectedItemIds)
+			}
+		}
+		window.addEventListener('keydown', onKeyDown)
+		return () => window.removeEventListener('keydown', onKeyDown)
+	}, [remove, orderedRowIds, selectedItemIds, editingProfile])
+
+	const renderedColumnCount = table.getAllLeafColumns().length
+
+	return (
+		<div className="wizard-step gap-3" data-testid="step-playlist-profiles">
+			<div className="flex min-h-0 flex-1 flex-col gap-3 py-3">
+				<div className="flex items-baseline justify-between gap-2">
+					<h2 className="text-sm font-semibold truncate">{t('wizard.playlistProfiles.heading')}</h2>
+					<span className="shrink-0 text-xs text-muted-foreground" data-testid="playlist-profile-summary">
+						{t('wizard.playlistProfiles.selectedSummary', {selected: selectedItemIds.length, total: items.length})}
+					</span>
+				</div>
+
+				{removedPlaylistItemIds.length > 0 ? (
+					<div className="flex items-center gap-2">
+						<span className="text-xs text-muted-foreground" data-testid="removed-playlist-items-count">
+							{t('wizard.playlist.removedCount', {count: removedPlaylistItemIds.length})}
+						</span>
+						<Button type="button" variant="outline" size="sm" onClick={restoreRemovedPlaylistItems} data-testid="restore-removed-playlist-items">
+							{t('wizard.playlist.restore')}
+						</Button>
+					</div>
+				) : null}
+
+				<PlaylistProfileActionBar options={orderedOptions} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onEditProfile={setEditingProfile} onReset={() => reset(selectedItemIds)} />
+
+				{!settings?.common?.multiProfileHintDismissed ? (
+					<Alert variant="info" className="flex items-start gap-3" data-testid="multi-profile-hint">
+						<Info className="mt-0.5 size-4 shrink-0 text-sky-500" />
+						<div className="min-w-0 flex-1">
+							<AlertTitle>{t('wizard.playlistProfiles.hintTitle')}</AlertTitle>
+							<AlertDescription className="break-words">{t('wizard.playlistProfiles.hintBody', {modifier: selectionModifierLabel()})}</AlertDescription>
+						</div>
+						<Button type="button" variant="ghost" size="icon-sm" className="-mt-1 -me-1 shrink-0" aria-label={t('titleBar.close')} onClick={() => void dismissMultiProfileHint()}>
+							<X />
+						</Button>
+					</Alert>
+				) : null}
+
+				<PlaylistProfileFilterChips options={orderedOptions} counts={counts} totalCount={items.length} filter={filter} onFilterChange={next => dispatch({type: 'set-filter', filter: next})} />
+
+				{allRemoved ? (
+					<Empty className="flex-1 py-10" data-testid="playlist-profile-empty">
+						<EmptyHeader>
+							<EmptyTitle>{t('wizard.playlist.allRemovedTitle')}</EmptyTitle>
+							<EmptyDescription>{t('wizard.playlist.allRemovedDescription')}</EmptyDescription>
+						</EmptyHeader>
+					</Empty>
+				) : (
+					<PlaylistProfileTable
+						table={table}
+						rows={rows}
+						virtualRows={virtualRows}
+						scrollRef={scrollRef}
+						topVirtualPadding={topVirtualPadding}
+						bottomVirtualPadding={bottomVirtualPadding}
+						renderedColumnCount={renderedColumnCount}
+						options={orderedOptions}
+						contextItemIds={contextItemIds}
+						selectedIds={selectedIds}
+						interactions={interactions}
+						onAssign={assign}
+						onReset={reset}
+						onRemove={remove}
+					/>
+				)}
+			</div>
+
+			<WizardStepFooterActions onBack={exitMultiProfileMode} onContinue={advance} continueDisabled={allRemoved} />
+
+			{editingProfile ? (
+				<DownloadProfileEditor
+					key={editingProfile.id}
+					commonPaths={settings?.common?.commonPaths}
+					globalDestination={globalDestinationRoot}
+					initialProfile={editingProfile}
+					onChangeGlobalDestination={() => chooseWizardFolder()}
+					onOpenChange={open => {
+						if (!open) setEditingProfile(null)
+					}}
+					onSave={profile => saveDownloadProfile(profile)}
+					open
+				/>
+			) : null}
+		</div>
+	)
+}

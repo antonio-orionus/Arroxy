@@ -1,6 +1,6 @@
 import {defaultAppSettings, DEFAULT_PLAYLIST_PROBE_LIMIT} from '@shared/constants.js'
 import {YT_DLP_ERROR_KINDS} from '@shared/schemas.js'
-import type {AppSettings, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUpOutput} from '@shared/types.js'
+import type {AppSettings, DownloadProfileRef, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUpOutput} from '@shared/types.js'
 import type {YtDlpErrorKind} from '@shared/schemas.js'
 import type {BrowserMockKnobs} from './browserMockKnobs.js'
 import type {AppState, SetState} from '../store/types.js'
@@ -18,6 +18,8 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'single-normal',
 	'playlist-normal',
 	'playlist-loading',
+	'playlist-multi-profile',
+	'playlist-multi-profile-scale',
 	'playlist-scope-empty-reload',
 	'playlist-no-thumbnails',
 	'playlist-long-titles',
@@ -136,6 +138,8 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'single-normal', group: 'General', title: 'Single video normal', description: 'Screen preset for a YouTube video with formats, subtitles, and SponsorBlock steps.', kind: 'probe'},
 	{id: 'playlist-normal', group: 'Playlist', title: 'Playlist normal', description: 'Screen preset for a playlist with thumbnails, durations, and default preset selection.', kind: 'probe'},
 	{id: 'playlist-loading', group: 'Playlist', title: 'Playlist loading scaffold', description: 'Playlist loading state with the final controls and full-width row skeletons visible.', kind: 'state'},
+	{id: 'playlist-multi-profile', group: 'Playlist', title: 'Playlist multi-profile', description: 'Playlist profiles step landing directly, with 17 items already split across the baseline, audio-only, and Full HD 1080p profiles.', kind: 'state'},
+	{id: 'playlist-multi-profile-scale', group: 'Playlist', title: 'Playlist multi-profile at scale', description: 'Playlist profiles step with 500 mixed-assignment items for scroll and virtualization review.', kind: 'state'},
 	{id: 'playlist-scope-empty-reload', group: 'Playlist', title: 'Scope reload empty', description: 'Playlist opens normally; applying any non-default scope reload returns no entries and should stay inline.', kind: 'probe'},
 	{id: 'playlist-no-thumbnails', group: 'Playlist', title: 'No thumbnails', description: 'Playlist rows with no thumbnail column.', kind: 'probe'},
 	{id: 'playlist-long-titles', group: 'Playlist', title: 'Long titles', description: 'Playlist rows with intentionally long titles.', kind: 'probe'},
@@ -281,6 +285,52 @@ function playlistLoadingState(): Partial<AppState> {
 	}
 }
 
+const MULTI_PROFILE_AUDIO_ONLY_REF: DownloadProfileRef = {kind: 'builtin', id: 'audio-only'}
+const MULTI_PROFILE_HD_1080_REF: DownloadProfileRef = {kind: 'builtin', id: 'hd-1080'}
+// Deviations only — a playlist item with no entry here implicitly uses the
+// baseline (active) profile. See playlistProfileAssignments.ts.
+const PLAYLIST_MULTI_PROFILE_AUDIO_IDS = ['mock2', 'mock5', 'mock8', 'mock11', 'mock14'] as const
+const PLAYLIST_MULTI_PROFILE_HD_IDS = ['mock4', 'mock10', 'mock16'] as const
+
+function playlistProfileAssignmentsState(playlist: ProbeResult, assignments: Record<string, DownloadProfileRef>): Partial<AppState> {
+	if (playlist.kind !== 'playlist') return {wizardStep: 'url', wizardUrl: ''}
+	return {
+		wizardStep: 'playlistProfiles',
+		wizardMode: 'playlist',
+		wizardUrl: playlist.webpageUrl,
+		wizardExtractor: playlist.extractor,
+		wizardExtractorKey: playlist.extractorKey,
+		playlistItems: playlist.entries,
+		selectedPlaylistItemIds: playlist.entries.map(entry => entry.id),
+		playlistTitle: playlist.playlistTitle,
+		playlistId: playlist.playlistId,
+		playlistIsMultiVideo: true,
+		playlistLikelyCapped: false,
+		multiProfileMode: true,
+		playlistProfileAssignments: assignments
+	}
+}
+
+function playlistMultiProfileState(): Partial<AppState> {
+	const playlist = playlistProbe(17, {webpageUrl: 'https://www.youtube.com/playlist?list=PLmock_multiprofile'})
+	const assignments: Record<string, DownloadProfileRef> = {}
+	for (const id of PLAYLIST_MULTI_PROFILE_AUDIO_IDS) assignments[id] = MULTI_PROFILE_AUDIO_ONLY_REF
+	for (const id of PLAYLIST_MULTI_PROFILE_HD_IDS) assignments[id] = MULTI_PROFILE_HD_1080_REF
+	return playlistProfileAssignmentsState(playlist, assignments)
+}
+
+function playlistMultiProfileScaleState(): Partial<AppState> {
+	const playlist = playlistProbe(500, {webpageUrl: 'https://www.youtube.com/playlist?list=PLmock_multiprofile_scale'})
+	const assignments: Record<string, DownloadProfileRef> = {}
+	if (playlist.kind === 'playlist') {
+		for (const entry of playlist.entries) {
+			if (entry.playlistIndex % 5 === 0) assignments[entry.id] = MULTI_PROFILE_AUDIO_ONLY_REF
+			else if (entry.playlistIndex % 8 === 0) assignments[entry.id] = MULTI_PROFILE_HD_1080_REF
+		}
+	}
+	return playlistProfileAssignmentsState(playlist, assignments)
+}
+
 export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockScenario; params: BrowserMockUrlParams; store: ScenarioWorkbenchStore}): Promise<void> {
 	const {scenario, params, store} = input
 	if (params.probeErrorKind !== null) {
@@ -315,6 +365,8 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 	if (scenario.kind === 'state') {
 		store.reset()
 		if (scenario.id === 'playlist-loading') store.setState(playlistLoadingState())
+		else if (scenario.id === 'playlist-multi-profile') store.setState(playlistMultiProfileState())
+		else if (scenario.id === 'playlist-multi-profile-scale') store.setState(playlistMultiProfileScaleState())
 		return
 	}
 	if (scenario.kind === 'dialog') {

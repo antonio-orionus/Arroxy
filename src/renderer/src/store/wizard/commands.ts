@@ -4,9 +4,11 @@
 // links) land here so individual slice files stay focused on their domain.
 
 import {DEFAULTS} from '@shared/constants.js'
+import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
-import type {BulkMetadataItemStatus, BulkMetadataStatus, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
-import type {SetState, WizardStep} from '../types.js'
+import type {BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfileRef, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
+import type {GetState, SetState, WizardStep} from '../types.js'
+import {assignProfileToItems, clearAssignmentsForItems} from './playlistProfileAssignments.js'
 import {QUICK_DOWNLOAD_FEEDBACK_INITIAL} from './quickDownloadFeedback.js'
 
 // Full wizard reset state — owned conceptually by the four slices but applied
@@ -43,6 +45,10 @@ export const RESET_WIZARD_STATE = {
 	playlistScopeError: null as string | null,
 	playlistScope: {items: {kind: 'app-limit'}} as PlaylistScope,
 	playlistSelection: null as PlaylistSelection | null,
+	multiProfileMode: false,
+	playlistProfileAssignments: {} as Record<string, DownloadProfileRef>,
+	removedPlaylistItemIds: [] as string[],
+	removedSelectionIds: [] as string[],
 	bulkMetadataStatus: 'idle' as BulkMetadataStatus,
 	bulkMetadataCompleted: 0,
 	bulkMetadataTotal: 0,
@@ -87,5 +93,51 @@ export const RESET_WIZARD_STATE = {
 export const WizardCommands = {
 	resetAll(set: SetState): void {
 		set(RESET_WIZARD_STATE)
+	},
+
+	enterMultiProfileMode(set: SetState): void {
+		set({multiProfileMode: true, wizardStep: 'playlistProfiles'})
+	},
+
+	exitMultiProfileMode(set: SetState): void {
+		// Deliberately keeps playlistProfileAssignments rather than clearing them —
+		// they're keyed by item id, pruned on removal, and reset on every new
+		// probe (probeResultProjection.ts, probeOrchestrator.ts), so re-entering
+		// the mode restores the user's work instead of silently discarding it with
+		// no confirm and no undo. Nothing reads this map while multiProfileMode is
+		// false (StepPlaylistProfiles, multiProfileBreakdown, and
+		// prepareMultiProfileQueueSubmission are all gated on that flag), so a
+		// stale-but-unused map is harmless in single/normal-playlist mode.
+		set({multiProfileMode: false, wizardStep: 'playlistItems'})
+	},
+
+	assignPlaylistProfile(itemIds: string[], ref: DownloadProfileRef, set: SetState, get: GetState): void {
+		const state = get()
+		const {ref: baselineRef} = resolveActiveDownloadProfile(state.settings?.profiles)
+		set({playlistProfileAssignments: assignProfileToItems(state.playlistProfileAssignments, itemIds, ref, baselineRef)})
+	},
+
+	resetPlaylistProfile(itemIds: string[], set: SetState, get: GetState): void {
+		set({playlistProfileAssignments: clearAssignmentsForItems(get().playlistProfileAssignments, itemIds)})
+	},
+
+	removePlaylistItems(itemIds: string[], set: SetState, get: GetState): void {
+		const state = get()
+		const removed = new Set([...state.removedPlaylistItemIds, ...itemIds])
+		// Record which of these ids were checked *before* removal — restore
+		// re-checks only those, not every removed id (an unchecked row must come
+		// back unchecked). Set hoisted for the same reason as elsewhere (see
+		// queueSubmission.ts's selectedPlaylistEntries): itemIds and
+		// selectedPlaylistItemIds can both be up to playlist-size long.
+		const selectedIdSet = new Set(state.selectedPlaylistItemIds)
+		const newlyRemovedSelected = itemIds.filter(id => selectedIdSet.has(id))
+		const removedSelectionIds = new Set([...state.removedSelectionIds, ...newlyRemovedSelected])
+		set({removedPlaylistItemIds: [...removed], removedSelectionIds: [...removedSelectionIds], selectedPlaylistItemIds: state.selectedPlaylistItemIds.filter(id => !removed.has(id)), playlistProfileAssignments: clearAssignmentsForItems(state.playlistProfileAssignments, itemIds)})
+	},
+
+	restoreRemovedPlaylistItems(set: SetState, get: GetState): void {
+		const state = get()
+		const restoredSelection = new Set([...state.selectedPlaylistItemIds, ...state.removedSelectionIds])
+		set({selectedPlaylistItemIds: [...restoredSelection], removedPlaylistItemIds: [], removedSelectionIds: []})
 	}
 }

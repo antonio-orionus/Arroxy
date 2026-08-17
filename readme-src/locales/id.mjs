@@ -52,6 +52,7 @@ export const id = {
   "feat_workflow_8": "**Kontrol kecepatan dan tempo** — membatasi bandwidth pengunduhan, mengatur berapa banyak bagian video yang diunduh sekaligus, dan menambahkan penundaan permintaan dengan preset (*Mati · Seimbang · Hati-hati · Kustom*)",
   "feat_workflow_9": "**Templat nama berkas** — beri nama unduhan sesuai keinginan Anda dengan `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, dan `{playlist_index}`, secara global atau per profil unduhan",
   "feat_workflow_10": "**Unduhan sekaligus dan coba ulang otomatis** — pilih berapa banyak unduhan antrean yang berjalan bersamaan, dan biarkan Arroxy mencoba ulang unduhan yang mengalami gangguan jaringan atau server, dengan menunggu lebih lama sebelum tiap percobaan",
+  "feat_workflow_11": "**Profil per item dalam daftar putar** — beri setiap video dalam daftar putar profil unduhannya sendiri, bukan satu pengaturan untuk semuanya, sehingga satu proses bisa mengarsipkan sebagian dalam kualitas penuh dan mengambil sisanya sebagai MP3",
   "feat_post_h3": "Subtitle & pasca-pemrosesan",
   "feat_post_1": "**Subtitel** dalam SRT, VTT, atau ASS — dibuat secara manual atau otomatis, dalam bahasa apa pun yang tersedia",
   "feat_post_2": "Simpan di samping video, sematkan ke `.mkv`, atau atur ke dalam subfolder `Subtitles/`",

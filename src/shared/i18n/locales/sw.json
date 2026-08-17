@@ -33,8 +33,22 @@
 	"theme": {"light": "Hali ya mwanga", "dark": "Hali ya giza", "system": "Chaguo-msingi la mfumo"},
 	"language": {"label": "Lugha"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Orodha ya kucheza", "playlistItemsGeneric": "Video", "playlistPresets": "Ubora", "formats": "Umbizo", "subtitles": "Manukuu", "sponsorblock": "SponsorBlock", "output": "Matokeo", "folder": "Hifadhi", "confirm": "Thibitisha"},
+		"steps": {"url": "URL", "playlistItems": "Orodha ya kucheza", "playlistItemsGeneric": "Video", "playlistPresets": "Ubora", "playlistProfiles": "Wasifu", "formats": "Umbizo", "subtitles": "Manukuu", "sponsorblock": "SponsorBlock", "output": "Matokeo", "folder": "Hifadhi", "confirm": "Thibitisha"},
 		"playlistPresets": {"heading": "Chagua ubora wa kundi", "subhead": "Kila video inatatua kiwango kilichochaguliwa kwa kujitegemea — playlists tofauti hufanya kazi bila mshangao.", "itemCount_one": "{{count}} kipande", "itemCount_other": "{{count}} vipande"},
+		"playlistProfiles": {
+			"heading": "Weka wasifu wa upakuaji",
+			"selectedSummary": "{{selected}} kati ya {{total}} zimechaguliwa",
+			"assignTrigger": "Weka kwenye uteuzi",
+			"assignAria": "Weka {{profileName}}",
+			"editProfile": "Hariri {{name}}",
+			"filtersLabel": "Vichujio vya wasifu",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Wasifu",
+			"columnDuration": "Muda",
+			"empty": "Hakuna vipengele vinavyolingana na kichujio hiki",
+			"hintTitle": "Weka wasifu kwa video kadhaa kwa wakati mmoja",
+			"hintBody": "Bofya ukiwa umeshikilia Shift kwa masafa, bofya ukiwa umeshikilia {{modifier}} kuongeza moja, au buruta kwenye safu mlalo. Kisha chagua wasifu hapo juu, au bofya kulia kwenye uteuzi."
+		},
 		"playlist": {
 			"heading": "Vipande vya Playlist",
 			"headingGeneric": "Video za kupakua",
@@ -77,7 +91,16 @@
 			"alreadyDownloaded": "Tayari imepakuliwa",
 			"probeLimitAlertTitle": "Skani ya playlist imefungwa",
 			"probeLimitAlertTitleGeneric": "Uchanganuzi umewekewa kikomo",
-			"probeLimitAlertDesc": "Arroxy imepata zaidi ya vipande {{count}}, kwa hivyo kikomo cha skani cha sasa kinaficha vilivyobaki."
+			"probeLimitAlertDesc": "Arroxy imepata zaidi ya vipande {{count}}, kwa hivyo kikomo cha skani cha sasa kinaficha vilivyobaki.",
+			"multiProfileEntry": "Weka wasifu kwa kila kipengele",
+			"multiProfileEntryTooltip": "Inaruka Ubora, SponsorBlock, Matokeo, na Hifadhi — badala yake weka wasifu wa upakuaji kwa kila kipengele",
+			"removeFromListCount_one": "Ondoa {{count}} kwenye orodha",
+			"removeFromListCount_other": "Ondoa {{count}} kwenye orodha",
+			"restore": "Rejesha",
+			"removedCount_one": "{{count}} zimeondolewa",
+			"removedCount_other": "{{count}} zimeondolewa",
+			"allRemovedTitle": "Vipengee vyote vimeondolewa",
+			"allRemovedDescription": "Virejeshe ili kuendelea."
 		},
 		"bulk": {
 			"title": "URL nyingi",
@@ -365,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Iko tayari kupakua!",
 			"landIn": "Faili yako itawekwa kwenye",
+			"landInMultiProfile_one": "Itafika kwenye lengwa lililo hapa chini",
+			"landInMultiProfile_other": "Zitafika kwenye malengwa {{count}} yaliyo hapa chini",
 			"labelVideo": "Video",
 			"labelAudio": "Sauti",
 			"labelSubtitles": "Manukuu",
@@ -389,7 +414,10 @@
 			"itemsValueAudio_one": "{{count}} kati ya {{total}} wimbo",
 			"itemsValueAudio_other": "{{count}} kati ya {{total}} nyimbo",
 			"itemsValueBulk_one": "{{count}} kati ya {{total}} URL",
-			"itemsValueBulk_other": "{{count}} kati ya {{total}} URL"
+			"itemsValueBulk_other": "{{count}} kati ya {{total}} URL",
+			"profileBreakdownHeading": "Wasifu katika kundi hili",
+			"profileBreakdownCount_one": "{{count}} kipande",
+			"profileBreakdownCount_other": "{{count}} vipande"
 		},
 		"profileEditor": {
 			"dialogTitle": "Wasifu wa upakuaji",

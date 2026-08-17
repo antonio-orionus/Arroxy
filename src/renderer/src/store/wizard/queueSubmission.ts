@@ -1,5 +1,5 @@
 import {DEFAULTS} from '@shared/constants.js'
-import {downloadProfileLabel, resolveActiveDownloadProfile, resolveDownloadProfile, resolveDownloadProfileBaseDir, resolveDownloadProfileOutputDir, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
+import {allDownloadProfiles, downloadProfileLabel, downloadProfileRefFor, resolveActiveDownloadProfile, resolveDownloadProfile, resolveDownloadProfileBaseDir, resolveDownloadProfileOutputDir, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfileRef, NativeAudioPreference, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
@@ -16,6 +16,7 @@ import {resolveOutputContainer} from './resolveContainer.js'
 import {resolvePlaylistDir} from './playlistDir.js'
 import {bindJobFilenameTemplate, canWriteM3u, playlistEntryTemplateMeta, resolveJobFilenameTemplate, singleTemplateMeta, templateOwnsDirs} from './outputTemplates.js'
 import {playlistTitleFallback} from './playlistTitle.js'
+import {resolveAssignedProfile} from './playlistProfileAssignments.js'
 
 export interface PlaylistManifestPayload {
 	playlistGroupId: string
@@ -152,7 +153,19 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 }
 
 function playlistManifestPayload(state: AppState, playlistGroupId: string, outputDir: string): PlaylistManifestPayload {
-	return {playlistGroupId, playlistTitle: state.playlistTitle || 'Playlist', outputDir, items: state.playlistItems.map(e => ({videoId: e.videoId, title: e.title, duration: e.duration}))}
+	const removed = new Set(state.removedPlaylistItemIds)
+	const items = state.playlistItems.filter(entry => !removed.has(entry.id))
+	return {playlistGroupId, playlistTitle: state.playlistTitle || 'Playlist', outputDir, items: items.map(e => ({videoId: e.videoId, title: e.title, duration: e.duration}))}
+}
+
+// Hoists Sets once per call instead of `.includes` inside the filter — at the
+// design's 1000-item target, `.includes` against a selection that can itself
+// be 1000 ids long turns each of the two call sites below into ~10^6
+// comparisons; a Set lookup is O(1) regardless of playlist size.
+function selectedPlaylistEntries(state: AppState): PlaylistEntry[] {
+	const selected = new Set(state.selectedPlaylistItemIds)
+	const removed = new Set(state.removedPlaylistItemIds)
+	return state.playlistItems.filter(entry => selected.has(entry.id) && !removed.has(entry.id))
 }
 
 export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
@@ -162,13 +175,49 @@ export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): 
 	}
 
 	const playlistGroupId = generateId()
-	const selected = state.playlistItems.filter(e => state.selectedPlaylistItemIds.includes(e.id))
+	const selected = selectedPlaylistEntries(state)
 	if (selected.length === 0) return null
 	const items = selected.map(e => buildPlaylistQueueItem(e, state, playlistGroupId, lane))
 	// The playlist root, not the first item's folder — a nesting template can put
 	// item 0 in an uploader-specific subfolder that does not represent the set.
 	const baseDir = resolvePlaylistDir(state)
 	return {items, ...(state.wizardMode === 'playlist' ? {manifest: playlistManifestPayload(state, playlistGroupId, baseDir)} : {})}
+}
+
+export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
+	const selected = selectedPlaylistEntries(state)
+	if (selected.length === 0) return null
+
+	const profiles = allDownloadProfiles(state.settings?.profiles)
+	const {profile: baseline} = resolveActiveDownloadProfile(state.settings?.profiles)
+	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
+	const outputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
+
+	const items = selected.map(entry => {
+		const profile = resolveAssignedProfile(entry.id, state.playlistProfileAssignments, profiles, baseline)
+		const ref = downloadProfileRefFor(profile, state.settings?.profiles)
+		const resolved = resolveDownloadProfile(profile, ref, nativeAudioPreference)
+		const template = resolveJobFilenameTemplate(profile, state.settings?.common?.filenameTemplate)
+		const templateMeta = playlistEntryTemplateMeta(entry, state.playlistTitle, state.playlistId)
+		const outputDir = templateOutputDir(resolveDownloadProfileOutputDir(profile, outputContext), template, templateMeta)
+		return buildProfileEntryQueueItem({
+			entry: {url: entry.url, title: entry.title, thumbnail: entry.thumbnail},
+			...(entry.probeInfoJsonRef ? {probeInfoJsonRef: entry.probeInfoJsonRef} : {}),
+			outputDir,
+			extractor: state.wizardExtractor,
+			extractorKey: state.wizardExtractorKey,
+			resolved,
+			profile,
+			filenameTemplate: bindJobFilenameTemplate(template, templateMeta, outputDir),
+			nativeAudioPreference,
+			// No playlistGroupId: QueueService only writes an .m3u for grouped items,
+			// and a playlist file cannot describe videos spread across profile dirs.
+			writeM3u: false,
+			lane
+		})
+	})
+
+	return {items}
 }
 
 function downloadProfileRefLabel(ref: DownloadProfileRef): string {

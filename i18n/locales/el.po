@@ -1165,9 +1165,29 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "Το αρχείο σου θα αποθηκευτεί στο"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Θα αποθηκευτεί στον παρακάτω προορισμό"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Θα αποθηκευτούν στους {{count}} παρακάτω προορισμούς"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Η προεπιλογή «μόνο υπότιτλοι» είναι ενεργή αλλά δεν έχει επιλεγεί γλώσσα — τίποτα δεν θα ληφθεί."
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} στοιχείο"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} στοιχεία"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Προφίλ σε αυτήν την παρτίδα"
 
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
@@ -1549,6 +1569,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Αποθήκευση μικρογραφίας"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Επαναφέρετέ τα για να συνεχίσετε."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Όλα τα στοιχεία καταργήθηκαν"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Ήδη κατεβασμένο"
@@ -1637,6 +1665,14 @@ msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "Σάρωση σελίδων καναλιού"
 
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Εκχώρηση προφίλ ανά στοιχείο"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Παρακάμπτει την Ποιότητα, το SponsorBlock, την Έξοδο και την Αποθήκευση — εκχωρεί αντ' αυτού ένα προφίλ λήψης ανά στοιχείο"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Επέλεξε τουλάχιστον ένα βίντεο για να συνεχίσεις"
@@ -1664,6 +1700,26 @@ msgstr "Από"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Έως"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} καταργήθηκαν"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} καταργήθηκαν"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Κατάργηση {{count}} από τη λίστα"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Κατάργηση {{count}} από τη λίστα"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Επαναφορά"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
@@ -1732,6 +1788,54 @@ msgstr "{{count}} στοιχεία"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Κάθε βίντεο επιλύει το επιλεγμένο επίπεδο ανεξάρτητα — οι ανομοιογενείς playlist λειτουργούν χωρίς εκπλήξεις."
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "Εκχώρηση {{profileName}}"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Εκχώρηση στην επιλογή"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Διάρκεια"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Προφίλ"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Επεξεργασία {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Κανένα στοιχείο δεν ταιριάζει με αυτό το φίλτρο"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Φίλτρα προφίλ"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Εκχώρηση προφίλ λήψης"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Shift-κλικ για εύρος, {{modifier}}-κλικ για προσθήκη ενός, ή σύρετε στις γραμμές. Έπειτα επιλέξτε προφίλ παραπάνω, ή κάντε δεξί κλικ στην επιλογή."
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "Ανάθεση προφίλ σε πολλά βίντεο ταυτόχρονα"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "Επιλέχθηκαν {{selected}} από {{total}}"
 
 msgctxt "wizard.profileEditor.action.addLanguage"
 msgid "Add"
@@ -2172,6 +2276,10 @@ msgstr "Βίντεο"
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
 msgstr "Ποιότητα"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Προφίλ"
 
 msgctxt "wizard.steps.sponsorblock"
 msgid "SponsorBlock"

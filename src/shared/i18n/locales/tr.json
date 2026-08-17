@@ -33,8 +33,22 @@
 	"theme": {"light": "Açık mod", "dark": "Koyu mod", "system": "Sistem varsayılanı"},
 	"language": {"label": "Dil"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Oynatma listesi", "playlistItemsGeneric": "Videolar", "playlistPresets": "Kalite", "formats": "Biçim", "subtitles": "Altyazılar", "sponsorblock": "SponsorBlock", "output": "Çıktı", "folder": "Kaydet", "confirm": "Onayla"},
+		"steps": {"url": "URL", "playlistItems": "Oynatma listesi", "playlistItemsGeneric": "Videolar", "playlistPresets": "Kalite", "playlistProfiles": "Profiller", "formats": "Biçim", "subtitles": "Altyazılar", "sponsorblock": "SponsorBlock", "output": "Çıktı", "folder": "Kaydet", "confirm": "Onayla"},
 		"playlistPresets": {"heading": "Toplu indirme için kalite seç", "subhead": "Her video seçilen kalite düzeyini bağımsız çözer — karışık oynatma listeleri sorunsuz çalışır.", "itemCount_one": "{{count}} öğe", "itemCount_other": "{{count}} öğe"},
+		"playlistProfiles": {
+			"heading": "İndirme profillerini ata",
+			"selectedSummary": "{{total}} öğeden {{selected}} tanesi seçildi",
+			"assignTrigger": "Seçime ata",
+			"assignAria": "{{profileName}} ata",
+			"editProfile": "{{name}} düzenle",
+			"filtersLabel": "Profil filtreleri",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Profil",
+			"columnDuration": "Süre",
+			"empty": "Bu filtreyle eşleşen öğe yok",
+			"hintTitle": "Birden çok videoya aynı anda profil ata",
+			"hintBody": "Bir aralık için Shift-tıkla, birini eklemek için {{modifier}}-tıkla ya da satırların üzerine sürükle. Ardından yukarıdan bir profil seç ya da seçime sağ tıkla."
+		},
 		"playlist": {
 			"heading": "Oynatma listesi öğeleri",
 			"headingGeneric": "İndirilecek videolar",
@@ -77,7 +91,16 @@
 			"alreadyDownloaded": "Zaten indirildi",
 			"probeLimitAlertTitle": "Oynatma listesi taraması sınırlandı",
 			"probeLimitAlertTitleGeneric": "Tarama sınırlandı",
-			"probeLimitAlertDesc": "İlk {{count}} öğe gösteriliyor. Daha fazlasını görmek için yükleme sınırını artır."
+			"probeLimitAlertDesc": "İlk {{count}} öğe gösteriliyor. Daha fazlasını görmek için yükleme sınırını artır.",
+			"multiProfileEntry": "Öğe başına profil ata",
+			"multiProfileEntryTooltip": "Kalite, SponsorBlock, Çıktı ve Kaydet adımlarını atlar — bunun yerine öğe başına bir indirme profili atar",
+			"removeFromListCount_one": "Listeden {{count}} öğe kaldır",
+			"removeFromListCount_other": "Listeden {{count}} öğe kaldır",
+			"restore": "Geri yükle",
+			"removedCount_one": "{{count}} kaldırıldı",
+			"removedCount_other": "{{count}} kaldırıldı",
+			"allRemovedTitle": "Tüm öğeler kaldırıldı",
+			"allRemovedDescription": "Devam etmek için onları geri yükleyin."
 		},
 		"bulk": {
 			"title": "Toplu URL’ler",
@@ -365,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Çekmeye hazır!",
 			"landIn": "Dosyan şuraya düşecek",
+			"landInMultiProfile_one": "Aşağıdaki hedefe inecek",
+			"landInMultiProfile_other": "Aşağıdaki {{count}} hedefe inecek",
 			"labelVideo": "Video",
 			"labelAudio": "Ses",
 			"labelSubtitles": "Altyazılar",
@@ -389,7 +414,10 @@
 			"itemsValueAudio_one": "{{total}} parçadan {{count}} tanesi",
 			"itemsValueAudio_other": "{{total}} parçadan {{count}} tanesi",
 			"itemsValueBulk_one": "{{total}} URL’den {{count}} tanesi",
-			"itemsValueBulk_other": "{{total}} URL’den {{count}} tanesi"
+			"itemsValueBulk_other": "{{total}} URL’den {{count}} tanesi",
+			"profileBreakdownHeading": "Bu gruptaki profiller",
+			"profileBreakdownCount_one": "{{count}} öğe",
+			"profileBreakdownCount_other": "{{count}} öğe"
 		},
 		"profileEditor": {
 			"dialogTitle": "İndirme profili",

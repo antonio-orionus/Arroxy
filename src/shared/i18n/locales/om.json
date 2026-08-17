@@ -33,8 +33,34 @@
 	"theme": {"light": "Haala iftoomaa", "dark": "Haala gurraacha", "system": "Sirna durtii"},
 	"language": {"label": "Afaan"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Tarree taphachiisaa", "playlistItemsGeneric": "Viidiyoowwan", "playlistPresets": "Qulqullina", "formats": "Foormaatii", "subtitles": "Axxiinni", "sponsorblock": "SponsorBlock", "output": "Ba'uu", "folder": "Kuusi", "confirm": "Mirkaneessi"},
+		"steps": {
+			"url": "URL",
+			"playlistItems": "Tarree taphachiisaa",
+			"playlistItemsGeneric": "Viidiyoowwan",
+			"playlistPresets": "Qulqullina",
+			"playlistProfiles": "Profaayilota",
+			"formats": "Foormaatii",
+			"subtitles": "Axxiinni",
+			"sponsorblock": "SponsorBlock",
+			"output": "Ba'uu",
+			"folder": "Kuusi",
+			"confirm": "Mirkaneessi"
+		},
 		"playlistPresets": {"heading": "Kutaa gurmuu barbaadi", "subhead": "Viidiyoon hundi sadarkaa filatame ofumaan qorata — playlist garagaraa sodaa malee hojjeta.", "itemCount_one": "{{count}} wanta", "itemCount_other": "{{count}} wantota"},
+		"playlistProfiles": {
+			"heading": "Piroofaayilii buufannaa ramaduu",
+			"selectedSummary": "{{total}} keessaa {{selected}} filatameera",
+			"assignTrigger": "Filannoo ramaduu",
+			"assignAria": "{{profileName}} ramaduu",
+			"editProfile": "{{name}} gulaali",
+			"filtersLabel": "Calaltuu piroofaayilii",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Piroofaayilii",
+			"columnDuration": "Turtii",
+			"empty": "Calaltuu kanaan wal simu hin jiru",
+			"hintTitle": "Piroofaayilii yeroo tokkotti viidiyoo hedduuf ramaduu",
+			"hintBody": "Daangaa tokkoof Shift-cuqaasi, tokko dabaluuf {{modifier}}-cuqaasi, ykn sarara irratti harkisi. Ergasii piroofaayilii armaan olii filadhu, ykn filannoo irratti mirga-cuqaasi."
+		},
 		"playlist": {
 			"heading": "Wantoota Playlist",
 			"headingGeneric": "Viidiyoowwan buufachuuf",
@@ -77,7 +103,16 @@
 			"alreadyDownloaded": "Duraan buufameera",
 			"probeLimitAlertTitle": "Qorannaan playlist daangeffameera",
 			"probeLimitAlertTitleGeneric": "Sakatta’iinsi daangeffameera",
-			"probeLimitAlertDesc": "Arroxy wantoota {{count}} ol argateera, kanaafuu daangaan qorannaa ammaa kan hafan dhoksaa jira."
+			"probeLimitAlertDesc": "Arroxy wantoota {{count}} ol argateera, kanaafuu daangaan qorannaa ammaa kan hafan dhoksaa jira.",
+			"multiProfileEntry": "Meeshaa tokkoon tokkoon Piroofaayilii ramaduu",
+			"multiProfileEntryTooltip": "Qulqullina, SponsorBlock, Ba'uu, fi Kuusi ni dabarsa — qooda kanaa meeshaa tokkoon tokkoon Piroofaayilii buufannaa ramadi",
+			"removeFromListCount_one": "{{count}} tarreefaa keessaa balleessi",
+			"removeFromListCount_other": "{{count}} tarreefaa keessaa balleessi",
+			"restore": "Deebi'si",
+			"removedCount_one": "{{count}} balleeffame",
+			"removedCount_other": "{{count}} balleeffame",
+			"allRemovedTitle": "Wanti hundinuu balleeffameera",
+			"allRemovedDescription": "Itti fufuudhaaf isaan deebisi."
 		},
 		"bulk": {
 			"title": "URL hedduu",
@@ -365,6 +400,8 @@
 		"confirm": {
 			"readyHeadline": "Buusuuf qophii dha!",
 			"landIn": "Faayilin kee bakka kanatti bu'a",
+			"landInMultiProfile_one": "Gara bakka armaan gadiitti bu'a",
+			"landInMultiProfile_other": "Gara bakkoota {{count}} armaan gadiitti ni bu'u",
 			"labelVideo": "Viidiyoo",
 			"labelAudio": "Sagalee",
 			"labelSubtitles": "Axxiinni",
@@ -389,7 +426,10 @@
 			"itemsValueAudio_one": "{{count}} fi {{total}} keessaa weellaa",
 			"itemsValueAudio_other": "{{count}} fi {{total}} keessaa weellaalee",
 			"itemsValueBulk_one": "{{count}} URL keessaa {{total}}",
-			"itemsValueBulk_other": "{{count}} URL keessaa {{total}}"
+			"itemsValueBulk_other": "{{count}} URL keessaa {{total}}",
+			"profileBreakdownHeading": "Piroofaayiloota kuma kana keessatti",
+			"profileBreakdownCount_one": "{{count}} wanta",
+			"profileBreakdownCount_other": "{{count}} wantota"
 		},
 		"profileEditor": {
 			"dialogTitle": "Piroofaayilii buufataa",

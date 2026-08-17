@@ -1165,9 +1165,29 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "ፋይልዎ እዚህ ይወርዳል"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "ከታች ወዳለው መድረሻ ይወርዳል"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "{{count}} መድረሻዎች ከታች ይወርዳሉ"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "ንዑስ ርዕስ ብቻ ቅድመ-ቅንብር ነቅቷል ነገር ግን ምንም ቋንቋ አልተመረጠም — ምንም አይዳውንሎድም።"
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} ንጥል"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} ንጥሎች"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "በዚህ ስብስብ ውስጥ ያሉ መገለጫዎች"
 
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
@@ -1549,6 +1569,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "ድንክ ምስል አስቀምጥ"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "ለመቀጠል መልሳቸው።"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "ሁሉም ንጥሎች ተወግደዋል"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "ቀድሞ ወርዷል"
@@ -1637,6 +1665,14 @@ msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "የቻናል ገጾችን በመፈተሽ ላይ"
 
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "ለእያንዳንዱ ንጥል መገለጫ መድብ"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "ጥራት፣ SponsorBlock፣ ውፅዓት እና አስቀምጥን ይዘላል — በምትኩ ለእያንዳንዱ ንጥል የማውረድ መገለጫ ይመድቡ"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "ለመቀጠል ቢያንስ አንድ ቪዲዮ ምረጥ"
@@ -1664,6 +1700,26 @@ msgstr "ከ"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "እስከ"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} ተወግደዋል"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} ተወግደዋል"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "{{count}} ከዝርዝሩ አስወግድ"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "{{count}} ከዝርዝሩ አስወግድ"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "መልስ"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
@@ -1732,6 +1788,54 @@ msgstr "{{count}} ንጥሎች"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "እያንዳንዱ ቪዲዮ የተመረጠውን ደረጃ ራሱን ችሎ ይፈታል — የተለያዩ playlists ያለ ችግር ይሰራሉ።"
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "{{profileName}}ን መድብ"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "ለተመረጡት መድብ"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "ቆይታ"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "መገለጫ"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "{{name}}ን አርትዕ"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "ከዚህ ማጣሪያ ጋር የሚዛመድ ንጥል የለም"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "የመገለጫ ማጣሪያዎች"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "የማውረድ መገለጫዎችን መድብ"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "ለክልል Shift-ጠቅ ያድርጉ፣ አንድ ለመጨመር {{modifier}}-ጠቅ ያድርጉ፣ ወይም በረድፎች ላይ ይጎትቱ። ከዚያ ከላይ መገለጫ ይምረጡ፣ ወይም በተመረጠው ላይ በቀኝ-ጠቅ ያድርጉ።"
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "ለብዙ ቪዲዮዎች በአንድ ጊዜ መገለጫ መድብ"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "ከ{{total}} ውስጥ {{selected}} ተመርጠዋል"
 
 msgctxt "wizard.profileEditor.action.addLanguage"
 msgid "Add"
@@ -2172,6 +2276,10 @@ msgstr "ቪዲዮዎች"
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
 msgstr "ጥራት"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "መገለጫዎች"
 
 msgctxt "wizard.steps.sponsorblock"
 msgid "SponsorBlock"

@@ -245,6 +245,7 @@ Arroxy está diseñado para una sola cosa: pega una URL y obtén un archivo loca
 - **Controles de velocidad y ritmo** — limita el ancho de banda de descarga, define cuántas partes de un vídeo se descargan a la vez y añade pausas entre solicitudes con ajustes (*Desactivado · Equilibrado · Cuidadoso · Personalizado*)
 - **Plantillas de nombre de archivo** — nombra las descargas a tu manera con `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` y `{playlist_index}`, de forma global o por perfil de descarga
 - **Descargas a la vez y reintento automático** — elige cuántas descargas de la cola se ejecutan al mismo tiempo y deja que Arroxy reintente una descarga que sufrió un problema de red o del servidor, esperando más antes de cada intento
+- **Perfiles por elemento de playlist** — asigna a cada vídeo de una playlist su propio perfil de descarga en lugar de un único ajuste para toda la lista, para archivar algunos en calidad máxima y sacar el resto como MP3 en una sola pasada
 
 ### Subtítulos y posprocesamiento
 

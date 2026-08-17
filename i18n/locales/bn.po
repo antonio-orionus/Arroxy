@@ -1165,9 +1165,29 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "আপনার ফাইল যাবে"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "এটি নিচের গন্তব্যে যাবে"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "এগুলো নিচের {{count}}টি গন্তব্যে যাবে"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "শুধু সাবটাইটেল প্রিসেট চালু আছে কিন্তু কোনো সাবটাইটেল ভাষা নির্বাচিত হয়নি — কিছু ডাউনলোড হবে না।"
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}}টি আইটেম"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}}টি আইটেম"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "এই ব্যাচের প্রোফাইলগুলি"
 
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
@@ -1549,6 +1569,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "থাম্বনেইল সেভ করুন"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "চালিয়ে যেতে সেগুলি পুনরুদ্ধার করুন।"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "সব আইটেম সরানো হয়েছে"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "ইতিমধ্যেই ডাউনলোড করা"
@@ -1637,6 +1665,14 @@ msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "চ্যানেল পৃষ্ঠা স্ক্যান করা হচ্ছে"
 
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "প্রতিটি আইটেমে প্রোফাইল নির্ধারণ করুন"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "মান, SponsorBlock, আউটপুট এবং সেভ এড়িয়ে যায় — পরিবর্তে প্রতিটি আইটেমে একটি ডাউনলোড প্রোফাইল নির্ধারণ করুন"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "চালিয়ে যেতে কমপক্ষে একটি ভিডিও নির্বাচন করুন"
@@ -1664,6 +1700,26 @@ msgstr "থেকে"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "পর্যন্ত"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}}টি সরানো হয়েছে"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}}টি সরানো হয়েছে"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "তালিকা থেকে {{count}}টি সরান"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "তালিকা থেকে {{count}}টি সরান"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "পুনরুদ্ধার করুন"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
@@ -1732,6 +1788,54 @@ msgstr "{{count}}টি আইটেম"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "প্রতিটি ভিডিও স্বাধীনভাবে বেছে নেওয়া স্তর অনুযায়ী রেজোলিউশন করে — বৈচিত্র্যময় playlist অবাক করা ছাড়াই কাজ করে।"
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "{{profileName}} নির্ধারণ করুন"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "নির্বাচনে নির্ধারণ করুন"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "সময়কাল"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "প্রোফাইল"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "{{name}} সম্পাদনা করুন"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "এই ফিল্টারের সাথে কোনো আইটেম মেলে না"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "প্রোফাইল ফিল্টার"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "ডাউনলোড প্রোফাইল নির্ধারণ করুন"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "একটি পরিসরের জন্য Shift-ক্লিক করুন, একটি যোগ করতে {{modifier}}-ক্লিক করুন, অথবা সারিগুলির উপর দিয়ে টেনে আনুন। তারপর উপরে একটি প্রোফাইল বেছে নিন, অথবা নির্বাচনে ডান-ক্লিক করুন।"
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "একসাথে একাধিক ভিডিওতে প্রোফাইল নির্ধারণ করুন"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{total}} এর মধ্যে {{selected}} নির্বাচিত"
 
 msgctxt "wizard.profileEditor.action.addLanguage"
 msgid "Add"
@@ -2172,6 +2276,10 @@ msgstr "ভিডিও"
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
 msgstr "মান"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "প্রোফাইল"
 
 msgctxt "wizard.steps.sponsorblock"
 msgid "SponsorBlock"

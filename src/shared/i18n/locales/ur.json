@@ -33,8 +33,22 @@
 	"theme": {"light": "لائٹ موڈ", "dark": "ڈارک موڈ", "system": "سسٹم ڈیفالٹ"},
 	"language": {"label": "زبان"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "پلے لسٹ", "playlistItemsGeneric": "ویڈیوز", "playlistPresets": "معیار", "formats": "فارمیٹ", "subtitles": "سب ٹائٹلز", "sponsorblock": "SponsorBlock", "output": "آؤٹ پٹ", "folder": "محفوظ کریں", "confirm": "تصدیق"},
+		"steps": {"url": "URL", "playlistItems": "پلے لسٹ", "playlistItemsGeneric": "ویڈیوز", "playlistPresets": "معیار", "playlistProfiles": "پروفائلز", "formats": "فارمیٹ", "subtitles": "سب ٹائٹلز", "sponsorblock": "SponsorBlock", "output": "آؤٹ پٹ", "folder": "محفوظ کریں", "confirm": "تصدیق"},
 		"playlistPresets": {"heading": "بیچ کے لیے کوالٹی منتخب کریں", "subhead": "ہر ویڈیو منتخب درجے کو آزادانہ طور پر حل کرتی ہے — مختلف قسم کی playlists بغیر کسی پریشانی کے کام کرتی ہیں۔", "itemCount_one": "{{count}} آئٹم", "itemCount_other": "{{count}} آئٹمز"},
+		"playlistProfiles": {
+			"heading": "ڈاؤن لوڈ پروفائلز تفویض کریں",
+			"selectedSummary": "{{total}} میں سے {{selected}} منتخب",
+			"assignTrigger": "انتخاب کو تفویض کریں",
+			"assignAria": "{{profileName}} تفویض کریں",
+			"editProfile": "{{name}} میں ترمیم کریں",
+			"filtersLabel": "پروفائل فلٹرز",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "پروفائل",
+			"columnDuration": "دورانیہ",
+			"empty": "کوئی آئٹم اس فلٹر سے مماثل نہیں",
+			"hintTitle": "بیک وقت متعدد ویڈیوز کو پروفائل تفویض کریں",
+			"hintBody": "حد کے لیے Shift کے ساتھ کلک کریں، ایک شامل کرنے کے لیے {{modifier}} کے ساتھ کلک کریں، یا قطاروں پر گھسیٹیں۔ پھر اوپر سے ایک پروفائل منتخب کریں، یا انتخاب پر دائیں کلک کریں۔"
+		},
 		"playlist": {
 			"heading": "Playlist آئٹمز",
 			"headingGeneric": "ڈاؤن لوڈ کے لیے ویڈیوز",
@@ -77,7 +91,16 @@
 			"alreadyDownloaded": "پہلے سے ڈاؤن لوڈ شدہ",
 			"probeLimitAlertTitle": "Playlist اسکین محدود ہے",
 			"probeLimitAlertTitleGeneric": "اسکین محدود ہے",
-			"probeLimitAlertDesc": "Arroxy نے {{count}} سے زیادہ آئٹمز دریافت کیے، اس لیے موجودہ اسکین لمٹ باقی آئٹمز چھپا رہی ہے۔"
+			"probeLimitAlertDesc": "Arroxy نے {{count}} سے زیادہ آئٹمز دریافت کیے، اس لیے موجودہ اسکین لمٹ باقی آئٹمز چھپا رہی ہے۔",
+			"multiProfileEntry": "فی آئٹم پروفائلز تفویض کریں",
+			"multiProfileEntryTooltip": "معیار, SponsorBlock, آؤٹ پٹ اور محفوظ کرنے کو نظرانداز کرتا ہے — اس کے بجائے فی آئٹم ڈاؤن لوڈ پروفائل تفویض کریں",
+			"removeFromListCount_one": "فہرست سے {{count}} ہٹائیں",
+			"removeFromListCount_other": "فہرست سے {{count}} ہٹائیں",
+			"restore": "بحال کریں",
+			"removedCount_one": "{{count}} ہٹا دیے گئے",
+			"removedCount_other": "{{count}} ہٹا دیے گئے",
+			"allRemovedTitle": "تمام آئٹمز ہٹا دیے گئے",
+			"allRemovedDescription": "جاری رکھنے کے لیے انہیں بحال کریں۔"
 		},
 		"bulk": {
 			"title": "متعدد URLs",
@@ -365,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "لانے کے لیے تیار!",
 			"landIn": "آپ کی فائل یہاں پہنچے گی",
+			"landInMultiProfile_one": "یہ نیچے دی گئی منزل میں پہنچے گی",
+			"landInMultiProfile_other": "یہ نیچے دی گئی {{count}} منزلوں میں پہنچیں گی",
 			"labelVideo": "ویڈیو",
 			"labelAudio": "آڈیو",
 			"labelSubtitles": "سب ٹائٹلز",
@@ -389,7 +414,10 @@
 			"itemsValueAudio_one": "{{total}} میں سے {{count}} ٹریک",
 			"itemsValueAudio_other": "{{total}} میں سے {{count}} ٹریکس",
 			"itemsValueBulk_one": "{{total}} میں سے {{count}} URL",
-			"itemsValueBulk_other": "{{total}} میں سے {{count}} URLs"
+			"itemsValueBulk_other": "{{total}} میں سے {{count}} URLs",
+			"profileBreakdownHeading": "اس بیچ میں پروفائلز",
+			"profileBreakdownCount_one": "{{count}} آئٹم",
+			"profileBreakdownCount_other": "{{count}} آئٹمز"
 		},
 		"profileEditor": {
 			"dialogTitle": "ڈاؤن لوڈ پروفائل",

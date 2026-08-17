@@ -33,8 +33,22 @@
 	"theme": {"light": "Heller Modus", "dark": "Dunkler Modus", "system": "Systemstandard"},
 	"language": {"label": "Sprache"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Wiedergabeliste", "playlistItemsGeneric": "Videos", "playlistPresets": "Qualität", "formats": "Format", "subtitles": "Untertitel", "sponsorblock": "SponsorBlock", "output": "Ausgabe", "folder": "Speichern", "confirm": "Bestätigen"},
+		"steps": {"url": "URL", "playlistItems": "Wiedergabeliste", "playlistItemsGeneric": "Videos", "playlistPresets": "Qualität", "playlistProfiles": "Profile", "formats": "Format", "subtitles": "Untertitel", "sponsorblock": "SponsorBlock", "output": "Ausgabe", "folder": "Speichern", "confirm": "Bestätigen"},
 		"playlistPresets": {"heading": "Qualität für den Stapel wählen", "subhead": "Jedes Video löst die gewählte Stufe unabhängig auf — heterogene Playlists funktionieren ohne Überraschungen.", "itemCount_one": "{{count}} Element", "itemCount_other": "{{count}} Elemente"},
+		"playlistProfiles": {
+			"heading": "Download-Profile zuweisen",
+			"selectedSummary": "{{selected}} von {{total}} ausgewählt",
+			"assignTrigger": "Auswahl zuweisen",
+			"assignAria": "{{profileName}} zuweisen",
+			"editProfile": "{{name}} bearbeiten",
+			"filtersLabel": "Profilfilter",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Profil",
+			"columnDuration": "Dauer",
+			"empty": "Keine Einträge entsprechen diesem Filter",
+			"hintTitle": "Profile für mehrere Videos auf einmal zuweisen",
+			"hintBody": "Shift-Klick für einen Bereich, {{modifier}}-Klick zum einzelnen Hinzufügen, oder über Zeilen ziehen. Dann oben ein Profil wählen oder mit Rechtsklick auf die Auswahl klicken."
+		},
 		"playlist": {
 			"heading": "Playlist-Elemente",
 			"headingGeneric": "Videos zum Herunterladen",
@@ -77,7 +91,16 @@
 			"alreadyDownloaded": "Bereits heruntergeladen",
 			"probeLimitAlertTitle": "Playlist-Scan ist begrenzt",
 			"probeLimitAlertTitleGeneric": "Scan ist begrenzt",
-			"probeLimitAlertDesc": "Arroxy hat mehr als {{count}} Einträge gefunden, daher verbirgt das aktuelle Scan-Limit den Rest."
+			"probeLimitAlertDesc": "Arroxy hat mehr als {{count}} Einträge gefunden, daher verbirgt das aktuelle Scan-Limit den Rest.",
+			"multiProfileEntry": "Profile pro Element zuweisen",
+			"multiProfileEntryTooltip": "Überspringt Qualität, SponsorBlock, Ausgabe und Speichern — weist stattdessen jedem Element ein Download-Profil zu",
+			"removeFromListCount_one": "{{count}} aus der Liste entfernen",
+			"removeFromListCount_other": "{{count}} aus der Liste entfernen",
+			"restore": "Wiederherstellen",
+			"removedCount_one": "{{count}} entfernt",
+			"removedCount_other": "{{count}} entfernt",
+			"allRemovedTitle": "Alle Elemente wurden entfernt",
+			"allRemovedDescription": "Stelle sie wieder her, um fortzufahren."
 		},
 		"bulk": {
 			"title": "Bulk-URLs",
@@ -365,6 +388,8 @@
 		"confirm": {
 			"readyHeadline": "Bereit zum Herunterladen!",
 			"landIn": "Deine Datei landet in",
+			"landInMultiProfile_one": "Es landet im Ziel unten",
+			"landInMultiProfile_other": "Sie landen in den {{count}} Zielen unten",
 			"labelVideo": "Video",
 			"labelAudio": "Audio",
 			"labelSubtitles": "Untertitel",
@@ -389,7 +414,10 @@
 			"itemsValueAudio_one": "{{count}} von {{total}} Titel",
 			"itemsValueAudio_other": "{{count}} von {{total}} Titeln",
 			"itemsValueBulk_one": "{{count}} von {{total}} URL",
-			"itemsValueBulk_other": "{{count}} von {{total}} URLs"
+			"itemsValueBulk_other": "{{count}} von {{total}} URLs",
+			"profileBreakdownHeading": "Profile in diesem Stapel",
+			"profileBreakdownCount_one": "{{count}} Element",
+			"profileBreakdownCount_other": "{{count}} Elemente"
 		},
 		"profileEditor": {
 			"dialogTitle": "Download-Profil",

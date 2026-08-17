@@ -1159,8 +1159,28 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr ""
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr ""
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr ""
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr ""
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr ""
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr ""
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
 msgstr ""
 
 msgctxt "wizard.confirm.pullIt"
@@ -1543,6 +1563,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr ""
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr ""
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr ""
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr ""
@@ -1631,6 +1659,14 @@ msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr ""
 
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr ""
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr ""
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr ""
@@ -1657,6 +1693,26 @@ msgstr ""
 
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
+msgstr ""
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr ""
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr ""
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr ""
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr ""
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
 msgstr ""
 
 msgctxt "wizard.playlist.selectAll"
@@ -1725,6 +1781,54 @@ msgstr ""
 
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr ""
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
 msgstr ""
 
 msgctxt "wizard.profileEditor.action.addLanguage"
@@ -2165,6 +2269,10 @@ msgstr ""
 
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
+msgstr ""
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
 msgstr ""
 
 msgctxt "wizard.steps.sponsorblock"

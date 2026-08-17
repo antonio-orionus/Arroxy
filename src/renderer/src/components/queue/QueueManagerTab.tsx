@@ -1,9 +1,11 @@
-import {useCallback, useEffect, useMemo, useReducer, useRef, type MouseEvent, type PointerEvent, type ReactNode} from 'react'
-import {getCoreRowModel, getSortedRowModel, useReactTable, type ColumnOrderState, type Row, type SortingState, type Updater, type VisibilityState} from '@tanstack/react-table'
+import {useCallback, useEffect, useMemo, useReducer, useRef, type ReactNode} from 'react'
+import {getCoreRowModel, getSortedRowModel, useReactTable, type ColumnOrderState, type SortingState, type Updater, type VisibilityState} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
 import {useTranslation} from 'react-i18next'
 import type {QueueItem, QueueSelectionAction} from '@shared/types.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import type {ListSelectionAction} from '../shared/listSelection.js'
+import {useRowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
 import {saveQueueTablePreferences, sanitizeQueueTablePreferences, type QueueTableColumnId, type QueueTablePreferences} from './queueTablePreferences.js'
 import {createQueueManagerState, currentViewportWidth, queueManagerReducer} from './queueManagerState.js'
 import {COLUMN_LABEL_KEYS, actionButtonDisabled, type QueueSelectedAction} from './queueManagerActions.js'
@@ -17,14 +19,6 @@ function resolveUpdater<T>(updater: Updater<T>, previous: T): T {
 	if (typeof updater !== 'function') return updater
 	const updaterFn = updater as (previous: T) => T
 	return updaterFn(previous)
-}
-function visibleRangeIds(rows: ReadonlyArray<Row<QueueItem>>, anchorId: string, itemId: string): string[] {
-	const anchorIndex = rows.findIndex(row => row.original.id === anchorId)
-	const itemIndex = rows.findIndex(row => row.original.id === itemId)
-	if (anchorIndex === -1 || itemIndex === -1) return [itemId]
-	const start = Math.min(anchorIndex, itemIndex)
-	const end = Math.max(anchorIndex, itemIndex)
-	return rows.slice(start, end + 1).map(row => row.original.id)
 }
 
 function isQueueTableColumnId(columnId: string): columnId is QueueTableColumnId {
@@ -47,22 +41,23 @@ export function QueueManagerTab(): ReactNode {
 	const cancelAll = useAppStore(state => state.cancelAll)
 	const clearCompleted = useAppStore(state => state.clearCompleted)
 	const [state, dispatch] = useReducer(queueManagerReducer, undefined, createQueueManagerState)
-	const {filter, selectedIds, expandedIds, contextIds, tablePreferences, viewportWidth} = state
-	const selectionAnchorIdRef = useRef<string | null>(null)
-	const dragAnchorIdRef = useRef<string | null>(null)
-	const dragMovedRef = useRef(false)
-	const dragSelectingRef = useRef(false)
-	const suppressNextClickRef = useRef(false)
+	const {filter, selection, expandedIds, tablePreferences, viewportWidth} = state
+	const {selectedIds, contextIds} = selection
+	const dispatchSelection = useCallback((action: ListSelectionAction): void => {
+		dispatch({type: 'selection', action})
+	}, [])
 	const scrollRef = useRef<HTMLDivElement>(null)
 
 	const filteredQueue = useMemo(() => (filter === 'all' ? queue : queue.filter(item => item.status === filter)), [filter, queue])
 	const selectedItems = useMemo(() => queue.filter(item => selectedIds.has(item.id)), [queue, selectedIds])
 	const selectedIdList = useMemo(() => selectedItems.map(item => item.id), [selectedItems])
-	const contextItems = useMemo(() => queue.filter(item => contextIds.includes(item.id)), [contextIds, queue])
+	// Set lookup instead of `.includes` — contextIds can be the whole
+	// selection, and queue can be large, so this scans per rendered item
+	// otherwise (same concern as the playlist-profiles table's contextIdSet).
+	const contextIdSet = useMemo(() => new Set(contextIds), [contextIds])
+	const contextItems = useMemo(() => queue.filter(item => contextIdSet.has(item.id)), [contextIdSet, queue])
 	useEffect(() => {
-		const liveIds = new Set(queue.map(item => item.id))
-		dispatch({type: 'prune-ids', liveIds})
-		if (selectionAnchorIdRef.current && !liveIds.has(selectionAnchorIdRef.current)) selectionAnchorIdRef.current = null
+		dispatch({type: 'prune-ids', liveIds: new Set(queue.map(item => item.id))})
 	}, [queue])
 
 	useEffect(() => {
@@ -72,25 +67,6 @@ export function QueueManagerTab(): ReactNode {
 		window.addEventListener('resize', updateViewportWidth)
 		return () => {
 			window.removeEventListener('resize', updateViewportWidth)
-		}
-	}, [])
-
-	useEffect(() => {
-		const stopDragSelection = (): void => {
-			dragSelectingRef.current = false
-			dragAnchorIdRef.current = null
-			if (!dragMovedRef.current) return
-			suppressNextClickRef.current = true
-			dragMovedRef.current = false
-			window.setTimeout(() => {
-				suppressNextClickRef.current = false
-			}, 0)
-		}
-		window.addEventListener('pointerup', stopDragSelection)
-		window.addEventListener('blur', stopDragSelection)
-		return () => {
-			window.removeEventListener('pointerup', stopDragSelection)
-			window.removeEventListener('blur', stopDragSelection)
 		}
 	}, [])
 
@@ -151,31 +127,9 @@ export function QueueManagerTab(): ReactNode {
 		[changeOutputTargetForItems, openDestinationFolderForItems, runSelectionAction, selectedItems]
 	)
 
-	const replaceSelection = useCallback((itemId: string): void => {
-		dispatch({type: 'replace-selection', itemId})
-		selectionAnchorIdRef.current = itemId
-	}, [])
-
-	const toggleSelected = useCallback((itemId: string): void => {
-		dispatch({type: 'toggle-selection', itemId})
-		selectionAnchorIdRef.current = itemId
-	}, [])
-
 	const toggleExpanded = useCallback((itemId: string): void => {
 		dispatch({type: 'toggle-expanded', itemId})
 	}, [])
-
-	const openContextMenuForRow = useCallback(
-		(itemId: string): void => {
-			if (selectedIds.has(itemId)) {
-				dispatch({type: 'set-context-ids', ids: selectedIdList})
-				return
-			}
-			replaceSelection(itemId)
-			dispatch({type: 'set-context-ids', ids: [itemId]})
-		},
-		[replaceSelection, selectedIdList, selectedIds]
-	)
 
 	const updateTablePreferences = useCallback(
 		(updater: (previous: QueueTablePreferences) => unknown): void => {
@@ -223,6 +177,8 @@ export function QueueManagerTab(): ReactNode {
 		state: {columnOrder: tablePreferences.columnOrder, columnVisibility: tablePreferences.columnVisibility, sorting: tablePreferences.sorting}
 	})
 	const rows = table.getRowModel().rows
+	const orderedRowIds = useMemo(() => rows.map(row => row.original.id), [rows])
+	const interactions = useRowSelectionInteractions({orderedIds: orderedRowIds, selection, dispatch: dispatchSelection})
 	const rowVirtualizer = useVirtualizer({count: rows.length, getScrollElement: () => scrollRef.current, estimateSize: () => 62, overscan: 8})
 	const virtualRows = rowVirtualizer.getVirtualItems()
 	const firstVirtualRow = virtualRows[0]
@@ -232,60 +188,6 @@ export function QueueManagerTab(): ReactNode {
 	const selectedCount = selectedItems.length
 	const visibleColumns = table.getVisibleLeafColumns()
 	const renderedColumnCount = Math.max(1, visibleColumns.filter(column => isResponsiveRenderedColumn(column.id, viewportWidth)).length)
-
-	const selectRange = useCallback(
-		(anchorId: string, itemId: string): void => {
-			dispatch({type: 'set-selection', ids: visibleRangeIds(rows, anchorId, itemId)})
-		},
-		[rows]
-	)
-
-	const selectRowFromClick = useCallback(
-		(itemId: string, event: MouseEvent<HTMLTableRowElement>): void => {
-			if (suppressNextClickRef.current) {
-				suppressNextClickRef.current = false
-				return
-			}
-			if (event.shiftKey) {
-				const anchorId = selectionAnchorIdRef.current ?? itemId
-				selectRange(anchorId, itemId)
-				selectionAnchorIdRef.current = anchorId
-				return
-			}
-			if (event.ctrlKey || event.metaKey) {
-				toggleSelected(itemId)
-				return
-			}
-			replaceSelection(itemId)
-		},
-		[replaceSelection, selectRange, toggleSelected]
-	)
-
-	const selectRowFromKeyboard = useCallback(
-		(itemId: string): void => {
-			toggleSelected(itemId)
-		},
-		[toggleSelected]
-	)
-
-	const startRowDragSelection = useCallback((itemId: string, event: PointerEvent<HTMLTableRowElement>): void => {
-		if (event.button !== 0) return
-		dragSelectingRef.current = true
-		dragMovedRef.current = false
-		dragAnchorIdRef.current = itemId
-	}, [])
-
-	const extendRowDragSelection = useCallback(
-		(itemId: string, event: PointerEvent<HTMLTableRowElement>): void => {
-			if (!dragSelectingRef.current || (event.buttons & 1) !== 1) return
-			const anchorId = dragAnchorIdRef.current
-			if (!anchorId || (anchorId === itemId && !dragMovedRef.current)) return
-			dragMovedRef.current = true
-			selectRange(anchorId, itemId)
-			selectionAnchorIdRef.current = anchorId
-		},
-		[selectRange]
-	)
 
 	return (
 		<section className="glow-panel mx-auto flex min-h-[28rem] w-full max-w-[92rem] flex-col overflow-hidden rounded-[1.25rem] border-transparent p-3" data-testid="queue-manager-tab">
@@ -316,12 +218,8 @@ export function QueueManagerTab(): ReactNode {
 				contextItems={contextItems}
 				expandedIds={expandedIds}
 				selectedIds={selectedIds}
+				interactions={interactions}
 				onContextAction={runSelectedAction}
-				onContextMenu={openContextMenuForRow}
-				onKeyboardToggle={selectRowFromKeyboard}
-				onRowClick={selectRowFromClick}
-				onRowPointerDown={startRowDragSelection}
-				onRowPointerEnter={extendRowDragSelection}
 			/>
 		</section>
 	)

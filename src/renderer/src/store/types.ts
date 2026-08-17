@@ -37,7 +37,8 @@ import type {
 	SponsorBlockCategory,
 	SupportedLang,
 	UiTheme,
-	WizardMode
+	WizardMode,
+	WizardStepName
 } from '@shared/types.js'
 import type {Result} from '@shared/result.js'
 import type {AudioSelection} from '@shared/schemas.js'
@@ -45,7 +46,10 @@ import type {IncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import type {QuickDownloadFailure} from './wizard/quickDownloadFeedback.js'
 export type {AudioSelection}
 export type {BulkMetadataCancelReason, BulkMetadataItemStatus, BulkMetadataStatus, WizardMode} from '@shared/types.js'
-export type WizardStep = 'url' | 'playlistItems' | 'playlistPresets' | 'formats' | 'subtitles' | 'sponsorblock' | 'output' | 'folder' | 'confirm' | 'error'
+// WizardStep is a plain alias of the shared WizardStepName (schemas.ts is the
+// single source of truth for the step list) — kept under its own name here
+// since every renderer file already imports it as WizardStep.
+export type WizardStep = WizardStepName
 export type AdvancedSettingsTarget = 'cookies' | 'network'
 export type MixedUrlPromptSource = 'wizard' | 'quick-download'
 
@@ -103,6 +107,16 @@ export interface ProbeOrchestratorSlice {
 	playlistScopeError: string | null
 	playlistScope: PlaylistScope
 	playlistSelection: PlaylistSelection | null
+	multiProfileMode: boolean
+	playlistProfileAssignments: Record<string, DownloadProfileRef>
+	removedPlaylistItemIds: string[]
+	// The subset of removedPlaylistItemIds that was checked (in
+	// selectedPlaylistItemIds) at the moment it was removed. removePlaylistItems
+	// unconditionally strips removed ids out of selectedPlaylistItemIds, so
+	// restoreRemovedPlaylistItems needs this to know which ones to re-check —
+	// without it, Restore would either do nothing (never re-selects) or
+	// re-check rows the user had deliberately left unchecked.
+	removedSelectionIds: string[]
 	bulkMetadataStatus: BulkMetadataStatus
 	bulkMetadataCompleted: number
 	bulkMetadataTotal: number
@@ -143,6 +157,12 @@ export interface ProbeOrchestratorSlice {
 	selectPlaylistRange: (from: number, to: number) => void
 	confirmPlaylistSelection: () => void
 	setPlaylistSelection: (s: PlaylistSelection) => void
+	enterMultiProfileMode: () => void
+	exitMultiProfileMode: () => void
+	assignPlaylistProfile: (itemIds: string[], ref: DownloadProfileRef) => void
+	resetPlaylistProfile: (itemIds: string[]) => void
+	removePlaylistItems: (itemIds: string[]) => void
+	restoreRemovedPlaylistItems: () => void
 	scanDownloadedInFolder: () => Promise<void>
 	applyFolderSync: () => void
 	advance: () => void
@@ -331,6 +351,7 @@ export interface SystemSlice {
 	closeShareDialog: () => void
 	setShareInlineCardDismissed: () => Promise<void>
 	setShareHighValueBannerDismissed: () => Promise<void>
+	dismissMultiProfileHint: () => Promise<void>
 }
 
 export type AppState = ProbeOrchestratorSlice & FormatPickerSlice & OutputConfigSlice & WizardDialogsSlice & QueueSlice & UiSlice & SystemSlice

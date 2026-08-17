@@ -145,6 +145,48 @@ describe('playlist probe limit selector alert', () => {
 		expect(event.defaultPrevented).toBe(true)
 		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['p2'])
 	})
+
+	it('ignores Delete with a modifier key held', () => {
+		installApi()
+		resetStore(50, 2)
+		render(<StepPlaylistItems />)
+
+		fireEvent.keyDown(window, {key: 'Delete', ctrlKey: true})
+
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
+	})
+
+	it('ignores Delete while the probe-limit select popup is open', async () => {
+		installApi()
+		resetStore(50, 2, true)
+		render(<StepPlaylistItems />)
+
+		fireEvent.click(screen.getByTestId('playlist-alert-probe-limit-trigger'))
+		await screen.findByRole('listbox')
+
+		fireEvent.keyDown(window, {key: 'Delete'})
+
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
+	})
+
+	it('ignores Delete while the custom probe-limit dialog is open', async () => {
+		// PlaylistProbeLimitSelector's custom dialog is one of several overlays
+		// this step can open on top of itself. Without hasOpenOverlay(), Delete
+		// pressed while it's open falls straight through — isTypingTarget only
+		// recognizes text fields, not a dialog's buttons — and silently removes
+		// the selected rows behind it.
+		installApi()
+		resetStore(50, 2, true)
+		render(<StepPlaylistItems />)
+
+		fireEvent.click(screen.getByTestId('playlist-alert-probe-limit-trigger'))
+		fireEvent.click(await screen.findByTestId('playlist-alert-probe-limit-option-custom'))
+		await screen.findByTestId('playlist-alert-probe-limit-custom-dialog')
+
+		fireEvent.keyDown(window, {key: 'Delete'})
+
+		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
+	})
 })
 
 describe('quick playlist cap dialog', () => {

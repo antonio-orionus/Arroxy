@@ -12,3 +12,8 @@ export function hostPlatform(): NodeJS.Platform {
 	if (typeof process !== 'undefined' && process.platform) return process.platform
 	return 'linux'
 }
+
+/** Keyboard modifier used for additive selection, in the host's notation. */
+export function selectionModifierLabel(): string {
+	return hostPlatform() === 'darwin' ? '⌘' : 'Ctrl'
+}

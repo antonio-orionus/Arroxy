@@ -181,6 +181,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		playlistScopeError: RESET_WIZARD_STATE.playlistScopeError,
 		playlistScope: RESET_WIZARD_STATE.playlistScope,
 		playlistSelection: RESET_WIZARD_STATE.playlistSelection,
+		multiProfileMode: RESET_WIZARD_STATE.multiProfileMode,
+		playlistProfileAssignments: RESET_WIZARD_STATE.playlistProfileAssignments,
+		removedPlaylistItemIds: RESET_WIZARD_STATE.removedPlaylistItemIds,
+		removedSelectionIds: RESET_WIZARD_STATE.removedSelectionIds,
 		bulkMetadataStatus: RESET_WIZARD_STATE.bulkMetadataStatus,
 		bulkMetadataCompleted: RESET_WIZARD_STATE.bulkMetadataCompleted,
 		bulkMetadataTotal: RESET_WIZARD_STATE.bulkMetadataTotal,
@@ -273,7 +277,14 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			await reloadPlaylistWithScope(scope, set, get)
 		},
 
-		selectAllPlaylistItems: () => set(state => ({selectedPlaylistItemIds: state.playlistItems.map(e => e.id)})),
+		// Both filter against removedPlaylistItemIds so a removed row can never
+		// reappear in the count — with no visible row to uncheck, the user would
+		// have no way to correct an over-count.
+		selectAllPlaylistItems: () =>
+			set(state => {
+				const removed = new Set(state.removedPlaylistItemIds)
+				return {selectedPlaylistItemIds: state.playlistItems.filter(e => !removed.has(e.id)).map(e => e.id)}
+			}),
 
 		selectNonePlaylistItems: () => set({selectedPlaylistItemIds: []}),
 
@@ -281,7 +292,8 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			set(state => {
 				const lo = Math.min(from, to)
 				const hi = Math.max(from, to)
-				const ids = state.playlistItems.flatMap(e => (e.playlistIndex >= lo && e.playlistIndex <= hi ? [e.id] : []))
+				const removed = new Set(state.removedPlaylistItemIds)
+				const ids = state.playlistItems.flatMap(e => (e.playlistIndex >= lo && e.playlistIndex <= hi && !removed.has(e.id) ? [e.id] : []))
 				return {selectedPlaylistItemIds: ids}
 			}),
 
@@ -293,6 +305,30 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		},
 
 		setPlaylistSelection: s => set({playlistSelection: s, wizardSubtitleSkipped: false}),
+
+		// Logged here (not inside WizardCommands) so every other transition in
+		// this file keeps calling logStep the same way, right after the set() —
+		// without it the diagnostics stream shows no record of entry into or
+		// exit from playlistProfiles at all.
+		enterMultiProfileMode: () => {
+			const fromStep = get().wizardStep
+			WizardCommands.enterMultiProfileMode(set)
+			logStep('advance', fromStep, get().wizardStep, pickWizardSnapshot(get()))
+		},
+
+		exitMultiProfileMode: () => {
+			const fromStep = get().wizardStep
+			WizardCommands.exitMultiProfileMode(set)
+			logStep('back', fromStep, get().wizardStep, pickWizardSnapshot(get()))
+		},
+
+		assignPlaylistProfile: (itemIds, ref) => WizardCommands.assignPlaylistProfile(itemIds, ref, set, get),
+
+		resetPlaylistProfile: itemIds => WizardCommands.resetPlaylistProfile(itemIds, set, get),
+
+		removePlaylistItems: itemIds => WizardCommands.removePlaylistItems(itemIds, set, get),
+
+		restoreRemovedPlaylistItems: () => WizardCommands.restoreRemovedPlaylistItems(set, get),
 
 		// Scan the destination folder for already-downloaded items. Populates
 		// syncedDownloadedIds (drives the "already downloaded" badges + the sync

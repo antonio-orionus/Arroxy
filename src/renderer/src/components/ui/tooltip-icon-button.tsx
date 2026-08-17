@@ -9,15 +9,16 @@ interface TooltipIconButtonProps {
 	variant?: 'ghost' | 'secondary' | 'outline'
 	size?: 'icon'
 	className?: string
+	disabled?: boolean
 	'data-testid'?: string
 }
 
-export function TooltipIconButton({icon, label, onClick, variant = 'ghost', size = 'icon', className, 'data-testid': dataTestId}: TooltipIconButtonProps): ReactNode {
+export function TooltipIconButton({icon, label, onClick, variant = 'ghost', size = 'icon', className, disabled, 'data-testid': dataTestId}: TooltipIconButtonProps): ReactNode {
 	return (
 		<Tooltip>
 			<TooltipTrigger
 				render={props => (
-					<Button {...props} variant={variant} size={size} type="button" aria-label={label} data-testid={dataTestId} className={className} onClick={onClick}>
+					<Button {...props} variant={variant} size={size} type="button" aria-label={label} data-testid={dataTestId} className={className} disabled={disabled} focusableWhenDisabled={disabled} onClick={onClick}>
 						{icon}
 					</Button>
 				)}

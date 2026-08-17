@@ -41,8 +41,22 @@
 	"theme": {"light": "Yorug' rejim", "dark": "Qorong'i rejim", "system": "Tizim standart"},
 	"language": {"label": "Til"},
 	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Ijro roʻyxati", "playlistItemsGeneric": "Videolar", "playlistPresets": "Sifat", "formats": "Format", "subtitles": "Subtitrlar", "sponsorblock": "SponsorBlock", "output": "Chiqish", "folder": "Saqlash", "confirm": "Tasdiqlash"},
+		"steps": {"url": "URL", "playlistItems": "Ijro roʻyxati", "playlistItemsGeneric": "Videolar", "playlistPresets": "Sifat", "playlistProfiles": "Profillar", "formats": "Format", "subtitles": "Subtitrlar", "sponsorblock": "SponsorBlock", "output": "Chiqish", "folder": "Saqlash", "confirm": "Tasdiqlash"},
 		"playlistPresets": {"heading": "Paket uchun sifatni tanlang", "subhead": "Har bir video tanlangan darajani mustaqil ravishda hal qiladi — turli xil playlistlar muammosiz ishlaydi.", "itemCount_one": "{{count}} ta element", "itemCount_other": "{{count}} ta element"},
+		"playlistProfiles": {
+			"heading": "Yuklab olish profillarini belgilash",
+			"selectedSummary": "{{total}} tadan {{selected}} tasi tanlandi",
+			"assignTrigger": "Tanlovga belgilash",
+			"assignAria": "{{profileName}} belgilash",
+			"editProfile": "{{name}} tahrirlash",
+			"filtersLabel": "Profil filtrlari",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "Profil",
+			"columnDuration": "Davomiylik",
+			"empty": "Ushbu filtrga mos keluvchi element yo'q",
+			"hintTitle": "Bir vaqtning o'zida bir nechta videoga profil belgilash",
+			"hintBody": "Diapazon uchun Shift-bosing, bittasini qo'shish uchun {{modifier}}-bosing yoki qatorlar bo'ylab suring. Keyin yuqoridagi profilni tanlang yoki tanlovga o'ng tugma bilan bosing."
+		},
 		"playlist": {
 			"heading": "Playlist elementlari",
 			"headingGeneric": "Yuklab olinadigan videolar",
@@ -85,7 +99,16 @@
 			"alreadyDownloaded": "Allaqachon yuklab olingan",
 			"probeLimitAlertTitle": "Pleylist skaneri cheklangan",
 			"probeLimitAlertTitleGeneric": "Skanlash cheklangan",
-			"probeLimitAlertDesc": "Arroxy {{count}} tadan ortiq element topdi, shuning uchun joriy skaner chekovi qolganlarini yashirmoqda."
+			"probeLimitAlertDesc": "Arroxy {{count}} tadan ortiq element topdi, shuning uchun joriy skaner chekovi qolganlarini yashirmoqda.",
+			"multiProfileEntry": "Har bir element uchun profil belgilash",
+			"multiProfileEntryTooltip": "Sifat, SponsorBlock, Chiqish va Saqlashni oʻtkazib yuboradi — buning oʻrniga har bir element uchun yuklab olish profilini belgilaydi",
+			"removeFromListCount_one": "Ro'yxatdan {{count}} tasini o'chirish",
+			"removeFromListCount_other": "Ro'yxatdan {{count}} tasini o'chirish",
+			"restore": "Tiklash",
+			"removedCount_one": "{{count}} ta o'chirildi",
+			"removedCount_other": "{{count}} ta o'chirildi",
+			"allRemovedTitle": "Barcha elementlar o'chirildi",
+			"allRemovedDescription": "Davom etish uchun ularni tiklang."
 		},
 		"bulk": {
 			"title": "Ommaviy URLlar",
@@ -373,6 +396,8 @@
 		"confirm": {
 			"readyHeadline": "Yuklab olishga tayyor!",
 			"landIn": "Faylingiz quyidagi joyga tushadi",
+			"landInMultiProfile_one": "U quyidagi manzilga tushadi",
+			"landInMultiProfile_other": "Ular quyidagi {{count}} ta manzilga tushadi",
 			"labelVideo": "Video",
 			"labelAudio": "Audio",
 			"labelSubtitles": "Subtitrlar",
@@ -397,7 +422,10 @@
 			"itemsValueAudio_one": "{{total}} ta trekning {{count}} tasi",
 			"itemsValueAudio_other": "{{total}} ta trekning {{count}} tasi",
 			"itemsValueBulk_one": "{{total}} URLdan {{count}} tasi",
-			"itemsValueBulk_other": "{{total}} URLdan {{count}} tasi"
+			"itemsValueBulk_other": "{{total}} URLdan {{count}} tasi",
+			"profileBreakdownHeading": "Ushbu partiyadagi profillar",
+			"profileBreakdownCount_one": "{{count}} ta element",
+			"profileBreakdownCount_other": "{{count}} ta element"
 		},
 		"profileEditor": {
 			"dialogTitle": "Yuklab olish profili",

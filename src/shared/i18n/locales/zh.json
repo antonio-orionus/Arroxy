@@ -24,8 +24,22 @@
 	"theme": {"light": "浅色模式", "dark": "深色模式", "system": "跟随系统"},
 	"language": {"label": "语言"},
 	"wizard": {
-		"steps": {"url": "链接", "playlistItems": "播放列表", "playlistItemsGeneric": "视频", "playlistPresets": "画质", "formats": "格式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "输出", "folder": "保存", "confirm": "确认"},
+		"steps": {"url": "链接", "playlistItems": "播放列表", "playlistItemsGeneric": "视频", "playlistPresets": "画质", "playlistProfiles": "配置", "formats": "格式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "输出", "folder": "保存", "confirm": "确认"},
 		"playlistPresets": {"heading": "选择批量下载画质", "subhead": "每个视频独立匹配所选画质档位——混合内容的播放列表也能正常处理，无意外。", "itemCount_one": "{{count}} 项", "itemCount_other": "{{count}} 项"},
+		"playlistProfiles": {
+			"heading": "分配下载配置",
+			"selectedSummary": "已选择 {{total}} 项中的 {{selected}} 项",
+			"assignTrigger": "分配至所选",
+			"assignAria": "分配{{profileName}}",
+			"editProfile": "编辑{{name}}",
+			"filtersLabel": "配置筛选",
+			"filterChip": "{{name}} · {{count}}",
+			"columnProfile": "配置",
+			"columnDuration": "时长",
+			"empty": "没有符合此筛选条件的项目",
+			"hintTitle": "一次为多个视频分配配置",
+			"hintBody": "按住 Shift 单击可选择一个范围，按住 {{modifier}} 单击可添加单项，或在行上拖动。 然后在上方选择配置，或右键单击所选内容。"
+		},
 		"playlist": {
 			"heading": "Playlist 视频",
 			"headingGeneric": "要下载的视频",
@@ -68,7 +82,16 @@
 			"alreadyDownloaded": "已下载",
 			"probeLimitAlertTitle": "播放列表扫描已达上限",
 			"probeLimitAlertTitleGeneric": "扫描已达上限",
-			"probeLimitAlertDesc": "Arroxy 发现超过 {{count}} 个项目，当前扫描上限隐藏了其余内容。"
+			"probeLimitAlertDesc": "Arroxy 发现超过 {{count}} 个项目，当前扫描上限隐藏了其余内容。",
+			"multiProfileEntry": "为每一项分配配置",
+			"multiProfileEntryTooltip": "跳过画质、SponsorBlock、输出和保存 — 改为为每一项分配下载配置",
+			"removeFromListCount_one": "从列表中移除 {{count}} 项",
+			"removeFromListCount_other": "从列表中移除 {{count}} 项",
+			"restore": "还原",
+			"removedCount_one": "已移除 {{count}} 项",
+			"removedCount_other": "已移除 {{count}} 项",
+			"allRemovedTitle": "所有项目均已移除",
+			"allRemovedDescription": "恢复它们以继续。"
 		},
 		"bulk": {
 			"title": "批量 URL",
@@ -332,6 +355,8 @@
 		"confirm": {
 			"readyHeadline": "已经准备好下载!",
 			"landIn": "文件将保存至",
+			"landInMultiProfile_one": "将保存到下方的目标位置",
+			"landInMultiProfile_other": "将保存到下方的 {{count}} 个目标位置",
 			"labelVideo": "视频",
 			"labelAudio": "音频",
 			"labelSubtitles": "字幕",
@@ -356,7 +381,10 @@
 			"itemsValueAudio_one": "{{total}} 首曲目中的 {{count}} 首",
 			"itemsValueAudio_other": "{{total}} 首曲目中的 {{count}} 首",
 			"itemsValueBulk_one": "{{count}} / {{total}} 个 URL",
-			"itemsValueBulk_other": "{{count}} / {{total}} 个 URL"
+			"itemsValueBulk_other": "{{count}} / {{total}} 个 URL",
+			"profileBreakdownHeading": "此批次中的配置",
+			"profileBreakdownCount_one": "{{count}} 项",
+			"profileBreakdownCount_other": "{{count}} 项"
 		},
 		"profileEditor": {
 			"dialogTitle": "下载配置",

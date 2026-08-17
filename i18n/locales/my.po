@@ -1165,9 +1165,29 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "သင့်ဖိုင်သည် ဤနေရာတွင် ဆင်းမည်"
 
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "အောက်ပါနေရာသို့ ရောက်ရှိမည်"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "အောက်ပါနေရာ {{count}} ခုသို့ ရောက်ရှိမည်"
+
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "စာတန်းထိုးသာ preset ဖွင့်ထားသော်လည်း စာတန်းထိုးဘာသာစကားမရွေးရသေးပါ — ဘာမျှဒေါင်းလုဒ်မဖြစ်ပါ။"
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} ခု"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} ခု"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "ဤအစုအတွက် ပရိုဖိုင်များ"
 
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
@@ -1549,6 +1569,14 @@ msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Thumbnail သိမ်းမည်"
 
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "ဆက်လက်လုပ်ဆောင်ရန် ၎င်းတို့ကို ပြန်ရောက်ပါ။"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "အားလုံးကို ဖယ်ရှားပြီးပါပြီ"
+
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "ဒေါင်းလုဒ်ပြီးသား"
@@ -1637,6 +1665,14 @@ msgctxt "wizard.playlist.loadingPhasePages"
 msgid "Scanning channel pages"
 msgstr "ချန်နယ် စာမျက်နှာများကို စစ်ဆေးနေသည်"
 
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "အရာတစ်ခုချင်းစီအတွက် ပရိုဖိုင်များ သတ်မှတ်ပါ"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "အရည်အသွေး၊ SponsorBlock၊ ထွက်ပေါ်မည့်ဖိုင် နှင့် သိမ်းမည် တို့ကို ကျော်ပြီး — အစား အရာတစ်ခုချင်းစီအတွက် ဒေါင်းလုဒ်ပရိုဖိုင် သတ်မှတ်ပါ"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "ဆက်လက်ရန် ဗီဒီယိုတစ်ခုအနည်းဆုံးရွေးပါ"
@@ -1664,6 +1700,26 @@ msgstr "မှ"
 msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "သို့"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} ခု ဖယ်ရှားပြီး"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} ခု ဖယ်ရှားပြီး"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "စာရင်းမှ {{count}} ခု ဖယ်ရှားမည်"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "စာရင်းမှ {{count}} ခု ဖယ်ရှားမည်"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "ပြန်ရောက်မည်"
 
 msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
@@ -1732,6 +1788,54 @@ msgstr "{{count}} ခု"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။"
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "{{profileName}} ကို သတ်မှတ်ပါ"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "ရွေးချယ်မှုသို့ သတ်မှတ်ပါ"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "ကြာချိန်"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "ပရိုဖိုင်"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "{{name}} ကို ပြင်ဆင်ပါ"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "ဤစစ်ထုတ်ကိရိယာနှင့် ကိုက်ညီသော အရာမရှိပါ"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "ပရိုဖိုင်စစ်ထုတ်ကိရိယာများ"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "ဒေါင်းလုဒ်ပရိုဖိုင်များကို သတ်မှတ်ပါ"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "အပိုင်းအခြားတစ်ခုအတွက် Shift-နှိပ်ပါ၊ တစ်ခုထည့်ရန် {{modifier}}-နှိပ်ပါ၊ သို့မဟုတ် အတန်းများပေါ်တွင် ဆွဲယူပါ။ ထို့နောက် အထက်မှ ပရိုဖိုင်တစ်ခုရွေးပါ၊ သို့မဟုတ် ရွေးချယ်ထားသည်ကို right-click နှိပ်ပါ။"
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "ဗီဒီယိုများစွာအား တစ်ပြိုင်နက် ပရိုဖိုင်များ သတ်မှတ်ပါ"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{total}} အနက် {{selected}} ခုကို ရွေးထားသည်"
 
 msgctxt "wizard.profileEditor.action.addLanguage"
 msgid "Add"
@@ -2172,6 +2276,10 @@ msgstr "ဗီဒီယိုများ"
 msgctxt "wizard.steps.playlistPresets"
 msgid "Quality"
 msgstr "အရည်အသွေး"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "ပရိုဖိုင်များ"
 
 msgctxt "wizard.steps.sponsorblock"
 msgid "SponsorBlock"
