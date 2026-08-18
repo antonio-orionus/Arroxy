@@ -49,6 +49,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'update-winget',
 	'update-flatpak',
 	'update-whats-new',
+	'update-whats-new-catchup',
 	'update-none',
 	'queue-tab-tip',
 	'queue-active',
@@ -169,6 +170,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'update-portable', group: 'Updates', title: 'Portable update', description: 'Download link action.', kind: 'update'},
 	{id: 'update-flatpak', group: 'Updates', title: 'Flatpak', description: 'Flatpak channel - copy update command.', kind: 'update'},
 	{id: 'update-whats-new', group: 'Updates', title: "What's New popup", description: 'First launch after an app version bump - opens the release-notes popup.', kind: 'update'},
+	{id: 'update-whats-new-catchup', group: 'Updates', title: "What's New catch-up", description: 'User skipped several versions - the popup stacks every release they missed.', kind: 'update'},
 	{id: 'update-none', group: 'Updates', title: 'No update', description: 'No update available - banner is hidden.', kind: 'update'},
 	{id: 'queue-tab-tip', group: 'Queue', title: 'Downloads tab first-run tip', description: 'Mascot cue that points users to the new Downloads tab after their first queued item.', kind: 'queue'},
 	{id: 'queue-active', group: 'Queue', title: 'Queue active', description: 'Running work, progress, and Downloads tab activity animation.', kind: 'queue'},
@@ -229,7 +231,9 @@ export function buildScenarioAppApiState(scenario: BrowserMockScenario, params?:
 }
 
 function buildAppVersion(scenario: BrowserMockScenario): string {
-	return scenario.id === 'update-whats-new' ? '0.4.0-beta.5' : '0.0.0-dev'
+	if (scenario.id === 'update-whats-new') return '0.4.0-beta.5'
+	if (scenario.id === 'update-whats-new-catchup') return '0.4.5'
+	return '0.0.0-dev'
 }
 
 const PROFILE_SINGLE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
@@ -395,6 +399,7 @@ function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs):
 			playlistProbeLimit: DEFAULT_PLAYLIST_PROBE_LIMIT,
 			commonPaths,
 			...(scenario.id === 'update-whats-new' ? {launchCount: 3, lastReleaseNotesVersionShown: '0.4.0-beta.3'} : {}),
+			...(scenario.id === 'update-whats-new-catchup' ? {launchCount: 9, lastReleaseNotesVersionShown: '0.4.2'} : {}),
 			...(knobs?.theme !== null && knobs?.theme !== undefined ? {uiTheme: knobs.theme} : {})
 		}
 	}

@@ -23,11 +23,30 @@ This release makes updates easier to understand.
 ## 1.1.0
 
 Older notes.
+
+### Playlists
+
+- Adds per-item profiles.
+
+---
+
+## 1.0.0
+
+Ancient notes.
+
+### Beginnings
+
+- The first release.
 `
 
 function Harness() {
 	const state = useWhatsNewDialog(CHANGELOG)
-	return <WhatsNewDialog open={state.open} notes={state.notes} onClose={state.close} onOpenFullNotes={state.openFullNotes} />
+	return <WhatsNewDialog open={state.open} digest={state.digest} onClose={state.close} onOpenFullNotes={state.openFullNotes} />
+}
+
+function setSettings(lastReleaseNotesVersionShown: string | undefined): void {
+	const base = defaultAppSettings('/tmp')
+	useAppStore.setState({initialized: true, initializing: false, splashDismissed: true, settings: {...base, common: {...base.common, launchCount: 3, lastReleaseNotesVersionShown}}})
 }
 
 describe('useWhatsNewDialog', () => {
@@ -54,6 +73,28 @@ describe('useWhatsNewDialog', () => {
 			expect(window.appApi.settings.update).toHaveBeenCalledWith({common: {lastReleaseNotesVersionShown: '1.2.0'}})
 		})
 		expect(screen.queryByTestId('whats-new-dialog')).not.toBeInTheDocument()
+	})
+
+	it('shows every release the user skipped, not just the newest', async () => {
+		window.appVersion = '1.2.0'
+		setSettings('1.0.0')
+		render(<Harness />)
+
+		expect(await screen.findByTestId('whats-new-dialog')).toBeInTheDocument()
+		expect(screen.getByTestId('whats-new-release-1.2.0')).toBeInTheDocument()
+		expect(screen.getByTestId('whats-new-release-1.1.0')).toBeInTheDocument()
+		expect(screen.getByText('Adds per-item profiles.')).toBeInTheDocument()
+		// 1.0.0 is what they already saw, so it stays out.
+		expect(screen.queryByTestId('whats-new-release-1.0.0')).not.toBeInTheDocument()
+	})
+
+	it('shows only the newest release when the previous one was already seen', async () => {
+		window.appVersion = '1.2.0'
+		setSettings('1.1.0')
+		render(<Harness />)
+
+		expect(await screen.findByTestId('whats-new-release-1.2.0')).toBeInTheDocument()
+		expect(screen.queryByTestId('whats-new-release-1.1.0')).not.toBeInTheDocument()
 	})
 
 	it('opens the matching release page from the full-notes action', async () => {

@@ -281,7 +281,7 @@ export function App(): ReactNode {
 					</Suspense>
 				) : null}
 				<FeedbackDialog open={feedbackDialogOpen} onOpenChange={setFeedbackDialogOpen} />
-				<WhatsNewDialog open={whatsNew.open} notes={whatsNew.notes} onClose={whatsNew.close} onOpenFullNotes={whatsNew.openFullNotes} />
+				<WhatsNewDialog open={whatsNew.open} digest={whatsNew.digest} onClose={whatsNew.close} onOpenFullNotes={whatsNew.openFullNotes} />
 				{SHOW_SCENARIO_GALLERY ? (
 					<Suspense fallback={null}>
 						<ScenarioGallery />

@@ -10,12 +10,21 @@ export interface ReleaseNotes {
 	sections: ReleaseNotesSection[]
 }
 
+/** Everything the user missed, newest release first. */
+export interface ReleaseNotesDigest {
+	version: string
+	releases: ReleaseNotes[]
+}
+
 interface ParsedVersion {
 	major: number
 	minor: number
 	patch: number
 	pre: string[]
 }
+
+/** Matches `## 1.2.3` / `## v1.2.3` headings, not `## Unreleased` or `## Highlights`. */
+const VERSION_HEADING = /^##\s+v?(\d[0-9A-Za-z.+-]*)$/i
 
 export function extractReleaseNotesMarkdown(changelog: string, version: string): string | null {
 	const target = `## ${normalizeVersion(version)}`
@@ -74,7 +83,47 @@ export function releaseNotesForVersion(changelog: string, version: string): Rele
 	return markdown ? parseReleaseNotes(version, markdown) : null
 }
 
-export function shouldShowWhatsNew(input: {appVersion: string; lastShownVersion?: string; launchCount?: number; notes: ReleaseNotes | null}): boolean {
+/** Version headings in the order they appear in the file; callers sort if they care. */
+export function listChangelogVersions(changelog: string): string[] {
+	const seen = new Set<string>()
+	const versions: string[] = []
+	for (const line of changelog.split(/\r?\n/)) {
+		const match = VERSION_HEADING.exec(line.trim())
+		const version = match?.[1] ? normalizeVersion(match[1]) : null
+		if (!version || seen.has(version) || !parseVersion(version)) continue
+		seen.add(version)
+		versions.push(version)
+	}
+	return versions
+}
+
+/**
+ * Notes for every stable release in `(lastShownVersion, appVersion]`, so a user
+ * jumping several versions sees everything they missed rather than only the
+ * newest section. Intermediate pre-releases are skipped — their content is
+ * consolidated into the stable section they shipped under — but the running
+ * build's own section is always included, pre-release or not.
+ *
+ * Without a `lastShownVersion` there is nothing to catch up on (a fresh install
+ * has not missed anything), so only the running version's notes are returned.
+ */
+export function releaseNotesSince(changelog: string, input: {appVersion: string; lastShownVersion?: string}): ReleaseNotesDigest | null {
+	const current = releaseNotesForVersion(changelog, input.appVersion)
+	if (!current) return null
+
+	const lastShown = input.lastShownVersion
+	if (!lastShown) return {version: current.version, releases: [current]}
+
+	const skipped = listChangelogVersions(changelog)
+		.filter(version => version !== current.version && !isPreRelease(version) && compareSemver(version, lastShown) > 0 && compareSemver(version, current.version) < 0)
+		.sort((a, b) => compareSemver(b, a))
+		.map(version => releaseNotesForVersion(changelog, version))
+		.filter((notes): notes is ReleaseNotes => notes !== null)
+
+	return {version: current.version, releases: [current, ...skipped]}
+}
+
+export function shouldShowWhatsNew(input: {appVersion: string; lastShownVersion?: string; launchCount?: number; notes: {version: string} | null}): boolean {
 	if (!input.notes) return false
 	if ((input.launchCount ?? 1) <= 1) return false
 	if (!input.lastShownVersion) return true
@@ -96,6 +145,10 @@ function cleanInlineMarkdown(value: string): string {
 		.replace(/`([^`]+)`/g, '$1')
 		.replace(/\*\*([^*]+)\*\*/g, '$1')
 		.replace(/\[([^\]]+)]\([^)]*\)/g, '$1')
+}
+
+function isPreRelease(version: string): boolean {
+	return (parseVersion(version)?.pre.length ?? 0) > 0
 }
 
 function parseVersion(version: string): ParsedVersion | null {

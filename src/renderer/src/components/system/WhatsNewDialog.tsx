@@ -1,21 +1,23 @@
 import {ExternalLink, Sparkles} from 'lucide-react'
 import {type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import type {ReleaseNotes} from '@shared/releaseNotes.js'
+import type {ReleaseNotes, ReleaseNotesDigest} from '@shared/releaseNotes.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
+import {Separator} from '../ui/separator.js'
 
 interface Props {
 	open: boolean
-	notes: ReleaseNotes | null
+	digest: ReleaseNotesDigest | null
 	onClose: () => void
 	onOpenFullNotes: () => void
 }
 
-export function WhatsNewDialog({open, notes, onClose, onOpenFullNotes}: Props): ReactNode {
+export function WhatsNewDialog({open, digest, onClose, onOpenFullNotes}: Props): ReactNode {
 	const {t} = useTranslation()
-	if (!notes) return null
+	if (!digest) return null
+	const multiple = digest.releases.length > 1
 
 	return (
 		<Dialog
@@ -31,10 +33,12 @@ export function WhatsNewDialog({open, notes, onClose, onOpenFullNotes}: Props): 
 							<Sparkles />
 						</span>
 						<div className="min-w-0 flex-1">
-							<Badge variant="secondary" className="mb-2 w-fit font-mono text-[10px] tabular-nums">
-								v{notes.version}
-							</Badge>
-							<DialogTitle>{t('releaseNotes.title', {version: notes.version})}</DialogTitle>
+							{!multiple && (
+								<Badge variant="secondary" className="mb-2 w-fit font-mono text-[10px] tabular-nums">
+									v{digest.version}
+								</Badge>
+							)}
+							<DialogTitle>{t('releaseNotes.title', {version: digest.version})}</DialogTitle>
 							<DialogDescription className="mt-2">{t('releaseNotes.description')}</DialogDescription>
 						</div>
 					</div>
@@ -42,35 +46,8 @@ export function WhatsNewDialog({open, notes, onClose, onOpenFullNotes}: Props): 
 
 				<div data-testid="whats-new-scroll" className="max-h-[min(28rem,calc(100vh-15rem))] overflow-y-auto rounded-lg border border-border bg-background/40 p-3 sm:p-4">
 					<div className="flex flex-col gap-4">
-						{notes.intro.length > 0 && (
-							<div className="flex flex-col gap-2 text-sm leading-6 text-foreground/85">
-								{notes.intro.map(paragraph => (
-									<p key={paragraph}>{paragraph}</p>
-								))}
-							</div>
-						)}
-
-						{notes.sections.map(section => (
-							<section key={section.title} className="rounded-lg border border-border bg-muted/30 p-3">
-								<h3 className="cn-font-heading text-sm font-semibold text-foreground">{section.title}</h3>
-								{section.body.length > 0 && (
-									<div className="mt-2 flex flex-col gap-2 text-[13px] leading-5 text-muted-foreground">
-										{section.body.map(paragraph => (
-											<p key={paragraph}>{paragraph}</p>
-										))}
-									</div>
-								)}
-								{section.bullets.length > 0 && (
-									<ul className="mt-2 flex flex-col gap-1.5 text-[13px] leading-5 text-muted-foreground">
-										{section.bullets.map(bullet => (
-											<li key={bullet} className="flex gap-2">
-												<span className="mt-2 size-1.5 shrink-0 rounded-full bg-[var(--brand)]" aria-hidden />
-												<span>{bullet}</span>
-											</li>
-										))}
-									</ul>
-								)}
-							</section>
+						{digest.releases.map(release => (
+							<ReleaseBlock key={release.version} release={release} showVersion={multiple} />
 						))}
 					</div>
 				</div>
@@ -86,5 +63,51 @@ export function WhatsNewDialog({open, notes, onClose, onOpenFullNotes}: Props): 
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
+	)
+}
+
+function ReleaseBlock({release, showVersion}: {release: ReleaseNotes; showVersion: boolean}): ReactNode {
+	return (
+		<div className="flex flex-col gap-3" data-testid={`whats-new-release-${release.version}`}>
+			{showVersion && (
+				<div className="flex items-center gap-2">
+					<Badge variant="outline" className="font-mono text-[10px] tabular-nums">
+						v{release.version}
+					</Badge>
+					<Separator className="flex-1" />
+				</div>
+			)}
+
+			{release.intro.length > 0 && (
+				<div className="flex flex-col gap-2 text-sm leading-6 text-foreground/85">
+					{release.intro.map(paragraph => (
+						<p key={paragraph}>{paragraph}</p>
+					))}
+				</div>
+			)}
+
+			{release.sections.map(section => (
+				<section key={section.title} className="rounded-lg border border-border bg-muted/30 p-3">
+					<h3 className="cn-font-heading text-sm font-semibold text-foreground">{section.title}</h3>
+					{section.body.length > 0 && (
+						<div className="mt-2 flex flex-col gap-2 text-[13px] leading-5 text-muted-foreground">
+							{section.body.map(paragraph => (
+								<p key={paragraph}>{paragraph}</p>
+							))}
+						</div>
+					)}
+					{section.bullets.length > 0 && (
+						<ul className="mt-2 flex flex-col gap-1.5 text-[13px] leading-5 text-muted-foreground">
+							{section.bullets.map(bullet => (
+								<li key={bullet} className="flex gap-2">
+									<span className="mt-2 size-1.5 shrink-0 rounded-full bg-[var(--brand)]" aria-hidden />
+									<span>{bullet}</span>
+								</li>
+							))}
+						</ul>
+					)}
+				</section>
+			))}
+		</div>
 	)
 }
