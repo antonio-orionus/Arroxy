@@ -8,6 +8,24 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.6
+
+A small release with two changes you can see. If you have been putting off updating, the update popup now tells you what changed across every version you skipped instead of only the newest one.
+
+## Highlights
+
+### Catching Up On What Changed
+
+- The What's New popup now shows every release you missed, not just the one you landed on. Update from 0.4.2 straight to 0.4.6 and you get all four sets of notes in one place, newest first, each under its own version heading.
+- Previously the popup showed only the section for the version you just installed, so anything that changed in between went unmentioned — even though it was a single scroll away.
+- If you update one release at a time, nothing changes: you see exactly one set of notes, as before.
+
+### Fixes
+
+- Fixed the Subtitles and SponsorBlock options overlapping each other when editing a download profile. "Mark as chapters" and "Remove segments" ran together into unreadable text, as did the subtitle delivery choices, and the problem got worse in languages with longer words. Each option now sits properly inside its own box at any window size.
+
+---
+
 ## 0.4.5
 
 This release hands you three things Arroxy used to decide for you: how downloaded files are named, how much of your connection a download uses, and whether every video in a playlist has to share one setting. Heads-up on the first — filenames may look different from previous versions, because templates that were previously refused now work and non-Latin titles keep much more of their length on macOS and Windows. Failures that used to happen silently now tell you.
