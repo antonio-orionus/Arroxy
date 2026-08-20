@@ -568,6 +568,8 @@ README files (English + every other supported locale) are **generated** — neve
 
 Each locale is its own file under `readme-src/locales/`. `readme-src/strings.mjs` only imports those and exports the ordered `LOCALES` array — edit the per-locale files, not the aggregator.
 
+The `Last updated:` date in each README is stamped by `build.mjs` — never hand-edit it. Each README keeps the date of the last build that actually changed its content (the build compares its render against the file on disk, ignoring the stamp), so rebuilding an unchanged README is a no-op and a single-locale edit bumps only that locale's date. A `readme-src/**` lint-staged rule rebuilds and re-stamps the READMEs into the same commit.
+
 The build script validates **key parity** — if any locale is missing a key that `en` has (or has an extra key), the build fails loudly. Every new string must be translated into every supported language.
 
 The landing site (`arroxy.orionus.dev`) lives in a separate repo: [antonio-orionus/arroxy-web](https://github.com/antonio-orionus/arroxy-web). Don't update landing copy from here — open a PR there instead.

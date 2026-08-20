@@ -15,6 +15,29 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..");
 const TEMPLATE_PATH = resolve(HERE, "template.md");
 
+// The "Last updated" stamp is derived, never hand-written. Each README keeps the
+// date of the last build that actually changed its content: the freshly rendered
+// text carries STAMP_TOKEN where the date goes, and the file already on disk is
+// normalized the same way before comparison. Equal content -> reuse the old date,
+// so `bun run check` (which rebuilds every README) never churns the working tree.
+const STAMP_TOKEN = "__ARROXY_LAST_UPDATED__";
+const STAMP_SENTINEL = `_Last updated: ${STAMP_TOKEN}._`;
+const STAMP_RE = /_Last updated: ([^_]*)\._/;
+
+function todayUtc() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+// Returns the date to stamp plus whether it moved, given the previous file (if any).
+function resolveStamp(rendered, previous) {
+  const prevDate = previous?.match(STAMP_RE)?.[1];
+  if (previous && prevDate) {
+    const prevNormalized = previous.replace(STAMP_RE, STAMP_SENTINEL);
+    if (prevNormalized === rendered) return { date: prevDate, changed: false };
+  }
+  return { date: todayUtc(), changed: true };
+}
+
 // Reports drift per non-en locale. In strict mode any drift throws; otherwise
 // missing/extra keys for non-en locales are warnings — the build falls back
 // to en for missing keys and ignores extras. The en locale is always
@@ -92,12 +115,17 @@ async function main() {
       LANG_NAV: buildLangNav(loc, LOCALES),
       LANG_COUNT: String(LOCALES.length),
       LANG_NAME_LIST: buildLangNameList(LOCALES),
+      LAST_UPDATED: STAMP_TOKEN,
     });
     md = md.replace(/\n{3,}/g, "\n\n");
 
     const outPath = resolve(ROOT, loc.filename);
-    await writeFile(outPath, md, "utf8");
-    console.log(`  ✓ ${loc.code.padEnd(5)} → ${loc.filename}`);
+    const previous = await readFile(outPath, "utf8").catch(() => null);
+    const { date, changed } = resolveStamp(md, previous);
+    await writeFile(outPath, md.replace(STAMP_SENTINEL, `_Last updated: ${date}._`), "utf8");
+    console.log(
+      `  ✓ ${loc.code.padEnd(5)} → ${loc.filename.padEnd(14)} ${date}${changed ? " (updated)" : ""}`,
+    );
   }
 
   console.log(`\nBuilt ${LOCALES.length} READMEs.${strict ? " (strict)" : ""}`);
