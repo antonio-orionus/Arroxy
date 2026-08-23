@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {isValidSubfolder, effectiveOutputDir, joinSubfolder, playlistBaseDir, splitDir} from '@shared/subfolder.js'
+import {effectiveOutputDir, escapeReservedName, isValidSubfolder, joinSubfolder, playlistBaseDir, safeFolderName, splitDir} from '@shared/subfolder.js'
 
 describe('isValidSubfolder', () => {
 	it('accepts ordinary names', () => {
@@ -25,8 +25,12 @@ describe('isValidSubfolder', () => {
 
 	it('rejects DOS reserved names regardless of case', () => {
 		expect(isValidSubfolder('CON')).toBe(false)
+		expect(isValidSubfolder('com0')).toBe(false)
 		expect(isValidSubfolder('com1')).toBe(false)
+		expect(isValidSubfolder('lpt0')).toBe(false)
 		expect(isValidSubfolder('lpt9.txt')).toBe(false)
+		expect(isValidSubfolder('CONIN$')).toBe(false)
+		expect(isValidSubfolder('conout$')).toBe(false)
 	})
 
 	it('rejects names ending in . (Windows) — trailing spaces are trimmed first so they pass', () => {
@@ -38,6 +42,56 @@ describe('isValidSubfolder', () => {
 	it('rejects names exceeding 64 chars', () => {
 		expect(isValidSubfolder('a'.repeat(65))).toBe(false)
 		expect(isValidSubfolder('a'.repeat(64))).toBe(true)
+	})
+})
+
+describe('escapeReservedName', () => {
+	it('escapes reserved DOS names with trailing underscore', () => {
+		expect(escapeReservedName('CON')).toBe('CON_')
+		expect(escapeReservedName('aux')).toBe('aux_')
+		expect(escapeReservedName('NUL.mp4')).toBe('NUL.mp4_')
+		expect(escapeReservedName('com0')).toBe('com0_')
+		expect(escapeReservedName('lpt9')).toBe('lpt9_')
+		expect(escapeReservedName('conin$')).toBe('conin$_')
+	})
+
+	it('leaves unreserved names untouched', () => {
+		expect(escapeReservedName('Music')).toBe('Music')
+		expect(escapeReservedName('Console')).toBe('Console')
+		expect(escapeReservedName('Auxiliary')).toBe('Auxiliary')
+	})
+})
+
+describe('safeFolderName', () => {
+	it('sanitizes ordinary playlist titles', () => {
+		expect(safeFolderName('Top Hits 2026')).toBe('Top Hits 2026')
+		expect(safeFolderName('Rock / Pop : Live? *2026*')).toBe('Rock _ Pop _ Live_ _2026_')
+	})
+
+	it('escapes reserved device names into valid folder names', () => {
+		expect(safeFolderName('CON')).toBe('CON_')
+		expect(safeFolderName('aux')).toBe('aux_')
+		expect(safeFolderName('NUL')).toBe('NUL_')
+		expect(safeFolderName('com1')).toBe('com1_')
+	})
+
+	it('strips trailing dots and spaces that Windows disallows', () => {
+		expect(safeFolderName('Chill Mix....')).toBe('Chill Mix')
+		expect(safeFolderName('Study Session   ')).toBe('Study Session')
+		expect(safeFolderName('Soundtrack. . .')).toBe('Soundtrack')
+	})
+
+	it('strips trailing dots re-exposed after length truncation', () => {
+		const longTitleWithTrailingDots = `${'a'.repeat(60)}....`
+		expect(safeFolderName(longTitleWithTrailingDots)).toBe('a'.repeat(60))
+	})
+
+	it('falls back to Playlist when sanitized title is empty or dots', () => {
+		expect(safeFolderName('')).toBe('Playlist')
+		expect(safeFolderName('   ')).toBe('Playlist')
+		expect(safeFolderName('...')).toBe('Playlist')
+		expect(safeFolderName('..')).toBe('Playlist')
+		expect(safeFolderName('.')).toBe('Playlist')
 	})
 })
 
@@ -87,6 +141,10 @@ describe('playlistBaseDir', () => {
 
 	it('falls back to the playlist title when the explicit subfolder is invalid', () => {
 		expect(playlistBaseDir('/home/user', true, 'CON', 'Road Trip')).toBe('/home/user/Road Trip')
+	})
+
+	it('escapes reserved device names in fallback playlist title', () => {
+		expect(playlistBaseDir('/home/user', false, '', 'CON')).toBe('/home/user/CON_')
 	})
 })
 

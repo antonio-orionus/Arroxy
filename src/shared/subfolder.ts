@@ -10,7 +10,7 @@
 // in path APIs on POSIX.
 // eslint-disable-next-line no-control-regex -- control bytes are intentionally matched here
 const FORBIDDEN_CHARS = /[<>:"/\\|?*\x00-\x1F]/
-const RESERVED_NAMES = /^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(\..*)?$/i
+const RESERVED_NAMES = /^(CON|PRN|AUX|NUL|COM[0-9]|LPT[0-9]|CONIN\$|CONOUT\$)(\..*)?$/i
 
 export const SUBFOLDER_NAME_MAX = 64
 
@@ -36,14 +36,15 @@ export function joinSubfolder(base: string, sub: string): string {
 // Sanitize a playlist title for use as a folder name. Strips or replaces
 // characters that are illegal on Windows/macOS/Linux and trims whitespace.
 export function safeFolderName(title: string): string {
-	return (
-		title
-			.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_') // eslint-disable-line no-control-regex
-			.replace(/\s+/g, ' ')
-			.trim()
-			.replace(/[. ]+$/, '') // no trailing dots or spaces (Windows)
-			.slice(0, SUBFOLDER_NAME_MAX) || 'Playlist'
-	)
+	const sanitized = title
+		.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_') // eslint-disable-line no-control-regex
+		.replace(/\s+/g, ' ')
+		.trim()
+		.replace(/[. ]+$/, '') // no trailing dots or spaces (Windows)
+		.slice(0, SUBFOLDER_NAME_MAX)
+		.replace(/[. ]+$/, '') // Slicing can re-expose a trailing dot or space that Windows drops.
+	if (!sanitized || sanitized === '.' || sanitized === '..') return 'Playlist'
+	return escapeReservedName(sanitized)
 }
 
 /**
