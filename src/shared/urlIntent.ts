@@ -14,7 +14,7 @@ function parseUrl(url: string): URL | null {
 
 function isYouTubeHost(hostname: string): boolean {
 	const host = hostname.toLowerCase()
-	return host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtu.be'
+	return host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtu.be' || host === 'youtube-nocookie.com' || host.endsWith('.youtube-nocookie.com')
 }
 
 function youtubePathSegments(parsed: URL): string[] {
@@ -22,7 +22,16 @@ function youtubePathSegments(parsed: URL): string[] {
 }
 
 function isYouTubeVideoPath(host: string, segments: string[], searchParams: URLSearchParams): boolean {
-	return (host === 'youtu.be' && segments.length === 1 && !!segments[0]) || (segments[0] === 'watch' && !!searchParams.get('v')) || (segments[0] === 'shorts' && segments.length === 2 && !!segments[1])
+	return (
+		(host === 'youtu.be' && segments.length === 1 && !!segments[0]) ||
+		(segments[0] === 'watch' && !!searchParams.get('v')) ||
+		(segments[0] === 'shorts' && segments.length === 2 && !!segments[1]) ||
+		(segments[0] === 'live' && segments.length === 2 && !!segments[1]) ||
+		(segments[0] === 'clip' && segments.length === 2 && !!segments[1]) ||
+		(segments[0] === 'embed' && segments.length === 2 && !!segments[1]) ||
+		(segments[0] === 'v' && segments.length === 2 && !!segments[1]) ||
+		(segments[0] === 'e' && segments.length === 2 && !!segments[1])
+	)
 }
 
 function isYouTubeChannelPath(segments: string[]): boolean {
@@ -81,7 +90,7 @@ export function extractUrlIntentYouTubeVideoId(intent: UrlIntent): string | null
 	const segments = youtubePathSegments(parsed)
 	if (host === 'youtu.be') return segments[0] ?? null
 	if (segments[0] === 'watch') return parsed.searchParams.get('v')
-	if (segments[0] === 'shorts') return segments[1] ?? null
+	if (segments[0] === 'shorts' || segments[0] === 'live' || segments[0] === 'clip' || segments[0] === 'embed' || segments[0] === 'v' || segments[0] === 'e') return segments[1] ?? null
 	return null
 }
 
