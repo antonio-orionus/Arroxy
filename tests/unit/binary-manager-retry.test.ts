@@ -151,7 +151,7 @@ describe('BinaryManager manifest resolution', () => {
 	})
 
 	it('falls back to ffmpeg and ffprobe on PATH when bundled binaries are unusable', async () => {
-		const temp = await tempDir('bm-path-')
+		const temp = await fs.realpath(await tempDir('bm-path-'))
 		const exeExt = process.platform === 'win32' ? '.exe' : ''
 		const ffmpegPath = path.join(temp, `ffmpeg${exeExt}`)
 		const ffprobePath = path.join(temp, `ffprobe${exeExt}`)

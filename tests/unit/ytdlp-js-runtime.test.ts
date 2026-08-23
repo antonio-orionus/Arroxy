@@ -97,7 +97,8 @@ async function runStdinScript(executablePath: string, args: string[], script: st
 
 describe('Electron Node runtime parity', () => {
 	it('runs stdin JavaScript for yt-dlp challenge-solver style execution', async () => {
-		const electronBin = path.resolve('node_modules', '.bin', process.platform === 'win32' ? 'electron.cmd' : 'electron')
+		const electronCandidates = process.platform === 'win32' ? [path.resolve('node_modules', '.bin', 'electron.exe'), path.resolve('node_modules', '.bin', 'electron.cmd'), path.resolve('node_modules', 'electron', 'dist', 'electron.exe')] : [path.resolve('node_modules', '.bin', 'electron')]
+		const electronBin = electronCandidates.find(candidate => existsSync(candidate)) ?? electronCandidates[0]
 		expect(existsSync(electronBin)).toBe(true)
 		const script = `
 			const input = {values: [3, 4, 5], challenge: 'n:abc123'};

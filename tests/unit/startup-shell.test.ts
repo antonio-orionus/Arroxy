@@ -34,7 +34,7 @@ describe('renderer startup shell', () => {
 	})
 
 	it('keeps the post-boot body background on the active app sky', () => {
-		const css = readFileSync(join(root, 'src/renderer/src/styles.css'), 'utf8')
+		const css = readFileSync(join(root, 'src/renderer/src/styles.css'), 'utf8').replace(/\r\n/g, '\n')
 
 		const unlayeredBackgroundOverride = ':root,\nbody {\n\tbackground: var(--background);\n}'
 

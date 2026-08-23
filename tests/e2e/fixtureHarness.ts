@@ -494,7 +494,21 @@ export async function installAtomically(destination: string, produce: (staging: 
 	const staging = `${destination}.${process.pid}.${randomUUID()}.part`
 	try {
 		await produce(staging)
-		await fsPromises.rename(staging, destination)
+		try {
+			await fsPromises.rename(staging, destination)
+		} catch (renameError) {
+			const isWindowsCollision = process.platform === 'win32' && ['EPERM', 'EEXIST', 'EBUSY', 'EACCES'].includes((renameError as {code?: string}).code ?? '')
+			if (isWindowsCollision) {
+				try {
+					await fsPromises.access(destination)
+					await fsPromises.rm(staging, {force: true})
+					return
+				} catch {
+					// Destination does not exist or cannot be accessed, rethrow original error
+				}
+			}
+			throw renameError
+		}
 	} catch (error) {
 		// Debris here would be mistaken for a cached binary by a later run.
 		await fsPromises.rm(staging, {force: true})

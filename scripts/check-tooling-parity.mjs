@@ -1,4 +1,4 @@
-import {mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
+import {existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {dirname, join} from 'node:path'
 import {fileURLToPath} from 'node:url'
@@ -7,7 +7,7 @@ import {spawnSync} from 'node:child_process'
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)))
 const requireFromRepo = createRequire(join(repoRoot, 'package.json'))
-const bunx = process.platform === 'win32' ? 'bunx.cmd' : 'bunx'
+const bunx = process.platform === 'win32' ? 'bunx.exe' : 'bunx'
 
 const tempDir = mkdtempSync(join(tmpdir(), 'arroxy-tooling-parity-'))
 const oxlintConfigPath = join(repoRoot, '.oxlintrc.json')
@@ -41,6 +41,11 @@ function run(label, command, args) {
 }
 
 function runPackage(label, name, args) {
+	const localCandidates = process.platform === 'win32' ? [join(repoRoot, 'node_modules', '.bin', `${name}.exe`), join(repoRoot, 'node_modules', '.bin', `${name}.cmd`)] : [join(repoRoot, 'node_modules', '.bin', name)]
+	const localBin = localCandidates.find(candidate => existsSync(candidate))
+	if (localBin) {
+		return run(label, localBin, args)
+	}
 	return run(label, bunx, [name, ...args])
 }
 

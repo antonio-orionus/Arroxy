@@ -49,7 +49,7 @@ describe('binary source smoke script', () => {
 	})
 
 	it('reports a real payload count derived from the current target/source matrix', () => {
-		const output = execFileSync('bash', ['scripts/test-binaries/smoke-all.sh', '--expected-payloads'], {cwd: root, encoding: 'utf8'}).trim()
+		const output = execFileSync('bash', ['scripts/test-binaries/smoke-all.sh', '--expected-payloads'], {cwd: root, encoding: 'utf8', env: process.env}).trim()
 
 		expect(Number(output)).toBe(expectedPayloadCountFromSources())
 	})

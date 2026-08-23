@@ -130,7 +130,7 @@ function checkCatalogs(): number {
 	const existingPot = existsSync(POT_PATH) ? readFileSync(POT_PATH, 'utf8') : ''
 	const issues: string[] = []
 
-	if (existingPot !== expectedPot) issues.push(`POT is stale: run bun run i18n:sync`)
+	if (existingPot.replace(/\r\n/g, '\n') !== expectedPot.replace(/\r\n/g, '\n')) issues.push(`POT is stale: run bun run i18n:sync`)
 
 	const catalogIssues = compileRuntimeLocales({writeFiles: false})
 	for (const issue of catalogIssues) issues.push(formatIssue(issue))

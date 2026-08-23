@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import http from 'node:http'
+import net from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
@@ -8,16 +9,26 @@ import {describe, expect, it} from 'vitest'
 import {DownloadIntegrityError, DownloadSizeMismatchError, DownloadStalledError, classifyDownloadError, copyCachedArtifactToFile, downloadArtifactToCache, downloadFile, sha256HexToSri} from '@main/services/binary/BinaryDownloader.js'
 
 async function withServer(handler: http.RequestListener, run: (url: string) => Promise<void>): Promise<void> {
+	const sockets = new Set<net.Socket>()
 	const server = http.createServer(handler)
+	server.on('connection', socket => {
+		sockets.add(socket)
+		socket.on('close', () => sockets.delete(socket))
+	})
 	await new Promise<void>((resolve, reject) => {
 		server.once('error', reject)
-		server.listen(0, () => resolve())
+		server.listen(0, '127.0.0.1', () => resolve())
 	})
 	try {
 		const address = server.address()
 		if (!address || typeof address === 'string') throw new Error('test server did not bind to a TCP port')
 		await run(`http://127.0.0.1:${address.port}`)
 	} finally {
+		for (const socket of sockets) {
+			socket.destroy()
+		}
+		sockets.clear()
+		server.closeAllConnections?.()
 		await new Promise<void>((resolve, reject) => {
 			server.close(err => (err ? reject(err) : resolve()))
 		})
@@ -50,6 +61,7 @@ describe('BinaryDownloader', () => {
 					const interval = setInterval(() => {
 						res.write(Buffer.alloc(1))
 					}, 10)
+					interval.unref()
 					res.on('close', () => clearInterval(interval))
 				},
 				async url => {
@@ -61,7 +73,7 @@ describe('BinaryDownloader', () => {
 		} finally {
 			await fs.rm(dir, {recursive: true, force: true})
 		}
-	})
+	}, 15_000)
 
 	it('resumes when a response ends before the advertised content length', async () => {
 		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'binary-downloader-'))
@@ -304,6 +316,7 @@ describe('BinaryDownloader', () => {
 					const interval = setInterval(() => {
 						res.write(body.subarray(0, 64))
 					}, 10)
+					interval.unref()
 					res.on('close', () => clearInterval(interval))
 					setTimeout(() => controller.abort(new Error('test abort')), 25)
 				},
@@ -315,5 +328,5 @@ describe('BinaryDownloader', () => {
 		} finally {
 			await fs.rm(cache, {recursive: true, force: true})
 		}
-	})
+	}, 15_000)
 })

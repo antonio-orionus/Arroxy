@@ -407,7 +407,7 @@ export async function downloadFile(url: string, destination: string, onProgress?
 			return downloadFile(url, destination, onProgress, {...options, allowPartialRetry: false})
 		}
 		const partialSize = await fileSize(partPath)
-		if (allowPartialRetry && !signal?.aborted && partialRetryAttempt < partialRetryLimit && partialSize >= startByte && isRetryablePartialDownloadError(retryableError)) {
+		if (allowPartialRetry && timeoutReason !== 'duration' && !signal?.aborted && partialRetryAttempt < partialRetryLimit && partialSize >= startByte && isRetryablePartialDownloadError(retryableError)) {
 			logger.warn('Partial binary download failed, retrying with range resume', {url, destination, startByte, partialSize, attempt: partialRetryAttempt + 1, limit: partialRetryLimit, error: retryableError instanceof Error ? retryableError.message : String(retryableError)})
 			return downloadFile(url, destination, onProgress, {...options, partialRetryAttempt: partialRetryAttempt + 1})
 		}

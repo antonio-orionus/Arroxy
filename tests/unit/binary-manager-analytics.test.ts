@@ -15,12 +15,7 @@ afterEach(() => {
 })
 
 async function makeYtDlpVersionStub(): Promise<string> {
-	const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-ytdlp-probe-'))
-	const stubPath = path.join(tempDir, process.platform === 'win32' ? 'yt-dlp.cmd' : 'yt-dlp')
-	const body = process.platform === 'win32' ? '@echo off\r\necho 2026.06.12\r\n' : '#!/bin/sh\necho "2026.06.12"\n'
-	await fs.writeFile(stubPath, body)
-	if (process.platform !== 'win32') await fs.chmod(stubPath, 0o755)
-	return stubPath
+	return process.execPath
 }
 
 function ytDlpEntry(): RuntimeBinaryManifestEntry {

@@ -45,7 +45,8 @@
     "shadcn",
 		"tw-animate-css",
 		"tailwindcss",
-		"@svgr/plugin-jsx"
+		"@svgr/plugin-jsx",
+		"lint-staged"
 	],
 	"ignoreBinaries": [
 		"msgmerge",

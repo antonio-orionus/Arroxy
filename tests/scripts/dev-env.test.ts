@@ -125,7 +125,7 @@ describe('dev-env pure helpers', () => {
 
 	it('defaults Electron user data inside the repo root', () => {
 		const env = resolveDevEnv({repoRoot: '/tmp/arroxy', env: {}})
-		expect(env.electronUserData).toBe('/tmp/arroxy/.electron-user-data/dev')
+		expect(env.electronUserData).toBe(path.join('/tmp/arroxy', '.electron-user-data', 'dev'))
 		expect(env.electronUserDataSource).toBe('computed')
 	})
 
@@ -138,15 +138,15 @@ describe('dev-env pure helpers', () => {
 	it('treats blank path overrides as absent', () => {
 		const env = resolveDevEnv({repoRoot: '/tmp/arroxy', env: {ELECTRON_USER_DATA: '   ', ARROXY_DEV_TMP: ''}})
 
-		expect(env.electronUserData).toBe('/tmp/arroxy/.electron-user-data/dev')
+		expect(env.electronUserData).toBe(path.join('/tmp/arroxy', '.electron-user-data', 'dev'))
 		expect(env.electronUserDataSource).toBe('computed')
-		expect(env.tmpDir).toBe('/tmp/arroxy/.tmp/dev')
+		expect(env.tmpDir).toBe(path.join('/tmp/arroxy', '.tmp', 'dev'))
 		expect(env.tmpDirSource).toBe('computed')
 	})
 
 	it('defaults temp dir inside the repo root', () => {
 		const env = resolveDevEnv({repoRoot: '/tmp/arroxy', env: {}})
-		expect(env.tmpDir).toBe('/tmp/arroxy/.tmp/dev')
+		expect(env.tmpDir).toBe(path.join('/tmp/arroxy', '.tmp', 'dev'))
 		expect(env.tmpDirSource).toBe('computed')
 	})
 

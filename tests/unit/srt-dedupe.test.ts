@@ -10,9 +10,9 @@ describe('dedupeSrt', () => {
 		const rolling = readFileSync(join(FIXTURES, 'copilot-died.en-rolling.srt'), 'utf8')
 		const expected = readFileSync(join(FIXTURES, 'copilot-died.en-deduped.srt'), 'utf8').trim()
 
-		const actual = dedupeSrt(rolling).trim()
+		const actual = dedupeSrt(rolling).replace(/\r\n/g, '\n').trim()
 
-		expect(actual).toBe(expected)
+		expect(actual).toBe(expected.replace(/\r\n/g, '\n'))
 	})
 
 	it('produces no overlapping cues — every cue starts strictly after the previous one ends', () => {
