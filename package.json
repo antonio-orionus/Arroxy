@@ -197,7 +197,7 @@
 		"oxlint-tsgolint": "7.0.2001",
 		"react-doctor": "0.9.11",
 		"tailwindcss": "4.3.3",
-		"typescript": "6.0.3",
+		"typescript": "7.0.2",
 		"unplugin-icons": "23.0.1",
 		"vite": "8.2.1",
 		"vitest": "4.1.10"
