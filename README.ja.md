@@ -25,7 +25,7 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-17._
+> _Last updated: 2026-08-24._
 
 > 🌐 これは AI 翻訳です。[英語版 README](README.md) が情報のソースです。誤りを見つけたら [PR を歓迎します](../../pulls)。
 
@@ -45,6 +45,7 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 - [プライバシー](#privacy)
 - [よくある質問](#faq)
 - [ロードマップ](#roadmap)
+- [Arroxy を支援する](#support)
 - [技術詳細](#tech)
 
 ---
@@ -339,6 +340,14 @@ yt-dlp は起動時に自動更新され、YouTube に変更があれば Arroxy 
 | **クリップトリミング** | 開始・終了時刻でセグメントのみをダウンロード |
 
 機能のアイデアがありますか？[リクエストを開いてください](../../issues) — コミュニティの意見が優先順位を決めます。
+
+---
+
+## <a id="support"></a>Arroxy を支援する
+
+Arroxy は無料で MIT ライセンスです。広告もテレメトリも有料版もありません。時間の節約に役立っているなら、Bitcoin または Tron で開発を支援できます。アドレスは [DONATE.md](DONATE.md) に記載しており、これが唯一の公式な情報源です。Arroxy がメールやダイレクトメッセージでアドレスをお送りすることは決してありません。リポジトリへのスター、バグ報告、翻訳の改善も同じくらい助けになります。
+
+<a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 
 ---
 

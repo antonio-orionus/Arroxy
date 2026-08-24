@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-17._
+> _Last updated: 2026-08-24._
 
 > 🌐 Це переклад за допомогою ШІ. [README англійською](README.md) — основне джерело істини. Помітили помилку? [PR вітаються](../../pulls).
 
@@ -45,6 +45,7 @@
 - [Конфіденційність](#privacy)
 - [Часті запитання](#faq)
 - [Дорожня карта](#roadmap)
+- [Підтримати Arroxy](#support)
 - [Технології](#tech)
 
 ---
@@ -339,6 +340,14 @@ yt-dlp автоматично оновлюється під час запуск�
 | **Обрізання кліпів** | Завантажуйте лише фрагмент за часом початку та кінця |
 
 Маєте ідею? [Відкрийте запит](../../issues) — голос спільноти визначає пріоритети.
+
+---
+
+## <a id="support"></a>Підтримати Arroxy
+
+Arroxy безкоштовний і має ліцензію MIT — без реклами, без телеметрії, без платної версії. Якщо він заощаджує ваш час, ви можете підтримати розробку через Bitcoin або Tron: адреси наведені в [DONATE.md](DONATE.md) — єдиному офіційному джерелі для них. Arroxy ніколи не надішле вам адресу електронною поштою чи в особистому повідомленні. Зірка репозиторію, повідомлення про помилки та покращення перекладів допомагають не менше.
+
+<a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 
 ---
 

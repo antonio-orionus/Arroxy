@@ -25,7 +25,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-17._
+> _Last updated: 2026-08-24._
 
 ---
 
@@ -43,6 +43,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 - [গোপনীয়তা](#privacy)
 - [সাধারণ প্রশ্নোত্তর](#faq)
 - [রোডম্যাপ](#roadmap)
+- [Arroxy-কে সমর্থন করুন](#support)
 - [নির্মিত হয়েছে](#tech)
 
 ---
@@ -337,6 +338,14 @@ yt-dlp চালুর সময় স্বয়ংক্রিয়ভা�
 | **ক্লিপ ট্রিমিং** | শুরু/শেষ সময় দিয়ে শুধু একটি অংশ ডাউনলোড করুন |
 
 মাথায় কোনো বৈশিষ্ট্য আছে? [একটি অনুরোধ খুলুন](../../issues) — কমিউনিটির মতামত অগ্রাধিকার নির্ধারণ করে।
+
+---
+
+## <a id="support"></a>Arroxy-কে সমর্থন করুন
+
+Arroxy বিনামূল্যের এবং MIT লাইসেন্সপ্রাপ্ত — কোনো বিজ্ঞাপন নেই, টেলিমেট্রি নেই, পেইড সংস্করণ নেই। এটি যদি আপনার সময় বাঁচায়, তাহলে আপনি Bitcoin বা Tron দিয়ে এর উন্নয়নে সহায়তা করতে পারেন: ঠিকানাগুলো [DONATE.md](DONATE.md)-এ রয়েছে, যা এগুলোর একমাত্র আনুষ্ঠানিক উৎস। Arroxy কখনোই আপনাকে ইমেল বা সরাসরি বার্তায় ঠিকানা পাঠাবে না। রিপোতে স্টার দেওয়া, বাগ রিপোর্ট করা এবং অনুবাদ উন্নত করাও সমান সহায়ক।
+
+<a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 
 ---
 

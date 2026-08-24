@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-17._
+> _Last updated: 2026-08-24._
 
 > 🌐 یہ AI کی مدد سے کیا گیا ترجمہ ہے۔ [انگریزی README](README.md) سچائی کا ماخذ ہے۔ کوئی غلطی نظر آئی؟ [PR کا خیر مقدم ہے](../../pulls)۔
 
@@ -45,6 +45,7 @@
 - [پرائیویسی](#privacy)
 - [اکثر پوچھے گئے سوالات](#faq)
 - [روڈ میپ](#roadmap)
+- [Arroxy کی معاونت کریں](#support)
 - [ان چیزوں سے بنایا گیا](#tech)
 
 ---
@@ -339,6 +340,14 @@ yt-dlp لانچ پر خود بخود اپ ڈیٹ ہو جاتا ہے، اور ج�
 | **کلپ ٹرمنگ** | شروع/اختتام کے وقت سے صرف ایک سیگمنٹ ڈاؤن لوڈ کریں |
 
 ذہن میں کوئی فیچر ہے؟ [ایک درخواست کھولیں](../../issues) — کمیونٹی کی رائے ترجیح کو تشکیل دیتی ہے۔
+
+---
+
+## <a id="support"></a>Arroxy کی معاونت کریں
+
+Arroxy مفت اور MIT لائسنس یافتہ ہے — نہ اشتہارات، نہ ٹیلی میٹری، نہ کوئی ادائیگی والا ورژن۔ اگر یہ آپ کا وقت بچاتا ہے تو آپ اس کی ترقی میں Bitcoin یا Tron کے ذریعے تعاون کر سکتے ہیں: پتے [DONATE.md](DONATE.md) میں درج ہیں، جو ان کا واحد سرکاری ذریعہ ہے۔ Arroxy آپ کو کبھی ای میل یا ڈائریکٹ میسج کے ذریعے پتہ نہیں بھیجے گا۔ ریپو کو ستارہ دینا، خامیوں کی اطلاع دینا اور تراجم بہتر بنانا بھی اتنی ہی مدد کرتا ہے۔
+
+<a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 
 ---
 

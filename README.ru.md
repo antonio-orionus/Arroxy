@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-17._
+> _Last updated: 2026-08-24._
 
 > 🌐 Это перевод с помощью ИИ. [README на английском](README.md) — основной источник истины. Заметили ошибку? [Pull request приветствуется](../../pulls).
 
@@ -45,6 +45,7 @@
 - [Конфиденциальность](#privacy)
 - [Часто задаваемые вопросы](#faq)
 - [Дорожная карта](#roadmap)
+- [Поддержать Arroxy](#support)
 - [Создано на](#tech)
 
 ---
@@ -339,6 +340,14 @@ yt-dlp обновляется автоматически при запуске, 
 | **Обрезка клипов** | Скачайте только нужный отрезок, указав начало и конец |
 
 Есть идея? [Откройте запрос](../../issues) — мнение сообщества определяет приоритеты.
+
+---
+
+## <a id="support"></a>Поддержать Arroxy
+
+Arroxy бесплатен и распространяется по лицензии MIT — без рекламы, без телеметрии, без платной версии. Если он экономит вам время, вы можете поддержать разработку через Bitcoin или Tron: адреса указаны в [DONATE.md](DONATE.md) — единственном официальном источнике для них. Arroxy никогда не пришлёт вам адрес по электронной почте или в личном сообщении. Звезда репозиторию, сообщения об ошибках и улучшение переводов помогают ничуть не меньше.
+
+<a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 
 ---
 

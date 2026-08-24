@@ -365,6 +365,8 @@ export const en = {
   plan_cta:
     "Have a feature in mind? [Open a request](../../issues) — community input shapes priority.",
   tech_content: TECH_CONTENT,
+  support_h2: "Support Arroxy",
+  support_note: "Arroxy is free and MIT-licensed — no ads, no telemetry, no paid tier. If it saves you time, you can support development with Bitcoin or Tron: the addresses are in [DONATE.md](DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.",
   tos_h2: "Terms of use",
   tos_note:
     "Arroxy is a tool for personal, private use only. You are solely responsible for ensuring your downloads comply with YouTube's [Terms of Service](https://www.youtube.com/t/terms) and the copyright laws of your jurisdiction. Do not use Arroxy to download, reproduce, or distribute content you do not have the right to use. The developers are not liable for any misuse.",

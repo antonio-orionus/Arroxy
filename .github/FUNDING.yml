@@ -1,0 +1,6 @@
+# Renders the "Sponsor" button in the repository header and on every issue and
+# pull request page. GitHub has no field for cryptocurrency addresses, so the
+# custom link points at DONATE.md, which is the single canonical source for
+# them and is pinned by scripts/check-donation-addresses.mjs.
+custom:
+  - https://github.com/antonio-orionus/Arroxy/blob/main/DONATE.md

@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-17._
+> _Last updated: 2026-08-24._
 
 ---
 
@@ -43,6 +43,7 @@
 - [Приватност](#privacy)
 - [ЧПП](#faq)
 - [Планови](#roadmap)
+- [Подржи Arroxy](#support)
 - [Израђено помоћу](#tech)
 
 ---
@@ -337,6 +338,14 @@ yt-dlp се аутоматски ажурира при покретању, а Ar
 | **Исецање клипова** | Преузмите само сегмент по времену почетка/краја |
 
 Имате функционалност на уму? [Отворите захтев](../../issues) — улаз заједнице обликује приоритет.
+
+---
+
+## <a id="support"></a>Подржи Arroxy
+
+Arroxy је бесплатан и под MIT лиценцом — без реклама, без телеметрије, без плаћене верзије. Ако ти штеди време, можеш подржати развој путем Bitcoin-а или Tron-а: адресе се налазе у [DONATE.md](DONATE.md), једином званичном извору за њих. Arroxy ти никада неће послати адресу имејлом или директном поруком. Звездица на репозиторијуму, пријаве грешака и побољшање превода помажу подједнако.
+
+<a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 
 ---
 

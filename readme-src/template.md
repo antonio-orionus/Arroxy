@@ -45,6 +45,7 @@
 - [{{privacy_h2}}](#privacy)
 - [{{faq_h2}}](#faq)
 - [{{roadmap_h2}}](#roadmap)
+- [{{support_h2}}](#support)
 - [{{tech_h2}}](#tech)
 
 ---
@@ -335,6 +336,14 @@ sha256sum Arroxy-linux-x64.AppImage
 | {{plan_r7_name}} | {{plan_r7_desc}} |
 
 {{plan_cta}}
+
+---
+
+## <a id="support"></a>{{support_h2}}
+
+{{support_note}}
+
+<a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 
 ---
 

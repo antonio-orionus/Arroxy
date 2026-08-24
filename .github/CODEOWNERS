@@ -1,0 +1,21 @@
+# Every pull request touching a path below needs review from the owner listed,
+# enforced by "Require review from Code Owners" in the main branch protection
+# rule. Without that setting enabled, this file is documentation only.
+
+# Default owner for everything not matched more specifically below.
+*                                     @antonio-orionus
+
+# Donation addresses and the check that pins them. A change here can redirect
+# real, unrecoverable money, so it must never ride along in an unrelated PR.
+/DONATE.md                            @antonio-orionus
+/.github/FUNDING.yml                  @antonio-orionus
+/scripts/check-donation-addresses.mjs @antonio-orionus
+
+# Release, signing, and publishing paths — these push to external package
+# repositories and carry WINGET_TOKEN.
+/.github/workflows/                   @antonio-orionus
+/scripts/release.sh                   @antonio-orionus
+/electron-builder.json5               @antonio-orionus
+
+# This file itself, so ownership cannot be quietly reassigned.
+/.github/CODEOWNERS                   @antonio-orionus
