@@ -72,6 +72,11 @@ export default defineConfig(({mode}) => {
 			},
 			build: {
 				externalizeDeps: true,
+				// electron-vite 5 reads `build.rollupOptions` only — it has no
+				// `rolldownOptions` support and merges user config into its own
+				// `rollupOptions` default. Renaming to the non-deprecated Vite 8
+				// alias would silently drop the `external` override below.
+				// oxlint-disable-next-line typescript/no-deprecated
 				rollupOptions: {
 					// Keep the main bundle self-contained for native ESM on Windows.
 					// Electron's main process uses Node's ESM loader, which resolves
@@ -96,6 +101,11 @@ export default defineConfig(({mode}) => {
 			build: {
 				externalizeDeps: true,
 				lib: {entry: path.resolve('src/preload/index.cts')},
+				// electron-vite 5 reads `build.rollupOptions` only — it has no
+				// `rolldownOptions` support and merges user config into its own
+				// `rollupOptions` default. Renaming to the non-deprecated Vite 8
+				// alias would silently drop the `external` override below.
+				// oxlint-disable-next-line typescript/no-deprecated
 				rollupOptions: {
 					// Same shape as main: rolldown re-bundles deps when output is CJS
 					// unless we re-assert externals here. Crucially, `electron` lives in

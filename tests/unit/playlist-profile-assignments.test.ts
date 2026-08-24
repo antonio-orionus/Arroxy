@@ -16,7 +16,7 @@ function profile(id: string, name: string): DownloadProfile {
 		embed: {chapters: true, metadata: true, thumbnail: false, description: false, thumbnailSidecar: false},
 		createdAt: '2026-08-12T00:00:00.000Z',
 		updatedAt: '2026-08-12T00:00:00.000Z'
-	} as DownloadProfile
+	}
 }
 
 const ARCHIVE = profile('archive', 'Archive 4K')
