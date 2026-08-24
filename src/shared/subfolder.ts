@@ -8,9 +8,14 @@
 // Reject filename-illegal chars including ASCII control bytes (\x00-\x1F),
 // which are explicitly disallowed on Windows and produce undefined behavior
 // in path APIs on POSIX.
+//
+// The reserved set mirrors the list Microsoft documents, superscript COM/LPT
+// variants included, and nothing beyond it. Device numbering starts at 1 — COM0
+// and LPT0 are ordinary names — and entries invented on suspicion would reject
+// folder names the user is entitled to.
 // eslint-disable-next-line no-control-regex -- control bytes are intentionally matched here
 const FORBIDDEN_CHARS = /[<>:"/\\|?*\x00-\x1F]/
-const RESERVED_NAMES = /^(CON|PRN|AUX|NUL|CONIN\$|CONOUT\$|(COM|LPT)([0-9]|\u00b9|\u00b2|\u00b3))(\..*)?$/i
+const RESERVED_NAMES = /^(CON|PRN|AUX|NUL|(COM|LPT)([1-9]|\u00b9|\u00b2|\u00b3))(\..*)?$/i
 
 export const SUBFOLDER_NAME_MAX = 64
 
