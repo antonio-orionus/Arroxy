@@ -1,4 +1,4 @@
-import {mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
+import {existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {dirname, join} from 'node:path'
 import {fileURLToPath} from 'node:url'
@@ -7,7 +7,7 @@ import {spawnSync} from 'node:child_process'
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)))
 const requireFromRepo = createRequire(join(repoRoot, 'package.json'))
-const bunx = process.platform === 'win32' ? 'bunx.cmd' : 'bunx'
+const isWindows = process.platform === 'win32'
 
 const tempDir = mkdtempSync(join(tmpdir(), 'arroxy-tooling-parity-'))
 const oxlintConfigPath = join(repoRoot, '.oxlintrc.json')
@@ -34,14 +34,27 @@ function fail(message, detail) {
 	throw new Error(message)
 }
 
-function run(label, command, args) {
-	const result = spawnSync(command, args, {cwd: repoRoot, encoding: 'utf8', env: {...process.env, FORCE_COLOR: '0', NO_COLOR: '1'}})
+function run(label, command, args, options = {}) {
+	const result = spawnSync(command, args, {cwd: repoRoot, encoding: 'utf8', env: {...process.env, FORCE_COLOR: '0', NO_COLOR: '1'}, ...options})
 	const output = `${result.stdout ?? ''}${result.stderr ?? ''}`
 	return {label, status: result.status, output}
 }
 
+// Prefer the binary already in node_modules/.bin over `bunx`. Two reasons: it
+// skips a resolution round-trip, and on Windows the .bin entry is a .cmd shim
+// that spawnSync cannot launch without a shell, so going through it directly
+// keeps the no-shell spawn (and any path containing spaces) working.
+function localBinPath(name) {
+	const candidates = isWindows ? [`${name}.exe`, `${name}.cmd`] : [name]
+	return candidates.map(candidate => join(repoRoot, 'node_modules', '.bin', candidate)).find(candidate => existsSync(candidate))
+}
+
 function runPackage(label, name, args) {
-	return run(label, bunx, [name, ...args])
+	const local = localBinPath(name)
+	if (local) return run(label, local, args, {shell: isWindows && local.endsWith('.cmd')})
+	// Fallback for a binary this workspace doesn't install directly. `bunx` is a
+	// shell shim on Windows, hence shell: true there.
+	return run(label, 'bunx', [name, ...args], {shell: isWindows})
 }
 
 function assertFailsWith(result, needles) {

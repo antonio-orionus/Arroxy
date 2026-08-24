@@ -38,7 +38,9 @@ export function probeArgs(id: DependencyId): string[] {
 const MACOS_HOMEBREW_BIN_DIRS = ['/opt/homebrew/bin', '/usr/local/bin'] as const
 
 export function fallbackPathCandidates(name: string, platform: NodeJS.Platform = process.platform): string[] {
-	if (platform === 'darwin') return MACOS_HOMEBREW_BIN_DIRS.map(dir => path.join(dir, name))
+	// path.posix, not path: these are literal macOS paths, and the result must not
+	// pick up backslashes just because the test asking for them runs on Windows.
+	if (platform === 'darwin') return MACOS_HOMEBREW_BIN_DIRS.map(dir => path.posix.join(dir, name))
 	if (platform !== 'win32') return []
 
 	const exeName = name.toLowerCase().endsWith('.exe') ? name : `${name}.exe`

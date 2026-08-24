@@ -53,7 +53,7 @@ unique_ytdlp_payload_count() {
     yt-dlp_macos \
     yt-dlp_linux \
     yt-dlp_linux_aarch64 \
-    | sort -u | count_nonempty_lines
+    | awk '!seen[$0]++' | count_nonempty_lines
 }
 
 expected_payload_count() {

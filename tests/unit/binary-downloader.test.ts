@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import http from 'node:http'
+import net from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
@@ -8,16 +9,30 @@ import {describe, expect, it} from 'vitest'
 import {DownloadIntegrityError, DownloadSizeMismatchError, DownloadStalledError, classifyDownloadError, copyCachedArtifactToFile, downloadArtifactToCache, downloadFile, sha256HexToSri} from '@main/services/binary/BinaryDownloader.js'
 
 async function withServer(handler: http.RequestListener, run: (url: string) => Promise<void>): Promise<void> {
+	// Sockets are tracked and destroyed by hand because server.close() only stops
+	// new connections: a still-open keep-alive socket from an aborted download
+	// leaves close() hanging until the OS times it out, which on Windows is long
+	// enough to blow the test timeout.
+	const sockets = new Set<net.Socket>()
 	const server = http.createServer(handler)
+	server.on('connection', socket => {
+		sockets.add(socket)
+		socket.on('close', () => sockets.delete(socket))
+	})
 	await new Promise<void>((resolve, reject) => {
 		server.once('error', reject)
-		server.listen(0, () => resolve())
+		// Bind the loopback address explicitly: on Windows the unspecified bind can
+		// resolve to an interface the client's 127.0.0.1 request never reaches.
+		server.listen(0, '127.0.0.1', () => resolve())
 	})
 	try {
 		const address = server.address()
 		if (!address || typeof address === 'string') throw new Error('test server did not bind to a TCP port')
 		await run(`http://127.0.0.1:${address.port}`)
 	} finally {
+		server.closeAllConnections()
+		for (const socket of sockets) socket.destroy()
+		sockets.clear()
 		await new Promise<void>((resolve, reject) => {
 			server.close(err => (err ? reject(err) : resolve()))
 		})
@@ -50,10 +65,11 @@ describe('BinaryDownloader', () => {
 					const interval = setInterval(() => {
 						res.write(Buffer.alloc(1))
 					}, 10)
+					interval.unref()
 					res.on('close', () => clearInterval(interval))
 				},
 				async url => {
-					await expect(downloadFile(url, destination, undefined, {maxDurationMs: 50, stallTimeoutMs: 1000})).rejects.toThrow(DownloadStalledError)
+					await expect(downloadFile(url, destination, undefined, {maxDurationMs: 50, stallTimeoutMs: 1000, partialRetryLimit: 0})).rejects.toThrow(DownloadStalledError)
 				}
 			)
 
@@ -96,6 +112,51 @@ describe('BinaryDownloader', () => {
 			await fs.rm(dir, {recursive: true, force: true})
 		}
 	})
+
+	it('resumes from the partial file after the max-duration budget trips', async () => {
+		// maxDurationMs is a per-attempt budget, not a whole-download one, so a large
+		// binary on a slow link is expected to finish across several resumed windows.
+		// Dropping the retry here would turn a slow connection into a hard failure.
+		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'binary-downloader-'))
+		const destination = path.join(dir, 'resumed.bin')
+		const body = Buffer.from('b'.repeat(4096))
+		const ranges: Array<string | undefined> = []
+
+		try {
+			await withServer(
+				(req, res) => {
+					ranges.push(req.headers.range)
+
+					if (!req.headers.range) {
+						// Hand over a prefix, then keep the connection open and idle until the
+						// duration timer fires. Bytes are still flowing slowly enough that the
+						// stall timer never gets there first.
+						res.writeHead(200, {'content-length': String(body.length)})
+						res.write(body.subarray(0, 1024))
+						const interval = setInterval(() => res.write(body.subarray(0, 1)), 10)
+						interval.unref()
+						res.on('close', () => clearInterval(interval))
+						return
+					}
+
+					const start = Number(/bytes=(\d+)-/.exec(req.headers.range)?.[1] ?? 0)
+					res.writeHead(206, {'content-length': String(body.length - start), 'content-range': `bytes ${start}-${body.length - 1}/${body.length}`})
+					res.end(body.subarray(start))
+				},
+				async url => {
+					await downloadFile(url, destination, undefined, {maxDurationMs: 120, stallTimeoutMs: 5_000, partialRetryLimit: 3})
+				}
+			)
+
+			const written = await fs.readFile(destination)
+			expect(written).toHaveLength(body.length)
+			expect(ranges.length).toBeGreaterThan(1)
+			expect(ranges[0]).toBeUndefined()
+			expect(ranges[1]).toMatch(/^bytes=\d+-$/)
+		} finally {
+			await fs.rm(dir, {recursive: true, force: true})
+		}
+	}, 15_000)
 
 	it('writes successful artifact downloads to cacache with manifest integrity', async () => {
 		const body = Buffer.from('verified artifact')
@@ -304,6 +365,7 @@ describe('BinaryDownloader', () => {
 					const interval = setInterval(() => {
 						res.write(body.subarray(0, 64))
 					}, 10)
+					interval.unref()
 					res.on('close', () => clearInterval(interval))
 					setTimeout(() => controller.abort(new Error('test abort')), 25)
 				},

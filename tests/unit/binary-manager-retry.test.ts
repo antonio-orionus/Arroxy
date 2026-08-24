@@ -151,7 +151,10 @@ describe('BinaryManager manifest resolution', () => {
 	})
 
 	it('falls back to ffmpeg and ffprobe on PATH when bundled binaries are unusable', async () => {
-		const temp = await tempDir('bm-path-')
+		// realpath because Windows hands back an 8.3 short path (RUNNER~1) from the
+		// temp dir, while the resolved binary path comes back long-form — the two
+		// name the same directory but never compare equal as strings.
+		const temp = await fs.realpath(await tempDir('bm-path-'))
 		const exeExt = process.platform === 'win32' ? '.exe' : ''
 		const ffmpegPath = path.join(temp, `ffmpeg${exeExt}`)
 		const ffprobePath = path.join(temp, `ffprobe${exeExt}`)
