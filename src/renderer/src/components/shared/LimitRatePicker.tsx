@@ -75,15 +75,15 @@ export function LimitRatePicker({value, onChange}: Props): ReactNode {
 				spacing={1}
 				className="grid w-full grid-cols-2 items-stretch"
 			>
-				<ToggleGroupItem value="off" className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] aria-pressed:shadow-[0_0_0_2px_var(--brand-dim)]">
+				<ToggleGroupItem value="off" className="min-h-7 justify-start px-2 text-[12px] aria-pressed:shadow-[0_0_0_2px_var(--brand-dim)]">
 					{t('wizard.url.limitRate.off')}
 				</ToggleGroupItem>
 				{LIMIT_RATE_PRESETS.map(preset => (
-					<ToggleGroupItem key={preset} value={preset} className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] aria-pressed:shadow-[0_0_0_2px_var(--brand-dim)]">
+					<ToggleGroupItem key={preset} value={preset} className="min-h-7 justify-start px-2 text-[12px] aria-pressed:shadow-[0_0_0_2px_var(--brand-dim)]">
 						{formatLimitRateLabel(preset)}
 					</ToggleGroupItem>
 				))}
-				<ToggleGroupItem value="custom" className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] aria-pressed:shadow-[0_0_0_2px_var(--brand-dim)]">
+				<ToggleGroupItem value="custom" className="min-h-7 justify-start px-2 text-[12px] aria-pressed:shadow-[0_0_0_2px_var(--brand-dim)]">
 					{t('wizard.url.limitRate.custom')}
 				</ToggleGroupItem>
 			</ToggleGroup>

@@ -147,14 +147,14 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 								spacing={1}
 								className="grid w-full items-stretch"
 							>
-								<ToggleGroupItem value="app-limit" className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+								<ToggleGroupItem value="app-limit" className="min-h-7 justify-start px-2 text-[12px]">
 									{copy(t, 'wizard.url.playlistScope.appLimit', 'Use app limit: {{count}}', {count: appLimit})}
 								</ToggleGroupItem>
-								<ToggleGroupItem value="first" className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+								<ToggleGroupItem value="first" className="min-h-7 justify-start px-2 text-[12px]">
 									{copy(t, 'wizard.url.playlistScope.first', 'First')}
 								</ToggleGroupItem>
 								{mode === 'first' && <Input type="number" min={PLAYLIST_PROBE_LIMIT_MIN} max={PLAYLIST_PROBE_LIMIT_MAX} value={firstDraft} onChange={event => setFirstDraft(event.target.value)} className="h-8 font-mono" data-testid="playlist-scope-first-input" />}
-								<ToggleGroupItem value="range" className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+								<ToggleGroupItem value="range" className="min-h-7 justify-start px-2 text-[12px]">
 									{copy(t, 'wizard.url.playlistScope.range', 'Range')}
 								</ToggleGroupItem>
 								{mode === 'range' && (

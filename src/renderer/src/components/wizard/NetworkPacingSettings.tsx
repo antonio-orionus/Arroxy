@@ -108,7 +108,7 @@ export function NetworkPacingSettings(): ReactNode {
 						<Tooltip key={preset}>
 							<TooltipTrigger
 								render={props => (
-									<ToggleGroupItem {...props} value={preset} className="h-7 justify-start px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+									<ToggleGroupItem {...props} value={preset} className="min-h-7 justify-start px-2 text-[12px]">
 										{t(`wizard.url.networkPacing.presets.${preset}`)}
 									</ToggleGroupItem>
 								)}

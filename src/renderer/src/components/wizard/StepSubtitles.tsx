@@ -71,7 +71,7 @@ export function StepSubtitles(): ReactNode {
 						className="flex-wrap"
 					>
 						{saveModes.map(({mode, label}) => (
-							<ToggleGroupItem key={mode} value={mode} className="h-7 px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+							<ToggleGroupItem key={mode} value={mode} className="min-h-7 px-2 text-[12px]">
 								{label}
 							</ToggleGroupItem>
 						))}
@@ -99,7 +99,7 @@ export function StepSubtitles(): ReactNode {
 								className="flex-wrap"
 							>
 								{SUBTITLE_FORMATS.map(fmt => (
-									<ToggleGroupItem key={fmt} value={fmt} className="h-6 px-2 text-[11px] font-semibold uppercase aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+									<ToggleGroupItem key={fmt} value={fmt} shape="chip" className="min-h-6 px-2 text-[11px] font-semibold uppercase">
 										{fmt.toUpperCase()}
 									</ToggleGroupItem>
 								))}
