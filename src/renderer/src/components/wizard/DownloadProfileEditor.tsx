@@ -504,7 +504,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 												if (next === 'on') updateDraft({type: 'set-subtitle-enabled', subtitleEnabled: true})
 												if (next === 'off' && !subtitlesOnly) updateDraft({type: 'set-subtitle-enabled', subtitleEnabled: false})
 											}}
-											className="grid w-36 shrink-0 grid-cols-2"
+											className="grid w-auto min-w-36 shrink-0 grid-cols-2"
 										>
 											<ToggleGroupItem value="off" disabled={subtitlesOnly} className="flex-1">
 												{t('wizard.sponsorblock.mode.off')}

@@ -29,7 +29,7 @@ export function PresetStrip({activePreset, onSelect}: PresetStripProps): ReactNo
 					<Tooltip key={p.value}>
 						<TooltipTrigger
 							render={props => (
-								<ToggleGroupItem {...props} value={p.value} className="wizard-choice-tile flex h-auto w-full items-center justify-center rounded-[8px] px-2.5 py-1.5 transition-all">
+								<ToggleGroupItem {...props} value={p.value} className="wizard-choice-tile w-full rounded-[8px] px-2.5 py-1.5 transition-all">
 									<span className="truncate text-[13px] font-semibold text-inherit">{p.label}</span>
 								</ToggleGroupItem>
 							)}
