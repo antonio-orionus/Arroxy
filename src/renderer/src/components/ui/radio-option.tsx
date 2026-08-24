@@ -37,7 +37,7 @@ export function RadioOption({label, checked, onClick, disabled, adornment, child
 				<RadioDot checked={effectiveChecked} />
 				{adornment}
 			</ItemMedia>
-			<ItemContent className="min-w-0 flex-none">
+			<ItemContent className="min-w-0">
 				<ItemTitle className={cn('text-[13px]', effectiveChecked ? 'font-semibold text-[var(--brand)]' : 'font-medium text-muted-foreground', labelClassName)}>{label}</ItemTitle>
 			</ItemContent>
 			{children ? <ItemActions className="ms-auto min-w-0">{children}</ItemActions> : null}

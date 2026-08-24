@@ -38,7 +38,7 @@ function ItemContent({className, ...props}: React.ComponentProps<'div'>): ReactN
 }
 
 function ItemTitle({className, ...props}: React.ComponentProps<'div'>): ReactNode {
-	return <div data-slot="item-title" className={cn('line-clamp-1 flex w-fit items-center gap-2 text-sm leading-snug font-medium underline-offset-4', className)} {...props} />
+	return <div data-slot="item-title" className={cn('line-clamp-1 flex min-w-0 items-center gap-2 text-sm leading-snug font-medium underline-offset-4', className)} {...props} />
 }
 
 function ItemDescription({className, ...props}: React.ComponentProps<'p'>): ReactNode {

@@ -89,6 +89,23 @@ async function overflowingGroups(page: Page): Promise<OverflowReport[]> {
 	})
 }
 
+async function overflowingRadioTitles(page: Page): Promise<OverflowReport[]> {
+	return page.evaluate(() => {
+		const found: {label: string; overflowPx: number; spillPx: number}[] = []
+		for (const node of document.querySelectorAll('[role="radio"] [data-slot="item-title"]')) {
+			const el = node as HTMLElement
+			const row = el.closest('[role="radio"]')
+			if (!row) continue
+			const rect = el.getBoundingClientRect()
+			if (rect.width === 0) continue
+			const rowRect = row.getBoundingClientRect()
+			const spillPx = Math.round(Math.max(rect.right - rowRect.right, rowRect.left - rect.left))
+			if (spillPx > 1) found.push({label: (el.textContent ?? '').trim().slice(0, 32), overflowPx: 0, spillPx})
+		}
+		return found
+	})
+}
+
 for (const viewport of VIEWPORTS) {
 	for (const locale of LOCALES) {
 		for (const screen of SCREENS) {
@@ -97,6 +114,7 @@ for (const viewport of VIEWPORTS) {
 				await openScreen(page, screen, locale)
 				expect(await overflowingToggles(page)).toEqual([])
 				expect(await overflowingGroups(page)).toEqual([])
+				expect(await overflowingRadioTitles(page)).toEqual([])
 			})
 		}
 	}
