@@ -39,3 +39,35 @@ jobs:
 
       - name: Check
         run: bun run check
+
+  # The full `check` gate runs on Linux only. This job exists for the class of
+  # bug that is invisible there: path separators, CRLF checkouts, and shell
+  # shims that spawn without a shell on POSIX but not on Windows. Everyone
+  # working on this repo develops on macOS or Linux, so without a Windows leg
+  # those regressions reach contributors before they reach CI.
+  #
+  # Scoped to the test suite rather than `bun run check`, because the rest of
+  # that gate (formatting, tooling parity, i18n catalogs, package packing) is
+  # platform-independent and already covered above.
+  test-windows:
+    name: test (windows)
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Test
+        run: bun run test
