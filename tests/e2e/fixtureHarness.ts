@@ -489,12 +489,33 @@ async function downloadYtDlp(destination: string): Promise<void> {
  * is atomic within a directory, so a concurrent reader sees either no file or
  * the whole file. Last writer wins, and every candidate is byte-identical.
  */
+// Windows refuses to rename over a file another process has open, which is
+// exactly what a parallel worker that just won the same race looks like. POSIX
+// renames over it silently, so this only ever fires on Windows.
+const WINDOWS_RENAME_COLLISION_CODES = new Set(['EPERM', 'EEXIST', 'EACCES', 'EBUSY'])
+
+async function installedByAnotherWorker(destination: string): Promise<boolean> {
+	if (process.platform !== 'win32') return false
+	// Existence alone is not enough: the whole point of staging is that a
+	// half-written file must never be mistaken for a finished one. A rename that
+	// lost the race leaves a complete, non-empty file behind, so require that
+	// before treating the collision as success.
+	const stat = await fsPromises.stat(destination).catch(() => null)
+	return stat?.isFile() === true && stat.size > 0
+}
+
 export async function installAtomically(destination: string, produce: (staging: string) => Promise<void>): Promise<void> {
 	await fsPromises.mkdir(path.dirname(destination), {recursive: true})
 	const staging = `${destination}.${process.pid}.${randomUUID()}.part`
 	try {
 		await produce(staging)
-		await fsPromises.rename(staging, destination)
+		try {
+			await fsPromises.rename(staging, destination)
+		} catch (renameError) {
+			const code = (renameError as {code?: string}).code ?? ''
+			if (!WINDOWS_RENAME_COLLISION_CODES.has(code) || !(await installedByAnotherWorker(destination))) throw renameError
+			await fsPromises.rm(staging, {force: true})
+		}
 	} catch (error) {
 		// Debris here would be mistaken for a cached binary by a later run.
 		await fsPromises.rm(staging, {force: true})

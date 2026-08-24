@@ -14,13 +14,13 @@ afterEach(() => {
 	vi.clearAllMocks()
 })
 
-async function makeYtDlpVersionStub(): Promise<string> {
-	const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-ytdlp-probe-'))
-	const stubPath = path.join(tempDir, process.platform === 'win32' ? 'yt-dlp.cmd' : 'yt-dlp')
-	const body = process.platform === 'win32' ? '@echo off\r\necho 2026.06.12\r\n' : '#!/bin/sh\necho "2026.06.12"\n'
-	await fs.writeFile(stubPath, body)
-	if (process.platform !== 'win32') await fs.chmod(stubPath, 0o755)
-	return stubPath
+// A binary that exits 0 for `--version`. The probe under test only cares that
+// the spawn succeeds — the version string never reaches the assertions — and the
+// obvious alternative, a shell-script stub, has to be a .cmd on Windows, which
+// execFile() refuses to launch without a shell. process.execPath is a real
+// executable on every platform, so it sidesteps that without a platform branch.
+function versionAnsweringExecutable(): string {
+	return process.execPath
 }
 
 function ytDlpEntry(): RuntimeBinaryManifestEntry {
@@ -82,7 +82,7 @@ describe('BinaryManager analytics', () => {
 		const attempts: DependencyAttempt[] = []
 		const source: DependencySource = {kind: 'managed', channel: 'nightly', provider: 'github', url: 'https://example.com/yt-dlp'}
 		const now = vi.spyOn(Date, 'now').mockReturnValueOnce(1_000).mockReturnValueOnce(32_500)
-		const ytDlpStub = await makeYtDlpVersionStub()
+		const ytDlpStub = versionAnsweringExecutable()
 
 		try {
 			const diag = await (mgr as unknown as {probeAndAccept: (id: 'yt-dlp', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<unknown>}).probeAndAccept('yt-dlp', source, ytDlpStub, attempts)

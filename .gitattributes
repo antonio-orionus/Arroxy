@@ -1,3 +1,11 @@
+# Check every text file out as LF on every platform. Several tests and tooling
+# checks compare file contents byte-for-byte (SRT fixtures, the i18n POT, the
+# renderer stylesheet), so a CRLF checkout on Windows fails them for reasons that
+# have nothing to do with the code. Pinning the line ending here beats patching
+# each call site with a .replace(/\r\n/g, '\n') that the next fixture reader
+# would have to remember to repeat.
+* text=auto eol=lf
+
 # Generated i18n artifacts.
 i18n/app.pot linguist-generated
 i18n/locales/*.po linguist-generated
