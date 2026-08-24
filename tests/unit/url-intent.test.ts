@@ -51,6 +51,7 @@ describe('classifyUrlIntent', () => {
 		expect(id('https://www.youtube.com/embed/ScsahA7OzVo')).toBe('ScsahA7OzVo')
 		expect(id('https://www.youtube-nocookie.com/embed/ScsahA7OzVo')).toBe('ScsahA7OzVo')
 		expect(id('https://www.youtube.com/v/ScsahA7OzVo')).toBe('ScsahA7OzVo')
+		expect(id('https://www.youtube.com/e/ScsahA7OzVo')).toBe('ScsahA7OzVo')
 		expect(id('https://www.youtube.com/playlist?list=PLtest')).toBeNull()
 		expect(id('https://www.youtube.com/@arroxy')).toBeNull()
 	})

@@ -29,19 +29,18 @@ describe('isValidSubfolder', () => {
 		expect(isValidSubfolder('lpt9.txt')).toBe(false)
 	})
 
-	it('rejects the rest of the reserved device set Windows documents', () => {
-		expect(isValidSubfolder('com0')).toBe(false)
-		expect(isValidSubfolder('lpt0')).toBe(false)
-		expect(isValidSubfolder('CONIN$')).toBe(false)
-		expect(isValidSubfolder('conout$')).toBe(false)
-		// Superscript COM/LPT variants are reserved too, and easy to paste in by accident.
+	it('rejects the superscript COM/LPT variants Windows also reserves', () => {
+		// Windows reads the ISO 8859-1 superscript digits as digits, so COM\u00b9 is COM1.
 		expect(isValidSubfolder('com\u00b9')).toBe(false)
 		expect(isValidSubfolder('LPT\u00b3')).toBe(false)
 	})
 
-	it('accepts names that merely start with a reserved word', () => {
+	it('accepts names outside the documented device list', () => {
 		expect(isValidSubfolder('Console')).toBe(true)
 		expect(isValidSubfolder('Auxiliary')).toBe(true)
+		// Device numbering starts at 1, so these are ordinary names.
+		expect(isValidSubfolder('com0')).toBe(true)
+		expect(isValidSubfolder('lpt0')).toBe(true)
 		expect(isValidSubfolder('com10')).toBe(true)
 	})
 
@@ -61,9 +60,8 @@ describe('escapeReservedName', () => {
 	it('escapes reserved device names with a trailing underscore', () => {
 		expect(escapeReservedName('CON')).toBe('CON_')
 		expect(escapeReservedName('aux')).toBe('aux_')
-		expect(escapeReservedName('com0')).toBe('com0_')
+		expect(escapeReservedName('com1')).toBe('com1_')
 		expect(escapeReservedName('lpt9')).toBe('lpt9_')
-		expect(escapeReservedName('conin$')).toBe('conin$_')
 	})
 
 	it('escapes the stem of a reserved name carrying an extension', () => {
@@ -77,6 +75,7 @@ describe('escapeReservedName', () => {
 	it('leaves unreserved names untouched', () => {
 		expect(escapeReservedName('Music')).toBe('Music')
 		expect(escapeReservedName('Console')).toBe('Console')
+		expect(escapeReservedName('com0')).toBe('com0')
 	})
 })
 

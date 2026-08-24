@@ -119,7 +119,10 @@ describe('BinaryDownloader', () => {
 		// Dropping the retry here would turn a slow connection into a hard failure.
 		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'binary-downloader-'))
 		const destination = path.join(dir, 'resumed.bin')
-		const body = Buffer.from('b'.repeat(4096))
+		// Every byte distinct-ish rather than a run of one character: a resume that
+		// double-counts or skips bytes still lands on the right length, so only a
+		// patterned payload can tell a correct resume from a corrupt one.
+		const body = Buffer.from(Array.from({length: 4096}, (_, index) => index % 251))
 		const ranges: Array<string | undefined> = []
 
 		try {
@@ -128,12 +131,16 @@ describe('BinaryDownloader', () => {
 					ranges.push(req.headers.range)
 
 					if (!req.headers.range) {
-						// Hand over a prefix, then keep the connection open and idle until the
-						// duration timer fires. Bytes are still flowing slowly enough that the
-						// stall timer never gets there first.
+						// Hand over a prefix, then trickle the real next bytes until the duration
+						// timer fires. Bytes keep arriving, so the stall timer never gets there
+						// first and the abort is unambiguously the duration budget.
 						res.writeHead(200, {'content-length': String(body.length)})
 						res.write(body.subarray(0, 1024))
-						const interval = setInterval(() => res.write(body.subarray(0, 1)), 10)
+						let nextByte = 1024
+						const interval = setInterval(() => {
+							res.write(body.subarray(nextByte, nextByte + 1))
+							nextByte += 1
+						}, 10)
 						interval.unref()
 						res.on('close', () => clearInterval(interval))
 						return
@@ -149,7 +156,7 @@ describe('BinaryDownloader', () => {
 			)
 
 			const written = await fs.readFile(destination)
-			expect(written).toHaveLength(body.length)
+			expect(written).toEqual(body)
 			expect(ranges.length).toBeGreaterThan(1)
 			expect(ranges[0]).toBeUndefined()
 			expect(ranges[1]).toMatch(/^bytes=\d+-$/)
