@@ -207,13 +207,13 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							className="flex w-full flex-wrap gap-1"
 							aria-labelledby="profiles-settings-cookies-mode"
 						>
-							<ToggleGroupItem value="off" className="h-7 px-3 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+							<ToggleGroupItem value="off" className="min-h-7 px-3 text-[12px]">
 								{t('wizard.url.cookies.sourceOff')}
 							</ToggleGroupItem>
-							<ToggleGroupItem value="file" className="h-7 px-3 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+							<ToggleGroupItem value="file" className="min-h-7 px-3 text-[12px]">
 								{t('wizard.url.cookies.sourceFile')}
 							</ToggleGroupItem>
-							<ToggleGroupItem value="browser" className="h-7 px-3 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+							<ToggleGroupItem value="browser" className="min-h-7 px-3 text-[12px]">
 								{t('wizard.url.cookies.sourceBrowser')}
 							</ToggleGroupItem>
 						</ToggleGroup>
@@ -400,7 +400,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							aria-labelledby="profiles-settings-native-audio"
 						>
 							{NATIVE_AUDIO_PREFERENCES.map(option => (
-								<ToggleGroupItem key={option} value={option} className="h-7 px-3 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]" data-testid={`native-audio-preference-${option}`}>
+								<ToggleGroupItem key={option} value={option} className="min-h-7 px-3 text-[12px]" data-testid={`native-audio-preference-${option}`}>
 									{t(NATIVE_AUDIO_LABEL_KEYS[option])}
 								</ToggleGroupItem>
 							))}
@@ -442,14 +442,9 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							aria-labelledby="profiles-settings-backdrop-mode-label"
 						>
 							{BACKDROP_RENDER_OPTIONS.map(option => (
-								<ToggleGroupItem
-									key={option.value}
-									value={option.value}
-									className="h-auto min-h-[4.5rem] w-full min-w-0 flex-1 flex-col items-start justify-start gap-1 whitespace-normal px-3 py-2 text-left aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]"
-									data-testid={`profiles-settings-backdrop-mode-${option.value}`}
-								>
-									<span className="block w-full min-w-0 whitespace-normal break-words text-[12px] font-semibold leading-tight">{t(option.labelKey)}</span>
-									<span className="block w-full min-w-0 whitespace-normal break-words text-[10px] font-normal leading-snug text-[var(--text-subtle)]">{t(option.descriptionKey)}</span>
+								<ToggleGroupItem key={option.value} value={option.value} className="min-h-[4.5rem] w-full flex-col items-start justify-start gap-1 px-3 py-2 text-left" data-testid={`profiles-settings-backdrop-mode-${option.value}`}>
+									<span className="block w-full text-[12px] font-semibold leading-tight">{t(option.labelKey)}</span>
+									<span className="block w-full text-[10px] font-normal leading-snug text-[var(--text-subtle)]">{t(option.descriptionKey)}</span>
 								</ToggleGroupItem>
 							))}
 						</ToggleGroup>
