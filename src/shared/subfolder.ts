@@ -10,7 +10,7 @@
 // in path APIs on POSIX.
 // eslint-disable-next-line no-control-regex -- control bytes are intentionally matched here
 const FORBIDDEN_CHARS = /[<>:"/\\|?*\x00-\x1F]/
-const RESERVED_NAMES = /^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(\..*)?$/i
+const RESERVED_NAMES = /^(CON|PRN|AUX|NUL|CONIN\$|CONOUT\$|(COM|LPT)([0-9]|\u00b9|\u00b2|\u00b3))(\..*)?$/i
 
 export const SUBFOLDER_NAME_MAX = 64
 
@@ -33,28 +33,21 @@ export function joinSubfolder(base: string, sub: string): string {
 	return trimmed + sep + sub
 }
 
-// Sanitize a playlist title for use as a folder name. Strips or replaces
-// characters that are illegal on Windows/macOS/Linux and trims whitespace.
+// Sanitize a playlist title for use as a folder name. Same rules as
+// sanitizeDirSegment(), except a title that sanitizes away entirely still has to
+// produce a folder — 'Playlist' is that fallback.
 export function safeFolderName(title: string): string {
-	return (
-		title
-			.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_') // eslint-disable-line no-control-regex
-			.replace(/\s+/g, ' ')
-			.trim()
-			.replace(/[. ]+$/, '') // no trailing dots or spaces (Windows)
-			.slice(0, SUBFOLDER_NAME_MAX) || 'Playlist'
-	)
+	return sanitizeDirSegment(title) ?? 'Playlist'
 }
 
 /**
  * Sanitize one rendered path component from a filename template into something
  * safe to create on every supported OS, or null when nothing usable remains.
  *
- * Distinct from safeFolderName(): that one substitutes 'Playlist' for an empty
- * result, which is right for a playlist folder but wrong here — an empty
- * segment must collapse so `{playlist_title}/{title}` on a single video writes
- * no folder at all rather than one named 'Playlist'. Returning null is what
- * lets the caller drop the segment.
+ * Returning null rather than a fallback name is what lets the caller drop the
+ * segment: an empty `{playlist_title}` on a single video must write no folder at
+ * all rather than one named 'Playlist'. safeFolderName() wraps this with that
+ * fallback for the one case that does need a folder no matter what.
  */
 export function sanitizeDirSegment(raw: string): string | null {
 	const cleaned = raw
@@ -66,7 +59,11 @@ export function sanitizeDirSegment(raw: string): string | null {
 		// Slicing can re-expose a trailing dot or space that Windows drops.
 		.replace(/[. ]+$/, '')
 	if (cleaned === '' || cleaned === '.' || cleaned === '..') return null
-	return escapeReservedName(cleaned)
+	// Escaping appends '_', so a reserved name has to give the underscore its own
+	// room in the budget. Otherwise `NUL.<60 chars>` comes back one character over
+	// SUBFOLDER_NAME_MAX and isValidSubfolder rejects a name we generated ourselves.
+	const budgeted = RESERVED_NAMES.test(cleaned) ? cleaned.slice(0, SUBFOLDER_NAME_MAX - 1).replace(/[. ]+$/, '') : cleaned
+	return escapeReservedName(budgeted)
 }
 
 /**
@@ -76,9 +73,15 @@ export function sanitizeDirSegment(raw: string): string | null {
  * applies with any extension — `NUL.mp4` is still the null device. The user
  * asked for this name, so `CON_` honors that without breaking Windows. Shared
  * by directory segments and filenames so both escape identically.
+ *
+ * The underscore has to land on the stem, not the end of the string: since the
+ * reservation ignores the extension, `NUL.mp4_` is still the null device, and it
+ * has mangled the extension for nothing. `NUL_.mp4` is an ordinary file.
  */
 export function escapeReservedName(name: string): string {
-	return RESERVED_NAMES.test(name) ? `${name}_` : name
+	if (!RESERVED_NAMES.test(name)) return name
+	const dot = name.indexOf('.')
+	return dot === -1 ? `${name}_` : `${name.slice(0, dot)}_${name.slice(dot)}`
 }
 
 export function effectiveOutputDir(base: string, enabled: boolean, subfolder: string): string {

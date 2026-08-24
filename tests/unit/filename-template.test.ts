@@ -340,6 +340,13 @@ describe('bindFilenameTemplate', () => {
 		}
 	})
 
+	it('escapes the stem when the reserved name carries an extension', () => {
+		// Appending to the end would leave `NUL.mp4_`, which is still the null device
+		// — the reservation ignores the extension — with the extension mangled too.
+		expect(bound('{title}', {...PLAYLIST_META, title: 'NUL.mp4'})).toBe('NUL_.mp4')
+		expect(bound('{title}', {...PLAYLIST_META, title: 'com1.tar.gz'})).toBe('com1_.tar.gz')
+	})
+
 	it('leaves a name that merely starts with a reserved word alone', () => {
 		expect(bound('{title}', {...PLAYLIST_META, title: 'CONcert'})).toBe('CONcert')
 		expect(bound('{title} [{id}]', {...PLAYLIST_META, title: 'NUL'})).toBe('NUL [YE7VzlLtp-4]')
