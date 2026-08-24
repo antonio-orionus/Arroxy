@@ -60,9 +60,12 @@ describe('parseBulkUrls', () => {
 })
 
 describe('isClearlyIndividualYouTubeUrl', () => {
-	it('accepts watch, short, and youtu.be URLs without playlist params', () => {
+	it('accepts watch, short, live, clip, embed, and youtu.be URLs without playlist params', () => {
 		expect(isClearlyIndividualYouTubeUrl('https://www.youtube.com/watch?v=abc123')).toBe(true)
 		expect(isClearlyIndividualYouTubeUrl('https://www.youtube.com/shorts/abc123')).toBe(true)
+		expect(isClearlyIndividualYouTubeUrl('https://www.youtube.com/live/abc123')).toBe(true)
+		expect(isClearlyIndividualYouTubeUrl('https://www.youtube.com/clip/clip123')).toBe(true)
+		expect(isClearlyIndividualYouTubeUrl('https://www.youtube-nocookie.com/embed/abc123')).toBe(true)
 		expect(isClearlyIndividualYouTubeUrl('https://youtu.be/abc123')).toBe(true)
 	})
 
@@ -76,6 +79,8 @@ describe('extractYouTubeVideoId', () => {
 	it('derives ids for supported individual YouTube URL shapes', () => {
 		expect(extractYouTubeVideoId('https://www.youtube.com/watch?v=abc123')).toBe('abc123')
 		expect(extractYouTubeVideoId('https://www.youtube.com/shorts/short123')).toBe('short123')
+		expect(extractYouTubeVideoId('https://www.youtube.com/live/live123')).toBe('live123')
+		expect(extractYouTubeVideoId('https://www.youtube.com/clip/clip123')).toBeNull()
 		expect(extractYouTubeVideoId('https://youtu.be/bee123')).toBe('bee123')
 	})
 
@@ -89,7 +94,10 @@ describe('extractYouTubeVideoId', () => {
 describe('classifyBulkUrlKind', () => {
 	it.each([
 		['https://www.youtube.com/watch?v=abc123', 'single'],
+		['https://www.youtube.com/live/abc123', 'single'],
+		['https://www.youtube.com/clip/clip123', 'single'],
 		['https://www.youtube.com/watch?v=abc123&list=PLtest', 'mixed'],
+		['https://www.youtube.com/embed/videoseries?list=PLtest', 'playlist'],
 		['https://www.youtube.com/playlist?list=PLtest', 'playlist'],
 		['https://www.youtube.com/@arroxy', 'channel'],
 		['https://www.youtube.com/results?search_query=arroxy', 'search'],

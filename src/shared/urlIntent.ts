@@ -14,15 +14,31 @@ function parseUrl(url: string): URL | null {
 
 function isYouTubeHost(hostname: string): boolean {
 	const host = hostname.toLowerCase()
-	return host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtu.be'
+	return host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtu.be' || host === 'youtube-nocookie.com' || host.endsWith('.youtube-nocookie.com')
 }
 
 function youtubePathSegments(parsed: URL): string[] {
 	return parsed.pathname.split('/').filter(Boolean)
 }
 
+// Two-segment paths that address exactly one video. `/embed/` is the current
+// embed player; `/v/` and `/e/` are its legacy Flash-era equivalents, both of
+// which yt-dlp still resolves.
+const YOUTUBE_VIDEO_PATH_PREFIXES = new Set(['shorts', 'live', 'clip', 'embed', 'v', 'e'])
+
+// `/embed/videoseries?list=…` wears the same shape as a video embed but plays a
+// playlist — there is no video behind it, so it must not read as a single.
+const EMBED_PLAYLIST_SEGMENT = 'videoseries'
+
+function isYouTubeVideoSegmentPath(segments: string[]): boolean {
+	const [prefix, id] = segments
+	if (segments.length !== 2 || !prefix || !id) return false
+	if (!YOUTUBE_VIDEO_PATH_PREFIXES.has(prefix)) return false
+	return !(prefix === 'embed' && id === EMBED_PLAYLIST_SEGMENT)
+}
+
 function isYouTubeVideoPath(host: string, segments: string[], searchParams: URLSearchParams): boolean {
-	return (host === 'youtu.be' && segments.length === 1 && !!segments[0]) || (segments[0] === 'watch' && !!searchParams.get('v')) || (segments[0] === 'shorts' && segments.length === 2 && !!segments[1])
+	return (host === 'youtu.be' && segments.length === 1 && !!segments[0]) || (segments[0] === 'watch' && !!searchParams.get('v')) || isYouTubeVideoSegmentPath(segments)
 }
 
 function isYouTubeChannelPath(segments: string[]): boolean {
@@ -72,6 +88,12 @@ export function urlIntentBulkLabel(intent: UrlIntent): BulkUrlKind {
 	return 'unknown'
 }
 
+// Every video path shape above except `/clip/`, whose slug identifies the clip
+// rather than the video — the real id only arrives with the probe metadata.
+// Returning null keeps a clip slug out of `{id}` filenames and `[videoId]` file
+// matching instead of seeding them with something that was never a video id.
+const YOUTUBE_ID_BEARING_PREFIXES = new Set(['shorts', 'live', 'embed', 'v', 'e'])
+
 export function extractUrlIntentYouTubeVideoId(intent: UrlIntent): string | null {
 	if (intent.kind !== 'obvious-single' || intent.site !== 'youtube') return null
 	const parsed = parseUrl(intent.url)
@@ -81,7 +103,7 @@ export function extractUrlIntentYouTubeVideoId(intent: UrlIntent): string | null
 	const segments = youtubePathSegments(parsed)
 	if (host === 'youtu.be') return segments[0] ?? null
 	if (segments[0] === 'watch') return parsed.searchParams.get('v')
-	if (segments[0] === 'shorts') return segments[1] ?? null
+	if (YOUTUBE_ID_BEARING_PREFIXES.has(segments[0] ?? '')) return segments[1] ?? null
 	return null
 }
 
