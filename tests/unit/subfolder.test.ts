@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {isValidSubfolder, effectiveOutputDir, joinSubfolder, playlistBaseDir, splitDir} from '@shared/subfolder.js'
+import {SUBFOLDER_NAME_MAX, effectiveOutputDir, escapeReservedName, isValidSubfolder, joinSubfolder, playlistBaseDir, safeFolderName, splitDir} from '@shared/subfolder.js'
 
 describe('isValidSubfolder', () => {
 	it('accepts ordinary names', () => {
@@ -29,6 +29,22 @@ describe('isValidSubfolder', () => {
 		expect(isValidSubfolder('lpt9.txt')).toBe(false)
 	})
 
+	it('rejects the rest of the reserved device set Windows documents', () => {
+		expect(isValidSubfolder('com0')).toBe(false)
+		expect(isValidSubfolder('lpt0')).toBe(false)
+		expect(isValidSubfolder('CONIN$')).toBe(false)
+		expect(isValidSubfolder('conout$')).toBe(false)
+		// Superscript COM/LPT variants are reserved too, and easy to paste in by accident.
+		expect(isValidSubfolder('com\u00b9')).toBe(false)
+		expect(isValidSubfolder('LPT\u00b3')).toBe(false)
+	})
+
+	it('accepts names that merely start with a reserved word', () => {
+		expect(isValidSubfolder('Console')).toBe(true)
+		expect(isValidSubfolder('Auxiliary')).toBe(true)
+		expect(isValidSubfolder('com10')).toBe(true)
+	})
+
 	it('rejects names ending in . (Windows) — trailing spaces are trimmed first so they pass', () => {
 		expect(isValidSubfolder('trail.')).toBe(false)
 		// Trailing whitespace is trimmed before validation — accepted UX.
@@ -38,6 +54,68 @@ describe('isValidSubfolder', () => {
 	it('rejects names exceeding 64 chars', () => {
 		expect(isValidSubfolder('a'.repeat(65))).toBe(false)
 		expect(isValidSubfolder('a'.repeat(64))).toBe(true)
+	})
+})
+
+describe('escapeReservedName', () => {
+	it('escapes reserved device names with a trailing underscore', () => {
+		expect(escapeReservedName('CON')).toBe('CON_')
+		expect(escapeReservedName('aux')).toBe('aux_')
+		expect(escapeReservedName('com0')).toBe('com0_')
+		expect(escapeReservedName('lpt9')).toBe('lpt9_')
+		expect(escapeReservedName('conin$')).toBe('conin$_')
+	})
+
+	it('escapes the stem of a reserved name carrying an extension', () => {
+		// `NUL.mp4` is the null device, and so is `NUL.mp4_` — the reservation ignores
+		// the extension, so the underscore has to go on the stem to escape anything.
+		expect(escapeReservedName('NUL.mp4')).toBe('NUL_.mp4')
+		expect(isValidSubfolder(escapeReservedName('NUL.mp4'))).toBe(true)
+		expect(escapeReservedName('lpt9.txt')).toBe('lpt9_.txt')
+	})
+
+	it('leaves unreserved names untouched', () => {
+		expect(escapeReservedName('Music')).toBe('Music')
+		expect(escapeReservedName('Console')).toBe('Console')
+	})
+})
+
+describe('safeFolderName', () => {
+	it('keeps ordinary playlist titles and substitutes illegal characters', () => {
+		expect(safeFolderName('Top Hits 2026')).toBe('Top Hits 2026')
+		expect(safeFolderName('Rock / Pop : Live? *2026*')).toBe('Rock _ Pop _ Live_ _2026_')
+	})
+
+	it('escapes reserved device names instead of handing Windows an uncreatable folder', () => {
+		expect(safeFolderName('CON')).toBe('CON_')
+		expect(safeFolderName('aux')).toBe('aux_')
+		expect(safeFolderName('com1')).toBe('com1_')
+	})
+
+	it('strips trailing dots and spaces, including any re-exposed by truncation', () => {
+		expect(safeFolderName('Chill Mix....')).toBe('Chill Mix')
+		expect(safeFolderName('Study Session   ')).toBe('Study Session')
+		expect(safeFolderName('Soundtrack. . .')).toBe('Soundtrack')
+		expect(safeFolderName(`${'a'.repeat(60)}....`)).toBe('a'.repeat(60))
+	})
+
+	it('falls back to Playlist when nothing usable survives', () => {
+		expect(safeFolderName('')).toBe('Playlist')
+		expect(safeFolderName('   ')).toBe('Playlist')
+		expect(safeFolderName('...')).toBe('Playlist')
+		expect(safeFolderName('..')).toBe('Playlist')
+		expect(safeFolderName('.')).toBe('Playlist')
+	})
+
+	it('never emits a name its own validator would reject', () => {
+		// Escaping appends a character, so a reserved name at the length limit has to
+		// lose one before the underscore goes on.
+		const reservedAtLimit = `NUL.${'a'.repeat(SUBFOLDER_NAME_MAX)}`
+		const name = safeFolderName(reservedAtLimit)
+
+		expect(name).toHaveLength(SUBFOLDER_NAME_MAX)
+		expect(name.startsWith('NUL_.')).toBe(true)
+		expect(isValidSubfolder(name)).toBe(true)
 	})
 })
 
@@ -87,6 +165,10 @@ describe('playlistBaseDir', () => {
 
 	it('falls back to the playlist title when the explicit subfolder is invalid', () => {
 		expect(playlistBaseDir('/home/user', true, 'CON', 'Road Trip')).toBe('/home/user/Road Trip')
+	})
+
+	it('escapes a reserved device name used as the fallback playlist title', () => {
+		expect(playlistBaseDir('/home/user', false, '', 'CON')).toBe('/home/user/CON_')
 	})
 })
 
