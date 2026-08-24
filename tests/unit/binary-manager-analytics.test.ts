@@ -38,7 +38,7 @@ async function runFailingManifestResolution(err: unknown): Promise<void> {
 				materialize: vi.fn(async () => {
 					throw err
 				})
-			} as never
+			}
 		})
 
 		await mgr.resolveYtDlp()

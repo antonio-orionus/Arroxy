@@ -26,7 +26,7 @@ function multiProfileFixture(id: string, name: string, dir: string): DownloadPro
 		embed: {chapters: true, metadata: true, thumbnail: false, description: false, thumbnailSidecar: false},
 		createdAt: '2026-08-12T00:00:00.000Z',
 		updatedAt: '2026-08-12T00:00:00.000Z'
-	} as DownloadProfile
+	}
 }
 
 const MP_ARCHIVE = multiProfileFixture('archive', 'Archive 4K', '/downloads/archive')
