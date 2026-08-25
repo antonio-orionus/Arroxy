@@ -13,7 +13,7 @@ describe('toggleVariants', () => {
 	it('never pins a fixed height, so a wrapped label can grow the control', () => {
 		for (const size of ['default', 'sm', 'lg'] as const) {
 			const classes = toggleVariants({size}).split(' ')
-			expect(classes.filter(c => /^h-\d/.test(c))).toEqual([])
+			expect(classes.filter(c => c.startsWith('h-') && c !== 'h-auto')).toEqual([])
 			expect(classes.some(c => /^min-h-\d/.test(c))).toBe(true)
 		}
 	})
@@ -23,7 +23,7 @@ describe('toggleVariants', () => {
 			expect(
 				toggleVariants({size})
 					.split(' ')
-					.filter(c => /^min-w-[1-9]/.test(c))
+					.filter(c => c.startsWith('min-w-') && c !== 'min-w-0')
 			).toEqual([])
 		}
 	})

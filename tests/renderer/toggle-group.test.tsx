@@ -30,6 +30,7 @@ describe('ToggleGroup', () => {
 			</ToggleGroup>
 		)
 		expect(screen.getByTestId('group')).toHaveAttribute('data-shape', 'chip')
+		expect(screen.getByText('Alpha')).toHaveAttribute('data-shape', 'chip')
 		expect(screen.getByText('Alpha').className.split(' ')).toContain('whitespace-nowrap')
 	})
 
@@ -41,6 +42,7 @@ describe('ToggleGroup', () => {
 				</ToggleGroupItem>
 			</ToggleGroup>
 		)
+		expect(screen.getByText('Alpha')).toHaveAttribute('data-shape', 'chip')
 		expect(screen.getByText('Alpha').className.split(' ')).toContain('whitespace-nowrap')
 	})
 })
