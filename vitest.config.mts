@@ -22,11 +22,20 @@ const aliasObj = {
 // every `~icons/*` to a single inert SVG stub.
 const alias = [...Object.entries(aliasObj).map(([find, replacement]) => ({find, replacement})), {find: /^~icons\/.*/, replacement: path.resolve('tests/__mocks__/icons-stub.tsx')}]
 
+// Vitest defaults to 5s, which is not enough headroom on the Windows CI runner.
+// A good number of the node tests do real filesystem work in `os.tmpdir()` —
+// mkdtemp, write, then hash the bytes back — and on Windows every one of those
+// touches goes through the virus scanner before it returns. Locally those tests
+// finish in milliseconds; on a contended runner one of them occasionally walks
+// past 5s and fails as a timeout with nothing actually wrong. 20s still catches
+// a genuinely hung test quickly enough to be useful.
+const TIMEOUT_MS = 20_000
+
 export default defineConfig({
 	test: {
 		projects: [
-			{resolve: {alias}, test: {name: 'node', globals: true, include: ['tests/**/*.test.ts'], environment: 'node', setupFiles: ['tests/setup.ts']}},
-			{resolve: {alias}, test: {name: 'jsdom', globals: true, include: ['tests/**/*.test.tsx'], environment: 'jsdom', setupFiles: ['tests/setup.ts']}}
+			{resolve: {alias}, test: {name: 'node', globals: true, include: ['tests/**/*.test.ts'], environment: 'node', setupFiles: ['tests/setup.ts'], testTimeout: TIMEOUT_MS, hookTimeout: TIMEOUT_MS}},
+			{resolve: {alias}, test: {name: 'jsdom', globals: true, include: ['tests/**/*.test.tsx'], environment: 'jsdom', setupFiles: ['tests/setup.ts'], testTimeout: TIMEOUT_MS, hookTimeout: TIMEOUT_MS}}
 		]
 	}
 })
