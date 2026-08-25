@@ -66,10 +66,10 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 					onSelect({kind: 'convert-lossy', target: audioSelection.target, bitrateKbps: next})
 				}}
 				spacing={1}
-				className="gap-[3px]"
+				className="flex-wrap justify-end gap-[3px]"
 			>
 				{AUDIO_BITRATES.map(rate => (
-					<ToggleGroupItem key={rate} value={String(rate)} className="wizard-filter-chip h-6 rounded-full px-[10px] text-[11px] font-semibold">
+					<ToggleGroupItem key={rate} value={String(rate)} shape="chip" className="wizard-filter-chip min-h-6 rounded-full px-[10px] text-[11px] font-semibold">
 						{rate}
 					</ToggleGroupItem>
 				))}
@@ -84,9 +84,9 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 			<div className="flex items-center justify-between mb-[6px]">
 				<p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.formats.audio')}</p>
 				{view.audioExtOptions.length > 1 && (
-					<ToggleGroup value={audioExtFilter ? [audioExtFilter] : []} onValueChange={vals => onAudioExtFilterChange(vals[0] ?? null)} spacing={1} className="gap-[3px]">
+					<ToggleGroup value={audioExtFilter ? [audioExtFilter] : []} onValueChange={vals => onAudioExtFilterChange(vals[0] ?? null)} spacing={1} className="flex-wrap justify-end gap-[3px]">
 						{view.audioExtOptions.map(ext => (
-							<ToggleGroupItem key={ext} value={ext} className="wizard-filter-chip h-5 rounded-full px-[7px] text-[11px] font-semibold">
+							<ToggleGroupItem key={ext} value={ext} shape="chip" className="wizard-filter-chip min-h-5 rounded-full px-[7px] text-[11px] font-semibold">
 								{ext}
 							</ToggleGroupItem>
 						))}

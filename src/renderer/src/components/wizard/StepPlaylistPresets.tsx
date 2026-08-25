@@ -16,7 +16,6 @@ const AUDIO_FORMATS: PlaylistAudioFormat[] = ['best', 'mp3', 'm4a', 'opus']
 const LOSSY_AUDIO = new Set<PlaylistAudioFormat>(['mp3', 'm4a', 'opus'])
 
 const SECTION_LABEL = 'text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-1.5'
-const KIND_TAB_CLASS = 'flex-1 aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] data-[state=on]:border-[var(--brand)] data-[state=on]:bg-[var(--brand-dim)] data-[state=on]:text-[var(--brand)]'
 
 export function StepPlaylistPresets(): ReactNode {
 	const {t} = useTranslation()
@@ -98,10 +97,10 @@ export function StepPlaylistPresets(): ReactNode {
 							}}
 							className="w-full"
 						>
-							<ToggleGroupItem value="video" className={KIND_TAB_CLASS}>
+							<ToggleGroupItem value="video" className="flex-1">
 								{t('playlistPresets.type.video')}
 							</ToggleGroupItem>
-							<ToggleGroupItem value="audio" className={KIND_TAB_CLASS}>
+							<ToggleGroupItem value="audio" className="flex-1">
 								{t('playlistPresets.type.audio')}
 							</ToggleGroupItem>
 						</ToggleGroup>

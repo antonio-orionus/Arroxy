@@ -160,13 +160,7 @@ const SPONSOR_BLOCK_OPTIONS = [
 
 const SPONSOR_BLOCK_HINT_KEYS = {off: 'wizard.profileEditor.sponsorBlockHint.off', mark: 'wizard.profileEditor.sponsorBlockHint.mark', remove: 'wizard.profileEditor.sponsorBlockHint.remove'} as const satisfies Record<SponsorBlockMode, ParseKeys>
 
-const SELECTABLE_TOGGLE_CLASS = 'flex-1 data-[state=on]:border-[var(--brand)] data-[state=on]:bg-[var(--brand-dim)] data-[state=on]:text-[var(--brand)] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]'
-// Segmented rows sit in `grid-cols-3` tracks, which are `minmax(0,1fr)` — a
-// nowrap label from `toggleVariants` overflows its track and paints over the
-// neighbouring segment. These segments wrap inside their own box instead.
-const SEGMENTED_TOGGLE_CLASS = `${SELECTABLE_TOGGLE_CLASS} h-auto min-h-8 min-w-0 whitespace-normal break-words px-1.5 py-1 text-center group-data-[spacing=0]/toggle-group:px-1.5 text-[12px] leading-tight`
-const OUTPUT_MODE_CARD_CLASS =
-	'h-auto min-h-[4.35rem] flex-col gap-1.5 whitespace-normal rounded-lg border border-[var(--border-strong)] px-2 py-2.5 text-center data-[state=on]:border-[var(--brand)] data-[state=on]:bg-[var(--brand-dim)] data-[state=on]:text-[var(--brand)] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]'
+const OUTPUT_MODE_CARD_CLASS = 'min-h-[4.35rem] flex-col gap-1.5 rounded-lg border border-[var(--border-strong)] px-2 py-2.5 text-center'
 
 function optionLabel<T extends string>(t: TFunction, options: readonly SelectOption<T>[], value: unknown): string {
 	const selected = options.find(option => option.value === value)
@@ -422,7 +416,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 																key={option.value}
 																value={option.value}
 																title={t(option.labelKey)}
-																className="grid h-10 place-items-center rounded-lg border bg-background/25 p-0 text-[var(--text-subtle)] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)] hover:border-[var(--border-strong)] hover:text-foreground"
+																className="grid h-10 place-items-center rounded-lg border bg-background/25 p-0 text-[var(--text-subtle)] hover:border-[var(--border-strong)] hover:text-foreground"
 																data-testid={`profiles-editor-icon-${option.value}`}
 															>
 																<Icon aria-hidden />
@@ -510,12 +504,12 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 												if (next === 'on') updateDraft({type: 'set-subtitle-enabled', subtitleEnabled: true})
 												if (next === 'off' && !subtitlesOnly) updateDraft({type: 'set-subtitle-enabled', subtitleEnabled: false})
 											}}
-											className="grid w-36 shrink-0 grid-cols-2"
+											className="grid w-auto min-w-36 shrink-0 grid-cols-2"
 										>
-											<ToggleGroupItem value="off" disabled={subtitlesOnly} className={SELECTABLE_TOGGLE_CLASS}>
+											<ToggleGroupItem value="off" disabled={subtitlesOnly} className="flex-1">
 												{t('wizard.sponsorblock.mode.off')}
 											</ToggleGroupItem>
-											<ToggleGroupItem value="on" className={SELECTABLE_TOGGLE_CLASS}>
+											<ToggleGroupItem value="on" className="flex-1">
 												On
 											</ToggleGroupItem>
 										</ToggleGroup>
@@ -585,7 +579,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 														className="grid w-full grid-cols-3"
 													>
 														{SUBTITLE_DELIVERY_OPTIONS.map(option => (
-															<ToggleGroupItem key={option.value} value={option.value} className={SEGMENTED_TOGGLE_CLASS}>
+															<ToggleGroupItem key={option.value} value={option.value} className="min-h-8 px-1.5 py-1 text-center text-[12px] leading-tight group-data-[spacing=0]/toggle-group:px-1.5">
 																{t(option.labelKey)}
 															</ToggleGroupItem>
 														))}
@@ -608,7 +602,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 															className="grid w-full grid-cols-3"
 														>
 															{SUBTITLE_FORMAT_OPTIONS.map(option => (
-																<ToggleGroupItem key={option.value} value={option.value} className={SEGMENTED_TOGGLE_CLASS}>
+																<ToggleGroupItem key={option.value} value={option.value} className="min-h-8 px-1.5 py-1 text-center text-[12px] leading-tight group-data-[spacing=0]/toggle-group:px-1.5">
 																	{t(option.labelKey)}
 																</ToggleGroupItem>
 															))}
@@ -757,7 +751,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 											className="grid w-full grid-cols-3"
 										>
 											{SPONSOR_BLOCK_OPTIONS.map(option => (
-												<ToggleGroupItem key={option.value} value={option.value} className={SEGMENTED_TOGGLE_CLASS} title={t(SPONSOR_BLOCK_HINT_KEYS[option.value])}>
+												<ToggleGroupItem key={option.value} value={option.value} className="min-h-8 px-1.5 py-1 text-center text-[12px] leading-tight group-data-[spacing=0]/toggle-group:px-1.5" title={t(SPONSOR_BLOCK_HINT_KEYS[option.value])}>
 													{t(option.labelKey)}
 												</ToggleGroupItem>
 											))}

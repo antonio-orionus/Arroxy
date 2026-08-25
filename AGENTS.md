@@ -373,6 +373,12 @@ shadcn/ui is the primary source for renderer UI primitives. Before inventing cus
 
 **Install via CLI:** `bunx shadcn@latest add <component>` (style: `base-nova`). Never hand-roll `@base-ui/react/*` wrappers. After install, modify freely to match app style.
 
+**Segmented controls own their own layout.** `toggleVariants` already provides pressed-state brand styling, `min-w-0`, `wrap-anywhere`, and `min-h-*` sizing, so a `ToggleGroupItem` never needs `whitespace-*`, `shrink-*`, `min-w-*`, a fixed `h-*`, or any `aria-pressed:` / `data-[state=on]:` colour at the call site. Pass `shape="chip"` when a short token (bitrate, extension, file format) must stay on one line — and give that group `flex-wrap`, since `ToggleGroup` is a non-wrapping flex row by default and unshrinkable chips would otherwise overflow it.
+
+Use `wrap-anywhere`, not `break-words`: `overflow-wrap: break-word` does not shrink a flex/grid item's intrinsic min-content width, so a single long word still overflows its track.
+
+Localized labels run 1.5–2x longer than English (`el`, `fr`, and `my` are the worst cases measured), so English-only review will not surface an overflow. Two tests keep this fixed: `tests/unit/toggle-styling-invariants.test.ts` fails the build if pressed-state styling reappears outside `components/ui/`, and `tests/browser/toggle-overflow.spec.ts` sweeps every toggle group on the real screens at the minimum window size and at 150% zoom.
+
 ---
 
 ## Brand / Visual

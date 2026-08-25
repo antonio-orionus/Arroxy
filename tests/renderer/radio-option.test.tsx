@@ -74,4 +74,23 @@ describe('RadioOption', () => {
 		fireEvent.keyDown(screen.getByRole('radio'), {key: ' '})
 		expect(onClick).not.toHaveBeenCalled()
 	})
+
+	it('lets a long label clamp instead of widening the row', () => {
+		render(<RadioOption label="A very long option label that must clamp instead of pushing the row wider" checked={false} onClick={vi.fn()} />)
+		const title = screen.getByRole('radio').querySelector('[data-slot="item-title"]')
+		expect(title).not.toBeNull()
+		const classes = (title as HTMLElement).className.split(' ')
+		expect(classes).toContain('line-clamp-1')
+		expect(classes).not.toContain('w-fit')
+		expect(classes).toContain('min-w-0')
+	})
+
+	it('does not pin its content box against shrinking', () => {
+		render(<RadioOption label="X" checked={false} onClick={vi.fn()} />)
+		const content = screen.getByRole('radio').querySelector('[data-slot="item-content"]')
+		expect(content).not.toBeNull()
+		const contentClasses = (content as HTMLElement).className.split(' ')
+		expect(contentClasses).not.toContain('flex-none')
+		expect(contentClasses).toContain('min-w-0')
+	})
 })

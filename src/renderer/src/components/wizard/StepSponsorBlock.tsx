@@ -39,7 +39,7 @@ export function StepSponsorBlock(): ReactNode {
 					className="flex-wrap"
 				>
 					{SPONSORBLOCK_MODES.map(mode => (
-						<ToggleGroupItem key={mode} value={mode} className="h-7 px-2 text-[12px] aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]">
+						<ToggleGroupItem key={mode} value={mode} className="min-h-7 px-2 text-[12px]">
 							{t(SB_MODE_LABEL_KEYS[mode])}
 						</ToggleGroupItem>
 					))}

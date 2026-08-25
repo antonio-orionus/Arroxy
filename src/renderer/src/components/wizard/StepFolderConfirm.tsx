@@ -25,7 +25,7 @@ function matchLocation(dir: string, locations: Location[]): string {
 
 function LocationOption({loc, path, full}: {loc: Location; path: string | null; full: boolean}): ReactNode {
 	return (
-		<ToggleGroupItem value={loc.id} className={cn('h-auto min-h-9 justify-start gap-3 px-2 aria-pressed:border-[var(--brand)] aria-pressed:bg-[var(--brand-dim)] aria-pressed:text-[var(--brand)]', full && 'col-span-2')}>
+		<ToggleGroupItem value={loc.id} className={cn('min-h-9 justify-start gap-3 px-2', full && 'col-span-2')}>
 			<span className="text-base leading-none" aria-hidden>
 				{loc.icon}
 			</span>

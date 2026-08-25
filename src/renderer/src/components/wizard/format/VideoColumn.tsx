@@ -24,18 +24,18 @@ export function VideoColumn({view, selectedVideoFormatId, videoExtFilter, dynami
 				<p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.formats.video')}</p>
 				<div className="flex items-center gap-[6px]">
 					{view.dynamicRangeOptions.length > 1 && (
-						<ToggleGroup value={dynamicRangeFilter ? [dynamicRangeFilter] : []} onValueChange={vals => onDynamicRangeFilterChange(vals[0] ?? null)} spacing={1} className="gap-[3px]">
+						<ToggleGroup value={dynamicRangeFilter ? [dynamicRangeFilter] : []} onValueChange={vals => onDynamicRangeFilterChange(vals[0] ?? null)} spacing={1} className="flex-wrap justify-end gap-[3px]">
 							{view.dynamicRangeOptions.map(dr => (
-								<ToggleGroupItem key={dr} value={dr} className="wizard-filter-chip h-5 rounded-full px-[7px] text-[11px] font-semibold">
+								<ToggleGroupItem key={dr} value={dr} shape="chip" className="wizard-filter-chip min-h-5 rounded-full px-[7px] text-[11px] font-semibold">
 									{dr}
 								</ToggleGroupItem>
 							))}
 						</ToggleGroup>
 					)}
 					{view.extOptions.length > 1 && (
-						<ToggleGroup value={videoExtFilter ? [videoExtFilter] : []} onValueChange={vals => onVideoExtFilterChange(vals[0] ?? null)} spacing={1} className="gap-[3px]">
+						<ToggleGroup value={videoExtFilter ? [videoExtFilter] : []} onValueChange={vals => onVideoExtFilterChange(vals[0] ?? null)} spacing={1} className="flex-wrap justify-end gap-[3px]">
 							{view.extOptions.map(ext => (
-								<ToggleGroupItem key={ext} value={ext} className="wizard-filter-chip h-5 rounded-full px-[7px] text-[11px] font-semibold">
+								<ToggleGroupItem key={ext} value={ext} shape="chip" className="wizard-filter-chip min-h-5 rounded-full px-[7px] text-[11px] font-semibold">
 									{ext}
 								</ToggleGroupItem>
 							))}
