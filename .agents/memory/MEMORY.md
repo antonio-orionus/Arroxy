@@ -9,3 +9,4 @@
 - [CodeRabbit review workflow](coderabbit-review-workflow.md) — trigger `@coderabbitai review` once per PR at open and never again; the quota is limited and refusals are silent.
 - [Renderer test & UI API gotchas](renderer-test-and-ui-api-gotchas.md) — base-nova takes a `render` prop, never Radix `asChild`; `@testing-library/user-event` is not installed, use `fireEvent`.
 - [Donation rails are crypto-only](donation-rails-are-crypto-only.md) — Ukraine residency rules out GitHub Sponsors/Ko-fi/BMAC; never suggest a fiat option.
+- [TypeScript & oxlint boundary gates](typescript-and-oxlint-boundary-gates.md) — `"types": []` does not block explicit electron imports; oxlint restricted-import globs need `**`.
