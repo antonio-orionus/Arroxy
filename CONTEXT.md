@@ -151,3 +151,25 @@ _Avoid_: downloaded binary, fetched binary
 **Warmup**:
 The startup readiness check that verifies the dependencies are present and working — fetching any that are missing — before downloads are allowed.
 _Avoid_: bootstrap, init, preflight
+
+### Architecture
+
+**Core**:
+The part of Arroxy that does the work — resolving a link, choosing a format, running a job, keeping the queue. It has no opinion about how a person reaches it.
+_Avoid_: engine, backend, daemon, domain layer
+
+**Shell**:
+The part that presents core to a person and supplies whatever the surrounding system provides — a window on a desktop, or a server on a network. Each way of reaching Arroxy has its own shell; core has none.
+_Avoid_: host, frontend, platform layer, wrapper
+
+**Port**:
+A capability core needs but refuses to know the details of, described only as what it must be able to do. Core is written against the port; a shell supplies the real thing.
+_Avoid_: interface, abstraction, contract, boundary
+
+**Adapter**:
+One shell's answer to a port — the real implementation, written in terms of what that shell actually has available.
+_Avoid_: provider, implementation, driver, binding
+
+**Composition root**:
+The single place in a shell where every part is constructed and wired together. Nothing else creates its own dependencies.
+_Avoid_: container, factory, bootstrap, entry point
