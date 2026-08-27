@@ -1159,6 +1159,7 @@ describe('bulk URL mode — collection URLs', () => {
 		})
 		expect(useAppStore.getState().wizardError).toMatchObject({message: 'playlist unavailable'})
 		expect(useAppStore.getState().playlistItems).toHaveLength(0)
+		expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
 	})
 
 	it('clears the loading state when the probe bridge rejects outright', async () => {
@@ -1214,6 +1215,7 @@ describe('bulk URL mode — collection URLs', () => {
 			expect(useAppStore.getState().wizardStep).toBe('error')
 		})
 		expect(useAppStore.getState().playlistProbeLoading).toBe(false)
+		expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
 	})
 
 	it('clears the loading state when the user goes back mid-expansion', async () => {

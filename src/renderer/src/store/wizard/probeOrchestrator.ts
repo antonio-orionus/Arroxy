@@ -288,7 +288,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 						// picker that says nothing about why, so surface the reason.
 						const downloadable = expansion.urls.filter(rowUrl => expansion.seeds.get(rowUrl)?.isContainer !== true)
 						if (downloadable.length === 0) {
-							set(projectProbeFailure(expansion.error ?? {kind: 'other', code: 'unknown', message: 'Could not read that playlist'}))
+							// projectProbeFailure knows nothing about the bulk flow, so the
+							// 'resolving' set before the await has to be closed here too —
+							// otherwise the list still claims to be fetching details.
+							set({...projectProbeFailure(expansion.error ?? {kind: 'other', code: 'unknown', message: 'Could not read that playlist'}), bulkMetadataStatus: 'done'})
 							return
 						}
 						startBulkRows(expansion.urls, expansion.seeds, bulkRunId, fromStep)
