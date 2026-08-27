@@ -11,6 +11,11 @@ export function nextBulkMetadataRunId(): number {
 	return bulkMetadataRunSeq
 }
 
+/** Current run id, so an async pre-pass can tell whether it was superseded. */
+export function currentBulkMetadataRunId(): number {
+	return bulkMetadataRunSeq
+}
+
 function errorMessage(error: unknown): string {
 	return error instanceof Error ? error.message : String(error)
 }
@@ -24,16 +29,27 @@ export function cancelBulkMetadataProbes(reason: BulkMetadataCancelReason, state
 	}
 }
 
-export async function hydrateBulkMetadata(urls: string[], set: SetState, runId: number): Promise<void> {
-	let nextIndex = 0
-	bulkLogger.info('Bulk metadata hydration started', {runId, total: urls.length, concurrency: Math.min(BULK_METADATA_CONCURRENCY, urls.length)})
+/**
+ * One row awaiting a metadata probe. `index` is its position in
+ * `state.playlistItems`, carried rather than derived because rows expanded from
+ * a collection URL arrive pre-seeded and are not probed — so a target's
+ * position no longer matches its position in the probe list.
+ */
+export interface BulkMetadataTarget {
+	id: string
+	url: string
+	index: number
+}
+
+export async function hydrateBulkMetadata(targets: readonly BulkMetadataTarget[], set: SetState, runId: number): Promise<void> {
+	let nextTarget = 0
+	bulkLogger.info('Bulk metadata hydration started', {runId, total: targets.length, concurrency: Math.min(BULK_METADATA_CONCURRENCY, targets.length)})
 
 	async function worker(): Promise<void> {
-		if (bulkMetadataRunSeq !== runId || nextIndex >= urls.length) return
-		const index = nextIndex
-		nextIndex += 1
-		const url = urls[index]
-		const id = `bulk-${index + 1}`
+		if (bulkMetadataRunSeq !== runId || nextTarget >= targets.length) return
+		const target = targets[nextTarget]
+		nextTarget += 1
+		const {id, index, url} = target
 		let finalStatus: BulkMetadataItemStatus = 'failed'
 
 		set(state => {
@@ -90,9 +106,9 @@ export async function hydrateBulkMetadata(urls: string[], set: SetState, runId: 
 		return worker()
 	}
 
-	await Promise.all(Array.from({length: Math.min(BULK_METADATA_CONCURRENCY, urls.length)}, () => worker()))
+	await Promise.all(Array.from({length: Math.min(BULK_METADATA_CONCURRENCY, targets.length)}, () => worker()))
 	if (bulkMetadataRunSeq === runId) {
-		bulkLogger.info('Bulk metadata hydration finished', {runId, total: urls.length})
+		bulkLogger.info('Bulk metadata hydration finished', {runId, total: targets.length})
 	} else {
 		bulkLogger.info('Bulk metadata hydration stopped', {runId, supersededByRunId: bulkMetadataRunSeq})
 	}

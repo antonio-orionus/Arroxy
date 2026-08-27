@@ -303,3 +303,39 @@ describe('prepareMultiProfileQueueSubmission', () => {
 		expect(prepareMultiProfileQueueSubmission(state, 'normal')?.items).toHaveLength(1)
 	})
 })
+
+// A container row (channel/playlist/album kept by the probe's all-nested
+// fallback) addresses a whole set. Queueing one would hand yt-dlp a collection
+// URL under a single pre-bound filename, so every submission seam drops it.
+const CONTAINER_ITEM: PlaylistEntry = {id: 'c', title: 'Greatest Hits', url: 'https://music.youtube.com/browse/VLPLxyz', thumbnail: '', playlistIndex: 3, videoId: 'VLPLxyz', isContainer: true}
+
+describe('container rows are never queued', () => {
+	it('prepareManualQueueSubmission drops them', () => {
+		const prepared = prepareManualQueueSubmission(state({wizardMode: 'playlist', playlistItems: [...PLAYLIST_ITEMS, CONTAINER_ITEM], selectedPlaylistItemIds: ['a', 'b', 'c']}), 'normal')
+
+		expect(prepared?.items.map(item => item.url)).toEqual([PLAYLIST_ITEMS[0].url, PLAYLIST_ITEMS[1].url])
+	})
+
+	it('prepareManualQueueSubmission returns null when only containers are selected', () => {
+		expect(prepareManualQueueSubmission(state({wizardMode: 'playlist', playlistItems: [CONTAINER_ITEM], selectedPlaylistItemIds: ['c']}), 'normal')).toBeNull()
+	})
+
+	it('prepareMultiProfileQueueSubmission drops them', () => {
+		const prepared = prepareMultiProfileQueueSubmission(multiProfileState({playlistItems: [...PLAYLIST_ITEMS, CONTAINER_ITEM], selectedPlaylistItemIds: ['a', 'b', 'c']}), 'normal')
+
+		expect(prepared?.items).toHaveLength(2)
+	})
+
+	it('prepareActiveProfileQueueSubmission drops them', () => {
+		const probe = {...PLAYLIST_PROBE, entries: [...PLAYLIST_ITEMS, CONTAINER_ITEM]}
+
+		const prepared = prepareActiveProfileQueueSubmission(probe, state(), 'normal')
+
+		expect(prepared?.items.map(item => item.url)).toEqual([PLAYLIST_ITEMS[0].url, PLAYLIST_ITEMS[1].url])
+		expect(prepared?.manifest?.items.map(item => item.videoId)).toEqual(['a', 'b'])
+	})
+
+	it('prepareActiveProfileQueueSubmission returns null when every entry is a container', () => {
+		expect(prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: [CONTAINER_ITEM]}, state(), 'normal')).toBeNull()
+	})
+})

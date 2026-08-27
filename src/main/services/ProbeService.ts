@@ -323,7 +323,23 @@ function mapPlaylistEntriesInner(entries: readonly InfoDict[], jobUrl: string, s
 		// selection would produce two queue items. Index-prefixing guarantees
 		// 1 row = 1 stable id even when the underlying yt-dlp id collides.
 		const videoIdPart = typeof v.id === 'string' && v.id.length > 0 ? v.id : url
-		out.push({id: `${playlistIndex}::${videoIdPart}`, url, title, thumbnail: pickEntryThumbnail(entry), duration: typeof v.duration === 'number' ? Math.round(v.duration) : undefined, playlistIndex, videoId: idStr.length > 0 ? idStr : null, uploader: resolveUploader(v), uploadDate: resolveUploadDate(v)})
+		// Only reachable on the all-nested path — the branch above already
+		// dropped containers whenever the set held a real video. Marking rather
+		// than dropping keeps the picker populated; downstream refuses to queue
+		// them, which is what the flag exists for.
+		const isContainer = idStr.length > 0 && siteIsNestedContainer(site, idStr)
+		out.push({
+			id: `${playlistIndex}::${videoIdPart}`,
+			url,
+			title,
+			thumbnail: pickEntryThumbnail(entry),
+			duration: typeof v.duration === 'number' ? Math.round(v.duration) : undefined,
+			playlistIndex,
+			videoId: idStr.length > 0 ? idStr : null,
+			uploader: resolveUploader(v),
+			uploadDate: resolveUploadDate(v),
+			...(isContainer ? {isContainer: true as const} : {})
+		})
 		fallbackIndex++
 	}
 	if (droppedContainerCount > 0) {

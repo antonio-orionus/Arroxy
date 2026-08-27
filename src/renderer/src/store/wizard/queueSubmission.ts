@@ -154,7 +154,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 
 function playlistManifestPayload(state: AppState, playlistGroupId: string, outputDir: string): PlaylistManifestPayload {
 	const removed = new Set(state.removedPlaylistItemIds)
-	const items = state.playlistItems.filter(entry => !removed.has(entry.id))
+	const items = state.playlistItems.filter(entry => !removed.has(entry.id)).filter(isQueueableEntry)
 	return {playlistGroupId, playlistTitle: state.playlistTitle || 'Playlist', outputDir, items: items.map(e => ({videoId: e.videoId, title: e.title, duration: e.duration}))}
 }
 
@@ -165,7 +165,20 @@ function playlistManifestPayload(state: AppState, playlistGroupId: string, outpu
 function selectedPlaylistEntries(state: AppState): PlaylistEntry[] {
 	const selected = new Set(state.selectedPlaylistItemIds)
 	const removed = new Set(state.removedPlaylistItemIds)
-	return state.playlistItems.filter(entry => selected.has(entry.id) && !removed.has(entry.id))
+	return state.playlistItems.filter(entry => selected.has(entry.id) && !removed.has(entry.id)).filter(isQueueableEntry)
+}
+
+/**
+ * A container row addresses a channel/playlist/album, not a video. The probe
+ * keeps those rows so an all-container result still renders a picker, and they
+ * start unselected — but selection is reachable by hand (select-all, range,
+ * shift-click), so every submission seam filters here rather than trusting the
+ * selection. Queueing one would hand yt-dlp a collection URL carrying a single
+ * pre-bound filename: `--no-playlist` is inert on it, and the whole set would
+ * download under that one name.
+ */
+function isQueueableEntry(entry: PlaylistEntry): boolean {
+	return entry.isContainer !== true
 }
 
 export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
@@ -316,7 +329,10 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 	// `{playlist_title}/…` template would nest the playlist title twice.
 	const playlistRoot = ownsDirs ? resolveDownloadProfileOutputDir(profile, outputContext) : playlistBaseDir(baseDir, profile.subfolder.enabled, profile.subfolder.name, probe.playlistTitle)
 	const writeM3u = (state.settings?.common?.writeM3u ?? DEFAULTS.writeM3u) && canWriteM3u(profile, state.settings?.common?.filenameTemplate)
-	const items = probe.entries.map(entry => {
+	// Quick Download queues a probe result directly, with no picker in between,
+	// so this is the seam where container entries have to be dropped.
+	const entries = probe.entries.filter(isQueueableEntry)
+	const items = entries.map(entry => {
 		const entryMeta = playlistEntryTemplateMeta(entry, probe.playlistTitle, probe.playlistId)
 		return buildProfileEntryQueueItem({
 			entry,
@@ -334,5 +350,5 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 		})
 	})
 	if (items.length === 0) return null
-	return {items, manifest: {playlistGroupId, playlistTitle: playlistTitleFallback(probe.playlistTitle, state.playlistTitle), outputDir: playlistRoot, items: probe.entries.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))}}
+	return {items, manifest: {playlistGroupId, playlistTitle: playlistTitleFallback(probe.playlistTitle, state.playlistTitle), outputDir: playlistRoot, items: entries.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))}}
 }

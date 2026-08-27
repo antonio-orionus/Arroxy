@@ -18,12 +18,13 @@ import {resolvePlaylistDir} from './playlistDir.js'
 import {WizardCommands, RESET_WIZARD_STATE} from './commands.js'
 import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep} from '../types.js'
 import {buildWizardStepGraph, nextWizardStep} from './wizardStepGraph.js'
-import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, hydrateBulkMetadata, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
+import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, currentBulkMetadataRunId, hydrateBulkMetadata, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
+import {expandBulkCollectionUrls, hasCollectionUrl} from './bulkCollectionExpansion.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
 import {rewriteYouTubeChannelRoot} from './urlIntake.js'
 import {quickDownload as runQuickDownload, quickDownloadUrls, cancelQuickDownload, retryQuickDownloadFailure, retryQuickDownloadWithCookies, retryQuickPlaylistCap} from './quickDownloadPreparation.js'
 import {resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
-import {projectBulkStart, projectPlaylistProbeResult, projectProbeFailure, projectProbeStart, projectVideoProbeResult} from './probeResultProjection.js'
+import {projectBulkStart, projectPlaylistProbeResult, projectProbeFailure, projectProbeStart, projectVideoProbeResult, type BulkEntrySeed} from './probeResultProjection.js'
 import {mixedUrlPromptPatch} from './mixedUrlPrompt.js'
 import {configuredCookiesRetryMode} from './probeErrorExperience.js'
 import {policyForUrlIntent} from './urlIntentPolicy.js'
@@ -152,6 +153,16 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 }
 
 export function createProbeOrchestratorSlice(set: SetState, get: GetState): ProbeOrchestratorSlice {
+	// Shared tail of both bulk entry paths: project the rows, then hydrate only
+	// the ones no probe has spoken for yet.
+	function startBulkRows(rows: readonly string[], seeds: ReadonlyMap<string, BulkEntrySeed> | undefined, bulkRunId: number, fromStep: WizardStep): void {
+		const projection = projectBulkStart(rows, get(), seeds)
+		set(projection.patch)
+		bulkLogger.info('Bulk URL flow started', {runId: bulkRunId, count: rows.length, selectedCount: projection.playlistItems.length, seededCount: rows.length - projection.metadataTargets.length, allYouTubeVideos: projection.allYouTubeVideos, metadataConcurrency: BULK_METADATA_CONCURRENCY})
+		void hydrateBulkMetadata(projection.metadataTargets, set, bulkRunId)
+		logStep('submitUrl', fromStep, 'playlistItems', pickWizardSnapshot(get()))
+	}
+
 	return {
 		wizardStep: RESET_WIZARD_STATE.wizardStep,
 		wizardMode: RESET_WIZARD_STATE.wizardMode,
@@ -236,12 +247,22 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			}
 			const bulkRunId = nextBulkMetadataRunId()
 			const fromStep = get().wizardStep
-			const projection = projectBulkStart(urls, get())
 
-			set(projection.patch)
-			bulkLogger.info('Bulk URL flow started', {runId: bulkRunId, count: urls.length, selectedCount: projection.playlistItems.length, allYouTubeVideos: projection.allYouTubeVideos, metadataConcurrency: BULK_METADATA_CONCURRENCY})
-			void hydrateBulkMetadata(urls, set, bulkRunId)
-			logStep('submitUrl', fromStep, 'playlistItems', pickWizardSnapshot(get()))
+			// A collection URL cannot become a row — see bulkCollectionExpansion.
+			// Expanding needs a probe, so this branch is async; the common case
+			// (a list of individual videos) stays synchronous, which is also what
+			// the UI relies on to show the list immediately.
+			if (hasCollectionUrl(urls)) {
+				void (async () => {
+					const expansion = await expandBulkCollectionUrls(urls, input => window.appApi.downloads.probe(input), get().playlistScope)
+					if (currentBulkMetadataRunId() !== bulkRunId) return
+					bulkLogger.info('Bulk collection expansion finished', {runId: bulkRunId, inputCount: urls.length, rowCount: expansion.urls.length, droppedCount: expansion.dropped.length})
+					startBulkRows(expansion.urls, expansion.seeds, bulkRunId, fromStep)
+				})()
+				return
+			}
+
+			startBulkRows(urls, undefined, bulkRunId, fromStep)
 		},
 
 		cancelBulkMetadata: (reason = 'queue-submit') => {

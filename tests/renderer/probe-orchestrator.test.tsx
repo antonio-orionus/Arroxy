@@ -1071,3 +1071,65 @@ describe('skipSubtitles', () => {
 		expect(state.wizardStep).not.toBe('subtitles')
 	})
 })
+
+describe('bulk URL mode — collection URLs', () => {
+	// A collection URL must never become one bulk row: the job would carry a
+	// single pre-bound filename while yt-dlp downloaded the whole set under it.
+	// Bulk intake expands it first, the way Quick Download already does.
+	it('expands a playlist URL into its entries instead of queueing it whole', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().playlistItems.map(item => item.url)).toEqual(['https://youtu.be/e1', 'https://youtu.be/e2'])
+		})
+		expect(api.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: 'https://www.youtube.com/playlist?list=PLtest', playlistMode: 'playlist'}))
+		expect(useAppStore.getState().wizardMode).toBe('bulk')
+	})
+
+	it('seeds expanded rows from the playlist probe so they need no second probe', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
+		})
+		expect(useAppStore.getState().playlistItems.map(item => item.title)).toEqual(['Entry 1', 'Entry 2'])
+		expect(useAppStore.getState().playlistItems.map(item => item.videoId)).toEqual(['e1', 'e2'])
+		// One probe for the playlist, none per entry.
+		expect(api.downloads.probe).toHaveBeenCalledTimes(1)
+	})
+
+	it('keeps plain video URLs alongside an expanded playlist, in order', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockImplementation(async ({url}) => (url.includes('list=') ? ok(PLAYLIST_PROBE) : ok({...VIDEO_PROBE, title: 'Plain Video', videoId: 'plain'})))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://youtu.be/first', 'https://www.youtube.com/playlist?list=PLtest'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().playlistItems.map(item => item.url)).toEqual(['https://youtu.be/first', 'https://youtu.be/e1', 'https://youtu.be/e2'])
+		})
+	})
+
+	it('drops a collection URL whose probe fails rather than queueing it whole', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'nope'}))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://youtu.be/first', 'https://www.youtube.com/playlist?list=PLtest'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().wizardMode).toBe('bulk')
+		})
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().playlistItems.map(item => item.url)).toEqual(['https://youtu.be/first'])
+		})
+	})
+})

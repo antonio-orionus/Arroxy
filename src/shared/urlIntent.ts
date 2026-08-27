@@ -70,6 +70,24 @@ export function isMixedUrlIntent(intent: UrlIntent): intent is Extract<UrlIntent
 	return intent.kind === 'mixed'
 }
 
+/**
+ * Whether this URL addresses a set of videos rather than one video.
+ *
+ * A download job always runs with `--no-playlist`, but yt-dlp defines that flag
+ * as "download only the video, if the URL refers to a video *and* a playlist" —
+ * so on a bare `/playlist?list=…`, `@channel` or `/results?search_query=…` it is
+ * inert and yt-dlp fetches every entry under the one filename the job carries.
+ * A video-with-list URL is deliberately excluded: there `--no-playlist` does
+ * exactly what it says.
+ *
+ * This is a lower bound, not a decision procedure. It reads URL shape only, so
+ * containers with no distinguishing shape (`music.youtube.com/browse/MPRE…`) read
+ * as `unknown` and pass. Those are caught at probe time instead, by id prefix.
+ */
+export function isCollectionUrl(url: string): boolean {
+	return classifyUrlIntent(url).kind === 'obvious-collection'
+}
+
 export function urlIntentHomeLabel(intent: UrlIntent): UrlIntentHomeLabel {
 	if (intent.kind === 'obvious-single') return 'Single URL'
 	if (intent.kind === 'mixed') return 'Mixed URL'

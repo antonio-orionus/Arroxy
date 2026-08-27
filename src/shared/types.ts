@@ -332,6 +332,14 @@ export interface PlaylistEntry {
 	// Sparse on flat playlist probes — an absent value collapses the folder.
 	uploader?: string // uploader → channel → creator → uploader_id, resolved at probe time
 	uploadDate?: string // raw yt-dlp upload_date (YYYYMMDD)
+	// This row is a channel/playlist/album, not a video. Set only on the rows
+	// mapPlaylistEntries keeps when a result holds nothing else (its all-nested
+	// fallback) — they stay visible so the picker isn't empty, but they must
+	// never become a download job: the URL addresses a whole set while a job
+	// carries one pre-bound filename. A flag rather than a URL check because the
+	// shape is not always tellable — `music.youtube.com/browse/MPRE…` is an album
+	// that classifyUrlIntent reads as `unknown`.
+	isContainer?: true
 }
 
 export type ProbePlaylistMode = 'auto' | 'video' | 'playlist'
