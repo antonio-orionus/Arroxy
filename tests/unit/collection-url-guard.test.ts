@@ -117,3 +117,22 @@ describe('PlaylistEntry.isContainer', () => {
 		expect(rows[0].isContainer).toBeUndefined()
 	})
 })
+
+describe('expandBulkCollectionUrls — abort', () => {
+	// Probes are sequential and a channel can take seconds. A user who starts a
+	// new list must not wait on the previous run marching through its remainder.
+	it('stops probing once the run is superseded', async () => {
+		const {expandBulkCollectionUrls} = await import('@renderer/store/wizard/bulkCollectionExpansion.js')
+		const probe = vi.fn().mockResolvedValue({ok: true, data: {kind: 'playlist', entries: [{id: 'e1', title: 'E1', url: 'https://youtu.be/e1', thumbnail: '', playlistIndex: 1, videoId: 'e1'}]}})
+		let active = true
+
+		const result = await expandBulkCollectionUrls([PLAYLIST, CHANNEL, SEARCH], probe as never, {items: {kind: 'app-limit'}} as never, () => {
+			const wasActive = active
+			active = false
+			return wasActive
+		})
+
+		expect(result.aborted).toBe(true)
+		expect(probe).toHaveBeenCalledTimes(1)
+	})
+})

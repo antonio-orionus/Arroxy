@@ -254,10 +254,40 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			// (a list of individual videos) stays synchronous, which is also what
 			// the UI relies on to show the list immediately.
 			if (hasCollectionUrl(urls)) {
+				// Expansion needs a probe per collection, which is seconds of work.
+				// Land on the list screen in its loading state first, or the dialog
+				// closes onto an unchanged page and the app looks hung.
+				set({
+					wizardStep: 'playlistItems',
+					wizardMode: 'bulk',
+					playlistProbeLoading: true,
+					playlistItems: [],
+					selectedPlaylistItemIds: [],
+					playlistTitle: 'Bulk URLs',
+					playlistId: 'bulk',
+					wizardError: null,
+					wizardErrorOrigin: null,
+					bulkMetadataStatus: 'resolving',
+					bulkMetadataTotal: urls.length,
+					bulkMetadataCompleted: 0,
+					bulkMetadataById: {}
+				})
 				void (async () => {
-					const expansion = await expandBulkCollectionUrls(urls, input => window.appApi.downloads.probe(input), get().playlistScope)
-					if (currentBulkMetadataRunId() !== bulkRunId) return
+					const expansion = await expandBulkCollectionUrls(
+						urls,
+						input => window.appApi.downloads.probe(input),
+						get().playlistScope,
+						() => currentBulkMetadataRunId() === bulkRunId
+					)
+					if (currentBulkMetadataRunId() !== bulkRunId || expansion.aborted) return
 					bulkLogger.info('Bulk collection expansion finished', {runId: bulkRunId, inputCount: urls.length, rowCount: expansion.urls.length, droppedCount: expansion.dropped.length})
+					// Every URL was a collection and every probe failed: an empty list
+					// would read as "nothing matched" when the truth is that nothing
+					// could be read at all.
+					if (expansion.urls.length === 0 && expansion.dropped.length > 0) {
+						set(projectProbeFailure(expansion.error ?? {kind: 'other', code: 'unknown', message: 'Could not read that playlist'}))
+						return
+					}
 					startBulkRows(expansion.urls, expansion.seeds, bulkRunId, fromStep)
 				})()
 				return

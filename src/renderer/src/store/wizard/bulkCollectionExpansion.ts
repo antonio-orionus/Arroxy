@@ -24,6 +24,10 @@ export interface BulkExpansion {
 	seeds: Map<string, BulkEntrySeed>
 	/** Collection URLs whose probe failed; dropped rather than queued whole. */
 	dropped: string[]
+	/** Last probe failure, so a run that drops everything can say why. */
+	error?: ProbeError
+	/** True when the run was superseded or cancelled part-way through. */
+	aborted: boolean
 }
 
 type ProbeFn = (input: {url: string; playlistMode: 'playlist'; playlistScope?: PlaylistScope}) => Promise<Result<ProbeResult, ProbeError>>
@@ -46,11 +50,12 @@ export function hasCollectionUrl(urls: readonly string[]): boolean {
  * Duplicate URLs collapse, since two playlists can share a video and a repeated
  * row would download it twice.
  */
-export async function expandBulkCollectionUrls(urls: readonly string[], probe: ProbeFn, playlistScope: PlaylistScope): Promise<BulkExpansion> {
+export async function expandBulkCollectionUrls(urls: readonly string[], probe: ProbeFn, playlistScope: PlaylistScope, isActive: () => boolean = () => true): Promise<BulkExpansion> {
 	const out: string[] = []
 	const seeds = new Map<string, BulkEntrySeed>()
 	const dropped: string[] = []
 	const seen = new Set<string>()
+	let error: ProbeError | undefined
 
 	const push = (url: string, seed?: BulkEntrySeed): void => {
 		if (seen.has(url)) return
@@ -60,6 +65,11 @@ export async function expandBulkCollectionUrls(urls: readonly string[], probe: P
 	}
 
 	for (const url of urls) {
+		// Probes run one at a time and a channel can take seconds, so a user who
+		// starts a new list must not be left waiting on the old one's remaining
+		// URLs. `probeCancel` already aborts the in-flight probe; this stops the
+		// loop from marching on through the rest.
+		if (!isActive()) return {urls: out, seeds, dropped, aborted: true, ...(error ? {error} : {})}
 		if (!isCollectionUrl(url)) {
 			push(url)
 			continue
@@ -69,6 +79,7 @@ export async function expandBulkCollectionUrls(urls: readonly string[], probe: P
 		const result = await probe({url, playlistMode: 'playlist', playlistScope})
 		if (!result.ok || result.data.kind !== 'playlist') {
 			bulkLogger.warn('Bulk collection URL dropped — could not expand', {url: redactUrlForLog(url), ok: result.ok})
+			if (!result.ok) error = result.error
 			dropped.push(url)
 			continue
 		}
@@ -78,5 +89,5 @@ export async function expandBulkCollectionUrls(urls: readonly string[], probe: P
 		for (const entry of entries) push(entry.url, seedFor(entry))
 	}
 
-	return {urls: out, seeds, dropped}
+	return {urls: out, seeds, dropped, aborted: false, ...(error ? {error} : {})}
 }

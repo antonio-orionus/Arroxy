@@ -1118,6 +1118,49 @@ describe('bulk URL mode — collection URLs', () => {
 		})
 	})
 
+	it('shows the list in its loading state while expansion probes run', async () => {
+		const api = buildMockAppApi()
+		// Initialised to a no-op rather than null: assignment happens inside a
+		// promise executor, which control-flow analysis cannot order, so a
+		// nullable here narrows to `never` at the call below.
+		let release = (): void => {}
+		vi.mocked(api.downloads.probe).mockImplementation(
+			async () =>
+				new Promise(resolve => {
+					release = () => resolve(ok(PLAYLIST_PROBE))
+				})
+		)
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+
+		// Synchronously, before any probe resolves: the dialog has closed, so the
+		// list screen must already be visible rather than the previous page.
+		expect(useAppStore.getState().wizardStep).toBe('playlistItems')
+		expect(useAppStore.getState().playlistProbeLoading).toBe(true)
+
+		await vi.waitFor(() => expect(api.downloads.probe).toHaveBeenCalled())
+		release()
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().playlistProbeLoading).toBe(false)
+		})
+		expect(useAppStore.getState().playlistItems).toHaveLength(2)
+	})
+
+	it('surfaces an error when every URL was a collection and none could be read', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'playlist unavailable'}))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().wizardStep).toBe('error')
+		})
+		expect(useAppStore.getState().wizardError).toMatchObject({message: 'playlist unavailable'})
+		expect(useAppStore.getState().playlistItems).toHaveLength(0)
+	})
+
 	it('drops a collection URL whose probe fails rather than queueing it whole', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'nope'}))
