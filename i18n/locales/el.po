@@ -1673,6 +1673,18 @@ msgctxt "wizard.playlist.multiProfileEntryTooltip"
 msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
 msgstr "Παρακάμπτει την Ποιότητα, το SponsorBlock, την Έξοδο και την Αποθήκευση — εκχωρεί αντ' αυτού ένα προφίλ λήψης ανά στοιχείο"
 
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Λίστα αναπαραγωγής"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "{{count}} από αυτά είναι λίστα αναπαραγωγής, όχι βίντεο — επικολλήστε τον σύνδεσμό της ξεχωριστά για να την κατεβάσετε."
+
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} από αυτά είναι λίστες αναπαραγωγής, όχι βίντεο — επικολλήστε τους συνδέσμους τους έναν κάθε φορά για να τις κατεβάσετε."
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Επέλεξε τουλάχιστον ένα βίντεο για να συνεχίσεις"

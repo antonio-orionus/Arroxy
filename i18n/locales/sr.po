@@ -1673,6 +1673,18 @@ msgctxt "wizard.playlist.multiProfileEntryTooltip"
 msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
 msgstr "Прескаче Квалитет, SponsorBlock, Излаз и Сачувај — уместо тога додељује профил преузимања по ставци"
 
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Плејлиста"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "{{count}} од ових је плејлиста, а не видео — налепите њен линк засебно да бисте је преузели."
+
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} од ових су плејлисте, а не видеа — налепите њихове линкове један по један да бисте их преузели."
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Изабери барем један видео да би наставио/ла"

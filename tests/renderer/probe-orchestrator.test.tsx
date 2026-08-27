@@ -1133,3 +1133,57 @@ describe('bulk URL mode — collection URLs', () => {
 		})
 	})
 })
+
+describe('playlist rows that are themselves playlists', () => {
+	// Kept visible so an all-playlist probe result still renders a picker, but
+	// they cannot be downloaded — the URL addresses a whole set while a queue
+	// item carries one pre-bound filename. Selection has to refuse them at the
+	// source; accepting and dropping them at submit is the silent failure.
+	const NESTED_PROBE: Extract<ProbeResult, {kind: 'playlist'}> = {
+		...PLAYLIST_PROBE,
+		entries: [
+			{id: 'v1', title: 'Real Video', url: 'https://youtu.be/v1', thumbnail: '', playlistIndex: 1, videoId: 'v1'},
+			{id: 'c1', title: 'Greatest Hits', url: 'https://www.youtube.com/playlist?list=PLx', thumbnail: '', playlistIndex: 2, videoId: 'VLPLx', isContainer: true},
+			{id: 'c2', title: 'Some Album', url: 'https://music.youtube.com/browse/MPREb', thumbnail: '', playlistIndex: 3, videoId: 'MPREb', isContainer: true}
+		]
+	}
+
+	async function loadNested(): Promise<void> {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(NESTED_PROBE))
+		window.appApi = api
+		useAppStore.setState({wizardUrl: 'https://www.youtube.com/@artist/playlists'})
+		await useAppStore.getState().submitUrl()
+	}
+
+	it('leaves them unselected by default', async () => {
+		await loadNested()
+		expect(useAppStore.getState().playlistItems).toHaveLength(3)
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['v1'])
+	})
+
+	it('refuses to select one by hand', async () => {
+		await loadNested()
+		useAppStore.getState().setPlaylistItemSelected('c1', true)
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['v1'])
+	})
+
+	it('skips them in select-all', async () => {
+		await loadNested()
+		useAppStore.getState().selectAllPlaylistItems()
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['v1'])
+	})
+
+	it('skips them in a range selection that spans them', async () => {
+		await loadNested()
+		useAppStore.getState().selectPlaylistRange(1, 3)
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['v1'])
+	})
+
+	it('still allows unselecting, so a stale selection stays correctable', async () => {
+		await loadNested()
+		useAppStore.setState({selectedPlaylistItemIds: ['v1', 'c1']})
+		useAppStore.getState().setPlaylistItemSelected('c1', false)
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['v1'])
+	})
+})

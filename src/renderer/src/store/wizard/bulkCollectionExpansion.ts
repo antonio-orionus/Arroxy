@@ -12,7 +12,7 @@
 // hydration addresses rows by position — splicing entries in mid-run would
 // shift every later row out from under its in-flight worker.
 
-import type {PlaylistEntry, PlaylistScope, ProbeResult} from '@shared/types.js'
+import type {PlaylistEntry, PlaylistScope, ProbeError, ProbeResult} from '@shared/types.js'
 import type {Result} from '@shared/result.js'
 import {isCollectionUrl} from '@shared/urlIntent.js'
 import {bulkLogger, redactUrlForLog} from '@renderer/lib/bulkLogger.js'
@@ -26,7 +26,7 @@ export interface BulkExpansion {
 	dropped: string[]
 }
 
-type ProbeFn = (input: {url: string; playlistMode: 'playlist'; playlistScope?: PlaylistScope}) => Promise<Result<ProbeResult, unknown>>
+type ProbeFn = (input: {url: string; playlistMode: 'playlist'; playlistScope?: PlaylistScope}) => Promise<Result<ProbeResult, ProbeError>>
 
 function seedFor(entry: PlaylistEntry): BulkEntrySeed {
 	return {title: entry.title, thumbnail: entry.thumbnail, duration: entry.duration, videoId: entry.videoId, uploader: entry.uploader, uploadDate: entry.uploadDate}
@@ -67,13 +67,13 @@ export async function expandBulkCollectionUrls(urls: readonly string[], probe: P
 
 		bulkLogger.info('Bulk collection URL expanding', {url: redactUrlForLog(url)})
 		const result = await probe({url, playlistMode: 'playlist', playlistScope})
-		if (!result.ok || (result.data).kind !== 'playlist') {
+		if (!result.ok || result.data.kind !== 'playlist') {
 			bulkLogger.warn('Bulk collection URL dropped — could not expand', {url: redactUrlForLog(url), ok: result.ok})
 			dropped.push(url)
 			continue
 		}
 
-		const entries = (result.data as Extract<ProbeResult, {kind: 'playlist'}>).entries.filter(entry => entry.isContainer !== true)
+		const entries = result.data.entries.filter(entry => entry.isContainer !== true)
 		bulkLogger.info('Bulk collection URL expanded', {url: redactUrlForLog(url), entries: entries.length})
 		for (const entry of entries) push(entry.url, seedFor(entry))
 	}

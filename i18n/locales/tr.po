@@ -1673,6 +1673,18 @@ msgctxt "wizard.playlist.multiProfileEntryTooltip"
 msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
 msgstr "Kalite, SponsorBlock, Çıktı ve Kaydet adımlarını atlar — bunun yerine öğe başına bir indirme profili atar"
 
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Oynatma listesi"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "Bunlardan {{count}} tanesi video değil, oynatma listesi — indirmek için bağlantısını tek başına yapıştırın."
+
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "Bunlardan {{count}} tanesi video değil, oynatma listesi — indirmek için bağlantılarını teker teker yapıştırın."
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "Devam etmek için en az bir video seç"

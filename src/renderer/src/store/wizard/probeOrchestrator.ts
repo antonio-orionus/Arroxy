@@ -20,6 +20,7 @@ import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep} f
 import {buildWizardStepGraph, nextWizardStep} from './wizardStepGraph.js'
 import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, currentBulkMetadataRunId, hydrateBulkMetadata, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
 import {expandBulkCollectionUrls, hasCollectionUrl} from './bulkCollectionExpansion.js'
+import {isSelectablePlaylistRow} from './playlistRowSelection.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
 import {rewriteYouTubeChannelRoot} from './urlIntake.js'
 import {quickDownload as runQuickDownload, quickDownloadUrls, cancelQuickDownload, retryQuickDownloadFailure, retryQuickDownloadWithCookies, retryQuickPlaylistCap} from './quickDownloadPreparation.js'
@@ -290,7 +291,15 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			}
 		},
 
-		setPlaylistItemSelected: (id, checked) => set(state => ({selectedPlaylistItemIds: checked ? (state.selectedPlaylistItemIds.includes(id) ? state.selectedPlaylistItemIds : [...state.selectedPlaylistItemIds, id]) : state.selectedPlaylistItemIds.filter(x => x !== id)})),
+		setPlaylistItemSelected: (id, checked) =>
+			set(state => {
+				// Selecting a playlist row would put the wizard one click from a
+				// submission that silently drops it, so refuse rather than accept and
+				// discard later. Unchecking always works — a row selected before the
+				// probe learned what it was must stay correctable.
+				if (checked && !isSelectablePlaylistRow(state.playlistItems.find(entry => entry.id === id))) return {}
+				return {selectedPlaylistItemIds: checked ? (state.selectedPlaylistItemIds.includes(id) ? state.selectedPlaylistItemIds : [...state.selectedPlaylistItemIds, id]) : state.selectedPlaylistItemIds.filter(x => x !== id)}
+			}),
 
 		setPlaylistScope: scope => set({playlistScope: scope}),
 
@@ -300,11 +309,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		// Both filter against removedPlaylistItemIds so a removed row can never
 		// reappear in the count — with no visible row to uncheck, the user would
-		// have no way to correct an over-count.
+		// have no way to correct an over-count. Both also skip playlist rows, for
+		// the reason in setPlaylistItemSelected.
 		selectAllPlaylistItems: () =>
 			set(state => {
 				const removed = new Set(state.removedPlaylistItemIds)
-				return {selectedPlaylistItemIds: state.playlistItems.filter(e => !removed.has(e.id)).map(e => e.id)}
+				return {selectedPlaylistItemIds: state.playlistItems.filter(e => !removed.has(e.id) && isSelectablePlaylistRow(e)).map(e => e.id)}
 			}),
 
 		selectNonePlaylistItems: () => set({selectedPlaylistItemIds: []}),
@@ -314,7 +324,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 				const lo = Math.min(from, to)
 				const hi = Math.max(from, to)
 				const removed = new Set(state.removedPlaylistItemIds)
-				const ids = state.playlistItems.flatMap(e => (e.playlistIndex >= lo && e.playlistIndex <= hi && !removed.has(e.id) ? [e.id] : []))
+				const ids = state.playlistItems.flatMap(e => (e.playlistIndex >= lo && e.playlistIndex <= hi && !removed.has(e.id) && isSelectablePlaylistRow(e) ? [e.id] : []))
 				return {selectedPlaylistItemIds: ids}
 			}),
 

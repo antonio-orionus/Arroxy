@@ -1673,6 +1673,18 @@ msgctxt "wizard.playlist.multiProfileEntryTooltip"
 msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
 msgstr "মান, SponsorBlock, আউটপুট এবং সেভ এড়িয়ে যায় — পরিবর্তে প্রতিটি আইটেমে একটি ডাউনলোড প্রোফাইল নির্ধারণ করুন"
 
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "প্লেলিস্ট"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "এর মধ্যে {{count}}টি প্লেলিস্ট, ভিডিও নয় — ডাউনলোড করতে এর লিঙ্ক আলাদাভাবে পেস্ট করুন।"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "এর মধ্যে {{count}}টি প্লেলিস্ট, ভিডিও নয় — ডাউনলোড করতে এগুলোর লিঙ্ক একটি একটি করে পেস্ট করুন।"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "চালিয়ে যেতে কমপক্ষে একটি ভিডিও নির্বাচন করুন"
