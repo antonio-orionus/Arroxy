@@ -71,7 +71,21 @@ export async function hydrateBulkMetadata(targets: readonly BulkMetadataTarget[]
 				return worker()
 			}
 			if (result.data.kind !== 'video') {
+				// We asked for a single video and got a set back, so this row is a
+				// playlist however its URL looked. Marking it is what stops it:
+				// URL-shape classification cannot catch every container (a bare
+				// `/browse/<id>` has no other tell, and other sites have their own
+				// shapes), and unmarked the row stays selected and reaches the queue
+				// carrying one filename for the whole set.
 				bulkLogger.warn('Bulk metadata probe returned non-video result', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url), kind: result.data.kind})
+				if (bulkMetadataRunSeq === runId) {
+					set(state => {
+						if (state.wizardMode !== 'bulk') return {}
+						const current = state.playlistItems[index]
+						if (current?.id !== id || current.url !== url) return {}
+						return {playlistItems: state.playlistItems.map(entry => (entry.id === id ? {...entry, isContainer: true as const} : entry)), selectedPlaylistItemIds: state.selectedPlaylistItemIds.filter(selectedId => selectedId !== id)}
+					})
+				}
 				return worker()
 			}
 			if (bulkMetadataRunSeq !== runId) return

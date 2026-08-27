@@ -1161,6 +1161,37 @@ describe('bulk URL mode — collection URLs', () => {
 		expect(useAppStore.getState().playlistItems).toHaveLength(0)
 	})
 
+	it('clears the loading state when the probe bridge rejects outright', async () => {
+		// A rejection rather than a failed Result left the detached expansion task
+		// with no store write at all, stranding the picker mid-load.
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockRejectedValue(new Error('bridge exploded'))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().wizardStep).toBe('error')
+		})
+		expect(useAppStore.getState().playlistProbeLoading).toBe(false)
+		expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
+	})
+
+	it('marks a bulk row a playlist when its probe comes back as one', async () => {
+		// URL shape cannot catch every container, so the probe result is the
+		// backstop: asked for a video, got a set, therefore not downloadable.
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://example.com/opaque-collection'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().playlistItems[0]?.isContainer).toBe(true)
+		})
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual([])
+	})
+
 	it('errors when a probe succeeds but holds only more playlists', async () => {
 		// A channel's Playlists tab: every entry is a container, so expansion
 		// filters them all and nothing downloadable survives. Keying the guard off

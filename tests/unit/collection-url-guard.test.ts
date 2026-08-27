@@ -45,7 +45,14 @@ describe('isCollectionUrl', () => {
 		// collection for this purpose.
 		[MIXED, false],
 		['https://vimeo.com/1234', false],
-		['not a url', false]
+		['not a url', false],
+		// A `/browse/<id>` URL has no `list=` param and no telling path segment;
+		// the id prefix is the only signal that it addresses a whole release.
+		['https://music.youtube.com/browse/MPREb_abc123', true],
+		['https://music.youtube.com/browse/VLPLxyz', true],
+		['https://www.youtube.com/browse/UCabcdefghijklmnopqrstuv', true],
+		// A browse id that names no container stays unclassified.
+		['https://music.youtube.com/browse/FEmusic_home', false]
 	])('%s → %s', (url, expected) => {
 		expect(isCollectionUrl(url)).toBe(expected)
 	})
@@ -134,5 +141,17 @@ describe('expandBulkCollectionUrls — abort', () => {
 
 		expect(result.aborted).toBe(true)
 		expect(probe).toHaveBeenCalledTimes(1)
+	})
+})
+
+describe('QueueService.add — browse-URL containers', () => {
+	// Regression: these reached the queue because classifyUrlIntent read them as
+	// `unknown`, so an album pasted into the bulk list downloaded whole under one
+	// filename — the original bug, by a different door.
+	it.each([
+		['album', 'https://music.youtube.com/browse/MPREb_abc123'],
+		['playlist', 'https://music.youtube.com/browse/VLPLxyz']
+	])('rejects a YouTube Music %s browse URL', (_label, url) => {
+		expect(makeService().add([makeItem({id: 'a', status: 'pending', url})]).ok).toBe(false)
 	})
 })

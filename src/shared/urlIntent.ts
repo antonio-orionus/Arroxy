@@ -1,4 +1,5 @@
 import type {BulkUrlKind} from './schemas.js'
+import {isYouTubeContainerId} from './sites/youtube.js'
 
 export type UrlIntent = {kind: 'obvious-single'; url: string; site: 'youtube' | 'other'} | {kind: 'obvious-collection'; url: string; collection: 'playlist' | 'channel' | 'search'} | {kind: 'mixed'; url: string; reason: 'youtube-video-with-list'} | {kind: 'unknown'; url: string}
 
@@ -45,6 +46,15 @@ function isYouTubeChannelPath(segments: string[]): boolean {
 	return segments[0]?.startsWith('@') === true || segments[0] === 'channel' || segments[0] === 'c' || segments[0] === 'user'
 }
 
+// `music.youtube.com/browse/MPREb…` is an album and `/browse/VLPL…` a playlist,
+// but a browse URL carries no `list=` param and no recognisable path segment —
+// nothing in its shape says "collection". Left unclassified it reads as a plain
+// URL all the way to the queue, where yt-dlp expands the whole release under
+// the single filename the job carries. The id prefix is the only tell.
+function isYouTubeBrowseCollectionPath(segments: string[]): boolean {
+	return segments.length === 2 && segments[0] === 'browse' && isYouTubeContainerId(segments[1] ?? '')
+}
+
 export function classifyUrlIntent(url: string): UrlIntent {
 	const parsed = parseUrl(url)
 	if (!parsed || !isYouTubeHost(parsed.hostname)) return {kind: 'unknown', url}
@@ -57,6 +67,7 @@ export function classifyUrlIntent(url: string): UrlIntent {
 	if (hasConcreteVideo && hasList) return {kind: 'mixed', url, reason: 'youtube-video-with-list'}
 	if (segments[0] === 'results' && parsed.searchParams.has('search_query')) return {kind: 'obvious-collection', url, collection: 'search'}
 	if (isYouTubeChannelPath(segments)) return {kind: 'obvious-collection', url, collection: 'channel'}
+	if (isYouTubeBrowseCollectionPath(segments)) return {kind: 'obvious-collection', url, collection: 'playlist'}
 	if (hasList) return {kind: 'obvious-collection', url, collection: 'playlist'}
 	if (hasConcreteVideo) return {kind: 'obvious-single', url, site: 'youtube'}
 	return {kind: 'unknown', url}

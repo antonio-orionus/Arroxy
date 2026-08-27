@@ -57,7 +57,7 @@ describe('StepPlaylistItems — rows that are themselves playlists', () => {
 		expect(within(nested).getByText('Playlist')).toBeTruthy()
 		// The shadcn checkbox renders a span, not a native input — disabled state
 		// surfaces as a data attribute rather than a DOM property.
-		expect(within(nested).getByRole('checkbox').hasAttribute('data-disabled')).toBe(true)
+		expect(nested.querySelector('[data-slot="checkbox"]')?.hasAttribute('data-disabled')).toBe(true)
 		expect(nested.getAttribute('aria-checked')).toBe('false')
 	})
 
@@ -66,7 +66,7 @@ describe('StepPlaylistItems — rows that are themselves playlists', () => {
 
 		const video = screen.getByTestId(`playlist-item-row-${VIDEO_ROW.id}`)
 		expect(within(video).queryByText('Playlist')).toBeNull()
-		expect(within(video).getByRole('checkbox').hasAttribute('data-disabled')).toBe(false)
+		expect(video.querySelector('[data-slot="checkbox"]')?.hasAttribute('data-disabled')).toBe(false)
 	})
 
 	it('explains why, in the singular', () => {

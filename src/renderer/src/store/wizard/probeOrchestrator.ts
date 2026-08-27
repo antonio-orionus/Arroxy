@@ -273,24 +273,34 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 					bulkMetadataById: {}
 				})
 				void (async () => {
-					const expansion = await expandBulkCollectionUrls(
-						urls,
-						input => window.appApi.downloads.probe(input),
-						get().playlistScope,
-						() => currentBulkMetadataRunId() === bulkRunId
-					)
-					if (currentBulkMetadataRunId() !== bulkRunId || expansion.aborted) return
-					bulkLogger.info('Bulk collection expansion finished', {runId: bulkRunId, inputCount: urls.length, rowCount: expansion.urls.length, droppedCount: expansion.dropped.length})
-					// Nothing downloadable came back — either every probe failed, or
-					// they succeeded and held only more playlists (a channel's
-					// Playlists tab). Both cases render as a blank or wholly disabled
-					// picker that says nothing about why, so surface the reason.
-					const downloadable = expansion.urls.filter(rowUrl => expansion.seeds.get(rowUrl)?.isContainer !== true)
-					if (downloadable.length === 0) {
-						set(projectProbeFailure(expansion.error ?? {kind: 'other', code: 'unknown', message: 'Could not read that playlist'}))
-						return
+					try {
+						const expansion = await expandBulkCollectionUrls(
+							urls,
+							input => window.appApi.downloads.probe(input),
+							get().playlistScope,
+							() => currentBulkMetadataRunId() === bulkRunId
+						)
+						if (currentBulkMetadataRunId() !== bulkRunId || expansion.aborted) return
+						bulkLogger.info('Bulk collection expansion finished', {runId: bulkRunId, inputCount: urls.length, rowCount: expansion.urls.length, droppedCount: expansion.dropped.length})
+						// Nothing downloadable came back — either every probe failed, or
+						// they succeeded and held only more playlists (a channel's
+						// Playlists tab). Both cases render as a blank or wholly disabled
+						// picker that says nothing about why, so surface the reason.
+						const downloadable = expansion.urls.filter(rowUrl => expansion.seeds.get(rowUrl)?.isContainer !== true)
+						if (downloadable.length === 0) {
+							set(projectProbeFailure(expansion.error ?? {kind: 'other', code: 'unknown', message: 'Could not read that playlist'}))
+							return
+						}
+						startBulkRows(expansion.urls, expansion.seeds, bulkRunId, fromStep)
+					} catch (error) {
+						// The probe bridge rejecting (rather than returning a failed
+						// Result) would otherwise leave this detached task with no store
+						// write at all, stranding the picker mid-load exactly as the
+						// superseded path used to.
+						if (currentBulkMetadataRunId() !== bulkRunId) return
+						bulkLogger.warn('Bulk collection expansion threw', {runId: bulkRunId, error: error instanceof Error ? error.message : String(error)})
+						set({...projectProbeFailure({kind: 'other', code: 'unknown', message: error instanceof Error ? error.message : String(error)}), bulkMetadataStatus: 'done'})
 					}
-					startBulkRows(expansion.urls, expansion.seeds, bulkRunId, fromStep)
 				})()
 				return
 			}

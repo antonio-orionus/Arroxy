@@ -438,8 +438,16 @@ export function StepPlaylistItems(): ReactNode {
 																		</span>
 																	) : null}
 																</span>
-																{isPlaylistRow && <span className="shrink-0 rounded-sm bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{t('wizard.playlist.nestedPlaylistBadge')}</span>}
-																{isAlreadyDownloaded && <span className="shrink-0 rounded-sm bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{t('wizard.playlist.alreadyDownloaded')}</span>}
+																{isPlaylistRow && (
+																	<Badge variant="secondary" className="shrink-0 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+																		{t('wizard.playlist.nestedPlaylistBadge')}
+																	</Badge>
+																)}
+																{isAlreadyDownloaded && (
+																	<Badge variant="secondary" className="shrink-0 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+																		{t('wizard.playlist.alreadyDownloaded')}
+																	</Badge>
+																)}
 																<span className="shrink-0 text-xs text-muted-foreground">{formatEntryDuration(entry.duration, liveLabel)}</span>
 															</div>
 														}
