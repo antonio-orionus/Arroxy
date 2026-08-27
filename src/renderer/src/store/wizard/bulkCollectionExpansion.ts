@@ -78,9 +78,15 @@ export async function expandBulkCollectionUrls(urls: readonly string[], probe: P
 		bulkLogger.info('Bulk collection URL expanding', {url: redactUrlForLog(url)})
 		const result = await probe({url, playlistMode: 'playlist', playlistScope})
 		if (!result.ok || result.data.kind !== 'playlist') {
-			bulkLogger.warn('Bulk collection URL dropped — could not expand', {url: redactUrlForLog(url), ok: result.ok})
+			bulkLogger.warn('Bulk collection URL could not be expanded', {url: redactUrlForLog(url), ok: result.ok})
 			if (!result.ok) error = result.error
 			dropped.push(url)
+			// Kept as a row rather than removed: a URL the user pasted that simply
+			// disappears is the same silent drop this whole change exists to end.
+			// Marking it a playlist row is accurate and reuses the badge, the
+			// disabled state and the hint — it is a playlist, it just could not be
+			// read, and "paste its link on its own" is still the way to get it.
+			push(url, {title: '', thumbnail: '', videoId: null, isContainer: true})
 			continue
 		}
 

@@ -281,10 +281,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 					)
 					if (currentBulkMetadataRunId() !== bulkRunId || expansion.aborted) return
 					bulkLogger.info('Bulk collection expansion finished', {runId: bulkRunId, inputCount: urls.length, rowCount: expansion.urls.length, droppedCount: expansion.dropped.length})
-					// Every URL was a collection and every probe failed: an empty list
-					// would read as "nothing matched" when the truth is that nothing
-					// could be read at all.
-					if (expansion.urls.length === 0 && expansion.dropped.length > 0) {
+					// Nothing downloadable came back — either every probe failed, or
+					// they succeeded and held only more playlists (a channel's
+					// Playlists tab). Both cases render as a blank or wholly disabled
+					// picker that says nothing about why, so surface the reason.
+					const downloadable = expansion.urls.filter(rowUrl => expansion.seeds.get(rowUrl)?.isContainer !== true)
+					if (downloadable.length === 0) {
 						set(projectProbeFailure(expansion.error ?? {kind: 'other', code: 'unknown', message: 'Could not read that playlist'}))
 						return
 					}
@@ -444,6 +446,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			if (!target) return
 			if (state.wizardMode === 'bulk' && target === 'url' && state.bulkMetadataStatus === 'resolving') {
 				cancelBulkMetadataProbes('back-to-url', state)
+				// cancelBulkMetadataProbes only bumps the run id and aborts the
+				// in-flight probe — it owns no state. The expansion pass sets these
+				// before awaiting and returns without clearing them once superseded,
+				// so leaving them set strands the picker mid-load for the rest of
+				// the session.
+				set({playlistProbeLoading: false, playlistProbeProgress: null, bulkMetadataStatus: 'done'})
 			}
 			set({wizardStep: target, ...(target === 'subtitles' && {wizardSubtitleSkipped: false})})
 			logStep('back', state.wizardStep, target, pickWizardSnapshot(get()))

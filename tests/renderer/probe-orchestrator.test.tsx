@@ -1161,19 +1161,60 @@ describe('bulk URL mode — collection URLs', () => {
 		expect(useAppStore.getState().playlistItems).toHaveLength(0)
 	})
 
-	it('drops a collection URL whose probe fails rather than queueing it whole', async () => {
+	it('errors when a probe succeeds but holds only more playlists', async () => {
+		// A channel's Playlists tab: every entry is a container, so expansion
+		// filters them all and nothing downloadable survives. Keying the guard off
+		// the drop count missed this, because nothing was dropped.
 		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'nope'}))
+		vi.mocked(api.downloads.probe).mockResolvedValue(
+			ok({
+				...PLAYLIST_PROBE,
+				entries: [
+					{id: 'n1', title: 'Greatest Hits', url: 'https://www.youtube.com/playlist?list=PLa', thumbnail: '', playlistIndex: 1, videoId: 'VLPLa', isContainer: true},
+					{id: 'n2', title: 'B Sides', url: 'https://www.youtube.com/playlist?list=PLb', thumbnail: '', playlistIndex: 2, videoId: 'VLPLb', isContainer: true}
+				]
+			})
+		)
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/@artist/playlists'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().wizardStep).toBe('error')
+		})
+		expect(useAppStore.getState().playlistProbeLoading).toBe(false)
+	})
+
+	it('clears the loading state when the user goes back mid-expansion', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockImplementation(async () => new Promise(() => {}))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+		expect(useAppStore.getState().playlistProbeLoading).toBe(true)
+
+		useAppStore.getState().back()
+
+		// Stranding these leaves the picker permanently mid-load on the way
+		// forward again, recoverable only by a full reset.
+		expect(useAppStore.getState().playlistProbeLoading).toBe(false)
+		expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
+	})
+
+	it('keeps an unexpandable collection as a marked, unselectable row', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockImplementation(async ({url}) => (url.includes('list=') ? fail({kind: 'other', code: 'unknown', message: 'nope'}) : ok({...VIDEO_PROBE, title: 'Plain Video', videoId: 'plain'})))
 		window.appApi = api
 
 		useAppStore.getState().startBulkUrls(['https://youtu.be/first', 'https://www.youtube.com/playlist?list=PLtest'])
 
+		// It stays visible — a pasted URL that simply vanishes is the same silent
+		// drop this change exists to end — but it can never be downloaded.
 		await vi.waitFor(() => {
-			expect(useAppStore.getState().wizardMode).toBe('bulk')
+			expect(useAppStore.getState().playlistItems.map(item => item.url)).toEqual(['https://youtu.be/first', 'https://www.youtube.com/playlist?list=PLtest'])
 		})
-		await vi.waitFor(() => {
-			expect(useAppStore.getState().playlistItems.map(item => item.url)).toEqual(['https://youtu.be/first'])
-		})
+		expect(useAppStore.getState().playlistItems[1].isContainer).toBe(true)
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['bulk-1'])
 	})
 })
 

@@ -29,7 +29,7 @@ export interface BulkStartProjection {
  * it. Rows expanded out of a collection URL arrive with real values, so they
  * skip hydration entirely instead of re-probing every entry one at a time.
  */
-export type BulkEntrySeed = Pick<PlaylistEntry, 'title' | 'thumbnail' | 'duration' | 'videoId' | 'uploader' | 'uploadDate'>
+export type BulkEntrySeed = Pick<PlaylistEntry, 'title' | 'thumbnail' | 'duration' | 'videoId' | 'uploader' | 'uploadDate' | 'isContainer'>
 
 function restoreCommonWizardPrefs(settings: AppSettings | null): CommonPrefsPatch {
 	return {
@@ -215,23 +215,24 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 		const intent = intents[index] ?? classifyUrlIntent(url)
 		const seed = seeds?.get(url)
 		if (!seed) metadataTargets.push({id, url, index})
-		// A seeded title can still be blank — a flat playlist probe sometimes
-		// yields entries with no title at all — so an empty one has to fall
-		// through to the label rather than be taken as a value. The label is only
-		// ever a placeholder: it must be replaced before the row can be
-		// downloaded, because binding a URL label into a filename template is
-		// what names every file after the URL.
-		const seedTitle = seed?.title.trim() ?? ''
+		// A seeded row takes the playlist probe's own title, exactly as the normal
+		// playlist path does — ProbeService's fallback chain (title → id hint →
+		// "Untitled · #N") guarantees a non-empty one, so there is nothing to fall
+		// back to here. The URL label below is only for unseeded rows, and is only
+		// ever a placeholder: hydration must replace it before the row can be
+		// downloaded, because binding a URL label into a filename template is what
+		// names every file after the URL.
 		return {
 			id,
 			url,
-			title: seedTitle.length > 0 ? seedTitle : (deriveUrlIntentLabel(url) ?? `Bulk URL ${number}`),
+			title: seed?.title ?? deriveUrlIntentLabel(url) ?? `Bulk URL ${number}`,
 			thumbnail: seed?.thumbnail ?? '',
 			playlistIndex: number,
 			videoId: seed?.videoId ?? extractUrlIntentYouTubeVideoId(intent),
 			...(seed?.duration === undefined ? {} : {duration: seed.duration}),
 			...(seed?.uploader === undefined ? {} : {uploader: seed.uploader}),
-			...(seed?.uploadDate === undefined ? {} : {uploadDate: seed.uploadDate})
+			...(seed?.uploadDate === undefined ? {} : {uploadDate: seed.uploadDate}),
+			...(seed?.isContainer === true ? {isContainer: true as const} : {})
 		}
 	})
 	const seededCount = playlistItems.length - metadataTargets.length
@@ -272,7 +273,9 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			wizardErrorOrigin: null,
 			cookiesConfigDialogIssue: null,
 			playlistItems,
-			selectedPlaylistItemIds: playlistItems.map(entry => entry.id),
+			// A row seeded as a playlist (a collection that could not be expanded)
+			// is not downloadable, so it must not start checked.
+			selectedPlaylistItemIds: playlistItems.filter(entry => entry.isContainer !== true).map(entry => entry.id),
 			playlistTitle: 'Bulk URLs',
 			playlistId: 'bulk',
 			playlistIsMultiVideo: false,
