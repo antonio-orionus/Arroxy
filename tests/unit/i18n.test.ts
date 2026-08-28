@@ -23,16 +23,18 @@ describe('pickLanguage', () => {
 		expect(pickLanguage('en-US')).toBe('en')
 		expect(pickLanguage('de_AT')).toBe('de')
 		expect(pickLanguage('tr-TR')).toBe('tr')
+		expect(pickLanguage('pt-BR')).toBe('pt')
 	})
 
 	it('falls back to en when language is unsupported', () => {
-		expect(pickLanguage('pt-BR')).toBe('en')
+		expect(pickLanguage('it-IT')).toBe('en')
 		expect(pickLanguage('tlh')).toBe('en')
 	})
 
 	it('handles uppercase input', () => {
 		expect(pickLanguage('FR')).toBe('fr')
 		expect(pickLanguage('JA-JP')).toBe('ja')
+		expect(pickLanguage('PT-BR')).toBe('pt')
 	})
 })
 
@@ -41,6 +43,7 @@ describe('mainT', () => {
 		expect(mainT('en', 'dialogs.quitWithActiveDownloads.confirm')).toBe('Cancel Downloads & Quit')
 		expect(mainT('es', 'dialogs.quitWithActiveDownloads.confirm')).toBe('Cancelar descargas y salir')
 		expect(mainT('tr', 'dialogs.quitWithActiveDownloads.confirm')).toBe('İndirmeleri İptal Et ve Çık')
+		expect(mainT('pt', 'dialogs.quitWithActiveDownloads.confirm')).toBe('Cancelar Downloads e Sair')
 	})
 
 	it('falls back to English when a key is missing in target language', () => {
