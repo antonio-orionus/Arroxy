@@ -28,6 +28,8 @@ export function buildProbeResult(scenario: ScenarioLike, params?: ProbeUrlParams
 			return playlistProbe(100, {thumbnails: false})
 		case 'playlist-long-titles':
 			return playlistProbe(100, {longTitles: true})
+		case 'playlist-nested':
+			return nestedPlaylistProbe()
 		case 'probe-audio-only':
 			return audioOnlyProbe()
 		case 'probe-audio-multilingual':
@@ -275,6 +277,20 @@ function liveStreamProbe(): ProbeResult {
 			{formatId: '92', label: '480p | mp4 | HLS', ext: 'mp4', resolution: '480p', fps: 30, filesize: undefined, isVideoOnly: false, isAudioOnly: false}
 		]
 	}
+}
+
+// A result whose rows are themselves playlists/channels/albums — what a channel's
+// Playlists tab or a YouTube Music shelf returns. Kept visible so the picker
+// isn't empty, but not downloadable: the URL addresses a whole set while a queue
+// item carries one filename. Mixed with real videos so both states are on screen.
+export function nestedPlaylistProbe(): ProbeResult {
+	const base = playlistProbe(3) as Extract<ProbeResult, {kind: 'playlist'}>
+	const containers: PlaylistEntry[] = [
+		{id: 'nested1', url: 'https://www.youtube.com/playlist?list=PLmockGreatestHits', title: 'Greatest Hits (1998-2012)', thumbnail: '', playlistIndex: 4, videoId: 'VLPLmockGreatestHits', isContainer: true},
+		{id: 'nested2', url: 'https://music.youtube.com/browse/MPREb_mockalbum', title: 'Some Album', thumbnail: '', playlistIndex: 5, videoId: 'MPREb_mockalbum', isContainer: true},
+		{id: 'nested3', url: 'https://www.youtube.com/channel/UCmockchannelidaaaaaaaa', title: 'Channel · UCmockchannelidaaaaaaaa', thumbnail: '', playlistIndex: 6, videoId: 'UCmockchannelidaaaaaaaa', isContainer: true}
+	]
+	return {...base, playlistTitle: 'Mock Channel Playlists Tab', entries: [...base.entries, ...containers]}
 }
 
 export function playlistProbe(count: number, options: {thumbnails?: boolean; fullThumbnails?: boolean; longTitles?: boolean; webpageUrl?: string} = {}): ProbeResult {
