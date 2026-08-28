@@ -1474,21 +1474,8 @@ body {
 }
 .splash-cancel {
 	margin-top: 10px;
-	font-size: var(--text-caption);
-	line-height: var(--text-caption--line-height);
 	color: var(--muted-foreground);
-	text-decoration: underline;
-	text-underline-offset: 3px;
-	cursor: pointer;
-	background: none;
-	border: none;
-	padding: 2px 4px;
-	border-radius: 4px;
 }
 .splash-cancel:hover {
 	color: var(--foreground);
-}
-.splash-cancel:focus-visible {
-	outline: 2px solid var(--brand);
-	outline-offset: 2px;
 }

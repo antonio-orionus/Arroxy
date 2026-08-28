@@ -57,6 +57,29 @@ describe('WarmupSplash verification phase', () => {
 		}
 	})
 
+	// Resolving yt-dlp probes several candidates in a row, all reporting binary
+	// 'yt-dlp'. Keyed on the id alone, a slow managed probe left the hint armed and
+	// the next candidate — a Homebrew yt-dlp answering in milliseconds — flashed it
+	// on screen before it had waited for anything.
+	it('makes each candidate earn the hint on its own', () => {
+		vi.useFakeTimers()
+		try {
+			const managed = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing', source: {kind: 'managed', channel: 'nightly', provider: 'github', url: 'https://example.test/yt-dlp'}} satisfies WarmupProgressEvent}
+			const onPath = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing', source: {kind: 'systemPath', path: '/opt/homebrew/bin/yt-dlp'}} satisfies WarmupProgressEvent}
+			const {rerender} = render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={managed} showGreeting={false} />)
+			act(() => {
+				vi.advanceTimersByTime(6000)
+			})
+			expect(screen.getByTestId('splash-verify-slow')).toBeTruthy()
+
+			rerender(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={onPath} showGreeting={false} />)
+
+			expect(screen.queryByTestId('splash-verify-slow')).toBeNull()
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
 	// browser-mock and the scenario gallery render the splash without a handler.
 	// Offering a button that cannot do anything is worse than offering none.
 	it('offers no way out when there is nothing wired to cancel', () => {

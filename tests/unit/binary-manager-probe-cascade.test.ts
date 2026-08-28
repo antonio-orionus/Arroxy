@@ -7,13 +7,12 @@ import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import {describe, expect, it, vi} from 'vitest'
-import {BinaryManager, type RuntimeBinaryMaterializerPort} from '@main/services/BinaryManager.js'
+import {BinaryManager, type ProbeOutcome, type RuntimeBinaryMaterializerPort} from '@main/services/BinaryManager.js'
 import type {RuntimeBinaryIndexProvider} from '@main/services/binary/RuntimeBinaryIndexService.js'
 import type {ProbeVerdictStore} from '@main/services/binary/ProbeVerdictCache.js'
+import {isEnvironmentFatalFailure} from '@shared/dependencyPolicy.js'
 import {runtimeBinaryArchFor, runtimeBinaryPlatformFor} from '@shared/runtimeBinaryManifest.js'
-import type {DependencyDiagnostic, DependencyFailureKind, DependencyId, DependencySource, RuntimeBinaryManifestEntry} from '@shared/types.js'
-
-type StubProbeOutcome = {kind: 'accepted'; diagnostic: DependencyDiagnostic} | {kind: 'rejected'} | {kind: 'environmentFatal'} | {kind: 'cancelled'}
+import type {DependencyFailureKind, DependencyId, DependencySource, RuntimeBinaryManifestEntry} from '@shared/types.js'
 
 function entry(patch: Partial<RuntimeBinaryManifestEntry> = {}): RuntimeBinaryManifestEntry {
 	const platform = runtimeBinaryPlatformFor()
@@ -36,7 +35,7 @@ async function makeMgr(entries: RuntimeBinaryManifestEntry[], materialize: Runti
 // states a failure kind and asserts what the chain does with it.
 function stubProbeFailures(mgr: BinaryManager, verdict: (source: DependencySource) => DependencyFailureKind | 'ok'): {probedPaths: string[]} {
 	const probedPaths: string[] = []
-	vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<StubProbeOutcome>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
+	vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<ProbeOutcome>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
 		probedPaths.push(candidatePath)
 		const kind = verdict(source)
 		if (kind === 'ok') {
@@ -44,8 +43,9 @@ function stubProbeFailures(mgr: BinaryManager, verdict: (source: DependencySourc
 			return {kind: 'accepted', diagnostic: {id, state: 'runnable', source, resolvedPath: candidatePath, attempts: attempts as never}}
 		}
 		attempts.push({source, failure: {kind, message: `${kind} for test`}})
-		const environmentFatal = kind === 'timeout' || kind === 'permission_denied' || kind === 'blocked_or_quarantined'
-		return environmentFatal ? {kind: 'environmentFatal'} : {kind: 'rejected'}
+		// Defer to the real policy rather than restating it, so a test can never
+		// assert against a classification the production chain does not use.
+		return isEnvironmentFatalFailure(kind, source) ? {kind: 'environmentFatal'} : {kind: 'rejected'}
 	})
 	return {probedPaths}
 }
@@ -99,11 +99,53 @@ describe('BinaryManager probe cascade', () => {
 	it('unwinds immediately when the probe was cancelled rather than slow', async () => {
 		const materialize = vi.fn(async (candidate: RuntimeBinaryManifestEntry) => ({executablePath: `/managed/${candidate.channel}`, cacheKey: candidate.channel, metadataPath: '/metadata.json', manifest: candidate}))
 		const mgr = await makeMgr([entry({channel: 'nightly'}), entry({channel: 'stable'})], materialize)
-		vi.spyOn(mgr as unknown as {probeAndAccept: () => Promise<StubProbeOutcome>}, 'probeAndAccept').mockResolvedValue({kind: 'cancelled'})
+		vi.spyOn(mgr as unknown as {probeAndAccept: () => Promise<ProbeOutcome>}, 'probeAndAccept').mockResolvedValue({kind: 'cancelled'})
 
 		const diag = await mgr.resolveYtDlp()
 
 		expect(materialize).toHaveBeenCalledTimes(1)
 		expect(diag.state).toBe('failed')
+	})
+	// CodeRabbit caught this: classifying every refusal as environment-fatal meant
+	// a 0644 file behind a manual override skipped every managed candidate — and
+	// an override is exactly what someone sets to work around a broken install.
+	it('still reaches the managed path when the failure is a user-supplied path being unusable', async () => {
+		const materialize = vi.fn(async (candidate: RuntimeBinaryManifestEntry) => ({executablePath: `/managed/${candidate.channel}`, cacheKey: candidate.channel, metadataPath: '/metadata.json', manifest: candidate}))
+		const mgr = await makeMgr([entry({channel: 'nightly'})], materialize)
+		stubProbeFailures(mgr, source => (source.kind === 'manualOverride' ? 'permission_denied' : 'ok'))
+
+		const diag = await mgr.resolveYtDlp({overrides: {ytDlp: '/not/executable/yt-dlp'}})
+
+		expect(materialize).toHaveBeenCalledTimes(1)
+		expect(diag.state).toBe('runnable')
+		expect(diag.source).toMatchObject({kind: 'managed'})
+	})
+
+	it('stops for a refusal of an artifact we materialized ourselves', async () => {
+		const materialize = vi.fn(async (candidate: RuntimeBinaryManifestEntry) => ({executablePath: `/managed/${candidate.channel}`, cacheKey: candidate.channel, metadataPath: '/metadata.json', manifest: candidate}))
+		const mgr = await makeMgr([entry({channel: 'nightly'}), entry({channel: 'stable'})], materialize)
+		stubProbeFailures(mgr, () => 'blocked_or_quarantined')
+
+		await mgr.resolveYtDlp()
+
+		expect(materialize).toHaveBeenCalledTimes(1)
+	})
+
+	// materialize() rejects on abort too. Without unwinding there, the chain kept
+	// materializing entries the user had already asked us to stop and appended a
+	// fabricated download failure for each.
+	it('unwinds when materialization itself observes the abort', async () => {
+		const controller = new AbortController()
+		const materialize = vi.fn(async () => {
+			controller.abort()
+			throw Object.assign(new Error('aborted'), {name: 'AbortError'})
+		})
+		const mgr = await makeMgr([entry({channel: 'nightly'}), entry({channel: 'stable'})], materialize)
+
+		const diag = await mgr.resolveYtDlp({signal: controller.signal})
+
+		expect(materialize).toHaveBeenCalledTimes(1)
+		expect(diag.state).toBe('failed')
+		expect(diag.attempts.filter(a => a.failure).length).toBe(0)
 	})
 })

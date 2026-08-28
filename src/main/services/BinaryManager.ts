@@ -24,7 +24,7 @@ type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | nu
 //   environmentFatal — the machine refused to run it; another candidate will hit
 //                      the same wall, so stop paying downloads to find out.
 //   cancelled        — the user or a forced re-run aborted; unwind immediately.
-type ProbeOutcome = {kind: 'accepted'; diagnostic: DependencyDiagnostic} | {kind: 'rejected'} | {kind: 'environmentFatal'} | {kind: 'cancelled'}
+export type ProbeOutcome = {kind: 'accepted'; diagnostic: DependencyDiagnostic} | {kind: 'rejected'} | {kind: 'environmentFatal'} | {kind: 'cancelled'}
 
 interface ResolveOptions {
 	overrides?: BinaryOverrides
@@ -228,7 +228,7 @@ export class BinaryManager {
 		onProgress?.({binary: id, phase: 'failed', source, failureKind: probe.failure.kind})
 		logger.warn(`${id} probe failed`, {source, path: candidatePath, args, timeoutMs, elapsedMs, budget, failureKind: probe.failure.kind, message: probe.failure.message})
 		if (probe.cancelled) return {kind: 'cancelled'}
-		const environmentFatal = isEnvironmentFatalFailure(probe.failure.kind)
+		const environmentFatal = isEnvironmentFatalFailure(probe.failure.kind, source)
 		trackBinaryProbeAnomaly(id, source, environmentFatal ? 'environment_fatal' : 'failed', elapsedMs, timeoutMs, attemptIndex, probe.failure)
 		return environmentFatal ? {kind: 'environmentFatal'} : {kind: 'rejected'}
 	}
@@ -350,6 +350,10 @@ export class BinaryManager {
 			const result = await this.runtimeBinaryMaterializer.materialize(entry, {cacheRoot: this.artifactCacheDir, onDownloadProgress: makeDownloadProgress(entry.id, source, onProgress), onExtracting: () => onProgress?.({binary: entry.id, phase: 'extracting', source}), signal})
 			return await this.probeAndAccept(entry.id, source, result.executablePath, attempts, onProgress, signal, budget)
 		} catch (err) {
+			// materialize() rejects on abort too. Recording that as a download
+			// failure would append a fabricated attempt per remaining entry and keep
+			// paying for materializations the user already asked us to stop.
+			if (signal?.aborted) return {kind: 'cancelled'}
 			// A download/extract failure is about this artifact, not the machine —
 			// a different channel or provider may still materialize cleanly.
 			this.recordManagedFailure(entry.id, attempts, source, onProgress, err, Date.now() - startedAt)

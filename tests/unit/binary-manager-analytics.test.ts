@@ -5,7 +5,7 @@ import {describe, expect, it, vi, afterEach} from 'vitest'
 
 vi.mock('@main/services/analytics', () => ({trackMain: vi.fn()}))
 
-import {BinaryManager} from '@main/services/BinaryManager.js'
+import {BinaryManager, type ProbeOutcome} from '@main/services/BinaryManager.js'
 import {trackMain} from '@main/services/analytics.js'
 import {ArtifactMaterializeError} from '@main/services/binary/RuntimeBinaryMaterializer.js'
 import type {DependencyAttempt, DependencySource, RuntimeBinaryManifestEntry} from '@shared/types.js'
@@ -78,7 +78,7 @@ describe('BinaryManager analytics', () => {
 		const attempts: DependencyAttempt[] = []
 		const source: DependencySource = {kind: 'managed', channel: 'nightly', provider: 'github', url: 'https://example.com/yt-dlp.exe'}
 
-		const diag = await (mgr as unknown as {probeAndAccept: (id: 'yt-dlp', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<unknown>}).probeAndAccept('yt-dlp', source, path.join('/tmp', 'arroxy-missing-yt-dlp.exe'), attempts)
+		const diag = await (mgr as unknown as {probeAndAccept: (id: 'yt-dlp', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<ProbeOutcome>}).probeAndAccept('yt-dlp', source, path.join('/tmp', 'arroxy-missing-yt-dlp.exe'), attempts)
 
 		expect(diag).toEqual({kind: 'rejected'})
 		expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'failed', failure_kind: 'spawn_failed', code: 'ARX-004', source_kind: 'managed', source_channel: 'nightly', source_provider: 'github', elapsed_ms: expect.any(Number), timeout_ms: 120_000, attempt_index: 0})
@@ -92,7 +92,7 @@ describe('BinaryManager analytics', () => {
 		const ytDlpStub = versionAnsweringExecutable()
 
 		try {
-			const diag = await (mgr as unknown as {probeAndAccept: (id: 'yt-dlp', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<unknown>}).probeAndAccept('yt-dlp', source, ytDlpStub, attempts)
+			const diag = await (mgr as unknown as {probeAndAccept: (id: 'yt-dlp', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<ProbeOutcome>}).probeAndAccept('yt-dlp', source, ytDlpStub, attempts)
 
 			expect(diag).toMatchObject({kind: 'accepted'})
 			expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'slow_success', source_kind: 'managed', source_channel: 'nightly', source_provider: 'github', elapsed_ms: 31_500, timeout_ms: 120_000, attempt_index: 0})

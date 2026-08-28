@@ -2,6 +2,7 @@ import {useState, useEffect, useMemo, type JSX} from 'react'
 import {useTranslation} from 'react-i18next'
 import mainImg from '../../assets/Main.png'
 import type {DependencyDiagnostic, DependencyId, WarmupProgressEvent} from '@shared/types.js'
+import {Button} from '../ui/button.js'
 import {RepairPanel} from './RepairPanel.js'
 
 interface Props {
@@ -27,6 +28,15 @@ const SLOW_VERIFY_HINT_MS = 5000
 // can retry or point at a manual binary.
 const CANCEL_OFFER_MS = 10000
 
+// Identifies one candidate attempt. Every DependencySource variant carries a
+// path or a url, and those are what distinguish two probes of the same binary.
+function verificationAttemptKey(event: WarmupProgressEvent): string {
+	const source = event.source
+	if (!source) return event.binary
+	const detail = 'path' in source ? source.path : 'url' in source ? source.url : ''
+	return `${event.binary}:${source.kind}:${detail}`
+}
+
 function formatBytes(bytes: number): string {
 	if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
 	return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
@@ -36,7 +46,7 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 	const {t} = useTranslation()
 	const [minPassed, setMinPassed] = useState(false)
 	const [gone, setGone] = useState(false)
-	const [slowVerifyFor, setSlowVerifyFor] = useState<DependencyId | null>(null)
+	const [slowVerifyFor, setSlowVerifyFor] = useState<string | null>(null)
 	const [cancelOffered, setCancelOffered] = useState(false)
 	useEffect(() => {
 		const timer = setTimeout(() => setMinPassed(true), MIN_MS)
@@ -61,16 +71,22 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 		return {activeEntry, verifyingEntry, totalDownloaded, totalBytes, percent}
 	}, [warmupProgress])
 
-	// Recorded against the binary it belongs to rather than as a bare flag, so
-	// finishing one check or moving to the next clears the hint by derivation
-	// instead of a reset that would re-render every time verification ends.
-	const verifyingBinary = verifyingEntry?.binary ?? null
+	// Recorded against the attempt it belongs to rather than as a bare flag, so
+	// the hint clears by derivation instead of a reset that would re-render every
+	// time verification ends.
+	//
+	// The key has to include the source, not just the binary: resolving yt-dlp
+	// probes several candidates in a row, all reporting binary 'yt-dlp'. Keyed on
+	// the id alone, a slow managed probe would leave the hint armed, and the next
+	// candidate — a Homebrew yt-dlp answering in 30ms — would flash it on screen
+	// before it had waited for anything.
+	const verifyingKey = verifyingEntry ? verificationAttemptKey(verifyingEntry) : null
 	useEffect(() => {
-		if (!verifyingBinary) return undefined
-		const timer = setTimeout(() => setSlowVerifyFor(verifyingBinary), SLOW_VERIFY_HINT_MS)
+		if (!verifyingKey) return undefined
+		const timer = setTimeout(() => setSlowVerifyFor(verifyingKey), SLOW_VERIFY_HINT_MS)
 		return () => clearTimeout(timer)
-	}, [verifyingBinary])
-	const slowVerify = verifyingBinary !== null && slowVerifyFor === verifyingBinary
+	}, [verifyingKey])
+	const slowVerify = verifyingKey !== null && slowVerifyFor === verifyingKey
 
 	if (gone) return null
 
@@ -139,9 +155,9 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 					!blocked && <p className="splash-name">{t('splash.warmup')}</p>
 				)}
 				{showCancel && (
-					<button type="button" className="splash-cancel" data-testid="splash-cancel" onClick={() => void onCancel?.()}>
+					<Button type="button" variant="link" size="sm" className="splash-cancel" data-testid="splash-cancel" onClick={() => void onCancel?.()}>
 						{t('splash.cancel')}
-					</button>
+					</Button>
 				)}
 				{blocked && warmupDiagnostics && <RepairPanel diagnostics={warmupDiagnostics} blocking={warmupBlocking} />}
 				{blocked && !warmupDiagnostics && <p className="splash-name">{t('splash.warmupFailedNoDiag')}</p>}
