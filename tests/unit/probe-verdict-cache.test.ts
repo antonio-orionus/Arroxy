@@ -5,7 +5,7 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {beforeEach, describe, expect, it} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {ProbeVerdictCache} from '@main/services/binary/ProbeVerdictCache.js'
 
 let root = ''
@@ -87,5 +87,37 @@ describe('ProbeVerdictCache', () => {
 
 		await expect(cache.record(path.join(root, 'absent'), '2026.08.27')).resolves.toBeUndefined()
 		await expect(cache.get(path.join(root, 'absent'))).resolves.toBeNull()
+	})
+})
+
+describe('ProbeVerdictCache write ordering', () => {
+	// invalidateResolved() fires clear() without awaiting it, then immediately
+	// re-resolves. A slow unlink would otherwise land after the record that
+	// follows and delete the verdict the re-probe just paid ~30s for — losing the
+	// memo on exactly the path that most needs it. The delay here forces the
+	// interleaving that real disk latency only sometimes produces.
+	it('does not let a slow fire-and-forget clear swallow the verdict recorded after it', async () => {
+		const realRm = fs.rm.bind(fs)
+		const rm = vi.spyOn(fs, 'rm').mockImplementation(async (...args: Parameters<typeof fs.rm>) => {
+			await new Promise(resolve => setTimeout(resolve, 50))
+			return realRm(...args)
+		})
+
+		try {
+			const cache = new ProbeVerdictCache(root)
+			await cache.record(binaryPath, 'stale')
+
+			void cache.clear()
+			await cache.record(binaryPath, '2026.08.27')
+
+			// Outlast the delayed unlink, so the assertion sees the final state of
+			// disk rather than a window before the clear has landed.
+			await new Promise(resolve => setTimeout(resolve, 120))
+
+			expect(rm).toHaveBeenCalled()
+			await expect(new ProbeVerdictCache(root).get(binaryPath)).resolves.toBe('2026.08.27')
+		} finally {
+			rm.mockRestore()
+		}
 	})
 })

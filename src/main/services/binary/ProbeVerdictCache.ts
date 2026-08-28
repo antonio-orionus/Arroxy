@@ -42,6 +42,12 @@ export class ProbeVerdictCache implements ProbeVerdictStore {
 
 	private loaded: VerdictFile | null = null
 
+	// clear() is fire-and-forget from invalidateResolved(), so its unlink can
+	// still be in flight when the re-probe it triggered succeeds and records. Left
+	// unserialized, that unlink lands last and eats the verdict we just paid ~30s
+	// to establish. Disk work is chained so it always applies in call order.
+	private pending: Promise<void> = Promise.resolve()
+
 	constructor(cacheDir: string) {
 		this.filePath = path.join(cacheDir, 'probe-verdicts.json')
 	}
@@ -63,14 +69,16 @@ export class ProbeVerdictCache implements ProbeVerdictStore {
 	}
 
 	async record(binaryPath: string, versionOutput: string): Promise<void> {
-		try {
-			const stat = await fsPromises.stat(binaryPath)
-			const verdicts = await this.load()
-			verdicts[binaryPath] = {size: stat.size, mtimeMs: stat.mtimeMs, versionOutput, recordedAt: new Date().toISOString()}
-			await this.persist(verdicts)
-		} catch {
-			// A memo we could not write costs a probe next launch. Never fatal.
-		}
+		return this.enqueue(async () => {
+			try {
+				const stat = await fsPromises.stat(binaryPath)
+				const verdicts = await this.load()
+				verdicts[binaryPath] = {size: stat.size, mtimeMs: stat.mtimeMs, versionOutput, recordedAt: new Date().toISOString()}
+				await this.persist(verdicts)
+			} catch {
+				// A memo we could not write costs a probe next launch. Never fatal.
+			}
+		})
 	}
 
 	// Called from BinaryManager.invalidateResolved(), which is the user's
@@ -78,12 +86,21 @@ export class ProbeVerdictCache implements ProbeVerdictStore {
 	// real re-probe, otherwise a binary the OS started blocking after we recorded
 	// it would have no way back.
 	async clear(): Promise<void> {
+		// Set before the first await so a resolve starting in the same tick already
+		// sees an empty store, whether or not the unlink has landed.
 		this.loaded = {}
-		try {
-			await fsPromises.rm(this.filePath, {force: true})
-		} catch {
-			// Nothing to clear.
-		}
+		return this.enqueue(async () => {
+			try {
+				await fsPromises.rm(this.filePath, {force: true})
+			} catch {
+				// Nothing to clear.
+			}
+		})
+	}
+
+	private enqueue(op: () => Promise<void>): Promise<void> {
+		this.pending = this.pending.then(op, op)
+		return this.pending
 	}
 
 	private async load(): Promise<VerdictFile> {
