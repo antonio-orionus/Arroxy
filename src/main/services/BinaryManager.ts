@@ -224,10 +224,18 @@ export class BinaryManager {
 			return {kind: 'accepted', diagnostic: this.acceptCandidate(id, source, candidatePath, attempts, probe.output, onProgress)}
 		}
 
+		// A cancellation is not a verdict on this candidate. Recorded as an attempt
+		// it reaches the repair panel as kind 'timeout', which renders ARX-008 and
+		// tells the user the probe timed out — at the user who just pressed Cancel.
+		// Same reason the materialize catch above returns early on abort.
+		if (probe.cancelled) {
+			logger.info(`${id} probe cancelled`, {source, path: candidatePath, elapsedMs})
+			return {kind: 'cancelled'}
+		}
+
 		attempts.push(makeAttempt(source, probe.failure))
 		onProgress?.({binary: id, phase: 'failed', source, failureKind: probe.failure.kind})
 		logger.warn(`${id} probe failed`, {source, path: candidatePath, args, timeoutMs, elapsedMs, budget, failureKind: probe.failure.kind, message: probe.failure.message})
-		if (probe.cancelled) return {kind: 'cancelled'}
 		const environmentFatal = isEnvironmentFatalFailure(probe.failure.kind, source)
 		trackBinaryProbeAnomaly(id, source, environmentFatal ? 'environment_fatal' : 'failed', elapsedMs, timeoutMs, attemptIndex, probe.failure)
 		return environmentFatal ? {kind: 'environmentFatal'} : {kind: 'rejected'}

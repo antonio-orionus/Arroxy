@@ -131,6 +131,26 @@ describe('BinaryManager probe cascade', () => {
 		expect(materialize).toHaveBeenCalledTimes(1)
 	})
 
+	// Cancelling used to be recorded as a failed attempt carrying kind 'timeout',
+	// which the repair panel renders as ARX-008 — diagnosing a timeout at the user
+	// who had just pressed Cancel. Now that warmup offers that button during a long
+	// probe, the state behind it has to be honest.
+	it('does not diagnose a timeout at a user who cancelled', async () => {
+		const controller = new AbortController()
+		const materialize = vi.fn(async (candidate: RuntimeBinaryManifestEntry) => ({executablePath: `/managed/${candidate.channel}`, cacheKey: candidate.channel, metadataPath: '/metadata.json', manifest: candidate}))
+		const mgr = await makeMgr([entry({channel: 'nightly'}), entry({channel: 'stable'})], materialize)
+		vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<ProbeOutcome>}, 'probeAndAccept').mockImplementation(async () => {
+			controller.abort()
+			return {kind: 'cancelled'}
+		})
+
+		const diag = await mgr.resolveYtDlp({signal: controller.signal})
+
+		expect(diag.state).toBe('failed')
+		expect(diag.failure).toBeUndefined()
+		expect(diag.attempts.some(attempt => attempt.failure?.kind === 'timeout')).toBe(false)
+	})
+
 	// materialize() rejects on abort too. Without unwinding there, the chain kept
 	// materializing entries the user had already asked us to stop and appended a
 	// fabricated download failure for each.
