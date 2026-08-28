@@ -8,6 +8,35 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.7
+
+A fixes release. The big one: pasting a playlist link into the bulk list no longer names every file after the link instead of the track.
+
+## Highlights
+
+### Playlist Links In The Bulk List
+
+- Pasting a playlist, channel or search link into the bulk list now expands it into its videos, one row each, the way the main URL box already did. Before, the whole link went in as a single item and the download ran against the entire set under one name — every file came out called something like `www.youtube.com_playlist [dQw4w9WgXcQ].mp3` instead of the track title.
+- If your filename template had no `[id]` in it, this was worse than a naming problem: every video wrote to the same path, so the first one landed and the rest were quietly skipped as already downloaded. Worth checking any playlist you pulled that way against its real length.
+- Some rows really are playlists rather than videos — a channel's Playlists tab, an album shelf in YouTube Music. Those now carry a "Playlist" tag, cannot be ticked, and the list tells you to paste that link on its own to download it.
+
+### Cancelling A Download
+
+- Cancelling while a required component was still downloading took about 45 seconds to actually stop. It now stops at once. The delay was worst in exactly the situation where you would want to cancel: a connection that stalls before the download properly begins.
+
+### More YouTube Links Recognised
+
+- Live, clip and embed links — `/live/`, `/clip/`, `/embed/`, and the older `/v/` and `/e/` players — are now understood as single videos instead of falling through as unrecognised. Links copied off an embedded player on `youtube-nocookie.com` work too.
+- An embedded playlist player (`/embed/videoseries?list=...`) is correctly read as a playlist, since there is no single video behind it.
+
+### Fixes
+
+- Windows: folder names such as `COM0`, `LPT0`, `CONIN$` and `CONOUT$` were rejected as reserved device names that Windows does not actually reserve, turning ordinary names into a validation error you could not get past. The list now matches Microsoft's documented one exactly.
+- Windows: a playlist titled `CON` or `NUL` produced a folder Windows refuses to create, leaving the download nowhere to go. Reserved names are now escaped on the name's stem — `NUL_.mp4` rather than `NUL.mp4_`, which was still the null device and mangled the extension for nothing.
+- Long labels in segmented controls — quality tiers, formats, subtitle modes — could paint over the control beside them instead of wrapping, worst in languages whose words run longer than English. They now wrap and shrink to fit at any window size.
+
+---
+
 ## 0.4.6
 
 A small release with two changes you can see. If you have been putting off updating, the update popup now tells you what changed across every version you skipped instead of only the newest one.
