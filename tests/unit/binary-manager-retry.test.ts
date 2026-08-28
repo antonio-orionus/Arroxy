@@ -28,6 +28,10 @@ function materializer(run: (candidate: RuntimeBinaryManifestEntry) => Promise<st
 	return {materialize: vi.fn(async candidate => ({executablePath: await run(candidate), cacheKey: `${candidate.id}-${candidate.channel}-${candidate.provider}`, metadataPath: '/metadata.json', manifest: candidate}))}
 }
 
+// Mirrors BinaryManager's private ProbeOutcome. The chain branches on `kind`,
+// so a stub that still returns null/diagnostic would not exercise it.
+type StubProbeOutcome = {kind: 'accepted'; diagnostic: DependencyDiagnostic} | {kind: 'rejected'} | {kind: 'environmentFatal'} | {kind: 'cancelled'}
+
 async function makeMgr(options: {entries?: RuntimeBinaryManifestEntry[]; materialize?: (candidate: RuntimeBinaryManifestEntry) => Promise<string>} = {}): Promise<BinaryManager> {
 	const dir = await tempDir()
 	return new BinaryManager(dir, {runtimeBinaryIndex: indexProvider(options.entries ?? []), runtimeBinaryMaterializer: materializer(options.materialize ?? (async candidate => `/managed/${candidate.id}-${candidate.channel}-${candidate.provider}`))})
@@ -35,18 +39,18 @@ async function makeMgr(options: {entries?: RuntimeBinaryManifestEntry[]; materia
 
 function stubProbe(mgr: BinaryManager, options: {acceptSystemPath?: boolean; acceptManaged?: boolean} = {}): void {
 	const {acceptSystemPath = true, acceptManaged = true} = options
-	vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<DependencyDiagnostic | null>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
+	vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<StubProbeOutcome>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
 		if (source.kind === 'systemPath' && !acceptSystemPath) {
 			attempts.push({source, failure: {kind: 'spawn_failed', message: 'system PATH disabled for test'}})
-			return null
+			return {kind: 'rejected'}
 		}
 		if (source.kind === 'managed' && !acceptManaged) {
 			attempts.push({source, failure: {kind: 'spawn_failed', message: 'managed disabled for test'}})
-			return null
+			return {kind: 'rejected'}
 		}
 		attempts.push({source})
 		;(mgr as unknown as {resolved: Record<string, string>}).resolved[id] = candidatePath
-		return {id, state: 'runnable', source, resolvedPath: candidatePath, attempts: attempts as never}
+		return {kind: 'accepted', diagnostic: {id, state: 'runnable', source, resolvedPath: candidatePath, attempts: attempts as never}}
 	})
 }
 
@@ -140,10 +144,10 @@ describe('BinaryManager manifest resolution', () => {
 		await fs.writeFile(executablePath, 'tampered')
 		const mgr = new BinaryManager(userData, {runtimeBinaryIndex: indexProvider([]), runtimeBinaryMaterializer: materializer(async () => '/unused')})
 		const acceptedSources: DependencySource[] = []
-		vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<DependencyDiagnostic | null>}, 'probeAndAccept').mockImplementation(async (_id, source, _candidatePath, attempts) => {
+		vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<StubProbeOutcome>}, 'probeAndAccept').mockImplementation(async (_id, source, _candidatePath, attempts) => {
 			acceptedSources.push(source)
 			attempts.push({source, failure: {kind: 'spawn_failed', message: 'disabled for test'}})
-			return null
+			return {kind: 'rejected'}
 		})
 
 		await expect(mgr.ensureYtDlp()).rejects.toThrow()
@@ -168,13 +172,13 @@ describe('BinaryManager manifest resolution', () => {
 		process.env.PATH = `${temp}${path.delimiter}${originalPath ?? ''}`
 		try {
 			const mgr = await makeMgr()
-			vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<DependencyDiagnostic | null>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
+			vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<StubProbeOutcome>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
 				if (source.kind !== 'systemPath') {
 					attempts.push({source, failure: {kind: 'spawn_failed', message: 'bundled disabled for test'}})
-					return null
+					return {kind: 'rejected'}
 				}
 				attempts.push({source})
-				return {id, state: 'runnable', source, resolvedPath: candidatePath, attempts: attempts as never}
+				return {kind: 'accepted', diagnostic: {id, state: 'runnable', source, resolvedPath: candidatePath, attempts: attempts as never}}
 			})
 
 			const result = await mgr.resolveFFmpegPair()

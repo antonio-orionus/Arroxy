@@ -816,12 +816,24 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr ""
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr ""
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr ""
 
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
+msgstr ""
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr ""
+
+msgctxt "splash.verifySlow"
+msgid "First run takes longer — your system is scanning the download."
 msgstr ""
 
 msgctxt "splash.warmup"

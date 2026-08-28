@@ -819,6 +819,10 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr "Arroxyをシェア"
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr "セットアップをキャンセル"
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr "{{binary}} をダウンロード中…"
@@ -826,6 +830,14 @@ msgstr "{{binary}} をダウンロード中…"
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "やあ、おかえり!"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "{{binary}} を確認中…"
+
+msgctxt "splash.verifySlow"
+msgid "First run takes longer — your system is scanning the download."
+msgstr "初回は時間がかかります — システムがダウンロードをスキャンしています。"
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

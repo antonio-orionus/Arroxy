@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import {render, screen} from '@testing-library/react'
+import {act, fireEvent, render, screen} from '@testing-library/react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import type {DependencyDiagnostic, DependencyId, WarmupProgressEvent} from '@shared/types.js'
 import {WarmupSplash} from '@renderer/components/system/WarmupSplash.js'
@@ -17,6 +17,67 @@ const failedYtDlpDiagnostic: DependencyDiagnostic = {
 function renderBlockedSplash(): void {
 	render(<WarmupSplash initialized warmupBlocking={['yt-dlp']} warmupDiagnostics={{'yt-dlp': failedYtDlpDiagnostic} as Record<DependencyId, DependencyDiagnostic>} warmupProgress={null} showGreeting={false} />)
 }
+
+describe('WarmupSplash verification phase', () => {
+	// Before this, only 'downloading' rendered anything concrete. A probe that
+	// outlived its download left the splash frozen on "Preparing downloads…", so
+	// a resolver walking its fallback list read to the user as a restart loop:
+	// bar, silence, bar again.
+	it('names the binary it is checking instead of going quiet', () => {
+		const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing'} satisfies WarmupProgressEvent}
+
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+
+		expect(screen.getByTestId('splash-verifying')).toHaveTextContent('Checking yt-dlp')
+	})
+
+	it('lets a real download keep the foreground when both are in flight', () => {
+		const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 1024 * 1024, totalBytes: 4 * 1024 * 1024} satisfies WarmupProgressEvent, ffmpeg: {binary: 'ffmpeg', phase: 'probing'} satisfies WarmupProgressEvent}
+
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+
+		expect(screen.getByTestId('splash-overlay')).toHaveTextContent('Downloading yt-dlp')
+		expect(screen.queryByTestId('splash-verifying')).toBeNull()
+	})
+
+	it('explains the wait once checking has run long enough to look like a hang', () => {
+		vi.useFakeTimers()
+		try {
+			const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing'} satisfies WarmupProgressEvent}
+			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+
+			expect(screen.queryByTestId('splash-verify-slow')).toBeNull()
+			act(() => {
+				vi.advanceTimersByTime(6000)
+			})
+
+			expect(screen.getByTestId('splash-verify-slow')).toHaveTextContent('First run takes longer')
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	// WarmupService's own comment says the user "has no out without a Cancel
+	// button". Cancelling lands on the repair panel, which can retry or point at
+	// a manual binary.
+	it('offers a way out once warmup has taken long enough to need one', () => {
+		vi.useFakeTimers()
+		try {
+			const onCancel = vi.fn()
+			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} onCancel={onCancel} />)
+
+			expect(screen.queryByTestId('splash-cancel')).toBeNull()
+			act(() => {
+				vi.advanceTimersByTime(11000)
+			})
+			fireEvent.click(screen.getByTestId('splash-cancel'))
+
+			expect(onCancel).toHaveBeenCalledTimes(1)
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+})
 
 describe('WarmupSplash', () => {
 	afterEach(() => {
@@ -51,10 +112,12 @@ describe('WarmupSplash', () => {
 
 		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
 
-		expect(screen.getByTestId('splash-overlay')).toHaveTextContent('Preparing downloads')
 		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('Downloading ffmpeg')
 		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('MB /')
-		expect(document.querySelector('.splash-progress-bar')).not.toBeInTheDocument()
+		// The bar is back, but indeterminate — motion without a completion claim,
+		// which is the opposite of the stuck full bar this test was written for.
+		expect(document.querySelector('.splash-progress-bar')).toHaveClass('splash-progress-bar--indeterminate')
+		expect(document.querySelector('.splash-progress-bar')).not.toHaveStyle({width: '100%'})
 	})
 
 	it('shows the welcome-back greeting only when requested', () => {

@@ -47,6 +47,13 @@ async function runFailingManifestResolution(err: unknown): Promise<void> {
 	}
 }
 
+// Resolution memoizes successful probes to disk. These tests assert on the probe
+// itself, so they opt out rather than depend on whatever a previous run left in
+// the shared temp directory.
+function noProbeMemo(): {get: () => Promise<null>; record: () => Promise<void>; clear: () => Promise<void>} {
+	return {get: async () => null, record: async () => undefined, clear: async () => undefined}
+}
+
 describe('BinaryManager analytics', () => {
 	it('emits the stable ARX code for classified managed-download failures', async () => {
 		await runFailingManifestResolution(new ArtifactMaterializeError('CHECKSUM', 'checksum mismatch'))
@@ -67,18 +74,18 @@ describe('BinaryManager analytics', () => {
 	})
 
 	it('emits sanitized telemetry for binary version probe failures', async () => {
-		const mgr = new BinaryManager('/tmp/arroxy-binary-analytics')
+		const mgr = new BinaryManager('/tmp/arroxy-binary-analytics', {probeVerdicts: noProbeMemo()})
 		const attempts: DependencyAttempt[] = []
 		const source: DependencySource = {kind: 'managed', channel: 'nightly', provider: 'github', url: 'https://example.com/yt-dlp.exe'}
 
 		const diag = await (mgr as unknown as {probeAndAccept: (id: 'yt-dlp', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<unknown>}).probeAndAccept('yt-dlp', source, path.join('/tmp', 'arroxy-missing-yt-dlp.exe'), attempts)
 
-		expect(diag).toBeNull()
-		expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'failed', failure_kind: 'spawn_failed', code: 'ARX-004', source_kind: 'managed', source_channel: 'nightly', source_provider: 'github', elapsed_ms: expect.any(Number), timeout_ms: 30_000})
+		expect(diag).toEqual({kind: 'rejected'})
+		expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'failed', failure_kind: 'spawn_failed', code: 'ARX-004', source_kind: 'managed', source_channel: 'nightly', source_provider: 'github', elapsed_ms: expect.any(Number), timeout_ms: 120_000, attempt_index: 0})
 	})
 
 	it('emits sanitized telemetry for slow successful binary version probes', async () => {
-		const mgr = new BinaryManager('/tmp/arroxy-binary-analytics')
+		const mgr = new BinaryManager('/tmp/arroxy-binary-analytics', {probeVerdicts: noProbeMemo()})
 		const attempts: DependencyAttempt[] = []
 		const source: DependencySource = {kind: 'managed', channel: 'nightly', provider: 'github', url: 'https://example.com/yt-dlp'}
 		const now = vi.spyOn(Date, 'now').mockReturnValueOnce(1_000).mockReturnValueOnce(32_500)
@@ -87,8 +94,8 @@ describe('BinaryManager analytics', () => {
 		try {
 			const diag = await (mgr as unknown as {probeAndAccept: (id: 'yt-dlp', source: DependencySource, candidatePath: string, attempts: DependencyAttempt[]) => Promise<unknown>}).probeAndAccept('yt-dlp', source, ytDlpStub, attempts)
 
-			expect(diag).not.toBeNull()
-			expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'slow_success', source_kind: 'managed', source_channel: 'nightly', source_provider: 'github', elapsed_ms: 31_500, timeout_ms: 30_000})
+			expect(diag).toMatchObject({kind: 'accepted'})
+			expect(trackMain).toHaveBeenCalledWith('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'slow_success', source_kind: 'managed', source_channel: 'nightly', source_provider: 'github', elapsed_ms: 31_500, timeout_ms: 120_000, attempt_index: 0})
 		} finally {
 			now.mockRestore()
 		}

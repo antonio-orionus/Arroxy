@@ -1449,3 +1449,46 @@ body {
 	--sidebar-border: hsla(0, 0%, 100%, 0.08);
 	--sidebar-ring: hsl(220, 100%, 56%);
 }
+
+/* Warmup verification has no byte count to report, so the bar carries the fact
+   that work is still happening. Static fallback under reduced motion. */
+.splash-progress-bar--indeterminate {
+	width: 40%;
+	transition: none;
+	animation: splash-indeterminate 1.4s ease-in-out infinite;
+}
+@keyframes splash-indeterminate {
+	0% {
+		transform: translateX(-100%);
+	}
+	100% {
+		transform: translateX(250%);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.splash-progress-bar--indeterminate {
+		width: 100%;
+		animation: none;
+		opacity: 0.55;
+	}
+}
+.splash-cancel {
+	margin-top: 10px;
+	font-size: var(--text-caption);
+	line-height: var(--text-caption--line-height);
+	color: var(--muted-foreground);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	cursor: pointer;
+	background: none;
+	border: none;
+	padding: 2px 4px;
+	border-radius: 4px;
+}
+.splash-cancel:hover {
+	color: var(--foreground);
+}
+.splash-cancel:focus-visible {
+	outline: 2px solid var(--brand);
+	outline-offset: 2px;
+}

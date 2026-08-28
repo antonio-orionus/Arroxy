@@ -819,6 +819,10 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr "Arroxy شریک کړئ"
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr "تنظیم لغوه کړئ"
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr "{{binary}} ډاونلوډ کیږي…"
@@ -826,6 +830,14 @@ msgstr "{{binary}} ډاونلوډ کیږي…"
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "سلام، ښه راغلاست!"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "{{binary}} چیک کیږي…"
+
+msgctxt "splash.verifySlow"
+msgid "First run takes longer — your system is scanning the download."
+msgstr "لومړی ځل ډېر وخت نیسي — ستاسو سیسټم ښکته شوې فایل سکن کوي."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

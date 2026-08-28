@@ -3,7 +3,15 @@
 	"app": {"feedback": "Geri bildirim", "logs": "Günlükler", "feedbackNudge": "Arroxy hoşuna gidiyor mu? Senden haber almak isterim! 💬", "zoomIn": "Yakınlaştır", "zoomOut": "Uzaklaştır"},
 	"about": {"button": "Hakkında", "openTitle": "Arroxy Hakkında", "tagline": "YouTube ve 2000+ diğer site için hızlı, dost canlısı indirici.", "websiteLink": "Web sitesi", "githubLink": "GitHub", "licenseLine": "MIT Lisansı · Antonio Orionus tarafından", "thirdPartyNotices": "Üçüncü taraf bildirimlerini görüntüle"},
 	"titleBar": {"close": "Kapat", "minimize": "Simge durumuna küçült", "maximize": "Büyüt", "restore": "Geri yükle"},
-	"splash": {"greeting": "Selam, tekrar hoş geldin!", "warmup": "İndirmeler hazırlanıyor…", "downloading": "{{binary}} indiriliyor…", "warmupFailedNoDiag": "Kurulum başarısız oldu. Ayrıntılar için kurulum günlüğünü aç."},
+	"splash": {
+		"greeting": "Selam, tekrar hoş geldin!",
+		"warmup": "İndirmeler hazırlanıyor…",
+		"downloading": "{{binary}} indiriliyor…",
+		"verifying": "{{binary}} denetleniyor…",
+		"verifySlow": "İlk çalıştırma daha uzun sürer — sisteminiz indirmeyi tarıyor.",
+		"cancel": "Kurulumu iptal et",
+		"warmupFailedNoDiag": "Kurulum başarısız oldu. Ayrıntılar için kurulum günlüğünü aç."
+	},
 	"repair": {
 		"title": "Kurulum yardımına ihtiyaç duyuyor",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},

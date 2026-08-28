@@ -3,7 +3,15 @@
 	"app": {"feedback": "प्रतिक्रिया", "logs": "लॉग", "feedbackNudge": "Arroxy पसंद आ रहा है? आपकी राय सुनने को बेताब हूँ! 💬", "zoomIn": "ज़ूम इन", "zoomOut": "ज़ूम आउट"},
 	"about": {"button": "जानकारी", "openTitle": "Arroxy के बारे में", "tagline": "YouTube और 2000+ अन्य साइटों के लिए तेज़ और सरल डाउनलोडर।", "websiteLink": "वेबसाइट", "githubLink": "GitHub", "licenseLine": "MIT लाइसेंस · Antonio Orionus द्वारा", "thirdPartyNotices": "तृतीय-पक्ष सूचनाएँ देखें"},
 	"titleBar": {"close": "बंद करें", "minimize": "छोटा करें", "maximize": "बड़ा करें", "restore": "पुनर्स्थापित करें"},
-	"splash": {"greeting": "अरे, फिर से स्वागत है!", "warmup": "डाउनलोड तैयार किए जा रहे हैं…", "downloading": "{{binary}} डाउनलोड हो रहा है…", "warmupFailedNoDiag": "सेटअप विफल हो गया। विवरण के लिए सेटअप लॉग खोलें।"},
+	"splash": {
+		"greeting": "अरे, फिर से स्वागत है!",
+		"warmup": "डाउनलोड तैयार किए जा रहे हैं…",
+		"downloading": "{{binary}} डाउनलोड हो रहा है…",
+		"verifying": "{{binary}} की जाँच हो रही है…",
+		"verifySlow": "पहली बार चलने में अधिक समय लगता है — आपका सिस्टम डाउनलोड को स्कैन कर रहा है।",
+		"cancel": "सेटअप रद्द करें",
+		"warmupFailedNoDiag": "सेटअप विफल हो गया। विवरण के लिए सेटअप लॉग खोलें।"
+	},
 	"repair": {
 		"title": "सेटअप को आपकी मदद चाहिए",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},

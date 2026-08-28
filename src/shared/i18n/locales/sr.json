@@ -11,7 +11,15 @@
 		"thirdPartyNotices": "Прикажи обавештења о компонентама трећих страна"
 	},
 	"titleBar": {"close": "Затвори", "minimize": "Минимизуј", "maximize": "Максимизуј", "restore": "Врати"},
-	"splash": {"greeting": "Добродошао/ла назад!", "warmup": "Припрема преузимања…", "downloading": "Преузимање {{binary}}…", "warmupFailedNoDiag": "Подешавање није успело. Отвори дневник подешавања за детаље."},
+	"splash": {
+		"greeting": "Добродошао/ла назад!",
+		"warmup": "Припрема преузимања…",
+		"downloading": "Преузимање {{binary}}…",
+		"verifying": "Провера {{binary}}…",
+		"verifySlow": "Прво покретање траје дуже — систем скенира преузету датотеку.",
+		"cancel": "Откажи подешавање",
+		"warmupFailedNoDiag": "Подешавање није успело. Отвори дневник подешавања за детаље."
+	},
 	"repair": {
 		"title": "Подешавању је потребна твоја помоћ",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},

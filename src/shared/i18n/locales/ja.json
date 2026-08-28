@@ -3,7 +3,15 @@
 	"app": {"feedback": "フィードバック", "logs": "ログ", "feedbackNudge": "Arroxyを楽しんでくれてる?ぜひ感想を聞かせて! 💬", "zoomIn": "拡大", "zoomOut": "縮小"},
 	"about": {"button": "情報", "openTitle": "Arroxy について", "tagline": "YouTube と 2000 以上の他サイトに対応する、高速で使いやすいダウンローダー。", "websiteLink": "公式サイト", "githubLink": "GitHub", "licenseLine": "MIT ライセンス · 作者 Antonio Orionus", "thirdPartyNotices": "サードパーティ通知を表示"},
 	"titleBar": {"close": "閉じる", "minimize": "最小化", "maximize": "最大化", "restore": "元に戻す"},
-	"splash": {"greeting": "やあ、おかえり!", "warmup": "ダウンロードを準備中…", "downloading": "{{binary}} をダウンロード中…", "warmupFailedNoDiag": "セットアップに失敗しました。セットアップログを開いて詳細を確認してください。"},
+	"splash": {
+		"greeting": "やあ、おかえり!",
+		"warmup": "ダウンロードを準備中…",
+		"downloading": "{{binary}} をダウンロード中…",
+		"verifying": "{{binary}} を確認中…",
+		"verifySlow": "初回は時間がかかります — システムがダウンロードをスキャンしています。",
+		"cancel": "セットアップをキャンセル",
+		"warmupFailedNoDiag": "セットアップに失敗しました。セットアップログを開いて詳細を確認してください。"
+	},
 	"repair": {
 		"title": "セットアップにサポートが必要です",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},

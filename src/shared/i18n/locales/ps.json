@@ -3,7 +3,15 @@
 	"app": {"feedback": "نظر", "logs": "لاګونه", "feedbackNudge": "ایا Arroxy خوند درکوي؟ ستاسو د اورولو شوق لرم! 💬", "zoomIn": "لویول", "zoomOut": "کوچنیول"},
 	"about": {"button": "د اړوند", "openTitle": "د Arroxy اړوند", "tagline": "د YouTube او 2000+ نورو سایټونو لپاره چټک او اسانه ډاونلوډر.", "websiteLink": "ویب پاڼه", "githubLink": "GitHub", "licenseLine": "MIT جواز · د Antonio Orionus لخوا", "thirdPartyNotices": "د دریم ډلې خبرتیاوې وګورئ"},
 	"titleBar": {"close": "تړل", "minimize": "کوچنی کول", "maximize": "لوی کول", "restore": "بیرته راوستل"},
-	"splash": {"greeting": "سلام، ښه راغلاست!", "warmup": "ډاونلوډونه چمتو کېږي…", "downloading": "{{binary}} ډاونلوډ کیږي…", "warmupFailedNoDiag": "نصب ناکام شو. د توضیحاتو لپاره د نصب لاګ خلاص کړئ."},
+	"splash": {
+		"greeting": "سلام، ښه راغلاست!",
+		"warmup": "ډاونلوډونه چمتو کېږي…",
+		"downloading": "{{binary}} ډاونلوډ کیږي…",
+		"verifying": "{{binary}} چیک کیږي…",
+		"verifySlow": "لومړی ځل ډېر وخت نیسي — ستاسو سیسټم ښکته شوې فایل سکن کوي.",
+		"cancel": "تنظیم لغوه کړئ",
+		"warmupFailedNoDiag": "نصب ناکام شو. د توضیحاتو لپاره د نصب لاګ خلاص کړئ."
+	},
 	"repair": {
 		"title": "نصب ستاسو مرستې ته اړتیا لري",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},

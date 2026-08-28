@@ -819,6 +819,10 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr "Shiriki Arroxy"
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr "Ghairi usanidi"
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr "Inapakua {{binary}}…"
@@ -826,6 +830,14 @@ msgstr "Inapakua {{binary}}…"
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Hujambo, karibu tena!"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Inakagua {{binary}}…"
+
+msgctxt "splash.verifySlow"
+msgid "First run takes longer — your system is scanning the download."
+msgstr "Uendeshaji wa kwanza huchukua muda mrefu — mfumo wako unachanganua upakuaji."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

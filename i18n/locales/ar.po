@@ -819,6 +819,10 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr "مشاركة Arroxy"
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr "إلغاء الإعداد"
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr "جارٍ تنزيل {{binary}}…"
@@ -826,6 +830,14 @@ msgstr "جارٍ تنزيل {{binary}}…"
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "مرحباً، أهلاً بعودتك!"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "جارٍ فحص {{binary}}…"
+
+msgctxt "splash.verifySlow"
+msgid "First run takes longer — your system is scanning the download."
+msgstr "التشغيل الأول يستغرق وقتًا أطول — نظامك يفحص الملف الذي جرى تنزيله."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

@@ -11,7 +11,15 @@
 		"thirdPartyNotices": "Uchinchi tomon bildirishnomalarini ko'rish"
 	},
 	"titleBar": {"close": "Yopish", "minimize": "Kichraytirish", "maximize": "Kattalashtirish", "restore": "Tiklash"},
-	"splash": {"greeting": "Xush kelibsiz, qayta keldingiz!", "warmup": "Yuklab olishlar tayyorlanmoqda…", "downloading": "{{binary}} yuklanmoqda…", "warmupFailedNoDiag": "Sozlash muvaffaqiyatsiz yakunlandi. Tafsilotlar uchun sozlash jurnalini oching."},
+	"splash": {
+		"greeting": "Xush kelibsiz, qayta keldingiz!",
+		"warmup": "Yuklab olishlar tayyorlanmoqda…",
+		"downloading": "{{binary}} yuklanmoqda…",
+		"verifying": "{{binary}} tekshirilmoqda…",
+		"verifySlow": "Birinchi ishga tushirish uzoqroq davom etadi — tizimingiz yuklamani tekshirmoqda.",
+		"cancel": "Sozlashni bekor qilish",
+		"warmupFailedNoDiag": "Sozlash muvaffaqiyatsiz yakunlandi. Tafsilotlar uchun sozlash jurnalini oching."
+	},
 	"repair": {
 		"title": "Sozlash sizning yordamingizga muhtoj",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},

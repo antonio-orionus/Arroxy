@@ -3,7 +3,15 @@
 	"app": {"feedback": "ملاحظات", "logs": "السجلات", "feedbackNudge": "هل تستمتع بـ Arroxy؟ يسعدني سماع رأيك! 💬", "zoomIn": "تكبير", "zoomOut": "تصغير"},
 	"about": {"button": "حول", "openTitle": "حول Arroxy", "tagline": "محمّل سريع وسهل الاستخدام لـ YouTube وأكثر من 2000 موقع آخر.", "websiteLink": "موقع الويب", "githubLink": "GitHub", "licenseLine": "ترخيص MIT · بواسطة Antonio Orionus", "thirdPartyNotices": "عرض إشعارات الطرف الثالث"},
 	"titleBar": {"close": "إغلاق", "minimize": "تصغير", "maximize": "تكبير", "restore": "استعادة"},
-	"splash": {"greeting": "مرحباً، أهلاً بعودتك!", "warmup": "جارٍ تحضير التنزيلات…", "downloading": "جارٍ تنزيل {{binary}}…", "warmupFailedNoDiag": "فشل الإعداد. افتح سجل الإعداد للاطلاع على التفاصيل."},
+	"splash": {
+		"greeting": "مرحباً، أهلاً بعودتك!",
+		"warmup": "جارٍ تحضير التنزيلات…",
+		"downloading": "جارٍ تنزيل {{binary}}…",
+		"verifying": "جارٍ فحص {{binary}}…",
+		"verifySlow": "التشغيل الأول يستغرق وقتًا أطول — نظامك يفحص الملف الذي جرى تنزيله.",
+		"cancel": "إلغاء الإعداد",
+		"warmupFailedNoDiag": "فشل الإعداد. افتح سجل الإعداد للاطلاع على التفاصيل."
+	},
 	"repair": {
 		"title": "الإعداد يحتاج مساعدتك",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},

@@ -3,7 +3,15 @@
 	"app": {"feedback": "Masukan", "logs": "Log", "feedbackNudge": "Menikmati Arroxy? Saya ingin mendengar pendapat Anda! 💬", "zoomIn": "Perbesar", "zoomOut": "Perkecil"},
 	"about": {"button": "Tentang", "openTitle": "Tentang Arroxy", "tagline": "Pengunduh yang cepat dan ramah untuk YouTube dan 2000+ situs lainnya.", "websiteLink": "Situs web", "githubLink": "GitHub", "licenseLine": "Lisensi MIT · oleh Antonio Orionus", "thirdPartyNotices": "Lihat pemberitahuan pihak ketiga"},
 	"titleBar": {"close": "Menutup", "minimize": "Memperkecil", "maximize": "Maksimalkan", "restore": "Memulihkan"},
-	"splash": {"greeting": "Hei, selamat datang kembali!", "warmup": "Mempersiapkan unduhan…", "downloading": "Mengunduh {{binary}}…", "warmupFailedNoDiag": "Penyiapan gagal. Buka log pengaturan untuk mengetahui detailnya."},
+	"splash": {
+		"greeting": "Hei, selamat datang kembali!",
+		"warmup": "Mempersiapkan unduhan…",
+		"downloading": "Mengunduh {{binary}}…",
+		"verifying": "Memeriksa {{binary}}…",
+		"verifySlow": "Menjalankan pertama kali lebih lama — sistem Anda sedang memindai unduhan.",
+		"cancel": "Batalkan penyiapan",
+		"warmupFailedNoDiag": "Penyiapan gagal. Buka log pengaturan untuk mengetahui detailnya."
+	},
 	"repair": {
 		"title": "Penyiapan membutuhkan bantuan Anda",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "penyelidikan FF"},

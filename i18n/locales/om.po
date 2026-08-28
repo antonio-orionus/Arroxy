@@ -819,6 +819,10 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr "Arroxy Qoodi"
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr "Qindaa'ina haquu"
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr "{{binary}} buufatamaa jira…"
@@ -826,6 +830,14 @@ msgstr "{{binary}} buufatamaa jira…"
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Baga nagaan deebitee!"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "{{binary}} qoratamaa jira…"
+
+msgctxt "splash.verifySlow"
+msgid "First run takes longer — your system is scanning the download."
+msgstr "Yaalii jalqabaa yeroo dheeraa fudhata — sirni kee faayilii buufame sakatta'aa jira."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

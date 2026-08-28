@@ -819,6 +819,10 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr "Поділитися Arroxy"
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr "Скасувати налаштування"
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr "Завантаження {{binary}}…"
@@ -826,6 +830,14 @@ msgstr "Завантаження {{binary}}…"
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Привіт, з поверненням!"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Перевірка {{binary}}…"
+
+msgctxt "splash.verifySlow"
+msgid "First run takes longer — your system is scanning the download."
+msgstr "Перший запуск триває довше — система перевіряє завантажений файл."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

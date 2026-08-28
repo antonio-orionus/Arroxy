@@ -88,7 +88,7 @@ describe('allowlist validation', () => {
 
 	it('accepts sanitized binary probe anomaly props', () => {
 		setupAnalytics(undefined, undefined, true, 'install-id-test')
-		expect(() => trackMain('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'failed', failure_kind: 'timeout', code: 'ARX-008', source_kind: 'managed', source_channel: 'nightly', source_provider: 'github', elapsed_ms: 30_000, timeout_ms: 30_000})).not.toThrow()
+		expect(() => trackMain('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'failed', failure_kind: 'timeout', code: 'ARX-008', source_kind: 'managed', source_channel: 'nightly', source_provider: 'github', elapsed_ms: 30_000, timeout_ms: 30_000, attempt_index: 1})).not.toThrow()
 		expect(() => trackMain('binary_probe_anomaly', {binary: 'ffmpeg', outcome: 'slow_success', source_kind: 'managed', source_channel: 'default', elapsed_ms: 31_000, timeout_ms: 30_000})).not.toThrow()
 		expect(() => trackMain('binary_probe_anomaly', {binary: 'ytdlp', outcome: 'failed', path: 'C:\\Users\\Alice\\yt-dlp.exe'} as any)).toThrow(/prop "path" not allowed/)
 	})

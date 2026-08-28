@@ -819,6 +819,10 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr "Arroxy ni ulashing"
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr "Sozlashni bekor qilish"
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr "{{binary}} yuklanmoqda…"
@@ -826,6 +830,14 @@ msgstr "{{binary}} yuklanmoqda…"
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Xush kelibsiz, qayta keldingiz!"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "{{binary}} tekshirilmoqda…"
+
+msgctxt "splash.verifySlow"
+msgid "First run takes longer — your system is scanning the download."
+msgstr "Birinchi ishga tushirish uzoqroq davom etadi — tizimingiz yuklamani tekshirmoqda."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"
