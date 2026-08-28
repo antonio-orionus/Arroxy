@@ -196,6 +196,46 @@ test('Electron true playlist URL queues entries and writes an ordered M3U', asyn
 	})
 })
 
+// The bug this branch exists to fix, at the layer that would have caught it.
+// A playlist URL pasted into the bulk list used to become one row, and a row is
+// one job carrying one filename bound before it runs — so yt-dlp expanded the
+// whole playlist under a single name derived from the URL itself. Unit and
+// jsdom coverage cannot see that: the name is only wrong once it is on disk.
+test('Electron bulk list expands a pasted playlist URL instead of queueing it whole', async () => {
+	test.setTimeout(240_000)
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-bulk-playlist-user-', outputPrefix: 'arroxy-fixture-bulk-playlist-out-'}, async ({app, page, outputDir, urls, files}) => {
+		await startBulkFromClipboard(page, app, urls.playlist())
+		await expect(page.locator('[data-testid="bulk-url-valid-count"]')).toContainText('1')
+		await page.locator('[data-testid="bulk-url-confirm"]').click()
+
+		// One pasted URL, but one row per entry. A single row here is the bug.
+		await expect(page.locator('[data-testid="step-playlist-items"]')).toBeVisible({timeout: 90_000})
+		await expect(page.locator('[data-testid^="playlist-item-row-"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 90_000})
+
+		await clickContinue(page)
+		await expect(page.locator('[data-testid="step-playlist-presets"]')).toBeVisible()
+		await page.getByRole('button', {name: /skip to confirm/i}).click()
+		await expect(page.locator('[data-testid="step-confirm"]')).toBeVisible()
+		await expect(page.locator('[data-testid="confirm-items"]')).toContainText(String(FIXTURE_PLAYLIST_VIDEO_IDS.length))
+		await page.locator('[data-testid="btn-add-to-queue"]').click()
+
+		await openQueueTab(page)
+		await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 30_000})
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 200_000})
+
+		// The real oracle: the names on disk. Every entry must carry its own
+		// title and its own id, and nothing may be named after the URL.
+		const names = files.mediaFiles('mp4', outputDir)
+		expect(names).toHaveLength(FIXTURE_PLAYLIST_VIDEO_IDS.length)
+		expect(names.filter(name => name.includes('www.youtube.com') || name.includes('_playlist'))).toEqual([])
+		for (const videoId of FIXTURE_PLAYLIST_VIDEO_IDS) {
+			expect(names.some(name => name.includes(`[${videoId}]`))).toBe(true)
+		}
+		expect(new Set(names).size).toBe(names.length)
+	})
+})
+
 test('Electron bulk metadata concurrency and back/next navigation reach completed queue files', async () => {
 	test.setTimeout(240_000)
 
