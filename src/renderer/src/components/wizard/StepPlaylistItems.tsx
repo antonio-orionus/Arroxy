@@ -5,6 +5,7 @@ import {FolderCheck, FolderSearch, Info, Layers, Trash2, X} from 'lucide-react'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
+import {cn} from '@renderer/lib/utils.js'
 import {Checkbox} from '../ui/checkbox.js'
 import {Input} from '../ui/input.js'
 import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
@@ -159,6 +160,9 @@ export function StepPlaylistItems(): ReactNode {
 	const removedSet = useMemo(() => new Set(removedPlaylistItemIds), [removedPlaylistItemIds])
 	const visibleItems = useMemo(() => playlistItems.filter(entry => !removedSet.has(entry.id)), [playlistItems, removedSet])
 	const allRemoved = removedPlaylistItemIds.length > 0 && visibleItems.length === 0
+	// Rows that are themselves playlists: visible but not downloadable, so the
+	// list needs to say why rather than leaving three dead checkboxes unexplained.
+	const nestedPlaylistCount = useMemo(() => visibleItems.filter(entry => entry.isContainer === true).length, [visibleItems])
 	// Hoisted once per render instead of `.includes` inside the per-row render
 	// loop / removalTargets — at the design's 1000-item target, an `.includes`
 	// call per visible row against a selection that can itself be 1000 ids long
@@ -369,6 +373,13 @@ export function StepPlaylistItems(): ReactNode {
 							</Alert>
 						)}
 
+						{nestedPlaylistCount > 0 && (
+							<Alert variant="info" className="flex items-start gap-3" data-testid="nested-playlist-hint">
+								<Info className="mt-0.5 size-4 shrink-0 text-sky-500" />
+								<AlertDescription className="min-w-0 flex-1 break-words">{t('wizard.playlist.nestedPlaylistHint', {count: nestedPlaylistCount})}</AlertDescription>
+							</Alert>
+						)}
+
 						{allRemoved ? (
 							<Empty className="flex-1 py-10" data-testid="playlist-items-empty">
 								<EmptyHeader>
@@ -383,6 +394,9 @@ export function StepPlaylistItems(): ReactNode {
 										{virtualizer.getVirtualItems().map(virtualRow => {
 											const entry = visibleItems[virtualRow.index]
 											const checked = selectedIdSet.has(entry.id)
+											// A row that is itself a playlist/channel/album: shown so the list
+											// isn't empty, but not downloadable — its URL addresses a whole set.
+											const isPlaylistRow = entry.isContainer === true
 											const isAlreadyDownloaded = !!(entry.videoId && syncedIdSet.has(entry.videoId))
 											const bulkRowStatus = isBulk ? bulkMetadataById[entry.id] : undefined
 											const bulkRowStatusKey = bulkRowStatus === 'pending' ? 'wizard.playlist.bulkRowWaiting' : bulkRowStatus === 'resolving' ? 'wizard.playlist.bulkRowResolving' : bulkRowStatus === 'failed' ? 'wizard.playlist.bulkRowFailed' : null
@@ -403,7 +417,8 @@ export function StepPlaylistItems(): ReactNode {
 																data-testid={`playlist-item-row-${entry.id}`}
 																ref={virtualizer.measureElement}
 																style={{position: 'absolute', top: virtualRow.start, left: 0, right: 0}}
-																className="flex items-center gap-2 px-3 py-2 hover:bg-muted/50 cursor-pointer"
+																aria-disabled={isPlaylistRow}
+																className={cn('flex items-center gap-2 px-3 py-2', isPlaylistRow ? 'cursor-default opacity-70' : 'cursor-pointer hover:bg-muted/50')}
 																onClick={() => setPlaylistItemSelected(entry.id, !checked)}
 																onKeyDown={e => {
 																	if (e.key === ' ' || e.key === 'Enter') {
@@ -412,7 +427,7 @@ export function StepPlaylistItems(): ReactNode {
 																	}
 																}}
 															>
-																<Checkbox checked={checked} onCheckedChange={v => setPlaylistItemSelected(entry.id, !!v)} onClick={e => e.stopPropagation()} />
+																<Checkbox checked={checked} disabled={isPlaylistRow} onCheckedChange={v => setPlaylistItemSelected(entry.id, !!v)} onClick={e => e.stopPropagation()} />
 																{hasAnyThumbnail ? entry.thumbnail ? <img src={entry.thumbnail} alt={t('wizard.playlist.thumbnailAlt')} referrerPolicy="no-referrer" className="h-8 w-[56px] shrink-0 rounded-sm object-cover" loading="lazy" /> : <div className="h-8 w-[56px] shrink-0 rounded-sm bg-muted" /> : null}
 																<span className="min-w-0 flex-1">
 																	<span className="block truncate text-sm">{entry.title}</span>
@@ -423,7 +438,16 @@ export function StepPlaylistItems(): ReactNode {
 																		</span>
 																	) : null}
 																</span>
-																{isAlreadyDownloaded && <span className="shrink-0 rounded-sm bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{t('wizard.playlist.alreadyDownloaded')}</span>}
+																{isPlaylistRow && (
+																	<Badge variant="secondary" className="shrink-0 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+																		{t('wizard.playlist.nestedPlaylistBadge')}
+																	</Badge>
+																)}
+																{isAlreadyDownloaded && (
+																	<Badge variant="secondary" className="shrink-0 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+																		{t('wizard.playlist.alreadyDownloaded')}
+																	</Badge>
+																)}
 																<span className="shrink-0 text-xs text-muted-foreground">{formatEntryDuration(entry.duration, liveLabel)}</span>
 															</div>
 														}

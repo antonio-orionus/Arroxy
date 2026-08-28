@@ -1,4 +1,5 @@
 import type {BulkUrlKind} from './schemas.js'
+import {isYouTubeContainerId} from './sites/youtube.js'
 
 export type UrlIntent = {kind: 'obvious-single'; url: string; site: 'youtube' | 'other'} | {kind: 'obvious-collection'; url: string; collection: 'playlist' | 'channel' | 'search'} | {kind: 'mixed'; url: string; reason: 'youtube-video-with-list'} | {kind: 'unknown'; url: string}
 
@@ -45,6 +46,15 @@ function isYouTubeChannelPath(segments: string[]): boolean {
 	return segments[0]?.startsWith('@') === true || segments[0] === 'channel' || segments[0] === 'c' || segments[0] === 'user'
 }
 
+// `music.youtube.com/browse/MPREb…` is an album and `/browse/VLPL…` a playlist,
+// but a browse URL carries no `list=` param and no recognisable path segment —
+// nothing in its shape says "collection". Left unclassified it reads as a plain
+// URL all the way to the queue, where yt-dlp expands the whole release under
+// the single filename the job carries. The id prefix is the only tell.
+function isYouTubeBrowseCollectionPath(segments: string[]): boolean {
+	return segments.length === 2 && segments[0] === 'browse' && isYouTubeContainerId(segments[1] ?? '')
+}
+
 export function classifyUrlIntent(url: string): UrlIntent {
 	const parsed = parseUrl(url)
 	if (!parsed || !isYouTubeHost(parsed.hostname)) return {kind: 'unknown', url}
@@ -57,6 +67,7 @@ export function classifyUrlIntent(url: string): UrlIntent {
 	if (hasConcreteVideo && hasList) return {kind: 'mixed', url, reason: 'youtube-video-with-list'}
 	if (segments[0] === 'results' && parsed.searchParams.has('search_query')) return {kind: 'obvious-collection', url, collection: 'search'}
 	if (isYouTubeChannelPath(segments)) return {kind: 'obvious-collection', url, collection: 'channel'}
+	if (isYouTubeBrowseCollectionPath(segments)) return {kind: 'obvious-collection', url, collection: 'playlist'}
 	if (hasList) return {kind: 'obvious-collection', url, collection: 'playlist'}
 	if (hasConcreteVideo) return {kind: 'obvious-single', url, site: 'youtube'}
 	return {kind: 'unknown', url}
@@ -68,6 +79,24 @@ export function isObviousSingleUrlIntent(intent: UrlIntent): intent is Extract<U
 
 export function isMixedUrlIntent(intent: UrlIntent): intent is Extract<UrlIntent, {kind: 'mixed'}> {
 	return intent.kind === 'mixed'
+}
+
+/**
+ * Whether this URL addresses a set of videos rather than one video.
+ *
+ * A download job always runs with `--no-playlist`, but yt-dlp defines that flag
+ * as "download only the video, if the URL refers to a video *and* a playlist" —
+ * so on a bare `/playlist?list=…`, `@channel` or `/results?search_query=…` it is
+ * inert and yt-dlp fetches every entry under the one filename the job carries.
+ * A video-with-list URL is deliberately excluded: there `--no-playlist` does
+ * exactly what it says.
+ *
+ * This is a lower bound, not a decision procedure. It reads URL shape only, so
+ * containers with no distinguishing shape (`music.youtube.com/browse/MPRE…`) read
+ * as `unknown` and pass. Those are caught at probe time instead, by id prefix.
+ */
+export function isCollectionUrl(url: string): boolean {
+	return classifyUrlIntent(url).kind === 'obvious-collection'
 }
 
 export function urlIntentHomeLabel(intent: UrlIntent): UrlIntentHomeLabel {

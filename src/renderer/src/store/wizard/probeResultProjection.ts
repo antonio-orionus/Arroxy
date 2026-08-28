@@ -1,10 +1,11 @@
 import {DEFAULTS} from '@shared/constants.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {DEFAULT_PLAYLIST_SELECTION} from '@shared/schemas.js'
-import type {AppSettings, PlaylistEntry, PlaylistSelection, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
+import type {AppSettings, BulkMetadataStatus, PlaylistEntry, PlaylistSelection, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
 import {classifyUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent} from '@shared/urlIntent.js'
 import {isYouTubeExtractor} from '@shared/ytdlp/extractorPredicates.js'
 import type {AppState, WizardStep} from '../types.js'
+import type {BulkMetadataTarget} from './bulkMetadataHydration.js'
 import {applyPreset, restoreFormatSelection, restoreSubtitleSelection} from './formatPicker.js'
 
 type CommonPrefsPatch = Pick<AppState, 'wizardSponsorBlockMode' | 'wizardSponsorBlockCategories' | 'wizardEmbedChapters' | 'wizardEmbedMetadata' | 'wizardEmbedThumbnail' | 'wizardWriteDescription' | 'wizardWriteThumbnail' | 'wizardWriteM3u'>
@@ -19,7 +20,16 @@ export interface BulkStartProjection {
 	patch: Partial<AppState>
 	allYouTubeVideos: boolean
 	playlistItems: PlaylistEntry[]
+	/** Rows still needing a metadata probe — seeded rows are already complete. */
+	metadataTargets: BulkMetadataTarget[]
 }
+
+/**
+ * Metadata already known for a bulk row, from the playlist probe that produced
+ * it. Rows expanded out of a collection URL arrive with real values, so they
+ * skip hydration entirely instead of re-probing every entry one at a time.
+ */
+export type BulkEntrySeed = Pick<PlaylistEntry, 'title' | 'thumbnail' | 'duration' | 'videoId' | 'uploader' | 'uploadDate' | 'isContainer'>
 
 function restoreCommonWizardPrefs(settings: AppSettings | null): CommonPrefsPatch {
 	return {
@@ -165,7 +175,11 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 		wizardWebpageUrl: probe.webpageUrl,
 		wizardProbeInfoJsonRef: undefined,
 		playlistItems,
-		selectedPlaylistItemIds: playlistItems.map(e => e.id),
+		// Container rows (channel/playlist/album) stay visible so an all-container
+		// result still renders a picker, but they start unselected: they cannot be
+		// downloaded, and pre-selecting them would put the wizard one click from a
+		// submission that silently drops most of what looked selected.
+		selectedPlaylistItemIds: playlistItems.filter(e => e.isContainer !== true).map(e => e.id),
 		playlistTitle: probe.playlistTitle,
 		playlistId: probe.playlistId,
 		playlistIsMultiVideo: probe.isMultiVideo,
@@ -189,19 +203,47 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 	}
 }
 
-export function projectBulkStart(urls: readonly string[], state: AppState): BulkStartProjection {
+export function projectBulkStart(urls: readonly string[], state: AppState, seeds?: ReadonlyMap<string, BulkEntrySeed>): BulkStartProjection {
 	const settings = state.settings
 	const intents = urls.map(url => classifyUrlIntent(url))
 	const allYouTubeVideos = intents.length > 0 && intents.every(isObviousSingleUrlIntent)
 	const playlistSelection: PlaylistSelection = settings?.playlist?.lastPlaylistSelection ?? DEFAULT_PLAYLIST_SELECTION
+	const metadataTargets: BulkMetadataTarget[] = []
 	const playlistItems = urls.map((url, index) => {
 		const number = index + 1
+		const id = `bulk-${number}`
 		const intent = intents[index] ?? classifyUrlIntent(url)
-		return {id: `bulk-${number}`, url, title: deriveUrlIntentLabel(url) ?? `Bulk URL ${number}`, thumbnail: '', playlistIndex: number, videoId: extractUrlIntentYouTubeVideoId(intent)}
+		const seed = seeds?.get(url)
+		if (!seed) metadataTargets.push({id, url, index})
+		// A seeded row takes the playlist probe's own title, exactly as the normal
+		// playlist path does — ProbeService's fallback chain (title → id hint →
+		// "Untitled · #N") guarantees a non-empty one, so there is nothing to fall
+		// back to here. The URL label below is only for unseeded rows, and is only
+		// ever a placeholder: hydration must replace it before the row can be
+		// downloaded, because binding a URL label into a filename template is what
+		// names every file after the URL.
+		return {
+			id,
+			url,
+			title: seed?.title ?? deriveUrlIntentLabel(url) ?? `Bulk URL ${number}`,
+			thumbnail: seed?.thumbnail ?? '',
+			playlistIndex: number,
+			videoId: seed?.videoId ?? extractUrlIntentYouTubeVideoId(intent),
+			...(seed?.duration === undefined ? {} : {duration: seed.duration}),
+			...(seed?.uploader === undefined ? {} : {uploader: seed.uploader}),
+			...(seed?.uploadDate === undefined ? {} : {uploadDate: seed.uploadDate}),
+			...(seed?.isContainer === true ? {isContainer: true as const} : {})
+		}
 	})
+	const seededCount = playlistItems.length - metadataTargets.length
+	// 'idle' means no bulk list exists. A list whose rows all arrived seeded
+	// from a collection probe has no work left, which is 'done', not 'idle' —
+	// otherwise the confirm step reads it as a list that never resolved.
+	const bulkMetadataStatus: BulkMetadataStatus = metadataTargets.length > 0 ? 'resolving' : urls.length > 0 ? 'done' : 'idle'
 	return {
 		allYouTubeVideos,
 		playlistItems,
+		metadataTargets,
 		patch: {
 			wizardStep: 'playlistItems',
 			wizardMode: 'bulk',
@@ -231,16 +273,18 @@ export function projectBulkStart(urls: readonly string[], state: AppState): Bulk
 			wizardErrorOrigin: null,
 			cookiesConfigDialogIssue: null,
 			playlistItems,
-			selectedPlaylistItemIds: playlistItems.map(entry => entry.id),
+			// A row seeded as a playlist (a collection that could not be expanded)
+			// is not downloadable, so it must not start checked.
+			selectedPlaylistItemIds: playlistItems.filter(entry => entry.isContainer !== true).map(entry => entry.id),
 			playlistTitle: 'Bulk URLs',
 			playlistId: 'bulk',
 			playlistIsMultiVideo: false,
 			playlistLikelyCapped: false,
 			playlistProbeProgress: null,
-			bulkMetadataStatus: urls.length > 0 ? 'resolving' : 'idle',
-			bulkMetadataCompleted: 0,
+			bulkMetadataStatus,
+			bulkMetadataCompleted: seededCount,
 			bulkMetadataTotal: urls.length,
-			bulkMetadataById: Object.fromEntries(playlistItems.map(entry => [entry.id, 'pending'])),
+			bulkMetadataById: Object.fromEntries(playlistItems.map(entry => [entry.id, seeds?.has(entry.url) ? 'done' : 'pending'])),
 			syncedDownloadedIds: [],
 			syncScanState: 'idle',
 			...restoreCommonWizardPrefs(settings),

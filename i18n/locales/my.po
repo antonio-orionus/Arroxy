@@ -1673,6 +1673,18 @@ msgctxt "wizard.playlist.multiProfileEntryTooltip"
 msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
 msgstr "အရည်အသွေး၊ SponsorBlock၊ ထွက်ပေါ်မည့်ဖိုင် နှင့် သိမ်းမည် တို့ကို ကျော်ပြီး — အစား အရာတစ်ခုချင်းစီအတွက် ဒေါင်းလုဒ်ပရိုဖိုင် သတ်မှတ်ပါ"
 
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "ပလေးလစ်"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "၎င်းတို့အနက် {{count}} ခုမှာ ဗီဒီယိုမဟုတ်ဘဲ ပလေးလစ် ဖြစ်သည် — ဒေါင်းလုဒ်လုပ်ရန် ၎င်း၏လင့်ခ်ကို သီးသန့်ကူးထည့်ပါ။"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "၎င်းတို့အနက် {{count}} ခုမှာ ဗီဒီယိုများမဟုတ်ဘဲ ပလေးလစ်များ ဖြစ်သည် — ဒေါင်းလုဒ်လုပ်ရန် ၎င်းတို့၏လင့်ခ်များကို တစ်ခုချင်းစီ ကူးထည့်ပါ။"
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "ဆက်လက်ရန် ဗီဒီယိုတစ်ခုအနည်းဆုံးရွေးပါ"

@@ -18,12 +18,14 @@ import {resolvePlaylistDir} from './playlistDir.js'
 import {WizardCommands, RESET_WIZARD_STATE} from './commands.js'
 import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep} from '../types.js'
 import {buildWizardStepGraph, nextWizardStep} from './wizardStepGraph.js'
-import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, hydrateBulkMetadata, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
+import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, currentBulkMetadataRunId, hydrateBulkMetadata, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
+import {expandBulkCollectionUrls, hasCollectionUrl} from './bulkCollectionExpansion.js'
+import {isSelectablePlaylistRow} from './playlistRowSelection.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
 import {rewriteYouTubeChannelRoot} from './urlIntake.js'
 import {quickDownload as runQuickDownload, quickDownloadUrls, cancelQuickDownload, retryQuickDownloadFailure, retryQuickDownloadWithCookies, retryQuickPlaylistCap} from './quickDownloadPreparation.js'
 import {resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
-import {projectBulkStart, projectPlaylistProbeResult, projectProbeFailure, projectProbeStart, projectVideoProbeResult} from './probeResultProjection.js'
+import {projectBulkStart, projectPlaylistProbeResult, projectProbeFailure, projectProbeStart, projectVideoProbeResult, type BulkEntrySeed} from './probeResultProjection.js'
 import {mixedUrlPromptPatch} from './mixedUrlPrompt.js'
 import {configuredCookiesRetryMode} from './probeErrorExperience.js'
 import {policyForUrlIntent} from './urlIntentPolicy.js'
@@ -152,6 +154,16 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 }
 
 export function createProbeOrchestratorSlice(set: SetState, get: GetState): ProbeOrchestratorSlice {
+	// Shared tail of both bulk entry paths: project the rows, then hydrate only
+	// the ones no probe has spoken for yet.
+	function startBulkRows(rows: readonly string[], seeds: ReadonlyMap<string, BulkEntrySeed> | undefined, bulkRunId: number, fromStep: WizardStep): void {
+		const projection = projectBulkStart(rows, get(), seeds)
+		set(projection.patch)
+		bulkLogger.info('Bulk URL flow started', {runId: bulkRunId, count: rows.length, selectedCount: projection.playlistItems.length, seededCount: rows.length - projection.metadataTargets.length, allYouTubeVideos: projection.allYouTubeVideos, metadataConcurrency: BULK_METADATA_CONCURRENCY})
+		void hydrateBulkMetadata(projection.metadataTargets, set, bulkRunId)
+		logStep('submitUrl', fromStep, 'playlistItems', pickWizardSnapshot(get()))
+	}
+
 	return {
 		wizardStep: RESET_WIZARD_STATE.wizardStep,
 		wizardMode: RESET_WIZARD_STATE.wizardMode,
@@ -236,12 +248,67 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			}
 			const bulkRunId = nextBulkMetadataRunId()
 			const fromStep = get().wizardStep
-			const projection = projectBulkStart(urls, get())
 
-			set(projection.patch)
-			bulkLogger.info('Bulk URL flow started', {runId: bulkRunId, count: urls.length, selectedCount: projection.playlistItems.length, allYouTubeVideos: projection.allYouTubeVideos, metadataConcurrency: BULK_METADATA_CONCURRENCY})
-			void hydrateBulkMetadata(urls, set, bulkRunId)
-			logStep('submitUrl', fromStep, 'playlistItems', pickWizardSnapshot(get()))
+			// A collection URL cannot become a row — see bulkCollectionExpansion.
+			// Expanding needs a probe, so this branch is async; the common case
+			// (a list of individual videos) stays synchronous, which is also what
+			// the UI relies on to show the list immediately.
+			if (hasCollectionUrl(urls)) {
+				// Expansion needs a probe per collection, which is seconds of work.
+				// Land on the list screen in its loading state first, or the dialog
+				// closes onto an unchanged page and the app looks hung.
+				set({
+					wizardStep: 'playlistItems',
+					wizardMode: 'bulk',
+					playlistProbeLoading: true,
+					playlistItems: [],
+					selectedPlaylistItemIds: [],
+					playlistTitle: 'Bulk URLs',
+					playlistId: 'bulk',
+					wizardError: null,
+					wizardErrorOrigin: null,
+					bulkMetadataStatus: 'resolving',
+					bulkMetadataTotal: urls.length,
+					bulkMetadataCompleted: 0,
+					bulkMetadataById: {}
+				})
+				void (async () => {
+					try {
+						const expansion = await expandBulkCollectionUrls(
+							urls,
+							input => window.appApi.downloads.probe(input),
+							get().playlistScope,
+							() => currentBulkMetadataRunId() === bulkRunId
+						)
+						if (currentBulkMetadataRunId() !== bulkRunId || expansion.aborted) return
+						bulkLogger.info('Bulk collection expansion finished', {runId: bulkRunId, inputCount: urls.length, rowCount: expansion.urls.length, droppedCount: expansion.dropped.length})
+						// Nothing downloadable came back — either every probe failed, or
+						// they succeeded and held only more playlists (a channel's
+						// Playlists tab). Both cases render as a blank or wholly disabled
+						// picker that says nothing about why, so surface the reason.
+						const downloadable = expansion.urls.filter(rowUrl => expansion.seeds.get(rowUrl)?.isContainer !== true)
+						if (downloadable.length === 0) {
+							// projectProbeFailure knows nothing about the bulk flow, so the
+							// 'resolving' set before the await has to be closed here too —
+							// otherwise the list still claims to be fetching details.
+							set({...projectProbeFailure(expansion.error ?? {kind: 'other', code: 'unknown', message: 'Could not read that playlist'}), bulkMetadataStatus: 'done'})
+							return
+						}
+						startBulkRows(expansion.urls, expansion.seeds, bulkRunId, fromStep)
+					} catch (error) {
+						// The probe bridge rejecting (rather than returning a failed
+						// Result) would otherwise leave this detached task with no store
+						// write at all, stranding the picker mid-load exactly as the
+						// superseded path used to.
+						if (currentBulkMetadataRunId() !== bulkRunId) return
+						bulkLogger.warn('Bulk collection expansion threw', {runId: bulkRunId, error: error instanceof Error ? error.message : String(error)})
+						set({...projectProbeFailure({kind: 'other', code: 'unknown', message: error instanceof Error ? error.message : String(error)}), bulkMetadataStatus: 'done'})
+					}
+				})()
+				return
+			}
+
+			startBulkRows(urls, undefined, bulkRunId, fromStep)
 		},
 
 		cancelBulkMetadata: (reason = 'queue-submit') => {
@@ -269,7 +336,15 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			}
 		},
 
-		setPlaylistItemSelected: (id, checked) => set(state => ({selectedPlaylistItemIds: checked ? (state.selectedPlaylistItemIds.includes(id) ? state.selectedPlaylistItemIds : [...state.selectedPlaylistItemIds, id]) : state.selectedPlaylistItemIds.filter(x => x !== id)})),
+		setPlaylistItemSelected: (id, checked) =>
+			set(state => {
+				// Selecting a playlist row would put the wizard one click from a
+				// submission that silently drops it, so refuse rather than accept and
+				// discard later. Unchecking always works — a row selected before the
+				// probe learned what it was must stay correctable.
+				if (checked && !isSelectablePlaylistRow(state.playlistItems.find(entry => entry.id === id))) return {}
+				return {selectedPlaylistItemIds: checked ? (state.selectedPlaylistItemIds.includes(id) ? state.selectedPlaylistItemIds : [...state.selectedPlaylistItemIds, id]) : state.selectedPlaylistItemIds.filter(x => x !== id)}
+			}),
 
 		setPlaylistScope: scope => set({playlistScope: scope}),
 
@@ -279,11 +354,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		// Both filter against removedPlaylistItemIds so a removed row can never
 		// reappear in the count — with no visible row to uncheck, the user would
-		// have no way to correct an over-count.
+		// have no way to correct an over-count. Both also skip playlist rows, for
+		// the reason in setPlaylistItemSelected.
 		selectAllPlaylistItems: () =>
 			set(state => {
 				const removed = new Set(state.removedPlaylistItemIds)
-				return {selectedPlaylistItemIds: state.playlistItems.filter(e => !removed.has(e.id)).map(e => e.id)}
+				return {selectedPlaylistItemIds: state.playlistItems.filter(e => !removed.has(e.id) && isSelectablePlaylistRow(e)).map(e => e.id)}
 			}),
 
 		selectNonePlaylistItems: () => set({selectedPlaylistItemIds: []}),
@@ -293,7 +369,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 				const lo = Math.min(from, to)
 				const hi = Math.max(from, to)
 				const removed = new Set(state.removedPlaylistItemIds)
-				const ids = state.playlistItems.flatMap(e => (e.playlistIndex >= lo && e.playlistIndex <= hi && !removed.has(e.id) ? [e.id] : []))
+				const ids = state.playlistItems.flatMap(e => (e.playlistIndex >= lo && e.playlistIndex <= hi && !removed.has(e.id) && isSelectablePlaylistRow(e) ? [e.id] : []))
 				return {selectedPlaylistItemIds: ids}
 			}),
 
@@ -383,6 +459,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			if (!target) return
 			if (state.wizardMode === 'bulk' && target === 'url' && state.bulkMetadataStatus === 'resolving') {
 				cancelBulkMetadataProbes('back-to-url', state)
+				// cancelBulkMetadataProbes only bumps the run id and aborts the
+				// in-flight probe — it owns no state. The expansion pass sets these
+				// before awaiting and returns without clearing them once superseded,
+				// so leaving them set strands the picker mid-load for the rest of
+				// the session.
+				set({playlistProbeLoading: false, playlistProbeProgress: null, bulkMetadataStatus: 'done'})
 			}
 			set({wizardStep: target, ...(target === 'subtitles' && {wizardSubtitleSkipped: false})})
 			logStep('back', state.wizardStep, target, pickWizardSnapshot(get()))

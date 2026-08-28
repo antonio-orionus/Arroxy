@@ -24,17 +24,26 @@ function youtubeHintForId(id: string): string | null {
 	return null
 }
 
-// True if this entry is a YouTube container (channel/playlist/album/mix)
-// rather than an actual video. Used to filter heterogeneous flat-playlist
-// results so the wizard's "pick videos" model isn't broken by nested entries.
-function youtubeIsNested(entry: PlaylistEntryHint): boolean {
-	const id = entry.id ?? ''
+// True if this id names a YouTube container (channel/playlist/album/mix)
+// rather than an actual video.
+//
+// Exported because two layers need the same answer from different inputs: the
+// flat-playlist filter below reads it off a probe entry, and `urlIntent` reads
+// it off a `/browse/<id>` URL — the one container shape with no other tell, and
+// the shape a bulk row would otherwise carry all the way into the queue.
+export function isYouTubeContainerId(id: string): boolean {
 	if (!id) return false
 	if (id.startsWith('UC') && id.length === 24) return true // channel
 	if (id.startsWith('VL')) return true // playlist / mix / radio
 	if (id.startsWith('MPRE')) return true // album / release
 	if (id.startsWith('MPSPPL') || id.startsWith('MPSP') || id.startsWith('MPLAUC')) return true // sections
 	return false
+}
+
+// Used to filter heterogeneous flat-playlist results so the wizard's
+// "pick videos" model isn't broken by nested entries.
+function youtubeIsNested(entry: PlaylistEntryHint): boolean {
+	return isYouTubeContainerId(entry.id ?? '')
 }
 
 export const youtubeSite: Site = {id: 'youtube', needsPotToken: true, supportsSponsorBlock: true, needsAutoCaptionDedupe: true, autoCaptionRequiresOrigSuffix: true, hintForPlaylistId: youtubeHintForId, isNestedContainer: youtubeIsNested}

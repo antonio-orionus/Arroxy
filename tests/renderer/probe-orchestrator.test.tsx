@@ -1071,3 +1071,236 @@ describe('skipSubtitles', () => {
 		expect(state.wizardStep).not.toBe('subtitles')
 	})
 })
+
+describe('bulk URL mode — collection URLs', () => {
+	// A collection URL must never become one bulk row: the job would carry a
+	// single pre-bound filename while yt-dlp downloaded the whole set under it.
+	// Bulk intake expands it first, the way Quick Download already does.
+	it('expands a playlist URL into its entries instead of queueing it whole', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().playlistItems.map(item => item.url)).toEqual(['https://youtu.be/e1', 'https://youtu.be/e2'])
+		})
+		expect(api.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: 'https://www.youtube.com/playlist?list=PLtest', playlistMode: 'playlist'}))
+		expect(useAppStore.getState().wizardMode).toBe('bulk')
+	})
+
+	it('seeds expanded rows from the playlist probe so they need no second probe', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
+		})
+		expect(useAppStore.getState().playlistItems.map(item => item.title)).toEqual(['Entry 1', 'Entry 2'])
+		expect(useAppStore.getState().playlistItems.map(item => item.videoId)).toEqual(['e1', 'e2'])
+		// One probe for the playlist, none per entry.
+		expect(api.downloads.probe).toHaveBeenCalledTimes(1)
+	})
+
+	it('keeps plain video URLs alongside an expanded playlist, in order', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockImplementation(async ({url}) => (url.includes('list=') ? ok(PLAYLIST_PROBE) : ok({...VIDEO_PROBE, title: 'Plain Video', videoId: 'plain'})))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://youtu.be/first', 'https://www.youtube.com/playlist?list=PLtest'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().playlistItems.map(item => item.url)).toEqual(['https://youtu.be/first', 'https://youtu.be/e1', 'https://youtu.be/e2'])
+		})
+	})
+
+	it('shows the list in its loading state while expansion probes run', async () => {
+		const api = buildMockAppApi()
+		// Initialised to a no-op rather than null: assignment happens inside a
+		// promise executor, which control-flow analysis cannot order, so a
+		// nullable here narrows to `never` at the call below.
+		let release = (): void => {}
+		vi.mocked(api.downloads.probe).mockImplementation(
+			async () =>
+				new Promise(resolve => {
+					release = () => resolve(ok(PLAYLIST_PROBE))
+				})
+		)
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+
+		// Synchronously, before any probe resolves: the dialog has closed, so the
+		// list screen must already be visible rather than the previous page.
+		expect(useAppStore.getState().wizardStep).toBe('playlistItems')
+		expect(useAppStore.getState().playlistProbeLoading).toBe(true)
+
+		await vi.waitFor(() => expect(api.downloads.probe).toHaveBeenCalled())
+		release()
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().playlistProbeLoading).toBe(false)
+		})
+		expect(useAppStore.getState().playlistItems).toHaveLength(2)
+	})
+
+	it('surfaces an error when every URL was a collection and none could be read', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'playlist unavailable'}))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().wizardStep).toBe('error')
+		})
+		expect(useAppStore.getState().wizardError).toMatchObject({message: 'playlist unavailable'})
+		expect(useAppStore.getState().playlistItems).toHaveLength(0)
+		expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
+	})
+
+	it('clears the loading state when the probe bridge rejects outright', async () => {
+		// A rejection rather than a failed Result left the detached expansion task
+		// with no store write at all, stranding the picker mid-load.
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockRejectedValue(new Error('bridge exploded'))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().wizardStep).toBe('error')
+		})
+		expect(useAppStore.getState().playlistProbeLoading).toBe(false)
+		expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
+	})
+
+	it('marks a bulk row a playlist when its probe comes back as one', async () => {
+		// URL shape cannot catch every container, so the probe result is the
+		// backstop: asked for a video, got a set, therefore not downloadable.
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://example.com/opaque-collection'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().playlistItems[0]?.isContainer).toBe(true)
+		})
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual([])
+	})
+
+	it('errors when a probe succeeds but holds only more playlists', async () => {
+		// A channel's Playlists tab: every entry is a container, so expansion
+		// filters them all and nothing downloadable survives. Keying the guard off
+		// the drop count missed this, because nothing was dropped.
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(
+			ok({
+				...PLAYLIST_PROBE,
+				entries: [
+					{id: 'n1', title: 'Greatest Hits', url: 'https://www.youtube.com/playlist?list=PLa', thumbnail: '', playlistIndex: 1, videoId: 'VLPLa', isContainer: true},
+					{id: 'n2', title: 'B Sides', url: 'https://www.youtube.com/playlist?list=PLb', thumbnail: '', playlistIndex: 2, videoId: 'VLPLb', isContainer: true}
+				]
+			})
+		)
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/@artist/playlists'])
+
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().wizardStep).toBe('error')
+		})
+		expect(useAppStore.getState().playlistProbeLoading).toBe(false)
+		expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
+	})
+
+	it('clears the loading state when the user goes back mid-expansion', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockImplementation(async () => new Promise(() => {}))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://www.youtube.com/playlist?list=PLtest'])
+		expect(useAppStore.getState().playlistProbeLoading).toBe(true)
+
+		useAppStore.getState().back()
+
+		// Stranding these leaves the picker permanently mid-load on the way
+		// forward again, recoverable only by a full reset.
+		expect(useAppStore.getState().playlistProbeLoading).toBe(false)
+		expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
+	})
+
+	it('keeps an unexpandable collection as a marked, unselectable row', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockImplementation(async ({url}) => (url.includes('list=') ? fail({kind: 'other', code: 'unknown', message: 'nope'}) : ok({...VIDEO_PROBE, title: 'Plain Video', videoId: 'plain'})))
+		window.appApi = api
+
+		useAppStore.getState().startBulkUrls(['https://youtu.be/first', 'https://www.youtube.com/playlist?list=PLtest'])
+
+		// It stays visible — a pasted URL that simply vanishes is the same silent
+		// drop this change exists to end — but it can never be downloaded.
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().playlistItems.map(item => item.url)).toEqual(['https://youtu.be/first', 'https://www.youtube.com/playlist?list=PLtest'])
+		})
+		expect(useAppStore.getState().playlistItems[1].isContainer).toBe(true)
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['bulk-1'])
+	})
+})
+
+describe('playlist rows that are themselves playlists', () => {
+	// Kept visible so an all-playlist probe result still renders a picker, but
+	// they cannot be downloaded — the URL addresses a whole set while a queue
+	// item carries one pre-bound filename. Selection has to refuse them at the
+	// source; accepting and dropping them at submit is the silent failure.
+	const NESTED_PROBE: Extract<ProbeResult, {kind: 'playlist'}> = {
+		...PLAYLIST_PROBE,
+		entries: [
+			{id: 'v1', title: 'Real Video', url: 'https://youtu.be/v1', thumbnail: '', playlistIndex: 1, videoId: 'v1'},
+			{id: 'c1', title: 'Greatest Hits', url: 'https://www.youtube.com/playlist?list=PLx', thumbnail: '', playlistIndex: 2, videoId: 'VLPLx', isContainer: true},
+			{id: 'c2', title: 'Some Album', url: 'https://music.youtube.com/browse/MPREb', thumbnail: '', playlistIndex: 3, videoId: 'MPREb', isContainer: true}
+		]
+	}
+
+	async function loadNested(): Promise<void> {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(NESTED_PROBE))
+		window.appApi = api
+		useAppStore.setState({wizardUrl: 'https://www.youtube.com/@artist/playlists'})
+		await useAppStore.getState().submitUrl()
+	}
+
+	it('leaves them unselected by default', async () => {
+		await loadNested()
+		expect(useAppStore.getState().playlistItems).toHaveLength(3)
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['v1'])
+	})
+
+	it('refuses to select one by hand', async () => {
+		await loadNested()
+		useAppStore.getState().setPlaylistItemSelected('c1', true)
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['v1'])
+	})
+
+	it('skips them in select-all', async () => {
+		await loadNested()
+		useAppStore.getState().selectAllPlaylistItems()
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['v1'])
+	})
+
+	it('skips them in a range selection that spans them', async () => {
+		await loadNested()
+		useAppStore.getState().selectPlaylistRange(1, 3)
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['v1'])
+	})
+
+	it('still allows unselecting, so a stale selection stays correctable', async () => {
+		await loadNested()
+		useAppStore.setState({selectedPlaylistItemIds: ['v1', 'c1']})
+		useAppStore.getState().setPlaylistItemSelected('c1', false)
+		expect(useAppStore.getState().selectedPlaylistItemIds).toEqual(['v1'])
+	})
+})

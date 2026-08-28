@@ -36,6 +36,7 @@ import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from 
 import {InterJobSleep} from './download/InterJobSleep.js'
 import {QueueAutoRetry} from './download/QueueAutoRetry.js'
 import {QueuePlaylistM3u} from './download/QueuePlaylistM3u.js'
+import {findInadmissibleQueueItem} from './download/queueAdmission.js'
 import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, StatusEvent} from '@shared/types.js'
 import type {QueueStore} from '@main/stores/QueueStore.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
@@ -138,6 +139,8 @@ export class QueueService extends EventEmitter {
 
 	add(toAdd: QueueItem[]): Result<{ids: string[]}> {
 		if (toAdd.length === 0) return ok({ids: []})
+		const rejected = findInadmissibleQueueItem(toAdd)
+		if (rejected) return fail(createAppError('validation', rejected.message))
 		this.commit({kind: 'add', items: toAdd})
 		return ok({ids: toAdd.map(i => i.id)})
 	}

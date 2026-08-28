@@ -1673,6 +1673,18 @@ msgctxt "wizard.playlist.multiProfileEntryTooltip"
 msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
 msgstr "کیفیت, SponsorBlock, محصول، او خوندي کول پریږدي — پرځای یې د هرې توکي لپاره د ډاونلوډ پروفایل وټاکئ"
 
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "د غږولو لړليک"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "له دې څخه {{count}} د غږولو لړليک دی، ویډیو نه — د ښکته کولو لپاره یې لینک په جلا توګه پیسټ کړئ."
+
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "له دې څخه {{count}} د غږولو لړليکونه دي، ویډیوګانې نه — د ښکته کولو لپاره یې لینکونه یو په یو پیسټ کړئ."
+
 msgctxt "wizard.playlist.noSelection"
 msgid "Select at least one video to continue"
 msgstr "دوام کولو لپاره لږترلږه یو ویډیو غوره کړئ"
