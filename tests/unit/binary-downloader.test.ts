@@ -360,6 +360,36 @@ describe('BinaryDownloader', () => {
 		}
 	})
 
+	it('cancels promptly when aborted before the response headers arrive', async () => {
+		// make-fetch-happen retries an AbortError raised during the request phase
+		// like any network failure (its RETRY_ERRORS list has no abort code, and
+		// anything not on that list falls through to retryHandler). With
+		// retries: 5 and factor: 2 that is 1+2+4+8+16s of backoff before the
+		// cancellation surfaces — so a user cancelling a stalled binary download,
+		// which is exactly when people cancel, waited ~45s for it to take effect.
+		const cache = await cacheRoot()
+		const controller = new AbortController()
+
+		try {
+			await withServer(
+				(_req, res) => {
+					// Headers are never sent, so the abort lands while fetch is still
+					// in its request phase — the window that was being retried.
+					res.on('close', () => undefined)
+					setTimeout(() => controller.abort(new Error('test abort')), 20)
+				},
+				async url => {
+					const startedAt = Date.now()
+					await expect(downloadArtifactToCache({urls: [url], cacheRoot: cache, key: 'cancelled-early', sha256: sha256(Buffer.from('x')), size: 1, signal: controller.signal})).rejects.toThrow()
+					expect(Date.now() - startedAt).toBeLessThan(5_000)
+					await expect(cacache.get.info(cache, 'cancelled-early')).resolves.toBeNull()
+				}
+			)
+		} finally {
+			await fs.rm(cache, {recursive: true, force: true})
+		}
+	})
+
 	it('cancels artifact downloads without inserting a cache entry', async () => {
 		const body = Buffer.from('d'.repeat(4096))
 		const cache = await cacheRoot()

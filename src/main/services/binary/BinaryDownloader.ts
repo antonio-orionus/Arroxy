@@ -330,6 +330,24 @@ async function writeResponseBodyToFile(responseBody: NodeJS.ReadableStream, dest
 // Range-resume: if `${destination}.part` exists from a previous interrupted
 // attempt, resume via `Range: bytes=<size>-`. If the server responds 200
 // (no range support) instead of 206, truncate and start fresh.
+/**
+ * Rejects as soon as `signal` aborts, and otherwise never settles.
+ *
+ * Raced against a fetch whose own retry loop would swallow the abort for tens of
+ * seconds. The listener and the pending promise live only as long as the
+ * per-download composite signal they are attached to, so the loser of the race
+ * is collected with it.
+ */
+function rejectOnAbort(signal: AbortSignal): Promise<never> {
+	return new Promise((_resolve, reject) => {
+		if (signal.aborted) {
+			reject(cancelError())
+			return
+		}
+		signal.addEventListener('abort', () => reject(cancelError()), {once: true})
+	})
+}
+
 export async function downloadFile(url: string, destination: string, onProgress?: DownloadProgressCallback, allowPartialRetryOrOptions: boolean | DownloadFileOptions = true, signal?: AbortSignal): Promise<void> {
 	const options = normalizeDownloadFileOptions(allowPartialRetryOrOptions, signal)
 	const {allowPartialRetry, stallTimeoutMs, maxDurationMs, partialRetryLimit, partialRetryAttempt} = options
@@ -375,7 +393,17 @@ export async function downloadFile(url: string, destination: string, onProgress?
 			stallController.abort()
 		}, maxDurationMs)
 
-		const response = await fetch(url, {headers, retry: HTTP_RETRY, timeout: maxDurationMs, redirect: 'follow', signal: combinedSignal} as FetchOptions)
+		// make-fetch-happen retries an AbortError raised during the request phase
+		// like any other network failure: its RETRY_ERRORS list carries no abort
+		// code, and remote.js sends anything absent from that list to its
+		// retryHandler. Under HTTP_RETRY that is 1+2+4+8+16s of backoff before a
+		// cancellation surfaces — measured at ~45s. Users cancel a binary download
+		// precisely when it looks stuck, which is the same window, so the cancel
+		// appeared to hang. Racing the signal surfaces the abort at once; the retry
+		// chain behind it unwinds against an already-aborted signal.
+		const pendingResponse = fetch(url, {headers, retry: HTTP_RETRY, timeout: maxDurationMs, redirect: 'follow', signal: combinedSignal} as FetchOptions)
+		pendingResponse.catch(() => undefined)
+		const response = await Promise.race([pendingResponse, rejectOnAbort(combinedSignal)])
 		const contentLength = numericHeader(response.headers.get('content-length'))
 		const contentRange = response.headers.get('content-range') ?? undefined
 		logger.debug('Binary download response', {url, statusCode: response.status, startByte, contentLength: stringifyHeader(response.headers.get('content-length'))})
