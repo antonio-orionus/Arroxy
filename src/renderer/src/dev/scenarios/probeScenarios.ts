@@ -283,7 +283,7 @@ function liveStreamProbe(): ProbeResult {
 // Playlists tab or a YouTube Music shelf returns. Kept visible so the picker
 // isn't empty, but not downloadable: the URL addresses a whole set while a queue
 // item carries one filename. Mixed with real videos so both states are on screen.
-export function nestedPlaylistProbe(): ProbeResult {
+function nestedPlaylistProbe(): ProbeResult {
 	const base = playlistProbe(3) as Extract<ProbeResult, {kind: 'playlist'}>
 	const containers: PlaylistEntry[] = [
 		{id: 'nested1', url: 'https://www.youtube.com/playlist?list=PLmockGreatestHits', title: 'Greatest Hits (1998-2012)', thumbnail: '', playlistIndex: 4, videoId: 'VLPLmockGreatestHits', isContainer: true},
