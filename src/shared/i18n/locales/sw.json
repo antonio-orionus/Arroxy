@@ -8,7 +8,7 @@
 		"warmup": "Inaandaa vipakuliwa…",
 		"downloading": "Inapakua {{binary}}…",
 		"verifying": "Inakagua {{binary}}…",
-		"verifySlow": "Uendeshaji wa kwanza huchukua muda mrefu — mfumo wako unachanganua upakuaji.",
+		"verifySlow": "Mara ya kwanza baada ya sasisho, hii huchukua muda mrefu.",
 		"cancel": "Ghairi usanidi",
 		"warmupFailedNoDiag": "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi."
 	},

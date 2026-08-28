@@ -8,7 +8,7 @@
 		"warmup": "Preparing downloads…",
 		"downloading": "Downloading {{binary}}…",
 		"verifying": "Checking {{binary}}…",
-		"verifySlow": "First run takes longer — your system is scanning the download.",
+		"verifySlow": "This takes longer the first time after an update.",
 		"cancel": "Cancel setup",
 		"warmupFailedNoDiag": "Setup failed. Open the setup log for details."
 	},

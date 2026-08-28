@@ -8,7 +8,7 @@
 		"warmup": "Préparation des téléchargements…",
 		"downloading": "Téléchargement de {{binary}}…",
 		"verifying": "Vérification de {{binary}}…",
-		"verifySlow": "Le premier lancement est plus long — votre système analyse le téléchargement.",
+		"verifySlow": "La première fois après une mise à jour, cela prend plus de temps.",
 		"cancel": "Annuler la configuration",
 		"warmupFailedNoDiag": "Échec de la configuration. Ouvre le journal de configuration pour plus de détails."
 	},

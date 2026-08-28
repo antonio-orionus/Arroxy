@@ -836,8 +836,8 @@ msgid "Checking {{binary}}…"
 msgstr "Inakagua {{binary}}…"
 
 msgctxt "splash.verifySlow"
-msgid "First run takes longer — your system is scanning the download."
-msgstr "Uendeshaji wa kwanza huchukua muda mrefu — mfumo wako unachanganua upakuaji."
+msgid "This takes longer the first time after an update."
+msgstr "Mara ya kwanza baada ya sasisho, hii huchukua muda mrefu."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

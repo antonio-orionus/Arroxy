@@ -8,7 +8,7 @@
 		"warmup": "Mempersiapkan unduhan…",
 		"downloading": "Mengunduh {{binary}}…",
 		"verifying": "Memeriksa {{binary}}…",
-		"verifySlow": "Menjalankan pertama kali lebih lama — sistem Anda sedang memindai unduhan.",
+		"verifySlow": "Ini lebih lama saat pertama kali setelah pembaruan.",
 		"cancel": "Batalkan penyiapan",
 		"warmupFailedNoDiag": "Penyiapan gagal. Buka log pengaturan untuk mengetahui detailnya."
 	},

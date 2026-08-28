@@ -8,7 +8,7 @@
 		"warmup": "Buufannoowwan qopheessaa jira…",
 		"downloading": "{{binary}} buufatamaa jira…",
 		"verifying": "{{binary}} qoratamaa jira…",
-		"verifySlow": "Yaalii jalqabaa yeroo dheeraa fudhata — sirni kee faayilii buufame sakatta'aa jira.",
+		"verifySlow": "Kun haaromsa booda yeroo jalqabaatiif yeroo dheeraa fudhata.",
 		"cancel": "Qindaa'ina haquu",
 		"warmupFailedNoDiag": "Qindaa'inni hin milkoofne. Bal'ina argachuuf galmee qindaa'inaa bani."
 	},

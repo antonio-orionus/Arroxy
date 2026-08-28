@@ -81,7 +81,7 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 
 	const showProgress = !blocked && (activeEntry != null || (percent !== null && percent < 100))
 	const showVerifying = !blocked && !showProgress && verifyingEntry != null
-	const showCancel = !blocked && !fading && cancelOffered
+	const showCancel = onCancel != null && !blocked && !fading && cancelOffered
 
 	return (
 		<div

@@ -8,7 +8,7 @@
 		"warmup": "Đang chuẩn bị tải xuống…",
 		"downloading": "Đang tải xuống {{binary}}…",
 		"verifying": "Đang kiểm tra {{binary}}…",
-		"verifySlow": "Lần chạy đầu tiên mất nhiều thời gian hơn — hệ thống đang quét tệp tải về.",
+		"verifySlow": "Lần đầu sau khi cập nhật, việc này mất nhiều thời gian hơn.",
 		"cancel": "Hủy thiết lập",
 		"warmupFailedNoDiag": "Thiết lập thất bại. Mở nhật ký thiết lập để xem chi tiết."
 	},

@@ -836,8 +836,8 @@ msgid "Checking {{binary}}…"
 msgstr "{{binary}} qoratamaa jira…"
 
 msgctxt "splash.verifySlow"
-msgid "First run takes longer — your system is scanning the download."
-msgstr "Yaalii jalqabaa yeroo dheeraa fudhata — sirni kee faayilii buufame sakatta'aa jira."
+msgid "This takes longer the first time after an update."
+msgstr "Kun haaromsa booda yeroo jalqabaatiif yeroo dheeraa fudhata."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

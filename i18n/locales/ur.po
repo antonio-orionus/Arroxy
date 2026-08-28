@@ -836,8 +836,8 @@ msgid "Checking {{binary}}…"
 msgstr "{{binary}} کی جانچ ہو رہی ہے…"
 
 msgctxt "splash.verifySlow"
-msgid "First run takes longer — your system is scanning the download."
-msgstr "پہلی بار چلنے میں زیادہ وقت لگتا ہے — آپ کا سسٹم ڈاؤن لوڈ کو اسکین کر رہا ہے۔"
+msgid "This takes longer the first time after an update."
+msgstr "اپ ڈیٹ کے بعد پہلی بار اس میں زیادہ وقت لگتا ہے۔"
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

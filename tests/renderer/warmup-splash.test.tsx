@@ -51,7 +51,23 @@ describe('WarmupSplash verification phase', () => {
 				vi.advanceTimersByTime(6000)
 			})
 
-			expect(screen.getByTestId('splash-verify-slow')).toHaveTextContent('First run takes longer')
+			expect(screen.getByTestId('splash-verify-slow')).toHaveTextContent('the first time after an update')
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	// browser-mock and the scenario gallery render the splash without a handler.
+	// Offering a button that cannot do anything is worse than offering none.
+	it('offers no way out when there is nothing wired to cancel', () => {
+		vi.useFakeTimers()
+		try {
+			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} />)
+			act(() => {
+				vi.advanceTimersByTime(11000)
+			})
+
+			expect(screen.queryByTestId('splash-cancel')).toBeNull()
 		} finally {
 			vi.useRealTimers()
 		}
