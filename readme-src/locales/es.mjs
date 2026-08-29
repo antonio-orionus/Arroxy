@@ -315,7 +315,7 @@ export const es = {
   privacy_p1:
     "Las descargas se obtienen directamente a través de [yt-dlp](https://github.com/yt-dlp/yt-dlp) desde YouTube hacia la carpeta que elijas — nada pasa por un servidor de terceros. El historial de visualización, el historial de descargas, las URLs y el contenido de los archivos permanecen en tu dispositivo.",
   privacy_p2:
-    "Arroxy envía telemetría anónima y agregada a través de [OpenPanel](https://openpanel.dev) — lo justo para entender arranques, OS, versiones de la app y fallos. Sin URLs, títulos de video, rutas de archivo, datos de cuenta, fingerprinting ni datos personales. El ID por instalación es aleatorio y no está ligado a tu identidad. Puedes desactivarlo en Configuración.",
+    "Arroxy envía telemetría anónima y agregada a través de [OpenPanel](https://openpanel.dev) — lo justo para entender fallos, errores, comentarios, OS y versiones de la app. Sin URLs, títulos de video, rutas de archivo, datos de cuenta, fingerprinting ni datos personales. El ID por instalación es aleatorio y no está ligado a tu identidad. Puedes desactivarlo en Configuración.",
   faq_q1: "¿Es realmente gratis?",
   faq_a1: "Sí — licencia MIT, sin nivel premium, sin funciones bloqueadas.",
   faq_q2: "¿Qué calidades de video puedo descargar?",
@@ -375,7 +375,7 @@ export const es = {
     "¿Tienes alguna función en mente? [Abre una solicitud](../../issues) — la opinión de la comunidad guía la prioridad.",
   tech_content: TECH_CONTENT,
   support_h2: "Apoyar a Arroxy",
-  support_note: "Arroxy es gratuito y con licencia MIT: sin anuncios, sin telemetría, sin versión de pago. Si te ahorra tiempo, puedes apoyar el desarrollo con Bitcoin o Tron: las direcciones están en [DONATE.md](DONATE.md), la única fuente oficial para ellas. Arroxy nunca te enviará una dirección por correo electrónico ni por mensaje directo. Dar una estrella al repositorio, informar de errores y mejorar las traducciones ayudan igual de mucho.",
+  support_note: "Arroxy es gratuito y con licencia MIT: sin anuncios, sin versión de pago. Si te ahorra tiempo, puedes apoyar el desarrollo con Bitcoin o Tron: las direcciones están en [DONATE.md](DONATE.md), la única fuente oficial para ellas. Arroxy nunca te enviará una dirección por correo electrónico ni por mensaje directo. Dar una estrella al repositorio, informar de errores y mejorar las traducciones ayudan igual de mucho.",
   tos_h2: "Términos de uso",
   tos_note:
     "Arroxy es una herramienta para uso personal y privado únicamente. Eres el único responsable de garantizar que tus descargas cumplan con los [Términos de Servicio](https://www.youtube.com/t/terms) de YouTube y las leyes de propiedad intelectual de tu jurisdicción. No uses Arroxy para descargar, reproducir o distribuir contenido sobre el que no tengas derechos. Los desarrolladores no se hacen responsables del mal uso.",

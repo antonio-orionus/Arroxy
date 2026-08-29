@@ -284,7 +284,7 @@ Arroxy is built for one thing: paste a URL, get a clean local file. No accounts,
 
 Downloads are fetched directly via [yt-dlp](https://github.com/yt-dlp/yt-dlp) from YouTube to the folder you pick — nothing routed through a third-party server. Watch history, download history, URLs, and file contents stay on your device.
 
-Arroxy sends anonymous, aggregate telemetry via [OpenPanel](https://openpanel.dev) — just enough for an indie project to understand launches, OS, app versions, and crashes. No URLs, video titles, file paths, account info, fingerprinting, or personal data. The per-install ID is random and not tied to your identity. You can opt out in Settings.
+Arroxy sends anonymous, aggregate telemetry via [OpenPanel](https://openpanel.dev) — just enough for an indie project to understand failures, crashes, feedback, OS, and app versions. No URLs, video titles, file paths, account info, fingerprinting, or personal data. The per-install ID is random and not tied to your identity. You can opt out in Settings.
 
 ---
 
@@ -343,7 +343,7 @@ Have a feature in mind? [Open a request](../../issues) — community input shape
 
 ## <a id="support"></a>Support Arroxy
 
-Arroxy is free and MIT-licensed — no ads, no telemetry, no paid tier. If it saves you time, you can support development with Bitcoin or Tron: the addresses are in [DONATE.md](DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
+Arroxy is free and MIT-licensed — no ads, no paid tier. If it saves you time, you can support development with Bitcoin or Tron: the addresses are in [DONATE.md](DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

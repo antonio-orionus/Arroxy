@@ -286,7 +286,7 @@ Arroxy tek bir şey için yapılmıştır: URL yapıştır, temiz bir yerel dosy
 
 İndirmeler [yt-dlp](https://github.com/yt-dlp/yt-dlp) ile doğrudan YouTube'dan seçtiğin klasöre alınır — hiçbir şey üçüncü taraf sunucu üzerinden yönlendirilmez. İzleme geçmişi, indirme geçmişi, URL'ler ve dosya içerikleri cihazında kalır.
 
-Arroxy [OpenPanel](https://openpanel.dev) üzerinden anonim, toplu telemetri gönderir — bağımsız bir projenin açılışları, işletim sistemlerini, uygulama sürümlerini ve çökmeleri anlamasına yetecek kadar. URL, video başlığı, dosya yolu, hesap bilgisi, parmak izi veya kişisel veri yoktur. Kurulum başına kimlik rastgeledir ve kimliğinle bağlantılı değildir. Ayarlar'dan çıkabilirsin.
+Arroxy [OpenPanel](https://openpanel.dev) üzerinden anonim, toplu telemetri gönderir — bağımsız bir projenin hataları, çökmeleri, geri bildirimleri, işletim sistemlerini ve uygulama sürümlerini anlamasına yetecek kadar. URL, video başlığı, dosya yolu, hesap bilgisi, parmak izi veya kişisel veri yoktur. Kurulum başına kimlik rastgeledir ve kimliğinle bağlantılı değildir. Ayarlar'dan çıkabilirsin.
 
 ---
 
@@ -345,7 +345,7 @@ Aklında bir özellik mi var? [İstek aç](../../issues) — topluluk girdisi ö
 
 ## <a id="support"></a>Arroxy'yi destekle
 
-Arroxy ücretsizdir ve MIT lisanslıdır — reklam yok, telemetri yok, ücretli sürüm yok. Sana zaman kazandırıyorsa geliştirmeyi Bitcoin veya Tron ile destekleyebilirsin: adresler, tek resmi kaynak olan [DONATE.md](DONATE.md) dosyasında. Arroxy sana asla e-posta veya özel mesajla adres göndermez. Depoya yıldız vermek, hata bildirmek ve çevirileri iyileştirmek de en az o kadar yardımcı olur.
+Arroxy ücretsizdir ve MIT lisanslıdır — reklam yok, ücretli sürüm yok. Sana zaman kazandırıyorsa geliştirmeyi Bitcoin veya Tron ile destekleyebilirsin: adresler, tek resmi kaynak olan [DONATE.md](DONATE.md) dosyasında. Arroxy sana asla e-posta veya özel mesajla adres göndermez. Depoya yıldız vermek, hata bildirmek ve çevirileri iyileştirmek de en az o kadar yardımcı olur.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

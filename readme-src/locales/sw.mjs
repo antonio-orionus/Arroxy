@@ -311,7 +311,7 @@ export const sw = {
   privacy_p1:
     "Maudhui hupakuliwa moja kwa moja kupitia [yt-dlp](https://github.com/yt-dlp/yt-dlp) kutoka YouTube hadi kwenye folda unayochagua — hakuna kitu kinachopita kwenye seva ya mtu wa tatu. Historia ya kutazama, historia ya kupakua, URL, na maudhui ya faili yanabaki kwenye kifaa chako.",
   privacy_p2:
-    "Arroxy hutuma telemetry isiyo na jina na ya jumla kupitia [OpenPanel](https://openpanel.dev) — ya kutosha kuelewa uzinduzi, OS, matoleo ya programu na ajali. Hakuna URLs, vichwa vya video, njia za faili, taarifa za akaunti, fingerprinting au data binafsi. Kitambulisho cha kila usakinishaji ni cha nasibu na hakihusiani na utambulisho wako. Unaweza kujiondoa katika Mipangilio.",
+    "Arroxy hutuma telemetry isiyo na jina na ya jumla kupitia [OpenPanel](https://openpanel.dev) — ya kutosha kuelewa makosa, ajali, maoni, OS na matoleo ya programu. Hakuna URLs, vichwa vya video, njia za faili, taarifa za akaunti, fingerprinting au data binafsi. Kitambulisho cha kila usakinishaji ni cha nasibu na hakihusiani na utambulisho wako. Unaweza kujiondoa katika Mipangilio.",
   faq_q1: "Je, ni bure kweli kweli?",
   faq_a1:
     "Ndiyo — leseni ya MIT, hakuna ngazi ya malipo, hakuna kizuizi cha vipengele.",
@@ -371,7 +371,7 @@ export const sw = {
     "Una kipengele unachofikiria? [Fungua ombi](../../issues) — maoni ya jamii huathiri kipaumbele.",
   tech_content: TECH_CONTENT,
   support_h2: "Saidia Arroxy",
-  support_note: "Arroxy ni bure na ina leseni ya MIT — hakuna matangazo, hakuna telemetria, hakuna toleo la kulipia. Ikiwa inakuokolea muda, unaweza kusaidia maendeleo yake kwa Bitcoin au Tron: anwani zipo katika [DONATE.md](DONATE.md), ambacho ndicho chanzo rasmi pekee cha anwani hizo. Arroxy hatakutumia kamwe anwani kwa barua pepe au ujumbe wa moja kwa moja. Kuipa repo nyota, kuripoti hitilafu, na kuboresha tafsiri kunasaidia vivyo hivyo.",
+  support_note: "Arroxy ni bure na ina leseni ya MIT — hakuna matangazo, hakuna toleo la kulipia. Ikiwa inakuokolea muda, unaweza kusaidia maendeleo yake kwa Bitcoin au Tron: anwani zipo katika [DONATE.md](DONATE.md), ambacho ndicho chanzo rasmi pekee cha anwani hizo. Arroxy hatakutumia kamwe anwani kwa barua pepe au ujumbe wa moja kwa moja. Kuipa repo nyota, kuripoti hitilafu, na kuboresha tafsiri kunasaidia vivyo hivyo.",
   tos_h2: "Masharti ya matumizi",
   tos_note:
     "Arroxy ni zana ya matumizi ya kibinafsi na ya faragha tu. Unawajibika peke yako kuhakikisha maudhui unayopakua yanafuata [Masharti ya Huduma](https://www.youtube.com/t/terms) ya YouTube na sheria za haki miliki za mamlaka yako. Usitumie Arroxy kupakua, kunakili, au kusambaza maudhui ambayo huna haki ya kuyatumia. Waendelezaji hawana jukumu lolote kwa matumizi mabaya.",

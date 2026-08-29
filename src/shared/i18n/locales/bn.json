@@ -267,7 +267,7 @@
 				"units": {"seconds": "সে"}
 			},
 			"closeToTray": {"toggle": "বন্ধে ট্রেতে লুকান", "toggleDescription": "উইন্ডো বন্ধ করার পরেও ব্যাকগ্রাউন্ডে ডাউনলোড চলতে থাকবে।"},
-			"analytics": {"toggle": "বেনামী ব্যবহার পরিসংখ্যান পাঠান", "toggleDescription": "শুধুমাত্র অ্যাপ চালু হওয়ার সংখ্যা গণনা করে। কোনো URL, ফাইলের নাম বা ব্যক্তিগত তথ্য নেই।"}
+			"analytics": {"toggle": "বেনামী ব্যবহার পরিসংখ্যান পাঠান", "toggleDescription": "ক্র্যাশ, ব্যর্থতা এবং মতামত বেনামে রিপোর্ট করে। কোনো URL, ভিডিও শিরোনাম বা ফাইলের নাম নেই।"}
 		},
 		"quickProgress": {
 			"title": "কুইক ডাউনলোড প্রস্তুত হচ্ছে",
@@ -616,7 +616,7 @@
 		"description": "Arroxy বিনামূল্যে এবং ওপেন-সোর্স। শেয়ার করলে আরও বেশি মানুষ এটি আবিষ্কার করতে পারবেন।",
 		"copyLink": "লিঙ্ক কপি করুন",
 		"copied": "কপি হয়েছে!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — Windows, macOS ও Linux-এর জন্য বিনামূল্যের ওপেন-সোর্স ভিডিও ডাউনলোডার। YouTube, Vimeo, Twitch এবং 2000+ সাইটের সাথে কাজ করে।\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Arroxy শেয়ার করুন",
 		"footerLabel": "শেয়ার",
 		"shareAction": "Arroxy শেয়ার করুন"

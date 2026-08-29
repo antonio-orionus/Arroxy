@@ -284,7 +284,7 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
 
 Maudhui hupakuliwa moja kwa moja kupitia [yt-dlp](https://github.com/yt-dlp/yt-dlp) kutoka YouTube hadi kwenye folda unayochagua — hakuna kitu kinachopita kwenye seva ya mtu wa tatu. Historia ya kutazama, historia ya kupakua, URL, na maudhui ya faili yanabaki kwenye kifaa chako.
 
-Arroxy hutuma telemetry isiyo na jina na ya jumla kupitia [OpenPanel](https://openpanel.dev) — ya kutosha kuelewa uzinduzi, OS, matoleo ya programu na ajali. Hakuna URLs, vichwa vya video, njia za faili, taarifa za akaunti, fingerprinting au data binafsi. Kitambulisho cha kila usakinishaji ni cha nasibu na hakihusiani na utambulisho wako. Unaweza kujiondoa katika Mipangilio.
+Arroxy hutuma telemetry isiyo na jina na ya jumla kupitia [OpenPanel](https://openpanel.dev) — ya kutosha kuelewa makosa, ajali, maoni, OS na matoleo ya programu. Hakuna URLs, vichwa vya video, njia za faili, taarifa za akaunti, fingerprinting au data binafsi. Kitambulisho cha kila usakinishaji ni cha nasibu na hakihusiani na utambulisho wako. Unaweza kujiondoa katika Mipangilio.
 
 ---
 
@@ -343,7 +343,7 @@ Una kipengele unachofikiria? [Fungua ombi](../../issues) — maoni ya jamii huat
 
 ## <a id="support"></a>Saidia Arroxy
 
-Arroxy ni bure na ina leseni ya MIT — hakuna matangazo, hakuna telemetria, hakuna toleo la kulipia. Ikiwa inakuokolea muda, unaweza kusaidia maendeleo yake kwa Bitcoin au Tron: anwani zipo katika [DONATE.md](DONATE.md), ambacho ndicho chanzo rasmi pekee cha anwani hizo. Arroxy hatakutumia kamwe anwani kwa barua pepe au ujumbe wa moja kwa moja. Kuipa repo nyota, kuripoti hitilafu, na kuboresha tafsiri kunasaidia vivyo hivyo.
+Arroxy ni bure na ina leseni ya MIT — hakuna matangazo, hakuna toleo la kulipia. Ikiwa inakuokolea muda, unaweza kusaidia maendeleo yake kwa Bitcoin au Tron: anwani zipo katika [DONATE.md](DONATE.md), ambacho ndicho chanzo rasmi pekee cha anwani hizo. Arroxy hatakutumia kamwe anwani kwa barua pepe au ujumbe wa moja kwa moja. Kuipa repo nyota, kuripoti hitilafu, na kuboresha tafsiri kunasaidia vivyo hivyo.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

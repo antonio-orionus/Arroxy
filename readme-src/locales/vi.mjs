@@ -312,7 +312,7 @@ export const vi = {
   privacy_p1:
     "Tải xuống được lấy trực tiếp qua [yt-dlp](https://github.com/yt-dlp/yt-dlp) từ YouTube đến thư mục bạn chọn — không có gì đi qua máy chủ bên thứ ba. Lịch sử xem, lịch sử tải xuống, URL và nội dung file vẫn ở trên thiết bị của bạn.",
   privacy_p2:
-    "Arroxy gửi telemetry ẩn danh, tổng hợp qua [OpenPanel](https://openpanel.dev) — vừa đủ để hiểu lượt khởi động, OS, phiên bản ứng dụng và sự cố. Không có URL, tiêu đề video, đường dẫn tệp, thông tin tài khoản, fingerprinting hay dữ liệu cá nhân. ID cho mỗi lần cài đặt là ngẫu nhiên và không gắn với danh tính của bạn. Bạn có thể tắt trong Cài đặt.",
+    "Arroxy gửi telemetry ẩn danh, tổng hợp qua [OpenPanel](https://openpanel.dev) — vừa đủ để hiểu sự cố, lỗi, phản hồi, OS và phiên bản ứng dụng. Không có URL, tiêu đề video, đường dẫn tệp, thông tin tài khoản, fingerprinting hay dữ liệu cá nhân. ID cho mỗi lần cài đặt là ngẫu nhiên và không gắn với danh tính của bạn. Bạn có thể tắt trong Cài đặt.",
   faq_q1: "Thực sự miễn phí không?",
   faq_a1: "Có — giấy phép MIT, không có gói cao cấp, không khóa tính năng.",
   faq_q2: "Tôi có thể tải xuống chất lượng video nào?",
@@ -370,7 +370,7 @@ export const vi = {
     "Bạn có ý tưởng tính năng? [Mở yêu cầu](../../issues) — ý kiến cộng đồng định hình thứ tự ưu tiên.",
   tech_content: TECH_CONTENT,
   support_h2: "Ủng hộ Arroxy",
-  support_note: "Arroxy miễn phí và có giấy phép MIT — không quảng cáo, không telemetry, không bản trả phí. Nếu nó giúp bạn tiết kiệm thời gian, bạn có thể ủng hộ việc phát triển bằng Bitcoin hoặc Tron: địa chỉ nằm trong [DONATE.md](DONATE.md), nguồn chính thức duy nhất cho các địa chỉ này. Arroxy sẽ không bao giờ gửi cho bạn địa chỉ qua email hay tin nhắn riêng. Gắn sao cho kho mã, báo lỗi và cải thiện bản dịch cũng giúp ích không kém.",
+  support_note: "Arroxy miễn phí và có giấy phép MIT — không quảng cáo, không bản trả phí. Nếu nó giúp bạn tiết kiệm thời gian, bạn có thể ủng hộ việc phát triển bằng Bitcoin hoặc Tron: địa chỉ nằm trong [DONATE.md](DONATE.md), nguồn chính thức duy nhất cho các địa chỉ này. Arroxy sẽ không bao giờ gửi cho bạn địa chỉ qua email hay tin nhắn riêng. Gắn sao cho kho mã, báo lỗi và cải thiện bản dịch cũng giúp ích không kém.",
   tos_h2: "Điều khoản sử dụng",
   tos_note:
     "Arroxy là công cụ chỉ dành cho mục đích sử dụng cá nhân, riêng tư. Bạn hoàn toàn chịu trách nhiệm đảm bảo các tải xuống của mình tuân thủ [Điều khoản dịch vụ](https://www.youtube.com/t/terms) của YouTube và luật bản quyền tại khu vực pháp lý của bạn. Không sử dụng Arroxy để tải xuống, sao chép hoặc phân phối nội dung mà bạn không có quyền sử dụng. Các nhà phát triển không chịu trách nhiệm về bất kỳ hành vi lạm dụng nào.",

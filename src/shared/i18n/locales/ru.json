@@ -280,7 +280,7 @@
 				"units": {"seconds": "сек"}
 			},
 			"closeToTray": {"toggle": "Скрывать в трей при закрытии", "toggleDescription": "Продолжать загрузки в фоне после закрытия окна."},
-			"analytics": {"toggle": "Отправлять анонимную статистику", "toggleDescription": "Только подсчёт запусков приложения. Без URL, имён файлов или личных данных."}
+			"analytics": {"toggle": "Отправлять анонимную статистику", "toggleDescription": "Анонимно сообщает о сбоях, падениях и отзывах. Без URL, названий видео и имён файлов."}
 		},
 		"quickProgress": {
 			"title": "Подготовка быстрой загрузки",
@@ -660,7 +660,7 @@
 		"description": "Arroxy — бесплатный проект с открытым кодом. Рекомендуя его, ты помогаешь другим узнать о нём.",
 		"copyLink": "Скопировать ссылку",
 		"copied": "Скопировано!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — бесплатный загрузчик видео с открытым исходным кодом для Windows, macOS и Linux. Работает с YouTube, Vimeo, Twitch и более 2000 сайтов.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Поделиться Arroxy",
 		"footerLabel": "Поделиться",
 		"shareAction": "Поделиться Arroxy"

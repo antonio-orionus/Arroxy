@@ -288,7 +288,7 @@
 				"units": {"seconds": "soniya"}
 			},
 			"closeToTray": {"toggle": "Yopilganda tizim soatiga yashirish", "toggleDescription": "Oyna yopilgandan keyin yuklamalar fonda davom etadi."},
-			"analytics": {"toggle": "Anonim foydalanish statistikasini yuborish", "toggleDescription": "Faqat ilovani ishga tushirish sonini hisoblaydi. URL, fayl nomlari yoki shaxsiy maʼlumotlar yoʼq."}
+			"analytics": {"toggle": "Anonim foydalanish statistikasini yuborish", "toggleDescription": "Nosozliklar, qulashlar va fikr-mulohazalar haqida anonim ravishda xabar beradi. URL, video sarlavhalari yoki fayl nomlari yo'q."}
 		},
 		"quickProgress": {
 			"title": "Tez yuklab olish tayyorlanmoqda",
@@ -668,7 +668,7 @@
 		"description": "Arroxy bepul va ochiq manbali. Ulashish ko'proq odamlar uni topishiga yordam beradi.",
 		"copyLink": "Havolani nusxalash",
 		"copied": "Nusxalandi!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — Windows, macOS va Linux uchun bepul, ochiq manbali video yuklab oluvchi. YouTube, Vimeo, Twitch va 2000+ sayt bilan ishlaydi.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Arroxy ulashish",
 		"footerLabel": "Ulashish",
 		"shareAction": "Arroxy ulashish"

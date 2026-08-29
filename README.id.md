@@ -286,7 +286,7 @@ Arroxy dibuat untuk satu hal: tempelkan URL, dapatkan file lokal yang bersih. Ti
 
 Unduhan diambil langsung melalui [yt-dlp](https://github.com/yt-dlp/yt-dlp) dari YouTube ke folder yang Anda pilih — tidak ada yang dirutekan melalui server pihak ketiga. Riwayat tontonan, riwayat unduhan, URL, dan konten file tetap ada di perangkat Anda.
 
-Arroxy mengirimkan telemetri agregat anonim melalui [OpenPanel](https://openpanel.dev) — cukup bagi proyek indie untuk memahami peluncuran, OS, versi aplikasi, dan kerusakan. Tidak ada URL, judul video, jalur file, info akun, sidik jari, atau data pribadi. ID per-instal bersifat acak dan tidak terikat dengan identitas Anda. Anda dapat memilih untuk tidak ikut serta dalam Pengaturan.
+Arroxy mengirimkan telemetri agregat anonim melalui [OpenPanel](https://openpanel.dev) — cukup bagi proyek indie untuk memahami kegagalan, kerusakan, umpan balik, OS, dan versi aplikasi. Tidak ada URL, judul video, jalur file, info akun, sidik jari, atau data pribadi. ID per-instal bersifat acak dan tidak terikat dengan identitas Anda. Anda dapat memilih untuk tidak ikut serta dalam Pengaturan.
 
 ---
 
@@ -345,7 +345,7 @@ Punya ide fitur? [Buka permintaan](../../issues) — masukan komunitas membantu 
 
 ## <a id="support"></a>Dukung Arroxy
 
-Arroxy gratis dan berlisensi MIT — tanpa iklan, tanpa telemetri, tanpa versi berbayar. Jika Arroxy menghemat waktu Anda, Anda bisa mendukung pengembangannya dengan Bitcoin atau Tron: alamatnya ada di [DONATE.md](DONATE.md), satu-satunya sumber resmi untuk alamat tersebut. Arroxy tidak akan pernah mengirimi Anda alamat lewat email atau pesan langsung. Memberi bintang pada repo, melaporkan bug, dan memperbaiki terjemahan sama besar bantuannya.
+Arroxy gratis dan berlisensi MIT — tanpa iklan, tanpa versi berbayar. Jika Arroxy menghemat waktu Anda, Anda bisa mendukung pengembangannya dengan Bitcoin atau Tron: alamatnya ada di [DONATE.md](DONATE.md), satu-satunya sumber resmi untuk alamat tersebut. Arroxy tidak akan pernah mengirimi Anda alamat lewat email atau pesan langsung. Memberi bintang pada repo, melaporkan bug, dan memperbaiki terjemahan sama besar bantuannya.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

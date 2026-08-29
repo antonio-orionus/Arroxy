@@ -286,7 +286,7 @@ Arroxy está diseñado para una sola cosa: pega una URL y obtén un archivo loca
 
 Las descargas se obtienen directamente a través de [yt-dlp](https://github.com/yt-dlp/yt-dlp) desde YouTube hacia la carpeta que elijas — nada pasa por un servidor de terceros. El historial de visualización, el historial de descargas, las URLs y el contenido de los archivos permanecen en tu dispositivo.
 
-Arroxy envía telemetría anónima y agregada a través de [OpenPanel](https://openpanel.dev) — lo justo para entender arranques, OS, versiones de la app y fallos. Sin URLs, títulos de video, rutas de archivo, datos de cuenta, fingerprinting ni datos personales. El ID por instalación es aleatorio y no está ligado a tu identidad. Puedes desactivarlo en Configuración.
+Arroxy envía telemetría anónima y agregada a través de [OpenPanel](https://openpanel.dev) — lo justo para entender fallos, errores, comentarios, OS y versiones de la app. Sin URLs, títulos de video, rutas de archivo, datos de cuenta, fingerprinting ni datos personales. El ID por instalación es aleatorio y no está ligado a tu identidad. Puedes desactivarlo en Configuración.
 
 ---
 
@@ -345,7 +345,7 @@ Todavía planeado — aproximadamente por orden de prioridad:
 
 ## <a id="support"></a>Apoyar a Arroxy
 
-Arroxy es gratuito y con licencia MIT: sin anuncios, sin telemetría, sin versión de pago. Si te ahorra tiempo, puedes apoyar el desarrollo con Bitcoin o Tron: las direcciones están en [DONATE.md](DONATE.md), la única fuente oficial para ellas. Arroxy nunca te enviará una dirección por correo electrónico ni por mensaje directo. Dar una estrella al repositorio, informar de errores y mejorar las traducciones ayudan igual de mucho.
+Arroxy es gratuito y con licencia MIT: sin anuncios, sin versión de pago. Si te ahorra tiempo, puedes apoyar el desarrollo con Bitcoin o Tron: las direcciones están en [DONATE.md](DONATE.md), la única fuente oficial para ellas. Arroxy nunca te enviará una dirección por correo electrónico ni por mensaje directo. Dar una estrella al repositorio, informar de errores y mejorar las traducciones ayudan igual de mucho.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

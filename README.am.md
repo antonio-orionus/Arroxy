@@ -284,7 +284,7 @@ Arroxy ለአንድ ነገር ብቻ ተሠርቷል: URL ይለጥፉ፣ ንጹ
 
 ማውረዶቹ ቀጥታ በ [yt-dlp](https://github.com/yt-dlp/yt-dlp) ከ YouTube ወደ መረጡት አቃፊ ይወርዳሉ — ምንም ሦስተኛ ወገን ሰርቨር አይሆንም። የእይታ ታሪክ፣ የማውረድ ታሪክ፣ URLs፣ እና የፋይሎቹ ይዘቶች በመሳሪያዎ ላይ ይቆያሉ።
 
-Arroxy ስም-አልባ፣ የተጠቃለለ telemetry በ [OpenPanel](https://openpanel.dev) ይልካል — ጅምሮችን፣ OS፣ የአፕ ስሪቶችን እና ብልሽቶችን ለመረዳት ብቻ። URLs፣ የቪዲዮ ርዕሶች፣ የፋይል መንገዶች፣ የመለያ መረጃ፣ fingerprinting ወይም የግል ዳታ የለም። የእያንዳንዱ ጭነት ID የዘፈቀደ ነው እና ከማንነትዎ ጋር አይያያዝም። በSettings ውስጥ opt out ማድረግ ይችላሉ።
+Arroxy ስም-አልባ፣ የተጠቃለለ telemetry በ [OpenPanel](https://openpanel.dev) ይልካል — ውድቀቶችን፣ ብልሽቶችን፣ ግብረ መልስን፣ OS እና የአፕ ስሪቶችን ለመረዳት ብቻ። URLs፣ የቪዲዮ ርዕሶች፣ የፋይል መንገዶች፣ የመለያ መረጃ፣ fingerprinting ወይም የግል ዳታ የለም። የእያንዳንዱ ጭነት ID የዘፈቀደ ነው እና ከማንነትዎ ጋር አይያያዝም። በSettings ውስጥ opt out ማድረግ ይችላሉ።
 
 ---
 
@@ -343,7 +343,7 @@ yt-dlp በማስነሻ ላይ ራስ ሰር ይዘመናሉ፣ እናም YouTube
 
 ## <a id="support"></a>Arroxy ይደግፉ
 
-Arroxy ነፃ ነው እና በMIT ፈቃድ ይሰራጫል — ማስታወቂያ የለም፣ ቴሌሜትሪ የለም፣ የሚከፈልበት እትም የለም። ጊዜዎን የሚቆጥብ ከሆነ ልማቱን በBitcoin ወይም በTron መደገፍ ይችላሉ፦ አድራሻዎቹ በ[DONATE.md](DONATE.md) ውስጥ ይገኛሉ፣ እርሱም ብቸኛው ይፋዊ ምንጫቸው ነው። Arroxy በኢሜይል ወይም በቀጥታ መልእክት አድራሻ በፍጹም አይልክልዎትም። ማከማቻውን በኮከብ ምልክት ማድረግ፣ ስህተቶችን ማሳወቅ እና ትርጉሞችን ማሻሻል እኩል ይረዳሉ።
+Arroxy ነፃ ነው እና በMIT ፈቃድ ይሰራጫል — ማስታወቂያ የለም፣ የሚከፈልበት እትም የለም። ጊዜዎን የሚቆጥብ ከሆነ ልማቱን በBitcoin ወይም በTron መደገፍ ይችላሉ፦ አድራሻዎቹ በ[DONATE.md](DONATE.md) ውስጥ ይገኛሉ፣ እርሱም ብቸኛው ይፋዊ ምንጫቸው ነው። Arroxy በኢሜይል ወይም በቀጥታ መልእክት አድራሻ በፍጹም አይልክልዎትም። ማከማቻውን በኮከብ ምልክት ማድረግ፣ ስህተቶችን ማሳወቅ እና ትርጉሞችን ማሻሻል እኩል ይረዳሉ።
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

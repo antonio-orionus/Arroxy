@@ -271,7 +271,7 @@
 				"units": {"seconds": "စက္ကန့်"}
 			},
 			"closeToTray": {"toggle": "ပိတ်လျှင် tray သို့ ဝှက်မည်", "toggleDescription": "ဝင်းဒိုးပိတ်ပြီးနောက်လည်း နောက်ခံတွင် ဒေါင်းလုဒ်ဆက်လုပ်မည်။"},
-			"analytics": {"toggle": "အမည်မသိ သုံးစွဲမှုစာရင်းအင်းများ ပေးပို့ပါ", "toggleDescription": "အက်ပ် ဖွင့်သည့်အကြိမ်ရေကိုသာ ရေတွက်သည်။ URL၊ ဖိုင်အမည် သို့မဟုတ် ကိုယ်ရေးကိုယ်တာ ဒေတာ မပါဝင်ပါ။"}
+			"analytics": {"toggle": "အမည်မသိ သုံးစွဲမှုစာရင်းအင်းများ ပေးပို့ပါ", "toggleDescription": "အမည်မဖော်ဘဲ ကျရှုံးမှုများ၊ ပျက်ကွက်မှုများနှင့် တုံ့ပြန်ချက်များကို အစီရင်ခံသည်။ URL၊ ဗီဒီယိုခေါင်းစဉ်များ သို့မဟုတ် ဖိုင်အမည်များ မပါဝင်ပါ။"}
 		},
 		"quickProgress": {
 			"title": "အမြန်ဒေါင်းလုဒ် ပြင်ဆင်နေသည်",
@@ -621,7 +621,7 @@
 		"description": "Arroxy သည် အခမဲ့ နှင့် ဖွင့်ရင်းမြစ်ဖြစ်သည်။ မျှဝေခြင်းသည် လူပိုများ ၎င်းကို ရှာဖွေတွေ့ရှိနိုင်ရန် ကူညီသည်။",
 		"copyLink": "လင့်ကိုကူးယူရန်",
 		"copied": "ကူးယူပြီး!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — Windows, macOS & Linux အတွက် အခမဲ့ open-source ဗီဒီယိုဒေါင်းလုဒ်ပရိုဂရမ်။ YouTube, Vimeo, Twitch နှင့် 2000+ ဆိုက်များနှင့် အလုပ်လုပ်သည်။\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Arroxy ကိုမျှဝေရန်",
 		"footerLabel": "မျှဝေရန်",
 		"shareAction": "Arroxy ကိုမျှဝေရန်"

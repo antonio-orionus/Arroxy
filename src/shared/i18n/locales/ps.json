@@ -280,7 +280,7 @@
 				"units": {"seconds": "ثا"}
 			},
 			"closeToTray": {"toggle": "د تړولو پر وخت ټرې ته پټ کړه", "toggleDescription": "د کړکۍ د تړولو وروسته شاتهپرده ډاونلوډونه دوام کړئ."},
-			"analytics": {"toggle": "د ناپیژندل شوي کارونې احصائیې واستوئ", "toggleDescription": "یوازې د اپلیکیشن پیلونه شمیري. هیڅ URL، د فایل نومونه، یا شخصي معلومات نه شته."}
+			"analytics": {"toggle": "د ناپیژندل شوي کارونې احصائیې واستوئ", "toggleDescription": "د ناکامیو، سقوط او نظرونو ناشناس راپور ورکوي. هیڅ URL، د ویډیو سرلیکونه یا د فایل نومونه نشته."}
 		},
 		"quickProgress": {
 			"title": "چټک ډاونلوډ چمتو کېږي",
@@ -652,7 +652,7 @@
 		"description": "Arroxy وړیا او خلاص سرچینه دی. شریکول نورو خلکو سره مرسته کوي چې ومومي.",
 		"copyLink": "لینک کاپي کړئ",
 		"copied": "کاپي شو!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — د Windows، macOS او Linux لپاره وړیا او خلاص-سرچینه ویډیو ډاونلوډر. له YouTube، Vimeo، Twitch او 2000+ سایټونو سره کار کوي.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Arroxy شریک کړئ",
 		"footerLabel": "شریک کړئ",
 		"shareAction": "Arroxy شریک کړئ"

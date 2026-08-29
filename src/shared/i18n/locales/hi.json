@@ -266,7 +266,7 @@
 				"units": {"seconds": "से."}
 			},
 			"closeToTray": {"toggle": "बंद करने पर ट्रे में छिपाएं", "toggleDescription": "विंडो बंद करने के बाद पृष्ठभूमि में डाउनलोड जारी रखें।"},
-			"analytics": {"toggle": "अनाम उपयोग आँकड़े भेजें", "toggleDescription": "केवल ऐप लॉन्च गिनता है। कोई URL, फ़ाइलनाम या व्यक्तिगत डेटा नहीं।"}
+			"analytics": {"toggle": "अनाम उपयोग आँकड़े भेजें", "toggleDescription": "क्रैश, विफलताओं और फ़ीडबैक की गुमनाम रिपोर्ट देता है। कोई URL, वीडियो शीर्षक या फ़ाइलनाम नहीं।"}
 		},
 		"quickProgress": {
 			"title": "क्विक डाउनलोड तैयार हो रहा है",
@@ -610,7 +610,7 @@
 		"description": "Arroxy मुफ़्त और ओपन-सोर्स है। शेयर करने से और लोग इसे खोज सकते हैं।",
 		"copyLink": "लिंक कॉपी करें",
 		"copied": "कॉपी किया!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — Windows, macOS और Linux के लिए मुफ़्त ओपन-सोर्स वीडियो डाउनलोडर। YouTube, Vimeo, Twitch और 2000+ साइटों के साथ काम करता है।\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Arroxy साझा करें",
 		"footerLabel": "साझा करें",
 		"shareAction": "Arroxy साझा करें"

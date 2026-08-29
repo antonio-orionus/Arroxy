@@ -280,7 +280,7 @@
 				"units": {"seconds": "sek"}
 			},
 			"closeToTray": {"toggle": "Ficha kwenye tray ukifunga", "toggleDescription": "Endelea kupakua nyuma ya pazia baada ya kufunga dirisha."},
-			"analytics": {"toggle": "Tuma takwimu za matumizi zisizo na jina", "toggleDescription": "Huhesabu tu uzinduzi wa programu. Hakuna URL, majina ya faili, au data za kibinafsi."}
+			"analytics": {"toggle": "Tuma takwimu za matumizi zisizo na jina", "toggleDescription": "Huripoti makosa, matatizo na maoni kwa njia isiyojulikana. Hakuna URL, majina ya video, au majina ya faili."}
 		},
 		"quickProgress": {
 			"title": "Inaandaa Upakuaji wa haraka",
@@ -653,7 +653,7 @@
 		"description": "Arroxy ni ya bure na chanzo wazi. Kushiriki husaidia watu wengi zaidi kuigundua.",
 		"copyLink": "Nakili kiungo",
 		"copied": "Imenakiliwa!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — Kipakuzi cha video cha chanzo wazi cha bure kwa Windows, macOS na Linux. Hufanya kazi na YouTube, Vimeo, Twitch na tovuti 2000+.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Shiriki Arroxy",
 		"footerLabel": "Shiriki",
 		"shareAction": "Shiriki Arroxy"

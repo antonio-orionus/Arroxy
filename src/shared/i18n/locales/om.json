@@ -292,7 +292,7 @@
 				"units": {"seconds": "sec"}
 			},
 			"closeToTray": {"toggle": "Cufuun dura tiiree dhoksi", "toggleDescription": "Daawniloodii booda gubbaan cufamuu itti fufi."},
-			"analytics": {"toggle": "Tilastoo faayidaa maqaa-malee ergaa", "toggleDescription": "Jalqabbii app qofa lakkaawa. URL, maqaa faayilii, ykn daataa dhuunfaa hin qabatu."}
+			"analytics": {"toggle": "Tilastoo faayidaa maqaa-malee ergaa", "toggleDescription": "Dogoggora, kufaatii fi deebiiwwan maqaa hin beekamin galmeessa. URL, mata-dureewwan viidiyoo ykn maqaa faayilii hin qabatu."}
 		},
 		"quickProgress": {
 			"title": "Buufata saffisaa qopheessaa jira",
@@ -672,7 +672,7 @@
 		"description": "Arroxy bilisaa fi madda-banaadha. Qoodun namoota baay'ee argachuu ni gargaara.",
 		"copyLink": "Hidhata garagalchi",
 		"copied": "Garagalfame!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — Buufataa viidiyoo bilisaa fi madda banaa kan Windows, macOS & Linux. YouTube, Vimeo, Twitch fi saayitiiwwan 2000+ wajjin hojjeta.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Arroxy qoodi",
 		"footerLabel": "Qoodi",
 		"shareAction": "Arroxy qoodi"

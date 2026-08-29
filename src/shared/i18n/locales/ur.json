@@ -280,7 +280,7 @@
 				"units": {"seconds": "سیکنڈ"}
 			},
 			"closeToTray": {"toggle": "بند کرنے پر ٹرے میں چھپائیں", "toggleDescription": "ونڈو بند ہونے کے بعد بیک گراؤنڈ میں ڈاؤن لوڈز جاری رکھیں۔"},
-			"analytics": {"toggle": "گمنام استعمال کے اعداد و شمار بھیجیں", "toggleDescription": "صرف ایپ لانچز گنتا ہے۔ کوئی URL، فائل نام، یا ذاتی ڈیٹا نہیں۔"}
+			"analytics": {"toggle": "گمنام استعمال کے اعداد و شمار بھیجیں", "toggleDescription": "ناکامیوں، کریشز اور رائے کی گمنام رپورٹ کرتا ہے۔ کوئی URL، ویڈیو عنوان یا فائل نام نہیں۔"}
 		},
 		"quickProgress": {
 			"title": "فوری ڈاؤن لوڈ کی تیاری",
@@ -652,7 +652,7 @@
 		"description": "Arroxy مفت اور اوپن سورس ہے۔ شیئر کرنے سے زیادہ لوگ اسے دریافت کر سکتے ہیں۔",
 		"copyLink": "لنک کاپی کریں",
 		"copied": "کاپی ہو گیا!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — Windows، macOS اور Linux کے لیے مفت اوپن سورس ویڈیو ڈاؤن لوڈر۔ YouTube، Vimeo، Twitch اور 2000+ سائٹس کے ساتھ کام کرتا ہے۔\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Arroxy شیئر کریں",
 		"footerLabel": "شیئر کریں",
 		"shareAction": "Arroxy شیئر کریں"

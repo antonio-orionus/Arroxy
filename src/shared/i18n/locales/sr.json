@@ -288,7 +288,7 @@
 				"units": {"seconds": "сек"}
 			},
 			"closeToTray": {"toggle": "Сакриј у системски трај при затварању", "toggleDescription": "Настави преузимања у позадини после затварања прозора."},
-			"analytics": {"toggle": "Пошаљи анонимне статистике коришћења", "toggleDescription": "Броји само покретања апликације. Без URL-ова, имена датотека или личних података."}
+			"analytics": {"toggle": "Пошаљи анонимне статистике коришћења", "toggleDescription": "Анонимно пријављује падове, грешке и повратне информације. Без URL адреса, наслова видео записа или имена датотека."}
 		},
 		"quickProgress": {
 			"title": "Припрема брзог преузимања",
@@ -660,7 +660,7 @@
 		"description": "Arroxy је бесплатан и отвореног кода. Дељењем помажеш другима да га открију.",
 		"copyLink": "Копирај линк",
 		"copied": "Копирано!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — бесплатни преузимач видео записа отвореног кода за Windows, macOS и Linux. Ради са YouTube-ом, Vimeo-ом, Twitch-ом и преко 2000 сајтова.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Подели Arroxy",
 		"footerLabel": "Подели",
 		"shareAction": "Подели Arroxy"

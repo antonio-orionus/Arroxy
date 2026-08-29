@@ -284,7 +284,7 @@ Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argad
 
 Buufannoonni kallattiin [yt-dlp](https://github.com/yt-dlp/yt-dlp) fayyadamuudhaan YouTube irraa foldera filatteetti darbamu — miila-seerri hunduu sarara servera sadarkaa-sadaffaa tokko keessa darbuu hin qabu. Seenaa ilaaluu, seenaa buufannoo, URLs, fi qabiyyee faayilaa meeshaa kee irratti hafu.
 
-Arroxy telemetrii maqaa-dhabduu walitti makamaa [OpenPanel](https://openpanel.dev) fayyadamuudhaan erga — eegaluu, OS, version app fi kufaatii hubachuuf qofa. URL, mata-duree viidiyoo, karaa faayilaa, odeeffannoo account, fingerprinting yookaan data dhuunfaa hin jiru. ID install tokkoon tokkoo tasaa dha, eenyummaa keetti hin hidhamu. Settings keessatti dhaabuu dandeessa.
+Arroxy telemetrii maqaa-dhabduu walitti makamaa [OpenPanel](https://openpanel.dev) fayyadamuudhaan erga — dogoggora, kufaatii, deebii, OS fi version app hubachuuf qofa. URL, mata-duree viidiyoo, karaa faayilaa, odeeffannoo account, fingerprinting yookaan data dhuunfaa hin jiru. ID install tokkoon tokkoo tasaa dha, eenyummaa keetti hin hidhamu. Settings keessatti dhaabuu dandeessa.
 
 ---
 
@@ -343,7 +343,7 @@ Amala yaaddetee jirtaa? [Gaaffii bani](../../issues) — galchiin hawaasaa dursa
 
 ## <a id="support"></a>Arroxy Deggeri
 
-Arroxy bilisa fi hayyama MIT jala jira — beeksisni hin jiru, telemetriin hin jiru, fooyya'iinsi kaffaltiin hin jiru. Yoo yeroo siif qusate, guddina isaa Bitcoin ykn Tron'iin deggeruu dandeessa: teessoowwan [DONATE.md](DONATE.md) keessa jiru, innis madda ofiisaa qofa. Arroxy gonkumaa teessoo iimeeliidhaan ykn ergaa kallattiitiin siif hin ergu. Repoo'f urjii kennuun, dogoggora gabaasuu fi hiikkaa fooyyessuun hammuma sana gargaara.
+Arroxy bilisa fi hayyama MIT jala jira — beeksisni hin jiru, fooyya'iinsi kaffaltiin hin jiru. Yoo yeroo siif qusate, guddina isaa Bitcoin ykn Tron'iin deggeruu dandeessa: teessoowwan [DONATE.md](DONATE.md) keessa jiru, innis madda ofiisaa qofa. Arroxy gonkumaa teessoo iimeeliidhaan ykn ergaa kallattiitiin siif hin ergu. Repoo'f urjii kennuun, dogoggora gabaasuu fi hiikkaa fooyyessuun hammuma sana gargaara.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

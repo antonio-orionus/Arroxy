@@ -313,7 +313,7 @@ export const uz = {
   privacy_p1:
     "Yuklamalar YouTube'dan siz tanlagan papkaga to'g'ridan-to'g'ri [yt-dlp](https://github.com/yt-dlp/yt-dlp) orqali olinadi — hech narsa uchinchi tomon server orqali yo'naltirilmaydi. Ko'rish tarixi, yuklab olish tarixi, URL'lar va fayl mazmunlari qurilmangizda qoladi.",
   privacy_p2:
-    "Arroxy [OpenPanel](https://openpanel.dev) orqali anonim, agregat telemetriya yuboradi — ishga tushirishlar, OS, ilova versiyalari va nosozliklarni tushunish uchun yetarli. URL, video sarlavhasi, fayl yo‘li, hisob ma’lumoti, fingerprinting yoki shaxsiy ma’lumot yo‘q. Har bir o‘rnatish IDsi tasodifiy va shaxsingizga bog‘lanmagan. Sozlamalarda o‘chirib qo‘yishingiz mumkin.",
+    "Arroxy [OpenPanel](https://openpanel.dev) orqali anonim, agregat telemetriya yuboradi — nosozliklar, qulashlar, fikr-mulohazalar, OS va ilova versiyalarini tushunish uchun yetarli. URL, video sarlavhasi, fayl yo‘li, hisob ma’lumoti, fingerprinting yoki shaxsiy ma’lumot yo‘q. Har bir o‘rnatish IDsi tasodifiy va shaxsingizga bog‘lanmagan. Sozlamalarda o‘chirib qo‘yishingiz mumkin.",
   faq_q1: "Bu haqiqatan ham bepulmi?",
   faq_a1:
     "Ha — MIT litsenziyalangan, premium daraja yo'q, xususiyat cheklash yo'q.",
@@ -373,7 +373,7 @@ export const uz = {
     "Xayyolizda xususiyat bormi? [So'rov yuboring](../../issues) — jamiyat ishtiroki ustuvorlikni belgilaydi.",
   tech_content: TECH_CONTENT,
   support_h2: "Arroxy'ni qo'llab-quvvatlash",
-  support_note: "Arroxy bepul va MIT litsenziyasi ostida tarqatiladi — reklama yo'q, telemetriya yo'q, pullik versiya yo'q. Agar u vaqtingizni tejasa, ishlanmani Bitcoin yoki Tron orqali qo'llab-quvvatlashingiz mumkin: manzillar [DONATE.md](DONATE.md) faylida keltirilgan va bu ular uchun yagona rasmiy manbadir. Arroxy hech qachon sizga manzilni elektron pochta yoki shaxsiy xabar orqali yubormaydi. Repozitoriyga yulduzcha qo'yish, xatolar haqida xabar berish va tarjimalarni yaxshilash ham xuddi shunday yordam beradi.",
+  support_note: "Arroxy bepul va MIT litsenziyasi ostida tarqatiladi — reklama yo'q, pullik versiya yo'q. Agar u vaqtingizni tejasa, ishlanmani Bitcoin yoki Tron orqali qo'llab-quvvatlashingiz mumkin: manzillar [DONATE.md](DONATE.md) faylida keltirilgan va bu ular uchun yagona rasmiy manbadir. Arroxy hech qachon sizga manzilni elektron pochta yoki shaxsiy xabar orqali yubormaydi. Repozitoriyga yulduzcha qo'yish, xatolar haqida xabar berish va tarjimalarni yaxshilash ham xuddi shunday yordam beradi.",
   tos_h2: "Foydalanish shartlari",
   tos_note:
     "Arroxy faqat shaxsiy, xususiy foydalanish uchun mo'ljallangan vosita. Siz yuklab olishlaringiz YouTube ning [Foydalanish Shartlari](https://www.youtube.com/t/terms) va yurisdiktsiyangizning mualliflik huquqi qonunlariga muvofiqligini ta'minlash uchun yagona javobgarsiz. Arroxy ni foydalanish huquqingiz bo'lmagan kontentni yuklab olish, ko'paytirish yoki tarqatish uchun ishlatmang. Ishlab chiquvchilar har qanday suiiste'mollik uchun javobgar emas.",

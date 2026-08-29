@@ -280,7 +280,7 @@
 				"units": {"seconds": "detik"}
 			},
 			"closeToTray": {"toggle": "Sembunyikan ke baki saat ditutup", "toggleDescription": "Lanjutkan pengunduhan di latar belakang setelah menutup jendela."},
-			"analytics": {"toggle": "Kirim statistik penggunaan anonim", "toggleDescription": "Hanya menghitung peluncuran aplikasi. Tidak ada URL, nama file, atau data pribadi."}
+			"analytics": {"toggle": "Kirim statistik penggunaan anonim", "toggleDescription": "Melaporkan kegagalan, kerusakan, dan umpan balik secara anonim. Tidak ada URL, judul video, atau nama file."}
 		},
 		"quickProgress": {
 			"title": "Mempersiapkan Unduhan Cepat",
@@ -660,7 +660,7 @@
 		"description": "Arroxy gratis dan bersumber terbuka. Berbagi membantu lebih banyak orang menemukannya.",
 		"copyLink": "Salin tautan",
 		"copied": "Disalin!",
-		"defaultMessage": "Arroxy — pengunduh video sumber terbuka gratis untuk Windows, macOS & Linux. Bekerja dengan situs YouTube, Vimeo, Twitch, dan 1850+.\n4K · HDR · MP3 · Shorts · Terjemahan · SponsorBlock",
+		"defaultMessage": "Arroxy — pengunduh video sumber terbuka gratis untuk Windows, macOS & Linux. Bekerja dengan situs YouTube, Vimeo, Twitch, dan 2000+.\n4K · HDR · MP3 · Shorts · Terjemahan · SponsorBlock",
 		"footerTooltip": "Bagikan Arroxy",
 		"footerLabel": "Membagikan",
 		"shareAction": "Bagikan Arroxy"
