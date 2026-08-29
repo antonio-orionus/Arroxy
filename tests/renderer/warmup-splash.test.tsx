@@ -40,41 +40,56 @@ describe('WarmupSplash verification phase', () => {
 		expect(screen.queryByTestId('splash-verifying')).toBeNull()
 	})
 
-	it('explains the wait once checking has run long enough to look like a hang', () => {
+	// A first check normally runs ~15s, and explaining that up front reads as noise
+	// while the thing is visibly working. The message is for a wait that has
+	// stopped being ordinary, so it stays hidden well past the normal duration.
+	it('stays quiet through a first check of ordinary length', () => {
 		vi.useFakeTimers()
 		try {
-			const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing'} satisfies WarmupProgressEvent}
+			const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing', firstCheck: true} satisfies WarmupProgressEvent}
 			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
 
-			expect(screen.queryByTestId('splash-verify-slow')).toBeNull()
+			// Longer than every cold probe measured (14.5s–15.9s).
 			act(() => {
-				vi.advanceTimersByTime(6000)
+				vi.advanceTimersByTime(20_000)
 			})
 
-			expect(screen.getByTestId('splash-verify-slow')).toHaveTextContent('the first time after an update')
+			expect(screen.queryByTestId('splash-verify-firstcheck')).toBeNull()
 		} finally {
 			vi.useRealTimers()
 		}
 	})
 
-	// Resolving yt-dlp probes several candidates in a row, all reporting binary
-	// 'yt-dlp'. Keyed on the id alone, a slow managed probe left the hint armed and
-	// the next candidate — a Homebrew yt-dlp answering in milliseconds — flashed it
-	// on screen before it had waited for anything.
-	it('makes each candidate earn the hint on its own', () => {
+	it('explains a first check once it runs past any normal duration', () => {
 		vi.useFakeTimers()
 		try {
-			const managed = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing', source: {kind: 'managed', channel: 'nightly', provider: 'github', url: 'https://example.test/yt-dlp'}} satisfies WarmupProgressEvent}
-			const onPath = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing', source: {kind: 'systemPath', path: '/opt/homebrew/bin/yt-dlp'}} satisfies WarmupProgressEvent}
-			const {rerender} = render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={managed} showGreeting={false} />)
+			const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing', firstCheck: true} satisfies WarmupProgressEvent}
+			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+
 			act(() => {
-				vi.advanceTimersByTime(6000)
+				vi.advanceTimersByTime(36_000)
 			})
-			expect(screen.getByTestId('splash-verify-slow')).toBeTruthy()
 
-			rerender(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={onPath} showGreeting={false} />)
+			expect(screen.getByTestId('splash-verify-firstcheck')).toHaveTextContent('First check of this version')
+		} finally {
+			vi.useRealTimers()
+		}
+	})
 
-			expect(screen.queryByTestId('splash-verify-slow')).toBeNull()
+	// A reused verdict is a local file read that answers immediately. Explaining a
+	// wait that is not going to happen is how the old threshold-based hint flashed
+	// on screen for a Homebrew yt-dlp that answered in milliseconds.
+	it('never arms the hint when the verdict is reused rather than re-probed', () => {
+		vi.useFakeTimers()
+		try {
+			const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing', firstCheck: false} satisfies WarmupProgressEvent}
+			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+
+			act(() => {
+				vi.advanceTimersByTime(120_000)
+			})
+
+			expect(screen.queryByTestId('splash-verify-firstcheck')).toBeNull()
 		} finally {
 			vi.useRealTimers()
 		}
@@ -87,7 +102,7 @@ describe('WarmupSplash verification phase', () => {
 		try {
 			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} />)
 			act(() => {
-				vi.advanceTimersByTime(11000)
+				vi.advanceTimersByTime(61000)
 			})
 
 			expect(screen.queryByTestId('splash-cancel')).toBeNull()
@@ -96,10 +111,10 @@ describe('WarmupSplash verification phase', () => {
 		}
 	})
 
-	// WarmupService's own comment says the user "has no out without a Cancel
-	// button". Cancelling lands on the repair panel, which can retry or point at
-	// a manual binary.
-	it('offers a way out once warmup has taken long enough to need one', () => {
+	// Cancelling lands on the repair panel, which can point at a manual binary or
+	// install one — the fastest route to a working app when the managed download
+	// cannot succeed, not a way to abandon setup.
+	it('offers a way out once progress has stopped for long enough', () => {
 		vi.useFakeTimers()
 		try {
 			const onCancel = vi.fn()
@@ -107,11 +122,35 @@ describe('WarmupSplash verification phase', () => {
 
 			expect(screen.queryByTestId('splash-cancel')).toBeNull()
 			act(() => {
-				vi.advanceTimersByTime(11000)
+				vi.advanceTimersByTime(61000)
 			})
 			fireEvent.click(screen.getByTestId('splash-cancel'))
 
 			expect(onCancel).toHaveBeenCalledTimes(1)
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	// A cold start is ~22s of legitimate work on fast hardware. Counted from mount
+	// the offer would fire mid-download; counted from the last advance it cannot,
+	// because bytes keep arriving.
+	it('does not offer a way out while bytes are still arriving', () => {
+		vi.useFakeTimers()
+		try {
+			const onCancel = vi.fn()
+			const at = (bytes: number) => ({'yt-dlp': {binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: bytes, totalBytes: 40_000_000} satisfies WarmupProgressEvent})
+			const {rerender} = render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={at(1_000_000)} showGreeting={false} onCancel={onCancel} />)
+
+			for (let mb = 2; mb <= 6; mb++) {
+				act(() => {
+					vi.advanceTimersByTime(50_000)
+				})
+				rerender(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={at(mb * 1_000_000)} showGreeting={false} onCancel={onCancel} />)
+			}
+
+			// 250s elapsed, never 60s without an advance.
+			expect(screen.queryByTestId('splash-cancel')).toBeNull()
 		} finally {
 			vi.useRealTimers()
 		}
@@ -183,5 +222,24 @@ describe('WarmupSplash', () => {
 		renderBlockedSplash()
 
 		expect(screen.getByRole('button', {name: /cancel/i})).toBeInTheDocument()
+	})
+
+	it('releases the splash 800ms after warmup finishes rather than holding a fixed three seconds', () => {
+		vi.useFakeTimers()
+		try {
+			render(<WarmupSplash initialized={true} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} />)
+
+			act(() => {
+				vi.advanceTimersByTime(700)
+			})
+			expect(screen.getByTestId('splash-overlay')).toHaveAttribute('data-state', 'preparing')
+
+			act(() => {
+				vi.advanceTimersByTime(100)
+			})
+			expect(screen.getByTestId('splash-overlay')).toHaveAttribute('data-state', 'fading')
+		} finally {
+			vi.useRealTimers()
+		}
 	})
 })

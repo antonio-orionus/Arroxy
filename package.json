@@ -1,6 +1,6 @@
 {
 	"name": "arroxy",
-	"version": "0.4.7",
+	"version": "0.4.8",
 	"private": true,
 	"description": "Arroxy - YouTube downloader app",
 	"type": "module",
@@ -22,9 +22,6 @@
 		"dev:sandbox": "bun scripts/dev-env.ts run electron --sandbox",
 		"dev:fresh": "bun scripts/dev-env.ts run electron --fresh",
 		"dev:mock": "bun scripts/dev-env.ts run mock",
-		"spike:login": "ELECTRON_DISABLE_SANDBOX=1 electron scripts/spike/login-spike.mjs",
-		"spike:chrome-login": "bun scripts/spike/chrome-login-spike.mjs",
-		"spike:electron-login": "ELECTRON_DISABLE_SANDBOX=1 electron scripts/spike/electron-login-probe.mjs",
 		"gpu:probe": "ELECTRON_DISABLE_SANDBOX=1 electron scripts/electron-gpu-probe.mjs",
 		"gpu:probe:force": "ELECTRON_DISABLE_SANDBOX=1 electron scripts/electron-gpu-probe.mjs --mode=force",
 		"gpu:probe:sandbox": "electron scripts/electron-gpu-probe.mjs",

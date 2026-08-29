@@ -798,6 +798,7 @@ msgid ""
 msgstr ""
 "Arroxy — Windows, macOS & Linux အတွက် အခမဲ့ open-source ဗီဒီယိုဒေါင်းလုဒ်ပရိုဂရမ်။ YouTube, Vimeo, Twitch နှင့် 2000+ ဆိုက်များနှင့် အလုပ်လုပ်သည်။\n"
 "4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+
 msgctxt "share.description"
 msgid "Arroxy is free and open-source. Sharing helps more people discover it."
 msgstr "Arroxy သည် အခမဲ့ နှင့် ဖွင့်ရင်းမြစ်ဖြစ်သည်။ မျှဝေခြင်းသည် လူပိုများ ၎င်းကို ရှာဖွေတွေ့ရှိနိုင်ရန် ကူညီသည်။"
@@ -819,8 +820,8 @@ msgid "Share Arroxy"
 msgstr "Arroxy မျှဝေမည်"
 
 msgctxt "splash.cancel"
-msgid "Cancel setup"
-msgstr "စနစ်ထည့်သွင်းမှု ပယ်ဖျက်ရန်"
+msgid "Having trouble? Set it up manually"
+msgstr "အဆင်မပြေဘူးလား။ ကိုယ်တိုင် စနစ်ထည့်သွင်းပါ"
 
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
@@ -830,13 +831,13 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "ဟေး၊ ကြိုဆိုပါသည်!"
 
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "ဤဗားရှင်း၏ ပထမဆုံး စစ်ဆေးမှု — ဤတစ်ခုမှာ နှေးပါသည်။ ပုံမှန်အားဖြင့် တစ်မိနစ်ခန့် ကြာပါသည်။"
+
 msgctxt "splash.verifying"
 msgid "Checking {{binary}}…"
 msgstr "{{binary}} ကို စစ်ဆေးနေသည်…"
-
-msgctxt "splash.verifySlow"
-msgid "This takes longer the first time after an update."
-msgstr "အပ်ဒိတ်ပြီးနောက် ပထမဆုံးအကြိမ်တွင် ဤသည် အချိန်ပိုကြာသည်။"
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"
@@ -2407,6 +2408,7 @@ msgstr "အမည်မသိ သုံးစွဲမှုစာရင်း�
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
 msgstr "အမည်မဖော်ဘဲ ကျရှုံးမှုများ၊ ပျက်ကွက်မှုများနှင့် တုံ့ပြန်ချက်များကို အစီရင်ခံသည်။ URL၊ ဗီဒီယိုခေါင်းစဉ်များ သို့မဟုတ် ဖိုင်အမည်များ မပါဝင်ပါ။"
+
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
 msgstr "ကွန်ရက် သို့မဟုတ် ဆာဗာ ပြဿနာအပြီး အလိုအလျောက် ပြန်ကြိုးစားသည်၊ ကြိုးစားမှုတိုင်းကြား ပိုကြာစွာ စောင့်သည်။ ဆိုက်မှ ပိတ်ဆို့ထားသော ဒေါင်းလုဒ်များကို အလိုအလျောက် ပြန်မကြိုးစားပါ။"

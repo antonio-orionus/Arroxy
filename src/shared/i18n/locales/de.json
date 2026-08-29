@@ -8,8 +8,8 @@
 		"warmup": "Downloads werden vorbereitet…",
 		"downloading": "{{binary}} wird heruntergeladen…",
 		"verifying": "{{binary}} wird geprüft…",
-		"verifySlow": "Nach einem Update dauert das beim ersten Mal länger.",
-		"cancel": "Einrichtung abbrechen",
+		"verifyFirstCheck": "Erste Prüfung dieser Version — diese ist langsam. Meist etwa eine Minute.",
+		"cancel": "Probleme? Manuell einrichten",
 		"warmupFailedNoDiag": "Einrichtung fehlgeschlagen. Öffne das Einrichtungsprotokoll für Details."
 	},
 	"repair": {

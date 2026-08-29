@@ -25,6 +25,17 @@ const PER_BINARY_BUDGET_MS = 30 * 60 * 1000
 // reduces event volume by ~3 orders of magnitude.
 const DOWNLOAD_PROGRESS_THROTTLE_MS = 100
 
+// The token branch is not awaited, but it must still be bounded: its internal
+// stages are a 20s poll plus a 10x1s mint retry, and the hidden window's
+// loadURL has no timer at all, so nothing else stops it from living forever.
+const TOKEN_WARMUP_BUDGET_MS = 30 * 1000
+
+const WARMUP_BRANCHES = ['ytDlp', 'ffmpeg', 'token'] as const
+type WarmupBranch = (typeof WARMUP_BRANCHES)[number]
+
+// Only awaited branches can gate completion.
+const GATING_BRANCHES = ['ytDlp', 'ffmpeg'] as const
+
 interface WarmupServiceDeps {
 	binaryManager: BinaryManager
 	tokenService: TokenService
@@ -130,23 +141,43 @@ export class WarmupService {
 		// resolves with whichever fires first.
 		const budgetSignal = (): AbortSignal => AbortSignal.any([userSignal, AbortSignal.timeout(PER_BINARY_BUDGET_MS)])
 
-		const [ytDlpDiag, ffmpegPair, tokenStatus] = await Promise.all([
-			binaryManager.resolveYtDlp({onProgress: emit, signal: budgetSignal()}),
-			binaryManager.resolveFFmpegPair({onProgress: emit, signal: budgetSignal()}),
-			// Plumb userSignal so cancel() interrupts the HiddenWindow scrape and
-			// mint round-trip — without this, cancelling a slow probe/scrape leaves
-			// the token warmup running until natural completion.
-			tokenService.warmUp(userSignal).catch(err => {
+		const startedAt = Date.now()
+		const elapsed: Record<WarmupBranch, number> = {ytDlp: 0, ffmpeg: 0, token: 0}
+
+		// Branches log on settle, not on start. Three parallel branches produce
+		// interleaved start/end pairs that are harder to read than the summary
+		// below, which already pairs the durations. Completion lines earn their
+		// place by surviving a hang: the summary is written at the end and a hang
+		// never reaches it, but two settled branches and a missing third names the
+		// stuck one.
+		const timed = async <T>(branch: WarmupBranch, work: Promise<T>): Promise<T> => {
+			try {
+				return await work
+			} finally {
+				elapsed[branch] = Date.now() - startedAt
+				logger.info('Warmup branch settled', {branch, elapsedMs: elapsed[branch]})
+			}
+		}
+
+		// Deliberately not awaited. A missing token is already soft — the first
+		// YouTube probe mints on demand — so blocking the splash on it buys nothing
+		// and risks tens of seconds of dead splash when YouTube is slow or
+		// unreachable. userSignal is still plumbed so cancel() interrupts the
+		// HiddenWindow scrape and mint round-trip.
+		void timed(
+			'token',
+			tokenService.warmUp(AbortSignal.any([userSignal, AbortSignal.timeout(TOKEN_WARMUP_BUDGET_MS)])).catch(err => {
 				const reason = err instanceof Error ? err.message : String(err)
 				logger.warn('Token warmup threw', {error: reason})
 				return {ready: false, reason} as const
 			})
-		])
-		if (!tokenStatus.ready) {
+		).then(tokenStatus => {
 			// Surface in a single info line so log review reveals "all binaries
 			// resolved but PoT didn't pre-warm — slow probes expected on YT".
-			logger.info('Token service did not pre-warm; first YT probe will mint on demand', {reason: tokenStatus.reason})
-		}
+			if (!tokenStatus.ready) logger.info('Token service did not pre-warm; first YT probe will mint on demand', {reason: tokenStatus.reason})
+		})
+
+		const [ytDlpDiag, ffmpegPair] = await Promise.all([timed('ytDlp', binaryManager.resolveYtDlp({onProgress: emit, signal: budgetSignal()})), timed('ffmpeg', binaryManager.resolveFFmpegPair({onProgress: emit, signal: budgetSignal()}))])
 		flushAll()
 
 		const dependencies: Record<DependencyId, DependencyDiagnostic> = {'yt-dlp': ytDlpDiag, ffmpeg: ffmpegPair.ffmpeg, ffprobe: ffmpegPair.ffprobe}
@@ -154,12 +185,17 @@ export class WarmupService {
 		const blockingFailures = blockingDependencyFailures(dependencies)
 		const cancelled = userSignal.aborted
 
+		// Branches share one start, so the largest elapsed is by definition the one
+		// that held the Promise.all open.
+		const gatedBy = GATING_BRANCHES.reduce((a, b) => (elapsed[a] >= elapsed[b] ? a : b))
+		const timings = {totalMs: Date.now() - startedAt, gatedBy, branches: elapsed}
+
 		if (cancelled) {
-			logger.info('Warmup cancelled', {blockingFailures})
+			logger.info('Warmup cancelled', {blockingFailures, ...timings})
 		} else if (blockingFailures.length > 0) {
-			logger.warn('Warmup completed with blocking failures', {blockingFailures})
+			logger.warn('Warmup completed with blocking failures', {blockingFailures, ...timings})
 		} else {
-			logger.info('Warmup completed')
+			logger.info('Warmup completed', timings)
 		}
 
 		onResolved?.()

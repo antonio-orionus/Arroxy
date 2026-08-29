@@ -8,8 +8,8 @@
 		"warmup": "Buufannoowwan qopheessaa jira…",
 		"downloading": "{{binary}} buufatamaa jira…",
 		"verifying": "{{binary}} qoratamaa jira…",
-		"verifySlow": "Kun haaromsa booda yeroo jalqabaatiif yeroo dheeraa fudhata.",
-		"cancel": "Qindaa'ina haquu",
+		"verifyFirstCheck": "Sakatta jalqabaa gosa kanaa — kun suuta jedha. Yeroo baayʼee daqiiqaa tokko fudhata.",
+		"cancel": "Rakkoo qabdaa? Harkaan qindeessi",
 		"warmupFailedNoDiag": "Qindaa'inni hin milkoofne. Bal'ina argachuuf galmee qindaa'inaa bani."
 	},
 	"repair": {

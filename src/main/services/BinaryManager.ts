@@ -216,8 +216,10 @@ export class BinaryManager {
 	// The check is not a shortcut around verification: it is the same verification,
 	// remembered, and any change to the file invalidates it.
 	private async probeAndAccept(id: DependencyId, source: DependencySource, candidatePath: string, attempts: DependencyAttempt[], onProgress?: ProgressEmitter, signal?: AbortSignal, budget: ProbeBudget = 'full'): Promise<ProbeOutcome> {
-		onProgress?.({binary: id, phase: 'probing', source})
 		const memoized = await this.probeVerdicts.get(candidatePath)
+		// Emitted after the memo read, not before, so the event can say whether a
+		// real spawn is about to happen. The read is a local file check.
+		onProgress?.({binary: id, phase: 'probing', source, firstCheck: memoized === null})
 		if (memoized !== null) {
 			logger.info(`${id} probe verdict reused`, {source, path: candidatePath, version: memoized.split('\n')[0]})
 			return {kind: 'accepted', diagnostic: this.acceptCandidate(id, source, candidatePath, attempts, memoized, onProgress)}

@@ -1,4 +1,5 @@
 import {afterEach, describe, it, expect, vi} from 'vitest'
+import log from 'electron-log/main.js'
 import {WarmupService} from '@main/services/WarmupService.js'
 import type {BinaryManager} from '@main/services/BinaryManager.js'
 import type {TokenService} from '@main/services/TokenService.js'
@@ -107,8 +108,59 @@ describe('WarmupService', () => {
 
 		await svc.run()
 
-		expect(timeoutSpy).toHaveBeenCalledTimes(2)
-		expect(timeoutSpy).toHaveBeenNthCalledWith(1, 1_800_000)
+		// The token branch is started before the binary resolves, so its 30s budget
+		// is the first timeout created; the two binary budgets follow.
+		expect(timeoutSpy).toHaveBeenCalledTimes(3)
+		expect(timeoutSpy).toHaveBeenNthCalledWith(1, 30_000)
 		expect(timeoutSpy).toHaveBeenNthCalledWith(2, 1_800_000)
+		expect(timeoutSpy).toHaveBeenNthCalledWith(3, 1_800_000)
+	})
+
+	it('logs each branch as it settles so a hung branch is identifiable by omission', async () => {
+		vi.mocked(log.info).mockClear()
+		const svc = new WarmupService({binaryManager: fakeBinaryManager({ytDlp: 'runnable', ffmpeg: 'runnable', ffprobe: 'runnable'}), tokenService: noopToken})
+
+		await svc.run()
+
+		for (const branch of ['ytDlp', 'ffmpeg', 'token']) {
+			expect(log.info).toHaveBeenCalledWith('Warmup branch settled', expect.objectContaining({branch, elapsedMs: expect.any(Number)}))
+		}
+	})
+
+	it('names the slowest awaited branch as the one that gated completion', async () => {
+		vi.mocked(log.info).mockClear()
+		const slowFfmpeg = {
+			invalidateResolved: vi.fn(),
+			resolveYtDlp: vi.fn().mockResolvedValue(diag('yt-dlp', 'runnable')),
+			resolveFFmpegPair: vi.fn().mockImplementation(() => new Promise(resolve => setTimeout(() => resolve({ffmpeg: diag('ffmpeg', 'runnable'), ffprobe: diag('ffprobe', 'runnable')}), 40)))
+		} as unknown as BinaryManager
+		const svc = new WarmupService({binaryManager: slowFfmpeg, tokenService: noopToken})
+
+		await svc.run()
+
+		expect(log.info).toHaveBeenCalledWith('Warmup completed', expect.objectContaining({gatedBy: 'ffmpeg', totalMs: expect.any(Number)}))
+	})
+
+	it('completes without waiting for a token branch that never settles', async () => {
+		const neverToken = {warmUp: vi.fn().mockImplementation(() => new Promise(() => {}))} as unknown as TokenService
+		const svc = new WarmupService({binaryManager: fakeBinaryManager({ytDlp: 'runnable', ffmpeg: 'runnable', ffprobe: 'runnable'}), tokenService: neverToken})
+
+		const result = await svc.run()
+
+		expect(result.ok).toBe(true)
+		if (result.ok) expect(result.data.completed).toBe(true)
+	})
+
+	it('never blames the token branch for gating, since it is no longer awaited', async () => {
+		vi.mocked(log.info).mockClear()
+		const slowToken = {warmUp: vi.fn().mockImplementation(() => new Promise(resolve => setTimeout(() => resolve({ready: true}), 40)))} as unknown as TokenService
+		const svc = new WarmupService({binaryManager: fakeBinaryManager({ytDlp: 'runnable', ffmpeg: 'runnable', ffprobe: 'runnable'}), tokenService: slowToken})
+
+		await svc.run()
+
+		const completed = vi.mocked(log.info).mock.calls.find(([msg]) => msg === 'Warmup completed')
+		const timings = completed?.[1] as {gatedBy: string} | undefined
+		expect(timings?.gatedBy).toBeDefined()
+		expect(timings?.gatedBy).not.toBe('token')
 	})
 })

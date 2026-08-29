@@ -8,6 +8,31 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.8
+
+Arroxy speaks Brazilian Portuguese now, starts noticeably faster, and a fresh install stops downloading yt-dlp three times over before it will start.
+
+## Highlights
+
+### Português (Brasil)
+
+- Arroxy is now translated into Brazilian Portuguese, bringing it to 24 languages. Pick it under Settings, or let it follow your system language. Translation contributed by [@tiagofreire-ia](https://github.com/tiagofreire-ia).
+
+### A Quicker, Quieter Start
+
+- The splash screen used to sit there for a full three seconds no matter how ready Arroxy actually was. It now clears as soon as the work is genuinely done, so a normal launch feels close to instant.
+- Fetching the YouTube token no longer holds up the launch. It happens quietly in the background instead, which matters most when YouTube is slow or unreachable — that case was measured holding the splash for eleven seconds, and it no longer holds it at all. If the token isn't ready in time, the first download simply fetches one then, exactly as it always could.
+- Startup now records what it spent its time on. If Arroxy ever feels slow to start, the log says which step was responsible, which makes a report something we can actually act on.
+- Setting up a newly released yt-dlp involves a check your operating system runs over the download, and it is genuinely slow — around fifteen seconds, on any machine. Arroxy no longer interrupts that with a warning five seconds in, and no longer offers to cancel a setup that is working perfectly. If a check does run far longer than it should, Arroxy says so then.
+- The button that appears when setup is struggling used to read "Cancel setup", which rather undersold it — it leads to a panel that can install yt-dlp for you or point Arroxy at a copy you already have. It now says what it does.
+
+### One yt-dlp Download, Not Three
+
+- On a first launch Arroxy could fetch yt-dlp, stall, fetch a different build of it, stall, and fetch a third, before anything downloaded. Nothing was actually wrong with the first one. yt-dlp unpacks around a hundred files every time it runs, and the security scanner that inspects them — Gatekeeper on macOS, Defender on Windows — took longer than the 30 seconds Arroxy allowed before it gave up and assumed the component was broken. Each assumed failure bought another download that met the same scanner.
+- Arroxy now separates a component that is genuinely unusable from one that is merely slow to clear your machine's security check, and stops paying for a new download in the second case. First launch on a clean install is quicker and a lot quieter.
+
+---
+
 ## 0.4.7
 
 A fixes release. The big one: pasting a playlist link into the bulk list no longer names every file after the link instead of the track.

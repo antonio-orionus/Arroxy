@@ -500,6 +500,11 @@ export interface WarmupProgressEvent {
 	totalBytes?: number
 	source?: DependencySource
 	failureKind?: DependencyFailureKind
+	// Only set on `probing`. True when no verdict was memoized for this exact
+	// file, so the probe is a real spawn — the case a security scanner can hold
+	// for ~15s. False means the memo answered and the phase ends immediately.
+	// The splash uses this to explain a long wait instead of looking hung.
+	firstCheck?: boolean
 }
 
 export interface CommonPaths {
