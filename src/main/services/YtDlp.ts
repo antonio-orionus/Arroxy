@@ -394,8 +394,16 @@ export class YtDlp {
 		// 'spawn-error' is the child failing to start at all — ENOENT, EACCES, a
 		// security scanner holding it. That contradicts the recorded probe verdict
 		// this path may have been resolved from, so drop it and let the next warmup
-		// re-probe instead of trusting a memo the OS has just disproved.
-		if (result.kind === 'spawn-error') await this.binaryManager.forgetProbeVerdict('yt-dlp')
+		// rather than keep trusting a memo the OS has just disproved.
+		//
+		// Clearing _ytDlpPath is what makes that invalidation reachable. run()
+		// only calls prepare() when the field is null, so leaving it set would
+		// route every later attempt straight back to the same dead path and the
+		// re-resolve would not happen until the next app launch.
+		if (result.kind === 'spawn-error') {
+			this._ytDlpPath = null
+			await this.binaryManager.forgetProbeVerdict('yt-dlp')
+		}
 		if (result.kind === 'success' && plan.facts.effectiveSubtitleFormat) {
 			return {...result, effectiveSubtitleFormat: plan.facts.effectiveSubtitleFormat}
 		}

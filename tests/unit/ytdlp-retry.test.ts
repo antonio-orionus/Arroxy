@@ -221,6 +221,35 @@ describe('YtDlp — retry ladder', () => {
 		expect(binaryManager.forgetProbeVerdict).toHaveBeenCalledWith('yt-dlp')
 	})
 
+	// Invalidating BinaryManager is only half of it: run() short-circuits prepare()
+	// whenever its own cached path is set, so without clearing that field the
+	// re-resolve would not happen until the next app launch and every retry in
+	// this session would go straight back to the dead path.
+	it('re-resolves through BinaryManager on the next run after a spawn failure', async () => {
+		vi.mocked(spawnYtDlp).mockReturnValue(createTranscriptProcess([{error: new Error('ENOENT')}]) as never)
+		const {ytDlp, binaryManager} = makeYtDlp()
+		await ytDlp.run(mediaRequest())
+		expect(binaryManager.ensureYtDlp).toHaveBeenCalledTimes(1)
+
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(0) as never)
+		await ytDlp.run(mediaRequest())
+
+		expect(binaryManager.ensureYtDlp).toHaveBeenCalledTimes(2)
+	})
+
+	// mockImplementation, not mockReturnValue: each run needs its own fake child.
+	// A shared one has already emitted 'close' by the second call, so the run
+	// never settles and the test dies on the 20s timeout rather than the assertion.
+	it('does not re-resolve when yt-dlp ran and merely exited non-zero', async () => {
+		vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(1) as never)
+		const {ytDlp, binaryManager} = makeYtDlp()
+		await ytDlp.run(mediaRequest())
+
+		await ytDlp.run(mediaRequest())
+
+		expect(binaryManager.ensureYtDlp).toHaveBeenCalledTimes(1)
+	})
+
 	it('keeps the verdict when yt-dlp ran and merely exited non-zero', async () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(1) as never)
 
