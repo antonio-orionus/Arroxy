@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
-**اقرأ بـ:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · **العربية** · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
+**اقرأ بـ:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · **العربية** · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![الإصدار](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![البناء](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![الموقع الإلكتروني](https://img.shields.io/badge/website-arroxy.orionus.dev-blueviolet)](https://arroxy.orionus.dev/) ![الرخصة](https://img.shields.io/badge/license-MIT-green) ![الأنظمة](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![اللغات](https://img.shields.io/badge/i18n-23_languages-blue)
+[![الإصدار](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![البناء](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![الموقع الإلكتروني](https://img.shields.io/badge/website-arroxy.orionus.dev-blueviolet)](https://arroxy.orionus.dev/) ![الرخصة](https://img.shields.io/badge/license-MIT-green) ![الأنظمة](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![اللغات](https://img.shields.io/badge/i18n-24_languages-blue)
 
 نزِّل مقاطع الفيديو وShorts والموسيقى والقنوات والبودكاست والمقاطع الصوتية من **يوتيوب وأكثر من 2000 موقع مدعوم** — حتى 4K HDR بـ 60 إطاراً في الثانية، أو بصيغ MP3 / AAC / Opus. يعمل محلياً على Windows وmacOS وLinux. **لا إعلانات، لا حشو، لا عروض ترويجية.**
 
@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-24._
+> _Last updated: 2026-08-29._
 
 ---
 
@@ -239,7 +239,7 @@ Arroxy مبني لغرض واحد: الصق رابطاً، احصل على مل�
 - **مراقبة الحافظة** — انسخ رابط يوتيوب ويملأ Arroxy الحقل تلقائياً عند العودة للتطبيق (قابل للتفعيل في الإعدادات المتقدمة)
 - **تنظيف الروابط تلقائياً** — يحذف معاملات التتبع (`si`، `pp`، `utm_*`، `fbclid`، `gclid`) ويفك روابط `youtube.com/redirect`
 - **وضع الشريط** — إغلاق النافذة يبقي التنزيلات تعمل في الخلفية
-- **23 لغة** — يكتشف لغة النظام تلقائيًا ويمكن تبديلها في أي وقت
+- **24 لغة** — يكتشف لغة النظام تلقائيًا ويمكن تبديلها في أي وقت
 - **مزامنة قوائم التشغيل** — يعيد فحص قائمة التشغيل مقابل مجلد محلي لتخطي الفيديوهات التي نُزّلت من قبل؛ وينشئ ملف قائمة تشغيل `.m3u` يتم تحديثه مع تنزيل كل فيديو
 - **تحكم في السرعة والإيقاع** — حدّد نطاق التنزيل، واضبط عدد أجزاء الفيديو التي تُنزَّل في وقت واحد، وأضف تأخيرات بين الطلبات باستخدام إعدادات جاهزة (*إيقاف · متوازن · حذر · مخصص*)
 - **قوالب أسماء الملفات** — سمِّ تنزيلاتك كما تريد باستخدام `{title}` و`{uploader}` و`{id}` و`{date}` و`{resolution}` و`{playlist_index}`، بشكل عام أو لكل ملف تعريف تنزيل
@@ -306,7 +306,7 @@ Arroxy مبني لغرض واحد: الصق رابطاً، احصل على مل�
 يُحدَّث yt-dlp تلقائياً عند الإطلاق، ويُصدر Arroxy إصلاحات بسرعة عندما يُغيِّر YouTube شيئاً ما. وإن واجهت مشكلة، يتوفر دعم اختياري للكوكيز في الإعدادات المتقدمة كحل احتياطي.
 
 **ما اللغات المتاحة في Arroxy؟**
-23 لغة جاهزة مباشرة: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Kiswahili · O'zbekcha · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · বাংলা · हिन्दी · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語. يكتشف Arroxy لغة نظام التشغيل عند التشغيل الأول، ويمكنك التبديل في أي وقت من منتقي اللغة في شريط الأدوات. توجد ملفات Runtime locale JSON في src/shared/i18n/locales/، وتوجد كتالوجات PO الخاصة بالمترجمين في i18n/locales/ — افتح PR على GitHub للمساهمة.
+24 لغة جاهزة مباشرة: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Kiswahili · O'zbekcha · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · বাংলা · हिन्दी · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語. يكتشف Arroxy لغة نظام التشغيل عند التشغيل الأول، ويمكنك التبديل في أي وقت من منتقي اللغة في شريط الأدوات. توجد ملفات Runtime locale JSON في src/shared/i18n/locales/، وتوجد كتالوجات PO الخاصة بالمترجمين في i18n/locales/ — افتح PR على GitHub للمساهمة.
 
 **هل أحتاج إلى تثبيت شيء آخر؟**
 لا. يُحمَّل yt-dlp تلقائياً عند الإطلاق الأول ويُخزَّن على جهازك؛ أمّا ffmpeg وffprobe فيأتيان داخل التطبيق. بعد ذلك، لا تحتاج أي إعداد إضافي.

@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
-**পড়ুন:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · **বাংলা** · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
+**পড়ুন:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · **বাংলা** · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![রিলিজ](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![বিল্ড](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ওয়েবসাইট](https://img.shields.io/badge/website-arroxy.orionus.dev-blueviolet)](https://arroxy.orionus.dev/) ![লাইসেন্স](https://img.shields.io/badge/license-MIT-green) ![প্ল্যাটফর্ম](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ভাষাসমূহ](https://img.shields.io/badge/i18n-23_languages-blue)
+[![রিলিজ](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![বিল্ড](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ওয়েবসাইট](https://img.shields.io/badge/website-arroxy.orionus.dev-blueviolet)](https://arroxy.orionus.dev/) ![লাইসেন্স](https://img.shields.io/badge/license-MIT-green) ![প্ল্যাটফর্ম](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ভাষাসমূহ](https://img.shields.io/badge/i18n-24_languages-blue)
 
 **YouTube ও ২০০০+ সমর্থিত সাইট** থেকে ভিডিও, Shorts, সংগীত, চ্যানেল, পডকাস্ট বা অডিও ট্র্যাক ডাউনলোড করুন — 60 fps-এ 4K HDR পর্যন্ত, অথবা MP3 / AAC / Opus হিসেবে। Windows, macOS ও Linux-এ লোকালি চলে। **কোনো বিজ্ঞাপন নেই, কোনো ব্লোট নেই, কোনো আপসেল নেই।**
 
@@ -25,7 +25,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-24._
+> _Last updated: 2026-08-29._
 
 ---
 
@@ -239,7 +239,7 @@ Arroxy একটি কাজের জন্য তৈরি: URL পেস্�
 - **ক্লিপবোর্ড ওয়াচ** — একটি YouTube লিঙ্ক কপি করুন এবং অ্যাপে ফিরলে Arroxy স্বয়ংক্রিয়ভাবে URL পূরণ করে (অ্যাডভান্সড সেটিংসে টগল করুন)
 - **অটো-ক্লিন URLs** — ট্র্যাকিং প্যারামিটার (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) সরিয়ে দেয় এবং `youtube.com/redirect` লিঙ্ক খুলে দেয়
 - **ট্রে মোড** — উইন্ডো বন্ধ করলেও ডাউনলোড ব্যাকগ্রাউন্ডে চলতে থাকে
-- **23টি ভাষা** — সিস্টেম লোকেল স্বয়ংক্রিয়ভাবে শনাক্ত করে, যেকোনো সময় বদলানো যায়
+- **24টি ভাষা** — সিস্টেম লোকেল স্বয়ংক্রিয়ভাবে শনাক্ত করে, যেকোনো সময় বদলানো যায়
 - **প্লেলিস্ট সিঙ্ক** — আগে ডাউনলোড করা ভিডিও এড়াতে একটি স্থানীয় ফোল্ডারের সঙ্গে প্লেলিস্ট আবার স্ক্যান করে; প্রতিটি ভিডিও ডাউনলোড হওয়ার সঙ্গে সঙ্গে আপডেট হওয়া একটি `.m3u` প্লেলিস্ট ফাইল তৈরি করে
 - **Speed ও pacing controls** — download bandwidth সীমিত করুন, একসাথে ভিডিওর কতগুলো অংশ download হবে তা সেট করুন, এবং presets (*Off · Balanced · Careful · Custom*) দিয়ে request delay যোগ করুন
 - **ফাইলের নামের টেমপ্লেট** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ও `{playlist_index}` দিয়ে ডাউনলোডের নাম নিজের মতো দিন, সব ক্ষেত্রে বা প্রতিটি ডাউনলোড প্রোফাইলের জন্য আলাদা
@@ -306,7 +306,7 @@ YouTube যা দেয় সব কিছু: 4K UHD (2160p), 1440p, 1080p, 7
 yt-dlp চালুর সময় স্বয়ংক্রিয়ভাবে আপডেট হয়, এবং YouTube কিছু পরিবর্তন করলে Arroxy দ্রুত ফিক্স পাঠায়। যদি কখনো সমস্যায় পড়েন, ফলব্যাক হিসেবে Advanced settings-এ ঐচ্ছিক কুকি সাপোর্ট পাওয়া যায়।
 
 **Arroxy কোন ভাষায় পাওয়া যায়?**
-শুরু থেকেই 23টি ভাষা: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Kiswahili · O'zbekcha · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · বাংলা · हिन्दी · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語। Arroxy প্রথম চালুর সময় আপনার অপারেটিং সিস্টেমের ভাষা স্বয়ংক্রিয়ভাবে শনাক্ত করে, এবং টুলবারের ভাষা পিকার থেকে যেকোনো সময় বদলানো যায়। Runtime locale JSON থাকে src/shared/i18n/locales/ এ, আর অনুবাদকদের জন্য PO catalog থাকে i18n/locales/ এ — অবদান রাখতে GitHub-এ PR খুলুন।
+শুরু থেকেই 24টি ভাষা: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Kiswahili · O'zbekcha · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · বাংলা · हिन्दी · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語। Arroxy প্রথম চালুর সময় আপনার অপারেটিং সিস্টেমের ভাষা স্বয়ংক্রিয়ভাবে শনাক্ত করে, এবং টুলবারের ভাষা পিকার থেকে যেকোনো সময় বদলানো যায়। Runtime locale JSON থাকে src/shared/i18n/locales/ এ, আর অনুবাদকদের জন্য PO catalog থাকে i18n/locales/ এ — অবদান রাখতে GitHub-এ PR খুলুন।
 
 **আমাকে কি আর কিছু ইনস্টল করতে হবে?**
 না। yt-dlp প্রথম চালুতে স্বয়ংক্রিয়ভাবে ডাউনলোড হয়ে আপনার মেশিনে ক্যাশ হয়; ffmpeg ও ffprobe অ্যাপের সাথেই আসে। এরপর কোনো অতিরিক্ত সেটআপ দরকার নেই।

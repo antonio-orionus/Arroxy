@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
-**Читај на:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · **Српски** · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
+**Читај на:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · **Српски** · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
-[![Издање](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Изградња](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Веб-сајт](https://img.shields.io/badge/website-arroxy.orionus.dev-blueviolet)](https://arroxy.orionus.dev/) ![Лиценца](https://img.shields.io/badge/license-MIT-green) ![Платформе](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Језици](https://img.shields.io/badge/i18n-23_languages-blue)
+[![Издање](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Изградња](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Веб-сајт](https://img.shields.io/badge/website-arroxy.orionus.dev-blueviolet)](https://arroxy.orionus.dev/) ![Лиценца](https://img.shields.io/badge/license-MIT-green) ![Платформе](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Језици](https://img.shields.io/badge/i18n-24_languages-blue)
 
 Преузимајте видео снимке, Shorts, музику, каналe, подкасте или аудио записе са **YouTube-а и 2000+ подржаних сајтова** — до 4K HDR при 60 fps, или у MP3 / AAC / Opus формату. Ради локално на Windows-у, macOS-у и Linux-у. **Без реклама, без непотребног, без додатне продаје.**
 
@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-24._
+> _Last updated: 2026-08-29._
 
 ---
 
@@ -239,7 +239,7 @@ Arroxy је направљен за једну ствар: налепите URL,
 - **Праћење клипборда** — копирајте YouTube линк и Arroxy аутоматски попуњава URL кад се вратите у апликацију (укључиво у напредним подешавањима)
 - **Аутоматско чишћење URL-ова** — уклања параметре праћења (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) и распакује `youtube.com/redirect` линкове
 - **Режим трака** — затварање прозора одржава преузимања у позадини
-- **23 језика** — аутоматски препознаје системски локалитет, могуће пребацивање у било ком тренутку
+- **24 језика** — аутоматски препознаје системски локалитет, могуће пребацивање у било ком тренутку
 - **Синхронизација плејлисте** — поново проверава плејлисту у односу на локални фолдер да би прескочио већ преузете видео снимке; прави `.m3u` фајл плејлисте који се ажурира после сваког преузетог видеа
 - **Контроле брзине и pacing-а** — ограничи download bandwidth, подеси колико делова видеа се преузима истовремено и додај кашњења између request-ова уз пресете (*Искључено · Уравнотежено · Опрезно · Прилагођено*)
 - **Шаблони назива датотека** — именујте преузимања како желите помоћу `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` и `{playlist_index}`, глобално или по профилу преузимања
@@ -306,7 +306,7 @@ Da. Izaberi *samo audio* u meniju formata, pa zatim MP3, M4A/AAC, Opus ili WAV.
 yt-dlp се аутоматски ажурира при покретању, а Arroxy брзо испоручује исправке кад YouTube нешто промени. Ако ипак наиђете на проблем, у Напредним подешавањима је на располагању опциона подршка за колачиће као резервна опција.
 
 **На којим је језицима Arroxy доступан?**
-23 језика је доступно одмах: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Kiswahili · O'zbekcha · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · বাংলা · हिन्दी · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語. Arroxy при првом покретању аутоматски препознаје језик оперативног система, а језик можеш променити у било ком тренутку преко бирача језика у траци са алаткама. Runtime locale JSON је у src/shared/i18n/locales/, а PO каталози за преводиоце су у i18n/locales/ — отвори PR на GitHub-у да допринесеш.
+24 језика је доступно одмах: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Kiswahili · O'zbekcha · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · বাংলা · हिन्दी · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語. Arroxy при првом покретању аутоматски препознаје језик оперативног система, а језик можеш променити у било ком тренутку преко бирача језика у траци са алаткама. Runtime locale JSON је у src/shared/i18n/locales/, а PO каталози за преводиоце су у i18n/locales/ — отвори PR на GitHub-у да допринесеш.
 
 **Да ли треба да инсталирам нешто друго?**
 Не. yt-dlp се аутоматски преузима при првом покретању и кешира на вашем рачунару; ffmpeg и ffprobe стижу уз апликацију. Након тога није потребно додатно подешавање.
