@@ -3,7 +3,15 @@
 	"app": {"feedback": "Feedback", "logs": "Logs", "feedbackNudge": "Gostando do Arroxy? Adoraria ouvir sua opinião! 💬", "zoomIn": "Aumentar zoom", "zoomOut": "Diminuir zoom"},
 	"about": {"button": "Sobre", "openTitle": "Sobre o Arroxy", "tagline": "Baixador rápido e amigável para o YouTube e mais de 2000 outros sites.", "websiteLink": "Site", "githubLink": "GitHub", "licenseLine": "Licença MIT · por Antonio Orionus", "thirdPartyNotices": "Ver avisos de terceiros"},
 	"titleBar": {"close": "Fechar", "minimize": "Minimizar", "maximize": "Maximizar", "restore": "Restaurar"},
-	"splash": {"greeting": "Olá, bem-vindo de volta!", "warmup": "Preparando downloads…", "downloading": "Baixando {{binary}}…", "warmupFailedNoDiag": "Falha na configuração. Abra o log de configuração para mais detalhes."},
+	"splash": {
+		"greeting": "Olá, bem-vindo de volta!",
+		"warmup": "Preparando downloads…",
+		"downloading": "Baixando {{binary}}…",
+		"verifying": "Verificando {{binary}}…",
+		"verifySlow": "Na primeira vez após uma atualização, isso demora mais.",
+		"cancel": "Cancelar configuração",
+		"warmupFailedNoDiag": "Falha na configuração. Abra o log de configuração para mais detalhes."
+	},
 	"repair": {
 		"title": "A configuração precisa da sua ajuda",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
@@ -89,6 +97,9 @@
 			"syncNoneDesc": "Nenhum vídeo desta playlist foi encontrado em {{dir}}.",
 			"syncNoneDescGeneric": "Nenhum vídeo desta fonte foi encontrado em {{dir}}.",
 			"alreadyDownloaded": "Já baixado",
+			"nestedPlaylistBadge": "Playlist",
+			"nestedPlaylistHint_one": "{{count}} destes é uma playlist, não um vídeo — cole o link dela separadamente para baixá-la.",
+			"nestedPlaylistHint_other": "{{count}} destes são playlists, não vídeos — cole os links delas um de cada vez para baixá-las.",
 			"probeLimitAlertTitle": "A verificação da playlist está limitada",
 			"probeLimitAlertTitleGeneric": "A verificação está limitada",
 			"probeLimitAlertDesc": "Mostrando os primeiros {{count}} itens. Aumente o limite de carregamento para ver mais.",
@@ -106,7 +117,7 @@
 			"title": "URLs em lote",
 			"description": "Cole URLs de vídeos, playlists, canais, buscas ou áudios. O Arroxy removerá duplicatas antes de adicionar à fila.",
 			"textareaLabel": "Lista de URLs",
-			"textareaPlaceholder": "https://exemplo.com/video-1\nhttps://exemplo.com/video-2\nhttps://exemplo.com/video-3",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
 			"acceptedCount": "Pronto",
 			"ignoredCount": "Ignorado",
 			"emptyPreview": "Cole uma ou mais URLs para visualizar o lote.",
@@ -213,7 +224,7 @@
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "Obter cookies.txt LOCALMENTE (Chrome)"
 			},
-			"proxy": {"label": "URL do proxy", "description": "Roteia o tráfego por um proxy — útil para conteúdo com restrição geográfica.", "placeholder": "http://host:porta", "clear": "Limpar"},
+			"proxy": {"label": "URL do proxy", "description": "Roteia o tráfego por um proxy — útil para conteúdo com restrição geográfica.", "placeholder": "http://host:port", "clear": "Limpar"},
 			"backdrop": {
 				"panelTitle": "Aparência e desempenho",
 				"panelDescription": "Escolha o nível de animação que o Arroxy usa no fundo animado.",
@@ -305,7 +316,7 @@
 			"mode": {"off": "Desativado", "mark": "Marcar como capítulos", "remove": "Remover segmentos"},
 			"modeHint": {"off": "Sem SponsorBlock — o vídeo toca exatamente como foi enviado.", "mark": "Marca segmentos de patrocinadores como capítulos (não destrutivo).", "remove": "Corta segmentos de patrocinadores do vídeo usando o FFmpeg."},
 			"categoriesHeading": "Categorias",
-			"cat": {"sponsor": "Patrocínio", "intro": "Introdução", "outro": "Encerramento", "selfpromo": "Autopromoção", "music_offtopic": "Música fora do tópico", "preview": "Prévia", "filler": "Encheção de linguiça"}
+			"cat": {"sponsor": "Patrocínio", "intro": "Introdução", "outro": "Encerramento", "selfpromo": "Autopromoção", "music_offtopic": "Música fora do tópico", "preview": "Prévia", "filler": "Enrolação"}
 		},
 		"formats": {
 			"quickPresets": "Predefinições rápidas",
@@ -325,7 +336,7 @@
 			"total": "Total",
 			"skipToConfirm": "Pular para confirmação",
 			"skipToConfirmTooltip": "Usa suas preferências salvas para todas as etapas restantes. Para alterar uma configuração, continue passo a passo — sua escolha será salva para a próxima vez.",
-			"quality": {"high": "Alta qualidade", "medium": "Média qualidade", "low": "Baixa qualidade"},
+			"quality": {"high": "Alta qualidade", "medium": "Qualidade média", "low": "Baixa qualidade"},
 			"convert": {
 				"label": "Converter",
 				"uncompressed": "Converter · não comprimido",
@@ -475,7 +486,7 @@
 			"icon": {"controls": "Controles", "download": "Download", "video": "Vídeo", "captions": "Legendas", "audio": "Áudio", "music": "Música", "podcast": "Podcast", "classes": "Aulas", "clip": "Clipe", "archive": "Arquivo"},
 			"audioFormat": {"best": "Melhor", "wav": "WAV"},
 			"videoAudioFormat": {"m4a": "M4A / AAC"},
-			"audioQuality": {"best": "Melhor qualidade", "320": "Até 320K", "192": "Até 192K", "128": "Até 128K"},
+			"audioQuality": {"128": "Até 128K", "192": "Até 192K", "320": "Até 320K", "best": "Melhor qualidade"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "Manual primeiro, depois automática", "manualOnly": "Apenas manual", "autoOnly": "Apenas automática"},
 			"sponsorBlockHint": {"off": "Sem SponsorBlock — o vídeo toca exatamente como foi enviado.", "mark": "Marca segmentos de patrocinadores como capítulos (não destrutivo).", "remove": "Corta segmentos de patrocinadores do vídeo usando o FFmpeg."}
