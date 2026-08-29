@@ -280,7 +280,7 @@
 				"units": {"seconds": "s"}
 			},
 			"closeToTray": {"toggle": "Ocultar na bandeja ao fechar", "toggleDescription": "Continua os downloads em segundo plano após fechar a janela."},
-			"analytics": {"toggle": "Enviar estatísticas anônimas de uso", "toggleDescription": "Conta apenas inicializações do app. Sem URLs, nomes de arquivos ou dados pessoais."}
+			"analytics": {"toggle": "Enviar estatísticas anônimas de uso", "toggleDescription": "Relata falhas, quedas e feedback de forma anônima. Sem URLs, nomes de arquivos ou dados pessoais."}
 		},
 		"quickProgress": {
 			"title": "Preparando Download Rápido",
@@ -660,7 +660,7 @@
 		"description": "O Arroxy é gratuito e de código aberto. Compartilhar ajuda mais pessoas a descobri-lo.",
 		"copyLink": "Copiar link",
 		"copied": "Copiado!",
-		"defaultMessage": "Arroxy — baixador de vídeos gratuito e open-source para Windows, macOS e Linux. Compatível com YouTube, Vimeo, Twitch e mais de 1850 sites.\n4K · HDR · MP3 · Shorts · Legendas · SponsorBlock",
+		"defaultMessage": "Arroxy — baixador de vídeos gratuito e open-source para Windows, macOS e Linux. Compatível com YouTube, Vimeo, Twitch e mais de 2000 sites.\n4K · HDR · MP3 · Shorts · Legendas · SponsorBlock",
 		"footerTooltip": "Compartilhar o Arroxy",
 		"footerLabel": "Compartilhar",
 		"shareAction": "Compartilhar o Arroxy"

@@ -796,7 +796,7 @@ msgid ""
 "Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 1850+ sites.\n"
 "4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
 msgstr ""
-"Arroxy — baixador de vídeos gratuito e open-source para Windows, macOS e Linux. Compatível com YouTube, Vimeo, Twitch e mais de 1850 sites.\n"
+"Arroxy — baixador de vídeos gratuito e open-source para Windows, macOS e Linux. Compatível com YouTube, Vimeo, Twitch e mais de 2000 sites.\n"
 "4K · HDR · MP3 · Shorts · Legendas · SponsorBlock"
 
 msgctxt "share.description"
@@ -2407,7 +2407,7 @@ msgstr "Enviar estatísticas anônimas de uso"
 
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Counts app launches only. No URLs, filenames, or personal data."
-msgstr "Conta apenas inicializações do app. Sem URLs, nomes de arquivos ou dados pessoais."
+msgstr "Relata falhas, quedas e feedback de forma anônima. Sem URLs, nomes de arquivos ou dados pessoais."
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
