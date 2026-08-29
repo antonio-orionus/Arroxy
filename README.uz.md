@@ -284,7 +284,7 @@ Arroxy bir narsa uchun yaratilgan: URL'ni joylashtiring, toza mahalliy fayl olin
 
 Yuklamalar YouTube'dan siz tanlagan papkaga to'g'ridan-to'g'ri [yt-dlp](https://github.com/yt-dlp/yt-dlp) orqali olinadi — hech narsa uchinchi tomon server orqali yo'naltirilmaydi. Ko'rish tarixi, yuklab olish tarixi, URL'lar va fayl mazmunlari qurilmangizda qoladi.
 
-Arroxy [OpenPanel](https://openpanel.dev) orqali anonim, agregat telemetriya yuboradi — ishga tushirishlar, OS, ilova versiyalari va nosozliklarni tushunish uchun yetarli. URL, video sarlavhasi, fayl yo‘li, hisob ma’lumoti, fingerprinting yoki shaxsiy ma’lumot yo‘q. Har bir o‘rnatish IDsi tasodifiy va shaxsingizga bog‘lanmagan. Sozlamalarda o‘chirib qo‘yishingiz mumkin.
+Arroxy [OpenPanel](https://openpanel.dev) orqali anonim, agregat telemetriya yuboradi — nosozliklar, qulashlar, fikr-mulohazalar, OS va ilova versiyalarini tushunish uchun yetarli. URL, video sarlavhasi, fayl yo‘li, hisob ma’lumoti, fingerprinting yoki shaxsiy ma’lumot yo‘q. Har bir o‘rnatish IDsi tasodifiy va shaxsingizga bog‘lanmagan. Sozlamalarda o‘chirib qo‘yishingiz mumkin.
 
 ---
 
@@ -343,7 +343,7 @@ Xayyolizda xususiyat bormi? [So'rov yuboring](../../issues) — jamiyat ishtirok
 
 ## <a id="support"></a>Arroxy'ni qo'llab-quvvatlash
 
-Arroxy bepul va MIT litsenziyasi ostida tarqatiladi — reklama yo'q, telemetriya yo'q, pullik versiya yo'q. Agar u vaqtingizni tejasa, ishlanmani Bitcoin yoki Tron orqali qo'llab-quvvatlashingiz mumkin: manzillar [DONATE.md](DONATE.md) faylida keltirilgan va bu ular uchun yagona rasmiy manbadir. Arroxy hech qachon sizga manzilni elektron pochta yoki shaxsiy xabar orqali yubormaydi. Repozitoriyga yulduzcha qo'yish, xatolar haqida xabar berish va tarjimalarni yaxshilash ham xuddi shunday yordam beradi.
+Arroxy bepul va MIT litsenziyasi ostida tarqatiladi — reklama yo'q, pullik versiya yo'q. Agar u vaqtingizni tejasa, ishlanmani Bitcoin yoki Tron orqali qo'llab-quvvatlashingiz mumkin: manzillar [DONATE.md](DONATE.md) faylida keltirilgan va bu ular uchun yagona rasmiy manbadir. Arroxy hech qachon sizga manzilni elektron pochta yoki shaxsiy xabar orqali yubormaydi. Repozitoriyga yulduzcha qo'yish, xatolar haqida xabar berish va tarjimalarni yaxshilash ham xuddi shunday yordam beradi.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

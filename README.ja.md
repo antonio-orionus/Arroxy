@@ -286,7 +286,7 @@ Arroxy はひとつのことのために作られています：URL を貼って
 
 ダウンロードは [yt-dlp](https://github.com/yt-dlp/yt-dlp) 経由で YouTube から選択したフォルダへ直接取得されます — サードパーティのサーバーは経由しません。視聴履歴、ダウンロード履歴、URL、ファイルの内容はすべてあなたのデバイスに留まります。
 
-Arroxy は [OpenPanel](https://openpanel.dev) 経由で匿名・集計されたテレメトリーを送信します — 起動数、OS、アプリバージョン、クラッシュを把握するための最低限だけです。URL、動画タイトル、ファイルパス、アカウント情報、フィンガープリンティング、個人データはありません。インストールごとの ID はランダムで、あなたの身元には結びつきません。設定からオプトアウトできます。
+Arroxy は [OpenPanel](https://openpanel.dev) 経由で匿名・集計されたテレメトリーを送信します — 障害、クラッシュ、フィードバック、OS、アプリバージョンを把握するための最低限だけです。URL、動画タイトル、ファイルパス、アカウント情報、フィンガープリンティング、個人データはありません。インストールごとの ID はランダムで、あなたの身元には結びつきません。設定からオプトアウトできます。
 
 ---
 
@@ -345,7 +345,7 @@ yt-dlp は起動時に自動更新され、YouTube に変更があれば Arroxy 
 
 ## <a id="support"></a>Arroxy を支援する
 
-Arroxy は無料で MIT ライセンスです。広告もテレメトリも有料版もありません。時間の節約に役立っているなら、Bitcoin または Tron で開発を支援できます。アドレスは [DONATE.md](DONATE.md) に記載しており、これが唯一の公式な情報源です。Arroxy がメールやダイレクトメッセージでアドレスをお送りすることは決してありません。リポジトリへのスター、バグ報告、翻訳の改善も同じくらい助けになります。
+Arroxy は無料で MIT ライセンスです。広告も有料版もありません。時間の節約に役立っているなら、Bitcoin または Tron で開発を支援できます。アドレスは [DONATE.md](DONATE.md) に記載しており、これが唯一の公式な情報源です。Arroxy がメールやダイレクトメッセージでアドレスをお送りすることは決してありません。リポジトリへのスター、バグ報告、翻訳の改善も同じくらい助けになります。
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

@@ -280,7 +280,7 @@
 				"units": {"seconds": "giây"}
 			},
 			"closeToTray": {"toggle": "Ẩn xuống khay khi đóng", "toggleDescription": "Tiếp tục tải xuống trong nền sau khi đóng cửa sổ."},
-			"analytics": {"toggle": "Gửi thống kê sử dụng ẩn danh", "toggleDescription": "Chỉ đếm số lần khởi động ứng dụng. Không có URL, tên tệp hay dữ liệu cá nhân."}
+			"analytics": {"toggle": "Gửi thống kê sử dụng ẩn danh", "toggleDescription": "Báo cáo ẩn danh về sự cố, lỗi và phản hồi. Không có URL, tiêu đề video hay tên tệp."}
 		},
 		"quickProgress": {
 			"title": "Đang chuẩn bị Tải nhanh",
@@ -643,7 +643,7 @@
 		"description": "Arroxy miễn phí và mã nguồn mở. Chia sẻ giúp nhiều người hơn khám phá ra nó.",
 		"copyLink": "Sao chép liên kết",
 		"copied": "Đã sao chép!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — trình tải video miễn phí, mã nguồn mở cho Windows, macOS và Linux. Hoạt động với YouTube, Vimeo, Twitch và hơn 2000 trang web.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Chia sẻ Arroxy",
 		"footerLabel": "Chia sẻ",
 		"shareAction": "Chia sẻ Arroxy"

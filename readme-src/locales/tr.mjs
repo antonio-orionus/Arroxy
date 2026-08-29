@@ -311,7 +311,7 @@ export const tr = {
   privacy_p1:
     "İndirmeler [yt-dlp](https://github.com/yt-dlp/yt-dlp) ile doğrudan YouTube'dan seçtiğin klasöre alınır — hiçbir şey üçüncü taraf sunucu üzerinden yönlendirilmez. İzleme geçmişi, indirme geçmişi, URL'ler ve dosya içerikleri cihazında kalır.",
   privacy_p2:
-    "Arroxy [OpenPanel](https://openpanel.dev) üzerinden anonim, toplu telemetri gönderir — bağımsız bir projenin açılışları, işletim sistemlerini, uygulama sürümlerini ve çökmeleri anlamasına yetecek kadar. URL, video başlığı, dosya yolu, hesap bilgisi, parmak izi veya kişisel veri yoktur. Kurulum başına kimlik rastgeledir ve kimliğinle bağlantılı değildir. Ayarlar'dan çıkabilirsin.",
+    "Arroxy [OpenPanel](https://openpanel.dev) üzerinden anonim, toplu telemetri gönderir — bağımsız bir projenin hataları, çökmeleri, geri bildirimleri, işletim sistemlerini ve uygulama sürümlerini anlamasına yetecek kadar. URL, video başlığı, dosya yolu, hesap bilgisi, parmak izi veya kişisel veri yoktur. Kurulum başına kimlik rastgeledir ve kimliğinle bağlantılı değildir. Ayarlar'dan çıkabilirsin.",
   faq_q1: "Gerçekten ücretsiz mi?",
   faq_a1: "Evet — MIT lisanslı, premium katman yok, özellik kilidi yok.",
   faq_q2: "Hangi video kalitelerini indirebilirim?",
@@ -369,7 +369,7 @@ export const tr = {
     "Aklında bir özellik mi var? [İstek aç](../../issues) — topluluk girdisi önceliği şekillendirir.",
   tech_content: TECH_CONTENT,
   support_h2: "Arroxy'yi destekle",
-  support_note: "Arroxy ücretsizdir ve MIT lisanslıdır — reklam yok, telemetri yok, ücretli sürüm yok. Sana zaman kazandırıyorsa geliştirmeyi Bitcoin veya Tron ile destekleyebilirsin: adresler, tek resmi kaynak olan [DONATE.md](DONATE.md) dosyasında. Arroxy sana asla e-posta veya özel mesajla adres göndermez. Depoya yıldız vermek, hata bildirmek ve çevirileri iyileştirmek de en az o kadar yardımcı olur.",
+  support_note: "Arroxy ücretsizdir ve MIT lisanslıdır — reklam yok, ücretli sürüm yok. Sana zaman kazandırıyorsa geliştirmeyi Bitcoin veya Tron ile destekleyebilirsin: adresler, tek resmi kaynak olan [DONATE.md](DONATE.md) dosyasında. Arroxy sana asla e-posta veya özel mesajla adres göndermez. Depoya yıldız vermek, hata bildirmek ve çevirileri iyileştirmek de en az o kadar yardımcı olur.",
   tos_h2: "Kullanım şartları",
   tos_note:
     "Arroxy yalnızca kişisel, özel kullanım için bir araçtır. İndirmelerinin YouTube [Hizmet Şartları](https://www.youtube.com/t/terms) ve bulunduğun yargı alanındaki telif hakkı yasalarına uygun olduğundan yalnızca sen sorumlusun. Kullanma hakkına sahip olmadığın içerikleri indirmek, çoğaltmak veya dağıtmak için Arroxy'yi kullanma. Geliştiriciler kötüye kullanımdan sorumlu değildir.",

@@ -258,7 +258,7 @@
 				"units": {"seconds": "秒"}
 			},
 			"closeToTray": {"toggle": "关闭时最小化到托盘", "toggleDescription": "关闭窗口后继续在后台下载。"},
-			"analytics": {"toggle": "发送匿名使用统计", "toggleDescription": "仅统计应用启动次数，不包含任何URL、文件名或个人数据。"}
+			"analytics": {"toggle": "发送匿名使用统计", "toggleDescription": "匿名报告崩溃、故障和反馈。不包含任何 URL、视频标题或文件名。"}
 		},
 		"quickProgress": {
 			"title": "正在准备快速下载",
@@ -583,7 +583,7 @@
 		"description": "Arroxy 免费且开源。分享它可以帮助更多人发现它。",
 		"copyLink": "复制链接",
 		"copied": "已复制！",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — 适用于 Windows、macOS 和 Linux 的免费开源视频下载器。支持 YouTube、Vimeo、Twitch 及 2000+ 个网站。\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "分享 Arroxy",
 		"footerLabel": "分享",
 		"shareAction": "分享 Arroxy"

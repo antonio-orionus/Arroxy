@@ -286,7 +286,7 @@ Arroxy 只做一件事：粘贴链接，获取干净的本地文件。无账号�
 
 下载通过 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 直接从 YouTube 获取到你选择的文件夹 — 不经过任何第三方服务器。观看历史、下载历史、URL 和文件内容均保留在你的设备上。
 
-Arroxy 通过 [OpenPanel](https://openpanel.dev) 发送匿名聚合遥测数据 — 仅用于了解启动次数、OS、应用版本和崩溃。无 URL、无视频标题、无文件路径、无账号信息、无指纹识别、无个人数据。每次安装的 ID 是随机的，不与你的身份绑定。你可以在设置中选择退出。
+Arroxy 通过 [OpenPanel](https://openpanel.dev) 发送匿名聚合遥测数据 — 仅用于了解故障、崩溃、反馈、OS 和应用版本。无 URL、无视频标题、无文件路径、无账号信息、无指纹识别、无个人数据。每次安装的 ID 是随机的，不与你的身份绑定。你可以在设置中选择退出。
 
 ---
 
@@ -345,7 +345,7 @@ yt-dlp 在启动时自动更新，YouTube 一旦发生变化，Arroxy 会及时�
 
 ## <a id="support"></a>支持 Arroxy
 
-Arroxy 完全免费并采用 MIT 许可证 —— 没有广告、没有遥测、没有付费版本。如果它为你节省了时间，你可以通过 Bitcoin 或 Tron 支持它的开发：地址见 [DONATE.md](DONATE.md)，这是唯一的官方来源。Arroxy 绝不会通过电子邮件或私信向你发送地址。给仓库点星、报告问题和改进翻译同样有帮助。
+Arroxy 完全免费并采用 MIT 许可证 —— 没有广告、没有付费版本。如果它为你节省了时间，你可以通过 Bitcoin 或 Tron 支持它的开发：地址见 [DONATE.md](DONATE.md)，这是唯一的官方来源。Arroxy 绝不会通过电子邮件或私信向你发送地址。给仓库点星、报告问题和改进翻译同样有帮助。
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

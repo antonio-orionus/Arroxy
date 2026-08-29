@@ -292,7 +292,7 @@ export const zh = {
   privacy_p1:
     "下载通过 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 直接从 YouTube 获取到你选择的文件夹 — 不经过任何第三方服务器。观看历史、下载历史、URL 和文件内容均保留在你的设备上。",
   privacy_p2:
-    "Arroxy 通过 [OpenPanel](https://openpanel.dev) 发送匿名聚合遥测数据 — 仅用于了解启动次数、OS、应用版本和崩溃。无 URL、无视频标题、无文件路径、无账号信息、无指纹识别、无个人数据。每次安装的 ID 是随机的，不与你的身份绑定。你可以在设置中选择退出。",
+    "Arroxy 通过 [OpenPanel](https://openpanel.dev) 发送匿名聚合遥测数据 — 仅用于了解故障、崩溃、反馈、OS 和应用版本。无 URL、无视频标题、无文件路径、无账号信息、无指纹识别、无个人数据。每次安装的 ID 是随机的，不与你的身份绑定。你可以在设置中选择退出。",
   faq_q1: "真的免费吗？",
   faq_a1: "是的 — MIT 许可证，无付费版，无功能门槛。",
   faq_q2: "能下载哪些视频画质？",
@@ -346,7 +346,7 @@ export const zh = {
   plan_cta: "有想法？[提交请求](../../issues) — 社区意见决定优先级。",
   tech_content: TECH_CONTENT,
   support_h2: "支持 Arroxy",
-  support_note: "Arroxy 完全免费并采用 MIT 许可证 —— 没有广告、没有遥测、没有付费版本。如果它为你节省了时间，你可以通过 Bitcoin 或 Tron 支持它的开发：地址见 [DONATE.md](DONATE.md)，这是唯一的官方来源。Arroxy 绝不会通过电子邮件或私信向你发送地址。给仓库点星、报告问题和改进翻译同样有帮助。",
+  support_note: "Arroxy 完全免费并采用 MIT 许可证 —— 没有广告、没有付费版本。如果它为你节省了时间，你可以通过 Bitcoin 或 Tron 支持它的开发：地址见 [DONATE.md](DONATE.md)，这是唯一的官方来源。Arroxy 绝不会通过电子邮件或私信向你发送地址。给仓库点星、报告问题和改进翻译同样有帮助。",
   tos_h2: "使用条款",
   tos_note:
     "Arroxy 仅供个人私人使用。你需要自行确保下载行为符合 YouTube 的[服务条款](https://www.youtube.com/t/terms)及你所在地区的版权法律。请勿使用 Arroxy 下载、复制或分发你不享有权利的内容。开发者对任何滥用行为不承担责任。",

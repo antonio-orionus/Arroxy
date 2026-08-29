@@ -286,7 +286,7 @@ Arroxy est conçu pour une seule chose : coller une URL et obtenir un fichier lo
 
 Les téléchargements sont récupérés directement via [yt-dlp](https://github.com/yt-dlp/yt-dlp) depuis YouTube vers le dossier que tu choisis — rien ne passe par un serveur tiers. L'historique de visionnage, l'historique de téléchargement, les URLs et le contenu des fichiers restent sur ton appareil.
 
-Arroxy envoie une télémétrie anonyme et agrégée via [OpenPanel](https://openpanel.dev) — juste assez pour comprendre les lancements, OS, versions de l’app et crashs. Pas d’URLs, de titres de vidéos, de chemins de fichiers, d’infos de compte, de fingerprinting ni de données personnelles. L’identifiant par installation est aléatoire et non lié à ton identité. Tu peux te désabonner dans les Paramètres.
+Arroxy envoie une télémétrie anonyme et agrégée via [OpenPanel](https://openpanel.dev) — juste assez pour comprendre les pannes, les crashs, les retours, OS et versions de l’app. Pas d’URLs, de titres de vidéos, de chemins de fichiers, d’infos de compte, de fingerprinting ni de données personnelles. L’identifiant par installation est aléatoire et non lié à ton identité. Tu peux te désabonner dans les Paramètres.
 
 ---
 
@@ -345,7 +345,7 @@ Tu as une fonctionnalité en tête ? [Ouvre une demande](../../issues) — les r
 
 ## <a id="support"></a>Soutenir Arroxy
 
-Arroxy est gratuit et sous licence MIT — pas de publicité, pas de télémétrie, pas de version payante. S'il te fait gagner du temps, tu peux soutenir le développement avec Bitcoin ou Tron : les adresses se trouvent dans [DONATE.md](DONATE.md), la seule source officielle. Arroxy ne t'enverra jamais d'adresse par e-mail ou par message privé. Mettre une étoile au dépôt, signaler des bugs et améliorer les traductions aident tout autant.
+Arroxy est gratuit et sous licence MIT — pas de publicité, pas de version payante. S'il te fait gagner du temps, tu peux soutenir le développement avec Bitcoin ou Tron : les adresses se trouvent dans [DONATE.md](DONATE.md), la seule source officielle. Arroxy ne t'enverra jamais d'adresse par e-mail ou par message privé. Mettre une étoile au dépôt, signaler des bugs et améliorer les traductions aident tout autant.
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a>
 

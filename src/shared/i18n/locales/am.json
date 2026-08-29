@@ -258,7 +258,7 @@
 				"units": {"seconds": "ሰከንድ"}
 			},
 			"closeToTray": {"toggle": "ሲዘጋ ወደ ትሬ ደብቅ", "toggleDescription": "መስኮት ሲዘጋ ዳውንሎዶችን ዳራ ቀጥል።"},
-			"analytics": {"toggle": "ስም-አልባ የአጠቃቀም ስታቲስቲክስ ላክ", "toggleDescription": "የመተግበሪያ ማስጀመሪያዎችን ብቻ ይቆጥራል። ምንም URL፣ የፋይል ስሞች ወይም የግል መረጃ የለም።"}
+			"analytics": {"toggle": "ስም-አልባ የአጠቃቀም ስታቲስቲክስ ላክ", "toggleDescription": "ውድቀቶችን፣ ብልሽቶችን እና ግብረ መልስን ማንነት ሳይገለጽ ሪፖርት ያደርጋል። ምንም URL፣ የቪዲዮ ርዕሶች ወይም የፋይል ስሞች የሉም።"}
 		},
 		"quickProgress": {
 			"title": "ፈጣን ማውረድን በማዘጋጀት ላይ",
@@ -589,7 +589,7 @@
 		"description": "Arroxy ነፃ እና ክፍት ምንጭ ነው። ማጋራት ብዙ ሰዎች እንዲያገኙት ይረዳቸዋል።",
 		"copyLink": "ሊንክ ቅዳ",
 		"copied": "ተቀድቷል!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — ነፃ እና ክፍት-ምንጭ የቪዲዮ አውራጅ ለ Windows፣ macOS እና Linux። ከ YouTube፣ Vimeo፣ Twitch እና ከ2000+ ሌሎች ጣቢያዎች ጋር ይሰራል።\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Arroxy አጋራ",
 		"footerLabel": "አጋራ",
 		"shareAction": "Arroxy አጋራ"

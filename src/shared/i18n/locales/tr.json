@@ -280,7 +280,7 @@
 				"units": {"seconds": "sn"}
 			},
 			"closeToTray": {"toggle": "Kapatınca tepsiye gizle", "toggleDescription": "Pencere kapandıktan sonra indirmeleri arka planda sürdür."},
-			"analytics": {"toggle": "Anonim kullanım istatistikleri gönder", "toggleDescription": "Yalnızca uygulama açılışlarını sayar. URL, dosya adı veya kişisel veri yok."}
+			"analytics": {"toggle": "Anonim kullanım istatistikleri gönder", "toggleDescription": "Uygulama çökmelerini, hataları ve geri bildirimleri anonim olarak bildirir. URL, video başlığı veya dosya adı yok."}
 		},
 		"quickProgress": {
 			"title": "Hızlı İndirme hazırlanıyor",
@@ -653,7 +653,7 @@
 		"description": "Arroxy ücretsiz ve açık kaynaklıdır. Paylaşmak daha fazla kişinin keşfetmesine yardımcı olur.",
 		"copyLink": "Bağlantıyı kopyala",
 		"copied": "Kopyalandı!",
-		"defaultMessage": "Arroxy — Windows, macOS ve Linux için ücretsiz, açık kaynaklı video indirici. YouTube, Vimeo, Twitch ve 1850+ siteyle çalışır.\n4K · HDR · MP3 · Shorts · Altyazılar · SponsorBlock",
+		"defaultMessage": "Arroxy — Windows, macOS ve Linux için ücretsiz, açık kaynaklı video indirici. YouTube, Vimeo, Twitch ve 2000+ siteyle çalışır.\n4K · HDR · MP3 · Shorts · Altyazılar · SponsorBlock",
 		"footerTooltip": "Arroxy’yi paylaş",
 		"footerLabel": "Paylaş",
 		"shareAction": "Arroxy’yi paylaş"

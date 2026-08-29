@@ -280,7 +280,7 @@
 				"units": {"seconds": "秒"}
 			},
 			"closeToTray": {"toggle": "閉じるときにトレイに格納", "toggleDescription": "ウィンドウを閉じた後もバックグラウンドでダウンロードを続けます。"},
-			"analytics": {"toggle": "匿名の使用統計を送信", "toggleDescription": "アプリの起動回数のみを記録します。URL、ファイル名、個人情報は含まれません。"}
+			"analytics": {"toggle": "匿名の使用統計を送信", "toggleDescription": "クラッシュ、障害、フィードバックを匿名で報告します。URL、動画タイトル、ファイル名は含まれません。"}
 		},
 		"quickProgress": {
 			"title": "クイックダウンロードを準備中",
@@ -665,7 +665,7 @@
 		"description": "Arroxyは無料でオープンソースです。シェアすることでより多くの人に届けることができます。",
 		"copyLink": "リンクをコピー",
 		"copied": "コピーしました！",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — Windows・macOS・Linux 向けの無料オープンソース動画ダウンローダー。YouTube、Vimeo、Twitch、2000 以上のサイトに対応。\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Arroxy を共有",
 		"footerLabel": "共有",
 		"shareAction": "Arroxy を共有"

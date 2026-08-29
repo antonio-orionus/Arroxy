@@ -792,7 +792,7 @@ msgstr ""
 
 msgctxt "share.defaultMessage"
 msgid ""
-"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 1850+ sites.\n"
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
 "4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
 msgstr ""
 
@@ -2400,7 +2400,7 @@ msgid "Send anonymous usage stats"
 msgstr ""
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "Counts app launches only. No URLs, filenames, or personal data."
+msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
 msgstr ""
 
 msgctxt "wizard.url.autoRetry.description"

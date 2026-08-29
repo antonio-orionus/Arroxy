@@ -280,7 +280,7 @@
 				"units": {"seconds": "ث"}
 			},
 			"closeToTray": {"toggle": "الإخفاء في علبة النظام عند الإغلاق", "toggleDescription": "تستمر التنزيلات في الخلفية بعد إغلاق النافذة."},
-			"analytics": {"toggle": "إرسال إحصائيات الاستخدام المجهولة", "toggleDescription": "يحسب فقط مرات تشغيل التطبيق. بدون عناوين URL أو أسماء ملفات أو بيانات شخصية."}
+			"analytics": {"toggle": "إرسال إحصائيات الاستخدام المجهولة", "toggleDescription": "يُرسل تقارير مجهولة عن الأعطال والأخطاء والملاحظات. بدون عناوين URL أو أسماء فيديوهات أو أسماء ملفات."}
 		},
 		"quickProgress": {
 			"title": "تحضير التنزيل السريع",
@@ -630,7 +630,7 @@
 		"description": "Arroxy مجاني ومفتوح المصدر. مشاركته تساعد المزيد من الأشخاص على اكتشافه.",
 		"copyLink": "نسخ الرابط",
 		"copied": "تم النسخ!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — محمّل فيديوهات مجاني ومفتوح المصدر لنظام Windows وmacOS وLinux. يعمل مع YouTube وVimeo وTwitch وأكثر من 2000 موقع.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "مشاركة Arroxy",
 		"footerLabel": "مشاركة",
 		"shareAction": "مشاركة Arroxy"

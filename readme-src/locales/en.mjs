@@ -308,7 +308,7 @@ export const en = {
   privacy_p1:
     "Downloads are fetched directly via [yt-dlp](https://github.com/yt-dlp/yt-dlp) from YouTube to the folder you pick — nothing routed through a third-party server. Watch history, download history, URLs, and file contents stay on your device.",
   privacy_p2:
-    "Arroxy sends anonymous, aggregate telemetry via [OpenPanel](https://openpanel.dev) — just enough for an indie project to understand launches, OS, app versions, and crashes. No URLs, video titles, file paths, account info, fingerprinting, or personal data. The per-install ID is random and not tied to your identity. You can opt out in Settings.",
+    "Arroxy sends anonymous, aggregate telemetry via [OpenPanel](https://openpanel.dev) — just enough for an indie project to understand failures, crashes, feedback, OS, and app versions. No URLs, video titles, file paths, account info, fingerprinting, or personal data. The per-install ID is random and not tied to your identity. You can opt out in Settings.",
   faq_q1: "Is it really free?",
   faq_a1: "Yes — MIT licensed, no premium tier, no feature gating.",
   faq_q2: "What video qualities can I download?",
@@ -366,7 +366,7 @@ export const en = {
     "Have a feature in mind? [Open a request](../../issues) — community input shapes priority.",
   tech_content: TECH_CONTENT,
   support_h2: "Support Arroxy",
-  support_note: "Arroxy is free and MIT-licensed — no ads, no telemetry, no paid tier. If it saves you time, you can support development with Bitcoin or Tron: the addresses are in [DONATE.md](DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.",
+  support_note: "Arroxy is free and MIT-licensed — no ads, no paid tier. If it saves you time, you can support development with Bitcoin or Tron: the addresses are in [DONATE.md](DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.",
   tos_h2: "Terms of use",
   tos_note:
     "Arroxy is a tool for personal, private use only. You are solely responsible for ensuring your downloads comply with YouTube's [Terms of Service](https://www.youtube.com/t/terms) and the copyright laws of your jurisdiction. Do not use Arroxy to download, reproduce, or distribute content you do not have the right to use. The developers are not liable for any misuse.",

@@ -314,7 +314,7 @@ export const om = {
   privacy_p1:
     "Buufannoonni kallattiin [yt-dlp](https://github.com/yt-dlp/yt-dlp) fayyadamuudhaan YouTube irraa foldera filatteetti darbamu — miila-seerri hunduu sarara servera sadarkaa-sadaffaa tokko keessa darbuu hin qabu. Seenaa ilaaluu, seenaa buufannoo, URLs, fi qabiyyee faayilaa meeshaa kee irratti hafu.",
   privacy_p2:
-    "Arroxy telemetrii maqaa-dhabduu walitti makamaa [OpenPanel](https://openpanel.dev) fayyadamuudhaan erga — eegaluu, OS, version app fi kufaatii hubachuuf qofa. URL, mata-duree viidiyoo, karaa faayilaa, odeeffannoo account, fingerprinting yookaan data dhuunfaa hin jiru. ID install tokkoon tokkoo tasaa dha, eenyummaa keetti hin hidhamu. Settings keessatti dhaabuu dandeessa.",
+    "Arroxy telemetrii maqaa-dhabduu walitti makamaa [OpenPanel](https://openpanel.dev) fayyadamuudhaan erga — dogoggora, kufaatii, deebii, OS fi version app hubachuuf qofa. URL, mata-duree viidiyoo, karaa faayilaa, odeeffannoo account, fingerprinting yookaan data dhuunfaa hin jiru. ID install tokkoon tokkoo tasaa dha, eenyummaa keetti hin hidhamu. Settings keessatti dhaabuu dandeessa.",
   faq_q1: "Dhuguma bilisaa dha?",
   faq_a1:
     "Eeyyee — hayyama MIT, sadarkaa kafaltii hin jiru, amaloota dhorkamuun hin jiru.",
@@ -373,7 +373,7 @@ export const om = {
     "Amala yaaddetee jirtaa? [Gaaffii bani](../../issues) — galchiin hawaasaa dursa murteessa.",
   tech_content: TECH_CONTENT,
   support_h2: "Arroxy Deggeri",
-  support_note: "Arroxy bilisa fi hayyama MIT jala jira — beeksisni hin jiru, telemetriin hin jiru, fooyya'iinsi kaffaltiin hin jiru. Yoo yeroo siif qusate, guddina isaa Bitcoin ykn Tron'iin deggeruu dandeessa: teessoowwan [DONATE.md](DONATE.md) keessa jiru, innis madda ofiisaa qofa. Arroxy gonkumaa teessoo iimeeliidhaan ykn ergaa kallattiitiin siif hin ergu. Repoo'f urjii kennuun, dogoggora gabaasuu fi hiikkaa fooyyessuun hammuma sana gargaara.",
+  support_note: "Arroxy bilisa fi hayyama MIT jala jira — beeksisni hin jiru, fooyya'iinsi kaffaltiin hin jiru. Yoo yeroo siif qusate, guddina isaa Bitcoin ykn Tron'iin deggeruu dandeessa: teessoowwan [DONATE.md](DONATE.md) keessa jiru, innis madda ofiisaa qofa. Arroxy gonkumaa teessoo iimeeliidhaan ykn ergaa kallattiitiin siif hin ergu. Repoo'f urjii kennuun, dogoggora gabaasuu fi hiikkaa fooyyessuun hammuma sana gargaara.",
   tos_h2: "Hayyama fayyadamuu",
   tos_note:
     "Arroxy meeshaa fayyadama dhuunfaa, dhoksaa qofaaf. Buufannoonni kee Dambii Tajaajilaaf YouTube [Terms of Service](https://www.youtube.com/t/terms) fi seeraa mirga-qopheessaa naannoo keetii wajjin walsimuu mirkaneessuu qofaaf itti gaafatamaa taata. Arroxy fayyadamuudhaan mirgaa hin qabne qabiyyee buusuu, haaromsu, ykn raabsuu hin godhin. Guddiftoonni misooma dogoggoraa kamiifis itti gaafatamu hin qaban.",

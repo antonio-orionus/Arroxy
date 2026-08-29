@@ -280,7 +280,7 @@
 				"units": {"seconds": "δευτ."}
 			},
 			"closeToTray": {"toggle": "Απόκρυψη στο δίσκο κατά το κλείσιμο", "toggleDescription": "Συνέχιση λήψεων στο παρασκήνιο μετά το κλείσιμο του παραθύρου."},
-			"analytics": {"toggle": "Αποστολή ανώνυμων στατιστικών χρήσης", "toggleDescription": "Μετράει μόνο εκκινήσεις εφαρμογής. Χωρίς URL, ονόματα αρχείων ή προσωπικά δεδομένα."}
+			"analytics": {"toggle": "Αποστολή ανώνυμων στατιστικών χρήσης", "toggleDescription": "Αναφέρει ανώνυμα σφάλματα, καταρρεύσεις και σχόλια. Χωρίς URL, τίτλους βίντεο ή ονόματα αρχείων."}
 		},
 		"quickProgress": {
 			"title": "Προετοιμασία γρήγορης λήψης",
@@ -658,7 +658,7 @@
 		"description": "Το Arroxy είναι δωρεάν και ανοιχτού κώδικα. Η κοινοποίηση βοηθά περισσότερους να το ανακαλύψουν.",
 		"copyLink": "Αντιγραφή συνδέσμου",
 		"copied": "Αντιγράφηκε!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — Δωρεάν πρόγραμμα λήψης βίντεο ανοιχτού κώδικα για Windows, macOS & Linux. Λειτουργεί με YouTube, Vimeo, Twitch και 2000+ ιστοτόπους.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Κοινή χρήση Arroxy",
 		"footerLabel": "Κοινή χρήση",
 		"shareAction": "Κοινή χρήση Arroxy"

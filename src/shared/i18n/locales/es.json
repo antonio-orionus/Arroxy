@@ -280,7 +280,7 @@
 				"units": {"seconds": "seg"}
 			},
 			"closeToTray": {"toggle": "Minimizar a la bandeja al cerrar", "toggleDescription": "Continuar descargas en segundo plano al cerrar la ventana."},
-			"analytics": {"toggle": "Enviar estadísticas de uso anónimas", "toggleDescription": "Solo cuenta los inicios de la app. Sin URLs, nombres de archivo ni datos personales."}
+			"analytics": {"toggle": "Enviar estadísticas de uso anónimas", "toggleDescription": "Informa de forma anónima sobre fallos, errores y comentarios. Sin URLs, títulos de vídeo ni nombres de archivo."}
 		},
 		"quickProgress": {
 			"title": "Preparando descarga rápida",
@@ -658,7 +658,7 @@
 		"description": "Arroxy es gratuito y de código abierto. Compartirlo ayuda a que más personas lo descubran.",
 		"copyLink": "Copiar enlace",
 		"copied": "¡Copiado!",
-		"defaultMessage": "Arroxy — free, open-source YouTube downloader for Windows, macOS & Linux.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"defaultMessage": "Arroxy — Descargador de vídeos gratuito y de código abierto para Windows, macOS y Linux. Funciona con YouTube, Vimeo, Twitch y más de 2000 sitios.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
 		"footerTooltip": "Compartir Arroxy",
 		"footerLabel": "Compartir",
 		"shareAction": "Compartir Arroxy"
