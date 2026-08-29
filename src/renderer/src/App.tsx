@@ -88,12 +88,13 @@ function effectiveBackdropRenderMode(preferredMode: BackdropRenderMode | null, g
 
 export function App(): ReactNode {
 	const {t} = useTranslation()
-	const {initialized, initialize, setSplashDismissed, splashDismissed, warmupBlocking, warmupDiagnostics, warmupProgress, settings, graphicsPolicy} = useAppStore(
+	const {initialized, initialize, setSplashDismissed, splashDismissed, cancelWarmup, warmupBlocking, warmupDiagnostics, warmupProgress, settings, graphicsPolicy} = useAppStore(
 		useShallow(state => ({
 			initialized: state.initialized,
 			initialize: state.initialize,
 			setSplashDismissed: state.setSplashDismissed,
 			splashDismissed: state.splashDismissed,
+			cancelWarmup: state.cancelWarmup,
 			warmupBlocking: state.warmupBlocking,
 			warmupDiagnostics: state.warmupDiagnostics,
 			warmupProgress: state.warmupProgress,
@@ -273,7 +274,7 @@ export function App(): ReactNode {
 					</div>
 				</footer>
 
-				{showStartupSplash && <WarmupSplash initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={shouldShowSplashGreeting(settings)} onDismissed={() => setSplashDismissed(true)} />}
+				{showStartupSplash && <WarmupSplash initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={shouldShowSplashGreeting(settings)} onDismissed={() => setSplashDismissed(true)} onCancel={cancelWarmup} />}
 				<AboutDialog />
 				{shareDialogOpen ? (
 					<Suspense fallback={null}>

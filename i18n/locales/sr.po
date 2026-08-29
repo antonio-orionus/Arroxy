@@ -819,6 +819,10 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr "Подели Arroxy"
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr "Откажи подешавање"
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr "Преузимање {{binary}}…"
@@ -826,6 +830,14 @@ msgstr "Преузимање {{binary}}…"
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Добродошао/ла назад!"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Провера {{binary}}…"
+
+msgctxt "splash.verifySlow"
+msgid "This takes longer the first time after an update."
+msgstr "Први пут након ажурирања ово траје дуже."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

@@ -7,10 +7,33 @@ import type {DependencyFailure, DependencyId} from '@shared/types.js'
 
 const execFileAsync = promisify(execFile)
 
+// ffmpeg/ffprobe ship inside the app bundle and answer `-version` in ~20ms.
 const PROBE_TIMEOUT_MS = 30_000
 
-export function probeTimeoutMs(_id: DependencyId, _platform: NodeJS.Platform = process.platform): number {
-	return PROBE_TIMEOUT_MS
+// yt-dlp does not. Every platform gets the PyInstaller onefile build, which
+// unpacks ~100 bundled libraries into a fresh temp directory on *every*
+// invocation and deletes them on exit. The OS then inspects what was just
+// written — Gatekeeper/XProtect on macOS, Defender on Windows — and a cold run
+// measured 28-32s on an M5 Pro. A 30s budget sits inside that range, so the
+// probe was being killed mid-success and the binary written off as broken.
+const YT_DLP_PROBE_TIMEOUT_MS = 120_000
+
+// Once one candidate has proven the environment hostile, the remaining ones are
+// probed on a short leash. We are no longer asking "does this work?" but "is
+// there a *fast* alternative here?" — a Homebrew or pipx yt-dlp is a Python
+// wrapper script rather than an onefile bundle and answers in milliseconds. A
+// candidate that cannot beat this clock is not the escape hatch we need, and
+// waiting the full budget on each one turns a 2-minute stall into an 8-minute
+// one on exactly the machines that are already struggling.
+const SHORT_LEASH_PROBE_TIMEOUT_MS = 5_000
+
+// 'full' is the ordinary budget. 'shortLeash' applies after an environment-fatal
+// failure — see isEnvironmentFatalFailure in @shared/dependencyPolicy.
+export type ProbeBudget = 'full' | 'shortLeash'
+
+export function probeTimeoutMs(id: DependencyId, budget: ProbeBudget = 'full'): number {
+	if (budget === 'shortLeash') return SHORT_LEASH_PROBE_TIMEOUT_MS
+	return id === 'yt-dlp' ? YT_DLP_PROBE_TIMEOUT_MS : PROBE_TIMEOUT_MS
 }
 
 export function isAbortError(err: unknown): boolean {
@@ -26,8 +49,14 @@ export function cancelError(message = 'Cancelled'): Error {
 	return err
 }
 
-function abortFailure(message: string): DependencyFailure {
-	return {kind: 'timeout', message, osCode: 'CANCELLED'}
+// A cancelled probe and a timed-out probe both surface as kind 'timeout', but
+// they mean opposite things to the resolver: one says "the user left", the other
+// says "this machine is slow". Carry the difference explicitly rather than
+// making callers sniff osCode.
+export type ProbeResult = {ok: true; output: string} | {ok: false; failure: DependencyFailure; cancelled?: true}
+
+function abortResult(message: string): ProbeResult {
+	return {ok: false, failure: {kind: 'timeout', message, osCode: 'CANCELLED'}, cancelled: true}
 }
 
 export function probeArgs(id: DependencyId): string[] {
@@ -88,8 +117,8 @@ export function classifyProbeError(err: NodeJS.ErrnoException, stderr?: string):
 // Spawn a binary, run its --version probe, and classify failures. Pure I/O —
 // no policy. Version-comparison + acceptability decisions live in
 // BinaryResolver (the strategy chain inside BinaryManager).
-export async function probeBinary(filePath: string, args: string[], timeoutMs: number = PROBE_TIMEOUT_MS, signal?: AbortSignal): Promise<{ok: true; output: string} | {ok: false; failure: DependencyFailure}> {
-	if (signal?.aborted) return {ok: false, failure: abortFailure('Cancelled before probe')}
+export async function probeBinary(filePath: string, args: string[], timeoutMs: number = PROBE_TIMEOUT_MS, signal?: AbortSignal): Promise<ProbeResult> {
+	if (signal?.aborted) return abortResult('Cancelled before probe')
 	// BtbN's Linux shared ffmpeg/ffprobe build expects libav*.so.* siblings in
 	// the executable's own directory. Inject LD_LIBRARY_PATH so probing the
 	// bundled binary works the same way spawnYtDlp/spawnFFmpeg do at runtime.
@@ -101,7 +130,7 @@ export async function probeBinary(filePath: string, args: string[], timeoutMs: n
 			settled = true
 			if (err) {
 				if (isAbortError(err)) {
-					resolve({ok: false, failure: abortFailure('Probe cancelled')})
+					resolve(abortResult('Probe cancelled'))
 					return
 				}
 				resolve({ok: false, failure: classifyProbeError(err as NodeJS.ErrnoException, stderr)})
@@ -118,7 +147,7 @@ export async function probeBinary(filePath: string, args: string[], timeoutMs: n
 			if (settled) return
 			settled = true
 			if (isAbortError(err)) {
-				resolve({ok: false, failure: abortFailure('Probe cancelled')})
+				resolve(abortResult('Probe cancelled'))
 				return
 			}
 			resolve({ok: false, failure: classifyProbeError(err)})

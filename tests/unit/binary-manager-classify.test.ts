@@ -84,10 +84,24 @@ describe('classifyProbeError', () => {
 })
 
 describe('probeTimeoutMs', () => {
-	it('keeps binary probes to a 30 second budget', () => {
-		expect(probeTimeoutMs('yt-dlp', 'win32')).toBe(30_000)
-		expect(probeTimeoutMs('yt-dlp', 'linux')).toBe(30_000)
-		expect(probeTimeoutMs('ffmpeg', 'darwin')).toBe(30_000)
-		expect(probeTimeoutMs('ffprobe', 'linux')).toBe(30_000)
+	// The bundled pair answers in milliseconds; yt-dlp unpacks ~100 libraries the
+	// OS then scans, and measured 28-32s cold on an M5 Pro. A shared 30s budget
+	// killed those probes mid-success.
+	it('gives yt-dlp room for its onefile unpack, on every platform', () => {
+		expect(probeTimeoutMs('yt-dlp')).toBeGreaterThan(60_000)
+	})
+
+	it('keeps the bundled ffmpeg pair on the short budget', () => {
+		expect(probeTimeoutMs('ffmpeg')).toBe(30_000)
+		expect(probeTimeoutMs('ffprobe')).toBe(30_000)
+	})
+
+	// Once the environment has refused one candidate, the rest are only worth
+	// trying if they are fast — waiting the full yt-dlp budget on each would turn
+	// a 2-minute stall into an 8-minute one.
+	it('shortens the leash for every binary once the environment has refused one', () => {
+		expect(probeTimeoutMs('yt-dlp', 'shortLeash')).toBe(5_000)
+		expect(probeTimeoutMs('ffmpeg', 'shortLeash')).toBe(5_000)
+		expect(probeTimeoutMs('yt-dlp', 'shortLeash')).toBeLessThan(probeTimeoutMs('yt-dlp'))
 	})
 })

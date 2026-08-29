@@ -3,7 +3,15 @@
 	"app": {"feedback": "Feedback", "logs": "Logs", "feedbackNudge": "Enjoying Arroxy? I'd love to hear from you! 💬", "zoomIn": "Zoom in", "zoomOut": "Zoom out"},
 	"about": {"button": "About", "openTitle": "About Arroxy", "tagline": "Fast, friendly downloader for YouTube and 2000+ other sites.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "MIT License · by Antonio Orionus", "thirdPartyNotices": "View third-party notices"},
 	"titleBar": {"close": "Close", "minimize": "Minimize", "maximize": "Maximize", "restore": "Restore"},
-	"splash": {"greeting": "Hey, welcome back!", "warmup": "Preparing downloads…", "downloading": "Downloading {{binary}}…", "warmupFailedNoDiag": "Setup failed. Open the setup log for details."},
+	"splash": {
+		"greeting": "Hey, welcome back!",
+		"warmup": "Preparing downloads…",
+		"downloading": "Downloading {{binary}}…",
+		"verifying": "Checking {{binary}}…",
+		"verifySlow": "This takes longer the first time after an update.",
+		"cancel": "Cancel setup",
+		"warmupFailedNoDiag": "Setup failed. Open the setup log for details."
+	},
 	"repair": {
 		"title": "Setup needs your help",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},

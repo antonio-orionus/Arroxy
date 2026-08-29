@@ -3,7 +3,15 @@
 	"app": {"feedback": "Maoni", "logs": "Kumbukumbu", "feedbackNudge": "Unafurahia Arroxy? Ningependa kusikia kutoka kwako! 💬", "zoomIn": "Kuza", "zoomOut": "Punguza"},
 	"about": {"button": "Kuhusu", "openTitle": "Kuhusu Arroxy", "tagline": "Kipakua cha haraka na rahisi kwa YouTube na tovuti nyingine 2000+.", "websiteLink": "Tovuti", "githubLink": "GitHub", "licenseLine": "Leseni ya MIT · na Antonio Orionus", "thirdPartyNotices": "Tazama notisi za wengine"},
 	"titleBar": {"close": "Funga", "minimize": "Punguza", "maximize": "Panua", "restore": "Rejesha"},
-	"splash": {"greeting": "Hujambo, karibu tena!", "warmup": "Inaandaa vipakuliwa…", "downloading": "Inapakua {{binary}}…", "warmupFailedNoDiag": "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi."},
+	"splash": {
+		"greeting": "Hujambo, karibu tena!",
+		"warmup": "Inaandaa vipakuliwa…",
+		"downloading": "Inapakua {{binary}}…",
+		"verifying": "Inakagua {{binary}}…",
+		"verifySlow": "Mara ya kwanza baada ya sasisho, hii huchukua muda mrefu.",
+		"cancel": "Ghairi usanidi",
+		"warmupFailedNoDiag": "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi."
+	},
 	"repair": {
 		"title": "Usanidi unahitaji msaada wako",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},

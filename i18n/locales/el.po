@@ -819,6 +819,10 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr "Μοιράσου το Arroxy"
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr "Ακύρωση εγκατάστασης"
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr "Λήψη {{binary}}…"
@@ -826,6 +830,14 @@ msgstr "Λήψη {{binary}}…"
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Καλώς ήρθες πάλι!"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Έλεγχος {{binary}}…"
+
+msgctxt "splash.verifySlow"
+msgid "This takes longer the first time after an update."
+msgstr "Την πρώτη φορά μετά από ενημέρωση αυτό διαρκεί περισσότερο."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

@@ -3,7 +3,15 @@
 	"app": {"feedback": "Feedback", "logs": "Protokolle", "feedbackNudge": "Gefällt dir Arroxy? Ich freue mich über dein Feedback! 💬", "zoomIn": "Vergrößern", "zoomOut": "Verkleinern"},
 	"about": {"button": "Info", "openTitle": "Über Arroxy", "tagline": "Schneller, freundlicher Downloader für YouTube und über 2000 weitere Seiten.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "MIT-Lizenz · von Antonio Orionus", "thirdPartyNotices": "Drittanbieter-Hinweise anzeigen"},
 	"titleBar": {"close": "Schließen", "minimize": "Minimieren", "maximize": "Maximieren", "restore": "Wiederherstellen"},
-	"splash": {"greeting": "Hey, schön dich wiederzusehen!", "warmup": "Downloads werden vorbereitet…", "downloading": "{{binary}} wird heruntergeladen…", "warmupFailedNoDiag": "Einrichtung fehlgeschlagen. Öffne das Einrichtungsprotokoll für Details."},
+	"splash": {
+		"greeting": "Hey, schön dich wiederzusehen!",
+		"warmup": "Downloads werden vorbereitet…",
+		"downloading": "{{binary}} wird heruntergeladen…",
+		"verifying": "{{binary}} wird geprüft…",
+		"verifySlow": "Nach einem Update dauert das beim ersten Mal länger.",
+		"cancel": "Einrichtung abbrechen",
+		"warmupFailedNoDiag": "Einrichtung fehlgeschlagen. Öffne das Einrichtungsprotokoll für Details."
+	},
 	"repair": {
 		"title": "Einrichtung braucht deine Hilfe",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},

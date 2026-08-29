@@ -819,6 +819,10 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr "Chia sẻ Arroxy"
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr "Hủy thiết lập"
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr "Đang tải xuống {{binary}}…"
@@ -826,6 +830,14 @@ msgstr "Đang tải xuống {{binary}}…"
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Xin chào, chào mừng bạn quay lại!"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Đang kiểm tra {{binary}}…"
+
+msgctxt "splash.verifySlow"
+msgid "This takes longer the first time after an update."
+msgstr "Lần đầu sau khi cập nhật, việc này mất nhiều thời gian hơn."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

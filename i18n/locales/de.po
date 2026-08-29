@@ -819,6 +819,10 @@ msgctxt "share.title"
 msgid "Share Arroxy"
 msgstr "Arroxy teilen"
 
+msgctxt "splash.cancel"
+msgid "Cancel setup"
+msgstr "Einrichtung abbrechen"
+
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
 msgstr "{{binary}} wird heruntergeladen…"
@@ -826,6 +830,14 @@ msgstr "{{binary}} wird heruntergeladen…"
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Hey, schön dich wiederzusehen!"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "{{binary}} wird geprüft…"
+
+msgctxt "splash.verifySlow"
+msgid "This takes longer the first time after an update."
+msgstr "Nach einem Update dauert das beim ersten Mal länger."
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"

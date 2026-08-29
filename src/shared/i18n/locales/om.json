@@ -3,7 +3,15 @@
 	"app": {"feedback": "Yaada", "logs": "Galmee", "feedbackNudge": "Arroxy si gammachiisaa jiraa? Yaada kee dhaga'uu barbaada! 💬", "zoomIn": "Guddisi", "zoomOut": "Xiqqeessi"},
 	"about": {"button": "Waa'ee", "openTitle": "Waa'ee Arroxy", "tagline": "YouTube fi marsariitota 2000+ biroo irraa buusuuf meeshaa ariifataa fi salphaa.", "websiteLink": "Marsariitii", "githubLink": "GitHub", "licenseLine": "Heeyyama MIT · by Antonio Orionus", "thirdPartyNotices": "Beeksisa seera-biroo ilaali"},
 	"titleBar": {"close": "Cufii", "minimize": "Xiqqeessi", "maximize": "Guddisi", "restore": "Deebi'si"},
-	"splash": {"greeting": "Baga nagaan deebitee!", "warmup": "Buufannoowwan qopheessaa jira…", "downloading": "{{binary}} buufatamaa jira…", "warmupFailedNoDiag": "Qindaa'inni hin milkoofne. Bal'ina argachuuf galmee qindaa'inaa bani."},
+	"splash": {
+		"greeting": "Baga nagaan deebitee!",
+		"warmup": "Buufannoowwan qopheessaa jira…",
+		"downloading": "{{binary}} buufatamaa jira…",
+		"verifying": "{{binary}} qoratamaa jira…",
+		"verifySlow": "Kun haaromsa booda yeroo jalqabaatiif yeroo dheeraa fudhata.",
+		"cancel": "Qindaa'ina haquu",
+		"warmupFailedNoDiag": "Qindaa'inni hin milkoofne. Bal'ina argachuuf galmee qindaa'inaa bani."
+	},
 	"repair": {
 		"title": "Qindaa'inni gargaarsa kee gaafata",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
