@@ -121,3 +121,84 @@ describe('ProbeVerdictCache write ordering', () => {
 		}
 	})
 })
+
+describe('ProbeVerdictCache staleness', () => {
+	async function rewriteRecordedAt(recordedAt: string): Promise<void> {
+		const file = path.join(root, 'probe-verdicts.json')
+		const parsed = JSON.parse(await fs.readFile(file, 'utf8')) as Record<string, {recordedAt: string}>
+		const entry = parsed[binaryPath]
+		if (entry) entry.recordedAt = recordedAt
+		await fs.writeFile(file, JSON.stringify(parsed))
+	}
+
+	// Backstop for the case a spawn failure cannot report: a binary that stops
+	// running for a reason nothing hands back to us.
+	it('stops trusting a verdict once it is old enough', async () => {
+		await new ProbeVerdictCache(root).record(binaryPath, '2026.08.27')
+		await rewriteRecordedAt(new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString())
+
+		await expect(new ProbeVerdictCache(root).get(binaryPath)).resolves.toBeNull()
+	})
+
+	it('still trusts a verdict inside the window', async () => {
+		await new ProbeVerdictCache(root).record(binaryPath, '2026.08.27')
+		await rewriteRecordedAt(new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString())
+
+		await expect(new ProbeVerdictCache(root).get(binaryPath)).resolves.toBe('2026.08.27')
+	})
+
+	// A clock that moved backwards between launches is not evidence of freshness.
+	it('does not trust a verdict recorded in the future', async () => {
+		await new ProbeVerdictCache(root).record(binaryPath, '2026.08.27')
+		await rewriteRecordedAt(new Date(Date.now() + 60 * 60 * 1000).toISOString())
+
+		await expect(new ProbeVerdictCache(root).get(binaryPath)).resolves.toBeNull()
+	})
+
+	it('does not trust a verdict with an unreadable timestamp', async () => {
+		await new ProbeVerdictCache(root).record(binaryPath, '2026.08.27')
+		await rewriteRecordedAt('not a date')
+
+		await expect(new ProbeVerdictCache(root).get(binaryPath)).resolves.toBeNull()
+	})
+
+	// Without this the file gains a verdict per yt-dlp release forever, for
+	// artifact directories that were cleaned up long ago.
+	it('drops expired entries from the file rather than carrying them', async () => {
+		await new ProbeVerdictCache(root).record(binaryPath, '2026.08.27')
+		await rewriteRecordedAt(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
+
+		// Compaction lands on the next write, which is whatever re-probe the
+		// expiry itself forces.
+		const other = path.join(root, 'other')
+		await fs.writeFile(other, 'x')
+		const cache = new ProbeVerdictCache(root)
+		await cache.record(other, 'unused')
+
+		expect(await fs.readFile(path.join(root, 'probe-verdicts.json'), 'utf8')).not.toContain(binaryPath)
+	})
+})
+
+describe('ProbeVerdictCache forget', () => {
+	it('drops one binary without disturbing the others', async () => {
+		const other = path.join(root, 'ffmpeg')
+		await fs.writeFile(other, 'x')
+		const cache = new ProbeVerdictCache(root)
+		await cache.record(binaryPath, '2026.08.27')
+		await cache.record(other, 'n-125892')
+
+		await cache.forget(binaryPath)
+
+		await expect(cache.get(binaryPath)).resolves.toBeNull()
+		await expect(cache.get(other)).resolves.toBe('n-125892')
+		await expect(new ProbeVerdictCache(root).get(other)).resolves.toBe('n-125892')
+	})
+
+	it('is a no-op for a path it never recorded', async () => {
+		const cache = new ProbeVerdictCache(root)
+		await cache.record(binaryPath, '2026.08.27')
+
+		await expect(cache.forget(path.join(root, 'never-seen'))).resolves.toBeUndefined()
+		await expect(cache.get(binaryPath)).resolves.toBe('2026.08.27')
+	})
+})

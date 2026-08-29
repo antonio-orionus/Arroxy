@@ -391,6 +391,11 @@ export class YtDlp {
 				this._lastInvocations.push(summary)
 			}
 		})
+		// 'spawn-error' is the child failing to start at all — ENOENT, EACCES, a
+		// security scanner holding it. That contradicts the recorded probe verdict
+		// this path may have been resolved from, so drop it and let the next warmup
+		// re-probe instead of trusting a memo the OS has just disproved.
+		if (result.kind === 'spawn-error') await this.binaryManager.forgetProbeVerdict('yt-dlp')
 		if (result.kind === 'success' && plan.facts.effectiveSubtitleFormat) {
 			return {...result, effectiveSubtitleFormat: plan.facts.effectiveSubtitleFormat}
 		}

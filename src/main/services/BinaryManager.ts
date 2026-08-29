@@ -173,6 +173,20 @@ export class BinaryManager {
 		return this.lastDiagnostics[id] ?? null
 	}
 
+	// The memo asserts a binary runs because it once did. A real spawn failure is
+	// the moment that assertion is disproved — and the only moment, because a
+	// memoized binary never reaches the probe again. Without this the app reports
+	// a healthy warmup while every download fails at spawn, and the repair panel
+	// that could clear the memo never renders, because nothing is blocking.
+	async forgetProbeVerdict(id: DependencyId): Promise<void> {
+		const stalePath = this.resolved[id]
+		delete this.resolved[id]
+		delete this.lastDiagnostics[id]
+		if (!stalePath) return
+		logger.warn(`${id} spawn failed after a recorded probe verdict — forgetting it`, {path: stalePath})
+		await this.probeVerdicts.forget(stalePath)
+	}
+
 	invalidateResolved(): void {
 		this.resolved = {}
 		this.lastDiagnostics = {}

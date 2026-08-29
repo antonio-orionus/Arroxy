@@ -6,6 +6,7 @@ import {describe, expect, it, vi, afterEach} from 'vitest'
 vi.mock('@main/services/analytics', () => ({trackMain: vi.fn()}))
 
 import {BinaryManager, type ProbeOutcome} from '@main/services/BinaryManager.js'
+import type {ProbeVerdictStore} from '@main/services/binary/ProbeVerdictCache.js'
 import {trackMain} from '@main/services/analytics.js'
 import {ArtifactMaterializeError} from '@main/services/binary/RuntimeBinaryMaterializer.js'
 import type {DependencyAttempt, DependencySource, RuntimeBinaryManifestEntry} from '@shared/types.js'
@@ -50,8 +51,8 @@ async function runFailingManifestResolution(err: unknown): Promise<void> {
 // Resolution memoizes successful probes to disk. These tests assert on the probe
 // itself, so they opt out rather than depend on whatever a previous run left in
 // the shared temp directory.
-function noProbeMemo(): {get: () => Promise<null>; record: () => Promise<void>; clear: () => Promise<void>} {
-	return {get: async () => null, record: async () => undefined, clear: async () => undefined}
+function noProbeMemo(): ProbeVerdictStore {
+	return {get: async () => null, record: async () => undefined, forget: async () => undefined, clear: async () => undefined}
 }
 
 describe('BinaryManager analytics', () => {

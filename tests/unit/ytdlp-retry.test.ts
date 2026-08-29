@@ -18,9 +18,11 @@ function makeFakeProcess(exitCode: number, stderr = '') {
 
 function makeYtDlp(tokenService?: {mintTokenForUrl: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn>}) {
 	const ts = tokenService ?? {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd', fromCache: false}), invalidateCache: vi.fn()}
-	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
+	// forgetProbeVerdict is called on spawn-error: a child that cannot start
+	// contradicts any recorded probe verdict the path was resolved from.
+	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), forgetProbeVerdict: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
-	return {ytDlp: new YtDlp(binaryManager as never, ts as never, settingsStore as never), tokenService: ts}
+	return {ytDlp: new YtDlp(binaryManager as never, ts as never, settingsStore as never), tokenService: ts, binaryManager}
 }
 
 function mediaRequest(): YtDlpRequest {
@@ -206,6 +208,26 @@ describe('YtDlp — retry ladder', () => {
 
 		expect(result.kind).toBe('spawn-error')
 		expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(1)
+	})
+
+	// A memoized binary never reaches the probe again, so a child failing to
+	// start is the only moment the OS can tell us the recorded verdict is stale.
+	it('forgets the recorded probe verdict when the child cannot start', async () => {
+		vi.mocked(spawnYtDlp).mockReturnValue(createTranscriptProcess([{error: new Error('ENOENT')}]) as never)
+
+		const {ytDlp, binaryManager} = makeYtDlp()
+		await ytDlp.run(mediaRequest())
+
+		expect(binaryManager.forgetProbeVerdict).toHaveBeenCalledWith('yt-dlp')
+	})
+
+	it('keeps the verdict when yt-dlp ran and merely exited non-zero', async () => {
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(1) as never)
+
+		const {ytDlp, binaryManager} = makeYtDlp()
+		await ytDlp.run(mediaRequest())
+
+		expect(binaryManager.forgetProbeVerdict).not.toHaveBeenCalled()
 	})
 
 	it('effectiveSubtitleFormat is passed through on subtitle success', async () => {

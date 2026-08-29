@@ -22,7 +22,7 @@ function entry(patch: Partial<RuntimeBinaryManifestEntry> = {}): RuntimeBinaryMa
 }
 
 function noProbeMemo(): ProbeVerdictStore {
-	return {get: async () => null, record: async () => undefined, clear: async () => undefined}
+	return {get: async () => null, record: async () => undefined, forget: async () => undefined, clear: async () => undefined}
 }
 
 async function makeMgr(entries: RuntimeBinaryManifestEntry[], materialize: RuntimeBinaryMaterializerPort['materialize']): Promise<BinaryManager> {

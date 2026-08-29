@@ -14,6 +14,12 @@ import path from 'node:path'
 //
 // Only successes are recorded. A failure is a fact about the environment at one
 // moment (a scanner mid-update, a machine under load) and must not be cached.
+// Backstop for the case forgetProbeVerdict cannot see: a binary that stops
+// running for a reason no spawn ever reports back to us. Long enough that the
+// memo still does its job across a normal week of launches, short enough that a
+// stale verdict cannot outlive a yt-dlp release cycle.
+const VERDICT_TTL_MS = 7 * 24 * 60 * 60 * 1000
+
 interface ProbeVerdict {
 	size: number
 	mtimeMs: number
@@ -34,6 +40,7 @@ function isVerdict(value: unknown): value is ProbeVerdict {
 export interface ProbeVerdictStore {
 	get(binaryPath: string): Promise<string | null>
 	record(binaryPath: string, versionOutput: string): Promise<void>
+	forget(binaryPath: string): Promise<void>
 	clear(): Promise<void>
 }
 
@@ -59,6 +66,7 @@ export class ProbeVerdictCache implements ProbeVerdictStore {
 		const verdicts = await this.load()
 		const recorded = verdicts[binaryPath]
 		if (!recorded) return null
+		if (this.isExpired(recorded)) return null
 		try {
 			const stat = await fsPromises.stat(binaryPath)
 			if (stat.size !== recorded.size || stat.mtimeMs !== recorded.mtimeMs) return null
@@ -103,6 +111,30 @@ export class ProbeVerdictCache implements ProbeVerdictStore {
 		return this.pending
 	}
 
+	private isExpired(verdict: ProbeVerdict): boolean {
+		const recordedAt = Date.parse(verdict.recordedAt)
+		// An unparseable or future timestamp (a clock moved backwards between
+		// launches) is not evidence of freshness — re-probe rather than trust it.
+		if (!Number.isFinite(recordedAt)) return true
+		const age = Date.now() - recordedAt
+		return age < 0 || age > VERDICT_TTL_MS
+	}
+
+	// Drops one binary's verdict without disturbing the others, for when a spawn
+	// proves that specific binary unusable.
+	async forget(binaryPath: string): Promise<void> {
+		return this.enqueue(async () => {
+			const verdicts = await this.load()
+			if (!(binaryPath in verdicts)) return
+			delete verdicts[binaryPath]
+			try {
+				await this.persist(verdicts)
+			} catch {
+				// Best effort. A verdict we failed to drop expires on its own.
+			}
+		})
+	}
+
 	private async load(): Promise<VerdictFile> {
 		if (this.loaded) return this.loaded
 		try {
@@ -111,7 +143,10 @@ export class ProbeVerdictCache implements ProbeVerdictStore {
 			const verdicts: VerdictFile = {}
 			if (typeof parsed === 'object' && parsed !== null) {
 				for (const [key, value] of Object.entries(parsed)) {
-					if (isVerdict(value)) verdicts[key] = value
+					// Expired entries are dropped on read rather than kept and ignored,
+					// so the file does not accumulate a verdict per yt-dlp release for
+					// artifact directories that were cleaned up long ago.
+					if (isVerdict(value) && !this.isExpired(value)) verdicts[key] = value
 				}
 			}
 			this.loaded = verdicts
