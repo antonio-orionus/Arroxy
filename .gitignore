@@ -66,6 +66,11 @@ opencode.jsonc
 !.agents/skills/remember/**
 
 # Local agent/design artifacts
+# Anchored to the repo root on purpose: an unanchored `design/` would also swallow
+# any nested design directory that belongs in the repo, the way `test-binaries/`
+# once silently matched scripts/test-binaries/.
+/design/
+/scripts/spike/
 .superpowers/
 .backups/
 .github/skills/
