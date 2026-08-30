@@ -39,16 +39,110 @@ interface ResolveListener {
 	onStatus?: StatusReporter
 }
 
-// One in-flight resolution, fanned out to every caller that asked for the same
-// dependency while it was running. The payload type is erased because a single
-// map holds runs of different shapes (a diagnostic for yt-dlp, a pair for
-// ffmpeg); each key's value is re-narrowed on join, which is safe because only
-// the method that created the key ever joins it.
-interface SharedResolution {
-	promise: Promise<unknown>
+interface RunEntry<T> {
+	promise: Promise<T>
 	controller: AbortController
 	listeners: Set<ResolveListener>
-	joiners: number
+}
+
+// One in-flight resolution, fanned out to every caller that asks for the same
+// dependency while it is running. Typed per dependency shape (a diagnostic for
+// yt-dlp, a pair for ffmpeg) instead of erased into a shared map, so joining a
+// run never needs a cast back to the type the run actually produces.
+class SharedRun<T> {
+	private entry: RunEntry<T> | null = null
+
+	// Fans one running resolution out to every caller that asks for the same
+	// dependency while it is in flight.
+	share(opts: ResolveOptions, cancelledValue: () => T, run: (shared: ResolveOptions) => Promise<T>): Promise<T> {
+		// An explicit override asks a different question than the shared run is
+		// answering, so it gets its own pass.
+		if (opts.overrides) return run(opts)
+
+		const existing = this.entry
+		if (existing) return this.join(existing, opts, cancelledValue)
+
+		const listeners = new Set<ResolveListener>()
+		const controller = new AbortController()
+		const promise = run({
+			signal: controller.signal,
+			onProgress: event => {
+				for (const listener of listeners) listener.onProgress?.(event)
+			},
+			onStatus: (statusKey, params) => {
+				for (const listener of listeners) listener.onStatus?.(statusKey, params)
+			}
+		})
+		const entry: RunEntry<T> = {promise, controller, listeners}
+		this.entry = entry
+		// Only if it is still ours: reset() may have dropped it in favour of a
+		// fresh run we must not evict.
+		void promise.finally(() => {
+			if (this.entry === entry) this.entry = null
+		})
+		return this.join(entry, opts, cancelledValue)
+	}
+
+	private join(entry: RunEntry<T>, opts: ResolveOptions, cancelledValue: () => T): Promise<T> {
+		const listener: ResolveListener = {onProgress: opts.onProgress, onStatus: opts.onStatus}
+		entry.listeners.add(listener)
+
+		let left = false
+		const leave = (): void => {
+			if (left) return
+			left = true
+			entry.listeners.delete(listener)
+		}
+
+		// A caller with no signal can never withdraw, so the run outlives everyone
+		// else's cancel. That is exactly the queue respawn: dismissing the splash
+		// must not kill a download the queue is still waiting on.
+		if (!opts.signal) return entry.promise.finally(leave)
+
+		const signal = opts.signal
+		return new Promise<T>((resolve, reject) => {
+			const onAbort = (): void => {
+				leave()
+				if (entry.listeners.size > 0) {
+					// Other callers are still waiting on the shared run; hand this one
+					// the same empty failed diagnostic the chain has always returned on
+					// cancel.
+					resolve(cancelledValue())
+					return
+				}
+				// Last caller withdrawing stops the run itself. Await its real outcome
+				// instead of fabricating one — the chain unwinds through its own
+				// fail() with whatever attempts it actually accumulated, which is what
+				// the repair panel needs after a user-initiated cancel.
+				entry.controller.abort()
+				entry.promise.then(resolve, (err: unknown) => reject(err instanceof Error ? err : new Error(String(err))))
+			}
+			if (signal.aborted) {
+				onAbort()
+				return
+			}
+			signal.addEventListener('abort', onAbort, {once: true})
+			entry.promise.then(
+				value => {
+					signal.removeEventListener('abort', onAbort)
+					leave()
+					resolve(value)
+				},
+				(err: unknown) => {
+					signal.removeEventListener('abort', onAbort)
+					leave()
+					reject(err instanceof Error ? err : new Error(String(err)))
+				}
+			)
+		})
+	}
+
+	// A force-check must not be answered by a resolution that started before it
+	// was asked for. Dropping the entry makes the next caller open a fresh run;
+	// the old one ends on its own once its own callers withdraw.
+	reset(): void {
+		this.entry = null
+	}
 }
 
 function errorMessage(err: unknown): string {
@@ -170,7 +264,9 @@ export class BinaryManager {
 
 	private lastDiagnostics: Partial<Record<DependencyId, DependencyDiagnostic>> = {}
 
-	private readonly sharedResolutions = new Map<string, SharedResolution>()
+	private readonly ytDlpRun = new SharedRun<DependencyDiagnostic>()
+
+	private readonly ffmpegPairRun = new SharedRun<{ffmpeg: DependencyDiagnostic; ffprobe: DependencyDiagnostic}>()
 
 	constructor(userDataPath: string, options?: {retryDelays?: [number, number]; overridesProvider?: () => BinaryOverrides | undefined; runtimeBinaryIndex?: RuntimeBinaryIndexProvider; runtimeBinaryMaterializer?: RuntimeBinaryMaterializerPort; probeVerdicts?: ProbeVerdictStore}) {
 		this.cacheDir = path.join(userDataPath, 'runtime-cache', 'binaries')
@@ -213,7 +309,8 @@ export class BinaryManager {
 		// A force-check must not be answered by a resolution that started before it
 		// was asked for. Dropping the entries makes the next caller open a fresh
 		// run; the old one ends on its own once its own callers withdraw.
-		this.sharedResolutions.clear()
+		this.ytDlpRun.reset()
+		this.ffmpegPairRun.reset()
 		// Reached from WarmupService.run({force: true}) — the repair panel's "check
 		// again". Dropping the memo is what makes that button able to notice a
 		// binary the OS started blocking after we recorded it as good.
@@ -299,90 +396,11 @@ export class BinaryManager {
 	// second was handed a fabricated 'timeout' attempt in the repair panel and
 	// fell through to the next mirror, downloading the same binary a second time.
 	async resolveYtDlp(opts: ResolveOptions = {}): Promise<DependencyDiagnostic> {
-		return this.shareResolution(
-			'yt-dlp',
+		return this.ytDlpRun.share(
 			opts,
 			() => failedDiagnostic('yt-dlp', []),
 			shared => this.runResolveYtDlp({...opts, ...shared})
 		)
-	}
-
-	// Fans one running resolution out to every caller that asks for the same
-	// dependency while it is in flight.
-	private shareResolution<T>(key: string, opts: ResolveOptions, cancelledValue: () => T, run: (shared: ResolveOptions) => Promise<T>): Promise<T> {
-		// An explicit override asks a different question than the shared run is
-		// answering, so it gets its own pass.
-		if (opts.overrides) return run(opts)
-
-		const existing = this.sharedResolutions.get(key)
-		if (existing) return this.joinResolution(existing, opts, cancelledValue)
-
-		const listeners = new Set<ResolveListener>()
-		const entry: SharedResolution = {promise: Promise.resolve(), controller: new AbortController(), listeners, joiners: 0}
-		this.sharedResolutions.set(key, entry)
-		entry.promise = run({
-			signal: entry.controller.signal,
-			onProgress: event => {
-				for (const listener of listeners) listener.onProgress?.(event)
-			},
-			onStatus: (statusKey, params) => {
-				for (const listener of listeners) listener.onStatus?.(statusKey, params)
-			}
-		}).finally(() => {
-			// Only if it is still ours: invalidateResolved() may have dropped it in
-			// favour of a fresh run we must not evict.
-			if (this.sharedResolutions.get(key) === entry) this.sharedResolutions.delete(key)
-		})
-		return this.joinResolution(entry, opts, cancelledValue)
-	}
-
-	private joinResolution<T>(entry: SharedResolution, opts: ResolveOptions, cancelledValue: () => T): Promise<T> {
-		const listener: ResolveListener = {onProgress: opts.onProgress, onStatus: opts.onStatus}
-		entry.listeners.add(listener)
-		entry.joiners += 1
-		const shared = entry.promise as Promise<T>
-
-		let left = false
-		const leave = (): void => {
-			if (left) return
-			left = true
-			entry.listeners.delete(listener)
-			entry.joiners -= 1
-		}
-
-		// A caller with no signal can never withdraw, so the run outlives everyone
-		// else's cancel. That is exactly the queue respawn: dismissing the splash
-		// must not kill a download the queue is still waiting on.
-		if (!opts.signal) return shared.finally(leave)
-
-		const signal = opts.signal
-		return new Promise<T>((resolve, reject) => {
-			const onAbort = (): void => {
-				leave()
-				// Only the last interested caller leaving stops the work itself.
-				if (entry.joiners === 0) entry.controller.abort()
-				// Resolve rather than reject: a withdrawn caller gets the same empty
-				// failed diagnostic the chain has always returned on cancel.
-				resolve(cancelledValue())
-			}
-			if (signal.aborted) {
-				onAbort()
-				return
-			}
-			signal.addEventListener('abort', onAbort, {once: true})
-			shared.then(
-				value => {
-					signal.removeEventListener('abort', onAbort)
-					leave()
-					resolve(value)
-				},
-				(err: unknown) => {
-					signal.removeEventListener('abort', onAbort)
-					leave()
-					reject(err instanceof Error ? err : new Error(String(err)))
-				}
-			)
-		})
 	}
 
 	private async runResolveYtDlp(opts: ResolveOptions): Promise<DependencyDiagnostic> {
@@ -599,8 +617,7 @@ export class BinaryManager {
 	// CI build. Pair coherence solved by construction (one matched archive →
 	// both binaries land together in process.resourcesPath).
 	async resolveFFmpegPair(opts: ResolveOptions = {}): Promise<{ffmpeg: DependencyDiagnostic; ffprobe: DependencyDiagnostic}> {
-		return this.shareResolution(
-			'ffmpeg-pair',
+		return this.ffmpegPairRun.share(
 			opts,
 			() => ({ffmpeg: failedDiagnostic('ffmpeg', []), ffprobe: failedDiagnostic('ffprobe', [])}),
 			shared => this.runResolveFFmpegPair({...opts, ...shared})

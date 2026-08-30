@@ -256,11 +256,11 @@ export function installBrowserMock(): void {
 						...allRunnable,
 						'yt-dlp': {id: 'yt-dlp', state: 'failed', source: {kind: 'managed', channel: 'nightly', provider: 'github', url: 'mock'}, resolvedPath: null, failure: {kind: 'blocked_or_quarantined', message: 'SmartScreen blocked the download'}, attempts: []}
 					}
-					const result: WarmUpOutput = {completed: false, dependencies: blocked, blockingFailures: ['yt-dlp'], cancelled: false, tokenWarmup: 'unavailable'}
+					const result: WarmUpOutput = {completed: false, dependencies: blocked, blockingFailures: ['yt-dlp'], cancelled: false}
 					return {ok: true, data: result}
 				}
 
-				const result: WarmUpOutput = force ? {completed: true, dependencies: allRunnable, blockingFailures: [], cancelled: false, tokenWarmup: 'ready'} : scenarioState.warmUp
+				const result: WarmUpOutput = force ? {completed: true, dependencies: allRunnable, blockingFailures: [], cancelled: false} : scenarioState.warmUp
 				return {ok: true, data: result}
 			},
 			cancelWarmup: async () => {

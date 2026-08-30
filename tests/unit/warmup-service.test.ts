@@ -209,32 +209,4 @@ describe('WarmupService', () => {
 		expect(second.ok).toBe(true)
 		if (second.ok) expect(second.data.completed).toBe(true)
 	})
-
-	// The token branch is not awaited, so its status is usually still pending when
-	// the gating branches finish. Carrying it anyway is what lets a slow cold
-	// start say "binaries fine, YouTube unreachable" instead of saying nothing.
-	it('reports token warmup as pending when the binaries settle first', async () => {
-		const neverToken = {warmUp: vi.fn().mockImplementation(() => new Promise(() => {}))} as unknown as TokenService
-		const svc = new WarmupService({binaryManager: fakeBinaryManager({ytDlp: 'runnable', ffmpeg: 'runnable', ffprobe: 'runnable'}), tokenService: neverToken})
-
-		const result = await svc.run()
-
-		if (!result.ok) throw new Error('expected ok')
-		expect(result.data.tokenWarmup).toBe('pending')
-	})
-
-	it('reports token warmup as unavailable once a failed token branch has settled', async () => {
-		const failingToken = {warmUp: vi.fn().mockResolvedValue({ready: false, reason: 'no-visitor-data'})} as unknown as TokenService
-		const slowBinaries = {
-			invalidateResolved: vi.fn(),
-			resolveYtDlp: vi.fn().mockImplementation(() => new Promise(resolve => setTimeout(() => resolve(diag('yt-dlp', 'runnable')), 20))),
-			resolveFFmpegPair: vi.fn().mockResolvedValue({ffmpeg: diag('ffmpeg', 'runnable'), ffprobe: diag('ffprobe', 'runnable')})
-		} as unknown as BinaryManager
-		const svc = new WarmupService({binaryManager: slowBinaries, tokenService: failingToken})
-
-		const result = await svc.run()
-
-		if (!result.ok) throw new Error('expected ok')
-		expect(result.data.tokenWarmup).toBe('unavailable')
-	})
 })

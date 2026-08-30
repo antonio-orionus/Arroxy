@@ -58,7 +58,7 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 		return () => clearTimeout(timer)
 	}, [])
 
-	const {activeEntry, verifyingEntry, totalDownloaded, totalBytes, percent} = useMemo(() => {
+	const {entries, activeEntry, verifyingEntry, totalDownloaded, totalBytes, percent} = useMemo(() => {
 		const entries = Object.values(warmupProgress ?? {}).filter((e): e is WarmupProgressEvent => e !== undefined)
 		const activeEntry = entries.find(e => e.phase === 'downloading')
 		// Nothing rendered these phases before, so a probe that outlived its
@@ -69,7 +69,7 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 		const totalDownloaded = downloadingEntries.reduce((sum, e) => sum + (e.bytesDownloaded ?? 0), 0)
 		const totalBytes = downloadingEntries.reduce((sum, e) => sum + (e.totalBytes ?? 0), 0)
 		const percent = totalBytes > 0 ? Math.min(100, (totalDownloaded / totalBytes) * 100) : null
-		return {activeEntry, verifyingEntry, totalDownloaded, totalBytes, percent}
+		return {entries, activeEntry, verifyingEntry, totalDownloaded, totalBytes, percent}
 	}, [warmupProgress])
 
 	// Two conditions, and both are load-bearing. `firstCheck` means a real spawn is
@@ -93,10 +93,7 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 	// Any advance — a phase change or another throttled chunk of bytes — restarts
 	// the cancel countdown. Once offered the button stays: pulling a control back
 	// out from under someone reaching for it is worse than leaving it up.
-	const progressToken = `${Object.values(warmupProgress ?? {})
-		.filter((e): e is WarmupProgressEvent => e !== undefined)
-		.map(e => `${e.binary}:${e.phase}`)
-		.join('|')}:${totalDownloaded}`
+	const progressToken = `${entries.map(e => `${e.binary}:${e.phase}`).join('|')}:${totalDownloaded}`
 	useEffect(() => {
 		if (cancelOffered) return undefined
 		const timer = setTimeout(() => setCancelOffered(true), CANCEL_OFFER_MS)

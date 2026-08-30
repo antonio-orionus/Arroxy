@@ -160,10 +160,42 @@ describe.skipIf(process.platform === 'win32')('BinaryManager concurrent resoluti
 		const only = mgr.resolveYtDlp({signal: controller.signal})
 		await gate.started
 		controller.abort()
-		await only
+		// The last joiner leaving now awaits the run's real unwind instead of
+		// resolving early, so the gate has to open for `only` to settle.
+		gate.release()
+		const diag = await only
 
 		expect(observed?.aborted).toBe(true)
+		expect(diag.state).toBe('failed')
+	})
+
+	// A user-cancelled solo caller used to get a fabricated empty diagnostic — no
+	// attempts, and lastDiagnostics never updated — so the repair panel it landed
+	// on after Cancel showed no history of what had already been tried.
+	it("carries the accumulated attempts into a solo caller's cancelled diagnostic", async () => {
+		const {executablePath} = await fixture()
+		const gate = gatedMaterializer(executablePath)
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'bm-inflight-ud-'))
+		const index: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async () => [entry({channel: 'nightly'}), entry({channel: 'stable'})])}
+		let materializeCalls = 0
+		const materialize: RuntimeBinaryMaterializerPort['materialize'] = async (manifest, options) => {
+			materializeCalls += 1
+			if (materializeCalls === 1) throw new Error('mirror unreachable')
+			return gate.materialize(manifest, options)
+		}
+		const mgr = new BinaryManager(userData, {runtimeBinaryIndex: index, runtimeBinaryMaterializer: {materialize}, probeVerdicts: noProbeMemo()})
+
+		const controller = new AbortController()
+		const only = mgr.resolveYtDlp({signal: controller.signal})
+		await gate.started
+		controller.abort()
 		gate.release()
+		const diag = await only
+
+		expect(diag.state).toBe('failed')
+		expect(diag.attempts).toHaveLength(1)
+		expect(diag.attempts[0]?.source.kind === 'managed' && diag.attempts[0].source.channel).toBe('nightly')
+		expect(mgr.getLastDiagnostic('yt-dlp')).toEqual(diag)
 	})
 
 	it('shares one ffmpeg pair resolution across concurrent callers', async () => {

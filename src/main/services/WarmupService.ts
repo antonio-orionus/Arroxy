@@ -4,7 +4,7 @@ import log from 'electron-log/main.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import {blockingDependencyFailures} from '@shared/dependencyPolicy.js'
-import {DEPENDENCY_IDS, type DependencyDiagnostic, type DependencyId, type TokenWarmupStatus, type WarmUpOutput, type WarmupProgressEvent} from '@shared/types.js'
+import type {DependencyDiagnostic, DependencyId, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
 import {createAppError, unknownToMessage} from '@main/utils/errorFactory.js'
 import {throttleByKey} from '@main/utils/throttleByKey.js'
 import type {BinaryManager} from './BinaryManager.js'
@@ -32,25 +32,10 @@ const DOWNLOAD_PROGRESS_THROTTLE_MS = 100
 // loadURL has no timer at all, so nothing else stops it from living forever.
 const TOKEN_WARMUP_BUDGET_MS = 30 * 1000
 
-// Every awaited resolver branch, and which dependencies it is responsible for.
-// One branch can own several ids: resolveFFmpegPair returns ffmpeg and ffprobe
-// from a single pass.
-//
-// This is the only place that maps the two vocabularies onto each other. Typed
-// as a total Record<DependencyId, …>, so a fourth dependency cannot be added to
-// DEPENDENCY_IDS without warmup naming the branch that resolves it — the job a
-// bare `void DEPENDENCY_IDS` statement used to pretend to do.
-const DEPENDENCY_BRANCH = {'yt-dlp': 'ytDlp', ffmpeg: 'ffmpeg', ffprobe: 'ffmpeg'} as const satisfies Record<DependencyId, string>
-
-type GatingBranch = (typeof DEPENDENCY_BRANCH)[DependencyId]
-
-// Derived, so a dependency routed to a new branch gates completion by
-// construction rather than by someone remembering to extend a second list.
-const GATING_BRANCHES: readonly GatingBranch[] = [...new Set(DEPENDENCY_IDS.map(id => DEPENDENCY_BRANCH[id]))]
-
-// The token is warmed alongside the binaries but never gates: a missing token is
-// soft, and the first YouTube probe mints on demand.
-type WarmupBranch = GatingBranch | 'token'
+// The two awaited resolver branches that gate completion, plus the token branch
+// that is warmed alongside them but never gates: a missing token is soft, and
+// the first YouTube probe mints on demand.
+type WarmupBranch = 'ytDlp' | 'ffmpeg' | 'token'
 
 interface WarmupServiceDeps {
 	binaryManager: BinaryManager
@@ -152,18 +137,17 @@ export class WarmupService {
 			}
 		}
 
-		// Not awaited, so it is usually still 'pending' when the result is built.
-		// Carried anyway: on the slow cold starts where the binaries take minutes,
-		// this is the difference between "YouTube was unreachable at startup" being
-		// a fact the output states and one only a log reader ever learns.
-		let tokenWarmup: TokenWarmupStatus = 'pending'
-
 		try {
 			// Deliberately not awaited. A missing token is already soft — the first
 			// YouTube probe mints on demand — so blocking the splash on it buys nothing
 			// and risks tens of seconds of dead splash when YouTube is slow or
 			// unreachable. userSignal is still plumbed so cancel() interrupts the
 			// HiddenWindow scrape and mint round-trip.
+			//
+			// The trailing .catch is not about the token warm-up itself — that path
+			// already swallows its own rejection above — it is about `timed`'s own
+			// finally-block logging. A throw there would otherwise surface as an
+			// unhandled rejection with no caller left to observe it.
 			void timed(
 				'token',
 				tokenService.warmUp(AbortSignal.any([userSignal, AbortSignal.timeout(TOKEN_WARMUP_BUDGET_MS)])).catch(err => {
@@ -171,12 +155,13 @@ export class WarmupService {
 					logger.warn('Token warmup threw', {error: reason})
 					return {ready: false, reason} as const
 				})
-			).then(tokenStatus => {
-				tokenWarmup = tokenStatus.ready ? 'ready' : 'unavailable'
-				// Surface in a single info line so log review reveals "all binaries
-				// resolved but PoT didn't pre-warm — slow probes expected on YT".
-				if (!tokenStatus.ready) logger.info('Token service did not pre-warm; first YT probe will mint on demand', {reason: tokenStatus.reason})
-			})
+			)
+				.then(tokenStatus => {
+					// Surface in a single info line so log review reveals "all binaries
+					// resolved but PoT didn't pre-warm — slow probes expected on YT".
+					if (!tokenStatus.ready) logger.info('Token service did not pre-warm; first YT probe will mint on demand', {reason: tokenStatus.reason})
+				})
+				.catch(err => logger.warn('Token warmup branch bookkeeping failed', {error: unknownToMessage(err)}))
 
 			const [ytDlpDiag, ffmpegPair] = await Promise.all([timed('ytDlp', binaryManager.resolveYtDlp({onProgress: emit, signal: budgetSignal()})), timed('ffmpeg', binaryManager.resolveFFmpegPair({onProgress: emit, signal: budgetSignal()}))])
 
@@ -187,10 +172,14 @@ export class WarmupService {
 			const blockingFailures = blockingDependencyFailures(dependencies)
 			const cancelled = userSignal.aborted
 
-			// Branches share one start, so the largest elapsed is by definition the one
-			// that held the Promise.all open.
-			const gatedBy = GATING_BRANCHES.reduce((a, b) => (elapsed[a] >= elapsed[b] ? a : b))
-			const timings = {totalMs: Date.now() - startedAt, gatedBy, branches: elapsed}
+			// Only two branches are awaited, so the larger elapsed is by definition the
+			// one that held the Promise.all open.
+			const gatedBy = elapsed.ytDlp >= elapsed.ffmpeg ? 'ytDlp' : 'ffmpeg'
+			// token is excluded here: it is never awaited, so at this point it is
+			// almost always still 0 and would misreport as instant rather than
+			// pending — see the per-branch 'Warmup branch settled' log for its
+			// actual duration once it lands.
+			const timings = {totalMs: Date.now() - startedAt, gatedBy, branches: {ytDlp: elapsed.ytDlp, ffmpeg: elapsed.ffmpeg}}
 
 			if (cancelled) {
 				logger.info('Warmup cancelled', {blockingFailures, ...timings})
@@ -201,7 +190,7 @@ export class WarmupService {
 			}
 
 			const completed = !cancelled && blockingFailures.length === 0
-			return ok({completed, dependencies, blockingFailures: [...blockingFailures], cancelled, tokenWarmup})
+			return ok({completed, dependencies, blockingFailures: [...blockingFailures], cancelled})
 		} catch (err) {
 			// A resolver is allowed to reject: an EACCES on the artifact cache
 			// directory propagates straight out of the readdir that enumerates it.

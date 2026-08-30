@@ -486,20 +486,11 @@ export interface DependencyDiagnostic {
 	attempts: DependencyAttempt[]
 }
 
-// The token branch of warmup is never awaited, so 'pending' is the honest answer
-// whenever the binaries resolved faster than YouTube responded — which is the
-// normal warm start. It stops being 'pending' exactly on the slow cold starts
-// where knowing YouTube was unreachable is worth something.
-export type TokenWarmupStatus = 'pending' | 'ready' | 'unavailable'
-
 export interface WarmUpOutput {
 	completed: boolean
 	dependencies: Record<DependencyId, DependencyDiagnostic>
 	blockingFailures: DependencyId[]
 	cancelled: boolean
-	// Non-gating. A missing token never blocks startup; the first YouTube probe
-	// mints on demand.
-	tokenWarmup: TokenWarmupStatus
 }
 
 export type WarmupPhase = 'starting' | 'downloading' | 'extracting' | 'probing' | 'fallback' | 'done' | 'failed' | 'skipped'

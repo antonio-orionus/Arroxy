@@ -9,7 +9,7 @@ function runnableDeps(): Record<DependencyId, DependencyDiagnostic> {
 	return {'yt-dlp': make('yt-dlp'), ffmpeg: make('ffmpeg'), ffprobe: make('ffprobe')}
 }
 
-const defaultWarmUp: WarmUpOutput = {completed: true, dependencies: runnableDeps(), blockingFailures: [], cancelled: false, tokenWarmup: 'ready'}
+const defaultWarmUp: WarmUpOutput = {completed: true, dependencies: runnableDeps(), blockingFailures: [], cancelled: false}
 
 function buildMockSettings(overrides: Partial<AppSettings> = {}): AppSettings {
 	return {...defaultAppSettings('/tmp'), ...overrides}
