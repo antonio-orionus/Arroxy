@@ -24,7 +24,7 @@
 | Startup Nightly                      | `startup-nightly.yml`          | cron 03:00 UTC + dispatch               | degraded-environment startup journeys, all 3 platforms, non-blocking                                             |
 | Runtime Binary Manifest Validation   | `runtime-binaries.yml`         | dispatch                                | validates signed runtime manifest generator                                                                      |
 | Windows yt-dlp probe soak            | `windows-ytdlp-probe-soak.yml` | dispatch                                | probe-duration soak measurements                                                                                 |
-| Publish yt-dlp-bridge / ytdlp-errors | `publish-*.yml`                | package tags + dispatch                 | npm publish of workspace packages                                                                                |
+| Publish yt-dlp-bridge / ytdlp-errors | `publish-*.yml`                | package tags + dispatch                 | registry publish of workspace packages                                                                           |
 
 ## Startup verification tiers
 
