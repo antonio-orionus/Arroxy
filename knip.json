@@ -49,7 +49,10 @@
 	],
 	"ignoreBinaries": [
 		"msgmerge",
-		"taskkill"
+		"taskkill",
+		"ditto",
+		"robocopy",
+		"hdiutil"
 	],
   "ignoreUnresolved": [
     "~icons/.*"

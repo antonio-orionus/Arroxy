@@ -40,7 +40,7 @@ Implementation status:
 | Persistence and restart | QueueStore/QueueService integration plus Electron startup E2E; Fixture E2E for real paused download restore | `queue-store.test.ts`, `queue-lifecycle.test.ts`, `startup-resilience.spec.ts`, Fixture Product E2E restart scenario | Seeded queue Electron test previously only asserted app root; no real paused-download restart scenario | Strengthened seeded queue assertion; added Fixture E2E paused/restart/resume scenario | P1 |
 | Scale and UX stress | Browser-mock Scenario Workbench first; Fixture E2E only for one small real workflow if needed | `scenario-gallery.spec.ts`, playlist renderer tests, `bulk-stress` Scenario Workbench state | Previously no dedicated large bulk/long-title visual scenario | Added browser-mock scenario for 50 bulk URLs, long titles, missing thumbnails, mixed metadata states, and scroll screenshots | P2 |
 | Startup, preload, security | Mock Electron E2E plus unit preload/window tests | `smoke.spec.ts`, `startup-resilience.spec.ts`, preload/window unit tests | No major acceptance duplication | Kept ownership; strengthened weak startup assertion | P1 |
-| Binary and process supervision | Unit/fake-process tests, cold-start packaged E2E | `ytdlp-retry.test.ts`, `download-service-*`, `cold-start.spec.ts`, `warmup-service.test.ts` | `download-service.test.ts` previously used real sleeps and legacy mock-mode concurrency | Kept as DownloadService mock-mode/process-state coverage; made mock-mode timing deterministic | P2 |
+| Binary and process supervision | Unit/fake-process tests, cold-start packaged E2E | `ytdlp-retry.test.ts`, `download-service-*`, `scripts/startup/*.ts`, `warmup-service.test.ts` | `download-service.test.ts` previously used real sleeps and legacy mock-mode concurrency | Kept as DownloadService mock-mode/process-state coverage; made mock-mode timing deterministic | P2 |
 | Live YouTube drift | Separate live smoke scripts only | `smoke`, `smoke:playlist`, `smoke:pot` package scripts | Not part of deterministic acceptance | Kept separate; do not gate product workflow correctness on live YouTube | P2 |
 
 ## Recommended scenario backlog
@@ -196,7 +196,7 @@ This appendix is intentionally coarse. The deep per-test findings above override
 
 | File | Verdict | Action |
 | --- | --- | --- |
-| `tests/e2e/cold-start.spec.ts` | Keep | Owns packaged cold-start and managed binary warmup. |
+| `scripts/startup/*.ts` (journey harness, see `dev-docs/startup-performance.md`) | Superseded `tests/e2e/cold-start.spec.ts` | Owns packaged cold-start and managed binary warmup, across fresh/warm/inherited-update profiles and PR/release/nightly tiers. |
 | `tests/e2e/fixture-download.spec.ts` | Expanded | Owns grouped product acceptance scenarios for bulk metadata/navigation, queue controls, retry/recovery, subtitle soft failure, and restart persistence. |
 | `tests/e2e/fixtureHarness.ts` | Expanded support | Provides fixture delays/failures/telemetry needed by new scenarios. |
 | `tests/e2e/smoke.spec.ts` | Keep | Owns shell, preload, context isolation, and basic interactivity. |

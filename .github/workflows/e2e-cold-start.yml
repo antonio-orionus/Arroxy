@@ -25,15 +25,8 @@ jobs:
     timeout-minutes: 45
     strategy:
       fail-fast: false
-      max-parallel: 3
       matrix:
         include:
-          - os: windows-latest
-            label: windows
-            build_cmd: bun run dist:win:dir
-          - os: macos-latest
-            label: macos-arm64
-            build_cmd: bun run dist:mac:arm64:dir
           - os: ubuntu-latest
             label: linux
             build_cmd: bun run dist:linux:dir
@@ -82,44 +75,15 @@ jobs:
       - name: Install Playwright browsers
         run: bunx playwright install chromium --with-deps
 
-      - name: Prepend fake JS runtimes and yt-dlp to PATH
+      - name: Write fake JS runtimes for the runtime smoke
         shell: bash
         run: |
-          fake="$RUNNER_TEMP/arroxy fake tools Ω"
+          fake="$RUNNER_TEMP/arroxy-fake-tools"
           mkdir -p "$fake"
-          if [ "$RUNNER_OS" = "Windows" ]; then
-            cat > "$fake/node.cmd" <<'EOF'
-          @echo off
-          echo fake old node v10.0.0
-          exit /b 0
-          EOF
-            cat > "$fake/deno.cmd" <<'EOF'
-          @echo off
-          echo fake deno 2.0.0
-          exit /b 0
-          EOF
-            cat > "$fake/yt-dlp.cmd" <<'EOF'
-          @echo off
-          echo fake yt-dlp should not be used
-          exit /b 1
-          EOF
-          else
-            cat > "$fake/node" <<'EOF'
-          #!/usr/bin/env sh
-          echo "fake old node v10.0.0"
-          EOF
-            cat > "$fake/deno" <<'EOF'
-          #!/usr/bin/env sh
-          echo "fake deno 2.0.0"
-          EOF
-            cat > "$fake/yt-dlp" <<'EOF'
-          #!/usr/bin/env sh
-          echo "fake yt-dlp should not be used" >&2
-          exit 1
-          EOF
-            chmod +x "$fake/node" "$fake/deno" "$fake/yt-dlp"
-          fi
-          echo "$fake" >> "$GITHUB_PATH"
+          printf '#!/usr/bin/env sh\necho "fake old node v10.0.0"\n' > "$fake/node"
+          printf '#!/usr/bin/env sh\necho "fake deno 2.0.0"\n' > "$fake/deno"
+          printf '#!/usr/bin/env sh\necho "fake yt-dlp should not be used" >&2\nexit 1\n' > "$fake/yt-dlp"
+          chmod +x "$fake/node" "$fake/deno" "$fake/yt-dlp"
 
       - name: Run packaged runtime smoke
         shell: bash
@@ -131,6 +95,14 @@ jobs:
         run: |
           mkdir -p "$ARROXY_LOG_ARCHIVE"
           unset ELECTRON_RUN_AS_NODE
+          # Contaminate PATH for this step only. This must be a shell export, not
+          # a step-level `env: PATH:` — the env context only sees custom keys
+          # (workflow/job env, $GITHUB_ENV), never the runner's inherited PATH,
+          # so `${{ env.PATH }}` expands to empty and the step would run with
+          # the fake-tools dir as its ONLY PATH entry (`mkdir: command not
+          # found`). Exporting inside the script scopes the fake tools to this
+          # step's process tree; the next step's shell is untouched.
+          export PATH="$RUNNER_TEMP/arroxy-fake-tools:$PATH"
           stdout="$ARROXY_LOG_ARCHIVE/runtime-smoke.out"
           stderr="$ARROXY_LOG_ARCHIVE/runtime-smoke.err"
           set +e
@@ -147,110 +119,21 @@ jobs:
           fi
           exit "$status"
 
-      - name: Prepare Windows diagnostics
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          $ErrorActionPreference = 'Continue'
-          $diag = Join-Path $env:RUNNER_TEMP 'arroxy-windows-diagnostics'
-          New-Item -ItemType Directory -Force -Path $diag | Out-Null
-          "ARROXY_WINDOWS_DIAG_DIR=$diag" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
-
-          $channels = @(
-            'Microsoft-Windows-Windows Defender/Operational',
-            'Microsoft-Windows-CodeIntegrity/Operational',
-            'Microsoft-Windows-AppLocker/EXE and DLL',
-            'Microsoft-Windows-AppLocker/MSI and Script',
-            'Microsoft-Windows-SmartScreen/Debug'
-          )
-
-          foreach ($channel in $channels) {
-            "Enabling $channel" | Tee-Object -FilePath (Join-Path $diag 'event-channel-setup.txt') -Append
-            & wevtutil sl $channel /e:true 2>&1 | Tee-Object -FilePath (Join-Path $diag 'event-channel-setup.txt') -Append
-          }
-
-          exit 0
-
-      - name: Run cold-start E2E
+      - name: Verify startup (PR tier)
         shell: bash
         env:
+          ARROXY_STARTUP_TIER: pr
           ARROXY_COLD_TMPDIR: ${{ runner.temp }}
           ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/arroxy-cold-logs
           ARROXY_BINARY_DOWNLOAD_MAX_MS: '120000'
         run: |
-          if [ "$RUNNER_OS" = "Linux" ]; then
-            xvfb-run -a bunx playwright test tests/e2e/cold-start.spec.ts --config playwright.config.ts
-          else
-            bunx playwright test tests/e2e/cold-start.spec.ts --config playwright.config.ts
-          fi
+          xvfb-run -a bun run verify:startup
 
-      - name: Collect Windows diagnostics
-        if: always() && runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          $ErrorActionPreference = 'Continue'
-          $diag = if ($env:ARROXY_WINDOWS_DIAG_DIR) { $env:ARROXY_WINDOWS_DIAG_DIR } else { Join-Path $env:RUNNER_TEMP 'arroxy-windows-diagnostics' }
-          New-Item -ItemType Directory -Force -Path $diag | Out-Null
-
-          Get-Date -Format o | Out-File -FilePath (Join-Path $diag 'collected-at.txt') -Encoding utf8
-          Get-ComputerInfo | Format-List * | Out-File -FilePath (Join-Path $diag 'computer-info.txt') -Encoding utf8
-          Get-CimInstance Win32_OperatingSystem | Format-List * | Out-File -FilePath (Join-Path $diag 'os-cim.txt') -Encoding utf8
-          Get-CimInstance Win32_ComputerSystem | Format-List * | Out-File -FilePath (Join-Path $diag 'computer-system-cim.txt') -Encoding utf8
-          Get-ChildItem Env: | Sort-Object Name | Format-Table -AutoSize | Out-File -FilePath (Join-Path $diag 'environment.txt') -Encoding utf8
-          Get-Process | Sort-Object CPU -Descending | Select-Object -First 150 | Format-Table -AutoSize | Out-File -FilePath (Join-Path $diag 'top-processes.txt') -Encoding utf8
-          Get-Service WinDefend, SecurityHealthService, AppIDSvc -ErrorAction SilentlyContinue | Format-List * | Out-File -FilePath (Join-Path $diag 'security-services.txt') -Encoding utf8
-          Get-Command winget, powershell, pwsh, wevtutil -ErrorAction SilentlyContinue | Format-List * | Out-File -FilePath (Join-Path $diag 'commands.txt') -Encoding utf8
-
-          Get-MpComputerStatus | Format-List * | Out-File -FilePath (Join-Path $diag 'defender-status.txt') -Encoding utf8
-          Get-MpPreference | Format-List * | Out-File -FilePath (Join-Path $diag 'defender-preference.txt') -Encoding utf8
-          Get-MpThreat | Format-List * | Out-File -FilePath (Join-Path $diag 'defender-threats.txt') -Encoding utf8
-          Get-MpThreatDetection | Format-List * | Out-File -FilePath (Join-Path $diag 'defender-threat-detections.txt') -Encoding utf8
-
-          Get-ChildItem $env:RUNNER_TEMP -Force -Recurse -ErrorAction SilentlyContinue |
-            Select-Object FullName, Length, CreationTimeUtc, LastWriteTimeUtc, Attributes |
-            Export-Csv -NoTypeInformation -Path (Join-Path $diag 'runner-temp-tree.csv')
-
-          $channels = @(
-            'Application',
-            'System',
-            'Microsoft-Windows-Windows Defender/Operational',
-            'Microsoft-Windows-CodeIntegrity/Operational',
-            'Microsoft-Windows-AppLocker/EXE and DLL',
-            'Microsoft-Windows-AppLocker/MSI and Script',
-            'Microsoft-Windows-SmartScreen/Debug'
-          )
-
-          foreach ($channel in $channels) {
-            $safe = $channel -replace '[\\/:*?"<>| ]+', '-'
-            & wevtutil qe $channel /f:text /c:300 /rd:true 2>&1 | Out-File -FilePath (Join-Path $diag "$safe.txt") -Encoding utf8
-            & wevtutil epl $channel (Join-Path $diag "$safe.evtx") /ow:true 2>&1 | Out-File -FilePath (Join-Path $diag "$safe-export.txt") -Encoding utf8
-          }
-
-          exit 0
-
-      - name: Upload warmup logs
+      - name: Upload startup verdicts
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: cold-start-logs-${{ matrix.label }}
           path: ${{ runner.temp }}/arroxy-cold-logs
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: Upload Windows diagnostics
-        if: always() && runner.os == 'Windows'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
-        with:
-          name: cold-start-windows-diagnostics
-          path: ${{ runner.temp }}/arroxy-windows-diagnostics
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: Upload Playwright artifacts
-        if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
-        with:
-          name: cold-start-playwright-${{ matrix.label }}
-          path: test-results
-          if-no-files-found: ignore
+          if-no-files-found: error
           retention-days: 7

@@ -135,6 +135,62 @@ Useful environment overrides (see [`runtime-binaries.md`](runtime-binaries.md)):
 | `ARROXY_RUNTIME_INDEX_SIG_URL=off` | Same, for the signature. Either variable alone disables the remote fetch. |
 | `ARROXY_RUNTIME_INDEX_FILE` / `_SIG_FILE` / `_PUBLIC_KEY_FILE` | Signed local manifest override. |
 
+## Startup verification
+
+CI proves cold start actually works — not just that a test file exited 0 — via
+a journey-driven harness under `scripts/startup/`. The governing rule: a job
+that did not observe the app reach its expected end state must not be able to
+report success.
+
+- **Journeys are data**, catalogued in `scripts/startup/journeys.ts`. Each one
+  declares a starting profile (`empty` / `warm` / `inherited` / `corrupt`), an
+  environment (e.g. `ARROXY_RUNTIME_INDEX_URL=off`, PATH contamination), and an
+  expected outcome (`main-screen` or `repair-panel`). Adding a new degraded
+  condition is a data change, not a new workflow file.
+- **One runner** (`scripts/startup/runJourney.ts`) launches the packaged app
+  via Playwright `_electron` for every journey on every tier — no per-workflow
+  hand-rolled launch logic to rot independently.
+- **A pure log oracle** (`scripts/startup/logOracle.ts`) asserts `main.log`
+  contains `Warmup completed`, that every branch the summary names actually
+  settled, and that there are no `[error]` lines or un-allowlisted `[warn]`
+  lines. This is what "clean logs" means operationally.
+- **Verdict accounting** (`scripts/startup/checkVerdicts.ts`) fails when a
+  declared journey produced no verdict at all — not just when one failed. This
+  is the structural fix for the bug that motivated this design: a step that
+  silently ran nothing (PATH-shadowed `bunx playwright` on macOS/Linux,
+  present from `bd804ea` in 2026-06 to 2026-08) used to report the same exit
+  code as a step that actually verified the app.
+- **`ARROXY_E2E=1` must never appear in a journey's env.** It swaps in
+  `MockTokenProvider` and a fixture yt-dlp plugin, mocking away the exact
+  branches these journeys exist to verify.
+
+Three tiers, run via `ARROXY_STARTUP_TIER=<pr|release|nightly> bun run verify:startup`
+(with `PACKAGED_EXE` pointing at the packaged executable — both are set by the
+workflows). The harness entry point is `tests/e2e/startup-journeys.spec.ts`, a
+Playwright Test spec rather than a bare script: `_electron.launch()` hangs
+indefinitely when called from a script executed directly by Bun, while the
+Playwright CLI — which `bunx` resolves through its `#!/usr/bin/env node`
+shebang into a real Node process — launches reliably. The tier rides in an
+environment variable because a spec file cannot take CLI args.
+
+| Tier | Where | Covers |
+| --- | --- | --- |
+| `pr` | `.github/workflows/e2e-cold-start.yml`, every push/PR, Linux only | `fresh-cold`, `warm-restart` |
+| `release` | `.github/workflows/release.yml`'s `startup-gate` job, every tag, all 3 platforms | adds `inherited-update` — this build launched against a profile written by the previous stable release |
+| `nightly` | `.github/workflows/startup-nightly.yml`, scheduled, all 3 platforms | degraded conditions too slow/flaky to gate on: offline, index-off, no-GPU, contaminated PATH, corrupt profile |
+
+`inherited-update` is the journey that answers "will this break someone who
+updates?" — nothing tested that before this harness existed. See
+`docs/superpowers/specs/2026-08-30-startup-verification-ci-design.md` for the
+full design and `docs/superpowers/plans/2026-08-30-startup-verification-ci.md`
+for how it was built.
+
+**`startup-gate` is not yet wired into `release.yml`'s blocking path.** It
+runs on every tag for visibility, but `prepare-release`'s `needs:` should only
+be widened to include it once the PR tier has run green on `main` for several
+days — a flaky new gate blocking every release would be worse than the silent
+gap it replaces.
+
 ## Open work
 
 | | Item | Blocked on |
