@@ -64,11 +64,16 @@ export class QueueService extends EventEmitter {
 	// Earliest time the next normal-lane spawn is allowed. Cleared on cancel-all
 	// or when no normal job remains. Priority spawns ignore this.
 	private readonly sleep = new InterJobSleep()
-	// Global "queue paused" flag — qBittorrent-style. While true the auto-
-	// scheduler is fully suspended (no pending/priority spawns, no sleep-timer
-	// fires); explicit per-item start/resume still spawn directly. Persisted
-	// + restored in init(); transitions emit `scheduler` for the paused banner.
+	// Global "queue paused" flag — qBittorrent-style: while true the auto-scheduler is fully
+	// suspended; explicit per-item start/resume still spawn directly. Restored in init(); emits `scheduler`.
 	private schedulerPaused = false
+
+	/** Single owner of the pause transition: emits `scheduler` only on a real change; callers that must move the flag silently (boot restore, cancel-all guard) assign the field directly. */
+	private setSchedulerPaused(paused: boolean): void {
+		if (this.schedulerPaused === paused) return
+		this.schedulerPaused = paused
+		this.emit('scheduler', {paused})
+	}
 	// One ProgressFormatter per running jobId — preserves throttle / spike-suppress
 	// state across consecutive progress lines for that job.
 	private readonly progressFormatters = new Map<string, ProgressFormatter>()
@@ -119,6 +124,7 @@ export class QueueService extends EventEmitter {
 			return
 		}
 		this.items = result.data.items
+		// Direct assignment: bridge not attached yet — the renderer hydrates the flag from the boot snapshot.
 		this.schedulerPaused = result.data.schedulerPaused
 		logger.info('Queue loaded', {count: this.items.length, schedulerPaused: this.schedulerPaused})
 		this.autoRetry.rearmPersisted(this.items)
@@ -184,12 +190,9 @@ export class QueueService extends EventEmitter {
 	}
 
 	async pauseAll(): Promise<void> {
-		// Flip the global pause flag FIRST so the per-item pause commits below
-		// can't re-trigger an auto-spawn of the next pending item (the original
-		// "pause all → next one starts" bug).
-		const wasPaused = this.schedulerPaused
-		this.schedulerPaused = true
-		if (!wasPaused) this.emit('scheduler', {paused: true})
+		// Flip the pause flag FIRST so per-item commits below can't re-trigger an
+		// auto-spawn of the next pending item (the "pause all → next one starts" bug).
+		this.setSchedulerPaused(true)
 		this.sleep.clear()
 		const running = this.items.filter(i => i.status === QUEUE_STATUS.running)
 		logger.info('pauseAll', {runningCount: running.length, total: this.items.length, snapshot: this.statusSummary()})
@@ -217,9 +220,7 @@ export class QueueService extends EventEmitter {
 	// would spawn every paused-active in parallel.
 	// eslint-disable-next-line @typescript-eslint/require-await -- async for IPC parity
 	async resumeAll(): Promise<void> {
-		const wasPaused = this.schedulerPaused
-		this.schedulerPaused = false
-		if (wasPaused) this.emit('scheduler', {paused: false})
+		this.setSchedulerPaused(false)
 		const held = this.items.filter(i => i.status === QUEUE_STATUS.pausedHeld)
 		const pausedActive = this.items.filter(i => i.status === QUEUE_STATUS.pausedActive)
 		logger.info('resumeAll', {heldCount: held.length, pausedActiveCount: pausedActive.length, snapshot: this.statusSummary()})
@@ -318,13 +319,11 @@ export class QueueService extends EventEmitter {
 			await this.downloadService.cancel()
 			const ids = this.items.flatMap(i => (i.status === QUEUE_STATUS.running || i.status === QUEUE_STATUS.pausedActive || i.status === QUEUE_STATUS.pausedHeld || i.status === QUEUE_STATUS.pending ? [i.id] : []))
 			logger.info('cancelAll', {ids: ids.length, snapshot: this.statusSummary()})
-			// Suppress scheduler during the sweep. Without this guard, the FIRST
-			// per-item commit fires recomputeSchedule, which sees the still-running
-			// priority lane + still-pending normals and spawns a fresh download.
-			// The rest of the loop then cancels that brand-new item — but the
-			// yt-dlp child process is already alive (downloadService.cancel ran
-			// BEFORE the new spawn) and keeps downloading to disk. End state: UI
-			// says "cancelled", yt-dlp says "still running".
+			// Suppress scheduler during the sweep. Without this guard the FIRST per-item commit fires
+			// recomputeSchedule, sees the still-running priority lane + still-pending normals, and spawns
+			// a fresh download — which the loop then cancels while its yt-dlp child (already spawned)
+			// keeps downloading to disk. End state: UI says "cancelled", yt-dlp says "still running".
+			// Direct assignment: guard-local to the sweep, must not emit (renderer would see a pause flicker).
 			this.sleep.clear()
 			this.autoRetry.clearAll()
 			this.schedulerPaused = true
@@ -342,9 +341,10 @@ export class QueueService extends EventEmitter {
 			}
 			// Restore "fresh slate" — future adds auto-spawn. Nothing pending
 			// survives the sweep, so this last recomputeSchedule is a no-op
-			// unless the renderer added a new item mid-flight.
-			this.schedulerPaused = false
-			if (wasSchedulerPaused) this.emit('scheduler', {paused: false})
+			// unless the renderer added a new item mid-flight. Paused before the
+			// sweep → this is the net transition and emits; otherwise silent.
+			if (wasSchedulerPaused) this.setSchedulerPaused(false)
+			else this.schedulerPaused = false
 			this.recomputeSchedule()
 			// Single persist for the whole sweep — also flushes schedulerPaused=false.
 			this.persist()

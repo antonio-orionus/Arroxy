@@ -9,7 +9,7 @@ import path from 'node:path'
 import {defaultAppSettings} from '../../src/shared/constants.js'
 import {downloadFile, downloadText, parseShaLine, sha256ForFile} from '../../src/main/services/binary/BinaryDownloader.js'
 import type {AppSettings} from '../../src/shared/types.js'
-import {FIXTURE_MEDIA_CATALOG_PATH, FIXTURE_MEDIA_FORMAT_IDS, FIXTURE_PLAYLIST_ID, fixtureMediaContentType, fixtureMediaFileSize, fixtureMediaKind, type FixtureMediaKind} from './fixtureMediaCatalog.js'
+import {FIXTURE_MEDIA_CATALOG_PATH, FIXTURE_MEDIA_FORMAT_IDS, FIXTURE_PLAYLIST_ID, fixtureMediaContentType, fixtureMediaKind, type FixtureMediaKind} from './fixtureMediaCatalog.js'
 export {AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureMediaCatalog.js'
 
 const execFileAsync = promisify(execFile)
@@ -108,17 +108,6 @@ function closeServer(server: http.Server): Promise<void> {
 	})
 }
 
-function mediaBuffer(videoId: string, formatId: string): Buffer {
-	const size = fixtureMediaFileSize(formatId)
-	const header = Buffer.from([0x00, 0x00, 0x00, 0x18, 0x66, 0x74, 0x79, 0x70, 0x69, 0x73, 0x6f, 0x6d, 0x00, 0x00, 0x02, 0x00, 0x69, 0x73, 0x6f, 0x6d, 0x69, 0x73, 0x6f, 0x32])
-	const buffer = Buffer.alloc(size)
-	header.copy(buffer)
-	for (let i = header.length; i < buffer.length; i += 1) {
-		buffer[i] = (videoId.charCodeAt(i % videoId.length) + formatId.charCodeAt(0) + i) % 251
-	}
-	return buffer
-}
-
 interface SplitMediaBuffers {
 	video: Buffer
 	audio: Buffer
@@ -164,6 +153,43 @@ function splitMediaBuffers(): Promise<SplitMediaBuffers> {
 		throw error
 	})
 	return splitMediaBuffersPromise
+}
+
+// `generated-muxed` formats are served a real, ffmpeg-muxed MP4 (not the
+// synthetic byte pattern in mediaBuffer) because yt-dlp's --add-metadata /
+// --embed-chapters postprocessor remuxes the container and rejects a header-
+// only fake MP4 with "moov atom not found". Memoized per formatId.
+const muxedMediaBufferPromises = new Map<string, Promise<Buffer>>()
+
+async function generateMuxedMediaBuffer(): Promise<Buffer> {
+	const dir = await fsPromises.mkdtemp(path.join(os.tmpdir(), 'arroxy-fixture-muxed-media-'))
+	const outPath = path.join(dir, 'muxed.mp4')
+	const ffmpegPath = bundledFfmpegPath()
+	const env = ffmpegEnv(ffmpegPath)
+	try {
+		// Sized to clear the >200KB plausibility oracle in expectMp4Count: 8s of
+		// 400kbps 640x360 video + 96kbps audio lands ~324KB regardless of build.
+		await execFileAsync(
+			ffmpegPath,
+			['-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'testsrc=size=640x360:rate=30', '-f', 'lavfi', '-i', 'sine=frequency=440:sample_rate=44100', '-t', '8', '-c:v', 'libx264', '-b:v', '400k', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', '-shortest', outPath],
+			{env, timeout: 30_000}
+		)
+		return await fsPromises.readFile(outPath)
+	} finally {
+		await fsPromises.rm(dir, {recursive: true, force: true})
+	}
+}
+
+function muxedMediaBuffer(formatId: string): Promise<Buffer> {
+	let promise = muxedMediaBufferPromises.get(formatId)
+	if (!promise) {
+		promise = generateMuxedMediaBuffer().catch(error => {
+			muxedMediaBufferPromises.delete(formatId)
+			throw error
+		})
+		muxedMediaBufferPromises.set(formatId, promise)
+	}
+	return promise
 }
 
 function vtt(videoId: string): Buffer {
@@ -307,13 +333,17 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 		return true
 	}
 
-	async function bodyForMedia(videoId: string, formatId: string): Promise<{body: Buffer; contentType: string}> {
+	async function bodyForMedia(formatId: string): Promise<{body: Buffer; contentType: string}> {
 		const kind: FixtureMediaKind = fixtureMediaKind(formatId)
 		if (kind === 'generated-split-video' || kind === 'generated-split-audio') {
 			const buffers = await splitMediaBuffers()
 			return kind === 'generated-split-video' ? {body: buffers.video, contentType: fixtureMediaContentType(formatId)} : {body: buffers.audio, contentType: fixtureMediaContentType(formatId)}
 		}
-		return {body: mediaBuffer(videoId, formatId), contentType: fixtureMediaContentType(formatId)}
+		if (kind === 'generated-muxed') {
+			return {body: await muxedMediaBuffer(formatId), contentType: fixtureMediaContentType(formatId)}
+		}
+		// All three media kinds return above; this only satisfies TS control flow.
+		throw new Error(`Unhandled fixture media kind for format ${formatId}`)
 	}
 
 	const server = http.createServer((req, res) => {
@@ -334,7 +364,7 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 					res.end(`media failure for ${videoId}`)
 					return
 				}
-				const {body, contentType} = await bodyForMedia(videoId, formatId)
+				const {body, contentType} = await bodyForMedia(formatId)
 				if (shouldTruncateMedia(videoId, formatId, method)) {
 					record({kind: 'media', videoId, formatId, method, status: 599, at: Date.now()})
 					serveTruncatedBuffer(req, res, body, contentType)

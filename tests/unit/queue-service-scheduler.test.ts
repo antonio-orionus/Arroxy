@@ -904,6 +904,12 @@ describe('QueueService — completion + lane cascade', () => {
 })
 
 describe('QueueService — scheduler state events (renderer feedback)', () => {
+	function collectSchedulerTransitions(qs: QueueService): boolean[] {
+		const transitions: boolean[] = []
+		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+		return transitions
+	}
+
 	it('pauseAll() emits scheduler {paused: true} once — re-pause emits nothing', async () => {
 		const {qs, ds} = makeService()
 		ds.start.mockResolvedValue(jobResult('job-1'))
@@ -912,8 +918,7 @@ describe('QueueService — scheduler state events (renderer feedback)', () => {
 		qs.add([makeItem({id: 'a', status: 'pending'})])
 		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
 
-		const transitions: boolean[] = []
-		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+		const transitions = collectSchedulerTransitions(qs)
 
 		await qs.pauseAll()
 		await qs.pauseAll()
@@ -931,8 +936,7 @@ describe('QueueService — scheduler state events (renderer feedback)', () => {
 		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
 		await qs.pauseAll()
 
-		const transitions: boolean[] = []
-		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+		const transitions = collectSchedulerTransitions(qs)
 
 		await qs.resumeAll()
 		await qs.resumeAll()
@@ -950,8 +954,7 @@ describe('QueueService — scheduler state events (renderer feedback)', () => {
 		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
 		await qs.pauseAll()
 
-		const transitions: boolean[] = []
-		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+		const transitions = collectSchedulerTransitions(qs)
 
 		await qs.cancel(null)
 
@@ -966,8 +969,7 @@ describe('QueueService — scheduler state events (renderer feedback)', () => {
 		qs.add([makeItem({id: 'a', status: 'pending'})])
 		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
 
-		const transitions: boolean[] = []
-		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+		const transitions = collectSchedulerTransitions(qs)
 
 		await qs.cancel(null)
 
