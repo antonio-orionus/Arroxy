@@ -8,6 +8,23 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.8-beta.2
+
+A small beta. The one user-facing change: pausing the whole queue is now something you can see.
+
+## Highlights
+
+### Paused Means Paused
+
+- Pausing all downloads used to change nothing on screen — pending items kept their normal look, so a paused queue was indistinguishable from an idle one. The queue now shows a paused banner with a "Resume queue" button, and pausing or resuming the whole queue (Cancel all included) is reflected immediately.
+- The paused state survives a restart: quit with the queue paused and it comes back paused.
+
+### Under The Hood
+
+- The checks that confirm Arroxy launches cleanly were rebuilt: a journey-based startup harness now runs real cold and warm starts against a previous release's profile on every pull request and nightly, replacing a cold-start test that had stopped working. No user-visible behavior change — this is what catches regressions before they reach you.
+
+---
+
 ## 0.4.8-beta.1
 
 Arroxy speaks Brazilian Portuguese now, starts noticeably faster, and a fresh install stops downloading yt-dlp three times over before it will start.
