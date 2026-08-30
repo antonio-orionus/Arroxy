@@ -8,6 +8,19 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.8-beta.3
+
+No user-facing changes — this beta re-cuts 0.4.8-beta.2 after a fix to the release pipeline's own startup gate, which had failed on its own environmental noise (the update check against the not-yet-published draft, and a stale Linux asset name) rather than on any app defect.
+
+## Highlights
+
+### Under The Hood
+
+- The release-tier startup gate no longer fails because the app's soft update check cannot find update metadata for the release being built — the gate's own token makes that draft visible, and the metadata is only uploaded later. A different updater failure still fails the gate.
+- The gate's "previous release" profile on Linux now downloads the AppImage by the name electron-builder actually publishes (`x64`, not `x86_64`).
+
+---
+
 ## 0.4.8-beta.2
 
 A small beta. The one user-facing change: pausing the whole queue is now something you can see.
