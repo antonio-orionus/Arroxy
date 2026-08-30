@@ -96,6 +96,14 @@ test('every declared journey reaches its expected end state with clean logs', as
 		console.log(`    ${verdict.outcome.toUpperCase()} observed=${verdict.observed} ${verdict.elapsedMs}ms${verdict.error ? ` — ${verdict.error}` : ''}`)
 		for (const violation of verdict.violations) console.log(`    log violation — ${violation.kind}: ${violation.detail}`)
 
+		// The oracle's violation details truncate multi-line entries, so the verdicts
+		// JSON alone cannot triage a red journey — archive the full main.log next to
+		// it or the evidence dies with the runner.
+		if (archive && verdict.profileDir) {
+			const logPath = path.join(verdict.profileDir, 'logs', 'main.log')
+			if (fs.existsSync(logPath)) fs.copyFileSync(logPath, path.join(archive, `main-${journey.id}.log`))
+		}
+
 		if (verdict.outcome === 'pass' && verdict.observed === 'main-screen' && verdict.profileDir && seedIds.has(journey.id) && !warmSources.has(journey.id)) {
 			const snapshot = path.join(baseDir, `warm-${journey.id}`)
 			copyProfilePreservingMtime(verdict.profileDir, snapshot)
