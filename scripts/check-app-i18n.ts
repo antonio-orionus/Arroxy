@@ -108,7 +108,11 @@ if (hadPlaceholders) {
 // literal found here fails the run regardless of --strict.
 const RENDERER_ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '../src/renderer/src')
 const SKIP_DIRS = new Set(['dev']) // ScenarioGallery is dev-only, not shipped UI
-const propPattern = /\b(title|description|label|placeholder|heading|tooltip|message|text)="([^"]+)"/g
+// aria-label is named explicitly: it is the highest-value prop this scan
+// exists to catch, and it must not drop out of coverage if someone edits the
+// bare-name alternation (a bare `label` still matches `aria-label` today only
+// by the accident that `\b` treats `-` as a boundary).
+const propPattern = /\b(aria-label|title|description|label|placeholder|heading|tooltip|message|text)="([^"]+)"/g
 // Literals exempt from the scan: brand/product names, locale-neutral format examples
 // ("en, uk, pt-br" placeholder shows locale-code syntax, not prose), and dev/test-only
 // surfaces (the ?backdrop isolation stage renders in browser-mock/test builds only).
@@ -152,7 +156,7 @@ if (literalHits.length) {
 	for (const hit of literalHits) {
 		console.error(`  ✗ ${hit.file}:${hit.line} — ${hit.prop}="${hit.value}"`)
 	}
-	console.error(`\nFAIL: ${literalHits.length} hardcoded JSX literal(s) on user-facing props (title/description/label/placeholder/...).\n` + 'Move the copy into en.json and render it via t(). Brand/product names pass if added to BRAND_ALLOWLIST.')
+	console.error(`\nFAIL: ${literalHits.length} hardcoded JSX literal(s) on user-facing props (aria-label/title/description/label/placeholder/...).\n` + 'Move the copy into en.json and render it via t(). Brand/product names pass if added to LITERAL_ALLOWLIST.')
 	process.exit(1)
 }
 console.log('  ✓ no hardcoded JSX literals on user-facing props')

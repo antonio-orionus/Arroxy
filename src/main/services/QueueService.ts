@@ -68,11 +68,14 @@ export class QueueService extends EventEmitter {
 	// suspended; explicit per-item start/resume still spawn directly. Restored in init(); emits `scheduler`.
 	private schedulerPaused = false
 
-	/** Single owner of the pause transition: emits `scheduler` only on a real change; callers that must move the flag silently (boot restore, cancel-all guard) assign the field directly. */
-	private setSchedulerPaused(paused: boolean): void {
+	// Single owner of the pause transition: emits `scheduler` only on a real change. `opts.silent`
+	// suppresses the emit for the cancel-all sweep (a pause flicker there would be a lie — the queue
+	// is being torn down, not paused). Boot restore assigns the field directly instead: the bridge
+	// isn't attached yet and the renderer hydrates the flag from the boot snapshot.
+	private setSchedulerPaused(paused: boolean, opts?: {silent?: boolean}): void {
 		if (this.schedulerPaused === paused) return
 		this.schedulerPaused = paused
-		this.emit('scheduler', {paused})
+		if (!opts?.silent) this.emit('scheduler', {paused})
 	}
 	// One ProgressFormatter per running jobId — preserves throttle / spike-suppress
 	// state across consecutive progress lines for that job.
@@ -320,13 +323,12 @@ export class QueueService extends EventEmitter {
 			const ids = this.items.flatMap(i => (i.status === QUEUE_STATUS.running || i.status === QUEUE_STATUS.pausedActive || i.status === QUEUE_STATUS.pausedHeld || i.status === QUEUE_STATUS.pending ? [i.id] : []))
 			logger.info('cancelAll', {ids: ids.length, snapshot: this.statusSummary()})
 			// Suppress scheduler during the sweep. Without this guard the FIRST per-item commit fires
-			// recomputeSchedule, sees the still-running priority lane + still-pending normals, and spawns
-			// a fresh download — which the loop then cancels while its yt-dlp child (already spawned)
-			// keeps downloading to disk. End state: UI says "cancelled", yt-dlp says "still running".
-			// Direct assignment: guard-local to the sweep, must not emit (renderer would see a pause flicker).
+			// recomputeSchedule and spawns a fresh download, which the loop then cancels while its
+			// yt-dlp child keeps downloading to disk. Silent: the guard is local to the sweep, not a
+			// user-facing pause — no renderer flicker.
 			this.sleep.clear()
 			this.autoRetry.clearAll()
-			this.schedulerPaused = true
+			this.setSchedulerPaused(true, {silent: true})
 			this.inBulk = true
 			try {
 				for (const id of ids) {
@@ -339,12 +341,11 @@ export class QueueService extends EventEmitter {
 			} finally {
 				this.inBulk = false
 			}
-			// Restore "fresh slate" — future adds auto-spawn. Nothing pending
-			// survives the sweep, so this last recomputeSchedule is a no-op
-			// unless the renderer added a new item mid-flight. Paused before the
-			// sweep → this is the net transition and emits; otherwise silent.
-			if (wasSchedulerPaused) this.setSchedulerPaused(false)
-			else this.schedulerPaused = false
+			// Restore "fresh slate" — future adds auto-spawn. Nothing pending survives the
+			// sweep, so this recomputeSchedule is a no-op unless the renderer added an item
+			// mid-flight. Emit the unpause only when it undoes a user-visible pause; a silent
+			// sweep guard coming down is not a renderer transition.
+			this.setSchedulerPaused(false, {silent: !wasSchedulerPaused})
 			this.recomputeSchedule()
 			// Single persist for the whole sweep — also flushes schedulerPaused=false.
 			this.persist()
