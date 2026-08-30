@@ -26,6 +26,7 @@ Public landing site (`arroxy.orionus.dev`) lives in a separate repo: [`antonio-o
 - [runtime-binaries.md](runtime-binaries.md) — Signed runtime-binary manifest model for yt-dlp nightly/stable selection, immutable artifact validation, local dev commands, and runtime fallback order.
 - [share-feature.md](share-feature.md) — Share button + periodic prompts + telemetry. Covers the dialog, all 5 manual entry points, the time/milestone triggers, persisted settings, and i18n.
 - [startup-performance.md](startup-performance.md) — Why startup takes as long as it does. Warm vs cold measurements, the ~15s PyInstaller/security-scan probe and why it recurs on every yt-dlp bump, what 0.4.8 changed, how to read the warmup log lines, and how to reproduce any of it.
+- [startup-verification.md](startup-verification.md) — Startup-verification program: current tier status, the nine design decisions and their rationale, open defects, and incidents.
 - [test-ownership-audit.md](test-ownership-audit.md) — Risk-owned test strategy audit. Maps current tests to the right layer and lists duplicate acceptance coverage to refactor.
 - [tooling-contract.md](tooling-contract.md) — The root-owned tooling contract behind `bun run check` (format, lint, typecheck, knip, madge, package gates). Do not add package-local formatter/linter configs.
 - [tooling-migration-audit.md](tooling-migration-audit.md) — Tailwind, ESLint, Prettier, Biome, and Oxlint audit. Includes measured Biome coverage loss and replacement options for lost rules.
