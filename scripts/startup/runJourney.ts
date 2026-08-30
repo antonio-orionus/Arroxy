@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import {_electron as electron, type Page} from '@playwright/test'
+import {_electron as electron, type ElectronApplication, type Page} from '@playwright/test'
 import type {ExpectedOutcome, StartupJourney} from './journeys.js'
 import {inspectStartupLog, type LogViolation} from './logOracle.js'
 import {provisionProfile} from './provisionProfile.js'
@@ -81,9 +81,13 @@ export async function runJourney(journey: StartupJourney, ctx: RunContext): Prom
 		return {...base, error: `profile provisioning failed: ${err instanceof Error ? err.message : String(err)}`, elapsedMs: Date.now() - startedAt}
 	}
 
-	const app = await electron.launch({executablePath: ctx.packagedExe, env: buildJourneyEnv(journey, ctx, profileDir) as Record<string, string>})
-
+	// Launch sits inside the protected path: a failed launch must become a
+	// failed verdict for this journey — so verdict accounting stays complete
+	// and the remaining journeys still report — not a rejection that skips
+	// the verdict archive.
+	let app: ElectronApplication | null = null
 	try {
+		app = await electron.launch({executablePath: ctx.packagedExe, env: buildJourneyEnv(journey, ctx, profileDir) as Record<string, string>})
 		const page = await app.firstWindow()
 		const observed = await observeOutcome(page)
 
@@ -100,6 +104,6 @@ export async function runJourney(journey: StartupJourney, ctx: RunContext): Prom
 	} catch (err) {
 		return {...base, error: err instanceof Error ? err.message : String(err), elapsedMs: Date.now() - startedAt}
 	} finally {
-		await app.close()
+		if (app) await app.close()
 	}
 }

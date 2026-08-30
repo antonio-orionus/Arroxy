@@ -26,11 +26,15 @@ export function copyProfilePreservingMtime(from: string, to: string): void {
 	}
 	if (process.platform === 'win32') {
 		// robocopy exits 1 on "files copied", which is success, not failure.
+		// Exit codes 0-7 are all benign (1 = files copied, 2/4 = informational,
+		// OR-combined); 8+ is failure. A spawn failure reports no numeric status
+		// (robocopy never ran) and must rethrow — an unpopulated directory must
+		// not pose as a prepared profile.
 		try {
 			execFileSync('robocopy', [from, to, '/E', '/COPYALL', '/NFL', '/NDL', '/NJH', '/NJS'])
 		} catch (err) {
-			const status = (err as {status?: number}).status ?? 0
-			if (status >= 8) throw err
+			const status = (err as {status?: number}).status
+			if (typeof status !== 'number' || status >= 8) throw err
 		}
 		return
 	}

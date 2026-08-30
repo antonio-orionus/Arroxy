@@ -13,8 +13,14 @@ describe('buildJourneyEnv', () => {
 	})
 
 	it('never leaks ELECTRON_RUN_AS_NODE into the app env', () => {
-		const env = buildJourneyEnv(BASE, {...CTX}, '/tmp/profile')
-		expect(env.ELECTRON_RUN_AS_NODE).toBeUndefined()
+		const previous = process.env.ELECTRON_RUN_AS_NODE
+		process.env.ELECTRON_RUN_AS_NODE = '1'
+		try {
+			expect(buildJourneyEnv(BASE, {...CTX}, '/tmp/profile').ELECTRON_RUN_AS_NODE).toBeUndefined()
+		} finally {
+			if (previous === undefined) delete process.env.ELECTRON_RUN_AS_NODE
+			else process.env.ELECTRON_RUN_AS_NODE = previous
+		}
 	})
 
 	it('never leaks MOCK_BACKEND into the app env', () => {
