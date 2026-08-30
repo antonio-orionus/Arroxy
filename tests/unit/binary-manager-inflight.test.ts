@@ -112,6 +112,46 @@ describe.skipIf(process.platform === 'win32')('BinaryManager concurrent resoluti
 		expect(firstEvents.map(event => event.phase)).toContain('done')
 	})
 
+	// runResolveYtDlp emits 'starting' synchronously, before its first await —
+	// which is before share() reaches join() and registers the starting
+	// caller's own listener. That caller used to miss its own 'starting' event.
+	it("delivers 'starting' to the caller that begins the run, not just to joiners", async () => {
+		const {executablePath} = await fixture()
+		const gate = gatedMaterializer(executablePath)
+		const mgr = await manager(gate.materialize)
+
+		const firstEvents: WarmupProgressEvent[] = []
+		const first = mgr.resolveYtDlp({onProgress: event => firstEvents.push(event)})
+		gate.release()
+		await first
+
+		expect(firstEvents.map(event => event.phase)).toContain('starting')
+	})
+
+	// The shared entry used to stay set until the run's promise settled, so a
+	// caller arriving mid-unwind joined a run already doomed by another
+	// caller's abort instead of starting a fresh resolution.
+	it('drops the shared entry the moment its last caller aborts it, so a later caller starts fresh', async () => {
+		const {executablePath} = await fixture()
+		const gate = gatedMaterializer(executablePath)
+		const mgr = await manager(gate.materialize)
+
+		const controller = new AbortController()
+		const first = mgr.resolveYtDlp({signal: controller.signal})
+		await gate.started
+		controller.abort()
+
+		// The aborted run is still unwinding (materialize hasn't resolved yet) —
+		// a second caller arriving now must not join it.
+		const second = mgr.resolveYtDlp()
+		gate.release()
+		const [firstDiag, secondDiag] = await Promise.all([first, second])
+
+		expect(gate.calls()).toBe(2)
+		expect(firstDiag.state).toBe('failed')
+		expect(secondDiag.state).toBe('runnable')
+	})
+
 	it('starts a fresh resolution once the shared one has settled', async () => {
 		const {executablePath} = await fixture()
 		const gate = gatedMaterializer(executablePath)

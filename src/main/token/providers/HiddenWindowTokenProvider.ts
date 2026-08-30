@@ -51,10 +51,21 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 
 	async ensureReady(): Promise<void> {
 		if (this.ready) return
-		this.readying ??= this.loadUntilReady().finally(() => {
-			this.readying = null
-		})
-		return this.readying
+		if (this.readying) return this.readying
+
+		const readying = this.loadUntilReady()
+		this.readying = readying
+		// Only if it's still ours: destroyWindow() may have cleared it in favour
+		// of a fresh run we must not evict once that run has replaced this one.
+		// The .catch here is bookkeeping only — it silences this detached
+		// derived promise's own rejection so it doesn't surface as unhandled;
+		// the real error still propagates through `readying`, returned below.
+		void readying
+			.finally(() => {
+				if (this.readying === readying) this.readying = null
+			})
+			.catch(() => undefined)
+		return readying
 	}
 
 	private async loadUntilReady(): Promise<void> {

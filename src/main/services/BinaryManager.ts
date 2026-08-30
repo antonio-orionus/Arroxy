@@ -64,6 +64,11 @@ class SharedRun<T> {
 
 		const listeners = new Set<ResolveListener>()
 		const controller = new AbortController()
+		// Registered before run() is invoked: the chain emits its 'starting'
+		// event synchronously, before this function's first await, so the
+		// caller that begins the run must already be in the fan-out set.
+		const starter: ResolveListener = {onProgress: opts.onProgress, onStatus: opts.onStatus}
+		listeners.add(starter)
 		const promise = run({
 			signal: controller.signal,
 			onProgress: event => {
@@ -80,13 +85,16 @@ class SharedRun<T> {
 		void promise.finally(() => {
 			if (this.entry === entry) this.entry = null
 		})
-		return this.join(entry, opts, cancelledValue)
+		return this.wait(entry, starter, opts, cancelledValue)
 	}
 
 	private join(entry: RunEntry<T>, opts: ResolveOptions, cancelledValue: () => T): Promise<T> {
 		const listener: ResolveListener = {onProgress: opts.onProgress, onStatus: opts.onStatus}
 		entry.listeners.add(listener)
+		return this.wait(entry, listener, opts, cancelledValue)
+	}
 
+	private wait(entry: RunEntry<T>, listener: ResolveListener, opts: ResolveOptions, cancelledValue: () => T): Promise<T> {
 		let left = false
 		const leave = (): void => {
 			if (left) return
@@ -115,6 +123,10 @@ class SharedRun<T> {
 				// fail() with whatever attempts it actually accumulated, which is what
 				// the repair panel needs after a user-initiated cancel.
 				entry.controller.abort()
+				// The run is now doomed; drop it immediately instead of waiting for its
+				// unwind to settle, or a caller arriving mid-unwind joins a run that can
+				// only fail instead of starting a fresh resolution.
+				if (this.entry === entry) this.entry = null
 				entry.promise.then(resolve, (err: unknown) => reject(err instanceof Error ? err : new Error(String(err))))
 			}
 			if (signal.aborted) {

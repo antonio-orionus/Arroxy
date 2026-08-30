@@ -128,6 +128,41 @@ describe('HiddenWindowTokenProvider window leases', () => {
 		await Promise.all([provider.ensureReady(), provider.ensureReady()])
 
 		expect(created).toHaveLength(1)
-		expect(created[0].loadedUrls.length).toBeLessThanOrEqual(1)
+		expect(created[0].loadedUrls).toHaveLength(1)
+	})
+
+	// destroyWindow() unconditionally clears `readying`, so a fresh run can start
+	// right after it — by design. But the run being torn down settles later, on
+	// its own listener, and its `.finally()` used to null `readying`
+	// unconditionally too. That clobbers whatever newer run had since taken its
+	// place, and lets a caller arriving after that start a second, unwanted
+	// loadURL() on the replacement window.
+	it('does not let a settling run clear a newer run that replaced it after destroyWindow()', async () => {
+		const provider = new HiddenWindowTokenProvider()
+
+		provider.acquireWindow()
+		const runA = provider.ensureReady()
+
+		// Destroys window[0] and clears `readying` while run A is still in
+		// flight — its did-finish-load listener is queued but hasn't fired yet.
+		provider.releaseWindow()
+
+		provider.acquireWindow()
+		const runB = provider.ensureReady()
+
+		// Window[0] is destroyed, so run A's WebPoClient poll throws once its
+		// did-finish-load fires. Awaiting it here guarantees its `.finally()`
+		// has already run — before run B's own did-finish-load gets a chance to.
+		await expect(runA).rejects.toThrow()
+
+		provider.acquireWindow()
+		const runC = provider.ensureReady()
+
+		// A buggy clear lets this reach loadUntilReady() again on the still-live
+		// window[1] instead of joining run B, pushing a second navigation.
+		expect(created[1]?.loadedUrls).toHaveLength(1)
+
+		await Promise.all([runB, runC])
+		expect(created).toHaveLength(2)
 	})
 })

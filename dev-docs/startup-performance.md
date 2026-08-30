@@ -102,13 +102,13 @@ This was demonstrated accidentally: a `cp -R` snapshot that did not preserve mti
 ```text
 Warmup branch settled { branch: 'ffmpeg', elapsedMs: 74 }
 Warmup branch settled { branch: 'ytDlp',  elapsedMs: 1656 }
-Warmup completed { totalMs: 1656, gatedBy: 'ytDlp', branches: { ytDlp: 1656, ffmpeg: 74, token: 0 } }
+Warmup completed { totalMs: 1656, gatedBy: 'ytDlp', branches: { ytDlp: 1656, ffmpeg: 74 } }
 Warmup branch settled { branch: 'token',  elapsedMs: 2920 }
 ```
 
 - `gatedBy` names the branch to investigate. The others finished earlier and are not the cause.
 - **A branch with no `Warmup branch settled` line never finished.** The summary is written at the end, so a hang produces settled lines for the branches that completed and silence for the one that did not. This is how a hang is localised.
-- `branches.token: 0` is normal, not a fault — the token branch is not awaited, so it frequently has not settled when the summary is written. Its own line arrives later.
+- `branches` only ever has `ytDlp` and `ffmpeg` — `token` is never awaited, so it is deliberately excluded rather than reported as a possibly-wrong `0`. Its real duration is only on its own `Warmup branch settled` line, whenever that lands (before or after the summary).
 - `yt-dlp probe ok { elapsedMs }` carries the scan cost. `yt-dlp probe verdict reused` means the memo hit and no spawn happened.
 - `Remote runtime binary index verified { elapsedMs }` is the network round trip that dominates a warm start.
 
