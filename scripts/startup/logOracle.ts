@@ -7,6 +7,12 @@ export interface LogViolation {
 
 export interface LogPolicy {
 	allowedWarnings: readonly RegExp[]
+	/**
+	 * Errors are violations by default. The allowlist exists because this oracle
+	 * gates three platforms at tag time, where one benign platform-specific error
+	 * line must be waivable per journey rather than by editing the oracle.
+	 */
+	allowedErrors: readonly RegExp[]
 }
 
 // electron-log main.log line shape: `[2026-08-30 05:22:31.753] [info]  (scope)  message`
@@ -53,7 +59,7 @@ export function inspectStartupLog(logText: string, policy: LogPolicy): LogViolat
 		if (!parsed) continue
 		const [, level, message = ''] = parsed
 		if (level === 'error') {
-			violations.push({kind: 'error-line', detail: message.trim()})
+			if (!policy.allowedErrors.some(pattern => pattern.test(message))) violations.push({kind: 'error-line', detail: message.trim()})
 		} else if (level === 'warn' && !policy.allowedWarnings.some(pattern => pattern.test(message))) {
 			violations.push({kind: 'disallowed-warning', detail: message.trim()})
 		}

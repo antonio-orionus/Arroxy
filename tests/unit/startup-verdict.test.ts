@@ -3,7 +3,7 @@ import {describe, expect, it} from 'vitest'
 import type {StartupJourney} from '../../scripts/startup/journeys.js'
 import {buildJourneyEnv} from '../../scripts/startup/runJourney.js'
 
-const BASE: StartupJourney = {id: 'test', description: 'test', profile: {kind: 'empty'}, env: {}, expect: 'main-screen', logPolicy: {allowedWarnings: []}, tiers: ['nightly']}
+const BASE: StartupJourney = {id: 'test', description: 'test', profile: {kind: 'empty'}, env: {}, expect: 'main-screen', logPolicy: {allowedWarnings: [], allowedErrors: []}, tiers: ['nightly']}
 
 const CTX = {packagedExe: '/app/Arroxy', baseDir: '/tmp/base'}
 

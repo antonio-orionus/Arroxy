@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import {type StartupJourney, TIERS_UNDER_TEST, validateJourneySequence, validateTier} from '../../scripts/startup/journeys.js'
 
-const CLEAN = {allowedWarnings: []} as const
+const CLEAN = {allowedWarnings: [], allowedErrors: []} as const
 
 function journey(id: string, profile: StartupJourney['profile']): StartupJourney {
 	return {id, description: id, profile, env: {}, expect: 'main-screen', logPolicy: CLEAN, tiers: ['nightly']}

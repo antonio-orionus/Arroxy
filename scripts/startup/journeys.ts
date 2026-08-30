@@ -27,7 +27,7 @@ export interface StartupJourney {
 	tiers: readonly StartupTier[]
 }
 
-const CLEAN: LogPolicy = {allowedWarnings: []}
+const CLEAN: LogPolicy = {allowedWarnings: [], allowedErrors: []}
 
 export const JOURNEYS: readonly StartupJourney[] = [
 	{id: 'fresh-cold', description: 'First launch ever: no profile, no runtime cache, managed yt-dlp downloaded from scratch.', profile: {kind: 'empty'}, env: {}, expect: 'main-screen', logPolicy: CLEAN, tiers: ['pr', 'release', 'nightly']},
@@ -36,7 +36,7 @@ export const JOURNEYS: readonly StartupJourney[] = [
 	{id: 'index-off', description: 'Remote runtime index unreachable; must fall back to last-known-good or bundled index.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {ARROXY_RUNTIME_INDEX_URL: 'off'}, expect: 'main-screen', logPolicy: CLEAN, tiers: ['nightly']},
 	{id: 'no-gpu', description: 'Software rendering only — backdrop must fall back without blocking startup.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {ARROXY_GPU_MODE: 'software'}, expect: 'main-screen', logPolicy: CLEAN, tiers: ['nightly']},
 	{id: 'contaminated-path', description: 'Stale node/deno and a broken yt-dlp on PATH; the app must still resolve its own binaries.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {}, pathContamination: true, expect: 'main-screen', logPolicy: CLEAN, tiers: ['nightly']},
-	{id: 'corrupt-profile', description: 'Malformed settings.json and queue.json must not prevent reaching the main screen.', profile: {kind: 'corrupt'}, env: {}, expect: 'main-screen', logPolicy: {allowedWarnings: [/settings/i, /queue/i, /parse/i]}, tiers: ['nightly']}
+	{id: 'corrupt-profile', description: 'Malformed settings.json and queue.json must not prevent reaching the main screen.', profile: {kind: 'corrupt'}, env: {}, expect: 'main-screen', logPolicy: {allowedWarnings: [/settings/i, /queue/i, /parse/i], allowedErrors: []}, tiers: ['nightly']}
 ]
 
 export function journeysForTier(tier: StartupTier): StartupJourney[] {

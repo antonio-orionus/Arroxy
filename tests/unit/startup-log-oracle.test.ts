@@ -10,7 +10,7 @@ const CLEAN_LOG = `[2026-08-30 05:22:31.753] [info]  Session started
   branches: { ytDlp: 20331, ffmpeg: 67 }
 }`
 
-const EMPTY_POLICY = {allowedWarnings: []} as const
+const EMPTY_POLICY = {allowedWarnings: [], allowedErrors: []} as const
 
 describe('inspectStartupLog', () => {
 	it('accepts a clean startup log', () => {
@@ -34,13 +34,23 @@ describe('inspectStartupLog', () => {
 		expect(violations).toContainEqual({kind: 'error-line', detail: 'Warmup failed hard'})
 	})
 
+	it('honours the error allowlist', () => {
+		const violations = inspectStartupLog(`${CLEAN_LOG}\n[2026-08-30 05:22:53.000] [error]  Keychain access denied`, {allowedWarnings: [], allowedErrors: [/Keychain/]})
+		expect(violations).toEqual([])
+	})
+
+	it('still flags an error line the allowlist does not cover', () => {
+		const violations = inspectStartupLog(`${CLEAN_LOG}\n[2026-08-30 05:22:53.000] [error]  Warmup failed hard`, {allowedWarnings: [], allowedErrors: [/Keychain/]})
+		expect(violations).toContainEqual({kind: 'error-line', detail: 'Warmup failed hard'})
+	})
+
 	it('flags warnings not covered by the allowlist', () => {
 		const violations = inspectStartupLog(`${CLEAN_LOG}\n[2026-08-30 05:22:53.000] [warn]  Token warmup threw`, EMPTY_POLICY)
 		expect(violations).toContainEqual({kind: 'disallowed-warning', detail: 'Token warmup threw'})
 	})
 
 	it('honours the allowlist', () => {
-		const violations = inspectStartupLog(`${CLEAN_LOG}\n[2026-08-30 05:22:53.000] [warn]  Token warmup threw`, {allowedWarnings: [/Token warmup threw/]})
+		const violations = inspectStartupLog(`${CLEAN_LOG}\n[2026-08-30 05:22:53.000] [warn]  Token warmup threw`, {allowedWarnings: [/Token warmup threw/], allowedErrors: []})
 		expect(violations).toEqual([])
 	})
 })
