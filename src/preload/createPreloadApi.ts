@@ -1,6 +1,6 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {AppApi} from '@shared/api.js'
-import type {ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSnapshotPayload, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
+import type {ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
 
 // Minimal IpcRenderer shape — only what the api factory uses, no electron dep.
 export interface PreloadIpcRenderer {
@@ -132,7 +132,7 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 					}
 				},
 				onScheduler: listener => {
-					const wrapped = (_: unknown, event: {paused: boolean}): void => listener(event)
+					const wrapped = (_: unknown, event: QueueSchedulerEventPayload): void => listener(event)
 					ipcRenderer.on(IPC_CHANNELS.queueEventScheduler, wrapped)
 					return () => {
 						ipcRenderer.removeListener(IPC_CHANNELS.queueEventScheduler, wrapped)

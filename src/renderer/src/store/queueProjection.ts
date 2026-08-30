@@ -1,4 +1,4 @@
-import type {QueueItem, QueueSnapshotPayload} from '@shared/types.js'
+import type {QueueItem, QueueSchedulerEventPayload, QueueSnapshotPayload} from '@shared/types.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {reconcileQuickDownloadFeedback, type QuickDownloadFeedbackState} from './wizard/quickDownloadFeedback.js'
 
@@ -62,7 +62,7 @@ export interface QueueProjectionBindings {
 	onAdded(listener: (event: {items: QueueItem[]; atIdx: number}) => void): () => void
 	onUpdated(listener: (event: {item: QueueItem}) => void): () => void
 	onRemoved(listener: (event: {itemId: string}) => void): () => void
-	onScheduler(listener: (event: {paused: boolean}) => void): () => void
+	onScheduler(listener: (event: QueueSchedulerEventPayload) => void): () => void
 }
 
 export interface BindQueueProjectionInput<State extends QueueProjectionState> {

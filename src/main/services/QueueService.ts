@@ -37,7 +37,7 @@ import {InterJobSleep} from './download/InterJobSleep.js'
 import {QueueAutoRetry} from './download/QueueAutoRetry.js'
 import {QueuePlaylistM3u} from './download/QueuePlaylistM3u.js'
 import {findInadmissibleQueueItem} from './download/queueAdmission.js'
-import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, StatusEvent} from '@shared/types.js'
+import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, QueueSnapshotPayload, StatusEvent} from '@shared/types.js'
 import type {QueueStore} from '@main/stores/QueueStore.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import type {PlaylistManifest} from '@shared/playlistManifest.js'
@@ -64,12 +64,10 @@ export class QueueService extends EventEmitter {
 	// Earliest time the next normal-lane spawn is allowed. Cleared on cancel-all
 	// or when no normal job remains. Priority spawns ignore this.
 	private readonly sleep = new InterJobSleep()
-	// Global "queue paused" flag — qBittorrent-style. When true, the auto-
-	// scheduler is fully suspended: no pending items spawn, no priority items
-	// spawn, no sleep timer fires anything new. Per-item explicit actions
-	// (`start(itemId)`, `resume(itemId)`) still spawn directly. Persisted via
-	// QueueStore and restored in init(); transitions emit the `scheduler`
-	// event so the renderer can surface the paused state instead of "waiting".
+	// Global "queue paused" flag — qBittorrent-style. While true the auto-
+	// scheduler is fully suspended (no pending/priority spawns, no sleep-timer
+	// fires); explicit per-item start/resume still spawn directly. Persisted
+	// + restored in init(); transitions emit `scheduler` for the paused banner.
 	private schedulerPaused = false
 	// One ProgressFormatter per running jobId — preserves throttle / spike-suppress
 	// state across consecutive progress lines for that job.
@@ -132,6 +130,12 @@ export class QueueService extends EventEmitter {
 
 	snapshot(): QueueItem[] {
 		return [...this.items]
+	}
+
+	// Single construction point for both snapshot hydration surfaces — the
+	// getSnapshot IPC handler and the bridge's attach-time snapshot event.
+	snapshotPayload(): QueueSnapshotPayload {
+		return {items: this.snapshot(), schedulerPaused: this.schedulerPaused}
 	}
 
 	// commands ---------------------------------------------------------------
@@ -256,10 +260,6 @@ export class QueueService extends EventEmitter {
 
 	setAutoRetryAttempts(value: number): void {
 		this.autoRetry.setAttempts(value, this.items)
-	}
-
-	schedulerIsPaused(): boolean {
-		return this.schedulerPaused
 	}
 
 	private async cleanupResumeContextBestEffort(item: QueueItem): Promise<void> {

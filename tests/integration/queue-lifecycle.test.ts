@@ -75,14 +75,14 @@ describe('queue lifecycle — quit and reload', () => {
 		first.qs.add([makeItem({id: 'a', status: 'pending'}), makeItem({id: 'b', status: 'pending'}), makeItem({id: 'c', status: 'pending'}), makeItem({id: 'd', status: 'pending'})])
 		await vi.waitFor(() => expect(first.qs.snapshot().find(i => i.id === 'a')?.status).toBe('running'))
 		await first.qs.pauseAll()
-		expect(first.qs.schedulerIsPaused()).toBe(true)
+		expect(first.qs.snapshotPayload().schedulerPaused).toBe(true)
 		// Give the trailing `persist()` a chance to flush.
 		await flushMicrotasks()
 
 		// ──────── simulate quit + reload ────────
 		const second = await boot(dir)
 
-		expect(second.qs.schedulerIsPaused()).toBe(true)
+		expect(second.qs.snapshotPayload().schedulerPaused).toBe(true)
 		expect(second.ds.start).not.toHaveBeenCalled()
 		const snap = second.qs.snapshot()
 		expect(snap.find(i => i.id === 'a')?.status).toBe('paused-active')
@@ -104,7 +104,7 @@ describe('queue lifecycle — quit and reload', () => {
 		await second.qs.resumeAll()
 		await flushMicrotasks()
 
-		expect(second.qs.schedulerIsPaused()).toBe(false)
+		expect(second.qs.snapshotPayload().schedulerPaused).toBe(false)
 		expect(second.qs.snapshot().find(i => i.id === 'a')?.status).toBe('running')
 		// Re-spawn must thread the persisted tempDir so yt-dlp picks up .part files.
 		expect(second.ds.start).toHaveBeenCalledTimes(1)
@@ -123,7 +123,7 @@ describe('queue lifecycle — quit and reload', () => {
 		await flushMicrotasks()
 
 		const second = await boot(dir)
-		expect(second.qs.schedulerIsPaused()).toBe(false)
+		expect(second.qs.snapshotPayload().schedulerPaused).toBe(false)
 		// Cancelled items are not persisted at all.
 		expect(second.qs.snapshot()).toHaveLength(0)
 
@@ -144,7 +144,7 @@ describe('queue lifecycle — quit and reload', () => {
 		await flushMicrotasks()
 
 		const second = await boot(dir)
-		expect(second.qs.schedulerIsPaused()).toBe(true)
+		expect(second.qs.snapshotPayload().schedulerPaused).toBe(true)
 		// a is cancelled → stripped on save. b + c persist as pending.
 		expect(second.ds.start).not.toHaveBeenCalled()
 		expect(second.qs.snapshot().every(i => i.status === 'pending')).toBe(true)
@@ -162,7 +162,7 @@ describe('queue lifecycle — quit and reload', () => {
 		await flushMicrotasks()
 
 		const second = await boot(dir)
-		expect(second.qs.schedulerIsPaused()).toBe(false)
+		expect(second.qs.snapshotPayload().schedulerPaused).toBe(false)
 		// First pending picks up automatically on boot.
 		await vi.waitFor(() => expect(second.ds.start).toHaveBeenCalledOnce())
 		expect(second.qs.snapshot().find(i => i.id === 'a')?.status).toBe('running')
@@ -178,7 +178,7 @@ describe('queue lifecycle — quit and reload', () => {
 		await flushMicrotasks()
 
 		const second = await boot(dir, 1, 2)
-		expect(second.qs.schedulerIsPaused()).toBe(true)
+		expect(second.qs.snapshotPayload().schedulerPaused).toBe(true)
 		expect(second.ds.start).not.toHaveBeenCalled()
 
 		await second.qs.resumeAll()

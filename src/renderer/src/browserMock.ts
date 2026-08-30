@@ -1,5 +1,5 @@
 import type {AppApi} from '@shared/api.js'
-import type {AppSettings, DependencyDiagnostic, DependencyId, ProbeProgressEvent, ProgressEvent, QueueActionSkippedItem, QueueItem, QueueOutputTargetChangeItemResult, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
+import type {AppSettings, DependencyDiagnostic, DependencyId, ProbeProgressEvent, ProgressEvent, QueueActionSkippedItem, QueueItem, QueueOutputTargetChangeItemResult, QueueSchedulerEventPayload, QueueSnapshotPayload, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
 import {QUEUE_STATUS, STATUS_KEY, YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
 import {canApplyQueueAction, canApplyQueueActionToItem} from '@shared/queueActions.js'
 import {BROWSER_MOCK_LAUNCH_MODES, buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, shouldShowBrowserMockStartupSplash, type BrowserMockLaunchMode, type BrowserMockScenario} from './dev/browserMockScenarios.js'
@@ -106,11 +106,11 @@ export function installBrowserMock(): void {
 	const updateListeners = new Set<(info: UpdateAvailablePayload) => void>()
 	const warmupProgressListeners = new Set<(e: WarmupProgressEvent) => void>()
 	const clipboardUrlListeners = new Set<(url: string) => void>()
-	const queueSnapshotListeners = new Set<(event: {items: QueueItem[]; schedulerPaused: boolean}) => void>()
+	const queueSnapshotListeners = new Set<(event: QueueSnapshotPayload) => void>()
 	const queueAddedListeners = new Set<(event: {items: QueueItem[]; atIdx: number}) => void>()
 	const queueUpdatedListeners = new Set<(event: {item: QueueItem}) => void>()
 	const queueRemovedListeners = new Set<(event: {itemId: string}) => void>()
-	const queueSchedulerListeners = new Set<(event: {paused: boolean}) => void>()
+	const queueSchedulerListeners = new Set<(event: QueueSchedulerEventPayload) => void>()
 	const queueItems: QueueItem[] = [...scenarioState.queueItems]
 	const queueItemById = new Map(queueItems.map(item => [item.id, item]))
 	let queueRunning = false

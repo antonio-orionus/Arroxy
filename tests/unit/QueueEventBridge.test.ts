@@ -13,7 +13,7 @@ import type {QueueItem} from '@shared/types.js'
 function makeService(): QueueService {
 	// QueueService has no interface and its constructor has heavy deps — cast a
 	// minimal EventEmitter stub rather than constructing the real class.
-	return Object.assign(new EventEmitter(), {snapshot: vi.fn().mockReturnValue([]), schedulerIsPaused: vi.fn().mockReturnValue(false)}) as unknown as QueueService
+	return Object.assign(new EventEmitter(), {snapshotPayload: vi.fn().mockReturnValue({items: [] as QueueItem[], schedulerPaused: false})}) as unknown as QueueService
 }
 
 function makeWindow() {
@@ -65,7 +65,7 @@ describe('QueueEventBridge', () => {
 	describe('scheduler pause feedback', () => {
 		it('snapshot carries the scheduler-paused flag and scheduler events are forwarded', () => {
 			const service = makeService()
-			vi.mocked(service.schedulerIsPaused).mockReturnValue(true)
+			vi.mocked(service.snapshotPayload).mockReturnValue({items: [], schedulerPaused: true})
 			const window = makeWindow()
 			const bridge = new QueueEventBridge(service, window)
 

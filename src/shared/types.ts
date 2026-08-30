@@ -321,6 +321,12 @@ export interface QueueSnapshotPayload {
 	schedulerPaused: boolean
 }
 
+// Wire format for queue:event:scheduler — the global scheduler-pause flag
+// flipped. Emitted only on real transitions (a no-op re-pause emits nothing).
+export interface QueueSchedulerEventPayload {
+	paused: boolean
+}
+
 export interface QueueResumeContext {
 	kind: 'media-retry'
 	tempDir: string

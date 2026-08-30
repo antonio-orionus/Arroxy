@@ -1,7 +1,7 @@
 import {describe, expect, it, vi} from 'vitest'
 import {applyQueueProjectionBatch, bindQueueProjection, projectQueueSnapshot, type QueueProjectionBindings} from '@renderer/store/queueProjection.js'
 import {QUICK_DOWNLOAD_FEEDBACK_INITIAL, resetQuickDownloadFeedback, type QuickDownloadFeedbackState} from '@renderer/store/wizard/quickDownloadFeedback.js'
-import type {QueueItem} from '@shared/types.js'
+import type {QueueItem, QueueSchedulerEventPayload, QueueSnapshotPayload} from '@shared/types.js'
 import {makeItem} from '../shared/fixtures.js'
 
 function state(queue: QueueItem[] = []): QuickDownloadFeedbackState & {queue: QueueItem[]; schedulerPaused: boolean} {
@@ -38,7 +38,7 @@ describe('QueueProjection', () => {
 	})
 
 	it('binds queue events through the scheduler and reports done increments with the previous milestone count', () => {
-		const listeners: Partial<{snapshot: (event: {items: QueueItem[]; schedulerPaused: boolean}) => void; added: (event: {items: QueueItem[]; atIdx: number}) => void; updated: (event: {item: QueueItem}) => void; removed: (event: {itemId: string}) => void; scheduler: (event: {paused: boolean}) => void}> = {}
+		const listeners: Partial<{snapshot: (event: QueueSnapshotPayload) => void; added: (event: {items: QueueItem[]; atIdx: number}) => void; updated: (event: {item: QueueItem}) => void; removed: (event: {itemId: string}) => void; scheduler: (event: QueueSchedulerEventPayload) => void}> = {}
 		const events: QueueProjectionBindings = {
 			onSnapshot: listener => {
 				listeners.snapshot = listener
@@ -85,7 +85,7 @@ describe('QueueProjection', () => {
 	})
 
 	it('binds scheduler events to the schedulerPaused state field', () => {
-		const listeners: Partial<{scheduler: (event: {paused: boolean}) => void}> = {}
+		const listeners: Partial<{scheduler: (event: QueueSchedulerEventPayload) => void}> = {}
 		const events: QueueProjectionBindings = {
 			onSnapshot: () => vi.fn(),
 			onAdded: () => vi.fn(),

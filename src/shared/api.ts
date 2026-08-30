@@ -24,6 +24,7 @@ import type {
 	QueueItem,
 	QueueLane,
 	QueueSnapshotPayload,
+	QueueSchedulerEventPayload,
 	SinglePrefs,
 	StartDownloadInput,
 	StartDownloadOutput,
@@ -102,7 +103,7 @@ export interface AppApi {
 			onAdded(listener: (event: {items: QueueItem[]; atIdx: number}) => void): () => void
 			onUpdated(listener: (event: {item: QueueItem}) => void): () => void
 			onRemoved(listener: (event: {itemId: string}) => void): () => void
-			onScheduler(listener: (event: {paused: boolean}) => void): () => void
+			onScheduler(listener: (event: QueueSchedulerEventPayload) => void): () => void
 		}
 	}
 	updater: {onUpdateAvailable(listener: (info: UpdateAvailablePayload) => void): () => void; install(): Promise<UpdateInstallResult>}

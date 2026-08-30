@@ -1,13 +1,13 @@
 import type {BrowserWindow} from 'electron'
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import type {QueueItem, QueueSnapshotPayload} from '@shared/types.js'
+import type {QueueItem, QueueSchedulerEventPayload} from '@shared/types.js'
 import type {QueueService} from './QueueService.js'
 
 export class QueueEventBridge {
 	private onAdded?: (e: {items: QueueItem[]; atIdx: number}) => void
 	private onUpdated?: (e: {item: QueueItem}) => void
 	private onRemoved?: (e: {itemId: string}) => void
-	private onScheduler?: (e: {paused: boolean}) => void
+	private onScheduler?: (e: QueueSchedulerEventPayload) => void
 
 	constructor(
 		private readonly queueService: QueueService,
@@ -21,7 +21,7 @@ export class QueueEventBridge {
 		if (this.onRemoved) this.queueService.off('removed', this.onRemoved)
 		if (this.onScheduler) this.queueService.off('scheduler', this.onScheduler)
 
-		this.send(IPC_CHANNELS.queueEventSnapshot, {items: this.queueService.snapshot(), schedulerPaused: this.queueService.schedulerIsPaused()} satisfies QueueSnapshotPayload)
+		this.send(IPC_CHANNELS.queueEventSnapshot, this.queueService.snapshotPayload())
 
 		this.onAdded = e => this.send(IPC_CHANNELS.queueEventAdded, e)
 		this.onUpdated = e => this.send(IPC_CHANNELS.queueEventUpdated, e)
