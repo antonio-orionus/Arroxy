@@ -34,9 +34,9 @@ Decision record: the PR gate is Linux-only on purpose — [ADR 0006](../docs/adr
 | --------- | ---------------------------- | --------- | ------------------------------------------------------ | ------------------------------------------------------------------------ |
 | `pr`      | E2E Cold Start               | Linux     | yes                                                    | `fresh-cold`, `warm-restart`                                             |
 | `release` | `release.yml` `startup-gate` | all 3     | not yet — soak first, then wire into `prepare-release` | + `inherited-update`                                                     |
-| `nightly` | Startup Nightly              | all 3     | no (reports)                                           | degraded: offline, index-off, no-GPU, contaminated PATH, corrupt profile |
+| `nightly` | Startup Nightly              | all 3     | no — failure opens a `startup-nightly` issue           | `fresh-cold` + `index-off`, `no-GPU`, `contaminated PATH`, `corrupt profile` (no `offline`) |
 
-Journeys are data in `scripts/startup/journeys.ts`; the runner launches the packaged app, waits for a real milestone, and a pure log oracle asserts clean logs. A missing verdict is a failure — "ran nothing" can never look like "passed". Invocation: `ARROXY_STARTUP_TIER=<tier> PACKAGED_EXE=<exe> bun run verify:startup`. Details in `dev-docs/startup-performance.md`.
+Journeys are data in `scripts/startup/journeys.ts`; the runner launches the packaged app, waits for a real milestone, and a pure log oracle asserts clean logs. A missing verdict is a failure — "ran nothing" can never look like "passed". Invocation: `ARROXY_STARTUP_TIER=<tier> PACKAGED_EXE=<exe> bun run verify:startup`. Details in `dev-docs/startup-verification.md`.
 
 ## Branch protection contract (`main`)
 

@@ -73,3 +73,54 @@ jobs:
           path: ${{ runner.temp }}/arroxy-startup-logs
           if-no-files-found: error
           retention-days: 14
+  notify:
+    name: Report nightly result
+    needs: degraded
+    # always() runs this job on failure too; the steps gate on the matrix result
+    # explicitly — step-level success()/failure() only see previous steps in
+    # this job, not the needed job's result.
+    if: always()
+    runs-on: ubuntu-latest
+    concurrency:
+      # Serialize the list-then-create issue flow across overlapping runs
+      # (schedule + workflow_dispatch); never cancel an in-progress notify.
+      group: startup-nightly-notify
+      cancel-in-progress: false
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: Close the nightly failure issue on recovery
+        if: needs.degraded.result == 'success'
+        run: |
+          set -euo pipefail
+          existing=$(gh issue list --label startup-nightly --state open --limit 1 --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue close "$existing" --comment "Startup nightly green again: $RUN_URL"
+            echo "closed #$existing"
+          else
+            echo "no open startup-nightly issue"
+          fi
+      - name: Open or update the nightly failure issue
+        if: needs.degraded.result == 'failure'
+        run: |
+          set -euo pipefail
+          existing=$(gh issue list --label startup-nightly --state open --limit 1 --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Startup nightly failed again: $RUN_URL"
+            echo "commented on #$existing"
+            exit 0
+          fi
+          gh issue create --title "Startup nightly is failing" --label startup-nightly --body "$(cat <<EOF
+          The scheduled startup verification run failed. Startup verification is
+          the only automated Windows and macOS startup coverage while
+          \`startup-gate\` is unwired, so a red nightly is a real gap, not noise.
+
+          Run: $RUN_URL
+
+          Context: \`dev-docs/startup-verification.md\`
+          EOF
+          )"

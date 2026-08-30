@@ -5,7 +5,7 @@ import path from 'node:path'
 import {expect, test} from '@playwright/test'
 import {checkVerdicts} from '../../scripts/startup/checkVerdicts.js'
 import {generateInheritedProfile, previousStableTag} from '../../scripts/startup/fetchPreviousRelease.js'
-import {journeysForTier, type StartupTier} from '../../scripts/startup/journeys.js'
+import {journeysForTier, STARTUP_TIERS, validateJourneySequence, type StartupTier} from '../../scripts/startup/journeys.js'
 import {copyProfilePreservingMtime} from '../../scripts/startup/provisionProfile.js'
 import {runJourney, type JourneyVerdict, type RunContext} from '../../scripts/startup/runJourney.js'
 
@@ -21,19 +21,18 @@ import {runJourney, type JourneyVerdict, type RunContext} from '../../scripts/st
 // unchanged.
 //
 // The whole tier runs inside one test because journeys share ordered state:
-// `fresh-cold` seeds the warm source that `warm-restart` (and the nightly warm
-// journeys) clone, so per-test parallelism would break the seeding chain.
+// each warm journey names the journey whose profile it clones (`profile.from` —
+// `fresh-cold` in every shipped tier), so per-test parallelism would break the
+// seeding chain.
 // Verdict accounting — not Playwright test granularity — is the pass signal:
 // `checkVerdicts` below fails unless every declared journey reported.
 // The tier arrives as `ARROXY_STARTUP_TIER` (pr | release | nightly) rather
 // than a CLI arg so the same spec serves all three workflows.
 test.setTimeout(35 * 60 * 1000)
 
-const TIERS: readonly StartupTier[] = ['pr', 'release', 'nightly']
-
 function tierFromEnv(): StartupTier {
 	const raw = process.env.ARROXY_STARTUP_TIER ?? 'pr'
-	if (!TIERS.includes(raw as StartupTier)) throw new Error(`startup-journeys: ARROXY_STARTUP_TIER="${raw}" is not one of ${TIERS.join(', ')}`)
+	if (!STARTUP_TIERS.includes(raw as StartupTier)) throw new Error(`startup-journeys: ARROXY_STARTUP_TIER="${raw}" is not one of ${STARTUP_TIERS.join(', ')}`)
 	return raw as StartupTier
 }
 
@@ -58,15 +57,17 @@ test('every declared journey reaches its expected end state with clean logs', as
 	if (archive) fs.mkdirSync(archive, {recursive: true})
 
 	const journeys = journeysForTier(tier)
-	if (journeys.length === 0) throw new Error(`startup-journeys: tier "${tier}" selected no journeys`)
+	const problems = validateJourneySequence(journeys, tier)
+	if (problems.length > 0) throw new Error(`startup-journeys: tier "${tier}" is not runnable:\n  - ${problems.join('\n  - ')}`)
 
-	// The warm journeys need a populated cache, so they are seeded from the first
-	// journey that actually reached the main screen. Journeys are therefore run in
-	// catalog order, with `fresh-cold` ahead of `warm-restart`.
-	const warmSource = path.join(baseDir, 'warm-source')
+	// Each journey that some warm journey names as its seeder gets its profile
+	// snapshotted under its own id. Cloning a fixed `profile-warm` directory in
+	// place would not survive two warm journeys in one tier.
+	const warmSources = new Map<string, string>()
+	const seedIds = new Set(journeys.flatMap(journey => (journey.profile.kind === 'warm' ? [journey.profile.from] : [])))
 
 	let inheritedSource = process.env.ARROXY_INHERITED_PROFILE
-	if (!inheritedSource && journeys.some(journey => journey.profile === 'inherited')) {
+	if (!inheritedSource && journeys.some(journey => journey.profile.kind === 'inherited')) {
 		const tags = execFileSync('git', ['tag', '--list', 'v*'], {encoding: 'utf8'}).split('\n').filter(Boolean)
 		const previous = previousStableTag(tags, process.env.GITHUB_REF_NAME ?? `v${process.env.npm_package_version ?? ''}`)
 		if (!previous) throw new Error('startup-journeys: no previous stable release found for the inherited journey')
@@ -80,20 +81,33 @@ test('every declared journey reaches its expected end state with clean logs', as
 	for (const journey of journeys) {
 		console.log(`\n=== journey: ${journey.id} — ${journey.description}`)
 
-		if (journey.profile === 'warm' && !fs.existsSync(warmSource)) {
-			verdicts.push({id: journey.id, outcome: 'fail', observed: 'none', violations: [], error: 'no warm source: no earlier journey reached the main screen', elapsedMs: 0})
-			console.log('    FAIL — no warm source available')
-			continue
+		let warmSource: string | undefined
+		if (journey.profile.kind === 'warm') {
+			warmSource = warmSources.get(journey.profile.from)
+			if (!warmSource) {
+				verdicts.push({id: journey.id, outcome: 'fail', observed: 'none', violations: [], error: `no warm source: "${journey.profile.from}" did not reach the main screen`, elapsedMs: 0})
+				console.log('    FAIL — no warm source available')
+				continue
+			}
 		}
 
-		const verdict = await runJourney(journey, {...ctx, warmSource: fs.existsSync(warmSource) ? warmSource : undefined})
+		const verdict = await runJourney(journey, {...ctx, warmSource})
 		verdicts.push(verdict)
 		console.log(`    ${verdict.outcome.toUpperCase()} observed=${verdict.observed} ${verdict.elapsedMs}ms${verdict.error ? ` — ${verdict.error}` : ''}`)
 		for (const violation of verdict.violations) console.log(`    log violation — ${violation.kind}: ${violation.detail}`)
 
-		// Seed the warm cache from the first journey that genuinely warmed one.
-		if (verdict.outcome === 'pass' && verdict.observed === 'main-screen' && verdict.profileDir && !fs.existsSync(warmSource)) {
-			copyProfilePreservingMtime(verdict.profileDir, warmSource)
+		// The oracle's violation details truncate multi-line entries, so the verdicts
+		// JSON alone cannot triage a red journey — archive the full main.log next to
+		// it or the evidence dies with the runner.
+		if (archive && verdict.profileDir) {
+			const logPath = path.join(verdict.profileDir, 'logs', 'main.log')
+			if (fs.existsSync(logPath)) fs.copyFileSync(logPath, path.join(archive, `main-${journey.id}.log`))
+		}
+
+		if (verdict.outcome === 'pass' && verdict.observed === 'main-screen' && verdict.profileDir && seedIds.has(journey.id) && !warmSources.has(journey.id)) {
+			const snapshot = path.join(baseDir, `warm-${journey.id}`)
+			copyProfilePreservingMtime(verdict.profileDir, snapshot)
+			warmSources.set(journey.id, snapshot)
 		}
 	}
 

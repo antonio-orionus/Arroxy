@@ -76,7 +76,7 @@ export async function runJourney(journey: StartupJourney, ctx: RunContext): Prom
 
 	let profileDir: string
 	try {
-		profileDir = await provisionProfile({kind: journey.profile, baseDir: ctx.baseDir, warmSource: ctx.warmSource, inheritedSource: ctx.inheritedSource})
+		profileDir = await provisionProfile({kind: journey.profile.kind, baseDir: ctx.baseDir, warmSource: ctx.warmSource, inheritedSource: ctx.inheritedSource})
 	} catch (err) {
 		return {...base, error: `profile provisioning failed: ${err instanceof Error ? err.message : String(err)}`, elapsedMs: Date.now() - startedAt}
 	}

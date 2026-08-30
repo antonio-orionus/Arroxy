@@ -53,7 +53,12 @@ function compile(gl: WebGLRenderingContext, type: number, src: string, sceneId: 
 	gl.shaderSource(sh, src)
 	gl.compileShader(sh)
 	if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
-		console.error(`backdrop shader compile failed for ${sceneId}:`, gl.getShaderInfoLog(sh))
+		// Expected probe outcome, not a regression signal: the GLSL is a repo
+		// constant, so a compile failure on one machine is the driver rejecting
+		// valid shaders. The caller falls back and logs the reason at info; error
+		// severity here turned constrained-runner startups into oracle violations
+		// (nightly run 2, macOS no-gpu).
+		console.info(`backdrop shader compile failed for ${sceneId}:`, gl.getShaderInfoLog(sh))
 		gl.deleteShader(sh)
 		return null
 	}
@@ -80,7 +85,8 @@ export function createWebglProgram(gl: WebGLRenderingContext, fragmentShader: st
 	gl.attachShader(prog, frag)
 	gl.linkProgram(prog)
 	if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-		console.error(`backdrop program link failed for ${sceneId}:`, gl.getProgramInfoLog(prog))
+		// Same probe-outcome reasoning as the compile failure above.
+		console.info(`backdrop program link failed for ${sceneId}:`, gl.getProgramInfoLog(prog))
 		gl.deleteProgram(prog)
 		gl.deleteShader(vert)
 		gl.deleteShader(frag)
