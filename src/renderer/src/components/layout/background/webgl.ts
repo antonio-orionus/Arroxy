@@ -53,7 +53,10 @@ function compile(gl: WebGLRenderingContext, type: number, src: string, sceneId: 
 	gl.shaderSource(sh, src)
 	gl.compileShader(sh)
 	if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
-		console.error(`backdrop shader compile failed for ${sceneId}:`, gl.getShaderInfoLog(sh))
+		// Expected probe outcome — the caller falls back to CSS and logs the reason at
+		// info level. Error severity here would leak into main.log as an error line on
+		// GPU-less runners and fail the startup oracle.
+		console.info(`backdrop shader compile failed for ${sceneId}:`, gl.getShaderInfoLog(sh))
 		gl.deleteShader(sh)
 		return null
 	}
@@ -80,7 +83,7 @@ export function createWebglProgram(gl: WebGLRenderingContext, fragmentShader: st
 	gl.attachShader(prog, frag)
 	gl.linkProgram(prog)
 	if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-		console.error(`backdrop program link failed for ${sceneId}:`, gl.getProgramInfoLog(prog))
+		console.info(`backdrop program link failed for ${sceneId}:`, gl.getProgramInfoLog(prog))
 		gl.deleteProgram(prog)
 		gl.deleteShader(vert)
 		gl.deleteShader(frag)
