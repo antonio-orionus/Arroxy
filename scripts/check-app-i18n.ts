@@ -119,12 +119,116 @@ const SKIP_DIRS = new Set(['dev']) // ScenarioGallery is dev-only, not shipped U
 //   Function calls (`t('...')`, `i18next.t('...')`) and bare identifiers are
 //   i18n keys / state references, not copy — they are skipped.
 // - The file is scanned as a whole (not per line), so multiline values are seen.
+// - Comments and plain JS string literals are never JSX; they are blanked out
+//   before matching (see maskNonJsxText), so `// label="..."` in a comment or
+//   `const s = 'label="..."'` cannot produce a false positive.
+// The prop alternation lives in BOTH the literal regex below (oxlint forbids
+// non-literal RegExp construction) and this list, which drives the JSX-context
+// masker — keep the two in sync.
+const USER_FACING_PROPS = ['aria-label', 'title', 'description', 'label', 'placeholder', 'heading', 'tooltip', 'message', 'text']
 const propPattern = /(?<![\w-])(aria-label|title|description|label|placeholder|heading|tooltip|message|text)\s*=\s*(?:"([^"]*)"|'([^']*)'|\{((?:[^{}]|\$\{[^}]*\})*)\})/g
 // A JSX expression that is exactly one plain literal (template, single-, or
 // double-quoted). Anything else (t() calls, identifiers, ternary chains) is
 // not copy and is skipped by the caller.
 const literalExprPattern = /^\s*(?:`((?:[^`\\]|\\.)*)`|'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")\s*$/s
 const INTERPOLATION = /\$\{[^}]*\}/g
+// True when the quote at quoteIdx is the quoted value of a tracked user-facing
+// prop — either `prop="…"`/`prop='…'` or inside a `prop={…}` expression. Such
+// quotes are the copy this scan exists to catch and stay unmasked.
+function isTrackedPropValue(src: string, quoteIdx: number): boolean {
+	let j = quoteIdx - 1
+	while (j >= 0 && /\s/.test(src[j])) j--
+	if (j >= 0 && src[j] === '{') {
+		j--
+		while (j >= 0 && /\s/.test(src[j])) j--
+	}
+	if (j < 0 || src[j] !== '=') return false
+	j--
+	while (j >= 0 && /\s/.test(src[j])) j--
+	let k = j
+	while (k >= 0 && /[\w-]/.test(src[k])) k--
+	if (k >= 0 && /[\w-]/.test(src[k])) return false
+	const name = src.slice(k + 1, j + 1)
+	if (!USER_FACING_PROPS.includes(name)) return false
+	// `const label = 'x'` is a JS declaration, not a JSX attribute — the token
+	// before the name disambiguates. JSX props sit inside a tag (`<div title=`),
+	// so the preceding token is a tag name or tag start, never a keyword.
+	let p = k
+	while (p >= 0 && /\s/.test(src[p])) p--
+	let q = p
+	while (q >= 0 && /[\w$]/.test(src[q])) q--
+	const prevToken = src.slice(q + 1, p + 1)
+	return !['const', 'let', 'var', 'return'].includes(prevToken)
+}
+// Blank out JS comments and non-JSX string literals (preserving length and
+// newlines so match.index stays aligned with the original source), leaving
+// real JSX attribute values readable. Guards against the `out[i+1]` write at
+// the final index extending the array.
+function maskNonJsxText(src: string): string {
+	const out = src.split('')
+	let i = 0
+	while (i < out.length) {
+		const c = out[i]
+		const d = out[i + 1]
+		if (c === '/' && d === '/') {
+			while (i < out.length && out[i] !== '\n') {
+				out[i] = ' '
+				i++
+			}
+		} else if (c === '/' && d === '*') {
+			out[i] = ' '
+			out[i + 1] = ' '
+			i += 2
+			while (i < out.length && !(out[i] === '*' && out[i + 1] === '/')) {
+				if (out[i] !== '\n') out[i] = ' '
+				i++
+			}
+			if (i < out.length) {
+				out[i] = ' '
+				if (out[i + 1] !== undefined) out[i + 1] = ' '
+				i += 2
+			}
+		} else if (c === '"' || c === "'" || c === '`') {
+			const quote = c
+			if (isTrackedPropValue(src, i)) {
+				// JSX attribute value — copy through untouched.
+				i++
+				while (i < out.length) {
+					if (out[i] === '\\') {
+						i += 2
+						continue
+					}
+					if (out[i] === quote) {
+						i++
+						break
+					}
+					i++
+				}
+			} else {
+				out[i] = ' '
+				i++
+				while (i < out.length) {
+					if (out[i] === '\\') {
+						out[i] = ' '
+						if (out[i + 1] !== undefined) out[i + 1] = ' '
+						i += 2
+						continue
+					}
+					if (out[i] === quote) {
+						out[i] = ' '
+						i++
+						break
+					}
+					if (out[i] !== '\n') out[i] = ' '
+					i++
+				}
+			}
+		} else {
+			i++
+		}
+	}
+	return out.join('')
+}
 // Literals exempt from the scan: brand/product names, locale-neutral format examples
 // ("en, uk, pt-br" placeholder shows locale-code syntax, not prose), and dev/test-only
 // surfaces (the ?backdrop isolation stage renders in browser-mock/test builds only).
@@ -153,7 +257,8 @@ const literalHits: LiteralHit[] = []
 
 for (const file of collectTsxFiles(RENDERER_ROOT)) {
 	const content = readFileSync(file, 'utf8')
-	for (const match of content.matchAll(propPattern)) {
+	const scanned = maskNonJsxText(content)
+	for (const match of scanned.matchAll(propPattern)) {
 		const prop = match[1]
 		let value: string | undefined
 		if (match[2] !== undefined) {
@@ -169,7 +274,7 @@ for (const file of collectTsxFiles(RENDERER_ROOT)) {
 		}
 		if (value === undefined) continue
 		if (LITERAL_ALLOWLIST.has(value)) continue
-		if (!/[A-Za-z]{2,}/.test(value)) continue // digits-only, symbols, single letters
+		if (!/\p{L}{2,}/u.test(value)) continue // digits-only, symbols, single letters
 		const line = content.slice(0, match.index).split('\n').length
 		literalHits.push({file: relative(RENDERER_ROOT, file), line, prop, value})
 	}
