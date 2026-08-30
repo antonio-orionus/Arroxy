@@ -54,6 +54,17 @@ describe('journey catalog', () => {
 		}
 	})
 
+	it('does NOT waive the updater metadata 404 outside the release tier — no draft release exists there', () => {
+		const cleanLog = cleanStartupLog()
+		const updater404 = '[2026-08-30 05:22:31.753] [error] (updater) Cannot find latest-mac.yml in the latest release artifacts: HttpError: 404'
+		for (const tier of ['pr', 'nightly'] as const) {
+			for (const journey of journeysForTier(tier)) {
+				const violations = inspectStartupLog(`${cleanLog}\n${updater404}`, journey.logPolicy)
+				expect(violations.filter(violation => violation.kind === 'error-line').length).toBe(1)
+			}
+		}
+	})
+
 	it('still fails a journey whose updater reports a repo it cannot resolve', () => {
 		const cleanLog = cleanStartupLog()
 		const line = '[2026-08-30 05:22:31.753] [error] (updater) checkForUpdates failed HttpError: 404 no published release found for this channel'
