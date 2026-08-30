@@ -88,7 +88,6 @@ jobs:
       - name: Run packaged runtime smoke
         shell: bash
         env:
-          PATH: ${{ runner.temp }}/arroxy-fake-tools:${{ env.PATH }}
           ARROXY_RUNTIME_SMOKE: '1'
           ELECTRON_USER_DATA: ${{ runner.temp }}/Arroxy Runtime Ω Cold
           ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/arroxy-cold-logs
@@ -96,6 +95,14 @@ jobs:
         run: |
           mkdir -p "$ARROXY_LOG_ARCHIVE"
           unset ELECTRON_RUN_AS_NODE
+          # Contaminate PATH for this step only. This must be a shell export, not
+          # a step-level `env: PATH:` — the env context only sees custom keys
+          # (workflow/job env, $GITHUB_ENV), never the runner's inherited PATH,
+          # so `${{ env.PATH }}` expands to empty and the step would run with
+          # the fake-tools dir as its ONLY PATH entry (`mkdir: command not
+          # found`). Exporting inside the script scopes the fake tools to this
+          # step's process tree; the next step's shell is untouched.
+          export PATH="$RUNNER_TEMP/arroxy-fake-tools:$PATH"
           stdout="$ARROXY_LOG_ARCHIVE/runtime-smoke.out"
           stderr="$ARROXY_LOG_ARCHIVE/runtime-smoke.err"
           set +e
@@ -115,11 +122,12 @@ jobs:
       - name: Verify startup (PR tier)
         shell: bash
         env:
+          ARROXY_STARTUP_TIER: pr
           ARROXY_COLD_TMPDIR: ${{ runner.temp }}
           ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/arroxy-cold-logs
           ARROXY_BINARY_DOWNLOAD_MAX_MS: '120000'
         run: |
-          xvfb-run -a bun run verify:startup --tier pr
+          xvfb-run -a bun run verify:startup
 
       - name: Upload startup verdicts
         if: always()
