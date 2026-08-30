@@ -1,7 +1,9 @@
+import {execFileSync} from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {checkVerdicts} from './checkVerdicts.js'
+import {generateInheritedProfile, previousStableTag} from './fetchPreviousRelease.js'
 import {journeysForTier, type StartupTier} from './journeys.js'
 import {copyProfilePreservingMtime} from './provisionProfile.js'
 import {runJourney, type JourneyVerdict, type RunContext} from './runJourney.js'
@@ -39,7 +41,16 @@ async function main(): Promise<void> {
 	// catalog order, with `fresh-cold` ahead of `warm-restart`.
 	const warmSource = path.join(baseDir, 'warm-source')
 
-	const ctx: RunContext = {packagedExe, baseDir, inheritedSource: process.env.ARROXY_INHERITED_PROFILE, fakeToolsDir: writeFakeTools(path.join(baseDir, 'fake tools Ω'))}
+	let inheritedSource = process.env.ARROXY_INHERITED_PROFILE
+	if (!inheritedSource && journeys.some(journey => journey.profile === 'inherited')) {
+		const tags = execFileSync('git', ['tag', '--list', 'v*'], {encoding: 'utf8'}).split('\n').filter(Boolean)
+		const previous = previousStableTag(tags, process.env.GITHUB_REF_NAME ?? `v${process.env.npm_package_version ?? ''}`)
+		if (!previous) throw new Error('verify-startup: no previous stable release found for the inherited journey')
+		console.log(`\n=== generating inherited profile from ${previous}`)
+		inheritedSource = await generateInheritedProfile(previous, path.join(baseDir, 'previous'))
+	}
+
+	const ctx: RunContext = {packagedExe, baseDir, inheritedSource, fakeToolsDir: writeFakeTools(path.join(baseDir, 'fake tools Ω'))}
 
 	const verdicts: JourneyVerdict[] = []
 	for (const journey of journeys) {

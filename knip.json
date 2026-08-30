@@ -51,7 +51,8 @@
 		"msgmerge",
 		"taskkill",
 		"ditto",
-		"robocopy"
+		"robocopy",
+		"hdiutil"
 	],
   "ignoreUnresolved": [
     "~icons/.*"
