@@ -486,6 +486,12 @@ export function installBrowserMock(): void {
 				cancel: ({itemId}) => {
 					const targets = itemId === null ? [...queueItems] : [queueItemById.get(itemId)].filter((item): item is QueueItem => item !== undefined)
 					targets.forEach(item => setQueueItem({...item, status: QUEUE_STATUS.cancelled, progressDetail: null, finishedAt: new Date().toISOString()}))
+					// Mirror QueueService.cancel(null): cancel-all is a fresh slate that
+					// also unpauses the scheduler (transition-only emission).
+					if (itemId === null && mockSchedulerPaused) {
+						mockSchedulerPaused = false
+						queueSchedulerListeners.forEach(listener => listener({paused: false}))
+					}
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
 				retry: () => Promise.resolve({ok: true, data: undefined} as const),

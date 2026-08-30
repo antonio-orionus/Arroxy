@@ -40,6 +40,16 @@ test('paused scheduler shows the banner and Resume queue starts waiting items', 
 	await expect(page.locator('[data-testid^="queue-manager-row-"]').first()).toHaveAttribute('data-status', 'running')
 })
 
+test('cancel all on a paused queue clears the scheduler pause state', async ({page}) => {
+	await openQueueScenario(page, 'queue-scheduler-paused')
+	await expect(page.getByTestId('btn-pause-all')).toBeDisabled()
+
+	await page.getByRole('button', {name: 'Cancel all active and pending downloads'}).click()
+
+	await expect(page.getByTestId('queue-paused-banner')).toBeHidden()
+	await expect(page.getByTestId('btn-pause-all')).toBeEnabled()
+})
+
 test('"Clear completed" button appears for completed scenario items', async ({page}) => {
 	await openQueueScenario(page, 'queue-artifacts')
 
