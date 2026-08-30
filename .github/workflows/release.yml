@@ -64,11 +64,13 @@ jobs:
       - name: Check
         run: bun run check
 
-  # NOTE: not yet wired into prepare-release's `needs:` — see the rollout note
-  # in docs/superpowers/specs/2026-08-30-startup-verification-ci-design.md.
-  # Flip it live only once e2e-cold-start.yml's PR-tier journey harness has run
-  # green on main for several days; a flaky new gate blocking every release
-  # would be worse than the silent gap it replaces.
+  # NOTE: not yet wired into prepare-release's `needs:` — a red gate does not
+  # currently stop a publish. Flip it live once THIS job has run green on all
+  # three platforms across three consecutive tags (beta tags count — the job
+  # already runs on every `v*`). PR-tier green is not evidence for it: the
+  # release tier runs `inherited-update` on two platforms the PR tier never
+  # touches. Do not add it to branch protection — it is tag-only (ADR 0006).
+  # Review date if the tags have not happened by then: 2026-10-01.
   startup-gate:
     needs: quality-gate
     strategy:
