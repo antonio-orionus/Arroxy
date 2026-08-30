@@ -607,9 +607,19 @@ msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Daawniloodoonni hunda qabsoo jiran gidduu dhabi"
 
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Tarreen dhaabbate — kan eeggaa tarreen itti hin fufin akka hin jalqabin dhaaba"
+
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "Buusuu dhaabbate itti fufi; tarreenis haa deemuu"
+
+#| msgctxt "queue.item.resume"
+#| msgid "Resume"
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Tarreen itti fufi"
 
 msgctxt "queue.selectedActionsLabel"
 msgid "Selected items"

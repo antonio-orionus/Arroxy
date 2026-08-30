@@ -496,6 +496,8 @@
 		"clearTitle": "Xóa các tải xuống đã hoàn tất",
 		"pauseAllTitle": "Tạm dừng tất cả các tải xuống đang hoạt động",
 		"resumeAllTitle": "Tiếp tục các tải xuống đã tạm dừng và cho hàng đợi chạy tiếp",
+		"pausedBanner": "Hàng đợi đang tạm dừng — các mục đang chờ sẽ không bắt đầu cho đến khi bạn tiếp tục",
+		"resumeQueueAction": "Tiếp tục hàng đợi",
 		"cancelAllTitle": "Hủy tất cả các tải xuống đang hoạt động và đang chờ",
 		"table": {
 			"columns": "Cột",

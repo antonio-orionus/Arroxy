@@ -524,6 +524,33 @@ describe('QueueManagerTab', () => {
 		expect(screen.getByTestId('btn-clear-completed')).toHaveAccessibleName('Clear completed downloads')
 	})
 
+	it('shows the paused-queue banner with a resume action while the scheduler is paused and items are waiting', () => {
+		useAppStore.setState({queue: [makeItem({id: 'pending', title: 'Waiting video', status: 'pending'})], schedulerPaused: true})
+
+		render(<QueueManagerTab />)
+
+		expect(screen.getByTestId('queue-paused-banner')).toBeInTheDocument()
+		fireEvent.click(screen.getByTestId('queue-resume-from-banner'))
+		expect(actions.resumeAll).toHaveBeenCalledOnce()
+	})
+
+	it('hides the paused-queue banner while the scheduler is running', () => {
+		useAppStore.setState({queue: [makeItem({id: 'pending', title: 'Waiting video', status: 'pending'})], schedulerPaused: false})
+
+		render(<QueueManagerTab />)
+
+		expect(screen.queryByTestId('queue-paused-banner')).not.toBeInTheDocument()
+	})
+
+	it('disables pause-all while the queue is already paused', () => {
+		useAppStore.setState({queue: [makeItem({id: 'pending', title: 'Waiting video', status: 'pending'})], schedulerPaused: true})
+
+		render(<QueueManagerTab />)
+
+		expect(screen.getByTestId('btn-pause-all')).toBeDisabled()
+		expect(screen.getByTestId('btn-resume-first')).toBeEnabled()
+	})
+
 	it('persists sorting across remounts', () => {
 		useAppStore.setState({queue: [makeItem({id: 'z', title: 'Zeta video', status: 'pending', addedAt: '2026-06-19T09:00:00.000Z'}), makeItem({id: 'a', title: 'Alpha video', status: 'pending', addedAt: '2026-06-19T09:01:00.000Z'})]})
 

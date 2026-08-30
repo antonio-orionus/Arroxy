@@ -23,6 +23,7 @@ import type {
 	QueueOutputTargetChangeResult,
 	QueueItem,
 	QueueLane,
+	QueueSnapshotPayload,
 	SinglePrefs,
 	StartDownloadInput,
 	StartDownloadOutput,
@@ -82,7 +83,7 @@ export interface AppApi {
 	queue: {
 		cmd: {
 			add(items: QueueItem[]): Promise<Result<{ids: string[]}>>
-			getSnapshot(): Promise<Result<QueueItem[]>>
+			getSnapshot(): Promise<Result<QueueSnapshotPayload>>
 			start(input: {itemId: string}): Promise<Result<void>>
 			pause(input: {itemId: string}): Promise<Result<void>>
 			resume(input: {itemId: string}): Promise<Result<void>>
@@ -96,7 +97,13 @@ export interface AppApi {
 			pauseAll(): Promise<Result<void>>
 			resumeAll(): Promise<Result<void>>
 		}
-		events: {onSnapshot(listener: (items: QueueItem[]) => void): () => void; onAdded(listener: (event: {items: QueueItem[]; atIdx: number}) => void): () => void; onUpdated(listener: (event: {item: QueueItem}) => void): () => void; onRemoved(listener: (event: {itemId: string}) => void): () => void}
+		events: {
+			onSnapshot(listener: (event: QueueSnapshotPayload) => void): () => void
+			onAdded(listener: (event: {items: QueueItem[]; atIdx: number}) => void): () => void
+			onUpdated(listener: (event: {item: QueueItem}) => void): () => void
+			onRemoved(listener: (event: {itemId: string}) => void): () => void
+			onScheduler(listener: (event: {paused: boolean}) => void): () => void
+		}
 	}
 	updater: {onUpdateAvailable(listener: (info: UpdateAvailablePayload) => void): () => void; install(): Promise<UpdateInstallResult>}
 	analytics: {track(name: string, props?: Record<string, string | number | boolean>): void}

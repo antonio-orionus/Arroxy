@@ -607,9 +607,19 @@ msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Tạm dừng tất cả các tải xuống đang hoạt động"
 
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Hàng đợi đang tạm dừng — các mục đang chờ sẽ không bắt đầu cho đến khi bạn tiếp tục"
+
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "Tiếp tục các tải xuống đã tạm dừng và cho hàng đợi chạy tiếp"
+
+#| msgctxt "queue.item.resume"
+#| msgid "Resume"
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Tiếp tục hàng đợi"
 
 msgctxt "queue.selectedActionsLabel"
 msgid "Selected items"

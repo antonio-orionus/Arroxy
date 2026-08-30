@@ -106,7 +106,7 @@ test('Electron split media failure preserves temp artifacts and retries from res
 		const failedItem = await page.evaluate(async itemTitle => {
 			const result = await window.appApi.queue.cmd.getSnapshot()
 			if (!result.ok) throw new Error(result.error.message)
-			return result.data.find(item => item.title === itemTitle) ?? null
+			return result.data.items.find(item => item.title === itemTitle) ?? null
 		}, title)
 		expect(failedItem?.resumeContext).toMatchObject({kind: 'media-retry', reason: 'media-transfer'})
 		const tempDir = failedItem?.resumeContext?.tempDir

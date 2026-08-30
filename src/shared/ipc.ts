@@ -44,11 +44,14 @@ export const IPC_CHANNELS = {
 	queueCmdPauseAll: 'queue:cmd:pauseAll',
 	queueCmdResumeAll: 'queue:cmd:resumeAll',
 	// Queue events — main → renderer. `snapshot` fires once on window create
-	// (initial hydration); the others stream incremental diffs.
+	// (initial hydration); the others stream incremental diffs. `scheduler`
+	// mirrors the global scheduler-pause flag so the UI can show why pending
+	// items are not starting.
 	queueEventSnapshot: 'queue:event:snapshot',
 	queueEventAdded: 'queue:event:added',
 	queueEventUpdated: 'queue:event:updated',
 	queueEventRemoved: 'queue:event:removed',
+	queueEventScheduler: 'queue:event:scheduler',
 	updaterAvailable: 'updater:available',
 	updaterInstall: 'updater:install',
 	eventsClipboardUrl: 'events:clipboardUrl',

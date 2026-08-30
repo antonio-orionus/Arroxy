@@ -902,3 +902,75 @@ describe('QueueService — completion + lane cascade', () => {
 		expect(qs.snapshot().find(i => i.id === 'n2')?.status).toBe('running')
 	})
 })
+
+describe('QueueService — scheduler state events (renderer feedback)', () => {
+	it('pauseAll() emits scheduler {paused: true} once — re-pause emits nothing', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/x'}))
+
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
+
+		const transitions: boolean[] = []
+		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+
+		await qs.pauseAll()
+		await qs.pauseAll()
+
+		expect(transitions).toEqual([true])
+	})
+
+	it('resumeAll() emits scheduler {paused: false} on transition — re-resume emits nothing', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/x'}))
+		ds.resume.mockResolvedValue(ok({resumed: true}))
+
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
+		await qs.pauseAll()
+
+		const transitions: boolean[] = []
+		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+
+		await qs.resumeAll()
+		await qs.resumeAll()
+
+		expect(transitions).toEqual([false])
+	})
+
+	it('cancel(null) on a paused queue emits scheduler {paused: false} — fresh slate unpauses', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/x'}))
+		ds.cancel.mockResolvedValue(ok({cancelled: true}))
+
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
+		await qs.pauseAll()
+
+		const transitions: boolean[] = []
+		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+
+		await qs.cancel(null)
+
+		expect(transitions).toEqual([false])
+	})
+
+	it('cancel(null) on an unpaused queue emits no scheduler event — no net transition', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		ds.cancel.mockResolvedValue(ok({cancelled: true}))
+
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
+
+		const transitions: boolean[] = []
+		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+
+		await qs.cancel(null)
+
+		expect(transitions).toEqual([])
+	})
+})

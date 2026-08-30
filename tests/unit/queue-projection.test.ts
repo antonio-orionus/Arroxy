@@ -4,15 +4,22 @@ import {QUICK_DOWNLOAD_FEEDBACK_INITIAL, resetQuickDownloadFeedback, type QuickD
 import type {QueueItem} from '@shared/types.js'
 import {makeItem} from '../shared/fixtures.js'
 
-function state(queue: QueueItem[] = []): QuickDownloadFeedbackState & {queue: QueueItem[]} {
-	return {queue, ...QUICK_DOWNLOAD_FEEDBACK_INITIAL}
+function state(queue: QueueItem[] = []): QuickDownloadFeedbackState & {queue: QueueItem[]; schedulerPaused: boolean} {
+	return {queue, schedulerPaused: false, ...QUICK_DOWNLOAD_FEEDBACK_INITIAL}
 }
 
 describe('QueueProjection', () => {
 	it('projects snapshots and reconciles quick-download feedback', () => {
-		const patch = projectQueueSnapshot({...state(), quickDownloadStatus: 'queued', quickDownloadQueueIds: ['q1']}, [makeItem({id: 'q1', status: 'done'})])
+		const patch = projectQueueSnapshot({...state(), quickDownloadStatus: 'queued', quickDownloadQueueIds: ['q1']}, {items: [makeItem({id: 'q1', status: 'done'})], schedulerPaused: false})
 
-		expect(patch).toEqual({queue: [expect.objectContaining({id: 'q1', status: 'done'})], ...resetQuickDownloadFeedback()})
+		expect(patch).toEqual({queue: [expect.objectContaining({id: 'q1', status: 'done'})], schedulerPaused: false, ...resetQuickDownloadFeedback()})
+	})
+
+	it('projects the scheduler-paused flag into state', () => {
+		const patch = projectQueueSnapshot(state(), {items: [makeItem({id: 'q1', status: 'pending'})], schedulerPaused: true})
+
+		expect(patch.schedulerPaused).toBe(true)
+		expect(patch.queue).toHaveLength(1)
 	})
 
 	it('applies remove, add, then update in a single batch and counts completed transitions', () => {
@@ -31,7 +38,7 @@ describe('QueueProjection', () => {
 	})
 
 	it('binds queue events through the scheduler and reports done increments with the previous milestone count', () => {
-		const listeners: Partial<{snapshot: (items: QueueItem[]) => void; added: (event: {items: QueueItem[]; atIdx: number}) => void; updated: (event: {item: QueueItem}) => void; removed: (event: {itemId: string}) => void}> = {}
+		const listeners: Partial<{snapshot: (event: {items: QueueItem[]; schedulerPaused: boolean}) => void; added: (event: {items: QueueItem[]; atIdx: number}) => void; updated: (event: {item: QueueItem}) => void; removed: (event: {itemId: string}) => void; scheduler: (event: {paused: boolean}) => void}> = {}
 		const events: QueueProjectionBindings = {
 			onSnapshot: listener => {
 				listeners.snapshot = listener
@@ -47,6 +54,10 @@ describe('QueueProjection', () => {
 			},
 			onRemoved: listener => {
 				listeners.removed = listener
+				return vi.fn()
+			},
+			onScheduler: listener => {
+				listeners.scheduler = listener
 				return vi.fn()
 			}
 		}
@@ -71,5 +82,37 @@ describe('QueueProjection', () => {
 
 		expect(current.queue[0].status).toBe('done')
 		expect(onDoneIncrements).toHaveBeenCalledWith(1, 2)
+	})
+
+	it('binds scheduler events to the schedulerPaused state field', () => {
+		const listeners: Partial<{scheduler: (event: {paused: boolean}) => void}> = {}
+		const events: QueueProjectionBindings = {
+			onSnapshot: () => vi.fn(),
+			onAdded: () => vi.fn(),
+			onUpdated: () => vi.fn(),
+			onRemoved: () => vi.fn(),
+			onScheduler: listener => {
+				listeners.scheduler = listener
+				return vi.fn()
+			}
+		}
+		let current = {...state([makeItem({id: 'q1', status: 'pending'})]), settings: {common: {successfulDownloadCount: 0}}}
+
+		bindQueueProjection({
+			events,
+			get: () => current,
+			set: patcher => {
+				current = {...current, ...patcher(current)}
+			},
+			schedule: callback => callback(),
+			readSuccessfulDownloadCount: () => current.settings.common.successfulDownloadCount,
+			onDoneIncrements: vi.fn()
+		})
+
+		listeners.scheduler?.({paused: true})
+		expect(current.schedulerPaused).toBe(true)
+
+		listeners.scheduler?.({paused: false})
+		expect(current.schedulerPaused).toBe(false)
 	})
 })

@@ -106,13 +106,18 @@ export function installBrowserMock(): void {
 	const updateListeners = new Set<(info: UpdateAvailablePayload) => void>()
 	const warmupProgressListeners = new Set<(e: WarmupProgressEvent) => void>()
 	const clipboardUrlListeners = new Set<(url: string) => void>()
-	const queueSnapshotListeners = new Set<(items: QueueItem[]) => void>()
+	const queueSnapshotListeners = new Set<(event: {items: QueueItem[]; schedulerPaused: boolean}) => void>()
 	const queueAddedListeners = new Set<(event: {items: QueueItem[]; atIdx: number}) => void>()
 	const queueUpdatedListeners = new Set<(event: {item: QueueItem}) => void>()
 	const queueRemovedListeners = new Set<(event: {itemId: string}) => void>()
+	const queueSchedulerListeners = new Set<(event: {paused: boolean}) => void>()
 	const queueItems: QueueItem[] = [...scenarioState.queueItems]
 	const queueItemById = new Map(queueItems.map(item => [item.id, item]))
 	let queueRunning = false
+	// Mirror of QueueService's global scheduler-pause flag: while true, the mock
+	// auto-start loop is suspended so browser-mock exercises the paused-queue UI
+	// (see the queue-scheduler-paused scenario).
+	let mockSchedulerPaused = scenarioState.schedulerPaused
 	let warmupCallCount = 0
 
 	let settings: AppSettings = scenarioState.settings
@@ -194,7 +199,7 @@ export function installBrowserMock(): void {
 	}
 
 	function maybeStartNextQueueItem(): void {
-		if (queueRunning) return
+		if (queueRunning || mockSchedulerPaused) return
 		const next = queueItems.find(item => item.status === QUEUE_STATUS.pending)
 		if (!next) return
 		queueRunning = true
@@ -455,7 +460,7 @@ export function installBrowserMock(): void {
 					maybeStartNextQueueItem()
 					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id)}} as const)
 				},
-				getSnapshot: () => Promise.resolve({ok: true, data: [...queueItems]} as const),
+				getSnapshot: () => Promise.resolve({ok: true, data: {items: [...queueItems], schedulerPaused: mockSchedulerPaused}} as const),
 				start: ({itemId}) => {
 					const item = queueItemById.get(itemId)
 					if (item && item.status !== QUEUE_STATUS.done && item.status !== QUEUE_STATUS.cancelled) {
@@ -550,12 +555,16 @@ export function installBrowserMock(): void {
 					return Promise.resolve({ok: true, data: {outputDir, items, skipped}} as const)
 				},
 				pauseAll: () => {
+					mockSchedulerPaused = true
+					queueSchedulerListeners.forEach(listener => listener({paused: true}))
 					for (const item of queueItems) {
 						if (item.status === QUEUE_STATUS.running) setQueueItem({...item, status: QUEUE_STATUS.pausedActive})
 					}
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
 				resumeAll: () => {
+					mockSchedulerPaused = false
+					queueSchedulerListeners.forEach(listener => listener({paused: false}))
 					for (const item of queueItems) {
 						if (item.status === QUEUE_STATUS.pausedActive || item.status === QUEUE_STATUS.pausedHeld) setQueueItem({...item, status: QUEUE_STATUS.pending})
 					}
@@ -579,6 +588,10 @@ export function installBrowserMock(): void {
 				onRemoved: listener => {
 					queueRemovedListeners.add(listener)
 					return () => queueRemovedListeners.delete(listener)
+				},
+				onScheduler: listener => {
+					queueSchedulerListeners.add(listener)
+					return () => queueSchedulerListeners.delete(listener)
 				}
 			}
 		},

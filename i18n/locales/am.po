@@ -607,9 +607,19 @@ msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "ሁሉንም ንቁ ዳውንሎዶችን አቁም"
 
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "ወረፋው ላይ ነው — በመጠባበቅ ላይ ያሉ ማውረጃዎች እስኪ ወረፋውን እስኪያስቀጥሉት አይጀምሩም"
+
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "የቆሙ ማውረዶችን ቀጥል እና ወረፋውን እንዲቀጥል ፍቀድ"
+
+#| msgctxt "queue.item.resume"
+#| msgid "Resume"
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "ወረፋውን ቀጥል"
 
 msgctxt "queue.selectedActionsLabel"
 msgid "Selected items"

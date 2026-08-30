@@ -606,8 +606,16 @@ msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr ""
 
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr ""
+
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
+msgstr ""
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
 msgstr ""
 
 msgctxt "queue.selectedActionsLabel"

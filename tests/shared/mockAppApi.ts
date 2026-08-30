@@ -65,7 +65,7 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 		queue: {
 			cmd: {
 				add: vi.fn((items: QueueItem[]) => Promise.resolve(ok({ids: items.map(item => item.id)}))),
-				getSnapshot: vi.fn().mockResolvedValue(ok([] as import('@shared/types.js').QueueItem[])),
+				getSnapshot: vi.fn().mockResolvedValue(ok({items: [] as import('@shared/types.js').QueueItem[], schedulerPaused: false})),
 				start: vi.fn().mockResolvedValue(ok(undefined)),
 				pause: vi.fn().mockResolvedValue(ok(undefined)),
 				resume: vi.fn().mockResolvedValue(ok(undefined)),
@@ -79,7 +79,7 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 				pauseAll: vi.fn().mockResolvedValue(ok(undefined)),
 				resumeAll: vi.fn().mockResolvedValue(ok(undefined))
 			},
-			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined)}
+			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined), onScheduler: vi.fn().mockReturnValue(() => undefined)}
 		},
 		updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn().mockResolvedValue({ok: true})},
 		analytics: {track: vi.fn()},

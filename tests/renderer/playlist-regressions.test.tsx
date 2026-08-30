@@ -37,7 +37,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
 		queue: {
 			cmd: {
 				add: vi.fn().mockResolvedValue(ok({ids: []})),
-				getSnapshot: vi.fn().mockResolvedValue(ok([])),
+				getSnapshot: vi.fn().mockResolvedValue(ok({items: [], schedulerPaused: false})),
 				start: vi.fn().mockResolvedValue(ok(undefined)),
 				pause: vi.fn().mockResolvedValue(ok(undefined)),
 				resume: vi.fn().mockResolvedValue(ok(undefined)),
@@ -46,7 +46,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
 				clearCompleted: vi.fn().mockResolvedValue(ok(undefined)),
 				remove: vi.fn().mockResolvedValue(ok(undefined))
 			},
-			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined)}
+			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined), onScheduler: vi.fn().mockReturnValue(() => undefined)}
 		},
 		diagnostics: {logWizardStep: vi.fn()},
 		playlist: {scanFolder: vi.fn().mockResolvedValue(ok({matchedIds: [] as string[]})), registerManifest: vi.fn().mockResolvedValue(ok(undefined))}

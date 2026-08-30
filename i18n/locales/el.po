@@ -607,9 +607,19 @@ msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Παύση όλων των ενεργών λήψεων"
 
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Η ουρά είναι σε παύση — οι εκκρεμείς λήψεις δεν θα ξεκινήσουν μέχρι να τη συνεχίσεις"
+
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "Συνέχισε τις λήψεις σε παύση και άφησε την ουρά να προχωρήσει"
+
+#| msgctxt "queue.item.resume"
+#| msgid "Resume"
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Συνέχιση ουράς"
 
 msgctxt "queue.selectedActionsLabel"
 msgid "Selected items"

@@ -607,9 +607,19 @@ msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Jeda setiap pengunduhan aktif dan hentikan pengunduhan baru"
 
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Antrean dijeda — item yang menunggu tidak akan dimulai sampai Anda melanjutkannya"
+
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "Lanjutkan unduhan yang dijeda dan biarkan antrean terus berjalan"
+
+#| msgctxt "queue.item.resume"
+#| msgid "Resume"
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Lanjutkan antrean"
 
 msgctxt "queue.selectedActionsLabel"
 msgid "Selected items"

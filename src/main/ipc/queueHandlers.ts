@@ -66,7 +66,7 @@ export function registerQueueHandlers(queueService: QueueService): void {
 	})
 
 	handleRaw(IPC_CHANNELS.queueCmdGetSnapshot, () => {
-		return Promise.resolve(ok(queueService.snapshot()))
+		return Promise.resolve(ok({items: queueService.snapshot(), schedulerPaused: queueService.schedulerIsPaused()}))
 	})
 
 	handleRaw(IPC_CHANNELS.queueCmdClearCompleted, async () => {

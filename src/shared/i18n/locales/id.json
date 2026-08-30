@@ -506,6 +506,8 @@
 		"clearTitle": "Hapus unduhan yang sudah selesai",
 		"pauseAllTitle": "Jeda setiap pengunduhan aktif dan hentikan pengunduhan baru",
 		"resumeAllTitle": "Lanjutkan unduhan yang dijeda dan biarkan antrean terus berjalan",
+		"pausedBanner": "Antrean dijeda — item yang menunggu tidak akan dimulai sampai Anda melanjutkannya",
+		"resumeQueueAction": "Lanjutkan antrean",
 		"cancelAllTitle": "Batalkan semua unduhan yang aktif dan tertunda",
 		"table": {
 			"columns": "Kolom",

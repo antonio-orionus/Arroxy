@@ -458,6 +458,8 @@
 		"clearTitle": "የተጠናቀቁ ዳውንሎዶችን አጽዳ",
 		"pauseAllTitle": "ሁሉንም ንቁ ዳውንሎዶችን አቁም",
 		"resumeAllTitle": "የቆሙ ማውረዶችን ቀጥል እና ወረፋውን እንዲቀጥል ፍቀድ",
+		"pausedBanner": "ወረፋው ላይ ነው — በመጠባበቅ ላይ ያሉ ማውረጃዎች እስኪ ወረፋውን እስኪያስቀጥሉት አይጀምሩም",
+		"resumeQueueAction": "ወረፋውን ቀጥል",
 		"cancelAllTitle": "ሁሉንም ንቁ እና በመጠባበቅ ላይ ያሉ ዳውንሎዶችን ሰርዝ",
 		"table": {
 			"columns": "ዓምዶች",

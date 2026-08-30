@@ -25,6 +25,21 @@ test('queue manager scenario states hydrate without walking a fake download', as
 	}
 })
 
+test('paused scheduler shows the banner and Resume queue starts waiting items', async ({page}) => {
+	await openQueueScenario(page, 'queue-scheduler-paused')
+
+	const banner = page.getByTestId('queue-paused-banner')
+	await expect(banner).toBeVisible()
+	await expect(banner).toContainText('The queue is paused')
+	await expect(page.locator('[data-testid^="queue-manager-row-"]').first()).toHaveAttribute('data-status', 'pending')
+	await expect(page.getByTestId('btn-pause-all')).toBeDisabled()
+
+	await page.getByTestId('queue-resume-from-banner').click()
+
+	await expect(banner).toBeHidden()
+	await expect(page.locator('[data-testid^="queue-manager-row-"]').first()).toHaveAttribute('data-status', 'running')
+})
+
 test('"Clear completed" button appears for completed scenario items', async ({page}) => {
 	await openQueueScenario(page, 'queue-artifacts')
 

@@ -54,7 +54,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, probeResu
 		queue: {
 			cmd: {
 				add: vi.fn().mockResolvedValue({ok: true, data: {ids: []}}),
-				getSnapshot: vi.fn().mockResolvedValue({ok: true, data: []}),
+				getSnapshot: vi.fn().mockResolvedValue({ok: true, data: {items: [], schedulerPaused: false}}),
 				start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 				pause: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 				resume: vi.fn().mockResolvedValue({ok: true, data: undefined}),
@@ -63,7 +63,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, probeResu
 				clearCompleted: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 				remove: vi.fn().mockResolvedValue({ok: true, data: undefined})
 			},
-			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined)}
+			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined), onScheduler: vi.fn().mockReturnValue(() => undefined)}
 		},
 		updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn()},
 		analytics: {track: vi.fn()},

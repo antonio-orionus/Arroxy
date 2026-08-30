@@ -65,6 +65,7 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 	return {
 		queue: [],
+		schedulerPaused: false,
 		isSubmittingToQueue: false,
 
 		// "+ Queue" → normal lane: respects cap=1, waits for the active slot.

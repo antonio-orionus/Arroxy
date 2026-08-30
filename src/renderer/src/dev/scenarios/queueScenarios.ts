@@ -16,6 +16,12 @@ export function buildQueueItems(scenario: ScenarioLike): QueueItem[] {
 				queueItem({id: 'queue-pending-1', title: 'Pending Download - Longform Interview', status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null, lastStatus: null}),
 				queueItem({id: 'queue-pending-2', title: 'Pending Download - Field Recording', status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null, lastStatus: null})
 			]
+		case 'queue-scheduler-paused':
+			return [
+				queueItem({id: 'queue-paused-1', title: 'Paused Queue - Weekly Q&A Recording', status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null, lastStatus: null}),
+				queueItem({id: 'queue-paused-2', title: 'Paused Queue - Conference Keynote', status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null, lastStatus: null}),
+				queueItem({id: 'queue-paused-3', title: 'Paused Queue - Lecture Part 2', status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null, lastStatus: null})
+			]
 		case 'queue-mixed-selection':
 			return buildMultiQueueItems()
 		case 'queue-artifacts':

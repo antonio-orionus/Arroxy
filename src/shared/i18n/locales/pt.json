@@ -506,6 +506,8 @@
 		"clearTitle": "Limpar downloads concluídos",
 		"pauseAllTitle": "Pausar todos os downloads ativos e impedir que novos iniciem",
 		"resumeAllTitle": "Retomar downloads pausados e continuar a fila",
+		"pausedBanner": "A fila está pausada — os itens em espera não começam até você retomá-la",
+		"resumeQueueAction": "Retomar fila",
 		"cancelAllTitle": "Cancelar todos os downloads ativos e pendentes",
 		"table": {
 			"columns": "Colunas",
