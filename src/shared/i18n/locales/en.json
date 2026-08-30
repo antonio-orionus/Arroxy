@@ -497,6 +497,8 @@
 		"clearTitle": "Clear completed downloads",
 		"pauseAllTitle": "Pause every active download and stop new ones from starting",
 		"resumeAllTitle": "Resume paused downloads and let the queue keep going",
+		"pausedBanner": "The queue is paused — waiting items won't start until you resume it",
+		"resumeQueueAction": "Resume queue",
 		"cancelAllTitle": "Cancel all active and pending downloads",
 		"table": {
 			"columns": "Columns",

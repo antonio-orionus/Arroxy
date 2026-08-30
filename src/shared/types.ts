@@ -313,6 +313,20 @@ export interface QueueItem {
 	job: PreparedJob
 }
 
+// Wire format for queue:event:snapshot and queue:cmd:getSnapshot — full item
+// list plus the global scheduler-pause flag, so the renderer can hydrate the
+// "queue paused" feedback state on boot.
+export interface QueueSnapshotPayload {
+	items: QueueItem[]
+	schedulerPaused: boolean
+}
+
+// Wire format for queue:event:scheduler — the global scheduler-pause flag
+// flipped. Emitted only on real transitions (a no-op re-pause emits nothing).
+export interface QueueSchedulerEventPayload {
+	paused: boolean
+}
+
 export interface QueueResumeContext {
 	kind: 'media-retry'
 	tempDir: string

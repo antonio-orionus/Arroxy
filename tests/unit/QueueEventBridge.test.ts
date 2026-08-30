@@ -13,7 +13,7 @@ import type {QueueItem} from '@shared/types.js'
 function makeService(): QueueService {
 	// QueueService has no interface and its constructor has heavy deps — cast a
 	// minimal EventEmitter stub rather than constructing the real class.
-	return Object.assign(new EventEmitter(), {snapshot: vi.fn().mockReturnValue([])}) as unknown as QueueService
+	return Object.assign(new EventEmitter(), {snapshotPayload: vi.fn().mockReturnValue({items: [] as QueueItem[], schedulerPaused: false})}) as unknown as QueueService
 }
 
 function makeWindow() {
@@ -59,6 +59,26 @@ describe('QueueEventBridge', () => {
 
 			const addedCalls = vi.mocked(window.webContents.send).mock.calls.filter(([ch]) => ch === IPC_CHANNELS.queueEventAdded)
 			expect(addedCalls).toHaveLength(1)
+		})
+	})
+
+	describe('scheduler pause feedback', () => {
+		it('snapshot carries the scheduler-paused flag and scheduler events are forwarded', () => {
+			const service = makeService()
+			vi.mocked(service.snapshotPayload).mockReturnValue({items: [], schedulerPaused: true})
+			const window = makeWindow()
+			const bridge = new QueueEventBridge(service, window)
+
+			bridge.attach()
+
+			const snapshotCall = vi.mocked(window.webContents.send).mock.calls.find(([ch]) => ch === IPC_CHANNELS.queueEventSnapshot)
+			expect(snapshotCall?.[1]).toEqual({items: [], schedulerPaused: true})
+
+			service.emit('scheduler', {paused: false})
+
+			const schedulerCall = vi.mocked(window.webContents.send).mock.calls.filter(([ch]) => ch === IPC_CHANNELS.queueEventScheduler)
+			expect(schedulerCall).toHaveLength(1)
+			expect(schedulerCall[0]?.[1]).toEqual({paused: false})
 		})
 	})
 })

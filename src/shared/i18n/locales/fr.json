@@ -506,6 +506,8 @@
 		"clearTitle": "Effacer les téléchargements terminés",
 		"pauseAllTitle": "Mettre en pause tous les téléchargements actifs",
 		"resumeAllTitle": "Reprendre les téléchargements en pause et laisser la file continuer",
+		"pausedBanner": "La file est en pause — les éléments en attente ne démarreront pas avant la reprise",
+		"resumeQueueAction": "Reprendre la file",
 		"cancelAllTitle": "Annuler tous les téléchargements actifs et en attente",
 		"table": {
 			"columns": "Colonnes",

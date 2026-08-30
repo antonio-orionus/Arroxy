@@ -434,7 +434,7 @@ describe('QueueService — boot-time scheduling', () => {
 		await qs.init()
 		await flushMicrotasks()
 
-		expect(qs.schedulerIsPaused()).toBe(true)
+		expect(qs.snapshotPayload().schedulerPaused).toBe(true)
 		// Nothing auto-spawns on boot when the user quit with pauseAll.
 		expect(ds.start).not.toHaveBeenCalled()
 		expect(qs.snapshot().filter(i => i.status === 'pending')).toHaveLength(2)
@@ -453,7 +453,7 @@ describe('QueueService — global pause/resume', () => {
 
 		await qs.pauseAll()
 		expect(ds.start).toHaveBeenCalledOnce()
-		expect(qs.schedulerIsPaused()).toBe(true)
+		expect(qs.snapshotPayload().schedulerPaused).toBe(true)
 		const snap = qs.snapshot()
 		expect(snap.find(i => i.id === 'a')?.status).toBe('paused-active')
 		expect(snap.find(i => i.id === 'b')?.status).toBe('pending')
@@ -484,10 +484,10 @@ describe('QueueService — global pause/resume', () => {
 		qs.add([makeItem({id: 'a', status: 'pending'}), makeItem({id: 'b', status: 'pending'})])
 		await vi.waitFor(() => expect(qs.snapshot().find(i => i.id === 'a')?.status).toBe('running'))
 		await qs.pauseAll()
-		expect(qs.schedulerIsPaused()).toBe(true)
+		expect(qs.snapshotPayload().schedulerPaused).toBe(true)
 
 		await qs.resumeAll()
-		expect(qs.schedulerIsPaused()).toBe(false)
+		expect(qs.snapshotPayload().schedulerPaused).toBe(false)
 		// 'a' resumes via downloadService.resume, 'b' picked up by recomputeSchedule
 		// (but cap=1 holds 'b' as pending until 'a' finishes).
 		expect(qs.snapshot().find(i => i.id === 'a')?.status).toBe('running')
@@ -506,7 +506,7 @@ describe('QueueService — global pause/resume', () => {
 		const result = await qs.start('b')
 		expect(result.ok).toBe(true)
 		expect(qs.snapshot().find(i => i.id === 'b')?.status).toBe('running')
-		expect(qs.schedulerIsPaused()).toBe(true)
+		expect(qs.snapshotPayload().schedulerPaused).toBe(true)
 	})
 
 	it('cancel(null) hard-resets queue state including the global pause flag (fresh-slate semantics)', async () => {
@@ -518,10 +518,10 @@ describe('QueueService — global pause/resume', () => {
 		qs.add([makeItem({id: 'a', status: 'pending'}), makeItem({id: 'b', status: 'pending'})])
 		await vi.waitFor(() => expect(qs.snapshot().find(i => i.id === 'a')?.status).toBe('running'))
 		await qs.pauseAll()
-		expect(qs.schedulerIsPaused()).toBe(true)
+		expect(qs.snapshotPayload().schedulerPaused).toBe(true)
 
 		await qs.cancel(null)
-		expect(qs.schedulerIsPaused()).toBe(false)
+		expect(qs.snapshotPayload().schedulerPaused).toBe(false)
 		const snap = qs.snapshot()
 		expect(snap.find(i => i.id === 'a')?.status).toBe('cancelled')
 		expect(snap.find(i => i.id === 'b')?.status).toBe('cancelled')
@@ -703,7 +703,7 @@ describe('QueueService — two-lane heavy scenarios', () => {
 		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledTimes(3))
 
 		await qs.pauseAll()
-		expect(qs.schedulerIsPaused()).toBe(true)
+		expect(qs.snapshotPayload().schedulerPaused).toBe(true)
 		const snap = qs.snapshot()
 		expect(snap.filter(i => i.status === 'paused-active')).toHaveLength(3)
 		expect(snap.find(i => i.id === 'rest')?.status).toBe('pending')
@@ -753,7 +753,7 @@ describe('QueueService — two-lane heavy scenarios', () => {
 		expect(qs.snapshot().filter(i => i.status === 'paused-active')).toHaveLength(4)
 
 		await qs.resumeAll()
-		expect(qs.schedulerIsPaused()).toBe(false)
+		expect(qs.snapshotPayload().schedulerPaused).toBe(false)
 		// 4 paused-active resume; p5 still pending until one of them finishes.
 		const snap = qs.snapshot()
 		expect(snap.filter(i => i.status === 'running')).toHaveLength(4)
@@ -767,7 +767,7 @@ describe('QueueService — two-lane heavy scenarios', () => {
 		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledOnce())
 
 		await qs.resumeAll()
-		expect(qs.schedulerIsPaused()).toBe(false)
+		expect(qs.snapshotPayload().schedulerPaused).toBe(false)
 		expect(ds.start).toHaveBeenCalledOnce()
 	})
 
@@ -854,7 +854,7 @@ describe('QueueService — two-lane heavy scenarios', () => {
 		await qs.pauseAll()
 
 		await qs.cancel('b')
-		expect(qs.schedulerIsPaused()).toBe(true)
+		expect(qs.snapshotPayload().schedulerPaused).toBe(true)
 		expect(qs.snapshot().find(i => i.id === 'b')?.status).toBe('cancelled')
 	})
 })
@@ -900,5 +900,77 @@ describe('QueueService — completion + lane cascade', () => {
 		await vi.advanceTimersByTimeAsync(600)
 		await flushMicrotasks()
 		expect(qs.snapshot().find(i => i.id === 'n2')?.status).toBe('running')
+	})
+})
+
+describe('QueueService — scheduler state events (renderer feedback)', () => {
+	it('pauseAll() emits scheduler {paused: true} once — re-pause emits nothing', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/x'}))
+
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
+
+		const transitions: boolean[] = []
+		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+
+		await qs.pauseAll()
+		await qs.pauseAll()
+
+		expect(transitions).toEqual([true])
+	})
+
+	it('resumeAll() emits scheduler {paused: false} on transition — re-resume emits nothing', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/x'}))
+		ds.resume.mockResolvedValue(ok({resumed: true}))
+
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
+		await qs.pauseAll()
+
+		const transitions: boolean[] = []
+		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+
+		await qs.resumeAll()
+		await qs.resumeAll()
+
+		expect(transitions).toEqual([false])
+	})
+
+	it('cancel(null) on a paused queue emits scheduler {paused: false} — fresh slate unpauses', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/x'}))
+		ds.cancel.mockResolvedValue(ok({cancelled: true}))
+
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
+		await qs.pauseAll()
+
+		const transitions: boolean[] = []
+		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+
+		await qs.cancel(null)
+
+		expect(transitions).toEqual([false])
+	})
+
+	it('cancel(null) on an unpaused queue emits no scheduler event — no net transition', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		ds.cancel.mockResolvedValue(ok({cancelled: true}))
+
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
+
+		const transitions: boolean[] = []
+		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+
+		await qs.cancel(null)
+
+		expect(transitions).toEqual([])
 	})
 })

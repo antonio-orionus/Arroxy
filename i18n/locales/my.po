@@ -607,9 +607,19 @@ msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "လုပ်ဆောင်နေသောဒေါင်းလုဒ်အားလုံး ခေတ္တရပ်မည်"
 
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "တန်းစီစာရင်း ခေတ္တရပ်နေသည် — စောင့်ဆိုင်းနေသောအရာများသည် တန်းစီစာရင်း ပြန်စမချင်း မစတင်ပါ"
+
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "ရပ်နားထားသော ဒေါင်းလုဒ်များကို ဆက်လုပ်ပြီး တန်းစီစာရင်းကို ဆက်လက်လည်ပတ်စေသည်"
+
+#| msgctxt "queue.item.resume"
+#| msgid "Resume"
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "တန်းစီစာရင်း ပြန်စတင်"
 
 msgctxt "queue.selectedActionsLabel"
 msgid "Selected items"

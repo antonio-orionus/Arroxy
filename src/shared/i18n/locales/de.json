@@ -506,6 +506,8 @@
 		"clearTitle": "Abgeschlossene Downloads entfernen",
 		"pauseAllTitle": "Alle aktiven Downloads pausieren",
 		"resumeAllTitle": "Pausierte Downloads fortsetzen und die Warteschlange weiterlaufen lassen",
+		"pausedBanner": "Die Warteschlange ist pausiert — wartende Downloads starten erst, wenn du sie fortsetzt",
+		"resumeQueueAction": "Warteschlange fortsetzen",
 		"cancelAllTitle": "Alle aktiven und ausstehenden Downloads abbrechen",
 		"table": {
 			"columns": "Spalten",

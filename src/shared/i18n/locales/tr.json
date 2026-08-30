@@ -506,6 +506,8 @@
 		"clearTitle": "Tamamlanan indirmeleri temizle",
 		"pauseAllTitle": "Tüm etkin indirmeleri duraklat ve yenilerinin başlamasını durdur",
 		"resumeAllTitle": "Duraklatılan indirmeleri sürdür ve kuyruğun devam etmesine izin ver",
+		"pausedBanner": "Kuyruk duraklatıldı — bekleyen indirmeler, kuyruğu sürdürene kadar başlamaz",
+		"resumeQueueAction": "Kuyruğu sürdür",
 		"cancelAllTitle": "Tüm etkin ve bekleyen indirmeleri iptal et",
 		"table": {
 			"columns": "Sütunlar",

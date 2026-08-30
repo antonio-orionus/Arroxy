@@ -2,8 +2,12 @@ import {useCallback, useEffect, useMemo, useReducer, useRef, type ReactNode} fro
 import {getCoreRowModel, getSortedRowModel, useReactTable, type ColumnOrderState, type SortingState, type Updater, type VisibilityState} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
 import {useTranslation} from 'react-i18next'
+import {CirclePause} from 'lucide-react'
 import type {QueueItem, QueueSelectionAction} from '@shared/types.js'
+import {QUEUE_STATUS} from '@shared/schemas.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import {Alert, AlertAction, AlertTitle} from '../ui/alert.js'
+import {Button} from '../ui/button.js'
 import type {ListSelectionAction} from '../shared/listSelection.js'
 import {useRowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
 import {saveQueueTablePreferences, sanitizeQueueTablePreferences, type QueueTableColumnId, type QueueTablePreferences} from './queueTablePreferences.js'
@@ -33,6 +37,7 @@ function isResponsiveRenderedColumn(columnId: string, viewportWidth: number): bo
 export function QueueManagerTab(): ReactNode {
 	const {t} = useTranslation()
 	const queue = useAppStore(state => state.queue)
+	const schedulerPaused = useAppStore(state => state.schedulerPaused)
 	const applyQueueSelectionAction = useAppStore(state => state.applyQueueSelectionAction)
 	const changeQueueOutputTarget = useAppStore(state => state.changeQueueOutputTarget)
 	const openItemFolder = useAppStore(state => state.openItemFolder)
@@ -49,6 +54,10 @@ export function QueueManagerTab(): ReactNode {
 	const scrollRef = useRef<HTMLDivElement>(null)
 
 	const filteredQueue = useMemo(() => (filter === 'all' ? queue : queue.filter(item => item.status === filter)), [filter, queue])
+	// The scheduler-pause flag has no per-item symptom (pending rows simply stay
+	// "Waiting"), so the banner is the only feedback surface — show it while the
+	// queue is globally paused and anything is actually waiting for it.
+	const hasWaitingItems = useMemo(() => queue.some(item => item.status === QUEUE_STATUS.pending), [queue])
 	const selectedItems = useMemo(() => queue.filter(item => selectedIds.has(item.id)), [queue, selectedIds])
 	const selectedIdList = useMemo(() => selectedItems.map(item => item.id), [selectedItems])
 	// Set lookup instead of `.includes` — contextIds can be the whole
@@ -200,11 +209,24 @@ export function QueueManagerTab(): ReactNode {
 				columns={table.getAllLeafColumns()}
 				onFilterChange={filter => dispatch({type: 'set-filter', filter})}
 				onSelectedAction={action => runSelectedAction(action)}
+				schedulerPaused={schedulerPaused}
 				onPauseAll={() => void pauseAll()}
 				onResumeAll={() => void resumeAll()}
 				onCancelAll={() => void cancelAll()}
 				onClearCompleted={() => void clearCompleted()}
 			/>
+
+			{schedulerPaused && hasWaitingItems && (
+				<Alert variant="warning" className="mb-2" data-testid="queue-paused-banner">
+					<CirclePause aria-hidden />
+					<AlertTitle>{t('queue.pausedBanner')}</AlertTitle>
+					<AlertAction>
+						<Button type="button" variant="outline" size="xs" data-testid="queue-resume-from-banner" onClick={() => void resumeAll()}>
+							{t('queue.resumeQueueAction')}
+						</Button>
+					</AlertAction>
+				</Alert>
+			)}
 
 			<QueueManagerTable
 				t={t}

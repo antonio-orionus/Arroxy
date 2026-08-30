@@ -22,13 +22,14 @@ interface QueueManagerToolbarProps {
 	columns: Column<QueueItem, unknown>[]
 	onFilterChange: (filter: QueueStatusFilter) => void
 	onSelectedAction: (action: QueueSelectedAction) => void
+	schedulerPaused: boolean
 	onPauseAll: () => void
 	onResumeAll: () => void
 	onCancelAll: () => void
 	onClearCompleted: () => void
 }
 
-export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, filter, columns, onFilterChange, onSelectedAction, onPauseAll, onResumeAll, onCancelAll, onClearCompleted}: QueueManagerToolbarProps): ReactNode {
+export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, filter, columns, onFilterChange, onSelectedAction, schedulerPaused, onPauseAll, onResumeAll, onCancelAll, onClearCompleted}: QueueManagerToolbarProps): ReactNode {
 	return (
 		<>
 			<div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/70 pb-3">
@@ -99,7 +100,7 @@ export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, fil
 					</Popover>
 					<ButtonGroup className="flex-wrap items-center gap-1 rounded-xl border border-border/60 bg-background/25 px-1 py-0.5" aria-label={t('queue.globalActionsLabel')}>
 						<span className="px-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[var(--text-subtle)]">{t('queue.globalActionsLabel')}</span>
-						<TooltipIconButton Icon={Pause} label={t('queue.pauseAllTitle')} testId="btn-pause-all" onClick={onPauseAll} />
+						<TooltipIconButton Icon={Pause} label={t('queue.pauseAllTitle')} testId="btn-pause-all" disabled={schedulerPaused} onClick={onPauseAll} />
 						<TooltipIconButton Icon={Play} label={t('queue.resumeAllTitle')} testId="btn-resume-first" onClick={onResumeAll} />
 						<TooltipIconButton Icon={X} label={t('queue.cancelAllTitle')} onClick={onCancelAll} />
 						<TooltipIconButton Icon={Trash2} label={t('queue.clearTitle')} testId="btn-clear-completed" onClick={onClearCompleted} />

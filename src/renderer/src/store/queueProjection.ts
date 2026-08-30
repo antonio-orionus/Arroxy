@@ -1,11 +1,11 @@
-import type {QueueItem} from '@shared/types.js'
+import type {QueueItem, QueueSchedulerEventPayload, QueueSnapshotPayload} from '@shared/types.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {reconcileQuickDownloadFeedback, type QuickDownloadFeedbackState} from './wizard/quickDownloadFeedback.js'
 
 type QueueProjectionState = Pick<
 	QuickDownloadFeedbackState,
 	'quickDownloadStatus' | 'quickDownloadFailure' | 'quickDownloadQueueIds' | 'quickDownloadProgressPhase' | 'quickDownloadProgressTotal' | 'quickDownloadProgressCompleted' | 'quickDownloadProgressFailed' | 'quickDownloadProgressCurrent' | 'quickDownloadProgressTitle' | 'quickDownloadProgressRunId'
-> & {queue: QueueItem[]}
+> & {queue: QueueItem[]; schedulerPaused: boolean}
 
 interface QueueProjectionBatch {
 	adds: {items: QueueItem[]; atIdx: number}[]
@@ -19,8 +19,8 @@ export interface QueueProjectionResult {
 	patch: Partial<QueueProjectionState>
 }
 
-export function projectQueueSnapshot(state: QueueProjectionState, items: QueueItem[]): Partial<QueueProjectionState> {
-	return {queue: items, ...reconcileQuickDownloadFeedback(state, items)}
+export function projectQueueSnapshot(state: QueueProjectionState, snapshot: QueueSnapshotPayload): Partial<QueueProjectionState> {
+	return {queue: snapshot.items, schedulerPaused: snapshot.schedulerPaused, ...reconcileQuickDownloadFeedback(state, snapshot.items)}
 }
 
 export function applyQueueProjectionBatch(state: QueueProjectionState, batch: QueueProjectionBatch): QueueProjectionResult {
@@ -58,10 +58,11 @@ export function applyQueueProjectionBatch(state: QueueProjectionState, batch: Qu
 }
 
 export interface QueueProjectionBindings {
-	onSnapshot(listener: (items: QueueItem[]) => void): () => void
+	onSnapshot(listener: (event: QueueSnapshotPayload) => void): () => void
 	onAdded(listener: (event: {items: QueueItem[]; atIdx: number}) => void): () => void
 	onUpdated(listener: (event: {item: QueueItem}) => void): () => void
 	onRemoved(listener: (event: {itemId: string}) => void): () => void
+	onScheduler(listener: (event: QueueSchedulerEventPayload) => void): () => void
 }
 
 export interface BindQueueProjectionInput<State extends QueueProjectionState> {
@@ -104,9 +105,13 @@ export function bindQueueProjection<State extends QueueProjectionState>({events,
 		}
 	}
 
-	const unbindSnapshot = events.onSnapshot(items => {
+	const unbindSnapshot = events.onSnapshot(snapshot => {
 		if (!active) return
-		set(state => projectQueueSnapshot(state, items) as Partial<State>)
+		set(state => projectQueueSnapshot(state, snapshot) as Partial<State>)
+	})
+	const unbindScheduler = events.onScheduler(({paused}) => {
+		if (!active || get().schedulerPaused === paused) return
+		set(() => ({schedulerPaused: paused}) as Partial<State>)
 	})
 	const unbindAdded = events.onAdded(evt => {
 		pendingQueueAdded.push(evt)
@@ -127,5 +132,6 @@ export function bindQueueProjection<State extends QueueProjectionState>({events,
 		unbindAdded()
 		unbindUpdated()
 		unbindRemoved()
+		unbindScheduler()
 	}
 }

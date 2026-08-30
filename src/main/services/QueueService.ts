@@ -37,7 +37,7 @@ import {InterJobSleep} from './download/InterJobSleep.js'
 import {QueueAutoRetry} from './download/QueueAutoRetry.js'
 import {QueuePlaylistM3u} from './download/QueuePlaylistM3u.js'
 import {findInadmissibleQueueItem} from './download/queueAdmission.js'
-import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, StatusEvent} from '@shared/types.js'
+import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, QueueSnapshotPayload, StatusEvent} from '@shared/types.js'
 import type {QueueStore} from '@main/stores/QueueStore.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import type {PlaylistManifest} from '@shared/playlistManifest.js'
@@ -64,13 +64,10 @@ export class QueueService extends EventEmitter {
 	// Earliest time the next normal-lane spawn is allowed. Cleared on cancel-all
 	// or when no normal job remains. Priority spawns ignore this.
 	private readonly sleep = new InterJobSleep()
-	// Global "queue paused" flag — qBittorrent-style. When true, the auto-
-	// scheduler is fully suspended: no pending items spawn, no priority items
-	// spawn, no sleep timer fires anything new. Per-item explicit actions
-	// (`start(itemId)`, `resume(itemId)`) still spawn directly because the user
-	// asked for that specific item; only the implicit "next pending" loop is
-	// halted. Cleared by `resumeAll()` or `cancel(null)`. Session-only — does
-	// not survive app restart.
+	// Global "queue paused" flag — qBittorrent-style. While true the auto-
+	// scheduler is fully suspended (no pending/priority spawns, no sleep-timer
+	// fires); explicit per-item start/resume still spawn directly. Persisted
+	// + restored in init(); transitions emit `scheduler` for the paused banner.
 	private schedulerPaused = false
 	// One ProgressFormatter per running jobId — preserves throttle / spike-suppress
 	// state across consecutive progress lines for that job.
@@ -135,6 +132,12 @@ export class QueueService extends EventEmitter {
 		return [...this.items]
 	}
 
+	// Single construction point for both snapshot hydration surfaces — the
+	// getSnapshot IPC handler and the bridge's attach-time snapshot event.
+	snapshotPayload(): QueueSnapshotPayload {
+		return {items: this.snapshot(), schedulerPaused: this.schedulerPaused}
+	}
+
 	// commands ---------------------------------------------------------------
 
 	add(toAdd: QueueItem[]): Result<{ids: string[]}> {
@@ -184,7 +187,9 @@ export class QueueService extends EventEmitter {
 		// Flip the global pause flag FIRST so the per-item pause commits below
 		// can't re-trigger an auto-spawn of the next pending item (the original
 		// "pause all → next one starts" bug).
+		const wasPaused = this.schedulerPaused
 		this.schedulerPaused = true
+		if (!wasPaused) this.emit('scheduler', {paused: true})
 		this.sleep.clear()
 		const running = this.items.filter(i => i.status === QUEUE_STATUS.running)
 		logger.info('pauseAll', {runningCount: running.length, total: this.items.length, snapshot: this.statusSummary()})
@@ -212,7 +217,9 @@ export class QueueService extends EventEmitter {
 	// would spawn every paused-active in parallel.
 	// eslint-disable-next-line @typescript-eslint/require-await -- async for IPC parity
 	async resumeAll(): Promise<void> {
+		const wasPaused = this.schedulerPaused
 		this.schedulerPaused = false
+		if (wasPaused) this.emit('scheduler', {paused: false})
 		const held = this.items.filter(i => i.status === QUEUE_STATUS.pausedHeld)
 		const pausedActive = this.items.filter(i => i.status === QUEUE_STATUS.pausedActive)
 		logger.info('resumeAll', {heldCount: held.length, pausedActiveCount: pausedActive.length, snapshot: this.statusSummary()})
@@ -253,10 +260,6 @@ export class QueueService extends EventEmitter {
 
 	setAutoRetryAttempts(value: number): void {
 		this.autoRetry.setAttempts(value, this.items)
-	}
-
-	schedulerIsPaused(): boolean {
-		return this.schedulerPaused
 	}
 
 	private async cleanupResumeContextBestEffort(item: QueueItem): Promise<void> {
@@ -311,6 +314,7 @@ export class QueueService extends EventEmitter {
 
 	async cancel(itemId: string | null): Promise<Result<void>> {
 		if (itemId === null) {
+			const wasSchedulerPaused = this.schedulerPaused
 			await this.downloadService.cancel()
 			const ids = this.items.flatMap(i => (i.status === QUEUE_STATUS.running || i.status === QUEUE_STATUS.pausedActive || i.status === QUEUE_STATUS.pausedHeld || i.status === QUEUE_STATUS.pending ? [i.id] : []))
 			logger.info('cancelAll', {ids: ids.length, snapshot: this.statusSummary()})
@@ -340,6 +344,7 @@ export class QueueService extends EventEmitter {
 			// survives the sweep, so this last recomputeSchedule is a no-op
 			// unless the renderer added a new item mid-flight.
 			this.schedulerPaused = false
+			if (wasSchedulerPaused) this.emit('scheduler', {paused: false})
 			this.recomputeSchedule()
 			// Single persist for the whole sweep — also flushes schedulerPaused=false.
 			this.persist()

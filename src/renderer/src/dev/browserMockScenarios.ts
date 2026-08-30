@@ -55,6 +55,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'queue-tab-tip',
 	'queue-active',
 	'queue-pending',
+	'queue-scheduler-paused',
 	'queue-mixed-selection',
 	'queue-artifacts',
 	'queue-errors',
@@ -92,6 +93,7 @@ export interface BrowserMockState {
 	settings: AppSettings
 	probeResult: ProbeResult | null
 	queueItems: QueueItem[]
+	schedulerPaused: boolean
 	update: UpdateAvailablePayload | null
 	warmUp: WarmUpOutput
 	appVersion: string
@@ -177,6 +179,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'queue-tab-tip', group: 'Queue', title: 'Downloads tab first-run tip', description: 'Mascot cue that points users to the new Downloads tab after their first queued item.', kind: 'queue'},
 	{id: 'queue-active', group: 'Queue', title: 'Queue active', description: 'Running work, progress, and Downloads tab activity animation.', kind: 'queue'},
 	{id: 'queue-pending', group: 'Queue', title: 'Queue pending', description: 'Pending-only rows where Set location is enabled.', kind: 'queue'},
+	{id: 'queue-scheduler-paused', group: 'Queue', title: 'Queue scheduler paused', description: 'Globally paused scheduler: pending rows wait behind the paused banner; Resume queue starts the mock queue.', kind: 'queue'},
 	{id: 'queue-mixed-selection', group: 'Queue', title: 'Queue mixed selection', description: 'Mixed statuses for selected-action availability and disabled hints.', kind: 'queue'},
 	{id: 'queue-artifacts', group: 'Queue', title: 'Queue artifacts', description: 'Visible user artifacts plus hidden internal artifacts.', kind: 'queue'},
 	{id: 'queue-errors', group: 'Queue', title: 'Queue errors', description: 'Failed and cancelled rows for retry/remove states.', kind: 'queue'},
@@ -229,7 +232,7 @@ export function mockStepsForScenario(scenario: Pick<BrowserMockScenario, 'id'>):
 
 export function buildScenarioAppApiState(scenario: BrowserMockScenario, params?: BrowserMockUrlParams, knobs?: BrowserMockKnobs): BrowserMockState {
 	const settings = buildSettings(scenario, knobs)
-	return {scenario, settings, probeResult: buildProbeResult(scenario, params), queueItems: buildQueueItems(scenario), update: buildUpdate(scenario), warmUp: buildWarmUp(scenario), appVersion: buildAppVersion(scenario)}
+	return {scenario, settings, probeResult: buildProbeResult(scenario, params), queueItems: buildQueueItems(scenario), schedulerPaused: scenario.id === 'queue-scheduler-paused', update: buildUpdate(scenario), warmUp: buildWarmUp(scenario), appVersion: buildAppVersion(scenario)}
 }
 
 function buildAppVersion(scenario: BrowserMockScenario): string {

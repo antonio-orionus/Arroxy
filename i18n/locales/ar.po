@@ -607,9 +607,19 @@ msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "إيقاف جميع التنزيلات النشطة مؤقتاً"
 
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "القائمة متوقفة مؤقتًا — العناصر المنتظرة لن تبدأ حتى تستأنفها"
+
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "استئناف التنزيلات المتوقفة والسماح للقائمة بالمتابعة"
+
+#| msgctxt "queue.item.resume"
+#| msgid "Resume"
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "استئناف القائمة"
 
 msgctxt "queue.selectedActionsLabel"
 msgid "Selected items"

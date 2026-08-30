@@ -26,7 +26,7 @@ function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => (
 		queue: {
 			cmd: {
 				add: vi.fn().mockResolvedValue({ok: true, data: {ids: []}}),
-				getSnapshot: vi.fn().mockResolvedValue({ok: true, data: []}),
+				getSnapshot: vi.fn().mockResolvedValue({ok: true, data: {items: [], schedulerPaused: false}}),
 				start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 				pause: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 				resume: vi.fn().mockResolvedValue({ok: true, data: undefined}),
@@ -35,7 +35,7 @@ function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => (
 				clearCompleted: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 				remove: vi.fn().mockResolvedValue({ok: true, data: undefined})
 			},
-			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined)}
+			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined), onScheduler: vi.fn().mockReturnValue(() => undefined)}
 		},
 		updater: {onUpdateAvailable: overrides.onUpdateAvailable ?? (() => () => undefined), install: overrides.install ?? (vi.fn().mockResolvedValue({ok: true}) as () => Promise<{ok: true}>)},
 		analytics: {track: vi.fn()}

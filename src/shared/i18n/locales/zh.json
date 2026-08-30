@@ -444,6 +444,8 @@
 		"clearTitle": "清除已完成的下载",
 		"pauseAllTitle": "暂停所有正在进行的下载",
 		"resumeAllTitle": "继续已暂停的下载并让队列继续运行",
+		"pausedBanner": "队列已暂停 — 等待中的任务在恢复队列之前不会开始",
+		"resumeQueueAction": "恢复队列",
 		"cancelAllTitle": "取消所有正在进行和等待中的下载",
 		"table": {
 			"columns": "列",

@@ -514,6 +514,8 @@
 		"clearTitle": "Tugallangan yuklamalarni tozalash",
 		"pauseAllTitle": "Barcha faol yuklamalarni to'xtatib turish",
 		"resumeAllTitle": "Pauzadagi yuklab olishlarni davom ettirib, navbatni yurgizish",
+		"pausedBanner": "Navbat pauzada — kutayotgan yuklamalar navbat davom ettirilmaguncha boshlanmaydi",
+		"resumeQueueAction": "Navbatni davom ettirish",
 		"cancelAllTitle": "Barcha faol va kutayotgan yuklamalarni bekor qilish",
 		"table": {
 			"columns": "Ustunlar",

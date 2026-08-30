@@ -518,6 +518,8 @@
 		"clearTitle": "Daawniloodoonni xumuraman haquu",
 		"pauseAllTitle": "Daawniloodoonni hunda qabsoo jiran gidduu dhabi",
 		"resumeAllTitle": "Buusuu dhaabbate itti fufi; tarreenis haa deemuu",
+		"pausedBanner": "Tarreen dhaabbate — kan eeggaa tarreen itti hin fufin akka hin jalqabin dhaaba",
+		"resumeQueueAction": "Tarreen itti fufi",
 		"cancelAllTitle": "Daawniloodoonni hunda qabsoo jiran fi eegaa jiran addaan kuti",
 		"table": {
 			"columns": "Tarjaalee",

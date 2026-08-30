@@ -260,6 +260,11 @@ export interface WizardDialogsSlice {
 // on init and updates via the four diff events. Local mutations are forbidden.
 export interface QueueSlice {
 	queue: QueueItem[]
+	// Mirror of QueueService's global scheduler-pause flag (qBittorrent-style
+	// "queue paused"). Hydrated from the queue snapshot and kept live via the
+	// queue:event:scheduler diff — the queue tab shows a paused banner while
+	// this is true and pending items exist, instead of silently "waiting".
+	schedulerPaused: boolean
 	// True while submitWizardToQueue is in flight. Lets the confirm step
 	// disable its action buttons so a user staring at a momentarily-frozen UI
 	// (e.g. a 290-entry playlist mid-add) doesn't double-submit and produce

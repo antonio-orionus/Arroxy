@@ -607,9 +607,19 @@ msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "تمام فعال ڈاؤن لوڈز کو عارضی طور پر روکیں"
 
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "قطار موقوف ہے — منتظر ڈاؤن لوڈز قطار دوبارہ شروع ہونے تک شروع نہیں ہوں گے"
+
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
 msgstr "رکے ہوئے ڈاؤن لوڈز جاری رکھیں اور قطار چلنے دیں"
+
+#| msgctxt "queue.item.resume"
+#| msgid "Resume"
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "قطار دوبارہ شروع کریں"
 
 msgctxt "queue.selectedActionsLabel"
 msgid "Selected items"

@@ -506,6 +506,8 @@
 		"clearTitle": "完了したダウンロードをクリア",
 		"pauseAllTitle": "すべてのアクティブなダウンロードを一時停止",
 		"resumeAllTitle": "一時停止中のダウンロードを再開し、キューを続行します",
+		"pausedBanner": "キューは一時停止中です — 待機中の項目は再開するまで開始されません",
+		"resumeQueueAction": "キューを再開",
 		"cancelAllTitle": "すべてのアクティブおよび保留中のダウンロードをキャンセル",
 		"table": {
 			"columns": "列",

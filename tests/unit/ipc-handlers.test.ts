@@ -51,7 +51,7 @@ function makeDeps() {
 		remove: vi.fn().mockReturnValue({ok: true, data: undefined}),
 		applySelectionAction: vi.fn().mockResolvedValue({ok: true, data: {action: 'pause', appliedIds: ['a'], skipped: []}}),
 		changeOutputTarget: vi.fn().mockResolvedValue({ok: true, data: {outputDir: '/new', items: [], skipped: []}}),
-		snapshot: vi.fn().mockReturnValue([])
+		snapshotPayload: vi.fn().mockReturnValue({items: [], schedulerPaused: false})
 	})
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, single: {}, playlist: {}}), update: vi.fn()}
 	const languageRef: {current: string} = {current: 'en'}

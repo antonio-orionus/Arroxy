@@ -506,6 +506,8 @@
 		"clearTitle": "Futa vipakuzi vilivyokamilika",
 		"pauseAllTitle": "Simamisha vipakuzi vyote vinavyoendelea",
 		"resumeAllTitle": "Endeleza vipakuliwa vilivyosimamishwa na ruhusu foleni iendelee",
+		"pausedBanner": "Foleni imesimamishwa — vipakuzi vinavyosubiri havitaanza hadi ukiendeleza",
+		"resumeQueueAction": "Endeleza foleni",
 		"cancelAllTitle": "Ghairi vipakuzi vyote vinavyoendelea na vinavyosubiri",
 		"table": {
 			"columns": "Safu wima",

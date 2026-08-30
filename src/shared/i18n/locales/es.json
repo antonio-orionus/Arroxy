@@ -506,6 +506,8 @@
 		"clearTitle": "Limpiar descargas completadas",
 		"pauseAllTitle": "Pausar todas las descargas activas",
 		"resumeAllTitle": "Reanudar descargas pausadas y dejar que la cola continúe",
+		"pausedBanner": "La cola está en pausa — los elementos en espera no empezarán hasta que la reanudes",
+		"resumeQueueAction": "Reanudar cola",
 		"cancelAllTitle": "Cancelar todas las descargas activas y pendientes",
 		"table": {
 			"columns": "Columnas",
