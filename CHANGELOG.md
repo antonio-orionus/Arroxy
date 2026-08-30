@@ -8,6 +8,12 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.8-beta.4
+
+No user-facing changes — again a re-cut after fixing the release pipeline's own startup gate, this time on how the gate launches the previous release to build an inherited profile: the Linux AppImage now extracts itself instead of requiring FUSE (missing on CI runners), and the Windows portable exe is unpacked with 7-Zip so the inner app is launched directly instead of through its NSIS wrapper.
+
+---
+
 ## 0.4.8-beta.3
 
 No user-facing changes — this beta re-cuts 0.4.8-beta.2 after a fix to the release pipeline's own startup gate, which had failed on its own environmental noise (the update check against the not-yet-published draft, and a stale Linux asset name) rather than on any app defect.
