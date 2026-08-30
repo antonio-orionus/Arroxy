@@ -29,10 +29,19 @@ export interface StartupJourney {
 
 const CLEAN: LogPolicy = {allowedWarnings: [], allowedErrors: []}
 
+/**
+ * The release gate exports GH_TOKEN, which lets electron-updater see the draft
+ * release under construction; its latest-*.yml is not uploaded yet, so the soft
+ * launch-time update check 404s. Environmental, not a startup defect — a
+ * different updater failure still fails the journey.
+ */
+const UPDATER_META_404 = /Cannot find latest-\w+\.yml/i
+const WITH_UPDATER_META_404: LogPolicy = {allowedWarnings: [], allowedErrors: [UPDATER_META_404]}
+
 export const JOURNEYS: readonly StartupJourney[] = [
-	{id: 'fresh-cold', description: 'First launch ever: no profile, no runtime cache, managed yt-dlp downloaded from scratch.', profile: {kind: 'empty'}, env: {}, expect: 'main-screen', logPolicy: CLEAN, tiers: ['pr', 'release', 'nightly']},
-	{id: 'warm-restart', description: 'Second launch against a populated runtime cache — the path most users hit daily.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {}, expect: 'main-screen', logPolicy: CLEAN, tiers: ['pr', 'release']},
-	{id: 'inherited-update', description: 'This build launched against a profile written by the previous release.', profile: {kind: 'inherited'}, env: {}, expect: 'main-screen', logPolicy: CLEAN, tiers: ['release']},
+	{id: 'fresh-cold', description: 'First launch ever: no profile, no runtime cache, managed yt-dlp downloaded from scratch.', profile: {kind: 'empty'}, env: {}, expect: 'main-screen', logPolicy: WITH_UPDATER_META_404, tiers: ['pr', 'release', 'nightly']},
+	{id: 'warm-restart', description: 'Second launch against a populated runtime cache — the path most users hit daily.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {}, expect: 'main-screen', logPolicy: WITH_UPDATER_META_404, tiers: ['pr', 'release']},
+	{id: 'inherited-update', description: 'This build launched against a profile written by the previous release.', profile: {kind: 'inherited'}, env: {}, expect: 'main-screen', logPolicy: WITH_UPDATER_META_404, tiers: ['release']},
 	{id: 'index-off', description: 'Remote runtime index unreachable; must fall back to last-known-good or bundled index.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {ARROXY_RUNTIME_INDEX_URL: 'off'}, expect: 'main-screen', logPolicy: CLEAN, tiers: ['nightly']},
 	{
 		id: 'no-gpu',

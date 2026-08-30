@@ -46,7 +46,9 @@ export function previousStableTag(tags: readonly string[], current: string): str
  * installer-smoke.yml rather than being rebuilt here.
  */
 export function assetNameFor(platform: NodeJS.Platform, arch: string): string {
-	if (platform === 'linux') return `Arroxy-linux-${arch === 'arm64' ? 'arm64' : 'x86_64'}.AppImage`
+	// electron-builder substitutes ${arch} verbatim, and only x64 AppImages are
+	// built — the name is 'Arroxy-linux-x64.AppImage', not the gnu triple.
+	if (platform === 'linux') return `Arroxy-linux-${arch}.AppImage`
 	if (platform === 'darwin') return `Arroxy-mac-${arch}.dmg`
 	return `Arroxy-win-${arch}-Portable.exe`
 }
