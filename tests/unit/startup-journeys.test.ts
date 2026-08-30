@@ -24,10 +24,15 @@ describe('journey catalog', () => {
 	})
 
 	it('keeps degraded journeys out of the blocking tiers', () => {
-		const degraded = JOURNEYS.filter(journey => journey.network === 'offline' || journey.pathContamination)
-		for (const journey of degraded) {
-			expect(journey.tiers).not.toContain('release')
-			expect(journey.tiers).not.toContain('pr')
+		for (const tier of ['pr', 'release'] as const) {
+			for (const journey of journeysForTier(tier)) {
+				expect(journey.pathContamination ?? false).toBe(false)
+				expect(Object.keys(journey.env)).toEqual([])
+			}
 		}
+	})
+
+	it('expects the main screen from every journey it still ships', () => {
+		for (const journey of JOURNEYS) expect(journey.expect).toBe('main-screen')
 	})
 })

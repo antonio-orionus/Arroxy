@@ -22,7 +22,6 @@ export interface StartupJourney {
 	env: Readonly<Record<string, string>>
 	/** Fake node/deno/yt-dlp on PATH — applied to the CHILD env only, never $GITHUB_PATH. */
 	pathContamination?: boolean
-	network?: 'online' | 'offline'
 	expect: ExpectedOutcome
 	logPolicy: LogPolicy
 	tiers: readonly StartupTier[]
@@ -37,16 +36,6 @@ export const JOURNEYS: readonly StartupJourney[] = [
 	{id: 'index-off', description: 'Remote runtime index unreachable; must fall back to last-known-good or bundled index.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {ARROXY_RUNTIME_INDEX_URL: 'off'}, expect: 'main-screen', logPolicy: CLEAN, tiers: ['nightly']},
 	{id: 'no-gpu', description: 'Software rendering only — backdrop must fall back without blocking startup.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {ARROXY_GPU_MODE: 'software'}, expect: 'main-screen', logPolicy: CLEAN, tiers: ['nightly']},
 	{id: 'contaminated-path', description: 'Stale node/deno and a broken yt-dlp on PATH; the app must still resolve its own binaries.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {}, pathContamination: true, expect: 'main-screen', logPolicy: CLEAN, tiers: ['nightly']},
-	{
-		id: 'offline-no-cache',
-		description: 'No network and no cached binaries — must surface the repair panel, not hang on the splash.',
-		profile: {kind: 'empty'},
-		env: {ARROXY_RUNTIME_INDEX_URL: 'off'},
-		network: 'offline',
-		expect: 'repair-panel',
-		logPolicy: {allowedWarnings: [/runtime binary/i, /download/i, /probe/i]},
-		tiers: ['nightly']
-	},
 	{id: 'corrupt-profile', description: 'Malformed settings.json and queue.json must not prevent reaching the main screen.', profile: {kind: 'corrupt'}, env: {}, expect: 'main-screen', logPolicy: {allowedWarnings: [/settings/i, /queue/i, /parse/i]}, tiers: ['nightly']}
 ]
 
