@@ -28,6 +28,8 @@
 
 ## Startup verification tiers
 
+Decision record: the PR gate is Linux-only on purpose — [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md).
+
 | Tier      | Where                        | Platforms | Blocking                                               | Journeys                                                                 |
 | --------- | ---------------------------- | --------- | ------------------------------------------------------ | ------------------------------------------------------------------------ |
 | `pr`      | E2E Cold Start               | Linux     | yes                                                    | `fresh-cold`, `warm-restart`                                             |
@@ -42,8 +44,7 @@ Required checks: `check`, `Cold start (linux)`, `Cold-state install`, `1x instal
 
 - Required contexts must match what PR workflows actually report. Never require a context only produced by tag-only or scheduled workflows — it would block every PR forever.
 - Renaming or moving a job → update protection in the same PR.
-- Do **not** add `startup-gate` to protection when wiring it into `prepare-release` — it only runs on tags.
-- Known drift incident (2026-08-30): stale required contexts `Cold start (windows)` / `(macos-arm64)` blocked PRs with phantom pending after the PR tier went Linux-only.
+- Do **not** add `startup-gate` to protection when wiring it into `prepare-release` — it only runs on tags (see [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md)).
 
 ## Release flow
 
