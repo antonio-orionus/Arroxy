@@ -1,5 +1,5 @@
 {
-	"common": {"back": "返回", "cancel": "取消", "continue": "继续", "retry": "重试", "startOver": "重新开始"},
+	"common": {"back": "返回", "cancel": "取消", "continue": "继续", "loading": "加载中…", "retry": "重试", "startOver": "重新开始"},
 	"app": {"feedback": "反馈", "logs": "日志", "feedbackNudge": "喜欢 Arroxy 吗?我很想听听你的想法! 💬", "zoomIn": "放大", "zoomOut": "缩小"},
 	"about": {"button": "关于", "openTitle": "关于 Arroxy", "tagline": "适用于 YouTube 和其他 2000+ 网站的快速友好下载器。", "websiteLink": "官网", "githubLink": "GitHub", "licenseLine": "MIT 许可证 · 作者 Antonio Orionus", "thirdPartyNotices": "查看第三方声明"},
 	"titleBar": {"close": "关闭", "minimize": "最小化", "maximize": "最大化", "restore": "还原"},
@@ -107,6 +107,7 @@
 			"needsAtLeastOne": "至少添加一个受支持的 URL 才能继续。",
 			"reject": {"duplicate": "重复"}
 		},
+		"tabsNavAria": "下载配置导航",
 		"mixedPrompt": {
 			"title": "此链接包含 Playlist",
 			"body": "只想下载你点击的那个视频，还是从 Playlist 中挑选？下一步可以选择特定视频或指定范围。",
@@ -170,6 +171,7 @@
 			"mascotIdle": "丢个链接，让 Arroxy 来拉取 ✨",
 			"mascotBusy": "正在后台下载… 我可以同时处理多个任务 😎",
 			"advanced": "高级",
+			"settings": {"inputHeading": "输入", "behaviorHeading": "下载行为", "behaviorDescription": "全局行为，同样影响由配置驱动的下载。"},
 			"clearAria": "清除 URL",
 			"clipboard": {
 				"toggle": "监听剪贴板",

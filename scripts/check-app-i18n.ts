@@ -8,6 +8,9 @@
 
 import en from '../src/shared/i18n/locales/en.json' with {type: 'json'}
 import {SUPPORTED_LANGS} from '../src/shared/schemas.js'
+import {readdirSync, readFileSync, statSync} from 'node:fs'
+import {join, relative} from 'node:path'
+import {fileURLToPath} from 'node:url'
 
 interface LeafEntry {
 	path: string
@@ -99,3 +102,57 @@ if (hadMissing) {
 if (hadPlaceholders) {
 	console.warn(`\nPlaceholders: non-en values byte-equal to en (≥${PLACEHOLDER_MIN_WORDS} words). Likely untranslated copies — run translate skill.`)
 }
+
+// JSX literal scan: hardcoded English in user-facing JSX attributes bypasses the
+// i18n pipeline entirely, so locale drift checks above can never see it. Any
+// literal found here fails the run regardless of --strict.
+const RENDERER_ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '../src/renderer/src')
+const SKIP_DIRS = new Set(['dev']) // ScenarioGallery is dev-only, not shipped UI
+const propPattern = /\b(title|description|label|placeholder|heading|tooltip|message|text)="([^"]+)"/g
+// Literals exempt from the scan: brand/product names, locale-neutral format examples
+// ("en, uk, pt-br" placeholder shows locale-code syntax, not prose), and dev/test-only
+// surfaces (the ?backdrop isolation stage renders in browser-mock/test builds only).
+const LITERAL_ALLOWLIST = new Set(['Arroxy', 'GitHub', 'Discord', 'YouTube', 'Firefox', 'Chromium', 'Chrome', 'Brave', 'Edge', 'Safari', 'Vivaldi', 'FFmpeg', 'FFprobe', 'yt-dlp', 'SponsorBlock', 'SRT', 'VTT', 'ASS', 'WAV', 'MP3', 'M4A', 'Opus', 'AAC', 'Backdrop render path', 'en, uk, pt-br'])
+
+function collectTsxFiles(dir: string): string[] {
+	const out: string[] = []
+	for (const entry of readdirSync(dir)) {
+		if (SKIP_DIRS.has(entry)) continue
+		const full = join(dir, entry)
+		const stat = statSync(full)
+		if (stat.isDirectory()) out.push(...collectTsxFiles(full))
+		else if (entry.endsWith('.tsx')) out.push(full)
+	}
+	return out
+}
+
+interface LiteralHit {
+	file: string
+	line: number
+	prop: string
+	value: string
+}
+
+const literalHits: LiteralHit[] = []
+
+for (const file of collectTsxFiles(RENDERER_ROOT)) {
+	const content = readFileSync(file, 'utf8')
+	const lines = content.split('\n')
+	for (let i = 0; i < lines.length; i++) {
+		for (const match of lines[i].matchAll(propPattern)) {
+			const value = match[2]
+			if (LITERAL_ALLOWLIST.has(value)) continue
+			if (!/[A-Za-z]{2,}/.test(value)) continue // digits-only, symbols, single letters
+			literalHits.push({file: relative(RENDERER_ROOT, file), line: i + 1, prop: match[1], value})
+		}
+	}
+}
+
+if (literalHits.length) {
+	for (const hit of literalHits) {
+		console.error(`  ✗ ${hit.file}:${hit.line} — ${hit.prop}="${hit.value}"`)
+	}
+	console.error(`\nFAIL: ${literalHits.length} hardcoded JSX literal(s) on user-facing props (title/description/label/placeholder/...).\n` + 'Move the copy into en.json and render it via t(). Brand/product names pass if added to BRAND_ALLOWLIST.')
+	process.exit(1)
+}
+console.log('  ✓ no hardcoded JSX literals on user-facing props')

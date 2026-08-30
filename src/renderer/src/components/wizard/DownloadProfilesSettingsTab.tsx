@@ -185,8 +185,8 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 	}
 
 	return (
-		<div className="grid gap-4 lg:grid-cols-2" data-testid="profiles-settings-tab">
-			<SettingsPanel title="Input" description={t('wizard.url.advanced')}>
+		<div className="mx-auto flex w-full max-w-2xl flex-col gap-4" data-testid="profiles-settings-tab">
+			<SettingsPanel title={t('wizard.url.settings.inputHeading')} description={t('wizard.url.advanced')}>
 				<FieldGroup className="gap-4">
 					<SettingSwitch id="profiles-settings-clipboard" label={t('wizard.url.clipboard.toggle')} description={t('wizard.url.clipboard.toggleDescription')} checked={common?.clipboardWatchEnabled ?? false} onCheckedChange={checked => void setClipboardWatchEnabled(checked)} />
 
@@ -310,7 +310,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 				</FieldGroup>
 			</SettingsPanel>
 
-			<SettingsPanel title="Download behavior" description="Global behavior that affects profile-driven downloads too.">
+			<SettingsPanel title={t('wizard.url.settings.behaviorHeading')} description={t('wizard.url.settings.behaviorDescription')}>
 				<FieldGroup className="gap-4">
 					<Field orientation="horizontal" className="items-center justify-between gap-3">
 						<FieldContent className="gap-0.5">

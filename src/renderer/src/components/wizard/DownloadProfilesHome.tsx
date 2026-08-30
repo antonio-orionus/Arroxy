@@ -416,7 +416,7 @@ export function DownloadProfilesHome(): ReactNode {
 				className="gap-4"
 			>
 				<div className="relative z-30 mx-auto flex justify-center">
-					<TabsList variant="line" className="download-home-tabs flex justify-center" aria-label="Download profile navigation" data-testid="profiles-tabs">
+					<TabsList variant="line" className="download-home-tabs flex justify-center" aria-label={t('wizard.tabsNavAria')} data-testid="profiles-tabs">
 						<TabsTrigger value="download" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
 							<Link2 data-icon="inline-start" aria-hidden />
 							{t('wizard.steps.url')}

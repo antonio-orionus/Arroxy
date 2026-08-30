@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Back", "cancel": "Cancel", "continue": "Continue", "retry": "Retry", "startOver": "Start over"},
+	"common": {"back": "Back", "cancel": "Cancel", "continue": "Continue", "loading": "Loading", "retry": "Retry", "startOver": "Start over"},
 	"app": {"feedback": "Feedback", "logs": "Logs", "feedbackNudge": "Enjoying Arroxy? I'd love to hear from you! 💬", "zoomIn": "Zoom in", "zoomOut": "Zoom out"},
 	"about": {"button": "About", "openTitle": "About Arroxy", "tagline": "Fast, friendly downloader for YouTube and 2000+ other sites.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "MIT License · by Antonio Orionus", "thirdPartyNotices": "View third-party notices"},
 	"titleBar": {"close": "Close", "minimize": "Minimize", "maximize": "Maximize", "restore": "Restore"},
@@ -115,6 +115,7 @@
 			"needsAtLeastOne": "Add at least one supported URL to continue.",
 			"reject": {"duplicate": "Duplicate"}
 		},
+		"tabsNavAria": "Download profile navigation",
 		"mixedPrompt": {
 			"title": "This link has a playlist",
 			"body": "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next.",
@@ -178,6 +179,7 @@
 			"mascotIdle": "Drop a link and let Arroxy pull it ✨",
 			"mascotBusy": "Downloading in the background… I can multitask 😎",
 			"advanced": "Advanced",
+			"settings": {"inputHeading": "Input", "behaviorHeading": "Download behavior", "behaviorDescription": "Global behavior that affects profile-driven downloads too."},
 			"clearAria": "Clear URL",
 			"clipboard": {
 				"toggle": "Watch clipboard",

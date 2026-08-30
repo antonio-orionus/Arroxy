@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Voltar", "cancel": "Cancelar", "continue": "Continuar", "retry": "Tentar novamente", "startOver": "Recomeçar"},
+	"common": {"back": "Voltar", "cancel": "Cancelar", "continue": "Continuar", "loading": "Carregando…", "retry": "Tentar novamente", "startOver": "Recomeçar"},
 	"app": {"feedback": "Feedback", "logs": "Logs", "feedbackNudge": "Gostando do Arroxy? Adoraria ouvir sua opinião! 💬", "zoomIn": "Aumentar zoom", "zoomOut": "Diminuir zoom"},
 	"about": {"button": "Sobre", "openTitle": "Sobre o Arroxy", "tagline": "Baixador rápido e amigável para o YouTube e mais de 2000 outros sites.", "websiteLink": "Site", "githubLink": "GitHub", "licenseLine": "Licença MIT · por Antonio Orionus", "thirdPartyNotices": "Ver avisos de terceiros"},
 	"titleBar": {"close": "Fechar", "minimize": "Minimizar", "maximize": "Maximizar", "restore": "Restaurar"},
@@ -124,6 +124,7 @@
 			"needsAtLeastOne": "Adicione pelo menos uma URL suportada para continuar.",
 			"reject": {"duplicate": "Duplicada"}
 		},
+		"tabsNavAria": "Navegação de perfis de download",
 		"mixedPrompt": {
 			"title": "Este link contém uma playlist",
 			"body": "Deseja apenas o vídeo que clicou ou escolher da playlist? Você escolherá vídeos específicos ou um intervalo a seguir.",
@@ -187,6 +188,7 @@
 			"mascotIdle": "Solte um link aqui para o Arroxy baixar ✨",
 			"mascotBusy": "Baixando em segundo plano… consigo fazer várias coisas ao mesmo tempo 😎",
 			"advanced": "Avançado",
+			"settings": {"inputHeading": "Entrada", "behaviorHeading": "Comportamento de download", "behaviorDescription": "Comportamento global que também afeta downloads gerenciados por perfis."},
 			"clearAria": "Limpar URL",
 			"clipboard": {
 				"toggle": "Monitorar área de transferência",

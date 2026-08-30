@@ -1,5 +1,5 @@
 {
-	"common": {"back": "戻る", "cancel": "キャンセル", "continue": "続行", "retry": "再試行", "startOver": "最初からやり直す"},
+	"common": {"back": "戻る", "cancel": "キャンセル", "continue": "続行", "loading": "読み込み中…", "retry": "再試行", "startOver": "最初からやり直す"},
 	"app": {"feedback": "フィードバック", "logs": "ログ", "feedbackNudge": "Arroxyを楽しんでくれてる?ぜひ感想を聞かせて! 💬", "zoomIn": "拡大", "zoomOut": "縮小"},
 	"about": {"button": "情報", "openTitle": "Arroxy について", "tagline": "YouTube と 2000 以上の他サイトに対応する、高速で使いやすいダウンローダー。", "websiteLink": "公式サイト", "githubLink": "GitHub", "licenseLine": "MIT ライセンス · 作者 Antonio Orionus", "thirdPartyNotices": "サードパーティ通知を表示"},
 	"titleBar": {"close": "閉じる", "minimize": "最小化", "maximize": "最大化", "restore": "元に戻す"},
@@ -124,6 +124,7 @@
 			"needsAtLeastOne": "続行するには、対応している URL を少なくとも 1 件追加してください。",
 			"reject": {"duplicate": "重複"}
 		},
+		"tabsNavAria": "ダウンロードプロフィールナビゲーション",
 		"mixedPrompt": {
 			"title": "このリンクは Playlist に含まれています",
 			"body": "クリックした動画だけをダウンロードしますか？それとも Playlist から選びますか？次のステップで特定の動画や範囲を選択できます。",
@@ -187,6 +188,7 @@
 			"mascotIdle": "リンクを入れて、あとは Arroxy に引っぱってもらおう ✨",
 			"mascotBusy": "バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎",
 			"advanced": "詳細設定",
+			"settings": {"inputHeading": "入力", "behaviorHeading": "ダウンロードの動作", "behaviorDescription": "プロフィールによるダウンロードにも影響する全体の動作です。"},
 			"clearAria": "URLをクリア",
 			"clipboard": {
 				"toggle": "クリップボードを監視",

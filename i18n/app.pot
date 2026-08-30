@@ -66,6 +66,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr ""
 
+msgctxt "common.loading"
+msgid "Loading"
+msgstr ""
+
 msgctxt "common.retry"
 msgid "Retry"
 msgstr ""
@@ -2399,6 +2403,10 @@ msgctxt "wizard.subtitles.skipSubs"
 msgid "Skip for this video"
 msgstr ""
 
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr ""
+
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr ""
@@ -3005,6 +3013,18 @@ msgstr ""
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr ""
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr ""
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr ""
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
 msgstr ""
 
 msgctxt "wizard.url.tabs.profiles"

@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Kembali", "cancel": "Membatalkan", "continue": "Melanjutkan", "retry": "Mencoba kembali", "startOver": "Mulai dari awal"},
+	"common": {"back": "Kembali", "cancel": "Membatalkan", "continue": "Melanjutkan", "loading": "Memuat…", "retry": "Mencoba kembali", "startOver": "Mulai dari awal"},
 	"app": {"feedback": "Masukan", "logs": "Log", "feedbackNudge": "Menikmati Arroxy? Saya ingin mendengar pendapat Anda! 💬", "zoomIn": "Perbesar", "zoomOut": "Perkecil"},
 	"about": {"button": "Tentang", "openTitle": "Tentang Arroxy", "tagline": "Pengunduh yang cepat dan ramah untuk YouTube dan 2000+ situs lainnya.", "websiteLink": "Situs web", "githubLink": "GitHub", "licenseLine": "Lisensi MIT · oleh Antonio Orionus", "thirdPartyNotices": "Lihat pemberitahuan pihak ketiga"},
 	"titleBar": {"close": "Menutup", "minimize": "Memperkecil", "maximize": "Maksimalkan", "restore": "Memulihkan"},
@@ -124,6 +124,7 @@
 			"needsAtLeastOne": "Tambahkan setidaknya satu URL yang didukung untuk melanjutkan.",
 			"reject": {"duplicate": "Duplikat"}
 		},
+		"tabsNavAria": "Navigasi profil unduhan",
 		"mixedPrompt": {
 			"title": "Tautan ini memiliki daftar putar",
 			"body": "Ingin hanya video yang Anda klik, atau pilih dari playlist? Selanjutnya Anda akan memilih video atau rentang tertentu.",
@@ -187,6 +188,7 @@
 			"mascotIdle": "Letakkan tautan dan biarkan Arroxy menariknya ✨",
 			"mascotBusy": "Mengunduh di latar belakang… Saya bisa melakukan banyak tugas 😎",
 			"advanced": "Canggih",
+			"settings": {"inputHeading": "Masukan", "behaviorHeading": "Perilaku unduhan", "behaviorDescription": "Perilaku global yang juga memengaruhi unduhan yang digerakkan oleh profil."},
 			"clearAria": "Hapus URL",
 			"clipboard": {
 				"toggle": "Tonton papan klip",

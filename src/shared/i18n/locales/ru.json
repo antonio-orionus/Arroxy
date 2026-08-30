@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Назад", "cancel": "Отменить", "continue": "Продолжить", "retry": "Повторить", "startOver": "Начать заново"},
+	"common": {"back": "Назад", "cancel": "Отменить", "continue": "Продолжить", "loading": "Загрузка…", "retry": "Повторить", "startOver": "Начать заново"},
 	"app": {"feedback": "Обратная связь", "logs": "Журналы", "feedbackNudge": "Нравится Arroxy? Я бы хотел услышать твой отзыв! 💬", "zoomIn": "Увеличить", "zoomOut": "Уменьшить"},
 	"about": {"button": "О программе", "openTitle": "О программе Arroxy", "tagline": "Быстрый и удобный загрузчик для YouTube и ещё 2000+ сайтов.", "websiteLink": "Сайт", "githubLink": "GitHub", "licenseLine": "Лицензия MIT · by Antonio Orionus", "thirdPartyNotices": "Просмотреть уведомления о сторонних компонентах"},
 	"titleBar": {"close": "Закрыть", "minimize": "Свернуть", "maximize": "Развернуть", "restore": "Восстановить"},
@@ -124,6 +124,7 @@
 			"needsAtLeastOne": "Добавьте хотя бы один поддерживаемый URL, чтобы продолжить.",
 			"reject": {"duplicate": "Дубликат"}
 		},
+		"tabsNavAria": "Навигация по профилям загрузки",
 		"mixedPrompt": {
 			"title": "Эта ссылка — часть Playlist",
 			"body": "Хочешь скачать только то видео, на которое нажал, или выбрать из Playlist? Дальше сможешь указать конкретные видео или диапазон.",
@@ -187,6 +188,7 @@
 			"mascotIdle": "Кинь ссылку, а Arroxy всё заберёт ✨",
 			"mascotBusy": "Качаю в фоне… могу делать несколько дел сразу 😎",
 			"advanced": "Дополнительно",
+			"settings": {"inputHeading": "Ввод", "behaviorHeading": "Поведение загрузки", "behaviorDescription": "Глобальное поведение, влияющее также на загрузки, запускаемые профилями."},
 			"clearAria": "Очистить URL",
 			"clipboard": {
 				"toggle": "Следить за буфером обмена",

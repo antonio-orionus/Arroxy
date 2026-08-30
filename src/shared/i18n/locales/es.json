@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Atrás", "cancel": "Cancelar", "continue": "Continuar", "retry": "Reintentar", "startOver": "Empezar de nuevo"},
+	"common": {"back": "Atrás", "cancel": "Cancelar", "continue": "Continuar", "loading": "Cargando…", "retry": "Reintentar", "startOver": "Empezar de nuevo"},
 	"app": {"feedback": "Comentarios", "logs": "Registros", "feedbackNudge": "¿Disfrutando Arroxy? ¡Me encantaría saber de ti! 💬", "zoomIn": "Acercar", "zoomOut": "Alejar"},
 	"about": {"button": "Acerca de", "openTitle": "Acerca de Arroxy", "tagline": "Descargador rápido y amigable para YouTube y más de 2000 sitios.", "websiteLink": "Sitio web", "githubLink": "GitHub", "licenseLine": "Licencia MIT · por Antonio Orionus", "thirdPartyNotices": "Ver avisos de terceros"},
 	"titleBar": {"close": "Cerrar", "minimize": "Minimizar", "maximize": "Maximizar", "restore": "Restaurar"},
@@ -124,6 +124,7 @@
 			"needsAtLeastOne": "Añade al menos una URL compatible para continuar.",
 			"reject": {"duplicate": "Duplicado"}
 		},
+		"tabsNavAria": "Navegación de perfiles de descarga",
 		"mixedPrompt": {
 			"title": "Este enlace tiene una Playlist",
 			"body": "¿Solo el video en el que hiciste clic o prefieres elegir de la Playlist? En el siguiente paso podrás seleccionar videos concretos o un rango.",
@@ -187,6 +188,7 @@
 			"mascotIdle": "Suelta un enlace y deja que Arroxy lo traiga ✨",
 			"mascotBusy": "Descargando en segundo plano… puedo hacer varias cosas a la vez 😎",
 			"advanced": "Avanzado",
+			"settings": {"inputHeading": "Entrada", "behaviorHeading": "Comportamiento de descarga", "behaviorDescription": "Comportamiento global que también afecta a las descargas controladas por perfiles."},
 			"clearAria": "Borrar URL",
 			"clipboard": {
 				"toggle": "Vigilar portapapeles",

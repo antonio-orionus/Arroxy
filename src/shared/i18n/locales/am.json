@@ -1,5 +1,5 @@
 {
-	"common": {"back": "ተመለስ", "cancel": "ሰርዝ", "continue": "ቀጥል", "retry": "እንደገና ሞክር", "startOver": "ከመጀመሪያ ጀምር"},
+	"common": {"back": "ተመለስ", "cancel": "ሰርዝ", "continue": "ቀጥል", "loading": "በመጫን ላይ…", "retry": "እንደገና ሞክር", "startOver": "ከመጀመሪያ ጀምር"},
 	"app": {"feedback": "አስተያየት", "logs": "ምዝግቦች", "feedbackNudge": "Arroxy ደስ ይለዎታል? አስተያየትዎን ማካፈል ይፈልጋሉ! 💬", "zoomIn": "አቅርብ", "zoomOut": "አርቅ"},
 	"about": {"button": "ስለ", "openTitle": "ስለ Arroxy", "tagline": "ለYouTube እና ለ2000+ ሌሎች ጣቢያዎች ፈጣን እና ምቹ አውርጅ።", "websiteLink": "ድረ-ገጽ", "githubLink": "GitHub", "licenseLine": "MIT ፈቃድ · በ Antonio Orionus", "thirdPartyNotices": "የሦስተኛ ወገን ማስታወቂያዎችን ይመልከቱ"},
 	"titleBar": {"close": "ዝጋ", "minimize": "አሳንስ", "maximize": "አሰፋ", "restore": "መልስ"},
@@ -115,6 +115,7 @@
 			"needsAtLeastOne": "ለመቀጠል ቢያንስ አንድ የሚደገፍ URL ጨምር።",
 			"reject": {"duplicate": "ተደጋጋሚ"}
 		},
+		"tabsNavAria": "የማውረድ መገለጫ አሰሳ",
 		"mixedPrompt": {
 			"title": "ይህ ሊንክ Playlist አለው",
 			"body": "የጠቀሱትን ቪዲዮ ብቻ ይፈልጋሉ፣ ወይስ ከ Playlist ይምረጣሉ? በቀጣዩ ደረጃ የተወሰኑ ቪዲዮዎችን ወይም ክልል ይምረጣሉ።",
@@ -178,6 +179,7 @@
 			"mascotIdle": "አገናኝ ጣል፣ Arroxy እንዲያወርደው ተወው ✨",
 			"mascotBusy": "በዳራ ዳውንሎድ እያደረጉ ነው… ብዙ ስራ አሰራ 😎",
 			"advanced": "ከፍተኛ",
+			"settings": {"inputHeading": "ግብዓት", "behaviorHeading": "የዳውንሎድ ባህሪ", "behaviorDescription": "ከመገለጫዎች ጋር የሙመና ዳውንሎዶችን የሚጨብጥ ዓለም አቀሚ ባህሪ."},
 			"clearAria": "URL አጽዳ",
 			"clipboard": {
 				"toggle": "ቅጂ ሰሌዳ ተቆጣጠር",

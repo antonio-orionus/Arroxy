@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Rudi", "cancel": "Ghairi", "continue": "Endelea", "retry": "Jaribu tena", "startOver": "Anza upya"},
+	"common": {"back": "Rudi", "cancel": "Ghairi", "continue": "Endelea", "loading": "Inapakia…", "retry": "Jaribu tena", "startOver": "Anza upya"},
 	"app": {"feedback": "Maoni", "logs": "Kumbukumbu", "feedbackNudge": "Unafurahia Arroxy? Ningependa kusikia kutoka kwako! 💬", "zoomIn": "Kuza", "zoomOut": "Punguza"},
 	"about": {"button": "Kuhusu", "openTitle": "Kuhusu Arroxy", "tagline": "Kipakua cha haraka na rahisi kwa YouTube na tovuti nyingine 2000+.", "websiteLink": "Tovuti", "githubLink": "GitHub", "licenseLine": "Leseni ya MIT · na Antonio Orionus", "thirdPartyNotices": "Tazama notisi za wengine"},
 	"titleBar": {"close": "Funga", "minimize": "Punguza", "maximize": "Panua", "restore": "Rejesha"},
@@ -124,6 +124,7 @@
 			"needsAtLeastOne": "Ongeza angalau URL moja inayotumika ili kuendelea.",
 			"reject": {"duplicate": "Imerudiwa"}
 		},
+		"tabsNavAria": "Urambazaji wa wasifu wa upakuaji",
 		"mixedPrompt": {
 			"title": "Kiungo hiki kina Playlist",
 			"body": "Unataka video uliyobofya tu, au uchague kutoka Playlist? Hatua inayofuata utachagua video maalum au anuwai.",
@@ -187,6 +188,7 @@
 			"mascotIdle": "Weka kiungo, Arroxy aipakue ✨",
 			"mascotBusy": "Inapakua nyuma ya pazia… Ninaweza kufanya mambo mengi kwa wakati mmoja 😎",
 			"advanced": "Hali ya juu",
+			"settings": {"inputHeading": "Ingizo", "behaviorHeading": "Tabia ya kupakua", "behaviorDescription": "Tabia ya jumla inayothibiti pia upakuaji unaotumia wasifu."},
 			"clearAria": "Futa URL",
 			"clipboard": {
 				"toggle": "Angalia ubao wa kunakili",
