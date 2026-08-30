@@ -1,0 +1,74 @@
+name: Startup Nightly
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  BUN_VERSION: '1.2.23'
+
+jobs:
+  degraded:
+    name: Degraded startup (${{ matrix.label }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            label: linux
+            build_cmd: bun run dist:linux:dir
+          - os: macos-latest
+            label: macos-arm64
+            build_cmd: bun run dist:mac:arm64:dir
+          - os: windows-latest
+            label: windows
+            build_cmd: bun run dist:win:dir
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+      - run: bun install --frozen-lockfile
+      - run: ${{ matrix.build_cmd }}
+        env:
+          BTBN_GITHUB_TOKEN: ${{ github.token }}
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Locate packaged executable
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            exe=$(find dist -name "Arroxy" -path "*/MacOS/Arroxy" | head -1)
+          elif [ "$RUNNER_OS" = "Windows" ]; then
+            exe="dist/win-unpacked/Arroxy.exe"
+          else
+            exe="dist/linux-unpacked/arroxy"
+          fi
+          echo "PACKAGED_EXE=$GITHUB_WORKSPACE/$exe" >> "$GITHUB_ENV"
+      - run: bunx playwright install chromium --with-deps
+      - name: Verify startup (nightly tier)
+        shell: bash
+        env:
+          ARROXY_COLD_TMPDIR: ${{ runner.temp }}
+          ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/arroxy-startup-logs
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            xvfb-run -a bun run verify:startup --tier nightly
+          else
+            bun run verify:startup --tier nightly
+          fi
+      - name: Upload startup verdicts
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: startup-nightly-${{ matrix.label }}
+          path: ${{ runner.temp }}/arroxy-startup-logs
+          if-no-files-found: error
+          retention-days: 14
