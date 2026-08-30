@@ -73,3 +73,35 @@ jobs:
           path: ${{ runner.temp }}/arroxy-startup-logs
           if-no-files-found: error
           retention-days: 14
+  notify:
+    name: Report nightly failure
+    needs: degraded
+    if: failure()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Open or update the nightly failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          existing=$(gh issue list --label startup-nightly --state open --limit 1 --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Startup nightly failed again: $RUN_URL"
+            echo "commented on #$existing"
+            exit 0
+          fi
+          gh issue create --title "Startup nightly is failing" --label startup-nightly --body "$(cat <<EOF
+          The scheduled startup verification run failed. Startup verification is
+          the only automated Windows and macOS startup coverage while
+          \`startup-gate\` is unwired, so a red nightly is a real gap, not noise.
+
+          Run: $RUN_URL
+
+          Context: \`dev-docs/startup-verification.md\`
+          EOF
+          )"
