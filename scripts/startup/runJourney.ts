@@ -37,8 +37,10 @@ export function buildJourneyEnv(journey: StartupJourney, ctx: RunContext, profil
 	delete env.ELECTRON_RUN_AS_NODE
 
 	// ARROXY_E2E would swap in MockTokenProvider and the fixture yt-dlp plugin,
-	// mocking away the very branches these journeys exist to verify.
+	// mocking away the very branches these journeys exist to verify; MOCK_BACKEND
+	// would stub the backend the same way.
 	delete env.ARROXY_E2E
+	delete env.MOCK_BACKEND
 
 	if (journey.pathContamination && ctx.fakeToolsDir) {
 		env.PATH = `${ctx.fakeToolsDir}${path.delimiter}${env.PATH ?? ''}`
@@ -51,6 +53,20 @@ async function observeOutcome(page: Page): Promise<ExpectedOutcome> {
 	const splash = page.locator('[data-testid="splash-overlay"]')
 	const repair = page.locator('[data-testid="splash-overlay"][data-state="blocked"]')
 
+	// The splash must be observed ATTACHED before waiting for it to detach. A
+	// bare `detached` wait resolves instantly against the pre-mount DOM — the
+	// element simply does not exist before React mounts — so the first packaged
+	// run of this harness "observed" main-screen 773ms into a cold boot while
+	// warmup was still running, and read a main.log that could not yet contain
+	// the warmup summary. WarmupSplash holds the overlay for MIN_MS (800ms), so
+	// the attached phase is always observable.
+	await splash.waitFor({state: 'attached', timeout: MILESTONE_TIMEOUT_MS})
+
+	// Detach is the real milestone: the renderer sets `initialized` only after
+	// the warmup promise settles, and the splash fades only after `initialized`
+	// — so a detached splash guarantees the warmup summary is already in
+	// main.log for the oracle to read. The blocked variant never detaches (it
+	// stays mounted as the repair container), so it resolves the race itself.
 	return Promise.race([splash.waitFor({state: 'detached', timeout: MILESTONE_TIMEOUT_MS}).then((): ExpectedOutcome => 'main-screen'), repair.waitFor({state: 'attached', timeout: MILESTONE_TIMEOUT_MS}).then((): ExpectedOutcome => 'repair-panel')])
 }
 

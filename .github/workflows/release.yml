@@ -112,13 +112,14 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          ARROXY_STARTUP_TIER: release
           ARROXY_COLD_TMPDIR: ${{ runner.temp }}
           ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/arroxy-startup-logs
         run: |
           if [ "$RUNNER_OS" = "Linux" ]; then
-            xvfb-run -a bun run verify:startup --tier release
+            xvfb-run -a bun run verify:startup
           else
-            bun run verify:startup --tier release
+            bun run verify:startup
           fi
       - name: Upload startup verdicts
         if: always()

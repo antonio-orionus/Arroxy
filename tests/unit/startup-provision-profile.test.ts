@@ -36,6 +36,17 @@ describe('provisionProfile', () => {
 		await expect(provisionProfile({kind: 'warm', baseDir: tempBase()})).rejects.toThrow(/warmSource/)
 	})
 
+	it('drops the copied session log so the oracle judges only the new session', async () => {
+		const base = tempBase()
+		const warmSource = path.join(base, 'warm-source')
+		fs.mkdirSync(path.join(warmSource, 'logs'), {recursive: true})
+		fs.writeFileSync(path.join(warmSource, 'logs', 'main.log'), 'stale Warmup completed')
+
+		const profile = await provisionProfile({kind: 'warm', baseDir: tempBase(), warmSource})
+
+		expect(fs.existsSync(path.join(profile, 'logs', 'main.log'))).toBe(false)
+	})
+
 	it('preserves mtime when copying a profile', () => {
 		const base = tempBase()
 		const from = path.join(base, 'from')

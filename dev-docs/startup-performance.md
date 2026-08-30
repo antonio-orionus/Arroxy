@@ -164,7 +164,14 @@ report success.
   `MockTokenProvider` and a fixture yt-dlp plugin, mocking away the exact
   branches these journeys exist to verify.
 
-Three tiers, run via `bun run verify:startup --tier <pr|release|nightly>`:
+Three tiers, run via `ARROXY_STARTUP_TIER=<pr|release|nightly> bun run verify:startup`
+(with `PACKAGED_EXE` pointing at the packaged executable — both are set by the
+workflows). The harness entry point is `tests/e2e/startup-journeys.spec.ts`, a
+Playwright Test spec rather than a bare script: `_electron.launch()` hangs
+indefinitely when called from a script executed directly by Bun, while the
+Playwright CLI — which `bunx` resolves through its `#!/usr/bin/env node`
+shebang into a real Node process — launches reliably. The tier rides in an
+environment variable because a spec file cannot take CLI args.
 
 | Tier | Where | Covers |
 | --- | --- | --- |

@@ -66,6 +66,7 @@ export async function provisionProfile(opts: ProvisionOptions): Promise<string> 
 		const dir = path.join(baseDir, 'profile-warm')
 		fs.rmSync(dir, {recursive: true, force: true})
 		copyProfilePreservingMtime(opts.warmSource, dir)
+		dropCopiedLogs(dir)
 		return dir
 	}
 
@@ -73,5 +74,17 @@ export async function provisionProfile(opts: ProvisionOptions): Promise<string> 
 	const dir = path.join(baseDir, 'profile-inherited')
 	fs.rmSync(dir, {recursive: true, force: true})
 	copyProfilePreservingMtime(opts.inheritedSource, dir)
+	dropCopiedLogs(dir)
 	return dir
+}
+
+/**
+ * The log oracle must judge only the session under test. A copied profile
+ * carries the seeding session's main.log — a stale "Warmup completed" from that
+ * session would satisfy this session's oracle even if its own warmup never
+ * logged — and for `inherited`, the previous release's warnings and errors would
+ * pollute this build's verdict. electron-log recreates the file on demand.
+ */
+function dropCopiedLogs(dir: string): void {
+	fs.rmSync(path.join(dir, 'logs'), {recursive: true, force: true})
 }

@@ -17,6 +17,17 @@ describe('buildJourneyEnv', () => {
 		expect(env.ELECTRON_RUN_AS_NODE).toBeUndefined()
 	})
 
+	it('never leaks MOCK_BACKEND into the app env', () => {
+		const previous = process.env.MOCK_BACKEND
+		process.env.MOCK_BACKEND = '1'
+		try {
+			expect(buildJourneyEnv(BASE, {...CTX}, '/tmp/profile').MOCK_BACKEND).toBeUndefined()
+		} finally {
+			if (previous === undefined) delete process.env.MOCK_BACKEND
+			else process.env.MOCK_BACKEND = previous
+		}
+	})
+
 	it('applies journey env overrides', () => {
 		const journey = {...BASE, env: {ARROXY_GPU_MODE: 'software'}}
 		expect(buildJourneyEnv(journey, CTX, '/tmp/profile').ARROXY_GPU_MODE).toBe('software')
