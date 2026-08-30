@@ -1,10 +1,7 @@
 import type {LogPolicy} from './logOracle.js'
 
 export type StartupTier = 'pr' | 'release' | 'nightly'
-export const TIERS_UNDER_TEST: readonly StartupTier[] = ['pr', 'release', 'nightly']
-
-/** The provisioner's dispatch key. `ProfileSpec` is what a journey declares. */
-export type ProfileKind = 'empty' | 'inherited' | 'warm' | 'corrupt'
+export const STARTUP_TIERS: readonly StartupTier[] = ['pr', 'release', 'nightly']
 
 /**
  * A `warm` profile names the journey it is cloned from. Ordering used to be an
@@ -13,6 +10,9 @@ export type ProfileKind = 'empty' | 'inherited' | 'warm' | 'corrupt'
  * find out. Naming the seeder makes that a preflight failure instead.
  */
 export type ProfileSpec = {kind: 'empty'} | {kind: 'corrupt'} | {kind: 'inherited'} | {kind: 'warm'; from: string}
+
+/** The provisioner's dispatch key — derived from `ProfileSpec`, so it cannot drift from what journeys declare. */
+export type ProfileKind = ProfileSpec['kind']
 export type ExpectedOutcome = 'main-screen' | 'repair-panel'
 
 export interface StartupJourney {
@@ -52,18 +52,26 @@ export function journeysForTier(tier: StartupTier): StartupJourney[] {
 }
 
 /**
- * Runs before any launch. A tier that selects a warm journey without its seeder
- * ahead of it is not runnable, and must say so in one line rather than burning
- * a runner per platform to discover it.
+ * Runs before any launch. A tier is not runnable when a warm journey's seeder
+ * is not ahead of it, or when that seeder can never reach the main screen — the
+ * runner only snapshots a warm source from a passing main-screen verdict. Each
+ * problem must say so in one line rather than burning a runner per platform to
+ * discover it.
  */
 export function validateJourneySequence(journeys: readonly StartupJourney[], tier: StartupTier): string[] {
 	if (journeys.length === 0) return [`tier "${tier}" selects no journeys`]
 
 	const problems: string[] = []
+	const byId = new Map(journeys.map(journey => [journey.id, journey]))
 	const earlier = new Set<string>()
 	for (const journey of journeys) {
-		if (journey.profile.kind === 'warm' && !earlier.has(journey.profile.from)) {
-			problems.push(`${journey.id}: warm profile is seeded from "${journey.profile.from}", which does not run earlier in tier "${tier}"`)
+		if (journey.profile.kind === 'warm') {
+			const seeder = byId.get(journey.profile.from)
+			if (!earlier.has(journey.profile.from)) {
+				problems.push(`${journey.id}: warm profile is seeded from "${journey.profile.from}", which does not run earlier in tier "${tier}"`)
+			} else if (seeder && seeder.expect !== 'main-screen') {
+				problems.push(`${journey.id}: warm profile is seeded from "${journey.profile.from}", which expects ${seeder.expect} and can never seed a warm source`)
+			}
 		}
 		earlier.add(journey.id)
 	}

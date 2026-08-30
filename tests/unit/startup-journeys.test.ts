@@ -24,17 +24,13 @@ describe('journey catalog', () => {
 		expect(release.find(journey => journey.id === 'inherited-update')?.profile).toEqual({kind: 'inherited'})
 	})
 
-	it('keeps degraded journeys out of the blocking tiers', () => {
+	it('keeps degraded staging — PATH contamination or env overrides — out of the blocking tiers', () => {
 		for (const tier of ['pr', 'release'] as const) {
 			for (const journey of journeysForTier(tier)) {
 				expect(journey.pathContamination ?? false).toBe(false)
 				expect(Object.keys(journey.env)).toEqual([])
 			}
 		}
-	})
-
-	it('expects the main screen from every journey it still ships', () => {
-		for (const journey of JOURNEYS) expect(journey.expect).toBe('main-screen')
 	})
 
 	it("waives the gpu-info warning the no-gpu journey's own mode provokes", () => {

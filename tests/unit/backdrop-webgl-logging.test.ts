@@ -1,10 +1,11 @@
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {createWebglProgram} from '../../src/renderer/src/components/layout/background/webgl.js'
 
-// The backdrop probe tries a scratch WebGL program and falls back to CSS when
-// it fails — a compile or link failure is an expected probe outcome, not an
-// error. Logging it at error severity leaks into main.log as an error line and
-// fails the startup oracle on GPU-less runners (issue: macOS no-gpu nightly).
+// The backdrop probe compiles the repo's constant GLSL on the machine's real GL
+// and falls back to CSS when it fails — a compile or link failure is therefore
+// a driver rejection of valid shaders (an expected probe outcome), not a
+// regression signal. Error severity leaked into main.log as error lines and
+// failed the startup oracle on constrained runners (nightly run 2, macOS no-gpu).
 
 function failingCompileGl() {
 	return {createShader: () => ({}), shaderSource: () => undefined, compileShader: () => undefined, getShaderParameter: () => false, getShaderInfoLog: () => 'simulated compile failure', deleteShader: () => undefined} as unknown as WebGLRenderingContext

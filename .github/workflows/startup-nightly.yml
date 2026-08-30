@@ -74,19 +74,31 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   notify:
-    name: Report nightly failure
+    name: Report nightly result
     needs: degraded
-    if: failure()
+    if: always()
     runs-on: ubuntu-latest
     permissions:
       contents: read
       issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
     steps:
+      - name: Close the nightly failure issue on recovery
+        if: success()
+        run: |
+          set -euo pipefail
+          existing=$(gh issue list --label startup-nightly --state open --limit 1 --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue close "$existing" --comment "Startup nightly green again: $RUN_URL"
+            echo "closed #$existing"
+          else
+            echo "no open startup-nightly issue"
+          fi
       - name: Open or update the nightly failure issue
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        if: failure()
         run: |
           set -euo pipefail
           existing=$(gh issue list --label startup-nightly --state open --limit 1 --json number --jq '.[0].number // empty')

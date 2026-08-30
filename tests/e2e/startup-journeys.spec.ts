@@ -5,7 +5,7 @@ import path from 'node:path'
 import {expect, test} from '@playwright/test'
 import {checkVerdicts} from '../../scripts/startup/checkVerdicts.js'
 import {generateInheritedProfile, previousStableTag} from '../../scripts/startup/fetchPreviousRelease.js'
-import {journeysForTier, TIERS_UNDER_TEST, validateTier, type StartupTier} from '../../scripts/startup/journeys.js'
+import {journeysForTier, STARTUP_TIERS, validateJourneySequence, type StartupTier} from '../../scripts/startup/journeys.js'
 import {copyProfilePreservingMtime} from '../../scripts/startup/provisionProfile.js'
 import {runJourney, type JourneyVerdict, type RunContext} from '../../scripts/startup/runJourney.js'
 
@@ -32,7 +32,7 @@ test.setTimeout(35 * 60 * 1000)
 
 function tierFromEnv(): StartupTier {
 	const raw = process.env.ARROXY_STARTUP_TIER ?? 'pr'
-	if (!TIERS_UNDER_TEST.includes(raw as StartupTier)) throw new Error(`startup-journeys: ARROXY_STARTUP_TIER="${raw}" is not one of ${TIERS_UNDER_TEST.join(', ')}`)
+	if (!STARTUP_TIERS.includes(raw as StartupTier)) throw new Error(`startup-journeys: ARROXY_STARTUP_TIER="${raw}" is not one of ${STARTUP_TIERS.join(', ')}`)
 	return raw as StartupTier
 }
 
@@ -57,7 +57,7 @@ test('every declared journey reaches its expected end state with clean logs', as
 	if (archive) fs.mkdirSync(archive, {recursive: true})
 
 	const journeys = journeysForTier(tier)
-	const problems = validateTier(tier)
+	const problems = validateJourneySequence(journeys, tier)
 	if (problems.length > 0) throw new Error(`startup-journeys: tier "${tier}" is not runnable:\n  - ${problems.join('\n  - ')}`)
 
 	// Each journey that some warm journey names as its seeder gets its profile

@@ -25,7 +25,7 @@ Invocation: `ARROXY_STARTUP_TIER=<tier> PACKAGED_EXE=<exe> bun run verify:startu
 2. **Verdict accounting is the pass signal, not exit codes.** A missing verdict is a failure, so "ran nothing" and "passed" can never produce the same result. Confirmed on its first nightly run: the no-warm-source defect surfaced as loud red, not a fake pass.
 3. **A pure log oracle over `main.log`.** UI milestones alone cannot see silent fallbacks, swallowed exceptions, or unsettled warmup branches; the logs are already captured as CI artifacts, so asserting on them is close to free.
 4. **PR gate is Linux-only.** Runner economics; multi-platform startup confidence belongs at tag time. Full trade-off and the incident behind it: ADR 0006.
-5. **Release gate runs advisory until soaked.** A flaky gate blocking every release is worse than the gap it replaces. Wire `startup-gate` into `prepare-release` once `startup-gate` itself has run green on all three platforms across three consecutive tags (beta tags count — the job already runs on every `v*`). PR-tier green is not evidence for it: the release tier runs `inherited-update` on two platforms the PR tier never touches. Review date if the tags have not happened by then: 2026-10-01.
+5. **Release gate runs advisory until soaked.** A flaky gate blocking every release is worse than the gap it replaces. Wire `startup-gate` into `prepare-release` once its soak criterion — stated verbatim in the NOTE above `startup-gate` in `release.yml`, the single source for the criterion and the review date — is met. PR-tier green is not evidence for it: the release tier runs `inherited-update` on two platforms the PR tier never touches.
 6. **Entry point is a Playwright Test spec, not a bare CLI script.** `_electron.launch()` hangs indefinitely under Bun; every working Electron launch in the repo rides the Playwright CLI, which `bunx` resolves through its `#!/usr/bin/env node` shebang into real Node. The tier rides in `ARROXY_STARTUP_TIER` because a spec takes no CLI args.
 7. **Degraded journeys run nightly, non-blocking.** Forced offline (descoped — see Known gaps), software rendering, and PATH poisoning are inherently flaky to stage; gating every PR on them would make the gate flaky. Non-blocking still catches drift within a day.
 8. **Profile copies preserve mtime and drop copied logs.** `ProbeVerdictCache` keys on mtime, so `cp -R` silently invalidates the cache under test; a copied `main.log` would let a stale "Warmup completed" satisfy the oracle for the wrong session.
@@ -36,7 +36,7 @@ Invocation: `ARROXY_STARTUP_TIER=<tier> PACKAGED_EXE=<exe> bun run verify:startu
 
 1. **Wire `startup-gate` into `prepare-release`** after the soak (see decision 5). Until then a broken macOS cold start can ship.
 
-Fixed or resolved: the nightly's unseedable warm journeys (fixed — `fresh-cold` seeds the tier, named via decision 10) and the unenforceable `offline-no-cache` journey (descoped, see Known gaps). Nightly failures open a `startup-nightly` issue automatically (`startup-nightly.yml` `notify` job), so a red nightly reaches a human the same day.
+Fixed or resolved: the nightly's unseedable warm journeys (fixed — `fresh-cold` seeds the tier, named via decision 10) and the unenforceable `offline-no-cache` journey (descoped, see Known gaps). Nightly failures open a `startup-nightly` issue automatically (`startup-nightly.yml` `notify` job), so a red nightly reaches a human the same day, and the first green run closes the issue again.
 
 ## Known gaps
 
