@@ -20,7 +20,7 @@ describe('journey catalog', () => {
 	it('gates the update-over-previous-version journey on release', () => {
 		const release = journeysForTier('release')
 		expect(release.map(journey => journey.id)).toContain('inherited-update')
-		expect(release.find(journey => journey.id === 'inherited-update')?.profile).toBe('inherited')
+		expect(release.find(journey => journey.id === 'inherited-update')?.profile).toEqual({kind: 'inherited'})
 	})
 
 	it('keeps degraded journeys out of the blocking tiers', () => {
