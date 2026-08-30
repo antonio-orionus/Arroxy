@@ -8,7 +8,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## 0.4.8
+## 0.4.8-beta.1
 
 Arroxy speaks Brazilian Portuguese now, starts noticeably faster, and a fresh install stops downloading yt-dlp three times over before it will start.
 
