@@ -125,6 +125,7 @@
 			"reject": {"duplicate": "تکراري"}
 		},
 		"tabsNavAria": "د ښکته کولو پروفایل ناوېګیشن",
+		"profileSwitchRow": {"helpAria": "{{label}} مرسته"},
 		"mixedPrompt": {
 			"title": "دا لینک یو Playlist لري",
 			"body": "یوازې هغه ویډیو چې کلیک مو کاوه، که د Playlist نه غوره کول غواړئ؟ بعد به ځانګړي ویډیوګانې یا سلسله غوره کړئ.",
@@ -304,6 +305,7 @@
 			"noMatches": "هیڅ ژبه سره برابره نه ده",
 			"clearAll": "ټول پاکول",
 			"noSelected": "هیڅ ژباړلیک غوره نه دی شوی",
+			"removeLanguage": "{{name}} لرې کړئ",
 			"selectedNote_one": "{{count}} ژباړلیک به ډاونلوډ شي",
 			"selectedNote_other": "{{count}} ژباړلیکونه به ډاونلوډ شي",
 			"sectionManual": "لاسي",
@@ -463,6 +465,7 @@
 				"setOverride": "د پروفایل بدیل وټاکئ",
 				"chooseFolder": "د موخې پوښۍ وټاکئ",
 				"addLanguage": "زیاتول",
+				"removeLanguage": "{{code}} لرې کړئ",
 				"changeGlobalShort": "ټولیز بدلول",
 				"setOverrideShort": "بدیل وټاکئ",
 				"useGlobalDefault": "ټولیزه اصلي ارزښت وکاروئ",

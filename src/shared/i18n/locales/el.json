@@ -125,6 +125,7 @@
 			"reject": {"duplicate": "Διπλότυπο"}
 		},
 		"tabsNavAria": "Πλοήγηση προφίλ λήψης",
+		"profileSwitchRow": {"helpAria": "Βοήθεια για {{label}}"},
 		"mixedPrompt": {
 			"title": "Αυτός ο σύνδεσμος έχει playlist",
 			"body": "Θέλεις μόνο το βίντεο που έκανες κλικ, ή να επιλέξεις από την playlist; Θα διαλέξεις συγκεκριμένα βίντεο ή εύρος στη συνέχεια.",
@@ -304,6 +305,7 @@
 			"noMatches": "Δεν βρέθηκαν γλώσσες",
 			"clearAll": "Εκκαθάριση όλων",
 			"noSelected": "Δεν έχουν επιλεγεί υπότιτλοι",
+			"removeLanguage": "Αφαίρεση {{name}}",
 			"selectedNote_one": "Θα ληφθεί {{count}} υπότιτλος",
 			"selectedNote_other": "Θα ληφθούν {{count}} υπότιτλοι",
 			"sectionManual": "Χειροκίνητο",
@@ -463,6 +465,7 @@
 				"setOverride": "Ορισμός παράκαμψης προφίλ",
 				"chooseFolder": "Επιλογή φακέλου προορισμού",
 				"addLanguage": "Προσθήκη",
+				"removeLanguage": "Αφαίρεση {{code}}",
 				"changeGlobalShort": "Αλλαγή γενικού",
 				"setOverrideShort": "Ορισμός παράκαμψης",
 				"useGlobalDefault": "Χρήση γενικής προεπιλογής",

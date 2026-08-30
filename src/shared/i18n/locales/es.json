@@ -125,6 +125,7 @@
 			"reject": {"duplicate": "Duplicado"}
 		},
 		"tabsNavAria": "Navegación de perfiles de descarga",
+		"profileSwitchRow": {"helpAria": "Ayuda de {{label}}"},
 		"mixedPrompt": {
 			"title": "Este enlace tiene una Playlist",
 			"body": "¿Solo el video en el que hiciste clic o prefieres elegir de la Playlist? En el siguiente paso podrás seleccionar videos concretos o un rango.",
@@ -304,6 +305,7 @@
 			"noMatches": "No hay idiomas que coincidan",
 			"clearAll": "Eliminar todo",
 			"noSelected": "Sin subtítulos seleccionados",
+			"removeLanguage": "Quitar {{name}}",
 			"selectedNote_one": "Se descargará {{count}} subtítulo",
 			"selectedNote_other": "Se descargarán {{count}} subtítulos",
 			"sectionManual": "Manual",
@@ -463,6 +465,7 @@
 				"setOverride": "Definir anulación del perfil",
 				"chooseFolder": "Elegir carpeta de destino",
 				"addLanguage": "Añadir",
+				"removeLanguage": "Quitar {{code}}",
 				"changeGlobalShort": "Cambiar global",
 				"setOverrideShort": "Definir anulación",
 				"useGlobalDefault": "Usar el valor global",

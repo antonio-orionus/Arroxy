@@ -133,6 +133,7 @@
 			"reject": {"duplicate": "Дупликат"}
 		},
 		"tabsNavAria": "Навигација кроз профиле преузимања",
+		"profileSwitchRow": {"helpAria": "Pomoć za {{label}}"},
 		"mixedPrompt": {
 			"title": "Овај линк је из плејлисте",
 			"body": "Желиш само видео на који си кликнуо, или да бираш из плејлисте? Следећи корак ти омогућава да одабереш одређене видеосе или распон.",
@@ -312,6 +313,7 @@
 			"noMatches": "Нема пронађених језика",
 			"clearAll": "Обриши све",
 			"noSelected": "Нема изабраних титлова",
+			"removeLanguage": "Ukloni {{name}}",
 			"selectedNote_one": "{{count}} титл ће бити преузет",
 			"selectedNote_other": "{{count}} титлова ће бити преузето",
 			"sectionManual": "Ручно",
@@ -471,6 +473,7 @@
 				"setOverride": "Постави замену профила",
 				"chooseFolder": "Изабери одредишну фасциклу",
 				"addLanguage": "Додај",
+				"removeLanguage": "Ukloni {{code}}",
 				"changeGlobalShort": "Промени опште",
 				"setOverrideShort": "Постави замену",
 				"useGlobalDefault": "Користи општу подразумевану вредност",

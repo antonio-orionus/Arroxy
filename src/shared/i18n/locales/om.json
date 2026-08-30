@@ -137,6 +137,7 @@
 			"reject": {"duplicate": "Irra-deebi"}
 		},
 		"tabsNavAria": "Qajeelfama piroofaayilii buufataa",
+		"profileSwitchRow": {"helpAria": "Gargaarsa {{label}}"},
 		"mixedPrompt": {
 			"title": "Liinkin kun Playlist qaba",
 			"body": "Viidiyoo tokko kana filadda, moo Playlist keessaa barbaadda? Viidiyoowwan addaddaa yookaan kutaa filattu itti aanu.",
@@ -316,6 +317,7 @@
 			"noMatches": "Afaan hin argatamne",
 			"clearAll": "Hunda qulqulleessi",
 			"noSelected": "Axxiinni hin filamine",
+			"removeLanguage": "{{name}} balleessi",
 			"selectedNote_one": "Axxiinni {{count}} ni buufama",
 			"selectedNote_other": "Axxiinnota {{count}} ni buufamu",
 			"sectionManual": "Harkaan",
@@ -475,6 +477,7 @@
 				"setOverride": "Bakka bu'iinsa piroofaayilii qindeessi",
 				"chooseFolder": "Galee ga'umsaa filadhu",
 				"addLanguage": "Dabali",
+				"removeLanguage": "{{code}} balleessi",
 				"changeGlobalShort": "Waliigalaa jijjiiri",
 				"setOverrideShort": "Bakka bu'iinsa qindeessi",
 				"useGlobalDefault": "Durtii waliigalaa fayyadami",

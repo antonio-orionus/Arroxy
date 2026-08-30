@@ -1889,6 +1889,10 @@ msgctxt "wizard.profileEditor.action.chooseIcon"
 msgid "Choose profile icon"
 msgstr "Profil belgisini tanlang"
 
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "{{code}}ni olib tashlash"
+
 msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Profilni tiklash"
@@ -2189,6 +2193,10 @@ msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
 msgid "M4A / AAC"
 msgstr "M4A / AAC"
 
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "{{label}} yordami"
+
 msgctxt "wizard.quickProgress.cancel"
 msgid "Cancel preparation"
 msgstr "Tayyorlashni bekor qilish"
@@ -2364,6 +2372,10 @@ msgstr "Mos til topilmadi"
 msgctxt "wizard.subtitles.noSelected"
 msgid "No subtitles selected"
 msgstr "Hech qanday subtitrl tanlanmagan"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "{{name}}ni olib tashlash"
 
 msgctxt "wizard.subtitles.saveMode.embed"
 msgid "Embed into video"

@@ -1889,6 +1889,10 @@ msgctxt "wizard.profileEditor.action.chooseIcon"
 msgid "Choose profile icon"
 msgstr "Chagua aikoni ya wasifu"
 
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Ondoa {{code}}"
+
 msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Weka upya wasifu"
@@ -2189,6 +2193,10 @@ msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
 msgid "M4A / AAC"
 msgstr "M4A / AAC"
 
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "Msaada wa {{label}}"
+
 msgctxt "wizard.quickProgress.cancel"
 msgid "Cancel preparation"
 msgstr "Ghairi maandalizi"
@@ -2364,6 +2372,10 @@ msgstr "Hakuna lugha zinazolingana"
 msgctxt "wizard.subtitles.noSelected"
 msgid "No subtitles selected"
 msgstr "Hakuna manukuu yaliyochaguliwa"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Ondoa {{name}}"
 
 msgctxt "wizard.subtitles.saveMode.embed"
 msgid "Embed into video"

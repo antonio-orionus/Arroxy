@@ -108,6 +108,7 @@
 			"reject": {"duplicate": "重复"}
 		},
 		"tabsNavAria": "下载配置导航",
+		"profileSwitchRow": {"helpAria": "{{label}}帮助"},
 		"mixedPrompt": {
 			"title": "此链接包含 Playlist",
 			"body": "只想下载你点击的那个视频，还是从 Playlist 中挑选？下一步可以选择特定视频或指定范围。",
@@ -282,6 +283,7 @@
 			"noMatches": "没有匹配的语言",
 			"clearAll": "清除全部",
 			"noSelected": "未选择字幕",
+			"removeLanguage": "移除{{name}}",
 			"selectedNote_one": "将下载 {{count}} 个字幕",
 			"selectedNote_other": "将下载 {{count}} 个字幕",
 			"sectionManual": "手动",
@@ -417,7 +419,7 @@
 				"delivery": "保存方式",
 				"overridePath": "配置覆盖路径"
 			},
-			"action": {"chooseIcon": "选择配置图标", "setOverride": "设置配置覆盖", "chooseFolder": "选择目标文件夹", "addLanguage": "添加", "changeGlobalShort": "更改全局", "setOverrideShort": "设置覆盖", "useGlobalDefault": "使用全局默认值", "reset": "重置配置", "save": "保存配置"},
+			"action": {"chooseIcon": "选择配置图标", "setOverride": "设置配置覆盖", "chooseFolder": "选择目标文件夹", "addLanguage": "添加", "removeLanguage": "移除{{code}}", "changeGlobalShort": "更改全局", "setOverrideShort": "设置覆盖", "useGlobalDefault": "使用全局默认值", "reset": "重置配置", "save": "保存配置"},
 			"placeholder": {"folder": "为此配置选择一个文件夹"},
 			"destination": {"global": "全局保存位置", "override": "配置覆盖", "resolved": "最终保存位置"},
 			"note": {"subtitlesOnly": "此配置仅将字幕文件加入队列。视频、音频、SponsorBlock 和媒体转换均会跳过。", "noSubtitles": "此配置不会请求任何字幕文件或内嵌字幕轨道。", "noLanguages": "未选择语言", "autoCaptionsSrt": "自动字幕将保存为 SRT 而非 ASS。", "skippedForOutputType": "此输出类型已跳过。"},

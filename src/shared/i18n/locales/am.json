@@ -116,6 +116,7 @@
 			"reject": {"duplicate": "ተደጋጋሚ"}
 		},
 		"tabsNavAria": "የማውረድ መገለጫ አሰሳ",
+		"profileSwitchRow": {"helpAria": "{{label}} እገዛ"},
 		"mixedPrompt": {
 			"title": "ይህ ሊንክ Playlist አለው",
 			"body": "የጠቀሱትን ቪዲዮ ብቻ ይፈልጋሉ፣ ወይስ ከ Playlist ይምረጣሉ? በቀጣዩ ደረጃ የተወሰኑ ቪዲዮዎችን ወይም ክልል ይምረጣሉ።",
@@ -290,6 +291,7 @@
 			"noMatches": "ምንም ቋንቋ አልተዛመደም",
 			"clearAll": "ሁሉ አጽዳ",
 			"noSelected": "ምንም ንዑስ ርዕስ አልተመረጠም",
+			"removeLanguage": "{{name}} አስወግድ",
 			"selectedNote_one": "{{count}} ንዑስ ርዕስ ዳውንሎድ ይደረጋል",
 			"selectedNote_other": "{{count}} ንዑስ ርዕሶች ዳውንሎድ ይደረጋሉ",
 			"sectionManual": "እጅ ሰራ",
@@ -425,7 +427,18 @@
 				"delivery": "የማስቀመጫ መንገድ",
 				"overridePath": "የመገለጫ ተሻሪ መንገድ"
 			},
-			"action": {"chooseIcon": "የመገለጫ አዶ ይምረጡ", "setOverride": "የመገለጫ ተሻሪ አዘጋጅ", "chooseFolder": "የመድረሻ አቃፊ ይምረጡ", "addLanguage": "አክል", "changeGlobalShort": "አጠቃላይን ቀይር", "setOverrideShort": "ተሻሪ አዘጋጅ", "useGlobalDefault": "አጠቃላይ ነባሪን ተጠቀም", "reset": "መገለጫ ዳግም አስጀምር", "save": "መገለጫ አስቀምጥ"},
+			"action": {
+				"chooseIcon": "የመገለጫ አዶ ይምረጡ",
+				"setOverride": "የመገለጫ ተሻሪ አዘጋጅ",
+				"chooseFolder": "የመድረሻ አቃፊ ይምረጡ",
+				"addLanguage": "አክል",
+				"removeLanguage": "{{code}} አስወግድ",
+				"changeGlobalShort": "አጠቃላይን ቀይር",
+				"setOverrideShort": "ተሻሪ አዘጋጅ",
+				"useGlobalDefault": "አጠቃላይ ነባሪን ተጠቀም",
+				"reset": "መገለጫ ዳግም አስጀምር",
+				"save": "መገለጫ አስቀምጥ"
+			},
 			"placeholder": {"folder": "ለዚህ መገለጫ አቃፊ ይምረጡ"},
 			"destination": {"global": "አጠቃላይ መድረሻ", "override": "የመገለጫ ተሻሪ", "resolved": "የመጨረሻ መድረሻ"},
 			"note": {

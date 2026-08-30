@@ -1,16 +1,18 @@
 import type {ReactNode} from 'react'
 import {Info} from 'lucide-react'
+import {useTranslation} from 'react-i18next'
 import {Button} from '../ui/button.js'
 import {Field, FieldContent, FieldTitle} from '../ui/field.js'
 import {Switch} from '../ui/switch.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 
 function ProfileHelpTooltip({label, children}: {label: string; children: ReactNode}): ReactNode {
+	const {t} = useTranslation()
 	return (
 		<Tooltip>
 			<TooltipTrigger
 				render={props => (
-					<Button {...props} type="button" variant="ghost" size="icon-xs" aria-label={`${label} help`} className="text-[var(--text-subtle)] hover:text-foreground">
+					<Button {...props} type="button" variant="ghost" size="icon-xs" aria-label={t('wizard.profileSwitchRow.helpAria', {label})} className="text-[var(--text-subtle)] hover:text-foreground">
 						<Info aria-hidden />
 					</Button>
 				)}

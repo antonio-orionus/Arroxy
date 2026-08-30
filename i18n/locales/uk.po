@@ -1889,6 +1889,10 @@ msgctxt "wizard.profileEditor.action.chooseIcon"
 msgid "Choose profile icon"
 msgstr "Вибрати значок профілю"
 
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Видалити {{code}}"
+
 msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Скинути профіль"
@@ -2189,6 +2193,10 @@ msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
 msgid "M4A / AAC"
 msgstr "M4A / AAC"
 
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "Довідка: {{label}}"
+
 msgctxt "wizard.quickProgress.cancel"
 msgid "Cancel preparation"
 msgstr "Скасувати підготовку"
@@ -2364,6 +2372,10 @@ msgstr "Мови не знайдено"
 msgctxt "wizard.subtitles.noSelected"
 msgid "No subtitles selected"
 msgstr "Субтитри не вибрані"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Видалити {{name}}"
 
 msgctxt "wizard.subtitles.saveMode.embed"
 msgid "Embed into video"

@@ -125,6 +125,7 @@
 			"reject": {"duplicate": "Doublon"}
 		},
 		"tabsNavAria": "Navigation des profils de téléchargement",
+		"profileSwitchRow": {"helpAria": "Aide pour {{label}}"},
 		"mixedPrompt": {
 			"title": "Ce lien contient une Playlist",
 			"body": "Seulement la vidéo sur laquelle tu as cliqué, ou tu préfères choisir dans la Playlist ? Tu pourras sélectionner des vidéos précises ou une plage à l'étape suivante.",
@@ -304,6 +305,7 @@
 			"noMatches": "Aucune langue ne correspond",
 			"clearAll": "Tout effacer",
 			"noSelected": "Aucun sous-titre sélectionné",
+			"removeLanguage": "Supprimer {{name}}",
 			"selectedNote_one": "{{count}} sous-titre sera téléchargé",
 			"selectedNote_other": "{{count}} sous-titres seront téléchargés",
 			"sectionManual": "Manuel",
@@ -463,6 +465,7 @@
 				"setOverride": "Définir une dérogation de profil",
 				"chooseFolder": "Choisir le dossier de destination",
 				"addLanguage": "Ajouter",
+				"removeLanguage": "Supprimer {{code}}",
 				"changeGlobalShort": "Modifier le global",
 				"setOverrideShort": "Définir une dérogation",
 				"useGlobalDefault": "Utiliser la valeur globale",

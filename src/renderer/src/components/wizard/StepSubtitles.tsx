@@ -140,7 +140,7 @@ export function StepSubtitles(): ReactNode {
 										{displayName}
 										<Button
 											type="button"
-											aria-label={`Remove ${displayName}`}
+											aria-label={t('wizard.subtitles.removeLanguage', {name: displayName})}
 											onClick={() => {
 												toggleSubtitleLanguage(code)
 											}}

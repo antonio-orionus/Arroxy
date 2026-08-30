@@ -975,4 +975,38 @@ describe('QueueService — scheduler state events (renderer feedback)', () => {
 
 		expect(transitions).toEqual([])
 	})
+
+	it('cancel(null) overlapping a concurrent pauseAll() emits both scheduler events — no stuck paused UI', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/x'}))
+
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
+
+		// Hold downloadService.cancel() open so the sweep suspends mid-flight.
+		let releaseCancel!: () => void
+		ds.cancel.mockImplementation(
+			() =>
+				new Promise(resolve => {
+					releaseCancel = () => resolve(ok({cancelled: true}))
+				})
+		)
+
+		const transitions = collectSchedulerTransitions(qs)
+		const sweepPromise = qs.cancel(null)
+		await flushMicrotasks()
+
+		// pauseAll lands while the sweep is suspended inside downloadService.cancel().
+		await qs.pauseAll()
+		expect(transitions).toEqual([true])
+
+		releaseCancel()
+		await sweepPromise
+
+		// The sweep's unpause must still reach the renderer: the stale pre-await
+		// snapshot would suppress it and leave the banner stuck on "paused".
+		expect(transitions).toEqual([true, false])
+		expect(qs.snapshotPayload().schedulerPaused).toBe(false)
+	})
 })

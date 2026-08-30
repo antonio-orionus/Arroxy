@@ -125,6 +125,7 @@
 			"reject": {"duplicate": "Trùng lặp"}
 		},
 		"tabsNavAria": "Điều hướng hồ sơ tải xuống",
+		"profileSwitchRow": {"helpAria": "Trợ giúp {{label}}"},
 		"mixedPrompt": {
 			"title": "Liên kết này có Playlist",
 			"body": "Bạn chỉ muốn video đã chọn, hay muốn chọn từ Playlist? Bạn sẽ chọn các video cụ thể hoặc một đoạn ở bước tiếp theo.",
@@ -304,6 +305,7 @@
 			"noMatches": "Không tìm thấy ngôn ngữ nào",
 			"clearAll": "Xóa tất cả",
 			"noSelected": "Chưa chọn phụ đề nào",
+			"removeLanguage": "Xóa {{name}}",
 			"selectedNote_one": "{{count}} phụ đề sẽ được tải xuống",
 			"selectedNote_other": "{{count}} phụ đề sẽ được tải xuống",
 			"sectionManual": "Thủ công",
@@ -458,7 +460,18 @@
 				"delivery": "Cách lưu",
 				"overridePath": "Đường dẫn ghi đè hồ sơ"
 			},
-			"action": {"chooseIcon": "Chọn biểu tượng hồ sơ", "setOverride": "Đặt ghi đè hồ sơ", "chooseFolder": "Chọn thư mục đích", "addLanguage": "Thêm", "changeGlobalShort": "Đổi mặc định chung", "setOverrideShort": "Đặt ghi đè", "useGlobalDefault": "Dùng mặc định chung", "reset": "Đặt lại hồ sơ", "save": "Lưu hồ sơ"},
+			"action": {
+				"chooseIcon": "Chọn biểu tượng hồ sơ",
+				"setOverride": "Đặt ghi đè hồ sơ",
+				"chooseFolder": "Chọn thư mục đích",
+				"addLanguage": "Thêm",
+				"removeLanguage": "Xóa {{code}}",
+				"changeGlobalShort": "Đổi mặc định chung",
+				"setOverrideShort": "Đặt ghi đè",
+				"useGlobalDefault": "Dùng mặc định chung",
+				"reset": "Đặt lại hồ sơ",
+				"save": "Lưu hồ sơ"
+			},
 			"placeholder": {"folder": "Chọn một thư mục cho hồ sơ này"},
 			"destination": {"global": "Đích chung", "override": "Ghi đè hồ sơ", "resolved": "Đích cuối cùng"},
 			"note": {

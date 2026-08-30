@@ -125,6 +125,7 @@
 			"reject": {"duplicate": "Duplikat"}
 		},
 		"tabsNavAria": "Navigasi profil unduhan",
+		"profileSwitchRow": {"helpAria": "Bantuan {{label}}"},
 		"mixedPrompt": {
 			"title": "Tautan ini memiliki daftar putar",
 			"body": "Ingin hanya video yang Anda klik, atau pilih dari playlist? Selanjutnya Anda akan memilih video atau rentang tertentu.",
@@ -304,6 +305,7 @@
 			"noMatches": "Tidak ada bahasa yang cocok",
 			"clearAll": "Hapus semuanya",
 			"noSelected": "Tidak ada subtitle yang dipilih",
+			"removeLanguage": "Hapus {{name}}",
 			"selectedNote_one": "Subtitle {{count}} akan diunduh",
 			"selectedNote_other": "Subtitle {{count}} akan diunduh",
 			"sectionManual": "Manual",
@@ -463,6 +465,7 @@
 				"setOverride": "Atur penggantian profil",
 				"chooseFolder": "Pilih folder tujuan",
 				"addLanguage": "Tambah",
+				"removeLanguage": "Hapus {{code}}",
 				"changeGlobalShort": "Ubah global",
 				"setOverrideShort": "Atur penggantian",
 				"useGlobalDefault": "Gunakan default global",

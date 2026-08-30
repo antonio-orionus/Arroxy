@@ -116,6 +116,7 @@
 			"reject": {"duplicate": "Duplicate"}
 		},
 		"tabsNavAria": "Download profile navigation",
+		"profileSwitchRow": {"helpAria": "{{label}} help"},
 		"mixedPrompt": {
 			"title": "This link has a playlist",
 			"body": "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next.",
@@ -295,6 +296,7 @@
 			"noMatches": "No languages match",
 			"clearAll": "Clear all",
 			"noSelected": "No subtitles selected",
+			"removeLanguage": "Remove {{name}}",
 			"selectedNote_one": "{{count}} subtitle will be downloaded",
 			"selectedNote_other": "{{count}} subtitles will be downloaded",
 			"sectionManual": "Manual",
@@ -454,6 +456,7 @@
 				"setOverride": "Set profile override",
 				"chooseFolder": "Choose destination folder",
 				"addLanguage": "Add",
+				"removeLanguage": "Remove {{code}}",
 				"changeGlobalShort": "Change global",
 				"setOverrideShort": "Set override",
 				"useGlobalDefault": "Use global default",

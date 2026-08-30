@@ -125,6 +125,7 @@
 			"reject": {"duplicate": "重複"}
 		},
 		"tabsNavAria": "ダウンロードプロフィールナビゲーション",
+		"profileSwitchRow": {"helpAria": "{{label}}のヘルプ"},
 		"mixedPrompt": {
 			"title": "このリンクは Playlist に含まれています",
 			"body": "クリックした動画だけをダウンロードしますか？それとも Playlist から選びますか？次のステップで特定の動画や範囲を選択できます。",
@@ -304,6 +305,7 @@
 			"noMatches": "言語が見つかりません",
 			"clearAll": "すべて削除",
 			"noSelected": "字幕が選択されていません",
+			"removeLanguage": "{{name}}を削除",
 			"selectedNote_one": "字幕 {{count}} 件をダウンロードします",
 			"selectedNote_other": "字幕 {{count}} 件をダウンロードします",
 			"sectionManual": "手動",
@@ -463,6 +465,7 @@
 				"setOverride": "プロフィール個別設定を指定",
 				"chooseFolder": "保存先フォルダーを選択",
 				"addLanguage": "追加",
+				"removeLanguage": "{{code}}を削除",
 				"changeGlobalShort": "全体設定を変更",
 				"setOverrideShort": "個別設定を指定",
 				"useGlobalDefault": "全体の既定値を使う",

@@ -133,6 +133,7 @@
 			"reject": {"duplicate": "Takror"}
 		},
 		"tabsNavAria": "Yuklab olish profili navigatsiyasi",
+		"profileSwitchRow": {"helpAria": "{{label}} yordami"},
 		"mixedPrompt": {
 			"title": "Bu havola Playlist ga tegishli",
 			"body": "Faqat bosilgan videoni olasizmi yoki Playlist dan tanlaysizmi? Keyingi qadamda aniq videolar yoki diapazon tanlanadi.",
@@ -312,6 +313,7 @@
 			"noMatches": "Mos til topilmadi",
 			"clearAll": "Hammasini tozalash",
 			"noSelected": "Hech qanday subtitrl tanlanmagan",
+			"removeLanguage": "{{name}}ni olib tashlash",
 			"selectedNote_one": "{{count}} ta subtitrl yuklanadi",
 			"selectedNote_other": "{{count}} ta subtitrl yuklanadi",
 			"sectionManual": "Qo'lda",
@@ -471,6 +473,7 @@
 				"setOverride": "Profil almashtirishini belgilash",
 				"chooseFolder": "Manzil jildini tanlang",
 				"addLanguage": "Qo'shish",
+				"removeLanguage": "{{code}}ni olib tashlash",
 				"changeGlobalShort": "Umumiyni o'zgartirish",
 				"setOverrideShort": "Almashtirishni belgilash",
 				"useGlobalDefault": "Umumiy standartdan foydalanish",

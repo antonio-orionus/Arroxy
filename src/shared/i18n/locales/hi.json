@@ -116,6 +116,7 @@
 			"reject": {"duplicate": "डुप्लिकेट"}
 		},
 		"tabsNavAria": "डाउनलोड प्रोफ़ाइल नेविगेशन",
+		"profileSwitchRow": {"helpAria": "{{label}} सहायता"},
 		"mixedPrompt": {
 			"title": "इस लिंक में एक Playlist है",
 			"body": "सिर्फ़ वही वीडियो चाहिए जिस पर क्लिक किया था, या Playlist में से चुनना है? आगे आप विशेष वीडियो या रेंज चुन सकते हैं।",
@@ -290,6 +291,7 @@
 			"noMatches": "कोई भाषा नहीं मिली",
 			"clearAll": "सभी हटाएँ",
 			"noSelected": "कोई उपशीर्षक नहीं चुना",
+			"removeLanguage": "{{name}} हटाएँ",
 			"selectedNote_one": "{{count}} उपशीर्षक डाउनलोड किया जाएगा",
 			"selectedNote_other": "{{count}} उपशीर्षक डाउनलोड किए जाएंगे",
 			"sectionManual": "मैनुअल",
@@ -433,7 +435,18 @@
 				"delivery": "सहेजने का तरीका",
 				"overridePath": "प्रोफ़ाइल ओवरराइड पथ"
 			},
-			"action": {"chooseIcon": "प्रोफ़ाइल आइकन चुनें", "setOverride": "प्रोफ़ाइल ओवरराइड सेट करें", "chooseFolder": "गंतव्य फ़ोल्डर चुनें", "addLanguage": "जोड़ें", "changeGlobalShort": "वैश्विक बदलें", "setOverrideShort": "ओवरराइड सेट करें", "useGlobalDefault": "वैश्विक डिफ़ॉल्ट उपयोग करें", "reset": "प्रोफ़ाइल रीसेट करें", "save": "प्रोफ़ाइल सहेजें"},
+			"action": {
+				"chooseIcon": "प्रोफ़ाइल आइकन चुनें",
+				"setOverride": "प्रोफ़ाइल ओवरराइड सेट करें",
+				"chooseFolder": "गंतव्य फ़ोल्डर चुनें",
+				"addLanguage": "जोड़ें",
+				"removeLanguage": "{{code}} हटाएँ",
+				"changeGlobalShort": "वैश्विक बदलें",
+				"setOverrideShort": "ओवरराइड सेट करें",
+				"useGlobalDefault": "वैश्विक डिफ़ॉल्ट उपयोग करें",
+				"reset": "प्रोफ़ाइल रीसेट करें",
+				"save": "प्रोफ़ाइल सहेजें"
+			},
 			"placeholder": {"folder": "इस प्रोफ़ाइल के लिए फ़ोल्डर चुनें"},
 			"destination": {"global": "वैश्विक गंतव्य", "override": "प्रोफ़ाइल ओवरराइड", "resolved": "अंतिम गंतव्य"},
 			"note": {

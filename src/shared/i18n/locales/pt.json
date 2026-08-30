@@ -125,6 +125,7 @@
 			"reject": {"duplicate": "Duplicada"}
 		},
 		"tabsNavAria": "Navegação de perfis de download",
+		"profileSwitchRow": {"helpAria": "Ajuda de {{label}}"},
 		"mixedPrompt": {
 			"title": "Este link contém uma playlist",
 			"body": "Deseja apenas o vídeo que clicou ou escolher da playlist? Você escolherá vídeos específicos ou um intervalo a seguir.",
@@ -304,6 +305,7 @@
 			"noMatches": "Nenhum idioma encontrado",
 			"clearAll": "Limpar tudo",
 			"noSelected": "Nenhuma legenda selecionada",
+			"removeLanguage": "Remover {{name}}",
 			"selectedNote_one": "{{count}} legenda será baixada",
 			"selectedNote_other": "{{count}} legendas serão baixadas",
 			"sectionManual": "Manuais",
@@ -463,6 +465,7 @@
 				"setOverride": "Definir pasta específica",
 				"chooseFolder": "Escolher pasta de destino",
 				"addLanguage": "Adicionar",
+				"removeLanguage": "Remover {{code}}",
 				"changeGlobalShort": "Alterar global",
 				"setOverrideShort": "Definir específica",
 				"useGlobalDefault": "Usar padrão global",

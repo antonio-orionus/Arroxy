@@ -1889,6 +1889,10 @@ msgctxt "wizard.profileEditor.action.chooseIcon"
 msgid "Choose profile icon"
 msgstr "プロフィールアイコンを選択"
 
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "{{code}}を削除"
+
 msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "プロフィールをリセット"
@@ -2189,6 +2193,10 @@ msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
 msgid "M4A / AAC"
 msgstr "M4A / AAC"
 
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "{{label}}のヘルプ"
+
 msgctxt "wizard.quickProgress.cancel"
 msgid "Cancel preparation"
 msgstr "準備をキャンセル"
@@ -2364,6 +2372,10 @@ msgstr "言語が見つかりません"
 msgctxt "wizard.subtitles.noSelected"
 msgid "No subtitles selected"
 msgstr "字幕が選択されていません"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "{{name}}を削除"
 
 msgctxt "wizard.subtitles.saveMode.embed"
 msgid "Embed into video"

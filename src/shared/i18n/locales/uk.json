@@ -133,6 +133,7 @@
 			"reject": {"duplicate": "Дублікат"}
 		},
 		"tabsNavAria": "Навігація профілями завантаження",
+		"profileSwitchRow": {"helpAria": "Довідка: {{label}}"},
 		"mixedPrompt": {
 			"title": "Це посилання з Playlist",
 			"body": "Хочеш завантажити лише те відео, на яке натиснув, чи вибрати з Playlist? Далі зможеш вказати конкретні відео або діапазон.",
@@ -312,6 +313,7 @@
 			"noMatches": "Мови не знайдено",
 			"clearAll": "Очистити все",
 			"noSelected": "Субтитри не вибрані",
+			"removeLanguage": "Видалити {{name}}",
 			"selectedNote_one": "Буде завантажено {{count}} субтитр",
 			"selectedNote_other": "Буде завантажено субтитрів: {{count}}",
 			"sectionManual": "Ручні",
@@ -471,6 +473,7 @@
 				"setOverride": "Задати перевизначення профілю",
 				"chooseFolder": "Вибрати теку призначення",
 				"addLanguage": "Додати",
+				"removeLanguage": "Видалити {{code}}",
 				"changeGlobalShort": "Змінити загальний",
 				"setOverrideShort": "Задати перевизначення",
 				"useGlobalDefault": "Використовувати загальне значення",

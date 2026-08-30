@@ -108,11 +108,23 @@ if (hadPlaceholders) {
 // literal found here fails the run regardless of --strict.
 const RENDERER_ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '../src/renderer/src')
 const SKIP_DIRS = new Set(['dev']) // ScenarioGallery is dev-only, not shipped UI
-// aria-label is named explicitly: it is the highest-value prop this scan
-// exists to catch, and it must not drop out of coverage if someone edits the
-// bare-name alternation (a bare `label` still matches `aria-label` today only
-// by the accident that `\b` treats `-` as a boundary).
-const propPattern = /\b(aria-label|title|description|label|placeholder|heading|tooltip|message|text)="([^"]+)"/g
+// Token-aware attribute scan:
+// - `(?<![\w-])` requires the prop name to start at an attribute boundary, so
+//   prefixed/longer names (`data-label`, `x-title`, `subtitle`, `mylabel`) are
+//   NOT user-facing props and are not matched. `aria-label` matches via its own
+//   explicit alternation branch, and a bare `label`/`title` still matches — no
+//   more accidental coupling through `\b` treating `-` as a boundary.
+// - Values may be double-quoted, single-quoted, or a JSX expression holding a
+//   plain string/template literal (`{'...'}`, `{"..."}`, `` {`...${x}`} ``).
+//   Function calls (`t('...')`, `i18next.t('...')`) and bare identifiers are
+//   i18n keys / state references, not copy — they are skipped.
+// - The file is scanned as a whole (not per line), so multiline values are seen.
+const propPattern = /(?<![\w-])(aria-label|title|description|label|placeholder|heading|tooltip|message|text)\s*=\s*(?:"([^"]*)"|'([^']*)'|\{((?:[^{}]|\$\{[^}]*\})*)\})/g
+// A JSX expression that is exactly one plain literal (template, single-, or
+// double-quoted). Anything else (t() calls, identifiers, ternary chains) is
+// not copy and is skipped by the caller.
+const literalExprPattern = /^\s*(?:`((?:[^`\\]|\\.)*)`|'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")\s*$/s
+const INTERPOLATION = /\$\{[^}]*\}/g
 // Literals exempt from the scan: brand/product names, locale-neutral format examples
 // ("en, uk, pt-br" placeholder shows locale-code syntax, not prose), and dev/test-only
 // surfaces (the ?backdrop isolation stage renders in browser-mock/test builds only).
@@ -141,14 +153,25 @@ const literalHits: LiteralHit[] = []
 
 for (const file of collectTsxFiles(RENDERER_ROOT)) {
 	const content = readFileSync(file, 'utf8')
-	const lines = content.split('\n')
-	for (let i = 0; i < lines.length; i++) {
-		for (const match of lines[i].matchAll(propPattern)) {
-			const value = match[2]
-			if (LITERAL_ALLOWLIST.has(value)) continue
-			if (!/[A-Za-z]{2,}/.test(value)) continue // digits-only, symbols, single letters
-			literalHits.push({file: relative(RENDERER_ROOT, file), line: i + 1, prop: match[1], value})
+	for (const match of content.matchAll(propPattern)) {
+		const prop = match[1]
+		let value: string | undefined
+		if (match[2] !== undefined) {
+			value = match[2] // "…"
+		} else if (match[3] !== undefined) {
+			value = match[3] // '…'
+		} else if (match[4] !== undefined) {
+			// {…} expression: only a plain literal is copy; t() calls, bare
+			// identifiers, and ternaries are skipped.
+			const lit = literalExprPattern.exec(match[4])
+			if (!lit) continue
+			value = (lit[1] ?? lit[2] ?? lit[3] ?? '').replace(INTERPOLATION, '').trim()
 		}
+		if (value === undefined) continue
+		if (LITERAL_ALLOWLIST.has(value)) continue
+		if (!/[A-Za-z]{2,}/.test(value)) continue // digits-only, symbols, single letters
+		const line = content.slice(0, match.index).split('\n').length
+		literalHits.push({file: relative(RENDERER_ROOT, file), line, prop, value})
 	}
 }
 

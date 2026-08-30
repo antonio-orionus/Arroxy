@@ -125,6 +125,7 @@
 			"reject": {"duplicate": "Yinelenen"}
 		},
 		"tabsNavAria": "İndirme profili gezinmesi",
+		"profileSwitchRow": {"helpAria": "{{label}} yardımı"},
 		"mixedPrompt": {
 			"title": "Bu bağlantıda bir oynatma listesi var",
 			"body": "Yalnızca tıkladığın videoyu mu, yoksa oynatma listesinden seçim yapmayı mı istersin? Sonraki adımda belirli videoları veya bir aralığı seçeceksin.",
@@ -304,6 +305,7 @@
 			"noMatches": "Eşleşen dil yok",
 			"clearAll": "Tümünü temizle",
 			"noSelected": "Altyazı seçilmedi",
+			"removeLanguage": "{{name}} kaldır",
 			"selectedNote_one": "{{count}} altyazı indirilecek",
 			"selectedNote_other": "{{count}} altyazı indirilecek",
 			"sectionManual": "Manuel",
@@ -463,6 +465,7 @@
 				"setOverride": "Profil geçersiz kılmasını ayarla",
 				"chooseFolder": "Hedef klasörü seç",
 				"addLanguage": "Ekle",
+				"removeLanguage": "{{code}} kaldır",
 				"changeGlobalShort": "Geneli değiştir",
 				"setOverrideShort": "Geçersiz kılmayı ayarla",
 				"useGlobalDefault": "Genel varsayılanı kullan",

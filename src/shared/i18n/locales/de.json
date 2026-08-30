@@ -125,6 +125,7 @@
 			"reject": {"duplicate": "Duplikat"}
 		},
 		"tabsNavAria": "Download-Profil-Navigation",
+		"profileSwitchRow": {"helpAria": "Hilfe zu {{label}}"},
 		"mixedPrompt": {
 			"title": "Dieser Link enthält eine Playlist",
 			"body": "Nur das angeklickte Video oder aus der Playlist auswählen? Im nächsten Schritt kannst du einzelne Videos oder einen Bereich festlegen.",
@@ -304,6 +305,7 @@
 			"noMatches": "Keine Sprachen gefunden",
 			"clearAll": "Alle entfernen",
 			"noSelected": "Keine Untertitel ausgewählt",
+			"removeLanguage": "{{name}} entfernen",
 			"selectedNote_one": "{{count}} Untertitel wird heruntergeladen",
 			"selectedNote_other": "{{count}} Untertitel werden heruntergeladen",
 			"sectionManual": "Manuell",
@@ -463,6 +465,7 @@
 				"setOverride": "Profil-Überschreibung festlegen",
 				"chooseFolder": "Zielordner wählen",
 				"addLanguage": "Hinzufügen",
+				"removeLanguage": "{{code}} entfernen",
 				"changeGlobalShort": "Global ändern",
 				"setOverrideShort": "Überschreibung festlegen",
 				"useGlobalDefault": "Globalen Standard verwenden",

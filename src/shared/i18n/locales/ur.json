@@ -125,6 +125,7 @@
 			"reject": {"duplicate": "نقل"}
 		},
 		"tabsNavAria": "ڈاؤن لوڈ پروفائل نیویگیشن",
+		"profileSwitchRow": {"helpAria": "{{label}} مدد"},
 		"mixedPrompt": {
 			"title": "اس لنک میں Playlist ہے",
 			"body": "کیا آپ صرف وہی ویڈیو چاہتے ہیں جس پر کلک کیا، یا Playlist سے انتخاب کرنا چاہتے ہیں؟ اگلے مرحلے میں آپ مخصوص ویڈیوز یا رینج منتخب کریں گے۔",
@@ -304,6 +305,7 @@
 			"noMatches": "کوئی زبان میچ نہیں ہوئی",
 			"clearAll": "سب صاف کریں",
 			"noSelected": "کوئی سب ٹائٹل منتخب نہیں",
+			"removeLanguage": "{{name}} ہٹائیں",
 			"selectedNote_one": "{{count}} سب ٹائٹل ڈاؤن لوڈ کیا جائے گا",
 			"selectedNote_other": "{{count}} سب ٹائٹلز ڈاؤن لوڈ کیے جائیں گے",
 			"sectionManual": "دستی",
@@ -463,6 +465,7 @@
 				"setOverride": "پروفائل اووررائیڈ مقرر کریں",
 				"chooseFolder": "منزل فولڈر منتخب کریں",
 				"addLanguage": "شامل کریں",
+				"removeLanguage": "{{code}} ہٹائیں",
 				"changeGlobalShort": "عالمی تبدیل کریں",
 				"setOverrideShort": "اووررائیڈ مقرر کریں",
 				"useGlobalDefault": "عالمی ڈیفالٹ استعمال کریں",
