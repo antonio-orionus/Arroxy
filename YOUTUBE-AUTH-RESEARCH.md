@@ -39,8 +39,8 @@ then hand the resulting cookies to the bundled engine and to yt-dlp.
 
 The chain that works, verified:
 
-The chain proven end to end (via native `WKWebView`; the Electron path below
-reaches account lookup and still needs a real-credential confirmation):
+The chain proven end to end (via native `WKWebView`; the Electron path below was
+confirmed with real credentials on 2026-08-29 — see section 8):
 
 | # | Step | Result |
 |---|------|--------|
@@ -262,9 +262,13 @@ WebView depends on the Qt WebEngine module to render content."* But that does
 the full `GlifWebSignIn` flow (#11). Only the *spoofed* iPad variant is refused
 (#8).
 
-**Consequence for Arroxy:** in-app login works on **all three platforms** with a
-plain Electron `WebContentsView`, provided the UA declares a custom app token.
-No native webview, no per-platform helper, no child process.
+**Consequence for Arroxy:** in-app login works with a plain Electron
+`WebContentsView`, provided the UA declares a custom app token. No native
+webview, no per-platform helper, no child process.
+
+Verified on macOS only. Nothing here was run on Windows or Linux, so the
+mechanism is expected rather than measured there — do not read the above as a
+three-platform result.
 
 (`cookiesMode` is kept in full — see 6a "Rollout". The Legacy tab continues to
 depend on it, so the earlier "delete all three modes" recommendation is

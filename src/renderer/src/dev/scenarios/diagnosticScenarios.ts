@@ -9,21 +9,21 @@ export function buildWarmUp(scenario: ScenarioLike): WarmUpOutput {
 	switch (scenario.id) {
 		case 'diagnostics-ytdlp-missing':
 			dependencies['yt-dlp'] = failedDependency('yt-dlp', 'download_failed', 'yt-dlp download failed')
-			return {completed: false, dependencies, blockingFailures: ['yt-dlp'], cancelled: false}
+			return {completed: false, dependencies, blockingFailures: ['yt-dlp'], cancelled: false, tokenWarmup: 'ready'}
 		case 'diagnostics-ffmpeg-broken':
 			dependencies.ffmpeg = failedDependency('ffmpeg', 'bad_exit_code', 'ffmpeg exited with code 1')
-			return {completed: false, dependencies, blockingFailures: ['ffmpeg'], cancelled: false}
+			return {completed: false, dependencies, blockingFailures: ['ffmpeg'], cancelled: false, tokenWarmup: 'ready'}
 		case 'diagnostics-ffprobe-broken':
 			dependencies.ffprobe = failedDependency('ffprobe', 'bad_exit_code', 'ffprobe exited with code 1')
-			return {completed: false, dependencies, blockingFailures: ['ffprobe'], cancelled: false}
+			return {completed: false, dependencies, blockingFailures: ['ffprobe'], cancelled: false, tokenWarmup: 'ready'}
 		case 'diagnostics-all-missing': {
 			const allFailed = {'yt-dlp': failedDependency('yt-dlp', 'download_failed', 'yt-dlp download failed'), ffmpeg: failedDependency('ffmpeg', 'download_failed', 'ffmpeg download failed'), ffprobe: failedDependency('ffprobe', 'download_failed', 'ffprobe download failed')}
-			return {completed: false, dependencies: allFailed, blockingFailures: ['yt-dlp', 'ffmpeg', 'ffprobe'], cancelled: false}
+			return {completed: false, dependencies: allFailed, blockingFailures: ['yt-dlp', 'ffmpeg', 'ffprobe'], cancelled: false, tokenWarmup: 'ready'}
 		}
 		case 'diagnostics-warmup-running':
-			return {completed: false, dependencies, blockingFailures: [], cancelled: false}
+			return {completed: false, dependencies, blockingFailures: [], cancelled: false, tokenWarmup: 'ready'}
 		default:
-			return {completed: true, dependencies, blockingFailures: [], cancelled: false}
+			return {completed: true, dependencies, blockingFailures: [], cancelled: false, tokenWarmup: 'ready'}
 	}
 }
 

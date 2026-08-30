@@ -149,7 +149,7 @@ A dependency Arroxy downloads and caches itself, as opposed to one bundled insid
 _Avoid_: downloaded binary, fetched binary
 
 **Warmup**:
-The startup readiness check that verifies the dependencies are present and working — fetching any that are missing — before downloads are allowed.
+The readiness check that verifies the dependencies are present and working — fetching any that are missing — and runs at startup and again on demand from the repair flow. The media dependencies (the downloader and the media tools) gate downloads; the token warm-up is best-effort and never blocks. Verification means actually running each dependency; a passing verdict is remembered until the file changes.
 _Avoid_: bootstrap, init, preflight
 
 ### Architecture

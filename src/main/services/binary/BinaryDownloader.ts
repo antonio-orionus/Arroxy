@@ -328,8 +328,11 @@ async function writeResponseBodyToFile(responseBody: NodeJS.ReadableStream, dest
 }
 
 // Range-resume: if `${destination}.part` exists from a previous interrupted
-// attempt, resume via `Range: bytes=<size>-`. If the server responds 200
-// (no range support) instead of 206, truncate and start fresh.
+// attempt, resume via `Range: bytes=<size>-`. See resolvePartialResponseMode
+// for the three ways a resume can land: 'append' on a matching 206, or
+// 'discard-and-retry' — truncate and start fresh — on a non-matching 206, a
+// plain 200 (no range support), or a 416 (the `.part` file no longer matches
+// what the server has).
 /**
  * Rejects as soon as `signal` aborts, and otherwise never settles.
  *
@@ -526,7 +529,14 @@ export function downloadErrorDetails(err: unknown): {error_code?: string; status
 export function classifyDownloadError(err: unknown): DependencyFailureKind {
 	if (err instanceof DownloadStalledError) return 'timeout'
 	if (err instanceof DownloadIntegrityError || err instanceof DownloadSizeMismatchError) return 'hash_failed'
-	if (isAbortError(err)) return 'timeout'
+	// A cancellation is a fact about the caller, not the machine, so it must never
+	// read as 'timeout' — dependencyPolicy treats 'timeout' as always
+	// environment-fatal, which would downgrade the resolver's budget to
+	// 'shortLeash' off the back of a user pressing Cancel. The managed download
+	// path already special-cases `signal?.aborted` before this function ever
+	// runs, so this branch is a safety net for any future caller, not a live path
+	// today.
+	if (isAbortError(err)) return 'download_failed'
 	const msg = err instanceof Error ? err.message.toLowerCase() : ''
 	if (msg.includes('checksum') || msg.includes('integrity')) return 'hash_failed'
 	if (msg.includes('no download progress') || msg.includes('stalled')) return 'timeout'

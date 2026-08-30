@@ -90,14 +90,16 @@ This was demonstrated accidentally: a `cp -R` snapshot that did not preserve mti
 ## What changed in 0.4.8
 
 1. **Startup is instrumented.** Every branch logs when it settles; the run ends with a summary naming the branch that gated it.
-2. **The token branch is detached and bounded.** It previously had no budget at all — unlike both binary resolves it received `userSignal` rather than a budgeted signal, and the hidden window's `loadURL` has no timer, so a stall could block the splash for 30s or more. Measured gating 6 of 6 warm launches, and 11.10s with YouTube unreachable.
+2. **The token branch is detached and bounded.** It previously had no budget at all — unlike both binary resolves it received `userSignal` rather than a budgeted signal. Measured gating 6 of 6 warm launches, and 11.10s with YouTube unreachable.
+
+   Bounding it needed more than an `AbortSignal`. None of the provider’s stages accept one, and `ensureReady` awaits `did-finish-load` with no timer, so a page that connects but never finishes leaves it pending forever — and `warmUp` only inspected the signal *between* awaits, which meant the budget did nothing in the one case it existed for. `TokenService.warmUp` now races each stage against the signal so it settles regardless; returning disposes the hidden window, and destroying that window is what actually ends the work.
 3. **The splash floor dropped 3000ms → 800ms.** Warm work finishes below the old floor, so it hid the other two changes completely.
 
 ## Reading the startup log
 
 `main.log` lives at `<userData>/logs/main.log` (see `src/main/index.ts`), **not** `~/Library/Logs/`.
 
-```
+```text
 Warmup branch settled { branch: 'ffmpeg', elapsedMs: 74 }
 Warmup branch settled { branch: 'ytDlp',  elapsedMs: 1656 }
 Warmup completed { totalMs: 1656, gatedBy: 'ytDlp', branches: { ytDlp: 1656, ffmpeg: 74, token: 0 } }
@@ -129,8 +131,8 @@ Useful environment overrides (see [`runtime-binaries.md`](runtime-binaries.md)):
 
 | Variable | Effect |
 | --- | --- |
-| `ARROXY_RUNTIME_INDEX_URL=off` | Disables the remote index fetch; forces last-known-good. Isolates the ~2s network cost. |
-| `ARROXY_RUNTIME_INDEX_SIG_URL=off` | Same, for the signature. |
+| `ARROXY_RUNTIME_INDEX_URL=off` | Disables the remote index fetch, dropping to the last-known-good manifest when one exists and to the bundled index otherwise. Isolates the ~2s network cost. |
+| `ARROXY_RUNTIME_INDEX_SIG_URL=off` | Same, for the signature. Either variable alone disables the remote fetch. |
 | `ARROXY_RUNTIME_INDEX_FILE` / `_SIG_FILE` / `_PUBLIC_KEY_FILE` | Signed local manifest override. |
 
 ## Open work
@@ -139,14 +141,21 @@ Useful environment overrides (see [`runtime-binaries.md`](runtime-binaries.md)):
 | --- | --- | --- |
 | 1 | **Last-known-good index first.** Now the largest warm-start cost — 1579ms of the gating 1656ms. Both original reasons to defer are gone: the token branch no longer masks it and the 800ms floor no longer hides it. Does **not** help cold start, which has no last-known-good index to prefer. | A freshness decision (a stale-but-signed index means a new yt-dlp lands one launch late, on a `nightly` channel) and a security review of the signed trust path. |
 | 2 | **Background or deferred yt-dlp probe.** The real cure for cold start — ~71% of it. | Windows measurements. Defender can block execution outright rather than merely slow it, which is a different failure mode, and `RepairPanel` exists for exactly that case. |
-| 3 | **Splash UX during a legitimately long setup.** The slow hint fires at 5s and the cancel offer at 10s, but a cold start is ~22s on fast hardware — so both fire during what is the *normal* path, framing expected behaviour as a fault. Thresholds cannot be tuned out of this, because the wait is mostly an OS scan that faster hardware does not shorten. | A design decision. See below. |
+| 3 | **Named steps during the verify phase.** The probe shows one static line for ~15s. Nothing about it moves, so even an explained wait still looks like a stalled one. | Nothing — it is simply unbuilt. |
 
-### Notes toward item 3
+### Splash messaging, as shipped in 0.4.8
 
-- Copy must not claim the wait happens "once" or "after an update" — see the recurrence section above. The current `splash.verifySlow` string is wrong on a first install.
-- Copy must stay platform-neutral. The actor differs per platform (XProtect / Defender / nothing at all on Linux), and each string costs 24 locales.
-- Tying the cancel offer to **absence of progress** rather than elapsed time would keep it from appearing during healthy setup on any hardware, while surfacing it faster when something is genuinely stuck.
-- The structural option: stop blocking the app on warmup. ffmpeg is ready in ~60ms and the app only needs yt-dlp to *download*, not to open. Dismissing the splash early and disabling just the download affordance turns 22s of blocked staring into 22s of usable app.
+The slow hint used to fire at 5s and the cancel offer at 10s, both landing in the middle of a ~22s cold start and framing expected behaviour as a fault. Thresholds alone could not fix it, because the wait is mostly an OS scan that faster hardware does not shorten.
+
+- `WarmupProgressEvent.firstCheck` distinguishes a real spawn from a reused verdict, so the hint can never arm during a verification that was always going to return instantly.
+- The hint needs that flag **and** 35s, which a healthy start never reaches. Showing it immediately was tried and rejected on review: at the start of an ordinary wait it reads as noise rather than help.
+- The cancel offer is measured from the last sign of progress rather than from mount, so it cannot appear while bytes are still arriving, and appears sooner than before when a download genuinely stalls.
+- `splash.verifySlow` was retired. It claimed the wait happens "the first time after an update", which is false on a first install and false again on every version bump. `splash.verifyFirstCheck` says "first check of this version".
+- `splash.cancel` became "Having trouble? Set it up manually" — it leads to a panel that installs yt-dlp or points at a copy already on the machine, so it was never an abandon action.
+
+Copy stays platform-neutral: the scanner differs per platform (XProtect / Defender / nothing at all on Linux) and each string costs 24 locales.
+
+**Rejected: stop blocking the app on warmup.** ffmpeg is ready in ~60ms, so the shell could open early. But `ProbeService` needs yt-dlp too, so without it a user cannot paste a URL or fetch formats — the app would look usable, invite an action, then fail it. Blocking is correct here.
 
 ## Limits on all of the above
 

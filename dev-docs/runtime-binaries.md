@@ -61,7 +61,7 @@ The runtime index source order is separate:
 3. Last-known-good cached manifest.
 4. Bundled fallback index.
 
-Step 2's URLs can be overridden for debugging with `ARROXY_RUNTIME_INDEX_URL` and `ARROXY_RUNTIME_INDEX_SIG_URL`. Setting either to `off` or `0` disables the remote fetch entirely, which drops the chain straight to the last-known-good manifest — the quickest way to measure how much of startup the remote index fetch accounts for. Measured on macOS arm64 it is worth about 2.0s of the yt-dlp resolve branch.
+Step 2's URLs can be overridden for debugging with `ARROXY_RUNTIME_INDEX_URL` and `ARROXY_RUNTIME_INDEX_SIG_URL`. Setting either to `off` or `0` disables the remote fetch entirely, which drops the chain to the last-known-good manifest when one exists and to the bundled index otherwise — the quickest way to measure how much of startup the remote index fetch accounts for. Measured on macOS arm64 it is worth about 2.0s of the yt-dlp resolve branch.
 
 The bundled fallback index is intentionally narrow: pinned GitHub stable yt-dlp entries only. It exists to keep first-run dependency resolution possible when the remote manifest cannot be fetched or verified.
 

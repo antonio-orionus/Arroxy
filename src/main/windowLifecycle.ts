@@ -1,6 +1,8 @@
 // Pure decision functions for main-window lifecycle events.
 // No electron imports — all side effects stay in index.ts.
 
+import {closeBehaviorSchema, type CloseBehavior} from '@shared/schemas.js'
+
 export type CloseAction =
 	| 'allow' // let the window close normally (no downloads running)
 	| 'hide' // minimize to tray
@@ -11,8 +13,16 @@ export type CloseAction =
 export interface DecideCloseOpts {
 	platform: NodeJS.Platform
 	hasTray: boolean
-	closeBehavior: string
+	closeBehavior: CloseBehavior
 	runningCount: number
+}
+
+// SettingsStore reads electron-store without schema validation, so the persisted
+// value is `unknown` in practice — a hand-edited or corrupted settings.json can
+// hand us anything. Normalize at the boundary so the decision function below can
+// take a real enum instead of a bare string.
+export function normalizeCloseBehavior(value: unknown): CloseBehavior {
+	return closeBehaviorSchema.catch('ask').parse(value)
 }
 
 export function decideCloseAction({platform, hasTray, closeBehavior, runningCount}: DecideCloseOpts): CloseAction {

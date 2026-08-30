@@ -18,6 +18,17 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 
 	private ready = false
 
+	// Outstanding leases on the hidden window. The startup warm-up and an
+	// on-demand mint run concurrently by design, and destroying the window while
+	// the other is mid-`executeJavaScript` throws on a destroyed webContents.
+	private leases = 0
+
+	// In-flight readiness. Two callers arriving before the page is up used to each
+	// call loadURL on the same window and each attach their own one-shot
+	// did-finish-load/did-fail-load listeners — the second navigation cancelling
+	// the first, which then rejects or hangs. One load, both awaiters.
+	private readying: Promise<void> | null = null
+
 	private getWindow(): BrowserWindow {
 		if (this.hiddenWindow && !this.hiddenWindow.isDestroyed()) {
 			return this.hiddenWindow
@@ -34,9 +45,19 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 		return this.hiddenWindow
 	}
 
+	acquireWindow(): void {
+		this.leases += 1
+	}
+
 	async ensureReady(): Promise<void> {
 		if (this.ready) return
+		this.readying ??= this.loadUntilReady().finally(() => {
+			this.readying = null
+		})
+		return this.readying
+	}
 
+	private async loadUntilReady(): Promise<void> {
 		const win = this.getWindow()
 
 		await new Promise<void>((resolve, reject) => {
@@ -60,8 +81,11 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 	}
 
 	async getVisitorData(): Promise<string> {
-		const win = this.getWindow()
+		// Resolve the window *after* readiness, not before: ensureReady awaits, and
+		// a window captured beforehand can be a different (or destroyed) one by the
+		// time the script runs.
 		await this.ensureReady()
+		const win = this.getWindow()
 		const result: unknown = await win.webContents.executeJavaScript(`(function(){try{return window.ytcfg?.get?.('VISITOR_DATA')||window.ytcfg?.data_?.VISITOR_DATA||'';}catch(e){return '';}})()`)
 		return typeof result === 'string' ? result : ''
 	}
@@ -128,15 +152,26 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 	}
 
 	releaseWindow(): void {
+		this.leases = Math.max(0, this.leases - 1)
+		// Someone else is still driving the page — theirs to tear down, not ours.
+		if (this.leases > 0) return
+		this.destroyWindow()
+	}
+
+	// Unconditional teardown for app shutdown, where outstanding leases no longer
+	// matter and leaving a hidden BrowserWindow alive would keep the process up.
+	dispose(): void {
+		this.leases = 0
+		this.destroyWindow()
+	}
+
+	private destroyWindow(): void {
 		if (this.hiddenWindow && !this.hiddenWindow.isDestroyed()) {
 			this.hiddenWindow.destroy()
 		}
 		this.hiddenWindow = null
 		this.ready = false
-	}
-
-	dispose(): void {
-		this.releaseWindow()
+		this.readying = null
 	}
 
 	private async pollForWebPoClient(win: BrowserWindow, timeoutMs: number): Promise<boolean> {

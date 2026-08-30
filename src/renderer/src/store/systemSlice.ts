@@ -1,4 +1,4 @@
-import type {AppSettings, DependencyId, DownloadProfile, DownloadProfileRef} from '@shared/types.js'
+import type {AppSettings, DependencyDiagnostic, DependencyId, DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {DEFAULT_DOWNLOAD_PROFILES_PREFS, normalizeDownloadProfilesPrefs, removeDownloadProfileFromPrefs, saveDownloadProfileToPrefs} from '@shared/downloadProfiles.js'
 import {i18next, pickLanguage, isRtl} from '@shared/i18n/index.js'
@@ -171,9 +171,21 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				set(state => projectQueueSnapshot(state, snapshotResult.data))
 			}
 
-			const warmUpResult = await warmUpPromise
-			const warmupDiagnostics = warmUpResult.ok ? warmUpResult.data.dependencies : null
-			const warmupBlocking = warmUpResult.ok ? warmUpResult.data.blockingFailures : []
+			// warmUp() itself turns its own failures into a `fail` Result rather than
+			// rejecting, but the IPC transport in front of it is not this store's to
+			// trust blindly. A rejection here has nowhere else to land: `initialized`
+			// would never become true, and the startup splash — dismissed only by
+			// `initialized` — would stay up with no error and no way out.
+			let warmupDiagnostics: Record<DependencyId, DependencyDiagnostic> | null = null
+			let warmupBlocking: DependencyId[] = []
+			try {
+				const warmUpResult = await warmUpPromise
+				warmupDiagnostics = warmUpResult.ok ? warmUpResult.data.dependencies : null
+				warmupBlocking = warmUpResult.ok ? warmUpResult.data.blockingFailures : []
+				if (!warmUpResult.ok) notify.warmupFailed('warm-up failed', warmUpResult.error)
+			} catch (err) {
+				notify.warmupFailed('warm-up threw', err)
+			}
 
 			set({initialized: true, initializing: false, warmupRunning: false, warmupCancellable: false, warmupDiagnostics, warmupBlocking})
 		},

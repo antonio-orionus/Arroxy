@@ -1,7 +1,7 @@
 // @vitest-environment node
 
 import {describe, expect, it} from 'vitest'
-import {decideCloseAction, decideRendererCrashAction} from '@main/windowLifecycle.js'
+import {decideCloseAction, decideRendererCrashAction, normalizeCloseBehavior} from '@main/windowLifecycle.js'
 
 describe('decideCloseAction — no tray (darwin or tray init failed)', () => {
 	it('darwin + no downloads → allow', () => {
@@ -47,9 +47,21 @@ describe('decideCloseAction — tray present', () => {
 		expect(decideCloseAction({platform: 'linux', hasTray: true, closeBehavior: 'ask', runningCount: 1})).toBe('ask-tray')
 	})
 
-	it('unknown closeBehavior treated same as ask', () => {
-		expect(decideCloseAction({platform: 'linux', hasTray: true, closeBehavior: 'unknown', runningCount: 0})).toBe('quit-direct')
-		expect(decideCloseAction({platform: 'linux', hasTray: true, closeBehavior: 'unknown', runningCount: 2})).toBe('ask-tray')
+	it('normalizes an out-of-enum persisted value to ask', () => {
+		// SettingsStore reads electron-store without schema validation, so a
+		// hand-edited settings.json can still hand us anything at all.
+		expect(normalizeCloseBehavior('unknown')).toBe('ask')
+		expect(normalizeCloseBehavior(undefined)).toBe('ask')
+		expect(normalizeCloseBehavior(null)).toBe('ask')
+		expect(normalizeCloseBehavior(7)).toBe('ask')
+		expect(decideCloseAction({platform: 'linux', hasTray: true, closeBehavior: normalizeCloseBehavior('unknown'), runningCount: 0})).toBe('quit-direct')
+		expect(decideCloseAction({platform: 'linux', hasTray: true, closeBehavior: normalizeCloseBehavior('unknown'), runningCount: 2})).toBe('ask-tray')
+	})
+
+	it('passes through every value the schema allows', () => {
+		expect(normalizeCloseBehavior('tray')).toBe('tray')
+		expect(normalizeCloseBehavior('quit')).toBe('quit')
+		expect(normalizeCloseBehavior('ask')).toBe('ask')
 	})
 })
 

@@ -163,4 +163,78 @@ describe('WarmupService', () => {
 		expect(timings?.gatedBy).toBeDefined()
 		expect(timings?.gatedBy).not.toBe('token')
 	})
+	// The startup splash is dismissed by `initialized`, which the renderer only
+	// sets after `warmUp()` settles. A rejection therefore has no landing place:
+	// nothing wraps the IPC handler and nothing catches in the store, so the
+	// splash stays up forever with no error and no way out. The resolver can
+	// genuinely reject — an EACCES on the artifact cache directory propagates out
+	// of the readdir — so the failure has to arrive as a value.
+	it('reports a rejecting resolver as a failed Result instead of rejecting', async () => {
+		const exploding = {invalidateResolved: vi.fn(), resolveYtDlp: vi.fn().mockRejectedValue(Object.assign(new Error('EACCES: permission denied'), {code: 'EACCES'})), resolveFFmpegPair: vi.fn().mockResolvedValue({ffmpeg: diag('ffmpeg', 'runnable'), ffprobe: diag('ffprobe', 'runnable')})} as unknown as BinaryManager
+		const svc = new WarmupService({binaryManager: exploding, tokenService: noopToken})
+
+		const result = await svc.run()
+
+		expect(result.ok).toBe(false)
+		if (result.ok) throw new Error('expected fail')
+		expect(result.error.code).toBe('binary')
+		expect(result.error.message).toContain('EACCES')
+	})
+
+	it('flushes buffered progress before surfacing a rejecting resolver', async () => {
+		const {window, send} = fakeWarmupWindow()
+		const exploding = {
+			invalidateResolved: vi.fn(),
+			resolveYtDlp: vi.fn().mockImplementation(({onProgress}) => {
+				onProgress?.({binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 9, totalBytes: 10})
+				return Promise.reject(new Error('cache unreadable'))
+			}),
+			resolveFFmpegPair: vi.fn().mockResolvedValue({ffmpeg: diag('ffmpeg', 'runnable'), ffprobe: diag('ffprobe', 'runnable')})
+		} as unknown as BinaryManager
+		const svc = new WarmupService({binaryManager: exploding, tokenService: noopToken, window})
+
+		const result = await svc.run()
+
+		expect(result.ok).toBe(false)
+		expect(progressEvents(send).map(event => `${event.binary}:${event.phase}`)).toContain('yt-dlp:downloading')
+	})
+
+	it('clears the in-flight memo after a rejecting run so a retry can start', async () => {
+		const bm = {invalidateResolved: vi.fn(), resolveYtDlp: vi.fn().mockRejectedValueOnce(new Error('boom')).mockResolvedValue(diag('yt-dlp', 'runnable')), resolveFFmpegPair: vi.fn().mockResolvedValue({ffmpeg: diag('ffmpeg', 'runnable'), ffprobe: diag('ffprobe', 'runnable')})} as unknown as BinaryManager
+		const svc = new WarmupService({binaryManager: bm, tokenService: noopToken})
+
+		expect((await svc.run()).ok).toBe(false)
+		const second = await svc.run()
+
+		expect(second.ok).toBe(true)
+		if (second.ok) expect(second.data.completed).toBe(true)
+	})
+
+	// The token branch is not awaited, so its status is usually still pending when
+	// the gating branches finish. Carrying it anyway is what lets a slow cold
+	// start say "binaries fine, YouTube unreachable" instead of saying nothing.
+	it('reports token warmup as pending when the binaries settle first', async () => {
+		const neverToken = {warmUp: vi.fn().mockImplementation(() => new Promise(() => {}))} as unknown as TokenService
+		const svc = new WarmupService({binaryManager: fakeBinaryManager({ytDlp: 'runnable', ffmpeg: 'runnable', ffprobe: 'runnable'}), tokenService: neverToken})
+
+		const result = await svc.run()
+
+		if (!result.ok) throw new Error('expected ok')
+		expect(result.data.tokenWarmup).toBe('pending')
+	})
+
+	it('reports token warmup as unavailable once a failed token branch has settled', async () => {
+		const failingToken = {warmUp: vi.fn().mockResolvedValue({ready: false, reason: 'no-visitor-data'})} as unknown as TokenService
+		const slowBinaries = {
+			invalidateResolved: vi.fn(),
+			resolveYtDlp: vi.fn().mockImplementation(() => new Promise(resolve => setTimeout(() => resolve(diag('yt-dlp', 'runnable')), 20))),
+			resolveFFmpegPair: vi.fn().mockResolvedValue({ffmpeg: diag('ffmpeg', 'runnable'), ffprobe: diag('ffprobe', 'runnable')})
+		} as unknown as BinaryManager
+		const svc = new WarmupService({binaryManager: slowBinaries, tokenService: failingToken})
+
+		const result = await svc.run()
+
+		if (!result.ok) throw new Error('expected ok')
+		expect(result.data.tokenWarmup).toBe('unavailable')
+	})
 })
