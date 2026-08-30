@@ -60,7 +60,11 @@ function downloadAsset(tag: string, assetName: string, intoDir: string): string 
 	return path.join(intoDir, assetName)
 }
 
-/** Unpacks the downloaded asset to a runnable executable path, per platform. */
+/**
+ * Unpacks the downloaded asset to a runnable executable path, per platform.
+ * Each branch reconstructs an unpacked app so playwright attaches to the real
+ * executable — never to a wrapper whose stdio it cannot see.
+ */
 function unpackAsset(assetPath: string, workDir: string): string {
 	if (process.platform === 'linux') {
 		fs.chmodSync(assetPath, 0o755)
@@ -80,7 +84,46 @@ function unpackAsset(assetPath: string, workDir: string): string {
 			execFileSync('hdiutil', ['detach', mount, '-quiet'])
 		}
 	}
-	return assetPath
+	// The Windows portable target is an NSIS self-extractor: playwright resolves
+	// the CDP endpoint from the launched process's stderr ("DevTools listening
+	// on ws://…"), and the inner app's stderr does not survive the wrapper's
+	// ExecWait — the beta.3 gate timed out there after the pid was spawned.
+	// Extract the app payload with 7-Zip (preinstalled on the runners) and launch
+	// the real executable directly, the same trick as the darwin branch.
+	const sevenZip = findSevenZip()
+	const unpacked = path.join(workDir, 'portable-unpacked')
+	execFileSync(sevenZip, ['x', '-y', `-o${unpacked}`, assetPath], {stdio: 'ignore'})
+	// 7-Zip versions that do not recurse into the embedded payload leave it as
+	// a nested archive — extract it into place before looking for the exe.
+	const nestedPayload = shallowestNamed(unpacked, /^app-(?:64|32|ARM64)\.7z$/i)
+	if (nestedPayload) {
+		execFileSync(sevenZip, ['x', '-y', `-o${unpacked}`, nestedPayload], {stdio: 'ignore'})
+	}
+	const exe = shallowestNamed(unpacked, /^Arroxy\.exe$/i)
+	if (!exe) throw new Error(`no Arroxy.exe reconstructed from ${assetPath}`)
+	return exe
+}
+
+function findSevenZip(): string {
+	for (const candidate of ['C:\\Program Files\\7-Zip\\7z.exe', '7z']) {
+		try {
+			execFileSync(candidate, ['i'], {stdio: 'ignore'})
+			return candidate
+		} catch {
+			// not usable — try the next candidate
+		}
+	}
+	throw new Error('no usable 7-Zip: neither the runner-preinstalled path nor a 7z on PATH')
+}
+
+/** Shallowest file under root whose basename matches, so a payload root wins over stray copies. */
+function shallowestNamed(root: string, name: RegExp): string | null {
+	const matches = fs
+		.readdirSync(root, {recursive: true})
+		.map(entry => String(entry))
+		.filter(entry => name.test(path.basename(entry)))
+		.sort((a, b) => a.split(path.sep).length - b.split(path.sep).length)
+	return matches[0] ? path.join(root, matches[0]) : null
 }
 
 /**
@@ -99,6 +142,13 @@ export async function generateInheritedProfile(tag: string, workDir: string): Pr
 	const env: NodeJS.ProcessEnv = {...process.env, ELECTRON_USER_DATA: profileDir}
 	delete env.ELECTRON_RUN_AS_NODE
 	delete env.ARROXY_E2E
+	if (process.platform === 'linux') {
+		// CI runners ship without libfuse2, so the AppImage cannot mount itself —
+		// beta.3's gate died in "Process failed to launch!" exactly there. The
+		// AppImageKit runtime honours this switch by extracting and exec'ing
+		// AppRun instead (runtime.c), which keeps the launch attachable.
+		env.APPIMAGE_EXTRACT_AND_RUN = '1'
+	}
 
 	const app = await electron.launch({executablePath: exe, env: env as Record<string, string>})
 	try {
