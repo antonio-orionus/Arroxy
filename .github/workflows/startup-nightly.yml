@@ -76,10 +76,17 @@ jobs:
   notify:
     name: Report nightly result
     needs: degraded
+    # always() runs this job on failure too; the steps gate on the matrix result
+    # explicitly — step-level success()/failure() only see previous steps in
+    # this job, not the needed job's result.
     if: always()
     runs-on: ubuntu-latest
+    concurrency:
+      # Serialize the list-then-create issue flow across overlapping runs
+      # (schedule + workflow_dispatch); never cancel an in-progress notify.
+      group: startup-nightly-notify
+      cancel-in-progress: false
     permissions:
-      contents: read
       issues: write
     env:
       GH_TOKEN: ${{ github.token }}
@@ -87,7 +94,7 @@ jobs:
       RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
     steps:
       - name: Close the nightly failure issue on recovery
-        if: success()
+        if: needs.degraded.result == 'success'
         run: |
           set -euo pipefail
           existing=$(gh issue list --label startup-nightly --state open --limit 1 --json number --jq '.[0].number // empty')
@@ -98,7 +105,7 @@ jobs:
             echo "no open startup-nightly issue"
           fi
       - name: Open or update the nightly failure issue
-        if: failure()
+        if: needs.degraded.result == 'failure'
         run: |
           set -euo pipefail
           existing=$(gh issue list --label startup-nightly --state open --limit 1 --json number --jq '.[0].number // empty')

@@ -40,7 +40,7 @@ Fixed or resolved: the nightly's unseedable warm journeys (fixed — `fresh-cold
 
 ## Known gaps
 
-- No journey verifies genuinely-offline startup. `offline-no-cache` was removed rather than left unenforced; re-adding it needs portable egress blocking (`unshare -n` is Linux-only, `HTTPS_PROXY` is not honored by `node:https`), which is its own spike.
+- No journey verifies genuinely-offline startup. `offline-no-cache` was removed rather than left unenforced; re-adding it needs portable egress blocking (`unshare -n` is Linux-only; `HTTPS_PROXY` cannot force it — the startup runtime does not enable Node's env-proxy support via `NODE_USE_ENV_PROXY`), which is its own spike.
 
 ## Incidents
 
