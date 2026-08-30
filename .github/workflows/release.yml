@@ -64,6 +64,71 @@ jobs:
       - name: Check
         run: bun run check
 
+  # NOTE: not yet wired into prepare-release's `needs:` — see the rollout note
+  # in docs/superpowers/specs/2026-08-30-startup-verification-ci-design.md.
+  # Flip it live only once e2e-cold-start.yml's PR-tier journey harness has run
+  # green on main for several days; a flaky new gate blocking every release
+  # would be worse than the silent gap it replaces.
+  startup-gate:
+    needs: quality-gate
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            dist-cmd: dist:linux:dir
+          - os: macos-latest
+            dist-cmd: dist:mac:arm64:dir
+          - os: windows-latest
+            dist-cmd: dist:win:dir
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+      - run: bun install --frozen-lockfile
+      - run: bun run ${{ matrix.dist-cmd }}
+        env:
+          BTBN_GITHUB_TOKEN: ${{ github.token }}
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Locate packaged executable
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            exe=$(find dist -name "Arroxy" -path "*/MacOS/Arroxy" | head -1)
+          elif [ "$RUNNER_OS" = "Windows" ]; then
+            exe="dist/win-unpacked/Arroxy.exe"
+          else
+            exe="dist/linux-unpacked/arroxy"
+          fi
+          echo "PACKAGED_EXE=$GITHUB_WORKSPACE/$exe" >> "$GITHUB_ENV"
+      - run: bunx playwright install chromium --with-deps
+      - name: Verify startup (release tier)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARROXY_COLD_TMPDIR: ${{ runner.temp }}
+          ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/arroxy-startup-logs
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            xvfb-run -a bun run verify:startup --tier release
+          else
+            bun run verify:startup --tier release
+          fi
+      - name: Upload startup verdicts
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: startup-verdicts-${{ matrix.os }}
+          path: ${{ runner.temp }}/arroxy-startup-logs
+          if-no-files-found: error
+          retention-days: 14
+
   prepare-release:
     # Pre-create a single draft release for this tag before any publisher runs.
     # Without this, the parallel mac/linux `build` matrix jobs each call
