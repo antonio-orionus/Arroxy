@@ -798,6 +798,7 @@ msgid ""
 msgstr ""
 "Arroxy — Windows, macOS ও Linux-এর জন্য বিনামূল্যের ওপেন-সোর্স ভিডিও ডাউনলোডার। YouTube, Vimeo, Twitch এবং 2000+ সাইটের সাথে কাজ করে।\n"
 "4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+
 msgctxt "share.description"
 msgid "Arroxy is free and open-source. Sharing helps more people discover it."
 msgstr "Arroxy বিনামূল্যে এবং ওপেন-সোর্স। শেয়ার করলে আরও বেশি মানুষ এটি আবিষ্কার করতে পারবেন।"
@@ -819,8 +820,8 @@ msgid "Share Arroxy"
 msgstr "Arroxy শেয়ার করুন"
 
 msgctxt "splash.cancel"
-msgid "Cancel setup"
-msgstr "সেটআপ বাতিল করুন"
+msgid "Having trouble? Set it up manually"
+msgstr "সমস্যা হচ্ছে? নিজে সেট আপ করুন"
 
 msgctxt "splash.downloading"
 msgid "Downloading {{binary}}…"
@@ -830,13 +831,13 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "স্বাগতম, আবার এলেন!"
 
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "এই সংস্করণের প্রথম পরীক্ষা — এটি ধীর। সাধারণত প্রায় এক মিনিট লাগে।"
+
 msgctxt "splash.verifying"
 msgid "Checking {{binary}}…"
 msgstr "{{binary}} পরীক্ষা করা হচ্ছে…"
-
-msgctxt "splash.verifySlow"
-msgid "This takes longer the first time after an update."
-msgstr "আপডেটের পর প্রথমবার এতে বেশি সময় লাগে।"
 
 msgctxt "splash.warmup"
 msgid "Preparing downloads…"
@@ -2407,6 +2408,7 @@ msgstr "বেনামী ব্যবহার পরিসংখ্যান 
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
 msgstr "ক্র্যাশ, ব্যর্থতা এবং মতামত বেনামে রিপোর্ট করে। কোনো URL, ভিডিও শিরোনাম বা ফাইলের নাম নেই।"
+
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
 msgstr "নেটওয়ার্ক বা সার্ভারে সমস্যা হলে স্বয়ংক্রিয়ভাবে আবার চেষ্টা করে, প্রতিটি চেষ্টার মাঝে আরও বেশি অপেক্ষা করে। সাইট দ্বারা ব্লক করা ডাউনলোড কখনোই স্বয়ংক্রিয়ভাবে আবার চেষ্টা করা হয় না।"

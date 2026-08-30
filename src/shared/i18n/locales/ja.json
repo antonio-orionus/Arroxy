@@ -8,8 +8,8 @@
 		"warmup": "ダウンロードを準備中…",
 		"downloading": "{{binary}} をダウンロード中…",
 		"verifying": "{{binary}} を確認中…",
-		"verifySlow": "アップデート後の初回は時間がかかります。",
-		"cancel": "セットアップをキャンセル",
+		"verifyFirstCheck": "このバージョンの初回チェックです。これは時間がかかり、通常は1分ほどです。",
+		"cancel": "うまくいきませんか？手動で設定する",
 		"warmupFailedNoDiag": "セットアップに失敗しました。セットアップログを開いて詳細を確認してください。"
 	},
 	"repair": {

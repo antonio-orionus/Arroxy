@@ -16,8 +16,8 @@
 		"warmup": "Yuklab olishlar tayyorlanmoqda…",
 		"downloading": "{{binary}} yuklanmoqda…",
 		"verifying": "{{binary}} tekshirilmoqda…",
-		"verifySlow": "Yangilanishdan keyin birinchi marta bu uzoqroq davom etadi.",
-		"cancel": "Sozlashni bekor qilish",
+		"verifyFirstCheck": "Ushbu versiyaning birinchi tekshiruvi — bu sekin kechadi. Odatda bir daqiqacha.",
+		"cancel": "Muammo bormi? Qo‘lda sozlang",
 		"warmupFailedNoDiag": "Sozlash muvaffaqiyatsiz yakunlandi. Tafsilotlar uchun sozlash jurnalini oching."
 	},
 	"repair": {

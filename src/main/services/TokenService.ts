@@ -22,6 +22,30 @@ function parseYouTubeVideoId(url: string): string | null {
 
 const TTL_MS = 5 * 60 * 60 * 1_000 // 5 hours — within ~6 h token lifetime
 
+// Distinguishes "the caller gave up" from a provider failure, so an abort is not
+// reported as an error the user could act on.
+class WarmUpAborted extends Error {}
+
+// None of the provider's stages take an AbortSignal, and `ensureReady` in
+// particular awaits `did-finish-load` with no timer — a page that connects but
+// never finishes leaves it pending forever. Checking `signal.aborted` between
+// awaits therefore does nothing in the one case a budget exists for. Racing the
+// signal lets warmUp settle anyway; returning disposes the hidden window, and
+// destroying that window is what actually ends the work.
+function untilAborted<T>(work: Promise<T>, signal: AbortSignal | undefined): Promise<T> {
+	if (!signal) return work
+	// An already-aborted signal never emits 'abort', so a listener added now would
+	// never fire. Without this the hang simply moves one stage later: abort during
+	// stage one, and stage two races something that can never settle.
+	if (signal.aborted) return Promise.reject(new WarmUpAborted())
+	return Promise.race([
+		work,
+		new Promise<never>((_, reject) => {
+			signal.addEventListener('abort', () => reject(new WarmUpAborted()), {once: true})
+		})
+	])
+}
+
 interface TokenCache {
 	token: string
 	visitorData: string
@@ -33,21 +57,29 @@ export class TokenService {
 
 	constructor(private readonly provider: TokenProvider) {}
 
+	// Both entrypoints below drive the same hidden window, and both used to
+	// destroy it on the way out regardless of who else was still mid-scrape. That
+	// needs no user cancel to go wrong: the fire-and-forget startup warm-up racing
+	// a queue item's on-demand mint is enough, and the loser lands on a destroyed
+	// webContents. The lease makes the teardown belong to whoever leaves last.
+	private lease(): Disposable {
+		this.provider.acquireWindow()
+		return {[Symbol.dispose]: () => this.provider.releaseWindow()}
+	}
+
 	async warmUp(signal?: AbortSignal): Promise<{ready: boolean; reason?: string}> {
 		if (signal?.aborted) return {ready: false, reason: 'cancelled'}
-		using _window = {[Symbol.dispose]: () => this.provider.releaseWindow()}
+		using _window = this.lease()
 		try {
-			await this.provider.ensureReady()
-			if (signal?.aborted) return {ready: false, reason: 'cancelled'}
-			const visitorData = await this.provider.getVisitorData()
-			if (signal?.aborted) return {ready: false, reason: 'cancelled'}
+			await untilAborted(this.provider.ensureReady(), signal)
+			const visitorData = await untilAborted(this.provider.getVisitorData(), signal)
 			if (!visitorData) return {ready: false, reason: 'no-visitor-data'}
-			const token = await this.provider.mintToken(visitorData)
-			if (signal?.aborted) return {ready: false, reason: 'cancelled'}
+			const token = await untilAborted(this.provider.mintToken(visitorData), signal)
 			this.cache = {token, visitorData, mintedAt: Date.now()}
 			logger.info('PO token pre-warmed')
 			return {ready: true}
 		} catch (err) {
+			if (err instanceof WarmUpAborted) return {ready: false, reason: 'cancelled'}
 			const reason = unknownToMessage(err)
 			logger.warn('Token warm-up failed (non-fatal)', {error: reason})
 			return {ready: false, reason}
@@ -62,7 +94,7 @@ export class TokenService {
 		if (this.cache && Date.now() - this.cache.mintedAt < TTL_MS) {
 			return {token: this.cache.token, visitorData: this.cache.visitorData, fromCache: true}
 		}
-		using _window = {[Symbol.dispose]: () => this.provider.releaseWindow()}
+		using _window = this.lease()
 		await this.provider.ensureReady()
 		const visitorData = await this.provider.getVisitorData()
 		const binding = nonEmpty(visitorData) ?? parseYouTubeVideoId(url) ?? url

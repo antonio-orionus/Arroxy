@@ -173,6 +173,9 @@ export const SUPPORTED_LANGS = supportedLangSchema.options
 export const uiThemeSchema = z.enum(['light', 'dark', 'system'])
 export type UiTheme = z.infer<typeof uiThemeSchema>
 
+export const closeBehaviorSchema = z.enum(['ask', 'tray', 'quit'])
+export type CloseBehavior = z.infer<typeof closeBehaviorSchema>
+
 export const backdropRenderModeSchema = z.enum(['css-only', 'gpu'])
 export type BackdropRenderMode = z.infer<typeof backdropRenderModeSchema>
 
@@ -452,7 +455,7 @@ const commonSettingsPatchSchema = z.object({
 	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
 	clipboardWatchEnabled: z.boolean().optional(),
 	filenameTemplate: z.string().trim().min(1).max(FILENAME_TEMPLATE_MAX).optional(),
-	closeBehavior: z.enum(['ask', 'tray', 'quit']).optional(),
+	closeBehavior: closeBehaviorSchema.optional(),
 	embedChapters: z.boolean().optional(),
 	embedMetadata: z.boolean().optional(),
 	embedThumbnail: z.boolean().optional(),

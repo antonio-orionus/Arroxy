@@ -36,6 +36,7 @@ export type {
 	AudioTrackQuality,
 	AudioConvert,
 	AudioSelection,
+	CloseBehavior,
 	CookiesMode,
 	CookiesBrowser,
 	NetworkPacingPreset,
@@ -62,6 +63,7 @@ export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 import type {
 	AudioSelection,
 	AudioTrackQuality,
+	CloseBehavior,
 	Preset,
 	PlaylistScope,
 	SubtitleMode,
@@ -138,7 +140,7 @@ export interface CommonSettings {
 	autoRetryAttempts?: number
 	clipboardWatchEnabled: boolean
 	filenameTemplate?: string
-	closeBehavior?: 'ask' | 'tray' | 'quit'
+	closeBehavior?: CloseBehavior
 	embedChapters?: boolean
 	embedMetadata?: boolean
 	embedThumbnail?: boolean
@@ -500,6 +502,11 @@ export interface WarmupProgressEvent {
 	totalBytes?: number
 	source?: DependencySource
 	failureKind?: DependencyFailureKind
+	// Only set on `probing`. True when no verdict was memoized for this exact
+	// file, so the probe is a real spawn — the case a security scanner can hold
+	// for ~15s. False means the memo answered and the phase ends immediately.
+	// The splash uses this to explain a long wait instead of looking hung.
+	firstCheck?: boolean
 }
 
 export interface CommonPaths {

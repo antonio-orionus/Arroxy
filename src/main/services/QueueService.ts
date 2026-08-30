@@ -259,10 +259,6 @@ export class QueueService extends EventEmitter {
 		return this.schedulerPaused
 	}
 
-	hasPendingFileMoves = (): boolean => false
-
-	whenFileMovesIdle = (): Promise<void> => Promise.resolve()
-
 	private async cleanupResumeContextBestEffort(item: QueueItem): Promise<void> {
 		try {
 			await QueueResumeLifecycle.cleanupResumeContext(item)

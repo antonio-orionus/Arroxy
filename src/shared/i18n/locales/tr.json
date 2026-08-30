@@ -8,8 +8,8 @@
 		"warmup": "İndirmeler hazırlanıyor…",
 		"downloading": "{{binary}} indiriliyor…",
 		"verifying": "{{binary}} denetleniyor…",
-		"verifySlow": "Güncellemeden sonraki ilk seferde bu daha uzun sürer.",
-		"cancel": "Kurulumu iptal et",
+		"verifyFirstCheck": "Bu sürümün ilk denetimi — bu yavaş ilerler. Genellikle bir dakika kadar sürer.",
+		"cancel": "Sorun mu var? Elle kurun",
 		"warmupFailedNoDiag": "Kurulum başarısız oldu. Ayrıntılar için kurulum günlüğünü aç."
 	},
 	"repair": {

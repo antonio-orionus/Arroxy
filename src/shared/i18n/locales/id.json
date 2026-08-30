@@ -8,8 +8,8 @@
 		"warmup": "Mempersiapkan unduhan…",
 		"downloading": "Mengunduh {{binary}}…",
 		"verifying": "Memeriksa {{binary}}…",
-		"verifySlow": "Ini lebih lama saat pertama kali setelah pembaruan.",
-		"cancel": "Batalkan penyiapan",
+		"verifyFirstCheck": "Pemeriksaan pertama versi ini — yang ini lambat. Biasanya sekitar satu menit.",
+		"cancel": "Ada masalah? Atur secara manual",
 		"warmupFailedNoDiag": "Penyiapan gagal. Buka log pengaturan untuk mengetahui detailnya."
 	},
 	"repair": {

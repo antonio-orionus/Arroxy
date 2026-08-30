@@ -817,7 +817,7 @@ msgid "Share Arroxy"
 msgstr ""
 
 msgctxt "splash.cancel"
-msgid "Cancel setup"
+msgid "Having trouble? Set it up manually"
 msgstr ""
 
 msgctxt "splash.downloading"
@@ -828,12 +828,12 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr ""
 
-msgctxt "splash.verifying"
-msgid "Checking {{binary}}…"
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
 msgstr ""
 
-msgctxt "splash.verifySlow"
-msgid "This takes longer the first time after an update."
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
 msgstr ""
 
 msgctxt "splash.warmup"

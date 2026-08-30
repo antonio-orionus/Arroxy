@@ -54,6 +54,18 @@ describe('BinaryDownloader', () => {
 		expect(classifyDownloadError(err)).toBe('timeout')
 	})
 
+	// A cancellation is a fact about the caller, not the machine. Classifying it
+	// as 'timeout' would make dependencyPolicy's isEnvironmentFatalFailure treat a
+	// user pressing Cancel as proof the environment is hostile, downgrading the
+	// resolver's budget to 'shortLeash' for every remaining candidate.
+	it('never classifies a cancellation as an environment-fatal timeout', () => {
+		const err = new Error('The operation was aborted')
+		err.name = 'AbortError'
+
+		expect(classifyDownloadError(err)).not.toBe('timeout')
+		expect(classifyDownloadError(err)).toBe('download_failed')
+	})
+
 	it('times out a slow stream even when bytes keep arriving', async () => {
 		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'binary-downloader-'))
 		const destination = path.join(dir, 'slow.bin')

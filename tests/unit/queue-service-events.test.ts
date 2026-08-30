@@ -246,7 +246,6 @@ describe('QueueService — output target changes', () => {
 			const [item] = qs.snapshot()
 			expect(item).toMatchObject({status: 'pending', outputDir: toDir})
 			expect(item.artifacts[0]?.path).toBe(path.join(fromDir, 'video.mkv'))
-			expect(qs.hasPendingFileMoves()).toBe(false)
 		} finally {
 			await fs.rm(root, {recursive: true, force: true})
 		}

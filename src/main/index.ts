@@ -31,11 +31,12 @@ import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
 import {defaultAppSettings, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
 import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
 import {readRuntimeSmokeEnabled, runRuntimeSmokeMode, exitWithCode} from '@main/runtimeSmoke.js'
-import {cancelQueueBeforeExit, waitForQueueFileMovesBeforeExit} from '@main/shutdown.js'
-import {decideCloseAction, decideRendererCrashAction} from '@main/windowLifecycle.js'
+import {cancelQueueBeforeExit} from '@main/shutdown.js'
+import {decideCloseAction, decideRendererCrashAction, normalizeCloseBehavior} from '@main/windowLifecycle.js'
 import {resolveMainWindowBackgroundColor} from '@main/windowPresentation.js'
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
 import {isHeadlessWindowRequested, resolveE2eHarnessMode} from '@main/e2eHarness.js'
+import {watchInitialGpuInfoUpdate} from '@main/gpuInfoReadiness.js'
 import {applyChromiumSwitches, applyChromiumSwitchesFromEnv, chromiumSwitchesForRuntime, chromiumSwitchLogSummary} from '@main/chromiumSwitches.js'
 import contextMenu from 'electron-context-menu'
 import windowStateKeeper from 'electron-window-state'
@@ -44,11 +45,16 @@ log.initialize()
 
 // Catch fatal main-process errors that would otherwise crash silently before
 // any window appears — without these, pre-ready bugs leave no diagnostic trail.
+// Deliberately non-fatal: killing the app on every uncaught main-process error
+// would turn survivable faults into a hard crash for the user. The phase marker
+// is what makes the log actionable — "died before the window existed" and
+// "threw during a download" are very different bugs that otherwise look alike.
+let lifecyclePhase: 'pre-ready' | 'ready' = 'pre-ready'
 process.on('uncaughtException', err => {
-	log.error('uncaughtException', err)
+	log.error('uncaughtException', {phase: lifecyclePhase}, err)
 })
 process.on('unhandledRejection', reason => {
-	log.error('unhandledRejection', reason)
+	log.error('unhandledRejection', {phase: lifecyclePhase}, reason)
 })
 
 // Log platform identity at top-level (NOT inside whenReady) so a pre-ready
@@ -56,7 +62,18 @@ process.on('unhandledRejection', reason => {
 log.info('boot', {platform: process.platform, arch: process.arch, release: os.release(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, argv: process.argv.slice(1)})
 
 const isMockBackend = process.env.MOCK_BACKEND === '1'
-const e2eMode = resolveE2eHarnessMode(process.env, {isPackaged: app.isPackaged})
+// Throwing at module scope leaves the exit code to module-evaluation semantics.
+// E2E-only path, but a harness that misconfigures itself should say so and exit
+// non-zero rather than fail in a way the runner has to guess at.
+const e2eMode = ((): ReturnType<typeof resolveE2eHarnessMode> => {
+	try {
+		return resolveE2eHarnessMode(process.env, {isPackaged: app.isPackaged})
+	} catch (err) {
+		log.error('E2E harness configuration is invalid', err)
+		app.exit(1)
+		throw err
+	}
+})()
 const gpuMode = process.env.ARROXY_GPU_MODE
 
 for (const commandLineSwitch of e2eMode.commandLineSwitches) {
@@ -73,22 +90,11 @@ if (envChromiumSwitches.length > 0) {
 	log.info('env Chromium switches applied', chromiumSwitchLogSummary(envChromiumSwitches))
 }
 
-function appendChromiumSwitch(rawSwitch: string): void {
-	const [name, ...valueParts] = rawSwitch.split('=')
-	const value = valueParts.join('=')
-	app.commandLine.appendSwitch(name, value || undefined)
-}
-
 if (gpuMode === 'force') {
-	for (const commandLineSwitch of ['ignore-gpu-blocklist', 'enable-gpu-rasterization']) {
-		appendChromiumSwitch(commandLineSwitch)
-	}
-	log.info('gpu mode applied', {mode: gpuMode, switches: ['ignore-gpu-blocklist', 'enable-gpu-rasterization']})
+	const switches = applyChromiumSwitches(['ignore-gpu-blocklist', 'enable-gpu-rasterization'], app.commandLine)
+	log.info('gpu mode applied', {mode: gpuMode, switches})
 } else if (gpuMode === 'swiftshader') {
-	const switches = ['ignore-gpu-blocklist', 'enable-unsafe-swiftshader', 'use-angle=swiftshader']
-	for (const commandLineSwitch of switches) {
-		appendChromiumSwitch(commandLineSwitch)
-	}
+	const switches = applyChromiumSwitches(['ignore-gpu-blocklist', 'enable-unsafe-swiftshader', 'use-angle=swiftshader'], app.commandLine)
 	log.info('gpu mode applied', {mode: gpuMode, switches})
 } else if (gpuMode === 'software') {
 	app.disableHardwareAcceleration()
@@ -135,23 +141,12 @@ if (!hasSingleInstanceLock) {
 	app.quit()
 }
 
-function waitForInitialGpuInfoUpdate(timeoutMs: number): Promise<boolean> {
-	return new Promise(resolve => {
-		let settled = false
-		const finish = (updated: boolean): void => {
-			if (settled) return
-			settled = true
-			clearTimeout(timeout)
-			app.removeListener('gpu-info-update', onUpdate)
-			resolve(updated)
-		}
-		const onUpdate = (): void => finish(true)
-		const timeout = setTimeout(() => finish(false), timeoutMs)
-		app.once('gpu-info-update', onUpdate)
-	})
-}
+const GPU_INFO_BUDGET_MS = 2_500
 
-const initialGpuInfoUpdatePromise = hasSingleInstanceLock ? waitForInitialGpuInfoUpdate(2_500) : Promise.resolve(false)
+// Attach now so an early `gpu-info-update` cannot be missed; the budget only
+// starts at app-ready (see whenReady below) so it measures Chromium's reporting
+// latency rather than however long the main process took to boot.
+const gpuInfoReadiness = hasSingleInstanceLock ? watchInitialGpuInfoUpdate(app) : null
 
 function createMainWindow(backgroundColor: string): BrowserWindow {
 	const winState = windowStateKeeper({defaultWidth: WINDOW_DEFAULT_WIDTH, defaultHeight: WINDOW_DEFAULT_HEIGHT})
@@ -165,7 +160,7 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 	// progress-driven waits time out.
 	const headless = isHeadlessWindowRequested(process.env)
 
-	const window = new BrowserWindow({
+	const mainWindow = new BrowserWindow({
 		x: winState.x,
 		y: winState.y,
 		width: winState.width,
@@ -181,25 +176,25 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 		webPreferences: {preload: preloadPath, contextIsolation: true, nodeIntegration: false, backgroundThrottling: !headless}
 	})
 
-	registerPreloadDiagnostics(window, preloadPath)
-	winState.manage(window)
+	registerPreloadDiagnostics(mainWindow, preloadPath)
+	winState.manage(mainWindow)
 
-	window.on('maximize', () => window.webContents.send(IPC_CHANNELS.windowMaximizedChange, true))
-	window.on('unmaximize', () => window.webContents.send(IPC_CHANNELS.windowMaximizedChange, false))
+	mainWindow.on('maximize', () => mainWindow.webContents.send(IPC_CHANNELS.windowMaximizedChange, true))
+	mainWindow.on('unmaximize', () => mainWindow.webContents.send(IPC_CHANNELS.windowMaximizedChange, false))
 
-	window.webContents.setWindowOpenHandler(() => ({action: 'deny'}))
-	window.webContents.on('will-navigate', event => {
+	mainWindow.webContents.setWindowOpenHandler(() => ({action: 'deny'}))
+	mainWindow.webContents.on('will-navigate', event => {
 		event.preventDefault()
 	})
 
 	if (process.env.ELECTRON_RENDERER_URL) {
 		const rendererUrl = new URL(process.env.ELECTRON_RENDERER_URL)
-		void window.loadURL(rendererUrl.toString())
+		void mainWindow.loadURL(rendererUrl.toString())
 	} else {
-		void window.loadFile(path.join(import.meta.dirname, '../renderer/index.html'))
+		void mainWindow.loadFile(path.join(import.meta.dirname, '../renderer/index.html'))
 	}
 
-	return window
+	return mainWindow
 }
 
 if (hasSingleInstanceLock) {
@@ -211,13 +206,15 @@ if (hasSingleInstanceLock) {
 	}
 
 	void app.whenReady().then(async () => {
+		lifecyclePhase = 'ready'
+		gpuInfoReadiness?.startBudget(GPU_INFO_BUDGET_MS)
 		const userDataPath = app.getPath('userData')
 		log.transports.file.resolvePathFn = () => path.join(userDataPath, 'logs', 'main.log')
 		log.info('Session started')
 		let graphicsPolicyPromise: Promise<GraphicsPolicy> | null = null
 		const graphicsPolicyProvider = async (): Promise<GraphicsPolicy> => {
 			graphicsPolicyPromise ??= (async () => {
-				const gpuInfoUpdated = await initialGpuInfoUpdatePromise
+				const gpuInfoUpdated = (await gpuInfoReadiness?.whenUpdated) ?? false
 				const gpuFeatureStatus: Partial<Record<string, string>> = {}
 				for (const [feature, status] of Object.entries(app.getGPUFeatureStatus())) {
 					if (typeof status === 'string') gpuFeatureStatus[feature] = status
@@ -319,21 +316,36 @@ if (hasSingleInstanceLock) {
 		// Declare tray before the close handler so the handler can reference it.
 		let tray: TrayManager | null = null
 
+		// The tray's Quit item and the window's close handler both land here, and
+		// a second close attempt arrives while the first dialog is still open —
+		// without this every attempt stacks its own dialog, and each "Quit" reply
+		// fires its own app.quit().
+		let quitDialogOpen = false
+
 		async function warnActiveDownloadsThenQuit(): Promise<void> {
 			if (downloadService.runningJobCount === 0) {
 				app.quit()
 				return
 			}
-			const count = downloadService.runningJobCount
-			const lang = languageRef.current
-			const {response} = await dialog.showMessageBox(mainWindow, {
-				type: 'warning',
-				buttons: [mainT(lang, 'dialogs.quitWithActiveDownloads.pause'), mainT(lang, 'dialogs.quitWithActiveDownloads.confirm'), mainT(lang, 'dialogs.quitWithActiveDownloads.keep')],
-				defaultId: 2,
-				cancelId: 2,
-				message: mainT(lang, `dialogs.quitWithActiveDownloads.${pluralKey('message', count)}`, {count}),
-				detail: mainT(lang, 'dialogs.quitWithActiveDownloads.detail')
-			})
+			if (quitDialogOpen) return
+			quitDialogOpen = true
+			let response: number
+			try {
+				const count = downloadService.runningJobCount
+				const lang = languageRef.current
+				;({response} = await dialog.showMessageBox(mainWindow, {
+					type: 'warning',
+					buttons: [mainT(lang, 'dialogs.quitWithActiveDownloads.pause'), mainT(lang, 'dialogs.quitWithActiveDownloads.confirm'), mainT(lang, 'dialogs.quitWithActiveDownloads.keep')],
+					defaultId: 2,
+					cancelId: 2,
+					message: mainT(lang, `dialogs.quitWithActiveDownloads.${pluralKey('message', count)}`, {count}),
+					detail: mainT(lang, 'dialogs.quitWithActiveDownloads.detail')
+				}))
+			} finally {
+				// Must clear on the throw path too, or one failed dialog permanently
+				// disables the warning and the app can never be quit this way again.
+				quitDialogOpen = false
+			}
 			if (response === 0) {
 				await queueService.pauseAll()
 				app.quit()
@@ -356,45 +368,55 @@ if (hasSingleInstanceLock) {
 
 			// Tray present: always intercept; read persisted behavior async
 			event.preventDefault()
-			void settingsStore.get().then(async settings => {
-				const action = decideCloseAction({platform: process.platform, hasTray, closeBehavior: settings.common.closeBehavior ?? 'ask', runningCount: downloadService.runningJobCount})
+			void settingsStore
+				.get()
+				.then(async settings => {
+					const action = decideCloseAction({platform: process.platform, hasTray, closeBehavior: normalizeCloseBehavior(settings.common.closeBehavior), runningCount: downloadService.runningJobCount})
 
-				if (action === 'hide') {
-					mainWindow.hide()
-					return
-				}
-				if (action === 'quit-direct') {
-					app.quit()
-					return
-				}
-				if (action === 'warn-and-quit') {
-					await warnActiveDownloadsThenQuit()
-					return
-				}
+					if (action === 'hide') {
+						mainWindow.hide()
+						return
+					}
+					if (action === 'quit-direct') {
+						app.quit()
+						return
+					}
+					if (action === 'warn-and-quit') {
+						await warnActiveDownloadsThenQuit()
+						return
+					}
 
-				// 'ask-tray': active downloads present — offer the first-time tray dialog
-				const lang = languageRef.current
-				const {response, checkboxChecked} = await dialog.showMessageBox(mainWindow, {
-					type: 'question',
-					buttons: [mainT(lang, 'dialogs.closeToTray.hide'), mainT(lang, 'dialogs.closeToTray.quit')],
-					defaultId: 0,
-					cancelId: 1,
-					message: mainT(lang, 'dialogs.closeToTray.message'),
-					detail: mainT(lang, 'dialogs.closeToTray.detail'),
-					checkboxLabel: mainT(lang, 'dialogs.closeToTray.remember'),
-					checkboxChecked: false
+					// 'ask-tray': active downloads present — offer the first-time tray dialog
+					const lang = languageRef.current
+					const {response, checkboxChecked} = await dialog.showMessageBox(mainWindow, {
+						type: 'question',
+						buttons: [mainT(lang, 'dialogs.closeToTray.hide'), mainT(lang, 'dialogs.closeToTray.quit')],
+						defaultId: 0,
+						cancelId: 1,
+						message: mainT(lang, 'dialogs.closeToTray.message'),
+						detail: mainT(lang, 'dialogs.closeToTray.detail'),
+						checkboxLabel: mainT(lang, 'dialogs.closeToTray.remember'),
+						checkboxChecked: false
+					})
+					const choice = response === 0 ? 'tray' : 'quit'
+					if (checkboxChecked) {
+						await settingsStore.update({common: {closeBehavior: choice}})
+					}
+					trackMain('tray_close_chosen', {choice, remember: checkboxChecked})
+					if (choice === 'tray') {
+						mainWindow.hide()
+					} else {
+						await warnActiveDownloadsThenQuit()
+					}
 				})
-				const choice = response === 0 ? 'tray' : 'quit'
-				if (checkboxChecked) {
-					await settingsStore.update({common: {closeBehavior: choice}})
-				}
-				trackMain('tray_close_chosen', {choice, remember: checkboxChecked})
-				if (choice === 'tray') {
-					mainWindow.hide()
-				} else {
-					await warnActiveDownloadsThenQuit()
-				}
-			})
+				// preventDefault() above already vetoed this close. Without a fallback, a
+				// rejected settings read or dialog leaves the window permanently
+				// unclosable — the user clicks X and nothing at all happens. Hiding is the
+				// non-destructive recovery: nothing is lost and the tray brings it back.
+				.catch((err: unknown) => {
+					log.error('Close handler failed — hiding to tray instead', err)
+					if (!mainWindow.isDestroyed()) mainWindow.hide()
+				})
 		})
 
 		const clipboardWatcher = new ClipboardWatcher(watcherWindowFromBrowserWindow(mainWindow))
@@ -443,24 +465,12 @@ if (hasSingleInstanceLock) {
 			tray?.destroy()
 			tray = null
 			clipboardWatcher.dispose()
-			if (downloadService.runningJobCount === 0 && !queueService.hasPendingFileMoves()) {
+			if (downloadService.runningJobCount === 0) {
 				tokenService.dispose()
 				log.info('App shutting down')
 				return
 			}
 			event.preventDefault()
-			if (downloadService.runningJobCount === 0) {
-				void waitForQueueFileMovesBeforeExit({
-					queueService,
-					tokenService,
-					logInfo: (message, meta) => {
-						if (meta) log.info(message, meta)
-						else log.info(message)
-					},
-					exit: code => app.exit(code)
-				})
-				return
-			}
 			void cancelQueueBeforeExit({
 				queueService,
 				tokenService,

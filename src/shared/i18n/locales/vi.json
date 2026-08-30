@@ -8,8 +8,8 @@
 		"warmup": "Đang chuẩn bị tải xuống…",
 		"downloading": "Đang tải xuống {{binary}}…",
 		"verifying": "Đang kiểm tra {{binary}}…",
-		"verifySlow": "Lần đầu sau khi cập nhật, việc này mất nhiều thời gian hơn.",
-		"cancel": "Hủy thiết lập",
+		"verifyFirstCheck": "Lần kiểm tra đầu tiên của phiên bản này — lần này chậm. Thường mất khoảng một phút.",
+		"cancel": "Gặp sự cố? Thiết lập thủ công",
 		"warmupFailedNoDiag": "Thiết lập thất bại. Mở nhật ký thiết lập để xem chi tiết."
 	},
 	"repair": {

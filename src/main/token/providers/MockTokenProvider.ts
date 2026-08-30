@@ -13,6 +13,10 @@ export class MockTokenProvider implements TokenProvider {
 		return Promise.resolve(`MOCK_TOKEN_${contentBinding.slice(0, 8)}`)
 	}
 
+	acquireWindow(): void {
+		// No window to lease — the mock answers from memory.
+	}
+
 	releaseWindow(): void {
 		// No-op
 	}

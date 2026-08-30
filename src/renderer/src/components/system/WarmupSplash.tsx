@@ -15,18 +15,23 @@ interface Props {
 	onCancel?: () => void | Promise<void>
 }
 
-const MIN_MS = 3000
+// Warmup finishes in well under a second on a warm start, so a longer floor is
+// pure imposed delay — it hid every measured startup improvement behind itself.
+// This is only long enough that a fast warmup does not blink the splash away.
+const MIN_MS = 800
 
-// yt-dlp's version probe can legitimately run for the better part of a minute on
-// a cold macOS launch — the binary is a PyInstaller onefile, so every run unpacks
-// ~100 libraries that Gatekeeper then inspects. Until this delay elapses the
-// splash says nothing extra; past it, silence reads as a hang, so we explain.
-const SLOW_VERIFY_HINT_MS = 5000
+// A first check normally runs ~15s. Saying so up front turned out to be more
+// than a user wants at that moment — it reads as noise while the thing is still
+// plainly working. Held back to well beyond the normal duration, the same words
+// arrive only when the wait has stopped being ordinary, which is when they help.
+const FIRST_CHECK_HINT_MS = 35000
 
-// Independent of the hint: however warmup is spending its time, a user who has
-// waited this long needs a way out. Cancelling lands on the repair panel, which
-// can retry or point at a manual binary.
-const CANCEL_OFFER_MS = 10000
+// Counted from the last sign of progress, not from mount. A cold start is ~22s of
+// legitimate work on fast hardware, so an elapsed-time offer either fires during
+// the normal path or makes a genuinely stalled download wait out the whole budget.
+// Measured against progress instead, this stays silent while bytes are moving and
+// surfaces promptly once they stop.
+const CANCEL_OFFER_MS = 60000
 
 // Identifies one candidate attempt. Every DependencySource variant carries a
 // path or a url, and those are what distinguish two probes of the same binary.
@@ -46,18 +51,14 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 	const {t} = useTranslation()
 	const [minPassed, setMinPassed] = useState(false)
 	const [gone, setGone] = useState(false)
-	const [slowVerifyFor, setSlowVerifyFor] = useState<string | null>(null)
+	const [slowFirstCheckFor, setSlowFirstCheckFor] = useState<string | null>(null)
 	const [cancelOffered, setCancelOffered] = useState(false)
 	useEffect(() => {
 		const timer = setTimeout(() => setMinPassed(true), MIN_MS)
 		return () => clearTimeout(timer)
 	}, [])
-	useEffect(() => {
-		const timer = setTimeout(() => setCancelOffered(true), CANCEL_OFFER_MS)
-		return () => clearTimeout(timer)
-	}, [])
 
-	const {activeEntry, verifyingEntry, totalDownloaded, totalBytes, percent} = useMemo(() => {
+	const {entries, activeEntry, verifyingEntry, totalDownloaded, totalBytes, percent} = useMemo(() => {
 		const entries = Object.values(warmupProgress ?? {}).filter((e): e is WarmupProgressEvent => e !== undefined)
 		const activeEntry = entries.find(e => e.phase === 'downloading')
 		// Nothing rendered these phases before, so a probe that outlived its
@@ -68,25 +69,36 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 		const totalDownloaded = downloadingEntries.reduce((sum, e) => sum + (e.bytesDownloaded ?? 0), 0)
 		const totalBytes = downloadingEntries.reduce((sum, e) => sum + (e.totalBytes ?? 0), 0)
 		const percent = totalBytes > 0 ? Math.min(100, (totalDownloaded / totalBytes) * 100) : null
-		return {activeEntry, verifyingEntry, totalDownloaded, totalBytes, percent}
+		return {entries, activeEntry, verifyingEntry, totalDownloaded, totalBytes, percent}
 	}, [warmupProgress])
 
-	// Recorded against the attempt it belongs to rather than as a bare flag, so
-	// the hint clears by derivation instead of a reset that would re-render every
-	// time verification ends.
+	// Two conditions, and both are load-bearing. `firstCheck` means a real spawn is
+	// underway rather than a memo read, so the message can never flash during a
+	// verification that was always going to return instantly. The timer then holds
+	// it back past the normal duration of that spawn.
 	//
-	// The key has to include the source, not just the binary: resolving yt-dlp
-	// probes several candidates in a row, all reporting binary 'yt-dlp'. Keyed on
-	// the id alone, a slow managed probe would leave the hint armed, and the next
+	// The key includes the source, not just the binary: resolving yt-dlp probes
+	// several candidates in a row, all reporting binary 'yt-dlp'. Keyed on the id
+	// alone, a slow managed probe would leave the hint armed, and the next
 	// candidate — a Homebrew yt-dlp answering in 30ms — would flash it on screen
 	// before it had waited for anything.
-	const verifyingKey = verifyingEntry ? verificationAttemptKey(verifyingEntry) : null
+	const verifyingKey = verifyingEntry?.firstCheck === true ? verificationAttemptKey(verifyingEntry) : null
 	useEffect(() => {
 		if (!verifyingKey) return undefined
-		const timer = setTimeout(() => setSlowVerifyFor(verifyingKey), SLOW_VERIFY_HINT_MS)
+		const timer = setTimeout(() => setSlowFirstCheckFor(verifyingKey), FIRST_CHECK_HINT_MS)
 		return () => clearTimeout(timer)
 	}, [verifyingKey])
-	const slowVerify = verifyingKey !== null && slowVerifyFor === verifyingKey
+	const firstCheck = verifyingKey !== null && slowFirstCheckFor === verifyingKey
+
+	// Any advance — a phase change or another throttled chunk of bytes — restarts
+	// the cancel countdown. Once offered the button stays: pulling a control back
+	// out from under someone reaching for it is worse than leaving it up.
+	const progressToken = `${entries.map(e => `${e.binary}:${e.phase}`).join('|')}:${totalDownloaded}`
+	useEffect(() => {
+		if (cancelOffered) return undefined
+		const timer = setTimeout(() => setCancelOffered(true), CANCEL_OFFER_MS)
+		return () => clearTimeout(timer)
+	}, [progressToken, cancelOffered])
 
 	if (gone) return null
 
@@ -145,9 +157,9 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 						<div className="splash-progress">
 							<div className="splash-progress-bar splash-progress-bar--indeterminate" />
 						</div>
-						{slowVerify && (
-							<p className="splash-bytes" data-testid="splash-verify-slow">
-								{t('splash.verifySlow')}
+						{firstCheck && (
+							<p className="splash-bytes" data-testid="splash-verify-firstcheck">
+								{t('splash.verifyFirstCheck')}
 							</p>
 						)}
 					</>
